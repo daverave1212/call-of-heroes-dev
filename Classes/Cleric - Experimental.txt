@@ -1,0 +1,364 @@
+Class: Cleric
+Description: Clerics are people attuned to a certain god.
+
+Options:
+  When creating your character:
+    - Choose 2:  # And increase them by 1
+      - Charisma
+      - Intelligence
+      - Wisdom
+      - Dexterity
+      - Fortitude
+    - You have:
+      - +2 Wisdom Saves
+      - +2 Charisma Saves You dont have
+
+Skills:
+  - Religion: +1
+  - Luck: +1
+  - Insight: +1
+  - Biology: -1
+  - Investigation: -1
+  - Deception: -1
+      
+Stats:
+  Base Health: 7 + Race Health + 2 * Fortitude
+
+Language:
+  If your Intelligence is at least 2, choose one Higher or Common language you can speak.
+
+Spellcasting:
+  Main Stat:
+    Choose between Wisdom or Charisma. This is your Main Stat.
+
+  Spell DC: 10 + (Main Stat)
+  Spell Hit Bonus: (Main Stat)
+
+  Training:
+    - Spells
+
+  Charges:
+    Amount: 4
+    Description: Certain Abilities require you to spend one Charge.
+    Regain: You regain all Charges back when you Long Rest.
+    
+  Change: You can change your known Spells (not Talents) when taking a long rest inside a temple of your god.
+  
+  Other: All Cleric-specific abilities are considered spells (unless stated otherwise).
+
+
+
+Abilities: 
+  Start:
+    ~Awe~ :                   # 0.5 Charges
+      A: 0 Actions
+      Range: 3 meters
+      Effect: |
+        Instantly heal or damage a target for 1d4.
+        You can do this once per Long Rest.
+        Some other Cleric spells will cast Awe for free.
+
+  Number of known maneuvers: 1 + Your Intelligence
+  Number of known spells: 3 + Your Intelligence
+  Spell List:
+    Maneuvers:
+      ~Aim~ : 0.5 Actions
+      ~Dash~ : 1 Action
+      ~Disengage~ : 1 Action
+      ~Shift~ : 0 Actions
+      ~Bull Rush~ : Passive
+      ~Defend~ : 1 Action
+      ~Grapple~ : 1 Action
+      ~Hamstring~ : 1 Action
+      ~Hide~ : Reaction
+      ~Overthrow~ : 1 Action
+      ~Push~ : 1 Action
+      ~Shank~ : 0 Actions
+      ~Taunt~ : 0.5 Actions
+      ~Wait~ : 1 Action
+    Basic Spells:
+      ~Bonfire~ : 1 Action
+      ~Cleansing Flames~ : 0 Actions
+      ~Detect Poison and Disease~ : 1 Action
+      ~Eldritch Blast~ : 1 Action
+      ~Inflict Wounds~ : 1 Action
+      ~Guidance~ : Reaction
+      ~Hollow Touch~ : 1 Action
+      ~Light~ : 1 Action
+      ~Mastery~ : 1 Action
+      ~Mind Blast~ : 1 Action
+      ~Purify Food and Drink~ : 1 Action
+      ~Resistance~ : 1 Action
+      ~Thaumaturgy~ : 1 Action
+      ~Thunder Clap~ : 1 Action
+    Normal Spells:
+      ~Chaining Grasp~ : 0 Actions
+      ~Absorb Element~ : Reaction
+      ~Animate Dead~ : 1 Action
+      ~Charming Word~ : 1 Action
+      ~Cure Wounds~ : 1 Action
+      ~Cure Poison~ : 1 Action
+      ~Cure Disease~ : 10 minutes
+      ~Feather Fall~ : Reaction or 0 Actions
+      ~Radiant Smite~ : 0 Actions
+      ~Blinding Smite~ : 0 Actions
+      ~Cleansing Smite~ : 0 Actions
+      ~Curse of Pain~ : 1 Action
+      ~Curse of Weakness~ : 1 Action
+      ~Deathfire Bolt~ : 1 Action
+      ~Distort Vision~ : 1 Action
+      ~Flash~ : 0 Actions
+      ~Mending~ : 1 Action
+      ~Shield Element~ : 0.5 Actions
+      ~Turn Undead~ : 0 Actions
+      ~Wild Heart~ : 1 Action
+      ~Heat Metal~ : 0.5 Actions
+      ~Water Walk~ : 0 Actions
+    Higher Level Spells:
+      ~Conceal Magic~ : 1 Action (Level 4)
+      ~Eldritch Steed~ : 5 minutes (Level 4)
+      ~Invisibility~ : 1 Action (Level 4)
+      ~Levitate~ : 1 Action (Level 4)
+      ~Magic Prison~ : 5 minutes (Level 8)
+      ~Spare the Dying~ : 1 Action (Level 4)
+
+Level Up:
+  Every Level: 
+    - +5 Health
+    - +1 Skill Point
+    - +1 extra known Spell or Maneuver
+  Other: |
+    At levels 2, 4, 6, 8 and 10, you gain a Talent from your chosen specialization.
+    At levels 3, 5, 7 and 9 you gain 1 extra Charge and a Talent from your race.
+  
+Other: |
+  The first time you choose a cleric domain (specialization), you must choose between two abilities.
+  For example, for Battle Cleric, you have to choose either March Ahead or Piety.
+  Choose wisely...
+
+Specializations:
+  Description: At Level 1, you can choose your specialization.
+  Choices:
+    - Battle Cleric, where you become devoted to either Peace or War (or both) and pursue either of those
+    - Beacon Cleric, a keeper of the light or darkness, who power draws from flame or void...
+    - Life Cleric, a balancer between life and death; your very fate hangs in this balance
+ 
+Specs:
+
+  Battle Cleric:          # + 0.25 Charges
+    Description: Battle clerics specialize in conditions of war. You must choose your side
+    Starting Abilities:
+    
+      ~Chains~ :          # Ok
+        A: 1 Action
+        Cost: 1 Charge
+        Range: 6 meters
+        Cooldown: Long Rest
+        Effect: |
+          Cast Awe on a target twice (for free).
+          Then, it makes a Wisdom Save.
+          If it fails, it is Paralyzed for 1 minute.
+
+    Choose your side: Battle Cleric!\nPick only one of the following two abilities!
+  
+    Abilities:
+    
+      ~March Ahead~ :     # 0.25 Charges
+        A: 0 Actions
+        Cooldown: Long Rest
+        Effect: |
+          All allies can move 3 extra meters on their next turn (and you too).
+          
+      ~Piety~ :           # 0.25 Charges
+        A: Passive
+        Effect: Casting Awe yourself now does 2d4 instead of 1d4.
+  
+    Talents:
+      Level 2:
+      
+        <Eternal Bindings> :
+          A: 0 Actions or Reaction
+          Cost: 1 Charge
+          Effect: |
+            A creature within 3 meters makes a Wisdom save.
+            If it fails, cast Awe on it.
+            It becomes magically bound to an object within 3 meters of it and can't willingly move more than 3 meters away from that object.
+            It rolls the save again at the start each of their turn to escape the binding.
+            Lasts up to 1 minute.
+            
+        <Heavy Burden> :
+          A: 0 Actions
+          Cost: 1 Charge.
+          Effect: |
+            A creature within 3 meters makes a Wisdom save.
+            If it fails, cast Awe on it and it is Crippled.
+              
+        <Repentance> :
+          A: 0.5 Actions
+          Cost: 50% of your maximum health
+          Range: 1 meter (touch)
+          Cooldown: Long Rest
+          Effect: Restore 50% of an ally's maximum health.
+          
+  Beacon Cleric:
+    
+    Description: As a cleric, you become a devotee of darkness or/and light.
+    Starting Abilities:
+      ~Grasp~ :
+        A: 0.5 Actions      # 0.25
+        Range: 12 meters (you don't need line of sight)
+        Cooldown: Long Rest
+        Effect: |
+          Cast Awe on the target.
+          That target does not benefit from partial cover for 1 minute.
+
+    Choose your side: Beacon Cleric!\nPick only one of the following two abilities!
+  
+    Abilities:
+    
+      ~Radiance~ :          # 0.5
+        A: Passive
+        Effect: |
+          At all times, you radiate light in a 3 meter radius.
+          You can turn this on and off at will.
+          If you have full health, Awe damage and healing is 1d6.
+      
+      ~Twilight~ :          # 0.5
+        A: Passive
+        Effect: |
+          You have Dark Vision.
+          You are immune to being Blinded.
+          If you have 50% or less health, Awe damage and healing is 1d6.
+      
+    Talents:
+      Level 2:
+      
+        <Let There Be Light> :  # 0.25
+          A: Passive
+          Effect: |
+            Grasp now casts Awe 2 times instead of 1.
+            You can also split your Grasp to target 2 targets (1 Awe each).
+        
+        <Let There Be Darkness> :
+          A: 0.5 Actions
+          Cost: 1 Charge
+          Range: 6 meters to margin
+          Effect: |
+            You create a 4x4 meter area of magical partial darkness.
+            For all units there (except you) it counts as difficult terrain.
+            All attacks done from and towards units in the area have Partial Cover.
+
+        <Repentance> :
+          A: 0.5 Actions
+          Cost: 50% of your maximum health
+          Range: 1 meter (touch)
+          Cooldown: Long Rest
+          Effect: Restore 50% of an ally's maximum health.
+
+  Life Cleric:
+    Description: You are a worshipper of life and/or death. Seek their balance, and seek balance within yourself.\nYou have a Second Soul character, which is essentially another toned-down character you play.
+    Starting Abilities:
+      ~Second Soul~ :             # 0.5
+        A: Special
+        Effect: |
+          You have another character beside you: your 'minion'.
+          Prepared Spells and Maneuvers: (Your Level / 2) + its Intelligence (at least 1) spells from the Amateur spell list
+          Skill Points: 1 + Your Level + its Intelligence. It can use it to acquire Training in weapons or Skill bonuses
+          You share the same Actions and Charges between yourselves.
+          Ex: If you used 0.5 Actions on your turn, your minion has 0.5 Actions left to use on its turn.
+        Other:
+          Health: Determined by your minion's nature
+          Defense: 3
+          Movement: 5 meters (land)
+          Stats: Assign these numbers in any order: -1, 0, 1, 1, 2
+          Saves and Skills: Respective to Stats
+          Languages: Common and one more Usual or Wild language that makes sense for it
+          Initiative Bonus: The minion rolls initiative separately with a +0 modifier
+    
+    Choose your side: Life Cleric!\nPick only one of the following two abilities!
+
+    Abilities:
+      ~True Necromancy~ :      # 0.5
+        A: Passive
+        Effect: |
+          Your minion is a reanimated humanoid, whose soul is compelled to stay in this plane until its purpose is met.
+          Come up with a story about why you have an Undead minion and why your god allowed this or gave him or her to you.
+          Awe dice increases by 1 tier when healing yourself (or your minion).
+          Your minion shares the same Health pool with you.
+          Awe makes allies immune to Oportunity Attacks.
+          
+      ~Celestial Follower~ :  # 0.5
+        A: Passive
+          Your minion is a Celestial being, whose task is to protect, guide or follow you until its purpose is met.
+          Your Celestial follower can be a humanoid or animal in appearance (it can't fly) and is sentient.
+          Come up with a story about why you have a Celestial follower, and why your god allowed this or gave him or her to you.
+          Your minion's max Health is always half of your max Health.
+        Notes:
+          If it's animal-shaped and you want to use the rules for weapon attacks, just pretend the minion bites or scratches or something like that, but apply normal weapon rules.
+
+
+    Talents:
+      Level 2:
+      
+        <Divine Message> :
+          A: 10 minutes
+          Cost: 1 Charge
+          Cooldown: 24 Hours (in game)
+          Effect: |
+            You pray for 10 minutes to get an answer to a question from your god(s).
+            Set a real life timer of 10 minutes (time in which you can do anything out of the game).
+            When the timer expires, you can ask the DM one question consisting of maximum 3 words (e.g. 'Is sword cursed?').
+            The answer you will get will consist of maximum 3 words.
+            The DM can choose not to answer, to answer falsely or say something completely different. The gods' wills are unknowable.
+
+        <Disembodiment> :
+          A: 2 hours
+          Requirement: True Necromancy
+          Effect: |
+            You are able to ever improve your minion by mix and matching parts from other corpses.
+            Every time you use this ability, you must consume a fresh corpse from a Worthy enemy (maximum 2 hours after death) and you irreversably sacrifice something.
+            Each of these effects has a limited number of uses
+            - +1 Maximum Health, but your highest Skill decreases by 2 (5 uses)
+            - +1 Defense for either you or your minion, but -2 maximum number of prepared spells (2 uses)
+            - +1 Spell DC, but -1 to all Saves (1 use)
+            - +2 uses of Awe per Long Rest, but -1 maximum Charge (1 use)
+
+        <Repentance> :
+          A: 0.5 Actions
+          Cost: 50% of your maximum health
+          Range: 1 meter (touch)
+          Cooldown: Long Rest
+          Effect: Restore 50% of an ally's maximum health.
+          
+
+# Talent : Channel like half o fyour health into an ally to make him stronger! (combos with undead servant)
+# Talent: wings for follower
+# Talent: you become a lich
+
+
+
+#    Trap      
+#    Elemental Damage
+#    Buffs
+#    Choose between
+#    Damage
+#    Mobility
+#    Pro and Con
+#    On kill    
+#    Zoning    
+#    Swap Position
+#    Return on investment
+#    Specific range requirement
+#    Specific position requirement
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
