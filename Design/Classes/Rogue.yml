@@ -1,0 +1,265 @@
+Class: Rogue
+Description: Rogues are masters of stealth and deception.
+
+Options:
+  When creating your character:
+    Choose 2:  # And increase them by 1
+      - Charisma
+      - Intelligence
+      - Wisdom
+      - Dexterity
+    Saves:
+      - +3 Dexterity Saves
+
+Skills:
+  Stealth: +1
+  Acrobatics: +1
+  Sleight of Hand: +1
+  Religion: -1
+  History: -1
+  Deception: -1
+
+Stats:
+  Base Health: 7 + Race Health + 2 * Fortitude
+
+Language: |
+  If your Inteligence is at least 1, you know Thieves' Cant.
+  Thieves' Cant is not a spoken language, but rather a set of symbols, sign language and code names for various objects, places or people.
+  Use Thieves' Cant wisely!
+
+Level Up:
+    Every Level:
+      - +5 Health
+      - +1 Skill Point
+      - +1 extra known Spell or Maneuver
+    Other: |
+      At levels 2, 4, 6, 8 and 10, you gain a Talent from your chosen specialization.
+      At levels 3, 5, 7 and 9 you gain 1 extra Charge and a Talent from your race.
+  
+Spellcasting:
+  Main Stat: Choose between Intelligence and Charisma. This is your Main Stat.
+  Spell DC: 10 + (Main Stat)
+  Charges:
+    Amount: 4
+    Regain: You regain all Charges back when you Long Rest.
+  Change: You can change your known Spells (not Talents) when taking a long rest inside a temple of your god.
+  Other: Any other specifications
+  Number of known maneuvers: 1 + Your Intelligence + Your Level
+  Spell List:
+    Maneuvers: All
+  
+Starting Abilities:
+  
+  ~Ambush~ :      # 0.5
+    A: Passive
+    Effect: |
+      If you are hiding (with Hide), your next attack deals 1d4 damage.
+      When doing this, you can also spend as many charges as you want (and can).
+      That attack gains 1d6 + 1 damage more for each Charge spent.
+      This can only happen once per turn.
+  
+  ~Lockpick~:
+    A: Passive
+    Effect: You are trained in Lock Picking.
+      
+  ~Hide~ :
+    A: Reaction
+    Cooldown: Once per encounter
+    Effect: |
+      When you would roll Initiative, you can instead roll Stealth.
+      If you succeed, you become Hidden.
+      While Hidden, you can unhide and start your turn whenever you like (even before or after a creature does something).
+      If you started your turn during another creature's turn, that creature resumes its turn after your turn ends.
+      After that, you take your turn when you normally would, next rounds.
+    Notes: |
+      You become unhidden at the end of the round if you don't take your turn by then.
+      The Stealth check is made againt the highest enemy Passive Perception, which is their Perception + 10.
+
+Other: You automatically know the Hide maneuver.
+
+Specializations:
+  Description: |
+    At Level 1, you can choose your specialization.
+    Every Rogue can choose from the following Rogue specializations
+  Choices:
+    - Thief, an agile-handed individual, crafty and stealthy, dexterous and silent
+    - Assassin, a person specialized in taking targets out one-on-one, through whatever means
+    - Skirmisher, an outlaw who is not afraid to engage in direct combat and apply whatever tricks necessary to get the job done
+
+
+Specs:
+  Thief:
+    Description: ...lorem... ipsum...
+    Starting Abilities:
+    
+      ~Agile Hand~ :    # 0.35
+        A: Passive
+        Effect: |
+          You have +2 Sleight of Hand and +2 Stealth.
+          Your movement does not trigger attacks of oportunity.
+
+      ~Fool's Coin~ :
+        A: Passive
+        Effect: |
+          Whenever you deal damage to a worthy enemy, you can spend 1 Charge.
+          If you do, you gain Gold Tokens, an imaginary currency, equal to one of the rolled dice (you choose).
+          When in a town or city, you convert all Gold Tokens to actual gold coins (1 Gold Token for 10 Gold) (this is done on a Long Rest).
+        Notes: |
+          Lore-wise, as a Thief you steal successfully in a city when converting tokens, while preparing and gaining momentum for it in combat.
+
+      ~Backstab~ :      # 0.5
+        A: Passive
+        Effect: When you flank an enemy, Ambush is applied.
+
+
+    Talents:
+      Level 2:
+        <Payback Shot> :  
+          A: 0.5 Actions
+          Cost: 3 Gold Tokens after cast
+          Effect: |
+            Try to Stun an adjacent unit (Dexterity save).
+            Your DC for this try is increased by your number of Gold Tokens, up to +5.
+
+        <Arcane Trickster> :
+          A: Passive
+          Effect: |
+            You can now cast spells!
+            You permanently know 3 spells from the following spell list:
+            Acid Burst  : 0.5 Actions
+            Burning Breath  : 0.5 Actions
+            Conjure Ammo  : 1 Action
+            Control Flames  : 1 Action
+            Control Water  : 1 Action
+            Flameblade  : 0 Actions
+            Light  : 1 Action
+            Magic Missiles  : 1 Action
+            Mastery  : 1 Action
+            Prestidigitation  : 1 Action
+            Chaining Grasp  : 0 Actions
+            Charming Word  : 1 Action
+            Cure Poison  : 1 Action
+            Distort Vision  : 1 Action
+            Fake Sound  : 0.5 Action
+            Mage Hand  : 0 Actions
+            Unlock  : 1 Action
+            Shadow Clone  : 0 Actions
+            Encode Thoughts  : 1 Action (Level 4)
+            Invisibility  : 1 Action (Level 4)
+            Levitate  : 1 Action (Level 4)
+            Sense Magic  : 0 Actions (Level 4)
+            Spider Climb  : 1 Action (Level 4)
+            When you level up, you can change one of these abilities with another from the same list.
+            You learn 1 additional ability at Levels 3, 5, 7 and 9.
+          
+        <Way of Fooling> :
+          A: Passive
+          Effect: Your Charisma is increased by 2, (up to a maximum of 4).
+
+    #  Talent: Traps, tripwires, thief's tools
+
+  Assassin:
+    Description: ...LOREMIPSUM! <you died>
+    Starting Abilities:
+
+      ~Isolated~ :
+        A: Passive
+        Effect: |
+          When you attack an enemy, and there is no other creature adjacent to you or to that enemy (except you), the attack gains Ambush.
+          If you are already Ambushing the target, the attack gains an additional 1d6 + 1 damage.
+
+      ~Planned Assassination~ :   # Damage is slighyly better than 0.5 Actions - 1 Charge
+        A: 1 minute
+        Cost: 1 Charge
+        Cooldown: Long Rest
+        Effect: |
+          Your next attack on that target deals +2d6 + 2 Poison damage.
+          Planned Assassination fails if your Line of Sight to the target is broken until you attack it.
+        Notes: The Charge is spent the moment you declare Planned Assassination.
+
+
+    Talents:
+      Level 2:
+
+        <Take Out> :
+          A: 1 Action
+          Cost: 1 Charge
+          Effect: |
+            Try to put an adjacent target to Sleep for 1 minute (Dexterity save).
+            If you succeed, you gain the Action back.
+          Downside: |
+            You must be hiding to use Take Out, and the target must be Isolated.
+            This ability unhides you!
+
+        <Poison Master> :
+          A: 1 hour
+          Cost: 1 Charge
+          Effect: |
+            Using ingredients costing 35 Gold, you are able to create a few drops of Drinkable Poison.
+            Someone ingesting them takes 1d12 Poison damage instantly.
+            Combining multiple instances of Drinkable Poison increases its damage by 1d12 for each Drinkable Poison combined.
+            The poison loses its effect after 48 hours.
+
+        <Shadowstep> :
+          A: 0.5 Actions
+          Cooldown: Long Rest
+          Effect: |
+            If you are covered in shadow, choose another point covered in shadow up to 6 meters away.
+            Instantly teleport to that place.
+          Notes: This is considered a Spell.
+
+    #  Talent: 2 turns from now, evelyn's charm
+    #  Talent: Traps, tripwires, thief's tools
+
+  Skirmisher:
+    Description: Loreeeem!!!
+    Starting Abilities:
+      ~10% Luck~ :
+        A: Passive
+        Effect: Once per turn, when you attack, you can also roll 1d10. If you roll 10, deal +2 damage.
+
+      ~Savagery~ :
+        A: Passive
+        Effect: Attacks on creatures that have 50% or less health gain Ambush.
+
+      ~Parry~ :
+        A: Reaction
+        Effect: Halve the damage of a weapon attack you receive (after the roll, before subtracting Defense).
+
+    Talents:
+      Level 2:
+        
+        <Cheap Tricks> :
+          A: 0 Actions
+          Cost: 2 Charges
+          Range: 3 meters
+          Effect: Try to Blind a target for 2 turns.
+          Notes: A Blinded target's attacks have Hard Cover and its targets' saves have +4.
+
+        <Whiplash> :
+          A: 0 Actions
+          Cooldown: Long Rest, otherwise it costs 1 Charge
+          Effect: |
+            Throw a whiplash at a grabbable point within 6 meters.
+            Pull yourself to a target point.
+          Notes: Requires a Whiplash item, which can be bought for 100 gold.
+
+        <Quickfire> :
+          A: 0 Actions
+          Cost: 1 Charge
+          Effect: |
+            Perform an attack with a (loaded if it has to be) 1-Handed weapon.
+            This attack does not trigger attacks of oportunity and can be used in melee range without penalty if it's a ranged weapon.
+            
+#PageEnd#
+
+# pistol shot shit
+# 
+# Self Heal
+# Stun, Slow, Snare
+# AoE
+# Defense vs spells
+# Defense vs melee
+# Buff
+
+

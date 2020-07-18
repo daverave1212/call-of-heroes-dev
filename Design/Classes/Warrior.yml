@@ -1,0 +1,304 @@
+
+Class: Warrior
+Description: Warriors are highly trained combat experts
+
+Options:
+  When creating your character:
+    Choose 2:  # And increase them by 1
+      - Charisma
+      - Wisdom
+      - Dexterity
+      - Fortitude
+    Saves:
+      - +2 Dexterity Saves
+      - +2 Fortitude Saves
+
+Skills:
+  Athletics: +1
+  Acrobatics: +1
+  Survival: +1
+  Investigation: -1
+  Deception: -1
+  Luck: -1
+
+Stats:
+  Base Health: 10 + Race Health + 2 * Fortitude
+
+
+Language: |
+  A true warrior speaks only the language of battle!
+  (Being a warrior does not grant you other languages, except the ones you already speak.)
+
+Level Up:
+    Every Level:
+      - +5 Health
+      - +1 Skill Point
+      - +1 extra known Spell or Maneuver
+    Other: |
+      At levels 2, 4, 6, 8 and 10, you gain a Talent from your chosen specialization.
+      At levels 3, 5, 7 and 9 you gain 1 extra Charge and a Talent from your race.
+  
+
+
+Spellcasting:
+  Main Stat: Choose between Charisma or Wisdom. This is your Main Stat.
+  Spell DC: 10 + (Main Stat)
+  Charges:
+    Amount: 3
+    Regain: You regain all Charges back when you Long Rest.
+  Change: You can change your known Spells (not Talents) when taking a long rest inside a temple of your god.
+  Other: All Warrior Abilities are considered Maneuvers.
+  Number of known maneuvers:  2 + Your Intelligence + Your Level
+  Spell List:
+    Maneuvers: All
+
+Starting Abilities:
+
+  ~Advanced Flank~ :        # 0.35
+    A: Passive
+    Effect: When you flank-attack an enemy, or an ally flank-attacks an enemy with you, the flank damage bonus is +2/+4 (1-Handed/2-Handed).
+
+Specializations:
+  Description: At Level 1, you can choose your specialization. Every Warrior can choose from the following Warrior specializations
+  Choices:
+    - Fighter, a person specialized in weapon fighting and body-to-body combat
+    - Battlemaster, a heavily trained and armed warrior; master yourself - master the enemy
+    - Barbarian, a crude and battle thirsty warrior, who seeks to shed blood and lives for the fight
+    - Marksman, a precise and mechanical soldier, always finding the best tactic and position; the Marksman wins the battle before it begins
+
+Specs:
+  
+  Fighter:
+    Description: Lorem!
+    Starting Abilities:
+
+      ~Overpower~ :               # Ok
+        A: 0 Actions
+        Cost: 1 or 2 Charge(s)
+        Effect: |
+          Gain 0.5 Actions (or 1 Action) more this turn.
+          You can do this once per turn.
+        Notes: If you use 1 Charge, you gain 0.5 Actions. If you use 2 Charges, you gain 1 Action.
+
+      ~Upper Hand~ :              # 0.5
+        A: Passive
+        Effect: |
+          All attacks you make before you move in a turn count as if they are flanking.
+          If you are wielding a 1-Handed weapon, when you make an attack of opportunity, you can do 2 attacks of opportunity instead (with that weapon).
+          You have +2 in Athletics, Acrobatics and Survival.
+
+    Talents:
+      Level 2:
+
+        <Master Positioner> :
+          A: Passive
+          Effect: You permanently know all maneuvers.
+
+        <Melee Pile> :
+          A: 0 Actions
+          Cost: 1 Charge.
+          Effect: All Medium or smaller enemies within 2 meters of you are pulled to their closest points to you.
+      
+      Level 4:
+
+        <Weaponmaster> :          # 0.5
+          A: Passive
+          Effect: |
+            When you get this, choose one weapon type.
+            You have that weapon effect too, no matter what weapon you are using.
+
+
+  Battlemaster:
+    Description: Lorem? Ipsum!
+    Starting Abilities:
+
+      ~Solid Defense~ :
+        A: Passive
+        Effect: |
+          Whenever you are attacked (after damage), your Defense is reduced by 1.
+          After every Long Rest, your Defense resets and is increased by +1 on top of it.
+
+      ~Defense Up~ :
+        A: 0.5 Actions
+        Cost: 1 Charge.
+        Effect: Increase your Defense by 2.
+
+      ~Obliterate~ :
+        A: 0 Actions
+        Cost: 1 Charge
+        Effect: |
+          Deal bonus damage on top of an attack equal to your current Defense.
+          Reset your Defense.
+
+    Talents:
+      Level 2:
+
+        <Protect the Meek> :
+          A: Reaction
+          Cooldown: Encounter
+          Effect: When an ally within 3 meters of you is targeted by a ranged attack, you become its target instead.
+
+        <Master Positioner> :
+          A: Passive
+          Effect: You permanently know all maneuvers.
+
+        <Bashing Charge> :
+          A: 1 Action
+          Cost: 1 Charge.
+          Effect: |
+            Move 3 meters in a straight line, then choose a target near you.
+            That target takes 1d8 damage and try to Stun the target (Fortitude save).
+
+
+      Level 4:
+
+        <Weaponmaster> :          # 0.5
+          A: Passive
+          Effect: |
+            When you get this, choose one weapon type.
+            You have that weapon effect too, no matter what weapon you are using.
+
+
+
+#	Talents:
+#		Move Defense to ally
+#		All allies around you gain defense
+#		Stances
+#		Reach (and flank)
+#		Ralying Cry : Clear all allies of Stun and healt hem for 1
+#		Every x spells cast, heal all allies for 1
+#
+
+#Spec#
+  Barbarian:
+    Description: AAAAAAAAAAAA LOREMM!!
+    Starting Abilities:
+      
+      ~Onslaught~ :           # 1 Charge
+        A: Passive
+        Effect: Whenever YOU kill a worthy enemy, heal for 1d6.
+
+      ~Reckless Attack~ :     # Ok
+        A: 0 Actions
+        Cost: 1 Charge.
+        Effect: After you land an attack, deal 2d6 damage to you and also add that damage to the attack.
+
+      ~Undying Rage~ :        # Ok
+        A: Reaction
+        Cost: 1 Charge
+        Cooldown: Long Rest
+        Effect: Taking damage that would kill you leaves you at 1 Health instead.
+
+      ~Blood Boil~ :          # Ok
+        A: 0 Actions
+        Cost: 1 Charge.
+        Effect: Heal for 2d6 health.
+
+
+    Talents:
+      Level 2:                # All Ok
+
+        <Heartbeat Trance> :
+          A: 0 Actions
+          Cost: 1 Charge.
+          Effect: |
+            Take 2d6 damage.
+            Enter a Heart Trance until the end of your next turn.
+            While in Heart Trance, you take 50% less damage from Fire, Frost, Necrotic and Thunder damage and you have +3 on Acrobatics and Intimidation rolls.
+            When Heart Trance ends, heal for 2d6.
+
+        <Rage Trance> :
+          A: 0 Actions
+          Cost: 1 Charge.
+          Effect: |
+            Take 2d6 damage.
+            Until the end of your next turn, you are immune to stuns, slows, snares, cripples and being knocked prone.
+            Your attacks while in Rage Trance have an extra +1 damage to all attacks and you have +3 on Athletics.
+            When Rage Trance ends, heal for 2d6.
+
+        <Battle Trance> :
+          A: 0 Actions
+          Cost: 1 Charge.
+          Effect: |
+            Take 2d6 damage.
+            Enter a Battle Trance that lasts until the end of your next turn.
+            You gain a protective shield around you which absorbs up to 4 + Your Level physical damage.
+            When Rage Trance ends, heal for 2d6, and the shield fades.
+
+
+#	Talents:
+#		Stances
+#		Lower health = more damage
+#		Permanently increase health by 1 for each enemy killed
+
+
+  Marksman:
+    Description: Lorem ipsum dolor sit amet.
+    Starting Abilities:
+    
+      ~Marksmanship~ :    # 0.2
+        A: Passive
+        Effect: YOU can flank a target from up to 6 meters away (if you, the target and the ally are on the same line).
+        Notes: As usual, that ally helping with your flank must right behind the target.
+
+      ~Reload~ :          # 0.65 
+        A: Passive
+        Effect: |
+          Your first regular weapon attack in an encounter deals +1 damage.
+          Your second regular weapon attack in the encounter deals +3 damage.
+          Your third regular weapon attack and all upcoming ones in the encounter deal -5 damage.
+          You can spend 1 Charge to 'reset' this Ability to its original state.
+
+      ~Point Mark~ :      # 0.15
+        A: 0 Actions
+        Cooldown: Short Rest
+        Range: 15 meters
+        Effect: |
+          Mark a point on the ground.
+          Allies and you can use the mark to flank targets.
+          Those attacks do benefit from Advanced Flank.
+
+    Talents:
+      Level 2:
+  
+        <Recoil Shot> :    # Ok
+          A: 0 Actions
+          Cost: 1 Charge
+          Range: 2 meters
+          Effect: |
+            Dash up to 2 meters away from the target.
+            Try to push the target 2 meters away (Fortitude save).
+          Notes: This does not trigger attacks of oportunity.
+
+        <Harpoon> :        # Ok
+          A: 1 Action
+          Cost: 1 Charge
+          Range: 6 meters
+          Effect: |
+            Make a ranged attack that deals 2d12 + 4 damage (against Defense).
+            The target makes a Dexterity save.
+            If it fails, it is pulled to you.
+            Otherwise, you are pulled to it.
+          Notes: Requires a Harpoon, which can be bought for 50 Gold.
+
+        <Precise Weapon> :  # Ok
+          A: 1 hour
+          Effect: |
+            Choose any weapon you have and make it Precise.
+            The weapon's scaling becomes +3/+6 (1-Handed/2-Handed) instead of scaling with a Stat.
+            The wielder of the weapon is also immune to Cripple.
+          Notes: |
+            Making another weapon Precise makes the previous back to how it was.
+            Requires to be at a forge.
+
+# 
+#
+# Take 5 damage. Break any stun, snare, slow, trap or fear.
+# Lock in position and keep your Reload states
+
+
+
+
+
+
+

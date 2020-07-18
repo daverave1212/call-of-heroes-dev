@@ -1,0 +1,276 @@
+
+Class: Mage
+Description: Mages are powerful spellcasters who gain their powers through either study or ust pure talent.
+
+
+Options:
+  When creating your character:
+    Choose 2:  # And increase them by 1
+      - Charisma
+      - Intelligence
+      - Wisdom
+      - Dexterity
+      - Fortitude
+    Saves:
+      - +2 Charisma Saves
+      - +2 Intelligence Saves
+
+Skills:
+  Arcana: +1
+  Knowledge: +1
+  History: +1
+  Athletics: -1
+  Acrobatics: -1
+  Survival: -1
+
+Stats:
+  Base Health: 6 + Race Health + 2 * Fortitude
+
+Language: |
+  You speak one extra Common language of choice.
+  If your Intelligence is at least 2, choose one more Higher or Common language you can speak.
+
+Level Up:
+    Every Level:
+      - +5 Health
+      - +1 Skill Point
+      - +1 extra known Spell or Maneuver
+    Other: |
+      At levels 2, 4, 6, 8 and 10, you gain a Talent from your chosen specialization.
+      At levels 3, 5, 7 and 9 you gain 1 extra Charge and a Talent from your race.
+  
+Spellcasting:
+  Main Stat: Choose between Intelligence, Wisdom or Charisma. This is your Main Stat.
+  Spell DC: 10 + (Main Stat)
+  Charges:
+    Amount: 5
+    Regain: You regain all Charges back when you Long Rest.
+  Change: You can change your known Spells (not Talents) when taking a long rest.
+  Other: All Mage-specific abilities are considered spells (except Magic Mastery).
+  Number of known maneuvers: 1 + Your Intelligence
+  Number of known spells: 3 + Your Intelligence
+
+  Spell List:
+    Maneuvers: All
+    Basic Spells:
+      - Acid Burst~
+      - Burning Breath
+      - Bonfire
+      - Control Flames
+      - Control Water
+      - Dancing Blade
+      - Fire Bolt
+      - Frostbite
+      - Flameblade
+      - Light
+      - Magic Missiles
+      - Prestidigitation
+      - Quicksand
+      - Thunder Clap
+    Normal Spells:
+      - Absorb Element
+      - Alarm
+      - Dispel Magic
+      - Feather Fall
+      - Fog Cloud
+      - Distort Vision
+      - Fairy Fire
+      - Fire Enchantment
+      - Flash
+      - Frost Rune
+      - Explosion Rune
+      - Fake Sound
+      - Ice Spike
+      - Flame Strike
+      - Mage Armor
+      - Mage Hand
+      - Mending
+      - Unlock
+      - Phase Orb
+      - Scorching Rays
+      - Shield Element
+      - Shadow Clone
+      - Water Sphere
+      - Force Wall
+      - Dancing Weapon
+      - Crackling Lightning
+      - Heat Metal
+    Higher Level Spells:
+      - Antimagic Rune
+      - Conceal Magic
+      - Conjure Object
+      - Encode Thoughts
+      - Fire Ball
+      - Sense Magic
+      - Invisibility
+      - Levitate
+      - Magic Prison
+      - Portal
+      
+    
+Starting Abilities:
+  ~Magic Mastery~:
+    A: 0 Actions
+    Cost: 1 Charge
+    Effect: |
+      The next ability you use that has the cost of 1 Action now costs 0.5 Actions.
+      This is considered a maneuver.
+
+
+Specializations:
+  Description: At Level 1, you can choose your specialization. Every Mage can choose from the following Mage specializations
+  Choices:
+    - Sorcerer, a born user of magic, floating with the hard to control magic itself
+    - Wizard, who became a master of magic through intense study, and carries its spells in an indispensible tome
+    - Artificer, who is dedicated to creation, research and experimentation with magical potions, scrolls and magical items!
+
+
+Specs:
+  
+  Sorcerer:
+    Description: Lorem!!
+    Starting Abilities:
+      ~Innate Magic~ :
+        A: Passive
+        Effect: |
+          When you cast a spell, if it's different than the previous spell you casted, the previous spell becomes Exhausted.
+          This means you can't use that previous spell until your next Long Rest.
+        Notes: Examples of spell sequences - Firebolt, Firebolt, Firebolt, Magic Missile, Magic Missile, Fog
+
+      ~Overcharge~ :      # 1 Charge
+        A: Passive
+        Effect: |
+          After you cast a spell the 3rd time in a row, your next ability benefits from Magic Mastery.
+          After this, that spell becomes Exhausted.
+      
+    Talents:
+      Level 2:
+        <Master Specialization> :
+          A: Passive
+          Effect: Choose another class. You also have access to that class's Spell List!
+          
+        <Shadow Clone> :
+          A: 0 Actions
+          Cost: 1 Charge
+          Range: 6 meters
+          Effect: |
+            You create an illusion of yourself at a target location.
+            The illusion has 1 Health and 1 Armor and it fails all saves.
+            You can control what the illusion does at will.
+            Lasts up to 10 minutes.
+
+        <Momentum Magic> :
+          A: Passive
+          Effect: |
+            After an encounter, you can roll 1d20 and add your Main Stat.
+            If you rolled a total of or over 20, you gain 1 Charge.
+            You can succeed this once per Long Rest (you can try multiple times, but after you succeed once, you need to Long Rest to do it again).
+
+
+  Wizard:
+    Description: Hmm, lorem...
+    Starting Abilities:
+      ~Spell Book~ :
+        A: Passive
+        Effect: |
+          You have a special Spell Book.
+          While holding the Spell Book, you have prepared all spells you can know (not maneuvers).
+          You can hold it in one hand without consuming actions.
+        Notes: While holding the Book, your hand counts as occupied, and you can't hold anything else in it, but you still have 1 Action per turn.
+        
+      ~Magic Expertise~:  # Might be game breaking lmao
+        A: Passive
+        Effect: You can cast Level 4 spells from Level 1, and Level 8 spells from Level 4.
+
+    Talents:
+      Level 2:
+
+        <Vanishing Book> :
+          A: Special
+          Effect: |
+            You gain +1 in Stealth and Sleight of Hand.
+            For 0 Actions, you can instantly vanish you Spell Book, or make it reappear in your hand.
+            You can only vanish it every 10 minutes.
+
+        <Master Specialization> :
+          A: Passive
+          Effect: Choose a class. You also have access to that class's Spell List!
+
+        <Arcane Focus> :
+          A: Passive
+          Effect: |
+            Your Spell Book becomes replaced with an item called Arcane Focus.
+            An Arcane Focus is an item of your choice. It can be an amulet, a sword, a cape, etc.
+            As long as you have the Arcane Focus on you, it counts as if you are holding the Spell Book without occupying your hand.
+
+# Talent: weapon spec or smth
+# Talent: Special forged weapon: has multiple effects
+
+  Artificer:
+    Description: Losum iprem
+    Starting Abilities:
+
+      ~Artificer~ :
+        A: Special
+        Effect: |
+          You own a set of Artificer's Tools, with which you can create potions, scrolls and other items.
+          Some of your class spells require you to use your Artificer's Tools (described below).
+          If they require you to spend Charges, those Charges become locked and can't be regained through any means, until the item created is used or destroyed.
+          For 1 Action, you can summon or vanish your Artificer's Tools.
+        Notes: |
+          Spells noted as 'Artificer:' require you to use Artificer's Tools.
+          If you ever lose your Artificer's Tools, the price for a new set is 200 gold.
+          As usual, items created this way require 0.5 Actions to use.
+          Artificer potions do not count towards the potion limit cooldown.
+
+      ~Artificer - Magic Scroll~ :
+        A: 5 minutes
+        Cost: 1 Charge
+        Effect: |
+          Choose a spell you can cast and spend Charges for it if it requires charges.
+          You create a scroll containing that spell.
+        
+      ~Artificer - Magic Elixir~ :
+        A: 5 minutes
+        Cost: 1 Charge
+        Effect: |
+          Choose one of the following types of potions and create it
+          o Elixir of Healing - Heal for 2d4 + 1.
+          o Elixir of Strength - Attacks with 2-Handed weapons deal +2 damage, and attacks with 1-Handed weapons deal +1 damage (1 hour).
+          o Elixir of Agility - Doubled movement speed and Acrobatics bonus (1 hour).
+          o Elixir of Intelligence - Gain 1 Charge.
+
+    Talents:
+      Level 2:
+        <Master Specialization> : # See what cantrips would be cool combos with those things!
+          A: Passive
+          Effect: Choose a class. You also have access to that class's Spell List!
+
+
+        <Artificer - Magic Weapon> :   # Bit stronger than average
+          A: 5 minutes
+          Cost: 1 Charge
+          Effect: |
+            Choose one a type of weapon, and choose 2 of the following effects:
+            o +2 damage
+            o Damage is converted to Fire/Cold/Shock (choose one)
+            o +2 meters move speed
+            o +5 health while wielding it
+            You can only have 1 Magic Weapon created at a time.
+            The Magic Weapon is automatically destroyed after 2 hours.
+
+        <Artificer - Spellcraft> :
+          A: 5 minutes
+          Cost: 1 Charge
+          Effect: |
+            You are able to create a custom spell which you hold prepared until your next Long Rest.
+            Choose any 2 spells you can cast.
+            Those spells combine into one, and both effects are cast at the same time.
+            This custom spell costs the combined number of Charges and the Actions for it are the combined Actions minus 0.5 Actions.
+            You know and have this spell prepared until your next Long Rest.
+            Magic Mastery now also allows you to cast 1.5 Action spells for 1 Action.
+          Notes: |
+            Example - if one spell takes 0.5 Actions and the other 1 Action, the custom spell will take 1 Action.
+            You can customize what the custom spell looks like (for aesthetics only).
+            You can still cast those 2 spells separately.
+
