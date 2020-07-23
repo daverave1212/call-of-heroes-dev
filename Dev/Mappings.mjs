@@ -13,10 +13,30 @@ let anything = 'anything'
 let spec = 'spec'
 let specList = 'specList'
 
+let weapon = 'weapon'
+let armor = 'armor'
+
 export let types = { string, number, customObject, ability, abilityList, anything, spec }
 
 export function isVarString(v) { return typeof(v) == 'string' }
 
+export let armorMapping = {
+    'Armor Bonus':  anything,
+    '*Effect':      string,
+    '*Downside':    string,
+    'Description':  string
+}
+
+export let weaponMapping = {
+    'Stat':          string,
+    'Hands':         string,
+    '*Special':      string,
+    'Damage':        string,
+    '*Effect':       string,
+    '*Alternatives': string,
+    '*Downside':     string,
+    '*Notes':        string
+}
 
 export let abilityMapping = {
     'A':            string,
@@ -25,7 +45,10 @@ export let abilityMapping = {
     '*Cost':        string,
     'Effect':       string,
     '*Downside':    string,
-    '*Notes':       string
+    '*Notes':       string,
+    '*Requirement': string,
+    '*Variant':     string,
+    '*Duration':    string
 }
 
 export let specMapping = {

@@ -22,5 +22,8 @@ export let files = {
     'Races\\Gnome.yml': 'race',
     'Races\\Hollow.yml': 'race',
     'Races\\Human.yml': 'race',
-    'Races\\Orc.yml': 'race'
+    'Races\\Orc.yml': 'race',
+
+    'Weapons.yml': 'weapons',
+    'Armors.yml': 'armors'
 }

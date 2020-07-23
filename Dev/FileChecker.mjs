@@ -1,6 +1,7 @@
 
 import * as Mappings from './Mappings.mjs'
 import * as FileList from './FileList.mjs'
+import * as Config from './Config.mjs'
 
 import fs from 'fs'
 import YAML from 'yaml'
@@ -112,13 +113,21 @@ function checkFile(path, type) {
         case 'race':
             checkObjectByMapping(object, Mappings.raceMapping)
             break
+        case 'weapons':
+            for (let weaponName of Object.keys(object))
+                checkObjectByMapping(object[weaponName], Mappings.weaponMapping)
+            break
+        case 'armors':
+            for (let armorName of Object.keys(object))
+                checkObjectByMapping(object[armorName], Mappings.armorMapping)
+            break
         default:
             console.log(`Error: Unknown file type mapping given ${type}`)
     }
 }
 
 function checkAllFiles() {
-    let designRoot = '..\\Design\\';
+    let designRoot = Config.designRootPath
     for (let fileName of Object.keys(FileList.files)) {
         console.log(`> Checking ${fileName}`)
         checkFile(designRoot + fileName, FileList.files[fileName])
