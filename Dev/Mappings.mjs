@@ -76,7 +76,7 @@ export let classMapping = {
     'Skills': customObject,
 
     'Stats': {
-        'Base Health': string
+        'Base Health': number
     },
 
     'Language': string,
@@ -108,6 +108,7 @@ export let classMapping = {
 
     'Starting Abilities': abilityList,
     '*Abilities': abilityList,
+    '*Other Ability Mentions': string,
     
     '*Other': string,
 

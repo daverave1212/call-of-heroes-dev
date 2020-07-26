@@ -8,17 +8,26 @@ body {
     background-color: var(--background-color);
 }
 
-h1, h2, h3, h4, p, .btn, a {
+h1, h2, h3, h4, p, li, .btn, a {
     font-family: defaultFont;
 }
+p, a, .btn, li {
+    font-size: var(--normal-font-size);
+}
 p {
-    font-size: 125%;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 h1 {
     font-size: var(--title-font-size);
 }
 h2 {
     font-size: calc(var(--title-font-size) * 0.8);
+}
+.hr-half {
+    width: 300px;
+    margin-left: 0px;
+    margin-top: 0px;
 }
 .class-icon {
     height: 32px;
@@ -30,6 +39,10 @@ h2 {
     margin-bottom: 12px;   /* This is fine-tuned to center perfectly vertically */
     margin-right: calc((var(--padding-normal) / 2) + 4px);
 }
+.text-symbol {
+    width: var(--text-symbol-width);
+    margin-bottom: 6px;
+}
 
 .shadow-dropper {
     -webkit-box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.55);
@@ -37,17 +50,30 @@ h2 {
     box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.55);
 }
 
-.btn, a {
-    font-size: var(--menu-font-size);
+nav .btn, nav a {
     color: var(--menu-font-color-inactive) !important;
 }
-.btn:hover, a:hover {
+nav .btn:hover, nav a:hover {
     color: var(--menu-font-color-active) !important;
 }
 
-.navbar {
-    border-bottom: solid 1px var(--gold-color);
-    background-color: var(--dark-color);
+#Top-Nav-Wrapper {
+    width: 100%;
+    height: var(--top-nav-height);
+}
+#Top-Nav {
+    border-bottom: solid 1px var(--color-gold);
+    background-color: var(--color-dark);
+    width: 100%;
+    position: fixed;
+}
+.navbar-brand img{
+    position: absolute;
+    bottom: 0px;
+    height: var(--top-nav-height);
+}
+.navbar-brand span {
+    margin-left: 80px;
 }
 .nav-item {
     margin-right: var(--padding-normal);
@@ -64,12 +90,12 @@ h2 {
 .top-left {
     left: 0px;
     top: 0px;
-    border-right: solid var(--dark-color) 1px;
+    border-right: solid var(--color-dark) 1px;
 }
 .top-right {
     top: 0px;
     right: 0px;
-    border-left: solid var(--dark-color) 1px;
+    border-left: solid var(--color-dark) 1px;
 }
 
 /* -------------------- Index CSS ----------------------- */
@@ -84,16 +110,20 @@ h2 {
     align-items: flex-start;
 }
 
-#Sidebar-Nav {
-    width: 300px;;
-    border: solid gray 1px;
-    background-color: var(--dark-color);
-    padding: var(--padding-normal)
+#Sidebar-Nav-Wrapper {
+    width: var(--sidebar-width);
 }
-#Sidebar-Nav .sidebar-header {
-    border-left: solid var(--gold-color) 3px;
+#Sidebar-Nav {
+    width: var(--sidebar-width);
+    border: solid gray 1px;
+    background-color: var(--color-dark);
+    padding: var(--padding-normal);
+    position: fixed;
+}
+.sidebar-header {
+    border-left: solid var(--color-gold) 3px;
     padding-left: var(--padding-normal);
-    font-size: 125%;
+    font-size: var(--normal-font-size);
 }
 #Sidebar-Nav li {
     padding-left: calc(var(--padding-normal) + 3px);
@@ -108,6 +138,44 @@ h2 {
 
 #Page-Content {
     flex: 1;
-    max-width: 875px;
+    max-width: 925px;
     padding: var(--padding-normal)
+}
+
+/* --------------------- Spell Lists -------------------- */
+
+.class-spell-list, .class-spell-list ul {
+    list-style-type: none;
+    list-style-position: inside;
+    width: 250px;
+    background-color: var(--spell-background-color);
+    padding: 0px;
+}
+
+.class-spell-lists li {
+    margin: 0px;
+}
+.class-spell-list-head {
+    border: solid black 1px !important;
+    background-color: var(--color-charge);
+    padding: 4px;
+    padding-left: 6px;
+}
+.class-spell-list-head:hover {
+    opacity: 0.7;
+}
+.class-spell-list-head span {
+    opacity: 0.15;
+}
+.class-spell-list-head a {
+    color: black !important;
+}
+.class-spell-list-head a:hover {
+    text-decoration: none;
+}
+.class-spell-list ul li {
+    border: solid black 1px;
+    padding: 4px;
+    padding-left: 6px;
+    margin-top: -1px;
 }
