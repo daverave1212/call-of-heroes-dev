@@ -5,6 +5,7 @@ import * as Config from './Config.mjs'
 
 import fs from 'fs'
 import YAML from 'yaml'
+import path from 'path'
 
 function checkProperty(value, givenType, givenPropertyForErrorMessage) {
     let objectType = typeof(value)
@@ -130,7 +131,7 @@ function checkAllFiles() {
     let designRoot = Config.designRootPath
     for (let fileName of Object.keys(FileList.files)) {
         console.log(`> Checking ${fileName}`)
-        checkFile(designRoot + fileName, FileList.files[fileName])
+        checkFile(path.join(designRoot, fileName), FileList.files[fileName])
     }
 }
 

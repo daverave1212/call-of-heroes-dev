@@ -21,7 +21,7 @@ export let head = title =>
 `
 
 
-export let navigation = () => 
+export let navigation = () =>
 `
 <div id="Top-Nav-Wrapper">
     <nav id="Top-Nav" class="navbar navbar-expand-lg navbar-light">
@@ -36,6 +36,23 @@ export let navigation = () =>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item active">
+                    <div class="dropdown">
+                        <a class="nav-link custom-font dropbtn" href="#">Classes</a>
+                        <div class="dropdown-content">
+                            <a href="Cleric.html">Cleric</a>
+                            <a href="Druid.html">Druid</a>
+                            <a href="Hunter.html">Hunter</a>
+                            <a href="Mage.html">Mage</a>
+                            <a href="Paladin.html">Paladin</a>
+                            <a href="Rogue.html">Rogue</a>
+                            <a href="Shaman.html">Shaman</a>
+                            <a href="Warlock.html">Warlock</a>
+                            <a href="Warrior.html">Warrior</a>
+                        </div>
+                    </div>
+                </li>
 
                 <li class="nav-item active">
                     <a class="nav-link custom-font" href="#">Home <span class="sr-only">(current)</span></a>
@@ -56,7 +73,7 @@ export let navigation = () =>
 `
 
 
-let spellNameToUnderscore = name => name.split().join('_')
+let spellNameToUnderscore = name => name.split(' ').join('_')
 let newLinesToBR = text => text.split('\n').join('<br>')
 export let spell = ({name, isTalent=false, A, Cost, Range, Cooldown, Duration, Effect, Notes, Other, Variant}) => 
 `
@@ -71,7 +88,7 @@ export let spell = ({name, isTalent=false, A, Cost, Range, Cooldown, Duration, E
         ${Cooldown == null? '' : '<p><span class="spell-text-property spell-property">' + Symbols.cooldown + '</span> ' + Cooldown + '</p>'}
         <p class="spell-description">
             ${newLinesToBR(Effect)}
-            ${duration == null? '': 'Lasts ' + Duration}
+            ${Duration == null? '': 'Lasts ' + Duration}
         </p>
         ${Notes != null || Other != null || Variant != null? '<br>': ''}
         ${Notes == null? '' : '<p class="spell-extra">' + Notes + '</p>'}

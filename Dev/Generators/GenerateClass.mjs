@@ -5,7 +5,7 @@ import * as Symbols from './../Insertables/Symbols.mjs'
 
 function using(value, func) { return func(value) }
 
-const dashCase = str => str.split().join('-')
+const dashCase = str => str.split(' ').join('-')
 const removeSpellTildes = spellName => spellName.substring(1, spellName.length - 1)
 
 const sidebar = () =>
@@ -50,19 +50,21 @@ const sidebar = () =>
 const paragraphs = text => text.split('\n').map(t => `<p>${t}</p>`).join('\n')
 const ul = (strings, cls) => `<ul ${cls == null? '' : 'class="' + cls + '"'}>\n` + strings.map(str => `<li>${str}</li>`).join('\n') + '\n</ul>'
 const skills = Skills =>  '<ul>\n' + Object.keys(Skills).map(skill => `<li>${Skills[skill]} ${skill}</li>`).join('\n') + '\n</ul>'
-const spellList = (header, list) => 
-`
-<ul class="class-spell-list>
+const spellList = (header, list) => {
+    return `
+<ul class="class-spell-list">
     <li class="class-spell-list-head">
         <a href="#${dashCase(header)}-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="${dashCase(header)}-Collapse">${header}<span> (expand)</span></a>
     </li>
     <li>
         <ul class="collapse" id="${dashCase(header)}-Collapse">
-            ${ul(list)}
+            ${list.map(elem => `<li>${elem}</li>`).join('\n')}
         </ul>
     </li>
 </ul>
 `
+}
+
 
 
 const abilities = abilitiesObject => {
@@ -72,7 +74,12 @@ const abilities = abilitiesObject => {
     for (let ab of abilities) ab.name = removeSpellTildes(ab.name)
     return abilities.map(ability => Components.spell(ability)).join('\n')
 }
-const talents = talentsObject => abilities(talentsObject.map(talent => ({isTalent: true, ...talent})))
+const talents = talentsObject => {
+    for (let key of Object.keys(talentsObject)) {
+        talentsObject[key].isTalent = true
+    }
+    return abilities(talentsObject)
+}
 
 const generateClass = file =>
 `
@@ -130,6 +137,7 @@ ${Components.head(file.Class)}
             <p>${file.Language}</p>
             ${file.Other == null? '' : '<br>' + file.Other}
 
+            <br>
             <h2><img class="class-icon" src="Images/Icons/UI/Charge.png" alt="/">Spells and Abilities</h2>
             <hr>
             <p>${file.Spellcasting['Main Stat']}</p>
@@ -142,15 +150,15 @@ ${Components.head(file.Class)}
             ${file.Spellcasting['Number of known maneuvers and spells'] == null? '': '<p>Number of known maneuvers and spells: ' + file.Spellcasting['Number of known maneuvers and spells'] + '</p>'}
             ${file.Spellcasting['Number of known maneuvers'] == null? '': '<p>Number of known maneuvers: ' + file.Spellcasting['Number of known maneuvers'] + '</p>'}
             ${file.Spellcasting['Number of known spells'] == null? '': '<p>Number of known spells: ' + file.Spellcasting['Number of known spells'] + '</p>'}
-            ${file.Spellcasting.Other == null? '' : '<hr><p class="spell-extra">' + file.Spellcasting.Other + '</p>'}
+            ${file.Spellcasting.Other == null? '' : '<br><p class="spell-extra">' + file.Spellcasting.Other + '</p>'}
             <br>
 
             <h3><img class="class-icon" src="Images/Icons/UI/BlueCircle.png" alt="/">Spell List</h3>
             <hr class="hr-half">
             <div class="class-spell-lists">
                 ${Object.keys(file.Spellcasting['Spell List']).map(key =>
-                    spellList(key, file.Spellcasting['Spell List'][key])
-                )}
+                    spellList(key, file.Spellcasting['Spell List'][key])    // TODO: AICI NU MERGE VEZI DE CE
+                ).join('\n')}
             </div> <!-- class-spell-lists -->
             
             <br>
@@ -161,14 +169,14 @@ ${Components.head(file.Class)}
                 ${abilities(file['Starting Abilities'])}
             </div>
 
-            ${file.Spellcasting}
-            <h3><img class="class-icon" src="Images/Icons/UI/BlueCircle.png" alt="/">Other Ability Things...</h3>
-            <hr class="hr-half">
-            <p>
-              The first time you choose a cleric domain (specialization), you must choose between two abilities.
-              For example, for Battle Cleric, you have to choose either March Ahead or Piety.
-              Choose wisely...
-            </p>
+            ${file['Other Ability Mentions'] == null? '' : `
+                <br>
+                <h3><img class="class-icon" src="Images/Icons/UI/BlueCircle.png" alt="/">Other Ability Things...</h3>
+                <hr class="hr-half">
+                <p>
+                    ${file['Other Ability Mentions']}
+                </p>
+            `}
 
             <br>
             <br>
@@ -185,7 +193,7 @@ ${Components.head(file.Class)}
                         <h3><img class="class-icon" src="Images/Icons/Classes/${file.Class}.png" alt="/">${specName}</h3>
                         <hr class="hr-half">
 
-                        <p>${file.Description}</p>
+                        <p>${spec.Description}</p>
                         <br>
 
                         <p>You start with the following ${specName} abilities:</p>
@@ -194,7 +202,7 @@ ${Components.head(file.Class)}
                         ${abilities(spec['Starting Abilities'])}
 
                         ${spec['Choose your side'] == null? '' : `
-                            <p>Choose your side, ${spec['Choose your side']}</p>
+                            <br><p>Choose your side, ${spec['Choose your side']}</p><br>
                         `}
 
                         <div class="spell-container">
@@ -203,7 +211,7 @@ ${Components.head(file.Class)}
 
                         <br>
 
-                        <h4>Talents</h4>
+                        <h4><img class="class-icon" src="Images/Icons/UI/Specializations.png" alt="/">Talents</h4>
                         <hr class="hr-half">
                         <p>At Level 2, choose one of the following abilities and gain it permanently:</p>
                         <br>

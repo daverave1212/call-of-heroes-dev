@@ -7,6 +7,7 @@
 let fileTypes = ['race', 'class']
 
 export let files = {
+    'Classes\\Cleric.yml': 'class',
     'Classes\\Druid.yml': 'class',
     'Classes\\Hunter.yml': 'class',
     'Classes\\Mage.yml': 'class',
@@ -26,4 +27,11 @@ export let files = {
 
     'Weapons.yml': 'weapons',
     'Armors.yml': 'armors'
+}
+
+export let outputFileStructure = {
+    'class':    '',     // 'website-path' + '' + '\Cleric.html'
+    'race':     '',
+    'weapons':  '',
+    'armors':   ''
 }
