@@ -1,6 +1,5 @@
 
 import * as Mappings from './Mappings.mjs'
-import * as FileList from './FileList.mjs'
 import * as Config from './Config.mjs'
 
 import fs from 'fs'
@@ -129,9 +128,9 @@ function checkFile(path, type) {
 
 function checkAllFiles() {
     let designRoot = Config.designRootPath
-    for (let fileName of Object.keys(FileList.files)) {
+    for (let fileName of Object.keys(Config.files)) {
         console.log(`> Checking ${fileName}`)
-        checkFile(path.join(designRoot, fileName), FileList.files[fileName])
+        checkFile(path.join(designRoot, fileName), Config.files[fileName])
     }
 }
 

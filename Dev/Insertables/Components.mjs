@@ -1,5 +1,6 @@
 
 import * as Symbols from './Symbols.mjs'
+import { spellNameToUnderscore, newLinesToBR } from './../utils.mjs'
 
 export let head = title =>
 `
@@ -72,9 +73,6 @@ export let navigation = () =>
 </div>
 `
 
-
-let spellNameToUnderscore = name => name.split(' ').join('_')
-let newLinesToBR = text => text.split('\n').join('<br>')
 export let spell = ({name, isTalent=false, A, Cost, Range, Cooldown, Duration, Effect, Notes, Other, Variant}) => 
 `
 <div class="spell${isTalent? ' spell-talent' : ''}">
