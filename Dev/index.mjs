@@ -1,38 +1,66 @@
 
-import fs from 'fs'
-import YAML from 'yaml'
+import fs, { writeFileSync } from 'fs'
 import * as path from 'path'
 import pretty from 'pretty'
 
 import * as Config from './Config.mjs'
+import { removeSpellTildes } from './utils.mjs'
 
 import generateClass from './Generators/GenerateClass.mjs'
+import { readYaml, writeFile } from './utils.mjs'
+
+const join = path.join
 
 
-function storeClassAbilities(file) {
+function getAbilities(abilitiesObject) {
     let abilities = {}
-
-    
-
+    for (let name of Object.keys(abilitiesObject)) {
+        abilities[removeSpellTildes(name)] = abilitiesObject[name]
+    }
+    return abilities
+}
+function storeAbilityBlock(abilitiesObject, block) {
+    if (block == null) return
+    for (let name of Object.keys(block)) {
+        let realName = (['~', '<'].includes(name[0])) ? removeSpellTildes(name) : name
+        abilitiesObject[realName] = block[name]
+    }
 }
 
-function outputClass(filePath) {
-    let yamlText = fs.readFileSync(filePath, {encoding: 'utf8', flag: 'r'})
-    let object = YAML.parse(yamlText)
 
-    let htmlContent = generateClass(object)
+function getAllClassAbilities(file) {   // As an object
+    let abilities = {}
+    storeAbilityBlock(abilities, file['Starting Abilities'])
+    storeAbilityBlock(abilities, file['Abilities'])
+    for (let specName of Object.keys(file['Specs'])) {
+        storeAbilityBlock(file['Specs'][specName]['Starting Abilities'])
+        storeAbilityBlock(file['Specs'][specName]['Abilities'])
+        for (let talentLevel of Object.keys(file['Specs'][specName]['Talents'])) {
+            storeAbilityBlock(abilities, file['Specs'][specName]['Talents'][talentLevel])
+        }
+    }
+    return abilities
+}
+function outputClass(object) {
+    let htmlContent = pretty(generateClass(object))
 
     if (!fs.existsSync(Config.websiteRootPath)) fs.mkdirSync(Config.websiteRootPath)
 
-    let fullPath = path.join(Config.websiteRootPath, Config.outputFileStructure['class'], object.Class + '.html')
-    fs.writeFileSync(fullPath, pretty(htmlContent), {encoding: 'utf8'})
+    let fullPath = join(Config.websiteRootPath, object.Class + '.html')
+    writeFile(fullPath, htmlContent)
     console.log(`Wrote file ${fullPath}`)
 }
 
+let allAbilities = {}
 for (let filePath of Object.keys(Config.files)) {
     switch (Config.files[filePath]) {
         case 'class':
             console.log(`Outputting ${filePath}`)
-            outputClass(path.join(Config.designRootPath, filePath))
+            let data = readYaml(join(Config.designRootPath, filePath))
+            outputClass(data)
+            storeAbilityBlock(allAbilities, getAllClassAbilities(data))
     }
 }
+
+let abilitiesContent = 'let Abilities = ' + JSON.stringify(allAbilities, null, 2) + '\n\nexport default Abilities'
+writeFile(join(Config.websiteRootPath, 'JS', 'Databases', 'Abilities.mjs'), abilitiesContent)

@@ -2,11 +2,9 @@
 
 import * as Components from './../Insertables/Components.mjs'
 import * as Symbols from './../Insertables/Symbols.mjs'
+import { dashCase, removeSpellTildes } from './../utils.mjs'
 
 function using(value, func) { return func(value) }
-
-const dashCase = str => str.split(' ').join('-')
-const removeSpellTildes = spellName => spellName.substring(1, spellName.length - 1)
 
 const sidebar = () =>
 `
