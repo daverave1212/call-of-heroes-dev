@@ -114,7 +114,7 @@
 
       <div id="Page-Content">
         
-        <h1><img class="class-icon" src="Images/Icons/Classes/Cleric.png" alt="/">Cleric</h1>
+        <h1><img class="page-icon" src="Images/Icons/Classes/Cleric.png" alt="/">Cleric</h1>
         <hr>
 
         <p>Arms and eyes upraised toward the sun and a prayer on his lips, an elf begins to glow with an inner light that spills out to heal his battle-worn companions.</p>
@@ -123,11 +123,11 @@
         <p>Clerics are intermediaries between the mortal world and the distant planes of the gods. As varied as the gods they serve, clerics strive to embody the handiwork of their deities. No ordinary priest, a cleric is imbued with divine magic.</p>
 
         <br>
-        <h2><img class="class-icon" src="Images/Icons/UI/CharacterSetup.png" alt="/">Character Setup</h2>
+        <h2><img class="page-icon" src="Images/Icons/UI/CharacterSetup.png" alt="/">Character Setup</h2>
         <hr>
         <br>
         
-        <h3><img class="class-icon" src="Images/Icons/UI/CharacterSetupSub.png" alt="/">Stats and Saves</h3>
+        <h3><img class="page-icon" src="Images/Icons/UI/CharacterSetupSub.png" alt="/">Stats and Saves</h3>
         <hr class="hr-half">
 
         <p>Choose 2 of the following stats and increase them by 1:</p>
@@ -166,7 +166,7 @@
         <br>
         <br>
 
-        <h3><img class="class-icon" src="Images/Icons/UI/CharacterSetupSub.png" alt="/">When Leveling Up...</h3>
+        <h3><img class="page-icon" src="Images/Icons/UI/CharacterSetupSub.png" alt="/">When Leveling Up...</h3>
         <hr class="hr-half">
 
         <p>Whenever you gain a Level after Level 1, you gain:</p>
@@ -177,12 +177,12 @@
         </ul>
         <br>
 
-        <h3><img class="class-icon" src="Images/Icons/UI/CharacterSetupSub.png" alt="/">Other Things</h3>
+        <h3><img class="page-icon" src="Images/Icons/UI/CharacterSetupSub.png" alt="/">Other Things</h3>
         <hr class="hr-half">
         <p>If your Intelligence is at least 2 (after finishing up your character), choose one Higher or Common language you can speak.</p>
         <br>
 
-        <h2><img class="class-icon" src="Images/Icons/UI/Charge.png" alt="/">Spells and Abilities</h2>
+        <h2><img class="page-icon" src="Images/Icons/UI/Charge.png" alt="/">Spells and Abilities</h2>
         <hr>
         <p>Choose between Wisdom or Charisma. This is your <b>Main Stat</b>.</p>
         <p><span>Spell DC is </span>10 + <b>Main Stat</b>.</p>
@@ -195,8 +195,9 @@
         <p><b>Number of known spells: </b>3 + Your Intelligence</p>
         <br>
 
-        <h3><img class="class-icon" src="Images/Icons/UI/BlueCircle.png" alt="/">Spell List</h3>
+        <h3><img class="page-icon" src="Images/Icons/UI/BlueCircle.png" alt="/">Spell List</h3>
         <hr class="hr-half">
+        
         <div id="Class-Spell-Lists-Wrapper">
 
           <div id="Class-Spell-Lists">
@@ -248,7 +249,7 @@
         </div>
 
         <br>
-        <h3><img class="class-icon" src="Images/Icons/UI/BlueCircle.png" alt="/">Starting Abilities</h3>
+        <h3><img class="page-icon" src="Images/Icons/UI/BlueCircle.png" alt="/">Starting Abilities</h3>
         <hr class="hr-half">
         
         <div class="spell-container">
@@ -291,7 +292,7 @@
         </div>
         <br>
 
-        <h3><img class="class-icon" src="Images/Icons/UI/BlueCircle.png" alt="/">Other Ability Things...</h3>
+        <h3><img class="page-icon" src="Images/Icons/UI/BlueCircle.png" alt="/">Other Ability Things...</h3>
         <hr class="hr-half">
         <p>
           The first time you choose a cleric domain (specialization), you must choose between two abilities.
@@ -302,7 +303,7 @@
         <br>
         <br>
 
-        <h2><img class="class-icon" src="Images/Icons/UI/Specializations.png" alt="/">Specializations</h2>
+        <h2><img class="page-icon" src="Images/Icons/UI/Specializations.png" alt="/">Specializations</h2>
         <hr>
 
         <ul class="specializations-list">
@@ -313,7 +314,7 @@
         <br>
 
         <div class="specialization">
-          <h3><img class="class-icon" src="Images/Icons/Classes/Cleric.png" alt="/">Battle Cleric</h3>
+          <h3><img class="page-icon" src="Images/Icons/Classes/Cleric.png" alt="/">Battle Cleric</h3>
           <hr class="hr-half">
           
           <p>Battle clerics specialize in conditions of war. You must choose your side.</p>
@@ -430,21 +431,6 @@
 
     </div> <!-- Page-Body -->
 
-    <script type="module">
-      import Abilities from './JS/Databases/Abilities.mjs'
-      import { spell } from './JS/Insertables/Components.mjs'
-      
-      console.log(Abilities)
-      
-      window.setDisplayedSpell = function(spellName) {
-        console.log({spellName})
-        let spellObject = Abilities[spellName]
-        spellObject.name = spellName
-        console.log(spellObject)
-        let spellHTML = spell(spellObject)
-        document.getElementById('Class-Spell-Display').innerHTML = spellHTML
-      }
-
-    </script>
+    <script type="module" src="JS/class_setDisplayedSpell.js"></script>
 
 </body>

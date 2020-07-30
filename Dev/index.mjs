@@ -7,6 +7,11 @@ import * as Config from './Config.mjs'
 import { removeSpellTildes } from './utils.mjs'
 
 import generateClass from './Generators/GenerateClass.mjs'
+import generateRace from './Generators/GenerateRace.mjs'
+import generateWeapons from './Generators/GenerateWeapons.mjs'
+import generateArmors from './Generators/GenerateArmors.mjs'
+import generateShop from './Generators/GenerateShop.mjs'
+
 import { readYaml, writeFile } from './utils.mjs'
 
 const join = path.join
@@ -43,22 +48,83 @@ function getAllClassAbilities(file) {   // As an object
 }
 function outputClass(object) {
     let htmlContent = pretty(generateClass(object))
-
     if (!fs.existsSync(Config.websiteRootPath)) fs.mkdirSync(Config.websiteRootPath)
-
     let fullPath = join(Config.websiteRootPath, object.Class + '.html')
     writeFile(fullPath, htmlContent)
     console.log(`Wrote file ${fullPath}`)
 }
 
+
+
+function getAllRaceAbilities(file) {   // As an object
+    let abilities = {}
+    storeAbilityBlock(abilities, file['Starting Abilities'])
+    storeAbilityBlock(abilities, file['Abilities'])
+    for (let talentLevel of Object.keys(file.Talents)) {
+        storeAbilityBlock(abilities, file['Talents'][talentLevel])
+    }
+    return abilities
+}
+function outputRace(object) {
+    let htmlContent = pretty(generateRace(object))
+    if (!fs.existsSync(Config.websiteRootPath)) fs.mkdirSync(Config.websiteRootPath)
+    let fullPath = join(Config.websiteRootPath, object.Race + '.html')
+    writeFile(fullPath, htmlContent)
+    console.log(`Wrote file ${fullPath}`)
+}
+
+
+function outputWeapons(object) {
+    let htmlContent = pretty(generateWeapons(object))
+    if (!fs.existsSync(Config.websiteRootPath)) fs.mkdirSync(Config.websiteRootPath)
+    let fullPath = join(Config.websiteRootPath, 'Weapons.html')
+    writeFile(fullPath, htmlContent)
+    console.log(`Wrote file ${fullPath}`)
+}
+function outputArmors(object) {
+    let htmlContent = pretty(generateArmors(object))
+    if (!fs.existsSync(Config.websiteRootPath)) fs.mkdirSync(Config.websiteRootPath)
+    let fullPath = join(Config.websiteRootPath, 'Armors.html')
+    writeFile(fullPath, htmlContent)
+    console.log(`Wrote file ${fullPath}`)
+}
+function outputShop(object) {
+    let htmlContent = pretty(generateShop(object))
+    if (!fs.existsSync(Config.websiteRootPath)) fs.mkdirSync(Config.websiteRootPath)
+    let fullPath = join(Config.websiteRootPath, 'Shop.html')
+    writeFile(fullPath, htmlContent)
+    console.log(`Wrote file ${fullPath}`)
+}
+
+
+
 let allAbilities = {}
 for (let filePath of Object.keys(Config.files)) {
+    console.log(`Outputting ${filePath}`)
+    let data = null         // File as JSON object
+
     switch (Config.files[filePath]) {
         case 'class':
-            console.log(`Outputting ${filePath}`)
-            let data = readYaml(join(Config.designRootPath, filePath))
+            data = readYaml(join(Config.designRootPath, filePath))
             outputClass(data)
             storeAbilityBlock(allAbilities, getAllClassAbilities(data))
+            break
+        case 'race':
+            data = readYaml(join(Config.designRootPath, filePath))
+            outputRace(data)
+            storeAbilityBlock(allAbilities, getAllRaceAbilities(data))
+        case 'weapons':
+            data = readYaml(join(Config.designRootPath, filePath))
+            outputWeapons(data)
+            break
+        case 'armors':
+            data = readYaml(join(Config.designRootPath, filePath))
+            outputArmors(data)
+            break
+        case 'shop':
+            data = readYaml(join(Config.designRootPath, filePath))
+            outputShop(data)
+            break
     }
 }
 

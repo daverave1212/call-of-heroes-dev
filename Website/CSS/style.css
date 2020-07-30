@@ -53,7 +53,7 @@ h2 {
     margin-left: 0px;
     margin-top: 0px;
 }
-.class-icon {
+.page-icon {
     height: 32px;
     margin-bottom: calc(var(--title-font-size) - 40px);   /* This is fine-tuned to center perfectly vertically */
     margin-right: calc((var(--padding-normal) / 2) + 4px);
@@ -89,6 +89,7 @@ nav .btn:hover, nav a:hover {
     border-bottom: solid 1px var(--color-gold);
     background-color: var(--color-dark);
     width: 100%;
+    height: var(--top-nav-height);
     position: fixed;
 }
 .navbar-brand img{
@@ -105,7 +106,12 @@ nav .btn:hover, nav a:hover {
 
 
 /* -------------------- Background ----------------------- */
-
+.background-image-div {
+    flex: 1;
+    background-attachment: fixed;
+    max-width: 220px;
+    /*background-repeat: initial;*/
+}
 .background-image {
     z-index: -9999;
     height: 100vh;
@@ -123,7 +129,10 @@ nav .btn:hover, nav a:hover {
 }
 
 /* -------------------- Index CSS ----------------------- */
-
+#Page-Body-Wrapper {
+    width: 100%;
+    background-attachment: fixed;
+}
 #Page-Body {
     max-width: var(--max-page-content-width);
     display: flex;
@@ -132,6 +141,20 @@ nav .btn:hover, nav a:hover {
     padding-top: calc(var(--padding-normal) * 2);
     justify-content: space-evenly;
     align-items: flex-start;
+    background-color: white;
+    border-left: solid 1px black;
+    border-right: solid 1px black;
+}
+@media screen and (orientation:portrait) {
+    #Sidebar-Nav-Wrapper {
+        display: none;
+        flex: 0;
+        width: 0px;
+        overflow: hidden;
+    }
+    #Sidebar-Nav {
+        display: none;
+    }
 }
 #Sidebar-Wrapper {
     width: var(--sidebar-width);
@@ -177,16 +200,10 @@ nav .btn:hover, nav a:hover {
     justify-content: space-evenly;
 }
 #Class-Spell-Display-Wrapper {
-    margin-top: 100px;
     flex: 2;
 }
 #Class-Spell-Lists {
     flex: 1;
-}
-.vertical-align-inner {
-    background-color: red;
-    height: 100px;
-    width: 200px;
 }
 
 .class-spell-list, .class-spell-list ul {
@@ -224,4 +241,32 @@ nav .btn:hover, nav a:hover {
     padding: 4px;
     padding-left: 6px;
     margin-top: -1px;
+}
+
+.price-tables {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 50px;
+}
+table {
+    background-color: var(--spell-background-color);
+    padding: 0px;
+    width: 275;
+}
+td, th {
+    border: solid black 1px;
+    padding: 4px;
+    padding-left: 6px;
+}
+td:nth-child(2) {
+    min-width: 75px;
+}
+th {
+    background-color: var(--color-charge);
+}
+.transparent {
+    opacity: 0.3;
+}
+th:hover {
+    cursor: pointer;
 }

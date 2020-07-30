@@ -1,7 +1,6 @@
 
 import fs from 'fs'
 import YAML from 'yaml'
-import pretty from 'pretty'
 
 export const spellNameToUnderscore = name => name.split(' ').join('_')
 export const newLinesToBR = text => text.split('\n').join('<br>')

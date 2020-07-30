@@ -6,8 +6,6 @@ export let websiteRootPath = "..\\Website\\"
  *      For each type, there is a specific mapping and way to be parsed.
  */
 
-let fileTypes = ['race', 'class']
-
 export let files = {
     'Classes\\Cleric.yml': 'class',
     'Classes\\Druid.yml': 'class',
@@ -21,6 +19,7 @@ export let files = {
 
     'Races\\Bertle.yml': 'race',
     'Races\\Dragonborn.yml': 'race',
+    'Races\\Dwarf.yml': 'race',
     'Races\\Elf.yml': 'race',
     'Races\\Gnome.yml': 'race',
     'Races\\Hollow.yml': 'race',
@@ -28,12 +27,6 @@ export let files = {
     'Races\\Orc.yml': 'race',
 
     'Weapons.yml': 'weapons',
-    'Armors.yml': 'armors'
-}
-
-export let outputFileStructure = {
-    'class':    '',     // 'website-path' + '' + '\Cleric.html'
-    'race':     '',
-    'weapons':  '',
-    'armors':   ''
+    'Armors.yml': 'armors',
+    'Prices.yml': 'shop'
 }

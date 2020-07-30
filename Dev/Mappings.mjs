@@ -65,7 +65,6 @@ export let specMapping = {
 export let classMapping = {
     'Class':        string,
     'Description':  string,
-
     'Options': {
         'When creating your character': {
             'Choose 2': [string],

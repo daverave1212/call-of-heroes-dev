@@ -587,6 +587,260 @@ let Abilities = {
     "Effect": "Choose any weapon you have and make it Precise.\nThe weapon's scaling becomes +3/+6 (1-Handed/2-Handed) instead of scaling with a Stat.\nThe wielder of the weapon is also immune to Cripple.\n",
     "Notes": "Making another weapon Precise makes the previous back to how it was.\nRequires to be at a forge.\n",
     "isTalent": true
+  },
+  "Herbivore": {
+    "A": "Passive",
+    "Effect": "You can not eat meat.\nIf you do, you take take 1d12 Poison damage and have Disadvantage on all rolls for 1 hour.\nYou have 0 Defense against Poison attacks.\n"
+  },
+  "Fleet Footed": {
+    "A": "Passive",
+    "Effect": "You are immune to Slows (not counting Hard Terrain).",
+    "isTalent": true
+  },
+  "Nimbleness": {
+    "A": "Passive",
+    "Effect": "You can move through the spaces of enemy units (in normal conditions).",
+    "isTalent": true
+  },
+  "Darkvision": {
+    "A": "Passive",
+    "Effect": "You can see up to 12 meters away in darkness, without discerning colors.",
+    "isTalent": true
+  },
+  "Cutting Teeth": {
+    "A": "Passive",
+    "Effect": "Your teeth act as natural daggers which can pierce through some materials:\nYou are able to cut rope, flesh, wood, etc (but not concrete, metal, etc).\nAttacking with your teeth takes 0.5 Action, adds Dexterity modifier and deals 1d8 + 1 Piercing damage.\nYou can only bite once per turn.\n",
+    "isTalent": true
+  },
+  "Sprightly Shaped": {
+    "A": "Passive",
+    "Effect": "Your fur is sleek, and your feet swift.\nYou gain +1 meter movement speed.\nYou have +5 on swimming rolls.\n"
+  },
+  "Eyes and Ears": {
+    "A": "Passive",
+    "Effect": "You gain +5 Initiative.\nYou gain +2 Perception.\nYou know the Hide maneuver permanently.\n"
+  },
+  "Protruded Claws": {
+    "A": "Passive",
+    "Effect": "You gain +5 on climbing rolls.\nYou become Trained in Unarmed (if you aren't already) and can do Unarmed attacks with any Stat instead of Dexterity/Fortitude.\nUnarmed attacks can do Piercing damage (if you choose so).\n"
+  },
+  "Draconic Ancestry": {
+    "A": "Special",
+    "Effect": "When creating your character, choose your Dragonborn type:\nBlack\t- Acid\nBlue - Cold\nBrass\t- Fire\nBronze - Thunder\nGold - Fire\nRed - Fire\nSilver - Force\nGray - Necrotic\nWhite\t- Cold\nGreen\t- Poison\nThat becomes your Dragonborn Element.\n"
+  },
+  "Dragonborn Resistance": {
+    "A": "Passive",
+    "Effect": "You have 50% resistance to damage of your Dragonborn Element type."
+  },
+  "Dragon's Breath": {
+    "A": "1 Action",
+    "Cooldown": "Long Rest",
+    "Effect": "Breathe your Dragonborn Element in a 3x1 meter line.\nMake an attack against all creatures caught in your breath.\nThe attack deals 2d8 damage of your Dragonborn Element (against their Defense).\n"
+  },
+  "Breath - Cone": {
+    "A": "Special",
+    "Effect": "Your Dragon's Breath now breathes in a 3 meter, 45* cone instead of a line.",
+    "isTalent": true
+  },
+  "Breath - Line": {
+    "A": "Special",
+    "Effect": "Your Dragon's Breath now breathes in a 4x2 meter line.",
+    "isTalent": true
+  },
+  "Breath - Blast": {
+    "A": "Special",
+    "Effect": "Your Dragon's Breath now breathes on all creatures around you instead of a line.",
+    "isTalent": true
+  },
+  "Breath Master": {
+    "A": "Passive",
+    "Effect": "Your Dragon's Breath does not affect allies and it's Damage is increased by 2 (2d8 + 2)."
+  },
+  "Double Breath": {
+    "A": "Passive",
+    "Effect": "You can now use Dragon's Breath twice per Long Rest."
+  },
+  "Flaming Jaws": {
+    "A": "0.5 Action",
+    "Cooldown": "Long Rest",
+    "Effect": "Leap at a target up to 4 meters away from you ignoring attacks of oportunity. The target takes 3 damage (of your Dragonborn Type) and you are healed for 3 health."
+  },
+  "Dwarf Resting": {
+    "A": "Passive",
+    "Effect": "You need 12 hours of sleep instead of 8 per day to function normally.\nYour movement speed can't be reduced below 5 meters.\n",
+    "Notes": "Hard Terrain still takes 2 meters of movement for 1 meter of Hard Terrain."
+  },
+  "Dwarven Resilience": {
+    "A": "Reaction",
+    "Effect": "Reroll a save roll.\nYou can do this once per Long Rest.\n"
+  },
+  "Stone-like Bones": {
+    "A": "Passive",
+    "Effect": "Your bones are tough as rock.\nYou take half as much damage from falling and from traps which deal physical damage.\nYou also get +1 on Fortitude saves.\n",
+    "isTalent": true
+  },
+  "Runesmith": {
+    "A": "Passive",
+    "Effect": "You permanently know 1 spell from the Amateur Spell List.\nYou can identify what language most texts are written in by analyzing them.\nYour Arcana skill increases by 1.\n",
+    "isTalent": true
+  },
+  "Resilient Ancestry": {
+    "A": "Passive",
+    "Effect": "Your Extra Health Pool increases by 10.\nWhen rerolling a save with Dwarven Resilience, add +3 to the roll.\n"
+  },
+  "Adapted Resting": {
+    "A": "Passive",
+    "Effect": "You gain +5 maximum Health.\nYou now only need to sleep 8 hours per day.\n"
+  },
+  "Skill of Trade": {
+    "A": "Reaction",
+    "Effect": "Your Charisma increases by 1 (up to a maximum of 3).\nYou can get free shelter and food in inns and taverns (if you would normally be able to pay for them).\nYou gain an extra +5 to Investigation rolls when checking stone walls, doors, statues, etc.\n"
+  },
+  "The Blade Dance": {
+    "A": "Passive",
+    "Effect": "When you land the killing strike on a Worthy Enemy, you reset your movement this turn and don't provoke attacks of oportunity this turn."
+  },
+  "Meditation": {
+    "A": "4 Hours",
+    "Effect": "Instead of sleeping for 8 hours, you can meditate for 4 hours and achieve the same result.\nWhile meditating, all checks you perform are done at -5.\t\n",
+    "isTalent": true
+  },
+  "Arcane Veins": {
+    "A": "Passive",
+    "Effect": "You permanently know 2 spells from the Amateur Spell List.",
+    "isTalent": true
+  },
+  "Mana Tap": {
+    "A": "0 Actions",
+    "Range": "3 meters",
+    "Cooldown": "Long Rest",
+    "Cost": "1 Charge",
+    "Effect": "Try to Silence a nearby enemy (Intelligence save)."
+  },
+  "Natual Swiftness": {
+    "A": "0 Actions",
+    "Effect": "Gain +4 Movement this turn and you avoid Attacks of Oportunity.\nYou can use this once per Long Rest.\n"
+  },
+  "Landsperson": {
+    "A": "Special",
+    "Effect": "Choose any land specialty ability from Coven of the Land Druid specialization and learn it permanently."
+  },
+  "Inherited Tastes": {
+    "A": "Passive",
+    "Effect": "You don't have a sense of taste, but your eyes perceive colors sharper than other races."
+  },
+  "Lucky": {
+    "A": "Reaction",
+    "Cooldown": "Long Rest",
+    "Effect": "After a creature within 30 meters of you makes a d20 roll, you can add or subtract your Luck Skill from that roll."
+  },
+  "Catch Me If You Can": {
+    "A": "0 Actions",
+    "Effect": "This turn you don't trigger attacks of oportunity.\nYou can do this once per Long Rest.\nAlso, passively, your movement speed increases by 1 meter.\n",
+    "isTalent": true
+  },
+  "Oh, My Tongue!": {
+    "A": "Passive",
+    "Effect": "You now have a sense of taste. Congratulations!\nYou can detect whether something is poisonous by licking it without being affected by that poison.\nYou have 50% resistance to Acid and Poison.\n",
+    "isTalent": true
+  },
+  "Quick to Act": {
+    "A": "Passive",
+    "Effect": "You gain maximum Initiative every encounter."
+  },
+  "Luckier": {
+    "A": "Passive",
+    "Effect": "You can use Lucky twice per Long Rest."
+  },
+  "Environmentalist": {
+    "A": "Passive",
+    "Effect": "You can move normally through Hard Terrain.\nYou permanently learn 2 Spells from the Druid Spell List.\n"
+  },
+  "Undeath": {
+    "A": "Passive",
+    "Effect": "You have Advantage to rolls against Diseases.\nYou have 50% vulnerability to Fire damage and to attacks done with silver weapons.\nYou do not require food to survive, but you do require 8 hours of sleep per day, water and air.\nYou are considered Undead.\n"
+  },
+  "Valiant": {
+    "A": "Passive",
+    "Cooldown": "Long Rest",
+    "Effect": "When you drop to 0 Health, you can still take your next turn without penalty.\nAfter your next turn, you fall unconscious.\nYou also fall unconscious in that time if you take damage again.\n"
+  },
+  "Sense Souls": {
+    "A": "0 Actions",
+    "Cooldown": "Long Rest",
+    "Effect": "You know the locations of any living creatures within 15 meters that are not obstructed by thick materials.\n",
+    "Notes": "The more obstructed the space between you and living creatures is, the fainter you feel it. 1 meter of obstruction completely hides the creatures.",
+    "isTalent": true
+  },
+  "Beating Heart": {
+    "A": "Passive",
+    "Effect": "You slow down the decaying of your body and increase your life span by up to 100 years.\nYou can stay unconscious for up to 1 week before dying.\nYour maximum health also increases by 3.\n",
+    "isTalent": true
+  },
+  "Out of Body Release": {
+    "A": "0 Actions",
+    "Cooldown": "Long Rest",
+    "Effect": "Your soul temporarily exits your body, leaving your body motionless to the ground.\nWhile outside your body, the soul can't do anything except perceive.\nYou can return to your body for 0 Actions on your turn.\nWhile outside your body, you have +3 on Perception, Stealth and Luck.\nIf more than 1 minute outside the body passes, your soul instantly re-enters the body.\n"
+  },
+  "Kindled": {
+    "A": "Passive",
+    "Effect": "You are no longer vulnerable to Fire damage.\nAfter every worthy encounter, if your health is below 25% and you are conscious, heal back to 25% Health.\n"
+  },
+  "Painless Revenge": {
+    "A": "0 Actions",
+    "Cooldown": "Long Rest",
+    "Effect": "Choose an enemy near you.\nThat enemy performs an attack on you.\nIf you survive the attack, you gain 1 Action which you can use to attack or cast spells on that enemy.\n"
+  },
+  "Human Vigilence": {
+    "A": "Passive",
+    "Effect": "Whenever you make a Skill Check, instead of rolling, you can automatically have 7 + your skill modifiers for that check."
+  },
+  "Human Diversity": {
+    "A": "Special",
+    "Effect": "Choose any other race.\nGain the first talent (left-most, first row, aka Level 1 Race Talent) from that race.\n",
+    "Downside": "You can't pick the Dragonborn Talent.",
+    "isTalent": true
+  },
+  "Master of the World": {
+    "A": "Passive",
+    "Effect": "Increase any stat by 1 (up to +3)."
+  },
+  "Boiling Blood": {
+    "A": "0 Actions",
+    "Cooldown": "Long Rest",
+    "Effect": "Lose half of your current health.\nIncrease the original damage of your next attack by 50%.\n",
+    "Notes": "Extra abilities over that attack are not increased."
+  },
+  "Battle Anguish": {
+    "A": "Negative Passive",
+    "Effect": "Whevener you drop to 0 Health, your maximum Health permanently decreases by 1."
+  },
+  "Fierceness": {
+    "A": "Passive",
+    "Effect": "You can use any weapon with Fortitude (instead of Dexterity, in some cases).",
+    "isTalent": true
+  },
+  "Adaptability": {
+    "A": "Passive",
+    "Effect": "You can have your Fortitude as your Main Stat, even if your class says otherwise.",
+    "isTalent": true
+  },
+  "Beast Rider": {
+    "A": "Passive",
+    "Effect": "You are trained in Riding and Exotic Riding (you can ride exotic mounts, such as wolves).\nYou also have such an exotic mount of your choice, if the DM accepts it.\nYou gain +2 in Animal Handling.\n",
+    "Notes": "This mount is a non-combat pet. It does not participate in combat.",
+    "isTalent": true
+  },
+  "Bloodthirst": {
+    "A": "0 Actions",
+    "Cost": "1 Charge",
+    "Cooldown": "Long Rest",
+    "Effect": "Gain 0.5 Actions this turn."
+  },
+  "Savage Attacks": {
+    "A": "0 Actions",
+    "Cooldown": "Long Rest",
+    "Effect": "Use after you land an attack.\nRoll and add one other damage die from the attacks' damage dice to the damage roll.\n"
   }
 }
 

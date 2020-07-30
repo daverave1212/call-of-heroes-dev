@@ -2,6 +2,7 @@
 // This script also exists in website/JS
 // Make sure you update it there as well
 import * as Symbols from './Symbols.mjs'
+import { dashCase, removeSpellTildes } from './../utils.mjs'
 
 export let head = title =>
 `
@@ -57,11 +58,30 @@ export let navigation = () =>
                 </li>
 
                 <li class="nav-item active">
-                    <a class="nav-link custom-font" href="#">Home <span class="sr-only">(current)</span></a>
+                    <div class="dropdown">
+                        <a class="nav-link custom-font dropbtn" href="#">Races</a>
+                        <div class="dropdown-content">
+                            <a href="Bertle.html">Bertle</a>
+                            <a href="Dragonborn.html">Dragonborn</a>
+                            <a href="Dwarf.html">Dwarf</a>
+                            <a href="Elf.html">Elf</a>
+                            <a href="Gnome.html">Gnome</a>
+                            <a href="Hollow.html">Hollow</a>
+                            <a href="Human.html">Human</a>
+                            <a href="Orc.html">Orc</a>
+                        </div>
+                    </div>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                <li class="nav-item active">
+                    <div class="dropdown">
+                        <a class="nav-link custom-font dropbtn" href="#">Items</a>
+                        <div class="dropdown-content">
+                            <a href="Shop.html">Shop</a>
+                            <a href="Armors.html">Armors</a>
+                            <a href="Weapons.html">Weapons</a>
+                        </div>
+                    </div>
                 </li>
 
                 <li class="nav-item">
@@ -97,4 +117,90 @@ export let spell = ({name, isTalent=false, A, Cost, Range, Cooldown, Duration, E
             </div>
         </div>
     `
+}
+
+export let weapon = ({name, Stat, Hands, Special, Damage, Effect, Alternatives, Downsides, Notes}) => {
+    return `
+        <div class="spell">
+            <div class="spell-left">
+                <img src="Images/Icons/Weapons/${name.split(' ').join('_')}.png">
+            </div>
+            <div class="spell-right">
+                <h3 class="spell-name">${name}</h3>
+                <br>
+                <p>
+                    ${Damage} ${Symbols.damage}damage
+                </p>
+                <br>
+                ${
+                    Effect == null? '': `<p class="spell-green">${Effect}</p><br>`
+                }
+                ${
+                    Downsides == null? '': `<p class="spell-red">${Downsides}</p><br>`
+                }
+                <p class="spell-small">
+                    <span>${Symbols.special}</span>
+                    <span>${Hands}${Special == null? '': ', ' + Special}</span>
+                </p>
+                <p class="spell-small">
+                    <span>${Symbols.hand}</span>
+                    <span>${Stat}</span>
+                </p>
+                ${
+                    Alternatives == null? '': `<p class="spell-extra">Alternatives: ${Alternatives}</p>`
+                }
+                ${
+                    Notes == null? '': `<p class="spell-extra">${Notes}</p>`
+                }
+            </div>
+        </div>
+    `
+}
+
+export const armor = data => {
+    let ArmorBonus = data['Armor Bonus']
+    let { name, Effect, Downside, Description } = data
+    return `
+    <div class="spell">
+        <div class="spell-left">
+            <img src="Images/Icons/Armors/${name.split(' ').join('_')}.png">
+        </div>
+        <div class="spell-right">
+            <h3 class="spell-name">${name}</h3>
+            <br>
+            <p>
+                +${ArmorBonus} ${Symbols.defense}Defense
+            </p>
+            <br>
+            ${
+                Effect == null? '': `<p class="spell-green">${Effect}</p><br>`
+            }
+            ${
+                Downside == null? '': `<p class="spell-red">${Downside}</p><br>`
+            }
+            ${
+                Description == null? '': `<p class="spell-extra">${Description}</p>`
+            }
+        </div>
+    </div>
+`
+}
+
+
+export const paragraphs = text => text.split('\n').map(t => `<p>${t}</p>`).join('\n')
+export const ul = (strings, cls) => `<ul ${cls == null? '' : 'class="' + cls + '"'}>\n` + strings.map(str => `<li>${str}</li>`).join('\n') + '\n</ul>'
+export const skills = Skills =>  '<ul>\n' + Object.keys(Skills).map(skill => `<li>${Skills[skill]} ${skill}</li>`).join('\n') + '\n</ul>'
+
+export const abilities = abilitiesObject => {
+    if (abilitiesObject == null || abilitiesObject.length == 0) return ''
+    let names = Object.keys(abilitiesObject)
+    let abilities = names.map(name => ({name, ...abilitiesObject[name]}))
+    for (let ab of abilities) ab.name = removeSpellTildes(ab.name)
+    return abilities.map(ability => spell(ability)).join('\n')
+}
+export const talents = talentsObject => {
+    for (let key of Object.keys(talentsObject)) {
+        talentsObject[key].isTalent = true
+    }
+    return abilities(talentsObject)
 }
