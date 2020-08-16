@@ -49,7 +49,7 @@ ${Components.head(file.Race)}
 
     ${Components.navigation()}
 
-    <div id="Page-Body-Wrapper" style="background-image: url('Images/DefaultBackground.png');">
+    <div id="Page-Body-Wrapper" style="background-image: url('Images/DefaultBackground.jpg');">
         <div id="Page-Body">
             ${sidebar(file)}
             <div id="Page-Content">
@@ -80,7 +80,7 @@ ${Components.head(file.Race)}
                     file.Options['When creating your character']['Saves'] == null? '' : `
                         <br>
                         <p>As a ${file.Race}, you have the following:</p>
-                        ${Components.ul(file.Options['When creating your character'].Saves)}
+                        ${Components.ul(file.Options['When creating your character'].Saves.map(save => save + ' Save'))}
                     `
                 }
 
@@ -96,7 +96,7 @@ ${Components.head(file.Race)}
 
                 <p><b>Your <img class="text-symbol" src="Images/Icons/UI/Speed.png" alt="/">Speed is ${file.Stats['Movement']} meters.</b></p>
                 <p><b>Your starting ${Symbols.heart}Health is ${file.Stats['Base Health']}.</b></p>
-                <span class="spell-extra">Your total Health will be Class Health + ${file.Stats['Base Health']} + 2 * Fortitude + (5 for each level after Level 1).</span>
+                <span class="spell-extra">Your total Health will be Class Health + ${file.Stats['Base Health']} + 2 * Fortitude + (5 for each level after Level 0).</span>
                 
                 <br>
                 <br>
@@ -104,8 +104,9 @@ ${Components.head(file.Race)}
 
                 <h3><img class="page-icon" src="Images/Icons/UI/CharacterSetupSub.png" alt="/">Other Things</h3>
                 <hr class="hr-half">
+                ${file.Stats.Languages == null? '': `<p>By default, you speak ${file.Stats.Languages}</p>`}
                 ${file.Language == null? '' : `<p>${file.Language}</p>`}
-                <p>People of your kind live for ${file.Stats.Lifespan} and their size is ${file.Stats.Size}</p>
+                <p>People of your kind live for ${file.Stats.Lifespan} and their size is ${file.Stats.Size == null? 'medium' : file.Stats.Size}</p>
                 <p>${file.Other == null? '' : '<br>' + file.Other}</p>
                 <br>
 
@@ -119,12 +120,13 @@ ${Components.head(file.Race)}
                 <br>
                 <br>
         
+                <p>When creating your character, choose one of the following abilities and gain it permanently:</p>
+                <br>
+                ${Components.abilities(file.Talents['Level 0'])}
+
                 <h2><img class="page-icon" src="Images/Icons/UI/Specializations.png" alt="/">Talents</h2>
                 <hr>
-
-                <p>At Level 2, choose one of the following abilities and gain it permanently:</p>
-                <br>
-                ${Components.talents(file.Talents['Level 1'])}
+                To be added!
 
             </div> <!-- Page-Content -->
         </div> <!-- Page-Body -->

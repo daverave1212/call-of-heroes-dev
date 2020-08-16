@@ -2,7 +2,6 @@
 
 import * as Components from './../Insertables/Components.mjs'
 
-
 const sidebar = () =>
 `
 <div id="Sidebar-Nav-Wrapper">
@@ -42,32 +41,55 @@ const sidebar = () =>
 </div>
 `
 
-const generateWeapons = file =>
+const generateBackgrounds = file =>
 `
-${Components.head('Weapons')}
+${Components.head('Backgrounds')}
 <body>
 
     ${Components.navigation()}
 
-    <div id="Page-Body-Wrapper" style="background-image: url('Images/Weapons.jpg');">
+    <div id="Page-Body-Wrapper" style="background-image: url('Images/Backgrounds.png');">
         <div id="Page-Body">
             ${sidebar(file)}
             <div id="Page-Content">
 
-                <h1><img class="page-icon" src="Images/Icons/UI/Special.png" alt="/">Weapons</h1>
+                <h1><img class="page-icon" src="Images/Icons/UI/Backpack.png" alt="/">Backgrounds</h1>
                 <hr>
 
                 ${
                     Object.keys(file)
-                        .map(weaponName => ({name: weaponName, ...file[weaponName]}))
-                        .map(weapon => Components.weapon(weapon))
+                        .map(backgroundName => ({name: backgroundName, ...file[backgroundName]}))
+                        .map(bg => `
+                            <h2><img class="page-icon" src="Images/Icons/Backgrounds/${bg.name.split(' ').join('_')}.png" alt="/">${bg.name} - ${bg.Title}</h2>
+                            <hr>
+                            ${Components.paragraphs(bg.Description)}
+                            
+                            <br>
+                            <h3>Benefits</h3>
+                            <hr class="hr-half">
+                            ${Components.paragraphs(bg.Effect)}
+                            <br>
+                            <p>You start with ${bg.Money}<img class="text-symbol" src="Images/Icons/UI/Gold.png"></p>
+
+                            <br>
+                            <h3>Skills, Training and Language</h3>
+                            <hr class="hr-half">
+                            <ul>
+                                ${bg['Skill Points'] ? '<li>You have ' + bg['Skill Points'] + ' extra Skill Points to spend.</li>': ''}
+                                ${bg.Skills ? '<li>' + bg.Skills + '</li>' : ''}
+                                ${bg.Training ? '<li>' + bg.Training + '</li>' : ''}
+                                ${bg.Language ? '<li>' + bg.Language + '</li>' : ''}   
+                            </ul>
+                                          
+                        `)
                         .join('\n<br>\n')
                 }
 
             </div> <!-- Page-Content -->
         </div> <!-- Page-Body -->
     </div>
+
 </body>
 `
 
-export default generateWeapons
+export default generateBackgrounds

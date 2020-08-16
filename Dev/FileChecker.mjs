@@ -121,6 +121,27 @@ function checkFile(path, type) {
             for (let armorName of Object.keys(object))
                 checkObjectByMapping(object[armorName], Mappings.armorMapping)
             break
+        case 'abilities':
+            checkObjectByMapping(object, Mappings.abilitiesMapping)
+            break
+        case 'backgrounds':
+            for (let backgroundName of Object.keys(object))
+                checkObjectByMapping(object[backgroundName], Mappings.backgroundMapping)
+            break
+        case 'shop':
+        case 'skill points':
+        case 'crowd control':
+        case 'amateur spells':
+        case 'inventory':
+        case 'languages':
+            console.log('Skipping ' + type)
+            break
+        case 'monsters':
+            for (let monsterName of Object.keys(object)) {
+                if (monsterName == 'Ideas') continue
+                checkObjectByMapping(object[monsterName], Mappings.monsterMapping)
+            }
+            break
         default:
             console.log(`Error: Unknown file type mapping given ${type}`)
     }

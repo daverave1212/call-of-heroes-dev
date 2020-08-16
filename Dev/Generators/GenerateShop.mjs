@@ -37,7 +37,7 @@ ${Components.head('Shop')}
 <body>
     
     ${Components.navigation()}
-    <div id="Page-Body-Wrapper" style="background-image: url('Images/DefaultBackground.png');">
+    <div id="Page-Body-Wrapper" style="background-image: url('Images/Shop.jpg');">
         <div id="Page-Body">
             <div id="Page-Content">
                 <h1><img class="page-icon" src="Images/Icons/UI/Gold.png" alt="/">Shop</h1>

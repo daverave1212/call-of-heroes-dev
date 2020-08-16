@@ -31,13 +31,4 @@ export let files = {
     'Prices.yml': 'shop',
     'Abilities.yml': 'abilities',
     'Backgrounds.yml': 'backgrounds',
-    'Animals.yml': 'animals',
-
-    'Monsters.yml': 'monsters',
-
-    'Rules\\Amateur Spells.yml': 'amateur spells',
-    'Rules\\Crowd Control.yml': 'crowd control',
-    'Rules\\Inventory.yml': 'inventory',
-    'Rules\\Languages.yml': 'languages',
-    'Rules\\Skill Points.yml': 'skill points',
 }

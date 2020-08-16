@@ -1,0 +1,1593 @@
+let Abilities = {
+  "Awe": {
+    "A": "0 Actions",
+    "Range": "3 meters",
+    "Effect": "Instantly heal or damage a target for 1d4.\nYou can do this once per Long Rest.\nSome other Cleric spells will cast Awe for free.\n"
+  },
+  "Eternal Bindings": {
+    "A": "0 Actions or Reaction",
+    "Cost": "1 Charge",
+    "Effect": "A creature within 3 meters makes a Wisdom save.\nIf it fails, cast Awe on it.\nIt becomes magically bound to an object within 3 meters of it and can't willingly move more than 3 meters away from that object.\nIt rolls the save again at the start each of their turn to escape the binding.\nLasts up to 1 minute.\n",
+    "isTalent": true
+  },
+  "Heavy Burden": {
+    "A": "0 Actions",
+    "Cost": "1 Charge.",
+    "Effect": "A creature within 3 meters makes a Wisdom save.\nIf it fails, cast Awe on it and it is Crippled.\n",
+    "isTalent": true
+  },
+  "Repentance": {
+    "A": "0.5 Actions",
+    "Cost": "50% of your maximum health",
+    "Range": "1 meter (touch)",
+    "Cooldown": "Long Rest",
+    "Effect": "Restore 50% of an ally's maximum health.",
+    "isTalent": true
+  },
+  "Let There Be Light": {
+    "A": "Passive",
+    "Effect": "Grasp now casts Awe 2 times instead of 1.\nYou can also split your Grasp to target 2 targets (1 Awe each).\n",
+    "isTalent": true
+  },
+  "Let There Be Darkness": {
+    "A": "0.5 Actions",
+    "Cost": "1 Charge",
+    "Range": "6 meters to margin",
+    "Effect": "You create a 4x4 meter area of magical partial darkness.\nFor all units there (except you) it counts as difficult terrain.\nAll attacks done from and towards units in the area have Partial Cover.\n",
+    "isTalent": true
+  },
+  "Divine Message": {
+    "A": "10 minutes",
+    "Cost": "1 Charge",
+    "Cooldown": "24 Hours (in game)",
+    "Effect": "You pray for 10 minutes to get an answer to a question from your god(s).\nSet a real life timer of 10 minutes (time in which you can do anything out of the game).\nWhen the timer expires, you can ask the DM one question consisting of maximum 3 words (e.g. 'Is sword cursed?').\nThe answer you will get will consist of maximum 3 words.\nThe DM can choose not to answer, to answer falsely or say something completely different. The gods' wills are unknowable.\n",
+    "isTalent": true
+  },
+  "Disembodiment": {
+    "A": "2 hours",
+    "Requirement": "True Necromancy",
+    "Effect": "You are able to ever improve your minion by mix and matching parts from other corpses.\nEvery time you use this ability, you must consume a fresh corpse from a Worthy enemy (maximum 2 hours after death) and you irreversably sacrifice something.\nEach of these effects has a limited number of uses\n- +1 Maximum Health, but your highest Skill decreases by 2 (5 uses)\n- +1 Defense for either you or your minion, but -2 maximum number of prepared spells (2 uses)\n- +1 Spell DC, but -1 to all Saves (1 use)\n- +2 uses of Awe per Long Rest, but -1 maximum Charge (1 use)\n",
+    "isTalent": true
+  },
+  "Druidcraft": {
+    "A": "Depends",
+    "Effect": "You can create harmless sensory effects or tiny weather effects (6 meters range).\nYou can massively speed up the growth of small plants (touch range).\nYou can slightly soothe physical pains (with no combat effect) (touch range).\nYou can attempt to communicate simple ideas with animals and plants (3 meters range).\nYou have +3 on rolls for identifying plants.\nYou can do these even while Shapeshifted.\n"
+  },
+  "Animal Attack": {
+    "A": "1 Action",
+    "Effect": "Make a melee attack against a creature for 2d8 + Animal's Strength or Dexterity.\n"
+  },
+  "Shapeshift": {
+    "A": "1 Action",
+    "Cost": "1 Charge",
+    "Effect": "Pick an animal from the Animal Pets and Shapeshift Animals list and instantly transform into it.\nYou gain that animal's Fortitude and Dexterity saves.\nApply any other modifiers (except for base Stats) from that animal.\nYou also gain its exact abilities.\nWhile Shapeshifted, you can do Animal Attack.\nWhile Shapeshifted, you can do any maneuvers you know. You can't cast spells.\nWhen you Shapeshift, your Health stays the same, unless the animal states it has a bonus/minus to Health.\nWhen Shapeshift ends, subtract back whatever health you added, or add back whatever health you subtracted.\nWhen you end Shapeshift, if your health would be 0 or less, it stays at 1.\nShapeshift ends if you drop to 0 Health, and you go Unconscious.\nAt first, you can't choose innately swimming or flying animals.\nFrom level 4, you can transform into innately swimming animals.\nFrom level 8, you can transform into innately flying animals.\n",
+    "Notes": "You can't make attacks with ranged weapons while Shapeshifted (obviously).\nYou choose what items you keep on you when Shapeshifting, and those items are 'merged' into your new form.\nYou can turn back into your humanoid form for 0 Actions (on your turn).\n"
+  },
+  "Old Ritualist": {
+    "A": "10 minutes",
+    "Cooldown": "Long Rest",
+    "Effect": "Gain 1 Charge.\nThe Old Ritual must be performed outdoors, in a safe, uncorrupted place untouched by regular folk.\n",
+    "Downside": "You permanently lose the Shapeshift ability, and you can never choose Talents that improve Shapeshift.",
+    "isTalent": true
+  },
+  "Lycanthropy": {
+    "A": "Passive",
+    "Effect": "During the night (24:00 to 6:00) you can Shapeshift into a Lycanthrope (see Lycanthrope form).\nA Lycanthrope is a \n",
+    "isTalent": true
+  },
+  "Animal Companion": {
+    "A": "Passive",
+    "Effect": "You have an animal pet that can fight alongside you!\nYour animal has stats depending on its species.\nBy default, apply the following stats to your pet (these will get modified by your pet's species):\n- Health: Half of yours\n- Movement: 6 meters\nYour pet takes its turn at the same time as you do, and always has the same initiative as yours.\nYour pet can make normal Skill Checks using your Skill bonuses, or its own, using its special Stats.\nYour pet will not stray more than 30 meters away from you in hostile territory.\nOn your turn, you can command it to move, but it can't take its own Actions.\nYou and your pet share the same Actions on a turn.\n(ex: If you have 1 Action, your pet can use 0.5 Actions to attack and you can use 0.5 Actions to attack too, or your pet spends 1 Action and you skip your Actions, etc.)\nAll pets have the Pet Attack ability:\n<Pet Attack> : 0.5 Actions\nThe pet melee attacks a target.\nThe attack has + your Main Stat.\nThe attack deals 1d6 + your Main Stat - 1 (can't be lower than 1d6 - 1).\nYou can do this once per turn.\nSome abilities may say 'Perform a Pet Attack'. In that case, ignore the once-per-turn.\n",
+    "isTalent": true
+  },
+  "Forest Friend": {
+    "A": "Passive",
+    "Effect": "You have a Pixie companion, a very small humanoid with wings.\nThe Pixie has 20 Armor and always stays with you.\nIf the Pixie goes more than 10 meters away from you, it becomes unsummoned (you can summon it back with a 5 minute ritual).\nYou can command the Pixie simple instructions for 0 Actions, like 'go there' or 'pick up that object'.\nThe Pixie has Charisma, Wisdom and Intelligence equal to yours, but its Dexterity is 0 and its Strength is -10.\nDecide with your DM whether you or the DM controls the Pixie roleplay-wise.\nHave fun!        \n",
+    "isTalent": true
+  },
+  "Treesposition": {
+    "A": "Passive",
+    "Effect": "Touch a large or larger piece of wood and choose one of the following:\n1. Teleport near another large or larger piece of wood within 6 meters.\n2. Partially enter the piece of wood, becoming camouflaged. You have +5 Stealth until you exit back to your normal space.\nYou can stay like that for up to 1 hour.\nYou can do this once per day for free, or for 1 Charge.\nYou benefit from Cover while inside a tree.\n",
+    "isTalent": true
+  },
+  "Copy Cat": {
+    "A": "Passive",
+    "Effect": "You can now use Shapeshift to also transform into other people.\nWhen you want to do this, roll a Deception check.\nThis check determines how close you get to the form of that person (20 or more means a perfect copy).\nThis copy just mimicks the body of the person, not the voice or personality or clothes.\nYour Fortitude and Dexterity also change to that person's stats, but not your Health, Armor, Charges, etc.\nYour Fortitude and Dexterity skill bonuses and Saves change to exactly equal to your new stats.\nYour Intelligence, Wisdom and Charisma skill bonuses, Stats and Saves stay the same as your normal ones.\nThis shapeshift ends if you get Crowd Controlled (other than Slow).\nYou can only copy a person once per day.\n",
+    "isTalent": true
+  },
+  "Stone of Summoning": {
+    "A": "Special",
+    "Effect": "You take a pilgrimage of 7 days alone outdoors, in a safe, uncorrupted place untouched by regular folk.\nAfter this time, you transform a piece of natural rock into a summoning portal, by aligning it, other natural elements around it and decorating it according to the stars.\nChoose an ally within 100 kilometers of the stone. That ally will know when you are trying to summon them.\nBy you spending 3 Charges, you and a willing ally can spend 1 Hour summoning that willing ally to the location of the stone if that ally is within 100 kilometers of the stone.\nYou can summon an ally once a week.\nYou can take a new pilgrimage once a year.\n",
+    "Notes": "For an ally to be summoned, it must have a clear state of mind and it must focus together with the caster for 1 hour.",
+    "isTalent": true
+  },
+  "Innervate": {
+    "A": "0.5 Actions",
+    "Cost": "1 Charge",
+    "Range": "6 meters",
+    "Effect": "Heal an ally for 3 Health and it regains 1 Charge.\n",
+    "Downside": "Can not be cast on other Druids.",
+    "isTalent": true
+  },
+  "Slay": {
+    "A": "0 Actions",
+    "Cost": "1 Charge",
+    "Effect": "Your next attack has the following effect:\nIf the target has 50% of less Health, deal 1d12 extra damage.\nIf it has more, try to Snare it (Wisdom save).\n"
+  },
+  "Tumble": {
+    "A": "0 Actions",
+    "Cooldown": "Long Rest",
+    "Effect": "Move 1 meter in any direction, without triggering attacks of oportunity."
+  },
+  "Wicked Slayer": {
+    "A": "Passive",
+    "Effect": "Your weapon attacks and thrown spells against Monstrosities, Celestials and Unholy creatures have +1.\nYour attacks are always treated as Magical or Silver for the purpose of some effects.\n"
+  },
+  "Mage Slayer": {
+    "A": "Reaction",
+    "Cost": "1 Charge",
+    "Effect": "Use when an enemy casts a spell.\nTry to Silence it and prevent that spell (Wisdom save).\n"
+  },
+  "Giant Slayer": {
+    "A": "Passive",
+    "Effect": "Weapon attacks and thrown spells deal +1 damage against Large or larger targets.\nEnemies don't gain flanking bonus when attacking you.\n"
+  },
+  "Manking Slayer": {
+    "A": "Passive",
+    "Effect": "Against Humanoids, Slay both deals the extra damage and tries to Snare it, no matter the health."
+  },
+  "Flare Shot": {
+    "A": "Reaction or 0 Actions",
+    "Cost": "1 Charge",
+    "Range": "15 meters",
+    "Effect": "Quickly shoot a flare at a target point.\nThe area around the flare lights up in a 6 meter radius, creating normal light.\nWhen cast, all allies in the area are cleared of Stun, Fear or Cripple.\nAllies in the area have Advantage on rolls against Fear.\nThe flare lasts 1 minute.\n",
+    "isTalent": true
+  },
+  "Night Senses": {
+    "A": "0 Actions",
+    "Cost": "1 Charge",
+    "Effect": "For 1 Hour, you gain the following:\nYour party has Dark Vision (15 meter range).\nYour party has Advantage on rolls against Blinding.\nYour party has +2 meter movement speed.\n",
+    "isTalent": true
+  },
+  "Watcher Form": {
+    "A": "1 Action",
+    "Cost": "1 Charge",
+    "Cooldown": "Long Rest",
+    "Effect": "You take on a special form, called a Watcher Form.\nYour body becomes engulfed in a magical aura (you choose its color), your eyes glow, and you can gain other aesthetics-only body transformations (customize it with your DM).\nWhile in this form, your first weapon attack (or thrown spell) deals +4 damage once per turn, you gain +2 to all saves and +2 to your Save DC and +3 to Intimidation and Arcana.\nAlso, when you cast a spell (before you do), you can instantly dash 3 meters, ignoring attacks of oportunity, and going through enemies and small obstacles or medium gaps.\nLasts up to 1 minute.\n",
+    "isTalent": true
+  },
+  "Combo Set": {
+    "A": "Passive",
+    "Effect": "You gain Quickfire, Guard Breaker and Tumblestrike.",
+    "isTalent": true
+  },
+  "Quickfire": {
+    "A": "0 Actions",
+    "Cost": "1 Charge",
+    "Effect": "Perform an attack with a (loaded if it has to be) 1-Handed weapon.\nThis attack does not trigger attacks of oportunity and can be used in melee range without penalty if it's a ranged weapon.\n",
+    "isTalent": true
+  },
+  "Guard Breaker": {
+    "A": "Passive",
+    "Effect": "Your Slash, Smash and Pierce attacks ignore target's resistances to that damage type (not immunity, however).",
+    "isTalent": true
+  },
+  "Tumblestrike": {
+    "A": "Passive",
+    "Effect": "After you Tumble, your next weapon attack or thrown spell has Advantage on the damage roll.",
+    "isTalent": true
+  },
+  "Second Animal Companion": {
+    "A": "Passive",
+    "Effect": "You have one more Animal Companion, aside from the one you get from your Beastmaster Companion.\nThis Animal Companion obeys the same rules as the regular one.\nOn a turn, you can do one Pet Attack for each pet.\n",
+    "isTalent": true
+  },
+  "Exotic Trainer": {
+    "A": "Passive",
+    "Effect": "Instead of your normal pets, you can choose from the Exotic list of pets.",
+    "isTalent": true
+  },
+  "Magic Mastery": {
+    "A": "0 Actions",
+    "Cost": "1 Charge",
+    "Effect": "The next ability you use that has the cost of 1 Action now costs 0.5 Actions.\nThis is considered a maneuver.\n"
+  },
+  "Master Specialization": {
+    "A": "Passive",
+    "Effect": "Choose a class. You also have access to that class's Spell List!",
+    "isTalent": true
+  },
+  "Shadow Clone": {
+    "A": "0 Actions",
+    "Cost": "1 Charge.",
+    "Range": "3 meters",
+    "Duration": "10 minutes",
+    "Effect": "You create an illusion of yourself at a target location.\nThe illusion has 1 Health and 1 Armor and it fails all saves.\nYou can control what the illusion does at will.\n",
+    "category": "Conjuration"
+  },
+  "Momentum Magic": {
+    "A": "Passive",
+    "Effect": "After an encounter, you can roll 1d20 and add your Main Stat.\nIf you rolled a total of or over 20, you gain 1 Charge.\nYou can succeed this once per Long Rest (you can try multiple times, but after you succeed once, you need to Long Rest to do it again).\n",
+    "isTalent": true
+  },
+  "Vanishing Book": {
+    "A": "Special",
+    "Effect": "You gain +1 in Stealth and Sleight of Hand.\nFor 0 Actions, you can instantly vanish you Spell Book, or make it reappear in your hand.\nYou can only vanish it every 10 minutes.\n",
+    "isTalent": true
+  },
+  "Arcane Focus": {
+    "A": "Passive",
+    "Effect": "Your Spell Book becomes replaced with an item called Arcane Focus.\nAn Arcane Focus is an item of your choice. It can be an amulet, a sword, a cape, etc.\nAs long as you have the Arcane Focus on you, it counts as if you are holding the Spell Book without occupying your hand.\n",
+    "isTalent": true
+  },
+  "Artificer - Magic Weapon": {
+    "A": "5 minutes",
+    "Cost": "1 Charge",
+    "Effect": "Choose one a type of weapon, and choose 2 of the following effects:\no +2 damage\no Damage is converted to Fire/Cold/Shock (choose one)\no +2 meters move speed\no +5 health while wielding it\nYou can only have 1 Magic Weapon created at a time.\nThe Magic Weapon is automatically destroyed after 2 hours.\n",
+    "isTalent": true
+  },
+  "Artificer - Spellcraft": {
+    "A": "5 minutes",
+    "Cost": "1 Charge",
+    "Effect": "You are able to create a custom spell which you hold prepared until your next Long Rest.\nChoose any 2 spells you can cast.\nThose spells combine into one, and both effects are cast at the same time.\nThis custom spell costs the combined number of Charges and the Actions for it are the combined Actions minus 0.5 Actions.\nYou know and have this spell prepared until your next Long Rest.\nMagic Mastery now also allows you to cast 1.5 Action spells for 1 Action.\n",
+    "Notes": "Example - if one spell takes 0.5 Actions and the other 1 Action, the custom spell will take 1 Action.\nYou can customize what the custom spell looks like (for aesthetics only).\nYou can still cast those 2 spells separately.\n",
+    "isTalent": true
+  },
+  "Divine Sense": {
+    "A": "1 Action",
+    "Cost": "1 Charge",
+    "Effect": "You know the locations and types of all Holy, Unholy and Celestial creatures or things within 15 meters, unless the path to them is obstructed by thick or dense walls or magic.\nYou can do this once per rest without using a Charge.\n"
+  },
+  "Lay on Hands": {
+    "A": "1 Action",
+    "Effect": "You have a pool of Holy 8 points.\nUsing an action, you can expend up to Holy 8 points to heal a creature for the same amount.\nYour pool resets to 8 points on Long Rests.\n"
+  },
+  "Divine Smite": {
+    "A": "0 Actions",
+    "Cost": "2 Charges",
+    "Effect": "Add 2d8 True damage to a melee damage roll.\nYou can only use Divine Smite once per turn.\n"
+  },
+  "Pledge of Conquest": {
+    "A": "Special",
+    "Cooldown": "Lifetime",
+    "Effect": "Ask a party member to join your cause and pledge his/her honor to you.\nIf it accepts, it gains access to all of your prepared spells and can use Lay on Hands from your own pool of Holy points.\nAlso, Oath of Conquest gives you 2 Holy points when that ally  drops a worthy enemy to 0 Health.\n",
+    "Notes": "The ally does not need to have those spells prepared.\nYou can only have one character who pledged for you.\n",
+    "isTalent": true
+  },
+  "Retribution": {
+    "A": "Special",
+    "Effect": "You permanently lose Lay on Hands, but your maximum number of Charges you can have is increased by 1.",
+    "isTalent": true
+  },
+  "Fury Smite": {
+    "A": "0 Actions",
+    "Cost": "5 Holy points",
+    "Effect": "After a weapon attack, deal 50% of the damage done (as True damage) to all creatures around target (except you).",
+    "isTalent": true
+  },
+  "Divine Reach": {
+    "A": "0 Actions",
+    "Effect": "You empower yourself to make your weapon send fiery waves.\nFor the next 1 minute, your melee attacks have exactly 2 meters range and can deal Fire damage instead.\nYou can do this once per Long Rest.\nAlso, passively, you can always apply smites to ranged attacks, no matter if Divine Reach is active or not.\n",
+    "Notes": "Alternatively, if it makes sense for your character, the DM might allow it to deal Cold or Shock damage instead of Fire. Talk to your DM about this.",
+    "isTalent": true
+  },
+  "Divine Blast": {
+    "A": "1 Action",
+    "Range": "12 meters",
+    "Effect": "Make a Spell attack against a target and consume any number of Holy points. The attack deals damage equal to twice the number of holy points consumed.",
+    "isTalent": true
+  },
+  "Shielding Hand": {
+    "A": "Reaction",
+    "Cost": "1 Charge",
+    "Effect": "Use after an ally takes damage. After that ally takes damage, it gains a shield of Temporary Health equal to half of the damage taken. The shield lasts up to 1 minute.",
+    "isTalent": true
+  },
+  "Focused Smites": {
+    "A": "0 Actions",
+    "Cost": "1 Charge",
+    "Effect": "For 1 minute, your weapon attacks deal extra True damage and whenever you hit with a weapon attack, heal an ally within 6 meters.\nBonus Damage and Heal: 1 for 1-Handed weapons, 2 for 2-Handed weapons.\n",
+    "isTalent": true
+  },
+  "Divine Rain": {
+    "A": "0.5 Actions",
+    "Cost": "1 Charge",
+    "Cooldown": "Long Rest",
+    "Effect": "If you would drop to 0 Health until the start of your next turn, you remain instead at 1 Health.\nWhen this happens, divine rays smite all enemies within 2 meters of you, and they all take 1d6 True damage.\n",
+    "isTalent": true
+  },
+  "Reckoning": {
+    "A": "1 Action",
+    "Cost": "1 Charge",
+    "Range": "6 meters",
+    "Effect": "Make a spell attack on a target which does 2d10 Force damage.\nThe target must also make a Fortitude save.\nIf it fails, it is pushed away from you until the distance between you and the target is 6 meters.\nIf it stops in a wall or another enemy, it takes another 1d8 Force damage.\n",
+    "isTalent": true
+  },
+  "Consacrated Zone": {
+    "A": "0.5 Actions",
+    "Cost": "1 Charge",
+    "Effect": "The area in a 5 meter diameter circle around you becomes Consacrated.\nIf an enemy attempts to leave the area, it must succeed a Charisma save.\nIf it fails, it takes 1d10 True damage and loses 2 meters of movement.\nThe enemy can attempt to escape as many times on the same turn.\nNotes: The zone lasts up to 1 minute and can be cancelled for 0 Actions or Reaction.\n",
+    "isTalent": true
+  },
+  "Ambush": {
+    "A": "Passive",
+    "Effect": "If you are hiding (with Hide), your next attack deals 1d4 damage.\nWhen doing this, you can also spend as many charges as you want (and can).\nThat attack gains 1d6 + 1 damage more for each Charge spent.\nThis can only happen once per turn.\n"
+  },
+  "Lockpick": {
+    "A": "Passive",
+    "Effect": "You are trained in Lock Picking."
+  },
+  "Hide": {
+    "A": "Reaction",
+    "Effect": "When you would roll Initiative, you can instead roll Stealth.\nIf you succeed, you become Hidden.\nWhile Hidden, you can unhide and start your turn whenever you like (even before or after a creature does something).\nIf you started your turn during another creature's turn, that creature resumes its turn after your turn ends.\nAfter that, you take your turn when you normally would, next rounds.\n",
+    "Notes": "You become unhidden at the end of the round if you don't take your turn by then.\nThe Stealth check is made againt the highest enemy Passive Perception, which is their Perception + 10.\n",
+    "category": "Maneuvers"
+  },
+  "Payback Shot": {
+    "A": "0.5 Actions",
+    "Cost": "3 Gold Tokens after cast",
+    "Effect": "Try to Stun an adjacent unit (Dexterity save).\nYour DC for this try is increased by your number of Gold Tokens, up to +5.\n",
+    "isTalent": true
+  },
+  "Arcane Trickster": {
+    "A": "Passive",
+    "Effect": "You can now cast spells!\nYou permanently know 3 spells from the following spell list:\nAcid Burst  : 0.5 Actions\nBurning Breath  : 0.5 Actions\nConjure Ammo  : 1 Action\nControl Flames  : 1 Action\nControl Water  : 1 Action\nFlameblade  : 0 Actions\nLight  : 1 Action\nMagic Missiles  : 1 Action\nMastery  : 1 Action\nPrestidigitation  : 1 Action\nChaining Grasp  : 0 Actions\nCharming Word  : 1 Action\nCure Poison  : 1 Action\nDistort Vision  : 1 Action\nFake Sound  : 0.5 Action\nMage Hand  : 0 Actions\nUnlock  : 1 Action\nShadow Clone  : 0 Actions\nEncode Thoughts  : 1 Action (Level 4)\nInvisibility  : 1 Action (Level 4)\nLevitate  : 1 Action (Level 4)\nSense Magic  : 0 Actions (Level 4)\nSpider Climb  : 1 Action (Level 4)\nWhen you level up, you can change one of these abilities with another from the same list.\nYou learn 1 additional ability at Levels 3, 5, 7 and 9.\n",
+    "isTalent": true
+  },
+  "Way of Fooling": {
+    "A": "Passive",
+    "Effect": "Your Charisma is increased by 2, (up to a maximum of 4).",
+    "isTalent": true
+  },
+  "Take Out": {
+    "A": "1 Action",
+    "Cost": "1 Charge",
+    "Effect": "Try to put an adjacent target to Sleep for 1 minute (Dexterity save).\nIf you succeed, you gain the Action back.\n",
+    "Downside": "You must be hiding to use Take Out, and the target must be Isolated.\nThis ability unhides you!\n",
+    "isTalent": true
+  },
+  "Poison Master": {
+    "A": "1 hour",
+    "Cost": "1 Charge",
+    "Effect": "Using ingredients costing 35 Gold, you are able to create a few drops of Drinkable Poison.\nSomeone ingesting them takes 1d12 Poison damage instantly.\nCombining multiple instances of Drinkable Poison increases its damage by 1d12 for each Drinkable Poison combined.\nThe poison loses its effect after 48 hours.\n",
+    "isTalent": true
+  },
+  "Shadowstep": {
+    "A": "0.5 Actions",
+    "Cooldown": "Long Rest",
+    "Effect": "If you are covered in shadow, choose another point covered in shadow up to 6 meters away.\nInstantly teleport to that place.\n",
+    "Notes": "This is considered a Spell.",
+    "isTalent": true
+  },
+  "Cheap Tricks": {
+    "A": "0 Actions",
+    "Cost": "2 Charges",
+    "Range": "3 meters",
+    "Effect": "Try to Blind a target for 2 turns.",
+    "Notes": "A Blinded target's attacks have Hard Cover and its targets' saves have +4.",
+    "isTalent": true
+  },
+  "Whiplash": {
+    "A": "0 Actions",
+    "Cooldown": "Long Rest, otherwise it costs 1 Charge",
+    "Effect": "Throw a whiplash at a grabbable point within 6 meters.\nPull yourself to a target point.\n",
+    "Notes": "Requires a Whiplash item, which can be bought for 100 gold.",
+    "isTalent": true
+  },
+  "Animal Spirit": {
+    "A": "Special",
+    "Effect": "Choose one of the 4 animal spirits. You gain an Ability and a bonus to a Skill Check depending on your Spirit Animal.\nBear - You gain Bear's Roar and +2 to Athletics.\nWolf - You gain Wolf's Leap and +2 to Intimidation.\nEagle - You gain Eagle's Sight and +2 to Perception.\nOwl - You gain Owl's Foresight and +2 to Knowledge.\n"
+  },
+  "Bear's Roar": {
+    "A": "1 Action",
+    "Cooldown": "Long Rest",
+    "Effect": "Try to Cripple all enemies within 2 meters of you (Charisma save).\nEach enemy that got Crippled takes 1d6 Psychic damage.\n"
+  },
+  "Wolf's Leap": {
+    "A": "0.5 Actions",
+    "Cooldown": "Long Rest",
+    "Effect": "Leap at a target up to 3 meters away.\nThe target takes 1d6 Bleed damage at the end of each of your turns for 1 minute.\n"
+  },
+  "Eagle's Sight": {
+    "A": "Passive",
+    "Effect": "You have Maximum Initiative every encounter.\nAll your ranged attacks have an extra 3 meters range.\nYour spell DC is increased by 1.\n"
+  },
+  "Owl's Foresight": {
+    "A": "Reaction",
+    "Cooldown": "Long Rest",
+    "Effect": "Use when an enemy casts a spell (non-naturally).\nThe spell is cancelled and the enemy loses the Action for it.\n"
+  },
+  "Reincarnation": {
+    "A": "1 Action",
+    "Cooldown": "1 week",
+    "Effect": "Stabilize an unconscious creature or revive a creature that died recently (12 hours maximum).\nThis puts the creature at 1 Health.\nYou can do this on yourself if you are dead (still uses 1 Action if in an encounter).\n",
+    "isTalent": true
+  },
+  "Spirit Draw": {
+    "A": "Reaction",
+    "Effect": "An ally can spend 1 Charge and 1 Action to draw in a part of your soul, with your permission.\nThat ally can try to cast Spirit Strike once and use your spirit animal Ability once.\nLasts until either of you cancel it, or until either's next Rest.\nAn ally can't draw your soul more than once per Long Rest.\n",
+    "isTalent": true
+  },
+  "Spirit Companion": {
+    "A": "1 Action",
+    "Cost": "8 Health",
+    "Effect": "You summon your spirit animal into the material world.\nIt has the following stats:\n- Health: 1 or 6 if Bear\n- Defense: 8\n- Movement: 6 or 9 if Wolf\n- Stats and skills: Like yours\nYour pet takes its turn at the same time as you do, and always has the same initiative as yours.\nYour pet gets unsummoned if it moves more than 30 meters away from you.\nOn your turn, you can command it to move, but it can't take its own Actions.\nYou and your pet share the same Actions on a turn.\nIf your spirit animal dies, you can always summon it back.\nThe spirit animal stays in the material world for up to 10 minutes.\nYou also gain the following abilities (Pet Attack and Wargsight).\n",
+    "Notes": "If you have 1 Action, your pet can use 0.5 Actions to attack and you can use 0.5 Actions to attack too, or your pet spends 1 Action and you skip your Actions, etc.\n",
+    "isTalent": true
+  },
+  "Pet Attack": {
+    "A": "0.5 Actions",
+    "Effect": "The pet melee attacks a target.\nThe attack deals 1d10 + (Your Main Stat) Force damage.\nYou can do this once per turn.\n",
+    "isTalent": true
+  },
+  "Wargsight": {
+    "A": "Channeled",
+    "Effect": "While channeling, you can act and sense through your pet's body, but you can't control yourself.\n",
+    "isTalent": true
+  },
+  "Mind Link": {
+    "A": "0 Actions",
+    "Cost": "1 Charge",
+    "Effect": "Establish a mind connection with a willing ally.\nFor 4 hours, you can talk to eachother telepathically.\n",
+    "isTalent": true
+  },
+  "Dream Walk": {
+    "A": "Channeled",
+    "Cost": "1 Charge",
+    "Range": "6 meters",
+    "Effect": "Choose a sleeping target you can see.\nIt makes a Wisdom save with Disadvantage.\nIf it fails, you can alter their dream to your liking.\nThe target wakes up if they die in the dream, or the DM might have the target make another save for waking up later.\n",
+    "isTalent": true
+  },
+  "Far Sight": {
+    "A": "Reaction",
+    "Cost": "1 Charge",
+    "Effect": "Gain +3 on any Wisdom skill check (before you roll).",
+    "Notes": "You can stack this as many times as you like for the same roll.",
+    "isTalent": true
+  },
+  "Voodoo Magic": {
+    "A": "1 Action",
+    "Cost": "1 Charge",
+    "Range": "6 meters",
+    "Effect": "A non-epic target makes a Wisdom save.\nIf it fails, for its next 2 turns, you can choose that enemy's actions as long as it would seem reasonable to that enemy (decide with your DM).\n",
+    "Notes": "For example, you can make a goblin run or recklessly attack one of your party members. But you can't make a guard jump off a cliff, because that's not what it would normally do.",
+    "isTalent": true
+  },
+  "Incorporeal Form": {
+    "A": "1 Action",
+    "Cost": "1 Charge",
+    "Effect": "You become a bodyless soul for up to 8 hours and enter a willing ally.\nWhile inside the ally's body, you can communicate with them mentally, and only they can see you.\nYou can slightly peek outside of their body, and move your arms, upper body and head as if you were a ghost originating from that ally's body.\no You can't move yourself, but you always move with that ally.\no You can't do any physical actions (because you are basically a ghost and can't touch anything or anyone).\no You can cast spells as normal. \no You follow your own Initiative in combat.\no You can't take damage from external sources, but you feel every body sensation that ally feels.\nYou can freely exit their body and revert back to your physical self using 1 Action.\n",
+    "isTalent": true
+  },
+  "Power Tap": {
+    "A": "Depends",
+    "Cooldown": "Long Rest",
+    "Effect": "Cast an ability one of your Allies has (with that ability's actions and costs and your modifiers).",
+    "Notes": "Does not work on Passives. The Ability must have 0, 0.5 or 1 Actions cost."
+  },
+  "Fey Patron": {
+    "A": "Passive",
+    "Effect": "Your lord is a higher fey creature.\nThe first time you choose a Race talent, get one more from the same level.\n",
+    "Notes": "Yes, you will have 2 Race Talents of the same level.\nLore-wise, the Fey Patron enhances you magically, mutates your arcane flow and transforms you into an unordinarily adapted person.\n"
+  },
+  "Celestial Patron": {
+    "A": "Passive",
+    "Effect": "Your lord is a celestial being, who lives in a higher plane. You gain Life Cycle.",
+    "Notes": "The gift of Life Cycle is granted to you by your patron. Use it well. Withhold the balance."
+  },
+  "Life Cycle": {
+    "A": "0.5 Actions",
+    "Cost": "6 Health",
+    "Effect": "Heal a creature for up to 10 Health from their remaining Extra Health Pool."
+  },
+  "Demon Patron": {
+    "A": "Passive",
+    "Effect": "Your lord is a powerful demon.\nYou gain Soul Drain.\n",
+    "Notes": "Through every soul drained, your demon lord feeds, and in return, grants you even more power."
+  },
+  "Soul Drain": {
+    "A": "0.5 Actions",
+    "Cost": "1 Charge",
+    "Range": "12 meters",
+    "Effect": "Deal 6 Dark damage to a creature.\nIf it dies, you get the Charge back and heal for 3 Health.\n"
+  },
+  "Old God Patron": {
+    "A": "Passive",
+    "Effect": "Your lord is an old, slumbering god.\nYou can pick a Racial Ability from any other race and have it permanently.\n",
+    "Notes": "Eldritch thoughts flow through your mind, infecting you with strange abilities acquired in unfathomable ways."
+  },
+  "Shapeshifting Weapon": {
+    "A": "0 Actions",
+    "Cooldown": "Once per turn",
+    "Effect": "Instantly change the type of weapon of your Hexblade.",
+    "isTalent": true
+  },
+  "Hexstaff": {
+    "A": "Passive",
+    "Effect": "Your ~Hexblade~ Ability is changed and now has the following effect:\nAfter you attack with a weapon, your next spell has +1 DC and deals +1d4 damage.\n",
+    "isTalent": true
+  },
+  "Doublehex": {
+    "A": "Passive",
+    "Effect": "You now have 1 more Hexblade Weapon, of any kind. The same patron or another one is possessing your second weapon.\nAt any time, you can vanish or resummon either weapon.\nYou must wait at least 5 minutes (for each weapon separately) after resummoning a weapon to vanish it again.\n",
+    "isTalent": true
+  },
+  "Tongues": {
+    "A": "Passive",
+    "Effect": "You can speak all Common languages.",
+    "isTalent": true
+  },
+  "Impmaster": {
+    "A": "Special",
+    "Effect": "When you get this Talent, gain 2 Skill Points.",
+    "isTalent": true
+  },
+  "Advanced Flank": {
+    "A": "Passive",
+    "Effect": "When you flank-attack an enemy, or an ally flank-attacks an enemy with you, the flank damage bonus is +2/+4 (1-Handed/2-Handed)."
+  },
+  "Master Positioner": {
+    "A": "Passive",
+    "Effect": "You permanently know all maneuvers.",
+    "isTalent": true
+  },
+  "Melee Pile": {
+    "A": "0 Actions",
+    "Cost": "1 Charge.",
+    "Effect": "All Medium or smaller enemies within 2 meters of you are pulled to their closest points to you.",
+    "isTalent": true
+  },
+  "Weaponmaster": {
+    "A": "Passive",
+    "Effect": "When you get this, choose one weapon type.\nYou have that weapon effect too, no matter what weapon you are using.\n"
+  },
+  "Protect the Meek": {
+    "A": "Reaction",
+    "Cooldown": "Encounter",
+    "Effect": "When an ally within 3 meters of you is targeted by a ranged attack, you become its target instead.",
+    "isTalent": true
+  },
+  "Bashing Charge": {
+    "A": "1 Action",
+    "Cost": "1 Charge.",
+    "Effect": "Move 3 meters in a straight line, then choose a target near you.\nThat target takes 1d8 damage and try to Stun the target (Fortitude save).\n",
+    "isTalent": true
+  },
+  "Heartbeat Trance": {
+    "A": "0 Actions",
+    "Cost": "1 Charge.",
+    "Effect": "Take 2d6 damage.\nEnter a Heart Trance until the end of your next turn.\nWhile in Heart Trance, you take 50% less damage from Fire, Frost, Necrotic and Thunder damage and you have +3 on Acrobatics and Intimidation rolls.\nWhen Heart Trance ends, heal for 2d6.\n",
+    "isTalent": true
+  },
+  "Rage Trance": {
+    "A": "0 Actions",
+    "Cost": "1 Charge.",
+    "Effect": "Take 2d6 damage.\nUntil the end of your next turn, you are immune to stuns, slows, snares, cripples and being knocked prone.\nYour attacks while in Rage Trance have an extra +1 damage to all attacks and you have +3 on Athletics.\nWhen Rage Trance ends, heal for 2d6.\n",
+    "isTalent": true
+  },
+  "Battle Trance": {
+    "A": "0 Actions",
+    "Cost": "1 Charge.",
+    "Effect": "Take 2d6 damage.\nEnter a Battle Trance that lasts until the end of your next turn.\nYou gain a protective shield around you which absorbs up to 4 + Your Level physical damage.\nWhen Rage Trance ends, heal for 2d6, and the shield fades.\n",
+    "isTalent": true
+  },
+  "Recoil Shot": {
+    "A": "0 Actions",
+    "Cost": "1 Charge",
+    "Range": "2 meters",
+    "Effect": "Dash up to 2 meters away from the target.\nTry to push the target 2 meters away (Fortitude save).\n",
+    "Notes": "This does not trigger attacks of oportunity.",
+    "isTalent": true
+  },
+  "Harpoon": {
+    "A": "1 Action",
+    "Cost": "1 Charge",
+    "Range": "6 meters",
+    "Effect": "Make a ranged attack that deals 2d12 + 4 damage (against Defense).\nThe target makes a Dexterity save.\nIf it fails, it is pulled to you.\nOtherwise, you are pulled to it.\n",
+    "Notes": "Requires a Harpoon, which can be bought for 50 Gold.",
+    "isTalent": true
+  },
+  "Precise Weapon": {
+    "A": "1 hour",
+    "Effect": "Choose any weapon you have and make it Precise.\nThe weapon's scaling becomes +3/+6 (1-Handed/2-Handed) instead of scaling with a Stat.\nThe wielder of the weapon is also immune to Cripple.\n",
+    "Notes": "Making another weapon Precise makes the previous back to how it was.\nRequires to be at a forge.\n",
+    "isTalent": true
+  },
+  "Herbivore": {
+    "A": "Passive",
+    "Effect": "You can not eat meat.\nIf you do, you take take 1d12 Poison damage and have Disadvantage on all rolls for 1 hour.\nYou have 0 Defense against Poison attacks.\n"
+  },
+  "Fleet Footed": {
+    "A": "Passive",
+    "Effect": "You are immune to Slows (not counting Hard Terrain)."
+  },
+  "Nimbleness": {
+    "A": "Passive",
+    "Effect": "You can move through the spaces of enemy units (in normal conditions)."
+  },
+  "Darkvision": {
+    "A": "Passive",
+    "Effect": "You can see up to 12 meters away in darkness, without discerning colors."
+  },
+  "Cutting Teeth": {
+    "A": "Passive",
+    "Effect": "Your teeth act as natural daggers which can pierce through some materials:\nYou are able to cut rope, flesh, wood, etc (but not concrete, metal, etc).\nAttacking with your teeth takes 0.5 Action, adds Dexterity modifier and deals 1d8 + 1 Piercing damage.\nYou can only bite once per turn.\n"
+  },
+  "Sprightly Shaped": {
+    "A": "Passive",
+    "Effect": "Your fur is sleek, and your feet swift.\nYou gain +1 meter movement speed.\nYou have +5 on swimming rolls.\n"
+  },
+  "Eyes and Ears": {
+    "A": "Passive",
+    "Effect": "You gain +5 Initiative.\nYou gain +2 Perception.\nYou know the Hide maneuver permanently.\n"
+  },
+  "Protruded Claws": {
+    "A": "Passive",
+    "Effect": "You gain +5 on climbing rolls.\nYou become Trained in Unarmed (if you aren't already) and can do Unarmed attacks with any Stat instead of Dexterity/Fortitude.\nUnarmed attacks can do Piercing damage (if you choose so).\n"
+  },
+  "Draconic Ancestry": {
+    "A": "Special",
+    "Effect": "When creating your character, choose your Dragonborn type:\nBlack\t- Acid\nBlue - Cold\nBrass\t- Fire\nBronze - Thunder\nGold - Fire\nRed - Fire\nSilver - Force\nGray - Necrotic\nWhite\t- Cold\nGreen\t- Poison\nThat becomes your Dragonborn Element.\n"
+  },
+  "Dragonborn Resistance": {
+    "A": "Passive",
+    "Effect": "You have 50% resistance to damage of your Dragonborn Element type."
+  },
+  "Dragon's Breath": {
+    "A": "1 Action",
+    "Cooldown": "Long Rest",
+    "Effect": "Breathe your Dragonborn Element in a 3x1 meter line.\nMake an attack against all creatures caught in your breath.\nThe attack deals 2d8 damage of your Dragonborn Element (against their Defense).\n"
+  },
+  "Breath - Cone": {
+    "A": "Special",
+    "Effect": "Your Dragon's Breath now breathes in a 3 meter, 45* cone instead of a line."
+  },
+  "Breath - Line": {
+    "A": "Special",
+    "Effect": "Your Dragon's Breath now breathes in a 4x2 meter line."
+  },
+  "Breath - Blast": {
+    "A": "Special",
+    "Effect": "Your Dragon's Breath now breathes on all creatures around you instead of a line."
+  },
+  "Breath Master": {
+    "A": "Passive",
+    "Effect": "Your Dragon's Breath does not affect allies and it's Damage is increased by 2 (2d8 + 2)."
+  },
+  "Double Breath": {
+    "A": "Passive",
+    "Effect": "You can now use Dragon's Breath twice per Long Rest."
+  },
+  "Flaming Jaws": {
+    "A": "0.5 Action",
+    "Cooldown": "Long Rest",
+    "Effect": "Leap at a target up to 4 meters away from you ignoring attacks of oportunity. The target takes 3 damage (of your Dragonborn Type) and you are healed for 3 health."
+  },
+  "Dwarf Resting": {
+    "A": "Passive",
+    "Effect": "You need 12 hours of sleep instead of 8 per day to function normally.\nYour movement speed can't be reduced below 5 meters.\n",
+    "Notes": "Hard Terrain still takes 2 meters of movement for 1 meter of Hard Terrain."
+  },
+  "Dwarven Resilience": {
+    "A": "Reaction",
+    "Effect": "Reroll a save roll.\nYou can do this once per Long Rest.\n"
+  },
+  "Stone-like Bones": {
+    "A": "Passive",
+    "Effect": "Your bones are tough as rock.\nYou take half as much damage from falling and from traps which deal physical damage.\nYou also get +1 on Fortitude saves.\n"
+  },
+  "Runesmith": {
+    "A": "Passive",
+    "Effect": "You permanently know 1 spell from the Amateur Spell List.\nYou can identify what language most texts are written in by analyzing them.\nYour Arcana skill increases by 1.\n"
+  },
+  "Resilient Ancestry": {
+    "A": "Passive",
+    "Effect": "Your Extra Health Pool increases by 10.\nWhen rerolling a save with Dwarven Resilience, add +3 to the roll.\n"
+  },
+  "Adapted Resting": {
+    "A": "Passive",
+    "Effect": "You gain +5 maximum Health.\nYou now only need to sleep 8 hours per day.\n"
+  },
+  "Skill of Trade": {
+    "A": "Reaction",
+    "Effect": "Your Charisma increases by 1 (up to a maximum of 3).\nYou can get free shelter and food in inns and taverns (if you would normally be able to pay for them).\nYou gain an extra +5 to Investigation rolls when checking stone walls, doors, statues, etc.\n"
+  },
+  "The Blade Dance": {
+    "A": "Passive",
+    "Effect": "When you land the killing strike on a Worthy Enemy, you reset your movement this turn and don't provoke attacks of oportunity this turn."
+  },
+  "Meditation": {
+    "A": "4 Hours",
+    "Effect": "Instead of sleeping for 8 hours, you can meditate for 4 hours and achieve the same result.\nWhile meditating, all checks you perform are done at -5.\t\n"
+  },
+  "Arcane Veins": {
+    "A": "Passive",
+    "Effect": "You permanently know 2 spells from the Amateur Spell List."
+  },
+  "Mana Tap": {
+    "A": "0 Actions",
+    "Range": "3 meters",
+    "Cooldown": "Long Rest",
+    "Cost": "1 Charge",
+    "Effect": "Try to Silence a nearby enemy (Intelligence save)."
+  },
+  "Natual Swiftness": {
+    "A": "0 Actions",
+    "Effect": "Gain +4 Movement this turn and you avoid Attacks of Oportunity.\nYou can use this once per Long Rest.\n"
+  },
+  "Landsperson": {
+    "A": "Special",
+    "Effect": "Choose any land specialty ability from Coven of the Land Druid specialization and learn it permanently."
+  },
+  "Inherited Tastes": {
+    "A": "Passive",
+    "Effect": "You don't have a sense of taste, but your eyes perceive colors sharper than other races."
+  },
+  "Lucky": {
+    "A": "Reaction",
+    "Cooldown": "Long Rest",
+    "Effect": "After a creature within 30 meters of you makes a d20 roll, you can add or subtract your Luck Skill from that roll."
+  },
+  "Catch Me If You Can": {
+    "A": "0 Actions",
+    "Effect": "This turn you don't trigger attacks of oportunity.\nYou can do this once per Long Rest.\nAlso, passively, your movement speed increases by 1 meter.\n"
+  },
+  "Oh, My Tongue!": {
+    "A": "Passive",
+    "Effect": "You now have a sense of taste. Congratulations!\nYou can detect whether something is poisonous by licking it without being affected by that poison.\nYou have 50% resistance to Acid and Poison.\n"
+  },
+  "Quick to Act": {
+    "A": "Passive",
+    "Effect": "You gain maximum Initiative every encounter."
+  },
+  "Luckier": {
+    "A": "Passive",
+    "Effect": "You can use Lucky twice per Long Rest."
+  },
+  "Environmentalist": {
+    "A": "Passive",
+    "Effect": "You can move normally through Hard Terrain.\nYou permanently learn 2 Spells from the Druid Spell List.\n"
+  },
+  "Undeath": {
+    "A": "Passive",
+    "Effect": "You have Advantage to rolls against Diseases.\nYou have 50% vulnerability to Fire damage and to attacks done with silver weapons.\nYou do not require food to survive, but you do require 8 hours of sleep per day, water and air.\nYou are considered Undead.\n"
+  },
+  "Valiant": {
+    "A": "Passive",
+    "Cooldown": "Long Rest",
+    "Effect": "When you drop to 0 Health, you can still take your next turn without penalty.\nAfter your next turn, you fall unconscious.\nYou also fall unconscious in that time if you take damage again.\n"
+  },
+  "Sense Souls": {
+    "A": "0 Actions",
+    "Cooldown": "Long Rest",
+    "Effect": "You know the locations of any living creatures within 15 meters that are not obstructed by thick materials.\n",
+    "Notes": "The more obstructed the space between you and living creatures is, the fainter you feel it. 1 meter of obstruction completely hides the creatures."
+  },
+  "Beating Heart": {
+    "A": "Passive",
+    "Effect": "You slow down the decaying of your body and increase your life span by up to 100 years.\nYou can stay unconscious for up to 1 week before dying.\nYour maximum health also increases by 3.\n"
+  },
+  "Out of Body Release": {
+    "A": "0 Actions",
+    "Cooldown": "Long Rest",
+    "Effect": "Your soul temporarily exits your body, leaving your body motionless to the ground.\nWhile outside your body, the soul can't do anything except perceive.\nYou can return to your body for 0 Actions on your turn.\nWhile outside your body, you have +3 on Perception, Stealth and Luck.\nIf more than 1 minute outside the body passes, your soul instantly re-enters the body.\n"
+  },
+  "Kindled": {
+    "A": "Passive",
+    "Effect": "You are no longer vulnerable to Fire damage.\nAfter every worthy encounter, if your health is below 25% and you are conscious, heal back to 25% Health.\n"
+  },
+  "Painless Revenge": {
+    "A": "0 Actions",
+    "Cooldown": "Long Rest",
+    "Effect": "Choose an enemy near you.\nThat enemy performs an attack on you.\nIf you survive the attack, you gain 1 Action which you can use to attack or cast spells on that enemy.\n"
+  },
+  "Human Vigilence": {
+    "A": "Passive",
+    "Effect": "Whenever you make a Skill Check, instead of rolling, you can automatically have 7 + your skill modifiers for that check."
+  },
+  "Human Diversity": {
+    "A": "Special",
+    "Effect": "Choose any other race.\nGain the first starting ability choice from that race.\n",
+    "Notes": "You can't pick the Dragonborn choice, because you don't have a breath attack and it wouldn't apply."
+  },
+  "Master of the World": {
+    "A": "Passive",
+    "Effect": "Increase any stat by 1 (up to +3)."
+  },
+  "Boiling Blood": {
+    "A": "0 Actions",
+    "Cooldown": "Long Rest",
+    "Effect": "Lose half of your current health.\nIncrease the original damage of your next attack by 50%.\n",
+    "Notes": "Extra abilities over that attack are not increased."
+  },
+  "Battle Anguish": {
+    "A": "Negative Passive",
+    "Effect": "Whevener you drop to 0 Health, your maximum Health permanently decreases by 1."
+  },
+  "Fierceness": {
+    "A": "Passive",
+    "Effect": "You can use any weapon with Fortitude (instead of Dexterity, in some cases)."
+  },
+  "Adaptability": {
+    "A": "Passive",
+    "Effect": "You can have your Fortitude as your Main Stat, even if your class says otherwise."
+  },
+  "Beast Rider": {
+    "A": "Passive",
+    "Effect": "You are trained in Riding and Exotic Riding (you can ride exotic mounts, such as wolves).\nYou also have such an exotic mount of your choice, if the DM accepts it.\nYou gain +2 in Animal Handling.\n",
+    "Notes": "This mount is a non-combat pet. It does not participate in combat."
+  },
+  "Bloodthirst": {
+    "A": "0 Actions",
+    "Cost": "1 Charge",
+    "Cooldown": "Long Rest",
+    "Effect": "Gain 0.5 Actions this turn."
+  },
+  "Savage Attacks": {
+    "A": "0 Actions",
+    "Cooldown": "Long Rest",
+    "Effect": "Use after you land an attack.\nRoll and add one other damage die from the attacks' damage dice to the damage roll.\n"
+  },
+  "Improvised Attack": {
+    "A": "0.5 or 1 Action",
+    "Effect": "You can use small, medium or large non-weapon objects from around and attack with them.\nSmall Objects - 0.5 Actions, 1d10 + Dexterity damage, thrown at 3 to 6 meters range\nMedium Objects - 0.5 Actions, 1d10 + Fortitude damage, 2 meters range\nLarge Objects - 1 Action, 2d10 + 3 damage, 1 meter range\nIf you roll 10 on any of those dice and the object can break, it breaks and deals an extra 1d6 damage.\n",
+    "category": "Maneuvers"
+  },
+  "Dash": {
+    "A": "1 Action",
+    "Effect": "You can move 4 more meters this turn.",
+    "category": "Maneuvers"
+  },
+  "Defend": {
+    "A": "1 Action",
+    "Effect": "Until the start of your next turn, your Defense and all saves increase by +2.",
+    "category": "Maneuvers"
+  },
+  "Push": {
+    "A": "1 Action",
+    "Range": "1 meter",
+    "Effect": "Try to push a creature 1 meter in any direction (Fortitude or Dexterity save, its choice).\n",
+    "Notes": "You can always Push even if you don't have this maneuver, but the target has Advantage on the save.",
+    "category": "Maneuvers"
+  },
+  "Shift": {
+    "A": "0 Actions",
+    "Effect": "You can move 1 meter without triggering attacks of oportunity.\nThis turn you can't move normally (and you can't use this if you already did).\n",
+    "category": "Maneuvers"
+  },
+  "Bull Rush": {
+    "A": "Passive",
+    "Effect": "If you move at least 3 meters in a straight line and then melee attack a target, the attack gains +1.",
+    "category": "Maneuvers"
+  },
+  "Taunt": {
+    "A": "0.5 Actions",
+    "Range": "6 meters",
+    "Effect": "Make an enemy roll a Wisdom save.\nIf it fails, its next attack gains Cover (-2) if it's not on you.\n",
+    "Notes": "You can always Taunt even if you don't have this maneuver, but the target has Advantage on the save.",
+    "category": "Maneuvers"
+  },
+  "Grapple": {
+    "A": "1 Action",
+    "Effect": "You make a Fortitude roll and the target makes a Dexterity or Fortitude roll (its choice).\nIf you roll equal to or more than the enemy, the enemy becomes Grappled.\n",
+    "Notes": "A Grappled enemy can't move on its turn, has 0.5 fewer Actions and can't attack you.\nYou and the enemy repeat the roll at the end of each of that enemy's turn.\nOn your turn, you must spend 1 Action to keep the enemy Grappled. If you don't, the enemy is released.\nYou can always Grapple even if you don't have this maneuver, but the target has Advantage on the roll.\n",
+    "category": "Maneuvers"
+  },
+  "Hamstring": {
+    "A": "0.5 Actions",
+    "Range": "1 meter",
+    "Effect": "Try to Slow a target (Dexterity save).",
+    "category": "Maneuvers"
+  },
+  "Disengage": {
+    "A": "1 Action",
+    "Effect": "You don't trigger attacks of oportunity this turn.",
+    "category": "Maneuvers"
+  },
+  "Aim": {
+    "A": "0.5 Actions",
+    "Effect": "Your next attack has Advantage (lasts at most until the end of your next turn).",
+    "category": "Maneuvers"
+  },
+  "Lightweight Strike": {
+    "A": "0.5 Actions",
+    "Effect": "Make an attack with a 2-Handed weapon with Disadvantage.\nAfter the attack, your turn ends immediately.\n",
+    "category": "Maneuvers"
+  },
+  "Wait": {
+    "A": "0 Actions",
+    "Cooldown": "1 turn",
+    "Effect": "Skip your turn and declare any number as your new initiative.\nYou start your turn later this Encounter at that initiative.\n",
+    "Notes": "Your new initiative stays like that for later turns.",
+    "category": "Maneuvers"
+  },
+  "Shank": {
+    "A": "0 Actions",
+    "Cost": "1 Charge",
+    "Effect": "Make a melee attack with your off-hand 1-Handed Weapon. It deals -1 damage.",
+    "category": "Maneuvers"
+  },
+  "Double Greatweapon Fighting": {
+    "A": "Passive",
+    "Requirement": "Trained in 2-Handed melee weapons and at least 2 Fortitude",
+    "Cost": "Your Defense is reduced by 1 wielding weapons like this",
+    "Effect": "You can dual wield 2-Handed melee weapons, one in each hand.\nIf you attack like this, each attack takes only 0.5 Actions.\nYour attacks like this do Weapon Damage + Fortitude or Dexterity (depending on weapon).\nWhen dual wielding them, if any ability tells you to perform an attack with a 2-Handed and the ability costs 1 Action, it costs only 0.5 Actions.\n",
+    "Notes": "Alternatively, you can wield a Shield in one hand and a 2-Handed melee weapon in the other.\nThe Defense penalty still applies.\nYou need Training in Shields to do this.\n",
+    "category": "Maneuvers"
+  },
+  "Highlander Technique": {
+    "A": "Passive",
+    "Requirement": "Trained in 1-Handed and 2-Handed melee weapons",
+    "Effect": "You can wield 1-Handed melee weapons with both hands.\nIf you do, your 2-Handed attacks with 1-Handed melee weapons take 1 Action and apply 2 * Fortitude or Dexterity (depending on the weapon).\nWhile doing this, you have +1 to all Saves.\n",
+    "Notes": "If an Ability tells you to make an attack with a 2-Handed weapon, attack with the 2 * Fortitude or Dexterity bonus\nIf an Ability tells you to make an attack with a 1-Handed weapon, attack with the normal Fortitude or Dexterity bonus\n",
+    "category": "Maneuvers"
+  },
+  "Duelist Technique": {
+    "A": "Passive",
+    "Requirement": "Trained in 1-Handed melee weapons and Finesse weapons",
+    "Effect": "If you are wielding a 1-Handed melee weapon in one hand and nothing in the other, you can attack twice per turn with that weapon without penalty.\n",
+    "Notes": "Normally, you can only attack normally once with each hand.",
+    "category": "Maneuvers"
+  },
+  "Tower Shield Training": {
+    "A": "Passive",
+    "Requirement": "Trained in Shields, at least 2 Fortitude",
+    "Effect": "You can wield a Tower Shield.\nA Tower Shield gives you a +2 Defense bonus, but reduces your Movement Speed by 2.\n",
+    "Notes": "Check the Shop to see the price of a Tower Shield.",
+    "category": "Maneuvers"
+  },
+  "Acid Burst": {
+    "A": "0.5 Actions",
+    "Range": "3 meters",
+    "Effect": "A creature makes a Dexterity save.\nIt takes 1d8 + 1 Acid damage on a failed save, or half of that if it succeeds.\n",
+    "Variant": "Poison Burst.",
+    "category": "Elemental"
+  },
+  "Burning Breath": {
+    "A": "0.5 Actions",
+    "Effect": "All creatures in a 90 degree, 3 meter cone take 3 Fire damage.",
+    "category": "Elemental"
+  },
+  "Bonfire": {
+    "A": "1 Action",
+    "Range": "6 meters",
+    "Duration": "10 minutes",
+    "Effect": "Choose a 1x1x1 meter zone.\nA bonfire errupts in that place.\nAny creature touching the bonfire takes 1d8 Fire damage.\n",
+    "Notes": "If the bonfire can spread fire to nearby flammable objects that aren't being worn or carried, it spreads at the start of your next turn (same for further bonfires).",
+    "category": "Elemental"
+  },
+  "Control Flames": {
+    "A": "1 Action",
+    "Range": "6 meters",
+    "Effect": "Choose a 1x1x1 meter cube of fire.\nYou can do the following things to it.\n- You can spread the fire 1 meter in any direction\n- You can extinguish it\n- You can double of halve the radius of light or heat it spreads\n- You can change its color\n- You can cause simple shapes to appear in the flicker.\nYou can have 2 effects active at the same time at level 1, 3 at level 4 and 4 at level 8.\nEffects last up to 1 hour.\nIf the fire touches a creature, it takes 1d8 Fire damage.\n",
+    "category": "Elemental"
+  },
+  "Control Water": {
+    "A": "1 Action",
+    "Range": "6 meters",
+    "Effect": "Choose a 1x1x1 meter cube of water or ice.\nYou can do the following things to it.\n- You can move it 1 meter in any direction\n- You can roughly alter its shape\n- You can change its color or opacity\n- You can freeze or evaporate the water. This will take up to 5 minutes at level 1 for 1x1x1 meter cube of water.\nAt level 8, you can evaporate or freeze 1x1x1 meter cube of water with 1 Action.\nThe water does no damage if it touches a creature.\nEffects last up to 1 hour.\n",
+    "category": "Elemental"
+  },
+  "Control Earth": {
+    "A": "1 Action",
+    "Range": "6 meters",
+    "Effect": "Choose a 1x1x1 meter cube of dirt, loose stone, sand, etc.\nYou can do the following things to it.\n- You can move it 1 meter in any direction.\nIf a creature was hit by it or it was removed from below a creature's feet, it rolls a Dexterity save (against your Spell DC).\nIf it fails, it takes 1d8 damage and is knocked prone.\nIf a creature is burried in dirt (or loose stone, etc) after failing the save, it takes 1d8 additional damage.\n- You can roughly shape it in any form\n- You can cause it to become difficult terrain.\nYou can do this twice per Long Rest at level 1, 3 times per Long Rest at level 4 and unlimited times at level 8.\n",
+    "category": "Elemental"
+  },
+  "Fire Bolt": {
+    "A": "1 Action",
+    "Range": "3 meters",
+    "Effect": "Make a Spell attack that deals deal 3d6 + Main Stat Fire damage.",
+    "Variant": "Inflict Wounds (Necrotic damage).",
+    "category": "Elemental"
+  },
+  "Frostbite": {
+    "A": "1 Action",
+    "Range": "6 meters",
+    "Effect": "A creature makes a Fortitude save and takes 2d8 + 2 damage if it fails, or half if it succeeds.\nIf it fails, it is also Slowed.\n",
+    "category": "Elemental"
+  },
+  "Land Breach": {
+    "A": "1 Action",
+    "Range": "9 meters",
+    "Effect": "You gather stone, dirt, sand, etc from the surroundings and release it upon an enemy.\nDeal 3d6 damage Force damage to a creature (against Defense), and two of rolled dice (you choose) to its adjacent creatures (against Defense).\n",
+    "category": "Elemental"
+  },
+  "Magic Missiles": {
+    "A": "1 Action",
+    "Range": "9 meters",
+    "Effect": "Shoot 3 missiles. Each missile does 1d4 Force damage.\nAt Level 4, you can also spend any number of charges, and you shoot 2 more missiles for each Charge spent.\n",
+    "Notes": "You can send missiles to different targets, but you must declare all the attacks at once.",
+    "category": "Elemental"
+  },
+  "Quicksand": {
+    "A": "0.5 Actions",
+    "Range": "6 meters to edge",
+    "Duration": "1 minute",
+    "Effect": "Declare a 2x2 meter zone made of dirt, sand or other such material.\nThat zone becomes Difficult Terrain.\n",
+    "Variant": "You can also cause this difficult terrain with vegetation.",
+    "category": "Elemental"
+  },
+  "Thunder Clap": {
+    "A": "1 Action",
+    "Effect": "Attack all creatures near you for 2d8 Shock damage (against their Defense).",
+    "category": "Elemental"
+  },
+  "Crackling Lightning": {
+    "A": "0 Actions",
+    "Cost": "1 Charge",
+    "Range": "6 meters",
+    "Duration": "Until the target dies or you don't do this",
+    "Effect": "When you cast this the first time, declare a target.\nEvery turn (including this), you can use 0.5 Actions to attack that target for 3d6 Shock damage.\nIf you don't do this on a turn, the spell ends.\n",
+    "category": "Elemental"
+  },
+  "Frost Nova": {
+    "A": "1 Action",
+    "Cost": "1 Charge",
+    "Effect": "All creatures within 2 meters of you make a Dexterity save.\nThey take 1d8 + 4 Cold damage if they fail, or half of that if they succeed.\nIf they fail, they are also Slowed.\n",
+    "Variant": "Fire Nova or Shock Nova.",
+    "category": "Elemental"
+  },
+  "Frost Rune": {
+    "A": "1 Action",
+    "Cost": "1 Charge.",
+    "Range": "1 meter",
+    "Duration": "8 hours",
+    "Effect": "Place a rune on a smooth solid surface. The rune covers a 1x1 area.\nHeavy physical contact with the rune detonates it, dealing 4d6 Cold damage (against Defense) to the creature that activates it.\nAlso, try to Snare the creature (Dexterity save).\n",
+    "Variant": "Earth Rune (Force instead of Cold, Fortitude instead of Dexterity)",
+    "category": "Elemental"
+  },
+  "Explosion Rune": {
+    "A": "1 Action",
+    "Cost": "1 Charge",
+    "Range": "1 meter",
+    "Duration": "8 hours",
+    "Effect": "Place a rune on a smooth solid surface. The rune covers a 1x1 area.\nHeavy physical contact with the rune detonates it, dealing 4d6 Fire (or Force) damage (against Defense) to the creature that activates it and all adjacent creatures.\n",
+    "category": "Elemental"
+  },
+  "Fire Ball": {
+    "A": "1 Action",
+    "Cost": "3 Charges",
+    "Range": "6 meters (to the edge)",
+    "Requirement": "Level 4",
+    "Effect": "Damage all creatuers in a 5x5x5 cube for 5d6 Fire damage (against Defense).",
+    "Variant": "Water Ball or Thunder Ball.",
+    "category": "Elemental"
+  },
+  "Ice Spike": {
+    "A": "1 Action",
+    "Cost": "2 Charges.",
+    "Range": "6 meters",
+    "Effect": "The target rolls a Dexterity save.\nIf it fails, it takes 3d6 + 3 Cold damage, or half otherwise.\nThe target automatically fails if it's affected by any Crowd Control! (except Hard Terrain).\n",
+    "category": "Elemental"
+  },
+  "Flameblade": {
+    "A": "Passive",
+    "Effect": "You can freely change the damage of your melee weapon attacks to Fire damage.",
+    "category": "Elemental"
+  },
+  "Fire Enchantment": {
+    "A": "1 Action",
+    "Cost": "1 Charge.",
+    "Duration": "5 landed attacks, or 24 hours",
+    "Effect": "Using a <Fire Rune>, touch a weapon to imbue it with Fire.\nThat weapon deals +2 Fire damage.\n",
+    "category": "Elemental"
+  },
+  "Heat Metal": {
+    "A": "0.5 Actions",
+    "Cost": "1 Charge",
+    "Range": "6 meters",
+    "Effect": "Choose a piece of metal and heat it.\n- If it's an armor, the wearer takes 2d6 + 1 Fire damage.\n- If it's a weapon, the wearer takes 4 Damage and try to Cripple it (Fortitude save).\n",
+    "category": "Elemental"
+  },
+  "Flame Strike": {
+    "A": "1 Action",
+    "Cost": "1 Charge.",
+    "Range": "6 meters (to the center)",
+    "Duration": "1 minute or until cancelled",
+    "Effect": "Conjure a 4x4 zone of flames on the ground.\nAt the end of each of your turns, roll 1d4 + 1.\nAll creatures inside the zone take that amount as Fire damage.\n",
+    "category": "Elemental"
+  },
+  "Arcane Spear": {
+    "A": "1 Action",
+    "Cost": "1 Charge",
+    "Effect": "All creatures in a 6 meter line from you make a Dexterity save.\nDeal 12 damage to all targets who failed.\nIf no creature failed, you gain the Charge back.\n",
+    "category": "Elemental"
+  },
+  "Phase Orb": {
+    "A": "0.5 Actions",
+    "Cost": "1 Charge.",
+    "Range": "6 meters",
+    "Effect": "Pick a 1x1 zone. A magical orb is created in that place.\nAt the start of your next turn, the orb dashes to your position.\nAll creatures in the orb's path take 3d4 Force damage.\n",
+    "category": "Elemental"
+  },
+  "Scorching Rays": {
+    "A": "1 Action",
+    "Cost": "1 Charge.",
+    "Range": "6 meters",
+    "Effect": "Make 3 attacks. Each does 1d6 + 5 Fire damage (each vs Defense).",
+    "Variant": "Frostbiting Rays or Electric Rays.",
+    "category": "Elemental"
+  },
+  "Water Sphere": {
+    "A": "1 Action",
+    "Cost": "1 Charge",
+    "Effect": "Shoot a 1 meter in diameter ball of water in a direction parallel to the floor that can travel up to 9 meters.\nThe ball can bounce off of walls and solid objects (not creatures).\nThe angle it bounces to is equal to the angle it was thrown from respective to the surface it bounces from (like light is reflected in a mirror in real life).\nThe ball bursts when it collides with a creature, dealing 2d10 + 2 damage plus 1d10 for each time it bounced.\n(Damage is dealt against Defense).\nThe Sphere can bounce up to 2 times.\n",
+    "category": "Elemental"
+  },
+  "Dancing Blade": {
+    "A": "Passive",
+    "Effect": "You magically levitate your 1-Handed weapon to extend its range to 2 meters.",
+    "Notes": "It does not count as occupying your hand.",
+    "category": "Arcane"
+  },
+  "Prestidigitation": {
+    "A": "1 Action",
+    "Range": "6 meters",
+    "Effect": "You can create harmless sensory effects.\nYou can create sparks and change the temperature of objects (channeled).\nYou can instantly clean or soil objects.\nYou can make symbols appear on surfaces (up to 1 hour).\nYou can create small, harmless illusions that fit into your hand.\nYou can control a quill with telekinesis to quickly write with it (1 meter range).\n",
+    "category": "Arcane"
+  },
+  "Thaumaturgy": {
+    "A": "1 Action",
+    "Range": "6 meters",
+    "Effect": "You create one of the following magical effects:\n- Your voice booms up to three times as loud as normal for 1 minute.\n- You cause flames to flicker, brighten, dim, or change color for 1 minute.\n- You cause harmless tremors in the ground for 1 minute.\n- You cause an unlocked door or window to fly open or slam shut.\n- You alter the appearance of your eyes for 1 minute.\nAt level 5 you can cast this for 0.5 Actions, and at Level 9, for 0 Actions.\n",
+    "category": "Arcane"
+  },
+  "Feather Fall": {
+    "A": "Reaction or 0 Actions",
+    "Cost": "1 Charge",
+    "Range": "6 meters",
+    "Effect": "Consume a 10 gold worth for an <Arcane Feather>.\nUp to 2 creatures you choose will start falling gently, down to 3 meters per round.\nOnce the fall finishes, the spell effect ends.\n",
+    "Notes": "Arcane Feathers can be bought in most towns.\nFor faster gameplay, you can spend 10 gold when casting the spell, and buy the feather later.\n",
+    "category": "Arcane"
+  },
+  "Unlock": {
+    "A": "1 Action",
+    "Cost": "1 Charge.",
+    "Range": "9 meters",
+    "Effect": "You can attempt to unlock a lock magically.\nUsing this counts as if you Know How to Pick Locks.\nYou roll a Sleight of Hand for this, and you get a +2 on it.\n",
+    "category": "Arcane"
+  },
+  "Sense Magic": {
+    "A": "0 Actions",
+    "Requirement": "Level 4",
+    "Cost": "1 Charge",
+    "Effect": "You can tell if there is magic within (Intelligence * 10) meters from you (at least 10 meters).\nYou can also tell if an object you touch is magical.\nIf it is a common magic item, you can tell what it does (e.g. Potions, Scrolls, etc).\n",
+    "category": "Arcane"
+  },
+  "Invisibility": {
+    "A": "1 Action",
+    "Requirement": "Level 4",
+    "Cost": "1 Charge",
+    "Effect": "You become invisible for up to (Intelligence) minutes (at least 1).\nAttacking, taking damage or casting spells while invisible breaks the invisibility.\n",
+    "category": "Arcane"
+  },
+  "Flash": {
+    "A": "0 Actions",
+    "Cost": "1 Charge",
+    "Effect": "Instantly teleport up to 6 meters away.",
+    "Notes": "You take with you all items carried.",
+    "category": "Arcane"
+  },
+  "Levitate": {
+    "A": "1 Action",
+    "Requirement": "Level 4",
+    "Cost": "1 Charge",
+    "Effect": "First, roll 2d100. That's how many kilograms you can levitate when you cast this.\nYou can levitate one object you can see that remains within 6 meters of you.\nYou can slowly move the object vertically, 1 meter for each 2 of your movement points spent to levitate.\nIf you use this on an enemy, it must fail a Fortitude save to be levitated, and can repeat the save at the end of each of its turns.\nA levitated creature counts as Heavy Snared.\nLosing concentration (taking damage or using any action) instantly starts slowly dropping the target and breaks the Levitate.\n",
+    "category": "Arcane"
+  },
+  "Water Walk": {
+    "A": "0 Actions or Reaction",
+    "Requirement": "Level 4",
+    "Cost": "1 Charge",
+    "Range": "3 meters",
+    "Duration": "1 hour",
+    "Effect": "Up to 2 willing creatures can walk on water as normally.\nThe effect ends if the creature takes damage.\n",
+    "category": "Arcane"
+  },
+  "Spider Climb": {
+    "A": "1 Action",
+    "Requirement": "Level 4",
+    "Cost": "1 Charge",
+    "Duration": "10 minutes",
+    "Effect": "Your hands and feet can stick to solid, (more or less) flat surfaces, so you can walk on them.\nYour speed, if you do this, is halved.\n",
+    "category": "Arcane"
+  },
+  "Resistance": {
+    "A": "1 Action",
+    "Duration": "Until their next rest",
+    "Effect": "Touch an ally. It gains +1d4 on a saving throw of your choice.\nYou can only have this buff active on one person at a time.\n",
+    "category": "Protection"
+  },
+  "Absorb Element": {
+    "A": "Reaction",
+    "Cost": "1 Charge.",
+    "Effect": "Use when you take magic damage.\nYou only take half of that damage, and you infuse yourself with that element.\nThe next time you make a single target attack, that attack deals 1d6 extra damage of the infused element (if it hits).\n",
+    "category": "Protection"
+  },
+  "Alarm": {
+    "A": "10 minutes",
+    "Cost": "1 Charge.",
+    "Duration": "12 hours",
+    "Effect": "You setup an invisible 4x4x4 meter cube.\nIf an unknown creature or enemy enters the cube, it alerts you mentally with a bell sound, or whatever sound you choose.\n",
+    "category": "Protection"
+  },
+  "Antimagic Rune": {
+    "A": "1 Action",
+    "Requirement": "Level 4",
+    "Cost": "1 Charge.",
+    "Effect": "Place a rune on the ground.\nYou can activate it at any time and from any distance.\nWhen you activate it, the rune creates a 5x5 meter zone.\nTry to Silence all units inside (Intelligence save) and they also take (Your Level) Arcane damage on detonation.\n",
+    "category": "Protection"
+  },
+  "Dispel Magic": {
+    "A": "0 Actions",
+    "Cost": "1 Charge",
+    "Effect": "Touch an ally and dispell any ongoing curse or negative magical effects on it.",
+    "category": "Protection"
+  },
+  "Conceal Magic": {
+    "A": "1 Action",
+    "Requirement": "Level 4",
+    "Cost": "1 Charge.",
+    "Effect": "Your magic becomes undetectable for 1 hour.",
+    "category": "Protection"
+  },
+  "Mage Armor": {
+    "A": "Passive",
+    "Effect": "While you are at 50% or more Health, your Defense can't be lower than 4.",
+    "category": "Protection"
+  },
+  "Barkskin": {
+    "A": "Reaction",
+    "Cost": "1 Charge",
+    "Range": "6 meters",
+    "Effect": "That ally becomes Snared in the ground for up to 1 minute.\nWhile rooted, that ally's Defense can't be lower than 6.\n",
+    "Notes": "On your turn, you can cancel this effect at any point.",
+    "category": "Protection"
+  },
+  "Shield Element": {
+    "A": "0.5 Actions",
+    "Cost": "1 Charge.",
+    "Range": "6 meters",
+    "Effect": "Name 1 element from Fire/Cold/Electric and choose two allies.\nThe next time those allies would take that type of damage, that damage is halved.\n",
+    "category": "Protection"
+  },
+  "Wild Heart": {
+    "A": "1 Action",
+    "Cost": "1 Charge.",
+    "Effect": "Up to 2 allies you touch gain +3 maximum (and current) Health and +1 to all saves until their next Long Rest.",
+    "Notes": "The bonus to Health and Saves doesn't stack with itself, and the bonus to Saves doesn't stack with other Save buffs.",
+    "category": "Protection"
+  },
+  "Conjure Ammo": {
+    "A": "1 Action",
+    "Duration": "1 hour",
+    "Effect": "You can conjure up to 10 arrows, bolts or bullets, javelins, throwing knives, etc.",
+    "Notes": "If you have this, you can just say you keep X amount of conjured ammo always ready, to speed the game up and not constantly interrupt the game.",
+    "category": "Conjuration"
+  },
+  "Light": {
+    "A": "1 Action",
+    "Range": "1 meter",
+    "Duration": "1 hour (8 at level 5, 24 at level 10)",
+    "Effect": "You create a magical light bulb that sheds light in a 6 meters radius (30 meters at Level 5).\nThe bulb levitates and stays where you put it, and you can always move it around with your hands.\nYou can also simply attach the bulb to any object, or make it levitate and follow a willing creature.\nLasts until you cancel it or cast Light again, or is purposefully destroyed with an attack.\nYou choose the color of the light.\n",
+    "Notes": "The bulb can't go through solid objects.",
+    "category": "Conjuration"
+  },
+  "Chaining Grasp": {
+    "A": "0 Actions",
+    "Cost": "1 Charge.",
+    "Range": "6 meters",
+    "Effect": "Extend a magical chain to a medium (or larger) living or undead creature and pull yourself to the target instantly.\nThe target also takes 1d6 True damage.\n",
+    "category": "Conjuration"
+  },
+  "Animate Dead": {
+    "A": "1 Action",
+    "Cost": "1 Charge.",
+    "Range": "6 meters",
+    "Duration": "1 hour",
+    "Effect": "Raise an undead creature to fight for you from a nearby medium or larger corpse. The corpse is then consumed.\nThe undead creature always has Medium size, 10 Maximum Health and 3 Defense.\nIt has saves equal to yours, but -2 to all skill checks.\nIt has 4 meters movement speed.\nIt can use 1 Action to attack and deals 2d4 + 1 damage if it hits (Smash, Slash or Pierce, your choice).\nYour undead takes its turn immediately before or after your turn (you choose).\nThe undead will always try to move to and attack the closest enemy to it (you choose if it's a tie).\nYou can use 0.5 Actions on your turn to command (one of) your undead to move to a certain location.\n",
+    "category": "Conjuration"
+  },
+  "Dancing Weapon": {
+    "A": "1 Action",
+    "Cost": "1 Charge",
+    "Range": "3 meters",
+    "Duration": "1 minute",
+    "Effect": "You conjure a levitating, self-wielding melee weapon.\nOn your turn, the weapon can make a melee Spell Attack which deals 2d8 Force damage.\n",
+    "Notes": "The weapon has no special effect, it has 8 Defense and 1 Health.\nThe weapon disappears if it moves more than 9 meters away from you.\n",
+    "category": "Conjuration"
+  },
+  "Distort Vision": {
+    "A": "1 Action",
+    "Cost": "1 Charge.",
+    "Range": "3 meters",
+    "Effect": "This incantation distorts the visual space in a 2x2x2 area.\nMake a Deception check for this, and add your Intelligence to the roll.\nWhile keeping the distorsion, you must maintain concentration.\nYou lose concentration if you take damage or become crowd controlled.\n",
+    "category": "Conjuration"
+  },
+  "Eldritch Steed": {
+    "A": "5 minutes",
+    "Requirement": "Training in Riding, Level 4",
+    "Cost": "1 Charge",
+    "Duration": "8 hours",
+    "Effect": "You summon a ridable animal which doubles your movement speed on land.\nThe animal takes either a spectral, demonic or skeletal form.\nIt follows the normal rules for Riding.\nIt does not participate in combat.\nAt Level 8 the Steed can fly.\n",
+    "category": "Conjuration"
+  },
+  "Fairy Fire": {
+    "A": "0.5 Actions",
+    "Cost": "1 Charge.",
+    "Range": "6 meters",
+    "Duration": "10 minutes",
+    "Effect": "Declare a 4x4x4 meter zone.\nAll creatures in that zone make a Dexterity save with Disadvantage.\nIf they fail, they become outlined in a colored glow (you choose the color).\nThose creatures can't benefit from normal Cover.\nThe creatures glow even through walls, but the denser the walls, the less they appear to glow.\nA 1-meter thick concrete wall completely blocks the glow.\n",
+    "category": "Conjuration"
+  },
+  "Fake Sound": {
+    "A": "0.5 Actions",
+    "Cost": "1 Charge",
+    "Range": "3 meters",
+    "Duration": "6 seconds max (1 minute at Level 4, 1 hour at Level 8)",
+    "Effect": "You create a sound out of thin air.\nRoll a Deception check and add your Intelligence modifier to it to see how accurate your sound is.\n",
+    "category": "Conjuration"
+  },
+  "Fog Cloud": {
+    "A": "1 Action",
+    "Cost": "1 Charge",
+    "Range": "all zone within 9 meters",
+    "Effect": "A 5x5x5 meter cube of fog forms.\nAll creatures inside the fog benefit from Cover (-2), as well as creatures outside the fog attacked by one inside the fog.\nYou can choose the color of the fog.\nThe fog spreads around corners.\n",
+    "category": "Conjuration"
+  },
+  "Force Wall": {
+    "A": "1 Action",
+    "Cost": "1 Charge",
+    "Range": "within 6 meters",
+    "Duration": "1 minute",
+    "Effect": "You create a 3x3 meter transparent, magical and thin force wall.\nCreatures behind the wall benefit from Hard Cover (-4 to attacks against them through the wall).\n",
+    "category": "Conjuration"
+  },
+  "Conjure Object": {
+    "A": "1 Action",
+    "Requirement": "Level 4",
+    "Cost": "1 Charge.",
+    "Range": "3 meters",
+    "Effect": "You can conjure an object that is up to 1x1x1 meter in size.\nThe object is solid and glows faintly.\nYou can't conjure mechanical objects.\nThe object disappears after 1 hour (24 hours at Level 8).\n",
+    "category": "Conjuration"
+  },
+  "Mage Hand": {
+    "A": "0 Actions",
+    "Cost": "1 Charge.",
+    "Range": "6 meters",
+    "Duration": "8 hours",
+    "Effect": "Conjure a spectral hand in a place you can see.\nYou can move the hand as you move your normal hands and instead of spending movement points to move yourself, you can move your hand the same distance.\nThe hand can't attack and disappears if it goes outside a 12 meters range.\n",
+    "category": "Conjuration"
+  },
+  "Magic Prison": {
+    "A": "5 minutes",
+    "Requirement": "Level 8",
+    "Cost": "2 Charges",
+    "Effect": "You create a 4x4x4 meter cube.\nChoose a creature inside the cube.\nIt makes an Intelligence save with triple disadvantage.\nIf it fails, it can not exit the cube for 24 hours.\nIt can make this save to try to escape every 24 hours.\nYou can cast this once per day per charge.\n",
+    "category": "Conjuration"
+  },
+  "Portal": {
+    "A": "4 Hours",
+    "Cost": "3 Charges.",
+    "Duration": "30 days",
+    "Requirement": "Level 8",
+    "Effect": "You need a partner who can cast Portal to cast this.\nYou both cast it at the same time, in different locations.\nAt the end of the cast time, a portal opens at the locations of the two casters.\nStepping through one of the portals (obviously) teleports the creature to the other portal.\nYou can only cast this every 30 days.\n",
+    "category": "Conjuration"
+  },
+  "Web": {
+    "A": "1 Action",
+    "Cost": "1 Charge",
+    "Range": "6 meters to edge",
+    "Duration": "1 minute",
+    "Effect": "Declare a 4x4 meter zone\nThe zone becomes filled with spider web and counts as Difficult Terrain.\nIf a creature exits the zone, try to Snare it (Dexterity save).\n",
+    "category": "Conjuration"
+  },
+  "Watcher Eye": {
+    "A": "0 Actions",
+    "Requirement": "Level 4",
+    "Cost": "1 Charge",
+    "Range": "6 meters",
+    "Effect": "You conjure a magical eye that records everything it sees for up to 24 hours.\nAfter 24 hours, the eye stops recording.\nYou can use your magic to scan what the eye recorded in your mind.\n",
+    "category": "Conjuration"
+  },
+  "Mind Blast": {
+    "A": "1 Action",
+    "Cost": "1 Charge",
+    "Range": "3 meters",
+    "Effect": "A creature takes 2d6 + 4 Psychic damage and try to Cripple or Silence it (your choice) (Wisdom save).\nAfter you cast Mind Blast on a creature, it becomes completely immune to Mind Blast for 1 day.\n",
+    "category": "Mysticism"
+  },
+  "Encode Thoughts": {
+    "A": "1 Action",
+    "Requirement": "Level 4",
+    "Duration": "24 hours (unlimited duration at Level 8)",
+    "Effect": "You pull a String of Memory or Thoughts (can be visual, auditive, sensory and olphactive) from your own memory.\nThis String can be up to 1 minute in length.\nIt is visible to the eye as an arcane ribbon-like energy.\nYou can transport this String like you would carry a normal 10x10x10 decimeter object.\nTo view the String, a person can willingly absorb it through the mouth, eyes, nose, etc (corresponding to the type of memories) and visualize the String.\nAfter that, the String disappears.\nEncoding another String makes the previous String disappear.\n",
+    "category": "Mysticism"
+  },
+  "Charming Word": {
+    "A": "1 Action",
+    "Cost": "1 Charge",
+    "Range": "6 meters",
+    "Effect": "A creature makes a Wisdom save.\nIf it fails, all your Charisma checks for/against it have +2.\nLasts until the creature can't see or hear you anymore.\n",
+    "Notes": "The target can't tell it was affected unless it knows about this type of magic.",
+    "category": "Mysticism"
+  },
+  "Influence Beast": {
+    "A": "1 Action",
+    "Requirement": "Level 4",
+    "Cost": "1 Charge.",
+    "Range": "12 meters",
+    "Effect": "A non-legendary beast that can see you makes a Charisma save.\nIf it fails, you can change the beast's mood (make it hungry, afraid, nervous, etc).\n",
+    "category": "Mysticism"
+  },
+  "Wild Steed": {
+    "A": "5 minutes",
+    "Requirement": "Level 4, Training in Riding",
+    "Cost": "1 Charge",
+    "Duration": "Until you dismount",
+    "Effect": "You call upon a ridable land animal native to the zone you are in.\nYou and up to 1 more party member can ride this animal.\nIt follows the normal rules for Riding.\nIt does not participate in combat.\nAt Level 8, this can be a flying animal.\n",
+    "category": "Mysticism"
+  },
+  "Guidance": {
+    "A": "Reaction",
+    "Range": "6 meters",
+    "Cooldown": "1 hour",
+    "Effect": "When an ally makes an ability check, it can use your modifier instead of its own.\n",
+    "category": "Mysticism"
+  },
+  "Mastery": {
+    "A": "Passive",
+    "Effect": "You can add your Wisdom or Charisma to an attack roll with a weapon instead of Strength or Dexterity.",
+    "category": "Mysticism"
+  },
+  "Translation": {
+    "A": "0 Actions",
+    "Requirement": "Level 4",
+    "Cost": "1 Charge",
+    "Duration": "1 Hour",
+    "Effect": "You can understand any spoken or written Common language.",
+    "category": "Mysticism"
+  },
+  "Speak With Animals": {
+    "A": "1 Action",
+    "Cost": "1 Charge.",
+    "Duration": "10 minutes (1 hour at level 4)",
+    "Effect": "You can attempt to speak concrete ideas with willing, non-hostile animals.",
+    "Notes": "Keep in mind that animals generally have low Intelligence, and they are not expected to 'speak' back to you through language.",
+    "category": "Mysticism"
+  },
+  "Speak With Plants": {
+    "A": "1 Action",
+    "Cost": "1 Charge",
+    "Duration": "10 minutes (1 hour at level 4)",
+    "Effect": "You can attempt to speak concrete ideas with willing, large plants.",
+    "Notes": "Keep in mind that plants generally have low Intelligence, and they are not expected to 'speak' back to you through language.",
+    "category": "Mysticism"
+  },
+  "Cleansing Flames": {
+    "A": "0 Actions",
+    "Cost": "1 Charge.",
+    "Range": "9 meters",
+    "Effect": "Deal 1d4 + 1 Fire damage and remove all buffs and debuffs from the target.",
+    "category": "Restoration"
+  },
+  "Detect Poison and Disease": {
+    "A": "1 Action",
+    "Effect": "You know if there is any poison (or poisonous creature) or disease (or ill person) within 6 meters.",
+    "category": "Restoration"
+  },
+  "Purify Food and Drink": {
+    "A": "1 Action",
+    "Effect": "Food you touch becomes clean of microbes and mild poison.\nA water containter you touch (up to 2 liters per cast) becomes drinkable, clean and free of microbes and mild poison.\n",
+    "category": "Restoration"
+  },
+  "Cure Wounds": {
+    "A": "1 Action",
+    "Cost": "1 Charge",
+    "Effect": "Touch an ally and heal it for 2d4 + Main Stat.",
+    "category": "Restoration"
+  },
+  "Cure Poison": {
+    "A": "0 Actions",
+    "Cost": "1 Charge",
+    "Effect": "Touch an ally and end any ongoing poison effects on it.",
+    "category": "Restoration"
+  },
+  "Cure Disease": {
+    "A": "10 minutes",
+    "Cost": "1 Charge",
+    "Effect": "Touch an ally and cure a normally curable disease from it.\nAt level 4, you can cure harder and stranger diseases.\nAt level 8, you can cure terminal or chronic diseases.\n",
+    "category": "Restoration"
+  },
+  "Mending": {
+    "A": "1 Action",
+    "Cost": "1 Charge.",
+    "Effect": "Touch a slightly broken piece of material that is still in one piece.\nYou can repair the damage done to it.\n",
+    "Notes": "For example, repair a hole through a chain shirt or textile material, the crack in a piece of glass, etc.",
+    "category": "Restoration"
+  },
+  "Spare the Dying": {
+    "A": "1 Action",
+    "Cost": "1 Charge",
+    "Requirement": "Level 4",
+    "Effect": "Touch a creature that died at most 10 minutes ago or an unconscious creature.\nIf the creature is dead, and if the creature's body is fairly intact, the dead creature comes back to life, stabilized and unconscious.\nIf the creature is unconscious, the creature wakes up and is healed for 1 Health.\n",
+    "category": "Restoration"
+  },
+  "Hollow Touch": {
+    "A": "1 Action",
+    "Range": "3 meters",
+    "Effect": "Make a spell attack that deal 3d6 + 2 Necrotic damage and the target is unable to reagain health until the end of its next turn.",
+    "category": "Eldritch"
+  },
+  "Eldritch Blast": {
+    "A": "1 Action",
+    "Range": "6 meters",
+    "Effect": "Make a Spell attack for 2d10 + 1 Force damage.\nIf you roll at least one 10, deal another 1d10 damage.\n",
+    "category": "Eldritch"
+  },
+  "Curse of Pain": {
+    "A": "0.5 Actions",
+    "Cost": "1 Charge.",
+    "Range": "6 meters",
+    "Duration": "1 minute",
+    "Effect": "Declare a target.\nWhenever it makes a weapon attack, it takes 1d8 Psychic damage.\n",
+    "category": "Eldritch"
+  },
+  "Curse of Weakness": {
+    "A": "0.5 Actions",
+    "Cost": "1 Charge.",
+    "Range": "6 meters",
+    "Duration": "1 minute",
+    "Effect": "A target makes a Charisma save.\nIf it fails, whenever it makes an attack roll or save, it rolls 1d4 and subtracts it from the result.\n",
+    "category": "Eldritch"
+  },
+  "Deathfire Bolt": {
+    "A": "1 Action",
+    "Cost": "1 Charge.",
+    "Range": "6 meters",
+    "Effect": "Make a spell attack (against Defense) that deals 1d12 + 1d10 + 1d8 damage, Fire or Necrotic (you choose).\nIf the target has more than 4 Defense, deals 2 more damage for each point of Defense over 4.\n",
+    "category": "Eldritch"
+  },
+  "Disenchantment": {
+    "A": "1 minute",
+    "Range": "12 meters",
+    "Duration": "8 hours (24 hours at level 4, 1 week at level 8)",
+    "Cooldown": "8 hours",
+    "Effect": "A humanoid makes a Wisdom save.\nIf it fails, it becomes afflicted with a minor non-combat curse, such as:\n- The target can't properly tie knots, sew, use keys or pick locks, etc\n- The target appears less attractive (its Charisma Skill checks have -3)\n- Gains runny nose, eyes and sweats more\n- Stumbles randomly\n",
+    "category": "Eldritch"
+  },
+  "Radiant Smite": {
+    "A": "0 Actions",
+    "Cost": "2 Charges",
+    "Effect": "After you make a melee attack that did damage, deal 1d8 True damage to the target and all enemies within 6 meters of target.",
+    "category": "Divine"
+  },
+  "Blinding Smite": {
+    "A": "0 Actions",
+    "Cost": "2 Charges.",
+    "Effect": "After you make a melee attack that did damage, all enemies within 2 meters of the target make a Dexterity save.\nIf they fail, they are Blinded for 1 turn.\n",
+    "category": "Divine"
+  },
+  "Cleansing Smite": {
+    "A": "0 Actions",
+    "Cost": "2 Charges.",
+    "Effect": "After you land a melee attack that did damage, deal 1d6 True damage to the target and heal yourself for 1d10.",
+    "category": "Divine"
+  },
+  "Turn Undead": {
+    "A": "0 Actions",
+    "Cost": "2 Charges",
+    "Effect": "All enemy Undead you can see within 6 meters make a Wisdom save.\nIf any fails, it is Feared.\n",
+    "category": "Divine"
+  },
+  "Wraithwalk": {
+    "A": "0 Actions",
+    "Cost": "1 Charge.",
+    "Requirement": "Level 8",
+    "Effect": "You become spectral for 10 seconds (until the start of your next turn).\nWhile spectral, you can move through walls, objects and creatures, but not through floors and ceilings.\nIf the effect doesn't end in an empty space, you are instantly thrown to the nearest empty space and you take 2d10 Force damage.\n",
+    "category": "Divine"
+  }
+}
+
+export default Abilities

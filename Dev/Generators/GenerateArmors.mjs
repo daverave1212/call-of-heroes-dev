@@ -48,7 +48,7 @@ ${Components.head('Armors')}
 
     ${Components.navigation()}
 
-    <div id="Page-Body-Wrapper" style="background-image: url('Images/DefaultBackground.png');">
+    <div id="Page-Body-Wrapper" style="background-image: url('Images/Armors.jpg');">
         <div id="Page-Body">
             ${sidebar(file)}
             <div id="Page-Content">

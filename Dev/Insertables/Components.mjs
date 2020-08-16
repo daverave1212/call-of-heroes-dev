@@ -28,10 +28,22 @@ export let navigation = () =>
 `
 <div id="Top-Nav-Wrapper">
     <nav id="Top-Nav" class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/index.html">
             <img src="Images/Icons/UI/Logo.png">
             <span>Call of Heroes</span>
         </a>
+
+        <li class="nav-item active">
+            <div class="dropdown">
+                <a class="nav-link custom-font dropbtn" href="#">Rules</a>
+                <div class="dropdown-content">
+                    <a href="Crowd Control.html">Crowd Control</a>
+                    <a href="Inventory.html">Inventory</a>
+                    <a href="Languages.html">Languages</a>
+                    <a href="Skill Points Shop.html">Skill Points</a>
+                </div>
+            </div>
+        </li>
 
         <button class="navbar-toggler custom-font" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -74,6 +86,10 @@ export let navigation = () =>
                 </li>
 
                 <li class="nav-item active">
+                    <a class="nav-link custom-font" href="Backgrounds.html">Backgrounds</a>
+                </li>
+
+                <li class="nav-item active">
                     <div class="dropdown">
                         <a class="nav-link custom-font dropbtn" href="#">Items</a>
                         <div class="dropdown-content">
@@ -84,9 +100,17 @@ export let navigation = () =>
                     </div>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
+                <li class="nav-item active">
+                    <div class="dropdown">
+                        <a class="nav-link custom-font dropbtn" href="#">Abilities</a>
+                        <div class="dropdown-content dropdown-content--lefter">
+                            <a href="Abilities.html">Abilities List</a>
+                            <a href="Spell Sheet Maker.html">Spell Sheet Maker</a>
+                            <a href="Amateur Spell List.html">Amateur Spells</a>
+                        </div>
+                    </div>
                 </li>
+                
 
             </ul>
         </div>
@@ -94,7 +118,7 @@ export let navigation = () =>
 </div>
 `
 
-export let spell = ({name, isTalent=false, A, Cost, Range, Cooldown, Duration, Effect, Notes, Other, Variant}) => {
+export let spell = ({name, isTalent=false, A, Cost, Range, Cooldown, Duration, Effect, Notes, Other, Variant, Requirement}) => {
 
     return `
         <div class="spell${isTalent? ' spell-talent' : ''}">
@@ -112,8 +136,9 @@ export let spell = ({name, isTalent=false, A, Cost, Range, Cooldown, Duration, E
                 </p>
                 ${Notes != null || Other != null || Variant != null? '<br>': ''}
                 ${Notes == null? '' : '<p class="spell-extra">' + Notes + '</p>'}
-                ${Other == null? '' : '<p class="spell-extra">' + Notes + '</p>'}
-                ${Variant == null? '' : '<p class="spell-extra">' + Notes + '</p>'}
+                ${Other == null? '' : '<p class="spell-extra">' + Other + '</p>'}
+                ${Variant == null? '' : '<p class="spell-extra">' + Variant + '</p>'}
+                ${Requirement == null? '' : `<br> <p class="spell-red spell-description">Requires ${Requirement}</p>`}
             </div>
         </div>
     `
@@ -186,7 +211,6 @@ export const armor = data => {
 `
 }
 
-
 export const paragraphs = text => text.split('\n').map(t => `<p>${t}</p>`).join('\n')
 export const ul = (strings, cls) => `<ul ${cls == null? '' : 'class="' + cls + '"'}>\n` + strings.map(str => `<li>${str}</li>`).join('\n') + '\n</ul>'
 export const skills = Skills =>  '<ul>\n' + Object.keys(Skills).map(skill => `<li>${Skills[skill]} ${skill}</li>`).join('\n') + '\n</ul>'
@@ -204,3 +228,56 @@ export const talents = talentsObject => {
     }
     return abilities(talentsObject)
 }
+
+
+
+
+
+export const monster = (obj) => {
+    let {name, Rating, Stats, Health, Armor, Speed, Initiative, Attack, Behavior, Abilities} = obj
+    let EncounterIdeas = obj['Encounter Ideas']
+    let SuggestedObstacles = obj['Suggested Obstacles']
+    return `
+    <div class="monster">
+        <h3>${name}</h3>
+        <br>
+        <p>${Behavior}<p>
+        <br>
+
+        ${Rating == null? '' : `<p><img class="text-symbol" src="Images/Icons/UI/Ratio.png">
+            <span class="monster-rating" data-original="${Rating}">
+                ${Rating}
+            </span>
+        </p>`}
+        <p><img class="text-symbol" src="Images/Icons/UI/Specializations.png"><span class="monster-stats" data-original="${Stats}">${Stats}</span></p>
+
+        <p><img class="text-symbol" src="Images/Icons/UI/Arrow.png"><span class="monster-initiative">${Initiative}</span></p>
+        <p><img class="text-symbol" src="Images/Icons/UI/Speed.png">${Speed}</p>
+
+        <p><img class="text-symbol" src="Images/Icons/UI/Health.png"><span class="monster-health" data-original="${Health}">${Health}</span></p>
+        <p><img class="text-symbol" src="Images/Icons/UI/Protection.png"><span class="monster-armor" data-original="${Armor}">${Armor}</span></p>
+        <br>
+        <table>
+            ${Object.keys(Attack).map(key => `
+                <tr>
+                    <td>${key}</td>
+                    <td><span class="monster-attack" data-original="${Attack[key]}">${Attack[key]}</span></td>
+                </tr>
+            `).join('\n')}
+        </table>
+        <table>
+            ${Object.keys(Abilities).map(key => `
+                <tr>
+                    <td>${key}</td>
+                    <td>${Abilities[key]}</td>
+                </tr>
+            `).join('\n')}
+        </table>
+        ${EncounterIdeas != null? '<br>' + ul(EncounterIdeas, '') : ''}
+        ${SuggestedObstacles != null? '<br>' + ul(SuggestedObstacles, '') : ''}
+    </div>
+
+`
+}
+
+

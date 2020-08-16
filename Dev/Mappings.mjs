@@ -48,7 +48,8 @@ export let abilityMapping = {
     '*Notes':       string,
     '*Requirement': string,
     '*Variant':     string,
-    '*Duration':    string
+    '*Duration':    string,
+    '*Variant':     string
 }
 
 export let specMapping = {
@@ -60,6 +61,31 @@ export let specMapping = {
         'Level 2':          abilityList,
         '*Level 4':         abilityList
     }
+}
+
+export let monsterMapping = {
+    Rating: number,
+    Stats: string,
+    Health: number,
+    Armor: number,
+    Speed: anything,
+    Initiative: anything,
+    Attack: customObject,
+    Behavior: string,
+    Abilities: customObject,
+    '*Suggested Obstacles': [string],
+    '*Encounter Ideas': [string]
+}
+
+export let backgroundMapping = {
+    Title: string,
+    Description: string,
+    Effect: string,
+    Money: number,
+    '*Language': string,
+    '*Training': string,
+    '*Skills': string,
+    '*Skill Points': number
 }
 
 export let classMapping = {
@@ -97,12 +123,7 @@ export let classMapping = {
         '*Number of known maneuvers': string,
         '*Number of known spells':   string,
         '*Number of known maneuvers and spells': string,
-        'Spell List': {
-            'Maneuvers':        anything,
-            '*Basic Spells':    [string],
-            '*Normal Spells':   [string],
-            '*Higher Level Spells': [string]
-        }
+        'Spell List': [string]
     },
 
     'Starting Abilities': abilityList,
@@ -154,10 +175,22 @@ export let raceMapping = {
     'Starting Abilities': abilityList,
 
     'Talents': {
-        'Level 1': abilityList,
+        'Level 0': abilityList,
         'Level 3': abilityList,
     },
     
     '*Ideas': customObject
         
+}
+
+export let abilitiesMapping = {
+    Maneuvers: abilityList,
+    Elemental: abilityList,
+    Arcane: abilityList,
+    Protection: abilityList,
+    Conjuration: abilityList,
+    Mysticism: abilityList,
+    Restoration: abilityList,
+    Eldritch: abilityList,
+    Divine: abilityList
 }

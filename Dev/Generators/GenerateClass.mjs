@@ -3,6 +3,8 @@
 import * as Components from './../Insertables/Components.mjs'
 import * as Symbols from './../Insertables/Symbols.mjs'
 import { dashCase, removeSpellTildes } from './../utils.mjs'
+import Abilities from './../Databases/Abilities.mjs'
+import { abilities } from '../Insertables/Components.mjs'
 
 function using(value, func) { return func(value) }
 
@@ -45,6 +47,19 @@ const sidebar = () =>
 </div>
 `
 
+function categorizeSpells(file) {
+    let categories = {}
+    for (let spellName of file.Spellcasting['Spell List']) {
+        if (Abilities[spellName] == null) throw `Error: Spell not found "${spellName}"`
+        let category = Abilities[spellName].category
+        if (category == null) throw 'Error: Null category for spell ' + spellName
+        if (categories[category] == null)
+            categories[category] = []
+        categories[category].push(spellName)
+    }
+    return categories
+}
+
 const spellList = (header, list) => {
     return `
 <ul class="class-spell-list">
@@ -66,7 +81,7 @@ ${Components.head(file.Class)}
 <body>
 
     ${Components.navigation()}
-    <div id="Page-Body-Wrapper" style="background-image: url('Images/DefaultBackground.png');">
+    <div id="Page-Body-Wrapper" style="background-image: url('Images/DefaultBackground.jpg');">
         <div id="Page-Body">
             ${sidebar(file)}
             <div id="Page-Content">
@@ -100,7 +115,7 @@ ${Components.head(file.Class)}
                 <br>
 
                 <p><b>Your starting ${Symbols.heart}Health is ${file.Stats['Base Health']}.</b></p>
-                <span class="spell-extra">Your total Health will be ${file.Stats['Base Health']} + Race Health + 2 * Fortitude + (5 for each level after Level 1).</span>
+                <span class="spell-extra">Your total Health will be ${file.Stats['Base Health']} + Race Health + 2 * Fortitude + (5 for each level after Level 0).</span>
                 
                 <br>
                 <br>
@@ -109,14 +124,18 @@ ${Components.head(file.Class)}
                 <h3><img class="page-icon" src="Images/Icons/UI/CharacterSetupSub.png" alt="/">When Leveling Up...</h3>
                 <hr class="hr-half">
 
-                <p>Whenever you gain a Level after Level 1, you gain:</p>
+                <p>Whenever you gain a Level after Level 0, you gain:</p>
                 ${Components.ul(file['Level Up']['Every Level'])}
                 <br>
 
                 <h3><img class="page-icon" src="Images/Icons/UI/CharacterSetupSub.png" alt="/">Other Things</h3>
                 <hr class="hr-half">
                 <p>${file.Language}</p>
-                ${file.Other == null? '' : '<br>' + file.Other}
+                ${file.Other == null? '' : '<br><p>' + file.Other + '</p><br>'}
+
+                ${
+                    file.Abilities == null? '' : Components.abilities(file.Abilities)
+                }
 
                 <br>
                 <h2><img class="page-icon" src="Images/Icons/UI/Charge.png" alt="/">Spells and Abilities</h2>
@@ -138,9 +157,12 @@ ${Components.head(file.Class)}
                 <hr class="hr-half">
                 <div id="Class-Spell-Lists-Wrapper">
                     <div id="Class-Spell-Lists">
-                        ${Object.keys(file.Spellcasting['Spell List']).map(key =>
-                            spellList(key, file.Spellcasting['Spell List'][key])    // TODO: AICI NU MERGE VEZI DE CE
-                        ).join('\n')}
+                        ${
+                            (function(){
+                                let categories = categorizeSpells(file)
+                                return Object.keys(categories).map(category => spellList(category, categories[category]))
+                            })().join('\n')
+                        }
                     </div> <!-- class-spell-lists -->
                     <div id="Class-Spell-Display-Wrapper">
                         <div id="Class-Spell-Display">
@@ -172,6 +194,13 @@ ${Components.head(file.Class)}
         
                 <h2><img class="page-icon" src="Images/Icons/UI/Specializations.png" alt="/">Specializations</h2>
                 <hr>
+
+                <p>
+                    At Level 1, you can pick your class Specialization. This will define the way your character's class is unique, as it offers you a choice for which path to take and follow for the rest of your journey.
+                    Every 2 levels (2, 4, 6, 8, 10) check back here and see what special abilities you unlock through your Specialization.
+                    Choose wisely!
+                <p>
+                <br>
 
                 ${Components.ul(file.Specializations.Choices, 'specializations-list')}
                 <br>
