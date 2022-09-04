@@ -56,6 +56,22 @@ ${Components.head('Weapons')}
 
                 <h1><img class="page-icon" src="Images/Icons/UI/Special.png" alt="/">Weapons</h1>
                 <hr>
+                <p>
+                    In order to wield a weapon, you need Training in that weapon type (e.g. Training in 2-Handed Melee Weapons, or 1-Handed Ranged Weapons).
+                    For weapons listed as Finesse, you also need Training in Finesse.
+                    If a weapon is Thrown, then, optionally, you can throw that weapon if you have Training in 1-Handed Ranged Weapons.
+                    If a weapon is Special, then you also need Training in that specific weapon. Be careful!
+                    Lastly, if you want to wield a weapon in each hand, you need training in Dual Wielding.
+                    All of the Training types are listed in the Skill Points Shop page.
+                </p>
+                <p>
+                    Each weapon has a stat you attack with (usually Dexterity or Fortitude).
+                    When you attack with that weapon, add that Stat over the attack's damage (e.g. if the weapon uses Fortitude and you have 2 Fortitude, then add +2 to the attack roll).
+                    Simple as that!
+                </p>
+                <p>All weapons in Call of Heroes are viable and no weapon is purely stronger than another. Choose the one that suits you the best!</p>
+                <hr>
+                <br>
 
                 ${
                     Object.keys(file)

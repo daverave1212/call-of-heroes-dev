@@ -19,10 +19,22 @@
 
   <div id="Top-Nav-Wrapper">
     <nav id="Top-Nav" class="navbar navbar-expand-lg navbar-light">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="/index.html">
         <img src="Images/Icons/UI/Logo.png">
         <span>Call of Heroes</span>
       </a>
+
+      <li class="nav-item active">
+        <div class="dropdown">
+          <a class="nav-link custom-font dropbtn" href="#">Rules</a>
+          <div class="dropdown-content">
+            <a href="Crowd Control.html">Crowd Control</a>
+            <a href="Inventory.html">Inventory</a>
+            <a href="Languages.html">Languages</a>
+            <a href="Skill Points Shop.html">Skill Points</a>
+          </div>
+        </div>
+      </li>
 
       <button class="navbar-toggler custom-font" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -65,6 +77,10 @@
           </li>
 
           <li class="nav-item active">
+            <a class="nav-link custom-font" href="Backgrounds.html">Backgrounds</a>
+          </li>
+
+          <li class="nav-item active">
             <div class="dropdown">
               <a class="nav-link custom-font dropbtn" href="#">Items</a>
               <div class="dropdown-content">
@@ -75,16 +91,24 @@
             </div>
           </li>
 
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
+          <li class="nav-item active">
+            <div class="dropdown">
+              <a class="nav-link custom-font dropbtn" href="#">Abilities</a>
+              <div class="dropdown-content dropdown-content--lefter">
+                <a href="Abilities.html">Abilities List</a>
+                <a href="Spell Sheet Maker.html">Spell Sheet Maker</a>
+                <a href="Amateur Spell List.html">Amateur Spells</a>
+              </div>
+            </div>
           </li>
+
 
         </ul>
       </div>
     </nav>
   </div>
 
-  <div id="Page-Body-Wrapper" style="background-image: url('Images/DefaultBackground.png');">
+  <div id="Page-Body-Wrapper" style="background-image: url('Images/DefaultBackground.jpg');">
     <div id="Page-Body">
 
       <div id="Sidebar-Nav-Wrapper">
@@ -169,8 +193,8 @@
         <hr>
         <br>
 
-        <p><b>Your starting <img class="text-symbol" src="Images/Icons/UI/Health.png" alt="/">Health is 6.</b></p>
-        <span class="spell-extra">Your total Health will be 6 + Race Health + 2 * Fortitude + (5 for each level after Level 1).</span>
+        <p><b>Your starting <img class="text-symbol" src="Images/Icons/UI/Health.png" alt="/">Health is 3.</b></p>
+        <span class="spell-extra">Your total Health will be 3 + Race Health + 2 * Fortitude + (5 for each level after Level 0).</span>
 
         <br>
         <br>
@@ -179,11 +203,12 @@
         <h3><img class="page-icon" src="Images/Icons/UI/CharacterSetupSub.png" alt="/">When Leveling Up...</h3>
         <hr class="hr-half">
 
-        <p>Whenever you gain a Level after Level 1, you gain:</p>
+        <p>Whenever you gain a Level after Level 0, you gain:</p>
         <ul>
           <li>+5 Health</li>
           <li>+1 Skill Point</li>
           <li>+1 extra known Spell or Maneuver</li>
+          <li>+1 extra maximum Charge</li>
         </ul>
         <br>
 
@@ -194,12 +219,14 @@
         </p>
 
 
+
+
         <br>
         <h2><img class="page-icon" src="Images/Icons/UI/Charge.png" alt="/">Spells and Abilities</h2>
         <hr>
         <p>Choose between Intelligence, Wisdom or Charisma. This is your Main Stat.</p>
         <p><span>Spell DC is </span>10 + <b>Main Stat</b>.</p>
-        <p>You start with 5 <img class="text-symbol" src="Images/Icons/UI/Charge.png">Charges.</p>
+        <p>You start with 3 <img class="text-symbol" src="Images/Icons/UI/Charge.png">Charges.</p>
         <hr>
         <p>You regain all Charges back when you Long Rest.</p>
         <p>You can change your known Spells (not Talents) when taking a long rest.</p>
@@ -222,7 +249,19 @@
               </li>
               <li>
                 <ul class="collapse" id="Maneuvers-Collapse">
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">All</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Improvised Attack</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Dash</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Hide</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Defend</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Push</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Shift</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Bull Rush</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Taunt</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Grapple</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Hamstring</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Lightweight Strike</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Wait</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Shank</li>
                 </ul>
               </li>
             </ul>
@@ -230,62 +269,32 @@
 
             <ul class="class-spell-list">
               <li class="class-spell-list-head">
-                <a href="#Basic-Spells-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="Basic-Spells-Collapse">Basic Spells<span> (expand)</span></a>
+                <a href="#Elemental-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="Elemental-Collapse">Elemental<span> (expand)</span></a>
               </li>
               <li>
-                <ul class="collapse" id="Basic-Spells-Collapse">
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Acid Burst~</li>
+                <ul class="collapse" id="Elemental-Collapse">
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Burning Breath</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Bonfire</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Control Flames</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Control Water</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Dancing Blade</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Fire Bolt</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Control Earth</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Frostbite</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Flameblade</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Light</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Magic Missiles</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Prestidigitation</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Quicksand</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Thunder Clap</li>
-                </ul>
-              </li>
-            </ul>
-
-
-            <ul class="class-spell-list">
-              <li class="class-spell-list-head">
-                <a href="#Normal-Spells-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="Normal-Spells-Collapse">Normal Spells<span> (expand)</span></a>
-              </li>
-              <li>
-                <ul class="collapse" id="Normal-Spells-Collapse">
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Absorb Element</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Alarm</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Dispel Magic</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Feather Fall</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Fog Cloud</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Distort Vision</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Fairy Fire</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Frost Nova</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Flameblade</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Arcane Spear</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Fire Enchantment</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Flash</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Frost Rune</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Explosion Rune</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Fake Sound</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Ice Spike</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Flame Strike</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Mage Armor</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Mage Hand</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Mending</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Unlock</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Phase Orb</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Scorching Rays</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Shield Element</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Shadow Clone</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Water Sphere</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Force Wall</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Dancing Weapon</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Crackling Lightning</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Heat Metal</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Fire Ball</li>
                 </ul>
               </li>
             </ul>
@@ -293,20 +302,87 @@
 
             <ul class="class-spell-list">
               <li class="class-spell-list-head">
-                <a href="#Higher-Level-Spells-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="Higher-Level-Spells-Collapse">Higher Level Spells<span> (expand)</span></a>
+                <a href="#Arcane-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="Arcane-Collapse">Arcane<span> (expand)</span></a>
               </li>
               <li>
-                <ul class="collapse" id="Higher-Level-Spells-Collapse">
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Antimagic Rune</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Conceal Magic</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Conjure Object</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Encode Thoughts</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Fire Ball</li>
+                <ul class="collapse" id="Arcane-Collapse">
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Dancing Blade</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Unlock</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Water Walk</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Feather Fall</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Flash</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Unlock</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Sense Magic</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Invisibility</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Levitate</li>
+                </ul>
+              </li>
+            </ul>
+
+
+            <ul class="class-spell-list">
+              <li class="class-spell-list-head">
+                <a href="#Conjuration-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="Conjuration-Collapse">Conjuration<span> (expand)</span></a>
+              </li>
+              <li>
+                <ul class="collapse" id="Conjuration-Collapse">
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Conjure Ammo</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Light</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Watcher Eye</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Fog Cloud</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Distort Vision</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Fairy Fire</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Fake Sound</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Mage Hand</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Shadow Clone</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Force Wall</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Dancing Weapon</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Conjure Object</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Magic Prison</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Portal</li>
+                </ul>
+              </li>
+            </ul>
+
+
+            <ul class="class-spell-list">
+              <li class="class-spell-list-head">
+                <a href="#Mysticism-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="Mysticism-Collapse">Mysticism<span> (expand)</span></a>
+              </li>
+              <li>
+                <ul class="collapse" id="Mysticism-Collapse">
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Translation</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Encode Thoughts</li>
+                </ul>
+              </li>
+            </ul>
+
+
+            <ul class="class-spell-list">
+              <li class="class-spell-list-head">
+                <a href="#Protection-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="Protection-Collapse">Protection<span> (expand)</span></a>
+              </li>
+              <li>
+                <ul class="collapse" id="Protection-Collapse">
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Absorb Element</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Alarm</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Dispel Magic</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Mage Armor</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Shield Element</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Antimagic Rune</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Conceal Magic</li>
+                </ul>
+              </li>
+            </ul>
+
+
+            <ul class="class-spell-list">
+              <li class="class-spell-list-head">
+                <a href="#Restoration-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="Restoration-Collapse">Restoration<span> (expand)</span></a>
+              </li>
+              <li>
+                <ul class="collapse" id="Restoration-Collapse">
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Mending</li>
                 </ul>
               </li>
             </ul>
@@ -343,6 +419,7 @@
 
 
 
+
             </div>
           </div>
 
@@ -355,6 +432,13 @@
 
         <h2><img class="page-icon" src="Images/Icons/UI/Specializations.png" alt="/">Specializations</h2>
         <hr>
+
+        <p>
+          At Level 1, you can pick your class Specialization. This will define the way your character's class is unique, as it offers you a choice for which path to take and follow for the rest of your journey.
+          Every 2 levels (2, 4, 6, 8, 10) check back here and see what special abilities you unlock through your Specialization.
+          Choose wisely!
+        <p>
+          <br>
 
         <ul class="specializations-list">
           <li>Sorcerer, a born user of magic, floating with the hard to control magic itself</li>
@@ -392,6 +476,7 @@
               <p class="spell-extra">Examples of spell sequences - Firebolt, Firebolt, Firebolt, Magic Missile, Magic Missile, Fog</p>
 
 
+
             </div>
           </div>
 
@@ -409,6 +494,7 @@
                 After you cast a spell the 3rd time in a row, your next ability benefits from Magic Mastery.<br>After this, that spell becomes Exhausted.<br>
 
               </p>
+
 
 
 
@@ -448,6 +534,7 @@
 
 
 
+
             </div>
           </div>
 
@@ -469,6 +556,7 @@
 
 
 
+
             </div>
           </div>
 
@@ -486,6 +574,7 @@
                 After an encounter, you can roll 1d20 and add your Main Stat.<br>If you rolled a total of or over 20, you gain 1 Charge.<br>You can succeed this once per Long Rest (you can try multiple times, but after you succeed once, you need to Long Rest to do it again).<br>
 
               </p>
+
 
 
 
@@ -526,6 +615,7 @@
               <p class="spell-extra">While holding the Book, your hand counts as occupied, and you can't hold anything else in it, but you still have 1 Action per turn.</p>
 
 
+
             </div>
           </div>
 
@@ -543,6 +633,7 @@
                 You can cast Level 4 spells from Level 1, and Level 8 spells from Level 4.
 
               </p>
+
 
 
 
@@ -582,6 +673,7 @@
 
 
 
+
             </div>
           </div>
 
@@ -603,6 +695,7 @@
 
 
 
+
             </div>
           </div>
 
@@ -620,6 +713,7 @@
                 Your Spell Book becomes replaced with an item called Arcane Focus.<br>An Arcane Focus is an item of your choice. It can be an amulet, a sword, a cape, etc.<br>As long as you have the Arcane Focus on you, it counts as if you are holding the Spell Book without occupying your hand.<br>
 
               </p>
+
 
 
 
@@ -664,6 +758,7 @@
               </p>
 
 
+
             </div>
           </div>
 
@@ -685,6 +780,7 @@
 
 
 
+
             </div>
           </div>
 
@@ -702,6 +798,7 @@
                 Choose one of the following types of potions and create it<br>o Elixir of Healing - Heal for 2d4 + 1.<br>o Elixir of Strength - Attacks with 2-Handed weapons deal +2 damage, and attacks with 1-Handed weapons deal +1 damage (1 hour).<br>o Elixir of Agility - Doubled movement speed and Acrobatics bonus (1 hour).<br>o Elixir of Intelligence - Gain 1 Charge.<br>
 
               </p>
+
 
 
 
@@ -741,6 +838,7 @@
 
 
 
+
             </div>
           </div>
 
@@ -758,6 +856,7 @@
                 Choose one a type of weapon, and choose 2 of the following effects:<br>o +2 damage<br>o Damage is converted to Fire/Cold/Shock (choose one)<br>o +2 meters move speed<br>o +5 health while wielding it<br>You can only have 1 Magic Weapon created at a time.<br>The Magic Weapon is automatically destroyed after 2 hours.<br>
 
               </p>
+
 
 
 
@@ -784,6 +883,7 @@
                 You can customize what the custom spell looks like (for aesthetics only).
                 You can still cast those 2 spells separately.
               </p>
+
 
 
             </div>

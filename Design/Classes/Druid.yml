@@ -15,17 +15,8 @@ Options:
       - +2 Fortitude Saves
 
 
-Skills:
-  Nature: +1
-  Survival: +1
-  Animal Handling: +1
-  Persuasion: -1
-  History: -1
-  Deception: -1
-
-
 Stats:
-  Base Health: 8
+  Base Health: 9
 
 
 Language: |
@@ -38,6 +29,7 @@ Level Up:
       - +5 Health
       - +1 Skill Point
       - +1 extra known Spell or Maneuver
+      - +1 extra maximum Charge
     Other: |
       At levels 2, 4, 6, 8 and 10, you gain a Talent from your chosen specialization.
       At levels 3, 5, 7 and 9 you gain 1 extra Charge and a Talent from your race.
@@ -47,7 +39,7 @@ Spellcasting:
   Main Stat: Wisdom
   Spell DC: 10 + (Main Stat)
   Charges:
-    Amount: 4  # O O O O
+    Amount: 3  # O O O O
     Regain: You regain all Charges back when you Long Rest.
   Change: You can change your known Spells (not Talents) when taking a long rest at a safe place, uncorrupted and untouched by regular folk.
   Other: All Druid-specific abilities are considered spells (unless stated otherwise).
@@ -56,53 +48,67 @@ Spellcasting:
   Number of known spells:		  3 + Your Intelligence
   
   Spell List:
-    Maneuvers:
-      - All
-    Basic Spells:
-      - Acid Burst
-      - Burning Breath
-      - Bonfire
-      - Cleansing Flames
-      - Control Flames
-      - Control Water
-      - Control Earth
-      - Detect Poison and Disease
-      - Fire Bolt
-      - Guidance
-      - Land Breach
-      - Mastery
-      - Purify Food and Drink
-      - Resistance
-      - Quicksand
-    Normal Spells:
-      - Absorb Element
-      - Alarm
-      - Charming Word
-      - Cure Wounds
-      - Cure Poison
-      - Cure Disease
-      - Fog Cloud
-      - Distort Vision
-      - Fairy Fire
-      - Fake Sound
-      - Influence Beast
-      - Barkskin
-      - Shield Element
-      - Shadow Clone
-      - Speak With Animals
-      - Speak With Plants
-      - Water Sphere
-      - Wild Heart
-      - Wild Roots
-      - Web
-      - Crackling Lightning
-      - Water Walk
-    Higher Level Spells:
-      - Fire Ball
-      - Invisibility
-      - Spider Climb
-      - Spare the Dying
-      - Wild Steed
+    - Highlander Technique
+    - Improvised Attack
+    - Dash
+    - Hide
+    - Defend
+    - Push
+    - Shift
+    - Bull Rush
+    - Taunt
+    - Grapple
+    - Hamstring
+    - Lightweight Strike
+    - Wait
+    - Shank
+    
+    - Acid Burst
+    - Bonfire
+    - Cleansing Flames
+    - Control Flames
+    - Control Water
+    - Control Earth
+    - Detect Poison and Disease
+    - Fire Bolt
+    - Guidance
+    - Land Breach
+    - Mastery
+    - Purify Food and Drink
+    - Resistance
+    - Quicksand
+    
+    - Thunder Clap
+    - Water Sphere
+    - Feather Fall
+    - Water Walk
+
+    - Absorb Element
+    - Alarm
+    - Charming Word
+    - Cure Wounds
+    - Cure Poison
+    - Cure Disease
+    - Fog Cloud
+    - Distort Vision
+    - Fairy Fire
+    - Fake Sound
+    - Influence Beast
+    - Barkskin
+    - Shield Element
+    - Shadow Clone
+    - Speak With Animals
+    - Speak With Plants
+    - Water Sphere
+    - Wild Heart
+    - Web
+    - Crackling Lightning
+    - Water Walk
+    - Fire Ball
+    - Invisibility
+    - Spider Climb
+    - Spare the Dying
+    - Wild Steed
  
 
 Starting Abilities:
@@ -116,6 +122,11 @@ Starting Abilities:
       You have +3 on rolls for identifying plants.
       You can do these even while Shapeshifted.
 
+  ~Animal Attack~:
+    A: 1 Action
+    Effect: |
+      Make a melee attack against a creature for 2d8 + Animal's Strength or Dexterity.
+
   ~Shapeshift~ :            # Ok
     A: 1 Action
     Cost: 1 Charge
@@ -124,11 +135,9 @@ Starting Abilities:
       You gain that animal's Fortitude and Dexterity saves.
       Apply any other modifiers (except for base Stats) from that animal.
       You also gain its exact abilities.
-      Attacking while Shapeshifted has the same attack bonus, damage, weapon effect, etc as your normal attacking weapon.
-      So, while Shapeshifted, you can perform normal *melee* weapon attacks as if you were not Shapeshifted.
+      While Shapeshifted, you can do Animal Attack.
       While Shapeshifted, you can do any maneuvers you know. You can't cast spells.
-      Health: When you Shapeshift, if the animal has more total health than you, add the difference to your health.
-      If it has less, subtract the difference.
+      When you Shapeshift, your Health stays the same, unless the animal states it has a bonus/minus to Health.
       When Shapeshift ends, subtract back whatever health you added, or add back whatever health you subtracted.
       When you end Shapeshift, if your health would be 0 or less, it stays at 1.
       Shapeshift ends if you drop to 0 Health, and you go Unconscious.
@@ -139,8 +148,11 @@ Starting Abilities:
       You can't make attacks with ranged weapons while Shapeshifted (obviously).
       You choose what items you keep on you when Shapeshifting, and those items are 'merged' into your new form.
       You can turn back into your humanoid form for 0 Actions (on your turn).
+      
 
-	
+# Base: 3 Charges 
+# With Spec: 3.5
+
 Specializations:
     Description: At Level 1, you can choose your coven (Specialization). A coven is a spiritual path you adhere to, and whose culture you represent.
     Choices:
@@ -172,7 +184,7 @@ Specs:
       # - These are in the form of rituals
       # - Ex: name a round. In that round, ...
       
-    Starting Abilities:
+    Starting Abilities:         # +0.5 because a lot more spells and CC
       ~Day Night Cycle~ :       # Ok
         A: Passive
         Effect: |
@@ -186,7 +198,7 @@ Specs:
         Downside:
           Once you prepare a spell for Day or Night, you can no longer assign it to the other one. Ever.
       
-      ~Moonfire/Sunfire~ :      # Ok
+      ~Moonsun Fire~ :      # Ok
         A: 0.5 Actions
         Cost: 1 Charge
         Range: 6 meters
@@ -235,7 +247,7 @@ Specs:
               Some abilities may say 'Perform a Pet Attack'. In that case, ignore the once-per-turn.
 
 
-  Coven of the Wild:
+  Coven of the Wild:            # +0.5
     Description: You are heavily in touch with nature and with strange creatures, uncommon to the normal folk.
     Starting Abilities:
       ~Wild Shape~ :            # 0.25

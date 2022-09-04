@@ -19,10 +19,22 @@
 
   <div id="Top-Nav-Wrapper">
     <nav id="Top-Nav" class="navbar navbar-expand-lg navbar-light">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="/index.html">
         <img src="Images/Icons/UI/Logo.png">
         <span>Call of Heroes</span>
       </a>
+
+      <li class="nav-item active">
+        <div class="dropdown">
+          <a class="nav-link custom-font dropbtn" href="#">Rules</a>
+          <div class="dropdown-content">
+            <a href="Crowd Control.html">Crowd Control</a>
+            <a href="Inventory.html">Inventory</a>
+            <a href="Languages.html">Languages</a>
+            <a href="Skill Points Shop.html">Skill Points</a>
+          </div>
+        </div>
+      </li>
 
       <button class="navbar-toggler custom-font" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -65,6 +77,10 @@
           </li>
 
           <li class="nav-item active">
+            <a class="nav-link custom-font" href="Backgrounds.html">Backgrounds</a>
+          </li>
+
+          <li class="nav-item active">
             <div class="dropdown">
               <a class="nav-link custom-font dropbtn" href="#">Items</a>
               <div class="dropdown-content">
@@ -75,16 +91,24 @@
             </div>
           </li>
 
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
+          <li class="nav-item active">
+            <div class="dropdown">
+              <a class="nav-link custom-font dropbtn" href="#">Abilities</a>
+              <div class="dropdown-content dropdown-content--lefter">
+                <a href="Abilities.html">Abilities List</a>
+                <a href="Spell Sheet Maker.html">Spell Sheet Maker</a>
+                <a href="Amateur Spell List.html">Amateur Spells</a>
+              </div>
+            </div>
           </li>
+
 
         </ul>
       </div>
     </nav>
   </div>
 
-  <div id="Page-Body-Wrapper" style="background-image: url('Images/DefaultBackground.png');">
+  <div id="Page-Body-Wrapper" style="background-image: url('Images/DefaultBackground.jpg');">
     <div id="Page-Body">
 
       <div id="Sidebar-Nav-Wrapper">
@@ -169,8 +193,8 @@
         <hr>
         <br>
 
-        <p><b>Your starting <img class="text-symbol" src="Images/Icons/UI/Health.png" alt="/">Health is 7.</b></p>
-        <span class="spell-extra">Your total Health will be 7 + Race Health + 2 * Fortitude + (5 for each level after Level 1).</span>
+        <p><b>Your starting <img class="text-symbol" src="Images/Icons/UI/Health.png" alt="/">Health is 5.</b></p>
+        <span class="spell-extra">Your total Health will be 5 + Race Health + 2 * Fortitude + (5 for each level after Level 0).</span>
 
         <br>
         <br>
@@ -179,11 +203,12 @@
         <h3><img class="page-icon" src="Images/Icons/UI/CharacterSetupSub.png" alt="/">When Leveling Up...</h3>
         <hr class="hr-half">
 
-        <p>Whenever you gain a Level after Level 1, you gain:</p>
+        <p>Whenever you gain a Level after Level 0, you gain:</p>
         <ul>
           <li>+5 Health</li>
           <li>+1 Skill Point</li>
           <li>+1 extra known Spell or Maneuver</li>
+          <li>+1 extra maximum Charge</li>
         </ul>
         <br>
 
@@ -192,12 +217,14 @@
         <p>If your Intelligence is at least 2, choose one Higher or Common language you can speak.</p>
 
 
+
+
         <br>
         <h2><img class="page-icon" src="Images/Icons/UI/Charge.png" alt="/">Spells and Abilities</h2>
         <hr>
         <p>Choose between Wisdom or Charisma. This is your Main Stat.</p>
         <p><span>Spell DC is </span>10 + <b>Main Stat</b>.</p>
-        <p>You start with 4 <img class="text-symbol" src="Images/Icons/UI/Charge.png">Charges.</p>
+        <p>You start with 3 <img class="text-symbol" src="Images/Icons/UI/Charge.png">Charges.</p>
         <hr>
         <p>You regain all Charges back when you Long Rest.</p>
         <p>You can change your known Spells (not Talents) when taking a long rest inside a temple of your god.</p>
@@ -220,7 +247,20 @@
               </li>
               <li>
                 <ul class="collapse" id="Maneuvers-Collapse">
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">All</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Tower Shield Training</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Improvised Attack</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Dash</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Hide</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Defend</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Push</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Shift</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Bull Rush</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Taunt</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Grapple</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Hamstring</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Lightweight Strike</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Wait</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Shank</li>
                 </ul>
               </li>
             </ul>
@@ -228,24 +268,70 @@
 
             <ul class="class-spell-list">
               <li class="class-spell-list-head">
-                <a href="#Basic-Spells-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="Basic-Spells-Collapse">Basic Spells<span> (expand)</span></a>
+                <a href="#Elemental-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="Elemental-Collapse">Elemental<span> (expand)</span></a>
               </li>
               <li>
-                <ul class="collapse" id="Basic-Spells-Collapse">
+                <ul class="collapse" id="Elemental-Collapse">
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Control Flames</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Quicksand</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Crackling Lightning</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Flameblade</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Fire Enchantment</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Bonfire</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Cleansing Flames</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Detect Poison and Disease</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Eldritch Blast</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Inflict Wounds</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Guidance</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Hollow Touch</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Fire Bolt</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Thunder Clap</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Heat Metal</li>
+                </ul>
+              </li>
+            </ul>
+
+
+            <ul class="class-spell-list">
+              <li class="class-spell-list-head">
+                <a href="#Protection-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="Protection-Collapse">Protection<span> (expand)</span></a>
+              </li>
+              <li>
+                <ul class="collapse" id="Protection-Collapse">
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Dispel Magic</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Resistance</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Absorb Element</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Shield Element</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Wild Heart</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Conceal Magic</li>
+                </ul>
+              </li>
+            </ul>
+
+
+            <ul class="class-spell-list">
+              <li class="class-spell-list-head">
+                <a href="#Conjuration-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="Conjuration-Collapse">Conjuration<span> (expand)</span></a>
+              </li>
+              <li>
+                <ul class="collapse" id="Conjuration-Collapse">
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Light</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Light</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Chaining Grasp</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Animate Dead</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Distort Vision</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Eldritch Steed</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Magic Prison</li>
+                </ul>
+              </li>
+            </ul>
+
+
+            <ul class="class-spell-list">
+              <li class="class-spell-list-head">
+                <a href="#Mysticism-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="Mysticism-Collapse">Mysticism<span> (expand)</span></a>
+              </li>
+              <li>
+                <ul class="collapse" id="Mysticism-Collapse">
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Encode Thoughts</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Guidance</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Mastery</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Mind Blast</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Purify Food and Drink</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Resistance</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Thaumaturgy</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Thunder Clap</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Charming Word</li>
                 </ul>
               </li>
             </ul>
@@ -253,32 +339,16 @@
 
             <ul class="class-spell-list">
               <li class="class-spell-list-head">
-                <a href="#Normal-Spells-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="Normal-Spells-Collapse">Normal Spells<span> (expand)</span></a>
+                <a href="#Eldritch-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="Eldritch-Collapse">Eldritch<span> (expand)</span></a>
               </li>
               <li>
-                <ul class="collapse" id="Normal-Spells-Collapse">
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Chaining Grasp</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Absorb Element</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Animate Dead</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Charming Word</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Cure Wounds</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Cure Poison</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Cure Disease</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Feather Fall</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Radiant Smite</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Blinding Smite</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Cleansing Smite</li>
+                <ul class="collapse" id="Eldritch-Collapse">
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Disenchantment</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Eldritch Blast</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Hollow Touch</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Curse of Pain</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Curse of Weakness</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Deathfire Bolt</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Distort Vision</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Flash</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Mending</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Shield Element</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Turn Undead</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Wild Heart</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Heat Metal</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Water Walk</li>
                 </ul>
               </li>
             </ul>
@@ -286,16 +356,50 @@
 
             <ul class="class-spell-list">
               <li class="class-spell-list-head">
-                <a href="#Higher-Level-Spells-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="Higher-Level-Spells-Collapse">Higher Level Spells<span> (expand)</span></a>
+                <a href="#Restoration-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="Restoration-Collapse">Restoration<span> (expand)</span></a>
               </li>
               <li>
-                <ul class="collapse" id="Higher-Level-Spells-Collapse">
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Conceal Magic (Level 4)</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Eldritch Steed (Level 4)</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Invisibility (Level 4)</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Levitate (Level 4)</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Magic Prison (Level 8)</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Spare the Dying (Level 4)</li>
+                <ul class="collapse" id="Restoration-Collapse">
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Cleansing Flames</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Detect Poison and Disease</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Purify Food and Drink</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Cure Wounds</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Cure Poison</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Cure Disease</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Mending</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Spare the Dying</li>
+                </ul>
+              </li>
+            </ul>
+
+
+            <ul class="class-spell-list">
+              <li class="class-spell-list-head">
+                <a href="#Arcane-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="Arcane-Collapse">Arcane<span> (expand)</span></a>
+              </li>
+              <li>
+                <ul class="collapse" id="Arcane-Collapse">
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Thaumaturgy</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Feather Fall</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Flash</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Water Walk</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Invisibility</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Levitate</li>
+                </ul>
+              </li>
+            </ul>
+
+
+            <ul class="class-spell-list">
+              <li class="class-spell-list-head">
+                <a href="#Divine-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="Divine-Collapse">Divine<span> (expand)</span></a>
+              </li>
+              <li>
+                <ul class="collapse" id="Divine-Collapse">
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Radiant Smite</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Blinding Smite</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Cleansing Smite</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Turn Undead</li>
                 </ul>
               </li>
             </ul>
@@ -332,6 +436,7 @@
 
 
 
+
             </div>
           </div>
 
@@ -354,6 +459,13 @@
 
         <h2><img class="page-icon" src="Images/Icons/UI/Specializations.png" alt="/">Specializations</h2>
         <hr>
+
+        <p>
+          At Level 1, you can pick your class Specialization. This will define the way your character's class is unique, as it offers you a choice for which path to take and follow for the rest of your journey.
+          Every 2 levels (2, 4, 6, 8, 10) check back here and see what special abilities you unlock through your Specialization.
+          Choose wisely!
+        <p>
+          <br>
 
         <ul class="specializations-list">
           <li>Battle Cleric, where you become devoted to either Peace or War (or both) and pursue either of those</li>
@@ -384,9 +496,10 @@
               <p><span class="spell-text-property spell-property"><img class="text-symbol" src="Images/Icons/UI/Range.png" alt="/"></span> 6 meters</p>
               <p><span class="spell-text-property spell-property"><img class="text-symbol" src="Images/Icons/UI/Cooldown.png" alt="/"></span> Long Rest</p>
               <p class="spell-description">
-                Cast Awe on a target twice (for free).<br>Then, it makes a Wisdom Save.<br>If it fails, it is Paralyzed for 1 minute.<br>
+                Cast Awe on a target 2 times (for free).<br>Try to Paralyze it for 1 minute.<br>Subtract one of the rolled Awe dice from the target's save.<br>
 
               </p>
+
 
 
 
@@ -421,6 +534,7 @@
 
 
 
+
               </div>
             </div>
 
@@ -438,6 +552,7 @@
                   Casting Awe yourself (manually, the actual Ability) now does 2d4 instead of 1d4.
 
                 </p>
+
 
 
 
@@ -472,6 +587,7 @@
 
 
 
+
             </div>
           </div>
 
@@ -493,6 +609,7 @@
 
 
 
+
             </div>
           </div>
 
@@ -510,6 +627,7 @@
                 Restore 50% of an ally's maximum health.
 
               </p>
+
 
 
 
@@ -550,6 +668,7 @@
 
 
 
+
             </div>
           </div>
 
@@ -578,6 +697,7 @@
 
 
 
+
               </div>
             </div>
 
@@ -595,6 +715,7 @@
                   You have Dark Vision.<br>You are immune to being Blinded.<br>If you have 50% or less health, Awe damage and healing is 1d6.<br>
 
                 </p>
+
 
 
 
@@ -629,6 +750,7 @@
 
 
 
+
             </div>
           </div>
 
@@ -650,6 +772,7 @@
 
 
 
+
             </div>
           </div>
 
@@ -667,6 +790,7 @@
                 Restore 50% of an ally's maximum health.
 
               </p>
+
 
 
 
@@ -705,7 +829,8 @@
               </p>
               <br>
 
-              <p class="spell-extra">undefined</p>
+              <p class="spell-extra">[object Object]</p>
+
 
             </div>
           </div>
@@ -728,9 +853,10 @@
 
 
                 <p class="spell-description">
-                  Your minion is a reanimated humanoid, whose soul is compelled to stay in this plane until its purpose is met.<br>Come up with a story about why you have an Undead minion and why your god allowed this or gave him or her to you.<br>Awe dice increases by 1 tier when healing yourself (or your minion).<br>Your minion shares the same Health pool with you.<br>Awe makes allies immune to Oportunity Attacks.<br>
+                  Your minion is a reanimated humanoid, whose soul is compelled to stay in this plane until its purpose is met.<br>Come up with a story about why you have an Undead minion and why your god allowed this or gave him or her to you.<br>Awe dice increases by 1 tier when healing yourself (or your minion).<br>Your minion shares the same Health pool with you.<br>
 
                 </p>
+
 
 
 
@@ -754,6 +880,7 @@
                 </p>
                 <br>
                 <p class="spell-extra">If it's animal-shaped and you want to use the rules for weapon attacks, just pretend the minion bites or scratches or something like that, but apply normal weapon rules.</p>
+
 
 
               </div>
@@ -786,6 +913,7 @@
 
 
 
+
             </div>
           </div>
 
@@ -807,6 +935,8 @@
 
 
 
+              <br>
+              <p class="spell-red spell-description">Requires True Necromancy</p>
             </div>
           </div>
 
@@ -824,6 +954,7 @@
                 Restore 50% of an ally's maximum health.
 
               </p>
+
 
 
 

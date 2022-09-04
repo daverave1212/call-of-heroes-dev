@@ -73,8 +73,7 @@ export let navigation = () =>
     </nav>
 </div>
 `
-
-export let spell = ({name, isTalent=false, A, Cost, Range, Cooldown, Duration, Effect, Notes, Other, Variant}) => {
+export let spell = ({name, isTalent=false, A, Cost, Range, Cooldown, Duration, Effect, Notes, Other, Variant, Requirement}) => {
 
     return `
         <div class="spell${isTalent? ' spell-talent' : ''}">
@@ -92,8 +91,9 @@ export let spell = ({name, isTalent=false, A, Cost, Range, Cooldown, Duration, E
                 </p>
                 ${Notes != null || Other != null || Variant != null? '<br>': ''}
                 ${Notes == null? '' : '<p class="spell-extra">' + Notes + '</p>'}
-                ${Other == null? '' : '<p class="spell-extra">' + Notes + '</p>'}
-                ${Variant == null? '' : '<p class="spell-extra">' + Notes + '</p>'}
+                ${Other == null? '' : '<p class="spell-extra">' + Other + '</p>'}
+                ${Variant == null? '' : '<p class="spell-extra">' + Variant + '</p>'}
+                ${Requirement == null? '' : `<br> <p class="spell-red spell-description">Requires ${Requirement}</p>`}
             </div>
         </div>
     `

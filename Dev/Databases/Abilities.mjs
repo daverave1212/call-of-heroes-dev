@@ -504,7 +504,7 @@ let Abilities = {
   },
   "Hexstaff": {
     "A": "Passive",
-    "Effect": "Your ~Hexblade~ Ability is changed and now has the following effect:\nAfter you attack with a weapon, your next spell has +1 DC and deals +1d4 damage.\n",
+    "Effect": "Your ~Hexblade~ Ability is changed and now has the following effect:\nAfter you attack with a weapon, your next offensive spell has +1 DC and deals +1d4 damage.\n",
     "isTalent": true
   },
   "Doublehex": {

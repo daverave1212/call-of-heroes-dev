@@ -19,10 +19,22 @@
 
   <div id="Top-Nav-Wrapper">
     <nav id="Top-Nav" class="navbar navbar-expand-lg navbar-light">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="/index.html">
         <img src="Images/Icons/UI/Logo.png">
         <span>Call of Heroes</span>
       </a>
+
+      <li class="nav-item active">
+        <div class="dropdown">
+          <a class="nav-link custom-font dropbtn" href="#">Rules</a>
+          <div class="dropdown-content">
+            <a href="Crowd Control.html">Crowd Control</a>
+            <a href="Inventory.html">Inventory</a>
+            <a href="Languages.html">Languages</a>
+            <a href="Skill Points Shop.html">Skill Points</a>
+          </div>
+        </div>
+      </li>
 
       <button class="navbar-toggler custom-font" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -65,6 +77,10 @@
           </li>
 
           <li class="nav-item active">
+            <a class="nav-link custom-font" href="Backgrounds.html">Backgrounds</a>
+          </li>
+
+          <li class="nav-item active">
             <div class="dropdown">
               <a class="nav-link custom-font dropbtn" href="#">Items</a>
               <div class="dropdown-content">
@@ -75,16 +91,24 @@
             </div>
           </li>
 
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
+          <li class="nav-item active">
+            <div class="dropdown">
+              <a class="nav-link custom-font dropbtn" href="#">Abilities</a>
+              <div class="dropdown-content dropdown-content--lefter">
+                <a href="Abilities.html">Abilities List</a>
+                <a href="Spell Sheet Maker.html">Spell Sheet Maker</a>
+                <a href="Amateur Spell List.html">Amateur Spells</a>
+              </div>
+            </div>
           </li>
+
 
         </ul>
       </div>
     </nav>
   </div>
 
-  <div id="Page-Body-Wrapper" style="background-image: url('Images/DefaultBackground.png');">
+  <div id="Page-Body-Wrapper" style="background-image: url('Images/DefaultBackground.jpg');">
     <div id="Page-Body">
 
       <div id="Sidebar-Nav-Wrapper">
@@ -167,7 +191,7 @@
         <br>
 
         <p><b>Your starting <img class="text-symbol" src="Images/Icons/UI/Health.png" alt="/">Health is 7.</b></p>
-        <span class="spell-extra">Your total Health will be 7 + Race Health + 2 * Fortitude + (5 for each level after Level 1).</span>
+        <span class="spell-extra">Your total Health will be 7 + Race Health + 2 * Fortitude + (5 for each level after Level 0).</span>
 
         <br>
         <br>
@@ -176,20 +200,24 @@
         <h3><img class="page-icon" src="Images/Icons/UI/CharacterSetupSub.png" alt="/">When Leveling Up...</h3>
         <hr class="hr-half">
 
-        <p>Whenever you gain a Level after Level 1, you gain:</p>
+        <p>Whenever you gain a Level after Level 0, you gain:</p>
         <ul>
           <li>+5 Health</li>
           <li>+1 Skill Point</li>
           <li>+1 extra known Spell or Maneuver</li>
+          <li>+1 extra maximum Charge</li>
         </ul>
         <br>
 
         <h3><img class="page-icon" src="Images/Icons/UI/CharacterSetupSub.png" alt="/">Other Things</h3>
         <hr class="hr-half">
         <p>If your Intelligence is at least 2, choose one Common, Wild or Elemental language you can speak.</p>
-        <br>As a Shaman, you have a spirit animal which represents you.
-        Choose one of the following spirit animals.
-        You will permanently gain the bonuses of that spirit animal.
+        <br>
+        <p>As a Shaman, you have a spirit animal which represents you.
+          Choose one of the following spirit animals.
+          You will permanently gain the bonuses of that spirit animal.
+        </p><br>
+
 
 
         <br>
@@ -197,7 +225,7 @@
         <hr>
         <p>Wisdom is your Main Stat.</p>
         <p><span>Spell DC is </span>10 + <b>Main Stat</b>.</p>
-        <p>You start with 3 <img class="text-symbol" src="Images/Icons/UI/Charge.png">Charges.</p>
+        <p>You start with 2 <img class="text-symbol" src="Images/Icons/UI/Charge.png">Charges.</p>
         <hr>
         <p>You regain all Charges back when you Long Rest.</p>
         <p>You can change your known Spells (not Talents) when taking a long rest.</p>
@@ -220,7 +248,19 @@
               </li>
               <li>
                 <ul class="collapse" id="Maneuvers-Collapse">
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">All</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Improvised Attack</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Dash</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Hide</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Defend</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Push</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Shift</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Bull Rush</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Taunt</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Grapple</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Hamstring</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Lightweight Strike</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Wait</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Shank</li>
                 </ul>
               </li>
             </ul>
@@ -228,29 +268,23 @@
 
             <ul class="class-spell-list">
               <li class="class-spell-list-head">
-                <a href="#Basic-Spells-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="Basic-Spells-Collapse">Basic Spells<span> (expand)</span></a>
+                <a href="#Elemental-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="Elemental-Collapse">Elemental<span> (expand)</span></a>
               </li>
               <li>
-                <ul class="collapse" id="Basic-Spells-Collapse">
+                <ul class="collapse" id="Elemental-Collapse">
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Acid Burst</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Poison Spray</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Burning Breath</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Bonfire</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Cleansing Flames</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Control Flames</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Control Water</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Control Earth</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Detect Poison and Disease</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Inflict Wounds</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Guidance</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Hollow Touch</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Mastery</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Mind Blast</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Purify Food and Drink</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Prestidigitation</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Resistance</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Fire Bolt</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Quicksand</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Thunder Clap</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Scorching Rays</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Crackling Lightning</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Heat Metal</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Fire Ball</li>
                 </ul>
               </li>
             </ul>
@@ -258,38 +292,17 @@
 
             <ul class="class-spell-list">
               <li class="class-spell-list-head">
-                <a href="#Normal-Spells-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="Normal-Spells-Collapse">Normal Spells<span> (expand)</span></a>
+                <a href="#Restoration-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="Restoration-Collapse">Restoration<span> (expand)</span></a>
               </li>
               <li>
-                <ul class="collapse" id="Normal-Spells-Collapse">
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Chaining Grasp</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Absorb Element</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Alarm</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Animate Dead</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Charming Word</li>
+                <ul class="collapse" id="Restoration-Collapse">
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Cleansing Flames</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Detect Poison and Disease</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Purify Food and Drink</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Cure Wounds</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Cure Poison</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Cure Disease</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Dispel Magic</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Feather Fall</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Fog Cloud</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Cleansing Smite</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Distort Vision</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Flash</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Fake Sound</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Influence Beast</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Mage Hand</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Scorching Rays</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Shadow Clone</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Speak With Animals</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Speak With Plants</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Turn Undead</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Wild Heart</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Wild Roots</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Dancing Weapon</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Crackling Lightning</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Heat Metal</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Water Walk</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Spare the Dying</li>
                 </ul>
               </li>
             </ul>
@@ -297,16 +310,96 @@
 
             <ul class="class-spell-list">
               <li class="class-spell-list-head">
-                <a href="#Higher-Level-Spells-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="Higher-Level-Spells-Collapse">Higher Level Spells<span> (expand)</span></a>
+                <a href="#Mysticism-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="Mysticism-Collapse">Mysticism<span> (expand)</span></a>
               </li>
               <li>
-                <ul class="collapse" id="Higher-Level-Spells-Collapse">
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Fire Ball</li>
+                <ul class="collapse" id="Mysticism-Collapse">
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Guidance</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Mastery</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Mind Blast</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Charming Word</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Influence Beast</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Speak With Animals</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Speak With Plants</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Translation</li>
+                </ul>
+              </li>
+            </ul>
+
+
+            <ul class="class-spell-list">
+              <li class="class-spell-list-head">
+                <a href="#Eldritch-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="Eldritch-Collapse">Eldritch<span> (expand)</span></a>
+              </li>
+              <li>
+                <ul class="collapse" id="Eldritch-Collapse">
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Hollow Touch</li>
+                </ul>
+              </li>
+            </ul>
+
+
+            <ul class="class-spell-list">
+              <li class="class-spell-list-head">
+                <a href="#Arcane-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="Arcane-Collapse">Arcane<span> (expand)</span></a>
+              </li>
+              <li>
+                <ul class="collapse" id="Arcane-Collapse">
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Prestidigitation</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Feather Fall</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Flash</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Water Walk</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Invisibility</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Levitate</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Spare the Dying</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Spider Climb</li>
-                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Translation</li>
+                </ul>
+              </li>
+            </ul>
+
+
+            <ul class="class-spell-list">
+              <li class="class-spell-list-head">
+                <a href="#Protection-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="Protection-Collapse">Protection<span> (expand)</span></a>
+              </li>
+              <li>
+                <ul class="collapse" id="Protection-Collapse">
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Resistance</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Absorb Element</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Alarm</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Dispel Magic</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Wild Heart</li>
+                </ul>
+              </li>
+            </ul>
+
+
+            <ul class="class-spell-list">
+              <li class="class-spell-list-head">
+                <a href="#Conjuration-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="Conjuration-Collapse">Conjuration<span> (expand)</span></a>
+              </li>
+              <li>
+                <ul class="collapse" id="Conjuration-Collapse">
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Chaining Grasp</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Animate Dead</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Fog Cloud</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Distort Vision</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Fake Sound</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Mage Hand</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Shadow Clone</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Dancing Weapon</li>
+                </ul>
+              </li>
+            </ul>
+
+
+            <ul class="class-spell-list">
+              <li class="class-spell-list-head">
+                <a href="#Divine-Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="Divine-Collapse">Divine<span> (expand)</span></a>
+              </li>
+              <li>
+                <ul class="collapse" id="Divine-Collapse">
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Cleansing Smite</li>
+                  <li onmouseover="window.setDisplayedSpell(this.innerText)">Turn Undead</li>
                   <li onmouseover="window.setDisplayedSpell(this.innerText)">Wraithwalk</li>
                 </ul>
               </li>
@@ -344,6 +437,95 @@
 
 
 
+
+            </div>
+          </div>
+
+
+          <div class="spell">
+            <div class="spell-left">
+              <img src="Images/Icons/Spells/Bear's_Roar.png">
+            </div>
+            <div class="spell-right">
+              <h3 class="spell-name">Bear's Roar <span class="spell-actions-parenthesis">(</span><span class="spell-actions">1 Action</span><span class="spell-actions-parenthesis">)</span></h3>
+
+
+              <p><span class="spell-text-property spell-property"><img class="text-symbol" src="Images/Icons/UI/Cooldown.png" alt="/"></span> Long Rest</p>
+              <p class="spell-description">
+                Try to Cripple all enemies within 2 meters of you (Charisma save).<br>Each enemy that got Crippled takes 1d6 Psychic damage.<br>
+
+              </p>
+
+
+
+
+
+            </div>
+          </div>
+
+
+          <div class="spell">
+            <div class="spell-left">
+              <img src="Images/Icons/Spells/Wolf's_Leap.png">
+            </div>
+            <div class="spell-right">
+              <h3 class="spell-name">Wolf's Leap <span class="spell-actions-parenthesis">(</span><span class="spell-actions">0.5 Actions</span><span class="spell-actions-parenthesis">)</span></h3>
+
+
+              <p><span class="spell-text-property spell-property"><img class="text-symbol" src="Images/Icons/UI/Cooldown.png" alt="/"></span> Long Rest</p>
+              <p class="spell-description">
+                Leap at a target up to 3 meters away.<br>The target takes 1d6 Bleed damage at the end of each of your turns for 1 minute.<br>
+
+              </p>
+
+
+
+
+
+            </div>
+          </div>
+
+
+          <div class="spell">
+            <div class="spell-left">
+              <img src="Images/Icons/Spells/Eagle's_Sight.png">
+            </div>
+            <div class="spell-right">
+              <h3 class="spell-name">Eagle's Sight <span class="spell-actions-parenthesis">(</span><span class="spell-actions">Passive</span><span class="spell-actions-parenthesis">)</span></h3>
+
+
+
+              <p class="spell-description">
+                You have Maximum Initiative every encounter.<br>All your ranged attacks have an extra 3 meters range.<br>Your spell DC is increased by 1.<br>
+
+              </p>
+
+
+
+
+
+            </div>
+          </div>
+
+
+          <div class="spell">
+            <div class="spell-left">
+              <img src="Images/Icons/Spells/Owl's_Foresight.png">
+            </div>
+            <div class="spell-right">
+              <h3 class="spell-name">Owl's Foresight <span class="spell-actions-parenthesis">(</span><span class="spell-actions">Reaction</span><span class="spell-actions-parenthesis">)</span></h3>
+
+
+              <p><span class="spell-text-property spell-property"><img class="text-symbol" src="Images/Icons/UI/Cooldown.png" alt="/"></span> Long Rest</p>
+              <p class="spell-description">
+                Use when an enemy casts a spell (non-naturally).<br>The spell is cancelled and the enemy loses the Action for it.<br>
+
+              </p>
+
+
+
+
+
             </div>
           </div>
 
@@ -356,6 +538,13 @@
 
         <h2><img class="page-icon" src="Images/Icons/UI/Specializations.png" alt="/">Specializations</h2>
         <hr>
+
+        <p>
+          At Level 1, you can pick your class Specialization. This will define the way your character's class is unique, as it offers you a choice for which path to take and follow for the rest of your journey.
+          Every 2 levels (2, 4, 6, 8, 10) check back here and see what special abilities you unlock through your Specialization.
+          Choose wisely!
+        <p>
+          <br>
 
         <ul class="specializations-list">
           <li>Berserker, a heavy fighter, guided by the ways of the spirits, both wise and strong - a combination to fear</li>
@@ -393,6 +582,7 @@
 
 
 
+
             </div>
           </div>
 
@@ -410,6 +600,7 @@
                 A target makes a Wisdom save.<br>If it fails, deal to it 33% of its missing health as True damage.<br>You can land this once per Long Rest (but you can try multiple times). <br>
 
               </p>
+
 
 
 
@@ -449,6 +640,7 @@
 
 
 
+
             </div>
           </div>
 
@@ -466,6 +658,7 @@
                 An ally can spend 1 Charge and 1 Action to draw in a part of your soul, with your permission.<br>That ally can try to cast Spirit Strike once and use your spirit animal Ability once.<br>Lasts until either of you cancel it, or until either's next Rest.<br>An ally can't draw your soul more than once per Long Rest.<br>
 
               </p>
+
 
 
 
@@ -492,6 +685,7 @@
               </p>
 
 
+
             </div>
           </div>
 
@@ -513,6 +707,7 @@
 
 
 
+
             </div>
           </div>
 
@@ -530,6 +725,7 @@
                 While channeling, you can act and sense through your pet's body, but you can't control yourself.<br>
 
               </p>
+
 
 
 
@@ -570,6 +766,7 @@
 
 
 
+
             </div>
           </div>
 
@@ -591,6 +788,7 @@
               <p class="spell-extra">You can choose not to deal the damage for this ability.
                 You see more and more blurry as the target gets farther away. At 100 meters, the spell breaks.
               </p>
+
 
 
             </div>
@@ -628,6 +826,7 @@
 
 
 
+
             </div>
           </div>
 
@@ -645,6 +844,7 @@
                 Choose a sleeping target you can see.<br>It makes a Wisdom save with Disadvantage.<br>If it fails, you can alter their dream to your liking.<br>The target wakes up if they die in the dream, or the DM might have the target make another save for waking up later.<br>
 
               </p>
+
 
 
 
@@ -668,6 +868,7 @@
               </p>
               <br>
               <p class="spell-extra">You can stack this as many times as you like for the same roll.</p>
+
 
 
             </div>
@@ -706,6 +907,7 @@
 
 
 
+
             </div>
           </div>
 
@@ -720,9 +922,10 @@
 
 
               <p class="spell-description">
-                With this ancient Dance you can either heal an ally, or damage a foe.<br>o Heal: You can heal an ally who was damaged by a certain creature.<br>Consuming a bone of that creature, an organ or a cup of its blood, you can heal the ally for 3d6 Health.<br>o Damage: Gather and consume a piece of hair or body part of a creature.<br>You damage that creature for 3d8 Psychic damage.<br>With Ancient Dance, you can only heal once per Long Rest, and damage once per Long Rest.<br>
+                With this ancient Dance you can either heal an ally, or damage a foe.<br>o Heal: You can heal an ally who was damaged by a certain creature.<br>Consuming a bone of that creature, an organ or a cup of its blood, you can heal the ally for 3d6 Health.<br>o Damage: Gather and consume a piece of hair or body part of a creature.<br>You damage that creature for 3d8 + 2 Psychic damage (not against Defense).<br>With Ancient Dance, you can only heal once per Long Rest, and damage once per Long Rest.<br>
 
               </p>
+
 
 
 
@@ -762,6 +965,7 @@
               <p class="spell-extra">For example, you can make a goblin run or recklessly attack one of your party members. But you can't make a guard jump off a cliff, because that's not what it would normally do.</p>
 
 
+
             </div>
           </div>
 
@@ -779,6 +983,7 @@
                 You become a bodyless soul for up to 8 hours and enter a willing ally.<br>While inside the ally's body, you can communicate with them mentally, and only they can see you.<br>You can slightly peek outside of their body, and move your arms, upper body and head as if you were a ghost originating from that ally's body.<br>o You can't move yourself, but you always move with that ally.<br>o You can't do any physical actions (because you are basically a ghost and can't touch anything or anyone).<br>o You can cast spells as normal. <br>o You follow your own Initiative in combat.<br>o You can't take damage from external sources, but you feel every body sensation that ally feels.<br>You can freely exit their body and revert back to your physical self using 1 Action.<br>
 
               </p>
+
 
 
 
