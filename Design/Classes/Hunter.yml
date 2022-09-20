@@ -5,15 +5,6 @@ Class: Hunter
 Description: You are a hunter, tracker, always on your toes. No matter your foe, be it a beast, a vampire or a dragon, you know best how to deal with it.
 
 
-Options:
-  When creating your character:
-    Choose 2:  # And increase them by 1
-      - Wisdom
-      - Dexterity
-      - Fortitude
-    Saves:
-      - +3 Dexterity Saves
-
 Stats:
   Base Health: 6
 
@@ -21,114 +12,71 @@ Language: If your Intelligence is at least 1, choose one Common or Wild language
 
 
 Level Up:
-    Every Level:
-      - +5 Health
-      - +1 Skill Point
-      - +1 extra known Spell or Maneuver
-      - +1 extra maximum Charge
-    Other: |
-      At levels 2, 4, 6, 8 and 10, you gain a Talent from your chosen specialization.
-      At levels 3, 5, 7 and 9 you gain 1 extra Charge and a Talent from your race.
+  Every Level: 
+    - +5 Health
+    - +1 known Advanced Spell
+  Level Bonuses:
+    1: Choose your Specialization
+    2: Talent from your Specialization (Tier 1)
+    3: |
+        You gain +1 in any Stat of choice.
+        You gain +1 Training Point.
+        You gain 1 Feat.
+    4: Talent from your Specialization (Tier 2)
+    5:
+        ~Action Surge~:
+            A: 0 Actions
+            Cooldown: Long Rest
+            Effect: Gain 0.5 Actions this turn.
+    6: Talent from your Specialization (Tier 3)
+    7: |
+        You gain +1 in any Stat of choice.
+        You gain +1 Training Point.
+        You gain 1 Feat.
+    8: Talent from your Specialization (Tier 4)
+    9: Pick one more Talent from your Specialization, from any Tier from Tier 1 to Tier 3.
+    10:Talent from your Specialization (Tier 5) 
   
+
 Spellcasting:
-  Main Stat: Choose between Wisdom or Charisma. This is your Main Stat.
-  Spell DC: 10 + (Main Stat)
-  Charges:
-    Amount: 3
-    Regain: You regain all Charges back when you Long Rest.
-  Change: You can change your known Spells (not Talents) when taking a long rest outdoors.
-  Number of known maneuvers: 1 + Your Intelligence
-  Number of known spells: Your Level
-  Spell List:
-    - Double Greatweapon Fighting
-    - Highlander Technique
-    - Duelist Technique
-    - Improvised Attack
-    - Dash
-    - Hide
-    - Defend
-    - Push
-    - Shift
-    - Bull Rush
-    - Taunt
-    - Grapple
-    - Hamstring
-    - Lightweight Strike
-    - Wait
-    - Shank
-
-    - Conjure Ammo
-    - Detect Poison and Disease
-    - Land Breach
-    - Flameblade
-    - Light
-    - Purify Food and Drink
+  Description: |
+    Hunter Abilities are Exhaust-based.
+    As a Hunter, you know a certain number of Advanced Abilities.
+    You can cast each Advanced Ability you know ONCE, then it becomes unusable (Exhausted) until your next Long Rest.
+    Advanced Abilities are all Abilities from the Spell Lists listed as Advanced.
+    If an Ability is not listed as Advanced, you can use it as many times as you like.
     
-    - Sense Magic
-    - Flash
-    - Mastery
-
-    - Chaining Grasp
-    - Absorb Element
-    - Alarm
-    - Charming Word
-    - Cure Poison
-    - Fairy Fire
-    - Fake Sound
-    - Influence Beast
-    - Barkskin
-    - Sense Magic
-    - Speak With Animals
-    - Wild Heart
-    
-    - Wild Steed
-    - Magic Prison
+  Main Stat: Wisdom
+  Spell DC: 6 + (Main Stat)
+  Change: You can change your known Spells (not Talents) when taking a Long Rest.
+  Other: All Hunter-specific abilities are considered maneuvers (unless stated otherwise).
+  
+  Known Basic Spells: 1 + Your Intelligence
+  Known Advanced Spells: 2 + Your Level
+  
+  Spell Lists:
+    - Maneuvers
+    - Nature
  
 
 Starting Abilities:
-  ~Slay~:                 # 0.15
-    A: 0 Actions
-    Cost: 1 Charge
+  ~Slay~:                 # 0.5
+    A: Passive
     Effect: |
-      Your next attack has the following effect:
-      If the target has 50% of less Health, deal 1d12 extra damage.
-      If it has more, try to Snare it (Wisdom save).
+        You gain a different bonus when fighting an enemy of a certain type:
+        Monstrosities: Attacks against Monstrosities ignore half of the Defense.
+        Beasts: You have +1 Defense and +1 to all Combat Checks against Beasts.
+        Fiends: Your attacks against Fiends ignore damage resistances (but not immunities).
+        Undead: You have +2 Spell DC against Undead.
 
-  ~Tumble~:               # 0.15
+  ~Tumble~:               # 0.25
     A: 0 Actions
     Cooldown: Long Rest
     Effect: Move 1 meter in any direction, without triggering attacks of oportunity.
 
-Abilities:                # 0.35
-  ~Wicked Slayer~:
-    A: Passive
-    Effect: |
-      Your weapon attacks and thrown spells against Monstrosities, Celestials and Unholy creatures have +1.
-      Your attacks are always treated as Magical or Silver for the purpose of some effects.
-
-  ~Mage Slayer~:
-    A: Reaction
-    Cost: 1 Charge
-    Effect: |
-      Use when an enemy casts a spell.
-      Try to Silence it and prevent that spell (Wisdom save).
-
-  ~Giant Slayer~:
-    A: Passive
-    Effect: |
-      Weapon attacks and thrown spells deal +1 damage against Large or larger targets.
-      Enemies don't gain flanking bonus when attacking you.
-
-  ~Manking Slayer~:
-    A: Passive
-    Effect: Against Humanoids, Slay both deals the extra damage and tries to Snare it, no matter the health.
-    
-  # Dragon Slayer
-  # Swarm Slayer
- 
-# Base: 3.5 Charges
-# With Spec: 3.75 Charges
-# With Pet: 4.5 Charge
+# Base: 3.75
+# With Spec: 4.75
+# With Talent: 6
 
 Specializations:
   Description: At Level 1, you can choose your specialization.
@@ -140,34 +88,93 @@ Specializations:
   
 Specs:
 
-  Draven:
+  Draven:               # 0.75
     Description: lorem
     Starting Abilities:
-      ~Tracker~ :   # 0.25 Chargess
+      ~Tracker~ :   # 0.25 Charges
         A: Passive
         Effect: |		
           o You can more easily track creatures.
           When you try to track a creature, your roll for that try gains +3.
           If you succeed, you may learn about its size, how many of them there are, if it's injured or roughly how far away it is.
           o Your party can't get lost in the wild except by magical means
-          o You (and your pets) are unaffected by Rough Terrain.
+          o You (and your pets) are unaffected by Difficult Terrain.
           
-      ~Hunter's Mark~ :   # Ok?
+      ~Hunter Mark~:   # 0.5 Charges
         A: 0 Actions
-        Cost: 1 Charge
-        Range: 12 meters
+        Range: 15 meters
         Cooldown: Long Rest
         Effect: |
           Choose and mark a target.
-          Your single target attacks and thrown spells against the marked target have the damage dice increased by 1 tier.
+          Your single target attacks (against Defense) against the marked target have the damage dice increased by 1 tier.
           When the target with the mark dies, you can use your Reaction to freely move the mark to another enemy.
         Notes: |
-          Ex: instead of 2d6, an attack would be 2d8.
-          D12's don't increase, they stay d12.
+          Increasing dice by 1 tier means, for example, d6 become d8, or d10 become d12.
+          D12's don't increase.
           
     Talents:
       Level 2:
         # Talents: Headhunt, Bountyhunt, Pet   
+        <Animal Companion> :  # 2
+          A: Passive
+          Effect: |
+            You have an animal pet that can fight alongside you!
+            Your animal has stats depending on its species.
+            By default, apply the following stats to your pet (these will get modified by your pet's species):
+            - Movement: 5 meters
+            Your pet takes its turn at the same time as you do, and always has the same initiative as yours.
+            Your pet has 1 Action per turn.
+            Your pet can make normal Checks using using its own Stats.
+            Your pet will not stray more than 30 meters away from you in hostile territory.
+            All pets have the Pet Attack ability.
+            
+        <Pet Attack>:
+            A: 1 Action (from the pet)
+            Effect: |
+                The pet melee attacks a target.
+                The attack deals 1d6 + 2 Pierce or Slash Damage (your choice).
+
+        <Flare Shot> :         # 0.5
+          A: Reaction or 0 Actions
+          Range: 15 meters
+          Cooldown: Once Per Combat
+          Effect: |
+            Quickly shoot a flare at a target point.
+            The area around the flare lights up in a 6 meter radius, creating normal light.
+            When cast, all allies in the area are cleared of Stun, Fear or Cripple.
+            Allies in the area have Advantage on rolls against Fear.
+            The flare lasts 1 minute.
+      
+  Warden:               # 1.25
+    Description: Lorem :)
+    Starting Abilities:
+    
+      ~Warden~:         # 1.25
+        A: Passive
+        Effect: |
+          Your Spellcasting type becomes Charge-based instead of Exhaust-based.
+          You have a number of Charges equal to 3 + Your Level.
+          Choose 2 more Advanced or Basic Spells to know permanently from the Elemental, Divine and Arcane spells list.
+        Notes: |
+          Explanation for Charge-based:
+          Instead of being able to cast each Advanced Ability you know once per Long Rest, you now have a set number of Charges.
+          You can expend 1 Charge to cast 1 Advanced Ability (and there is no limit to how many times you can cast it).
+          Your Charges recover on Long Rests.
+    
+      ~Quick Magic~:
+        A: 0 Actions
+        Cost: 1 or more Charges
+        Cooldown: Once per Turn
+        Effect: |
+          Spend any number of Charges.
+          Choose one of the following effects, then apply the exact same effect for each Charge spent:
+          - Instantly deal 1d6 Fire, Frost or Shock damage to a target, and permanently reduce its Defense by 1 (3 meter range).
+          - Instantly heal a target for 1d6 (3 meter range).
+          - Instantly dash 3 meters, ignoring attacks of oportunity, and going through enemies and small obstacles or medium gaps.
+    
+    Talents:
+      Level 2:
+      
         <Animal Companion> :  # 1
           A: Passive
           Effect: |
@@ -175,151 +182,77 @@ Specs:
             Your animal has stats depending on its species.
             By default, apply the following stats to your pet (these will get modified by your pet's species):
             - Health: Half of yours
-            - Movement: 6 meters
+            - Movement: 5 meters
             Your pet takes its turn at the same time as you do, and always has the same initiative as yours.
-            Your pet can make normal Skill Checks using your Skill bonuses, or its own, using its special Stats.
+            Your pet has 1 Action per turn.
+            Your pet can make normal Checks using using its own Stats.
             Your pet will not stray more than 30 meters away from you in hostile territory.
-            On your turn, you can command it to move, but it can't take its own Actions.
-            You and your pet share the same Actions on a turn.
-            (ex: If you have 1 Action, your pet can use 0.5 Actions to attack and you can use 0.5 Actions to attack too, or your pet spends 1 Action and you skip your Actions, etc.)
-            All pets have the Pet Attack ability:
-            <Pet Attack> : 0.5 Actions
-            The pet melee attacks a target.
-            The attack has + your Main Stat.
-            The attack deals 1d6 + your Main Stat - 1 (can't be lower than 1d6 - 1).
-            You can do this once per turn.
-            Some abilities may say 'Perform a Pet Attack'. In that case, ignore the once-per-turn.
+            All pets have the Pet Attack ability.
+            
+        <Pet Attack>:
+            A: 1 Action (from the pet)
+            Effect: |
+                The pet melee attacks a target.
+                The attack deals 1d6 + 2 Pierce of Slash Damage (your choice).
 
-        <Flare Shot> :
-          A: Reaction or 0 Actions
-          Cost: 1 Charge
-          Range: 15 meters
+        <Watcher Form>:         # 1
+          A: 0 Actions
+          Cooldown: Long Rest
           Effect: |
-            Quickly shoot a flare at a target point.
-            The area around the flare lights up in a 6 meter radius, creating normal light.
-            When cast, all allies in the area are cleared of Stun, Fear or Cripple.
-            Allies in the area have Advantage on rolls against Fear.
-            The flare lasts 1 minute.
-
-        <Night Senses> :
+            You take on a special form, called a Watcher Form.
+            Your body becomes engulfed in a magical aura (you choose its color), your eyes glow, and you can gain other aesthetics-only body transformations (customize it with your DM).
+            While in this form, your first Attack deals +1d8 damage once per turn, you gain +2 Spell DC and +2 to all Combat Checks.
+            Also, when you cast a spell (before you do; excluding this), you can instantly dash 3 meters, ignoring attacks of oportunity, and going through enemies and small obstacles or medium gaps.
+            Lasts up to 1 minute.
+          
+        <Combo Set>:           # 0.25
+          A: Passive
+          Effect: You gain Quickfire, Parry and Tumblestrike.
+          
+        <Quickfire> :
           A: 0 Actions
           Cost: 1 Charge
           Effect: |
-            For 1 Hour, you gain the following:
-            Your party has Dark Vision (15 meter range).
-            Your party has Advantage on rolls against Blinding.
-            Your party has +2 meter movement speed.
-      
-  Warden:
-    Description: Lorem :)
+            Perform an attack with a 1-Handed weapon.
+            This attack does not trigger attacks of oportunity and can be used in melee range without penalty if it's a ranged weapon.
+          
+        <Parry>:
+          A: Reaction
+          Cooldown: Long Rest
+          Effect: When a Unit declares an attack with a weapon on you (before you see the roll), you can block this attack and it deals 0 damage.
+        
+        <Tumblestrike>:
+          A: Passive
+          Effect: After you Tumble or Parry, your next Attack has the dice tiers increased.
+          Notes: |
+              For example, instead of 2d6, an attack would be 2d8.
+              D12's don't increase, they stay d12.
+              This only affects Attacks. If an Ability tells you to Attack, then it applies.
+              For example, Quick Magic is not an attack.
+        
+
+  Beastmaster:          # 1
+    Description: Lawrrremm!!!
     Starting Abilities:
-    
-      ~Warden~:
-        A: Passive
-        Effect: |
-          When creating your character, you can choose 2 more spells to know permanently from the Mage or Cleric spells list.
-          You also gain +1 in Arcana, Luck and Knowledge, and your Spell DC is increased by 2.
-          Slay is replaced by Quick Magic. Quick Magic is considered a Spell.
-    
-      ~Quick Magic~:
-        A: 0 Actions
-        Cost: 1 or more Charges
-        Cooldown: Turn
-        Effect: |
-          Spend any number of Charges.
-          Choose one of the following effects, then apply the exact same effect for each Charge spent:
-          - Instantly deal 1d6 Fire, Frost or Shock damage to a target, and permanently reduce its Armor by 1 (3 meter range).
-          - Instantly heal a target for 1d6 (3 meter range).
-          - Instantly dash 3 meters, ignoring attacks of oportunity, and going through enemies and small obstacles or medium gaps.
-        Notes: You can do this once per turn.
-    
-    Talents:
-      Level 2:
-      
-        <Animal Companion> :    # Stronk
+      ~Animal Companion~ :  # 1
           A: Passive
           Effect: |
             You have an animal pet that can fight alongside you!
             Your animal has stats depending on its species.
             By default, apply the following stats to your pet (these will get modified by your pet's species):
             - Health: Half of yours
-            - Movement: 6 meters
+            - Movement: 5 meters
             Your pet takes its turn at the same time as you do, and always has the same initiative as yours.
-            Your pet can make normal Skill Checks using your Skill bonuses, or its own, using its special Stats.
+            Your pet has 1 Action per turn.
+            Your pet can make normal Checks using using its own Stats.
             Your pet will not stray more than 30 meters away from you in hostile territory.
-            On your turn, you can command it to move, but it can't take its own Actions.
-            You and your pet share the same Actions on a turn.
-            (ex: If you have 1 Action, your pet can use 0.5 Actions to attack and you can use 0.5 Actions to attack too, or your pet spends 1 Action and you skip your Actions, etc.)
-            All pets have the Pet Attack ability:
-            <Pet Attack> : 0.5 Actions
-            The pet melee attacks a target.
-            The attack has + your Main Stat.
-            The attack deals 1d6 + your Main Stat - 1 (can't be lower than 1d6 - 1).
-            You can do this once per turn.
-            Some abilities may say 'Perform a Pet Attack'. In that case, ignore the once-per-turn.
-
-        <Watcher Form>:         # 0.25?
-          A: 1 Action
-          Cost: 1 Charge
-          Cooldown: Long Rest
-          Effect: |
-            You take on a special form, called a Watcher Form.
-            Your body becomes engulfed in a magical aura (you choose its color), your eyes glow, and you can gain other aesthetics-only body transformations (customize it with your DM).
-            While in this form, your first weapon attack (or thrown spell) deals +4 damage once per turn, you gain +2 to all saves and +2 to your Save DC and +3 to Intimidation and Arcana.
-            Also, when you cast a spell (before you do), you can instantly dash 3 meters, ignoring attacks of oportunity, and going through enemies and small obstacles or medium gaps.
-            Lasts up to 1 minute.
-          
-        <Combo Set>:           # 0.25
-          A: Passive
-          Effect: You gain Quickfire, Guard Breaker and Tumblestrike.
-          
-        <Quickfire> :
-          A: 0 Actions
-          Cost: 1 Charge
-          Effect: |
-            Perform an attack with a (loaded if it has to be) 1-Handed weapon.
-            This attack does not trigger attacks of oportunity and can be used in melee range without penalty if it's a ranged weapon.
-          
-        <Guard Breaker>:
-          A: Passive
-          Effect: Your Slash, Smash and Pierce attacks ignore target's resistances to that damage type (not immunity, however).
-        
-        <Tumblestrike>:
-          A: Passive
-          Effect: After you Tumble, your next weapon attack or thrown spell has Advantage on the damage roll.
-        
-
-  Beastmaster:
-    Description: Lawrrremm!!!
-    Starting Abilities:
-      ~Animal Companion~ :    # Stronk
-        A: Passive
-        Effect: |
-          You have an animal pet that can fight alongside you!
-          Your animal has stats depending on its species.
-          By default, apply the following stats to your pet (these will get modified by your pet's species):
-          - Health: Half of yours
-          - Movement: 6 meters
-          Your pet takes its turn at the same time as you do, and always has the same initiative as yours.
-          Your pet can make normal Skill Checks using your Skill bonuses, or its own, using its special Stats.
-          Your pet will not stray more than 30 meters away from you in hostile territory.
-          On your turn, you can command it to move, but it can't take its own Actions.
-          You and your pet share the same Actions on a turn.
-          (ex: If you have 1 Action, your pet can use 0.5 Actions to attack and you can use 0.5 Actions to attack too, or your pet spends 1 Action and you skip your Actions, etc.)
-          All pets have the Pet Attack ability:
-          <Pet Attack> : 0.5 Actions
-          The pet melee attacks a target.
-          The attack has + your Main Stat.
-          The attack deals 1d6 + your Main Stat - 1 (can't be lower than 1d6 - 1).
-          You can do this once per turn.
-          Some abilities may say 'Perform a Pet Attack'. In that case, ignore the once-per-turn.
-
-      ~Tag Team~:
-        A: 0 Actions
-        Cost: 1 Charge
-        Effect: |
-          Gain 0.5 Actions this turn which you can only use on pet attacks or abilities.
-          Your pet also gains +3 meter movement this turn.
+            All pets have the Pet Attack ability.
+            
+        ~Pet Attack~:
+            A: 1 Action (from the pet)
+            Effect: |
+                The pet melee attacks a target.
+                The attack deals 1d6 + 2 Pierce of Slash Damage (your choice).
     
     Talents:
       Level 2:
@@ -329,7 +262,6 @@ Specs:
           Effect: |
             You have one more Animal Companion, aside from the one you get from your Beastmaster Companion.
             This Animal Companion obeys the same rules as the regular one.
-            On a turn, you can do one Pet Attack for each pet.
 
         <Exotic Trainer>:
           A: Passive
@@ -338,4 +270,7 @@ Specs:
 # Talent Shapeshift
 # Talent: no more pet, but you gain a pet ability permanently?
 # Talent: harpoon
+# Talent: your pet grows HUGE!
+# Talent: more tumbles
+# Talent: more slay
 

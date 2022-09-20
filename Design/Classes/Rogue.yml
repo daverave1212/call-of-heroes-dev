@@ -1,16 +1,6 @@
 Class: Rogue
 Description: Rogues are masters of stealth and deception.
 
-Options:
-  When creating your character:
-    Choose 2:  # And increase them by 1
-      - Charisma
-      - Intelligence
-      - Wisdom
-      - Dexterity
-    Saves:
-      - +3 Dexterity Saves
-
 Stats:
   Base Health: 3
 
@@ -20,73 +10,105 @@ Language: |
   Use Thieves' Cant wisely!
 
 Level Up:
-    Every Level:
-      - +5 Health
-      - +1 Skill Point
-      - +1 extra known Spell or Maneuver
-      - +1 extra maximum Charge
-    Other: |
-      At levels 2, 4, 6, 8 and 10, you gain a Talent from your chosen specialization.
-      At levels 3, 5, 7 and 9 you gain 1 extra Charge and a Talent from your race.
-  
+  Every Level: 
+    - +5 Health
+    - +1 Known Ability
+    - +1 Charge
+  Level Bonuses:
+    1: Choose your Specialization
+    2: Talent from your Specialization (Tier 1)
+    3: |
+        You gain +1 in any Stat of choice.
+        You gain +1 Training Point.
+        You gain 1 Feat.
+    4: Talent from your Specialization (Tier 2)
+    5:
+        ~Action Surge~:
+            A: 0 Actions
+            Cooldown: Long Rest
+            Effect: Gain 0.5 Actions this turn.
+    6: Talent from your Specialization (Tier 3)
+    7: |
+        You gain +1 in any Stat of choice.
+        You gain +1 Training Point.
+        You gain 1 Feat.
+    8: Talent from your Specialization (Tier 4)
+    9: Pick one more Talent from your Specialization, from any Tier from Tier 1 to Tier 3.
+    10:Talent from your Specialization (Tier 5) 
+
+
+Spellcasting:
+  Description: |
+    Rogue Abilities are Charge-based.
+    As a Rogue, you have a number of Charges.
+    To cast any Advanced Spell from your known spells, you must expend 1 Charge.
+    You don't have restrictions for how many times you can cast a spell per Long Rest, but you have restrictions on your Charges.
+    Advanced Abilities are all Abilities from the Spell Lists listed as Advanced.
+    If an Ability is not listed as Advanced, you can use it as many times as you like.
+
+  Main Stat: Choose between Intelligence or Charisma. This is your Main Stat.
+  Spell DC: 6 + (Main Stat)
+  Charges:
+    Amount: 2
+    Regain: You regain all Charges back when you Long Rest.
+  Change: You can change your known Spells (not Talents) when taking a Long Rest.
+  Other: All Rogue-specific abilities are considered Maneuvers (unless stated otherwise).
+  Known Spells: 1 + Your Intelligence + Your Level
+  Spell Lists:
+    - Maneuvers
+
+
 Spellcasting:
   Main Stat: Choose between Intelligence and Charisma. This is your Main Stat.
   Spell DC: 10 + (Main Stat)
   Charges:
     Amount: 3
     Regain: You regain all Charges back when you Long Rest.
-  Change: You can change your known Spells (not Talents) when taking a long rest inside a temple of your god.
-  Other: Any other specifications
+  Change: You can change your known Maneuvers (not Talents) every Long Rest.
   Number of known maneuvers: 1 + Your Intelligence + Your Level
-  Spell List:
-    - Double Greatweapon Fighting
-    - Highlander Technique
-    - Duelist Technique
-    - Improvised Attack
-    - Dash
-    - Hide
-    - Defend
-    - Push
-    - Shift
-    - Bull Rush
-    - Taunt
-    - Grapple
-    - Hamstring
-    - Lightweight Strike
-    - Wait
-    - Shank
-  
+
+# Idea: For each Charge spent on Ambush, X happens
+
 Starting Abilities:
   
-  ~Ambush~ :      # 0.5
+  ~Ambush~ :      # 0.75
     A: Passive
     Effect: |
-      If you are hiding (with Hide), your next attack deals 1d4 damage.
-      When doing this, you can also spend as many charges as you want (and can).
+      While Hidden, your first attack deals 1d6 + 1 extra damage.
+      When Ambushing, you can also spend as many Charges as you want.
       That attack gains 1d6 + 1 damage more for each Charge spent.
-      This can only happen once per turn.
-  
-  ~Lockpick~:
-    A: Passive
-    Effect: You are trained in Lock Picking.
+      You can only Ambush once per turn.
+    Notes: |
+      Your Specialization will give you extra ways to Ambush.
+      You can't stack 2 Ambushes at the same time, obviously.
       
   ~Hide~ :
-    A: Reaction
+    A: Special
+    Requirement: 2 Dexterity (or more)
     Cooldown: Once per encounter
     Effect: |
-      When you would roll Initiative, you can instead roll Stealth.
-      If you succeed, you become Hidden.
-      While Hidden, you can unhide and start your turn whenever you like (even before or after a creature does something).
-      If you started your turn during another creature's turn, that creature resumes its turn after your turn ends.
-      After that, you take your turn when you normally would, next rounds.
+      When combat starts, if you have Cover, you start as Hidden.
+      While Hidden, you can skip your turn.
+      Then, you can unhide and start your turn whenever you like (even during enemies' turns).
+      If you did this, when your turn ends, you are no longer hidden.
     Notes: |
-      You become unhidden at the end of the round if you don't take your turn by then.
-      The Stealth check is made againt the highest enemy Passive Perception, which is their Perception + 10.
+      Essentially, you can interrupt another Unit's turn, put that unit on pause, and start your turn. When your turn ends, the Unit resumes its turn.
+      If you want to start during an enemy's turn, you do so when they declare they want to do something or after they finish doing something.
+      In special circumstances, the DM might ask you to make a Dexterity Check to remain Hidden.
+      You can't become Hidden through non-Ability means.
+      
+  ~Rogue Feats~:
+    A: Passive
+    Effect: When creating your character, pick one of the following Feats to get for free.
+  
+  ~Dual Wielding~
+  ~Duelist Technique~
+      
+      
 
-# Base: 3.5 Charges
-# Spec: 4.25 Charges
-
-Other: You automatically know the Hide maneuver.
+# Base: 2.75 Charges
+# Spec: 5.25 Charges
+# Talent: 6 Charges
 
 Specializations:
   Description: |
@@ -99,92 +121,76 @@ Specializations:
 
 
 Specs:
-  Thief:
+  Thief:                # 2.35 Charges
     Description: ...lorem... ipsum...
     Starting Abilities:
     
+      ~Backstab~ :      # 2
+        A: Passive
+        Effect: When you Flank an enemy, Ambush is applied.
+    
       ~Agile Hand~ :    # 0.35
         A: Passive
-        Effect: |
-          You have +2 Sleight of Hand and +2 Stealth.
-          Your movement does not trigger attacks of oportunity.
+        Effect: Your movement does not trigger Opportunity Attacks.
 
-      ~Fool's Coin~ :
+      ~Fool's Coin~:
         A: Passive
         Effect: |
-          Whenever you deal damage to a worthy enemy, you can spend 1 Charge.
-          If you do, you gain Gold Tokens, an imaginary currency, equal to one of the rolled dice (you choose).
+          Whenever you spend Charges on Ambush, choose one of the rolled dice of the attack. Gain that many Gold Tokens.
+          Gold Tokens are an imaginary currency.
           When in a town or city, you convert all Gold Tokens to actual gold coins (1 Gold Token for 10 Gold) (this is done on a Long Rest).
         Notes: |
           Lore-wise, as a Thief you steal successfully in a city when converting tokens, while preparing and gaining momentum for it in combat.
 
-      ~Backstab~ :      # 0.5
-        A: Passive
-        Effect: When you flank an enemy, Ambush is applied.
-
-
     Talents:
       Level 2:
-        <Payback Shot> :  
-          A: 0.5 Actions
-          Cost: 3 Gold Tokens after cast
+        <Payback Shot> :        # 0.75?
+          A: 0 Actions
+          Cost: All Gold Tokens (at least 1)
           Effect: |
-            Try to Stun an adjacent unit (Dexterity save).
-            Your DC for this try is increased by your number of Gold Tokens, up to +5.
+            A Unit within 2 meters must pass a Dexterity Check or be Stunned.
+            For every 2 Gold Tokens you spent, increase the DC of this by 1.
 
-        <Arcane Trickster> :
+        <Arcane Trickster> :    # 0.5
           A: Passive
           Effect: |
             You can now cast spells!
-            You permanently know 3 spells from the following spell list:
-            Acid Burst  : 0.5 Actions
-            Burning Breath  : 0.5 Actions
-            Conjure Ammo  : 1 Action
-            Control Flames  : 1 Action
-            Control Water  : 1 Action
-            Flameblade  : 0 Actions
-            Light  : 1 Action
-            Magic Missiles  : 1 Action
-            Mastery  : 1 Action
-            Prestidigitation  : 1 Action
-            Chaining Grasp  : 0 Actions
-            Charming Word  : 1 Action
-            Cure Poison  : 1 Action
-            Distort Vision  : 1 Action
-            Fake Sound  : 0.5 Action
-            Mage Hand  : 0 Actions
-            Unlock  : 1 Action
-            Shadow Clone  : 0 Actions
-            Encode Thoughts  : 1 Action (Level 4)
-            Invisibility  : 1 Action (Level 4)
-            Levitate  : 1 Action (Level 4)
-            Sense Magic  : 0 Actions (Level 4)
-            Spider Climb  : 1 Action (Level 4)
-            When you level up, you can change one of these abilities with another from the same list.
+            You permanently know 3 Spells from the Arcane and Conjuration Spell Lists.
+            Fool's Coin now also applies when spending Charges on an Advanced Spell.
+            You can change these Spells when you Long Rest.
             You learn 1 additional ability at Levels 3, 5, 7 and 9.
           
-        <Way of Fooling> :
+        <Way of Fooling> :      # 0.5
           A: Passive
           Effect: Your Charisma is increased by 2, (up to a maximum of 4).
+          
+        <Whiplash>:
+          A: 0 Actions
+          Cooldown: Long Rest, otherwise it costs 1 Charge
+          Effect: |
+            Throw a whiplash at a grabbable point within 6 meters.
+            Pull yourself to a target point.
+          Notes: Requires a Whiplash item, which can be bought for 100 gold.
 
     #  Talent: Traps, tripwires, thief's tools
 
-  Assassin:       # 1.25 Charge
+  Assassin:             # 2.25 Charges
     Description: ...LOREMIPSUM! <you died>
     Starting Abilities:
 
-      ~Isolated~ :  # 1 Charge
+      ~Isolated~ :      # 2 Charge
         A: Passive
         Effect: |
-          When you attack an enemy, and there is no other creature adjacent to you or to that enemy (except you), the attack gains Ambush.
+          When you attack a Unit, and there is no other Unit adjacent to you or to that enemy (except you), the attack gains Ambush.
           If you are already Ambushing the target, the attack gains an additional 1d6 + 1 damage.
 
-      ~Planned Assassination~ :   # Damage is slighyly better than 0.5 Actions - 1 Charge
+      ~Planned Assassination~ :   # Damage is slightly better than 0.5 Actions - 1 Charge
         A: 1 minute
         Cost: 1 Charge
         Cooldown: Long Rest
         Effect: |
-          Your next attack on that target deals +2d6 + 2 Poison damage.
+          You plan an attack for 1 minute.
+          Your next attack on that target deals 2d6 + 2 Poison damage.
           Planned Assassination fails if your Line of Sight to the target is broken until you attack it.
         Notes: The Charge is spent the moment you declare Planned Assassination.
 
@@ -193,11 +199,11 @@ Specs:
       Level 2:
 
         <Take Out> :
-          A: 1 Action
+          A: 0.5 Actions
           Cost: 1 Charge
           Effect: |
-            Try to put an adjacent target to Sleep for 1 minute (Dexterity save).
-            If you succeed, you gain the Action back.
+            A Unit within 1 meter must pass a Dexterity Check or be put to Sleep for 1 minute.
+            If it fails, you gain the Action back.
           Downside: |
             You must be hiding to use Take Out, and the target must be Isolated.
             This ability unhides you!
@@ -209,7 +215,7 @@ Specs:
             Using ingredients costing 35 Gold, you are able to create a few drops of Drinkable Poison.
             Someone ingesting them takes 1d12 Poison damage instantly.
             Combining multiple instances of Drinkable Poison increases its damage by 1d12 for each Drinkable Poison combined.
-            The poison loses its effect after 48 hours.
+            The poison loses its effect after 72 hours.
 
         <Shadowstep> :
           A: 0.5 Actions
@@ -222,32 +228,34 @@ Specs:
     #  Talent: 2 turns from now, evelyn's charm
     #  Talent: Traps, tripwires, thief's tools
 
-  Skirmisher:
+  Skirmisher:           # 3 Charges
     Description: Loreeeem!!!
     Starting Abilities:
-      ~10% Luck~ :
-        A: Passive
-        Effect: Once per turn, when you attack, you can also roll 1d10. If you roll 10, deal +2 damage.
 
-      ~Savagery~ :
+      ~Savagery~:       # 2 Charges
         A: Passive
         Effect: Attacks on creatures that have 50% or less health gain Ambush.
 
-      ~Parry~ :
+      ~Parry~:          # 1 Charge
         A: Reaction
+        Cooldown: Long Rest
         Effect: Halve the damage of a weapon attack you receive (after the roll, before subtracting Defense).
 
     Talents:
       Level 2:
+      
+        <10% Luck>:
+          A: Passive
+          Effect: Once per turn, when you roll a 1 on an attack die, you can reroll that die.
         
-        <Cheap Tricks> :
+        <Cheap Tricks>:
           A: 0 Actions
           Cost: 2 Charges
           Range: 3 meters
-          Effect: Try to Blind a target for 2 turns.
+          Effect: A Unit within 3 meters must pass a Dexterity Check or be Blinded for 2 turns.
           Notes: A Blinded target's attacks have Hard Cover and its targets' saves have +4.
 
-        <Whiplash> :
+        <Whiplash>:
           A: 0 Actions
           Cooldown: Long Rest, otherwise it costs 1 Charge
           Effect: |
@@ -258,9 +266,10 @@ Specs:
         <Quickfire> :
           A: 0 Actions
           Cost: 1 Charge
+          Cooldown: 1 use / Turn
           Effect: |
-            Perform an attack with a (loaded if it has to be) 1-Handed weapon.
-            This attack does not trigger attacks of oportunity and can be used in melee range without penalty if it's a ranged weapon.
+            Perform an attack with a 1-Handed Ranged weapon.
+            This attack does not trigger attacks of oportunity and can be used in melee range without penalty.
             
 #PageEnd#
 

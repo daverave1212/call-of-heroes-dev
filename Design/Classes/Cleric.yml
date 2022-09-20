@@ -1,17 +1,5 @@
 Class: Cleric
 Description: Clerics are people attuned to a certain god.
-
-Options:
-  When creating your character:
-    Choose 2:  # And increase them by 1
-      - Charisma
-      - Intelligence
-      - Wisdom
-      - Dexterity
-      - Fortitude
-    Saves:
-      - +2 Wisdom Saves
-      - +2 Charisma Saves
      
 Stats:
   Base Health: 5
@@ -22,106 +10,65 @@ Language: If your Intelligence is at least 2, choose one Higher or Common langua
 Level Up:
   Every Level: 
     - +5 Health
-    - +1 Skill Point
-    - +1 extra known Spell or Maneuver
-    - +1 extra maximum Charge
-  Other: |
-    At levels 2, 4, 6, 8 and 10, you gain a Talent from your chosen specialization.
-    At levels 3, 5, 7 and 9 you gain 1 extra Charge and a Talent from your race.
+    - +1 known Advanced Spell
+  Level Bonuses:
+    1: Choose your Specialization
+    2: Talent from your Specialization (Tier 1)
+    3: |
+        You gain +1 in any Stat of choice.
+        You gain +1 Training Point.
+        You gain 1 Feat.
+    4: Talent from your Specialization (Tier 2)
+    5:
+        ~Action Surge~:
+            A: 0 Actions
+            Cooldown: Long Rest
+            Effect: Gain 0.5 Actions this turn.
+    6: Talent from your Specialization (Tier 3)
+    7: |
+        You gain +1 in any Stat of choice.
+        You gain +1 Training Point.
+        You gain 1 Feat.
+    8: Talent from your Specialization (Tier 4)
+    9: Pick one more Talent from your Specialization, from any Tier from Tier 1 to Tier 3.
+    10:Talent from your Specialization (Tier 5) 
   
 
 
 Spellcasting:
-  Main Stat:
-    Choose between Wisdom or Charisma. This is your Main Stat.
-  Spell DC: 10 + (Main Stat)
-  Charges:
-    Amount: 3
-    Regain: You regain all Charges back when you Long Rest.
-  Change: You can change your known Spells (not Talents) when taking a long rest inside a temple of your god.
-  Other: All Cleric-specific abilities are considered spells (unless stated otherwise).
-  Number of known maneuvers: 1 + Your Intelligence
-  Number of known spells: 3 + Your Intelligence
-  Spell List:
-    - Tower Shield Training
-    - Improvised Attack
-    - Dash
-    - Hide
-    - Defend
-    - Push
-    - Shift
-    - Bull Rush
-    - Taunt
-    - Grapple
-    - Hamstring
-    - Lightweight Strike
-    - Wait
-    - Shank
-
-    - Control Flames
-    - Quicksand
-    - Crackling Lightning
-    - Flameblade
-    - Fire Enchantment
-    - Dispel Magic
-    - Light
-    - Encode Thoughts
-    - Disenchantment
+  Description: |
+    Cleric Abilities are Exhaust-based.
+    As a Cleric, you know a certain number of Advanced Abilities.
+    You can cast each Advanced Ability you know ONCE, then it becomes unusable (Exhausted) until your next Long Rest.
+    Advanced Abilities are all Abilities from the Spell Lists listed as Advanced.
+    If an Ability is not listed as Advanced, you can use it as many times as you like.
     
-    - Bonfire
-    - Cleansing Flames
-    - Detect Poison and Disease
-    - Eldritch Blast
-    - Fire Bolt
-    - Guidance
-    - Hollow Touch
-    - Light
-    - Mastery
-    - Mind Blast
-    - Purify Food and Drink
-    - Resistance
-    - Thaumaturgy
-    - Thunder Clap
-    - Chaining Grasp
-    - Absorb Element
-    - Animate Dead
-    - Charming Word
-    - Cure Wounds
-    - Cure Poison
-    - Cure Disease
-    - Feather Fall
-    - Radiant Smite
-    - Blinding Smite
-    - Cleansing Smite
-    - Curse of Pain
-    - Curse of Weakness
-    - Deathfire Bolt
-    - Distort Vision
-    - Flash
-    - Mending
-    - Shield Element
-    - Turn Undead
-    - Wild Heart
-    - Heat Metal
-    - Water Walk
-    - Conceal Magic
-    - Eldritch Steed
-    - Invisibility
-    - Levitate
-    - Magic Prison
-    - Spare the Dying
+  Main Stat: Choose between Wisdom or Charisma. This is your Main Stat.
+  Spell DC: 6 + (Main Stat)
+  Change: You can change your known Spells (not Talents) when taking a Long Rest.
+  Other: All Cleric-specific abilities are considered spells (unless stated otherwise).
+  
+  Known Basic Spells: 2 + Your Intelligence
+  Known Advanced Spells: 2 + Your Level
+  
+  Spell Lists:
+    - Mysticism
+    - Divine
+
+
 
 Starting Abilities: 
   ~Awe~ :                   # 0.5 Charges
     A: 0 Actions
-    Range: 3 meters
+    Range: 5 meters
     Effect: |
-      Instantly heal or damage a target for 1d4.
+      Instantly heal or damage a target for 1d4 (True damage).
       You can do this once per Long Rest.
       Some other Cleric spells will cast Awe for free.
 
-# Base: 3.5 Charges
-# With Spec: 4 Charges
+# Base: 3.5
+# With Spec: 4.5
+# Talent (1): 5.75
 
 Other Ability Mentions: |
   The first time you choose a cleric domain (specialization), you must choose between two abilities.
@@ -135,21 +82,24 @@ Specializations:
     - Beacon Cleric, a keeper of the light or darkness, whose power draws from flame or shadow...
     - Life Cleric, a balancer between life and death; your very fate hangs in this balance
  
+# Talent: Channel like half of your health into an ally to make him stronger! (combos with undead servant)
+# Talent: wings for follower
+# Talent: 0 Actions, 0 Charges, Your next damaging spell heals instead
+
+
 Specs:
 
-  Battle Cleric:          # + 0.5 Charges (probably a bit less)
+  Battle Cleric:          # 1.25
     Description: Battle clerics specialize in conditions of war. You must choose your side
     Starting Abilities:
     
-      ~Chains~ :          # + 0.25
+      ~Chains~ :          # 1
         A: 1 Action
-        Cost: 1 Charge
         Range: 6 meters
         Cooldown: Long Rest
         Effect: |
           Cast Awe on a target 2 times (for free).
-          Try to Paralyze it for 1 minute.
-          Subtract one of the rolled Awe dice from the target's save.
+          It must pass a Might Check or be Paralyzed.
 
     Choose your side: |
         Battle Cleric!
@@ -161,51 +111,72 @@ Specs:
         A: 0 Actions
         Cooldown: Long Rest
         Effect: |
-          All allies can move 3 extra meters on their next turn (and you too).
+          All allies can move 3 extra meters on their next turn (and you too this turn).
           
           
       ~Piety~ :           # 0.25 Charges
         A: Passive
         Effect: Casting Awe yourself (manually, the actual Ability) now does 2d4 instead of 1d4.
   
-    Talents:
+    Talents:                    # 1
       Level 2:
       
-        <Eternal Bindings> :
+        <Eternal Bindings> :    # 1
           A: 0 Actions or Reaction
-          Cost: 1 Charge
+          Cooldown: Long Rest
           Effect: |
             A creature within 3 meters makes a Wisdom save.
             If it fails, cast Awe on it.
             It becomes magically bound to an object within 3 meters of it and can't willingly move more than 3 meters away from that object.
-            It rolls the save again at the start each of their turn to escape the binding.
+            It rolls the save again at the start end of their turn to escape the binding.
             Lasts up to 1 minute.
             
-        <Heavy Burden> :
+        <Heavy Burden> :        # 1
           A: 0 Actions
-          Cost: 1 Charge.
+          Cooldown: Long Rest
           Effect: |
-            A creature within 3 meters makes a Wisdom save.
+            A creature within 3 meters makes a Wisdom Check.
             If it fails, cast Awe on it and it is Crippled.
               
-        <Repentance> :
-          A: 0.5 Actions
+        <Repentance> :          # 0.5
+          A: 0 Actions
           Cost: 50% of your maximum health
           Range: 1 meter (touch)
           Cooldown: Long Rest
-          Effect: Restore 50% of an ally's maximum health.
-          
-  Beacon Cleric:            # +0.75
+          Effect: Restore 50% of an ally's maximum health, then cast Awe on yourself.
+
+    Level 4:
+        
+        <War Smite>:            # 1.5
+            A: 0 Actions
+            Cooldown: Long Rest
+            Effect: |
+                When you land an attack, roll 1d4 again and again until your roll 1.
+                Add them all together, and add the total to the attack.
+                
+        <Shadow Realm>:             # 2? Good damage, 0 actions, no save requred...
+            A: 0 Actions
+            Cooldown: Long Rest
+            Effect: |
+                A Unit within 6 meters becomes trapped in a Shadow Realm with you for 2 rounds (this and the next).
+                Your attacks against it cast Awe on it for free while inside the Shadow Realm.
+                Neither of you can interact with the outside world, but can feintly see it.
+                Units on the outside can faintly see the two of you, as if you were ghosts.
+            Notes: The Shadow Realm is a copy of the normal world, but with no other units.
+        
+
+  Beacon Cleric:          # 1
     
     Description: As a cleric, you become a devotee of darkness or/and light.
     Starting Abilities:
-      ~Grasp~ :
-        A: 0.5 Actions      # 0.25
-        Range: 12 meters (you don't need line of sight)
+    
+      ~Grasp~:            # 0.5
+        A: 0.5 Actions
+        Range: 15 meters (you don't need line of sight)
         Cooldown: Long Rest
         Effect: |
           Cast Awe on the target.
-          That target does not benefit from partial cover for 1 minute.
+          That target does not benefit from Cover for 1 minute.
 
     Choose your side: Beacon Cleric!\nPick only one of the following two abilities!
   
@@ -216,59 +187,91 @@ Specs:
         Effect: |
           At all times, you radiate light in a 3 meter radius.
           You can turn this on and off at will.
+          You are immune to being Blinded.
           If you have full health, Awe damage and healing is 1d6.
       
       ~Twilight~ :          # 0.5
         A: Passive
         Effect: |
           You have Dark Vision.
-          You are immune to being Blinded.
+          You are immune to being Feared.
           If you have 50% or less health, Awe damage and healing is 1d6.
       
     Talents:
-      Level 2:
+      Level 2:                  # 0.5
       
-        <Let There Be Light> :  # 0.25
+        <Let There Be Light> :      # 0.5
           A: Passive
           Effect: |
             Grasp now casts Awe 2 times instead of 1.
             You can also split your Grasp to target 2 targets (1 Awe each).
         
-        <Let There Be Darkness> :
-          A: 0.5 Actions
-          Cost: 1 Charge
-          Range: 6 meters to margin
+        <Let There Be Darkness> :   # 0.5
+          A: 0 Actions
+          Cooldown: Long Rest
+          Range: 6 meters to edge
           Effect: |
-            You create a 4x4 meter area of magical partial darkness.
-            For all units there (except you) it counts as difficult terrain.
+            You create a 4x4 meter area of magical darkness.
             All attacks done from and towards units in the area have Partial Cover.
 
-        <Repentance> :
+        <Repentance> :              # 0.5
           A: 0.5 Actions
           Cost: 50% of your maximum health
           Range: 1 meter (touch)
           Cooldown: Long Rest
-          Effect: Restore 50% of an ally's maximum health.
+          Effect: Restore 50% of an ally's maximum health, then cast Awe on yourself.
+          
+      Level 4:
+      
+        <Shadow Realm>:             # 2? Good damage, 0 actions, no save requred...
+            A: 0 Actions
+            Cooldown: Long Rest
+            Effect: |
+                A Unit within 6 meters becomes trapped in a Shadow Realm with you for 2 rounds (this and the next).
+                Your attacks against it cast Awe on it for free while inside the Shadow Realm.
+                Neither of you can interact with the outside world, but can feintly see it.
+                Units on the outside can faintly see the two of you, as if you were ghosts.
+            Notes: The Shadow Realm is a copy of the normal world, but with no other units.
+        
+        <Circle of Awe>:            # 2?
+            A: 0.5 Actions
+            Cooldown: Long Rest
+            Range: 6 meters to edge
+            Effect: |
+                Declare a 4x4 area within 6 meters.
+                Now, and at the start of your next turn, cast Awe on all Units inside the area.
+                
+        <Black Hole>:               # 1.75?
+            A: 0 Actions
+            Cooldown: Long Rest
+            Effect: |
+                You create a 1x1 Black Hole at a position.
+                Cast Grasp for free on all enemies within 6 meters of the hole.
+                If a Unit gets to the center of the Black Hole, it must pass a Might Check or be Snared.
+                At the end of your turn, all Units within 6 meters of it are pulled 2 meters towards it.
+            Notes: If 2 Units would be pulled to the center, you choose which.
+                
+                
 
-  Life Cleric:                    # +0.85
+  Life Cleric:            # +0.85
     Description: You are a worshipper of life and/or death. Seek their balance, and seek balance within yourself.\nYou have a Second Soul character, which is essentially another toned-down character you play.
     Starting Abilities:
       ~Second Soul~ :             # 0.5
         A: Special
         Effect: |
           You have another character beside you: your 'minion'.
-          Prepared Spells and Maneuvers: (Your Level / 2) + its Intelligence (at least 1) spells from the Amateur spell list
-          Skill Points: 1 + Your Level + its Intelligence. It can use it to acquire Training in weapons or Skill bonuses
-          You share the same Actions and Charges between yourselves.
+          It knows 1 + Your Level Basic Spells from the Maneuvers, Divine, Eldritch and Arcane spell lists.
+          It has Training in one Weapon Category and gets Training in another again at levels 3, 6 and 9.
+          You share the same Actions between yourselves.
+          Its main stat is Wisdom.
           Ex: If you used 0.5 Actions on your turn, your minion has 0.5 Actions left to use on its turn.
-        Other:
-          Health: Determined by your minion's nature
+        Stats:
+          Health: Determined by your minion's nature (see below)
           Defense: 3
           Movement: 5 meters (land)
-          Stats: Assign the numbers (-1, 0, 1, 1, 2) in any order
-          Saves and Skills: Respective to Stats
-          Languages: Common and one more Usual or Wild language that makes sense for it
-          Initiative Bonus: The minion rolls initiative separately with a +0 modifier
+          Stats: Assign the numbers (-1, 0, 1, 2, 3) in any order
+          Languages: Common and one more Common or Wild language that makes sense for it
+          Initiative Bonus: The minion rolls initiative separately with its own Dexterity + Charisma modifier.
     
     Choose your side: Life Cleric!\nPick only one of the following two abilities!
 
@@ -288,13 +291,13 @@ Specs:
           Your Celestial follower can be a humanoid or animal in appearance (it can't fly) and is sentient.
           Come up with a story about why you have a Celestial follower, and why your god allowed this or gave him or her to you.
           Your minion's max Health is always half of your max Health.
-        Notes: If it's animal-shaped and you want to use the rules for weapon attacks, just pretend the minion bites or scratches or something like that, but apply normal weapon rules.
+        Notes: If it's animal-shaped and you want to use the rules for weapon attacks, just pretend the minion bites or scratches, but apply normal weapon rules.
 
 
     Talents:
       Level 2:
       
-        <Divine Message> :
+        <Divine Message> :  # 0.5
           A: 10 minutes
           Cost: 1 Charge
           Cooldown: 24 Hours (in game)
@@ -305,49 +308,69 @@ Specs:
             The answer you will get will consist of maximum 3 words.
             The DM can choose not to answer, to answer falsely or say something completely different. The gods' wills are unknowable.
 
-        <Disembodiment> :
+        <Disembodiment> :   # 0.5
           A: 2 hours
           Requirement: True Necromancy
+          Cooldown: 24 Hours
           Effect: |
             You are able to ever improve your minion by mix and matching parts from other corpses.
             Every time you use this ability, you must consume a fresh corpse from a Worthy enemy (maximum 2 hours after death) and you irreversably sacrifice something.
             Each of these effects has a limited number of uses
-            - +1 Maximum Health, but your highest Skill decreases by 2 (5 uses)
-            - +1 Defense for either you or your minion, but -2 maximum number of prepared spells (2 uses)
-            - +1 Spell DC, but -1 to all Saves (1 use)
-            - +2 uses of Awe per Long Rest, but -1 maximum Charge (1 use)
+            - +1 Maximum Health (5 uses)
+            - +1 Defense for either you or your minion (2 uses)
+            - +1 Spell DC (1 use)
+            - +1 use of Awe per Long Rest (1 use)
 
-        <Repentance> :
-          A: 0.5 Actions
+        <Repentance> :      # 0.5
+          A: 0 Actions
           Cost: 50% of your maximum health
           Range: 1 meter (touch)
           Cooldown: Long Rest
           Effect: Restore 50% of an ally's maximum health.
+          Notes: You can't use this if you don't have at least 50% Health.
+          
+      Level 4:
+      
+        <Wings of Freedom>:
+            A: Passive
+            
+        
+        <Cleric Lich Ritual>:          # 2
+            A: Special
+            Effect: |
+                You spend 24 hours in a special place of power (this could be a temple or given to you by your DM).
+                After it's finished, you become a Lich, and you are considered Undead.
+                Apply the following:
+                - You are Undead, thus immune to Charm, Fear and being put to Sleep
+                - You no longer need to eat, drink or sleep.
+                - You gain access to the Elemental and Eldritch Spell Lists.
+                - You can no longer cast Basic Spells, but gain 2 extra slots for known Advanced Spells. Passive Basic Spells still apply.
+                - The range of all your Spells is doubled.
+                - Your Health decreases by 5, but your Defense, Spell DC and all Combat Checks increase by 1.
+                You also gain the following abilities:
+                - Phylactery
+                - Dismorphment
+            Notes: Your Follower can still cast Basic Spells.
+        
+        ~Phylactery~:
+            A: Special
+            Effect: |
+                When you become a Lich, you place your soul inside a Phylactery - a special object, dear to you.
+                When you would reach 0 Health, instead of going Down, you can instantly teleport your body inside the Phylactery.
+                A spellcaster can channel during a whole Long Rest to resummon you near the Phylactery with full Health, Spells, etc.
+                If the Phylactery is destroyed, you must wait 1 year to make another one.
+            Notes: The Long Rest still applies to the channeler who revives you, and to you as well.
+                
+        ~Dismorphment~:
+            A: Reaction or 0 Actions
+            Cooldown: Long Rest
+            Effect: |
+                When a Unit declares an attack or Spell on you, you can instantly teleport up to 6 meters away.
+                That Unit can keep their action or change it.
+                You can also instantly teleport using 0 Actions on your turn.
           
 
-# Talent : Channel like half o fyour health into an ally to make him stronger! (combos with undead servant)
-# Talent: wings for follower
-# Talent: you become a lich
-# Talent idea: Roll d4's until you roll 4 and add them all!
-# Talent Ability: 0 Actions, 0 Charges, Your next damaging spell heals instead
 
-
-
-#    Trap      
-#    Elemental Damage
-#    Buffs
-#    Choose between
-#    Damage
-#    Mobility
-#    Pro and Con
-#    On kill    
-#    Zoning    
-#    Swap Position
-#    Return on investment
-#    Specific range requirement
-#    Specific position requirement
-  
-  
 
   
   
