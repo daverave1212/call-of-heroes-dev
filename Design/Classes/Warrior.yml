@@ -83,6 +83,12 @@ Specs:
 # Talent: more Might Over Magic!
 # Talent: more Weaponmaster!
 
+# Actions
+
+# Charges       (Talents 2)
+# Damage + Utility
+
+
   Fighter:                        # 0.5
     Description: Lorem!
     Starting Abilities:
@@ -130,6 +136,9 @@ Specs:
 
   
 
+  
+  Battlemaster:                   # 0.5
+
 #	Talents:
 #		Move Defense to ally
 #		All allies around you gain defense
@@ -137,8 +146,14 @@ Specs:
 #		Reach (and flank)
 #		Ralying Cry : Clear all allies of Stun and healt hem for 1
 #		Every x spells cast, heal all allies for 1
-  
-  Battlemaster:                   # 0.5
+
+
+# Protection
+
+# Protection            (Talents 2)
+# CC Hard + Mobility
+# Damage + Utility
+
     Description: Lorem? Ipsum!
     Starting Abilities:
 
@@ -158,7 +173,7 @@ Specs:
         Cost: 1 Charge
         Cooldown: Once per turn
         Effect: |
-          Deal bonus damage on top of an attack equal to your current Defense.
+          Deal bonus damage on top of an attack equal to your current Defense (minimum 0).
           Reset your Defense.
 
     Talents:
@@ -174,7 +189,7 @@ Specs:
           Cooldown: Long Rest
           Effect: |
             Move 3 meters in a straight line, then choose a target near you.
-            That target takes 1d8 damage and try to Stun the target (Fortitude save).
+            That target takes 1d8 damage and try to Stun the target (Might Check).
 
         <Weaponmaster> :          # 1 because it's bonkers on 1H weapons
           A: Passive
@@ -188,6 +203,9 @@ Specs:
 
 
 
+
+  Barbarian:                  # 1
+  
 #	Talents:
 #		Stances
 #		Lower health = more damage
@@ -195,7 +213,8 @@ Specs:
 #       Interactions with Flanking
 #       Knock yourself prone to do X
 
-  Barbarian:                  # 1
+# Healing
+
     Description: AAAAAAAAAAAA LOREMM!!
     Starting Abilities:
       
@@ -218,7 +237,12 @@ Specs:
         Cost: 1 Charge.
         Effect: Heal for 2d6 health.
 
+# Protection + Healing              (Talents 2)
+# Immunities + Damage + Healing
+# Protection + Healing
+
     Talents:
+
       Level 2:                # All Ok
 
         <Heartbeat Trance> :        # 1
@@ -248,13 +272,26 @@ Specs:
             Take 1d6 damage.
             Enter a Battle Trance that lasts until the end of your next turn.
             You gain a protective shield around you which absorbs up to Your Might + Your Level physical damage.
-            When Rage Trance ends, heal for 3d6, and the shield fades.
+            When Battle Trance ends, heal for 3d6, and the shield fades.
           Notes: You can activate this as a Reaction when you would take damage.
 
-# Take 5 damage. Break any stun, snare, slow, trap or fear.
-# Lock in position and keep your Reload states
+
+      
+      Level 4:
+      
+        <Death Mark>:
+          A: 0 Actions
+          Cooldown: Long Rest
+          Effect: |
+            Mark a Unit you can see.
+            Whenever YOU deal damage to it until your next turn, remember the damage done.
+            At the start of your next turn, the mark bursts and the Unit takes directly 50% of the damage it has taken in this time period.
+            
 
   Marksman:               # 1
+  
+# Take 5 damage. Break any stun, snare, slow, trap or fear.
+# Lock in position and keep your Reload states
     Description: Lorem ipsum dolor sit amet.
     Starting Abilities:
     
@@ -280,6 +317,16 @@ Specs:
           Mark a point on the ground.
           Allies and you can use the mark to flank targets.
           Those attacks do benefit from Advanced Flank.
+          
+# Damage
+# Buff
+
+# Mobility + Damage + CC Small      (Talents 2)
+# Mobility + CC Medium
+# Damage + Utility + Mobility
+
+# Damage + Downside
+# AoE
 
     Talents:
       Level 2:
@@ -320,7 +367,7 @@ Specs:
             Your first attack every turn while Prone deals +1d6 damage.
             You can go prone for 0 Actions on your turn.
             
-        <Scatterblast>:
+        <Scatterblast>:     # 2
           A: 1 Action
           Range: 20 meters
           Cooldown: Long Rest
