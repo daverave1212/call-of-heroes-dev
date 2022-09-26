@@ -96,7 +96,6 @@ Specializations:
 Specs:
   
 # Talent: weapon spec or smth
-# Talent: Special forged weapon: has multiple effects
 # Talent: summon golem
 
 
@@ -165,8 +164,11 @@ Specs:
 
 # Charges
 
-# CC Medium            (Talents 2)
+# CC Medium                 (Talents 2)
 # Damage + CC Small
+
+# Damage + Gimmick/Downside (Talents 4)
+# Damage + Gimmick
 
   Wizard:                 # 1.25 Charges
     Description: Hmm, lorem...
@@ -202,12 +204,32 @@ Specs:
           Cooldown: Long Rest
           Effect: All enemies within 10 meters must pass a Might Check or be knocked Prone and take 1d4 Force damage.
 
+      Level 4:
+        
+        <Battle Mage>:      # 2?
+            A: Passive
+            Effect: |
+                While you have an even number of Charges, your first melee weapon attack each turn deals an extra 1d6 Fire or Cold damage (your choice).
+                This can only happen if you're wearing Heavy Armor (Scale Mail or Plate Armor) or a Shield.
+                You also get either Training in Shields, or one free Technique Feat of choice.
+
+        <Crystal Mage>:     # 2?
+            A: Passive
+            Effect: |
+                You become a Crystal Mage.
+                All your spells that deal Fire, Cold or Force damage now deal a special type of damage, Crystal damage.
+                Also, when dealing Crystal damage to a Unit, all Units directly near it also take 1d4 Crystal damage (which does not trigger this again, obviously).
+            Notes: Almost no creature has resistance or immunity specifically to Crystal damage.
+            
 
 # Buff + Utility
 # Healing
 
 # Damage + Mobility     (Talents 2)
 # Damage + Utility
+
+# Damage + CC           (Talents 4)
+# Damage
 
   Artificer:              # 1
     Description: Losum iprem
@@ -279,3 +301,28 @@ Specs:
 
             
 
+      Level 4:
+        
+        <Artificer - Golem>:            # 2, but it costs 1 Charge so it sounds fair.
+            A: 1 Action
+            Cost: 1 Charge
+            Range: 3 meters to edge
+            Effect: |
+              Choose an empty 2x2 meter space and deploy a Golem there.
+              Choose if it's made of Clay, Metal or Flesh.
+              It has different abilities based on its material.
+              You can find the Golem's stats in the Pets section.
+            Notes: The Golem has 0 initiative, so it usually takes its turn last in combat.
+              
+        <Artificer - Autoturret>:       # 1.5 but you can summon a ton of them
+            A: 0 Actions
+            Cost: 1 Charge
+            Range: 6 meters
+            Cooldown: 2 times / Turn
+            Effect: |
+                Choose an element: Fire, Cold, Shock or Force.
+                Choose an empty space to deploy an Autoturret of that element.
+                On your turn, you can freely make one attack with each Autoturret for 1d4 direct damage that ignores Defense and all resistances.
+                It has 5 Health, 7 Defense and fails all Checks.
+                
+                

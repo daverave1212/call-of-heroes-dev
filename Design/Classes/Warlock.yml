@@ -65,12 +65,12 @@ Spellcasting:
 
 Starting Abilities:
 
-  ~Power Tap~ :         # 0 Charges
+  ~Power Tap~ :         # 1 Charges (can use class spells)
     A: Depends
     Cooldown: Long Rest
     Effect: |
       Cast an ability one of your Allies has (with that ability's actions and costs and your modifiers).
-      If it's an Advanced Spell, you must spend its Charges.
+      If it's a non-class Advanced Spell or it costs Charges, you must spend its Charges.
     Notes: Does not work on Passives. The Ability must have 0, 0.5 or 1 Actions cost.
 
 # Utility
@@ -145,6 +145,10 @@ Specs:
 # Damage
 # Utility   (Talents 2)
 
+# Actions + Protection
+# Charges + Protection
+# AoE
+
   Hexblade:
     Description: Ha! Lorem ipsum!!
     Starting Abilities:
@@ -186,6 +190,27 @@ Specs:
         # Invoke weapon or draw it
         # Change hexblade to be weapon-specific or only spell-specific
 
+      Level 4:
+        
+        <Hungering Weapon>:     # 2 or more
+          A: Passive
+          Effect: |
+            When YOU drop a Worthy Enemy to 0 Health, gain an extra 0.5 Actions this turn and Shielding equal to your Main Stat.
+            
+        <Spell Tap>:            # 2 or more
+          A: Passive
+          Effect: |
+            Every Worthy Combat, when you drop to 0 Charges, unexhaust Power Tap and gain Shielding equal to your Main Stat.
+        
+        <Somatic Pulse>:        # 2?
+          A: 0.5 Actions
+          Cost: 1 Charge
+          Effect: |
+            Count the Units within 3 meters of you (except you).
+            They are all attacked for 2d6 + (the number of Units) True damage (against Defense).
+          Notes: E.g. if this affects 2 Units, it deals 3d6. If it affects 3 Units, it deals 4d6. 4 Units - 5d6. And so on.
+            
+
   Summoner:
   
 # Pet + CC Hard + CC Medium + Healing + Protection
@@ -196,7 +221,7 @@ Specs:
     Description: Lorem "ipsum dolor" sit amet.
     Starting Abilities:
 
-      ~Summon Familiar~ :       # 1
+      ~Summon Familiar~:       # 1
         A: 1 Hour
         Effect: |
           You conjure a ritual using various magical materials worth 25 Gold.
@@ -221,7 +246,7 @@ Specs:
           - Stats and Saves: Same as yours
           - Movement: Same as yours, can't fly, but it can swim at half normal speed
 
-      ~Familiar Pet Attack~ :
+      ~Familiar Pet Attack~:
         A: 0.5 Actions    # Exactly 0
         Cooldown: 1 turn
         Effect: |
@@ -256,6 +281,26 @@ Specs:
             A Unit must pass a Wisdom Check or fall Asleep for 2 turns.
             Alternatively, you can use Dream Walk on an already sleeping target to alter their dreams to your liking.
           Notes: A Sleeping Unit wakes up if it takes damage or other Crowd Control.
+
+      Level 4:
+      
+        <Demon Shape>:
+        
+        <Patron Avatar>:            # 2 turns  = 2 Charges
+          A: 0 Actions
+          Cost: 1 Charge
+          Cooldown: Long Rest
+          Range: 6 meters
+          Effect: |
+            You summon an Avatar of your patron.
+            While the Avatar is summoned, you can't move, except with teleportation Spells.
+            You and the Avatar share Actions and you must use at least 0.5 Actions with it every turn, otherwise it becomes unsummoned.
+            The Avatar can't take damage or be directly Crowd Controlled, but all Crowd Control you would take is redirected to it.
+            See the Avatar's Stats and Abilities in the Pets sections.
+            Lasts up to 1 minute or until you are Stunned, Paralyzed or physically moved from place, or if the Avatar moves outside of a 30 meter range.
+          Notes: You can cancel the summon at any point on your turn.
+        
+        
 
 #PageEnd#
 
