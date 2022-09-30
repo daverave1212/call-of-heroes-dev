@@ -5,6 +5,7 @@ Description: Druids are protectors of the nature and master shapeshifters.
 Stats:
   Base Health: 9
 
+Armor Training: Medium Armor
 
 Language: |
   If your Intelligence is at least 1, you know Druidic, the secret and ancient language of Druids.
@@ -146,13 +147,17 @@ Specs:
 # Stats
 # Pet
 
+# Healing       (Talents 4)
+# AoE damage + CC
+# AoE CC + Damage
+
   Coven of the Old Ways:        # 1.75
     Description: |
       You worship the sun, the moon and the stars, for only they can truly guide your path.
       Pagan Druids believe no one has the right to dictate someone else's spiritual path.
       As a Pagan Druid, you oppose fanaticism, opressors and stupidity.
-      Pagan Druids worship no god, but they do acknowledge their power and they heavily respect nature and the earth.
-      A Pagan Druid gains the power through not black, nor white eldritch magic.
+      Pagan Druids usually worship no god, but they do acknowledge their power and they heavily respect nature and the earth.
+      A Pagan Druid gains the power through not black, nor white magic.
       The suggested alignment for Pagan Druids is True Neutral.
 
 
@@ -176,7 +181,8 @@ Specs:
         Cooldown: Day/Night (see below)
         Effect: |
           A target within 6 meters makes a Wisdom Check.
-          If it fails, it takes 1d8 + 2 Fire Damage and is Crippled (if day) or Force damage and is Silenced (if night).
+          If it fails, it takes 1d4 + Main Stat Fire Damage and is Crippled (if day) or True damage and is Silenced (if night).
+          It takes half of that damage if it passes.
           If you use this at night, you can't use it until day, and vice versa.
 
     Talents:
@@ -190,6 +196,12 @@ Specs:
             The Old Ritual must be performed outdoors, in a safe, uncorrupted place untouched by regular folk.
           Downside:
             You permanently lose the Shapeshift ability, and you can never choose Talents that improve Shapeshift.
+        
+        <Improved Moonsun Fire>:    # 1?
+          A: Passive
+          Effect: |
+            If day, Moonsun Fire also burns the target for 10% of its total Health as Fire damage.
+            If night, Moonsun Fire heals a target you choose within 6 meters for the same damage dealt.
         
         <Lycanthropy> :         # 0.5
           A: Passive
@@ -208,18 +220,43 @@ Specs:
             Your pet can make normal Checks using using its own Stats.
             Your pet will not stray more than 30 meters away from you in hostile territory.
             All pets have the Pet Attack ability.
+            Pets can't make Opportunity Attacks.
             
         <Pet Attack>:
             A: 1 Action (from the pet)
             Effect: |
                 The pet melee attacks a target.
                 The attack deals 1d6 + 2 Pierce of Slash Damage (your choice).
+                
+      Level 4:
+      
+        <Regrowth>:
+          A: 1 Action
+          Cooldown: Long Rest
+          Effect: Heal a Unit within 6 meters for 1d8 for each 10 Health it is missing.
+          
+        <Sunrise/Moonfall>:
+          A: Passive
+          Effect: Moonsun Fire now hits all Units within a 4x4 area you choose and deals an extra 2d4 Damage.
+        
+        <Equinox>:              # It's 0.5 Actions + 1 Charge = 2 Charges
+          A: 0.5 Actions
+          Cooldown: Day/Night
+          Effect: |
+            If it's day, choose up to Main Stat Units within 15 meters.
+            They must pass a Wisdom Check or they forget to how to use ranged attacks or spells for 1 turn.
+            If it's night, your next Spell (this turn or next turn) casts twice.
 
 # Damage + CC Medium + Utility
 
 # Actions       (Talents 2)
 # Mobility
 # Other
+
+# Healing       (Talents 4)
+# Utility
+# Everything
+
 
   Coven of the Wild:            # +0.5
     Description: You are heavily in touch with nature and with strange creatures, uncommon to the normal folk.
@@ -233,6 +270,7 @@ Specs:
         Notes: |
           For example, you could transform into a combination of Bird of Prey and Bear, resulting in a kind of Owlbear, with a lot of health and a lot of Armor! Be creative!
           The animal size is either the larger or the smaller of the two - your choice.
+          Even if you Shapeshift into 2 combinations of a same animal, the cooldown of that animal's Ability persists (e.g. you can't use Bear's Maul twice per Long Rest, no matter what animal combination you transform into).
 
     Talents:
       Level 2:
@@ -279,7 +317,15 @@ Specs:
                 Choose a willing ally within 6 meters and Shapeshift them into an standard animal of your choice.
                 They have Animal Attack and all of the animal's Abilities.
                 They can cancel it for 0 Actions on their turn.
-            
+                
+        <Regrowth>:             # 2+ at 30 missing Health
+          A: 1 Action
+          Cooldown: Long Rest
+          Effect: Heal a Unit within 6 meters for 1d8 for each 10 Health it is missing.
+        
+        <Beastly Stamina>:
+          A: Passive
+          Effect: For each animal, you gain an extra use of their Long Rest Abilities (per Long Rest).
     
 
 # Charges
@@ -288,6 +334,8 @@ Specs:
 # Healing       (Talents 2)
 # Charges
 # Pet
+
+# Healing       (Talents 4)
 
   Coven of the Wicked:          # 1.5
     Description: |
@@ -348,6 +396,7 @@ Specs:
             Your pet can make normal Checks using using its own Stats.
             Your pet will not stray more than 30 meters away from you in hostile territory.
             All pets have the Pet Attack ability.
+            Pets can't make Opportunity Attacks.
             
         <Pet Attack>:
             A: 1 Action (from the pet)
@@ -355,9 +404,16 @@ Specs:
                 The pet melee attacks a target.
                 The attack deals 1d6 + 2 Pierce of Slash Damage (your choice).
 
+# Feat: Summon a Druid Plant
+
 # CC Medium + Stats + Zoning
 
-# Charges + Buff    (Talents 2)
+# Charges + Buff        (Talents 2)
+# Charges
+# Pet
+
+# Healing               (Talents 4)
+# CC Hard + Damage AoE
 # Pet
 
   Coven of the Land:            # 1.25
@@ -438,17 +494,41 @@ Specs:
             Your pet can make normal Checks using using its own Stats.
             Your pet will not stray more than 30 meters away from you in hostile territory.
             All pets have the Pet Attack ability.
+            Pets can't make Opportunity Attacks.
             
         <Pet Attack>:
             A: 1 Action (from the pet)
             Effect: |
                 The pet melee attacks a target.
                 The attack deals 1d6 + 2 Pierce of Slash Damage (your choice).
-	
 
-
-
-
+      Level 4:
+      
+        <Regrowth>:
+          A: 1 Action
+          Cooldown: Long Rest
+          Effect: Heal a Unit within 6 meters for 1d8 for each 10 Health it is missing.
+        
+        <Dazzling Miasma>:
+          A: 1 Action
+          Cooldown: Long Rest
+          Effect: |
+            Shoot a tainted gust of spores in a 10x1 meter line from your position.
+            It hits the first 2 Units it travels into.
+            If you hit one Unit, it must pass a Might Check or take 4d10 Poison damage (or half of that if it passes).
+            If you hit 2 Units, they must pass a Might Check or be Stunned and take 1d10 Poison damage (or half of that if they pass).
+        
+        <Animate Plants>:       # Easily 2 Charges; first turn is easily 1 Charge
+          A: 1 Action
+          Cooldown: Long Rest
+          Effect: |
+            Choose 3 plants you can see. They become animated and fight for you.
+            The Abilities and stats of the plant depends on what type of plant it is (see the Pets page).
+            You don't control your plants; they attack the closest enemy to them, or use their Ability when they can.
+            When a Plant reaches 0 Health, it doesn't die, but it becomes de-animated.
+            Pick the plant type from the Druid Plants list that fits the plant the best.
+            Lasts up to 10 minutes.
+            
 # Fey Druids are people bound to the Fey and to Fey creatures, a whimsical yet chaotic magic.
 # A worshipper of the Forgotten Gods praises Mother Earth, the Stars and possibly gods long forgotten by civilization.
 

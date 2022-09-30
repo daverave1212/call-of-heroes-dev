@@ -8,6 +8,8 @@ Description: Mages are powerful spellcasters who gain their powers through eithe
 
 Stats:
   Base Health: 3
+  
+Armor Training: Light Armor
 
 Language: |
   You speak one extra Common language of choice.
@@ -19,6 +21,7 @@ Language: |
 # Idea: Literally, turn back time a few minutes
 # Idea: Cast Advanced Spells that cost 2+ Charges with -1 Charge
 # Idea: Create bombs
+# Idea: Chronomancy - gain some chronomancy spells, like Slow (which limits Epics to 1 turn too)
 
 
 Level Up:
@@ -103,6 +106,7 @@ Specs:
 # Drawback
 
 # CC Medium       (Talents 2)
+# Damage
 # Gimmick
   
   Sorcerer:               # 1.5 Charges
@@ -129,10 +133,14 @@ Specs:
       
     Talents:
       Level 2:
-        <Master Specialization> :   # 0.75 but it can be huge for healing
+        <Eldritch Specialization>:  # 1 Charge
           A: Passive
-          Effect: You have access to all Spell Lists in the game to know Spells from.
-          
+          Effect: |
+            You gain access to the Eldritch Spell List, and when you cast an Eldritch Spell, you can choose to split the d8's into 2d4's and d12's into 2d6's.
+          Notes: |
+            For example, if a Spell deals 2d8 damage, that becomes 4d4.
+            it might sound like the same thing, but because of math, 4d4 is actually, on average, 1 extra damage compared to 2d8.
+  
         <Wild Cast>:                # 1
           A: 1 Action
           Cooldown: Long Rest
@@ -165,6 +173,9 @@ Specs:
 # Charges
 
 # CC Medium                 (Talents 2)
+# Protection
+# Damage
+# Damage
 # Damage + CC Small
 
 # Damage + Gimmick/Downside (Talents 4)
@@ -195,10 +206,22 @@ Specs:
           Cooldown: Long Rest
           Effect: When a Unit you can see casts a Spell, cancel it. It loses the Action (but not the Charge).
 
-        <Master Specialization> :   # 0.75 but it can be huge for healing
+        <Conjuration Specialization>:   # 1 Charge
           A: Passive
-          Effect: You have access to all Spell Lists in the game to know Spells from.
-          
+          Effect: Whenever you cast a Conjuration Advanced Spell, gain Shielding equal to your Main Stat.
+        
+        <Arcane Specialization>:    # 1 Charge
+          A: Passive
+          Effect: Whenever you cast an Arcane Advanced Spell, shoot a magic missile at a target within 4 meters that instantly deals 1d4 Force Damage.
+
+        <Eldritch Specialization>:  # 1 Charge
+          A: Passive
+          Effect: |
+            You gain access to the Eldritch Spell List, and when you cast an Eldritch Spell, you can choose to split the d8's into 2d4's and d12's into 2d6's.
+          Notes: |
+            For example, if a Spell deals 2d8 damage, that becomes 4d4.
+            it might sound like the same thing, but because of math, 4d4 is actually, on average, 1 extra damage compared to 2d8.
+
         <Force Pulse>:  # 1 Charge
           A: 0 Actions
           Cooldown: Long Rest
@@ -218,9 +241,31 @@ Specs:
             Effect: |
                 You become a Crystal Mage.
                 All your spells that deal Fire, Cold or Force damage now deal a special type of damage, Crystal damage.
-                Also, when dealing Crystal damage to a Unit, all Units directly near it also take 1d4 Crystal damage (which does not trigger this again, obviously).
+                You also get the following Crystal Abilities.
             Notes: Almost no creature has resistance or immunity specifically to Crystal damage.
             
+        ~Crystal Bolt~:
+            A: 1 Action
+            Range: Exactly 6 meters
+            Effect: |
+                Attack a Unit exactly 6 meters away for 4d4 Crystal Damage.
+                The target and all Units within 1 meter of it also take Main Stat Crystal damage afterwards.
+            
+        ~Diamondize~:
+            A: Reaction
+            Cooldown: Long Range
+            Effect: |
+                Use when you would take damage.
+                Prevent the damage and become invulnerable and Stunned until the start of your next turn.
+
+        ~Cutting Field~:
+            A: 1 Action
+            Cost: 1 Charge
+            Cooldown: 1 use / Combat
+            Effect: |
+                All units in a 90 degree, 6 meter long cone take 4d4 Crystal Damage.
+                Create spikes on all empty spaces (1x1 meter size each space).
+                Whenever a Unit steps on a spike, it takes 1d4 Crystal Damage and shatters the spike.
 
 # Buff + Utility
 # Healing

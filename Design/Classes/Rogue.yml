@@ -4,6 +4,8 @@ Description: Rogues are masters of stealth and deception.
 Stats:
   Base Health: 3
 
+Armor Training: Medium Armor
+
 Language: |
   If your Inteligence is at least 1, you know Thieves' Cant.
   Thieves' Cant is not a spoken language, but rather a set of symbols, sign language and code names for various objects, places or people.
@@ -77,7 +79,7 @@ Starting Abilities:
       While Hidden, your first attack deals 1d6 + 1 extra damage.
       When Ambushing, you can also spend as many Charges as you want.
       That attack gains 1d6 + 1 damage more for each Charge spent.
-      You can only Ambush once per turn.
+      Ambush can only happen once per turn.
     Notes: |
       Your Specialization will give you extra ways to Ambush.
       You can't stack 2 Ambushes at the same time, obviously.
@@ -123,11 +125,14 @@ Specs:
 
 # - Damage
 
-# - CC Hard (Stun)      (Talent 2)
+# - CC Hard (Stun)          (Talent 2)
+# - Utility
+# - Stats
 # - Mobility
 
-# - Zoning
-# - AoE                 (Talent 4)
+# - Zoning                  (Talent 4)
+# - AoE
+# - Damange (sus) + Utility
 
   Thief:                # 2.35 Charges
     Description: ...lorem... ipsum...
@@ -206,6 +211,20 @@ Specs:
             Then, again, each blade deals 2d6 direct Slash damage (not against Defense) to all Units it passes through.
           Notes: Requires 8 special blades, which can be bought for a total of 240 gold.
 
+        <Poisoned Weapons>:         # 2? seems a bit weak
+          A: 10 minutes
+          Cooldown: 8 hours
+          Effect: |
+            You coat up to 2 weapons in different poisons that last for 8 hours.
+            Choose 2 weapons, and choose a different poison to apply for each:
+            - Deathly Venom: Deals 1d12 extra Poison damage to targets with more than 50% Health; then the target becomes immune to this poison for 1 minute.
+            - Necrotic Toxin: The attack's target becomes Slowed and can't regain Health for 1 minute
+            - Phosphorus Mix: The target can't benefit from Cover for 1 minute (and this attack ignores Cover)
+            - Weakening Poison: The target can only do 1 Attack on their next turn
+          Notes: |
+            Remember to specify which weapon you are attacking to.
+            Requires a Poisoner's Kit which can be bought for 200 gold on the black market. If you're in a tight scenario, the DM might let you use monster blood or gather herbs for a 1-time use of this Ability.
+            
     #  Talent: Traps, tripwires, thief's tools
 
 
@@ -217,6 +236,7 @@ Specs:
 
 # - AoE                 (Talent 4)
 # - RoI
+# - Damage (sustained)
   
   Assassin:             # 2.25 Charges
     Description: ...LOREMIPSUM! <you died>
@@ -271,7 +291,7 @@ Specs:
           
       Level 4:
       
-        <Blade Tempest>:
+        <Blade Tempest>:            # Definitely at least 2
           A: 1 Action
           Cooldown: Long Rest
           Effect: |
@@ -282,24 +302,46 @@ Specs:
             Then, again, each blade deals 2d6 direct Slash damage (not against Defense) to all Units it passes through.
           Notes: Requires 8 special blades, which can be bought for a total of 240 gold.
 
-        <Death Mark>:
+        <Death Mark>:               # 2 = 16 damage done
           A: 0 Actions
           Cooldown: Long Rest
           Effect: |
             Mark a Unit you can see.
             Whenever YOU deal damage to it until your next turn, remember the damage done.
-            At the start of your next turn, the mark bursts and the Unit takes directly 50% of the damage it has taken in this time period.
+            At the start of your next turn, the mark bursts and the Unit takes directly 50% of the damage you dealt to it in this time period.
 
-    #  Talent: 2 turns from now, evelyn's charm
-    #  Talent: Traps, tripwires, thief's tools
+        <Poisoned Weapons>:         # 2? seems a bit weak
+          A: 10 minutes
+          Cooldown: 8 hours
+          Effect: |
+            You coat up to 2 weapons in different poisons that last for 8 hours.
+            Choose 2 weapons, and choose a different poison to apply for each:
+            - Deathly Venom: Deals 1d12 extra Poison damage to targets with more than 50% Health; then the target becomes immune to this poison for 1 minute.
+            - Necrotic Toxin: The attack's target becomes Slowed and can't regain Health for 1 minute
+            - Phosphorus: The target can't benefit from Cover for 1 minute (and this attack ignores Cover)
+            - Weakening Poison: The target can only do 1 Attack on their next turn
+          Notes: |
+            Remember to specify which weapon you are attacking to.
+            Requires a Poisoner's Kit which can be bought for 200 gold on the black market. If you're in a tight scenario, the DM might let you use monster blood or gather herbs for a 1-time use of this Ability.
+     
 
+# Talent: 2 turns from now, evelyn's charm
+# Talent: Traps, tripwires, thief's tools
+# Talent: After you Parry, Reaction to attack
+# Talent: Reaction - choose 2 Units, grab them with the whiplash and swap their positions (cool for combos)
+# Talent: Reaction - shoot your gun, and stop someone's movement
 
 # - Single Target Damage
+# - Protection
 
 # - CC Hard (Blind)     (Talent 2)
+# - Utility
 # - Mobility
+# - Utility
 
 # - Zoning              (Talent 4)
+# - Damage (sustained)
+# - Damage + Utility
   
   Skirmisher:           # 3 Charges
     Description: Loreeeem!!!
@@ -307,7 +349,7 @@ Specs:
 
       ~Savagery~:       # 2 Charges
         A: Passive
-        Effect: Attacks on creatures that have 50% or less health gain Ambush.
+        Effect: Attacks on Units that have 50% or less health gain Ambush.
 
       ~Parry~:          # 1 Charge
         A: Reaction
@@ -340,8 +382,8 @@ Specs:
           Cost: 1 Charge
           Cooldown: 1 use / Turn
           Effect: |
-            This attack ignores Cover and has no pentaly if you're Blinded.
             Perform an attack with a 1-Handed Ranged weapon.
+            This attack ignores Cover and has no penalty if you're Blinded.
             This attack does not trigger attacks of oportunity and can be used in melee range without penalty.
       
       Level 4:
@@ -357,7 +399,29 @@ Specs:
             Each end of the wire must be attached to something solid and static.
             You can make use of walls, obstacles, etc.
             Requires a Special Tripwire Set which can be bought for 200 gold.
-        
+            
+        <Poisoned Weapons>:         # 2 attacks = 2.5 Charges
+          A: 10 minutes
+          Cooldown: 8 hours
+          Effect: |
+            You coat up to 2 weapons in different poisons that last for 8 hours.
+            Choose 2 weapons, and choose a different poison to apply for each:
+            - Deathly Venom: Deals 1d10 extra Poison damage to targets with more than 50% Health; then the target becomes immune to this poison for 1 minute.
+            - Necrotic Toxin: The attack's target becomes Slowed and can't regain Health for 1 minute
+            - Phosphorus: The target can't benefit from Cover for 1 minute (and this attack ignores Cover)
+            - Weakening Poison: The target can only do 1 Attack on their next turn
+          Notes: |
+            Remember to specify which weapon you are attacking to.
+            Requires a Poisoner's Kit which can be bought for 200 gold on the black market. If you're in a tight scenario, the DM might let you use monster blood or gather herbs for a 1-time use of this Ability.
+     
+        <Swing Thing>:              # 2 uses = 2 Charges
+          A: Reaction
+          Effect: |
+            Use when a Unit within 6 meters becomes Snared, Stunned or knocked Prone (you must have line of sight to it).
+            Deal 1d8 Pierce damage to it and push it up to 3 meters in any direction.
+          Notes: |
+            Requires a Whiplash item for pushing towards you or to a side, which can be bought for 100 gold.
+            For pushing away from you, requires a gun or crossbow of any type.
           
 #PageEnd#
 # 
