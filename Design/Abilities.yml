@@ -15,8 +15,6 @@
 # Make some good spells that Artificer - Spellcraft can benefit from (e.g. CC, small area, short range, even amount of dice)
 # Make some good spells against specific enemies (giants, undead, elementals)
 # Summon golem (include Bigby's hand, you can shape it as you like)
-# Lightning storm
-# Polymorph
 # Spell: Every point of extra Defense over X deals 2 more damage
 # Conjure spear barrage
 # Flaming arrows (literally make your arrows flaming)
@@ -62,7 +60,6 @@
 # Change race
 # Recall
 # Transform into a plant
-# Freeze water
 # Transmogrification (cosmetics only)
 # Move earth (channeled)
 # Schizophrenic Suggestion (the target's traits become accentuated)
@@ -252,7 +249,7 @@ Elemental:
             Choose a 1x1x1 meter cube of dirt, loose stone, sand, etc.
             You can do the following things to it.
             - You can move it 1 meter in any direction.
-            If a creature was hit by it or it was removed from below a creature's feet, it rolls a Dexterity save (against your Spell DC).
+            If a creature was hit by it or it was removed from below a creature's feet, it rolls a Dexterity save (against your Spell Grade).
             If it fails, it takes 1d8 damage and is knocked prone.
             If a creature is burried in dirt (or loose stone, etc) after failing the save, it takes 1d8 additional damage (directly).
             - You can roughly shape it in any form
@@ -407,6 +404,17 @@ Elemental:
             (Damage is dealt against Defense).
             The Sphere can bounce up to 2 times.
 
+
+    # Advanced Spells
+    ~Freeze Water~:
+        A: Channeled
+        Cost: 1 Charge
+        Range: 12 meters
+        Requirement: Level 4
+        Effect: |
+            Choose a point you can see with a continuous mass of water. You begin channeling.
+            On every turn (until you stop channeling), the water freezes in a sphere around the point, (Your Level - 3) meters radius for each 0.5 Actions spent.
+            
 
 Arcane:
 
@@ -622,6 +630,10 @@ Nature:
         A: 1 Action
         Effect: You know if there is any poison (or poisonous creature) or disease (or ill person) within 6 meters.
 
+    ~Flaming Arrows~:
+        A: Passive
+        Effect: When you declare a ranged weapon attack (before rolling), you can make the attack deal Fire damage (instead of physical).
+
     ~Purify Food and Drink~:
         A: 1 Action
         Effect: |
@@ -639,18 +651,29 @@ Nature:
             That ally becomes Snared in the ground for up to 1 minute.
             While rooted, that ally's Defense can't be lower than 6.
         Notes: You can cancel this effect at any point at will.
+
+    ~Healing Surge~:
+        A: 0.5 Actions
+        Cost: 1 Charge
+        Range: 5 meters
+        Effect: Heal a target for 2d6.
+        
+    ~Lightning Storm~:
+        A: 1 Action
+        Cost: 1 Charge
+        Range: 10 meters to edge
+        Effect: |
+            Declare a 4x4x4 area.
+            All units inside the area take 5d4 Shock damage (against Defense).
+            If a unit carries anything made of metal, this ignores all its Defense.
+            On your turn (for up to 1 minute), you can spend 1 Action to move the storm up to 3 meters and its deal damage again (without consuming a Charge).
+            Lasts up to 1 minute.
     
     ~Wild Heart~:
         A: 1 Action
         Cost: 1 Charge.
         Effect: Up to 2 allies you touch gain Your Main Stat maximum (and current) Health and +1 to all saves until their next Long Rest.
         Notes: The bonus to Health and Saves doesn't stack with itself, and the bonus to Saves doesn't stack with other Save buffs.
-    
-    ~Healing Surge~:
-        A: 0.5 Actions
-        Cost: 1 Charge
-        Range: 5 meters
-        Effect: Heal a target for 2d6.
     
     # Advanced Spells
 
@@ -807,18 +830,6 @@ Conjuration:
             It can make this save to try to escape every 24 hours.
             You can cast this once per day per charge.
 
-    ~Portal~ :
-        A: 4 Hours
-        Cost: 3 Charges.
-        Duration: 30 days
-        Requirement: Level 8
-        Effect: |
-            You need a partner who can cast Portal to cast this.
-            You both cast it at the same time, in different locations.
-            At the end of the cast time, a portal opens at the locations of the two casters.
-            Stepping through one of the portals (obviously) teleports the creature to the other portal.
-            You can only cast this every 30 days.
-
     ~Web~:
         A: 1 Action
         Cost: 1 Charge
@@ -856,6 +867,26 @@ Conjuration:
             Your undead takes its turn immediately before or after your turn (you choose).
             The undead will always try to move to and attack the closest enemy to it (you choose if it's a tie).
             You can use 0.5 Actions on your turn to command (one of) your undead to move to a certain location.
+    
+    ~Polymorph~:
+        A: 0.5 Actions
+        Cost: 2 Charge
+        Requirement: Level 4
+        Effect: |
+            Choose an animal from the Pet List or any critter, such as a sheep, deer, etc.
+            A Unit within 10 meters must pass an Intelligence Check or be transformed into that animal.
+            At the end of its every turn, it must pass the Check again or remain Polymorphed.
+            The unit retains its Health and Defense, but can't do any non-animal actions.
+
+    ~Transmogrification~:
+        A: 10 minutes
+        Cost: 1 Charge
+        Requirement: Level 4
+        Effect: |
+            Touch 2 objects of the same type (e.g. 2 helmets, or 2 arrows, or 2 melee 1-handed weapons, etc).
+            You make one of the look like the other.
+            The change is permanent until the object breaks.
+        Notes: Upon close inspection of the shape and colors, this is visibly an illusion.
 
     ~Watcher Eye~ :
         A: 0 Actions
@@ -866,6 +897,21 @@ Conjuration:
             After 24 hours, the eye stops recording.
             You can use your magic to scan what the eye recorded in your mind.
             At any point, you can tune into the eye and see what it sees in your mind.
+            At level 6, you can move use your movement to instead move the Eye while you're tuned into it (it can fly).
+
+
+    ~Portal~ :
+        A: 4 Hours
+        Cost: 3 Charges.
+        Duration: 30 days
+        Requirement: Level 8
+        Effect: |
+            You need a partner who can cast Portal to cast this.
+            You both cast it at the same time, in different locations.
+            At the end of the cast time, a portal opens at the locations of the two casters.
+            Stepping through one of the portals (obviously) teleports the creature to the other portal.
+            You can only cast this every 30 days.
+
 
 
 
@@ -1433,7 +1479,7 @@ Familiar Feats:
       Range: 6 meters (from your Familiar)
       Cooldown: Long Rest
       Effect: |
-        A Unit must pass a Wisdom Check (against your DC) or be Charmed by the familiar.
+        A Unit must pass a Wisdom Check (against your Grade) or be Charmed by the familiar.
         If it succeeds, your familiar also becomes Stunned.
 
     ~Familiar - Soul Attack~ :             # 0.25
@@ -1467,5 +1513,5 @@ Familiar Feats:
       A: Passive
       Effect: |
         Your familiar can speak and communicate in all languages you know.
-        Your Spell DC also increases by 1 and your Maximum Health by 3.
+        Your Spell Grade also increases by 1 and your Maximum Health by 3.
       Downside: Requires Level 4.
