@@ -6,8 +6,7 @@ Ideas:
 Class: Mage
 Description: Mages are powerful spellcasters who gain their powers through either study or ust pure talent.
 
-Stats:
-  Base Health: 3
+Base Health: 3
   
 Armor Training: Light Armor
 
@@ -26,9 +25,9 @@ Language: |
 
 Level Up:
   Every Level: 
-    - +5 Health
-    - +1 Known Ability
-    - +1 Charge
+    Health: 4
+    Spells: 1 known Spell
+    Charges: 1 Charge
   Level Bonuses:
     1: Choose your Specialization
     2: Talent from your Specialization (Tier 1)
@@ -49,13 +48,14 @@ Level Up:
         You gain 1 Feat.
     8: Talent from your Specialization (Tier 4)
     9: Pick one more Talent from your Specialization, from any Tier from Tier 1 to Tier 3.
-    10:Talent from your Specialization (Tier 5) 
+    10: Talent from your Specialization (Tier 5) 
   
 Spellcasting:
+  Type: Charge-based
   Description: |
     Mage Abilities are Charge-based.
     As a Mage, you have a number of Charges.
-    To cast any Advanced Ability from your known spells, you must expend 1 Charge.
+    To cast any Advanced Ability from your known spells, you must expend 1 Charge (or according to its Cost).
     You don't have restrictions for how many times you can cast a spell per Long Rest, but you have restrictions on your Charges.
     Advanced Abilities are all Abilities from the Spell Lists listed as Advanced.
     If an Ability is not listed as Advanced, you can use it as many times as you like.
@@ -83,6 +83,11 @@ Starting Abilities:
       The next ability you use that has the cost of 1 Action now costs 0.5 Actions.
       This is considered a Maneuver.
 
+Starting Abilities Description:
+  - Magic Mastery: |
+      Magic Mastery can convert a Spell from 0.5 Actions to 1 Action.
+      You can use this twice per turn or multiple times per turn to dish out a lot of spells in quick succession, in a single turn.
+      It is considered a maneuver because some other Mage abilities affect Spells specifically, so Magic Mastery is unaffacted by them.
 
 Specializations:
   Description: At Level 1, you can choose your specialization. Every Mage can choose from the following Mage specializations
@@ -114,10 +119,12 @@ Specs:
     Starting Abilities:
     
       ~Charisma Caster~:
+        AlignOnWebsite: Left
         A: Passive
         Effect: You can freely use Charisma as your Main Stat, if you choose to do so.
     
       ~Innate Magic~ :
+        AlignOnWebsite: Right
         A: Passive
         Effect: |
           When you cast a spell, if it's different than the previous spell you casted, the previous spell becomes Exhausted, even if it's a Basic Spell.
@@ -126,6 +133,7 @@ Specs:
             Example: 3 turns in a row, you cast Fire Bolt; next turn, you cast Magic Missiles; after this, you can't cast Fire Bolt again until the next Long Rest.
 
       ~Overcharge~ :      # 2 Charges
+        AlignOnWebsite: Left
         A: Passive
         Effect: |
           After you cast a spell the 3rd time in a row, your next ability benefits from Magic Mastery.
@@ -134,6 +142,7 @@ Specs:
     Talents:
       Level 2:
         <Eldritch Specialization>:  # 1 Charge
+          AlignOnWebsite: Right
           A: Passive
           Effect: |
             You gain access to the Eldritch Spell List, and when you cast an Eldritch Spell, you can choose to split the d8's into 2d4's and d12's into 2d6's.
@@ -164,6 +173,7 @@ Specs:
             8. Target(s) must pass a Might Check or be Stunned.
 
         <Wild Magic>:               # 0.5
+          AlignOnWebsite: Right
           A: Passive
           Effect: |
             Whenever you cast an Advanced Spell or use Magic Mastery, roll 1d12.
@@ -172,6 +182,7 @@ Specs:
       Level 4:
       
         <Arcane Comet>:     # 2 Charges damage at 8 meters
+            AlignOnWebsite: Left
             A: 1 Action
             Cooldown: Long Rest
             Range: 8 meters
@@ -186,6 +197,7 @@ Specs:
                 - 7 or 8 meters: None
 
         <Star Burst>:       # +5.5 extra damage per Charge spent (but its so random it still might be too weak)
+            AlignOnWebsite: Right
             A: 0.5 Actions
             Cost: 1 Charge
             Effect: |
@@ -200,7 +212,8 @@ Specs:
                 You should probably assign the higher number to the target you want to do most damage to.
                 You can declare fewer targets, but then the missing number will deal damage to no target.
                 
-        <Mystically Unleashed Thaumaturgic Arcane Torrent Essence>:
+        <Honorificabilitudinitatibus>:
+            AlignOnWebsite: Left
             A: Passive
             Effect: Your single-target Spells that deal half damage when a target passes a Check now deal the full damage regardless.
             Notes: That means spells like Acid Burst don't even require a Check anymore.
@@ -264,6 +277,14 @@ Specs:
           Effect: All enemies within 10 meters must pass a Might Check or be knocked Prone and take 1d4 Force damage.
 
       Level 4:
+      
+        <Crystal Mage>:     # 2?
+            A: Passive
+            Effect: |
+                You become a Crystal Mage.
+                All your spells that deal Fire, Cold or Force damage now deal a special type of damage, Crystal damage.
+                You also get the following Crystal Abilities.
+            Notes: Almost no creature has resistance or immunity specifically to Crystal damage.
         
         <Battle Mage>:      # 2?
             A: Passive
@@ -285,16 +306,9 @@ Specs:
                 - 3 or 4 meters: Daze
                 - 5 or 6 meters: Snare
                 - 7 or 8 meters: None
-
-        <Crystal Mage>:     # 2?
-            A: Passive
-            Effect: |
-                You become a Crystal Mage.
-                All your spells that deal Fire, Cold or Force damage now deal a special type of damage, Crystal damage.
-                You also get the following Crystal Abilities.
-            Notes: Almost no creature has resistance or immunity specifically to Crystal damage.
             
         ~Crystal Bolt~:
+            IsSubspell: true
             A: 1 Action
             Range: Exactly 6 meters
             Effect: |
@@ -302,6 +316,7 @@ Specs:
                 The target and all Units within 1 meter of it also take Main Stat Crystal damage afterwards.
             
         ~Diamondize~:
+            IsSubspell: true
             A: Reaction
             Cooldown: Long Range
             Effect: |
@@ -309,6 +324,7 @@ Specs:
                 Prevent the damage and become invulnerable and Stunned until the start of your next turn.
 
         ~Cutting Field~:
+            IsSubspell: true
             A: 1 Action
             Cost: 1 Charge
             Cooldown: 1 use / Combat
@@ -351,6 +367,7 @@ Specs:
           Artificer's Tools's small tasks are a non-combat. You can't use them to deal damage, crowd control or heal.
 
       ~Artificer - Magic Scroll~:
+        AlignOnWebsite: Right
         A: 5 minutes
         Cost: 1 Charge
         Effect: |
@@ -358,6 +375,7 @@ Specs:
           You create a scroll containing that spell.
         
       ~Artificer - Magic Elixir~:   # 1?
+        AlignOnWebsite: Right
         A: 5 minutes
         Cost: 1 Charge
         Effect: |

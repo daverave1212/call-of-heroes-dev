@@ -2,8 +2,7 @@
 Class: Warrior
 Description: Warriors are highly trained combat experts
 
-Stats:
-  Base Health: 7
+Base Health: 7
 
 
 Language: |
@@ -14,9 +13,9 @@ Armor Training: Heavy Armor
 
 Level Up:
   Every Level: 
-    - +5 Health
-    - +1 Known Ability
-    - +1 Charge
+    Health: 6
+    Spells: 1 known Advanced Spell
+    Charges: 1 Charge
   Level Bonuses:
     1: Choose your Specialization
     2: Talent from your Specialization (Tier 1)
@@ -37,10 +36,11 @@ Level Up:
         You gain 1 Feat.
     8: Talent from your Specialization (Tier 4)
     9: Pick one more Talent from your Specialization, from any Tier from Tier 1 to Tier 3.
-    10:Talent from your Specialization (Tier 5) 
+    10: Talent from your Specialization (Tier 5) 
 
 
 Spellcasting:
+  Type: Charge-based
   Description: |
     Warrior Abilities are Charge-based.
     As a Warrior, you have a number of Charges.
@@ -49,7 +49,7 @@ Spellcasting:
     Advanced Abilities are all Abilities from the Spell Lists listed as Advanced.
     If an Ability is not listed as Advanced, you can use it as many times as you like.
 
-  Main Stat: Choose between Wisdom or Charisma. This is your Main Stat.
+  Main Stat: Choose permanently - Wisdom or Charisma
   Spell DC: 6 + (Main Stat)
   Charges:
     Amount: 3
@@ -63,8 +63,15 @@ Spellcasting:
 Starting Abilities:
 
   ~Advanced Flank~ :        # 0.5
-    A: Passive
-    Effect: When you flank-attack an enemy, or an ally flank-attacks an enemy with you, the flank damage bonus is +1d4 instead of +1.
+    A: Reaction
+    Effect: When you flank-attack an enemy, or an ally flank-attacks an enemy with you, you can use your Reaction to make the flank damage bonus +1d6 instead of +1. You can use your Reaction on your turn to trigger this (and your Reaction this round gets used).
+
+Starting Abilities Description:
+  - Advanced Flank: |
+      Note the Action cost of Advanced Flank.
+      You can use Advanced Flank on your turn or outside of your turn, on an Ally's attack.
+      Remember that you have only 1 Reaction per Round!
+      If you choose to use Advanced Flank, you forego your other Reaction options, like making Opportunity Attacks.
 
 Specializations:
   Description: At Level 1, you can choose your specialization. Every Warrior can choose from the following Warrior specializations
@@ -79,6 +86,7 @@ Specializations:
 # Spec: 4 Charges
 
 # Talent: You can spend 1 Charge to unexhaust one Ability
+# Talent: No Flank Attack cooldown
 
 Specs:
 
@@ -95,20 +103,18 @@ Specs:
     Description: Lorem!
     Starting Abilities:
 
-      ~Overpower~ :               # Ok
-        A: 0 Actions
-        Cost: 1 (or 2 Charges)
-        Cooldown: Once per turn
-        Effect: |
-          Gain 0.5 Actions (or 1 Action) more this turn.
-          You can do this once per turn.
-        Notes: If you use 1 Charge, you gain 0.5 Actions. If you use 2 Charges, you gain 1 Action.
-
       ~Upper Hand~ :              # 0.35
         A: Passive
         Effect: |
           Your first attack you make before you move in a turn counts as if it is Flanking.
           If you are wielding a 1-Handed weapon, when you make an attack of opportunity, you can make 2 attacks of opportunity instead (with that weapon).
+
+      ~Overpower~ :               # Ok
+        A: 0 Actions
+        Cost: 1 Charge
+        Cooldown: Once per turn
+        Effect: |
+          Gain 0.5 Actions more this turn.
 
     Talents:
       Level 2:
@@ -133,7 +139,7 @@ Specs:
           Effect: |
             When you get this, choose one weapon type.
             You have that weapon effect too, no matter what weapon you are using.
-            You can the weapon type you always know on a Long Rest.
+            You can change this weapon type on a Long Rest.
 
       Level 4:
         
@@ -181,7 +187,7 @@ Specs:
       ~Solid Defense~ :
         A: Passive
         Effect: |
-          Whenever you are attacked (after damage), your Defense is reduced by 1.
+          Whenever you are attacked (after damage), your Defense is reduced by 1 (if it's more than 0).
           Every Long Rest, your Defense resets to its base value and is increased by +1 on top of it.
 
       ~Defense Up~:
@@ -244,6 +250,7 @@ Specs:
 #		Permanently increase health by 1 for each enemy killed
 #       Interactions with Flanking
 #       Knock yourself prone to do X
+#       Break any CC and damage yourself
 
 # Healing
 # Damage

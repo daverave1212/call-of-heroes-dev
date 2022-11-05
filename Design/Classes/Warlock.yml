@@ -2,8 +2,7 @@
 Class: Warlock
 Description: Warlocks are people who made pacts with powerful beings.
 
-Stats:
-  Base Health: 6
+Base Health: 6
 
 Language: If your Intelligence is at least 2, choose one Higher language you can speak.
 
@@ -11,9 +10,8 @@ Armor Training: Light Armor
 
 Level Up:
   Every Level: 
-    - +5 Health
-    - +1 Known Ability
-    - +1 Charge
+    Health: 5
+    Spells: 1 known Spell
   Level Bonuses:
     1: Choose your Specialization
     2: Talent from your Specialization (Tier 1)
@@ -39,18 +37,19 @@ Level Up:
     9: |
         Pick one more Talent from your Specialization, from any Tier from Tier 1 to Tier 3.
         You gain +1 Charge.
-    10:Talent from your Specialization (Tier 5) 
+    10: Talent from your Specialization (Tier 5) 
 
 
 
 
 Spellcasting:
+  Type: Special Charge-based
   Description: |
     Warlock Abilities are Charge-based, with a twist.
     As a Warlock, you have a number of Charges.
     To cast any Advanced Spell from your known spells, look at the cost of the Spell and expend that many Charges.
     You don't have restrictions for how many times you can cast a spell per Long Rest, but you have restrictions on your Charges.
-  Main Stat: Choose between Intelligence, Wisdom or Charisma. This is your Main Stat.
+  Main Stat: Choose permanently - Intelligence or Charisma
   Spell DC: 6 + (Main Stat)
   Charges:
     Amount: 2
@@ -68,16 +67,23 @@ Starting Abilities:
 
   ~Power Tap~ :         # 1 Charges (can use class spells)
     A: Depends
+    Cost: Depends
     Cooldown: Long Rest
     Effect: |
       Cast an ability one of your Allies has (with that ability's actions and costs and your modifiers).
       If it's a non-class Advanced Spell or it costs Charges, you must spend its Charges.
     Notes: Does not work on Passives. The Ability must have 0, 0.5 or 1 Actions cost.
 
+Starting Abilities Description:
+    - Spell Casting: |
+        Warlock spell casting is somewhat different from other classes.
+        Your Charges regenerate inbetween combat encounters. So, for optimal play, use all your Charges every encounter!
+    - Power Tap: |
+        Try to clone strong Abilities from your teammates that don't take up Charges.
+        Talent Abilities are generally stronger than standard Spell List Abilities.
+        
 # Utility
 # Utility + Healing
-  
-
 
 Other: |
   When creating your character, choose one type of being you serve. That being is called your Patron:
@@ -105,6 +111,8 @@ Abilities:
     Notes: The gift of Life Cycle is granted to you by your patron. Use it well. Withhold the balance.
 
   <Life Cycle> :        # 0.5
+    IsSubspell: true
+    AlignOnWebsite: Right
     A: 0.5 Actions
     Cost: 6 Health
     Effect: Heal a Unit within 6 meters for up to 10 Health from their remaining Extra Health Pool.
@@ -117,6 +125,8 @@ Abilities:
     Notes: Through every soul drained, your demon lord feeds, and in return, grants you even more power.
 
   <Soul Drain> :        # 0.5
+    IsSubspell: true
+    AlignOnWebsite: Right
     A: 0.5 Actions
     Cost: 1 Charge
     Range: 12 meters
@@ -125,6 +135,7 @@ Abilities:
       If it dies, you get the Charge back and heal for 3 Health.
 
   ~Old God Patron~ :    # 0.5
+    IsSubspell: true
     A: Passive
     Effect: |
       Your lord is an old, slumbering god.
@@ -161,7 +172,6 @@ Specs:
           Pick any weapon type, and it becomes your Hexblade Weapon.
           You can customize your weapon's personality, voice, the way it looks. Talk to your DM about this.
           You are automatically considered trained in your Hexblade Weapon.
-          There is no penalty to casting spells while wielding the Hexblade Weapon.
 
       ~Hexblade~ :      # 1.75
         A: Passive
@@ -313,8 +323,8 @@ Specs:
 # Demon form
 # Swap positions with your fmailiar
 # Retreat inside the body of your familiar
-	
-	
+
+
 # Sangomancer?
 #	Waverer
 # Lorem ipsum snitel dolor.

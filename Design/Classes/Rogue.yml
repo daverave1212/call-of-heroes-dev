@@ -1,8 +1,7 @@
 Class: Rogue
 Description: Rogues are masters of stealth and deception.
 
-Stats:
-  Base Health: 3
+Base Health: 3
 
 Armor Training: Medium Armor
 
@@ -13,9 +12,9 @@ Language: |
 
 Level Up:
   Every Level: 
-    - +5 Health
-    - +1 Known Ability
-    - +1 Charge
+    Health: 4
+    Spells: 1 known Ability
+    Charges: 1 Charge
   Level Bonuses:
     1: Choose your Specialization
     2: Talent from your Specialization (Tier 1)
@@ -36,10 +35,11 @@ Level Up:
         You gain 1 Feat.
     8: Talent from your Specialization (Tier 4)
     9: Pick one more Talent from your Specialization, from any Tier from Tier 1 to Tier 3.
-    10:Talent from your Specialization (Tier 5) 
+    10: Talent from your Specialization (Tier 5) 
 
 
 Spellcasting:
+  Type: Charge-based
   Description: |
     Rogue Abilities are Charge-based.
     As a Rogue, you have a number of Charges.
@@ -48,7 +48,7 @@ Spellcasting:
     Advanced Abilities are all Abilities from the Spell Lists listed as Advanced.
     If an Ability is not listed as Advanced, you can use it as many times as you like.
 
-  Main Stat: Choose between Intelligence or Charisma. This is your Main Stat.
+  Main Stat: Intelligence
   Spell DC: 6 + (Main Stat)
   Charges:
     Amount: 2
@@ -59,24 +59,26 @@ Spellcasting:
   Spell Lists:
     - Maneuvers
 
-
-Spellcasting:
-  Main Stat: Choose between Intelligence and Charisma. This is your Main Stat.
-  Spell DC: 10 + (Main Stat)
-  Charges:
-    Amount: 3
-    Regain: You regain all Charges back when you Long Rest.
-  Change: You can change your known Maneuvers (not Talents) every Long Rest.
-  Number of known maneuvers: 1 + Your Intelligence + Your Level
-
 # Idea: For each Charge spent on Ambush, X happens
 
+Starting Abilities Description:
+  - Ambush: |
+      Ambush can normally happen only once per turn, and you can charge it up to deal more damage!
+      However, your Rogue Specialization will give you extra ways to Ambush target!
+  - Hide: |
+      Essentially, you can interrupt another Unit's turn, put that unit on pause, and start your turn. When your turn ends, the Unit resumes its turn.
+      Before you attack an enemy group, you can tell your DM where you are sitting, so that you benefit from cover.
+  - Rogue Feats: |
+      Nothing is stopping you from using a 2-Handed weapon instead of 1-Handed ones.
+      There should be no downside to that.
+      However, given that 1-Handed weapons are weaker than 2-Handed weapons, either one of the 2 feats will make wielding 1-Handed or 2-Handed weapons equally strong.
+      
 Starting Abilities:
   
   ~Ambush~ :      # 0.75
     A: Passive
     Effect: |
-      While Hidden, your first attack deals 1d6 + 1 extra damage.
+      If you start your turn Hidden, your first attack deals 1d6 + 1 extra damage.
       When Ambushing, you can also spend as many Charges as you want.
       That attack gains 1d6 + 1 damage more for each Charge spent.
       Ambush can only happen once per turn.
@@ -85,26 +87,27 @@ Starting Abilities:
       You can't stack 2 Ambushes at the same time, obviously.
       
   ~Hide~ :
+    AlignOnWebsite: Right
     A: Special
-    Requirement: 2 Dexterity (or more)
     Cooldown: Once per encounter
     Effect: |
-      When combat starts, if you have Cover, you start as Hidden.
+      When combat starts, if you have Cover from all enemies, you start as Hidden.
       While Hidden, you can skip your turn.
       Then, you can unhide and start your turn whenever you like (even during enemies' turns).
       If you did this, when your turn ends, you are no longer hidden.
     Notes: |
-      Essentially, you can interrupt another Unit's turn, put that unit on pause, and start your turn. When your turn ends, the Unit resumes its turn.
+      Attacking or using Abilities or moving out of cover in relation to any enemy makes you unhides you.
+      If you don't start your turn this round, you essentially lose your turn. You don't take 2 turns next round.
       If you want to start during an enemy's turn, you do so when they declare they want to do something or after they finish doing something.
       In special circumstances, the DM might ask you to make a Dexterity Check to remain Hidden.
       You can't become Hidden through non-Ability means.
       
   ~Rogue Feats~:
     A: Passive
-    Effect: When creating your character, pick one of the following Feats to get for free.
+    Effect: When creating your character, pick either the Dual Wielding Feat or the Duelist Technique Feat.
   
-  ~Dual Wielding~
-  ~Duelist Technique~
+  ~Dual Wielding~: Inherit
+  ~Duelist Technique~: Inherit
       
       
 

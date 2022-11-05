@@ -1,8 +1,8 @@
 Class: Cleric
 Description: Clerics are people attuned to a certain god.
      
-Stats:
-  Base Health: 5
+
+Base Health: 5
 
 Language: If your Intelligence is at least 2, choose one Higher or Common language you can speak.
 
@@ -10,8 +10,8 @@ Armor Training: Medium Armor
 
 Level Up:
   Every Level: 
-    - +5 Health
-    - +1 known Advanced Spell
+    Health: 5
+    Spells: 1 known Advanced Spell
   Level Bonuses:
     1: Choose your Specialization
     2: Talent from your Specialization (Tier 1)
@@ -32,11 +32,12 @@ Level Up:
         You gain 1 Feat.
     8: Talent from your Specialization (Tier 4)
     9: Pick one more Talent from your Specialization, from any Tier from Tier 1 to Tier 3.
-    10:Talent from your Specialization (Tier 5) 
+    10: Talent from your Specialization (Tier 5) 
   
 
 
 Spellcasting:
+  Type: Exhaust-based
   Description: |
     Cleric Abilities are Exhaust-based.
     As a Cleric, you know a certain number of Advanced Abilities.
@@ -44,7 +45,7 @@ Spellcasting:
     Advanced Abilities are all Abilities from the Spell Lists listed as Advanced.
     If an Ability is not listed as Advanced, you can use it as many times as you like.
     
-  Main Stat: Choose between Wisdom or Charisma. This is your Main Stat.
+  Main Stat: Choose permanently - Wisdom or Charisma
   Spell DC: 6 + (Main Stat)
   Change: You can change your known Spells (not Talents) when taking a Long Rest.
   Other: All Cleric-specific abilities are considered spells (unless stated otherwise).
@@ -64,6 +65,10 @@ Starting Abilities:
       Instantly heal or damage a target for 1d4 (True damage).
       You can do this once per Long Rest.
       Some other Cleric spells will cast Awe for free.
+      
+Starting Abilities Description: |
+    Clerics start with the Awe Spell.
+    Your future Cleric Talents will <i>trigger</i> Awe casts for free or reset its cooldown.
 
 # Base: 3.5
 # With Spec: 4.5
@@ -142,6 +147,7 @@ Specs:
             It becomes magically bound to an object within 3 meters of it and can't willingly move more than 3 meters away from that object.
             It rolls the save again at the start end of their turn to escape the binding.
             Lasts up to 1 minute.
+          OrderOnWebsite: 3
             
         <Heavy Burden> :        # 1
           A: 0 Actions
@@ -149,6 +155,7 @@ Specs:
           Effect: |
             A creature within 3 meters makes a Wisdom Check.
             If it fails, cast Awe on it and it is Crippled.
+          OrderOnWebsite: 1
               
         <Repentance> :          # 0.5
           A: 0 Actions
@@ -156,6 +163,7 @@ Specs:
           Range: 1 meter (touch)
           Cooldown: Long Rest
           Effect: Restore 50% of an ally's maximum health, then cast Awe on yourself.
+          OrderOnWebsite: 2
 
       Level 4:
         
@@ -165,6 +173,7 @@ Specs:
             Effect: |
                 When you land an attack, roll 1d4 again and again until your roll 1.
                 Add them all together, and add the total to the attack.
+            OrderOnWebsite: 1
                 
         <Shadow Realm>:             # 2? Good damage, 0 actions, no save requred...
             A: 0 Actions
@@ -175,6 +184,7 @@ Specs:
                 Neither of you can interact with the outside world, but can feintly see it.
                 Units on the outside can faintly see the two of you, as if you were ghosts.
             Notes: The Shadow Realm is a copy of the normal world, but with no other units.
+            OrderOnWebsite: 3
         
         <Holy Apex>:                # 2.25
             A: 1 Action
@@ -184,6 +194,7 @@ Specs:
                 Declare a 6x6 meter area.
                 A giant spectral fist hits the ground and deals 2d10 + (Round Number d6) True damage (against Defense) to all Units there, except you.
             Notes: E.g. on the first round of combat, this deals 2d10 + 1d6. Second round - 2d10 + 2d6. Third round - 2d10 + 3d6. And so on.
+            OrderOnWebsite: 2
   
 # Damage
 
@@ -265,6 +276,7 @@ Specs:
                 Neither of you can interact with the outside world, but can feintly see it.
                 Units on the outside can faintly see the two of you, as if you were ghosts.
             Notes: The Shadow Realm is a copy of the normal world, but with no other units.
+            OrderOnWebsite: 3
         
         <Circle of Awe>:            # 2?
             A: 0.5 Actions
@@ -273,6 +285,7 @@ Specs:
             Effect: |
                 Declare a 4x4 area within 6 meters.
                 Now, and at the start of your next turn, cast Awe on all Units inside the area.
+            OrderOnWebsite: 1
                 
         <Black Hole>:               # 1.75?
             A: 0 Actions
@@ -283,6 +296,7 @@ Specs:
                 If a Unit gets to the center of the Black Hole, it must pass a Might Check or be Snared.
                 At the end of your turn, all Units within 6 meters of it are pulled 2 meters towards it.
             Notes: If 2 Units would be pulled to the center, you choose which.
+            OrderOnWebsite: 2
                 
                 
 
@@ -336,7 +350,7 @@ Specs:
           Come up with a story about why you have a Celestial follower, and why your god allowed this or gave him or her to you.
           Your minion's max Health is always half of your max Health.
         Notes: If it's animal-shaped and you want to use the rules for weapon attacks, just pretend the minion bites or scratches, but apply normal weapon rules.
-
+        OrderOnWebsite: 1
 
     Talents:
       Level 2:
@@ -372,6 +386,7 @@ Specs:
           Cooldown: Long Rest
           Effect: Restore 50% of an ally's maximum health.
           Notes: You can't use this if you don't have at least 50% Health.
+          OrderOnWebsite: 1
           
       Level 4:
       
@@ -382,12 +397,14 @@ Specs:
                 Whenever YOU heal another Unit, the unit with the Life Echo on them is also healed for 50% of that amount.
                 Lasts 1 minute.
             Notes: If you put this on your True Necromancy follower, you essentially heal for 150% of the health.
+            OrderOnWebsite: 2
 
         <Dazzling Essence>:            # 2 Dazes = 2 Charges
             A: Passive
             Effect: |
                 Your follower's first Spell or Attack every encounter attempts to also Daze the target (against a Might Check).
                 Whenever you drop to (or below) 50% Health, this effect resets this encounter.
+            OrderOnWebsite: 3
             
 
         <Cleric Lich Ritual>:          # 2
@@ -406,8 +423,10 @@ Specs:
                 - Phylactery
                 - Dismorphment
             Notes: Your Follower can still cast Basic Spells.
+            OrderOnWebsite: 1
         
         ~Phylactery~:
+            IsSubspell: true
             A: Special
             Effect: |
                 When you become a Lich, you place your soul inside a Phylactery - a special object, dear to you.
@@ -417,6 +436,7 @@ Specs:
             Notes: The Long Rest still applies to the channeler who revives you, and to you as well.
                 
         ~Dismorphment~:
+            IsSubspell: true
             A: Reaction or 0 Actions
             Cooldown: Long Rest
             Effect: |

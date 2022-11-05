@@ -2,8 +2,7 @@ Class: Druid
 Description: Druids are protectors of the nature and master shapeshifters.
 
 
-Stats:
-  Base Health: 9
+Base Health: 9
 
 Armor Training: Medium Armor
 
@@ -14,8 +13,8 @@ Language: |
 
 Level Up:
   Every Level: 
-    - +5 Health
-    - +1 known Advanced Spell
+    Health: 5
+    Spells: 1 known Advanced Spell
   Level Bonuses:
     1: Choose your Specialization
     2: Talent from your Specialization (Tier 1)
@@ -36,10 +35,11 @@ Level Up:
         You gain 1 Feat.
     8: Talent from your Specialization (Tier 4)
     9: Pick one more Talent from your Specialization, from any Tier from Tier 1 to Tier 3.
-    10:Talent from your Specialization (Tier 5) 
+    10: Talent from your Specialization (Tier 5) 
 
 
 Spellcasting:
+  Type: Exhaust-based
   Description: |
     Druid Abilities are Exhaust-based.
     As a Druid, you know a certain number of Advanced Abilities.
@@ -60,8 +60,22 @@ Spellcasting:
     - Nature
     - Mysticism
 
+Starting Abilities Description:
+    - Druidcraft: |
+        Druids have the ability to create small magical effects that affect plants, animals or just nature.
+        You can use the Druidcraft Spell in roleplay scenarios to affect the environment and people.
+    - Shapeshift: |
+        As a Druid, you can tranform into various animals, both in combat and outside of combat.
+        The Shapeshift Spell provides an infinite amount of options to help out your party in any situation!
+        You can choose any animal from the Animals list to Shapeshift into, as long as it's not Exotic or non-standard. Each Animal allows you to use its special Ability once per Long Rest. You are still only allowed to use that Ability once per Long Rest, even if you Shapeshift into that animal twice (the cooldown stays the same).
+        Other Druid Talents might allow you to Shapeshift into more unusual beasts.
+        Shapeshift is considered a Spell.
+        {Separator}
+        When in Shapeshift form, you always have access to the Animal Attack Ability, which is not considered a Spell.
+        Animal Attack is, of course, impaired if you are Crippled.
+
 Starting Abilities:
-  ~DruiGraderaft~ :            # Ok
+  ~Druidcraft~:            # Ok
     A: Depends
     Effect: |
       You can create harmless sensory effects or tiny weather effects (6 meters range).
@@ -70,13 +84,9 @@ Starting Abilities:
       You can attempt to communicate simple ideas with animals and plants (3 meters range).
       You have +3 on rolls for identifying plants.
       You can do these even while Shapeshifted.
+    AlignOnWebsite: Right
 
-  ~Animal Attack~:
-    A: 1 Action
-    Effect: |
-      Make a melee attack for 2d8 + your Main Stat (not the animal's).
-
-  ~Shapeshift~ :            # Ok, 0.75
+  ~Shapeshift~:            # Ok, 0.75
     A: 1 Action
     Cooldown: 2 times / Long Rest (see effect)
     Effect: |
@@ -99,7 +109,14 @@ Starting Abilities:
       You can't make attacks with ranged weapons while Shapeshifted (obviously).
       You choose what items you keep on you when Shapeshifting, and those items are 'merged' into your new form.
       You can turn back into your humanoid form for 0 Actions (on your turn).
-      
+    OrderOnWebsite: 1
+    
+  ~Animal Attack~:
+    IsSubspell: true
+    A: 1 Action
+    Effect: |
+      Make a melee attack for 2d8 + your Main Stat (not the animal's).
+    OrderOnWebsite: 2
 
 # Base: 3.5 Charges 
 # With Spec: 5
@@ -111,7 +128,6 @@ Specializations:
       - Coven of the Wild, where your true fey or animalistic nature takes shape!
       - Coven of the Wicked, where nature-infused eldritch magic overcomes your mind, body and soul
       - Coven of the Land, a protector of the flora and fauna specific to your chosen domain
-	
 
 Specs:
   
@@ -223,6 +239,7 @@ Specs:
             Pets can't make Opportunity Attacks.
             
         <Pet Attack>:
+            IsSubspell: true
             A: 1 Action (from the pet)
             Effect: |
                 The pet melee attacks a target.
@@ -399,6 +416,7 @@ Specs:
             Pets can't make Opportunity Attacks.
             
         <Pet Attack>:
+            IsSubspell: true
             A: 1 Action (from the pet)
             Effect: |
                 The pet melee attacks a target.
@@ -497,6 +515,7 @@ Specs:
             Pets can't make Opportunity Attacks.
             
         <Pet Attack>:
+            IsSubspell: true
             A: 1 Action (from the pet)
             Effect: |
                 The pet melee attacks a target.

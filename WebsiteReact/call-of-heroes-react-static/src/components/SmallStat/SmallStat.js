@@ -4,8 +4,6 @@ import React from 'react'
 
 export default function SmallStat({ children, name, color, topDown }) {
 
-    console.log({color});
-
     const smallStatColorClass = color == 'blue'?
         'small-stat--blue':
         'small-stat--normal'

@@ -10,15 +10,14 @@ Description: Shaman are people in close attunement with the spirits.
 
 Armor Training: Light Armor
 
-Stats:
-  Base Health: 8
+Base Health: 8
 
 Language: If your Intelligence is at least 2, choose one Common, Wild or Elemental language you can speak.
 
 Level Up:
   Every Level: 
-    - +5 Health
-    - +1 known Advanced Spell
+    Health: 5
+    Spells: 1 known Advanced Spell
   Level Bonuses:
     1: Choose your Specialization
     2: Talent from your Specialization (Tier 1)
@@ -39,9 +38,10 @@ Level Up:
         You gain 1 Feat.
     8: Talent from your Specialization (Tier 4)
     9: Pick one more Talent from your Specialization, from any Tier from Tier 1 to Tier 3.
-    10:Talent from your Specialization (Tier 5) 
+    10: Talent from your Specialization (Tier 5) 
   
 Spellcasting:
+  Type: Exhaust-based
   Description: |
     Shaman Abilities are Exhaust-based.
     As a Shaman, you know a certain number of Advanced Abilities.
@@ -49,7 +49,7 @@ Spellcasting:
     Advanced Abilities are all Abilities from the Spell Lists listed as Advanced.
     If an Ability is not listed as Advanced, you can use it as many times as you like.
 
-  Main Stat: Choose between Wisdom and Charisma. That is your Main Stat.
+  Main Stat: Choose permanently - Wisdom or Charisma
   Spell DC: 6 + (Main Stat)
   Change: You can change your known Spells (not Talents) when taking a Long Rest.
   Other: All Shaman-specific abilities are considered spells (unless stated otherwise).
@@ -69,9 +69,16 @@ Other: |
   Choose one of the following spirit animals.
   You will permanently gain the bonuses of that spirit animal.
 
+Starting Abilities Description:
+  - Animal Spirit: |
+      As a Shaman, you have a spirit animal that you choose when you create your character.
+      This spirit animal accompanies you spiritually.
+      The spirit animal is generally invisible and manifests as a ghostly presence when you use the Ability specific to it.
+  
 
 Starting Abilities: 
   ~Animal Spirit~:
+    AlignOnWebsite: Left
     A: Special
     Effect: |
       Choose one of the 4 animal spirits. You gain an Ability and a bonus to a Skill Check depending on your Spirit Animal.
@@ -81,18 +88,24 @@ Starting Abilities:
       Owl - You gain Owl's Foresight.
 
   ~Bear's Roar~:   # 1 Charge
+    IsSubspell: true
+    AlignOnWebsite: Left
     A: 1 Action
     Cooldown: Long Rest
     Effect: All enemies within 3 meters of you must pass a Charisma Check or take 1d6 Psychic damage and be Crippled.
 
   ~Wolf's Leap~:   # 1 Charge
+    IsSubspell: true
     A: 0.5 Actions
     Cooldown: Long Rest
+    AlignOnWebsite: Left
     Effect: |
       Leap at a target up to 3 meters away.
       The target takes 1d6 Bleed damage at the end of each of your turns for 1 minute.
 
   ~Eagle's Sight~ : # 1 Charge
+    IsSubspell: true
+    AlignOnWebsite: Right
     A: Passive
     Effect: |
       You have Maximum Initiative every encounter.
@@ -100,6 +113,8 @@ Starting Abilities:
       Your spell DC is increased by 1.
 
   ~Owl's Foresight~ : # 1 Charge
+    IsSubspell: true
+    AlignOnWebsite: Right
     A: Reaction
     Cooldown: Long Rest
     Effect: |
@@ -329,7 +344,7 @@ Specs:
   
     Starting Abilities:
     
-      ~Spirit Guides~	:     # 0.5
+      ~Spirit Guides~:     # 0.5
         A: Special
         Effect: |
           You are in constant communion with certain spirits.

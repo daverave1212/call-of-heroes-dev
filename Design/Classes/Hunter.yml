@@ -6,16 +6,15 @@ Description: You are a hunter, tracker, always on your toes. No matter your foe,
 
 Armor Training: Medium Armor
 
-Stats:
-  Base Health: 6
+Base Health: 6
 
 Language: If your Intelligence is at least 1, choose one Common or Wild language you can speak.
 
 
 Level Up:
   Every Level: 
-    - +5 Health
-    - +1 known Advanced Spell
+    Health: 5
+    Spells: 1 known Advanced Spell
   Level Bonuses:
     1: Choose your Specialization
     2: Talent from your Specialization (Tier 1)
@@ -36,10 +35,11 @@ Level Up:
         You gain 1 Feat.
     8: Talent from your Specialization (Tier 4)
     9: Pick one more Talent from your Specialization, from any Tier from Tier 1 to Tier 3.
-    10:Talent from your Specialization (Tier 5) 
+    10: Talent from your Specialization (Tier 5) 
   
 
 Spellcasting:
+  Type: Exhaust-based
   Description: |
     Hunter Abilities are Exhaust-based.
     As a Hunter, you know a certain number of Advanced Abilities.
@@ -64,6 +64,7 @@ Starting Abilities:
   ~Slay~:                 # 0.5
     A: Passive
     Effect: |
+        You always know the type of a monster.
         You gain a different bonus when fighting an enemy of a certain type:
         Monstrosities: Attacks against Monstrosities ignore half of the Defense.
         Beasts: You have +1 Defense and +1 to all Combat Checks against Beasts.
@@ -71,9 +72,17 @@ Starting Abilities:
         Undead: You have +2 Spell DC against Undead.
 
   ~Tumble~:               # 0.25
+    AlignOnWebsite: Right
     A: 0 Actions
     Cooldown: Long Rest
     Effect: Move 1 meter in any direction, without triggering attacks of oportunity.
+
+Starting Abilities Description:
+  - Slay and Tumble:
+      You have various different bonuses when fighting certain types of enemies.
+      If unsure about the type of a monster, ask the DM.
+  - Tumble: |
+      Generally, when you move outside of a monster's attack range, it can make a free attack on you. Tumble allows you to reposition so that you can easily exit that zone.
 
 # Base: 3.75
 # With Spec: 4.75
@@ -103,7 +112,7 @@ Specs:
     Starting Abilities:
       ~Tracker~ :   # 0.25 Charges
         A: Passive
-        Effect: |		
+        Effect: |
           o You can more easily track creatures.
           When you try to track a creature, your roll for that try gains +3.
           If you succeed, you may learn about its size, how many of them there are, if it's injured or roughly how far away it is.
@@ -126,6 +135,7 @@ Specs:
       Level 2:
         # Talents: Headhunt, Bountyhunt, Pet   
         <Animal Companion> :  # 2
+          AlignOnWebsite: Right
           A: Passive
           Effect: |
             You have an animal pet that can fight alongside you!
@@ -155,6 +165,7 @@ Specs:
             When cast, all allies in the area are cleared of Stun, Fear or Cripple.
             Allies in the area have Advantage on rolls against Fear.
             The flare lasts 1 minute.
+          Notes: But seriously, get the Animal Companion. Why would you even pick this?
       
       Level 4:
       
@@ -243,6 +254,7 @@ Specs:
           Effect: You gain Quickfire, Parry and Tumblestrike.
           
         <Quickfire (Hunter)> :
+          IsSubspell: true
           A: 0 Actions
           Cooldown: Long Rest
           Effect: |
@@ -251,11 +263,13 @@ Specs:
             This attack does not trigger attacks of oportunity and can be used in melee range without penalty if it's a ranged weapon.            
           
         <Parry>:
+          IsSubspell: true
           A: Reaction
           Cooldown: Long Rest
           Effect: When a Unit declares a melee attack with a weapon on you (before you see the roll), you can block this attack and it deals 0 damage.
         
         <Tumblestrike>:
+          IsSubspell: true
           A: Passive
           Effect: After you Tumble or Parry, your next Attack has the dice tiers increased.
           Notes: |
@@ -299,7 +313,7 @@ Specs:
   Beastmaster:          # 1
     Description: Lawrrremm!!!
     Starting Abilities:
-      ~Animal Companion~ :  # 1
+        ~Animal Companion~:
           A: Passive
           Effect: |
             You have an animal pet that can fight alongside you!
