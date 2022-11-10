@@ -1,0 +1,370 @@
+Class: Paladin
+Description: Paladins are knights in shiny armor who fight for their god.
+
+
+Stats:
+  Base Health: 3
+
+
+Language: If your Intelligence is at least 2, you can speak either Celestial or Abyssal.
+
+Armor Training: Heavy Armor
+
+Level Up:
+  Every Level: 
+    - +6 Health
+    - +1 known Advanced Spell
+  Level Bonuses:
+    1: Choose your Specialization
+    2: Talent from your Specialization (Tier 1)
+    3: |
+        You gain +1 in any Stat of choice.
+        You gain +1 Training Point.
+        You gain 1 Feat.
+    4: Talent from your Specialization (Tier 2)
+    5:
+        ~Action Surge~:
+            A: 0 Actions
+            Cooldown: Long Rest
+            Effect: Gain 0.5 Actions this turn.
+    6: Talent from your Specialization (Tier 3)
+    7: |
+        You gain +1 in any Stat of choice.
+        You gain +1 Training Point.
+        You gain 1 Feat.
+    8: Talent from your Specialization (Tier 4)
+    9: Pick one more Talent from your Specialization, from any Tier from Tier 1 to Tier 3.
+    10:Talent from your Specialization (Tier 5) 
+  
+
+
+Spellcasting:
+  Description: |
+    Paladin Abilities are Exhaust-based.
+    As a Paladin, you know a certain number of Advanced Abilities.
+    You can cast each Advanced Ability you know ONCE, then it becomes unusable (Exhausted) until your next Long Rest.
+    Advanced Abilities are all Abilities from the Spell Lists listed as Advanced.
+    If an Ability is not listed as Advanced, you can use it as many times as you like.
+
+  Main Stat: Choose between Wisdom and Charisma. That is your Main Stat.
+  Spell DC: 6 + (Main Stat)
+  Change: You can change your known Spells (not Talents) when taking a Long Rest.
+  Other: All Paladin-specific abilities are considered spells (unless stated otherwise).
+  
+  Known Basic Spells: 1 + Your Intelligence
+  Known Advanced Spells: 1 + Your Level
+  
+  Spell Lists:
+    - Maneuvers
+    - Divine
+
+
+Starting Abilities:
+
+  ~Divine Sense~ :
+    A: 1 Action
+    Cooldown: 1 Hour
+    Effect: |
+        You sense if there are Undead, Demons, Fiends or Celestials, or holy or unholy places or objects within 15 meters.
+        Thick walls obstruct your Divine Sense.
+
+  ~Lay on Hands~ :      # 1 Charge
+    A: 1 Action
+    Effect: |
+      You have a pool of 6 + Your Level Holy points.
+      Using an action, you can expend any amount of Holy Points to heal a creature for that amount.
+      All your Holy Points replenish on Long Rests.
+
+  ~Divine Smite~ :      # 1.5 Charges
+    A: 0 Actions
+    Cooldown: Long Rest
+    Effect: Add 2d6 True damage to a melee attack (after you roll).
+        
+# Base: 4.5 Charges
+# With Spec: 5.35 Charges
+
+# Utility
+# Healing
+# Damage
+
+
+Specializations:
+  Description: |
+    At Level 1, you can choose your oath (Specialization).
+    By choosing your oath, you dedicate yourself to a purpose; an oath is a lifestyle, not a mere choice!
+  Choices:
+    - Oath of Conquest, which inspires a strong personality and desire to achieve greatness by any means necessary
+    - Oath of Devotion, dedicated to helping the unfortunate and being someone to look up to
+    - Oath of Protection, chosen by those who vow to protect and wish to become a paragon of the people
+
+# Talent: When you use Divine Smite
+# Talent: Interactions with LoH and other Advanced Spells
+# Talent: When you use Divine Smite...
+# Talent: Divine Smite twice per Long Rest
+
+Specs:
+
+# Talent: When Oath of Conquest triggers...
+# Talent: When you use Impose
+
+# Healing (Gimmick)
+# CC Medium
+
+# Healing           (Talents 2)
+# Charges
+# AoE
+# Damage (Sustained)
+
+# Charges           (Talents 4)
+
+  Conquest:                 # 0.5
+    Description: Lorem! Lorem ipsum!!
+    Starting Abilities:
+
+      ~Oath of Conquest~:   # 0.35
+        A: Passive
+        Effect: |
+          Every Worthy Enemy YOU defeat grants you 2 Holy Points.
+          You also gain Proficiency in Indimidation if you don't have it already.
+      
+      ~Impose~ :            # 0.25
+        A: 0.5 Actions
+        Range: 3 meters
+        Cooldown: Long Rest
+        Effect: A Unit must pass a Wisdom Check or be Feared. It has -2 to the roll if it's a Humanoid or Unholy.
+
+    Talents:
+      Level 2:
+        <Pledge of Conquest>: # 1.25
+          A: Special
+          Cooldown: Lifetime
+          Effect: |
+            Ask a party member to join your cause and pledge his/her honor to you.
+            If it accepts, it gains its own pool of 6 Holy Points and can use Lay on Hands.
+            That ally also benefits from Oath of Conquest.
+            At any point, you can transfer any number of Holy Points from you to that ally, but not vice versa.
+          Notes: |
+            You can only have one character who pledged for you.
+            The number of Holy Points of the ally does not increase.
+            
+        <Retribution>:      # 1
+          A: Special
+          Effect: You permanently lose Lay on Hands, but you can know 2 more Advanced Spells and gain access to the Eldritch Spell List.
+
+        <Fury Smite>:       # 1
+          A: 0 Actions
+          Effect: After an attack, deal 50% of the weapon damage done by the attack (dice plus any modifiers) to all enemies within 3 meters around the target (except you).
+          Cooldown: Long Rest
+          Notes: |
+            The damage of the attack counts as the dice rolled + any modifiers.
+            Using Divine Smite over an attack, for example, does not count as added to the weapon damage.
+            Damage done means damage inflicted after Defense and Resistances calculations.
+         
+        <Divine Reach>:     # 1
+          A: 0 Actions
+          Cooldown: Long Rest
+          Effect: |
+            You empower yourself to make your melee weapons send fiery waves.
+            Your melee attacks have up to 3 meters range, deal 1d4 extra Damage and deal Fire Damage instead of Physical.
+            Lasts 1 minute.
+            Also, passively, you can always apply smites to ranged attacks.
+          Notes: Alternatively, if it makes sense for your character, the DM might allow it to deal Cold or Shock damage instead of Fire. Talk to your DM about this.
+
+      Talents 4:
+      
+        <Vengeance>:        # 2
+            A: Passive
+            Effect: |
+                When a Worthy Enemy dies in combat, get a Vengeance Counter.
+                Every 6 Vengeance Counters, unexhaust one of your Advanced Spells.
+                You keep your Vengeance Counters even on Long Rests.
+
+# Healing + Immunity
+# Healing
+
+# Damage (Burst)        (Talents 2)
+# Protection
+# Damage (Sustained)
+
+# Healing               (Talents 4)
+
+  Devotion:                 # 0.8
+    Description: Lorem, ipsum, dolor sit amet!
+    Starting Abilities:
+      ~Oath of Devotion~ :  # 0.8
+        A: Passive
+        Effect: |
+          You are immune to diseases and curses.
+          When using Lay on Hands, instead of healing, you can expend 5 points to cure a minor disease or a poison.
+          You have 5 more maximum Holy Points.
+
+      ~Divine Power~ :
+        A: 0 Actions
+        Effect: |
+            Exhaust any known unused Advanced Spell.
+            Gain 6 Holy Points.
+        Notes: You can't keep more than your maximum number of Holy Points through a Long Rest.
+
+    Talents:
+      Level 2:
+      
+        <Divine Blast> :    # 1? xD
+          A: 1 Action
+          Range: 12 meters
+          Effect: |
+            Make a Spell attack against a target and consume any number of Holy points. The attack deals 1d4 True Damage for each Holy Point used.
+            You can apply Smites to this attack.
+
+        <Shielding Hand> :  # 1
+          A: Reaction
+          Cooldown: Long Rest
+          Effect:
+            Use after an ally takes damage.
+            After that ally takes damage, it gains Shielding equal to the damage taken (after Defense and Resistances).
+            The shield lasts up to 1 minute.
+
+        <Focused Smites> :  # 1
+          A: 0 Actions
+          Cooldown: Long Rest
+          Effect: |
+            For 1 minute, your weapon attacks and offensive spells deal extra True damage and heal an ally within 6 meters of the target.
+            Bonus Damage and Heal: 1 for 1-Handed weapons and Spells, 2 for 2-Handed weapons and Spells.
+          Notes: If a spell doesn't deal damage, just instantly deal the Focused Smites damage to the target.
+
+        <Divine Reach>      # 1
+ 
+      Level 4:
+      
+        <Life Echo>:                   # 2? maybe less
+            A: 0 Actions
+            Effect: |
+                You put a Life Echo on an ally.
+                Whenever YOU heal another Unit, the unit with the Life Echo on them is also healed for 50% of that amount.
+                Lasts 1 minute.
+ 
+# Talent: When you use Oath of Protection...
+
+# Protection
+# Protection
+
+# Protection            (Talents 2)
+# CC Medium + Push
+# Buff (Damage + Healing)
+
+# Protection            (Talents 4)
+
+  Protection:               # 0.75
+    Description: Lorem. Lorem ipsum dolor sit amet.
+    Starting Abilities:
+    
+      ~Oath of Protection~: # 0.25
+        A: Reaction
+        Range: 4 meters to that ally
+        Cooldown: 2 times / Long Rest
+        Effect: |
+          When an ally is attacked (after the roll), dash next to that ally.
+          The attack is now targeted on you instead of the ally.
+
+      ~Stand Behind~:       # 0.5
+        A: Passive
+        Effect: |
+          You stand out for allies adjacent to you.
+          Enemy ranged attacks against other allies adjacent to you have Cover.
+        Notes: Nothing happens if an ally adjacent to you already has Cover.
+
+    Talents:
+      Level 2:
+      
+        <Divine Rain> :           # 1.5
+          A: 0 Actions
+          Cooldown: Long Rest
+          Effect: |
+            You prepare to take lethal blow.
+            If you would drop to 0 Health until the start of your next turn, you remain instead at 1 Health and can't take damage until the start of your next turn.
+            When this happens, divine rays strike all enemies within 3 meters of you, and they all take 1d6 True damage.
+
+        <Reckoning> :             # 1
+          A: 1 Action
+          Range: 6 meters
+          Cooldown: Long Rest
+          Effect: |
+            Make a spell attack on a target for 2d10 Force damage.
+            It must pass a Might Check or be Dazed and pushed away from you until the distance between you and the target is 6 meters.
+            If it stops in a wall or another enemy, it takes another 1d10 Force damage.
+
+        <Consacrated Zone>:
+          A: 0 Actions            # 1
+          Cooldown: Long Rest
+          Effect: |
+            The area in a 5 meter diameter circle around you becomes Consacrated.
+            While inside the area, your and all allies' Divine, Mysticism, Nature and Class Spells (not Abilities) have their dice tier increased by 1.
+            Does not apply to Passive Spells.
+          Notes: |
+            Increasing dice by 1 tier means, for example, d6 become d8, or d10 become d12.
+            D12's don't increase.
+            Class Spells are Spells given by the character's class.
+
+      Level 4:
+        
+        <Sanctuary Zone>:         # 2?
+            A: 0 Action
+            Cooldown: Long Rest
+            Range: 6 meters to edge
+            Effect: |
+                Declare a 7x7 area.
+                All units in the area take only 50% damage (after Defense).
+                Lasts until the start of your next turn's next turn.
+ 
+##########################################################
+
+# Spec idea: Cavalier (you ride a horse and have abilities based on that)
+
+
+# #Spec#
+# Crusader //: 4.5 Charges?
+# Lorem ipsum snitel dolor.
+# 
+# ~Oath of the Crusade~ :   # 1-ish Charge, maybe more
+#   A: Passive
+#   Effect: 
+#     You permanently know Radiant Smite, Blinding Smite and Cleansing Smite, aside from your prepared spells.
+#     After killing an enemy with an attack that had Divine Smite on it, deal the amount rolled with Divine Smite to all enemies in the room (against their Defense).
+# 
+# 
+# ~Reckoning~ :
+#   A: 1 Action
+#   Cost: 1 Charge
+# Make an attack roll on a creature within 3 meters and that creature also rolls a Charisma save.
+# The attack deals 1d4 + 3 damage if it hits, and the target is stunned if it fails the Save.
+# 
+# 
+# At Level 2, pick one of the following Talents and learn it permanently:
+# 
+# <Retribution> : Passive
+# You permanently lose Lay on Hands, but your maximum number of Charges you can have is increased by 1.
+# 
+# <Wrathful Smite> : 0.5 Actions
+# Spend 1 Charge.
+# Make a ranged spell attack against a target within 6 meters.
+# If you hit, deal 2d8 True damage.
+
+
+#PageEnd#
+
+# <Zeal> : Passive
+# Moving does not provoke attacks of oportunity.
+# Choose any Skill and increase it by +2.
+# 
+# 	At Level X
+# <Ravaging Smite> : 1 Action
+# Spend 4 Charges.
+# Your next landed melee attack within 1 minute deals 8d6 extra True damage.
+# 
+# 	Talents
+# Smite is not limited to melee attacks
+# Kayle's E
+# Divine Shield
+# Renounce Lay on Hands for 1 Charge
+
+
+

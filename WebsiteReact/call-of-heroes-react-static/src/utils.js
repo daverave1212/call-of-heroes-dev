@@ -56,3 +56,18 @@ export function insertBetweenAll(array, insertWhat) {
 export function ifOk(whatToCheck, then) {
     return (whatToCheck == null)? null : then
 }
+
+
+
+
+
+
+
+
+
+export function stringReplaceAllMany(str, replaceWhats, replaceWiths) {
+    for (let i = 0; i < replaceWhats.length; i++) {
+        str = str.split(replaceWhats[i]).join(replaceWiths[i])
+    }
+    return str
+}

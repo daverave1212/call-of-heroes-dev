@@ -9,7 +9,7 @@ from os import path
 
 
 yaml_root_folder = 'Design'
-json_root_folder = 'WebsiteReact/call-of-heroes-react-static/src/databases'
+json_root_folder = 'WebsiteReact2/call-of-heroes-website-react-2/src/databases'
 
 class_abilities = {}    # Holds all class abilities and talents
 abilities = {}          # Holds all non-class abilities, like feats and spells from spell lists
@@ -40,6 +40,7 @@ files_to_convert = [    # Order matters
     'Races/Elf.yml',
     'Races/Gnome.yml',
     'Races/Hollow.yml',
+    'Races/Human.yml',
     'Races/Orc.yml'
 ]
 

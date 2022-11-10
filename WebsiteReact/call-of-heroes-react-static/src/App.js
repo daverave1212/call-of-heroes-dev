@@ -27,14 +27,14 @@ function App() {
           <div className='nav-item'>
             <Link to="#">Races</Link>
             <div className='nav-item__dropdown'>
-              <div className='nav-item__dropdown-item'><Link to="/blog">Bertle</Link></div>
-              <div className='nav-item__dropdown-item'><Link to="/blog">Dragonborn</Link></div>
-              <div className='nav-item__dropdown-item'><Link to="/blog">Dwarf</Link></div>
-              <div className='nav-item__dropdown-item'><Link to="/blog">Elf</Link></div>
-              <div className='nav-item__dropdown-item'><Link to="/blog">Gnome</Link></div>
-              <div className='nav-item__dropdown-item'><Link to="/blog">Hollow</Link></div>
-              <div className='nav-item__dropdown-item'><Link to="/blog">Human</Link></div>
-              <div className='nav-item__dropdown-item'><Link to="/blog">Orc</Link></div>
+              <div className='nav-item__dropdown-item'><Link to="/Classes/Bertle">Bertle</Link></div>
+              <div className='nav-item__dropdown-item'><Link to="/Classes/Dragonborn">Dragonborn</Link></div>
+              <div className='nav-item__dropdown-item'><Link to="/Classes/Dwarf">Dwarf</Link></div>
+              <div className='nav-item__dropdown-item'><Link to="/Classes/Elf">Elf</Link></div>
+              <div className='nav-item__dropdown-item'><Link to="/Classes/Gnome">Gnome</Link></div>
+              <div className='nav-item__dropdown-item'><Link to="/Classes/Hollow">Hollow</Link></div>
+              <div className='nav-item__dropdown-item'><Link to="/Classes/Human">Human</Link></div>
+              <div className='nav-item__dropdown-item'><Link to="/Classes/Orc">Orc</Link></div>
             </div>
           </div>
           <div className='nav-item'>
@@ -52,19 +52,6 @@ function App() {
             </div>
           </div>
         </nav>
-
-        {/* <div className="subnav">
-          <Link to="/Classes/Cleric">Cleric</Link>
-          <Link to="/Classes/Druid">Druid</Link>
-          <Link to="/Classes/Hunter">Hunter</Link>
-          <Link to="/Classes/Mage">Mage</Link>
-          <Link to="/Classes/Paladin">Paladin</Link>
-          <Link to="/Classes/Rogue">Rogue</Link>
-          <Link to="/Classes/Shaman">Shaman</Link>
-          <Link to="/Classes/Warlock">Warlock</Link>
-          <Link to="/Classes/Warrior">Warrior</Link>
-          <Link to="/dynamic">Miau</Link>
-        </div> */}
 
         <div className="content">
           <React.Suspense fallback={<em>Loading...</em>}>
