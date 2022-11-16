@@ -1,6 +1,8 @@
 :root {
   --page-border-width: 49px;
-  --page-padding: 25px;
+  --page-padding: 30px;
+  --element-padding: 30px;
+  --element-padding-half: calc(var(--element-padding) / 2);
 
   --medium-color: rgb(95, 39, 39); 
   --dark-color: rgb(68, 22, 22);
@@ -17,6 +19,11 @@
   vertical-align: top;
   box-sizing: border-box;
 }
+p {
+  margin-top: 0px;
+  margin-bottom: var(--element-padding);
+  line-height: 1.4em;
+}
 
 @font-face {
   font-family: TextFont;
@@ -30,6 +37,26 @@
 
 
 
+/* -------------------- Layout -------------------- */
+/* Use this to layout the page (e.g. wrap elements in div with these classes */
+/* Also use TwoColumns with Column children */
+.with-margined-children > * {           /* Direct children only */
+  margin-top: 0px;
+  margin-bottom: var(--element-padding-half);
+}
+.margined-bottom {
+  margin-top: 0px;
+  margin-bottom: var(--element-padding);
+}
+.unmargined {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+.padded {
+  padding: var(--element-padding);
+}
+
+
 
 
 
@@ -37,7 +64,7 @@
 body {
   /* font-family: Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", "Times New Roman"; */
   font-family: TextFont;
-  font-size: 21px;
+  font-size: 1.25em;
   margin: 0;
   padding: 0;
 }

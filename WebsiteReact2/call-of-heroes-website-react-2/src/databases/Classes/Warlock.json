@@ -1,9 +1,10 @@
 {
     "Class": "Warlock",
     "Description": "Warlocks are people who made pacts with powerful beings.",
-    "Base Health": 6,
+    "Base Health": 8,
     "Language": "If your Intelligence is at least 2, choose one Higher language you can speak.",
     "Armor Training": "Light Armor",
+    "Feats": "You start with one Feat of choice.",
     "Level Up": {
         "Every Level": {
             "Health": 5,
@@ -41,6 +42,7 @@
         "Change": "You can change your known Spells (not Talents) when taking a Long Rest.",
         "Other": "All Warlock-specific abilities are considered spells.",
         "Known Spells": "3 + Your Intelligence + Your Level",
+        "BaseKnownSpells": 3,
         "Spell Lists": [
             "Elemental",
             "Mysticism",
@@ -65,12 +67,25 @@
             "Power Tap": "Try to clone strong Abilities from your teammates that don't take up Charges.\nTalent Abilities are generally stronger than standard Spell List Abilities.\n"
         }
     ],
-    "Other": "When creating your character, choose one type of being you serve. That being is called your Patron:\n- Fey Patron, a wild, outworldly being, heavily magical or in tune with nature, and often outward strange. A Fey Patron often represents an old god of nature or magic, resembled by a magical animal or humanoid.\n- Celestial Patron, a being from a divine plain. Portrayed as angels or divine spirits of life and death\n- Demon or Devil patron, a being residing in Hell, an archdevil or lord in hell\n- Old God Patron, an eldritch being of nightmare and terror, whose thoughts, form and wants are incomprehensible to most people\n",
+    "Abilities Description": [
+        {
+            "Fey Patron": "A wild, outworldly being, heavily magical or in tune with nature, and often outward strange. A Fey Patron often represents an old god of nature or magic, resembled by a magical animal or humanoid.\nThis provides you with the Fey Patron Ability, which gives you one more Race Choice Ability!\n"
+        },
+        {
+            "Celestial Patron": "A being from a divine plain. Portrayed as angels or divine spirits of life and death.\nThis provides you with the Life Cycle Ability which can function as an emergency heal in combat. This Ability can be used on yourself, too.\nNote that it simply draws from the Extra Health pool! It is not Health out of thin air!\n"
+        },
+        {
+            "Demon or Devil Patron": "A being residing in Hell, an archdevil or lord in hell.\nThis provides the Soul Drain Ability, which gives you a consistent Damage source that can heal you back.\n"
+        },
+        {
+            "Old God Patron": "An eldritch being of nightmare and terror, whose thoughts, form and wants are incomprehensible to most people\nThis gives you access to one of another Race's Starting Ability.\n"
+        }
+    ],
     "Abilities": {
         "~Fey Patron~": {
             "A": "Passive",
             "Effect": "Your lord is a higher fey creature.\nChoose one more Race Ability from your Race's choices.\n",
-            "Notes": "Yes, you will have 2 Race Talents of the same level.\nLore-wise, the Fey Patron enhances you magically, mutates your arcane flow and transforms you into an unordinarily adapted person.\n",
+            "Notes": "Yes, you will have 2 Race Abilities from the Race Ability choices.\nLore-wise, the Fey Patron enhances you magically, mutates your arcane flow and transforms you into an unordinarily adapted person.\nIf you are a Human, pick one more first Race Ability from another Race.\nIf you are a Dragonborn, your Breath has both chosen shapes simultanuously.\n",
             "Name": "~Fey Patron~"
         },
         "~Celestial Patron~": {
@@ -79,12 +94,19 @@
             "Notes": "The gift of Life Cycle is granted to you by your patron. Use it well. Withhold the balance.",
             "Name": "~Celestial Patron~"
         },
+        "~Old God Patron~": {
+            "AlignOnWebsite": "Right",
+            "A": "Passive",
+            "Effect": "Your lord is an old, slumbering god.\nYou can pick a Racial Ability from any other race and have it permanently (not from the Race Ability Choices, but from the Starting Abilities).\n",
+            "Notes": "Eldritch thoughts flow through your mind, infecting you with strange abilities acquired in unfathomable ways.",
+            "Name": "~Old God Patron~"
+        },
         "<Life Cycle>": {
             "IsSubspell": true,
             "AlignOnWebsite": "Right",
             "A": "0.5 Actions",
-            "Cost": "6 Health",
-            "Effect": "Heal a Unit within 6 meters for up to 10 Health from their remaining Extra Health Pool.",
+            "Cost": "5 Health",
+            "Effect": "Heal a Unit within 10 meters for up to 10 Health from their remaining Extra Health Pool.",
             "Name": "<Life Cycle>"
         },
         "~Demon Patron~": {
@@ -98,16 +120,9 @@
             "AlignOnWebsite": "Right",
             "A": "0.5 Actions",
             "Cost": "1 Charge",
-            "Range": "12 meters",
-            "Effect": "Deal 7 Necrotic damage to a creature.\nIf it dies, you get the Charge back and heal for 3 Health.\n",
+            "Range": "15 meters",
+            "Effect": "Deal 7 Necrotic damage to a creature.\nIf it dies, you get the Charge back and heal for 5 Health.\n",
             "Name": "<Soul Drain>"
-        },
-        "~Old God Patron~": {
-            "IsSubspell": true,
-            "A": "Passive",
-            "Effect": "Your lord is an old, slumbering god.\nYou can pick a Racial Ability from any other race and have it permanently.\n",
-            "Notes": "Eldritch thoughts flow through your mind, infecting you with strange abilities acquired in unfathomable ways.",
-            "Name": "~Old God Patron~"
         }
     },
     "Specializations": {

@@ -11,11 +11,7 @@ import ManyBoxes from '../../components/Spell/ManyBoxes'
 
 export default function Weapons() {
 
-    console.log(Object.keys(weapons))
-
     const categories = Object.keys(weapons).filter(name => name != 'default')
-
-    console.log({categories})
 
     return (
         <div>

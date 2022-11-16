@@ -14,6 +14,28 @@ json_root_folder = 'WebsiteReact2/call-of-heroes-website-react-2/src/databases'
 class_abilities = {}    # Holds all class abilities and talents
 abilities = {}          # Holds all non-class abilities, like feats and spells from spell lists
 
+classes = [
+    'Cleric',
+    'Druid',
+    'Hunter',
+    'Mage',
+    'Paladin',
+    'Rogue',
+    'Shaman',
+    'Warlock',
+    'Warrior',
+]
+races = [
+    'Bertle',
+    'Dragonborn',
+    'Dwarf',
+    'Elf',
+    'Gnome',
+    'Hollow',
+    'Human',
+    'Orc',
+]
+backgrounds = []        # Polulated at runtime
 
 files_to_convert = [    # Order matters
     'Abilities.yml',
@@ -23,6 +45,10 @@ files_to_convert = [    # Order matters
     'Monsters.yml',
     'Prices.yml',
     'Weapons.yml',
+    
+    'Rules/CharacterCreation.yml',
+    'Rules/COHFor5e.yml',
+    'Rules/COHExplained.yml',
 
     'Classes/Cleric.yml',
     'Classes/Druid.yml',
@@ -43,6 +69,8 @@ files_to_convert = [    # Order matters
     'Races/Human.yml',
     'Races/Orc.yml'
 ]
+
+
 
 def add_spell_to_dict(dict_obj, spell_name, spell):
     spell_name = spell_name
@@ -109,10 +137,17 @@ if __name__ == '__main__':
 
         if file_name == 'Abilities.yml':
             dict_content = normalize_inherit_abilities(dict_content)
+        
+        if file_name == 'Backgrounds.yml':
+            record_class_abilities_recursively(dict_content)
+            normalize_inherit_class_abilities(dict_content)
 
         if 'Class' in dict_content:
             record_class_abilities_recursively(dict_content)
             normalize_inherit_class_abilities(dict_content)
+
+        if file_name == 'Backgrounds.yml':
+            backgrounds = list(dict_content.keys())
 
         file_name_with_yaml_extension = path.basename(file_name)
         file_name_no_extension = path.splitext(file_name_with_yaml_extension)[0]
@@ -128,4 +163,13 @@ if __name__ == '__main__':
 
     with open(json_root_folder + '/' + 'ClassAbilities.json', 'w+') as f:
         f.write(class_abilities_json)
+
+    overall_data = {
+        'Races': races,
+        'Classes': classes,
+        'Backgrounds': backgrounds
+    }
+    overall_data_json = json.dumps(overall_data, indent=4)
+    with open(json_root_folder + '/' + 'OverallData.json', 'w+') as f:
+        f.write(overall_data_json)
 

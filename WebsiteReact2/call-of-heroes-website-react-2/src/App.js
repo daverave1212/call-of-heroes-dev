@@ -11,6 +11,8 @@ import Index from './pages/index'
 import Armors from './pages/Other/Armors'
 import Weapons from './pages/Other/Weapons'
 import Abilities from './pages/Other/Abilities'
+import CharacterCreation from './pages/Other/CharacterCreation'
+import CharacterCreationCalculator from './pages/Other/CharacterCreationCalculator'
 
 import PageH1 from './components/PageH1/PageH1'
 import PageH2 from './components/PageH2/PageH2'
@@ -33,6 +35,8 @@ import Gnome from './pages/Races/Gnome'
 import Hollow from './pages/Races/Hollow'
 import Human from './pages/Races/Human'
 import Orc from './pages/Races/Orc'
+import TransitionGuide from './pages/Other/TransitionGuide';
+import Backgrounds from './pages/Other/Backgrounds';
 
 function App() {
   return (
@@ -44,6 +48,8 @@ function App() {
           <div className='nav-item'><Link to="/Other/Abilities">Abilities</Link></div>
           <div className='nav-item'><Link to="/Other/Weapons">Weapons</Link></div>
           <div className='nav-item'><Link to="/Other/Armors">Armors</Link></div>
+          <div className='nav-item'><Link to="/Other/CharacterCreation">Character</Link></div>
+          <div className='nav-item'><Link to="/Other/CharacterCreationCalculator">CH</Link></div>
           <div className='nav-item'>
             <Link to="#">Races</Link>
             <div className='nav-item__dropdown'>
@@ -79,8 +85,12 @@ function App() {
           <Routes>
             <Route path="/" element={ <Index/> }/>
             <Route path="/Other/Abilities" element={ <Abilities/> }/>
+            <Route path="/Other/Backgrounds" element={ <Backgrounds/> }/>
             <Route path="/Other/Armors" element={ <Armors/> }/>
             <Route path="/Other/Weapons" element={ <Weapons/> }/>
+            <Route path="/Other/CharacterCreation" element={ <CharacterCreation/> }/>
+            <Route path="/Other/CharacterCreationCalculator" element={ <CharacterCreationCalculator/> }/>
+            <Route path="/Other/TransitionGuide" element={ <TransitionGuide/> }/>
 
             <Route path="/Races/Bertle" element= { <Bertle/> }/>
             <Route path="/Races/Dragonborn" element= { <Dragonborn/> }/>

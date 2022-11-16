@@ -27,7 +27,7 @@ import ManySpells from '../../components/Spell/ManySpells'
 
 import theClass from '../../databases/Classes/Warlock.json'
 
-import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor } from '../../components/InsertableTemplates/RaceClassComponents'
+import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, AbilitiesWithDescription, SADescription } from '../../components/InsertableTemplates/RaceClassComponents'
 
 
 export default function Rogue() {
@@ -81,6 +81,10 @@ export default function Rogue() {
                 <SpellCasting theClass={theClass}/>
 
                 <StartingAbilities spellsObject={theClass['Starting Abilities']} description={theClass['Starting Abilities Description']}/>
+
+                <PageH2>Patron Abilities</PageH2>
+                <SADescription description={theClass['Abilities Description']}/>
+                <AbilitiesWithDescription spellsObject={theClass.Abilities}/>
 
                 <PageH2>Specialzations</PageH2>
 

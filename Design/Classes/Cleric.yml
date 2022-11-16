@@ -2,13 +2,15 @@ Class: Cleric
 Description: Clerics are people attuned to a certain god.
      
 
-Base Health: 5
+Base Health: 7
 
 Language: If your Intelligence is at least 2, choose one Higher or Common language you can speak.
 
 Armor Training: Medium Armor
 
 Weapons: You are Trained in Shields.
+
+Feats: You start with one Feat of choice.
 
 Level Up:
   Every Level: 
@@ -39,34 +41,40 @@ Level Up:
 
 
 Spellcasting:
-  Type: Exhaust-based
+  Type: Charge-based
   Description: |
-    Cleric Abilities are Exhaust-based.
-    As a Cleric, you know a certain number of Advanced Abilities.
-    You can cast each Advanced Ability you know ONCE, then it becomes unusable (Exhausted) until your next Long Rest.
+    Mage Abilities are Charge-based.
+    As a Mage, you have a number of Charges.
+    To cast any Advanced Ability from your known spells, you must expend 1 Charge (or according to its Cost).
+    You don't have restrictions for how many times you can cast a spell per Long Rest, but you have restrictions on your Charges.
     Advanced Abilities are all Abilities from the Spell Lists listed as Advanced.
     If an Ability is not listed as Advanced, you can use it as many times as you like.
     
   Main Stat: Choose permanently - Wisdom or Charisma
   Spell DC: 6 + (Main Stat)
   Change: You can change your known Spells (not Talents) when taking a Long Rest.
-  Other: All Cleric-specific abilities are considered spells (unless stated otherwise).
+  Other: All Cleric-specific abilities are considered Spells (unless stated otherwise).
   
-  Known Basic Spells: 2 + Your Intelligence
-  Known Advanced Spells: 2 + Your Level
+  Charges:
+    Amount: 3
+    Regain: You regain all Charges back when you Long Rest.
+  
+  Known Spells: 3 + Your Intelligence + Your Level
+  BaseKnownSpells: 3
   
   Spell Lists:
     - Mysticism
+    - Conjuration
     - Divine
 
 Starting Abilities: 
   ~Awe~ :                   # 0.5 Charges
     A: 0 Actions
     Range: 5 meters
+    Cooldown: Long Rest
     Effect: |
       Instantly heal or damage a target for 1d4 (True damage).
-      You can do this once per Long Rest.
-      Some other Cleric spells will cast Awe for free.
+      Some other Cleric spells will cast Awe for free, even if it is on Cooldown.
       
 Starting Abilities Description: |
     Clerics start with the Awe Spell.
@@ -115,10 +123,10 @@ Specs:
       ~Chains~ :          # 1
         A: 1 Action
         Range: 6 meters
-        Cooldown: Long Rest
+        Cost: 1 Charge
         Effect: |
-          Cast Awe on a target 2 times (for free).
-          It must pass a Might Check or be Paralyzed.
+          Cast Awe on a target 4 times (for free).
+          It must pass a Might Check or be Paralyzed until it breaks free.
 
     Choose your side: |
         Battle Cleric!
@@ -163,8 +171,8 @@ Specs:
           A: 0 Actions
           Cost: 50% of your maximum health
           Range: 1 meter (touch)
-          Cooldown: Long Rest
           Effect: Restore 50% of an ally's maximum health, then cast Awe on yourself.
+          Notes: You can't cast this if it would get you to 0 or less Health.
           OrderOnWebsite: 2
 
       Level 4:
@@ -219,9 +227,9 @@ Specs:
       ~Grasp~:            # 0.5
         A: 0.5 Actions
         Range: 15 meters (you don't need line of sight)
-        Cooldown: Long Rest
+        Cost: 1 Charge
         Effect: |
-          Cast Awe on the target.
+          Cast Awe on the target twice.
           That target does not benefit from Cover for 1 minute.
 
     Choose your side: Beacon Cleric!\nPick only one of the following two abilities!
@@ -257,15 +265,16 @@ Specs:
           Cooldown: Long Rest
           Range: 6 meters to edge
           Effect: |
-            You create a 4x4 meter area of magical darkness.
+            You create a 6x6 meter area of magical darkness.
             All attacks done from and towards units in the area have Partial Cover.
 
-        <Repentance> :              # 0.5
-          A: 0.5 Actions
+        <Repentance> :          # 0.5
+          A: 0 Actions
           Cost: 50% of your maximum health
           Range: 1 meter (touch)
-          Cooldown: Long Rest
           Effect: Restore 50% of an ally's maximum health, then cast Awe on yourself.
+          Notes: You can't cast this if it would get you to 0 or less Health.
+          OrderOnWebsite: 2
           
       Level 4:
       
@@ -293,10 +302,11 @@ Specs:
             A: 0 Actions
             Cooldown: Long Rest
             Effect: |
-                You create a 1x1 Black Hole at a position.
+                You create a 1x1 Black Hole on an empty space.
                 Cast Grasp for free on all enemies within 6 meters of the hole.
                 If a Unit gets to the center of the Black Hole, it must pass a Might Check or be Snared.
                 At the end of your turn, all Units within 6 meters of it are pulled 2 meters towards it.
+                The gravity of the black hole works even through walls and obstacles.
             Notes: If 2 Units would be pulled to the center, you choose which.
             OrderOnWebsite: 2
                 
@@ -381,14 +391,13 @@ Specs:
             - +1 Spell DC (1 use)
             - +1 use of Awe per Long Rest (1 use)
 
-        <Repentance> :      # 0.5
+        <Repentance> :          # 0.5
           A: 0 Actions
           Cost: 50% of your maximum health
           Range: 1 meter (touch)
-          Cooldown: Long Rest
-          Effect: Restore 50% of an ally's maximum health.
-          Notes: You can't use this if you don't have at least 50% Health.
-          OrderOnWebsite: 1
+          Effect: Restore 50% of an ally's maximum health, then cast Awe on yourself.
+          Notes: You can't cast this if it would get you to 0 or less Health.
+          OrderOnWebsite: 2
           
       Level 4:
       
@@ -418,9 +427,9 @@ Specs:
                 - You are Undead, thus immune to Charm, Fear and being put to Sleep
                 - You no longer need to eat, drink or sleep.
                 - You gain access to the Elemental and Eldritch Spell Lists.
-                - You can no longer cast Basic Spells, but gain 2 extra slots for known Advanced Spells. Passive Basic Spells still apply.
+                - You can no longer cast Basic Spells, but gain 2 extra Charges. Passive Basic Spells still apply.
                 - The range of all your Spells is doubled.
-                - Your Health decreases by 5, but your Defense, Spell DC and all Combat Checks increase by 1.
+                - Your Health decreases by 5, but your Defense, Spell Check Grade and all Checks increase by 1.
                 You also gain the following abilities:
                 - Phylactery
                 - Dismorphment

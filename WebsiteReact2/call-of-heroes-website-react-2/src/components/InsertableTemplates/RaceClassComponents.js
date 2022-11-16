@@ -24,6 +24,7 @@ import theClass from '../../databases/Classes/Cleric.json'
 import classAbilities from '../../databases/ClassAbilities.json'
 import ManySpells from '../Spell/ManySpells'
 import TableNormalLevelUpWarlock from '../TableNormal/TableNormalLevelUpWarlock'
+import ManySmallStats from '../SmallStat/ManySmallStats'
 
 export function ClassFeatures({ theClass }) {
     return (
@@ -32,13 +33,17 @@ export function ClassFeatures({ theClass }) {
 
             <TwoColumns>
                 <Column>
-                    <SmallStat name="Health">{ theClass['Base Health'] }</SmallStat>
-                    <SmallStat name="Armor Training">{ theClass['Armor Training'] }</SmallStat>
-                    { theClass['Language'] && <SmallStat name="Language" topDown='true'>{ theClass['Language'] }</SmallStat> }
-                    { theClass.Weapons && <SmallStat name="Weapons" topDown='true'>{ theClass.Weapons }</SmallStat> }
+                    <div className='with-margined-children'>
+                        <SmallStat name="Health">{ theClass['Base Health'] }</SmallStat>
+                        <SmallStat name="Armor Training">{ theClass['Armor Training'] }</SmallStat>
+                        <SmallStat name="Base Defense">0 + Your Armor<Icon name="Defense"/>Defense</SmallStat>
+                        { theClass['Language'] && <SmallStat name="Language" topDown='true'>{ theClass['Language'] }</SmallStat> }
+                        { theClass.Weapons && <SmallStat name="Weapons" topDown='true'>{ theClass.Weapons }</SmallStat> }
+                        <SmallStat name="Feats" topDown='true'>You start with one Feat of choice.</SmallStat>
+                    </div>
                 </Column>
                 <Column>
-                    <PHealthAndArmor/>
+                    <PHealthAndArmor theClass={theClass}/>
                 </Column>
             </TwoColumns>
         </div>
@@ -51,12 +56,14 @@ export function RaceFeatures({ theRace }) {
 
             <TwoColumns>
                 <Column>
-                    <SmallStat name="Stat Distribution" topDown="true">{ theRace.Creation['Stat Restrictions'] }</SmallStat>
-                    <SmallStat name="Health">{ theRace.Stats['Base Health'] }</SmallStat>
-                    <SmallStat name="Speed">{ theRace.Stats.Movement }</SmallStat>
-                    { theRace.Language && <SmallStat name="Language" topDown='true'>{ theRace.Language }</SmallStat> }
-                    { theRace.Weapons && <SmallStat name="Weapons" topDown='true'>{ theRace.Weapons }</SmallStat> }
-                    { theRace.Training && <SmallStat name="Other Training" topDown='true'>{ theRace.Training }</SmallStat> }
+                    <div className='with-margined-children'>
+                        <SmallStat name="Stat Distribution" topDown="true">{ theRace.Creation['Stat Restrictions'] }</SmallStat>
+                        <SmallStat name="Health">{ theRace.Stats['Base Health'] }</SmallStat>
+                        <SmallStat name="Speed">{ theRace.Stats.Movement }</SmallStat>
+                        { theRace.Weapons && <SmallStat name="Weapons" topDown='true'>{ theRace.Weapons }</SmallStat> }
+                        { theRace.Training && <SmallStat name="Other Training" topDown='true'>{ theRace.Training }</SmallStat> }
+                        { theRace.Language && <SmallStat name="Language" topDown='true'>{ theRace.Language }</SmallStat> }
+                    </div>
                 </Column>
                 <Column>
                     <PageH3>Character Creation</PageH3>
@@ -66,10 +73,12 @@ export function RaceFeatures({ theRace }) {
                     </p>
                     <p>When you create your character, after picking your Class as well, your total starting Health will be:</p>
                     <p>
-                        <b><Icon name="Health"/>Race Health + <Icon name="Health"/>Class Health + 2 * Might.</b>
+                        <b><Icon name="Health"/>Race Health + <Icon name="Health"/>Class Health + Might.</b>
                     </p>
+                    <p>Your Defense is always determined by the Armor type you are wearing. Your Class determines what Armor type you can wear. If you have 3 Defense, then you reduce the Damage of all attacks you receive by 3.</p>
                     <PageH3>Race Details</PageH3>
                     <p>As a member of the {theRace.Race} race, your lifespan is about { theRace.Stats.Lifespan } and your size is { theRace.Stats.Size }. </p>
+                    <p>Your standard Speed is always defined by your Race. This determines how many meters you can move per turn in combat.</p>
                     { theRace.Other != null && (<p>{theRace.Other}</p>) }
                 </Column>
             </TwoColumns>
@@ -305,14 +314,18 @@ export function SpellCasting({ theClass }) {
     )
 }
 
-export function PHealthAndArmor() {
+export function PHealthAndArmor({ theClass }) {
     return (
         <div>
             <p>When you create your character, your total starting Health will be:</p>
             <p>
-                <b><Icon name="Health"/>Race Health + <Icon name="Health"/>Class Health + 2 * Might.</b>
+                <b><Icon name="Health"/>Race Health + <Icon name="Health"/>Class Health + Might.</b>
             </p>
-            <p>You also start with an armor of choice from the Armors list, as long as you can wear it.</p>
+            <p>You start with any items form the </p>
+            <ManySmallStats name="Starting Equipment" color="rgb(23, 80, 0)" topDown={true} texts={[
+                'You start with one Armor of any Armor type you are Trained in.',
+                'You start with one Weapon of any Weapon you are Trained in.'
+            ]}/>
         </div>
     )
 }
@@ -351,30 +364,37 @@ export function SpecTalents({ spec }) {
 export function StartingAbilities({ spellsObject, description }) {
     return AbilitiesWithDescription({ spellsObject, description, title: 'Starting Abilities' })    
 }
-export function AbilitiesWithDescription({ spellsObject, description, title }) {
-    const spells = U.spellsFromObject(spellsObject)
-
-    const spellsLeft = spells.filter(spell => spell.AlignOnWebsite == 'Left' || spell.AlignOnWebsite == null)
-    const spellsRight = spells.filter(spell => spell.AlignOnWebsite == 'Right')
-
-    function SADescription() {
-        if (typeof description === 'string' || description instanceof String)
-            return (<span>{ U.parseTextWithSymbols(description) }</span>)
-        else {
-            return description.map(section => (
+export function SADescription({description}) {
+    if (typeof description === 'string' || description instanceof String)
+        return (<span>{ U.parseTextWithSymbols(description) }</span>)
+    else {
+        return description.map(section => (
+            U.isString(section) ? (
+                <div key={section.substring(0, 10)}>
+                    <p>{
+                        U.parseTextWithSymbols(section)
+                    }</p>
+                </div>
+            ) : (
                 <div key={Object.keys(section)[0]}>
                     <PageH3 hasMarginTop={false}>{ Object.keys(section)[0] }</PageH3>
                     <p>{
                         U.parseTextWithSymbols(section[Object.keys(section)[0]])
                     }</p>
                 </div>
-            ))
-        }
+            )
+        ))
     }
+}
+export function AbilitiesWithDescription({ spellsObject, description, title }) {
+    const spells = U.spellsFromObject(spellsObject)
+
+    const spellsLeft = spells.filter(spell => spell.AlignOnWebsite == 'Left' || spell.AlignOnWebsite == null)
+    const spellsRight = spells.filter(spell => spell.AlignOnWebsite == 'Right')
 
     return (
         <div>
-            <PageH2>{title}</PageH2>
+            { title != null && <PageH2>{title}</PageH2> }
 
             <TwoColumns>
                 <Column>
@@ -386,7 +406,7 @@ export function AbilitiesWithDescription({ spellsObject, description, title }) {
                     { spellsRight.map(spell => (
                         <Spell key={spell.Name} spell={spell}/>
                     )) }
-                    <SADescription/>
+                    { description != null && (<SADescription description={description}/>) }
                 </Column>
             </TwoColumns>
         </div>

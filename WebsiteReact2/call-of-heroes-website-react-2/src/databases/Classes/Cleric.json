@@ -1,10 +1,11 @@
 {
     "Class": "Cleric",
     "Description": "Clerics are people attuned to a certain god.",
-    "Base Health": 5,
+    "Base Health": 7,
     "Language": "If your Intelligence is at least 2, choose one Higher or Common language you can speak.",
     "Armor Training": "Medium Armor",
     "Weapons": "You are Trained in Shields.",
+    "Feats": "You start with one Feat of choice.",
     "Level Up": {
         "Every Level": {
             "Health": 5,
@@ -31,16 +32,21 @@
         }
     },
     "Spellcasting": {
-        "Type": "Exhaust-based",
-        "Description": "Cleric Abilities are Exhaust-based.\nAs a Cleric, you know a certain number of Advanced Abilities.\nYou can cast each Advanced Ability you know ONCE, then it becomes unusable (Exhausted) until your next Long Rest.\nAdvanced Abilities are all Abilities from the Spell Lists listed as Advanced.\nIf an Ability is not listed as Advanced, you can use it as many times as you like.\n",
+        "Type": "Charge-based",
+        "Description": "Mage Abilities are Charge-based.\nAs a Mage, you have a number of Charges.\nTo cast any Advanced Ability from your known spells, you must expend 1 Charge (or according to its Cost).\nYou don't have restrictions for how many times you can cast a spell per Long Rest, but you have restrictions on your Charges.\nAdvanced Abilities are all Abilities from the Spell Lists listed as Advanced.\nIf an Ability is not listed as Advanced, you can use it as many times as you like.\n",
         "Main Stat": "Choose permanently - Wisdom or Charisma",
         "Spell DC": "6 + (Main Stat)",
         "Change": "You can change your known Spells (not Talents) when taking a Long Rest.",
-        "Other": "All Cleric-specific abilities are considered spells (unless stated otherwise).",
-        "Known Basic Spells": "2 + Your Intelligence",
-        "Known Advanced Spells": "2 + Your Level",
+        "Other": "All Cleric-specific abilities are considered Spells (unless stated otherwise).",
+        "Charges": {
+            "Amount": 3,
+            "Regain": "You regain all Charges back when you Long Rest."
+        },
+        "Known Spells": "3 + Your Intelligence + Your Level",
+        "BaseKnownSpells": 3,
         "Spell Lists": [
             "Mysticism",
+            "Conjuration",
             "Divine"
         ]
     },
@@ -48,7 +54,8 @@
         "~Awe~": {
             "A": "0 Actions",
             "Range": "5 meters",
-            "Effect": "Instantly heal or damage a target for 1d4 (True damage).\nYou can do this once per Long Rest.\nSome other Cleric spells will cast Awe for free.\n",
+            "Cooldown": "Long Rest",
+            "Effect": "Instantly heal or damage a target for 1d4 (True damage).\nSome other Cleric spells will cast Awe for free, even if it is on Cooldown.\n",
             "Name": "~Awe~"
         }
     },
@@ -69,8 +76,8 @@
                 "~Chains~": {
                     "A": "1 Action",
                     "Range": "6 meters",
-                    "Cooldown": "Long Rest",
-                    "Effect": "Cast Awe on a target 2 times (for free).\nIt must pass a Might Check or be Paralyzed.\n",
+                    "Cost": "1 Charge",
+                    "Effect": "Cast Awe on a target 4 times (for free).\nIt must pass a Might Check or be Paralyzed until it breaks free.\n",
                     "Name": "~Chains~"
                 }
             },
@@ -108,8 +115,8 @@
                         "A": "0 Actions",
                         "Cost": "50% of your maximum health",
                         "Range": "1 meter (touch)",
-                        "Cooldown": "Long Rest",
                         "Effect": "Restore 50% of an ally's maximum health, then cast Awe on yourself.",
+                        "Notes": "You can't cast this if it would get you to 0 or less Health.",
                         "OrderOnWebsite": 2,
                         "Name": "<Repentance>"
                     }
@@ -148,8 +155,8 @@
                 "~Grasp~": {
                     "A": "0.5 Actions",
                     "Range": "15 meters (you don't need line of sight)",
-                    "Cooldown": "Long Rest",
-                    "Effect": "Cast Awe on the target.\nThat target does not benefit from Cover for 1 minute.\n",
+                    "Cost": "1 Charge",
+                    "Effect": "Cast Awe on the target twice.\nThat target does not benefit from Cover for 1 minute.\n",
                     "Name": "~Grasp~"
                 }
             },
@@ -177,15 +184,16 @@
                         "A": "0 Actions",
                         "Cooldown": "Long Rest",
                         "Range": "6 meters to edge",
-                        "Effect": "You create a 4x4 meter area of magical darkness.\nAll attacks done from and towards units in the area have Partial Cover.\n",
+                        "Effect": "You create a 6x6 meter area of magical darkness.\nAll attacks done from and towards units in the area have Partial Cover.\n",
                         "Name": "<Let There Be Darkness>"
                     },
                     "<Repentance>": {
-                        "A": "0.5 Actions",
+                        "A": "0 Actions",
                         "Cost": "50% of your maximum health",
                         "Range": "1 meter (touch)",
-                        "Cooldown": "Long Rest",
                         "Effect": "Restore 50% of an ally's maximum health, then cast Awe on yourself.",
+                        "Notes": "You can't cast this if it would get you to 0 or less Health.",
+                        "OrderOnWebsite": 2,
                         "Name": "<Repentance>"
                     }
                 },
@@ -209,7 +217,7 @@
                     "<Black Hole>": {
                         "A": "0 Actions",
                         "Cooldown": "Long Rest",
-                        "Effect": "You create a 1x1 Black Hole at a position.\nCast Grasp for free on all enemies within 6 meters of the hole.\nIf a Unit gets to the center of the Black Hole, it must pass a Might Check or be Snared.\nAt the end of your turn, all Units within 6 meters of it are pulled 2 meters towards it.\n",
+                        "Effect": "You create a 1x1 Black Hole on an empty space.\nCast Grasp for free on all enemies within 6 meters of the hole.\nIf a Unit gets to the center of the Black Hole, it must pass a Might Check or be Snared.\nAt the end of your turn, all Units within 6 meters of it are pulled 2 meters towards it.\nThe gravity of the black hole works even through walls and obstacles.\n",
                         "Notes": "If 2 Units would be pulled to the center, you choose which.",
                         "OrderOnWebsite": 2,
                         "Name": "<Black Hole>"
@@ -269,10 +277,9 @@
                         "A": "0 Actions",
                         "Cost": "50% of your maximum health",
                         "Range": "1 meter (touch)",
-                        "Cooldown": "Long Rest",
-                        "Effect": "Restore 50% of an ally's maximum health.",
-                        "Notes": "You can't use this if you don't have at least 50% Health.",
-                        "OrderOnWebsite": 1,
+                        "Effect": "Restore 50% of an ally's maximum health, then cast Awe on yourself.",
+                        "Notes": "You can't cast this if it would get you to 0 or less Health.",
+                        "OrderOnWebsite": 2,
                         "Name": "<Repentance>"
                     }
                 },
@@ -292,7 +299,7 @@
                     },
                     "<Cleric Lich Ritual>": {
                         "A": "Special",
-                        "Effect": "You spend 24 hours in a special place of power (this could be a temple or given to you by your DM).\nAfter it's finished, you become a Lich, and you are considered Undead.\nApply the following:\n- You are Undead, thus immune to Charm, Fear and being put to Sleep\n- You no longer need to eat, drink or sleep.\n- You gain access to the Elemental and Eldritch Spell Lists.\n- You can no longer cast Basic Spells, but gain 2 extra slots for known Advanced Spells. Passive Basic Spells still apply.\n- The range of all your Spells is doubled.\n- Your Health decreases by 5, but your Defense, Spell DC and all Combat Checks increase by 1.\nYou also gain the following abilities:\n- Phylactery\n- Dismorphment\n",
+                        "Effect": "You spend 24 hours in a special place of power (this could be a temple or given to you by your DM).\nAfter it's finished, you become a Lich, and you are considered Undead.\nApply the following:\n- You are Undead, thus immune to Charm, Fear and being put to Sleep\n- You no longer need to eat, drink or sleep.\n- You gain access to the Elemental and Eldritch Spell Lists.\n- You can no longer cast Basic Spells, but gain 2 extra Charges. Passive Basic Spells still apply.\n- The range of all your Spells is doubled.\n- Your Health decreases by 5, but your Defense, Spell Check Grade and all Checks increase by 1.\nYou also gain the following abilities:\n- Phylactery\n- Dismorphment\n",
                         "Notes": "Your Follower can still cast Basic Spells.",
                         "OrderOnWebsite": 1,
                         "Name": "<Cleric Lich Ritual>"

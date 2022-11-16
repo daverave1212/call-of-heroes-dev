@@ -10,7 +10,7 @@ export default function PHealthAndArmor() {
         <div>
             <p>When you create your character, your total starting Health will be:</p>
             <p>
-                <b><Icon name="Health"/>Race Health + <Icon name="Health"/>Class Health + 2 * Might.</b>
+                <b><Icon name="Health"/>Race Health + <Icon name="Health"/>Class Health + Might.</b>
             </p>
             <p>You also start with an armor of choice from the Armors list, as long as you can wear it.</p>
         </div>
