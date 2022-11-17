@@ -347,7 +347,7 @@ export default function CharacterCreationCalculator() {
                             }
                             return trainings
                         })()}/>
-                        <ManySmallStats name="Languages" color="rgb(23, 80, 0)" topDown={true} texts={(_ => {
+                        <ManySmallStats name="Languages" color="var(--dark-green)" topDown={true} texts={(_ => {
                             const languages = ['You speak Common.']
 
                             if (backgroundObj.Language != null) {
@@ -413,9 +413,9 @@ export default function CharacterCreationCalculator() {
                             return languages
                         })()}/>
 
-                        <SmallStat name="Starting Gold" color="rgb(23, 80, 0)">{backgroundObj.Money} <Icon name="Gold"/></SmallStat>
+                        <SmallStat name="Starting Gold" color="var(--dark-green)">{backgroundObj.Money} <Icon name="Gold"/></SmallStat>
 
-                        <ManySmallStats name="Starting Equipment" color="rgb(23, 80, 0)" topDown={true} texts={[
+                        <ManySmallStats name="Starting Equipment" color="var(--dark-green)" topDown={true} texts={[
                             'You start with one Armor of any Armor type you are Trained in.',
                             'You start with one Weapon of any Weapon you are Trained in.'
                         ]}/>

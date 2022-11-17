@@ -260,31 +260,37 @@ export function SpellCasting({ theClass }) {
             <TwoColumns>
                 <Column>
                     <PageH3>Spell Stats</PageH3>
-                    <SmallStat name="Spellcasting Style" color="blue">{ theClass['Spellcasting']['Type'] }</SmallStat>
-                    <SmallStat name="Main Stat" color="blue">{ theClass['Spellcasting']['Main Stat'] }</SmallStat>
-                    <SmallStat name="Enemy Check Grade" color="blue">{ theClass['Spellcasting']['Spell DC'] }</SmallStat>
+                    
+                    <div className='with-margined-children'>
+                        <SmallStat name="Spellcasting Style" color="blue">{ theClass['Spellcasting']['Type'] }</SmallStat>
+                        <SmallStat name="Main Stat" color="blue">{ theClass['Spellcasting']['Main Stat'] }</SmallStat>
+                        <SmallStat name="Enemy Check Grade" color="blue">{ theClass['Spellcasting']['Spell DC'] }</SmallStat>
+                    </div>
+                    
                     <PageH3>Known Spells</PageH3>
-                    {
-                        theClass['Spellcasting']['Known Basic Spells'] != null && (
-                            <SmallStat name="Known Basic Spells" color="blue">
-                                { theClass['Spellcasting']['Known Basic Spells'] }
-                            </SmallStat>
-                        )
-                    }
-                    {
-                        theClass['Spellcasting']['Known Advanced Spells'] != null && (
-                            <SmallStat name="Known Advanced Spells" color="blue">
-                                { theClass['Spellcasting']['Known Advanced Spells'] }
-                            </SmallStat>
-                        )
-                    }
-                    {
-                        theClass['Spellcasting']['Known Spells'] != null && (
-                            <SmallStat name="Known Spells" color="blue">
-                                { theClass['Spellcasting']['Known Spells'] }
-                            </SmallStat>
-                        )
-                    }
+                    <div className='with-margined-children'>
+                        {
+                            theClass['Spellcasting']['Known Basic Spells'] != null && (
+                                <SmallStat name="Known Basic Spells" color="blue">
+                                    { theClass['Spellcasting']['Known Basic Spells'] }
+                                </SmallStat>
+                            )
+                        }
+                        {
+                            theClass['Spellcasting']['Known Advanced Spells'] != null && (
+                                <SmallStat name="Known Advanced Spells" color="blue">
+                                    { theClass['Spellcasting']['Known Advanced Spells'] }
+                                </SmallStat>
+                            )
+                        }
+                        {
+                            theClass['Spellcasting']['Known Spells'] != null && (
+                                <SmallStat name="Known Spells" color="blue">
+                                    { theClass['Spellcasting']['Known Spells'] }
+                                </SmallStat>
+                            )
+                        }
+                    </div>
                     <PageH3>Spell Lists</PageH3>
                     <SmallStatList name="Spell Lists" color="blue">
                         {
@@ -321,7 +327,7 @@ export function PHealthAndArmor({ theClass }) {
             <p>
                 <b><Icon name="Health"/>Race Health + <Icon name="Health"/>Class Health + Might.</b>
             </p>
-            <p>You start with any items form the </p>
+            <p>You start with any items from your chosen Background. Also, feel free to spend any amount of Gold (also from your Background) to buy items from the Items list (see Items).</p>
             <ManySmallStats name="Starting Equipment" color="rgb(23, 80, 0)" topDown={true} texts={[
                 'You start with one Armor of any Armor type you are Trained in.',
                 'You start with one Weapon of any Weapon you are Trained in.'

@@ -13,6 +13,8 @@ import Weapons from './pages/Other/Weapons'
 import Abilities from './pages/Other/Abilities'
 import CharacterCreation from './pages/Other/CharacterCreation'
 import CharacterCreationCalculator from './pages/Other/CharacterCreationCalculator'
+import TransitionGuide from './pages/Other/TransitionGuide'
+import Backgrounds from './pages/Other/Backgrounds'
 
 import PageH1 from './components/PageH1/PageH1'
 import PageH2 from './components/PageH2/PageH2'
@@ -35,8 +37,6 @@ import Gnome from './pages/Races/Gnome'
 import Hollow from './pages/Races/Hollow'
 import Human from './pages/Races/Human'
 import Orc from './pages/Races/Orc'
-import TransitionGuide from './pages/Other/TransitionGuide';
-import Backgrounds from './pages/Other/Backgrounds';
 
 function App() {
   return (

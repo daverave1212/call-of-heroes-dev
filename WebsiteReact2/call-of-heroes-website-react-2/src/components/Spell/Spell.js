@@ -61,7 +61,7 @@ export default function Spell({ children, spell, style }) {
                         </div>
                     </div>
                 </div>
-                <Separator/>
+                <Separator hasNoMarginTop={true}/>
                 <div className='spell-description'>
                     { Effect }
                 </div>

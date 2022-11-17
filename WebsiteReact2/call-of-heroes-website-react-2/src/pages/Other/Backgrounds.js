@@ -13,13 +13,15 @@ import SmallStat from '../../components/SmallStat/SmallStat'
 import ManySpells from '../../components/Spell/ManySpells'
 import Icon from '../../components/Icon'
 import Spell from '../../components/Spell/Spell'
+import PageH2 from '../../components/PageH2/PageH2'
 
 export default function Backgrounds() {
 
-    const bgNames = Object.keys(backgrounds).filter(name => name != 'default')
+    const bgNames = Object.keys(backgrounds).filter(name => name != 'default' && name != 'Custom Background')
     
     const bgs = bgNames.map(bgName => ({Name: bgName, ...backgrounds[bgName]}))
 
+    const cbg = backgrounds['Custom Background']
 
     return (
         <div className='page'>
@@ -31,18 +33,26 @@ export default function Backgrounds() {
                 Languages are more important roleplay-wise, while Training in a weapon type means you can use it normally; otherwise, the rolled weapon damage is halved when you attack with it.
             </p>
 
+            <PageH2>Custom Background</PageH2>
+            <p>{ cbg.Description }</p>
+            <div className='with-margined-children'>
+                <SmallStat color="var(--dark-green)" name="Starting Money">{ cbg.Money }<Icon name="Gold"/></SmallStat>
+                <SmallStat color="var(--dark-green)" name="Languages" topDown={true}>{cbg.Language}</SmallStat>
+                <SmallStat color="var(--dark-green)" name="Training" topDown={true}>{cbg.Training}</SmallStat>
+            </div>
 
+            <PageH2>Standard Backgrounds</PageH2>
             { bgs.map(bg => (
                 <div key={bg.Name}>
                     <PageH3>{ bg.Name }</PageH3>
                     <p>{ bg.Description }</p>
                     <div className='with-margined-children'>
-                        <SmallStat name="Starting Money">{ bg.Money }<Icon name="Gold"/></SmallStat>
+                        <SmallStat color="var(--dark-green)" name="Starting Money">{ bg.Money }<Icon name="Gold"/></SmallStat>
                         { bg.Language != null && (
-                            <SmallStat name="Languages" topDown={true}>{bg.Language}</SmallStat>
+                            <SmallStat color="var(--dark-green)" name="Languages" topDown={true}>{bg.Language}</SmallStat>
                         ) }
                         { bg.Training != null && (
-                            <SmallStat name="Training" topDown={true}>{bg.Training}</SmallStat>
+                            <SmallStat color="var(--dark-green)" name="Training" topDown={true}>{bg.Training}</SmallStat>
                         ) }
                         { bg.Abilities != null && (
                             Object.keys(bg.Abilities).length == 1? (
