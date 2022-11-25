@@ -17,54 +17,25 @@ Feats: You start with one Feat of choice.
 Level Up:
   Every Level: 
     Health: 4
-    Spells: 1 known Ability
-    Charges: 1 Charge
-  Level Bonuses:
-    1: Choose your Specialization
-    2: Talent from your Specialization (Tier 1)
-    3: |
-        You gain +1 in any Stat of choice.
-        You gain +1 Training Point.
-        You gain 1 Feat.
-    4: Talent from your Specialization (Tier 2)
-    5:
-        ~Action Surge~:
-            A: 0 Actions
-            Cooldown: Long Rest
-            Effect: Gain 0.5 Actions this turn.
-    6: Talent from your Specialization (Tier 3)
-    7: |
-        You gain +1 in any Stat of choice.
-        You gain +1 Training Point.
-        You gain 1 Feat.
-    8: Talent from your Specialization (Tier 4)
-    9: Pick one more Talent from your Specialization, from any Tier from Tier 1 to Tier 3.
-    10: Talent from your Specialization (Tier 5) 
+  Level Bonuses: Standard Mana-based
 
 
 Spellcasting:
-  Type: Charge-based
-  Description: |
-    Rogue Abilities are Charge-based.
-    As a Rogue, you have a number of Charges.
-    To cast any Advanced Spell from your known spells, you must expend 1 Charge.
-    You don't have restrictions for how many times you can cast a spell per Long Rest, but you have restrictions on your Charges.
-    Advanced Abilities are all Abilities from the Spell Lists listed as Advanced.
-    If an Ability is not listed as Advanced, you can use it as many times as you like.
+  Type: Mana-based
 
   Main Stat: Intelligence
   Spell DC: 6 + (Main Stat)
-  Charges:
+  Mana:
     Amount: 2
-    Regain: You regain all Charges back when you Long Rest.
+    Regain: You regain all Mana back when you Long Rest.
   Change: You can change your known Spells (not Talents) when taking a Long Rest.
   Other: All Rogue-specific abilities are considered Maneuvers (unless stated otherwise).
-  Known Spells: 1 + Your Intelligence + Your Level
-  BaseKnownSpells: 1
+  Known Spells: 1 + Your Intelligence
+  BaseKnownSpells: 2
   Spell Lists:
     - Maneuvers
 
-# Idea: For each Charge spent on Ambush, X happens
+# Idea: For each Mana spent on Ambush, X happens
 
 Starting Abilities Description:
   - Ambush: |
@@ -84,8 +55,8 @@ Starting Abilities:
     A: Passive
     Effect: |
       If you start your turn Hidden, your first attack deals 1d6 + 1 extra damage.
-      When Ambushing, you can also spend as many Charges as you want.
-      That attack gains 1d6 + 1 damage more for each Charge spent.
+      When Ambushing, you can also spend as much Mana as you want.
+      That attack gains 1d6 + 1 damage more for each Mana spent.
       Ambush can only happen once per turn.
     Notes: |
       Your Specialization will give you extra ways to Ambush.
@@ -140,7 +111,7 @@ Specs:
 
 # - Zoning                  (Talent 4)
 # - AoE
-# - Damange (sus) + Utility
+# - Damage (sus) + Utility
 
   Thief:                # 2.35 Charges
     Description: ...lorem... ipsum...
@@ -157,7 +128,7 @@ Specs:
       ~Fool's Coin~:
         A: Passive
         Effect: |
-          Whenever you spend Charges on Ambush, choose one of the rolled dice of the attack. Gain that many Gold Tokens.
+          Whenever you spend Mana on Ambush, choose one of the rolled dice of the attack. Gain that many Gold Tokens.
           Gold Tokens are an imaginary currency.
           When in a town or city, you convert all Gold Tokens to actual gold coins (1 Gold Token for 10 Gold) (this is done on a Long Rest).
         Notes: |
@@ -177,7 +148,7 @@ Specs:
           Effect: |
             You can now cast spells!
             You permanently know 3 Spells from the Arcane and Conjuration Spell Lists.
-            Fool's Coin now also applies when spending Charges on an Advanced Spell.
+            Fool's Coin now also applies when spending Mana on a Spell.
             You can change these Spells when you Long Rest.
             You learn 1 additional ability at Levels 3, 5, 7 and 9.
           
@@ -187,7 +158,7 @@ Specs:
           
         <Whiplash>:
           A: 0 Actions
-          Cooldown: Long Rest, otherwise it costs 1 Charge
+          Cooldown: Long Rest, otherwise it costs 1 Mana
           Effect: |
             Throw a whiplash at a grabbable point within 6 meters.
             Pull yourself to a target point.
@@ -236,6 +207,8 @@ Specs:
     #  Talent: Traps, tripwires, thief's tools
 
 
+# Talent: If you interrupt someone's turn, debuff them
+
 # - Damage
 
 # - Sleep               (Talent 2)
@@ -258,13 +231,13 @@ Specs:
 
       ~Planned Assassination~ :   # Damage is slightly better than 0.5 Actions - 1 Charge
         A: 1 minute
-        Cost: 1 Charge
+        Cost: 1 Mana
         Cooldown: Long Rest
         Effect: |
           You plan an attack for 1 minute.
           Your next attack on that target deals 2d6 + 2 Poison damage.
           Planned Assassination fails if your Line of Sight to the target is broken until you attack it.
-        Notes: The Charge is spent the moment you declare Planned Assassination.
+        Notes: The Mana is spent the moment you declare Planned Assassination.
 
 
     Talents:
@@ -272,7 +245,7 @@ Specs:
 
         <Take Out> :
           A: 0.5 Actions
-          Cost: 1 Charge
+          Cost: 1 Mana
           Effect: |
             A Unit within 1 meter must pass a Dexterity Check or be put to Sleep for 1 minute.
             If it fails, you gain the Action back.
@@ -282,7 +255,7 @@ Specs:
 
         <Poison Master> :
           A: 1 hour
-          Cost: 1 Charge
+          Cost: 1 Mana
           Effect: |
             Using ingredients costing 35 Gold, you are able to create a few drops of Drinkable Poison.
             Someone ingesting them takes 1d12 Poison damage instantly.
@@ -338,6 +311,7 @@ Specs:
 # Talent: After you Parry, Reaction to attack
 # Talent: Reaction - choose 2 Units, grab them with the whiplash and swap their positions (cool for combos)
 # Talent: Reaction - shoot your gun, and stop someone's movement
+# Talent: high noon 6 attacks
 
 # - Single Target Damage
 # - Protection
@@ -373,13 +347,13 @@ Specs:
         
         <Cheap Tricks>:
           A: 0 Actions
-          Cost: 2 Charges
+          Cost: 2 Mana
           Range: 3 meters
           Effect: A Unit within 3 meters must pass a Dexterity Check or be Blinded for 2 turns.
 
         <Whiplash>:
           A: 0 Actions
-          Cooldown: Long Rest, otherwise it costs 1 Charge
+          Cooldown: Long Rest, otherwise it costs 1 Mana
           Effect: |
             Throw a whiplash at a grabbable point within 6 meters.
             Pull yourself to a target point.
@@ -387,7 +361,7 @@ Specs:
 
         <Quickfire> :
           A: 0 Actions
-          Cost: 1 Charge
+          Cost: 1 Mana
           Cooldown: 1 use / Turn
           Effect: |
             Perform an attack with a 1-Handed Ranged weapon.
@@ -400,7 +374,7 @@ Specs:
           A: Passive
           Range: 6 meters to end in line of sight
           Effect: |
-            Whenever you spend one or more Charges, freely deploy a Shock Tripwire of up to 5 meters long between 2 obstacles.
+            Whenever you spend one or more Mana, freely deploy a Shock Tripwire of up to 5 meters long between 2 obstacles.
             When a Unit passes through the tripwire, it takes 1d8 Shock Damage and must pass a Dexterity Check with -3 or be Snared.
             A Unit can see the tripwire only if it has 3 or more Wisdom.
           Notes: |

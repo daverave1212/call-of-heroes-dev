@@ -7,40 +7,19 @@
     "Feats": "You start with one Feat of choice.",
     "Level Up": {
         "Every Level": {
-            "Health": 5,
-            "Spells": "1 known Advanced Spell"
+            "Health": 5
         },
-        "Level Bonuses": {
-            "1": "Choose your Specialization",
-            "2": "Talent from your Specialization (Tier 1)",
-            "3": "You gain +1 in any Stat of choice.\nYou gain +1 Training Point.\nYou gain 1 Feat.\n",
-            "4": "Talent from your Specialization (Tier 2)",
-            "5": {
-                "~Action Surge~": {
-                    "A": "0 Actions",
-                    "Cooldown": "Long Rest",
-                    "Effect": "Gain 0.5 Actions this turn.",
-                    "Name": "~Action Surge~"
-                }
-            },
-            "6": "Talent from your Specialization (Tier 3)",
-            "7": "You gain +1 in any Stat of choice.\nYou gain +1 Training Point.\nYou gain 1 Feat.\n",
-            "8": "Talent from your Specialization (Tier 4)",
-            "9": "Pick one more Talent from your Specialization, from any Tier from Tier 1 to Tier 3.",
-            "10": "Talent from your Specialization (Tier 5)"
-        }
+        "Level Bonuses": "Standard Insight-based"
     },
     "Spellcasting": {
-        "Type": "Exhaust-based",
-        "Description": "Druid Abilities are Exhaust-based.\nAs a Druid, you know a certain number of Advanced Abilities.\nYou can cast each Advanced Ability you know ONCE, then it becomes unusable (Exhausted) until your next Long Rest.\nAdvanced Abilities are all Abilities from the Spell Lists listed as Advanced.\nIf an Ability is not listed as Advanced, you can use it as many times as you like.\n",
+        "Type": "Insight-based",
         "Main Stat": "Wisdom",
-        "Spell Grade": "6 + (Main Stat)",
+        "Spell DC": "6 + (Main Stat)",
         "Change": "You can change your known Spells (not Talents) when taking a Long Rest.",
         "Other": "All Druid-specific abilities are considered spells (unless stated otherwise).",
-        "Known Basic Spells": "2 + Your Intelligence",
-        "Known Advanced Spells": "1 + Your Level",
-        "BaseKnownBasicSpells": 2,
-        "BaseKnownAdvancedSpells": 1,
+        "Known Spells": "4 + Your Intelligence",
+        "Insight": 2,
+        "BaseKnownSpells": 4,
         "Spell Lists": [
             "Elemental",
             "Nature",
@@ -59,23 +38,20 @@
         "~Druidcraft~": {
             "A": "Depends",
             "Effect": "You can create harmless sensory effects or tiny weather effects (6 meters range).\nYou can massively speed up the growth of small plants (touch range).\nYou can slightly soothe physical pains (with no combat effect) (touch range).\nYou can attempt to communicate simple ideas with animals and plants (3 meters range).\nYou have +3 on rolls for identifying plants.\nYou can do these even while Shapeshifted.\n",
-            "AlignOnWebsite": "Right",
-            "Name": "~Druidcraft~"
+            "AlignOnWebsite": "Right"
         },
         "~Shapeshift~": {
             "A": "1 Action",
             "Cooldown": "2 times / Long Rest (see effect)",
-            "Effect": "Pick an animal from the Animal Pets and Shapeshift Animals list and instantly transform into it.\nAs soon as you Shapeshift, you can perform an Animal Attack.\nYou gain that animal's Fortitude and Dexterity saves.\nApply any other modifiers (except for base Stats) from that animal.\nYou also gain its exact abilities.\nWhile Shapeshifted, you can do Animal Attack.\nWhile Shapeshifted, you can do any maneuvers you know. You can't cast spells.\nWhen you Shapeshift, your Health stays the same, unless the animal states it has a bonus/minus to Health.\nWhen Shapeshift ends, subtract back whatever health you added, or add back whatever health you subtracted.\nWhen you end Shapeshift, if your health would be 0 or less, it stays at 1.\nShapeshift ends if you drop to 0 Health, and you go Unconscious.\nAt first, you can't fly, even if your animal can. If your animal can fly, you have Proficiency in Jumping and you can glide (you don't take falling damage).\nFrom Level 3, you can use this 3 times per Long Rest.\nFrom Level 6, you can use this 4 times per Long Rest and you can fly.\nFrom Level 9, you can use this 5 times per Long Rest.\n",
+            "Effect": "Pick an animal from the Animal Pets and Shapeshift Animals list and instantly transform into it.\nAs soon as you Shapeshift, you can perform an Animal Attack.\nYou gain that animal's Fortitude and Dexterity Checks.\nApply any other modifiers (except for base Stats) from that animal.\nYou also gain its exact abilities.\nWhile Shapeshifted, you can do Animal Attack.\nWhile Shapeshifted, you can do any maneuvers you know. You can't cast spells.\nWhen you Shapeshift, your Health stays the same, unless the animal states it has a bonus/minus to Health.\nWhen Shapeshift ends, subtract back whatever health you added, or add back whatever health you subtracted.\nWhen you end Shapeshift, if your health would be 0 or less, it stays at 1.\nShapeshift ends if you drop to 0 Health, and you go Unconscious.\nAt first, you can't fly, even if your animal can. If your animal can fly, you have Proficiency in Jumping and you can glide (you don't take falling damage).\nFrom Level 3, you can use this 3 times per Long Rest.\nFrom Level 6, you can use this 4 times per Long Rest and you can fly.\nFrom Level 9, you can use this 5 times per Long Rest.\n",
             "Notes": "You can't make attacks with ranged weapons while Shapeshifted (obviously).\nYou choose what items you keep on you when Shapeshifting, and those items are 'merged' into your new form.\nYou can turn back into your humanoid form for 0 Actions (on your turn).\n",
-            "OrderOnWebsite": 1,
-            "Name": "~Shapeshift~"
+            "OrderOnWebsite": 1
         },
         "~Animal Attack~": {
             "IsSubspell": true,
             "A": "1 Action",
             "Effect": "Make a melee attack for 2d8 + your Main Stat (not the animal's).\n",
-            "OrderOnWebsite": 2,
-            "Name": "~Animal Attack~"
+            "OrderOnWebsite": 2
         }
     },
     "Specializations": {
@@ -93,17 +69,15 @@
             "Starting Abilities": {
                 "~Day Night Cycle~": {
                     "A": "Passive",
-                    "Effect": "Instead of knowing one set of spells, as normal, you know two: one for the moon, and one for the sun.\nThe Moon spells can only be used at night (from end of dusk until start of dawn).\nThe Sun spells can only be used at day (from start of dawn until end of dusk).\nThe Sun spell set and the Moon spell set can not contain any of the same spell.\n",
-                    "Notes": "So, in total, you know twice as many Basic and Advanced spells.",
-                    "Downside": "Once you prepare a spell for Day or Night, you can no longer assign it to the other one. Ever.",
-                    "Name": "~Day Night Cycle~"
+                    "Effect": "Instead of knowing one set of spells, as normal, you know two: one for the moon, and one for the sun.\nThe amount of Insight you have for the moon and sun spells is each equal to your regular Insight / 2, rounded up.\nThe Moon spells can only be used at night (from end of dusk until start of dawn).\nThe Sun spells can only be used at day (from start of dawn until end of dusk).\nThe Sun spell set and the Moon spell set can not contain any of the same spell.\n",
+                    "Notes": "So, in total, you know twice as many Spells. Also, for example, if your normal Insight is 5, then you have 3 Insight for moon Spells and 3 Insight for sun Spells.",
+                    "Downside": "Once you Learn a spell for Day or Night, you can no longer assign it to the other one. Ever."
                 },
                 "~Moonsun Fire~": {
                     "A": "0.5 Actions",
                     "Range": "6 meters",
                     "Cooldown": "Day/Night (see below)",
-                    "Effect": "A target within 6 meters makes a Wisdom Check.\nIf it fails, it takes 1d4 + Main Stat Fire Damage and is Crippled (if day) or True damage and is Silenced (if night).\nIt takes half of that damage if it passes.\nIf you use this at night, you can't use it until day, and vice versa.\n",
-                    "Name": "~Moonsun Fire~"
+                    "Effect": "A target within 6 meters makes a Wisdom Check.\nIf it fails, it takes 1d4 + Main Stat Fire Damage and is Crippled (if day) or True damage and is Silenced (if night).\nIt takes half of that damage if it passes.\nIf you use this at night, you can't use it until day, and vice versa.\n"
                 }
             },
             "Talents": {
@@ -111,49 +85,41 @@
                     "<Old Ritualist>": {
                         "A": "10 minutes",
                         "Cooldown": "Long Rest",
-                        "Effect": "Unexhaust 3 Advanced Spells you have used (you can't use this on Druid-only spells).\nThe Old Ritual must be performed outdoors, in a safe, uncorrupted place untouched by regular folk.\n",
-                        "Downside": "You permanently lose the Shapeshift ability, and you can never choose Talents that improve Shapeshift.",
-                        "Name": "<Old Ritualist>"
+                        "Effect": "Reset the Cooldown of 3 Spells you have used from Spell Lists that required 1 or less Insight each (you can't use this on Druid-only spells).\nThe Old Ritual must be performed outdoors, in a safe, uncorrupted place untouched by regular folk.\n",
+                        "Downside": "You permanently lose the Shapeshift ability, and you can never choose Talents that improve Shapeshift."
                     },
                     "<Improved Moonsun Fire>": {
                         "A": "Passive",
-                        "Effect": "If day, Moonsun Fire also burns the target for 10% of its total Health as Fire damage.\nIf night, Moonsun Fire heals a target you choose within 6 meters for the same damage dealt.\n",
-                        "Name": "<Improved Moonsun Fire>"
+                        "Effect": "If day, Moonsun Fire also burns the target for 10% of its total Health as Fire damage.\nIf night, Moonsun Fire heals a target you choose within 6 meters for the same damage dealt.\n"
                     },
                     "<Lycanthropy>": {
                         "A": "Passive",
-                        "Effect": "During the night (24:00 to 6:00) you can Shapeshift into a Lycanthrope (see Lycanthrope form) when using Shapeshift.\n",
-                        "Name": "<Lycanthropy>"
+                        "Effect": "During the night (24:00 to 6:00) you can Shapeshift into a Lycanthrope (see Lycanthrope form) when using Shapeshift.\n"
                     },
                     "<Animal Companion>": {
                         "A": "Passive",
-                        "Effect": "You have an animal pet that can fight alongside you!\nYour animal has stats depending on its species.\nBy default, apply the following stats to your pet (these will get modified by your pet's species):\n- Movement: 5 meters\nYour pet takes its turn at the same time as you do, and always has the same initiative as yours.\nYour pet has 1 Action per turn.\nYour pet can make normal Checks using using its own Stats.\nYour pet will not stray more than 30 meters away from you in hostile territory.\nAll pets have the Pet Attack ability.\nPets can't make Opportunity Attacks.\n",
-                        "Name": "<Animal Companion>"
+                        "Effect": "You have an animal pet that can fight alongside you!\nYour animal has stats depending on its species.\nBy default, apply the following stats to your pet (these will get modified by your pet's species):\n- Movement: 5 meters\nYour pet takes its turn at the same time as you do, and always has the same initiative as yours.\nYour pet has 1 Action per turn.\nYour pet can make normal Checks using using its own Stats.\nYour pet will not stray more than 30 meters away from you in hostile territory.\nAll pets have the Pet Attack ability.\nPets can't make Opportunity Attacks.\n"
                     },
                     "<Pet Attack>": {
                         "IsSubspell": true,
                         "A": "1 Action (from the pet)",
-                        "Effect": "The pet melee attacks a target.\nThe attack deals 1d6 + 2 Pierce of Slash Damage (your choice).\n",
-                        "Name": "<Pet Attack>"
+                        "Effect": "The pet melee attacks a target.\nThe attack deals 1d6 + 2 Pierce of Slash Damage (your choice).\n"
                     }
                 },
                 "Level 4": {
                     "<Regrowth>": {
                         "A": "1 Action",
                         "Cooldown": "Long Rest",
-                        "Effect": "Heal a Unit within 6 meters for 1d8 for each 10 Health it is missing.",
-                        "Name": "<Regrowth>"
+                        "Effect": "Heal a Unit within 6 meters for 1d8 for each 10 Health it is missing."
                     },
                     "<Sunrise/Moonfall>": {
                         "A": "Passive",
-                        "Effect": "Moonsun Fire now hits all Units within a 4x4 area you choose and deals an extra 2d4 Damage.",
-                        "Name": "<Sunrise/Moonfall>"
+                        "Effect": "Moonsun Fire now hits all Units within a 4x4 area you choose and deals an extra 2d4 Damage."
                     },
                     "<Equinox>": {
                         "A": "0.5 Actions",
                         "Cooldown": "Day/Night",
-                        "Effect": "If it's day, choose up to Main Stat Units within 15 meters.\nThey must pass a Wisdom Check or they forget to how to use ranged attacks or spells for 1 turn.\nIf it's night, your next Spell (this turn or next turn) casts twice.\n",
-                        "Name": "<Equinox>"
+                        "Effect": "If it's day, choose up to Main Stat Units within 15 meters.\nThey must pass a Wisdom Check or they forget to how to use ranged attacks or spells for 1 turn.\nIf it's night, your next Spell (this turn or next turn) casts twice.\n"
                     }
                 }
             }
@@ -164,46 +130,39 @@
                 "~Wild Shape~": {
                     "A": "Passive",
                     "Effect": "When you use Shapeshift, you can transform into a combination of 2 animals.\nYou take the highest stat from both animals, and you have access to both of their abilities.\n",
-                    "Notes": "For example, you could transform into a combination of Bird of Prey and Bear, resulting in a kind of Owlbear, with a lot of health and a lot of Armor! Be creative!\nThe animal size is either the larger or the smaller of the two - your choice.\nEven if you Shapeshift into 2 combinations of a same animal, the cooldown of that animal's Ability persists (e.g. you can't use Bear's Maul twice per Long Rest, no matter what animal combination you transform into).\n",
-                    "Name": "~Wild Shape~"
+                    "Notes": "For example, you could transform into a combination of Bird of Prey and Bear, resulting in a kind of Owlbear, with a lot of health and a lot of Armor! Be creative!\nThe animal size is either the larger or the smaller of the two - your choice.\nEven if you Shapeshift into 2 combinations of a same animal, the cooldown of that animal's Ability persists (e.g. you can't use Bear's Maul twice per Long Rest, no matter what animal combination you transform into).\n"
                 }
             },
             "Talents": {
                 "Level 2": {
                     "<Forest Friend>": {
                         "A": "Passive",
-                        "Effect": "You have a Pixie companion, a very small humanoid with wings.\nThe Pixie has 10 Defense, 1 HP, 5 Movement Speed.\nIt takes its turn at the same time as you and it has 0.5 Actions on its turn.\nIt can't attack with weapons, but it can use scrolls and potions.\nEvery Long Rest, you can teach it one Basic Spell that costs 0.5 Actions from any Spell List and it can cast it once for 0.5 Actions until the next Long Rest.\nIf the Pixie goes more than 50 meters away from you, it becomes unsummoned (you can summon it back by channeling for 10 minuets).\nThe Pixie has Charisma, Wisdom and Intelligence equal to yours, but its Dexterity is 0 and its Might is -5.\nDecide with your DM whether you or the DM controls the Pixie roleplay-wise.\nHave fun!        \n",
-                        "Name": "<Forest Friend>"
+                        "Effect": "You have a Pixie companion, a very small humanoid with wings.\nThe Pixie has 10 Defense, 1 HP, 5 Movement Speed.\nIt takes its turn at the same time as you and it has 0.5 Actions on its turn.\nIt can't attack with weapons, but it can use scrolls and potions.\nEvery Long Rest, you can teach it one Spell that costs 0.5 Actions from any Spell List and it can cast it once for 0.5 Actions until the next Long Rest (ignoring the Cost).\nIf the Pixie goes more than 50 meters away from you, it becomes unsummoned (you can summon it back by channeling for 10 minuets).\nThe Pixie has Charisma, Wisdom and Intelligence equal to yours, but its Dexterity is 0 and its Might is -5.\nDecide with your DM whether you or the DM controls the Pixie roleplay-wise.\nHave fun!        \n"
                     },
                     "<Treesposition>": {
                         "A": "0 Actions or Reaction",
                         "Cooldown": "2 times / Long Rest",
-                        "Effect": "Touch a large or larger piece of wood and choose one of the following:\n1. Teleport near another large or larger piece of wood within 5 meters.\n2. Partially enter the piece of wood, becoming camouflaged. You have +5 Stealth until you exit back to your normal space.\nYou can stay like that for up to 1 hour.\nYou benefit from Cover while inside a tree.\nAs a Reaction, you can use this when you are attacked or right when someone casts a spell (before the roll).\n",
-                        "Name": "<Treesposition>"
+                        "Effect": "Touch a large or larger piece of wood and choose one of the following:\n1. Teleport near another large or larger piece of wood within 5 meters.\n2. Partially enter the piece of wood, becoming camouflaged. You have +5 Stealth until you exit back to your normal space.\nYou can stay like that for up to 1 hour.\nYou benefit from Cover while inside a tree.\nAs a Reaction, you can use this when you are attacked or right when someone casts a spell (before the roll).\n"
                     },
                     "<Exotic Shapeshift>": {
                         "A": "Passive",
-                        "Effect": "You can now Shapeshift into Exotic Animals.\nYou can also use Shapeshift to also transform into other people.\nWhen you want to do this, roll a Deception check.\nThis check determines how close you get to the form of that person (12 or more means a perfect copy).\nThis copy just mimicks the look of the person, not the voice or personality.\n",
-                        "Name": "<Exotic Shapeshift>"
+                        "Effect": "You can now Shapeshift into Exotic Animals.\nYou can also use Shapeshift to also transform into other people.\nWhen you want to do this, roll a Deception check.\nThis check determines how close you get to the form of that person (12 or more means a perfect copy).\nThis copy just mimicks the look of the person, not the voice or personality.\n"
                     }
                 },
                 "Level 4": {
                     "<Shapeshift Ally>": {
                         "A": "0 Actions",
                         "Cost": "1 use of Shapeshift",
-                        "Effect": "Passively, you get 2 more uses of Shapeshift per Long Rest.\nChoose a willing ally within 6 meters and Shapeshift them into an standard animal of your choice.\nThey have Animal Attack and all of the animal's Abilities.\nThey can cancel it for 0 Actions on their turn.\n",
-                        "Name": "<Shapeshift Ally>"
+                        "Effect": "Passively, you get 2 more uses of Shapeshift per Long Rest.\nChoose a willing ally within 6 meters and Shapeshift them into an standard animal of your choice.\nThey have Animal Attack and all of the animal's Abilities.\nThey can cancel it for 0 Actions on their turn.\n"
                     },
                     "<Regrowth>": {
                         "A": "1 Action",
                         "Cooldown": "Long Rest",
-                        "Effect": "Heal a Unit within 6 meters for 1d8 for each 10 Health it is missing.",
-                        "Name": "<Regrowth>"
+                        "Effect": "Heal a Unit within 6 meters for 1d8 for each 10 Health it is missing."
                     },
                     "<Beastly Stamina>": {
                         "A": "Passive",
-                        "Effect": "For each animal, you gain an extra use of their Long Rest Abilities (per Long Rest).",
-                        "Name": "<Beastly Stamina>"
+                        "Effect": "For each animal, you gain an extra use of their Long Rest Abilities (per Long Rest)."
                     }
                 }
             }
@@ -213,46 +172,40 @@
             "Starting Abilities": {
                 "~Eldritch Spells": {
                     "A": "Passive",
-                    "Effect": "You can also learn Spells from the Eldritch Spell List.",
-                    "Name": "~Eldritch Spells"
+                    "Effect": "You can also learn Spells from the Eldritch Spell List."
                 },
                 "~Blood Magic~": {
                     "A": "0 Actions",
-                    "Cost": "6 Health",
-                    "Effect": "Unexhaust an Exhausted Advanced Spell from your Spell Lists.",
-                    "Name": "~Blood Magic~"
+                    "Cost": "6 Health/Insight",
+                    "Effect": "Reset the Cooldown of a Spell from your Spell Lists.",
+                    "Notes": "Costs 6 Health per Insight the Spell Required. Costs at least 6 Health."
                 },
                 "~Black Charm~": {
                     "A": "0 Actions",
                     "Range": "10 meters",
-                    "Effect": "Choose a target.\nAt the start of your next turn, it must pass a Wisdom Check or be Stunned and take 3d12 - 2 Psychic damage.\nIf it passes, it takes half of the damage.\n",
-                    "Name": "~Black Charm~"
+                    "Effect": "Choose a target.\nAt the start of your next turn, it must pass a Wisdom Check or be Stunned and take 3d12 - 2 Psychic damage.\nIf it passes, it takes half of the damage.\n"
                 }
             },
             "Talents": {
                 "Level 2": {
                     "<Future Blood>": {
                         "A": "Passive",
-                        "Effect": "Blood Magic can now draw Health from your Extra Health Pool.\nYour Extra Health Pool increases by 8.\n",
-                        "Name": "<Future Blood>"
+                        "Effect": "Blood Magic can now draw Health from your Extra Health Pool.\nYour Extra Health Pool increases by 8.\n"
                     },
                     "<Old Ritualist>": {
                         "A": "10 minutes",
                         "Cooldown": "Long Rest",
-                        "Effect": "Unexhaust 3 Advanced Spells you have used (you can't use this on Druid-only spells).\nThe Old Ritual must be performed outdoors, in a safe, uncorrupted place untouched by regular folk.\n",
-                        "Downside": "You permanently lose the Shapeshift ability, and you can never choose Talents that improve Shapeshift.",
-                        "Name": "<Old Ritualist>"
+                        "Effect": "Reset the Cooldown of 3 Spells you have used from Spell Lists that required 1 or less Insight each (you can't use this on Druid-only spells).\nThe Old Ritual must be performed outdoors, in a safe, uncorrupted place untouched by regular folk.\n",
+                        "Downside": "You permanently lose the Shapeshift ability, and you can never choose Talents that improve Shapeshift."
                     },
                     "<Animal Companion>": {
                         "A": "Passive",
-                        "Effect": "You have an animal pet that can fight alongside you!\nYour animal has stats depending on its species.\nBy default, apply the following stats to your pet (these will get modified by your pet's species):\n- Movement: 5 meters\nYour pet takes its turn at the same time as you do, and always has the same initiative as yours.\nYour pet has 1 Action per turn.\nYour pet can make normal Checks using using its own Stats.\nYour pet will not stray more than 30 meters away from you in hostile territory.\nAll pets have the Pet Attack ability.\nPets can't make Opportunity Attacks.\n",
-                        "Name": "<Animal Companion>"
+                        "Effect": "You have an animal pet that can fight alongside you!\nYour animal has stats depending on its species.\nBy default, apply the following stats to your pet (these will get modified by your pet's species):\n- Movement: 5 meters\nYour pet takes its turn at the same time as you do, and always has the same initiative as yours.\nYour pet has 1 Action per turn.\nYour pet can make normal Checks using using its own Stats.\nYour pet will not stray more than 30 meters away from you in hostile territory.\nAll pets have the Pet Attack ability.\nPets can't make Opportunity Attacks.\n"
                     },
                     "<Pet Attack>": {
                         "IsSubspell": true,
                         "A": "1 Action (from the pet)",
-                        "Effect": "The pet melee attacks a target.\nThe attack deals 1d6 + 2 Pierce of Slash Damage (your choice).\n",
-                        "Name": "<Pet Attack>"
+                        "Effect": "The pet melee attacks a target.\nThe attack deals 1d6 + 2 Pierce of Slash Damage (your choice).\n"
                     }
                 }
             }
@@ -262,8 +215,7 @@
             "Starting Abilities": {
                 "~Circle of the Land~": {
                     "A": "Passive",
-                    "Effect": "You know 2 more Basic Spells from the Nature spell list.\nWhen you transform into an animal native to your domain, heal for 1d4 health.\nChoose one domain from: Mountains, Forest, Sea and Desert. Choose one of the Abilities below corresponding to your domain:\n",
-                    "Name": "~Circle of the Land~"
+                    "Effect": "You know 2 more Spells from the Nature spell list.\nWhen you transform into an animal native to your domain, heal for 1d4 health.\nChoose one domain from: Mountains, Forest, Sea and Desert. Choose one of the Abilities below corresponding to your domain:\n"
                 }
             },
             "Abilities": {
@@ -272,25 +224,21 @@
                     "Range": "6 meters to margin",
                     "Cooldown": "2 times / Long Rest",
                     "Effect": "You raise a wall of stone, dirt or other such material from the ground, 1x3x2 (1 meter thick, 3 wide, 2 tall).\nEnemies hit directly by the wall growing from below them take 1d6 Smash damage.\n",
-                    "Notes": "You can instantly crumble the wall on your turn by using 0 Actions.\nYou can't raise a wall under another wall, but you can cast this Spell twice to grow a wall twice as tall.\n",
-                    "Name": "~Raise Wall~"
+                    "Notes": "You can instantly crumble the wall on your turn by using 0 Actions.\nYou can't raise a wall under another wall, but you can cast this Spell twice to grow a wall twice as tall.\n"
                 },
                 "~Wild Roots~": {
                     "A": "1 Action",
                     "Cooldown": "Long Rest",
-                    "Effect": "Roots spawn from your position (next to you) and travel 10 meters.\nYou control how the roots travel (they 'move' like a normal Unit).\nAll Units they pass through take 2d8 Pierce damage and must pass a Dexterity Check or be Snared.\n",
-                    "Name": "~Wild Roots~"
+                    "Effect": "Roots spawn from your position (next to you) and travel 10 meters.\nYou control how the roots travel (they 'move' like a normal Unit).\nAll Units they pass through take 2d8 Pierce damage and must pass a Dexterity Check or be Snared.\n"
                 },
                 "~Storm~": {
                     "A": "0 Actions",
                     "Range": "6 meters to margin",
-                    "Effect": "Target a 4x4x4 meter area and create a storm there.\nCreatures inside the sand storm are Blinded and the storm acts as hard terrain.\nOn your turn, you can use 0.5 Actions to move the Storm up to 2 meters in any direction.\nLasts 1 minute.\n",
-                    "Name": "~Storm~"
+                    "Effect": "Target a 4x4x4 meter area and create a storm there.\nCreatures inside the sand storm are Blinded and the storm acts as hard terrain.\nOn your turn, you can use 0.5 Actions to move the Storm up to 2 meters in any direction.\nLasts 1 minute.\n"
                 },
                 "~Endurance~": {
                     "A": "Passive",
-                    "Effect": "You gain +1 on all Combat Checks and +5 to your maximum Health.\n",
-                    "Name": "~Endurance~"
+                    "Effect": "You gain +1 on all Combat Checks and +5 to your maximum Health.\n"
                 }
             },
             "Talents": {
@@ -298,48 +246,41 @@
                     "<Old Ritualist>": {
                         "A": "10 minutes",
                         "Cooldown": "Long Rest",
-                        "Effect": "Unexhaust 3 Advanced Spells you have used (you can't use this on Druid-only spells).\nThe Old Ritual must be performed outdoors, in a safe, uncorrupted place untouched by regular folk.\n",
-                        "Downside": "You permanently lose the Shapeshift ability, and you can never choose Talents that improve Shapeshift.",
-                        "Name": "<Old Ritualist>"
+                        "Effect": "Reset the Cooldown of 3 Spells you have used from Spell Lists that required 1 or less Insight each (you can't use this on Druid-only spells).\nThe Old Ritual must be performed outdoors, in a safe, uncorrupted place untouched by regular folk.\n",
+                        "Downside": "You permanently lose the Shapeshift ability, and you can never choose Talents that improve Shapeshift."
                     },
                     "<Innervate>": {
                         "A": "0 Actions",
                         "Range": "6 meters",
                         "Cooldown": "Long Rest",
-                        "Effect": "Heal an ally for 3 Health and it regains 1 Charge or unexhausts one Advanced Spell.\n",
-                        "Downside": "Can not be cast on other Druids.",
-                        "Name": "<Innervate>"
+                        "Effect": "Heal an ally for 3 Health and it regains 1 Mana or resets the Cooldown of an Ability.\n",
+                        "Downside": "Can not be cast on other Druids."
                     },
                     "<Animal Companion>": {
                         "A": "Passive",
-                        "Effect": "You have an animal pet that can fight alongside you!\nYour animal has stats depending on its species.\nBy default, apply the following stats to your pet (these will get modified by your pet's species):\n- Movement: 5 meters\nYour pet takes its turn at the same time as you do, and always has the same initiative as yours.\nYour pet has 1 Action per turn.\nYour pet can make normal Checks using using its own Stats.\nYour pet will not stray more than 30 meters away from you in hostile territory.\nAll pets have the Pet Attack ability.\nPets can't make Opportunity Attacks.\n",
-                        "Name": "<Animal Companion>"
+                        "Effect": "You have an animal pet that can fight alongside you!\nYour animal has stats depending on its species.\nBy default, apply the following stats to your pet (these will get modified by your pet's species):\n- Movement: 5 meters\nYour pet takes its turn at the same time as you do, and always has the same initiative as yours.\nYour pet has 1 Action per turn.\nYour pet can make normal Checks using using its own Stats.\nYour pet will not stray more than 30 meters away from you in hostile territory.\nAll pets have the Pet Attack ability.\nPets can't make Opportunity Attacks.\n"
                     },
                     "<Pet Attack>": {
                         "IsSubspell": true,
                         "A": "1 Action (from the pet)",
-                        "Effect": "The pet melee attacks a target.\nThe attack deals 1d6 + 2 Pierce of Slash Damage (your choice).\n",
-                        "Name": "<Pet Attack>"
+                        "Effect": "The pet melee attacks a target.\nThe attack deals 1d6 + 2 Pierce of Slash Damage (your choice).\n"
                     }
                 },
                 "Level 4": {
                     "<Regrowth>": {
                         "A": "1 Action",
                         "Cooldown": "Long Rest",
-                        "Effect": "Heal a Unit within 6 meters for 1d8 for each 10 Health it is missing.",
-                        "Name": "<Regrowth>"
+                        "Effect": "Heal a Unit within 6 meters for 1d8 for each 10 Health it is missing."
                     },
                     "<Dazzling Miasma>": {
                         "A": "1 Action",
                         "Cooldown": "Long Rest",
-                        "Effect": "Shoot a tainted gust of spores in a 10x1 meter line from your position.\nIt hits the first 2 Units it travels into.\nIf you hit one Unit, it must pass a Might Check or take 4d10 Poison damage (or half of that if it passes).\nIf you hit 2 Units, they must pass a Might Check or be Stunned and take 1d10 Poison damage (or half of that if they pass).\n",
-                        "Name": "<Dazzling Miasma>"
+                        "Effect": "Shoot a tainted gust of spores in a 10x1 meter line from your position.\nIt hits the first 2 Units it travels into.\nIf you hit one Unit, it must pass a Might Check or take 4d10 Poison damage (or half of that if it passes).\nIf you hit 2 Units, they must pass a Might Check or be Stunned and take 1d10 Poison damage (or half of that if they pass).\n"
                     },
                     "<Animate Plants>": {
                         "A": "1 Action",
                         "Cooldown": "Long Rest",
-                        "Effect": "Choose 3 plants you can see. They become animated and fight for you.\nThe Abilities and stats of the plant depends on what type of plant it is (see the Pets page).\nYou don't control your plants; they attack the closest enemy to them, or use their Ability when they can.\nWhen a Plant reaches 0 Health, it doesn't die, but it becomes de-animated.\nPick the plant type from the Druid Plants list that fits the plant the best.\nLasts up to 10 minutes.\n",
-                        "Name": "<Animate Plants>"
+                        "Effect": "Choose 3 plants you can see. They become animated and fight for you.\nThe Abilities and stats of the plant depends on what type of plant it is (see the Pets page).\nYou don't control your plants; they attack the closest enemy to them, or use their Ability when they can.\nWhen a Plant reaches 0 Health, it doesn't die, but it becomes de-animated.\nPick the plant type from the Druid Plants list that fits the plant the best.\nLasts up to 10 minutes.\n"
                     }
                 }
             }

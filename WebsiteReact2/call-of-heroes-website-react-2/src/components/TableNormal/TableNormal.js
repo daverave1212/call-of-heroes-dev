@@ -13,9 +13,9 @@ export default function TableNormal({ children, columns, type }) {
         <div className='table-normal-container-wrapper'>
             <div className='table-normal-container'>
                 <div className='table-normal__header-row-container'>
-                    <table className={tableTypeClass} cellSpacing="0"> <tbody>
-                        <tr>{ columns.map(col => ( <th>{ col }</th> )) }</tr>
-                    </tbody> </table>
+                    <table className={tableTypeClass} cellSpacing="0"><tbody>
+                        <tr>{ columns.map((col, i) => ( <th key={i}>{ col }</th> )) }</tr>
+                    </tbody></table>
                 </div>
 
                 <div className='table-normal-wrapper'>

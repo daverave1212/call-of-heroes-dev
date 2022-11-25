@@ -13,15 +13,15 @@ import SmallStatList from '../SmallStat/SmallStatList'
 
 import Separator from '../Separator/Separator'
 import TableNormal from '../TableNormal/TableNormal'
-import TableNormalLevelUpExhaust from '../TableNormal/TableNormalLevelUpExhaust'
+import TableNormalLevelUpInsight from '../TableNormal/TableNormalLevelUpExhaust'
 import TwoColumns from '../TwoColumns/TwoColumns'
 import Column from '../TwoColumns/Column'
 
 import Spell from '../Spell/Spell'
 import Icon from '../Icon'
 
-import theClass from '../../databases/Classes/Cleric.json'
-import classAbilities from '../../databases/ClassAbilities.json'
+import rules from '../../databases/Rules/Rules.json'
+import abilities from '../../databases/Abilities.json'
 import ManySpells from '../Spell/ManySpells'
 import TableNormalLevelUpWarlock from '../TableNormal/TableNormalLevelUpWarlock'
 import ManySmallStats from '../SmallStat/ManySmallStats'
@@ -87,6 +87,8 @@ export function RaceFeatures({ theRace }) {
 }
 
 export function LevelingUp({ theClass }) {
+    console.log(`Received theClass at LevelingUp as:`)
+    console.log({theClass})
     return (
         <div style={{marginTop: 'var(--page-padding)'}}>
             <PageH3>Leveling Up</PageH3>
@@ -94,41 +96,16 @@ export function LevelingUp({ theClass }) {
             <TwoColumns type="normal">
                 <Column>
                     {
-                        theClass['Spellcasting']['Type'] == 'Special Charge-based'? (
+                        theClass['Spellcasting']['Type'] == 'Special Mana-based'? (
                             <TableNormalLevelUpWarlock/>
                         ) : (
-                            <TableNormalLevelUpExhaust/>
+                            <TableNormalLevelUpInsight/>
                         )
                     }
                 </Column>
                 <Column>
                     {
-                        theClass['Spellcasting']['Type'] == 'Exhaust-based'? (
-                            <div>
-                                <TableNormal columns={['Every Level Above 1 You Get...']}>
-                                    <tr>
-                                        <td>
-                                            { theClass['Level Up']['Every Level']['Health'] } <Icon name="Health"/>Health
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            1 Known Advanced Spell
-                                        </td>
-                                    </tr>
-                                </TableNormal>
-                
-                                <p>
-                                    When you level up (e.g. Level 1 to Level 2), you gain some Health and a Known Advanced Spell.
-                                    Also, depending on your level, you also gain something else (see the table on the left).
-                                </p>
-                
-                                <p>Once you reach Level 4, you unlock the Action Surge Ability.</p>
-                
-                                <Spell spell={classAbilities['~Action Surge~']}/>
-                            </div>
-                        ) :
-                        theClass['Spellcasting']['Type'] == 'Charge-based'? (
+                        theClass['Spellcasting']['Type'] == 'Insight-based'? (
                             <div>
                                 <TableNormal columns={['Every Level Above 1 You Get...']}>
                                     <tr>
@@ -143,23 +120,53 @@ export function LevelingUp({ theClass }) {
                                     </tr>
                                     <tr>
                                         <td>
-                                            1 Extra <Icon name="Charge"/>Charge
+                                            1 Extra <Icon name="Insight"/>Insight
+                                        </td>
+                                    </tr>
+                                </TableNormal>
+                
+                                <p>
+                                    When you level up (e.g. Level 1 to Level 2), you gain some Health, a Known Spell and +1 total available Insight.
+                                    Also, depending on your level, you also gain something else (see the table on the left).
+                                </p>
+                
+                                <p>Once you reach Level 4, you unlock the Action Surge Ability.</p>
+                
+                                <Spell spell={abilities['Default Moves']['~Action Surge~']}/>
+                            </div>
+                        ) :
+                        theClass['Spellcasting']['Type'] == 'Mana-based'? (
+                            <div>
+                                <TableNormal columns={['Every Level Above 1 You Get...']}>
+                                    <tr>
+                                        <td>
+                                            { theClass['Level Up']['Every Level']['Health'] } <Icon name="Health"/>Health
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            1 Known Spell
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            1 Extra <Icon name="Mana"/>Mana
                                         </td>
                                     </tr>
                                 </TableNormal>
                 
                                 <p>
                                     When you level up (e.g. Level 1 to Level 2), you gain some Health and a Known Spell.
-                                    You also gain 1 more Charge per Long Rest (raises your maximum number of Charges).
+                                    You also gain 1 more Mana per Long Rest (raises your maximum number of Mana points).
                                     Also, depending on your level, you also gain something else (see the table on the left).
                                 </p>
                 
                                 <p>Once you reach Level 4, you unlock the Action Surge Ability.</p>
                 
-                                <Spell spell={classAbilities['~Action Surge~']}/>
+                                <Spell spell={abilities['Default Moves']['~Action Surge~']}/>
                             </div>
                         ) :
-                        theClass['Spellcasting']['Type'] == 'Special Charge-based'? (
+                        theClass['Spellcasting']['Type'] == 'Special Mana-based'? (
                             <div>
                                 <TableNormal columns={['Every Level Above 1 You Get...']}>
                                     <tr>
@@ -176,13 +183,13 @@ export function LevelingUp({ theClass }) {
                 
                                 <p>
                                     When you level up (e.g. Level 1 to Level 2), you gain some Health and a Known Spell.
-                                    You also gain 1 more Charge per Long Rest (raises your maximum number of Charges).
+                                    You also gain 1 more Mana per Long Rest (raises your maximum number of Mana points).
                                     Also, depending on your level, you also gain something else (see the table on the left).
                                 </p>
                 
                                 <p>Once you reach Level 4, you unlock the Action Surge Ability.</p>
                 
-                                <Spell spell={classAbilities['~Action Surge~']}/>
+                                <Spell spell={abilities['Default Moves']['~Action Surge~']}/>
                             </div>
                         ) : (
                             null
@@ -197,17 +204,14 @@ export function LevelingUp({ theClass }) {
 
 export function SpellCasting({ theClass }) {
 
-    function ChargeBasedSpellcasting() {
+    function ManaBasedSpellcasting() {
         return (
             <div>
-                <PageH3>Charge-Based Spellcasting</PageH3>
-                <p>{ theClass.Class } Abilities are Charge-based.</p>
-                As a { theClass.Class }, you have a number of Charges.
-                To cast any Advanced Ability from your known spells, you must expend 1 Charge (or according to its Cost).
-                You don't have restrictions for how many times you can cast a spell per Long Rest, but you have restrictions on your Charges.
+                <PageH3>Mana-Based Spellcasting</PageH3>
+                <p>{ theClass.Class } Abilities are Mana-based.</p>
+                <span style={{ whiteSpace: 'pre-line' }}>{ rules['Known Spells (Mana-based)'] }</span>
                 <Separator/>
-                All your Charges recharge when you finish a Long Rest.
-                Advanced Abilities are all Abilities from the Spell Lists listed as Advanced.
+                All your Mana replenishes when you finish a Long Rest.
                 <br/><br/>
                 <PageH3>Changing Spells</PageH3>
                 You can change your known Spells (not Talents) when taking a Long Rest.<br/>
@@ -216,34 +220,29 @@ export function SpellCasting({ theClass }) {
             </div>
         )
     }
-    function ExhaustBasedSpellcasting() {
+    function InsightBasedSpellcasting() {
         return (
             <div>
-                <PageH3>Exhaust-Based Spellcasting</PageH3>
-                <p>{ theClass.Class } Abilities are Exhaust-based.</p>
-                As a { theClass.Class }, you know a certain number of Advanced Abilities.
-                You can cast each Advanced Ability you know ONCE, then it becomes unusable (Exhausted) until your next Long Rest.<br/>
+                <PageH3>Insight-Based Spellcasting</PageH3>
+                <p>{ theClass.Class } Abilities are Insight-based.</p>
+                <span style={{ whiteSpace: 'pre-line' }}>{ rules['Known Spells (Insight-based)'] }</span>
                 <Separator/>
-                All your Abilities Un-exhaust when you finish a Long Rest.
-                Advanced Abilities are all Abilities from the Spell Lists listed as Advanced.
+                All your Cooldowns reset when you finish a Long Rest. If you see the term Insight Ability, that just refers to an Ability that requires Insight.
                 <br/><br/>
                 <PageH3>Changing Spells</PageH3>
-                You can change your known Spells (not Talents) when taking a Long Rest.<br/>
-                Talents can't generally be changed once picked; they are permenant decisions.
+                <span style={{ whiteSpace: 'pre-line' }}>{ rules['Relearning Spells'] }</span>
                 <br/>
                 { theClass.Spellcasting.Other }
             </div>
         )
     }
-    function SpecialChargeBasedSpellcasting() {
+    function SpecialManaBasedSpellcasting() {
         return (
             <div>
-                <PageH3>Special Charge-Based Spellcasting</PageH3>
-                <p>{ theClass.Class } Abilities are Charge-based, with a twist.</p>
-                As a { theClass.Class }, you have a number of Charges.
-                Unlike other Charge-based classes, your Charges instantly reset 10 minutes after finishing every combat encounter (if you don't enter another combat meanwhile).
-                <Separator/>
-                Advanced Abilities are all Abilities from the Spell Lists listed as Advanced.
+                <PageH3>Special Mana-Based Spellcasting</PageH3>
+                <p>{ theClass.Class } Abilities are Mana-based, with a twist.</p>
+                As a { theClass.Class }, you have a number of Mana points.
+                Unlike other Mana-based classes, your Mana instantly regeneraets 10 minutes after finishing every combat encounter (if you don't enter another combat meanwhile).
                 <br/><br/>
                 <PageH3>Changing Spells</PageH3>
                 You can change your known Spells (not Talents) when taking a Long Rest.<br/>
@@ -260,9 +259,14 @@ export function SpellCasting({ theClass }) {
             <TwoColumns>
                 <Column>
                     <PageH3>Spell Stats</PageH3>
-                    
                     <div className='with-margined-children'>
                         <SmallStat name="Spellcasting Style" color="blue">{ theClass['Spellcasting']['Type'] }</SmallStat>
+                        { theClass['Spellcasting']['Mana'] != null && (
+                            <SmallStat name="Mana" color="blue">{ theClass['Spellcasting']['Mana']['Amount'] } <Icon name="Mana"/></SmallStat>
+                        ) }
+                        { theClass['Spellcasting']['Insight'] != null && (
+                            <SmallStat name="Insight" color="blue">{ theClass['Spellcasting']['Insight'] } <Icon name="Insight"/></SmallStat>
+                        ) }
                         <SmallStat name="Main Stat" color="blue">{ theClass['Spellcasting']['Main Stat'] }</SmallStat>
                         <SmallStat name="Enemy Check Grade" color="blue">{ theClass['Spellcasting']['Spell DC'] }</SmallStat>
                     </div>
@@ -270,22 +274,8 @@ export function SpellCasting({ theClass }) {
                     <PageH3>Known Spells</PageH3>
                     <div className='with-margined-children'>
                         {
-                            theClass['Spellcasting']['Known Basic Spells'] != null && (
-                                <SmallStat name="Known Basic Spells" color="blue">
-                                    { theClass['Spellcasting']['Known Basic Spells'] }
-                                </SmallStat>
-                            )
-                        }
-                        {
-                            theClass['Spellcasting']['Known Advanced Spells'] != null && (
-                                <SmallStat name="Known Advanced Spells" color="blue">
-                                    { theClass['Spellcasting']['Known Advanced Spells'] }
-                                </SmallStat>
-                            )
-                        }
-                        {
                             theClass['Spellcasting']['Known Spells'] != null && (
-                                <SmallStat name="Known Spells" color="blue">
+                                <SmallStat name="Known Spells (from Spell Lists)" color="blue">
                                     { theClass['Spellcasting']['Known Spells'] }
                                 </SmallStat>
                             )
@@ -302,14 +292,14 @@ export function SpellCasting({ theClass }) {
                 </Column>
                 <Column>
                         {
-                            theClass.Spellcasting.Type == 'Charge-based' ? (
-                                <ChargeBasedSpellcasting/>
+                            theClass.Spellcasting.Type == 'Mana-based' ? (
+                                <ManaBasedSpellcasting/>
                             ) : 
-                            theClass.Spellcasting.Type == 'Exhaust-based' ? (
-                                <ExhaustBasedSpellcasting/>
+                            theClass.Spellcasting.Type == 'Insight-based' ? (
+                                <InsightBasedSpellcasting/>
                             ) : 
-                            theClass.Spellcasting.Type == 'Special Charge-based' ? (
-                                <SpecialChargeBasedSpellcasting/>
+                            theClass.Spellcasting.Type == 'Special Mana-based' ? (
+                                <SpecialManaBasedSpellcasting/>
                             ) : (
                                 null
                             )

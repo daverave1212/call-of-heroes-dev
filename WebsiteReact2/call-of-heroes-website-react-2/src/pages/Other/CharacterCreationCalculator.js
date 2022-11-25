@@ -246,67 +246,41 @@ export default function CharacterCreationCalculator() {
 
                         <SmallStat name="Spell Check Grade" color="blue">{ parseInt(state[state['Main Stat']]) + 6 }</SmallStat>
 
-                        { classObj.Spellcasting.Type == 'Charge-based' && (
+                        { classObj.Spellcasting.Type == 'Mana-based' && (
                             <div>
-                                <SmallStat name="Charges" color="blue">{
-                                    parseInt(classObj.Spellcasting.Charges.Amount) + parseInt(state.Level) - 1
+                                <SmallStat name="Mana" color="blue">{
+                                    parseInt(classObj.Spellcasting.Mana.Amount) + parseInt(state.Level) - 1
                                 }</SmallStat>
-                                <i className='stat-notes'>You regain all Charges back when you Long Rest.</i>
+                                <i className='stat-notes'>You regain all Mana back when you Long Rest.</i>
                             </div>
                         )}
 
-                        { classObj.Spellcasting.Type == 'Special Charge-based' && (
+                        { classObj.Spellcasting.Type == 'Special Mana-based' && (
                             <div>
-                                <SmallStat name="Charges" color="blue">{
-                                    parseInt(classObj.Spellcasting.Charges.Amount) + (
+                                <SmallStat name="Mana" color="blue">{
+                                    parseInt(classObj.Spellcasting.Mana.Amount) + (
                                         (parseInt(state.Level) >= 3? 1 : 0) +
                                         (parseInt(state.Level) >= 6? 1 : 0) +
                                         (parseInt(state.Level) >= 9? 1 : 0)
                                     )
                                 }</SmallStat>
-                                <i className='stat-notes'>Charges instantly reset 10 minutes after finishing every combat encounter (if you don't enter another combat meanwhile).</i>
+                                <i className='stat-notes'>Mana instantly replenishes 10 minutes after finishing every combat encounter (if you don't enter another combat meanwhile).</i>
                             </div>
                         )}
 
                         { classObj.Spellcasting['Known Spells'] != null && (
                             <div>
                                 <SmallStat name="Known Spells" color="blue">{
-                                    parseInt(classObj.Spellcasting.BaseKnownSpells) + parseInt(state.Intelligence) + parseInt(state.Level)
+                                    parseInt(classObj.Spellcasting.BaseKnownSpells) + parseInt(state.Intelligence) + parseInt(state.Level) - 1
                                 }</SmallStat>
                                 <i className='stat-notes'>{
                                     (_ => {
                                         const baseNSpells = parseInt(classObj.Spellcasting.BaseKnownSpells)
                                         const int = parseInt(state.Intelligence)
                                         const level = parseInt(state.Level)
-                                        return `${baseNSpells} ${int >= 0? '+' : '-'} ${int} (Intelligence) + ${level} (Level)`
+                                        return `${baseNSpells} ${int >= 0? '+' : '-'} ${int} (Intelligence) + ${level} (Level - 1)`
                                     })()
                                 }</i>
-                            </div>
-                        )}
-
-                        { classObj.Spellcasting['Known Basic Spells'] != null && (
-                            <div>
-                                <SmallStat name="Known Basic Spells">{
-                                    parseInt(classObj.Spellcasting.BaseKnownBasicSpells) + parseInt(state.Intelligence)
-                                }</SmallStat>
-                                <i className='stat-notes'>{
-                                    (_ => {
-                                        const baseNSpells = parseInt(classObj.Spellcasting.BaseKnownBasicSpells)
-                                        const int = parseInt(state.Intelligence)
-                                        return `${baseNSpells} ${int >= 0? '+' : '-'} ${int} (Intelligence)`
-                                    })()
-                                }</i>
-                            </div>
-                        )}
-
-                        { classObj.Spellcasting['Known Advanced Spells'] != null && (
-                            <div>
-                                <SmallStat name="Known Advanced Spells">{
-                                    parseInt(classObj.Spellcasting.BaseKnownAdvancedSpells) + parseInt(state.Level)
-                                }</SmallStat>
-                                <i className='stat-notes'>
-                                    {parseInt(classObj.Spellcasting.BaseKnownAdvancedSpells)} + {parseInt(state.Level)} (Level)
-                                </i>
                             </div>
                         )}
 

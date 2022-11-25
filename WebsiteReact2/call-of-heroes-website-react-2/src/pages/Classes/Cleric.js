@@ -21,16 +21,12 @@ import Spell from '../../components/Spell/Spell'
 import Icon from '../../components/Icon'
 
 import theClass from '../../databases/Classes/Cleric.json'
-import * as classAbilities from '../../databases/ClassAbilities.json'
 
 import ManySpells from '../../components/Spell/ManySpells'
 
 import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor } from '../../components/InsertableTemplates/RaceClassComponents'
 
 export default function Cleric() {
-
-    console.log('CLERIC')
-    console.log({theClass})
 
     return (
         <div>
@@ -43,30 +39,26 @@ export default function Cleric() {
                 <TwoColumns>
                     <Column>
 
-                        { theClass.Class } Abilities are Exhaust-based.
-                        As a { theClass.Class }, you know a certain number of Advanced Abilities.
-                        You can cast each Advanced Ability you know ONCE, then it becomes unusable (Exhausted) until your next Long Rest.
-                        Advanced Abilities are all Abilities from the Spell Lists listed as Advanced.
-                        If an Ability is not listed as Advanced, you can use it as many times as you like.
+                        Lorem {theClass.Class} ipsum dolor sit amet.
+                        Aenean blandit metus nisi, non commodo tortor volutpat ut.
+                        Aenean suscipit, justo vitae faucibus viverra, lectus lacus laoreet ipsum, quis suscipit purus ex et tellus. Suspendisse congue libero sed molestie efficitur. Proin maximus sagittis nunc lacinia porttitor.
+                        Maecenas fermentum lacinia mi, a elementum nibh tristique at. In eget nisl nunc.
 
                         <Separator/>
 
-                        { theClass.Class } Abilities are Exhaust-based.
-                        As a { theClass.Class }, you know a certain number of Advanced Abilities.
-                        You can cast each Advanced Ability you know ONCE, then it becomes unusable (Exhausted) until your next Long Rest.
-                        Advanced Abilities are all Abilities from the Spell Lists listed as Advanced.
-                        If an Ability is not listed as Advanced, you can use it as many times as you like.
+                        Lorem {theClass.Class} ipsum dolor sit amet.
+                        Aenean blandit metus nisi, non commodo tortor volutpat ut.
+                        Aenean suscipit, justo vitae faucibus viverra, lectus lacus laoreet ipsum, quis suscipit purus ex et tellus. Suspendisse congue libero sed molestie efficitur. Proin maximus sagittis nunc lacinia porttitor.
+                        Maecenas fermentum lacinia mi, a elementum nibh tristique at. In eget nisl nunc.
 
                         <Separator/>
 
-                        { theClass.Class } Abilities are Exhaust-based.
-                        As a { theClass.Class }, you know a certain number of Advanced Abilities.
-                        You can cast each Advanced Ability you know ONCE, then it becomes unusable (Exhausted) until your next Long Rest.
-                        Advanced Abilities are all Abilities from the Spell Lists listed as Advanced.
-                        If an Ability is not listed as Advanced, you can use it as many times as you like.
-                        As a { theClass.Class }, you know a certain number of Advanced Abilities.
-                        You can cast each Advanced Ability you know ONCE, then it becomes unusable (Exhausted) until your next Long Rest.
-                        Advanced Abilities are all Abilities from the Spell Lists listed as Advanced.
+                        Lorem {theClass.Class} ipsum dolor sit amet.
+                        Aenean blandit metus nisi, non commodo tortor volutpat ut.
+                        Aenean suscipit, justo vitae faucibus viverra, lectus lacus laoreet ipsum, quis suscipit purus ex et tellus. Suspendisse congue libero sed molestie efficitur. Proin maximus sagittis nunc lacinia porttitor.
+                        Maecenas fermentum lacinia mi, a elementum nibh tristique at. In eget nisl nunc.
+                        Lorem {theClass.Class} ipsum dolor sit amet.
+                        Aenean suscipit, justo vitae faucibus viverra, lectus lacus laoreet ipsum, quis suscipit purus ex et tellus. Suspendisse congue libero sed molestie efficitur. Proin maximus sagittis nunc lacinia porttitor.
 
                     </Column>
                     <Column>
@@ -96,7 +88,7 @@ export default function Cleric() {
                 Object.keys(theClass['Specs']).map(specName => {
                     const spec = theClass['Specs'][specName]
                     return (
-                        <Spec name={specName} spec={spec}>
+                        <Spec key={specName} name={specName} spec={spec}>
 
                         <PageH3>Choose One...</PageH3>
                         <ManySpells spells={U.spellsFromObject(spec.Abilities)}/>

@@ -20,7 +20,6 @@ export function spellsFromObject(obj) {
     return spellsArray
 }
 // Gets all keys as spell objects into an array, BUT the objects are taken from a database by their key
-// Use import classAbilities, then give a database as a parameter
 // This is useful because some class abilities have ": Inherit", therefore you need to get the spell from the database by name
 export function spellFromObject(obj, name) {
     return spellWithName(name, obj[name])

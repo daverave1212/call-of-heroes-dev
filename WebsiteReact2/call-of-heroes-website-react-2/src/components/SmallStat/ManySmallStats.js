@@ -27,7 +27,7 @@ export default function ManySmallStats({ name, texts, color, topDown, style }) {
                 <div style={{backgroundColor: color}} className={`small-stat__name ${smallStatNameColorClass}`}>{ name }</div>
                 {
                     texts.map(text => (
-                        <div className="small-stat__value">{ text }</div>
+                        <div key={text} className="small-stat__value">{ text }</div>
                     ))
                 }
             </div>

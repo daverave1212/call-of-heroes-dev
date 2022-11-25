@@ -17,49 +17,23 @@ Feats: You start with one Feat of choice.
 Level Up:
   Every Level: 
     Health: 5
-    Spells: 1 known Advanced Spell
-  Level Bonuses:
-    1: Choose your Specialization
-    2: Talent from your Specialization (Tier 1)
-    3: |
-        You gain +1 in any Stat of choice.
-        You gain +1 Training Point.
-        You gain 1 Feat.
-    4: Talent from your Specialization (Tier 2)
-    5:
-        ~Action Surge~:
-            A: 0 Actions
-            Cooldown: Long Rest
-            Effect: Gain 0.5 Actions this turn.
-    6: Talent from your Specialization (Tier 3)
-    7: |
-        You gain +1 in any Stat of choice.
-        You gain +1 Training Point.
-        You gain 1 Feat.
-    8: Talent from your Specialization (Tier 4)
-    9: Pick one more Talent from your Specialization, from any Tier from Tier 1 to Tier 3.
-    10: Talent from your Specialization (Tier 5) 
+  Level Bonuses: Standard Insight-based
   
 
 Spellcasting:
-  Type: Exhaust-based
-  Description: |
-    Hunter Abilities are Exhaust-based.
-    As a Hunter, you know a certain number of Advanced Abilities.
-    You can cast each Advanced Ability you know ONCE, then it becomes unusable (Exhausted) until your next Long Rest.
-    Advanced Abilities are all Abilities from the Spell Lists listed as Advanced.
-    If an Ability is not listed as Advanced, you can use it as many times as you like.
+  Type: Insight-based
+
     
   Main Stat: Wisdom
   Spell DC: 6 + (Main Stat)
   Change: You can change your known Spells (not Talents) when taking a Long Rest.
   Other: All Hunter-specific abilities are considered maneuvers (unless stated otherwise).
+
+  Known Spells: 3 + Your Intelligence
+  Insight: 2
   
-  Known Basic Spells: 1 + Your Intelligence
-  Known Advanced Spells: 2 + Your Level
+  BaseKnownSpells: 3
   
-  BaseKnownBasicSpells: 1
-  BaseKnownAdvancedSpells: 2
   
   Spell Lists:
     - Maneuvers
@@ -75,7 +49,7 @@ Starting Abilities:
         Monstrosities: Attacks against Monstrosities ignore half of the Defense.
         Beasts: You have +1 Defense and +1 to all Combat Checks against Beasts.
         Fiends: Your attacks against Fiends ignore damage resistances (but not immunities).
-        Undead: You have +2 Spell DC against Undead.
+        Undead: You have +2 Spell Grade against Undead.
 
   ~Tumble~:               # 0.25
     AlignOnWebsite: Right
@@ -90,9 +64,9 @@ Starting Abilities Description:
   - Tumble: |
       Generally, when you move outside of a monster's attack range, it can make a free attack on you. Tumble allows you to reposition so that you can easily exit that zone.
 
-# Base: 3.75
-# With Spec: 4.75
-# With Talent: 6
+# Base: 2.75
+# With Spec: 3.75
+# With Talent: 5
 
 # Damage
 # Mobility
@@ -106,14 +80,15 @@ Specializations:
   
 Specs:
 
-# Damage
+# Damage (Sustained)
 
-# Pet                   (Talents 2)
+# Pet                               (Talents 2)
 # Utility
 
-# Damage
+# Damage (Burst)
+# Damage (Sustained) + Mobility     (Talents 4)
 
-  Draven:               # 0.75
+  Draven:               # 1.25
     Description: lorem
     Starting Abilities:
       ~Tracker~ :   # 0.25 Charges
@@ -125,20 +100,35 @@ Specs:
           o Your party can't get lost in the wild except by magical means
           o You (and your pets) are unaffected by Difficult Terrain.
           
-      ~Hunter Mark~:   # 0.5 Charges
+      ~Hunter Mark~:   # 1 Charge
         A: 0 Actions
         Range: 15 meters
         Cooldown: Long Rest
         Effect: |
           Choose and mark a target.
-          Your single target attacks (against Defense) against the marked target have the damage dice increased by 1 tier.
-          When the target with the mark dies, you can use your Reaction to freely move the mark to another enemy.
+          Your own single target attacks (against Defense) against the marked target have the damage dice increased by 1 tier.
+          Last up to 10 minutes.
         Notes: |
           Increasing dice by 1 tier means, for example, d6 become d8, or d10 become d12.
           D12's don't increase.
+          Your pets' attacks don't increase.
           
     Talents:
       Level 2:
+        <Flare Shot> :         # 0.5
+          A: Reaction or 0 Actions
+          Range: 15 meters
+          Cooldown: Once Per Combat
+          AlignOnWebsite: Left
+          Effect: |
+            Quickly shoot a flare at a target point.
+            The area around the flare lights up in a 6 meter radius, creating normal light.
+            When cast, all allies in the area are cleared of Stun, Fear or Cripple.
+            Allies in the area have Advantage on rolls against Fear.
+            The flare lasts 1 minute.
+          Notes: But seriously, get the Animal Companion. Why would you even pick this?
+      
+      
         # Talents: Headhunt, Bountyhunt, Pet   
         <Animal Companion> :  # 2
           AlignOnWebsite: Right
@@ -161,37 +151,43 @@ Specs:
                 The pet melee attacks a target.
                 The attack deals 1d6 + 2 Pierce or Slash Damage (your choice).
 
-        <Flare Shot> :         # 0.5
-          A: Reaction or 0 Actions
-          Range: 15 meters
-          Cooldown: Once Per Combat
-          Effect: |
-            Quickly shoot a flare at a target point.
-            The area around the flare lights up in a 6 meter radius, creating normal light.
-            When cast, all allies in the area are cleared of Stun, Fear or Cripple.
-            Allies in the area have Advantage on rolls against Fear.
-            The flare lasts 1 minute.
-          Notes: But seriously, get the Animal Companion. Why would you even pick this?
-      
       Level 4:
       
         <Crosshair Shot>:           # 2
             A: 1 Action
-            Range: 16 meters
+            Range: 14 meters
             Cooldown: Long Rest
             Effect: |
                 Make an attack on a target.
-                For each meter to the target, the attack deals 1d6 Pierce damage, up to 8 meters.
-                For each meter to the target over 8 meters, deal one less d6.
-            Notes: At exactly 8 meters range, the attack deals 8d6 damage. At 7 and 9 meters, it deals 7d6. At 6 and 10 meters, 6d6. And so on.
-  
+                For each meter to the target, the attack deals 1d6 Pierce damage, up to 7 meters.
+                For each meter to the target over 7 meters, deal one less d6.
+            Notes: At exactly 7 meters range, the attack deals 7d6 damage. At 6 and 8 meters, it deals 6d6. At 4 and 9 meters, 5d6. And so on.
+            
+        <Running Mark>:             # 2.5 (2 hunters mark + 1 tumble)
+            A: Passive
+            Effect: |
+                You can use Tumble once more time per Long Rest.
+                Immediately after you Tumble, you can freely use Hunter Mark, ignoring its Cooldown.
+        
+        <Tremor Wave>:              # 3 if you land 2 stuns
+            A: 1 Action
+            Range: 10 meters
+            Cooldown: Long Rest
+            Effect: |
+                Shoot a thundering shot towards an obstacle or wall. A quaking wave travels horizontally towards in both directions of the wall up to 10 meters in each direction.
+                All Units within 2 meters of that wall must pass a Might Check or be Stunned and take 4d4 Shock damage.
+                They take half the damage and are Slowed if they pass.
+            Notes: The floor and ceiling are not considered a wall. The wave does not travel through them.
+                
 # Charges + Healing + Mobility + Damage
 
 # Pet                   (Talents 2)
 # Damage + Mobility
 # Damage + Protection
 
-# Damage
+# Damage                (Talents 4)
+# Protection
+# Stats
 
   
   Warden:               # 1.25
@@ -201,22 +197,17 @@ Specs:
       ~Warden~:         # 1.25
         A: Passive
         Effect: |
-          Your Spellcasting type becomes Charge-based instead of Exhaust-based.
-          You have a number of Charges equal to 3 + Your Level.
-          Choose 2 more Advanced or Basic Spells to know permanently from the Elemental, Divine and Arcane spells list.
-        Notes: |
-          Explanation for Charge-based:
-          Instead of being able to cast each Advanced Ability you know once per Long Rest, you now have a set number of Charges.
-          You can expend 1 Charge to cast 1 Advanced Ability (and there is no limit to how many times you can cast it).
-          Your Charges recover on Long Rests.
+          Your Spellcasting type becomes Mana-based instead of Insight-based.
+          You have a number of Mana points equal to 3 + Your Level.
+          You also permanently choose to know 2 more Spells from the Elemental, Divine and Arcane spells list.
     
       ~Quick Magic~:
         A: 0 Actions
-        Cost: 1 or more Charges
+        Cost: 1 or more Mana
         Cooldown: Once per Turn
         Effect: |
-          Spend any number of Charges.
-          Choose one of the following effects, then apply the exact same effect for each Charge spent:
+          Spend any amount of Mana.
+          Choose one of the following effects, then apply the exact same effect for each Mana spent:
           - Instantly deal 1d6 Fire, Frost or Shock damage to a target, and permanently reduce its Defense by 1 (3 meter range).
           - Instantly heal a target for 1d6 (3 meter range).
           - Instantly dash 3 meters, ignoring attacks of oportunity, and going through enemies and small obstacles or medium gaps.
@@ -308,13 +299,24 @@ Specs:
             Notes: |
                 The wall pushes objects or willing Units away from it and can be used as a platform.
                 If you decide to place it horizontally, it acts as Hard Terrain.
+                
+        <Improved Slay>:
+            A: Passive
+            Effect: |
+                Your Slay bonuses against enemies improve and are now the following:
+                Monstrosities: Attacks against Monstrosities ignore 75% of the Defense.
+                Beasts: You have +2 Defense and +2 to all Combat Checks against Beasts.
+                Fiends: Your attacks against Fiends ignore damage resistances and immunities.
+                Undead: You have +3 Spell Grade against Undead.
+# Talent: Your pet evolves!!!
+
 # Pet
 
-# Pet           (Talents 2)
+# Pet                            (Talents 2)
 # Utility
 
-# Damage        (Talents 4)
-# Damage
+# Damage + Heal Prevention       (Talents 4)
+# Damage + Teamwork
 
   Beastmaster:          # 1
     Description: Lawrrremm!!!
@@ -343,7 +345,7 @@ Specs:
     Talents:
       Level 2:
         
-        <Second Animal Companion>:
+        <Second Companion>:
           A: Passive
           Effect: |
             You have one more Animal Companion, aside from the one you get from your Beastmaster Companion.
@@ -367,7 +369,7 @@ Specs:
         <Sickem>:
           A: Reaction
           Effect: |
-            Use when a Unit goes flying against its will and on another Unit's turn.
+            Use when a Unit goes flying against its will.
             Your pet(s) within 5 meters of its landing place can dash to it (after it lands) and make a total of 3 Pet Attacks on it.
             Pets don't provoke Opportunity Attacks when dashing like this.
           Notes: |

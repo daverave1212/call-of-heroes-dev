@@ -20,7 +20,7 @@ Language: |
 # Idea: You become an ethereal being of pure magic
 # Idea: Stop time for a few seconds (you literally get a free turn xD)
 # Idea: Literally, turn back time a few minutes
-# Idea: Cast Advanced Spells that cost 2+ Charges with -1 Charge
+# Idea: Cast Spells that cost 2+ Charges with -1 Charge
 # Idea: Create bombs
 # Idea: Chronomancy - gain some chronomancy spells, like Slow (which limits Epics to 1 turn too)
 
@@ -28,47 +28,19 @@ Language: |
 Level Up:
   Every Level: 
     Health: 4
-    Spells: 1 known Spell
-    Charges: 1 Charge
-  Level Bonuses:
-    1: Choose your Specialization
-    2: Talent from your Specialization (Tier 1)
-    3: |
-        You gain +1 in any Stat of choice.
-        You gain +1 Training Point.
-        You gain 1 Feat.
-    4: Talent from your Specialization (Tier 2)
-    5:
-        ~Action Surge~:
-            A: 0 Actions
-            Cooldown: Long Rest
-            Effect: Gain 0.5 Actions this turn.
-    6: Talent from your Specialization (Tier 3)
-    7: |
-        You gain +1 in any Stat of choice.
-        You gain +1 Training Point.
-        You gain 1 Feat.
-    8: Talent from your Specialization (Tier 4)
-    9: Pick one more Talent from your Specialization, from any Tier from Tier 1 to Tier 3.
-    10: Talent from your Specialization (Tier 5) 
+  Level Bonuses: Standard Mana-based
   
 Spellcasting:
-  Type: Charge-based
-  Description: |
-    Mage Abilities are Charge-based.
-    As a Mage, you have a number of Charges.
-    To cast any Advanced Ability from your known spells, you must expend 1 Charge (or according to its Cost).
-    You don't have restrictions for how many times you can cast a spell per Long Rest, but you have restrictions on your Charges.
-    Advanced Abilities are all Abilities from the Spell Lists listed as Advanced.
-    If an Ability is not listed as Advanced, you can use it as many times as you like.
+  Type: Mana-based
+
   Main Stat: Intelligence
   Spell DC: 6 + (Main Stat)
-  Charges:
+  Mana:
     Amount: 3
-    Regain: You regain all Charges back when you Long Rest.
+    Regain: You regain all Mana back when you Long Rest.
   Change: You can change your known Spells (not Talents) when taking a Long Rest.
   Other: All Mage-specific abilities are considered spells (except Magic Mastery).
-  Known Spells: 3 + Your Intelligence + Your Level
+  Known Spells: 4 + Your Intelligence
   BaseKnownSpells: 3
   Spell Lists:
     - Elemental
@@ -81,7 +53,7 @@ Starting Abilities:
 
   ~Magic Mastery~:
     A: 0 Actions
-    Cost: 1 Charge
+    Cost: 1 Mana
     Effect: |
       The next ability you use that has the cost of 1 Action now costs 0.5 Actions.
       This is considered a Maneuver.
@@ -130,17 +102,16 @@ Specs:
         AlignOnWebsite: Right
         A: Passive
         Effect: |
-          When you cast a spell, if it's different than the previous spell you casted, the previous spell becomes Exhausted, even if it's a Basic Spell.
-          This means you can't use that previous spell until your next Long Rest.
+          When you cast a spell, if it's different than the previous spell you casted, the previous spell goes on a Long Rest Cooldown, even if it does not have a Cooldown by default.
         Notes: |
-            Example: 3 turns in a row, you cast Fire Bolt; next turn, you cast Magic Missiles; after this, you can't cast Fire Bolt again until the next Long Rest.
+          Example: 3 turns in a row, you cast Fire Bolt; next turn, you cast Magic Missiles; after this, you can't cast Fire Bolt again until the next Long Rest.
 
       ~Overcharge~ :      # 2 Charges
         AlignOnWebsite: Left
         A: Passive
         Effect: |
           After you cast a spell the 3rd time in a row, your next ability benefits from Magic Mastery.
-          After this, that spell becomes Exhausted and can't be used until the next Long Rest.
+          After this, that spell becomes goes on a Long Rest Cooldown (and can't be used until the next Long Rest).
       
     Talents:
       Level 2:
@@ -179,7 +150,7 @@ Specs:
           AlignOnWebsite: Right
           A: Passive
           Effect: |
-            Whenever you cast an Advanced Spell or use Magic Mastery, roll 1d12.
+            Whenever you spend Mana, roll 1d12.
             If you roll 12, something wild happens!
       
       Level 4:
@@ -202,7 +173,7 @@ Specs:
         <Star Burst>:       # +5.5 extra damage per Charge spent (but its so random it still might be too weak)
             AlignOnWebsite: Right
             A: 0.5 Actions
-            Cost: 1 Charge
+            Cost: 1 Mana
             Effect: |
                 Declare up to 4 different targets within 15 meters.
                 Assign a different number from #1 to #4 to each.
@@ -241,9 +212,9 @@ Specs:
         A: Passive
         Effect: |
             You have a special Spell Book.
-            Each Long Rest, you can prepare one Advanced Spell you can known.
-            You can cast this Spell once until the next Long Rest, without using a Charge.
-            Then it becomes Exhausted.
+            Each Long Rest, you can Learn one extra Spell you can Know that costs 1 Mana.
+            You can cast this Spell once until the next Long Rest, without using Mana.
+        Notes: You should tell your party and Game Master what Spell you chose ahead of time.
       
       ~Magic Expertise~:  # Might be game breaking lmao
         A: Passive
@@ -256,15 +227,15 @@ Specs:
         <Counterspell>:  # 1 Charge
           A: Reaction
           Cooldown: Long Rest
-          Effect: When a Unit you can see casts a Spell, cancel it. It loses the Action (but not the Charge).
+          Effect: When a Unit you can see casts a Spell, cancel it. It loses the Action (but not the Mana or Cooldown).
 
         <Conjuration Specialization>:   # 1 Charge
           A: Passive
-          Effect: Whenever you cast a Conjuration Advanced Spell, gain Shielding equal to your Main Stat.
+          Effect: Whenever you spend any amount of Mana on a Conjuration Spell, gain Shielding equal to your Main Stat.
         
         <Arcane Specialization>:    # 1 Charge
           A: Passive
-          Effect: Whenever you cast an Arcane Advanced Spell, shoot a magic missile at a target within 4 meters that instantly deals 1d4 Force Damage.
+          Effect: Whenever you spend any amount of Mana on an Arcane Spell, shoot a magic missile at a target within 4 meters that instantly deals 1d4 Force Damage.
 
         <Eldritch Specialization>:  # 1 Charge
           A: Passive
@@ -292,7 +263,7 @@ Specs:
         <Battle Mage>:      # 2?
             A: Passive
             Effect: |
-                While you have an even number of Charges, your first melee weapon attack each turn deals an extra 1d6 Fire or Cold damage (your choice).
+                While you have an even number of Mana points, your first melee weapon attack each turn deals an extra 1d6 Fire or Cold damage (your choice).
                 This can only happen if you're wearing Heavy Armor (Scale Mail or Plate Armor) or a Shield.
                 You also get either Training in Shields, or one free Technique Feat of choice.
     
@@ -329,7 +300,7 @@ Specs:
         ~Cutting Field~:
             IsSubspell: true
             A: 1 Action
-            Cost: 1 Charge
+            Cost: 1 Mana
             Cooldown: 1 use / Combat
             Effect: |
                 All units in a 90 degree, 6 meter long cone take 4d4 Crystal Damage.
@@ -358,7 +329,7 @@ Specs:
         Effect: |
           You own a set of Artificer's Tools, with which you can create potions, scrolls and other items.
           Some of your class spells require you to use your Artificer's Tools (described below).
-          If they require you to spend Charges, those Charges become locked and can't be regained through any means, until the item created is used or destroyed.
+          If they require you to spend Mana, that Mana becomes locked and can't be regained through any means, until the item created is used or destroyed.
           For 1 Action, you can summon or vanish your Artificer's Tools.
           Furthermore, you can use your Artificer's Tools for 10 minutes to make items shed light, emmit a sound or smell or paint surfaces in rough images or writing. The magical effects last for up to 8 hours.
           Feel free to be creative with what you can do - the tools might do other small artificer tasks as well. Ask your DM!
@@ -372,21 +343,21 @@ Specs:
       ~Artificer - Magic Scroll~:
         AlignOnWebsite: Right
         A: 5 minutes
-        Cost: 1 Charge
+        Cost: 1 Mana
         Effect: |
-          Choose a Spell you can cast and spend Charges for it if it requires charges.
+          Choose a Spell you can cast and spend Mana for it if it requires Mana.
           You create a scroll containing that spell.
         
       ~Artificer - Magic Elixir~:   # 1?
         AlignOnWebsite: Right
         A: 5 minutes
-        Cost: 1 Charge
+        Cost: 1 Mana
         Effect: |
           Choose one of the following types of potions and create it
           o Elixir of Healing - Heal for 2d6 + 1.
           o Elixir of Strength - Attacks with 2-Handed weapons deal +2 damage, and attacks with 1-Handed weapons deal +1 damage (lasts 2 combat encounters).
           o Elixir of Agility - Doubled movement speed.
-          o Elixir of Mana - Gain 1 Charge (if the user does not have Charge-based spellcasting, it has no effect).
+          o Elixir of Mana - Gain 1 Mana (if the user does not have Mana-based spellcasting, it has no effect).
 
     Talents:
       Level 2:
@@ -420,7 +391,7 @@ Specs:
             - Swap Snare, Cripple or Silence with any other of these
             - Swap Slow, Prone or Pushing with any other of these (Push a target 2 meters away from you or from the zone center)
             - Double its range
-            At any point, you can expend 1 Charge to Unexhaust this Spell (Artificer - Spellcraft).
+            At any point, you can expend 1 Mana to reset the Cooldown of this Spell (Artificer - Spellcraft).
 
             
 
@@ -428,7 +399,7 @@ Specs:
         
         <Artificer - Golem>:            # 2, but it costs 1 Charge so it sounds fair.
             A: 1 Action
-            Cost: 1 Charge
+            Cost: 1 Mana
             Range: 3 meters to edge
             Effect: |
               Choose an empty 2x2 meter space and deploy a Golem there.
@@ -439,7 +410,7 @@ Specs:
               
         <Artificer - Autoturret>:       # 1.5 but you can summon a ton of them
             A: 0 Actions
-            Cost: 1 Charge
+            Cost: 1 Mana
             Range: 6 meters
             Cooldown: 2 times / Turn
             Effect: |
@@ -448,9 +419,9 @@ Specs:
                 On your turn, you can freely make one attack with each Autoturret for 1d4 direct damage that ignores Defense and all resistances.
                 It has 5 Health, 7 Defense and fails all Checks.
 
-        <Artificer - Grenade>:          # 2, but it costs 1 Charge so it sounds fair.
+        <Artificer - Grenade>:          # 2, but it costs 1 Mana so it sounds fair.
             A: 0.5 Actions
-            Cost: 1 Charge
+            Cost: 1 Mana
             Range: 6 meters to edge
             Cooldown: 1 use / Encounter
             Effect: |

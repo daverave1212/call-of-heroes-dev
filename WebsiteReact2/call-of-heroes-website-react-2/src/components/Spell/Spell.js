@@ -55,7 +55,12 @@ export default function Spell({ children, spell, style }) {
                         </div>
                         <div className='spell-top__stats'>
                             { A != null && (<div><img src="/Icons/UI/Hand.png" className="inline-icon--spell"/>{ A }</div>) }
-                            { Cost != null && (<div><img src="/Icons/UI/Charge.png" className="inline-icon--spell"/>{ Cost }</div>) }
+                            { Cost != null && (
+                                <div>
+                                    <img src={ Cost.endsWith('Insight')? "/Icons/UI/Insight.png" : "/Icons/UI/Mana.png" } className="inline-icon--spell"/>
+                                    { Cost }
+                                </div>
+                            ) }
                             { Range != null && (<div><img src="/Icons/UI/Range.png" className="inline-icon--spell"/>{ Range }</div>) }
                             { Cooldown != null && (<div><img src="/Icons/UI/Cooldown.png" className="inline-icon--spell"/>{ Cooldown }</div>) }
                         </div>

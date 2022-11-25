@@ -4,15 +4,16 @@ import json
 from os import path
 
 # Use this script to convert all ./Design/ files to their JSON variant in WebsiteReact/call-of-heroes-react-static/src/databases
-# NOTE: This does NOT remove the < and ~ symbols from the spell names!
-# NOTE: This DOES YES fix the "Inherit" spells
+# NOTE 1: This does NOT remove the < and ~ symbols from the spell names!
+# NOTE 2: This DOES YES fix the "Inherit" spells
+# NOTE 3: This DOES YES add the Name property to all Spells (or at least it should)
 
 
 yaml_root_folder = 'Design'
 json_root_folder = 'WebsiteReact2/call-of-heroes-website-react-2/src/databases'
 
-class_abilities = {}    # Holds all class abilities and talents
-abilities = {}          # Holds all non-class abilities, like feats and spells from spell lists
+abilities = {}          # Holds all non-class abilities, like feats and spells from spell lists; used for Inheriting only
+
 
 classes = [
     'Cleric',
@@ -42,10 +43,12 @@ files_to_convert = [    # Order matters
     'Animals.yml',
     'Armors.yml',
     'Backgrounds.yml',
+    'Feats.yml',
     'Monsters.yml',
     'Prices.yml',
     'Weapons.yml',
     
+    'Rules/Rules.yml',
     'Rules/CharacterCreation.yml',
     'Rules/COHFor5e.yml',
     'Rules/COHExplained.yml',
@@ -70,81 +73,92 @@ files_to_convert = [    # Order matters
     'Races/Orc.yml'
 ]
 
+def is_spell_name(dict_key):
+    return type(dict_key) is str and (dict_key.startswith('~') or dict_key.startswith('<'))
 
-
-def add_spell_to_dict(dict_obj, spell_name, spell):
-    spell_name = spell_name
-    dict_obj[spell_name] = spell
-    dict_obj[spell_name]['Name'] = spell_name
-
-# Searches a dictionary recursively for spells starting with ~ or <
-# Adds them to the class_abilities dict
-def record_class_abilities_recursively(dict_to_search):
+# If it finds an Ability and it's not 'Inherit', it adds the name of the Ability as a 'Name' property
+def add_name_to_spells_recursively(dict_to_search):
     for key in dict_to_search.keys():
         subobj = dict_to_search[key]
         if subobj == None:
             continue
         if type(subobj) is not dict:   # Don't care about anything that's not nested
             continue
-        if type(key) is str and (key.startswith('~') or key.startswith('<')):
-            add_spell_to_dict(class_abilities, spell_name=key, spell=dict_to_search[key])   # Record the spell
+        if is_spell_name(key):
+            subobj['Name'] = key
         else:
-            record_class_abilities_recursively(subobj)
+            add_name_to_spells_recursively(subobj)
 
-# Some class talents and abilities are "Inherit".
+
+# Some class abilities are "Inherit".
 # This function replaces the "Inherit" with the actual body of the spell
-# The actual body of the spell is taken from class_abilities
-def normalize_inherit_class_abilities(dict_to_search):
+# The actual body of the spell is taken from abilities
+def normalize_inherit_abilities(dict_to_search):
+
+    def find_previously_used_ability(name):
+        if name in abilities:
+            return abilities[name]
+        raise Exception(f'Spell {name} not found in previously mentioned spells [normalize_inherit_abilities].')
+
     for key in dict_to_search.keys():
         subobj = dict_to_search[key]
         if subobj == None:
             continue
         if isinstance(subobj, str) and subobj.strip().lower() == 'inherit':
-            if key in class_abilities:
-                dict_to_search[key] = class_abilities[key]
-            elif key in abilities:
-                dict_to_search[key] = abilities[key]
+            dict_to_search[key] = find_previously_used_ability(key)
             continue
         if type(subobj) is not dict:   # Don't care about anything that's not nested
             continue
-        normalize_inherit_class_abilities(subobj)
-        
+        normalize_inherit_abilities(subobj)
 
-# In the Abilities.yml file, some spells appear as : Inherit
-# That means they're repeated and they have to be cloned from a previous spell
-# This function replaces : Inherit with the actual spell object
-def normalize_inherit_abilities(abilities_dict):    # Yes it modifies the dict but I don't really care
-    for category_name in abilities_dict.keys():
-        category = abilities_dict[category_name]
-        for spell_name in category:
-            spell = category[spell_name]
-            if isinstance(spell, str) and spell.strip().lower() == 'inherit':  # Here it will probably == "Inherit" if it's a string
-                category[spell_name] = abilities[spell_name]
-            else:
-                abilities[spell_name] = spell
-    return abilities_dict
 
+# Finds all Abilities in from_dict and records them to the root of to_dict
+def record_abilities_from(from_dict, to_dict):
+    for key in from_dict.keys():
+        subobj = from_dict[key]
+        if subobj == None:
+            continue
+        if is_spell_name(key):
+            if isinstance(subobj, str) and subobj.strip().lower() == 'inherit':
+                continue
+            to_dict[key] = subobj
+        if type(subobj) is not dict:   # Don't care about anything that's not nested
+            continue
+        record_abilities_from(subobj, to_dict)
 
 if __name__ == '__main__':
 
     for file_name in files_to_convert:
+        print(f'Parsing {file_name}...')
         file_path = yaml_root_folder + '/' + file_name
         file_content = ''
         with open(file_path, 'r') as f:
             file_content = f.read()
         
-        dict_content = yaml.safe_load(file_content)
+        dict_content = {}
+        try:
+            dict_content = yaml.safe_load(file_content)
+        except Exception as e:
+            print(f'ERROR: Failed to load yaml from file {file_name}')
+            raise e
+            
 
         if file_name == 'Abilities.yml':
-            dict_content = normalize_inherit_abilities(dict_content)
+            add_name_to_spells_recursively(dict_content)            # Adds the key as a property to spell objects
+            record_abilities_from(dict_content, abilities)          # Records all abilities found into the 'abilities' dict
+            normalize_inherit_abilities(dict_content)         # Replaces "Inherit" with actual bodies
+        
+        if file_name == 'Feats.yml':
+            add_name_to_spells_recursively(dict_content)
+            record_abilities_from(dict_content, abilities)             # Records all abilities found into the 'feats' dict
         
         if file_name == 'Backgrounds.yml':
-            record_class_abilities_recursively(dict_content)
-            normalize_inherit_class_abilities(dict_content)
+            record_abilities_from(dict_content, abilities)
+            normalize_inherit_abilities(dict_content)
 
         if 'Class' in dict_content:
-            record_class_abilities_recursively(dict_content)
-            normalize_inherit_class_abilities(dict_content)
+            record_abilities_from(dict_content, abilities)
+            normalize_inherit_abilities(dict_content)
 
         if file_name == 'Backgrounds.yml':
             backgrounds = list(dict_content.keys())
@@ -158,11 +172,6 @@ if __name__ == '__main__':
 
         with open(file_path_json, 'w+') as f:
             f.write(string_content)
-
-    class_abilities_json = json.dumps(class_abilities, indent=4)
-
-    with open(json_root_folder + '/' + 'ClassAbilities.json', 'w+') as f:
-        f.write(class_abilities_json)
 
     overall_data = {
         'Races': races,

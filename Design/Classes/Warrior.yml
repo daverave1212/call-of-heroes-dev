@@ -18,50 +18,21 @@ Weapons: Choose a Weapon category (1-Handed Melee, 2-Handed Ranged, Shields, etc
 Level Up:
   Every Level: 
     Health: 6
-    Spells: 1 known Advanced Spell
-    Charges: 1 Charge
-  Level Bonuses:
-    1: Choose your Specialization
-    2: Talent from your Specialization (Tier 1)
-    3: |
-        You gain +1 in any Stat of choice.
-        You gain +1 Training Point.
-        You gain 1 Feat.
-    4: Talent from your Specialization (Tier 2)
-    5:
-        ~Action Surge~:
-            A: 0 Actions
-            Cooldown: Long Rest
-            Effect: Gain 0.5 Actions this turn.
-    6: Talent from your Specialization (Tier 3)
-    7: |
-        You gain +1 in any Stat of choice.
-        You gain +1 Training Point.
-        You gain 1 Feat.
-    8: Talent from your Specialization (Tier 4)
-    9: Pick one more Talent from your Specialization, from any Tier from Tier 1 to Tier 3.
-    10: Talent from your Specialization (Tier 5) 
+  Level Bonuses: Standard Insight-based
 
 
 Spellcasting:
-  Type: Charge-based
-  Description: |
-    Warrior Abilities are Charge-based.
-    As a Warrior, you have a number of Charges.
-    To cast any Advanced Spell from your known spells, you must expend 1 Charge.
-    You don't have restrictions for how many times you can cast a spell per Long Rest, but you have restrictions on your Charges.
-    Advanced Abilities are all Abilities from the Spell Lists listed as Advanced.
-    If an Ability is not listed as Advanced, you can use it as many times as you like.
+  Type: Mana-based
 
   Main Stat: Choose permanently - Wisdom or Charisma
   Spell DC: 6 + (Main Stat)
-  Charges:
+  Mana:
     Amount: 3
-    Regain: You regain all Charges back when you Long Rest.
+    Regain: You regain all Mana back when you Long Rest.
   Change: You can change your known Spells (not Talents) when taking a Long Rest.
   Other: All Warrior-specific abilities are considered Maneuvers (unless stated otherwise).
-  Known Spells: 1 + Your Intelligence + Your Level
-  BaseKnownSpells: 1
+  Known Spells: 1 + Your Intelligence
+  BaseKnownSpells: 2
   Spell Lists:
     - Maneuvers
 
@@ -90,13 +61,15 @@ Specializations:
 # Base: 3.5 Charges
 # Spec: 4 Charges
 
-# Talent: You can spend 1 Charge to unexhaust one Ability
+# Talent: You can spend 1 Mana to unexhaust one Ability
 # Talent: No Flank Attack cooldown
 
 Specs:
 
 # Talent: more Might Over Magic!
 # Talent: more Weaponmaster!
+
+
 
 # Actions
 
@@ -116,7 +89,7 @@ Specs:
 
       ~Overpower~ :               # Ok
         A: 0 Actions
-        Cost: 1 Charge
+        Cost: 1 Mana
         Cooldown: Once per turn
         Effect: |
           Gain 0.5 Actions more this turn.
@@ -197,12 +170,12 @@ Specs:
 
       ~Defense Up~:
         A: 0 Actions
-        Cost: 1 Charge.
+        Cost: 1 Mana
         Effect: Increase your Defense by 2.
 
       ~Obliterate~ :
         A: 0 Actions
-        Cost: 1 Charge
+        Cost: 1 Mana
         Cooldown: Once per turn
         Effect: |
           Deal bonus damage on top of an attack equal to your current Defense (minimum 0).
@@ -278,17 +251,17 @@ Specs:
 
       ~Reckless Attack~ :     # Ok
         A: 0 Actions
-        Cost: 1 Charge.
+        Cost: 1 Mana
         Effect: After you land an attack, you can deal 2d6 damage to you and also add that damage to the attack.
 
       ~Undying Rage~ :        # Ok
         A: Reaction
-        Cost: 1 Charge
+        Cost: 1 Mana
         Effect: Taking damage that would kill you leaves you at 1 Health instead.
 
       ~Blood Boil~ :          # Ok
         A: 0 Actions
-        Cost: 1 Charge.
+        Cost: 1 Mana
         Effect: Heal for 2d6 health.
 
     Talents:
@@ -366,7 +339,7 @@ Specs:
           Your first regular weapon attack in an encounter deals +1 damage.
           Your second regular weapon attack in the encounter deals +1d6 damage.
           Your third regular weapon attack and all upcoming ones in the encounter deal -5 damage.
-          You can spend 1 Charge and 0 Actions to 'reset' this Ability to its original state.
+          You can spend 1 Mana and 0 Actions to 'reset' this Ability to its original state.
 
       ~Point Mark~ :      # 0.15
         A: 0 Actions
@@ -406,7 +379,7 @@ Specs:
           Range: 6 meters
           Effect: |
             Make a ranged attack that deals 2d12 + Main Stat damage (against Defense).
-            The target makes a Dexterity save.
+            The target makes a Dexterity Check.
             If it fails, it is pulled to you.
             Otherwise, you are pulled to it.
           Notes: Requires a Harpoon, which can be bought for 50 Gold.

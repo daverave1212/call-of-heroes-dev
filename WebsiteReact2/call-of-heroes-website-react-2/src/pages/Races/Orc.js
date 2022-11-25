@@ -21,7 +21,6 @@ import Spell from '../../components/Spell/Spell'
 import Icon from '../../components/Icon'
 
 import theRace from '../../databases/Races/Orc.json'
-import * as classAbilities from '../../databases/ClassAbilities.json'
 
 import ManySpells from '../../components/Spell/ManySpells'
 
@@ -40,30 +39,24 @@ export default function Race() {
                 <TwoColumns>
                     <Column>
 
-                        { theRace.Race } Abilities are Exhaust-based.
-                        As a { theRace.Race }, you know a certain number of Advanced Abilities.
-                        You can cast each Advanced Ability you know ONCE, then it becomes unusable (Exhausted) until your next Long Rest.
-                        Advanced Abilities are all Abilities from the Spell Lists listed as Advanced.
-                        If an Ability is not listed as Advanced, you can use it as many times as you like.
+                        Lorem {theRace.Race} ipsum dolor sit amet.
+                        Aenean blandit metus nisi, non commodo tortor volutpat ut.
+                        Aenean suscipit, justo vitae faucibus viverra, lectus lacus laoreet ipsum, quis suscipit purus ex et tellus. Suspendisse congue libero sed molestie efficitur. Proin maximus sagittis nunc lacinia porttitor.
+                        Maecenas fermentum lacinia mi, a elementum nibh tristique at. In eget nisl nunc.
 
                         <Separator/>
 
-                        { theRace.Race } Abilities are Exhaust-based.
-                        As a { theRace.Race }, you know a certain number of Advanced Abilities.
-                        You can cast each Advanced Ability you know ONCE, then it becomes unusable (Exhausted) until your next Long Rest.
-                        Advanced Abilities are all Abilities from the Spell Lists listed as Advanced.
-                        If an Ability is not listed as Advanced, you can use it as many times as you like.
+                        Lorem {theRace.Race} ipsum dolor sit amet.
+                        Aenean blandit metus nisi, non commodo tortor volutpat ut.
+                        Aenean suscipit, justo vitae faucibus viverra, lectus lacus laoreet ipsum, quis suscipit purus ex et tellus. Suspendisse congue libero sed molestie efficitur. Proin maximus sagittis nunc lacinia porttitor.
+                        Maecenas fermentum lacinia mi, a elementum nibh tristique at. In eget nisl nunc.
 
                         <Separator/>
 
-                        { theRace.Race } Abilities are Exhaust-based.
-                        As a { theRace.Race }, you know a certain number of Advanced Abilities.
-                        You can cast each Advanced Ability you know ONCE, then it becomes unusable (Exhausted) until your next Long Rest.
-                        Advanced Abilities are all Abilities from the Spell Lists listed as Advanced.
-                        If an Ability is not listed as Advanced, you can use it as many times as you like.
-                        As a { theRace.Race }, you know a certain number of Advanced Abilities.
-                        You can cast each Advanced Ability you know ONCE, then it becomes unusable (Exhausted) until your next Long Rest.
-                        Advanced Abilities are all Abilities from the Spell Lists listed as Advanced.
+                        Lorem {theRace.Race} ipsum dolor sit amet.
+                        Aenean blandit metus nisi, non commodo tortor volutpat ut.
+                        Aenean suscipit, justo vitae faucibus viverra, lectus lacus laoreet ipsum, quis suscipit purus ex et tellus. Suspendisse congue libero sed molestie efficitur. Proin maximus sagittis nunc lacinia porttitor.
+                        Maecenas fermentum lacinia mi, a elementum nibh tristique at. In eget nisl nunc.
 
                     </Column>
                     <Column>
@@ -84,21 +77,7 @@ export default function Race() {
 
             </div>
 
-            {/* {
-                Object.keys(theClass['Specs']).map(specName => {
-                    const spec = theClass['Specs'][specName]
-                    return (
-                        <Spec name={specName} spec={spec}>
-
-                        <PageH3>Choose One...</PageH3>
-                        <ManySpells spells={U.spellsFromObject(spec.Abilities)}/>
-
-                        <SpecTalents spec={spec}/>
-
-                        </Spec>
-                    )
-                })
-            } */}
+            
 
         </div>
         )
