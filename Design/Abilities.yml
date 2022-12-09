@@ -114,7 +114,7 @@
 #     - Eldritch    (Warlocks, some Clerics)
 # 
 # Insight-based:
-#     - Maneuvers (Paladin, Hunter)
+#     - Warfare   (Paladin, Hunter)
 #     - Nature    (Druid, Hunter)
 #     - Faith     (Paladin, Shaman)
 #     - Mysticism (Shaman, Druid)
@@ -152,6 +152,7 @@
 
 
 Default Moves:
+
 
     ~Dash~:
         A: 1 Action
@@ -201,6 +202,7 @@ Default Moves:
 
 Bloodshed:
 
+
 # [ ] Elemental Damage
 # [ ] Damage (1 Action)
 # [x] Damage (1 Action)     (Advanced)
@@ -240,17 +242,20 @@ Bloodshed:
         Range: 1 meter
         Effect: A target becomes Slowed for 1 turn.
     
-    ~Hide~ :
-      A: Special
-      Cooldown: Once per encounter
-      Effect: |
-        When combat starts, if you have Cover, you start as Hidden.
-        While Hidden, you can skip your turn.
-        Then, you can unhide and start your turn whenever you like (even during enemies' turns).
-        If you did this, when your turn ends, you are no longer hidden.
-      Notes: |
-        Essentially, you can interrupt another Unit's turn, put that unit on pause, and start your turn. When your turn ends, the Unit resumes its turn.
-        If you want to start during an enemy's turn, you do so when they declare they want to do something or after they finish doing something.
+    ~Hide~:
+        A: Special
+        Cooldown: Once per encounter
+        Effect: |
+          When combat starts, if you have Cover from all enemies, you start as Hidden.
+          While Hidden, you can skip your turn.
+          Then, you can unhide and start your turn whenever you like (even during enemies' turns).
+          If you did this, when your turn ends, you are no longer hidden.
+        Notes: |
+          Attacking or using Abilities or moving out of cover in relation to any enemy makes you unhides you.
+          If you don't start your turn this round, you essentially lose your turn. You don't take 2 turns next round.
+          If you want to start during an enemy's turn, you do so when they declare they want to do something or after they finish doing something.
+          In special circumstances, the DM might ask you to make a Dexterity Check to remain Hidden.
+          You can't become Hidden through non-Ability means.
 
     ~Lightstrike~:
         A: Half-Action
@@ -301,7 +306,7 @@ Bloodshed:
     ~Vault Break~:
         A: 0 Actions
         Cost: 1 Mana
-        Effect: Break an obstacle near you that takes at most 4 square meters area and is made of wood, rubble, shrubbery, dirt, ice, magic barrier or any similar material. If you moved this turn, you can move again.
+        Effect: Attack and break an obstacle near you that takes at most 4 square meters area and is made of wood, rubble, shrubbery, dirt, ice, magic barrier or any similar material. After casting this Ability, if you moved this turn, you can continue your movement.
         Notes: 4 square meters means either 4x1 meters or 2x2 meters. The height of the obstacle can be up to 3 meters tall, but it's up to the GM's whether you can break certain tall objects.
 
     ~Blood Foment~:
@@ -313,7 +318,7 @@ Bloodshed:
             A target must pass a Charisma check or take 4d6 Fire damage (or half if it succeeds) and be limited to only one attack per turn; it must make the Check again at the end of its every turn and this limit persists until it succeeds.
         Note: The damage happens only once, when you use this Ability.
 
-Maneuvers:
+Warfare:
 
 # [ ] Damage (1 Action)
 # [ ] Damage (1 Action)     (Advanced)
@@ -330,6 +335,7 @@ Maneuvers:
 # [ ] Buff
 # [ ] Debuff
 # [ ] Mobility
+
 
     ~Aim~:
         A: Half-Action
@@ -403,6 +409,7 @@ Elemental:
 # [ ] Debuff
 # [ ] Mobility
 
+
     # Basic Spells
     ~Acid Burst~:
         A: Half-Action
@@ -463,7 +470,7 @@ Elemental:
             Choose a 1x1x1 meter cube of dirt, loose stone, sand, etc.
             You can do the following things to it.
             - You can move it 1 meter in any direction.
-            If a Unit was hit by it or it was removed from below a Unit's feet, it rolls a Dexterity Check (against your Spell Grade).
+            If a Unit was hit by it or it was removed from below a Unit's feet, it rolls a Dexterity Check (against your Counter Check Grade).
             If it fails, it takes 1d8 damage and is knocked prone.
             If a Unit is burried in dirt (or loose stone, etc) after failing the Check, it takes 1d8 additional damage (directly).
             - You can roughly shape it in any form
@@ -543,7 +550,7 @@ Elemental:
         Effect: |
             Place a rune on a smooth solid surface. The rune covers a 1x1 area.
             Heavy physical contact with the rune detonates it, dealing 4d6 Cold damage (against Defense) to the Unit that activates it.
-            Also, try to Snare the Unit (Dexterity Check).
+            Also, it must pass a Dexterity Check or be Snared.
 
     ~Explosion Rune~:
         A: 1 Action
@@ -581,7 +588,7 @@ Elemental:
         Effect: |
             Choose a piece of metal and heat it.
             - If it's an armor, the wearer takes 2d6 + 1 Fire damage (directly).
-            - If it's a weapon, the wearer takes Main Stat Damage (directly) and try to Cripple it (Might Check).
+            - If it's a weapon, the wearer takes Main Stat Damage (directly) and Also, it must pass a Might Check or be Crippled.
 
     ~Flame Strike~:
         A: 1 Action
@@ -644,6 +651,7 @@ Arcane:
 # [x] Buff
 # [ ] Debuff
 # [x] Mobility
+
 
     # Basic Spells
            
@@ -855,6 +863,7 @@ Nature:
 # [ ] Debuff
 # [ ] Mobility
 
+
     # Basic Spells
     ~Alarm~ :
         A: 10 minutes
@@ -977,6 +986,7 @@ Conjuration:
 # [ ] Buff
 # [ ] Debuff
 # [ ] Mobility
+
 
     ~Conjure Ammo~:
         A: 1 Action
@@ -1135,7 +1145,7 @@ Conjuration:
         Effect: |
             Declare a 4x4 meter zone
             The zone becomes filled with spider web and counts as Difficult Terrain.
-            If a Unit exits the zone, try to Snare it (Dexterity Check).
+            If a Unit exits the zone, Also, it must pass a Dexterity Check or be Snared.
 
     ~Shadow Clone~:
         A: 0 Actions
@@ -1230,6 +1240,10 @@ Mysticism:
 # [x] Buff                              [Checks (Guidance)]
 # [ ] Debuff
 # [ ] Mobility
+
+    Description: |
+        Mysticism is the art of scrying and affecting the mind. Often mystics use these spells to gain information or hinder foes in combat. Some call mysticism the art of psyonics, others call it "being lucky" (which is a form of magic too, luck).
+        All Abilities in this List are considered Spells and are affected by Silence effects (see Crowd Control).
 
     # Basic Spells
     ~Guidance~ :
@@ -1352,6 +1366,7 @@ Eldritch:
 # [x] Debuff                            [Curse of Weakness]
 # [ ] Mobility
 
+
     ~Decaying Blight~:
         A: Channeled
         Cooldown: 1 hour
@@ -1460,6 +1475,7 @@ Divine:
 # [ ] Buff
 # [ ] Debuff
 # [ ] Mobility
+
 
     # Basic Spells
     ~Cure Disease~: Inherit
@@ -1571,6 +1587,7 @@ Faith:
 # [ ] Debuff
 # [ ] Mobility
 
+
     ~Cure Disease~: Inherit
     ~Cure Poison~: Inherit
     ~Detect Poison and Disease~: Inherit
@@ -1616,3 +1633,6 @@ Faith:
         Cost: 1 Insight
         Effect: |
             Remove all your party members' Exhaustion from rising after being Fallen, from not sleeping and from magical effects.
+
+    
+    

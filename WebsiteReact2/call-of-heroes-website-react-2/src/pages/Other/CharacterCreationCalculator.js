@@ -244,7 +244,7 @@ export default function CharacterCreationCalculator() {
 
                         <SmallStat name="Spellcasting Type" color="blue">{ classObj.Spellcasting.Type }</SmallStat>
 
-                        <SmallStat name="Spell Check Grade" color="blue">{ parseInt(state[state['Main Stat']]) + 6 }</SmallStat>
+                        <SmallStat name="Counter Check Grade" color="blue">{ parseInt(state[state['Main Stat']]) + 6 }</SmallStat>
 
                         { classObj.Spellcasting.Type == 'Mana-based' && (
                             <div>

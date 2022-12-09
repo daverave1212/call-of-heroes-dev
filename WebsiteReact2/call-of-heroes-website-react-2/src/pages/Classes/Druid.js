@@ -20,6 +20,8 @@ import Column from '../../components/TwoColumns/Column'
 import Spell from '../../components/Spell/Spell'
 import Icon from '../../components/Icon'
 
+import Page from '../../containers/Page/Page'
+
 
 import ManySpells from '../../components/Spell/ManySpells'
 
@@ -30,15 +32,11 @@ import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecT
 
 export default function Druid() {
 
-    console.log('DSRUIRDIUDIDD')
-    console.log({theClass})
-
     return (
         <div>
 
-            <div className='page'>
+            <Page title={ theClass.Class }>
 
-                <PageH1>{ theClass.Class }</PageH1>
                 <br/>
 
                 <TwoColumns>
@@ -87,7 +85,7 @@ export default function Druid() {
                     Choose wisely...
                 </p>
 
-            </div>
+            </Page>
 
             {
                 Object.keys(theClass['Specs']).map(specName => {

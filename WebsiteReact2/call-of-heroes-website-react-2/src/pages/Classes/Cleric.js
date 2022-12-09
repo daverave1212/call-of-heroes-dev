@@ -20,6 +20,8 @@ import Column from '../../components/TwoColumns/Column'
 import Spell from '../../components/Spell/Spell'
 import Icon from '../../components/Icon'
 
+import Page from '../../containers/Page/Page'
+
 import theClass from '../../databases/Classes/Cleric.json'
 
 import ManySpells from '../../components/Spell/ManySpells'
@@ -30,10 +32,8 @@ export default function Cleric() {
 
     return (
         <div>
+            <Page title={ theClass.Class }>
 
-            <div className='page'>
-
-                <PageH1>{ theClass.Class }</PageH1>
                 <br/>
 
                 <TwoColumns>
@@ -82,7 +82,7 @@ export default function Cleric() {
                     Choose wisely...
                 </p>
 
-            </div>
+            </Page>
 
             {
                 Object.keys(theClass['Specs']).map(specName => {

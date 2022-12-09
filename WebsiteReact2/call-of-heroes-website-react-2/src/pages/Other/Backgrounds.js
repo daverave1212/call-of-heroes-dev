@@ -14,6 +14,7 @@ import ManySpells from '../../components/Spell/ManySpells'
 import Icon from '../../components/Icon'
 import Spell from '../../components/Spell/Spell'
 import PageH2 from '../../components/PageH2/PageH2'
+import Page from '../../containers/Page/Page'
 
 export default function Backgrounds() {
 
@@ -22,6 +23,8 @@ export default function Backgrounds() {
     const bgs = bgNames.map(bgName => ({Name: bgName, ...backgrounds[bgName]}))
 
     const cbg = backgrounds['Custom Background']
+
+    
 
     return (
         <div className='page'>
@@ -64,7 +67,6 @@ export default function Backgrounds() {
                     </div>
                 </div>
             )) }
-
         </div>
     )
 }

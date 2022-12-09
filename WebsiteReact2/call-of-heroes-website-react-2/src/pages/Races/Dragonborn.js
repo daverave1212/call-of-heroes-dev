@@ -20,6 +20,8 @@ import Column from '../../components/TwoColumns/Column'
 import Spell from '../../components/Spell/Spell'
 import Icon from '../../components/Icon'
 
+import Page from '../../containers/Page/Page'
+
 import theRace from '../../databases/Races/Dragonborn.json'
 
 import ManySpells from '../../components/Spell/ManySpells'
@@ -31,7 +33,7 @@ export default function Race() {
     return (
         <div>
 
-            <div className='page'>
+            <Page>
 
                 <PageH1>{ theRace.Race }</PageH1>
                 <br/>
@@ -78,7 +80,7 @@ export default function Race() {
                     That's all from the Race! Next, choose your character's Class!
                 </p>
 
-            </div>
+            </Page>
 
             
 

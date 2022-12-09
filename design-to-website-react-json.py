@@ -48,6 +48,8 @@ files_to_convert = [    # Order matters
     'Prices.yml',
     'Weapons.yml',
     
+    'Other/SpellSchoolDescriptions.yml',
+
     'Rules/Rules.yml',
     'Rules/CharacterCreation.yml',
     'Rules/COHFor5e.yml',

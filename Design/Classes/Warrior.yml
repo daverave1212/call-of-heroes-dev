@@ -25,16 +25,16 @@ Spellcasting:
   Type: Mana-based
 
   Main Stat: Choose permanently - Wisdom or Charisma
-  Spell DC: 6 + (Main Stat)
+  Counter Check Grade: 6 + (Main Stat)
   Mana:
     Amount: 3
     Regain: You regain all Mana back when you Long Rest.
   Change: You can change your known Spells (not Talents) when taking a Long Rest.
-  Other: All Warrior-specific abilities are considered Maneuvers (unless stated otherwise).
+  Other: All Warrior-specific Abilities are not considered Spells (unless stated otherwise).
   Known Spells: 1 + Your Intelligence
   BaseKnownSpells: 2
   Spell Lists:
-    - Maneuvers
+    - Bloodshed
 
 Starting Abilities:
 
@@ -62,7 +62,6 @@ Specializations:
 # Spec: 4 Charges
 
 # Talent: You can spend 1 Mana to unexhaust one Ability
-# Talent: No Flank Attack cooldown
 
 Specs:
 
@@ -73,8 +72,11 @@ Specs:
 
 # Actions
 
-# Charges       (Talents 2)
+# Charges               (Talents 2)
 # Damage + Utility
+
+# Damage + Protection   (Talents 4)
+# Healing + CC Medium
 
 
   Fighter:                        # 0.5
@@ -106,7 +108,7 @@ Specs:
             Instead of using magic to cast that spell, you use your body/weapons/tools.
             Come up with a description of how it works (see notes).
             The damage of that spell becomes Slash, Smash or Pierce, whichever makes sense.
-            It counts as a Maneuver.
+            It is not considered a Spell.
           Notes: |
             E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce damage).
             E.g. Frost Nova - you smash the ground with such force that it damages and slows units around you (Smash damage).
@@ -137,10 +139,25 @@ Specs:
             Notes:
                 The Glory Point is not a physical thing. It's merely a concept (a point).
                 
-  
+        <Ruining Throw>:
+            A: 0.5 Actions
+            Range: 10 meters
+            Effect: |
+                Throw your weapon at a target and attack it (with the weapon's standard, non-throw damage).
+                Before applying the damage, the attack destroys all Shielding on the target and removes all buffs on it.
+                The target is unable to trigger "on roll", can't gain Shielding and can't benefit from Buffs until they spend 1 Action to recover.
+            Notes: |
+                Your weapon lands at the nearest space to the target (and you should probably pick it up with a Half-Action).
+                "On roll" refers to effects like "if it rolls 10 on a d10, the attack deals 1d10 extra damage".
+                Buffs are all effects that improve the target; even passive effects like auras or passive stats from abilities are negated.
+                You don't need Training in Throwning and this attack counts as a regular melee attack.
 
   
   Battlemaster:                   # 0.5
+  
+#   Rework:
+#       Your Main Stat = your Defense
+#       No more adding/removing 1 Defense; you just juggle with your Main Stat
 
 #	Talents:
 #		Move Defense to ally
@@ -194,7 +211,7 @@ Specs:
           Cooldown: Long Rest
           Effect: |
             Move 3 meters in a straight line, then choose a target near you.
-            That target takes 1d8 damage and try to Stun the target (Might Check).
+            That target takes 1d8 damage and it must pass a Might Check or be Stunned.
 
         <Weaponmaster> :          # 1 because it's bonkers on 1H weapons
           A: Passive

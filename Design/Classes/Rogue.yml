@@ -3,7 +3,7 @@ Description: Rogues are masters of stealth and deception.
 
 Base Health: 6
 
-Armor Training: Medium Armor
+Armor Training: Light Armor
 
 Weapons: Choose a Weapon category (1-Handed Melee, 2-Handed Ranged, Shields, etc) and get Training in it. You are also Trained in Throwing Weapons.
 
@@ -24,16 +24,16 @@ Spellcasting:
   Type: Mana-based
 
   Main Stat: Intelligence
-  Spell DC: 6 + (Main Stat)
+  Counter Check Grade: 6 + (Main Stat)
   Mana:
     Amount: 2
     Regain: You regain all Mana back when you Long Rest.
   Change: You can change your known Spells (not Talents) when taking a Long Rest.
-  Other: All Rogue-specific abilities are considered Maneuvers (unless stated otherwise).
+  Other: All Rogue-specific Abilities are not considered Spells (unless stated otherwise).
   Known Spells: 1 + Your Intelligence
   BaseKnownSpells: 2
   Spell Lists:
-    - Maneuvers
+    - Bloodshed
 
 # Idea: For each Mana spent on Ambush, X happens
 
@@ -52,6 +52,7 @@ Starting Abilities Description:
 Starting Abilities:
   
   ~Ambush~ :      # 0.75
+    AlignOnWebsite: Right
     A: Passive
     Effect: |
       If you start your turn Hidden, your first attack deals 1d6 + 1 extra damage.
@@ -62,23 +63,10 @@ Starting Abilities:
       Your Specialization will give you extra ways to Ambush.
       You can't stack 2 Ambushes at the same time, obviously.
       
-  ~Hide~ :
-    AlignOnWebsite: Right
-    A: Special
-    Cooldown: Once per encounter
-    Effect: |
-      When combat starts, if you have Cover from all enemies, you start as Hidden.
-      While Hidden, you can skip your turn.
-      Then, you can unhide and start your turn whenever you like (even during enemies' turns).
-      If you did this, when your turn ends, you are no longer hidden.
-    Notes: |
-      Attacking or using Abilities or moving out of cover in relation to any enemy makes you unhides you.
-      If you don't start your turn this round, you essentially lose your turn. You don't take 2 turns next round.
-      If you want to start during an enemy's turn, you do so when they declare they want to do something or after they finish doing something.
-      In special circumstances, the DM might ask you to make a Dexterity Check to remain Hidden.
-      You can't become Hidden through non-Ability means.
+  ~Hide~: Inherit
       
   ~Rogue Feats~:
+    AlignOnWebsite: Right
     A: Passive
     Effect: When creating your character, pick either the Dual Wielding Feat or the Duelist Technique Feat.
   
@@ -141,7 +129,7 @@ Specs:
           Cost: All Gold Tokens (at least 1)
           Effect: |
             A Unit within 2 meters must pass a Dexterity Check or be Stunned.
-            For every 2 Gold Tokens you spent, increase the DC of this by 1.
+            For every 2 Gold Tokens you spent, increase the Grade of this by 1.
 
         <Arcane Trickster> :    # 0.5
           A: Passive
@@ -150,7 +138,7 @@ Specs:
             You permanently know 3 Spells from the Arcane and Conjuration Spell Lists.
             Fool's Coin now also applies when spending Mana on a Spell.
             You can change these Spells when you Long Rest.
-            You learn 1 additional ability at Levels 3, 5, 7 and 9.
+            You learn 1 additional Ability from those Spell Lists at Levels 3, 5, 7 and 9.
           
         <Way of Fooling> :      # 0.5
           A: Passive

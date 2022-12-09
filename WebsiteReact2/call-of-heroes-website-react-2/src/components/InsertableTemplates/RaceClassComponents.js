@@ -13,7 +13,7 @@ import SmallStatList from '../SmallStat/SmallStatList'
 
 import Separator from '../Separator/Separator'
 import TableNormal from '../TableNormal/TableNormal'
-import TableNormalLevelUpInsight from '../TableNormal/TableNormalLevelUpExhaust'
+import TableNormalLevelUp from '../TableNormal/TableNormalLevelUp'
 import TwoColumns from '../TwoColumns/TwoColumns'
 import Column from '../TwoColumns/Column'
 
@@ -25,6 +25,7 @@ import abilities from '../../databases/Abilities.json'
 import ManySpells from '../Spell/ManySpells'
 import TableNormalLevelUpWarlock from '../TableNormal/TableNormalLevelUpWarlock'
 import ManySmallStats from '../SmallStat/ManySmallStats'
+import Page from '../../containers/Page/Page'
 
 export function ClassFeatures({ theClass }) {
     return (
@@ -34,9 +35,9 @@ export function ClassFeatures({ theClass }) {
             <TwoColumns>
                 <Column>
                     <div className='with-margined-children'>
-                        <SmallStat name="Health">{ theClass['Base Health'] }</SmallStat>
+                        <SmallStat name="Health">{ theClass['Base Health'] }<Icon name="Health" type="small-stat"/></SmallStat>
                         <SmallStat name="Armor Training">{ theClass['Armor Training'] }</SmallStat>
-                        <SmallStat name="Base Defense">0 + Your Armor<Icon name="Defense"/>Defense</SmallStat>
+                        <SmallStat name="Base Defense">0 + Your Armor<Icon name="Defense" type="small-stat"/>Defense</SmallStat>
                         { theClass['Language'] && <SmallStat name="Language" topDown='true'>{ theClass['Language'] }</SmallStat> }
                         { theClass.Weapons && <SmallStat name="Weapons" topDown='true'>{ theClass.Weapons }</SmallStat> }
                         <SmallStat name="Feats" topDown='true'>You start with one Feat of choice.</SmallStat>
@@ -87,8 +88,6 @@ export function RaceFeatures({ theRace }) {
 }
 
 export function LevelingUp({ theClass }) {
-    console.log(`Received theClass at LevelingUp as:`)
-    console.log({theClass})
     return (
         <div style={{marginTop: 'var(--page-padding)'}}>
             <PageH3>Leveling Up</PageH3>
@@ -99,7 +98,7 @@ export function LevelingUp({ theClass }) {
                         theClass['Spellcasting']['Type'] == 'Special Mana-based'? (
                             <TableNormalLevelUpWarlock/>
                         ) : (
-                            <TableNormalLevelUpInsight/>
+                            <TableNormalLevelUp/>
                         )
                     }
                 </Column>
@@ -125,12 +124,7 @@ export function LevelingUp({ theClass }) {
                                     </tr>
                                 </TableNormal>
                 
-                                <p>
-                                    When you level up (e.g. Level 1 to Level 2), you gain some Health, a Known Spell and +1 total available Insight.
-                                    Also, depending on your level, you also gain something else (see the table on the left).
-                                </p>
-                
-                                <p>Once you reach Level 4, you unlock the Action Surge Ability.</p>
+                                <p style={{whiteSpace: 'pre-wrap'}} className='margined-bottom'>{ rules['LevelUpBonusesDescription (Insight-based)'] }</p>
                 
                                 <Spell spell={abilities['Default Moves']['~Action Surge~']}/>
                             </div>
@@ -155,13 +149,7 @@ export function LevelingUp({ theClass }) {
                                     </tr>
                                 </TableNormal>
                 
-                                <p>
-                                    When you level up (e.g. Level 1 to Level 2), you gain some Health and a Known Spell.
-                                    You also gain 1 more Mana per Long Rest (raises your maximum number of Mana points).
-                                    Also, depending on your level, you also gain something else (see the table on the left).
-                                </p>
-                
-                                <p>Once you reach Level 4, you unlock the Action Surge Ability.</p>
+                                <p style={{whiteSpace: 'pre-wrap'}} className='margined-bottom'>{ rules['LevelUpBonusesDescription (Mana-based)'] }</p>
                 
                                 <Spell spell={abilities['Default Moves']['~Action Surge~']}/>
                             </div>
@@ -181,13 +169,7 @@ export function LevelingUp({ theClass }) {
                                     </tr>
                                 </TableNormal>
                 
-                                <p>
-                                    When you level up (e.g. Level 1 to Level 2), you gain some Health and a Known Spell.
-                                    You also gain 1 more Mana per Long Rest (raises your maximum number of Mana points).
-                                    Also, depending on your level, you also gain something else (see the table on the left).
-                                </p>
-                
-                                <p>Once you reach Level 4, you unlock the Action Surge Ability.</p>
+                                <p style={{whiteSpace: 'pre-wrap'}} className='margined-bottom'>{ rules['LevelUpBonusesDescription (Special Mana-based)'] }</p>
                 
                                 <Spell spell={abilities['Default Moves']['~Action Surge~']}/>
                             </div>
@@ -208,15 +190,16 @@ export function SpellCasting({ theClass }) {
         return (
             <div>
                 <PageH3>Mana-Based Spellcasting</PageH3>
-                <p>{ theClass.Class } Abilities are Mana-based.</p>
-                <span style={{ whiteSpace: 'pre-line' }}>{ rules['Known Spells (Mana-based)'] }</span>
-                <Separator/>
-                All your Mana replenishes when you finish a Long Rest.
-                <br/><br/>
-                <PageH3>Changing Spells</PageH3>
-                You can change your known Spells (not Talents) when taking a Long Rest.<br/>
-                Talents can't generally be changed once picked; they are permenant decisions.
-                { theClass.Spellcasting.Other }
+                <p>
+                    <span style={{ whiteSpace: 'pre-line' }}>{ rules['Known Spells (Mana-based)'] }</span>
+                    <Separator/>
+                    All your Mana replenishes when you finish a Long Rest.
+                    <br/><br/>
+                    <PageH3>Changing Spells</PageH3>
+                    You can change your known Spells (not Talents) when taking a Long Rest.<br/>
+                    Talents can't generally be changed once picked; they are permenant decisions.
+                    { theClass.Spellcasting.Other }
+                </p>
             </div>
         )
     }
@@ -224,15 +207,16 @@ export function SpellCasting({ theClass }) {
         return (
             <div>
                 <PageH3>Insight-Based Spellcasting</PageH3>
-                <p>{ theClass.Class } Abilities are Insight-based.</p>
-                <span style={{ whiteSpace: 'pre-line' }}>{ rules['Known Spells (Insight-based)'] }</span>
-                <Separator/>
-                All your Cooldowns reset when you finish a Long Rest. If you see the term Insight Ability, that just refers to an Ability that requires Insight.
-                <br/><br/>
-                <PageH3>Changing Spells</PageH3>
-                <span style={{ whiteSpace: 'pre-line' }}>{ rules['Relearning Spells'] }</span>
-                <br/>
-                { theClass.Spellcasting.Other }
+                <p>
+                    <span style={{ whiteSpace: 'pre-line' }}>{ rules['Known Spells (Insight-based)'] }</span>
+                    <Separator/>
+                    All your Cooldowns reset when you finish a Long Rest. If you see the term Insight Ability, that just refers to an Ability that requires Insight.
+                    <br/><br/>
+                    <PageH3>Changing Spells</PageH3>
+                    <span style={{ whiteSpace: 'pre-line' }}>{ rules['Relearning Spells'] }</span>
+                    <br/>
+                    { theClass.Spellcasting.Other }
+                </p>
             </div>
         )
     }
@@ -240,14 +224,15 @@ export function SpellCasting({ theClass }) {
         return (
             <div>
                 <PageH3>Special Mana-Based Spellcasting</PageH3>
-                <p>{ theClass.Class } Abilities are Mana-based, with a twist.</p>
-                As a { theClass.Class }, you have a number of Mana points.
-                Unlike other Mana-based classes, your Mana instantly regeneraets 10 minutes after finishing every combat encounter (if you don't enter another combat meanwhile).
-                <br/><br/>
-                <PageH3>Changing Spells</PageH3>
-                You can change your known Spells (not Talents) when taking a Long Rest.<br/>
-                Talents can't generally be changed once picked; they are permenant decisions.
-                { theClass.Spellcasting.Other }
+                <p>
+                    As a { theClass.Class }, you have a number of Mana points.
+                    Unlike other Mana-based classes, your Mana instantly regeneraets 10 minutes after finishing every combat encounter (if you don't enter another combat meanwhile).
+                    <br/><br/>
+                    <PageH3>Changing Spells</PageH3>
+                    You can change your known Spells (not Talents) when taking a Long Rest.<br/>
+                    Talents can't generally be changed once picked; they are permenant decisions.
+                    { theClass.Spellcasting.Other }
+                </p>
             </div>
         )
     }
@@ -268,7 +253,7 @@ export function SpellCasting({ theClass }) {
                             <SmallStat name="Insight" color="blue">{ theClass['Spellcasting']['Insight'] } <Icon name="Insight"/></SmallStat>
                         ) }
                         <SmallStat name="Main Stat" color="blue">{ theClass['Spellcasting']['Main Stat'] }</SmallStat>
-                        <SmallStat name="Enemy Check Grade" color="blue">{ theClass['Spellcasting']['Spell DC'] }</SmallStat>
+                        <SmallStat name="Counter Check Grade" color="blue">{ theClass['Spellcasting']['Counter Check Grade'] }</SmallStat>
                     </div>
                     
                     <PageH3>Known Spells</PageH3>
@@ -328,16 +313,15 @@ export function PHealthAndArmor({ theClass }) {
 
 export function Spec({ children, name, spec }) {
     return (
-        <div className='page' key={name}>
-            <PageH1>{name}</PageH1>
+        <Page title={name} key={name}>
             <p>{spec.Description}</p>
 
             <PageH3>You start with...</PageH3>
 
             <ManySpells spells={U.spellsFromObject(spec['Starting Abilities'])}/>
-            
+
             {children}
-        </div>
+        </Page>
     )
 }
 

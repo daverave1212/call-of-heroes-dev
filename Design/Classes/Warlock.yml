@@ -22,12 +22,12 @@ Spellcasting:
   Type: Special Mana-based
 
   Main Stat: Choose permanently - Intelligence or Charisma
-  Spell DC: 6 + (Main Stat)
+  Counter Check Grade: 6 + (Main Stat)
   Mana:
     Amount: 2
     Regain: Your Mana reset after every combat.
   Change: You can change your known Spells (not Talents) when taking a Long Rest.
-  Other: All Warlock-specific abilities are considered spells.
+  Other: All Warlock-specific Abilities are considered Spells.
   Known Spells: 4 + Your Intelligence
   BaseKnownSpells: 4
   Spell Lists:
@@ -65,7 +65,7 @@ Abilities Description:
   - Celestial Patron: |
         A being from a divine plain. Portrayed as angels or divine spirits of life and death.
         This provides you with the Life Cycle Ability which can function as an emergency heal in combat. This Ability can be used on yourself, too.
-        Note that it simply draws from the Extra Health pool! It is not Health out of thin air!
+        Note that it simply draws from the Reserve Health pool! It is not Health out of thin air!
   - Demon or Devil Patron: |
         A being residing in Hell, an archdevil or lord in hell.
         This provides the Soul Drain Ability, which gives you a consistent Damage source that can heal you back.
@@ -106,7 +106,7 @@ Abilities:
     AlignOnWebsite: Right
     A: 0.5 Actions
     Cost: 5 Health
-    Effect: Heal a Unit within 10 meters for up to 10 Health from their remaining Extra Health Pool.
+    Effect: Heal a Unit within 10 meters for up to 10 Health from their remaining Reserve Health Pool.
 
   ~Demon Patron~:       # 0.5
     A: Passive
@@ -173,7 +173,7 @@ Specs:
           A: Passive
           Effect: |
             Your Hexblade Ability is changed and now has the following effect:
-            After you attack with a weapon, your next offensive spell has +1 DC and deals +1d6 damage.
+            After you attack with a weapon, your next offensive spell has +1 Counter Check Grade and deals +1d6 damage.
 
         <Doublehex> :               # 0.25
           A: Passive
@@ -211,6 +211,11 @@ Specs:
 
 # CC Hard (Sleep)       (Talents 2)
 # Utility
+# Utility
+
+# Charges + Stats       (Talents 4)
+# Summon
+# Summon
 
     Description: Lorem "ipsum dolor" sit amet.
     Starting Abilities:
@@ -261,14 +266,14 @@ Specs:
           A: Passive
           Effect: |
             You speak all Common and Wild languages.
-            You have +1 Spell DC.
+            You have +1 Counter Check Grade.
 
         <Impmaster> :               # 0.feat 
           A: Special
           Effect: When you get this Talent, gain 1 Feat.
 
         <Dream Walk>:
-          A: 0.5 Actions            # 1
+          A: Half-Action            # 1
           Cooldown: Long Rest
           Range: 6 meters
           Effect: |
@@ -278,9 +283,29 @@ Specs:
 
       Level 4:
       
-        <Demon Shape>:
+        <Patron Aspect>:
+          A: 0 Actions
+          Cost: 10 Health
+          Effect: |
+            You take on the shape or a being from your patron's plane until the end of your next turn.
+            You have +2 Defense, +2 Main Stat, and your Generic Spells require no mana to cast.
+            After you cast a Generic Spell for free, it goes on a Long Rest Cooldown.
         
-        <Patron Avatar>:            # 2 turns  = 2 Charges
+        <Dual Summonation>:         # Makes up for it in 3 turns-ish; 4th turn is definitely worth it; 5th is already bonkers
+          A: Half-Action
+          Cooldown: Long Rest
+          Effect: |
+            Summon 2 Dual-Imps at any spaces within 6 meters and choose a target.
+            These 2 imps will cast Chase Bolt and chase their target to death. Otherwise, they don't move from their spot.
+            They last for 10 minutes or until thet target is defeated or they can't attack it.
+            Imps take their turn immediately after you.
+            See the Pets section for the Dual-Imp stats.
+          Notes: |
+            Imps become unsummoned at the start of their turn if the target dies or it becomes untargetable or invisible; Imps will chase around corners, though. Imps don't care about Cover; they attack anyway.
+            Imps aren't very smart, they don't employ tactics.
+          
+        
+        <Patron Avatar>:            # 2 turns = 2 Charges
           A: 0 Actions
           Cost: 1 Mana
           Cooldown: Long Rest

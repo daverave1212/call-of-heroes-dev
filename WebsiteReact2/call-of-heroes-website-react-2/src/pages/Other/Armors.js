@@ -8,6 +8,7 @@ import armors from '../../databases/Armors.json'
 import ManyBoxes from '../../components/Spell/ManyBoxes'
 import PageH2 from '../../components/PageH2/PageH2'
 import PageH1 from '../../components/PageH1/PageH1'
+import Page from '../../containers/Page/Page'
 
 export default function Armors() {
 
@@ -18,13 +19,13 @@ export default function Armors() {
     const armorCategories = Object.keys(armors).filter(key => key != 'default')
 
     return (
-        <div className='page'>
+        <div>
             {
                 armorCategories.map(categoryName => (
-                    <div>
+                    <Page>
                         <PageH1>{categoryName}</PageH1>
                         <ManyBoxes objects={U.spellsFromObject(armors[categoryName])} type='armor'/>
-                    </div>
+                    </Page>
                 ))
             }
         </div>

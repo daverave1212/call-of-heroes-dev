@@ -24,9 +24,9 @@ Spellcasting:
   Type: Insight-based
 
   Main Stat: Choose permanently - Wisdom and Charisma
-  Spell DC: 6 + (Main Stat)
+  Counter Check Grade: 6 + (Main Stat)
   Change: You can change your known Spells (not Talents) when taking a Long Rest.
-  Other: All Paladin-specific abilities are considered spells (unless stated otherwise).
+  Other: All Paladin-specific Abilities are considered Spells (unless stated otherwise).
   
   Known Spells: 3 + Your Intelligence
   Insight: 2
@@ -34,8 +34,8 @@ Spellcasting:
   BaseKnownSpells: 3
 
   Spell Lists:
-    - Maneuvers
-    - Divine
+    - Warfare
+    - Faith
 
 
 Starting Abilities:
@@ -50,7 +50,7 @@ Starting Abilities:
   ~Lay on Hands~ :      # 1 Charge
     A: 1 Action
     Effect: |
-      You have a pool of 6 + Your Level Holy points.
+      You have 3 + Main Stat + Your Level Holy points.
       Using an action, you can expend any amount of Holy Points to heal a creature for that amount.
       All your Holy Points replenish on Long Rests.
 
@@ -64,7 +64,8 @@ Starting Abilities Description:
   - Divine Sense: |
       You have the power to detect foul creatures within range. Use this carefully, as it has a long cooldown.
   - Lay on Hands and Divine Smite: |
-      At Level 1, you have 7 Holy points. At Level 2, you have 8 Holy points. And so on.
+      If your Main Stat is 2, then at Level 1 you have 3 + 2 + 1 Holy Points; that means 6 Holy Points.
+      At Level 2, you have 8 Holy points. At Level 3, you have 9 Holy points. And so on.
       You might receive other Abilities in the future that consume or replenish Holy Points.
       Divine Smite will bring wrath upon your foes!
         
@@ -92,7 +93,8 @@ Specializations:
 # Talent: Auras
 # Talent: Faith - you have to trust if it will work or not (maybe bet on hitting or missing?)
 # Talent: Spirit guardians
-# Talent: Platinum storm
+# Talent: Platinum storm (Smite on all units)
+# Talent: Extra Smite damage
 
 Specs:
 
@@ -108,6 +110,8 @@ Specs:
 # Damage (Sustained)
 
 # Charges           (Talents 4)
+# Damage (Burst)
+# Tanking
 
   Conquest:                 # 0.5
     Description: Lorem! Lorem ipsum!!
@@ -141,7 +145,7 @@ Specs:
             
         <Retribution>:      # 1
           A: Special
-          Effect: You permanently lose Lay on Hands, but you gain 2 Insight and gain access to the Eldritch Spell List. For you, if an Eldritch Spell costs mana, it instead requires the same amount of Insight and has a Long Rest Cooldown (regardless of its normal Cooldown).
+          Effect: You lose Lay on Hands, but you gain 2 Insight and gain access to the Eldritch Spell List. For you, if an Eldritch Spell costs mana, it instead requires the same amount of Insight and has a Long Rest Cooldown (regardless of its normal Cooldown).
 
         <Fury Smite>:       # 1
           A: 0 Actions
@@ -168,17 +172,32 @@ Specs:
             A: Passive
             Effect: |
                 When a Worthy Enemy dies in combat, get a Vengeance Counter.
-                Every 6 Vengeance Counters, reset the Cooldown of a 1 Insight Spell from the Spell Lists you know.
+                Every 6 Vengeance Counters, reset the Cooldown of a 1 Generic Insight Spell you Know.
                 You keep your Vengeance Counters even on Long Rests.
+                
+        <Victory Smite>:
+            A: Passive
+            Effect: After half (rounded down) of Worthy Enemies in a combat have been defeated, reset the Cooldown of Divine Smite.
+            
+        <Lay on Arms>:      # 1 from free LoH,
+            A: Reaction
+            Cost: 6 Health
+            Cooldown: 1 use / Combat
+            Effect: Use when you would take damage. Negate all the damage. After this, you can immediately freely use Lay on Hands without using Actions.
+        
+        
 
 # Healing + Immunity
 # Healing
 
 # Damage (Burst)        (Talents 2)
 # Protection
-# Damage (Sustained)
+# Damage (Sustained) + Healing
 
 # Healing               (Talents 4)
+# Protection/Stats
+# CC (Hard AoE)
+# Stats
 
   Devotion:                 # 0.8
     Description: Lorem, ipsum, dolor sit amet!
@@ -193,8 +212,8 @@ Specs:
       ~Divine Power~ :
         A: 0 Actions
         Effect: |
-            Pick any Spell you know that has a Long Rest Cooldown. It goes on a Cooldown (without using it).
-            Gain 6 Holy Points.
+            Pick any Spell you know that costs Insight and has a Long Rest Cooldown. It goes on a Cooldown (without using it).
+            Gain 6 Holy Points for each Insight Point it costs.
         Notes: You can't keep more than your maximum number of Holy Points through a Long Rest.
 
     Talents:
@@ -227,12 +246,34 @@ Specs:
  
       Level 4:
       
-        <Life Echo>:                   # 2? maybe less
+        <Life Echo>:                   # 2
             A: 0 Actions
             Effect: |
                 You put a Life Echo on an ally.
                 Whenever YOU heal another Unit, the unit with the Life Echo on them is also healed for 50% of that amount.
                 Lasts 1 minute.
+                
+        <Devotion Aura>:                # Hard to say
+            A: Passive
+            Effect: |
+                All allies on your team have +1 Defense if their Defense is lower than 3.
+            Notes: Does not stack with itself multiple times (from multiple Paladins).
+            
+        <Broken Hearts>:
+            A: 1 Action
+            Requirement: Only usable if all your Generic Abilities that cost Insight are on Cooldown
+            Cooldown: Long Rest
+            Effect: |
+                All Humanoids within 4 meters of you must pass a Wisdom Check or take 3d4 True Damage and be Stunned.
+                They take half of that damage if they pass.
+ 
+        <Improved Faith Casting>:
+            A: Special
+            Effect: |
+                Your Generic Faith Spells are amplified:
+                Invigorate now heals for an extra 1d4.
+                Searing Smite deals an extra 1d4 damage (both on hit and delayed).
+                Vindication always heals for an additional of 1d4.
  
 # Talent: When you use Oath of Protection...
 
@@ -244,6 +285,8 @@ Specs:
 # Buff (Damage + Healing)
 
 # Protection            (Talents 4)
+# Damage
+# Stats
 
   Protection:               # 0.75
     Description: Lorem. Lorem ipsum dolor sit amet.
@@ -261,8 +304,8 @@ Specs:
         A: Passive
         Effect: |
           You stand out for allies adjacent to you.
-          Enemy ranged attacks against other allies adjacent to you have Cover.
-        Notes: Nothing happens if an ally adjacent to you already has Cover.
+          Enemy ranged attacks against other allies next to you have Cover.
+        Notes: Nothing happens if an ally adjacent to you already has Cover. Next to you means 1 meter away (a square immediately next to you; works diagonally).
 
     Talents:
       Level 2:
@@ -281,7 +324,7 @@ Specs:
           Cooldown: Long Rest
           Effect: |
             Make a spell attack on a target for 2d10 Force damage.
-            It must pass a Might Check or be Dazed and pushed away from you until the distance between you and the target is 6 meters.
+            It must pass a Might Check or be Crippled and pushed away from you until the distance between you and the target is 6 meters.
             If it stops in a wall or another enemy, it takes another 1d10 Force damage.
 
         <Consacrated Zone>:
@@ -306,6 +349,18 @@ Specs:
                 Declare a 7x7 area.
                 All units in the area take only 50% damage (after Defense).
                 Lasts until the start of your next turn's next turn.
+                
+        <Oath of Revenge>:
+            A: Passive
+            Effect: |
+                After you use Oath of Protection, you can immediately make an attack (freely) with a 1-Handed Melee Weapon on the attacker.
+                This attack has 3 meters range and deals True damage.
+                You can apply Smites to it.
+                
+        <Faith Casting>: Inherit
+                
+                
+        
  
 ##########################################################
 

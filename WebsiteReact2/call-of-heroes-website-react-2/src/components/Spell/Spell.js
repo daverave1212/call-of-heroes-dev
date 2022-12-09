@@ -63,6 +63,12 @@ export default function Spell({ children, spell, style }) {
                             ) }
                             { Range != null && (<div><img src="/Icons/UI/Range.png" className="inline-icon--spell"/>{ Range }</div>) }
                             { Cooldown != null && (<div><img src="/Icons/UI/Cooldown.png" className="inline-icon--spell"/>{ Cooldown }</div>) }
+                            { Requirement != null && (
+                                <div>
+                                    <img src="/Icons/UI/Level.png" className="inline-icon--spell"/>
+                                    <span style={{color: '#FF5A00'}}>Requires { Requirement }</span>
+                                </div>
+                            ) }
                         </div>
                     </div>
                 </div>
