@@ -16,6 +16,8 @@ import CharacterCreationCalculator from './pages/Other/CharacterCreationCalculat
 import TransitionGuide from './pages/Other/TransitionGuide'
 import Backgrounds from './pages/Other/Backgrounds'
 
+import Rule from './pages/Other/Rule';
+
 import PageH1 from './components/PageH1/PageH1'
 import PageH2 from './components/PageH2/PageH2'
 
@@ -37,6 +39,7 @@ import Gnome from './pages/Races/Gnome'
 import Hollow from './pages/Races/Hollow'
 import Human from './pages/Races/Human'
 import Orc from './pages/Races/Orc'
+import LandingPageSeparator from './components/LandingPageSeparator/LandingPageSeparator';
 
 function App() {
   return (
@@ -44,7 +47,7 @@ function App() {
       <BrowserRouter>
 
         <nav>
-          <div className='nav-item'><Link to="/">Home</Link></div>
+          {/* <div className='nav-item'><Link to="/">Home</Link></div> */}
           <div className='nav-item'><Link to="/Other/Abilities">Abilities</Link></div>
           <div className='nav-item'><Link to="/Other/Weapons">Weapons</Link></div>
           <div className='nav-item'><Link to="/Other/Armors">Armors</Link></div>
@@ -79,11 +82,14 @@ function App() {
           </div>
         </nav>
 
+        <LandingPageSeparator/>
+
         <div className="content">
 
             {/* Here will be rendered the page: */}
           <Routes>
             <Route path="/" element={ <Index/> }/>
+            <Route path="/Other/Rule" element={ <Rule/> }/>
             <Route path="/Other/Abilities" element={ <Abilities/> }/>
             <Route path="/Other/Backgrounds" element={ <Backgrounds/> }/>
             <Route path="/Other/Armors" element={ <Armors/> }/>
@@ -113,7 +119,8 @@ function App() {
           </Routes>
 
         </div>
-
+        
+        <LandingPageSeparator/>
         <footer className='footer'></footer>
       </BrowserRouter>
     </div>
