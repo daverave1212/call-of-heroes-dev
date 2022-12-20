@@ -28,7 +28,7 @@ import ManySpells from '../../components/Spell/ManySpells'
 
 import theClass from '../../databases/Classes/Warrior.json'
 
-import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor } from '../../components/InsertableTemplates/RaceClassComponents'
+import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies, } from '../../components/InsertableTemplates/RaceClassComponents'
 
 
 export default function Warrior() {
@@ -71,6 +71,8 @@ export default function Warrior() {
                 </TwoColumns>
 
                 <ClassFeatures theClass={theClass}/>
+
+                <Proficiencies name={theClass.Class} theRaceOrClass={theClass}/>
 
                 <LevelingUp theClass={theClass}/>
          

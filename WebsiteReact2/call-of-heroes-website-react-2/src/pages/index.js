@@ -8,6 +8,16 @@ import './index.css'
 
 export default function() {
 
+  function ButtonStandard({ children }) {
+    return (
+      <button className='button-standard'>
+        <div className='button-standard__content'>
+          { children }
+        </div>
+      </button>
+    )
+  }
+
   const buttonColor = 'var(--button-color)'
 
   return (
@@ -27,8 +37,10 @@ export default function() {
           </p>
     
           <div className='home__hero-section__buttons'>
-            <button style={{zIndex: 999, backgroundColor: buttonColor, border: `solid ${buttonColor} 1px`}} className='button-standard'>Join Beta</button>
-            <button style={{zIndex: 999}} className='button-standard'>Fund on Kickstarter</button>
+            <ButtonStandard>Join Beta</ButtonStandard>
+            <ButtonStandard>Fund on Kickstarter</ButtonStandard>
+            {/* <button style={{zIndex: 999, backgroundColor: buttonColor, border: `solid ${buttonColor} 1px`}} className='button-standard'>Join Beta</button>
+            <button style={{zIndex: 999}} className='button-standard'>Fund on Kickstarter</button> */}
           </div>
         </div>
         

@@ -27,9 +27,8 @@ export default function Backgrounds() {
     
 
     return (
-        <div className='page'>
+        <Page title="Backgrounds">
 
-            <PageH1>Backgrounds</PageH1>
             <p>
                 A Background is one of the 3 components of a Character (Class, Race and Background). Even though it's the least imortant of the 3, the Background always provides you with a Proficiency in a specific skill, a Weapon Training or a Language and some starting money.
                 If you have Proficiency in a certain skill, it means whenever you make a Check for that specific thing (with a 12-sided die), you add your character's Level to the roll.
@@ -44,7 +43,7 @@ export default function Backgrounds() {
                 <SmallStat color="var(--dark-green)" name="Training" topDown={true}>{cbg.Training}</SmallStat>
             </div>
 
-            <PageH2>Standard Backgrounds</PageH2>
+            <PageH2>Backgrounds</PageH2>
             { bgs.map(bg => (
                 <div key={bg.Name}>
                     <PageH3>{ bg.Name }</PageH3>
@@ -67,6 +66,6 @@ export default function Backgrounds() {
                     </div>
                 </div>
             )) }
-        </div>
+        </Page>
     )
 }

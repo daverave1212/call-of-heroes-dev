@@ -2,9 +2,19 @@
     "Class": "Paladin",
     "Description": "Paladins are knights in shiny armor who fight for their god.",
     "Base Health": 8,
-    "Language": "If your Intelligence is at least 2, you can speak either Celestial or Abyssal.",
+    "Language": "If your Intelligence is at least 2, you can speak either Celestial (an angelic language) or Abyssal (non-spoken language of the eldritch creatures).",
     "Weapons": "Choose a Weapon category (1-Handed Melee, 2-Handed Ranged, Shields, etc) and get Training in it. You are also Trained in Shields.",
     "Feats": "You start with one Feat of choice.",
+    "Proficiency Choices": {
+        "~Proficiency in Religion~": {
+            "Display Name": "Prof. in Religion",
+            "Effect": "Add your Level to Wisdom or Intelligence Checks for knowing about religions, praying, performing sermons, faith, etc."
+        },
+        "~Proficiency in Persuasion~": {
+            "Display Name": "Prof. in Persuasion",
+            "Effect": "Add your Level to all Charisma Checks for persuading people non-agressively (convincing them through dialogue)."
+        }
+    },
     "Armor Training": "Heavy Armor",
     "Level Up": {
         "Every Level": {
@@ -34,7 +44,7 @@
         },
         "~Lay on Hands~": {
             "A": "1 Action",
-            "Effect": "You have a pool of 6 + Your Level Holy points.\nUsing an action, you can expend any amount of Holy Points to heal a creature for that amount.\nAll your Holy Points replenish on Long Rests.\n"
+            "Effect": "You have 3 + Main Stat + Your Level Holy points.\nUsing an action, you can expend any amount of Holy Points to heal a creature for that amount.\nAll your Holy Points replenish on Long Rests.\n"
         },
         "~Divine Smite~": {
             "AlignOnWebsite": "Right",
@@ -48,7 +58,7 @@
             "Divine Sense": "You have the power to detect foul creatures within range. Use this carefully, as it has a long cooldown.\n"
         },
         {
-            "Lay on Hands and Divine Smite": "At Level 1, you have 7 Holy points. At Level 2, you have 8 Holy points. And so on.\nYou might receive other Abilities in the future that consume or replenish Holy Points.\nDivine Smite will bring wrath upon your foes!\n  \n"
+            "Lay on Hands and Divine Smite": "If your Main Stat is 2, then at Level 1 you have 3 + 2 + 1 Holy Points; that means 6 Holy Points.\nAt Level 2, you have 8 Holy points. At Level 3, you have 9 Holy points. And so on.\nYou might receive other Abilities in the future that consume or replenish Holy Points.\nDivine Smite will bring wrath upon your foes!\n  \n"
         }
     ],
     "Specializations": {
@@ -103,6 +113,16 @@
                     "<Vengeance>": {
                         "A": "Passive",
                         "Effect": "When a Worthy Enemy dies in combat, get a Vengeance Counter.\nEvery 6 Vengeance Counters, reset the Cooldown of a 1 Generic Insight Spell you Know.\nYou keep your Vengeance Counters even on Long Rests.\n"
+                    },
+                    "<Victory Smite>": {
+                        "A": "Passive",
+                        "Effect": "After half (rounded down) of Worthy Enemies in a combat have been defeated, reset the Cooldown of Divine Smite."
+                    },
+                    "<Lay on Arms>": {
+                        "A": "Reaction",
+                        "Cost": "6 Health",
+                        "Cooldown": "1 use / Combat",
+                        "Effect": "Use when you would take damage. Negate all the damage. After this, you can immediately freely use Lay on Hands without using Actions."
                     }
                 }
             }
@@ -116,7 +136,7 @@
                 },
                 "~Divine Power~": {
                     "A": "0 Actions",
-                    "Effect": "Pick any Spell you know that has a Long Rest Cooldown. It goes on a Cooldown (without using it).\nGain 6 Holy Points.\n",
+                    "Effect": "Pick any Spell you know that costs Insight and has a Long Rest Cooldown. It goes on a Cooldown (without using it).\nGain 6 Holy Points for each Insight Point it costs.\n",
                     "Notes": "You can't keep more than your maximum number of Holy Points through a Long Rest."
                 }
             },
@@ -149,6 +169,21 @@
                     "<Life Echo>": {
                         "A": "0 Actions",
                         "Effect": "You put a Life Echo on an ally.\nWhenever YOU heal another Unit, the unit with the Life Echo on them is also healed for 50% of that amount.\nLasts 1 minute.\n"
+                    },
+                    "<Devotion Aura>": {
+                        "A": "Passive",
+                        "Effect": "All allies on your team have +1 Defense if their Defense is lower than 3.\n",
+                        "Notes": "Does not stack with itself multiple times (from multiple Paladins)."
+                    },
+                    "<Broken Hearts>": {
+                        "A": "1 Action",
+                        "Requirement": "Only usable if all your Generic Abilities that cost Insight are on Cooldown",
+                        "Cooldown": "Long Rest",
+                        "Effect": "All Humanoids within 4 meters of you must pass a Wisdom Check or take 3d4 True Damage and be Stunned.\nThey take half of that damage if they pass.\n"
+                    },
+                    "<Improved Faith Casting>": {
+                        "A": "Special",
+                        "Effect": "Your Generic Faith Spells are amplified:\nInvigorate now heals for an extra 1d4.\nSearing Smite deals an extra 1d4 damage (both on hit and delayed).\nVindication always heals for an additional of 1d4.\n"
                     }
                 }
             }
@@ -164,8 +199,8 @@
                 },
                 "~Stand Behind~": {
                     "A": "Passive",
-                    "Effect": "You stand out for allies adjacent to you.\nEnemy ranged attacks against other allies adjacent to you have Cover.\n",
-                    "Notes": "Nothing happens if an ally adjacent to you already has Cover."
+                    "Effect": "You stand out for allies adjacent to you.\nEnemy ranged attacks against other allies next to you have Cover.\n",
+                    "Notes": "Nothing happens if an ally adjacent to you already has Cover. Next to you means 1 meter away (a square immediately next to you; works diagonally)."
                 }
             },
             "Talents": {
@@ -179,7 +214,7 @@
                         "A": "1 Action",
                         "Range": "6 meters",
                         "Cooldown": "Long Rest",
-                        "Effect": "Make a spell attack on a target for 2d10 Force damage.\nIt must pass a Might Check or be Dazed and pushed away from you until the distance between you and the target is 6 meters.\nIf it stops in a wall or another enemy, it takes another 1d10 Force damage.\n"
+                        "Effect": "Make a spell attack on a target for 2d10 Force damage.\nIt must pass a Might Check or be Crippled and pushed away from you until the distance between you and the target is 6 meters.\nIf it stops in a wall or another enemy, it takes another 1d10 Force damage.\n"
                     },
                     "<Consacrated Zone>": {
                         "A": "0 Actions",
@@ -194,6 +229,14 @@
                         "Cooldown": "Long Rest",
                         "Range": "6 meters to edge",
                         "Effect": "Declare a 7x7 area.\nAll units in the area take only 50% damage (after Defense).\nLasts until the start of your next turn's next turn.\n"
+                    },
+                    "<Oath of Revenge>": {
+                        "A": "Passive",
+                        "Effect": "After you use Oath of Protection, you can immediately make an attack (freely) with a 1-Handed Melee Weapon on the attacker.\nThis attack has 3 meters range and deals True damage.\nYou can apply Smites to it.\n"
+                    },
+                    "<Improved Faith Casting>": {
+                        "A": "Special",
+                        "Effect": "Your Generic Faith Spells are amplified:\nInvigorate now heals for an extra 1d4.\nSearing Smite deals an extra 1d4 damage (both on hit and delayed).\nVindication always heals for an additional of 1d4.\n"
                     }
                 }
             }

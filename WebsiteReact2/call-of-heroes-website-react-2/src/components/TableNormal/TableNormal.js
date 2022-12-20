@@ -2,12 +2,16 @@
 import './TableNormal.css'
 import React from 'react'
 
-export default function TableNormal({ children, columns, type }) {
+export default function TableNormal({ children, columns, type, tableWrapperClass }) {
 
     if (type == null)
         type = 'normal'
 
-    const tableTypeClass = type == 'info'? 'table--info': 'table--normal'
+    const tableTypeClass = 
+        type == 'info'? 'table--info':
+        type == 'info-reverse'? 'table--info-reverse':
+        'table--normal'
+    tableWrapperClass = tableWrapperClass == null? 'table-normal-wrapper' : tableWrapperClass
 
     return (
         <div className='table-normal-container-wrapper'>
@@ -18,8 +22,8 @@ export default function TableNormal({ children, columns, type }) {
                     </tbody></table>
                 </div>
 
-                <div className='table-normal-wrapper'>
-                    <table className={tableTypeClass} cellSpacing="0" css='border: solid red 3px'>
+                <div className={tableWrapperClass}>
+                    <table className={tableTypeClass} cellSpacing="0">
                         <tbody>{children}</tbody>
                     </table>
                 </div>

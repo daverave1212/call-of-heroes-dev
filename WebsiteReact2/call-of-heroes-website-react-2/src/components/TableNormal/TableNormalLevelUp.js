@@ -61,7 +61,7 @@ export default () => (
             <td>Level 9</td>
             <td>
                 Pick one more Talent from either Tier 2 or Tier 4.
-                alternatively, you can get a Feat instead.
+                Alternatively, you can get a Feat instead.
             </td>
         </tr>
         <tr>

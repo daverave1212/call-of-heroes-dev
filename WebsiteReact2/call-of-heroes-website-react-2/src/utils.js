@@ -27,6 +27,37 @@ export function spellFromObject(obj, name) {
 
 
 
+// --------------- Call of Heroes Utilities --------------
+export function isDice(str) {
+    const parts = str.split('d')
+    if (parts.length != 2)          // Must be osmething like <something>d<something>
+        return false
+    if (isStringNumeric(parts[0]) == false)
+        return false
+    if (isStringNumeric(parts[1]) == false)
+        return false
+    return true
+}
+export function isOperator(str) {
+    return str == '+' || str == '-'
+}
+export function getMonsterStatsAsObject(statsString) {
+    let monsterStatsNormalized
+    if (isString(statsString) == false) monsterStatsNormalized = '?/?/?/?/?'
+    else if (statsString.indexOf('/') == -1) monsterStatsNormalized = '?/?/?/?/?'
+    else monsterStatsNormalized = statsString
+
+    const monsterStatsNumbers = monsterStatsNormalized.split('/')
+    const monsterStats = [
+        { name: 'Mig', value: monsterStatsNumbers[0] },
+        { name: 'Dex', value: monsterStatsNumbers[1] },
+        { name: 'Int', value: monsterStatsNumbers[2] },
+        { name: 'Wis', value: monsterStatsNumbers[3] },
+        { name: 'Cha', value: monsterStatsNumbers[4] }
+    ]
+
+    return monsterStats
+}
 
 
 
@@ -46,6 +77,9 @@ export function sortObjectArrayByKey(array, keyName) {
         return aSort - bSort
     })
     return sortedArray
+}
+export function sortSpellsArrayByOrderOnWebsite(array) {
+    return sortObjectArrayByKey(array, 'OrderOnWebsite')
 }
 
 export function insertBetweenAll(array, insertWhat) {
@@ -84,9 +118,10 @@ export function ifOk(whatToCheck, then) {
 
 // Returns an array of componentos
 export function parseTextWithSymbols(text) {
-    const textParts = text.split('{Separator}')
+    const textParts = text.split('\n{Separator}\n')
     return insertBetweenAll(textParts, (<Separator/>))
 }
+
 export function isFormValueNumeric(value) {
     if (value.length == 0)
         return true
@@ -140,6 +175,18 @@ export function isStringNumeric(str) {
     if (typeof str != "string") return false // we only process strings!  
     return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
            !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
+}
+export function getPageHashFromLocation(location) {       // Use 'useLocation' in a component to get location (from 'react-router-dom')
+    return decodeURIComponent(location.hash).substring(1) // Remove the "#" at the beginning
+}
+export function getAnyPropNameExcept(obj, exceptions) {
+    if (Array.isArray(exceptions) == false)
+        exceptions = [exceptions]
+    const props = Object.keys(obj)
+    const remainingProps = props.filter(propName => exceptions.includes(propName) == false)
+    if (remainingProps.length == 0)
+        return null
+    return remainingProps[0]
 }
 
 

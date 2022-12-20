@@ -26,7 +26,7 @@ import theClass from '../../databases/Classes/Cleric.json'
 
 import ManySpells from '../../components/Spell/ManySpells'
 
-import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor } from '../../components/InsertableTemplates/RaceClassComponents'
+import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies } from '../../components/InsertableTemplates/RaceClassComponents'
 
 export default function Cleric() {
 
@@ -67,6 +67,8 @@ export default function Cleric() {
                 </TwoColumns>
 
                 <ClassFeatures theClass={theClass}/>
+
+                <Proficiencies name={theClass.Class} theRaceOrClass={theClass}/>
 
                 <LevelingUp theClass={theClass}/>
          

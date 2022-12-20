@@ -26,7 +26,7 @@ import theRace from '../../databases/Races/Bertle.json'
 
 import ManySpells from '../../components/Spell/ManySpells'
 
-import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, AbilitiesWithDescription, RaceFeatures } from '../../components/InsertableTemplates/RaceClassComponents'
+import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies, AbilitiesWithDescription, RaceFeatures } from '../../components/InsertableTemplates/RaceClassComponents'
 
 // TODO: Idea - have all races/classes be a separate page with hero banners
 
@@ -72,6 +72,8 @@ export default function Race() {
                 </TwoColumns>
 
                 <RaceFeatures theRace={theRace}/>
+
+                <Proficiencies name={theRace.Race} theRaceOrClass={theRace}/>
 
                 <AbilitiesWithDescription spellsObject={theRace['Starting Abilities']} title='Abilities' description={theRace['Starting Abilities Description']}/>
 

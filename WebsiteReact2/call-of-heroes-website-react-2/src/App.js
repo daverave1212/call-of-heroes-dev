@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 import './App.css';
 import './nav.css'
-import './page-style.css'
 
 import Index from './pages/index'
 import Armors from './pages/Other/Armors'
@@ -15,6 +14,7 @@ import CharacterCreation from './pages/Other/CharacterCreation'
 import CharacterCreationCalculator from './pages/Other/CharacterCreationCalculator'
 import TransitionGuide from './pages/Other/TransitionGuide'
 import Backgrounds from './pages/Other/Backgrounds'
+import Monsters from './pages/Other/Monsters'
 
 import Rule from './pages/Other/Rule';
 
@@ -40,47 +40,164 @@ import Hollow from './pages/Races/Hollow'
 import Human from './pages/Races/Human'
 import Orc from './pages/Races/Orc'
 import LandingPageSeparator from './components/LandingPageSeparator/LandingPageSeparator';
+import Monster from './pages/Other/Monster';
+import HomeBanner2 from './components/HomeBanner/HomeBanner2';
+import HomeBanner3 from './components/HomeBanner/HomeBanner3';
+import { useState } from 'react';
+import Prices from './pages/Other/Prices';
+import Obstacles from './pages/Other/Obstacles';
+import PetsAndAnimals from './pages/Other/PetsAndAnimals';
+import PetOrAnimal from './pages/Other/PetOrAnimal';
+import Feats from './pages/Other/Feats';
 
 function App() {
+
+  const [navState, setNavState] = useState({
+    currentlyOpenSubnav: null,
+    currentlyOpenUndernav: null
+  })
+  const isSubnavDisplayed = navState.currentlyOpenSubnav != null
+  const isUndernavDisplayed = navState.currentlyOpenUndernav != null
+
+  function NavItem({name, children}) {          // On hover, changes state to display a subnav
+    const onHover = () => { setNavState({currentlyOpenSubnav: name, currentlyOpenUndernav: null}) }
+    return (<div className='nav-item' onMouseEnter={onHover}>{ children }</div>)
+  }
+  function MegaDropdown({children}) {           // Displays if there is a currentlyOpenSubnav
+    const isDisplayed = true //navState.currentlyOpenSubnav != null
+    return (<div className='mega-dropdown' style={{display: isDisplayed? '': 'none'}}>{ children }</div>)
+  }
+  function SubnavContent({children, name}) {    // Is ONE list of items; displays if its name is same as currentlyOpenSubnav
+    const isDisplayed = navState.currentlyOpenSubnav == name
+    return (
+      <div className='subnav-content' style={{display: isDisplayed? '' : 'none' }}>{ children }</div>
+    )
+  }
+  function SubnavItem({name, children}) {       // Opens an UndernavContent with the same name on hover 
+    const onHover = () => { setNavState({...navState, currentlyOpenUndernav: name}) }
+    return (<div className='subnav-item' onMouseEnter={onHover}>{ children }</div>)
+  }
+  function UndernavContent({children, name}) {  // Is ONE list of items; displays if its name is same as currentlyOpenUndernav
+    const isDisplayed = navState.currentlyOpenUndernav == name
+    return (
+      <div className='undernav-content' style={{display: isDisplayed? '' : 'none' }}>{ children }</div>
+    )
+  }
+  function BannerLink({name, link}) {
+    const closeMenus = () => setNavState({currentlyOpenSubnav: null, currentlyOpenUndernav: null})
+    return (
+      <Link onClick={closeMenus} to={link}>
+        <HomeBanner3 title={name}/>
+      </Link>
+    )
+  }
+
+
+
   return (
     <div id="Window">
       <BrowserRouter>
 
-        <nav>
-          {/* <div className='nav-item'><Link to="/">Home</Link></div> */}
-          <div className='nav-item'><Link to="/Other/Abilities">Abilities</Link></div>
-          <div className='nav-item'><Link to="/Other/Weapons">Weapons</Link></div>
-          <div className='nav-item'><Link to="/Other/Armors">Armors</Link></div>
-          <div className='nav-item'><Link to="/Other/CharacterCreation">Character</Link></div>
-          <div className='nav-item'><Link to="/Other/CharacterCreationCalculator">CH</Link></div>
-          <div className='nav-item'>
-            <Link to="#">Races</Link>
-            <div className='nav-item__dropdown'>
-              <div className='nav-item__dropdown-item'><Link to="/Races/Bertle">Bertle</Link></div>
-              <div className='nav-item__dropdown-item'><Link to="/Races/Dragonborn">Dragonborn</Link></div>
-              <div className='nav-item__dropdown-item'><Link to="/Races/Dwarf">Dwarf</Link></div>
-              <div className='nav-item__dropdown-item'><Link to="/Races/Elf">Elf</Link></div>
-              <div className='nav-item__dropdown-item'><Link to="/Races/Gnome">Gnome</Link></div>
-              <div className='nav-item__dropdown-item'><Link to="/Races/Hollow">Hollow</Link></div>
-              <div className='nav-item__dropdown-item'><Link to="/Races/Human">Human</Link></div>
-              <div className='nav-item__dropdown-item'><Link to="/Races/Orc">Orc</Link></div>
+        <div>
+          <nav>
+            {/* <div className='nav-item'><Link to="/">Home</Link></div> */}
+            <NavItem name='Database'><Link to="">Database</Link></NavItem>
+            <NavItem name='Learn'><Link to="">Learn</Link></NavItem>
+            <NavItem name='Rules'><Link to="">Rules</Link></NavItem>
+            <NavItem name='Lore'><Link to="">Lore</Link></NavItem>
+            <NavItem name='GM Resources'><Link to="">GM Resources</Link></NavItem>
+          </nav>
+
+          <MegaDropdown>
+            <div className='subnav' style={{display: isSubnavDisplayed? '' : 'none'}}>
+
+              <SubnavContent name="Database">
+                <SubnavItem name='Races'><Link to="">Races</Link></SubnavItem>
+                <SubnavItem name='Classes'><Link to="">Classes</Link></SubnavItem>
+                <SubnavItem><Link to="/Other/Backgrounds">Backgrounds</Link></SubnavItem>
+                <SubnavItem><Link to="/Other/Abilities">Abilities</Link></SubnavItem>
+                <SubnavItem name="Gear and Items"><Link to="">Gear and Items</Link></SubnavItem>
+                <SubnavItem name="Other"><Link to="">Other</Link></SubnavItem>
+              </SubnavContent>
+
+              <SubnavContent name="Learn">
+                <SubnavItem><Link to="/TODO">How To Play (for New Players)</Link></SubnavItem>
+                <SubnavItem><Link to="/Other/TransitionGuide">How To Play (for D&D Players)</Link></SubnavItem>
+                <SubnavItem><Link to="/Other/CharacterCreation">Character Creation</Link></SubnavItem>
+                <SubnavItem><Link to="/Other/CharacterCreationCalculator">Character Helper</Link></SubnavItem>
+              </SubnavContent>
+
+              <SubnavContent name="Rules">
+                <SubnavItem><Link to="/TODO">All Rules Glossary</Link></SubnavItem>
+                <SubnavItem><Link to="/TODO">Crowd Control</Link></SubnavItem>
+                <SubnavItem><Link to="/TODO">Area of Effect</Link></SubnavItem>
+                <SubnavItem><Link to="/TODO">Attack Modifiers</Link></SubnavItem>
+                <SubnavItem><Link to="/TODO">Inventory</Link></SubnavItem>
+              </SubnavContent>
+
+              <SubnavContent name="Lore">
+                <SubnavItem><Link to="/TODO">Languages</Link></SubnavItem>
+                <SubnavItem><Link to="/TODO">Spell Schools</Link></SubnavItem>
+                <SubnavItem><Link to="/TODO">Levels</Link></SubnavItem>
+              </SubnavContent>
+
+              <SubnavContent name="GM Resources">
+                <SubnavItem><Link to="/TODO">How To Be a Good GM</Link></SubnavItem>
+                <SubnavItem><Link to="/TODO">Encounters</Link></SubnavItem>
+                <SubnavItem><Link to="/Other/Monsters">Monsters</Link></SubnavItem>
+                <SubnavItem><Link to="/TODO">Magic Items</Link></SubnavItem>
+                <SubnavItem><Link to="/TODO">Puzzles</Link></SubnavItem>
+              </SubnavContent>
+
+
+
             </div>
-          </div>
-          <div className='nav-item'>
-            <Link to="#">Classes</Link>
-            <div className='nav-item__dropdown'>
-              <div className='nav-item__dropdown-item hover-cleric'><Link to="/Classes/Cleric">Cleric</Link></div>
-              <div className='nav-item__dropdown-item hover-druid'><Link to="/Classes/Druid">Druid</Link></div>
-              <div className='nav-item__dropdown-item hover-hunter'><Link to="/Classes/Hunter">Hunter</Link></div>
-              <div className='nav-item__dropdown-item hover-mage'><Link to="/Classes/Mage">Mage</Link></div>
-              <div className='nav-item__dropdown-item hover-paladin'><Link to="/Classes/Paladin">Paladin</Link></div>
-              <div className='nav-item__dropdown-item hover-rogue'><Link to="/Classes/Rogue">Rogue</Link></div>
-              <div className='nav-item__dropdown-item hover-shaman'><Link to="/Classes/Shaman">Shaman</Link></div>
-              <div className='nav-item__dropdown-item hover-warlock'><Link to="/Classes/Warlock">Warlock</Link></div>
-              <div className='nav-item__dropdown-item hover-warrior'><Link to="/Classes/Warrior">Warrior</Link></div>
+            <LandingPageSeparator style={{display: isSubnavDisplayed? '' : 'none'}}/>
+
+            <div className='undernav' style={{display: isUndernavDisplayed? '' : 'none'}}>  {/* The whole section with banners; has background color */}
+              
+              <UndernavContent name='Races'>
+                <BannerLink link="/Races/Bertle" name='Bertle'/>
+                <BannerLink link="/Races/Dragonborn" name='Dragonborn'/>
+                <BannerLink link="/Races/Dwarf" name='Dwarf'/>
+                <BannerLink link="/Races/Elf" name='Elf'/>
+                <BannerLink link="/Races/Gnome" name='Gnome'/>
+                <BannerLink link="/Races/Hollow" name='Hollow'/>
+                <BannerLink link="/Races/Human" name='Human'/>
+                <BannerLink link="/Races/Orc" name='Orc'/>
+              </UndernavContent>
+
+              <UndernavContent name='Classes'>
+                <BannerLink link="/Classes/Cleric" name='Cleric'/>
+                <BannerLink link="/Classes/Druid" name='Druid'/>
+                <BannerLink link="/Classes/Hunter" name='Hunter'/>
+                <BannerLink link="/Classes/Mage" name='Mage'/>
+                <BannerLink link="/Classes/Paladin" name='Paladin'/>
+                <BannerLink link="/Classes/Rogue" name='Rogue'/>
+                <BannerLink link="/Classes/Shaman" name='Shaman'/>
+                <BannerLink link="/Classes/Warlock" name='Warlock'/>
+                <BannerLink link="/Classes/Warrior" name='Warrior'/>
+              </UndernavContent>
+
+              <UndernavContent name='Gear and Items'>
+                <BannerLink link="/Other/Weapons" name='Weapons'/>
+                <BannerLink link="/Other/Armors" name='Armor'/>
+                <BannerLink link="/Other/Prices" name='Item Prices'/>
+              </UndernavContent>
+
+              <UndernavContent name='Other'>
+                <BannerLink name='Obstacles'/>
+                <BannerLink link="/Other/PetsAndAnimals" name='Pets and Animals'/>
+                <BannerLink link="/Other/Feats" name='Feats'/>
+              </UndernavContent>
+
+
             </div>
-          </div>
-        </nav>
+            <LandingPageSeparator style={{display: isUndernavDisplayed? '' : 'none'}}/>
+          </MegaDropdown>
+
+        </div>
+
 
         <LandingPageSeparator/>
 
@@ -91,12 +208,19 @@ function App() {
             <Route path="/" element={ <Index/> }/>
             <Route path="/Other/Rule" element={ <Rule/> }/>
             <Route path="/Other/Abilities" element={ <Abilities/> }/>
+            <Route path="/Other/Feats" element={ <Feats/> }/>
             <Route path="/Other/Backgrounds" element={ <Backgrounds/> }/>
             <Route path="/Other/Armors" element={ <Armors/> }/>
             <Route path="/Other/Weapons" element={ <Weapons/> }/>
             <Route path="/Other/CharacterCreation" element={ <CharacterCreation/> }/>
             <Route path="/Other/CharacterCreationCalculator" element={ <CharacterCreationCalculator/> }/>
             <Route path="/Other/TransitionGuide" element={ <TransitionGuide/> }/>
+            <Route path="/Other/Monsters" element={ <Monsters/> }/>
+            <Route path="/Other/Monster" element={ <Monster/> }/>
+            <Route path="/Other/Prices" element={ <Prices/> }/>
+            <Route path="/Other/Obstacles" element={ <Obstacles/> }/>
+            <Route path="/Other/PetsAndAnimals" element={ <PetsAndAnimals/> }/>
+            <Route path="/Other/PetOrAnimal" element={ <PetOrAnimal/> }/>
 
             <Route path="/Races/Bertle" element= { <Bertle/> }/>
             <Route path="/Races/Dragonborn" element= { <Dragonborn/> }/>

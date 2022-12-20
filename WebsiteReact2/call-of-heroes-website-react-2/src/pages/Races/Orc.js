@@ -26,7 +26,7 @@ import theRace from '../../databases/Races/Orc.json'
 
 import ManySpells from '../../components/Spell/ManySpells'
 
-import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, AbilitiesWithDescription, RaceFeatures } from '../../components/InsertableTemplates/RaceClassComponents'
+import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies, AbilitiesWithDescription, RaceFeatures } from '../../components/InsertableTemplates/RaceClassComponents'
 
 export default function Race() {
 
@@ -67,6 +67,8 @@ export default function Race() {
                 </TwoColumns>
 
                 <RaceFeatures theRace={theRace}/>
+
+                <Proficiencies name={theRace.Race} theRaceOrClass={theRace}/>
 
                 <AbilitiesWithDescription spellsObject={theRace['Starting Abilities']} title='Abilities' description={theRace['Starting Abilities Description']}/>
 

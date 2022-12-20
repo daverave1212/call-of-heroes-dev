@@ -1,13 +1,26 @@
 :root {
-    --nav-height: 78px;
-    --nav-item-padding: 25px;
-    --nav-background-color: rgba(0, 0, 0, 0.8);
+    --nav-width: 70%;
+    --nav-height: 80px;
+    --nav-item-padding: 40px;
+    --nav-background-color: rgba(0, 0, 0, 1);
+
+    --subnav-height: 50px;
+    --subnav-item-padding-left: 40px;
+    --subnav-item-padding-right: 20px;
+    --subnav-background-color: rgba(15, 15, 15, 1);
+
+    --nav-z-mega-dropdown: 999;
+    --nav-z-item: 9999;
+
+    --undernav-padding: 15px;
+    --undernav-height: calc(var(--banner-3-height) + var(--undernav-padding) * 2);
+    --undernav-background-color: rgb(255, 245, 232);
 }
 
 nav {
     margin: 0px;
     padding: 0px;
-    padding-left: 75px;
+    padding-left: calc((100% - var(--nav-width)) / 2);
     width: 100%;
     background-color: var(--nav-background-color);
     height: var(--nav-height);
@@ -16,8 +29,8 @@ nav {
 }
 .nav-item {
     font-family: TitleFont;
-    font-size: 1em;
-    letter-spacing: 0.05em;
+    font-size: 0.9em;
+    letter-spacing: 0.04em;
     line-height: var(--nav-height);   /* Ensures text is centered vertically */
     padding-left: var(--nav-item-padding);
     padding-right: var(--nav-item-padding);
@@ -27,11 +40,11 @@ nav {
     color: white;
   
     height: 100%;
-    z-index: 9999 !important;
+    z-index: var(--nav-z-item) !important;
     display: inline-block;            /* Ensures correct height as 100% of parent */
     position: relative;               /* For dropdown */
 }
-nav a {
+.nav-item a {
     display: inline-block;
     color: white;
     height: 100%;
@@ -40,40 +53,76 @@ nav a {
 
 
 
-.nav-item__dropdown {
-    display: none;
+
+.mega-dropdown {
+    border-top: solid 1px rgb(51, 25, 25);
+    width: 100%;
     position: absolute;
-}
-.nav-item:hover .nav-item__dropdown {
-    display: block;
+    top: var(--nav-height);
+    z-index: 999;
 }
 
-.nav-item__dropdown-item {
+.subnav {
+    width: 100%;
+    height: 50px;
+    background-color: var(--subnav-background-color);
+
+    -webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
+}
+.subnav-content {
+    width: 70%;
+    margin: auto;
+    color: white;
+}
+.subnav-item {
     font-family: TitleFont;
-    letter-spacing: 0.05em;
+    font-size: 0.8em;
+    letter-spacing: 0.04em;
+    line-height: var(--subnav-height);   /* Ensures text is centered vertically */
+    padding-left: var(--subnav-item-padding-left);
+    padding-right: var(--subnav-item-padding-right);
     text-decoration: none;
     text-align: center;
-    font-size: 0.8em;
     vertical-align: middle;
     color: white;
-    line-height: calc(var(--nav-height) * 0.5);
-    
-    background-color: var(--nav-background-color);
   
-    height: calc(var(--nav-height) * 0.5);
-    min-width: 200px;
-    z-index: 9999 !important;         /* So it does not underlap the page's content */
+    height: 100%;
+    z-index: var(--nav-z-item) !important;
+    display: inline-block;            /* Ensures correct height as 100% of parent */
+    position: relative;               /* For dropdown */
+}
+.subnav-item a {
+    display: inline-block;
+    color: white;
+    height: 100%;
+    width: 100%;
 }
 
 
 
+.undernav {
+    width: 100%;
 
-.hover-cleric a:hover { color: #fff383 !important; }
-.hover-druid a:hover { color: #25e71f !important; }
-.hover-hunter a:hover { color: #81ff38 !important; }
-.hover-mage a:hover { color: #0084ff !important; }
-.hover-paladin a:hover { color: #ffd901 !important; }
-.hover-rogue a:hover { color: #766cff !important; }
-.hover-shaman a:hover { color: #59c2ff !important; }
-.hover-warlock a:hover { color: #a659ff !important; }
-.hover-warrior a:hover { color: #ff3c3c !important; }
+    height: var(--undernav-height);
+    padding-top: var(--undernav-padding);
+    padding-bottom: var(--undernav-padding);
+
+    /* background-color: rgb(22, 22, 22); */
+    background-image: url('./images/undernav-background-page-desaturated.png');
+    background-repeat: repeat;
+    background-size: 90%;
+
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+.undernav-content {
+    min-width: 100%;
+    margin: auto;
+    display: inline-flex;
+    justify-content: center;
+    gap: 15px;
+}
+.undernav-content > .home-banner-3 {
+}

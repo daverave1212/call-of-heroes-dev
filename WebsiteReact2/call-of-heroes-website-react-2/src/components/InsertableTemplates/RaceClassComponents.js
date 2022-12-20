@@ -27,6 +27,33 @@ import TableNormalLevelUpWarlock from '../TableNormal/TableNormalLevelUpWarlock'
 import ManySmallStats from '../SmallStat/ManySmallStats'
 import Page from '../../containers/Page/Page'
 
+export function Proficiencies({ name, theRaceOrClass }) {
+
+    console.log(theRaceOrClass['Proficiency Choices'])
+
+    return (
+        <div style={{marginTop: 'var(--page-padding)'}}>
+            { theRaceOrClass.Proficiencies != null && (
+                <div>
+                    <PageH3>Proficiencies</PageH3>
+                    <p>As a { name }, you have all the following Abilities. Each of them is a Proficiency, which is generally a passive Ability that gives you a bonus on non-combat Checks in a certain domain.</p>
+                    <AbilitiesWithDescription autoAlign={true} spellsObject={theRaceOrClass.Proficiencies} description={theRaceOrClass['Proficiencies Description']}/>
+                </div>
+            ) }
+            { theRaceOrClass['Proficiency Choices'] != null && (
+                <div>
+                    <PageH3>Proficiency Choices</PageH3>
+                    <p>
+                        As a { name }, you can pick ONE of the following Proficiency Abilities.
+                        { theRaceOrClass.Proficiencies == null && (<span> Each of them is a Proficiency, which is generally a passive Ability that gives you a bonus on non-combat Checks in a certain domain.</span>) }
+                    </p>
+                    <AbilitiesWithDescription autoAlign={true} spellsObject={theRaceOrClass['Proficiency Choices']} description={theRaceOrClass['Proficiency Choices Description']}/>
+                </div>
+            )}
+        </div>
+    )
+}
+
 export function ClassFeatures({ theClass }) {
     return (
         <div>
@@ -346,7 +373,7 @@ export function StartingAbilities({ spellsObject, description }) {
 }
 export function SADescription({description}) {
     if (typeof description === 'string' || description instanceof String)
-        return (<span>{ U.parseTextWithSymbols(description) }</span>)
+        return (<p style={{marginTop: '-8px'}}>{ U.parseTextWithSymbols(description) }</p>)
     else {
         return description.map(section => (
             U.isString(section) ? (
@@ -366,11 +393,31 @@ export function SADescription({description}) {
         ))
     }
 }
-export function AbilitiesWithDescription({ spellsObject, description, title }) {
-    const spells = U.spellsFromObject(spellsObject)
+export function AbilitiesWithDescription({ spellsObject, description, title, autoAlign }) {
+    autoAlign = autoAlign == null? false : true
 
-    const spellsLeft = spells.filter(spell => spell.AlignOnWebsite == 'Left' || spell.AlignOnWebsite == null)
+    const spells = U.sortSpellsArrayByOrderOnWebsite(U.spellsFromObject(spellsObject))
+
+    const spellsLeft = spells.filter(spell => spell.AlignOnWebsite == 'Left')
     const spellsRight = spells.filter(spell => spell.AlignOnWebsite == 'Right')
+    const unalignedSpells = spells.filter(spell => spell.AlignOnWebsite == null)
+
+    console.log({spells})
+    console.log({spellsLeft, spellsRight, unalignedSpells})
+    
+    for (let i = 0; i < unalignedSpells.length; i++) {
+        const spell = spells[i]
+
+        if (autoAlign == false) {             // ...and if no autoalign, put it left
+            spellsLeft.push(spell)
+        } else {                              // ...if autoalign, put it where there are fewer spells
+            if (spellsLeft.length <= spellsRight.length) {
+                spellsLeft.push(spell)
+            } else {
+                spellsRight.push(spell)
+            }
+        }
+    }
 
     return (
         <div>

@@ -28,7 +28,7 @@ import ManySpells from '../../components/Spell/ManySpells'
 
 import theClass from '../../databases/Classes/Druid.json'
 
-import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor } from '../../components/InsertableTemplates/RaceClassComponents'
+import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies, } from '../../components/InsertableTemplates/RaceClassComponents'
 
 export default function Druid() {
 
@@ -70,6 +70,11 @@ export default function Druid() {
                 </TwoColumns>
 
                 <ClassFeatures theClass={theClass}/>
+                
+                <PageH3 style={{marginTop: 'var(--page-padding)'}}>Druidic</PageH3>
+                <p>{theClass.Druidic}</p>
+
+                <Proficiencies name={theClass.Class} theRaceOrClass={theClass}/>
 
                 <LevelingUp theClass={theClass}/>
          

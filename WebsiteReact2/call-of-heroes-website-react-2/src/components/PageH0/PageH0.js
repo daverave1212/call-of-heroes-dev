@@ -18,7 +18,7 @@ export default function PageH0({ children, onClick }) {
         ]
     }
 
-    const titleWordsToSpans = titleTextSegments.map(word => (<span style={{whiteSpace: 'nowrap'}}>{ word }</span>))
+    const titleWordsToSpans = titleTextSegments.map(word => (<span key={word} style={{whiteSpace: 'nowrap'}}>{ word }</span>))
     const textSpansSeparatedByNewLines = insertBetweenAll(titleWordsToSpans, (<br/>))
 
     const extraMultiLineClass = titleWordsToSpans.length == 1? '' : 'page-h0__img--2-lines'

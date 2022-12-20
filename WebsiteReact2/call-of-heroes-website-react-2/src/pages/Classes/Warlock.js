@@ -28,7 +28,7 @@ import ManySpells from '../../components/Spell/ManySpells'
 
 import theClass from '../../databases/Classes/Warlock.json'
 
-import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, AbilitiesWithDescription, SADescription } from '../../components/InsertableTemplates/RaceClassComponents'
+import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies, AbilitiesWithDescription, SADescription } from '../../components/InsertableTemplates/RaceClassComponents'
 
 
 export default function Rogue() {
@@ -71,6 +71,8 @@ export default function Rogue() {
                 </TwoColumns>
 
                 <ClassFeatures theClass={theClass}/>
+
+                <Proficiencies name={theClass.Class} theRaceOrClass={theClass}/>
 
                 <LevelingUp theClass={theClass}/>
          

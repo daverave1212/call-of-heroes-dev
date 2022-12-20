@@ -8,10 +8,11 @@ import ManySpells from '../../components/Spell/ManySpells'
 import PageH0 from '../../components/PageH0/PageH0'
 
 import './Page.css'
+import Separator from '../../components/Separator/Separator'
 
 
 
-export default function Page({ children, title }) {
+export default function Page({ children, title, subtitle }) {
 
     const [state, setState] = useState({ isExpanded: true })
 
@@ -24,6 +25,14 @@ export default function Page({ children, title }) {
                 // <PageH1 onClick={togglePageDisplay}>{ title }</PageH1>
                 <PageH0>{ title }</PageH0>
             ) }
+            { subtitle != null && (
+                <div>
+                    {/* <Separator style={{width: '45%'}}/> */}
+                    <p className='page-subtitle'>
+                        { subtitle }
+                    </p>
+                </div>
+            )}
             <div className='page-content' style={pageDisplayStyle}>
                 { children }
             </div>

@@ -47,6 +47,7 @@ files_to_convert = [    # Order matters
     'Monsters.yml',
     'Prices.yml',
     'Weapons.yml',
+    'Obstacles.yml',
     
     'Other/SpellSchoolDescriptions.yml',
 
@@ -148,7 +149,7 @@ if __name__ == '__main__':
         if file_name == 'Abilities.yml':
             add_name_to_spells_recursively(dict_content)            # Adds the key as a property to spell objects
             record_abilities_from(dict_content, abilities)          # Records all abilities found into the 'abilities' dict
-            normalize_inherit_abilities(dict_content)         # Replaces "Inherit" with actual bodies
+            normalize_inherit_abilities(dict_content)               # Replaces "Inherit" with actual bodies
         
         if file_name == 'Feats.yml':
             add_name_to_spells_recursively(dict_content)
@@ -164,6 +165,10 @@ if __name__ == '__main__':
 
         if file_name == 'Backgrounds.yml':
             backgrounds = list(dict_content.keys())
+
+        if 'Race' in dict_content:
+            record_abilities_from(dict_content, abilities)
+            normalize_inherit_abilities(dict_content)
 
         file_name_with_yaml_extension = path.basename(file_name)
         file_name_no_extension = path.splitext(file_name_with_yaml_extension)[0]

@@ -8,6 +8,7 @@ import * as U from '../../utils'
 import PageH1 from '../../components/PageH1/PageH1'
 import weapons from '../../databases/Weapons.json'
 import ManyBoxes from '../../components/Spell/ManyBoxes'
+import Page from '../../containers/Page/Page'
 
 export default function Weapons() {
 
@@ -17,10 +18,10 @@ export default function Weapons() {
         <div>
 
             { categories.map(categoryName => (
-                <div className='page' key={categoryName}>
+                <Page key={categoryName}>
                     <PageH1>{categoryName}</PageH1>
                     <ManyBoxes type='weapon' objects={ U.spellsFromObject(weapons[categoryName]) }/>
-                </div>
+                </Page>
             )) }
 
         </div>

@@ -2,7 +2,7 @@
 import './SmallStat.css'
 import React from 'react'
 
-export default function SmallStat({ children, name, color, topDown, style }) {
+export default function SmallStat({ children, name, color, topDown, style, contentStyle, nameStyle, valueStyle }) {
 
     if (style == null) style = {}
 
@@ -20,12 +20,14 @@ export default function SmallStat({ children, name, color, topDown, style }) {
         color == null?      'var(--dark-color)' :
         color == 'blue'?    'var(--dark-blue)':
         color
+    if (nameStyle == null) nameStyle = {}
+    if (valueStyle == null) valueStyle = {}
 
     return (
         <div className='small-stat-container' style={style}>
-            <div style={{border: `solid ${color} 2px`}} className={`small-stat ${smallStatColorClass} ${smallStatFlexDirectionClass}`}>
-                <div style={{backgroundColor: color}} className={`small-stat__name ${smallStatNameColorClass}`}>{ name }</div>
-                <div className="small-stat__value">{ children }</div>
+            <div style={{...contentStyle, ...{border: `solid ${color} 2px`}}} className={`small-stat ${smallStatColorClass} ${smallStatFlexDirectionClass}`}>
+                <div style={{...nameStyle, ...{backgroundColor: color}}} className={`small-stat__name ${smallStatNameColorClass}`}>{ name }</div>
+                <div className="small-stat__value" style={valueStyle}>{ children }</div>
             </div>
             <br/>
         </div>
