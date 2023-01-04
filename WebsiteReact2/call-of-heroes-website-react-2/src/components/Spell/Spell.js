@@ -24,7 +24,8 @@ export default function Spell({ children, spell, style, hasIcon }) {
         Effect,
         Notes,
         Requirement,
-        IsSubspell
+        IsSubspell,
+        Upgrade
     } = spell
     let DisplayName = spell['Display Name']
     
@@ -98,6 +99,11 @@ export default function Spell({ children, spell, style, hasIcon }) {
                 <div className='spell-description'>
                     { Effect }
                 </div>
+                { Upgrade != null && (
+                    <div className='spell-upgrade'>
+                        { Upgrade }
+                    </div>
+                ) }
                 { Notes != null && (
                     <div className='spell-notes'>
                         { Notes }

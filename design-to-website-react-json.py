@@ -50,8 +50,14 @@ files_to_convert = [    # Order matters
     'Obstacles.yml',
     
     'Other/SpellSchoolDescriptions.yml',
+    'Other/Languages.yml',
+    'Other/Levels.yml',
 
     'Rules/Rules.yml',
+    'Rules/Inventory.yml',
+    'Rules/CrowdControl.yml',
+    'Rules/AreasOfEffect.yml',
+    'Rules/AttackModifiers.yml',
     'Rules/CharacterCreation.yml',
     'Rules/COHFor5e.yml',
     'Rules/COHExplained.yml',

@@ -11,6 +11,7 @@ import cc from '../../databases/Rules/CharacterCreation.json'
 import PageH3 from '../../components/PageH3/PageH3'
 import PageH2 from '../../components/PageH2/PageH2'
 import SmallStat from '../../components/SmallStat/SmallStat'
+import Page from '../../containers/Page/Page'
 
 
 export default function CharacterCreation() {
@@ -31,8 +32,7 @@ export default function CharacterCreation() {
     }
 
     return (
-        <div className='page'>
-            <PageH1>Character Creation</PageH1>
+        <Page title="Character Creation">
             <MidSection object={cc['Character Creation']}/>
 
             <PageH2>Social Etiquette</PageH2>
@@ -60,7 +60,7 @@ export default function CharacterCreation() {
                 <SmallStat name="Weapon and Tool Training" topDown={true}>{ cc['Stat Calculations']['Training'] }</SmallStat>
                 <SmallStat name="Languages" topDown={true}>{ cc['Stat Calculations']['Languages'] }</SmallStat>
             </div>
-        </div>
+        </Page>
     )
 
 }

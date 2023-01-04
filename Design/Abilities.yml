@@ -1,4 +1,12 @@
+    # How to make an ability
+# For standard spells, apply the calculations defined in the Tables.xlsx file
+# For single target spells that cost Insight or Mana, feel free to round numbers up
+# Every 4 levels, you can slightly increase the damage of a Spell or give it an extra effect
 
+
+    # Never make the following abilities:
+# Zone of Truth (its against the roleplay design)
+# Nondetection (it's an anti-DM spell that doesnt bring anything of value)
 
 # ToDo:
 # Make some good spells that Artificer - Spellcraft can benefit from (e.g. CC, small area, short range, even amount of dice)
@@ -11,9 +19,7 @@
 # Icicle Storm
 
     # Arcane
-# Reverse gravity
-# Recall
-# Long distance teleport (dimension door?)
+# Silence sphere
 
     # Conjuration
 # Summon golem (include Bigby's hand, you can shape it as you like)
@@ -31,25 +37,22 @@
 # Sending (telepathy)
 # Tiny Servant
 # Watcher Eye (can move at higher levels)
+# Meld with stone
 
     # Nature
 # Earth/Lightning shield from WC3
 # Fissure that damages...
-# Giant wave of roots
-# Locust swarm
 # Swift Quiver
 # Draw moisture
 # Transform into a plant
 # Move earth (channeled)
-# Tree jumping like Naruto
 # Awaken a plant/object that can do your bidding (or multiple ones) (non-combat)
 # Plant growth
 
     # Faith
-# Banish
 # DoT: Whenever you are attacked
 # Wave that jumps 3 times, damage or heal each time
-# Schizophrenic Suggestion (the target's traits become accentuated)
+# Schizophrenic Suggestion (the target's traits become accentuated); if used in combat, enemy makes an attack on himself
 # Dispel (and make sure monster abilities are dispellable)
 
 
@@ -63,13 +66,12 @@
     # Divine
 # Holy weapon
 # Wall of light (blinds attackers, but ok from behind)
+# Prevent corpse from becoming undead
 
     # Mysticism
-# Scrying (you see one place) (or you don't see it live, you just get visions of it from the DM)
 # Map nature/city area (note: you can just cast this on a Long Rest)
 # Consciousness swap
 # Contact other plane (the DM can answer 5 questions with yes, no, maybe, irrelevant or unclear); you go insane
-# Locate Unit (direction and you get its direction of movement)
 # Water breathing
 # Nondetection
 
@@ -85,19 +87,6 @@
 # Send a shock through the earth; does not affect flying
 # Feast for Shielding
 # Radiation magic
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -130,6 +119,13 @@
 # Save or half
 # Save or nothing
 # Sustained
+
+    # Buffs
+# Damage
+# Health
+# Speed
+# Main Stat
+
     
     # Things to give:
 # [ ] Elemental Damage
@@ -139,6 +135,7 @@
 # [ ] Damage (Half-Action)  (Advanced)
 # [ ] Damage (AoE)
 # [ ] Damage (AoE)          (Advanced)
+# [ ] Damage (Save or Half)
 # [ ] Stats
 # [ ] Low CC
 # [ ] Medium CC
@@ -148,6 +145,7 @@
 # [ ] Buff
 # [ ] Debuff
 # [ ] Mobility
+# [ ] Anti-Heal
 
 
 
@@ -203,13 +201,14 @@ Default Moves:
 Bloodshed:
 
 
-# [ ] Elemental Damage
+# [x] Elemental Damage
 # [ ] Damage (1 Action)
 # [x] Damage (1 Action)     (Advanced)
 # [x] Damage (Half-Action)
 # [x] Damage (Half-Action)  (Advanced)
-# [ ] Damage (AoE)
+# [x] Damage (AoE)
 # [ ] Damage (AoE)          (Advanced)
+# [ ] Damage (Save or Half)
 # [ ] Stats
 # [x] Low CC
 # [x] Medium CC
@@ -217,9 +216,10 @@ Bloodshed:
 # [ ] Healing
 # [x] Tranking/Protection (Shielding)
 # [ ] Buff
-# [ ] Debuff
+# [x] Debuff
 # [ ] Mobility
-    
+# [x] Anti-Heal
+
 
     ~Aim~:
         A: Half-Action
@@ -264,6 +264,12 @@ Bloodshed:
             Make a melee attack that deals 1d8 + 2 Force damage.
             After the attack, your turn ends immediately.
         Notes: This counts as a weapon attack.
+        
+    ~Slam~:
+        A: 1 Action
+        Effect: |
+            All units within 2 meters of you take 2d4 Smash damage.
+            One of them of your choice takes an extra 1d4 Smash damage.
 
     ~Wait~:
         A: 0 Actions
@@ -275,7 +281,7 @@ Bloodshed:
     
     
     
-    # Advanced Spells
+    # Higher Level Spells
            
     ~Chilling Shout~:
         A: 1 Action
@@ -286,6 +292,19 @@ Bloodshed:
             Attack a target for 12 + Main Stat Cold damage (against Defense).
             It becomes Slowed.
             
+    
+    ~Muscle Tear~:
+        A: Half-Action
+        Cost: 1 Mana
+        Range: 2 meters
+        Effect: |
+            A Unit must pass a Might Check or be affected by Muscle Tearing. While affected, whenever the Unit makes a physical attack or uses a physical damaging Ability, the damage can't be more than (Your Level) + (Your Main Stat).
+            It must try to pass the Check at the end its every turn to remove the Muscle Tearing.
+            Only works on Units that have muscles.
+        Notes: |
+            E.g. if you are Level 3 and your Main Stat is 2, that limits the damage to 5.
+            Damage limit is applied before Defense for attacks; subtract Defense after limiting the damage.
+    
     ~Panic Lash~:
         A: Half-Action
         Cost: 1 Mana
@@ -297,6 +316,9 @@ Bloodshed:
         Cost: 1 Mana
         Effect: |
             Heal yourself for 1d6 and remove all Snare and Slow effects on you.
+        Upgrade: |
+            At Level 4, the healing increases to 1d8.
+            At Level 6 this also removes Cripples.
 
     ~Shank~:
         A: 0 Actions
@@ -306,8 +328,9 @@ Bloodshed:
     ~Vault Break~:
         A: 0 Actions
         Cost: 1 Mana
-        Effect: Attack and break an obstacle near you that takes at most 4 square meters area and is made of wood, rubble, shrubbery, dirt, ice, magic barrier or any similar material. After casting this Ability, if you moved this turn, you can continue your movement.
-        Notes: 4 square meters means either 4x1 meters or 2x2 meters. The height of the obstacle can be up to 3 meters tall, but it's up to the GM's whether you can break certain tall objects.
+        Effect: |
+            Attack and break an obstacle near you that takessquare meters equal to your Level area and is made of wood, rubble, shrubbery, dirt, ice, magic barrier or any similar material. After casting this Ability, if you moved this turn, you can continue your movement.
+        Notes: If you are Level 4, that's 4 square meters; meaning either 4x1 meters or 2x2 meters. The height of the obstacle can be up to 3 meters tall, but it's up to the GM's whether you can break certain tall objects.
 
     ~Blood Foment~:
         A: Half-Action
@@ -321,20 +344,21 @@ Bloodshed:
 Warfare:
 
 # [ ] Damage (1 Action)
-# [ ] Damage (1 Action)     (Advanced)
+# [x] Damage (1 Action)     (Advanced)
 # [x] Damage (Half-Action)
 # [ ] Damage (Half-Action)  (Advanced)
 # [ ] Damage (AoE)
-# [ ] Damage (AoE)          (Advanced)
+# [x] Damage (AoE)          (Advanced)
+# [x] Damage (Save or Half)
 # [ ] Stats
 # [x] Low CC
 # [ ] Medium CC
-# [ ] Hard CC
+# [x] Hard CC
 # [x] Healing
-# [ ] Tranking/Protection (Shielding)
-# [ ] Buff
+# [x] Tranking/Protection (Shielding)
+# [x] Buff
 # [ ] Debuff
-# [ ] Mobility
+# [x] Mobility
 
 
     ~Aim~:
@@ -384,13 +408,73 @@ Warfare:
             Skip your turn and declare any number as your new initiative.
             You start your turn later this Encounter at that initiative.
         Notes: Your new initiative stays like that for later turns.
-
+        
+    
+    # Advanced Spells
+    
+    ~Assess Their Ranks~:
+        A: 0 Action
+        Cooldown: Long Rest
+        Cost: 1 Insight
+        Effect: Gain Shielding equal to the number of Worthy Enemies you see.
+    
+    ~Battle Trust~:
+        A: 0 Actions
+        Cost: 1 Insight
+        Cooldown: 2 uses / Long Rest
+        Effect: |
+            Another ally you can see gains 50% Resistance to a named physical damage type (Slash, Smash, Pierce or Force).
+            Lasts for 10 minutes.
+        Notes: You can't use this on yourself
+        
     ~Glory Shout~:
         A: Half-Action
         Cooldown: Long Rest
         Cost: 1 Insight
         Effect: You and all allies that can hear you are healed for 3 Health.
+
+    ~Infailible Reach~:
+        A: 1 Action
+        Cost: 1 Insight
+        Cooldown: 1 use / Combat
+        Range: 3 meters
+        Effect: |
+            Use any melee weapon to perform a heavy blow on a Unit within 3 meters.
+            It must pass a Dexterity Check or take 3d6 + (Your Main Stat) damage of that weapon's type.
+            If it passes, it takes half of that damage.
+        Notes: Extra damage from special weapons does apply to this damage.
+        
+    ~Row Through~:
+        A: 1 Action
+        Cooldown: Long Rest
+        Cost: 2 Insight
+        Range: 2 meters
+        Effect: |
+            Push a Unit up to 6 meters away from you.
+            If it collides with something, it must pass a Might Check or be Stunned and take 1d4 Smash damage (and it stops).
+            If it collides with another Unit, that Unit is also pushed in the same direction and continues a chain of Row Through.
+        Notes: E.g. if it collides with a Unit, that Unit is also pushed up to 6 meters and if it collides with something, it must pass a Might Check or be Stunned and take the damage. If that thing it collided with was a Unit, that Unit is also pushed up to 6 meters and must pass the Might Check and so on.
+    
+    ~Stand Stoic~:
+        A: 0 Actions
+        Cost: 1 Insight
+        Cooldown: Long Rest
+        Effect: |
+            All Prone allies (and you) immediately stand up. All allies (and you) remove their Snares and Slows.
+            All of you gain 50% extra Movement on your next turn.
+            None of you can trigger Opportunity Attacks from enemies until the start of your next turn.
+            You (yourself) can continue your movement if you already moved.
             
+    ~Whirlwind~:
+        A: 1 Action
+        Cooldown: Long Rest
+        Cost: 1 Insight
+        Effect: |
+            Roll 2d8 for each Unit within 3 meters of you.
+            Assign 2 of the rolled d8's to each of those Units, and deal that much damage as Slash damage to it (directly).
+        Upgrade: |
+            At Level 6, you can instead spend 2 Insight to Know this Ability and make its cost a Half-Action.
+
 Elemental:
 
 # [x] Damage (1 Action)
@@ -420,7 +504,10 @@ Elemental:
 
     ~Burning Breath~:
         A: Half-Action
-        Effect: All Units in a 90 degree, 3 meter cone take 3 Fire damage (directly).
+        Effect: |
+            All Units in a 90 degree, 3 meter cone take 3 Fire damage (directly).
+        Upgrade: |
+            At Level 4, the damage increases to 4 damage.
 
     ~Bonfire~:
         A: 1 Action
@@ -498,7 +585,7 @@ Elemental:
         Range: 9 meters
         Effect: |
             You gather stone, dirt, sand, etc from the surroundings and release it upon an enemy.
-            Deal 3d6 damage Force damage to a Unit (against Defense), and two of rolled dice (you choose) to its adjacent Units (against Defense).
+            Deal 3d6 damage Force damage to a Unit (against Defense), and two of rolled dice (you choose) to all Units within 1 meter of it (against Defense).
             
     ~Quicksand~:
         A: Half-Action
@@ -507,6 +594,8 @@ Elemental:
         Effect: |
             Declare a 2x2 meter zone made of dirt, sand or other such material.
             That zone becomes Difficult Terrain.
+        Upgrade: |
+            At Level 4, the zone becomes 4x4.
         Variant: You can also cause this difficult terrain with vegetation.
 
     ~Thunder Clap~:
@@ -515,7 +604,7 @@ Elemental:
 
 
 
-    # Standard Spells
+    # Advanced Spells
     ~Absorb Element~ :
         A: Reaction
         Cost: 1 Mana
@@ -560,17 +649,18 @@ Elemental:
         Effect: |
             Place a rune on a smooth solid surface. The rune covers a 1x1 area.
             You can use a free Reaction to detonate it, dealing 4d6 half Fire half Force damage (against Defense) to the Unit that activates it and all Units within 2 meters of it.
+        Upgrade: |
             At Level 4, this lasts until your next Long Rest.
         Notes: A free Reaction does not use up your Reaction.
 
     ~Ice Spike~:
         A: 1 Action
-        Cost: 2 Mana.
+        Cost: 2 Mana
         Range: 6 meters
         Effect: |
             The target rolls a Dexterity Check.
             If it fails, it takes 4d8 Cold damage (directly), or half otherwise.
-            The target automatically fails if it's affected by any Crowd Control! (except Hard Terrain).
+            The target automatically fails if it's affected by any Crowd Control (except Hard Terrain).
 
     ~Fire Enchantment~:
         A: 1 Action
@@ -606,7 +696,7 @@ Elemental:
         Range: 6 meters
         Effect: Make 3 attacks. Each does 1d6 + 5 Fire damage (each vs Defense).
 
-    # Advanced Spells
+    # Higher Level Spells
     ~Freeze Water~:
         A: Channeled
         Range: 12 meters
@@ -615,7 +705,7 @@ Elemental:
             Choose a point you can see with a continuous mass of water. You begin channeling.
             On every turn (until you stop channeling), the water freezes in a sphere around the point, (Your Level - 3) meters radius for each Half-Action spent.
     
-    ~Fire Ball~:    # It's definitely more than 3 Mana worth but not that much
+    ~Fire Ball~:        # It's definitely more than 3 Mana worth but not that much
         A: 1 Action
         Cost: 3 Mana
         Range: 6 meters (to the edge)
@@ -636,12 +726,13 @@ Elemental:
 
 Arcane:
 
-# [ ] Damage (1 Action)
-# [x] Damage (1 Action)     (Advanced)  [Direct (Magic Missiles), Defense (]
-# [ ] Damage (Half-Action)
-# [ ] Damage (Half-Action)  (Advanced)
+# [x] Damage (1 Action)                 [Direct (Magic Missiles)]
+# [x] Damage (1 Action)     (Advanced)  [Direct (Magic Missiles), Defense ()]
+# [x] Damage (Half-Action)
+# [x] Damage (Half-Action)  (Advanced)
 # [ ] Damage (AoE)
 # [x] Damage (AoE)          (Advanced)  [Save (Arcane Spear), Save (Magic Nova), Direct (Phase Orb)]
+# [x] Damage (Save or Half)
 # [ ] Stats
 # [ ] Low CC
 # [x] Medium CC                         [Save (Antimagic Rune), Save AoE (Slow)]
@@ -649,7 +740,7 @@ Arcane:
 # [ ] Healing
 # [x] Tranking/Protection (Shielding)
 # [x] Buff
-# [ ] Debuff
+# [x] Debuff
 # [x] Mobility
 
 
@@ -665,6 +756,7 @@ Arcane:
         Range: 9 meters
         Effect: |
             Shoot 3 missiles. Each missile does 1d4 Force damage (directly).
+        Upgrade: |
             At Level 4, you can also spend any amount of Mana, and you shoot 2 more missiles for each Mana spent.
         Notes: You can send missiles to different targets, but you must declare all the attacks at once.
 
@@ -687,9 +779,19 @@ Arcane:
             It has +1d4 in all Combat Checks with that Stat.
             You can only have this buff active on one person at a time.
             
-    # Standard Spells
+    ~Focus Fling~:
+        A: Half-Action
+        Effect: |
+            Choose a medium-sized object within 6 meters that's no heaveier than 20kg.
+            Fling the object into a Unit within 3 meters of the object.
+            It must pass a Dexterity Check or take 1d10 Smash damage. It takes half of the damage if it passes.
+        Upgrade: |
+            At Level 4, you can spend 1 Mana to increase the damage to 2d12.
+        Notes: If the object can break, it breaks. Obviously, the object must be move-able and not tied/stuck in place.
+            
     
-        
+    # Advanced Spells
+
     ~Arcane Spear~:
         A: 1 Action
         Cost: 1 Mana
@@ -729,6 +831,18 @@ Arcane:
             At the start of your next turn, the orb dashes to your position.
             All Units in the orb's path take 3d4 Force damage (directly).
             
+    ~Spell Seal~:
+        A: 0 Actions
+        Cost: 1 Mana
+        Effect: |
+            Choose a Unit you can see.
+            Whenever it casts a Spell that heals or deals damage, roll 1d4 and subtract it from the roll.
+            Lasts for 1 minute.
+        Upgrade: |
+            At Level 4, you can spend 1 more Mana to increase the roll to 2d4.
+            At Level 7, you can spend 2 more Mana instead to increase the roll to 3d4.
+        Notes: Does not stack multiple times.
+            
     ~Shield Element~:
         A: Half-Action
         Cost: 1 Mana
@@ -737,7 +851,10 @@ Arcane:
             Name 1 element from Fire/Cold/Electric and choose two allies.
             The next time those allies would take that type of damage, that damage is halved.
 
-    # Advanced Spells
+
+
+    # Higher Level Spells
+    
     ~Antimagic Rune~ :
         A: 1 Action
         Requirement: Level 4
@@ -788,7 +905,9 @@ Arcane:
             You can slowly move the object vertically, 1 meter for each 2 of your movement points spent to levitate.
             If you use this on an enemy, it must fail a Might Check to be levitated, and can repeat the Check at the end of each of its turns.
             A levitated Unit counts as Snared.
-            Losing concentration (taking damage or using any action) instantly starts slowly dropping the target and breaks the Levitate.
+            Losing concentration (taking damage or being Crowd Controlled) instantly starts slowly dropping the target and breaks the Levitate.
+        Upgrade: |
+            At Level 8, the amount increases to 5d100.
 
     ~North Star~:
         A: 1 Action
@@ -843,6 +962,39 @@ Arcane:
         Effect: |
             Up to 2 willing Units can walk on water as normally.
             The effect ends if the Unit takes damage.
+    
+    ~Hearth Recall~:
+        A: 10 minutes
+        Requirement: Level 6
+        Cost: 2 mana
+        Effect: |
+            At any point, you can freely spend 10 minutes in a place to Bind to it.
+            When you use this Ability, channel for 10 minutes to teleport all allies (and yourself) within 10 meters of you to the bound place.
+            You can only have 1 bound place at a time.
+            The range to your bound place must be at most a a number of kilometers equal to your Main Stat * 100.
+        Upgrade: |
+            At Level 8, you can have up to 2 bound places.
+            At Level 10, you can have up to 3 bound places.
+        Notes: You can remove the binding of a place at will, from any distance.
+
+
+    ~Reverse Gravity~:
+        A: 1 Action
+        Requirement: Level 6
+        Cost: 3 Mana
+        Range: 10 meters to edge
+        Cooldown: Long Rest
+        Effect: |
+            Declare an area with a diameter in meters (in all directions) equal to your Level.
+            The gravity becomes reversed in that area and all Units instantly fall upwards. Units can make a Dexterity Check to grab onto an object to not be lifted.
+            Units suffer fall damage if they fall onto a roof.
+            When the effect ends, all Units fall at half velocity (and take half of the fall damage). The same happens to a Unit if it exits the zone.
+            Lasts for up to 1 minute. You can cancel this effect at will.
+        Notes: |
+            Fall damage is 1d6 for every meter after 2 meters fallen (e.g. 1d6 for 3 meters, 2d6 for 4 meters, etc).
+
+
+    
 
 Nature:
 
@@ -850,18 +1002,18 @@ Nature:
 # [ ] Damage (1 Action)
 # [ ] Damage (1 Action)     (Advanced)
 # [x] Damage (Half-Action)              [Save (Poison Burst)]
-# [ ] Damage (Half-Action)  (Advanced)
+# [x] Damage (Half-Action)  (Advanced)  [DoT (Locust Swarm)]
 # [ ] Damage (AoE)
 # [x] Damage (AoE)          (Advanced)  [Defense (Lightning Storm)]
 # [ ] Stats
 # [ ] Low CC
 # [ ] Medium CC
-# [ ] Hard CC
+# [x] Hard CC
 # [x] Healing
 # [x] Tranking/Protection (Shielding)
 # [x] Buff
 # [ ] Debuff
-# [ ] Mobility
+# [x] Mobility
 
 
     # Basic Spells
@@ -892,7 +1044,8 @@ Nature:
         A: 10 minutes
         Effect: |
             Touch an ally and cure a normally curable disease from it.
-            At level 4, you can cure harder and stranger diseases.
+        Upgrade: |
+            At Level 4, you can cure harder and stranger diseases.
             At level 8, you can cure terminal or chronic diseases.
             
     ~Cure Poison~:
@@ -923,7 +1076,7 @@ Nature:
     ~Resistance~: Inherit
     
     
-    # Standard Spells
+    # Advanced Spells
     ~Barkskin~ :
         A: Reaction
         Cost: 1 Insight
@@ -943,6 +1096,7 @@ Nature:
         A: 1 Action
         Cost: 1 Insight
         Range: 10 meters to edge
+        Cooldown: Long Rest
         Effect: |
             Declare a 4x4x4 area.
             All units inside the area take 6d4 Shock damage (against Defense).
@@ -950,13 +1104,58 @@ Nature:
             On your turn (for up to 1 minute), you can spend 1 Action to move the storm up to 3 meters and its deal damage again.
             Lasts up to 1 minute.
     
+    ~Locust Swarm~:
+        A: Half-Action
+        Range: 10 meters
+        Cost: 1 Insight
+        Cooldown: Long Rest
+        Effect: |
+            Choose a Unit.
+            A swarm of locusts appears and chases it down.
+            Whenever the Unit moves willingly, it takes 1 True damage.
+            Lasts 1 minue.
+        Note: Locust Swarm can be dispelled like any other effect.
+    
+    ~Revitalize~:
+        A: 0 Actions
+        Cost: 1 Insight
+        Cooldown: Long Rest
+        Effect: |
+            Touch 2 allies to restore up to 2d6 of their Reserve Health to each.
+            
+    ~Scape Grasp~:
+        A: 1 Action
+        Cost: 1 Insight
+        Range: 10 meters
+        Cooldown: Long Rest
+        Effect: |
+            Choose a Unit.
+            Count how many of these criteria it matches:
+            - Has armor made of organic material (leather, hide, hemp, etc)
+            - Is standing directly on vegetation
+            - It's night and the target is outdoors
+            It takes damage (directly) and must pass a Wisdom Check or suffer a Crowd Control effect based on its number of matched criteria:
+            - 1: 1d4 damage, Snared
+            - 2: 2d4 damage, Snared and Crippled
+            - 3: 3d4 damage, Stunned
+            
     ~Wild Heart~:
         A: 1 Action
         Cost: 1 Insight
         Effect: Up to 2 allies you touch gain Your Main Stat maximum (and current) Health and +1 to all Checks until their next Long Rest.
         Notes: The bonus to Health and Checks doesn't stack with itself, and the bonus to Checks doesn't stack with other Check buffs.
     
-    # Advanced Spells
+    ~Wind Chaser~:
+        A: 0 Actions
+        Cost: 1 Insight
+        Cooldown: 1 minute
+        Effect: |
+            Your next ranged Attack curves around obstacles, ignoring Cover and Hard Cover and deals 1d6 extra Damage of its type.
+        Notes: You still need Line of Sight to the target.
+
+
+
+    # Higher Level Spells
     ~Spider Climb~ :
         A: 1 Action
         Requirement: Level 4
@@ -965,6 +1164,13 @@ Nature:
         Effect: |
             Your hands and feet can stick to solid, (more or less) flat surfaces, so you can walk on them.
             Walking on walls and floors acts as Hard Terrain.
+    ~Tree Stride~:
+        A: Passive
+        Requirement: Level 4
+        Effect: |
+            While within 30 meters of trees, you have + 1 Movement Speed.
+            You can climb trees without rolling Checks, using your normal Movement.
+            You can use as many meters of your Movement as you like to jump that distance from one tree to another.
     
 Conjuration:
 
@@ -1016,7 +1222,7 @@ Conjuration:
         Notes: For example, repair a hole through a chain shirt or textile material, the crack in a piece of glass, etc.
 
 
-    # Standard Spells
+    # Advanced Spells
 
     ~Alarm~: Inherit
     ~Chaining Grasp~:
@@ -1060,6 +1266,7 @@ Conjuration:
             The animal takes either a spectral, demonic or skeletal form.
             It follows the normal rules for Riding.
             It does not participate in combat.
+        Upgrade: |
             At Level 8 the Steed can fly.
 
     ~Fairy Fire~ :
@@ -1158,7 +1365,7 @@ Conjuration:
             You can control what the illusion does at will.
 
 
-    # Advanced Spells
+    # Higher Level Spells
     ~Animate Dead~:
         A: 1 Action
         Cost: 1 Mana
@@ -1183,7 +1390,8 @@ Conjuration:
             Choose an animal from the Pet List or any critter, such as a sheep, deer, etc.
             A Unit within 10 meters must pass an Intelligence Check or be transformed into that animal.
             At the end of its every turn, it must pass the Check again or remain Polymorphed.
-            The unit retains its Health and Defense, but can't do any non-animal actions.
+            The unit can retains its Health and Defense, but can't do any non-animal actions.
+        Notes: A Unit can willingly fail the Check. For enemies, aside from Health and Defense, apply rules for Shapeshift. Allies can apply normal rules for Shapeshift (e.g. gain extra Health from the animal).
 
     ~Transmogrification~:
         A: 10 minutes
@@ -1204,7 +1412,8 @@ Conjuration:
             After 24 hours, the eye stops recording.
             You can use your magic to scan what the eye recorded in your mind.
             At any point, you can tune into the eye and see what it sees in your mind.
-            At level 6, you can move use your movement to instead move the Eye while you're tuned into it (it can fly).
+        Upgrade: |
+            At Level 6, you can move use your movement to instead move the Eye while you're tuned into it (it can fly).
 
 
     ~Portal~ :
@@ -1241,10 +1450,6 @@ Mysticism:
 # [ ] Debuff
 # [ ] Mobility
 
-    Description: |
-        Mysticism is the art of scrying and affecting the mind. Often mystics use these spells to gain information or hinder foes in combat. Some call mysticism the art of psyonics, others call it "being lucky" (which is a form of magic too, luck).
-        All Abilities in this List are considered Spells and are affected by Silence effects (see Crowd Control).
-
     # Basic Spells
     ~Guidance~ :
         A: Reaction
@@ -1253,14 +1458,12 @@ Mysticism:
         Effect: When an ally makes a Check, it can use your modifier instead of its own.
         
     ~Light~: Inherit
-
     ~Mastery~:
         A: Passive
         Effect: You can use Wisdom or Charisma instead of Strength or Dexterity for weapon attacks (you still need to be Trained in that weapon to use it properly).
         Notes: Also called Soelluelegh, or however it's spelled.
 
     ~Mending~: Inherit
-
     ~Speak With Animals~:
         A: 1 Action
         Effect: You can attempt to speak concrete ideas with willing, non-hostile animals.
@@ -1274,7 +1477,9 @@ Mysticism:
 
 
 
-    # Standard Spells
+    
+    
+    # Advanced Spells
     ~Mind Blast~:           # Note the cooldown
         A: 1 Action
         Cost: 1 Insight
@@ -1296,7 +1501,7 @@ Mysticism:
             3. Forgets to move and can't do weapon attacks
             4. Falls Prone and tries to make a ranged attack
 
-    # Advanced Spells
+    # Higher Level Spells
     ~Charming Word~:
         A: 1 Action
         Requirement: Level 4
@@ -1328,13 +1533,40 @@ Mysticism:
             A non-legendary beast that can see you makes a Charisma Check.
             If it fails, you can change the beast's mood (make it hungry, afraid, nervous, etc).
 
+    ~Locate Unit~:
+        A: 10 minutes
+        Requirement: Level 4
+        Range: 50 meters to the target
+        Effect: |
+            Name or describe a Unit that is familiar to you.
+            You know the direction towards that Unit and the direction of its movement.
+        Upgrade: |
+            At Level 6, the range of this Spell becomes 500.
+            At Level 8, the range is infinite.
+        Notes: You can choose to locate a Unit of a certain type (e.g. a zombie, a human, an elephant) or a specific Unit, as long as you know know what it looks like.
+
     ~Translation~ :
         A: 0 Actions
         Requirement: Level 4
         Effect: You can understand any spoken or written language that's either Common (Dwarvish, Elvish) or Wild (spoken by "wild", tribal socities, such as Orcish, Goblan, Sylvan, etc).
 
-    ~Watcher Eye~: Inherit
+    ~Scrying~:
+        A: 10 minutes
+        Requirement: Level 4
+        Effect: |
+            You spend 10 minutes learning information about an area from a point within 100km.
+            You get visions of whatever is in the line of sight from that point chosen, in any direction.
+            Until your next Long rest, your party ignores Hard Terrain in the scryed area.
+        Notes: The Game Master decides what visions you get - you might see that zone from the past, or see only the landscape without the people. An area might also be blocked by anti-scrying magic.
+            
 
+    ~Watcher Eye~: Inherit
+    
+    ~Water Breathing~:
+        A: 1 Action
+        Requirement: Level 4
+        Duration: 
+    
     ~Wild Steed~ :
         A: 5 minutes
         Requirement: Level 4
@@ -1344,6 +1576,7 @@ Mysticism:
             You and up to 1 more party member can ride this animal.
             It follows the normal rules for Riding.
             It does not participate in combat.
+        Upgrade: |
             At Level 8, this can be a flying animal.
 
 
@@ -1374,6 +1607,7 @@ Eldritch:
             Channel to spawn a blight that spreads 1 meter in all direction for each 1 Action channeled.
             The blight kills small plants, insects and rots wood and rusts metal. It also makes fertile soil infertile, turns textile and paper materials into dust and decays food and poisons water.
             You can channel a number of times (Actions) equal to your Level.
+        Upgrade: |
             At Level 4, you can choose to ommit some of the effects of this blight.
         Notes: |
             This Ability is not meant for combat.
@@ -1414,9 +1648,10 @@ Eldritch:
             - You cause harmless tremors in the ground for 1 minute.
             - You cause an unlocked door or window to fly open or slam shut.
             - You alter the appearance of your eyes for 1 minute.
-            At level 5 you can cast this for Half-Action, and at Level 9, for 0 Actions.
+        Upgrade: |
+            At Level 5 you can cast this for Half-Action, and at Level 9, for 0 Actions.
 
-    # Standard Spells
+    # Advanced Spells
     ~Curse of Pain~:
         A: Half-Action
         Cost: 1 Mana
@@ -1444,7 +1679,7 @@ Eldritch:
             If the target has more than 4 Defense, deals 2 more damage for each point of Defense over 4.
 
 
-    # Advanced Spells
+    # Higher Level Spells
     ~Animate Dead~: Inherit
     
     ~Spare the Dying~ : 
@@ -1459,13 +1694,13 @@ Eldritch:
 Divine:
 
 # [ ] Elemental Damage
-# [ ] Damage (Other)                    [AoE (Radiant Smite)]
+# [x] Damage (Other)                    [AoE (Radiant Smite)]
 # [ ] Damage (1 Action)
-# [ ] Damage (1 Action)     (Advanced)
+# [x] Damage (1 Action)     (Advanced)  [Defense (Guiding Bolt)]
 # [ ] Damage (Half-Action)
 # [ ] Damage (Half-Action)  (Advanced)
 # [ ] Damage (AoE)
-# [ ] Damage (AoE)          (Advanced)
+# [x] Damage (AoE)          (Advanced)  [Radiant Smite]
 # [ ] Stats
 # [ ] Low CC
 # [x] Medium CC                         [Blind AoE (Blinding Smite)]
@@ -1474,7 +1709,7 @@ Divine:
 # [x] Tranking/Protection (Shielding)
 # [ ] Buff
 # [ ] Debuff
-# [ ] Mobility
+# [x] Mobility                          [Saving Throw, Wraithwalk]
 
 
     # Basic Spells
@@ -1491,7 +1726,7 @@ Divine:
     ~Purify Food and Drink~: Inherit
 
 
-    # Standard Spells
+    # Advanced Spells
     ~Blinding Smite~:
         A: 0 Actions
         Cost: 2 Mana.
@@ -1515,6 +1750,15 @@ Divine:
         Cost: 1 Mana
         Effect: Touch an ally and heal it for 2d4 + Main Stat.
 
+    ~Guiding Bolt~:
+        A: 1 Action
+        Cost: 1 Mana
+        Range: 10 meters
+        Effect: |
+            Attack a target for 2d10 + Main Stat True damage.
+            The next time someone would cast a spell that affects that Unit, the caster can reroll any of the spell's dice, at most one reroll for each die.
+        Notes: This affects AoE effects and healing abilities too. For any reason, you can choose not to deal damage with this spell.
+    
     ~Radiant Smite~:
         A: 0 Actions
         Cost: 2 Mana
@@ -1526,6 +1770,14 @@ Divine:
         Effect: Restore up to 3d6 Health spread out as you like among your party members.
         Note: You must be staying in place to channel this. You can't heal yourself with this.
 
+    ~Saving Throw (Divine)~:
+        A: 0 Actions
+        Cost: 1 Mana
+        Range: 10 meters
+        Effect: |
+            Instantly pull 2 allies to your nearest empty space.
+        Notes: The ally goes flying, and does not trigger opportunity attacks.        
+
     ~Turn Undead~:
         A: 0 Actions
         Cost: 2 Mana
@@ -1534,9 +1786,7 @@ Divine:
             If any fails, it is Feared.
 
 
-
-    # Advanced Spells
-    
+    # Higher Level Spells
     ~Rise~:
         A: 0.5 Actions
         Cost: 2 Mana
@@ -1555,9 +1805,9 @@ Divine:
             If the Unit is unconscious, the Unit wakes up and is healed for 1 Health.
 
     
-    ~Wraithwalk~ : 
+    ~Wraithwalk~: 
         A: 0 Actions
-        Cost: 1 Mana
+        Cooldown: Long Rest
         Requirement: Level 8
         Effect: |
             You become spectral for 10 seconds (until the start of your next turn).
@@ -1574,33 +1824,72 @@ Faith:
 # [x] Damage (1 Action)                 [Defense (Hollow Touch)]
 # [ ] Damage (1 Action)     (Advanced)
 # [ ] Damage (Half-Action)
-# [ ] Damage (Half-Action)  (Advanced)
+# [x] Damage (Half-Action)  (Advanced)  [Expelling Bolt]
 # [ ] Damage (AoE)
-# [ ] Damage (AoE)          (Advanced)
-# [ ] Stats
+# [x] Damage (AoE)          (Advanced)  [Radiance]
+# [x] Stats                             [Willpower Aura]
 # [ ] Low CC
-# [ ] Medium CC
-# [ ] Hard CC
+# [x] Medium CC
+# [x] Hard CC                           [Banishment Slip]
 # [x] Healing                           [0/1 (Invigorate), 1/2 (Vindication)]
-# [ ] Tranking/Protection (Shielding)
-# [ ] Buff
+# [x] Tranking/Protection (Shielding)   [Atonement]
+# [x] Buff                              [Blessing of Wisdom, Willpower Aura]
 # [ ] Debuff
-# [ ] Mobility
+# [x] Mobility                          [Saving Throw]
 
 
     ~Cure Disease~: Inherit
     ~Cure Poison~: Inherit
     ~Detect Poison and Disease~: Inherit
-          
+
     ~Hollow Touch~: Inherit
 
     ~Flameblade~: Inherit
     ~Flaming Arrows~: Inherit
-    
+
     ~Purify Food and Drink~: Inherit
     
     ~Water Walk~: Inherit
     
+    # Advanced Spells
+    ~Atonement~:
+        A: 0 Actions
+        Cooldown: Long Rest
+        Cost: 1 Insight
+        Effect: |
+            Lose (Main Stat + Your Level) Health.
+            Twice as much Shielding for 1 hour.
+    ~Blessing of Wisdom~:
+        A: 0 Actions
+        Cost: 1 Insight
+        Cooldown: Long Rest
+        Effect: An ally you can see restores 1 Mana and has +1 Main Stat for 8 hours.
+        Notes: |
+            Mana restored can't exceed their maximum Mana.
+            A Unit can't have multiple Blessings of Wisdom on it.
+        
+    
+    
+    ~Expelling Bolt~:
+        A: Half-Action
+        Cost: 1 Insight
+        Cooldown: Long Rest
+        Range: 5 meters
+        Effect: |
+            Make an attack on a Unit that deals 1d8 + Your Main Stat + Target's Maximum Movement Speed damage as Force damage.
+        Notes: Against Epic monsters, the Maximum Speed is calculated as it's (Speed) * (Epic Grade). E.g. if it's an Ogre with Movement Speed of 3 and has an Epic Grade of 2 (meaning it takes 2 turns), its Maximum Movement Speed is 2 * 3 = 6.
+    
+     
+    ~Hand of Freedom~:
+        A: Reaction or 0 Actions
+        Cooldown: Long Rest
+        Cost: 1 Insight
+        Effect: |
+            Instantly remove all Crowd Control from another ally you can see.
+        Upgrade: |
+            At Level 3, also removes all non-magical debuffs and poisons.
+            At Level 6, also removes all curses and normal negative magical effects.
+        
     ~Invigorate~:
         A: 0 Actions
         Cooldown: Long Rest
@@ -1610,13 +1899,67 @@ Faith:
             Heal a target for 1d4 + 2 Health.
             If after this the target is at full Health, repeat this on another target.
             
+    ~Saving Throw (Faith)~:
+        A: 0 Actions
+        Cooldown: 1 hour
+        Cost: 1 Insight
+        Range: 6 meters
+        Effect: |
+            Instantly pull an ally to your nearest empty space.
+        Notes: The ally goes flying, and does not trigger opportunity attacks.        
+    
     ~Searing Smite~:
         A: 0 Actions
         Cooldown: Long Rest
         Cost: 2 Insight
         Effect: |
             Add 1d8 Fire damage to a weapon Attack. The target takes another 1d8 Fire damage at the start of your next turn.
+
+    ~Radiance~:
+        A: 0 Actions
+        Cooldown: Long Rest
+        Cost: 1 Insight
+        Effect: For 1 minute, at the end of your turn, all Units within 1 meter of you take 1d4 True damage.
         
+    ~Restoration~:
+        A: 0 Actions
+        Cooldown: Long Rest
+        Cost: 1 Insight
+        Effect: |
+            Remove all your party members' Exhaustion from rising after being Fallen, from not sleeping and from magical effects.
+
+    
+      
+    ~Willpower Aura~:
+        A: 0 Actions
+        Cost: 1 Insight
+        Cooldown: Long Rest
+        Effect: |
+            For 8 hours, all allies around you (and you) can spend 0.5 Actions to gain Shielding equal to your Main Stat.
+        Upgrade: |
+            At Level 3, you all gain +2 to Wisdom Checks as well.
+            At Level 6, you all gain 50% Resistance to Psychic and True damage as well.
+    
+    # Higher Level Spells
+    ~Banishment Slip~:
+        A: Half-Action
+        Cost: 1 Insight
+        Cooldown: Long Rest
+        Range: 5 meters
+        Requirement: Level 4
+        Effect: |
+            A Medium or smaller Unit becomes Banished to another parallel dimension until the start of your next turn.
+            While Banished, it can't interact with the normal world and nothing can interact with it.
+            
+    ~Fearing Ward~:
+        A: 1 Action
+        Cooldown: Long Rest
+        Cost: 1 Insight
+        Requirement: Level 4
+        Effect: |
+            Choose an ally you can see. Put a ward on them until the start of your next turn.
+            When an enemy wants to make an attack on them, the enemy must pass a Wisdom Check or be Feared by that ally and take 4d4 Necrotic damage (or half if it succeeds).
+            The ally is also immune to being Feared, Charmed and Silenced in this time.
     ~Vindication~:
         A: 1 Action
         Cooldown: Long Rest
@@ -1626,13 +1969,5 @@ Faith:
         Effect: |
             Choose a target.
             For every 20% of its missing Health, heal it for your Main Stat Health.
-            
-    ~Restoration~:
-        A: 0 Actions
-        Cooldown: Long Rest
-        Cost: 1 Insight
-        Effect: |
-            Remove all your party members' Exhaustion from rising after being Fallen, from not sleeping and from magical effects.
-
-    
-    
+      
+    ~Wraithwalk~: Inherit

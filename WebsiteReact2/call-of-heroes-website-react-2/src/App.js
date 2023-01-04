@@ -18,6 +18,10 @@ import Monsters from './pages/Other/Monsters'
 
 import Rule from './pages/Other/Rule';
 
+import Levels from './pages/Lore/Levels';
+import SpellSchoolDescriptions from './pages/Lore/SpellSchoolDescriptions';
+import Languages from './pages/Lore/Languages';
+
 import PageH1 from './components/PageH1/PageH1'
 import PageH2 from './components/PageH2/PageH2'
 
@@ -49,6 +53,11 @@ import Obstacles from './pages/Other/Obstacles';
 import PetsAndAnimals from './pages/Other/PetsAndAnimals';
 import PetOrAnimal from './pages/Other/PetOrAnimal';
 import Feats from './pages/Other/Feats';
+import HowToPlayForNewPlayers from './pages/Other/HowToPlayForNewPlayers';
+import Rules from './pages/Other/Rules';
+import AttackModifiers from './pages/Other/AttackModifiers';
+import CrowdControl from './pages/Other/CrowdControl';
+import AreasOfEffect from './pages/Other/AreasOfEffect';
 
 function App() {
 
@@ -74,7 +83,11 @@ function App() {
     )
   }
   function SubnavItem({name, children}) {       // Opens an UndernavContent with the same name on hover 
-    const onHover = () => { setNavState({...navState, currentlyOpenUndernav: name}) }
+    // const onHover = () => { setNavState({...navState, currentlyOpenUndernav: name}) }
+    const onHover = () => {
+      if (name == navState.currentlyOpenUndernav) return; // To prevent some weird rerenders
+      setNavState({...navState, currentlyOpenUndernav: name})
+    }
     return (<div className='subnav-item' onMouseEnter={onHover}>{ children }</div>)
   }
   function UndernavContent({children, name}) {  // Is ONE list of items; displays if its name is same as currentlyOpenUndernav
@@ -83,22 +96,35 @@ function App() {
       <div className='undernav-content' style={{display: isDisplayed? '' : 'none' }}>{ children }</div>
     )
   }
-  function BannerLink({name, link}) {
+  function BannerLink({name, link, isDownload}) {
     const closeMenus = () => setNavState({currentlyOpenSubnav: null, currentlyOpenUndernav: null})
-    return (
-      <Link onClick={closeMenus} to={link}>
-        <HomeBanner3 title={name}/>
-      </Link>
-    )
+    if (isDownload === true) {
+      return (
+        <a href={link} onClick={closeMenus} target="_blank" download>
+          <HomeBanner3 title={name}/>
+        </a>
+      )
+    } else {
+      return (
+        <Link onClick={closeMenus} to={link}>
+          <HomeBanner3 title={name}/>
+        </Link>
+      )
+    }
   }
-
+  function closeNav(event) {
+    setNavState({
+      currentlyOpenSubnav: null,
+      currentlyOpenUndernav: null
+    })
+  }
 
 
   return (
     <div id="Window">
       <BrowserRouter>
 
-        <div>
+        <div id="Navigation-Section">
           <nav>
             {/* <div className='nav-item'><Link to="/">Home</Link></div> */}
             <NavItem name='Database'><Link to="">Database</Link></NavItem>
@@ -114,31 +140,33 @@ function App() {
               <SubnavContent name="Database">
                 <SubnavItem name='Races'><Link to="">Races</Link></SubnavItem>
                 <SubnavItem name='Classes'><Link to="">Classes</Link></SubnavItem>
-                <SubnavItem><Link to="/Other/Backgrounds">Backgrounds</Link></SubnavItem>
+                <SubnavItem>
+                  <Link to="/Other/Backgrounds">Backgrounds</Link>
+                </SubnavItem>
                 <SubnavItem><Link to="/Other/Abilities">Abilities</Link></SubnavItem>
                 <SubnavItem name="Gear and Items"><Link to="">Gear and Items</Link></SubnavItem>
                 <SubnavItem name="Other"><Link to="">Other</Link></SubnavItem>
               </SubnavContent>
 
               <SubnavContent name="Learn">
-                <SubnavItem><Link to="/TODO">How To Play (for New Players)</Link></SubnavItem>
+                <SubnavItem><Link to="/Other/HowToPlayForNewPlayers">How To Play (for New Players)</Link></SubnavItem>
                 <SubnavItem><Link to="/Other/TransitionGuide">How To Play (for D&D Players)</Link></SubnavItem>
                 <SubnavItem><Link to="/Other/CharacterCreation">Character Creation</Link></SubnavItem>
                 <SubnavItem><Link to="/Other/CharacterCreationCalculator">Character Helper</Link></SubnavItem>
               </SubnavContent>
 
               <SubnavContent name="Rules">
-                <SubnavItem><Link to="/TODO">All Rules Glossary</Link></SubnavItem>
-                <SubnavItem><Link to="/TODO">Crowd Control</Link></SubnavItem>
-                <SubnavItem><Link to="/TODO">Area of Effect</Link></SubnavItem>
-                <SubnavItem><Link to="/TODO">Attack Modifiers</Link></SubnavItem>
+                <SubnavItem><Link to="/Other/Rules">All Rules Glossary</Link></SubnavItem>
+                <SubnavItem><Link to="/Other/CrowdControl">Crowd Control</Link></SubnavItem>
+                <SubnavItem><Link to="/Other/AreasOfEffect">Area of Effect</Link></SubnavItem>
+                <SubnavItem><Link to="/Other/AttackModifiers">Attack Modifiers</Link></SubnavItem>
                 <SubnavItem><Link to="/TODO">Inventory</Link></SubnavItem>
               </SubnavContent>
 
               <SubnavContent name="Lore">
-                <SubnavItem><Link to="/TODO">Languages</Link></SubnavItem>
-                <SubnavItem><Link to="/TODO">Spell Schools</Link></SubnavItem>
-                <SubnavItem><Link to="/TODO">Levels</Link></SubnavItem>
+                <SubnavItem><Link to="/Lore/Languages">Languages</Link></SubnavItem>
+                <SubnavItem><Link to="/Lore/SpellSchoolDescriptions">Spell Schools</Link></SubnavItem>
+                <SubnavItem><Link to="/Lore/Levels">Levels</Link></SubnavItem>
               </SubnavContent>
 
               <SubnavContent name="GM Resources">
@@ -152,7 +180,8 @@ function App() {
 
 
             </div>
-            <LandingPageSeparator style={{display: isSubnavDisplayed? '' : 'none'}}/>
+            {/* <LandingPageSeparator type="4" style={{display: isSubnavDisplayed? '' : 'none'}}/> */}
+            <LandingPageSeparator type="7" style={{display: isSubnavDisplayed && isUndernavDisplayed == false? '' : 'none'}}/>
 
             <div className='undernav' style={{display: isUndernavDisplayed? '' : 'none'}}>  {/* The whole section with banners; has background color */}
               
@@ -186,6 +215,8 @@ function App() {
               </UndernavContent>
 
               <UndernavContent name='Other'>
+                <BannerLink isDownload={true} link="/Download/Sheet-2023-01-01.psd" name='Character Sheet (PSD)'/>
+                <BannerLink isDownload={true} link="/Download/Sheet-2023-01-01.png" name='Character Sheet (PNG)'/>
                 <BannerLink name='Obstacles'/>
                 <BannerLink link="/Other/PetsAndAnimals" name='Pets and Animals'/>
                 <BannerLink link="/Other/Feats" name='Feats'/>
@@ -193,25 +224,30 @@ function App() {
 
 
             </div>
-            <LandingPageSeparator style={{display: isUndernavDisplayed? '' : 'none'}}/>
+            <LandingPageSeparator type="7" style={{display: isUndernavDisplayed? '' : 'none'}}/>
           </MegaDropdown>
 
+          {/* <LandingPageSeparator/> */}
+          <LandingPageSeparator type="8"/>
         </div>
 
 
-        <LandingPageSeparator/>
 
-        <div className="content">
+
+
+        <div className="content" onClick={closeNav}>
 
             {/* Here will be rendered the page: */}
           <Routes>
             <Route path="/" element={ <Index/> }/>
             <Route path="/Other/Rule" element={ <Rule/> }/>
+            <Route path="/Other/Rules" element={ <Rules/> }/>
             <Route path="/Other/Abilities" element={ <Abilities/> }/>
             <Route path="/Other/Feats" element={ <Feats/> }/>
             <Route path="/Other/Backgrounds" element={ <Backgrounds/> }/>
             <Route path="/Other/Armors" element={ <Armors/> }/>
             <Route path="/Other/Weapons" element={ <Weapons/> }/>
+            <Route path="/Other/HowToPlayForNewPlayers" element={ <HowToPlayForNewPlayers/> }/>
             <Route path="/Other/CharacterCreation" element={ <CharacterCreation/> }/>
             <Route path="/Other/CharacterCreationCalculator" element={ <CharacterCreationCalculator/> }/>
             <Route path="/Other/TransitionGuide" element={ <TransitionGuide/> }/>
@@ -221,6 +257,13 @@ function App() {
             <Route path="/Other/Obstacles" element={ <Obstacles/> }/>
             <Route path="/Other/PetsAndAnimals" element={ <PetsAndAnimals/> }/>
             <Route path="/Other/PetOrAnimal" element={ <PetOrAnimal/> }/>
+            <Route path="/Other/AttackModifiers" element={ <AttackModifiers/> }/>
+            <Route path="/Other/CrowdControl" element={ <CrowdControl/> }/>
+            <Route path="/Other/AreasOfEffect" element={ <AreasOfEffect/> }/>
+            
+            <Route path="/Lore/Levels" element={ <Levels/> }/>
+            <Route path="/Lore/SpellSchoolDescriptions" element={ <SpellSchoolDescriptions/> }/>
+            <Route path="/Lore/Languages" element={ <Languages/> }/>
 
             <Route path="/Races/Bertle" element= { <Bertle/> }/>
             <Route path="/Races/Dragonborn" element= { <Dragonborn/> }/>
@@ -244,8 +287,13 @@ function App() {
 
         </div>
         
-        <LandingPageSeparator/>
-        <footer className='footer'></footer>
+
+
+
+        
+        <footer className='footer'>
+          <LandingPageSeparator type="8"/>
+        </footer>
       </BrowserRouter>
     </div>
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 import * as U from '../../utils'
 
@@ -15,7 +16,6 @@ import TableNormal from '../../components/TableNormal/TableNormal'
 export default function PetsAndAnimals() {
 
     const categoryNames = Object.keys(animals)
-    console.log({categoryNames})
 
     function PetAnimalTable({categoryName}) {
         const animalNames = Object.keys(animals[categoryName])
@@ -23,7 +23,9 @@ export default function PetsAndAnimals() {
             <TableNormal columns={[categoryName]}>
                 { animalNames.map(name => (
                     <tr key={name}>
-                        <td>{name}</td>
+                        <td>
+                            <Link to={`/Other/PetOrAnimal#${name}`} style={{width: '100%', display: 'block'}}>{name}</Link>
+                        </td>
                     </tr>
                 ))}
             </TableNormal>

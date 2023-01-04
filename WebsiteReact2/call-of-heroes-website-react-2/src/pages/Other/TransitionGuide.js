@@ -14,6 +14,8 @@ import SmallStat from '../../components/SmallStat/SmallStat'
 import TwoColumns from '../../components/TwoColumns/TwoColumns'
 import Column from '../../components/TwoColumns/Column'
 
+import Page from '../../containers/Page/Page'
+
 
 export default function TransitionGuide() {
 
@@ -52,7 +54,7 @@ export default function TransitionGuide() {
 
     return (
         <div>
-            <div className='page' style={{whiteSpace: 'pre-wrap'}}>
+            <Page style={{whiteSpace: 'pre-wrap'}}>
                 <PageH1>D&D Transition Guide</PageH1>
 
                 <PageH2>About The Game</PageH2>
@@ -65,9 +67,9 @@ export default function TransitionGuide() {
                         <Section object={aboutTheGame} title='Is this a D&D offspin?'/>
                     </Column>
                 </TwoColumns>
-            </div>
+            </Page>
 
-            <div className='page' style={{whiteSpace: 'pre-wrap', overflow: 'hidden'}}>
+            <Page style={{whiteSpace: 'pre-wrap', overflow: 'hidden'}}>
                 <PageH2>Basic Rules Transition</PageH2>
 
                 <SectionRightContentLeft object={cohForDnd} title="D12 System" type="lefty">
@@ -92,7 +94,7 @@ export default function TransitionGuide() {
                 <Section object={cohForDnd} title="Spell Casting Systems"/>
                 <Section object={cohForDnd} title="Main Stat and Other"/>
 
-            </div>
+            </Page>
 
         </div>
         

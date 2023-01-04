@@ -1,43 +1,51 @@
 :root {
-  --hero-height: 800px;
+  --hero-height: 1080px;
   --hero-text-margin: 180px;
   --hero-text-width: 475px;
+
+  --hero-image-width: 1920;
+  --hero-image-height: 928;
 }
 
 
 .home__hero-section {
   width: 100%;
-  height: var(--hero-height);
+  /* height: var(--hero-height); */
+  aspect-ratio: var(--hero-image-width) / var(--hero-image-height);
   position: relative;
   overflow: hidden;
 
   margin-top: 0px;
 }
-.home__hero-section img {
-  height: var(--hero-height);
+.landing_page_image {
+  width: 100%;
+  height: auto;
   position: absolute;
   z-index: 0;
 }
 
+
 .home__hero-section-text-container {
   padding: var(--hero-text-margin);
-  padding-right: 0px;
-  padding-top: calc(var(--hero-text-margin) - 20px);  /* For pixel perfect alignment */
+  padding-top: 21%;
 }
 .home__hero-section-text-container h1 {
+
+  font-family: StylizedFont;
+
   width: 100%;
   position: relative;   /* Necessary for the z-index to have an effect with the image being absolute */
   padding: 0px;
   margin: 0px;
   z-index: 99;
   
-  font-size: 4em;
-  font-weight: 100;
-  text-align: left;
+  font-size: 3em;
+  line-height: 1.65em;
+  text-align: center;
   color: white;
-  text-shadow: 0px 2px 9px #000000;
+  text-shadow: 0px 5px 5px #000000;
 }
-.home__hero-section-text-container p {
+/* .home__hero-section-text-container p {
   width: var(--hero-text-width);
   font-size: 1.10em;
   position: relative;
@@ -47,13 +55,23 @@
   z-index: 99;
 
   color: white;
+} */
+
+.home__hero-section__buttons-wrapper {
+  width: 100%;
+  position: absolute;
+  bottom: 22.5%;
 }
 .home__hero-section__buttons {
-  margin-top: calc(var(--hero-text-margin) * (0.2 + 0.15));   /* 0.15 because the title has some extra space on the bottom from the font */
+  /*margin-top: calc(var(--hero-text-margin) * (0.2 + 0.15));   /* 0.15 because the title has some extra space on the bottom from the font */
+  margin: auto;
+  bottom: 0px;
   display: flex;
+  justify-content: center;
+  gap: 50px;
 }
 .home__hero-section__buttons button {
-  margin-right: calc(var(--hero-text-margin) * 0.2);
+  /* margin-right: calc(var(--hero-text-margin) * 0.2); */
 }
 
 
@@ -70,8 +88,67 @@
   background-repeat: repeat;
   background-size: 90%; */
   }
+
+
+.home__advantages-section {
+  width: 100%;
+  aspect-ratio: var(--hero-image-width) / var(--hero-image-height);
+  position: relative;
+  z-index: 9999999;
+  overflow: hidden;
+}
+.home__advantages-section > img {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  z-index: 0;
+}
+.home__advantages-section h3 {
+  margin: 0px;
+  padding-left: 0px;
+  position: relative;
+  margin-bottom: 25px;;
   
-  .home-container__content {
+  color: white;
+  font-family: StylizedFont;
+  letter-spacing: 0.1em;
+  transform: scale(0.8, 1);
+  transform-origin: top left;
+  font-size: 3em;
+}
+.home__advantages-box {
+  padding: 7.5%;
+}
+.home__advantages-box ul {
+  position: relative;
+  margin: 0px;
+  padding: 0px;
+
+  list-style: none;
+  font-family: TextFont;
+  font-size: 1.4em;
+  line-height: 1.7em;
+  color: white;
+}
+.home__advantages-box ul li .inline-icon {
+  margin-right: 10px;
+  margin-top: 13px;
+}
+.home__advantages-box ul li {
+  margin-bottom: 12px;
+}
+
+
+
+
+
+
+
+
+
+
+  
+.home-container__content {
   width: 1200px;
   margin: auto;
   margin-top: 75px;
@@ -82,4 +159,4 @@
   flex-direction: row;
   flex-wrap: wrap;
   gap: var(--page-padding);
-  }
+}

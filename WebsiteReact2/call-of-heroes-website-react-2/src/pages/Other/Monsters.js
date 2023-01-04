@@ -12,6 +12,7 @@ import Page from '../../containers/Page/Page'
 
 import monsters from '../../databases/Monsters.json'
 import TableNormal from '../../components/TableNormal/TableNormal'
+import { Link } from 'react-router-dom'
 
 export default function Monsters({}) {
 
@@ -25,7 +26,7 @@ export default function Monsters({}) {
             <TableNormal columns={['Name', 'Type', 'Experience', 'Degree']}>
                 { monstersArray.map(monster => (
                     <tr key={monster.Name}>
-                        <td>{ monster.Name }</td>
+                        <td><Link to={`/Other/Monster#${monster.Name}`}>{ monster.Name }</Link></td>
                         <td>{ monster.Type }</td>
                         <td>{ monster.Experience }</td>
                         <td>{ monster.Degree == null? 'Normal' : monster.Degree }</td>

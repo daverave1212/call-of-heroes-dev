@@ -22,6 +22,7 @@ import { asIntOr, formValueIntOr, isFormValueInt, isFormValueNumeric, isNumeric,
 import ManySmallStats from '../../components/SmallStat/ManySmallStats'
 import SmallStatList from '../../components/SmallStat/SmallStatList'
 import Icon from '../../components/Icon'
+import Page from '../../containers/Page/Page'
 
 
 export default function CharacterCreationCalculator() {
@@ -122,9 +123,7 @@ export default function CharacterCreationCalculator() {
     const statDistributionValidResult = checkStatDistributionValid()
 
     return (
-        <div className='page'>
-            <PageH1>Character Creation Helper</PageH1>
-
+        <Page title="Character Helper">
             <TwoColumns style={styleMargined}>
                 <Column>
                     <label className='cc-label'>Race</label>
@@ -398,6 +397,6 @@ export default function CharacterCreationCalculator() {
                 </Column>
             </TwoColumns>
             
-        </div>
+        </Page>
     )
 }

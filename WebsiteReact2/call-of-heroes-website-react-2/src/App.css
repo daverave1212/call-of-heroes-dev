@@ -2,6 +2,8 @@
   --element-padding: 30px;
   --element-padding-half: calc(var(--element-padding) / 2);
 
+  --title-font-transform: scale(0.8, 1);
+
   --passive-dark-color: rgb(31, 81, 146);
 
   --light-medium-color: rgb(153, 52, 52);
@@ -30,6 +32,10 @@ p {
   white-space: pre-wrap;
 }
 
+.content {
+  padding-top: var(--nav-height);
+}
+
 @font-face {
   font-family: TextFont;
   src: url('fonts/LinuxLibertine/LinLibertine_R.ttf');
@@ -38,6 +44,14 @@ p {
 @font-face {
   font-family: TitleFont;
   src: url('fonts/DayRoman/DAYROM__.ttf');
+}
+@font-face {
+  font-family: StylizedFont;
+  src: url('fonts/InknutAntiqua/InknutAntiqua-Light.ttf');
+}
+.stylized-font {
+  font-family: StylizedFont;
+  transform: var(--title-font-transform);
 }
 
 
@@ -120,24 +134,26 @@ body {
 
 
 .button-standard {
-  font-family: TitleFont;
+  font-family: StylizedFont;
   font-size: 1em;
 
   color: white;
-  background-color: var(--nav-background-color);
-  border: none;
-  border-radius: 2px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border: solid white 1px;
+  border-radius: 4px;
 
   padding: 0px;
 
   z-index: 999;
   display: block;
   position: relative;
+
+  cursor: pointer;
+}
+.button-standard:hover {
+  border: solid var(--light-medium-color) 1px;
 }
 .button-standard__content {
-  border: solid white 1px;
-  border-radius: 2px;
-
   padding-top: 15px;
   padding-bottom: 15px;
   padding-left: 40px;
@@ -145,33 +161,12 @@ body {
 }
 
 
-/* .button-standard {
-  font-family: TitleFont;
-  font-size: 1em;
-  font-weight: 200;
-  padding: 20px;
-
-  border-radius: 3px;
-  border: solid var(--button-color) 1px;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-
-  display: block;
-  position: relative;
-}
-.button-standard:hover {
-  cursor: pointer;
-  border: solid white 1px;
-  filter: brightness(1.2);
-} */
-
-
-
 
 
 
 
 .footer {
+  margin-top: 150px;
   min-height: 150px;
   background-color: var(--gray-color);
 }

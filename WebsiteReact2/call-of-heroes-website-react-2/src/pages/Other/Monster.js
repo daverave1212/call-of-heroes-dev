@@ -99,7 +99,9 @@ export default function Monster() {
             <TwoColumns type='lefty'>
                 <Column>
                     <div>
-                        { monster.Abilities.length >= 2 ? (
+                        { (monster.Abilities == null || monster.Abilities == 'None') ? (
+                            <div></div>
+                        ) : (monster.Abilities.length >= 2) ? (
                             <div>
                                 <TwoColumns className="two-columns--quarter-padding">
                                     <Column>

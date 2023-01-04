@@ -369,7 +369,8 @@ export function SpecTalents({ spec }) {
 }
 
 export function StartingAbilities({ spellsObject, description }) {
-    return AbilitiesWithDescription({ spellsObject, description, title: 'Starting Abilities' })    
+    console.log({spellsObject})
+    return AbilitiesWithDescription({ spellsObject, description, title: 'Starting Abilities', autoAlign: true })    
 }
 export function SADescription({description}) {
     if (typeof description === 'string' || description instanceof String)
@@ -406,7 +407,7 @@ export function AbilitiesWithDescription({ spellsObject, description, title, aut
     console.log({spellsLeft, spellsRight, unalignedSpells})
     
     for (let i = 0; i < unalignedSpells.length; i++) {
-        const spell = spells[i]
+        const spell = unalignedSpells[i]
 
         if (autoAlign == false) {             // ...and if no autoalign, put it left
             spellsLeft.push(spell)

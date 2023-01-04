@@ -1,10 +1,6 @@
 import React, { useState } from 'react'
 
-import abilities from '../../databases/Abilities.json'
-import spellSchoolDescriptions from '../../databases/Other/SpellSchoolDescriptions.json'
-
 import PageH1 from '../../components/PageH1/PageH1'
-import ManySpells from '../../components/Spell/ManySpells'
 import PageH0 from '../../components/PageH0/PageH0'
 
 import './Page.css'

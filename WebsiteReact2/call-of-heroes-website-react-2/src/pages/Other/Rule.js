@@ -12,6 +12,8 @@ import PageH1 from '../../components/PageH1/PageH1'
 import Page from '../../containers/Page/Page'
 
 import Rules from '../../databases/Rules/Rules.json'
+import TwoColumns from '../../components/TwoColumns/TwoColumns'
+import Column from '../../components/TwoColumns/Column'
 
 export default function Rule() {
 
@@ -22,6 +24,17 @@ export default function Rule() {
         <Page>
             <PageH2>{ hash }</PageH2>
             <p>{ Rules[hash] }</p>
+
+            { hash == "Line of Sight" && (
+                <TwoColumns>
+                    <Column>
+                        <img style={{width: '100%'}} src="/Rules/LineOfSightWall.png"/>
+                    </Column>
+                    <Column>
+                        <img style={{width: '100%'}} src="/Rules/LineOfSightNo.png"/>
+                    </Column>
+                </TwoColumns>
+            ) }
         </Page>
     )
 }
