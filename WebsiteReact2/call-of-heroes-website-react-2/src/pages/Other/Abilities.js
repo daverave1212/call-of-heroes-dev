@@ -6,15 +6,22 @@ import spellSchoolDescriptions from '../../databases/Other/SpellSchoolDescriptio
 import PageH1 from '../../components/PageH1/PageH1'
 import ManySpells from '../../components/Spell/ManySpells'
 import Page from '../../containers/Page/Page'
+import { SideMenu } from '../../components/SideMenu/SideMenu'
 
 
 
 export default function Abilities() {
 
     const categories = Object.keys(abilities).filter(c => c != 'default')
+    const physicalAbilities = ['Default Moves', 'Bloodshed', 'Warfare']
+    const nonPhysicalSpells = categories.filter(c => physicalAbilities.includes(c) == false)
 
     return (
         <div>
+            <SideMenu sections={{
+                'Physical Abilities': physicalAbilities,
+                'Spells': nonPhysicalSpells
+            }}/>
             { categories.map(categoryName => (
                 <Page title={categoryName}>
                     <p>{ spellSchoolDescriptions[categoryName] }</p>

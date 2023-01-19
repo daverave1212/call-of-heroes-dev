@@ -29,19 +29,21 @@ import ManySpells from '../../components/Spell/ManySpells'
 import theClass from '../../databases/Classes/Warrior.json'
 
 import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies, } from '../../components/InsertableTemplates/RaceClassComponents'
-
+import { SideMenuFromClass } from '../../components/SideMenu/SideMenu'
 
 export default function Warrior() {
 
     return (
         <div>
 
+            <SideMenuFromClass theClass={theClass}/>
+
             <Page title={ theClass.Class }>
 
                 <br/>
 
                 <TwoColumns>
-                    <Column>
+                    <Column style={{zIndex: 1}}>
 
                         Lorem {theClass.Class} ipsum dolor sit amet.
                         Aenean blandit metus nisi, non commodo tortor volutpat ut.
@@ -65,8 +67,8 @@ export default function Warrior() {
                         Aenean suscipit, justo vitae faucibus viverra, lectus lacus laoreet ipsum, quis suscipit purus ex et tellus. Suspendisse congue libero sed molestie efficitur. Proin maximus sagittis nunc lacinia porttitor.
 
                     </Column>
-                    <Column>
-                        <img style={{ marginLeft: '-35px', marginTop: '-25px' }} className="class-image" src={`/Classes/${theClass.Class}.png`}/>
+                    <Column style={{position: 'relative'}}>
+                        <img style={{ left: '-110px', top: '-15 5px' }} className="class-image" src={`/Classes/${theClass.Class}.png`}/>
                     </Column>
                 </TwoColumns>
 

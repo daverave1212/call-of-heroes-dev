@@ -28,66 +28,45 @@ export default function() {
     <div className='home-container'>
   
       <div className='home__hero-section'>
-        <img className="landing_page_image" src="/LandingPage/LandingPageBackground--variant6.png" style={{width: '100%', height: 'auto'}}/>
-        <img src="/LandingPage/LandingPageTitle.png" style={{
-          width: '50%',
-          height: 'auto',
-          margin: 'auto',
-          marginTop: '21%',
-          zIndex: 9999,
-          position: 'relative',
-          display: 'block'
-        }}/>
-
-        {/* <div className='home__hero-section-text-container'>
-          <h1>
-            Whether Hero or Creator<br/>
-            It Is Your Adventure
-          </h1>
-        </div> */}
-
-        <div className='home__hero-section__buttons-wrapper'>
-          <div className='home__hero-section__buttons'>
-              <ButtonStandard onClick={onJoinBetaClick}>Join Beta</ButtonStandard>
-              <ButtonStandard style={{cursor: 'not-allowed'}}>Fund on Kickstarter</ButtonStandard>
+        <div className='hero-image-container'>
+          <img src="/LandingPage/LandingPageBackground--variant7.png" className='hero-img'/>
+        </div>
+        <div className='hero-content'>
+          <h1 className='home-title text-centered'>Roll For Adventure!</h1>
+          <p className='home-text text-centered'>Join a new tabletop roleplaying game for the modern world, designed with fast-paced combat and an easy-to-understand system. Create your hero, explore dungeons and be the protagonist of your own story!</p>
+          {/* It's the perfect mix of strategy and imagination. */}
+          {/* <p>Join a new tabletop roleplaying game for the modern world - faster combat, easier rules, more modern take on fantasy grid-based combat.</p> */}
+          <div className='hero-buttons'>
+            <img src="/button-separator.png"/>
+            <button className='generic-button' style={{borderRadius: '50px'}}>Show Me</button>
+            {/* <button className='generic-button'>Back on Kickstarter</button> */}
+            <img src="/button-separator-reversed.png"/>
           </div>
         </div>
-
-        {/* <div className='home__hero-section-text-container'>
-          <h1>
-            Play the Better<br/>
-            Tabletop RPG
-          </h1>
-    
-          <p>
-            A modern system, with faster combat, easier to learn mechanics, more strategy depth and more accessible to Game Masters and homebrew creators.
-          </p>
-    
-          <div className='home__hero-section__buttons'>
-            <ButtonStandard onClick={onJoinBetaClick}>Join Beta</ButtonStandard>
-            <ButtonStandard style={{cursor: 'not-allowed'}}>Fund on Kickstarter</ButtonStandard>
-          </div>
-        </div> */}
-        
-        
       </div>
   
       <LandingPageSeparator type="8"/>
 
-      <div className='home__advantages-section'>
-        <img src="/LandingPage/Advantages.png"/>
-        <div className='home__advantages-box'>
+      <div className='home-advantages'>
+        <div className='advantages-image-container'>
+          <img src="/LandingPage/Advantages--variant2.png" className='advantages-img'/>
+        </div>
+
+        <div className='advantages-content hero-content'>
+          <h1 className='home-title'>Modern and Approachable</h1>
+          <p className='home-text'>Call of Heroes aims to be the one and only roleplaying game for this generation. Gather your party and embark on a campaign with properly designed rules, and, more importantly, exciting abilities and spells to <i>break</i> the rules!</p>
           <ul>
-            <li><Icon name="BulletPoint2"/>Modernly designed RPG experience</li>
-            <li><Icon name="BulletPoint2"/>Easy to learn, hard to master</li>
-            <li><Icon name="BulletPoint2"/>Easy to pick up as a GM, with guides and resources</li>
-            <li><Icon name="BulletPoint2"/>Faster, more dynamic combat</li>
-            <li><Icon name="BulletPoint2"/>Tons of interesting character options</li>
-            <li><Icon name="BulletPoint2"/>Frequently updated</li>
-            <li><Icon name="BulletPoint2"/>Resources always online</li>
-            <li><Icon name="BulletPoint2"/>Metric system</li>
+            <li><Icon name="BulletPoint3"/>Well worded abilities and rules</li>
+            <li><Icon name="BulletPoint3"/>Easy to learn, hard to master</li>
+            <li><Icon name="BulletPoint3"/>Easy to pick up as a GM, with guides and resources</li>
+            <li><Icon name="BulletPoint3"/>Faster, more dynamic grid-based combat</li>
+            <li><Icon name="BulletPoint3"/>Tons of interesting character options</li>
+            <li><Icon name="BulletPoint3"/>Frequently updated</li>
+            <li><Icon name="BulletPoint3"/>Resources always online</li>
+            <li><Icon name="BulletPoint3"/>Metric system</li>
           </ul>
         </div>
+
       </div>
 
 

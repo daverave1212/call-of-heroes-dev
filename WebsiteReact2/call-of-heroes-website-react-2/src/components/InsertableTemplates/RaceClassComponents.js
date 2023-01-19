@@ -29,10 +29,8 @@ import Page from '../../containers/Page/Page'
 
 export function Proficiencies({ name, theRaceOrClass }) {
 
-    console.log(theRaceOrClass['Proficiency Choices'])
-
     return (
-        <div style={{marginTop: 'var(--page-padding)'}}>
+        <div style={{marginTop: 'var(--page-padding)'}} id="proficiencies">
             { theRaceOrClass.Proficiencies != null && (
                 <div>
                     <PageH3>Proficiencies</PageH3>
@@ -56,7 +54,7 @@ export function Proficiencies({ name, theRaceOrClass }) {
 
 export function ClassFeatures({ theClass }) {
     return (
-        <div>
+        <div id="class-features">
             <PageH2>Class Features</PageH2>
 
             <TwoColumns>
@@ -116,7 +114,7 @@ export function RaceFeatures({ theRace }) {
 
 export function LevelingUp({ theClass }) {
     return (
-        <div style={{marginTop: 'var(--page-padding)'}}>
+        <div style={{marginTop: 'var(--page-padding)'}} id="leveling-up">
             <PageH3>Leveling Up</PageH3>
     
             <TwoColumns type="normal">
@@ -265,7 +263,7 @@ export function SpellCasting({ theClass }) {
     }
 
     return (
-        <div>
+        <div id="spell-casting">
             <PageH2>Spell Casting</PageH2>
 
             <TwoColumns>
@@ -369,8 +367,7 @@ export function SpecTalents({ spec }) {
 }
 
 export function StartingAbilities({ spellsObject, description }) {
-    console.log({spellsObject})
-    return AbilitiesWithDescription({ spellsObject, description, title: 'Starting Abilities', autoAlign: true })    
+    return AbilitiesWithDescription({ spellsObject, description, title: 'Starting Abilities', autoAlign: true, id: 'starting-abilities' })    
 }
 export function SADescription({description}) {
     if (typeof description === 'string' || description instanceof String)
@@ -394,7 +391,7 @@ export function SADescription({description}) {
         ))
     }
 }
-export function AbilitiesWithDescription({ spellsObject, description, title, autoAlign }) {
+export function AbilitiesWithDescription({ spellsObject, description, title, autoAlign, id }) {
     autoAlign = autoAlign == null? false : true
 
     const spells = U.sortSpellsArrayByOrderOnWebsite(U.spellsFromObject(spellsObject))
@@ -402,9 +399,6 @@ export function AbilitiesWithDescription({ spellsObject, description, title, aut
     const spellsLeft = spells.filter(spell => spell.AlignOnWebsite == 'Left')
     const spellsRight = spells.filter(spell => spell.AlignOnWebsite == 'Right')
     const unalignedSpells = spells.filter(spell => spell.AlignOnWebsite == null)
-
-    console.log({spells})
-    console.log({spellsLeft, spellsRight, unalignedSpells})
     
     for (let i = 0; i < unalignedSpells.length; i++) {
         const spell = unalignedSpells[i]
@@ -421,7 +415,7 @@ export function AbilitiesWithDescription({ spellsObject, description, title, aut
     }
 
     return (
-        <div>
+        <div id={id}>
             { title != null && <PageH2>{title}</PageH2> }
 
             <TwoColumns>

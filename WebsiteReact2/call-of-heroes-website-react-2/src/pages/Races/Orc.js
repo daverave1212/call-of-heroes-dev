@@ -62,7 +62,7 @@ export default function Race() {
 
                     </Column>
                     <Column>
-                        <img style={{ marginLeft: '-25px', marginTop: '0px' }} className="class-image" src={`/Races/${theRace.Race}.png`}/>
+                        <img style={{ left: '-220px', top: '-205px' }} className="class-image" src={`/Races/${theRace.Race}.png`}/>
                     </Column>
                 </TwoColumns>
 

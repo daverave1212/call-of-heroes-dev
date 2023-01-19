@@ -27,18 +27,19 @@ import theClass from '../../databases/Classes/Cleric.json'
 import ManySpells from '../../components/Spell/ManySpells'
 
 import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies } from '../../components/InsertableTemplates/RaceClassComponents'
+import { SideMenu, SideMenuFromClass } from '../../components/SideMenu/SideMenu'
 
 export default function Cleric() {
 
     return (
         <div>
-            <Page title={ theClass.Class }>
+            <SideMenuFromClass theClass={theClass}/>
 
-                <br/>
+            <Page title={theClass.Class}>
 
+                
                 <TwoColumns>
-                    <Column>
-
+                    <Column style={{zIndex: 1}}>
                         Lorem {theClass.Class} ipsum dolor sit amet.
                         Aenean blandit metus nisi, non commodo tortor volutpat ut.
                         Aenean suscipit, justo vitae faucibus viverra, lectus lacus laoreet ipsum, quis suscipit purus ex et tellus. Suspendisse congue libero sed molestie efficitur. Proin maximus sagittis nunc lacinia porttitor.
@@ -59,10 +60,9 @@ export default function Cleric() {
                         Maecenas fermentum lacinia mi, a elementum nibh tristique at. In eget nisl nunc.
                         Lorem {theClass.Class} ipsum dolor sit amet.
                         Aenean suscipit, justo vitae faucibus viverra, lectus lacus laoreet ipsum, quis suscipit purus ex et tellus. Suspendisse congue libero sed molestie efficitur. Proin maximus sagittis nunc lacinia porttitor.
-
                     </Column>
-                    <Column>
-                        <img style={{ marginLeft: '0px', marginTop: '0px' }} className="class-image" src={`/Classes/${theClass.Class}.png`}/>
+                    <Column style={{position: 'relative'}}>
+                        <img style={{ height: '915px', position: 'absolute', left: '-160px', top: '-175px', zIndex: '0' }} className="class-image" src={`/Classes/${theClass.Class}.png`}/>
                     </Column>
                 </TwoColumns>
 
@@ -76,7 +76,7 @@ export default function Cleric() {
 
                 <StartingAbilities spellsObject={theClass['Starting Abilities']} description={theClass['Starting Abilities Description']}/>
 
-                <PageH2>Specialzations</PageH2>
+                <PageH2>Specializations</PageH2>
 
                 <p>
                     The first time you choose a cleric domain (specialization), you must choose between two abilities.
@@ -92,10 +92,10 @@ export default function Cleric() {
                     return (
                         <Spec key={specName} name={specName} spec={spec}>
 
-                        <PageH3>Choose One...</PageH3>
-                        <ManySpells spells={U.spellsFromObject(spec.Abilities)}/>
+                            <PageH3>Choose One...</PageH3>
+                            <ManySpells spells={U.spellsFromObject(spec.Abilities)}/>
 
-                        <SpecTalents spec={spec}/>
+                            <SpecTalents spec={spec}/>
 
                         </Spec>
                     )

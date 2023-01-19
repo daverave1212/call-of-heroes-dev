@@ -1,141 +1,206 @@
 :root {
-  --hero-height: 1080px;
-  --hero-text-margin: 180px;
-  --hero-text-width: 475px;
+  --hero-height: 720px;
 
-  --hero-image-width: 1920;
-  --hero-image-height: 928;
+  --hero-image-base-width: 3508;
+  --hero-image-base-height: 1579;
+
+  --hero-text-color: rgb(65, 41, 74);
+
+  --content-left: 11vw;
+
+
+
+  /*
+    Hero Heights:
+    New World: 720px
+    Lost Ark: 720px
+    Palia: 720px
+
+    Arche Age: 820px
+
+    AoC: 872px
+      Title Font: Artiflex 30px, LH 36px
+      Text Font: Roboto Condensed 20px, LH 28px
+
+    BDO:
+      Title & Text Font: StrongSword
+  */
+
+  --z-background: 1;
+  --z-content: 3;
 }
 
 
-.home__hero-section {
-  width: 100%;
-  /* height: var(--hero-height); */
-  aspect-ratio: var(--hero-image-width) / var(--hero-image-height);
-  position: relative;
-  overflow: hidden;
-
-  margin-top: 0px;
-}
-.landing_page_image {
-  width: 100%;
-  height: auto;
-  position: absolute;
-  z-index: 0;
-}
-
-
-.home__hero-section-text-container {
-  padding: var(--hero-text-margin);
-  padding-top: 21%;
-}
-.home__hero-section-text-container h1 {
-
-  font-family: StylizedFont;
-
-  width: 100%;
-  position: relative;   /* Necessary for the z-index to have an effect with the image being absolute */
-  padding: 0px;
-  margin: 0px;
-  z-index: 99;
-  
-  font-size: 3em;
-  line-height: 1.65em;
+.text-centered {
   text-align: center;
-  color: white;
-  text-shadow: 0px 5px 5px #000000;
 }
-/* .home__hero-section-text-container p {
-  width: var(--hero-text-width);
-  font-size: 1.10em;
-  position: relative;
-  padding: 0px;
-  margin: 0px;
-  margin-top: calc(var(--hero-text-margin) * 0.2);
-  z-index: 99;
-
-  color: white;
-} */
-
-.home__hero-section__buttons-wrapper {
-  width: 100%;
-  position: absolute;
-  bottom: 22.5%;
-}
-.home__hero-section__buttons {
-  /*margin-top: calc(var(--hero-text-margin) * (0.2 + 0.15));   /* 0.15 because the title has some extra space on the bottom from the font */
-  margin: auto;
-  bottom: 0px;
-  display: flex;
-  justify-content: center;
-  gap: 50px;
-}
-.home__hero-section__buttons button {
-  /* margin-right: calc(var(--hero-text-margin) * 0.2); */
-}
-
-
 
 .home-container {
   display: flex;        /* Ensures margin-top doesn't get bugged */
-  width: 100%;
-  min-height: 80vh;
+  width: 100vw;
   margin: auto;
   margin-top: 0px;
   flex-direction: column;
-  
-  /* background-image: url('images/paper-texture-page-transparent.png');
-  background-repeat: repeat;
-  background-size: 90%; */
-  }
+}
 
 
-.home__advantages-section {
-  width: 100%;
-  aspect-ratio: var(--hero-image-width) / var(--hero-image-height);
+
+.home__hero-section {
   position: relative;
-  z-index: 9999999;
+  width: 100%;
+  height: calc(100vh - var(--nav-height));
+
   overflow: hidden;
 }
-.home__advantages-section > img {
-  width: 100%;
-  height: auto;
+.hero-image-container {
   position: absolute;
-  z-index: 0;
-}
-.home__advantages-section h3 {
-  margin: 0px;
-  padding-left: 0px;
-  position: relative;
-  margin-bottom: 25px;;
   
-  color: white;
-  font-family: StylizedFont;
-  letter-spacing: 0.1em;
-  transform: scale(0.8, 1);
-  transform-origin: top left;
-  font-size: 3em;
-}
-.home__advantages-box {
-  padding: 7.5%;
-}
-.home__advantages-box ul {
-  position: relative;
-  margin: 0px;
-  padding: 0px;
+  height: calc(100vh - var(--nav-height));
+  width: 100vw;
 
-  list-style: none;
-  font-family: TextFont;
-  font-size: 1.4em;
-  line-height: 1.7em;
+  overflow: hidden;
+  z-index: var(--z-background);
+}
+.hero-img {
+  display: block;
+  height: 100%;
+  
+  margin-left: 30%;
+  transform: translateX(-30%);
+}
+:root {
+  --hero-content-width: 755px;
+}
+.hero-content {
+  position: absolute;
+
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  
+  width: var(--hero-content-width);
+
+  left: var(--content-left);
+  top: 290px;
+  
+  z-index: var(--z-content);
+}
+.home-title {
+  margin: 0px;
+
+  font-family: TitleFont;
+  color: var(--hero-text-color);
+  letter-spacing: 2px;
+  font-size: 75px;
+}
+.home-text {
+  margin: 0px;
+  margin: auto;
+
+  /* width: 75%; */
+
+  font-family: HomeFont;
+  color: var(--hero-text-color);
+  font-size: 27px;
+}
+.hero-buttons {
+  --my-width: 715px;
+
+  display: flex;
+  width: var(--my-width);
+  gap: 30px;
+  /* width: 100%; */
+
+  margin-top: 20px;
+  margin-left: calc((var(--my-width) - var(--hero-content-width)) / 2 * (-1) - 25px);
+}
+.hero-buttons img {
+  object-fit: contain;
+  width: 230px;
+}
+.generic-button {
+  font-family: HomeFont;
+  font-size: 27px;
+
+  padding: 12px;
+  
+  background: none;
+  border: solid var(--hero-text-color) 3px;
+}
+.hero-buttons button:nth-child(1) {
+  flex: 1;
+  
+  background-color: var(--hero-text-color);
   color: white;
 }
-.home__advantages-box ul li .inline-icon {
-  margin-right: 10px;
-  margin-top: 13px;
+.hero-buttons button:nth-child(2) {
+  flex: 2;
 }
-.home__advantages-box ul li {
-  margin-bottom: 12px;
+
+
+
+
+
+
+
+
+
+
+:root {
+  --advantages-font-size: 27px;
+}
+
+.home-advantages {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+.advantages-image-container {
+  position: absolute;
+  
+  height: 100vh;
+  width: 100vw;
+
+  overflow: hidden;
+  z-index: var(--z-background);
+}
+.advantages-img {
+  display: block;
+  height: 100%;
+  
+  margin-left: 30%;
+  transform: translateX(-30%);
+}
+
+
+.advantages-content {
+  width: 600px;
+  top: 150px;
+
+  color: var(--hero-text-color);
+}
+.home-advantages .home-title {
+  font-size: 45px;
+}
+.home-advantages .home-text {
+  font-size: var(--advantages-font-size);
+}
+
+.advantages-content ul {
+  font-size: var(--advantages-font-size);
+  font-family: HomeFont;
+
+  padding: 0px;
+  margin: 0px;
+}
+.advantages-content ul li {
+  height: 45px;
+  list-style-type: none;
+}
+.advantages-content .inline-icon {
+  margin-top: 2.5px;
+  height: 30px;
+  margin-right: 20px;
 }
 
 

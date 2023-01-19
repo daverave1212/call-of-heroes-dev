@@ -1,3 +1,4 @@
+import Icon from "./components/Icon"
 import Separator from "./components/Separator/Separator"
 
 
@@ -23,6 +24,11 @@ export function spellsFromObject(obj) {
 // This is useful because some class abilities have ": Inherit", therefore you need to get the spell from the database by name
 export function spellFromObject(obj, name) {
     return spellWithName(name, obj[name])
+}
+export function removeTildes(spellName) {
+    if (spellName.startsWith('~'))
+        return spellName.substring(1, spellName.length - 1)
+    return spellName
 }
 
 
@@ -57,6 +63,9 @@ export function getMonsterStatsAsObject(statsString) {
     ]
 
     return monsterStats
+}
+export function titleToId(title) {
+    return title.toLowerCase().split(' ').join('-')
 }
 
 
@@ -120,6 +129,31 @@ export function ifOk(whatToCheck, then) {
 export function parseTextWithSymbols(text) {
     const textParts = text.split('\n{Separator}\n')
     return insertBetweenAll(textParts, (<Separator/>))
+}
+export function parseTextWithMixins(text) {
+    const getMixinComponent = {
+        '{Defense}': () => <Icon name="Defense"/>,
+        '{Damage}': () => <Icon name="Damage"/>,
+        '{Health}': () => <Icon name="Health"/>,
+    }
+    const possibleMixins = Object.keys(getMixinComponent)
+
+    let parts = [text]
+    for (const mixin of possibleMixins) {
+        
+        let newParts = []
+        for (const part of parts) {
+            if (part.includes(mixin)) {
+                let partParts = part.split(mixin)
+                partParts = insertBetweenAll(partParts, getMixinComponent[mixin])
+                newParts = [...newParts, ...partParts]
+            } else {
+                newParts.push(part)
+            }
+        }
+        parts = newParts
+    }
+    return parts
 }
 
 export function isFormValueNumeric(value) {
@@ -188,7 +222,29 @@ export function getAnyPropNameExcept(obj, exceptions) {
         return null
     return remainingProps[0]
 }
-
+export function getLocalStorageBool(name) {
+    const value = window.localStorage.getItem(name)
+    if (value == null) return false
+    if (value == 'false') return false
+    if (value == 'true') return true
+    return false
+}
+export function randomInt(low, high){
+    return Math.floor(Math.random() * (high - low + 1) + low);
+}
+export function randomOf(...args){
+    return args[randomInt(0, args.length - 1)];
+}
+export function shuffle(array_a){
+    var iRandomize;
+    for(iRandomize = 0; iRandomize < array_a.length; iRandomize++){
+        var randomizeArrayIndex = randomInt(0, array_a.length - 1);
+        var auxRandomize = array_a[iRandomize];
+        array_a[iRandomize] = array_a[randomizeArrayIndex];
+        array_a[randomizeArrayIndex] = auxRandomize;
+    }
+    return array_a
+}
 
 
 

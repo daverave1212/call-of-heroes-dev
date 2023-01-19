@@ -3,32 +3,37 @@
     --page-min-width: 1010px;
     --page-border-width: 49px;
     --page-padding: 80px;
+
+    --page-content-width: 915px;
 }
 
 .page {
-    max-width: var(--page-max-width);
-    min-width: var(--page-min-width);
-    margin: auto;
-    margin-top: 125px;
-    margin-bottom: 0px;
-  
+    width: 100%;
+
+    background-color: white;
+}
+
+.page--has-background {
     background-image: url('./Images/paper-texture-page-desaturated.png');
     background-repeat: repeat;
     background-size: 90%;
-
-    /* border-image: url('images/page-borders.png') 49 stretch;
-    border-width: 20px;
-    border-style: solid;
-    border-color: transparent; */
-
-    border: solid black 3px;
-
-    -webkit-box-shadow: 0px 0px 10px 5px #000000; 
-    box-shadow: 0px 0px 10px 5px #000000;
 }
 
 .page-content {
-    padding: var(--page-padding);
+    padding-top: 0px;
+    width: var(--page-content-width);
+    margin-left: calc(var(--content-left) + var(--side-menu-width) + var(--side-menu-pad-right));
+    padding-bottom: 100px;
+}
+@media (max-width: 1435px) {    
+    .page-content {
+        margin-left: calc(var(--side-menu-left) + var(--side-menu-width) + var(--side-menu-pad-right));
+    }
+}
+@media (max-width: 1280px) {
+    .page-content {
+        margin: auto;   /* Side menu is hidden as well */
+    }
 }
 .page-subtitle {
     margin-top: 25px !important;

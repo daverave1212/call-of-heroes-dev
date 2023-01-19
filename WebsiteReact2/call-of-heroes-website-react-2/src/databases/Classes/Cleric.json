@@ -129,7 +129,7 @@
             "Description": "As a cleric, you become a devotee of darkness or/and light.",
             "Starting Abilities": {
                 "~Grasp~": {
-                    "A": "0.5 Actions",
+                    "A": "Half-Action",
                     "Range": "15 meters (you don't need line of sight)",
                     "Cost": "1 Mana",
                     "Effect": "Cast Awe on the target twice.\nThat target can not benefit from Cover for 1 minute.\n",
@@ -178,7 +178,7 @@
                         "OrderOnWebsite": 3
                     },
                     "<Circle of Awe>": {
-                        "A": "0.5 Actions",
+                        "A": "Half-Action",
                         "Cooldown": "Long Rest",
                         "Range": "6 meters to edge",
                         "Effect": "Declare a 4x4 area within 6 meters.\nNow, and at the start of your next turn, cast Awe on all Units inside the area.\n",
@@ -199,27 +199,24 @@
             "Starting Abilities": {
                 "~Second Soul~": {
                     "A": "Special",
-                    "Effect": "You have another character beside you: your 'minion'.\nPermanently choose one Ability Category from Bloodshed, Divine, Eldritch and Arcane.\nIt knows (1 + Your Level) Generic Abilities from the that Spell List.\nIt has Training in one Weapon Category and gets Training in another again at levels 3, 6 and 9.\nYou share the same Actions between yourselves.\nIts main stat is Wisdom.\nEx: If you used 0.5 Actions on your turn, your minion has 0.5 Actions left to use on its turn.\n",
-                    "Stats": {
-                        "Health": "Determined by your minion's nature (see below)",
-                        "Defense": 3,
-                        "Movement": "5 meters (land)",
-                        "Stats": "Assign the numbers (-1, 0, 1, 2, 3) in any order",
-                        "Languages": "Common and one extra language that makes sense for it and is either Common (Dwarvish, Elvish) or Wild (Orcish, Goblan, Sylvan, etc)",
-                        "Initiative Bonus": "The minion rolls initiative separately with its own Dexterity + Charisma modifier."
-                    }
+                    "Effect": "You have another character beside you, your 'minion', that is either a celestial or an undead.\nIts stat block is dictated by your starting Ability choice below.\n"
                 }
             },
             "Choose your side": "Life Cleric!\\nPick only one of the following two abilities!",
             "Abilities": {
                 "~True Necromancy~": {
-                    "A": "Passive",
-                    "Effect": "Your minion is a reanimated humanoid, whose soul is compelled to stay in this plane until its purpose is met.\nCome up with a story about why you have an Undead minion and why your god allowed this or gave him or her to you.\nAwe dice increases by 1 tier when healing yourself (or your minion).\nYour minion shares the same Health pool with you.\n"
+                    "A": "Special",
+                    "HasMixins": true,
+                    "Effect": "Your minion is a reanimated humanoid, whose soul is compelled to stay in this plane until its purpose is met.\n\nThe minion draws power from your own spirit: it shares the same {Health} Health pool with you (e.g. whenever one of you takes damage, the other one takes it as well). It also always has the same {Defense} Defense and Checks as you, and has Speed equal to your base Speed.\nYour minion has a 1-Handed Melee weapon. On its turn, it can attack once with it for 1d8 {Damage} Damage without any Stat modifiers, regardless of the weapon's real damage. It does, however, apply weapon effects.\nIt takes its turn at the same time as you.\n\nOn your turn, you can also cast any Spell through your Minion for range purposes only.\n",
+                    "Notes": "If both of you take damage at the same time (e.g. from an AoE effect), the damage taken is equal to the average of the damages taken.\nCome up with a story about why you have an Undead minion and why your god allowed this or gave him or her to you. Your undead minion might still be sentient (or not; your choice). If it is sentient, your GM might allow it to speak multiple languages, depending on the plot and theme of the campaign. The GM might also allow it to have separate Stats from yours using the normal Stat distribution, for Check purposes only (e.g. it won't affect Health). Alternatively, you can choose your minion to be an animal (for aesthetic purposes only).\n"
                 },
                 "~Celestial Follower~": {
-                    "A": "Passive",
-                    "Effect": "Your minion is a Celestial being, whose task is to protect, guide or follow you until its purpose is met.\nYour Celestial follower can be a humanoid or animal in appearance (it can't fly) and is sentient.\nCome up with a story about why you have a Celestial follower, and why your god allowed this or gave him or her to you.\nYour minion's max Health is always half of your max Health.\n",
-                    "Notes": "If it's animal-shaped and you want to use the rules for weapon attacks, just pretend the minion bites or scratches, but apply normal weapon rules.",
+                    "A": "0 Actions",
+                    "Cooldown": "Long Rest",
+                    "Duration": "3 turns",
+                    "HasMixins": true,
+                    "Effect": "Your minion is an angelic being, whose task is to protect guide or follow you until its purpose is met and is always by your side in the form of a spirit nobody else can interact with. Your Celestial follower can be a humanoid or animal in appearance (it can't fly) and is sentient.\nUsing 0 Actions, you can summon your minion in the physical plane, materializing in a space you choose within 5 meters, and lasts up to 3 turns.\n\nIt has {Health} Health equal to 10 + Your Level + Your Charisma, 3 {Defense} Defense, 5 Speed, 0 Initiative and the same Stats are you for Check purposes.\nOn its turn, it can attack, either Melee for 2d6 True {Damage} Damage, or ranged for 1d10 True {Damage} Damage (6 meters range).\nAlternatively, on its turn, instead of Attacking, it can cast Awe once for free (with your current Awe dice tier, if it's not 1d4).\n\nIt takes its turn separately, and always has 0 Initiative.\n",
+                    "Notes": "The Celestial Follower dematerializes after it finishes taking its 3rd turn.\nYou can choose the aspect of your minion (e.g. sentient humanoid, animal, etc).\nCome up with a story about why you have an angel follower.\n",
                     "OrderOnWebsite": 1
                 }
             },
@@ -230,12 +227,6 @@
                         "Cost": "1 Mana",
                         "Cooldown": "24 Hours (in game)",
                         "Effect": "You pray for 10 minutes to get an answer to a question from your god(s).\nSet a real life timer of 10 minutes (time in which you can do anything out of the game).\nWhen the timer expires, you can ask the DM one question consisting of maximum 3 words (e.g. 'Is sword cursed?').\nThe answer you will get will consist of maximum 3 words.\nThe DM can choose not to answer, to answer falsely or say something completely different. The gods' wills are unknowable.\n"
-                    },
-                    "<Disembodiment>": {
-                        "A": "2 hours",
-                        "Requirement": "True Necromancy",
-                        "Cooldown": "24 Hours",
-                        "Effect": "You are able to ever improve your minion by mix and matching parts from other corpses.\nEvery time you use this ability, you must consume a fresh corpse from a Worthy enemy (maximum 2 hours after death) and you irreversably sacrifice something.\nEach of these effects has a limited number of uses\n- +1 Maximum Health (5 uses)\n- +1 Defense for either you or your minion (2 uses)\n- +1 Counter Check Grade (1 use)\n- +1 use of Awe per Long Rest (1 use)\n"
                     },
                     "<Repentance>": {
                         "A": "0 Actions",
@@ -249,6 +240,7 @@
                 "Level 4": {
                     "<Life Echo>": {
                         "A": "0 Actions",
+                        "Cooldown": "Long Rest",
                         "Effect": "You put a Life Echo on an ally.\nWhenever YOU heal another Unit, the unit with the Life Echo on them is also healed for 50% of that amount.\nLasts 1 minute.\n",
                         "Notes": "If you put this on your True Necromancy follower, you essentially heal for 150% of the health.",
                         "OrderOnWebsite": 2
@@ -260,8 +252,8 @@
                     },
                     "<Cleric Lich Ritual>": {
                         "A": "Special",
-                        "Effect": "You spend 24 hours in a special place of power (this could be a temple or given to you by your DM).\nAfter it's finished, you become a Lich, and you are considered Undead.\nApply the following:\n- You are Undead, thus immune to Charm, Fear and being put to Sleep\n- You no longer need to eat, drink or sleep.\n- You gain access to the Elemental and Eldritch Spell Lists.\n- You can no longer cast Generic Abilities that don't cost Mana, but gain 2 extra maximum Mana. Passive Spells that don't cost Mana still apply.\n- The range of all your Spells is doubled.\n- Your Health decreases by 5, but your Defense, Counter Check Grade and all Checks increase by 1.\nYou also gain the following abilities:\n- Phylactery\n- Dismorphment\n",
-                        "Notes": "Your Follower can still cast Spells that don't cost Mana.",
+                        "Effect": "You spend 24 hours in a special place of power (this could be a temple or given to you by your DM).\nAfter it's finished, you become a Lich, and you are considered Undead.\nApply the following:\n- You are Undead, thus immune to Charm, Fear and being put to Sleep\n- You can no longer cast Generic Abilities that don't cost Mana, but gain 2 extra maximum Mana. Passive Spells that don't cost Mana still apply.\n- You no longer need to eat, drink or sleep.\n- You gain access to the Elemental and Eldritch Spell Lists.\n- The range of all your Spells is doubled.\n- Your Health decreases by 3\nYou also gain the following abilities:\n- Phylactery\n- Dismorphment\n",
+                        "Upgrade": "At Level 5, your Defense increases by 1.\nAt Level 6, the range of all your Spells is doubled.\nAt Level 7, Counter Check Grade increases by 1.\nAt Level 8, all your Checks increase by 1.\n",
                         "OrderOnWebsite": 1
                     },
                     "~Phylactery~": {
@@ -274,7 +266,13 @@
                         "IsSubspell": true,
                         "A": "Reaction or 0 Actions",
                         "Cooldown": "Long Rest",
-                        "Effect": "When a Unit declares an attack or Spell on you, you can instantly teleport up to 6 meters away.\nThat Unit can keep their action or change it.\nYou can also instantly teleport using 0 Actions on your turn.\n"
+                        "Effect": "When a Unit declares an attack or Spell on you, you can instantly teleport up to 3 meters away.\nThat Unit can keep their action or change it.\nYou can also instantly teleport using 0 Actions on your turn.\n",
+                        "Notes": "Remember that at Level 6, the range of this becomes 6 as per the description of Cleric Lich Ritual."
+                    },
+                    "~Death Pact~": {
+                        "IsSubspell": true,
+                        "A": "Half-Action",
+                        "Effect": "Choose an ally (or yourself).\nThey lose 5 Health. You gain 1 Mana this turn only.\n"
                     }
                 }
             }

@@ -18,7 +18,7 @@ import SmallStat from '../../components/SmallStat/SmallStat'
 import TwoColumns from '../../components/TwoColumns/TwoColumns'
 import Column from '../../components/TwoColumns/Column'
 import Separator from '../../components/Separator/Separator'
-import { asIntOr, formValueIntOr, isFormValueInt, isFormValueNumeric, isNumeric, isStringNumeric, stringToIntOr, styleMargined } from '../../utils'
+import { asIntOr, formValueIntOr, isFormValueInt, isFormValueNumeric, isNumeric, isStringNumeric, removeTildes, stringToIntOr, styleMargined } from '../../utils'
 import ManySmallStats from '../../components/SmallStat/ManySmallStats'
 import SmallStatList from '../../components/SmallStat/SmallStatList'
 import Icon from '../../components/Icon'
@@ -308,7 +308,6 @@ export default function CharacterCreationCalculator() {
                                 let thisTraining = `${raceObj.Training} (${state.Race})`
                                 if (
                                     (state.Race == 'Bertle' && int < 1) ||
-                                    (state.Race == 'Dragonborn' && int < 0) ||
                                     (state.Race == 'Dwarf' && int < 1) ||
                                     (state.Race == 'Elf' && int < 1) ||
                                     (state.Race == 'Gnome' && int < 0) ||
@@ -319,6 +318,36 @@ export default function CharacterCreationCalculator() {
                                 trainings.push(thisTraining)
                             }
                             return trainings
+                        })()}/>
+                        <ManySmallStats name="Proficiencies" topDown={true} texts={(_ => {
+                            console.log("ASDASD")
+                            const profs = []
+                            if (raceObj.Proficiencies != null) {
+                                for (const profName of Object.keys(raceObj.Proficiencies)) {
+                                    profs.push(`You have ${removeTildes(profName)} (${state.Race})`)
+                                }
+                            }
+                            if (classObj.Proficiencies != null) {
+                                for (const profName of Object.keys(classObj.Proficiencies)) {
+                                    profs.push(`You have ${removeTildes(profName)} (${state.Class})`)
+                                }
+                            }
+                            if (backgroundObj.Abilities != null) {
+                                for (const profName of Object.keys(backgroundObj.Abilities)) {
+                                    profs.push(`You have ${removeTildes(profName)} (${state.Background})`)
+                                }
+                            }
+
+                            if (raceObj['Proficiency Choices'] != null) {
+                                const choices = Object.keys(raceObj['Proficiency Choices']).map(choice => removeTildes(choice))
+                                profs.push(`Choose one between ${choices.join(', ')} (${state.Race})`)
+                            }
+                            if (classObj['Proficiency Choices'] != null) {
+                                const choices = Object.keys(classObj['Proficiency Choices']).map(choice => removeTildes(choice))
+                                profs.push(`Choose one between ${choices.join(', ')} (${state.Class})`)
+                            }
+
+                            return profs
                         })()}/>
                         <ManySmallStats name="Languages" color="var(--dark-green)" topDown={true} texts={(_ => {
                             const languages = ['You speak Common.']
@@ -333,7 +362,6 @@ export default function CharacterCreationCalculator() {
                                 let thisLanguage = raceObj.Language
                                 if (
                                     (state.Race == 'Bertle' && int < 2) ||
-                                    (state.Race == 'Dragonborn' && int < 1) ||
                                     (state.Race == 'Human' && int < 1) ||
                                     (state.Race == 'Orc' && int < 2)
                                 ) {

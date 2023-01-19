@@ -21,6 +21,8 @@ export default function Spell({ children, spell, style, hasIcon }) {
         Cost,
         Range,
         Cooldown,
+        Duration,
+        HasMixins,
         Effect,
         Notes,
         Requirement,
@@ -42,6 +44,10 @@ export default function Spell({ children, spell, style, hasIcon }) {
     const spellNormalOrSubClass = IsSubspell == true? 'spell--subspell' : 'spell--normal'
     const spellPassiveOrActiveClass = A == 'Passive' == true? 'spell--passive' : 'spell--active'
 
+    if (HasMixins === true) {
+
+    }
+
     function SpellTopStats({className}) {
         return (
             <div className={`spell-top__stats ${className}`}>
@@ -54,6 +60,7 @@ export default function Spell({ children, spell, style, hasIcon }) {
                 ) }
                 { Range != null && (<div><img src="/Icons/UI/Range.png" className="inline-icon--spell"/>{ Range }</div>) }
                 { Cooldown != null && (<div><img src="/Icons/UI/Cooldown.png" className="inline-icon--spell"/>{ Cooldown }</div>) }
+                { Duration != null && (<div><img src="/Icons/UI/Duration.png" className="inline-icon--spell"/>{ Duration }</div>) }
                 { Requirement != null && (
                     <div>
                         <img src="/Icons/UI/Level.png" className="inline-icon--spell"/>

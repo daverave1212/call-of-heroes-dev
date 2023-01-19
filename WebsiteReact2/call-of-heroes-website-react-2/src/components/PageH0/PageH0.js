@@ -3,7 +3,8 @@ import './PageH0.css'
 import React from 'react'
 import { insertBetweenAll } from '../../utils'
 
-export default function PageH0({ children, onClick }) {
+
+export default function PageH0({ children, onClick, id }) {
 
     const styleMaybeClickable = onClick != null? { cursor: 'pointer' } : {}
 
@@ -24,16 +25,18 @@ export default function PageH0({ children, onClick }) {
     const extraMultiLineClass = titleWordsToSpans.length == 1? '' : 'page-h0__img--2-lines'
 
     return (
-        <div className="page-h0">
-            <div className='page-h0__img-container'>
-                <img className={`page-h0__img-left ${extraMultiLineClass}`} src="/title-separator-left.png"/>
+        <div className="page-h0" onClick={onClick} style={styleMaybeClickable}>
+            {/* <div className='page-h0__img-container'>
+            </div> */}
+            <div className="title-text-wrapper" id={id}>
+                <div style={{position: 'relative'}}>
+                    <img className={`page-h0-img-left ${extraMultiLineClass}`} src="/title-separator-left.png"/>
+                    <img className={`page-h0-img-right ${extraMultiLineClass}`} src="/title-separator-right.png"/>
+                    { textSpansSeparatedByNewLines }
+                </div>
             </div>
-            <div className="title-text-wrapper">
-                { textSpansSeparatedByNewLines }
-            </div>
-            <div className='page-h0__img-container'>
-                <img className={`page-h0__img-right ${extraMultiLineClass}`} src="/title-separator-right.png"/>
-            </div>
+            {/* <div className='page-h0__img-container'>
+            </div> */}
         </div>
     )
 }
