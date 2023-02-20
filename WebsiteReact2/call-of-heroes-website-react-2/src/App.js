@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 
 import { createContext } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 
 import './App.css';
@@ -58,7 +58,7 @@ import Rules from './pages/Other/Rules';
 import AttackModifiers from './pages/Other/AttackModifiers';
 import CrowdControl from './pages/Other/CrowdControl';
 import AreasOfEffect from './pages/Other/AreasOfEffect';
-import { getLocalStorageBool } from './utils';
+import { getBasePathBeforeHash, getLocalStorageBool, getPageHashFromLocation, isBasePathEmpty, isHashEmpty } from './utils';
 
 import AppStateContext from './services/AppStateContext';
 import TreasureGenerator from './pages/Tools/TreasureGenerator';
@@ -77,6 +77,20 @@ function App() {
     currentlyOpenSubnav: null
   })
 
+  const navigate = useNavigate()
+  const basePath = window.location.pathname
+  const hash = getPageHashFromLocation(window.location)
+
+  const isThereLinkAfterHash = isBasePathEmpty(basePath) && isHashEmpty(hash) == false
+  if (isThereLinkAfterHash) {   // Fixes a problem with GitHub Pages, where links redirect to the smae link with a hash infront
+    const finalPath = hash.startsWith('/')? hash : '/' + hash
+    window.location.href = finalPath
+  } else {
+    console.log('No link')
+  }
+
+  console.log({ basePath, hash })
+
   function closeNav(event) {
     setNavState({
         currentlyOpenSubnav: null
@@ -88,7 +102,6 @@ function App() {
 
   return (
     <div id="Window" className={`${appState.isSimple? '' : 'window--has-background'}`}>
-      <BrowserRouter>
 
         <Nav navState={navState} setNavState={setNavState} isSimple={isSimple} setIsSimple={setIsSimple}/>
 
@@ -159,7 +172,6 @@ function App() {
         <footer className='footer'>
           <LandingPageSeparator type="8"/>
         </footer>
-      </BrowserRouter>
     </div>
 
   );

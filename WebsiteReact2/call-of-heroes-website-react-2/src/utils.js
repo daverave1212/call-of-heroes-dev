@@ -225,6 +225,16 @@ export function isStringNumeric(str) {
 export function getPageHashFromLocation(location) {       // Use 'useLocation' in a component to get location (from 'react-router-dom')
     return decodeURIComponent(location.hash).substring(1) // Remove the "#" at the beginning
 }
+export function getBasePathBeforeHash(linkWithHash) {
+    const hashIndex = linkWithHash.indexOf('#')
+    return linkWithHash.substring(0, hashIndex)
+}
+export function isBasePathEmpty(basepath) {
+    return basepath == null || basepath.length == 0 || basepath == '/'
+}
+export function isHashEmpty(hash) {
+    return hash == null || hash.length == 0 || hash == '#'
+}
 export function getAnyPropNameExcept(obj, exceptions) {
     if (Array.isArray(exceptions) == false)
         exceptions = [exceptions]

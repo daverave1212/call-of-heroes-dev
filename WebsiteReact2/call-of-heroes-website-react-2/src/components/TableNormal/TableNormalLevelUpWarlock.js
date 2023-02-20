@@ -28,7 +28,7 @@ export default () => (
         <tr>
             <td>Level 4</td>
             <td>
-                +1 in any Stat<br/>
+                +1 in any Stat (up to +4)<br/>
                 1 Weapon Training<br/>
                 +1 Feat<br/>
             </td>
@@ -55,7 +55,7 @@ export default () => (
         <tr>
             <td>Level 7</td>
             <td>
-                +1 in any Stat<br/>
+                +1 in any Stat (up to +5)<br/>
                 1 Weapon Training<br/>
                 +1 Feat
             </td>
