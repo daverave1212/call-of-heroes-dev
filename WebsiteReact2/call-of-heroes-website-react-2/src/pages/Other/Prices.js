@@ -63,6 +63,7 @@ export default function Prices() {
                     <PriceTable categoryName="Mounts"/>
                     <PriceTable categoryName="Exotic Mounts"/>
                     <PriceTable categoryName="Boats"/>
+                    <PriceTable categoryName="Magic Items"/>
                 </Column>
                 <Column>
                     <PriceTable categoryName="Adventuring Gear"/>

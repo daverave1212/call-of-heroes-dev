@@ -1,19 +1,11 @@
 Class: Paladin
 Description: Paladins are knights in shiny armor who fight for their god.
 
+Weapons: You are Trained in 2 Weapon Categories of choice (e.g. 1-Handed Melee, 2-Handed Ranged, Shields, etc).
 
-Base Health: 8
-
-
-Language: If your Intelligence is at least 2, you can speak either Celestial (an angelic language) or Abyssal (non-spoken language of the eldritch creatures).
-
-Weapons: Choose a Weapon category (1-Handed Melee, 2-Handed Ranged, Shields, etc) and get Training in it. You are also Trained in Shields.
-
-Feats: You start with one Feat of choice.
-
-Proficiency Choices:
+Proficiencies:
     ~Proficiency in Religion~: Inherit
-    ~Proficiency in Persuasion~: Inherit
+    ~Proficiency in Anything~: Inherit
 
 
 Armor Training: Heavy Armor
@@ -21,22 +13,20 @@ Armor Training: Heavy Armor
 Level Up:
   Every Level: 
     Health: 6
-  Level Bonuses: Standard Insight-based
-  
+
 
 
 Spellcasting:
-  Type: Insight-based
+  Type: Mana-based
 
   Main Stat: Choose permanently - Wisdom and Charisma
   Counter Check Grade: 6 + (Main Stat)
   Change: You can change your known Spells (not Talents) when taking a Long Rest.
   Other: All Paladin-specific Abilities are considered Spells (unless stated otherwise).
   
-  Known Spells: 3 + Your Intelligence
-  Insight: 2
+  Known Spells: 1 + Intelligence
   
-  BaseKnownSpells: 3
+  BaseKnownSpells: 1
 
   Spell Lists:
     - Warfare
@@ -55,7 +45,7 @@ Starting Abilities:
   ~Lay on Hands~ :      # 1 Charge
     A: 1 Action
     Effect: |
-      You have 3 + Main Stat + Your Level Holy points.
+      You have (3 + Main Stat + Your Level) Holy points.
       Using an action, you can expend any amount of Holy Points to heal a creature for that amount.
       All your Holy Points replenish on Long Rests.
 
@@ -92,7 +82,7 @@ Specializations:
     - Oath of Protection, chosen by those who vow to protect and wish to become a paragon of the people
 
 # Talent: When you use Divine Smite
-# Talent: Interactions with LoH and other Insight Spells
+# Talent: Interactions with LoH and other Cooldown-based Spells
 # Talent: When you use Divine Smite...
 # Talent: Divine Smite twice per Long Rest
 # Talent: Auras
@@ -100,6 +90,7 @@ Specializations:
 # Talent: Spirit guardians
 # Talent: Platinum storm (Smite on all units)
 # Talent: Extra Smite damage
+# Talent: You get a squire!!
 
 Specs:
 
@@ -125,11 +116,11 @@ Specs:
       ~Oath of Conquest~:   # 0.35
         A: Passive
         Effect: |
-          Every Worthy Enemy YOU defeat grants you 2 Holy Points.
+          Every Worthy Enemy YOU defeat grants you 1d4 Holy Points.
           You also gain Proficiency in Indimidation if you don't have it already.
       
       ~Impose~ :            # 0.25
-        A: 0.5 Actions
+        A: Half-Action
         Range: 3 meters
         Cooldown: Long Rest
         Effect: A Unit must pass a Wisdom Check or be Feared. It has -2 to the roll if it's a Humanoid or Unholy.
@@ -150,7 +141,10 @@ Specs:
             
         <Retribution>:      # 1
           A: Special
-          Effect: You lose Lay on Hands, but you gain 2 Insight and gain access to the Eldritch Spell List. For you, if an Eldritch Spell costs mana, it instead requires the same amount of Insight and has a Long Rest Cooldown (regardless of its normal Cooldown).
+          Effect: |
+            You lose Lay on Hands, but can Know 2 more Generic Abilities and gain access to the Eldritch Spell List. For you, if an Eldritch Spell costs 1 Mana, it instead has a Long Rest Cooldown (regardless of its normal Cooldown).
+            You can't cast Spells that cost more than 1 Mana.
+          
 
         <Fury Smite>:       # 1
           A: 0 Actions
@@ -177,7 +171,7 @@ Specs:
             A: Passive
             Effect: |
                 When a Worthy Enemy dies in combat, get a Vengeance Counter.
-                Every 6 Vengeance Counters, reset the Cooldown of a 1 Generic Insight Spell you Know.
+                Every 6 Vengeance Counters, reset the Cooldown of a 1 Generic Spell you Know.
                 You keep your Vengeance Counters even on Long Rests.
                 
         <Victory Smite>:
@@ -217,8 +211,8 @@ Specs:
       ~Divine Power~ :
         A: 0 Actions
         Effect: |
-            Pick any Spell you know that costs Insight and has a Long Rest Cooldown. It goes on a Cooldown (without using it).
-            Gain 6 Holy Points for each Insight Point it costs.
+            Pick any Spell you know that has a Long Rest Cooldown. It goes on a Cooldown (without using it).
+            Gain 6 Holy Points.
         Notes: You can't keep more than your maximum number of Holy Points through a Long Rest.
 
     Talents:
@@ -266,7 +260,7 @@ Specs:
             
         <Broken Hearts>:
             A: 1 Action
-            Requirement: Only usable if all your Generic Abilities that cost Insight are on Cooldown
+            Requirement: Only usable if all your Generic Abilities that have a Cooldown are on Cooldown
             Cooldown: Long Rest
             Effect: |
                 All Humanoids within 4 meters of you must pass a Wisdom Check or take 3d4 True Damage and be Stunned.
@@ -392,8 +386,6 @@ Specs:
 # 
 # At Level 2, pick one of the following Talents and learn it permanently:
 # 
-# <Retribution> : Passive
-# You permanently lose Lay on Hands, but your maximum Insight is increased by 1.
 # 
 # <Wrathful Smite> : 0.5 Actions
 # Spend 1 Charge.
@@ -416,7 +408,6 @@ Specs:
 # Smite is not limited to melee attacks
 # Kayle's E
 # Divine Shield
-# Renounce Lay on Hands for 1 Insight
 
 
 

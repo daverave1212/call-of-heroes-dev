@@ -38,7 +38,9 @@ export default function() {
           {/* <p>Join a new tabletop roleplaying game for the modern world - faster combat, easier rules, more modern take on fantasy grid-based combat.</p> */}
           <div className='hero-buttons'>
             <img src="/button-separator.png"/>
-            <button className='generic-button' style={{borderRadius: '50px'}}>Show Me</button>
+            <button className='generic-button' style={{borderRadius: '50px'}}>
+              <a href="#home-advantages">Show Me</a>
+            </button>
             {/* <button className='generic-button'>Back on Kickstarter</button> */}
             <img src="/button-separator-reversed.png"/>
           </div>
@@ -47,7 +49,7 @@ export default function() {
   
       <LandingPageSeparator type="8"/>
 
-      <div className='home-advantages'>
+      <div className='home-advantages' id="home-advantages">
         <div className='advantages-image-container'>
           <img src="/LandingPage/Advantages--variant2.png" className='advantages-img'/>
         </div>

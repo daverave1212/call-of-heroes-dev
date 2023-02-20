@@ -42,10 +42,11 @@ files_to_convert = [    # Order matters
     'Abilities.yml',
     'Animals.yml',
     'Armors.yml',
-    'Backgrounds.yml',
+    # 'Backgrounds.yml',
     'Feats.yml',
     'Monsters.yml',
     'Prices.yml',
+    'Proficiencies.yml',
     'Weapons.yml',
     'Obstacles.yml',
     
@@ -161,7 +162,7 @@ if __name__ == '__main__':
             add_name_to_spells_recursively(dict_content)
             record_abilities_from(dict_content, abilities)             # Records all abilities found into the 'feats' dict
         
-        if file_name == 'Backgrounds.yml':
+        if file_name == 'Backgrounds.yml' or file_name == 'Proficiencies.yml':
             record_abilities_from(dict_content, abilities)
             normalize_inherit_abilities(dict_content)
 

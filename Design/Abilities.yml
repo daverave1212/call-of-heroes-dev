@@ -1,7 +1,11 @@
     # How to make an ability
 # For standard spells, apply the calculations defined in the Tables.xlsx file
-# For single target spells that cost Insight or Mana, feel free to round numbers up
+# For single target spells that cost Mana, feel free to round numbers up
 # Every 4 levels, you can slightly increase the damage of a Spell or give it an extra effect
+# Costs:
+    # For Mana schools, refer to the tables
+    # For non-Mana schools, all Spells must be worth either about 0.75-1 Mana + Long Rest cooldown or 0 Mana and no cooldown (except utility-only spells).
+        # The extra limitation here is the Cooldown; the Long Rest cooldown can compensate for the extra 0.25 over the 0.75 baseline, resulting in a total of 1 Mana per spell
 
 
     # Never make the following abilities:
@@ -17,6 +21,7 @@
 # Land heave - Taliya's shove
 # Tsunami
 # Icicle Storm
+# Summon elemental
 
     # Arcane
 # Silence sphere
@@ -54,7 +59,7 @@
 # Wave that jumps 3 times, damage or heal each time
 # Schizophrenic Suggestion (the target's traits become accentuated); if used in combat, enemy makes an attack on himself
 # Dispel (and make sure monster abilities are dispellable)
-
+# Storm Spear
 
     # Eldritch
 # Spawn a plague
@@ -102,12 +107,11 @@
 #     - Divine      (Cleric, some Warlocks)
 #     - Eldritch    (Warlocks, some Clerics)
 # 
-# Insight-based:
+# Cooldown-based:
 #     - Warfare   (Paladin, Hunter)
 #     - Nature    (Druid, Hunter)
 #     - Faith     (Paladin, Shaman)
 #     - Mysticism (Shaman, Druid)
-#     # Make sure you make some spells that cost 2 insight
 
 
     # To consider
@@ -165,7 +169,7 @@ Default Moves:
         Effect: You don't trigger attacks of oportunity this turn.
         
     ~Improvised Attack~:
-        A: 0.5 or 1 Action
+        A: Half-Action or 1 Action
         Effect: |
             You can use small, medium or large non-weapon objects from around and attack with them.
             Small Objects - Half-Action, 1d10 + Dexterity damage, thrown at 3 to 6 meters range
@@ -289,8 +293,9 @@ Bloodshed:
         Cooldown: Long Rest
         Range: 10 meters
         Effect: |
-            Attack a target for 12 + Main Stat Cold damage (against Defense).
+            Attack a sentient Unit for 12 + Main Stat Cold damage (against Defense).
             It becomes Slowed.
+        Notes: Doesn't work on Units that can't feel fear.
             
     
     ~Muscle Tear~:
@@ -411,69 +416,62 @@ Warfare:
         
     
     # Advanced Spells
-    
-    ~Assess Their Ranks~:
-        A: 0 Action
+        
+    ~Stand Stoic~:
+        A: 0 Actions
         Cooldown: Long Rest
-        Cost: 1 Insight
+        Effect: |
+            All Prone allies (and you) immediately stand up. All allies (and you) remove their Snares and Slows.
+            None of you can trigger Opportunity Attacks from enemies until the start of your next turn.
+            You (yourself) can continue your movement if you already moved.
+    
+    ~Assess Their Ranks~:   # Ok
+        A: 0 Action
+        Cost: 1 Mana
+        Cooldown: Once per Combat
         Effect: Gain Shielding equal to the number of Worthy Enemies you see.
     
-    ~Battle Trust~:
+    ~Battle Trust~:         # Ok
         A: 0 Actions
-        Cost: 1 Insight
-        Cooldown: 2 uses / Long Rest
+        Cost: 1 Mana
+        Duration: 10 minutes
         Effect: |
             Another ally you can see gains 50% Resistance to a named physical damage type (Slash, Smash, Pierce or Force).
-            Lasts for 10 minutes.
         Notes: You can't use this on yourself
         
-    ~Glory Shout~:
+    ~Glory Shout~:          # Slightly strong for the cost, but it's distributed weirdly so ok
         A: Half-Action
-        Cooldown: Long Rest
-        Cost: 1 Insight
+        Cost: 1 Mana
         Effect: You and all allies that can hear you are healed for 3 Health.
 
-    ~Infailible Reach~:
+    ~Infailible Reach~:     # Ok
         A: 1 Action
-        Cost: 1 Insight
+        Cost: 1 Mana
         Cooldown: 1 use / Combat
         Range: 3 meters
         Effect: |
             Use any melee weapon to perform a heavy blow on a Unit within 3 meters.
             It must pass a Dexterity Check or take 3d6 + (Your Main Stat) damage of that weapon's type.
             If it passes, it takes half of that damage.
-        Notes: Extra damage from special weapons does apply to this damage.
+        Notes: Extra damage from magic weapons does apply to this damage.
         
-    ~Row Through~:
+    ~Row Through~:          # Strong, but hard to land properly
         A: 1 Action
+        Cost: 1 Mana
         Cooldown: Long Rest
-        Cost: 2 Insight
         Range: 2 meters
         Effect: |
             Push a Unit up to 6 meters away from you.
             If it collides with something, it must pass a Might Check or be Stunned and take 1d4 Smash damage (and it stops).
             If it collides with another Unit, that Unit is also pushed in the same direction and continues a chain of Row Through.
         Notes: E.g. if it collides with a Unit, that Unit is also pushed up to 6 meters and if it collides with something, it must pass a Might Check or be Stunned and take the damage. If that thing it collided with was a Unit, that Unit is also pushed up to 6 meters and must pass the Might Check and so on.
-    
-    ~Stand Stoic~:
-        A: 0 Actions
-        Cost: 1 Insight
-        Cooldown: Long Rest
-        Effect: |
-            All Prone allies (and you) immediately stand up. All allies (and you) remove their Snares and Slows.
-            All of you gain 50% extra Movement on your next turn.
-            None of you can trigger Opportunity Attacks from enemies until the start of your next turn.
-            You (yourself) can continue your movement if you already moved.
             
     ~Whirlwind~:
         A: 1 Action
-        Cooldown: Long Rest
-        Cost: 1 Insight
+        Cost: 1 Mana
         Effect: |
             Roll 2d8 for each Unit within 3 meters of you.
             Assign 2 of the rolled d8's to each of those Units, and deal that much damage as Slash damage to it (directly).
-        Upgrade: |
-            At Level 6, you can instead spend 2 Insight to Know this Ability and make its cost a Half-Action.
 
 Elemental:
 
@@ -544,25 +542,26 @@ Elemental:
             - You can move it (Your Level) meters in any direction
             - You can roughly alter its shape
             - You can change its color or opacity
-            - You can freeze or evaporate the water.
-            Freezing, changing its color or shape last up to 1 hour.
+            - You can alter its temperature, making it anywhere between near-freezing or near-boiling
+            Effects last for up to 1 hour.
             The area increases to 2x2x2 meters at Level 4 and 4x4x4 meters at Level 8.
-        Notes: The water does no damage if it touches a Unit.
+        Notes: The water does no damage if it touches a Unit, but acts as difficult terrain for Units passing through it.
 
     ~Control Earth~:
         A: 1 Action
         Range: 6 meters
-        Cooldown: Varies (see description)
+        Cooldown: 1 use / Long Rest
         Effect: |
             Choose a 1x1x1 meter cube of dirt, loose stone, sand, etc.
             You can do the following things to it.
-            - You can move it 1 meter in any direction.
+            This turn, and every turn for 10 minutes, you can spend 1 Action to:
+            - Move it 1 meter in any direction
+            - Roughly shape it in any form
+            - Cause it to become difficult terrain.
             If a Unit was hit by it or it was removed from below a Unit's feet, it rolls a Dexterity Check (against your Counter Check Grade).
-            If it fails, it takes 1d8 damage and is knocked prone.
-            If a Unit is burried in dirt (or loose stone, etc) after failing the Check, it takes 1d8 additional damage (directly).
-            - You can roughly shape it in any form
-            - You can cause it to become difficult terrain.
-            You can do this twice per Long Rest at level 1, 4 times per Long Rest at level 4 and unlimited times at level 8.
+            If it fails, it takes 1d8 damage and is knocked prone (or 2d8 damage if the earth was removed from underneath its feet).
+        Upgrade: You can do this twice per Long Rest at level 1, 4 times per Long Rest at level 4 and unlimited times at level 8.
+        Notes: The cube has 10 Health, 0 Defense and fails all checks for combat purposes. It's immune to Psychic damage and crowd control.
 
     ~Fire Bolt~:
         A: 1 Action
@@ -585,7 +584,7 @@ Elemental:
         Range: 9 meters
         Effect: |
             You gather stone, dirt, sand, etc from the surroundings and release it upon an enemy.
-            Deal 3d6 damage Force damage to a Unit (against Defense), and two of rolled dice (you choose) to all Units within 1 meter of it (against Defense).
+            Deal 3d6 damage Force damage to a Unit (against Defense), and two of rolled dice (you choose) to all other Units within 1 meter of it (against Defense).
             
     ~Quicksand~:
         A: Half-Action
@@ -601,6 +600,7 @@ Elemental:
     ~Thunder Clap~:
         A: 1 Action
         Effect: Attack all Units within 1 meter for 2d8 Shock damage (against their Defense).
+        Notes: Ignores Cover and goes through obstacles and walls.
 
 
 
@@ -807,9 +807,9 @@ Arcane:
         Notes: You take with you all items carried.
         
     ~Mage Armor~:
-        A: Passive
+        A: 1 Action
         Cost: 1 Mana
-        Effect: Your total Defense (with all calculations) can't be lower than 4.
+        Effect: Your total Defense (with all calculations) can't be lower than 3. Lasts for 24 hours.
         
     ~Magic Nova~:
         A: 1 Action
@@ -1032,13 +1032,17 @@ Nature:
         Range: 6 meters
         Effect: |
             You can control gusts of wind in a 6x6x6 area and do the following:
-            - You can create a gust of Heavy Wind (see notes)
-            - You can move it 3 meters in any direction
+            - You can create a gust of Heavy Wind (see notes) that lasts for 1 minute
+            - You can move a gust of Heavy Wind 3 meters in any direction
             - You can create wind that makes Units fall softly
-            - You can stop it (this takes 0 Actions)
+            - You can stop it (for 0 Actions)
+        Upgrade: |
+            You can have one gust of wind active at a time.
+            At Level 3, you can have a number of winds active equal to your Main Stat.
         Notes: |
             Moving against Heavy Wind acts as Hard Terrain.
             Projectiles fired against the Wind have Cover, and projectiles fired with the Wind gain +1.
+            Heavy Wind also clears Fog, Smoke, etc in the area.
     
     ~Cure Disease~:
         A: 10 minutes
@@ -1077,56 +1081,57 @@ Nature:
     
     
     # Advanced Spells
-    ~Barkskin~ :
+    ~Barkskin~:     # Debatable how powerful it is
         A: Reaction
-        Cost: 1 Insight
         Range: 6 meters
+        Cost: 1 Mana
+        Cooldown: Long Rest
         Effect: |
             That ally becomes Snared in the ground for up to 1 minute.
             While rooted, that ally's Defense can't be lower than 6.
         Notes: You can cancel this effect at any point at will.
 
-    ~Healing Surge~:
+    ~Healing Surge~:    # Almost 1 Mana worth
         A: Half-Action
-        Cost: 1 Insight
         Range: 5 meters
+        Cost: 1 Mana
+        Cooldown: Long Rest
         Effect: Heal a target for 2d6.
         
-    ~Lightning Storm~:
+    ~Lightning Storm~:  # Per single target, 0.5 Damage weaker than normal attack; but it's AoE!
         A: 1 Action
-        Cost: 1 Insight
         Range: 10 meters to edge
         Cooldown: Long Rest
         Effect: |
             Declare a 4x4x4 area.
-            All units inside the area take 6d4 Shock damage (against Defense).
+            All units inside the area take 5d4 Shock damage (against Defense).
             If a unit carries anything made of metal, this ignores all its Defense.
             On your turn (for up to 1 minute), you can spend 1 Action to move the storm up to 3 meters and its deal damage again.
             Lasts up to 1 minute.
     
-    ~Locust Swarm~:
+    ~Locust Swarm~:     # Ok
         A: Half-Action
         Range: 10 meters
-        Cost: 1 Insight
-        Cooldown: Long Rest
+        Cost: 1 Mana
+        Duration: 1 minute
         Effect: |
             Choose a Unit.
             A swarm of locusts appears and chases it down.
-            Whenever the Unit moves willingly, it takes 1 True damage.
-            Lasts 1 minue.
+            Whenever the Unit moves willingly, it takes 1 True damage for each meter moved.
+            A Unit can only be affected by one Locust Swarm at a time.
         Note: Locust Swarm can be dispelled like any other effect.
     
-    ~Revitalize~:
+    ~Revitalize~:      # Ok
         A: 0 Actions
-        Cost: 1 Insight
+        Cost: 1 Mana
         Cooldown: Long Rest
         Effect: |
             Touch 2 allies to restore up to 2d6 of their Reserve Health to each.
             
-    ~Scape Grasp~:
+    ~Scape Grasp~:      # Depends
         A: 1 Action
-        Cost: 1 Insight
         Range: 10 meters
+        Cost: 1 Mana
         Cooldown: Long Rest
         Effect: |
             Choose a Unit.
@@ -1141,13 +1146,13 @@ Nature:
             
     ~Wild Heart~:
         A: 1 Action
-        Cost: 1 Insight
-        Effect: Up to 2 allies you touch gain Your Main Stat maximum (and current) Health and +1 to all Checks until their next Long Rest.
-        Notes: The bonus to Health and Checks doesn't stack with itself, and the bonus to Checks doesn't stack with other Check buffs.
+        Cost: 1 Mana
+        Duration: Until their next Long Rest
+        Effect: Up to 2 allies you touch gain Your Main Stat maximum (and current) Health and +1 to all Checks.
+        Notes: A Unit can only be affected by one Wild Heart buff.
     
     ~Wind Chaser~:
         A: 0 Actions
-        Cost: 1 Insight
         Cooldown: 1 minute
         Effect: |
             Your next ranged Attack curves around obstacles, ignoring Cover and Hard Cover and deals 1d6 extra Damage of its type.
@@ -1164,6 +1169,7 @@ Nature:
         Effect: |
             Your hands and feet can stick to solid, (more or less) flat surfaces, so you can walk on them.
             Walking on walls and floors acts as Hard Terrain.
+
     ~Tree Stride~:
         A: Passive
         Requirement: Level 4
@@ -1243,7 +1249,7 @@ Conjuration:
             On your turn, the weapon can make a melee Spell Attack which deals 2d8 Force damage (against Defense).
             You can also move it up to 3 meters every turn.
         Notes: |
-            The weapon has no special effect, it has 8 Defense and 10 Health.
+            The weapon has no special effect and can't be targeted by attacks.
             The weapon disappears if it moves more than 20 meters away from you.
             It can make Opportunity Attacks, but it uses your Reaction.
 
@@ -1295,12 +1301,13 @@ Conjuration:
     ~Fog Cloud~:
         A: 1 Action
         Cost: 1 Mana
-        Range: all zone within 9 meters
+        Range: 6 meters to edge
         Effect: |
-            A 5x5x5 meter cube of fog forms.
-            All Units inside the fog benefit from Cover (-2), as well as Units outside the fog attacked by one inside the fog.
+            A 5x5x5 meter cube of fog forms that lasts for 1 minute.
+            All Units inside the fog benefit from Cover (-2), as well as Units outside the fog attacked by someone inside the fog.
             You can choose the color of the fog.
             The fog spreads around corners.
+        Notes: You can cancel this on your turn for 0 Actions.
 
     ~Force Wall~:
         A: 1 Action
@@ -1357,12 +1364,15 @@ Conjuration:
     ~Shadow Clone~:
         A: 0 Actions
         Cost: 1 Mana
-        Range: 3 meters
+        Range: 10 meters
         Duration: 10 minutes
         Effect: |
             You create an illusion of yourself at a target location.
             The illusion has 1 Health and 1 Armor and it fails all Checks.
             You can control what the illusion does at will.
+            If the illusion goes more than 10 meters away from you, it disappears and the spell is cancelled.
+        Upgrade: At Level 3, the cast range and illusion range become 15 meters and the sound of your voice can come through the illusion's mouth instead of yours. At Level 5 - 25 meters. At Level 7 you can choose to see through the illusion's eyes at any point.
+        Notes: You need maintain line of sight to the clone to keep it working.
 
 
     # Higher Level Spells
@@ -1480,26 +1490,27 @@ Mysticism:
     
     
     # Advanced Spells
-    ~Mind Blast~:           # Note the cooldown
+    ~Mind Blast~:
         A: 1 Action
-        Cost: 1 Insight
         Range: 3 meters
-        Cooldown: 2 times / Long Rest
+        Cost: 1 Mana
         Effect: |
             A Unit must pass a Wisdom Check or take 3d6 + 1 Psychic damage and become Crippled or Silenced (your choice).
             It takes half damage if it passes.
             After you cast Mind Blast on a Unit, it becomes completely immune to Mind Blast for 1 day.
 
     ~Confusion~:
-        A: Half-Action
-        Cost: 1 Insight
+        A: 1 Action
+        Cost: 1 Mana
         Effect: |
-            Deal 1d8 Psychich damage to a Unit.
-            Then, it must pass a Wisdom Check, otherwise roll 1d4 and the target must do one of the 4 options below on its next turn, depending on the number rolled on the d4:
+            Choose 2 Units you can see.
+            Each must pass a Wisdom Check or take 2d4 Psychic damage (or half if it succeeds).
+            For each that fails, also roll 1d4 and the Unit must do one of the 4 options below on its next turn, depending on the number rolled on the d4:
             1. Moves in a random direction with all of its movement (chosen by the DM) and forgets to use its Action
-            2. Forgets to move and can only use Half-Action
+            2. Forgets to move and is Dazed
             3. Forgets to move and can't do weapon attacks
             4. Falls Prone and tries to make a ranged attack
+        Notes: A Dazed NPC is Slowed, can't make Opportunity Attacks and can make 1 less attack on its turn.
 
     # Higher Level Spells
     ~Charming Word~:
@@ -1776,7 +1787,9 @@ Divine:
         Range: 10 meters
         Effect: |
             Instantly pull 2 allies to your nearest empty space.
-        Notes: The ally goes flying, and does not trigger opportunity attacks.        
+        Notes: |
+            The ally goes flying, and does not trigger opportunity attacks.
+            You need line of sight to the targets. The allies fly to you ignoring obstacles and ground traps (goes around obstacles), unless the ally needs to swerve more than 2 meters in any direction.
 
     ~Turn Undead~:
         A: 0 Actions
@@ -1788,7 +1801,7 @@ Divine:
 
     # Higher Level Spells
     ~Rise~:
-        A: 0.5 Actions
+        A: Half-Action Actions
         Cost: 2 Mana
         Requirement: Level 4
         Effect: |
@@ -1855,35 +1868,49 @@ Faith:
     ~Atonement~:
         A: 0 Actions
         Cooldown: Long Rest
-        Cost: 1 Insight
         Effect: |
-            Lose (Main Stat + Your Level) Health.
-            Twice as much Shielding for 1 hour.
+            Lose (5 + Main Stat) Health.
+            Gain (7 + Your Level) as much Shielding for 1 hour.
+            
+    ~Saving Throw (Faith)~:
+        A: 0 Actions
+        Cooldown: 1 hour
+        Range: 6 meters
+        Effect: |
+            Instantly pull an ally to your nearest empty space.
+        Notes: |
+            The ally goes flying, and does not trigger opportunity attacks.
+            You need line of sight to the targets. The allies fly to you ignoring obstacles and ground traps (goes around obstacles), unless the ally needs to swerve more than 2 meters in any direction.
+    
+    ~Restoration~:
+        A: 1 Action
+        Cooldown: Long Rest
+        Effect: |
+            Remove all your party members' Exhaustion from rising after being Fallen, from not sleeping and from magical effects.
+            
     ~Blessing of Wisdom~:
         A: 0 Actions
-        Cost: 1 Insight
+        Cost: 1 Mana
         Cooldown: Long Rest
-        Effect: An ally you can see restores 1 Mana and has +1 Main Stat for 8 hours.
+        Effect: |
+            An ally you can see restores 1 Mana and has +1 Main Stat for 8 hours.
+            Then, that Unit becomes immune to Blessing of Wisdom until its next Long Rest.
         Notes: |
             Mana restored can't exceed their maximum Mana.
             A Unit can't have multiple Blessings of Wisdom on it.
-        
-    
     
     ~Expelling Bolt~:
         A: Half-Action
-        Cost: 1 Insight
-        Cooldown: Long Rest
+        Cost: 1 Mana
         Range: 5 meters
         Effect: |
-            Make an attack on a Unit that deals 1d8 + Your Main Stat + Target's Maximum Movement Speed damage as Force damage.
+            Make an attack on a Unit that deals 1d8 + Your Main Stat + Target's current Movement Speed damage as Force damage (against Defense).
         Notes: Against Epic monsters, the Maximum Speed is calculated as it's (Speed) * (Epic Grade). E.g. if it's an Ogre with Movement Speed of 3 and has an Epic Grade of 2 (meaning it takes 2 turns), its Maximum Movement Speed is 2 * 3 = 6.
     
      
     ~Hand of Freedom~:
         A: Reaction or 0 Actions
-        Cooldown: Long Rest
-        Cost: 1 Insight
+        Cost: 1 Mana
         Effect: |
             Instantly remove all Crowd Control from another ally you can see.
         Upgrade: |
@@ -1892,47 +1919,27 @@ Faith:
         
     ~Invigorate~:
         A: 0 Actions
+        Cost: 1 Mana
         Cooldown: Long Rest
-        Cost: 1 Insight
         Range: 5 meters
         Effect: |
             Heal a target for 1d4 + 2 Health.
             If after this the target is at full Health, repeat this on another target.
-            
-    ~Saving Throw (Faith)~:
-        A: 0 Actions
-        Cooldown: 1 hour
-        Cost: 1 Insight
-        Range: 6 meters
-        Effect: |
-            Instantly pull an ally to your nearest empty space.
-        Notes: The ally goes flying, and does not trigger opportunity attacks.        
-    
+   
     ~Searing Smite~:
         A: 0 Actions
-        Cooldown: Long Rest
-        Cost: 2 Insight
+        Cost: 2 Mana
         Effect: |
-            Add 1d8 Fire damage to a weapon Attack. The target takes another 1d8 Fire damage at the start of your next turn.
+            Add 1d8 Fire damage to a weapon Attack (after you rolled the attack). The target takes another 1d8 Fire damage at the start of your next turn.
 
     ~Radiance~:
         A: 0 Actions
-        Cooldown: Long Rest
-        Cost: 1 Insight
+        Cost: 1 Mana
         Effect: For 1 minute, at the end of your turn, all Units within 1 meter of you take 1d4 True damage.
-        
-    ~Restoration~:
-        A: 0 Actions
-        Cooldown: Long Rest
-        Cost: 1 Insight
-        Effect: |
-            Remove all your party members' Exhaustion from rising after being Fallen, from not sleeping and from magical effects.
-
-    
-      
+  
     ~Willpower Aura~:
         A: 0 Actions
-        Cost: 1 Insight
+        Cost: 1 Mana
         Cooldown: Long Rest
         Effect: |
             For 8 hours, all allies around you (and you) can spend 0.5 Actions to gain Shielding equal to your Main Stat.
@@ -1943,7 +1950,7 @@ Faith:
     # Higher Level Spells
     ~Banishment Slip~:
         A: Half-Action
-        Cost: 1 Insight
+        Cost: 1 Mana
         Cooldown: Long Rest
         Range: 5 meters
         Requirement: Level 4
@@ -1953,21 +1960,20 @@ Faith:
             
     ~Fearing Ward~:
         A: 1 Action
-        Cooldown: Long Rest
-        Cost: 1 Insight
+        Cost: 1 Mana
         Requirement: Level 4
         Effect: |
             Choose an ally you can see. Put a ward on them until the start of your next turn.
             When an enemy wants to make an attack on them, the enemy must pass a Wisdom Check or be Feared by that ally and take 4d4 Necrotic damage (or half if it succeeds).
             The ally is also immune to being Feared, Charmed and Silenced in this time.
+            
     ~Vindication~:
         A: 1 Action
-        Cooldown: Long Rest
+        Cost: 1 Mana
         Range: 5 meters
-        Cost: 2 Insight
-        Requirement: Level 4
+        Requirement: Level 5
         Effect: |
             Choose a target.
-            For every 20% of its missing Health, heal it for your Main Stat Health.
+            For every 25% of its missing Health, heal it for your Main Stat Health.
       
     ~Wraithwalk~: Inherit

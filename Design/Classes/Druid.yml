@@ -2,17 +2,11 @@ Class: Druid
 Description: Druids are protectors of the nature and master shapeshifters.
 
 
-Base Health: 10
-
 Armor Training: Light Armor
 
-Language: |
-  If your Intelligence is at least 1, you know Druidic, the secret and ancient language of Druids.
-  If your Intelligence is at least 2, choose one Common (Dwarvish, Elvish), Wild (Orcish, Goblan, Sylvan, etc) or Elemental (Terran, Ignan, Aquan, etc; check the page Elemental languages) language you can speak.
+Weapons: You are Trained in 2 Weapon Categories of choice (e.g. 1-Handed Melee, 2-Handed Ranged, Shields, etc).
 
-Feats: You start with one Feat of choice.
-
-Proficiency Choices:
+Proficiencies:
     ~Proficiency in Survival~: Inherit
     ~Proficiency in Biology~: Inherit
     ~Proficiency in Animal Handling~: Inherit
@@ -21,20 +15,18 @@ Proficiency Choices:
 Level Up:
   Every Level: 
     Health: 5
-  Level Bonuses: Standard Insight-based
+
 
 Spellcasting:
-  Type: Insight-based
+  Type: Mana-based
     
   Main Stat: Wisdom
   Counter Check Grade: 6 + (Main Stat)
   Change: You can change your known Spells (not Talents) when taking a Long Rest.
   Other: All Druid-specific abilities are considered spells (unless stated otherwise).
   
-  Known Spells: 4 + Your Intelligence
-  Insight: 2
-  
-  BaseKnownSpells: 4
+  Known Spells: 2 + Intelligence
+  BaseKnownSpells: 2
   
   Spell Lists:
     - Nature
@@ -61,6 +53,7 @@ Starting Abilities:
   ~Druidcraft~:            # Ok
     A: Depends
     Effect: |
+      You speak Druidic, an ancient form of conveying information through nature.
       You can create harmless sensory effects or tiny weather effects (6 meters range).
       You can massively speed up the growth of small plants (touch range).
       You can slightly soothe physical pains (with no combat effect) (touch range).
@@ -73,17 +66,15 @@ Starting Abilities:
     A: 1 Action
     Cooldown: 2 times / Long Rest (see effect)
     Effect: |
-      Pick an animal from the Animal Pets and Shapeshift Animals list and instantly transform into it.
-      As soon as you Shapeshift, you can perform an Animal Attack.
-      You gain that animal's Fortitude and Dexterity Checks.
-      Apply any other modifiers (except for base Stats) from that animal.
-      You also gain its exact abilities.
-      While Shapeshifted, you can do Animal Attack.
-      While Shapeshifted, you can't cast spells, but can do non-Spell Abilities.
-      When you Shapeshift, your Health stays the same, unless the animal states it has a bonus/minus to Health.
-      When Shapeshift ends, subtract back whatever health you added, or add back whatever health you subtracted.
-      When you end Shapeshift, if your health would be 0 or less, it stays at 1.
-      Shapeshift ends if you drop to 0 Health, and you go Unconscious.
+      Pick an animal from the Pets and Animals list and instantly transform into it.
+      As soon as you Shapeshift, you can perform an Animal Attack!
+      
+      For Checks, you can choose to use the animal's Stats or your Stats.
+      You also gain its exact abilities and Animal Attack (see below), but can't cast Spells.
+      Your Health and Defense stay the same, but if the Animal specifies a "Druid Extra" section, do what that section says.
+      
+      Shapeshift ends if you drop to 0 Health, and you Fall.
+    Upgrade: |
       At first, you can't fly, even if your animal can. If your animal can fly, you have Proficiency in Jumping and you can glide (you don't take falling damage).
       From Level 3, you can use this 3 times per Long Rest.
       From Level 6, you can use this 4 times per Long Rest and you can fly.
@@ -102,7 +93,7 @@ Starting Abilities:
     OrderOnWebsite: 2
 
 # Base: 3.5 Charges 
-# With Spec: 5
+# With Spec: 4 - 6 Charges
 
 Specializations:
     Description: At Level 1, you can choose your coven (Specialization). A coven is a spiritual path you adhere to, and whose culture you represent.
@@ -136,7 +127,9 @@ Specs:
 # Wild magic but fey
 # Tell what an enemy will do on its next turn
 # Solstices and Equinox, Full Moon
-
+# Shapeshift: More animals based on level
+# Shapeshift: Special forms for each specialization
+# Wicked: when you go low health, you go nova and mad with eldritch power (and insane and stuff, purple veins, etc)
 
 
 
@@ -166,18 +159,16 @@ Specs:
         A: Passive
         Effect: |
           Instead of knowing one set of spells, as normal, you know two: one for the moon, and one for the sun.
-          The amount of Insight you have for the moon and sun spells is each equal to your regular Insight / 2, rounded up.
           The Moon spells can only be used at night (from end of dusk until start of dawn).
           The Sun spells can only be used at day (from start of dawn until end of dusk).
           The Sun spell set and the Moon spell set can not contain any of the same spell.
         Notes:
           So, in total, you know twice as many Spells.
-          Also, for example, if your normal Insight is 5, then you have 3 Insight for moon Spells and 3 Insight for sun Spells.
         Downside:
           Once you Learn a spell for Day or Night, you can no longer assign it to the other one. Ever.
       
       ~Moonsun Fire~ :          # 1.25
-        A: 0.5 Actions
+        A: Half-Action
         Range: 6 meters
         Cooldown: Day/Night (see below)
         Effect: |
@@ -193,7 +184,7 @@ Specs:
           A: 10 minutes
           Cooldown: Long Rest
           Effect: |
-            Reset the Cooldown of 3 Generic Abilities you have used that required 1 or less Insight each (you can't use this on Druid-only spells).
+            Reset the Cooldown of 3 Generic Abilities you have used (you can't use this on Druid-only spells).
             The Old Ritual must be performed outdoors, in a safe, uncorrupted place untouched by regular folk.
           Downside:
             You lose the Shapeshift ability, and you can't choose upcoming Talents that improve Shapeshift.
@@ -242,12 +233,14 @@ Specs:
           Effect: Moonsun Fire now hits all Units within a 4x4 area you choose and deals an extra 2d4 Damage.
         
         <Equinox>:              # It's 0.5 Actions + 1 Charge = 2 Charges
-          A: 0.5 Actions
+          A: Half-Action
           Cooldown: Day/Night
           Effect: |
             If it's day, choose up to Main Stat Units within 15 meters.
             They must pass a Wisdom Check or they forget to how to use ranged attacks or spells for 1 turn.
             If it's night, your next Spell (this turn or next turn) casts twice.
+
+# Talent: Cast any spell while shapeshifted
 
 # Damage + CC Medium + Utility
 
@@ -260,7 +253,7 @@ Specs:
 # Everything
 
 
-  Coven of the Wild:            # +0.5
+  Coven of the Wild:            # 0.5
     Description: You are heavily in touch with nature and with strange creatures, uncommon to the normal folk.
     Starting Abilities:
     
@@ -281,13 +274,14 @@ Specs:
           Effect: |
             You have a Pixie companion, a very small humanoid with wings.
             The Pixie has 10 Defense, 1 HP, 5 Movement Speed.
-            It takes its turn at the same time as you and it has 0.5 Actions on its turn.
+            It takes its turn at the same time as you and it has a Half-Action on its turn.
             It can't attack with weapons, but it can use scrolls and potions.
-            Every Long Rest, you can teach it one Spell that costs 0.5 Actions from any Spell List and it can cast it once for 0.5 Actions until the next Long Rest (ignoring the Cost).
+            Every Long Rest, you can teach it one Spell that costs a Half-Action from any Spell List and it can cast it once for a Half-Action until the next Long Rest (ignoring the Cost).
             If the Pixie goes more than 50 meters away from you, it becomes unsummoned (you can summon it back by channeling for 10 minuets).
             The Pixie has Charisma, Wisdom and Intelligence equal to yours, but its Dexterity is 0 and its Might is -5.
             Decide with your DM whether you or the DM controls the Pixie roleplay-wise.
-            Have fun!        
+            Have fun!
+          Notes: The Pixie can stay in your backpack or pocket if you don't want it to take damage.
 
         <Treesposition>:          # 0.75
           A: 0 Actions or Reaction
@@ -339,7 +333,10 @@ Specs:
 
 # Healing       (Talents 4)
 
-  Coven of the Wicked:          # 1.5
+# Talent: Blood Magic also can use for X and Y
+# Talent: Black Charm extra damage
+
+  Coven of the Wicked:          # 2.5
     Description: |
       Witch druids use eldritch magic of the nature to bend reality in an unseen way, cast curses and dispell magic.
       However, this comes at a price, usually of its own sanity and control over the powers.
@@ -353,20 +350,26 @@ Specs:
     
       ~Eldritch Spells:
         A: Passive
-        Effect: You can also learn Spells from the Eldritch Spell List.
+        Effect: |
+            You can also learn Spells from the Eldritch Spell List and you know 3 extra Eldritch Abilities.
+            If a Spell costs Mana to cast, you can cast it with Blood Magic.
+        Notes: You can change the 3 extra Abilities from the Eldritch Spell List on a Long Rest.
     
       ~Blood Magic~:    # 0.5
         A: 0 Actions
-        Cost: 6 Health/Insight
-        Effect: Reset the Cooldown of a Generic Ability.
-        Notes: Costs 6 Health per Insight the Spell Required. Costs at least 6 Health.
+        Cooldown: 1 Turn
+        Effect:
+            Choose a Generic Ability. If it costs nothing, take 6 Damage or otherwise take 6 damage for each Mana point it costs.
+            Cast that spell regardless of its Cost and Cooldown.
+            You can instead spend 6 Health to cast Black Charm.
 
-      ~Black Charm~:    # 1
-        A: 0 Actions
+      ~Black Charm~:    # 1.5 but it's ROI
+        A: 0.5 Action
         Range: 10 meters
+        Cooldown: Long Rest
         Effect: |
           Choose a target.
-          At the start of your next turn, it must pass a Wisdom Check or be Stunned and take 3d12 - 2 Psychic damage.
+          At the start of your next turn, it must pass a Wisdom Check or be Stunned and take 2d8 Psychic damage.
           If it passes, it takes half of the damage.
 
     Talents:
@@ -380,7 +383,7 @@ Specs:
       
         <Old Ritualist>: Inherit
         
-        <Animal Companion> :        # 1
+        <Animal Companion> :        # 2
           A: Passive
           Effect: |
             You have an animal pet that can fight alongside you!
@@ -450,7 +453,7 @@ Specs:
         Effect: |
           Target a 4x4x4 meter area and create a storm there.
           Creatures inside the sand storm are Blinded and the storm acts as hard terrain.
-          On your turn, you can use 0.5 Actions to move the Storm up to 2 meters in any direction.
+          On your turn, you can use a Half-Action to move the Storm up to 2 meters in any direction.
           Lasts 1 minute.
 
       ~Endurance~:                # 1

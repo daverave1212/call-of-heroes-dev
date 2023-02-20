@@ -48,14 +48,14 @@
 .home__hero-section {
   position: relative;
   width: 100%;
-  height: calc(100vh - var(--nav-height));
+  height: 100vh;
 
   overflow: hidden;
 }
 .hero-image-container {
   position: absolute;
   
-  height: calc(100vh - var(--nav-height));
+  height: 100vh;
   width: 100vw;
 
   overflow: hidden;
@@ -63,10 +63,17 @@
 }
 .hero-img {
   display: block;
-  height: 100%;
+  min-width: 100%;
+  max-width: 125%;
+  min-height: 125%;
   
-  margin-left: 30%;
-  transform: translateX(-30%);
+  margin-left: 40%;
+  margin-top: -6%;
+  transform: translate(-40%);
+
+  object-fit: cover;
+  overflow-x: clip;
+  overflow-y: clip;
 }
 :root {
   --hero-content-width: 755px;
@@ -76,12 +83,14 @@
 
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 40px;
   
   width: var(--hero-content-width);
+  height: calc(100vh - var(--nav-height));
 
   left: var(--content-left);
-  top: 290px;
+  top: var(--nav-height);
   
   z-index: var(--z-content);
 }
@@ -95,7 +104,6 @@
 }
 .home-text {
   margin: 0px;
-  margin: auto;
 
   /* width: 75%; */
 
@@ -126,6 +134,12 @@
   
   background: none;
   border: solid var(--hero-text-color) 3px;
+
+  cursor: pointer;
+}
+.generic-button:hover {
+  color: var(--light-medium-color);
+  border-color: var(--light-medium-color);
 }
 .hero-buttons button:nth-child(1) {
   flex: 1;
@@ -175,7 +189,7 @@
 
 .advantages-content {
   width: 600px;
-  top: 150px;
+  /* top: 150px; */
 
   color: var(--hero-text-color);
 }

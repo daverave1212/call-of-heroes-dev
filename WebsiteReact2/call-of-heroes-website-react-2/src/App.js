@@ -14,7 +14,6 @@ import Abilities from './pages/Other/Abilities'
 import CharacterCreation from './pages/Other/CharacterCreation'
 import CharacterCreationCalculator from './pages/Other/CharacterCreationCalculator'
 import TransitionGuide from './pages/Other/TransitionGuide'
-import Backgrounds from './pages/Other/Backgrounds'
 import Monsters from './pages/Other/Monsters'
 
 import Rule from './pages/Other/Rule';
@@ -66,6 +65,8 @@ import TreasureGenerator from './pages/Tools/TreasureGenerator';
 
 import Nav from './Nav'
 import DungeonGenerator from './pages/Tools/DungeonGenerator';
+import RunePuzzle from './pages/Tools/RunePuzzle';
+import Proficiencies from './pages/Other/Proficiencies';
 
 function App() {
 
@@ -73,14 +74,12 @@ function App() {
     isSimple: getLocalStorageBool('isSimple')
   })
   const [navState, setNavState] = useState({
-    currentlyOpenSubnav: null,
-    currentlyOpenUndernav: null
+    currentlyOpenSubnav: null
   })
 
   function closeNav(event) {
     setNavState({
-        currentlyOpenSubnav: null,
-        currentlyOpenUndernav: null
+        currentlyOpenSubnav: null
     })
   }
 
@@ -105,7 +104,7 @@ function App() {
               <Route path="/Other/Rules" element={ <Rules/> }/>
               <Route path="/Other/Abilities" element={ <Abilities/> }/>
               <Route path="/Other/Feats" element={ <Feats/> }/>
-              <Route path="#Other/Backgrounds" element={ <Backgrounds/> }/>
+              <Route path="/Other/Proficiencies" element={ <Proficiencies/> }/>
               <Route path="/Other/Armors" element={ <Armors/> }/>
               <Route path="/Other/Weapons" element={ <Weapons/> }/>
               <Route path="/Other/HowToPlayForNewPlayers" element={ <HowToPlayForNewPlayers/> }/>
@@ -147,6 +146,7 @@ function App() {
 
               <Route path="/Tools/TreasureGenerator" element={ <TreasureGenerator/> }/>
               <Route path="/Tools/DungeonGenerator" element={ <DungeonGenerator/> }/>
+              <Route path="/Tools/RunePuzzle" element={ <RunePuzzle/> }/>
             </Routes>
 
           </div>

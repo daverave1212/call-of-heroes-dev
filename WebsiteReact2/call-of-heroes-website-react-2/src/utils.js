@@ -7,16 +7,28 @@ import Separator from "./components/Separator/Separator"
 export function spellWithName(name, spellData) {
     return {...spellData, Name: name}
 }
+function getErrorSpellObject(message) {
+    return {
+        'Name': 'Error',
+        'A': '?',
+        'Effect': `An error has occured with a spell: ${message}`
+    }
+}
 // Retrieves all keys as .Name in an array of all objects
 export function spellsFromObject(obj) {
+    if (obj == null) return getErrorSpellObject('Null obj given to spellsFromObject')
+
     const spellsArray = []
     for (const key of Object.keys(obj)) {
-        if (key == 'default')   // Ignore it if it's the 'default' module property
+        if (key == 'default' || isNumber(key))   // Ignore it if it's the 'default' module property or array element
             continue
         const spellName = (key.startsWith('<') || key.startsWith('~')) ?
             key.substring(1, key.length - 1) :
             key
-        spellsArray.push(spellWithName(spellName, obj[key]))
+        if (obj[key] == null)
+            spellsArray.push(getErrorSpellObject(`Spell ${spellName} has null obj[key]`))
+        else
+            spellsArray.push(spellWithName(spellName, obj[key]))
     }
     return spellsArray
 }
@@ -245,7 +257,16 @@ export function shuffle(array_a){
     }
     return array_a
 }
-
+export function range(fromIncluding, toExcluding) {
+    const numbers = []
+    for (let i = fromIncluding; i < toExcluding; i++) {
+        numbers.push(i)
+    }
+    return numbers
+}
+export function takeRandomElements(fromArray, numberOfElements) {
+    return shuffle([...fromArray]).slice(0, numberOfElements)
+}
 
 
 

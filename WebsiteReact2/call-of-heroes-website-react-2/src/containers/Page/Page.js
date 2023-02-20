@@ -17,7 +17,6 @@ export default function Page({ children, title, subtitle, id }) {
     const [appState, setAppState] = useContext(AppStateContext)
     const [state, setState] = useState({ isExpanded: true })
 
-    const pageDisplayStyle  = state.isExpanded == true? { display: '' } : { display: 'none' }
     const togglePageDisplay = () => {
         setState({ isExpanded: !state.isExpanded })
 
@@ -32,12 +31,16 @@ export default function Page({ children, title, subtitle, id }) {
                     </p>
                 </div>
             )}
-            <div className='page-content' style={pageDisplayStyle}>
+            <div className='page-content'>
                 { title != null && (
                     <PageH1 onClick={togglePageDisplay} id={`${titleToId(title)}`}>{ title }</PageH1>
-                    // <PageH0 onClick={togglePageDisplay} id={`${titleToId(title)}`}>{ title }</PageH0>
                 ) }
-                { children }
+                <div style={state.isExpanded == true? { display: 'none' } : { display: '' }}>
+                    <span style={{fontSize: '45px', lineHeight: '20px'}}>. . .</span>
+                </div>
+                <div style={state.isExpanded == true? { display: '' } : { display: 'none' }}>
+                    { children }
+                </div>
             </div>
             <LandingPageSeparator type="8"/>
         </div>

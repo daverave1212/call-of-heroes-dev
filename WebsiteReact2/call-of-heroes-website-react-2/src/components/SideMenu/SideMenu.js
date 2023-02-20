@@ -23,13 +23,13 @@ export function SideMenu({children, sections}) {
         <div className='side-menu'>
             <div className='side-menu-content'>
                 { sectionNames.map(sectionName => (
-                    <div>
+                    <div key={sectionName}>
                         <a href={'#' + titleToId(sectionName)}>
                             <h4>{sectionName}</h4>
                         </a>
                         <ul>
                             { sections[sectionName].map(subtitle => (
-                                <li>
+                                <li key={subtitle}>
                                     <a href={'#' + titleToId(subtitle)}>
                                         <Icon name="BulletPoint"/> {subtitle}
                                     </a>
@@ -56,6 +56,18 @@ export function SideMenuFromClass({theClass}) {
     const specNames = Object.keys(theClass.Specs)
     for (const specName of specNames) {
         sections[specName] = []
+    }
+    return SideMenu({sections: sections})
+}
+
+export function SideMenuFromRace({theRace}) {
+    const sections = {
+        [theRace.Race]: [
+            theRace.Race,
+            'Race Features',
+            'Proficiencies',
+            'Abilities',
+        ]
     }
     return SideMenu({sections: sections})
 }

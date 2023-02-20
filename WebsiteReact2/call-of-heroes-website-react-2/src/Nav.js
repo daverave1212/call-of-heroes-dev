@@ -14,7 +14,6 @@ import Abilities from './pages/Other/Abilities'
 import CharacterCreation from './pages/Other/CharacterCreation'
 import CharacterCreationCalculator from './pages/Other/CharacterCreationCalculator'
 import TransitionGuide from './pages/Other/TransitionGuide'
-import Backgrounds from './pages/Other/Backgrounds'
 import Monsters from './pages/Other/Monsters'
 
 import Rule from './pages/Other/Rule';
@@ -71,57 +70,17 @@ export default function Nav({ navState, setNavState, isSimple, setIsSimple }) {
     
 
     const isSubnavDisplayed = navState.currentlyOpenSubnav != null
-    const isUndernavDisplayed = navState.currentlyOpenUndernav != null
 
     function NavItem({name, children}) {          // On hover, changes state to display a subnav
         const onHover = () => {
-          setNavState({currentlyOpenSubnav: name, currentlyOpenUndernav: null})
+          setNavState({currentlyOpenSubnav: name})
         }
         return (<div className='nav-item' onMouseEnter={onHover}>{ children }</div>)
     }
-    function MegaDropdown({children}) {           // Displays if there is a currentlyOpenSubnav
-        return (<div className='mega-dropdown' style={{display: isSubnavDisplayed? '': 'none'}}>{ children }</div>)
-    }
-    function SubnavContent({children, name}) {    // Is ONE list of items; displays if its name is same as currentlyOpenSubnav
-        const isDisplayed = navState.currentlyOpenSubnav == name
-        return (
-        <div className='subnav-content' style={{display: isDisplayed? '' : 'none' }}>{ children }</div>
-        )
-    }
-    function SubnavItem({name, children}) {       // Opens an UndernavContent with the same name on hover 
-        // const onHover = () => { setNavState({...navState, currentlyOpenUndernav: name}) }
-        const onHover = () => {
-        if (name == navState.currentlyOpenUndernav) return; // To prevent some weird rerenders
-        setNavState({...navState, currentlyOpenUndernav: name})
-        }
-        return (<div className='subnav-item' onMouseEnter={onHover}>{ children }</div>)
-    }
-    function UndernavContent({children, name}) {  // Is ONE list of items; displays if its name is same as currentlyOpenUndernav
-        const isDisplayed = navState.currentlyOpenUndernav == name
-        return (
-        <div className='undernav-content' style={{display: isDisplayed? '' : 'none' }}>{ children }</div>
-        )
-    }
-    function BannerLink({name, link, isDownload}) {
-        const closeMenus = () => setNavState({currentlyOpenSubnav: null, currentlyOpenUndernav: null})
-        if (isDownload === true) {
-        return (
-            <a href={link} onClick={closeMenus} target="_blank" download>
-            <HomeBanner3 title={name}/>
-            </a>
-        )
-        } else {
-        return (
-            <Link onClick={closeMenus} to={link}>
-            <HomeBanner3 title={name}/>
-            </Link>
-        )
-        }
-    }
-    
+  
     function LiLink({to, children, isDownload}) {
       if (isDownload === true) {
-        return <li><a href={to} target="_blank" download>{children}</a></li>
+        return <li onClick={null}><a href={to} target="_blank" download>{children}</a></li>
       }
       return (
         <li><Link to={to}>{children}</Link></li>
@@ -184,10 +143,10 @@ export default function Nav({ navState, setNavState, isSimple, setIsSimple }) {
               </div>
 
               <div className='subnav-section'>
-                <h4>Backgrounds</h4>
+                <h4>Proficiencies</h4>
                 <div className='subnav-title-underline'></div>
                 <ul>
-                  <LiLink to="#Other/Backgrounds">All</LiLink>
+                  <LiLink to="/Other/Proficiencies">All</LiLink>
                 </ul>
 
                 <h4 style={{marginTop: '38px'}}>Abilities</h4>

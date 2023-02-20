@@ -68,7 +68,7 @@ export default function Warrior() {
 
                     </Column>
                     <Column style={{position: 'relative'}}>
-                        <img style={{ left: '-110px', top: '-15 5px' }} className="class-image" src={`/Classes/${theClass.Class}.png`}/>
+                        <img style={{ left: '-110px', top: '-155px' }} className="class-image" src={`/Classes/${theClass.Class}.png`}/>
                     </Column>
                 </TwoColumns>
 

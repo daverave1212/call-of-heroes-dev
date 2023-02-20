@@ -31,7 +31,6 @@ export default function CharacterCreationCalculator() {
     let [state, setState] = useState({
         Race: 'Bertle',
         Class: 'Cleric',
-        Background: 'Acolyte',
 
         'Main Stat': 'Wisdom',
 
@@ -46,7 +45,6 @@ export default function CharacterCreationCalculator() {
 
     const raceObj  = Races[state.Race]
     const classObj = Classes[state.Class]
-    const backgroundObj = Backgrounds[state.Background]
 
     const updateStateFromFormElemStat = (evt, fieldName) => {
         const oldValue = state[fieldName]
@@ -133,14 +131,6 @@ export default function CharacterCreationCalculator() {
                         )) }
                     </select>
 
-                    <br/>
-                    <br/>
-                    <label className='cc-label'>Background</label>
-                    <select className='cc-select' name="Background" onChange={updateStateFromSelect}>
-                        { overallData.Backgrounds.map(bg => (
-                            <option key={bg} value={bg}>{bg}</option>
-                        )) }
-                    </select>
 
                 </Column>
                 <Column>
@@ -195,7 +185,7 @@ export default function CharacterCreationCalculator() {
                         <div>
                             <SmallStat name="Maximum Health">{
                                 parseInt(raceObj.Stats['Base Health']) +
-                                parseInt(classObj['Base Health']) + 
+                                // parseInt(classObj['Base Health']) + 
                                 asIntOr(state.Might, 0) +
                                 (parseInt(state.Level) - 1) * classObj['Level Up']['Every Level']['Health']
                             }</SmallStat>
@@ -203,8 +193,6 @@ export default function CharacterCreationCalculator() {
                                 {(_ => {
                                     const raceHealth  = parseInt(raceObj.Stats['Base Health'])
                                     const raceName    = state.Race
-                                    const classHealth = parseInt(classObj['Base Health'])
-                                    const className   = state.Class
 
                                     const might       = asIntOr(state.Might, 0)
                                     const plusMinusMight = might < 0? '-' : '+'
@@ -214,7 +202,7 @@ export default function CharacterCreationCalculator() {
                                     const levelHealth = (level - 1) * parseInt(classObj['Level Up']['Every Level']['Health'])
                                     const displayedLevel = level > 1 ? `+ ${levelHealth} (Level ${level})` : ''
 
-                                    return `${raceHealth} (${raceName}) + ${classHealth} (${className}) ${plusMinusMight} ${displayedMight} (Might) ${displayedLevel}`
+                                    return `${raceHealth} (${raceName}) ${plusMinusMight} ${displayedMight} (Might) ${displayedLevel}`
                                 })()}
                             </i>
                         </div>
@@ -294,9 +282,6 @@ export default function CharacterCreationCalculator() {
                     <div className='with-margined-children'>
                         <ManySmallStats name="Weapon Training" topDown={true} texts={(_ => {
                             const trainings = []
-                            if (backgroundObj.Training != null) {
-                                trainings.push(`${backgroundObj.Training} (${state.Background})`)
-                            }
                             if (classObj.Weapons != null) {
                                 trainings.push(`${classObj.Weapons} (${state.Class})`)
                             }
@@ -332,12 +317,6 @@ export default function CharacterCreationCalculator() {
                                     profs.push(`You have ${removeTildes(profName)} (${state.Class})`)
                                 }
                             }
-                            if (backgroundObj.Abilities != null) {
-                                for (const profName of Object.keys(backgroundObj.Abilities)) {
-                                    profs.push(`You have ${removeTildes(profName)} (${state.Background})`)
-                                }
-                            }
-
                             if (raceObj['Proficiency Choices'] != null) {
                                 const choices = Object.keys(raceObj['Proficiency Choices']).map(choice => removeTildes(choice))
                                 profs.push(`Choose one between ${choices.join(', ')} (${state.Race})`)
@@ -351,11 +330,6 @@ export default function CharacterCreationCalculator() {
                         })()}/>
                         <ManySmallStats name="Languages" color="var(--dark-green)" topDown={true} texts={(_ => {
                             const languages = ['You speak Common.']
-
-                            if (backgroundObj.Language != null) {
-                                const thisLanguage = backgroundObj.Language
-                                languages.push(thisLanguage)
-                            }
 
                             if (raceObj.Language != null) {
                                 const int = parseInt(state.Intelligence)
@@ -414,11 +388,10 @@ export default function CharacterCreationCalculator() {
                             return languages
                         })()}/>
 
-                        <SmallStat name="Starting Gold" color="var(--dark-green)">{backgroundObj.Money} <Icon name="Gold"/></SmallStat>
+                        <SmallStat name="Starting Gold" color="var(--dark-green)">800 Gold</SmallStat>
 
                         <ManySmallStats name="Starting Equipment" color="var(--dark-green)" topDown={true} texts={[
-                            'You start with one Armor of any Armor type you are Trained in.',
-                            'You start with one Weapon of any Weapon you are Trained in.'
+                            'You start with 600 gold that you can spend on any items in the shop. You have a 50% discount on armors.'
                         ]}/>
 
                     </div>

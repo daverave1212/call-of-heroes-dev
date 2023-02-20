@@ -22,6 +22,7 @@ import Icon from '../../components/Icon'
 
 import Page from '../../containers/Page/Page'
 
+import { SideMenuFromRace } from '../../components/SideMenu/SideMenu'
 import theRace from '../../databases/Races/Human.json'
 
 import ManySpells from '../../components/Spell/ManySpells'
@@ -33,13 +34,11 @@ export default function Race() {
     return (
         <div>
 
-            <Page>
-
-                <PageH1>{ theRace.Race }</PageH1>
-                <br/>
+            <SideMenuFromRace theRace={theRace}/>
+            <Page title={ theRace.Race }>
 
                 <TwoColumns>
-                    <Column>
+                    <Column style={{zIndex: 1}}>
 
                         Lorem {theRace.Race} ipsum dolor sit amet.
                         Aenean blandit metus nisi, non commodo tortor volutpat ut.
@@ -64,8 +63,8 @@ export default function Race() {
                         Maecenas fermentum lacinia mi, a elementum nibh tristique at. In eget nisl nunc.
 
                     </Column>
-                    <Column>
-                        <img style={{ left: '-220px', top: '-205px' }} className="class-image" src={`/Races/${theRace.Race}.png`}/>
+                    <Column style={{position: 'relative'}}>
+                        <img style={{ left: '-120px', top: '-135px' }} className="class-image" src={`/Races/${theRace.Race}.png`}/>
                     </Column>
                 </TwoColumns>
 
@@ -73,7 +72,7 @@ export default function Race() {
 
                 <Proficiencies name={theRace.Race} theRaceOrClass={theRace}/>
 
-                <AbilitiesWithDescription spellsObject={theRace['Starting Abilities']} title='Abilities' description={theRace['Starting Abilities Description']}/>
+                <AbilitiesWithDescription id="abilities" spellsObject={theRace['Starting Abilities']} title='Abilities' description={theRace['Starting Abilities Description']}/>
 
                 <PageH3>Choose One From...</PageH3>
                 {/* <ManySpells spells={U.spellsFromObject(theRace.Talents)}/> */}

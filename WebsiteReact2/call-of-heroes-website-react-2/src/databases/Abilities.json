@@ -100,7 +100,8 @@
             "Cost": "1 Mana",
             "Cooldown": "Long Rest",
             "Range": "10 meters",
-            "Effect": "Attack a target for 12 + Main Stat Cold damage (against Defense).\nIt becomes Slowed.\n",
+            "Effect": "Attack a sentient Unit for 12 + Main Stat Cold damage (against Defense).\nIt becomes Slowed.\n",
+            "Notes": "Doesn't work on Units that can't feel fear.",
             "Name": "~Chilling Shout~"
         },
         "~Muscle Tear~": {
@@ -192,59 +193,55 @@
             "Notes": "Your new initiative stays like that for later turns.",
             "Name": "~Wait~"
         },
+        "~Stand Stoic~": {
+            "A": "0 Actions",
+            "Cooldown": "Long Rest",
+            "Effect": "All Prone allies (and you) immediately stand up. All allies (and you) remove their Snares and Slows.\nNone of you can trigger Opportunity Attacks from enemies until the start of your next turn.\nYou (yourself) can continue your movement if you already moved.\n",
+            "Name": "~Stand Stoic~"
+        },
         "~Assess Their Ranks~": {
             "A": "0 Action",
-            "Cooldown": "Long Rest",
-            "Cost": "1 Insight",
+            "Cost": "1 Mana",
+            "Cooldown": "Once per Combat",
             "Effect": "Gain Shielding equal to the number of Worthy Enemies you see.",
             "Name": "~Assess Their Ranks~"
         },
         "~Battle Trust~": {
             "A": "0 Actions",
-            "Cost": "1 Insight",
-            "Cooldown": "2 uses / Long Rest",
-            "Effect": "Another ally you can see gains 50% Resistance to a named physical damage type (Slash, Smash, Pierce or Force).\nLasts for 10 minutes.\n",
+            "Cost": "1 Mana",
+            "Duration": "10 minutes",
+            "Effect": "Another ally you can see gains 50% Resistance to a named physical damage type (Slash, Smash, Pierce or Force).\n",
             "Notes": "You can't use this on yourself",
             "Name": "~Battle Trust~"
         },
         "~Glory Shout~": {
             "A": "Half-Action",
-            "Cooldown": "Long Rest",
-            "Cost": "1 Insight",
+            "Cost": "1 Mana",
             "Effect": "You and all allies that can hear you are healed for 3 Health.",
             "Name": "~Glory Shout~"
         },
         "~Infailible Reach~": {
             "A": "1 Action",
-            "Cost": "1 Insight",
+            "Cost": "1 Mana",
             "Cooldown": "1 use / Combat",
             "Range": "3 meters",
             "Effect": "Use any melee weapon to perform a heavy blow on a Unit within 3 meters.\nIt must pass a Dexterity Check or take 3d6 + (Your Main Stat) damage of that weapon's type.\nIf it passes, it takes half of that damage.\n",
-            "Notes": "Extra damage from special weapons does apply to this damage.",
+            "Notes": "Extra damage from magic weapons does apply to this damage.",
             "Name": "~Infailible Reach~"
         },
         "~Row Through~": {
             "A": "1 Action",
+            "Cost": "1 Mana",
             "Cooldown": "Long Rest",
-            "Cost": "2 Insight",
             "Range": "2 meters",
             "Effect": "Push a Unit up to 6 meters away from you.\nIf it collides with something, it must pass a Might Check or be Stunned and take 1d4 Smash damage (and it stops).\nIf it collides with another Unit, that Unit is also pushed in the same direction and continues a chain of Row Through.\n",
             "Notes": "E.g. if it collides with a Unit, that Unit is also pushed up to 6 meters and if it collides with something, it must pass a Might Check or be Stunned and take the damage. If that thing it collided with was a Unit, that Unit is also pushed up to 6 meters and must pass the Might Check and so on.",
             "Name": "~Row Through~"
         },
-        "~Stand Stoic~": {
-            "A": "0 Actions",
-            "Cost": "1 Insight",
-            "Cooldown": "Long Rest",
-            "Effect": "All Prone allies (and you) immediately stand up. All allies (and you) remove their Snares and Slows.\nAll of you gain 50% extra Movement on your next turn.\nNone of you can trigger Opportunity Attacks from enemies until the start of your next turn.\nYou (yourself) can continue your movement if you already moved.\n",
-            "Name": "~Stand Stoic~"
-        },
         "~Whirlwind~": {
             "A": "1 Action",
-            "Cooldown": "Long Rest",
-            "Cost": "1 Insight",
+            "Cost": "1 Mana",
             "Effect": "Roll 2d8 for each Unit within 3 meters of you.\nAssign 2 of the rolled d8's to each of those Units, and deal that much damage as Slash damage to it (directly).\n",
-            "Upgrade": "At Level 6, you can instead spend 2 Insight to Know this Ability and make its cost a Half-Action.\n",
             "Name": "~Whirlwind~"
         }
     },
@@ -279,15 +276,17 @@
         "~Control Water~": {
             "A": "1 Action",
             "Range": "6 meters",
-            "Effect": "Choose a 1x1x1 meter cube of water or ice.\nChoose one of the following things to do with it:\n- You can move it (Your Level) meters in any direction\n- You can roughly alter its shape\n- You can change its color or opacity\n- You can freeze or evaporate the water.\nFreezing, changing its color or shape last up to 1 hour.\nThe area increases to 2x2x2 meters at Level 4 and 4x4x4 meters at Level 8.\n",
-            "Notes": "The water does no damage if it touches a Unit.",
+            "Effect": "Choose a 1x1x1 meter cube of water or ice.\nChoose one of the following things to do with it:\n- You can move it (Your Level) meters in any direction\n- You can roughly alter its shape\n- You can change its color or opacity\n- You can alter its temperature, making it anywhere between near-freezing or near-boiling\nEffects last for up to 1 hour.\nThe area increases to 2x2x2 meters at Level 4 and 4x4x4 meters at Level 8.\n",
+            "Notes": "The water does no damage if it touches a Unit, but acts as difficult terrain for Units passing through it.",
             "Name": "~Control Water~"
         },
         "~Control Earth~": {
             "A": "1 Action",
             "Range": "6 meters",
-            "Cooldown": "Varies (see description)",
-            "Effect": "Choose a 1x1x1 meter cube of dirt, loose stone, sand, etc.\nYou can do the following things to it.\n- You can move it 1 meter in any direction.\nIf a Unit was hit by it or it was removed from below a Unit's feet, it rolls a Dexterity Check (against your Counter Check Grade).\nIf it fails, it takes 1d8 damage and is knocked prone.\nIf a Unit is burried in dirt (or loose stone, etc) after failing the Check, it takes 1d8 additional damage (directly).\n- You can roughly shape it in any form\n- You can cause it to become difficult terrain.\nYou can do this twice per Long Rest at level 1, 4 times per Long Rest at level 4 and unlimited times at level 8.\n",
+            "Cooldown": "1 use / Long Rest",
+            "Effect": "Choose a 1x1x1 meter cube of dirt, loose stone, sand, etc.\nYou can do the following things to it.\nThis turn, and every turn for 10 minutes, you can spend 1 Action to:\n- Move it 1 meter in any direction\n- Roughly shape it in any form\n- Cause it to become difficult terrain.\nIf a Unit was hit by it or it was removed from below a Unit's feet, it rolls a Dexterity Check (against your Counter Check Grade).\nIf it fails, it takes 1d8 damage and is knocked prone (or 2d8 damage if the earth was removed from underneath its feet).\n",
+            "Upgrade": "You can do this twice per Long Rest at level 1, 4 times per Long Rest at level 4 and unlimited times at level 8.",
+            "Notes": "The cube has 10 Health, 0 Defense and fails all checks for combat purposes. It's immune to Psychic damage and crowd control.",
             "Name": "~Control Earth~"
         },
         "~Fire Bolt~": {
@@ -310,7 +309,7 @@
         "~Land Breach~": {
             "A": "1 Action",
             "Range": "9 meters",
-            "Effect": "You gather stone, dirt, sand, etc from the surroundings and release it upon an enemy.\nDeal 3d6 damage Force damage to a Unit (against Defense), and two of rolled dice (you choose) to all Units within 1 meter of it (against Defense).\n",
+            "Effect": "You gather stone, dirt, sand, etc from the surroundings and release it upon an enemy.\nDeal 3d6 damage Force damage to a Unit (against Defense), and two of rolled dice (you choose) to all other Units within 1 meter of it (against Defense).\n",
             "Name": "~Land Breach~"
         },
         "~Quicksand~": {
@@ -622,8 +621,10 @@
         "~Control Earth~": {
             "A": "1 Action",
             "Range": "6 meters",
-            "Cooldown": "Varies (see description)",
-            "Effect": "Choose a 1x1x1 meter cube of dirt, loose stone, sand, etc.\nYou can do the following things to it.\n- You can move it 1 meter in any direction.\nIf a Unit was hit by it or it was removed from below a Unit's feet, it rolls a Dexterity Check (against your Counter Check Grade).\nIf it fails, it takes 1d8 damage and is knocked prone.\nIf a Unit is burried in dirt (or loose stone, etc) after failing the Check, it takes 1d8 additional damage (directly).\n- You can roughly shape it in any form\n- You can cause it to become difficult terrain.\nYou can do this twice per Long Rest at level 1, 4 times per Long Rest at level 4 and unlimited times at level 8.\n",
+            "Cooldown": "1 use / Long Rest",
+            "Effect": "Choose a 1x1x1 meter cube of dirt, loose stone, sand, etc.\nYou can do the following things to it.\nThis turn, and every turn for 10 minutes, you can spend 1 Action to:\n- Move it 1 meter in any direction\n- Roughly shape it in any form\n- Cause it to become difficult terrain.\nIf a Unit was hit by it or it was removed from below a Unit's feet, it rolls a Dexterity Check (against your Counter Check Grade).\nIf it fails, it takes 1d8 damage and is knocked prone (or 2d8 damage if the earth was removed from underneath its feet).\n",
+            "Upgrade": "You can do this twice per Long Rest at level 1, 4 times per Long Rest at level 4 and unlimited times at level 8.",
+            "Notes": "The cube has 10 Health, 0 Defense and fails all checks for combat purposes. It's immune to Psychic damage and crowd control.",
             "Name": "~Control Earth~"
         },
         "~Control Wind~": {
@@ -674,61 +675,62 @@
         },
         "~Barkskin~": {
             "A": "Reaction",
-            "Cost": "1 Insight",
             "Range": "6 meters",
+            "Cost": "1 Mana",
+            "Cooldown": "Long Rest",
             "Effect": "That ally becomes Snared in the ground for up to 1 minute.\nWhile rooted, that ally's Defense can't be lower than 6.\n",
             "Notes": "You can cancel this effect at any point at will.",
             "Name": "~Barkskin~"
         },
         "~Healing Surge~": {
             "A": "Half-Action",
-            "Cost": "1 Insight",
             "Range": "5 meters",
+            "Cost": "1 Mana",
+            "Cooldown": "Long Rest",
             "Effect": "Heal a target for 2d6.",
             "Name": "~Healing Surge~"
         },
         "~Lightning Storm~": {
             "A": "1 Action",
-            "Cost": "1 Insight",
             "Range": "10 meters to edge",
             "Cooldown": "Long Rest",
-            "Effect": "Declare a 4x4x4 area.\nAll units inside the area take 6d4 Shock damage (against Defense).\nIf a unit carries anything made of metal, this ignores all its Defense.\nOn your turn (for up to 1 minute), you can spend 1 Action to move the storm up to 3 meters and its deal damage again.\nLasts up to 1 minute.\n",
+            "Effect": "Declare a 4x4x4 area.\nAll units inside the area take 5d4 Shock damage (against Defense).\nIf a unit carries anything made of metal, this ignores all its Defense.\nOn your turn (for up to 1 minute), you can spend 1 Action to move the storm up to 3 meters and its deal damage again.\nLasts up to 1 minute.\n",
             "Name": "~Lightning Storm~"
         },
         "~Locust Swarm~": {
             "A": "Half-Action",
             "Range": "10 meters",
-            "Cost": "1 Insight",
-            "Cooldown": "Long Rest",
-            "Effect": "Choose a Unit.\nA swarm of locusts appears and chases it down.\nWhenever the Unit moves willingly, it takes 1 True damage.\nLasts 1 minue.\n",
+            "Cost": "1 Mana",
+            "Duration": "1 minute",
+            "Effect": "Choose a Unit.\nA swarm of locusts appears and chases it down.\nWhenever the Unit moves willingly, it takes 1 True damage for each meter moved.\nA Unit can only be affected by one Locust Swarm at a time.\n",
             "Note": "Locust Swarm can be dispelled like any other effect.",
             "Name": "~Locust Swarm~"
         },
         "~Revitalize~": {
             "A": "0 Actions",
-            "Cost": "1 Insight",
+            "Cost": "1 Mana",
             "Cooldown": "Long Rest",
             "Effect": "Touch 2 allies to restore up to 2d6 of their Reserve Health to each.\n",
             "Name": "~Revitalize~"
         },
         "~Scape Grasp~": {
             "A": "1 Action",
-            "Cost": "1 Insight",
             "Range": "10 meters",
+            "Cost": "1 Mana",
             "Cooldown": "Long Rest",
             "Effect": "Choose a Unit.\nCount how many of these criteria it matches:\n- Has armor made of organic material (leather, hide, hemp, etc)\n- Is standing directly on vegetation\n- It's night and the target is outdoors\nIt takes damage (directly) and must pass a Wisdom Check or suffer a Crowd Control effect based on its number of matched criteria:\n- 1: 1d4 damage, Snared\n- 2: 2d4 damage, Snared and Crippled\n- 3: 3d4 damage, Stunned\n",
             "Name": "~Scape Grasp~"
         },
         "~Wild Heart~": {
             "A": "1 Action",
-            "Cost": "1 Insight",
-            "Effect": "Up to 2 allies you touch gain Your Main Stat maximum (and current) Health and +1 to all Checks until their next Long Rest.",
-            "Notes": "The bonus to Health and Checks doesn't stack with itself, and the bonus to Checks doesn't stack with other Check buffs.",
+            "Cost": "1 Mana",
+            "Duration": "Until their next Long Rest",
+            "Effect": "Up to 2 allies you touch gain Your Main Stat maximum (and current) Health and +1 to all Checks.",
+            "Notes": "A Unit can only be affected by one Wild Heart buff.",
             "Name": "~Wild Heart~"
         },
         "~Wind Chaser~": {
             "A": "0 Actions",
-            "Cost": "1 Insight",
             "Cooldown": "1 minute",
             "Effect": "Your next ranged Attack curves around obstacles, ignoring Cover and Hard Cover and deals 1d6 extra Damage of its type.\n",
             "Notes": "You still need Line of Sight to the target.",
@@ -875,9 +877,11 @@
         "~Shadow Clone~": {
             "A": "0 Actions",
             "Cost": "1 Mana",
-            "Range": "3 meters",
+            "Range": "10 meters",
             "Duration": "10 minutes",
-            "Effect": "You create an illusion of yourself at a target location.\nThe illusion has 1 Health and 1 Armor and it fails all Checks.\nYou can control what the illusion does at will.\n",
+            "Effect": "You create an illusion of yourself at a target location.\nThe illusion has 1 Health and 1 Armor and it fails all Checks.\nYou can control what the illusion does at will.\nIf the illusion goes more than 10 meters away from you, it disappears and the spell is cancelled.\n",
+            "Upgrade": "At Level 3, the cast range and illusion range become 15 meters and the sound of your voice can come through the illusion's mouth instead of yours. At Level 5 - 25 meters. At Level 7 you can choose to see through the illusion's eyes at any point.",
+            "Notes": "You need maintain line of sight to the clone to keep it working.",
             "Name": "~Shadow Clone~"
         },
         "~Animate Dead~": {
@@ -963,17 +967,16 @@
         },
         "~Mind Blast~": {
             "A": "1 Action",
-            "Cost": "1 Insight",
             "Range": "3 meters",
-            "Cooldown": "2 times / Long Rest",
+            "Cost": "1 Mana",
             "Effect": "A Unit must pass a Wisdom Check or take 3d6 + 1 Psychic damage and become Crippled or Silenced (your choice).\nIt takes half damage if it passes.\nAfter you cast Mind Blast on a Unit, it becomes completely immune to Mind Blast for 1 day.\n",
             "Name": "~Mind Blast~"
         },
         "~Confusion~": {
-            "A": "Half-Action",
-            "Cost": "1 Insight",
-            "Cooldown": "2 uses / Long Rest",
-            "Effect": "Deal 1d6 Psychic damage to a Unit.\nThen, it must pass a Wisdom Check, otherwise roll 1d4 and the target must do one of the 4 options below on its next turn, depending on the number rolled on the d4:\n1. Moves in a random direction with all of its movement (chosen by the DM) and forgets to use its Action\n2. Forgets to move and can only use Half-Action\n3. Forgets to move and can't do weapon attacks\n4. Falls Prone and tries to make a ranged attack\n",
+            "A": "1 Action",
+            "Cost": "1 Mana",
+            "Effect": "Choose 2 Units you can see.\nEach must pass a Wisdom Check or take 2d4 Psychic damage (or half if it succeeds).\nFor each that fails, also roll 1d4 and the Unit must do one of the 4 options below on its next turn, depending on the number rolled on the d4:\n1. Moves in a random direction with all of its movement (chosen by the DM) and forgets to use its Action\n2. Forgets to move and is Dazed\n3. Forgets to move and can't do weapon attacks\n4. Falls Prone and tries to make a ranged attack\n",
+            "Notes": "A Dazed NPC is Slowed, can't make Opportunity Attacks and can make 1 less attack on its turn.",
             "Name": "~Confusion~"
         },
         "~Charming Word~": {
@@ -1286,76 +1289,69 @@
         "~Atonement~": {
             "A": "0 Actions",
             "Cooldown": "Long Rest",
-            "Cost": "1 Insight",
-            "Effect": "Lose (Main Stat + Your Level) Health.\nTwice as much Shielding for 1 hour.\n",
+            "Effect": "Lose (5 + Main Stat) Health.\nGain (7 + Your Level) as much Shielding for 1 hour.\n",
             "Name": "~Atonement~"
+        },
+        "~Saving Throw (Faith)~": {
+            "A": "0 Actions",
+            "Cooldown": "1 hour",
+            "Range": "6 meters",
+            "Effect": "Instantly pull an ally to your nearest empty space.\n",
+            "Notes": "The ally goes flying, and does not trigger opportunity attacks.\nYou need line of sight to the targets. The allies fly to you ignoring obstacles and ground traps (goes around obstacles), unless the ally needs to swerve more than 2 meters in any direction.\n",
+            "Name": "~Saving Throw (Faith)~"
+        },
+        "~Restoration~": {
+            "A": "1 Action",
+            "Cooldown": "Long Rest",
+            "Effect": "Remove all your party members' Exhaustion from rising after being Fallen, from not sleeping and from magical effects.\n",
+            "Name": "~Restoration~"
         },
         "~Blessing of Wisdom~": {
             "A": "0 Actions",
-            "Cost": "1 Insight",
+            "Cost": "1 Mana",
             "Cooldown": "Long Rest",
-            "Effect": "An ally you can see restores 1 Mana and has +1 Main Stat for 8 hours.",
+            "Effect": "An ally you can see restores 1 Mana and has +1 Main Stat for 8 hours.\nThen, that Unit becomes immune to Blessing of Wisdom until its next Long Rest.\n",
             "Notes": "Mana restored can't exceed their maximum Mana.\nA Unit can't have multiple Blessings of Wisdom on it.\n",
             "Name": "~Blessing of Wisdom~"
         },
         "~Expelling Bolt~": {
             "A": "Half-Action",
-            "Cost": "1 Insight",
-            "Cooldown": "Long Rest",
+            "Cost": "1 Mana",
             "Range": "5 meters",
-            "Effect": "Make an attack on a Unit that deals 1d8 + Your Main Stat + Target's Maximum Movement Speed damage as Force damage.\n",
+            "Effect": "Make an attack on a Unit that deals 1d8 + Your Main Stat + Target's current Movement Speed damage as Force damage (against Defense).\n",
             "Notes": "Against Epic monsters, the Maximum Speed is calculated as it's (Speed) * (Epic Grade). E.g. if it's an Ogre with Movement Speed of 3 and has an Epic Grade of 2 (meaning it takes 2 turns), its Maximum Movement Speed is 2 * 3 = 6.",
             "Name": "~Expelling Bolt~"
         },
         "~Hand of Freedom~": {
             "A": "Reaction or 0 Actions",
-            "Cooldown": "Long Rest",
-            "Cost": "1 Insight",
+            "Cost": "1 Mana",
             "Effect": "Instantly remove all Crowd Control from another ally you can see.\n",
             "Upgrade": "At Level 3, also removes all non-magical debuffs and poisons.\nAt Level 6, also removes all curses and normal negative magical effects.\n",
             "Name": "~Hand of Freedom~"
         },
         "~Invigorate~": {
             "A": "0 Actions",
+            "Cost": "1 Mana",
             "Cooldown": "Long Rest",
-            "Cost": "1 Insight",
             "Range": "5 meters",
             "Effect": "Heal a target for 1d4 + 2 Health.\nIf after this the target is at full Health, repeat this on another target.\n",
             "Name": "~Invigorate~"
         },
-        "~Saving Throw (Faith)~": {
-            "A": "0 Actions",
-            "Cooldown": "1 hour",
-            "Cost": "1 Insight",
-            "Range": "6 meters",
-            "Effect": "Instantly pull an ally to your nearest empty space.\n",
-            "Notes": "The ally goes flying, and does not trigger opportunity attacks.\nYou need line of sight to the targets. The allies fly to you ignoring obstacles and ground traps (goes around obstacles), unless the ally needs to swerve more than 2 meters in any direction.\n",
-            "Name": "~Saving Throw (Faith)~"
-        },
         "~Searing Smite~": {
             "A": "0 Actions",
-            "Cooldown": "Long Rest",
-            "Cost": "2 Insight",
-            "Effect": "Add 1d8 Fire damage to a weapon Attack. The target takes another 1d8 Fire damage at the start of your next turn.\n",
+            "Cost": "2 Mana",
+            "Effect": "Add 1d8 Fire damage to a weapon Attack (after you rolled the attack). The target takes another 1d8 Fire damage at the start of your next turn.\n",
             "Name": "~Searing Smite~"
         },
         "~Radiance~": {
             "A": "0 Actions",
-            "Cooldown": "Long Rest",
-            "Cost": "1 Insight",
+            "Cost": "1 Mana",
             "Effect": "For 1 minute, at the end of your turn, all Units within 1 meter of you take 1d4 True damage.",
             "Name": "~Radiance~"
         },
-        "~Restoration~": {
-            "A": "0 Actions",
-            "Cooldown": "Long Rest",
-            "Cost": "1 Insight",
-            "Effect": "Remove all your party members' Exhaustion from rising after being Fallen, from not sleeping and from magical effects.\n",
-            "Name": "~Restoration~"
-        },
         "~Willpower Aura~": {
             "A": "0 Actions",
-            "Cost": "1 Insight",
+            "Cost": "1 Mana",
             "Cooldown": "Long Rest",
             "Effect": "For 8 hours, all allies around you (and you) can spend 0.5 Actions to gain Shielding equal to your Main Stat.\n",
             "Upgrade": "At Level 3, you all gain +2 to Wisdom Checks as well.\nAt Level 6, you all gain 50% Resistance to Psychic and True damage as well.\n",
@@ -1363,7 +1359,7 @@
         },
         "~Banishment Slip~": {
             "A": "Half-Action",
-            "Cost": "1 Insight",
+            "Cost": "1 Mana",
             "Cooldown": "Long Rest",
             "Range": "5 meters",
             "Requirement": "Level 4",
@@ -1372,19 +1368,17 @@
         },
         "~Fearing Ward~": {
             "A": "1 Action",
-            "Cooldown": "Long Rest",
-            "Cost": "1 Insight",
+            "Cost": "1 Mana",
             "Requirement": "Level 4",
             "Effect": "Choose an ally you can see. Put a ward on them until the start of your next turn.\nWhen an enemy wants to make an attack on them, the enemy must pass a Wisdom Check or be Feared by that ally and take 4d4 Necrotic damage (or half if it succeeds).\nThe ally is also immune to being Feared, Charmed and Silenced in this time.\n",
             "Name": "~Fearing Ward~"
         },
         "~Vindication~": {
             "A": "1 Action",
-            "Cooldown": "Long Rest",
+            "Cost": "1 Mana",
             "Range": "5 meters",
-            "Cost": "2 Insight",
-            "Requirement": "Level 4",
-            "Effect": "Choose a target.\nFor every 20% of its missing Health, heal it for your Main Stat Health.\n",
+            "Requirement": "Level 5",
+            "Effect": "Choose a target.\nFor every 25% of its missing Health, heal it for your Main Stat Health.\n",
             "Name": "~Vindication~"
         },
         "~Wraithwalk~": {

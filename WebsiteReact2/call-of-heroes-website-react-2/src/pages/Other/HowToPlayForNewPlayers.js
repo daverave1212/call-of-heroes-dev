@@ -62,7 +62,6 @@ export default function HowToPlayForNewPlayers() {
                 <Section name="Abilities Notes"/>
                 <Section name="Spellcasting"/>
                 <Section name="Mana-based Spellcasting"/>
-                <Section name="Insight-based Spellcasting"/>
                 <Section name="Wrapping up the basics"/>
 
                 <PageH2>Character Creation</PageH2>

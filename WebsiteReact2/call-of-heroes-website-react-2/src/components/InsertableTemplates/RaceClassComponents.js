@@ -32,11 +32,20 @@ export function Proficiencies({ name, theRaceOrClass }) {
     return (
         <div style={{marginTop: 'var(--page-padding)'}} id="proficiencies">
             { theRaceOrClass.Proficiencies != null && (
-                <div>
-                    <PageH3>Proficiencies</PageH3>
-                    <p>As a { name }, you have all the following Abilities. Each of them is a Proficiency, which is generally a passive Ability that gives you a bonus on non-combat Checks in a certain domain.</p>
-                    <AbilitiesWithDescription autoAlign={true} spellsObject={theRaceOrClass.Proficiencies} description={theRaceOrClass['Proficiencies Description']}/>
-                </div>
+                Object.keys(theRaceOrClass.Proficiencies).length == 1 ? (
+                    <div>
+                        <PageH3>Proficiencies</PageH3>
+                        <p>As a { name }, you have all the following Abilities. Each of them is a Proficiency, which is generally a passive Ability that gives you a bonus on non-combat Checks in a certain domain.</p>
+                        <AbilitiesWithDescription autoAlign={true} spellsObject={theRaceOrClass.Proficiencies} description={theRaceOrClass['Proficiencies Description']}/>
+                    </div>
+                ) : (
+                    <div>
+                        <PageH3>Proficiencies</PageH3>
+                        <p>As a { name }, you have all the following Abilities. Each of them is a Proficiency, which is generally a passive Ability that gives you a bonus on non-combat Checks in a certain domain.</p>
+                        <p>{theRaceOrClass['Proficiencies Description']}</p>
+                        <AbilitiesWithDescription autoAlign={true} spellsObject={theRaceOrClass.Proficiencies}/>
+                    </div>
+                )
             ) }
             { theRaceOrClass['Proficiency Choices'] != null && (
                 <div>
@@ -60,12 +69,12 @@ export function ClassFeatures({ theClass }) {
             <TwoColumns>
                 <Column>
                     <div className='with-margined-children'>
-                        <SmallStat name="Health">{ theClass['Base Health'] }<Icon name="Health" type="small-stat"/></SmallStat>
+                        {/* <SmallStat name="Health">{ theClass['Base Health'] }<Icon name="Health" type="small-stat"/></SmallStat> */}
                         <SmallStat name="Armor Training">{ theClass['Armor Training'] }</SmallStat>
                         <SmallStat name="Base Defense">0 + Your Armor<Icon name="Defense" type="small-stat"/>Defense</SmallStat>
                         { theClass['Language'] && <SmallStat name="Language" topDown='true'>{ theClass['Language'] }</SmallStat> }
                         { theClass.Weapons && <SmallStat name="Weapons" topDown='true'>{ theClass.Weapons }</SmallStat> }
-                        <SmallStat name="Feats" topDown='true'>You start with one Feat of choice.</SmallStat>
+                        { theClass.Feat && <SmallStat name="Feats" topDown='true'>You start with one Feat of choice.</SmallStat> }
                     </div>
                 </Column>
                 <Column>
@@ -77,14 +86,14 @@ export function ClassFeatures({ theClass }) {
 }
 export function RaceFeatures({ theRace }) {
     return (
-        <div>
+        <div id="race-features">
             <PageH2>Race Features</PageH2>
 
             <TwoColumns>
                 <Column>
                     <div className='with-margined-children'>
                         <SmallStat name="Stat Distribution" topDown="true">{ theRace.Creation['Stat Restrictions'] }</SmallStat>
-                        <SmallStat name="Health">{ theRace.Stats['Base Health'] }</SmallStat>
+                        <SmallStat name="Health">{ theRace.Stats['Base Health'] }<Icon name="Health" type="small-stat"/></SmallStat>
                         <SmallStat name="Speed">{ theRace.Stats.Movement }</SmallStat>
                         { theRace.Weapons && <SmallStat name="Weapons" topDown='true'>{ theRace.Weapons }</SmallStat> }
                         { theRace.Training && <SmallStat name="Other Training" topDown='true'>{ theRace.Training }</SmallStat> }
@@ -99,7 +108,7 @@ export function RaceFeatures({ theRace }) {
                     </p>
                     <p>When you create your character, after picking your Class as well, your total starting Health will be:</p>
                     <p>
-                        <b><Icon name="Health"/>Race Health + <Icon name="Health"/>Class Health + Might.</b>
+                        <b><Icon name="Health"/>Race Health + Might.</b>
                     </p>
                     <p>Your Defense is always determined by the Armor type you are wearing. Your Class determines what Armor type you can wear. If you have 3 Defense, then you reduce the Damage of all attacks you receive by 3.</p>
                     <PageH3>Race Details</PageH3>
@@ -129,31 +138,6 @@ export function LevelingUp({ theClass }) {
                 </Column>
                 <Column>
                     {
-                        theClass['Spellcasting']['Type'] == 'Insight-based'? (
-                            <div>
-                                <TableNormal columns={['Every Level Above 1 You Get...']}>
-                                    <tr>
-                                        <td>
-                                            { theClass['Level Up']['Every Level']['Health'] } <Icon name="Health"/>Health
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            1 Known Spell
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            1 Extra <Icon name="Insight"/>Insight
-                                        </td>
-                                    </tr>
-                                </TableNormal>
-                
-                                <p style={{whiteSpace: 'pre-wrap'}} className='margined-bottom'>{ rules['LevelUpBonusesDescription (Insight-based)'] }</p>
-                
-                                <Spell spell={abilities['Default Moves']['~Action Surge~']}/>
-                            </div>
-                        ) :
                         theClass['Spellcasting']['Type'] == 'Mana-based'? (
                             <div>
                                 <TableNormal columns={['Every Level Above 1 You Get...']}>
@@ -219,8 +203,10 @@ export function SpellCasting({ theClass }) {
                     <span style={{ whiteSpace: 'pre-line' }}>{ rules['Known Spells (Mana-based)'] }</span>
                     <Separator/>
                     All your Mana replenishes when you finish a Long Rest.
-                    <br/><br/>
-                    <PageH3>Changing Spells</PageH3>
+                </p>
+                <br/><br/>
+                <PageH3>Changing Spells</PageH3>
+                <p>
                     You can change your known Spells (not Talents) when taking a Long Rest.<br/>
                     Talents can't generally be changed once picked; they are permenant decisions.
                     { theClass.Spellcasting.Other }
@@ -231,17 +217,8 @@ export function SpellCasting({ theClass }) {
     function InsightBasedSpellcasting() {
         return (
             <div>
-                <PageH3>Insight-Based Spellcasting</PageH3>
-                <p>
-                    <span style={{ whiteSpace: 'pre-line' }}>{ rules['Known Spells (Insight-based)'] }</span>
-                    <Separator/>
-                    All your Cooldowns reset when you finish a Long Rest. If you see the term Insight Ability, that just refers to an Ability that requires Insight.
-                    <br/><br/>
-                    <PageH3>Changing Spells</PageH3>
-                    <span style={{ whiteSpace: 'pre-line' }}>{ rules['Relearning Spells'] }</span>
-                    <br/>
-                    { theClass.Spellcasting.Other }
-                </p>
+                DEPRECATED
+                You're not supposed to see this.
             </div>
         )
     }
@@ -305,9 +282,6 @@ export function SpellCasting({ theClass }) {
                             theClass.Spellcasting.Type == 'Mana-based' ? (
                                 <ManaBasedSpellcasting/>
                             ) : 
-                            theClass.Spellcasting.Type == 'Insight-based' ? (
-                                <InsightBasedSpellcasting/>
-                            ) : 
                             theClass.Spellcasting.Type == 'Special Mana-based' ? (
                                 <SpecialManaBasedSpellcasting/>
                             ) : (
@@ -325,12 +299,11 @@ export function PHealthAndArmor({ theClass }) {
         <div>
             <p>When you create your character, your total starting Health will be:</p>
             <p>
-                <b><Icon name="Health"/>Race Health + <Icon name="Health"/>Class Health + Might.</b>
+                <b><Icon name="Health"/>Race Health + Might.</b>
             </p>
-            <p>You start with any items from your chosen Background. Also, feel free to spend any amount of Gold (also from your Background) to buy items from the Items list (see Items).</p>
+            <p>Feel free to spend any amount of Gold to buy items from the Items list (see Items).</p>
             <ManySmallStats name="Starting Equipment" color="rgb(23, 80, 0)" topDown={true} texts={[
-                'You start with one Armor of any Armor type you are Trained in.',
-                'You start with one Weapon of any Weapon you are Trained in.'
+                'You start with 600 gold that you can spend on any items in the shop. You have a 50% discount on armors.'
             ]}/>
         </div>
     )

@@ -1,24 +1,19 @@
 Class: Cleric
 Description: Clerics are people attuned to a certain god.
-     
 
-Base Health: 7
+Armor Training: Medium Armor
 
-Language: If your Intelligence is at least 2, choose one extra language you can speak that's either Common (Dwarvish, Elvish) or Higher (Infernal, Celestial, Ancian or Abyssal).
-
-Armor Training: Light Armor
-
-Weapons: You are Trained in Shields.
-
-Feats: You start with one Feat of choice.
+Weapons: You are Trained in 2 Weapon Categories of choice (e.g. 1-Handed Melee, 2-Handed Ranged, Shields, etc).
 
 Level Up:
   Every Level: 
     Health: 5
-  Level Bonuses: Standard Mana-Based
-  
+
 Proficiencies:
     ~Proficiency in Religion~: Inherit
+    ~Proficiency in Anything~:
+      A: Passive
+      Effect: Choose any Proficiency from the Proficiencies list.
     
 Proficiencies Description: |
     Clerics are naturally trained in everything that encompasses their religion: rituals, prayers, sermons and the other. Being so in tune with their faith, Clerics might also know about other religions and religious practices. Use the bonus to religion Checks even for things like talking to other priests, identifying angels, blessed items, etc. Use your creativity with how you approach a situation and find opportunities to make it a "religion" Check.
@@ -201,7 +196,7 @@ Specs:
     Starting Abilities:
     
       ~Grasp~:            # 0.5
-        A: 0.5 Actions
+        A: Half-Action
         Range: 15 meters (you don't need line of sight)
         Cost: 1 Mana
         Effect: |
@@ -268,7 +263,7 @@ Specs:
             OrderOnWebsite: 3
         
         <Circle of Awe>:            # 2?
-            A: 0.5 Actions
+            A: Half-Action
             Cooldown: Long Rest
             Range: 6 meters to edge
             Effect: |
@@ -300,47 +295,62 @@ Specs:
 # Healing       (Talents 4)
 # Stats + Mobility + Drawback
 # CC Medium + Incentive to tank
+
+# Spec: Double faced persona
+# Spec: Reaction: raise enemy to fight for you
   
   Life Cleric:            # +0.85
     Description: You are a worshipper of life and/or death. Seek their balance, and seek balance within yourself.\nYou have a Second Soul character, which is essentially another toned-down character you play.
     Starting Abilities:
-      ~Second Soul~ :             # 0.5
+    
+      ~Second Soul~:
         A: Special
         Effect: |
-          You have another character beside you: your 'minion'.
-          Permanently choose one Ability Category from Bloodshed, Divine, Eldritch and Arcane.
-          It knows (1 + Your Level) Generic Abilities from the that Spell List.
-          It has Training in one Weapon Category and gets Training in another again at levels 3, 6 and 9.
-          You share the same Actions between yourselves.
-          Its main stat is Wisdom.
-          Ex: If you used 0.5 Actions on your turn, your minion has 0.5 Actions left to use on its turn.
-        Stats:
-          Health: Determined by your minion's nature (see below)
-          Defense: 3
-          Movement: 5 meters (land)
-          Stats: Assign the numbers (-1, 0, 1, 2, 3) in any order
-          Languages: Common and one extra language that makes sense for it and is either Common (Dwarvish, Elvish) or Wild (Orcish, Goblan, Sylvan, etc)
-          Initiative Bonus: The minion rolls initiative separately with its own Dexterity + Charisma modifier.
-    
+          You have another character beside you, your 'minion', that is either a celestial or an undead.
+          Its stat block is dictated by your starting Ability choice below.
+
     Choose your side: Life Cleric!\nPick only one of the following two abilities!
 
     Abilities:
-      ~True Necromancy~ :      # 0.35
-        A: Passive
+    
+      ~True Necromancy~:      # 1.5; The damage is abysmal and it shares health and all.
+        A: Special
+        HasMixins: true
         Effect: |
           Your minion is a reanimated humanoid, whose soul is compelled to stay in this plane until its purpose is met.
-          Come up with a story about why you have an Undead minion and why your god allowed this or gave him or her to you.
-          Awe dice increases by 1 tier when healing yourself (or your minion).
-          Your minion shares the same Health pool with you.
           
-      ~Celestial Follower~ :  # 0.35
-        A: Passive
+          The minion draws power from your own spirit: it shares the same {Health} Health pool with you (e.g. whenever one of you takes damage, the other one takes it as well). It also always has the same {Defense} Defense and Checks as you, and has Speed equal to your base Speed.
+          Your minion has a 1-Handed Melee weapon. On its turn, it can attack once with it for 1d8 {Damage} Damage without any Stat modifiers, regardless of the weapon's real damage. It does, however, apply weapon effects.
+          It takes its turn at the same time as you.
+          
+          On your turn, you can also cast any Spell through your Minion for range purposes only.
+        Notes: |
+          Instead of attacking, your minion can do the equivalent of a Half-Action for non-combat uses, like using a potion, throwing a rope, reloading a weapon, etc, but not using a scroll. It can also use Disengage or Dash.
+          If both of you take damage at the same time (e.g. from an AoE effect), the damage taken is equal to the average of the damages taken.
+          It needs to rest and drink water normally, but does not require food.
+          Come up with a story about why you have an Undead minion and why your god allowed this or gave him or her to you. Your undead minion might still be sentient (or not; your choice). If it is sentient, your GM might allow it to speak multiple languages, depending on the plot and theme of the campaign. The GM might also allow it to have separate Stats from yours using the normal Stat distribution, for Check purposes only (e.g. it won't affect Health). Alternatively, you can choose your minion to be an animal (for aesthetic purposes only).
+          
+      # ~2.5; Better than Animate Dead in all aspects (which costs 1 Action, 1 Mana);
+      # It can do 3 attacks worth of slightly less than 0.5 Actions each (~1.25 Actions total)
+      ~Celestial Follower~:
+        A: 0 Actions
+        Cooldown: Long Rest
+        Duration: 3 turns
+        HasMixins: true
         Effect: |
-          Your minion is a Celestial being, whose task is to protect, guide or follow you until its purpose is met.
-          Your Celestial follower can be a humanoid or animal in appearance (it can't fly) and is sentient.
-          Come up with a story about why you have a Celestial follower, and why your god allowed this or gave him or her to you.
-          Your minion's max Health is always half of your max Health.
-        Notes: If it's animal-shaped and you want to use the rules for weapon attacks, just pretend the minion bites or scratches, but apply normal weapon rules.
+          Your minion is an angelic being, whose task is to protect guide or follow you until its purpose is met and is always by your side in the form of a spirit nobody else can interact with. Your Celestial follower can be a humanoid or animal in appearance (it can't fly) and is sentient.
+          Using 0 Actions, you can summon your minion in the physical plane, materializing in a space you choose within 5 meters, and lasts up to 3 turns.
+          
+          It has {Health} Health equal to 10 + Your Level + Your Charisma, 3 {Defense} Defense, 5 Speed, 0 Initiative and the same Stats are you for Check purposes.
+          On its turn, it can attack, either Melee for 2d6 True {Damage} Damage, or ranged for 1d10 True {Damage} Damage (6 meters range).
+          Alternatively, on its turn, instead of Attacking, it can cast Awe once for free (with your current Awe dice tier, if it's not 1d4).
+          
+          It takes its turn separately, and always has 0 Initiative.
+        Notes: |
+          The Celestial Follower dematerializes after it finishes taking its 3rd turn.
+          Instead of attacking, your minion can do the equivalent of a Half-Action for non-combat uses, like using a potion, throwing a rope, reloading a weapon, etc, but not using a scroll. It can also use Disengage or Dash.
+          You can choose the aspect of your minion (e.g. sentient humanoid, animal, etc).
+          Come up with a story about why you have an angel follower.
         OrderOnWebsite: 1
 
     Talents:
@@ -357,19 +367,6 @@ Specs:
             The answer you will get will consist of maximum 3 words.
             The DM can choose not to answer, to answer falsely or say something completely different. The gods' wills are unknowable.
 
-        <Disembodiment> :   # 0.5
-          A: 2 hours
-          Requirement: True Necromancy
-          Cooldown: 24 Hours
-          Effect: |
-            You are able to ever improve your minion by mix and matching parts from other corpses.
-            Every time you use this ability, you must consume a fresh corpse from a Worthy enemy (maximum 2 hours after death) and you irreversably sacrifice something.
-            Each of these effects has a limited number of uses
-            - +1 Maximum Health (5 uses)
-            - +1 Defense for either you or your minion (2 uses)
-            - +1 Counter Check Grade (1 use)
-            - +1 use of Awe per Long Rest (1 use)
-
         <Repentance> :          # 0.5
           A: 0 Actions
           Cost: 50% of your maximum health
@@ -382,6 +379,7 @@ Specs:
       
         <Life Echo>:                   # 2? maybe less
             A: 0 Actions
+            Cooldown: Long Rest
             Effect: |
                 You put a Life Echo on an ally.
                 Whenever YOU heal another Unit, the unit with the Life Echo on them is also healed for 50% of that amount.
@@ -404,15 +402,19 @@ Specs:
                 After it's finished, you become a Lich, and you are considered Undead.
                 Apply the following:
                 - You are Undead, thus immune to Charm, Fear and being put to Sleep
+                - You can no longer cast Generic Abilities that don't cost Mana, but gain 2 extra maximum Mana. Passive Spells that don't cost Mana still apply.
                 - You no longer need to eat, drink or sleep.
                 - You gain access to the Elemental and Eldritch Spell Lists.
-                - You can no longer cast Generic Abilities that don't cost Mana, but gain 2 extra maximum Mana. Passive Spells that don't cost Mana still apply.
                 - The range of all your Spells is doubled.
-                - Your Health decreases by 5, but your Defense, Counter Check Grade and all Checks increase by 1.
+                - Your Health decreases by 3
                 You also gain the following abilities:
                 - Phylactery
                 - Dismorphment
-            Notes: Your Follower can still cast Spells that don't cost Mana.
+            Upgrade: |
+                At Level 5, your Defense increases by 1.
+                At Level 6, the range of all your Spells is doubled.
+                At Level 7, Counter Check Grade increases by 1.
+                At Level 8, all your Checks increase by 1.
             OrderOnWebsite: 1
         
         ~Phylactery~:
@@ -420,7 +422,7 @@ Specs:
             A: Special
             Effect: |
                 When you become a Lich, you place your soul inside a Phylactery - a special object, dear to you.
-                When you would reach 0 Health, instead of going Down, you can instantly teleport your body inside the Phylactery.
+                When you would reach 0 Health, instead of going Fallen, you can instantly teleport your body inside the Phylactery.
                 A spellcaster can channel during a whole Long Rest to resummon you near the Phylactery with full Health, Spells, etc.
                 If the Phylactery is destroyed, you must wait 1 year to make another one.
             Notes: The Long Rest still applies to the channeler who revives you, and to you as well.
@@ -430,9 +432,17 @@ Specs:
             A: Reaction or 0 Actions
             Cooldown: Long Rest
             Effect: |
-                When a Unit declares an attack or Spell on you, you can instantly teleport up to 6 meters away.
+                When a Unit declares an attack or Spell on you, you can instantly teleport up to 3 meters away.
                 That Unit can keep their action or change it.
                 You can also instantly teleport using 0 Actions on your turn.
+            Notes: Remember that at Level 6, the range of this becomes 6 as per the description of Cleric Lich Ritual.
+            
+        ~Death Pact~:
+            IsSubspell: true
+            A: Half-Action
+            Effect: |
+                Choose an ally (or yourself).
+                They lose 5 Health. You gain 1 Mana this turn only.
           
 
 
