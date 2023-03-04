@@ -27,6 +27,7 @@ export default function Monster() {
 
     const location = useLocation()
     const monsterName = U.getPageHashFromLocation(location)
+    console.log({monsterName})
 
     const monster = monsters[monsterName]
     

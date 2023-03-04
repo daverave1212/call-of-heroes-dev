@@ -79,7 +79,22 @@ export function getMonsterStatsAsObject(statsString) {
 export function titleToId(title) {
     return title.toLowerCase().split(' ').join('-')
 }
+// A hack for GitHub pages; links in browser will look like ...github.io/?/miau/miau (returns "/miau/miau")
+export function getLocationHackyPath(location) {
+    if (location.href.includes('?') && location.href.includes('=') == false) {
+        const qIndex = location.href.indexOf('?')
+        let hackyPath = location.href.substring(qIndex + 1)
+        console.log(hackyPath.startsWith('/'))
+        if (hackyPath.startsWith('/') == false) {
+            hackyPath = '/' + hackyPath
+        }
+        return hackyPath
+    } else {
+        return null
+    }
 
+    decodeURIComponent(location.hash).substring(1)
+}
 
 
 

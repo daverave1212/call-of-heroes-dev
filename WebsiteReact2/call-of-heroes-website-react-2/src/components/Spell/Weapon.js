@@ -25,6 +25,7 @@ export default function Weapon({ weapon, isActuallyArmor }) {
         Special,
         Requirement,
         Damage,
+        Range,
         Effect,
         Description,
         Alternatives,
@@ -78,6 +79,7 @@ export default function Weapon({ weapon, isActuallyArmor }) {
                             { Hands != null && (<div><img src="/Icons/UI/Special.png" className="inline-icon--spell"/>{ Hands }</div>) }
                             { Stat != null && (<div><img src="/Icons/UI/Hand.png" className="inline-icon--spell"/>{ Stat }</div>) }
                             { Special != null && (<div><img src="/Icons/UI/Hand.png" className="inline-icon--spell"/>{ Special }</div>) }
+                            { Range != null && (<div><img src="/Icons/UI/Range.png" className="inline-icon--spell"/>{ Range }</div>) }
                             { Requirement != null && (<div><img src="/Icons/UI/Level.png" className="inline-icon--spell"/><span style={{color: '#FF5A00'}}>Requires { Requirement }</span></div>) }
                         </div>
                     </div>

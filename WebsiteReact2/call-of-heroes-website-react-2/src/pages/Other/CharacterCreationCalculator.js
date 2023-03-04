@@ -141,16 +141,19 @@ export default function CharacterCreationCalculator() {
                         )) }
                     </select>
 
-                    <br/>
-                    <br/>
-                    <label className='cc-label'>Level</label>
-                    <select className='cc-select' name="Level" onChange={updateStateFromSelect}>
-                        { [1,2,3,4,5,6,7,8,9,10].map(level => (
-                            <option key={level} value={level}>{level}</option>
-                        )) }
-                    </select>
                 </Column>
             </TwoColumns>
+
+            <div>
+                <label className='cc-label'>Level</label>
+                <select className='cc-select' name="Level" onChange={updateStateFromSelect}>
+                    { [1,2,3,4,5,6,7,8,9,10].map(level => (
+                        <option key={level} value={level}>{level}</option>
+                    )) }
+                </select>
+            </div>
+            <br/>
+            <br/>
 
             <div className='character-creation__stats-container'>   {/* These are not written as components because that screws up the rendering due to inputs*/}
                 { StatInput({name: 'Might'}) }
@@ -222,9 +225,6 @@ export default function CharacterCreationCalculator() {
                                 })()}
                             </i>
                         </div>
-
-                        <SmallStat name="Feat">{ classObj.Feats }</SmallStat>
-
                         
                         <Separator/>
 
@@ -329,66 +329,16 @@ export default function CharacterCreationCalculator() {
                             return profs
                         })()}/>
                         <ManySmallStats name="Languages" color="var(--dark-green)" topDown={true} texts={(_ => {
-                            const languages = ['You speak Common.']
+                            const languages = []
 
                             if (raceObj.Language != null) {
-                                const int = parseInt(state.Intelligence)
-                                let thisLanguage = raceObj.Language
-                                if (
-                                    (state.Race == 'Bertle' && int < 2) ||
-                                    (state.Race == 'Human' && int < 1) ||
-                                    (state.Race == 'Orc' && int < 2)
-                                ) {
-                                    thisLanguage = (<span style={{color: '#CCCCCC'}}>{thisLanguage}</span>)
-                                }
-                                languages.push(thisLanguage)
+                                languages.push(raceObj.Language)
                             }
-                        
                             if (classObj.Language != null) {
-                                const int = parseInt(state.Intelligence)
-                                let thisLanguage = classObj.Language
-                                let isAddingThisLanguage = true
-                                if (
-                                    (state.Class == 'Cleric' && int < 2) ||
-                                    (state.Class == 'Hunter' && int < 1) ||
-                                    (state.Class == 'Paladin' && int < 2) ||
-                                    (state.Class == 'Rogue' && int < 1) ||
-                                    (state.Class == 'Shaman' && int < 2) ||
-                                    (state.Class == 'Warlock' && int < 2)
-                                ) {
-                                    thisLanguage = (<span style={{color: '#CCCCCC'}}>{thisLanguage}</span>)
-                                } else if (state.Class == 'Druid') {
-                                    let [lang1, lang2] = classObj.Language.split('\n')
-                                    if (int < 1) {
-                                        lang1 = (<span style={{color: '#CCCCCC'}}>{lang1}</span>)
-                                    }
-                                    if (int < 2) {
-                                        lang2 = (<span style={{color: '#CCCCCC'}}>{lang2}</span>)
-                                    }
-                                    languages.push(lang1)
-                                    languages.push(lang2)
-                                    isAddingThisLanguage = false
-                                } else if (state.Class == 'Mage') {
-                                    let [lang1, lang2] = classObj.Language.split('\n')
-                                    console.log(classObj.Language)
-                                    console.log(classObj.Language.split('\n'))
-                                    console.log({lang1})
-                                    console.log({lang2})
-                                    languages.push(lang1)
-                                    if (int < 2) {
-                                        lang2 = (<span style={{color: '#CCCCCC'}}>{lang2}</span>)
-                                    }
-                                    languages.push(lang2)
-                                    isAddingThisLanguage = false
-                                }
-                                if (isAddingThisLanguage) {
-                                    languages.push(thisLanguage)
-                                }
+                                languages.push(classObj.Language)
                             }
                             return languages
                         })()}/>
-
-                        <SmallStat name="Starting Gold" color="var(--dark-green)">800 Gold</SmallStat>
 
                         <ManySmallStats name="Starting Equipment" color="var(--dark-green)" topDown={true} texts={[
                             'You start with 600 gold that you can spend on any items in the shop. You have a 50% discount on armors.'

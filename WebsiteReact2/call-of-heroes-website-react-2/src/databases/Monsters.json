@@ -1104,7 +1104,7 @@
         "Type": "Beast",
         "Degree": "Normal",
         "Experience": 250,
-        "Stats": "1/3/0/3/1",
+        "Stats": "1/2/0/2/1",
         "Health": 43,
         "Armor": 5,
         "Speed": 5,
@@ -1112,23 +1112,23 @@
         "Abilities": [
             {
                 "Envelop": {
-                    "Damage": "3d6 Pierce",
-                    "Facehug": "If it did damage, the Darkray remains attached to the target until the end of the target's turn (therefore, the target is in Darkness; see Darkray's Passive Ability)."
+                    "Damage": "3d4 + 3 Pierce",
+                    "Facehug": "If it did damage, the Darkray remains attached to the target until the end of the target's turn (therefore, the target is in Darkness - has Cover; see Darkray's Passive Ability).\nIf the unit underneath moves, the Stonemantle makes a Dexterity Check. If it succeeds, it moves with the target.\n"
                 }
             }
         ],
         "Passives": [
             {
-                "Magic Absorption": "Absorbs (cancels) the first Spell targeting it (the Actions used for it are lost)."
+                "Magic Absorption": "Absorbs (cancels) the first Spell targeting it (the Actions used for it are lost) (apply common sense - Focus Fling is not absorbed fine)."
             },
             {
-                "Artificial Darkness": "Emmits a beam of Magical Darkness right underneath it."
+                "Artificial Darkness": "Emmits a beam of Magical Darkness right underneath it (provides Cover)."
             },
             {
                 "Flyer": "Flies."
             },
             {
-                "Camouflage (Non-Combat)": "Indistinguishable from a stalagmite or stalactite"
+                "Camouflage (Non-Combat)": "Indistinguishable from a stalagmite or stalactite. Does not make Opportunity Attacks."
             }
         ],
         "Avoids AoE": false,
@@ -1426,20 +1426,29 @@
         "Abilities": [
             {
                 "Extending Bite (6m)": {
-                    "Damage": "2d6 + 7 Pierce",
-                    "Extend": "The Carrion Worm quickly extends its body to the target, then drag its bottom there without provoking Opportunity Attacks.\nIf rolled at least one 6, the target must pass a Grade 12 Might Check or be knocked Prone and Snared.\nThis counts as a Melee Attack and ignores Cover.\n"
+                    "Damage": "2d6 + 4 Pierce",
+                    "Extend": "The Carrion Worm quickly extends its body to the target, then drag its bottom there without provoking Opportunity Attacks.\nIf rolled at least one 1 or 6, the target must pass a Grade 12 Might Check or be knocked prone and Maimed or OR pulled to the worm.\nThis counts as a Melee Attack and ignores Cover.\n"
                 }
             }
         ],
         "Passives": [
             {
-                "Extend": "The Worm can contract or extend its body up to 6 meters long at will on its turn."
+                "Extend": "The Worm can contract or extend its body up to 6 meters long at will on its turn. It can flank attack with parts of its own body."
+            },
+            {
+                "Blobby": "Can move and stand on others' spaces"
             },
             {
                 "Grubby Body": "Immune to Smash Damage and Pierce damage from projectiles."
             },
             {
+                "Inopportune": "Doens't maek opportunity attacks"
+            },
+            {
                 "Spider Climb": "Can walk on walls."
+            },
+            {
+                "Tremorsense": "Has no eyes and is immune to being blinded"
             }
         ],
         "Avoids AoE": false,
@@ -1670,20 +1679,20 @@
         "Type": "Monster",
         "Degree": "Normal",
         "Experience": 250,
-        "Stats": "2/2/0/5/0",
+        "Stats": "2/-2/0/2/0",
         "Health": 50,
-        "Armor": 4,
+        "Armor": 2,
         "Speed": 4,
         "Initiative": 16,
         "Abilities": [
             {
                 "Tongue Grab (3m)": {
-                    "Damage": "2d8 Poison",
+                    "Damage": "2d4 + 4 Poison",
                     "Drag and Stick": "Target must pass a 12 Dexterity Check or the Mimic drags itself to it and sticks to it with its tongue.\nIf the Check fails, the Mimic can make a free Bite attack on the target.\nThe tongue remains attached to the target like glue.\n"
                 }
             },
             {
-                "Bite": "2d6 + 6 Pierce"
+                "Bite": "2d6 + 4 Pierce"
             }
         ],
         "Passives": [
@@ -1691,7 +1700,7 @@
                 "Mimic Ambush": "If someone approaches within 2 meters of the Mimic before combat, the combat starts and the Mimic gets Ambush Initiative."
             },
             {
-                "Sticky": "Anything that touches the Mimic (weapons, objects, body parts) remain stuck to the Mimic like glue.\nSomeone can use 0.5 Actions to try to unstick a single object or body part.\nIt must pass a 10 Might Check to succeed.\nThe Mimic can freely unstick itself from something (but will usually not do so unless they absolutely have to).\n(Obviously, if your leg is stuck to the Mimic, you can't move; if your hand is stuck, you can't attack with it; and so on; use common sense)\n"
+                "Sticky": "Anything that touches the Mimic (weapons, objects, body parts), the owner must pass a 10 Might Check remain stuck to the Mimic like glue.\nSomeone can use 0.5 Actions to try to unstick a single object or body part.\nThe Mimic can freely unstick itself from something (but will usually not do so unless they absolutely have to).\n(Obviously, if your leg is stuck to the Mimic, you can't move; if your hand is stuck, you can't attack with it; and so on; use common sense)\n"
             },
             {
                 "Camouflage": "When sitting still, it is indistinguishable from a regular chest, sofa, painting, etc."
@@ -2246,6 +2255,53 @@
         "Monster Data": "No tactic, mid HP, no gimmick",
         "Role": "Main Enemy",
         "Variants": "Fiddlesticks, Scarecrow"
+    },
+    "Hag Matron": {
+        "Type": "Fiend, Humanoid",
+        "Degree": "Epic x3",
+        "Experience": "600 (200 x 3)",
+        "Stats": "1/2/3/4/5",
+        "Health": 110,
+        "Armor": "4 (Magic)",
+        "Speed": 2,
+        "Initiative": 8,
+        "Abilities": [
+            {
+                "Summon Slime (5m) (1st Phase)": "Spawns a Slime with 12 Health and 3 Defense that deals 1d6 direct Acid Damage (ignores Defense).\nHas -1 in all Stats and 4 Speed. Immune to Poison and Acid.\nExplodes on death for 1d4 direct Acid Damage.\n"
+            },
+            {
+                "Poison Swing (1st Phase)": "A 4x4 Cone that deals 3d6 Acid damage (vs Defense) and leaves Acid on the ground.\n"
+            },
+            {
+                "Curse of Confusion": "2 units must pass a Wisdom Check or take 1d8 + 4 Psichic damage.\nThen roll 1d6 and apply either 1. Daze, 2. Silence, 3. Cripple, 4. Snare, 5. Charm, 6. Fear.\n"
+            },
+            {
+                "Curse of Weakness (2nd Phase Only)": "Target a Unit. It becomes cursed. It and every allied Unit withn 3 meters of it have Cover to all Attacks.\nLasts for 2 turns.\n"
+            },
+            {
+                "Fleshy Poison Mass (3m)": "Dash to a location pushing all Units to the side and leaving Acid on the ground.\nEvery Unit touched is dealt 2d8 + 2 Necrotic Damage.\nThen leave Acid on the ground in a 4x4 area.\n"
+            }
+        ],
+        "Passives": [
+            {
+                "Curse of the Hag (Reaction)": "Negate an Even die from a damage source, and the attacker/caster takes it instead as direct damage."
+            },
+            {
+                "Second Phase": "When dropping to 50% or less Health, instantly spawn one Slime near each Player. Then, she becomes a Large unrecognizable mass of flesh and acid."
+            },
+            {
+                "Resistances": "Immune to Poison. 50% resistance to Acid."
+            }
+        ],
+        "Avoids AoE": false,
+        "Behavior": "None",
+        "Lore": "None",
+        "Suggested Obstacles": "None",
+        "Monster Data": "No tactic, mid HP, no gimmick",
+        "Role": "Main Enemy",
+        "Variants": "None",
+        "Story Ideas": "None",
+        "Valuable Loot": "None"
     },
     "Domovoy": {
         "Type": "Fey",

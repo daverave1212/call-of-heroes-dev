@@ -33,6 +33,10 @@ Spellcasting:
   Change: You can change your known Spells (not Talents) when taking a Long Rest.
   Other: All Hunter-specific Abilities are not considered Spells (unless stated otherwise).
 
+  Mana:
+    Amount: 2
+    Regain: You regain all Mana back when you Long Rest.
+
   Known Spells: 1 + Intelligence
   
   BaseKnownSpells: 1
@@ -99,11 +103,9 @@ Specs:
       ~Tracker~ :   # 0.25 Charges
         A: Passive
         Effect: |
-          o You can more easily track creatures.
-          When you try to track a creature, your roll for that try gains +3.
-          If you succeed, you may learn about its size, how many of them there are, if it's injured or roughly how far away it is.
-          o Your party can't get lost in the wild except by magical means
-          o You (and your pets) are unaffected by Difficult Terrain.
+          You can more easily track creatures and when you try to track a creature, your roll for that try gains +3. If you succeed, you may learn about its size, how many of them there are, if it's injured or roughly how far away it is.
+          Your party can't get lost in the wild except by magical means
+          You (and your pets) are unaffected by Difficult Terrain.
           
       ~Hunter Mark~:   # 1 Charge
         A: 0 Actions
@@ -115,23 +117,23 @@ Specs:
           Last up to 10 minutes.
         Notes: |
           Increasing dice by 1 tier means, for example, d6 become d8, or d10 become d12.
-          D12's don't increase.
+          D12's and d20's don't increase.
           Your pets' attacks don't increase.
           
     Talents:
-      Level 2:
-        <Flare Shot> :         # 0.5
-          A: Reaction or 0 Actions
-          Range: 15 meters
-          Cooldown: Once Per Combat
-          AlignOnWebsite: Left
-          Effect: |
-            Quickly shoot a flare at a target point.
-            The area around the flare lights up in a 6 meter radius, creating normal light.
-            When cast, all allies in the area are cleared of Stun, Fear or Cripple.
-            Allies in the area have Advantage on rolls against Fear.
-            The flare lasts 1 minute.
-          Notes: But seriously, get the Animal Companion. Why would you even pick this?
+      Level 3:
+        # <Flare Shot> :         # 0.5
+        #   A: Reaction or 0 Actions
+        #   Range: 15 meters
+        #   Cooldown: Once Per Combat
+        #   AlignOnWebsite: Left
+        #   Effect: |
+        #     Quickly shoot a flare at a target point.
+        #     The area around the flare lights up in a 6 meter radius, creating normal light.
+        #     When cast, all allies in the area are cleared of Stun, Fear or Cripple.
+        #     Allies in the area have Advantage on rolls against Fear.
+        #     The flare lasts 1 minute.
+        #   Notes: But seriously, get the Animal Companion. Why would you even pick this?
       
       
         # Talents: Headhunt, Bountyhunt, Pet   
@@ -140,15 +142,17 @@ Specs:
           A: Passive
           Effect: |
             You have an animal pet that can fight alongside you!
-            Your animal has stats depending on its species.
-            By default, apply the following stats to your pet (these will get modified by your pet's species):
-            - Movement: 5 meters
+            Your animal has stats depending on its species. Check out the Pets and Animals page to see its stats!
             Your pet takes its turn at the same time as you do, and always has the same initiative as yours.
-            Your pet has 1 Action per turn.
+            Your pet has 1 Action per turn, which it can use to do its own Abilities.
             Your pet can make normal Checks using using its own Stats.
             Your pet will not stray more than 30 meters away from you in hostile territory.
             All pets have the Pet Attack ability.
             Pets can't make Opportunity Attacks.
+          Upgrade: If your pet drops to 0 Health, it becomes Fallen, like a player. It has no reserve Health, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.
+          Notes: |
+            If your pet raises from being Fallen, it has Pet Exhaustion (is Slowed and can only use Pet Attack, but all Pet Attacks have Cover, which is a -2 to the attack).
+            Treat your pet like a real companion - give it a name and care for it. If it ever dies, you can spend 2 days looking for another wild animal and taming it to become your new pet.
             
         <Pet Attack>:
             A: 1 Action (from the pet)
@@ -156,9 +160,9 @@ Specs:
                 The pet melee attacks a target.
                 The attack deals 1d6 + 2 Pierce or Slash Damage (your choice).
 
-      Level 4:
+      Level 5:
       
-        <Crosshair Shot>:           # 2
+        <Crosshair Shot>:           # 2.25
             A: 1 Action
             Range: 14 meters
             Cooldown: Long Rest
@@ -174,15 +178,15 @@ Specs:
                 You can use Tumble one more time per Long Rest.
                 Immediately after you Tumble, you can freely use Hunter Mark, ignoring its Cooldown.
         
-        <Tremor Wave>:              # 3 if you land 2 stuns
+        <Tremor Wave>:              # 2.75 if you land 2 stuns
             A: 1 Action
             Range: 10 meters
             Cooldown: Long Rest
             Effect: |
                 Shoot a thundering shot towards an obstacle or wall. A quaking wave travels horizontally towards in both directions of the wall up to 10 meters in each direction.
-                All Units within 2 meters of that wall must pass a Might Check or be Stunned and take 4d4 Shock damage.
+                All Units within 2 meters of that wall must pass a Might Check or be Stunned and take 3d4 Shock damage.
                 They take half the damage and are Slowed if they pass.
-            Notes: The floor and ceiling are not considered a wall. The wave does not travel through them. This is considered a Spell.
+            Notes: The floor and ceiling are not considered a wall. The wave does not travel through them. This is considered a Spell. Ignores Cover.
                 
 # Charges + Healing + Mobility + Damage
 
@@ -202,11 +206,12 @@ Specs:
       ~Warden~:         # 2 or more
         A: Passive
         Effect: |
-          You now have Mana!
-          You have 2 Mana Points, which replenish on Long Rests.
-          You also permanently choose to know a number of Spells from the Elemental, Divine and Arcane spells list equal to your Main Stat.
-        Upgrade: At Level 5 you gain 1 extra mana, and again at Level 8.
-        Notes: These extra Spells can be changed on Long Rests.
+          When you become a Warden, choose a Spell List from Bloodshed, Elemental, Divine, Arcane.
+          You now have access to that spell school as well, permanently (this can not be changed).
+          You have 2 extra special Warden Mana that you can only spend on Abilities from that chosen List and on Quick Magic.
+          Also, you can Know a number of extra Abilities equal to your Intelligence (at least 0).
+        Upgrade: At Level 4 you gain 1 extra Warden Mana, and again at Level 8.
+        Notes: Warden Mana replenishes on Long Rests.
     
       ~Quick Magic~:    # Each cast is less than 1 mana worth actually
         A: 0 Actions
@@ -218,24 +223,12 @@ Specs:
           - Instantly deal 1d4 Fire, Frost or Shock damage to a target, and permanently reduce its Defense by 1 (3 meter range).
           - Instantly heal a target for 1d4 (3 meter range).
           - Instantly dash 3 meters, ignoring attacks of oportunity, and going through enemies and small obstacles or medium gaps.
+        Notes: Ignores Cover.
     
     Talents:
-      Level 2:
+      Level 3:
       
-        <Animal Companion> :  # 1
-          A: Passive
-          Effect: |
-            You have an animal pet that can fight alongside you!
-            Your animal has stats depending on its species.
-            By default, apply the following stats to your pet (these will get modified by your pet's species):
-            - Health: Half of yours
-            - Movement: 5 meters
-            Your pet takes its turn at the same time as you do, and always has the same initiative as yours.
-            Your pet has 1 Action per turn.
-            Your pet can make normal Checks using using its own Stats.
-            Your pet will not stray more than 30 meters away from you in hostile territory.
-            All pets have the Pet Attack ability.
-            Pets can't make Opportunity Attacks.
+        <Animal Companion>:  Inherit from Hunter
             
         <Pet Attack>:
             A: 1 Action (from the pet)
@@ -243,7 +236,7 @@ Specs:
                 The pet melee attacks a target.
                 The attack deals 1d6 + 2 Pierce of Slash Damage (your choice).
 
-        <Watcher Form>:         # 1
+        <Watcher Form>:         # 2 easily
           A: 0 Actions
           Cooldown: Long Rest
           Effect: |
@@ -279,21 +272,22 @@ Specs:
           Effect: After you Tumble or Parry, your next Attack has the dice tiers increased.
           Notes: |
               For example, instead of 2d6, an attack would be 2d8.
-              D12's don't increase, they stay d12.
+              D12's and d20's don't increase; they stay d12 and d20.
               This only affects Attacks. If an Ability tells you to Attack, then it applies.
               For example, Quick Magic is not an attack.
         
 
-      Level 4:
+      Level 5:
         
         <Warden Corral>:            # 2?
             A: 0 Actions
             Range: 10 meters to edge
             Cooldown: Long Rest
             Effect: |
-                Declare a 6x6 meter zone.
+                Declare a 6x6 meter zone and it becomes engulfed in a special magical aura.
                 All Units have their Defense quartered (25%) while in that zone.
                 The zone lasts until the start of your next turn.
+            Notes: Rounded down (e.g. 3 becomes 0, 5 becomes 1).
                 
         <Wind Wall>:                
             A: Reaction (or 0 Actions)
@@ -318,6 +312,7 @@ Specs:
                 Undead: You have +3 Counter Check Grade against Undead.
 # Talent: Your pet evolves!!!
 # Talent: Your pet shapeshifts!!!
+# Talent: Heal pet
 
 # Pet
 
@@ -330,20 +325,7 @@ Specs:
   Beastmaster:          # 1
     Description: Lawrrremm!!!
     Starting Abilities:
-        ~Animal Companion~:
-          A: Passive
-          Effect: |
-            You have an animal pet that can fight alongside you!
-            Your animal has stats depending on its species.
-            By default, apply the following stats to your pet (these will get modified by your pet's species):
-            - Health: Half of yours
-            - Movement: 5 meters
-            Your pet takes its turn at the same time as you do, and always has the same initiative as yours.
-            Your pet has 1 Action per turn.
-            Your pet can make normal Checks using using its own Stats.
-            Your pet will not stray more than 30 meters away from you in hostile territory.
-            All pets have the Pet Attack ability.
-            Pets can't make Opportunity Attacks.
+        ~Animal Companion~: Inherit from Hunter
             
         ~Pet Attack~:
             A: 1 Action (from the pet)
@@ -352,7 +334,7 @@ Specs:
                 The attack deals 1d6 + 2 Pierce of Slash Damage (your choice).
     
     Talents:
-      Level 2:
+      Level 3:
         
         <Second Companion>:
           A: Passive
@@ -364,7 +346,7 @@ Specs:
           A: Passive
           Effect: Instead of your normal pets, you can choose from the Exotic list of pets.
 
-      Level 4:
+      Level 5:
         
         <Ravage!>:
           A: 1 Action

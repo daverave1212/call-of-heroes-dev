@@ -32,6 +32,10 @@
         "Counter Check Grade": "6 + (Main Stat)",
         "Change": "You can change your known Spells (not Talents) when taking a Long Rest.",
         "Other": "All Druid-specific abilities are considered spells (unless stated otherwise).",
+        "Mana": {
+            "Amount": 2,
+            "Regain": "You regain all Mana back when you Long Rest."
+        },
         "Known Spells": "2 + Intelligence",
         "BaseKnownSpells": 2,
         "Spell Lists": [
@@ -51,21 +55,21 @@
     "Starting Abilities": {
         "~Druidcraft~": {
             "A": "Depends",
-            "Effect": "You speak Druidic, an ancient form of conveying information through nature.\nYou can create harmless sensory effects or tiny weather effects (6 meters range).\nYou can massively speed up the growth of small plants (touch range).\nYou can slightly soothe physical pains (with no combat effect) (touch range).\nYou can attempt to communicate simple ideas with animals and plants (3 meters range).\nYou have +3 on rolls for identifying plants.\nYou can do these even while Shapeshifted.\n",
+            "Effect": "You speak Druidic, an ancient form of conveying information through nature.\nYou can create harmless sensory effects or tiny weather effects (6 meters range).\nYou can massively speed up the growth of small plants (touch range).\nYou can slightly soothe physical pains (with no combat effect) (touch range).\nYou can attempt to convey simple ideas to animals and plants (3 meters range) that you would not normally be able to convey.\nYou have +3 on rolls for identifying plants.\nYou can do these even while Shapeshifted.\n",
             "AlignOnWebsite": "Right"
         },
         "~Shapeshift~": {
             "A": "1 Action",
             "Cooldown": "2 times / Long Rest (see effect)",
-            "Effect": "Pick an animal from the Pets and Animals list and instantly transform into it.\nAs soon as you Shapeshift, you can perform an Animal Attack!\n\nFor Checks, you can choose to use the animal's Stats or your Stats.\nYou also gain its exact abilities and Animal Attack (see below), but can't cast Spells.\nYour Health and Defense stay the same, but if the Animal specifies a \"Druid Extra\" section, do what that section says.\n\nShapeshift ends if you drop to 0 Health, and you Fall.\n",
+            "Effect": "Pick an animal from the Pets and Animals list and instantly transform into it.\nAs soon as you Shapeshift, you can perform an Animal Attack!\n\nFor Checks, you can choose to use the animal's Stats or your Stats.\nYou also gain its exact abilities and Animal Attack (see below), but can't cast Spells.\nYour Health stays the same, but you use that animal's Defense.\n\nShapeshift ends if you drop to 0 Health, and you Fall.\n",
             "Upgrade": "At first, you can't fly, even if your animal can. If your animal can fly, you have Proficiency in Jumping and you can glide (you don't take falling damage).\nFrom Level 3, you can use this 3 times per Long Rest.\nFrom Level 6, you can use this 4 times per Long Rest and you can fly.\nFrom Level 9, you can use this 5 times per Long Rest.\n",
-            "Notes": "You can't make attacks with ranged weapons while Shapeshifted (obviously).\nYou choose what items you keep on you when Shapeshifting, and those items are 'merged' into your new form.\nYou can turn back into your humanoid form for 0 Actions (on your turn).\n",
+            "Notes": "You can't make attacks with ranged weapons while Shapeshifted (obviously).\nYou choose what items you keep on you when Shapeshifting, and those items are 'merged' into your new form.\nYou can turn back into your humanoid form for 0 Actions (on your turn).\nWhile Shapeshifted, you can speak, but your voice is changed to match your shape (e.g. guttural for lions, high pitched for birds, etc).\n",
             "OrderOnWebsite": 1
         },
         "~Animal Attack~": {
             "IsSubspell": true,
-            "A": "1 Action",
-            "Effect": "Make a melee attack for 2d8 + your Main Stat (not the animal's).\n",
+            "A": "Half-Action",
+            "Effect": "Make a melee attack for 1d8 + your Main Stat (not the animal's).\n",
             "OrderOnWebsite": 2
         }
     },
@@ -92,11 +96,12 @@
                     "A": "Half-Action",
                     "Range": "6 meters",
                     "Cooldown": "Day/Night (see below)",
-                    "Effect": "A target within 6 meters makes a Wisdom Check.\nIf it fails, it takes 1d4 + Main Stat Fire Damage and is Crippled (if day) or True damage and is Silenced (if night).\nIt takes half of that damage if it passes.\nIf you use this at night, you can't use it until day, and vice versa.\n"
+                    "Effect": "A target within 6 meters makes a Wisdom Check.\nIf it fails, it takes 1d6 + Main Stat Fire Damage and is Crippled (if day) or True damage and is Silenced (if night).\nIt takes half of that damage if it passes.\nIf you use this at night, you can't use it until day, and vice versa.\n",
+                    "Notes": "Ignores Cover."
                 }
             },
             "Talents": {
-                "Level 2": {
+                "Level 3": {
                     "<Old Ritualist>": {
                         "A": "10 minutes",
                         "Cooldown": "Long Rest",
@@ -111,9 +116,11 @@
                         "A": "Passive",
                         "Effect": "During the night (24:00 to 6:00) you can Shapeshift into a Lycanthrope (see Lycanthrope form) when using Shapeshift.\n"
                     },
-                    "<Animal Companion>": {
+                    "<Druid Animal Companion>": {
                         "A": "Passive",
-                        "Effect": "You have an animal pet that can fight alongside you!\nYour animal has stats depending on its species.\nBy default, apply the following stats to your pet (these will get modified by your pet's species):\n- Movement: 5 meters\nYour pet takes its turn at the same time as you do, and always has the same initiative as yours.\nYour pet has 1 Action per turn.\nYour pet can make normal Checks using using its own Stats.\nYour pet will not stray more than 30 meters away from you in hostile territory.\nAll pets have the Pet Attack ability.\nPets can't make Opportunity Attacks.\n"
+                        "Effect": "You have an animal pet that can fight alongside you, your Mana pool is permanently decreased by 1, and your total Health by 5.\nYour animal has stats depending on its species. Check out the Pets and Animals page to see its stats!\nYour pet takes its turn at the same time as you do, and always has the same initiative as yours.\nYour pet has 1 Action per turn, which it can use to do its own Abilities.\nYour pet can make normal Checks using using its own Stats.\nYour pet will not stray more than 30 meters away from you in hostile territory.\nAll pets have the Pet Attack ability.\nPets can't make Opportunity Attacks.\n",
+                        "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It has no reserve Health, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.",
+                        "Notes": "If your pet raises from being Fallen, it has Pet Exhaustion (is Slowed and can only use Pet Attack, but all Pet Attacks have Cover, which is a -2 to the attack).\nTreat your pet like a real companion - give it a name and care for it. If it ever dies, you can spend 2 days looking for another wild animal and taming it to become your new pet.\n"
                     },
                     "<Pet Attack>": {
                         "IsSubspell": true,
@@ -121,7 +128,7 @@
                         "Effect": "The pet melee attacks a target.\nThe attack deals 1d6 + 2 Pierce of Slash Damage (your choice).\n"
                     }
                 },
-                "Level 4": {
+                "Level 5": {
                     "<Regrowth>": {
                         "A": "1 Action",
                         "Cooldown": "Long Rest",
@@ -134,7 +141,7 @@
                     "<Equinox>": {
                         "A": "Half-Action",
                         "Cooldown": "Day/Night",
-                        "Effect": "If it's day, choose up to Main Stat Units within 15 meters.\nThey must pass a Wisdom Check or they forget to how to use ranged attacks or spells for 1 turn.\nIf it's night, your next Spell (this turn or next turn) casts twice.\n"
+                        "Effect": "If it's day, choose a number of Units within 15 meters equal to your Main Stat.\nThey must pass a Wisdom Check or they forget to how to use ranged attacks or spells for 1 turn.\nIf it's night, your next Spell (this turn or next turn) casts twice.\n"
                     }
                 }
             }
@@ -145,11 +152,11 @@
                 "~Wild Shape~": {
                     "A": "Passive",
                     "Effect": "When you use Shapeshift, you can transform into a combination of 2 animals.\nYou take the highest stat from both animals, and you have access to both of their abilities.\n",
-                    "Notes": "For example, you could transform into a combination of Bird of Prey and Bear, resulting in a kind of Owlbear, with a lot of health and a lot of Armor! Be creative!\nThe animal size is either the larger or the smaller of the two - your choice.\nEven if you Shapeshift into 2 combinations of a same animal, the cooldown of that animal's Ability persists (e.g. you can't use Bear's Maul twice per Long Rest, no matter what animal combination you transform into).\n"
+                    "Notes": "For example, you could transform into a combination of Bird of Prey and Bear, resulting in a kind of Owlbear, with a lot of health and a lot of Defense! Be creative!\nThe animal size is either the larger or the smaller of the two - your choice.\nEven if you Shapeshift into 2 combinations of a same animal, the cooldown of that animal's Ability persists (e.g. you can't use Bear's Maul twice per Long Rest, no matter what animal combination you transform into).\n"
                 }
             },
             "Talents": {
-                "Level 2": {
+                "Level 3": {
                     "<Forest Friend>": {
                         "A": "Passive",
                         "Effect": "You have a Pixie companion, a very small humanoid with wings.\nThe Pixie has 10 Defense, 1 HP, 5 Movement Speed.\nIt takes its turn at the same time as you and it has a Half-Action on its turn.\nIt can't attack with weapons, but it can use scrolls and potions.\nEvery Long Rest, you can teach it one Spell that costs a Half-Action from any Spell List and it can cast it once for a Half-Action until the next Long Rest (ignoring the Cost).\nIf the Pixie goes more than 50 meters away from you, it becomes unsummoned (you can summon it back by channeling for 10 minuets).\nThe Pixie has Charisma, Wisdom and Intelligence equal to yours, but its Dexterity is 0 and its Might is -5.\nDecide with your DM whether you or the DM controls the Pixie roleplay-wise.\nHave fun!\n",
@@ -162,10 +169,11 @@
                     },
                     "<Exotic Shapeshift>": {
                         "A": "Passive",
-                        "Effect": "You can now Shapeshift into Exotic Animals.\nYou can also use Shapeshift to also transform into other people.\nWhen you want to do this, roll a Deception check.\nThis check determines how close you get to the form of that person (12 or more means a perfect copy).\nThis copy just mimicks the look of the person, not the voice or personality.\n"
+                        "Effect": "You can now Shapeshift into Exotic Animals.\nYou can also use Shapeshift to also transform into other people.\nWhen you want to do this, roll a Deception check.\nThis check determines how close you get to the form of that person (12 or more means a perfect copy).\nThis copy just mimicks the look of the person, not the voice or personality.\n",
+                        "Notes": "You can cast your own spells while transformed into someone else.\nOther people are not considered Animals, so you can't use Wild Shape to transform into a combination of a person and an Animal.\n"
                     }
                 },
-                "Level 4": {
+                "Level 5": {
                     "<Shapeshift Ally>": {
                         "A": "0 Actions",
                         "Cost": "1 use of Shapeshift",
@@ -174,7 +182,8 @@
                     "<Regrowth>": {
                         "A": "1 Action",
                         "Cooldown": "Long Rest",
-                        "Effect": "Heal a Unit within 6 meters for 1d8 for each 10 Health it is missing."
+                        "Range": "5 meters",
+                        "Effect": "Heal a Unit for 1d8 for each 10 Health it is missing."
                     },
                     "<Beastly Stamina>": {
                         "A": "Passive",
@@ -200,11 +209,12 @@
                     "A": "0.5 Action",
                     "Range": "10 meters",
                     "Cooldown": "Long Rest",
-                    "Effect": "Choose a target.\nAt the start of your next turn, it must pass a Wisdom Check or be Stunned and take 2d8 Psychic damage.\nIf it passes, it takes half of the damage.\n"
+                    "Effect": "Choose a target.\nAt the start of your next turn, it must pass a Wisdom Check or be Stunned and take 2d8 Psychic damage.\nIf it passes, it takes half of the damage.\n",
+                    "Notes": "Ignores Cover."
                 }
             },
             "Talents": {
-                "Level 2": {
+                "Level 3": {
                     "<Future Blood>": {
                         "A": "Passive",
                         "Effect": "Blood Magic can now draw Health from your Reserve Health Pool.\nYour Reserve Health Pool increases by 8.\n"
@@ -215,9 +225,11 @@
                         "Effect": "Reset the Cooldown of 3 Generic Abilities you have used (you can't use this on Druid-only spells).\nThe Old Ritual must be performed outdoors, in a safe, uncorrupted place untouched by regular folk.\n",
                         "Downside": "You lose the Shapeshift ability, and you can't choose upcoming Talents that improve Shapeshift."
                     },
-                    "<Animal Companion>": {
+                    "<Druid Animal Companion>": {
                         "A": "Passive",
-                        "Effect": "You have an animal pet that can fight alongside you!\nYour animal has stats depending on its species.\nBy default, apply the following stats to your pet (these will get modified by your pet's species):\n- Movement: 5 meters\nYour pet takes its turn at the same time as you do, and always has the same initiative as yours.\nYour pet has 1 Action per turn.\nYour pet can make normal Checks using using its own Stats.\nYour pet will not stray more than 30 meters away from you in hostile territory.\nAll pets have the Pet Attack ability.\nPets can't make Opportunity Attacks.\n"
+                        "Effect": "You have an animal pet that can fight alongside you, your Mana pool is permanently decreased by 1, and your total Health by 5.\nYour animal has stats depending on its species. Check out the Pets and Animals page to see its stats!\nYour pet takes its turn at the same time as you do, and always has the same initiative as yours.\nYour pet has 1 Action per turn, which it can use to do its own Abilities.\nYour pet can make normal Checks using using its own Stats.\nYour pet will not stray more than 30 meters away from you in hostile territory.\nAll pets have the Pet Attack ability.\nPets can't make Opportunity Attacks.\n",
+                        "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It has no reserve Health, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.",
+                        "Notes": "If your pet raises from being Fallen, it has Pet Exhaustion (is Slowed and can only use Pet Attack, but all Pet Attacks have Cover, which is a -2 to the attack).\nTreat your pet like a real companion - give it a name and care for it. If it ever dies, you can spend 2 days looking for another wild animal and taming it to become your new pet.\n"
                     },
                     "<Pet Attack>": {
                         "IsSubspell": true,
@@ -232,7 +244,7 @@
             "Starting Abilities": {
                 "~Circle of the Land~": {
                     "A": "Passive",
-                    "Effect": "You know 2 more Spells from the Nature spell list.\nWhen you transform into an animal native to your domain, heal for 1d4 health.\nChoose one domain from: Mountains, Forest, Sea and Desert. Choose one of the Abilities below corresponding to your domain:\n"
+                    "Effect": "You know 2 more Spells from the Nature spell list.\nWhen you transform into an animal native to your domain, heal for 1d4 health (the GM has the final word on whether the animal fits your domain).\nChoose one domain from: Mountains, Forest, Sea and Desert. Choose one of the Abilities below corresponding to your domain:\n"
                 }
             },
             "Abilities": {
@@ -246,7 +258,8 @@
                 "~Wild Roots~": {
                     "A": "1 Action",
                     "Cooldown": "Long Rest",
-                    "Effect": "Roots spawn from your position (next to you) and travel 10 meters.\nYou control how the roots travel (they 'move' like a normal Unit).\nAll Units they pass through take 2d8 Pierce damage and must pass a Dexterity Check or be Snared.\n"
+                    "Effect": "Roots spawn from your position (next to you) and travel up to 10 meters.\nYou control how the roots travel (they 'move' like a normal Unit).\nAll Units they pass through take 2d8 Pierce damage and must pass a Dexterity Check or be Snared.\n",
+                    "Notes": "The roots can climb walls and over surfaces, using normal movement, but can't jump.\nIgnores Cover, but be careful with pathing.\n"
                 },
                 "~Storm~": {
                     "A": "0 Actions",
@@ -259,7 +272,7 @@
                 }
             },
             "Talents": {
-                "Level 2": {
+                "Level 3": {
                     "<Old Ritualist>": {
                         "A": "10 minutes",
                         "Cooldown": "Long Rest",
@@ -271,11 +284,13 @@
                         "Range": "6 meters",
                         "Cooldown": "Long Rest",
                         "Effect": "Heal an ally for 3 Health and it regains 1 Mana or resets the Cooldown of an Ability.\n",
-                        "Downside": "Can not be cast on other Druids."
+                        "Downside": "Can not be cast on Druids."
                     },
-                    "<Animal Companion>": {
+                    "<Druid Animal Companion>": {
                         "A": "Passive",
-                        "Effect": "You have an animal pet that can fight alongside you!\nYour animal has stats depending on its species.\nBy default, apply the following stats to your pet (these will get modified by your pet's species):\n- Movement: 5 meters\nYour pet takes its turn at the same time as you do, and always has the same initiative as yours.\nYour pet has 1 Action per turn.\nYour pet can make normal Checks using using its own Stats.\nYour pet will not stray more than 30 meters away from you in hostile territory.\nAll pets have the Pet Attack ability.\nPets can't make Opportunity Attacks.\n"
+                        "Effect": "You have an animal pet that can fight alongside you, your Mana pool is permanently decreased by 1, and your total Health by 5.\nYour animal has stats depending on its species. Check out the Pets and Animals page to see its stats!\nYour pet takes its turn at the same time as you do, and always has the same initiative as yours.\nYour pet has 1 Action per turn, which it can use to do its own Abilities.\nYour pet can make normal Checks using using its own Stats.\nYour pet will not stray more than 30 meters away from you in hostile territory.\nAll pets have the Pet Attack ability.\nPets can't make Opportunity Attacks.\n",
+                        "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It has no reserve Health, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.",
+                        "Notes": "If your pet raises from being Fallen, it has Pet Exhaustion (is Slowed and can only use Pet Attack, but all Pet Attacks have Cover, which is a -2 to the attack).\nTreat your pet like a real companion - give it a name and care for it. If it ever dies, you can spend 2 days looking for another wild animal and taming it to become your new pet.\n"
                     },
                     "<Pet Attack>": {
                         "IsSubspell": true,
@@ -283,7 +298,7 @@
                         "Effect": "The pet melee attacks a target.\nThe attack deals 1d6 + 2 Pierce of Slash Damage (your choice).\n"
                     }
                 },
-                "Level 4": {
+                "Level 5": {
                     "<Regrowth>": {
                         "A": "1 Action",
                         "Cooldown": "Long Rest",

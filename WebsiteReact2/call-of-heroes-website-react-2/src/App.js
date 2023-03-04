@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 
-import { createContext } from 'react'
+import { createContext, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 
@@ -36,6 +36,7 @@ import Warlock from './pages/Classes/Warlock'
 import Warrior from './pages/Classes/Warrior'
 
 import Bertle from './pages/Races/Bertle'
+import Davel from './pages/Races/Davel'
 import Dragonborn from './pages/Races/Dragonborn'
 import Dwarf from './pages/Races/Dwarf'
 import Elf from './pages/Races/Elf'
@@ -58,7 +59,7 @@ import Rules from './pages/Other/Rules';
 import AttackModifiers from './pages/Other/AttackModifiers';
 import CrowdControl from './pages/Other/CrowdControl';
 import AreasOfEffect from './pages/Other/AreasOfEffect';
-import { getBasePathBeforeHash, getLocalStorageBool, getPageHashFromLocation, isBasePathEmpty, isHashEmpty } from './utils';
+import { getBasePathBeforeHash, getLocalStorageBool, getLocationHackyPath, getPageHashFromLocation, isBasePathEmpty, isHashEmpty } from './utils';
 
 import AppStateContext from './services/AppStateContext';
 import TreasureGenerator from './pages/Tools/TreasureGenerator';
@@ -67,6 +68,7 @@ import Nav from './Nav'
 import DungeonGenerator from './pages/Tools/DungeonGenerator';
 import RunePuzzle from './pages/Tools/RunePuzzle';
 import Proficiencies from './pages/Other/Proficiencies';
+import Encounters from './pages/Other/Encounters';
 
 function App() {
 
@@ -77,19 +79,23 @@ function App() {
     currentlyOpenSubnav: null
   })
 
+  
+
+
   const navigate = useNavigate()
-  const basePath = window.location.pathname
-  const hash = getPageHashFromLocation(window.location)
+  const hackyPath = getLocationHackyPath(window.location)
+  const isURLHackedForGitHub = hackyPath != null
 
-  const isThereLinkAfterHash = isBasePathEmpty(basePath) && isHashEmpty(hash) == false
-  if (isThereLinkAfterHash) {   // Fixes a problem with GitHub Pages, where links redirect to the smae link with a hash infront
-    const finalPath = hash.startsWith('/')? hash : '/' + hash
-    window.location.href = finalPath
-  } else {
-    console.log('No link')
-  }
+  useEffect(() => { // After page loads
+    if (isURLHackedForGitHub) {
+      window.location.href = hackyPath
+    }
+  })
 
-  console.log({ basePath, hash })
+
+
+
+
 
   function closeNav(event) {
     setNavState({
@@ -112,7 +118,9 @@ function App() {
 
               {/* Here will be rendered the page: */}
             <Routes>
-              <Route path="/" element={ <Index/> }/>
+              <Route path="/" element={(
+                isURLHackedForGitHub == false? <Index/> : null  // Prevent loading a page for no reason if path is hacky
+              )}/>
               <Route path="/Other/Rule" element={ <Rule/> }/>
               <Route path="/Other/Rules" element={ <Rules/> }/>
               <Route path="/Other/Abilities" element={ <Abilities/> }/>
@@ -133,12 +141,14 @@ function App() {
               <Route path="/Other/AttackModifiers" element={ <AttackModifiers/> }/>
               <Route path="/Other/CrowdControl" element={ <CrowdControl/> }/>
               <Route path="/Other/AreasOfEffect" element={ <AreasOfEffect/> }/>
+              <Route path="/Other/Encounters" element={ <Encounters/> }/>
               
               <Route path="/Lore/Levels" element={ <Levels/> }/>
               <Route path="/Lore/SpellSchoolDescriptions" element={ <SpellSchoolDescriptions/> }/>
               <Route path="/Lore/Languages" element={ <Languages/> }/>
 
               <Route path="/Races/Bertle" element= { <Bertle/> }/>
+              <Route path="/Races/Davel" element= { <Davel/> }/>
               <Route path="/Races/Dragonborn" element= { <Dragonborn/> }/>
               <Route path="/Races/Dwarf" element= { <Dwarf/> }/>
               <Route path="/Races/Elf" element= { <Elf/> }/>

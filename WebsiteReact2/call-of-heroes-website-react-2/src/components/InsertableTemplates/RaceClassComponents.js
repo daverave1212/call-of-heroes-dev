@@ -228,7 +228,8 @@ export function SpellCasting({ theClass }) {
                 <PageH3>Special Mana-Based Spellcasting</PageH3>
                 <p>
                     As a { theClass.Class }, you have a number of Mana points.
-                    Unlike other Mana-based classes, your Mana instantly regeneraets 10 minutes after finishing every combat encounter (if you don't enter another combat meanwhile).
+                    Unlike other Mana-based classes, your Mana instantly regenerates 10 minutes after finishing every combat encounter (if you don't enter another combat meanwhile).
+                    If you want to use Mana inbetween encounters, you spend Mana normally and, as specified, it replenishes 10 minutes after the next combat encounter (so, yes, you <b>must</b> do a combat encounter in order to restore your mana; such is the nature of Warlocks).
                     <br/><br/>
                     <PageH3>Changing Spells</PageH3>
                     You can change your known Spells (not Talents) when taking a Long Rest.<br/>
@@ -301,6 +302,7 @@ export function PHealthAndArmor({ theClass }) {
             <p>
                 <b><Icon name="Health"/>Race Health + Might.</b>
             </p>
+            Note that you do <b>not</b> add your Might to your Health every level!.
             <p>Feel free to spend any amount of Gold to buy items from the Items list (see Items).</p>
             <ManySmallStats name="Starting Equipment" color="rgb(23, 80, 0)" topDown={true} texts={[
                 'You start with 600 gold that you can spend on any items in the shop. You have a 50% discount on armors.'

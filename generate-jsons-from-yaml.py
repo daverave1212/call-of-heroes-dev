@@ -53,6 +53,7 @@ files_to_convert = [    # Order matters
     'Other/SpellSchoolDescriptions.yml',
     'Other/Languages.yml',
     'Other/Levels.yml',
+    'Other/Encounters.yml',
 
     'Rules/Rules.yml',
     'Rules/Inventory.yml',
@@ -74,6 +75,7 @@ files_to_convert = [    # Order matters
     'Classes/Warrior.yml',
 
     'Races/Bertle.yml',
+    'Races/Davel.yml',
     'Races/Dragonborn.yml',
     'Races/Dwarf.yml',
     'Races/Elf.yml',
@@ -105,16 +107,25 @@ def add_name_to_spells_recursively(dict_to_search):
 # The actual body of the spell is taken from abilities
 def normalize_inherit_abilities(dict_to_search):
 
+    def get_swap_tilde_arrows_name(name):
+        if name.startswith('<'):
+            return '~' + name[1:-1] + '~'
+        if name.startswith('~'):
+            return '<' + name[1:-1] + '>'
+        return name
+
     def find_previously_used_ability(name):
         if name in abilities:
             return abilities[name]
+        if get_swap_tilde_arrows_name(name) in abilities:
+            return abilities[get_swap_tilde_arrows_name(name)]
         raise Exception(f'Spell {name} not found in previously mentioned spells [normalize_inherit_abilities].')
 
     for key in dict_to_search.keys():
         subobj = dict_to_search[key]
         if subobj == None:
             continue
-        if isinstance(subobj, str) and subobj.strip().lower() == 'inherit':
+        if isinstance(subobj, str) and subobj.strip().lower().startswith('inherit'):
             dict_to_search[key] = find_previously_used_ability(key)
             continue
         if type(subobj) is not dict:   # Don't care about anything that's not nested
@@ -129,7 +140,7 @@ def record_abilities_from(from_dict, to_dict):
         if subobj == None:
             continue
         if is_spell_name(key):
-            if isinstance(subobj, str) and subobj.strip().lower() == 'inherit':
+            if isinstance(subobj, str) and subobj.strip().lower().startswith('inherit'):
                 continue
             to_dict[key] = subobj
         if type(subobj) is not dict:   # Don't care about anything that's not nested

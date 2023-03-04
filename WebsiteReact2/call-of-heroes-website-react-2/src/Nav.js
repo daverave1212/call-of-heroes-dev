@@ -36,6 +36,7 @@ import Warlock from './pages/Classes/Warlock'
 import Warrior from './pages/Classes/Warrior'
 
 import Bertle from './pages/Races/Bertle'
+import Davel from './pages/Races/Davel'
 import Dragonborn from './pages/Races/Dragonborn'
 import Dwarf from './pages/Races/Dwarf'
 import Elf from './pages/Races/Elf'
@@ -116,6 +117,7 @@ export default function Nav({ navState, setNavState, isSimple, setIsSimple }) {
                 <div className='subnav-title-underline'></div>
                 <ul>
                   <LiLink to="/Races/Bertle">Bertle</LiLink>
+                  <LiLink to="/Races/Davel">Davel</LiLink>
                   <LiLink to="/Races/Dragonborn">Dragonborn</LiLink>
                   <LiLink to="/Races/Dwarf">Dwarf</LiLink>
                   <LiLink to="/Races/Elf">Elf</LiLink>
@@ -235,7 +237,7 @@ export default function Nav({ navState, setNavState, isSimple, setIsSimple }) {
                 <div className='subnav-title-underline'></div>
                 <ul>
                   <LiLink to="/Other/Monsters">Monsters</LiLink>
-                  <LiLink to="/Lore/Languages">Encounters</LiLink>
+                  <LiLink to="/Other/Encounters">Encounters</LiLink>
                 </ul>
               </div>
 

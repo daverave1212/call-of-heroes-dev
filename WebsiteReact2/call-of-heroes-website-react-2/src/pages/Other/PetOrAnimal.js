@@ -70,6 +70,14 @@ export default function PetOrAnimal() {
                         Maecenas fermentum lacinia mi, a elementum nibh tristique at. In eget nisl nunc.
                     </p>
                 ) }
+                { animal.Alternatives && (
+                    <div style={{color: 'gray', fontStyle: 'italic' }}>
+                        Alternatives: { animal.Alternatives }
+                        <br/>
+                        <br/>
+                        <br/>
+                    </div>
+                ) }
                 </Column>
                 <Column>
                     {}

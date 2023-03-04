@@ -30,7 +30,11 @@ Spellcasting:
   Counter Check Grade: 6 + (Main Stat)
   Change: You can change your known Spells (not Talents) when taking a Long Rest.
   Other: All Shaman-specific Abilities are considered Spells (unless stated otherwise).
-  
+
+  Mana:
+    Amount: 3
+    Regain: You regain all Mana back when you Long Rest.
+
   Known Spells: 3 + Intelligence
   
   BaseKnownSpells: 3
@@ -66,6 +70,7 @@ Starting Abilities:
     A: 1 Action
     Cooldown: Long Rest
     Effect: All enemies within 3 meters of you must pass a Charisma Check or take 1d6 Psychic damage and be Crippled.
+    Notes: Cover is applied normally.
 
   ~Wolf's Leap~:   # 1 Charge
     IsSubspell: true
@@ -140,36 +145,39 @@ Specs:
           Your total Defense is always halved (even with buffs), rounded down, no matter what armor type you are wearing.
           Your total Health is increased by 50% (buffs are not increased).
           Your Reserve Health Pool does not increase with your Health.
+        Notes: Only your Health calculated from your Race Health + Might + Health per Level is increased by 50%. Anything from Abilities is not included.
   
-      ~Bloodlust~:                  # 1.25
+      ~Bloodlust~:                  # 1.15
         A: 0 Actions
         Cooldown: Long Rest
         Effect: Add damage to an attack equal to 25% of your missing Health (rounded up).
         Notes: This is not considered a Spell.
 
     Talents:
-      Level 2:
+      Level 3:
       
-        <Reincarnation> :           # 1?
-          A: 0.5 Actions
+        <Reincarnation> :           # 1.5 - 2?
+          A: Reaction
           Cooldown: Long Rest
           Effect: |    
+            Use at any time (e.g. when a Unit falls to 0 Health).
             Stabilize an Fallen Unit or revive a Unit that died recently (12 hours maximum).
-            This puts the Unit at 1 Health.
+            This puts the Unit at Health equal to its own Main Stat * 4.
             You can do this on yourself if you are dead.
+            This cures Exhaustion.
 
         <Spirit Draw> :             # 1.5
           A: Special
           Cost: 5 Health
           Cooldown: Long Rest
           Effect: |
-            An ally can channel for 10 minutes to draw power from your soul.
+            Aniother ally can channel for 10 minutes to draw power from your soul.
             That ally can use Bloodlust once and use your spirit animal Ability once.
             Lasts until either of you cancel it, or until either's next Long Rest.
             An ally can't draw your soul more than once per Long Rest.
             An ally can't keep your soul drawn through a Long Rest.
 
-        <Animal Companion> :  # 1
+        <Summon Animal Spirit> :  # 1
           A: 0 Actions
           Cooldown: 10 minutes
           Cost: 5 Health
@@ -178,8 +186,6 @@ Specs:
             Check out your animal's stats in the Animals section, Spirit Animals category.
             Additionally, you can see through your Pet's eyes if you choose so.
             Your animal has stats depending on its species.
-            By default, apply the following stats to your pet (these will get modified by your pet's species):
-            - Movement: 5 meters
             Your pet takes its turn at the same time as you do, and always has the same initiative as yours.
             Your pet has 1 Action per turn.
             Your pet can make normal Checks using using its own Stats.
@@ -193,15 +199,15 @@ Specs:
                 The attack deals 1d6 + 2 Pierce or Slash Damage (your choice).
 
   
-      Level 4:
+      Level 5:
         
         <Jotunn>:
           A: 0 Actions
           Cooldown: Long Rest
           Effect: |
             You grow to the size of a giant and become Large.
-            Your normal Melee attacks hit all Units within 1 meter of the target for the same damage, without the Main Stat modifier (against Defense).
-            You are immune to Slows, Snares and Cripples.
+            Your normal Melee attacks hit all Units within 1 meter of the target for the same damage, without the Stat modifier (against Defense) (e.g. you don't add your Might or Dexterity to the secondary targets).
+            You are immune to being Slowed, Snared, Crippled, Dazed and to Hard Terrain.
             You gain 10 Shielding.
             Lasts 1 minute.
             
@@ -209,7 +215,9 @@ Specs:
           A: 0.5 Actions
           Cooldown: Long Rest
           Effect: All units in a 9x3 line must pass a Might Check or be Stunned. If they pass, they become Dazed instead.
-          Notes: There is no escape!
+          Notes: |
+            There is no escape!
+            Cover is applied normally.
           
         <Ruining Shout>:
           A: 1 Action
@@ -233,7 +241,7 @@ Specs:
         A: 1 Action
         Cooldown: Long Rest
         Effect: |
-          Touch an ally.
+          Touch another ally.
           Whenever either of you makes a Check, add the higher bonus from either of you instead of the normal Check bonus.
           You can do this once per Long Rest, and lasts until your next Long Rest.
         Notes: This does apply to Proficiencies - if your bonded ally has Proficiency in something, you also add the ally's Level, as it would normally make sense.
@@ -251,7 +259,7 @@ Specs:
           You see more and more blurry as the target gets farther away. At 10 kilometers, the spell breaks.
 
     Talents:
-      Level 2:
+      Level 3:
       
         <Mind Link>:                # 1
           A: 0 Actions
@@ -271,7 +279,7 @@ Specs:
           Notes: A Sleeping Unit wakes up if it takes damage or other Crowd Control.
 
 
-      Level 4:
+      Level 5:
       
         <Regrowth>:         # 2 at 30 HP I believe
           A: 1 Action
@@ -333,17 +341,17 @@ Specs:
         A: 0.5 Actions
         Cooldown: 2 uses / Long Rest
         Effect: |
-          Declare either an ally or an enemy within 6 meters.
+          Declare either an ally (or yourself) or an enemy within 6 meters.
           If it's an enemy, it must pass a Wisdom Check or have all its damage dice downgraded 1 tier for 1 minute.
           If it's an ally, it must pass a Wisdom Check to be healed for 1d12, or half of that if it fails.
           Downgrading can stack (you can downgrade an enemy's dice multiple times).
         Notes: |
           Downgrading dice by 1 tier means, for example, d6 become d4, or d12 become d10.
-          D4's don't decrease.
+          D4's and d20's don't decrease.
           If you target an Epic Monster, the tier downgrade happens to its first turn only.
         
     Talents:
-      Level 2:
+      Level 3:
         
         <Voodoo Magic> :        # 1
           A: 1 Action
@@ -369,7 +377,7 @@ Specs:
             o You can't take damage from external sources, but you feel every body sensation that ally feels.
             You can freely exit their body and revert back to your physical self using 0 Actions.
 
-      Level 4:
+      Level 5:
       
         <Bomboclaat>:           # 2?
           A: Passive
@@ -382,7 +390,7 @@ Specs:
             - Subtract from an enemy's Combat Check
             You can only use 1 Guide Die at a time.
         
-        <Dead Hands>:          # 2
+        <Dead Hands>:          # 1.75
           A: 1 Action
           Cost: 1 Guide Die
           Effect: |
@@ -394,7 +402,7 @@ Specs:
             Each can attack for 1d4 - 1 direct Necrotic damage (ignores Defense).
             Zombies last up to 10 minutes.
 
-        <Bone Mass>:           # 2
+        <Bone Mass>:           # 1.75
           A: 0.5 Actions
           Cost: 1 Guide Die
           Range: 6 meters to edge
