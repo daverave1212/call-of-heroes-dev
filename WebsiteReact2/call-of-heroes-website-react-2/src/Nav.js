@@ -94,7 +94,12 @@ export default function Nav({ navState, setNavState, isSimple, setIsSimple }) {
 
     return (
       <div id="Navigation-Section">
+          <div className="nav-logo-div">
+            <Link to="/"><img src="favicon.png"/></Link>
+          </div>
+
           <nav>
+            <div className='nav-item'><a href="https://discord.gg/27aqSEDyE3" target="_blank">Play With Us!</a></div>
             <NavItem name='Database'>Database</NavItem>
             <NavItem name='Learn'>Learn</NavItem>
             <NavItem name='Lore'>Lore</NavItem>

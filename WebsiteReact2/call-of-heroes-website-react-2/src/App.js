@@ -88,7 +88,7 @@ function App() {
 
   useEffect(() => { // After page loads
     if (isURLHackedForGitHub) {
-      window.location.href = hackyPath
+      navigate(hackyPath)
     }
   })
 
