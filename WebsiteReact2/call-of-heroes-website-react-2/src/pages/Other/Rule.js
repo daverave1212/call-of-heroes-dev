@@ -13,6 +13,7 @@ import Page from '../../containers/Page/Page'
 
 import Rules from '../../databases/Rules/Rules.json'
 import TwoColumns from '../../components/TwoColumns/TwoColumns'
+import TwoColumnsDescriptive from '../../components/TwoColumns/TwoColumnsDescriptive'
 import Column from '../../components/TwoColumns/Column'
 
 export default function Rule() {

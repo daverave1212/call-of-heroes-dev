@@ -15,6 +15,7 @@ import SmallStatList from '../../components/SmallStat/SmallStatList'
 import Separator from '../../components/Separator/Separator'
 import TableNormal from '../../components/TableNormal/TableNormal'
 import TwoColumns from '../../components/TwoColumns/TwoColumns'
+import TwoColumnsDescriptive from '../../components/TwoColumns/TwoColumnsDescriptive'
 import Column from '../../components/TwoColumns/Column'
 
 import Spell from '../../components/Spell/Spell'
@@ -42,7 +43,7 @@ export default function Rogue() {
 
                 <br/>
 
-                <TwoColumns>
+                <TwoColumnsDescriptive>
                     <Column style={{zIndex: 1}}>
 
                         Lorem {theClass.Class} ipsum dolor sit amet.
@@ -69,7 +70,7 @@ export default function Rogue() {
                     <Column style={{position: 'relative'}}>
                         <img style={{ position: 'absolute', left: '-220px', top: '-205px', zIndex: '0' }} className="class-image" src={`/Classes/${theClass.Class}.png`}/>
                     </Column>
-                </TwoColumns>
+                </TwoColumnsDescriptive>
 
                 <ClassFeatures theClass={theClass}/>
 

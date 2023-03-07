@@ -302,7 +302,7 @@ export function PHealthAndArmor({ theClass }) {
             <p>
                 <b><Icon name="Health"/>Race Health + Might.</b>
             </p>
-            Note that you do <b>not</b> add your Might to your Health every level!.
+            <p>Note that you do <b>not</b> add your Might to your Health every level!</p>
             <p>Feel free to spend any amount of Gold to buy items from the Items list (see Items).</p>
             <ManySmallStats name="Starting Equipment" color="rgb(23, 80, 0)" topDown={true} texts={[
                 'You start with 600 gold that you can spend on any items in the shop. You have a 50% discount on armors.'

@@ -15,6 +15,7 @@ import SmallStatList from '../../components/SmallStat/SmallStatList'
 import Separator from '../../components/Separator/Separator'
 import TableNormal from '../../components/TableNormal/TableNormal'
 import TwoColumns from '../../components/TwoColumns/TwoColumns'
+import TwoColumnsDescriptive from '../../components/TwoColumns/TwoColumnsDescriptive'
 import Column from '../../components/TwoColumns/Column'
 
 import Spell from '../../components/Spell/Spell'
@@ -37,10 +38,10 @@ export default function Race() {
             <SideMenuFromRace theRace={theRace}/>
             <Page title={ theRace.Race }>
 
-                <TwoColumns>
+                <TwoColumnsDescriptive>
                     <Column style={{zIndex: 1}}>
 
-                        Lorem {theRace.Race} ipsum dolor sit amet.
+                        <p>Lorem {theRace.Race} ipsum dolor sit amet.
                         Aenean blandit metus nisi, non commodo tortor volutpat ut.
                         Aenean suscipit, justo vitae faucibus viverra, lectus lacus laoreet ipsum, quis suscipit purus ex et tellus. Suspendisse congue libero sed molestie efficitur. Proin maximus sagittis nunc lacinia porttitor.
                         Maecenas fermentum lacinia mi, a elementum nibh tristique at. In eget nisl nunc.
@@ -60,13 +61,13 @@ export default function Race() {
                         Maecenas fermentum lacinia mi, a elementum nibh tristique at. In eget nisl nunc.
                         Aenean blandit metus nisi, non commodo tortor volutpat ut.
                         Aenean suscipit, justo vitae faucibus viverra, lectus lacus laoreet ipsum, quis suscipit purus ex et tellus. Suspendisse congue libero sed molestie efficitur. Proin maximus sagittis nunc lacinia porttitor.
-                        Maecenas fermentum lacinia mi, a elementum nibh tristique at. In eget nisl nunc.
+                        Maecenas fermentum lacinia mi, a elementum nibh tristique at. In eget nisl nunc.</p>
 
                     </Column>
                     <Column style={{position: 'relative'}}>
                         <img style={{ left: '-120px', top: '-145px' }} className="class-image" src={`/Races/${theRace.Race}.png`}/>
                     </Column>
-                </TwoColumns>
+                </TwoColumnsDescriptive>
 
                 <RaceFeatures theRace={theRace}/>
 

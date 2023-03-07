@@ -1,16 +1,4 @@
-:root {
-  --hero-height: 720px;
-
-  --hero-image-base-width: 3508;
-  --hero-image-base-height: 1579;
-
-  --hero-text-color: rgb(65, 41, 74);
-
-  --content-left: 11vw;
-
-
-
-  /*
+/*
     Hero Heights:
     New World: 720px
     Lost Ark: 720px
@@ -24,37 +12,63 @@
 
     BDO:
       Title & Text Font: StrongSword
-  */
+*/
+
+
+:root {
+  --hero-height: 720px;
+  --hero-content-width: 755px;
+
+  --hero-h1-size: 75px;
+  --home-text-size: 27px;
+
+  --hero-text-color: rgb(65, 41, 74);
+  --hero-bg-color: rgb(243, 243, 243);
+
+  --hero-gap: 40px;
+  --hero-buttons-line-width: 230px;
+  --button-border-radius: 50px;
+  --button-min-width: 240px;
+
+  --content-left: 10vw;
 
   --z-background: 1;
   --z-content: 3;
 }
+@media (orientation: portrait) {
+  :root {
+    --hero-content-width: 80vw;
+    --content-left: 10vw;
 
+    --hero-gap: 25px;
+    --hero-buttons-line-width: 20vw;
+    --button-border-radius: 13vw;
+    --button-min-width: 40vw;
+
+    --hero-h1-size: max(7.5vw, 38px);
+    --home-text-size: max(5vw, 17px);
+  }
+}
 
 .text-centered {
   text-align: center;
 }
 
-.home-container {
+.home {
   display: flex;        /* Ensures margin-top doesn't get bugged */
   width: 100vw;
   margin: auto;
   margin-top: 0px;
   flex-direction: column;
 }
-
-
-:root {
-  --home-hero-bg-color: rgb(243, 243, 243);
-}
-.home__hero-section {
+.hero {
   position: relative;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
 
   overflow: hidden;
 
-  background-color: var(--home-hero-bg-color);
+  background-color: var(--hero-bg-color);
 }
 .hero-image-container {
   position: absolute;
@@ -69,19 +83,11 @@
 
   background-color: rgb(16, 17, 21);  /* Fill right side of the screen on wide monitors */
 }
-.hero-img {
+.hero-image-container img {
   display: block;
   height: 100%;
   
   margin-top: var(--nav-height);
-  /* transform: translate(-40%); */
-
-  /* object-fit: cover;
-  overflow-x: clip;
-  overflow-y: clip; */
-}
-:root {
-  --hero-content-width: 755px;
 }
 .hero-content {
   position: absolute;
@@ -89,7 +95,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 40px;
+  gap: var(--hero-gap);
   
   width: var(--hero-content-width);
   height: calc(100vh - var(--nav-height));
@@ -99,46 +105,48 @@
   
   z-index: var(--z-content);
 }
-.home-title {
+.hero-content h1 {
   margin: 0px;
 
   font-family: TitleFont;
   color: var(--hero-text-color);
-  letter-spacing: 2px;
-  font-size: 75px;
+  letter-spacing: calc(var(--hero-h1-size) * 0.04);
+  font-size: var(--hero-h1-size);
 }
-.home-text {
+
+
+/* ---------------- Landing Page ---------------- */
+
+.home-text-style {
   margin: 0px;
-
-  /* width: 75%; */
-
   font-family: HomeFont;
   color: var(--hero-text-color);
-  font-size: 27px;
+  font-size: var(--home-text-size);
 }
 .hero-buttons {
-  --my-width: 715px;
+  --my-width: var(--hero-content-width);
 
   display: flex;
   width: var(--my-width);
-  gap: 30px;
+  gap: min(30px, 2vw);
   /* width: 100%; */
 
   margin-top: 20px;
-  margin-left: calc((var(--my-width) - var(--hero-content-width)) / 2 * (-1) - 25px);
 }
 .hero-buttons img {
   object-fit: contain;
-  width: 230px;
+  width: var(--hero-buttons-line-width);
 }
 .generic-button {
   font-family: HomeFont;
-  font-size: 27px;
+  font-size: var(--home-text-size);
+  min-width: var(--button-min-width);
 
   padding: 12px;
   
   background: none;
   border: solid var(--hero-text-color) 3px;
+  border-radius: var(--button-border-radius);
 
   cursor: pointer;
 }
@@ -166,15 +174,28 @@
 
 
 :root {
-  --advantages-font-size: 27px;
+  --advantages-content-width: 650px;
+  
+  --advantages-h1-size: calc(var(--hero-h1-size) * 0.6);
+  --advantages-font-size: var(--home-text-size);
+
+  --adv-inline-icon-size: 30px;
+  --inline-icon-top: 2.5px;
+
   --advantages-bg-color-left: rgb(254, 254, 254);
   --advantages-bg-color-right: rgb(250, 250, 250);
 }
+@media (orientation: portrait) {
+  :root {
+    --advantages-content-width: 80vw;
+    --advantages-font-size: calc(var(--home-text-size) * 0.70);
 
-.home-advantages {
-  width: 100vw;
-  height: 100vh;
-  position: relative;
+    --adv-inline-icon-size: 4vw;
+    --inline-icon-top: 0.5vw;
+  }
+}
+
+#Home-Advantages {
   background-image: linear-gradient(to right, var(--advantages-bg-color-left) 0%, var(--advantages-bg-color-left) 35%, var(--advantages-bg-color-right) 60%);
 }
 .advantages-image-container {
@@ -196,15 +217,15 @@
 
 
 .advantages-content {
-  width: 600px;
+  width: var(--advantages-content-width);
   /* top: 150px; */
 
   color: var(--hero-text-color);
 }
-.home-advantages .home-title {
-  font-size: 45px;
+#Home-Advantages h1 {
+  font-size: var(--advantages-h1-size);
 }
-.home-advantages .home-text {
+#Home-Advantages .home-text-style {
   font-size: var(--advantages-font-size);
 }
 
@@ -220,8 +241,8 @@
   list-style-type: none;
 }
 .advantages-content .inline-icon {
-  margin-top: 2.5px;
-  height: 30px;
+  margin-top: var(--inline-icon-top);
+  height: var(--adv-inline-icon-size);
   margin-right: 20px;
 }
 
@@ -229,21 +250,3 @@
 
 
 
-
-
-
-
-
-  
-.home-container__content {
-  width: 1200px;
-  margin: auto;
-  margin-top: 75px;
-  margin-bottom: 75px;
-  
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: var(--page-padding);
-}

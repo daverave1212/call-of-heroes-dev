@@ -1,8 +1,13 @@
 :root {
     --two-columns-padding-middle-per-column: 30px;
 }
+@media (orientation: portrait) {
+    :root {
+        --two-columns-padding-middle-per-column: 1vw;
+    }   
+}
 
-.two-columns {
+.two-columns, .two-columns-descriptive {
     width: 100%;
 
     display: flex;
@@ -47,3 +52,38 @@
     flex: 2;
 }
   
+
+
+.two-columns-descriptive > .column {
+    flex: 1;
+}
+
+
+@media (orientation: portrait) {
+    .two-columns {
+        flex-direction: column;
+    }
+    .two-columns-descriptive > .column:first-child {
+        flex: 4;
+    }
+    .column:nth-child(1) {
+        padding-right: 0px;
+    }
+    .column:nth-child(2) {
+        padding-left: 0px;
+    }
+    
+    /* If it has half the padding */
+    .two-columns--half-padding > .column:nth-child(1) {
+        padding-right: 0px !important;
+    }
+    .two-columns--half-padding > .column:nth-child(2) {
+        padding-left: 0px !important;
+    }
+    .two-columns--quarter-padding > .column:nth-child(1) {
+        padding-right: 0px !important;
+    }
+    .two-columns--quarter-padding > .column:nth-child(2) {
+        padding-left: 0px !important;
+    }
+}

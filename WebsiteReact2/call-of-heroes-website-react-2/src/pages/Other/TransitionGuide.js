@@ -12,6 +12,7 @@ import PageH3 from '../../components/PageH3/PageH3'
 import PageH2 from '../../components/PageH2/PageH2'
 import SmallStat from '../../components/SmallStat/SmallStat'
 import TwoColumns from '../../components/TwoColumns/TwoColumns'
+import TwoColumnsDescriptive from '../../components/TwoColumns/TwoColumnsDescriptive'
 import Column from '../../components/TwoColumns/Column'
 
 import Page from '../../containers/Page/Page'

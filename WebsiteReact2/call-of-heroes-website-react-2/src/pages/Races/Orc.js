@@ -15,6 +15,7 @@ import SmallStatList from '../../components/SmallStat/SmallStatList'
 import Separator from '../../components/Separator/Separator'
 import TableNormal from '../../components/TableNormal/TableNormal'
 import TwoColumns from '../../components/TwoColumns/TwoColumns'
+import TwoColumnsDescriptive from '../../components/TwoColumns/TwoColumnsDescriptive'
 import Column from '../../components/TwoColumns/Column'
 
 import Spell from '../../components/Spell/Spell'
@@ -37,7 +38,7 @@ export default function Race() {
             <SideMenuFromRace theRace={theRace}/>
             <Page title={ theRace.Race }>
 
-                <TwoColumns>
+                <TwoColumnsDescriptive>
                     <Column style={{zIndex: 1}}>
 
                         Lorem {theRace.Race} ipsum dolor sit amet.
@@ -63,7 +64,7 @@ export default function Race() {
                     <Column style={{position: 'relative'}}>
                         <img style={{height: '850px', left: '-120px', top: '-155px' }} className="class-image" src={`/Races/${theRace.Race}.png`}/>
                     </Column>
-                </TwoColumns>
+                </TwoColumnsDescriptive>
 
                 <RaceFeatures theRace={theRace}/>
 

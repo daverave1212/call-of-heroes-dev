@@ -1,8 +1,16 @@
 
 :root {
     --table-row-side-padding: 12px;
+    --table-td-min-width: 200px;
 }
-
+@media (orientation: portrait) {
+    :root {
+        --table-td-min-width: 0px;
+    }
+}
+.table-normal-container-wrapper * {
+    font-size: var(--p-size);
+}
 .table-normal-container-wrapper {
     display: block;
     width: 100%;
@@ -30,7 +38,7 @@
     padding: 4px;
     border: none;
     margin: 0px;
-    width: 200px;
+    min-width: var(--table-td-min-width);
 }
 .table-normal-container th {
     font-family: TitleFont;

@@ -12,6 +12,7 @@ import Page from '../../containers/Page/Page'
 
 import prices from '../../databases/Prices.json'
 import TwoColumns from '../../components/TwoColumns/TwoColumns'
+import TwoColumnsDescriptive from '../../components/TwoColumns/TwoColumnsDescriptive'
 import Column from '../../components/TwoColumns/Column'
 import TableNormal from '../../components/TableNormal/TableNormal'
 import Icon from '../../components/Icon'

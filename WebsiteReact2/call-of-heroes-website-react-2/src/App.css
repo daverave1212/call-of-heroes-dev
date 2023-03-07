@@ -20,6 +20,13 @@
   --button-color: rgb(117, 10, 10); 
 
   --simple-page-color: rgb(255, 252, 249);
+
+  --p-size: 20px;
+}
+@media (orientation: portrait) {
+  :root {
+    --p-size: 4.25vw;
+  }
 }
 
 * {
@@ -31,8 +38,10 @@ p {
   margin-top: 0px;
   margin-bottom: var(--element-padding);
   line-height: 1.4em;
+  font-size: var(--p-size);
   white-space: pre-wrap;
 }
+
 
 .content {
   /* padding-top: var(--nav-height); */
@@ -131,19 +140,22 @@ body {
 
 
 
-.inline-icon--spell {
-  height: 18px;
-  margin-right: 3px;
+:root {
+  --inline-icon-size: calc(var(--p-size) * 1.05);
 }
 .inline-icon {
-  height: 21px;
+  height: var(--inline-icon-size);
   margin-right: 3px;
-  margin-top: 2px;
+  margin-top: calc(var(--inline-icon-size) * 0.095);
 }
 .inline-icon--small-stat {
-  height: 21px;
+  height: var(--inline-icon-size);
   margin-right: 4px;
   margin-top: 4px;
+}
+.inline-icon--spell {
+  height: calc(var(--p-size) * 0.8);
+  margin-right: 3px;
 }
 
 

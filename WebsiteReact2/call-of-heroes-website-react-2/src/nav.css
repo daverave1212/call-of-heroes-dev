@@ -1,8 +1,8 @@
+
 :root {
-    --nav-width: 70%;
     --nav-height: 80px;
     --nav-item-padding: 40px;
-    --nav-font-size: 20px;
+    --nav-font-size: var(--p-size);
     --nav-background-color: rgba(12, 15, 17, 1);
 
     --subnav-height: 50px;
@@ -43,11 +43,6 @@ nav {
     gap: var(--nav-item-padding);
 
     padding-left: var(--content-left);
-}
-@media (orientation: portrait) {
-    .nav-landscape {
-        display: none;
-    }
 }
 .nav-item {
     height: 100%;
@@ -220,6 +215,27 @@ nav {
     }
 }
 @media (orientation: portrait) {
+    :root {
+        --nav-item-padding: 8vw;
+        --nav-background-color: rgba(12, 15, 17, 1);
+    
+        --subnav-height: 50px;
+        --subnav-item-padding-left: 40px;
+        --subnav-item-padding-right: 20px;
+        --subnav-background-color: rgba(15, 15, 15, 1);
+    
+        --nav-z-mega-dropdown: 999;
+        --nav-z-item: 9999;
+        --undernav-padding: 15px;
+        --undernav-height: calc(var(--banner-3-height) + var(--undernav-padding) * 2);
+    }
+    
+
+    /* Hide landscape nav */
+    .nav-landscape {
+        display: none;
+    }
+
     /* ---------- Burger ---------- */
     .burger-icon {
         position: absolute;
@@ -254,7 +270,7 @@ nav {
         top: var(--nav-height);
         right: -20px;   /* To hide scrollbar */
 
-        width: 50vw;
+        width: 55vw;
         height: calc(100vh - var(--nav-height));
 
         overflow-y: scroll;

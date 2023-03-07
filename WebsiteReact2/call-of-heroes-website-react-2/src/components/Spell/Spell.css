@@ -9,18 +9,28 @@
     --spell-banner-height: 0px;
 
     --spell-padding: 16px;
+    --spell-passive-title-top-padding: 20.95px;
     --spell-padding-small: 6px;
     --spell-icon-size: 90px;
 
-    --subspell-size-multiplier: 0.75;
+    --subspell-size-multiplier: 0.85;
     
     --spell-notes-color: #999999;
+}
+@media (orientation: portrait) {
+    :root {
+        --spell-icon-size: 15vw;
+
+        --spell-padding: 3.5vw;
+        --spell-padding-small: 1.325vw;
+        /* --spell-passive-title-top-padding: 4.55vw; */
+        --spell-passive-title-top-padding: 2.225vw;
+    }
 }
 
 .spell {
     /* width: var(--spell-box-width); */
     width: 100%;
-    max-width: var(--spell-max-width);
     position: relative;
     margin: auto;
     margin-bottom: var(--element-padding);
@@ -29,6 +39,11 @@
 
     -webkit-box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.41); 
     box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.41);
+}
+@media (orientation: portrait) {
+    .spell {
+        max-width: 510px;
+    }
 }
 .spell--normal {}
 .spell--subspell {
@@ -121,7 +136,7 @@
     z-index: 100;
 }
 .spell--passive .spell-top__title__wrapper {
-    margin-top: calc(20.95px + var(--spell-padding));
+    margin-top: calc(var(--spell-passive-title-top-padding) + var(--spell-padding));
     margin-left: -7px;
 }
 .spell--subspell.spell--passive .spell-top__title__wrapper {
@@ -143,7 +158,7 @@
     padding-right: var(--spell-padding);
 
     font-weight: bold;
-    font-size: 1.25rem;
+    font-size: var(--p-size);
     letter-spacing: 0.075rem;
     font-family: TitleFont;
     text-align: center;
@@ -163,8 +178,8 @@
 }
 .spell-top__stats div {
     font-family: TextFont;
-    font-size: 0.9em;
-    line-height: 18px;
+    font-size: calc(var(--p-size) * 0.8);
+    line-height: calc(var(--p-size) * 0.9);
     display: inline-block;
 
     border-radius: 4px;
@@ -194,6 +209,7 @@
     margin-bottom: 0px;
 }
 .spell-description {
+    font-size: var(--p-size);
     padding: var(--spell-padding);
     padding-top: var(--spell-padding-small);
     padding-bottom: calc(var(--spell-padding) * 1.5);
@@ -203,7 +219,7 @@
     padding-top: var(--spell-padding-small);
     padding-bottom: calc(3 * var(--spell-padding-small));
 
-    font-size: 0.75em;
+    font-size: calc(var(--p-size) * 0.8);
 }
 .spell-notes {
     padding: var(--spell-padding);
@@ -212,7 +228,7 @@
 
     color: var(--spell-notes-color);
     font-style: italic;
-    font-size: 0.75em;
+    font-size: calc(var(--p-size) * 0.8);
 }
 
 
