@@ -43,6 +43,9 @@
 # Tiny Servant
 # Watcher Eye (can move at higher levels)
 # Meld with stone
+# Blur yourself
+# Enlarge/reduce
+
 
     # Nature
 # Fissure that damages...
@@ -65,6 +68,7 @@
 # Bone prisons
 # Finger of death
 # Wall passage
+# Blindness/deafness
 
     # Divine
 # Holy weapon
@@ -498,11 +502,11 @@ Warfare:
 
 Elemental:
 
-# [x] Damage (1 Action)
+# [x] Damage (1 Action)                 [Defense (Flame Bolt)]
 # [x] Damage (1 Action)     (Advanced)  [Direct, Direct]
-# [x] Damage (Half-Action)              
+# [x] Damage (Half-Action)              [Save (Acid Burst)]
 # [x] Damage (Half-Action)  (Advanced)  [Sustained]
-# [x] Damage (AoE)                      [Direct, Direct, Defense]
+# [x] Damage (AoE)                      [Defense (Land Breach), Direct, Direct]
 # [x] Damage (AoE)          (Advanced)  [Save, Save, Direct]
 # [ ] Stats
 # [x] Low CC
@@ -562,16 +566,19 @@ Elemental:
     ~Control Water~:
         A: 1 Action
         Range: 5 meters
+        Cooldown: Depends
         Effect: |
-            Choose a 1x1x1 meter cube of water or ice.
+            Choose a 1x1x1 meter cube, with or without water.
             Choose one of the following things to do with it:
-            - You can move it (Your Level) meters in any direction
-            - You can roughly alter its shape
-            - You can change its color or opacity
-            - You can alter its temperature, making it anywhere between near-freezing or near-boiling
-            Effects last for up to 1 hour.
+            - You can move the water in it (Your Level) meters in any direction
+            - You can roughly alter the water's shape
+            - You can change its water's color or opacity
+            - You can alter its water's temperature, making it anywhere between near-freezing or near-boiling
+            - You can fill it water or destroy all water in it
+            Shape, color and temperature effects last for up to 1 hour.
             The area increases to 2x2x2 meters at Level 4 and 4x4x4 meters at Level 8.
-        Notes: The water does no damage if it touches a Unit, but acts as difficult terrain for Units passing through it.
+        Upgrade: You can use this a number of times per Long Rest equal to your Level.
+        Notes: This Ability cannot do Damage or Crowd Control, but can act as difficult terrain for Units passing through it.
 
     ~Control Earth~:
         A: 1 Action
@@ -795,7 +802,9 @@ Arcane:
             Shoot a number of missiles equal to your Main Stat. Each missile does 1d4 Force damage (directly).
         Upgrade: |
             At Level 4, you can also spend any amount of Mana, and you shoot 2 more missiles for each Mana spent.
-        Notes: You can send missiles to different targets, but you must declare all the attacks at once.
+        Notes: |
+            You can send missiles to different targets, but you must declare all the attacks at once.
+            Each missile can be affected individually by Cover (e.g. shooting all 3 missiles at a Unit that has Cover makes each missile deal 1d4 - 2 damage).
 
     ~Prestidigitation~:
         A: 1 Action
@@ -1243,8 +1252,8 @@ Nature:
         A: 1 Action
         Range: 6 meters
         Effect: |
-            Attack a target for 2d6 + Main Stat Poison Damage.
-            If the target or (this attack) has cover, it deals an additional 1d8 Damage and this attack's damage type becomes Necrotic.
+            Attack a target for 2d8 Poison Damage.
+            If you (potentially) have cover against that enemy, the attack gains an extra 1d8 Damage and the damage type becomes Necrotic.
 
     ~Wild Heart~:
         A: 1 Action
@@ -1764,7 +1773,11 @@ Mysticism:
     ~Water Breathing~:
         A: 1 Action
         Requirement: Level 4
-        Duration: 
+        Duration: (Your Level) Hours
+        Cooldown: Long Rest
+        Effect: |
+            Up to 2 allies you can see (can include yourself) gain the ability to also breathe under water
+        Upgrade: Alternatively, if this Ability is on Cooldown, you can spend 1 Mana to cast it regardless.
     
     ~Wild Steed~ :
         A: 5 minutes

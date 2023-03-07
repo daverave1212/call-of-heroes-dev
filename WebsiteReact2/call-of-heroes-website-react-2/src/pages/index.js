@@ -29,7 +29,7 @@ export default function() {
   
       <div className='home__hero-section'>
         <div className='hero-image-container'>
-          <img src="/LandingPage/LandingPageBackground--variant7.png" className='hero-img'/>
+          <img src="/LandingPage/LandingPageBackground--variant8.png" className='hero-img'/>
         </div>
         <div className='hero-content'>
           <h1 className='home-title text-centered'>Roll For Adventure!</h1>
@@ -51,7 +51,7 @@ export default function() {
 
       <div className='home-advantages' id="home-advantages">
         <div className='advantages-image-container'>
-          <img src="/LandingPage/Advantages--variant2.png" className='advantages-img'/>
+          <img src="/Classes/Mage.png" className='advantages-img'/>
         </div>
 
         <div className='advantages-content hero-content'>
@@ -74,14 +74,14 @@ export default function() {
 
       <LandingPageSeparator type="8"/>
   
-      <div className='home-container__content'>
+      {/* <div className='home-container__content'>
         <HomeBanner2 title="Races" text="Discover the races of the Call of Heroes world."/>
         <HomeBanner2 title="Classes" text="Discover the classes of the Call of Heroes world."/>
         <HomeBanner2 title="Backgrounds" text="Discover the backgrounds of the Call of Heroes world."/>
         <HomeBanner2 title="Monsters" text="Discover the Monsters of the Call of Heroes world."/>
         <HomeBanner2 title="Spells" text="Discover the Spells of the Call of Heroes world."/>
         <HomeBanner2 title="Equipment" text="Discover the Equipment of the Call of Heroes world."/>
-      </div>
+      </div> */}
 
       {/* <LandingPageSeparator type="8"/> */}
     </div>
