@@ -268,7 +268,7 @@ export default function Nav({ navState, setNavState, isSimple, setIsSimple }) {
     return (
       <div id="Navigation-Section">
           <div className="nav-logo-div">
-            <Link to="/"><img src="favicon.png"/></Link>
+            <Link to="/"><img src="/favicon.png"/></Link>
           </div>
 
           <div className='burger-icon' onClick={onClickOnBurger}>

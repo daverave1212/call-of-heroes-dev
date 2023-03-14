@@ -69,6 +69,7 @@ import DungeonGenerator from './pages/Tools/DungeonGenerator';
 import RunePuzzle from './pages/Tools/RunePuzzle';
 import Proficiencies from './pages/Other/Proficiencies';
 import Encounters from './pages/Other/Encounters';
+import AbilitySheets from './pages/Other/AbilitySheets';
 
 function App() {
 
@@ -142,6 +143,8 @@ function App() {
               <Route path="/Other/CrowdControl" element={ <CrowdControl/> }/>
               <Route path="/Other/AreasOfEffect" element={ <AreasOfEffect/> }/>
               <Route path="/Other/Encounters" element={ <Encounters/> }/>
+
+              <Route path="/Other/AbilitySheets" element={ <AbilitySheets/> }/>
               
               <Route path="/Lore/Levels" element={ <Levels/> }/>
               <Route path="/Lore/SpellSchoolDescriptions" element={ <SpellSchoolDescriptions/> }/>

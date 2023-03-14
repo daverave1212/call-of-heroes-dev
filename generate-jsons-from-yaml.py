@@ -12,8 +12,8 @@ from os import path
 yaml_root_folder = 'Design'
 json_root_folder = 'WebsiteReact2/call-of-heroes-website-react-2/src/databases'
 
-abilities = {}          # Holds all non-class abilities, like feats and spells from spell lists; used for Inheriting only
-
+abilities = {}              # Holds all non-class abilities, like feats and spells from spell lists; used for Inheriting only
+class_race_abilities = {}   # Holds all class/race abilities and is then written to a file
 
 classes = [
     'Cleric',
@@ -28,6 +28,7 @@ classes = [
 ]
 races = [
     'Bertle',
+    'Davel',
     'Dragonborn',
     'Dwarf',
     'Elf',
@@ -42,7 +43,6 @@ files_to_convert = [    # Order matters
     'Abilities.yml',
     'Animals.yml',
     'Armors.yml',
-    # 'Backgrounds.yml',
     'Feats.yml',
     'Monsters.yml',
     'Prices.yml',
@@ -180,6 +180,7 @@ if __name__ == '__main__':
         if 'Class' in dict_content:
             record_abilities_from(dict_content, abilities)
             normalize_inherit_abilities(dict_content)
+            record_abilities_from(dict_content, class_race_abilities)
 
         if file_name == 'Backgrounds.yml':
             backgrounds = list(dict_content.keys())
@@ -187,6 +188,7 @@ if __name__ == '__main__':
         if 'Race' in dict_content:
             record_abilities_from(dict_content, abilities)
             normalize_inherit_abilities(dict_content)
+            record_abilities_from(dict_content, class_race_abilities)
 
         file_name_with_yaml_extension = path.basename(file_name)
         file_name_no_extension = path.splitext(file_name_with_yaml_extension)[0]
@@ -206,4 +208,8 @@ if __name__ == '__main__':
     overall_data_json = json.dumps(overall_data, indent=4)
     with open(json_root_folder + '/' + 'OverallData.json', 'w+') as f:
         f.write(overall_data_json)
+
+    class_race_abilities_json = json.dumps(class_race_abilities, indent=4)
+    with open(json_root_folder + '/' + 'ClassAndRaceAbilities.json', 'w+') as f:
+        f.write(class_race_abilities_json)
 
