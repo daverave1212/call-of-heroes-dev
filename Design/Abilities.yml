@@ -155,16 +155,17 @@ Default Moves:
 
 
     ~Dash~:
-        A: 1 Action
-        Effect: Replenish your Movement this turn and you can move again if you already moved.
+        A: Half-Action
+        Effect: Move up to half of your movement speed (rounded down).
+        Notes: When you Dash, you can move even if you already moved this turn. Dash is affected by Slows, Roots, etc. You can not Dash if you are Rooted.
         
     ~Defend~:
-        A: 1 Action
-        Effect: Until the start of your next turn, your Defense and all Combat Checks increase by +2.
+        A: Half-Action
+        Effect: Until the start of your next turn, your Defense and all Combat Checks increase by +1. This can stack multiple times if you use it multiple times.
         
     ~Disengage~:
-        A: 1 Action
-        Effect: You don't trigger attacks of oportunity this turn.
+        A: Half-Action
+        Effect: This turn, you are immune to Fleeing.
         
     ~Improvised Attack~:
         A: Half-Action or 1 Action
@@ -179,17 +180,21 @@ Default Moves:
             A Medium object is considered something you can grab and throw with your hand (e.g. something up to 50cm across, a chair, etc).
             A Large object is something you would not be able to throw with only one hand (e.g. a table).
         
+    ~Intimidating Mock~:
+        A: Half-Action
+        Effect: |
+            A Unit that can see or hear you must pass a Charisma Check or become Fleeing until the end of its (next) turn.
+
     ~Push~:
-        A: 1 Action
+        A: Half-Action
         Range: 1 meter
-        Effect: |
-            Try to push a Unit 1 meter in any direction (Might or Dexterity Check, its choice).
+        Effect: A Unit must pass a Might Check or be pushed 1 meter in any direction you choose.
             
-    ~Shift~:
-        A: 0 Actions
-        Effect: |
-            You can move 1 meter without triggering attacks of oportunity.
-            This turn you can't move normally (and you can't use this if you already did).
+    # ~Shift~:
+    #     A: 0 Actions
+    #     Effect: |
+    #         You can move 1 meter without triggering attacks of oportunity.
+    #         This turn you can't move normally (and you can't use this if you already did).
             
     ~Taunt~:
         A: Half-Action
@@ -251,7 +256,7 @@ Bloodshed:
         A: 1 Action
         Effect: |
             You make a Might roll and the target makes a Dexterity or Might roll (its choice).
-            If you roll equal to or more than the enemy, the enemy becomes Grappled (Snared and Dazed).
+            If you roll equal to or more than the enemy, the enemy becomes Grappled (Rooted and Dazed).
 
     ~Hamstring~:
         A: Half-Action
@@ -335,7 +340,7 @@ Bloodshed:
         A: 0 Actions
         Cost: 1 Mana
         Effect: |
-            Heal yourself for 1d6 and remove all Snare and Slow effects on you.
+            Heal yourself for 1d6 and remove all Root and Slow effects on you.
         Upgrade: |
             At Level 4, the healing increases to 1d8.
             At Level 6 this also removes Cripples.
@@ -395,7 +400,7 @@ Warfare:
         A: 1 Action
         Effect: |
             You make a Might roll and the target makes a Dexterity or Might roll (its choice).
-            If you roll equal to or more than the enemy, the enemy becomes Grappled (Snared and Dazed).
+            If you roll equal to or more than the enemy, the enemy becomes Grappled (Rooted and Dazed).
 
     ~Hamstring~:
         A: Half-Action
@@ -443,7 +448,7 @@ Warfare:
         A: 0 Actions
         Cooldown: Long Rest
         Effect: |
-            All Prone allies (and you) immediately stand up. All allies (and you) remove their Snares and Slows.
+            All Prone allies (and you) immediately stand up. All allies (and you) remove their Roots and Slows.
             None of you can suffer from Fleeing until the start of your next turn.
             You (yourself) can continue your movement if you already moved.
         Notes: Fleeing is when you move away from an enemy's melee attack range; if you are Fleeing, all your actions have Cover.
@@ -683,7 +688,7 @@ Elemental:
         Effect: |
             Place a rune on a smooth solid surface. The rune covers a 1x1 area.
             Heavy physical contact with the rune detonates it, dealing 4d6 Cold Damage (against Defense) to the Unit that activates it.
-            Also, it must pass a Dexterity Check or be Snared.
+            Also, it must pass a Dexterity Check or be Rooted.
         Notes: This is not considered an attack.
 
     ~Explosion Rune~:
@@ -955,7 +960,7 @@ Arcane:
             You can levitate one object you can see that remains within 10 meters of you.
             You can slowly move the object vertically, 1 meter for each 2 of your movement points spent to levitate.
             If you use this on an enemy, it must fail a Might Check to be levitated, and can repeat the Check at the end of each of its turns.
-            A levitated Unit counts as Snared.
+            A levitated Unit counts as Rooted.
             Losing concentration (taking damage or being Crowd Controlled) instantly starts slowly dropping the target and breaks the Levitate.
         Upgrade: |
             At Level 8, the amount increases to 5d100.
@@ -1142,7 +1147,7 @@ Nature:
         Cost: 1 Mana
         Cooldown: 1 use / Combat
         Effect: |
-            An ally (or yourself) becomes Snared in the ground for up to 1 minute.
+            An ally (or yourself) becomes Rooted in the ground for up to 1 minute.
             While rooted, that Unit's Defense can't be lower than 6.
         Notes: You can cancel this effect at any point at will.
 
@@ -1238,8 +1243,8 @@ Nature:
             - Is standing directly on vegetation
             - It's night and the target is outdoors
             It takes damage (directly) and must pass a Wisdom Check or suffer a Crowd Control effect based on its number of matched criteria:
-            - 1: 1d4 damage, Snared
-            - 2: 2d4 damage, Snared and Crippled
+            - 1: 1d4 damage, Rooted
+            - 2: 2d4 damage, Rooted and Crippled
             - 3: 3d4 damage, Stunned
 
     ~Thorn Quills~:
@@ -1315,7 +1320,7 @@ Conjuration:
 # [ ] Damage (AoE)          (Advanced)
 # [ ] Stats
 # [x] Low CC                            [Fog?]
-# [x] Medium CC                         [Snare (Web)]
+# [x] Medium CC                         [Root (Web)]
 # [x] Hard CC                           [Stun (Polymorph)]
 # [ ] Healing
 # [ ] Tranking/Protection (Shielding)
@@ -1490,7 +1495,7 @@ Conjuration:
         Effect: |
             Declare a 4x4 meter zone
             The zone becomes filled with spider web and counts as Difficult Terrain.
-            If a Unit exits the zone, it must pass a Dexterity Check or be Snared.
+            If a Unit exits the zone, it must pass a Dexterity Check or be Rooted.
 
     ~Shadow Clone~:
         A: 0 Actions
@@ -1635,21 +1640,21 @@ Mysticism:
     
     # Advanced Spells
     ~Restoration~:
-        A: 1 Action
-        Cooldown: Long Rest
-        Effect: |
-            Remove all your party members' Exhaustion from rising after being Fallen, from not sleeping and from magical effects.
-            
-    ~Blessing of Wisdom~:
         A: 0 Actions
-        Cost: 1 Mana
         Cooldown: Long Rest
         Effect: |
-            An ally you can see (or yourself) restores 1 Mana and has +1 Main Stat for 8 hours.
-            Then, that Unit becomes immune to Blessing of Wisdom until its next Long Rest.
-        Notes: |
-            Mana restored can't exceed their maximum Mana.
-            A Unit can't have multiple Blessings of Wisdom on it.
+            Remove all your party members' Exhaustion (from any source).
+            
+    # ~Blessing of Wisdom~:
+    #     A: 0 Actions
+    #     Cost: 1 Mana
+    #     Cooldown: Long Rest
+    #     Effect: |
+    #         An ally you can see (or yourself) restores 1 Mana and gains +2 to Wisdom Checks unti.
+    #         Then, that Unit becomes immune to Blessing of Wisdom until its next Long Rest.
+    #     Notes: |
+    #         Mana restored can't exceed their maximum Mana.
+    #         A Unit can't have multiple Blessings of Wisdom on it.
 
     ~Expelling Bolt~:
         A: Half-Action

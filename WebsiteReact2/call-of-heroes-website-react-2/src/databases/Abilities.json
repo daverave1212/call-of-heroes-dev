@@ -1,18 +1,19 @@
 {
     "Default Moves": {
         "~Dash~": {
-            "A": "1 Action",
-            "Effect": "Replenish your Movement this turn and you can move again if you already moved.",
+            "A": "Half-Action",
+            "Effect": "Move up to half of your movement speed (rounded down).",
+            "Notes": "When you Dash, you can move even if you already moved this turn. Dash is affected by Slows, Roots, etc. You can not Dash if you are Rooted.",
             "Name": "~Dash~"
         },
         "~Defend~": {
-            "A": "1 Action",
-            "Effect": "Until the start of your next turn, your Defense and all Combat Checks increase by +2.",
+            "A": "Half-Action",
+            "Effect": "Until the start of your next turn, your Defense and all Combat Checks increase by +1. This can stack multiple times if you use it multiple times.",
             "Name": "~Defend~"
         },
         "~Disengage~": {
-            "A": "1 Action",
-            "Effect": "You don't trigger attacks of oportunity this turn.",
+            "A": "Half-Action",
+            "Effect": "This turn, you are immune to Fleeing.",
             "Name": "~Disengage~"
         },
         "~Improvised Attack~": {
@@ -21,16 +22,16 @@
             "Notes": "A Small object is considered something you can hold in your hand (e.g. something up to 20cm across, a rock, etc).\nA Medium object is considered something you can grab and throw with your hand (e.g. something up to 50cm across, a chair, etc).\nA Large object is something you would not be able to throw with only one hand (e.g. a table).\n",
             "Name": "~Improvised Attack~"
         },
-        "~Push~": {
-            "A": "1 Action",
-            "Range": "1 meter",
-            "Effect": "Try to push a Unit 1 meter in any direction (Might or Dexterity Check, its choice).\n",
-            "Name": "~Push~"
+        "~Intimidating Mock~": {
+            "A": "Half-Action",
+            "Effect": "A Unit that can see or hear you must pass a Charisma Check or become Fleeing until the end of its (next) turn.\n",
+            "Name": "~Intimidating Mock~"
         },
-        "~Shift~": {
-            "A": "0 Actions",
-            "Effect": "You can move 1 meter without triggering attacks of oportunity.\nThis turn you can't move normally (and you can't use this if you already did).\n",
-            "Name": "~Shift~"
+        "~Push~": {
+            "A": "Half-Action",
+            "Range": "1 meter",
+            "Effect": "A Unit must pass a Might Check or be pushed 1 meter in any direction you choose.",
+            "Name": "~Push~"
         },
         "~Taunt~": {
             "A": "Half-Action",
@@ -68,7 +69,7 @@
         },
         "~Grapple~": {
             "A": "1 Action",
-            "Effect": "You make a Might roll and the target makes a Dexterity or Might roll (its choice).\nIf you roll equal to or more than the enemy, the enemy becomes Grappled (Snared and Dazed).\n",
+            "Effect": "You make a Might roll and the target makes a Dexterity or Might roll (its choice).\nIf you roll equal to or more than the enemy, the enemy becomes Grappled (Rooted and Dazed).\n",
             "Name": "~Grapple~"
         },
         "~Hamstring~": {
@@ -131,7 +132,7 @@
         "~Recuperate~": {
             "A": "0 Actions",
             "Cost": "1 Mana",
-            "Effect": "Heal yourself for 1d6 and remove all Snare and Slow effects on you.\n",
+            "Effect": "Heal yourself for 1d6 and remove all Root and Slow effects on you.\n",
             "Upgrade": "At Level 4, the healing increases to 1d8.\nAt Level 6 this also removes Cripples.\n",
             "Name": "~Recuperate~"
         },
@@ -173,7 +174,7 @@
         },
         "~Grapple~": {
             "A": "1 Action",
-            "Effect": "You make a Might roll and the target makes a Dexterity or Might roll (its choice).\nIf you roll equal to or more than the enemy, the enemy becomes Grappled (Snared and Dazed).\n",
+            "Effect": "You make a Might roll and the target makes a Dexterity or Might roll (its choice).\nIf you roll equal to or more than the enemy, the enemy becomes Grappled (Rooted and Dazed).\n",
             "Name": "~Grapple~"
         },
         "~Hamstring~": {
@@ -211,7 +212,7 @@
         "~Stand Stoic~": {
             "A": "0 Actions",
             "Cooldown": "Long Rest",
-            "Effect": "All Prone allies (and you) immediately stand up. All allies (and you) remove their Snares and Slows.\nNone of you can suffer from Fleeing until the start of your next turn.\nYou (yourself) can continue your movement if you already moved.\n",
+            "Effect": "All Prone allies (and you) immediately stand up. All allies (and you) remove their Roots and Slows.\nNone of you can suffer from Fleeing until the start of your next turn.\nYou (yourself) can continue your movement if you already moved.\n",
             "Notes": "Fleeing is when you move away from an enemy's melee attack range; if you are Fleeing, all your actions have Cover.",
             "Name": "~Stand Stoic~"
         },
@@ -374,7 +375,7 @@
             "Cost": "1 Mana",
             "Range": "1 meter",
             "Duration": "8 hours",
-            "Effect": "Place a rune on a smooth solid surface. The rune covers a 1x1 area.\nHeavy physical contact with the rune detonates it, dealing 4d6 Cold Damage (against Defense) to the Unit that activates it.\nAlso, it must pass a Dexterity Check or be Snared.\n",
+            "Effect": "Place a rune on a smooth solid surface. The rune covers a 1x1 area.\nHeavy physical contact with the rune detonates it, dealing 4d6 Cold Damage (against Defense) to the Unit that activates it.\nAlso, it must pass a Dexterity Check or be Rooted.\n",
             "Notes": "This is not considered an attack.",
             "Name": "~Frost Rune~"
         },
@@ -572,7 +573,7 @@
             "A": "1 Action",
             "Requirement": "Level 4",
             "Cost": "1 Mana",
-            "Effect": "First, roll 2d100. That's how many kilograms you can levitate when you cast this.\nYou can levitate one object you can see that remains within 10 meters of you.\nYou can slowly move the object vertically, 1 meter for each 2 of your movement points spent to levitate.\nIf you use this on an enemy, it must fail a Might Check to be levitated, and can repeat the Check at the end of each of its turns.\nA levitated Unit counts as Snared.\nLosing concentration (taking damage or being Crowd Controlled) instantly starts slowly dropping the target and breaks the Levitate.\n",
+            "Effect": "First, roll 2d100. That's how many kilograms you can levitate when you cast this.\nYou can levitate one object you can see that remains within 10 meters of you.\nYou can slowly move the object vertically, 1 meter for each 2 of your movement points spent to levitate.\nIf you use this on an enemy, it must fail a Might Check to be levitated, and can repeat the Check at the end of each of its turns.\nA levitated Unit counts as Rooted.\nLosing concentration (taking damage or being Crowd Controlled) instantly starts slowly dropping the target and breaks the Levitate.\n",
             "Upgrade": "At Level 8, the amount increases to 5d100.\n",
             "Name": "~Levitate~"
         },
@@ -706,7 +707,7 @@
             "Range": "10 meters",
             "Cost": "1 Mana",
             "Cooldown": "1 use / Combat",
-            "Effect": "An ally (or yourself) becomes Snared in the ground for up to 1 minute.\nWhile rooted, that Unit's Defense can't be lower than 6.\n",
+            "Effect": "An ally (or yourself) becomes Rooted in the ground for up to 1 minute.\nWhile rooted, that Unit's Defense can't be lower than 6.\n",
             "Notes": "You can cancel this effect at any point at will.",
             "Name": "~Barkskin~"
         },
@@ -788,7 +789,7 @@
             "A": "1 Action",
             "Range": "10 meters",
             "Cost": "1 Mana",
-            "Effect": "Choose a Unit.\nCount how many of these criteria it matches:\n- Has armor made of organic material (leather, hide, hemp, etc)\n- Is standing directly on vegetation\n- It's night and the target is outdoors\nIt takes damage (directly) and must pass a Wisdom Check or suffer a Crowd Control effect based on its number of matched criteria:\n- 1: 1d4 damage, Snared\n- 2: 2d4 damage, Snared and Crippled\n- 3: 3d4 damage, Stunned\n",
+            "Effect": "Choose a Unit.\nCount how many of these criteria it matches:\n- Has armor made of organic material (leather, hide, hemp, etc)\n- Is standing directly on vegetation\n- It's night and the target is outdoors\nIt takes damage (directly) and must pass a Wisdom Check or suffer a Crowd Control effect based on its number of matched criteria:\n- 1: 1d4 damage, Rooted\n- 2: 2d4 damage, Rooted and Crippled\n- 3: 3d4 damage, Stunned\n",
             "Name": "~Scape Grasp~"
         },
         "~Thorn Quills~": {
@@ -967,7 +968,7 @@
             "Cost": "1 Mana",
             "Range": "5 meters to edge",
             "Duration": "1 minute",
-            "Effect": "Declare a 4x4 meter zone\nThe zone becomes filled with spider web and counts as Difficult Terrain.\nIf a Unit exits the zone, it must pass a Dexterity Check or be Snared.\n",
+            "Effect": "Declare a 4x4 meter zone\nThe zone becomes filled with spider web and counts as Difficult Terrain.\nIf a Unit exits the zone, it must pass a Dexterity Check or be Rooted.\n",
             "Name": "~Web~"
         },
         "~Shadow Clone~": {
@@ -1077,18 +1078,10 @@
             "Name": "~Speak With Plants~"
         },
         "~Restoration~": {
-            "A": "1 Action",
-            "Cooldown": "Long Rest",
-            "Effect": "Remove all your party members' Exhaustion from rising after being Fallen, from not sleeping and from magical effects.\n",
-            "Name": "~Restoration~"
-        },
-        "~Blessing of Wisdom~": {
             "A": "0 Actions",
-            "Cost": "1 Mana",
             "Cooldown": "Long Rest",
-            "Effect": "An ally you can see (or yourself) restores 1 Mana and has +1 Main Stat for 8 hours.\nThen, that Unit becomes immune to Blessing of Wisdom until its next Long Rest.\n",
-            "Notes": "Mana restored can't exceed their maximum Mana.\nA Unit can't have multiple Blessings of Wisdom on it.\n",
-            "Name": "~Blessing of Wisdom~"
+            "Effect": "Remove all your party members' Exhaustion (from any source).\n",
+            "Name": "~Restoration~"
         },
         "~Expelling Bolt~": {
             "A": "Half-Action",

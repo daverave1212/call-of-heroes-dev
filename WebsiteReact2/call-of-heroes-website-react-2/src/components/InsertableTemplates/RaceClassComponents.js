@@ -29,24 +29,33 @@ import Page from '../../containers/Page/Page'
 
 export function Proficiencies({ name, theRaceOrClass }) {
 
+    const baseProficienciesDescription = `All Classes get a number of extra Proficiencies. Think of something specific your character is good at outside of combat (e.g. things like acrobatics, knowing about monsters, lying, etc). Whenever you make a Check for what you're good at, add your Level to that Check.`
+
     return (
         <div style={{marginTop: 'var(--page-padding)'}} id="proficiencies">
-            { theRaceOrClass.Proficiencies != null && (
-                Object.keys(theRaceOrClass.Proficiencies).length == 1 ? (
+            {
+                theRaceOrClass.Proficiencies == null || Object.keys(theRaceOrClass.Proficiencies).length == 0 ? (
                     <div>
                         <PageH3>Proficiencies</PageH3>
-                        <p>As a { name }, you have all the following Abilities. Each of them is a Proficiency, which is generally a passive Ability that gives you a bonus on non-combat Checks in a certain domain.</p>
-                        <AbilitiesWithDescription autoAlign={true} spellsObject={theRaceOrClass.Proficiencies} description={theRaceOrClass['Proficiencies Description']}/>
+                        <p>{ theRaceOrClass['Proficiencies Description'] }</p>
+                    </div>
+                ) : Object.keys(theRaceOrClass.Proficiencies).length == 1 ? (
+                    <div>
+                        <PageH3>Proficiencies</PageH3>
+                        {/* <p>As a { name }, you have all the following Abilities. Each of them is a Proficiency, which is a passive Ability that gives you a bonus on non-combat Checks in a certain domain.</p> */}
+                        <p>{ theRaceOrClass['Proficiencies Description'] }</p>
+                        <AbilitiesWithDescription autoAlign={true}  spellsObject={theRaceOrClass.Proficiencies} description={baseProficienciesDescription}/>
                     </div>
                 ) : (
                     <div>
                         <PageH3>Proficiencies</PageH3>
-                        <p>As a { name }, you have all the following Abilities. Each of them is a Proficiency, which is generally a passive Ability that gives you a bonus on non-combat Checks in a certain domain.</p>
-                        <p>{theRaceOrClass['Proficiencies Description']}</p>
-                        <AbilitiesWithDescription autoAlign={true} spellsObject={theRaceOrClass.Proficiencies}/>
+                        {/* <p>As a { name }, you have all the following Abilities. Each of them is a Proficiency, which is generally a passive Ability that gives you a bonus on non-combat Checks in a certain domain.</p> */}
+                        <p>{ theRaceOrClass['Proficiencies Description'] }</p>
+                        <p>{ baseProficienciesDescription }</p>
+                        <AbilitiesWithDescription autoAlign={false} spellsObject={theRaceOrClass.Proficiencies}/>
                     </div>
                 )
-            ) }
+            }
             { theRaceOrClass['Proficiency Choices'] != null && (
                 <div>
                     <PageH3>Proficiency Choices</PageH3>
@@ -75,6 +84,7 @@ export function ClassFeatures({ theClass }) {
                         { theClass['Language'] && <SmallStat name="Language" topDown='true'>{ theClass['Language'] }</SmallStat> }
                         { theClass.Weapons && <SmallStat name="Weapons" topDown='true'>{ theClass.Weapons }</SmallStat> }
                         { theClass.Feat && <SmallStat name="Feats" topDown='true'>You start with one Feat of choice.</SmallStat> }
+                        <SmallStat name="Proficiencies" topDown='true'>{ theClass['Proficiency Requirements'] }</SmallStat>
                     </div>
                 </Column>
                 <Column>
@@ -200,16 +210,21 @@ export function SpellCasting({ theClass }) {
             <div>
                 <PageH3>Mana-Based Spellcasting</PageH3>
                 <p>
-                    <span style={{ whiteSpace: 'pre-line' }}>{ rules['Known Spells (Mana-based)'] }</span>
-                    <Separator/>
+                    Mana is a resource you can spend to cast Abilities. Some Abilities have a Mana cost, some don't. The Mana cost of an Ability is indicated by a small icon of a blue flame, in its upper side below the title (usually next to the Action cost).
                     All your Mana replenishes when you finish a Long Rest.
                 </p>
-                <br/><br/>
                 <PageH3>Changing Spells</PageH3>
                 <p>
                     You can change your known Spells (not Talents) when taking a Long Rest.<br/>
                     Talents can't generally be changed once picked; they are permenant decisions.
-                    { theClass.Spellcasting.Other }
+                </p>
+                <p>
+                { theClass.Spellcasting.Other }
+                </p>
+                <PageH3>Spell Grade</PageH3>
+                <p>
+                    The Spell Grade is the number your enemies have to roll to pass Checks when you make them roll a Check.
+                    To pass the Check, they need to roll equal to or higher than your Spell Grade.
                 </p>
             </div>
         )
@@ -248,7 +263,9 @@ export function SpellCasting({ theClass }) {
                 <Column>
                     <PageH3>Spell Stats</PageH3>
                     <div className='with-margined-children'>
-                        <SmallStat name="Spellcasting Style" color="blue">{ theClass['Spellcasting']['Type'] }</SmallStat>
+                        { theClass['Spellcasting']['Type'] != null && theClass['Spellcasting']['Type'] != 'Mana-based' && (
+                            <SmallStat name="Spellcasting Style" color="blue">{ theClass['Spellcasting']['Type'] }</SmallStat>
+                        ) }
                         { theClass['Spellcasting']['Mana'] != null && (
                             <SmallStat name="Mana" color="blue">{ theClass['Spellcasting']['Mana']['Amount'] } <Icon name="Mana"/></SmallStat>
                         ) }
@@ -256,14 +273,14 @@ export function SpellCasting({ theClass }) {
                             <SmallStat name="Insight" color="blue">{ theClass['Spellcasting']['Insight'] } <Icon name="Insight"/></SmallStat>
                         ) }
                         <SmallStat name="Main Stat" color="blue">{ theClass['Spellcasting']['Main Stat'] }</SmallStat>
-                        <SmallStat name="Counter Check Grade" color="blue">{ theClass['Spellcasting']['Counter Check Grade'] }</SmallStat>
+                        <SmallStat name="Spell Grade" color="blue">{ theClass['Spellcasting']['Counter Check Grade'] }</SmallStat>
                     </div>
                     
                     <PageH3>Known Spells</PageH3>
                     <div className='with-margined-children'>
                         {
                             theClass['Spellcasting']['Known Spells'] != null && (
-                                <SmallStat name="Known Spells (from Spell Lists)" color="blue">
+                                <SmallStat name="Known Spells (from Spell Lists)" topDown={true} color="blue">
                                     { theClass['Spellcasting']['Known Spells'] }
                                 </SmallStat>
                             )
@@ -366,14 +383,22 @@ export function SADescription({description}) {
         ))
     }
 }
-export function AbilitiesWithDescription({ spellsObject, description, title, autoAlign, id }) {
+export function AbilitiesWithDescription({ spellsObject, description, title, autoAlign, id, forceLeft }) {
     autoAlign = autoAlign == null? false : true
 
     const spells = U.sortSpellsArrayByOrderOnWebsite(U.spellsFromObject(spellsObject))
 
-    const spellsLeft = spells.filter(spell => spell.AlignOnWebsite == 'Left')
-    const spellsRight = spells.filter(spell => spell.AlignOnWebsite == 'Right')
-    const unalignedSpells = spells.filter(spell => spell.AlignOnWebsite == null)
+    let spellsLeft      = []
+    let spellsRight     = []
+    let unalignedSpells = []
+    
+    if (forceLeft == true) {
+        spellsLeft = spells
+    } else {
+        spellsLeft = spells.filter(spell => spell.AlignOnWebsite == 'Left')
+        spellsRight = spells.filter(spell => spell.AlignOnWebsite == 'Right')
+        unalignedSpells = spells.filter(spell => spell.AlignOnWebsite == null)
+    }
     
     for (let i = 0; i < unalignedSpells.length; i++) {
         const spell = unalignedSpells[i]
