@@ -107,7 +107,7 @@
                 "Heal": "Heal a unit for 10 (15m range) (3 times per combat)."
             },
             {
-                "Silencing Flame (Ranged Only)": "A target makes a 10 Grade Wisdom Check.\nOn Fail: takes 2d6 Fire damage and Silenced.\nOn Success: takes half of the damage.\n1 time per combat.\n"
+                "Silencing Flame (Ranged Only)": "A target makes a 10 Grade Sense Check.\nOn Fail: takes 2d6 Fire damage and Silenced.\nOn Success: takes half of the damage.\n1 time per combat.\n"
             },
             {
                 "Weapon": "1d4 + 4"
@@ -135,10 +135,13 @@
         "Initiative": 9,
         "Abilities": [
             {
-                "Eldritch Blast (spell)": "1d6 + 5 Force"
+                "Eldritch Blast (spell)": {
+                    "Damage": "1d6 + 3 Force",
+                    "Effect": "On 6, target must pass a Might Check or be pushed 3 meters.\nOn 1, Slows the target.\n"
+                }
             },
             {
-                "Dagger": "2d4 + 1 Pierce (when in melee range or when Silenced)"
+                "Dagger": "1d4 + 2 Pierce (when Silenced)"
             }
         ],
         "Avoids AoE": true,
@@ -167,10 +170,10 @@
         "Initiative": "6 Melee / 12 Ranged",
         "Abilities": [
             {
-                "Ranged (Sling/Blowgun) (x2)": "1d6 + 2"
+                "Ranged (Sling/Blowgun) (x2)": "1d6 + 1"
             },
             {
-                "1H Weapon (x2)": "1d6 + 2"
+                "1H Weapon (x2)": "1d6 + 1"
             }
         ],
         "Passives": [
@@ -203,16 +206,16 @@
         "Type": "Humanoid",
         "Experience": 100,
         "Stats": "1/4/0/2/0",
-        "Health": 22,
+        "Health": 25,
         "Armor": 1,
         "Speed": 5,
         "Initiative": 8,
         "Abilities": [
             {
-                "Spear Throw (3m range)": "1d8 + 4 Pierce"
+                "Spear Throw (3m range)": "1d8 + 2 Pierce"
             },
             {
-                "Net (Free) (5m range)": "Target makes a 10 Grade Dexterity Check or is Rooted. Usable only once per combat."
+                "Net (0 Actions) (5m range)": "Target makes a 10 Grade Dexterity Check or is Rooted. Usable only once per combat."
             }
         ],
         "Passives": [
@@ -220,7 +223,7 @@
                 "Water Healing (group)": "At the end of every Round, all Morlocs heal for 5 Health if in water (even shallow water)."
             },
             {
-                "Fast Swimmers": "8 Speed in water (whether or not it's swimming)."
+                "Fast Swimmers": "Can move 2 meters for each 1 meter spent for movement in water."
             },
             {
                 "Paddle Feet": "Immune to difficult terrain and caltrops (except wind)."
@@ -246,21 +249,15 @@
         "Health": 27,
         "Armor": "3 (Armor)",
         "Speed": 5,
-        "Initiative": "8 Melee / or 12 Ranged",
+        "Initiative": "8 Melee / 12 Ranged",
         "Abilities": [
             {
-                "Bow": "1d8 + 4 Pierce"
-            },
-            {
-                "2H Weapon": {
-                    "Damage": "2d6 + 2",
-                    "Heavy Blow": "If rolls at least one 6, try to Root or Cripple the target (they choose) (10 Grade Might Check)"
-                }
+                "Bow": "1d6 + 4 Pierce"
             },
             {
                 "1H Weapon (x2)": {
-                    "Damage": "1d6 + 3",
-                    "Kick": "If rolls 6, try to knock the target Prone (10 Grade Dexterity Check)"
+                    "Damage": "1d6 + 2",
+                    "Kick": "On 6, try Cripple target (10 Grade Dexterity Check).\nOn 1, try steal an item or 4d10 gold from target (10 Grade Dexterity Check).\n"
                 }
             }
         ],
@@ -280,16 +277,16 @@
         "Type": "Humanoid",
         "Experience": 125,
         "Stats": "1/4/2/2/2",
-        "Health": 25,
+        "Health": 23,
         "Armor": "3 (Agile/Magical)",
         "Speed": 6,
         "Initiative": "10 Melee / 14 Ranged",
         "Abilities": [
             {
-                "Ranged": "1d8 + 5"
+                "Ranged": "1d8 + 3"
             },
             {
-                "Weapon": "3d4 + 2"
+                "Weapon": "1d6 + 4"
             },
             {
                 "Darkness (Free)": "At the end of their first turn, they create a 5x5 meter area of Magical Darkness on their spot. This provides Cover to all units inside against all attacks. The darkness remains there for 1 minute."
@@ -306,7 +303,7 @@
                 "Magical Darkvision": "Can see in the dark and in magical darkness."
             },
             {
-                "Light Sensitivity": "Disadvantage on Checks against Blinding."
+                "Light Sensitivity": "Automatically fail Checks against Blinding."
             }
         ],
         "Avoids AoE": true,
@@ -327,21 +324,21 @@
         "Type": "Humanoid, Giant",
         "Degree": "Epic x2",
         "Experience": "250 (125 x2)",
-        "Stats": "6/2/2/2/2",
-        "Health": 50,
+        "Stats": "6/0/-1/2/-1",
+        "Health": 59,
         "Armor": "4 (Innate)",
         "Speed": 3,
         "Initiative": 6,
         "Abilities": [
             {
                 "Slam": {
-                    "Damage": "2d6 + 2 Smash",
-                    "Throw": "If rolled at least a 1 or an 8, the target makes a 11 Grade Might Check.\nIf it fails, the Ogre throws it up to 5 meters distance.\nIf it collides with something, it (and the collider) takes an extra 1d6 damage.\nObstacles that can easily break will break.\n"
+                    "Damage": "2d6 + 1 Smash",
+                    "Throw": "If rolled at least a 1 or an 6, the target makes a 11 Grade Might Check.\nIf it fails, the Ogre throws it up to 5 meters distance.\nIf it collides with something, it (and the collider) takes an extra 1d6 damage.\nObstacles that can easily break will break.\n"
                 }
             },
             {
                 "Hurl Rock (6m range)": {
-                    "Damage": "2d4 + 3 Smash",
+                    "Damage": "3d4 Smash",
                     "Break": "After the attack, if the target had Cover, the Cover breaks (if it can break)."
                 }
             },
@@ -382,15 +379,15 @@
         "Initiative": "11 Melee / 2 Ranged",
         "Abilities": [
             {
-                "Ranged Weapon": "2d6 + 2"
+                "Ranged Weapon": "1d8 + 3"
             },
             {
-                "Melee Weapon": "1d10 + 4"
+                "Melee Weapon": "2d4 + 3"
             },
             {
-                "Bite*": {
-                    "Damage": "1d8 + 4",
-                    "Heal Reduction": "If Bite dealt damage, the target can't be healed until the combat is over."
+                "Bite* (x2)": {
+                    "Damage": "1d8 + 1",
+                    "Gnoll Fever": "If Bite dealt damage, the target can't be healed until the combat is over."
                 }
             }
         ],
@@ -416,22 +413,22 @@
         "Type": "Humanoid",
         "Experience": 175,
         "Stats": "3/2/1/2/0",
-        "Health": 27,
+        "Health": 34,
         "Armor": "4 (Armor)",
         "Speed": 4,
         "Initiative": "8 Melee / 12 Ranged",
         "Abilities": [
             {
-                "Crossbow": "1d10 + 5 (Pierce)"
+                "Crossbow": "1d10 + 3 (Pierce)"
             },
             {
                 "Melee": {
-                    "Damage": "2d6 + 2",
-                    "Shield Bash": "If rolls at least one 6, try to Cripple the target (10 Grade Might Check)"
+                    "Damage": "2d4 + 4",
+                    "Shield Bash": "If rolls at least one 1, try to Cripple the target (10 Grade Might Check)"
                 }
             },
             {
-                "Volley of Arrows": "Target a 3x3 meter area. All units there make a Grade 10 Dexterity Check. On fail, they take directly 1d8 Pierce damage, or half if they succeed."
+                "Volley of Arrows": "Target a 3x3 meter area. All units there make a Grade 10 Dexterity Check. On fail, they take (directly, ignoring Defense) 1d8 Pierce damage, or half if they succeed."
             }
         ],
         "Avoids AoE": true,
@@ -452,7 +449,7 @@
         "Degree": "Normal",
         "Experience": 200,
         "Stats": "3/2/1/2/3",
-        "Health": 32,
+        "Health": 38,
         "Armor": "3 (Armor)",
         "Speed": 5,
         "Initiative": 8,
@@ -461,7 +458,7 @@
                 "Melee": "1d10 + 3"
             },
             {
-                "Copy Spell": "Once per combat, the Hobgoblin can cast a spell another player has cast (with that player's exact stats) (this always takes 1 action - can't both Attack and Copy Spell on the same turn)."
+                "Copy Spell": "Once per combat, for 1 Action, the Hobgoblin can cast a spell another player has cast (with that player's exact stats)."
             }
         ],
         "Passives": [
@@ -482,16 +479,16 @@
         "Degree": "Normal",
         "Experience": 200,
         "Stats": "5/2/1/2/3",
-        "Health": 37,
+        "Health": 40,
         "Armor": "4 (Armor + Innate)",
         "Speed": 5,
         "Initiative": "7 Melee / 10 Ranged",
         "Abilities": [
             {
-                "Bow": "1d10 + 6"
+                "Bow": "1d10 + 1"
             },
             {
-                "Melee": "3d6 + 1"
+                "Melee": "1d10 + 2"
             }
         ],
         "Passives": [
@@ -516,25 +513,25 @@
         "Degree": "Normal",
         "Experience": 225,
         "Stats": "1/2/5/2/5",
-        "Health": 35,
-        "Armor": "3 (Magical)",
+        "Health": "46 (half is Shielding)",
+        "Armor": "5 (Magical)",
         "Speed": 5,
         "Initiative": 9,
         "Abilities": [
             {
-                "Inflict Wounds": {
-                    "Damage": "3d6 + 1 Necrotic",
-                    "Anticoagulate": "Damage dealt by this can not be healed until a Long Rest."
+                "Inflict Wounds (6m)": {
+                    "Damage": "2d4 + 5 Necrotic",
+                    "Anticoagulate": "Target can not cast healing Spells on its next turn."
                 }
             },
             {
                 "Dagger": "1d6 + 3 Pierce"
             },
             {
-                "Pain Tether (free) (once per combat)": "Choose a target the Cult Hierarch can see.\nUntil the combat is over, that target instanty takes half of all damage the Cult Hierarch takes.\nSilencing the Cult Hierarch breaks this tether.\nOnly one unit can be Pain Tethered to only one Cult Hierarch.\nConcentration (interrupt it with CC except Slows and Roots).\n"
+                "Pain Tether (free) (once per combat)": "Choose a target the Cult Hierarch can see.\nUntil the combat is over, that target instanty takes half of all damage the Cult Hierarch takes.\nOnly one unit can be Pain Tethered to only one Cult Hierarch.\nConcentration (interrupt it with CC except Slows and Roots).\n"
             },
             {
-                "Counterspell (free) (once per combat) (Reaction)": "When a unit casts a spell, it must pass a 11 Grade Wisdom Check or the spell is cancelled and the action lost, but not the Mana.\nIf it passes, then the spell can't be Counterspelled again (e.g. from another Cult Hierarch).\n"
+                "Counterspell (free) (once per combat) (Reaction)": "When a unit casts a spell, it must pass a 11 Grade Sense Check or the spell is cancelled and the action lost, but not the Mana.\nIf it passes, then the spell can't be Counterspelled again (e.g. from another Cult Hierarch).\n"
             }
         ],
         "Passives": {
@@ -555,31 +552,31 @@
         "Degree": "Normal",
         "Experience": 250,
         "Stats": "2/2/3/4/2",
-        "Health": 50,
+        "Health": 58,
         "Armor": "5 (Magical)",
         "Speed": 5,
         "Initiative": 10,
         "Abilities": [
             {
                 "Roots (Human) (9m)": {
-                    "Damage": "5d4 Pierce",
+                    "Damage": "4d4 Pierce (against Defense)",
                     "Root": "The target must pass a 11 Might Check or be Rooted."
                 }
             },
             {
-                "Maul (Owlbear)": {
-                    "Damage": "3d6 + 3 Smash",
-                    "Daze": "If rolled at least one 6, the target must pass a 12 Might Check or be Dazed."
+                "Maul (Owlbear) (x2)": {
+                    "Damage": "2d6 Smash",
+                    "Daze": "If rolled at least one 6 or 1, the target must pass a 12 Might Check or be Dazed."
                 }
             },
             {
                 "Tongue Grab (Toad)": {
-                    "Damage": "3d6 + 2 Poison",
-                    "Pull": "If rolled at least one 6, the target must pass a 12 Might Check or be Crippled, knocked Prone and pulled next to the Toad Druid."
+                    "Damage": "3d6 Poison",
+                    "Pull": "If rolled at least one 6 or 1, the target must pass a 12 Might Check or be Crippled, knocked Prone and pulled next to the Toad Druid."
                 }
             },
             {
-                "Buffet (x2) (Eagle)": "1d8 + 4 Pierce"
+                "Buffet (x2) (Eagle)": "2d4 + 2 Pierce"
             },
             {
                 "Shapeshift (free)": "Every turn, the Druid can transform into either an Owlbear, Giant Toad or Giant Eagle. It uses a different attack or has a different Passive for each form."
@@ -587,10 +584,10 @@
         ],
         "Passives": [
             {
-                "Barkskin (Human)": "Has 10 Defense against the first attack every round."
+                "Barkskin (Human) (Reaction)": "Defense becomes 10 until start of its next turn."
             },
             {
-                "Owl Screech (Owlbear)": "Once per round, after an enemy casts a spell, it must pass a 12 Wisdom Check or be Silenced."
+                "Owl Screech (Owlbear)": "Once per round, after an enemy casts a spell, all units that can hear the Owlbear Druid must pass a 12 Sense Check or be Silenced."
             },
             {
                 "Toxins (Toad)": "Whenever the Toad is Melee attacked, the attacker takes 1d4 Poison damage."
@@ -599,7 +596,7 @@
                 "Fly and Evasive (Eagle)": "Can fly. Immune to Fleeing."
             },
             {
-                "DruiGraderaft (Non-Combat)": "Can cast small, non-combat utility Spells like DruiGraderaft, Light, etc. Can also shapeshift into other non-combat animals, like bugs, fish, etc."
+                "Druidcraft (Non-Combat)": "Can cast small, non-combat utility Spells like DruiGraderaft, Light, etc. Can also shapeshift into other non-combat animals, like bugs, fish, etc."
             }
         ],
         "Avoids AoE": true,
@@ -624,19 +621,19 @@
         "Degree": "Normal",
         "Experience": 275,
         "Stats": "0/5/5/3/3",
-        "Health": 66,
-        "Armor": "3 (Magical)",
+        "Health": "72 (half is Shielding)",
+        "Armor": "3 (Magical and Innate)",
         "Speed": 5,
         "Initiative": 9,
         "Abilities": [
             {
                 "Plant Attack": {
-                    "Damage": "2d8 + 4",
+                    "Damage": "2d4 + 7",
                     "Plant Reach": "Instead of the Dryad attacking, she makes a nearby (15 meters) plant attack.\nA plant attack has 3 meters range from the plant.\nE.g. a tree slams with its branches, a bush shoots thorns, etc\n"
                 }
             },
             {
-                "Sleep Spores (free) (6m range to edge)": "Choose a 2x2 meter area.\nIt becomes Difficult Terrain.\nAny unit ending their turn in Spores must pass a 11 Wisdom Check or it falls Asleep and its initiative becomes 0.\nThe Dryad casts Sleep Spores every turn before Plant Attack.\n"
+                "Sleep Spores (free) (6m range to edge)": "Choose a 2x2 meter area.\nIt becomes Difficult Terrain.\nAny unit ending their turn in Spores must pass a 11 Sense Check or it falls Asleep and its initiative becomes 0.\nThe Dryad casts Sleep Spores every turn before Plant Attack.\n"
             }
         ],
         "Passives": [
@@ -644,7 +641,7 @@
                 "Treesposition": "Instead of moving normally, the Drayd can touch a tree and teleport near another tree within 10 meters."
             },
             {
-                "Vulnerabilities": "Takes 150% Fire and Acid Damage."
+                "Vulnerabilities": "Takes 150% Acid Damage."
             },
             {
                 "Immunities": "Immune to Poison Damage and Sleep."
@@ -668,31 +665,31 @@
         "Degree": "Normal",
         "Experience": 275,
         "Stats": "4/3/2/2/2",
-        "Health": 56,
+        "Health": 68,
         "Armor": "5 (Innate)",
         "Speed": "4 on land, 6 in water and shallow water",
         "Initiative": "12 if Mage, 8 if Warrior",
         "Abilities": [
             {
-                "Warrior - Melee Weapon": {
-                    "Damage": "3d6 + 3",
-                    "Chains": "If rolled at least one 6, the target must pass a 11 Might Check or be pulled to a solid object within 3 meters and be Rooted."
+                "Warrior - Melee Weapon (2m)": {
+                    "Damage": "2d6 + 5",
+                    "Chains": "If rolled at least one 6 or 1, the target must pass a 11 Might Check or be pulled to a solid object within 3 meters and be Rooted."
                 }
             },
             {
                 "Warrior - Harpoon (6m)": {
-                    "Damage": "3d6",
+                    "Damage": "9 Pierce",
                     "Pull": "If rolled at least one 6, the target must pass a 11 Might Check or be pulled to the Naga and be Rooted."
                 }
             },
             {
                 "Mage - Frostbolt (10m)": {
-                    "Damage": "9 Cold",
+                    "Damage": "10 Cold",
                     "Slow": "The target is Slowed."
                 }
             },
             {
-                "Mage - Enslave Magic (free) (once per combat)": "Gain control of a non-sentient summoned Unit until combat ends. If the creature is sentient, it must pass a 12 Wisdom Check or be enslaved. If it hasn't taken its turn this round, it does so after the Naga."
+                "Mage - Enslave Magic (free) (once per combat)": "Gain control of a non-sentient summoned Unit until combat ends. If the creature is sentient, it must pass a 12 Sense Check or be enslaved. It always takes its turn after the Naga, even if it already had its turn. Effect ends after 1 minute or if this Naga dies."
             }
         ],
         "Passives": [
@@ -722,18 +719,18 @@
         "Type": "Humanoid",
         "Degree": "Normal",
         "Experience": 300,
-        "Stats": "4/2/2/2/2",
-        "Health": 68,
+        "Stats": "4/2/0/2/2",
+        "Health": 80,
         "Armor": 2,
         "Speed": 8,
         "Initiative": 16,
         "Abilities": [
             {
-                "Ranged Weapon (x2)": "1d12 + 2"
+                "Ranged Weapon": "1d12 + 3"
             },
             {
                 "Melee Weapon": {
-                    "Damage": "1d8 + 7",
+                    "Damage": "1d8 + 3",
                     "Onset": "+1 Damage for each meter moved towards the target (strafing around the target does not count, it has to be straight movement towards it; diagonals are valid if you play on a grid; moving towards the target, then switching direction, then moving towards it again only counts the meters AFTER switching direction as moving towards it)"
                 }
             },
@@ -787,7 +784,7 @@
         ],
         "Passives": [
             {
-                "Small and Resilient": "Bugs can reroll each Check once."
+                "Small and Resilient": "Takes 3 less Damage from all sources."
             },
             {
                 "Optionally Flying": "If it makes sense for the bug to fly, it can fly."
@@ -807,16 +804,16 @@
     "Hound": {
         "Type": "Beast, Insect",
         "Experience": 50,
-        "Stats": "-1/3/0/6/-2",
+        "Stats": "-1/3/0/6/1",
         "Health": 10,
         "Armor": 3,
         "Speed": 6,
         "Initiative": 14,
         "Abilities": [
             {
-                "Bite": {
-                    "Damage": "1d8 + 2 Pierce",
-                    "Lunge": "The Hound can lunge up to 3 meters to reach their target and attack it."
+                "Bite (3m)": {
+                    "Damage": "1d6 + 1 Pierce",
+                    "Lunge": "Lunge up to 3 meters to reach their target and attack it. This doesn't make the hound Fleeing."
                 }
             }
         ],
@@ -838,7 +835,7 @@
         "Abilities": [
             {
                 "Facehug": {
-                    "Damage": "1d6 + 2 Pierce",
+                    "Damage": "1d6 + 1 Pierce",
                     "Attach": "If it deals at least 1 damage, try to Blind the target (10 Grade, Dexterity Check).\nThen, the Camazot remains attached until the end of the target's turn.\n(Yes, it occupies the same space.)\n"
                 }
             }
@@ -863,8 +860,8 @@
         "Type": "Beast",
         "Experience": 75,
         "Stats": "1/3/-2/6/1",
-        "Health": 17,
-        "Armor": 3,
+        "Health": 18,
+        "Armor": 2,
         "Speed": 7,
         "Initiative": 12,
         "Abilities": [
@@ -896,12 +893,12 @@
         "Experience": 100,
         "Stats": "1/5/0/5/1",
         "Health": 14,
-        "Armor": 6,
+        "Armor": 5,
         "Speed": 6,
         "Initiative": 11,
         "Abilities": [
             {
-                "Attack": "1d4 + half of its current HP."
+                "Attack": "1d4 + half of its current HP (minimum +1)."
             }
         ],
         "Passives": [
@@ -923,13 +920,13 @@
         "Type": "Beast",
         "Experience": 150,
         "Stats": "5/2/-2/1/0",
-        "Health": 20,
+        "Health": 23,
         "Armor": 7,
         "Speed": 5,
         "Initiative": 9,
         "Abilities": [
             {
-                "Pincer (x2)": "2d6 + 1 one Pierce, one Slash"
+                "Pincer (x2)": "1d10 one Pierce, one Slash"
             }
         ],
         "Passives": [
@@ -954,24 +951,26 @@
         "Type": "Beast",
         "Experience": 150,
         "Stats": "2/5/-2/5/0",
-        "Health": 28,
-        "Armor": 4,
+        "Health": 33,
+        "Armor": 3,
         "Speed": 6,
         "Initiative": 11,
         "Abilities": [
             {
-                "Bite/Claw": "1d6 + 1d10 Pierce or Slash (of choice)"
+                "Bite/Claw": {
+                    "Damage": "2d4 + 3 Pierce or Slash (of choice)"
+                }
             }
         ],
         "Passives": [
             {
-                "Evasive": "Immune to Fleeing."
+                "3rd Round Frenzy": "On the 3rd round of combat, all rats become enraged and gain +1d4 damage on all attacks and +3 Speed."
             },
             {
                 "Dark Vision": "Can see in the dark"
             },
             {
-                "Disease Immunity": "Immune to diseases"
+                "Immunities": "Immune to Poison, Slows and Fleeing."
             }
         ],
         "Avoids AoE": false,
@@ -987,15 +986,15 @@
         "Type": "Beast",
         "Experience": 175,
         "Stats": "3/3/-2/3/3",
-        "Health": 38,
+        "Health": 39,
         "Armor": 3,
         "Speed": 7,
         "Initiative": 15,
         "Abilities": [
             {
                 "Beak Attack": {
-                    "Damage": "3d4 + 3 Slash",
-                    "Break": "If rolled at least one 4, target makes a 10 Grade Might Check. If it fails, its armor becomes damaged and permanently loses 1 Defense (or its shield breaks)."
+                    "Damage": "3d4 + 2 Slash",
+                    "Break": "If rolled at least one 4 or 1, target makes a 10 Grade Dexterity Check. If it fails, its armor becomes damaged and permanently loses 1 Defense (or its shield breaks)."
                 }
             }
         ],
@@ -1008,7 +1007,7 @@
             }
         ],
         "Avoids AoE": false,
-        "Behavior": "Prefers to target heavily armored enemies.\n",
+        "Behavior": "Prefers to attack heavily armored enemies.\n",
         "Suggested Obstacles": "None",
         "Monster Data": "No tactic, mid HP, no gimmick",
         "Role": "Main Enemy",
@@ -1025,9 +1024,8 @@
         "Abilities": [
             {
                 "Attack": {
-                    "Damage": "1d10 + 6 Pierce",
-                    "Crippling Poison": "If rolled 10, target makes a 11 Grade Might Check. If it fails, it becomes Crippled.",
-                    "Web": "If rolled 1, target makes a 11 Grade Dexterity Check. If it fails, it becomes Rooted."
+                    "Damage": "1d6 + 5 Pierce",
+                    "Spider Effects": "On 6, target must pass an 11 Grade Might Check or be Crippled.\nOn 1, target must pass an 11 Grade Dexterity Check or be Rooted.\n"
                 }
             },
             {
@@ -1058,13 +1056,13 @@
         "Degree": "Normal",
         "Experience": 200,
         "Stats": "5/2/0/2/2",
-        "Health": 50,
+        "Health": 53,
         "Armor": 3,
         "Speed": 6,
         "Initiative": 7,
         "Abilities": [
             {
-                "Attack": "3d6 + 1 (Smash, Slash or Pierce of choice)"
+                "Attack": "1d8 + 4 (Smash, Slash or Pierce of choice)"
             }
         ],
         "Avoids AoE": false,
@@ -1078,7 +1076,7 @@
         "Type": "Beast",
         "Experience": 225,
         "Stats": "5/1/-2/2/0",
-        "Health": 45,
+        "Health": 54,
         "Armor": 4,
         "Speed": 6,
         "Initiative": 13,
@@ -1086,7 +1084,7 @@
             {
                 "Tusks": {
                     "Damage": "2d4 + 5 (Pierce)",
-                    "Charge Attack": "If Boar moved at least 4 meters straight and then attacked, the target makes a 12 Grade Might Check.\nIf it fails, it takes 1d4 Pierce damage, swaps places with the Boar and is knocked Prone.\n"
+                    "Charge Attack": "If Boar moved at least 4 meters straight and then attacked, the target makes a 12 Grade Might Check.\nIf it fails, it takes 1d4 Pierce damage and is pushed 2 meters in any direction (boar chooses).\n"
                 }
             }
         ],
@@ -1105,7 +1103,7 @@
         "Degree": "Normal",
         "Experience": 250,
         "Stats": "1/2/0/2/1",
-        "Health": 43,
+        "Health": 56,
         "Armor": 5,
         "Speed": 5,
         "Initiative": 8,
@@ -1113,13 +1111,13 @@
             {
                 "Envelop": {
                     "Damage": "3d4 + 3 Pierce",
-                    "Facehug": "If it did damage, the Darkray remains attached to the target until the end of the target's turn (therefore, the target is in Darkness - has Cover; see Darkray's Passive Ability).\nIf the unit underneath moves, the Stonemantle makes a Dexterity Check. If it succeeds, it moves with the target.\n"
+                    "Facehug": "If it did damage, the Darkray remains attached to the target until the end of the target's turn (therefore, the target is in Darkness - has Cover; see Darkray's Passive Ability).\nIf the unit underneath moves, the Stonemantle makes a Dexterity Check. If it succeeds, it moves with the target until the end of its turn.\n"
                 }
             }
         ],
         "Passives": [
             {
-                "Magic Absorption": "Absorbs (cancels) the first Spell targeting it (the Actions used for it are lost) (apply common sense - Focus Fling is not absorbed fine)."
+                "Magic Absorption": "Absorbs (cancels) the first Spell targeting it (the Actions used for it are lost) (apply common sense - Focus Fling is not absorbed)."
             },
             {
                 "Artificial Darkness": "Emmits a beam of Magical Darkness right underneath it (provides Cover)."
@@ -1149,16 +1147,16 @@
         "Degree": "Epic x2",
         "Experience": "550 (225 x2)",
         "Stats": "3/4/0/4/3",
-        "Health": 87,
+        "Health": 130,
         "Armor": 4,
         "Speed": 4,
         "Initiative": 11,
         "Abilities": [
             {
-                "Stone Glare (6m range)": "Target makes a 11 Grade Wisdom Check or it takes 1d8 Damage and is Crippled and Silenced.\n"
+                "Stone Glare (6m range)": "Target makes a 11 Grade Sense Check or it takes 1d8 Damage and is Crippled or Silenced (cockatrice chooses).\n"
             },
             {
-                "Tail Sweep (2m range)": "Target and all units 1 meter from it make a 11 Grade Dexterity Check.\nOn fail, they take 2d6 + 5 Smash Damage and are knocked Prone.\nOn success, they take half of that damage.\n"
+                "Tail Sweep (2m range)": "Target and all units 1 meter from it make a 11 Grade Dexterity Check.\nOn fail, they take 2d4 + 5 Smash Damage and are knocked Prone.\nOn success, they take half of that damage.\n"
             },
             {
                 "Talons (x2)": "1d8 + 4 Pierce"
@@ -1169,7 +1167,7 @@
                 "Epic x2": "This unit takes 2 turns in a row. Every turn, it uses its next Ability (cycles through them in their order)."
             },
             {
-                "Bloody Shriek": "When dropping below 50% HP, Cockatrice shrieks.\nAll units within 6 meters must succeed a 11 Grade Wisdom Check or be Silenced and take 1d8 Psychic damage.\n"
+                "Bloody Shriek": "When dropping below 50% HP, Cockatrice shrieks.\nAll units within 6 meters must succeed a 11 Grade Sense Check or be Dazed and take 1d8 Psychic damage.\n"
             }
         ],
         "Avoids AoE": false,
@@ -1195,12 +1193,9 @@
         "Initiative": 6,
         "Abilities": [
             {
-                "Acid Spit (3m range)": "1d8 + 6 Acid"
-            },
-            {
-                "Bite": {
-                    "Damage": "1d8 + 8 Acid",
-                    "Corrode": "If it dealt damage, add a Corrosion token to the target Unit.\nAt 3 Corrosion tokens, remove them and apply one of the following:\n- Loses 5d10 gold (the coins corrode)\n- A metal weapon loses 1 Damage permanently\n- A metal armor loses 1 Defense permanently\n"
+                "Acid Spit (3m range)": {
+                    "Damage": "1d4 + 3 Acid",
+                    "Corrode": "If rolled at least one 1 or 4, target must make a 12 Grade Might Check.\nIf it fails:\n- Loses 5d10 gold (the coins corrode)\n- A metal weapon loses 1 Damage permanently\n- A metal armor loses 1 Defense permanently\n- A metal item in their inventory corrodes\n"
                 }
             }
         ],
@@ -1229,14 +1224,14 @@
         "Degree": "Normal",
         "Experience": 275,
         "Stats": "2/3/0/3/2",
-        "Health": 60,
-        "Armor": 5,
+        "Health": 73,
+        "Armor": 4,
         "Speed": 5,
         "Initiative": 9,
         "Abilities": [
             {
                 "Attack (2m)": {
-                    "Damage": "3d4 + 2 Fire"
+                    "Damage": "2d4 + 7 Fire"
                 }
             }
         ],
@@ -1267,7 +1262,7 @@
         "Degree": "Epic x2",
         "Experience": "500 (250 x2)",
         "Stats": "1/3/5/3/1",
-        "Health": 102,
+        "Health": 129,
         "Armor": 5,
         "Speed": 5,
         "Initiative": 11,
@@ -1276,7 +1271,7 @@
                 "Magic Bolt 1 (6m)": "Attack 2 units for 2d6 Force damage."
             },
             {
-                "Blink": "All units within 2 meters make a Grade 12 Wisdom Check or become Blinded. Then teleport up to 5 meters."
+                "Blink": "All units within 2 meters make a Grade 12 Sense Check or become Blinded. Then teleport up to 5 meters."
             },
             {
                 "Magic Bolt 2 (6m)": "Attack 2 units for 2d6 Force damage."
@@ -1319,14 +1314,14 @@
         "Degree": "Normal",
         "Experience": 275,
         "Stats": "3/5/0/5/3",
-        "Health": 60,
-        "Armor": 5,
+        "Health": 73,
+        "Armor": 4,
         "Speed": 8,
         "Initiative": 16,
         "Abilities": [
             {
                 "Beak/Claws/Wings (x3)": {
-                    "Damage": "1d6 + 4 Pierce/Slash/Force",
+                    "Damage": "1d6 + 3 Pierce/Slash/Force",
                     "Push": "Each attack that did damage pushes the target 1 meter. Target takes 1 extra damage if it collided with something or had no space to be pushed."
                 }
             }
@@ -1362,25 +1357,25 @@
         "Degree": "Normal",
         "Experience": 300,
         "Stats": "5/0/0/3/0",
-        "Health": 45,
+        "Health": 50,
         "Armor": 5,
         "Speed": 5,
         "Initiative": 6,
         "Abilities": [
             {
                 "Red Attack (Soldier)": {
-                    "Damage": "4d6 Smash",
-                    "Ram": "If rolled at least one 6, the target must pass a 12 Grade Might Check or be knocked Prone."
+                    "Damage": "3d6 Smash",
+                    "Ram": "If rolled at least one 6 or 1, the target must pass a 12 Grade Might Check or be knocked Prone."
                 }
             },
             {
                 "Blue Attack (6m) (Mage)": {
-                    "Damage": "2d8 + 3 Acid",
-                    "Bile": "All units within 1 meter of target take (directly) half of the damage taken by the main target."
+                    "Damage": "1d8 + 6 Acid",
+                    "Bile": "All units within 2 meters of target take (directly, ignoring Defense) half of the damage taken by the main target."
                 }
             },
             {
-                "Yellow Attack (2m) (Worker)": "Attack all units around the Antheir for 3d6 + 1.\nIf rolled at least one 6, they must all pass a 11 Grade Dexterity Check or be Blinded by the dust.\n"
+                "Yellow Attack (2m) (Worker)": "Attack all units within 2 meters of the Antheir for 1d6 + 6.\nAll units hit become Fleeing.\n"
             }
         ],
         "Passives": [
@@ -1388,7 +1383,7 @@
                 "Chitinous Shell": "Can only take up to 5 damage at a time (from an attack, a missile, etc; multi-hit spells count as multiple times, such as Magic Missiles).\nException: Psychic and Necrotic Damage.\n"
             },
             {
-                "Different Roles": "Antheirs have different colors, and thus different roles.\nAssign a different color to each Antheir from Red, Blue and Yellow(randomly or by choice).\nIt can only use that type of Action.\n"
+                "Different Roles": "Antheirs have different colors, and thus different roles.\nAssign a different color to each Antheir from Red, Blue and Yellow (randomly or by choice).\nIt can only use that type of Action.\n"
             },
             {
                 "Spider Climb": "Can walk on walls."
@@ -1419,7 +1414,7 @@
         "Degree": "Normal",
         "Experience": 300,
         "Stats": "4/2/0/2/0",
-        "Health": 89,
+        "Health": 120,
         "Armor": 2,
         "Speed": 3,
         "Initiative": 5,
@@ -1440,9 +1435,6 @@
             },
             {
                 "Grubby Body": "Immune to Smash Damage and Pierce damage from projectiles."
-            },
-            {
-                "Inopportune": "Doens't maek opportunity attacks"
             },
             {
                 "Spider Climb": "Can walk on walls."
@@ -1470,18 +1462,18 @@
         "Degree": "Normal",
         "Experience": 200,
         "Stats": "1/1/3/3/3",
-        "Health": 29,
-        "Armor": 4,
+        "Health": "47 (half is Shielding)",
+        "Armor": "4 (magical)",
         "Speed": 6,
         "Initiative": 10,
         "Abilities": [
             {
-                "Glittering Breath (2m)": "Target a 3x3 meter area and attack all Units there for 3d6.\nIf rolled at least one 6, all targets that took damage must pass a 11 Wisdom Check or fall Asleep.\n"
+                "Glittering Breath (2m to edge)": "Target a 3x3 meter area and attack all Units there for 2d4 + 2.\nFor each 1 or 6, a target that took damage must pass a 11 Sense Check or fall Asleep (Pegasus chooses which target).\n"
             }
         ],
         "Passives": [
             {
-                "Antimagic": "Has double Defense and Checks against Spells."
+                "Antimagic": "Has double Defense and Check bonuses against Spells."
             },
             {
                 "Flying": "Can fly."
@@ -1500,20 +1492,20 @@
         "Degree": "Normal",
         "Experience": 350,
         "Stats": "1/2/3/2/1",
-        "Health": 56,
+        "Health": 93,
         "Armor": 5,
         "Speed": 6,
         "Initiative": 11,
         "Abilities": [
             {
-                "Breath (Fire) (6m)": "Attack the target and all units 1 meter from it for 3d6 - 2 Fire Damage."
+                "Breath (Fire) (6m)": "Attack the target and all units 2 meters from it for 2d6 + 4 Fire Damage."
             },
             {
-                "Breath (Cold)": "Attack all targets in a 6x1 meter line for 1d12 + 3 Cold Damage."
+                "Breath (Cold)": "Attack all targets in a 6x1 meter line for 2d6 + 4 Cold Damage."
             },
             {
                 "Breath (Shock) (6m)": {
-                    "Damage": "2d8 + 1 Shock",
+                    "Damage": "2d6 + 4 Shock",
                     "Chain Lightning": "Hits the main target, another target within 4 meters of the main target and another target within 4 meters of the secondary target (against Defense)."
                 }
             }
@@ -1543,15 +1535,15 @@
         "Degree": "Normal",
         "Experience": 450,
         "Stats": "3/5/1/5/3",
-        "Health": 80,
-        "Armor": 5,
+        "Health": 130,
+        "Armor": "5 (agile and innate)",
         "Speed": 7,
         "Initiative": 14,
         "Abilities": [
             {
                 "Beak/Claws (x5)": {
-                    "Damage": "1d6 + 3 Pierce or Slash (of choice)",
-                    "Defense Break": "Every rolled 6 reduces the target's Defense by 1 until the combat is over (down to 0)."
+                    "Damage": "1d6 + 2 Pierce or Slash (of choice)",
+                    "Defense Break": "Every rolled 6 or 1 reduces the target's Defense by 1 until the combat is over (down to 0)."
                 }
             }
         ],
@@ -1576,32 +1568,32 @@
     "Chromatic Dragon": {
         "Type": "Dragon",
         "Degree": "Epic x3",
-        "Experience": 1050,
-        "Stats": "7/1/2/3/5",
-        "Health": 162,
-        "Armor": 4,
-        "Speed": 2,
+        "Experience": "1050 (350 x3)",
+        "Stats": "7/1/3/3/5",
+        "Health": 334,
+        "Armor": 5,
+        "Speed": 3,
         "Initiative": 10,
         "Abilities": [
             {
-                "Fire Ball (6m to edge)": "Deals 3d6 + 1 damage in a 4x4 area. The area stays lit with dragon fire."
+                "Fire Ball (10m to edge)": "Deals 3d6 + 1 damage in a 4x4 area. The area stays lit with dragon fire. Spawns an elemental (15 Health, 3 Defense, attacks for 1d6 + 3 (3m))."
             },
             {
                 "Bite (2m)": "2d6 + 6"
             },
             {
-                "Fiery Flight": "Fly up to 6 meters, knocking everyone away and dealing 8 damage. Leaves dragon fire on the ground."
+                "Fiery Flight": "Fly up to 6 meters, knocking everyone away and dealing 8 damage (directly, ignoring Defense). Leaves dragon fire on the ground."
             },
             {
                 "Flame Away (3m)": "Target must pass a Might Check or be pushed indefinitely. Takes 1 Force damage for each 1 meter pushed."
             },
             {
-                "Land Mines": "Spawn 3 land mines near players that explode for 1d8 + 5 damage when hit by fire. Will not spawn mines directly in fire. When mines explode, they summon a small Fire Elemental (12 Health, 3 Defense, attacks for 1d6 + 2 (3m))."
+                "Land Mines": "Spawn 3 land mines near players that explode for 1d8 + 5 damage when hit by fire. Will not spawn mines directly in fire. When mines explode, they summon a small Fire Elemental (15 Health, 3 Defense, attacks for 1d6 + 3 (3m))."
             }
         ],
         "Passives": [
             {
-                "Chromatic": "At the end of its every turn, it changes its element from (Fire, Poison, Physical, Cold Shock). It only takes 50% damage from that type."
+                "Chromatic": "At the end of its every turn, it must change its element to one of Fire, Poison, Physical, Cold Shock. It only takes 50% damage from that type."
             }
         ],
         "Avoids AoE": false,
@@ -1619,12 +1611,12 @@
         "Experience": 50,
         "Stats": "0/0/0/0/0",
         "Health": 10,
-        "Armor": 4,
+        "Armor": 2,
         "Speed": 4,
         "Initiative": 4,
         "Abilities": [
             {
-                "Attack (2m range)": "3d4 (Smash or Pierce of choice)"
+                "Attack (2m range)": "1d6 + 1 (Smash or Pierce of choice)"
             }
         ],
         "Passives": [
@@ -1644,16 +1636,16 @@
         "Variants": "None"
     },
     "Wild Fungus": {
-        "Type": "Fungus, Monster",
+        "Type": "Plant, Fungus, Monster",
         "Experience": 150,
         "Stats": "0/0/0/5/0",
-        "Health": 30,
+        "Health": 29,
         "Armor": 4,
         "Speed": 1,
         "Initiative": 0,
         "Abilities": [
             {
-                "Shoot Spore Spike": "The target rolls 1d4. Wild Fungus makes that many attacks.\nEach attack deals 1d4 + 4 Necrotic Damage (each against Defense).\n15 meter range.\n"
+                "Shoot Spore Spike (15m)": "The target rolls 1d4. Wild Fungus makes that many attacks.\nEach attack deals 1d4 + 3 Necrotic Damage (each against Defense).\n"
             }
         ],
         "Passives": [
@@ -1683,21 +1675,21 @@
         "Type": "Monster",
         "Experience": 225,
         "Stats": "1/6/0/2/2",
-        "Health": 40,
-        "Armor": "5 (Agile)",
+        "Health": 44,
+        "Armor": "6 (Agile)",
         "Speed": 6,
         "Initiative": 12,
         "Abilities": [
             {
                 "Claws": {
-                    "Damage": "2d6 + 7 Pierce",
-                    "Grab": "If rolled at least one 6, the target makes a Grade 11 Might Check.\nOn fail, the Harpy lifts the target, then flies with it with all remaining movement and drops it.\n"
+                    "Damage": "2d4 + 5 Pierce",
+                    "Grab": "If rolled at least one 4 or 1, the target makes a Grade 11 Might or Dexterity Check (its choice).\nOn fail, the Harpy lifts the target, then flies with it with all remaining movement and drops it.\n"
                 }
             }
         ],
         "Passives": [
             {
-                "Charming Song": "When the combat with Harpies starts, each player must pass a 10 Wisdom Check or its Initiative is 0 this combat."
+                "Charming Song": "When the combat with Harpies starts, each player must pass a 10 Sense Check or its Initiative is 0 this combat."
             },
             {
                 "Evasive": "Immune to Fleeing."
@@ -1721,14 +1713,14 @@
         "Degree": "Normal",
         "Experience": 250,
         "Stats": "2/-2/0/2/0",
-        "Health": 50,
+        "Health": 77,
         "Armor": 2,
-        "Speed": 4,
+        "Speed": 3,
         "Initiative": 16,
         "Abilities": [
             {
                 "Tongue Grab (3m)": {
-                    "Damage": "2d4 + 4 Poison",
+                    "Damage": "3d4 + 3 Poison",
                     "Drag and Stick": "Target must pass a 12 Dexterity Check or the Mimic drags itself to it and sticks to it with its tongue.\nIf the Check fails, the Mimic can make a free Bite attack on the target.\nThe tongue remains attached to the target like glue.\n"
                 }
             },
@@ -1762,13 +1754,13 @@
         "Degree": "Normal",
         "Experience": 300,
         "Stats": "1/1/1/1/5",
-        "Health": 75,
-        "Armor": 3,
+        "Health": 80,
+        "Armor": 4,
         "Speed": 4,
         "Initiative": 9,
         "Abilities": [
             {
-                "Dark Whispers": "All units within 4 meters of the Gibbering Mouther must pass a 11 Wisdom Check or take 10 Psychic Damage and Gibbering Mouther chooses one of these commands that the unit must respect on its next turn:\n- Move Away: use all movement to move in a straight line in whatever direction they choose (they stop at obstacles; can still move aftewards if they have movement left)\n- Drop Weapon: drop their current weapon (or one of them); must use 0.5 Actions to pick it up again\n- Weak Spell: can't use Class-specific Abilities\n"
+                "Dark Whispers": "All units within 4 meters of the Gibbering Mouther must pass a 11 Sense Check or take 10 Psychic Damage and Gibbering Mouther chooses one of these commands (separately for each) that the unit must respect on its next turn:\n- Move Away: use all movement to move in a straight line in whatever direction they choose (they stop at obstacles; can still move aftewards if they have movement left)\n- Drop Weapon: drop their current weapon (or one of them); must use 0.5 Actions to pick it up again\n- Silence: becomes Silenced\n"
             }
         ],
         "Passives": [
@@ -1796,15 +1788,15 @@
         "Degree": "Normal",
         "Experience": 325,
         "Stats": "3/3/0/3/0",
-        "Health": 65,
-        "Armor": 4,
+        "Health": 85,
+        "Armor": 5,
         "Speed": 4,
         "Initiative": 9,
         "Abilities": [
             {
                 "Spit (3m range)": {
-                    "Damage": "3d6 Acid",
-                    "Spawn": "The Oozes loses half of its current HP.\nAnother Ooze is created near the target with that HP.\nIt starts its turn next round.\n"
+                    "Damage": "2d6 + 5 Acid",
+                    "Spawn": "After this attack, the ooze loses half of its current HP.\nAnother Ooze is created near the target with that HP.\nIt starts its turn next round.\n"
                 }
             }
         ],
@@ -1848,10 +1840,10 @@
         ],
         "Passives": [
             {
-                "Engulf": "When the Gelatinous Cube walks into the space of another Medium or smaller Unit, it becomes Engulfed.\nThe Gelatinous Cube will carry the Unit with it wherever it moves.\nOn its turn, the Unit must pass a 10 Might Check or remain Engulfed and takes 5 Poison Damage.\nWhen Engulfed, it can not exit the Cube and can only use 0.5 Actions. It can't shoot missiles.\n"
+                "Engulf": "When the Gelatinous Cube walks into the space of another Medium or smaller Unit, it becomes Engulfed.\nThe Gelatinous Cube will carry the Unit with it wherever it moves.\nOn its turn, the Unit must pass a 10 Might Check or remain Engulfed and takes 5 Poison Damage.\nWhen Engulfed, it can not exit the Cube and can only use 0.5 Actions and is Fleeing.\n"
             },
             {
-                "Engulfness": "When another Unit walks or is pushed into the Gelatinous Cube, this it becomes Engulfed as well."
+                "Engulfness": "When another Unit walks or is pushed into the Gelatinous Cube, this it becomes Engulfed as well. Multiple Units can be engulfed at once."
             }
         ],
         "Avoids AoE": false,
@@ -1866,25 +1858,31 @@
         "Type": "Construct",
         "Experience": 75,
         "Stats": "1/1/-5/-5/-5",
-        "Health": 1,
-        "Armor": 9,
-        "Speed": 6,
+        "Health": 10,
+        "Armor": 5,
+        "Speed": 7,
         "Initiative": 11,
         "Abilities": [
             {
-                "Attack (2m range)": "1d8 + 3"
+                "Attack Through": {
+                    "Damage": "1d8 + 1",
+                    "Pass Through": "The Flying Weapon moves in a straight line and attacks one Unit it passes by/through."
+                }
             }
         ],
         "Passives": [
             {
+                "Nimble": "Can stay and move through spaces of other units."
+            },
+            {
                 "Immunities (Damage)": "Immune to Fire, Necrotic, Psychic and Pierce Damage."
             },
             {
-                "Immunities (CC)": "Immune to Charm, Blind, Fear, Darkness."
+                "Immunities (CC)": "Immune to Fleeing, Charm, Blind, Fear, Darkness."
             }
         ],
         "Avoids AoE": false,
-        "Behavior": "Attacks the closest target.\nBest paired with spell-oriented enemies.\n",
+        "Behavior": "Attacks random targets.\nBest paired with spell-oriented enemies.\n",
         "Suggested Obstacles": "None",
         "Monster Data": "No tactic, mid HP, no gimmick",
         "Role": "Extra",
@@ -1895,13 +1893,13 @@
         "Degree": "Normal",
         "Experience": 300,
         "Stats": "5/0/0/0/0",
-        "Health": 40,
+        "Health": 55,
         "Armor": 12,
         "Speed": 4,
         "Initiative": 4,
         "Abilities": [
             {
-                "Melee Weapon": "3d8"
+                "Melee Weapon": "1d6 + 7 and half AoE around the target"
             }
         ],
         "Passives": [
@@ -1909,10 +1907,10 @@
                 "Crumbling Defense": "Every time the Animated Armor is attacked (against Defense), it permanently loses 1 Defense (down to 0). The Animated Armor can stand still for 1 minute to restore 1 Defense."
             },
             {
-                "Resistances": "Takes only 50% Damage from Fire."
+                "Resistances": "Takes only 50% Damage from Fire and Necrotic."
             },
             {
-                "Immunities": "Immune to Necrotic, Psychic and Poison Damage and Fear, Charm and Sleep."
+                "Immunities": "Immune to Psychic and Poison Damage and Fear, Charm and Sleep."
             }
         ],
         "Avoids AoE": false,
@@ -1930,19 +1928,19 @@
         "Degree": "Epic x2",
         "Experience": "600 (300 x2)",
         "Stats": "7/0/0/0/0",
-        "Health": 90,
+        "Health": 125,
         "Armor": 10,
         "Speed": 3,
         "Initiative": 8,
         "Abilities": [
             {
                 "Downslam": {
-                    "Damage": "2d6 + 7 Smash",
+                    "Damage": "2d6 + 3 Smash",
                     "Area Slam": "This hits all units within 2 meters of the Gargoyle. Destroys all stone or wood obstacles hit, spreading debris."
                 }
             },
             {
-                "Wingdraw (6m)": "Target a Unit.\nPush away or pull (of choice) it and all other Medium or smaller Units within 2 meters of it in up to 3 meters.\nThey all take 2d6 + 3 Force Damage (against Defense).\n"
+                "Wingdraw (6m)": "Target a Unit.\nPush away or pull (of choice) it and all other Medium or smaller Units within 2 meters of it in up to 3 meters.\nThey all take 1d4 + 5 Force Damage (ignoring Defense).\n"
             },
             {
                 "Flame Breath": "All units in a 90*, 4 meter long cone make a 10 Grade Dexterity Check.\nOn fail, they take 5d4 Fire Damage.\nOn success, they take half.\n"
@@ -1950,7 +1948,7 @@
         ],
         "Passives": [
             {
-                "Searing Cracks": "When the Gargoyle drops below 50% HP, blinding fire is emmited from its cracks. All Units that can see it must pass a 12 Dexterity of Wisdom Check (of choice) or be Blinded."
+                "Searing Cracks": "When the Gargoyle drops below 50% HP, blinding fire is emmited from its cracks. All Units that can see it must pass a 12 Dexterity of Sense Check (of choice) or be Blinded."
             },
             {
                 "Resistances": "Takes only 50% Fire, Shock and Psychic Damage."
@@ -1978,23 +1976,23 @@
         "Type": "Undead",
         "Experience": 75,
         "Stats": "1/0/0/0/0",
-        "Health": 12,
+        "Health": 10,
         "Armor": 4,
         "Speed": 4,
         "Initiative": "4 Melee, 8 Ranged",
         "Abilities": [
             {
-                "Ranged": "1d8 + 2"
+                "Ranged (8m)": "1d8"
             },
             {
                 "Melee": {
-                    "Damage": "1d8 + 3 (depending on weapon)"
+                    "Damage": "1d8 + 1 (depending on weapon)"
                 }
             }
         ],
         "Passives": [
             {
-                "Rescramble": "When it dies, if there is another dead Skeleton within 6 meters, they magically fuse at the middle point (with 7 Initiative).\nA new Skeleton is created there. The 2 corpses disappear.\nA player can use 0.5 Actions to stomp on a corpse or throw it away to prevent this.\n"
+                "Rescramble": "When it dies, if there is another dead Skeleton within 6 meters, they magically fuse at the middle point (with 7 Initiative).\nA new Skeleton is created there. The 2 corpses disappear.\nA player can deal any amount of damage to the corpse to destroy it.\n"
             },
             {
                 "Resistances": "Takes only 50% Pierce Damage (after Defense)."
@@ -2026,7 +2024,7 @@
         "Initiative": 7,
         "Abilities": [
             {
-                "Attack": "1d8 + 3 (depending on weapon)"
+                "Attack": "1d4 + 4 (depending on weapon)"
             }
         ],
         "Passives": [
@@ -2058,13 +2056,13 @@
         "Degree": "Normal",
         "Experience": 175,
         "Stats": "3/3/-1/3/3",
-        "Health": 28,
+        "Health": 39,
         "Armor": 3,
         "Speed": 5,
         "Initiative": 8,
         "Abilities": [
             {
-                "Claws/Bite": "1d6 + 3 Pierce or Slash (of choice)"
+                "Claws/Bite": "2d4 + 3 Pierce or Slash (of choice)"
             }
         ],
         "Passives": [
@@ -2106,17 +2104,17 @@
         "Experience": 225,
         "Stats": "0/0/0/0/0",
         "Health": 25,
-        "Armor": 3,
+        "Armor": "6 (magical)",
         "Speed": 4,
         "Initiative": 7,
         "Abilities": [
             {
-                "Flare": "All living units within 3 meters must pass a 10 Wisdom Check or take 25% of their current HP as Necrotic Damage.\nAfter this, the Will-o-Wisp dies.\n"
+                "Flare": "All living units within 3 meters must pass a 10 Sense Check or take 25% of their current HP as Necrotic Damage.\nAfter this, the Will-o-Wisp dies.\n"
             }
         ],
         "Passives": [
             {
-                "Fear Sight": "The first time someone sees a Will-o-Wisp, they must pass a 11 Wisdom Check or take 25% of their current HP as Necrotic Damage or be Feared. The same target can't be affected by the Fear Sight again for 24 hours (but can be affected by Flare)."
+                "Fear Sight": "The first time someone sees a Will-o-Wisp, they must pass a 11 Sense Check or take 25% of their current HP as Necrotic Damage or be Feared. The same target can't be affected by the Fear Sight again for 24 hours (but can be affected by Flare)."
             },
             {
                 "Dimming": "Will-o-Wisp can dim the light they emmit by up to 80% to become stealthy. Increase a Grade for noticing the Will-o-Wisp out of combat by 5."
@@ -2141,21 +2139,21 @@
         "Degree": "Normal",
         "Experience": 325,
         "Stats": "0/0/0/0/5",
-        "Health": 78,
-        "Armor": 4,
+        "Health": 50,
+        "Armor": 5,
         "Speed": 4,
         "Initiative": 5,
         "Abilities": [
             {
-                "Ghast Breath": "1d12 + 6 Necrotic"
+                "Ghast Breath": "2d6 + 5 Necrotic"
             },
             {
-                "Eldritch Eater (Reaction) (once per round)": "Counter a Restoration or Eldritch Spell cast within 10 meters and heal for 15 HP.\nThe caster loses the Actions used, but not the Mana or Cooldown.\n"
+                "Eldritch Eater (Reaction) (once per round)": "Counter a Restoration or Eldritch Spell it can see and heal another Unit it can see for 15 HP.\nThe caster loses the Actions used, but not the Mana or Cooldown.\n"
             }
         ],
         "Passives": [
             {
-                "Mist": "Emmits a Mist within 3 meters around. Its allies inside the mist are immune to Crowd Control."
+                "Mist": "Emmits a Mist within 3 meters around. Its allies inside the mist are immune to Crowd Control and have Cover to actions from outside."
             },
             {
                 "Resistances": "Takes only 50% Damage except True Damage."
@@ -2184,13 +2182,13 @@
         "Degree": "Normal",
         "Experience": 150,
         "Stats": "0/5/0/5/0",
-        "Health": 23,
+        "Health": 37,
         "Armor": 5,
         "Speed": 5,
         "Initiative": 10,
         "Abilities": [
             {
-                "Scratch (x3)": "1d6 + 2 Slash"
+                "Scratch (x3)": "1d4 + 3 Slash"
             }
         ],
         "Passives": [
@@ -2224,14 +2222,14 @@
         "Degree": "Normal",
         "Experience": 225,
         "Stats": "0/0/0/5/5",
-        "Health": 10,
-        "Armor": 3,
+        "Health": 5,
+        "Armor": 0,
         "Speed": 5,
         "Initiative": 11,
         "Abilities": [
             {
                 "Necrotic Touch": {
-                    "Damage": "1d12 + 6 Necrotic",
+                    "Damage": "1d6 + 6 Necrotic",
                     "Strength Wither": "If it dealt damage, put one Wither token on the target.\nAt 3 Wither tokens, the target permanently loses 1 in a Check of choice.\nThen remove the tokens.\n"
                 }
             }
@@ -2254,20 +2252,20 @@
         "Story Ideas": "Here's an idea to introduce Shadows - someone is very worried about something mundane - their wife cheating, guards being after him, etc. In reality, this is not true and the person is just very paranoid. Turns out the paranoia is caused by a Shadow haunting."
     },
     "Bubak": {
-        "Type": "Fiend (optionally Construct)",
+        "Type": "Fiend, Construct",
         "Degree": "Normal",
         "Experience": 275,
         "Stats": "0/0/2/3/6",
-        "Health": 55,
+        "Health": 62,
         "Armor": 6,
         "Speed": 4,
         "Initiative": 8,
         "Abilities": [
             {
-                "Spirit Seep": "Attack up to 3 units within 3 meters for 2d6 + 3 Necrotic damage.\nThey are Slowed.\n"
+                "Spirit Seep": "Attack up to 3 units within 3 meters for 2d4 + 4 Necrotic damage.\nThey are Slowed.\n"
             },
             {
-                "Scare Around (Free) (once per combat)": "All units within 3 meters of the Bubak must pass a 12 Wisdom Check or be Dazed.\nThe Bubak casts Scare Around on its first turn of combat for free.\n"
+                "Scare Around (Free) (once per combat)": "All units within 3 meters of the Bubak must pass a 12 Sense Check or be Dazed.\nThe Bubak casts Scare Around on its first turn of combat for free.\n"
             }
         ],
         "Passives": [
@@ -2297,7 +2295,7 @@
         "Role": "Main Enemy",
         "Variants": "Fiddlesticks, Scarecrow"
     },
-    "Hag Matron": {
+    "Hag Matron (WIP)": {
         "Type": "Fiend, Humanoid",
         "Degree": "Epic x3",
         "Experience": "600 (200 x 3)",
@@ -2308,13 +2306,13 @@
         "Initiative": 8,
         "Abilities": [
             {
-                "Summon Slime (5m) (1st Phase)": "Spawns a Slime with 12 Health and 3 Defense that deals 1d6 direct Acid Damage (ignores Defense).\nHas -1 in all Stats and 4 Speed. Immune to Poison and Acid.\nExplodes on death for 1d4 direct Acid Damage and leaves Acid on the gorund.\n"
+                "Summon Slime (5m) (1st Phase)": "Spawns a Slime with 12 Health and 3 Defense that deals 1d6 direct Acid Damage (ignoring Defense).\nHas -1 in all Stats and 4 Speed. Immune to Poison and Acid.\nExplodes on death for 1d4 direct Acid Damage and leaves Acid on the gorund.\n"
             },
             {
                 "Poison Swing (1st Phase)": "A 4x4 Cone that deals 3d6 Acid damage (vs Defense) and leaves Acid on the ground.\n"
             },
             {
-                "Curse of Confusion": "2 units must pass a Wisdom Check or take 1d8 + 4 Psychic damage.\nThen roll 1d6 and apply either 1. Daze, 2. Silence, 3. Cripple, 4. Root, 5. Charm, 6. Fear.\n"
+                "Curse of Confusion": "2 units must pass a Sense Check or take 1d8 + 4 Psychic damage.\nThen roll 1d6 and apply either 1. Daze, 2. Silence, 3. Cripple, 4. Root, 5. Charm, 6. Fear.\n"
             },
             {
                 "Curse of Weakness (2nd Phase Only)": "Target a Unit. It becomes cursed. It and every allied Unit withn 3 meters of it have Cover to all Attacks.\nLasts for 2 turns.\n"
@@ -2325,7 +2323,7 @@
         ],
         "Passives": [
             {
-                "Curse of the Hag (Reaction)": "Negate an Even die from a damage source, and the attacker/caster takes it instead as direct damage."
+                "Curse of the Hag (Reaction)": "Negate an Even die from a damage source, and the attacker/caster takes it instead as direct damage, ignoring Defense."
             },
             {
                 "Second Phase": "When dropping to 50% or less Health, instantly spawn one Slime near each Player. Then, she becomes a Large unrecognizable mass of flesh and acid."
@@ -2384,7 +2382,7 @@
                 "Melee Weapon": "1d8 + 3"
             },
             {
-                "Curse of Laughter (6m range)": "A target rolls a 12 Grade Wisdom Check.\nIf it fails, it starts laughing uncontrolably and is Paralyzed.\n"
+                "Curse of Laughter (6m range)": "A target rolls a 12 Grade Sense Check.\nIf it fails, it starts laughing uncontrolably and is Paralyzed.\n"
             },
             {
                 "Blessing of Joy": "The Satyr sings a song.\nAll units listening gain +1 Speed for one week and are healed for up to 10 HP.\nUsable once per day.\n"

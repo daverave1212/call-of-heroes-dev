@@ -164,9 +164,9 @@ function MegaDropdown({ navState, isBurgerClicked }) {
           <h4>Other</h4>
           <div className='subnav-title-underline'></div>
           <ul>
-            <LiLink isDownload={true} to="/Download/Sheet-2023-01-06.pdf">Character Sheet (PDF)</LiLink>
-            <LiLink isDownload={true} to="/Download/Sheet-2023-01-06.psd">Character Sheet (PSD)</LiLink>
-            <LiLink isDownload={true} to="/Download/Sheet-2023-01-06.png">Character Sheet (PNG)</LiLink>
+            <LiLink isDownload={true} to="/Download/Sheet-2023-03-24b.pdf">Character Sheet (PDF)</LiLink>
+            <LiLink isDownload={true} to="/Download/Sheet-2023-03-24.psd">Character Sheet (PSD)</LiLink>
+            <LiLink isDownload={true} to="/Download/Sheet-2023-03-24.png">Character Sheet (PNG)</LiLink>
             <LiLink to="/Other/Prices">Obstacles</LiLink>
             <LiLink to="/Other/PetsAndAnimals">Pets and Animals</LiLink>
             <LiLink to="/Other/Feats">Feats</LiLink>
@@ -223,6 +223,7 @@ function MegaDropdown({ navState, isBurgerClicked }) {
           <h4>Guides</h4>
           <div className='subnav-title-underline'></div>
           <ul>
+            <LiLink to="/Other/GMGuidelines">GM Guidelines</LiLink>
             <LiLink to="/Lore/Languages">Game Master Basics</LiLink>
             <LiLink to="/Lore/Languages">How To Be a Good GM</LiLink>
           </ul>

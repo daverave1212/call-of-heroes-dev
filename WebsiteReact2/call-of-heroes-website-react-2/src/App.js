@@ -71,6 +71,7 @@ import RunePuzzle from './pages/Tools/RunePuzzle';
 import Proficiencies from './pages/Other/Proficiencies';
 import Encounters from './pages/Other/Encounters';
 import AbilitySheets from './pages/Other/AbilitySheets';
+import GMGuidelines from './pages/Other/GMGuidelines';
 
 function App() {
 
@@ -125,6 +126,7 @@ function App() {
               )}/>
               <Route path="/Other/Rule" element={ <Rule/> }/>
               <Route path="/Other/Rules" element={ <Rules/> }/>
+              <Route path="/Other/GMGuidelines" element={ <GMGuidelines/> }/>
               <Route path="/Other/Abilities" element={ <Abilities/> }/>
               <Route path="/Other/Feats" element={ <Feats/> }/>
               <Route path="/Other/Proficiencies" element={ <Proficiencies/> }/>

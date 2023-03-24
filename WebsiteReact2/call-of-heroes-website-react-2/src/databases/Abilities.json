@@ -1,9 +1,10 @@
 {
     "Default Moves": {
         "~Dash~": {
-            "A": "Half-Action",
-            "Effect": "Move up to half of your movement speed (rounded down).",
-            "Notes": "When you Dash, you can move even if you already moved this turn. Dash is affected by Slows, Roots, etc. You can not Dash if you are Rooted.",
+            "A": "1 Action",
+            "Effect": "Move up to a number of meters equal to your base Movement Speed.",
+            "Upgrade": "Alternatively, you can use this for a Half-Action to move a number of meters equal to half of your Movement Speed, rounded down.",
+            "Notes": "Base Movement Speed refers to your Race's Movement Speed plus any magic items or passive bonuses - buffs are not applied.\nWhen you Dash, you can move even if you already moved this turn. Dash is affected by Slows, Roots, etc. You can not Dash if you are Rooted.\n",
             "Name": "~Dash~"
         },
         "~Defend~": {
@@ -13,7 +14,7 @@
         },
         "~Disengage~": {
             "A": "Half-Action",
-            "Effect": "This turn, you are immune to Fleeing.",
+            "Effect": "This turn, you don't become Fleeing when moving out of an enemy's attack range.",
             "Name": "~Disengage~"
         },
         "~Improvised Attack~": {
@@ -23,7 +24,7 @@
             "Name": "~Improvised Attack~"
         },
         "~Intimidating Mock~": {
-            "A": "Half-Action",
+            "A": "1 Action",
             "Effect": "A Unit that can see or hear you must pass a Charisma Check or become Fleeing until the end of its (next) turn.\n",
             "Name": "~Intimidating Mock~"
         },
@@ -36,7 +37,7 @@
         "~Taunt~": {
             "A": "Half-Action",
             "Range": "10 meters",
-            "Effect": "Make an enemy roll a Wisdom Check.\nIf it fails, its next attack gains Cover (-2) if it's not on you.\n",
+            "Effect": "Make an enemy roll a Sense Check.\nIf it fails, its next attack gains Cover (-2) if it's not on you.\n",
             "Name": "~Taunt~"
         },
         "~Throw Weapon~": {
@@ -57,7 +58,7 @@
     "Bloodshed": {
         "~Aim~": {
             "A": "Half-Action",
-            "Cooldown": "1 hour",
+            "Cooldown": "10 minutes",
             "Effect": "After your next attack within 10 minutes, you can reroll all dice and keep the new result.",
             "Notes": "Applies to Abilities and buffs added to the attack, like Smite. If you decide to reroll, you have to reroll ALL of them; Smite and similar abilities must be added before the reroll.",
             "Name": "~Aim~"
@@ -69,7 +70,7 @@
         },
         "~Grapple~": {
             "A": "1 Action",
-            "Effect": "You make a Might roll and the target makes a Dexterity or Might roll (its choice).\nIf you roll equal to or more than the enemy, the enemy becomes Grappled (Rooted and Dazed).\n",
+            "Effect": "You make a Might roll and the target makes a Dexterity or Might roll (its choice).\nIf you roll equal to or more than the enemy, the enemy becomes Grappled (Rooted and Fleeing).\n",
             "Name": "~Grapple~"
         },
         "~Hamstring~": {
@@ -95,7 +96,6 @@
         "~Slam~": {
             "A": "1 Action",
             "Effect": "All units within 2 meters of you take 2d4 Smash damage.\nOne of them of your choice takes an extra 1d4 Smash damage.\n",
-            "Notes": "Can be used with Shields equipped.",
             "Name": "~Slam~"
         },
         "~Wait~": {
@@ -108,10 +108,9 @@
         "~Chilling Shout~": {
             "A": "1 Action",
             "Cost": "1 Mana",
-            "Cooldown": "Long Rest",
             "Range": "10 meters",
             "Effect": "Attack a sentient Unit for 12 + Main Stat Cold damage (against Defense).\nIt becomes Slowed.\n",
-            "Notes": "Doesn't work on Units that can't feel fear.\nCan be used with Shields equipped.\n",
+            "Notes": "Doesn't work on Units that can't feel fear.\n",
             "Name": "~Chilling Shout~"
         },
         "~Muscle Tear~": {
@@ -126,7 +125,7 @@
             "A": "Half-Action",
             "Cost": "1 Mana",
             "Range": "3 meters",
-            "Effect": "A target within 3 meters takes 3d4 Psychic damage (directly) and can't cast Healing spells or regain Health for 1 turn.",
+            "Effect": "A target within 3 meters takes 3d4 Psychic damage (directly, ignoring Defense) and can't cast Healing spells or regain Health for 1 turn.",
             "Name": "~Panic Lash~"
         },
         "~Recuperate~": {
@@ -162,7 +161,7 @@
     "Warfare": {
         "~Aim~": {
             "A": "Half-Action",
-            "Cooldown": "1 hour",
+            "Cooldown": "10 minutes",
             "Effect": "After your next attack within 10 minutes, you can reroll all dice and keep the new result.",
             "Notes": "Applies to Abilities and buffs added to the attack, like Smite. If you decide to reroll, you have to reroll ALL of them; Smite and similar abilities must be added before the reroll.",
             "Name": "~Aim~"
@@ -186,8 +185,8 @@
         "~Hide~": {
             "A": "Special",
             "Cooldown": "Once per encounter",
-            "Effect": "When combat starts, if you have Cover, you start as Hidden.\nWhile Hidden, you can skip your turn.\nThen, you can unhide and start your turn whenever you like (even during enemies' turns).\nIf you did this, when your turn ends, you are no longer hidden.\n",
-            "Notes": "Essentially, you can interrupt another Unit's turn, put that unit on pause, and start your turn. When your turn ends, the Unit resumes its turn.\nIf you want to start during an enemy's turn, you do so when they declare they want to do something or after they finish doing something.\n",
+            "Effect": "When combat starts, if you have Cover from all enemies, you start as Hidden.\nWhile Hidden, you can skip your turn.\nThen, you can unhide and start your turn whenever you like (even during enemies' turns).\nIf you did this, when your turn ends, you are no longer hidden.\n",
+            "Notes": "Attacking or using Abilities or moving out of cover in relation to any enemy makes you unhides you.\nIf you don't start your turn this round, you essentially lose your turn. You don't take 2 turns next round.\nIf you want to start during an enemy's turn, you do so when they declare they want to do something or after they finish doing something.\nIn special circumstances, the DM might ask you to make a Dexterity Check to remain Hidden.\nYou can't become Hidden through non-Ability means.\n",
             "Name": "~Hide~"
         },
         "~Lightstrike~": {
@@ -205,21 +204,21 @@
         },
         "~Atonement~": {
             "A": "0 Actions",
-            "Cooldown": "Long Rest",
+            "Cooldown": "1 hour",
             "Effect": "Lose (5 + Main Stat) Health.\nGain (7 + Your Level) as much Shielding for 1 hour.\n",
             "Name": "~Atonement~"
         },
         "~Stand Stoic~": {
             "A": "0 Actions",
             "Cooldown": "Long Rest",
-            "Effect": "All Prone allies (and you) immediately stand up. All allies (and you) remove their Roots and Slows.\nNone of you can suffer from Fleeing until the start of your next turn.\nYou (yourself) can continue your movement if you already moved.\n",
+            "Effect": "All Prone allies (and you) immediately stand up. All allies (and you) remove their Roots and Slows.\nNone of you can be Fleeing from exiting a Unit's attack range until the start of your next turn.\nYou (yourself) can continue your movement if you already moved.\n",
             "Notes": "Fleeing is when you move away from an enemy's melee attack range; if you are Fleeing, all your actions have Cover.",
             "Name": "~Stand Stoic~"
         },
         "~Assess Their Ranks~": {
             "A": "0 Action",
             "Cost": "1 Mana",
-            "Cooldown": "Once per Combat",
+            "Cooldown": "Once per encounter",
             "Duration": "1 minute",
             "Effect": "Gain Shielding equal to the number of Worthy Enemies you see.",
             "Name": "~Assess Their Ranks~"
@@ -241,25 +240,24 @@
         "~Infailible Reach~": {
             "A": "1 Action",
             "Cost": "1 Mana",
-            "Cooldown": "1 use / Combat",
+            "Cooldown": "Once per encounter",
             "Range": "3 meters",
             "Effect": "Use any melee weapon to perform a heavy blow on a Unit within 3 meters.\nIt must pass a Dexterity Check or take 3d10 + (Your Main Stat) damage of that weapon's type.\nIf it passes, it takes half of that damage.\n",
-            "Notes": "Extra damage from magic weapons does apply to this damage.\nCan be used with Shields equipped.\n",
+            "Notes": "Extra damage from magic weapons does apply to this damage.\n",
             "Name": "~Infailible Reach~"
         },
         "~Row Through~": {
             "A": "1 Action",
             "Cost": "1 Mana",
-            "Cooldown": "Long Rest",
             "Range": "2 meters",
             "Effect": "Push a Unit up to 6 meters away from you.\nIf it collides with something, it must pass a Might Check or be Stunned and take 1d4 Smash damage (and it stops).\nIf it collides with another Unit, that Unit is also pushed in the same direction and continues a chain of Row Through.\n",
-            "Notes": "E.g. if it collides with a Unit, that Unit is also pushed up to 6 meters and if it collides with something, it must pass a Might Check or be Stunned and take the damage. If that thing it collided with was a Unit, that Unit is also pushed up to 6 meters and must pass the Might Check and so on.\nCan be used with Shields equipped.\n",
+            "Notes": "E.g. if it collides with a Unit, that Unit is also pushed up to 6 meters and if it collides with something, it must pass a Might Check or be Stunned and take the damage. If that thing it collided with was a Unit, that Unit is also pushed up to 6 meters and must pass the Might Check and so on.\n",
             "Name": "~Row Through~"
         },
         "~Whirlwind~": {
             "A": "1 Action",
             "Cost": "1 Mana",
-            "Effect": "Roll 2d10 for each Unit within 3 meters of you.\nAssign 2 of the rolled d10's to each of those Units, and deal that much damage as Slash damage to it (directly).\n",
+            "Effect": "Roll 2d10 for each Unit within 3 meters of you.\nAssign 2 of the rolled d10's to each of those Units, and deal that much damage as Slash damage to it (directly, ignoring Defense).\n",
             "Name": "~Whirlwind~"
         }
     },
@@ -267,12 +265,12 @@
         "~Acid Burst~": {
             "A": "Half-Action",
             "Range": "3 meters",
-            "Effect": "A Unit makes a Dexterity Check.\nIt takes 1d4 + Main Stat Acid damage (directly) on a failed Check, or half of that if it succeeds.\n",
+            "Effect": "A Unit makes a Dexterity Check.\nIt takes 1d4 + Main Stat Acid damage (directly, ignoring Defense) on a failed Check, or half of that if it succeeds.\n",
             "Name": "~Acid Burst~"
         },
         "~Burning Breath~": {
             "A": "Half-Action",
-            "Effect": "All Units in a 90 degree, 3 meter cone take 3 Fire damage (directly).\nUnits can't benefit from Cover from this Ability.\n",
+            "Effect": "All Units in a 90 degree, 3 meter cone take 3 Fire damage (directly, ignoring Defense).\nUnits can't benefit from Cover from this Ability.\n",
             "Upgrade": "At Level 4, the damage increases to 4 damage.\n",
             "Name": "~Burning Breath~"
         },
@@ -280,14 +278,18 @@
             "A": "1 Action",
             "Range": "5 meters",
             "Duration": "10 minutes",
-            "Effect": "Choose a 1x1x1 meter zone.\nA bonfire errupts in that place.\nAny Unit touching the bonfire takes 1d8 Fire damage (directly).\n",
-            "Notes": "If the bonfire can spread fire to nearby flammable objects that aren't being worn or carried, it spreads at the start of your next turn (same for further bonfires).\nIf the bonfire touches the same unit multiple times on the same turn, it only deals the damage once.\n",
+            "Cooldown": "Your Level uses / Long Rest",
+            "Effect": "Choose a 1x1x1 meter zone.\nA bonfire Fire errupts in that place.\nThe first time in the encounter a Unit touches a bonfire Fire, it takes 1d8 Fire Damage directly (ignores Defense) (instead of the normal Fire damage).\n",
+            "Upgrade": "Stepping inside a space with Fire or starting your turn inside Fire deals 2 Fire damage.",
+            "Notes": "Bonfire Fire is stronger that normal fire and can be spread with Control Flames or similar Abilities.\nIf the bonfire can spread fire to nearby flammable objects that aren't being worn or carried, it spreads at the start of your next turn (same for further bonfires).\nIf the bonfire touches the same unit multiple times on the same turn, it only deals the damage once.\n",
             "Name": "~Bonfire~"
         },
         "~Control Flames~": {
             "A": "1 Action",
             "Range": "5 meters",
-            "Effect": "Choose a 1x1x1 meter cube of fire.\nChoose one of the following things to do with it:\n- You can spread the fire up to (Your Level) meters in any direction (Your Level spaces of 1x1 meter)\n- You can extinguish it\n- You can double of halve the radius of light or heat it spreads\n- You can change its color\n- You can cause simple shapes to appear in the flicker.\nYou can have 2 effects active at the same time at level 1, 4 at level 4 and unlimited at level 8.\nEffects last up to 1 hour.\nIf the fire touches a Unit, it takes 1d8 Fire damage (directly).\n",
+            "Cooldown": "Long Rest",
+            "Effect": "Choose a 1x1x1 meter cube containing fire.\nFor 1 Action, choose one of the following things to do with it:\n- You can spread the fire up to (Your Level) meters in any direction (Your Level spaces of 1x1 meter)\n- You can extinguish it\n- You can double of halve the radius of light or heat it spreads\n- You can change its color\n- You can cause simple shapes to appear in the flicker.\nEffects last up to 1 hour.\n",
+            "Upgrade": "You can use this 2 times / Long Rest at level 1, 4 times at level 4 and unlimited at level 8.",
             "Notes": "If you spread the fire, you can spread it in any shape - arrange the fire squares how you like.",
             "Name": "~Control Flames~"
         },
@@ -295,18 +297,18 @@
             "A": "1 Action",
             "Range": "5 meters",
             "Cooldown": "Depends",
-            "Effect": "Choose a 1x1x1 meter cube, with or without water.\nChoose one of the following things to do with it:\n- You can move the water in it (Your Level) meters in any direction\n- You can roughly alter the water's shape\n- You can change its water's color or opacity\n- You can alter its water's temperature, making it anywhere between near-freezing or near-boiling\n- You can fill it water or destroy all water in it\nShape, color and temperature effects last for up to 1 hour.\nThe area increases to 2x2x2 meters at Level 4 and 4x4x4 meters at Level 8.\n",
-            "Upgrade": "You can use this a number of times per Long Rest equal to your Level.",
-            "Notes": "This Ability cannot do Damage or Crowd Control, but can act as difficult terrain for Units passing through it.",
+            "Effect": "Choose a 1x1x1 meter cube, with or without water.\nChoose one of the following things to do with it:\n- You can move the water in it (Your Level) meters in any direction\n- You can roughly alter the water's shape\n- You can change its water's color or opacity\n- You can alter its water's temperature, making it anywhere between near-freezing or near-boiling\n- You can fill it water or destroy all water in it\nShape, color and temperature effects last for up to 1 hour.\n",
+            "Upgrade": "The area increases to 2x2x2 meters at Level 4 and 4x4x4 meters at Level 8.\nYou can use this a number of times per Long Rest equal to your Level.\n",
+            "Notes": "When moved, the water can hold up to 20kg of mass in/on(even if frozen). Otherwise, it can't be moved.\nIce counts as water.\nThis Ability cannot do Damage or Crowd Control, but can act as difficult terrain for Units passing through it.\n",
             "Name": "~Control Water~"
         },
         "~Control Earth~": {
             "A": "1 Action",
             "Range": "5 meters",
-            "Cooldown": "1 use / Long Rest",
-            "Effect": "Choose a 1x1x1 meter cube of dirt, loose stone, sand, etc.\nYou can do the following things to it.\nThis turn, and every turn for 10 minutes, you can spend 1 Action to:\n- Move it 1 meter in any direction\n- Roughly shape it in any form\n- Cause it to become difficult terrain.\nIf a Unit was hit by it or it was removed from below a Unit's feet, it rolls a Dexterity Check (against your Counter Check Grade).\nIf it fails, it takes 1d8 damage and is knocked prone (or 2d8 damage if the earth was removed from underneath its feet).\nThe earth can hold up to 20kg of mass on it.\n",
+            "Cooldown": "Long Rest",
+            "Effect": "Choose a 1x1x1 meter cube of dirt, loose stone, sand, etc.\nYou can do the following things to it.\nThis turn, and every turn for 10 minutes, you can spend 1 Action to:\n- Move it 1 meter in any direction\n- Roughly shape it in any form\n- Cause it to become difficult terrain.\nIf a Unit was hit by it or it was removed from below a Unit's feet, it rolls a Dexterity Check (against your Counter Check Grade).\nIf it fails, it takes 1d8 damage and is knocked prone (or 2d8 damage if the earth was removed from underneath its feet).\n",
             "Upgrade": "You can do this twice per Long Rest at Level 2, 4 times per Long Rest at Level 4 and unlimited times at level 8.",
-            "Notes": "The cube has 10 Health, 0 Defense and fails all checks for combat purposes. It's immune to Psychic damage and crowd control.\nUnits might or might not gain Cover from the damage, depending on the circumstance (Cover from the direction the earth is coming from, of course).\n",
+            "Notes": "When moved, the earth can hold up to 20kg of mass on it. Otherwise, it can't be moved.\nThe cube has 10 Health, 0 Defense and fails all checks for combat purposes. It's immune to Psychic damage and Crowd Control.\nUnits might or might not gain Cover from the damage, depending on the circumstance (Cover from the direction the earth is coming from, of course).\n",
             "Name": "~Control Earth~"
         },
         "~Flame Bolt~": {
@@ -323,7 +325,7 @@
         "~Frostbite~": {
             "A": "1 Action",
             "Range": "5 meters",
-            "Effect": "Send out a wave of frost towards a Unit.\nIt must pass a Might Check or take (directly) 2d8 + 2 Cold Damage, or half if it succeeds.\nIf it fails, it is also Slowed.\n",
+            "Effect": "Send out a wave of frost towards a Unit.\nIt must pass a Might Check or take (directly, ignoring Defense) 2d8 + 2 Cold Damage, or half if it succeeds.\nIf it fails, it is also Slowed.\n",
             "Name": "~Frostbite~"
         },
         "~Land Breach~": {
@@ -337,8 +339,8 @@
             "A": "Half-Action",
             "Range": "5 meters to edge",
             "Duration": "1 minute",
-            "Effect": "Declare a 2x2 meter zone made of dirt, sand or other such material.\nThat zone becomes Difficult Terrain.\n",
-            "Upgrade": "At Level 4, the zone becomes 4x4.\n",
+            "Effect": "Declare a 3x3 meter zone made of dirt, sand or other such material.\nThat zone becomes Difficult Terrain.\n",
+            "Upgrade": "At Level 4, the zone becomes 5x5.\n",
             "Variant": "You can also cause this difficult terrain with vegetation.",
             "Name": "~Quicksand~"
         },
@@ -366,7 +368,7 @@
         "~Frost Nova~": {
             "A": "Half-Action",
             "Cost": "1 Mana",
-            "Effect": "All Units within 2 meters of you make a Dexterity Check.\nThey take 1d8 + 4 Cold Damage (directly) if they fail, or half of that if they succeed.\nIf they fail, they are also Slowed.\n",
+            "Effect": "All Units within 2 meters of you make a Dexterity Check.\nThey take 1d8 + 4 Cold Damage (directly, ignoring Defense) if they fail, or half of that if they succeed.\nIf they fail, they are also Slowed.\n",
             "Notes": "Cover is applied normally.",
             "Name": "~Frost Nova~"
         },
@@ -393,7 +395,7 @@
             "A": "1 Action",
             "Cost": "2 Mana",
             "Range": "5 meters",
-            "Effect": "The target rolls a Dexterity Check.\nIf it fails, it takes 3d8 + 2 Cold damage (directly), or half otherwise.\nThe target automatically fails if it's affected by any Crowd Control (except Hard Terrain).\n",
+            "Effect": "The target rolls a Dexterity Check.\nIf it fails, it takes 3d8 + 2 Cold damage (directly, ignoring Defense), or half otherwise.\nThe target automatically fails if it's affected by any Crowd Control (except Hard Terrain).\n",
             "Name": "~Ice Spike~"
         },
         "~Fire Enchantment~": {
@@ -407,7 +409,7 @@
             "A": "Half-Action",
             "Cost": "1 Mana",
             "Range": "5 meters",
-            "Effect": "Choose a piece of metal and heat it.\n- If it's an armor, the wearer takes 2d6 + 1 Fire damage (directly).\n- If it's a weapon, the wearer takes Main Stat Damage (directly) and Also, it must pass a Might Check or be Crippled.\n",
+            "Effect": "Choose a piece of metal and heat it.\n- If it's an armor, the wearer takes 2d6 + 1 Fire damage (directly, ignoring Defense).\n- If it's a weapon, the wearer takes Main Stat Damage (directly, ignoring Defense) and Also, it must pass a Might Check or be Crippled.\n",
             "Notes": "Ignores Cover.",
             "Name": "~Heat Metal~"
         },
@@ -416,7 +418,7 @@
             "Cost": "1 Mana",
             "Range": "5 meters to edge",
             "Duration": "1 minute or until cancelled",
-            "Effect": "Conjure a 5x5 zone of flames on the ground.\nAt the end of each of your turns, roll 1d4 + 2.\nAll Units inside the zone take that amount as Fire damage (directly).\n",
+            "Effect": "Conjure a 5x5 zone of flames on the ground.\nAt the end of each of your turns, roll 1d4 + 2.\nAll Units inside the zone take that amount as Fire damage (directly, ignoring Defense).\n",
             "Name": "~Flame Strike~"
         },
         "~Scorching Rays~": {
@@ -427,10 +429,11 @@
             "Name": "~Scorching Rays~"
         },
         "~Freeze Water~": {
-            "A": "Channeled",
-            "Range": "12 meters",
+            "A": "1 Action",
+            "Range": "10 meters",
             "Requirement": "Level 4",
-            "Effect": "Choose a point you can see with a continuous mass of water. You begin channeling.\nOn every turn (until you stop channeling), the water freezes in a sphere around the point, (Your Level - 3) meters radius for each Half-Action spent.\n",
+            "Cooldown": "Main Stat uses / Long Rest",
+            "Effect": "Choose a number of 1x1x1 cubes containing water equal to your Level.\nThe water there freezes.\nIf a Unit is caught in the water, it must pass a Dexterity Check or be Rooted. If it passes, it is expelled to a nearby space near the frozen water (it chooses, within reason).\n",
             "Name": "~Freeze Water~"
         },
         "~Fire Ball~": {
@@ -459,7 +462,7 @@
         "~Magic Missiles~": {
             "A": "1 Action",
             "Range": "6 meters",
-            "Effect": "Shoot a number of missiles equal to your Main Stat. Each missile does 1d4 Force damage (directly).\n",
+            "Effect": "Shoot a number of missiles equal to your Main Stat. Each missile does 1d4 Force damage (directly, ignoring Defense).\n",
             "Upgrade": "At Level 4, you can also spend any amount of Mana, and you shoot 2 more missiles for each Mana spent.\n",
             "Notes": "You can send missiles to different targets, but you must declare all the attacks at once.\nEach missile can be affected individually by Cover (e.g. shooting all 3 missiles at a Unit that has Cover makes each missile deal 1d4 - 2 damage).\n",
             "Name": "~Magic Missiles~"
@@ -478,15 +481,15 @@
         },
         "~Focus Fling~": {
             "A": "Half-Action",
-            "Effect": "Choose a medium-sized object within 5 meters that's no heaveier than 20kg.\nFling the object into a Unit within 3 meters of the object.\nIt must pass a Dexterity Check or take 1d10 Smash damage. It takes half of the damage if it passes.\n",
-            "Upgrade": "At Level 4, you can spend 1 Mana to increase the damage to 2d12.\n",
-            "Notes": "Cover is applied from the object's initial position to the target.\nIf the object can break, it breaks. Obviously, the object must be move-able and not tied/stuck in place.\n",
+            "Effect": "Choose a medium-sized object within 5 meters that's no heaveier than 10kg.\nFling the object into a Unit within 3 meters of the object.\nDeals 1d10 Smash damage against Defense.\n",
+            "Upgrade": "You can use this to fling consumables like bombs, vials of acid, magic ammo, flasks of holy water, etc. If you do this, the damage is added as part of the attack (against Defense).\nAt Level 4, you can spend 1 Mana to increase the damage to 2d12.\n",
+            "Notes": "Cover is applied from the object's initial position to the target.\nIf the object can break, it breaks. Obviously, the object must be move-able and not tied/stuck in place.\nThrowing weapons does not apply effects or deal extra damage.\n",
             "Name": "~Focus Fling~"
         },
         "~Arcane Spear~": {
             "A": "1 Action",
             "Cost": "1 Mana",
-            "Effect": "All Units in a 6 meter line from you make a Dexterity Check.\nDeal 13 damage (directly) to all targets who failed.\nIf no Unit failed, you gain the Mana back.\n",
+            "Effect": "All Units in a 6 meter line from you make a Dexterity Check.\nDeal 13 damage (directly, ignoring Defense) to all targets who failed.\nIf no Unit failed, you gain the Mana back.\n",
             "Name": "~Arcane Spear~"
         },
         "~Flash~": {
@@ -508,7 +511,7 @@
             "Cost": "2 Mana",
             "Range": "10 meters to center",
             "Requirement": "Level 4",
-            "Effect": "Declare a 2x2 meter area.\nAll Units in that are must pass a Might Check or take 7d4 Force Damage (directly), or half of that if they pass.\nThe blast extends 2 more meters from its edges in all directions and further damages directly all Units on this 2-meter edge for half of the damage rolled.\n",
+            "Effect": "Declare a 2x2 meter area.\nAll Units in that are must pass a Might Check or take 7d4 Force Damage (directly, ignoring Defense), or half of that if they pass.\nThe blast extends 2 more meters from its edges in all directions and further damages directly all Units on this 2-meter edge for half of the damage rolled.\n",
             "Notes": "To conclude, the total area of this Spell is 4x4 meters. The Units in the 2x2 center must pass the check or take full damage and the units on the edge just take half of the damage (as if they passed a Check for the center).",
             "Name": "~Magic Nova~"
         },
@@ -516,7 +519,7 @@
             "A": "Half-Action",
             "Cost": "1 Mana",
             "Range": "10 meters",
-            "Effect": "Pick a 1x1 zone. A magical orb is created in that place.\nAt the start of your next turn, the orb dashes to your position.\nAll Units in the orb's path take 3d4 Force damage (directly).\n",
+            "Effect": "Pick a 1x1 zone. A magical orb is created in that place.\nAt the start of your next turn, the orb dashes to your position.\nAll Units in the orb's path take 3d4 Force damage (directly, ignoring Defense).\n",
             "Name": "~Phase Orb~"
         },
         "~Spell Seal~": {
@@ -642,23 +645,23 @@
         "~Alarm~": {
             "A": "10 minutes",
             "Duration": "12 hours",
-            "Cooldown": "24 hours",
+            "Cooldown": "12 hours",
             "Effect": "You setup an invisible 4x4x4 meter cube.\nIf an unknown Unit or enemy enters the cube, it alerts you mentally with a bell sound, or whatever sound you choose.\n",
             "Name": "~Alarm~"
         },
         "~Control Earth~": {
             "A": "1 Action",
             "Range": "5 meters",
-            "Cooldown": "1 use / Long Rest",
-            "Effect": "Choose a 1x1x1 meter cube of dirt, loose stone, sand, etc.\nYou can do the following things to it.\nThis turn, and every turn for 10 minutes, you can spend 1 Action to:\n- Move it 1 meter in any direction\n- Roughly shape it in any form\n- Cause it to become difficult terrain.\nIf a Unit was hit by it or it was removed from below a Unit's feet, it rolls a Dexterity Check (against your Counter Check Grade).\nIf it fails, it takes 1d8 damage and is knocked prone (or 2d8 damage if the earth was removed from underneath its feet).\nThe earth can hold up to 20kg of mass on it.\n",
+            "Cooldown": "Long Rest",
+            "Effect": "Choose a 1x1x1 meter cube of dirt, loose stone, sand, etc.\nYou can do the following things to it.\nThis turn, and every turn for 10 minutes, you can spend 1 Action to:\n- Move it 1 meter in any direction\n- Roughly shape it in any form\n- Cause it to become difficult terrain.\nIf a Unit was hit by it or it was removed from below a Unit's feet, it rolls a Dexterity Check (against your Counter Check Grade).\nIf it fails, it takes 1d8 damage and is knocked prone (or 2d8 damage if the earth was removed from underneath its feet).\n",
             "Upgrade": "You can do this twice per Long Rest at Level 2, 4 times per Long Rest at Level 4 and unlimited times at level 8.",
-            "Notes": "The cube has 10 Health, 0 Defense and fails all checks for combat purposes. It's immune to Psychic damage and crowd control.\nUnits might or might not gain Cover from the damage, depending on the circumstance (Cover from the direction the earth is coming from, of course).\n",
+            "Notes": "When moved, the earth can hold up to 20kg of mass on it. Otherwise, it can't be moved.\nThe cube has 10 Health, 0 Defense and fails all checks for combat purposes. It's immune to Psychic damage and Crowd Control.\nUnits might or might not gain Cover from the damage, depending on the circumstance (Cover from the direction the earth is coming from, of course).\n",
             "Name": "~Control Earth~"
         },
         "~Control Wind~": {
             "A": "1 Action",
             "Range": "5 meters",
-            "Effect": "You can control gusts of wind in a 6x6x6 area and do the following:\n- You can create a gust of Heavy Wind (see notes) that lasts for 1 minute\n- You can move a gust of Heavy Wind 3 meters in any direction\n- You can create wind that makes Units fall softly\n- You can stop it (for 0 Actions)\n",
+            "Effect": "You can control gusts of wind in a 6x6x6 area and do one of the following for 1 Action:\n- You can create a gust of Heavy Wind blowing from any direction (see notes) that lasts for 1 minute\n- You can move a gust of Heavy Wind 3 meters in any direction\n- You can create wind that makes Units fall softly\n- You can stop it (for 0 Actions)\n",
             "Upgrade": "You can have one gust of wind active at a time.\nAt Level 3, you can have a number of winds active equal to your Main Stat.\n",
             "Notes": "Moving against Heavy Wind acts as Hard Terrain.\nProjectiles fired against the Wind have Cover, and projectiles fired with the Wind gain +1.\nHeavy Wind also clears Fog, Smoke, etc in the area.\nMultiple Winds don't stack into eachother.\n",
             "Name": "~Control Wind~"
@@ -681,7 +684,7 @@
         },
         "~Mastery~": {
             "A": "Passive",
-            "Effect": "You can use Wisdom or Charisma instead of Strength or Dexterity for weapon attacks (you still need to be Trained in that weapon to use it properly).",
+            "Effect": "You can use Sense or Charisma instead of Strength or Dexterity for weapon attacks (you still need to be Trained in that weapon to use it properly).",
             "Notes": "Also called Soelluelegh, or however it's spelled.",
             "Name": "~Mastery~"
         },
@@ -693,7 +696,7 @@
         "~Poison Burst~": {
             "A": "Half-Action",
             "Range": "3 meters",
-            "Effect": "A Unit makes a Might Check.\nIt takes 1d6 + 2 Poison damage (directly) if it fails, or half of that if it succeeds.\n",
+            "Effect": "A Unit makes a Might Check.\nIt takes 1d6 + 2 Poison damage (directly, ignoring Defense) if it fails, or half of that if it succeeds.\n",
             "Name": "~Poison Burst~"
         },
         "~Resistance~": {
@@ -706,7 +709,7 @@
             "A": "Reaction",
             "Range": "10 meters",
             "Cost": "1 Mana",
-            "Cooldown": "1 use / Combat",
+            "Cooldown": "Once per encounter",
             "Effect": "An ally (or yourself) becomes Rooted in the ground for up to 1 minute.\nWhile rooted, that Unit's Defense can't be lower than 6.\n",
             "Notes": "You can cancel this effect at any point at will.",
             "Name": "~Barkskin~"
@@ -715,7 +718,7 @@
             "A": "1 Action",
             "Cost": "1 Mana",
             "Range": "5 meters",
-            "Effect": "A Unit in range takes 4d4 direct Slash Damage.\nIf it weighs 75kg or less, it takes another 2d4 Slash Damage and is pushed up to 3 meters in a chosen direction.\n",
+            "Effect": "A Unit in range takes 4d4 Slash Damage (directly, ignoring Defense).\nIf it weighs 75kg or less, it takes another 2d4 Slash Damage and is pushed up to 3 meters in a chosen direction.\n",
             "Notes": "This is not considered an attack, but the target can benefit from Cover from it (-2).",
             "Name": "~Cutting Winds~"
         },
@@ -732,7 +735,7 @@
             "A": "Half-Action",
             "Range": "5 meters",
             "Cost": "1 Mana",
-            "Cooldown": "1 use / Turn",
+            "Cooldown": "Once per turn",
             "Effect": "Heal a target for 2d6.",
             "Name": "~Healing Surge~"
         },
@@ -746,7 +749,7 @@
         "~Lightning Storm~": {
             "A": "1 Action",
             "Range": "5 meters to edge",
-            "Cooldown": "Long Rest",
+            "Cost": "1 Mana",
             "Effect": "Declare a cube with a width equal to your Main Stat.\nAttack all units inside the area take 5d4 Shock damage now (against Defense).\nIf a unit carries anything made of metal, this ignores all its Defense.\nOn your turn (for up to 1 minute), you can spend 1 Action to move the storm up to 3 meters and (and/or) its deal damage again.\nLasts up to 1 minute.\n",
             "Upgrade": "At Level 5, the range increases to 10 meters to edge.",
             "Notes": "The storm only deals damage the moment you spend 1 Action; if you do spend 1 Action, the storm stays in place and deals no damage.",
@@ -773,8 +776,8 @@
         "~Quaking Wave~": {
             "A": "1 Action",
             "Cost": "1 Mana",
-            "Cooldown": "1 use / Combat",
-            "Effect": "Send out a 5x1 meter wave forward through the ground.\nAll Units hit must make a Dexterity Check or take 3d4 + Main Stat Force damage (or half if they succeed).\nIf they fail and are below 50% Health, they become Dazed. Otherwise, they become Slowed.\n",
+            "Cooldown": "Once per Encounter",
+            "Effect": "Send out a 5x1 meter wave forward through the ground.\nAll Units hit must make a Dexterity Check or take 3d4 + Main Stat Force damage (or half if they succeed).\nIf they fail and are below 50% Health, they become Slowed and Fleeing. Otherwise, they just become Slowed.\n",
             "Name": "~Quaking Wave~"
         },
         "~Fruit of the Forest~": {
@@ -789,7 +792,7 @@
             "A": "1 Action",
             "Range": "10 meters",
             "Cost": "1 Mana",
-            "Effect": "Choose a Unit.\nCount how many of these criteria it matches:\n- Has armor made of organic material (leather, hide, hemp, etc)\n- Is standing directly on vegetation\n- It's night and the target is outdoors\nIt takes damage (directly) and must pass a Wisdom Check or suffer a Crowd Control effect based on its number of matched criteria:\n- 1: 1d4 damage, Rooted\n- 2: 2d4 damage, Rooted and Crippled\n- 3: 3d4 damage, Stunned\n",
+            "Effect": "Choose a Unit.\nCount how many of these criteria it matches:\n- Has armor made of organic material (leather, hide, hemp, etc)\n- Is standing directly on vegetation\n- It's night and the target is outdoors\nIt takes damage (directly, ignoring Defense) and must pass a Sense Check or suffer a Crowd Control effect based on its number of matched criteria:\n- 1: 1d4 damage, Rooted\n- 2: 2d4 damage, Rooted and Crippled\n- 3: 3d4 damage, Stunned\n",
             "Name": "~Scape Grasp~"
         },
         "~Thorn Quills~": {
@@ -803,7 +806,7 @@
         "~Venin Shot~": {
             "A": "1 Action",
             "Range": "6 meters",
-            "Effect": "Attack a target for 2d8 Poison Damage.\nIf you (potentially) have cover against that enemy, the attack gains an extra 1d8 Damage and the damage type becomes Necrotic.\n",
+            "Effect": "Attack a target for 2d8 Poison Damage.\nIf you (potentially) have cover against that enemy, the attack gains an extra 1d8 Damage and all the Damage becomes Necrotic instead of Poison.\n",
             "Name": "~Venin Shot~"
         },
         "~Wild Heart~": {
@@ -836,6 +839,7 @@
             "Cooldown": "Long Rest",
             "Duration": "10 minutes",
             "Effect": "Your hands and feet can stick to solid, (more or less) flat surfaces, so you can walk on them.\nWalking on walls and floors acts as Hard Terrain.\n",
+            "Upgrade": "Alternatively, you can spend 1 Mana to cast this ignoring the Cooldown.",
             "Name": "~Spider Climb~"
         },
         "~Tree Stride~": {
@@ -869,7 +873,7 @@
         "~Alarm~": {
             "A": "10 minutes",
             "Duration": "12 hours",
-            "Cooldown": "24 hours",
+            "Cooldown": "12 hours",
             "Effect": "You setup an invisible 4x4x4 meter cube.\nIf an unknown Unit or enemy enters the cube, it alerts you mentally with a bell sound, or whatever sound you choose.\n",
             "Name": "~Alarm~"
         },
@@ -877,7 +881,7 @@
             "A": "0 Actions",
             "Cost": "1 Mana",
             "Range": "6 meters",
-            "Effect": "Extend a magical chain to a medium (or larger) living or undead Unit and pull yourself to the target instantly.\nThe target also takes 1d6 True damage (directly).\n",
+            "Effect": "Extend a magical chain to a medium (or larger) living or undead Unit and pull yourself to the target instantly.\nThe target also takes 1d6 True damage (directly, ignoring Defense).\n",
             "Name": "~Chaining Grasp~"
         },
         "~Dancing Weapon~": {
@@ -1037,7 +1041,7 @@
             "A": "Reaction",
             "Range": "10 meters",
             "Cooldown": "1 hour",
-            "Effect": "When an ally makes a Check, it can use your modifier instead of its own.",
+            "Effect": "When an ally makes a Check, it can use your modifiers (including Proficiency) instead of its own.",
             "Name": "~Guidance~"
         },
         "~Hollow Touch~": {
@@ -1055,7 +1059,7 @@
         },
         "~Mastery~": {
             "A": "Passive",
-            "Effect": "You can use Wisdom or Charisma instead of Strength or Dexterity for weapon attacks (you still need to be Trained in that weapon to use it properly).",
+            "Effect": "You can use Sense or Charisma instead of Strength or Dexterity for weapon attacks (you still need to be Trained in that weapon to use it properly).",
             "Notes": "Also called Soelluelegh, or however it's spelled.",
             "Name": "~Mastery~"
         },
@@ -1094,7 +1098,6 @@
         "~Invigorate~": {
             "A": "0 Actions",
             "Cost": "1 Mana",
-            "Cooldown": "Long Rest",
             "Range": "5 meters",
             "Effect": "Heal a target for 1d4 + 2 Health.\nIf after this the target is at full Health, repeat this on another target.\n",
             "Notes": "Yes, this can chain again and again.",
@@ -1104,15 +1107,15 @@
             "A": "1 Action",
             "Range": "3 meters",
             "Cost": "1 Mana",
-            "Effect": "A Unit must pass a Wisdom Check or take 3d6 Psychic damage and become Crippled or Silenced (your choice).\nIt takes half damage if it passes.\nAfter you cast Mind Blast on a Unit, it becomes completely immune to Mind Blast for 1 day.\n",
+            "Effect": "A Unit must pass a Sense Check or take 3d6 Psychic damage and become Crippled or Silenced (your choice).\nIt takes half damage if it passes.\nAfter you cast Mind Blast on a Unit, it becomes completely immune to Mind Blast for 1 day.\n",
             "Notes": "Cover is applied normally.",
             "Name": "~Mind Blast~"
         },
         "~Confusion~": {
             "A": "1 Action",
             "Cost": "1 Mana",
-            "Effect": "Choose 2 Units you can see.\nEach must pass a Wisdom Check or take 2d4 Psychic damage (or half if it succeeds).\nFor each that fails, also roll 1d4 and the Unit must do one of the 4 options below on its next turn, depending on the number rolled on the d4:\n1. Moves in a random direction with all of its movement (chosen by the DM) and is Maimed\n2. Forgets to move and is Dazed\n3. Forgets to move and is Blinded\n4. Falls Prone and tries to make a ranged attack\n",
-            "Notes": "A Dazed NPC is Slowed and all its offensive actions have Cover.\nA Maimed NPC makes 1 less attack per turn.\nIf you roll 4 and the Unit can't make a ranged attack, it does not take any action.\nCover is applied normally.\n",
+            "Effect": "Choose 2 Units you can see.\nEach must pass a Sense Check or take 2d4 Psychic damage (or half if it succeeds).\nFor each that fails, also roll 1d4 and the Unit must do one of the 4 options below on its next turn, depending on the number rolled on the d4:\n1. Moves in a random direction with all of its movement (chosen by the DM) and is Maimed\n2. Forgets to move and is Fleeing\n3. Forgets to move and is Blinded\n4. Falls Prone and tries to make a ranged attack\n",
+            "Notes": "A Maimed NPC makes 1 less attack per turn.\nIf you roll 4 and the Unit can't make a ranged attack, it does not take any action.\nCover is applied normally.\n",
             "Name": "~Confusion~"
         },
         "~Willpower Aura~": {
@@ -1120,14 +1123,14 @@
             "Cost": "1 Mana",
             "Cooldown": "Long Rest",
             "Effect": "For 8 hours, all allies around you (and you) can spend 0.5 Actions to gain Shielding equal to your Main Stat until their (or your) next turn..\n",
-            "Upgrade": "At Level 3, you all gain +2 to Wisdom Checks as well.\nAt Level 6, you all gain 50% Resistance to Psychic and True damage as well for 8 hours when you cast this.\n",
+            "Upgrade": "At Level 3, you all gain +2 to Sense Checks as well.\nAt Level 6, you all gain 50% Resistance to Psychic and True damage as well for 8 hours when you cast this.\n",
             "Name": "~Willpower Aura~"
         },
         "~Charming Word~": {
             "A": "1 Action",
             "Requirement": "Level 4",
             "Range": "5 meters",
-            "Effect": "A Unit makes a Wisdom Check.\nIf it fails, all your Charisma checks for/against it have +2.\nLasts until the Unit can't see or hear you anymore.\n",
+            "Effect": "A Unit makes a Sense Check.\nIf it fails, all your Charisma checks for/against it have +2.\nLasts until the Unit can't see or hear you anymore.\n",
             "Notes": "The target can't tell it was affected unless it knows about this type of magic. Cover is applied normally.",
             "Name": "~Charming Word~"
         },
@@ -1198,7 +1201,7 @@
         "~Decaying Blight~": {
             "A": "Channeled",
             "Cooldown": "1 hour",
-            "Effect": "Channel to spawn a blight that spreads 1 meter in all direction for each 1 Action channeled.\nThe blight kills small plants, insects and rots wood and rusts metal. It also makes fertile soil infertile, turns textile and paper materials into dust and decays food and poisons water.\nYou can channel a number of times (Actions) equal to your Level.\n",
+            "Effect": "Channel to spawn a blight that spreads a 1x1 meter space away from you for each 1 Action channeled.\nThe blight kills small plants, insects and rots wood and rusts metal. It also makes fertile soil infertile, turns textile and paper materials into dust and decays food and poisons water.\nYou can channel a number of times (Actions) equal to your Level.\n",
             "Upgrade": "At Level 4, you can choose to ommit some of the effects of this blight.\n",
             "Notes": "This Ability is not meant for combat.\nBe creative with how you use this little spell!\n",
             "Name": "~Decaying Blight~"
@@ -1208,8 +1211,8 @@
             "Range": "12 meters",
             "Duration": "8 hours (24 hours at level 4, 1 week at level 8)",
             "Cooldown": "8 hours",
-            "Effect": "A humanoid makes a Wisdom Check.\nIf it fails, it becomes afflicted with a minor non-combat curse, such as:\n- The target can't properly tie knots, sew, use keys or pick locks, etc\n- The target appears less attractive (its Charisma Skill checks have -3)\n- Gains runny nose, eyes and sweats more\n- Stumbles randomly\n",
-            "Notes": "Cover is applied normally.",
+            "Effect": "A humanoid makes a Sense Check.\nIf it fails, it becomes afflicted with a minor (usually non-combat) curse, such as:\n- Its Initiative is halved (or its Initiative bonus)\n- The target can't properly tie knots, sew, use keys or pick locks, etc\n- The target appears less attractive (its Charisma Skill checks have -3)\n- Gains runny nose, eyes and sweats more\n- Stumbles randomly\n",
+            "Notes": "A Unit can't be affected by the same Disenchantment effect multiple times.\n",
             "Name": "~Disenchantment~"
         },
         "~Eldritch Blast~": {
@@ -1236,7 +1239,7 @@
             "Cost": "1 Mana",
             "Range": "10 meters",
             "Duration": "1 minute",
-            "Effect": "Declare a target.\nWhenever it makes an attack, it takes 4 Psychic damage (directly).\n",
+            "Effect": "Declare a target.\nWhenever it makes an attack, it takes 4 Psychic damage (directly, ignoring Defense).\n",
             "Name": "~Curse of Pain~"
         },
         "~Curse of Weakness~": {
@@ -1307,13 +1310,13 @@
             "Effect": "Food you touch becomes clean of microbes and mild poison.\nA water containter you touch (up to 2 liters per cast) becomes drinkable, clean and free of microbes and mild poison.\n",
             "Name": "~Purify Food and Drink~"
         },
-        "~Saving Throw (Faith)~": {
+        "~Saving Throw~": {
             "A": "0 Actions",
             "Cooldown": "1 hour",
             "Range": "7 meters",
             "Effect": "Instantly pull an ally to your nearest empty space.\n",
             "Notes": "The ally goes flying, and does not trigger opportunity attacks.\nYou need line of sight to the targets. The allies fly to you ignoring obstacles and ground traps (goes around obstacles), unless the ally needs to swerve more than 2 meters in any direction.\n",
-            "Name": "~Saving Throw (Faith)~"
+            "Name": "~Saving Throw~"
         },
         "~Blinding Smite~": {
             "A": "0 Actions",
@@ -1326,13 +1329,13 @@
             "A": "0 Actions",
             "Cost": "1 Mana",
             "Range": "9 meters",
-            "Effect": "Deal 1d4 + 2 Fire damage (directly) and remove all buffs and debuffs from the target.",
+            "Effect": "Deal 1d4 + 2 Fire damage (directly, ignoring Defense) and remove all buffs and debuffs from the target.",
             "Name": "~Cleansing Flames~"
         },
         "~Cleansing Smite~": {
             "A": "0 Actions",
             "Cost": "2 Mana.",
-            "Effect": "After you land a melee attack that did damage, deal 1d6 True damage (directly) to the target and heal yourself for 1d10.",
+            "Effect": "After you land a melee attack that did damage, deal 1d6 True damage (directly, ignoring Defense) to the target and heal yourself for 1d10.",
             "Name": "~Cleansing Smite~"
         },
         "~Cure Wounds~": {
@@ -1359,7 +1362,8 @@
         "~Radiant Smite~": {
             "A": "0 Actions",
             "Cost": "2 Mana",
-            "Effect": "After you make a melee attack that did damage, deal 1d10 True damage (directly) to the target and all enemies within 6 meters of target.",
+            "Effect": "After you make a melee attack that did damage, deal 1d10 True damage (directly, ignoring Defense) to the target and all enemies within 6 meters of target.",
+            "Notes": "Units can benefit from Cover, with the targeted Unit as the origin point. Does not go through walls.\nFleeing is substracted from this effect as well, like a normal Ability.\n",
             "Name": "~Radiant Smite~"
         },
         "~Radiance~": {
@@ -1384,7 +1388,7 @@
         "~Turn Undead~": {
             "A": "0 Actions",
             "Cost": "2 Mana",
-            "Effect": "All enemy Undead you can see within 5 meters make a Wisdom Check.\nIf any fails, it is Feared.\n",
+            "Effect": "All enemy Undead you can see within 5 meters make a Sense Check.\nIf any fails, it is Feared.\n",
             "Notes": "Cover is applied normally.",
             "Name": "~Turn Undead~"
         },
@@ -1392,7 +1396,7 @@
             "A": "1 Action",
             "Cost": "1 Mana",
             "Requirement": "Level 4",
-            "Effect": "Choose an ally (or yourself) you can see. Put a ward on them until the start of your next turn.\nWhen an enemy wants to make an attack on them, the enemy must pass a Wisdom Check or be Feared by that ally and take 4d4 Necrotic damage (or half if it succeeds).\nThe ally is also immune to being Feared, Charmed and Silenced in this time.\n",
+            "Effect": "Choose an ally (or yourself) you can see. Put a ward on them until the start of your next turn.\nWhen an enemy wants to make an attack on them, the enemy must pass a Sense Check or be Feared by that ally and take 4d4 Necrotic damage (or half if it succeeds).\nThe ally is also immune to being Feared, Charmed and Silenced in this time.\n",
             "Name": "~Fearing Ward~"
         },
         "~Rise~": {
@@ -1413,7 +1417,7 @@
             "A": "0 Actions",
             "Cooldown": "Long Rest",
             "Requirement": "Level 8",
-            "Effect": "You become spectral for 10 seconds (until the start of your next turn).\nWhile spectral, you can move through walls, objects and Units, but not through floors and ceilings.\nIf the effect doesn't end in an empty space, you are instantly thrown to the nearest empty space and you take 3d4 Force damage (directly).\n",
+            "Effect": "You become spectral for 10 seconds (until the start of your next turn).\nWhile spectral, you can move through walls, objects and Units, but not through floors and ceilings.\nIf the effect doesn't end in an empty space, you are instantly thrown to the nearest empty space and you take 3d4 Force damage (directly, ignoring Defense).\n",
             "Name": "~Wraithwalk~"
         }
     }

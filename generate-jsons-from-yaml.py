@@ -63,6 +63,7 @@ files_to_convert = [    # Order matters
     'Rules/CharacterCreation.yml',
     'Rules/COHFor5e.yml',
     'Rules/COHExplained.yml',
+    'Rules/GMGuidelines.yml',
 
     'Classes/Cleric.yml',
     'Classes/Druid.yml',
