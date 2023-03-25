@@ -159,7 +159,6 @@ export default function TreasureGenerator() {
                 'Radiant Smite',
                 'Radiance',
                 'Restoration',
-                'Blessing of Wisdom',
                 'Expelling Bolt'
             ],
             400: [

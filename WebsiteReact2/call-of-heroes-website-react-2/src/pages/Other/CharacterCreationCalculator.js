@@ -33,14 +33,14 @@ export default function CharacterCreationCalculator() {
         Race: 'Bertle',
         Class: 'Cleric',
 
-        'Main Stat': 'Wisdom',
+        'Main Stat': 'Sense',
 
         Level: '1',
 
         Might: '0',
         Dexterity: '0',
         Intelligence: '0',
-        Wisdom: '0',
+        Sense: '0',
         Charisma: '0'
     })
 
@@ -76,7 +76,7 @@ export default function CharacterCreationCalculator() {
         const mig = parseInt(state.Might)
         const dex = parseInt(state.Dexterity)
         const int = parseInt(state.Intelligence)
-        const wis = parseInt(state.Wisdom)
+        const wis = parseInt(state.Sense)
         const cha = parseInt(state.Charisma)
 
         const isStatLowest  = stat => stat <= mig && stat <= dex && stat <= int && stat <= wis && stat <= cha
@@ -107,7 +107,7 @@ export default function CharacterCreationCalculator() {
                 if ((isStatLowest(mig) || isStatLowest(dex)) == false)
                     return `Your lowest stat must be either Might or Dexterity (Hollow).`
                 if (wis < 1)
-                    return `Your Wisdom must be at least 1 (Hollow).`
+                    return `Your Sense must be at least 1 (Hollow).`
                 break
             case 'Human':
                 return true
@@ -160,7 +160,7 @@ export default function CharacterCreationCalculator() {
                 { StatInput({name: 'Might'}) }
                 { StatInput({name: 'Dexterity'}) }
                 { StatInput({name: 'Intelligence'}) }
-                { StatInput({name: 'Wisdom'}) }
+                { StatInput({name: 'Sense'}) }
                 { StatInput({name: 'Charisma'}) }
             </div>
 
@@ -174,7 +174,7 @@ export default function CharacterCreationCalculator() {
             <label className='cc-label'>Main Stat</label>
             <select className='cc-select' name="Main Stat" onChange={updateStateFromSelect}>
                 {(_ => {
-                    const allStatNames = ['Might', 'Dexterity', 'Intelligence', 'Wisdom', 'Charisma']
+                    const allStatNames = ['Might', 'Dexterity', 'Intelligence', 'Sense', 'Charisma']
                     const statOptions = allStatNames.filter(statName => classObj.Spellcasting['Main Stat'].includes(statName))
                     return statOptions.map(statName => (<option key={statName} value={statName} >{statName}</option>))
                 })()}

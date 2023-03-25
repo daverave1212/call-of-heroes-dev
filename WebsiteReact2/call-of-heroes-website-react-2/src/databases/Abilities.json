@@ -353,7 +353,7 @@
         "~Absorb Element~": {
             "A": "Reaction",
             "Cost": "1 Mana",
-            "Effect": "Use when you take magic damage.\nYou only take half of that damage, and you infuse yourself with that element.\nThe next time you make a single target attack, that attack deals 1d6 extra damage of the infused element.\n",
+            "Effect": "Use when you take Fire, Shock, Cold, Poison or Acid damage (after Defense).\nYou only take half of that damage, and you infuse yourself with that element.\nThe next time you make a single target attack, that attack deals 1d6 extra damage of the infused element.\n",
             "Name": "~Absorb Element~"
         },
         "~Crackling Lightning~": {
@@ -451,6 +451,17 @@
             "Effect": "Shoot a 1 meter in diameter ball of water in a direction parallel to the floor that can travel up to 9 meters.\nThe ball can bounce off of walls and solid objects (not Units).\nThe angle it bounces to is equal to the angle it was thrown from respective to the surface it bounces from (like light is reflected in a mirror in real life).\nThe ball bursts when it collides with a Unit, dealing 2d10 + 2 damage plus 1d10 for each time it bounced (against Defense).\nThe Sphere can bounce up to 2 times.\n",
             "Notes": "This is considered an attack. All attacks are against Defense.",
             "Name": "~Water Sphere~"
+        },
+        "~Summon Elementals~": {
+            "A": "1 Action",
+            "Cost": "3 Mana",
+            "Requirement": "Level 5",
+            "Cooldown": "Once per turn",
+            "Duration": "1 minute (from initial cast)",
+            "Effect": "Declare an element from Fire, Cold, Shock and Acid.\nNow, and at the start of your next 2 turns, summon an elemental of that chosen element with 5 Health, 4 Defense, 3 Movement Speed and 2 in all Stats (for Combat Checks).\nYou command the elementals, and they take their turn at the same time as you and can only spend 1 Action to shoot an elemental bolt that deals 1d6 + 2 Damage of its element, at 3 meters range (against Defense).\n",
+            "Upgrade": "Elementals only take 50% Damage (after Defense) from the declared element.\n",
+            "Notes": "These elementals are not sentient and can't fly.",
+            "Name": "~Summon Elementals~"
         }
     },
     "Arcane": {
@@ -481,7 +492,7 @@
         },
         "~Focus Fling~": {
             "A": "Half-Action",
-            "Effect": "Choose a medium-sized object within 5 meters that's no heaveier than 10kg.\nFling the object into a Unit within 3 meters of the object.\nDeals 1d10 Smash damage against Defense.\n",
+            "Effect": "Choose a medium-sized object within 5 meters that's no heaveier than 10kg.\nFling the object into a Unit within 3 meters of the object.\nDeals 1d10 Smash damage (against Defense).\n",
             "Upgrade": "You can use this to fling consumables like bombs, vials of acid, magic ammo, flasks of holy water, etc. If you do this, the damage is added as part of the attack (against Defense).\nAt Level 4, you can spend 1 Mana to increase the damage to 2d12.\n",
             "Notes": "Cover is applied from the object's initial position to the target.\nIf the object can break, it breaks. Obviously, the object must be move-able and not tied/stuck in place.\nThrowing weapons does not apply effects or deal extra damage.\n",
             "Name": "~Focus Fling~"
@@ -544,12 +555,6 @@
             "Effect": "Place a rune on the ground.\nYou can activate it at any time and from any distance.\nWhen you activate it, the rune creates a 5x5 meter zone.\nTry to Silence all units inside (Intelligence Check) and they also take (Your Level) Force damage on detonation.\n",
             "Notes": "Ignores Cover.",
             "Name": "~Antimagic Rune~"
-        },
-        "~Conceal Magic~": {
-            "A": "Passive",
-            "Requirement": "Level 4",
-            "Effect": "Your magic becomes undetectable.",
-            "Name": "~Conceal Magic~"
         },
         "~Dispel Magic~": {
             "A": "1 Actions",
@@ -777,7 +782,7 @@
             "A": "1 Action",
             "Cost": "1 Mana",
             "Cooldown": "Once per Encounter",
-            "Effect": "Send out a 5x1 meter wave forward through the ground.\nAll Units hit must make a Dexterity Check or take 3d4 + Main Stat Force damage (or half if they succeed).\nIf they fail and are below 50% Health, they become Slowed and Fleeing. Otherwise, they just become Slowed.\n",
+            "Effect": "Send out a 5x1 meter wave forward through the ground.\nAll Units hit must make a Dexterity Check or take 3d4 + Main Stat Force damage (or half if they succeed).\nIf they are at or below 50% Health, and failed, they become Slowed and Fleeing. Otherwise, they just become Slowed if they succeeded.\n",
             "Name": "~Quaking Wave~"
         },
         "~Fruit of the Forest~": {
@@ -877,12 +882,35 @@
             "Effect": "You setup an invisible 4x4x4 meter cube.\nIf an unknown Unit or enemy enters the cube, it alerts you mentally with a bell sound, or whatever sound you choose.\n",
             "Name": "~Alarm~"
         },
+        "~Arrow Barage~": {
+            "A": "0 Actions",
+            "Cost": "1 Mana",
+            "Range": "10 meters to edge",
+            "Cooldown": "Once per encounter",
+            "Effect": "You conjure a levitating barrage of arrows in a 3x3 area, up to 10 meters above ground.\nAt any point (for 0 Actions or with a Reaction), you can release these arrows upon the ground, hitting all enemies hit for 2d6 Pierce damage (against Defense).\nAt the start of your every turn, if the barrage is not yet released, it increases by 1 meter in size in all directions and gains 1d4 damage when it will be released (up to +3d4 and 9x9).\n",
+            "Notes": "E.g. every turn, it goes from 3x3 to 5x5, then 7x7, then 9x9, etc and deals from 2d6 damage to 2d6 + 1d4, then 2d6 + 2d4, etc.\nThe arrows disappear as soon as they hit ground, or when dismissed (all at once) for free at any point, or after 1 minute of staying in the air.\n",
+            "Name": "~Arrow Barage~"
+        },
+        "~Blur~": {
+            "A": "0 Actions or Reaction",
+            "Cost": "1 Mana",
+            "Effect": "A Unit you can see (or yourself) becomes blurry until the start of your next turn.\nIt gains +2 Defense and +2 to all Combat Checks and 3 Movement Speed.\n",
+            "Upgrade": "You can use this as a Reaction when another Unit declares an attack or Ability (before it makes it).",
+            "Name": "~Blur~"
+        },
         "~Chaining Grasp~": {
             "A": "0 Actions",
             "Cost": "1 Mana",
             "Range": "6 meters",
             "Effect": "Extend a magical chain to a medium (or larger) living or undead Unit and pull yourself to the target instantly.\nThe target also takes 1d6 True damage (directly, ignoring Defense).\n",
             "Name": "~Chaining Grasp~"
+        },
+        "~Cloud of Rot~": {
+            "A": "Half-Action",
+            "Cost": "1 Mana",
+            "Range": "5 meters to edge",
+            "Effect": "Conjure a cloud of rot that covers an area with a diameter equal to your Main Stat.\nUnits that start their turn in the cloud take 1d8 Poison Damage (directly, ignoring Defense), become Fleeing, can't be healed and have -2 to all Checks, all until the end of their turn.\n",
+            "Name": "~Cloud of Rot~"
         },
         "~Dancing Weapon~": {
             "A": "1 Action",
@@ -937,12 +965,39 @@
             "Name": "~Fog Cloud~"
         },
         "~Force Wall~": {
-            "A": "1 Action",
+            "A": "0 Actions or Reaction",
             "Cost": "1 Mana",
             "Range": "within 5 meters",
             "Duration": "1 minute",
-            "Effect": "You create a 3x3 meter transparent, magical and thin force wall.\nUnits behind the wall benefit from Hard Cover (-4 to attacks against them through the wall).\n",
+            "Effect": "You create a 3x3 meter transparent, magical and thin force wall.\nThe wall provides Double Cover.\n",
+            "Upgrade": "You can use this as a Reaction when someone declares an attack or Ability, before any roll is made.",
             "Name": "~Force Wall~"
+        },
+        "~Grow or Shrink~": {
+            "A": "0 Actions",
+            "Cost": "1 Mana",
+            "Cooldown": "Once per turn",
+            "Effect": "A Unit you can see becomes one size larger/smaller for its next 1d4 turns.\nIt gains or loses 20% of its base (unbuffed) Defense (gain/loss is rounded up), gains or loses 1 Damage on all actions and gains or loses 1 Movement Speed.\nCan stack multiple times.\n",
+            "Notes": "Sizes are Minuscule, Small, Medium, Large, and Larger.\nA Larger Unit becomes 1 meter larger/smaller on all directions.\nIt's number of spaces occupied also changes with this.\n",
+            "Name": "~Grow or Shrink~"
+        },
+        "~Longblade~": {
+            "A": "0 Actions",
+            "Cooldown": "Long Rest",
+            "Duration": "1 minute",
+            "Effect": "Magically extend the weapon of a willing ally you can see (or yourself) to up to 3 meters.\nIts attacks with that weapon can have up to 3 meters range.\n",
+            "Name": "~Longblade~"
+        },
+        "~Mage Hand~": {
+            "A": "0 Actions",
+            "Cost": "1 Mana",
+            "Range": "5 meters",
+            "Requirement": "Level 3",
+            "Duration": "8 hours",
+            "Effect": "Conjure a spectral hand in a space you can see.\nYou can move the hand as you move your normal hands and you can move your hand by spending meters from your remaining Movement.\nThe hand can't attack and disappears if it goes outside a 10 meters range.\n",
+            "Upgrade": "At Level 6, when you cast this, you can make the size of the hand Large, and every turn by (you) spending 1 Action, you can make it attack a target for 3d8 + 1 Smash damage or cast Grapple or Slam around it (from Bloodshed) (using your Stats).\nIf cast like this, the Mage Hand has 15 Health and 0 Defense, and the effect ends if it is destroyed.\n",
+            "Notes": "The hand can't lift objects weighing more than 10kg.\nMoving the hand spends Actions as if you made moved your own hand.\nOnce per turn, you can summon or vanish the hand for 0 Actions if it's effect is still active, in a space next to you.\n",
+            "Name": "~Mage Hand~"
         },
         "~Conjure Object~": {
             "A": "1 Action",
@@ -952,13 +1007,39 @@
             "Effect": "You can conjure an object that is up to 1x1x1 meter in size.\nThe object is solid and glows faintly.\nYou can't conjure mechanical objects.\nThe object disappears after 1 hour (24 hours at Level 8).\n",
             "Name": "~Conjure Object~"
         },
-        "~Mage Hand~": {
-            "A": "0 Actions",
+        "~Major Illusion~": {
+            "A": "1 Action",
+            "Requirement": "Level 5",
             "Cost": "1 Mana",
-            "Range": "5 meters",
-            "Duration": "8 hours",
-            "Effect": "Conjure a spectral hand in a place you can see.\nYou can move the hand as you move your normal hands and instead of spending movement points to move yourself, you can move your hand the same distance.\nThe hand can't attack and disappears if it goes outside a 12 meters range.\n",
-            "Name": "~Mage Hand~"
+            "Range": "10 meters",
+            "Effect": "You create an illusion that fits at most in a 2x2x2 meter cube.\nThe illusion appears real to the eyes, ears and by smell, but physical interaction makes it obvious it's an illusion and objects pass through it normally.\nThe illusion can deal no damage or Crowd Control, but can provide Cover or block Line of Sight (both from the front, and from behind).\nOn your turn, you can and must spend 1 Action to keep and/or move the illusion, otherwise it is dispelled.\nYou can only have 1 illusion active at a time.\n",
+            "Upgrade": "At Level 7, the illusion lasts indefinitely until you cancel it without needing to spend Actions, and it can hold its own simple movement and clockwork-like routines.\nYou can also program this illusion to react on its own in a specific way to specific triggers, but the instructions must be concise - talk with your GM about this.\n",
+            "Name": "~Major Illusion~"
+        },
+        "~Meld With Material~": {
+            "A": "1 Action",
+            "Cooldown": "Long Rest",
+            "Requirement": "Level 4",
+            "Effect": "Touch a piece of solid material.\nYou become immoving and all your body becomes as if made from that material.\nYou can cancel this for free at any point, but until you do, you are Stunned and have +3 Defense and to all Checks.\n",
+            "Notes": "You still need to drink water and eat food, but don't need to breathe while melded.\nThis has potential to work like a long term Stealth mechanism.\n",
+            "Name": "~Meld With Material~"
+        },
+        "~Transmute Rock~": {
+            "A": "1 Action",
+            "Requirement": "Level 5",
+            "Cost": "1 Mana",
+            "Effect": "Touch a 1x1x1 meter cube of rock, mud, sand, etc.\nTransform it into rock, mud, sand, etc.\nA Unit caught in this effect must pass a Might Check or be Rooted.\n",
+            "Name": "~Transmute Rock~"
+        },
+        "~Conjure Lodge~": {
+            "A": "10 minutes",
+            "Requirement": "Level 6",
+            "Duration": "24 hours",
+            "Cost": "3 Mana",
+            "Cooldown": "1 Week",
+            "Effect": "Conjure a cubic room with a width equal to your Level and a 1x2 meter door.\nThis room works like a pocket dimension and only the door is visible from the outside. The room occupies no space in the real world, except for the door (you enter the room through the door).\nYour party can safely make a Long Rest inside the Conjured Lodge.\n",
+            "Notes": "If the Lodge would be destroyed with people inside, each will automatically be expulsed (appear) in a space within 3 meters of the door (randomly or by GM's choice).",
+            "Name": "~Conjure Lodge~"
         },
         "~Magic Prison~": {
             "A": "5 minutes",
@@ -985,13 +1066,22 @@
             "Notes": "You need maintain line of sight to the clone to keep it working.",
             "Name": "~Shadow Clone~"
         },
-        "~Animate Dead~": {
+        "~Summon Familiar~": {
             "A": "1 Action",
+            "Cost": "1 Mana",
+            "Requirement": "Level 3",
+            "Effect": "Summon a familiar in a space next to you, that has the aspect of a small demon or animal.\nIt has 8 Health, 3 Defense, 5 Movement Speed, 0/0/0/0/0 in Stats and takes its turn at the same time as you (and uses your Spell Grade).\nOn its turn, it has a Half-Action, usable only for Potions, Scrolls and the Push and Taunt Default Moves, and it can do other small tasks like bringing you objects, picking up a weapon and bringing it to your hand, etc.\nLasts until killed or unsummoned (for 0 Actions) or if it goes more than 30 meters away from you.\nYou can communicate with it telepathically.\n",
+            "Upgrade": "At Level 5, out of combat, the familiar can be invisible.",
+            "Notes": "You can only have one summoned familiar at a time. Your familiar might have a name and personality and it might speak Common or other languages, if allowed by the GM.",
+            "Name": "~Summon Familiar~"
+        },
+        "~Animate Dead~": {
+            "A": "Half-Action",
             "Cost": "1 Mana",
             "Requirement": "Level 4",
             "Range": "5 meters",
             "Duration": "1 hour",
-            "Effect": "Raise an undead Unit to fight for you from a nearby medium or larger corpse. The corpse is then consumed.\nThe undead Unit always has Medium size, 10 Maximum Health and 3 Defense.\nIt has Combat Checks equal to yours, but -2 to all Non-Combat Checks.\nIt has 4 meters movement speed.\nIt can use 1 Action to attack and deals 2d4 + 1 damage if it hits (Smash, Slash or Pierce, your choice).\nYour undead takes its turn immediately before or after your turn (you choose).\nThe undead will always try to move to and attack the closest enemy to it (you choose if it's a tie).\nYou can use Half-Action on your turn to command (one of) your undead to move to a certain location.\n",
+            "Effect": "Raise an undead Unit to fight for you from a nearby medium or larger corpse. The corpse is then consumed.\nThe undead Unit always has Medium size, 7 Maximum Health and 3 Defense.\nIt has Combat Checks equal to yours, but -2 to all Non-Combat Checks.\nIt has 4 meters movement speed.\nIt can use 1 Action to attack and deals 2d4 + 1 damage if it hits (Smash, Slash or Pierce, your choice).\nYour undead takes its turn immediately before or after your turn (you choose).\nThe undead will always try to move to and attack the closest enemy to it (you choose if it's a tie).\nYou can use Half-Action on your turn to command (one of) your undead to move to a certain location.\n",
             "Name": "~Animate Dead~"
         },
         "~Banishment Slip~": {
@@ -1024,7 +1114,7 @@
             "Requirement": "Level 4",
             "Range": "5 meters",
             "Effect": "You conjure a magical eye that records everything it sees for up to 24 hours.\nAfter 24 hours, the eye stops recording.\nYou can use your magic to scan what the eye recorded in your mind.\nAt any point, you can tune into the eye and see what it sees in your mind.\n",
-            "Upgrade": "At Level 6, you can move use your movement to instead move the Eye while you're tuned into it (it can fly).\n",
+            "Upgrade": "At Level 6, you can move use your movement to instead move the Eye while you're tuned into it (it can fly) and lasts a number of days equal to your Level.\n",
             "Name": "~Watcher Eye~"
         },
         "~Portal~": {
@@ -1176,7 +1266,7 @@
             "Requirement": "Level 4",
             "Range": "5 meters",
             "Effect": "You conjure a magical eye that records everything it sees for up to 24 hours.\nAfter 24 hours, the eye stops recording.\nYou can use your magic to scan what the eye recorded in your mind.\nAt any point, you can tune into the eye and see what it sees in your mind.\n",
-            "Upgrade": "At Level 6, you can move use your movement to instead move the Eye while you're tuned into it (it can fly).\n",
+            "Upgrade": "At Level 6, you can move use your movement to instead move the Eye while you're tuned into it (it can fly) and lasts a number of days equal to your Level.\n",
             "Name": "~Watcher Eye~"
         },
         "~Water Breathing~": {
@@ -1234,6 +1324,15 @@
             "Upgrade": "At Level 5 you can cast this for Half-Action, and at Level 9, for 0 Actions.\n",
             "Name": "~Thaumaturgy~"
         },
+        "~Summon Familiar~": {
+            "A": "1 Action",
+            "Cost": "1 Mana",
+            "Requirement": "Level 3",
+            "Effect": "Summon a familiar in a space next to you, that has the aspect of a small demon or animal.\nIt has 8 Health, 3 Defense, 5 Movement Speed, 0/0/0/0/0 in Stats and takes its turn at the same time as you (and uses your Spell Grade).\nOn its turn, it has a Half-Action, usable only for Potions, Scrolls and the Push and Taunt Default Moves, and it can do other small tasks like bringing you objects, picking up a weapon and bringing it to your hand, etc.\nLasts until killed or unsummoned (for 0 Actions) or if it goes more than 30 meters away from you.\nYou can communicate with it telepathically.\n",
+            "Upgrade": "At Level 5, out of combat, the familiar can be invisible.",
+            "Notes": "You can only have one summoned familiar at a time. Your familiar might have a name and personality and it might speak Common or other languages, if allowed by the GM.",
+            "Name": "~Summon Familiar~"
+        },
         "~Curse of Pain~": {
             "A": "Half-Action",
             "Cost": "1 Mana",
@@ -1259,12 +1358,12 @@
             "Name": "~Deathfire Bolt~"
         },
         "~Animate Dead~": {
-            "A": "1 Action",
+            "A": "Half-Action",
             "Cost": "1 Mana",
             "Requirement": "Level 4",
             "Range": "5 meters",
             "Duration": "1 hour",
-            "Effect": "Raise an undead Unit to fight for you from a nearby medium or larger corpse. The corpse is then consumed.\nThe undead Unit always has Medium size, 10 Maximum Health and 3 Defense.\nIt has Combat Checks equal to yours, but -2 to all Non-Combat Checks.\nIt has 4 meters movement speed.\nIt can use 1 Action to attack and deals 2d4 + 1 damage if it hits (Smash, Slash or Pierce, your choice).\nYour undead takes its turn immediately before or after your turn (you choose).\nThe undead will always try to move to and attack the closest enemy to it (you choose if it's a tie).\nYou can use Half-Action on your turn to command (one of) your undead to move to a certain location.\n",
+            "Effect": "Raise an undead Unit to fight for you from a nearby medium or larger corpse. The corpse is then consumed.\nThe undead Unit always has Medium size, 7 Maximum Health and 3 Defense.\nIt has Combat Checks equal to yours, but -2 to all Non-Combat Checks.\nIt has 4 meters movement speed.\nIt can use 1 Action to attack and deals 2d4 + 1 damage if it hits (Smash, Slash or Pierce, your choice).\nYour undead takes its turn immediately before or after your turn (you choose).\nThe undead will always try to move to and attack the closest enemy to it (you choose if it's a tie).\nYou can use Half-Action on your turn to command (one of) your undead to move to a certain location.\n",
             "Name": "~Animate Dead~"
         },
         "~Spare the Dying~": {
@@ -1413,12 +1512,48 @@
             "Effect": "Touch a Unit that died at most 2 hours ago or an unconscious Unit.\nIf the Unit is dead, and if the Unit's body is fairly intact, the dead Unit comes back to life, stabilized and unconscious.\nIf the Unit is unconscious, the Unit wakes up and is healed for 1 Health.\n",
             "Name": "~Spare the Dying~"
         },
+        "~Summon Elementals (Eldritch)~": {
+            "A": "1 Action",
+            "Cost": "3 Mana",
+            "Requirement": "Level 5",
+            "Cooldown": "Once per turn",
+            "Duration": "1 minute (from initial cast)",
+            "Effect": "Declare an element from Fire, Necrotic, Acid and Poison.\nNow, and at the start of your next 2 turns, summon an elemental of that chosen element with 5 Health, 4 Defense, 3 Movement Speed and 2 in all Stats (for Combat Checks).\nYou command the elementals, and they take their turn at the same time as you and can only spend 1 Action to shoot an elemental bolt that deals 1d6 + 2 Damage of its element, at 3 meters range (against Defense).\n",
+            "Upgrade": "Elementals only take 50% Damage (after Defense) from the declared element.\n",
+            "Notes": "These elementals are not sentient and can't fly.",
+            "Name": "~Summon Elementals (Eldritch)~"
+        },
         "~Wraithwalk~": {
             "A": "0 Actions",
             "Cooldown": "Long Rest",
             "Requirement": "Level 8",
             "Effect": "You become spectral for 10 seconds (until the start of your next turn).\nWhile spectral, you can move through walls, objects and Units, but not through floors and ceilings.\nIf the effect doesn't end in an empty space, you are instantly thrown to the nearest empty space and you take 3d4 Force damage (directly, ignoring Defense).\n",
             "Name": "~Wraithwalk~"
+        }
+    },
+    "Restricted Spells": {
+        "~Conceal Magic~": {
+            "A": "Passive",
+            "Requirement": "Level 4",
+            "Effect": "Your magic becomes undetectable.",
+            "Upgrade": "This is an Arcane Spell.",
+            "Name": "~Conceal Magic~"
+        },
+        "~Sending~": {
+            "A": "1 Action",
+            "Requirement": "Level 4",
+            "Effect": "Send a message no longer than 5 seconds long to an ally, wherever it is. It can include images, sounds and smells. That ally knows they received a message from you.\n",
+            "Upgrade": "Requires you to be holding something physical from that ally, such as a piece of clothing, an object, a strand of hair, etc.",
+            "Notes": "Sending might be impeded if sent to another plane/world.",
+            "Name": "~Sending~"
+        },
+        "~Racial Transmutation~": {
+            "A": "1 Day",
+            "Requirement": "Level 7",
+            "Cooldown": "1 month",
+            "Effect": "You spend a whole day casting this Ability with a willing ally (or by yourself). By the end of it, the race of the ally becomes changed to a chosen Plyer Character Race (from the ones allowed by the GM).\nThis changes the base stats and Racial Abilities of that Unit. It must also replace any Racial Feats it had with other Feats.\n",
+            "Upgrade": "This is a Conjuration Spell.",
+            "Name": "~Racial Transmutation~"
         }
     }
 }

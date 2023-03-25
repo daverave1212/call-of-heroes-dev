@@ -21,30 +21,15 @@
 # Land heave - Taliya's shove
 # Tsunami
 # Icicle Storm
-# Summon elemental
+# Meteor Swarm
 
     # Arcane
 # Silence sphere
+# Haste
 
     # Conjuration
-# Summon golem (include Bigby's hand, you can shape it as you like)
-# Big ass hand
-# Conjure spear barrage
-# Stinking cloud
 # Mould flesh on the target
-# Invulnerable semi-sphere shield
-# Conjure a huge sword for yourself that gives you reach 3 m (or transform one)
-# Change race
-# Transmute rock (transform rock to mud to rubble to gravel etc)
-# Summon common object
-# Conjure resting hut
-# Major illusion (with permanent effect! you can also program it to do something on triggers)
-# Sending (telepathy)
-# Tiny Servant
-# Watcher Eye (can move at higher levels)
 # Meld with stone
-# Blur yourself
-# Enlarge/reduce
 
 
     # Nature
@@ -139,6 +124,7 @@
 # [ ] Damage (AoE)
 # [ ] Damage (AoE)          (Advanced)
 # [ ] Damage (Save or Half)
+# [ ] Return on Investment
 # [ ] Stats
 # [ ] Low CC
 # [ ] Medium CC
@@ -147,8 +133,10 @@
 # [ ] Tranking/Protection (Shielding)
 # [ ] Buff
 # [ ] Debuff
+# [ ] Utility
 # [ ] Mobility
 # [ ] Anti-Heal
+# [ ] Summon
 
 
 
@@ -234,6 +222,7 @@ Bloodshed:
 # [x] Damage (AoE)
 # [ ] Damage (AoE)          (Advanced)
 # [ ] Damage (Save or Half)
+# [ ] Return on Investment
 # [ ] Stats
 # [x] Low CC
 # [x] Medium CC
@@ -242,9 +231,10 @@ Bloodshed:
 # [x] Tranking/Protection (Shielding)
 # [ ] Buff
 # [x] Debuff
+# [ ] Utility
 # [ ] Mobility
 # [x] Anti-Heal
-
+# [ ] Summon
 
     ~Aim~:
         A: Half-Action
@@ -376,6 +366,7 @@ Warfare:
 # [ ] Damage (AoE)
 # [x] Damage (AoE)          (Advanced)
 # [x] Damage (Save or Half)
+# [ ] Return on Investment
 # [ ] Stats
 # [x] Low CC
 # [ ] Medium CC
@@ -384,8 +375,10 @@ Warfare:
 # [x] Tranking/Protection (Shielding)
 # [x] Buff
 # [ ] Debuff
+# [ ] Utility
 # [x] Mobility
-
+# [ ] Anti-Heal
+# [ ] Summon
 
     ~Aim~: Inherit
     
@@ -492,6 +485,7 @@ Elemental:
 # [x] Damage (Half-Action)  (Advanced)  [Sustained]
 # [x] Damage (AoE)                      [Defense (Land Breach), Direct, Direct]
 # [x] Damage (AoE)          (Advanced)  [Save, Save, Direct]
+# [ ] Return on Investment
 # [ ] Stats
 # [x] Low CC
 # [x] Medium CC
@@ -500,7 +494,10 @@ Elemental:
 # [x] Tranking/Protection (Shielding)
 # [x] Buff
 # [ ] Debuff
+# [ ] Utility
 # [ ] Mobility
+# [ ] Anti-Heal
+# [x] Summon
 
 
     # Basic Spells
@@ -641,7 +638,7 @@ Elemental:
         A: Reaction
         Cost: 1 Mana
         Effect: |
-            Use when you take magic damage.
+            Use when you take Fire, Shock, Cold, Poison or Acid damage (after Defense).
             You only take half of that damage, and you infuse yourself with that element.
             The next time you make a single target attack, that attack deals 1d6 extra damage of the infused element.
             
@@ -762,6 +759,20 @@ Elemental:
             The Sphere can bounce up to 2 times.
         Notes: This is considered an attack. All attacks are against Defense.
 
+    ~Summon Elementals~:    # Will do about 8 attacks = 20 real damage = 1A, 2 Mana. But they can absorb quite a bit of damage...
+        A: 1 Action
+        Cost: 3 Mana
+        Requirement: Level 5
+        Cooldown: Once per turn
+        Duration: 1 minute (from initial cast)
+        Effect: |
+            Declare an element from Fire, Cold, Shock and Acid.
+            Now, and at the start of your next 2 turns, summon an elemental of that chosen element with 5 Health, 4 Defense, 3 Movement Speed and 2 in all Stats (for Combat Checks).
+            You command the elementals, and they take their turn at the same time as you and can only spend 1 Action to shoot an elemental bolt that deals 1d6 + 2 Damage of its element, at 3 meters range (against Defense).
+        Upgrade: |
+            Elementals only take 50% Damage (after Defense) from the declared element.
+        Notes: These elementals are not sentient and can't fly.
+
 Arcane:
 
 # [x] Damage (1 Action)                 [Direct (Magic Missiles)]
@@ -771,6 +782,7 @@ Arcane:
 # [ ] Damage (AoE)
 # [x] Damage (AoE)          (Advanced)  [Save (Arcane Spear), Save (Magic Nova), Direct (Phase Orb)]
 # [x] Damage (Save or Half)
+# [ ] Return on Investment
 # [ ] Stats
 # [ ] Low CC
 # [x] Medium CC                         [Save (Antimagic Rune), Save AoE (Slow)]
@@ -779,8 +791,10 @@ Arcane:
 # [x] Tranking/Protection (Shielding)
 # [x] Buff
 # [x] Debuff
+# [ ] Utility
 # [x] Mobility
-
+# [ ] Anti-Heal
+# [ ] Summon
 
     # Basic Spells
            
@@ -823,7 +837,7 @@ Arcane:
         Effect: |
             Choose a medium-sized object within 5 meters that's no heaveier than 10kg.
             Fling the object into a Unit within 3 meters of the object.
-            Deals 1d10 Smash damage against Defense.
+            Deals 1d10 Smash damage (against Defense).
         Upgrade: |
             You can use this to fling consumables like bombs, vials of acid, magic ammo, flasks of holy water, etc. If you do this, the damage is added as part of the attack (against Defense).
             At Level 4, you can spend 1 Mana to increase the damage to 2d12.
@@ -909,11 +923,6 @@ Arcane:
             When you activate it, the rune creates a 5x5 meter zone.
             Try to Silence all units inside (Intelligence Check) and they also take (Your Level) Force damage on detonation.
         Notes: Ignores Cover.
-
-    ~Conceal Magic~:
-        A: Passive
-        Requirement: Level 4
-        Effect: Your magic becomes undetectable.
          
     ~Dispel Magic~:
         A: 1 Actions
@@ -1052,6 +1061,7 @@ Nature:
 # [x] Damage (Half-Action)  (Advanced)  [DoT (Locust Swarm)]
 # [x] Damage (AoE)                      [(Land Breach)]
 # [x] Damage (AoE)          (Advanced)  [Defense (Lightning Storm)]
+# [ ] Return on Investment
 # [x] Stats                             [Mastery, Wild Heart]
 # [x] Low CC                            [Push (Cutting Winds)]
 # [x] Medium CC                         [Fleeing (Quaking Wave)]
@@ -1060,8 +1070,10 @@ Nature:
 # [x] Tranking/Protection (Shielding)   [Earth Shield, Thorn Quills]
 # [x] Buff
 # [ ] Debuff
+# [ ] Utility
 # [x] Mobility
-
+# [ ] Anti-Heal
+# [ ] Summon
 
     # Basic Spells
     ~Alarm~ :
@@ -1211,7 +1223,7 @@ Nature:
         Effect: |
             Send out a 5x1 meter wave forward through the ground.
             All Units hit must make a Dexterity Check or take 3d4 + Main Stat Force damage (or half if they succeed).
-            If they fail and are below 50% Health, they become Slowed and Fleeing. Otherwise, they just become Slowed.
+            If they are at or below 50% Health, and failed, they become Slowed and Fleeing. Otherwise, they just become Slowed if they succeeded.
 
     ~Fruit of the Forest~:      # Ok
         A: 0 Actions
@@ -1299,25 +1311,26 @@ Nature:
     
 Conjuration:
 
-    # Basic Spells
-
 # [ ] Elemental Damage
 # [ ] Damage (1 Action)
 # [x] Damage (1 Action)     (Advanced)  [Defense/Sustained (Dancing Weapon)]
 # [ ] Damage (Half-Action)
 # [ ] Damage (Half-Action)  (Advanced)
 # [ ] Damage (AoE)
-# [ ] Damage (AoE)          (Advanced)
+# [x] Damage (AoE)          (Advanced)  [Arrow Barrage]
+# [x] Return on Investment              [Arrow Barrage]
 # [ ] Stats
-# [x] Low CC                            [Fog?]
+# [x] Low CC                            [Fog, Cloud of Rot]
 # [x] Medium CC                         [Root (Web)]
 # [x] Hard CC                           [Stun (Polymorph)]
 # [ ] Healing
-# [ ] Tranking/Protection (Shielding)
-# [ ] Buff
+# [x] Tranking/Protection (Shielding)   [Blur, Force Wall]
+# [x] Buff                              [Longblade]
 # [ ] Debuff
-# [ ] Mobility
-
+# [ ] Utility
+# [x] Mobility                          [Blur]
+# [ ] Anti-Heal
+# [x] Summon
 
     ~Conjure Ammo~:
         A: 1 Action
@@ -1350,6 +1363,28 @@ Conjuration:
     # Advanced Spells
 
     ~Alarm~: Inherit
+
+    ~Arrow Barage~:
+        A: 0 Actions
+        Cost: 1 Mana
+        Range: 10 meters to edge
+        Cooldown: Once per encounter
+        Effect: |
+            You conjure a levitating barrage of arrows in a 3x3 area, up to 10 meters above ground.
+            At any point (for 0 Actions or with a Reaction), you can release these arrows upon the ground, hitting all enemies hit for 2d6 Pierce damage (against Defense).
+            At the start of your every turn, if the barrage is not yet released, it increases by 1 meter in size in all directions and gains 1d4 damage when it will be released (up to +3d4 and 9x9).
+        Notes: |
+            E.g. every turn, it goes from 3x3 to 5x5, then 7x7, then 9x9, etc and deals from 2d6 damage to 2d6 + 1d4, then 2d6 + 2d4, etc.
+            The arrows disappear as soon as they hit ground, or when dismissed (all at once) for free at any point, or after 1 minute of staying in the air.
+
+    ~Blur~:
+        A: 0 Actions or Reaction
+        Cost: 1 Mana
+        Effect: |
+            A Unit you can see (or yourself) becomes blurry until the start of your next turn.
+            It gains +2 Defense and +2 to all Combat Checks and 3 Movement Speed.
+        Upgrade: You can use this as a Reaction when another Unit declares an attack or Ability (before it makes it).
+
     ~Chaining Grasp~:
         A: 0 Actions
         Cost: 1 Mana
@@ -1357,6 +1392,15 @@ Conjuration:
         Effect: |
             Extend a magical chain to a medium (or larger) living or undead Unit and pull yourself to the target instantly.
             The target also takes 1d6 True damage (directly, ignoring Defense).
+
+    ~Cloud of Rot~:
+        A: Half-Action
+        Cost: 1 Mana
+        Range: 5 meters to edge
+        Effect: |
+            Conjure a cloud of rot that covers an area with a diameter equal to your Main Stat.
+            Units that start their turn in the cloud take 1d8 Poison Damage (directly, ignoring Defense), become Fleeing, can't be healed and have -2 to all Checks, all until the end of their turn.
+
             
     ~Dancing Weapon~:
         A: 1 Action
@@ -1436,14 +1480,57 @@ Conjuration:
         Notes: You can cancel this on your turn for 0 Actions.
 
     ~Force Wall~:
-        A: 1 Action
+        A: 0 Actions or Reaction
         Cost: 1 Mana
         Range: within 5 meters
         Duration: 1 minute
         Effect: |
             You create a 3x3 meter transparent, magical and thin force wall.
-            Units behind the wall benefit from Hard Cover (-4 to attacks against them through the wall).
+            The wall provides Double Cover.
+        Upgrade: You can use this as a Reaction when someone declares an attack or Ability, before any roll is made.
 
+
+    ~Grow or Shrink~:
+        A: 0 Actions
+        Cost: 1 Mana
+        Cooldown: Once per turn
+        Effect: |
+            A Unit you can see becomes one size larger/smaller for its next 1d4 turns.
+            It gains or loses 20% of its base (unbuffed) Defense (gain/loss is rounded up), gains or loses 1 Damage on all actions and gains or loses 1 Movement Speed.
+            Can stack multiple times.
+        Notes: |
+            Sizes are Minuscule, Small, Medium, Large, and Larger.
+            A Larger Unit becomes 1 meter larger/smaller on all directions.
+            It's number of spaces occupied also changes with this.
+
+    ~Longblade~:
+        A: 0 Actions
+        Cooldown: Long Rest
+        Duration: 1 minute
+        Effect: |
+            Magically extend the weapon of a willing ally you can see (or yourself) to up to 3 meters.
+            Its attacks with that weapon can have up to 3 meters range.
+        
+    # Higher Level Spells
+
+    ~Mage Hand~:
+        A: 0 Actions
+        Cost: 1 Mana
+        Range: 5 meters
+        Requirement: Level 3
+        Duration: 8 hours
+        Effect: |
+            Conjure a spectral hand in a space you can see.
+            You can move the hand as you move your normal hands and you can move your hand by spending meters from your remaining Movement.
+            The hand can't attack and disappears if it goes outside a 10 meters range.
+        Upgrade: |
+            At Level 6, when you cast this, you can make the size of the hand Large, and every turn by (you) spending 1 Action, you can make it attack a target for 3d8 + 1 Smash damage or cast Grapple or Slam around it (from Bloodshed) (using your Stats).
+            If cast like this, the Mage Hand has 15 Health and 0 Defense, and the effect ends if it is destroyed.
+        Notes: |
+            The hand can't lift objects weighing more than 10kg.
+            Moving the hand spends Actions as if you made moved your own hand.
+            Once per turn, you can summon or vanish the hand for 0 Actions if it's effect is still active, in a space next to you.
+    
     ~Conjure Object~ :
         A: 1 Action
         Requirement: Level 4
@@ -1455,15 +1542,53 @@ Conjuration:
             You can't conjure mechanical objects.
             The object disappears after 1 hour (24 hours at Level 8).
 
-    ~Mage Hand~:
-        A: 0 Actions
+    ~Major Illusion~:
+        A: 1 Action
+        Requirement: Level 5
         Cost: 1 Mana
-        Range: 5 meters
-        Duration: 8 hours
+        Range: 10 meters
         Effect: |
-            Conjure a spectral hand in a place you can see.
-            You can move the hand as you move your normal hands and instead of spending movement points to move yourself, you can move your hand the same distance.
-            The hand can't attack and disappears if it goes outside a 12 meters range.
+            You create an illusion that fits at most in a 2x2x2 meter cube.
+            The illusion appears real to the eyes, ears and by smell, but physical interaction makes it obvious it's an illusion and objects pass through it normally.
+            The illusion can deal no damage or Crowd Control, but can provide Cover or block Line of Sight (both from the front, and from behind).
+            On your turn, you can and must spend 1 Action to keep and/or move the illusion, otherwise it is dispelled.
+            You can only have 1 illusion active at a time.
+        Upgrade: |
+            At Level 7, the illusion lasts indefinitely until you cancel it without needing to spend Actions, and it can hold its own simple movement and clockwork-like routines.
+            You can also program this illusion to react on its own in a specific way to specific triggers, but the instructions must be concise - talk with your GM about this.
+
+    ~Meld With Material~:
+        A: 1 Action
+        Cooldown: Long Rest
+        Requirement: Level 4
+        Effect: |
+            Touch a piece of solid material.
+            You become immoving and all your body becomes as if made from that material.
+            You can cancel this for free at any point, but until you do, you are Stunned and have +3 Defense and to all Checks.
+        Notes: |
+            You still need to drink water and eat food, but don't need to breathe while melded.
+            This has potential to work like a long term Stealth mechanism.
+
+    ~Transmute Rock~:
+        A: 1 Action
+        Requirement: Level 5
+        Cost: 1 Mana
+        Effect: |
+            Touch a 1x1x1 meter cube of rock, mud, sand, etc.
+            Transform it into rock, mud, sand, etc.
+            A Unit caught in this effect must pass a Might Check or be Rooted.
+
+    ~Conjure Lodge~:
+        A: 10 minutes
+        Requirement: Level 6
+        Duration: 24 hours
+        Cost: 3 Mana
+        Cooldown: 1 Week
+        Effect: |
+            Conjure a cubic room with a width equal to your Level and a 1x2 meter door.
+            This room works like a pocket dimension and only the door is visible from the outside. The room occupies no space in the real world, except for the door (you enter the room through the door).
+            Your party can safely make a Long Rest inside the Conjured Lodge.
+        Notes: If the Lodge would be destroyed with people inside, each will automatically be expulsed (appear) in a space within 3 meters of the door (randomly or by GM's choice).
 
     ~Magic Prison~ :
         A: 5 minutes
@@ -1502,15 +1627,28 @@ Conjuration:
 
 
     # Higher Level Spells
-    ~Animate Dead~:
+    ~Summon Familiar~:
         A: 1 Action
+        Cost: 1 Mana
+        Requirement: Level 3
+        Effect: |
+            Summon a familiar in a space next to you, that has the aspect of a small demon or animal.
+            It has 8 Health, 3 Defense, 5 Movement Speed, 0/0/0/0/0 in Stats and takes its turn at the same time as you (and uses your Spell Grade).
+            On its turn, it has a Half-Action, usable only for Potions, Scrolls and the Push and Taunt Default Moves, and it can do other small tasks like bringing you objects, picking up a weapon and bringing it to your hand, etc.
+            Lasts until killed or unsummoned (for 0 Actions) or if it goes more than 30 meters away from you.
+            You can communicate with it telepathically.
+        Upgrade: At Level 5, out of combat, the familiar can be invisible.
+        Notes: You can only have one summoned familiar at a time. Your familiar might have a name and personality and it might speak Common or other languages, if allowed by the GM.
+
+    ~Animate Dead~:
+        A: Half-Action
         Cost: 1 Mana
         Requirement: Level 4
         Range: 5 meters
         Duration: 1 hour
         Effect: |
             Raise an undead Unit to fight for you from a nearby medium or larger corpse. The corpse is then consumed.
-            The undead Unit always has Medium size, 10 Maximum Health and 3 Defense.
+            The undead Unit always has Medium size, 7 Maximum Health and 3 Defense.
             It has Combat Checks equal to yours, but -2 to all Non-Combat Checks.
             It has 4 meters movement speed.
             It can use 1 Action to attack and deals 2d4 + 1 damage if it hits (Smash, Slash or Pierce, your choice).
@@ -1563,7 +1701,7 @@ Conjuration:
             You can use your magic to scan what the eye recorded in your mind.
             At any point, you can tune into the eye and see what it sees in your mind.
         Upgrade: |
-            At Level 6, you can move use your movement to instead move the Eye while you're tuned into it (it can fly).
+            At Level 6, you can move use your movement to instead move the Eye while you're tuned into it (it can fly) and lasts a number of days equal to your Level.
 
 
     ~Portal~ :
@@ -1590,6 +1728,7 @@ Mysticism:
 # [x] Damage (Half-Action)  (Advanced)
 # [ ] Damage (AoE)
 # [ ] Damage (AoE)          (Advanced)
+# [ ] Return on Investment
 # [ ] Stats
 # [ ] Low CC
 # [x] Medium CC                         [Cripple/Silence (Mind Blast), Other (Confusion)]
@@ -1598,9 +1737,11 @@ Mysticism:
 # [ ] Tranking/Protection (Shielding)
 # [x] Buff                              [Checks (Guidance)]
 # [ ] Debuff
+# [ ] Utility
 # [ ] Mobility
+# [ ] Anti-Heal
+# [ ] Summon
 
-    # Basic Spells
     ~Guidance~ :
         A: Reaction
         Range: 10 meters
@@ -1797,6 +1938,7 @@ Eldritch:
 # [x] Damage (Half-Action)  (Advanced)  [Sustained (Curse of Pain)]
 # [ ] Damage (AoE)
 # [ ] Damage (AoE)          (Advanced)
+# [ ] Return on Investment
 # [ ] Stats
 # [ ] Low CC
 # [ ] Medium CC
@@ -1805,7 +1947,10 @@ Eldritch:
 # [ ] Tranking/Protection (Shielding)
 # [ ] Buff
 # [x] Debuff                            [Curse of Weakness]
+# [ ] Utility                           
 # [ ] Mobility
+# [ ] Anti-Heal
+# [x] Summon                            [Summon Familiar, Summon Elementals]
 
 
     ~Decaying Blight~:
@@ -1863,6 +2008,8 @@ Eldritch:
             At Level 5 you can cast this for Half-Action, and at Level 9, for 0 Actions.
 
     # Advanced Spells
+    ~Summon Familiar~: Inherit from Conjuration
+
     ~Curse of Pain~:
         A: Half-Action
         Cost: 1 Mana
@@ -1913,6 +2060,7 @@ Divine:
 # [ ] Damage (Half-Action)  (Advanced)
 # [ ] Damage (AoE)
 # [x] Damage (AoE)          (Advanced)  [Radiant Smite]
+# [ ] Return on Investment
 # [ ] Stats
 # [ ] Low CC
 # [x] Medium CC                         [Blind AoE (Blinding Smite)]
@@ -1921,8 +2069,10 @@ Divine:
 # [x] Tranking/Protection (Shielding)
 # [ ] Buff
 # [ ] Debuff
+# [ ] Utility
 # [x] Mobility                          [Saving Throw, Wraithwalk]
-
+# [ ] Anti-Heal
+# [ ] Summon
 
     # Basic Spells
     ~Cure Affliction~: Inherit
@@ -2054,6 +2204,19 @@ Divine:
             If the Unit is dead, and if the Unit's body is fairly intact, the dead Unit comes back to life, stabilized and unconscious.
             If the Unit is unconscious, the Unit wakes up and is healed for 1 Health.
 
+    ~Summon Elementals (Eldritch)~:    # Will do about 8 attacks = 20 real damage = 1A, 2 Mana. But they can absorb quite a bit of damage...
+        A: 1 Action
+        Cost: 3 Mana
+        Requirement: Level 5
+        Cooldown: Once per turn
+        Duration: 1 minute (from initial cast)
+        Effect: |
+            Declare an element from Fire, Necrotic, Acid and Poison.
+            Now, and at the start of your next 2 turns, summon an elemental of that chosen element with 5 Health, 4 Defense, 3 Movement Speed and 2 in all Stats (for Combat Checks).
+            You command the elementals, and they take their turn at the same time as you and can only spend 1 Action to shoot an elemental bolt that deals 1d6 + 2 Damage of its element, at 3 meters range (against Defense).
+        Upgrade: |
+            Elementals only take 50% Damage (after Defense) from the declared element.
+        Notes: These elementals are not sentient and can't fly.
     
     ~Wraithwalk~: 
         A: 0 Actions
@@ -2064,3 +2227,30 @@ Divine:
             While spectral, you can move through walls, objects and Units, but not through floors and ceilings.
             If the effect doesn't end in an empty space, you are instantly thrown to the nearest empty space and you take 3d4 Force damage (directly, ignoring Defense).
     
+
+Restricted Spells:
+
+    ~Conceal Magic~:
+        A: Passive
+        Requirement: Level 4
+        Effect: Your magic becomes undetectable.
+        Upgrade: This is an Arcane Spell.
+
+    ~Sending~:
+        A: 1 Action
+        Requirement: Level 4
+        Effect: |
+            Send a message no longer than 5 seconds long to an ally, wherever it is. It can include images, sounds and smells. That ally knows they received a message from you.
+        Upgrade: Requires you to be holding something physical from that ally, such as a piece of clothing, an object, a strand of hair, etc.
+        Notes: Sending might be impeded if sent to another plane/world.
+
+    ~Racial Transmutation~:
+        A: 1 Day
+        Requirement: Level 7
+        Cooldown: 1 month
+        Effect: |
+            You spend a whole day casting this Ability with a willing ally (or by yourself). By the end of it, the race of the ally becomes changed to a chosen Plyer Character Race (from the ones allowed by the GM).
+            This changes the base stats and Racial Abilities of that Unit. It must also replace any Racial Feats it had with other Feats.
+        Upgrade: This is a Conjuration Spell.        
+
+
