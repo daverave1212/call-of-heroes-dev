@@ -35,10 +35,11 @@ export function Proficiencies({ name, theRaceOrClass }) {
         <div style={{marginTop: 'var(--page-padding)'}} id="proficiencies">
             {
                 theRaceOrClass.Proficiencies == null || Object.keys(theRaceOrClass.Proficiencies).length == 0 ? (
-                    <div>
-                        <PageH3>Proficiencies</PageH3>
-                        <p>{ theRaceOrClass['Proficiencies Description'] }</p>
-                    </div>
+                    // <div>
+                    //     <PageH3>Proficiencies</PageH3>
+                    //     <p>{ theRaceOrClass['Proficiencies Description'] }</p>
+                    // </div>
+                    <div></div>
                 ) : Object.keys(theRaceOrClass.Proficiencies).length == 1 ? (
                     <div>
                         <PageH3>Proficiencies</PageH3>
@@ -131,6 +132,21 @@ export function RaceFeatures({ theRace }) {
     )
 }
 
+export function RacialFeats({ theRace }) {
+    return (<div>
+        <PageH2>Free Feat</PageH2>
+        <p>You start with one <b>Feat</b>. You can get this Feat either from the Feats page, or the list of Racial Feats below. Only your Race can get these Racial Feats.</p>
+        <PageH2>Racial Feats</PageH2>
+        <ManySpells spells={U.spellsFromObject(theRace.Talents)}/>
+    </div>)
+}
+export function ClassFeatsDescription() {
+    return (<div>
+        <PageH3>Feats</PageH3>
+        <p>Whenever you pick a Talent from your Class Specialization, you can instead choose a Feat. Take note that the power of Class Talents is individually balanced for each Class and each Specialization.</p>
+        <p>If you decide to forego your Talent and pick a Feat instead, you can no longer re-pick it on Long Rests and you will have to stick to the Feat you chose for the rest of your life! Choose keenly!</p>
+    </div>)
+}
 export function LevelingUp({ theClass }) {
     return (
         <div style={{marginTop: 'var(--page-padding)'}} id="leveling-up">

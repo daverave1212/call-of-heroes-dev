@@ -148,6 +148,12 @@ function MegaDropdown({ navState, isBurgerClicked }) {
           <ul>
             <LiLink to="/Other/Abilities">All</LiLink>
           </ul>
+
+          <h4 style={{marginTop: '38px'}}>Feats</h4>
+          <div className='subnav-title-underline'></div>
+          <ul>
+            <LiLink to="/Other/Feats">All</LiLink>
+          </ul>
         </div>
 
         <div className='subnav-section'>
@@ -169,7 +175,6 @@ function MegaDropdown({ navState, isBurgerClicked }) {
             <LiLink isDownload={true} to="/Download/Sheet-2023-03-24.png">Character Sheet (PNG)</LiLink>
             <LiLink to="/Other/Prices">Obstacles</LiLink>
             <LiLink to="/Other/PetsAndAnimals">Pets and Animals</LiLink>
-            <LiLink to="/Other/Feats">Feats</LiLink>
           </ul>
         </div>
 

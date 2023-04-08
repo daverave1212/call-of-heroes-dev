@@ -28,7 +28,7 @@ import theRace from '../../databases/Races/Davel.json'
 
 import ManySpells from '../../components/Spell/ManySpells'
 
-import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies, AbilitiesWithDescription, RaceFeatures } from '../../components/InsertableTemplates/RaceClassComponents'
+import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies, AbilitiesWithDescription, RaceFeatures, RacialFeats } from '../../components/InsertableTemplates/RaceClassComponents'
 
 // TODO: Idea - have all races/classes be a separate page with hero banners
 
@@ -80,12 +80,7 @@ export default function Race() {
 
                 <AbilitiesWithDescription id="abilities" spellsObject={theRace['Starting Abilities']} title='Abilities' description={theRace['Starting Abilities Description']}/>
 
-                <PageH3>Choose One From...</PageH3>
-                <ManySpells spells={U.spellsFromObject(theRace.Talents)}/>
-
-                <p>
-                    That's all from the Race! Next, choose your character's Class!
-                </p>
+                <RacialFeats theRace={theRace}/>
 
             </Page>
 

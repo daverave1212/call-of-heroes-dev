@@ -21,7 +21,7 @@ export default () => (
         <tr>
             <td>Level 3</td>
             <td>
-                Talent from your Specialization (Tier 1)<br/>
+                Class Talent (Tier 1)<br/>
                 1 Extra <Icon name="Mana"/>Mana
             </td>
         </tr>
@@ -29,14 +29,13 @@ export default () => (
             <td>Level 4</td>
             <td>
                 +1 in any Stat (up to +4)<br/>
-                1 Weapon Training<br/>
                 +1 Feat<br/>
             </td>
         </tr>
         <tr>
             <td>Level 5</td>
             <td>
-                Talent from your Specialization (Tier 2)
+                Class Talent (Tier 2)<br/>
             </td>
         </tr>
         <tr>
@@ -49,21 +48,20 @@ export default () => (
         <tr>
             <td>Level 7</td>
             <td>
-                Talent from your Specialization (Tier 3)
-            </td>
-        </tr>
-        <tr>
-            <td>Level 7</td>
-            <td>
-                +1 in any Stat (up to +5)<br/>
-                1 Weapon Training<br/>
-                +1 Feat
+                Class Talent (Tier 3)<br/>
             </td>
         </tr>
         <tr>
             <td>Level 8</td>
             <td>
-                Talent from your Specialization (Tier 4)<br/>
+                +1 in any Stat (up to +5)<br/>
+                +1 Feat
+            </td>
+        </tr>
+        <tr>
+            <td>Level 9</td>
+            <td>
+                Class Talent (Tier 4)<br/><br/>
                 1 Extra <Icon name="Mana"/>Mana
             </td>
         </tr>

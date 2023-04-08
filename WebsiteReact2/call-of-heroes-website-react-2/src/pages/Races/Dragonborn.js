@@ -28,7 +28,7 @@ import theRace from '../../databases/Races/Dragonborn.json'
 
 import ManySpells from '../../components/Spell/ManySpells'
 
-import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies, AbilitiesWithDescription, RaceFeatures } from '../../components/InsertableTemplates/RaceClassComponents'
+import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies, AbilitiesWithDescription, RaceFeatures, RacialFeats } from '../../components/InsertableTemplates/RaceClassComponents'
 
 export default function Race() {
 
@@ -75,12 +75,9 @@ export default function Race() {
 
                 <AbilitiesWithDescription id="abilities" spellsObject={theRace['Starting Abilities']} title='Abilities' description={theRace['Starting Abilities Description']}/>
 
-                <PageH3>Choose One From...</PageH3>
-                <ManySpells spells={U.spellsFromObject(theRace.Talents)}/>
+                <AbilitiesWithDescription spellsObject={theRace['Ability Choices']} title='Ability Choice' description={theRace['Ability Choices Description']}/>
 
-                <p>
-                    That's all from the Race! Next, choose your character's Class!
-                </p>
+                <RacialFeats theRace={theRace}/>
 
             </Page>
 

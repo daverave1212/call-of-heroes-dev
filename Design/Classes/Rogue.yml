@@ -20,13 +20,6 @@ Proficiencies Description: |
     {Separator}
     Rogues can be experienced in many domains, from city dwelling to dungeoneering, so choose well!
 
-
-Proficiency Choices:
-    ~Proficiency in Acrobatics~: Inherit
-    ~Proficiency in Sleight of Hand~: Inherit
-    ~Proficiency in Deception~: Inherit
-    ~Proficiency in Dungeoneering~: Inherit
-
 Level Up:
   Every Level: 
     Health: 4
@@ -49,6 +42,7 @@ Spellcasting:
     - Warfare
 
 # Idea: For each Mana spent on Ambush, X happens
+# Spec: Ambush procs when attacking a target you haven't attacked this combat
 
 Starting Abilities Description:
   - Ambush: |
@@ -69,8 +63,6 @@ Starting Abilities:
     A: Passive
     Effect: |
       If you start your turn Hidden, your first attack deals 1d8 extra damage.
-      When Ambushing, you can also spend as much Mana as you want.
-      That attack gains 1d8 extra damage for each Mana spent (on top of the 1d8).
       Ambush can only happen once per turn.
     Notes: |
       Your Specialization will give you extra ways to Ambush.
@@ -113,6 +105,9 @@ Specs:
       ~Backstab~ :      # 2
         A: Passive
         Effect: When you Flank an enemy, Ambush is applied.
+        Upgrade: |
+          When Ambushing, you can also spend as much Mana as you want.
+          That attack gains 1d8 extra damage for each Mana spent (on top of the 1d8).
     
       ~Agile Hand~ :    # 0.35
         A: Passive
@@ -141,20 +136,22 @@ Specs:
           A: Passive
           Effect: |
             You can now cast spells!
+            Your Intelligence increases by 1 (up to a maximum of 4).
             You gain access to the Arcane and Conjuration Spell Lists, but at most half of all your Known Generic Abilities can be Arcane or Conjuration Spells.
             Fool's Coin now also applies when spending Mana on a Spell.
           Notes: You lose access to these Spells if you change this Talent.
           
         <Way of Fooling> :      # 0.5
           A: Passive
-          Effect: Your Charisma is increased by 2, (up to a maximum of 4).
+          Effect: Your Charisma increases by 2 (up to a maximum of 4).
           
         <Whiplash>:
           A: 0 Actions
-          Cooldown: Long Rest, otherwise it costs 1 Mana
+          Cooldown: 1 hour
           Effect: |
             Throw a whiplash at a grabbable point within 6 meters.
             Pull yourself to a target point.
+            After using Whiplash, your next attack this turn applies Ambush if you haven't already Ambushed this turn.
           Notes: Requires a Whiplash item, which can be bought for 100 gold.
           
       Level 5:
@@ -219,16 +216,17 @@ Specs:
       ~Isolated~ :      # 2 Charge
         A: Passive
         Effect: |
-          When you attack a Unit, and there is no other Unit adjacent to you or to that enemy (except you), the attack gains Ambush.
-          If you are already Ambushing the target, the attack gains an additional 1d8 damage.
+          When you attack a Unit, and there is no other Unit within 1 meter of either of you, the attack gains Ambush.
+        Upgrade: |
+          When Ambushing, you can also spend as much Mana as you want.
+          That attack gains 1d8 extra damage for each Mana spent (on top of the 1d8).
 
-      ~Planned Assassination~ :   # Damage is slightly better than 0.5 Actions - 1 Charge
+      ~Planned Assassination~ :   # 1 - 1.5 Charges, but heavily depends
         A: 1 minute
-        Cost: 1 Mana
         Cooldown: Long Rest
         Effect: |
           You plan an attack for 1 minute.
-          Your next attack on that target deals 2d6 + 2 Poison damage.
+          Your next attack on that target deals an extra 1d8 True damage.
           Planned Assassination fails if your Line of Sight to the target is broken until you attack it.
         Notes: The Mana is spent the moment you declare Planned Assassination.
 
@@ -315,7 +313,10 @@ Specs:
 
       ~Savagery~:       # 2 Charges
         A: Passive
-        Effect: Attacks on Units that have 50% or less health gain Ambush.
+        Effect: When you declare an attack on a Unit that has 50% or less Health (before your attack's damage), the attack gain Ambush.
+        Upgrade: |
+          When Ambushing, you can also spend as much Mana as you want.
+          That attack gains 1d8 extra damage for each Mana spent (on top of the 1d8).
 
       ~Parry~:          # 1 Charge
         A: Reaction
@@ -327,30 +328,24 @@ Specs:
       
         <10% Luck>:
           A: Passive
-          Effect: Once per turn, when you roll a 1 on an attack die, you can reroll that die.
+          Effect: Once per turn, when you roll a 1 for a Damage die, you can reroll that die.
         
         <Cheap Tricks>:
           A: 0 Actions
-          Cost: 2 Mana
+          Cost: 1 Mana
           Range: 3 meters
-          Effect: A Unit within 3 meters must pass a Dexterity Check or be Blinded for 2 turns.
+          Effect: A Unit within 3 meters must pass a Dexterity Check or take 1d4 Poison damage and be Blinded.
 
-        <Whiplash>:
-          A: 0 Actions
-          Cooldown: Long Rest, otherwise it costs 1 Mana
-          Effect: |
-            Throw a whiplash at a grabbable point within 6 meters.
-            Pull yourself to a target point.
-          Notes: Requires a Whiplash item, which can be bought for 100 gold.
+        <Whiplash>: Inherit from Thief
 
         <Quickfire> :
           A: 0 Actions
           Cost: 1 Mana
           Cooldown: 1 use / Turn
           Effect: |
-            Perform an attack with a 1-Handed Ranged weapon.
-            This attack ignores Cover and has no penalty if you're Blinded.
-            This attack does not trigger attacks of oportunity and can be used in melee range without penalty.
+            Perform an attack with a 1-Handed weapon (for 0 Actions).
+            This attack ignores Cover and has no pentaly if you're Blinded or Fleeing.
+            This attack can be used in melee range without penalty if it's a ranged weapon.     
       
       Level 5:
       

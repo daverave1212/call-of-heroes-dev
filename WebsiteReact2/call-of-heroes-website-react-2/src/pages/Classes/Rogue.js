@@ -29,7 +29,7 @@ import ManySpells from '../../components/Spell/ManySpells'
 
 import theClass from '../../databases/Classes/Rogue.json'
 
-import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies, } from '../../components/InsertableTemplates/RaceClassComponents'
+import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies, ClassFeatsDescription, } from '../../components/InsertableTemplates/RaceClassComponents'
 import { SideMenuFromClass } from '../../components/SideMenu/SideMenu'
 
 export default function Rogue() {
@@ -77,12 +77,13 @@ export default function Rogue() {
                 <Proficiencies name={theClass.Class} theRaceOrClass={theClass}/>
 
                 <LevelingUp theClass={theClass}/>
+                <ClassFeatsDescription/>
          
                 <SpellCasting theClass={theClass}/>
 
                 <StartingAbilities spellsObject={theClass['Starting Abilities']} description={theClass['Starting Abilities Description']}/>
 
-                <PageH2>Specialzations</PageH2>
+                <PageH2>Specializations</PageH2>
 
                 <p>
                     The first time you choose a cleric domain (specialization), you must choose between two abilities.

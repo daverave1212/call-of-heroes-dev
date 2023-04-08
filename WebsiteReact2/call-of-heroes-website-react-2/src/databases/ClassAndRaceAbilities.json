@@ -4,18 +4,31 @@
         "Effect": "Add your Level to Checks for knowing about religions, praying, performing sermons, faith, etc."
     },
     "~Awe~": {
-        "A": "0 Actions",
+        "A": "Passive",
         "Range": "5 meters",
-        "Cooldown": "Long Rest",
-        "Effect": "Instantly heal or damage a target for 1d4 (True damage).\nSome other Cleric spells will cast Awe for free, even if it is on Cooldown.\n",
+        "Effect": "Whenever you spend Mana for an Ability, \"cast Awe\" on any target within 5 meters of you.\nThis deals 1d4 True Damage to enemies or heals allies for 1d4.\nSome other Cleric spells will \"cast Awe\" for free.\n",
         "Notes": "Ignores Cover."
     },
-    "~Chains~": {
+    "~Spread the Awe~": {
+        "A": "Half-Action",
+        "Cooldown": "Long Rest",
+        "Effect": "Cast Awe twice on target(s) within 5 meters."
+    },
+    "~Blessing~": {
         "A": "1 Action",
-        "Range": "6 meters",
-        "Cost": "1 Mana",
-        "Effect": "Cast Awe on a target 4 times (for free).\nIt must pass a Might Check or be Paralyzed until it breaks free.\n",
-        "Notes": "A Paralyzed creature must skip its turn. It makes a Might Check at the end of its every turn. If it succeeds, it breaks the Paralysis.\n"
+        "Cooldown": "Long Rest",
+        "Duration": "1 encounter",
+        "Effect": "You bless one ally.\nWhenever it makes a Combat Check, it can add 1d4 to it.\n",
+        "Upgrade": "At Level 4, this affects 2 allies. At Level 8, this affects 3 allies.",
+        "Notes": "You can bless yourself.\nLasts until the end of the next combat encounter.\n",
+        "AlignOnWebsite": "Right"
+    },
+    "~Pledge of Battle~": {
+        "A": "Special",
+        "Duration": "Lifetime",
+        "Effect": "Ask a party member to join your cause and pledge their honor to you.\nThey gain the Awe passive Ability (e.g. whenever they use Mana for an Ability, they cast Awe).\nThat person always Knows the same Generic Divine Spells you Know at a time.\n",
+        "Upgrades": "There is one condition your ally must match - it can never have its Maximum Mana higher than yours (if it does, it becomes equal to yours).\n",
+        "Notes": "You can only have one character who pledged for you.\nTheir Awe is not improved by your Awe improvements, if you have any.\n"
     },
     "~March Ahead~": {
         "A": "0 Actions",
@@ -24,7 +37,7 @@
     },
     "~Piety~": {
         "A": "Passive",
-        "Effect": "Casting Awe yourself (manually, the actual Ability) now does 2d4 instead of 1d4."
+        "Effect": "Your pledged ally gains Spread the Awe."
     },
     "<Eternal Bindings>": {
         "A": "0 Actions or Reaction",
@@ -40,10 +53,10 @@
     },
     "<Repentance>": {
         "A": "0 Actions",
-        "Cost": "50% of your maximum health",
+        "Cost": "50% of your Maximum Health",
         "Range": "1 meter (touch)",
-        "Effect": "Restore 50% of another ally's maximum health, then cast Awe on yourself.",
-        "Notes": "You can't cast this if it would get you to 0 or less Health.",
+        "Effect": "Restore 50% of another ally's Maximum Health, then cast Awe on yourself.",
+        "Notes": "You can't cast this if you are at or below 25% of your Maximum Health.\nIf you are below 50% Health, you fall, but you are brought back due to Awe (with Exhaustion).\n",
         "OrderOnWebsite": 2
     },
     "<War Smite>": {
@@ -55,7 +68,8 @@
     "<Shadow Realm>": {
         "A": "0 Actions",
         "Cooldown": "Long Rest",
-        "Effect": "A Unit within 6 meters becomes trapped in a Shadow Realm with you for 2 rounds (this and the next).\nYour attacks against it cast Awe on it for free while inside the Shadow Realm.\nNeither of you can interact with the outside world, but can feintly see it.\nUnits on the outside can faintly see the two of you, as if you were ghosts.\n",
+        "Effect": "A Unit within 6 meters becomes trapped in a Shadow Realm with you for 2 rounds (this and the next).\nYour attacks cast Awe on it for free while inside the Shadow Realm.\n",
+        "Upgrade": "Neither of you can interact with the outside world, but can feintly see it.\nUnits on the outside can faintly see the two of you, as if you were ghosts.\n",
         "Notes": "The Shadow Realm is a copy of the normal world, but with no other units.",
         "OrderOnWebsite": 3
     },
@@ -70,9 +84,9 @@
     "~Grasp~": {
         "A": "Half-Action",
         "Range": "15 meters (you don't need line of sight)",
-        "Cost": "1 Mana",
-        "Effect": "Cast Awe on the target twice.\nThat target can not benefit from Cover for 1 minute.\n",
-        "Notes": "If the target has Cover on attacks from any source, the Cover is negated (e.g. no more -2). Includes attacks while prone, attacks through jeavy wind, etc."
+        "Cooldown": "Long Rest",
+        "Effect": "Cast Awe twice, on the same target or on two different targets.\nThat target(s) can't benefit from Cover for 1 minute.\n",
+        "Notes": "If the target has Cover on attacks from any source, the Cover is negated (e.g. no more -2). Includes attacks while prone, attacks through heavy wind, etc."
     },
     "~Radiance~": {
         "A": "Passive",
@@ -80,18 +94,17 @@
     },
     "~Twilight~": {
         "A": "Passive",
-        "Effect": "You have Dark Vision.\nYou are immune to being Feared.\nIf you have 50% or less health, Awe damage and healing is 1d6.\n"
+        "Effect": "You can see in normal darkness up to 10 meters away.\nYou are immune to being Feared.\nAwe Damage and healing is increased to 1d6 on targets at or below 50% Health.\n"
     },
     "<Let There Be Light>": {
         "A": "Passive",
-        "Effect": "Grasp now casts Awe 3 times instead of 1.\nYou can also split your Grasp to target up to 3 targets, distributing the Awe casts as you like between them.\n",
-        "Notes": "Splitting your Grasp means you cast (Grasp's) Awe on up to 3 targets, and each is affected by the Cover negation. For example, you can also choose to target 2 targets (e.g. one with 1 Awe and one with 2 Awe)."
+        "Effect": "While not in darkness, when you heal with Awe, half of the healing also heals the target's Reserve Health.\n",
+        "Notes": "Half rounded down."
     },
     "<Let There Be Darkness>": {
-        "A": "0 Actions",
-        "Cooldown": "Long Rest",
-        "Range": "6 meters to edge",
-        "Effect": "You create a 6x6 meter area of magical darkness.\nAll attacks done from and towards units in the area have Cover.\n"
+        "A": "Passive",
+        "Effect": "While in darkness, your damaging Awe die is increased by 1 tier.\n",
+        "Notes": "Increasing the tier of dice means 1d4 becomes 1d6, 1d6 becomes 1d8, and so on. D12's and d20's don't increase."
     },
     "<Circle of Awe>": {
         "A": "Half-Action",
@@ -109,42 +122,51 @@
     },
     "~Second Soul~": {
         "A": "Special",
-        "Effect": "You have another character beside you, your 'minion', that is either a celestial or an undead.\nIts stat block is dictated by your starting Ability choice below.\n",
-        "Downside": "Your maximum Mana decreases by 1."
+        "Effect": "You have another Unit beside you, your companion.\nYour companion draws power from your own spirit: it shares the same Health pool with you (e.g. whenever one of you takes damage, the other one takes it as well). It also always has the same Defense and Checks as you, and has Speed equal to your base Speed.\nYour companion has a 1-Handed Melee weapon. On its turn, it can attack once with it for 1d8 Damage without any Stat modifiers, regardless of the weapon's real damage. It does, however, apply weapon effects.\nIt takes its turn at the same time as you.          \n",
+        "Downside": "Your maximum Mana decreases by 1.",
+        "Notes": "Instead of attacking, your minion can do the equivalent of a Half-Action for non-combat uses, like using a potion, throwing a rope, reloading a weapon, etc, but not using a scroll. It can also use Disengage, Dash or Defend.\nIf both of you take damage at the same time (e.g. from an AoE effect), the damage taken is equal to the average of the damages taken.\nCome up with a story about why you have your companion and why your god allowed this or gave them to you.\n"
+    },
+    "~Partner in Life~": {
+        "A": "Special",
+        "Effect": "Your companion is an alive being. It can either be a sentient humanoid of any race (without affecting its stats) or an animal.\nChoose two of the following boons. Your companion will have them forever:\n- Sentience - Your companion is sentient and intelligent, and gains the Mana Tap Ability from the Elf Race\n- Largeness - Your companion is Large and starts every combat with Shielding equal to your Level (lasts until the end of the combat)\n- Mounting - You can ride your companion without penalties as a mount, and it has +2 Speed and ignores Hard Terrain\n- Spell Attacks - Your companion's attacks now have 5 meter range and deal True Damage (against Defense), regardless of the weapon type\n- Opportunity Attacks - When an enemy becomes Fleeing from exiting your companion's melee attack range, your companion can make an attack on it with its Reaction\n",
+        "Notes": "While riding your companion, it can still attack, but mounting and dismounting takes either a Half-Action or all of your own total Movement.\nNote that the Shielding (if you choose it) is on your companion, not on you; it absorbs Damage only if your companion takes it. If you're both hit at the same time, the Shielding applies.\n"
     },
     "~True Necromancy~": {
         "A": "Special",
-        "HasMixins": true,
-        "Effect": "Your minion is a reanimated humanoid, whose soul is compelled to stay in this plane until its purpose is met.\n\nThe minion draws power from your own spirit: it shares the same {Health} Health pool with you (e.g. whenever one of you takes damage, the other one takes it as well). It also always has the same {Defense} Defense and Checks as you, and has Speed equal to your base Speed.\nYour minion has a 1-Handed Melee weapon. On its turn, it can attack once with it for 1d8 {Damage} Damage without any Stat modifiers, regardless of the weapon's real damage. It does, however, apply weapon effects.\nIt takes its turn at the same time as you.\n\nOn your turn, you can also cast any Spell through your Minion for range purposes only.\n",
-        "Notes": "Instead of attacking, your minion can do the equivalent of a Half-Action for non-combat uses, like using a potion, throwing a rope, reloading a weapon, etc, but not using a scroll. It can also use Disengage or Dash.\nIf both of you take damage at the same time (e.g. from an AoE effect), the damage taken is equal to the average of the damages taken.\nIt needs to rest and drink water normally, but does not require food.\nCome up with a story about why you have an Undead minion and why your god allowed this or gave him or her to you. Your undead minion might still be sentient (or not; your choice). If it is sentient, your GM might allow it to speak multiple languages, depending on the plot and theme of the campaign. The GM might also allow it to have separate Stats from yours using the normal Stat distribution, for Check purposes only (e.g. it won't affect Health). Alternatively, you can choose your minion to be an animal (for aesthetic purposes only).\n"
+        "Effect": "Your companion is an undead. It can either be a sentient undead humanoid of any race (without affecting its stats) or an abstract undead creature.\nChoose two of the following boons. Your companion will have them forever:\n- Largeness - Your companion is Large and starts every combat with Shielding equal to your Level (lasts until the end of the combat)\n- Ghostly - Your companion takes only 50% Slashing and Necrotic Damage \n- Sweeping - Instead of attacking, your Companion can just do 3 Damage (of its weapon type) to all Units within 2 meters of it\n- Death Burst - For 0 Actions, you can sacrifice your companion to cast Awe on all Units within 5 meters of it (this has a Long Rest Cooldown). Your Companion stays dead until your next Long Rest.\n- Corpsewalk - Once per turn, when your companion walks over a corpse, cast Awe on an enemy within 1 meter of your companion and the corpse is destroyed.\n",
+        "Notes": "Note that the Shielding (if you choose it) is on your companion, not on you; it absorbs Damage only if your companion takes it. If you're both hit at the same time, the Shielding applies.\n"
     },
-    "~Celestial Follower~": {
+    "<Awe For Corpses>": {
+        "A": "Passive",
+        "Duration": "Zombies last 1 minute",
+        "Effect": "Whenever you spend Mana on an Ability, raise a corpse you can see into a Zombie.\nZombies have 1 Health and 0 Defense, 3 Speed and they can use their Action to attack for 1d6 Damage (Slash, Smash or Pierce, your choice).\n",
+        "Notes": "Zombies have -1 in all Stats. When a Zombie dies, it becomes a corpse again."
+    },
+    "<Awe For Life>": {
+        "A": "1 Action",
+        "Cooldown": "Long Rest",
+        "Effect": "Cast Awe once on each Worthy Unit within 10 meters of you."
+    },
+    "<Ascendance>": {
+        "A": "Passive",
+        "Effect": "Your Awe die is increased by one Tier (e.g. from 1d4 to 1d6).\nYou gain Wingspan (Cleric) and Penitence.\nYou start every play Session with one extra Inspiration Point.\n"
+    },
+    "~Wingspan (Cleric)~": {
         "A": "0 Actions",
         "Cooldown": "Long Rest",
-        "Duration": "3 turns",
-        "HasMixins": true,
-        "Effect": "Your minion is an angelic being, whose task is to protect guide or follow you until its purpose is met and is always by your side in the form of a spirit nobody else can interact with. Your Celestial follower can be a humanoid or animal in appearance (it can't fly) and is sentient.\nUsing 0 Actions, you can summon your minion in the physical plane, materializing in a space you choose within 5 meters, and lasts up to 3 turns.\n\nIt has {Health} Health equal to 10 + Your Level + Your Charisma, 3 {Defense} Defense, 5 Speed, 0 Initiative and the same Stats are you for Check purposes.\nOn its turn, it can attack, either Melee for 2d6 True {Damage} Damage, or ranged for 1d10 True {Damage} Damage (6 meters range).\nAlternatively, on its turn, instead of Attacking, it can cast Awe once for free (with your current Awe dice tier, if it's not 1d4).\n\nIt takes its turn separately, and always has 0 Initiative.\n",
-        "Notes": "The Celestial Follower dematerializes after it finishes taking its 3rd turn.\nInstead of attacking, your minion can do the equivalent of a Half-Action for non-combat uses, like using a potion, throwing a rope, reloading a weapon, etc, but not using a scroll. It can also use Disengage or Dash.\nYou can choose the aspect of your minion (e.g. sentient humanoid, animal, etc).\nCome up with a story about why you have an angel follower.\n",
-        "OrderOnWebsite": 1
+        "Effect": "Quickly fly up to 5 meters.",
+        "Upgrades": "At Levels 3, 6 and 9, you get one extra use of Wingspan per Long Rest (e.g. the Cooldown becomes 2 times / Long Rest, 3 times / Long Rest, etc)."
     },
-    "<Divine Message>": {
-        "A": "10 minutes",
-        "Cost": "1 Mana",
-        "Cooldown": "24 Hours (in game)",
-        "Effect": "You pray for 10 minutes to get an answer to a question from your god(s).\nSet a real life timer of 10 minutes (time in which you can do anything out of the game).\nWhen the timer expires, you can ask the DM one question consisting of maximum 3 words (e.g. 'Is sword cursed?').\nThe answer you will get will consist of maximum 3 words.\nThe DM can choose not to answer, to answer falsely or say something completely different. The gods' wills are unknowable.\n"
-    },
-    "<Life Echo>": {
+    "~Penitence~": {
         "A": "0 Actions",
-        "Effect": "You put a Life Echo on another ally.\nWhenever YOU heal a different Unit, the unit with the Life Echo on them is also healed for 50% of that amount.\nLasts 1 minute.\n"
-    },
-    "<Dazzling Essence>": {
-        "A": "Passive",
-        "Effect": "Your follower's first Spell or Attack every encounter attempts to also Charm the target (against a Sense Check).\nWhenever you drop to (or below) 50% Health, this effect resets this encounter.\n",
-        "OrderOnWebsite": 3
+        "Range": "5 meters",
+        "Duration": "1 minute",
+        "Effect": "A target must pass a Charisma Check or become unable to cast healing Spells, do Crowd Control or apply On-Roll Effects.\n",
+        "Notes": "Can't be cast on Epic Monsters."
     },
     "<Cleric Lich Ritual>": {
         "A": "Special",
-        "Effect": "You spend 24 hours in a special place of power (this could be a temple or given to you by your DM).\nAfter it's finished, you become a Lich, and you are considered Undead.\nApply the following:\n- You are Undead, thus immune to Charm, Fear and being put to Sleep\n- You can no longer cast Generic Abilities that don't cost Mana, but gain 2 extra maximum Mana. Passive Spells that don't cost Mana still apply.\n- You no longer need to eat, drink or sleep.\n- You gain access to the Elemental and Eldritch Spell Lists.\n- The range of all your Spells is doubled.\n- Your Health decreases by 3\nYou also gain the following abilities:\n- Phylactery\n- Dismorphment\n",
+        "Effect": "You spend 24 hours in a special place of power (this could be a temple or given to you by your GM).\nAfter it's finished, you become a Lich, and you are considered Undead.\nApply the following:\n- You are Undead, thus immune to Charm, Fear and being put to Sleep\n- You can no longer cast Generic Abilities that don't cost Mana, but gain 2 extra maximum Mana. Passive Spells that don't cost Mana still apply.\n- You no longer need to eat, drink or sleep.\n- You gain access to the Elemental and Eldritch Spell Lists.\n- Your Health decreases by 3\nYou also gain the following abilities:\n- Phylactery\n- Dismorphment\n",
         "Upgrade": "At Level 5, your Defense increases by 1.\nAt Level 6, the range of all your Spells is doubled.\nAt Level 7, Counter Check Grade increases by 1.\nAt Level 8, all your Checks increase by 1.\n",
         "OrderOnWebsite": 1
     },
@@ -342,33 +364,44 @@
         "Display Name": "Prof. in Smelling",
         "Effect": "Add your Level to all Sense Checks for sensing smells and identifying things based on their smell."
     },
-    "~Slay~": {
+    "~Animal Companion~": {
+        "AlignOnWebsite": "Left",
         "A": "Passive",
-        "Effect": "You always know the type of a monster.\nYou gain a different bonus when fighting an enemy of a certain type:\nMonstrosities: Attacks against Monstrosities ignore half of the Defense.\nBeasts: You have +1 Defense and +1 to all Combat Checks against Beasts.\nFiends: Your attacks against Fiends ignore damage resistances (but not immunities).\nUndead: You have +2 Counter Check Grade against Undead.\n"
+        "Effect": "You have an animal pet that can fight alongside you!\nYour animal has stats depending on its species. Check out the Pets and Animals page to see its stats!\nYour pet takes its turn at the same time as you do, and always has the same initiative as yours.\nYour pet has 1 Action per turn, which it can use to do its own Abilities or Pet Attack.\nYour pet can make normal Checks using using its own Stats.\nYour pet will not stray more than 30 meters away from you in hostile territory.\n",
+        "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It has no reserve Health, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.",
+        "Notes": "If your pet raises from being Fallen, it has Pet Exhaustion (is Slowed and deals -2 Damage from all sources).\nTreat your pet like a real companion - give it a name and care for it. If it ever dies, you can spend 2 days looking for another wild animal and taming it to become your new pet.\nIf your pet ever dies, you can spend a Long Rest to get a new pet. If you want to change your Pet and abandon your current one, you can do so on a Long Rest, but the guilt will make you Fleeing for the next 2 Worthy Combat encounters.\n"
+    },
+    "~Pet Attack~": {
+        "A": "1 Action (from the pet)",
+        "Effect": "The pet melee attacks a target.\nThe attack deals 1d6 + 2 Pierce or Slash Damage (your choice).\n",
+        "AlignOnWebsite": "Right"
     },
     "~Tumble~": {
         "AlignOnWebsite": "Right",
-        "A": "0 Actions",
+        "A": "Reaction",
         "Cooldown": "Long Rest",
-        "Effect": "Move 1 meter in any direction, without triggering attacks of oportunity."
+        "Effect": "Use when you would take damage.\nRoll 2 meters in any possible direction and reduce the Damage by 5.\n"
     },
     "~Tracker~": {
         "A": "Passive",
-        "Effect": "You can more easily track creatures and when you try to track a creature, your roll for that try gains +3. If you succeed, you may learn about its size, how many of them there are, if it's injured or roughly how far away it is.\nYour party can't get lost in the wild except by magical means\nYou (and your pets) are unaffected by Difficult Terrain.\n"
+        "Effect": "You gain Proficiency in Tracking, meaning you can add your Level to all Sense checks for tracking a creature and learning about its size, how many of them there are, if it's injured or roughly how far away it is.\nYou always know where North is in non-magical environments.\nYou (and your pets) are unaffected by Hard Terrain.\n"
     },
     "~Hunter Mark~": {
         "A": "0 Actions",
-        "Range": "15 meters",
-        "Cooldown": "Long Rest",
-        "Effect": "Choose and mark a target.\nYour own single target attacks (against Defense) against the marked target have the damage dice increased by 1 tier.\nLast up to 10 minutes.\n",
-        "Notes": "Increasing dice by 1 tier means, for example, d6 become d8, or d10 become d12.\nD12's and d20's don't increase.\nYour pets' attacks don't increase.\n"
+        "Cooldown": "2 times / Long Rest",
+        "Duration": "10 minutes",
+        "Effect": "Choose and mark a target you can see.\nYour own single target attacks and Abilities against the marked target have the Damage dice increased by 1 tier.\n",
+        "Notes": "Increasing dice by 1 tier means, for example, d6 become d8, or d10 become d12.\nD12's and d20's don't increase.\nYour pets' attacks don't increase.\nA Unit can only have one Hunter Mark on it at a time.\n"
     },
-    "<Animal Companion>": {
-        "AlignOnWebsite": "Right",
+    "<Slay>": {
         "A": "Passive",
-        "Effect": "You have an animal pet that can fight alongside you!\nYour animal has stats depending on its species. Check out the Pets and Animals page to see its stats!\nYour pet takes its turn at the same time as you do, and always has the same initiative as yours.\nYour pet has 1 Action per turn, which it can use to do its own Abilities.\nYour pet can make normal Checks using using its own Stats.\nYour pet will not stray more than 30 meters away from you in hostile territory.\nAll pets have the Pet Attack ability.\n",
-        "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It has no reserve Health, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.",
-        "Notes": "If your pet raises from being Fallen, it has Pet Exhaustion (is Slowed and can only use Pet Attack, but all Pet Attacks have Cover, which is a -2 to the attack).\nTreat your pet like a real companion - give it a name and care for it. If it ever dies, you can spend 2 days looking for another wild animal and taming it to become your new pet.\n"
+        "Effect": "You always know the type of a monster.\nYou gain a different bonus when fighting an enemy of a certain type:\nMonstrosities: Attacks against Monstrosities ignore half of the Defense.\nBeasts: You have +1 Defense and +1 to all Combat Checks against Beasts.\nFiends: Your attacks against Fiends ignore damage resistances (but not immunities).\nUndead: You have +2 Counter Check Grade against Undead.\n"
+    },
+    "<Flare Shot>": {
+        "A": "Reaction or 0 Actions",
+        "Range": "15 meters",
+        "Cooldown": "Once Per Combat",
+        "Effect": "Quickly shoot a flare at a target point.\nThe area around the flare lights up in a 6 meter radius, creating normal light.\nWhen cast, all allies in the area are cleared of Stun, Fear or Cripple.\nAllies in the area have Advantage on rolls against Fear.\nThe flare lasts 1 minute.\n"
     },
     "<Crosshair Shot>": {
         "A": "1 Action",
@@ -388,23 +421,29 @@
         "Effect": "Shoot a thundering shot towards an obstacle or wall. A quaking wave travels horizontally towards in both directions of the wall up to 10 meters in each direction.\nAll Units within 2 meters of that wall must pass a Might Check or be Stunned and take 3d4 Shock damage.\nThey take half the damage and are Slowed if they pass.\n",
         "Notes": "The floor and ceiling are not considered a wall. The wave does not travel through them. This is considered a Spell. Ignores Cover."
     },
+    "<Improved Slay>": {
+        "A": "Passive",
+        "Effect": "Your Slay bonuses against enemies improve and are now the following:\nMonstrosities: Attacks against Monstrosities ignore 75% of the Defense.\nBeasts: You have +2 Defense and +2 to all Combat Checks against Beasts.\nFiends: Your attacks against Fiends ignore damage resistances and immunities.\nUndead: You have +3 Counter Check Grade against Undead.\n"
+    },
     "~Warden~": {
         "A": "Passive",
-        "Effect": "When you become a Warden, choose a Spell List from Bloodshed, Elemental, Divine, Arcane.\nYou now have access to that spell school as well, permanently (this can not be changed).\nYou have 2 extra special Warden Mana that you can only spend on Abilities from that chosen List and on Quick Magic.\nAlso, you can Know a number of extra Abilities equal to your Intelligence (at least 0).\n",
-        "Upgrade": "At Level 4 you gain 1 extra Warden Mana, and again at Level 8.",
+        "Effect": "When you become a Warden, choose a Spell List from Bloodshed, Elemental, Divine, and Arcane.\nYou now have access to that Spell List as well, permanently (this can not be changed).\nYou have 1 extra special Warden Mana that you can only spend on Abilities from that chosen List and on Quick Magic.\nAlso, you can Know a number of extra Abilities equal to your Intelligence (at least 1).\n",
+        "Upgrade": "At Level 3 you gain 1 extra Warden Mana, and again at Levels 6 and 9.\n",
         "Notes": "Warden Mana replenishes on Long Rests."
     },
     "~Quick Magic~": {
         "A": "0 Actions",
         "Cost": "1 or more Mana",
         "Cooldown": "Once per Turn",
-        "Effect": "Spend any amount of Mana.\nChoose one of the following effects, then apply the exact same effect for each Mana spent:\n- Instantly deal 1d4 Fire, Frost or Shock damage to a target, and permanently reduce its Defense by 1 (3 meter range).\n- Instantly heal a target for 1d4 (3 meter range).\n- Instantly dash 3 meters, ignoring attacks of oportunity, and going through enemies and small obstacles or medium gaps.\n",
-        "Notes": "Ignores Cover."
+        "Effect": "Spend any amount of Mana.\nChoose one of the following effects, then apply the exact same effect for each Mana spent:\n- Instantly deal 1d4 Fire, Frost or Shock damage to a target, and permanently reduce its Defense by 1 (3 meter range).\n- Instantly heal a target for 1d4 (3 meter range).\n- Instantly dash 3 meters, ignoring Fleeing, and going through enemies and small obstacles or medium gaps.\n",
+        "Notes": "The Damage ignores Cover."
     },
     "<Watcher Form>": {
         "A": "0 Actions",
         "Cooldown": "Long Rest",
-        "Effect": "You take on a special form, called a Watcher Form.\nYour body becomes engulfed in a magical aura (you choose its color), your eyes glow, and you can gain other aesthetics-only body transformations (customize it with your DM).\nWhile in this form, your first Attack deals +1d8 damage once per turn, you gain +2 Counter Check Grade and +2 to all Combat Checks.\nAlso, when you cast a spell (before you do; excluding this), you can instantly dash 3 meters, ignoring attacks of oportunity, and going through enemies and small obstacles or medium gaps.\nLasts up to 1 minute.\n"
+        "Duration": "1 minute",
+        "Effect": "You take on a special form, called a Watcher Form.\nWhile in this form, your first Attack deals +2d4 extra Damage once per turn, you gain +2 Counter Check Grade and +2 to all Combat Checks.\nAlso, when you cast a Spell (before you do; excluding this), you can instantly dash 3 meters, ignoring attacks of oportunity, and going through enemies and small obstacles or medium gaps.\n",
+        "Notes": "Your body becomes engulfed in a magical aura (you choose its color), your eyes glow, and you can gain other aesthetics-only body transformations (customize it with your DM)."
     },
     "<Combo Set>": {
         "A": "Passive",
@@ -415,7 +454,7 @@
         "IsSubspell": true,
         "A": "0 Actions",
         "Cooldown": "Long Rest",
-        "Effect": "Perform an attack with a 1-Handed weapon.\nThis attack ignores Cover and has no pentaly if you're Blinded.\nThis attack does not trigger attacks of oportunity and can be used in melee range without penalty if it's a ranged weapon.            \n"
+        "Effect": "Perform an attack with a 1-Handed weapon (for 0 Actions).\nThis attack ignores Cover and has no pentaly if you're Blinded or Fleeing.\nThis attack can be used in melee range without penalty if it's a ranged weapon.            \n"
     },
     "<Parry>": {
         "IsSubspell": true,
@@ -443,38 +482,39 @@
         "Effect": "Use when an enemy or enemy group declares an attack.\nCreate a 4x4 meter wall of powerful Wind that destroys all projectiles.\nIt can't be passed through from the direction it is facing towards.\nLasts for 1 minute.\n",
         "Notes": "The wall pushes objects or willing Units away from it and can be used as a platform.\nIf you decide to place it horizontally, it acts as Hard Terrain.\n"
     },
-    "<Improved Slay>": {
+    "~Prowl Around~": {
         "A": "Passive",
-        "Effect": "Your Slay bonuses against enemies improve and are now the following:\nMonstrosities: Attacks against Monstrosities ignore 75% of the Defense.\nBeasts: You have +2 Defense and +2 to all Combat Checks against Beasts.\nFiends: Your attacks against Fiends ignore damage resistances and immunities.\nUndead: You have +3 Counter Check Grade against Undead.\n"
+        "Effect": "You have +2 to all Sense Checks.\n",
+        "Notes": "This is because of your Animal Companions roaming about."
     },
-    "~Animal Companion~": {
-        "AlignOnWebsite": "Right",
+    "~Stablemaster~": {
         "A": "Passive",
-        "Effect": "You have an animal pet that can fight alongside you!\nYour animal has stats depending on its species. Check out the Pets and Animals page to see its stats!\nYour pet takes its turn at the same time as you do, and always has the same initiative as yours.\nYour pet has 1 Action per turn, which it can use to do its own Abilities.\nYour pet can make normal Checks using using its own Stats.\nYour pet will not stray more than 30 meters away from you in hostile territory.\nAll pets have the Pet Attack ability.\n",
-        "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It has no reserve Health, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.",
-        "Notes": "If your pet raises from being Fallen, it has Pet Exhaustion (is Slowed and can only use Pet Attack, but all Pet Attacks have Cover, which is a -2 to the attack).\nTreat your pet like a real companion - give it a name and care for it. If it ever dies, you can spend 2 days looking for another wild animal and taming it to become your new pet.\n"
+        "Effect": "You have 3 different Animal Companion pets, but only one can adventure with you at a time.\nWhile not with you, your other Animal Companions hang out on their own in the wilderness, but no more than 5 kilometers away from you.\nYou can send your current companion off, then spend 30 minutes to telepathically call another one to come join you.\n",
+        "Notes": "The advantage is you can use several animal Abilities that have Long Rest cooldown.\nIt is possible that the animal you're calling can't come to your aid if you're indoors, flying or the trail you're on is too difficult. In that case, you will have to return outside or on a safe trail (GM's decision).\nIn that case, your current companion can not go away, either.\n"
     },
-    "~Pet Attack~": {
-        "A": "1 Action (from the pet)",
-        "Effect": "The pet melee attacks a target.\nThe attack deals 1d6 + 2 Pierce of Slash Damage (your choice).\n"
-    },
-    "<Second Companion>": {
+    "<Exotic Double>": {
         "A": "Passive",
-        "Effect": "You have one more Animal Companion, aside from the one you get from your Beastmaster Companion.\nThis Animal Companion obeys the same rules as the regular one.\n"
+        "Effect": "You have one more Animal Companion that accompanies you while adventuring.\nThis Animal Companion obeys the same rules as the regular one (takes its turns, requires healing between combats, etc).\nOne of your 3 Animal Companions can be an Exotic Animal.\n",
+        "Notes": "You're instantly kicked from the group if your pets don't have names."
     },
-    "<Exotic Trainer>": {
+    "<Large Double>": {
         "A": "Passive",
-        "Effect": "Instead of your normal pets, you can choose from the Exotic list of pets."
+        "Effect": "You have one more Animal Companion that accompanies you while adventuring.\nThis Animal Companion obeys the same rules as the regular one (takes its turns, requires healing between combats, etc).\nOne of your 3 Animal Companions grows to become Large. Its maximum Health increases by 50% and its attack range by 1.\n"
+    },
+    "<Shapeshifter Animal>": {
+        "A": "0 Actions (from you)",
+        "Effect": "Your Animal Companion transforms into any other normal Animal Companion type.\n",
+        "Upgrade": "Transforming into the same animal twice does not reset the Cooldowns."
     },
     "<Ravage!>": {
         "A": "1 Action",
         "Cooldown": "Long Rest",
-        "Effect": "Your pet makes a melee Attack for 4d8 Slash damage.\nDeals Main Stat extra damage if the target is below 50% Health.\nThe target can't regain Health until the end of combat\n",
+        "Effect": "One pet makes a melee Attack for 3d6 + 4 Slash Damage.\nIf the target is at or below 50% Health, deal 2d6 extra damage and the target halves all healing it receives for the rest of the encounter.\n",
         "Notes": "This takes 1 Action from YOU, not your pet."
     },
     "<Sickem>": {
         "A": "Reaction",
-        "Effect": "Use when a Unit goes flying against its will.\nYour pet(s) within 5 meters of its landing place can dash to it (after it lands) and make a total of 3 Pet Attacks on it.\n",
+        "Effect": "Use when a Unit goes flying against its will on someone else's turn.\nYour pet(s) within 5 meters of its landing place can dash to it (after it lands) and make a total of 3 Pet Attacks on it.\n",
         "Notes": "Goes flying means is pushed, knocked up, dragged, etc.\nThis uses YOUR Reaction, not your pets'.\nObviously, the pets need line of sight and can't jump through walls, or over large obstacles. Apply common sense.\n"
     },
     "~Proficiency in General Knowledge~": {
@@ -604,7 +644,7 @@
     "~Artificer~": {
         "A": "Special",
         "Effect": "You own a set of Artificer's Tools, with which you can create potions, scrolls and other items.\nSome of your class spells require you to use your Artificer's Tools (described below).\nIf they require you to spend Mana, that Mana becomes locked and can't be regained through any means, until the item created is used or destroyed.\nFor 1 Action, you can summon or vanish your Artificer's Tools.\nFurthermore, you can use your Artificer's Tools for 10 minutes to make items shed light, emmit a sound or smell or paint surfaces in rough images or writing. The magical effects last for up to 8 hours.\nFeel free to be creative with what you can do - the tools might do other small artificer tasks as well. Ask your DM!\n",
-        "Notes": "Spells noted as 'Artificer' require you to use Artificer's Tools.\nIf you ever lose your Artificer's Tools, the price for a new set is 200 gold.\nAs usual, items created this way require 0.5 Actions to use.\nArtificer potions do not count towards the potion limit cooldown.\nArtificer's Tools's small tasks are a non-combat. You can't use them to deal damage, crowd control or heal.\n"
+        "Notes": "Spells noted as 'Artificer' require you to use Artificer's Tools.\nIf you ever lose your Artificer's Tools, the price for a new set is 200 gold.\nAs usual, items created this way require a Half-Action to use.\nArtificer potions do not count towards the potion limit cooldown.\nArtificer's Tools's small tasks are a non-combat. You can't use them to deal damage, crowd control or heal.\n"
     },
     "~Artificer - Magic Scroll~": {
         "AlignOnWebsite": "Right",
@@ -685,7 +725,7 @@
     "<Pledge of Conquest>": {
         "A": "Special",
         "Cooldown": "Lifetime",
-        "Effect": "Ask a party member to join your cause and pledge his/her honor to you.\nThat person can use Divine Smite once per Long Rest.\nIt can also cast Lay on Hands using your Holy Points and always Knows the same Generic Divine Spells you Know at a time.\nAdditionally, Oath of Conquest also happens when that ally defeats a Worthy Enemy.\n",
+        "Effect": "Ask a party member to join your cause and pledge their honor to you.\nThat person can use Divine Smite once per Long Rest.\nIt can also cast Lay on Hands using your Holy Points and always Knows the same Generic Divine Spells you Know at a time.\nAdditionally, Oath of Conquest also happens when that ally defeats a Worthy Enemy.\n",
         "Notes": "You can only have one character who pledged for you.\nThe number of Holy Points of the ally does not increase.\nIf you ever change this Talent, the ally loses access to all things mentioned; it regains them when you get this Talent again.\n"
     },
     "<Retribution>": {
@@ -742,6 +782,10 @@
         "Cooldown": "Long Rest",
         "Effect": "For 1 minute, your weapon attacks and offensive spells deal extra True damage and heal an ally within 6 meters of the target (or yourself).\nBonus Damage and Heal: 1 for 1-Handed weapons and Half-Action Spells, 2 for 2-Handed weapons and 1 Action Spells.\n",
         "Notes": "If a spell doesn't deal damage, just instantly deal the Focused Smites damage to the target."
+    },
+    "<Life Echo>": {
+        "A": "0 Actions",
+        "Effect": "You put a Life Echo on another ally.\nWhenever YOU heal a different Unit, the unit with the Life Echo on them is also healed for 50% of that amount.\nLasts 1 minute.\n"
     },
     "<Devotion Aura>": {
         "A": "Passive",
@@ -801,38 +845,23 @@
         "Display Name": "Prof. in Stealth",
         "Effect": "Add your Level to all Dexterity Checks for hiding, remaining quiet, moving silently, blending in a crowd, etc.\n"
     },
-    "~Proficiency in Acrobatics~": {
-        "Display Name": "Prof. in Acrobatics",
-        "Effect": "Add your Level to all Dexterity Checks for jumping, climbing, fitting through gaps, maintaining balance and other acrobatic moves."
-    },
-    "~Proficiency in Sleight of Hand~": {
-        "Display Name": "P. in Sleight of Hand",
-        "Effect": "Ad your Level to all Checks for fine finger movements (e.g. picking pockets, searching a dumpster, sleeve tricks, etc)"
-    },
-    "~Proficiency in Deception~": {
-        "Display Name": "Prof. in Deception",
-        "Effect": "Add your Level to all Checks for lying, fooling, concealing information, faking emotions, etc."
-    },
-    "~Proficiency in Dungeoneering~": {
-        "Display Name": "P. in Dungeoneering",
-        "Effect": "Add your Level to all Checks for navigating dungeons and identifying traps, secret doors, dungeon monsters, etc."
-    },
     "~Ambush~": {
         "AlignOnWebsite": "Right",
         "A": "Passive",
-        "Effect": "If you start your turn Hidden, your first attack deals 1d8 extra damage.\nWhen Ambushing, you can also spend as much Mana as you want.\nThat attack gains 1d8 extra damage for each Mana spent (on top of the 1d8).\nAmbush can only happen once per turn.\n",
+        "Effect": "If you start your turn Hidden, your first attack deals 1d8 extra damage.\nAmbush can only happen once per turn.\n",
         "Notes": "Your Specialization will give you extra ways to Ambush.\nYou can't stack 2 Ambushes at the same time, obviously.\n"
     },
     "~Hide~": {
         "A": "Special",
         "Cooldown": "Once per encounter",
-        "Effect": "When combat starts, if you have Cover from all enemies, you start as Hidden.\nWhile Hidden, you can skip your turn.\nThen, you can unhide and start your turn whenever you like (even during enemies' turns).\nIf you did this, when your turn ends, you are no longer hidden.\n",
-        "Notes": "Attacking or using Abilities or moving out of cover in relation to any enemy makes you unhides you.\nIf you don't start your turn this round, you essentially lose your turn. You don't take 2 turns next round.\nIf you want to start during an enemy's turn, you do so when they declare they want to do something or after they finish doing something.\nIn special circumstances, the DM might ask you to make a Dexterity Check to remain Hidden.\nYou can't become Hidden through non-Ability means.\n",
+        "Effect": "When combat starts, if you have Cover from all enemies, you start as Hidden.\nWhile Hidden, you can skip your turn.\nThen, you can unhide and start your turn whenever you like (even during enemies' turns).\nIf you did this, when your turn ends, you are no longer Hidden.\n",
+        "Notes": "Attacking or using Abilities or moving out of cover in relation to any enemy makes you unhides you.\nIf you don't start your turn this round, you lose your turn. You don't take 2 turns next round.\nIf you want to start during an enemy's turn, you do so when they declare they want to do something or after they finish doing something.\nIn special circumstances, the DM might ask you to make a Dexterity Check to be or remain Hidden.\nYou can't become Hidden through non-Ability means.\n",
         "Name": "~Hide~"
     },
     "~Backstab~": {
         "A": "Passive",
-        "Effect": "When you Flank an enemy, Ambush is applied."
+        "Effect": "When you Flank an enemy, Ambush is applied.",
+        "Upgrade": "When Ambushing, you can also spend as much Mana as you want.\nThat attack gains 1d8 extra damage for each Mana spent (on top of the 1d8).\n"
     },
     "~Agile Hand~": {
         "A": "Passive",
@@ -851,17 +880,17 @@
     },
     "<Arcane Trickster>": {
         "A": "Passive",
-        "Effect": "You can now cast spells!\nYou gain access to the Arcane and Conjuration Spell Lists, but at most half of all your Known Generic Abilities can be Arcane or Conjuration Spells.\nFool's Coin now also applies when spending Mana on a Spell.\n",
+        "Effect": "You can now cast spells!\nYour Intelligence increases by 1 (up to a maximum of 4).\nYou gain access to the Arcane and Conjuration Spell Lists, but at most half of all your Known Generic Abilities can be Arcane or Conjuration Spells.\nFool's Coin now also applies when spending Mana on a Spell.\n",
         "Notes": "You lose access to these Spells if you change this Talent."
     },
     "<Way of Fooling>": {
         "A": "Passive",
-        "Effect": "Your Charisma is increased by 2, (up to a maximum of 4)."
+        "Effect": "Your Charisma increases by 2 (up to a maximum of 4)."
     },
     "<Whiplash>": {
         "A": "0 Actions",
-        "Cooldown": "Long Rest, otherwise it costs 1 Mana",
-        "Effect": "Throw a whiplash at a grabbable point within 6 meters.\nPull yourself to a target point.\n",
+        "Cooldown": "1 hour",
+        "Effect": "Throw a whiplash at a grabbable point within 6 meters.\nPull yourself to a target point.\nAfter using Whiplash, your next attack this turn applies Ambush if you haven't already Ambushed this turn.\n",
         "Notes": "Requires a Whiplash item, which can be bought for 100 gold."
     },
     "<Thief Shock Wire>": {
@@ -885,13 +914,13 @@
     },
     "~Isolated~": {
         "A": "Passive",
-        "Effect": "When you attack a Unit, and there is no other Unit adjacent to you or to that enemy (except you), the attack gains Ambush.\nIf you are already Ambushing the target, the attack gains an additional 1d8 damage.\n"
+        "Effect": "When you attack a Unit, and there is no other Unit within 1 meter of either of you, the attack gains Ambush.\n",
+        "Upgrade": "When Ambushing, you can also spend as much Mana as you want.\nThat attack gains 1d8 extra damage for each Mana spent (on top of the 1d8).\n"
     },
     "~Planned Assassination~": {
         "A": "1 minute",
-        "Cost": "1 Mana",
         "Cooldown": "Long Rest",
-        "Effect": "You plan an attack for 1 minute.\nYour next attack on that target deals 2d6 + 2 Poison damage.\nPlanned Assassination fails if your Line of Sight to the target is broken until you attack it.\n",
+        "Effect": "You plan an attack for 1 minute.\nYour next attack on that target deals an extra 1d8 True damage.\nPlanned Assassination fails if your Line of Sight to the target is broken until you attack it.\n",
         "Notes": "The Mana is spent the moment you declare Planned Assassination."
     },
     "<Take Out>": {
@@ -918,7 +947,8 @@
     },
     "~Savagery~": {
         "A": "Passive",
-        "Effect": "Attacks on Units that have 50% or less health gain Ambush."
+        "Effect": "When you declare an attack on a Unit that has 50% or less Health (before your attack's damage), the attack gain Ambush.",
+        "Upgrade": "When Ambushing, you can also spend as much Mana as you want.\nThat attack gains 1d8 extra damage for each Mana spent (on top of the 1d8).\n"
     },
     "~Parry~": {
         "A": "Reaction",
@@ -927,19 +957,19 @@
     },
     "<10% Luck>": {
         "A": "Passive",
-        "Effect": "Once per turn, when you roll a 1 on an attack die, you can reroll that die."
+        "Effect": "Once per turn, when you roll a 1 for a Damage die, you can reroll that die."
     },
     "<Cheap Tricks>": {
         "A": "0 Actions",
-        "Cost": "2 Mana",
+        "Cost": "1 Mana",
         "Range": "3 meters",
-        "Effect": "A Unit within 3 meters must pass a Dexterity Check or be Blinded for 2 turns."
+        "Effect": "A Unit within 3 meters must pass a Dexterity Check or take 1d4 Poison damage and be Blinded."
     },
     "<Quickfire>": {
         "A": "0 Actions",
         "Cost": "1 Mana",
         "Cooldown": "1 use / Turn",
-        "Effect": "Perform an attack with a 1-Handed Ranged weapon.\nThis attack ignores Cover and has no penalty if you're Blinded.\nThis attack does not trigger attacks of oportunity and can be used in melee range without penalty.\n"
+        "Effect": "Perform an attack with a 1-Handed weapon (for 0 Actions).\nThis attack ignores Cover and has no pentaly if you're Blinded or Fleeing.\nThis attack can be used in melee range without penalty if it's a ranged weapon.     \n"
     },
     "<Combat Shock Wire>": {
         "A": "Passive",
@@ -1115,8 +1145,8 @@
     },
     "~Fey Patron~": {
         "A": "Passive",
-        "Effect": "Your lord is a higher fey creature.\nChoose one more Race Ability from your Race's choices.\n",
-        "Notes": "Yes, you will have 2 Race Abilities from the Race Ability choices.\nLore-wise, the Fey Patron enhances you magically, mutates your arcane flow and transforms you into an unordinarily adapted person.\nIf you are a Human, pick one more first Race Ability from another Race.\nIf you are a Dragonborn, your Breath has both chosen shapes simultanuously.\n"
+        "Effect": "Your lord is a higher fey creature.\nChoose one more Racial Feat from your Race.\n",
+        "Notes": "Lore-wise, the Fey Patron enhances you magically, mutates your arcane flow and transforms you into an unordinarily adapted person.\nIf you are a Dragonborn, you can instead choose one more Breath shape, and your Breath has both chosen shapes simultanuously (overlapped).\n"
     },
     "~Celestial Patron~": {
         "A": "Passive",
@@ -1234,6 +1264,10 @@
         "Display Name": "Prof. in Athletics",
         "Effect": "Add your Level to all Might Checks for using your physical strength (e.g. lifting, breaking by hand, etc)."
     },
+    "~Proficiency in Acrobatics~": {
+        "Display Name": "Prof. in Acrobatics",
+        "Effect": "Add your Level to all Dexterity Checks for jumping, climbing, fitting through gaps, maintaining balance and other acrobatic moves."
+    },
     "~Advanced Flank~": {
         "AlignOnWebsite": "Left",
         "A": "Reaction",
@@ -1242,7 +1276,8 @@
     },
     "~Upper Hand~": {
         "A": "Passive",
-        "Effect": "Your first attack you make before you move in a turn counts as if it is Flanking, regardless if it would be Flanking normally or not.\nIf you are wielding a 1-Handed weapon, when you make an attack of opportunity, you can make 2 attacks of opportunity instead (with that weapon).\n"
+        "Effect": "Your first attack you make before you move in a turn counts as if it is Flanking, regardless if it would be Flanking normally or not.\nWhen an enemy becomes Fleeing by moving away from you, you can make a free attack on them with a 1-Handed Melee Weapon (with your Reaction).\n",
+        "Notes": "When doing this, you don't need to have the 1-Handed Melee Weapon equipped; you simply use it for the attack (then instantly unequip it and equip what you had previously)."
     },
     "~Overpower~": {
         "A": "0 Actions",
@@ -1271,7 +1306,7 @@
     "<Ruining Throw>": {
         "A": "Half-Action",
         "Range": "10 meters",
-        "Effect": "Throw your weapon at a target and attack it (with the weapon's standard, non-throw damage).\nBefore applying the damage, the attack destroys all Shielding on the target and removes all buffs on it.\nThe target is unable to trigger \"on roll\", can't gain Shielding and can't benefit from Buffs until they spend 1 Action to recover.\n",
+        "Effect": "Throw your weapon at a target and attack it (without Throwing penalties and ignoring Cover).\nBefore applying the damage, the attack destroys all Shielding on the target and removes all buffs on it.\nThe target is unable to trigger \"on roll\", can't gain Shielding and can't benefit from Buffs until they spend 1 Action to recover.\n",
         "Notes": "Your weapon lands at the nearest space to the target (and you should probably pick it up with a Half-Action).\n\"On roll\" refers to effects like \"if it rolls 10 on a d10, the attack deals 1d10 extra damage\".\nBuffs are all effects that improve the target; even passive effects like auras or passive stats from abilities are negated.\nYou don't need Training in Throwning and this attack counts as a regular melee attack.\n"
     },
     "~Solid Defense~": {
@@ -1379,34 +1414,46 @@
         "Cooldown": "Long Rest",
         "Effect": "Make an attack on a target for 3d8 + Main Stat Smash damage.\nThe impact is so powerful that all units within 3 meters of the target take the final damage taken by the target directly, ignoring Defense.\nThis attack is affected by your Reload state.\n"
     },
-    "~Proficiency in Sight~": {
-        "Display Name": "Prof. in Sight",
-        "Effect": "Add your Level to all Sense Checks for seeing (e.g. noticing things in darkness, seeing far away objects, recognizing faces, etc)."
+    "~Herbivore~": {
+        "A": "Passive",
+        "Effect": "You have +3 Reserve Health.\nYou take 150% Damage from all Poison Damage (after Defense).\nHalf of your meals can consist of grass and leaves, but you can not eat meat.\n",
+        "Notes": "If you eat meat, you take 1d12 Damage and become Exhausted for 1 hour."
     },
     "~Skipper~": {
         "A": "Passive",
-        "Effect": "You can freely jump up to 3 meters in length and height (still uses 3 meters of your movement speed).\nDoing this allows you to freely jump over small obstacles, gaps, etc without having to roll.\n",
+        "Effect": "You are immune to Slows.\nAlso, you can freely jump up to 3 meters in length and/or height without rolling a Check (still uses 3 meters of your Movement).\n",
         "Notes": "If playing with grid, you can jump over 2 squares and land in the next one.\nYou can jump over enemies, but you still become Fleeing if you exit their melee attack range.\n"
-    },
-    "~Herbivore~": {
-        "A": "Passive",
-        "Effect": "You have +3 Reserve Health, and half of your meals can consist of grass and leaves, but...\n...you can not eat meat and you take 150% damage from Poison.\nIf you eat meat, you take take 1d12 Damage and become Exhausted for 1 hour.\n"
-    },
-    "~Fleet Footed~": {
-        "A": "Passive",
-        "Effect": "You are immune to Slows, and getting up from being Prone only takes 2 Meters."
     },
     "~Know Thy Enemy~": {
         "A": "Passive",
-        "Effect": "Your gain +2 Spell Grade when making Units roll Dexterity or Might Combat Checks."
+        "Effect": "When making Units roll Dexterity or Might Combat Checks, roll 1d4 and subtract it from their Check."
     },
-    "~No, Thanks~": {
+    "~Thick Fur~": {
         "A": "Passive",
-        "Effect": "Gain one Feat (see Feats)."
+        "Effect": "You only take 50% Cold Damage (after Defense).\nYou take no extra damage when being Flanked.\n",
+        "Notes": "Flanking is when you are attacked by an enemy, and there's another enemy right behind you (relative to the attacker)."
+    },
+    "~Gatherer Instincts~": {
+        "A": "Passive",
+        "Effect": "You now only take 50% Poison and Acid damage and you can eat meat.\nYou have +5 on Checks for identifying plants, fruits, mushrooms, vegetables, etc.\n",
+        "Notes": "You are now no longer weak to Poison (from the Herbivode Ability)."
+    },
+    "~Innate Dexterity~": {
+        "A": "Passive",
+        "Effect": "Your Dexterity increases by 1 (up to +3) and your Dexterity Combat Checks increase by an extra +1.",
+        "Notes": "Remember to increase your Initiative by +1, as your Dexterity is added to your Initiative. Also, your Defense might increase if you're unarmored (see Armors)."
+    },
+    "~I Am Speed~": {
+        "A": "Passive",
+        "Effect": "You can have Dexterity as your class's Main Stat, even if your class says otherwise."
     },
     "~Proficiency in Persuasion~": {
         "Display Name": "Prof. in Persuasion",
         "Effect": "Add your Level to all Checks for persuading people non-agressively (convincing them through dialogue)."
+    },
+    "~Proficiency in Deception~": {
+        "Display Name": "Prof. in Deception",
+        "Effect": "Add your Level to all Checks for lying, fooling, concealing information, faking emotions, etc."
     },
     "~Proficiency in Memory~": {
         "Display Name": "Prof. in Memory",
@@ -1414,7 +1461,7 @@
     },
     "~Alignment~": {
         "A": "Passive",
-        "Effect": "Determine the true personality alignment of your character.\nChoose if you are Evil, Neutral or Virtuous. Your other Abilities and Racial Ability choice must reflect your alignment.\nIf your alignment changes throughout the adventure, your traits will automatically change to reflect your alignment.\n",
+        "Effect": "Determine the true personality alignment of your character.\nChoose if you are Evil, Neutral or Virtuous. Your other Abilities must reflect your alignment.\nIf your alignment changes throughout the adventure, your traits will automatically change to reflect your alignment.\n",
         "Notes": "The GM decides if your alignment has changed based on your actions and character development."
     },
     "~Demonic Ancestry~": {
@@ -1429,22 +1476,21 @@
         "AlignOnWebsite": "Right",
         "Effect": "A target must pass a Sense Check or be Charmed if you are Virtuous, Fleeing if you are Neutral or Feared if you are Evil."
     },
-    "~Gift of Virtue~": {
+    "~Davel Gift~": {
         "A": "0 Actions",
         "Range": "10 meters",
         "Cooldown": "Long Rest",
-        "Effect": "Heal a Unit for 1d10 Health."
+        "Effect": "If you are Virtuous, heal another target for 1d10 Health.\nIf you are Evil, damage another target for 1d10 True Damage.\nIf you are Neutral, another ally gains 1 Mana and 5 Shielding for 1 minute.\n",
+        "Notes": "You can't cast this on yourself."
     },
-    "~Gift of Evil~": {
-        "A": "0 Actions",
-        "Range": "10 meters",
-        "Cooldown": "Long Rest",
-        "Effect": "Deal 1d10 True Damage to a Unit."
-    },
-    "~Neutral Feat~": {
+    "~Stubbornness~": {
         "A": "Passive",
-        "Effect": "You have a free Feat.\nIf your alignment ever changes, you lose that Feat.\n",
-        "Notes": "You gain the Feat back if you regain this Talent (the same Feat - you can not change the Feat)."
+        "Effect": "You gain +2 in Might and Sense Combat Checks, and your alignment Abilities and traits can't change anymore and stay the same as they are now, even if your real alignment changes.",
+        "Notes": "That means you keep your Ability effect by alignment, food particularities, etc."
+    },
+    "~Hellish Magic~": {
+        "A": "Passive",
+        "Effect": "You permanently know 2 Generic Abilities that deal Fire Damage from any Ability List.\nYou can change these Abilities on a Long Rest."
     },
     "~Proficiency in Intimidation~": {
         "Display Name": "P. in Intimidation",
@@ -1478,7 +1524,29 @@
     },
     "~Breath - Blast~": {
         "A": "Special",
-        "Effect": "Your Dragon's Breath now breathes on all creatures within 2 meters of you instead of a line."
+        "Effect": "Your Dragon's Breath now breathes on all creatures within 2 meters of you instead of a line.",
+        "AlignOnWebsite": "Right"
+    },
+    "~Second Skin~": {
+        "A": "Passive",
+        "Effect": "Choose one more color from Draconic Ancestry.\nYou also gain Dragonborn Resistance to that color's element.\nYou can freely change Dragon's Breath to that element.\n    \n"
+    },
+    "~Forceful Breath~": {
+        "A": "Passive",
+        "Effect": "Instead of using Main Stat, your Dragon's Breath now deals 1d6 Damage (for a total of 3d6 Damage).\nAlso, all Units affected by Dragon's Breath must also make a Might Check or be pushed 3 meters away from you and be knocked Prone.\n",
+        "Notes": "Knocking prone works on Large or larger Units, but not pushing."
+    },
+    "~Breath Control~": {
+        "A": "Passive",
+        "Effect": "You can use Dragon's Breath one extra time per Long Rest."
+    },
+    "~Wingspan~": {
+        "A": "0 Actions",
+        "Cooldown": "Long Rest",
+        "Requirement": "Exactly Level 1",
+        "Effect": "Quickly fly up to 5 meters.\n",
+        "Upgrades": "At Levels 3, 6 and 9, you get one extra use of Wingspan per Long Rest (e.g. the Cooldown becomes 2 times / Long Rest, 3 times / Long Rest, etc).",
+        "Notes": "If you don't pick this Talent when you create your character, you can't pick this later."
     },
     "~Proficiency in Crafting~": {
         "Display Name": "Prof. in Crafting",
@@ -1488,27 +1556,41 @@
         "Display Name": "Prof. in History",
         "Effect": "Add your Level to all Intelligence Checks for recalling past events from the lore of the world (e.g. wars, events, etc)."
     },
+    "~Proficiency in Dungeoneering~": {
+        "Display Name": "P. in Dungeoneering",
+        "Effect": "Add your Level to all Checks for navigating dungeons and identifying traps, secret doors, dungeon monsters, etc."
+    },
     "~Dwarf Resting~": {
         "A": "Passive",
-        "Effect": "You need 12 hours of sleep instead of 8 per day to function normally.\nYour movement speed can't be reduced below 4 meters by Crowd Control or Armor.\n",
-        "Notes": "Your speed not being able to be reduced applies to being Slowed, Dazed and Feared. You are not immune to Roots.\nHard Terrain still takes 2 meters of movement for 1 meter of Hard Terrain.\nYou use the standard rules for Exhaustion if you spend more than 24 hours without sleeping.\n"
+        "Effect": "As a Dwarf, you sleep in one single 8 hour cycle, without dreaming or moving in your sleep. You can also choose to hibernate for up to 48 hours without needing to eat or drink. If you do, you cure all normal diseases and poisons on you.\n",
+        "Notes": "Loud noises and movement still wake you up as they normally would.\n"
+    },
+    "~Thick Feet~": {
+        "A": "Passive",
+        "Effect": "Your movement speed can't be reduced below 4 meters by Crowd Control or Armor.\n",
+        "Notes": "Your speed not being able to be reduced applies to being Slowed and Dazed. You are not immune to Roots.\nHard Terrain still takes 2 meters of movement for 1 meter of Hard Terrain.\n"
     },
     "~Dwarven Resilience~": {
         "A": "Free Reaction or 0 Actions",
         "Cooldown": "Long Rest",
         "Effect": "Reroll a Combat Check."
     },
-    "~Guns 'n' Hammers~": {
-        "A": "Passive",
-        "Effect": "You can use Hand Hammers, Warhammers and Heavy Guns normally as if you were Trained in them."
-    },
     "~Stone-Like Bones~": {
         "A": "Passive",
-        "Effect": "Your bones are tough as rock.\nYou only take 50% damage from falling and from traps that deal physical damage.\nYour Reserve Health pool increases by 5.\n"
+        "Effect": "Your bones are tough as rock.\nYou only take 50% damage from falling and from traps that deal physical damage.\nYour Reserve Health pool increases by 3.\n"
     },
     "~Runesmith~": {
         "A": "Passive",
-        "Effect": "You permanently know 2 Generic Abilities from the Arcane or Conjuration spell lists.\nYou gain Proficiency in Arcana (see Proficiencies).\n"
+        "Effect": "You permanently know 2 Generic Abilities from the Arcane or Conjuration Spell Lists.\nYou gain Proficiency in Arcana (see Proficiencies).\n",
+        "Notes": "You can't change these Spells on a Long Rest, so choose wisely.\nYou must still respect the Level requirement for these Spells, if any.\n"
+    },
+    "~Adapted Resting~": {
+        "A": "Passive",
+        "Effect": "After a Long Rest, you start with 1d8 Shielding that lasts for up to 24 hours.\n"
+    },
+    "~Skill of Trade~": {
+        "A": "Passive",
+        "Effect": "Your Charisma increases by 1 (up to a maximum of +3).\nYou can get free shelter and food in inns and taverns (if you would normally be able to pay for them).\nYou gain an extra +5 to Checks when checking stone walls, doors, statues, etc.\n"
     },
     "~Meditation~": {
         "A": "Passive",
@@ -1520,16 +1602,40 @@
     },
     "~Arcane Veins~": {
         "A": "Passive",
-        "Effect": "You gain access to the Arcane Spell School, no matter what class you are.\nInstead of Dexterity of Might, you can use your Main Stat for attacking with weapons.\n"
+        "Effect": "You have access to the Arcane Spell School, no matter what class you are.\n"
     },
     "~Lithe~": {
         "A": "Passive",
         "Effect": "While below 50% Health, you are immune to Fleeing and you can Break your Movement into as many parts as you want.",
         "Notes": "Fleeing is when you move away from an enemy's melee attack range; if you are Fleeing, all your actions have Cover.\nBreaking your Movement means you can Move, do an Action, then continue your Movement.\n"
     },
+    "~Mana Tap~": {
+        "A": "0 Actions",
+        "Cooldown": "Long Rest",
+        "Effect": "A Unit within 3 meters must pass an Intelligence Check or be Silenced."
+    },
+    "~Natural Swiftness~": {
+        "A": "0 Actions",
+        "Cooldown": "Long Rest",
+        "Effect": "This turn, you gain +5 Movement Speed and can Break your Movement into as many parts as you want.",
+        "Notes": "Breaking your Movement means you can Move, do an Action, then continue your Movement."
+    },
+    "~Landsperson~": {
+        "A": "Special",
+        "Effect": "Choose any land specialty ability from Coven of the Land Druid specialization and learn it permanently.",
+        "Notes": "This can't be changed on a Long Rest, so choose wisely!"
+    },
+    "~Agile Technique~": {
+        "A": "Passive",
+        "Effect": "You can use any weapon with your Dexterity Stat (instead of Might, in some cases)."
+    },
     "~Proficiency in Luck~": {
         "Display Name": "Prof. in Luck",
         "Effect": "Add your Level to all Checks for luck and random chance (e.g. a merchant having a certain item, gambling, etc)."
+    },
+    "~Proficiency in Sleight of Hand~": {
+        "Display Name": "P. in Sleight of Hand",
+        "Effect": "Ad your Level to all Checks for fine finger movements (e.g. picking pockets, searching a dumpster, sleeve tricks, etc)"
     },
     "~Proficiency in Investigation~": {
         "Display Name": "Prof. in Investigation",
@@ -1537,37 +1643,45 @@
     },
     "~Inherited Tastes~": {
         "A": "Passive",
-        "Effect": "You don't have a sense of taste, but your eyes perceive colors sharper than other races."
+        "Effect": "As a Gnome, you don't age from the passing of time. Instead, you age more rapidly when you are suffering emotionally (about 10 times faster than a human, in periods when you're depressed, anxious, fearful, etc).\nYou don't have a sense of taste, but your eyes perceive colors sharper than other races.\nGnomes' daydreams tend to be very vivid, almost as vivid as regular dreams at night or akin to hallucinations.\n"
     },
     "~Lucky Presence~": {
         "A": "Reaction",
         "Cooldown": "Long Rest",
-        "Effect": "After another Unit you can see of you makes a roll, you can force them to reroll one die once and keep the new result."
+        "Effect": "After another Unit you can see of you makes a roll, you can force them to reroll one die once and keep the new result.",
+        "Upgrade": "At Level 4, you can use this twice per Long Rest."
+    },
+    "~Quick to Act~": {
+        "A": "Passive",
+        "Effect": "You have +4 Initiative."
     },
     "~Catch Me If You Can~": {
         "A": "0 Actions",
-        "Effect": "This turn you don't trigger attacks of oportunity.\nYou can do this once per Long Rest.\nAlso, passively, your movement speed increases by 1 meter.\n"
+        "Cooldown": "Long Rest",
+        "Effect": "This turn, you are immune to Fleeing.\nAlso, passively, your Movement Speed increases by 1 meter.\n"
     },
     "~Oh, My Tongue!~": {
         "A": "Passive",
         "Effect": "You now have a sense of taste. Congratulations!\nYou can detect whether something is poisonous by licking it without being affected by that poison.\nYou have 50% resistance to Acid and Poison.\n"
     },
+    "~Luckier~": {
+        "A": "Passive",
+        "Effect": "You can use Lucky once more per Long Rest."
+    },
+    "~Environmentalist~": {
+        "A": "Passive",
+        "Effect": "You can move normally through Hard Terrain.\nYou gain access to the Nature Spell List, regardless of your Class.\n"
+    },
+    "~Little Handed~": {
+        "A": "Passive",
+        "Effect": "You can move through spaces of enemy Units.\nYou can climb and ride on the back of an ally and move with them on their turn (without them having a Speed penalty).\n"
+    },
     "<Cannibalize>": {
         "A": "asdasd"
     },
-    "<Out of Body Release>": {
-        "A": "0 Actions",
-        "Cooldown": "Long Rest",
-        "Effect": "Your soul temporarily exits your body, leaving your body motionless to the ground.\nWhile outside your body, the soul can't do anything except perceive.\nYou can return to your body for 0 Actions on your turn.\nWhile outside your body, you have +3 on Perception, Stealth and Luck.\nIf more than 1 minute outside the body passes, your soul instantly re-enters the body.\n"
-    },
-    "<Kindled>": {
-        "A": "Passive",
-        "Effect": "You are no longer vulnerable to Fire damage.\nAfter every worthy combat encounter, if your health is below 25% and you are conscious, heal back to 25% Health.\n"
-    },
-    "<Painless Revenge>": {
-        "A": "0 Actions",
-        "Cooldown": "Long Rest",
-        "Effect": "Choose an enemy near you.\nThat enemy performs an attack on you.\nIf you survive the attack, you gain 1 Action which you can use to attack or cast spells on that enemy.\n"
+    "~Proficiency in Sight~": {
+        "Display Name": "Prof. in Sight",
+        "Effect": "Add your Level to all Sense Checks for seeing (e.g. noticing things in darkness, seeing far away objects, recognizing faces, etc)."
     },
     "~Undeath~": {
         "A": "Passive",
@@ -1582,11 +1696,27 @@
         "A": "0 Actions",
         "Cooldown": "Long Rest",
         "Effect": "You know the locations of any living creatures within 15 meters that are not obstructed by thick materials.\n",
-        "Notes": "The more obstructed the space between you and living creatures is, the fainter you feel it. 1 meter of obstruction completely hides the creatures."
+        "Notes": "The more obstructed the space between you and living creatures is, the fainter you feel it. 2 meters of obstruction completely hides the creatures."
     },
     "~Beating Heart~": {
         "A": "Passive",
         "Effect": "You slow down the decaying of your body and increase your life span by up to 100 years.\nYou can stay unconscious for up to 1 week before dying.\nYour maximum health also increases by 3.\n"
+    },
+    "~O.B.E.~": {
+        "A": "0 Actions",
+        "Cooldown": "Long Rest",
+        "Duration": "10 minutes",
+        "Effect": "Your soul temporarily exits your body, leaving your body motionless on the ground (Stunned).\nWhile outside your body, the soul can't do anything except move around normally at your current speed and perceive.\n",
+        "Notes": "You can return to your body for 0 Actions.\n"
+    },
+    "~Kindled~": {
+        "A": "Passive",
+        "Effect": "You are no longer weak to Fire damage.\nAfter every worthy combat encounter, if your Health is below 25% and you are not Fallen, heal back to 25% Health.\n"
+    },
+    "~Numb Revenge~": {
+        "A": "0 Actions",
+        "Cooldown": "Long Rest",
+        "Effect": "Choose an enemy near you.\nThat enemy performs an attack on you.\nIf you survive the attack, you gain 1 Action which you can use to make one attack or use one Ability on that enemy.\n"
     },
     "~Human Vigilence~": {
         "A": "Passive",
@@ -1599,8 +1729,22 @@
     },
     "~Human Diversity~": {
         "A": "Special",
-        "Effect": "Humans don't get a racial Ability choice.\nInstead, choose any other Race except Dragonborn and Davel.\nGain one of its racial Ability choices (one of the \"Choose One From...\" Abilities).\n",
-        "Upgrade": "Alternatively, you can get a Feat instead."
+        "Effect": "Choose any other Race except Dragonborn and Davel.\nGain one of its Racial Feats.\n",
+        "Notes": "Go to that Race's page and look for its Racial Feats list."
+    },
+    "~Social Talent~": {
+        "A": "Passive",
+        "Effect": "Your Charisma increases by +1 (up to +3), your Charisma Combat Checks by an extra +1 and you can understand the intent, tonality or general idea of written texts and spoken phrases in any language you don't speak."
+    },
+    "~Magic Diversity~": {
+        "A": "Passive",
+        "Effect": "Pick either Arcane, Eldritch or Divine, and you can also Know Abilities from that Ability List, on top of the Ability Lists from your Class."
+    },
+    "~Ignorance Bliss~": {
+        "A": "Passive",
+        "Requirement": "0 or less Intelligence",
+        "Effect": "When you would use Main Stat for an Ability, you can use the number 3 instead.\nYour Spell Grade is at least 9 (as if your Main Stat were 3).\nYou gain Proficiency in Luck.\n",
+        "Notes": "For example, Magic Missiles shoots out a number of missiles equal to your Main Stat. So, with Ignorance Bliss, you can just replace Main Stat with the number 3.\n"
     },
     "~Proficiency in Monstrology~": {
         "Display Name": "P. in Monstrology",
@@ -1624,5 +1768,20 @@
     "~Adaptability~": {
         "A": "Passive",
         "Effect": "You can have Might as your class's Main Stat, even if your class says otherwise."
+    },
+    "~Bloodthirst~": {
+        "A": "0 Actions",
+        "Cost": "1 Mana",
+        "Cooldown": "Long Rest",
+        "Effect": "Gain Half-Action this turn."
+    },
+    "~Savage Attacks~": {
+        "A": "0 Actions",
+        "Cooldown": "Long Rest",
+        "Effect": "Use after you land an attack.\nRoll and add one other damage die from the attacks' damage dice to the damage roll.\n"
+    },
+    "~Bloodshed Wish~": {
+        "A": "Passive",
+        "Effect": "You gain +1 Might or Dexterity (if it's lower than your highest stat), and you can Know Abilities from the Bloodshed Ability List, even if it's not normally available to your Class.\n"
     }
 }

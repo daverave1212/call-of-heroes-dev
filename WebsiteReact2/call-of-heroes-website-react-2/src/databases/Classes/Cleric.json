@@ -1,6 +1,7 @@
 {
     "Class": "Cleric",
     "Description": "Clerics are people attuned to a certain god.",
+    "Difficulty": 2,
     "Armor Training": "Medium Armor",
     "Weapons": "You are Trained in 2 Weapon Categories of choice (e.g. 1-Handed Melee, 2-Handed Ranged, Shields, etc).",
     "Level Up": {
@@ -23,7 +24,7 @@
         "Change": "You can change your known Spells (not Talents) when taking a Long Rest.",
         "Other": "All Cleric-specific Abilities are considered Spells (unless stated otherwise).",
         "Mana": {
-            "Amount": 3,
+            "Amount": 2,
             "Regain": "You regain all Mana back when you Long Rest."
         },
         "Known Spells": "4 + Your Intelligence",
@@ -35,14 +36,27 @@
     },
     "Starting Abilities": {
         "~Awe~": {
-            "A": "0 Actions",
+            "A": "Passive",
             "Range": "5 meters",
-            "Cooldown": "Long Rest",
-            "Effect": "Instantly heal or damage a target for 1d4 (True damage).\nSome other Cleric spells will cast Awe for free, even if it is on Cooldown.\n",
+            "Effect": "Whenever you spend Mana for an Ability, \"cast Awe\" on any target within 5 meters of you.\nThis deals 1d4 True Damage to enemies or heals allies for 1d4.\nSome other Cleric spells will \"cast Awe\" for free.\n",
             "Notes": "Ignores Cover."
+        },
+        "~Spread the Awe~": {
+            "A": "Half-Action",
+            "Cooldown": "Long Rest",
+            "Effect": "Cast Awe twice on target(s) within 5 meters."
+        },
+        "~Blessing~": {
+            "A": "1 Action",
+            "Cooldown": "Long Rest",
+            "Duration": "1 encounter",
+            "Effect": "You bless one ally.\nWhenever it makes a Combat Check, it can add 1d4 to it.\n",
+            "Upgrade": "At Level 4, this affects 2 allies. At Level 8, this affects 3 allies.",
+            "Notes": "You can bless yourself.\nLasts until the end of the next combat encounter.\n",
+            "AlignOnWebsite": "Right"
         }
     },
-    "Starting Abilities Description": "Clerics start with the Awe Spell.\nYour future Cleric Talents will <i>trigger</i> Awe casts for free or reset its cooldown.\n",
+    "Starting Abilities Description": "Clerics start with the Awe Spell.\nYour future Cleric Talents will <i>trigger</i> Awe casts for free.\n",
     "Other Ability Mentions": "The first time you choose a cleric domain (specialization), you must choose between two abilities.\nFor example, for Battle Cleric, you have to choose either March Ahead or Piety.\nChoose wisely...\n",
     "Specializations": {
         "Description": "At Level 1, you can choose your specialization.",
@@ -56,12 +70,12 @@
         "Battle Cleric": {
             "Description": "Battle clerics specialize in conditions of war. You must choose your side",
             "Starting Abilities": {
-                "~Chains~": {
-                    "A": "1 Action",
-                    "Range": "6 meters",
-                    "Cost": "1 Mana",
-                    "Effect": "Cast Awe on a target 4 times (for free).\nIt must pass a Might Check or be Paralyzed until it breaks free.\n",
-                    "Notes": "A Paralyzed creature must skip its turn. It makes a Might Check at the end of its every turn. If it succeeds, it breaks the Paralysis.\n"
+                "~Pledge of Battle~": {
+                    "A": "Special",
+                    "Duration": "Lifetime",
+                    "Effect": "Ask a party member to join your cause and pledge their honor to you.\nThey gain the Awe passive Ability (e.g. whenever they use Mana for an Ability, they cast Awe).\nThat person always Knows the same Generic Divine Spells you Know at a time.\n",
+                    "Upgrades": "There is one condition your ally must match - it can never have its Maximum Mana higher than yours (if it does, it becomes equal to yours).\n",
+                    "Notes": "You can only have one character who pledged for you.\nTheir Awe is not improved by your Awe improvements, if you have any.\n"
                 }
             },
             "Choose your side": "Battle Cleric!\nPick only one of the following two abilities!\n",
@@ -73,7 +87,7 @@
                 },
                 "~Piety~": {
                     "A": "Passive",
-                    "Effect": "Casting Awe yourself (manually, the actual Ability) now does 2d4 instead of 1d4."
+                    "Effect": "Your pledged ally gains Spread the Awe."
                 }
             },
             "Talents": {
@@ -92,10 +106,10 @@
                     },
                     "<Repentance>": {
                         "A": "0 Actions",
-                        "Cost": "50% of your maximum health",
+                        "Cost": "50% of your Maximum Health",
                         "Range": "1 meter (touch)",
-                        "Effect": "Restore 50% of another ally's maximum health, then cast Awe on yourself.",
-                        "Notes": "You can't cast this if it would get you to 0 or less Health.",
+                        "Effect": "Restore 50% of another ally's Maximum Health, then cast Awe on yourself.",
+                        "Notes": "You can't cast this if you are at or below 25% of your Maximum Health.\nIf you are below 50% Health, you fall, but you are brought back due to Awe (with Exhaustion).\n",
                         "OrderOnWebsite": 2
                     }
                 },
@@ -130,9 +144,9 @@
                 "~Grasp~": {
                     "A": "Half-Action",
                     "Range": "15 meters (you don't need line of sight)",
-                    "Cost": "1 Mana",
-                    "Effect": "Cast Awe on the target twice.\nThat target can not benefit from Cover for 1 minute.\n",
-                    "Notes": "If the target has Cover on attacks from any source, the Cover is negated (e.g. no more -2). Includes attacks while prone, attacks through jeavy wind, etc."
+                    "Cooldown": "Long Rest",
+                    "Effect": "Cast Awe twice, on the same target or on two different targets.\nThat target(s) can't benefit from Cover for 1 minute.\n",
+                    "Notes": "If the target has Cover on attacks from any source, the Cover is negated (e.g. no more -2). Includes attacks while prone, attacks through heavy wind, etc."
                 }
             },
             "Choose your side": "Beacon Cleric!\\nPick only one of the following two abilities!",
@@ -143,28 +157,27 @@
                 },
                 "~Twilight~": {
                     "A": "Passive",
-                    "Effect": "You have Dark Vision.\nYou are immune to being Feared.\nIf you have 50% or less health, Awe damage and healing is 1d6.\n"
+                    "Effect": "You can see in normal darkness up to 10 meters away.\nYou are immune to being Feared.\nAwe Damage and healing is increased to 1d6 on targets at or below 50% Health.\n"
                 }
             },
             "Talents": {
                 "Level 3": {
                     "<Let There Be Light>": {
                         "A": "Passive",
-                        "Effect": "Grasp now casts Awe 3 times instead of 1.\nYou can also split your Grasp to target up to 3 targets, distributing the Awe casts as you like between them.\n",
-                        "Notes": "Splitting your Grasp means you cast (Grasp's) Awe on up to 3 targets, and each is affected by the Cover negation. For example, you can also choose to target 2 targets (e.g. one with 1 Awe and one with 2 Awe)."
+                        "Effect": "While not in darkness, when you heal with Awe, half of the healing also heals the target's Reserve Health.\n",
+                        "Notes": "Half rounded down."
                     },
                     "<Let There Be Darkness>": {
-                        "A": "0 Actions",
-                        "Cooldown": "Long Rest",
-                        "Range": "6 meters to edge",
-                        "Effect": "You create a 6x6 meter area of magical darkness.\nAll attacks done from and towards units in the area have Cover.\n"
+                        "A": "Passive",
+                        "Effect": "While in darkness, your damaging Awe die is increased by 1 tier.\n",
+                        "Notes": "Increasing the tier of dice means 1d4 becomes 1d6, 1d6 becomes 1d8, and so on. D12's and d20's don't increase."
                     },
                     "<Repentance>": {
                         "A": "0 Actions",
-                        "Cost": "50% of your maximum health",
+                        "Cost": "50% of your Maximum Health",
                         "Range": "1 meter (touch)",
-                        "Effect": "Restore 50% of another ally's maximum health, then cast Awe on yourself.",
-                        "Notes": "You can't cast this if it would get you to 0 or less Health.",
+                        "Effect": "Restore 50% of another ally's Maximum Health, then cast Awe on yourself.",
+                        "Notes": "You can't cast this if you are at or below 25% of your Maximum Health.\nIf you are below 50% Health, you fall, but you are brought back due to Awe (with Exhaustion).\n",
                         "OrderOnWebsite": 2
                     }
                 },
@@ -172,7 +185,8 @@
                     "<Shadow Realm>": {
                         "A": "0 Actions",
                         "Cooldown": "Long Rest",
-                        "Effect": "A Unit within 6 meters becomes trapped in a Shadow Realm with you for 2 rounds (this and the next).\nYour attacks against it cast Awe on it for free while inside the Shadow Realm.\nNeither of you can interact with the outside world, but can feintly see it.\nUnits on the outside can faintly see the two of you, as if you were ghosts.\n",
+                        "Effect": "A Unit within 6 meters becomes trapped in a Shadow Realm with you for 2 rounds (this and the next).\nYour attacks cast Awe on it for free while inside the Shadow Realm.\n",
+                        "Upgrade": "Neither of you can interact with the outside world, but can feintly see it.\nUnits on the outside can faintly see the two of you, as if you were ghosts.\n",
                         "Notes": "The Shadow Realm is a copy of the normal world, but with no other units.",
                         "OrderOnWebsite": 3
                     },
@@ -198,61 +212,59 @@
             "Starting Abilities": {
                 "~Second Soul~": {
                     "A": "Special",
-                    "Effect": "You have another character beside you, your 'minion', that is either a celestial or an undead.\nIts stat block is dictated by your starting Ability choice below.\n",
-                    "Downside": "Your maximum Mana decreases by 1."
+                    "Effect": "You have another Unit beside you, your companion.\nYour companion draws power from your own spirit: it shares the same Health pool with you (e.g. whenever one of you takes damage, the other one takes it as well). It also always has the same Defense and Checks as you, and has Speed equal to your base Speed.\nYour companion has a 1-Handed Melee weapon. On its turn, it can attack once with it for 1d8 Damage without any Stat modifiers, regardless of the weapon's real damage. It does, however, apply weapon effects.\nIt takes its turn at the same time as you.          \n",
+                    "Downside": "Your maximum Mana decreases by 1.",
+                    "Notes": "Instead of attacking, your minion can do the equivalent of a Half-Action for non-combat uses, like using a potion, throwing a rope, reloading a weapon, etc, but not using a scroll. It can also use Disengage, Dash or Defend.\nIf both of you take damage at the same time (e.g. from an AoE effect), the damage taken is equal to the average of the damages taken.\nCome up with a story about why you have your companion and why your god allowed this or gave them to you.\n"
                 }
             },
             "Choose your side": "Life Cleric!\\nPick only one of the following two abilities!",
             "Abilities": {
+                "~Partner in Life~": {
+                    "A": "Special",
+                    "Effect": "Your companion is an alive being. It can either be a sentient humanoid of any race (without affecting its stats) or an animal.\nChoose two of the following boons. Your companion will have them forever:\n- Sentience - Your companion is sentient and intelligent, and gains the Mana Tap Ability from the Elf Race\n- Largeness - Your companion is Large and starts every combat with Shielding equal to your Level (lasts until the end of the combat)\n- Mounting - You can ride your companion without penalties as a mount, and it has +2 Speed and ignores Hard Terrain\n- Spell Attacks - Your companion's attacks now have 5 meter range and deal True Damage (against Defense), regardless of the weapon type\n- Opportunity Attacks - When an enemy becomes Fleeing from exiting your companion's melee attack range, your companion can make an attack on it with its Reaction\n",
+                    "Notes": "While riding your companion, it can still attack, but mounting and dismounting takes either a Half-Action or all of your own total Movement.\nNote that the Shielding (if you choose it) is on your companion, not on you; it absorbs Damage only if your companion takes it. If you're both hit at the same time, the Shielding applies.\n"
+                },
                 "~True Necromancy~": {
                     "A": "Special",
-                    "HasMixins": true,
-                    "Effect": "Your minion is a reanimated humanoid, whose soul is compelled to stay in this plane until its purpose is met.\n\nThe minion draws power from your own spirit: it shares the same {Health} Health pool with you (e.g. whenever one of you takes damage, the other one takes it as well). It also always has the same {Defense} Defense and Checks as you, and has Speed equal to your base Speed.\nYour minion has a 1-Handed Melee weapon. On its turn, it can attack once with it for 1d8 {Damage} Damage without any Stat modifiers, regardless of the weapon's real damage. It does, however, apply weapon effects.\nIt takes its turn at the same time as you.\n\nOn your turn, you can also cast any Spell through your Minion for range purposes only.\n",
-                    "Notes": "Instead of attacking, your minion can do the equivalent of a Half-Action for non-combat uses, like using a potion, throwing a rope, reloading a weapon, etc, but not using a scroll. It can also use Disengage or Dash.\nIf both of you take damage at the same time (e.g. from an AoE effect), the damage taken is equal to the average of the damages taken.\nIt needs to rest and drink water normally, but does not require food.\nCome up with a story about why you have an Undead minion and why your god allowed this or gave him or her to you. Your undead minion might still be sentient (or not; your choice). If it is sentient, your GM might allow it to speak multiple languages, depending on the plot and theme of the campaign. The GM might also allow it to have separate Stats from yours using the normal Stat distribution, for Check purposes only (e.g. it won't affect Health). Alternatively, you can choose your minion to be an animal (for aesthetic purposes only).\n"
-                },
-                "~Celestial Follower~": {
-                    "A": "0 Actions",
-                    "Cooldown": "Long Rest",
-                    "Duration": "3 turns",
-                    "HasMixins": true,
-                    "Effect": "Your minion is an angelic being, whose task is to protect guide or follow you until its purpose is met and is always by your side in the form of a spirit nobody else can interact with. Your Celestial follower can be a humanoid or animal in appearance (it can't fly) and is sentient.\nUsing 0 Actions, you can summon your minion in the physical plane, materializing in a space you choose within 5 meters, and lasts up to 3 turns.\n\nIt has {Health} Health equal to 10 + Your Level + Your Charisma, 3 {Defense} Defense, 5 Speed, 0 Initiative and the same Stats are you for Check purposes.\nOn its turn, it can attack, either Melee for 2d6 True {Damage} Damage, or ranged for 1d10 True {Damage} Damage (6 meters range).\nAlternatively, on its turn, instead of Attacking, it can cast Awe once for free (with your current Awe dice tier, if it's not 1d4).\n\nIt takes its turn separately, and always has 0 Initiative.\n",
-                    "Notes": "The Celestial Follower dematerializes after it finishes taking its 3rd turn.\nInstead of attacking, your minion can do the equivalent of a Half-Action for non-combat uses, like using a potion, throwing a rope, reloading a weapon, etc, but not using a scroll. It can also use Disengage or Dash.\nYou can choose the aspect of your minion (e.g. sentient humanoid, animal, etc).\nCome up with a story about why you have an angel follower.\n",
-                    "OrderOnWebsite": 1
+                    "Effect": "Your companion is an undead. It can either be a sentient undead humanoid of any race (without affecting its stats) or an abstract undead creature.\nChoose two of the following boons. Your companion will have them forever:\n- Largeness - Your companion is Large and starts every combat with Shielding equal to your Level (lasts until the end of the combat)\n- Ghostly - Your companion takes only 50% Slashing and Necrotic Damage \n- Sweeping - Instead of attacking, your Companion can just do 3 Damage (of its weapon type) to all Units within 2 meters of it\n- Death Burst - For 0 Actions, you can sacrifice your companion to cast Awe on all Units within 5 meters of it (this has a Long Rest Cooldown). Your Companion stays dead until your next Long Rest.\n- Corpsewalk - Once per turn, when your companion walks over a corpse, cast Awe on an enemy within 1 meter of your companion and the corpse is destroyed.\n",
+                    "Notes": "Note that the Shielding (if you choose it) is on your companion, not on you; it absorbs Damage only if your companion takes it. If you're both hit at the same time, the Shielding applies.\n"
                 }
             },
             "Talents": {
                 "Level 3": {
-                    "<Divine Message>": {
-                        "A": "10 minutes",
-                        "Cost": "1 Mana",
-                        "Cooldown": "24 Hours (in game)",
-                        "Effect": "You pray for 10 minutes to get an answer to a question from your god(s).\nSet a real life timer of 10 minutes (time in which you can do anything out of the game).\nWhen the timer expires, you can ask the DM one question consisting of maximum 3 words (e.g. 'Is sword cursed?').\nThe answer you will get will consist of maximum 3 words.\nThe DM can choose not to answer, to answer falsely or say something completely different. The gods' wills are unknowable.\n"
+                    "<Awe For Corpses>": {
+                        "A": "Passive",
+                        "Duration": "Zombies last 1 minute",
+                        "Effect": "Whenever you spend Mana on an Ability, raise a corpse you can see into a Zombie.\nZombies have 1 Health and 0 Defense, 3 Speed and they can use their Action to attack for 1d6 Damage (Slash, Smash or Pierce, your choice).\n",
+                        "Notes": "Zombies have -1 in all Stats. When a Zombie dies, it becomes a corpse again."
                     },
-                    "<Repentance>": {
-                        "A": "0 Actions",
-                        "Cost": "50% of your maximum health",
-                        "Range": "1 meter (touch)",
-                        "Effect": "Restore 50% of another ally's maximum health, then cast Awe on yourself.",
-                        "Notes": "You can't cast this if it would get you to 0 or less Health.",
-                        "OrderOnWebsite": 2
+                    "<Awe For Life>": {
+                        "A": "1 Action",
+                        "Cooldown": "Long Rest",
+                        "Effect": "Cast Awe once on each Worthy Unit within 10 meters of you."
                     }
                 },
                 "Level 5": {
-                    "<Life Echo>": {
+                    "<Ascendance>": {
+                        "A": "Passive",
+                        "Effect": "Your Awe die is increased by one Tier (e.g. from 1d4 to 1d6).\nYou gain Wingspan (Cleric) and Penitence.\nYou start every play Session with one extra Inspiration Point.\n"
+                    },
+                    "~Wingspan (Cleric)~": {
                         "A": "0 Actions",
                         "Cooldown": "Long Rest",
-                        "Effect": "You put a Life Echo on an ally.\nWhenever YOU heal another Unit, the unit with the Life Echo on them is also healed for 50% of that amount.\nLasts 1 minute.\n",
-                        "Notes": "If you put this on your True Necromancy follower, you essentially heal for 150% of the health.",
-                        "OrderOnWebsite": 2
+                        "Effect": "Quickly fly up to 5 meters.",
+                        "Upgrades": "At Levels 3, 6 and 9, you get one extra use of Wingspan per Long Rest (e.g. the Cooldown becomes 2 times / Long Rest, 3 times / Long Rest, etc)."
                     },
-                    "<Dazzling Essence>": {
-                        "A": "Passive",
-                        "Effect": "Your follower's first Spell or Attack every encounter attempts to also Charm the target (against a Sense Check).\nWhenever you drop to (or below) 50% Health, this effect resets this encounter.\n",
-                        "OrderOnWebsite": 3
+                    "~Penitence~": {
+                        "A": "0 Actions",
+                        "Range": "5 meters",
+                        "Duration": "1 minute",
+                        "Effect": "A target must pass a Charisma Check or become unable to cast healing Spells, do Crowd Control or apply On-Roll Effects.\n",
+                        "Notes": "Can't be cast on Epic Monsters."
                     },
                     "<Cleric Lich Ritual>": {
                         "A": "Special",
-                        "Effect": "You spend 24 hours in a special place of power (this could be a temple or given to you by your DM).\nAfter it's finished, you become a Lich, and you are considered Undead.\nApply the following:\n- You are Undead, thus immune to Charm, Fear and being put to Sleep\n- You can no longer cast Generic Abilities that don't cost Mana, but gain 2 extra maximum Mana. Passive Spells that don't cost Mana still apply.\n- You no longer need to eat, drink or sleep.\n- You gain access to the Elemental and Eldritch Spell Lists.\n- The range of all your Spells is doubled.\n- Your Health decreases by 3\nYou also gain the following abilities:\n- Phylactery\n- Dismorphment\n",
+                        "Effect": "You spend 24 hours in a special place of power (this could be a temple or given to you by your GM).\nAfter it's finished, you become a Lich, and you are considered Undead.\nApply the following:\n- You are Undead, thus immune to Charm, Fear and being put to Sleep\n- You can no longer cast Generic Abilities that don't cost Mana, but gain 2 extra maximum Mana. Passive Spells that don't cost Mana still apply.\n- You no longer need to eat, drink or sleep.\n- You gain access to the Elemental and Eldritch Spell Lists.\n- Your Health decreases by 3\nYou also gain the following abilities:\n- Phylactery\n- Dismorphment\n",
                         "Upgrade": "At Level 5, your Defense increases by 1.\nAt Level 6, the range of all your Spells is doubled.\nAt Level 7, Counter Check Grade increases by 1.\nAt Level 8, all your Checks increase by 1.\n",
                         "OrderOnWebsite": 1
                     },
