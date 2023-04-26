@@ -345,6 +345,7 @@ export function PHealthAndArmor({ theClass }) {
 }
 
 export function Spec({ children, name, spec }) {
+    console.log({spec})
     return (
         <Page title={name} key={name} isSecondaryPage={true}>
             <p>{spec.Description}</p>
