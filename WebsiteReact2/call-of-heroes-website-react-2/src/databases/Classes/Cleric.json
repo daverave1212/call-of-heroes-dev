@@ -20,16 +20,16 @@
     "Spellcasting": {
         "Type": "Mana-based",
         "Main Stat": "Choose permanently - Sense or Charisma",
-        "Counter Check Grade": "6 + (Main Stat)",
-        "Change": "You can change your known Spells (not Talents) when taking a Long Rest.",
+        "Spell Grade": "6 + (Main Stat)",
+        "Change": "You can change your known Spells and Talents inbetween Adventures.",
         "Other": "All Cleric-specific Abilities are considered Spells (unless stated otherwise).",
         "Mana": {
             "Amount": 2,
-            "Regain": "You regain all Mana back when you Long Rest."
+            "Regain": "You regain all Mana back inbetween Adventures."
         },
-        "Known Spells": "4 + Your Intelligence",
+        "Known Basic Abilities": "4 + Your Intelligence",
         "BaseKnownSpells": 4,
-        "Spell Lists": [
+        "Basic Ability Lists": [
             "Conjuration",
             "Divine"
         ]
@@ -38,19 +38,19 @@
         "~Awe~": {
             "A": "Passive",
             "Range": "5 meters",
-            "Effect": "Whenever you spend Mana for an Ability, \"cast Awe\" on any target within 5 meters of you.\nThis deals 1d4 True Damage to enemies or heals allies for 1d4.\nSome other Cleric spells will \"cast Awe\" for free.\n",
+            "Effect": "Whenever you spend Mana for an Ability, \"cast Awe\" on any target within 5 meters of you.\nThis deals 1d4 Divine Damage to enemies or heals allies for 1d4.\nSome other Cleric spells will \"cast Awe\" for free.\n",
             "Notes": "Ignores Cover."
         },
         "~Spread the Awe~": {
             "A": "Half-Action",
-            "Cooldown": "Long Rest",
+            "Cooldown": "Once / Adventure",
             "Effect": "Cast Awe twice on target(s) within 5 meters."
         },
         "~Blessing~": {
             "A": "1 Action",
-            "Cooldown": "Long Rest",
+            "Cooldown": "Once / Adventure",
             "Duration": "1 encounter",
-            "Effect": "You bless one ally.\nWhenever it makes a Combat Check, it can add 1d4 to it.\n",
+            "Effect": "You bless one ally.\nWhenever it makes a Resist Check, it can add 1d4 to it.\n",
             "Upgrade": "At Level 4, this affects 2 allies. At Level 8, this affects 3 allies.",
             "Notes": "You can bless yourself.\nLasts until the end of the next combat encounter.\n",
             "AlignOnWebsite": "Right"
@@ -73,7 +73,7 @@
                 "~Pledge of Battle~": {
                     "A": "Special",
                     "Duration": "Lifetime",
-                    "Effect": "Ask a party member to join your cause and pledge their honor to you.\nThey gain the Awe passive Ability (e.g. whenever they use Mana for an Ability, they cast Awe).\nThat person always Knows the same Generic Divine Spells you Know at a time.\n",
+                    "Effect": "Ask a party member to join your cause and pledge their honor to you.\nThey gain the Awe passive Ability (e.g. whenever they use Mana for an Ability, they cast Awe).\nThat person always Knows the same Basic Divine Spells you Know at a time.\n",
                     "Upgrades": "There is one condition your ally must match - it can never have its Maximum Mana higher than yours (if it does, it becomes equal to yours).\n",
                     "Notes": "You can only have one character who pledged for you.\nTheir Awe is not improved by your Awe improvements, if you have any.\n"
                 }
@@ -82,7 +82,7 @@
             "Abilities": {
                 "~March Ahead~": {
                     "A": "0 Actions",
-                    "Cooldown": "Long Rest",
+                    "Cooldown": "Once / Adventure",
                     "Effect": "All allies can move 3 extra meters on their next turn (and you too this turn).\nAfter casting this, you can continue your movement.\n"
                 },
                 "~Piety~": {
@@ -94,13 +94,13 @@
                 "Level 3": {
                     "<Eternal Bindings>": {
                         "A": "0 Actions or Reaction",
-                        "Cooldown": "Long Rest",
+                        "Cooldown": "Once / Adventure",
                         "Effect": "A creature within 3 meters makes a Sense Check.\nIf it fails, cast Awe on it.\nIt becomes magically bound to an object within 3 meters of it and can't willingly move more than 3 meters away from that object.\nIt rolls the Check again at the start end of their turn to escape the binding.\nLasts up to 1 minute.\n",
                         "OrderOnWebsite": 3
                     },
                     "<Heavy Burden>": {
                         "A": "0 Actions",
-                        "Cooldown": "Long Rest",
+                        "Cooldown": "Once / Adventure",
                         "Effect": "A creature within 3 meters makes a Sense Check.\nIf it fails, cast Awe on it and it is Crippled.\n",
                         "OrderOnWebsite": 1
                     },
@@ -108,30 +108,30 @@
                         "A": "0 Actions",
                         "Cost": "50% of your Maximum Health",
                         "Range": "1 meter (touch)",
-                        "Effect": "Restore 50% of another ally's Maximum Health, then cast Awe on yourself.",
-                        "Notes": "You can't cast this if you are at or below 25% of your Maximum Health.\nIf you are below 50% Health, you fall, but you are brought back due to Awe (with Exhaustion).\n",
+                        "Effect": "Heal another ally for 50% of its Maximum Health, then cast Awe on yourself.",
+                        "Notes": "You can't cast this if you are at or below 25% of your Maximum Health (rounded down).\nIf you are below 50% Health, you fall, but you are brought back due to Awe (with Exhaustion).\nRound down.\n",
                         "OrderOnWebsite": 2
                     }
                 },
                 "Level 5": {
                     "<War Smite>": {
                         "A": "0 Actions",
-                        "Cooldown": "Long Rest",
+                        "Cooldown": "Once / Adventure",
                         "Effect": "When you land an attack, roll 1d4 again and again until your roll 1.\nAdd them all together, and add the total to the attack.\n",
                         "OrderOnWebsite": 1
                     },
                     "<Shadow Realm>": {
                         "A": "0 Actions",
-                        "Cooldown": "Long Rest",
+                        "Cooldown": "Once / Adventure",
                         "Effect": "A Unit within 6 meters becomes trapped in a Shadow Realm with you for 2 rounds (this and the next).\nYour attacks against it cast Awe on it for free while inside the Shadow Realm.\nNeither of you can interact with the outside world, but can feintly see it.\nUnits on the outside can faintly see the two of you, as if you were ghosts.\n",
                         "Notes": "The Shadow Realm is a copy of the normal world, but with no other units.",
                         "OrderOnWebsite": 3
                     },
                     "<Holy Apex>": {
                         "A": "1 Action",
-                        "Cooldown": "Long Rest",
+                        "Cooldown": "Once / Adventure",
                         "Range": "5 meters to edge",
-                        "Effect": "Declare a 6x6 meter area.\nA giant spectral fist hits the ground and attacks all Units there except you for 2d10 + (Round Number d6) True damage (against Defense).\n",
+                        "Effect": "Declare a 6x6 meter area.\nA giant spectral fist hits the ground and attacks all Units there except you for 2d10 + (Round Number d6) Divine Damage (against Defense).\n",
                         "Notes": "E.g. on the first round of combat, this deals 2d10 + 1d6. Second round - 2d10 + 2d6. Third round - 2d10 + 3d6. And so on. Cover is applied from above if needed.",
                         "OrderOnWebsite": 2
                     }
@@ -144,7 +144,7 @@
                 "~Grasp~": {
                     "A": "Half-Action",
                     "Range": "15 meters (you don't need line of sight)",
-                    "Cooldown": "Long Rest",
+                    "Cooldown": "Once / Adventure",
                     "Effect": "Cast Awe twice, on the same target or on two different targets.\nThat target(s) can't benefit from Cover for 1 minute.\n",
                     "Notes": "If the target has Cover on attacks from any source, the Cover is negated (e.g. no more -2). Includes attacks while prone, attacks through heavy wind, etc."
                 }
@@ -153,7 +153,7 @@
             "Abilities": {
                 "~Radiance~": {
                     "A": "Passive",
-                    "Effect": "At all times, you radiate light in a 3 meter radius.\nYou can turn this on and off at will.\nYou are immune to being Blinded.\nIf you have full health, Awe damage and healing is 1d6.\n"
+                    "Effect": "At all times, you radiate light in a 3 meter radius.\nYou can turn this on and off at will.\nYou are immune to being Blinded.\nIf you have full health, Awe Damage and healing is 1d6.\n"
                 },
                 "~Twilight~": {
                     "A": "Passive",
@@ -176,15 +176,15 @@
                         "A": "0 Actions",
                         "Cost": "50% of your Maximum Health",
                         "Range": "1 meter (touch)",
-                        "Effect": "Restore 50% of another ally's Maximum Health, then cast Awe on yourself.",
-                        "Notes": "You can't cast this if you are at or below 25% of your Maximum Health.\nIf you are below 50% Health, you fall, but you are brought back due to Awe (with Exhaustion).\n",
+                        "Effect": "Heal another ally for 50% of its Maximum Health, then cast Awe on yourself.",
+                        "Notes": "You can't cast this if you are at or below 25% of your Maximum Health (rounded down).\nIf you are below 50% Health, you fall, but you are brought back due to Awe (with Exhaustion).\nRound down.\n",
                         "OrderOnWebsite": 2
                     }
                 },
                 "Level 5": {
                     "<Shadow Realm>": {
                         "A": "0 Actions",
-                        "Cooldown": "Long Rest",
+                        "Cooldown": "Once / Adventure",
                         "Effect": "A Unit within 6 meters becomes trapped in a Shadow Realm with you for 2 rounds (this and the next).\nYour attacks cast Awe on it for free while inside the Shadow Realm.\n",
                         "Upgrade": "Neither of you can interact with the outside world, but can feintly see it.\nUnits on the outside can faintly see the two of you, as if you were ghosts.\n",
                         "Notes": "The Shadow Realm is a copy of the normal world, but with no other units.",
@@ -192,14 +192,14 @@
                     },
                     "<Circle of Awe>": {
                         "A": "Half-Action",
-                        "Cooldown": "Long Rest",
+                        "Cooldown": "Once / Adventure",
                         "Range": "6 meters to edge",
                         "Effect": "Declare a 4x4 area within 6 meters.\nNow, and at the start of your next turn, cast Awe on all Units inside the area.\n",
                         "OrderOnWebsite": 1
                     },
                     "<Black Hole>": {
                         "A": "0 Actions",
-                        "Cooldown": "Long Rest",
+                        "Cooldown": "Once / Adventure",
                         "Effect": "You create a 1x1 Black Hole on an empty space.\nCast Grasp for free on all enemies within 6 meters of the hole.\nIf a Unit gets to the center of the Black Hole, it must pass a Might Check or be Rooted.\nAt the end of your turn, all Units within 6 meters of it are pulled 2 meters towards it.\nThe gravity of the black hole works even through walls and obstacles.\n",
                         "Notes": "If 2 Units would be pulled to the center, you choose which.",
                         "OrderOnWebsite": 2
@@ -212,21 +212,21 @@
             "Starting Abilities": {
                 "~Second Soul~": {
                     "A": "Special",
-                    "Effect": "You have another Unit beside you, your companion.\nYour companion draws power from your own spirit: it shares the same Health pool with you (e.g. whenever one of you takes damage, the other one takes it as well). It also always has the same Defense and Checks as you, and has Speed equal to your base Speed.\nYour companion has a 1-Handed Melee weapon. On its turn, it can attack once with it for 1d8 Damage without any Stat modifiers, regardless of the weapon's real damage. It does, however, apply weapon effects.\nIt takes its turn at the same time as you.          \n",
+                    "Effect": "You have another Unit beside you, your companion.\nYour companion draws power from your own spirit: it shares the same Health pool with you (e.g. whenever one of you takes Damage, the other one takes it as well). It also always has the same Defense and Checks as you, and has Speed equal to your base Speed.\nYour companion has a 1-Handed Melee weapon. On its turn, it has a Half-Action which it can use to attack for 1d8 Damage without any Stat modifiers, regardless of the weapon's real Damage. It does, however, apply weapon effects, if any.\nIt takes its turn at the same time as you.          \n",
                     "Downside": "Your maximum Mana decreases by 1.",
-                    "Notes": "Instead of attacking, your minion can do the equivalent of a Half-Action for non-combat uses, like using a potion, throwing a rope, reloading a weapon, etc, but not using a scroll. It can also use Disengage, Dash or Defend.\nIf both of you take damage at the same time (e.g. from an AoE effect), the damage taken is equal to the average of the damages taken.\nCome up with a story about why you have your companion and why your god allowed this or gave them to you.\n"
+                    "Notes": "Instead of attacking, your minion can do the equivalent of a Half-Action for non-combat uses, like using a potion, throwing a rope, reloading a weapon, etc, but not using a scroll. It can also use Disengage, Dash or Defend.\nIf both of you take Damage at the same time (e.g. from an AoE effect), the Damage taken is equal to the average of the Damages taken.\nCome up with a story about why you have your companion and why your god allowed this or gave them to you.\n"
                 }
             },
             "Choose your side": "Life Cleric!\\nPick only one of the following two abilities!",
             "Abilities": {
                 "~Partner in Life~": {
                     "A": "Special",
-                    "Effect": "Your companion is an alive being. It can either be a sentient humanoid of any race (without affecting its stats) or an animal.\nChoose two of the following boons. Your companion will have them forever:\n- Sentience - Your companion is sentient and intelligent, and gains the Mana Tap Ability from the Elf Race\n- Largeness - Your companion is Large and starts every combat with Shielding equal to your Level (lasts until the end of the combat)\n- Mounting - You can ride your companion without penalties as a mount, and it has +2 Speed and ignores Hard Terrain\n- Spell Attacks - Your companion's attacks now have 5 meter range and deal True Damage (against Defense), regardless of the weapon type\n- Opportunity Attacks - When an enemy becomes Fleeing from exiting your companion's melee attack range, your companion can make an attack on it with its Reaction\n",
+                    "Effect": "Your companion is an alive being. It can either be a sentient humanoid of any race (without affecting its stats) or an animal.\nChoose two of the following boons. Your companion will have them forever:\n- Sentience - Your companion is sentient and intelligent, and gains the Mana Tap Ability from the Elf Race\n- Largeness - Your companion is Large and starts every combat with Shielding equal to your Level (lasts until the end of the combat)\n- Mounting - You can ride your companion without penalties as a mount, and it has +2 Speed and ignores Hard Terrain\n- Spell Attacks - Your companion's attacks now have 5 meter range and deal Divine Damage (against Defense), regardless of the weapon type\n- Opportunity Attacks - When an enemy becomes Fumbling from exiting your companion's melee attack range, your companion can make an attack on it with its Reaction\n",
                     "Notes": "While riding your companion, it can still attack, but mounting and dismounting takes either a Half-Action or all of your own total Movement.\nNote that the Shielding (if you choose it) is on your companion, not on you; it absorbs Damage only if your companion takes it. If you're both hit at the same time, the Shielding applies.\n"
                 },
                 "~True Necromancy~": {
                     "A": "Special",
-                    "Effect": "Your companion is an undead. It can either be a sentient undead humanoid of any race (without affecting its stats) or an abstract undead creature.\nChoose two of the following boons. Your companion will have them forever:\n- Largeness - Your companion is Large and starts every combat with Shielding equal to your Level (lasts until the end of the combat)\n- Ghostly - Your companion takes only 50% Slashing and Necrotic Damage \n- Sweeping - Instead of attacking, your Companion can just do 3 Damage (of its weapon type) to all Units within 2 meters of it\n- Death Burst - For 0 Actions, you can sacrifice your companion to cast Awe on all Units within 5 meters of it (this has a Long Rest Cooldown). Your Companion stays dead until your next Long Rest.\n- Corpsewalk - Once per turn, when your companion walks over a corpse, cast Awe on an enemy within 1 meter of your companion and the corpse is destroyed.\n",
+                    "Effect": "Your companion is an undead. It can either be a sentient undead humanoid of any race (without affecting its stats) or an abstract undead creature.\nChoose two of the following boons. Your companion will have them forever:\n- Largeness - Your companion is Large and starts every combat with Shielding equal to your Level (lasts until the end of the combat)\n- Ghostly - Your companion takes only 50% Slashing and Necrotic Damage \n- Sweeping - Instead of attacking, your Companion can just do 3 Damage (of its weapon type) to all Units within 2 meters of it\n- Death Burst - For 0 Actions, you can sacrifice your companion to cast Awe on all Units within 5 meters of it (this has a Once / Adventure). Your Companion stays dead for the rest of the Adventure.\n- Corpsewalk - Once per turn, when your companion walks over a corpse, cast Awe on an enemy within 1 meter of your companion and the corpse is destroyed.\n",
                     "Notes": "Note that the Shielding (if you choose it) is on your companion, not on you; it absorbs Damage only if your companion takes it. If you're both hit at the same time, the Shielding applies.\n"
                 }
             },
@@ -240,7 +240,7 @@
                     },
                     "<Awe For Life>": {
                         "A": "1 Action",
-                        "Cooldown": "Long Rest",
+                        "Cooldown": "Once / Adventure",
                         "Effect": "Cast Awe once on each Worthy Unit within 10 meters of you."
                     }
                 },
@@ -251,9 +251,9 @@
                     },
                     "~Wingspan (Cleric)~": {
                         "A": "0 Actions",
-                        "Cooldown": "Long Rest",
+                        "Cooldown": "Once / Adventure",
                         "Effect": "Quickly fly up to 5 meters.",
-                        "Upgrades": "At Levels 3, 6 and 9, you get one extra use of Wingspan per Long Rest (e.g. the Cooldown becomes 2 times / Long Rest, 3 times / Long Rest, etc)."
+                        "Upgrades": "At Levels 3, 6 and 9, you get one extra use of Wingspan per Adventure (e.g. the Cooldown becomes 2 times / Adventure, 3 times / Adventure, etc)."
                     },
                     "~Penitence~": {
                         "A": "0 Actions",
@@ -264,20 +264,19 @@
                     },
                     "<Cleric Lich Ritual>": {
                         "A": "Special",
-                        "Effect": "You spend 24 hours in a special place of power (this could be a temple or given to you by your GM).\nAfter it's finished, you become a Lich, and you are considered Undead.\nApply the following:\n- You are Undead, thus immune to Charm, Fear and being put to Sleep\n- You can no longer cast Generic Abilities that don't cost Mana, but gain 2 extra maximum Mana. Passive Spells that don't cost Mana still apply.\n- You no longer need to eat, drink or sleep.\n- You gain access to the Elemental and Eldritch Spell Lists.\n- Your Health decreases by 3\nYou also gain the following abilities:\n- Phylactery\n- Dismorphment\n",
-                        "Upgrade": "At Level 5, your Defense increases by 1.\nAt Level 6, the range of all your Spells is doubled.\nAt Level 7, Counter Check Grade increases by 1.\nAt Level 8, all your Checks increase by 1.\n",
+                        "Effect": "You spend 24 hours in a special place of power (this could be a temple or given to you by your GM).\nAfter it's finished, you become a Lich, and you are considered Undead.\nApply the following:\n- You are Undead, thus immune to Charm, Fear and being put to Sleep\n- You can no longer cast Basic Abilities that don't cost Mana, but gain 2 extra maximum Mana. Passive Spells that don't cost Mana still apply.\n- You no longer need to eat, drink or sleep.\n- You gain access to the Elemental and Eldritch Basic Ability Lists.\n- Your Health decreases by 3\nYou also gain the following abilities:\n- Phylactery\n- Dismorphment\n",
+                        "Upgrade": "At Level 5, your Defense increases by 1.\nAt Level 6, the range of all your Spells is doubled.\nAt Level 7, Spell Grade increases by 1.\nAt Level 8, all your Checks increase by 1.\n",
                         "OrderOnWebsite": 1
                     },
                     "~Phylactery~": {
                         "IsSubspell": true,
                         "A": "Special",
-                        "Effect": "When you become a Lich, you place your soul inside a Phylactery - a special object, dear to you.\nWhen you would reach 0 Health, instead of going Fallen, you can instantly teleport your body inside the Phylactery.\nA spellcaster can channel during a whole Long Rest to resummon you near the Phylactery with full Health, Spells, etc.\nIf the Phylactery is destroyed, you must wait 1 year to make another one.\n",
-                        "Notes": "The Long Rest still applies to the channeler who revives you, and to you as well."
+                        "Effect": "When you become a Lich, you place your soul inside a Phylactery - a special object, dear to you.\nWhen you would reach 0 Health, instead of going Fallen, you can instantly teleport your body inside the Phylactery.\nA spellcaster can channel when resting inbetween Adventures to resummon you near the Phylactery with full Health, Spells, etc.\nIf the Phylactery is destroyed, you must wait 1 year to make another one.\n"
                     },
                     "~Dismorphment~": {
                         "IsSubspell": true,
                         "A": "Reaction or 0 Actions",
-                        "Cooldown": "Long Rest",
+                        "Cooldown": "Once / Adventure",
                         "Effect": "When a Unit declares an attack or Spell on you, you can instantly teleport up to 3 meters away.\nThat Unit can keep their action or change it.\nYou can also instantly teleport using 0 Actions on your turn.\n",
                         "Notes": "Remember that at Level 6, the range of this becomes 6 as per the description of Cleric Lich Ritual."
                     },

@@ -1,48 +1,62 @@
 
-Slow: A Slowed creature loses half (rounded down) of its movement speed. E.g. if a Unit with 5 Speed is Slowed, its Speed becomes 3.
+Types:
+  - (Slow) Halved movement
+  - (Root) No movement
+  - (Daze) Halved Actions (PC); One less attack or action (Monster)
+  - (Cripple/Silence) No Actions
+  - (Fumbling) Debuff
+  - (Stun) No nothing
 
-# Can't make Opportunity Attacks while Prone.
-Prone: |
-  It has -2 to all attacks and Checks while Prone.
-  The Prone creature must use half of its maximum movement (rounded down) to stand up.
 
-Fleeing: |
-  A Fleeing Unit has -2 to all attacks, Abilities and Spell Grade.
-  Fleeing stacks with Cover (which is also -2 to all actions).
+Slow: A Slowed Unit loses 2 Maximum Movement Speed (for 1 turn).
 
-Root: A Rooted creature can't move on its turn (it can use actions).
+Root: A Rooted Unit can't willingly Move from its place on its turn except by magical means (e.g. being pushed, teleporting, etc; it's Actions are unaffected).
 
 Dazed: |
-    A Dazed Unit is Slowed and only has a Half-Action on its turn if it's a Player Character.
+  A Dazed Player Character only has a Half-Action on its turn.
+  A Dazed Monster makes one less non-movement Act (e.g. a Morloc can't both attack and throw a net anymore, or a Kobold can only make 1 attack instead of 2).
 
 Stun: A Stunned creature must skip its turn.
 
-Charm: |
-  A Charmed Unit is Dazed and must use all its movement to move towards the Charmer.
-  It can't target the Charmer with attacks or Abilities (but can use Area of Effect Abilities on it).
+Fumbling: |
+  A Fumbling Unit has -2 to all attacks, Abilities and Spell Grade.
+  Fumbling stacks with Cover (which is also -2 to all Things You Do).
 
-Feared: |
-    A Feared Unit must use all movement to move away from the source first thing on its turn.
-    The source of Fear has Cover against the Feared Unit.
-
-Blind: |
-  When the Blinded attacks, the target benefits from Hard Cover (you have +4 to all Checks and take 4 less Damage from the Blinded Unit).
+Blind: A Blinded Unit has -4 to all attacks, offensive Abilities and Spell Grade.
 
 Silence: |
   A Silenced creature can't cast Spells (but it can use non-Spells and weapons).
   Passive abilities function normally when silenced.
 
 Cripple: |
-  A Crippled Unit can't attack with weapons or use physical offensive non-Spell Abilities.
+  A Crippled Unit can't attack with weapons or use physical offensive non-Spell Abilities (but it can use Spells).
 
-Maimed: |
-  A Maimed Player Unit can't use Actions, but can only use Half-Actions, one at a time.
-  A Maimed NPC makes one less attack per turn.
+# Can't make Opportunity Attacks while Prone.
+# Prone: |
+#   It has -2 to all attacks and Checks while Prone.
+#   A Prone Player Character must use a Half-Action to stand up.
+#   A Prone Monster becomes Maimed instead.
 
-Sleep: |
-  A Sleeping creature must skip its turn.
-  If the Sleeping creature takes damage, it wakes up (if it took the damage before its turn).
-  The Sleeping creature might also wake up from unusually loud noises.
+# Maimed: |
+#   A Maimed Player Unit can't use Actions, but can only use Half-Actions, one at a time.
+#   A Maimed NPC makes one less attack per turn.
+
+
+Charm: |
+  A Charmed Unit is Fumbling and must instantly move up to its Movement Speed towards the caster (it can still move normally on its turn).
+  It can't directly target the Charmer with attacks or Abilities (but can use Area of Effect Abilities on it).
+
+Feared: |
+  A Feared Unit is Fumbling and must instantly move up to its Movement Speed away from the caster (it can still move normally on its turn).
+  It can't directly target the Fearer with attacks or Abilities (but can use Area of Effect Abilities on it).
+
+
+
+
+# Sleep: |
+#   A Sleeping creature must skip its turn.
+#   If the Sleeping creature takes Damage, it wakes up (if it took the Damage before its turn).
+#   The Sleeping creature might also wake up from unusually loud noises.
 # It can't make Opportunity Attacks while Dazed.
 
 Exhaustion: Inherit from Rules.yml
@@ -53,7 +67,6 @@ Other: |
   - Pushing, Knock Prone: everything in the Ability that would follow the movement gets cancelled
   - Cripple, Daze, Slow: Nothing happens on the spot; the Crowd Control takes effect after the Ability finishes
   - Silence: If it's a Spell, the rest of the Spell gets cancelled; otherwise nothing else happens
-  - Paralyze, Stun, Sleep: The Ability gets cancelled
-  - Blind: Apply the Harc Cover normally
-  - Fear: Apply the Cover part of Fear normally; the movement part happens immediately on the Unit's turn, after the Ability finishes, and it moves even if the Unit already moved (only if it still has remaining movement).
-  
+  - Stun and other non-listed strong CC: The Ability gets cancelled
+  - Blind: Apply the Hard Cover normally
+  - Fear, Charm: The Unit must retract its action if it was on the Fearer/Charmer; then, it must move. Then, it can resume its turn and it use that same Action or another one as it pleases, now or later in the turn (the Unit does not lose its Action).

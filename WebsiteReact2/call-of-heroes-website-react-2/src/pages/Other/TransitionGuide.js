@@ -55,9 +55,7 @@ export default function TransitionGuide() {
 
     return (
         <div>
-            <Page style={{whiteSpace: 'pre-wrap'}}>
-                <PageH1>D&D Transition Guide</PageH1>
-
+            <Page style={{whiteSpace: 'pre-wrap'}} title="D&D Transition Guide">
                 <PageH2>About The Game</PageH2>
 
                 <TwoColumns>
@@ -70,7 +68,7 @@ export default function TransitionGuide() {
                 </TwoColumns>
             </Page>
 
-            <Page style={{whiteSpace: 'pre-wrap', overflow: 'hidden'}}>
+            <Page style={{whiteSpace: 'pre-wrap', overflow: 'hidden'}} isSecondaryPage={true}>
                 <PageH2>Basic Rules Transition</PageH2>
 
                 <SectionRightContentLeft object={cohForDnd} title="D12 System" type="lefty">

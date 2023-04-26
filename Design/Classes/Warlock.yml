@@ -20,15 +20,15 @@ Spellcasting:
   Type: Special Mana-based
 
   Main Stat: Choose permanently - Intelligence or Charisma
-  Counter Check Grade: 6 + (Main Stat)
+  Spell Grade: 6 + (Main Stat)
   Mana:
     Amount: 2
     Regain: Your Mana reset after every combat.
-  Change: You can change your known Spells (not Talents) when taking a Long Rest.
+  Change: You can change your known Spells and Talents inbetween Adventures.
   Other: All Warlock-specific Abilities are considered Spells.
-  Known Spells: 4 + Your Intelligence
+  Known Basic Abilities: 4 + Your Intelligence
   BaseKnownSpells: 4
-  Spell Lists:
+  Basic Ability Lists:
     - Elemental
     - Mysticism
     - Eldritch
@@ -39,7 +39,7 @@ Starting Abilities:
   ~Power Tap~ :         # 1 Charges (can use class spells)
     A: Depends
     Cost: Depends
-    Cooldown: Long Rest
+    Cooldown: Once / Adventure
     Effect: |
       Cast an ability one of your Allies has (with that ability's Actions and Costs and your modifiers).
       If it costs Mana, you must spend its Mana.
@@ -51,7 +51,7 @@ Starting Abilities Description:
         Your Mana regenerates inbetween combat encounters. So, for optimal play, use all your Mana every encounter!
     - Power Tap: |
         Try to clone strong Abilities from your teammates that don't take up Mana.
-        Talent Abilities are generally stronger than standard Spell List Abilities.
+        Talent Abilities are generally stronger than standard Basic Ability List Abilities.
         
 # Utility
 # Utility + Healing
@@ -120,7 +120,7 @@ Abilities:
     Cost: 1 Mana
     Range: 15 meters
     Effect: |
-      Deal 7 Necrotic damage to a creature (directly, ignoring Defense).
+      Deal 7 Necrotic Damage to a creature (directly, ignoring Defense).
       If it dies, you get the Mana back and heal for 5 Health.
 
 Specializations:
@@ -151,14 +151,16 @@ Specs:
         Effect: |
           You have a Hexblade Weapon, inside which your patron's avatar lies, either possessing the weapon, being trapped inside it or using it as a means of communication with you.
           Pick any weapon type (e.g. Shortsword, Longbow, Pike, etc), and it becomes your Hexblade Weapon.
-          You can customize your weapon's personality, voice, the way it looks. Talk to your DM about this.
-          You are automatically considered trained in your Hexblade Weapon.
+          You can customize your weapon's personality, voice, the way it looks. Talk to your GM about this.
+          You are automatically considered Trained in your Hexblade Weapon.
 
       ~Hexblade~ :      # 1.75
         A: Passive
-        Effect: After you cast an offensive spell, your next attack with your Hexblade Weapon deals +1d6 damage.
-        Upgrade: The bonus damage becomes 1d8 at Level 5.
-        Notes: Offensive means that it deals damage or applies hard Crowd Control (anything better than Slow and creating Hard Terrain).
+        Effect: After you cast an offensive spell, your next Hexblade Weapon attack deals +1d6 Damage.
+        Upgrade: |
+          The bonus Damage becomes 1d8 at Level 5.
+          Reposess: By spending 1 hour, you can transfer the entity posessing your Hexblade weapon into another weapon. That new weapon becomes your Hexblade Weapon, and the old one is destroyed.
+        Notes: Offensive means that it deals Damage or applies hard Crowd Control (anything better than Slow and creating Hard Terrain).
         
     Talents:
       Level 3:
@@ -172,14 +174,14 @@ Specs:
           A: Passive
           Effect: |
             Your Hexblade Ability is replaced by Hexstaff:
-            After you attack with a weapon, your next offensive spell has +1 Counter Check Grade and deals +1d6 damage.
-          Upgrade: The bonus damage becomes 1d8 at Level 5.
+            After you attack with a weapon, your next offensive spell has +1 Spell Grade and deals +1d6 Damage.
+          Upgrade: The bonus Damage becomes 1d8 at Level 5.
 
         <Doublehex> :               # 0.25
           A: Passive
           Effect: |
-            You now have 1 more Hexblade Weapon, of any kind. The same patron or another one is possessing your second weapon.
-            At any time, you can vanish or resummon either weapon.
+            You now have 1 more Hexblade Weapon, of any kind. The same patron or another one of the same type is possessing your second weapon.
+            Once per turn, for 0 Actions, you can vanish or resummon one of them.
 
         # Invoke weapon or draw it
         # Change hexblade to be weapon-specific or only spell-specific
@@ -196,12 +198,12 @@ Specs:
           Effect: |
             Every Worthy Combat, when you drop to 0 Mana, reset the Cooldown of Power Tap and gain Shielding equal to your Main Stat.
         
-        <Somatic Pulse>:        # 2?
-          A: Half-Action
+        <Somatic Pulse>:        # Should deal about ~0.5 more Damage than a normal Spell (15 against Defense)
+          A: Half-Action        # Half-Action with 1 mana = 13.5 = ~4d6
           Cost: 1 Mana
           Effect: |
             Count the Units within 3 meters of you (except you).
-            They are all attacked for 2d6 + (the number of Units) True damage (against Defense).
+            They are all attacked for 1d6 + (the number of Units) Force Damage (against Defense).
           Notes: E.g. if this affects 2 Units, it deals 3d6. If it affects 3 Units, it deals 4d6. 4 Units - 5d6. And so on.
             
 
@@ -226,7 +228,7 @@ Specs:
           You conjure a ritual for 1 hour.
           The first time you cast this ritual, you summon a familiar which becomes yours.
           You can choose what your familiar looks like, assuming it is a small creature.
-          Also, choose an element which is bound to it: Fire, Water, Frost, Arcane, Thunder, Earth, Wind, Light or Darkness. That becomes your Familiar's Element.
+          Also, choose an element which is bound to it: Fire, Cold, Shock, Light (True) or Necrotic. That becomes your Familiar's Element.
           Your familiar comes with a name that the GM decides.
           The familiar doesn't take turns on its own, but at the same time as you.
           On your turn, your familiar can use its own movement to move, but you must spend your own Actions for it to take actions.
@@ -244,7 +246,7 @@ Specs:
         Cooldown: 1 turn
         Effect: |
           The familiar melee attacks a target.
-          The attack deals 1d12 + Main Stat damage (of your pet's elemental type).
+          The attack deals 1d12 + Main Stat Damage (of your pet's elemental type).
         Notes: The attack is against target's Defense, of course.
         
       ~Familiar Feats~:
@@ -260,7 +262,7 @@ Specs:
           A: Passive
           Effect: |
             You speak all Common and Wild languages.
-            You have +1 Counter Check Grade.
+            You have +1 Spell Grade.
 
         <Impmaster> :               # 0.feat 
           A: Special
@@ -268,12 +270,12 @@ Specs:
 
         <Dream Walk>:
           A: Half-Action            # 1
-          Cooldown: Long Rest
+          Cooldown: Once / Adventure
           Range: 6 meters
           Effect: |
             A Unit must pass a Sense Check or fall Asleep for 2 turns.
             Alternatively, you can use Dream Walk on an already sleeping target to alter their dreams to your liking.
-          Notes: A Sleeping Unit wakes up if it takes damage or other Crowd Control.
+          Notes: A Sleeping Unit wakes up if it takes Damage or other Crowd Control.
 
       Level 5:
       
@@ -282,12 +284,12 @@ Specs:
           Cost: 10 Health
           Effect: |
             You take on the shape or a being from your patron's plane until the end of your next turn.
-            You have +2 Defense, +2 Main Stat, and your Generic Spells require no mana to cast.
-            After you cast a Generic Spell for free, it goes on a Long Rest Cooldown.
+            You have +2 Defense, +2 Main Stat, and your Basic Spells require no mana to cast.
+            After you cast a Basic Spell for free, it goes on a Once / Adventure.
         
         <Dual Summonation>:         # Makes up for it in 3 turns-ish; 4th turn is definitely worth it; 5th is already bonkers
           A: Half-Action
-          Cooldown: Long Rest
+          Cooldown: Once / Adventure
           Effect: |
             Summon 2 Dual-Imps at any spaces within 6 meters and choose a target.
             These 2 imps will cast Chase Bolt and chase their target to death. Otherwise, they don't move from their spot.
@@ -302,13 +304,13 @@ Specs:
         <Patron Avatar>:            # 2 turns = 2 Charges
           A: 0 Actions
           Cost: 1 Mana
-          Cooldown: Long Rest
+          Cooldown: Once / Adventure
           Range: 6 meters
           Effect: |
             You summon an Avatar of your patron.
             While the Avatar is summoned, you can't move, except with teleportation Spells.
             You and the Avatar share Actions and you must use at least a Half-Action with it every turn, otherwise it becomes unsummoned.
-            The Avatar can't take damage or be directly Crowd Controlled, but all Crowd Control you would take is redirected to it.
+            The Avatar can't take Damage or be directly Crowd Controlled, but all Crowd Control you would take is redirected to it.
             See the Avatar's Stats and Abilities in the Pets sections.
             Lasts up to 1 minute or until you are Stunned, Silenced, put to Sleep, etc or physically moved from place.
           Notes: You can cancel the summon at any point on your turn. The Avatar also ends if it goes more than 30 meters away from you.
@@ -332,7 +334,7 @@ Specs:
 # Lorem ipsum snitel dolor.
 # 
 # ~Natural Resister~ : Passive
-# Due to your magical instability, you gain 50% resistance to an elemental damage type of your choice.
+# Due to your magical instability, you gain 50% resistance to an elemental Damage type of your choice.
 # (Fire/Cold/Thunder/Force/True/Necrotic)
 # 	
 # ~Chaos Magic~ : 1 Action
@@ -341,15 +343,15 @@ Specs:
 # 1. Aftermath
 # Heal the closest 2 other allies for 4 Health.
 # 2. Blast Burst
-# You and all creatures directly around you take 3d6 Fire damage.
+# You and all creatures directly around you take 3d6 Fire Damage.
 # 3. Chaos Bolt
-# Make a spell attack against a target. If it hits, deals 3d6 + 6 Thunder/Fire/Cold damage (you choose).
+# Make a spell attack against a target. If it hits, deals 3d6 + 6 Thunder/Fire/Cold Damage (you choose).
 # 4. Deafening Rend
 # All creatures in front of you in a 4 meter line make a Sense Check.
 # If they fail, they are Silenced.
 # 5. Eldritch Incantation
 # An enemy makes a Check. You choose what stat it uses for the Check.
-# If it fails, it takes 6 damage, it is pushed up to 3 meters in any direction you choose and it is Crippled.
+# If it fails, it takes 6 Damage, it is pushed up to 3 meters in any direction you choose and it is Crippled.
 # 6. A creature you choose makes an Intelligence Check. If it fails, it is Paralyzed for 1 minute.
 # 
 # ~Controlled Magic~ : Reaction
@@ -359,7 +361,7 @@ Specs:
 # 	At Level 1:
 # <Drain Soul> : 1 Action
 # Choose a target within 3 meters.
-# Deal 3 Necrotic damage to that target.
+# Deal 3 Necrotic Damage to that target.
 # If it dies until the start of your next turn, you gain 1 Charge.
 # 
 # <Tribute of Power> : Passive
@@ -375,10 +377,8 @@ Specs:
 
 #PageEnd#
 
-# 	// chaos 3 orbs mechanic
 # 	// Talent: Soul drain - gives you a charge if the target dies
 # 	// Some abilities are not considered spells
-# 	// Talent: spell book, duh
 # 	
 # 		Trap			
 # 		Elemental Damage

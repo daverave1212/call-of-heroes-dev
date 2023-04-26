@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 
 import PageH1 from '../../components/PageH1/PageH1'
 import PageH0 from '../../components/PageH0/PageH0'
@@ -12,15 +12,32 @@ import { titleToId } from '../../utils'
 
 
 
-export default function Page({ children, title, subtitle, id }) {
+export default function Page({
+    children,
+    title,
+    subtitle,
+    id,
+
+    isCollapsable,                  // If true, clicking on the title collapses the page
+    isSecondaryPage                 // Default false; if true, it will not update title
+}) {
+
+    isSecondaryPage = isSecondaryPage == null? false : true
 
     const [appState, setAppState] = useContext(AppStateContext)
     const [state, setState] = useState({ isExpanded: true })
 
     const togglePageDisplay = () => {
-        setState({ isExpanded: !state.isExpanded })
-
+        if (isCollapsable != false) {
+            setState({ isExpanded: !state.isExpanded })
+        }
     }
+
+    useEffect(() => {
+        if (! isSecondaryPage) {
+            document.title = title
+        }
+    }, [title])
 
     return (
         <div className={`page ${appState.isSimple? '' : 'page--has-background'}`}>

@@ -232,7 +232,7 @@ export default function CharacterCreationCalculator() {
 
                         <SmallStat name="Spellcasting Type" color="blue">{ classObj.Spellcasting.Type }</SmallStat>
 
-                        <SmallStat name="Counter Check Grade" color="blue">{ parseInt(state[state['Main Stat']]) + 6 }</SmallStat>
+                        <SmallStat name="Spell Grade" color="blue">{ parseInt(state[state['Main Stat']]) + 6 }</SmallStat>
 
                         { classObj.Spellcasting.Type == 'Mana-based' && (
                             <div>
@@ -256,9 +256,9 @@ export default function CharacterCreationCalculator() {
                             </div>
                         )}
 
-                        { classObj.Spellcasting['Known Spells'] != null && (
+                        { classObj.Spellcasting['Known Basic Abilities'] != null && (
                             <div>
-                                <SmallStat name="Known Spells" color="blue">{
+                                <SmallStat name="Known Basic Abilities" color="blue">{
                                     parseInt(classObj.Spellcasting.BaseKnownSpells) + parseInt(state.Intelligence) + parseInt(state.Level) - 1
                                 }</SmallStat>
                                 <i className='stat-notes'>{
@@ -272,8 +272,8 @@ export default function CharacterCreationCalculator() {
                             </div>
                         )}
 
-                        <SmallStatList name="Spell Lists" color="blue">{
-                            classObj['Spellcasting']['Spell Lists'].map(spellCategory => (
+                        <SmallStatList name="Basic Ability Lists" color="blue">{
+                            classObj['Spellcasting']['Basic Ability Lists'].map(spellCategory => (
                                 <div key={spellCategory}>{ spellCategory }</div>
                             ))
                         }</SmallStatList>

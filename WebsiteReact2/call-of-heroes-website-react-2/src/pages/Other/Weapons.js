@@ -14,11 +14,13 @@ export default function Weapons() {
 
     const categories = Object.keys(weapons).filter(name => name != 'default')
 
+    document.title = 'Weapons'
+
     return (
         <div>
 
             { categories.map(categoryName => (
-                <Page key={categoryName}>
+                <Page key={categoryName} isSecondaryPage={true}>
                     <PageH1>{categoryName}</PageH1>
                     <ManyBoxes type='weapon' objects={ U.spellsFromObject(weapons[categoryName]) }/>
                 </Page>

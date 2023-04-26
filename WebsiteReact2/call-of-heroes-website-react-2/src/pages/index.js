@@ -34,10 +34,10 @@ export default function() {
           <p className='home-text-style text-centered'>Join a new tabletop roleplaying game for the modern world, designed with fast-paced combat and an easy-to-understand system. Create your hero, explore dungeons and be the protagonist of your own story!</p>
           <div className='hero-buttons'>
             <img src="/button-separator.png"/>
-            <button className='generic-button'>
+            <button className='Basic-button'>
               <a href="#Home-Advantages">Show Me</a>
             </button>
-            {/* <button className='generic-button'>Back on Kickstarter</button> */}
+            {/* <button className='Basic-button'>Back on Kickstarter</button> */}
             <img src="/button-separator-reversed.png"/>
           </div>
         </div>

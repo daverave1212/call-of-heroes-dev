@@ -16,6 +16,8 @@ export default function Abilities() {
     const physicalAbilities = ['Default Moves', 'Bloodshed', 'Warfare']
     const nonPhysicalSpells = categories.filter(c => physicalAbilities.includes(c) == false)
 
+    document.title = 'Abilities (Basic)'
+
     return (
         <div>
             <SideMenu sections={{
@@ -23,7 +25,7 @@ export default function Abilities() {
                 'Spells': nonPhysicalSpells
             }}/>
             { categories.map(categoryName => (
-                <Page title={categoryName}>
+                <Page title={categoryName} isSecondaryPage={true}>
                     <p>{ spellSchoolDescriptions[categoryName] }</p>
                     <ManySpells spellsObject={abilities[categoryName]}/>
                 </Page>

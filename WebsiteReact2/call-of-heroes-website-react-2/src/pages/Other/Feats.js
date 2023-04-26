@@ -13,13 +13,15 @@ export default function Feats() {
 
     const categories = Object.keys(feats).filter(c => c != 'default')
 
+    document.title = 'Feats'
+
     return (
         <div>
             <SideMenu sections={{
                 'Feats': categories
             }}/>
             { categories.map(categoryName => (
-                <Page title={categoryName}>
+                <Page title={categoryName} isSecondaryPage={true}>
                     <ManySpells spellsObject={feats[categoryName]}/>
                 </Page>
             )) }

@@ -83,7 +83,7 @@ function MegaDropdown({ navState, isBurgerClicked }) {
   })
 
   function maybeActiveClassLS(name) {
-    return navState.currentlyOpenSubnav == name? '' : 'subnav--ls-inactive'
+    return navState.currentlyOpenSubnav == name? 'subnav--ls-active' : 'subnav--ls-inactive'
   }
   function maybeActiveClassPortrait(name) {
     return areExpandedState[name] == false? 'subnav--portrait-inactive' : ''
@@ -173,7 +173,7 @@ function MegaDropdown({ navState, isBurgerClicked }) {
             <LiLink isDownload={true} to="/Download/Sheet-2023-03-24b.pdf">Character Sheet (PDF)</LiLink>
             <LiLink isDownload={true} to="/Download/Sheet-2023-03-24.psd">Character Sheet (PSD)</LiLink>
             <LiLink isDownload={true} to="/Download/Sheet-2023-03-24.png">Character Sheet (PNG)</LiLink>
-            <LiLink to="/Other/Prices">Obstacles</LiLink>
+            <LiLink to="/Other/Obstacles">Obstacles</LiLink>
             <LiLink to="/Other/PetsAndAnimals">Pets and Animals</LiLink>
           </ul>
         </div>
@@ -258,22 +258,21 @@ function MegaDropdown({ navState, isBurgerClicked }) {
 
 export default function Nav({ navState, setNavState, isSimple, setIsSimple }) {
 
-    function NavItem({name, children}) {          // On hover, changes state to display a subnav
-        const onHover = () => {
-          setNavState({currentlyOpenSubnav: name})
-        }
-        return (<div className='nav-item' onMouseEnter={onHover}>{ children }</div>)
-    }
-
     const [isBurgerClicked, setIsBurgerClicked] = useState(false)
 
+    function setCurrentlyOpenSubnav(name) {
+      setNavState({currentlyOpenSubnav: name})
+    }
     function onClickOnBurger() {
-      console.log('Ye')
       setIsBurgerClicked(!isBurgerClicked)
     }
 
+    function NavItem({name, children}) {          // On hover, changes state to display a subnav
+      return (<div className='nav-item' onMouseEnter={() => setCurrentlyOpenSubnav(name) }>{ children }</div>)
+  }
+
     return (
-      <div id="Navigation-Section">
+      <div id="Navigation-Section" onMouseLeave={() => setCurrentlyOpenSubnav(null)}>
           <div className="nav-logo-div">
             <Link to="/"><img src="/favicon.png"/></Link>
           </div>

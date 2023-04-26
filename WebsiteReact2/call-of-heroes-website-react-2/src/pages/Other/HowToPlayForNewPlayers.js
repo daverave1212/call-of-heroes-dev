@@ -17,6 +17,8 @@ import Page from '../../containers/Page/Page'
 
 export default function HowToPlayForNewPlayers() {
 
+    document.title = 'How To Play (For New Players)'
+
     function Section({name}) {
         return (
             <div>
@@ -27,7 +29,7 @@ export default function HowToPlayForNewPlayers() {
     }
     return (
         <div>
-            <Page title="Call of Heroes">
+            <Page title="Call of Heroes" isSecondaryPage={true}>
                 <Section name="What is Call of Heroes?"/>
                 <Section name="How do groups work?"/>
                 <Section name="How is it different from a board game?"/>
@@ -68,7 +70,7 @@ export default function HowToPlayForNewPlayers() {
                 <Section name="Character Creation"/>
             </Page>
 
-            <CharacterCreation/>
+            <CharacterCreation isSecondaryPage={true}/>
 
         </div>
     )

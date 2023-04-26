@@ -231,8 +231,8 @@ export function SpellCasting({ theClass }) {
                 </p>
                 <PageH3>Changing Spells</PageH3>
                 <p>
-                    You can change your known Spells (not Talents) when taking a Long Rest.<br/>
-                    Talents can't generally be changed once picked; they are permenant decisions.
+                    You can change your known Basic Abilities and Talents when taking a Long Rest.<br/>
+                    Feats can't generally be changed once picked; they are permenant decisions.
                 </p>
                 <p>
                 { theClass.Spellcasting.Other }
@@ -263,8 +263,8 @@ export function SpellCasting({ theClass }) {
                     If you want to use Mana inbetween encounters, you spend Mana normally and, as specified, it replenishes 10 minutes after the next combat encounter (so, yes, you <b>must</b> do a combat encounter in order to restore your mana; such is the nature of Warlocks).
                     <br/><br/>
                     <PageH3>Changing Spells</PageH3>
-                    You can change your known Spells (not Talents) when taking a Long Rest.<br/>
-                    Talents can't generally be changed once picked; they are permenant decisions.
+                    You can change your known Basic Abilities and Talents when taking a Long Rest.<br/>
+                    Feats can't generally be changed once picked; they are permenant decisions.
                     { theClass.Spellcasting.Other }
                 </p>
             </div>
@@ -283,29 +283,29 @@ export function SpellCasting({ theClass }) {
                             <SmallStat name="Spellcasting Style" color="blue">{ theClass['Spellcasting']['Type'] }</SmallStat>
                         ) }
                         { theClass['Spellcasting']['Mana'] != null && (
-                            <SmallStat name="Mana" color="blue">{ theClass['Spellcasting']['Mana']['Amount'] } <Icon name="Mana"/></SmallStat>
+                            <SmallStat name="Mana" color="blue">{ theClass['Spellcasting']['Mana']['Amount'] }<Icon name="Mana"/></SmallStat>
                         ) }
                         { theClass['Spellcasting']['Insight'] != null && (
                             <SmallStat name="Insight" color="blue">{ theClass['Spellcasting']['Insight'] } <Icon name="Insight"/></SmallStat>
                         ) }
                         <SmallStat name="Main Stat" color="blue">{ theClass['Spellcasting']['Main Stat'] }</SmallStat>
-                        <SmallStat name="Spell Grade" color="blue">{ theClass['Spellcasting']['Counter Check Grade'] }</SmallStat>
+                        <SmallStat name="Spell Grade" color="blue">{ theClass['Spellcasting']['Spell Grade'] }</SmallStat>
                     </div>
                     
-                    <PageH3>Known Spells</PageH3>
+                    <PageH3>Known Basic Abilities</PageH3>
                     <div className='with-margined-children'>
                         {
-                            theClass['Spellcasting']['Known Spells'] != null && (
-                                <SmallStat name="Known Spells (from Spell Lists)" topDown={true} color="blue">
-                                    { theClass['Spellcasting']['Known Spells'] }
+                            theClass['Spellcasting']['Known Basic Abilities'] != null && (
+                                <SmallStat name="Known Abilities (from Basic Ability Lists)" topDown={true} color="blue">
+                                    { theClass['Spellcasting']['Known Basic Abilities'] }
                                 </SmallStat>
                             )
                         }
                     </div>
-                    <PageH3>Spell Lists</PageH3>
-                    <SmallStatList name="Spell Lists" color="blue">
+                    <PageH3>Basic Ability Lists</PageH3>
+                    <SmallStatList name="Basic Ability Lists" color="blue">
                         {
-                            theClass['Spellcasting']['Spell Lists'].map(spellCategory => (
+                            theClass['Spellcasting']['Basic Ability Lists'].map(spellCategory => (
                                 <div key={spellCategory}>{ spellCategory }</div>
                             ))
                         }
@@ -338,7 +338,7 @@ export function PHealthAndArmor({ theClass }) {
             <p>Note that you do <b>not</b> add your Might to your Health every level!</p>
             <p>Feel free to spend any amount of Gold to buy items from the Items list (see Items).</p>
             <ManySmallStats name="Starting Equipment" color="rgb(23, 80, 0)" topDown={true} texts={[
-                'You start with 600 gold that you can spend on any items in the shop. You have a 50% discount on armors.'
+                'You start with 500 gold that you can spend on any items in the shop (see Prices page). You have a 50% discount on armors and weapons you would buy with this starting gold.'
             ]}/>
         </div>
     )
@@ -346,7 +346,7 @@ export function PHealthAndArmor({ theClass }) {
 
 export function Spec({ children, name, spec }) {
     return (
-        <Page title={name} key={name}>
+        <Page title={name} key={name} isSecondaryPage={true}>
             <p>{spec.Description}</p>
 
             <PageH3>You start with...</PageH3>

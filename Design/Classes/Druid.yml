@@ -20,18 +20,18 @@ Spellcasting:
   Type: Mana-based
     
   Main Stat: Sense
-  Counter Check Grade: 6 + (Main Stat)
-  Change: You can change your known Spells (not Talents) when taking a Long Rest.
+  Spell Grade: 6 + (Main Stat)
+  Change: You can change your known Spells and Talents inbetween Adventures.
   Other: All Druid-specific abilities are considered spells (unless stated otherwise).
   
   Mana:
     Amount: 2
-    Regain: You regain all Mana back when you Long Rest.
+    Regain: You regain all Mana back inbetween Adventures.
   
-  Known Spells: 2 + Intelligence
+  Known Basic Abilities: 2 + Intelligence
   BaseKnownSpells: 2
   
-  Spell Lists:
+  Basic Ability Lists:
     - Nature
     - Mysticism
     
@@ -45,7 +45,7 @@ Starting Abilities Description:
     - Shapeshift: |
         As a Druid, you can tranform into various animals, both in combat and outside of combat.
         The Shapeshift Spell provides an infinite amount of options to help out your party in any situation!
-        You can choose any animal from the Animals list to Shapeshift into, as long as it's not Exotic or non-standard. Each Animal allows you to use its special Ability once per Long Rest. You are still only allowed to use that Ability once per Long Rest, even if you Shapeshift into that animal twice (the cooldown stays the same).
+        You can choose any animal from the Animals list to Shapeshift into, as long as it's not Exotic or non-standard. Each Animal allows you to use its special Ability once per Adventure. You are still only allowed to use that Ability once per Adventure, even if you Shapeshift into that animal twice (the cooldown stays the same).
         Other Druid Talents might allow you to Shapeshift into more unusual beasts.
         Shapeshift is considered a Spell.
         {Separator}
@@ -67,7 +67,7 @@ Starting Abilities:
 
   ~Shapeshift~:            # Ok, 0.75
     A: 1 Action
-    Cooldown: 2 times / Long Rest (see effect)
+    Cooldown: 2 times / Adventure (see effect)
     Effect: |
       Pick an animal from the Pets and Animals list and instantly transform into it.
       As soon as you Shapeshift, you can perform an Animal Attack!
@@ -78,10 +78,10 @@ Starting Abilities:
       
       Shapeshift ends if you drop to 0 Health, and you Fall.
     Upgrade: |
-      At first, you can't fly, even if your animal can. If your animal can fly, you have Proficiency in Jumping and you can glide (you don't take falling damage).
-      From Level 3, you can use this 3 times per Long Rest.
-      From Level 6, you can use this 4 times per Long Rest and you can fly.
-      From Level 9, you can use this 5 times per Long Rest.
+      At first, you can't fly, even if your animal can. If your animal can fly, you have Proficiency in Jumping and you can glide (you don't take falling Damage).
+      From Level 3, you can use this 3 times per Adventure.
+      From Level 6, you can use this 4 times per Adventure and you can fly.
+      From Level 9, you can use this 5 times per Adventure.
     Notes: |
       You can't make attacks with ranged weapons while Shapeshifted (obviously).
       You choose what items you keep on you when Shapeshifting, and those items are 'merged' into your new form.
@@ -126,6 +126,10 @@ Specs:
 # Talent: You have a giant bird mount
 # Talent: Summon many wisps
 # Talent: Cast spells while shapeshifted
+# Talent: Spapeshift partially - gain the abilities
+# Talent: DAy/Night cycle shapeshift
+# Talent: Spirit form?
+# Talent: Treant form
 
 
 # Cripple + Silence
@@ -135,7 +139,7 @@ Specs:
 # Pet
 
 # Healing       (Talents 4)
-# AoE damage + CC
+# AoE Damage + CC
 # AoE CC + Damage
 
   Coven of the Old Ways:        # 1.75
@@ -168,8 +172,8 @@ Specs:
         Cooldown: Day/Night (see below)
         Effect: |
           A target within 6 meters makes a Sense Check.
-          If it fails, it takes 1d6 + Main Stat Fire Damage and is Crippled (if day) or True damage and is Silenced (if night).
-          It takes half of that damage if it passes.
+          If it fails, it takes 1d6 + Main Stat Fire Damage and is Crippled (if day) or True Damage and is Silenced (if night).
+          It takes half of that Damage if it passes.
           If you use this at night, you can't use it until day, and vice versa.
         Notes: Ignores Cover.
 
@@ -178,7 +182,7 @@ Specs:
       
         <Old Ritualist> :       # 1
           A: 10 minutes
-          Cooldown: Long Rest
+          Cooldown: Once / Adventure
           Effect: |
             Regain up to 3 Mana.
             The Old Ritual must be performed outdoors, in a safe, uncorrupted place untouched by regular folk.
@@ -189,8 +193,8 @@ Specs:
         <Improved Moonsun Fire>:    # 1?
           A: Passive
           Effect: |
-            If day, Moonsun Fire also burns the target for 10% of its total Health as Fire damage.
-            If night, Moonsun Fire heals a target you choose within 6 meters for the same damage dealt.
+            If day, Moonsun Fire also burns the target for 10% of its total Health as Fire Damage.
+            If night, Moonsun Fire heals a target you choose within 6 meters for the same Damage dealt.
         
         <Lycanthropy> :         # 0.5
           A: Passive
@@ -199,8 +203,9 @@ Specs:
             
         <Druid Animal Companion> :  # 1
           A: Passive
+          Cost: -1 Maximum Mana and -5 Maximum Health
           Effect: |
-            You have an animal pet that can fight alongside you, your Mana pool is permanently decreased by 1, and your total Health by 5.
+            You have an animal pet that can fight alongside you, but your Mana pool is permanently decreased by 1, and your total Health by 5.
             Your animal has stats depending on its species. Check out the Pets and Animals page to see its stats!
             Your pet takes its turn at the same time as you do, and always has the same initiative as yours.
             Your pet has 1 Action per turn, which it can use to do its own Abilities.
@@ -224,7 +229,7 @@ Specs:
       
         <Regrowth>:
           A: 1 Action
-          Cooldown: Long Rest
+          Cooldown: Once / Adventure
           Effect: Heal a Unit within 6 meters for 1d8 for each 10 Health it is missing.
           
         <Sunrise/Moonfall>:
@@ -265,7 +270,7 @@ Specs:
         Notes: |
           For example, you could transform into a combination of Bird of Prey and Bear, resulting in a kind of Owlbear, with a lot of health and a lot of Defense! Be creative!
           The animal size is either the larger or the smaller of the two - your choice.
-          Even if you Shapeshift into 2 combinations of a same animal, the cooldown of that animal's Ability persists (e.g. you can't use Bear's Maul twice per Long Rest, no matter what animal combination you transform into).
+          Even if you Shapeshift into 2 combinations of a same animal, the cooldown of that animal's Ability persists (e.g. you can't use Bear's Maul twice per Adventure, no matter what animal combination you transform into).
 
     Talents:
       Level 3:
@@ -276,16 +281,16 @@ Specs:
             The Pixie has 10 Defense, 1 HP, 5 Movement Speed.
             It takes its turn at the same time as you and it has a Half-Action on its turn.
             It can't attack with weapons, but it can use scrolls and potions.
-            Every Long Rest, you can teach it one Spell that costs a Half-Action from any Spell List and it can cast it once for a Half-Action until the next Long Rest (ignoring the Cost).
+            At the start of each Adventure, you can teach it one Spell that costs a Half-Action from any Basic Ability List and it can cast it once for a Half-Action until the next Adventure (ignoring the Cost).
             If the Pixie goes more than 50 meters away from you, it becomes unsummoned (you can summon it back by channeling for 10 minuets).
             The Pixie has Charisma, Sense and Intelligence equal to yours, but its Dexterity is 0 and its Might is -5.
             Decide with your DM whether you or the DM controls the Pixie roleplay-wise.
             Have fun!
-          Notes: The Pixie can stay in your backpack or pocket if you don't want it to take damage.
+          Notes: The Pixie can stay in your backpack or pocket if you don't want it to take Damage.
 
         <Treesposition>:          # 0.75
           A: 0 Actions or Reaction
-          Cooldown: 2 times / Long Rest
+          Cooldown: 2 times / Adventure
           Effect: |
             Touch a large or larger piece of wood and choose one of the following:
             1. Teleport near another large or larger piece of wood within 5 meters.
@@ -312,20 +317,20 @@ Specs:
             A: 0 Actions
             Cost: 1 use of Shapeshift
             Effect: |
-                Passively, you get 2 more uses of Shapeshift per Long Rest.
+                Passively, you get 2 more uses of Shapeshift per Adventure.
                 Choose a willing ally within 6 meters and Shapeshift them into an standard animal of your choice.
                 They have Animal Attack and all of the animal's Abilities.
                 They can cancel it for 0 Actions on their turn.
                 
         <Regrowth>:             # 2+ at 30 missing Health
           A: 1 Action
-          Cooldown: Long Rest
+          Cooldown: Once / Adventure
           Range: 5 meters
           Effect: Heal a Unit for 1d8 for each 10 Health it is missing.
         
         <Beastly Stamina>:
           A: Passive
-          Effect: For each animal, you gain an extra use of their Long Rest Abilities (per Long Rest).
+          Effect: For each animal, you gain an extra use of their Abilities that have a Cooldown of Once / Adventure.
     
 
 # Charges
@@ -338,7 +343,7 @@ Specs:
 # Healing       (Talents 4)
 
 # Talent: Blood Magic also can use for X and Y
-# Talent: Black Charm extra damage
+# Talent: Black Charm extra Damage
 
   Coven of the Wicked:          # 2.5
     Description: |
@@ -355,26 +360,25 @@ Specs:
       ~Eldritch Spells:
         A: Passive
         Effect: |
-            You can also learn Spells from the Eldritch Spell List and you know 3 extra Eldritch Abilities.
+            You can also learn Spells from the Eldritch Basic Ability List.
             If a Spell costs Mana to cast, you can cast it with Blood Magic.
-        Notes: You can change the 3 extra Abilities from the Eldritch Spell List on a Long Rest.
     
       ~Blood Magic~:    # 0.5
         A: 0 Actions
         Cooldown: 1 Turn
         Effect:
-            Choose a Generic Ability. If it costs nothing, take 6 Damage or otherwise take 6 damage for each Mana point it costs.
+            Choose a Basic Ability. If it costs nothing, take 6 Damage or otherwise take 6 Damage for each Mana point it costs.
             Cast that spell regardless of its Cost and Cooldown.
             You can instead spend 6 Health to cast Black Charm.
 
       ~Black Charm~:    # 1.5 but it's ROI
         A: 0.5 Action
         Range: 10 meters
-        Cooldown: Long Rest
+        Cooldown: Once / Adventure
         Effect: |
           Choose a target.
-          At the start of your next turn, it must pass a Sense Check or be Stunned and take 2d8 Psychic damage.
-          If it passes, it takes half of the damage.
+          At the start of your next turn, it must pass a Sense Check or be Stunned and take 2d8 Psychic Damage.
+          If it passes, it takes half of the Damage.
         Notes: Ignores Cover.
 
     Talents:
@@ -396,11 +400,38 @@ Specs:
             Effect: |
                 The pet melee attacks a target.
                 The attack deals 1d6 + 2 Pierce of Slash Damage (your choice).
+      
+      Level 5:
+
+        <Schizophrenic Suggestion>: # Lmao no idea
+          A: 1 Action
+          Cooldown: Once / Adventure
+          Range: 3 meters to edge
+          Effect: |
+            Declare a 6x6 meter area.
+            All Units in that area must pass a Sense Check or instantly make an attack or offensive Ability of its choice, at full strength, on its closest ally.
+          Notes: Monsters can use any of their Abilities that do Damage or Crowd Control, and target them however they want if they are Area Abilities, as long as it hits its closest ally.
+
+        <Blood Curse>:            # 1 Action + 1 Mana is the follow up you'd do, so 2 Mana-ish
+          A: Half-Action
+          Cooldown: Once / Adventure
+          Effect: |
+            Target a Unit.
+            The next time it would take Damage from any source before your next turn, the Damage is doubled (after Defense).
+          Notes: You can only use this on targets that have blood.
+
+        <Wicked Animals>:
+          A: 1 Action
+          Cooldown: Once / Adventure
+          Effect: |
+            Call upon 2 animals, both of which are either Wolves, Giant Spiders or Giant Bats (Birds of Prey).
+            They appear on the edge of the battlefield, from the wilderness, and they fight for you for up to 1 minute.
+          Notes: Both animals must be of the same type.
+
 
 # Feat: Summon a Druid Plant
-# Talent: When you get this talent, choose one more Land Specialty.
+# Talent: When you get this Talent, choose one more Land Specialty.
 # Talent: when you go low health, you go nova and mad with eldritch power (and insane and stuff, purple veins, etc)
-# Talent: all units a unit can see go mad and instantl yattack their closest target (don't lose their turn)
 # Talent: animal type, like dark, idk
 
 # CC Medium + Stats + Zoning
@@ -421,31 +452,35 @@ Specs:
         A: Passive
         Effect: |
           You know 2 more Spells from the Nature spell list.
+          Choose one domain from: Mountains, Forest, Plains, Sea and Desert. Choose one of the Abilities below that is available for your domain:
           When you transform into an animal native to your domain, heal for 1d4 health (the GM has the final word on whether the animal fits your domain).
-          Choose one domain from: Mountains, Forest, Sea and Desert. Choose one of the Abilities below corresponding to your domain:
+        Notes: You are allowed to use the variant animal suggestions for each animal. Of course, some animals can correspond to multiple domains (e.g. bears live both in forests and in mountains).
     
     Abilities:
       ~Raise Wall~ :              # 1
         A: 0 Actions
         Range: 6 meters to margin
-        Cooldown: 2 times / Long Rest
+        Cooldown: 2 times / Adventure
         Effect: |
           You raise a wall of stone, dirt or other such material from the ground, 1x3x2 (1 meter thick, 3 wide, 2 tall).
-          Enemies hit directly by the wall growing from below them take 1d6 Smash damage.
+          Enemies hit directly by the wall growing from below them take 1d6 Smash Damage.
+        Upgrade: For Mountain or Desert domain.
         Notes: |
           You can instantly crumble the wall on your turn by using 0 Actions.
           You can't raise a wall under another wall, but you can cast this Spell twice to grow a wall twice as tall.
         
       ~Wild Roots~:               # 1
         A: 1 Action
-        Cooldown: Long Rest
+        Cooldown: Once / Adventure
         Effect: |
-          Roots spawn from your position (next to you) and travel up to 10 meters.
-          You control how the roots travel (they 'move' like a normal Unit).
-          All Units they pass through take 2d8 Pierce damage and must pass a Dexterity Check or be Rooted.
+          Vines sprawl from a space next to you, and grow 10 meters in any direction on solid surfaces; these vines can curve multiple times as you wish.
+          All Units that touch them take 2d8 Pierce Damage and must pass a Dexterity Check or be Rooted.
+          The vines wither away immediately afterwards.
+        Upgrade: For Forest or Plains domain.
         Notes: |
           The roots can climb walls and over surfaces, using normal movement, but can't jump.
-          Ignores Cover, but be careful with pathing.
+          Ignores Cover. But be careful with pathing.
+          It might be useful to draw the path your vines take.
           
       ~Storm~:                    # 1
         A: 0 Actions
@@ -455,11 +490,13 @@ Specs:
           Creatures inside the sand storm are Blinded and the storm acts as hard terrain.
           On your turn, you can use a Half-Action to move the Storm up to 2 meters in any direction.
           Lasts 1 minute.
+        Upgrade: For Sea or Desert domain.
 
       ~Endurance~:                # 1
         A: Passive
         Effect: |
-          You gain +1 on all Combat Checks and +5 to your maximum Health.
+          You gain +1 on all Resist Checks and +5 to your maximum Health.
+        Upgrade: For Mountain or Plains domain.
 
     Talents:
       Level 3:
@@ -469,9 +506,9 @@ Specs:
         <Innervate> :               # 1
           A: 0 Actions
           Range: 6 meters
-          Cooldown: Long Rest
+          Cooldown: Once / Adventure
           Effect: |
-            Heal an ally for 3 Health and it regains 1 Mana or resets the Cooldown of an Ability.
+            Heal another ally for 3 Health and it regains 1 Mana or resets the Cooldown of an Ability.
           Downside:
             Can not be cast on Druids.
              
@@ -488,21 +525,21 @@ Specs:
       
         <Regrowth>:
           A: 1 Action
-          Cooldown: Long Rest
+          Cooldown: Once / Adventure
           Effect: Heal a Unit within 6 meters for 1d8 for each 10 Health it is missing.
         
         <Dazzling Miasma>:
           A: 1 Action
-          Cooldown: Long Rest
+          Cooldown: Once / Adventure
           Effect: |
             Shoot a tainted gust of spores in a 10x1 meter line from your position.
             It hits the first 2 Units it travels into.
-            If you hit one Unit, it must pass a Might Check or take 4d10 Poison damage (or half of that if it passes).
-            If you hit 2 Units, they must pass a Might Check or be Stunned and take 1d10 Poison damage (or half of that if they pass).
+            If you hit one Unit, it must pass a Might Check or take 4d10 Poison Damage (or half of that if it passes).
+            If you hit 2 Units, they must pass a Might Check or be Stunned and take 1d10 Poison Damage (or half of that if they pass).
         
         <Animate Plants>:       # Easily 2 Charges; first turn is easily 1 Charge
           A: 1 Action
-          Cooldown: Long Rest
+          Cooldown: Once / Adventure
           Effect: |
             Choose 3 plants you can see. They become animated and fight for you.
             The Abilities and stats of the plant depends on what type of plant it is (see the Pets page).

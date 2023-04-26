@@ -13,16 +13,16 @@
     "Spellcasting": {
         "Type": "Special Mana-based",
         "Main Stat": "Choose permanently - Intelligence or Charisma",
-        "Counter Check Grade": "6 + (Main Stat)",
+        "Spell Grade": "6 + (Main Stat)",
         "Mana": {
             "Amount": 2,
             "Regain": "Your Mana reset after every combat."
         },
-        "Change": "You can change your known Spells (not Talents) when taking a Long Rest.",
+        "Change": "You can change your known Spells and Talents inbetween Adventures.",
         "Other": "All Warlock-specific Abilities are considered Spells.",
-        "Known Spells": "4 + Your Intelligence",
+        "Known Basic Abilities": "4 + Your Intelligence",
         "BaseKnownSpells": 4,
-        "Spell Lists": [
+        "Basic Ability Lists": [
             "Elemental",
             "Mysticism",
             "Eldritch"
@@ -32,7 +32,7 @@
         "~Power Tap~": {
             "A": "Depends",
             "Cost": "Depends",
-            "Cooldown": "Long Rest",
+            "Cooldown": "Once / Adventure",
             "Effect": "Cast an ability one of your Allies has (with that ability's Actions and Costs and your modifiers).\nIf it costs Mana, you must spend its Mana.\n",
             "Notes": "Does not work on Passives. The Ability must have 0, a Half-Action or 1 Actions cost."
         }
@@ -42,7 +42,7 @@
             "Spell Casting": "Warlock spell casting is somewhat different from other classes.\nYour Mana regenerates inbetween combat encounters. So, for optimal play, use all your Mana every encounter!\n"
         },
         {
-            "Power Tap": "Try to clone strong Abilities from your teammates that don't take up Mana.\nTalent Abilities are generally stronger than standard Spell List Abilities.\n"
+            "Power Tap": "Try to clone strong Abilities from your teammates that don't take up Mana.\nTalent Abilities are generally stronger than standard Basic Ability List Abilities.\n"
         }
     ],
     "Abilities Description": [
@@ -94,7 +94,7 @@
             "A": "Half-Action",
             "Cost": "1 Mana",
             "Range": "15 meters",
-            "Effect": "Deal 7 Necrotic damage to a creature (directly, ignoring Defense).\nIf it dies, you get the Mana back and heal for 5 Health.\n"
+            "Effect": "Deal 7 Necrotic Damage to a creature (directly, ignoring Defense).\nIf it dies, you get the Mana back and heal for 5 Health.\n"
         }
     },
     "Specializations": {
@@ -110,13 +110,13 @@
             "Starting Abilities": {
                 "~Sentient Weapon~": {
                     "A": "Special",
-                    "Effect": "You have a Hexblade Weapon, inside which your patron's avatar lies, either possessing the weapon, being trapped inside it or using it as a means of communication with you.\nPick any weapon type (e.g. Shortsword, Longbow, Pike, etc), and it becomes your Hexblade Weapon.\nYou can customize your weapon's personality, voice, the way it looks. Talk to your DM about this.\nYou are automatically considered trained in your Hexblade Weapon.\n"
+                    "Effect": "You have a Hexblade Weapon, inside which your patron's avatar lies, either possessing the weapon, being trapped inside it or using it as a means of communication with you.\nPick any weapon type (e.g. Shortsword, Longbow, Pike, etc), and it becomes your Hexblade Weapon.\nYou can customize your weapon's personality, voice, the way it looks. Talk to your GM about this.\nYou are automatically considered Trained in your Hexblade Weapon.\n"
                 },
                 "~Hexblade~": {
                     "A": "Passive",
-                    "Effect": "After you cast an offensive spell, your next attack with your Hexblade Weapon deals +1d6 damage.",
-                    "Upgrade": "The bonus damage becomes 1d8 at Level 5.",
-                    "Notes": "Offensive means that it deals damage or applies hard Crowd Control (anything better than Slow and creating Hard Terrain)."
+                    "Effect": "After you cast an offensive spell, your next Hexblade Weapon attack deals +1d6 Damage.",
+                    "Upgrade": "The bonus Damage becomes 1d8 at Level 5.\nReposess: By spending 1 hour, you can transfer the entity posessing your Hexblade weapon into another weapon. That new weapon becomes your Hexblade Weapon, and the old one is destroyed.\n",
+                    "Notes": "Offensive means that it deals Damage or applies hard Crowd Control (anything better than Slow and creating Hard Terrain)."
                 }
             },
             "Talents": {
@@ -128,12 +128,12 @@
                     },
                     "<Hexstaff>": {
                         "A": "Passive",
-                        "Effect": "Your Hexblade Ability is replaced by Hexstaff:\nAfter you attack with a weapon, your next offensive spell has +1 Counter Check Grade and deals +1d6 damage.\n",
-                        "Upgrade": "The bonus damage becomes 1d8 at Level 5."
+                        "Effect": "Your Hexblade Ability is replaced by Hexstaff:\nAfter you attack with a weapon, your next offensive spell has +1 Spell Grade and deals +1d6 Damage.\n",
+                        "Upgrade": "The bonus Damage becomes 1d8 at Level 5."
                     },
                     "<Doublehex>": {
                         "A": "Passive",
-                        "Effect": "You now have 1 more Hexblade Weapon, of any kind. The same patron or another one is possessing your second weapon.\nAt any time, you can vanish or resummon either weapon.\n"
+                        "Effect": "You now have 1 more Hexblade Weapon, of any kind. The same patron or another one of the same type is possessing your second weapon.\nOnce per turn, for 0 Actions, you can vanish or resummon one of them.\n"
                     }
                 },
                 "Level 5": {
@@ -148,7 +148,7 @@
                     "<Somatic Pulse>": {
                         "A": "Half-Action",
                         "Cost": "1 Mana",
-                        "Effect": "Count the Units within 3 meters of you (except you).\nThey are all attacked for 2d6 + (the number of Units) True damage (against Defense).\n",
+                        "Effect": "Count the Units within 3 meters of you (except you).\nThey are all attacked for 1d6 + (the number of Units) Force Damage (against Defense).\n",
                         "Notes": "E.g. if this affects 2 Units, it deals 3d6. If it affects 3 Units, it deals 4d6. 4 Units - 5d6. And so on."
                     }
                 }
@@ -159,14 +159,14 @@
             "Starting Abilities": {
                 "~Summon Familiar~": {
                     "A": "1 Hour",
-                    "Effect": "You conjure a ritual for 1 hour.\nThe first time you cast this ritual, you summon a familiar which becomes yours.\nYou can choose what your familiar looks like, assuming it is a small creature.\nAlso, choose an element which is bound to it: Fire, Water, Frost, Arcane, Thunder, Earth, Wind, Light or Darkness. That becomes your Familiar's Element.\nYour familiar comes with a name that the GM decides.\nThe familiar doesn't take turns on its own, but at the same time as you.\nOn your turn, your familiar can use its own movement to move, but you must spend your own Actions for it to take actions.\nIf your familiar goes more than 30 meters away from you, it becomes unsummoned.\nIf it dies, it becomes unsummoned.\nYou can always summon it back with this Ability.\nThe stat block for the Familiar is on the Pets and Animals page.\n",
+                    "Effect": "You conjure a ritual for 1 hour.\nThe first time you cast this ritual, you summon a familiar which becomes yours.\nYou can choose what your familiar looks like, assuming it is a small creature.\nAlso, choose an element which is bound to it: Fire, Cold, Shock, Light (True) or Necrotic. That becomes your Familiar's Element.\nYour familiar comes with a name that the GM decides.\nThe familiar doesn't take turns on its own, but at the same time as you.\nOn your turn, your familiar can use its own movement to move, but you must spend your own Actions for it to take actions.\nIf your familiar goes more than 30 meters away from you, it becomes unsummoned.\nIf it dies, it becomes unsummoned.\nYou can always summon it back with this Ability.\nThe stat block for the Familiar is on the Pets and Animals page.\n",
                     "Notes": "You can communicate with your Familiar telepathically.\nThe Familiar can be classified as a demon, undead, celestial, monstrosity, etc (but not beast or humanoid).\n"
                 },
                 "~Familiar Pet Attack~": {
                     "A": "0.5 Actions",
                     "Range": "3 meters",
                     "Cooldown": "1 turn",
-                    "Effect": "The familiar melee attacks a target.\nThe attack deals 1d12 + Main Stat damage (of your pet's elemental type).\n",
+                    "Effect": "The familiar melee attacks a target.\nThe attack deals 1d12 + Main Stat Damage (of your pet's elemental type).\n",
                     "Notes": "The attack is against target's Defense, of course."
                 },
                 "~Familiar Feats~": {
@@ -178,7 +178,7 @@
                 "Level 3": {
                     "<Tongues>": {
                         "A": "Passive",
-                        "Effect": "You speak all Common and Wild languages.\nYou have +1 Counter Check Grade.\n"
+                        "Effect": "You speak all Common and Wild languages.\nYou have +1 Spell Grade.\n"
                     },
                     "<Impmaster>": {
                         "A": "Special",
@@ -186,30 +186,30 @@
                     },
                     "<Dream Walk>": {
                         "A": "Half-Action",
-                        "Cooldown": "Long Rest",
+                        "Cooldown": "Once / Adventure",
                         "Range": "6 meters",
                         "Effect": "A Unit must pass a Sense Check or fall Asleep for 2 turns.\nAlternatively, you can use Dream Walk on an already sleeping target to alter their dreams to your liking.\n",
-                        "Notes": "A Sleeping Unit wakes up if it takes damage or other Crowd Control."
+                        "Notes": "A Sleeping Unit wakes up if it takes Damage or other Crowd Control."
                     }
                 },
                 "Level 5": {
                     "<Patron Aspect>": {
                         "A": "0 Actions",
                         "Cost": "10 Health",
-                        "Effect": "You take on the shape or a being from your patron's plane until the end of your next turn.\nYou have +2 Defense, +2 Main Stat, and your Generic Spells require no mana to cast.\nAfter you cast a Generic Spell for free, it goes on a Long Rest Cooldown.\n"
+                        "Effect": "You take on the shape or a being from your patron's plane until the end of your next turn.\nYou have +2 Defense, +2 Main Stat, and your Basic Spells require no mana to cast.\nAfter you cast a Basic Spell for free, it goes on a Once / Adventure.\n"
                     },
                     "<Dual Summonation>": {
                         "A": "Half-Action",
-                        "Cooldown": "Long Rest",
+                        "Cooldown": "Once / Adventure",
                         "Effect": "Summon 2 Dual-Imps at any spaces within 6 meters and choose a target.\nThese 2 imps will cast Chase Bolt and chase their target to death. Otherwise, they don't move from their spot.\nThey last for 10 minutes or until thet target is defeated or they can't attack it.\nImps take their turn immediately after you.\nSee the Pets section for the Dual-Imp stats.\n",
                         "Notes": "Imps become unsummoned at the start of their turn if the target dies or it becomes untargetable or invisible; Imps will chase around corners, though. Imps don't care about Cover; they attack anyway.\nImps aren't very smart, they don't employ tactics.\n"
                     },
                     "<Patron Avatar>": {
                         "A": "0 Actions",
                         "Cost": "1 Mana",
-                        "Cooldown": "Long Rest",
+                        "Cooldown": "Once / Adventure",
                         "Range": "6 meters",
-                        "Effect": "You summon an Avatar of your patron.\nWhile the Avatar is summoned, you can't move, except with teleportation Spells.\nYou and the Avatar share Actions and you must use at least a Half-Action with it every turn, otherwise it becomes unsummoned.\nThe Avatar can't take damage or be directly Crowd Controlled, but all Crowd Control you would take is redirected to it.\nSee the Avatar's Stats and Abilities in the Pets sections.\nLasts up to 1 minute or until you are Stunned, Silenced, put to Sleep, etc or physically moved from place.\n",
+                        "Effect": "You summon an Avatar of your patron.\nWhile the Avatar is summoned, you can't move, except with teleportation Spells.\nYou and the Avatar share Actions and you must use at least a Half-Action with it every turn, otherwise it becomes unsummoned.\nThe Avatar can't take Damage or be directly Crowd Controlled, but all Crowd Control you would take is redirected to it.\nSee the Avatar's Stats and Abilities in the Pets sections.\nLasts up to 1 minute or until you are Stunned, Silenced, put to Sleep, etc or physically moved from place.\n",
                         "Notes": "You can cancel the summon at any point on your turn. The Avatar also ends if it goes more than 30 meters away from you."
                     }
                 }

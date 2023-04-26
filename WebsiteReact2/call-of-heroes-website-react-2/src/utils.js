@@ -396,6 +396,10 @@ export function range(fromIncluding, toExcluding) {
 export function takeRandomElements(fromArray, numberOfElements) {
     return shuffle([...fromArray]).slice(0, numberOfElements)
 }
+export function capitalizeFirstLetter(str) {
+    const str2 = str.charAt(0).toUpperCase() + str.slice(1)
+    return str2
+}
 
 
 

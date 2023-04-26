@@ -16,12 +16,21 @@ import Icon from '../../components/Icon'
 import Spell from '../../components/Spell/Spell'
 import PageH2 from '../../components/PageH2/PageH2'
 import Page from '../../containers/Page/Page'
+import TableNormal from '../../components/TableNormal/TableNormal'
 
 export default function Proficiencies() {
 
     return (
         <Page title="Proficiencies">
             <ManySpells spellsObject={proficiencies}/>
+            <TableNormal type="info" columns={['Number', 'Proficiency']}>
+                { Object.keys(proficiencies).map((prof, i) => (
+                    <tr key={prof}>
+                        <td>{i}</td>
+                        <td>{prof}</td>
+                    </tr>
+                )) }
+            </TableNormal>
         </Page>
     )
 }

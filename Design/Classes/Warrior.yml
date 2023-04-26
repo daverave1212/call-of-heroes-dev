@@ -23,15 +23,15 @@ Spellcasting:
   Type: Mana-based
 
   Main Stat: Choose permanently - Sense or Charisma
-  Counter Check Grade: 6 + (Main Stat)
+  Spell Grade: 6 + (Main Stat)
   Mana:
     Amount: 3
-    Regain: You regain all Mana back when you Long Rest.
-  Change: You can change your known Spells (not Talents) when taking a Long Rest.
+    Regain: You regain all Mana back inbetween Adventures.
+  Change: You can change your known Spells and Talents inbetween Adventures.
   Other: All Warrior-specific Abilities are not considered Spells (unless stated otherwise).
-  Known Spells: 1 + Your Intelligence
+  Known Basic Abilities: 2 + Your Intelligence
   BaseKnownSpells: 2
-  Spell Lists:
+  Basic Ability Lists:
     - Bloodshed
     - Warfare
 
@@ -41,7 +41,7 @@ Starting Abilities:
     AlignOnWebsite: Left
     A: Reaction
     Effect: |
-      The first time you Flank-Attack an enemy every turn, the attack gains +1d4 damage.
+      The first time you Flank-Attack an enemy every turn, the attack deals 1d6 Damage instead of just +1.
       Also, your attacks Flank an enemy if they are pinned against a wall or an obstacle as well.
     Note: |
       Flanking is when you melee-attack an enemy, and an ally of yours is directly behind the enemy.
@@ -50,7 +50,7 @@ Starting Abilities:
 Starting Abilities Description:
   - Advanced Flank: |
       Warriors are great at using their teammates and the terrain to make flanking attacks!
-      When an enemy is caught directly between you and another ally of yours, that attack counts as a Flank Attack, and it deals +1 damage (normally). Your Advanced Flank adds another 1d4 Damage to the first Flank Attack you make every turn!
+      When an enemy is caught directly between you and another ally of yours, that attack counts as a Flank Attack, and it deals +1 Damage (normally). Your Advanced Flank adds another 1d4 Damage to the first Flank Attack you make every turn!
       This works now if there is a wall or an obstacle directly behind your target, so use the environment to your advantage!
       Note that this only works for melee attacks and on enemies 1 meter away from you (e.g. enemies directly in front of you).
 
@@ -92,7 +92,7 @@ Specs:
         A: Passive
         Effect: |
           Your first attack you make before you move in a turn counts as if it is Flanking, regardless if it would be Flanking normally or not.
-          When an enemy becomes Fleeing by moving away from you, you can make a free attack on them with a 1-Handed Melee Weapon (with your Reaction).
+          When an enemy becomes Fumbling by moving away from you, you can make a free attack on them with a 1-Handed Melee Weapon (with your Reaction).
         Notes: When doing this, you don't need to have the 1-Handed Melee Weapon equipped; you simply use it for the attack (then instantly unequip it and equip what you had previously).
 
       ~Overpower~ :               # Ok
@@ -108,16 +108,16 @@ Specs:
         <Might Over Magic>:     # 1
           A: Passive
           Effect: |
-            Choose an Advanced spell from the Elemental spell list that deals damage.
-            You can cast that spell once per Long Rest.
+            Choose an Advanced spell from the Elemental spell list that deals Damage.
+            You can cast that spell once per Adventure.
             That spell becomes a physical version of itself.
             Instead of using magic to cast that spell, you use your body/weapons/tools.
             Come up with a description of how it works (see notes).
-            The damage of that spell becomes Slash, Smash or Pierce, whichever makes sense.
+            The Damage of that spell becomes Slash, Smash or Pierce, whichever makes sense.
             It is not considered a Spell.
           Notes: |
-            E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce damage).
-            E.g. Frost Nova - you smash the ground with such force that it damages and slows units around you (Smash damage).
+            E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage).
+            E.g. Frost Nova - you smash the ground with such force that it Damages and slows units around you (Smash Damage).
             Be creative!
             
         <Weaponmaster> :          # 1 because it's bonkers on 1H weapons
@@ -125,7 +125,7 @@ Specs:
           Effect: |
             When you get this, choose one weapon type.
             You have that weapon effect too on all weapons you use, exactly as written, no matter what weapon you are using.
-            You can change this weapon type on a Long Rest.
+            You can change this weapon type inbetween Adventures.
           Notes: Pay very close attention to the weapon effect - for example, Katana specifies that you Critical Strike with it when all 3 dice have the same number, so this can only apply to weapons that roll exactly 3 dice. Or, for another example, Slings say that attacks specifically with Slings take 0.33 Actions, so it can not apply to any other weapon!
 
       Level 5:
@@ -135,7 +135,7 @@ Specs:
             Effect: |
                 When combat starts, determine which side is your Allied Side and which is the Enemy Side of the battlefield. Each side has a direction (Allied Direction and Enemy Direction).
                 If you end your turn more to the Allied Direction than you started, you gain 4 Shielding until the start of your next turn.
-                If you end your turn more to the Enemy Direction than you started, your first attack next turn deals 1d6 extra damage.
+                If you end your turn more to the Enemy Direction than you started, your first attack next turn deals 1d6 extra Damage.
                 
         <Glory Run>:        # 2?
             A: Passive
@@ -151,11 +151,11 @@ Specs:
             Range: 10 meters
             Effect: |
                 Throw your weapon at a target and attack it (without Throwing penalties and ignoring Cover).
-                Before applying the damage, the attack destroys all Shielding on the target and removes all buffs on it.
+                Before applying the Damage, the attack destroys all Shielding on the target and removes all buffs on it.
                 The target is unable to trigger "on roll", can't gain Shielding and can't benefit from Buffs until they spend 1 Action to recover.
             Notes: |
                 Your weapon lands at the nearest space to the target (and you should probably pick it up with a Half-Action).
-                "On roll" refers to effects like "if it rolls 10 on a d10, the attack deals 1d10 extra damage".
+                "On roll" refers to effects like "if it rolls 10 on a d10, the attack deals 1d10 extra Damage".
                 Buffs are all effects that improve the target; even passive effects like auras or passive stats from abilities are negated.
                 You don't need Training in Throwning and this attack counts as a regular melee attack.
 
@@ -183,60 +183,61 @@ Specs:
 
 # Healing + AoE CC Medium   (Talents 4)
 
-    Description: Lorem? Ipsum!
-    Starting Abilities:
+    # Description: Lorem? Ipsum!
+    # Starting Abilities:
 
-      ~Solid Defense~ :
-        A: Passive
-        Effect: |
-          Whenever you are attacked (after damage), your Defense is reduced by 1 (if it's more than 0).
-          Every Long Rest, your Defense resets to its base value and is increased by +1 on top of it.
+    #   ~Solid Defense~ :
+    #     A: Passive
+    #     Effect: |
+    #       Whenever you are attacked (after Damage), your Defense is reduced by 1 (if it's more than 0).
+    #       At the start of each Adventure, your Defense resets to its base value and is increased by +1 on top of it.
 
-      ~Defense Up~:
-        A: 0 Actions
-        Cost: 1 Mana
-        Effect: Increase your Defense by 2.
+    #   ~Defense Up~:
+    #     A: 0 Actions
+    #     Cost: 1 Mana
+    #     Effect: Increase your Defense by 2.
 
-      ~Obliterate~ :
-        A: 0 Actions
-        Cost: 1 Mana
-        Cooldown: Once per turn
-        Effect: |
-          Deal bonus damage on top of an attack equal to your current Defense (minimum 0).
-          Reset your Defense.
+    #   ~Obliterate~ :
+    #     A: 0 Actions
+    #     Cost: 1 Mana
+    #     Cooldown: Once per turn
+    #     Effect: |
+    #       Deal bonus Damage on top of an attack equal to your current Defense (minimum 0).
+    #       Reset your Defense.
 
-    Talents:
-      Level 3:
+    # Talents:
+    #   Level 3:
 
-        <Protect the Meek> :    # 1?
-          A: Reaction
-          Cooldown: 2 times / Encounter
-          Effect: When an ally within 3 meters of you is targeted by a ranged attack, you become its target instead.
+    #     <Protect the Meek> :    # 1?
+    #       A: Reaction
+    #       Cooldown: 2 times / Encounter
+    #       Effect: When an ally within 3 meters of you is targeted by a ranged attack, you become its target instead.
+    #       Notes: If this exceeds the attack's range, the attack gains Cover.
 
-        <Bashing Charge> :      # 1
-          A: 1 Action
-          Cooldown: Long Rest
-          Effect: |
-            Move 3 meters in a straight line, then choose a target near you.
-            That target takes 1d8 damage and it must pass a Might Check or be Stunned.
+    #     <Bashing Charge> :      # 1
+    #       A: 1 Action
+    #       Cooldown: Once / Adventure
+    #       Effect: |
+    #         Move 3 meters in a straight line, then choose a target near you.
+    #         That target takes 1d8 Damage and it must pass a Might Check or be Stunned.
 
-        <Weaponmaster> :          # 1 because it's bonkers on 1H weapons
-          A: Passive
-          Effect: |
-            When you get this, choose one weapon type.
-            You have that weapon effect too, no matter what weapon you are using.
-            You can the weapon type you always know on a Long Rest.
+    #     <Weaponmaster> :          # 1 because it's bonkers on 1H weapons
+    #       A: Passive
+    #       Effect: |
+    #         When you get this, choose one weapon type.
+    #         You have that weapon effect too, no matter what weapon you are using.
+    #         You can the weapon type you always know inbetween Adventures.
 
-      Level 5:
+    #   Level 5:
         
-          <Glory Run>:        # 2?
-            A: Passive
-            Effect: |
-                When combat starts, a Glory Point appears behind the furthermost Enemy from you that you can see.
-                If you touch the Glory Point, heal for 20% of your total Health and all Enemies you can see must pass a Charisma Check or be Crippled.
-                The Glory Point then disappears.
-            Notes:
-                The Glory Point is not a physical thing. It's merely a concept (a point).
+    #       <Glory Run>:        # 2?
+    #         A: Passive
+    #         Effect: |
+    #             When combat starts, a Glory Point appears behind the furthermost Enemy from you that you can see.
+    #             If you touch the Glory Point, heal for 20% of your total Health and all Enemies you can see must pass a Charisma Check or be Crippled.
+    #             The Glory Point then disappears.
+    #         Notes:
+    #             The Glory Point is not a physical thing. It's merely a concept (a point).
        
 
 
@@ -248,11 +249,11 @@ Specs:
   
 #	Talents:
 #		Stances
-#		Lower health = more damage
+#		Lower health = more Damage
 #		Permanently increase health by 1 for each enemy killed
 #       Interactions with Flanking
 #       Knock yourself prone to do X
-#       Break any CC and damage yourself
+#       Break any CC and Damage yourself
 
 # Healing
 # Damage
@@ -271,22 +272,22 @@ Specs:
       
       ~Onslaught~ :           # 1 Charge
         A: Passive
-        Effect: Whenever YOU kill a worthy enemy, heal for 1d6.
+        Effect: Whenever YOU kill a worthy enemy, heal for 1d6 Health.
 
       ~Reckless Attack~ :     # Ok
         A: 0 Actions
         Cost: 1 Mana
-        Effect: After you land an attack, you can deal 2d6 damage to you and also add that damage to the attack.
+        Effect: After you land an attack, you can deal 2d6 Damage to you and also add that Damage to the attack.
 
       ~Undying Rage~ :        # Ok
         A: Reaction
         Cost: 1 Mana
-        Effect: Taking damage that would kill you leaves you at 1 Health instead.
+        Effect: Taking Damage that would kill you leaves you at 1 Health instead.
 
       ~Blood Boil~ :          # Ok
         A: 0 Actions
         Cost: 1 Mana
-        Effect: Heal for 2d6 health.
+        Effect: Heal for 2d6 Health.
 
     Talents:
 
@@ -294,33 +295,33 @@ Specs:
 
         <Heartbeat Trance> :        # 1.75-ish
           A: 0 Actions or Reaction
-          Cooldown: Long Rest
+          Cooldown: Once / Adventure
           Effect: |
-            Take 1d6 damage.
+            Take 1d6 Damage.
             Enter a Heart Trance for 1 minute.
-            While in Heart Trance, you take 50% less damage from all non-Physical combat damage (except from your own abilities).
+            While in Heart Trance, you take 50% less Damage from all non-Physical combat Damage (except from your own abilities).
             When Heart Trance ends, heal for 2d6.
-          Notes: You can activate this as a Reaction when you would take damage.
+          Notes: You can activate this as a Reaction when you would take Damage.
 
         <Rage Trance> :             # 2-ish
           A: 0 Actions or Reaction
-          Cooldown: Long rest
+          Cooldown: Once / Adventure
           Effect: |
-            Take 1d6 damage.
-            Until the end of your next turn, you are immune to Stuns, Slows, Roots, Cripples and being knocked Prone.
-            Your attacks while in Rage Trance have an extra +1 damage to all attacks.
+            Take 1d6 Damage.
+            Until the end of your next turn, you are immune to all Crowd Control except Blinded.
+            Your attacks while in Rage Trance have an extra +1 Damage to all attacks.
             When Rage Trance ends, heal for 2d6.
           Notes: You can activate this as a Reaction when you would be Crowd Controlled.
 
         <Battle Trance> :           # 2
           A: 0 Actions or Reaction
-          Cooldown: Long Rest
+          Cooldown: Once / Adventure
           Effect: |
-            Take 1d6 damage.
+            Take 1d6 Damage.
             Enter a Battle Trance that lasts until the end of your next turn.
-            You gain a protective shield around you which absorbs up to Your Might + Your Level physical damage.
+            You gain a protective shield around you which absorbs up to Your Might + Your Level physical Damage.
             When Battle Trance ends, heal for 2d6, and the shield fades.
-          Notes: You can activate this as a Reaction when you would take damage.
+          Notes: You can activate this as a Reaction when you would take Damage.
 
 
       
@@ -328,11 +329,11 @@ Specs:
       
         <Death Mark>:
           A: 0 Actions
-          Cooldown: Long Rest
+          Cooldown: Once / Adventure
           Effect: |
             Mark a Unit you can see.
-            Whenever YOU deal damage to it until your next turn, remember the damage done.
-            At the start of your next turn, the mark bursts and the Unit takes 50% of the damage it has taken in this time period (directly, ignoring Defense).
+            Whenever YOU deal Damage to it until your next turn, remember the Damage done.
+            At the start of your next turn, the mark bursts and the Unit takes 50% of the Damage it has taken in this time period (directly, ignoring Defense).
         
         <Glory Run>:        # 2?
           A: Passive
@@ -346,25 +347,31 @@ Specs:
 
   Marksman:               # 1
   
-# Take 5 damage. Break any stun, snare, slow, trap or fear.
+# Take 5 Damage. Break any stun, snare, slow, trap or fear.
 # Lock in position and keep your Reload states
     Description: Lorem ipsum dolor sit amet.
     Starting Abilities:
     
       ~Marksmanship~ :    # 0.2
         A: Passive
-        Effect: YOU can flank a target from up to 6 meters away (if you, the target and the ally/wall/obstacle are on the same line).
+        Effect: YOU can flank a Unit from up to 6 meters away (if you, the target and the ally/wall/obstacle are on the same line).
         Notes: As usual, that wall/obstacle/ally helping with your flank must right behind the target (meaning allies can't flank an enemy with you being 6 meters away).
 
-      ~Reload~ :          # 0.65 
-        A: Passive
+      ~Quick Reload~:
+        A: 0 Actions
+        Cost: 1 Mana
         Effect: |
-          Once per turn, you get some damage modifiers to your first attack, depending on the current round:
-          Your first regular weapon attack in an encounter deals +1 damage.
-          Your second regular weapon attack in the encounter deals +1d6 damage.
-          Your third regular weapon attack and all upcoming ones in the encounter deal -5 damage.
-          You can spend 1 Mana and 0 Actions to 'reset' this Ability to its original state.
-
+          Reload a weapon that can to be reloaded, with 2 shots.
+        Notes: So, you can make 2 attacks with it before needing to reload it. Even if it's fully loaded, you can load another shot into it, up to 2.
+      
+      ~Load Up~ :          # 0.5~ (ain't great on paper but in reality, it's probably bonkers)
+        A: 0 Actions
+        Cost: 1 Mana
+        Effect: |
+          You 'load up' your weapons.
+          After 'load up', your Advanced Flank deals 1d12 Damage instead of 1d6, but every time you use it, the Damage decreases by one tier (e.g. 1d12, 1d10, 1d8, 1d6, 1d4).
+        Notes: You can't go lower than 1d4.
+          
       ~Point Mark~ :      # 0.15
         A: 0 Actions
         Cooldown: Once / Encounter
@@ -389,7 +396,7 @@ Specs:
   
         <Recoil Shot> :    # 1
           A: 0 Actions
-          Cooldown: 2 times / Long Rest
+          Cooldown: 2 times / Adventure
           Range: 2 meters
           Effect: |
             Dash up to 2 meters away from the target.
@@ -398,10 +405,10 @@ Specs:
 
         <Harpoon> :        # 1
           A: 1 Action
-          Cooldown: Long Rest
+          Cooldown: Once / Adventure
           Range: 6 meters
           Effect: |
-            Make a ranged attack that deals 2d12 + Main Stat damage (against Defense).
+            Make a ranged attack that deals 2d12 + Main Stat Damage (against Defense).
             The target makes a Dexterity Check.
             If it fails, it is pulled to you.
             Otherwise, you are pulled to it.
@@ -420,27 +427,28 @@ Specs:
         <Ground Aim Lock>:          # 2
           A: Passive
           Effect: |
-            Your first attack every turn while Prone deals +1d6 damage.
-            You can go prone for 0 Actions on your turn.
+            On your turn, you can lower yourself on the ground.
+            Your first attack every turn while on the ground like this deals +1d6 Damage.
+            To get up, you must use all of your Movement or a Half-Action.
             
         <Scatterblast>:             # 2
           A: 1 Action
           Range: 20 meters
-          Cooldown: Long Rest
+          Cooldown: Once / Adventure
           Effect: |
-            Make an attack on a target for 3d8 + Main Stat Smash damage.
-            The impact is so powerful that all units within 3 meters of the target take the final damage taken by the target directly, ignoring Defense.
+            Make an attack on a target for 3d8 + Main Stat Smash Damage.
+            The impact is so powerful that all units within 3 meters of the target take the final Damage taken by the target directly, ignoring Defense.
             This attack is affected by your Reload state.
             
         <Crosshair Shot>:           # 2
             A: 1 Action
             Range: 16 meters
-            Cooldown: Long Rest
+            Cooldown: Once / Adventure
             Effect: |
                 Make an attack on a target.
-                For each meter to the target, the attack deals 1d6 Pierce damage, up to 8 meters.
+                For each meter to the target, the attack deals 1d6 Pierce Damage, up to 8 meters.
                 For each meter to the target over 8 meters, deal one less d6.
-            Notes: At exactly 8 meters range, the attack deals 8d6 damage. At 7 and 9 meters, it deals 7d6. At 6 and 10 meters, 6d6. And so on.
+            Notes: At exactly 8 meters range, the attack deals 8d6 Damage. At 7 and 9 meters, it deals 7d6. At 6 and 10 meters, 6d6. And so on.
   
 
 

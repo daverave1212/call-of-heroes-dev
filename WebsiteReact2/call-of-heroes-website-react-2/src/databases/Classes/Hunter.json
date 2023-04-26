@@ -25,16 +25,16 @@
     "Spellcasting": {
         "Type": "Mana-based",
         "Main Stat": "Sense",
-        "Counter Check Grade": "6 + (Main Stat)",
-        "Change": "You can change your known Spells (not Talents) when taking a Long Rest.",
+        "Spell Grade": "6 + (Main Stat)",
+        "Change": "You can change your known Spells and Talents inbetween Adventures.",
         "Other": "All Hunter-specific Abilities are not considered Spells (unless stated otherwise).",
         "Mana": {
             "Amount": 1,
-            "Regain": "You regain all Mana back when you Long Rest."
+            "Regain": "You regain all Mana back inbetween Adventures."
         },
-        "Known Spells": "1 + Intelligence",
+        "Known Basic Abilities": "1 + Intelligence",
         "BaseKnownSpells": 1,
-        "Spell Lists": [
+        "Basic Ability Lists": [
             "Warfare",
             "Nature"
         ]
@@ -45,7 +45,7 @@
             "A": "Passive",
             "Effect": "You have an animal pet that can fight alongside you!\nYour animal has stats depending on its species. Check out the Pets and Animals page to see its stats!\nYour pet takes its turn at the same time as you do, and always has the same initiative as yours.\nYour pet has 1 Action per turn, which it can use to do its own Abilities or Pet Attack.\nYour pet can make normal Checks using using its own Stats.\nYour pet will not stray more than 30 meters away from you in hostile territory.\n",
             "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It has no reserve Health, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.",
-            "Notes": "If your pet raises from being Fallen, it has Pet Exhaustion (is Slowed and deals -2 Damage from all sources).\nTreat your pet like a real companion - give it a name and care for it. If it ever dies, you can spend 2 days looking for another wild animal and taming it to become your new pet.\nIf your pet ever dies, you can spend a Long Rest to get a new pet. If you want to change your Pet and abandon your current one, you can do so on a Long Rest, but the guilt will make you Fleeing for the next 2 Worthy Combat encounters.\n"
+            "Notes": "If your pet raises from being Fallen, it has Pet Exhaustion (is Slowed and deals -2 Damage from all sources).\nTreat your pet like a real companion - give it a name and care for it. If it ever dies, you can spend 2 days looking for another wild animal and taming it to become your new pet.\nIf your pet ever dies, you can spend 8 hours inbetween Adventures to get a new pet. If you want to change your Pet and abandon your current one, you can do so inbetween Adventures, but the guilt will make you Fumbling for the next 2 Worthy Combat encounters.\n"
         },
         "~Pet Attack~": {
             "A": "1 Action (from the pet)",
@@ -55,8 +55,8 @@
         "~Tumble~": {
             "AlignOnWebsite": "Right",
             "A": "Reaction",
-            "Cooldown": "Long Rest",
-            "Effect": "Use when you would take damage.\nRoll 2 meters in any possible direction and reduce the Damage by 5.\n"
+            "Cooldown": "Once / Adventure",
+            "Effect": "Use when you would take Damage.\nRoll 2 meters in any possible direction and reduce the Damage by 5.\n"
         }
     },
     "Starting Abilities Description": [
@@ -64,7 +64,7 @@
             "Animal Companion": "As a Hunter, you always have your trusted Animal Companion with you."
         },
         {
-            "Tumble": "Tumble allows you to dodge-roll to avoid some of the damage from any source.\n"
+            "Tumble": "Tumble allows you to dodge-roll to avoid some of the Damage from any source.\n"
         }
     ],
     "Specializations": {
@@ -81,11 +81,11 @@
             "Starting Abilities": {
                 "~Tracker~": {
                     "A": "Passive",
-                    "Effect": "You gain Proficiency in Tracking, meaning you can add your Level to all Sense checks for tracking a creature and learning about its size, how many of them there are, if it's injured or roughly how far away it is.\nYou always know where North is in non-magical environments.\nYou (and your pets) are unaffected by Hard Terrain.\n"
+                    "Effect": "You gain Proficiency in Tracking, meaning you can add your Level to all Sense checks for tracking a creature and learning about its size, if it's part of a group or pack, if it's injured or roughly how far away it is.\nYou always know where North is in non-magical environments.\nYou and your pets are unaffected by Hard Terrain.\n"
                 },
                 "~Hunter Mark~": {
                     "A": "0 Actions",
-                    "Cooldown": "2 times / Long Rest",
+                    "Cooldown": "2 times / Adventure",
                     "Duration": "10 minutes",
                     "Effect": "Choose and mark a target you can see.\nYour own single target attacks and Abilities against the marked target have the Damage dice increased by 1 tier.\n",
                     "Notes": "Increasing dice by 1 tier means, for example, d6 become d8, or d10 become d12.\nD12's and d20's don't increase.\nYour pets' attacks don't increase.\nA Unit can only have one Hunter Mark on it at a time.\n"
@@ -95,7 +95,7 @@
                 "Level 3": {
                     "<Slay>": {
                         "A": "Passive",
-                        "Effect": "You always know the type of a monster.\nYou gain a different bonus when fighting an enemy of a certain type:\nMonstrosities: Attacks against Monstrosities ignore half of the Defense.\nBeasts: You have +1 Defense and +1 to all Combat Checks against Beasts.\nFiends: Your attacks against Fiends ignore damage resistances (but not immunities).\nUndead: You have +2 Counter Check Grade against Undead.\n"
+                        "Effect": "You always know the type of a monster.\nYou gain a different bonus when fighting an enemy of a certain type:\nMonstrosities: Attacks against Monstrosities ignore half of the Defense.\nBeasts: You have +1 Defense and +1 to all Resist Checks against Beasts.\nFiends: Your attacks against Fiends ignore Damage resistances (but not immunities).\nUndead: You have +2 Spell Grade against Undead.\n"
                     },
                     "<Flare Shot>": {
                         "A": "Reaction or 0 Actions",
@@ -108,24 +108,24 @@
                     "<Crosshair Shot>": {
                         "A": "1 Action",
                         "Range": "14 meters",
-                        "Cooldown": "Long Rest",
-                        "Effect": "Make an attack on a target.\nFor each meter to the target, the attack deals 1d6 Pierce damage, up to 7 meters.\nFor each meter to the target over 7 meters, deal one less d6.\n",
-                        "Notes": "At exactly 7 meters range, the attack deals 7d6 damage. At 6 and 8 meters, it deals 6d6. At 4 and 9 meters, 5d6. And so on."
+                        "Cooldown": "Once / Adventure",
+                        "Effect": "Make an attack on a target.\nFor each meter to the target, the attack deals 1d6 Pierce Damage, up to 7 meters.\nFor each meter to the target over 7 meters, deal one less d6.\n",
+                        "Notes": "At exactly 7 meters range, the attack deals 7d6 Damage. At 6 and 8 meters, it deals 6d6. At 4 and 9 meters, 5d6. And so on."
                     },
                     "<Running Mark>": {
                         "A": "Passive",
-                        "Effect": "You can use Tumble one more time per Long Rest.\nImmediately after you Tumble, you can freely use Hunter Mark, ignoring its Cooldown.\n"
+                        "Effect": "You can use Tumble one more time per Adventure.\nImmediately after you Tumble, you can freely use Hunter Mark, ignoring its Cooldown.\n"
                     },
                     "<Tremor Wave>": {
                         "A": "1 Action",
                         "Range": "10 meters",
-                        "Cooldown": "Long Rest",
-                        "Effect": "Shoot a thundering shot towards an obstacle or wall. A quaking wave travels horizontally towards in both directions of the wall up to 10 meters in each direction.\nAll Units within 2 meters of that wall must pass a Might Check or be Stunned and take 3d4 Shock damage.\nThey take half the damage and are Slowed if they pass.\n",
+                        "Cooldown": "Once / Adventure",
+                        "Effect": "Shoot a thundering shot towards an obstacle or wall. A quaking wave travels horizontally towards in both directions of the wall up to 10 meters in each direction.\nAll Units within 2 meters of that wall must pass a Might Check or be Stunned and take 3d4 Shock Damage.\nThey take half the Damage and are Slowed if they pass.\n",
                         "Notes": "The floor and ceiling are not considered a wall. The wave does not travel through them. This is considered a Spell. Ignores Cover."
                     },
                     "<Improved Slay>": {
                         "A": "Passive",
-                        "Effect": "Your Slay bonuses against enemies improve and are now the following:\nMonstrosities: Attacks against Monstrosities ignore 75% of the Defense.\nBeasts: You have +2 Defense and +2 to all Combat Checks against Beasts.\nFiends: Your attacks against Fiends ignore damage resistances and immunities.\nUndead: You have +3 Counter Check Grade against Undead.\n"
+                        "Effect": "Your Slay bonuses against enemies improve and are now the following:\nMonstrosities: Attacks against Monstrosities ignore 75% of the Defense.\nBeasts: You have +2 Defense and +2 to all Resist Checks against Beasts.\nFiends: Your attacks against Fiends ignore Damage resistances and immunities.\nUndead: You have +3 Spell Grade against Undead.\n"
                     }
                 }
             }
@@ -135,15 +135,15 @@
             "Starting Abilities": {
                 "~Warden~": {
                     "A": "Passive",
-                    "Effect": "When you become a Warden, choose a Spell List from Bloodshed, Elemental, Divine, and Arcane.\nYou now have access to that Spell List as well, permanently (this can not be changed).\nYou have 1 extra special Warden Mana that you can only spend on Abilities from that chosen List and on Quick Magic.\nAlso, you can Know a number of extra Abilities equal to your Intelligence (at least 1).\n",
+                    "Effect": "When you become a Warden, choose a Basic Ability List from Bloodshed, Elemental, Divine, and Arcane.\nYou now have access to that Basic Ability List as well, permanently (this can not be changed).\nYou have 1 extra special Warden Mana that you can only spend on Abilities from that chosen List and on Quick Magic.\nAlso, you can Know a number of extra Abilities equal to your Intelligence (at least 1).\n",
                     "Upgrade": "At Level 3 you gain 1 extra Warden Mana, and again at Levels 6 and 9.\n",
-                    "Notes": "Warden Mana replenishes on Long Rests."
+                    "Notes": "Warden Mana replenishes inbetween Adventures."
                 },
                 "~Quick Magic~": {
                     "A": "0 Actions",
                     "Cost": "1 or more Mana",
                     "Cooldown": "Once per Turn",
-                    "Effect": "Spend any amount of Mana.\nChoose one of the following effects, then apply the exact same effect for each Mana spent:\n- Instantly deal 1d4 Fire, Frost or Shock damage to a target, and permanently reduce its Defense by 1 (3 meter range).\n- Instantly heal a target for 1d4 (3 meter range).\n- Instantly dash 3 meters, ignoring Fleeing, and going through enemies and small obstacles or medium gaps.\n",
+                    "Effect": "Spend any amount of Mana.\nChoose one of the following effects, then apply the exact same effect for each Mana spent:\n- Instantly deal 1d4 Fire, Frost or Shock Damage to a target, and permanently reduce its Defense by 1 (3 meter range).\n- Instantly heal a target for 1d4 (3 meter range).\n- Instantly dash 3 meters, ignoring Fumbling, and going through enemies and small obstacles or medium gaps.\n",
                     "Notes": "The Damage ignores Cover."
                 }
             },
@@ -151,9 +151,9 @@
                 "Level 3": {
                     "<Watcher Form>": {
                         "A": "0 Actions",
-                        "Cooldown": "Long Rest",
+                        "Cooldown": "Once / Adventure",
                         "Duration": "1 minute",
-                        "Effect": "You take on a special form, called a Watcher Form.\nWhile in this form, your first Attack deals +2d4 extra Damage once per turn, you gain +2 Counter Check Grade and +2 to all Combat Checks.\nAlso, when you cast a Spell (before you do; excluding this), you can instantly dash 3 meters, ignoring attacks of oportunity, and going through enemies and small obstacles or medium gaps.\n",
+                        "Effect": "You take on a special form, called a Watcher Form.\nWhile in this form, your first Attack deals +2d4 extra Damage once per turn, you gain +2 Spell Grade and +2 to all Resist Checks.\nAlso, when you cast a Spell (before you do; excluding this), you can instantly dash 3 meters, ignoring attacks of oportunity, and going through enemies and small obstacles or medium gaps.\n",
                         "Notes": "Your body becomes engulfed in a magical aura (you choose its color), your eyes glow, and you can gain other aesthetics-only body transformations (customize it with your DM)."
                     },
                     "<Combo Set>": {
@@ -164,34 +164,34 @@
                     "<Quickfire (Hunter)>": {
                         "IsSubspell": true,
                         "A": "0 Actions",
-                        "Cooldown": "Long Rest",
-                        "Effect": "Perform an attack with a 1-Handed weapon (for 0 Actions).\nThis attack ignores Cover and has no pentaly if you're Blinded or Fleeing.\nThis attack can be used in melee range without penalty if it's a ranged weapon.            \n"
+                        "Cooldown": "Once / Adventure",
+                        "Effect": "Perform an attack with a 1-Handed weapon (for 0 Actions).\nThis attack ignores Cover and has no pentaly if you're Blinded or Fumbling.\nThis attack can be used in melee range without penalty if it's a ranged weapon.            \n"
                     },
                     "<Parry>": {
                         "IsSubspell": true,
                         "A": "Reaction",
-                        "Cooldown": "Long Rest",
-                        "Effect": "When a Unit declares a melee attack with a weapon on you (before you see the roll), you can block this attack and it deals 0 damage."
+                        "Cooldown": "Once / Adventure",
+                        "Effect": "When a Unit declares a melee attack with a weapon on you (before you see the roll), you can block this attack and it deals 0 Damage."
                     },
                     "<Tumblestrike>": {
                         "IsSubspell": true,
                         "A": "Passive",
-                        "Effect": "After you Tumble or Parry, your next Attack has the dice tiers increased.",
-                        "Notes": "For example, instead of 2d6, an attack would be 2d8.\nD12's and d20's don't increase; they stay d12 and d20.\nThis only affects Attacks. If an Ability tells you to Attack, then it applies.\nFor example, Quick Magic is not an attack.\n"
+                        "Effect": "After you Tumble or Parry, your next weapon Attack or single target Ability has the dice tiers increased.",
+                        "Notes": "For example, instead of 2d6, an attack would be 2d8.\nD12's and d20's don't increase; they stay d12 and d20.\n"
                     }
                 },
                 "Level 5": {
                     "<Warden Corral>": {
                         "A": "0 Actions",
                         "Range": "10 meters to edge",
-                        "Cooldown": "Long Rest",
+                        "Cooldown": "Once / Adventure",
                         "Effect": "Declare a 6x6 meter zone and it becomes engulfed in a special magical aura.\nAll Units have their Defense quartered (25%) while in that zone.\nThe zone lasts until the start of your next turn.\n",
                         "Notes": "Rounded down (e.g. 3 becomes 0, 5 becomes 1)."
                     },
                     "<Wind Wall>": {
                         "A": "Reaction (or 0 Actions)",
                         "Range": "6 meters to an end",
-                        "Cooldown": "Long Rest",
+                        "Cooldown": "Once / Adventure",
                         "Effect": "Use when an enemy or enemy group declares an attack.\nCreate a 4x4 meter wall of powerful Wind that destroys all projectiles.\nIt can't be passed through from the direction it is facing towards.\nLasts for 1 minute.\n",
                         "Notes": "The wall pushes objects or willing Units away from it and can be used as a platform.\nIf you decide to place it horizontally, it acts as Hard Terrain.\n"
                     }
@@ -209,7 +209,7 @@
                 "~Stablemaster~": {
                     "A": "Passive",
                     "Effect": "You have 3 different Animal Companion pets, but only one can adventure with you at a time.\nWhile not with you, your other Animal Companions hang out on their own in the wilderness, but no more than 5 kilometers away from you.\nYou can send your current companion off, then spend 30 minutes to telepathically call another one to come join you.\n",
-                    "Notes": "The advantage is you can use several animal Abilities that have Long Rest cooldown.\nIt is possible that the animal you're calling can't come to your aid if you're indoors, flying or the trail you're on is too difficult. In that case, you will have to return outside or on a safe trail (GM's decision).\nIn that case, your current companion can not go away, either.\n"
+                    "Notes": "The advantage is you can use several animal Abilities that have longer Cooldowns; these are usually stronger.\nIt is possible that the animal you're calling can't come to your aid if you're indoors, flying or the trail you're on is too difficult. In that case, you will have to return outside or on a safe trail (GM's decision).\nIn that case, your current companion can not go away, either.\n"
                 }
             },
             "Talents": {
@@ -232,8 +232,8 @@
                 "Level 5": {
                     "<Ravage!>": {
                         "A": "1 Action",
-                        "Cooldown": "Long Rest",
-                        "Effect": "One pet makes a melee Attack for 3d6 + 4 Slash Damage.\nIf the target is at or below 50% Health, deal 2d6 extra damage and the target halves all healing it receives for the rest of the encounter.\n",
+                        "Cooldown": "Once / Adventure",
+                        "Effect": "One pet makes a melee Attack for 3d6 + 4 Slash Damage.\nIf the target is at or below 50% Health, deal 2d6 extra Damage and the target halves all healing it receives for the rest of the encounter.\n",
                         "Notes": "This takes 1 Action from YOU, not your pet."
                     },
                     "<Sickem>": {

@@ -67,8 +67,8 @@ export default function RunePuzzle() {
         <Page>
             <br/><br/><br/><br/>
             <h3>Difficulty</h3>
-            <input className='generic-button' value={inputValue} onChange={(evt) => setInputValue(evt.target.value)}/>
-            <button className='generic-button' onClick={generate}>Go</button>
+            <input className='Basic-button' value={inputValue} onChange={(evt) => setInputValue(evt.target.value)}/>
+            <button className='Basic-button' onClick={generate}>Go</button>
 
             <br/><br/><br/><br/>
             <h2>Correct Sequence</h2>

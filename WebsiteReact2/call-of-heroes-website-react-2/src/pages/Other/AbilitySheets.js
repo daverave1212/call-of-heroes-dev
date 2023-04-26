@@ -18,7 +18,7 @@ import TwoColumnsDescriptive from '../../components/TwoColumns/TwoColumnsDescrip
 import Column from '../../components/TwoColumns/Column'
 
 
-import genericAbilities from '../../databases/Abilities.json'
+import BasicAbilities from '../../databases/Abilities.json'
 import feats from '../../databases/Feats.json'
 import classAndRaceAbilities from '../../databases/ClassAndRaceAbilities.json'
 
@@ -27,10 +27,12 @@ import PageH0 from '../../components/PageH0/PageH0'
 
 export default function AbilitySheets() {
 
-    const allGenericAbilities = U.getAllSpellsFromCategoriesObject(genericAbilities)
+    document.title = 'Ability Sheet Maker'
+
+    const allBasicAbilities = U.getAllSpellsFromCategoriesObject(BasicAbilities)
     const allFeats = U.getAllSpellsFromCategoriesObject(feats)
     const allClassAndRaceAbilities = U.spellsFromObject(classAndRaceAbilities)
-    const allAvailableSpells = [...allGenericAbilities, ...allFeats, ...allClassAndRaceAbilities]
+    const allAvailableSpells = [...allBasicAbilities, ...allFeats, ...allClassAndRaceAbilities]
     const allAvailableSpellsByName = {}
     for (const spell of allAvailableSpells) {
         if (allAvailableSpellsByName[spell.Name] == null) {
@@ -68,6 +70,11 @@ export default function AbilitySheets() {
 
     }
 
+    const canvasDivRef = useRef(null)
+    useEffect(() => {
+        const canvasDiv = canvasDivRef.current
+    }, [])
+
 
     // To ignore a stupid warning from MUI
     function _isOptionEqualToValueIgnoreWarning(option, value) { if (value == null) return true; else return value == option }
@@ -83,7 +90,7 @@ export default function AbilitySheets() {
                     <select className='margined-bottom' id='Spell-Choices' onChange={evt => { setCurrentlyTypedSpell(evt.target.value); console.log(evt.target.value) }}>
                         { allAvailableSpellNames.map(name => (<option value={name} key={name}>{ name }</option>)) }
                     </select>
-                    <button className='generic-button' onClick={queueSpell} style={{ margin: 'auto', display: 'block' }}>Add</button>
+                    <button className='Basic-button' onClick={queueSpell} style={{ margin: 'auto', display: 'block' }}>Add</button>
                 </div>
             </div>
 
@@ -94,18 +101,22 @@ export default function AbilitySheets() {
             </div>
 
             <div className='centered-content margined-bottom'>
-                <button className='generic-button' id="Reset" onClick={resetSpells} title = "Click here to reset everything.">Reset</button>
-                <button className='generic-button' id="RemoveSpell" onClick={removeSpellFromSelect} title = "Click here to remove the selected spell">Remove Spell</button>
+                <button className='Basic-button' id="Reset" onClick={resetSpells} title = "Click here to reset everything.">Reset</button>
+                <button className='Basic-button' id="RemoveSpell" onClick={removeSpellFromSelect} title = "Click here to remove the selected spell">Remove Spell</button>
             </div>
             {/* <div className='centered-content margined-bottom'>
-                <button className='generic-button' onClick={generate} title="When you are done adding spells, click Generate! to get your awesome spell sheets!">Generate!</button>
-                <button className='generic-button' onClick={download} title="You need to generate the spell sheets first!">Download</button>
+                <button className='Basic-button' onClick={generate} title="When you are done adding spells, click Generate! to get your awesome spell sheets!">Generate!</button>
+                <button className='Basic-button' onClick={download} title="You need to generate the spell sheets first!">Download</button>
             </div> */}
             {/* <div id="Canvas-Wrapper">
                 <SheetCanvas spellNames={}/>
             </div> */}
 
             <ManySpells spells={spellsAdded.map(spellName => allAvailableSpellsByName[spellName])}/>
+
+            <div ref={canvasDivRef} id="Canvas-Div-Placeholder">
+
+            </div>
 
         </Page>
     )

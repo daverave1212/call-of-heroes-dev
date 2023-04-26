@@ -14,7 +14,7 @@ import SmallStat from '../../components/SmallStat/SmallStat'
 import Page from '../../containers/Page/Page'
 
 
-export default function CharacterCreation() {
+export default function CharacterCreation({ isSecondaryPage }) {
 
     function MidSection({object, exceptionSubtitles}) {
         if (exceptionSubtitles == null) exceptionSubtitles = []
@@ -32,7 +32,7 @@ export default function CharacterCreation() {
     }
 
     return (
-        <Page title="Character Creation">
+        <Page title="Character Creation" isSecondaryPage={isSecondaryPage}>
             <MidSection object={cc['Character Creation']}/>
 
             <PageH2>Social Etiquette</PageH2>

@@ -12,11 +12,9 @@ import Page from '../../containers/Page/Page'
 
 export default function Armors() {
 
-    console.log({armors})
-
-    // const armorsArray = U.spellsFromObject(armors)
-
     const armorCategories = Object.keys(armors).filter(key => key != 'default')
+    
+    document.title = 'Armors'
 
     return (
         <div>
