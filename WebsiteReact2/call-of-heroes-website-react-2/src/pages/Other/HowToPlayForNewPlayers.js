@@ -9,7 +9,6 @@ import abilities from '../../databases/Abilities.json'
 import PageH1 from '../../components/PageH1/PageH1'
 import ManySpells from '../../components/Spell/ManySpells'
 
-import cc from '../../databases/Rules/CharacterCreation.json'
 import PageH3 from '../../components/PageH3/PageH3'
 import PageH2 from '../../components/PageH2/PageH2'
 import SmallStat from '../../components/SmallStat/SmallStat'

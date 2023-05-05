@@ -75,7 +75,7 @@
                     "Duration": "Lifetime",
                     "Effect": "Ask a party member to join your cause and pledge their honor to you.\nThey gain the Awe passive Ability (e.g. whenever they use Mana for an Ability, they cast Awe).\nThat person always Knows the same Basic Divine Spells you Know at a time.\n",
                     "Upgrades": "There is one condition your ally must match - it can never have its Maximum Mana higher than yours (if it does, it becomes equal to yours).\n",
-                    "Notes": "You can only have one character who pledged for you.\nTheir Awe is not improved by your Awe improvements, if you have any.\n"
+                    "Notes": "You can only have one character who pledged for you and it must be within 100 meters to have access to all of those.\nTheir Awe is not improved by your Awe improvements, if you have any.\n"
                 }
             },
             "Choose your side": "Battle Cleric!\nPick only one of the following two abilities!\n",
@@ -95,13 +95,13 @@
                     "<Eternal Bindings>": {
                         "A": "0 Actions or Reaction",
                         "Cooldown": "Once / Adventure",
-                        "Effect": "A creature within 3 meters makes a Sense Check.\nIf it fails, cast Awe on it.\nIt becomes magically bound to an object within 3 meters of it and can't willingly move more than 3 meters away from that object.\nIt rolls the Check again at the start end of their turn to escape the binding.\nLasts up to 1 minute.\n",
+                        "Effect": "A Unit within 3 meters makes a Sense Check.\nIf it fails, cast Awe on it.\nIt becomes magically bound to an object within 3 meters of it and can't willingly move more than 3 meters away from that object.\nIt rolls the Check again at the start end of their turn to escape the binding.\nLasts up to 1 minute.\n",
                         "OrderOnWebsite": 3
                     },
                     "<Heavy Burden>": {
                         "A": "0 Actions",
                         "Cooldown": "Once / Adventure",
-                        "Effect": "A creature within 3 meters makes a Sense Check.\nIf it fails, cast Awe on it and it is Crippled.\n",
+                        "Effect": "A Unit within 3 meters makes a Sense Check.\nIf it fails, cast Awe on it and it is Crippled.\n",
                         "OrderOnWebsite": 1
                     },
                     "<Repentance>": {
@@ -204,6 +204,14 @@
                         "Notes": "If 2 Units would be pulled to the center, you choose which.",
                         "OrderOnWebsite": 2
                     }
+                },
+                "Level 7": {
+                    "<Void Lock>": {
+                        "A": "0 Actions",
+                        "Cooldown": "Once / Adventure",
+                        "Range": "5 meters",
+                        "Effect": "Stun a Unit and a willing ally (or yourself). Then cast Awe on each.\nThese Units' Passive Abilities are disabled while Stunned.\n    \n    \n"
+                    }
                 }
             }
         },
@@ -220,13 +228,15 @@
             "Choose your side": "Life Cleric!\\nPick only one of the following two abilities!",
             "Abilities": {
                 "~Partner in Life~": {
+                    "HasMixins": true,
                     "A": "Special",
-                    "Effect": "Your companion is an alive being. It can either be a sentient humanoid of any race (without affecting its stats) or an animal.\nChoose two of the following boons. Your companion will have them forever:\n- Sentience - Your companion is sentient and intelligent, and gains the Mana Tap Ability from the Elf Race\n- Largeness - Your companion is Large and starts every combat with Shielding equal to your Level (lasts until the end of the combat)\n- Mounting - You can ride your companion without penalties as a mount, and it has +2 Speed and ignores Hard Terrain\n- Spell Attacks - Your companion's attacks now have 5 meter range and deal Divine Damage (against Defense), regardless of the weapon type\n- Opportunity Attacks - When an enemy becomes Fumbling from exiting your companion's melee attack range, your companion can make an attack on it with its Reaction\n",
+                    "Effect": "Your companion is an alive being. It can either be a sentient humanoid of any race (without affecting its stats) or an animal.\nChoose two of the following boons. Your companion will have them forever:\n{Diamond} Sentience - Your companion is sentient and intelligent, and gains the Mana Tap Ability from the Elf Race\n{Diamond} Largeness - Your companion is Large and starts every combat with Shielding equal to your Level (lasts until the end of the combat)\n{Diamond} Mounting - You can ride your companion without penalties as a mount, and it has +2 Speed and ignores Hard Terrain\n{Diamond} Spell Attacks - Your companion's attacks now have 5 meter range and deal Divine Damage (against Defense), regardless of the weapon type\n{Diamond} Opportunity Attacks - When an enemy becomes Fumbling from exiting your companion's melee attack range, your companion can make an attack on it with its Reaction\n",
                     "Notes": "While riding your companion, it can still attack, but mounting and dismounting takes either a Half-Action or all of your own total Movement.\nNote that the Shielding (if you choose it) is on your companion, not on you; it absorbs Damage only if your companion takes it. If you're both hit at the same time, the Shielding applies.\n"
                 },
                 "~True Necromancy~": {
+                    "HasMixins": true,
                     "A": "Special",
-                    "Effect": "Your companion is an undead. It can either be a sentient undead humanoid of any race (without affecting its stats) or an abstract undead creature.\nChoose two of the following boons. Your companion will have them forever:\n- Largeness - Your companion is Large and starts every combat with Shielding equal to your Level (lasts until the end of the combat)\n- Ghostly - Your companion takes only 50% Slashing and Necrotic Damage \n- Sweeping - Instead of attacking, your Companion can just do 3 Damage (of its weapon type) to all Units within 2 meters of it\n- Death Burst - For 0 Actions, you can sacrifice your companion to cast Awe on all Units within 5 meters of it (this has a Once / Adventure). Your Companion stays dead for the rest of the Adventure.\n- Corpsewalk - Once per turn, when your companion walks over a corpse, cast Awe on an enemy within 1 meter of your companion and the corpse is destroyed.\n",
+                    "Effect": "Your companion is an undead. It can either be a sentient undead humanoid of any race (without affecting its stats) or an abstract undead creature.\nChoose two of the following boons. Your companion will have them forever:\n{Diamond} Largeness - Your companion is Large and starts every combat with Shielding equal to your Level (lasts until the end of the combat)\n{Diamond} Ghostly - Your companion takes only 50% Slashing and Necrotic Damage \n{Diamond} Sweeping - Instead of attacking, your Companion can just do 3 Damage (of its weapon type) to all Units within 2 meters of it\n{Diamond} Death Burst - For 0 Actions, you can sacrifice your companion to cast Awe on all Units within 5 meters of it (this has a Once / Adventure). Your Companion stays dead for the rest of the Adventure.\n{Diamond} Corpsewalk - Once per turn, when your companion walks over a corpse, cast Awe on an enemy within 1 meter of your companion and the corpse is destroyed.\n",
                     "Notes": "Note that the Shielding (if you choose it) is on your companion, not on you; it absorbs Damage only if your companion takes it. If you're both hit at the same time, the Shielding applies.\n"
                 }
             },
@@ -263,8 +273,9 @@
                         "Notes": "Can't be cast on Epic Monsters."
                     },
                     "<Cleric Lich Ritual>": {
+                        "HasMixins": true,
                         "A": "Special",
-                        "Effect": "You spend 24 hours in a special place of power (this could be a temple or given to you by your GM).\nAfter it's finished, you become a Lich, and you are considered Undead.\nApply the following:\n- You are Undead, thus immune to Charm, Fear and being put to Sleep\n- You can no longer cast Basic Abilities that don't cost Mana, but gain 2 extra maximum Mana. Passive Spells that don't cost Mana still apply.\n- You no longer need to eat, drink or sleep.\n- You gain access to the Elemental and Eldritch Basic Ability Lists.\n- Your Health decreases by 3\nYou also gain the following abilities:\n- Phylactery\n- Dismorphment\n",
+                        "Effect": "You spend 24 hours in a special place of power (this could be a temple or given to you by your GM).\nAfter it's finished, you become a Lich, and you are considered Undead.\nApply the following:\n{Diamond} You are Undead, thus immune to Charm, Fear and being put to Sleep\n{Diamond} You can no longer cast Basic Abilities that don't cost Mana, but gain 2 extra maximum Mana. Passive Spells that don't cost Mana still apply.\n{Diamond} You no longer need to eat, drink or sleep.\n{Diamond} You gain access to the Elemental and Eldritch Basic Ability Lists.\n{Diamond} Your Health decreases by 3\nYou also gain the Phylactery and Dismorphment Abilities.\n",
                         "Upgrade": "At Level 5, your Defense increases by 1.\nAt Level 6, the range of all your Spells is doubled.\nAt Level 7, Spell Grade increases by 1.\nAt Level 8, all your Checks increase by 1.\n",
                         "OrderOnWebsite": 1
                     },

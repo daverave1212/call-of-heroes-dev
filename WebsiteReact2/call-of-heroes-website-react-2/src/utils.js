@@ -258,8 +258,58 @@ export function ifOk(whatToCheck, then) {
 
 // Returns an array of componentos
 export function parseTextWithSymbols(text) {
-    const textParts = text.split('\n{Separator}\n')
-    return insertBetweenAll(textParts, (<Separator/>))
+
+    const symbolToInsertion = {
+        'Damage': () => (<Icon name="Damage"/>),
+        'Diamond': () => (<span style={{fontSize: '0.8em'}}>🔹</span>)
+    }
+
+    let currentTextPartStart = 0
+    let textParts = []
+
+    let state = 'reading-normal-text'
+    let symbolParts = []
+    let symbolStart = null
+    for (let i = 0; i < text.length; i++) {
+        const char = text[i]
+        switch (state) {
+            case 'reading-normal-text':
+                if (char == '{') {
+                    textParts.push(text.substring(currentTextPartStart, i))
+                    symbolStart = i
+                    state = 'reading-symbol'
+                }
+                break
+            case 'reading-symbol':
+                if (char == '}') {
+                    symbolParts.push(text.substring(symbolStart + 1, i))    // Push current symbol
+                    currentTextPartStart = i + 1
+                    state = 'reading-normal-text'
+                }
+                break
+        }
+    }
+
+    if (state == 'reading-normal-text') {
+        if (currentTextPartStart < text.length) {
+            textParts.push(text.substring(currentTextPartStart, text.length))
+        }
+    }
+
+    const finalParts = []
+    for (let i = 0; i < textParts.length; i++) {
+        finalParts.push(textParts[i])
+        if (i < symbolParts.length) {
+            finalParts.push(
+                symbolToInsertion[symbolParts[i]]()
+            )
+        }
+    }
+
+    return finalParts
+
+    // const textParts = text.split('\n{Separator}\n')
+    // return insertBetweenAll(textParts, (<Separator/>))
 }
 export function parseTextWithMixins(text) {
     const getMixinComponent = {

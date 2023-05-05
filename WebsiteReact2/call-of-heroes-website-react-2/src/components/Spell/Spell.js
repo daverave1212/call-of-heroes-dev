@@ -3,7 +3,7 @@ import './Spell.css'
 import PageH2 from './../PageH2/PageH2'
 import Separator from './../Separator/Separator'
 import React from 'react'
-import { stringReplaceAllMany } from '../../utils'
+import { parseTextWithSymbols, stringReplaceAllMany } from '../../utils'
 
 export default function Spell({ children, spell, style, hasIcon }) {
 
@@ -45,7 +45,7 @@ export default function Spell({ children, spell, style, hasIcon }) {
     const spellPassiveOrActiveClass = A == 'Passive' == true? 'spell--passive' : 'spell--active'
 
     if (HasMixins === true) {
-
+        Effect = parseTextWithSymbols(Effect)
     }
 
     function SpellTopStats({className}) {

@@ -1,1 +1,2 @@
-python generate-jsons-from-yaml.py 
+python generate-jsons-from-yaml.py
+pause

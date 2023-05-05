@@ -65,36 +65,27 @@
             "Effect": "Your lord is a higher fey creature.\nChoose one more Racial Feat from your Race.\n",
             "Notes": "Lore-wise, the Fey Patron enhances you magically, mutates your arcane flow and transforms you into an unordinarily adapted person.\nIf you are a Dragonborn, you can instead choose one more Breath shape, and your Breath has both chosen shapes simultanuously (overlapped).\n"
         },
-        "~Celestial Patron~": {
-            "A": "Passive",
-            "Effect": "Your lord is a celestial being, who lives in a higher plane. You gain Life Cycle.",
-            "Notes": "The gift of Life Cycle is granted to you by your patron. Use it well. Withhold the balance."
-        },
         "~Old God Patron~": {
-            "AlignOnWebsite": "Right",
             "A": "Passive",
             "Effect": "Your lord is an old, slumbering god.\nYou can pick a Racial Ability from any other race and have it permanently (not from the Race Ability Choices, but from the Starting Abilities).\n",
             "Notes": "Eldritch thoughts flow through your mind, infecting you with strange abilities acquired in unfathomable ways."
         },
         "<Life Cycle>": {
-            "IsSubspell": true,
             "AlignOnWebsite": "Right",
             "A": "Half-Action",
             "Cost": "5 Health",
-            "Effect": "Heal a Unit within 10 meters for up to 10 Health from their remaining Reserve Health Pool."
-        },
-        "~Demon Patron~": {
-            "A": "Passive",
-            "Effect": "Your lord is a powerful demon.\nYou gain Soul Drain.\n",
-            "Notes": "Through every soul drained, your demon lord feeds, and in return, grants you even more power."
+            "Effect": "Heal a Unit within 10 meters for up to 10 Health from their remaining Reserve Health Pool.",
+            "Upgrade": "Corresponds to the Celestial Patron.",
+            "Notes": "The gift of Life Cycle is granted to you by your patron. Use it well. Withhold the balance."
         },
         "<Soul Drain>": {
-            "IsSubspell": true,
             "AlignOnWebsite": "Right",
             "A": "Half-Action",
             "Cost": "1 Mana",
             "Range": "15 meters",
-            "Effect": "Deal 7 Necrotic Damage to a creature (directly, ignoring Defense).\nIf it dies, you get the Mana back and heal for 5 Health.\n"
+            "Effect": "Deal 7 Necrotic Damage to a Unit (directly, ignoring Defense).\nIf it dies, you get the Mana back and heal for 5 Health.\n",
+            "Upgrade": "Corresponds to the Demon Patron.",
+            "Notes": "Through every soul drained, your demon lord feeds, and in return, grants you even more power."
         }
     },
     "Specializations": {
@@ -114,8 +105,8 @@
                 },
                 "~Hexblade~": {
                     "A": "Passive",
-                    "Effect": "After you cast an offensive spell, your next Hexblade Weapon attack deals +1d6 Damage.",
-                    "Upgrade": "The bonus Damage becomes 1d8 at Level 5.\nReposess: By spending 1 hour, you can transfer the entity posessing your Hexblade weapon into another weapon. That new weapon becomes your Hexblade Weapon, and the old one is destroyed.\n",
+                    "Effect": "After you cast an offensive Spell, your next Hexblade Weapon attack deals +1d6 Damage. Also, instead of adding Dexterity of Might, you can add your Main Stat to attacks with your Hexblade Weapon.",
+                    "Upgrade": "Reposess: By spending 1 hour, you can transfer the entity posessing your Hexblade weapon into another weapon. That new weapon becomes your Hexblade Weapon, and the old one is destroyed.\n",
                     "Notes": "Offensive means that it deals Damage or applies hard Crowd Control (anything better than Slow and creating Hard Terrain)."
                 }
             },
@@ -154,18 +145,47 @@
                 }
             }
         },
+        "Occultist": {
+            "Description": "LOREM! Dolor, dolor!",
+            "Starting Abilities": {
+                "~Power Overwhelming~": {
+                    "A": "Passive",
+                    "Effect": "All your Eldritch Basic Spells have their dice increased by 1 tier.\n",
+                    "Notes": "Increasing dice by 1 tier means, for example, d6 become d8, or d10 become d12. D12's and d20's don't increase.\nFor example, Eldritch Blast deals 2d8 + Main Stat, Deathfire Bolt deals 1d12 + 1d10 + 1d8 + Main Stat, Curse of Weakness reduces by 1d6, etc.\n"
+                }
+            },
+            "Talents": {
+                "Level 3": {
+                    "~Shadow Veil~": {
+                        "A": "Passive",
+                        "Effect": "You take only 50% Necrotic and Psychic Damage."
+                    },
+                    "~Repower~": {
+                        "A": "Passive",
+                        "Effect": "Whenever you roll maximum on a Damage die with an Eldritch Spell on a Worthy Enemy, heal for 1."
+                    },
+                    "~Darkness~": {
+                        "A": "0 Actions",
+                        "Range": "5 meters to edge",
+                        "Cooldown": "Once / Adventure",
+                        "Effect": "Conjure a 5x5x5 meter area of magical darkness. Units inside are Blinded, and everything done in or through the darkness has Cover.\nPassively, you can see in normal darkness, up to 10 meters away.\n"
+                    }
+                }
+            }
+        },
         "Summoner": {
             "Description": "Lorem \"ipsum dolor\" sit amet.",
             "Starting Abilities": {
                 "~Summon Familiar~": {
                     "A": "1 Hour",
-                    "Effect": "You conjure a ritual for 1 hour.\nThe first time you cast this ritual, you summon a familiar which becomes yours.\nYou can choose what your familiar looks like, assuming it is a small creature.\nAlso, choose an element which is bound to it: Fire, Cold, Shock, Light (True) or Necrotic. That becomes your Familiar's Element.\nYour familiar comes with a name that the GM decides.\nThe familiar doesn't take turns on its own, but at the same time as you.\nOn your turn, your familiar can use its own movement to move, but you must spend your own Actions for it to take actions.\nIf your familiar goes more than 30 meters away from you, it becomes unsummoned.\nIf it dies, it becomes unsummoned.\nYou can always summon it back with this Ability.\nThe stat block for the Familiar is on the Pets and Animals page.\n",
-                    "Notes": "You can communicate with your Familiar telepathically.\nThe Familiar can be classified as a demon, undead, celestial, monstrosity, etc (but not beast or humanoid).\n"
+                    "Cooldown": "Once / Adventure",
+                    "Effect": "Summon a familiar and choose an element which is bound to it: Fire, Cold, Shock, Light (True) or Necrotic.\nThe familiar takes its turn at the same time as you.\nOn your turn, your familiar can use its own movement to move, but you must spend your own Actions for it to take Actions.\nIf it dies or goes more than 30 meters away from you, it becomes unsummoned, and it is also unsummoned inbetween Adventures.\nThe stat block for the Familiar is on the Pets and Animals page.\n",
+                    "Notes": "You can choose what your familiar looks like, assuming it is a small creature. Your familiar comes with a name that you or the GM decides.\nYou can communicate with your Familiar telepathically.\nThe Familiar can be classified as a demon, undead, celestial, monstrosity, etc (but not beast or humanoid).\n"
                 },
                 "~Familiar Pet Attack~": {
                     "A": "0.5 Actions",
                     "Range": "3 meters",
-                    "Cooldown": "1 turn",
+                    "Cooldown": "Once / Turn",
                     "Effect": "The familiar melee attacks a target.\nThe attack deals 1d12 + Main Stat Damage (of your pet's elemental type).\n",
                     "Notes": "The attack is against target's Defense, of course."
                 },
@@ -196,7 +216,8 @@
                     "<Patron Aspect>": {
                         "A": "0 Actions",
                         "Cost": "10 Health",
-                        "Effect": "You take on the shape or a being from your patron's plane until the end of your next turn.\nYou have +2 Defense, +2 Main Stat, and your Basic Spells require no mana to cast.\nAfter you cast a Basic Spell for free, it goes on a Once / Adventure.\n"
+                        "Duration": "1 minute",
+                        "Effect": "You take on the shape or a being from your patron's plane until the end of your next turn.\nYou have +2 Defense, +2 Main Stat, and your Basic Spells require no mana to cast.\nAfter you cast a Basic Spell, it goes on a Once / Adventure.\n"
                     },
                     "<Dual Summonation>": {
                         "A": "Half-Action",

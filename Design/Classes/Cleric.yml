@@ -130,7 +130,7 @@ Specs:
         Upgrades: |
           There is one condition your ally must match - it can never have its Maximum Mana higher than yours (if it does, it becomes equal to yours).
         Notes: |
-          You can only have one character who pledged for you.
+          You can only have one character who pledged for you and it must be within 100 meters to have access to all of those.
           Their Awe is not improved by your Awe improvements, if you have any.
 
     Choose your side: |
@@ -157,7 +157,7 @@ Specs:
           A: 0 Actions or Reaction
           Cooldown: Once / Adventure
           Effect: |
-            A creature within 3 meters makes a Sense Check.
+            A Unit within 3 meters makes a Sense Check.
             If it fails, cast Awe on it.
             It becomes magically bound to an object within 3 meters of it and can't willingly move more than 3 meters away from that object.
             It rolls the Check again at the start end of their turn to escape the binding.
@@ -168,7 +168,7 @@ Specs:
           A: 0 Actions
           Cooldown: Once / Adventure
           Effect: |
-            A creature within 3 meters makes a Sense Check.
+            A Unit within 3 meters makes a Sense Check.
             If it fails, cast Awe on it and it is Crippled.
           OrderOnWebsite: 1
               
@@ -311,6 +311,16 @@ Specs:
             The gravity of the black hole works even through walls and obstacles.
           Notes: If 2 Units would be pulled to the center, you choose which.
           OrderOnWebsite: 2
+
+      Level 7:
+
+        <Void Lock>:
+          A: 0 Actions
+          Cooldown: Once / Adventure
+          Range: 5 meters
+          Effect: |
+            Stun a Unit and a willing ally (or yourself). Then cast Awe on each.
+            These Units' Passive Abilities are disabled while Stunned.
                 
                 
 
@@ -352,29 +362,31 @@ Specs:
     Abilities:
 
       ~Partner in Life~:  # 1
+        HasMixins: true
         A: Special
         Effect: |
           Your companion is an alive being. It can either be a sentient humanoid of any race (without affecting its stats) or an animal.
           Choose two of the following boons. Your companion will have them forever:
-          - Sentience - Your companion is sentient and intelligent, and gains the Mana Tap Ability from the Elf Race
-          - Largeness - Your companion is Large and starts every combat with Shielding equal to your Level (lasts until the end of the combat)
-          - Mounting - You can ride your companion without penalties as a mount, and it has +2 Speed and ignores Hard Terrain
-          - Spell Attacks - Your companion's attacks now have 5 meter range and deal Divine Damage (against Defense), regardless of the weapon type
-          - Opportunity Attacks - When an enemy becomes Fumbling from exiting your companion's melee attack range, your companion can make an attack on it with its Reaction
+          {Diamond} Sentience - Your companion is sentient and intelligent, and gains the Mana Tap Ability from the Elf Race
+          {Diamond} Largeness - Your companion is Large and starts every combat with Shielding equal to your Level (lasts until the end of the combat)
+          {Diamond} Mounting - You can ride your companion without penalties as a mount, and it has +2 Speed and ignores Hard Terrain
+          {Diamond} Spell Attacks - Your companion's attacks now have 5 meter range and deal Divine Damage (against Defense), regardless of the weapon type
+          {Diamond} Opportunity Attacks - When an enemy becomes Fumbling from exiting your companion's melee attack range, your companion can make an attack on it with its Reaction
         Notes: |
           While riding your companion, it can still attack, but mounting and dismounting takes either a Half-Action or all of your own total Movement.
           Note that the Shielding (if you choose it) is on your companion, not on you; it absorbs Damage only if your companion takes it. If you're both hit at the same time, the Shielding applies.
       
       ~True Necromancy~:  # 1
+        HasMixins: true
         A: Special
         Effect: |
           Your companion is an undead. It can either be a sentient undead humanoid of any race (without affecting its stats) or an abstract undead creature.
           Choose two of the following boons. Your companion will have them forever:
-          - Largeness - Your companion is Large and starts every combat with Shielding equal to your Level (lasts until the end of the combat)
-          - Ghostly - Your companion takes only 50% Slashing and Necrotic Damage 
-          - Sweeping - Instead of attacking, your Companion can just do 3 Damage (of its weapon type) to all Units within 2 meters of it
-          - Death Burst - For 0 Actions, you can sacrifice your companion to cast Awe on all Units within 5 meters of it (this has a Once / Adventure). Your Companion stays dead for the rest of the Adventure.
-          - Corpsewalk - Once per turn, when your companion walks over a corpse, cast Awe on an enemy within 1 meter of your companion and the corpse is destroyed.
+          {Diamond} Largeness - Your companion is Large and starts every combat with Shielding equal to your Level (lasts until the end of the combat)
+          {Diamond} Ghostly - Your companion takes only 50% Slashing and Necrotic Damage 
+          {Diamond} Sweeping - Instead of attacking, your Companion can just do 3 Damage (of its weapon type) to all Units within 2 meters of it
+          {Diamond} Death Burst - For 0 Actions, you can sacrifice your companion to cast Awe on all Units within 5 meters of it (this has a Once / Adventure). Your Companion stays dead for the rest of the Adventure.
+          {Diamond} Corpsewalk - Once per turn, when your companion walks over a corpse, cast Awe on an enemy within 1 meter of your companion and the corpse is destroyed.
         Notes: |
           Note that the Shielding (if you choose it) is on your companion, not on you; it absorbs Damage only if your companion takes it. If you're both hit at the same time, the Shielding applies.
 
@@ -428,19 +440,18 @@ Specs:
           Notes: Can't be cast on Epic Monsters.
 
         <Cleric Lich Ritual>:          # 2
+            HasMixins: true
             A: Special
             Effect: |
                 You spend 24 hours in a special place of power (this could be a temple or given to you by your GM).
                 After it's finished, you become a Lich, and you are considered Undead.
                 Apply the following:
-                - You are Undead, thus immune to Charm, Fear and being put to Sleep
-                - You can no longer cast Basic Abilities that don't cost Mana, but gain 2 extra maximum Mana. Passive Spells that don't cost Mana still apply.
-                - You no longer need to eat, drink or sleep.
-                - You gain access to the Elemental and Eldritch Basic Ability Lists.
-                - Your Health decreases by 3
-                You also gain the following abilities:
-                - Phylactery
-                - Dismorphment
+                {Diamond} You are Undead, thus immune to Charm, Fear and being put to Sleep
+                {Diamond} You can no longer cast Basic Abilities that don't cost Mana, but gain 2 extra maximum Mana. Passive Spells that don't cost Mana still apply.
+                {Diamond} You no longer need to eat, drink or sleep.
+                {Diamond} You gain access to the Elemental and Eldritch Basic Ability Lists.
+                {Diamond} Your Health decreases by 3
+                You also gain the Phylactery and Dismorphment Abilities.
             Upgrade: |
                 At Level 5, your Defense increases by 1.
                 At Level 6, the range of all your Spells is doubled.

@@ -78,19 +78,17 @@ export default function Druid() {
 
                 <Proficiencies name={theClass.Class} theRaceOrClass={theClass}/>
 
-                <LevelingUp theClass={theClass}/>
-                <ClassFeatsDescription/>
-         
                 <SpellCasting theClass={theClass}/>
+
+                <LevelingUp theClass={theClass}/>
 
                 <StartingAbilities spellsObject={theClass['Starting Abilities']} description={theClass['Starting Abilities Description']}/>
 
                 <PageH2>Specializations</PageH2>
 
                 <p>
-                    The first time you choose a cleric domain (specialization), you must choose between two abilities.
-                    For example, for Battle Cleric, you have to choose either March Ahead or Piety.
-                    Choose wisely...
+                    When you reach Level 2, you can choose one of the Specializations below.
+                    This decision is permanent, so make the choice that is right for you.
                 </p>
 
             </Page>

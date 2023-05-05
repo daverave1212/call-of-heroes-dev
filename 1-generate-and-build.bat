@@ -1,5 +1,4 @@
 echo Starting build and deployment...
-echo Commit message: %1
 
 echo 1. Generating JSONS from YAML
 python generate-jsons-from-yaml.py

@@ -84,15 +84,7 @@ Abilities:
       Lore-wise, the Fey Patron enhances you magically, mutates your arcane flow and transforms you into an unordinarily adapted person.
       If you are a Dragonborn, you can instead choose one more Breath shape, and your Breath has both chosen shapes simultanuously (overlapped).
 
-  ~Celestial Patron~ :  # 0.5
-    A: Passive
-    Effect: 
-      Your lord is a celestial being, who lives in a higher plane.
-      You gain Life Cycle.
-    Notes: The gift of Life Cycle is granted to you by your patron. Use it well. Withhold the balance.
-
   ~Old God Patron~ :    # 0.5
-      AlignOnWebsite: Right
       A: Passive
       Effect: |
         Your lord is an old, slumbering god.
@@ -100,28 +92,23 @@ Abilities:
       Notes: Eldritch thoughts flow through your mind, infecting you with strange abilities acquired in unfathomable ways.
 
   <Life Cycle> :        # 0.5
-    IsSubspell: true
     AlignOnWebsite: Right
     A: Half-Action
     Cost: 5 Health
     Effect: Heal a Unit within 10 meters for up to 10 Health from their remaining Reserve Health Pool.
-
-  ~Demon Patron~:       # 0.5
-    A: Passive
-    Effect: |
-      Your lord is a powerful demon.
-      You gain Soul Drain.
-    Notes: Through every soul drained, your demon lord feeds, and in return, grants you even more power.
+    Upgrade: Corresponds to the Celestial Patron.
+    Notes: The gift of Life Cycle is granted to you by your patron. Use it well. Withhold the balance.
 
   <Soul Drain> :        # 0.75
-    IsSubspell: true
     AlignOnWebsite: Right
     A: Half-Action
     Cost: 1 Mana
     Range: 15 meters
     Effect: |
-      Deal 7 Necrotic Damage to a creature (directly, ignoring Defense).
+      Deal 7 Necrotic Damage to a Unit (directly, ignoring Defense).
       If it dies, you get the Mana back and heal for 5 Health.
+    Upgrade: Corresponds to the Demon Patron.
+    Notes: Through every soul drained, your demon lord feeds, and in return, grants you even more power.
 
 Specializations:
   Description: At Level 1, you can choose your specialization. Every Warlock can choose from the following Warlock specializations.
@@ -156,9 +143,8 @@ Specs:
 
       ~Hexblade~ :      # 1.75
         A: Passive
-        Effect: After you cast an offensive spell, your next Hexblade Weapon attack deals +1d6 Damage.
+        Effect: After you cast an offensive Spell, your next Hexblade Weapon attack deals +1d6 Damage. Also, instead of adding Dexterity of Might, you can add your Main Stat to attacks with your Hexblade Weapon.
         Upgrade: |
-          The bonus Damage becomes 1d8 at Level 5.
           Reposess: By spending 1 hour, you can transfer the entity posessing your Hexblade weapon into another weapon. That new weapon becomes your Hexblade Weapon, and the old one is destroyed.
         Notes: Offensive means that it deals Damage or applies hard Crowd Control (anything better than Slow and creating Hard Terrain).
         
@@ -205,7 +191,41 @@ Specs:
             Count the Units within 3 meters of you (except you).
             They are all attacked for 1d6 + (the number of Units) Force Damage (against Defense).
           Notes: E.g. if this affects 2 Units, it deals 3d6. If it affects 3 Units, it deals 4d6. 4 Units - 5d6. And so on.
-            
+
+
+  Occultist:
+
+    Description: LOREM! Dolor, dolor!
+    Starting Abilities:
+
+      ~Power Overwhelming~:     # 2?
+        A: Passive
+        Effect: |
+          All your Eldritch Basic Spells have their dice increased by 1 tier.
+        Notes: |
+          Increasing dice by 1 tier means, for example, d6 become d8, or d10 become d12. D12's and d20's don't increase.
+          For example, Eldritch Blast deals 2d8 + Main Stat, Deathfire Bolt deals 1d12 + 1d10 + 1d8 + Main Stat, Curse of Weakness reduces by 1d6, etc.
+
+    Talents:
+
+      Level 3:
+
+        ~Shadow Veil~:
+          A: Passive
+          Effect: You take only 50% Necrotic and Psychic Damage.
+
+        ~Repower~:
+          A: Passive
+          Effect: Whenever you roll maximum on a Damage die with an Eldritch Spell on a Worthy Enemy, heal for 1.
+
+        ~Darkness~:
+          A: 0 Actions
+          Range: 5 meters to edge
+          Cooldown: Once / Adventure
+          Effect: |
+            Conjure a 5x5x5 meter area of magical darkness. Units inside are Blinded, and everything done in or through the darkness has Cover.
+            Passively, you can see in normal darkness, up to 10 meters away.
+
 
   Summoner:
   
@@ -222,28 +242,24 @@ Specs:
     Description: Lorem "ipsum dolor" sit amet.
     Starting Abilities:
 
-      ~Summon Familiar~:       # 1
+      ~Summon Familiar~:       # 2
         A: 1 Hour
+        Cooldown: Once / Adventure
         Effect: |
-          You conjure a ritual for 1 hour.
-          The first time you cast this ritual, you summon a familiar which becomes yours.
-          You can choose what your familiar looks like, assuming it is a small creature.
-          Also, choose an element which is bound to it: Fire, Cold, Shock, Light (True) or Necrotic. That becomes your Familiar's Element.
-          Your familiar comes with a name that the GM decides.
-          The familiar doesn't take turns on its own, but at the same time as you.
-          On your turn, your familiar can use its own movement to move, but you must spend your own Actions for it to take actions.
-          If your familiar goes more than 30 meters away from you, it becomes unsummoned.
-          If it dies, it becomes unsummoned.
-          You can always summon it back with this Ability.
+          Summon a familiar and choose an element which is bound to it: Fire, Cold, Shock, Light (True) or Necrotic.
+          The familiar takes its turn at the same time as you.
+          On your turn, your familiar can use its own movement to move, but you must spend your own Actions for it to take Actions.
+          If it dies or goes more than 30 meters away from you, it becomes unsummoned, and it is also unsummoned inbetween Adventures.
           The stat block for the Familiar is on the Pets and Animals page.
         Notes: |
+          You can choose what your familiar looks like, assuming it is a small creature. Your familiar comes with a name that you or the GM decides.
           You can communicate with your Familiar telepathically.
           The Familiar can be classified as a demon, undead, celestial, monstrosity, etc (but not beast or humanoid).
         
       ~Familiar Pet Attack~:    # Slightly more than 0
         A: 0.5 Actions
         Range: 3 meters
-        Cooldown: 1 turn
+        Cooldown: Once / Turn
         Effect: |
           The familiar melee attacks a target.
           The attack deals 1d12 + Main Stat Damage (of your pet's elemental type).
@@ -282,10 +298,11 @@ Specs:
         <Patron Aspect>:
           A: 0 Actions
           Cost: 10 Health
+          Duration: 1 minute
           Effect: |
             You take on the shape or a being from your patron's plane until the end of your next turn.
             You have +2 Defense, +2 Main Stat, and your Basic Spells require no mana to cast.
-            After you cast a Basic Spell for free, it goes on a Once / Adventure.
+            After you cast a Basic Spell, it goes on a Once / Adventure.
         
         <Dual Summonation>:         # Makes up for it in 3 turns-ish; 4th turn is definitely worth it; 5th is already bonkers
           A: Half-Action
@@ -300,7 +317,6 @@ Specs:
             Imps become unsummoned at the start of their turn if the target dies or it becomes untargetable or invisible; Imps will chase around corners, though. Imps don't care about Cover; they attack anyway.
             Imps aren't very smart, they don't employ tactics.
           
-        
         <Patron Avatar>:            # 2 turns = 2 Charges
           A: 0 Actions
           Cost: 1 Mana

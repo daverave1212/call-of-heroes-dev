@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body{
+            background-color:grey;
+        }
+        canvas{
+            border:1px solid black;
+            margin-top:10px;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div id="Page"></div>
+    <script src="data.js"></script>
+    <script>
+        const settings = {
+            canvasWidth			: 2480,
+            canvasHeight		: 3508,
+            canvasPaddingTop    : 32,
+            canvasPaddingSide   : 30,
+
+            columnPaddingMiddle	: 15,
+
+            iconBoxWidth		: 300,
+            iconWidth			: 200,
+            iconPaddingSide		: 32,
+            iconPaddingTop		: 32,
+
+            textBoxMaxWidth		: 850,
+            textBoxPaddingTop 	: 25,
+
+            textFontSize        : 40,
+            titleFontSize       : 45,
+            textFont			: "Arial",
+            titleFont			: "Arial", 
+            lineHeight			: 40,
+
+            backgroundColor		: "#FFFFFF",
+            borderRadius        : 10
+        }
+        function getPngName(abilityName) {
+            return abilityName.split(' ').join('_') + '.png'
+        }
+        function generateCanvases(divDom, data) {
+            let canvas = document.createElement("canvas");
+            let ctx = canvas.getContext("2d");
+
+            canvas.height = settings.canvasHeight;
+            canvas.width = settings.canvasWidth;
+            divDom.appendChild(canvas);
+            
+            ctx.beginPath();
+            ctx.fillStyle = settings.backgroundColor;
+            ctx.fillRect(0,0,canvas.width,canvas.height);
+            ctx.closePath();
+
+            let allImages = [];
+            for(let i = 0; i < data.length; i++){
+                let imgName = getPngName(data[i].Name);
+                let duplicate = false;
+                for(let j = 0; j < allImages.length; j++){
+                    if(allImages[j].Name === imgName){
+                        duplicate = true;
+                        break;
+                    }
+                }
+                if(!duplicate){
+                    let icon = new Image();
+                    icon.src = "./Icons/"+imgName;
+                    allImages.push({ name:imgName, img:icon });
+                }
+            }
+
+            if(allImages.length > 0){
+                allImages[allImages.length-1].img.onload = ()=>{
+                    let overflow = false, overflowData = [];
+                    let addT = settings.canvasPaddingTop - 0.5;
+                    let addL = settings.canvasPaddingSide - 0.5;
+                    let boxW = settings.textBoxMaxWidth + settings.iconBoxWidth;
+                    for(let i = 0; i < data.length; i++){
+                        let minBoxH = 264; //min box size
+                        let boxH = 2*settings.textBoxPaddingTop+settings.titleFontSize;
+                        let text = [];
+                        function getTextLines(title,data,addTop){
+                            ctx.font = settings.textFontSize+"px "+settings.textFont;
+                            let titleWidth = ctx.measureText(title).width;
+                            let fullLine = data;
+                            let lineDone = false;
+                            let allLines = [];
+                            while(!lineDone){
+                                let currLine = "";
+                                let currLineDone = false;
+                                while(!currLineDone){
+                                    let spaceIndex = fullLine.indexOf(" ");
+                                    if(spaceIndex === -1) currLineDone = true;
+                                    else{
+                                        let lineSize = ctx.measureText(currLine + fullLine.slice(0,spaceIndex)).width > settings.textBoxMaxWidth - titleWidth - settings.textBoxPaddingTop;
+                                        if(lineSize) currLineDone = true;
+                                        else{
+                                            currLine += fullLine.slice(0,spaceIndex+1);
+                                            fullLine = fullLine.slice(spaceIndex+1);
+                                        }
+                                    }
+                                }
+                                allLines.push(currLine);
+                                if(fullLine.indexOf(" ") === -1) lineDone = true;
+                            }
+                            if(ctx.measureText(allLines[allLines.length-1] + fullLine).width > settings.textBoxMaxWidth - titleWidth - settings.textBoxPaddingTop) allLines.push(fullLine);
+                            else allLines[allLines.length-1] += fullLine;
+                            text.push({
+                                addTop:addTop,
+                                title:title,
+                                text:allLines
+                            });
+                            boxH += allLines.length * settings.textFontSize + addTop;
+                        }
+
+                        if(data[i].Duration) getTextLines("Duration: ",data[i].Duration,0);
+                        if(data[i].Cooldown) getTextLines("Cooldown: ",data[i].Cooldown,0);
+                        if(data[i].Upgrade) getTextLines("Upgrade: ",data[i].Upgrade,0);
+                        if(data[i].Effect) getTextLines("",data[i].Effect,settings.textBoxPaddingTop);
+                        if(data[i].Notes) getTextLines("",data[i].Notes,settings.textBoxPaddingTop);
+
+                        if(boxH < minBoxH) boxH = minBoxH;
+                        if(addT + boxH > settings.canvasHeight){
+                            addT = settings.canvasPaddingTop - 0.5;
+                            addL += boxW + settings.columnPaddingMiddle;
+                        }
+                        if(addL + boxW > settings.canvasWidth){
+                            overflowData.push(data[i]);
+                            overflow = true;
+                        }
+
+                        if(!overflow){
+                            //drawing the icon
+                            ctx.beginPath();
+                            let imgName = getPngName(data[i].Name);
+                            for(let j = 0; j < allImages.length; j++){
+                                if(imgName === allImages[j].name){
+                                    ctx.drawImage(allImages[j].img, addL+settings.iconPaddingSide, addT+settings.iconPaddingTop, settings.iconWidth, settings.iconWidth);
+                                    break;
+                                }
+                            }
+                            ctx.rect(addL+settings.iconPaddingSide, addT+settings.iconPaddingTop, settings.iconWidth, settings.iconWidth);
+                            ctx.stroke();
+                            ctx.closePath();
+                          
+                            //drawing the title
+                            ctx.beginPath();
+                            ctx.fillStyle = "#000000";
+                            ctx.font = settings.titleFontSize+"px "+settings.textFont;
+                            let titleLine = data[i].Name;
+                            if(data[i].A) titleLine += ": "+data[i].A;
+                            if(data[i].Range) titleLine += ", "+data[i].Range;
+                            ctx.fillText(titleLine,addL+settings.iconBoxWidth,addT+settings.textBoxPaddingTop+settings.titleFontSize);
+                            ctx.closePath();
+
+                            //drawing the data lines
+                            for(let i = 0; i < text.length; i++){
+                                let positionTop = 0;
+                                for(let j = 0; j < i; j++) positionTop += text[j].text.length*settings.textFontSize+text[j].addTop;
+                                ctx.beginPath();
+                                ctx.fillStyle = "#000000";
+                                ctx.font = settings.textFontSize+"px "+settings.textFont;
+                                ctx.fillText(
+                                    text[i].title,
+                                    addL+settings.iconBoxWidth,
+                                    addT+settings.textBoxPaddingTop+settings.textFontSize+settings.titleFontSize+positionTop+text[i].addTop
+                                );
+                                for(let j = 0; j < text[i].text.length; j++){
+                                    ctx.fillText(
+                                        text[i].text[j],
+                                        addL+settings.iconBoxWidth+ctx.measureText(text[i].title).width,
+                                        addT+settings.textBoxPaddingTop+settings.textFontSize+settings.titleFontSize+positionTop+j*settings.textFontSize+text[i].addTop
+                                    );
+                                }
+                                ctx.closePath();
+                            }
+                            
+                            //drawing the outline
+                            ctx.beginPath();
+                            ctx.strokeStyle = "#000000";
+                            ctx.moveTo(addL+settings.borderRadius, addT);
+                            ctx.lineTo(addL+boxW-settings.borderRadius, addT);
+                            ctx.arc(addL+boxW-settings.borderRadius, addT+settings.borderRadius, settings.borderRadius, -Math.PI/2, 0);
+                            ctx.moveTo(addL+boxW, addT+settings.borderRadius);
+                            ctx.lineTo(addL+boxW, addT+boxH-settings.borderRadius-0.5);
+                            ctx.arc(addL+boxW-settings.borderRadius, addT+boxH-settings.borderRadius-0.5, settings.borderRadius, 0, Math.PI/2);
+                            ctx.moveTo(addL+boxW-settings.borderRadius, addT+boxH);
+                            ctx.lineTo(addL+settings.borderRadius, addT+boxH);
+                            ctx.arc(addL+settings.borderRadius, addT+boxH-settings.borderRadius, settings.borderRadius, Math.PI/2, Math.PI);
+                            ctx.moveTo(addL, addT+boxH-settings.borderRadius);
+                            ctx.lineTo(addL, addT+settings.borderRadius);
+                            ctx.arc(addL+settings.borderRadius, addT+settings.borderRadius,settings.borderRadius, Math.PI, Math.PI*3/2);
+                            ctx.stroke();
+                            ctx.closePath();
+                            addT += settings.canvasPaddingTop+boxH;
+                        }
+                    }
+                    if(overflowData.length > 0) generateCanvases(divDom, overflowData);
+                }
+            }
+        }
+        generateCanvases(document.getElementById('Page'), data);
+    </script>
+</body>
+</html>
+

@@ -39,7 +39,7 @@ export default function Weapon({ weapon, isActuallyArmor }) {
 
     let descriptionElements = [
         Damage == null? null : (
-            <span key="Damage">{ Damage } <Icon name="Damage"/>Damage</span>
+            <span key="Damage"><Icon name="Damage"/>{ Damage }</span>
         ),
         ArmorBonus == null? null : (
             <span key="ArmorBonus">{ ArmorBonus } <Icon name="Defense"/>Defense</span>
@@ -76,8 +76,8 @@ export default function Weapon({ weapon, isActuallyArmor }) {
                             <div className='spell-top__title'>{Name}</div>
                         </div>
                         <div className='spell-top__stats'>
-                            { Hands != null && (<div><img src="/Icons/UI/Special.png" className="inline-icon--spell"/>{ Hands }</div>) }
-                            { Stat != null && (<div><img src="/Icons/UI/Hand.png" className="inline-icon--spell"/>{ Stat }</div>) }
+                            { Hands != null && (<div><img src="/Icons/UI/Hand.png" className="inline-icon--spell"/>{ Hands }</div>) }
+                            { Stat != null && (<div><img src="/Icons/UI/Special.png" className="inline-icon--spell"/>{ Stat }</div>) }
                             { Special != null && (<div><img src="/Icons/UI/Hand.png" className="inline-icon--spell"/>{ Special }</div>) }
                             { Range != null && (<div><img src="/Icons/UI/Range.png" className="inline-icon--spell"/>{ Range }</div>) }
                             { Requirement != null && (<div><img src="/Icons/UI/Level.png" className="inline-icon--spell"/><span style={{color: '#FF5A00'}}>Requires { Requirement }</span></div>) }

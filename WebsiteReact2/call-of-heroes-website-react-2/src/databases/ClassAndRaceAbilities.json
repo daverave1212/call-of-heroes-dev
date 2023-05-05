@@ -28,7 +28,7 @@
         "Duration": "Lifetime",
         "Effect": "Ask a party member to join your cause and pledge their honor to you.\nThey gain the Awe passive Ability (e.g. whenever they use Mana for an Ability, they cast Awe).\nThat person always Knows the same Basic Divine Spells you Know at a time.\n",
         "Upgrades": "There is one condition your ally must match - it can never have its Maximum Mana higher than yours (if it does, it becomes equal to yours).\n",
-        "Notes": "You can only have one character who pledged for you.\nTheir Awe is not improved by your Awe improvements, if you have any.\n"
+        "Notes": "You can only have one character who pledged for you and it must be within 100 meters to have access to all of those.\nTheir Awe is not improved by your Awe improvements, if you have any.\n"
     },
     "~March Ahead~": {
         "A": "0 Actions",
@@ -42,13 +42,13 @@
     "<Eternal Bindings>": {
         "A": "0 Actions or Reaction",
         "Cooldown": "Once / Adventure",
-        "Effect": "A creature within 3 meters makes a Sense Check.\nIf it fails, cast Awe on it.\nIt becomes magically bound to an object within 3 meters of it and can't willingly move more than 3 meters away from that object.\nIt rolls the Check again at the start end of their turn to escape the binding.\nLasts up to 1 minute.\n",
+        "Effect": "A Unit within 3 meters makes a Sense Check.\nIf it fails, cast Awe on it.\nIt becomes magically bound to an object within 3 meters of it and can't willingly move more than 3 meters away from that object.\nIt rolls the Check again at the start end of their turn to escape the binding.\nLasts up to 1 minute.\n",
         "OrderOnWebsite": 3
     },
     "<Heavy Burden>": {
         "A": "0 Actions",
         "Cooldown": "Once / Adventure",
-        "Effect": "A creature within 3 meters makes a Sense Check.\nIf it fails, cast Awe on it and it is Crippled.\n",
+        "Effect": "A Unit within 3 meters makes a Sense Check.\nIf it fails, cast Awe on it and it is Crippled.\n",
         "OrderOnWebsite": 1
     },
     "<Repentance>": {
@@ -120,6 +120,12 @@
         "Notes": "If 2 Units would be pulled to the center, you choose which.",
         "OrderOnWebsite": 2
     },
+    "<Void Lock>": {
+        "A": "0 Actions",
+        "Cooldown": "Once / Adventure",
+        "Range": "5 meters",
+        "Effect": "Stun a Unit and a willing ally (or yourself). Then cast Awe on each.\nThese Units' Passive Abilities are disabled while Stunned.\n    \n    \n"
+    },
     "~Second Soul~": {
         "A": "Special",
         "Effect": "You have another Unit beside you, your companion.\nYour companion draws power from your own spirit: it shares the same Health pool with you (e.g. whenever one of you takes Damage, the other one takes it as well). It also always has the same Defense and Checks as you, and has Speed equal to your base Speed.\nYour companion has a 1-Handed Melee weapon. On its turn, it has a Half-Action which it can use to attack for 1d8 Damage without any Stat modifiers, regardless of the weapon's real Damage. It does, however, apply weapon effects, if any.\nIt takes its turn at the same time as you.          \n",
@@ -127,13 +133,15 @@
         "Notes": "Instead of attacking, your minion can do the equivalent of a Half-Action for non-combat uses, like using a potion, throwing a rope, reloading a weapon, etc, but not using a scroll. It can also use Disengage, Dash or Defend.\nIf both of you take Damage at the same time (e.g. from an AoE effect), the Damage taken is equal to the average of the Damages taken.\nCome up with a story about why you have your companion and why your god allowed this or gave them to you.\n"
     },
     "~Partner in Life~": {
+        "HasMixins": true,
         "A": "Special",
-        "Effect": "Your companion is an alive being. It can either be a sentient humanoid of any race (without affecting its stats) or an animal.\nChoose two of the following boons. Your companion will have them forever:\n- Sentience - Your companion is sentient and intelligent, and gains the Mana Tap Ability from the Elf Race\n- Largeness - Your companion is Large and starts every combat with Shielding equal to your Level (lasts until the end of the combat)\n- Mounting - You can ride your companion without penalties as a mount, and it has +2 Speed and ignores Hard Terrain\n- Spell Attacks - Your companion's attacks now have 5 meter range and deal Divine Damage (against Defense), regardless of the weapon type\n- Opportunity Attacks - When an enemy becomes Fumbling from exiting your companion's melee attack range, your companion can make an attack on it with its Reaction\n",
+        "Effect": "Your companion is an alive being. It can either be a sentient humanoid of any race (without affecting its stats) or an animal.\nChoose two of the following boons. Your companion will have them forever:\n{Diamond} Sentience - Your companion is sentient and intelligent, and gains the Mana Tap Ability from the Elf Race\n{Diamond} Largeness - Your companion is Large and starts every combat with Shielding equal to your Level (lasts until the end of the combat)\n{Diamond} Mounting - You can ride your companion without penalties as a mount, and it has +2 Speed and ignores Hard Terrain\n{Diamond} Spell Attacks - Your companion's attacks now have 5 meter range and deal Divine Damage (against Defense), regardless of the weapon type\n{Diamond} Opportunity Attacks - When an enemy becomes Fumbling from exiting your companion's melee attack range, your companion can make an attack on it with its Reaction\n",
         "Notes": "While riding your companion, it can still attack, but mounting and dismounting takes either a Half-Action or all of your own total Movement.\nNote that the Shielding (if you choose it) is on your companion, not on you; it absorbs Damage only if your companion takes it. If you're both hit at the same time, the Shielding applies.\n"
     },
     "~True Necromancy~": {
+        "HasMixins": true,
         "A": "Special",
-        "Effect": "Your companion is an undead. It can either be a sentient undead humanoid of any race (without affecting its stats) or an abstract undead creature.\nChoose two of the following boons. Your companion will have them forever:\n- Largeness - Your companion is Large and starts every combat with Shielding equal to your Level (lasts until the end of the combat)\n- Ghostly - Your companion takes only 50% Slashing and Necrotic Damage \n- Sweeping - Instead of attacking, your Companion can just do 3 Damage (of its weapon type) to all Units within 2 meters of it\n- Death Burst - For 0 Actions, you can sacrifice your companion to cast Awe on all Units within 5 meters of it (this has a Once / Adventure). Your Companion stays dead for the rest of the Adventure.\n- Corpsewalk - Once per turn, when your companion walks over a corpse, cast Awe on an enemy within 1 meter of your companion and the corpse is destroyed.\n",
+        "Effect": "Your companion is an undead. It can either be a sentient undead humanoid of any race (without affecting its stats) or an abstract undead creature.\nChoose two of the following boons. Your companion will have them forever:\n{Diamond} Largeness - Your companion is Large and starts every combat with Shielding equal to your Level (lasts until the end of the combat)\n{Diamond} Ghostly - Your companion takes only 50% Slashing and Necrotic Damage \n{Diamond} Sweeping - Instead of attacking, your Companion can just do 3 Damage (of its weapon type) to all Units within 2 meters of it\n{Diamond} Death Burst - For 0 Actions, you can sacrifice your companion to cast Awe on all Units within 5 meters of it (this has a Once / Adventure). Your Companion stays dead for the rest of the Adventure.\n{Diamond} Corpsewalk - Once per turn, when your companion walks over a corpse, cast Awe on an enemy within 1 meter of your companion and the corpse is destroyed.\n",
         "Notes": "Note that the Shielding (if you choose it) is on your companion, not on you; it absorbs Damage only if your companion takes it. If you're both hit at the same time, the Shielding applies.\n"
     },
     "<Awe For Corpses>": {
@@ -165,8 +173,9 @@
         "Notes": "Can't be cast on Epic Monsters."
     },
     "<Cleric Lich Ritual>": {
+        "HasMixins": true,
         "A": "Special",
-        "Effect": "You spend 24 hours in a special place of power (this could be a temple or given to you by your GM).\nAfter it's finished, you become a Lich, and you are considered Undead.\nApply the following:\n- You are Undead, thus immune to Charm, Fear and being put to Sleep\n- You can no longer cast Basic Abilities that don't cost Mana, but gain 2 extra maximum Mana. Passive Spells that don't cost Mana still apply.\n- You no longer need to eat, drink or sleep.\n- You gain access to the Elemental and Eldritch Basic Ability Lists.\n- Your Health decreases by 3\nYou also gain the following abilities:\n- Phylactery\n- Dismorphment\n",
+        "Effect": "You spend 24 hours in a special place of power (this could be a temple or given to you by your GM).\nAfter it's finished, you become a Lich, and you are considered Undead.\nApply the following:\n{Diamond} You are Undead, thus immune to Charm, Fear and being put to Sleep\n{Diamond} You can no longer cast Basic Abilities that don't cost Mana, but gain 2 extra maximum Mana. Passive Spells that don't cost Mana still apply.\n{Diamond} You no longer need to eat, drink or sleep.\n{Diamond} You gain access to the Elemental and Eldritch Basic Ability Lists.\n{Diamond} Your Health decreases by 3\nYou also gain the Phylactery and Dismorphment Abilities.\n",
         "Upgrade": "At Level 5, your Defense increases by 1.\nAt Level 6, the range of all your Spells is doubled.\nAt Level 7, Spell Grade increases by 1.\nAt Level 8, all your Checks increase by 1.\n",
         "OrderOnWebsite": 1
     },
@@ -323,7 +332,8 @@
         "A": "Half-Action",
         "Cooldown": "Once / Adventure",
         "Effect": "Target a Unit.\nThe next time it would take Damage from any source before your next turn, the Damage is doubled (after Defense).\n",
-        "Notes": "You can only use this on targets that have blood."
+        "Upgrade": "You can only use this on targets that have blood.",
+        "Notes": "Applies to added extra Damage if it's the same type as the base Damage (e.g. Advanced Flank works, but not Smites)."
     },
     "<Wicked Animals>": {
         "A": "1 Action",
@@ -354,7 +364,8 @@
     "~Storm~": {
         "A": "0 Actions",
         "Range": "6 meters to margin",
-        "Effect": "Target a 4x4x4 meter area and create a storm there.\nCreatures inside the sand storm are Blinded and the storm acts as hard terrain.\nOn your turn, you can use a Half-Action to move the Storm up to 2 meters in any direction.\nLasts 1 minute.\n",
+        "Cooldown": "Once / Adventure",
+        "Effect": "Target a 4x4x4 meter area and create a storm there.\nUnits inside the sand storm are Blinded and the storm acts as hard terrain.\nOn your turn, you can use a Half-Action to move the Storm up to 2 meters in any direction.\nLasts 1 minute.\n",
         "Upgrade": "For Sea or Desert domain."
     },
     "~Endurance~": {
@@ -551,6 +562,7 @@
     "~Magic Mastery~": {
         "A": "0 Actions",
         "Cost": "1 Mana",
+        "Cooldown": "Once / Turn",
         "Effect": "The next ability you use that has the cost of 1 Action now costs a Half-Action.\n",
         "Notes": "This is not considered a Spell."
     },
@@ -559,56 +571,6 @@
         "Cooldown": "Once / Adventure",
         "Effect": "If you have a Scroll that contains a Basic Ability (e.g. from Arcane, Nature, etc), you can destroy it to Know it permanently, without needing to learn it inbetween Adventures.\n",
         "Notes": "You can not learn Class Abilities from Scrolls. Of course, you still need to spend Mana and respect the Cooldown of said Ability."
-    },
-    "~Charisma Caster~": {
-        "AlignOnWebsite": "Left",
-        "A": "Passive",
-        "Effect": "You can freely use Charisma as your Main Stat, if you choose to do so."
-    },
-    "~Innate Magic~": {
-        "AlignOnWebsite": "Right",
-        "A": "Passive",
-        "Effect": "When you cast a spell, if it's different than the previous spell you casted, the previous spell goes on a Once / Adventure, even if it does not have a Cooldown by default.\n",
-        "Notes": "Example: 3 turns in a row, you cast Fire Bolt; next turn, you cast Magic Missiles; after this, you can't cast Fire Bolt again until the next Adventure.\n"
-    },
-    "~Overcharge~": {
-        "AlignOnWebsite": "Left",
-        "A": "Passive",
-        "Effect": "After you cast a spell the 3rd time in a row, your next ability benefits from Magic Mastery.\nAfter this, that spell becomes goes on a Once / Adventure (and can't be used until the next Adventure).\n"
-    },
-    "<Eldritch Specialization>": {
-        "A": "Passive",
-        "Effect": "You gain access to the Eldritch Basic Ability List, and when you cast an Eldritch Spell, you can choose to split the d8's into 2d4's and d12's into 2d6's.\n",
-        "Notes": "For example, if a Spell deals 2d8 Damage, that becomes 4d4.\nIt might sound like the same thing, but because of math, 4d4 is actually, on average, 1 extra Damage compared to 2d8.\n"
-    },
-    "<Wild Cast>": {
-        "A": "1 Action",
-        "Cooldown": "Once / Adventure",
-        "Effect": "Roll 1d6 and 1d8. This spell has the effect of the 2 combined rolls.\nFor the 1d6:\n1. Attack a target for 3d6 Fire Damage\n2. A target must pass a Dexterity Check or take 2d8 Cold Damage (or half if it passes).\n3. Target all Units in a 4x4 area. Attack them all for 2d6 + 2 Shock Damage.\n4. Two Units instantly take 6 Force Damage.\n5. Attack all units in a 6x1 line from your position for 4d4 Pierce Damage.\n6. One Unit you choose takes 1d10 Force Damage and is pushed 3 meters away from you.\nFor the 1d8:\n1. Nothing else happens.\n2. Target(s) all take an extra 2d6 Damage (directly, ignoring Defense) of the Damage type of the 1d6 effect.\n3. Target(s) must pass an Dexterity Check or be Rooted.\n4. Target(s) must pass an Dexterity Check or be Crippled.\n5. Target(s) must pass an Intelligence Check or be Silenced.\n6. Target(s) must pass a Sense Check or be Feared.\n7. Target(s) must pass a Sense Check or be Fumbling.\n8. Target(s) must pass a Might Check or be Stunned.\n"
-    },
-    "<Wild Magic>": {
-        "AlignOnWebsite": "Right",
-        "A": "Passive",
-        "Effect": "Whenever you spend Mana, roll 1d12.\nIf you roll 12, something wild happens!\n"
-    },
-    "<Arcane Comet>": {
-        "A": "1 Action",
-        "Cooldown": "Once / Adventure",
-        "Range": "8 meters",
-        "Effect": "Shoot a comet that changes in power the longer it travels - it attacks and Crowd Controls a target.\nIt deals 1d4 Force Damage (against Defense) for every meter it travels (up to 8d4).\nHowever, the longer it travels, the weaker it's Crowd Control is.\nApply the following Crowd Control (directly, without a Check) to the target depending on the distance traveled (distance between you and the target):\n- 1 or 2 meters: Stun\n- 3 or 4 meters: Fumbling\n- 5 or 6 meters: Root\n- 7 or 8 meters: None\n"
-    },
-    "<Star Burst>": {
-        "AlignOnWebsite": "Right",
-        "A": "Half-Action",
-        "Cost": "1 Mana",
-        "Effect": "Declare up to 4 different targets within 15 meters.\nAssign a different number from #1 to #4 to each.\nRoll (3 + Main Stat) d4's. Each number deals that much Shock Damage to the target with that number.\nEach rolled 1 deals 1 Damage to target number #1.\nEach rolled 2 deals 2 Damage to target number #2.\nAnd so on.\n",
-        "Notes": "E.g. if you put #2 on a goblin, and you roll three 2's on the d4's, then that goblin takes 6 Force Damage.\nYou should probably assign the higher number to the target you want to do most Damage to.\nYou can declare fewer targets, but then the missing number will deal Damage to no target.\nCover is applied normally.\n"
-    },
-    "<Honorificabilitudinitatibus>": {
-        "AlignOnWebsite": "Left",
-        "A": "Passive",
-        "Effect": "Your single-target Spells that deal half Damage when a target passes a Check now deal the full Damage regardless.",
-        "Notes": "That means spells like Acid Burst don't even require a Check anymore."
     },
     "~Spell Book~": {
         "A": "Passive",
@@ -632,28 +594,43 @@
         "A": "Passive",
         "Effect": "Whenever you spend any amount of Mana on an Arcane Spell, shoot a magic missile at a target within 10 meters that instantly deals 1d4 Force Damage."
     },
+    "<Eldritch Specialization>": {
+        "AlignOnWebsite": "Right",
+        "A": "Passive",
+        "Effect": "You gain access to the Eldritch Basic Ability List, and when you cast an Eldritch Spell, you can choose to split the d8's into 2d4's and d12's into 2d6's.\n",
+        "Notes": "For example, if a Spell deals 2d8 Damage, that becomes 4d4.\nit might sound like the same thing, but because of math, 4d4 is actually, on average, 1 extra Damage compared to 2d8.\n"
+    },
     "<Force Pulse>": {
         "A": "0 Actions",
         "Cooldown": "Once / Adventure",
         "Effect": "All enemies within 10 meters must pass a Might Check or be Fumbling and take 1d4 Force Damage."
     },
     "<Crystal Mage>": {
+        "AlignOnWebsite": "Left",
         "A": "Passive",
         "Effect": "You become a Crystal Mage.\nAll your spells that deal Fire, Cold or Force Damage now deal a special type of Damage, Crystal Damage.\nYou also get the following Crystal Abilities.\n",
-        "Notes": "Almost no creature has resistance or immunity specifically to Crystal Damage."
+        "Notes": "Almost no Unit has resistance or immunity specifically to Crystal Damage."
     },
     "<Battle Mage>": {
+        "AlignOnWebsite": "Right",
         "A": "Passive",
         "Effect": "While you have an even number of Mana points, your first melee weapon attack each turn deals an extra 1d6 Fire or Cold Damage (your choice).\nThis can only happen if you're wearing Heavy Armor or a Shield.\nYou also get either Training in Shields, or one free Technique Feat of choice.\n"
     },
+    "<Mana Recycle>": {
+        "AlignOnWebsite": "Right",
+        "A": "Passive",
+        "Effect": "After you kill a Worthy Enemy with a Spell that benefiting from Magic Mastery, gain back the 1 Mana spent on Magic Mastery.\n"
+    },
     "~Crystal Bolt~": {
         "IsSubspell": true,
+        "AlignOnWebsite": "Left",
         "A": "1 Action",
         "Range": "Exactly 6 meters",
         "Effect": "Attack a Unit exactly 6 meters away for 4d4 Crystal Damage.\nThe target and all Units within 1 meter of it also take Main Stat Crystal Damage afterwards.\n"
     },
     "~Diamondize~": {
         "IsSubspell": true,
+        "AlignOnWebsite": "Left",
         "A": "Reaction",
         "Cooldown": "Long Range",
         "Effect": "Use when you would take Damage.\nPrevent the Damage and become invulnerable and Stunned until the start of your next turn.\n",
@@ -661,6 +638,7 @@
     },
     "~Cutting Field~": {
         "IsSubspell": true,
+        "AlignOnWebsite": "Left",
         "A": "1 Action",
         "Cost": "1 Mana",
         "Cooldown": "1 use / Combat",
@@ -669,7 +647,60 @@
     "<Spellcraft>": {
         "A": "0 Actions",
         "Cooldown": "Once / Adventure",
-        "Effect": "When you cast a spell, you can apply this any of the following effects to it:\n- For every 2 dice in its Damage, roll 1 more\n- If it targets an area, freely change the area to a 4x4 meter zone, 8x1 meter line or 5 meter 90* cone\n- Change its Damage type to any type, except True and Necrotic Damage\n- Change it's Check Stat to any other Stat (if it requires a Check)\n- Swap Root, Cripple or Silence with any other of these\n- Swap Slow, Fumbling, Rooted or Pushing with any other of these (Push a target 2 meters away from you or from the zone center)\n- Double its range\nAt any point, you can expend 1 Mana to reset the Cooldown of this Spell (Artificer - Spellcraft).\n"
+        "AlignOnWebsite": "Right",
+        "HasMixins": true,
+        "Effect": "When you cast a spell, you can apply this any of the following effects to it:\n{Diamond} For every 2 dice in its Damage, roll 1 more\n{Diamond} If it targets an area, freely change the area to a 4x4 meter zone, 8x1 meter line or 5 meter 90* cone\n{Diamond} Change its Damage type to any type, except  and Necrotic Damage\n{Diamond} Change it's Check Stat to any other Stat (if it requires a Check)\n{Diamond} Swap Root, Cripple or Silence with any other of these\n{Diamond} Swap Slow, Fumbling, Rooted or Pushing with any other of these (Push a target 2 meters away from you or from the zone center)\n{Diamond} Double its range\nAt any point, you can expend 1 Mana to reset the Cooldown of this Spell (Spellcraft).\n"
+    },
+    "<Archon Form>": {
+        "A": "Half-Action",
+        "Cooldown": "Once / Adventure",
+        "Duration": "1 minute",
+        "Effect": "Take the form of an archon - a being made of pure energy.\nWhile in the archon form, all Damage you deal from all sources becomes Force Damage, and all your spells that cost 2 or more Mana now cost 1 less.\nYou can fly and breathe underwater at normal Speed.\n",
+        "Notes": "You can't end your turn inside an obstacle, and you can't move through walls, ceilings and floors."
+    },
+    "<Chronomancy>": {
+        "A": "0 Actions",
+        "Cost": "1 Mana",
+        "Cooldown": "Once / Adventure",
+        "Effect": "Instantly return to how and where you were at the start of the turn, with that same Movement, Actions, Health, Shielding, Buffs and Cooldowns (not Mana, though).\nAlternatively, if you're out of combat, you can turn back time for all the world up to 10 minutes, exactly how it was, but retaining all your information from the future. Allies don't retain the information.\n"
+    },
+    "~Overcharge~": {
+        "AlignOnWebsite": "Left",
+        "A": "Passive",
+        "Effect": "After you enter combat, when you would cast the same Spell the 3rd time in a row, it takes a Half-Action less to cast (e.g. from 1 Action to Half-Action, from Half-Action to 0 Actions; minimum 0 Actions).\nThen you can't use that Spell again for the rest of the Adventure.\n",
+        "Upgrade": "Casting any other Spell inbetween those casts interrupts the sequence, but you can do non-Spell acts in-between, like weapon attacks, moving and using items.",
+        "Notes": "E.g. after casting Flame Bolt on turn 1, Flame Bolt on turn 2, if your next Spell is Flamebolt, it only takes a Half-Action to cast."
+    },
+    "<Wild Cast>": {
+        "A": "Half-Action",
+        "Cooldown": "Once / Adventure",
+        "Effect": "Roll 1d6 and 1d8. This spell has the effect of the 2 combined rolls.\nFor the 1d6:\n1. Attack a target for 3d6 Fire Damage\n2. A target must pass a Dexterity Check or take 2d8 Cold Damage (or half if it passes).\n3. Target all Units in a 4x4 area. Attack them all for 2d6 + 2 Shock Damage.\n4. Two Units instantly take 6 Force Damage.\n5. Attack all units in a 6x1 line from your position for 4d4 Pierce Damage.\n6. One Unit you choose takes 1d10 Force Damage and is pushed 3 meters away from you.\nFor the 1d8:\n1. Nothing else happens.\n2. Target(s) all take an extra 2d6 Damage (directly, ignoring Defense) of the Damage type of the 1d6 effect.\n3. Target(s) must pass an Dexterity Check or be Rooted.\n4. Target(s) must pass an Dexterity Check or be Crippled.\n5. Target(s) must pass an Intelligence Check or be Silenced.\n6. Target(s) must pass a Sense Check or be Feared.\n7. Target(s) must pass a Sense Check or be Fumbling.\n8. Target(s) must pass a Might Check or be Stunned.\n"
+    },
+    "<Wild Magic>": {
+        "AlignOnWebsite": "Right",
+        "A": "Passive",
+        "Effect": "Whenever you spend Mana, roll 1d12.\nIf you roll 12, something wild happens!\n"
+    },
+    "<Arcane Comet>": {
+        "AlignOnWebsite": "Left",
+        "HasMixins": true,
+        "A": "1 Action",
+        "Cooldown": "Once / Adventure",
+        "Range": "8 meters",
+        "Effect": "Shoot a comet that changes in power the longer it travels - it deals Damage and Crowd Controls a target.\nIt attacks for 1d4 Force Damage for every meter it travels (up to 8d4) (all against Defense).\nHowever, the longer it travels, the weaker it's Crowd Control is.\nApply the following Crowd Control (directly, without a Check) to the target depending on the distance traveled (distance between you and the target):\n{Diamond} 1 or 2 meters: Stun\n{Diamond} 3 or 4 meters: Fumbling\n{Diamond} 5 or 6 meters: Root\n{Diamond} 7 or 8 meters: None\n"
+    },
+    "<Star Burst>": {
+        "AlignOnWebsite": "Right",
+        "A": "Half-Action",
+        "Cost": "1 Mana",
+        "Effect": "Declare up to 4 different targets within 15 meters.\nAssign a different number from #1 to #4 to each.\nRoll (3 + Main Stat) d4's. Each number deals that much Shock Damage to the target with that number.\nEach rolled 1 deals 1 Damage to target number #1.\nEach rolled 2 deals 2 Damage to target number #2.\nAnd so on.\n",
+        "Notes": "E.g. if you put #2 on a goblin, and you roll three 2's on the d4's, then that goblin takes 6 Force Damage.\nYou should probably assign the higher number to the target you want to do most Damage to.\nYou can declare fewer targets, but then the missing number will deal Damage to no target.\nCover is applied normally.\n"
+    },
+    "<Honorificabilitudinitatibus>": {
+        "AlignOnWebsite": "Left",
+        "A": "Passive",
+        "Effect": "Your single-target Spells that deal half Damage when a target passes a Check now deal the full Damage regardless.",
+        "Notes": "That means spells like Acid Burst don't even require a Check anymore."
     },
     "~Artificer~": {
         "A": "Special",
@@ -685,19 +716,23 @@
     },
     "~Artificer - Magic Elixir~": {
         "AlignOnWebsite": "Right",
+        "HasMixins": true,
         "A": "5 minutes",
         "Cost": "1 Mana",
-        "Effect": "Choose one of the following types of potions and create it\no Elixir of Healing - Heal for 2d6 + 1.\no Elixir of Strength - Attacks with 2-Handed weapons deal +2 Damage, and attacks with 1-Handed weapons deal +1 Damage (lasts 2 combat encounters).\no Elixir of Agility - Doubled movement speed.\no Elixir of Mana - Gain 1 Mana (if the user does not have Mana-based spellcasting, it has no effect).\n"
+        "Effect": "Choose one of the following types of potions and create it\n{Diamond} Elixir of Healing - Heal for 2d6 + 1.\n{Diamond} Elixir of Strength - Attacks with 2-Handed weapons deal +2 Damage, and attacks with 1-Handed weapons deal +1 Damage (lasts 2 combat encounters).\n{Diamond} Elixir of Agility - Doubled movement speed.\n{Diamond} Elixir of Mana - Gain 1 Mana (if the user does not have Mana-based spellcasting, it has no effect).\n"
     },
     "<Master Specialization>": {
+        "AlignOnWebsite": "Left",
         "A": "Passive",
         "Effect": "You gain access to the Nature, Mysticism, Eldritch and Divine Ability Lists to Know Basic Abilities from.\n",
         "Notes": "If a Spell requires a certain Level, you need that Level to Know it, as usual."
     },
     "<Artificer - Magic Weapon>": {
+        "HasMixins": true,
+        "AlignOnWebsite": "Left",
         "A": "5 minutes",
         "Cooldown": "Once / Adventure",
-        "Effect": "You conjure a special weapon out of magic.\nChoose a type of weapon, and choose 2 of the following effects:\no +2 Damage\no Damage can freely be converted to Fire/Cold/Shock (choose one)\no +2 meters move speed\no +5 health while wielding it\nYou can only have 1 Magic Weapon created at a time.\nThe Magic Weapon is automatically destroyed after 24 hours.\n"
+        "Effect": "You conjure a special weapon out of magic.\nChoose a type of weapon, and choose 2 of the following effects:\n{Diamond} +1 Damage if it's a One-Handed Weapon (or +2 if it's Two-Handed)\n{Diamond} Damage can freely be converted to Fire/Cold/Shock (choose one)\n{Diamond} +2 meters move speed while wielding it\n{Diamond} Wielder starts combat with 1d6 Shielding\nYou can only have 1 Magic Weapon created at a time.\nThe Magic Weapon is automatically destroyed after 24 hours.\n"
     },
     "<Artificer - Golem>": {
         "A": "1 Action",
@@ -715,17 +750,19 @@
         "Notes": "Cover from the turrets is applied normally."
     },
     "<Artificer - Grenade>": {
+        "HasMixins": true,
         "A": "Half-Action",
         "Cost": "1 Mana",
         "Range": "6 meters to edge",
         "Cooldown": "1 use / Encounter",
-        "Effect": "Throw a grenade at a target 5x5x5 meter area.\nChoose one of the following effects. It applies to all Units caught in the area.\n- Units must pass a Might Check or be Stunned\n- Units must pass a Dexterity Check or take 6d4 Smash, Pierce or Slash Damage (you choose) and be knocked away from the center of the area to closest space outside of the edge of the area. If a unit passes, it only takes half of that Damage.\n- The grenade explodes at the start of your next turn and deals 4d8 + Main Stat Fire Damage (against Defense).\n",
+        "Effect": "Throw a grenade at a target 5x5x5 meter area.\nChoose one of the following effects. It applies to all Units caught in the area.\n{Diamond} Units must pass a Might Check or be Stunned\n{Diamond} Units must pass a Dexterity Check or take 6d4 Smash, Pierce or Slash Damage (you choose) and be knocked away from the center of the area to closest space outside of the edge of the area. If a unit passes, it only takes half of that Damage.\n{Diamond} The grenade explodes at the start of your next turn and deals 4d8 + Main Stat Fire Damage (against Defense).\n",
         "Notes": "Alternatively, you create the Grenade out of combat and give it to an ally to use. If you do this, only one Grenade can be thrown during a combat. A second grenade has no effect (since it's magical by nature and draws from your magic power). This is considered an attack."
     },
     "<Artificer - Magic Armor>": {
+        "HasMixins": true,
         "A": "5 minutes",
         "Cooldown": "Once / Adventure",
-        "Effect": "You magically enchant a piece of armor for the rest of the Adventure.\nChoose 2 of the following effects to apply to it:\n- +1 Defense\n- Choose a Damage type. Wearer takes only 50% Damage from that type.\n- +2 meters Movement Speed, and the wearer can freely jump up to 2 meters (up or ahead; this still uses Movement)."
+        "Effect": "You magically enchant a piece of armor for the rest of the Adventure.\nApply all of the following effects to it:\n{Diamond} +1 Defense\n{Diamond} Choose a Damage type. Wearer takes only 50% Damage from that type.\n{Diamond} +2 meters Movement Speed, and the wearer can freely jump up to 2 meters (up or ahead; this still uses Movement).\n"
     },
     "~Divine Sense~": {
         "A": "0 Actions",
@@ -734,7 +771,7 @@
     },
     "~Lay on Hands~": {
         "A": "1 Action",
-        "Effect": "You have (3 + Main Stat + Your Level) Holy points.\nUsing an action, you can expend any amount of Holy Points to heal a creature for that amount.\nAll your Holy Points replenish inbetween Adventures.\n"
+        "Effect": "You have (3 + Main Stat + Your Level) Holy points.\nUsing an action, you can expend any amount of Holy Points to heal a Unit for that amount.\nAll your Holy Points replenish inbetween Adventures.\n"
     },
     "~Divine Smite~": {
         "AlignOnWebsite": "Right",
@@ -755,8 +792,8 @@
     "<Pledge of Conquest>": {
         "A": "Special",
         "Cooldown": "Lifetime",
-        "Effect": "Ask a party member to join your cause and pledge their honor to you.\nThat person can use Divine Smite once per Adventure.\nIt can also cast Lay on Hands using your Holy Points and always Knows the same Basic Divine Spells you Know at a time.\nAdditionally, Oath of Conquest also happens when that ally defeats a Worthy Enemy.\n",
-        "Notes": "You can only have one character who pledged for you.\nThe number of Holy Points of the ally does not increase.\nIf you ever change this Talent, the ally loses access to all things mentioned; it regains them when you get this Talent again.\n"
+        "Effect": "Ask a party member to join your cause and pledge their honor to you.\nthat person can use Divine Smite once per Adventure.\nIt can also cast Lay on Hands using your Holy Points and always Knows the same Basic Divine Spells you Know at a time.\nAdditionally, Oath of Conquest also happens when that ally defeats a Worthy Enemy.\n",
+        "Notes": "You can only have one character who pledged for you and it must be within 100 meters to have access to all of those.\nThe number of Holy Points of the ally does not increase.\nIf you ever change this Talent, the ally loses access to all things mentioned; it regains them when you get this Talent again.\n"
     },
     "<Retribution>": {
         "A": "Special",
@@ -937,9 +974,10 @@
         "Notes": "Requires 8 special blades, which can be bought for a total of 240 gold."
     },
     "<Poisoned Weapons>": {
+        "HasMixins": true,
         "A": "10 minutes",
         "Cooldown": "8 hours",
-        "Effect": "You coat up to 2 weapons in different poisons that last for 8 hours.\nChoose 2 weapons, and choose a different poison to apply for each:\n- Deathly Venom: Deals 1d10 extra Poison Damage to targets with more than 50% Health; then the target becomes immune to this poison for 1 minute.\n- Necrotic Toxin: The attack's target becomes Slowed and can't regain Health for 1 minute\n- Phosphorus: The target can't benefit from Cover for 1 minute (and this attack ignores Cover)\n- Weakening Poison: The target can only do 1 Attack on their next turn\n",
+        "Effect": "You coat up to 2 weapons in different poisons that last for 8 hours.\nChoose 2 weapons, and choose a different poison to apply for each:\n{Diamond} Deathly Venom: Deals 1d12 extra Poison Damage to targets with more than 50% Health; then the target becomes immune to this poison for 1 minute.\n{Diamond} Necrotic Toxin: The attack's target becomes Slowed and can't regain Health for 1 minute\n{Diamond} Phosphorus Mix: The target can't benefit from Cover for 1 minute (and this attack ignores Cover)\n{Diamond} Weakening Poison: The target can only do 1 Attack on their next turn\n",
         "Notes": "Remember to specify which weapon you are attacking to.\nRequires a Poisoner's Kit which can be bought for 200 gold on the black market. If you're in a tight scenario, the DM might let you use monster blood or gather herbs for a 1-time use of this Ability.\n"
     },
     "<Savage Ambush>": {
@@ -1044,6 +1082,12 @@
         "Effect": "When you attack a Unit, and there is no other Unit within 1 meter of either of you, the attack gains Ambush.\nAmbush can apply twice at the same time, from 2 different Ambush conditions.\n",
         "Notes": "E.g. if the target has 50% or less Health and it's also Isolated, the total Ambush Damage is 2d8 Damage. Or, for another example, if you were Hiding and the target would also have 50% or less Health, the attack gains 2d8 Damage.\nThe maximum Damage is 2d8, even if you match 3 conditions for Ambush (e.g. Hiding, 50% Health and Flanking).\nYou can still add Ambush Damage only once per turn (e.g. not with 2 separate attacks; it must be one single attack).\n"
     },
+    "<Momentum Dance>": {
+        "A": "0 Actions",
+        "Cooldown": "Once / Adventure",
+        "Duration": "1 minute",
+        "Effect": "Gain Shielding equal to your current Initiative in combat.\n"
+    },
     "~Proficiency in Occultism~": {
         "Display Name": "Prof. in Occultism",
         "Effect": "Add your Level to all Checks for knowing about demons or undead, rituals, myths or cryptids, black magic, etc."
@@ -1073,7 +1117,7 @@
         "IsSubspell": true,
         "AlignOnWebsite": "Right",
         "A": "Passive",
-        "Effect": "You have Maximum Initiative every encounter.\nAll your ranged attacks have an extra 3 meters range.\nYour Spell Grade is increased by 1.\n"
+        "Effect": "Your Initiative is always as high as the highest Initiative in combat.\nAll your ranged weapon attacks and Spells have an extra 3 meters range (if their range is already 3 meters or higher).\nYour Spell Grade is increased by 1.\n"
     },
     "~Owl's Foresight~": {
         "IsSubspell": true,
@@ -1179,13 +1223,15 @@
         "Notes": "For example, you can make a goblin run or recklessly attack one of your party members. But you can't make a guard jump off a cliff, because that's not what it would normally do."
     },
     "<Incorporeal Form>": {
+        "HasMixins": true,
         "A": "0 Actions",
         "Cooldown": "Once / Adventure",
-        "Effect": "You become a bodyless soul for up to 8 hours and enter a willing ally.\nWhile inside the ally's body, you can communicate with them mentally, and only they can see you.\nYou can slightly peek outside of their body, and move your arms, upper body and head as if you were a ghost originating from that ally's body.\no You can't move yourself, but you always move with that ally.\no You can't do any physical actions (because you are basically a ghost and can't touch anything or anyone).\no You can cast spells as normal. \no You follow your own Initiative in combat.\no You can't take Damage from external sources, but you feel every body sensation that ally feels.\nYou can freely exit their body and revert back to your physical self using 0 Actions.\n"
+        "Effect": "You become a bodyless soul for up to 8 hours and enter a willing ally.\nWhile inside the ally's body, you can communicate with them mentally, and only they can see you.\nYou can slightly peek outside of their body, and move your arms, upper body and head as if you were a ghost originating from that ally's body.\n{Diamond} You can't move yourself, but you always move with that ally.\n{Diamond} You can't do any physical actions (because you are basically a ghost and can't touch anything or anyone).\n{Diamond} You can cast spells as normal. \n{Diamond} You follow your own Initiative in combat.\n{Diamond} You can't take Damage from external sources, but you feel every body sensation that ally feels.\nYou can freely exit their body and revert back to your physical self using 0 Actions.\n"
     },
     "<Bomboclaat>": {
+        "HasMixins": true,
         "A": "Passive",
-        "Effect": "You gain 1 more Guide Die.\nYou can now do the following with Guide Dice:\n- Add to another ally's Damage roll\n- Subtract from an enemy's Damage roll\n- Add to another ally's Resist Check\n- Subtract from an enemy's Resist Check\nYou can only use 1 Guide Die at a time.\n"
+        "Effect": "You gain 1 more Guide Die.\nYou can now do the following with Guide Dice:\n{Diamond} Add to another ally's Damage roll\n{Diamond} Subtract from an enemy's Damage roll\n{Diamond} Add to another ally's Resist Check\n{Diamond} Subtract from an enemy's Resist Check\nYou can only use 1 Guide Die at a time.\n"
     },
     "<Dead Hands>": {
         "A": "1 Action",
@@ -1210,36 +1256,27 @@
         "Effect": "Your lord is a higher fey creature.\nChoose one more Racial Feat from your Race.\n",
         "Notes": "Lore-wise, the Fey Patron enhances you magically, mutates your arcane flow and transforms you into an unordinarily adapted person.\nIf you are a Dragonborn, you can instead choose one more Breath shape, and your Breath has both chosen shapes simultanuously (overlapped).\n"
     },
-    "~Celestial Patron~": {
-        "A": "Passive",
-        "Effect": "Your lord is a celestial being, who lives in a higher plane. You gain Life Cycle.",
-        "Notes": "The gift of Life Cycle is granted to you by your patron. Use it well. Withhold the balance."
-    },
     "~Old God Patron~": {
-        "AlignOnWebsite": "Right",
         "A": "Passive",
         "Effect": "Your lord is an old, slumbering god.\nYou can pick a Racial Ability from any other race and have it permanently (not from the Race Ability Choices, but from the Starting Abilities).\n",
         "Notes": "Eldritch thoughts flow through your mind, infecting you with strange abilities acquired in unfathomable ways."
     },
     "<Life Cycle>": {
-        "IsSubspell": true,
         "AlignOnWebsite": "Right",
         "A": "Half-Action",
         "Cost": "5 Health",
-        "Effect": "Heal a Unit within 10 meters for up to 10 Health from their remaining Reserve Health Pool."
-    },
-    "~Demon Patron~": {
-        "A": "Passive",
-        "Effect": "Your lord is a powerful demon.\nYou gain Soul Drain.\n",
-        "Notes": "Through every soul drained, your demon lord feeds, and in return, grants you even more power."
+        "Effect": "Heal a Unit within 10 meters for up to 10 Health from their remaining Reserve Health Pool.",
+        "Upgrade": "Corresponds to the Celestial Patron.",
+        "Notes": "The gift of Life Cycle is granted to you by your patron. Use it well. Withhold the balance."
     },
     "<Soul Drain>": {
-        "IsSubspell": true,
         "AlignOnWebsite": "Right",
         "A": "Half-Action",
         "Cost": "1 Mana",
         "Range": "15 meters",
-        "Effect": "Deal 7 Necrotic Damage to a creature (directly, ignoring Defense).\nIf it dies, you get the Mana back and heal for 5 Health.\n"
+        "Effect": "Deal 7 Necrotic Damage to a Unit (directly, ignoring Defense).\nIf it dies, you get the Mana back and heal for 5 Health.\n",
+        "Upgrade": "Corresponds to the Demon Patron.",
+        "Notes": "Through every soul drained, your demon lord feeds, and in return, grants you even more power."
     },
     "~Sentient Weapon~": {
         "A": "Special",
@@ -1247,8 +1284,8 @@
     },
     "~Hexblade~": {
         "A": "Passive",
-        "Effect": "After you cast an offensive spell, your next Hexblade Weapon attack deals +1d6 Damage.",
-        "Upgrade": "The bonus Damage becomes 1d8 at Level 5.\nReposess: By spending 1 hour, you can transfer the entity posessing your Hexblade weapon into another weapon. That new weapon becomes your Hexblade Weapon, and the old one is destroyed.\n",
+        "Effect": "After you cast an offensive Spell, your next Hexblade Weapon attack deals +1d6 Damage. Also, instead of adding Dexterity of Might, you can add your Main Stat to attacks with your Hexblade Weapon.",
+        "Upgrade": "Reposess: By spending 1 hour, you can transfer the entity posessing your Hexblade weapon into another weapon. That new weapon becomes your Hexblade Weapon, and the old one is destroyed.\n",
         "Notes": "Offensive means that it deals Damage or applies hard Crowd Control (anything better than Slow and creating Hard Terrain)."
     },
     "<Shapeshifting Weapon>": {
@@ -1279,15 +1316,35 @@
         "Effect": "Count the Units within 3 meters of you (except you).\nThey are all attacked for 1d6 + (the number of Units) Force Damage (against Defense).\n",
         "Notes": "E.g. if this affects 2 Units, it deals 3d6. If it affects 3 Units, it deals 4d6. 4 Units - 5d6. And so on."
     },
+    "~Power Overwhelming~": {
+        "A": "Passive",
+        "Effect": "All your Eldritch Basic Spells have their dice increased by 1 tier.\n",
+        "Notes": "Increasing dice by 1 tier means, for example, d6 become d8, or d10 become d12. D12's and d20's don't increase.\nFor example, Eldritch Blast deals 2d8 + Main Stat, Deathfire Bolt deals 1d12 + 1d10 + 1d8 + Main Stat, Curse of Weakness reduces by 1d6, etc.\n"
+    },
+    "~Shadow Veil~": {
+        "A": "Passive",
+        "Effect": "You take only 50% Necrotic and Psychic Damage."
+    },
+    "~Repower~": {
+        "A": "Passive",
+        "Effect": "Whenever you roll maximum on a Damage die with an Eldritch Spell on a Worthy Enemy, heal for 1."
+    },
+    "~Darkness~": {
+        "A": "0 Actions",
+        "Range": "5 meters to edge",
+        "Cooldown": "Once / Adventure",
+        "Effect": "Conjure a 5x5x5 meter area of magical darkness. Units inside are Blinded, and everything done in or through the darkness has Cover.\nPassively, you can see in normal darkness, up to 10 meters away.\n"
+    },
     "~Summon Familiar~": {
         "A": "1 Hour",
-        "Effect": "You conjure a ritual for 1 hour.\nThe first time you cast this ritual, you summon a familiar which becomes yours.\nYou can choose what your familiar looks like, assuming it is a small creature.\nAlso, choose an element which is bound to it: Fire, Cold, Shock, Light (True) or Necrotic. That becomes your Familiar's Element.\nYour familiar comes with a name that the GM decides.\nThe familiar doesn't take turns on its own, but at the same time as you.\nOn your turn, your familiar can use its own movement to move, but you must spend your own Actions for it to take actions.\nIf your familiar goes more than 30 meters away from you, it becomes unsummoned.\nIf it dies, it becomes unsummoned.\nYou can always summon it back with this Ability.\nThe stat block for the Familiar is on the Pets and Animals page.\n",
-        "Notes": "You can communicate with your Familiar telepathically.\nThe Familiar can be classified as a demon, undead, celestial, monstrosity, etc (but not beast or humanoid).\n"
+        "Cooldown": "Once / Adventure",
+        "Effect": "Summon a familiar and choose an element which is bound to it: Fire, Cold, Shock, Light (True) or Necrotic.\nThe familiar takes its turn at the same time as you.\nOn your turn, your familiar can use its own movement to move, but you must spend your own Actions for it to take Actions.\nIf it dies or goes more than 30 meters away from you, it becomes unsummoned, and it is also unsummoned inbetween Adventures.\nThe stat block for the Familiar is on the Pets and Animals page.\n",
+        "Notes": "You can choose what your familiar looks like, assuming it is a small creature. Your familiar comes with a name that you or the GM decides.\nYou can communicate with your Familiar telepathically.\nThe Familiar can be classified as a demon, undead, celestial, monstrosity, etc (but not beast or humanoid).\n"
     },
     "~Familiar Pet Attack~": {
         "A": "0.5 Actions",
         "Range": "3 meters",
-        "Cooldown": "1 turn",
+        "Cooldown": "Once / Turn",
         "Effect": "The familiar melee attacks a target.\nThe attack deals 1d12 + Main Stat Damage (of your pet's elemental type).\n",
         "Notes": "The attack is against target's Defense, of course."
     },
@@ -1306,7 +1363,8 @@
     "<Patron Aspect>": {
         "A": "0 Actions",
         "Cost": "10 Health",
-        "Effect": "You take on the shape or a being from your patron's plane until the end of your next turn.\nYou have +2 Defense, +2 Main Stat, and your Basic Spells require no mana to cast.\nAfter you cast a Basic Spell for free, it goes on a Once / Adventure.\n"
+        "Duration": "1 minute",
+        "Effect": "You take on the shape or a being from your patron's plane until the end of your next turn.\nYou have +2 Defense, +2 Main Stat, and your Basic Spells require no mana to cast.\nAfter you cast a Basic Spell, it goes on a Once / Adventure.\n"
     },
     "<Dual Summonation>": {
         "A": "Half-Action",
@@ -1332,9 +1390,14 @@
     },
     "~Advanced Flank~": {
         "AlignOnWebsite": "Left",
-        "A": "Reaction",
-        "Effect": "The first time you Flank-Attack an enemy every turn, the attack deals 1d6 Damage instead of just +1.\nAlso, your attacks Flank an enemy if they are pinned against a wall or an obstacle as well.\n",
+        "A": "Passive",
+        "Effect": "The first time you Flank-Attack an enemy every turn, the attack deals 1d6 Damage instead of just +1.\nAlso, your melee weapon attacks Flank an enemy if they are pinned against a wall or an obstacle as well.\n",
         "Note": "Flanking is when you melee-attack an enemy, and an ally of yours is directly behind the enemy.\nAlso, instead of an ally being behind the enemy, your attacks count as Flanking even if there is a wall or another obstacle directly behind them.\n"
+    },
+    "~Rout~": {
+        "AlignOnWebsite": "Left",
+        "A": "Passive",
+        "Effect": "The first time you enter each enemy's vicinity, it instantly becomes Fumbling.\n"
     },
     "~Upper Hand~": {
         "A": "Passive",
@@ -1357,6 +1420,11 @@
         "Effect": "When you get this, choose one weapon type.\nYou have that weapon effect too on all weapons you use, exactly as written, no matter what weapon you are using.\nYou can change this weapon type inbetween Adventures.\n",
         "Notes": "Pay very close attention to the weapon effect - for example, Katana specifies that you Critical Strike with it when all 3 dice have the same number, so this can only apply to weapons that roll exactly 3 dice. Or, for another example, Slings say that attacks specifically with Slings take 0.33 Actions, so it can not apply to any other weapon!"
     },
+    "<Quick Maneuvers>": {
+        "A": "0 Actions",
+        "Cooldown": "Once / Turn",
+        "Effect": "Immediately after you make a weapon attack, use Dash, Push, Taunt or Hamstring for free. The target rolls no Check - it is applied instantly."
+    },
     "<Into the Fray>": {
         "A": "Passive",
         "Effect": "When combat starts, determine which side is your Allied Side and which is the Enemy Side of the battlefield. Each side has a direction (Allied Direction and Enemy Direction).\nIf you end your turn more to the Allied Direction than you started, you gain 4 Shielding until the start of your next turn.\nIf you end your turn more to the Enemy Direction than you started, your first attack next turn deals 1d6 extra Damage.\n"
@@ -1369,7 +1437,8 @@
     "<Ruining Throw>": {
         "A": "Half-Action",
         "Range": "10 meters",
-        "Effect": "Throw your weapon at a target and attack it (without Throwing penalties and ignoring Cover).\nBefore applying the Damage, the attack destroys all Shielding on the target and removes all buffs on it.\nThe target is unable to trigger \"on roll\", can't gain Shielding and can't benefit from Buffs until they spend 1 Action to recover.\n",
+        "Cooldown": "Once / Encounter",
+        "Effect": "Throw a weapon at a target and attack it (without Throwing penalties and ignoring Cover).\nBefore applying the Damage, the attack destroys all Shielding on the target and removes all buffs on it.\nThe target is unable to trigger \"on roll\", can't gain Shielding and can't benefit from Buffs until they spend 1 Action to recover.\n",
         "Notes": "Your weapon lands at the nearest space to the target (and you should probably pick it up with a Half-Action).\n\"On roll\" refers to effects like \"if it rolls 10 on a d10, the attack deals 1d10 extra Damage\".\nBuffs are all effects that improve the target; even passive effects like auras or passive stats from abilities are negated.\nYou don't need Training in Throwning and this attack counts as a regular melee attack.\n"
     },
     "~Onslaught~": {
@@ -1493,18 +1562,6 @@
         "A": "Passive",
         "Effect": "You can have Dexterity as your class's Main Stat, even if your class says otherwise."
     },
-    "~Proficiency in Persuasion~": {
-        "Display Name": "Prof. in Persuasion",
-        "Effect": "Add your Level to all Checks for persuading people non-agressively (convincing them through dialogue)."
-    },
-    "~Proficiency in Deception~": {
-        "Display Name": "Prof. in Deception",
-        "Effect": "Add your Level to all Checks for lying, fooling, concealing information, faking emotions, etc."
-    },
-    "~Proficiency in Memory~": {
-        "Display Name": "Prof. in Memory",
-        "Effect": "Add your Level to all Intelligence Checks for remembering details about people, locations, events, etc that you were personally involved with."
-    },
     "~Alignment~": {
         "A": "Passive",
         "Effect": "Determine the true personality alignment of your character.\nChoose if you are Evil, Neutral or Virtuous. Your other Abilities must reflect your alignment.\nIf your alignment changes throughout the adventure, your traits will automatically change to reflect your alignment.\n",
@@ -1536,11 +1593,13 @@
     },
     "~Hellish Magic~": {
         "A": "Passive",
-        "Effect": "You permanently know 2 Basic Abilities that deal Fire Damage from any Ability List.\nYou can change these Abilities inbetween Adventures."
+        "Effect": "You Know 2 Basic Abilities that deal Fire Damage from any Ability List.\nYou can change these Abilities inbetween Adventures.\n",
+        "Notes": "You still need to match the Level requirement, if any (e.g. Fireball requires Level 4)."
     },
-    "~Proficiency in Intimidation~": {
-        "Display Name": "P. in Intimidation",
-        "Effect": "Add your Level to all Checks for intimidating non-player characters into changing their mind, submission, etc."
+    "~Slow Metabolism~": {
+        "A": "Passive",
+        "Effect": "Your Total Reserve Health increases by 3 and your lifespan by 50%.\nWhen you drink a potion, its effect is delayed by up to 8 hours.\nFor 0 Actions, you can instantly apply the drank potion's effect ahead of time.\n",
+        "Notes": "This is useful when consuming potions in combat, or when you need to quickly apply the effect of a potion.\nThis counts as if you consumed the potion when you use the 0 Actions, or when the 8 hours expire (e.g. for overdose)."
     },
     "~Draconic Ancestry~": {
         "AlignOnWebsite": "Left",
@@ -1570,7 +1629,7 @@
     },
     "~Breath - Blast~": {
         "A": "Special",
-        "Effect": "Your Dragon's Breath now breathes on all creatures within 2 meters of you instead of a line.",
+        "Effect": "Your Dragon's Breath now breathes on all Units within 2 meters of you instead of a line.",
         "AlignOnWebsite": "Right"
     },
     "~Second Skin~": {
@@ -1593,18 +1652,6 @@
         "Effect": "Quickly fly up to 5 meters.\n",
         "Upgrades": "At Levels 3, 6 and 9, you get one extra use of Wingspan per Adventure (e.g. the Cooldown becomes 2 times / Adventure, 3 times / Adventure, etc).",
         "Notes": "If you don't pick this Talent when you create your character, you can't pick this later."
-    },
-    "~Proficiency in Crafting~": {
-        "Display Name": "Prof. in Crafting",
-        "Effect": "Add your Level to all Checks for crafting items (e.g. improvised traps, weapons or tools, rafts, structures, setting up a tent, etc)."
-    },
-    "~Proficiency in History~": {
-        "Display Name": "Prof. in History",
-        "Effect": "Add your Level to all Intelligence Checks for recalling past events from the lore of the world (e.g. wars, events, etc)."
-    },
-    "~Proficiency in Dungeoneering~": {
-        "Display Name": "P. in Dungeoneering",
-        "Effect": "Add your Level to all Checks for navigating dungeons and identifying traps, secret doors, dungeon monsters, etc."
     },
     "~Dwarf Resting~": {
         "A": "Passive",
@@ -1668,24 +1715,12 @@
     },
     "~Landsperson~": {
         "A": "Special",
-        "Effect": "Choose any land specialty ability from Coven of the Land Druid specialization and learn it permanently.",
+        "Effect": "Choose one land specialty Ability from Coven of the Land Druid specialization and learn it permanently (e.g. choose between Raise Wall, Storm, Wild Roots and Endurance and you get it).",
         "Notes": "This can't be changed, so choose wisely!"
     },
     "~Agile Technique~": {
         "A": "Passive",
         "Effect": "You can use any weapon with your Dexterity Stat (instead of Might, in some cases)."
-    },
-    "~Proficiency in Luck~": {
-        "Display Name": "Prof. in Luck",
-        "Effect": "Add your Level to all Checks for luck and random chance (e.g. a merchant having a certain item, gambling, etc)."
-    },
-    "~Proficiency in Sleight of Hand~": {
-        "Display Name": "P. in Sleight of Hand",
-        "Effect": "Ad your Level to all Checks for fine finger movements (e.g. picking pockets, searching a dumpster, sleeve tricks, etc)"
-    },
-    "~Proficiency in Investigation~": {
-        "Display Name": "Prof. in Investigation",
-        "Effect": "Add your Level to all Checks for closely examining small to medium objects or inspecting parts of rooms."
     },
     "~Inherited Tastes~": {
         "A": "Passive",
@@ -1712,7 +1747,7 @@
     },
     "~Luckier~": {
         "A": "Passive",
-        "Effect": "You can use Lucky once more per Adventure."
+        "Effect": "You can use Lucky Presence once more per Adventure."
     },
     "~Environmentalist~": {
         "A": "Passive",
@@ -1725,10 +1760,6 @@
     "<Cannibalize>": {
         "A": "asdasd"
     },
-    "~Proficiency in Sight~": {
-        "Display Name": "Prof. in Sight",
-        "Effect": "Add your Level to all Sense Checks for seeing (e.g. noticing things in darkness, seeing far away objects, recognizing faces, etc)."
-    },
     "~Undeath~": {
         "A": "Passive",
         "Effect": "You are immune to common Diseases.\nYou take 150% Damage from Fire and attacks done with silver weapons.\nYou do not require food to survive, but you do require 8 hours of sleep per day and water.\nYou can hold your breath for up to 1 hour.\nYou can stay Fallen for up to 7 days before dying for good.\nYou are considered Undead.\n"
@@ -1740,9 +1771,9 @@
     },
     "~Sense Souls~": {
         "A": "0 Actions",
-        "Cooldown": "Once / Adventure",
-        "Effect": "You know the locations of any living creatures within 15 meters that are not obstructed by thick materials.\n",
-        "Notes": "The more obstructed the space between you and living creatures is, the fainter you feel it. 2 meters of obstruction completely hides the creatures."
+        "Cooldown": "1 Hour",
+        "Effect": "You know the locations of any living Units within 15 meters that are not obstructed by thick materials.\n",
+        "Notes": "The more obstructed the space between you and living Units is, the fainter you feel it. 2 meters of obstruction completely hides the Units."
     },
     "~Beating Heart~": {
         "A": "Passive",
@@ -1763,6 +1794,10 @@
         "A": "0 Actions",
         "Cooldown": "Once / Adventure",
         "Effect": "Choose an enemy near you.\nThat enemy performs an attack on you.\nIf you survive the attack, you gain 1 Action which you can use to make one attack or use one Ability on that enemy.\n"
+    },
+    "~Proficiency in Persuasion~": {
+        "Display Name": "Prof. in Persuasion",
+        "Effect": "Add your Level to all Checks for persuading people non-agressively (convincing them through dialogue)."
     },
     "~Human Vigilence~": {
         "A": "Passive",
@@ -1791,6 +1826,10 @@
         "Requirement": "0 or less Intelligence",
         "Effect": "When you would use Main Stat for an Ability, you can use the number 3 instead.\nYour Spell Grade is at least 9 (as if your Main Stat were 3).\nYou gain Proficiency in Luck.\n",
         "Notes": "For example, Magic Missiles shoots out a number of missiles equal to your Main Stat. So, with Ignorance Bliss, you can just replace Main Stat with the number 3.\n"
+    },
+    "~Proficiency in Intimidation~": {
+        "Display Name": "P. in Intimidation",
+        "Effect": "Add your Level to all Checks for intimidating non-player characters into changing their mind, submission, etc."
     },
     "~Proficiency in Monstrology~": {
         "Display Name": "P. in Monstrology",

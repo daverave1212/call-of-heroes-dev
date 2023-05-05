@@ -80,12 +80,12 @@ export function ClassFeatures({ theClass }) {
                 <Column>
                     <div className='with-margined-children'>
                         {/* <SmallStat name="Health">{ theClass['Base Health'] }<Icon name="Health" type="small-stat"/></SmallStat> */}
+                        <SmallStat name="Initiative">Your Dexterity + Your Charisma</SmallStat>
+                        { theClass['Language'] && <SmallStat name="Language" topDown='true'>{ theClass['Language'] }</SmallStat> }
+                        { theClass.Weapons && <SmallStat name="Weapon Training" topDown='true'>{ theClass.Weapons }</SmallStat> }
+                        <SmallStat name="Proficiencies" topDown='true'>{ theClass['Proficiency Requirements'] }</SmallStat>
                         <SmallStat name="Armor Training">{ theClass['Armor Training'] }</SmallStat>
                         <SmallStat name="Base Defense">0 + Your Armor<Icon name="Defense" type="small-stat"/>Defense</SmallStat>
-                        { theClass['Language'] && <SmallStat name="Language" topDown='true'>{ theClass['Language'] }</SmallStat> }
-                        { theClass.Weapons && <SmallStat name="Weapons" topDown='true'>{ theClass.Weapons }</SmallStat> }
-                        { theClass.Feat && <SmallStat name="Feats" topDown='true'>You start with one Feat of choice.</SmallStat> }
-                        <SmallStat name="Proficiencies" topDown='true'>{ theClass['Proficiency Requirements'] }</SmallStat>
                     </div>
                 </Column>
                 <Column>
@@ -104,7 +104,8 @@ export function RaceFeatures({ theRace }) {
                 <Column>
                     <div className='with-margined-children'>
                         <SmallStat name="Stat Distribution" topDown="true">{ theRace.Creation['Stat Restrictions'] }</SmallStat>
-                        <SmallStat name="Health">{ theRace.Stats['Base Health'] }<Icon name="Health" type="small-stat"/></SmallStat>
+                        <SmallStat name="Health">{ theRace.Stats['Base Health'] } + Might<Icon name="Health" type="small-stat"/></SmallStat>
+                        <SmallStat name="Reserve Health" topDown={true}>Half of Maximum Health (rounded down)<Icon name="Health" type="small-stat"/></SmallStat>
                         <SmallStat name="Speed">{ theRace.Stats.Movement }</SmallStat>
                         { theRace.Weapons && <SmallStat name="Weapons" topDown='true'>{ theRace.Weapons }</SmallStat> }
                         { theRace.Training && <SmallStat name="Other Training" topDown='true'>{ theRace.Training }</SmallStat> }
