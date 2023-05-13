@@ -252,7 +252,7 @@ Bloodshed:
     ~Hamstring~:
         A: Half-Action
         Range: 1 meter
-        Effect: A target becomes Slowed for 1 turn.
+        Effect: A Unit becomes Slowed.
     
     ~Hide~:
         A: Special
@@ -328,15 +328,15 @@ Bloodshed:
         A: 0 Actions
         Cost: 1 Mana
         Effect: |
-            Heal yourself for 1d6 and remove all Root and Slow effects on you.
+            Heal yourself for 1d8 and remove all Fumbling, Root, Slow, Poisons and Bleed effects ongoing on you.
         Upgrade: |
-            At Level 4, the healing increases to 1d8.
-            At Level 6 this also removes Cripples.
+            At Level 6 this also removes Cripple and Blind.
 
     ~Shank~:
         A: 0 Actions
         Cost: 1 Mana
         Effect: Make a melee attack with a 1-Handed Weapon. It has Cover (-2).
+        Notes: If the weapon is not equipped, you freely equip the weapon, Shank with it, then unequip it.
 
     ~Vault Break~:
         A: 0 Actions
@@ -429,7 +429,7 @@ Warfare:
         Cost: 1 Mana
         Cooldown: Once per encounter
         Duration: 1 minute
-        Effect: Gain Shielding equal to the number of Worthy Enemies you see.
+        Effect: Gain Shielding equal to the number of Worthy Enemies you can see.
     
     ~Battle Trust~:         # Ok
         A: 0 Actions
@@ -440,9 +440,9 @@ Warfare:
         Notes: You can't use this on yourself
         
     ~Glory Shout~:          # Slightly strong for the cost, but it's distributed weirdly so ok
-        A: Half-Action
+        A: 0 Actions
         Cost: 1 Mana
-        Effect: You and all allies that can hear you are healed for 3 Health.
+        Effect: Roll 1d4. You and all allies that can hear you are healed for that much Health.
 
     ~Infailible Reach~:     # Ok
         A: 1 Action
@@ -807,7 +807,7 @@ Arcane:
 
     ~Magic Missiles~:
         A: 1 Action
-        Range: 6 meters
+        Range: 5 meters
         Effect: |
             Shoot a number of missiles equal to your Main Stat. Each missile does 1d4 Force Damage (directly, ignoring Defense).
         Upgrade: |
@@ -895,14 +895,16 @@ Arcane:
     ~Spell Seal~:
         A: 0 Actions
         Cost: 1 Mana
+        Duration: 1 minute
         Effect: |
             Choose a Unit you can see.
-            Whenever it casts a Spell that heals or deals Damage, roll 1d4 and subtract it from the roll.
-            Lasts for 1 minute.
+            Whenever it casts a Spell that heals or deals Damage, you can roll 1d4 and subtract it from that Unit's act.
         Upgrade: |
             At Level 4, you can spend 1 more Mana to increase the roll to 2d4.
             At Level 7, you can spend 2 more Mana instead to increase the roll to 3d4.
-        Notes: Does not stack multiple times.
+        Notes: |
+            Does not stack multiple times.
+            On Epic monsters, only applies to the first Spell they cast in the round.
             
     ~Shield Element~:
         A: Half-Action
@@ -1006,7 +1008,7 @@ Arcane:
     ~Unlock~:
         A: 1 Action
         Requirement: Level 4
-        Range: 9 meters
+        Range: 10 meters
         Effect: |
             You can attempt to unlock a lock magically.
             Using this counts as if you Know How to Pick Locks.
@@ -1109,12 +1111,16 @@ Nature:
             Multiple Winds don't stack into eachother.
     
     ~Cure Affliction~:
-        A: 10 minutes
+        A: 0 Actions
+        Cooldown: 1 Hour
+        Range: 3 meters
         Effect: |
-            Touch an ally (or yourself) and cure a normally curable disease or poison from it.
+            Cure a simple Disease, Debuff or Bleed effect on a Unit (you can choose yourself).
         Upgrade: |
             At Level 4, you can cure harder and stranger diseases and poisons.
             At level 8, you can cure terminal or chronic diseases and poisons.
+        Notes: |
+            Debuffs are things like curses, weaknesses, etc. Crowd Control like Daze, Fumbling, Fear, Stun, etc are not considered Debuffs.
 
     ~Detect Poison and Disease~:
         A: 1 Action
@@ -1176,7 +1182,7 @@ Nature:
         Notes: Lasts for 24 hours or until you rolled the d4 3 times. Does not stack multiple times with itself.
 
     ~Healing Surge~:    # Almost 1 Mana worth
-        A: Half-Action
+        A: 0 Actions
         Range: 5 meters
         Cost: 1 Mana
         Cooldown: Once per turn
@@ -1188,6 +1194,7 @@ Nature:
         A: 1 Action
         Range: 5 meters to edge
         Cost: 1 Mana
+        Requirement: Level 3
         Effect: |
             Declare a cube with a width equal to your Main Stat.
             Attack all units inside the area take 5d4 Shock Damage now (against Defense).
@@ -1230,7 +1237,7 @@ Nature:
             If they are at or below 50% Health, and failed, they become Slowed and Fumbling. Otherwise, they just become Slowed if they succeeded.
 
     ~Fruit of the Forest~:      # Ok
-        A: 0 Actions
+        A: 10 minutes
         Cost: 1 Mana
         Cooldown: Once / Adventure
         Effect: |
@@ -1266,9 +1273,9 @@ Nature:
         A: 1 Action
         Range: 6 meters
         Effect: |
-            Attack a target for 2d8 Poison Damage.
-            If you (potentially) have cover against that enemy, the attack gains an extra 1d8 Damage and all the Damage becomes Necrotic instead of Poison.
-
+            Attack a target for 1d10 + Main Stat Poison Damage.
+            The next time it takes damage from a weapon, it takes an extra 1d8 Poison Damage (directly, ignoring Defense).
+        
     ~Wild Heart~:
         A: 1 Action
         Cost: 1 Mana
@@ -1346,14 +1353,15 @@ Conjuration:
     ~Light~:
         A: 1 Action
         Range: 1 meter
+        Duration: Your Level Hours
         Effect: |
-            You create a magical light bulb that sheds light in a 5 meters radius (10 meters at Level 5).
-            The bulb levitates and stays where you put it, and you can always move it around with your hands.
-            You can also simply attach the bulb to any object, or make it levitate and follow a willing Unit.
+            Create a magical light bulb that sheds light in a 5 meters radius.
+            It levitates and stays where you put it and can be moved by hand, or you can simply stick it to any solid object.
+        Notes: |
             Lasts until you cancel it or cast Light again, or is purposefully destroyed with an attack.
             You choose the color of the light.
-            Lasts a number of hours equal to your Level, and that's also how many Lights you can have at a time.
-        Notes: The bulb can't go through solid objects.
+            The light is not strong enough to blind someone.
+            The bulb can't go through solid objects. Lasts a number of hours equal to your Level, and that's also how many Lights you can have at a time.
         
 
     ~Mending~:
@@ -1417,7 +1425,7 @@ Conjuration:
         Effect: |
             You conjure a levitating, self-wielding melee weapon.
             On your turn, the weapon can make a melee attack that deals 2d8 Force Damage (against Defense).
-            You can also move it up to 3 meters every turn.
+            You can also freely move it up to 3 meters every turn.
         Notes: |
             It costs 1 Action and 1 Mana to summon the weapon. Then, the weapon can attack once for free every turn, without costing an Action or Mana.
             The weapon has no special effect and can't be targeted by attacks.
@@ -1782,6 +1790,7 @@ Mysticism:
         Cooldown: Once / Adventure
         Effect: |
             Remove all your party members' Exhaustion (from any source).
+            If they were Exhausted from lack of sleep, they can resist sleep Exhaustion for 1d8 more hours.
             
     # ~Blessing of Wisdom~:
     #     A: 0 Actions
@@ -1808,7 +1817,7 @@ Mysticism:
         Cost: 1 Mana
         Range: 5 meters
         Effect: |
-            Heal a target for 1d4 + 2 Health.
+            Heal a target for 1d4 + Main Stat Health.
             If after this the target is at full Health, repeat this on another target.
         Notes: Yes, this can chain again and again.
 
@@ -1992,7 +2001,7 @@ Eldritch:
 
     ~Eldritch Blast~:
         A: 1 Action
-        Range: 10 meters
+        Range: 5 meters
         Effect: |
             Make an attack for 2d6 + Main Stat Force Damage (against Defense).
             If you roll maximum on at least one die, deal another 1d6 Damage.
@@ -2054,9 +2063,11 @@ Eldritch:
         Cooldown: Twice / Adventure
         Requirement: Level 3
         Effect: |
-            Heal/Damage a Unit for 1d10 - 5.
+            Roll 1d10 - 5.
+            Heal/Damage a Unit for that amount.
             If it's positive, heal it.
             If it's negative, Damage it.
+        Notes: You choose the target after you roll.
 
     ~Animate Dead~: Inherit
 
@@ -2133,8 +2144,8 @@ Divine:
     ~Cleansing Flames~:
         A: 0 Actions
         Cost: 1 Mana
-        Range: 9 meters
-        Effect: Deal 1d4 + 2 Fire Damage (directly, ignoring Defense) and remove all buffs and debuffs from the target.
+        Range: 5 meters
+        Effect: Deal 1d4 + 2 Fire Damage (directly, ignoring Defense and Cover) and remove all buffs and debuffs from the target.
 
     ~Cleansing Smite~:
         A: 0 Actions
@@ -2142,9 +2153,10 @@ Divine:
         Effect: After you land a melee attack that did Damage, deal 1d6 Divine Damage (directly, ignoring Defense) to the target and heal yourself for 1d10.
 
     ~Cure Wounds~:
-        A: 1 Action
+        A: Half-Action
         Cost: 1 Mana
-        Effect: Touch an ally (or yourself) and heal it for 2d4 + Main Stat.
+        Range: 3 meters
+        Effect: Heal an ally (or yourself) for 2d4 + Main Stat Health.
 
     ~Guiding Bolt~:
         A: 1 Action
@@ -2167,7 +2179,7 @@ Divine:
     ~Radiant Smite~:
         A: 0 Actions
         Cost: 2 Mana
-        Effect: After you make a melee attack that did Damage, deal 1d10 Divine Damage (directly, ignoring Defense) to the target and all enemies within 6 meters of target.
+        Effect: After you make a melee attack, deal 1d10 Divine Damage (directly, ignoring Defense) to the target and all enemies within 6 meters of target.
         Notes: |
             Units can benefit from Cover, with the targeted Unit as the origin point. Does not go through walls.
             Fumbling is substracted from this effect as well, like a normal Ability.
@@ -2180,8 +2192,9 @@ Divine:
     ~Restful Soothing~:
         A: 1 Hour
         Cost: 1 Mana
-        Effect: Restore up to 3d6 Health spread out as you like among your party members.
-        Note: You must be staying in place to channel this. You can't heal yourself with this.
+        Cooldown: Once / Adventure
+        Effect: Roll a number of d8's for each player character in your party (except yourself). Assign each rolled d8 to one player character, and heal them for their assigned die.
+        Note: You must be staying in place to channel this.
 
     ~Searing Smite~:
         A: 0 Actions
@@ -2210,8 +2223,9 @@ Divine:
 
     ~Rise~:
         A: Half-Action
-        Cost: 2 Mana
+        Cost: 1 Mana
         Requirement: Level 4
+        Cooldown: Once / Adventure
         Effect: |
             Heal a Fallen Unit to 20% of it total Health.
             It does not suffer of Exhaustion from rising after being Fallen.

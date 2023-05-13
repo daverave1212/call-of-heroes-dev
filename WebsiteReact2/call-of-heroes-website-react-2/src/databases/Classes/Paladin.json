@@ -17,7 +17,7 @@
     },
     "Spellcasting": {
         "Type": "Mana-based",
-        "Main Stat": "Choose permanently - Sense and Charisma",
+        "Main Stat": "Sense and Charisma",
         "Spell Grade": "6 + (Main Stat)",
         "Change": "You can change your known Spells and Talents inbetween Adventures.",
         "Other": "All Paladin-specific Abilities are considered Spells (unless stated otherwise).",
@@ -30,7 +30,22 @@
         "Basic Ability Lists": [
             "Warfare",
             "Divine"
-        ]
+        ],
+        "Recommended Basic Abilities": [
+            {
+                "Warfare": "Glory Shout"
+            },
+            {
+                "Warfare": "Bull Rush"
+            },
+            {
+                "Divine": "Hand of Freedom"
+            },
+            {
+                "Divine": "Blinding Smite"
+            }
+        ],
+        "Recommended Abilities Description": "Paladins can do decent healing, so Glory Shout will fit neatly with the Paladin class fantasy! Bull rush will give you some extra damage at close range, while Hand of Freedom allows you to help out allies in need. Finally, if you need more ways to disrupt enemies, get Blinding Smite! As the name suggest, it makes enemies go blind, thus protecting you and your allies from their attacks!\n"
     },
     "Starting Abilities": {
         "~Divine Sense~": {
@@ -39,8 +54,9 @@
             "Effect": "You sense if there are Undead, Demons, Fiends or Celestials, or holy or unholy places or objects within 15 meters.\nThick walls obstruct your Divine Sense.\n"
         },
         "~Lay on Hands~": {
-            "A": "1 Action",
-            "Effect": "You have (3 + Main Stat + Your Level) Holy points.\nUsing an action, you can expend any amount of Holy Points to heal a Unit for that amount.\nAll your Holy Points replenish inbetween Adventures.\n"
+            "A": "0 Actions",
+            "Range": "3 meters",
+            "Effect": "You have (3 + Main Stat + Your Level) Holy points.\nUsing 0 Actions, you can expend any amount of Holy Points to heal a Unit for that amount.\nAll your Holy Points replenish inbetween Adventures.\n"
         },
         "~Divine Smite~": {
             "AlignOnWebsite": "Right",
@@ -88,10 +104,6 @@
                         "Effect": "Ask a party member to join your cause and pledge their honor to you.\nthat person can use Divine Smite once per Adventure.\nIt can also cast Lay on Hands using your Holy Points and always Knows the same Basic Divine Spells you Know at a time.\nAdditionally, Oath of Conquest also happens when that ally defeats a Worthy Enemy.\n",
                         "Notes": "You can only have one character who pledged for you and it must be within 100 meters to have access to all of those.\nThe number of Holy Points of the ally does not increase.\nIf you ever change this Talent, the ally loses access to all things mentioned; it regains them when you get this Talent again.\n"
                     },
-                    "<Retribution>": {
-                        "A": "Special",
-                        "Effect": "You lose Lay on Hands, but gain access to the Eldritch Basic Ability List. For you, if an Eldritch Spell costs 1 Mana, it instead has a Once / Adventure (regardless of its normal Cooldown).\nYou can't cast Spells that cost more than 1 Mana.\n"
-                    },
                     "<Fury Smite>": {
                         "A": "0 Actions",
                         "Effect": "After an attack, deal 50% of the weapon Damage done by the attack (dice plus any modifiers) to all enemies within 3 meters around the target (except you).",
@@ -116,9 +128,8 @@
                     },
                     "<Lay on Arms>": {
                         "A": "Reaction",
-                        "Cost": "6 Health",
-                        "Cooldown": "1 use / Combat",
-                        "Effect": "Use when you would take Damage. Negate all the Damage. After this, you can immediately freely use Lay on Hands without using Actions."
+                        "Cost": "Half of your maximum Holy Points",
+                        "Effect": "Use when you or an ally you can see would take Damage. Negate all the Damage."
                     }
                 }
             }
@@ -128,7 +139,8 @@
             "Starting Abilities": {
                 "~Oath of Devotion~": {
                     "A": "Passive",
-                    "Effect": "You are immune to diseases and curses.\nWhen using Lay on Hands, instead of healing, you can expend 3 points to cure a minor disease or a poison.\nYou have 5 more maximum Holy Points.\n"
+                    "Effect": "You are immune to diseases and curses and you have 5 more maximum Holy Points.\nHealing someone with Lay on Hands for at least 3 Health cures all diseases, Debuffs and Bleed effects on them.\nIf you heal someone else for 5 Health, it also removes all Crowd Control on them.\n",
+                    "Notes": "Debuffs are things like curses, weaknesses, etc. Crowd Control like Daze, Fumbling, Fear, Stun, etc are not considered Debuffs.\n"
                 },
                 "~Divine Power~": {
                     "A": "1 Mana",

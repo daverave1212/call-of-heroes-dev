@@ -77,7 +77,7 @@
         "~Hamstring~": {
             "A": "Half-Action",
             "Range": "1 meter",
-            "Effect": "A target becomes Slowed for 1 turn.",
+            "Effect": "A Unit becomes Slowed.",
             "Name": "~Hamstring~"
         },
         "~Hide~": {
@@ -132,14 +132,15 @@
         "~Recuperate~": {
             "A": "0 Actions",
             "Cost": "1 Mana",
-            "Effect": "Heal yourself for 1d6 and remove all Root and Slow effects on you.\n",
-            "Upgrade": "At Level 4, the healing increases to 1d8.\nAt Level 6 this also removes Cripples.\n",
+            "Effect": "Heal yourself for 1d8 and remove all Fumbling, Root, Slow, Poisons and Bleed effects ongoing on you.\n",
+            "Upgrade": "At Level 6 this also removes Cripple and Blind.\n",
             "Name": "~Recuperate~"
         },
         "~Shank~": {
             "A": "0 Actions",
             "Cost": "1 Mana",
             "Effect": "Make a melee attack with a 1-Handed Weapon. It has Cover (-2).",
+            "Notes": "If the weapon is not equipped, you freely equip the weapon, Shank with it, then unequip it.",
             "Name": "~Shank~"
         },
         "~Vault Break~": {
@@ -221,7 +222,7 @@
             "Cost": "1 Mana",
             "Cooldown": "Once per encounter",
             "Duration": "1 minute",
-            "Effect": "Gain Shielding equal to the number of Worthy Enemies you see.",
+            "Effect": "Gain Shielding equal to the number of Worthy Enemies you can see.",
             "Name": "~Assess Their Ranks~"
         },
         "~Battle Trust~": {
@@ -233,9 +234,9 @@
             "Name": "~Battle Trust~"
         },
         "~Glory Shout~": {
-            "A": "Half-Action",
+            "A": "0 Actions",
             "Cost": "1 Mana",
-            "Effect": "You and all allies that can hear you are healed for 3 Health.",
+            "Effect": "Roll 1d4. You and all allies that can hear you are healed for that much Health.",
             "Name": "~Glory Shout~"
         },
         "~Infailible Reach~": {
@@ -476,7 +477,7 @@
         },
         "~Magic Missiles~": {
             "A": "1 Action",
-            "Range": "6 meters",
+            "Range": "5 meters",
             "Effect": "Shoot a number of missiles equal to your Main Stat. Each missile does 1d4 Force Damage (directly, ignoring Defense).\n",
             "Upgrade": "At Level 4, you can also spend any amount of Mana, and you shoot 2 more missiles for each Mana spent.\n",
             "Notes": "You can send missiles to different targets, but you must declare all the attacks at once.\nEach missile can be affected individually by Cover (e.g. shooting all 3 missiles at a Unit that has Cover makes each missile deal 1d4 - 2 Damage).\n",
@@ -540,9 +541,10 @@
         "~Spell Seal~": {
             "A": "0 Actions",
             "Cost": "1 Mana",
-            "Effect": "Choose a Unit you can see.\nWhenever it casts a Spell that heals or deals Damage, roll 1d4 and subtract it from the roll.\nLasts for 1 minute.\n",
+            "Duration": "1 minute",
+            "Effect": "Choose a Unit you can see.\nWhenever it casts a Spell that heals or deals Damage, you can roll 1d4 and subtract it from that Unit's act.\n",
             "Upgrade": "At Level 4, you can spend 1 more Mana to increase the roll to 2d4.\nAt Level 7, you can spend 2 more Mana instead to increase the roll to 3d4.\n",
-            "Notes": "Does not stack multiple times.",
+            "Notes": "Does not stack multiple times.\nOn Epic monsters, only applies to the first Spell they cast in the round.\n",
             "Name": "~Spell Seal~"
         },
         "~Shield Element~": {
@@ -618,7 +620,7 @@
         "~Unlock~": {
             "A": "1 Action",
             "Requirement": "Level 4",
-            "Range": "9 meters",
+            "Range": "10 meters",
             "Effect": "You can attempt to unlock a lock magically.\nUsing this counts as if you Know How to Pick Locks.\nYou roll a Dexterity Check for this, and you get a +2 on it.\n",
             "Name": "~Unlock~"
         },
@@ -679,9 +681,12 @@
             "Name": "~Control Wind~"
         },
         "~Cure Affliction~": {
-            "A": "10 minutes",
-            "Effect": "Touch an ally (or yourself) and cure a normally curable disease or poison from it.\n",
+            "A": "0 Actions",
+            "Cooldown": "1 Hour",
+            "Range": "3 meters",
+            "Effect": "Cure a simple Disease, Debuff or Bleed effect on a Unit (you can choose yourself).\n",
             "Upgrade": "At Level 4, you can cure harder and stranger diseases and poisons.\nAt level 8, you can cure terminal or chronic diseases and poisons.\n",
+            "Notes": "Debuffs are things like curses, weaknesses, etc. Crowd Control like Daze, Fumbling, Fear, Stun, etc are not considered Debuffs.\n",
             "Name": "~Cure Affliction~"
         },
         "~Detect Poison and Disease~": {
@@ -744,7 +749,7 @@
             "Name": "~Earth Shield~"
         },
         "~Healing Surge~": {
-            "A": "Half-Action",
+            "A": "0 Actions",
             "Range": "5 meters",
             "Cost": "1 Mana",
             "Cooldown": "Once per turn",
@@ -762,6 +767,7 @@
             "A": "1 Action",
             "Range": "5 meters to edge",
             "Cost": "1 Mana",
+            "Requirement": "Level 3",
             "Effect": "Declare a cube with a width equal to your Main Stat.\nAttack all units inside the area take 5d4 Shock Damage now (against Defense).\nIf a unit carries anything made of metal, this ignores all its Defense.\nOn your turn (for up to 1 minute), you can spend 1 Action to move the storm up to 3 meters and (and/or) its deal Damage again.\nLasts up to 1 minute.\n",
             "Upgrade": "At Level 5, the range increases to 10 meters to edge.",
             "Notes": "The storm only deals Damage the moment you spend 1 Action; if you do spend 1 Action, the storm stays in place and deals no Damage.",
@@ -793,7 +799,7 @@
             "Name": "~Quaking Wave~"
         },
         "~Fruit of the Forest~": {
-            "A": "0 Actions",
+            "A": "10 minutes",
             "Cost": "1 Mana",
             "Cooldown": "Once / Adventure",
             "Effect": "Roll 3d6. You find and/or enchant that many bites of food. Each bite restores 1 Reserve Health to the eater.\n",
@@ -819,7 +825,7 @@
         "~Venin Shot~": {
             "A": "1 Action",
             "Range": "6 meters",
-            "Effect": "Attack a target for 2d8 Poison Damage.\nIf you (potentially) have cover against that enemy, the attack gains an extra 1d8 Damage and all the Damage becomes Necrotic instead of Poison.\n",
+            "Effect": "Attack a target for 1d10 + Main Stat Poison Damage.\nThe next time it takes damage from a weapon, it takes an extra 1d8 Poison Damage (directly, ignoring Defense).\n",
             "Name": "~Venin Shot~"
         },
         "~Wild Heart~": {
@@ -873,8 +879,9 @@
         "~Light~": {
             "A": "1 Action",
             "Range": "1 meter",
-            "Effect": "You create a magical light bulb that sheds light in a 5 meters radius (10 meters at Level 5).\nThe bulb levitates and stays where you put it, and you can always move it around with your hands.\nYou can also simply attach the bulb to any object, or make it levitate and follow a willing Unit.\nLasts until you cancel it or cast Light again, or is purposefully destroyed with an attack.\nYou choose the color of the light.\nLasts a number of hours equal to your Level, and that's also how many Lights you can have at a time.\n",
-            "Notes": "The bulb can't go through solid objects.",
+            "Duration": "Your Level Hours",
+            "Effect": "Create a magical light bulb that sheds light in a 5 meters radius.\nIt levitates and stays where you put it and can be moved by hand, or you can simply stick it to any solid object.\n",
+            "Notes": "Lasts until you cancel it or cast Light again, or is purposefully destroyed with an attack.\nYou choose the color of the light.\nThe light is not strong enough to blind someone.\nThe bulb can't go through solid objects. Lasts a number of hours equal to your Level, and that's also how many Lights you can have at a time.\n",
             "Name": "~Light~"
         },
         "~Mending~": {
@@ -927,7 +934,7 @@
             "Cost": "1 Mana",
             "Range": "3 meters",
             "Duration": "1 minute",
-            "Effect": "You conjure a levitating, self-wielding melee weapon.\nOn your turn, the weapon can make a melee attack that deals 2d8 Force Damage (against Defense).\nYou can also move it up to 3 meters every turn.\n",
+            "Effect": "You conjure a levitating, self-wielding melee weapon.\nOn your turn, the weapon can make a melee attack that deals 2d8 Force Damage (against Defense).\nYou can also freely move it up to 3 meters every turn.\n",
             "Notes": "It costs 1 Action and 1 Mana to summon the weapon. Then, the weapon can attack once for free every turn, without costing an Action or Mana.\nThe weapon has no special effect and can't be targeted by attacks.\nThe weapon disappears if it moves more than 20 meters away from you.\nIt does not make fleeing enemies Fumbling, and it provides Cover.\n",
             "Name": "~Dancing Weapon~"
         },
@@ -1153,8 +1160,9 @@
         "~Light~": {
             "A": "1 Action",
             "Range": "1 meter",
-            "Effect": "You create a magical light bulb that sheds light in a 5 meters radius (10 meters at Level 5).\nThe bulb levitates and stays where you put it, and you can always move it around with your hands.\nYou can also simply attach the bulb to any object, or make it levitate and follow a willing Unit.\nLasts until you cancel it or cast Light again, or is purposefully destroyed with an attack.\nYou choose the color of the light.\nLasts a number of hours equal to your Level, and that's also how many Lights you can have at a time.\n",
-            "Notes": "The bulb can't go through solid objects.",
+            "Duration": "Your Level Hours",
+            "Effect": "Create a magical light bulb that sheds light in a 5 meters radius.\nIt levitates and stays where you put it and can be moved by hand, or you can simply stick it to any solid object.\n",
+            "Notes": "Lasts until you cancel it or cast Light again, or is purposefully destroyed with an attack.\nYou choose the color of the light.\nThe light is not strong enough to blind someone.\nThe bulb can't go through solid objects. Lasts a number of hours equal to your Level, and that's also how many Lights you can have at a time.\n",
             "Name": "~Light~"
         },
         "~Mastery~": {
@@ -1184,7 +1192,7 @@
         "~Restoration~": {
             "A": "0 Actions",
             "Cooldown": "Once / Adventure",
-            "Effect": "Remove all your party members' Exhaustion (from any source).\n",
+            "Effect": "Remove all your party members' Exhaustion (from any source).\nIf they were Exhausted from lack of sleep, they can resist sleep Exhaustion for 1d8 more hours.\n",
             "Name": "~Restoration~"
         },
         "~Expelling Bolt~": {
@@ -1199,7 +1207,7 @@
             "A": "0 Actions",
             "Cost": "1 Mana",
             "Range": "5 meters",
-            "Effect": "Heal a target for 1d4 + 2 Health.\nIf after this the target is at full Health, repeat this on another target.\n",
+            "Effect": "Heal a target for 1d4 + Main Stat Health.\nIf after this the target is at full Health, repeat this on another target.\n",
             "Notes": "Yes, this can chain again and again.",
             "Name": "~Invigorate~"
         },
@@ -1319,7 +1327,7 @@
         },
         "~Eldritch Blast~": {
             "A": "1 Action",
-            "Range": "10 meters",
+            "Range": "5 meters",
             "Effect": "Make an attack for 2d6 + Main Stat Force Damage (against Defense).\nIf you roll maximum on at least one die, deal another 1d6 Damage.\n",
             "Name": "~Eldritch Blast~"
         },
@@ -1376,7 +1384,8 @@
             "Range": "5 meters",
             "Cooldown": "Twice / Adventure",
             "Requirement": "Level 3",
-            "Effect": "Heal/Damage a Unit for 1d10 - 5.\nIf it's positive, heal it.\nIf it's negative, Damage it.\n",
+            "Effect": "Roll 1d10 - 5.\nHeal/Damage a Unit for that amount.\nIf it's positive, heal it.\nIf it's negative, Damage it.\n",
+            "Notes": "You choose the target after you roll.",
             "Name": "~Wyrd Renewal~"
         },
         "~Animate Dead~": {
@@ -1398,9 +1407,12 @@
     },
     "Divine": {
         "~Cure Affliction~": {
-            "A": "10 minutes",
-            "Effect": "Touch an ally (or yourself) and cure a normally curable disease or poison from it.\n",
+            "A": "0 Actions",
+            "Cooldown": "1 Hour",
+            "Range": "3 meters",
+            "Effect": "Cure a simple Disease, Debuff or Bleed effect on a Unit (you can choose yourself).\n",
             "Upgrade": "At Level 4, you can cure harder and stranger diseases and poisons.\nAt level 8, you can cure terminal or chronic diseases and poisons.\n",
+            "Notes": "Debuffs are things like curses, weaknesses, etc. Crowd Control like Daze, Fumbling, Fear, Stun, etc are not considered Debuffs.\n",
             "Name": "~Cure Affliction~"
         },
         "~Detect Poison and Disease~": {
@@ -1416,8 +1428,9 @@
         "~Light~": {
             "A": "1 Action",
             "Range": "1 meter",
-            "Effect": "You create a magical light bulb that sheds light in a 5 meters radius (10 meters at Level 5).\nThe bulb levitates and stays where you put it, and you can always move it around with your hands.\nYou can also simply attach the bulb to any object, or make it levitate and follow a willing Unit.\nLasts until you cancel it or cast Light again, or is purposefully destroyed with an attack.\nYou choose the color of the light.\nLasts a number of hours equal to your Level, and that's also how many Lights you can have at a time.\n",
-            "Notes": "The bulb can't go through solid objects.",
+            "Duration": "Your Level Hours",
+            "Effect": "Create a magical light bulb that sheds light in a 5 meters radius.\nIt levitates and stays where you put it and can be moved by hand, or you can simply stick it to any solid object.\n",
+            "Notes": "Lasts until you cancel it or cast Light again, or is purposefully destroyed with an attack.\nYou choose the color of the light.\nThe light is not strong enough to blind someone.\nThe bulb can't go through solid objects. Lasts a number of hours equal to your Level, and that's also how many Lights you can have at a time.\n",
             "Name": "~Light~"
         },
         "~Mending~": {
@@ -1449,8 +1462,8 @@
         "~Cleansing Flames~": {
             "A": "0 Actions",
             "Cost": "1 Mana",
-            "Range": "9 meters",
-            "Effect": "Deal 1d4 + 2 Fire Damage (directly, ignoring Defense) and remove all buffs and debuffs from the target.",
+            "Range": "5 meters",
+            "Effect": "Deal 1d4 + 2 Fire Damage (directly, ignoring Defense and Cover) and remove all buffs and debuffs from the target.",
             "Name": "~Cleansing Flames~"
         },
         "~Cleansing Smite~": {
@@ -1460,9 +1473,10 @@
             "Name": "~Cleansing Smite~"
         },
         "~Cure Wounds~": {
-            "A": "1 Action",
+            "A": "Half-Action",
             "Cost": "1 Mana",
-            "Effect": "Touch an ally (or yourself) and heal it for 2d4 + Main Stat.",
+            "Range": "3 meters",
+            "Effect": "Heal an ally (or yourself) for 2d4 + Main Stat Health.",
             "Name": "~Cure Wounds~"
         },
         "~Guiding Bolt~": {
@@ -1483,7 +1497,7 @@
         "~Radiant Smite~": {
             "A": "0 Actions",
             "Cost": "2 Mana",
-            "Effect": "After you make a melee attack that did Damage, deal 1d10 Divine Damage (directly, ignoring Defense) to the target and all enemies within 6 meters of target.",
+            "Effect": "After you make a melee attack, deal 1d10 Divine Damage (directly, ignoring Defense) to the target and all enemies within 6 meters of target.",
             "Notes": "Units can benefit from Cover, with the targeted Unit as the origin point. Does not go through walls.\nFumbling is substracted from this effect as well, like a normal Ability.\n",
             "Name": "~Radiant Smite~"
         },
@@ -1496,8 +1510,9 @@
         "~Restful Soothing~": {
             "A": "1 Hour",
             "Cost": "1 Mana",
-            "Effect": "Restore up to 3d6 Health spread out as you like among your party members.",
-            "Note": "You must be staying in place to channel this. You can't heal yourself with this.",
+            "Cooldown": "Once / Adventure",
+            "Effect": "Roll a number of d8's for each player character in your party (except yourself). Assign each rolled d8 to one player character, and heal them for their assigned die.",
+            "Note": "You must be staying in place to channel this.",
             "Name": "~Restful Soothing~"
         },
         "~Searing Smite~": {
@@ -1522,8 +1537,9 @@
         },
         "~Rise~": {
             "A": "Half-Action",
-            "Cost": "2 Mana",
+            "Cost": "1 Mana",
             "Requirement": "Level 4",
+            "Cooldown": "Once / Adventure",
             "Effect": "Heal a Fallen Unit to 20% of it total Health.\nIt does not suffer of Exhaustion from rising after being Fallen.\n",
             "Name": "~Rise~"
         },

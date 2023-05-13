@@ -35,12 +35,22 @@ export function spellsFromObject(obj) {
 // Gets all keys as spell objects into an array, BUT the objects are taken from a database by their key
 // This is useful because some class abilities have ": Inherit", therefore you need to get the spell from the database by name
 export function spellFromObject(obj, name) {
+    if (obj[name] == null) {
+        if (name.startsWith('~')) {
+            name = removeTildes(name)
+        } else {
+            name = addTildes(name)
+        }
+    }
     return spellWithName(name, obj[name])
 }
 export function removeTildes(spellName) {
     if (spellName.startsWith('~'))
         return spellName.substring(1, spellName.length - 1)
     return spellName
+}
+export function addTildes(spellName) {
+    return `~${spellName}~`
 }
 export function getAllSpellsFromCategoriesObject(spellCategoriesObject) {
     const categoryNames = Object.keys(spellCategoriesObject)
@@ -50,6 +60,9 @@ export function getAllSpellsFromCategoriesObject(spellCategoriesObject) {
         spells = [...spells, ...theseSpells]
     }
     return spells
+}
+export function getSpellFromCategoriesObject(spellCategoriesObject, category, name) {
+    const categoryIndex = spellCategoriesObject.indexOf(category)
 }
 
 

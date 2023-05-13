@@ -222,6 +222,8 @@ export function LevelingUp({ theClass }) {
 
 export function SpellCasting({ theClass }) {
 
+    const [displayedBasicAbilityObj, setDisplayedBasicAbilityObj] = useState(null)
+
     function ManaBasedSpellcasting() {
         return (
             <div>
@@ -271,6 +273,48 @@ export function SpellCasting({ theClass }) {
             </div>
         )
     }
+    function RecommendedBasicSpells() {
+
+        return (
+            <div>
+                <PageH3>Recommended Basic Abilities</PageH3>
+                <TwoColumns>
+                    <Column className='with-margined-children'>
+                        <SmallStatList name="Quick-Build Abilities" color="blue" contentStyle={{ width: '100%' }}>
+                            {
+                                theClass['Spellcasting']['Recommended Basic Abilities'].map(categoryNameKVP => {
+                                    const category = Object.keys(categoryNameKVP)[0]
+                                    const name = categoryNameKVP[category]
+                                    return (<div className='text-link-with-hover' key={name} onClick={() => {
+                                        const categoryObj = abilities[category]
+                                        const spellObj = U.spellFromObject(categoryObj, name)
+                                        console.log('ONE')
+                                        console.log({spellObj})
+                                        setDisplayedBasicAbilityObj(spellObj)
+                                        console.log({displayedBasicAbilityObj})
+                                    }}>{ name }</div>)
+                                })
+                            }
+                        </SmallStatList>
+                        { displayedBasicAbilityObj != null && (
+                            <Spell spell={displayedBasicAbilityObj}/>
+                        ) }
+                    </Column>
+                    <Column>
+                        <p>
+                            This is a list of recommended Basic Abilities (from your Basic Ability Lists mentioned above) for when you are undecided on which Basic Abilities to get, or you simply want a quick character creation.
+                            They are in order of priority, top to bottom. If you don't know what to pick, get these! You can click on them on the left to check out what they do, or check out the Abilities page to see all of them.
+                            Unless your Intelligence is 3, you won't be able to get all of them, but you can pick the first few ones.
+                        </p>
+                        <Separator/>
+                        <p>
+                            { theClass['Spellcasting']['Recommended Abilities Description'] }
+                        </p>
+                    </Column>
+                </TwoColumns>
+            </div>
+        )
+    }
 
     return (
         <div id="spell-casting">
@@ -289,7 +333,7 @@ export function SpellCasting({ theClass }) {
                         { theClass['Spellcasting']['Insight'] != null && (
                             <SmallStat name="Insight" color="blue">{ theClass['Spellcasting']['Insight'] } <Icon name="Insight"/></SmallStat>
                         ) }
-                        <SmallStat name="Main Stat" color="blue">{ theClass['Spellcasting']['Main Stat'] }</SmallStat>
+                        <SmallStat name="Main Stat" color="blue">{ theClass['Spellcasting']['Main Stat'] } (<i>whichever is higher</i>)</SmallStat>
                         <SmallStat name="Spell Grade" color="blue">{ theClass['Spellcasting']['Spell Grade'] }</SmallStat>
                     </div>
                     
@@ -325,6 +369,8 @@ export function SpellCasting({ theClass }) {
                         }
                 </Column>
             </TwoColumns>
+            <RecommendedBasicSpells/>
+            
         </div>
     )
 }

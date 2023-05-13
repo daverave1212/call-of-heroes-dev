@@ -97,10 +97,13 @@ function MegaDropdown({ navState, isBurgerClicked }) {
 
   
   
-
+  // Elements with 'subnav-title-portrait-only' are only visible in portrait mode
+  // Each div has a class for its display, either portrait or LS (LandScape)
   return (
     <div className={`mega-dropdown ${isBurgerClicked? 'displayed-on-mobile': ''}`}>
-          
+      
+      <h3 className="subnav-title-portrait-only"><a style={{color: 'white'}} href="https://discord.gg/27aqSEDyE3" target="_blank">Play With Us!</a></h3>
+
       <h3 className="subnav-title-portrait-only" onClick={() => onClickOnH3('Database')}>Database</h3>
       <div className={`subnav ${maybeActiveClassLS('Database')} ${maybeActiveClassPortrait('Database')}`}>
 

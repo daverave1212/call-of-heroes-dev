@@ -26,11 +26,11 @@ const dataRaw = {
 
 const data = [
     ...Object.keys(dataRaw).map(key => dataRaw[key]),
-    // ...Object.keys(dataRaw).map(key => dataRaw[key]),
-    // ...Object.keys(dataRaw).map(key => dataRaw[key]),
-    // ...Object.keys(dataRaw).map(key => dataRaw[key]),
-    // ...Object.keys(dataRaw).map(key => dataRaw[key]),
-    // ...Object.keys(dataRaw).map(key => dataRaw[key]),
-    // ...Object.keys(dataRaw).map(key => dataRaw[key]),
-    // ...Object.keys(dataRaw).map(key => dataRaw[key])
+    ...Object.keys(dataRaw).map(key => dataRaw[key]),
+    ...Object.keys(dataRaw).map(key => dataRaw[key]),
+    ...Object.keys(dataRaw).map(key => dataRaw[key]),
+    ...Object.keys(dataRaw).map(key => dataRaw[key]),
+    ...Object.keys(dataRaw).map(key => dataRaw[key]),
+    ...Object.keys(dataRaw).map(key => dataRaw[key]),
+    ...Object.keys(dataRaw).map(key => dataRaw[key])
 ]

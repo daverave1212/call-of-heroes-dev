@@ -20,7 +20,7 @@ Level Up:
 Spellcasting:
   Type: Mana-based
 
-  Main Stat: Choose permanently - Sense and Charisma
+  Main Stat: Sense and Charisma
   Spell Grade: 6 + (Main Stat)
   Change: You can change your known Spells and Talents inbetween Adventures.
   Other: All Paladin-specific Abilities are considered Spells (unless stated otherwise).
@@ -37,6 +37,16 @@ Spellcasting:
     - Warfare
     - Divine
 
+  Recommended Basic Abilities:
+    - Warfare: Glory Shout
+    - Warfare: Bull Rush
+    - Divine: Hand of Freedom
+    - Divine: Blinding Smite
+
+  Recommended Abilities Description: |
+    Paladins can do decent healing, so Glory Shout will fit neatly with the Paladin class fantasy! Bull rush will give you some extra damage at close range, while Hand of Freedom allows you to help out allies in need. Finally, if you need more ways to disrupt enemies, get Blinding Smite! As the name suggest, it makes enemies go blind, thus protecting you and your allies from their attacks!
+
+ 
 
 Starting Abilities:
 
@@ -48,10 +58,11 @@ Starting Abilities:
         Thick walls obstruct your Divine Sense.
 
   ~Lay on Hands~ :      # 1 Charge
-    A: 1 Action
+    A: 0 Actions
+    Range: 3 meters
     Effect: |
       You have (3 + Main Stat + Your Level) Holy points.
-      Using an action, you can expend any amount of Holy Points to heal a Unit for that amount.
+      Using 0 Actions, you can expend any amount of Holy Points to heal a Unit for that amount.
       All your Holy Points replenish inbetween Adventures.
 
   ~Divine Smite~ :      # 1.5 Charges
@@ -145,11 +156,10 @@ Specs:
             The number of Holy Points of the ally does not increase.
             If you ever change this Talent, the ally loses access to all things mentioned; it regains them when you get this Talent again.
             
-        <Retribution>:      # 1
-          A: Special
-          Effect: |
-            You lose Lay on Hands, but gain access to the Eldritch Basic Ability List. For you, if an Eldritch Spell costs 1 Mana, it instead has a Once / Adventure (regardless of its normal Cooldown).
-            You can't cast Spells that cost more than 1 Mana.
+        # <Retribution>:      # 1
+        #   A: Special
+        #   Effect: |
+        #     You lose Lay on Hands, but choose 2 Eldritch Spells that cost 1 Mana. You gain them permanently and, once per Adventure, you can cast each ignoring the Mana cost.
           
 
         <Fury Smite>:       # 1
@@ -187,11 +197,10 @@ Specs:
             A: Passive
             Effect: After half (rounded down) of Worthy Enemies in a combat have been defeated, reset the Cooldown of Divine Smite or gain 7 Holy Points (you choose).
             
-        <Lay on Arms>:      # 1 from free LoH,
+        <Lay on Arms>:      # 1,
             A: Reaction
-            Cost: 6 Health
-            Cooldown: 1 use / Combat
-            Effect: Use when you would take Damage. Negate all the Damage. After this, you can immediately freely use Lay on Hands without using Actions.
+            Cost: Half of your maximum Holy Points
+            Effect: Use when you or an ally you can see would take Damage. Negate all the Damage.
         
         
 
@@ -213,9 +222,11 @@ Specs:
       ~Oath of Devotion~ :  # 0.8
         A: Passive
         Effect: |
-          You are immune to diseases and curses.
-          When using Lay on Hands, instead of healing, you can expend 3 points to cure a minor disease or a poison.
-          You have 5 more maximum Holy Points.
+          You are immune to diseases and curses and you have 5 more maximum Holy Points.
+          Healing someone with Lay on Hands for at least 3 Health cures all diseases, Debuffs and Bleed effects on them.
+          If you heal someone else for 5 Health, it also removes all Crowd Control on them.
+        Notes: |
+          Debuffs are things like curses, weaknesses, etc. Crowd Control like Daze, Fumbling, Fear, Stun, etc are not considered Debuffs.
 
       ~Divine Power~ :
         A: 1 Mana
