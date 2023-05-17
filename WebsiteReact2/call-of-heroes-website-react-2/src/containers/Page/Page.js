@@ -19,7 +19,8 @@ export default function Page({
     id,
 
     isCollapsable,                  // If true, clicking on the title collapses the page
-    isSecondaryPage                 // Default false; if true, it will not update title
+    isSecondaryPage,                // Default false; if true, it will not update title
+    hasNoLimits                     // Default is false; if true, it will have no width limits
 }) {
 
     isSecondaryPage = isSecondaryPage == null? false : true
@@ -40,7 +41,7 @@ export default function Page({
     }, [title])
 
     return (
-        <div className={`page ${appState.isSimple? '' : 'page--has-background'}`}>
+        <div className={`page ${appState.isSimple? '' : 'page--has-background'} ${hasNoLimits == true? 'page--no-limits' : ''}`}>
             { subtitle != null && (
                 <div>
                     <p className='page-subtitle'>

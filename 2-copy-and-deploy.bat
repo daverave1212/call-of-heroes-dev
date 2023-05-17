@@ -1,6 +1,14 @@
+for /f "tokens=1-4 delims=/ " %%i in ("%date%") do (
+     set dow=%%i
+     set month=%%j
+     set day=%%k
+     set year=%%l
+)
+set datestr=%month%_%day%_%year%
+
 echo 3a. Saving repo to git
 git add .
-git commit -m %1
+git commit -m "Update %datestr%"
 git push
 
 

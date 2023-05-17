@@ -194,7 +194,8 @@ function MegaDropdown({ navState, isBurgerClicked }) {
             <LiLink to="/Other/TransitionGuide">How To Play (for D&D Players)</LiLink>
             <LiLink to="/Other/CharacterCreation">Character Creation</LiLink>
             <LiLink to="/Other/CharacterCreationCalculator">Character Helper</LiLink>
-            <LiLink to="/Other/AbilitySheets">Ability Sheet Maker</LiLink>
+            <LiLink to="/Other/AbilitySheets">Ability Sheet (Online)</LiLink>
+            <LiLink to="/Other/AbilitySheetsPrint">Ability Sheet (Print)</LiLink>
           </ul>
         </div>
 

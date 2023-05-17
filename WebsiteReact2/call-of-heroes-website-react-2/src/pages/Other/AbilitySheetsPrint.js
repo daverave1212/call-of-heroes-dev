@@ -24,15 +24,15 @@ import classAndRaceAbilities from '../../databases/ClassAndRaceAbilities.json'
 
 import ManySpells from '../../components/Spell/ManySpells'
 import PageH0 from '../../components/PageH0/PageH0'
+
+import { CanvasManager } from './abilitySheetsCanvas'
+import Spell from '../../components/Spell/Spell'
 import PageH3 from '../../components/PageH3/PageH3'
 
-export default function AbilitySheets() {
+export default function AbilitySheetsPrint() {
 
-    document.title = 'Ability Sheet Maker'
-    const addedSpellsInURLJSON = new URLSearchParams(window.location.search).get('spellsAdded')
-    const addedSpellsInURL = addedSpellsInURLJSON? JSON.parse(addedSpellsInURLJSON) : []
-    console.log({addedSpellsInURL})
-    
+    document.title = 'Ability Sheets (Print)'
+
     const allBasicAbilities = U.getAllSpellsFromCategoriesObject(BasicAbilities)
     const allFeats = U.getAllSpellsFromCategoriesObject(feats)
     const allClassAndRaceAbilities = U.spellsFromObject(classAndRaceAbilities)
@@ -45,7 +45,7 @@ export default function AbilitySheets() {
     }
     const allAvailableSpellNames = Object.keys(allAvailableSpellsByName).sort()
 
-    const [spellsAdded, setSpellsAdded] = useState(addedSpellsInURL)
+    const [spellsAdded, setSpellsAdded] = useState([])
     const [currentlyTypedSpell, setCurrentlyTypedSpell] = useState('Fire Ball')
     const [selectedSpellIndex, setSelectedSpellIndex] = useState(-1)
     const [searchParams, setSearchParams] = useSearchParams({})
@@ -56,9 +56,7 @@ export default function AbilitySheets() {
     }
 
     function queueSpell() {
-        console.log(`Adding: ${currentlyTypedSpell}`)
-        const newSpellsAdded = [...spellsAdded, currentlyTypedSpell]
-        updateSpellsAdded(newSpellsAdded)
+        updateSpellsAdded([...spellsAdded, currentlyTypedSpell])
     }
     function resetSpells() {
         updateSpellsAdded([])
@@ -77,24 +75,31 @@ export default function AbilitySheets() {
         }
         updateSpellsAdded([...spellsAdded.slice(0, selectedSpellIndex), ...spellsAdded.slice(selectedSpellIndex + 1)])
     }
-    function download() {
-
-    }
 
 
-    const canvasDivRef = useRef(null)
+    const canvasDivRef = useRef()
     useEffect(() => {
         const canvasDiv = canvasDivRef.current
+        CanvasManager.setCanvasesParent(canvasDiv)
+        CanvasManager.setIconPathGetter(name => Spell.getIconPathByName(name))
     }, [])
+
+    function generate() {
+        CanvasManager.clear()
+        for (const spellName of spellsAdded) {
+            const spellAdded = allAvailableSpellsByName[spellName]
+            CanvasManager.addSpell(spellAdded)
+        }
+    }
 
 
     // To ignore a stupid warning from MUI
     function _isOptionEqualToValueIgnoreWarning(option, value) { if (value == null) return true; else return value == option }
 
     return (
-        <Page hasNoLimits={true}>
+        <Page>
 
-            <PageH1 style={{ textAlign: 'center' }}>Ability Sheet Maker</PageH1>
+            <PageH1 style={{ textAlign: 'center' }}>Ability Sheets (Print)</PageH1>
 
             
             <div className='centered-content margined-bottom'>
@@ -115,18 +120,21 @@ export default function AbilitySheets() {
             <div className='centered-content margined-bottom'>
                 <button className='Basic-button' id="Reset" onClick={resetSpells} title = "Click here to reset everything.">Reset</button>
                 <button className='Basic-button' id="RemoveSpell" onClick={removeSpellFromSelect} title = "Click here to remove the selected spell">Remove Spell</button>
+                <button className='Basic-button' id="Generate" onClick={generate} title = "Click here to generate your images">Generate</button>
             </div>
             <div>
                 <PageH3>How To Use</PageH3>
                 <p>
                     Add all your Abilities by selecting each from the dropdown menu and clicking Add.
-                    Your spells will appear nicely on the page and you can keep them on a separate screen for reference.
-                    To save your Abilities, just save the URL of the page (e.g. you can bookmark it). When you input that link again, your Abilities will be saved.
-                    Note that there is also another similar page, but for printing your Abilities.
+                    After you're done, click on Generate to get your Ability Sheets. This will create some images containing your spells.
+                    You can right-click on each image and hit the "Save image as" button to save them as PNG files, which you can easily print afterwards.
+                    These images are very high resolution, so they will look good when printed on paper!
                 </p>
             </div>
 
-            <ManySpells spells={spellsAdded.map(spellName => allAvailableSpellsByName[spellName])}/>
+            <div ref={canvasDivRef} id="Canvas-Wrapper">
+
+            </div>
 
         </Page>
     )

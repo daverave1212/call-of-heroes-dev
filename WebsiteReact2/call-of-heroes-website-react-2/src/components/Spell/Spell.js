@@ -5,6 +5,13 @@ import Separator from './../Separator/Separator'
 import React from 'react'
 import { parseTextWithSymbols, stringReplaceAllMany } from '../../utils'
 
+// Attached as a static function to Spell, at the end of the document
+function getIconPathByName(name) {
+    const iconName = stringReplaceAllMany(name, [' ', '/', '%'], ['_', '_', ''])
+    const iconPath = `/Icons/Spells/${iconName}.png`
+    return iconPath
+}
+
 export default function Spell({ children, spell, style, hasIcon }) {
 
     if (spell == null) {
@@ -38,8 +45,7 @@ export default function Spell({ children, spell, style, hasIcon }) {
 
     if (Name.startsWith('~')) Name = Name.substring(1, Name.length - 1)
 
-    const iconName = stringReplaceAllMany(Name, [' ', '/', '%'], ['_', '_', ''])
-    const iconPath = `/Icons/Spells/${iconName}.png`
+    const iconPath = getIconPathByName(Name)
 
     const spellNormalOrSubClass = IsSubspell == true? 'spell--subspell' : 'spell--normal'
     const spellPassiveOrActiveClass = A == 'Passive' == true? 'spell--passive' : 'spell--active'
@@ -120,3 +126,5 @@ export default function Spell({ children, spell, style, hasIcon }) {
         </div>
     )
 }
+
+Spell.getIconPathByName = getIconPathByName

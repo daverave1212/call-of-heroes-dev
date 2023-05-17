@@ -72,6 +72,7 @@ import Proficiencies from './pages/Other/Proficiencies';
 import Encounters from './pages/Other/Encounters';
 import AbilitySheets from './pages/Other/AbilitySheets';
 import GMGuidelines from './pages/Other/GMGuidelines';
+import AbilitySheetsPrint from './pages/Other/AbilitySheetsPrint';
 
 function App() {
 
@@ -148,6 +149,7 @@ function App() {
               <Route path="/Other/Encounters" element={ <Encounters/> }/>
 
               <Route path="/Other/AbilitySheets" element={ <AbilitySheets/> }/>
+              <Route path="/Other/AbilitySheetsPrint" element={ <AbilitySheetsPrint/> }/>
               
               <Route path="/Lore/Levels" element={ <Levels/> }/>
               <Route path="/Lore/SpellSchoolDescriptions" element={ <SpellSchoolDescriptions/> }/>
