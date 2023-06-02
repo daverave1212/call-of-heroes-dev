@@ -1,0 +1,434 @@
+Class: Paladin
+Description: Paladins are knights in shiny armor who fight for their god.
+
+Weapons: You are Trained in 2 Weapon Categories of choice (e.g. 1-Handed Melee, 2-Handed Ranged, Shields, etc).
+
+Proficiency Requirements: You have Proficiency in Religion and a number of extra Proficiencies equal to your Intelligence.
+
+Proficiencies:
+    ~Proficiency in Religion~: Inherit
+
+
+Armor Training: Heavy Armor
+
+Level Up:
+  Every Level: 
+    Health: 5
+
+
+
+Spellcasting:
+  Type: Mana-based
+
+  Main Stat: Sense and Charisma
+  Spell Grade: 6 + (Main Stat)
+  Change: You can change your known Spells and Talents inbetween Adventures.
+  Other: All Paladin-specific Abilities are considered Spells (unless stated otherwise).
+
+  Mana:
+    Amount: 2
+    Regain: You regain all Mana back inbetween Adventures.
+
+  Known Basic Abilities: 1 + Intelligence
+  
+  BaseKnownSpells: 1
+
+  Basic Ability Lists:
+    - Warfare
+    - Divine
+
+  Recommended Basic Abilities:
+    - Warfare: Glory Shout
+    - Warfare: Bull Rush
+    - Divine: Hand of Freedom
+    - Divine: Blinding Smite
+
+  Recommended Abilities Description: |
+    Paladins can do decent healing, so Glory Shout will fit neatly with the Paladin class fantasy! Bull rush will give you some extra damage at close range, while Hand of Freedom allows you to help out allies in need. Finally, if you need more ways to disrupt enemies, get Blinding Smite! As the name suggest, it makes enemies go blind, thus protecting you and your allies from their attacks!
+
+ 
+
+Starting Abilities:
+
+  ~Divine Sense~ :
+    A: 0 Actions
+    Cooldown: 1 Hour
+    Effect: |
+        You sense if there are Undead, Demons, Fiends or Celestials, or holy or unholy places or objects within 15 meters.
+        Thick walls obstruct your Divine Sense.
+
+  ~Lay on Hands~ :      # 1 Charge
+    A: 0 Actions
+    Range: 3 meters
+    Effect: |
+      You have (3 + Main Stat + Your Level) Holy points.
+      Using 0 Actions, you can expend any amount of Holy Points to heal a Unit for that amount.
+      All your Holy Points replenish inbetween Adventures.
+
+  ~Divine Smite~ :      # 1.5 Charges
+    AlignOnWebsite: Right
+    A: 0 Actions
+    Cooldown: Once / Adventure
+    Effect: Add 2d6 Divine Damage to a melee attack (after you roll).
+    
+Starting Abilities Description:
+  - Divine Sense: |
+      You have the power to detect foul creatures within range. Use this carefully, as it has a long cooldown.
+  - Lay on Hands and Divine Smite: |
+      If your Main Stat is 2, then at Level 1 you have 3 + 2 + 1 Holy Points; that means 6 Holy Points.
+      At Level 2, you have 8 Holy points. At Level 3, you have 9 Holy points. And so on.
+      You might receive other Abilities in the future that consume or replenish Holy Points.
+      Divine Smite will bring wrath upon your foes!
+        
+# Base: 4.5 Charges
+# With Spec: 5.35 Charges
+
+# Utility
+# Healing
+# Damage
+
+
+Specializations:
+  Description: |
+    At Level 1, you can choose your oath (Specialization).
+    By choosing your oath, you dedicate yourself to a purpose; an oath is a lifestyle, not a mere choice!
+  Choices:
+    - Oath of Conquest, which inspires a strong personality and desire to achieve greatness by any means necessary
+    - Oath of Devotion, dedicated to helping the unfortunate and being someone to look up to
+    - Oath of Protection, chosen by those who vow to protect and wish to become a paragon of the people
+
+# Talent: When you use Divine Smite
+# Talent: Interactions with LoH and other Cooldown-based Spells
+# Talent: When you use Divine Smite...
+# Talent: Divine Smite twice per Adventure
+# Talent: Auras
+# Talent: Faith - you have to trust if it will work or not (maybe bet on hitting or missing?)
+# Talent: Spirit guardians
+# Talent: Platinum storm (Smite on all units)
+# Talent: Extra Smite Damage
+# Talent: You get a squire!!
+
+Specs:
+
+# Talent: When Oath of Conquest triggers...
+# Talent: When you use Impose
+
+# Healing (Gimmick)
+# CC Medium
+
+# Healing           (Talents 2)
+# Charges
+# AoE
+# Damage (Sustained)
+
+# Charges           (Talents 4)
+# Damage (Burst)
+# Tanking
+
+  Conquest:                 # 0.5
+    Description: Lorem! Lorem ipsum!!
+    Starting Abilities:
+
+      ~Oath of Conquest~:   # 0.35
+        A: Passive
+        Effect: |
+          Every Worthy Enemy YOU defeat grants you 1d4 Holy Points.
+          You also gain Proficiency in Indimidation if you don't have it already.
+      
+      ~Impose~ :            # 0.25
+        A: Half-Action
+        Range: 3 meters
+        Cooldown: Once / Adventure
+        Effect: A Unit must pass a Sense Check or be Feared. It has -2 to the roll if it's a Humanoid or Unholy.
+
+    Talents:
+      Level 3:
+        <Pledge of Conquest>: # 1.5
+          A: Special
+          Cooldown: Lifetime
+          Effect: |
+            Ask a party member to join your cause and pledge their honor to you.
+            that person can use Divine Smite once per Adventure.
+            It can also cast Lay on Hands using your Holy Points and always Knows the same Basic Divine Spells you Know at a time.
+            Additionally, Oath of Conquest also happens when that ally defeats a Worthy Enemy.
+          Notes: |
+            You can only have one character who pledged for you and it must be within 100 meters to have access to all of those.
+            The number of Holy Points of the ally does not increase.
+            If you ever change this Talent, the ally loses access to all things mentioned; it regains them when you get this Talent again.
+            
+        # <Retribution>:      # 1
+        #   A: Special
+        #   Effect: |
+        #     You lose Lay on Hands, but choose 2 Eldritch Spells that cost 1 Mana. You gain them permanently and, once per Adventure, you can cast each ignoring the Mana cost.
+          
+
+        <Fury Smite>:       # 1
+          A: 0 Actions
+          Effect: After an attack, deal 50% of the weapon Damage done by the attack (dice plus any modifiers) to all enemies within 3 meters around the target (except you).
+          Cooldown: Once / Adventure
+          Notes: |
+            The Damage of the attack counts as the dice rolled + any modifiers.
+            Using Divine Smite over an attack, for example, does not count as added to the weapon Damage.
+            Damage done means Damage inflicted after Defense and Resistances calculations.
+            Cover is applied normally for the AoE.
+         
+        <Divine Reach>:     # 1
+          A: 0 Actions
+          Cooldown: Once / Adventure
+          Effect: |
+            You empower yourself to make your melee weapons send fiery waves.
+            Your melee attacks have up to 3 meters range, deal 1d4 extra Damage and deal Fire Damage instead of Physical.
+            Lasts 1 minute.
+            Also, passively, you can now cast smites on ranged attacks (normally, you can only cast Smite on melee attacks).
+          Notes: |
+            Attacks like this count as either melee or ranged attacks, your choice. Targets still benefit from Cover, regardless.
+            Alternatively, if it makes sense for your character, the DM might allow it to deal Cold, Necrotic or Shock Damage instead of Fire. Talk to your DM about this.
+
+      Level 5:
+      
+        <Vengeance>:        # 2
+            A: Passive
+            Effect: |
+                When a Worthy Enemy dies in combat, get a Vengeance Counter.
+                Immediately when you get to 6 Vengeance Counters, gain 1 Mana or gain 4 Holy Points or reset the Cooldown of a Basic Spell you know (you choose).
+                You keep your Vengeance Counters even inbetween Adventures.
+                
+        <Victory Smite>:
+            A: Passive
+            Effect: After half (rounded down) of Worthy Enemies in a combat have been defeated, reset the Cooldown of Divine Smite or gain 7 Holy Points (you choose).
+            
+        <Lay on Arms>:      # 1,
+            A: Reaction
+            Cost: Half of your maximum Holy Points
+            Effect: Use when you or an ally you can see would take Damage. Negate all the Damage.
+        
+        
+
+# Healing + Immunity
+# Healing
+
+# Damage (Burst)        (Talents 2)
+# Protection
+# Damage (Sustained) + Healing
+
+# Healing               (Talents 4)
+# Protection/Stats
+# CC (Hard AoE)
+# Stats
+
+  Devotion:                 # 0.8
+    Description: Lorem, ipsum, dolor sit amet!
+    Starting Abilities:
+      ~Oath of Devotion~ :  # 0.8
+        A: Passive
+        Effect: |
+          You are immune to diseases and curses and you have 5 more maximum Holy Points.
+          Healing someone with Lay on Hands for at least 3 Health cures all diseases, Debuffs and Bleed effects on them.
+          If you heal someone else for 5 Health, it also removes all Crowd Control on them.
+        Notes: |
+          Debuffs are things like curses, weaknesses, etc. Crowd Control like Daze, Fumbling, Fear, Stun, etc are not considered Debuffs.
+
+      ~Divine Power~ :
+        A: 1 Mana
+        Effect: Gain 1d10 Holy Points.
+        Notes: You can't keep more than your maximum number of Holy Points inbetween Adventures.
+
+    Talents:
+      Level 3:
+      
+        <Divine Blast> :    # 1? xD
+          A: 1 Action
+          Range: 12 meters
+          Effect: |
+            Make a Spell attack against a target and consume any number of Holy points. The attack deals 1d4 Divine Damage for each Holy Point used.
+            You can apply Smites to this attack.
+
+        <Shielding Hand> :  # 1
+          A: Reaction
+          Cooldown: Once / Adventure
+          Effect:
+            Use after an ally (or yourself) takes Damage.
+            After that ally (or yourself) takes Damage, it gains Shielding equal to the Damage taken (after Defense and Resistances).
+            The shield lasts up to 1 minute.
+
+        <Focused Smites> :  # 1
+          A: 0 Actions
+          Cooldown: Once / Adventure
+          Effect: |
+            For 1 minute, your weapon attacks and offensive spells deal extra Damage and heal an ally within 6 meters of the target (or yourself). All the Damage of these attacks becomes Divine.
+            Bonus Damage and Heal: 1 for 1-Handed weapons and Half-Action Spells, 2 for 2-Handed weapons and 1 Action Spells.
+          Notes: |
+            If a spell doesn't deal Damage, just instantly deal the Focused Smites Damage to the target.
+            The Damage becoming Divine part is optional.
+
+        <Divine Reach>: Inherit      # 1
+ 
+      Level 5:
+      
+        <Life Echo>:                   # 2
+            A: 0 Actions
+            Effect: |
+                You put a Life Echo on another ally.
+                Whenever YOU heal a different Unit, the unit with the Life Echo on them is also healed for 50% of that amount.
+                Lasts 1 minute.
+                
+        <Devotion Aura>:                # Hard to say
+            A: Passive
+            Effect: |
+                All allies on your team have +1 Defense if their Defense is lower than 3.
+            Notes: Does not stack with itself multiple times (from multiple Paladins).
+            
+        <Broken Hearts>:
+            A: 1 Action
+            Requirement: Only usable if you have 0 Mana remaining
+            Cooldown: Once / Adventure
+            Effect: |
+                All Humanoids within 4 meters of you must pass a Sense Check or take 3d4 True Damage and be Stunned.
+                They take half of that Damage if they pass.
+            Notes: Cover is applied normally.
+ 
+        <Improved Faith Casting>:
+            A: Special
+            Effect: |
+                Your Basic Faith Spells are amplified:
+                Invigorate now heals for an extra 1d4.
+                Searing Smite deals an extra 1d4 Damage (both on hit and delayed).
+                Vindication always heals for an additional of 1d4.
+ 
+# Talent: When you use Oath of Protection...
+
+# Protection
+# Protection
+
+# Protection            (Talents 2)
+# CC Medium + Push
+# Buff (Damage + Healing)
+
+# Protection            (Talents 4)
+# Damage
+# Stats
+
+  Protection:               # 0.75
+    Description: Lorem. Lorem ipsum dolor sit amet.
+    Starting Abilities:
+    
+      ~Oath of Protection~: # 0.25
+        A: Reaction
+        Range: 4 meters to that ally
+        Cooldown: 2 times / Adventure
+        Effect: |
+          When another ally is attacked (after the roll), dash next to that ally.
+          The attack is now targeted on you instead of the ally.
+
+      ~Stand Behind~:       # 0.5
+        A: Passive
+        Effect: |
+          You stand out for allies adjacent to you.
+          Enemy ranged attacks against other allies next to you have Cover.
+        Notes: Nothing happens if an ally adjacent to you already has Cover. Next to you means 1 meter away (a square immediately next to you; works diagonally).
+
+    Talents:
+      Level 3:
+      
+        <Divine Rain> :           # 1.5
+          A: 0 Actions
+          Cooldown: Once / Adventure
+          Effect: |
+            You prepare to take lethal blow.
+            If you would drop to 0 Health until the start of your next turn, you remain instead at 1 Health and can't take Damage until the start of your next turn.
+            When this happens, divine rays strike all enemies within 3 meters of you, and they all take 1d6 Divine Damage.
+
+        <Reckoning> :             # 1
+          A: 1 Action
+          Range: 6 meters
+          Cooldown: Once / Adventure
+          Effect: |
+            Make a spell attack on a target for 2d10 Force Damage.
+            It must pass a Might Check or be Crippled and pushed away from you until the distance between you and the target is 6 meters.
+            If it stops in a wall or another enemy, it takes another 1d10 Force Damage.
+
+        <Consacrated Zone>:
+          A: 0 Actions            # 1
+          Cooldown: Once / Adventure
+          Effect: |
+            The area in a 5 meter diameter circle around you becomes Consacrated.
+            While inside the area, your and all allies' Divine, Mysticism, Nature and Class Spells (not Abilities) have their dice tier increased by 1.
+            Does not apply to Passive Spells.
+          Notes: |
+            Increasing dice by 1 tier means, for example, d6 become d8, or d10 become d12.
+            D12's and d20's don't increase.
+            Class Spells are Spells given by the character's class.
+
+      Level 5:
+        
+        <Sanctuary Zone>:         # 2?
+            A: 0 Action
+            Cooldown: Once / Adventure
+            Range: 6 meters to edge
+            Effect: |
+                Declare a 7x7 area.
+                All units in the area take only 50% Damage (after Defense).
+                Lasts until the start of your next turn's next turn.
+                
+        <Oath of Revenge>:
+            A: Passive
+            Effect: |
+                After you use Oath of Protection, you can immediately make an attack (freely) with a 1-Handed Melee Weapon on the attacker.
+                This attack has 3 meters range and deals True Damage.
+                You can apply Smites to it.
+                
+        <Improved Faith Casting>: Inherit
+                
+                
+        
+ 
+##########################################################
+
+# Spec idea: Cavalier (you ride a horse and have abilities based on that)
+
+
+# #Spec#
+# Crusader //: 4.5 Charges?
+# Lorem ipsum snitel dolor.
+# 
+# ~Oath of the Crusade~ :   # 1-ish Charge, maybe more
+#   A: Passive
+#   Effect: 
+#     You permanently know Radiant Smite, Blinding Smite and Cleansing Smite, aside from your prepared spells.
+#     After killing an enemy with an attack that had Divine Smite on it, deal the amount rolled with Divine Smite to all enemies in the room (against their Defense).
+# 
+# 
+# ~Reckoning~ :
+#   A: 1 Action
+#   Cost: 1 Charge
+# Make an attack roll on a creature within 3 meters and that creature also rolls a Charisma Check.
+# The attack deals 1d4 + 3 Damage if it hits, and the target is stunned if it fails the Check.
+# 
+# 
+# At Level 2, pick one of the following Talents and learn it permanently:
+# 
+# 
+# <Wrathful Smite> : 0.5 Actions
+# Spend 1 Charge.
+# Make a ranged spell attack against a target within 6 meters.
+# If you hit, deal 2d8 True Damage.
+
+
+#PageEnd#
+
+# <Zeal> : Passive
+# Moving does not provoke attacks of oportunity.
+# Choose any Skill and increase it by +2.
+# 
+# 	At Level X
+# <Ravaging Smite> : 1 Action
+# Spend 4 Charges.
+# Your next landed melee attack within 1 minute deals 8d6 extra True Damage.
+# 
+# 	Talents
+# Smite is not limited to melee attacks
+# Kayle's E
+# Divine Shield
+
+
+

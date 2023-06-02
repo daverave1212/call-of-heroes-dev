@@ -15,14 +15,14 @@ export default () => (
         <tr>
             <td>Level 2</td>
             <td>
-                Class Specialization
+                Class Specialization<br/>
+                1 Extra <Icon name="Mana"/>Mana
             </td>
         </tr>
         <tr>
             <td>Level 3</td>
             <td>
                 Class Talent (Tier 1)<br/>
-                1 Extra <Icon name="Mana"/>Mana
             </td>
         </tr>
         <tr>
@@ -36,13 +36,13 @@ export default () => (
             <td>Level 5</td>
             <td>
                 Class Talent (Tier 2)<br/>
+                1 Extra <Icon name="Mana"/>Mana
             </td>
         </tr>
         <tr>
             <td>Level 6</td>
             <td>
                 Action Surge (see below)<br/>
-                1 Extra <Icon name="Mana"/>Mana
             </td>
         </tr>
         <tr>
@@ -55,14 +55,14 @@ export default () => (
             <td>Level 8</td>
             <td>
                 +1 in any Stat (up to +5)<br/>
-                +1 Feat
+                +1 Feat<br/>
+                1 Extra <Icon name="Mana"/>Mana
             </td>
         </tr>
         <tr>
             <td>Level 9</td>
             <td>
                 Class Talent (Tier 4)<br/><br/>
-                1 Extra <Icon name="Mana"/>Mana
             </td>
         </tr>
         <tr>

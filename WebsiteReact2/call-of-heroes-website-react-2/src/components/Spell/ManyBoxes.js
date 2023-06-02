@@ -18,11 +18,7 @@ export default function ManyBoxes({ objects, type }) {
         }
     }
 
-    console.log({objects})
-
     objects = sortObjectArrayByKey(objects, 'OrderOnWebsite')
-
-    console.log({objects})
 
     if (objects.length == 0) {
         return (<div></div>)

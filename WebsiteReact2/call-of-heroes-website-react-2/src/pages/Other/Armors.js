@@ -13,6 +13,8 @@ import Page from '../../containers/Page/Page'
 export default function Armors() {
 
     const armorCategories = Object.keys(armors).filter(key => key != 'default')
+
+    console.log({armors})
     
     document.title = 'Armors'
 

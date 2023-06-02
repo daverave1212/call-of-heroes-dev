@@ -49,7 +49,7 @@ export function SideMenuFromClass({theClass}) {
             'Class Features',
             'Proficiencies',
             'Leveling Up',
-            'Spell Casting',
+            theClass.Spellcasting.SpellsOrAbilities == 'Spell'? 'Spells and Mana': 'Abilities and Mana',
             'Starting Abilities'
         ]
     }

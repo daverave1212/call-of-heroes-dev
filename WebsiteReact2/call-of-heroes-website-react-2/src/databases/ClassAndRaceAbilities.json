@@ -396,7 +396,7 @@
     },
     "~Proficiency in Smelling~": {
         "Display Name": "Prof. in Smelling",
-        "Effect": "Add your Level to all Sense Checks for sensing smells and identifying things based on their smell."
+        "Effect": "Add your Level to all Sense Checks for sensing smells and identifying things based on their scent."
     },
     "~Animal Companion~": {
         "AlignOnWebsite": "Left",
@@ -1007,7 +1007,7 @@
     "<Take Out>": {
         "A": "Half-Action",
         "Cost": "1 Mana",
-        "Effect": "A Unit within 1 meter must pass a Dexterity Check or be put to Sleep for 1 minute.\nIf it fails, you gain the Action back.\n",
+        "Effect": "A non-Epic Unit within 1 meter must pass a Dexterity Check or be put to Sleep for 1 minute.\nIf it fails, you gain the Action back.\n",
         "Downside": "You must be hiding to use Take Out, and the target must be Isolated.\nThis ability unhides you!\n"
     },
     "<Poison Master>": {
@@ -1395,7 +1395,8 @@
     "~Rout~": {
         "AlignOnWebsite": "Left",
         "A": "Passive",
-        "Effect": "The first time you enter each enemy's vicinity, it instantly becomes Fumbling.\n"
+        "Effect": "When you come within 1 meter of an Enemy, it instantly becomes Fumbling.\nThen it can't be affected by Rout for the rest of the combat.\n",
+        "Note": "Multiple Warriors can't Rout the same Unit multiple times.\nRout happens when you are not in an Enemy's vicinity, and you move (or are moved) and enter its vicinity. You don't need to end your movement there to trigger Rout on it - you can enter then exit its vicinity and Rout will trigger on it.\n"
     },
     "~Upper Hand~": {
         "A": "Passive",
@@ -1406,7 +1407,7 @@
         "A": "0 Actions",
         "Cost": "1 Mana",
         "Cooldown": "Once per turn",
-        "Effect": "Gain a Half-Action more this turn.\n"
+        "Effect": "Gain an additional Half-Action this turn.\n"
     },
     "<Might Over Magic>": {
         "A": "Passive",
@@ -1484,7 +1485,7 @@
     "~Quick Reload~": {
         "A": "0 Actions",
         "Cost": "1 Mana",
-        "Effect": "Reload a weapon that can to be reloaded, with 2 shots.\n",
+        "Effect": "Reload a weapon that can be reloaded, with 2 shots.\n",
         "Notes": "So, you can make 2 attacks with it before needing to reload it. Even if it's fully loaded, you can load another shot into it, up to 2."
     },
     "~Load Up~": {
@@ -1504,7 +1505,7 @@
         "Cooldown": "2 times / Adventure",
         "Range": "2 meters",
         "Effect": "Dash up to 2 meters away from the target.\nPush the target 2 meters away. It takes 1d8 Damage if it collides with something.\n",
-        "Notes": "This does not trigger attacks of oportunity."
+        "Notes": "This does not trigger attacks of opportunity."
     },
     "<Harpoon>": {
         "A": "1 Action",
@@ -1515,7 +1516,8 @@
     },
     "<Precise Weapon>": {
         "A": "1 hour",
-        "Effect": "Choose any weapon and make it Precise.\nThe weapon's scaling becomes +4 instead of scaling with a Stat.\nThe wielder of the weapon is also immune to Cripple and has +1 Movement Speed.\nMaking another weapon Precise makes the previous back to how it was.\n"
+        "Effect": "Choose any weapon and make it Precise.\nThe weapon's scaling becomes +4 instead of scaling with a Stat.\nThe wielder of the weapon is also immune to being Crippled and has +1 Movement Speed.\n",
+        "Notes": "You can only have one weapon made Precise at a time. When you make a different weapon Precise, the other one loses its Precise properties."
     },
     "<Ground Aim Lock>": {
         "A": "Passive",
@@ -1805,7 +1807,7 @@
     "~Talented~": {
         "A": "Passive",
         "Effect": "You start with Training in any 2 Weapon Categories or Proficiencies (or one of each).",
-        "Notes": "Weapon Categories are 1-Handed Melee Weapons, Shields, 2-Handed Ranged Weapons, etc.\n"
+        "Notes": "The 5 Weapon Categories are 1-Handed Melee Weapons, 2-Handed Melee Weapons, 1-Handed Ranged Weapons, 2-Handed Ranged Weapons, and Shields.\n"
     },
     "~Human Diversity~": {
         "A": "Special",
@@ -1826,14 +1828,6 @@
         "Effect": "When you would use Main Stat for an Ability, you can use the number 3 instead.\nYour Spell Grade is at least 9 (as if your Main Stat were 3).\nYou gain Proficiency in Luck.\n",
         "Notes": "For example, Magic Missiles shoots out a number of missiles equal to your Main Stat. So, with Ignorance Bliss, you can just replace Main Stat with the number 3.\n"
     },
-    "~Proficiency in Intimidation~": {
-        "Display Name": "P. in Intimidation",
-        "Effect": "Add your Level to all Checks for intimidating non-player characters into changing their mind, submission, etc."
-    },
-    "~Proficiency in Monstrology~": {
-        "Display Name": "P. in Monstrology",
-        "Effect": "Add your Level to all Checks for identifying monsters and Units and knowing what they do and how they behave."
-    },
     "~Boiling Blood~": {
         "A": "0 Actions",
         "Cost": "Half of your current Health",
@@ -1843,7 +1837,8 @@
     },
     "~Battle Anguish~": {
         "A": "Passive",
-        "Effect": "You do not suffer Exhaustion penalties when you are healed and raise from being Fallen in combat.\nHowever, after the first time you fall in combat, you can no longer use Abilities that Heal or cost 0 Actions (for the rest of this combat).\n"
+        "Effect": "You do not suffer Exhaustion when you are healed and rise from being Fallen in combat.\nHowever, after you Fall in combat, you can no longer use Abilities that Heal or cost 0 Actions (for the rest of this combat).\n",
+        "Notes": "This is considered a Debuff."
     },
     "~Fierceness~": {
         "A": "Passive",
@@ -1857,12 +1852,12 @@
         "A": "0 Actions",
         "Cost": "1 Mana",
         "Cooldown": "Once / Adventure",
-        "Effect": "Gain Half-Action this turn."
+        "Effect": "Gain an additional Half-Action this turn."
     },
     "~Savage Attacks~": {
         "A": "0 Actions",
         "Cooldown": "Once / Adventure",
-        "Effect": "Use after you land an attack.\nRoll and add one other Damage die from the attacks' Damage dice to the Damage roll.\n"
+        "Effect": "Use after you roll for Damage.\nChoose one of the rolled Damage dice and double its value.\n"
     },
     "~Bloodshed Wish~": {
         "A": "Passive",

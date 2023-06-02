@@ -8,7 +8,7 @@ import { insertBetweenAll, ifOk, stringReplaceAllMany } from '../../utils'
 
 export default function Weapon({ weapon, isActuallyArmor }) {
 
-    console.log({weapon})
+    // console.log({weapon})
 
     if (weapon == null) {
         throw `Given null weapon to Weapon: ${weapon}`
@@ -24,6 +24,7 @@ export default function Weapon({ weapon, isActuallyArmor }) {
         Hands,
         Special,
         Requirement,
+        Price,
         Damage,
         Range,
         Effect,
@@ -34,6 +35,8 @@ export default function Weapon({ weapon, isActuallyArmor }) {
     } = weapon
 
     const ArmorBonus = weapon['Armor Bonus']
+
+    // console.log({weapon})
 
     const iconName = stringReplaceAllMany(Name, [' ', '/', '%'], ['_', '_', ''])
 
@@ -81,6 +84,7 @@ export default function Weapon({ weapon, isActuallyArmor }) {
                             { Special != null && (<div><img src="/Icons/UI/Hand.png" className="inline-icon--spell"/>{ Special }</div>) }
                             { Range != null && (<div><img src="/Icons/UI/Range.png" className="inline-icon--spell"/>{ Range }</div>) }
                             { Requirement != null && (<div><img src="/Icons/UI/Level.png" className="inline-icon--spell"/><span style={{color: '#FF5A00'}}>Requires { Requirement }</span></div>) }
+                            { Price != null && (<div><img src="/Icons/UI/Gold.png" className="inline-icon--spell-downer"/>{ Price }</div>) }
                         </div>
                     </div>
                 </div>

@@ -71,6 +71,22 @@ export function Proficiencies({ name, theRaceOrClass }) {
     )
 }
 
+export function RaceDescription({ theRace }) {
+    const idTitle = theRace.Race ?? theRace.Class
+    const description = theRace.Description
+    const descriptionLines = description
+        .split('\n')
+        .map(str => str.trim())
+        .filter(str => str.length > 0)
+        .map(str => <p style={{lineHeight: '1.25em'}} key={str.substring(0, 10)}>{str}</p>)
+    const descriptionComponents = U.insertBetweenAll(descriptionLines, (i) => <Separator key={i}/>)
+    return (
+        <div id={idTitle}>
+            { descriptionComponents }
+        </div>
+    )
+}
+
 export function ClassFeatures({ theClass }) {
     return (
         <div id="class-features">
@@ -145,7 +161,7 @@ export function ClassFeatsDescription() {
     return (<div>
         <PageH3>Feats</PageH3>
         <p>Whenever you pick a Talent from your Class Specialization, you can instead choose a Feat. Take note that the power of Class Talents is individually balanced for each Class and each Specialization.</p>
-        <p>If you decide to forego your Talent and pick a Feat instead, you can no longer re-pick it on Long Rests and you will have to stick to the Feat you chose for the rest of your life! Choose keenly!</p>
+        <p>If you decide to forego your Talent and pick a Feat instead, you can no longer re-pick it inbetween Adventures and you will have to stick to the Feat you chose for the rest of your life! Choose keenly!</p>
     </div>)
 }
 export function LevelingUp({ theClass }) {
@@ -227,14 +243,14 @@ export function SpellCasting({ theClass }) {
     function ManaBasedSpellcasting() {
         return (
             <div>
-                <PageH3>Mana-Based Spellcasting</PageH3>
+                <PageH3>Mana-Based {theClass['Spellcasting'].SpellsOrAbilities} Casting</PageH3>
                 <p>
                     Mana is a resource you can spend to cast Abilities. Some Abilities have a Mana cost, some don't. The Mana cost of an Ability is indicated by a small icon of a blue flame, in its upper side below the title (usually next to the Action cost).
-                    All your Mana replenishes when you finish a Long Rest.
+                    All your Mana replenishes inbetween Adventures (e.g. at the start of a new Adventure).
                 </p>
-                <PageH3>Changing Spells</PageH3>
+                <PageH3>Changing {theClass['Spellcasting'].SpellsOrAbilities === 'Spell' ? 'Spells' : 'Abilities'}</PageH3>
                 <p>
-                    You can change your known Basic Abilities and Talents when taking a Long Rest.<br/>
+                    You can change your known Basic Abilities and Talents inbetween Adventures.<br/>
                     Feats can't generally be changed once picked; they are permenant decisions.
                 </p>
                 <p>
@@ -266,7 +282,7 @@ export function SpellCasting({ theClass }) {
                     If you want to use Mana inbetween encounters, you spend Mana normally and, as specified, it replenishes 10 minutes after the next combat encounter (so, yes, you <b>must</b> do a combat encounter in order to restore your mana; such is the nature of Warlocks).
                     <br/><br/>
                     <PageH3>Changing Spells</PageH3>
-                    You can change your known Basic Abilities and Talents when taking a Long Rest.<br/>
+                    You can change your known Basic Abilities and Talents inbetween Adventures.<br/>
                     Feats can't generally be changed once picked; they are permenant decisions.
                     { theClass.Spellcasting.Other }
                 </p>
@@ -316,13 +332,21 @@ export function SpellCasting({ theClass }) {
         )
     }
 
+    const hasMultipleMainStats = theClass['Spellcasting']['Main Stat'].includes('or')
+
     return (
-        <div id="spell-casting">
-            <PageH2>Spell Casting</PageH2>
+        <div id={theClass['Spellcasting'].SpellsOrAbilities === 'Spell' ? 'spells-and-mana' : 'abilities-and-mana'}>
+            <PageH2>{ theClass['Spellcasting'].SpellsOrAbilities === 'Spell' ? 'Spells' : 'Abilities' } and Mana</PageH2>
 
             <TwoColumns>
                 <Column>
-                    <PageH3>Spell Stats</PageH3>
+                    
+                    <div className='with-margined-children'>
+                        <PageH3>Main Stat</PageH3>
+                        <SmallStat name="Main Stat" topDown={hasMultipleMainStats} color="blue">{ theClass['Spellcasting']['Main Stat'] }{hasMultipleMainStats ? (<i> (whichever is higher)</i>) : ''}</SmallStat>
+                    </div>
+
+                    <PageH3>Numbers</PageH3>
                     <div className='with-margined-children'>
                         { theClass['Spellcasting']['Type'] != null && theClass['Spellcasting']['Type'] != 'Mana-based' && (
                             <SmallStat name="Spellcasting Style" color="blue">{ theClass['Spellcasting']['Type'] }</SmallStat>
@@ -330,15 +354,7 @@ export function SpellCasting({ theClass }) {
                         { theClass['Spellcasting']['Mana'] != null && (
                             <SmallStat name="Mana" color="blue">{ theClass['Spellcasting']['Mana']['Amount'] }<Icon name="Mana"/></SmallStat>
                         ) }
-                        { theClass['Spellcasting']['Insight'] != null && (
-                            <SmallStat name="Insight" color="blue">{ theClass['Spellcasting']['Insight'] } <Icon name="Insight"/></SmallStat>
-                        ) }
-                        <SmallStat name="Main Stat" color="blue">{ theClass['Spellcasting']['Main Stat'] } (<i>whichever is higher</i>)</SmallStat>
                         <SmallStat name="Spell Grade" color="blue">{ theClass['Spellcasting']['Spell Grade'] }</SmallStat>
-                    </div>
-                    
-                    <PageH3>Known Basic Abilities</PageH3>
-                    <div className='with-margined-children'>
                         {
                             theClass['Spellcasting']['Known Basic Abilities'] != null && (
                                 <SmallStat name="Known Abilities (from Basic Ability Lists)" topDown={true} color="blue">
@@ -347,6 +363,7 @@ export function SpellCasting({ theClass }) {
                             )
                         }
                     </div>
+
                     <PageH3>Basic Ability Lists</PageH3>
                     <SmallStatList name="Basic Ability Lists" color="blue">
                         {

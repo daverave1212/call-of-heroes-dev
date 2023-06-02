@@ -1,0 +1,514 @@
+Class: Cleric
+Description: Clerics are people attuned to a certain god.
+
+Difficulty: 2
+
+Armor Training: Medium Armor
+
+Weapons: You are Trained in 2 Weapon Categories of choice (e.g. 1-Handed Melee, 2-Handed Ranged, Shields, etc).
+
+Level Up:
+  Every Level: 
+    Health: 5
+
+Proficiency Requirements: You have Proficiency in Religion and a number of extra Proficiencies equal to your Intelligence.
+
+Proficiencies:
+    ~Proficiency in Religion~: Inherit
+    
+Proficiencies Description: |
+    Clerics are naturally trained in everything that encompasses their religion: rituals, prayers, sermons and the other. Being so in tune with their faith, Clerics might also know about other religions and religious practices. Use the bonus to religion Checks even for things like talking to other priests, identifying angels, blessed items, etc. Use your creativity with how you approach a situation and find opportunities to make it a "religion" Check.
+
+Spellcasting:
+  Type: Mana-based
+    
+  Main Stat: Sense or Charisma
+  Spell Grade: 6 + (Main Stat)
+  Change: You can change your known Spells and Talents inbetween Adventures.
+  Other: All Cleric-specific Abilities are considered Spells (unless stated otherwise).
+  
+  Mana:
+    Amount: 2
+    Regain: You regain all Mana back inbetween Adventures.
+  
+  Known Basic Abilities: 4 + Your Intelligence
+  BaseKnownSpells: 4
+  
+  Basic Ability Lists:
+    - Conjuration
+    - Divine
+
+  Recommended Basic Abilities:
+    - Divine: Light
+    - Divine: Cure Wounds
+    - Conjuration: Dancing Weapon
+    - Divine: Radiant Smite
+    - Divine: Cure Affliction
+    - Divine: Saving Throw
+    - Divine: Guiding Bolt
+
+  Recommended Abilities Description: |
+    They provide a good range of utility with Light, healing and supporting with Cure Wounds, Cure Affliction and Saving Throw, and some good damage with Dancing Weapon, Guiding Bolt (single-target) and Radiant Smite (area).
+
+Starting Abilities:
+
+  ~Awe~:                    # 1.5 Mana
+    A: Passive
+    Range: 5 meters
+    Effect: |
+      Whenever you spend Mana for an Ability, "cast Awe" on any target within 5 meters of you.
+      This deals 1d4 Divine Damage to enemies or heals allies for 1d4.
+      Some other Cleric spells will "cast Awe" for free.
+    Notes: Ignores Cover.
+
+  ~Spread the Awe~:              # 0.25 Mana
+    A: Half-Action
+    Cooldown: Once / Adventure
+    Effect: Cast Awe twice on target(s) within 5 meters.
+
+  ~Blessing~:               # 0.25 Mana
+    A: 1 Action
+    Cooldown: Once / Adventure
+    Duration: 1 encounter
+    Effect: |
+      You bless one ally.
+      Whenever it makes a Resist Check, it can add 1d4 to it.
+    Upgrade: At Level 4, this affects 2 allies. At Level 8, this affects 3 allies.
+    Notes: |
+      You can bless yourself.
+      Lasts until the end of the next combat encounter.
+    AlignOnWebsite: Right
+
+
+Starting Abilities Description: |
+    Clerics start with the Awe Spell.
+    Your future Cleric Talents will <i>trigger</i> Awe casts for free.
+
+
+
+# Base:         4
+
+# Spec:         1.75  | 1     | 
+# Talents T1:   1     | 0.75
+# Talents T2:   2     | 2
+
+# With Spec: 4.5
+# Talent (1): 5.75
+
+Other Ability Mentions: |
+  The first time you choose a cleric domain (specialization), you must choose between two abilities.
+  For example, for Battle Cleric, you have to choose either March Ahead or Piety.
+  Choose wisely...
+
+Specializations:
+  Description: At Level 1, you can choose your specialization.
+  Choices:
+    - Battle Cleric, where you become devoted to either Peace or War (or both) and pursue either of those
+    - Beacon Cleric, a keeper of the light or darkness, whose power draws from flame or shadow...
+    - Life Cleric, a balancer between life and death; your very fate hangs in this balance
+ 
+# Talent: Channel like half of your health into an ally to make him stronger! (combos with undead servant)
+# Talent: 0 Actions, 0 Charges, Your next damaging spell heals instead
+# Talent: Whenever you spend Mana this turn, Awe procs twice for each Mana spent.
+# Talent: Awe also restores Reserve Health
+# Talent: Cast Awe twice
+
+
+
+Specs:
+
+# Heal
+
+# Mobility              (Choice)
+# Heal                  (Choice)
+
+# CC Medium (Root)     (Talents 2)
+# CC Medium (Cripple)
+# Heal
+
+# Damage                (Talents 4)
+# Tanking
+# Damage (AoE)
+
+  Battle Cleric:              # 1.75
+    Description: Battle clerics specialize in conditions of war. You must choose your side
+
+    Starting Abilities:
+
+      ~Pledge of Battle~:     # 1.5
+        A: Special
+        Duration: Lifetime
+        Effect: |
+          Ask a party member to join your cause and pledge their honor to you.
+          They gain the Awe passive Ability (e.g. whenever they use Mana for an Ability, they cast Awe).
+          That person always Knows the same Basic Divine Spells you Know at a time.
+        Upgrades: |
+          There is one condition your ally must match - it can never have its Maximum Mana higher than yours (if it does, it becomes equal to yours).
+        Notes: |
+          You can only have one character who pledged for you and it must be within 100 meters to have access to all of those.
+          Their Awe is not improved by your Awe improvements, if you have any.
+
+    Choose your side: |
+        Battle Cleric!
+        Pick only one of the following two abilities!
+  
+    Abilities:
+
+      ~March Ahead~ :     # 0.25 Charges
+        A: 0 Actions
+        Cooldown: Once / Adventure
+        Effect: |
+          All allies can move 3 extra meters on their next turn (and you too this turn).
+          After casting this, you can continue your movement.
+
+      ~Piety~ :           # 0.25 Charges
+        A: Passive
+        Effect: Your pledged ally gains Spread the Awe.
+  
+    Talents:                    # 1
+      Level 3:
+      
+        <Eternal Bindings> :    # 1
+          A: 0 Actions or Reaction
+          Cooldown: Once / Adventure
+          Effect: |
+            A Unit within 3 meters makes a Sense Check.
+            If it fails, cast Awe on it.
+            It becomes magically bound to an object within 3 meters of it and can't willingly move more than 3 meters away from that object.
+            It rolls the Check again at the start end of their turn to escape the binding.
+            Lasts up to 1 minute.
+          OrderOnWebsite: 3
+            
+        <Heavy Burden> :        # 1
+          A: 0 Actions
+          Cooldown: Once / Adventure
+          Effect: |
+            A Unit within 3 meters makes a Sense Check.
+            If it fails, cast Awe on it and it is Crippled.
+          OrderOnWebsite: 1
+              
+        <Repentance> :          # 1
+          A: 0 Actions
+          Cost: 50% of your Maximum Health
+          Range: 1 meter (touch)
+          Effect: Heal another ally for 50% of its Maximum Health, then cast Awe on yourself.
+          Notes: |
+            You can't cast this if you are at or below 25% of your Maximum Health (rounded down).
+            If you are below 50% Health, you fall, but you are brought back due to Awe (with Exhaustion).
+            Round down.
+          OrderOnWebsite: 2
+
+      Level 5:
+        
+        <War Smite>:            # 1.35
+            A: 0 Actions
+            Cooldown: Once / Adventure
+            Effect: |
+                When you land an attack, roll 1d4 again and again until your roll 1.
+                Add them all together, and add the total to the attack.
+            OrderOnWebsite: 1
+                
+        <Shadow Realm>:             # 2? Good Damage, 0 actions, no Check requred...
+            A: 0 Actions
+            Cooldown: Once / Adventure
+            Effect: |
+                A Unit within 6 meters becomes trapped in a Shadow Realm with you for 2 rounds (this and the next).
+                Your attacks against it cast Awe on it for free while inside the Shadow Realm.
+                Neither of you can interact with the outside world, but can feintly see it.
+                Units on the outside can faintly see the two of you, as if you were ghosts.
+            Notes: The Shadow Realm is a copy of the normal world, but with no other units.
+            OrderOnWebsite: 3
+        
+        <Holy Apex>:                # 2.25
+            A: 1 Action
+            Cooldown: Once / Adventure
+            Range: 5 meters to edge
+            Effect: |
+                Declare a 6x6 meter area.
+                A giant spectral fist hits the ground and attacks all Units there except you for 2d10 + (Round Number d6) Divine Damage (against Defense).
+            Notes: E.g. on the first round of combat, this deals 2d10 + 1d6. Second round - 2d10 + 2d6. Third round - 2d10 + 3d6. And so on. Cover is applied from above if needed.
+            OrderOnWebsite: 2
+  
+# Damage
+
+# Immunity + Damage + Heal  (Choices)
+# Immunity + Damage + Heal
+
+# Damage + Heal             (Talents 2)
+# CC Medium (Blind)
+# Heal
+
+# CC                        (Talents 4)
+# Damage + Heal
+# AoE CC
+  
+  Beacon Cleric:          # 1
+    
+    Description: As a cleric, you become a devotee of darkness or/and light.
+    Starting Abilities:
+    
+      ~Grasp~:            # 0.5
+        A: Half-Action
+        Range: 15 meters (you don't need line of sight)
+        Cooldown: Once / Adventure
+        Effect: |
+          Cast Awe twice, on the same target or on two different targets.
+          That target(s) can't benefit from Cover for 1 minute.
+        Notes: If the target has Cover on attacks from any source, the Cover is negated (e.g. no more -2). Includes attacks while prone, attacks through heavy wind, etc.
+
+    Choose your side: Beacon Cleric!\nPick only one of the following two abilities!
+  
+    Abilities:
+    
+      ~Radiance~ :          # 0.5
+        A: Passive
+        Effect: |
+          At all times, you radiate light in a 3 meter radius.
+          You can turn this on and off at will.
+          You are immune to being Blinded.
+          If you have full health, Awe Damage and healing is 1d6.
+      
+      ~Twilight~ :          # 0.5
+        A: Passive
+        Effect: |
+          You can see in normal darkness up to 10 meters away.
+          You are immune to being Feared.
+          Awe Damage and healing is increased to 1d6 on targets at or below 50% Health.
+      
+    Talents:
+      Level 3:                      # 0.75
+      
+        <Let There Be Light> :      # 0.75
+          A: Passive
+          Effect: |
+            While not in darkness, when you heal with Awe, half of the healing also heals the target's Reserve Health.
+          Notes: Half rounded down.
+        
+        <Let There Be Darkness> :   # 0.75
+          A: Passive
+          Effect: |
+            While in darkness, your damaging Awe die is increased by 1 tier.
+          Notes: Increasing the tier of dice means 1d4 becomes 1d6, 1d6 becomes 1d8, and so on. D12's and d20's don't increase.
+
+        <Repentance> : Inherit from Cleric
+          
+      Level 5:
+      
+        <Shadow Realm>:             # 2? Good Damage, 0 actions, no Check requred...
+          A: 0 Actions
+          Cooldown: Once / Adventure
+          Effect: |
+            A Unit within 6 meters becomes trapped in a Shadow Realm with you for 2 rounds (this and the next).
+            Your attacks cast Awe on it for free while inside the Shadow Realm.
+          Upgrade: |
+            Neither of you can interact with the outside world, but can feintly see it.
+            Units on the outside can faintly see the two of you, as if you were ghosts.
+          Notes: The Shadow Realm is a copy of the normal world, but with no other units.
+          OrderOnWebsite: 3
+        
+        <Circle of Awe>:            # 2?
+          A: Half-Action
+          Cooldown: Once / Adventure
+          Range: 6 meters to edge
+          Effect: |
+            Declare a 4x4 area within 6 meters.
+            Now, and at the start of your next turn, cast Awe on all Units inside the area.
+          OrderOnWebsite: 1
+                
+        <Black Hole>:               # 1.75?
+          A: 0 Actions
+          Cooldown: Once / Adventure
+          Effect: |
+            You create a 1x1 Black Hole on an empty space.
+            Cast Grasp for free on all enemies within 6 meters of the hole.
+            If a Unit gets to the center of the Black Hole, it must pass a Might Check or be Rooted.
+            At the end of your turn, all Units within 6 meters of it are pulled 2 meters towards it.
+            The gravity of the black hole works even through walls and obstacles.
+          Notes: If 2 Units would be pulled to the center, you choose which.
+          OrderOnWebsite: 2
+
+      Level 7:
+
+        <Void Lock>:
+          A: 0 Actions
+          Cooldown: Once / Adventure
+          Range: 5 meters
+          Effect: |
+            Stun a Unit and a willing ally (or yourself). Then cast Awe on each.
+            These Units' Passive Abilities are disabled while Stunned.
+                
+                
+
+
+# Pet
+
+# Utility       (Talents 2)
+# Stats
+# Heal
+
+# Healing       (Talents 4)
+# Stats + Mobility + Drawback
+# CC Medium + Incentive to tank
+
+# Spec: Double faced persona
+# Spec: Reaction: raise enemy to fight for you
+# Talent: wings for follower
+# Talent: Corpses as a resource
+  
+  Life Cleric:            # 1 (because of the Mana decrease; would've been more like 2 usually)
+    Description: You are a worshipper of life and/or death. Seek their balance, and seek balance within yourself.\nYou have a Second Soul character, which is essentially another toned-down character you play.
+    Starting Abilities:
+    
+      ~Second Soul~:
+        A: Special
+        Effect: |
+          You have another Unit beside you, your companion.
+          Your companion draws power from your own spirit: it shares the same Health pool with you (e.g. whenever one of you takes Damage, the other one takes it as well). It also always has the same Defense and Checks as you, and has Speed equal to your base Speed.
+          Your companion has a 1-Handed Melee weapon. On its turn, it has a Half-Action which it can use to attack for 1d8 Damage without any Stat modifiers, regardless of the weapon's real Damage. It does, however, apply weapon effects, if any.
+          It takes its turn at the same time as you.          
+        Downside: Your maximum Mana decreases by 1.
+        Notes: |
+          Instead of attacking, your minion can do the equivalent of a Half-Action for non-combat uses, like using a potion, throwing a rope, reloading a weapon, etc, but not using a scroll. It can also use Disengage, Dash or Defend.
+          If both of you take Damage at the same time (e.g. from an AoE effect), the Damage taken is equal to the average of the Damages taken.
+          Come up with a story about why you have your companion and why your god allowed this or gave them to you.
+
+    Choose your side: Life Cleric!\nPick only one of the following two abilities!
+
+    Abilities:
+
+      ~Partner in Life~:  # 1
+        HasMixins: true
+        A: Special
+        Effect: |
+          Your companion is an alive being. It can either be a sentient humanoid of any race (without affecting its stats) or an animal.
+          Choose two of the following boons. Your companion will have them forever:
+          {Diamond} Sentience - Your companion is sentient and intelligent, and gains the Mana Tap Ability from the Elf Race
+          {Diamond} Largeness - Your companion is Large and starts every combat with Shielding equal to your Level (lasts until the end of the combat)
+          {Diamond} Mounting - You can ride your companion without penalties as a mount, and it has +2 Speed and ignores Hard Terrain
+          {Diamond} Spell Attacks - Your companion's attacks now have 5 meter range and deal Divine Damage (against Defense), regardless of the weapon type
+          {Diamond} Opportunity Attacks - When an enemy becomes Fumbling from exiting your companion's melee attack range, your companion can make an attack on it with its Reaction
+        Notes: |
+          While riding your companion, it can still attack, but mounting and dismounting takes either a Half-Action or all of your own total Movement.
+          Note that the Shielding (if you choose it) is on your companion, not on you; it absorbs Damage only if your companion takes it. If you're both hit at the same time, the Shielding applies.
+      
+      ~True Necromancy~:  # 1
+        HasMixins: true
+        A: Special
+        Effect: |
+          Your companion is an undead. It can either be a sentient undead humanoid of any race (without affecting its stats) or an abstract undead creature.
+          Choose two of the following boons. Your companion will have them forever:
+          {Diamond} Largeness - Your companion is Large and starts every combat with Shielding equal to your Level (lasts until the end of the combat)
+          {Diamond} Ghostly - Your companion takes only 50% Slashing and Necrotic Damage 
+          {Diamond} Sweeping - Instead of attacking, your Companion can just do 3 Damage (of its weapon type) to all Units within 2 meters of it
+          {Diamond} Death Burst - For 0 Actions, you can sacrifice your companion to cast Awe on all Units within 5 meters of it (this has a Once / Adventure). Your Companion stays dead for the rest of the Adventure.
+          {Diamond} Corpsewalk - Once per turn, when your companion walks over a corpse, cast Awe on an enemy within 1 meter of your companion and the corpse is destroyed.
+        Notes: |
+          Note that the Shielding (if you choose it) is on your companion, not on you; it absorbs Damage only if your companion takes it. If you're both hit at the same time, the Shielding applies.
+
+    Talents:
+      Level 3:
+
+        <Awe For Corpses>:  # Lmao no idea. 1.5?
+          A: Passive
+          Duration: Zombies last 1 minute
+          Effect: |
+            Whenever you spend Mana on an Ability, raise a corpse you can see into a Zombie.
+            Zombies have 1 Health and 0 Defense, 3 Speed and they can use their Action to attack for 1d6 Damage (Slash, Smash or Pierce, your choice).
+          Notes: Zombies have -1 in all Stats. When a Zombie dies, it becomes a corpse again.
+      
+        <Awe For Life>:   # 1.5?
+          A: 1 Action
+          Cooldown: Once / Adventure
+          Effect: Cast Awe once on each Worthy Unit within 10 meters of you.
+          
+      Level 5:
+      
+        # <Life Echo>:                   # 2? maybe less
+        #     A: 0 Actions
+        #     Cooldown: Once / Adventure
+        #     Effect: |
+        #         You put a Life Echo on an ally.
+        #         Whenever YOU heal another Unit, the unit with the Life Echo on them is also healed for 50% of that amount.
+        #         Lasts 1 minute.
+        #     Notes: If you put this on your True Necromancy follower, you essentially heal for 150% of the health.
+        #     OrderOnWebsite: 2
+
+        <Ascendance>:                 # Like 3
+          A: Passive
+          Effect: |
+            Your Awe die is increased by one Tier (e.g. from 1d4 to 1d6).
+            You gain Wingspan (Cleric) and Penitence.
+            You start every play Session with one extra Inspiration Point.
+
+        ~Wingspan (Cleric)~:
+          A: 0 Actions
+          Cooldown: Once / Adventure
+          Effect: Quickly fly up to 5 meters.
+          Upgrades: At Levels 3, 6 and 9, you get one extra use of Wingspan per Adventure (e.g. the Cooldown becomes 2 times / Adventure, 3 times / Adventure, etc).
+
+        ~Penitence~:
+          A: 0 Actions
+          Range: 5 meters
+          Duration: 1 minute
+          Effect: |
+            A target must pass a Charisma Check or become unable to cast healing Spells, do Crowd Control or apply On-Roll Effects.
+          Notes: Can't be cast on Epic Monsters.
+
+        <Cleric Lich Ritual>:          # 2
+            HasMixins: true
+            A: Special
+            Effect: |
+                You spend 24 hours in a special place of power (this could be a temple or given to you by your GM).
+                After it's finished, you become a Lich, and you are considered Undead.
+                Apply the following:
+                {Diamond} You are Undead, thus immune to Charm, Fear and being put to Sleep
+                {Diamond} You can no longer cast Basic Abilities that don't cost Mana, but gain 2 extra maximum Mana. Passive Spells that don't cost Mana still apply.
+                {Diamond} You no longer need to eat, drink or sleep.
+                {Diamond} You gain access to the Elemental and Eldritch Basic Ability Lists.
+                {Diamond} Your Health decreases by 3
+                You also gain the Phylactery and Dismorphment Abilities.
+            Upgrade: |
+                At Level 5, your Defense increases by 1.
+                At Level 6, the range of all your Spells is doubled.
+                At Level 7, Spell Grade increases by 1.
+                At Level 8, all your Checks increase by 1.
+            OrderOnWebsite: 1
+        
+        ~Phylactery~:
+            IsSubspell: true
+            A: Special
+            Effect: |
+                When you become a Lich, you place your soul inside a Phylactery - a special object, dear to you.
+                When you would reach 0 Health, instead of going Fallen, you can instantly teleport your body inside the Phylactery.
+                A spellcaster can channel when resting inbetween Adventures to resummon you near the Phylactery with full Health, Spells, etc.
+                If the Phylactery is destroyed, you must wait 1 year to make another one.
+                
+        ~Dismorphment~:
+            IsSubspell: true
+            A: Reaction or 0 Actions
+            Cooldown: Once / Adventure
+            Effect: |
+                When a Unit declares an attack or Spell on you, you can instantly teleport up to 3 meters away.
+                That Unit can keep their action or change it.
+                You can also instantly teleport using 0 Actions on your turn.
+            Notes: Remember that at Level 6, the range of this becomes 6 as per the description of Cleric Lich Ritual.
+            
+        ~Death Pact~:
+            IsSubspell: true
+            A: Half-Action
+            Effect: |
+                Choose an ally (or yourself).
+                They lose 5 Health. You gain 1 Mana this turn only.
+          
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
