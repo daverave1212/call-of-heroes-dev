@@ -32,7 +32,7 @@ Spellcasting:
   Main Stat: Intelligence or Charisma
   Spell Grade: 6 + (Main Stat)
   Mana:
-    Amount: 2
+    Amount: 1
     Regain: You regain all Mana back inbetween Adventures.
   Change: You can change your known Spells and Talents inbetween Adventures.
   Other: All Rogue-specific Abilities are not considered Spells (unless stated otherwise).
@@ -66,7 +66,7 @@ Starting Abilities Description:
       
 Starting Abilities:
   
-  ~Ambush~ :      # 1
+  ~Ambush~ :      # 0.75
     AlignOnWebsite: Right
     A: Passive
     Effect: |
@@ -79,10 +79,12 @@ Starting Abilities:
   ~Hide~: Inherit
 
 
+# One ambush = ~0.7
+# On average, you will do 5-6 Ambushes per Adventure = ~3.5
 
-# Base: 2.75 Charges
-# Spec: 5.25 Charges
-# Talent: 6 Charges
+# Base: 1.75 Charges
+# Spec: 5 Charges
+# Talent: 6.25 Charges
 
 Specializations:
   Description: |
@@ -119,8 +121,9 @@ Specs:
     
       ~Agile Hand~ :    # 0.35
         A: Passive
-        Effect: You don't become Fumbling from moving away from an enemy's melee attack range.
-        Notes: Fumbling is when you move away from an enemy's melee attack range; if you are Fumbling, all your actions have Cover.
+        Effect: You are immune to Fumbling.
+#       Effect: You don't become Fumbling from moving away from an enemy's melee attack range.
+#       Notes: Fumbling is when you move away from an enemy's melee attack range; if you are Fumbling, all your actions have Cover.
 
       ~Fool's Coin~:
         A: Passive
@@ -170,23 +173,23 @@ Specs:
           Range: 6 meters to end in line of sight
           Effect: |
             Deploy a Shock Tripwire of up to 5 meters long between 2 obstacles.
-            When a Unit passes through the tripwire, it takes 1d8 Shock Damage and must pass a Dexterity Check with -3 or be Rooted.
-            A Unit can see the tripwire only if it has 3 or more Sense.
+            When a Unit passes through the tripwire, it takes 1d10 Shock Damage and must pass a Dexterity Check with -3 or be Rooted.
+          Upgrade: A Unit can only see the tripwire only if it has 3 or more Sense.
           Notes: |
             Each end of the wire must be attached to something solid and static.
             You can make use of walls, obstacles, etc.
-            Requires a Special Tripwire Set which can be bought for 200 gold.
+            Requires a Special Tripwire Set which can be bought for 100 gold.
         
         <Blade Tempest>:
           A: 1 Action
           Cooldown: Once / Adventure
           Effect: |
-            You throw out 8 boomerang blades: one towards each direction (up, up-right, right, etc).
+            You throw out 8 boomerang star blades: one towards each direction (up, up-right, right, etc).
             Each blade travels 4 meters and stops in that space (can occupy the same space as another Unit).
-            Each blade deals 2d6 Slash Damage (directly, ignoring Defense) to all Units it passes through.
+            Each blade deals 2d6 Slash Damage to all Units it passes through.
             At the end of your next turn, the blades return to you.
-            Then, again, each blade deals 2d6 Slash Damage (directly, ignoring Defense) to all Units it passes through.
-          Notes: Requires 8 special blades, which can be bought for a total of 240 gold.
+            Then, again, each blade deals 2d6 Slash Damage to all Units it passes through.
+          Notes: Requires 8 special blades, which can be bought for a total of 120 gold. If you're playing on a Grid, take semi-hitting into account. Cover applies normally to each blade.
 
         <Poisoned Weapons>:         # 2? seems a bit weak
           HasMixins: true
@@ -332,7 +335,7 @@ Specs:
           Cooldown: Once / Adventure
           Range: 3 meters
           Effect: |
-            For each attack, Ability and application of Ambush you made this turn, deal 1d8 Damage that ignores Defense.
+            For each attack, Ability and application of Ambush you made this turn, deal 1d10 Damage that ignores Defense.
 
 # Talent: 2 turns from now, evelyn's charm
 # Talent: Traps, tripwires, thief's tools
@@ -400,7 +403,7 @@ Specs:
           Range: 6 meters to end in line of sight
           Effect: |
             Whenever you spend one or more Mana, freely deploy a Shock Tripwire of up to 5 meters long between 2 obstacles.
-            When a Unit passes through the tripwire, it takes 1d8 Shock Damage and must pass a Dexterity Check with -3 or be Rooted.
+            When a Unit passes through the tripwire, it takes 1d10 Shock Damage and must pass a Dexterity Check with -3 or be Rooted.
             A Unit can see the tripwire only if it has 3 or more Sense.
           Notes: |
             Each end of the wire must be attached to something solid and static.
@@ -414,7 +417,7 @@ Specs:
           Range: 6 meters
           Effect: |
             Use when a Unit within 6 meters becomes affected by Crowd Control of any type except Slow (including being Pushed) (you must have line of sight to it).
-            Deal 1d8 Pierce Damage to it and push it up to 3 meters in any direction.
+            Deal 1d10 Pierce Damage to it and push it up to 3 meters in any direction.
           Notes: |
             Requires a Whiplash item for pushing towards you or to a side, which can be bought for 100 gold.
             For pushing away from you, requires a gun or crossbow of any type.

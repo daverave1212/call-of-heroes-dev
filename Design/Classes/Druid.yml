@@ -76,7 +76,7 @@ Starting Abilities:
       You can do these even while Shapeshifted.
     AlignOnWebsite: Right
 
-  ~Shapeshift~:            # Ok, 0.75
+  ~Shapeshift~:            # 2
     A: 1 Action
     Cooldown: 2 times / Adventure (see effect)
     Effect: |
@@ -104,11 +104,13 @@ Starting Abilities:
     IsSubspell: true
     A: Half-Action
     Effect: |
-      Make a melee attack for 1d8 + your Main Stat (not the animal's).
+      Make a melee attack for 1d6 + your Main Stat (not the animal's).
     OrderOnWebsite: 2
 
-# Base: 3.5 Charges 
-# With Spec: 4 - 6 Charges
+# Base:         4
+# Spec:         1.5   | 1.25  | 2   | 1.25
+# Talents T1:   1     | 1     | 1   |
+# Talents T2:   2     | 2     | 2   |
 
 Specializations:
     Description: At Level 1, you can choose your coven (Specialization). A coven is a spiritual path you adhere to, and whose culture you represent.
@@ -153,7 +155,7 @@ Specs:
 # AoE Damage + CC
 # AoE CC + Damage
 
-  Coven of the Old Ways:        # 1.75
+  Coven of the Old Ways:        # 1.5
     Description: |
       You worship the sun, the moon and the stars, for only they can truly guide your path.
       Pagan Druids believe no one has the right to dictate someone else's spiritual path.
@@ -165,7 +167,7 @@ Specs:
 
       
     Starting Abilities:
-      ~Day Night Cycle~ :       # 0.5
+      ~Day Night Cycle~ :       # 0
         A: Passive
         Effect: |
           Instead of knowing one set of spells, as normal, you know two: one for the moon, and one for the sun.
@@ -183,7 +185,7 @@ Specs:
         Cooldown: Day/Night (see below)
         Effect: |
           A target within 6 meters makes a Sense Check.
-          If it fails, it takes 1d6 + Main Stat Fire Damage and is Crippled (if day) or True Damage and is Silenced (if night).
+          If it fails, it takes 1d8 + Main Stat Fire Damage and is Crippled (if day) or True Damage and is Silenced (if night).
           It takes half of that Damage if it passes.
           If you use this at night, you can't use it until day, and vice versa.
         Notes: Ignores Cover.
@@ -207,10 +209,10 @@ Specs:
             If day, Moonsun Fire also burns the target for 10% of its total Health as Fire Damage.
             If night, Moonsun Fire heals a target you choose within 6 meters for the same Damage dealt.
         
-        <Lycanthropy> :         # 0.5
-          A: Passive
-          Effect: |
-            During the night (24:00 to 6:00) you can Shapeshift into a Lycanthrope (see Lycanthrope form) when using Shapeshift.
+        # <Lycanthropy> :         # 0.5
+        #   A: Passive
+        #   Effect: |
+        #     During the night (24:00 to 6:00) you can Shapeshift into a Lycanthrope (see Lycanthrope form) when using Shapeshift.
             
         <Druid Animal Companion> :  # 1
           A: Passive
@@ -223,7 +225,7 @@ Specs:
             Your pet can make normal Checks using using its own Stats.
             Your pet will not stray more than 30 meters away from you in hostile territory.
             All pets have the Pet Attack ability.
-          # Pets can't make Opportunity Attacks.
+
           Upgrade: If your pet drops to 0 Health, it becomes Fallen, like a player. It has no reserve Health, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.
           Notes: |
             If your pet raises from being Fallen, it has Pet Exhaustion (is Slowed and can only use Pet Attack, but all Pet Attacks have Cover, which is a -2 to the attack).
@@ -234,20 +236,20 @@ Specs:
             A: 1 Action (from the pet)
             Effect: |
                 The pet melee attacks a target.
-                The attack deals 1d6 + 2 Pierce of Slash Damage (your choice).
-                
+                The attack deals 1d6 Pierce of Slash Damage (your choice).
+
       Level 5:
       
-        <Regrowth>:
-          A: Half-Action
+        <Regrowth>:             # 1.5
+          A: 0 Actions
           Cooldown: Once / Adventure
-          Effect: Heal a Unit within 6 meters for 1d8 for each 10 Health it is missing.
+          Effect: Heal a Unit within 6 meters for 1d10 for each 10 Health it is missing.
           
-        <Sunrise/Moonfall>:
+        <Sunrise/Moonfall>:     # 2.25
           A: Passive
           Effect: Moonsun Fire now hits all Units within a 4x4 area you choose and deals an extra 2d4 Damage.
         
-        <Equinox>:              # It's 0.5 Actions + 1 Charge = 2 Charges
+        <Equinox>:              # It's 0.5 Actions + 1 Mana = 2 Mana
           A: Half-Action
           Cooldown: Day/Night
           Effect: |
@@ -269,11 +271,11 @@ Specs:
 # Everything
 
 
-  Coven of the Wild:            # 0.5
+  Coven of the Wild:            # 1.25
     Description: You are heavily in touch with nature and with strange creatures, uncommon to the normal folk.
     Starting Abilities:
     
-      ~Wild Shape~ :            # 0.5
+      ~Wild Shape~ :            # 1.25
         A: Passive
         Effect: |
           When you use Shapeshift, you can transform into a combination of 2 animals.
@@ -333,13 +335,13 @@ Specs:
                 They have Animal Attack and all of the animal's Abilities.
                 They can cancel it for 0 Actions on their turn.
                 
-        <Regrowth>:             # 2+ at 30 missing Health
+        <Regrowth>:             # 2?
           A: 1 Action
           Cooldown: Once / Adventure
           Range: 5 meters
           Effect: Heal a Unit for 1d8 for each 10 Health it is missing.
         
-        <Beastly Stamina>:
+        <Beastly Stamina>:      # 2?
           A: Passive
           Effect: For each animal, you gain an extra use of their Abilities that have a Cooldown of Once / Adventure.
     
@@ -387,9 +389,8 @@ Specs:
         Range: 10 meters
         Cooldown: Once / Adventure
         Effect: |
-          Choose a target.
-          At the start of your next turn, it must pass a Sense Check or be Stunned and take 2d8 Psychic Damage.
-          If it passes, it takes half of the Damage.
+          Choose a target. It must make a Sense Check.
+          If it fails, at the start of your next turn, it is Stunned and takes 2d8 Psychic Damage (or half if it passes).
         Notes: Ignores Cover.
 
     Talents:
@@ -399,7 +400,7 @@ Specs:
           A: Passive
           Effect: |
             Blood Magic can now draw Health from your Reserve Health Pool.
-            Your Reserve Health Pool increases by 8.
+            Your Reserve Health Pool increases by 5.
       
         <Old Ritualist>: Inherit
         
@@ -410,7 +411,7 @@ Specs:
             A: 1 Action (from the pet)
             Effect: |
                 The pet melee attacks a target.
-                The attack deals 1d6 + 2 Pierce of Slash Damage (your choice).
+                The attack deals 1d6 Pierce of Slash Damage (your choice).
       
       Level 5:
 
@@ -475,7 +476,7 @@ Specs:
         Cooldown: 2 times / Adventure
         Effect: |
           You raise a wall of stone, dirt or other such material from the ground, 1x3x2 (1 meter thick, 3 wide, 2 tall).
-          Enemies hit directly by the wall growing from below them take 1d6 Smash Damage.
+          Enemies hit directly by the wall growing from below them take 1d8 Smash Damage.
         Upgrade: For Mountain or Desert domain.
         Notes: |
           You can instantly crumble the wall on your turn by using 0 Actions.
@@ -521,7 +522,7 @@ Specs:
           Range: 6 meters
           Cooldown: Once / Adventure
           Effect: |
-            Heal another ally for 3 Health and it regains 1 Mana or resets the Cooldown of an Ability.
+            Heal another ally for 1d10 Health and it regains 1 Mana or provides 1 more use of an Ability that is on Cooldown.
           Downside:
             Can not be cast on Druids.
              
@@ -532,23 +533,23 @@ Specs:
             A: 1 Action (from the pet)
             Effect: |
                 The pet melee attacks a target.
-                The attack deals 1d6 + 2 Pierce of Slash Damage (your choice).
+                The attack deals 1d6 Pierce of Slash Damage (your choice).
 
       Level 5:
       
         <Regrowth>:
           A: 1 Action
           Cooldown: Once / Adventure
-          Effect: Heal a Unit within 6 meters for 1d8 for each 10 Health it is missing.
+          Effect: Heal a Unit within 6 meters for 1d10 for each 10 Health it is missing.
         
-        <Dazzling Miasma>:
+        <Dazzling Miasma>: # 2
           A: 1 Action
           Cooldown: Once / Adventure
           Effect: |
             Shoot a tainted gust of spores in a 10x1 meter line from your position.
             It hits the first 2 Units it travels into.
-            If you hit one Unit, it must pass a Might Check or take 4d10 Poison Damage (or half of that if it passes).
-            If you hit 2 Units, they must pass a Might Check or be Stunned and take 1d10 Poison Damage (or half of that if they pass).
+            If you hit one Unit, it must pass a Might Check or take 10d4 Poison Damage (or half of that if it passes).
+            If you hit 2 Units, each must pass a Might Check or be Stunned and take 5d4 Poison Damage (or half of that if they pass).
         
         <Animate Plants>:       # Easily 2 Charges; first turn is easily 1 Charge
           A: 1 Action
@@ -560,7 +561,7 @@ Specs:
             When a Plant reaches 0 Health, it doesn't die, but it becomes de-animated.
             Pick the plant type from the Druid Plants list that fits the plant the best.
             Lasts up to 10 minutes.
-            
+
 # Fey Druids are people bound to the Fey and to Fey creatures, a whimsical yet chaotic magic.
 # A worshipper of the Forgotten Gods praises Mother Earth, the Stars and possibly gods long forgotten by civilization.
 

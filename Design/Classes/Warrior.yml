@@ -49,7 +49,7 @@ Spellcasting:
 
 Starting Abilities:
 
-  ~Advanced Flank~ :        # 1
+  ~Advanced Flank~ :        # 1.75
     AlignOnWebsite: Left
     A: Passive
     Effect: |
@@ -85,8 +85,8 @@ Specializations:
     - Marksman, a precise and mechanical soldier, always finding the best tactic and position; the Marksman wins the battle before it begins
 
 
-# Base: 3.5 Charges
-# Spec: 4 Charges
+# Base: 4.25 Charges
+# Spec: 5 Charges
 
 # Talent: You can spend 1 Mana to unexhaust one Ability
 
@@ -179,8 +179,9 @@ Specs:
             Cooldown: Once / Encounter
             Effect: |
                 Throw a weapon at a target and attack it (without Throwing penalties and ignoring Cover).
-                Before applying the Damage, the attack destroys all Shielding on the target and removes all buffs on it.
-                The target is unable to trigger "on roll", can't gain Shielding and can't benefit from Buffs until they spend 1 Action to recover.
+                Before applying the Damage, the attack destroys all Shielding and Defense on the target and removes all buffs on it.
+                The target is unable to trigger "on roll", can't gain Shielding and can't benefit from Buffs until they spend an Action to recover.
+            Upgrade: Epic Monsters gain ther Defense back when they spend the Action to recover.
             Notes: |
                 Your weapon lands at the nearest space to the target (and you should probably pick it up with a Half-Action).
                 "On roll" refers to effects like "if it rolls 10 on a d10, the attack deals 1d10 extra Damage".
@@ -304,7 +305,8 @@ Specs:
       ~Reckless Attack~ :     # Ok
         A: 0 Actions
         Cost: 1 Mana
-        Effect: After you land an attack, you can deal 2d6 Damage to you and also add that Damage to the attack.
+        Effect: After you land a weapon attack, deal 2d8 extra Damage to the target, and half that amount to yourself.
+        Notes: Your Defense does not mitigate this Damage.
 
       ~Undying Rage~ :        # Ok
         A: Reaction
@@ -381,22 +383,24 @@ Specs:
     
       ~Marksmanship~ :    # 0.2
         A: Passive
-        Effect: YOU can flank a Unit from up to 6 meters away (if you, the target and the ally/wall/obstacle are on the same line).
+        Effect: |
+          YOU can flank a Unit from up to 6 meters away (if you, the target and the ally/wall/obstacle are on the same line).
         Notes: As usual, that wall/obstacle/ally helping with your flank must right behind the target (meaning allies can't flank an enemy with you being 6 meters away).
 
-      ~Quick Reload~:
-        A: 0 Actions
-        Cost: 1 Mana
-        Effect: |
-          Reload a weapon that can be reloaded, with 2 shots.
-        Notes: So, you can make 2 attacks with it before needing to reload it. Even if it's fully loaded, you can load another shot into it, up to 2.
+      # ~Quick Reload~:
+      #   A: 0 Actions
+      #   Cost: 1 Mana
+      #   Effect: |
+      #     Reload a weapon that can be reloaded, with 2 shots.
+      #   Notes: So, you can make 2 attacks with it before needing to reload it. Even if it's fully loaded, you can load another shot into it, up to 2.
       
-      ~Load Up~ :          # 0.5~ (ain't great on paper but in reality, it's probably bonkers)
+      ~Load Up~ :          # 1~ (ain't great on paper but in reality, it's probably bonkers)
         A: 0 Actions
         Cost: 1 Mana
         Effect: |
           You 'load up' your weapons.
-          After 'load up', your Advanced Flank deals 1d12 Damage instead of 1d6, but every time you use it, the Damage decreases by one tier (e.g. 1d12, 1d10, 1d8, 1d6, 1d4).
+          After you 'load up', your Advanced Flank deals 1d12 Damage instead of 1d6, but every time you use it, the Damage decreases by one tier (e.g. 1d12, 1d10, 1d8, 1d6, 1d4).
+          If your Advanced Flank die is 1d8 or more, after you roll it, you can choose to reroll it and you must keep the new result (once per turn).
         Notes: You can't go lower than 1d4.
           
       ~Point Mark~ :      # 0.15
