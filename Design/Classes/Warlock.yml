@@ -122,7 +122,7 @@ Abilities:
     Cost: 1 Mana
     Range: 15 meters
     Effect: |
-      Deal 13 Necrotic Damage to a Unit (directly, ignoring Defense).
+      Deal 10 Necrotic Damage to a Unit (directly, ignoring Defense).
       If it dies, you get the Mana back and heal for 5 Health.
     Upgrade: Corresponds to the Demon Patron.
     Notes: Through every soul drained, your demon lord feeds, and in return, grants you even more power.
@@ -134,6 +134,11 @@ Specializations:
     - Occultist, a heavy caster of Eldritch magic that can empower their spells
     - Summoner, specialized in calling for aid from familiars and otherworldly beings
 
+
+# Base:       4.75
+# Spec:       1.75   | 5.5       | 5.5
+# Talent T1:  0.25   | 0.5       | 0.5
+# Talent T1:  1.5    | 1.5       | 1.5
 
 # Base: 4.5 Charges
 # Spec: 5.5 Charges
@@ -158,13 +163,14 @@ Specs:
           Pick any weapon type (e.g. Shortsword, Longbow, Pike, etc), and it becomes your Hexblade Weapon.
           You can customize your weapon's personality, voice, the way it looks. Talk to your GM about this.
           You are automatically considered Trained in your Hexblade Weapon.
+          Instead of adding Dexterity of Might, you can add your Main Stat to attacks with your Hexblade Weapon.
+        Upgrade: |
+          Reposess: By spending 1 hour, you can transfer the entity posessing your Hexblade weapon into another weapon. That new weapon becomes your Hexblade Weapon, and the old one is destroyed.
 
       ~Hexblade~ :      # 1.75
         A: Passive
         Effect: |
-          After you cast an offensive Spell that costs Mana, your next Hexblade Weapon attack deals +1d6 Damage. Also, instead of adding Dexterity of Might, you can add your Main Stat to attacks with your Hexblade Weapon.
-        Upgrade: |
-          Reposess: By spending 1 hour, you can transfer the entity posessing your Hexblade weapon into another weapon. That new weapon becomes your Hexblade Weapon, and the old one is destroyed.
+          After you cast an offensive Spell that costs Mana, your next Hexblade Weapon attack deals +1d6 Damage.
         Notes: Offensive means that it deals Damage or applies hard Crowd Control (anything better than Slow and creating Hard Terrain).
         
     Talents:
@@ -208,8 +214,8 @@ Specs:
           Cost: 1 Mana
           Effect: |
             Count the Units within 3 meters of you (except you).
-            They are all attacked for 1d6 + (the number of Units) Force Damage (against Defense).
-          Notes: E.g. if this affects 2 Units, it deals 3d6. If it affects 3 Units, it deals 4d6. 4 Units - 5d6. And so on.
+            They are all attacked for 1d4 + (d4's equal to the number of Units) Force Damage.
+          Notes: E.g. if this affects 2 Units, it deals 3d4. If it affects 3 Units, it deals 4d4. 4 Units - 5d4. And so on.
 
 
   Occultist:
@@ -281,7 +287,7 @@ Specs:
         Cooldown: Once / Turn
         Effect: |
           The familiar melee attacks a target.
-          The attack deals 1d12 + Main Stat Damage (of your pet's elemental type).
+          The attack deals 1d8 + Main Stat Damage (of your pet's elemental type).
         Notes: The attack is against target's Defense, of course.
         
       ~Familiar Feats~:
@@ -320,8 +326,8 @@ Specs:
           Duration: 1 minute
           Effect: |
             You take on the shape or a being from your patron's plane until the end of your next turn.
-            You have +2 Defense, +2 Main Stat, and your Basic Spells require no mana to cast.
-            After you cast a Basic Spell, it goes on a Once / Adventure.
+            You have +2 Main Stat, and your Basic Spells require no mana to cast.
+            After you cast a Basic Spell, it goes on a Once / Adventure Cooldown (can't be used until the next Adventure).
         
         <Dual Summonation>:         # Makes up for it in 3 turns-ish; 4th turn is definitely worth it; 5th is already bonkers
           A: Half-Action
@@ -341,14 +347,16 @@ Specs:
           Cost: 1 Mana
           Cooldown: Once / Adventure
           Range: 6 meters
+          Duration: 1 minute
           Effect: |
-            You summon an Avatar of your patron.
-            While the Avatar is summoned, you can't move, except with teleportation Spells.
-            You and the Avatar share Actions and you must use at least a Half-Action with it every turn, otherwise it becomes unsummoned.
-            The Avatar can't take Damage or be directly Crowd Controlled, but all Crowd Control you would take is redirected to it.
+            You summon an Avatar of your patron and become Rooted until the Spell ends.
+            You and the Avatar share Actions.
+            The Avatar can't take Damage or be directly Crowd Controlled, but all Crowd Control you would take is also applies to it.
             See the Avatar's Stats and Abilities in the Pets sections.
-            Lasts up to 1 minute or until you are Stunned, Silenced, put to Sleep, etc or physically moved from place.
-          Notes: You can cancel the summon at any point on your turn. The Avatar also ends if it goes more than 30 meters away from you.
+            Lasts up to 1 minute or until you are Pushed or incapacitated (or until cancelled).
+          Notes: |
+            You can cancel the summon at any point on your turn. The Avatar also ends if it goes more than 30 meters away from you. While the Avatar is summoned, you can't move, except with teleportation Spells.
+            Incapacitated means Stun, Sleep, Paralysis, etc.
         
         
 

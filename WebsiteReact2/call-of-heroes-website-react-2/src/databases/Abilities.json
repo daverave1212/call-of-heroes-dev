@@ -20,7 +20,7 @@
         "~Improvised Attack~": {
             "HasMixins": true,
             "A": "Half-Action or 1 Action",
-            "Effect": "You can use small, medium or large non-weapon objects from around and attack with them.\n{Diamond} Small Objects - Half-Action, 1d4 + Dexterity Smash or Pierce Damage, thrown at 3 to 6 meters range\n{Diamond} Medium Objects - Half-Action, 1d4 + Might Smash Damage, 2 meters range\n{Diamond} Large Objects - 1 Action, 2d6 + Might Smash Damage, 1 meter range\nIf you roll maximum on any of those dice and the object can break, it breaks and deals an extra 1d4 Damage.\n",
+            "Effect": "You can use small, medium or large non-weapon objects from around and attack with them.\n{Diamond} Small Objects - Half-Action, 1d4 + Dexterity Smash or Pierce Damage, thrown at exactly 3 to 6 meters range\n{Diamond} Medium Objects - Half-Action, 1d4 + Might Smash Damage, up to 3 meters range\n{Diamond} Large Objects - 1 Action, 2d6 + Might Smash Damage, up to 2 meter range\nIf you roll maximum on any of those dice and the object can break, it breaks and deals an extra 1d4 Damage.\n",
             "Notes": "Considered weapon attacks.\nA Small object is considered something you can hold in your hand (e.g. something up to 20cm across, a rock, etc).\nA Medium object is considered something you can grab and throw with your hand (e.g. something up to 50cm across, a chair, etc).\nA Large object is something you would not be able to throw with only one hand (e.g. a table).\n",
             "Name": "~Improvised Attack~"
         },
@@ -35,18 +35,23 @@
             "Effect": "A Unit must pass a Might Check or be pushed 1 meter in any direction you choose.",
             "Name": "~Push~"
         },
+        "~Halfhand Attack~": {
+            "A": "Half-Action",
+            "Effect": "Make an attack with a 2-Handed Melee Weapon. It deals 8 less Damage.",
+            "Name": "~Halfhand Attack~"
+        },
         "~Taunt~": {
             "A": "Half-Action",
             "Range": "10 meters",
             "Effect": "Make an enemy roll a Sense Check.\nIf it fails, its next attack gains Cover (-2) if it's not on you.\n",
             "Name": "~Taunt~"
         },
-        "~Throw Weapon~": {
-            "A": "Depends",
-            "Range": "4 meters",
-            "Effect": "Throw a melee weapon towards a Unit. The attack deals Damage as if it were a normal attack, but has a -2 Penalty and does not apply weapon effects.\n",
-            "Notes": "You can add your Might/Dexterity to the attack, normally, if you are Trained in that weapon (or that weapon's category, of course).\nThere is a Feat that allows you to throw weapons without penalties.\n",
-            "Name": "~Throw Weapon~"
+        "~Wait~": {
+            "A": "0 Actions",
+            "Cooldown": "1 turn",
+            "Effect": "Skip your turn and declare any number as your new initiative.\nYou start your turn later this Encounter at that initiative.\n",
+            "Notes": "Your new initiative stays like that for later turns.",
+            "Name": "~Wait~"
         },
         "~Action Surge~": {
             "A": "0 Actions",
@@ -60,7 +65,7 @@
         "~Aim~": {
             "A": "Half-Action",
             "Cooldown": "10 minutes",
-            "Effect": "For your next attack within 10 minutes, after you roll it, you can choose to reroll all dice and keep the new result.",
+            "Effect": "For your next Act that does Damage within 10 minutes, after you roll it, you can choose to reroll all dice and keep the new result.",
             "Notes": "Applies to Abilities and buffs added to the attack, like Smite. If you decide to reroll, you have to reroll ALL of them; Smite and similar abilities must be added before the reroll.\nWhile out of combat, you can note to the GM that you're keeping Aim always active (e.g. re-cast it as soon as it expires).\n",
             "Name": "~Aim~"
         },
@@ -72,7 +77,7 @@
         "~Grapple~": {
             "A": "1 Action",
             "Effect": "You make a Might roll and the target makes a Dexterity or Might roll (its choice).\nIf you roll equal to or more than the enemy, the enemy becomes Grappled (Fumbling and Rooted, and it can't move from place through any means, even magical).\n",
-            "Notes": "Like all CC, being Grappled lasts 1 turn. The target becomes not Grappled if the grappler exist its adjacency.",
+            "Notes": "Like all CC, being Grappled lasts 1 turn. The target becomes not Grappled if the grappler exits its adjacency.",
             "Name": "~Grapple~"
         },
         "~Hamstring~": {
@@ -84,8 +89,8 @@
         "~Hide~": {
             "A": "Special",
             "Cooldown": "Once per encounter",
-            "Effect": "When combat starts, if you have Cover from all enemies, you start as Hidden.\nWhile Hidden, you can skip your turn.\nThen, you can unhide and start your turn whenever you like (even during enemies' turns).\nIf you did this, when your turn ends, you are no longer Hidden.\n",
-            "Notes": "Attacking or using Abilities or moving out of cover in relation to any enemy makes you unhides you.\nIf you don't start your turn this round, you lose your turn. You don't take 2 turns next round.\nIf you want to start during an enemy's turn, you do so when they declare they want to do something or after they finish doing something.\nIn special circumstances, the DM might ask you to make a Dexterity Check to be or remain Hidden.\nYou can't become Hidden through non-Ability means.\n",
+            "Effect": "When combat starts, if you have Cover from all enemies, you start as Hidden.\nWhile Hidden, you can skip your turn.\nThen, you can unhide and start your turn whenever you like (even during enemies' turns)!\n",
+            "Notes": "Starting your turn unhides you.\nBe careful: if you don't start your turn this round, you lose your turn!\nIf you want to start during an enemy's turn, you do so when they declare they want to do something or after they finish doing something.\nIn special circumstances, the DM might ask you to make a Dexterity Check to be or remain Hidden.\nYou can't become Hidden through non-Ability means.\n",
             "Name": "~Hide~"
         },
         "~Lightstrike~": {
@@ -100,18 +105,11 @@
             "Effect": "All units within 2 meters of you take 2d6 Smash Damage.\nAfter that, one of them of your choice takes an extra 1d6 Smash Damage.\n",
             "Name": "~Slam~"
         },
-        "~Wait~": {
-            "A": "0 Actions",
-            "Cooldown": "1 turn",
-            "Effect": "Skip your turn and declare any number as your new initiative.\nYou start your turn later this Encounter at that initiative.\n",
-            "Notes": "Your new initiative stays like that for later turns.",
-            "Name": "~Wait~"
-        },
         "~Chilling Shout~": {
             "A": "1 Action",
             "Cost": "1 Mana",
             "Range": "10 meters",
-            "Effect": "Attack a sentient Unit for 14 + Main Stat Cold Damage.\nIt becomes Slowed.\n",
+            "Effect": "Attack a sentient Unit for 12 + Main Stat Cold Damage.\nIt becomes Slowed.\n",
             "Notes": "Doesn't work on Units that can't feel fear.\n",
             "Name": "~Chilling Shout~"
         },
@@ -127,7 +125,7 @@
             "A": "Half-Action",
             "Cost": "1 Mana",
             "Range": "3 meters",
-            "Effect": "A target within 3 meters takes 4d4 + 2 Psychic Damage and can't cast Healing spells or regain Health for 1 turn.",
+            "Effect": "A target within 3 meters takes 3d4 + 2 Psychic Damage and can't cast Healing spells or regain Health for 1 turn.",
             "Name": "~Panic Lash~"
         },
         "~Recuperate~": {
@@ -165,7 +163,7 @@
         "~Aim~": {
             "A": "Half-Action",
             "Cooldown": "10 minutes",
-            "Effect": "For your next attack within 10 minutes, after you roll it, you can choose to reroll all dice and keep the new result.",
+            "Effect": "For your next Act that does Damage within 10 minutes, after you roll it, you can choose to reroll all dice and keep the new result.",
             "Notes": "Applies to Abilities and buffs added to the attack, like Smite. If you decide to reroll, you have to reroll ALL of them; Smite and similar abilities must be added before the reroll.\nWhile out of combat, you can note to the GM that you're keeping Aim always active (e.g. re-cast it as soon as it expires).\n",
             "Name": "~Aim~"
         },
@@ -188,8 +186,8 @@
         "~Hide~": {
             "A": "Special",
             "Cooldown": "Once per encounter",
-            "Effect": "When combat starts, if you have Cover from all enemies, you start as Hidden.\nWhile Hidden, you can skip your turn.\nThen, you can unhide and start your turn whenever you like (even during enemies' turns).\nIf you did this, when your turn ends, you are no longer Hidden.\n",
-            "Notes": "Attacking or using Abilities or moving out of cover in relation to any enemy makes you unhides you.\nIf you don't start your turn this round, you lose your turn. You don't take 2 turns next round.\nIf you want to start during an enemy's turn, you do so when they declare they want to do something or after they finish doing something.\nIn special circumstances, the DM might ask you to make a Dexterity Check to be or remain Hidden.\nYou can't become Hidden through non-Ability means.\n",
+            "Effect": "When combat starts, if you have Cover from all enemies, you start as Hidden.\nWhile Hidden, you can skip your turn.\nThen, you can unhide and start your turn whenever you like (even during enemies' turns)!\n",
+            "Notes": "Starting your turn unhides you.\nBe careful: if you don't start your turn this round, you lose your turn!\nIf you want to start during an enemy's turn, you do so when they declare they want to do something or after they finish doing something.\nIn special circumstances, the DM might ask you to make a Dexterity Check to be or remain Hidden.\nYou can't become Hidden through non-Ability means.\n",
             "Name": "~Hide~"
         },
         "~Lightstrike~": {
@@ -197,13 +195,6 @@
             "Range": "2 meters",
             "Effect": "Make a melee attack that deals 1d6 + 2 Force Damage.\nAfter the attack, your turn ends immediately.\n",
             "Name": "~Lightstrike~"
-        },
-        "~Wait~": {
-            "A": "0 Actions",
-            "Cooldown": "1 turn",
-            "Effect": "Skip your turn and declare any number as your new initiative.\nYou start your turn later this Encounter at that initiative.\n",
-            "Notes": "Your new initiative stays like that for later turns.",
-            "Name": "~Wait~"
         },
         "~Atonement~": {
             "A": "0 Actions",
@@ -253,7 +244,7 @@
             "A": "1 Action",
             "Cost": "1 Mana",
             "Range": "2 meters",
-            "Effect": "Push a Unit up to 6 meters away from you.\nIf it collides with something, it must pass a Might Check or be Stunned and take 1d6 Smash Damage (and it stops).\nIf it collides with another Unit, that Unit is also pushed in the same direction and continues a chain of Row Through.\n",
+            "Effect": "Push a Unit up to 6 meters away from you.\nIf it collides with something, it must pass a Might Check or be Stunned and take 1d4 Smash Damage (and it stops).\nIf it collides with another Unit, that Unit is also pushed in the same direction and continues a chain of Row Through.\n",
             "Notes": "E.g. if it collides with a Unit, that Unit is also pushed up to 6 meters and if it collides with something, it must pass a Might Check or be Stunned and take the Damage. If that thing it collided with was a Unit, that Unit is also pushed up to 6 meters and must pass the Might Check and so on.\n",
             "Name": "~Row Through~"
         },
@@ -367,14 +358,14 @@
             "Cost": "1 Mana",
             "Range": "5 meters",
             "Duration": "Until the target dies or you don't do this",
-            "Effect": "When you cast this, declare a target and it takes 3d6 Shock Damage.\nEvery turn (except this one), you can use a Half-Action to attack that target again for 3d6 Shock Damage.\nIf you don't spend the Half-Action for this on a turn, the spell ends.\n",
+            "Effect": "When you cast this, declare a target and it takes 1d10 + 3 Shock Damage.\nEvery turn (except this one), you can use a Half-Action to attack that target again for 3d6 Shock Damage.\nIf you don't spend the Half-Action for this on a turn, the spell ends.\n",
             "Notes": "You only pay the 1 Mana cost when you activate this Spell, not on every turn's Half-Action that you spend.",
             "Name": "~Crackling Lightning~"
         },
         "~Frost Nova~": {
             "A": "Half-Action",
             "Cost": "1 Mana",
-            "Effect": "All Units within 2 meters of you must pass a Dexterity Check or be Slowed and take 1d8 + 7 Cold Damage (or half if they succeed).\n",
+            "Effect": "All Units within 2 meters of you must pass a Dexterity Check or be Slowed and take 1d8 + 1 Cold Damage (or half if they succeed).\nFor each Unit hit, you deal +1 Cold Damage for the rest of the encounter.\n",
             "Notes": "Cover is applied normally.",
             "Name": "~Frost Nova~"
         },
@@ -383,7 +374,7 @@
             "Cost": "1 Mana",
             "Range": "1 meter",
             "Duration": "8 hours",
-            "Effect": "Place a rune on a smooth solid surface. The rune covers a 1x1 area.\nHeavy physical contact with the rune detonates it, dealing 6d6 Cold Damage (against Defense) to the Unit that activates it.\nAlso, it must pass a Dexterity Check or be Rooted.\n",
+            "Effect": "Place a rune on a smooth solid surface. The rune covers a 1x1 area.\nHeavy physical contact with the rune detonates it, dealing 3d10 Cold Damage to the Unit that activates it.\nAlso, it must pass a Dexterity Check or be Rooted.\n",
             "Name": "~Frost Rune~"
         },
         "~Explosion Rune~": {
@@ -391,7 +382,7 @@
             "Cost": "1 Mana",
             "Range": "1 meter",
             "Duration": "24 hours",
-            "Effect": "Place a rune on a smooth solid surface. The rune covers a 1x1 area.\nYou can use a free Reaction to detonate it, dealing 6d6 half Fire half Force Damage (against Defense) to the Unit that activates it and all Units within 2 meters of it.\n",
+            "Effect": "Place a rune on a smooth solid surface. The rune covers a 1x1 area.\nYou can use a free Reaction to detonate it, dealing 6d4 half Fire half Force Damage (against Defense) to the Unit that activates it and all Units within 2 meters of it.\n",
             "Upgrade": "At Level 4, this lasts for the rest of the Adventure.\n",
             "Notes": "A free Reaction does not use up your Reaction.",
             "Name": "~Explosion Rune~"
@@ -401,7 +392,7 @@
             "Cost": "2 Mana",
             "Range": "5 meters",
             "Requirement": "Level 3",
-            "Effect": "The target rolls a Dexterity Check.\nIf it fails, it takes 5d8 + 4 Cold Damage, or half otherwise.\nThe target automatically fails if it's affected by any Crowd Control (except Hard Terrain).\n",
+            "Effect": "The target rolls a Dexterity Check.\nIf it fails, it takes 3d8 + 9 Cold Damage, or half otherwise.\nThe target automatically fails if it's affected by any Crowd Control (except Hard Terrain).\n",
             "Name": "~Ice Spike~"
         },
         "~Fire Enchantment~": {
@@ -415,7 +406,7 @@
             "A": "Half-Action",
             "Cost": "1 Mana",
             "Range": "5 meters",
-            "Effect": "Choose a piece of metal and heat it.\n- If it's an armor, the wearer takes 5d4 Fire Damage (directly, ignoring Defense).\n- If it's a weapon, the wearer takes 1d10 Damage (directly, ignoring Defense) and it must pass a Might Check or be Crippled.\n",
+            "Effect": "Choose a piece of metal and heat it.\n- If it's an armor, the wearer takes 5d4 Fire Damage.\n- If it's a weapon, the wearer takes 1d10 Damage (directly, ignoring Defense) and it must pass a Might Check or be Crippled.\n",
             "Notes": "Ignores Cover.",
             "Name": "~Heat Metal~"
         },
@@ -431,7 +422,8 @@
             "A": "1 Action",
             "Cost": "1 Mana",
             "Range": "10 meters",
-            "Effect": "Make 3 attacks. Each does 1d6 + 3 Fire Damage.",
+            "Effect": "Make 3 attacks. Each does 1d6 + 2 Fire Damage.",
+            "Notes": "You can roll them one by one, after they deal the damage.",
             "Name": "~Scorching Rays~"
         },
         "~Freeze Water~": {
@@ -444,7 +436,7 @@
         },
         "~Fire Ball~": {
             "A": "1 Action",
-            "Cost": "2 Mana",
+            "Cost": "3 Mana",
             "Range": "6 meters (to the edge)",
             "Requirement": "Level 4",
             "Effect": "Attack all Units in a 6x6x6 cube for 6d6 Fire Damage.",
@@ -469,7 +461,7 @@
         "~Prestidigitation~": {
             "A": "1 Action",
             "Range": "5 meters",
-            "Effect": "You can create harmless sensory effects.\nYou can create sparks and change the temperature of objects (channeled).\nYou can instantly clean or soil objects.\nYou can make symbols appear on surfaces (up to 1 hour).\nYou can create small, harmless illusions that fit into your hand or illuminate 3 meters around you while held in that hand.\nYou can control a quill with telekinesis to quickly write with it (1 meter range).\n",
+            "Effect": "You can create harmless sensory effects.\nYou can create sparks and change the temperature of objects (channeled).\nYou can instantly clean or soil objects.\nYou can create simple, small, harmless illusions in your hand or within 3 meters.\nYou can control a quill with telekinesis to quickly write with it (1 meter range).\n",
             "Name": "~Prestidigitation~"
         },
         "~Resistance~": {
@@ -489,7 +481,7 @@
             "A": "1 Action",
             "Cost": "1 Mana",
             "Requirement": "Level 3",
-            "Effect": "All Units in a 6 meter line from you make a Dexterity Check.\nDeal 22 Damage (directly, ignoring Defense) to all targets who failed.\nIf no Unit failed, you gain the Mana back.\n",
+            "Effect": "All Units in a 6 meter line from you make a Dexterity Check.\nDeal 18 Damage (directly, ignoring Defense) to all targets who failed.\nIf no Unit failed, you gain the Mana back.\n",
             "Name": "~Arcane Spear~"
         },
         "~Flash~": {
@@ -504,7 +496,7 @@
             "Cost": "2 Mana",
             "Range": "5 meters to edge",
             "Requirement": "Level 4",
-            "Effect": "Declare a 2x2 meter area.\nAll Units in that are must pass a Might Check or take 9d4 Force Damage (directly, ignoring Defense), or half of that if they pass.\nThe blast extends 2 more meters from its edges in all directions and further Damages directly all Units on this 2-meter edge for half of the Damage rolled.\n",
+            "Effect": "Declare a 2x2 meter area.\nAll Units in that are must pass a Might Check or take 8d4 Force Damage (directly, ignoring Defense), or half of that if they pass.\nThe blast extends 2 more meters from its edges in all directions and further Damages directly all Units on this 2-meter edge for half of the Damage rolled.\n",
             "Notes": "To conclude, the total area of this Spell is 4x4 meters. The Units in the 2x2 center must pass the check or take full Damage and the units on the edge just take half of the Damage (as if they passed a Check for the center).",
             "Name": "~Magic Nova~"
         },
@@ -513,7 +505,7 @@
             "Cost": "1 Mana",
             "Range": "10 meters",
             "Requirement": "Level 3",
-            "Effect": "Pick a 1x1 zone. A magical orb is created in that place.\nAt the start of your next turn, the orb dashes to your position.\nAll Units in the orb's path take 2d8 + 2d6 Force Damage.\n",
+            "Effect": "Pick a 1x1 zone. A magical orb is created in that place.\nAt the start of your next turn, the orb dashes to your position.\nAll Units in the orb's path take 2d8 + 2 Force Damage.\n",
             "Name": "~Phase Orb~"
         },
         "~Spell Seal~": {
@@ -653,8 +645,8 @@
             "HasMixins": true,
             "A": "1 Action",
             "Range": "5 meters",
+            "Cooldown": "2 Uses / Adventure",
             "Effect": "You can control gusts of wind in a 6x6x6 area and do one of the following for 1 Action:\n{Diamond} You can create a gust of Heavy Wind blowing from any direction (see notes) that lasts for 1 minute\n{Diamond} You can move a gust of Heavy Wind 3 meters in any direction\n{Diamond} You can create wind that makes Units fall softly\n{Diamond} You can stop it (for 0 Actions)\n",
-            "Upgrade": "You can have one gust of wind active at a time.\nAt Level 3, you can have a number of winds active equal to your Main Stat.\n",
             "Notes": "Moving against Heavy Wind acts as Hard Terrain.\nProjectiles fired against the Wind have Cover, and projectiles fired with the Wind gain +1.\nHeavy Wind also clears Fog, Smoke, etc in the area.\nMultiple Winds don't stack into eachother.\n",
             "Name": "~Control Wind~"
         },
@@ -693,6 +685,7 @@
             "Range": "3 meters",
             "Duration": "1 minute",
             "Effect": "Choose a Unit and poison it.\nAt the end of each of your turns, that Unit takes 1d4 Poison Damage.\n",
+            "Notes": "You can stack this on the same Unit multiple times.",
             "Name": "~Poison Burst~"
         },
         "~Resistance~": {
@@ -705,7 +698,7 @@
             "A": "1 Action",
             "Cost": "1 Mana",
             "Range": "5 meters",
-            "Effect": "A Unit in range takes 3d8 + 2 Slash Damage (directly, ignoring Defense).\nIf it weighs 75kg or less, it takes another 1d8 Slash Damage and is pushed up to 3 meters in a chosen direction.\n",
+            "Effect": "A Unit in range takes 2d8 + 3 Slash Damage and ignores Defense.\nIf it weighs 75kg or less, it takes another 1d8 Slash Damage and is pushed up to 3 meters in a chosen direction.\n",
             "Notes": "Cover is applied normally.",
             "Name": "~Cutting Winds~"
         },
@@ -756,14 +749,14 @@
             "Range": "3 meters",
             "Cost": "1 Mana",
             "Cooldown": "Once / Adventure",
-            "Effect": "Lash out a noxious sting towards a Unit.\nIt must pass a Might or Dexterity Check (your choice) or be Stunned.\nIf it succeeds, it takes 2d8 direct Poison Damage instead.\n",
+            "Effect": "Lash out a noxious sting towards a Unit.\nIt must pass a Might or Dexterity Check (your choice) or be Stunned.\nIf it succeeds, it takes 2d10 direct Poison Damage instead.\n",
             "Notes": "Only works on biological Units.",
             "Name": "~Paralyzing Sting~"
         },
         "~Quaking Wave~": {
             "A": "1 Action",
             "Cost": "1 Mana",
-            "Effect": "Send out a 5x1 meter wave forward through the ground.\nAll Units hit must make a Dexterity Check or take 3d6 + Main Stat Force Damage (or half if they succeed).\nIf they are at or below 50% Health, and failed, they become Slowed and Fumbling. Otherwise, they just become Slowed if they succeeded.\n",
+            "Effect": "Send out a 5x1 meter wave forward through the ground.\nAll Units hit must make a Dexterity Check or take 2d8 + Main Stat Force Damage (or half if they succeed).\nIf they are at or below 50% Health, and failed, they become Slowed and Fumbling. Otherwise, they just become Slowed if they succeeded.\n",
             "Name": "~Quaking Wave~"
         },
         "~Fruit of the Forest~": {
@@ -786,7 +779,7 @@
             "A": "0 Actions",
             "Cost": "1 Mana",
             "Duration": "1 minute",
-            "Effect": "Choose a Unit you can see.\nWhever another Unit attacks it (before the roll), it takes 1d6 Pierce Damage.\n",
+            "Effect": "Choose a Unit you can see.\nWhever another Unit attacks it (before the roll), it takes 1d4 Pierce Damage.\n",
             "Notes": "Does not stack with itself.",
             "Name": "~Thorn Quills~"
         },
@@ -902,7 +895,7 @@
             "Cost": "1 Mana",
             "Range": "3 meters",
             "Duration": "1 minute",
-            "Effect": "You conjure a levitating, self-wielding melee weapon.\nOn your turn, the weapon can make a melee attack that deals 2d8 Force Damage.\nYou can also freely move it up to 3 meters every turn.\n",
+            "Effect": "You conjure a levitating, self-wielding melee weapon.\nOn your turn, the weapon can make a melee attack that deals 1d10 + 1 Force Damage.\nYou can also freely move it up to 3 meters every turn.\n",
             "Notes": "It costs 1 Action and 1 Mana to summon the weapon. Then, the weapon can attack once for free every turn (including this), without costing an Action or Mana.\nThe weapon has no special effect and can't be targeted by attacks.\nThe weapon disappears if it moves more than 20 meters away from you.\nIt does not make fleeing enemies Fumbling, and it provides Cover.\n",
             "Name": "~Dancing Weapon~"
         },
@@ -980,7 +973,6 @@
             "Requirement": "Level 3",
             "Duration": "8 hours",
             "Effect": "Conjure a spectral hand in a space you can see.\nYou can move the hand as you move your normal hands and you can move your hand by spending meters from your remaining Movement.\nThe hand can't attack and disappears if it goes outside a 10 meters range.\n",
-            "Upgrade": "At Level 6, when you cast this, you can make the size of the hand Large, and every turn by (you) spending 1 Action, you can make it attack a target for 3d8 + 1 Smash Damage or cast Grapple or Slam around it (from Bloodshed) (using your Stats).\nIf cast like this, the Mage Hand has 15 Health and 0 Defense, and the effect ends if it is destroyed.\n",
             "Notes": "The hand can't lift objects weighing more than 10kg.\nMoving the hand spends Actions as if you made moved your own hand.\nOnce per turn, you can summon or vanish the hand for 0 Actions if it's effect is still active, in a space next to you.\n",
             "Name": "~Mage Hand~"
         },
@@ -1066,7 +1058,7 @@
             "Requirement": "Level 4",
             "Range": "5 meters",
             "Duration": "1 hour",
-            "Effect": "Raise an undead Unit to fight for you from a nearby medium or larger corpse. The corpse is then consumed.\nThe undead Unit always has Medium size, 7 Maximum Health and 3 Defense.\nIt has Resist Checks equal to yours, but -2 to all Non-Resist Checks.\nIt has 4 meters movement speed.\nIt can use 1 Action to attack and deals 2d4 + 1 Damage if it hits (Smash, Slash or Pierce, your choice).\nYour undead takes its turn immediately before or after your turn (you choose).\nThe undead will always try to move to and attack the closest enemy to it (you choose if it's a tie).\nYou can use Half-Action on your turn to command (one of) your undead to move to a certain location.\n",
+            "Effect": "Raise an undead Unit to fight for you from a nearby medium or larger corpse. The corpse is then consumed.\nThe undead Unit always has Medium size, 7 Maximum Health and 3 Defense.\nIt has Resist Checks equal to yours, but -2 to all Non-Resist Checks.\nIt has 4 meters movement speed.\nIt can use 1 Action to attack and deals 2d4 Damage (Smash, Slash or Pierce, your choice).\nYour undead takes its turn immediately before or after your turn (you choose).\nThe undead will always try to move to and attack the closest enemy to it (you choose if it's a tie).\nYou can use Half-Action on your turn to command (one of) your undead to move to a certain location.\n",
             "Name": "~Animate Dead~"
         },
         "~Banishment Slip~": {
@@ -1167,7 +1159,7 @@
             "A": "Half-Action",
             "Cost": "1 Mana",
             "Range": "5 meters",
-            "Effect": "Magically attack a Unit for 1d6 + Your Main Stat + (target's base Movement Speed) Force Damage (against Defense).\n",
+            "Effect": "Magically attack a Unit for 1d10 + (target's base Movement Speed) Force Damage (against Defense).\n",
             "Notes": "Against Epic monsters, the Maximum Speed is calculated as it's (Speed) * (Epic Grade). E.g. if it's an Ogre with Movement Speed of 3 and has an Epic Grade of 2 (meaning it takes 2 turns), its Maximum Movement Speed is 2 * 3 = 6.",
             "Name": "~Expelling Bolt~"
         },
@@ -1351,7 +1343,6 @@
             "A": "Half-Action",
             "Range": "5 meters",
             "Cooldown": "Twice / Adventure",
-            "Requirement": "Level 3",
             "Effect": "Roll 1d10 - 5.\nHeal/Damage a Unit for that amount.\nIf it's positive, heal it.\nIf it's negative, Damage it.\n",
             "Notes": "You choose the target after you roll.",
             "Name": "~Wyrd Renewal~"
@@ -1362,7 +1353,7 @@
             "Requirement": "Level 4",
             "Range": "5 meters",
             "Duration": "1 hour",
-            "Effect": "Raise an undead Unit to fight for you from a nearby medium or larger corpse. The corpse is then consumed.\nThe undead Unit always has Medium size, 7 Maximum Health and 3 Defense.\nIt has Resist Checks equal to yours, but -2 to all Non-Resist Checks.\nIt has 4 meters movement speed.\nIt can use 1 Action to attack and deals 2d4 + 1 Damage if it hits (Smash, Slash or Pierce, your choice).\nYour undead takes its turn immediately before or after your turn (you choose).\nThe undead will always try to move to and attack the closest enemy to it (you choose if it's a tie).\nYou can use Half-Action on your turn to command (one of) your undead to move to a certain location.\n",
+            "Effect": "Raise an undead Unit to fight for you from a nearby medium or larger corpse. The corpse is then consumed.\nThe undead Unit always has Medium size, 7 Maximum Health and 3 Defense.\nIt has Resist Checks equal to yours, but -2 to all Non-Resist Checks.\nIt has 4 meters movement speed.\nIt can use 1 Action to attack and deals 2d4 Damage (Smash, Slash or Pierce, your choice).\nYour undead takes its turn immediately before or after your turn (you choose).\nThe undead will always try to move to and attack the closest enemy to it (you choose if it's a tie).\nYou can use Half-Action on your turn to command (one of) your undead to move to a certain location.\n",
             "Name": "~Animate Dead~"
         },
         "~Spare the Dying~": {
@@ -1417,7 +1408,7 @@
             "Cooldown": "1 hour",
             "Range": "7 meters",
             "Effect": "Instantly pull another ally to your nearest empty space.\n",
-            "Notes": "The ally goes flying, and does not trigger opportunity attacks.\nYou need line of sight to the targets. The allies fly to you ignoring obstacles and ground traps (goes around obstacles), unless the ally needs to swerve more than 2 meters in any direction.\n",
+            "Notes": "The ally goes flying.\nYou need line of sight to the targets. The allies fly to you ignoring obstacles and ground traps (goes around obstacles), unless the ally needs to swerve more than 2 meters in any direction.\n",
             "Name": "~Saving Throw~"
         },
         "~Blinding Smite~": {
@@ -1431,7 +1422,7 @@
             "A": "0 Actions",
             "Cost": "1 Mana",
             "Range": "5 meters",
-            "Effect": "Deal 1d6 + 2 Fire Damage (ignoring Cover) and remove all buffs and debuffs from the target.",
+            "Effect": "Deal 1d6 + 1 Fire Damage (ignoring Cover) and remove all buffs and debuffs from the target.",
             "Name": "~Cleansing Flames~"
         },
         "~Cleansing Smite~": {
@@ -1452,7 +1443,7 @@
             "Cost": "1 Mana",
             "Range": "10 meters",
             "Effect": "Attack a target for 2d8 + Main Stat Divine Damage.\nThe next time someone would cast a spell that affects that Unit, the caster can reroll any of the spell's dice, at most one reroll for each die.\n",
-            "Notes": "This affects AoE effects and healing abilities too. For any reason, you can choose not to deal Damage with this spell.",
+            "Notes": "This affects AoE effects and healing abilities too.",
             "Name": "~Guiding Bolt~"
         },
         "~Hand of Freedom~": {
@@ -1465,7 +1456,7 @@
         "~Radiant Smite~": {
             "A": "0 Actions",
             "Cost": "2 Mana",
-            "Effect": "After you make a melee attack, deal 1d10 Divine Damage (directly, ignoring Defense) to the target and all enemies within 6 meters of target.",
+            "Effect": "After you make a melee attack, deal 1d10 Divine Damage to the target and all enemies within 6 meters of target.",
             "Notes": "Units can benefit from Cover, with the targeted Unit as the origin point. Does not go through walls.\nFumbling is substracted from this effect as well, like a normal Ability.\n",
             "Name": "~Radiant Smite~"
         },
@@ -1486,7 +1477,7 @@
         "~Searing Smite~": {
             "A": "0 Actions",
             "Cost": "2 Mana",
-            "Effect": "Add 3d4 Fire Damage to a melee weapon Attack (after you rolled the attack). The target takes another 1d6 Fire Damage at the start of each of your next turns for 1 minute.\n",
+            "Effect": "Add 2d4 + 1 Fire Damage to a melee weapon Attack (after you rolled the attack). The target takes another 1d6 Fire Damage at the start of each of your next turns for 1 minute.\n",
             "Name": "~Searing Smite~"
         },
         "~Turn Undead~": {
@@ -1517,17 +1508,6 @@
             "Requirement": "Level 4",
             "Effect": "Touch a Unit that died at most 2 hours ago or an unconscious Unit.\nIf the Unit is dead, and if the Unit's body is fairly intact, the dead Unit comes back to life, stabilized and unconscious.\nIf the Unit is unconscious, the Unit wakes up and is healed for 1 Health.\n",
             "Name": "~Spare the Dying~"
-        },
-        "~Summon Elementals (Eldritch)~": {
-            "A": "1 Action",
-            "Cost": "3 Mana",
-            "Requirement": "Level 5",
-            "Cooldown": "Once per turn",
-            "Duration": "1 minute (from initial cast)",
-            "Effect": "Declare an element from Fire, Necrotic, Acid and Poison.\nNow, and at the start of your next 2 turns, summon an elemental of that chosen element with 5 Health, 4 Defense, 3 Movement Speed and 2 in all Stats (for Resist Checks).\nYou command the elementals, and they take their turn at the same time as you and can only spend 1 Action to shoot an elemental bolt that deals 1d6 Damage of its element, at 3 meters range.\n",
-            "Upgrade": "Elementals only take 50% Damage (after Defense) from the declared element.\n",
-            "Notes": "These elementals are not sentient and can't fly.",
-            "Name": "~Summon Elementals (Eldritch)~"
         },
         "~Wraithwalk~": {
             "A": "0 Actions",
