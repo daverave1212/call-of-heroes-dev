@@ -40,6 +40,8 @@ export default function Hunter() {
             <SideMenuFromClass theClass={theClass}/>
             <Page title={ theClass.Class }>
 
+                <div><i>Difficulty: { theClass.Difficulty }</i></div>
+
                 <TwoColumnsDescriptive>
                     <Column style={{zIndex: 1}}>
 

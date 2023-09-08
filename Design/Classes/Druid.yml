@@ -1,8 +1,7 @@
 Class: Druid
 Description: Druids are protectors of the nature and master shapeshifters.
 
-
-Armor Training: Light Armor
+Difficulty: Hard
 
 Weapons: You are Trained in 2 Weapon Categories of choice (e.g. 1-Handed Melee, 2-Handed Ranged, Shields, etc).
 
@@ -13,15 +12,14 @@ Proficiencies:
 
 Level Up:
   Every Level: 
-    Health: 5
+    Health: 6
 
 
 Spellcasting:
   Type: Mana-based
   SpellsOrAbilities: Spell
     
-  Main Stat: Sense
-  Spell Grade: 6 + (Main Stat)
+  Spell Grade: 6 + Sense
   Change: You can change your known Spells and Talents inbetween Adventures.
   Other: All Druid-specific abilities are considered spells (unless stated otherwise).
   
@@ -63,7 +61,8 @@ Starting Abilities Description:
         When in Shapeshift form, you always have access to the Animal Attack Ability, which is not considered a Spell.
         Animal Attack is, of course, impaired if you are Crippled.
 
-Starting Abilities:
+Starting Abilities:       # 1
+
   ~Druidcraft~:            # Ok
     A: Depends
     Effect: |
@@ -77,7 +76,7 @@ Starting Abilities:
     AlignOnWebsite: Right
 
   ~Shapeshift~:            # 2
-    A: 1 Action
+    A: Half-Action
     Cooldown: 2 times / Adventure (see effect)
     Effect: |
       Pick an animal from the Pets and Animals list and instantly transform into it.
@@ -104,13 +103,13 @@ Starting Abilities:
     IsSubspell: true
     A: Half-Action
     Effect: |
-      Make a melee attack for 1d6 + your Main Stat (not the animal's).
+      Make a melee attack for 1d6 + your Sense (not the animal's).
     OrderOnWebsite: 2
 
-# Base:         4
-# Spec:         1.5   | 1.25  | 2   | 1.25
-# Talents T1:   1     | 1     | 1   |
-# Talents T2:   2     | 2     | 2   |
+# Base:         4.75
+# Spec:         1.75   | 2     | 2.5   | 2.25
+# Talents T1:   1      | 1     | 1     |
+# Talents T2:   2      | 2     | 2     |
 
 Specializations:
     Description: At Level 1, you can choose your coven (Specialization). A coven is a spiritual path you adhere to, and whose culture you represent.
@@ -155,7 +154,7 @@ Specs:
 # AoE Damage + CC
 # AoE CC + Damage
 
-  Coven of the Old Ways:        # 1.5
+  Coven of the Old Ways:        # 2
     Description: |
       You worship the sun, the moon and the stars, for only they can truly guide your path.
       Pagan Druids believe no one has the right to dictate someone else's spiritual path.
@@ -167,28 +166,39 @@ Specs:
 
       
     Starting Abilities:
-      ~Day Night Cycle~ :       # 0
+      # ~Day Night Cycle~:
+      #   A: Passive
+      #   Effect: |
+      #     At night, you can see in the dark, your attacks ignore Cover and enemies don't gain the Ambush Advantage if they ambush you.
+      #     At day, you have +1 Movement Speed and +3 Initiative.
+
+      ~Day Night Cycle~:
         A: Passive
         Effect: |
-          Instead of knowing one set of spells, as normal, you know two: one for the moon, and one for the sun.
-          The Moon spells can only be used at night (from end of dusk until start of dawn).
-          The Sun spells can only be used at day (from start of dawn until end of dusk).
-          The Sun spell set and the Moon spell set can not contain any of the same spell.
-        Notes:
-          So, in total, you know twice as many Spells.
-        Downside:
-          Once you Learn a spell for Day or Night, you can no longer assign it to the other one. Ever.
+          Choose either the Arcane or the Elemental Ability List.
+          You can also Learn Spells from that list, but only use them at night (if Arcane) or at day (if Elemental).
+
+      # ~Day Night Cycle~ :       # 0
+      #   A: Passive
+      #   Effect: |
+      #     Instead of knowing one set of spells, as normal, you know two: one for the moon, and one for the sun.
+      #     The Moon spells can only be used at night (from end of dusk until start of dawn).
+      #     The Sun spells can only be used at day (from start of dawn until end of dusk).
+      #     The Sun spell set and the Moon spell set can not contain any of the same spell.
+      #   Notes:
+      #     So, in total, you know twice as many Spells.
+      #   Downside:
+      #     Once you Learn a spell for Day or Night, you can no longer assign it to the other one. Ever.
       
-      ~Moonsun Fire~ :          # 1.5
+      ~Moonsun Fire~ :          # 2 (1.25 damage + 0.75 striaght up effect)
         A: Half-Action
         Range: 6 meters
         Cooldown: Day/Night (see below)
         Effect: |
-          A target within 6 meters makes a Sense Check.
+          A target makes a Sense Check.
           If it fails, it takes 1d8 + Main Stat Fire Damage and is Crippled (if day) or True Damage and is Silenced (if night).
           It takes half of that Damage if it passes.
           If you use this at night, you can't use it until day, and vice versa.
-        Notes: Ignores Cover.
 
     Talents:
       Level 3:
@@ -253,7 +263,7 @@ Specs:
           A: Half-Action
           Cooldown: Day/Night
           Effect: |
-            If it's day, choose a number of Units within 15 meters equal to your Main Stat.
+            If it's day, choose a number of Units within 15 meters equal to your Sense.
             They must pass a Sense Check or they forget to how to use ranged attacks or spells for 1 turn.
             If it's night, your next Spell (this turn or next turn) casts twice.
 
@@ -275,13 +285,14 @@ Specs:
     Description: You are heavily in touch with nature and with strange creatures, uncommon to the normal folk.
     Starting Abilities:
     
-      ~Wild Shape~ :            # 1.25
+      ~Wild Shape~ :            # 2
         A: Passive
         Effect: |
+          After using Shapeshift, you gain the Half-Action spent on it back.
           When you use Shapeshift, you can transform into a combination of 2 animals.
           You take the highest stat from both animals, and you have access to both of their abilities.
         Notes: |
-          For example, you could transform into a combination of Bird of Prey and Bear, resulting in a kind of Owlbear, with a lot of health and a lot of Defense! Be creative!
+          For example, you could transform into a combination of Bird of Prey and Bear, resulting in a Bowlear, with a lot of health and a lot of Defense! Be creative!
           The animal size is either the larger or the smaller of the two - your choice.
           Even if you Shapeshift into 2 combinations of a same animal, the cooldown of that animal's Ability persists (e.g. you can't use Bear's Maul twice per Adventure, no matter what animal combination you transform into).
 
@@ -376,11 +387,11 @@ Specs:
             You can also learn Spells from the Eldritch Basic Ability List.
             If a Spell costs Mana to cast, you can cast it with Blood Magic.
     
-      ~Blood Magic~:    # 0.5
+      ~Blood Magic~:    # 1.25
         A: 0 Actions
         Cooldown: 1 Turn
         Effect:
-            Choose a Basic Ability. If it costs nothing, take 6 Damage or otherwise take 6 Damage for each Mana point it costs.
+            Choose an offensive Basic Ability. If it costs nothing, take 6 Damage or otherwise take 6 Damage for each Mana point it costs.
             Cast that spell regardless of its Cost and Cooldown.
             You can instead spend 6 Health to cast Black Charm.
 
@@ -457,14 +468,14 @@ Specs:
 # CC Hard + Damage AoE
 # Pet
 
-  Coven of the Land:            # 1.25
+  Coven of the Land:            # 2.25
     Description: The Druid of the Land is a guardian of its own domain. Be it a lush forest, a snowy mountain or a rocky cave, the Druid of the Land knows its own ways.
     
     Starting Abilities:
-      ~Circle of the Land~ :      # 0.25
+      ~Circle of the Land~ :      # 1.25
         A: Passive
         Effect: |
-          You know 2 more Spells from the Nature spell list.
+          Your maximum Mana increases by 1.
           Choose one domain from: Mountains, Forest, Plains, Sea and Desert. Choose one of the Abilities below that is available for your domain:
           When you transform into an animal native to your domain, heal for 1d4 health (the GM has the final word on whether the animal fits your domain).
         Notes: You are allowed to use the variant animal suggestions for each animal. Of course, some animals can correspond to multiple domains (e.g. bears live both in forests and in mountains).

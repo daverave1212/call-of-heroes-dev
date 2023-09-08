@@ -1,7 +1,7 @@
 {
     "Class": "Druid",
     "Description": "Druids are protectors of the nature and master shapeshifters.",
-    "Armor Training": "Light Armor",
+    "Difficulty": "Hard",
     "Weapons": "You are Trained in 2 Weapon Categories of choice (e.g. 1-Handed Melee, 2-Handed Ranged, Shields, etc).",
     "Proficiency Requirements": "You have Proficiency in Nature and a number of extra Proficiencies equal to your Intelligence.",
     "Proficiencies": {
@@ -12,14 +12,13 @@
     },
     "Level Up": {
         "Every Level": {
-            "Health": 5
+            "Health": 6
         }
     },
     "Spellcasting": {
         "Type": "Mana-based",
         "SpellsOrAbilities": "Spell",
-        "Main Stat": "Sense",
-        "Spell Grade": "6 + (Main Stat)",
+        "Spell Grade": "6 + Sense",
         "Change": "You can change your known Spells and Talents inbetween Adventures.",
         "Other": "All Druid-specific abilities are considered spells (unless stated otherwise).",
         "Mana": {
@@ -67,7 +66,7 @@
             "AlignOnWebsite": "Right"
         },
         "~Shapeshift~": {
-            "A": "1 Action",
+            "A": "Half-Action",
             "Cooldown": "2 times / Adventure (see effect)",
             "Effect": "Pick an animal from the Pets and Animals list and instantly transform into it.\nAs soon as you Shapeshift, you can perform an Animal Attack!\n\nFor Checks, you can choose to use the animal's Stats or your Stats.\nYou also gain its exact abilities and Animal Attack (see below), but can't cast Spells.\nYour Health stays the same, but you use that animal's Defense.\n\nShapeshift ends if you drop to 0 Health, and you Fall.\n",
             "Upgrade": "At first, you can't fly, even if your animal can. If your animal can fly, you have Proficiency in Jumping and you can glide (you don't take falling Damage).\nFrom Level 3, you can use this 3 times per Adventure.\nFrom Level 6, you can use this 4 times per Adventure and you can fly.\nFrom Level 9, you can use this 5 times per Adventure.\n",
@@ -77,7 +76,7 @@
         "~Animal Attack~": {
             "IsSubspell": true,
             "A": "Half-Action",
-            "Effect": "Make a melee attack for 1d6 + your Main Stat (not the animal's).\n",
+            "Effect": "Make a melee attack for 1d6 + your Sense (not the animal's).\n",
             "OrderOnWebsite": 2
         }
     },
@@ -96,16 +95,13 @@
             "Starting Abilities": {
                 "~Day Night Cycle~": {
                     "A": "Passive",
-                    "Effect": "Instead of knowing one set of spells, as normal, you know two: one for the moon, and one for the sun.\nThe Moon spells can only be used at night (from end of dusk until start of dawn).\nThe Sun spells can only be used at day (from start of dawn until end of dusk).\nThe Sun spell set and the Moon spell set can not contain any of the same spell.\n",
-                    "Notes": "So, in total, you know twice as many Spells.",
-                    "Downside": "Once you Learn a spell for Day or Night, you can no longer assign it to the other one. Ever."
+                    "Effect": "Choose either the Arcane or the Elemental Ability List.\nYou can also Learn Spells from that list, but only use them at night (if Arcane) or at day (if Elemental).\n"
                 },
                 "~Moonsun Fire~": {
                     "A": "Half-Action",
                     "Range": "6 meters",
                     "Cooldown": "Day/Night (see below)",
-                    "Effect": "A target within 6 meters makes a Sense Check.\nIf it fails, it takes 1d8 + Main Stat Fire Damage and is Crippled (if day) or True Damage and is Silenced (if night).\nIt takes half of that Damage if it passes.\nIf you use this at night, you can't use it until day, and vice versa.\n",
-                    "Notes": "Ignores Cover."
+                    "Effect": "A target makes a Sense Check.\nIf it fails, it takes 1d8 + Main Stat Fire Damage and is Crippled (if day) or True Damage and is Silenced (if night).\nIt takes half of that Damage if it passes.\nIf you use this at night, you can't use it until day, and vice versa.\n"
                 }
             },
             "Talents": {
@@ -147,7 +143,7 @@
                     "<Equinox>": {
                         "A": "Half-Action",
                         "Cooldown": "Day/Night",
-                        "Effect": "If it's day, choose a number of Units within 15 meters equal to your Main Stat.\nThey must pass a Sense Check or they forget to how to use ranged attacks or spells for 1 turn.\nIf it's night, your next Spell (this turn or next turn) casts twice.\n"
+                        "Effect": "If it's day, choose a number of Units within 15 meters equal to your Sense.\nThey must pass a Sense Check or they forget to how to use ranged attacks or spells for 1 turn.\nIf it's night, your next Spell (this turn or next turn) casts twice.\n"
                     }
                 }
             }
@@ -157,8 +153,8 @@
             "Starting Abilities": {
                 "~Wild Shape~": {
                     "A": "Passive",
-                    "Effect": "When you use Shapeshift, you can transform into a combination of 2 animals.\nYou take the highest stat from both animals, and you have access to both of their abilities.\n",
-                    "Notes": "For example, you could transform into a combination of Bird of Prey and Bear, resulting in a kind of Owlbear, with a lot of health and a lot of Defense! Be creative!\nThe animal size is either the larger or the smaller of the two - your choice.\nEven if you Shapeshift into 2 combinations of a same animal, the cooldown of that animal's Ability persists (e.g. you can't use Bear's Maul twice per Adventure, no matter what animal combination you transform into).\n"
+                    "Effect": "After using Shapeshift, you gain the Half-Action spent on it back.\nWhen you use Shapeshift, you can transform into a combination of 2 animals.\nYou take the highest stat from both animals, and you have access to both of their abilities.\n",
+                    "Notes": "For example, you could transform into a combination of Bird of Prey and Bear, resulting in a Bowlear, with a lot of health and a lot of Defense! Be creative!\nThe animal size is either the larger or the smaller of the two - your choice.\nEven if you Shapeshift into 2 combinations of a same animal, the cooldown of that animal's Ability persists (e.g. you can't use Bear's Maul twice per Adventure, no matter what animal combination you transform into).\n"
                 }
             },
             "Talents": {
@@ -208,7 +204,7 @@
                 "~Blood Magic~": {
                     "A": "0 Actions",
                     "Cooldown": "1 Turn",
-                    "Effect": "Choose a Basic Ability. If it costs nothing, take 6 Damage or otherwise take 6 Damage for each Mana point it costs. Cast that spell regardless of its Cost and Cooldown. You can instead spend 6 Health to cast Black Charm."
+                    "Effect": "Choose an offensive Basic Ability. If it costs nothing, take 6 Damage or otherwise take 6 Damage for each Mana point it costs. Cast that spell regardless of its Cost and Cooldown. You can instead spend 6 Health to cast Black Charm."
                 },
                 "~Black Charm~": {
                     "A": "0.5 Action",
@@ -273,7 +269,7 @@
             "Starting Abilities": {
                 "~Circle of the Land~": {
                     "A": "Passive",
-                    "Effect": "You know 2 more Spells from the Nature spell list.\nChoose one domain from: Mountains, Forest, Plains, Sea and Desert. Choose one of the Abilities below that is available for your domain:\nWhen you transform into an animal native to your domain, heal for 1d4 health (the GM has the final word on whether the animal fits your domain).\n",
+                    "Effect": "Your maximum Mana increases by 1.\nChoose one domain from: Mountains, Forest, Plains, Sea and Desert. Choose one of the Abilities below that is available for your domain:\nWhen you transform into an animal native to your domain, heal for 1d4 health (the GM has the final word on whether the animal fits your domain).\n",
                     "Notes": "You are allowed to use the variant animal suggestions for each animal. Of course, some animals can correspond to multiple domains (e.g. bears live both in forests and in mountains)."
                 }
             },

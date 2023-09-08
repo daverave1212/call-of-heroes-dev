@@ -5,6 +5,8 @@ Armor Training: Light Armor
 
 Weapons: You are Trained in 2 Weapon Categories of choice (e.g. 1-Handed Melee, 2-Handed Ranged, Shields, etc).
 
+Difficulty: Easy
+
 Language: |
   You know Thieves' Cant!
   Thieves' Cant is not a spoken language, but rather a set of symbols, sign language and code names for various objects, places or people.
@@ -29,8 +31,7 @@ Spellcasting:
   Type: Mana-based
   SpellsOrAbilities: Ability
 
-  Main Stat: Intelligence or Charisma
-  Spell Grade: 6 + (Main Stat)
+  Spell Grade: 6 + Intelligence or Charisma, whichever is higher
   Mana:
     Amount: 1
     Regain: You regain all Mana back inbetween Adventures.
@@ -69,14 +70,25 @@ Starting Abilities:
   ~Ambush~ :      # 1
     AlignOnWebsite: Right
     A: Passive
+    Cooldown: 1 / Turn
     Effect: |
       If you start your turn Hidden, your first weapon attack deals 1d8 extra Damage.
-      Ambush can only happen once per turn.
     Notes: |
       Your Specialization will give you extra ways to Ambush.
-      You can't stack 2 Ambushes at the same time, obviously.
       
-  ~Hide~: Inherit
+  ~Hide~:
+    A: Special
+    Cooldown: Once per encounter
+    Effect: |
+      When combat starts, if you have Cover from all enemies, you start as Hidden.
+      While Hidden, you can skip your turn.
+      Then, you can unhide and start your turn whenever you like (even during enemies' turns)!
+    Notes: |
+      Starting your turn unhides you.
+      Be careful: if you don't start your turn this round, you lose your turn!
+      If you want to start during an enemy's turn, you do so when they declare they want to do something or after they finish doing something.
+      In special circumstances, the DM might ask you to make a Dexterity Check to be or remain Hidden.
+      You can't become Hidden through non-Ability means.
 
 
 # One ambush = 1
@@ -123,10 +135,11 @@ Specs:
         Upgrade: |
           When Ambushing, you can also spend as much Mana as you want.
           That attack gains 1d8 extra Damage for each Mana spent (on top of the 1d8).
+        Notes: Ambush from Hidden and Backstab don't stack (only one d8 is added).
     
       ~Agile Hand~ :    # 0.35
         A: Passive
-        Effect: You are immune to Fumbling.
+        Effect: You are immune to Fumbling. You can freely Break your movement.
 #       Effect: You don't become Fumbling from moving away from an enemy's melee attack range.
 #       Notes: Fumbling is when you move away from an enemy's melee attack range; if you are Fumbling, all your actions have Cover.
 
@@ -214,7 +227,7 @@ Specs:
     
       Level 7:
 
-        <Savage Ambush>:
+        <Savage Ambush>:  # 2
           A: Passive
           Effect: |
             When you declare an attack on a Unit that has 50% or less Health (before your attack's Damage), the attack gain Ambush.
@@ -224,7 +237,7 @@ Specs:
             The maximum Damage is 2d8, even if you match 3 conditions for Ambush (e.g. Hiding, Savage Ambush and your Specialization's Ambush Ability).
             You can still add Ambush Damage only once per turn (e.g. not with 2 separate attacks; it must be one single attack).
 
-        <First-Shot Ambush>:
+        <First-Shot Ambush>:  # 2
           A: Passive
           Effect: |
             When you declare an attack on a Unit that has full Health, the attack gain Ambush.
@@ -234,7 +247,7 @@ Specs:
             The maximum Damage is 2d8, even if you match 3 conditions for Ambush (e.g. Hiding, First-Shot Ambush and your Specialization's Ambush Ability).
             You can still add Ambush Damage only once per turn (e.g. not with 2 separate attacks; it must be one single attack).
 
-        <Instinctive Ambush>:
+        <Instinctive Ambush>:  # 2
           A: Passive
           Effect: |
             After you use a 0 Actions Ability, your next weapon attack this turn gains Ambush.
@@ -270,6 +283,7 @@ Specs:
         Upgrade: |
           When Ambushing, you can also spend as much Mana as you want.
           That attack gains 1d8 extra Damage for each Mana spent (on top of the 1d8).
+        Notes: Ambush from Hidden and Isolated don't stack (only one d8 is added).
 
       ~Planned Assassination~ :   # 1 - 1.5 Charges, but heavily depends
         A: 1 minute
@@ -371,6 +385,7 @@ Specs:
         Upgrade: |
           When Ambushing, you can also spend as much Mana as you want.
           That attack gains 1d8 extra Damage for each Mana spent (on top of the 1d8).
+        Notes: Ambush from Hidden and Savagery don't stack (only one d8 is added).
 
       ~Parry~:          # 1 Charge
         A: Reaction

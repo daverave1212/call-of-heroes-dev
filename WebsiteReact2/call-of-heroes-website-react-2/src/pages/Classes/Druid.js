@@ -41,6 +41,8 @@ export default function Druid() {
 
             <Page title={ theClass.Class }>
 
+                <div><i>Difficulty: { theClass.Difficulty }</i></div>
+
                 <TwoColumnsDescriptive>
                     <Column style={{zIndex: 1}}>
 

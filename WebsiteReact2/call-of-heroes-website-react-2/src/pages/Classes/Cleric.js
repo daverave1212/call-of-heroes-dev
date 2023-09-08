@@ -36,8 +36,9 @@ export default function Cleric() {
         <div>
             <SideMenuFromClass theClass={theClass}/>
 
-            <Page title={theClass.Class}>
+            <Page title={ theClass.Class }>
 
+                <div><i>Difficulty: { theClass.Difficulty }</i></div>
                 
                 <TwoColumnsDescriptive>
                     <Column style={{zIndex: 1}}>

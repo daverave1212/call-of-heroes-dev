@@ -41,6 +41,8 @@ export default function Warrior() {
 
             <Page title={ theClass.Class }>
 
+                <div><i>Difficulty: { theClass.Difficulty }</i></div>
+
                 <br/>
 
                 <TwoColumnsDescriptive>

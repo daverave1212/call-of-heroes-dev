@@ -101,7 +101,7 @@ export function ClassFeatures({ theClass }) {
                         { theClass.Weapons && <SmallStat name="Weapon Training" topDown='true'>{ theClass.Weapons }</SmallStat> }
                         <SmallStat name="Proficiencies" topDown='true'>{ theClass['Proficiency Requirements'] }</SmallStat>
                         {/* <SmallStat name="Armor Training">{ theClass['Armor Training'] }</SmallStat> */}
-                        <SmallStat name="Base Defense">0 + Your Armor<Icon name="Defense" type="small-stat"/>Defense</SmallStat>
+                        <SmallStat name="Defense" topDown='true'>Choose any armor from the Armors page and apply Defense if it has any.</SmallStat>
                     </div>
                 </Column>
                 <Column>

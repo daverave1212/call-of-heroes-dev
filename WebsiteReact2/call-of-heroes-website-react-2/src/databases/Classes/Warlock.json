@@ -1,7 +1,7 @@
 {
     "Class": "Warlock",
     "Description": "Warlocks are people who made pacts with powerful beings.",
-    "Armor Training": "Light Armor",
+    "Difficulty": "Medium",
     "Weapons": "You are Trained in 2 Weapon Categories of choice (e.g. 1-Handed Melee, 2-Handed Ranged, Shields, etc).",
     "Proficiency Requirements": "You have a number of Proficiencies equal to your Intelligence.",
     "Proficiencies Description": "Warlocks can differ vastly from one individual to another. As such, you can choose any proficiencies, in number equal to your Intelligence, but do not get any specific Proficiency.\n",
@@ -13,8 +13,7 @@
     "Spellcasting": {
         "Type": "Special Mana-based",
         "SpellsOrAbilities": "Spell",
-        "Main Stat": "Intelligence or Charisma",
-        "Spell Grade": "6 + (Main Stat)",
+        "Spell Grade": "6 + (Intelligence or Charisma, whichever is higher)",
         "Mana": {
             "Amount": 1,
             "Regain": "Your Mana reset after every combat."
@@ -25,7 +24,6 @@
         "BaseKnownSpells": 4,
         "Basic Ability Lists": [
             "Elemental",
-            "Mysticism",
             "Eldritch"
         ],
         "Recommended Basic Abilities": [
@@ -46,73 +44,28 @@
             },
             {
                 "Elemental": "Absorb Element"
-            },
-            {
-                "Mysticism": "Mastery"
             }
         ],
         "Recommended Abilities Description": "Eldritch Blast is generally a good option for dishing out damage from a safe distance. Consider Deathfire Bolt an upgrade to Eldritch Blast, which you can use when you have Mana and want to deal even more damage!\nBurning Breath is a decent area damage Ability, while Curse of Weakness and Curse of Pain can be very effective against large enemies that take longer to kill.\nAbsorb Element will come in handy for protecting your allies. Finally, if you want to use a weapon, Mastery is a great choice, since you will be able to use weapons with Charisma or Intelligence instead of Might or Dexterity.\n"
     },
     "Starting Abilities": {
-        "~Power Tap~": {
-            "A": "Depends",
-            "Cost": "Depends",
-            "Cooldown": "Once / Adventure",
-            "Effect": "Cast an ability one of your Allies has (with that ability's Actions and Costs and your modifiers).\nIf it costs Mana, you must spend its Mana.\n",
-            "Notes": "Does not work on Passives. The Ability must have 0, a Half-Action or 1 Actions cost."
+        "~Warlock Mana~": {
+            "A": "Passive",
+            "Effect": "Unlike other Classes', all of your Mana regenerates 10 minutes after each Worthy combat encounter (e.g. instead of inbetween Adventures).\n"
+        },
+        "~Power Source~": {
+            "A": "Passive",
+            "Effect": "Your powers have an external source: a demon overlord, an eldritch unknowable entity, a blood corruption, a celestial, etc.\nPick one more Ability List to know Abilities from, which should match your power source.\n"
         }
     },
     "Starting Abilities Description": [
         {
-            "Spell Casting": "Warlock spell casting is somewhat different from other classes.\nYour Mana regenerates inbetween combat encounters. So, for optimal play, use all your Mana every encounter!\n"
+            "Warlock Mana": "Warlock spell casting is somewhat different from other classes.\nYour Mana regenerates inbetween combat encounters. So, for optimal play, use all your Mana every encounter!\n"
         },
         {
-            "Power Tap": "Try to clone strong Abilities from your teammates that don't take up Mana.\nTalent Abilities are generally stronger than standard Basic Ability List Abilities.\n"
+            "Power Source": "A fae spirit might give you access to the Nature List. An eldritch old god might give you ancient knowledge of the Arcane or Mysticism List, or even Bloodshed. Be creative! And make sure it's approved by the GM.\n"
         }
     ],
-    "Abilities Description": [
-        {
-            "Fey Patron": "A wild, outworldly being, heavily magical or in tune with nature, and often outward strange. A Fey Patron often represents an old god of nature or magic, resembled by a magical animal or humanoid.\nThis provides you with the Fey Patron Ability, which gives you one more Race Choice Ability!\n"
-        },
-        {
-            "Celestial Patron": "A being from a divine plain. Portrayed as angels or divine spirits of life and death.\nThis provides you with the Life Cycle Ability which can function as an emergency heal in combat. This Ability can be used on yourself, too.\nNote that it simply draws from the Reserve Health pool! It is not Health out of thin air!\n"
-        },
-        {
-            "Demon or Devil Patron": "A being residing in Hell, an archdevil or lord in hell.\nThis provides the Soul Drain Ability, which gives you a consistent Damage source that can heal you back.\n"
-        },
-        {
-            "Old God Patron": "An eldritch being of nightmare and terror, whose thoughts, form and wants are incomprehensible to most people\nThis gives you access to one of another Race's Starting Ability.\n"
-        }
-    ],
-    "Abilities": {
-        "~Fey Patron~": {
-            "A": "Passive",
-            "Effect": "Your lord is a higher fey creature.\nChoose one more Racial Feat from your Race.\n",
-            "Notes": "The Fey Patron enhances you magically, mutates your arcane flow and transforms you into an unordinarily adapted person.\nIf you are a Dragonborn, you can instead choose one more Breath shape, and your Breath has both chosen shapes simultanuously (overlapped; the Damage is not doubled).\n"
-        },
-        "~Old God Patron~": {
-            "A": "Passive",
-            "Effect": "Your lord is an old, slumbering god.\nYou can pick a starting Ability from any other race and have it permanently (from the Starting Abilities, not a Feat).\n",
-            "Notes": "Eldritch thoughts flow through your mind, infecting you with strange abilities acquired in unfathomable ways."
-        },
-        "<Life Cycle>": {
-            "AlignOnWebsite": "Right",
-            "A": "0 Actions",
-            "Cost": "1d4 Health",
-            "Effect": "Heal a Unit within 10 meters for up to 10 Health from their remaining Reserve Health Pool.",
-            "Upgrade": "Corresponds to the Celestial Patron.",
-            "Notes": "The gift of Life Cycle is granted to you by your patron. Use it well. Withhold the balance."
-        },
-        "<Soul Drain>": {
-            "AlignOnWebsite": "Right",
-            "A": "Half-Action",
-            "Cost": "1 Mana",
-            "Range": "15 meters",
-            "Effect": "Deal 10 Necrotic Damage to a Unit (directly, ignoring Defense).\nIf it dies, you get the Mana back and heal for 5 Health.\n",
-            "Upgrade": "Corresponds to the Demon Patron.",
-            "Notes": "Through every soul drained, your demon lord feeds, and in return, grants you even more power."
-        }
-    },
     "Specializations": {
         "Description": "At Level 1, you can choose your specialization. Every Warlock can choose from the following Warlock specializations.",
         "Choices": [
@@ -126,14 +79,15 @@
             "Description": "Ha! Lorem ipsum!!",
             "Starting Abilities": {
                 "~Sentient Weapon~": {
-                    "A": "Special",
-                    "Effect": "You have a Hexblade Weapon, inside which your patron's avatar lies, either possessing the weapon, being trapped inside it or using it as a means of communication with you.\nPick any weapon type (e.g. Shortsword, Longbow, Pike, etc), and it becomes your Hexblade Weapon.\nYou can customize your weapon's personality, voice, the way it looks. Talk to your GM about this.\nYou are automatically considered Trained in your Hexblade Weapon.\nInstead of adding Dexterity of Might, you can add your Main Stat to attacks with your Hexblade Weapon.\n",
-                    "Upgrade": "Reposess: By spending 1 hour, you can transfer the entity posessing your Hexblade weapon into another weapon. That new weapon becomes your Hexblade Weapon, and the old one is destroyed.\n"
+                    "A": "Passive",
+                    "Effect": "You have a Hexblade Weapon - a special weapon of one chosen type (e.g. Shortsword, Longbow, Pike, etc). This weapon will have extra effects later on. Don't lose it!\nYou gain Training in one more weapon type of choice.\nYou gain +1 in Might or Dexterity, up to +3.\n",
+                    "Upgrade": "Reposess: By spending 1 hour, you can transfer the entity posessing your Hexblade weapon into another weapon. That new weapon becomes your Hexblade Weapon, and the old one is destroyed.\n",
+                    "Notes": "You are bound by soul to your Hexblade Weapon, inside which your patron's avatar lies, either possessing the weapon, being trapped inside it or using it as a means of communication with you.\nYou must choose your weapon type when you become a Hexblade Warlock.\nYou can customize your weapon's personality, voice, the way it looks. Talk to your GM about this.\n"
                 },
                 "~Hexblade~": {
                     "A": "Passive",
-                    "Effect": "After you cast an offensive Spell that costs Mana, your next Hexblade Weapon attack deals +1d6 Damage.\n",
-                    "Notes": "Offensive means that it deals Damage or applies hard Crowd Control (anything better than Slow and creating Hard Terrain)."
+                    "Effect": "After you cast an offensive Spell that costs Mana, your next Hexblade Weapon attack deals 1d6 extra Damage (within 5 minutes).\n",
+                    "Notes": "Offensive means that it deals Damage or applies Crowd Control (the GM has the word on whether it's offensive). Bonus Damage doesn't stack if you cast another Spell."
                 }
             },
             "Talents": {
@@ -145,8 +99,8 @@
                     },
                     "<Hexstaff>": {
                         "A": "Passive",
-                        "Effect": "Your Hexblade Ability is replaced by Hexstaff:\nAfter you attack with a weapon, your next offensive spell has +1 Spell Grade and deals +1d6 Damage.\n",
-                        "Upgrade": "The bonus Damage becomes 1d8 at Level 5."
+                        "Effect": "Your Hexblade Ability is replaced by Hexstaff:\nAfter you attack with a weapon, your next offensive Spell that costs Mana has +1 Spell Grade and deals +1d6 Damage.\n",
+                        "Notes": "Applies to Area Damage, but only applies once to Spells that hit multiple times (e.g. Magic Missile-like Spells, damage over time effects, etc). Doens't stack."
                     },
                     "<Doublehex>": {
                         "A": "Passive",
@@ -156,11 +110,11 @@
                 "Level 5": {
                     "<Hungering Weapon>": {
                         "A": "Passive",
-                        "Effect": "When YOU drop a Worthy Enemy to 0 Health, gain an extra Half-Action this turn and Shielding equal to your Main Stat.\n"
+                        "Effect": "When YOU drop a Worthy Enemy to 0 Health, gain an extra Half-Action this turn and 5 Shielding.\n"
                     },
                     "<Spell Tap>": {
                         "A": "Passive",
-                        "Effect": "Every Worthy Combat, when you drop to 0 Mana, reset the Cooldown of Power Tap and gain Shielding equal to your Main Stat.\n"
+                        "Effect": "Every Worthy Combat, the moment you drop to 0 Mana, gain Shielding equal to your Maximum Mana and you can immediately freely (for 0 Actions) cast a Spell that doesn't cost Mana.\n"
                     },
                     "<Somatic Pulse>": {
                         "A": "Half-Action",
@@ -177,7 +131,7 @@
                 "~Power Overwhelming~": {
                     "A": "Passive",
                     "Effect": "All your Eldritch Basic Spells have their dice increased by 1 tier.\n",
-                    "Notes": "Increasing dice by 1 tier means, for example, d6 become d8, or d10 become d12. D12's and d20's don't increase.\nFor example, Eldritch Blast deals 2d8 + Main Stat, Deathfire Bolt deals 1d12 + 1d10 + 1d8 + Main Stat, Curse of Weakness reduces by 1d6, etc.\n"
+                    "Notes": "Increasing dice by 1 tier means, for example, d6 become d8, or d10 become d12. D12's and d20's don't increase.\nFor example, Eldritch Blast deals 2d10, Deathfire Bolt deals 1d12 + 1d12 + 1d10, Curse of Weakness reduces by 1d6, etc.\n"
                 }
             },
             "Talents": {
@@ -196,6 +150,58 @@
                         "Cooldown": "Once / Adventure",
                         "Effect": "Conjure a 5x5x5 meter area of magical darkness. Units inside are Blinded, and everything done in or through the darkness has Cover.\nPassively, you can see in normal darkness, up to 10 meters away.\n"
                     }
+                },
+                "Level 5": {
+                    "<Power Tap>": {
+                        "A": "Depends",
+                        "Cost": "Depends",
+                        "Cooldown": "Once / Adventure",
+                        "Effect": "Cast an Ability one of your Allies has (with that ability's Actions and Costs and your modifiers).\nIf it costs Mana, you must spend its Mana.\n",
+                        "Notes": "Does not work on Passives. The Ability must have 0, a Half-Action or 1 Actions cost.\nThe Cooldown applies to you - you can Power Tap an Ability that's on Cooldown. After you use it, it goes on Cooldown for you, not for your Ally.\n"
+                    }
+                }
+            }
+        },
+        "Channeler": {
+            "Description": "Loremmmmmm ipsummmmm...",
+            "Starting Abilities": {
+                "~Flow Tap~": {
+                    "A": "Half-Action",
+                    "Cost": "Depends",
+                    "Cooldown": "Once / Encounter",
+                    "Effect": "Choose an enemy Unit. Cast the last Ability it cast with its exact numbers (can include attacks).",
+                    "Notes": "Includes weapon attacks, multiattacks and spells. You can't cast Reactions. If you copied an attack, you briefly conjure a weapon for the attack only."
+                }
+            },
+            "Talents": {
+                "Level 3": {
+                    "<Control Crowds>": {
+                        "A": "Reaction",
+                        "Cooldown": "Once / Encounter",
+                        "Effect": "Use when an enemy Unit uses an Ability. It must use a different Ability.",
+                        "Notes": "If it has only one Ability or attack, you can't use Control Crowds."
+                    },
+                    "<Soul Drain>": {
+                        "AlignOnWebsite": "Right",
+                        "A": "Half-Action",
+                        "Cost": "1 Mana",
+                        "Range": "15 meters",
+                        "Effect": "Deal 8 Necrotic Damage to a Unit.\nIf it dies and it was Worthy, you get the Mana back and heal you or an ally for half of the Damage done.\n",
+                        "Upgrade": "Also, passively, you always know if a Unit would die from this (the GM will answer yes or no)."
+                    },
+                    "<Mana Flow Tapping>": {
+                        "A": "Passive",
+                        "Effect": "If Flow Tap is on Cooldown, you can spend 1 Mana to cast it regardless."
+                    }
+                },
+                "Level 5": {
+                    "<Power Tap>": {
+                        "A": "Depends",
+                        "Cost": "Depends",
+                        "Cooldown": "Once / Adventure",
+                        "Effect": "Cast an Ability one of your Allies has (with that ability's Actions and Costs and your modifiers).\nIf it costs Mana, you must spend its Mana.\n",
+                        "Notes": "Does not work on Passives. The Ability must have 0, a Half-Action or 1 Actions cost.\nThe Cooldown applies to you - you can Power Tap an Ability that's on Cooldown. After you use it, it goes on Cooldown for you, not for your Ally.\n"
+                    }
                 }
             }
         },
@@ -206,13 +212,13 @@
                     "A": "1 Hour",
                     "Cooldown": "Once / Adventure",
                     "Effect": "Summon a familiar and choose an element which is bound to it: Fire, Cold, Shock, Light (True) or Necrotic.\nThe familiar takes its turn at the same time as you.\nOn your turn, your familiar can use its own movement to move, but you must spend your own Actions for it to take Actions.\nIf it dies or goes more than 30 meters away from you, it becomes unsummoned, and it is also unsummoned inbetween Adventures.\nThe stat block for the Familiar is on the Pets and Animals page.\n",
-                    "Notes": "You can choose what your familiar looks like, assuming it is a small creature. Your familiar comes with a name that you or the GM decides.\nYou can communicate with your Familiar telepathically.\nThe Familiar can be classified as a demon, undead, celestial, monstrosity, etc (but not beast or humanoid).\n"
+                    "Notes": "It is assumed you always keep your Familiar summoned, unless constrained by time, or in special situations (dictated by the GM).\nYou can choose what your familiar looks like, assuming it is a small creature. Your familiar comes with a name that you or the GM decides.\nYou can communicate with your Familiar telepathically.\nThe Familiar can be classified as a demon, undead, celestial, monstrosity, etc (but not beast or humanoid).\n"
                 },
                 "~Familiar Pet Attack~": {
                     "A": "0.5 Actions",
                     "Range": "3 meters",
                     "Cooldown": "Once / Turn",
-                    "Effect": "The familiar melee attacks a target.\nThe attack deals 1d8 + Main Stat Damage (of your pet's elemental type).\n",
+                    "Effect": "The familiar melee attacks a target.\nThe attack deals 1d8 + (your highest Stat) Damage (of your pet's elemental type).\n",
                     "Notes": "The attack is against target's Defense, of course."
                 },
                 "~Familiar Feats~": {
@@ -243,7 +249,7 @@
                         "A": "0 Actions",
                         "Cost": "10 Health",
                         "Duration": "1 minute",
-                        "Effect": "You take on the shape or a being from your patron's plane until the end of your next turn.\nYou have +2 Main Stat, and your Basic Spells require no mana to cast.\nAfter you cast a Basic Spell, it goes on a Once / Adventure Cooldown (can't be used until the next Adventure).\n"
+                        "Effect": "You take on the shape or a being from your patron's plane until the end of your next turn.\nYou have +2 Intelligence, Sense and Charisma, and your Basic Spells require no mana to cast.\nAfter you cast a Basic Spell, it goes on a Once / Adventure Cooldown (can't be used until the next Adventure).\n"
                     },
                     "<Dual Summonation>": {
                         "A": "Half-Action",

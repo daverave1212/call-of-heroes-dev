@@ -1,7 +1,7 @@
 Class: Cleric
 Description: Clerics are people attuned to a certain god.
 
-Difficulty: 2
+Difficulty: Medium-Hard
 
 Armor Training: Medium Armor
 
@@ -23,8 +23,7 @@ Spellcasting:
   Type: Mana-based
   SpellsOrAbilities: Spell
     
-  Main Stat: Sense or Charisma
-  Spell Grade: 6 + (Main Stat)
+  Spell Grade: 6 + (Sense or Charisma, whichever is higher)
   Change: You can change your known Spells and Talents inbetween Adventures.
   Other: All Cleric-specific Abilities are considered Spells (unless stated otherwise).
   
@@ -57,7 +56,7 @@ Starting Abilities:
     A: Passive
     Range: 5 meters
     Effect: |
-      Whenever you spend Mana for an Ability, "cast Awe" on any target within 5 meters of you.
+      Whenever you spend Mana, "cast Awe" on a Unit.
       This deals 1d4 Divine Damage to enemies or heals allies for 1d4.
       Some other Cleric spells will "cast Awe" for free.
     Notes: Ignores Cover.
@@ -87,7 +86,7 @@ Starting Abilities Description: |
 
 
 
-# Base:         5.5
+# Base:         5.5   (scaling)
 # Spec:         2.75  | 2.25  |   2.25
 # Talents T1:   1     | 0.75  |   2
 # Talents T2:   2     | 2     |   2
@@ -226,6 +225,24 @@ Specs:
                 A giant spectral fist hits the ground and attacks all Units there except you for 2d10 + (Round Number d6) Divine Damage (against Defense).
             Notes: E.g. on the first round of combat, this deals 2d10 + 1d6. Second round - 2d10 + 2d6. Third round - 2d10 + 3d6. And so on. Cover is applied from above if needed.
             OrderOnWebsite: 2
+
+      Level 7:
+
+        <War Mastery>:    # 2?
+          A: Passive
+          Cooldown: Once / Turn
+          Effect: Add your Sense to the first weapon attack you make every turn.
+
+        <Divine Doubledown>:  # 2?
+          A: Half-Action
+          Cooldown: Once / Adventure
+          Effect: Until the end of your next turn, increase all Divine Damage done by you and your party by 100% (doubled).
+          Notes: The increase stacks additively with other percent increases (e.g. 50% resistance + 100% increased Damage = 50% increased Damage).
+
+        <Hand of Obscurity>:  # 2?
+          A: Reaction
+          Cooldown: Once / Adventure
+          Effect: When an ally (or you) is attacked, cast Awe on them, make them Invisible until the end of their next turn and they take no damage from that attack.
   
 # Damage
 
@@ -327,15 +344,35 @@ Specs:
 
       Level 7:
 
-        <Void Lock>:
+        <Void Lock>:  # 2
           A: 0 Actions
           Cooldown: Once / Adventure
           Range: 5 meters
           Effect: |
             Stun a Unit and a willing ally (or yourself). Then cast Awe on each.
             These Units' Passive Abilities are disabled while Stunned.
-                
-                
+          Notes: Being Stunned lasts until the end of your current turn, so use this at the end of your turn.
+
+        <Healing Doubledown>: # 3+
+          A: Half-Action
+          Cooldown: Once / Adventure
+          Effect: Until the end of your next turn, double all healing you and your party does.
+          Notes: Doesn't stack with other healing multiplication effects. 
+          
+        
+      Level 9:
+
+        <Summon Celestial>:
+          A: ??
+          Effect: ??
+
+        <Apocalypse>:
+          A: ??
+          Effect: 
+
+        <Summon Voidborn>:
+          A: ??
+          Effect: ??
 
 
 # Pet
@@ -421,16 +458,6 @@ Specs:
           Notes: Player Characters also are Worthy Units, but not their pets and summons.
           
       Level 5:
-      
-        # <Life Echo>:                   # 2? maybe less
-        #     A: 0 Actions
-        #     Cooldown: Once / Adventure
-        #     Effect: |
-        #         You put a Life Echo on an ally.
-        #         Whenever YOU heal another Unit, the unit with the Life Echo on them is also healed for 50% of that amount.
-        #         Lasts 1 minute.
-        #     Notes: If you put this on your True Necromancy follower, you essentially heal for 150% of the health.
-        #     OrderOnWebsite: 2
 
         <Ascendance>:                 # Like 2
           A: Passive
