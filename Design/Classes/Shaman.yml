@@ -30,20 +30,21 @@ Spellcasting:
   Type: Mana-based
   SpellsOrAbilities: Spell
 
-  Spell Grade: 6 + Sense or Charisma, whichever is higher
+  Spell Grade: 6 + Sense, Intelligence or Charisma, whichever is higher
   Change: You can change your known Spells and Talents inbetween Adventures.
   Other: All Shaman-specific Abilities are considered Spells (unless stated otherwise).
 
   Mana:
-    Amount: 3
+    Amount: 1
     Regain: You regain all Mana back inbetween Adventures.
 
-  Known Basic Abilities: 3 + Intelligence
+  Known Basic Abilities: 2 + Intelligence
   
-  BaseKnownSpells: 3
+  BaseKnownSpells: 2
   
   Basic Ability Lists:
     - Bloodshed
+    - Nature
     - Mysticism
 
   Recommended Basic Abilities:
@@ -73,51 +74,69 @@ Starting Abilities Description:
   
 
 Starting Abilities: 
-  ~Animal Spirit~:
-    AlignOnWebsite: Left
-    A: Special
-    Effect: |
-      Choose one of the 4 animal spirits. You gain an Ability depending on your Spirit Animal.
-      Bear grants you Bear's Roar, Wolf grants you Wolf's Leap, Eagle grants you Eagle's Sight and Owl grants you Owl's Foresight.
-    Notes: You can customize the looks of your animals for aesthetic purposes (e.g. pretend it's another animal). For example, if you want a tiger as an animal spirit, you can choose Wolf, but, cosmetically/aesthetically, it's a tiger.
-
-  ~Bear's Roar~:   # 1 Charge
-    IsSubspell: true
-    AlignOnWebsite: Left
-    A: 1 Action
-    Cooldown: Once / Adventure
-    Effect: All enemies within 3 meters of you must pass a Charisma Check or take 1d6 Psychic Damage and be Crippled.
-    Notes: Cover is applied normally.
-
-  ~Wolf's Leap~:   # 1 Charge
-    IsSubspell: true
-    A: 0.5 Actions
-    Cooldown: Once / Adventure
-    AlignOnWebsite: Left
-    Effect: |
-      Leap at a target up to 3 meters away.
-      The target takes 1d6 Bleed Damage at the end of each of your turns for 1 minute.
-
-  ~Eagle's Sight~ : # 1 Charge
-    IsSubspell: true
-    AlignOnWebsite: Right
+  ~Echoes~:     # 1.5 Mana
     A: Passive
     Effect: |
-      Your Initiative is always 1 less than the highest Initiative in combat.
-      All your ranged weapon attacks and Spells have an extra 3 meters range (if their range is already 3 meters or higher).
-      Your Spell Grade is increased by 1.
-    Notes: You don't roll Initiative anymore and don't add any modifiers
-
-  ~Owl's Foresight~ : # 1 Charge
-    IsSubspell: true
-    AlignOnWebsite: Right
-    A: Reaction
-    Cooldown: Once / Adventure
+      After you cast an Ability that costs Mana, it "echoes" and you automatically cast it again on a different Unit(s) or area at reduced intensity.
+    Upgrade: "Intensity: If the Ability did Damage or Healing on cast (e.g. Shank, Healing Surge), the echo does exactly 33% of the done Damage or Healing, before other calculations. The echo can't Stun, Sleep or Paralyze (hard Crowd Control) - these become Fumbling."
+    Notes: |
+      If the area overlaps the initial area, the overlapped part has no effect.
+      Indirect or delayed Damage or Healing (e.g. Invigorate) is rolled normaly. If the target must make a Check, it makes the Check as normal (apply pass halving normally for certain Abilities).
+      Take the Ability text as it is - echoing Lightning Storm repeats the initial Damage, but you'd have to spend another 1 Action to retrigger the second Lightning Storm.
+      The GM has the word on whether something is possible.
+  
+  ~Animal Spirit~:  # 2 Mana
+    AlignOnWebsite: Left
+    HasMixins: true
+    A: Passive
     Effect: |
-      Use when an enemy you see casts a spell (non-naturally).
-      The spell is cancelled and the enemy loses the Action for it.
+      Choose one of the 5 animal spirit totems - each grants you different bonuses.
+      {Diamond} Bear: +1 Might and +5 Reserve Health
+      {Diamond} Wolf: +1 Dexterity and +1 Movement Speed
+      {Diamond} Owl: +1 Intelligence and +3 range on all ranged attacks
+      {Diamond} Eagle: +1 Sense and +5 Initiative
+      {Diamond} Snake: +1 Charisma and +2 Spell Grade
+    Notes: |
+      An attack is considered ranged if it has a maximum range of 3 or more meters.
+      The bonus Stats can exceed the Level maximum (e.g. you can have +4 in a Stat at Level 1, or +5 at Level 4, etc).
 
-# Base: 4.25 Charges (0.25 = extra HP/Level)
+  # ~Bear's Roar~:   # 1 Charge
+  #   IsSubspell: true
+  #   AlignOnWebsite: Left
+  #   A: 1 Action
+  #   Cooldown: Once / Adventure
+  #   Effect: All enemies within 3 meters of you must pass a Charisma Check or take 1d6 Psychic Damage and be Crippled.
+  #   Notes: Cover is applied normally.
+
+  # ~Wolf's Leap~:   # 1 Charge
+  #   IsSubspell: true
+  #   A: 0.5 Actions
+  #   Cooldown: Once / Adventure
+  #   AlignOnWebsite: Left
+  #   Effect: |
+  #     Leap at a target up to 3 meters away.
+  #     The target takes 1d6 Bleed Damage at the end of each of your turns for 1 minute.
+
+  # ~Eagle's Sight~ : # 1 Charge
+  #   IsSubspell: true
+  #   AlignOnWebsite: Right
+  #   A: Passive
+  #   Effect: |
+  #     Your Initiative is always 1 less than the highest Initiative in combat.
+  #     All your ranged weapon attacks and Spells have an extra 3 meters range (if their range is already 3 meters or higher).
+  #     Your Spell Grade is increased by 1.
+  #   Notes: You don't roll Initiative anymore and don't add any modifiers
+
+  # ~Owl's Foresight~ : # 1 Charge
+  #   IsSubspell: true
+  #   AlignOnWebsite: Right
+  #   A: Reaction
+  #   Cooldown: Once / Adventure
+  #   Effect: |
+  #     Use when an enemy you see casts a spell (non-naturally).
+  #     The spell is cancelled and the enemy loses the Action for it.
+
+# Base: 4.5 Mana
 # Spec: 1.25 Charges (mostly)
 
 # Damage + CC Medium
@@ -318,7 +337,9 @@ Specs:
             The extra Damage of Smites, Ambush, etc count over an attack counts as the same Damage source.
             If another case is ambiguous, the DM makes the choice if it counts.
             
-        
+      Level 9:
+
+        <Momentum Dance>: Inherit
 
 # Talent: More Guide Dice
 # Talent: Better Guide Dice

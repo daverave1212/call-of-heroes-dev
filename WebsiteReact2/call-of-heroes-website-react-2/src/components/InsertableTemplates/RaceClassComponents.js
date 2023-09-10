@@ -264,14 +264,6 @@ export function SpellCasting({ theClass }) {
             </div>
         )
     }
-    function InsightBasedSpellcasting() {
-        return (
-            <div>
-                DEPRECATED
-                You're not supposed to see this.
-            </div>
-        )
-    }
     function SpecialManaBasedSpellcasting() {
         return (
             <div>
@@ -332,7 +324,7 @@ export function SpellCasting({ theClass }) {
         )
     }
 
-    const hasMultipleMainStats = theClass['Spellcasting']['Main Stat'].includes('or')
+    // const hasMultipleMainStats = theClass['Spellcasting']['Main Stat'].includes('or')
 
     return (
         <div id={theClass['Spellcasting'].SpellsOrAbilities === 'Spell' ? 'spells-and-mana' : 'abilities-and-mana'}>
@@ -341,10 +333,10 @@ export function SpellCasting({ theClass }) {
             <TwoColumns>
                 <Column>
                     
-                    <div className='with-margined-children'>
+                    {/* <div className='with-margined-children'>
                         <PageH3>Main Stat</PageH3>
                         <SmallStat name="Main Stat" topDown={hasMultipleMainStats} color="blue">{ theClass['Spellcasting']['Main Stat'] }{hasMultipleMainStats ? (<i> (whichever is higher)</i>) : ''}</SmallStat>
-                    </div>
+                    </div> */}
 
                     <PageH3>Numbers</PageH3>
                     <div className='with-margined-children'>
@@ -354,7 +346,7 @@ export function SpellCasting({ theClass }) {
                         { theClass['Spellcasting']['Mana'] != null && (
                             <SmallStat name="Mana" color="blue">{ theClass['Spellcasting']['Mana']['Amount'] }<Icon name="Mana"/></SmallStat>
                         ) }
-                        <SmallStat name="Spell Grade" color="blue">{ theClass['Spellcasting']['Spell Grade'] }</SmallStat>
+                        <SmallStat name="Spell Grade" topDown={true} color="blue">{ theClass['Spellcasting']['Spell Grade'] }</SmallStat>
                         {
                             theClass['Spellcasting']['Known Basic Abilities'] != null && (
                                 <SmallStat name="Known Abilities (from Basic Ability Lists)" topDown={true} color="blue">
