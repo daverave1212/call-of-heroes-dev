@@ -52,6 +52,7 @@ export default function Spell({ children, spell, style, hasIcon }) {
 
     if (HasMixins === true) {
         Effect = parseTextWithSymbols(Effect)
+        Notes = parseTextWithSymbols(Notes)
     }
 
     function SpellTopStats({className}) {

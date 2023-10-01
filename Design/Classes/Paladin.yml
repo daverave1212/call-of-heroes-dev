@@ -15,7 +15,7 @@ Armor Training: Heavy Armor
 
 Level Up:
   Every Level: 
-    Health: 5
+    Health: 6
 
 
 
@@ -49,7 +49,6 @@ Spellcasting:
     Paladins can do decent healing, so Glory Shout will fit neatly with the Paladin class fantasy! Bull rush will give you some extra damage at close range, while Hand of Freedom allows you to help out allies in need. Finally, if you need more ways to disrupt enemies, get Blinding Smite! As the name suggest, it makes enemies go blind, thus protecting you and your allies from their attacks!
 
  
-
 Starting Abilities:
 
 
@@ -61,11 +60,11 @@ Starting Abilities:
         Thick walls obstruct your Divine Sense.
 
   ~Lay on Hands~ :      # 1 Charge
-    A: 0 Actions
+    A: Half-Action
     Range: 3 meters
     Effect: |
       You have (3 + your Level + your Sense + your Charisma) Holy points.
-      Using 0 Actions, you can spend 3 or more Holy Points to heal a Unit for that amount.
+      Using a Half-Action, you can spend 3 or more Holy Points to heal a Unit for that amount.
       All your Holy Points replenish inbetween Adventures.
 
   ~Divine Smite~ :      # 1.5 Charges
@@ -208,8 +207,26 @@ Specs:
             A: Reaction
             Cost: Half of your maximum Holy Points
             Effect: Use when you or an ally you can see would take Damage. Negate all the Damage.
+
+      Level 7:
+
+        <Personal Squire>:  # 2+
+          A: Special
+          Effect: |
+            You recruit a squire - a trusted NPC who gains combat powers. However, the capabilities of your squire are random: roll 1d6 to determine the type of your squire, based on the Squires category at Pets and Animals (1. Bold, 2. Sneaky, 3. Clever, 4. Wise). The Race is determined by the GM or by circumstance.
+            On its turn, it can do one Pet Attack, cast one Ability it has, or do the equivalent of a Half-Action (e.g. Dash, Defend, etc).
+            You can recruit one squire per Adventure, but only one can follow you in your adventures at a time.
+            At the start of every Adventure (and when you get this Talent), you must spend 1 Mana and train your Squire to permanently increase its Health by 2 or gain one Ability from any other Squire type.
+          Upgrade: If your squire drops to 0 Health, it becomes Fallen, like a player. It has no reserve Health, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your squire's wounds and heal it back to full Health.
+          Notes: Your squire is not a Player Character by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Player Character can). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!
         
-        
+        <Motivation Surge>: # 2
+          A: Passive
+          Effect: After you use Impose, reset the Cooldown of Divine Smite and gain 5 Holy Points.
+
+        <Towering Figure>:
+          A: Passive
+          Effect: Impose now affects 2 targets. After you use Divine Smite, reset the Cooldown of Impose. All Impose targets now have -2 to the roll, not just humanoids.
 
 # Healing + Immunity
 # Healing
@@ -262,12 +279,14 @@ Specs:
         <Focused Smites> :  # 1
           A: 0 Actions
           Cooldown: Once / Adventure
+          HasMixins: true
           Effect: |
             For 1 minute, your weapon attacks and offensive spells deal extra Damage and heal an ally within 6 meters of the target (or yourself). All the Damage of these attacks becomes Divine.
             Bonus Damage and Heal: 1 for 1-Handed weapons and Half-Action Spells, 2 for 2-Handed weapons and 1 Action Spells.
           Notes: |
             If a spell doesn't deal Damage, just instantly deal the Focused Smites Damage to the target.
             The Damage becoming Divine part is optional.
+            {Offensive Abilities}
 
         <Divine Reach>: Inherit      # 1
  

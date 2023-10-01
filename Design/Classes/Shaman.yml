@@ -23,7 +23,7 @@ Proficiencies Description: |
 
 Level Up:
   Every Level: 
-    Health: 6
+    Health: 5
 
   
 Spellcasting:
@@ -35,7 +35,7 @@ Spellcasting:
   Other: All Shaman-specific Abilities are considered Spells (unless stated otherwise).
 
   Mana:
-    Amount: 1
+    Amount: 2
     Regain: You regain all Mana back inbetween Adventures.
 
   Known Basic Abilities: 2 + Intelligence
@@ -74,31 +74,32 @@ Starting Abilities Description:
   
 
 Starting Abilities: 
-  ~Echoes~:     # 1.5 Mana
+  ~Echoes~:     # 2 Mana
     A: Passive
+    Cooldown: Each Spell can only echo once per Combat
+    HasMixins: true
     Effect: |
-      After you cast an Ability that costs Mana, it "echoes" and you automatically cast it again on a different Unit(s) or area at reduced intensity.
-    Upgrade: "Intensity: If the Ability did Damage or Healing on cast (e.g. Shank, Healing Surge), the echo does exactly 33% of the done Damage or Healing, before other calculations. If any Damage or Healing is delayed, it's reduced to 33%. The echo can't Stun, Sleep or Paralyze (hard Crowd Control) - these become Fumbling."
+      When you cast an Ability that costs Mana, if you roll maximum on at least one ^immediate^ Damage or Healing die, the Ability _echoes_ and you cast it again (for 0 Actions), but all Damage or Healing it does is reduced by 50%.
+      The _echoed_ Ability can't affect the same target(s) or area.
     Notes: |
-      If the area overlaps the initial area, the overlapped part has no effect.
-      Indirect or delayed Damage or Healing (e.g. Invigorate) is rolled normaly. If the target must make a Check, it makes the Check as normal (apply pass halving normally for certain Abilities).
-      Take the Ability text as it is - echoing Lightning Storm repeats the initial Damage, but you'd have to spend another 1 Action to retrigger the second Lightning Storm.
+      Immediate means not delayed, not over time, etc (e.g. Scorching Rays, Healing Surge are immediate; Explosion Rune, Curse of Pain, etc are not immediate). _Echoing_ can only happen if you roll maximum on the initial cast (when you spend the Mana), even if there's more Damage or Healing later (e.g. Crackling Lightning _echoes_ only if you roll maximum the moment you cast it).
+      If the area overlaps the initial area, the overlapped part has no effect. If it hits the same target(s), it has no effect on them.
+      Take the Ability text as it is - _echoing_ Lightning Storm repeats the initial Damage, but you'd have to spend another 1 Action to retrigger the second Lightning Storm.
       The GM has the word on whether something is possible.
   
-  ~Animal Spirit~:  # 2 Mana
+  ~Animal Spirit~:  # 0.5 Mana
     AlignOnWebsite: Left
     HasMixins: true
     A: Passive
     Effect: |
       Choose one of the 5 animal spirit totems - each grants you different bonuses.
-      {Diamond} Bear: +1 Might and +5 Reserve Health
-      {Diamond} Wolf: +1 Dexterity and +1 Movement Speed
-      {Diamond} Owl: +1 Intelligence and +3 range on all ranged attacks
-      {Diamond} Eagle: +1 Sense and +5 Initiative
-      {Diamond} Snake: +1 Charisma and +2 Spell Grade
+      {Diamond} Bear: +4 Reserve Health
+      {Diamond} Wolf: +1 Movement Speed
+      {Diamond} Owl: +3 range on all ranged attacks
+      {Diamond} Eagle: +5 Initiative
+      {Diamond} Snake: +1 Spell Grade
     Notes: |
-      An attack is considered ranged if it has a maximum range of 3 or more meters.
-      The bonus Stats can exceed the Level maximum (e.g. you can have +4 in a Stat at Level 1, or +5 at Level 4, etc).
+      An attack or Ability is considered ranged if it has a maximum range of 3 or more meters, unless it states otherwise.
 
   # ~Bear's Roar~:   # 1 Charge
   #   IsSubspell: true

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import Icon from "./components/Icon"
 import Separator from "./components/Separator/Separator"
 
@@ -274,15 +275,22 @@ export function parseTextWithSymbols(text) {
 
     const symbolToInsertion = {
         'Damage': () => (<Icon name="Damage"/>),
-        'Diamond': () => (<span style={{fontSize: '0.8em'}}>🔹</span>)
+        'Diamond': () => (<span style={{fontSize: '0.8em'}}>🔹</span>),
+        'Pets and Animals': () => (<Link to="/Other/PetsAndAnimals">Pets and Animals</Link>),
+        'Offensive Abilities': () => (<span>Offensive means that it deals Damage or applies hard Crowd Control (anything better than Slow and creating Hard Terrain).</span>),
+        'Feared': () => (<span>A Feared Unit can only do <b>one</b> Act on its turn (e.g. move, make one attack, use one Ability, etc).</span>),
+    }
+    const symbolToMarkup = {
+        '^': text => (<b>{text}</b>),
+        '_': text => (<i>{text}</i>)
     }
 
     let currentTextPartStart = 0
     let textParts = []
 
     let state = 'reading-normal-text'
-    let symbolParts = []
     let symbolStart = null
+    let markupSymbol = null
     for (let i = 0; i < text.length; i++) {
         const char = text[i]
         switch (state) {
@@ -292,10 +300,25 @@ export function parseTextWithSymbols(text) {
                     symbolStart = i
                     state = 'reading-symbol'
                 }
+                if (char == '^' || char == '_') {
+                    textParts.push(text.substring(currentTextPartStart, i))
+                    symbolStart = i
+                    state = 'reading-markup'
+                    markupSymbol = char
+                }
                 break
             case 'reading-symbol':
                 if (char == '}') {
-                    symbolParts.push(text.substring(symbolStart + 1, i))    // Push current symbol
+                    const symbol = text.substring(symbolStart + 1, i)
+                    textParts.push(symbolToInsertion[symbol]())    // Push current symbol
+                    currentTextPartStart = i + 1
+                    state = 'reading-normal-text'
+                }
+                break
+            case 'reading-markup':
+                if (char == markupSymbol) {
+                    const markupedText = text.substring(symbolStart + 1, i)
+                    textParts.push(symbolToMarkup[markupSymbol](markupedText))    // Push markuped text
                     currentTextPartStart = i + 1
                     state = 'reading-normal-text'
                 }
@@ -309,20 +332,8 @@ export function parseTextWithSymbols(text) {
         }
     }
 
-    const finalParts = []
-    for (let i = 0; i < textParts.length; i++) {
-        finalParts.push(textParts[i])
-        if (i < symbolParts.length) {
-            finalParts.push(
-                symbolToInsertion[symbolParts[i]]()
-            )
-        }
-    }
+    return textParts
 
-    return finalParts
-
-    // const textParts = text.split('\n{Separator}\n')
-    // return insertBetweenAll(textParts, (<Separator/>))
 }
 export function parseTextWithMixins(text) {
     const getMixinComponent = {
