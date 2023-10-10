@@ -369,8 +369,9 @@
         "~Fire Enchantment~": {
             "A": "1 Action",
             "Cost": "1 Mana",
+            "Range": "3 meters",
             "Requirement": "Level 2",
-            "Effect": "Touch a weapon to imbue it with Fire.\nThat weapon deals +2 Damage (as part of the attack) and the total weapon Damage becomes Fire Damage.\nLasts until the end of the next (or current) combat, or for up to 24 hours.\n",
+            "Effect": "Choose a metallic weapon to imbue it with Fire.\nThat weapon deals +2 Damage (as part of the attack) and the total weapon Damage becomes Fire Damage.\nLasts until the end of the next (or current) combat, or for up to 24 hours.\n",
             "Notes": "Does not stack with other weapon enchantments from Spells.",
             "Name": "~Fire Enchantment~"
         },
@@ -533,7 +534,9 @@
             "Requirement": "Level 5",
             "Cost": "1 Mana",
             "AlignOnWebsite": "Left",
-            "Effect": "You become invisible for up to (Intelligence) minutes (at least 1).\nAttacking, taking Damage or casting offensive spells while invisible breaks the invisibility.\n",
+            "HasMixins": true,
+            "Effect": "You become invisible for up to (Intelligence) minutes (at least 1).\nAttacking, taking Damage or casting _offensive_ Abilities while invisible breaks the invisibility.\n",
+            "Notes": "{Offensive Abilities}",
             "Name": "~Invisibility~"
         },
         "~Levitate~": {
@@ -603,7 +606,7 @@
             "Cost": "3 Mana",
             "Range": "10 meters to edge",
             "Cooldown": "Once / Adventure",
-            "Effect": "Declare an area with a diameter in meters (in all directions) equal to your Level.\nThe gravity becomes reversed in that area and all Units instantly fall upwards. Units can make a Dexterity Check to grab onto an object to not be lifted.\nUnits suffer fall Damage if they fall onto a roof.\nWhen the effect ends, all Units fall at half velocity (and take half of the fall Damage). The same happens to a Unit if it exits the zone.\nLasts for up to 1 minute. You can cancel this effect at will.\n",
+            "Effect": "Declare an area with a diameter in meters (in all directions) equal to your Level.\nThe gravity becomes reversed in that area and all Units instantly fall upwards. Units can make a Dexterity Check to grab onto an object to not be lifted.\nUnits suffer fall Damage if they fall onto a ceiling.\nWhen the effect ends, all Units fall at half velocity (and take half of the fall Damage). The same happens to a Unit if it exits the zone.\nLasts for up to 1 minute. You can cancel this effect at will.\n",
             "Notes": "Fall Damage is 1d6 for every meter after 2 meters fallen (e.g. 1d6 for 3 meters, 2d6 for 4 meters, etc).\n",
             "Name": "~Reverse Gravity~"
         }
@@ -699,10 +702,9 @@
             "Name": "~Earth Shield~"
         },
         "~Healing Surge~": {
-            "A": "0 Actions",
+            "A": "Half-Action",
             "Range": "5 meters",
             "Cost": "1 Mana",
-            "Cooldown": "Once / turn",
             "Effect": "Heal a target for 2d6.",
             "Name": "~Healing Surge~"
         },
@@ -718,8 +720,9 @@
             "Range": "5 meters to edge",
             "Cost": "1 Mana",
             "Requirement": "Level 3",
-            "Effect": "Declare a 4x4x4 Cube.\nAll units inside take 4d4 Shock Damage now.\nIf a unit carries anything made of metal, deals 50% more Damage (after the roll).\nOn your turn (for up to 1 minute), you can spend 1 Action to move the storm up to 3 meters and (and/or) its deal Damage again.\nLasts up to 1 minute.\n",
-            "Upgrade": "At Level 5, the range increases to 10 meters to edge.",
+            "HasMixins": true,
+            "Effect": "Declare a 4x4x4 Cube.\nAll units inside take 3d4 Shock Damage now.\nIf a unit carries anything made of metal or is wet, it deals ^double^ the Damage (multiply it by 2).\nOn your turn (for up to 1 minute), you can spend 1 Action to move the storm up to 3 meters and (and/or) its deal Damage again.\nLasts up to 1 minute.\n",
+            "Upgrade": "At Level 6, the area is 6x6x6 (optionally).",
             "Notes": "The storm only deals Damage the moment you spend 1 Action; if you do spend 1 Action, the storm stays in place and deals no Damage.",
             "Name": "~Lightning Storm~"
         },
@@ -940,8 +943,8 @@
             "Range": "5 meters to edge",
             "Duration": "1 minute",
             "Requirement": "Level 4",
-            "Effect": "You create a 3x3 meter transparent, magical and thin force wall.\nThe wall provides Double Cover.\nMoving through it counts as Hard Terrain.\n",
-            "Upgrade": "You can use this as a Reaction when someone declares an attack or Ability, before any roll is made.",
+            "Effect": "You create a 3x3 meter (tall and wide) translicent, magical and thin force wall.\nThe wall provides blocks Line of Sight and projectiles.\nMoving through it counts as Hard Terrain.\n",
+            "Upgrade": "You can use this as a Reaction when someone declares an attack or Ability to block the missile, before any roll is made.",
             "Name": "~Force Wall~"
         },
         "~Grow or Shrink~": {
@@ -1158,7 +1161,7 @@
             "A": "0 Actions",
             "Cost": "1 Mana",
             "Range": "5 meters",
-            "Effect": "Heal a target for 1d4 + your Sense Health.\nIf after this the target is at full Health, repeat this on another target.\n",
+            "Effect": "Heal a target for 1d4 + your Sense Health.\nAfter this, if the target is at full Health, repeat this on another target.\n",
             "Notes": "Yes, this can chain again and again.",
             "Name": "~Invigorate~"
         },
@@ -1419,10 +1422,10 @@
             "Name": "~Cleansing Smite~"
         },
         "~Cure Wounds~": {
-            "A": "Half-Action",
+            "A": "1 Action",
             "Cost": "1 Mana",
-            "Range": "3 meters",
-            "Effect": "Heal an ally (or yourself) for 2d4 Health.\nIf it were at or above 50% Health before the heal, double the healing.\n",
+            "Range": "5 meters",
+            "Effect": "Heal an ally (or yourself) for 1d10 Health.\nIf it were at or above 50% Health before the heal, double the healing.\n",
             "Name": "~Cure Wounds~"
         },
         "~Guiding Bolt~": {

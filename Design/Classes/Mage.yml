@@ -74,10 +74,10 @@ Starting Abilities:
     A: 0 Actions
     Cooldown: Once / Adventure
     Effect: |
-      The next ability you use that has the cost of 1 Action now costs a Half-Action.
+      The next Ability you use that has the cost of 1 Action now costs a Half-Action.
     Notes: This is not considered a Spell.
 
-  ~Learn Scrolls~:
+  ~Learn Scrolls~:    # 0
     A: 10 minutes
     Cooldown: Once / Adventure
     Effect: |
@@ -97,10 +97,11 @@ Specializations:
     - Wizard, who became a master of magic through intense study, and carries its spells in an indispensible tome
     - Artificer, who is dedicated to creation, research and experimentation with magical potions, scrolls and magical items!
 
-# Base:       4.35
-# Spec:       2.25  | 2       | 1
-# Talent T1:  1     | 1.25    | 3
-# Talent T1:  2     | 2       | 3
+# Base:       5.35                    : 5.35
+# Spec:       1.25  | 1.5     | 2     : 6.75
+# Talent L3:  1     | 0.5     | 1     : 7.25
+# Talent L5:  2     | 2       | 2     : 9.25
+# Talent L7:  3.25  | 2.5     | 3     : 12.25
 
 # Actions
 
@@ -118,107 +119,88 @@ Specs:
 # Damage + CC Hard
 # Damage + Gimmick
 
-  Wizard:                 # 2.25 Charges
+  Wizard:                 # 1.25 Charges
     Description: Hmm, lorem...
     Starting Abilities:
       
-      ~Spell Book~:       # 2 Charge
+      ~Spell Book~:       # 1 Mana
         A: Passive
-        Cooldown: Once / Adventure
-        Effect: |
-            You have a special Spell Book.
-            Once per Adventure, you can cast a Spell you know that costs Mana without spending Mana.
-        Notes: You must still spend the required Actions.
+        Effect: You have 1 extra Maximum Mana.
       
       ~Magic Expertise~:  # Might be game breaking lmao
         A: Passive
-        Effect: For you, all Basic Spells have their Level requirement lowered by 4.
-        Notes: E.g. You can learn Reverse Gravity from Level 2 (which would normally require Level 6).
+        Effect: For you, all Basic Spells have their Level requirement lowered by 3.
+        Notes: E.g. You can learn Reverse Gravity from Level 3 (which would normally require Level 6).
 
     Talents:
       Level 3:
 
-        <Counterspell>:  # 1 Charge
-          A: Reaction
-          Cooldown: Once / Adventure
-          Effect: When a Unit you can see casts a Spell, cancel it. It loses the Action (but not the Mana or Cooldown).
+        # <Counterspell>:  # 1 Charge
+        #   A: Reaction
+        #   Cooldown: Once / Adventure
+        #   Effect: When a Unit you can see casts a Spell, cancel it. It loses the Action (but not the Mana or Cooldown).
 
-        <Conjuration Specialization>:   # 1 Charge
+        <Pyromancy>:
           A: Passive
+          Effect: The first time hit 2 or more Worthy Enemies with a Spell every turn, increase all Fire Damage you deal by 1 for the rest of the combat.
+
+        <Conjurism>:   # 1 Charge
+          A: Passive
+          Duration: 1 minute
           Effect: Whenever you spend any amount of Mana on a Conjuration Spell, give a Unit you can see Shielding equal to your current Mana (after the cast).
         
-        <Arcane Specialization>:    # 1 Charge
+        <Arcanism>:    # 1 Charge
           A: Passive
-          Effect: Whenever you spend any amount of Mana on an Arcane Spell, shoot a magic missile at a target within 10 meters that instantly deals 1d4 Force Damage.
+          Effect: Whenever you spend any amount of Mana on an Arcane Spell, shoot a magic missile at a target within 10 meters that instantly deals 1d4 Force Damage and ignores Defense and Cover.
 
-        <Eldritch Specialization>:  # 0.5 Charges
+        <Eldritchianism>:  # 0.75 Charges
           A: Passive
           Effect: |
-            You gain access to the Eldritch Basic Ability List, and when you cast an Eldritch Spell, you can choose to split the d8's into 2d4's and d12's into 2d6's.
+            You gain access to the Eldritch Basic Ability List, and when you cast a Spell, you can choose to split the d8's into 2d4's and d12's into 2d6's.
+            Also, add your Intelligence to your Initiative.
           Notes: |
             For example, if a Spell deals 2d8 Damage, that becomes 4d4.
             It might sound like the same thing, but because of math, 4d4 is actually, on average, 1 extra Damage compared to 2d8.
 
-        <Force Pulse>:  # 1 Charge
-          A: 0 Actions
-          Cooldown: Once / Adventure
-          Effect: All enemies within 10 meters must pass a Might Check or be Fumbling and take 1d4 Force Damage.
+        <Hydromancy>:
+          A: Passive
+          Effect: Whenever you apply Crowd Control other than Slows to a Unit in a Worthy Combat, increase all Cold Damage you deal by 2 for the rest of the combat.
+          Notes: Hard Terrain does not count as Crowd Control.
+
+        # <Force Pulse>:  # 1 Charge
+        #   A: 0 Actions
+        #   Cooldown: Once / Adventure
+        #   Effect: All enemies within 10 meters must pass a Might Check or be Fumbling and take 1d4 Force Damage.
 
       Level 5:
       
-        <Crystal Mage>:     # 2?
-            AlignOnWebsite: Left
-            A: Passive
-            Effect: |
-                You become a Crystal Mage.
-                All your spells that deal Fire, Cold or Force Damage now deal a special type of Damage, Crystal Damage.
-                You also get the following Crystal Abilities.
-            Notes: Almost no Unit has resistance or immunity specifically to Crystal Damage.
+        <Abjuration>:       # 2
+          A: Reaction
+          Cooldown: Once / Adventure
+          Effect: |
+            Use when an ally (or you) would be hit by a missile (before hitting the target).
+            Fling it from air back to the attacker (with the exact Damage and effects).
         
-        <Battle Mage>:      # 2?
-            AlignOnWebsite: Right
-            A: Passive
-            Effect: |
-                You get either Training in Shields, or one free Technique Feat of choice.
-                While you have an even number of Mana points, your first melee weapon attack each turn deals an extra 1d6 Fire or Cold Damage (your choice).
-                This can only happen if you're wearing Medium Armor (or Heavy) or a Shield.
-    
-        <Mana Recycle>:
-            AlignOnWebsite: Right
-            A: Passive
-            Effect: |
-              After you kill a Worthy Enemy with a Spell that benefiting from Magic Mastery, gain back the 1 Mana spent on Magic Mastery.
-            
-        ~Crystal Bolt~:
-            IsSubspell: true
-            AlignOnWebsite: Left
-            A: 1 Action
-            Range: Exactly 6 meters
-            Effect: |
-                Attack a Unit exactly 6 meters away for 4d4 Crystal Damage.
-                The target and all Units within 1 meter of it also take 4 Crystal Damage afterwards.
-            
-        ~Diamondize~:
-            IsSubspell: true
-            AlignOnWebsite: Left
-            A: Reaction
-            Cooldown: Long Range
-            Effect: |
-                Use when you would take Damage.
-                Prevent the Damage and become invulnerable and Stunned until the start of your next turn.
-            Notes: While invulnerable, you can not take Damage and are immune to Crowd Control.
+        <Animation>:
+          A: Passive
+          Effect: |
+            Whenever you spend Mana on a Spell that doesn't deal Damage, you can pick a Large or Medium object within 6 meters and bring it to life.
+            It has 3 Speed, can fly and can attack for 1d4 Smash, Slash or Pierce Damage.
+            Lasts 1 minute or until it takes Damage (after which it returns to its inanimate form).
+          Notes: Alternatively, it can use Dash, Push or Taunt once.
 
-        ~Cutting Field~:
-            IsSubspell: true
-            AlignOnWebsite: Left
-            A: 1 Action
-            Cost: 1 Mana
-            Cooldown: 1 use / Combat
-            Effect: |
-                All units in a 90 degree, 6 meter long cone take 4d4 Crystal Damage.
-                Create spikes on all empty spaces (1x1 meter size each space).
-                Whenever a Unit steps on a spike space, it takes 1d4 Crystal Damage and shatters the spikes there.
-                
+        <Illusionism>:
+          A: Passive
+          Duration: 1 minute
+          Effect: |
+            After you use Magic Mastery, choose an ally.
+            Create a clone of them on a space within 2 meters of them, and teleport the ally 2 meters in any direction (as to create a diversion).
+            The clone has the same Health and other stats, but takes 300% of the Damage it takes.
+            The clone can pretend to do anything the ally can do. If it attacks with a weapon or Spell, it can do at most 1 Psychic Damage per attack Act.
+          Upgrade: An enemy can't tell which Unit is real and which is the clone until the clone does something relevant and the Unit has at least 3 Intelligence.
+          Notes: |
+            E.g. the clone could cast Magic Missiles, but only one missile will deal 1 Damage (you can choose which, and apply Cover, Defense and other penalties normally - e.g. 1 Damage with Cover becomes 0 Damage). Alternatively, for example, it could attack twice with a one-handed weapon for 1 Damage each.
+
         <Spellcraft>:       # 1?
           A: 0 Actions
           Cooldown: Once / Adventure
@@ -227,24 +209,38 @@ Specs:
           Effect: |
             When you cast a spell, you can apply this any of the following effects to it:
             {Diamond} For every 2 dice in its Damage, roll 1 more
-            {Diamond} If it targets an area, freely change the area to a 4x4 meter zone, 8x1 meter line or 5 meter 90* cone
-            {Diamond} Change its Damage type to any type, except  and Necrotic Damage
+            {Diamond} If it targets an area, increase it or decrease it by 50%
+            {Diamond} Change its Damage type to any type, except Divine and True Damage
             {Diamond} Change it's Check Stat to any other Stat (if it requires a Check)
-            {Diamond} Swap Root, Cripple or Silence with any other of these
+            {Diamond} Swap Root, Cripple or Silence
             {Diamond} Swap Slow, Fumbling, Rooted or Pushing with any other of these (Push a target 2 meters away from you or from the zone center)
             {Diamond} Double its range
             At any point, you can expend 1 Mana to reset the Cooldown of this Spell (Spellcraft).
 
       Level 7:
 
-        <Archon Form>:
+        <Grand Wizardry>: # 2.5
+          A: Passive
+          Effect: |
+            Magic Mastery becomes usable 2 more times per Adventure.
+            Basic Spells that cost Mana and have a Cooldown have no Cooldown for you.
+        
+        <Destruction>:    # 4+
+          A: Passive
+          HasMixins: true
+          Effect: |
+            Whenever you deal Damage with a Spell that cost Mana or was affected by Magic Mastery, zap a Unit within 4 meters for ^your Intelligence^ Shock Damage.
+          Notes: This is optional.
+
+        <Evocation>:     # 3
           A: Half-Action
           Cooldown: Once / Adventure
           Duration: 1 minute
+          HasMixins: true
           Effect: |
-            Take the form of an archon - a being made of pure energy.
-            While in the archon form, all Damage you deal from all sources becomes Force Damage, and all your spells that cost 2 or more Mana now cost 1 less.
-            You can fly and breathe underwater at normal Speed.
+            Take the form of an _evoker_ - a being made of pure energy.
+            While in the _evoker_ form, all Damage you deal from all sources becomes Force Damage, and all your spells that cost 2 or more Mana now cost 1 less.
+            You can breathe underwater and fly at normal Speed.
           Notes: You can't end your turn inside an obstacle, and you can't move through walls, ceilings and floors.
 
       Level 9:
@@ -256,7 +252,16 @@ Specs:
           Effect: |
             Instantly return to how and where you were at the start of the turn, with that same Movement, Actions, Health, Shielding, Buffs and Cooldowns (not Mana, though).
             Alternatively, if you're out of combat, you can turn back time for all the world up to 10 minutes, exactly how it was, but retaining all your information from the future. Allies don't retain the information.
-         
+
+        <Graviturgy>:
+          A: Half-Action
+          Cooldown: Once / Adventure
+          Duration: Until the start of your next turn
+          Effect: |
+            Choose a 5x5x5 meter cube.
+            That zone become frozen in time - Units skip their turns and can't be damaged or affected by anything.
+            Any object that touches the area becomes frozen, too (and, if it is a missile, resumes its trajectory when the zone ends).
+
 
 # Actions
 # Drawback
@@ -269,59 +274,72 @@ Specs:
 # Damage AoE + Gimmick
 # Damage + GIMMICK AAAAA
   
-  Sorcerer:               # 1.5 Charges
+  Sorcerer:               # 2 Charges
     Description: Lorem!!
     Starting Abilities:
   
-      ~Overcharge~ :      # 2 Charges
-        AlignOnWebsite: Left
+      ~Unstable Spark~:
         A: Passive
         Effect: |
-          After you enter combat, when you would cast the same Spell the 3rd time in a row, it takes a Half-Action less to cast (e.g. from 1 Action to Half-Action, from Half-Action to 0 Actions; minimum 0 Actions).
-          Then you can't use that Spell again for the rest of the Adventure.
-        Upgrade: Casting any other Spell inbetween those casts interrupts the sequence, but you can do non-Spell Acts in-between, like weapon attacks, moving and using items.
-        Notes: E.g. after casting Flame Bolt on turn 1, Flame Bolt on turn 2, if your next Spell is Flamebolt, it only takes a Half-Action to cast.
+          At the start of your every turn in a Worthy Combat, roll 1d10.
+          If you roll 10, your first Spell this turn becomes affected by Magic Mastery if possible, regardless of its Cooldown.
+
+      ~Overcharge~ :      # -0.5
+        A: Passive
+        Effect: |
+          After you cast a Basic Spell in a Combat, you can no longer cast that Spell until the Combat ends, regardless of its Cooldown.
+
       
     Talents:
       Level 3:
-        <Eldritch Specialization>:  # 1 Charge
-          AlignOnWebsite: Right
-          A: Passive
-          Effect: |
-            You gain access to the Eldritch Basic Ability List, and when you cast an Eldritch Spell, you can choose to split the d8's into 2d4's and d12's into 2d6's.
-          Notes: |
-            For example, if a Spell deals 2d8 Damage, that becomes 4d4.
-            it might sound like the same thing, but because of math, 4d4 is actually, on average, 1 extra Damage compared to 2d8.
 
-        <Wild Cast>:                # 1.5, but it's random af, so the extra power is justified
-          A: Half-Action
+        <Sap>:                       # 1
+          A: 0 Actions
+          Range: 10 meters
           Cooldown: Once / Adventure
           Effect: |
-            Roll 1d6 and 1d8. This spell has the effect of the 2 combined rolls.
-            For the 1d6:
-            1. Attack a target for 4d6 Fire Damage
-            2. A target must pass a Dexterity Check or take 3d8 Cold Damage (or half if it passes).
-            3. Target all Units in a 4x4 area. Attack them all for 2d8 + 2 Shock Damage.
-            4. Two Units instantly take 8 Force Damage.
-            5. Attack all units in a 6x1 line from your position for 6d4 Pierce Damage.
-            6. One Unit you choose takes 1d12 Force Damage and is pushed 6 meters in any direction you choose.
-            For the 1d8:
-            1. Nothing else happens.
-            2. Target(s) all take an extra 2d6 Damage of the Damage type of the 1d6 effect.
-            3. Target(s) must pass an Dexterity Check or be Rooted.
-            4. Target(s) must pass an Dexterity Check or be Crippled.
-            5. Target(s) must pass an Intelligence Check or be Silenced.
-            6. Target(s) must pass a Sense Check or be Feared.
-            7. Target(s) must pass a Sense Check or be Fumbling.
-            8. Target(s) must pass a Might Check or be Stunned.
+            A Unit must pass a Charisma Check or be Crippled, Silenced or Rooted (your choice).
+
+        <Mild Control>:             # 0.5
+          A: Passive
+          Effect: After you manually use Magic Mastery, for the rest of the combat, ignore the limits of Overcharge.
 
         <Wild Magic>:               # 0.5
           AlignOnWebsite: Right
           A: Passive
           Effect: |
-            Whenever you spend Mana, roll 1d12.
-            If you roll 12, something wild happens!
-      
+            When you roll the Unstable Spark d10, if you roll 1 or 2, roll another 1d20 and a random Spell is automatically cast from the table below on a target/Unit "randomly" chosen by the GM.
+            If you roll 1, the effect will be negative for your team, if possible. If you roll 2, the effect is positive, if possible.
+          Notes: |
+            For example, if you roll 1 and the random Spell is Fire Enchantment, it will be cast on an enemy's weapon if possible (respecting the range). If not possible, then it will be cast on a random, non-Player Character's weapon. If not possible, then it will be cast on a Player Character's weapon. If nothing is possible, nothing happens.
+            If an effect can be cancelled or has ongoing effects, you have control of them as if you yourself had cast the Spell.
+          DoubleTableNumbered:
+            Headers:
+              - Spell Name
+              - Spell Name
+            Values:
+              - Fake Sound
+              - Quicksand
+              - Eldritch Steed
+              - Force Wall
+              - Vault Break
+              - Glory Shout
+              - Fairy Fire
+              - Fog Cloud
+              - Fire Enchantment
+              - Saving Throw
+              - Chaining Grasp
+              - Invisibility
+              - Flash
+              - Curse of Weakness
+              - Magic Missiles (3)
+              - Focus Fling
+              - Thunder Clap
+              - Healing Surge
+              - Banishment Slip
+              - Reverse Gravity
+
+
       Level 5:
       
         <Arcane Comet>:     # 2 Charges Damage at 8 meters
@@ -340,14 +358,14 @@ Specs:
                 {Diamond} 5 or 6 meters: Root
                 {Diamond} 7 or 8 meters: None
 
-        <Star Burst>:       # +5.5 extra Damage per Charge spent (but its so random it still might be too weak)
+        <Star Burst>:       # 1.35
             AlignOnWebsite: Right
             A: Half-Action
-            Cost: 1 Mana
+            Cooldown: Once / Adventure
             Effect: |
                 Declare up to 4 different targets within 15 meters.
                 Assign a different number from #1 to #4 to each.
-                Roll a number of d4's equal to double your Intelligence or Charisma (whichever is higher). Each number deals that much Shock Damage to the target with that number.
+                Roll a number of d4's equal to double your Intelligence or Charisma (whichever is higher). Each number deals that much Force Damage to the target with that number.
                 Each rolled 1 deals 1 Damage to target number #1.
                 Each rolled 2 deals 2 Damage to target number #2.
                 And so on.
@@ -363,6 +381,23 @@ Specs:
             Effect: Your single-target Spells that deal half Damage when a target passes a Check now deal the full Damage regardless.
             Notes: That means spells like Acid Burst don't even require a Check anymore.
 
+      Level 7:
+
+        <Great Sorcery>:  # 2.5
+          A: Passive
+          Effect: |
+            Whenever you roll 8 or 9 on the Unstable Spark die, reset the Cooldown of Magic Mastery.
+            Additionally, Magic Mastery can now reduce the Actions cost of any Spell from a Half-Action to 0 Actions.
+        
+        <Accidental Zap>: # 2.5?
+          A: Passive
+          Effect: When you roll 7, 8 or 9 on the Unstable Spark die, immediately Zap the closest Unit to you for ^your Intelligence^ Shock Damage.
+
+        <Second Try>:   # 2.5 + Basic Abilities 0.5
+          A: Reaction
+          Cooldown: Once / Adventure
+          Effect: Use after you roll an Unstable Spark die. Reroll it and reset ALL your Cooldowns (except this).
+
       Level 9:
 
         <Chronomancy>:  # ~3 or more
@@ -372,7 +407,12 @@ Specs:
           Effect: |
             Instantly return to how and where you were at the start of your turn (or your previous turn if it's not currently your turn), with that same Movement, Actions, Health, Shielding, Buffs and Cooldowns (not Mana, though).
             Alternatively, if you're out of combat, you can turn back time for all the world up to 10 minutes, exactly how it was, but retaining all your information from the future. Allies don't retain the information.
-            
+      
+        <Double Spark>:
+          A: Passive
+          Effect: |
+            You roll 2d10 now instead of just 1d10 for Unstable Spark. Apply effects for both.
+            If both are 10, your first 2 Spells this turn become affected by Magic Mastery instead.
 
 
 
@@ -389,63 +429,59 @@ Specs:
 # Damage + Pet
 # Damage AoE + CC Hard AoE
 
-  Artificer:              # 1
+  Artificer:              # 1.5
     Description: Losum iprem
     Starting Abilities:
 
-      ~Artificer~:
+      ~Artificer~:        # 2
         A: Special
         Effect: |
-          You own a set of Artificer's Tools, with which you can create potions, scrolls and other items.
-          Some of your class spells require you to use your Artificer's Tools (described below).
-          If they require you to spend Mana, that Mana becomes locked and can't be regained through any means, until the item created is used or destroyed.
-          For 1 Action, you can summon or vanish your Artificer's Tools.
-          Furthermore, you can use your Artificer's Tools for 10 minutes to make items shed light, emmit a sound or smell or paint surfaces in rough images or writing. The magical effects last for up to 8 hours.
-          Feel free to be creative with what you can do - the tools might do other small artificer tasks as well. Ask your DM!
-        Notes: |
-          Spells noted as 'Artificer' require you to use Artificer's Tools.
-          If you ever lose your Artificer's Tools, the price for a new set is 100 gold.
-          As usual, items created this way require a Half-Action to use.
-          Artificer potions do not count towards the potion limit cooldown.
+          You have a set of Artificer's Tools.
+          Spending 10 minutes, you can make an item shed light, emmit a sound or smell or paint surfaces in rough images or writing. The magical effects last for up to 8 hours.
+          When you Create Scroll or Create Elixir, you can instead spend 1 Mana to ignore the Cooldown.
+        Notes:
           Artificer's Tools's small tasks are a non-combat. You can't use them to deal Damage, crowd control or heal.
+          Feel free to be creative with what you can do - the tools might do other small artificer tasks as well. Ask your GM!
 
-      ~Artificer - Magic Scroll~:
+      ~Create Device~:    # 1
         AlignOnWebsite: Right
-        A: 5 minutes
-        Cost: 1 Mana
+        A: 10 minutes
+        Duration: Until end of Adventure
+        Cooldown: Once / Adventure
         Effect: |
           Choose a Spell you can cast and spend Mana for it if it requires Mana.
-          You create a scroll containing that spell.
+          You create a device (or scroll) containing that Spell.
+          After being used, or at the end of the Adventure, it is destroyed.
         Notes: |
-          Remember that scrolls always take a Half-Action to use and can be used by anyone, including non-spellcasters.
-          Mana spent for the spell inside the scroll when creating the scroll does become locked as well.
+          Devices always take a Half-Action to use and can be used by anyone.
         
-      ~Artificer - Magic Elixir~:   # 1?
+      ~Create Elixir~:   # 1
         AlignOnWebsite: Right
         HasMixins: true
-        A: 5 minutes
-        Cost: 1 Mana
+        A: 10 minutes
+        Duration: Until end of Adventure
+        Cooldown: Once / Adventure
         Effect: |
           Choose one of the following types of potions and create it
-          {Diamond} Elixir of Healing - Heal for 2d6 + 3.
-          {Diamond} Elixir of Strength - Attacks with 2-Handed weapons deal +2 Damage, and attacks with 1-Handed weapons deal +1 Damage (lasts 2 combat encounters).
+          {Diamond} Elixir of Healing - Heal for 2d6.
+          {Diamond} Elixir of Strength - Attacks with 2-Handed weapons deal +2 Damage, and attacks with 1-Handed weapons deal +1 Damage (lasts 1 combat encounter).
           {Diamond} Elixir of Agility - Doubled movement speed (lasts for 4 hours).
           {Diamond} Elixir of Mana - Gain 1 Mana
 
     Talents:
       Level 3:
       
-        <Master Specialization> :       # 0.75 but it can be huge for healing
+        <Eclecticism> :       # 0.75 but it can be huge for healing
           AlignOnWebsite: Left
           A: Passive
           Effect: |
             You gain access to the Nature, Mysticism, Eldritch and Divine Ability Lists to Know Basic Abilities from.
           Notes: If a Spell requires a certain Level, you need that Level to Know it, as usual.
           
-        <Artificer - Magic Weapon> :    # Bit stronger than average
+        <Create Magic Weapon> :         # Bit stronger than average
           HasMixins: true
           AlignOnWebsite: Left
-          A: 5 minutes
+          A: 10 minutes
           Cooldown: Once / Adventure
           Effect: |
             You conjure a special weapon out of magic.
@@ -459,38 +495,37 @@ Specs:
 
         <Spellcraft>: Inherit from Wizard
 
-            
-
       Level 5:
         
-        <Artificer - Golem>:            # 2, but it costs 1 Charge so #1 first time, then #0; However, golems can be quite strong, so I hope it evens out
+        <Create Golem>:            # 2, but it costs 1 Charge so #1 first time, then #0; However, golems can be quite strong, so I hope it evens out
             A: 1 Action
             Cost: Depends
             Range: 3 meters to edge
+            Duration: Until end of Adventure
             Effect: |
               Choose an empty 2x2 meter space and deploy a Golem there that lasts until the end of your next Adventure.
               Choose if it's made of Clay, Metal or Flesh. It has different Abilities based on its material. You can find the Golem's stats in the Pets section.
               The first time you summon a Golem this Adventure, it costs 1 Mana. Then, every Golem you summon costs 1 Mana more than the previous.
             Notes: The Golem has 0 initiative, so it usually takes its turn last in combat.
               
-        <Artificer - Autoturret>:       # 1.5 but you can summon a ton of them
+        <Create Autoturret>:       # 1.5 but you can summon a ton of them
             A: 0 Actions
             Cost: 1 Mana
             Range: 6 meters
             Cooldown: 2 times / Turn
+            Duration: 10 minutes
             Effect: |
-                Choose an element: Fire, Cold, Shock or Force.
                 Choose an empty space to deploy an Autoturret of that element.
-                On your turn, each Autoturret can attack for 1d6 Pierce Damage that ignores Defense and all resistances.
+                On your turn, each Autoturret can attack for 1d6 Damage of the chosen type.
                 It has 10 Health and fails all Checks.
-            Notes: Cover from the turrets is applied normally. The turret can't move unless picked up and dropped elsewhere.
+            Notes: Cover from the turrets is applied normally. The turret can't move unless picked up (with a Half-Action) and dropped elsewhere (with 0 Actions).
 
-        <Artificer - Grenade>:          # 2, but it costs 1 Mana so it sounds fair.
+        <Create Grenade>:          # 2, but it costs 1 Mana so it sounds fair.
             HasMixins: true
             A: Half-Action
             Cost: 1 Mana
             Range: 6 meters to edge
-            Cooldown: 1 use / Encounter
+            Duration: Until end of Adventure
             Effect: |
                 Throw a grenade at a target 5x5x5 meter area.
                 Choose one of the following effects. It applies to all Units caught in the area.
@@ -501,14 +536,104 @@ Specs:
 
       Level 7:
                 
-        <Artificer - Magic Armor>:
+        <Create Magic Armor>: # 3?
             HasMixins: true
-            A: 5 minutes
+            A: 10 minutes
             Cooldown: Once / Adventure
             Effect: |
-                You magically enchant a piece of armor for the rest of the Adventure.
+                You magically _enchant_ a piece of armor for the rest of the Adventure.
                 Apply all of the following effects to it:
                 {Diamond} +1 Defense
                 {Diamond} Choose a Damage type. Wearer takes only 50% Damage from that type.
                 {Diamond} +2 meters Movement Speed, and the wearer can freely jump up to 2 meters (up or ahead; this still uses Movement).
+                {Diamond} Wearer can fly for up to 5 meters (using its movement) (after flying, it needs to land to take off again).
+            Upgrade: Additionally, the armor can replace missing limbs with construct ones.
 
+        <Alchemy>:           # 3
+          A: Passive
+          Effect: You can use Create Elixir 4 times per Adventure.
+
+        <Engineering>:       # 3
+          A: Passive
+          Effect: You can use Create Device 4 times per Adventure.
+
+      Level 9:
+
+        <Create Replica>:   # 3?
+          A: 10 minutes
+          Cooldown: Special
+          Effect: |
+            You create a replica of a non-legendary magic item.
+            Only one replica of that item can exist.
+            While the replica exists, you can't create another (you must completely destroy it first, and can do so by touching it).
+
+        # 10 Health = 1.35
+        # Stats = 2.5
+        <Augmentation>:     # 3.75
+          A: Passive
+          Effect: |
+            You augment your body using chemical, mechanical or magical procedures.
+            Your Might, Dexterity and Sense increase by 2, your Health by 10
+
+        # <Crystal Mage>:     # 2?
+        #     AlignOnWebsite: Left
+        #     A: Passive
+        #     Effect: |
+        #         You become a Crystal Mage.
+        #         All your spells that deal Fire, Cold or Force Damage now deal a special type of Damage, Crystal Damage.
+        #         You also get the following Crystal Abilities.
+        #     Notes: Almost no Unit has resistance or immunity specifically to Crystal Damage.
+
+        # ~Crystal Bolt~:
+        #     IsSubspell: true
+        #     AlignOnWebsite: Left
+        #     A: 1 Action
+        #     Range: Exactly 6 meters
+        #     Effect: |
+        #         Attack a Unit exactly 6 meters away for 4d4 Crystal Damage.
+        #         The target and all Units within 1 meter of it also take 4 Crystal Damage afterwards.
+            
+        # ~Diamondize~:
+        #     IsSubspell: true
+        #     AlignOnWebsite: Left
+        #     A: Reaction
+        #     Cooldown: Long Range
+        #     Effect: |
+        #         Use when you would take Damage.
+        #         Prevent the Damage and become invulnerable and Stunned until the start of your next turn.
+        #     Notes: While invulnerable, you can not take Damage and are immune to Crowd Control.
+
+        # ~Cutting Field~:
+        #     IsSubspell: true
+        #     AlignOnWebsite: Left
+        #     A: 1 Action
+        #     Cost: 1 Mana
+        #     Cooldown: 1 use / Combat
+        #     Effect: |
+        #         All units in a 90 degree, 6 meter long cone take 4d4 Crystal Damage.
+        #         Create spikes on all empty spaces (1x1 meter size each space).
+        #         Whenever a Unit steps on a spike space, it takes 1d4 Crystal Damage and shatters the spikes there.
+
+
+
+                # <Wild Cast>:                # 1.5, but it's random af, so the extra power is justified
+        #   A: Half-Action
+        #   Cooldown: Once / Adventure
+        #   Effect: |
+        #     Roll 1d6 and 1d8. This spell has the effect of the 2 combined rolls.
+        #     For the 1d6:
+        #     1. Attack a target for 4d6 Fire Damage
+        #     2. A target must pass a Dexterity Check or take 3d8 Cold Damage (or half if it passes).
+        #     3. Target all Units in a 4x4 area. Attack them all for 2d8 + 2 Shock Damage.
+        #     4. Two Units instantly take 8 Force Damage.
+        #     5. Attack all units in a 6x1 line from your position for 6d4 Pierce Damage.
+        #     6. One Unit you choose takes 1d12 Force Damage and is pushed 6 meters in any direction you choose.
+        #     For the 1d8:
+        #     1. Nothing else happens.
+        #     2. Target(s) all take an extra 2d6 Damage.
+        #     3. Target(s) must pass an Dexterity Check or be Rooted.
+        #     4. Target(s) must pass an Dexterity Check or be Crippled.
+        #     5. Target(s) must pass an Intelligence Check or be Silenced.
+        #     6. Target(s) must pass a Sense Check or be Feared.
+        #     7. Target(s) must pass a Sense Check or be Fumbling.
+        #     8. Target(s) must pass a Might Check or be Stunned.

@@ -71,10 +71,10 @@
             "Effect": "Cast Awe 2 times on target(s) within 5 meters."
         },
         "~Blessing~": {
-            "A": "1 Action",
+            "A": "0 Actions",
             "Cooldown": "Once / Adventure",
-            "Duration": "1 encounter",
-            "Effect": "You bless one ally.\nWhenever it makes a Resist Check, it can add 1d4 to it.\n",
+            "Duration": "1 Combat",
+            "Effect": "You bless one Ally.\nWhenever it makes a Resist Check, it can add 1d4 to it.\n",
             "Upgrade": "At Level 4, this affects 2 allies. At Level 8, this affects 3 allies.",
             "Notes": "You can bless yourself.\nLasts until the end of the next combat encounter.\n",
             "AlignOnWebsite": "Right"
@@ -97,7 +97,7 @@
                 "~Pledge of Battle~": {
                     "A": "Special",
                     "Duration": "Lifetime",
-                    "Effect": "Ask a party member to join your cause and pledge their honor to you.\nThey gain the Awe passive Ability (e.g. whenever they use Mana for an Ability, they cast Awe).\nThat person always Knows the same Basic Divine Spells you Know at a time.\n",
+                    "Effect": "Ask a party member Player Character to join your cause and pledge their honor to you.\nThey gain the Awe passive Ability (e.g. whenever they use Mana for an Ability, they cast Awe).\nThey also gain access to the Divine Ability List.\n",
                     "Upgrades": "There is one condition your ally must match - it can never have its Maximum Mana higher than yours (if it does, it becomes equal to yours).\n",
                     "Notes": "You can only have one character who pledged for you and it must be within 100 meters to have access to all of those.\nTheir Awe is not improved by your Awe improvements, if you have any.\n"
                 }
@@ -177,10 +177,26 @@
                         "Cooldown": "Once / Adventure",
                         "Effect": "When an ally (or you) is attacked, cast Awe on them, make them Invisible until the end of their next turn and they take no damage from that attack."
                     }
+                },
+                "Level 9": {
+                    "<Pledge of Another>": {
+                        "A": "Passive",
+                        "Effect": "One more Player Character to pledge to you. They also gain the effects of Pledge of Battle.\n"
+                    },
+                    "<Heaviness of Words>": {
+                        "A": "Passive",
+                        "HasMixins": true,
+                        "Effect": "Your _offensive_ and healing Abilities that cost Mana cast Awe once more for each Mana spent.",
+                        "Notes": "{Offensive Abilities}"
+                    },
+                    "<Heartstopping Awe>": {
+                        "A": "Passive",
+                        "Effect": "You can cast Spread the Awe once more per Adventure, and the target(s) must pass a Sense Check or be Crippled and Silenced."
+                    }
                 }
             }
         },
-        "Beacon Cleric": {
+        "Light Cleric": {
             "Description": "As a cleric, you become a devotee of darkness or/and light.",
             "Starting Abilities": {
                 "~Grasp~": {
@@ -252,28 +268,17 @@
                         "A": "0 Actions",
                         "Cooldown": "Once / Adventure",
                         "Range": "5 meters",
-                        "Effect": "Stun a Unit and a willing ally (or yourself). Then cast Awe on each.\nThese Units' Passive Abilities are disabled while Stunned.\n",
-                        "Notes": "Being Stunned lasts until the end of your current turn, so use this at the end of your turn."
+                        "Effect": "Stun a Unit and another willing ally. Then cast Awe on each.\nThese Units' Passive Abilities are disabled while Stunned.\n"
                     },
                     "<Healing Doubledown>": {
                         "A": "Half-Action",
                         "Cooldown": "Once / Adventure",
                         "Effect": "Until the end of your next turn, double all healing you and your party does.",
                         "Notes": "Doesn't stack with other healing multiplication effects."
-                    }
-                },
-                "Level 9": {
-                    "<Summon Celestial>": {
-                        "A": "??",
-                        "Effect": "??"
                     },
-                    "<Apocalypse>": {
-                        "A": "??",
-                        "Effect": null
-                    },
-                    "<Summon Voidborn>": {
-                        "A": "??",
-                        "Effect": "??"
+                    "<Inedianism>": {
+                        "A": "Passive",
+                        "Effect": "Whenever you cast a 0 Actions Class Ability or Talent, another ally gains 1 Mana.\nAlso, you don't need to eat or drink to live - you only need exposure to light.\n"
                     }
                 }
             }
@@ -285,7 +290,7 @@
                     "A": "Special",
                     "Effect": "You have another Unit beside you, your companion.\nYour companion draws power from your own spirit: it shares the same Health pool with you (e.g. whenever one of you takes Damage, the other one takes it as well). It also always has the same Defense and Checks as you, and has Speed equal to your base Speed.\nYour companion has a 1-Handed Melee weapon. On its turn, it has a Half-Action which it can use to attack for 1d6 Damage without any Stat modifiers, regardless of the weapon's real Damage. It does, however, apply weapon effects, if any.\nIt takes its turn at the same time as you.          \n",
                     "Downside": "Your maximum Mana decreases by 1.",
-                    "Notes": "Instead of attacking, your minion can do the equivalent of a Half-Action for non-combat uses, like using a potion, throwing a rope, reloading a weapon, etc, but not using a scroll. It can also use Disengage, Dash or Defend.\nIf both of you take Damage at the same time (e.g. from an AoE effect), the Damage taken is equal to the average of the Damages taken.\nCome up with a story about why you have your companion and why your god allowed this or gave them to you.\n"
+                    "Notes": "Instead of attacking, your minion can do the equivalent of a Half-Action for non-combat uses, like using a potion, throwing a rope, reloading a weapon, etc, but not using a scroll. It can also use Dash or Defend.\nIf both of you take Damage at the same time (e.g. from an AoE effect), the Damage taken is equal to the average of the Damages taken.\nCome up with a story about why you have your companion and why your god allowed this or gave them to you.\n"
                 }
             },
             "Choose your side": "Life Cleric!\\nPick only one of the following two abilities!",
@@ -293,7 +298,7 @@
                 "~Partner in Life~": {
                     "HasMixins": true,
                     "A": "Special",
-                    "Effect": "Your companion is an alive being. It can either be a sentient humanoid of any race (without affecting its stats) or an animal.\nChoose two of the following boons. Your companion will have them forever:\n{Diamond} Sentience - Your companion is sentient and intelligent, and gains the Mana Tap Ability from the Elf Race\n{Diamond} Largeness - Your companion is Large and starts every combat with Shielding equal to your Level (lasts until the end of the combat)\n{Diamond} Mounting - You can ride your companion without penalties as a mount, and it has +2 Speed and ignores Hard Terrain\n{Diamond} Spell Attacks - Your companion's attacks now have 5 meter range and deal Divine Damage (against Defense), regardless of the weapon type\n{Diamond} Opportunity Attacks - When an enemy becomes Fumbling from exiting your companion's melee attack range, your companion can make an attack on it with its Reaction\n",
+                    "Effect": "Your companion is an alive being. It can either be a sentient humanoid of any race (without affecting its stats) or an animal.\nChoose two of the following boons. Your companion will have them forever:\n{Diamond} Sentience - Your companion is sentient and intelligent, and gains the Mana Tap Ability from the Elf Race\n{Diamond} Largeness - Your companion is Large and starts every combat with Shielding equal to your Level (lasts until the end of the combat)\n{Diamond} Mounting - You can ride your companion without penalties as a mount, and it has +2 Speed and ignores Hard Terrain\n{Diamond} Spell Attacks - Your companion's attacks now have 5 meter range and deal Divine Damage (against Defense), regardless of the weapon type\n{Diamond} Opportunity Attacks - When an enemy exists companion's melee attack range, it can make an attack on it with its Reaction\n",
                     "Notes": "While riding your companion, it can still attack, but mounting and dismounting takes either a Half-Action or all of your own total Movement.\nNote that the Shielding (if you choose it) is on your companion, not on you; it absorbs Damage only if your companion takes it. If you're both hit at the same time, the Shielding applies.\n"
                 },
                 "~True Necromancy~": {
@@ -308,7 +313,7 @@
                     "<Awe For Corpses>": {
                         "A": "Passive",
                         "Duration": "Zombies last 1 minute",
-                        "Effect": "Whenever you spend Mana on an Ability, raise a corpse you can see into a Zombie.\nZombies have 1 Health and 0 Defense, 3 Speed and they can use their Action to attack for 1d4 Damage (Slash, Smash or Pierce, your choice).\n",
+                        "Effect": "If there are any nearby corpses, your Awe raises a zombie from it instead of \"casting Awe\".\nZombies have 1 Health and 0 Defense, 3 Speed and they can use their Action to attack for 1d4 Damage (Slash, Smash or Pierce, your choice).\nThey take their turn on your turn.\n",
                         "Notes": "Zombies have -1 in all Stats. When a Zombie dies, it becomes a corpse again."
                     },
                     "<Awe For Life>": {
@@ -325,12 +330,14 @@
                     },
                     "~Wingspan (Cleric)~": {
                         "A": "0 Actions",
+                        "IsSubspell": true,
                         "Cooldown": "Once / Adventure",
                         "Effect": "Quickly fly up to 5 meters.",
                         "Upgrades": "At Levels 3, 6 and 9, you get one extra use of Wingspan per Adventure (e.g. the Cooldown becomes 2 times / Adventure, 3 times / Adventure, etc)."
                     },
                     "~Penitence~": {
                         "A": "0 Actions",
+                        "IsSubspell": true,
                         "Range": "5 meters",
                         "Duration": "1 minute",
                         "Effect": "A target must pass a Charisma Check or become unable to cast healing Spells, do Crowd Control or apply On-Roll Effects.\n",
@@ -359,6 +366,27 @@
                         "IsSubspell": true,
                         "A": "Half-Action",
                         "Effect": "Choose an ally (or yourself).\nThey lose 5 Health. You gain 1 Mana this turn only.\n"
+                    }
+                },
+                "Level 7": {
+                    "<Army of Death>": {
+                        "A": "0 Actions",
+                        "Cooldown": "Once / Adventure",
+                        "Duration": "1 minute",
+                        "Effect": "All your summons and minions instantly transform into Death Ghouls.\nDeath Ghouls have 15 Health, 1 in all Stats, 7 meters speed and their attacks deal 1d10 Damage.\nThey take their turns on your turn (if they haven't already).\n",
+                        "Notes": "After 1 minute, they transform back to how they were previously. If your companion ghoul dies, it transforms to how it previously was. If other minions ghouls die, they remain dead."
+                    },
+                    "<Presence of Fear>": {
+                        "A": "1 Action",
+                        "Cooldown": "Once / Adventure",
+                        "HasMixins": true,
+                        "Effect": "All enemies that can see or hear you must pass a Sense Check or be Feared.\nFor each Enemy Feared, cast Awe (on anyone).\n",
+                        "Notes": "{Feared}"
+                    },
+                    "<Sanctuary>": {
+                        "A": "0 Actions",
+                        "Duration": "Until the start of your next turn",
+                        "Effect": "Choose a 6x6 meter area. Cast Awe on all Units there.\nNo Enemy can willingly enter the area or attack Units inside the area.\n"
                     }
                 }
             }

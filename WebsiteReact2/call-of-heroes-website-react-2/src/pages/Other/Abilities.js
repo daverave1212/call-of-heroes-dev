@@ -54,9 +54,6 @@ export default function Abilities() {
 
     document.title = 'Abilities (Basic)'
 
-    console.log(spellsFromObject)
-    console.log(abilities['Bloodshed'])
-
     return (
         <div>
             <SideMenu sections={{

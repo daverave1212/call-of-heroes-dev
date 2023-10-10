@@ -66,8 +66,9 @@
         "~Rout~": {
             "AlignOnWebsite": "Left",
             "A": "Passive",
-            "Effect": "When you come within 1 meter of an Enemy, it instantly becomes Fumbling.\nThen it can't be affected by Rout for the rest of the combat.\n",
-            "Note": "Multiple Warriors can't Rout the same Unit multiple times.\nRout happens when you are not in an Enemy's vicinity, and you move (or are moved) and enter its vicinity. You don't need to end your movement there to trigger Rout on it - you can enter then exit its vicinity and Rout will trigger on it.\n"
+            "HasMixins": true,
+            "Effect": "When ^you^ enter within 1 meter of an Enemy, it instantly becomes Fumbling.\nThen it can't be affected by Rout for the rest of the combat.\n",
+            "Notes": "Multiple Warriors can't Rout the same Unit multiple times.\nRout happens when you are not in an Enemy's vicinity, and you move (or are moved) and enter its vicinity. You don't need to end your movement there to trigger Rout on it - you can enter then exit its vicinity and Rout will trigger on it.\n"
         }
     },
     "Starting Abilities Description": [
@@ -97,24 +98,21 @@
                     "A": "Reaction",
                     "Effect": "When an enemy moves 2 or more meters away from near you, you can make a free attack on them with a 1-Handed Melee Weapon.\n",
                     "Notes": "If you don't have a 1-Handed Weapone equipped, you automatically freely equip one, attack with it, unequip it and equip what you previously had."
-                },
-                "~Overpower~": {
-                    "A": "0 Actions",
-                    "Cost": "1 Mana",
-                    "Effect": "Gain an additional Half-Action this turn.\n"
                 }
             },
             "Talents": {
                 "Level 3": {
                     "<Might Over Magic>": {
                         "A": "Passive",
-                        "Effect": "Choose an Advanced spell from the Elemental spell list that deals Damage.\nYou can cast that spell once per Adventure.\nThat spell becomes a physical version of itself.\nInstead of using magic to cast that spell, you use your body/weapons/tools.\nCome up with a description of how it works (see notes).\nThe Damage of that spell becomes Slash, Smash or Pierce, whichever makes sense.\nIt is not considered a Spell.\n",
-                        "Notes": "E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage).\nE.g. Frost Nova - you smash the ground with such force that it Damages and slows units around you (Smash Damage).\nBe creative!\n"
+                        "HasMixins": true,
+                        "Effect": "Choose one Basic Ability from the Elemental or Nature spell lists that costs 1 Mana.\nYou can use that Ability once per Adventure (without spending Mana).\nThat Ability becomes a ^physical version of itself^ instead of a spell: instead of using magic to cast that spell, you use your body/weapons/tools. The Damage of that spell becomes Slash, Smash or Pierce, whichever makes sense.\nCome up with a description of how it works!\n",
+                        "Notes": "E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage).\nE.g. Frost Nova - you smash the ground with such force that it Damages and Slows units around you (Smash Damage).\nBe creative!\n"
                     },
                     "<Weaponmaster>": {
                         "A": "Passive",
                         "Effect": "When you get this, choose one weapon type.\nYou have that weapon effect too on all weapons you use, exactly as written, no matter what weapon you are using.\nYou can change this weapon type inbetween Adventures.\n",
-                        "Notes": "Pay very close attention to the weapon effect - for example, Katana specifies that you Critical Strike with it when all 3 dice have the same number, so this can only apply to weapons that roll exactly 3 dice. Or, for another example, Slings say that attacks specifically with Slings take 0.33 Actions, so it can not apply to any other weapon!"
+                        "Upgrade": "The following weapon types can't be chosen: Punch, Dagger, Sling",
+                        "Notes": "Pay very close attention to the weapon effect - for example, Katana specifies that you Critical Strike with it when all 3 dice have the same number, so this can only apply to weapons that roll exactly 3 dice. Or, for another example, Slings say that attacks specifically with Slings take 0.33 Actions, so it can not apply to any other weapon!\nWeapons stating \"the die\" (or such) now refer to any one die of the dice rolled, of choice (if multiple).\n"
                     },
                     "~Upper Hand~": {
                         "A": "Passive",
@@ -139,6 +137,25 @@
                         "Upgrade": "Epic Monsters gain ther Defense back when they spend the Action to recover.",
                         "Notes": "Your weapon lands at the nearest space to the target (and you should probably pick it up with a Half-Action).\n\"On roll\" refers to effects like \"if it rolls 10 on a d10, the attack deals 1d10 extra Damage\".\nBuffs are all effects that improve the target; even passive effects like auras or passive stats from abilities are negated.\nYou don't need Training in Throwning and this attack counts as a regular melee attack.\n"
                     }
+                },
+                "Level 7": {
+                    "<Personal Squire>": {
+                        "A": "Special",
+                        "Effect": "You recruit a squire - a trusted NPC who gains combat powers. However, the capabilities of your squire are random: roll 1d6 to determine the type of your squire, based on the Squires category at Pets and Animals (1. Bold, 2. Sneaky, 3. Clever, 4. Wise). The Race is determined by the GM or by circumstance.\nOn its turn, it can do one Pet Attack, cast one Ability it has, or do the equivalent of a Half-Action (e.g. Dash, Defend, etc).\nYou can recruit one squire per Adventure, but only one can follow you in your adventures at a time.\nAt the start of every Adventure (and when you get this Talent), you must spend 1 Mana and train your Squire to permanently increase its Health by 2 or gain one Ability from any other Squire type.\n",
+                        "Upgrade": "If your squire drops to 0 Health, it becomes Fallen, like a player. It has no reserve Health, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your squire's wounds and heal it back to full Health.",
+                        "Notes": "Your squire is not a Player Character by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Player Character can). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!"
+                    },
+                    "<Attack Command>": {
+                        "A": "Reaction or 0 Actions",
+                        "Cooldown": "Once / Adventure",
+                        "HasMixins": true,
+                        "Effect": "An ally immediately makes an Act that takes 1 Action (can spend Mana, Cooldowns, etc on it, as if it were on its turn).\nYou can use this at any point, before or after someone does an Act.\n^You^ roll all the dice for this Act.\n"
+                    },
+                    "<MIGHT OVER MAAAGIC!!!>": {
+                        "A": "Passive",
+                        "HasMixins": true,
+                        "Effect": "Choose ^TWO^ Basic Abilities from the Elemental, Nature or Eldritch Spell lists that cost 1 Mana.\nYou can use each of those Abilities once per Adventure (without spending Mana).\nSee the Level 5 Talent _Might Over Magic_.\n"
+                    }
                 }
             }
         },
@@ -147,18 +164,13 @@
             "Starting Abilities": {
                 "~Onslaught~": {
                     "A": "Passive",
-                    "Effect": "Whenever YOU kill a worthy enemy, heal for 1d6 Health."
+                    "HasMixins": true,
+                    "Effect": "Whenever ^YOU^ kill a Worthy Enemy, heal for 1d6 Health. In addition, if an Enemy has 25% or less Health, you know exactly how much Health it has (ask the GM)."
                 },
                 "~Reckless Attack~": {
                     "A": "0 Actions",
-                    "Cost": "1 Mana",
-                    "Effect": "After you land a weapon attack, deal 2d6 extra Damage to the target, and half that amount to yourself.",
-                    "Notes": "Your Defense does not mitigate this Damage."
-                },
-                "~Undying Rage~": {
-                    "A": "Reaction",
-                    "Cost": "1 Mana",
-                    "Effect": "Taking Damage that would kill you leaves you at 1 Health instead."
+                    "Effect": "After you land a weapon attack, deal 2d6 extra Damage to the target and to yourself.",
+                    "Notes": "This Damage can't be mitigated by Defense, Resistances, etc."
                 },
                 "~Blood Boil~": {
                     "A": "0 Actions",
@@ -171,7 +183,7 @@
                     "<Heartbeat Trance>": {
                         "A": "0 Actions or Reaction",
                         "Cooldown": "Once / Adventure",
-                        "Effect": "Take 1d6 Damage.\nEnter a Heart Trance for 1 minute.\nWhile in Heart Trance, you take 50% less Damage from all non-Physical combat Damage (except from your own abilities).\nWhen Heart Trance ends, heal for 2d6.\n",
+                        "Effect": "Take 1d6 Damage.\nUntil the end of your next turn, you take 50% less Damage from all non-Physical combat Damage (except from your own Abilities).\nWhen Heart Trance ends, heal for 2d6.\n",
                         "Notes": "You can activate this as a Reaction when you would take Damage."
                     },
                     "<Rage Trance>": {
@@ -197,6 +209,36 @@
                         "A": "Passive",
                         "Effect": "When combat starts, a Glory Point appears behind the furthermost Enemy from you that you can see.\nIf you touch the Glory Point, heal for 20% of your total Health and all Enemies you can see must pass a Charisma Check or be Crippled.\nThe Glory Point then disappears.\n",
                         "Notes": "The Glory Point is not a physical thing. It's merely a concept (a point)."
+                    },
+                    "<Undying Rage>": {
+                        "A": "Reaction",
+                        "Cooldown": "Once / Adventure",
+                        "Effect": "Taking Damage that would kill you leaves you at 1 Health instead, then you can't take damage until the start of your next turn. At the start of your next turn, heal for 2d6."
+                    }
+                },
+                "Level 7": {
+                    "<Victory Strike>": {
+                        "A": "Half-Action",
+                        "Cooldown": "Once / Adventure",
+                        "Range": "2 meters",
+                        "HasMixins": true,
+                        "Effect": "Attack a Unit for 2d10 Damage of your weapon's type.\nWhenever ^YOU^ kill a Worthy Enemy (with anything), reset the Cooldown of this Ability.\n"
+                    },
+                    "<Frenzy>": {
+                        "A": "Passive",
+                        "Effect": "If you start your turn with 20 or less Health, you have +1 Movement Speed and can Break your Movement.\nif you start with 10 or less Health, you also have an extra Half-Action.\n"
+                    },
+                    "<Hurl Over>": {
+                        "A": "1 Action",
+                        "Cooldown": "Once / Adventure",
+                        "Range": "1 meter to the Unit",
+                        "Effect": "Grab another non-Epic Unit and throw them up to 10 meters away.\nUpon landing, all other Units within 4 meters of the landing place take 4d8 Force Damage.\nIf it was an Enemy, the Thrown Unit takes half of the Damage.\n"
+                    }
+                },
+                "Level 9": {
+                    "<Bloodbath>": {
+                        "A": "Passive",
+                        "Effect": "You heal for all Damage done by Advanced Flank on Worthy Enemies."
                     }
                 }
             }
@@ -247,13 +289,14 @@
                 "Level 5": {
                     "<Ground Aim Lock>": {
                         "A": "Passive",
-                        "Effect": "On your turn, you can lower yourself on the ground.\nYour first attack every turn while on the ground like this deals +1d6 Damage.\nTo get up, you must use all of your Movement or a Half-Action.\n"
+                        "Effect": "On your turn, you can freely lower yourself on the ground without penalties.\nYour first attack every turn while on the ground like this deals +1d6 Damage.\n",
+                        "Notes": "To get up, you must use all a Half-Action."
                     },
                     "<Scatterblast>": {
                         "A": "1 Action",
                         "Range": "20 meters",
                         "Cooldown": "Once / Adventure",
-                        "Effect": "Make an attack on a target for 4d8 + 3 Smash Damage.\nThe impact is so powerful that all Units within 3 meters of the target take the final Damage taken by the target.\nThis attack is affected by your Reload state.\n"
+                        "Effect": "Make an attack on a target for 3d8 + 2 Smash Damage.\nThe impact is so powerful that all Units within 3 meters of the target take the final Damage taken by the target.\nThis attack is affected by your Reload state.\n"
                     },
                     "<Crosshair Shot>": {
                         "A": "1 Action",
@@ -261,6 +304,22 @@
                         "Cooldown": "Once / Adventure",
                         "Effect": "Make an attack on a target.\nFor each meter to the target, the attack deals 1d6 Pierce Damage, up to 7 meters.\nFor each meter to the target over 7 meters, deal one less d6.\n",
                         "Notes": "At exactly 7 meters range, the attack deals 7d6 Damage. At 6 and 8 meters, it deals 6d6. At 5 and 9 meters, 5d6. And so on."
+                    }
+                },
+                "Level 7": {
+                    "<Range Control>": {
+                        "A": "Passive",
+                        "Effect": "Rout is applied when entering within 6 meters of an Enemy.\nWhenever you make an enemy Fumbling, cast Load Up for free.\n"
+                    },
+                    "<Surprise Shot>": {
+                        "A": "Passive",
+                        "Effect": "Your first weapon attack every combat instantly Stuns the target, no roll required.\n"
+                    },
+                    "<Offense Is Defense>": {
+                        "A": "Reaction",
+                        "Cooldown": "Once / Adventure",
+                        "Effect": "After you deal Damage with a weapon, gain Shieldig equal to half of all Damage dealt.",
+                        "Notes": "Applies to added Damage from extra effects like Advanced Flank, Smite, etc."
                     }
                 }
             }

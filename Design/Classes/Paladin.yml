@@ -213,7 +213,7 @@ Specs:
         <Personal Squire>:  # 2+
           A: Special
           Effect: |
-            You recruit a squire - a trusted NPC who gains combat powers. However, the capabilities of your squire are random: roll 1d6 to determine the type of your squire, based on the Squires category at Pets and Animals (1. Bold, 2. Sneaky, 3. Clever, 4. Wise). The Race is determined by the GM or by circumstance.
+            You recruit a squire - a trusted NPC who gains combat powers. However, the capabilities of your squire are random: roll 1d4 to determine the type of your squire, based on the Squires category at Pets and Animals (1. Bold, 2. Sneaky, 3. Clever, 4. Wise). The Race is determined by the GM or by circumstance.
             On its turn, it can do one Pet Attack, cast one Ability it has, or do the equivalent of a Half-Action (e.g. Dash, Defend, etc).
             You can recruit one squire per Adventure, but only one can follow you in your adventures at a time.
             At the start of every Adventure (and when you get this Talent), you must spend 1 Mana and train your Squire to permanently increase its Health by 2 or gain one Ability from any other Squire type.
@@ -246,26 +246,27 @@ Specs:
       ~Oath of Devotion~ :  # 0.75
         A: Passive
         Effect: |
-          You are immune to diseases and curses and you have 5 more maximum Holy Points.
-          Healing someone with Lay on Hands for at least 3 Health cures all diseases, Debuffs and Bleed effects on them.
-          If you heal someone else for 5 Health, it also removes all Crowd Control on them.
+          You have 5 more maximum Holy Points.
+          Healing someone with Lay on Hands for at least 5 Health cures all Crowd Control, diseases, Debuffs and Bleed effects on them.
         Notes: |
-          Debuffs are things like curses, weaknesses, etc. Crowd Control like Daze, Fumbling, Fear, Stun, etc are not considered Debuffs.
+          Debuffs are things like combat curses, temporary weaknesses, etc.
 
       ~Divine Power~:
         A: 0 Actions
         Cost: 1 Mana
-        Effect: Gain 1d10 Holy Points.
+        Effect: Gain 2d8 Holy Points.
         Notes: You can't keep more than your maximum number of Holy Points inbetween Adventures.
 
     Talents:
+
       Level 3:
       
         <Divine Blast> :    # 1? xD
           A: Half-Action
           Range: 12 meters
+          Cost: Any number of Holy Points
           Effect: |
-            Make a Spell attack against a target and consume any number of Holy points. The attack deals 1d4 Divine Damage for each Holy Point used.
+            Spend any number of Holy Points. A Unit takes that many d4's Divine Damage.
             You can apply Smites to this attack.
 
         <Shielding Hand> :  # 1
@@ -322,6 +323,33 @@ Specs:
                 Searing Smite deals an extra 1d4 Damage (both on hit and delayed).
                 Vindication always heals for an additional of 1d4.
  
+      Level 7:
+
+        <Divine Resurgence>:    # 4+
+          A: 0 Actions
+          Cooldown: Once / Adventure
+          Effect: All other Player Characters you healed this combat gain an extra Half-Action on their next turn.
+
+        <Asceticism>:           # 2?
+          A: 0 Actions
+          Cooldown: Once / Adventure
+          Duration: 1 minute
+          Effect: For 1 minute, all Healing you do is increased by 50%, but all Damage you deal is reduced by 50%.
+
+        <Assistance From Afar>:
+          A: Reaction
+          Cost: 3 Holy Points
+          HasMixins: true
+          Effect: |
+            Use when an ally inflicts Crowd Control. That Crowd Control is transformed into a better effect.
+          Upgrade: |
+            ^Slowed^ becomes ^Rooted^.
+            ^Fumbling^ becomes ^Blinded^.
+            Any other harder Crowd Control becomes ^Stunned^.
+          Notes: Hard Terrain is not Crowd Control. All Crowd Controls harder than Slowed, Fumbling, etc become Stunned.
+
+
+
 # Talent: When you use Oath of Protection...
 
 # Protection
@@ -342,9 +370,9 @@ Specs:
       ~Oath of Protection~: # 0.25
         A: Reaction
         Range: 4 meters to that ally
-        Cooldown: 2 times / Adventure
+        Cooldown: Once / Combat
         Effect: |
-          When another ally is attacked (after the roll), dash next to that ally.
+          When another ally is attacked (after the roll), dash to the closest space to that ally.
           The attack is now targeted on you instead of the ally.
 
       ~Stand Behind~:       # 0.5
@@ -357,7 +385,7 @@ Specs:
     Talents:
       Level 3:
       
-        <Divine Rain> :           # 1.5
+        <Hallowed Ward>:          # 1.75
           A: 0 Actions
           Cooldown: Once / Adventure
           Effect: |
@@ -374,7 +402,7 @@ Specs:
             It must pass a Might Check or be Crippled and pushed away from you until the distance between you and the target is 6 meters.
             If it stops in a wall or another enemy, it takes another 2d8 Force Damage.
 
-        <Consacrated Zone>:
+        <Silver Circle>:
           A: 0 Actions            # 1
           Cooldown: Once / Adventure
           Effect: |
@@ -384,19 +412,25 @@ Specs:
           Notes: |
             Increasing dice by 1 tier means, for example, d6 become d8, or d10 become d12.
             D12's and d20's don't increase.
-            Class Spells are Spells given by the character's class.
+            Class Spells are Abilities given by the class (including Talents).
 
       Level 5:
         
-        <Sanctuary Zone>:         # 2?
-            A: 0 Action
-            Cooldown: Once / Adventure
-            Range: 6 meters to edge
-            Duration: 2 turns
-            Effect: |
-                Declare a 7x7 area.
-                All units in the area take only 50% Damage (after Defense).
-            Notes: Lasts until the start of your next turn's next turn.
+        # <Sanctuary Zone>:         # 2?
+        #     A: 0 Action
+        #     Cooldown: Once / Adventure
+        #     Range: 6 meters to edge
+        #     Duration: 2 turns
+        #     Effect: |
+        #         Declare a 7x7 area.
+        #         All units in the area take only 50% Damage (after Defense).
+        #     Notes: Lasts until the start of your next turn's next turn.
+
+        <Warrior Spirits>:
+          A: Passive
+          Effect: |
+            Whenever you heal with Lay on Hands, you summon a Warrior Spirit near the target with Health equal to the amount restored.
+            Warrior Spirits have 2 Defense and 4 Speed and can attack for 1d4 Divine Damage. They take their turn on your turn.
                 
         <Oath of Revenge>:        # 2.5
             A: Passive
@@ -407,6 +441,20 @@ Specs:
             Notes: If the 1-Handed Weapon is not equipped, you quickly and freely equip it, attack, then switch back to your previous weapons.
                 
         <Improved Faith Casting>: Inherit
+
+      Level 7:
+        
+        <Personal Squire>: Inherit
+
+        <Don't Worry Lad>: # 3
+          A: Passive
+          Effect: |
+            Whenever you use Oath of Protection, you and the ally both gain 1d8 Shielding.
+            Whenever you use Divine Smite, reset the Cooldown of Oath of Protection.
+
+        <Sense of Duty>:
+          A: Passive
+          Effect: Oath of Protection becomes usable Twice / Combat, and the Damage you take from the redirected attack is reduced by 50%.
                 
                 
         

@@ -67,15 +67,13 @@
             "A": "Passive",
             "Cooldown": "Each Spell can only echo once per Combat",
             "HasMixins": true,
-            "Effect": "When you cast an Ability that costs Mana, if you roll maximum on at least one ^immediate^ Damage or Healing die, the Ability _echoes_ and you cast it again (for 0 Actions), but all Damage or Healing it does is reduced by 50%.\nThe _echoed_ Ability can't affect the same target(s) or area.\n",
+            "Effect": "After you cast a Basic Ability you spent Mana on, if you roll maximum on at least one ^immediate^ Damage or Healing die, the Ability _echoes_ and you cast it again (for 0 Actions), but all Damage or Healing it does is reduced by 50%.\nThe _echoed_ Ability can't affect the same target(s) or area.\n",
             "Notes": "Immediate means not delayed, not over time, etc (e.g. Scorching Rays, Healing Surge are immediate; Explosion Rune, Curse of Pain, etc are not immediate). _Echoing_ can only happen if you roll maximum on the initial cast (when you spend the Mana), even if there's more Damage or Healing later (e.g. Crackling Lightning _echoes_ only if you roll maximum the moment you cast it).\nIf the area overlaps the initial area, the overlapped part has no effect. If it hits the same target(s), it has no effect on them.\nTake the Ability text as it is - _echoing_ Lightning Storm repeats the initial Damage, but you'd have to spend another 1 Action to retrigger the second Lightning Storm.\nThe GM has the word on whether something is possible.\n"
         },
-        "~Animal Spirit~": {
-            "AlignOnWebsite": "Left",
-            "HasMixins": true,
-            "A": "Passive",
-            "Effect": "Choose one of the 5 animal spirit totems - each grants you different bonuses.\n{Diamond} Bear: +4 Reserve Health\n{Diamond} Wolf: +1 Movement Speed\n{Diamond} Owl: +3 range on all ranged attacks\n{Diamond} Eagle: +5 Initiative\n{Diamond} Snake: +1 Spell Grade\n",
-            "Notes": "An attack or Ability is considered ranged if it has a maximum range of 3 or more meters, unless it states otherwise.\n"
+        "~Mind Link~": {
+            "A": "0 Actions",
+            "Cooldown": "Once / Adventure",
+            "Effect": "Establish a mind connection with a willing ally.\nFor the rest of the Adventure, you can talk to eachother telepathically.\n"
         }
     },
     "Specializations": {
@@ -87,6 +85,94 @@
         ]
     },
     "Specs": {
+        "Berserker": {
+            "Description": "LOREM IPSUUUM!!",
+            "Starting Abilities": {
+                "~Path of the Berserker~": {
+                    "A": "Passive",
+                    "Effect": "Instead of having normal Reserve Health, all your Reserve Health is added to your Max Health (and as such your Reserve Health is always 0).\nRestoring Reserve Health Heals you instead (and losing Reserve Health loses you Max Health instead).\n",
+                    "Notes": "Remember to recalculate your Max Health whenever you increase your Reserve Health or your Max Health.\n"
+                },
+                "~Bloodlust~": {
+                    "A": "0 Actions",
+                    "Cooldown": "Once / Adventure",
+                    "Effect": "Add Damage to a weapon attack equal to 50% of your missing Health.",
+                    "Notes": "This is not considered a Spell."
+                }
+            },
+            "Talents": {
+                "Level 3": {
+                    "<Primal Trophy>": {
+                        "A": "Passive",
+                        "HasMixins": true,
+                        "Effect": "Whenever ^YOU^ kill a Worthy Enemy, gain one Primal Trophy. Every 3 Primal Trophies increase your \"Reserve Health\" by 1.\nEvery 10 Primal Trophies give you an extra Proficiency.\n"
+                    },
+                    "<Cold Vigor>": {
+                        "A": "0 Actions",
+                        "Cooldown": "Once / Combat",
+                        "Effect": "Heal for 10% of your Maximum Health and remove diseases from yourself."
+                    },
+                    "<Spirit Animal>": {
+                        "A": "Passive",
+                        "Effect": "A spirit animal assists you and gives you a boon, depending on its type.\nYou can change which spirit animal assists you while not in Combat.\n",
+                        "Upgrade": "The spirit animal is intangible, and invisible to most people, but can't walk through solid surfaces. You can see through its eyes, but is bound to you and won't go more than 15 meters away from you.",
+                        "Notes": "An Act counts as ranged if it's not made with a melee weapon, and the range is at least 3 meters",
+                        "DoubleTable": {
+                            "Headers": [
+                                "Animal Spirit",
+                                "Boon"
+                            ],
+                            "Values": [
+                                "Bear",
+                                "You are immune to Slows and Fumbling",
+                                "Wolf",
+                                "+1 Movement Speed",
+                                "Owl",
+                                "+3 Range on all ranged Acts",
+                                "Eagle",
+                                "+5 Initiative"
+                            ]
+                        }
+                    }
+                },
+                "Level 5": {
+                    "<Earthshattering Wave>": {
+                        "A": "0.5 Actions",
+                        "Cooldown": "Once / Adventure",
+                        "Effect": "All units in a line must pass a Might Check or be Stunned. If they pass, they become Fumbling instead.\nThe line is 3 meters wide, and has a length of 1 meter for ever 5 Health you are missing.\n",
+                        "Notes": "E.g. if you have 30 out of 50 Health (thus missing 20 Health), then the line will be 4 meters long.\nCover is applied normally.\n"
+                    },
+                    "<Ruining Shout>": {
+                        "A": "1 Action",
+                        "Cooldown": "Once / Adventure",
+                        "Effect": "Damages all Enemies within 4 meters of you.\nDeals 1d6 Psychic Damage (directly, ignoring Defense) for each 1 meter to the target (up to 4d6).\nRoll 4d6 at the same time, and choose which dice affect the units closer.\n"
+                    },
+                    "<Tribal Tattoos>": {
+                        "A": "Passive",
+                        "Effect": "Your \"Reserve Health\" is further increased by 10.\nEvery Adventure, you add another tattoo and increase it by 1.\nEvery 3 new tattoos, gain +1 in any Resist Check of choice.\n"
+                    }
+                },
+                "Level 7": {
+                    "<Jotunn>": {
+                        "A": "0 Actions",
+                        "Cooldown": "Once / Adventure",
+                        "Duration": "1 Minute",
+                        "Effect": "You grow to the size of a giant and become Large.\nYou gain Shielding equal to 50% of your missing Health.\nYour normal Melee attacks hit all Units within 1 meter of the target for the same Damage, without the Stat modifier (e.g. you don't add your Might or Dexterity to the secondary targets).\nYou are immune to being Slowed, Rooted, Crippled, Fumbling and to Hard Terrain.\n"
+                    },
+                    "<Echoing Strikes>": {
+                        "A": "Passive",
+                        "HasMixins": true,
+                        "Effect": "Your weapon attacks can _echo_ (if you roll one maximum die)."
+                    },
+                    "<Forced Echoes>": {
+                        "A": "Passive",
+                        "HasMixins": true,
+                        "Effect": "Your Shaman Abilities and Talents always _echo_.",
+                        "Notes": "When Bloodlust echoes, the Damage is dealt directly to another target near you (reduced by 50% from Damage it would normally do)."
+                    }
+                }
+            }
+        },
         "Seer": {
             "Description": "Video morituri...",
             "Starting Abilities": {
@@ -123,7 +209,8 @@
                     "<Regrowth>": {
                         "A": "1 Action",
                         "Cooldown": "Once / Adventure",
-                        "Effect": "Heal a Unit within 6 meters for 1d10 for each 10 Health it is missing."
+                        "Range": "6 meters",
+                        "Effect": "Choose a Unit.\nNow and at the start of your next turn, heal it for 1d10 for each 10 Health it is missing.\n"
                     },
                     "<Strong Spirited>": {
                         "A": "Passive",
@@ -192,7 +279,7 @@
                         "A": "0.5 Actions",
                         "Cost": "1 Guide Die",
                         "Range": "6 meters to edge",
-                        "Effect": "Spend one Guide Die and declare a square area.\nThe diameter of the area is equal to the spent Guide Die.\nSharp bones occupying 1x1 meters each grow from the area.\nWhen a Unit steps on a Sharp Bone, it directly takes 1d8 Pierce Damage and loses 1 meter of its remaining speed.\nThe bone then shatters."
+                        "Effect": "Spend one Guide Die and declare a square area.\nThe diameter of the area is equal to the spent Guide Die.\nSharp bones occupying 1x1 meters each grow from the area.\nWhen a Unit steps on a Sharp Bone, it directly takes 1d8 Pierce Damage and loses 1 meter of its remaining speed.\nThe bone then shatters.\n"
                     }
                 }
             }

@@ -59,8 +59,6 @@ Spellcasting:
     Chilling Shout is a great way to spend Mana to deal damage. Invigorate will keep your party alive - make sure you keep them at full health! Panic Lash will come in handy against enemies that heal, or in case you ever need just a Half-Action. Confusion is a very good source of distruption, and Restoration will bring your party back from being Fallen with no repercussions.
     The last suggestion is Mastery. This one is very situational, as it allows you to use your Sense or Charisma to attack with weapons instead of Might or Dexterity. If you already have high Might and Dexterity, consider getting something else instead. A good recommendation is Speak With Animals for some extra utility for your group.
 
- 
-
 Other: |
   As a Shaman, you have a spirit animal that represents you.
   Choose one of the following spirit animals.
@@ -74,68 +72,25 @@ Starting Abilities Description:
   
 
 Starting Abilities: 
-  ~Echoes~:     # 2 Mana
+  ~Echoes~:                   # 2 Mana
     A: Passive
     Cooldown: Each Spell can only echo once per Combat
     HasMixins: true
     Effect: |
-      When you cast an Ability that costs Mana, if you roll maximum on at least one ^immediate^ Damage or Healing die, the Ability _echoes_ and you cast it again (for 0 Actions), but all Damage or Healing it does is reduced by 50%.
+      After you cast a Basic Ability you spent Mana on, if you roll maximum on at least one ^immediate^ Damage or Healing die, the Ability _echoes_ and you cast it again (for 0 Actions), but all Damage or Healing it does is reduced by 50%.
       The _echoed_ Ability can't affect the same target(s) or area.
     Notes: |
       Immediate means not delayed, not over time, etc (e.g. Scorching Rays, Healing Surge are immediate; Explosion Rune, Curse of Pain, etc are not immediate). _Echoing_ can only happen if you roll maximum on the initial cast (when you spend the Mana), even if there's more Damage or Healing later (e.g. Crackling Lightning _echoes_ only if you roll maximum the moment you cast it).
       If the area overlaps the initial area, the overlapped part has no effect. If it hits the same target(s), it has no effect on them.
       Take the Ability text as it is - _echoing_ Lightning Storm repeats the initial Damage, but you'd have to spend another 1 Action to retrigger the second Lightning Storm.
       The GM has the word on whether something is possible.
-  
-  ~Animal Spirit~:  # 0.5 Mana
-    AlignOnWebsite: Left
-    HasMixins: true
-    A: Passive
+
+  ~Mind Link~:                # 0
+    A: 0 Actions
+    Cooldown: Once / Adventure
     Effect: |
-      Choose one of the 5 animal spirit totems - each grants you different bonuses.
-      {Diamond} Bear: +4 Reserve Health
-      {Diamond} Wolf: +1 Movement Speed
-      {Diamond} Owl: +3 range on all ranged attacks
-      {Diamond} Eagle: +5 Initiative
-      {Diamond} Snake: +1 Spell Grade
-    Notes: |
-      An attack or Ability is considered ranged if it has a maximum range of 3 or more meters, unless it states otherwise.
-
-  # ~Bear's Roar~:   # 1 Charge
-  #   IsSubspell: true
-  #   AlignOnWebsite: Left
-  #   A: 1 Action
-  #   Cooldown: Once / Adventure
-  #   Effect: All enemies within 3 meters of you must pass a Charisma Check or take 1d6 Psychic Damage and be Crippled.
-  #   Notes: Cover is applied normally.
-
-  # ~Wolf's Leap~:   # 1 Charge
-  #   IsSubspell: true
-  #   A: 0.5 Actions
-  #   Cooldown: Once / Adventure
-  #   AlignOnWebsite: Left
-  #   Effect: |
-  #     Leap at a target up to 3 meters away.
-  #     The target takes 1d6 Bleed Damage at the end of each of your turns for 1 minute.
-
-  # ~Eagle's Sight~ : # 1 Charge
-  #   IsSubspell: true
-  #   AlignOnWebsite: Right
-  #   A: Passive
-  #   Effect: |
-  #     Your Initiative is always 1 less than the highest Initiative in combat.
-  #     All your ranged weapon attacks and Spells have an extra 3 meters range (if their range is already 3 meters or higher).
-  #     Your Spell Grade is increased by 1.
-  #   Notes: You don't roll Initiative anymore and don't add any modifiers
-
-  # ~Owl's Foresight~ : # 1 Charge
-  #   IsSubspell: true
-  #   AlignOnWebsite: Right
-  #   A: Reaction
-  #   Cooldown: Once / Adventure
-  #   Effect: |
-  #     Use when an enemy you see casts a spell (non-naturally).
-  #     The spell is cancelled and the enemy loses the Action for it.
+      Establish a mind connection with a willing ally.
+      For the rest of the Adventure, you can talk to eachother telepathically.
 
 # Base: 4.5 Mana
 # Spec: 1.25 Charges (mostly)
@@ -157,6 +112,8 @@ Specializations:
 
 Specs:
 
+
+
 # Talent: Spirit Strike, like Bloodlust but for enemies
 # Talent: Low health = more something
 # Talent: When you drop below X, you have 0.5 Actions every turn lol
@@ -173,97 +130,112 @@ Specs:
 # CC Hard AoE
 # AoE
 
-  # Berserker:                        # 1.25
-  #   Description: LOREM IPSUUUM!!
-  #   Starting Abilities:
+  Berserker:                        # 1.5
+    Description: LOREM IPSUUUM!!
+    Starting Abilities:
 
-  #     ~Path of the Berserker~ :     # Ok-ish
-  #       A: Passive
-  #       Effect: |
-  #         Your total Defense is always halved (even with buffs), rounded down, no matter what armor type you are wearing.
-  #         Your total Health is increased by 50% (buffs are not increased).
-  #         Your Reserve Health Pool does not increase with your Health.
-  #       Notes: Only your Health calculated from your Race Health + Might + Health per Level is increased by 50%. Anything from Abilities is not included.
+      ~Path of the Berserker~ :     # Ok
+        A: Passive
+        Effect: |
+          Instead of having normal Reserve Health, all your Reserve Health is added to your Max Health (and as such your Reserve Health is always 0).
+          Restoring Reserve Health Heals you instead (and losing Reserve Health loses you Max Health instead).
+        Notes: |
+          Remember to recalculate your Max Health whenever you increase your Reserve Health or your Max Health.
   
-  #     ~Bloodlust~:                  # 1.15
-  #       A: 0 Actions
-  #       Cooldown: Once / Adventure
-  #       Effect: Add Damage to an attack equal to 25% of your missing Health (rounded up).
-  #       Notes: This is not considered a Spell.
+      ~Bloodlust~:                  # 2
+        A: 0 Actions
+        Cooldown: Once / Adventure
+        Effect: Add Damage to a weapon attack equal to 50% of your missing Health.
+        Notes: This is not considered a Spell.
 
-  #   Talents:
-  #     Level 3:
-      
-  #       <Reincarnation> :           # 1.5 - 2?
-  #         A: Reaction
-  #         Cooldown: Once / Adventure
-  #         Effect: |    
-  #           Use at any time (e.g. when a Unit falls to 0 Health).
-  #           Stabilize an Fallen Unit or revive a Unit that died recently (12 hours maximum).
-  #           This puts the Unit at Health equal to its own Main Stat * 4.
-  #           You can do this on yourself if you are dead.
-  #           This cures Exhaustion.
 
-  #       <Spirit Draw> :             # 1.5
-  #         A: Special
-  #         Cost: 5 Health
-  #         Cooldown: Once / Adventure
-  #         Effect: |
-  #           Aniother ally can channel for 10 minutes to draw power from your soul.
-  #           That ally can use Bloodlust once and use your spirit animal Ability once.
-  #           Lasts until either of you cancel it, or until either's next Adventure.
-  #           An ally can't draw your soul more than once per Adventure.
-  #           An ally can't keep your soul drawn inbetween Adventures.
+    Talents:
+      Level 3:
 
-  #       <Summon Animal Spirit> :  # 1
-  #         A: 0 Actions
-  #         Cooldown: 10 minutes
-  #         Cost: 5 Health
-  #         Effect: |
-  #           You summon your Spirit Animal next to you for up to 10 minutes!
-  #           Check out your animal's stats in the Animals section, Spirit Animals category.
-  #           Additionally, you can see through your Pet's eyes if you choose so.
-  #           Your animal has stats depending on its species.
-  #           Your pet takes its turn at the same time as you do, and always has the same initiative as yours.
-  #           Your pet has 1 Action per turn.
-  #           Your pet can make normal Checks using using its own Stats.
-  #           Your pet will not stray more than 30 meters away from you in hostile territory.
-  #           All pets have the Pet Attack ability.
+        <Primal Trophy>:    # ?
+          A: Passive
+          HasMixins: true
+          Effect: |
+            Whenever ^YOU^ kill a Worthy Enemy, gain one Primal Trophy. Every 3 Primal Trophies increase your "Reserve Health" by 1.
+            Every 10 Primal Trophies give you an extra Proficiency.
+
+        <Cold Vigor>:       # 2+
+          A: 0 Actions
+          Cooldown: Once / Combat
+          Effect: Heal for 10% of your Maximum Health and remove diseases from yourself.
+
+        <Spirit Animal>:
+          A: Passive
+          Effect: |
+            A spirit animal assists you and gives you a boon, depending on its type.
+            You can change which spirit animal assists you while not in Combat.
+          Upgrade: The spirit animal is intangible, and invisible to most people, but can't walk through solid surfaces. You can see through its eyes, but is bound to you and won't go more than 15 meters away from you.
+          Notes: An Act counts as ranged if it's not made with a melee weapon, and the range is at least 3 meters
+          DoubleTable:
+            Headers:
+              - Animal Spirit
+              - Boon
+            Values:
+              - Bear
+              - You are immune to Slows and Fumbling
+              - Wolf
+              - +1 Movement Speed
+              - Owl
+              - +3 Range on all ranged Acts
+              - Eagle
+              - +5 Initiative
+
+      Level 5:
             
-  #       <Pet Attack>:
-  #           A: 1 Action (from the pet)
-  #           Effect: |
-  #               The pet melee attacks a target.
-  #               The attack deals 1d6 + 2 Pierce or Slash Damage (your choice).
-
-  
-  #     Level 5:
-        
-  #       <Jotunn>:
-  #         A: 0 Actions
-  #         Cooldown: Once / Adventure
-  #         Effect: |
-  #           You grow to the size of a giant and become Large.
-  #           Your normal Melee attacks hit all Units within 1 meter of the target for the same Damage, without the Stat modifier (against Defense) (e.g. you don't add your Might or Dexterity to the secondary targets).
-  #           You are immune to being Slowed, Rooted, Crippled, Fumbling and to Hard Terrain.
-  #           You gain 10 Shielding.
-  #           Lasts 1 minute.
-            
-  #       <Earthshattering Wave>:
-  #         A: 0.5 Actions
-  #         Cooldown: Once / Adventure
-  #         Effect: All units in a 9x3 line must pass a Might Check or be Stunned. If they pass, they become Fumbling instead.
-  #         Notes: |
-  #           There is no escape!
-  #           Cover is applied normally.
+        <Earthshattering Wave>: # 2
+          A: 0.5 Actions
+          Cooldown: Once / Adventure
+          Effect: |
+            All units in a line must pass a Might Check or be Stunned. If they pass, they become Fumbling instead.
+            The line is 3 meters wide, and has a length of 1 meter for ever 5 Health you are missing.
+          Notes: |
+            E.g. if you have 30 out of 50 Health (thus missing 20 Health), then the line will be 4 meters long.
+            Cover is applied normally.
           
-  #       <Ruining Shout>:
-  #         A: 1 Action
-  #         Cooldown: Once / Adventure
-  #         Effect: |
-  #           Damages all Enemies within 4 meters of you.
-  #           Deals 1d6 Psychic Damage (directly, ignoring Defense) for each 1 meter to the target (up to 4d6).
-  #           Roll 4d6 at the same time, and choose which dice affect the units closer.
+        <Ruining Shout>:  # 2
+          A: 1 Action
+          Cooldown: Once / Adventure
+          Effect: |
+            Damages all Enemies within 4 meters of you.
+            Deals 1d6 Psychic Damage (directly, ignoring Defense) for each 1 meter to the target (up to 4d6).
+            Roll 4d6 at the same time, and choose which dice affect the units closer.
+
+        <Tribal Tattoos>:   #2.25
+          A: Passive
+          Effect: |
+            Your "Reserve Health" is further increased by 10.
+            Every Adventure, you add another tattoo and increase it by 1.
+            Every 3 new tattoos, gain +1 in any Resist Check of choice.
+        
+
+      Level 7:
+
+        <Jotunn>:         # 3+
+          A: 0 Actions
+          Cooldown: Once / Adventure
+          Duration: 1 Minute
+          Effect: |
+            You grow to the size of a giant and become Large.
+            You gain Shielding equal to 50% of your missing Health.
+            Your normal Melee attacks hit all Units within 1 meter of the target for the same Damage, without the Stat modifier (e.g. you don't add your Might or Dexterity to the secondary targets).
+            You are immune to being Slowed, Rooted, Crippled, Fumbling and to Hard Terrain.
+
+        <Echoing Strikes>:    # 3?
+          A: Passive
+          HasMixins: true
+          Effect: Your weapon attacks can _echo_ (if you roll one maximum die).
+
+        <Forced Echoes>:
+          A: Passive
+          HasMixins: true
+          Effect: Your Shaman Abilities and Talents always _echo_.
+          Notes: When Bloodlust echoes, the Damage is dealt directly to another target near you (reduced by 50% from Damage it would normally do).
+
         
 # Stats + Utility
 # CC Medium + Utility
@@ -448,3 +420,66 @@ Specs:
             Sharp bones occupying 1x1 meters each grow from the area.
             When a Unit steps on a Sharp Bone, it directly takes 1d8 Pierce Damage and loses 1 meter of its remaining speed.
             The bone then shatters.
+
+
+
+  # ~Animal Spirit~:  # 0.5 Mana
+  #   AlignOnWebsite: Left
+  #   HasMixins: true
+  #   A: Passive
+  #   Effect: |
+  #     You are always assisted by an invisible, intangible animal spirit.
+  #     Choose one of the following animal spirits - each grants you different bonuses.
+  #     {Diamond} Bear: +4 Reserve Health
+  #     {Diamond} Wolf: +1 Movement Speed
+  #     {Diamond} Owl: +3 range on all ranged attacks
+  #     {Diamond} Eagle: +5 Initiative
+  #     {Diamond} Snake: +1 Spell Grade
+  #   DoubleTableNumbered:
+  #     Headers:
+  #       - Animal
+  #       - Effect
+  #     Values:
+  #       - Bear
+  #       - +4 Reserve Health
+  #       - Wolf
+  #       - +1 Movement Speed
+  #       - 
+  #   Notes: |
+  #     An attack or Ability is considered ranged if it has a maximum range of 3 or more meters, unless it states otherwise.
+
+  # ~Bear's Roar~:   # 1 Charge
+  #   IsSubspell: true
+  #   AlignOnWebsite: Left
+  #   A: 1 Action
+  #   Cooldown: Once / Adventure
+  #   Effect: All enemies within 3 meters of you must pass a Charisma Check or take 1d6 Psychic Damage and be Crippled.
+  #   Notes: Cover is applied normally.
+
+  # ~Wolf's Leap~:   # 1 Charge
+  #   IsSubspell: true
+  #   A: 0.5 Actions
+  #   Cooldown: Once / Adventure
+  #   AlignOnWebsite: Left
+  #   Effect: |
+  #     Leap at a target up to 3 meters away.
+  #     The target takes 1d6 Bleed Damage at the end of each of your turns for 1 minute.
+
+  # ~Eagle's Sight~ : # 1 Charge
+  #   IsSubspell: true
+  #   AlignOnWebsite: Right
+  #   A: Passive
+  #   Effect: |
+  #     Your Initiative is always 1 less than the highest Initiative in combat.
+  #     All your ranged weapon attacks and Spells have an extra 3 meters range (if their range is already 3 meters or higher).
+  #     Your Spell Grade is increased by 1.
+  #   Notes: You don't roll Initiative anymore and don't add any modifiers
+
+  # ~Owl's Foresight~ : # 1 Charge
+  #   IsSubspell: true
+  #   AlignOnWebsite: Right
+  #   A: Reaction
+  #   Cooldown: Once / Adventure
+  #   Effect: |
+  #     Use when an enemy you see casts a spell (non-naturally).
+  #     The spell is cancelled and the enemy loses the Action for it.

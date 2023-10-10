@@ -203,22 +203,26 @@
     "Druid Special": {
         "Lycanthrope": {
             "Stats": "4/4/0/4/4",
-            "Druid": "You have +1 Defense and +1 Speed",
-            "Speed": "6 meters",
-            "Initiative": 20,
+            "Speed": "8 meters",
+            "Initiative": 25,
             "Abilities": {
-                "~Humanoid Clarity~": {
+                "~Blood Vim~": {
                     "A": "Passive",
-                    "Effect": "You can cast Spells while Shapeshifted into a Lycanthrope."
+                    "Effect": "Every turn, you have an extra Half-Action.",
+                    "Notes": "...or Action if you somehow got this as a pet."
                 },
-                "~Ravage~": {
-                    "A": "Half-Action",
-                    "Effect": "TODO\n"
+                "~Hunger Claws~": {
+                    "A": "Passive",
+                    "Effect": "The Lycanthrope attacks heal for 50% of the Damage rolled. However, for each Half-Action spent not attacking damages the Lycanthrope for 5 True Damage."
                 },
-                "~Howl~": {
+                "~Ominous Howl~": {
                     "A": "Half-Action",
+                    "HasMixins": true,
                     "Cooldown": "Once / Adventure",
-                    "Effect": "Choose between Silence and Cripple.\nAll enemies within 5 meters must pass a Sense Check or be Silenced or Crippled, whichever you chose.\n"
+                    "Effect": "All Units that can hear you become Feared.",
+                    "Notes": {
+                        "Feared": null
+                    }
                 }
             }
         }
@@ -290,6 +294,89 @@
                 "~Flesh - Incite Fear~": {
                     "A": "1 Action",
                     "Effect": "All enemies within 4 meters of the Golem must pass a Sense Check or be Feared by the Golem and take 1d8 + 4 Necrotic Damage.\nIf they pass, they take half of that Damage.\n"
+                }
+            }
+        }
+    },
+    "Squires": {
+        "Bold Squire": {
+            "Health": 15,
+            "Stats": "3/0/-1/1/2",
+            "Speed": "5 meters",
+            "Abilities": {
+                "~Armor Training~": {
+                    "A": "Passive",
+                    "Effect": "Has 1 Defense."
+                },
+                "~Shield Bash~": {
+                    "A": "Passive",
+                    "Effect": "If you roll 6 on the Pet Attack die, the target must pass a Might Check or be Crippled and pushed 3 meters away.",
+                    "Notes": "Requires to be next to the target."
+                },
+                "~Routing Squire~": {
+                    "A": "Passive",
+                    "Effect": "When the Squire comes within 1 meter of a Worhty Enemy, it gains 3 Shielding. Then it can't gain the Shielding from the same Enemy for the rest of the combat."
+                }
+            }
+        },
+        "Sneaky Squire": {
+            "Health": 13,
+            "Stats": "0/3/0/1/-1",
+            "Speed": "6 meters",
+            "Abilities": {
+                "~Quickfoot~": {
+                    "A": "Passive",
+                    "Effect": "Has 6 Movement Speed and can Break its Movement."
+                },
+                "~Backstab~": {
+                    "A": "Passive",
+                    "Effect": "The Squire's Flank attacks deal an extra 1d4 Damage."
+                },
+                "~Camouflage~": {
+                    "A": "1 minute",
+                    "Duration": "10 minutes",
+                    "Effect": "The Squire becomes effectively invisible to Units more 3 or more meters away from it."
+                }
+            }
+        },
+        "Clever Squire": {
+            "Health": 12,
+            "Stats": "0/1/3/1/1",
+            "Speed": "5 meters",
+            "Abilities": {
+                "~Magic Attack~": {
+                    "A": "Passive",
+                    "Effect": "Pet Attack has 5 meter range and the Damage type can be Fire, Cold or Shock."
+                },
+                "~Spellcasting~": {
+                    "A": "Special",
+                    "Effect": "Using its Action, the Squire can cast any Basic Ability up to Level 5 from the Elemental, Arcane, Conjuration or Mysticism schools that cost no Mana and deals no Damage. The Squire can cast such Abilities a total of 3 times per Adventure, irrespective of those Abilities' Cooldowns.",
+                    "Notes": "It can cast Control Element."
+                }
+            }
+        },
+        "Wise Squire": {
+            "Health": 13,
+            "Stats": "1/0/1/3/0",
+            "Speed": "5 meters",
+            "Abilities": {
+                "~Healing~": {
+                    "A": "1 Action",
+                    "Range": "3 meters",
+                    "Cooldown": "Once / Combat",
+                    "Effect": "Heal a target for 1d8 Health."
+                },
+                "~Blinding Light~": {
+                    "A": "1 Action",
+                    "Range": "3 meters",
+                    "Cooldown": "Once / Adventure",
+                    "Effect": "A target must pass a Dexterity Check or be Blinded."
+                },
+                "~Freedom~": {
+                    "A": "Reaction",
+                    "Cooldown": "Once / Adventure",
+                    "Range": "Use when an Ally becomes affected by a Crowd Control. Remove that Crowd Control from it.",
+                    "Notes": "Doesn't work for area persistent CC like Hard Terrain, fog-like effects, etc."
                 }
             }
         }

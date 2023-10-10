@@ -29,8 +29,8 @@
         "Change": "You can change your known Spells and Talents inbetween Adventures.",
         "Other": "All Hunter-specific Abilities are not considered Spells (unless stated otherwise).",
         "Mana": {
-            "Amount": 1,
-            "Regain": "You regain all Mana back inbetween Adventures."
+            "Amount": 0,
+            "Regain": "At Level 1, you have 0 Mana, but you gain 1 extra Maximum Mana every Level. You regain all Mana back inbetween Adventures."
         },
         "Known Basic Abilities": "1 + Intelligence",
         "BaseKnownSpells": 1,
@@ -58,9 +58,10 @@
         "~Animal Companion~": {
             "AlignOnWebsite": "Left",
             "A": "Passive",
-            "Effect": "You have an animal pet that can fight alongside you!\nYour animal has stats depending on its species. Check out the Pets and Animals page to see its stats!\nYour pet takes its turn at the same time as you do, and always has the same initiative as yours.\nYour pet has 1 Action per turn, which it can use to do its own Abilities or Pet Attack.\nYour pet can make normal Checks using using its own Stats.\nYour pet will not stray more than 30 meters away from you in hostile territory.\n",
+            "HasMixins": true,
+            "Effect": "You have an animal pet that can fight alongside you! Check out the {Pets and Animals} page and choose an Animal from the Pets section!\nYour pet takes its turn at the same time as you do, and always has the same Initiative as yours, and can make normal Checks using using its own Stats.\nIt has 1 Action per turn, which it can use to do its own Abilities or Pet Attack.\nYour pet will not stray more than 30 meters away from you in hostile territory.\n",
             "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It has no reserve Health, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.",
-            "Notes": "If your pet raises from being Fallen, it has Pet Exhaustion (is Slowed and deals -2 Damage from all sources).\nTreat your pet like a real companion - give it a name and care for it. If it ever dies, you can spend 2 days looking for another wild animal and taming it to become your new pet.\nIf your pet ever dies, you can spend 8 hours inbetween Adventures to get a new pet. If you want to change your Pet and abandon your current one, you can do so inbetween Adventures, but the guilt will make you Fumbling for the next 2 Worthy Combat encounters.\n"
+            "Notes": "Your pet can't rise from being Fallen while in combat, even if healed.\nIf your pet ever dies, you can spend 8 hours inbetween Adventures to get a new pet. If you want to change your Pet and abandon your current one, you can do so inbetween Adventures, but the guilt will make you Fumbling for the next 2 Worthy Combat encounters.\n"
         },
         "~Pet Attack~": {
             "A": "1 Action (from the pet)",
@@ -69,9 +70,10 @@
         },
         "~Tumble~": {
             "AlignOnWebsite": "Right",
-            "A": "Reaction",
+            "A": "Reaction or 0 Actions",
             "Cooldown": "Once / Adventure",
-            "Effect": "Use when you would take Damage.\nRoll 2 meters in any possible direction and reduce the Damage by 5.\n"
+            "Effect": "Roll 2 meters in any possible direction.\nUse when a Unit declares an attack or Ability.\n",
+            "Notes": "You can use this to dodge an area Ability or go out of Line of Sight (or behind Cover). The attack carries on if it still has Line of Sight. Otherwise, it must choose something else to do, as if the Act never happened."
         }
     },
     "Starting Abilities Description": [
@@ -79,7 +81,7 @@
             "Animal Companion": "As a Hunter, you always have your trusted Animal Companion with you."
         },
         {
-            "Tumble": "Tumble allows you to dodge-roll to avoid some of the Damage from any source.\n"
+            "Tumble": "Tumble allows you to dodge-roll to avoid some of the Damage.\n"
         }
     ],
     "Specializations": {
@@ -138,6 +140,22 @@
                         "Effect": "Shoot a thundering shot towards an obstacle or wall. A quaking wave travels horizontally towards in both directions of the wall up to 10 meters in each direction.\nAll Units within 2 meters of that wall must pass a Might Check or be Stunned and take 3d4 Shock Damage.\nThey take half of the Damage and are Slowed if they pass.\n",
                         "Notes": "The floor and ceiling are not considered walls. The wave does not travel through them. This is considered a Spell. Ignores Cover."
                     }
+                },
+                "Level 7": {
+                    "<Improved Hunter Mark>": {
+                        "A": "Passive",
+                        "Effect": "Hunter Mark increases the dice by an extra tier (e.g. from d6 to d10) and your Pet's Damage benefits from Hunter Mark."
+                    },
+                    "<Attack Mark>": {
+                        "A": "Passive",
+                        "Effect": "When you cast Hunter Mark, your Pet immediately dashes to the target and performs a Pet Attack if it's within 6 meters of the target.",
+                        "Notes": "Your Pet lands on the closest space near the target."
+                    },
+                    "<Leafwalk>": {
+                        "A": "0 Actions",
+                        "Cooldown": "Once / Adventure",
+                        "Effect": "Become invisible until the end of your next turn (or for 12 seconds if not in combat). Doing any Act heals you for 1d4 while invisible."
+                    }
                 }
             }
         },
@@ -146,15 +164,13 @@
             "Starting Abilities": {
                 "~Warden~": {
                     "A": "Passive",
-                    "Effect": "When you become a Warden, choose a Basic Ability List from Bloodshed, Elemental, Divine, and Arcane.\nYou now have access to that Basic Ability List as well, permanently (this can not be changed).\nYou have 1 extra special Warden Mana that you can only spend on Abilities from that chosen List and on Quick Magic.\nAlso, you can Know a number of extra Abilities equal to your Intelligence (at least 1).\n",
-                    "Upgrade": "At Level 3 you gain 1 extra Warden Mana, and again at Levels 6 and 9.\n",
-                    "Notes": "Warden Mana replenishes inbetween Adventures."
+                    "Effect": "When you become a Warden, choose a Basic Ability List from Bloodshed, Elemental, Divine, and Arcane.\nYou now have access to that Basic Ability List as well, permanently (this can not be changed).\nYou have 1 extra maximum Mana.\nAlso, you can Know a number of extra Abilities equal to your Intelligence (at least 1).\n",
+                    "Upgrade": "At Level 6 you gain 1 extra maximum Mana.\n"
                 },
                 "~Quick Magic~": {
-                    "A": "0 Actions",
-                    "Cost": "1 Mana",
-                    "Effect": "Choose one of the following effects:\n- Instantly deal 1d8 Fire, Frost or Shock Damage to a target, and permanently reduce its Defense by 1 (3 meter range).\n- Instantly heal a target for 1d6 (3 meter range).\n- Instantly dash 3 meters, going through enemies and small obstacles or small gaps.\n",
-                    "Notes": "The Damage ignores Cover."
+                    "A": "Passive",
+                    "Effect": "After using Tumble or one of your Pet's Abilities that has a \"Once / Adventure\" Cooldown, immediately cast Burning Breath, Flash or Vault Break for free (see the Abilities list).\n",
+                    "Notes": "For quick reference: Burning Breath deals 4 Damage in a 3x3 meter area near you; Flash teleports you up to 6 meters away; Vault Break destroys a medium obstacle within 3 meters.\n"
                 }
             },
             "Talents": {
@@ -168,7 +184,7 @@
                     },
                     "<Combo Set>": {
                         "A": "Passive",
-                        "Effect": "You gain Quickfire, Parry and Tumblestrike.",
+                        "Effect": "You gain Quickfire, Parry and Tumblestrike. Quick Magic will also trigger after you use Quickfire and Parry.",
                         "AlignOnWebsite": "Right"
                     },
                     "<Quickfire (Hunter)>": {
@@ -204,6 +220,18 @@
                         "Cooldown": "Once / Adventure",
                         "Effect": "Use when an enemy or enemy group make an attack.\nCreate a 4x4 meter wall of powerful Wind that destroys all projectiles.\nIt can't be passed through from the direction it is facing towards.\nLasts for 1 minute.\n",
                         "Notes": "The wall pushes objects or willing Units away from it and can be used as a platform.\nIf you decide to place it horizontally, it acts as Hard Terrain.\n"
+                    },
+                    "Level 7": {
+                        "<Hexblade (Hunter)>": {
+                            "A": "Passive",
+                            "HasMixins": true,
+                            "Effect": "After you cast an _offensive_ Spell that costs Mana, your next Weapon attack deals +1d6 Damage.",
+                            "Notes": "{Offensive Abilities}"
+                        },
+                        "<Quicker Magic>": {
+                            "A": "Passive",
+                            "Effect": "Quick Magic also trigger whenever you spend Mana on a Spell.\n"
+                        }
                     }
                 }
             }
@@ -226,17 +254,16 @@
                 "Level 3": {
                     "<Exotic Double>": {
                         "A": "Passive",
-                        "Effect": "You have one more Animal Companion that accompanies you while adventuring.\nThis Animal Companion obeys the same rules as the regular one (takes its turns, requires healing between combats, etc).\nOne of your 3 Animal Companions can be an Exotic Animal.\n",
+                        "Effect": "One more of your Animal Companions accompanies you while adventuring.\nThis Animal Companion obeys the same rules as the regular one (takes its turns, requires healing between combats, etc), except its Pet Attack deals only 1d4 Damage (you choose which of them).\nOne of your 3 Animal Companions can be an Exotic Animal.\n",
                         "Notes": "You're instantly kicked from the group if your pets don't have names."
                     },
                     "<Large Double>": {
                         "A": "Passive",
-                        "Effect": "You have one more Animal Companion that accompanies you while adventuring.\nThis Animal Companion obeys the same rules as the regular one (takes its turns, requires healing between combats, etc).\nOne of your 3 Animal Companions grows to become Large. Its maximum Health increases by 50%, its attack range by 1 and its Damage by 1d4.\n"
+                        "Effect": "One more of your Animal Companions accompanies you while adventuring.\nThis Animal Companion obeys the same rules as the regular one (takes its turns, requires healing between combats, etc), except its Pet Attack deals only 1d4 Damage (you choose which of them).\nOne of your 3 Animal Companions grows to become Large. Its maximum Health increases by 50% and its attack range by 1.\n"
                     },
-                    "<Shapeshifter Animal>": {
-                        "A": "0 Actions (from you)",
-                        "Effect": "Your Animal Companion transforms into any other normal Animal Companion type.\n",
-                        "Upgrade": "Transforming into the same animal twice does not reset the Cooldowns."
+                    "<Wild Single>": {
+                        "A": "Passive",
+                        "Effect": "All your Animal Companions are combinations of 2 different Animals from the Animals List, and have the highest Stats of the two and both Abilities. All your Animal Companions must be combinations of all different Animals.\nYour Animal Companion's Pet Attack Damage becomes 1d10.\n"
                     }
                 },
                 "Level 5": {
@@ -250,6 +277,23 @@
                         "A": "Reaction",
                         "Effect": "Use when a Unit goes flying against its will on someone else's turn.\nYour pet(s) within 5 meters of its landing place can dash to it (after it lands) and make a total of 2 Pet Attacks on it.\n",
                         "Notes": "Goes flying means is pushed, knocked up, dragged, etc.\nThis uses YOUR Reaction, not your pets'.\nObviously, the pets need line of sight and can't jump through walls, or over large obstacles. Apply common sense.\n"
+                    }
+                },
+                "Level 7": {
+                    "<Coordinated Bite>": {
+                        "A": "0 Actions",
+                        "Cooldown": "Once / Adventure",
+                        "Effect": "One enemy near each of your pets (and/or summons) must pass a Might Check or become Crippled.\n"
+                    },
+                    "<Call To Action>": {
+                        "A": "Half-Action",
+                        "Cooldown": "Once / Adventure",
+                        "Effect": "Call to one more of your animal companions! It appears from the wilderness and fights for up to 1 minute as if it were a normal Animal Companion.\n"
+                    },
+                    "<Second Winds>": {
+                        "A": "0 Actions",
+                        "Cooldown": "Once / Adventure",
+                        "Effect": "Instantly heal yourself and all your pets for 3d6."
                     }
                 }
             }

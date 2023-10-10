@@ -621,9 +621,10 @@ Elemental:
     ~Fire Enchantment~:
         A: 1 Action
         Cost: 1 Mana
+        Range: 3 meters
         Requirement: Level 2
         Effect: |
-            Touch a weapon to imbue it with Fire.
+            Choose a metallic weapon to imbue it with Fire.
             That weapon deals +2 Damage (as part of the attack) and the total weapon Damage becomes Fire Damage.
             Lasts until the end of the next (or current) combat, or for up to 24 hours.
         Notes: Does not stack with other weapon enchantments from Spells.
@@ -987,7 +988,7 @@ Arcane:
         Effect: |
             Declare an area with a diameter in meters (in all directions) equal to your Level.
             The gravity becomes reversed in that area and all Units instantly fall upwards. Units can make a Dexterity Check to grab onto an object to not be lifted.
-            Units suffer fall Damage if they fall onto a roof.
+            Units suffer fall Damage if they fall onto a ceiling.
             When the effect ends, all Units fall at half velocity (and take half of the fall Damage). The same happens to a Unit if it exits the zone.
             Lasts for up to 1 minute. You can cancel this effect at will.
         Notes: |
@@ -1122,10 +1123,9 @@ Nature:
         Notes: Lasts for 24 hours or until you rolled the d4 3 times. Does not stack multiple times with itself.
 
     ~Healing Surge~:    # Almost 1 Mana worth
-        A: 0 Actions
+        A: Half-Action
         Range: 5 meters
         Cost: 1 Mana
-        Cooldown: Once / turn
         Effect: Heal a target for 2d6.
 
     ~Land Breach~: Inherit from Elemental
@@ -1135,13 +1135,14 @@ Nature:
         Range: 5 meters to edge
         Cost: 1 Mana
         Requirement: Level 3
+        HasMixins: true
         Effect: |
             Declare a 4x4x4 Cube.
-            All units inside take 4d4 Shock Damage now.
-            If a unit carries anything made of metal, deals 50% more Damage (after the roll).
+            All units inside take 3d4 Shock Damage now.
+            If a unit carries anything made of metal or is wet, it deals ^double^ the Damage (multiply it by 2).
             On your turn (for up to 1 minute), you can spend 1 Action to move the storm up to 3 meters and (and/or) its deal Damage again.
             Lasts up to 1 minute.
-        Upgrade: At Level 5, the range increases to 10 meters to edge.
+        Upgrade: At Level 6, the area is 6x6x6 (optionally).
         Notes: The storm only deals Damage the moment you spend 1 Action; if you do spend 1 Action, the storm stays in place and deals no Damage.
     
     ~Locust Swarm~:     # Ok
@@ -1448,10 +1449,10 @@ Conjuration:
         Duration: 1 minute
         Requirement: Level 4
         Effect: |
-            You create a 3x3 meter transparent, magical and thin force wall.
-            The wall provides Double Cover.
+            You create a 3x3 meter (tall and wide) translicent, magical and thin force wall.
+            The wall provides blocks Line of Sight and projectiles.
             Moving through it counts as Hard Terrain.
-        Upgrade: You can use this as a Reaction when someone declares an attack or Ability, before any roll is made.
+        Upgrade: You can use this as a Reaction when someone declares an attack or Ability to block the missile, before any roll is made.
 
 
     ~Grow or Shrink~:
@@ -1758,7 +1759,7 @@ Mysticism:
             Range: 5 meters
             Effect: |
                 Heal a target for 1d4 + your Sense Health.
-                If after this the target is at full Health, repeat this on another target.
+                After this, if the target is at full Health, repeat this on another target.
             Notes: Yes, this can chain again and again.
 
         ~Mind Blast~:
@@ -2100,11 +2101,11 @@ Divine:
         Effect: After you land a melee attack that did Damage, deal 1d10 Divine Damage to the target and heal yourself for the same amount.
 
     ~Cure Wounds~:
-        A: Half-Action
+        A: 1 Action
         Cost: 1 Mana
-        Range: 3 meters
+        Range: 5 meters
         Effect: |
-            Heal an ally (or yourself) for 2d4 Health.
+            Heal an ally (or yourself) for 1d10 Health.
             If it were at or above 50% Health before the heal, double the healing.
 
     ~Guiding Bolt~:

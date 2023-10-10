@@ -55,7 +55,7 @@
         },
         "~Power Source~": {
             "A": "Passive",
-            "Effect": "Your powers have an external source: a demon overlord, an eldritch unknowable entity, a blood corruption, a celestial, etc.\nPick one more Ability List to know Abilities from, which should match your power source.\n"
+            "Effect": "Your powers have an external source: a demon overlord, an unknowable eldritch entity, a blood corruption, a celestial, etc.\nPick one more Ability List to know Abilities from, which should match your power source.\n"
         }
     },
     "Starting Abilities Description": [
@@ -86,8 +86,9 @@
                 },
                 "~Hexblade~": {
                     "A": "Passive",
-                    "Effect": "After you cast an offensive Spell that costs Mana, your next Hexblade Weapon attack deals 1d6 extra Damage (within 5 minutes).\n",
-                    "Notes": "Offensive means that it deals Damage or applies Crowd Control (the GM has the word on whether it's offensive). Bonus Damage doesn't stack if you cast another Spell."
+                    "HasMixins": true,
+                    "Effect": "After you cast an _offensive_ Spell that costs Mana, your next weapon attack deals 1d6 extra Damage (within 5 minutes).\n",
+                    "Notes": "{Offensive Abilities}"
                 }
             },
             "Talents": {
@@ -99,8 +100,8 @@
                     },
                     "<Hexstaff>": {
                         "A": "Passive",
-                        "Effect": "Your Hexblade Ability is replaced by Hexstaff:\nAfter you attack with a weapon, your next offensive Spell that costs Mana has +1 Spell Grade and deals +1d6 Damage.\n",
-                        "Notes": "Applies to Area Damage, but only applies once to Spells that hit multiple times (e.g. Magic Missile-like Spells, damage over time effects, etc). Doens't stack."
+                        "Effect": "Your Hexblade Ability is replaced by Hexstaff:\nAfter you attack with a weapon, your next _offensive_ Spell that costs Mana has +1 Spell Grade and deals +1d6 Damage.\n",
+                        "Notes": "Applies to Area Damage, but only applies once to Spells that hit multiple times (e.g. Magic Missile-like Spells, damage over time effects, etc). Doens't stack.\n{Offensive Abilities}\n"
                     },
                     "<Doublehex>": {
                         "A": "Passive",
@@ -121,6 +122,21 @@
                         "Cost": "1 Mana",
                         "Effect": "Count the Units within 3 meters of you (except you).\nThey are all attacked for 1d4 + (d4's equal to the number of Units) Force Damage.\n",
                         "Notes": "E.g. if this affects 2 Units, it deals 3d4. If it affects 3 Units, it deals 4d4. 4 Units - 5d4. And so on."
+                    }
+                },
+                "Level 7": {
+                    "<Hexdrain>": {
+                        "A": "Passive",
+                        "Effect": "Your Hexblade (or Hexstaff) Damage and heals you for the Damage done."
+                    },
+                    "<Quick Hex>": {
+                        "A": "Passive",
+                        "Effect": "Your Spells that cost Mana and can't deal Damage take 0 Actions for you, and your Hexblade applies after you cast ^any^ Spell, not just offensive ones."
+                    },
+                    "<Possessio>": {
+                        "A": "0 Actions",
+                        "Duration": "2 turns",
+                        "Effect": "You become possessed by your patron or power source. While possessed, you have 1 extra Action on your turn and can't spend Mana, but you can't control your character - your patron or power source controls it (the GM).\nYou can suggest Actions for your possession, but your patron may act randomly or unpredictibly.\nYou still roll any dice for Acts your character make.\nLasts until the end of your next turn.\n"
                     }
                 }
             }
@@ -152,12 +168,42 @@
                     }
                 },
                 "Level 5": {
-                    "<Power Tap>": {
-                        "A": "Depends",
-                        "Cost": "Depends",
+                    "<Agile Development>": {
+                        "A": "Passive",
+                        "Effect": "Your Basic Spells that cost Mana and can't deal Damage cost 0 Actions for you. Works only once per turn."
+                    },
+                    "<Async Call>": {
+                        "A": "Passive",
+                        "Effect": "Whenever you roll a d12 on a Spell, teleport 3 meters in any direction.",
+                        "Notes": "You need Line of Sight to the destination point.\n"
+                    },
+                    "<Source Control>": {
+                        "A": "Passive",
+                        "Effect": "Choose any other Basic Abilities List you have. Power Overwhelming applies to Abilities from that List as well."
+                    }
+                },
+                "Level 7": {
+                    "<Blood Pact>": {
+                        "A": "0 Actions",
                         "Cooldown": "Once / Adventure",
-                        "Effect": "Cast an Ability one of your Allies has (with that ability's Actions and Costs and your modifiers).\nIf it costs Mana, you must spend its Mana.\n",
-                        "Notes": "Does not work on Passives. The Ability must have 0, a Half-Action or 1 Actions cost.\nThe Cooldown applies to you - you can Power Tap an Ability that's on Cooldown. After you use it, it goes on Cooldown for you, not for your Ally.\n"
+                        "Effect": "This turn, all Damage you deal is increased by 50%. Every time you roll an 8 or higher on a die, take 5 Psychic Damage.\n",
+                        "Notes": "The 50% increase is not applied to the 5 Psychic Damage."
+                    },
+                    "<Extra Power>": {
+                        "A": "Passive",
+                        "Effect": "Your Power Overwhelming dice increase by an additional tier (e.g. from d6 to d10)."
+                    },
+                    "<Life Drain>": {
+                        "A": "Passive",
+                        "Effect": "Whenever ^YOU^ kill a Worthy Enemy, heal an Ally (or yourself) for the excess Damage.\nIn addition, if an Enemy has 25% or less Health, you know exactly how much Health it has (ask the GM).\n",
+                        "Notes": "E.g. if the enemy has 10 Health, and you deal 16 Damage, heal an ally for 6 Health."
+                    }
+                },
+                "Level 9": {
+                    "<Final Word>": {
+                        "A": "Passive",
+                        "Effect": "When you have exactly 1 Mana, and you cast a Spell that cost 1 Mana, that Spell casts twice (for free).",
+                        "Notes": "This is akin to casting the Spell again for 0 Actions without spending Mana (not necessarily on the same target)."
                     }
                 }
             }
@@ -201,6 +247,12 @@
                         "Cooldown": "Once / Adventure",
                         "Effect": "Cast an Ability one of your Allies has (with that ability's Actions and Costs and your modifiers).\nIf it costs Mana, you must spend its Mana.\n",
                         "Notes": "Does not work on Passives. The Ability must have 0, a Half-Action or 1 Actions cost.\nThe Cooldown applies to you - you can Power Tap an Ability that's on Cooldown. After you use it, it goes on Cooldown for you, not for your Ally.\n"
+                    },
+                    "<Patron Aspect>": {
+                        "A": "0 Actions",
+                        "Cost": "10 Health",
+                        "Duration": "1 minute",
+                        "Effect": "You take on the shape or a being from your patron's plane until the end of your next turn.\nYour Basic Spells require no mana to cast.\nAfter you cast a Basic Spell, it goes on a Once / Adventure Cooldown (can't be used until the next Adventure).\n"
                     }
                 }
             }

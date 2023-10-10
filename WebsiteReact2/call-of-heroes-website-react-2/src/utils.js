@@ -279,6 +279,7 @@ export function parseTextWithSymbols(text) {
         'Pets and Animals': () => (<Link to="/Other/PetsAndAnimals">Pets and Animals</Link>),
         'Offensive Abilities': () => (<span>Offensive means that it deals Damage or applies hard Crowd Control (anything better than Slow and creating Hard Terrain).</span>),
         'Feared': () => (<span>A Feared Unit can only do <b>one</b> Act on its turn (e.g. move, make one attack, use one Ability, etc).</span>),
+        'Gold': () => (<Icon name="Gold"/>)
     }
     const symbolToMarkup = {
         '^': text => (<b>{text}</b>),

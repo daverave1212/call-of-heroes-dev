@@ -4,6 +4,7 @@ import PageH2 from './../PageH2/PageH2'
 import Separator from './../Separator/Separator'
 import React from 'react'
 import { parseTextWithSymbols, stringReplaceAllMany } from '../../utils'
+import TableNormal from '../TableNormal/TableNormal'
 
 // Attached as a static function to Spell, at the end of the document
 function getIconPathByName(name) {
@@ -34,7 +35,9 @@ export default function Spell({ children, spell, style, hasIcon }) {
         Notes,
         Requirement,
         IsSubspell,
-        Upgrade
+        Upgrade,
+        DoubleTableNumbered,
+        DoubleTable
     } = spell
     let DisplayName = spell['Display Name']
     
@@ -51,8 +54,39 @@ export default function Spell({ children, spell, style, hasIcon }) {
     const spellPassiveOrActiveClass = A == 'Passive' == true? 'spell--passive' : 'spell--active'
 
     if (HasMixins === true) {
-        Effect = parseTextWithSymbols(Effect)
-        Notes = parseTextWithSymbols(Notes)
+        try {
+            Effect = parseTextWithSymbols(Effect)
+            if (Notes != null) Notes = parseTextWithSymbols(Notes)
+        } catch (e) {
+            throw `Error in Spell ${Name} parsing text: ${e}`
+        }
+    }
+
+    let tableHeaders = null
+    const newTableValuePairs = []
+    if (DoubleTableNumbered != null) {
+        tableHeaders = DoubleTableNumbered.Headers
+        const values = DoubleTableNumbered.Values
+        for (let i = 0; i < values.length; i++) {
+            if (i % 2 == 1) {
+                newTableValuePairs.push({
+                    value1: `${i}. ${values[i-1]}`,
+                    value2: `${i+1}. ${values[i]}`
+                })
+            }
+        }
+    }
+    if (DoubleTable != null) {
+        tableHeaders = DoubleTable.Headers
+        const values = DoubleTable.Values
+        for (let i = 0; i < values.length; i++) {
+            if (i % 2 == 1) {
+                newTableValuePairs.push({
+                    value1: values[i-1],
+                    value2: values[i]
+                })
+            }
+        }
     }
 
     function SpellTopStats({className}) {
@@ -122,6 +156,16 @@ export default function Spell({ children, spell, style, hasIcon }) {
                     <div className='spell-notes'>
                         { Notes }
                     </div>
+                ) }
+                { (DoubleTable != null || DoubleTableNumbered != null) && (
+                    <TableNormal columns={tableHeaders} hasBorder={false}>
+                        { newTableValuePairs.map(pair => (
+                            <tr>
+                                <td>{ pair.value1 }</td>
+                                <td>{ pair.value2 }</td>
+                            </tr>
+                        )) }
+                    </TableNormal>
                 ) }
             </div>
         </div>

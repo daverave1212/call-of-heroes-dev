@@ -2,10 +2,12 @@
 import './TableNormal.css'
 import React from 'react'
 
-export default function TableNormal({ children, columns, type, tableWrapperClass }) {
+export default function TableNormal({ children, columns, type, tableWrapperClass, style, hasBorder }) {
 
     if (type == null)
         type = 'normal'
+    if (hasBorder == null)
+        hasBorder = true
 
     const tableTypeClass = 
         type == 'info'? 'table--info':
@@ -15,7 +17,7 @@ export default function TableNormal({ children, columns, type, tableWrapperClass
 
     return (
         <div className='table-normal-container-wrapper'>
-            <div className='table-normal-container'>
+            <div className={`table-normal-container ${hasBorder? '' : 'table-normal-container--no-border'}`}>
                 <div className='table-normal__header-row-container'>
                     <table className={tableTypeClass} cellSpacing="0"><tbody>
                         <tr>{ columns.map((col, i) => ( <th key={i}>{ col }</th> )) }</tr>
