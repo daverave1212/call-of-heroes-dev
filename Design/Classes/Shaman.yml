@@ -80,7 +80,7 @@ Starting Abilities:
       After you cast a Basic Ability you spent Mana on, if you roll maximum on at least one ^immediate^ Damage or Healing die, the Ability _echoes_ and you cast it again (for 0 Actions), but all Damage or Healing it does is reduced by 50%.
       The _echoed_ Ability can't affect the same target(s) or area.
     Notes: |
-      Immediate means not delayed, not over time, etc (e.g. Scorching Rays, Healing Surge are immediate; Explosion Rune, Curse of Pain, etc are not immediate). _Echoing_ can only happen if you roll maximum on the initial cast (when you spend the Mana), even if there's more Damage or Healing later (e.g. Crackling Lightning _echoes_ only if you roll maximum the moment you cast it).
+      Immediate means not delayed, not over time, etc (e.g. Scorching Rays, Healing Surge, Mind Blast are immediate; Explosion Rune, Curse of Pain, etc are not immediate). _Echoing_ can only happen if you roll maximum on the initial cast (when you spend the Mana), even if there's more Damage or Healing later (e.g. Crackling Lightning _echoes_ only if you roll maximum the moment you cast it).
       If the area overlaps the initial area, the overlapped part has no effect. If it hits the same target(s), it has no effect on them.
       Take the Ability text as it is - _echoing_ Lightning Storm repeats the initial Damage, but you'd have to spend another 1 Action to retrigger the second Lightning Storm.
       The GM has the word on whether something is possible.
@@ -92,8 +92,12 @@ Starting Abilities:
       Establish a mind connection with a willing ally.
       For the rest of the Adventure, you can talk to eachother telepathically.
 
-# Base: 4.5 Mana
-# Spec: 1.25 Charges (mostly)
+# Mana:         | 2                     | 2
+# Base:         | 2                     | 4
+# Spec:         | 2     | 1     | 1     | 5.5
+# Talents L3:   | 3     | 1.5   | 1.25  | 7
+# Talents L5:   | 2     | 3     | 2.25  | 9.5
+# Talents L7:   | 1.5   | 3     | 3     | 12.5
 
 # Damage + CC Medium
 
@@ -142,7 +146,8 @@ Specs:
         Notes: |
           Remember to recalculate your Max Health whenever you increase your Reserve Health or your Max Health.
   
-      ~Bloodlust~:                  # 2
+      ~Bloodlust~:
+        _Value: 2
         A: 0 Actions
         Cooldown: Once / Adventure
         Effect: Add Damage to a weapon attack equal to 50% of your missing Health.
@@ -152,19 +157,22 @@ Specs:
     Talents:
       Level 3:
 
-        <Primal Trophy>:    # ?
+        <Primal Trophy>:
+          _Value: 1
           A: Passive
           HasMixins: true
           Effect: |
             Whenever ^YOU^ kill a Worthy Enemy, gain one Primal Trophy. Every 3 Primal Trophies increase your "Reserve Health" by 1.
             Every 10 Primal Trophies give you an extra Proficiency.
 
-        <Cold Vigor>:       # 2+
+        <Cold Vigor>:
+          _Value: 1.5
           A: 0 Actions
           Cooldown: Once / Combat
           Effect: Heal for 10% of your Maximum Health and remove diseases from yourself.
 
         <Spirit Animal>:
+          _Value: 1.5
           A: Passive
           Effect: |
             A spirit animal assists you and gives you a boon, depending on its type.
@@ -187,7 +195,8 @@ Specs:
 
       Level 5:
             
-        <Earthshattering Wave>: # 2
+        <Earthshattering Wave>:
+          _Value: 2
           A: 0.5 Actions
           Cooldown: Once / Adventure
           Effect: |
@@ -197,7 +206,8 @@ Specs:
             E.g. if you have 30 out of 50 Health (thus missing 20 Health), then the line will be 4 meters long.
             Cover is applied normally.
           
-        <Ruining Shout>:  # 2
+        <Ruining Shout>:
+          _Value: 2
           A: 1 Action
           Cooldown: Once / Adventure
           Effect: |
@@ -205,17 +215,19 @@ Specs:
             Deals 1d6 Psychic Damage (directly, ignoring Defense) for each 1 meter to the target (up to 4d6).
             Roll 4d6 at the same time, and choose which dice affect the units closer.
 
-        <Tribal Tattoos>:   #2.25
+        <Tribal Tattoos>:   # Normally, 2 or so. But worth noting that it also improves other abilities
+          _Value: 2
           A: Passive
           Effect: |
-            Your "Reserve Health" is further increased by 10.
+            Your "Reserve Health" is further increased by 8.
             Every Adventure, you add another tattoo and increase it by 1.
             Every 3 new tattoos, gain +1 in any Resist Check of choice.
         
 
       Level 7:
 
-        <Jotunn>:         # 3+
+        <Jotunn>:
+          _Value: 3
           A: 0 Actions
           Cooldown: Once / Adventure
           Duration: 1 Minute
@@ -225,18 +237,23 @@ Specs:
             Your normal Melee attacks hit all Units within 1 meter of the target for the same Damage, without the Stat modifier (e.g. you don't add your Might or Dexterity to the secondary targets).
             You are immune to being Slowed, Rooted, Crippled, Fumbling and to Hard Terrain.
 
-        <Echoing Strikes>:    # 3?
+        <Echoing Strikes>:
+          _Value: 3
           A: Passive
           HasMixins: true
           Effect: Your weapon attacks can _echo_ (if you roll one maximum die).
 
         <Forced Echoes>:
+          _Value: 3
           A: Passive
           HasMixins: true
           Effect: Your Shaman Abilities and Talents always _echo_.
           Notes: When Bloodlust echoes, the Damage is dealt directly to another target near you (reduced by 50% from Damage it would normally do).
 
-        
+# Aya huasca
+# Reincarnation
+# Summon elemental
+
 # Stats + Utility
 # CC Medium + Utility
 
@@ -247,72 +264,136 @@ Specs:
     Description: Video morituri...
     Starting Abilities:
 
-      ~Spirit Bond~ :               # 0.25
+      ~Spirit Bond~ : # Ok
         A: 1 Action
         Cooldown: Once / Adventure
+        Duration: Whole Adventure
         Effect: |
           Touch another ally.
-          Whenever either of you makes a Check, add the higher bonus from either of you instead of the normal Check bonus.
-          You can do this once per Adventure, and lasts for the rest of the Adventure.
+          Whenever either of you makes a Check, add the higher bonus from either of you instead of their normal Check bonus.
         Notes: This does apply to Proficiencies - if your bonded ally has Proficiency in something, you also add the ally's Level, as it would normally make sense.
 
-      ~Mind Sight~ :                # 1
-        A: 1 Action
-        Cooldown: Once / Adventure
-        Range: 15 meters
-        Effect: |
-          A Unit you can clearly see must pass a Sense Check or be Blinded and take 3d6 Damage, or half of that if it passes.
-          Then, if you succeeded, you can then see through the target's eyes until you make another action or move.
-          If the target is unaware and it rolls 7 or less (total), it doesn't notice what just happened.
-        Notes: |
-          You can choose not to deal the Damage for this ability and not to Blind the target.
-          You see more and more blurry as the target gets farther away. At 10 kilometers, the spell breaks.
+      ~Third Echo~:
+        _Value: 1
+        A: Passive
+        HasMixins: true
+        Effect: When you roll dice for your _echoed_ Spell, if you roll maximum on any of the _echoed_ dice as well, the Spell _echoes_ a third time!
 
     Talents:
       Level 3:
-      
-        <Mind Link>:                # 1
+
+        <Spirit Animal>: Inherit
+
+        <Incorporeal Form>:
+          _Value: 1.5
+          HasMixins: true
           A: 0 Actions
           Cooldown: Once / Adventure
           Effect: |
-            Establish a mind connection with a willing ally.
-            For the rest of the Adventure, you can talk to eachother telepathically.
-            Additionally, the ally can do Mind Sight once until your next Adventure.
+            You become a bodyless soul for up to 8 hours and enter a willing ally.
+            While inside the ally's body, you can communicate with them mentally, and only they can see you.
+            You can slightly peek outside of their body, and move your arms, upper body and head as if you were a ghost originating from that ally's body.
+            {Diamond} You can't move yourself, but you always move with that ally.
+            {Diamond} You can't do any physical actions (because you are a ghost and can't touch anything or anyone).
+            {Diamond} You can cast spells normally. 
+            {Diamond} You follow your own Initiative in combat.
+            {Diamond} You can't take Damage or Crowd Control from external sources, but you feel every body sensation that ally feels.
+            You can freely exit their body and revert back to your physical self using 0 Actions.
 
         <Dream Walk>:
-          A: 0.5 Actions            # 1
+          _Value: 1.5
+          A: 0.5 Actions
           Cooldown: Once / Adventure
           Range: 6 meters
           Effect: |
-            A Unit must pass a Sense Check or fall Asleep for 2 turns.
+            A non-Epic Unit must pass a Sense Check or fall Asleep for 1 turn.
             Alternatively, you can use Dream Walk on an already sleeping target to alter their dreams to your liking.
           Notes: A Sleeping Unit wakes up if it takes Damage or other Crowd Control.
 
-
       Level 5:
-      
-        <Regrowth>: Inherit from Druid
-    
-        <Strong Spirited>:  # Hmm
-          A: Passive
-          Effect: |
-            Spirit Bond now works for Attack bonuses and Spell Grades too.
-            For your every 3rd Spell you cast that has a Once / Adventure Cooldown, if it's single target Spell, the target must pass a Sense Check or be Fumbling.
 
-        <Psyche Tether>:    # 2 Charges at 8 Damage
+        <Enlightening Ritual>:
+          _Value: 3
+          A: 1 hour
+          Cooldown: Once / Success / Adventure
+          Cost: 1 Mana / Success
+          Effect: |
+            You undergo an isolated, personal and mind-altering ritual with a willing non-Warlock Player Character at a campfire, and using incense, smoke and special herbs.
+            The ally must make a Sense Check (against your Spell Grade).
+            If it passes, its maximum Mana permanently increases by 1, and gets +2 to all Checks for the rest of the Adventure.
+            If it fails, it takes 1d8 Psychic Damage and gets -1 to all Checks for the rest of the Adventure.
+          Upgrade: |
+            You can perform this ritual as many times as you want per Adventure until you succeed once. It costs you 1 Mana (not Maximum Mana), which is spent when the ally passes the ritual.
+            A person can only succeed one Enlightening Ritual in their lifetime.
+
+        <Rainmaking>:
+          _Value: 3
+          A: 10 minutes
+          Cooldown: Once / Adventure
+          Duration: 1 hour
+          Effect: |
+            Perform a ritual to change the weather or atmosphere on a 100 meter area (in diameter) centered on you.
+            Choose one option from Storm, Wind, Heat, Cold.
+          Notes: In dungeons and indoors, this only goes through open doors and spaces - the weather starts from you and extends as much as possible through open holes, windows, doors, etc.
+          DoubleTable:
+            Headers:
+              - Weather
+              - Effect
+            Values:
+              - Storm
+              - Your team deals 2 extra Damage with all Spells
+              - Wind
+              - Your team has +1 Movement Speed, +1 Damage with missiles and can freely jump 5 meters (using Movement)
+              - Heat
+              - Your team deals 2 extra Damage with physical weapons
+              - Cold
+              - Your team has +1 Defense
+
+        <Psyche Tether>:    # 2 Mana at 8 Damage
+          _Value: 3
           A: 0 Actions
           Cooldown: Once / Adventure
           Effect: |
             Place a tether on 2 Units within 10 meters of you.
-            The next time one of them takes Damage, the other one takes the Damage (directly, ignoring Defense) as well as Psychic Damage.
+            The next time one of them is Damaged or Healed, the other one takes the Damage (as Psychic Damage) or Healing as well.
           Notes: |
-            If both are Damaged at the same time, this only applies once and you choose which takes the Damage of the other.
-            The extra Damage of Smites, Ambush, etc count over an attack counts as the same Damage source.
-            If another case is ambiguous, the DM makes the choice if it counts.
-            
+            If both are Damaged/Healed at the same time, this only applies once and you choose which takes the Damage/Healing of the other.
+            The extra Damage of Smites, Ambush, etc over an attack counts as the same Damage source.
+      
+      Level 7:
+
+        <Forced Echoes>:
+          _Value: 3
+          A: Passive
+          HasMixins: true
+          Effect: Your Shaman Abilities and Talents always _echo_.
+          Notes: Rainmaking applies 2 effects when echoed. Enlightening Ritual can now, instead, succeed twice per Adventure (Units still can't succeed it more than once).
+        
+        <Synchronicity>:
+          _Value: 3
+          A: Passive
+          HasMixins: true
+          Effect: Your Basic Abilities that don't cost Mana and deal Damage can now also _echo_.
+
+        <Reincarnation>:
+          _Value: 3
+          A: Reaction
+          HasMixins: true
+          Cooldown: Once / Combat
+          Effect: |
+            Use when you or an ally you can see Falls or dies. Choose an animal from the Pets and Animals list.
+            They immediately come to life as a translucent spirit version of that Animal.
+            Lasts until the ally Rises (or the animal dies too).
+          Upgrade: The ally can do Animal Attack (Druid), which does 1d6 + their Sense Damage (for a Half-Action).
+          Notes: {Pets and Animals}
+
       Level 9:
 
-        <Momentum Dance>: Inherit
+        <Realm Walk>:
+          A: Passive
+          Effect: ?
+
+        
 
 # Talent: More Guide Dice
 # Talent: Better Guide Dice
@@ -330,96 +411,142 @@ Specs:
 # Pet + RoI
 # Zoning
 
-  Witch Doctor:               # 1.5
+  Witch Doctor:               # 2
     Description: Lorem, ipsum, snitel, dolor!
   
     Starting Abilities:
-    
-      ~Spirit Guides~:     # 0.5
-        A: Special
-        Effect: |
-          At the start of every Adventure, roll 1d6 and remember what you rolled.
-          These dice are called Guide Dice.
-          You can freely consume one Guide Dice and add it to any Check you or an ally makes.
-        Upgrade: At levels 2, 5 and 8, you gain one more Guide Die.
 
-      ~Hex and Curse~:        # 1?
-        A: 0.5 Actions
-        Cooldown: 2 uses / Adventure
+      ~Wicked Magic~:             # Ok
+        A: Passive
+        Effect: You have access to the Eldritch Spell List.
+
+      ~Hex Magic~:
+        _Value: 1
+        A: 0 Actions or Reaction
+        Cost: Depends
+        Range: 10 meters
         Effect: |
-          Declare either an ally (or yourself) or an enemy within 6 meters.
-          If it's an enemy, it must pass a Sense Check or have all its Damage dice downgraded 1 tier for 1 minute.
-          If it's an ally, it must pass a Sense Check to be healed for 1d12, or half of that if it fails.
-          Downgrading can stack (you can downgrade an enemy's dice multiple times).
+          After you cast a Spell, you can expend 6 Health or Reserve Health to force it to _echo_.
+          You can expend 3 Health or Reserve Health to add or subtract 1d6 from any other Unit's roll (not yours).
         Notes: |
-          Downgrading dice by 1 tier means, for example, d6 become d4, or d12 become d10.
-          D4's and d20's don't decrease.
-          If you target an Epic Monster, the tier downgrade happens to its first turn every round only.
-        
+          The GM might not roll Damage for monsters, and instead take the average - even if they take the average, that counts as a roll.
+          Keep in mind you only have 1 Reaction per Round.
+    
     Talents:
       Level 3:
         
-        <Voodoo Magic> :        # 1
+        <Voodoo Magic> :
+          _Value: 1.25
           A: 1 Action
           Cooldown: Once / Adventure
           Range: 6 meters
           Effect: |
             A Unit within 6 meters makes a Sense Check.
-            If it fails, it takes 2d6 Psychic Damage at the start of your turn for 1 minute and for its next turn, you can choose that enemy's actions as long as it would seem reasonable to that enemy (decide with your DM).
+            If it fails, it takes 2d6 Psychic Damage at the start of your every turn for 1 minute, and for its next turn, you can choose that enemy's Acts as long as it would seem reasonable to that enemy (decide with your GM).
             Epic Monsters can not be controlled; they only take the Damage.
           Notes: For example, you can make a goblin run or recklessly attack one of your party members. But you can't make a guard jump off a cliff, because that's not what it would normally do.
 
-        <Incorporeal Form> :
-          HasMixins: true
-          A: 0 Actions
-          Cooldown: Once / Adventure
+        <Corpseblast>:
+          _Value: 1.25
+          A: Reaction
+          Cost: 2 Health or Reserve Health
           Effect: |
-            You become a bodyless soul for up to 8 hours and enter a willing ally.
-            While inside the ally's body, you can communicate with them mentally, and only they can see you.
-            You can slightly peek outside of their body, and move your arms, upper body and head as if you were a ghost originating from that ally's body.
-            {Diamond} You can't move yourself, but you always move with that ally.
-            {Diamond} You can't do any physical actions (because you are basically a ghost and can't touch anything or anyone).
-            {Diamond} You can cast spells as normal. 
-            {Diamond} You follow your own Initiative in combat.
-            {Diamond} You can't take Damage from external sources, but you feel every body sensation that ally feels.
-            You can freely exit their body and revert back to your physical self using 0 Actions.
+            Use the moment a Worthy Unit dies.
+            Explode the corpse, dealing 1d4 Poison Damage to all Units near it.
+            Heal for the Damage dealt.
 
-      Level 5:
-      
-        <Bomboclaat>:           # 2?
-          HasMixins: true
-          A: Passive
+        <Blood Brew>:
+          _Value: 1.25
+          A: 10 minutes
+          Cost: 4 Health or Reserve Health
           Effect: |
-            You gain 1 more Guide Die.
-            You can now do the following with Guide Dice:
-            {Diamond} Add to another ally's Damage roll
-            {Diamond} Subtract from an enemy's Damage roll
-            {Diamond} Add to another ally's Resist Check
-            {Diamond} Subtract from an enemy's Resist Check
-            You can only use 1 Guide Die at a time.
-        
-        <Dead Hands>:          # 1.75
-          A: 1 Action
-          Cost: 1 Guide Die
-          Effect: |
-            Choose a 3x3 meter zone.
-            Undead hands appear in that zone and make it Hard Terrain.
-            At the start of your next turn, use one of your Guide Dice to summon that many Zombies wherever you choose in that zone.
-            They take their turn the same time as you and you can command them to do move and attack (they can't do Default Moves or use items).
-            They have 4 Speed, 1 Health, 3 Defense and fail all Checks.
-            Each can attack for 1d4 - 1 Necrotic Damage (directly, ignoring Defense).
-            Zombies last up to 10 minutes.
+            You spend 10 minutes creating a strange splashable brew made from your own blood, with a random effect.
+            The brew can be splashed (Half-Action) onto a Unit (at 3 meters range).
+            When you create it, roll 1d4 to determine its effect.
+            You are immune to Blood Brews.
+          Notes: The brews lose their effect at the end of the Adventure. Acid and Muck ignore real Cover.
+          DoubleTable:
+            Headers:
+              - Brew
+              - Effect
+            Values:
+              - 1. Acid
+              - 3d6 Acid Damage
+              - 2. Muck
+              - Target takes 1d8 Damage and must pass a Dexterity Check or be Blinded
+              - 3. Anaesthetic
+              - 1d6 + 1d8 Healing
+              - 4. Gas
+              - Deals 1d12 Damage in a 5x5 area centered on the target, and a Toxic Gas cloud forms there.
 
-        <Bone Mass>:           # 1.75
-          A: 0.5 Actions
-          Cost: 1 Guide Die
+        <Bone Mass>:
+          _Value: 1.5
+          A: Half-Action
+          Cost: Any amount of Health or Reserve Health
           Range: 6 meters to edge
           Effect: |
-            Spend one Guide Die and declare a square area.
-            The diameter of the area is equal to the spent Guide Die.
-            Sharp bones occupying 1x1 meters each grow from the area.
+            Declare a square area with a diameter equal to the Health or Reserve Health spent.
+            Sharp bones grow from the area (occupying 1x1 meters each).
             When a Unit steps on a Sharp Bone, it directly takes 1d8 Pierce Damage and loses 1 meter of its remaining speed.
             The bone then shatters.
+
+      Level 5:
+           
+        <Dead Hands>:
+          _Value: 1.5
+          A: 1 Action
+          Cost: Any amount of Health or Reserve Health
+          Duration: 10 minutes
+          Effect: |
+            Declare a square area with a diameter equal to the Health or Reserve Health spent.
+            Undead hands appear in that area and make it Hard Terrain.
+            At the start of your next turn, summon a number of Zombies equal to half the Health or Reserve Health spent, each wherever you choose in that area.
+            They take their turn the same time as you and you can command them to do move and attack (they can't do Default Moves or use items).
+            They have 4 Speed, 1 Health, 2 Defense and fail all Checks.
+            Each can attack for 1d4 - 1 Necrotic Damage, but ignore Defense.
+            Zombies last for up to 10 minutes.
+
+        <Schizophrenic Suggestion>: # Lmao no idea
+          _Value: 2.5
+          A: 1 Action
+          Cooldown: Once / Adventure
+          Range: 3 meters to edge
+          Cost: Any amount of Health or Reserve Health
+          HasMixins: true
+          Effect: |
+            Declare a square area with a diameter equal to ^twice^ the Health or Reserve Health spent.
+            All Units in that area must pass a Sense Check or instantly make an attack or offensive Ability of its choice, at full strength, on its closest ally.
+          Notes: Monsters can use any of their Abilities that do Damage or Crowd Control, and target them however they want if they are Area Abilities, as long as it hits its closest ally.
+
+        <Bumboclaat!>:            # 1 Action + 1 Mana is the follow up you'd do, so 2 Mana-ish
+          _Value: 2.5
+          A: Half-Action
+          Cooldown: Once / Adventure
+          Effect: |
+            Target a Unit.
+            The next time it would take Damage from any source before your next turn, the Damage is doubled (after Defense).
+          Upgrade: You can only use this on targets that have blood.
+          Notes: Applies to added extra Damage if it's the same type as the base Damage (e.g. Advanced Flank works, but not Smites).
+
+      Level 7:
+
+        <Forced Echoes>:
+          _Value: 3
+          A: Passive
+          HasMixins: true
+          Effect: Your Shaman Talents always _echo_.
+          Notes: You don't spend Health or Reserve Health again if any Talents require that.
+
+        <Possession>:
+          _Value: 3
+          A: Half-Action
+          Cooldown: Once / Adventure
+          Effect: |
+            Choose a Unit you can see.
+            You possess its body and, on its next turn, you control what it does.
+          Upgrades: |
+            Only works on targets with Sense less than 3.
+            The GM will tell you what the Unit can do if it's a monster.
 
 
 

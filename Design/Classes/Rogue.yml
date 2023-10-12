@@ -67,7 +67,8 @@ Starting Abilities Description:
       
 Starting Abilities:
   
-  ~Ambush~ :      # 1
+  ~Ambush~ :
+    _Value: 1
     AlignOnWebsite: Right
     A: Passive
     Cooldown: 1 / Turn
@@ -76,7 +77,7 @@ Starting Abilities:
     Notes: |
       Your Specialization will give you extra ways to Ambush.
       
-  ~Hide~:
+  ~Hide~:       # Ok
     A: Special
     Cooldown: Once per encounter
     Effect: |
@@ -94,14 +95,12 @@ Starting Abilities:
 # One ambush = 1
 # On average, you will do 5-6 Ambushes per Adventure = ~5-6
 
-# Base: 1.75 Charges
-# Spec: 6 Charges
-# Talent: 7.25 Charges
-
-# Base:       1.75
-# Spec:       5.5    | 5.5       | 5.5
-# Talent T1:  0.75   | 0.5       | 0.5
-# Talent T1:  1.5    | 1.5       | 1.5
+# Mana:       1                     | 1
+# Base:       1                     | 2
+# Spec:       4.35    | 4  |  3.5   | 6
+# Talent T1:  1       | 1  |  1     | 7
+# Talent T1:  1.5     | 3  |  2     | 9.5
+# Talent T1:  3       | 3  |  3     | 12.5
 
 Specializations:
   Description: |
@@ -114,22 +113,23 @@ Specializations:
 
 Specs:
 
-# - Damage
 
-# - CC Hard (Stun)          (Talent 2)
-# - Utility
-# - Stats
-# - Mobility
+  Thief:
+    # - Damage
 
-# - Zoning                  (Talent 4)
-# - AoE
-# - Damage (sus) + Utility
+    # - CC Hard (Stun)          (Talent 2)
+    # - Utility
+    # - Stats
+    # - Mobility
 
-  Thief:                # 2.35 Charges
+    # - Zoning                  (Talent 4)
+    # - AoE
+    # - Damage (sus) + Utility
     Description: ...lorem... ipsum...
     Starting Abilities:
     
-      ~Backstab~ :      # 2
+      ~Backstab~ :
+        _Value: 4
         A: Passive
         Effect: When you Flank an enemy, Ambush is applied.
         Upgrade: |
@@ -137,13 +137,14 @@ Specs:
           That attack gains 1d8 extra Damage for each Mana spent (on top of the 1d8).
         Notes: Ambush from Hidden and Backstab don't stack (only one d8 is added).
     
-      ~Agile Hand~ :    # 0.35
+      ~Agile Hand~ :
+        _Value: 0.35
         A: Passive
         Effect: You are immune to Fumbling. You can freely Break your movement.
-#       Effect: You don't become Fumbling from moving away from an enemy's melee attack range.
-#       Notes: Fumbling is when you move away from an enemy's melee attack range; if you are Fumbling, all your actions have Cover.
+        #       Effect: You don't become Fumbling from moving away from an enemy's melee attack range.
+        #       Notes: Fumbling is when you move away from an enemy's melee attack range; if you are Fumbling, all your actions have Cover.
 
-      ~Fool's Gold~:
+      ~Fool's Gold~:  # Ok
         A: Passive
         Effect: |
           After you spend Mana on Ambush, choose one of the rolled dice of the attack (including the base weapon dice and base ambush dice). Gain 10 times that much {Gold}Fool's Gold.
@@ -155,13 +156,15 @@ Specs:
 
     Talents:
       Level 3:
-        <Screw-It Shot> :        # 1.5?
+        <Screw-It Shot> :
+          _Value: 1.5
           A: 0 Actions
           Cost: 50 Fool's Gold
           Effect: |
             A Unit within 2 meters must pass a Dexterity Check or be Stunned.
 
-        <Arcane Trickster> :    # 0.5
+        <Arcane Trickster> :
+          _Value: 1
           A: Passive
           Effect: |
             You can now cast spells!
@@ -170,11 +173,13 @@ Specs:
             Fool's Coin now also applies when spending Mana on a Spell.
           Notes: You lose access to these Spells if you change this Talent.
           
-        <Way of Fooling> :      # 0.5
+        <Way of Fooling> :
+          _Value: 0.5
           A: Passive
           Effect: Your Charisma increases by 2 (up to a maximum of 4).
           
         <Whiplash>:
+          _Value: 1
           A: 0 Actions
           Cooldown: 1 hour
           Effect: |
@@ -185,7 +190,8 @@ Specs:
           
       Level 5:
         
-        <Thief Shock Wire>: # 1.5?
+        <Thief Shock Wire>:
+          _Value: 1.5
           A: 0 Actions
           Cost: 20 Fool's Gold
           Range: 6 meters to end in line of sight
@@ -199,6 +205,7 @@ Specs:
             Requires a Special Tripwire Set which can be bought for 100 gold.
         
         <Blade Tempest>:    # 1.75-ish cause you hit a target multiple times, but it's delayed so idk
+          _Value: 1.75
           A: 1 Action
           Cooldown: Once / Adventure
           Effect: |
@@ -208,6 +215,7 @@ Specs:
           Notes: Requires 8 shurikens, which can be bought for a total of 120 gold on a black market. If you're playing on a Grid, take semi-hitting into account for blades that don't travel squares exactly in the 8 directions. Cover applies normally to each blade.
 
         <Poisoned Weapons>:  # 1.5? seems a bit weak
+          _Value: 1.5
           HasMixins: true
           A: 10 minutes
           Cooldown: 8 hours
@@ -225,7 +233,8 @@ Specs:
     
       Level 7:
 
-        <Savage Ambush>:  # 2
+        <Savage Ambush>:
+          _Value: 3
           A: Passive
           Effect: |
             When you declare an attack on a Unit that has 50% or less Health (before your attack's Damage), the attack gain Ambush.
@@ -235,7 +244,8 @@ Specs:
             The maximum Damage is 2d8, even if you match 3 conditions for Ambush (e.g. Hiding, Savage Ambush and your Specialization's Ambush Ability).
             You can still add Ambush Damage only once per turn (e.g. not with 2 separate attacks; it must be one single attack).
 
-        <First-Shot Ambush>:  # 2
+        <First-Shot Ambush>:
+          _Value: 3
           A: Passive
           Effect: |
             When you declare an attack on a Unit that has full Health, the attack gain Ambush.
@@ -245,7 +255,8 @@ Specs:
             The maximum Damage is 2d8, even if you match 3 conditions for Ambush (e.g. Hiding, First-Shot Ambush and your Specialization's Ambush Ability).
             You can still add Ambush Damage only once per turn (e.g. not with 2 separate attacks; it must be one single attack).
 
-        <Instinctive Ambush>:  # 2
+        <Instinctive Ambush>:
+          _Value: 3
           A: Passive
           Effect: |
             After you use a 0 Actions Ability, your next weapon attack this turn gains Ambush.
@@ -255,26 +266,27 @@ Specs:
             Or, if you were hiding and Ambush, then use a 0 Actions Ability, then attack again, that second attack also gains Ambush (1d8 extra Damage).
           
 
-    #  Talent: Traps, tripwires, thief's tools
+        #  Talent: Traps, tripwires, thief's tools
 
 
-# Talent: If you interrupt someone's turn, debuff them
-
-# - Damage
-
-# - Sleep               (Talent 2)
-# - Mobility
-# - RoI
-
-# - AoE                 (Talent 4)
-# - RoI
-# - Damage (sustained)
   
-  Assassin:             # 2.25 Charges
+  Assassin:
+    # Talent: If you interrupt someone's turn, debuff them
+
+    # - Damage
+
+    # - Sleep               (Talent 2)
+    # - Mobility
+    # - RoI
+
+    # - AoE                 (Talent 4)
+    # - RoI
+    # - Damage (sustained)
     Description: ...LOREMIPSUM! <you died>
     Starting Abilities:
 
-      ~Isolated~ :      # 2 Charge
+      ~Isolated~ :
+        _Value: 4
         A: Passive
         Effect: |
           When you attack a Unit, and there is no other Unit within 1 meter of either of you, the attack gains Ambush.
@@ -283,30 +295,21 @@ Specs:
           That attack gains 1d8 extra Damage for each Mana spent (on top of the 1d8).
         Notes: Ambush from Hidden and Isolated don't stack (only one d8 is added).
 
-      ~Planned Assassination~ :   # 1 - 1.5 Charges, but heavily depends
-        A: 1 minute
-        Cost: 1 Mana
-        Effect: |
-          You plan an attack for 1 minute.
-          Your next weapon attack on that target deals an extra 1d12 Damage.
-          Planned Assassination fails if your Line of Sight to the target is broken until you attack it.
-        Notes: The Mana is spent the moment you declare Planned Assassination. You can use plan assassinations on multiple targets, but you can't plan an assassination on a single target multiple times at the same time.
-
-
     Talents:
       Level 3:
 
         <Take Out> :
+          _Value: 1
           A: Half-Action
           Cost: 1 Mana
           Effect: |
             A non-Epic Unit within 1 meter must pass a Dexterity Check or be put to Sleep for 1 minute.
-            If it fails, you gain the Action back.
+            If it fails, you gain the Half-Action back.
           Downside: |
             You must be hiding to use Take Out, and the target must be Isolated.
             This ability unhides you!
 
-        <Poison Master> :
+        <Poison Master> : # Ok
           A: 1 hour
           Cost: 1 Mana
           Effect: |
@@ -315,19 +318,31 @@ Specs:
             Combining multiple instances of Drinkable Poison increases its Damage by 1d12 for each Drinkable Poison combined.
             The poison loses its effect after 72 hours.
 
-        <Shadowstep> :
+        <Shadowstep> :  # Ok
           A: Half-Action
           Cooldown: Once / Adventure
           Effect: |
             If you are covered in shadow, choose another point covered in shadow up to 6 meters away.
             Instantly teleport to that place.
           Notes: This is considered a Spell.
+
+        <Planned Assassination>:   # 1 - 1.5 Charges, but heavily depends
+          _Value: 0.35
+          A: 1 minute
+          Cost: 1 Mana
+          Effect: |
+            You plan an attack for 1 minute.
+            Your next weapon attack on that target deals an extra 1d12 Damage.
+            Planned Assassination fails if your Line of Sight to the target is broken until you attack it.
+          Notes: The Mana is spent the moment you declare Planned Assassination. You can use plan assassinations on multiple targets, but you can't plan an assassination on a single target multiple times at the same time.
+
           
       Level 5:
       
         <Blade Tempest>: Inherit
 
         <Death Mark>:               # 2 = 16 Damage done
+          _Value: 3
           A: 0 Actions
           Cooldown: Once / Adventure
           Effect: |
@@ -354,30 +369,31 @@ Specs:
           Effect: |
             For each attack, Ability and application of Ambush you made this turn, deal 1d10 Damage that ignores Defense.
 
-# Talent: 2 turns from now, evelyn's charm
-# Talent: Traps, tripwires, thief's tools
-# Talent: After you Parry, Reaction to attack
-# Talent: Reaction - choose 2 Units, grab them with the whiplash and swap their positions (cool for combos)
-# Talent: Reaction - shoot your gun, and stop someone's movement
-# Talent: high noon 6 attacks
-
-# - Single Target Damage
-# - Protection
-
-# - CC Hard (Blind)     (Talent 2)
-# - Utility
-# - Mobility
-# - Utility
-
-# - Zoning              (Talent 4)
-# - Damage (sustained)
-# - Damage + Utility
   
-  Skirmisher:           # 3 Charges
+  Skirmisher:
+    # Talent: 2 turns from now, evelyn's charm
+    # Talent: Traps, tripwires, thief's tools
+    # Talent: After you Parry, Reaction to attack
+    # Talent: Reaction - choose 2 Units, grab them with the whiplash and swap their positions (cool for combos)
+    # Talent: Reaction - shoot your gun, and stop someone's movement
+    # Talent: high noon 6 attacks
+
+    # - Single Target Damage
+    # - Protection
+
+    # - CC Hard (Blind)     (Talent 2)
+    # - Utility
+    # - Mobility
+    # - Utility
+
+    # - Zoning              (Talent 4)
+    # - Damage (sustained)
+    # - Damage + Utility
     Description: Loreeeem!!!
     Starting Abilities:
 
-      ~Savagery~:       # 2 Charges
+      ~Savagery~:
+        _Value: 2.5
         A: Passive
         Effect: When you declare an attack on a Unit that has 50% or less Health (before your attack's Damage), the attack gain Ambush.
         Upgrade: |
@@ -385,19 +401,22 @@ Specs:
           That attack gains 1d8 extra Damage for each Mana spent (on top of the 1d8).
         Notes: Ambush from Hidden and Savagery don't stack (only one d8 is added).
 
-      ~Parry~:          # 1 Charge
+      ~Parry~:
+        _Value: 1
         A: Reaction
         Cooldown: Once / Adventure
-        Effect: Halve the Damage of a weapon attack you receive (after the roll, before subtracting Defense).
+        Effect: Halve the Damage of a weapon attack you receive (when you see the roll, before subtracting modifiers like Defense, Resistances, etc).
 
     Talents:
       Level 3:
       
         <10% Luck>:
+          _Value: 1
           A: Passive
-          Effect: Once per turn, when you roll a 1 for a Damage die, you can reroll that die.
+          Effect: Once per Round, when you roll a 1 for a Damage die, you can reroll that die.
         
         <Cheap Tricks>:
+          _Value: 1
           A: 0 Actions
           Cost: 1 Mana
           Range: 3 meters
@@ -405,7 +424,8 @@ Specs:
 
         <Whiplash>: Inherit from Thief
 
-        <Quickfire> :
+        <Quickfire>:
+          _Value: 1
           A: 0 Actions
           Cost: 1 Mana
           Cooldown: 1 use / Turn
@@ -417,6 +437,7 @@ Specs:
       Level 5:
       
         <Combat Shock Wire>:
+          _Value: 1.5
           A: Passive
           Range: 6 meters to end in line of sight
           Effect: |
@@ -431,6 +452,7 @@ Specs:
         <Poisoned Weapons>: Inherit from Thief
         
         <Swing Thing>:              # 2 uses = 2 Charges
+          _Value: 2.25
           A: Reaction
           Range: 6 meters
           Effect: |
@@ -443,6 +465,7 @@ Specs:
       Level 7:
 
         <Backstab Ambush>:
+          _Value: 3
           A: Passive
           Effect: |
             When you Flank an enemy, the attack gains Ambush.
@@ -453,6 +476,7 @@ Specs:
             You can still add Ambush Damage only once per turn (e.g. not with 2 separate attacks; it must be one single attack).
 
         <Isolated Ambush>:
+          _Value: 3
           A: Passive
           Effect: |
             When you attack a Unit, and there is no other Unit within 1 meter of either of you, the attack gains Ambush.

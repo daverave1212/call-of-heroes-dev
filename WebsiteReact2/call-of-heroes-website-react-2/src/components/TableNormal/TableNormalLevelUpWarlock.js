@@ -28,8 +28,7 @@ export default () => (
         <tr>
             <td>Level 4</td>
             <td>
-                +1 in any Stat (up to +4)<br/>
-                +1 Feat<br/>
+                +1 in any Stat (up to +4)
             </td>
         </tr>
         <tr>
@@ -42,20 +41,20 @@ export default () => (
         <tr>
             <td>Level 6</td>
             <td>
-                Action Surge (see below)<br/>
+                1 Proficiency<br/>
+                1 Weapon Training
             </td>
         </tr>
         <tr>
             <td>Level 7</td>
             <td>
-                Class Talent (Tier 3)<br/>
+                Class Talent (Tier 3)
             </td>
         </tr>
         <tr>
             <td>Level 8</td>
             <td>
                 +1 in any Stat (up to +5)<br/>
-                +1 Feat<br/>
                 1 Extra <Icon name="Mana"/>Mana
             </td>
         </tr>

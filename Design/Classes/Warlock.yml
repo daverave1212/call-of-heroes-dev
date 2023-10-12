@@ -27,8 +27,8 @@ Spellcasting:
     Regain: Your Mana reset after every combat.
   Change: You can change your known Spells and Talents inbetween Adventures.
   Other: All Warlock-specific Abilities are considered Spells.
-  Known Basic Abilities: 4 + Your Intelligence
-  BaseKnownSpells: 4
+  Known Basic Abilities: 2 + Your Intelligence
+  BaseKnownSpells: 2
   Basic Ability Lists:
     - Elemental
     - Eldritch
@@ -52,11 +52,14 @@ Spellcasting:
 Starting Abilities:
 
   ~Warlock Mana~:
+    _Value: 3
+    _ValueComment: Scales hard
     A: Passive
     Effect: |
       Unlike other Classes', all of your Mana regenerates 10 minutes after each Worthy combat encounter (e.g. instead of inbetween Adventures).
+      You gain +1 maximum Mana only on Levels 3, 6 and 9 (not every Level).
 
-  ~Power Source~:
+  ~Power Source~: # Ok
     A: Passive
     Effect: |
       Your powers have an external source: a demon overlord, an unknowable eldritch entity, a blood corruption, a celestial, etc.
@@ -80,60 +83,6 @@ Starting Abilities Description:
 # Summoner: Swap positions with your fmailiar
 # Summoner: Retreat inside the body of your familiar
 
-# ~Power Tap~ :         # 1 Charges (can use class spells)
-#           A: Depends
-#           Cost: Depends
-#           Cooldown: Once / Adventure
-#           Effect: |
-#             Cast an Ability one of your Allies has (with that ability's Actions and Costs and your modifiers).
-#             If it costs Mana, you must spend its Mana.
-#           Notes: |
-#             Does not work on Passives. The Ability must have 0, a Half-Action or 1 Actions cost.
-#             The Cooldown applies to you - you can Power Tap an Ability that's on Cooldown. After you use it, it goes on Cooldown for you, not for your Ally.
-
-# Abilities Description:
-#   - Fey Patron: |
-#         A wild, outworldly being, heavily magical or in tune with nature, and often outward strange. A Fey Patron often represents an old god of nature or magic, resembled by a magical animal or humanoid.
-#         This provides you with the Fey Patron Ability, which gives you one more Race Choice Ability!
-#   - Celestial Patron: |
-#         A being from a divine plain. Portrayed as angels or divine spirits of life and death.
-#         This provides you with the Life Cycle Ability which can function as an emergency heal in combat. This Ability can be used on yourself, too.
-#         Note that it simply draws from the Reserve Health pool! It is not Health out of thin air!
-#   - Demon or Devil Patron: |
-#         A being residing in Hell, an archdevil or lord in hell.
-#         This provides the Soul Drain Ability, which gives you a consistent Damage source that can heal you back.
-#   - Old God Patron: |
-#         An eldritch being of nightmare and terror, whose thoughts, form and wants are incomprehensible to most people
-#         This gives you access to one of another Race's Starting Ability.
-
-# Abilities:
-
-#   ~Fey Patron~ :        # 0.5
-#     A: Passive
-#     Effect: |
-#       Your lord is a higher fey creature.
-#       Choose one more Racial Feat from your Race.
-#     Notes: |
-#       The Fey Patron enhances you magically, mutates your arcane flow and transforms you into an unordinarily adapted person.
-#       If you are a Dragonborn, you can instead choose one more Breath shape, and your Breath has both chosen shapes simultanuously (overlapped; the Damage is not doubled).
-
-#   ~Old God Patron~ :    # 0.5
-#       A: Passive
-#       Effect: |
-#         Your lord is an old, slumbering god.
-#         You can pick a starting Ability from any other race and have it permanently (from the Starting Abilities, not a Feat).
-#       Notes: Eldritch thoughts flow through your mind, infecting you with strange abilities acquired in unfathomable ways.
-
-#   <Soul Drain> :        # 0.75
-#     AlignOnWebsite: Right
-#     A: Half-Action
-#     Cost: 1 Mana
-#     Range: 15 meters
-#     Effect: |
-#       Deal 10 Necrotic Damage to a Unit (directly, ignoring Defense).
-#       If it dies, you get the Mana back and heal for 5 Health.
-#     Upgrade: Corresponds to the Demon Patron.
-#     Notes: Through every soul drained, your demon lord feeds, and in return, grants you even more power.
 
 Specializations:
   Description: At Level 1, you can choose your specialization. Every Warlock can choose from the following Warlock specializations.
@@ -143,10 +92,11 @@ Specializations:
     - Summoner, specialized in calling for aid from familiars and otherworldly beings
 
 
-# Base:       4.75
-# Spec:       1.75   | 2         | 5.5
-# Talent T1:  0.25   | 0.5       | 0.5
-# Talent T2:  1.5    | 1.5       | 1.5
+# Base:       3                           | 3
+# Spec:       4       | 2         | 2.25  | 6.5
+# Talent T1:  0.25    | 0.5       | 1.75  | 7.5
+# Talent T2:  2.25    | 1         | 2.5   | 9.5
+# Talent T2:  3       | 2         |       | 12.5
 
 # Base: 4.5 Charges
 # Spec: 5.5 Charges
@@ -164,7 +114,8 @@ Specs:
     Description: Ha! Lorem ipsum!!
     Starting Abilities:
 
-      ~Sentient Weapon~ : # 0.5
+      ~Sentient Weapon~ :
+        _Value: 1
         A: Passive
         Effect: |
           You have a Hexblade Weapon - a special weapon of one chosen type (e.g. Shortsword, Longbow, Pike, etc). This weapon will have extra effects later on. Don't lose it!
@@ -177,7 +128,8 @@ Specs:
           You must choose your weapon type when you become a Hexblade Warlock.
           You can customize your weapon's personality, voice, the way it looks. Talk to your GM about this.
 
-      ~Hexblade~ :      # 2.5
+      ~Hexblade~ :
+        _Value: 3
         A: Passive
         HasMixins: true
         Effect: |
@@ -187,12 +139,14 @@ Specs:
     Talents:
       Level 3:
         
-        <Shapeshifting Weapon> :    # 0.25
+        <Shapeshifting Weapon> :
+          _Value: 0.25
           A: 0 Actions
           Cooldown: Once per turn
           Effect: Instantly change the type of weapon of your Hexblade.
 
-        <Hexstaff> :                # 0.25
+        <Hexstaff> :
+          _Value: 0.25
           A: Passive
           Effect: |
             Your Hexblade Ability is replaced by Hexstaff:
@@ -201,7 +155,8 @@ Specs:
             Applies to Area Damage, but only applies once to Spells that hit multiple times (e.g. Magic Missile-like Spells, damage over time effects, etc). Doens't stack.
             {Offensive Abilities}
 
-        <Doublehex> :               # 0.25
+        <Doublehex> :
+          _Value: 0.25
           A: Passive
           Effect: |
             You now have 1 more Hexblade Weapon, of any kind. The same patron or another one of the same type is possessing your second weapon.
@@ -212,18 +167,21 @@ Specs:
 
       Level 5:
         
-        <Hungering Weapon>:     # 2 or more
+        <Hungering Weapon>:
+          _Value: 2.25
           A: Passive
           Effect: |
             When YOU drop a Worthy Enemy to 0 Health, gain an extra Half-Action this turn and 5 Shielding.
 
-        <Spell Tap>:            # 2 or more
+        <Spell Tap>:
+          _Value: 2.25
           A: Passive
           Effect: |
             Every Worthy Combat, the moment you drop to 0 Mana, gain Shielding equal to your Maximum Mana and you can immediately freely (for 0 Actions) cast a Spell that doesn't cost Mana.
 
         <Somatic Pulse>:        # Should deal about ~0.5 more Damage than a normal Spell (15 against Defense)
           A: Half-Action        # Half-Action with 1 mana = 13.5 = ~4d6
+          _Value: 2
           Cost: 1 Mana
           Effect: |
             Count the Units within 3 meters of you (except you).
@@ -233,14 +191,17 @@ Specs:
       Level 7:
         
         <Hexdrain>:
+          _Value: 3
           A: Passive
           Effect: Your Hexblade (or Hexstaff) Damage and heals you for the Damage done.
 
         <Quick Hex>:
+          _Value: 1.5
           A: Passive
-          Effect: Your Spells that cost Mana and can't deal Damage take 0 Actions for you, and your Hexblade applies after you cast ^any^ Spell, not just offensive ones.
+          Effect: Your Spells that cost Mana and can't deal Damage take 0 Actions for you, and your Hexblade applies after you cast ^any^ Spell that costs Mana, not just offensive ones.
         
         <Possessio>:
+          _Value: 3
           A: 0 Actions
           Duration: 2 turns
           Effect: |
@@ -249,13 +210,13 @@ Specs:
             You still roll any dice for Acts your character make.
             Lasts until the end of your next turn.
 
-
   Occultist:
 
     Description: LOREM! Dolor, dolor!
     Starting Abilities:
 
       ~Power Overwhelming~:     # 2?
+        _Value: 2
         A: Passive
         Effect: |
           All your Eldritch Basic Spells have their dice increased by 1 tier.
@@ -268,14 +229,17 @@ Specs:
       Level 3:
 
         ~Shadow Veil~:
+          _Value: 0.5
           A: Passive
           Effect: You take only 50% Necrotic and Psychic Damage.
 
         ~Repower~:
+          _Value: 0.5
           A: Passive
           Effect: Whenever you roll maximum on a Damage die with an Eldritch Spell on a Worthy Enemy, heal for 1.
 
         ~Darkness~:
+          _Value: 0.5
           A: 0 Actions
           Range: 5 meters to edge
           Cooldown: Once / Adventure
@@ -286,22 +250,26 @@ Specs:
       Level 5:
 
         <Agile Development>:
+          _Value: 1.25
           A: Passive
           Effect: Your Basic Spells that cost Mana and can't deal Damage cost 0 Actions for you. Works only once per turn.
 
         <Async Call>:
+          _Value: 0.5
           A: Passive
           Effect: Whenever you roll a d12 on a Spell, teleport 3 meters in any direction.
           Notes: |
             You need Line of Sight to the destination point.
 
         <Source Control>:   # 1 I hope
+          _Value: 1
           A: Passive
           Effect: Choose any other Basic Abilities List you have. Power Overwhelming applies to Abilities from that List as well.
 
       Level 7:
 
         <Blood Pact>:       # 2? Can be strong but not _that_ strong
+          _Value: 2
           A: 0 Actions
           Cooldown: Once / Adventure
           Effect: |
@@ -309,10 +277,12 @@ Specs:
           Notes: The 50% increase is not applied to the 5 Psychic Damage.
 
         <Extra Power>:
+          _Value: 2
           A: Passive
           Effect: Your Power Overwhelming dice increase by an additional tier (e.g. from d6 to d10).
 
         <Life Drain>:
+          _Value: 2
           A: Passive
           Effect: |
             Whenever ^YOU^ kill a Worthy Enemy, heal an Ally (or yourself) for the excess Damage.
@@ -331,7 +301,8 @@ Specs:
     Description: Loremmmmmm ipsummmmm...
     Starting Abilities:
 
-        ~Flow Tap~:     # 1.5?
+        ~Flow Tap~:     # 2.25?
+          _Value: 2.25
           A: Half-Action
           Cost: Depends
           Cooldown: Once / Encounter
@@ -342,12 +313,14 @@ Specs:
       Level 3:
 
         <Control Crowds>:
+          _Value: 1
           A: Reaction
           Cooldown: Once / Encounter
           Effect: Use when an enemy Unit uses an Ability. It must use a different Ability.
-          Notes: If it has only one Ability or attack, you can't use Control Crowds.
+          Notes: If it has only one Ability or attack, you can't use Control Crowds (the GM will let you know).
 
         <Soul Drain>:           # 0.5
+          _Value: 0.5
           AlignOnWebsite: Right
           A: Half-Action
           Cost: 1 Mana
@@ -358,12 +331,14 @@ Specs:
           Upgrade: Also, passively, you always know if a Unit would die from this (the GM will answer yes or no).
 
         <Mana Flow Tapping>:
+          _Value: 0.5
           A: Passive
           Effect: If Flow Tap is on Cooldown, you can spend 1 Mana to cast it regardless.
       
       Level 5:
 
         <Power Tap> :         # 1 Charges (can use class spells)
+          _Value: 2
           A: Depends
           Cost: Depends
           Cooldown: Once / Adventure
@@ -375,6 +350,7 @@ Specs:
             The Cooldown applies to you - you can Power Tap an Ability that's on Cooldown. After you use it, it goes on Cooldown for you, not for your Ally.
 
         <Patron Aspect>:      # Can be bonkers with 3 Mana spells but still, 10 HP... prolly like 3
+          _Value: 3
           A: 0 Actions
           Cost: 10 Health
           Duration: 1 minute
@@ -491,3 +467,61 @@ Specs:
             Incapacitated means Stun, Sleep, Paralysis, etc.
 
 
+
+
+
+
+# ~Power Tap~ :         # 1 Charges (can use class spells)
+#           A: Depends
+#           Cost: Depends
+#           Cooldown: Once / Adventure
+#           Effect: |
+#             Cast an Ability one of your Allies has (with that ability's Actions and Costs and your modifiers).
+#             If it costs Mana, you must spend its Mana.
+#           Notes: |
+#             Does not work on Passives. The Ability must have 0, a Half-Action or 1 Actions cost.
+#             The Cooldown applies to you - you can Power Tap an Ability that's on Cooldown. After you use it, it goes on Cooldown for you, not for your Ally.
+
+# Abilities Description:
+#   - Fey Patron: |
+#         A wild, outworldly being, heavily magical or in tune with nature, and often outward strange. A Fey Patron often represents an old god of nature or magic, resembled by a magical animal or humanoid.
+#         This provides you with the Fey Patron Ability, which gives you one more Race Choice Ability!
+#   - Celestial Patron: |
+#         A being from a divine plain. Portrayed as angels or divine spirits of life and death.
+#         This provides you with the Life Cycle Ability which can function as an emergency heal in combat. This Ability can be used on yourself, too.
+#         Note that it simply draws from the Reserve Health pool! It is not Health out of thin air!
+#   - Demon or Devil Patron: |
+#         A being residing in Hell, an archdevil or lord in hell.
+#         This provides the Soul Drain Ability, which gives you a consistent Damage source that can heal you back.
+#   - Old God Patron: |
+#         An eldritch being of nightmare and terror, whose thoughts, form and wants are incomprehensible to most people
+#         This gives you access to one of another Race's Starting Ability.
+
+# Abilities:
+
+#   ~Fey Patron~ :        # 0.5
+#     A: Passive
+#     Effect: |
+#       Your lord is a higher fey creature.
+#       Choose one more Racial Feat from your Race.
+#     Notes: |
+#       The Fey Patron enhances you magically, mutates your arcane flow and transforms you into an unordinarily adapted person.
+#       If you are a Dragonborn, you can instead choose one more Breath shape, and your Breath has both chosen shapes simultanuously (overlapped; the Damage is not doubled).
+
+#   ~Old God Patron~ :    # 0.5
+#       A: Passive
+#       Effect: |
+#         Your lord is an old, slumbering god.
+#         You can pick a starting Ability from any other race and have it permanently (from the Starting Abilities, not a Feat).
+#       Notes: Eldritch thoughts flow through your mind, infecting you with strange abilities acquired in unfathomable ways.
+
+#   <Soul Drain> :        # 0.75
+#     AlignOnWebsite: Right
+#     A: Half-Action
+#     Cost: 1 Mana
+#     Range: 15 meters
+#     Effect: |
+#       Deal 10 Necrotic Damage to a Unit (directly, ignoring Defense).
+#       If it dies, you get the Mana back and heal for 5 Health.
+#     Upgrade: Corresponds to the Demon Patron.
+#     Notes: Through every soul drained, your demon lord feeds, and in return, grants you even more power.

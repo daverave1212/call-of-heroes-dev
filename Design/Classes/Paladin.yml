@@ -51,15 +51,20 @@ Spellcasting:
  
 Starting Abilities:
 
+  ~Vigor~:
+    A: Passive
+    Effect: |
+      You start with 4 extra maximum Health.
 
-  ~Divine Sense~ :
+  ~Divine Sense~ :      # Ok
     A: 0 Actions
     Cooldown: 1 Hour
     Effect: |
         You sense if there are Undead, Demons, Fiends or Celestials, or holy or unholy places or objects within 15 meters.
         Thick walls obstruct your Divine Sense.
 
-  ~Lay on Hands~ :      # 1 Charge
+  ~Lay on Hands~ :
+    _Value: 1.25
     A: Half-Action
     Range: 3 meters
     Effect: |
@@ -67,7 +72,8 @@ Starting Abilities:
       Using a Half-Action, you can spend 3 or more Holy Points to heal a Unit for that amount.
       All your Holy Points replenish inbetween Adventures.
 
-  ~Divine Smite~ :      # 1.5 Charges
+  ~Divine Smite~ :
+    _Value: 1.5
     AlignOnWebsite: Right
     A: 0 Actions
     Cooldown: Once / Adventure
@@ -79,12 +85,13 @@ Starting Abilities Description:
   - Lay on Hands and Divine Smite: |
       You might receive other Abilities in the future that consume or replenish Holy Points.
       Divine Smite will bring wrath upon your foes!
-        
 
-# Base:       5.15
-# Spec:       0.75  | 0.8     | 0.75
-# Talent T1:  1     | 1       | 1
-# Talent T1:  2     | 2       | 2
+# Mana:       2                        |  2
+# Base        3.5                      |  5.5
+# Spec:       0.75  | 1.25    | 1      |  6.5
+# Talent L3:  1.5   | 1       | 1.25   |  7.75
+# Talent L5:  2     | 2       | 2.75   |  10
+# Talent L7:  2     | 2.25    | 3      |  12.5
 
 # Base: 4.5 Charges
 # With Spec: 5.35 Charges
@@ -99,9 +106,9 @@ Specializations:
     At Level 1, you can choose your oath (Specialization).
     By choosing your oath, you dedicate yourself to a purpose; an oath is a lifestyle, not a mere choice!
   Choices:
-    - Oath of Conquest, which inspires a strong personality and desire to achieve greatness by any means necessary
-    - Oath of Devotion, dedicated to helping the unfortunate and being someone to look up to
-    - Oath of Protection, chosen by those who vow to protect and wish to become a paragon of the people
+    - Order of the Crusade, which inspires a strong personality and desire to achieve greatness by any means necessary
+    - Order of Grace, dedicated to helping the unfortunate and being someone to look up to
+    - Order of the Templar, chosen by those who vow to protect and wish to become a paragon of the people
 
 # Talent: When you use Divine Smite
 # Talent: Interactions with LoH and other Cooldown-based Spells
@@ -116,32 +123,34 @@ Specializations:
 
 Specs:
 
-# Talent: When Oath of Conquest triggers...
-# Talent: When you use Impose
 
-# Healing (Gimmick)
-# CC Medium
+  Order of the Crusade:                 # 0.75
+    # Talent: When Oath of Conquest triggers...
+    # Talent: When you use Impose
 
-# Healing           (Talents 2)
-# Charges
-# AoE
-# Damage (Sustained)
+    # Healing (Gimmick)
+    # CC Medium
 
-# Charges           (Talents 4)
-# Damage (Burst)
-# Tanking
+    # Healing           (Talents 2)
+    # Charges
+    # AoE
+    # Damage (Sustained)
 
-  Conquest:                 # 0.75
+    # Charges           (Talents 4)
+    # Damage (Burst)
+    # Tanking
     Description: Lorem! Lorem ipsum!!
     Starting Abilities:
 
-      ~Oath of Conquest~:   # 0.5
+      ~Crusade~:
+        _Value: 0.5
         A: Passive
         Effect: |
           Every Worthy Enemy YOU defeat grants you 1d4 Holy Points.
           You also gain Proficiency in Indimidation if you don't have it already.
       
-      ~Impose~ :            # 0.25
+      ~Impose~ :
+        _Value: 0.25
         A: Half-Action
         Range: 3 meters
         Cooldown: Once / Adventure
@@ -149,14 +158,15 @@ Specs:
 
     Talents:
       Level 3:
-        <Pledge of Conquest>: # 1.5
+        <Pledge of the Crusade>:
+          _Value: 1.5
           A: Special
           Cooldown: Lifetime
           Effect: |
             Ask a party member to join your cause and pledge their honor to you.
             that person can use Divine Smite once per Adventure.
             It can also cast Lay on Hands using your Holy Points and always Knows the same Basic Divine Spells you Know at a time.
-            Additionally, Oath of Conquest also happens when that ally defeats a Worthy Enemy.
+            Additionally, Oath of the Crusade also happens when that ally defeats a Worthy Enemy.
           Notes: |
             You can only have one character who pledged for you and it must be within 100 meters to have access to all of those.
             The number of Holy Points of the ally does not increase.
@@ -168,7 +178,8 @@ Specs:
         #     You lose Lay on Hands, but choose 2 Eldritch Spells that cost 1 Mana. You gain them permanently and, once per Adventure, you can cast each ignoring the Mana cost.
           
 
-        <Fury Smite>:       # 1.5
+        <Fury Smite>:
+          _Value: 1.5
           A: 0 Actions
           Effect: After an attack, deal 50% of the weapon Damage done by the attack (dice plus any modifiers) to all other Enemies within 3 meters around the target.
           Cooldown: Once / Adventure
@@ -178,7 +189,8 @@ Specs:
             Damage done means Damage inflicted after Defense and Resistances calculations.
             Cover is applied normally for the AoE.
          
-        <Divine Reach>:     # 1.5
+        <Divine Reach>:
+          _Value: 1.5
           A: 0 Actions
           Cooldown: Once / Adventure
           Effect: |
@@ -192,25 +204,33 @@ Specs:
 
       Level 5:
       
-        <Vengeance>:        # 2
-            A: Passive
-            Effect: |
-                When a Worthy Enemy dies in combat, get a Vengeance Counter.
-                Immediately when you get to 6 Vengeance Counters, gain 1 Mana or gain 1d8 Holy Points or reset the Cooldown of a Basic Spell you know (you choose).
-                You keep your Vengeance Counters even inbetween Adventures.
+        <Vengeance>:
+          _Value: 2
+          A: Passive
+          Effect: |
+              When a Worthy Enemy dies in combat, get a Vengeance Counter.
+              Immediately when you get to 6 Vengeance Counters, gain 1 Mana or gain 1d8 Holy Points or reset the Cooldown of a Basic Spell you know (you choose).
+              You keep your Vengeance Counters even inbetween Adventures.
                 
         <Victory Smite>:
-            A: Passive
-            Effect: After half (rounded down) of Worthy Enemies in a combat have been defeated, reset the Cooldown of Divine Smite or gain 7 Holy Points (you choose).
+          _Value: 
+          A: Passive
+          Effect: After half (rounded down) of Worthy Enemies in a combat have been defeated, reset the Cooldown of Divine Smite or gain 7 Holy Points (you choose).
             
-        <Lay on Arms>:      # 1
-            A: Reaction
-            Cost: Half of your maximum Holy Points
-            Effect: Use when you or an ally you can see would take Damage. Negate all the Damage.
+        <Lay on Arms>:
+          _Value: 1
+          A: Reaction
+          Cost: Half of your maximum Holy Points
+          Range: 3 meters
+          Effect: |
+            Use when you or an ally you can see would take Damage from an Enemy.
+            Make a 1-handed melee weapon attack _against the Enemy's attack_ - subtract your Damage rolled from that enemy's Damage. If your rolled Damage exceeds that enemy's Damage, deal the excess Damage back to the attacker.
+          Notes: If you dealt Damage, you can apply weapon effects if any happens.
 
       Level 7:
 
-        <Personal Squire>:  # 2+
+        <Personal Squire>:
+          _Value: 2
           A: Special
           Effect: |
             You recruit a squire - a trusted NPC who gains combat powers. However, the capabilities of your squire are random: roll 1d4 to determine the type of your squire, based on the Squires category at Pets and Animals (1. Bold, 2. Sneaky, 3. Clever, 4. Wise). The Race is determined by the GM or by circumstance.
@@ -220,30 +240,33 @@ Specs:
           Upgrade: If your squire drops to 0 Health, it becomes Fallen, like a player. It has no reserve Health, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your squire's wounds and heal it back to full Health.
           Notes: Your squire is not a Player Character by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Player Character can). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!
         
-        <Motivation Surge>: # 2
+        <Motivation Surge>:
+          _Value: 2
           A: Passive
           Effect: After you use Impose, reset the Cooldown of Divine Smite and gain 5 Holy Points.
 
         <Towering Figure>:
+          _Value: 2
           A: Passive
           Effect: Impose now affects 2 targets. After you use Divine Smite, reset the Cooldown of Impose. All Impose targets now have -2 to the roll, not just humanoids.
 
-# Healing + Immunity
-# Healing
 
-# Damage (Burst)        (Talents 2)
-# Protection
-# Damage (Sustained) + Healing
+  Order of Grace:
+    # Healing + Immunity
+    # Healing
 
-# Healing               (Talents 4)
-# Protection/Stats
-# CC (Hard AoE)
-# Stats
+    # Damage (Burst)        (Talents 2)
+    # Protection
+    # Damage (Sustained) + Healing
 
-  Devotion:                 # 0.8
+    # Healing               (Talents 4)
+    # Protection/Stats
+    # CC (Hard AoE)
+    # Stats
     Description: Lorem, ipsum, dolor sit amet!
     Starting Abilities:
-      ~Oath of Devotion~ :  # 0.75
+      ~Innate Grace~ :
+        _Value: 0.75
         A: Passive
         Effect: |
           You have 5 more maximum Holy Points.
@@ -252,6 +275,7 @@ Specs:
           Debuffs are things like combat curses, temporary weaknesses, etc.
 
       ~Divine Power~:
+        _Value: 0.5
         A: 0 Actions
         Cost: 1 Mana
         Effect: Gain 2d8 Holy Points.
@@ -261,7 +285,8 @@ Specs:
 
       Level 3:
       
-        <Divine Blast> :    # 1? xD
+        <Divine Blast> :  # 1? xD
+          _Value: 1
           A: Half-Action
           Range: 12 meters
           Cost: Any number of Holy Points
@@ -269,7 +294,8 @@ Specs:
             Spend any number of Holy Points. A Unit takes that many d4's Divine Damage.
             You can apply Smites to this attack.
 
-        <Shielding Hand> :  # 1
+        <Shielding Hand> :
+          _Value: 1
           A: Reaction
           Cooldown: Once / Adventure
           Effect:
@@ -277,7 +303,8 @@ Specs:
             After that ally (or yourself) takes Damage, it gains Shielding equal to the Damage taken (after Defense and Resistances).
             The shield lasts up to 1 minute.
 
-        <Focused Smites> :  # 1
+        <Focused Smites> :
+          _Value: 1
           A: 0 Actions
           Cooldown: Once / Adventure
           HasMixins: true
@@ -293,27 +320,30 @@ Specs:
  
       Level 5:
       
-        <Life Echo>:                   # 2
-            A: 0 Actions
-            Effect: |
-                You put a Life Echo on another ally.
-                Whenever YOU heal a different Unit, the unit with the Life Echo on them is also healed for 50% of that amount.
-                Lasts 1 minute.
+        <Life Echo>:
+          _Value: 2
+          A: 0 Actions
+          Effect: |
+              You put a Life Echo on another ally.
+              Whenever YOU heal a different Unit, the unit with the Life Echo on them is also healed for 50% of that amount.
+              Lasts 1 minute.
                 
         <Devotion Aura>:                # Hard to say
-            A: Passive
-            Effect: |
-                All allies on your team have +1 Defense if their Defense is 0.
-            Notes: Does not stack with itself multiple times (from multiple Paladins).
+          _Value: 1.5
+          A: Passive
+          Effect: |
+              All allies on your team have +1 Defense if their Defense is 0.
+          Notes: Does not stack with itself multiple times (from multiple Paladins).
             
         <Broken Hearts>:
-            A: 0 Actions
-            Requirement: Only usable if you have 0 Mana remaining
-            Cooldown: Once / Adventure
-            Effect: |
-                All Units within 4 meters of you must pass a Sense Check or take 2d4 True Damage and be Stunned.
-                They take half of that Damage if they pass.
-            Notes: Cover is applied normally.
+          _Value: 2.25
+          A: 0 Actions
+          Requirement: Only usable if you have 0 Mana remaining
+          Cooldown: Once / Adventure
+          Effect: |
+              All Units within 4 meters of you must pass a Sense Check or take 2d4 True Damage and be Stunned.
+              They take half of that Damage if they pass.
+          Notes: Cover is applied normally.
  
         <Improved Faith Casting>:
             A: Special
@@ -325,18 +355,21 @@ Specs:
  
       Level 7:
 
-        <Divine Resurgence>:    # 4+
+        <Divine Resurgence>:
+          _Value: 3
           A: 0 Actions
           Cooldown: Once / Adventure
           Effect: All other Player Characters you healed this combat gain an extra Half-Action on their next turn.
 
-        <Asceticism>:           # 2?
+        <Asceticism>:
+          _Value: 2.25
           A: 0 Actions
           Cooldown: Once / Adventure
           Duration: 1 minute
           Effect: For 1 minute, all Healing you do is increased by 50%, but all Damage you deal is reduced by 50%.
 
         <Assistance From Afar>:
+          _Value: 1
           A: Reaction
           Cost: 3 Holy Points
           HasMixins: true
@@ -350,24 +383,33 @@ Specs:
 
 
 
-# Talent: When you use Oath of Protection...
 
-# Protection
-# Protection
+  Order of the Templar:               # 0.75
+    # Talent: When you use Body Block...
 
-# Protection            (Talents 2)
-# CC Medium + Push
-# Buff (Damage + Healing)
+    # Protection
+    # Protection
 
-# Protection            (Talents 4)
-# Damage
-# Stats
+    # Protection            (Talents 2)
+    # CC Medium + Push
+    # Buff (Damage + Healing)
 
-  Protection:               # 0.75
+    # Protection            (Talents 4)
+    # Damage
+    # Stats
     Description: Lorem. Lorem ipsum dolor sit amet.
     Starting Abilities:
-    
-      ~Oath of Protection~: # 0.25
+
+      ~Templar Knighthood~:
+        _Value: 0.75
+        A: Passive
+        Effect: |
+          You stand out for allies adjacent to you.
+          Enemy ranged attacks against other allies within 1 meter of you have Cover.
+        Notes: Nothing happens if an ally adjacent to you already has Cover. If you are playing on a grid, this does work for allies diagonally.
+
+      ~Body Block~:
+        _Value: 0.25
         A: Reaction
         Range: 4 meters to that ally
         Cooldown: Once / Combat
@@ -375,17 +417,12 @@ Specs:
           When another ally is attacked (after the roll), dash to the closest space to that ally.
           The attack is now targeted on you instead of the ally.
 
-      ~Stand Behind~:       # 0.5
-        A: Passive
-        Effect: |
-          You stand out for allies adjacent to you.
-          Enemy ranged attacks against other allies within 1 meter of you have Cover.
-        Notes: Nothing happens if an ally adjacent to you already has Cover. If you are playing on a grid, this does work for allies diagonally.
 
     Talents:
       Level 3:
       
-        <Hallowed Ward>:          # 1.75
+        <Hallowed Ward>:
+          _Value: 1.75
           A: 0 Actions
           Cooldown: Once / Adventure
           Effect: |
@@ -393,7 +430,8 @@ Specs:
             If you would drop to 0 Health until the start of your next turn, you remain instead at 1 Health and can't take Damage until the start of your next turn.
             When this happens, divine rays strike all enemies within 3 meters of you, and they all take 1d10 Divine Damage.
 
-        <Reckoning> :             # 1
+        <Reckoning> :
+          _Value: 1
           A: 1 Action
           Range: 6 meters
           Cooldown: Once / Adventure
@@ -403,7 +441,8 @@ Specs:
             If it stops in a wall or another enemy, it takes another 2d8 Force Damage.
 
         <Silver Circle>:
-          A: 0 Actions            # 1
+          A: 0 Actions
+          _Value: 1
           Cooldown: Once / Adventure
           Effect: |
             The area in a 5 meter diameter circle around you becomes Consacrated.
@@ -427,17 +466,19 @@ Specs:
         #     Notes: Lasts until the start of your next turn's next turn.
 
         <Warrior Spirits>:
+          _Value: 3
           A: Passive
           Effect: |
             Whenever you heal with Lay on Hands, you summon a Warrior Spirit near the target with Health equal to the amount restored.
             Warrior Spirits have 2 Defense and 4 Speed and can attack for 1d4 Divine Damage. They take their turn on your turn.
                 
-        <Oath of Revenge>:        # 2.5
+        <Oath of Revenge>:
+          _Value: 2.5
             A: Passive
             Effect: |
-                After you use Oath of Protection, you can immediately make an attack (freely) with a 1-Handed Melee Weapon on the attacker.
-                This attack has 3 meters range and deals True Damage.
-                You can apply Smites to it.
+              After you use Body Block, you can immediately make an attack (freely) with a 1-Handed Melee Weapon on the attacker.
+              This attack has 3 meters range and deals True Damage.
+              You can apply Smites to it.
             Notes: If the 1-Handed Weapon is not equipped, you quickly and freely equip it, attack, then switch back to your previous weapons.
                 
         <Improved Faith Casting>: Inherit
@@ -446,15 +487,17 @@ Specs:
         
         <Personal Squire>: Inherit
 
-        <Don't Worry Lad>: # 3
+        <Don't Worry Lad>:
+          _Value: 3
           A: Passive
           Effect: |
-            Whenever you use Oath of Protection, you and the ally both gain 1d8 Shielding.
-            Whenever you use Divine Smite, reset the Cooldown of Oath of Protection.
+            Whenever you use Body Block, you and the ally both gain 1d8 Shielding.
+            Whenever you use Divine Smite, reset the Cooldown of Body Block.
 
         <Sense of Duty>:
+          _Value: 3
           A: Passive
-          Effect: Oath of Protection becomes usable Twice / Combat, and the Damage you take from the redirected attack is reduced by 50%.
+          Effect: Body Block becomes usable Twice / Combat, and the Damage you take from the redirected attack is reduced by 50%.
                 
                 
         

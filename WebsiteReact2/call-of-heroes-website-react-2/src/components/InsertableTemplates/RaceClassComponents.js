@@ -203,7 +203,7 @@ export function LevelingUp({ theClass }) {
                 
                                 <p style={{whiteSpace: 'pre-wrap'}} className='margined-bottom'>{ rules['LevelUpBonusesDescription (Mana-based)'] }</p>
                 
-                                <Spell spell={abilities['Default Moves']['~Action Surge~']}/>
+                                {/* <Spell spell={abilities['Default Moves']['~Action Surge~']}/> */}
                             </div>
                         ) :
                         theClass['Spellcasting']['Type'] == 'Special Mana-based'? (
@@ -223,7 +223,7 @@ export function LevelingUp({ theClass }) {
                 
                                 <p style={{whiteSpace: 'pre-wrap'}} className='margined-bottom'>{ rules['LevelUpBonusesDescription (Special Mana-based)'] }</p>
                 
-                                <Spell spell={abilities['Default Moves']['~Action Surge~']}/>
+                                {/* <Spell spell={abilities['Default Moves']['~Action Surge~']}/> */}
                             </div>
                         ) : (
                             null

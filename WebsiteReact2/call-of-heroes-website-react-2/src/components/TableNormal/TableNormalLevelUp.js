@@ -27,7 +27,6 @@ export default () => (
             <td>Level 4</td>
             <td>
                 +1 in any Stat (up to +4)<br/>
-                1 Feat
             </td>
         </tr>
         <tr>
@@ -39,7 +38,8 @@ export default () => (
         <tr>
             <td>Level 6</td>
             <td>
-                Action Surge (see below)
+                1 Proficiency<br/>
+                1 Weapon Training
             </td>
         </tr>
         <tr>
@@ -52,7 +52,6 @@ export default () => (
             <td>Level 8</td>
             <td>
                 +1 in any Stat (up to +5)<br/>
-                1 Feat
             </td>
         </tr>
         <tr>

@@ -19,7 +19,7 @@ Weapons: You are Trained in all weapons, including Shields.
 
 Level Up:
   Every Level:
-    Health: 5
+    Health: 6
 
 Spellcasting:
   Type: Mana-based
@@ -27,7 +27,7 @@ Spellcasting:
 
   Spell Grade: 6 + (Intelligence, Sense or Charisma, whichever is higher)
   Mana:
-    Amount: 2
+    Amount: 1
     Regain: You regain all Mana back inbetween Adventures.
   Change: You can change your known Spells and Talents inbetween Adventures.
   Other: All Warrior-specific Abilities are not considered Spells (unless stated otherwise).
@@ -50,7 +50,13 @@ Spellcasting:
 
 Starting Abilities:
 
-  ~Advanced Flank~ :        # 3.5
+  ~Vigor~:
+    A: Passive
+    Effect: |
+      You start with 4 extra maximum Health.
+
+  ~Advanced Flank~ :
+    _Value: 3
     AlignOnWebsite: Left
     A: Passive
     Effect: |
@@ -60,7 +66,8 @@ Starting Abilities:
       Flanking is when you melee-attack an enemy, and an ally of yours is directly behind the enemy.
       Also, instead of an ally being behind the enemy, your attacks count as Flanking even if there is a wall or another obstacle directly behind them.
 
-  ~Rout~:                   # 0.75
+  ~Rout~:
+    _Value: 1
     AlignOnWebsite: Left
     A: Passive
     HasMixins: true
@@ -89,10 +96,12 @@ Specializations:
 # Talent: (Fighter) - Your allies benefit from Advanced Flank with you and it's 1d8
 # Talent: (Fighter) - While mounted, your melee attacks have 2 meters range and hit another target behind the first for 50% of the damage.
 
-# Base:       6.25
-# Spec:       1.75   | 1         | 5.5
-# Talent T1:  1      | 2         | 0.5
-# Talent T1:  2      | 2         | 1.5
+# Mana:       1                           | 1
+# Base:       4.75                        | 5.75
+# Spec:       1.75   | 1         | 1.5    | 7.25
+# Talent T1:  1.25   | 2         | 1      | 8.75
+# Talent T1:  2.25   | 2.25      | 2      | 11
+# Talent T1:  2.5    | 2.5       | 2      | 13.5
 
 Specs:
 
@@ -110,16 +119,18 @@ Specs:
 # Healing + CC Medium
 
 
-  Fighter:                        # 1
+  Fighter:
     Description: Lorem!
     Starting Abilities:
 
-      <Quick Maneuvers>:          # 1
+      <Quick Maneuvers>:
+          _Value: 1
           A: Special
           Cooldown: Once / Turn
           Effect: Immediately after you make a weapon attack, use Dash, Push, Taunt or Hamstring for free. The target rolls no Check - it is applied instantly.
 
       <Opportunity Attacks>:
+          _Value: 0.75
           A: Reaction
           Effect: |
             When an enemy moves 2 or more meters away from near you, you can make a free attack on them with a 1-Handed Melee Weapon.
@@ -134,7 +145,8 @@ Specs:
     Talents:
       Level 3:
 
-        <Might Over Magic>:     # 1
+        <Might Over Magic>:
+          _Value: 1
           A: Passive
           HasMixins: true
           Effect: |
@@ -148,6 +160,7 @@ Specs:
             Be creative!
             
         <Weaponmaster> :          # 1 because it's bonkers on 1H weapons
+          _Value: 1
           A: Passive
           Effect: |
             When you get this, choose one weapon type.
@@ -159,45 +172,50 @@ Specs:
             Weapons stating "the die" (or such) now refer to any one die of the dice rolled, of choice (if multiple).
 
         ~Upper Hand~ :              # 1
+          _Value: 1.5
           A: Passive
           Effect: You can Advanced Flank twice per turn (with 2 different attacks).
 
       Level 5:
         
         <Into the Fray>:    # 2, maybe more
-            A: Passive
-            Effect: |
-                When combat starts, determine which side is your Allied Side and which is the Enemy Side of the battlefield. Each side has a direction (Allied Direction and Enemy Direction).
-                If you end your turn more to the Allied Direction than you started, you gain 4 Shielding until the start of your next turn.
-                If you end your turn more to the Enemy Direction than you started, your first attack next turn deals 1d6 extra Damage.
+          _Value: 2.25
+          A: Passive
+          Effect: |
+              When combat starts, determine which side is your Allied Side and which is the Enemy Side of the battlefield. Each side has a direction (Allied Direction and Enemy Direction).
+              If you end your turn more to the Allied Direction than you started, you gain 4 Shielding until the start of your next turn.
+              If you end your turn more to the Enemy Direction than you started, your first attack next turn deals 1d6 extra Damage.
                 
         <Glory Run>:        # 2?
-            A: Passive
-            Effect: |
-                When combat starts, a Glory Point appears behind the furthermost Enemy from you that you can see.
-                If you touch the Glory Point, heal for 20% of your total Health and all Enemies you can see must pass a Charisma Check or be Crippled.
-                The Glory Point then disappears.
-            Notes:
-                The Glory Point is not a physical thing. It's merely a concept (a point).
+          _Value: 2.25
+          A: Passive
+          Effect: |
+              When combat starts, a Glory Point appears behind the furthermost Enemy from you that you can see.
+              If you touch the Glory Point, heal for 20% of your total Health and all Enemies you can see must pass a Charisma Check or be Crippled.
+              The Glory Point then disappears.
+          Notes:
+              The Glory Point is not a physical thing. It's merely a concept (a point).
                 
         <Ruining Throw>:
-            A: Half-Action
-            Range: 10 meters
-            Cooldown: Once / Encounter
-            Effect: |
-                Throw a weapon at a target and attack it (without Throwing penalties and ignoring Cover).
-                Before applying the Damage, the attack destroys all Shielding and Defense on the target and removes all buffs on it.
-                The target is unable to trigger "on roll", can't gain Shielding and can't benefit from Buffs until they spend an Action to recover.
-            Upgrade: Epic Monsters gain ther Defense back when they spend the Action to recover.
-            Notes: |
-                Your weapon lands at the nearest space to the target (and you should probably pick it up with a Half-Action).
-                "On roll" refers to effects like "if it rolls 10 on a d10, the attack deals 1d10 extra Damage".
-                Buffs are all effects that improve the target; even passive effects like auras or passive stats from abilities are negated.
-                You don't need Training in Throwning and this attack counts as a regular melee attack.
+          _Value: 2
+          A: Half-Action
+          Range: 10 meters
+          Cooldown: Once / Encounter
+          Effect: |
+              Throw a weapon at a target and attack it (without Throwing penalties and ignoring Cover).
+              Before applying the Damage, the attack destroys all Shielding and Defense on the target and removes all buffs on it.
+              The target can't trigger "on roll", can't gain Shielding and can't benefit from Buffs until they spend an Action to recover.
+          Upgrade: Epic Monsters gain ther Defense back when they spend the Action to recover.
+          Notes: |
+              Your weapon lands at the nearest space to the target (and you should probably pick it up with a Half-Action).
+              "On roll" refers to effects like "if it rolls 10 on a d10, the attack deals 1d10 extra Damage".
+              Buffs are all effects that improve the target; even passive effects like auras or passive stats from abilities are negated.
+              You don't need Training in Throwning and this attack counts as a regular melee attack.
 
       Level 7:
         
         <Personal Squire>:  # 2+
+          _Value: 3
           A: Special
           Effect: |
             You recruit a squire - a trusted NPC who gains combat powers. However, the capabilities of your squire are random: roll 1d6 to determine the type of your squire, based on the Squires category at Pets and Animals (1. Bold, 2. Sneaky, 3. Clever, 4. Wise). The Race is determined by the GM or by circumstance.
@@ -208,6 +226,7 @@ Specs:
           Notes: Your squire is not a Player Character by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Player Character can). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!
 
         <Attack Command>:   # 2+
+          _Value: 2.25
           A: Reaction or 0 Actions
           Cooldown: Once / Adventure
           HasMixins: true
@@ -217,6 +236,7 @@ Specs:
             ^You^ roll all the dice for this Act.
 
         <MIGHT OVER MAAAGIC!!!>:  # 2
+          _Value: 2
           A: Passive
           HasMixins: true
           Effect: |
@@ -230,13 +250,13 @@ Specs:
 #       Your Main Stat = your Defense
 #       No more adding/removing 1 Defense; you just juggle with your Main Stat
 
-#	Talents:
-#		Move Defense to ally
-#		All allies around you gain defense
-#		Stances
-#		Reach (and flank)
-#		Ralying Cry : Clear all allies of Stun and healt hem for 1
-#		Every x spells cast, heal all allies for 1
+#Talents:
+#Move Defense to ally
+#All allies around you gain defense
+#Stances
+#Reach (and flank)
+#Ralying Cry : Clear all allies of Stun and healt hem for 1
+#Every x spells cast, heal all allies for 1
 
 
 # Protection
@@ -316,25 +336,26 @@ Specs:
 #       Break any CC and Damage yourself
 
 
-  Barbarian:                  # 1
+  Barbarian:
   
 
-# Healing
-# Damage
-# Healing
+    # Healing
+    # Damage
+    # Healing
 
-# Protection + Healing              (Talents 2)
-# Immunities + Damage + Healing
-# Protection + Healing
+    # Protection + Healing              (Talents 2)
+    # Immunities + Damage + Healing
+    # Protection + Healing
 
-# Healing + AoE CC Medium           (Talents 4)
-# Damage
+    # Healing + AoE CC Medium           (Talents 4)
+    # Damage
 
 
     Description: AAAAAAAAAAAA LOREMM!!
     Starting Abilities:
       
       ~Onslaught~ :           # 1 Charge
+        _Value: 1.25
         A: Passive
         HasMixins: true
         Effect: Whenever ^YOU^ kill a Worthy Enemy, heal for 1d6 Health. In addition, if an Enemy has 25% or less Health, you know exactly how much Health it has (ask the GM).
@@ -354,6 +375,7 @@ Specs:
       Level 3:                # All Ok
 
         <Heartbeat Trance> :        # 1.75-ish
+          _Value: 2
           A: 0 Actions or Reaction
           Cooldown: Once / Adventure
           Effect: |
@@ -363,6 +385,7 @@ Specs:
           Notes: You can activate this as a Reaction when you would take Damage.
 
         <Rage Trance> :             # 2-ish
+          _Value: 2
           A: 0 Actions or Reaction
           Cooldown: Once / Adventure
           Effect: |
@@ -372,7 +395,8 @@ Specs:
             When Rage Trance ends, heal for 2d6.
           Notes: You can activate this as a Reaction when you would be Crowd Controlled.
 
-        <Battle Trance> :           # 2
+        <Battle Trance> :
+          _Value: 2
           A: 0 Actions or Reaction
           Cooldown: Once / Adventure
           Effect: |
@@ -385,6 +409,7 @@ Specs:
       Level 5:
       
         <Death Mark>:
+          _Value: 2.25
           A: 0 Actions
           Cooldown: Once / Adventure
           Effect: |
@@ -392,7 +417,8 @@ Specs:
             Whenever YOU deal Damage to it until your next turn, remember the Damage done.
             At the start of your next turn, the mark bursts and the Unit takes 50% of the Damage it has taken in this time period (directly, ignoring Defense).
         
-        <Glory Run>:        # 2?
+        <Glory Run>:
+          _Value: 2.25
           A: Passive
           Effect: |
             When combat starts, a Glory Point appears behind the furthermost Enemy from you that you can see.
@@ -401,14 +427,16 @@ Specs:
           Notes:
             The Glory Point is not a physical thing. It's merely a concept (a point).
 
-        <Undying Rage> :        # 2?
+        <Undying Rage> :
+          _Value: 2.25
           A: Reaction
           Cooldown: Once / Adventure
           Effect: Taking Damage that would kill you leaves you at 1 Health instead, then you can't take damage until the start of your next turn. At the start of your next turn, heal for 2d6.
       
       Level 7:
 
-        <Victory Strike>:   # 2.5
+        <Victory Strike>:
+          _Value: 2.5
           A: Half-Action
           Cooldown: Once / Adventure
           Range: 2 meters
@@ -417,13 +445,15 @@ Specs:
             Attack a Unit for 2d10 Damage of your weapon's type.
             Whenever ^YOU^ kill a Worthy Enemy (with anything), reset the Cooldown of this Ability.
 
-        <Frenzy>:         # 2.75
+        <Frenzy>:
+          _Value: 2.75
           A: Passive
           Effect: |
             If you start your turn with 20 or less Health, you have +1 Movement Speed and can Break your Movement.
             if you start with 10 or less Health, you also have an extra Half-Action.
 
-        <Hurl Over>:      # 2
+        <Hurl Over>:
+          _Value: 2
           A: 1 Action
           Cooldown: Once / Adventure
           Range: 1 meter to the Unit
@@ -438,14 +468,15 @@ Specs:
           A: Passive
           Effect: You heal for all Damage done by Advanced Flank on Worthy Enemies.
 
-  Marksman:               # 1
+  Marksman:
   
 # Take 5 Damage. Break any stun, snare, slow, trap or fear.
 # Lock in position and keep your Reload states
     Description: Lorem ipsum dolor sit amet.
     Starting Abilities:
     
-      ~Marksmanship~ :    # 0.2
+      ~Marksmanship~ :
+        _Value: 0.25
         A: Passive
         Effect: |
           YOU can flank a Unit from up to 6 meters away (if you, the target and the ally/wall/obstacle are on the same line).
@@ -459,6 +490,7 @@ Specs:
       #   Notes: So, you can make 2 attacks with it before needing to reload it. Even if it's fully loaded, you can load another shot into it, up to 2.
       
       ~Load Up~ :          # 1~ (ain't great on paper but in reality, it's probably bonkers)
+        _Value: 1
         A: 0 Actions
         Cost: 1 Mana
         Effect: |
@@ -467,7 +499,8 @@ Specs:
           If your Advanced Flank die is 1d8 or more, after you roll it, you can choose to reroll it and you must keep the new result (once per turn).
         Notes: You can't go lower than 1d4.
           
-      ~Point Mark~ :      # 0.15
+      ~Point Mark~ :
+        _Value: 0.25
         A: 0 Actions
         Cooldown: Once / Encounter
         Range: 15 meters
@@ -489,7 +522,8 @@ Specs:
     Talents:
       Level 3:
   
-        <Recoil Shot> :    # 1
+        <Recoil Shot> :
+          _Value: 1
           A: 0 Actions
           Cooldown: 2 times / Adventure
           Range: 2 meters
@@ -498,7 +532,8 @@ Specs:
             Push the target 2 meters away. It takes 1d8 Damage if it collides with something.
           Notes: This does not trigger attacks of opportunity.
 
-        <Harpoon> :        # 1
+        <Harpoon> :
+          _Value: 1
           A: 1 Action
           Cooldown: Once / Adventure
           Range: 6 meters
@@ -509,7 +544,8 @@ Specs:
             Otherwise, you are pulled to it.
           Notes: Requires a Harpoon, which can be bought for 50 Gold.
 
-        <Precise Weapon> :  # 1
+        <Precise Weapon> :
+          _Value: 1
           A: 1 hour
           Effect: |
             Choose any weapon and make it Precise.
@@ -519,14 +555,16 @@ Specs:
 
       Level 5:
         
-        <Ground Aim Lock>:          # 2
+        <Ground Aim Lock>:
+          _Value: 2
           A: Passive
           Effect: |
             On your turn, you can freely lower yourself on the ground without penalties.
             Your first attack every turn while on the ground like this deals +1d6 Damage.
           Notes: To get up, you must use all a Half-Action.
             
-        <Scatterblast>:             # 2
+        <Scatterblast>:
+          _Value: 2
           A: 1 Action
           Range: 20 meters
           Cooldown: Once / Adventure
@@ -535,7 +573,8 @@ Specs:
             The impact is so powerful that all Units within 3 meters of the target take the final Damage taken by the target.
             This attack is affected by your Reload state.
             
-        <Crosshair Shot>:           # 2
+        <Crosshair Shot>:
+          _Value: 2
             A: 1 Action
             Range: 14 meters
             Cooldown: Once / Adventure
@@ -547,18 +586,21 @@ Specs:
   
       Level 7:
 
-        <Range Control>:            # 1.25
+        <Range Control>:
+          _Value: 1.25
           A: Passive
           Effect: |
             Rout is applied when entering within 6 meters of an Enemy.
             Whenever you make an enemy Fumbling, cast Load Up for free.
 
-        <Surprise Shot>:            # >2
+        <Surprise Shot>:
+          _Value: 2.25
           A: Passive
           Effect: |
             Your first weapon attack every combat instantly Stuns the target, no roll required.
         
-        <Offense Is Defense>:       # 2
+        <Offense Is Defense>:
+          _Value: 2
           A: Reaction
           Cooldown: Once / Adventure
           Effect: After you deal Damage with a weapon, gain Shieldig equal to half of all Damage dealt.
