@@ -63,16 +63,17 @@
         "~Druidcraft~": {
             "A": "Depends",
             "HaxMixins": true,
-            "Effect": "{Diamond} You speak Druidic, an ancient form of conveying information through nature.\n{Diamond} You can create harmless sensory effects or tiny weather effects (6 meters range).\n{Diamond} You can massively speed up the growth of small plants (touch by touch).\n{Diamond} You can slightly soothe physical pains (with no combat effect) (by touch).\n{Diamond} You can attempt to convey simple ideas to animals and plants (3 meters range) that you would not normally be able to convey.\n{Diamond} You have +3 on rolls for identifying plants.\n",
+            "Effect": "{Diamond} You speak Druidic, an ancient form of conveying information through nature.\n{Diamond} You can create harmless sensory effects or tiny weather effects (6 meters range).\n{Diamond} You can massively speed up the growth of small plants (touch by touch).\n{Diamond} You can slightly soothe physical pains (with no combat effect) (by touch).\n{Diamond} You can attempt to convey simple ideas to animals and plants (3 meters range) that you would not normally be able to convey.\n{Diamond} You have +3 on rolls for identifying plants, monsters or monster lairs\n",
             "Notes": "You can do these even while Shapeshifted.",
             "AlignOnWebsite": "Right"
         },
         "~Shapeshift~": {
+            "_Value": 2,
             "A": "Half-Action",
             "Cooldown": "2 times / Adventure (see effect)",
             "Effect": "Pick an animal from the Pets and Animals list and instantly transform into it.\n\nFor Checks, you can choose to use the animal's Stats or your Stats.\nYou also gain its exact Abilities and Animal Attack (see below), but can't cast Spells or use items (obviously).\nYour Health stays the same, but you use that animal's Defense.\n\nShapeshift ends if you drop to 0 Health, and you Fall.\n",
             "Upgrade": "At first, you can't fly, even if your animal can. If your animal can fly, you have Proficiency in Jumping and you can glide (you don't take falling Damage).\nFrom Level 3, you can use this 3 times per Adventure.\nFrom Level 6, you can use this 4 times per Adventure and you can fly.\nFrom Level 9, you can use this 5 times per Adventure.\n",
-            "Notes": "You choose what items you keep on you when Shapeshifting, and those items are 'merged' into your new form.\nYou can turn back into your humanoid form for 0 Actions (on your turn).\nWhile Shapeshifted, you can speak, but your voice is slightly altered to match your shape (e.g. guttural for lions, high pitched for birds, etc).\n",
+            "Notes": "You choose what items you keep on you when Shapeshifting, and those items are 'merged' into your new form.\nYou can turn back into your person form for 0 Actions (on your turn).\nWhile Shapeshifted, you can speak, but your voice is slightly altered to match your shape (e.g. guttural for lions, high pitched for birds, etc).\n",
             "OrderOnWebsite": 1
         },
         "~Animal Attack~": {
@@ -95,6 +96,7 @@
             "Description": "The Druid of the Land is a guardian of its own domain. Be it a lush forest, a snowy mountain or a rocky cave, the Druid of the Land knows its own ways.",
             "Starting Abilities": {
                 "~Circle of the Land~": {
+                    "_Value": 1.25,
                     "A": "Passive",
                     "HasMixins": true,
                     "Effect": "Choose one _domain_. Each _domain_ gives you extra powers.\n"
@@ -112,7 +114,7 @@
                 },
                 "~Cold Domain~": {
                     "A": "Passive",
-                    "Effect": "You gain +1 on all Resist Checks, +4 maximum Health and you only take 50% Cold Damage.\n",
+                    "Effect": "You gain +1 on all Resist Checks, +4 Max Health and you only take 50% Cold Damage.\n",
                     "Upgrade": "For Mountain or Plains domain."
                 },
                 "~Rough Domain~": {
@@ -123,21 +125,25 @@
             },
             "Talents": {
                 "Level 3": {
-                    "<Old Ritualist>": {
+                    "<Old Ritual>": {
+                        "_Value": 1.5,
                         "A": "10 minutes",
                         "Cooldown": "Once / Adventure",
                         "Requirement": "You lose access to Shapeshift",
                         "Effect": "Channel for 10 minutes in a safe space, uninhabited by regular folk. Regain 3 Mana.",
                         "Upgrade": "If you have this Talent, you can no longer use Shapeshift, whether you used it or not.",
-                        "Notes": "Your Mana can't exceed your Maximum Mana."
+                        "Notes": "Your Mana can't exceed your Max Mana."
                     },
                     "<Beastly Fortitude>": {
+                        "_Value": 1.5,
                         "A": "Passive",
                         "HasMixins": true,
                         "Effect": "Whenever you Shapeshift into an animal specific to your _domain_, heal for 1d4.",
                         "Notes": "You are allowed to use the variant animal suggestions for each animal. Of course, some animals can correspond to multiple domains (e.g. bears can live both in nature (forests) and in cold (snowy) domains)."
                     },
                     "<Innervate>": {
+                        "_Value": 1.5,
+                        "_ValueComment": "(multiplicative)",
                         "A": "0 Actions",
                         "Range": "6 meters",
                         "Cooldown": "Once / Adventure",
@@ -147,21 +153,25 @@
                 },
                 "Level 5": {
                     "<Primal Surge>": {
+                        "_Value": 2,
                         "A": "1 Action",
                         "Cooldown": "Once / Adventure",
                         "Effect": "Heal yourself for 50% of your missing Health, and all Units within 2 meters for 25% of your missing Health."
                     },
                     "<Dazzling Miasma>": {
+                        "_Value": 2,
                         "A": "1 Action",
                         "Cooldown": "Once / Adventure",
                         "Effect": "Shoot a tainted gust of spores in a 10x1 meter line from your position.\nIt hits the first 2 Units it travels into.\nIf you hit one Unit, it must pass a Might Check or take 10d4 Poison Damage (or half of that if it passes).\nIf you hit 2 Units, each must pass a Might Check or be Stunned and take 5d4 Poison Damage (or half of that if they pass).\n"
                     },
                     "<Druid Animal Companion>": {
+                        "_Value": 2,
+                        "_ValueComment": "(multiplicative)",
                         "A": "Passive",
-                        "Requirement": "-1 Maximum Mana and -5 Maximum Health",
+                        "Requirement": "-1 Max Mana and -5 Max Health",
                         "Effect": "You have an animal pet that can fight alongside you, but your Mana pool is permanently decreased by 1, and your total Health by 5.\nYour animal has stats depending on its species. Check out the Pets and Animals page to see its stats!\nYour pet takes its turn at the same time as you do, and always has the same initiative as yours.\nYour pet has 1 Action per turn, which it can use to do its own Abilities.\nYour pet can make normal Checks using using its own Stats.\nYour pet will not stray more than 30 meters away from you in hostile territory.\nAll pets have the Pet Attack ability.\n",
                         "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It has no reserve Health, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.",
-                        "Notes": "If your pet raises from being Fallen, it has Pet Exhaustion (is Slowed and can only use Pet Attack, but all Pet Attacks have Cover, which is a -2 to the attack).\nTreat your pet like a real companion - give it a name and care for it. If it ever dies, you can spend 2 days looking for another wild animal and taming it to become your new pet.\n"
+                        "Notes": "If your pet raises from being Fallen, it has Pet Exhaustion (is Slowed and can only use Pet Attack, but all Pet Attacks have Cover, which is a -2 to the attack).\nTr\n"
                     },
                     "<Pet Attack>": {
                         "IsSubspell": true,
@@ -171,18 +181,22 @@
                 },
                 "Level 7": {
                     "<Regrowth>": {
+                        "_Value": 2.5,
                         "A": "1 Action",
                         "Cooldown": "Once / Adventure",
                         "Range": "6 meters",
                         "Effect": "Choose a Unit.\nNow and at the start of your next turn, heal it for 1d10 for each 10 Health it is missing.\n"
                     },
                     "<Wicked Animals>": {
+                        "_Value": 3,
+                        "_ValueComment": "(Lmao no idea)",
                         "A": "1 Action",
                         "Cooldown": "Once / Adventure",
-                        "Effect": "Call upon 2 animals, both of which are specific to your _domain_, but have Maximum Health as if they were 4 Levels lower than you.\nThey appear on the edge of the battlefield, from the wilderness, and they fight for you for up to 1 minute.\n",
+                        "Effect": "Call upon 2 animals, both of which are specific to your _domain_, but have Max Health as if they were 4 Levels lower than you.\nThey appear on the edge of the battlefield, from the wilderness, and they fight for you for up to 1 minute.\n",
                         "Notes": "Both animals must be of the same type. This is considered a Spell."
                     },
                     "<Lycanthropy>": {
+                        "_Value": 2.5,
                         "A": "Passive",
                         "Cooldown": "Special",
                         "HasMixins": true,
@@ -198,6 +212,7 @@
             "Description": "You are heavily in touch with nature and with strange creatures, uncommon to the normal folk.",
             "Starting Abilities": {
                 "~Wild Shape~": {
+                    "_Value": 2,
                     "A": "Passive",
                     "Effect": "After using Shapeshift, you gain back the Half-Action spent on it.\nWhen you use Shapeshift, you can transform into a combination of 2 animals.\nYou take the highest Stat from both animals, and you have access to both of their Abilities.\n",
                     "Notes": "For example, you could transform into a combination of Bird of Prey and Bear, resulting in a Bowlear, with Shielding and a lot of Defense! Be creative!\nThe animal size is either the larger or the smaller of the two - your choice.\nEven if you Shapeshift into 2 combinations of a same animal, the cooldown of that animal's Ability persists (e.g. you can't use Bear's Maul twice per Adventure, no matter what animal combination you transform into).\n"
@@ -206,18 +221,21 @@
             "Talents": {
                 "Level 3": {
                     "<Forest Friend>": {
+                        "_Value": 1,
                         "A": "Passive",
-                        "Effect": "You have a flying Pixie companion, a very small humanoid with wings.\nThe Pixie has 5 Defense, 5 Health, 5 meters Movement Speed.\nIt takes its turn at the same time as you. While in combat, on its turn, it has the equivalen of 1 Action, and can either melee attack for 1 Force Damage or heal a non-Fallen Unit for 1 Health. Instead of that, it can also use Taunt or use consumable items like potions or scrolls. \n",
+                        "Effect": "You have a flying Pixie companion, a very small person with wings.\nThe Pixie has 5 Defense, 5 Health, 5 meters Movement Speed.\nIt takes its turn at the same time as you. While in combat, on its turn, it has the equivalen of 1 Action, and can either melee attack for 1 Force Damage or heal a non-Fallen Unit for 1 Health. Instead of that, it can also use Taunt or use consumable items like potions or scrolls. \n",
                         "Upgrade": "If it goes more than 50 meters away from you, it becomes unsummoned (you can summon it back by channeling for 10 minuets).\nThe Pixie has Charisma, Sense and Intelligence equal to yours, but its Dexterity is 0 and its Might is -5.\n",
                         "Notes": "The Pixie can stay in your backpack or pocket if you don't want it to take Damage. Decide with your GM whether you or the GM controls the Pixie roleplay-wise, and whether it is sentient. Have fun!"
                     },
                     "<Treesposition>": {
+                        "_Value": 0.75,
                         "A": "0 Actions or Reaction",
                         "Cooldown": "2 times / Adventure",
                         "Effect": "Touch a large or larger piece of wood and choose one of the following:\n1. Teleport near another large or larger piece of wood within 8 meters.\n2. Partially enter the piece of wood, becoming camouflaged. You have +5 Stealth until you exit back to your normal space.\nYou can stay like that for up to 1 hour.\nYou benefit from Cover while inside a tree.\nAs a Reaction, you can use this when you are attacked or right when someone casts a spell (before the roll).\n",
                         "Notes": "If you use this as a Reaction and the attack would fail (out of range, no line of sight, etc), the attacker can then choose a different Act or target."
                     },
                     "<Exotic Shapeshift>": {
+                        "_Value": 1,
                         "A": "Passive",
                         "Effect": "You can now Shapeshift into Exotic Animals.\nYou can also use Shapeshift to also transform into other people.\nWhen you want to do this, roll a Deception check.\nThis check determines how close you get to the form of that person (12 or more means a perfect copy).\nThis copy just mimicks the look of the person, not the voice or personality.\n",
                         "Notes": "You can cast your own spells while transformed into someone else.\nOther people are not considered Animals, so you can't use Wild Shape to transform into a combination of a person and an Animal.\n"
@@ -225,36 +243,43 @@
                 },
                 "Level 5": {
                     "<Shapeshift Ally>": {
+                        "_Value": 1.5,
                         "A": "0 Actions",
                         "Cost": "1 use of Shapeshift",
                         "Range": "6 meters",
                         "Effect": "Passively, you get 2 more uses of Shapeshift per Adventure.\nChoose a willing Ally and Shapeshift them into a standard animal of your choice.\nThey have Animal Attack and all of the animal's Abilities.\nThey can cancel it for 0 Actions on their turn.\n"
                     },
                     "<Strangevolution>": {
+                        "_Value": 1.25,
+                        "_ValueComment": "(potential for gamebreaking combos)",
                         "A": "Passive",
-                        "Effect": "When you gain this Talent, gain 2 racial Feats, from any Race(s)."
+                        "Effect": "When you gain this Talent, gain 2 racial Ablities, from any Race(s)."
                     },
                     "<Dryad Ancestry>": {
+                        "_Value": 1,
                         "A": "Passive",
-                        "Effect": "You can cast Spells while Shapeshifted. Gain 1 extra maximum Mana and access to one more Basic Ability List of choice."
+                        "Effect": "You can cast Spells while Shapeshifted. Gain 1 extra Max Mana and access to one more Basic Ability List of choice."
                     }
-                }
-            },
-            "Level 7": {
-                "<Evershape>": {
-                    "A": "Passive",
-                    "HasMixins": true,
-                    "Effect": "When Shapeshifting yourself, it doesn't use a ^use^.",
-                    "Notes": "This means that unless you use Shapeshift Ally, you can Shapeshift as much as you like. Note that the Cooldowns of Animal Abilities persist and don't reset."
                 },
-                "<Werebeast Blood>": {
-                    "A": "Passive",
-                    "Effect": "You can Shapeshift into a combination of 3 animals. You gain 7 maximum Health.",
-                    "Upgrade": "In addition, you're free to just choose one animal at first when you use Shapeshift, then freely add animals to the combination if you need their Abilities. Build-a-werebeast, step by step!"
-                },
-                "<Beastly Stamina>": {
-                    "A": "Passive",
-                    "Effect": "For each animal, you gain an extra use of their Abilities that have a Cooldown of Once / Adventure."
+                "Level 7": {
+                    "<Evershape>": {
+                        "_Value": 2,
+                        "A": "Passive",
+                        "HasMixins": true,
+                        "Effect": "When Shapeshifting yourself, it doesn't consume a ^use^.",
+                        "Notes": "This means that unless you use Shapeshift Ally, you can Shapeshift as much as you like. Note that the Cooldowns of Animal Abilities persist and don't reset."
+                    },
+                    "<Werebeast Blood>": {
+                        "_Value": 1.5,
+                        "A": "Passive",
+                        "Effect": "You can Shapeshift into a combination of 3 animals. You gain 7 Max Health.",
+                        "Upgrade": "In addition, you're free to just choose one animal at first when you use Shapeshift, then freely add animals to the combination if you need their Abilities. Build-a-werebeast, step by step!"
+                    },
+                    "<Beastly Stamina>": {
+                        "_Value": 2,
+                        "A": "Passive",
+                        "Effect": "For each animal, you gain an extra use of their Abilities that have a Cooldown of Once / Adventure."
+                    }
                 }
             }
         },
@@ -268,6 +293,7 @@
                     "Notes": "_Twilight_ is from 18:00 to 6:00. _Day_ is from 6:00 to 18:00."
                 },
                 "~Moonsun Fire~": {
+                    "_Value": 2,
                     "A": "Half-Action",
                     "Range": "6 meters",
                     "Cooldown": "Day/Night (see below)",
@@ -278,6 +304,7 @@
             "Talents": {
                 "Level 3": {
                     "<Old Ritual>": {
+                        "_Value": 1.5,
                         "A": "10 minutes",
                         "Cooldown": "Once / Adventure",
                         "Effect": "Regain up to 3 Mana.\nThe Old Ritual must be performed outdoors, in a safe, uncorrupted place untouched by regular folk.\n",
@@ -285,6 +312,7 @@
                         "Notes": "You can't have more than your maximum amount of Mana."
                     },
                     "<Improved Moonsun Fire>": {
+                        "_Value": 1,
                         "A": "Passive",
                         "HasMixins": true,
                         "Effect": "If _day_, Moonsun Fire also burns the target for 10% of its total Health as Fire Damage.\nIf _twilight_, Moonsun Fire heals a target you choose within 6 meters for the same Damage dealt.\n"
@@ -292,10 +320,12 @@
                 },
                 "Level 5": {
                     "<Sunrise/Moonfall>": {
+                        "_Value": 1.5,
                         "A": "Passive",
                         "Effect": "Moonsun Fire now hits one extra target, deals 1d4 extra Damage and ignores Defense and Resistances."
                     },
                     "<Equinox>": {
+                        "_Value": 2,
                         "A": "1 Action",
                         "Cooldown": "Once / Adventure",
                         "Requirement": "Only usable at _twilight_",
@@ -304,80 +334,13 @@
                         "Notes": "On the second cast, you can choose different targets, areas, etc (and it ignores Cooldown, Costs, etc). Works on Spells with cast time longer than 1 Action (e.g. Old Ritualist)."
                     },
                     "<Druid Animal Companion>": {
+                        "_Value": 2,
+                        "_ValueComment": "(multiplicative)",
                         "A": "Passive",
-                        "Requirement": "-1 Maximum Mana and -5 Maximum Health",
+                        "Requirement": "-1 Max Mana and -5 Max Health",
                         "Effect": "You have an animal pet that can fight alongside you, but your Mana pool is permanently decreased by 1, and your total Health by 5.\nYour animal has stats depending on its species. Check out the Pets and Animals page to see its stats!\nYour pet takes its turn at the same time as you do, and always has the same initiative as yours.\nYour pet has 1 Action per turn, which it can use to do its own Abilities.\nYour pet can make normal Checks using using its own Stats.\nYour pet will not stray more than 30 meters away from you in hostile territory.\nAll pets have the Pet Attack ability.\n",
                         "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It has no reserve Health, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.",
-                        "Notes": "If your pet raises from being Fallen, it has Pet Exhaustion (is Slowed and can only use Pet Attack, but all Pet Attacks have Cover, which is a -2 to the attack).\nTreat your pet like a real companion - give it a name and care for it. If it ever dies, you can spend 2 days looking for another wild animal and taming it to become your new pet.\n"
-                    },
-                    "<Pet Attack>": {
-                        "IsSubspell": true,
-                        "A": "1 Action (from the pet)",
-                        "Effect": "The pet melee attacks a target.\nThe attack deals 1d6 Pierce of Slash Damage (your choice).\n"
-                    }
-                }
-            },
-            "Level 7": {
-                "<Shapeshift Fire>": {
-                    "A": "Passive",
-                    "Effect": "Whenever you Shapeshift into an animal specific to the current time of day, cast Moonsun Fire for free, ignoring its Cooldown.",
-                    "Notes": "The chosen animal must be approved by the GM to trigger the free Moonsun Fire."
-                },
-                "<Star Fall>": {
-                    "A": "Half-Action",
-                    "Cost": "4 Mana",
-                    "HasMixins": true,
-                    "Range": "6 meters",
-                    "Effect": "If _day_, heal a Unit for 6d12. If _twilight_, deal 7d6 Force Damage to a Unit."
-                },
-                "<Forced Eclipse>": {
-                    "A": "0 Actions",
-                    "Effect": "Through ancient weather witchcraft, you force 1 minute of artificial day or night in a 1km area around you.",
-                    "Upgrade": "This can reset the Cooldown of Moonsun Fire's, once when it happens, and again when it ends.\n",
-                    "Notes": "Nothing happens if used with Equinox."
-                }
-            }
-        },
-        "Coven of the Wicked": {
-            "Description": "Witch druids use eldritch magic of the nature to bend reality in an unseen way, cast curses and dispell magic.\nHowever, this comes at a price, usually of its own sanity and control over the powers.\nWiccan Druids believe no one has the right to dictate someone else's spiritual path.\nAs a Wiccan Druid, you oppose fanaticism, opressors and stupidity.\nWiccan Druids worship no god, but they do acknowledge their power and they heavily respect nature and the earth.\nA Wiccan Druid gains the power through not black, nor white eldritch magic.\nThe suggested alignment for Wiccan Druids is True Neutral.\n",
-            "Starting Abilities": {
-                "~Eldritch Spells": {
-                    "A": "Passive",
-                    "Effect": "You can also learn Spells from the Eldritch Basic Ability List.\nIf a Spell costs Mana to cast, you can cast it with Blood Magic.\n"
-                },
-                "~Blood Magic~": {
-                    "A": "0 Actions",
-                    "Cooldown": "1 Turn",
-                    "Effect": "Choose an offensive Basic Ability. If it costs nothing, take 6 Damage or otherwise take 6 Damage for each Mana point it costs. Cast that spell regardless of its Cost and Cooldown. You can instead spend 6 Health to cast Black Charm."
-                },
-                "~Black Charm~": {
-                    "A": "0.5 Action",
-                    "Range": "10 meters",
-                    "Cooldown": "Once / Adventure",
-                    "Effect": "Choose a target. It must make a Sense Check.\nIf it fails, at the start of your next turn, it is Stunned and takes 2d8 Psychic Damage (or half if it passes).\n",
-                    "Notes": "Ignores Cover."
-                }
-            },
-            "Talents": {
-                "Level 3": {
-                    "<Future Blood>": {
-                        "A": "Passive",
-                        "Effect": "Blood Magic can now draw Health from your Reserve Health Pool.\nYour Reserve Health Pool increases by 5.\n"
-                    },
-                    "<Old Ritualist>": {
-                        "A": "10 minutes",
-                        "Cooldown": "Once / Adventure",
-                        "Requirement": "You lose access to Shapeshift",
-                        "Effect": "Channel for 10 minutes in a safe space, uninhabited by regular folk. Regain 3 Mana.",
-                        "Upgrade": "If you have this Talent, you can no longer use Shapeshift, whether you used it or not.",
-                        "Notes": "Your Mana can't exceed your Maximum Mana."
-                    },
-                    "<Druid Animal Companion>": {
-                        "A": "Passive",
-                        "Requirement": "-1 Maximum Mana and -5 Maximum Health",
-                        "Effect": "You have an animal pet that can fight alongside you, but your Mana pool is permanently decreased by 1, and your total Health by 5.\nYour animal has stats depending on its species. Check out the Pets and Animals page to see its stats!\nYour pet takes its turn at the same time as you do, and always has the same initiative as yours.\nYour pet has 1 Action per turn, which it can use to do its own Abilities.\nYour pet can make normal Checks using using its own Stats.\nYour pet will not stray more than 30 meters away from you in hostile territory.\nAll pets have the Pet Attack ability.\n",
-                        "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It has no reserve Health, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.",
-                        "Notes": "If your pet raises from being Fallen, it has Pet Exhaustion (is Slowed and can only use Pet Attack, but all Pet Attacks have Cover, which is a -2 to the attack).\nTreat your pet like a real companion - give it a name and care for it. If it ever dies, you can spend 2 days looking for another wild animal and taming it to become your new pet.\n"
+                        "Notes": "If your pet raises from being Fallen, it has Pet Exhaustion (is Slowed and can only use Pet Attack, but all Pet Attacks have Cover, which is a -2 to the attack).\nTr\n"
                     },
                     "<Pet Attack>": {
                         "IsSubspell": true,
@@ -385,26 +348,27 @@
                         "Effect": "The pet melee attacks a target.\nThe attack deals 1d6 Pierce of Slash Damage (your choice).\n"
                     }
                 },
-                "Level 5": {
-                    "<Schizophrenic Suggestion>": {
-                        "A": "1 Action",
-                        "Cooldown": "Once / Adventure",
-                        "Range": "3 meters to edge",
-                        "Effect": "Declare a 6x6 meter area.\nAll Units in that area must pass a Sense Check or instantly make an attack or offensive Ability of its choice, at full strength, on its closest ally.\n",
-                        "Notes": "Monsters can use any of their Abilities that do Damage or Crowd Control, and target them however they want if they are Area Abilities, as long as it hits its closest ally."
+                "Level 7": {
+                    "<Shapeshift Fire>": {
+                        "_Value": 3,
+                        "A": "Passive",
+                        "Effect": "Whenever you Shapeshift into an animal specific to the current time of day, cast Moonsun Fire for free, ignoring its Cooldown.",
+                        "Notes": "The chosen animal must be approved by the GM to trigger the free Moonsun Fire."
                     },
-                    "<Blood Curse>": {
+                    "<Star Fall>": {
+                        "_Value": 2.25,
                         "A": "Half-Action",
-                        "Cooldown": "Once / Adventure",
-                        "Effect": "Target a Unit.\nThe next time it would take Damage from any source before your next turn, the Damage is doubled (after Defense).\n",
-                        "Upgrade": "You can only use this on targets that have blood.",
-                        "Notes": "Applies to added extra Damage if it's the same type as the base Damage (e.g. Advanced Flank works, but not Smites)."
+                        "Cost": "3 Mana",
+                        "HasMixins": true,
+                        "Range": "6 meters",
+                        "Effect": "If _day_, heal a Unit for 6d12. If _twilight_, deal 7d6 Force Damage to a Unit."
                     },
-                    "<Wicked Animals>": {
-                        "A": "1 Action",
-                        "Cooldown": "Once / Adventure",
-                        "Effect": "Call upon 2 animals, both of which are either Wolves, Giant Spiders or Giant Bats (Birds of Prey).\nThey appear on the edge of the battlefield, from the wilderness, and they fight for you for up to 1 minute.\n",
-                        "Notes": "Both animals must be of the same type."
+                    "<Forced Eclipse>": {
+                        "_Value": 3,
+                        "A": "0 Actions",
+                        "Effect": "Through ancient weather witchcraft, you force 1 minute of artificial day or night in a 1km area around you.",
+                        "Upgrade": "This can reset the Cooldown of Moonsun Fire's, once when it happens, and again when it ends.\n",
+                        "Notes": "Nothing happens if used with Equinox."
                     }
                 }
             }

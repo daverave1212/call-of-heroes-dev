@@ -31,10 +31,10 @@ export default function ManySpells({ spells, spellsObject }) {
     const column2Spells = spells.filter(spell => spell.AlignOnWebsite == 'Right')
     const spellsRest = spells.filter(spell => spell.AlignOnWebsite == null)
 
-    const half = spellsRest.length % 2 === 0? (spellsRest.length / 2) : (Math.floor(spellsRest.length / 2) + 1)
+    const middleIndex = spellsRest.length % 2 === 0? (spellsRest.length / 2) : (Math.floor(spellsRest.length / 2) + 1)
 
     for (let i = 0; i < spellsRest.length; i++) {
-        if (i < half) {
+        if (i < middleIndex) {
             column1Spells.push(spellsRest[i])
         } else {
             column2Spells.push(spellsRest[i])

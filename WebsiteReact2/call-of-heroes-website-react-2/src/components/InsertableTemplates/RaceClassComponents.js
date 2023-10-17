@@ -151,9 +151,8 @@ export function RaceFeatures({ theRace }) {
 
 export function RacialFeats({ theRace }) {
     return (<div>
-        <PageH2>Free Feat</PageH2>
-        <p>You start with one <b>Feat</b>. You can get this Feat either from the Feats page, or the list of Racial Feats below. Only your Race can get these Racial Feats.</p>
-        <PageH2>Racial Feats</PageH2>
+        <PageH2>Racial Ability Choice</PageH2>
+        <p>Choose one of the following Abilities and get it permanently.</p>
         <ManySpells spells={U.spellsFromObject(theRace.Talents)}/>
     </div>)
 }

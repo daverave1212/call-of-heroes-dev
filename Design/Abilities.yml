@@ -147,25 +147,31 @@ Default Moves:
         A: Half-Action
         Effect: Until the start of your next turn, your Defense and all Resist Checks increase by +1. This can stack multiple times if you use it multiple times.
 
+    ~Halfhand Attack~:
+        A: Half-Action
+        Effect: Make a special attack with a 2-Handed Melee Weapon. It deals 8 less Damage.
+
     ~Improvised Attack~:
         HasMixins: true
         A: Half-Action or 1 Action
         Effect: |
             You can use small, medium or large non-weapon objects from around and attack with them.
-            {Diamond} Small Objects - Half-Action, 1d4 + Dexterity Smash or Pierce Damage, thrown at exactly 3 to 6 meters range
-            {Diamond} Medium Objects - Half-Action, 1d4 + Might Smash Damage, up to 3 meters range
-            {Diamond} Large Objects - 1 Action, 2d6 + Might Smash Damage, up to 2 meter range
+            {Diamond} Small Objects - Half-Action, 1d4 + ^Dexterity^ Smash or Pierce Damage, thrown at exactly 3 to 6 meters range
+            {Diamond} Medium Objects - Half-Action, 1d4 + ^Might^ Smash Damage, up to 3 meters range
+            {Diamond} Large Objects - 1 Action, 2d6 + ^Might^ Smash Damage, up to 2 meter range
             If you roll maximum on any of those dice and the object can break, it breaks and deals an extra 1d4 Damage.
         Notes: |
-            Considered weapon attacks.
+            Considered weapon Attacks.
             A Small object is considered something you can hold in your hand (e.g. something up to 20cm across, a rock, etc).
             A Medium object is considered something you can grab and throw with your hand (e.g. something up to 50cm across, a chair, etc).
             A Large object is something you would not be able to throw with only one hand (e.g. a table).
         
     ~Intimidating Mock~:
         A: 1 Action
+        HasMixins: true
         Effect: |
             A Unit that can see or hear you must pass a Charisma Check or become Fumbling until the end of its (next) turn.
+        Notes: "{Fumbling}"
 
     ~Push~:
         A: Half-Action
@@ -177,17 +183,13 @@ Default Moves:
     #     Effect: |
     #         You can move 1 meter without triggering attacks of oportunity.
     #         This turn you can't move normally (and you can't use this if you already did).
-
-    ~Halfhand Attack~:
-        A: Half-Action
-        Effect: Make an attack with a 2-Handed Melee Weapon. It deals 8 less Damage.
-            
+        
     ~Taunt~:
         A: Half-Action
         Range: 10 meters
         Effect: |
             Make an enemy roll a Sense Check.
-            If it fails, its next attack gains Cover (-2) if it's not on you.
+            If it fails, its next offensive Act gains Cover (-2) if it's not on you.
             
     ~Wait~:
         A: 0 Actions
@@ -240,7 +242,7 @@ Bloodshed:
     ~Bull Rush~:
         A: Passive
         Requirement: Level 2
-        Effect: If you move at least 3 meters in a straight line and then melee attack a target on the same line, the attack gains +1.
+        Effect: If you move at least 3 meters in a straight line and then melee Attack a target on the same line, the Attack gains +1.
 
     ~Grapple~:
         A: 1 Action
@@ -259,9 +261,9 @@ Bloodshed:
         A: Half-Action
         Range: 2 meters
         Effect: |
-            Make a melee attack that deals 1d6 + 2 Force Damage.
+            Make a special melee attack that deals 1d6 + 2 Force Damage.
             After the attack, your turn ends immediately.
-        Notes: This counts as a weapon attack (1-Handed or 2-Handed, depending on your weapon).
+        Notes: This counts as a weapon Attack (1-Handed or 2-Handed, depending on your weapon).
         
     ~Slam~:
         A: 1 Action
@@ -278,13 +280,13 @@ Bloodshed:
         Cost: 1 Mana
         Range: 10 meters
         Requirement: Level 2
+        HasMixins: true
         Effect: |
-            Attack a sentient Unit for 12 + your Charisma Cold Damage.
+            Deal 12 + Charisma Cold Damage to a sentient Unit
             It becomes Slowed.
         Notes: |
             Doesn't work on Units that can't feel fear.
             
-    
     ~Muscle Tear~:
         A: 0 Actions
         Cost: 1 Mana
@@ -307,7 +309,7 @@ Bloodshed:
         Effect: |
             Heal yourself for 1d8 and remove all Fumbling, Root, Slow, Poisons and Bleed effects ongoing on you.
         Upgrade: |
-            At Level 6 this also removes Cripple and Blind.
+            At Level 4 this also removes Cripple and Blind.
 
     ~Shank~:
         A: 0 Actions
@@ -321,7 +323,7 @@ Bloodshed:
         Requirement: Level 4
         Range: 3 meters
         Effect: |
-            Attack and break a breakable obstacle that fits within a 3x3x3 area.
+            Break a breakable obstacle that fits within a 3x3x3 area.
             After casting this Ability, if you moved this turn, you can continue your movement.
         Notes: It is the GM's call if an obstacle can be broken.
 
@@ -331,9 +333,9 @@ Bloodshed:
         Range: 5 meters
         Requirement: Level 4
         Effect: |
-           Use when a Unit wants to make multiple attacks on the same turn, or use a non-area Ability that hits multiple targets (e.g. Magic Missiles).
-           That Unit takes 1d4 Psychic Damage and is limted to only 1 attack or hit with that Ability.
-        Note: E.g. when a Strigoi wants to make 3 attacks on its turn (before it rolls the 2nd and 3rd attacks), use Blood Foment on it and it will only be able to do one attack. Or, when someone casts Magic Missiles, use Blood Foment and only one missile will fire.
+           Use when a Unit wants to make multiple Attacks on the same turn, or use a non-area Ability that hits multiple targets (e.g. Magic Missiles).
+           That Unit takes 1d4 Psychic Damage and is limted to only 1 Attack or hit with that Ability.
+        Note: E.g. when a Strigoi wants to make 3 Attacks on its turn (before it rolls the 2nd and 3rd Attacks), use Blood Foment on it and it will only be able to do one Attack. Or, when someone casts Magic Missiles, use Blood Foment and only one missile will fire.
 
 Warfare:
 
@@ -373,8 +375,8 @@ Warfare:
         A: Half-Action
         Range: 2 meters
         Effect: |
-            Make a melee attack that deals 1d6 + 2 Force Damage.
-            After the attack, your turn ends immediately.
+            Make a special melee attack that deals 1d6 + 2 Force Damage.
+            After the Attack, your turn ends immediately.
         
     
     # Advanced Spells
@@ -383,8 +385,9 @@ Warfare:
         A: 0 Actions
         Cooldown: 1 hour
         Effect: |
-            Take (5 + your Sense) Psychic Damage.
-            Gain (7 + Your Level) Shielding for 1 hour.
+            Take 5 + ^Sense^ Psychic Damage.
+            Gain 7 + ^Level^ Shielding for 1 hour.
+        Notes: Refers to your Character's Level.
 
     ~Stand Stoic~:
         A: 0 Actions
@@ -392,9 +395,7 @@ Warfare:
         Requirement: Level 2
         Effect: |
             All allies (and you) remove their Roots, Slows and Dazes.
-            None of you can be Fumbling from exiting a Unit's attack range until the start of your next turn.
             You (yourself) can continue your movement if you already moved.
-        Notes: Fumbling is when you move away from an enemy's melee attack range; if you are Fumbling, all your actions have Cover.
     
     ~Assess Their Ranks~:   # Ok
         A: 0 Action
@@ -433,12 +434,14 @@ Warfare:
         Cost: 1 Mana
         Range: 2 meters
         Requirement: Level 4
+        HasMixins: true
         Effect: |
             Push a Unit up to 6 meters away from you.
             If it collides with something, it must pass a Might Check or be Stunned and take 1d4 Smash Damage (and it stops).
             If it collides with another Unit, that Unit is also pushed in the same direction and continues a chain of Row Through.
         Notes: |
             E.g. if it collides with a Unit, that Unit is also pushed up to 6 meters and if it collides with something, it must pass a Might Check or be Stunned and take the Damage. If that thing it collided with was a Unit, that Unit is also pushed up to 6 meters and must pass the Might Check and so on.
+            "{Stunned}"
             
     ~Whirlwind~:
         A: 1 Action
@@ -484,8 +487,6 @@ Elemental:
         Effect: |
             All Units in a 90 degree, 3 meter cone take 4 Fire Damage.
             Units can't benefit from Cover from this Ability.
-        Upgrade: |
-            At Level 4, the Damage increases to 4 Damage.
 
     ~Control Elements~:
         HasMixins: true
@@ -513,13 +514,13 @@ Elemental:
         
     ~Flameblade~:
         A: Passive
-        Effect: You can freely change the Damage of your weapon attacks to Fire Damage.
+        Effect: You can freely change the Damage of your weapon Attacks to Fire Damage.
         
     ~Frostbite~:
         A: 1 Action
         Range: 5 meters
         Effect: |
-            Send out a wave of frost towards a Unit and deal 2d6 + Its Dexterity Damage and Slow it.
+            Send out a wave of frost towards a Unit and deal 2d6 + ^Its Dexterity^ Damage and Slow it.
             If it's already Slowed or Rooted, deal 1d6 extra Damage.
 
     ~Land Breach~:
@@ -567,7 +568,7 @@ Elemental:
         Requirement: Level 3
         Effect: |
             When you cast this, declare a target and it takes 1d10 + 3 Shock Damage.
-            Every turn (except this one), you can use a Half-Action to attack that target again for 3d6 Shock Damage.
+            Every turn (except this one), you can use a Half-Action deal 3d6 Shock Damage to the target again (if it is within range).
             If you don't spend the Half-Action for this on a turn, the spell ends.
         Notes: You only pay the 1 Mana cost when you activate this Spell, not on every turn's Half-Action that you spend.
 
@@ -586,10 +587,13 @@ Elemental:
         Range: 1 meter
         Duration: 24 hours
         Requirement: Level 3
+        HasMixins: true
         Effect: |
             Place a rune on a smooth solid surface. The rune covers a 1x1 area.
             Heavy physical contact with the rune detonates it, dealing 3d10 Cold Damage to the Unit that activates it.
             Also, it must pass a Dexterity Check or be Rooted.
+        Notes: |
+            {Rooted}
 
     ~Explosion Rune~:
         A: 1 Action
@@ -601,7 +605,7 @@ Elemental:
             Place a rune on a smooth solid surface. The rune covers a 1x1 area.
             You can use a free Reaction to detonate it, dealing 6d4 half Fire half Force Damage to the Unit that activates it and all Units within 2 meters of it.
         Upgrade: |
-            At Level 4, this lasts for the rest of the Adventure.
+            At Level 8, this lasts for the rest of the Adventure.
         Notes: A free Reaction does not use up your Reaction.
 
     ~Ice Spike~:
@@ -621,7 +625,7 @@ Elemental:
         Requirement: Level 2
         Effect: |
             Choose a metallic weapon to imbue it with Fire.
-            That weapon deals +2 Damage (as part of the attack) and the total weapon Damage becomes Fire Damage.
+            That weapon deals +2 Damage (as part of the Attack) and the total weapon Damage becomes Fire Damage.
             Lasts until the end of the next (or current) combat, or for up to 24 hours.
         Notes: Does not stack with other weapon enchantments from Spells.
 
@@ -630,11 +634,13 @@ Elemental:
         Cost: 1 Mana
         Range: 5 meters
         Requirement: Level 2
+        HasMixins: true
         Effect: |
             Choose a piece of metal and heat it.
             - If it's an armor, the wearer takes 5d4 Fire Damage.
             - If it's a weapon, the wearer takes 1d10 Damage and it must pass a Might Check or be Crippled.
-        Notes: Ignores Cover.
+        Notes: |
+            Ignores Cover. {Crippled}
 
     ~Flame Strike~:
         A: 1 Action
@@ -651,19 +657,10 @@ Elemental:
         Cost: 1 Mana
         Range: 10 meters
         Requirement: Level 2
-        Effect: Make 3 attacks. Each does 1d6 + 2 Fire Damage.
+        Effect: Shoot 3 rays of fire (at one or more Units). Each does 1d6 + 2 Fire Damage.
         Notes: You can roll them one by one, after they deal the damage.
 
     # Higher Level Spells
-    ~Freeze Water~:
-        A: 1 Action
-        Range: 10 meters
-        Requirement: Level 5
-        Cooldown: Intelligence uses / Adventure
-        Effect: |
-            Choose a number of 1x1x1 cubes containing water equal to your Level.
-            The water there freezes.
-            If a Unit is caught in the water, it must pass a Dexterity Check or be Rooted. If it passes, it is expelled to a nearby space near the frozen water (it chooses, within reason).
     
     ~Fire Ball~:        # It's definitely more than 3 Mana worth but not that much
         A: 1 Action
@@ -672,6 +669,19 @@ Elemental:
         Requirement: Level 4
         Effect: All Units in a 6x6x6 cube take 6d6 Fire Damage.
         Notes: Cover is calculated from the center of the zone.
+
+    ~Freeze Water~:
+        A: 1 Action
+        Range: 10 meters
+        Requirement: Level 4
+        Cooldown: Intelligence uses / Adventure
+        HasMixins: true
+        Effect: |
+            Choose a number of 1x1x1 cubes containing water equal to your Level.
+            The water there freezes.
+            If a Unit is caught in the water, it must pass a Dexterity Check or be Rooted. If it passes, it is expelled to a nearby space near the frozen water (it chooses, within reason).
+        Notes: |
+            {Rooted}
 
     # ~Water Sphere~:     # Slightly strong if 3 bounces but it has to be
     #     A: 1 Action
@@ -723,14 +733,6 @@ Arcane:
 # [ ] Summon
 
     # Basic Spells
-           
-    ~Dancing Blade~:
-        A: Passive
-        Effect: Your melee weapon attacks have +1 meter range (up to 3 meters), by levitating to your target, hitting them, then quickly returning to your hand.
-        Requirement: Level 2
-        Notes: |
-            These attacks are still considered melee attacks, and are not considered thrown.
-            Flanking applies normally if there's an Ally right behind the enemy you're attacking (forming a line between the 3 of you).
 
     ~Magic Missiles~:
         A: 1 Action
@@ -740,7 +742,7 @@ Arcane:
         Upgrade: If a missile would hit a target that died from a previous missile, it will seek out another target of your choice within range.
         Notes: |
             You can send the missiles one by one (after doing damage) or at the same time.
-            Each missile is a separate attack and can be affected individually by Cover, Fumbling, etc (e.g. shooting all 3 missiles at a Unit that has Cover makes each missile deal 1d4 - 2 Damage).
+            Each missile is a separate Attack and can be affected individually by Cover, Fumbling, etc (e.g. shooting all 3 missiles at a Unit that has Cover makes each missile deal 1d4 - 2 Damage).
 
     ~Magic Tricks~:
         A: 1 Action
@@ -751,15 +753,31 @@ Arcane:
             You can instantly clean or soil objects.
             You can control a quill with telekinesis to quickly write with it (1 meter range).
 
+    ~Dispel Magic~:
+        A: 0 Actions
+        Cooldown: Once / Encounter
+        AlignOnWebsite: Right
+        Effect: Touch an ally (or yourself) and dispell any ongoing or negative short-term magical effects on it. At Level 6, you can remove long-term magical effects with this as well.
+
     ~Resistance~:
         A: 1 Action
         Cooldown: Once / Adventure
         Duration: Until their next rest
-        AlignOnWebsite: Right
         Effect: |
             Touch an ally (or yourself) and choose one Stat.
             It has +1d4 in all Resist Checks with that Stat.
-            
+
+    # Level 2
+
+    ~Dancing Blade~:
+        A: Passive
+        Effect: Your melee weapon Attacks have +1 meter range (up to 3 meters), by levitating to your target, hitting them, then quickly returning to your hand.
+        Requirement: Level 2
+        Notes: |
+            These Attacks are still considered melee Attacks, and are not considered thrown.
+            Flanking applies normally if there's an Ally right behind the enemy you're Attacking (forming a line between the 3 of you).
+
+
     ~Focus Fling~:
         A: Half-Action
         Requirement: Level 2
@@ -768,14 +786,21 @@ Arcane:
             Fling the object into a Unit within 3 meters of the object.
             Deals 1d8 Smash Damage.
         Upgrade: |
-            You can use this to fling consumables like bombs, vials of acid, magic ammo, flasks of holy water, etc. If you do this, the Damage is added as part of the attack.
+            You can use this to fling consumables like bombs, vials of acid, magic ammo, flasks of holy water, etc. If you do this, the Damage is added as part of the Attack.
 #           At Level 4, you can spend 1 Mana to increase the Damage to 2d12.
         Notes: |
             Cover is applied from the object's initial position to the target.
             If the object can break, it breaks. Obviously, the object must be move-able and not tied/stuck in place.
             Throwing weapons does not apply effects or deal extra Damage.
-            
-    
+
+
+    ~Flash~:
+        A: 0 Actions
+        Cost: 1 Mana
+        Requirement: Level 2
+        Effect: Instantly teleport up to 6 meters away, within line of sight.
+        Notes: You take with you all items carried. Does not work if you're Rooted or stuck in place somehow.
+
     # Advanced Spells
 
     ~Arcane Spear~:
@@ -787,19 +812,43 @@ Arcane:
             Deal 18 Damage to all targets who failed.
             If no Unit failed, you gain the Mana back.
 
-    ~Flash~:
-        A: 0 Actions
+    ~Feather Fall~ :
+        A: Reaction or 0 Actions
+        Requirement: Level 3
+        Range: 10 meters
+        Effect: |
+            Up to 2 Units you choose will start falling gently, down to 3 meters per round.
+            Once the fall finishes, the spell effect ends.
+        Notes: |
+            Arcane Feathers can be bought in most towns.
+            For faster gameplay, you can spend 10 gold when casting the spell, and buy the feather later.
+
+    ~North Star~:
+        A: 1 Action
+        Range: 15 meters
+        Requirement: Level 3
         Cost: 1 Mana
-        Requirement: Level 2
-        Effect: Instantly teleport up to 6 meters away, within line of sight.
-        Notes: You take with you all items carried. Does not work if you're Rooted or stuck in place somehow.
+        Effect: |
+            You conjure a magical star that always shoots North and deals 4d8 Shock Damage to the first Unit hit.
+        Notes: |
+            You can only shoot the star towards North - without an angle.
+            Ask the DM which way North is (if your character knows that).
 
-    # ~Mage Armor~:
-    #     A: 1 Action
-    #     Cost: 1 Mana
-    #     Duration: 24 Hours
-    #     Effect: Your total Defense (with all calculations) can't be lower than 3.
+    # Level 4
 
+    ~Antimagic Rune~ :
+        A: 1 Action
+        Requirement: Level 4
+        Cost: 1 Mana
+        HasMixins: true
+        Effect: |
+            Place a rune on the ground.
+            You can activate it at any time and from any distance.
+            When you activate it, the rune creates a 5x5 meter zone.
+            Try to Silence all units inside (Intelligence Check) and they also take (Your Level) Force Damage on detonation.
+        Notes: |
+            Ignores Cover. {Silenced}
+    
     ~Magic Nova~:
         A: 1 Action
         Cost: 2 Mana
@@ -811,15 +860,18 @@ Arcane:
             The blast extends 2 more meters from its edges in all directions and further Damages directly all Units on this 2-meter edge for half of the Damage rolled.
         Notes: To conclude, the total area of this Spell is 4x4 meters. The Units in the 2x2 center must pass the check or take full Damage and the units on the edge just take half of the Damage (as if they passed a Check for the center).
 
+
+
     ~Phase Orb~:
         A: Half-Action
         Cost: 1 Mana
         Range: 10 meters
         Requirement: Level 3
+        HasMixins: true
         Effect: |
             Pick a 1x1 zone. A magical orb is created in that place.
             At the start of your next turn, the orb dashes to your position.
-            All Units in the orb's path take 2d6 + your Intelligence + your Charisma Force Damage.
+            All Units in the orb's path take 2d6 + ^Intelligence^ + your Charisma Force Damage.
             
     ~Spell Seal~:
         A: 0 Actions
@@ -830,12 +882,12 @@ Arcane:
             Choose a Unit you can see.
             Whenever it casts a Spell that heals or deals Damage, you can roll 1d4 and subtract it from that Unit's act.
         Upgrade: |
-            At Level 4, you can spend 1 more Mana to increase the roll to 2d4.
-            At Level 7, you can spend 2 more Mana instead to increase the roll to 3d4.
+            At Level 5, you can spend 1 more Mana to increase the roll to 2d4.
+            At Level 8, you can spend 2 more Mana instead to increase the roll to 3d4.
         Notes: |
             Does not stack multiple times.
             On Epic monsters, only applies to the first Spell they cast in the round.
-            
+
     ~Shield Element~:
         A: Half-Action
         Cost: 1 Mana
@@ -843,39 +895,7 @@ Arcane:
         Effect: |
             Name 1 element from Fire/Cold/Electric and choose two allies.
             The next time those allies would take that type of Damage, that Damage is halved.
-
-
-
-    # Higher Level Spells
-    
-    ~Antimagic Rune~ :
-        A: 1 Action
-        Requirement: Level 4
-        Cost: 1 Mana
-        AlignOnWebsite: Right
-        Effect: |
-            Place a rune on the ground.
-            You can activate it at any time and from any distance.
-            When you activate it, the rune creates a 5x5 meter zone.
-            Try to Silence all units inside (Intelligence Check) and they also take (Your Level) Force Damage on detonation.
-        Notes: Ignores Cover.
-         
-    ~Dispel Magic~:
-        A: 0 Actions
-        Cooldown: Once / Encounter
-        Effect: Touch an ally (or yourself) and dispell any ongoing or negative short-term magical effects on it. At Level 6, you can remove long-term magical effects with this as well.
-
-    ~Feather Fall~ :
-        A: Reaction or 0 Actions
-        Requirement: Level 3
-        Range: 10 meters
-        Effect: |
-            Up to 2 Units you choose will start falling gently, down to 3 meters per round.
-            Once the fall finishes, the spell effect ends.
-        Notes: |
-            Arcane Feathers can be bought in most towns.
-            For faster gameplay, you can spend 10 gold when casting the spell, and buy the feather later.
-            
+        
     ~Invisibility~:
         A: 0 Actions
         Requirement: Level 5
@@ -902,52 +922,6 @@ Arcane:
         Upgrade: |
             At Level 8, the amount increases to 5d100.
 
-    ~North Star~:
-        A: 1 Action
-        Range: 15 meters
-        Requirement: Level 3
-        Cost: 1 Mana
-        Effect: |
-            You conjure a magical star that always shoots North and deals 4d8 Shock Damage to the first Unit hit.
-        Notes: |
-            You can only shoot the star towards North - without an angle.
-            Ask the DM which way North is (if your character knows that).
-
-    ~Sense Magic~ :
-        A: 0 Actions
-        Requirement: Level 6
-        Cost: 1 Mana
-        Effect: |
-            You can tell if there is magic within (Intelligence * 10) meters from you (at least 10 meters).
-            You can also tell if an object you touch is magical.
-            If it is a common magic item, you can tell what it does (e.g. Potions, Scrolls, etc).
-
-    ~Lag~:
-        A: 1 Action
-        HasMixins: true
-        Requirement: Level 6
-        Cost: 1 Mana
-        Range: 10 meters to edge
-        Effect: |
-            Declare a 5x5 meter area.
-            All Units inside it must pass an Intelligence Check or be affected by all the following:
-            {Diamond} They are Slowed and Fumbling
-            {Diamond} They can only make one Attack on their next turn
-            {Diamond} They can't make Reactions
-            {Diamond} They can't be invisible
-            {Diamond} They can't inflict Crowd Control
-            Lasts until the start of your next turn.
-        Notes: Ignores Cover for the Intelligence Check.
-            
-    ~Unlock~:
-        A: 1 Action
-        Requirement: Level 6
-        Range: 10 meters
-        Effect: |
-            You can attempt to unlock a lock magically.
-            Using this counts as if you Know How to Pick Locks.
-            You roll a Dexterity Check for this, and you get a +2 on it.
-            
     ~Water Walk~:
         A: 0 Actions or Reaction
         Requirement: Level 5
@@ -958,6 +932,46 @@ Arcane:
         Effect: |
             Up to 2 willing Units can walk on water as normally.
             The effect ends if the Unit takes Damage.
+
+    # Level 6
+
+    ~Lag~:
+        A: 1 Action
+        HasMixins: true
+        Requirement: Level 6
+        Cost: 1 Mana
+        HasMixins: true
+        Range: 10 meters to edge
+        Effect: |
+            Declare a 5x5 meter area.
+            All Units inside it must pass an Intelligence Check or be affected by all the following:
+            {Diamond} They are Slowed and Fumbling
+            {Diamond} They can only make one Attack on their next turn
+            {Diamond} They can't make Reactions
+            {Diamond} They can't be invisible
+            {Diamond} They can't inflict Crowd Control
+            Lasts until the start of your next turn.
+        Notes: |
+            Ignores Cover for the Intelligence Check. {Slowed} {Fumbling}
+
+    ~Sense Magic~ :
+        A: 0 Actions
+        Requirement: Level 6
+        Cost: 1 Mana
+        Effect: |
+            You can tell if there is magic within (Intelligence * 10) meters from you (at least 10 meters).
+            You can also tell if an object you touch is magical.
+            If it is a common magic item, you can tell what it does (e.g. Potions, Scrolls, etc).
+            
+    ~Unlock~:
+        A: 1 Action
+        Requirement: Level 6
+        Range: 10 meters
+        Effect: |
+            You can attempt to unlock a lock magically.
+            Using this counts as if you Know How to Pick Locks.
+            You roll a Dexterity Check for this, and you get a +2 on it.
+        
     
     ~Hearth Recall~:
         A: 10 minutes
@@ -969,8 +983,7 @@ Arcane:
             You can only have 1 bound place at a time.
             The range to your bound place must be at most a a number of kilometers equal to your Intelligence * 100.
         Upgrade: |
-            At Level 8, you can have up to 2 bound places.
-            At Level 10, you can have up to 3 bound places.
+            At Level 9, you can have up to 2 bound places.
         Notes: You can remove the binding of a place at will, from any distance.
 
 
@@ -1002,7 +1015,7 @@ Nature:
 # [x] Damage (AoE)                      [(Land Breach)]
 # [x] Damage (AoE)          (Advanced)  [Defense (Lightning Storm)]
 # [ ] Return on Investment
-# [x] Stats                             [Mastery, Wild Heart]
+# [x] Stats                             [Wild Heart]
 # [x] Low CC                            [Push (Cutting Winds)]
 # [x] Medium CC                         [Fumbling (Quaking Wave)]
 # [x] Hard CC
@@ -1053,19 +1066,13 @@ Nature:
             Cure a simple Disease, Debuff or Bleed effect on a Unit (you can choose yourself).
         Upgrade: |
             At Level 4, you can cure harder and stranger diseases and poisons.
-            At level 8, you can cure terminal or chronic diseases and poisons.
+            At level 7, you can cure terminal or chronic diseases and poisons.
         Notes: |
             Debuffs are things like curses, weaknesses, etc. Crowd Control like Daze, Fumbling, Fear, Stun, etc are not considered Debuffs.
 
     ~Detect Poison and Disease~:
         A: 1 Action
         Effect: You know if there is any poison (or poisonous Unit) or disease (or ill person) within 5 meters.
-
-    ~Mastery~:
-        A: Passive
-        Requirement: Level 2
-        Effect: You can use Sense or Charisma instead of Strength or Dexterity for weapon attacks (you still need to be Trained in that weapon to use it properly).
-        Notes: Also called Soelluelegh, or however it's spelled.
 
     ~Purify Food and Drink~:
         A: 1 Action
@@ -1114,16 +1121,16 @@ Nature:
         Effect: |
             A Unit you can see becomes surrounded by 3 floating plates of earth.
             Whenever the Unit would take Damage from an Enemy, it rolls 1d4 and subtracts it from the Damage.
-        Upgrade: At Level 5, this makes 4 floating plates of earth (4 hits).
+        Upgrade: At Level 6, this makes 4 floating plates of earth (4 hits).
         Notes: Lasts for 24 hours or until you rolled the d4 3 times. Does not stack multiple times with itself.
+
+    ~Land Breach~: Inherit from Elemental
 
     ~Healing Surge~:    # Almost 1 Mana worth
         A: Half-Action
         Range: 5 meters
         Cost: 1 Mana
         Effect: Heal a target for 2d6.
-
-    ~Land Breach~: Inherit from Elemental
         
     ~Lightning Storm~:  # Per single target, 0.5 Damage weaker than normal attack; but it's AoE!
         A: 1 Action
@@ -1140,48 +1147,27 @@ Nature:
         Upgrade: At Level 6, the area is 6x6x6 (optionally).
         Notes: The storm only deals Damage the moment you spend 1 Action; if you do spend 1 Action, the storm stays in place and deals no Damage.
     
-    ~Locust Swarm~:     # Ok
-        A: 0 Actions
-        Range: 10 meters
-        Cost: 1 Mana
-        Duration: 1 minute
-        Requirement: Level 4
-        Effect: |
-            Choose a Unit.
-            A swarm of locusts appears and chases it.
-            Whenever the Unit moves willingly, it takes 1 Pierce Damage for each meter moved.
-            A Unit can only be affected by one Locust Swarm at a time.
-        Note: Locust Swarm can be dispelled like any other effect. Damage is done 1 by 1 meter.
-    
-    ~Paralyzing Sting~:
-        A: Half-Action
-        Range: 3 meters
-        Cost: 1 Mana
-        Cooldown: Once / Adventure
-        Requirement: Level 4
-        Effect: |
-            Lash out a noxious sting towards a Unit.
-            It must pass a Might or Dexterity Check (your choice) or be Stunned.
-            If it succeeds, it takes 2d10 direct Poison Damage instead.
-        Notes: Only works on biological Units.
-
     ~Quaking Wave~:
         A: 1 Action
         Cost: 1 Mana
         Requirement: Level 2
+        HasMixins: true
         Effect: |
             Send out a 5x1 meter wave forward through the ground.
             All Units hit take 2d8 Force Damage.
             If they are at or below 50% Health, they become Slowed and Fumbling.
+        Notes: |
+            {Slowed} {Fumbling}
 
-    ~Fruit of the Forest~:      # Ok
-        A: 10 minutes
-        Cost: 1 Mana
-        Cooldown: Once / Adventure
-        Requirement: Level 4
+    ~Draw Moisture~:
+        A: 1 Action
+        Requirement: Level 2
         Effect: |
-            Roll 3d6. You find and/or enchant that many bites of food. Each bite restores 1 Reserve Health to the eater.
-        Notes: The Reserve Health is evenly spread among the food bites. For example, you might conjure 3d6 berries, each worth 1 Reserve Health. Or you might enchant a loaf of bread, each slice being worth 1 Reserve Health.
+            Using your hands, you draw in water from all objects in a 1x1x1 meter cube and store magically it in your body.
+            You can use 1 Action to release all the stored water, without dealing Damage.
+        Upgrade: You can store a number of 1x1x1 meter cubes of water equal to your Level / 2.
+        Notes: Just because you target a 1x1x1 meter cube, it doesn't mean you get a 1x1x1 meter cube of water stored. For ease of use, the GM can say you drew in none, a quarter, a half, 3 quarters or a 1x1x1 meter cube of water from the targeted cube.
+    
             
     # ~Scape Grasp~:      # Depends
     #     HasMixins: true
@@ -1206,14 +1192,15 @@ Nature:
         Duration: 1 minute
         Effect: |
             Choose a Unit you can see.
-            Whever another Unit attacks it (before the roll), it takes 1d4 Pierce Damage.
+            Whever another Unit Attacks it (before the roll) and is within 3 meters, it takes 1d4 Pierce Damage.
         Notes: Does not stack with itself.
 
     ~Venin Shot~:
         A: 1 Action
         Range: 6 meters
+        HasMixins: true
         Effect: |
-            Attack a target for 1d8 + your Sense Poison Damage.
+            A target takes 1d8 + ^Sense^ Poison Damage.
             The next time it takes damage from a weapon, it takes an extra 1d8 Poison Damage.
         
     ~Wild Heart~:
@@ -1233,16 +1220,54 @@ Nature:
 
 
 
-    # Higher Level Spells
-    ~Draw Moisture~:
-        A: 1 Action
+    # Level 4
+
+    ~Tree Stride~:
+        A: Passive
         Requirement: Level 4
         Effect: |
-            Using your hands, you draw in water from all objects in a 1x1x1 meter cube and store magically it in your body.
-            You can use 1 Action to release all the stored water, without dealing Damage.
-        Upgrade: You can store a number of 1x1x1 meter cubes of water equal to your Level / 2.
-        Notes: Just because you target a 1x1x1 meter cube, it doesn't mean you get a 1x1x1 meter cube of water stored. For ease of use, the GM can say you drew in none, a quarter, a half, 3 quarters or a 1x1x1 meter cube of water from the targeted cube.
-    
+            While within 30 meters of trees, you have + 1 Movement Speed.
+            You can climb trees without rolling Checks, using your normal Movement.
+            You can use as many meters of your Movement as you like to jump that distance from one tree to another.
+
+    ~Fruit of the Forest~:      # Ok
+        A: 10 minutes
+        Cost: 1 Mana
+        Cooldown: Once / Adventure
+        Requirement: Level 4
+        Effect: |
+            Roll 3d6. You find and/or enchant that many bites of food. Each bite restores 1 Reserve Health to the eater.
+        Notes: The Reserve Health is evenly spread among the food bites. For example, you might conjure 3d6 berries, each worth 1 Reserve Health. Or you might enchant a loaf of bread, each slice being worth 1 Reserve Health.
+
+    ~Locust Swarm~:     # Ok
+        A: 0 Actions
+        Range: 10 meters
+        Cost: 1 Mana
+        Duration: 1 minute
+        Requirement: Level 4
+        Effect: |
+            Choose a Unit. A swarm of locusts appears and chases it.
+            After the Unit moves willingly, it takes 1 Pierce Damage for each meter it moved.
+            A Unit can only be affected by one Locust Swarm at a time.
+        Note: Locust Swarm can be dispelled like any other effect. Damage is done 1 by 1 meter.
+
+    ~Paralyzing Sting~:
+        A: Half-Action
+        Range: 3 meters
+        Cost: 1 Mana
+        Cooldown: Once / Adventure
+        Requirement: Level 4
+        HasMixins: true
+        Effect: |
+            Lash out a noxious sting towards a Unit.
+            It must pass a Might or Dexterity Check (your choice) or be Stunned.
+            If it succeeds, it takes 2d10 direct Poison Damage instead.
+        Notes: |
+            Only works on biological Units. {Stunned}
+
+
+    # Level 5
+
     ~Spider Climb~ :
         A: 1 Action
         Requirement: Level 5
@@ -1252,14 +1277,6 @@ Nature:
             Your hands and feet can stick to solid, (more or less) flat surfaces, so you can walk on them.
             Walking on walls and floors acts as Hard Terrain.
         Upgrade: Alternatively, you can spend 1 Mana to cast this ignoring the Cooldown.
-
-    ~Tree Stride~:
-        A: Passive
-        Requirement: Level 4
-        Effect: |
-            While within 30 meters of trees, you have + 1 Movement Speed.
-            You can climb trees without rolling Checks, using your normal Movement.
-            You can use as many meters of your Movement as you like to jump that distance from one tree to another.
 
 Conjuration:
 
@@ -1297,11 +1314,22 @@ Conjuration:
             Create a magical light bulb that sheds light in a 5 meters radius.
             It levitates and stays where you put it and can be moved by hand, or you can simply stick it to any solid object.
         Notes: |
-            Lasts up to Your Level hours, or until you cancel it or cast Light again, or is purposefully destroyed with an attack.
+            Lasts up to Your Level hours, or until you cancel it or cast Light again, or is purposefully destroyed with an Attack.
             You choose the color of the light.
             The light is not strong enough to blind someone.
             The bulb can't go through solid objects.
         
+    ~Longblade~:
+        A: 0 Actions
+        Cooldown: Once / Adventure
+        Duration: 1 minute
+        Effect: |
+            Magically extend the weapon of a willing ally you can see (or yourself) to up to 3 meters.
+            Its Attacks with that weapon can have up to 3 meters range.
+
+    # Level 3
+
+    ~Alarm~: Inherit
 
     ~Mending~:
         A: 1 Action
@@ -1312,10 +1340,18 @@ Conjuration:
             Mending can repair a piece of Armor or Weapon for 1 Defense or Damage, but no more.
         Notes: For example, repair a hole through a chain shirt or textile material, the crack in a piece of glass, etc.
 
-
-    # Advanced Spells
-
-    ~Alarm~: Inherit
+    ~Eldritch Steed~ :
+        A: 5 minutes
+        Duration: 24 hours
+        Cooldown: 24 hours
+        Requirement: Level 3
+        Effect: |
+            You summon a ridable animal which doubles your movement speed on land.
+            The animal takes either a spectral, demonic or skeletal form.
+            It follows the normal rules for Riding.
+            It does not participate in combat.
+        Upgrade: |
+            At Level 6 the Steed can fly.
 
     ~Arrow Barrage~:
         A: 0 Actions
@@ -1338,7 +1374,7 @@ Conjuration:
         Effect: |
             A Unit you can see (or yourself) becomes blurry until the start of your next turn.
             It gains +2 Defense and +2 to all Resist Checks and 3 Movement Speed.
-        Upgrade: You can use this as a Reaction when another Unit declares an attack or Ability (before it makes it).
+        Upgrade: You can use this as a Reaction when another Unit declares an Attack or Ability (before it makes it).
 
     ~Chaining Grasp~:
         A: 0 Actions
@@ -1355,10 +1391,13 @@ Conjuration:
         Range: 5 meters to edge
         Duration: 1 minute
         Requirement: Level 2
+        HasMixins: true
         Effect: |
             Conjure a 4x4x4 meter cloud of rot.
             Units starting their turn in the cloud take 1d10 Poison Damage, become Fumbling, can't be healed, and have -2 to all Checks, all until the end of their current turn.
-            
+        Notes: |
+            {Fumbling}
+
     ~Dancing Weapon~:
         A: 1 Action
         Cost: 1 Mana
@@ -1367,9 +1406,9 @@ Conjuration:
         Requirement: Level 3
         Effect: |
             Conjure a levitating, self-wielding melee weapon on a space within 3 meters.
-            On your each turn (includig this), the weapon can make a melee attack that deals 1d10 + 1 Force Damage and move up to 3 meters.
+            On your each turn (includig this), the weapon can make a melee Attack that deals 1d10 + 1 Force Damage and move up to 3 meters.
         Notes: |
-            It costs 1 Action and 1 Mana to summon the weapon. Then, the weapon can attack once for free every turn (including this), without costing an Action or Mana.
+            It costs 1 Action and 1 Mana to summon the weapon. Then, the weapon can Attack once for free every turn (including this), without costing an Action or Mana.
             The weapon has no special effect. It has 10 Health and 3 Defense.
             The weapon disappears if it moves more than 20 meters away from you.
 
@@ -1387,19 +1426,6 @@ Conjuration:
         Notes: |
             If you have Proficiency in Deception, you can add that to the Check.
             In combat, a successful Distort Vision can provide Cover if rolled high enough.
-
-    ~Eldritch Steed~ :
-        A: 5 minutes
-        Duration: 24 hours
-        Cooldown: 24 hours
-        Requirement: Level 3
-        Effect: |
-            You summon a ridable animal which doubles your movement speed on land.
-            The animal takes either a spectral, demonic or skeletal form.
-            It follows the normal rules for Riding.
-            It does not participate in combat.
-        Upgrade: |
-            At Level 8 the Steed can fly.
 
     ~Fairy Fire~ :
         A: 0 Actions
@@ -1430,21 +1456,8 @@ Conjuration:
         Range: 5 meters to edge
         Effect: |
             A 5x5x5 meter cube becomes covered in fog for 1 minute.
-        Upgrade: All attacks done from, through or to Units inside Fog have Cover (-2).
+        Upgrade: All Attacks done from, through or to Units inside Fog have Cover (-2).
         Notes: Fog can be dissipated by wind. You can choose the color of the fog. The fog does not go through walls, but does bend around corners (e.g. up to 360 degrees around wall extremities).
-
-    ~Force Wall~:
-        A: 0 Actions or Reaction
-        Cost: 1 Mana
-        Range: 5 meters to edge
-        Duration: 1 minute
-        Requirement: Level 4
-        Effect: |
-            You create a 3x3 meter (tall and wide) translicent, magical and thin force wall.
-            The wall provides blocks Line of Sight and projectiles.
-            Moving through it counts as Hard Terrain.
-        Upgrade: You can use this as a Reaction when someone declares an attack or Ability to block the missile, before any roll is made.
-
 
     ~Grow or Shrink~:
         A: 0 Actions
@@ -1459,14 +1472,6 @@ Conjuration:
             Sizes are Minuscule, Small, Medium, Large, and Larger.
             A Larger Unit becomes 1 meter larger/smaller on all directions.
             It's number of spaces occupied also changes with this.
-
-    ~Longblade~:
-        A: 0 Actions
-        Cooldown: Once / Adventure
-        Duration: 1 minute
-        Effect: |
-            Magically extend the weapon of a willing ally you can see (or yourself) to up to 3 meters.
-            Its attacks with that weapon can have up to 3 meters range.
         
     # Higher Level Spells
 
@@ -1479,7 +1484,7 @@ Conjuration:
         Effect: |
             Conjure a spectral hand in a space you can see.
             You can move the hand as you move your normal hands and you can move your hand by spending meters from your remaining Movement.
-            The hand can't attack and disappears if it goes outside a 10 meters range.
+            The hand can't deal Damage and disappears if it goes outside a 10 meters range.
         # Upgrade: |
         #     At Level 6, when you cast this, you can make the size of the hand Large, and every turn by (you) spending 1 Action, you can make it attack a target for 3d8 + 1 Smash Damage or cast Grapple or Slam around it (from Bloodshed) (using your Stats).
         #     If cast like this, the Mage Hand has 15 Health and 0 Defense, and the effect ends if it is destroyed.
@@ -1488,17 +1493,6 @@ Conjuration:
             Moving the hand spends Actions as if you made moved your own hand.
             Once / turn, you can summon or vanish the hand for 0 Actions if it's effect is still active, in a space next to you.
     
-    ~Conjure Object~ :
-        A: 1 Action
-        Requirement: Level 4
-        Cost: 1 Mana
-        Range: 3 meters
-        Effect: |
-            You can conjure an object that is up to 1x1x1 meter in size.
-            The object is solid and glows faintly.
-            You can't conjure mechanical objects.
-            The object disappears after 1 hour (24 hours at Level 8).
-
     ~Major Illusion~:
         A: 1 Action
         Requirement: Level 5
@@ -1511,7 +1505,7 @@ Conjuration:
             On your turn, you can and must spend 1 Action to keep and/or move the illusion, otherwise it is dispelled.
             You can only have 1 illusion active at a time.
         Upgrade: |
-            At Level 7, the illusion lasts indefinitely until you cancel it without needing to spend Actions, and it can hold its own simple movement and clockwork-like routines.
+            At Level 8, the illusion lasts indefinitely until you cancel it without needing to spend Actions, and it can hold its own simple movement and clockwork-like routines.
             You can also program this illusion to react on its own in a specific way to specific triggers, but the instructions must be concise - talk with your GM about this.
 
     ~Meld With Material~:
@@ -1521,30 +1515,10 @@ Conjuration:
         Effect: |
             Touch a piece of solid material.
             You become immoving and all your body becomes as if made from that material.
-            You can cancel this for free at any point, but until you do, you are Stunned and have +3 Defense and to all Checks.
+            You can cancel this for free at any point, but until you do, you are Stunned (can't do anything) and have +3 Defense and to all Checks.
         Notes: |
             You still need to drink water and eat food, but don't need to breathe while melded.
             This has potential to work like a long term Stealth mechanism.
-
-    ~Transmute Rock~:
-        A: 1 Action
-        Requirement: Level 6
-        Cost: 1 Mana
-        Effect: |
-            Touch a 1x1x1 meter cube of rock, mud, sand, etc.
-            Transform it into rock, mud, sand, etc.
-            A Unit caught in this effect must pass a Might Check or be Rooted.
-
-    ~Conjure Lodge~:
-        A: 10 minutes
-        Requirement: Level 6
-        Duration: 24 hours
-        Cost: 3 Mana
-        Cooldown: 1 Week
-        Effect: |
-            Conjure a cubic room with a width equal to your Level and a 1x2 meter door.
-            This room works like a pocket dimension and only the door is visible from the outside. The room occupies no space in the real world, except for the door (you enter the room through the door).
-        Notes: If the Lodge would be destroyed with people inside, each will automatically be expulsed (appear) in a space within 3 meters of the door (randomly or by GM's choice).
 
     ~Magic Prison~ :
         A: 5 minutes
@@ -1558,17 +1532,6 @@ Conjuration:
             It can make this Check to try to escape every 24 hours.
             You can cast this Once / day per Mana.
 
-    ~Web~:
-        A: Half-Action
-        Cost: 1 Mana
-        Range: 5 meters to edge
-        Duration: 1 minute
-        Requirement: Level 2
-        Effect: |
-            Declare a 4x4 meter zone
-            The zone becomes filled with spider web and counts as Difficult Terrain.
-            After a Unit exits the zone, it must pass a Dexterity Check or be Rooted.
-
     ~Shadow Clone~:
         A: 0 Actions
         Cost: 1 Mana
@@ -1580,11 +1543,48 @@ Conjuration:
             The illusion has 1 Health and 1 Defense and it fails all Checks.
             You can control what the illusion does at will.
             If the illusion goes more than 10 meters away from you, it disappears and the spell is cancelled.
-        Upgrade: At Level 3, the cast range and illusion range become 15 meters and the sound of your voice can come through the illusion's mouth instead of yours. At Level 5 - 25 meters. At Level 7 you can choose to see through the illusion's eyes at any point.
+        Upgrade: At Level 5, the cast range and illusion range become 15 meters and the sound of your voice can come through the illusion's mouth instead of yours. At Level 5 - 25 meters. At Level 7 you can choose to see through the illusion's eyes at any point.
         Notes: You need maintain line of sight to the clone to keep it working.
 
+    ~Web~:
+        A: Half-Action
+        Cost: 1 Mana
+        Range: 5 meters to edge
+        Duration: 1 minute
+        Requirement: Level 2
+        HasMixins: true
+        Effect: |
+            Declare a 4x4 meter zone
+            The zone becomes filled with spider web and counts as Difficult Terrain.
+            After a Unit exits the zone, it must pass a Dexterity Check or be Rooted.
+        Notes: |
+            {Rooted}
 
-    # Higher Level Spells
+
+    # Level 4
+    ~Conjure Object~ :
+        A: 1 Action
+        Requirement: Level 4
+        Cost: 1 Mana
+        Range: 3 meters
+        Effect: |
+            You can conjure an object that is up to 1x1x1 meter in size.
+            The object is solid and glows faintly.
+            You can't conjure mechanical objects.
+            The object disappears after 1 hour (24 hours at Level 8).
+
+    ~Force Wall~:
+        A: 0 Actions or Reaction
+        Cost: 1 Mana
+        Range: 5 meters to edge
+        Duration: 1 minute
+        Requirement: Level 4
+        Effect: |
+            You create a 3x3 meter (tall and wide) translicent, magical and thin force wall.
+            The wall provides blocks Line of Sight and projectiles.
+            Moving through it counts as Hard Terrain.
+        Upgrade: You can use this as a Reaction when someone declares an Attack or Ability to block the missile, before any roll is made.
+
     ~Animate Dead~:
         A: Half-Action
         Cost: 1 Mana
@@ -1593,7 +1593,7 @@ Conjuration:
         Duration: 1 hour
         Effect: |
             Raise an undead Unit to fight for you from a nearby medium or larger corpse. The corpse is then consumed.
-            The undead Unit always has Medium size, 7 Maximum Health and 3 Defense.
+            The undead Unit always has Medium size, 7 Max Health and 3 Defense.
             It has Resist Checks equal to yours, but -2 to all Non-Resist Checks.
             It has 4 meters movement speed.
             It can use 1 Action to attack and deals 2d4 Damage (Smash, Slash or Pierce, your choice).
@@ -1601,17 +1601,8 @@ Conjuration:
             The undead will always try to move to and attack the closest enemy to it (you choose if it's a tie).
             You can use Half-Action on your turn to command (one of) your undead to move to a certain location.
 
-    ~Banishment Slip~:
-        A: Half-Action
-        Cost: 1 Mana
-        Cooldown: Once / Adventure
-        Range: 5 meters
-        Requirement: Level 6
-        Effect: |
-            A Medium or smaller Unit becomes Banished to another parallel dimension until the start of your next turn.
-            While Banished, it can't interact with the normal world and nothing can interact with it.
-
-
+    # Level 5
+    
     ~Polymorph~:
         A: Half-Action
         Cost: 2 Mana
@@ -1626,16 +1617,6 @@ Conjuration:
             A Unit can willingly fail the Check. For enemies, aside from Health and Defense, apply rules for Shapeshift. Allies can apply normal rules for Shapeshift (e.g. gain extra Health from the animal).
             If used on an Enemy, this is considered Crowd Control.
 
-    ~Transmogrification~:
-        A: 10 minutes
-        Cost: 1 Mana
-        Requirement: Level 6
-        Effect: |
-            Touch 2 objects of the same type (e.g. 2 helmets, or 2 arrows, or 2 melee 1-handed weapons, etc).
-            You make one of the look like the other.
-            The change is permanent until the object breaks.
-        Notes: Upon close inspection of the shape and colors, this is visibly an illusion.
-
     ~Watcher Eye~ :
         A: 0 Actions
         Requirement: Level 5
@@ -1646,8 +1627,54 @@ Conjuration:
             You can use your magic to scan what the eye recorded in your mind.
             At any point, you can tune into the eye and see what it sees in your mind.
         Upgrade: |
-            At Level 6, you can move use your movement to instead move the Eye while you're tuned into it (it can fly) and lasts a number of days equal to your Level.
+            At Level 8, you can move use your movement to instead move the Eye while you're tuned into it (it can fly) and lasts a number of days equal to your Level.
 
+
+    # Level 6
+
+    ~Banishment Slip~:
+        A: Half-Action
+        Cost: 1 Mana
+        Cooldown: Once / Adventure
+        Range: 5 meters
+        Requirement: Level 6
+        Effect: |
+            A Medium or smaller Unit becomes Banished to another parallel dimension until the start of your next turn.
+            While Banished, it can't interact with the normal world and nothing can interact with it.
+
+    ~Conjure Lodge~:
+        A: 10 minutes
+        Requirement: Level 6
+        Duration: 24 hours
+        Cost: 3 Mana
+        Cooldown: 1 Week
+        Effect: |
+            Conjure a cubic room with a width equal to your Level and a 1x2 meter door.
+            This room works like a pocket dimension and only the door is visible from the outside. The room occupies no space in the real world, except for the door (you enter the room through the door).
+        Notes: If the Lodge would be destroyed with people inside, each will automatically be expulsed (appear) in a space within 3 meters of the door (randomly or by GM's choice).
+
+
+    ~Transmogrification~:
+        A: 10 minutes
+        Cost: 1 Mana
+        Requirement: Level 6
+        Effect: |
+            Touch 2 objects of the same type (e.g. 2 helmets, or 2 arrows, or 2 melee 1-handed weapons, etc).
+            You make one of the look like the other.
+            The change is permanent until the object breaks.
+        Notes: Upon close inspection of the shape and colors, this is visibly an illusion.
+
+    ~Transmute Rock~:
+        A: 1 Action
+        Requirement: Level 6
+        Cost: 1 Mana
+        HasMixins: true
+        Effect: |
+            Touch a 1x1x1 meter cube of rock, mud, sand, etc.
+            Transform it into rock, mud, sand, etc.
+            A Unit caught in this effect must pass a Might Check or be Rooted.
+        Notes: |
+            {Rooted}
 
     ~Portal~ :
         A: 4 Hours
@@ -1696,7 +1723,6 @@ Mysticism:
         ~Hollow Touch~: Inherit
 
         ~Light~: Inherit
-        ~Mastery~: Inherit from Nature
 
         ~Mending~: Inherit
         ~Speak With Animals~:
@@ -1732,7 +1758,7 @@ Mysticism:
         #         An ally you can see (or yourself) restores 1 Mana and gains +2 to Sense Checks unti.
         #         Then, that Unit becomes immune to Blessing of Sense until its next LR.
         #     Notes: |
-        #         Mana restored can't exceed their maximum Mana.
+        #         Mana restored can't exceed their Max Mana.
         #         A Unit can't have multiple Blessings of Sense on it.
 
         ~Expelling Bolt~:
@@ -1740,45 +1766,67 @@ Mysticism:
             Cost: 1 Mana
             Range: 5 meters
             Effect: |
-                Magically attack a Unit for 1d10 + (target's base Movement Speed) Force Damage.
+                Shoot a magical bolt towards a Unit that deals 1d10 + (target's base Movement Speed) Force Damage to it.
             Notes: Against Epic monsters, the Maximum Speed is calculated as it's (Speed) * (Epic Grade). E.g. if it's an Ogre with Movement Speed of 3 and has an Epic Grade of 2 (meaning it takes 2 turns), its Maximum Movement Speed is 2 * 3 = 6.
 
         ~Invigorate~:
             A: 0 Actions
             Cost: 1 Mana
             Range: 5 meters
+            HasMixins: true
             Effect: |
-                Heal a target for 1d4 + your Sense Health.
+                Heal a target for 1d4 + ^Sense^ Health.
                 After this, if the target is at full Health, repeat this on another target.
             Notes: Yes, this can chain again and again.
+
+        # Level 2
 
         ~Mind Blast~:
             A: 1 Action
             Range: 3 meters
             Cost: 1 Mana
             Requirement: Level 2
+            HasMixins: true
             Effect: |
                 A Unit must pass a Sense Check or take 4d6 Psychic Damage and become Crippled or Silenced (your choice).
                 It takes half Damage if it passes.
                 After you cast Mind Blast on a Unit, it becomes completely immune to Mind Blast for 1 day.
-            Notes: Cover is applied normally.
+            Notes: |
+                Cover is applied normally. {Crippled} {Silenced}
+
+        # Level 3
+
+        ~Wild Steed~ :
+            A: 5 minutes
+            Requirement: Level 3
+            Duration: Until you dismount
+            Effect: |
+                You call upon a ridable land animal native to the zone you are in.
+                You and up to 1 more party member can ride this animal.
+                It follows the normal rules for Riding.
+                It does not participate in combat.
+            Upgrade: |
+                At Level 6, this can be a flying animal.
 
         ~Confusion~:
             HasMixins: true
             A: 1 Action
             Cost: 1 Mana
             Requirement: Level 3
+            HasMixins: true
             Effect: |
                 Choose 2 Units you can see.
                 Each must pass a Sense Check or take 2d6 Psychic Damage (or half if it succeeds).
                 For each that fails, also roll 1d4 and the Unit must do one of the 4 options below on its next turn, depending on the number rolled on the d4:
-                {Diamond} 1. Moves in a random direction with all of its movement (chosen by the DM) and is Dazed
+                {Diamond} 1. Moves in a random direction with all of its movement (chosen by the DM) and is Fumbling
                 {Diamond} 2. Forgets to move and is Fumbling
                 {Diamond} 3. Forgets to move and is Blinded
-                {Diamond} 4. Is Rooted and tries to make a ranged attack
+                {Diamond} 4. Is Rooted and tries to make a ranged Attack
             Notes: |
-                If you roll 4 and the Unit can't make a ranged attack, it does not take any action.
+                If you roll 4 and the Unit can't make a ranged Attack, it does not take any action.
+                {Fumbling} {Blinded}
                 Cover is applied normally.
+
 
         # ~Willpower Aura~:
         #     A: 0 Actions
@@ -1802,11 +1850,19 @@ Mysticism:
                 Lasts until the Unit can't see or hear you anymore.
             Notes: The target can't tell it was affected unless it knows about this type of magic. Cover is applied normally.
 
+        ~Influence Beast~ :
+            A: 1 Action
+            Requirement: Level 4
+            Range: 15 meters
+            Effect: |
+                A non-Epic beast that can see you makes a Charisma Check.
+                If it fails, you can change the beast's mood (make it hungry, afraid, nervous, etc).
+            Notes: Cover is applied normally.
+
         ~Encode Thoughts~ :
             A: 1 Action
             Requirement: Level 4
             Duration: 24 hours (unlimited duration at Level 8)
-            AlignOnWebsite: Right
             Effect: |
                 You pull a String of Memory or Thoughts (can be visual, auditive, sensory and olphactive) from your own memory.
                 This String can be up to 1 minute in length.
@@ -1816,26 +1872,17 @@ Mysticism:
                 After that, the String disappears.
                 Encoding another String makes the previous String disappear.
 
-        ~Influence Beast~ :
-            A: 1 Action
-            Requirement: Level 4
-            Range: 15 meters
-            AlignOnWebsite: Left
-            Effect: |
-                A non-Epic beast that can see you makes a Charisma Check.
-                If it fails, you can change the beast's mood (make it hungry, afraid, nervous, etc).
-            Notes: Cover is applied normally.
+
 
         ~Locate Unit~:
             A: 10 minutes
             Requirement: Level 5
-            Range: 50 meters to the target
+            Range: 1 kilometer to the target
             Effect: |
                 Name or describe a Unit that is familiar to you.
                 You know the direction towards that Unit and the direction of its movement.
             Upgrade: |
-                At Level 6, the range of this Spell becomes 500.
-                At Level 8, the range is infinite.
+                At Level 8, the range of this Spell becomes 10 kilometers.
             Notes: You can choose to locate a Unit of a certain type (e.g. a zombie, a human, an elephant) or a specific Unit, as long as you know know what it looks like.
 
         ~Translation~ :
@@ -1854,17 +1901,7 @@ Mysticism:
                 Up to 2 allies you can see (can include yourself) gain the ability to also breathe under water
             Upgrade: Alternatively, if this Ability is on Cooldown, you can spend 1 Mana to cast it regardless.
 
-        ~Wild Steed~ :
-            A: 5 minutes
-            Requirement: Level 3
-            Duration: Until you dismount
-            Effect: |
-                You call upon a ridable land animal native to the zone you are in.
-                You and up to 1 more party member can ride this animal.
-                It follows the normal rules for Riding.
-                It does not participate in combat.
-            Upgrade: |
-                At Level 8, this can be a flying animal.
+
 
 
 Eldritch:
@@ -1900,7 +1937,7 @@ Eldritch:
             The blight kills small plants, insects and rots wood and rusts metal. It also makes fertile soil infertile, turns textile and paper materials into dust and decays food and poisons water.
             You can channel a number of times (Actions) equal to your Level.
         Upgrade: |
-            At Level 4, you can choose to ommit some of the effects of this blight.
+            At Level 5, you can choose to ommit some of the effects of this blight.
         Notes: |
             This Ability is not meant for combat.
             Be creative with how you use this little spell!
@@ -1913,7 +1950,7 @@ Eldritch:
         Cooldown: 8 hours
         Requirement: Level 3
         Effect: |
-            A humanoid makes a Sense Check.
+            A person makes a Sense Check.
             If it fails, it becomes afflicted with a minor (usually non-combat) curse, such as:
             {Diamond} Its Initiative is halved (or its Initiative bonus)
             {Diamond} The target can't properly tie knots, sew, use keys or pick locks, etc
@@ -1926,15 +1963,16 @@ Eldritch:
     ~Eldritch Blast~:
         A: 1 Action
         Range: 4 meters
+        HasMixins: true
         Effect: |
-            Make an attack for 2d8 + target's Might Necrotic Damage.
+            Blast a Unit for 2d8 + ^target's Might^ Necrotic Damage.
             If you roll maximum on at least one die, deal another 1d6 Damage.
 
     ~Hollow Touch~:
         A: 1 Action
         Range: 4 meters
         Effect: |
-            Make a spell attack that deals 1d12 + 3 Necrotic Damage and the target is unable to reagain health until the end of its next turn.
+            Reap a Unit from afar, dealing 1d12 + 3 Necrotic Damage and the target is unable to reagain health until the end of its next turn.
             For the rest of the combat, it takes 1 extra Necrotic Damage from all sources.
 
     ~Thaumaturgy~:
@@ -1949,7 +1987,18 @@ Eldritch:
             {Diamond} You cause an unlocked door or window to fly open or slam shut.
             {Diamond} You alter the appearance of your eyes for 1 minute.
         Upgrade: |
-            At Level 5 you can cast this for Half-Action, and at Level 9, for 0 Actions.
+            At Level 4 you can cast this for Half-Action, and at Level 7, for 0 Actions.
+
+    ~Wyrd Renewal~:
+        A: Half-Action
+        Range: 5 meters
+        Cooldown: Twice / Adventure
+        Effect: |
+            Roll 1d10 - 5.
+            Heal/Damage a Unit for that amount.
+            If it's positive, heal it.
+            If it's negative, Damage it.
+        Notes: You choose the target after you roll.
 
     # Advanced Spells
     ~Summon Familiar~:
@@ -1962,7 +2011,7 @@ Eldritch:
             On its turn, it has a Half-Action, usable only for Potions, Scrolls and the Push and Taunt Default Moves, and it can do other small tasks like bringing you objects, picking up a weapon and bringing it to your hand, etc.
             Lasts until killed or unsummoned (for 0 Actions) or if it goes more than 30 meters away from you.
             You can communicate with it telepathically.
-        Upgrade: At Level 5, out of combat, the familiar can be invisible.
+        Upgrade: At Level 6, out of combat, the familiar can be invisible.
         Notes: You can only have one summoned familiar at a time. Your familiar might have a name and personality and it might speak Common or other languages, if allowed by the GM.
 
     ~Curse of Pain~:
@@ -1972,7 +2021,7 @@ Eldritch:
         Duration: 1 minute
         Effect: |
             Declare a target.
-            Whenever it makes an attack, it takes 4 Psychic Damage.
+            Whenever it makes a offensive Act, it takes 4 Psychic Damage.
 
     ~Curse of Weakness~:
         A: Half-Action
@@ -1982,7 +2031,7 @@ Eldritch:
         Requirement: Level 2
         Effect: |
             A target makes a Charisma Check.
-            If it fails, whenever it makes an attack or Check, it rolls 1d4 and subtracts it from the result.
+            If it fails, whenever it makes an Attack or Check, it rolls 1d4 and subtracts it from the result.
         Upgrade: Only affects an Epic monster's first turn.
         Notes: Cover is applied normally to the Charisma Check.
 
@@ -1991,20 +2040,10 @@ Eldritch:
         Cost: 1 Mana
         Range: 12 meters
         Effect: |
-            Make a spell attack that deals 1d12 + 1d10 + 1d6 Damage, Fire or Necrotic (your choice).
+            Shoot a Unit with deathly fire for 1d12 + 1d10 + 1d6 Damage, Fire or Necrotic (your choice).
             If the target has Defense, deals 2 more Damage for each point of Defense.
 
     # Higher Level Spells
-    ~Wyrd Renewal~:
-        A: Half-Action
-        Range: 5 meters
-        Cooldown: Twice / Adventure
-        Effect: |
-            Roll 1d10 - 5.
-            Heal/Damage a Unit for that amount.
-            If it's positive, heal it.
-            If it's negative, Damage it.
-        Notes: You choose the target after you roll.
 
     ~Animate Dead~: Inherit
 
@@ -2070,10 +2109,12 @@ Divine:
         A: 0 Actions
         Cost: 2 Mana
         Requirement: Level 3
+        HasMixins: true
         Effect: |
-            After you make a melee attack that did Damage, all enemies within 3 meters of the target make a Dexterity Check.
+            After you make a melee weapon attack that did Damage, all enemies within 3 meters of the target make a Dexterity Check.
             If they fail, they are Blinded for 1 turn.
-        Notes: Cover is applied normally for the Dexterity Check.
+        Notes: |
+            Cover is applied normally for the Dexterity Check. {Blinded}
 
     ~Cleansing Flames~:
         A: 0 Actions
@@ -2085,7 +2126,7 @@ Divine:
     ~Cleansing Smite~:
         A: 0 Actions
         Cost: 2 Mana
-        Effect: After you land a melee attack that did Damage, deal 1d10 Divine Damage to the target and heal yourself for the same amount.
+        Effect: After you land a melee wepaon attack that did Damage, deal 1d10 Divine Damage to the target and heal yourself for the same amount.
 
     ~Cure Wounds~:
         A: 1 Action
@@ -2100,9 +2141,10 @@ Divine:
         Cost: 1 Mana
         Range: 10 meters
         Requirement: Level 2
+        HasMixins: true
         Effect: |
-            Attack a target for 2d8 + your Sense Divine Damage.
-            The next time someone would cast a spell that affects that Unit, the caster can reroll any of the spell's dice, at most one reroll for each die.
+            A shining light bursts onto a Unit, dealing 2d8 + ^Sense^ Divine Damage to it.
+            The next time someone would cast a Spell that affects that Unit, the caster can reroll any of the spell's dice, at most one reroll for each die.
         Notes: This affects AoE effects and healing abilities too.
 
     ~Hand of Freedom~:
@@ -2112,8 +2154,8 @@ Divine:
         Effect: |
             Instantly remove all Crowd Control from another ally you can see.
         Upgrade: |
-            At Level 3, also removes all non-magical debuffs and poisons.
-            At Level 6, also removes all curses and normal negative magical effects.
+            At Level 6, also removes all non-magical debuffs and poisons.
+            At Level 9, also removes all curses and normal negative magical effects.
 
     ~Radiant Smite~:
         A: 0 Actions
@@ -2142,7 +2184,7 @@ Divine:
         Cost: 2 Mana
         Requirement: Level 4
         Effect: |
-            Add 2d4 + 1 Fire Damage to a melee weapon Attack (after you rolled the attack). The target takes another 1d6 Fire Damage at the start of each of your next turns for 1 minute.
+            Add 2d4 + 1 Fire Damage to a melee weapon Attack (after you rolled the Attack). The target takes another 1d6 Fire Damage at the start of each of your next turns for 1 minute.
 
     ~Turn Undead~:
         A: 0 Actions
@@ -2161,7 +2203,7 @@ Divine:
         Requirement: Level 4
         Effect: |
             Choose an ally (or yourself) you can see. Put a ward on them until the start of your next turn.
-            When an enemy wants to make an attack on them, the enemy must pass a Sense Check or be Feared by that ally and take 4d4 Necrotic Damage (or half if it succeeds).
+            When an enemy wants to make an offensive Act on them, the enemy must pass a Sense Check or be Feared by that ally and take 4d4 Necrotic Damage (or half if it succeeds).
             The ally is also immune to being Feared, Charmed and Silenced in this time.
 
     ~Rise~:

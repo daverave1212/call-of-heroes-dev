@@ -85,10 +85,6 @@ export default function Rogue() {
 
                 <StartingAbilities spellsObject={theClass['Starting Abilities']} description={theClass['Starting Abilities Description']}/>
 
-                <PageH2>Patron Abilities</PageH2>
-                <SADescription description={theClass['Abilities Description']}/>
-                <AbilitiesWithDescription spellsObject={theClass.Abilities}/>
-
                 <PageH2>Specializations</PageH2>
 
                 <p>

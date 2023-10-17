@@ -278,7 +278,16 @@ export function parseTextWithSymbols(text) {
         'Diamond': () => (<span style={{fontSize: '0.8em'}}>🔹</span>),
         'Pets and Animals': () => (<Link to="/Other/PetsAndAnimals">Pets and Animals</Link>),
         'Offensive Abilities': () => (<span>Offensive means that it deals Damage or applies hard Crowd Control (anything better than Slow and creating Hard Terrain).</span>),
+        
         'Feared': () => (<span>A Feared Unit can only do <b>one</b> Act on its turn (e.g. move, make one attack, use one Ability, etc).</span>),
+        'Crippled': () => (<span>A Crippled Unit can't make physical Attacks.</span>),
+        'Silenced': () => (<span>A Silenced Unit can't make cast Spells.</span>),
+        'Fumbling': () => (<span>A Fumbling Unit has -2 to all Attacks.</span>),
+        'Blinded': () => (<span>A Blinded Unit has -4 to all rolls.</span>),
+        'Slowed': () => (<span>A Slowed Unit has -2 Movement Speed.</span>),
+        'Rooted': () => (<span>A Rooted Unit has can't move from its space (but it can attack, cast Spells, etc).</span>),
+        'Stunned': () => (<span>A Stunned Unit skips its turn.</span>),
+        
         'Gold': () => (<Icon name="Gold"/>)
     }
     const symbolToMarkup = {

@@ -60,6 +60,7 @@
     ],
     "Starting Abilities": {
         "~Ambush~": {
+            "_Value": 1,
             "AlignOnWebsite": "Right",
             "A": "Passive",
             "Cooldown": "1 / Turn",
@@ -86,17 +87,20 @@
             "Description": "...lorem... ipsum...",
             "Starting Abilities": {
                 "~Backstab~": {
+                    "_Value": 4,
                     "A": "Passive",
                     "Effect": "When you Flank an enemy, Ambush is applied.",
                     "Upgrade": "When Ambushing, you can also spend as much Mana as you want.\nThat attack gains 1d8 extra Damage for each Mana spent (on top of the 1d8).\n",
                     "Notes": "Ambush from Hidden and Backstab don't stack (only one d8 is added)."
                 },
                 "~Agile Hand~": {
+                    "_Value": 0.35,
                     "A": "Passive",
                     "Effect": "You are immune to Fumbling. You can freely Break your movement."
                 },
                 "~Fool's Gold~": {
                     "A": "Passive",
+                    "HasMixins": true,
                     "Effect": "After you spend Mana on Ambush, choose one of the rolled dice of the attack (including the base weapon dice and base ambush dice). Gain 10 times that much {Gold}Fool's Gold.\n{Gold}Fool's Gold is an imaginary currency that can be converted to real {Gold}Gold by spending 1 hour in a town or city.\n{Gold}Fool's Gold lasts until converted to real {Gold}Gold.\nSome other Thief Abilities will consume Fool's Gold.\n",
                     "Notes": "Lore-wise, as a Thief, you prepare and build up momentum in combat. When you reach a town, you put your preparations in motion and gain the gold.\n"
                 }
@@ -104,20 +108,24 @@
             "Talents": {
                 "Level 3": {
                     "<Screw-It Shot>": {
+                        "_Value": 1.5,
                         "A": "0 Actions",
                         "Cost": "50 Fool's Gold",
                         "Effect": "A Unit within 2 meters must pass a Dexterity Check or be Stunned.\n"
                     },
                     "<Arcane Trickster>": {
+                        "_Value": 1,
                         "A": "Passive",
                         "Effect": "You can now cast spells!\nYour Intelligence increases by 1 (up to a maximum of 4).\nYou gain access to the Arcane and Conjuration Basic Ability Lists, but at most half of all your Known Basic Abilities can be Arcane or Conjuration Spells.\nFool's Coin now also applies when spending Mana on a Spell.\n",
                         "Notes": "You lose access to these Spells if you change this Talent."
                     },
                     "<Way of Fooling>": {
+                        "_Value": 0.5,
                         "A": "Passive",
                         "Effect": "Your Charisma increases by 2 (up to a maximum of 4)."
                     },
                     "<Whiplash>": {
+                        "_Value": 1,
                         "A": "0 Actions",
                         "Cooldown": "1 hour",
                         "Effect": "Throw a whiplash at a grabbable point within 6 meters.\nPull yourself to a target point.\nAfter using Whiplash, your next weapon attack this turn applies Ambush if you haven't already Ambushed this turn.\n",
@@ -126,6 +134,7 @@
                 },
                 "Level 5": {
                     "<Thief Shock Wire>": {
+                        "_Value": 1.5,
                         "A": "0 Actions",
                         "Cost": "20 Fool's Gold",
                         "Range": "6 meters to end in line of sight",
@@ -134,32 +143,37 @@
                         "Notes": "Each end of the wire must be attached to something solid and static.\nYou can make use of walls, obstacles, etc.\nRequires a Special Tripwire Set which can be bought for 100 gold.\n"
                     },
                     "<Blade Tempest>": {
+                        "_Value": 1.75,
                         "A": "1 Action",
                         "Cooldown": "Once / Adventure",
                         "Effect": "Throw 8 shurikens: one towards each direction (north, north-east, east, south, etc).\nEach shuriken travels 4 meters, deals 2d6 Slash Damage to all Units it passes through, then stops in place.\nAt the end of your next turn, each shuriken returns to you, dealing 2d6 Slash Damage again to all Units it passes through.\n",
                         "Notes": "Requires 8 shurikens, which can be bought for a total of 120 gold on a black market. If you're playing on a Grid, take semi-hitting into account for blades that don't travel squares exactly in the 8 directions. Cover applies normally to each blade."
                     },
                     "<Poisoned Weapons>": {
+                        "_Value": 1.5,
                         "HasMixins": true,
                         "A": "10 minutes",
                         "Cooldown": "8 hours",
                         "Duration": "8 hours",
-                        "Effect": "Choose 2 weapons, and choose a different poison to apply for each:\n{Diamond} Deathly Venom: Deals 1d8 extra Damage to targets with more than 50% Health, and all the Damage type Poison Damage; then the target becomes immune to this poison for 1 minute.\n{Diamond} Necrotic Toxin: The attack's target becomes Slowed and can't regain Health for 1 minute.\n{Diamond} Phosphorus Mix: The target can't benefit from Cover for 1 minute (and this attack ignores Cover).\n{Diamond} Weakening Poison: The target can only do 1 Attack on their next turn.\n",
-                        "Notes": "Remember to specify which weapon you are attacking with.\nRequires a Poisoner's Kit which can be bought for 200 gold on a black market. If you're in a tight scenario, the GM might let you use monster blood or gather herbs for a 1-time use of this Ability.\n"
+                        "Effect": "Choose 2 weapons, and choose a different poison to apply for each:\n{Diamond} Deathly Venom: Deals 1d8 extra Damage to targets with more than 50% Health, and all the Damage type Poison Damage; then the target becomes immune to this poison for 1 minute.\n{Diamond} Necrotic Toxin: The attack's target becomes Slowed and can't regain Health for 1 minute.\n{Diamond} Phosphorus Mix: The target can't benefit from Cover for 1 minute (and this attack ignores Cover).\n{Diamond} Weakening Poison: The target deals 1 less Damage on all Attacks\n",
+                        "Notes": "Remember to specify which weapon you are attacking with.\nRequires a Poisoner's Kit which can be bought for 200 gold on a black market. If you're in a tight scenario, the GM might let you use monster blood or gather herbs for a 1-time use of this Ability.\nOnl Epic Monsters, Weakening Poison applies to their first turn every round only.\n"
                     }
                 },
                 "Level 7": {
                     "<Savage Ambush>": {
+                        "_Value": 3,
                         "A": "Passive",
                         "Effect": "When you declare an attack on a Unit that has 50% or less Health (before your attack's Damage), the attack gain Ambush.\nAmbush can apply twice at the same time, from 2 different Ambush conditions.\n",
                         "Notes": "E.g. if you Ambush the target and it also has 50% or less Health, the total Ambush Damage is 2d8 Damage. Or, for another example, if you were Hiding and you would also Ambush from your Specialization Ambush Ability condition, the attack gains 2d8 Damage.\nThe maximum Damage is 2d8, even if you match 3 conditions for Ambush (e.g. Hiding, Savage Ambush and your Specialization's Ambush Ability).\nYou can still add Ambush Damage only once per turn (e.g. not with 2 separate attacks; it must be one single attack).\n"
                     },
                     "<First-Shot Ambush>": {
+                        "_Value": 3,
                         "A": "Passive",
                         "Effect": "When you declare an attack on a Unit that has full Health, the attack gain Ambush.\nAmbush can apply twice at the same time, from 2 different Ambush conditions.\n",
                         "Notes": "E.g. if you Ambush the target and it also has full Health, then the total Ambush Damage is 2d8 Damage. Or, for another example, if you were Hiding and you would also Ambush from your Specialization Ambush Ability condition, the attack gains 2d8 Damage.\nThe maximum Damage is 2d8, even if you match 3 conditions for Ambush (e.g. Hiding, First-Shot Ambush and your Specialization's Ambush Ability).\nYou can still add Ambush Damage only once per turn (e.g. not with 2 separate attacks; it must be one single attack).\n"
                     },
                     "<Instinctive Ambush>": {
+                        "_Value": 3,
                         "A": "Passive",
                         "Effect": "After you use a 0 Actions Ability, your next weapon attack this turn gains Ambush.\nAmbush can happen twice per turn (even at the same time) from 2 different Ambush conditions.\n",
                         "Notes": "E.g. if you just used a 0 Actions Ability but you would Ambush anyway, the Ambush Damage is 2d8 Damage. Or, for another example, if you were Hiding and you would also Ambush from your Specialization Ambush Ability condition, the attack gains 2d8 Damage.\nOr, if you were hiding and Ambush, then use a 0 Actions Ability, then attack again, that second attack also gains Ambush (1d8 extra Damage).\n"
@@ -171,24 +185,20 @@
             "Description": "...LOREMIPSUM! <you died>",
             "Starting Abilities": {
                 "~Isolated~": {
+                    "_Value": 4,
                     "A": "Passive",
                     "Effect": "When you attack a Unit, and there is no other Unit within 1 meter of either of you, the attack gains Ambush.\n",
                     "Upgrade": "When Ambushing, you can also spend as much Mana as you want.\nThat attack gains 1d8 extra Damage for each Mana spent (on top of the 1d8).\n",
                     "Notes": "Ambush from Hidden and Isolated don't stack (only one d8 is added)."
-                },
-                "~Planned Assassination~": {
-                    "A": "1 minute",
-                    "Cost": "1 Mana",
-                    "Effect": "You plan an attack for 1 minute.\nYour next weapon attack on that target deals an extra 1d12 Damage.\nPlanned Assassination fails if your Line of Sight to the target is broken until you attack it.\n",
-                    "Notes": "The Mana is spent the moment you declare Planned Assassination. You can use plan assassinations on multiple targets, but you can't plan an assassination on a single target multiple times at the same time."
                 }
             },
             "Talents": {
                 "Level 3": {
                     "<Take Out>": {
+                        "_Value": 1,
                         "A": "Half-Action",
                         "Cost": "1 Mana",
-                        "Effect": "A non-Epic Unit within 1 meter must pass a Dexterity Check or be put to Sleep for 1 minute.\nIf it fails, you gain the Action back.\n",
+                        "Effect": "A non-Epic Unit within 1 meter must pass a Dexterity Check or be put to Sleep for 1 minute.\nIf it fails, you gain the Half-Action back.\n",
                         "Downside": "You must be hiding to use Take Out, and the target must be Isolated.\nThis ability unhides you!\n"
                     },
                     "<Poison Master>": {
@@ -201,41 +211,54 @@
                         "Cooldown": "Once / Adventure",
                         "Effect": "If you are covered in shadow, choose another point covered in shadow up to 6 meters away.\nInstantly teleport to that place.\n",
                         "Notes": "This is considered a Spell."
+                    },
+                    "<Planned Assassination>": {
+                        "_Value": 0.35,
+                        "A": "1 minute",
+                        "Cost": "1 Mana",
+                        "Effect": "You plan an attack for 1 minute.\nYour next weapon attack on that target deals an extra 1d12 Damage.\nPlanned Assassination fails if your Line of Sight to the target is broken until you attack it.\n",
+                        "Notes": "The Mana is spent the moment you declare Planned Assassination. You can use plan assassinations on multiple targets, but you can't plan an assassination on a single target multiple times at the same time."
                     }
                 },
                 "Level 5": {
                     "<Blade Tempest>": {
+                        "_Value": 1.75,
                         "A": "1 Action",
                         "Cooldown": "Once / Adventure",
                         "Effect": "Throw 8 shurikens: one towards each direction (north, north-east, east, south, etc).\nEach shuriken travels 4 meters, deals 2d6 Slash Damage to all Units it passes through, then stops in place.\nAt the end of your next turn, each shuriken returns to you, dealing 2d6 Slash Damage again to all Units it passes through.\n",
                         "Notes": "Requires 8 shurikens, which can be bought for a total of 120 gold on a black market. If you're playing on a Grid, take semi-hitting into account for blades that don't travel squares exactly in the 8 directions. Cover applies normally to each blade."
                     },
                     "<Death Mark>": {
+                        "_Value": 3,
                         "A": "0 Actions",
                         "Cooldown": "Once / Adventure",
                         "Effect": "Mark a Unit you can see.\nWhenever YOU deal Damage to it until your next turn, remember the Damage done.\nAt the start of your next turn, the mark bursts and the Unit takes directly 33% of the Damage you dealt to it in this time period.\n"
                     },
                     "<Poisoned Weapons>": {
+                        "_Value": 1.5,
                         "HasMixins": true,
                         "A": "10 minutes",
                         "Cooldown": "8 hours",
                         "Duration": "8 hours",
-                        "Effect": "Choose 2 weapons, and choose a different poison to apply for each:\n{Diamond} Deathly Venom: Deals 1d8 extra Damage to targets with more than 50% Health, and all the Damage type Poison Damage; then the target becomes immune to this poison for 1 minute.\n{Diamond} Necrotic Toxin: The attack's target becomes Slowed and can't regain Health for 1 minute.\n{Diamond} Phosphorus Mix: The target can't benefit from Cover for 1 minute (and this attack ignores Cover).\n{Diamond} Weakening Poison: The target can only do 1 Attack on their next turn.\n",
-                        "Notes": "Remember to specify which weapon you are attacking with.\nRequires a Poisoner's Kit which can be bought for 200 gold on a black market. If you're in a tight scenario, the GM might let you use monster blood or gather herbs for a 1-time use of this Ability.\n"
+                        "Effect": "Choose 2 weapons, and choose a different poison to apply for each:\n{Diamond} Deathly Venom: Deals 1d8 extra Damage to targets with more than 50% Health, and all the Damage type Poison Damage; then the target becomes immune to this poison for 1 minute.\n{Diamond} Necrotic Toxin: The attack's target becomes Slowed and can't regain Health for 1 minute.\n{Diamond} Phosphorus Mix: The target can't benefit from Cover for 1 minute (and this attack ignores Cover).\n{Diamond} Weakening Poison: The target deals 1 less Damage on all Attacks\n",
+                        "Notes": "Remember to specify which weapon you are attacking with.\nRequires a Poisoner's Kit which can be bought for 200 gold on a black market. If you're in a tight scenario, the GM might let you use monster blood or gather herbs for a 1-time use of this Ability.\nOnl Epic Monsters, Weakening Poison applies to their first turn every round only.\n"
                     }
                 },
                 "Level 7": {
                     "<Savage Ambush>": {
+                        "_Value": 3,
                         "A": "Passive",
                         "Effect": "When you declare an attack on a Unit that has 50% or less Health (before your attack's Damage), the attack gain Ambush.\nAmbush can apply twice at the same time, from 2 different Ambush conditions.\n",
                         "Notes": "E.g. if you Ambush the target and it also has 50% or less Health, the total Ambush Damage is 2d8 Damage. Or, for another example, if you were Hiding and you would also Ambush from your Specialization Ambush Ability condition, the attack gains 2d8 Damage.\nThe maximum Damage is 2d8, even if you match 3 conditions for Ambush (e.g. Hiding, Savage Ambush and your Specialization's Ambush Ability).\nYou can still add Ambush Damage only once per turn (e.g. not with 2 separate attacks; it must be one single attack).\n"
                     },
                     "<First-Shot Ambush>": {
+                        "_Value": 3,
                         "A": "Passive",
                         "Effect": "When you declare an attack on a Unit that has full Health, the attack gain Ambush.\nAmbush can apply twice at the same time, from 2 different Ambush conditions.\n",
                         "Notes": "E.g. if you Ambush the target and it also has full Health, then the total Ambush Damage is 2d8 Damage. Or, for another example, if you were Hiding and you would also Ambush from your Specialization Ambush Ability condition, the attack gains 2d8 Damage.\nThe maximum Damage is 2d8, even if you match 3 conditions for Ambush (e.g. Hiding, First-Shot Ambush and your Specialization's Ambush Ability).\nYou can still add Ambush Damage only once per turn (e.g. not with 2 separate attacks; it must be one single attack).\n"
                     },
                     "<Instinctive Ambush>": {
+                        "_Value": 3,
                         "A": "Passive",
                         "Effect": "After you use a 0 Actions Ability, your next weapon attack this turn gains Ambush.\nAmbush can happen twice per turn (even at the same time) from 2 different Ambush conditions.\n",
                         "Notes": "E.g. if you just used a 0 Actions Ability but you would Ambush anyway, the Ambush Damage is 2d8 Damage. Or, for another example, if you were Hiding and you would also Ambush from your Specialization Ambush Ability condition, the attack gains 2d8 Damage.\nOr, if you were hiding and Ambush, then use a 0 Actions Ability, then attack again, that second attack also gains Ambush (1d8 extra Damage).\n"
@@ -255,36 +278,43 @@
             "Description": "Loreeeem!!!",
             "Starting Abilities": {
                 "~Savagery~": {
+                    "_Value": 2.5,
                     "A": "Passive",
                     "Effect": "When you declare an attack on a Unit that has 50% or less Health (before your attack's Damage), the attack gain Ambush.",
                     "Upgrade": "When Ambushing, you can also spend as much Mana as you want.\nThat attack gains 1d8 extra Damage for each Mana spent (on top of the 1d8).\n",
                     "Notes": "Ambush from Hidden and Savagery don't stack (only one d8 is added)."
                 },
                 "~Parry~": {
+                    "_Value": 1,
                     "A": "Reaction",
                     "Cooldown": "Once / Adventure",
-                    "Effect": "Halve the Damage of a weapon attack you receive (after the roll, before subtracting Defense)."
+                    "Effect": "Halve the Damage of a weapon attack you receive (when you see the roll, before subtracting modifiers like Defense, Resistances, etc)."
                 }
             },
             "Talents": {
                 "Level 3": {
                     "<10% Luck>": {
+                        "_Value": 1,
                         "A": "Passive",
-                        "Effect": "Once per turn, when you roll a 1 for a Damage die, you can reroll that die."
+                        "Effect": "Once per Round, when you roll a 1 for a Damage die, you can reroll that die."
                     },
                     "<Cheap Tricks>": {
+                        "_Value": 1,
                         "A": "0 Actions",
                         "Cost": "1 Mana",
                         "Range": "3 meters",
-                        "Effect": "A Unit within 3 meters must pass a Dexterity Check or take 1d4 Poison Damage and be Blinded."
+                        "Effect": "A Unit within 3 meters must pass a Dexterity Check or take 1d4 Poison Damage and be Blinded.",
+                        "Notes": "Pocket sand!!!"
                     },
                     "<Whiplash>": {
+                        "_Value": 1,
                         "A": "0 Actions",
                         "Cooldown": "1 hour",
                         "Effect": "Throw a whiplash at a grabbable point within 6 meters.\nPull yourself to a target point.\nAfter using Whiplash, your next weapon attack this turn applies Ambush if you haven't already Ambushed this turn.\n",
                         "Notes": "Requires a Whiplash item, which can be bought for 100 gold."
                     },
                     "<Quickfire>": {
+                        "_Value": 1,
                         "A": "0 Actions",
                         "Cost": "1 Mana",
                         "Cooldown": "1 use / Turn",
@@ -293,20 +323,23 @@
                 },
                 "Level 5": {
                     "<Combat Shock Wire>": {
+                        "_Value": 1.5,
                         "A": "Passive",
                         "Range": "6 meters to end in line of sight",
                         "Effect": "Whenever you spend one or more Mana, freely deploy a Shock Tripwire of up to 5 meters long between 2 obstacles.\nWhen a Unit passes through the tripwire, it takes 1d10 Shock Damage and must pass a Dexterity Check with -3 or be Rooted.\nA Unit can see the tripwire only if it has 3 or more Sense.\n",
                         "Notes": "Each end of the wire must be attached to something solid and static.\nYou can make use of walls, obstacles, etc.\nRequires a Special Tripwire Set which can be bought for 200 gold.\n"
                     },
                     "<Poisoned Weapons>": {
+                        "_Value": 1.5,
                         "HasMixins": true,
                         "A": "10 minutes",
                         "Cooldown": "8 hours",
                         "Duration": "8 hours",
-                        "Effect": "Choose 2 weapons, and choose a different poison to apply for each:\n{Diamond} Deathly Venom: Deals 1d8 extra Damage to targets with more than 50% Health, and all the Damage type Poison Damage; then the target becomes immune to this poison for 1 minute.\n{Diamond} Necrotic Toxin: The attack's target becomes Slowed and can't regain Health for 1 minute.\n{Diamond} Phosphorus Mix: The target can't benefit from Cover for 1 minute (and this attack ignores Cover).\n{Diamond} Weakening Poison: The target can only do 1 Attack on their next turn.\n",
-                        "Notes": "Remember to specify which weapon you are attacking with.\nRequires a Poisoner's Kit which can be bought for 200 gold on a black market. If you're in a tight scenario, the GM might let you use monster blood or gather herbs for a 1-time use of this Ability.\n"
+                        "Effect": "Choose 2 weapons, and choose a different poison to apply for each:\n{Diamond} Deathly Venom: Deals 1d8 extra Damage to targets with more than 50% Health, and all the Damage type Poison Damage; then the target becomes immune to this poison for 1 minute.\n{Diamond} Necrotic Toxin: The attack's target becomes Slowed and can't regain Health for 1 minute.\n{Diamond} Phosphorus Mix: The target can't benefit from Cover for 1 minute (and this attack ignores Cover).\n{Diamond} Weakening Poison: The target deals 1 less Damage on all Attacks\n",
+                        "Notes": "Remember to specify which weapon you are attacking with.\nRequires a Poisoner's Kit which can be bought for 200 gold on a black market. If you're in a tight scenario, the GM might let you use monster blood or gather herbs for a 1-time use of this Ability.\nOnl Epic Monsters, Weakening Poison applies to their first turn every round only.\n"
                     },
                     "<Swing Thing>": {
+                        "_Value": 2.25,
                         "A": "Reaction",
                         "Range": "6 meters",
                         "Effect": "Use when a Unit within 6 meters becomes affected by Crowd Control of any type except Slow (including being Pushed) (you must have line of sight to it).\nDeal 1d10 Pierce Damage to it and push it up to 3 meters in any direction.\n",
@@ -315,16 +348,19 @@
                 },
                 "Level 7": {
                     "<Backstab Ambush>": {
+                        "_Value": 3,
                         "A": "Passive",
                         "Effect": "When you Flank an enemy, the attack gains Ambush.\nAmbush can apply twice at the same time, from 2 different Ambush conditions.\n",
                         "Notes": "E.g. if the target has 50% or less Health and you're also Flanking it, the total Ambush Damage is 2d8 Damage. Or, for another example, if you were Hiding and the target would also have 50% or less Health, the attack gains 2d8 Damage.\nThe maximum Damage is 2d8, even if you match 3 conditions for Ambush (e.g. Hiding, 50% Health and Flanking).\nYou can still add Ambush Damage only once per turn (e.g. not with 2 separate attacks; it must be one single attack).\n"
                     },
                     "<Isolated Ambush>": {
+                        "_Value": 3,
                         "A": "Passive",
                         "Effect": "When you attack a Unit, and there is no other Unit within 1 meter of either of you, the attack gains Ambush.\nAmbush can apply twice at the same time, from 2 different Ambush conditions.\n",
                         "Notes": "E.g. if the target has 50% or less Health and it's also Isolated, the total Ambush Damage is 2d8 Damage. Or, for another example, if you were Hiding and the target would also have 50% or less Health, the attack gains 2d8 Damage.\nThe maximum Damage is 2d8, even if you match 3 conditions for Ambush (e.g. Hiding, 50% Health and Flanking).\nYou can still add Ambush Damage only once per turn (e.g. not with 2 separate attacks; it must be one single attack).\n"
                     },
                     "<Instinctive Ambush>": {
+                        "_Value": 3,
                         "A": "Passive",
                         "Effect": "After you use a 0 Actions Ability, your next weapon attack this turn gains Ambush.\nAmbush can happen twice per turn (even at the same time) from 2 different Ambush conditions.\n",
                         "Notes": "E.g. if you just used a 0 Actions Ability but you would Ambush anyway, the Ambush Damage is 2d8 Damage. Or, for another example, if you were Hiding and you would also Ambush from your Specialization Ambush Ability condition, the attack gains 2d8 Damage.\nOr, if you were hiding and Ambush, then use a 0 Actions Ability, then attack again, that second attack also gains Ambush (1d8 extra Damage).\n"

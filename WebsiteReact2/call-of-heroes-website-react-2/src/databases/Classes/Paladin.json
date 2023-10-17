@@ -19,7 +19,7 @@
     "Spellcasting": {
         "Type": "Mana-based",
         "SpellsOrAbilities": "Spell",
-        "Spell Grade": "6 + (Sense or Charisma, whichever is higher)",
+        "Spell Grade": "6 + Sense or Charisma, whichever is higher",
         "Change": "You can change your known Spells and Talents inbetween Adventures.",
         "Other": "All Paladin-specific Abilities are considered Spells (unless stated otherwise).",
         "Mana": {
@@ -49,17 +49,24 @@
         "Recommended Abilities Description": "Paladins can do decent healing, so Glory Shout will fit neatly with the Paladin class fantasy! Bull rush will give you some extra damage at close range, while Hand of Freedom allows you to help out allies in need. Finally, if you need more ways to disrupt enemies, get Blinding Smite! As the name suggest, it makes enemies go blind, thus protecting you and your allies from their attacks!\n"
     },
     "Starting Abilities": {
+        "~Vigor~": {
+            "A": "Passive",
+            "Effect": "You start with 4 extra Max Health.\n"
+        },
         "~Divine Sense~": {
             "A": "0 Actions",
             "Cooldown": "1 Hour",
             "Effect": "You sense if there are Undead, Demons, Fiends or Celestials, or holy or unholy places or objects within 15 meters.\nThick walls obstruct your Divine Sense.\n"
         },
         "~Lay on Hands~": {
+            "_Value": 1.25,
             "A": "Half-Action",
             "Range": "3 meters",
-            "Effect": "You have (3 + your Level + your Sense + your Charisma) Holy points.\nUsing a Half-Action, you can spend 3 or more Holy Points to heal a Unit for that amount.\nAll your Holy Points replenish inbetween Adventures.\n"
+            "HasMixins": true,
+            "Effect": "You have 3 + ^Level^ + ^Sense^ + your ^Charisma^ Holy Points.\nUsing a Half-Action, you can spend 3 or more Holy Points to heal a Unit for that amount.\nAll your Holy Points replenish inbetween Adventures.\n"
         },
         "~Divine Smite~": {
+            "_Value": 1.5,
             "AlignOnWebsite": "Right",
             "A": "0 Actions",
             "Cooldown": "Once / Adventure",
@@ -71,47 +78,52 @@
             "Divine Sense": "You have the power to detect foul creatures within range. Use this carefully, as it has a long cooldown.\n"
         },
         {
-            "Lay on Hands and Divine Smite": "You might receive other Abilities in the future that consume or replenish Holy Points.\nDivine Smite will bring wrath upon your foes!\n  \n"
+            "Lay on Hands and Divine Smite": "You might receive other Abilities in the future that consume or replenish Holy Points.\nDivine Smite will bring wrath upon your foes!\n"
         }
     ],
     "Specializations": {
         "Description": "At Level 1, you can choose your oath (Specialization).\nBy choosing your oath, you dedicate yourself to a purpose; an oath is a lifestyle, not a mere choice!\n",
         "Choices": [
-            "Oath of Conquest, which inspires a strong personality and desire to achieve greatness by any means necessary",
-            "Oath of Devotion, dedicated to helping the unfortunate and being someone to look up to",
-            "Oath of Protection, chosen by those who vow to protect and wish to become a paragon of the people"
+            "Order of the Crusade, which inspires a strong personality and desire to achieve greatness by any means necessary",
+            "Order of Grace, dedicated to helping the unfortunate and being someone to look up to",
+            "Order of the Templar, chosen by those who vow to protect and wish to become a paragon of the people"
         ]
     },
     "Specs": {
-        "Conquest": {
+        "Order of the Crusade": {
             "Description": "Lorem! Lorem ipsum!!",
             "Starting Abilities": {
-                "~Oath of Conquest~": {
+                "~Crusade~": {
+                    "_Value": 0.5,
                     "A": "Passive",
                     "Effect": "Every Worthy Enemy YOU defeat grants you 1d4 Holy Points.\nYou also gain Proficiency in Indimidation if you don't have it already.\n"
                 },
                 "~Impose~": {
+                    "_Value": 0.25,
                     "A": "Half-Action",
                     "Range": "3 meters",
                     "Cooldown": "Once / Adventure",
-                    "Effect": "A Unit must pass a Sense Check or be Feared. It has -2 to the roll if it's a Humanoid or Unholy."
+                    "Effect": "A Unit must pass a Sense Check or be Feared. It has -2 to the roll if it's a Person or Unholy."
                 }
             },
             "Talents": {
                 "Level 3": {
-                    "<Pledge of Conquest>": {
+                    "<Pledge of the Crusade>": {
+                        "_Value": 1.5,
                         "A": "Special",
                         "Cooldown": "Lifetime",
-                        "Effect": "Ask a party member to join your cause and pledge their honor to you.\nthat person can use Divine Smite once per Adventure.\nIt can also cast Lay on Hands using your Holy Points and always Knows the same Basic Divine Spells you Know at a time.\nAdditionally, Oath of Conquest also happens when that ally defeats a Worthy Enemy.\n",
+                        "Effect": "Ask a party member to join your cause and pledge their honor to you.\nthat person can use Divine Smite once per Adventure.\nIt can also cast Lay on Hands using your Holy Points and always Knows the same Basic Divine Spells you Know at a time.\nAdditionally, Oath of the Crusade also happens when that ally defeats a Worthy Enemy.\n",
                         "Notes": "You can only have one character who pledged for you and it must be within 100 meters to have access to all of those.\nThe number of Holy Points of the ally does not increase.\nIf you ever change this Talent, the ally loses access to all things mentioned; it regains them when you get this Talent again.\n"
                     },
                     "<Fury Smite>": {
+                        "_Value": 1.5,
                         "A": "0 Actions",
                         "Effect": "After an attack, deal 50% of the weapon Damage done by the attack (dice plus any modifiers) to all other Enemies within 3 meters around the target.",
                         "Cooldown": "Once / Adventure",
                         "Notes": "The Damage of the attack counts as the dice rolled + any modifiers.\nUsing Divine Smite over an attack, for example, does not count as added to the weapon Damage.\nDamage done means Damage inflicted after Defense and Resistances calculations.\nCover is applied normally for the AoE.\n"
                     },
                     "<Divine Reach>": {
+                        "_Value": 1.5,
                         "A": "0 Actions",
                         "Cooldown": "Once / Adventure",
                         "Effect": "You empower yourself to make your melee weapons send fiery waves.\nYour melee attacks have up to 3 meters range, deal 1d4 extra Damage and deal Fire Damage instead of Physical.\nLasts 1 minute.\nAlso, passively, you can now cast smites on ranged attacks (normally, you can only cast Smite on melee attacks).\n",
@@ -120,46 +132,58 @@
                 },
                 "Level 5": {
                     "<Vengeance>": {
+                        "_Value": 2,
                         "A": "Passive",
-                        "Effect": "When a Worthy Enemy dies in combat, get a Vengeance Counter.\nImmediately when you get to 6 Vengeance Counters, gain 1 Mana or gain 1d8 Holy Points or reset the Cooldown of a Basic Spell you know (you choose).\nYou keep your Vengeance Counters even inbetween Adventures.\n"
+                        "Effect": "When a Worthy Enemy dies in combat, get a Vengeance Counter.\nImmediately when you get to 6 Vengeance Counters, gain 1 Mana or gain 1d8 Holy Points or reset the Cooldown of a Basic Spell you know (you choose).\nYou keep your Vengeance Counters even inbetween Adventures.\n  \n"
                     },
                     "<Victory Smite>": {
+                        "_Value": null,
                         "A": "Passive",
                         "Effect": "After half (rounded down) of Worthy Enemies in a combat have been defeated, reset the Cooldown of Divine Smite or gain 7 Holy Points (you choose)."
                     },
                     "<Lay on Arms>": {
+                        "_Value": 1,
                         "A": "Reaction",
                         "Cost": "Half of your maximum Holy Points",
-                        "Effect": "Use when you or an ally you can see would take Damage. Negate all the Damage."
+                        "Range": "3 meters",
+                        "Effect": "Use when you or an ally you can see would take Damage from an Enemy.\nMake a 1-handed melee weapon attack _against the Enemy's attack_ - subtract your Damage rolled from that enemy's Damage. If your rolled Damage exceeds that enemy's Damage, deal the excess Damage back to the attacker.\n",
+                        "Notes": "If you dealt Damage, you can apply weapon effects if any happens."
                     }
                 },
                 "Level 7": {
                     "<Personal Squire>": {
+                        "_Value": 2,
                         "A": "Special",
                         "Effect": "You recruit a squire - a trusted NPC who gains combat powers. However, the capabilities of your squire are random: roll 1d4 to determine the type of your squire, based on the Squires category at Pets and Animals (1. Bold, 2. Sneaky, 3. Clever, 4. Wise). The Race is determined by the GM or by circumstance.\nOn its turn, it can do one Pet Attack, cast one Ability it has, or do the equivalent of a Half-Action (e.g. Dash, Defend, etc).\nYou can recruit one squire per Adventure, but only one can follow you in your adventures at a time.\nAt the start of every Adventure (and when you get this Talent), you must spend 1 Mana and train your Squire to permanently increase its Health by 2 or gain one Ability from any other Squire type.\n",
                         "Upgrade": "If your squire drops to 0 Health, it becomes Fallen, like a player. It has no reserve Health, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your squire's wounds and heal it back to full Health.",
                         "Notes": "Your squire is not a Player Character by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Player Character can). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!"
                     },
                     "<Motivation Surge>": {
+                        "_Value": 2,
                         "A": "Passive",
+                        "AlignOnWebsite": "Right",
                         "Effect": "After you use Impose, reset the Cooldown of Divine Smite and gain 5 Holy Points."
                     },
                     "<Towering Figure>": {
+                        "_Value": 2,
                         "A": "Passive",
-                        "Effect": "Impose now affects 2 targets. After you use Divine Smite, reset the Cooldown of Impose. All Impose targets now have -2 to the roll, not just humanoids."
+                        "AlignOnWebsite": "Right",
+                        "Effect": "Impose now affects 2 targets. After you use Divine Smite, reset the Cooldown of Impose. All Impose targets now have -2 to the roll, not just people."
                     }
                 }
             }
         },
-        "Devotion": {
+        "Order of Grace": {
             "Description": "Lorem, ipsum, dolor sit amet!",
             "Starting Abilities": {
-                "~Oath of Devotion~": {
+                "~Innate Grace~": {
+                    "_Value": 0.75,
                     "A": "Passive",
                     "Effect": "You have 5 more maximum Holy Points.\nHealing someone with Lay on Hands for at least 5 Health cures all Crowd Control, diseases, Debuffs and Bleed effects on them.\n",
                     "Notes": "Debuffs are things like combat curses, temporary weaknesses, etc.\n"
                 },
                 "~Divine Power~": {
+                    "_Value": 0.5,
                     "A": "0 Actions",
                     "Cost": "1 Mana",
                     "Effect": "Gain 2d8 Holy Points.",
@@ -169,41 +193,41 @@
             "Talents": {
                 "Level 3": {
                     "<Divine Blast>": {
+                        "_Value": 1,
                         "A": "Half-Action",
                         "Range": "12 meters",
                         "Cost": "Any number of Holy Points",
                         "Effect": "Spend any number of Holy Points. A Unit takes that many d4's Divine Damage.\nYou can apply Smites to this attack.\n"
                     },
                     "<Shielding Hand>": {
+                        "_Value": 1,
                         "A": "Reaction",
                         "Cooldown": "Once / Adventure",
                         "Effect": "Use after an ally (or yourself) takes Damage. After that ally (or yourself) takes Damage, it gains Shielding equal to the Damage taken (after Defense and Resistances). The shield lasts up to 1 minute."
                     },
                     "<Focused Smites>": {
+                        "_Value": 1,
                         "A": "0 Actions",
                         "Cooldown": "Once / Adventure",
                         "HasMixins": true,
                         "Effect": "For 1 minute, your weapon attacks and offensive spells deal extra Damage and heal an ally within 6 meters of the target (or yourself). All the Damage of these attacks becomes Divine.\nBonus Damage and Heal: 1 for 1-Handed weapons and Half-Action Spells, 2 for 2-Handed weapons and 1 Action Spells.\n",
                         "Notes": "If a spell doesn't deal Damage, just instantly deal the Focused Smites Damage to the target.\nThe Damage becoming Divine part is optional.\n{Offensive Abilities}\n"
-                    },
-                    "<Divine Reach>": {
-                        "A": "0 Actions",
-                        "Cooldown": "Once / Adventure",
-                        "Effect": "You empower yourself to make your melee weapons send fiery waves.\nYour melee attacks have up to 3 meters range, deal 1d4 extra Damage and deal Fire Damage instead of Physical.\nLasts 1 minute.\nAlso, passively, you can now cast smites on ranged attacks (normally, you can only cast Smite on melee attacks).\n",
-                        "Notes": "Attacks like this count as either melee or ranged attacks, your choice. Targets still benefit from Cover, regardless.\nAlternatively, if it makes sense for your character, the DM might allow it to deal Cold, Necrotic or Shock Damage instead of Fire. Talk to your DM about this.\n"
                     }
                 },
                 "Level 5": {
                     "<Life Echo>": {
+                        "_Value": 2,
                         "A": "0 Actions",
-                        "Effect": "You put a Life Echo on another ally.\nWhenever YOU heal a different Unit, the unit with the Life Echo on them is also healed for 50% of that amount.\nLasts 1 minute.\n"
+                        "Effect": "You put a Life Echo on another ally.\nWhenever YOU heal a different Unit, the unit with the Life Echo on them is also healed for 50% of that amount.\nLasts 1 minute.\n  \n"
                     },
                     "<Devotion Aura>": {
+                        "_Value": 1.5,
                         "A": "Passive",
                         "Effect": "All allies on your team have +1 Defense if their Defense is 0.\n",
                         "Notes": "Does not stack with itself multiple times (from multiple Paladins)."
                     },
                     "<Broken Hearts>": {
+                        "_Value": 2.25,
                         "A": "0 Actions",
                         "Requirement": "Only usable if you have 0 Mana remaining",
                         "Cooldown": "Once / Adventure",
@@ -217,17 +241,20 @@
                 },
                 "Level 7": {
                     "<Divine Resurgence>": {
+                        "_Value": 3,
                         "A": "0 Actions",
                         "Cooldown": "Once / Adventure",
                         "Effect": "All other Player Characters you healed this combat gain an extra Half-Action on their next turn."
                     },
                     "<Asceticism>": {
+                        "_Value": 2.25,
                         "A": "0 Actions",
                         "Cooldown": "Once / Adventure",
                         "Duration": "1 minute",
                         "Effect": "For 1 minute, all Healing you do is increased by 50%, but all Damage you deal is reduced by 50%."
                     },
                     "<Assistance From Afar>": {
+                        "_Value": 1,
                         "A": "Reaction",
                         "Cost": "3 Holy Points",
                         "HasMixins": true,
@@ -238,29 +265,33 @@
                 }
             }
         },
-        "Protection": {
+        "Order of the Templar": {
             "Description": "Lorem. Lorem ipsum dolor sit amet.",
             "Starting Abilities": {
-                "~Oath of Protection~": {
+                "~Templar Knighthood~": {
+                    "_Value": 0.75,
+                    "A": "Passive",
+                    "Effect": "You stand out for allies adjacent to you.\nEnemy ranged attacks against other allies within 1 meter of you have Cover.\n",
+                    "Notes": "Nothing happens if an ally adjacent to you already has Cover. If you are playing on a grid, this does work for allies diagonally."
+                },
+                "~Body Block~": {
+                    "_Value": 0.25,
                     "A": "Reaction",
                     "Range": "4 meters to that ally",
                     "Cooldown": "Once / Combat",
                     "Effect": "When another ally is attacked (after the roll), dash to the closest space to that ally.\nThe attack is now targeted on you instead of the ally.\n"
-                },
-                "~Stand Behind~": {
-                    "A": "Passive",
-                    "Effect": "You stand out for allies adjacent to you.\nEnemy ranged attacks against other allies within 1 meter of you have Cover.\n",
-                    "Notes": "Nothing happens if an ally adjacent to you already has Cover. If you are playing on a grid, this does work for allies diagonally."
                 }
             },
             "Talents": {
                 "Level 3": {
                     "<Hallowed Ward>": {
+                        "_Value": 1.75,
                         "A": "0 Actions",
                         "Cooldown": "Once / Adventure",
                         "Effect": "You prepare to take a lethal blow.\nIf you would drop to 0 Health until the start of your next turn, you remain instead at 1 Health and can't take Damage until the start of your next turn.\nWhen this happens, divine rays strike all enemies within 3 meters of you, and they all take 1d10 Divine Damage.\n"
                     },
                     "<Reckoning>": {
+                        "_Value": 1,
                         "A": "1 Action",
                         "Range": "6 meters",
                         "Cooldown": "Once / Adventure",
@@ -268,6 +299,7 @@
                     },
                     "<Silver Circle>": {
                         "A": "0 Actions",
+                        "_Value": 1,
                         "Cooldown": "Once / Adventure",
                         "Effect": "The area in a 5 meter diameter circle around you becomes Consacrated.\nWhile inside the area, your and all allies' Divine, Mysticism, Nature and Class Spells (not Abilities) have their dice tier increased by 1.\nDoes not apply to Passive Spells.\n",
                         "Notes": "Increasing dice by 1 tier means, for example, d6 become d8, or d10 become d12.\nD12's and d20's don't increase.\nClass Spells are Abilities given by the class (including Talents).\n"
@@ -275,12 +307,14 @@
                 },
                 "Level 5": {
                     "<Warrior Spirits>": {
+                        "_Value": 3,
                         "A": "Passive",
                         "Effect": "Whenever you heal with Lay on Hands, you summon a Warrior Spirit near the target with Health equal to the amount restored.\nWarrior Spirits have 2 Defense and 4 Speed and can attack for 1d4 Divine Damage. They take their turn on your turn.\n    \n"
                     },
                     "<Oath of Revenge>": {
+                        "_Value": 2.5,
                         "A": "Passive",
-                        "Effect": "After you use Oath of Protection, you can immediately make an attack (freely) with a 1-Handed Melee Weapon on the attacker.\nThis attack has 3 meters range and deals True Damage.\nYou can apply Smites to it.\n",
+                        "Effect": "After you use Body Block, you can immediately make an attack (freely) with a 1-Handed Melee Weapon on the attacker.\nThis attack has 3 meters range and deals True Damage.\nYou can apply Smites to it.\n",
                         "Notes": "If the 1-Handed Weapon is not equipped, you quickly and freely equip it, attack, then switch back to your previous weapons."
                     },
                     "<Improved Faith Casting>": {
@@ -290,18 +324,21 @@
                 },
                 "Level 7": {
                     "<Personal Squire>": {
+                        "_Value": 2,
                         "A": "Special",
                         "Effect": "You recruit a squire - a trusted NPC who gains combat powers. However, the capabilities of your squire are random: roll 1d4 to determine the type of your squire, based on the Squires category at Pets and Animals (1. Bold, 2. Sneaky, 3. Clever, 4. Wise). The Race is determined by the GM or by circumstance.\nOn its turn, it can do one Pet Attack, cast one Ability it has, or do the equivalent of a Half-Action (e.g. Dash, Defend, etc).\nYou can recruit one squire per Adventure, but only one can follow you in your adventures at a time.\nAt the start of every Adventure (and when you get this Talent), you must spend 1 Mana and train your Squire to permanently increase its Health by 2 or gain one Ability from any other Squire type.\n",
                         "Upgrade": "If your squire drops to 0 Health, it becomes Fallen, like a player. It has no reserve Health, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your squire's wounds and heal it back to full Health.",
                         "Notes": "Your squire is not a Player Character by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Player Character can). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!"
                     },
                     "<Don't Worry Lad>": {
+                        "_Value": 3,
                         "A": "Passive",
-                        "Effect": "Whenever you use Oath of Protection, you and the ally both gain 1d8 Shielding.\nWhenever you use Divine Smite, reset the Cooldown of Oath of Protection.\n"
+                        "Effect": "Whenever you use Body Block, you and the ally both gain 1d8 Shielding.\nWhenever you use Divine Smite, reset the Cooldown of Body Block.\n"
                     },
                     "<Sense of Duty>": {
+                        "_Value": 3,
                         "A": "Passive",
-                        "Effect": "Oath of Protection becomes usable Twice / Combat, and the Damage you take from the redirected attack is reduced by 50%."
+                        "Effect": "Body Block becomes usable Twice / Combat, and the Damage you take from the redirected attack is reduced by 50%."
                     }
                 }
             }

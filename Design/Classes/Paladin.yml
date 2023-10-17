@@ -23,7 +23,7 @@ Spellcasting:
   Type: Mana-based
   SpellsOrAbilities: Spell
 
-  Spell Grade: 6 + (Sense or Charisma, whichever is higher)
+  Spell Grade: 6 + Sense or Charisma, whichever is higher
   Change: You can change your known Spells and Talents inbetween Adventures.
   Other: All Paladin-specific Abilities are considered Spells (unless stated otherwise).
 
@@ -54,7 +54,7 @@ Starting Abilities:
   ~Vigor~:
     A: Passive
     Effect: |
-      You start with 4 extra maximum Health.
+      You start with 4 extra Max Health.
 
   ~Divine Sense~ :      # Ok
     A: 0 Actions
@@ -67,8 +67,9 @@ Starting Abilities:
     _Value: 1.25
     A: Half-Action
     Range: 3 meters
+    HasMixins: true
     Effect: |
-      You have (3 + your Level + your Sense + your Charisma) Holy points.
+      You have 3 + ^Level^ + ^Sense^ + your ^Charisma^ Holy Points.
       Using a Half-Action, you can spend 3 or more Holy Points to heal a Unit for that amount.
       All your Holy Points replenish inbetween Adventures.
 
@@ -154,7 +155,7 @@ Specs:
         A: Half-Action
         Range: 3 meters
         Cooldown: Once / Adventure
-        Effect: A Unit must pass a Sense Check or be Feared. It has -2 to the roll if it's a Humanoid or Unholy.
+        Effect: A Unit must pass a Sense Check or be Feared. It has -2 to the roll if it's a Person or Unholy.
 
     Talents:
       Level 3:
@@ -243,12 +244,14 @@ Specs:
         <Motivation Surge>:
           _Value: 2
           A: Passive
+          AlignOnWebsite: Right
           Effect: After you use Impose, reset the Cooldown of Divine Smite and gain 5 Holy Points.
 
         <Towering Figure>:
           _Value: 2
           A: Passive
-          Effect: Impose now affects 2 targets. After you use Divine Smite, reset the Cooldown of Impose. All Impose targets now have -2 to the roll, not just humanoids.
+          AlignOnWebsite: Right
+          Effect: Impose now affects 2 targets. After you use Divine Smite, reset the Cooldown of Impose. All Impose targets now have -2 to the roll, not just people.
 
 
   Order of Grace:
@@ -315,8 +318,6 @@ Specs:
             If a spell doesn't deal Damage, just instantly deal the Focused Smites Damage to the target.
             The Damage becoming Divine part is optional.
             {Offensive Abilities}
-
-        <Divine Reach>: Inherit      # 1
  
       Level 5:
       
@@ -474,12 +475,12 @@ Specs:
                 
         <Oath of Revenge>:
           _Value: 2.5
-            A: Passive
-            Effect: |
-              After you use Body Block, you can immediately make an attack (freely) with a 1-Handed Melee Weapon on the attacker.
-              This attack has 3 meters range and deals True Damage.
-              You can apply Smites to it.
-            Notes: If the 1-Handed Weapon is not equipped, you quickly and freely equip it, attack, then switch back to your previous weapons.
+          A: Passive
+          Effect: |
+            After you use Body Block, you can immediately make an attack (freely) with a 1-Handed Melee Weapon on the attacker.
+            This attack has 3 meters range and deals True Damage.
+            You can apply Smites to it.
+          Notes: If the 1-Handed Weapon is not equipped, you quickly and freely equip it, attack, then switch back to your previous weapons.
                 
         <Improved Faith Casting>: Inherit
 

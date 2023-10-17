@@ -105,7 +105,7 @@ export default function Spell({ children, spell, style, hasIcon }) {
                 { Requirement != null && (
                     <div>
                         <img src="/Icons/UI/Level.png" className="inline-icon--spell"/>
-                        <span style={{color: '#FF5A00'}}>Requires { Requirement }</span>
+                        <span style={{color: '#FF5A00'}}>{ Requirement }</span>
                     </div>
                 ) }
             </div>

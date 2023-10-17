@@ -18,15 +18,15 @@
     "Weapons": "You are Trained in all weapons, including Shields.",
     "Level Up": {
         "Every Level": {
-            "Health": 5
+            "Health": 6
         }
     },
     "Spellcasting": {
         "Type": "Mana-based",
         "SpellsOrAbilities": "Ability",
-        "Spell Grade": "6 + (Intelligence, Sense or Charisma, whichever is higher)",
+        "Spell Grade": "6 + Intelligence, Sense or Charisma, whichever is higher",
         "Mana": {
-            "Amount": 2,
+            "Amount": 1,
             "Regain": "You regain all Mana back inbetween Adventures."
         },
         "Change": "You can change your known Spells and Talents inbetween Adventures.",
@@ -57,13 +57,19 @@
         "Recommended Abilities Description": "Warriors should be able to withhold damage, and as such, we recommend Recuperate for some extra healing and breaking enemy effects on you. Slam will provide you with area damage and Chilling Shout is a great ranged attack for the Mana cost. If you still have more available Basic Spells, no-one ever complained about having Bull Rush - it's a great passive effect for dealing extra damage. Lastly, if your Sense is low, Atonement will be great in combat for survival, if you're expecting to take a lot of damage.\n"
     },
     "Starting Abilities": {
+        "~Vigor~": {
+            "A": "Passive",
+            "Effect": "You start with 4 extra Max Health.\n"
+        },
         "~Advanced Flank~": {
+            "_Value": 3,
             "AlignOnWebsite": "Left",
             "A": "Passive",
             "Effect": "The first time you Flank-Attack an enemy every turn, the attack deals 1d6 Damage instead of just +1.\nAlso, your melee weapon attacks Flank an enemy if they are pinned against a wall or an obstacle as well.\n",
             "Note": "Flanking is when you melee-attack an enemy, and an ally of yours is directly behind the enemy.\nAlso, instead of an ally being behind the enemy, your attacks count as Flanking even if there is a wall or another obstacle directly behind them.\n"
         },
         "~Rout~": {
+            "_Value": 1,
             "AlignOnWebsite": "Left",
             "A": "Passive",
             "HasMixins": true,
@@ -90,11 +96,13 @@
             "Description": "Lorem!",
             "Starting Abilities": {
                 "<Quick Maneuvers>": {
+                    "_Value": 1,
                     "A": "Special",
                     "Cooldown": "Once / Turn",
                     "Effect": "Immediately after you make a weapon attack, use Dash, Push, Taunt or Hamstring for free. The target rolls no Check - it is applied instantly."
                 },
                 "<Opportunity Attacks>": {
+                    "_Value": 0.75,
                     "A": "Reaction",
                     "Effect": "When an enemy moves 2 or more meters away from near you, you can make a free attack on them with a 1-Handed Melee Weapon.\n",
                     "Notes": "If you don't have a 1-Handed Weapone equipped, you automatically freely equip one, attack with it, unequip it and equip what you previously had."
@@ -103,55 +111,64 @@
             "Talents": {
                 "Level 3": {
                     "<Might Over Magic>": {
+                        "_Value": 1,
                         "A": "Passive",
                         "HasMixins": true,
                         "Effect": "Choose one Basic Ability from the Elemental or Nature spell lists that costs 1 Mana.\nYou can use that Ability once per Adventure (without spending Mana).\nThat Ability becomes a ^physical version of itself^ instead of a spell: instead of using magic to cast that spell, you use your body/weapons/tools. The Damage of that spell becomes Slash, Smash or Pierce, whichever makes sense.\nCome up with a description of how it works!\n",
                         "Notes": "E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage).\nE.g. Frost Nova - you smash the ground with such force that it Damages and Slows units around you (Smash Damage).\nBe creative!\n"
                     },
                     "<Weaponmaster>": {
+                        "_Value": 1,
                         "A": "Passive",
                         "Effect": "When you get this, choose one weapon type.\nYou have that weapon effect too on all weapons you use, exactly as written, no matter what weapon you are using.\nYou can change this weapon type inbetween Adventures.\n",
                         "Upgrade": "The following weapon types can't be chosen: Punch, Dagger, Sling",
                         "Notes": "Pay very close attention to the weapon effect - for example, Katana specifies that you Critical Strike with it when all 3 dice have the same number, so this can only apply to weapons that roll exactly 3 dice. Or, for another example, Slings say that attacks specifically with Slings take 0.33 Actions, so it can not apply to any other weapon!\nWeapons stating \"the die\" (or such) now refer to any one die of the dice rolled, of choice (if multiple).\n"
                     },
                     "~Upper Hand~": {
+                        "_Value": 1.5,
                         "A": "Passive",
                         "Effect": "You can Advanced Flank twice per turn (with 2 different attacks)."
                     }
                 },
                 "Level 5": {
                     "<Into the Fray>": {
+                        "_Value": 2.25,
                         "A": "Passive",
-                        "Effect": "When combat starts, determine which side is your Allied Side and which is the Enemy Side of the battlefield. Each side has a direction (Allied Direction and Enemy Direction).\nIf you end your turn more to the Allied Direction than you started, you gain 4 Shielding until the start of your next turn.\nIf you end your turn more to the Enemy Direction than you started, your first attack next turn deals 1d6 extra Damage.\n"
+                        "Effect": "When combat starts, determine which side is your Allied Side and which is the Enemy Side of the battlefield. Each side has a direction (Allied Direction and Enemy Direction).\nIf you end your turn more to the Allied Direction than you started, you gain 4 Shielding until the start of your next turn.\nIf you end your turn more to the Enemy Direction than you started, your first attack next turn deals 1d6 extra Damage.\n  \n"
                     },
                     "<Glory Run>": {
+                        "_Value": 2.25,
                         "A": "Passive",
                         "Effect": "When combat starts, a Glory Point appears behind the furthermost Enemy from you that you can see.\nIf you touch the Glory Point, heal for 20% of your total Health and all Enemies you can see must pass a Charisma Check or be Crippled.\nThe Glory Point then disappears.\n",
                         "Notes": "The Glory Point is not a physical thing. It's merely a concept (a point)."
                     },
                     "<Ruining Throw>": {
+                        "_Value": 2,
                         "A": "Half-Action",
                         "Range": "10 meters",
                         "Cooldown": "Once / Encounter",
-                        "Effect": "Throw a weapon at a target and attack it (without Throwing penalties and ignoring Cover).\nBefore applying the Damage, the attack destroys all Shielding and Defense on the target and removes all buffs on it.\nThe target is unable to trigger \"on roll\", can't gain Shielding and can't benefit from Buffs until they spend an Action to recover.\n",
+                        "Effect": "Throw a weapon at a target and attack it (without Throwing penalties and ignoring Cover).\nBefore applying the Damage, the attack destroys all Shielding and Defense on the target and removes all buffs on it.\nThe target can't trigger \"on roll\", can't gain Shielding and can't benefit from Buffs until they spend an Action to recover.\n",
                         "Upgrade": "Epic Monsters gain ther Defense back when they spend the Action to recover.",
                         "Notes": "Your weapon lands at the nearest space to the target (and you should probably pick it up with a Half-Action).\n\"On roll\" refers to effects like \"if it rolls 10 on a d10, the attack deals 1d10 extra Damage\".\nBuffs are all effects that improve the target; even passive effects like auras or passive stats from abilities are negated.\nYou don't need Training in Throwning and this attack counts as a regular melee attack.\n"
                     }
                 },
                 "Level 7": {
                     "<Personal Squire>": {
+                        "_Value": 3,
                         "A": "Special",
                         "Effect": "You recruit a squire - a trusted NPC who gains combat powers. However, the capabilities of your squire are random: roll 1d6 to determine the type of your squire, based on the Squires category at Pets and Animals (1. Bold, 2. Sneaky, 3. Clever, 4. Wise). The Race is determined by the GM or by circumstance.\nOn its turn, it can do one Pet Attack, cast one Ability it has, or do the equivalent of a Half-Action (e.g. Dash, Defend, etc).\nYou can recruit one squire per Adventure, but only one can follow you in your adventures at a time.\nAt the start of every Adventure (and when you get this Talent), you must spend 1 Mana and train your Squire to permanently increase its Health by 2 or gain one Ability from any other Squire type.\n",
                         "Upgrade": "If your squire drops to 0 Health, it becomes Fallen, like a player. It has no reserve Health, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your squire's wounds and heal it back to full Health.",
                         "Notes": "Your squire is not a Player Character by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Player Character can). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!"
                     },
                     "<Attack Command>": {
+                        "_Value": 2.25,
                         "A": "Reaction or 0 Actions",
                         "Cooldown": "Once / Adventure",
                         "HasMixins": true,
                         "Effect": "An ally immediately makes an Act that takes 1 Action (can spend Mana, Cooldowns, etc on it, as if it were on its turn).\nYou can use this at any point, before or after someone does an Act.\n^You^ roll all the dice for this Act.\n"
                     },
                     "<MIGHT OVER MAAAGIC!!!>": {
+                        "_Value": 2,
                         "A": "Passive",
                         "HasMixins": true,
                         "Effect": "Choose ^TWO^ Basic Abilities from the Elemental, Nature or Eldritch Spell lists that cost 1 Mana.\nYou can use each of those Abilities once per Adventure (without spending Mana).\nSee the Level 5 Talent _Might Over Magic_.\n"
@@ -163,6 +180,7 @@
             "Description": "AAAAAAAAAAAA LOREMM!!",
             "Starting Abilities": {
                 "~Onslaught~": {
+                    "_Value": 1.25,
                     "A": "Passive",
                     "HasMixins": true,
                     "Effect": "Whenever ^YOU^ kill a Worthy Enemy, heal for 1d6 Health. In addition, if an Enemy has 25% or less Health, you know exactly how much Health it has (ask the GM)."
@@ -181,18 +199,21 @@
             "Talents": {
                 "Level 3": {
                     "<Heartbeat Trance>": {
+                        "_Value": 2,
                         "A": "0 Actions or Reaction",
                         "Cooldown": "Once / Adventure",
                         "Effect": "Take 1d6 Damage.\nUntil the end of your next turn, you take 50% less Damage from all non-Physical combat Damage (except from your own Abilities).\nWhen Heart Trance ends, heal for 2d6.\n",
                         "Notes": "You can activate this as a Reaction when you would take Damage."
                     },
                     "<Rage Trance>": {
+                        "_Value": 2,
                         "A": "0 Actions or Reaction",
                         "Cooldown": "Once / Adventure",
                         "Effect": "Take 1d6 Damage.\nUntil the end of your next turn, you are immune to all Crowd Control except Blinded.\nYour attacks while in Rage Trance have an extra +1 Damage to all attacks.\nWhen Rage Trance ends, heal for 2d6.\n",
                         "Notes": "You can activate this as a Reaction when you would be Crowd Controlled."
                     },
                     "<Battle Trance>": {
+                        "_Value": 2,
                         "A": "0 Actions or Reaction",
                         "Cooldown": "Once / Adventure",
                         "Effect": "Take 1d6 Damage.\nEnter a Battle Trance that lasts until the end of your next turn.\nYou gain a protective shield around you which absorbs up to Your Might + Your Level physical Damage.\nWhen Battle Trance ends, heal for 2d6, and the shield fades.\n",
@@ -201,16 +222,19 @@
                 },
                 "Level 5": {
                     "<Death Mark>": {
+                        "_Value": 2.25,
                         "A": "0 Actions",
                         "Cooldown": "Once / Adventure",
                         "Effect": "Mark a Unit you can see.\nWhenever YOU deal Damage to it until your next turn, remember the Damage done.\nAt the start of your next turn, the mark bursts and the Unit takes 50% of the Damage it has taken in this time period (directly, ignoring Defense).\n"
                     },
                     "<Glory Run>": {
+                        "_Value": 2.25,
                         "A": "Passive",
                         "Effect": "When combat starts, a Glory Point appears behind the furthermost Enemy from you that you can see.\nIf you touch the Glory Point, heal for 20% of your total Health and all Enemies you can see must pass a Charisma Check or be Crippled.\nThe Glory Point then disappears.\n",
                         "Notes": "The Glory Point is not a physical thing. It's merely a concept (a point)."
                     },
                     "<Undying Rage>": {
+                        "_Value": 2.25,
                         "A": "Reaction",
                         "Cooldown": "Once / Adventure",
                         "Effect": "Taking Damage that would kill you leaves you at 1 Health instead, then you can't take damage until the start of your next turn. At the start of your next turn, heal for 2d6."
@@ -218,6 +242,7 @@
                 },
                 "Level 7": {
                     "<Victory Strike>": {
+                        "_Value": 2.5,
                         "A": "Half-Action",
                         "Cooldown": "Once / Adventure",
                         "Range": "2 meters",
@@ -225,10 +250,12 @@
                         "Effect": "Attack a Unit for 2d10 Damage of your weapon's type.\nWhenever ^YOU^ kill a Worthy Enemy (with anything), reset the Cooldown of this Ability.\n"
                     },
                     "<Frenzy>": {
+                        "_Value": 2.75,
                         "A": "Passive",
                         "Effect": "If you start your turn with 20 or less Health, you have +1 Movement Speed and can Break your Movement.\nif you start with 10 or less Health, you also have an extra Half-Action.\n"
                     },
                     "<Hurl Over>": {
+                        "_Value": 2,
                         "A": "1 Action",
                         "Cooldown": "Once / Adventure",
                         "Range": "1 meter to the Unit",
@@ -247,17 +274,20 @@
             "Description": "Lorem ipsum dolor sit amet.",
             "Starting Abilities": {
                 "~Marksmanship~": {
+                    "_Value": 0.25,
                     "A": "Passive",
                     "Effect": "YOU can flank a Unit from up to 6 meters away (if you, the target and the ally/wall/obstacle are on the same line).\n",
                     "Notes": "As usual, that wall/obstacle/ally helping with your flank must right behind the target (meaning allies can't flank an enemy with you being 6 meters away)."
                 },
                 "~Load Up~": {
+                    "_Value": 1,
                     "A": "0 Actions",
                     "Cost": "1 Mana",
                     "Effect": "You 'load up' your weapons.\nAfter you 'load up', your Advanced Flank deals 1d12 Damage instead of 1d6, but every time you use it, the Damage decreases by one tier (e.g. 1d12, 1d10, 1d8, 1d6, 1d4).\nIf your Advanced Flank die is 1d8 or more, after you roll it, you can choose to reroll it and you must keep the new result (once per turn).\n",
                     "Notes": "You can't go lower than 1d4."
                 },
                 "~Point Mark~": {
+                    "_Value": 0.25,
                     "A": "0 Actions",
                     "Cooldown": "Once / Encounter",
                     "Range": "15 meters",
@@ -267,6 +297,7 @@
             "Talents": {
                 "Level 3": {
                     "<Recoil Shot>": {
+                        "_Value": 1,
                         "A": "0 Actions",
                         "Cooldown": "2 times / Adventure",
                         "Range": "2 meters",
@@ -274,6 +305,7 @@
                         "Notes": "This does not trigger attacks of opportunity."
                     },
                     "<Harpoon>": {
+                        "_Value": 1,
                         "A": "1 Action",
                         "Cooldown": "Once / Adventure",
                         "Range": "6 meters",
@@ -281,6 +313,7 @@
                         "Notes": "Requires a Harpoon, which can be bought for 50 Gold."
                     },
                     "<Precise Weapon>": {
+                        "_Value": 1,
                         "A": "1 hour",
                         "Effect": "Choose any weapon and make it Precise.\nThe weapon's scaling becomes +4 instead of scaling with a Stat.\nThe wielder of the weapon is also immune to being Crippled and has +1 Movement Speed.\n",
                         "Notes": "You can only have one weapon made Precise at a time. When you make a different weapon Precise, the other one loses its Precise properties."
@@ -288,17 +321,20 @@
                 },
                 "Level 5": {
                     "<Ground Aim Lock>": {
+                        "_Value": 2,
                         "A": "Passive",
                         "Effect": "On your turn, you can freely lower yourself on the ground without penalties.\nYour first attack every turn while on the ground like this deals +1d6 Damage.\n",
                         "Notes": "To get up, you must use all a Half-Action."
                     },
                     "<Scatterblast>": {
+                        "_Value": 2,
                         "A": "1 Action",
                         "Range": "20 meters",
                         "Cooldown": "Once / Adventure",
                         "Effect": "Make an attack on a target for 3d8 + 2 Smash Damage.\nThe impact is so powerful that all Units within 3 meters of the target take the final Damage taken by the target.\nThis attack is affected by your Reload state.\n"
                     },
                     "<Crosshair Shot>": {
+                        "_Value": 2,
                         "A": "1 Action",
                         "Range": "14 meters",
                         "Cooldown": "Once / Adventure",
@@ -308,14 +344,17 @@
                 },
                 "Level 7": {
                     "<Range Control>": {
+                        "_Value": 1.25,
                         "A": "Passive",
                         "Effect": "Rout is applied when entering within 6 meters of an Enemy.\nWhenever you make an enemy Fumbling, cast Load Up for free.\n"
                     },
                     "<Surprise Shot>": {
+                        "_Value": 2.25,
                         "A": "Passive",
                         "Effect": "Your first weapon attack every combat instantly Stuns the target, no roll required.\n"
                     },
                     "<Offense Is Defense>": {
+                        "_Value": 2,
                         "A": "Reaction",
                         "Cooldown": "Once / Adventure",
                         "Effect": "After you deal Damage with a weapon, gain Shieldig equal to half of all Damage dealt.",
