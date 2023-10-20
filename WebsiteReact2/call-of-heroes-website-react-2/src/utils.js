@@ -163,7 +163,7 @@ export function getSpellFromCategoriesObject(spellCategoriesObject, category, na
 
 
 
-// --------------- Call of Heroes Utilities --------------
+// --------------- Questguard Utilities --------------
 export function isDice(str) {
     const parts = str.split('d')
     if (parts.length != 2)          // Must be osmething like <something>d<something>
@@ -271,9 +271,9 @@ export function ifOk(whatToCheck, then) {
 }
 
 // Returns an array of componentos
-export function parseTextWithSymbols(text) {
+export function parseTextWithSymbols(text, customSymbols) {
 
-    const symbolToInsertion = {
+    let symbolToInsertion = {
         'Damage': () => (<Icon name="Damage"/>),
         'Diamond': () => (<span style={{fontSize: '0.8em'}}>🔹</span>),
         'Pets and Animals': () => (<Link to="/Other/PetsAndAnimals">Pets and Animals</Link>),
@@ -289,6 +289,9 @@ export function parseTextWithSymbols(text) {
         'Stunned': () => (<span>A Stunned Unit skips its turn.</span>),
         
         'Gold': () => (<Icon name="Gold"/>)
+    }
+    if (customSymbols != null) {
+        symbolToInsertion = customSymbols
     }
     const symbolToMarkup = {
         '^': text => (<b>{text}</b>),

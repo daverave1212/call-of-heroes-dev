@@ -12,7 +12,28 @@ import PageH3 from '../../components/PageH3/PageH3'
 import PageH2 from '../../components/PageH2/PageH2'
 import SmallStat from '../../components/SmallStat/SmallStat'
 import Page from '../../containers/Page/Page'
+import { parseTextWithSymbols } from '../../utils'
+import { Link } from 'react-router-dom'
 
+const linkStyle = { color: 'blue', textDecoration: 'underline'}
+
+const customInsertables = {
+    'Initiative': () => (<SmallStat topDown={true} name="Initiative">Your Dexterity + Your Charisma</SmallStat>),
+    'Stats': () => (
+        <div className='character-creation__stats-container'>
+            <div className='character-creation__stat'>-1</div>
+            <div className='character-creation__stat'>0</div>
+            <div className='character-creation__stat'>1</div>
+            <div className='character-creation__stat'>2</div>
+            <div className='character-creation__stat'>3</div>
+        </div>),
+    'Max Health': () => (<SmallStat topDown={true} name="Max Health">Race Health + Your Might</SmallStat>),
+    'Speed': () => (<SmallStat topDown={true} name="Movement Speed">Given by your Race</SmallStat>),
+    'Armors': () => (<Link style={linkStyle} to="/Other/Armors">Armors</Link>),
+    'Proficiencies': () => (<Link style={linkStyle} to="/Other/Proficiencies">Proficiencies</Link>),
+    'Feats': () => (<Link style={linkStyle} to="/Other/Feats">Feats</Link>),
+    'Speed': () => (<SmallStat topDown={true} name="Spell Grade">6 + A Specific Stat</SmallStat>),
+}
 
 export default function CharacterCreation({ isSecondaryPage }) {
 
@@ -28,7 +49,7 @@ export default function CharacterCreation({ isSecondaryPage }) {
                     subtitlesThatAreSmallStats.includes(subtitle) == false ? (
                         <div key={subtitle}>
                             <PageH3>{subtitle}</PageH3>
-                            <p>{cc[title][subtitle]}</p>
+                            <p>{parseTextWithSymbols(cc[title][subtitle], customInsertables)}</p>
                         </div>
                     ) : (
                         <div key={subtitle}>
@@ -48,19 +69,11 @@ export default function CharacterCreation({ isSecondaryPage }) {
 
             <MidSection title={'Filling the Character Sheet'}/>
 
-            <div className='character-creation__stats-container'>
-                <div className='character-creation__stat'>-1</div>
-                <div className='character-creation__stat'>0</div>
-                <div className='character-creation__stat'>1</div>
-                <div className='character-creation__stat'>2</div>
-                <div className='character-creation__stat'>3</div>
-            </div>
-
-            <MidSection title={'Race Fill-Ins'} subtitlesThatAreSmallStats={['Maximum Health', 'Reserve Health', 'Speed', 'Languages']}/>
+            <MidSection title={'Race Fill-Ins'}/>
 
             <MidSection title={'Race Abilities'}/>
-            <MidSection title={'Class Fill-Ins'} subtitlesThatAreSmallStats={['Initiative', 'Defense']}/>
-            <MidSection title={'Spell Casting'} subtitlesThatAreSmallStats={['Mana', 'Main Stat']}/>
+            <MidSection title={'Class Fill-Ins'}/>
+            <MidSection title={'Spell Casting'}/>
             <MidSection title={'Leveling Up'}/>
             <MidSection title={'Other Abilities'}/>
             <MidSection title={'Equipment'}/>

@@ -22,7 +22,7 @@ cd callofheroesrpg.github.io
 
 echo 5. Running git commands
 git add .
-git commit -m %1
+git commit -m %datestr%
 git push
 
 echo Done!

@@ -8,3 +8,4 @@ cd "WebsiteReact2"
 cd "call-of-heroes-website-react-2"
 npm run build
 
+pause

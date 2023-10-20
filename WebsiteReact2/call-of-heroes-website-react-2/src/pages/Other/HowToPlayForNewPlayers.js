@@ -28,8 +28,8 @@ export default function HowToPlayForNewPlayers() {
     }
     return (
         <div>
-            <Page title="Call of Heroes" isSecondaryPage={true}>
-                <Section name="What is Call of Heroes?"/>
+            <Page title="Questguard" isSecondaryPage={true}>
+                <Section name="What is Questguard?"/>
                 <Section name="How do groups work?"/>
                 <Section name="How is it different from a board game?"/>
                 <Section name="What is a story or adventure like?"/>

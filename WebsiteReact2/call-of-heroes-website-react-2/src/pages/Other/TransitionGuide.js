@@ -16,6 +16,7 @@ import TwoColumnsDescriptive from '../../components/TwoColumns/TwoColumnsDescrip
 import Column from '../../components/TwoColumns/Column'
 
 import Page from '../../containers/Page/Page'
+import { Link } from 'react-router-dom'
 
 
 export default function TransitionGuide() {
@@ -60,7 +61,7 @@ export default function TransitionGuide() {
 
                 <TwoColumns>
                     <Column>
-                        <Section object={aboutTheGame} title='What is Call of Heroes?'/>
+                        <Section object={aboutTheGame} title='What is Questguard?'/>
                     </Column>
                     <Column>
                         <Section object={aboutTheGame} title='Is this a D&D offspin?'/>
@@ -92,6 +93,15 @@ export default function TransitionGuide() {
                 <Section object={cohForDnd} title="Abilities"/>
                 <Section object={cohForDnd} title="Spell Casting Systems"/>
                 <Section object={cohForDnd} title="Main Stat and Other"/>
+                <Section object={cohForDnd} title="Cooldowns"/>
+
+                <div>
+                    <PageH3>Done!</PageH3>
+                    <p>
+                        That is the breakdown of the base rules! Knowing them, you will find the rest very intuitive!
+                        To get started, check out the character creation guide here: <Link to="/Other/CharacterCreation"><span style={{color: 'blue', textDecoration: 'underline'}}>Character Creation</span></Link>
+                    </p>
+                </div>
 
             </Page>
 
