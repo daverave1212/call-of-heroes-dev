@@ -60,7 +60,7 @@ export default function Page({
                     { children }
                 </div>
             </div>
-            <LandingPageSeparator type="8"/>
+            {/* <LandingPageSeparator type="8"/> */}
         </div>
     )
 

@@ -1,6 +1,7 @@
 
 import yaml
 import json
+import sys
 from os import path
 
 # Use this script to convert all ./Design/ files to their JSON variant in WebsiteReact/call-of-heroes-react-static/src/databases
@@ -14,6 +15,7 @@ json_root_folder = 'WebsiteReact2/call-of-heroes-website-react-2/src/databases'
 
 abilities = {}              # Holds all non-class abilities, like feats and spells from spell lists; used for Inheriting only
 class_race_abilities = {}   # Holds all class/race abilities and is then written to a file
+
 
 classes = [
     'Cleric',
@@ -38,6 +40,8 @@ races = [
     'Orc',
 ]
 backgrounds = []        # Polulated at runtime
+rules_lists = []        # Polulated at runtime ( title: "X", children: [...])
+rules_dicts = []        # Polulated at runtime ("X": [...])
 
 files_to_convert = [    # Order matters
     'Abilities.yml',
@@ -149,6 +153,75 @@ def record_abilities_from(from_dict, to_dict):
             continue
         record_abilities_from(subobj, to_dict)
 
+
+# Format Rules Sections
+def get_format_sections_object_list(dict_content_list):
+
+    section_object_list = dict_content_list
+    new_children = []
+
+    for child in section_object_list:           # Every child is either an object with a string or an object with a list
+        print(child)
+        only_key = list(child.keys())[0]
+        value = child[only_key]
+        if isinstance(value, str):
+            new_child = {
+                'title': only_key,
+                'value': value
+            }
+        else:
+            new_child = {
+                'title': only_key,
+                'value': get_format_sections_object_list(value)
+            }
+        new_children.append(new_child)
+    return new_children
+
+
+
+
+    def get_recursive_section(section_object_list):
+        
+        if isinstance(section_object, str):
+            return section_object
+        
+        # else, it must be a list of objects
+
+        only_key = list(section_object.keys())[0]
+        children = section_object[only_key]
+
+        new_object = {
+            'title': only_key,
+            'children': None
+        }
+
+        if isinstance(children, str):
+            new_object['children'] = children
+        elif isinstance(children[0], str):
+            new_object['children'] = children
+        else:
+            new_object['children'] = [get_recursive_section(child) for child in children]
+
+        return new_object
+    
+    
+
+def get_format_sections_object_dict(dict_content_list):
+    def get_recursive_section(section_object_content):
+        print(section_object_content)
+        if isinstance(section_object_content, str):
+            return section_object_content
+        elif isinstance(section_object_content[0], str):
+            return section_object_content
+        else:
+            new_object = {}
+            for child in section_object_content:
+                only_key_of_child = list(child.keys())[0]
+                new_object[only_key_of_child] = get_recursive_section(child[only_key_of_child])
+            return new_object
+        
+    return get_recursive_section(dict_content_list)
+
 if __name__ == '__main__':
 
     for file_name in files_to_convert:
@@ -187,6 +260,10 @@ if __name__ == '__main__':
         if file_name == 'Backgrounds.yml':
             backgrounds = list(dict_content.keys())
 
+        if 'Rules.yml' in file_name:
+            rules_lists = get_format_sections_object_list(dict_content)
+            rules_dicts = get_format_sections_object_dict(dict_content)
+
         if 'Race' in dict_content:
             record_abilities_from(dict_content, abilities)
             normalize_inherit_abilities(dict_content)
@@ -214,4 +291,11 @@ if __name__ == '__main__':
     class_race_abilities_json = json.dumps(class_race_abilities, indent=4)
     with open(json_root_folder + '/' + 'ClassAndRaceAbilities.json', 'w+') as f:
         f.write(class_race_abilities_json)
+
+    rules_lists_json = json.dumps(rules_lists, indent=4)
+    with open(json_root_folder + '/' + 'RulesLists.json', 'w+') as f:
+        f.write(rules_lists_json)
+    rules_lists_dict = json.dumps(rules_dicts, indent=4)
+    with open(json_root_folder + '/' + 'RulesDicts.json', 'w+') as f:
+        f.write(rules_lists_dict)
 

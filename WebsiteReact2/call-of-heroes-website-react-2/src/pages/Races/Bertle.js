@@ -58,7 +58,6 @@ export default function Race() {
 
                 <RacialFeats theRace={theRace}/>
                 
-
                 <p>
                     That's all from the Race! Next, choose your character's Class!
                 </p>

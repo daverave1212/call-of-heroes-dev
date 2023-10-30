@@ -13,6 +13,30 @@ function getIconPathByName(name) {
     return iconPath
 }
 
+export function SpellTopStats({className, tags}) {
+    const {A, Cost, Range, Cooldown, Duration, Requirement} = tags
+    return (
+        <div className={`spell-top__stats ${className}`}>
+            { A != null && (<div><img src="/Icons/UI/Hand.png" className="inline-icon--spell"/>{ A }</div>) }
+            { Cost != null && (
+                <div>
+                    <img src={ Cost.endsWith('Insight')? "/Icons/UI/Insight.png" : "/Icons/UI/Mana.png" } className="inline-icon--spell"/>
+                    { Cost }
+                </div>
+            ) }
+            { Range != null && (<div><img src="/Icons/UI/Range.png" className="inline-icon--spell"/>{ Range }</div>) }
+            { Cooldown != null && (<div><img src="/Icons/UI/Cooldown.png" className="inline-icon--spell"/>{ Cooldown }</div>) }
+            { Duration != null && (<div><img src="/Icons/UI/Duration.png" className="inline-icon--spell"/>{ Duration }</div>) }
+            { Requirement != null && (
+                <div>
+                    <img src="/Icons/UI/Level.png" className="inline-icon--spell"/>
+                    <span style={{color: '#FF5A00'}}>{ Requirement }</span>
+                </div>
+            ) }
+        </div>
+    )
+}
+
 export default function Spell({ children, spell, style, hasIcon }) {
 
     if (spell == null) {
@@ -89,29 +113,6 @@ export default function Spell({ children, spell, style, hasIcon }) {
         }
     }
 
-    function SpellTopStats({className}) {
-        return (
-            <div className={`spell-top__stats ${className}`}>
-                { A != null && (<div><img src="/Icons/UI/Hand.png" className="inline-icon--spell"/>{ A }</div>) }
-                { Cost != null && (
-                    <div>
-                        <img src={ Cost.endsWith('Insight')? "/Icons/UI/Insight.png" : "/Icons/UI/Mana.png" } className="inline-icon--spell"/>
-                        { Cost }
-                    </div>
-                ) }
-                { Range != null && (<div><img src="/Icons/UI/Range.png" className="inline-icon--spell"/>{ Range }</div>) }
-                { Cooldown != null && (<div><img src="/Icons/UI/Cooldown.png" className="inline-icon--spell"/>{ Cooldown }</div>) }
-                { Duration != null && (<div><img src="/Icons/UI/Duration.png" className="inline-icon--spell"/>{ Duration }</div>) }
-                { Requirement != null && (
-                    <div>
-                        <img src="/Icons/UI/Level.png" className="inline-icon--spell"/>
-                        <span style={{color: '#FF5A00'}}>{ Requirement }</span>
-                    </div>
-                ) }
-            </div>
-        )
-    }
-
     return (
         <div className={`spell ${spellNormalOrSubClass} ${spellPassiveOrActiveClass}`} style={style}>
             <div className="spell__border"></div>
@@ -126,7 +127,7 @@ export default function Spell({ children, spell, style, hasIcon }) {
                             <div className='spell-top__title__wrapper'>
                                 <div className='spell-top__title'>{ DisplayName != null? DisplayName : Name }</div>
                             </div>
-                            <SpellTopStats/>
+                            <SpellTopStats tags={spell}/>
                         </div>
                     </div>
                 ) : (
@@ -136,7 +137,7 @@ export default function Spell({ children, spell, style, hasIcon }) {
                                 <div className='spell-top--iconless__title'>{ Name }</div>
                             </div>
                             <div style={{width: '70%', margin: 'auto'}}>
-                                <SpellTopStats className="spell-top__stats--no-padding-side"/>
+                                <SpellTopStats tags={spell} className="spell-top__stats--no-padding-side"/>
                             </div>
                         </div>
                     </div>

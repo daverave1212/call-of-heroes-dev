@@ -6,6 +6,8 @@
     --side-menu-top: 174px;
     --side-menu-pad-right: calc(var(--side-menu-top) - var(--nav-height));
     --side-menu-left: calc((100% - var(--page-content-width)) / 2 - var(--side-menu-width) / 2 - 45px);
+
+    --side-menu-item-spacing: 15px;
 }
 .side-menu {
     position: fixed;
@@ -22,38 +24,39 @@
         left: var(--side-menu-left);
     }
 }
-@media (max-width: 1280px) {
+@media (max-width: 1366px) {
     .side-menu {
         display: none;
     }
 }
 .side-menu-content {
     width: var(--side-menu-width);
-    height: var(--side-menu-height);
+    max-height: var(--side-menu-height);
 
     padding: 30px;
+    padding-bottom: calc(var(--side-menu-item-spacing) + 3px);   /* Because the bottom-most item has 15px padding-bottom */
 
     font-family: HomeFont;
     overflow-y: scroll;
 }
 
-.side-menu-content ul {
+.side-menu-ul {
     margin: 0px;
     padding: 0px;
     list-style-type: none;
     font-size: 16px;
 }
-.side-menu-content ul li {
-    margin-bottom: 15px;
+.side-menu-subtitle-li {
+    margin-bottom: var(--side-menu-item-spacing);
 }
-.side-menu-content ul li .inline-icon {
+.side-menu-subtitle-li .inline-icon {
     height: 12px;
     margin-top: 4px;
 }
-.side-menu-content ul li a {
+.side-menu-subtitle-li a {
     color: gray;
 }
-.side-menu-content h4 {
+.side-menu-h4 {
     margin: 0px;
     margin-bottom: 15px;
     padding-top: 5px;
@@ -62,7 +65,8 @@
     font-weight: 100;
     font-size: 18px;
 }
-.side-menu-content ul li a:hover, .side-menu-content h4:hover {
+
+.side-menu-subtitle-li a:hover, .side-menu-content h4:hover {
     color: orange;
 }
 
@@ -72,8 +76,8 @@
     width: 6px;
 }
   
-  /* Track */
-  .side-menu-content::-webkit-scrollbar-track {
+/* Track */
+.side-menu-content::-webkit-scrollbar-track {
     /* box-shadow: inset 0 0 5px grey; 
     border-radius: 10px; */
     background-color: gray;

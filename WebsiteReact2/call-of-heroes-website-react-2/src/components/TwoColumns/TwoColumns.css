@@ -1,25 +1,33 @@
 :root {
     --two-columns-padding-middle-per-column: 22px;
 }
-@media (orientation: portrait) {
+@media (max-width: 1366px) {
+    :root {
+        --two-columns-padding-middle-per-column: 14px;
+    }   
+}
+@media (orientation: portrait), (max-width: 900px)  {
     :root {
         --two-columns-padding-middle-per-column: 1vw;
     }   
 }
 
-.two-columns, .two-columns-descriptive {
+.two-columns, .two-columns-descriptive, .three-columns {
     width: 100%;
 
     display: flex;
     flex-direction: row;
 }
+
+
+
 .column {
     display: relative;
 }
-.column:nth-child(1) {
+.two-columns .column:nth-child(1) {
     padding-right: var(--two-columns-padding-middle-per-column);
 }
-.column:nth-child(2) {
+.two-columns .column:nth-child(2) {
     padding-left: var(--two-columns-padding-middle-per-column);
 }
 
@@ -57,9 +65,17 @@
 .two-columns-descriptive > .column {
     flex: 1;
 }
+.three-columns > .column {
+    flex: 1;
+}
 
-
-@media (orientation: portrait) {
+@media (max-width: 1366px) {
+    .class-image {
+        transform: scale(0.8);
+        margin-top: -70px;
+    }
+}
+@media (orientation: portrait), (max-width: 900px)  {
     .two-columns {
         flex-direction: column;
     }

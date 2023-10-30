@@ -17,6 +17,23 @@ const TEMPLATE_SECTIONS = {
     ]
 }
 
+function MenuTitle({name}) {
+    return (
+        <a href={'#' + titleToId(name)}>
+            <h4 className='side-menu-h4'>{name}</h4>
+        </a>
+    )
+}
+function MenuSubtitle({name}) {
+    return (
+        <li className='side-menu-subtitle-li'>
+            <a href={'#' + titleToId(name)}>
+                <Icon name="BulletPoint"/> {name}
+            </a>
+        </li>
+    )
+}
+
 export function SideMenu({children, sections}) {
     const sectionNames = Object.keys(sections)
     return (
@@ -24,17 +41,9 @@ export function SideMenu({children, sections}) {
             <div className='side-menu-content'>
                 { sectionNames.map(sectionName => (
                     <div key={sectionName}>
-                        <a href={'#' + titleToId(sectionName)}>
-                            <h4>{sectionName}</h4>
-                        </a>
-                        <ul>
-                            { sections[sectionName].map(subtitle => (
-                                <li key={subtitle}>
-                                    <a href={'#' + titleToId(subtitle)}>
-                                        <Icon name="BulletPoint"/> {subtitle}
-                                    </a>
-                                </li>
-                            )) }
+                        <MenuTitle name={sectionName}/>
+                        <ul className='side-menu-ul'>
+                            { sections[sectionName].map(subtitle => (<MenuSubtitle name={subtitle}/>)) }
                         </ul>
                     </div>
                 )) }
@@ -68,6 +77,15 @@ export function SideMenuFromRace({theRace}) {
             'Proficiencies',
             'Abilities',
         ]
+    }
+    return SideMenu({sections: sections})
+}
+
+export function SideMenuFromRuleSection({ruleSection}) {
+    const subsections = ruleSection.subsections
+    const sections = []
+    for (const subsection of subsections) {
+        sections[subsection.title] = subsection.titles
     }
     return SideMenu({sections: sections})
 }

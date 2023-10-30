@@ -27,7 +27,7 @@ import theClass from '../../databases/Classes/Cleric.json'
 
 import ManySpells from '../../components/Spell/ManySpells'
 
-import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies, ClassFeatsDescription } from '../../components/InsertableTemplates/RaceClassComponents'
+import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies, ClassFeatsDescription, Equipment } from '../../components/InsertableTemplates/RaceClassComponents'
 import { SideMenu, SideMenuFromClass } from '../../components/SideMenu/SideMenu'
 
 export default function Cleric() {
@@ -72,11 +72,13 @@ export default function Cleric() {
 
                 <Proficiencies name={theClass.Class} theRaceOrClass={theClass}/>
 
+                <StartingAbilities spellsObject={theClass['Starting Abilities']} description={theClass['Starting Abilities Description']}/>
+
                 <SpellCasting theClass={theClass}/>
 
-                <LevelingUp theClass={theClass}/>
+                <Equipment theClass={theClass}/>
 
-                <StartingAbilities spellsObject={theClass['Starting Abilities']} description={theClass['Starting Abilities Description']}/>
+                <LevelingUp theClass={theClass}/>
 
                 <PageH2>Specializations (Level 2)</PageH2>
 

@@ -26,6 +26,7 @@ import ManySpells from '../Spell/ManySpells'
 import TableNormalLevelUpWarlock from '../TableNormal/TableNormalLevelUpWarlock'
 import ManySmallStats from '../SmallStat/ManySmallStats'
 import Page from '../../containers/Page/Page'
+import { Link } from 'react-router-dom'
 
 export function Proficiencies({ name, theRaceOrClass }) {
 
@@ -78,7 +79,7 @@ export function RaceDescription({ theRace }) {
         .split('\n')
         .map(str => str.trim())
         .filter(str => str.length > 0)
-        .map(str => <p style={{lineHeight: '1.25em'}} key={str.substring(0, 10)}>{str}</p>)
+        .map(str => <p style={{lineHeight: 'var(--p-size)'}} key={str.substring(0, 10)}>{str}</p>)
     const descriptionComponents = U.insertBetweenAll(descriptionLines, (i) => <Separator key={i}/>)
     return (
         <div id={idTitle}>
@@ -163,10 +164,23 @@ export function ClassFeatsDescription() {
         <p>If you decide to forego your Talent and pick a Feat instead, you can no longer re-pick it inbetween Adventures and you will have to stick to the Feat you chose for the rest of your life! Choose keenly!</p>
     </div>)
 }
+export function Equipment() {
+    return (
+        <div id="equipment">
+            <PageH2>Equipment and Gold</PageH2>
+            <p>Your Character begins their journey with a total of 800 gold.</p>
+            <SmallStat name="Starting Gold" color="rgb(23, 80, 0)">800 <Icon name="gold"/></SmallStat>
+            <br/>
+            <p>When you create your Character, you can spend these 800 gold on equipment or useful items from the <Link to="/Other/Prices">Prices</Link> page.</p>
+            <p>For weapons and armor, visit the <Link to="/Other/Weapons">Weapons</Link> and <Link to="/Other/Armors">Armors</Link> pages.</p>
+            <p>Your Character can wear any type of armor.</p>
+        </div>
+    )
+}
 export function LevelingUp({ theClass }) {
     return (
         <div style={{marginTop: 'var(--page-padding)'}} id="leveling-up">
-            <PageH3>Leveling Up</PageH3>
+            <PageH2>Leveling Up</PageH2>
     
             <TwoColumns type="normal">
                 <Column>
@@ -391,10 +405,7 @@ export function PHealthAndArmor({ theClass }) {
                 <b><Icon name="Health"/>Race Health + Might.</b>
             </p>
             <p>Note that you do <b>not</b> add your Might to your Health every level!</p>
-            <p>Feel free to spend any amount of Gold to buy items from the Items list (see Items).</p>
-            <ManySmallStats name="Starting Equipment" color="rgb(23, 80, 0)" topDown={true} texts={[
-                'You start with 500 gold that you can spend on any items in the shop (see Prices page). You have a 50% discount on armors and weapons you would buy with this starting gold.'
-            ]}/>
+            <p>For Weapon Training: note that all 5 categories are 1-Handed Melee (Shortswords, Daggers, etc), 1-Handed Ranged (Handguns, Slings, etc), 2-Handed Melee (Battle Axes, Greatswords, etc), 2-Handed Ranged (Bows, Heavy Guns, etc) and Shields. You choose Weapon Categories, not specific weapon types. For instance, if you choose 1-Handed Melee Weapons, you will know how to use all Shortswords, Daggers, Spears, etc.</p>
         </div>
     )
 }

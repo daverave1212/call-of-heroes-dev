@@ -29,7 +29,7 @@ import ManySpells from '../../components/Spell/ManySpells'
 
 import theClass from '../../databases/Classes/Paladin.json'
 
-import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies, ClassFeatsDescription, } from '../../components/InsertableTemplates/RaceClassComponents'
+import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies, ClassFeatsDescription, Equipment, } from '../../components/InsertableTemplates/RaceClassComponents'
 import { SideMenuFromClass } from '../../components/SideMenu/SideMenu'
 
 export default function Paladin() {
@@ -79,11 +79,13 @@ export default function Paladin() {
 
                 <Proficiencies name={theClass.Class} theRaceOrClass={theClass}/>
 
+                <StartingAbilities spellsObject={theClass['Starting Abilities']} description={theClass['Starting Abilities Description']}/>
+
                 <SpellCasting theClass={theClass}/>
 
+                <Equipment theClass={theClass}/>
+                
                 <LevelingUp theClass={theClass}/>
-
-                <StartingAbilities spellsObject={theClass['Starting Abilities']} description={theClass['Starting Abilities Description']}/>
 
                 <PageH2>Specializations</PageH2>
 

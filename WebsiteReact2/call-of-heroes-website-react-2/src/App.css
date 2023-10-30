@@ -1,45 +1,24 @@
-:root {
-  --element-padding: 30px;
-  --element-padding-half: calc(var(--element-padding) / 2);
-
-  --title-font-transform: scale(0.8, 1);
-
-  --passive-dark-color: rgb(31, 81, 146);
-
-  --light-medium-color: rgb(153, 52, 52);
-  --medium-color: rgb(95, 39, 39); 
-  --dark-color: rgb(68, 22, 22);
-  --darker-color: rgb(48, 2, 2);
-
-  --dark-blue: rgb(22, 22, 98);
-  --darker-blue: rgb(22, 22, 58);
-  --dark-green: rgb(23, 80, 0);
-
-  --gray-color: rgb(31, 31, 31);
-
-  --button-color: rgb(117, 10, 10); 
-
-  --simple-page-color: rgb(255, 252, 249);
-
-  --h1-size: 80px;
-  --h2-size: 35px;
-  --h3-size: 24px;
-  --p-size: 19px;
-}
-@media (orientation: portrait) {
-  :root {
-    --p-size: 4.25vw;
-    --h1-size: 13vw;
-    --h2-size: 7.5vw;
-    --h3-size: 6vw;
-  }
-}
 
 * {
   scroll-behavior: smooth;
   vertical-align: top;
   box-sizing: border-box;
 }
+
+html {
+  overflow-x: hidden; /* Prevents mobile scrolling to the right on some devices */
+}
+
+body {
+  font-family: var(--font-text);
+  font-size: var(--p-size);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+
+  scroll-behavior: smooth;
+}
+
 p {
   margin-top: 0px;
   /* margin-bottom: var(--element-padding); */
@@ -48,82 +27,6 @@ p {
   white-space: pre-wrap;
 }
 
-
-.content {
-  /* padding-top: var(--nav-height); */
-}
-
-@font-face {
-  font-family: TextFont;
-  src: url('fonts/LinuxLibertine/LinLibertine_R.ttf');
-  /* src: url('fonts/Garamond/EBGaramond-Regular.ttf'); */
-}
-@font-face {
-  font-family: TitleFont;
-  src: url('fonts/DayRoman/DAYROM__.ttf');
-}
-@font-face {
-  font-family: StylizedFont;
-  src: url('fonts/InknutAntiqua/InknutAntiqua-Light.ttf');
-}
-@font-face {
-  font-family: HomeFont;
-  src: url(fonts/RobotoCondensed/RobotoCondensed-Regular.ttf);
-}
-@font-face {
-  font-family: HomeFontBold;
-  src: url(fonts/RobotoCondensed/RobotoCondensed-Bold.ttf);
-}
-.stylized-font {
-  font-family: StylizedFont;
-  transform: var(--title-font-transform);
-}
-
-
-
-/* -------------------- Layout -------------------- */
-/* Use this to layout the page (e.g. wrap elements in div with these classes */
-/* Also use TwoColumns with Column children */
-.with-margined-children > * {           /* Direct children only */
-  margin-top: 0px !important;
-  margin-bottom: var(--element-padding-half) !important;
-}
-.margined-bottom {
-  margin-top: 0px;
-  margin-bottom: var(--element-padding);
-}
-.unmargined {
-  margin-top: 0px;
-  margin-bottom: 0px;
-}
-.padded {
-  padding: var(--element-padding);
-}
-.centered-content {
-  width: 100%;
-
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
-
-
-
-
-html {
-  overflow-x: hidden; /* Prevents mobile scrolling to the right on some devices */
-}
-
-body {
-  font-family: TextFont;
-  font-size: 1.25em;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-
-  scroll-behavior: smooth;
-}
 a {
   color: black;
   text-decoration: none;
@@ -136,51 +39,9 @@ a {
   margin: 0px;
   padding: 0px;
 }
-
-
-
-
-
-
-
-.button-standard {
-  font-family: StylizedFont;
-  font-size: 1em;
-
-  color: white;
-  background-color: rgba(0, 0, 0, 0.7);
-  border: solid white 1px;
-  border-radius: 4px;
-
-  padding: 0px;
-
-  z-index: 999;
-  display: block;
-  position: relative;
-
-  cursor: pointer;
+#Window-Content {
+  padding-top: var(--nav-height);
 }
-.button-standard:hover {
-  border: solid var(--light-medium-color) 1px;
-}
-.button-standard__content {
-  padding-top: 15px;
-  padding-bottom: 15px;
-  padding-left: 40px;
-  padding-right: 40px;
-}
-
-.text-link-with-hover {
-  color: rgb(0, 78, 151);
-}
-.text-link-with-hover:hover {
-  cursor: pointer;
-  text-decoration: underline;
-  filter: brightness(0.5);
-}
-
-
-
 
 .footer {
   margin-top: 150px;

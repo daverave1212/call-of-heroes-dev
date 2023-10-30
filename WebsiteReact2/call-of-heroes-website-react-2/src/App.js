@@ -1,10 +1,16 @@
 import logo from './logo.svg';
 
-import { createContext, useEffect } from 'react'
+import { createContext, memo, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 
 import './App.css'
+
+import './app-color-vars.css'
+import './app-text-vars.css'
+import './app-layout-vars.css'
+import './layout-classes.css'
+
 import './Nav.css'
 import './components/SmallStat/InlineIcon.css'
 
@@ -73,6 +79,7 @@ import Encounters from './pages/Other/Encounters';
 import AbilitySheets from './pages/Other/AbilitySheets';
 import GMGuidelines from './pages/Other/GMGuidelines';
 import AbilitySheetsPrint from './pages/Other/AbilitySheetsPrint';
+import QuestguardForBeginners from './pages/Other/RulesExplained/QuestguardForBeginners';
 
 function App() {
 
@@ -82,8 +89,6 @@ function App() {
   const [navState, setNavState] = useState({
     currentlyOpenSubnav: null
   })
-
-  
 
 
   const navigate = useNavigate()
@@ -98,10 +103,9 @@ function App() {
 
 
 
-
-
-
   function closeNav(event) {
+    if (navState.currentlyOpenSubnav == null)
+      return
     setNavState({
         currentlyOpenSubnav: null
     })
@@ -110,82 +114,86 @@ function App() {
   const isSimple = appState.isSimple
   const setIsSimple = (newIsSimple) => setAppState({isSimple: newIsSimple})
 
+  function WindowContent() {
+    return (
+      <div id="Window-Content" onClick={() => { closeNav() }}>
+
+          {/* Here will be rendered the page: */}
+        <Routes>
+          <Route path="/" element={(
+            isURLHackedForGitHub == false? <Index/> : null  // Prevent loading a page for no reason if path is hacky
+          )}/>
+          <Route path="/Other/Rule" element={ <Rule/> }/>
+          <Route path="/Other/Rules" element={ <Rules/> }/>
+          <Route path="/Other/GMGuidelines" element={ <GMGuidelines/> }/>
+          <Route path="/Other/Abilities" element={ <Abilities/> }/>
+          <Route path="/Other/Feats" element={ <Feats/> }/>
+          <Route path="/Other/Proficiencies" element={ <Proficiencies/> }/>
+          <Route path="/Other/Armors" element={ <Armors/> }/>
+          <Route path="/Other/Weapons" element={ <Weapons/> }/>
+          <Route path="/Other/HowToPlayForNewPlayers" element={ <HowToPlayForNewPlayers/> }/>
+          <Route path="/Other/CharacterCreation" element={ <CharacterCreation/> }/>
+          <Route path="/Other/CharacterCreationCalculator" element={ <CharacterCreationCalculator/> }/>
+          <Route path="/Other/TransitionGuide" element={ <TransitionGuide/> }/>
+          <Route path="/Other/Monsters" element={ <Monsters/> }/>
+          <Route path="/Other/Monster" element={ <Monster/> }/>
+          <Route path="/Other/Prices" element={ <Prices/> }/>
+          <Route path="/Other/Obstacles" element={ <Obstacles/> }/>
+          <Route path="/Other/PetsAndAnimals" element={ <PetsAndAnimals/> }/>
+          <Route path="/Other/PetOrAnimal" element={ <PetOrAnimal/> }/>
+          <Route path="/Other/AttackModifiers" element={ <AttackModifiers/> }/>
+          <Route path="/Other/CrowdControl" element={ <CrowdControl/> }/>
+          <Route path="/Other/AreasOfEffect" element={ <AreasOfEffect/> }/>
+          <Route path="/Other/Encounters" element={ <Encounters/> }/>
+          
+          <Route path="/Other/RulesExplained/QuestguardForBeginners" element={ <QuestguardForBeginners/> }/>
+
+          <Route path="/Other/AbilitySheets" element={ <AbilitySheets/> }/>
+          <Route path="/Other/AbilitySheetsPrint" element={ <AbilitySheetsPrint/> }/>
+          
+          <Route path="/Lore/Levels" element={ <Levels/> }/>
+          <Route path="/Lore/SpellSchoolDescriptions" element={ <SpellSchoolDescriptions/> }/>
+          <Route path="/Lore/Languages" element={ <Languages/> }/>
+
+          <Route path="/Races/Bertle" element= { <Bertle/> }/>
+          <Route path="/Races/Davel" element= { <Davel/> }/>
+          <Route path="/Races/Dragonborn" element= { <Dragonborn/> }/>
+          <Route path="/Races/Dwarf" element= { <Dwarf/> }/>
+          <Route path="/Races/Elf" element= { <Elf/> }/>
+          <Route path="/Races/Gnome" element= { <Gnome/> }/>
+          <Route path="/Races/Hollow" element= { <Hollow/> }/>
+          <Route path="/Races/Human" element= { <Human/> }/>
+          <Route path="/Races/Orc" element= { <Orc/> }/>
+
+          <Route path="/Classes/Cleric" element={ <Cleric/> }/>
+          <Route path="/Classes/Druid" element={ <Druid/> }/>
+          <Route path="/Classes/Hunter" element={ <Hunter/> }/>
+          <Route path="/Classes/Mage" element={ <Mage/> }/>
+          <Route path="/Classes/Paladin" element={ <Paladin/> }/>
+          <Route path="/Classes/Rogue" element={ <Rogue/> }/>
+          <Route path="/Classes/Shaman" element={ <Shaman/> }/>
+          <Route path="/Classes/Warlock" element={ <Warlock/> }/>
+          <Route path="/Classes/Warrior" element={ <Warrior/> }/>
+
+          <Route path="/Tools/TreasureGenerator" element={ <TreasureGenerator/> }/>
+          <Route path="/Tools/DungeonGenerator" element={ <DungeonGenerator/> }/>
+          <Route path="/Tools/RunePuzzle" element={ <RunePuzzle/> }/>
+        </Routes>
+
+      </div>
+    )
+  }
+
+  const MemoedWindowContent = memo(WindowContent) // This doesn't seem to work though
+
   return (
     <div id="Window" className={`${appState.isSimple? '' : 'window--has-background'}`}>
 
         <Nav navState={navState} setNavState={setNavState} isSimple={isSimple} setIsSimple={setIsSimple}/>
 
         <AppStateContext.Provider value={[appState, setAppState]}>
-          <div className="content" onClick={() => {
-            closeNav()
-          }}>
-
-              {/* Here will be rendered the page: */}
-            <Routes>
-              <Route path="/" element={(
-                isURLHackedForGitHub == false? <Index/> : null  // Prevent loading a page for no reason if path is hacky
-              )}/>
-              <Route path="/Other/Rule" element={ <Rule/> }/>
-              <Route path="/Other/Rules" element={ <Rules/> }/>
-              <Route path="/Other/GMGuidelines" element={ <GMGuidelines/> }/>
-              <Route path="/Other/Abilities" element={ <Abilities/> }/>
-              <Route path="/Other/Feats" element={ <Feats/> }/>
-              <Route path="/Other/Proficiencies" element={ <Proficiencies/> }/>
-              <Route path="/Other/Armors" element={ <Armors/> }/>
-              <Route path="/Other/Weapons" element={ <Weapons/> }/>
-              <Route path="/Other/HowToPlayForNewPlayers" element={ <HowToPlayForNewPlayers/> }/>
-              <Route path="/Other/CharacterCreation" element={ <CharacterCreation/> }/>
-              <Route path="/Other/CharacterCreationCalculator" element={ <CharacterCreationCalculator/> }/>
-              <Route path="/Other/TransitionGuide" element={ <TransitionGuide/> }/>
-              <Route path="/Other/Monsters" element={ <Monsters/> }/>
-              <Route path="/Other/Monster" element={ <Monster/> }/>
-              <Route path="/Other/Prices" element={ <Prices/> }/>
-              <Route path="/Other/Obstacles" element={ <Obstacles/> }/>
-              <Route path="/Other/PetsAndAnimals" element={ <PetsAndAnimals/> }/>
-              <Route path="/Other/PetOrAnimal" element={ <PetOrAnimal/> }/>
-              <Route path="/Other/AttackModifiers" element={ <AttackModifiers/> }/>
-              <Route path="/Other/CrowdControl" element={ <CrowdControl/> }/>
-              <Route path="/Other/AreasOfEffect" element={ <AreasOfEffect/> }/>
-              <Route path="/Other/Encounters" element={ <Encounters/> }/>
-
-              <Route path="/Other/AbilitySheets" element={ <AbilitySheets/> }/>
-              <Route path="/Other/AbilitySheetsPrint" element={ <AbilitySheetsPrint/> }/>
-              
-              <Route path="/Lore/Levels" element={ <Levels/> }/>
-              <Route path="/Lore/SpellSchoolDescriptions" element={ <SpellSchoolDescriptions/> }/>
-              <Route path="/Lore/Languages" element={ <Languages/> }/>
-
-              <Route path="/Races/Bertle" element= { <Bertle/> }/>
-              <Route path="/Races/Davel" element= { <Davel/> }/>
-              <Route path="/Races/Dragonborn" element= { <Dragonborn/> }/>
-              <Route path="/Races/Dwarf" element= { <Dwarf/> }/>
-              <Route path="/Races/Elf" element= { <Elf/> }/>
-              <Route path="/Races/Gnome" element= { <Gnome/> }/>
-              <Route path="/Races/Hollow" element= { <Hollow/> }/>
-              <Route path="/Races/Human" element= { <Human/> }/>
-              <Route path="/Races/Orc" element= { <Orc/> }/>
-
-              <Route path="/Classes/Cleric" element={ <Cleric/> }/>
-              <Route path="/Classes/Druid" element={ <Druid/> }/>
-              <Route path="/Classes/Hunter" element={ <Hunter/> }/>
-              <Route path="/Classes/Mage" element={ <Mage/> }/>
-              <Route path="/Classes/Paladin" element={ <Paladin/> }/>
-              <Route path="/Classes/Rogue" element={ <Rogue/> }/>
-              <Route path="/Classes/Shaman" element={ <Shaman/> }/>
-              <Route path="/Classes/Warlock" element={ <Warlock/> }/>
-              <Route path="/Classes/Warrior" element={ <Warrior/> }/>
-
-              <Route path="/Tools/TreasureGenerator" element={ <TreasureGenerator/> }/>
-              <Route path="/Tools/DungeonGenerator" element={ <DungeonGenerator/> }/>
-              <Route path="/Tools/RunePuzzle" element={ <RunePuzzle/> }/>
-            </Routes>
-
-          </div>
+          <MemoedWindowContent/>
         </AppStateContext.Provider>
-        
-
-
-
         
         <footer className='footer'>
           <LandingPageSeparator type="8"/>

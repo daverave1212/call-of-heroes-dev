@@ -17,7 +17,14 @@
     
     --spell-notes-color: #999999;
 }
-@media (orientation: portrait) {
+@media (max-width: 1366px) {
+    :root {
+        --spell-padding: 12px;
+        --spell-padding-small: 6px;
+        --spell-icon-size: 78px;
+    }
+}
+@media (orientation: portrait), (max-width: 900px)  {
     :root {
         --spell-icon-size: 15vw;
 
@@ -162,7 +169,7 @@
     padding-right: 0px;
 }
 .spell-top__stats div {
-    font-family: TextFont;
+    font-family: var(--font-text);
     font-size: calc(var(--p-size) * 0.8);
     line-height: calc(var(--p-size) * 0.9);
     display: inline-block;
@@ -196,7 +203,8 @@
 .spell-description {
     font-size: var(--p-size);
     padding: var(--spell-padding);
-    padding-top: var(--spell-padding-small);
+    /* padding-top: var(--spell-padding-small); */
+    padding-top: calc(var(--spell-padding-small) * 1.5);
     padding-bottom: calc(var(--spell-padding) * 1.5);
 }
 .spell-upgrade {
