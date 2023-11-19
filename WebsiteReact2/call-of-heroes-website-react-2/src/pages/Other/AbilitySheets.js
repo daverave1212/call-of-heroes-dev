@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react'
 import './AbilitySheets.css'
 
 import { useState } from 'react'
-import { useSearchParams, useLocation } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 
 import * as U from '../../utils'
 

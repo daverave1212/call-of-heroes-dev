@@ -10,7 +10,7 @@ import './index.css'
 export default function() {
 
   return (
-    <div className='home'>
+    <div>
   
       <div className="hero-page">
         <div className='hero-image-container'>
@@ -19,7 +19,7 @@ export default function() {
         </div>
 
         <div className='hero-content'>
-          <img className='hero-logo' src='/LandingPage/QuestGuardLogo.png'/>
+          <img className='hero-logo-img' src='/LandingPage/QuestGuardLogo.png'/>
           <p className='home-text-style' style={{textAlign: 'center'}}>Join a new tabletop roleplaying game for the modern world, designed with fast-paced combat and an easy-to-understand system. Create your hero, explore dungeons and be the protagonist of your own story!</p>
           
           <div className='hero-buttons'>

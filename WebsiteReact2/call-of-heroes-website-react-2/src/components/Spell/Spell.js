@@ -14,7 +14,7 @@ function getIconPathByName(name) {
 }
 
 export function SpellTopStats({className, tags}) {
-    const {A, Cost, Range, Cooldown, Duration, Requirement} = tags
+    const {A, Cost, Range, Cooldown, Duration, Requirement, Hands, Stat, Special, Price} = tags
     return (
         <div className={`spell-top__stats ${className}`}>
             { A != null && (<div><img src="/Icons/UI/Hand.png" className="inline-icon--spell"/>{ A }</div>) }
@@ -24,6 +24,9 @@ export function SpellTopStats({className, tags}) {
                     { Cost }
                 </div>
             ) }
+            { Hands != null && (<div><img src="/Icons/UI/Hand.png" className="inline-icon--spell"/>{ Hands }</div>) }
+            { Stat != null && (<div><img src="/Icons/UI/Special.png" className="inline-icon--spell"/>{ Stat }</div>) }
+            { Special != null && (<div><img src="/Icons/UI/Hand.png" className="inline-icon--spell"/>{ Special }</div>) }
             { Range != null && (<div><img src="/Icons/UI/Range.png" className="inline-icon--spell"/>{ Range }</div>) }
             { Cooldown != null && (<div><img src="/Icons/UI/Cooldown.png" className="inline-icon--spell"/>{ Cooldown }</div>) }
             { Duration != null && (<div><img src="/Icons/UI/Duration.png" className="inline-icon--spell"/>{ Duration }</div>) }
@@ -33,6 +36,7 @@ export function SpellTopStats({className, tags}) {
                     <span style={{color: '#FF5A00'}}>{ Requirement }</span>
                 </div>
             ) }
+            { Price != null && (<div><img src="/Icons/UI/Gold.png" className="inline-icon--spell-downer"/>{ Price }</div>) }
         </div>
     )
 }
@@ -55,6 +59,7 @@ export default function Spell({ children, spell, style, hasIcon }) {
         Cooldown,
         Duration,
         HasMixins,
+        CustomIconPath,
         Effect,
         Notes,
         Requirement,
@@ -72,7 +77,7 @@ export default function Spell({ children, spell, style, hasIcon }) {
 
     if (Name.startsWith('~')) Name = Name.substring(1, Name.length - 1)
 
-    const iconPath = getIconPathByName(Name)
+    const iconPath = CustomIconPath == null? getIconPathByName(Name) : CustomIconPath
 
     const spellNormalOrSubClass = IsSubspell == true? 'spell--subspell' : 'spell--normal'
     const spellPassiveOrActiveClass = A == 'Passive' == true? 'spell--passive' : 'spell--active'

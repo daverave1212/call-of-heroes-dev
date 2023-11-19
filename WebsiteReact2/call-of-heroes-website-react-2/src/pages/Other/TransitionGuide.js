@@ -1,7 +1,5 @@
 import React from 'react'
 
-import './CharacterCreation.css'
-
 import abilities from '../../databases/Abilities.json'
 
 import PageH1 from '../../components/PageH1/PageH1'

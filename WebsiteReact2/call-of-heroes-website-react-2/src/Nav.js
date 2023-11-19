@@ -11,7 +11,6 @@ import Index from './pages/index'
 import Armors from './pages/Other/Armors'
 import Weapons from './pages/Other/Weapons'
 import Abilities from './pages/Other/Abilities'
-import CharacterCreation from './pages/Other/CharacterCreation'
 import CharacterCreationCalculator from './pages/Other/CharacterCreationCalculator'
 import TransitionGuide from './pages/Other/TransitionGuide'
 import Monsters from './pages/Other/Monsters'
@@ -73,7 +72,7 @@ function LiLink({to, children, isDownload}) {
   )
 }
 
-function MegaDropdown({ navState, isBurgerClicked }) {
+function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
 
   const [areExpandedState, setAreExpandedState] = useState({
     'Database': false,
@@ -183,7 +182,11 @@ function MegaDropdown({ navState, isBurgerClicked }) {
 
       </div>
 
-      <h3 className="subnav-title-portrait-only" onClick={() => onClickOnH3('Learn')}>Learn</h3>
+      <h3 className="subnav-title-portrait-only">
+        <Link style={{color: 'white'}} to="/Other/Learn">Learn To Play</Link>
+      </h3>
+
+      {/* <h3 className="subnav-title-portrait-only" onClick={() => onClickOnH3('Learn')}>Learn</h3>
       <div className={`subnav ${maybeActiveClassLS('Learn')} ${maybeActiveClassPortrait('Learn')}`}>
 
         <div className='subnav-section learn'>
@@ -192,7 +195,7 @@ function MegaDropdown({ navState, isBurgerClicked }) {
           <ul>
             <LiLink to="/Other/HowToPlayForNewPlayers">How To Play (for New Players)</LiLink>
             <LiLink to="/Other/TransitionGuide">How To Play (for D&D Players)</LiLink>
-            <LiLink to="/Other/CharacterCreation">Character Creation</LiLink>
+            <LiLink to="/Other/RulesExplained/RulesSectionPages/CharacterCreation">Character Creation</LiLink>
             <LiLink to="/Other/CharacterCreationCalculator">Character Helper</LiLink>
             <LiLink to="/Other/AbilitySheets">Ability Sheet (Online)</LiLink>
             <LiLink to="/Other/AbilitySheetsPrint">Ability Sheet (Print)</LiLink>
@@ -223,7 +226,7 @@ function MegaDropdown({ navState, isBurgerClicked }) {
             <LiLink to="/Lore/Levels">Levels</LiLink>
           </ul>
         </div>
-      </div>
+      </div> */}
 
       <h3 className="subnav-title-portrait-only" onClick={() => onClickOnH3('GM Resources')}>GM Resources</h3>
       <div className={`subnav ${maybeActiveClassLS('GM Resources')} ${maybeActiveClassPortrait('GM Resources')}`}>
@@ -288,8 +291,9 @@ export default function Nav({ navState, setNavState, isSimple, setIsSimple }) {
           <nav className="nav-landscape">
             <div className='nav-item'><a href="https://discord.gg/27aqSEDyE3" target="_blank">Play With Us!</a></div>
             <NavItem name='Database'>Database</NavItem>
-            <NavItem name='Learn'>Learn</NavItem>
-            <NavItem name='Lore'>Lore</NavItem>
+            <div className='nav-item'>
+              <Link style={{color: 'white'}} to="/Other/Learn">Learn To Play</Link>
+            </div>
             <NavItem name='GM Resources'>GM Resources</NavItem>
 
             <div className='nav-item'><input className='nav-simple-checkbox' type="checkbox" checked={isSimple} onChange={(evt) => {
@@ -299,11 +303,11 @@ export default function Nav({ navState, setNavState, isSimple, setIsSimple }) {
             }}/>Simple Mode</div>
           </nav>
 
-          <nav className="nav-portrait">
+          {/* <nav className="nav-portrait">
 
-          </nav>
+          </nav> */}
 
-          <MegaDropdown navState={navState} isBurgerClicked={isBurgerClicked}/>
+          <MegaDropdownAndPortraitNav navState={navState} isBurgerClicked={isBurgerClicked}/>
       </div>
     )
   }

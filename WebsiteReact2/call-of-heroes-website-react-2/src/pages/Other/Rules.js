@@ -23,39 +23,47 @@ const [
     gameMasterGuidelines
 ] = rulesDataLists
 
+const sectionNameToLinkMap = {
+    'A. Questguard':                '/Other/RulesExplained/RulesSectionPages/Questguard',
+    'B. Character Creation':        '/Other/RulesExplained/RulesSectionPages/CharacterCreation',
+    'C. Playing the Game':          '/Other/RulesExplained/RulesSectionPages/PlayingTheGame',
+    'D. Core Rules (In-Depth)':     '/Other/RulesExplained/RulesSectionPages/CoreRulesInDepth',
+    'E. Game Master Guidelines':    '/Other/RulesExplained/RulesSectionPages/GameMasterGuidelines'
+}
+
 export default function Rules({}) {
 
-
     function RulesSection({obj}) {
-        function RulesH1({children}) {
+
+        function RulesH1({title}) {
             return (
-                <div className='rules-category'>
-                    { children }
+                <div className='rules-toc-h1'>
+                    <Link to={sectionNameToLinkMap[title]}>{ title }</Link>
                 </div>
             )
         }
-        function RulesH2({children}) {
+        function RulesH2({title, h1Title}) {
             return (
-                <div className='rules-header'>
-                    { children }
+                <div className='rules-toc-h2'>
+                    <Link to={sectionNameToLinkMap[h1Title] + '#' + U.titleToId(title)}>{ title }</Link>
                 </div>
             )
         }
-        function RulesH3({children}) {
+        function RulesH3({title, h1Title}) {
             return (
-                <div className='rules-subtitle'>
-                    <img src='/Icons/UI/BulletPoint3.png' className='rules-subtitle-bullet'/>{ children }
+                <div className='rules-toc-h3'>
+                    <Link to={sectionNameToLinkMap[h1Title] + '#' + U.titleToId(title)}><img src='/Icons/UI/BulletPoint3.png' className='rules-toc-h3-bullet'/>{ title }</Link>
                 </div>
             )
         }
         return (
             <div>
-                <RulesH1>{obj.title}</RulesH1>
+                <RulesH1 title={obj.title}/>
                 { obj.value.map(sectionObj => (
                     <div>
-                        <RulesH2>{sectionObj.title}</RulesH2>
+                        <RulesH2 title={sectionObj.title} h1Title={obj.title}/>
                         { sectionObj.value.map(subsubsection => (
-                            <RulesH3>{subsubsection.title}</RulesH3>
+                            <RulesH3 title={subsubsection.title} h1Title={obj.title}/>
                         )) }
                     </div>
                 )) }

@@ -98,6 +98,7 @@
     min-height: calc(var(--spell-icon-size) + 2 * var(--spell-padding));
 }
 .spell-top__icon-side {
+    position: relative;
     padding: var(--spell-padding);
     padding-right: 0px;
     z-index: 120;
@@ -114,6 +115,44 @@
 .spell--subspell .spell-top__icon-side img {
     width: calc(var(--subspell-size-multiplier) * var(--spell-icon-size));
     height: calc(var(--subspell-size-multiplier) * var(--spell-icon-size));
+}
+@keyframes spell-icon-blinking {
+    0% {
+        border-color: rgb(27, 164, 255);
+        border-style: solid;
+    }
+    50% {
+        border-color: var(--orange-color);
+        border-style: solid;
+    }
+    100% {
+        border-color: rgb(27, 164, 255);
+        border-style: solid;
+    }
+  }
+.spell--with-variants .spell-top__icon-side img {
+    padding: 1px;
+    border: solid black 3px;
+    animation: spell-icon-blinking 2.25s infinite;
+}
+.spell-top__variant-counter {
+    font-family: var(--font-home);
+    opacity: 0;
+    background-color: white;
+    position: absolute;
+    width: var(--spell-icon-size);
+    height: var(--spell-icon-size);
+    
+    color: black;
+    font-size: calc(0.35 * var(--spell-icon-size));
+    text-align: center;
+    line-height: var(--spell-icon-size);
+}
+.spell-top__variant-counter:hover {
+    user-select: none;
+    opacity: 0.5;
+
+    cursor: pointer;
 }
 .spell-top__title-side {
     flex: 1;

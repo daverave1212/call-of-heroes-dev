@@ -1,0 +1,957 @@
+# Ideas:
+#   - Roguelike buffs-like effect
+
+
+Level 0:
+  Description: |
+    These are simple utility magic that don't usually have much impact on the game.
+    All of these items can be sold to a merchant for 50% of the standard price.
+  Items:
+    Pot of Boiling:
+      Price: 75
+      Effect: The inside of this pot is hot enough to boil water, while the outside is at room temperature.
+      Notes: This pot proves the inside is more important than the outside.
+    Earring of the Plains:
+      Price: 75
+      Effect: You can eat any plant, poisonous or not, without being poisoned, and it tastes good.
+      Notes: Plants start tasting umami with a pinch of salt and corriander.
+    Box of Peas:
+      Price: 125
+      Effect: Once per Adventure, when you open this box, it produces 1d100 Peas.
+    Patch of Beards:
+      Price: 60
+      Effect: Your beard grows 5 times as fast, if you can grow a beard.
+    Everice Shard:
+      Price: 75
+      Effect: This ice shard never melts, and always maintains its volume and temperature.
+    Flask of Scents:
+      Price: 75
+      Effect: Open the lid to capture a scent. The next time you open it, it will produce that smell indefinitely.
+      Notes: Capturing a scent is done at will.
+    Air Quill:
+      Price: 75
+      Effect: A quill with infinite ink that can write on air at will. The ink can stay there up to 24 hours.
+
+Level 1 Utility Items:
+  Description: |
+    These items are useful in certain scenarios and might even have a combat use. Feel free to give players any number of Utility Items. These items will lose their magical properties if they break (e.g. break into 2 pieces).
+    All of these items can be sold to a merchant for 50% of the standard price.
+  Items:
+    Endless Pitcher:
+      Price: 100
+      Effect: While opened, produces 1 liter of clean water per turn (every 6 seconds).
+    Jar of Preserving:
+      Price: 100
+      Effect: Things sealed inside the jar don't age (e.g. food, poison, insects, etc).
+    Jug of Filling:
+      HasMixins: true
+      Price: 100
+      Display Name: "{Name}"
+      Effect: Inbetween Adventures, this Jug fills with {Liquid} of average quality.
+      Variants:
+        - Name: Jug of Water
+          Liquid: Water
+        - Name: Jug of Ale
+          Liquid: Ale
+        - Name: Jug of Wine
+          Liquid: Wine
+        - Name: Jug of Vodka
+          Liquid: Vodka
+    Amulet of Hope:
+      Price: 100
+      Effect: Illuminates 3 meters around you when worn, without blinding, and, if indoors, the light points to the nearest exit from the dungeon/house/etc.
+      Notes: You can touch it at will to activate or deactivate the lights.
+    Steel Silk Rope:
+      Price: 100
+      Cooldown: Twice / Turn
+      Effect: On command (0 Actions), turns from silk to steel and back.
+    Torchstone:
+      Price: 100
+      Effect: Levitates around you (up to 3 meters away) and shines light in a 5 meter radius.
+    Everdress:
+      Price: 100
+      Effect: Set of common female clothes that, at will, instantly cleans itself or repairs tears.
+      Notes: The effect does clean acid, paint, etc.
+    Telegraphic Paper Sheet:
+      Price: 25
+      Effect: Hold this sheet of papare while thinking of a person you know. Say that person's name, and the paper will teleport to that person's pocket.
+    Bottle of Eversmoke:
+      Price: 125
+      Effect: At will, can be used to create 1 cubic meter of smoke, of any color.
+      Notes: Using items always uses a Half-Action.
+    Conch of Sand:
+      Price: 200
+      Effect: At will, can be used to create a 50x50x50 centimeter cube of sand.
+      Notes: Using items always uses a Half-Action.
+    Sack of Traps:
+      Price: 250
+      Cooldown: 3 times / Adventure
+      Effect: Use this Sack to deploy a stack of {Trap} of normal quality in a 1-meter area.
+      Display Name: "{Name}"
+      Variants:
+        - Name: Sack of Caltrops
+          Trap: Caltrops
+        - Name: Sack of Ball Bearings
+          Trap: Ball Bearings
+    Spyglass:
+      Price: 100
+      Effect: Using this Spyglass provides a +5 to Sense Checks for Sight at at distance beyond 50 meters.
+    Scabbard of Fingers:
+      Price: 100
+      Effect: You can freely swap weapons during your turn (except Shields) and halves the time it takes to don/doff armor.
+    Dwarven Salve:
+      Price: 100
+      Cooldown: 3 Uses
+      Effect: Applied to skin, makes hair grow overnight.
+    Book of Memories:
+      Price: 100
+      Cooldown: 200 Pages
+      Effect: People can willingly inscribe memories as images in this book - they are accurate to what the person remembers.
+    Strap of Returning:
+      Price: 100
+      Effect: 3 items can be attuned - they will fly back to you at the end of your turn if within 25 meters and there's an available path.
+    Ring of the Coin:
+      Price: 100
+      Effect: Coins become stored in the ring (and expelled at will). Can hold up to 5000 gold in coins.
+    Band of Sustenance:
+      Price: 100
+      Effect: The time you need to sleep is halved.
+    Casette of Voices:
+      Price: 100
+      Effect: It records sounds, up to 10 minutes. You can spend 5 minutes to reset it.
+    Purifying Stone:
+      Price: 100
+      Effect: Purifies water you put it in, removing microbes, impurities and poisons.
+
+Level 2 Consumables:
+  Description: |
+    These are standard consumables. Award players with one these every now and then. It is also recommended you provide these in limited supply at shops (e.g. if your Adventure is medium difficulty, do not provide more than 2 Potions per Adventure).
+    Remember that items always take a Half-Action to use, and a Potion consumer risks an Overdose if 2 Potions are consumed within 1 hour. Special ammo does not need a Half-Action to be loaded - a Player can simply state that they are using that ammo for an attack.
+    All of these items can be sold to a merchant for 50% of the standard price.
+  Items:
+    Potion of Healing:
+      Price: 100
+      Effect: Restores 2d4 + 2 Health when drank.
+    Potion of Mana:
+      Price: 125
+      Effect: Restores 1 Mana when drank.
+    Elemental Oil:
+      Price: 75
+      Effect: Apply to a melee weapon. Attacks with that weapon deal +1 Damage and all the Damage is converted to {Element}.
+      Display Name: "{Name}"
+      Variants:
+        - Name: Fire Oil
+          Element: Fire
+        - Name: Frost Oil
+          Element: Cold
+        - Name: Necrotic Oil
+          Element: Necrotic
+        - Name: Electric Oil
+          Element: Shock
+        - Name: Poison Coating
+          Element: Poison
+    Spectral Ammo:
+      Price: 25
+      Effect: Curves around obstacles and attacks with it do not require Line of Sight (but there must be an available path the missile can take). 
+      Pre: Feel free to reward the Players with multiple of these.
+      Display Name: "Spectral {Name}"
+      Variants:
+        - Name: Arrow
+        - Name: Bolt
+        - Name: Shot
+        - Name: Javelin
+    Healing Ammo:
+      Price: 25
+      Effect: When shot from a weapon, heals the target for 2d6 instead of dealing Damage.
+      Display Name: "Healing {Name}"
+      Variants:
+        - Name: Arrow
+        - Name: Bolt
+        - Name: Shot
+        - Name: Javelin
+    Arrow of Slaying:
+      Price: 30
+      Effect: Adds 1d6 extra Damage when shot against a {Type}. Can be used with any ranged weapon that requires ammo.
+      Display Name: "Ammo of {Type} Slaying"
+      Variants:
+        - Type: Beast
+        - Type: Dragon
+        - Type: Undead
+        - Type: Demon
+        - Type: Person
+        - Type: Giant
+    Elixir of Health:
+      Price: 100
+      Duration: Whole Adventure
+      Effect: Increases Max Health by 5.
+    Elixir of Protection:
+      Price: 100
+      Duration: Whole Adventure
+      Effect: Increases all Resist Checks by 1.
+    Elixir of Growth:
+      Price: 100
+      Effect: Increases your size by 1 tier and gives you 5 Shielding for up to 1 hour.
+    Seed of Freezing:
+      Price: 100
+      Effect: A small seed, wrapped in silk. It melts upon touching a liquid, and instantly freezes a 2x2 meter part of it.
+    Seed of Flames:
+      Price: 100
+      Effect: It explodes upon touching something flamable, dealing 3d6 Fire Damage in a 3x3 meter area.
+    Storm Vial:
+      Price: 100
+      Effect: The vial holds a small storm inside. When released, it creates a thunderstorm on a 5x5 meter area. Units inside wearing Metal take 1d4 Shock Damage at the start of their turn, and the area counts as Fog.
+    Bottle of Light Absorbtion:
+      Price: 100
+      Effect: Absorbs all light around when unbottled and creates Magical Darkness in a 5x5 area.
+    Ring of Good Omen:
+      Price: 100
+      Effect: If you fail a save, you can shatter the ring to instantly succeed it.
+
+Level 2 Utility Items:
+  Description: |
+    These are utility magic items that will help your party in non-combat endeavors. These magical items will not break puzzles or challenges, but will provide extra options to make them more approachable.
+    All of these items can be sold to a merchant for 50% of the standard price.
+    Equippable items become Soulclaimed when equipped, for the rest of the Adventure. A Soulclaimed item has its effect only for the wearer.
+  Items:
+    Folding Boat:
+      Price: 650
+      Effect: When deployed, the boat immediately and magically expands into a boat of a regular size. Tapping the boat 5 times folds the boat back into its folded form.
+    Boots of Jumping:
+      Price: 200
+      Effect: +5 on Checks for jumping.
+    Gloves of Climbing:
+      Price: 200
+      Effect: +5 on Checks for climbing.
+
+    Gloves of Skill:
+      Price: 200
+      Display Name: "Gloves of {Skill}"
+      Effect: The wearer has Proficiency in {Skill}.
+      Variants:
+        - Skill: Athletics
+        - Skill: Crafting
+        - Skill: Luck
+        - Skill: Mechanisms
+        - Skill: Using Rope
+        - Skill: Sleight of Hand
+
+    Boots of Skill:
+      Price: 200
+      Display Name: "Boots of {Skill}"
+      Effect: The wearer has Proficiency in {Skill}.
+      Variants:
+        - Skill: Acrobatics
+        - Skill: Stealth
+    
+    Cape of Skill:
+      Price: 200
+      Display Name: "Cape of {Skill}"
+      Effect: The wearer has Proficiency in {Skill}.
+      Variants:
+        - Skill: Animal Handling
+        - Skill: Biology
+        - Skill: Dungeoneering
+        - Skill: Intimidation
+        - Skill: Investigation
+        - Skill: Nature
+        - Skill: Stealth
+
+    Item of Skill:
+      Price: 200
+      Display Name: "{Item} of {Skill}"
+      Effect: The wearer has Proficiency in {Skill}.
+      Variants:
+        - Skill: Arcane
+          Item: Necklace
+        - Skill: Cooking
+          Item: Apron
+        - Skill: Sociology
+          Item: Ring
+        - Skill: History
+          Item: Ring
+        - Skill: Linguistics
+          Item: Ring
+        - Skill: Memory
+          Item: Ring
+        - Skill: Occultism
+          Item: Ring
+        - Skill: Deception
+          Item: Mask
+        - Skill: General Knowledge
+          Item: Tiara
+        - Skill: Hearing
+          Item: Earring
+        - Skill: Monstrology
+          Item: Pendant
+        - Skill: Religion
+          Item: Booklet
+        - Skill: Sight
+          Item: Goggles
+        
+    Gloves of Extra Skill:
+      Price: 200
+      Display Name: "Gloves of Extra {Skill}"
+      Effect: The wearer has +2 in {Skill}.
+      Variants:
+        - Skill: Athletics
+        - Skill: Crafting
+        - Skill: Luck
+        - Skill: Mechanisms
+        - Skill: Using Rope
+        - Skill: Sleight of Hand
+
+    Boots of Extra Skill:
+      Price: 200
+      Display Name: "Boots of Extra {Skill}"
+      Effect: The wearer has +2 in {Skill}.
+      Variants:
+        - Skill: Acrobatics
+        - Skill: Stealth
+    
+    Cape of Extra Skill:
+      Price: 200
+      Display Name: "Cape of Extra {Skill}"
+      Effect: The wearer has +2 in {Skill}.
+      Variants:
+        - Skill: Animal Handling
+        - Skill: Biology
+        - Skill: Dungeoneering
+        - Skill: Intimidation
+        - Skill: Investigation
+        - Skill: Nature
+        - Skill: Stealth
+
+    Item of Extra Skill:
+      Price: 200
+      Display Name: "{Item} of Extra {Skill}"
+      Effect: The wearer has +2 in {Skill}.
+      Variants:
+        - Skill: Arcane
+          Item: Necklace
+        - Skill: Cooking
+          Item: Apron
+        - Skill: Sociology
+          Item: Ring
+        - Skill: History
+          Item: Ring
+        - Skill: Linguistics
+          Item: Ring
+        - Skill: Memory
+          Item: Ring
+        - Skill: Occultism
+          Item: Ring
+        - Skill: Deception
+          Item: Mask
+        - Skill: General Knowledge
+          Item: Tiara
+        - Skill: Hearing
+          Item: Earring
+        - Skill: Monstrology
+          Item: Pendant
+        - Skill: Religion
+          Item: Booklet
+        - Skill: Sight
+          Item: Goggles
+        - Skill: Lockpicking
+          Item: Key
+
+    Nightvision Goggles:
+      Price: 200
+      Effect: Wearer can see up to 5 meters in Darkness without having Cover.
+
+    Sending Stones:
+      Price: 250
+      Effect: A pair of magical stones. Someone can talk into one of the stones, and the other stone will emmit the message in real time.
+
+    Bag of Useful Items:
+      Price: 200
+      Cooldown: 2 uses / Adventure
+      Effect: Think of an item you need from the Adventurer Gear of General Goods lists. When putting your had in the bag, make a Luck Check. If you roll 6 or more, you pull out the item you needed. Otherwise, you pull out a random, useless item.
+
+    Boots of Water Walking:
+      Price: 150
+      Effect: The wearer can walk on water.
+
+    Mask of Water Breathing:
+      Price: 250
+      Effect: The wearer can breathe underwater.
+
+    Cloak of Slow Falling:
+      Price: 150
+      Effect: The wearer takes no falling Damage, and instead falls slowly.
+
+    Cape of Fins:
+      Price: 150
+      Effect: The wearer has a swimming Speed of 6 meters.
+
+
+
+
+
+
+    # Normal value
+    Gloves of Minor Spell:
+      Price: 100
+      Cooldown: Once / Adventure
+      Effect: Using a Half-Action, cast {Spell} for free.
+      Display Name: Gloves of {Spell}
+      Variants:
+        - Spell: Acid Burst
+        - Spell: Magic Tricks
+        - Spell: Cure Affliction
+        - Spell: Poison Burst
+        - Spell: Mage Hand
+
+    Rune of Minor Spell:
+      Price: 100
+      Cooldown: Once / Adventure
+      Effect: Using a Half-Action, cast {Spell} for free.
+      Display Name: Rune of {Spell}
+      Variants:
+        - Spell: Dispel Magic
+        - Spell: Resistance
+        - Spell: Purify
+        - Spell: Wild Heart
+        - Spell: Wind Chaser
+        - Spell: Light
+        - Spell: Longblade
+        - Spell: Eldritch Steed
+        - Spell: Wyrd Renewal
+
+    Scarf of Minor Spell:
+      Price: 100
+      Cooldown: Once / Adventure
+      Effect: Using a Half-Action, cast {Spell} for free.
+      Display Name: Scarf of {Spell}
+      Variants:
+        - Spell: Burning Breath
+        - Spell: Detect P.D.
+        - Spell: Fake Sound
+        - Spell: Guidance (R)
+        - Spell: Restoration
+
+    
+
+
+    # Full-Action or Half-Action + 1 Mana
+    Gloves of Spell:
+      Price: 250
+      Cooldown: Once / Adventure
+      Effect: Using a Half-Action, cast {Spell} for free.
+      Display Name: Gloves of {Spell}
+      Variants:
+        - Spell: Frostbite
+        - Spell: Flame Bolt
+        - Spell: Venin Shot (+3)
+        - Spell: Paralyzing Sting
+        - Spell: Chaining Grasp
+        - Spell: Hollow Touch
+        - Spell: Expelling Bolt
+        - Spell: Eldritch Blast
+        - Spell: Hunter Mark
+    
+    Rune of Spell:
+      Price: 250
+      Cooldown: Once / Adventure
+      Effect: Using a Half-Action, cast {Spell} for free.
+      Display Name: Rune of {Spell}
+      Variants:
+        - Spell: Land Breach
+        - Spell: Quicksand
+        - Spell: Heat Metal
+        - Spell: Fire Enchantment
+        - Spell: Focus Fling
+        - Spell: Healing Surge
+        - Spell: Invigorate
+        - Spell: Fog Cloud
+        - Spell: Animate Dead
+
+    Ring of Spell:
+      Price: 250
+      Cooldown: Once / Adventure
+      Effect: Using a Half-Action, cast {Spell} for free.
+      Display Name: Ring of {Spell}
+      Variants:
+        - Spell: Fire Enchantment
+        - Spell: Magic Missiles (4)
+        - Spell: Flash
+        - Spell: Fruit o.t.F.
+        - Spell: Cloud of Rot
+        - Spell: Web
+        - Spell: Blessing (Cl)
+
+    Cape of Spell:
+      Price: 250
+      Cooldown: Once / Adventure
+      Effect: Using a Half-Action, cast {Spell} for free.
+      Display Name: Cape of {Spell}
+      Variants:
+        - Spell: Frost Nova
+        - Spell: Thorn Quills
+        - Spell: Control Wind
+        - Spell: Earth Shield
+        - Spell: Locust Swarm
+        - Spell: Fairy Fire
+        - Spell: Blur
+        - Spell: Shadow Clone
+        - Spell: Grow or Shrink
+        - Spell: Sp.w. Animals
+        - Spell: Sp.w. Plants
+        - Spell: Radiance
+        - Spell: Saving Throw
+        - Spell: Arcane Comet (Ma)
+        - Spell: Star Burst (Ma)
+
+    Hat of Spell:
+      Price: 250
+      Cooldown: Once / Adventure
+      Effect: Using a Half-Action, cast {Spell} for free.
+      Display Name: Hat of {Spell}
+      Variants:
+        - Spell: Sp.w. Animals
+        - Spell: Sp.w. Plants
+        - Spell: Mind Blast
+        - Spell: Tumble (Hu)
+        - Spell: Sap (Ma)
+
+
+
+
+    # Full-Action + 1 Mana
+    Gloves of Greater Spell:
+      Price: 400
+      Cooldown: Once / Adventure
+      Effect: Using a Half-Action, cast {Spell} for free.
+      Display Name: Gloves of {Spell}
+      Variants:
+        - Spell: Flame Strike
+        - Spell: Scorching Ray
+        - Spell: Cutting Winds
+        - Spell: Deathfire Bolt
+        - Spell: Flow Tap (Wl)
+        - Spell: Ruining Throw (Wr)
+
+    Rune of Greater Spell:
+      Price: 400
+      Cooldown: Once / Adventure
+      Effect: Using a Half-Action, cast {Spell} for free.
+      Display Name: Rune of {Spell}
+      Variants:
+        - Spell: Frost Rune
+        - Spell: North Star
+        - Spell: Arcane Spear
+        - Spell: Spider Climb
+        - Spell: Distort Vision
+        - Spell: Dancing Weapon
+        - Spell: Restful Soothing
+        - Spell: Cure Wounds
+        - Spell: Rise
+    
+    Boots of Greater Spell:
+      Price: 400
+      Cooldown: Once / Adventure
+      Effect: Using a Half-Action, cast {Spell} for free.
+      Display Name: Boots of {Spell}
+      Variants:
+        - Spell: Quaking Wave
+        - Spell: Meld
+        - Spell: Blood Boil (Wr)
+
+    Cape of Greater Spell:
+      Price: 400
+      Cooldown: Once / Adventure
+      Effect: Using a Half-Action, cast {Spell} for free.
+      Display Name: Cape of {Spell}
+      Variants:
+        - Spell: Arrow Barrage
+        - Spell: Charming Word
+        - Spell: Moonsun Fire
+        - Spell: Somatic Pulse (Wl)
+
+
+
+
+    # Full-Action + X Mana
+    Gloves of Major Spell:
+      Price: 650
+      Cooldown: Once / Adventure
+      Effect: Using a Half-Action, cast {Spell} for free.
+      Display Name: Gloves of {Spell}
+      Variants:
+        - Spell: Ice Spike
+        - Spell: Polymorph
+        - Spell: Holy Apex (Cl)
+        - Spell: Dazzling Miasma (Dr)
+        - Spell: Soul Drain (Wl)
+        - Spell: Hurl Over (Wr)
+
+    Rune of Major Spell:
+      Price: 650
+      Cooldown: Once / Adventure
+      Effect: Using a Half-Action, cast {Spell} for free.
+      Display Name: Rune of {Spell}
+      Variants:
+        - Spell: Ice Spike
+        - Spell: Invisibility
+        - Spell: Levitate
+        - Spell: Lag
+        - Spell: Reverse Gravity
+        - Spell: Banishment Slip
+        - Spell: Primal Surge (Dr)
+        - Spell: Regrowth (Dr)
+        - Spell: Star Fall (Dr)
+        - Spell: Broken Hearts (Pa)
+
+    Cape of Element:
+      Price: 225
+      Effect: You take 50% less {Element} Damage.
+      Display Name: "Cape of {Element} Resistance"
+      Variants:
+        - Element: Cold
+        - Element: Fire
+        - Element: Necrotic
+        - Element: Poison
+        - Element: Psychic
+        - Element: Shock
+
+    Leaf of Mountain Speak:
+      Price: 200
+      Cooldown: Once / Adventure
+      Effect: Ask a piece of rock or mountain a question. It can answer with sounds it "heard", or project an image of what it "saw". The older the sound or image, the blurrier or noisier the answer is.
+
+    Mask of Eyes:
+      Price: 150
+      Effect: No slots for eyes, but you can see from above yourself, as if you looked at the battle map.
+
+    Immovable Needle:
+      Price: 250
+      Effect: A needle that becomes immovable when its keyword is uttered. It becomes unmoving in its place, even levitating, with 1 ton of force.
+
+    Ring of Strange Escape:
+      Price: 100
+      Effect: Roll 1d8 and 1d10. You get teleported depending on your rolls. The 1d8 represents a direction (North, North-East, East, South-East, etc). The 1d10 represents the distance in meters. One use per day.
+    Omnirod:
+      Price: 100
+      Effect: Transforms at will into a rope, sack, crowbar, bucket or similar useful items.
+    
+    Staff of Adaptation:
+      Price: 150
+      Effect: At will, you can increase or decrease the weight of the staff by 50kg, shrink it or increase it in size from 20% to 500% in any dimension (lengthen, increase girth, flatten, etc) or make it levitate in place as if pushed by 100kg of force from all directions.
+    
+    Shirt of Many Aspects:
+      Price: 150
+      Effect: Can change what your clothing looks like at will.
+
+    Branch of Woodshaping:
+      Price: 150
+      Cooldown: Once / Adventure
+      Effect: Touch a Large or smaller piece of wood with this branch to roughly alter its shape to your willing. Once per Adventure.
+    
+    Orb of Oversight:
+      Price: 150
+      Cooldown: Once / Adventure
+      Effect: On use, it reveals the area within 10 meters (e.g. through darkness, or behind medium obstacles). It does not reveal through walls or doors, though.
+    
+    Headband of Mind Speak:
+      Price: 180
+      Effect: Other Units can attune to the headband for 1 hour. They can send thoughts directly to your mind.
+    
+    Superglue:
+      Price: 125
+      Effect: A small-sized vial of super glue.
+
+Level 3 Equipment:
+  Description: These are simple utility magic that don't usually have much impact on the game.
+  Items:
+    Bracers of Weapon Training:
+      Price: 100
+      Effect: None
+    Ring of Health:
+      Price: 100
+      Effect: +3 Health
+    Ring of Recovery:
+      Price: 100
+      Effect: +5 Reserve Health
+    Boots of Initiative:
+      Price: 100
+      Effect: +3
+    Boots of Tirelessness:
+      Price: 100
+      Effect: +1 Speed. Wearing these boots, you are immune to hard terrain and your legs don't tire from walking.
+    Boots of Striding:
+      Price: 100
+      Effect: Your minimum speed is 5 and unaffected by armor speed reduction
+    Cape of Balance:
+      Price: 100
+      Effect: You get a +2 on Dexterity checks for balancing and you are immune to Fumbling.
+    Shackles of Freedom:
+      Price: 100
+      Effect: You are immune to being Rooted and Slowed.
+    Amulet of Grounding:
+      Price: 100
+      Effect: +1 Might Checks. You are immune to being Pushed.
+    Javeling of Accuracy:
+      Price: 100
+      Effect: A normal Pike, but once per Adventure, it can be thrown without penalties and without needing Training, and it ignores Cover.
+    Holy Weapon:
+      Price: 100
+      Effect: +1(+2) Holy Damage vs Unholy
+    Pulse Weapon:
+      Price: 100
+      Effect: +1(+2) Damage vs non-living targets
+    Dryad's Weapon:
+      Price: 100
+      Effect: +1(+2) Damage if outdoors
+    Necklace of Resistance to Fire/Cold/Shock/Force/Poison/Necrotic:
+      Price: 100
+      Effect: None
+    Bracer of Archery:
+      Price: 100
+      Effect: Minimum +3 on ranged weapon attacks
+    Item of Spell:
+      Price: 100
+      Effect: Casts a 1 Action worth of Spell (for a Half-Action), once per day (NOTE - Make it thematic; e.g. fan of wind)
+    Shield of Arrows:
+      Price: 100
+      Effect: +1 Defense vs ranged physical attacks
+    Pauldrons of Blades:
+      Price: 100
+      Effect: +1 Defense vs melee physical attacks
+    Charm of Alter Word:
+      Price: 100
+      Effect: Once per day, when someone casts a spell, you can change one letter in the spell's name to give it a different meaning. The effect is determined by the DM, but the DM must take the intention into account.
+    Ring of the Phoenix:
+      Price: 100
+      Effect: 50% Fire Resistance and when you get to 0 Health, you are instantly revived to 1 Health without Exhaustion and the ring breaks.
+    Boots of Tremor Sense:
+      Price: 100
+      Effect: Immune to Hard Terrain and being Blinded
+    Ring of Withering:
+      Price: 100
+      Effect: While wearing this Ring, your body is withering and you have -1 Might, but you are immune to being Feared, Charmed and put to Sleep.
+    Charm of Shapeshift:
+      Price: 100
+      Effect: Once per Adventure, you can Shapeshift into any of the normal available Animals (apply normal Druid Shapeshift rules).
+    Blessed Ring of Protection:
+      Price: 100
+      Effect: After every Worthy Combat, you regain 1d4 Health. The wearer must be religious.
+    Ring of the Eldritch Thing:
+      Price: 100
+      Effect: Summon a wyrd tentacle at a place within 10 meters. It takes its turn after you and can make one attack for 1d8 Damage, 2 meters range. It tries to attack your party, but will attack anything as long as it has range. It has 10 Health and 0 Defense. One use per Adventure.
+    Medallion of Water:
+      Price: 100
+      Effect: As a Reaction, you can instantly transform into a puddle of water and avoid any Damage that would make sense to avoid (e.g. arrows or slashes might be avoided, but not rocks falling over you or being hit with Area Abilities). Lasts up to 1 minute, but you can end the effect early using a Half-Action. One use per Adventure.
+    Zephyr Scarf:
+      Price: 100
+      Effect: 50% Force Resistance. Also, with 0 Actions, you can make your body weigh 1kg for up to 1 minute.
+    Rune of Critical Strike/Spellstrike:
+      Price: 100
+      Effect: Use for 0 Actions once per Adventure. Your next weapon attack applies a Critical Strike if it has any, regardless of what you roll.
+
+
+Level 4 Utility Items:
+  Description: These are simple utility magic that don't usually have much impact on the game.
+  Items:
+    Fortress Seed:
+      Price: 100
+      Effect: starts building a fortress over 5 minutes. One use.
+    Ring of the Spies:
+      Price: 100
+      Effect: put it on a wall or door and it acts see-through
+    Immovable Rod:
+      Price: 100
+      Effect: None
+    Bag of Holding:
+      Price: 100
+      Effect: None
+    Hourglass of Slowing:
+      Price: 100
+      Effect: On use, all enemies you can see are Slowed.
+    Mask of Reflection:
+      Price: 100
+      Effect: People looking at it see themselves
+    Bracer of the Phantom:
+      Price: 100
+      Effect: Once per Adventure, your arm becomes spectral and can pass through anything. You can choose to make parts of your arm physical such as to manipulate ites on the other side of a wall.
+    Skull of Personalities:
+      Price: 100
+      Effect: Once per Adventure, you can put the skull eye-to-eye to another person (dead or alive). The skull can then talk and act like that person, with its personality, but has no memories of that dead person.
+    Demon Box:
+      Price: 100
+      Effect: An unknown box that has a demon inside. Conversing with it will make the wearer lose something and gain a random Basic Ability. The demon haunts the players as long as they carry the box.
+
+
+Level 5 Consumables:
+  Description: These are simple utility magic that don't usually have much impact on the game.
+  Items:
+    Ball of Catching:
+      Price: 300
+      Effect: The
+    Potion of Invulnerability:
+      Price: 100
+      Effect: None
+    Tome of Fortitude/Dexterity/Intelligence/Sense (up to +X):
+      Price: 100
+      Effect: None
+    Tome of Free Feat:
+      Price: 100
+      Effect: None
+    Potion of Greater Healing:
+      Price: 100
+      Effect: 2d6 + 4)
+    Potion of Greater Mana:
+      Price: 100
+      Effect: 2 Mana)
+    Ammo of Explosions(3m)/Chain Lightning(3t):
+      Effect: 1 (1d12 against Defense)
+    Ammo of Fearing/Stunning/Crippling/Charming/Elemental Weakness (all elements):
+      Price: 100
+      Effect: None
+    Chain Lightning Arrow/Bolt/Shot/Javelin:
+      Effect: x3 (Chains to units 1 meter for 1d12 against Defense)
+
+
+Level 5 Equipment:
+  Description: These are simple utility magic that don't usually have much impact on the game.
+  Items:
+    Boots of Speed:
+      Price: 100
+      Effect: +2 Movement Speed
+    Pendant of Health:
+      Price: 100
+      Effect: +6 Health
+    Pendant of Health:
+      Price: 100
+      Effect: +6 Health
+    Boots of Greater Initiative:
+      Price: 100
+      Effect: +6
+    Ring of Fortitude/Dexterity/Intelligence/Sense (up to +X):
+      Price: 100
+      Effect: None
+    Weapon +1(+2):
+      Price: 100
+      Effect: None
+    Armor +1(+2):
+      Price: 100
+      Effect: None
+    Wand +1(+2):
+      Price: 100
+      Effect: None
+    Shield Without Downsides:
+      Price: 100
+      Effect: None
+    Amulet of Saves:
+      Price: 100
+      Effect: +1 to all Resist Checks
+    Ring of Spell:
+      Price: 100
+      Effect: Casts a 1.5 Actions worth of Spell (for a Half-Action), once per day
+    Cloak of Vanishing:
+      Price: 100
+      Effect: When someone declares an attack on you, you can use your Reaction to Flash 6 meters away (once per day)
+    Feather of Reflex:
+      Price: 100
+      Effect: You always dodge (take 0 Damage) the first attack from a Unit at the start of each Adventure (requires attuning)
+    Belt of Stoicism:
+      Price: 100
+      Effect: You always succeed the first Resist Check from a Unit at the start of each Adventure.
+    Shield of Reflection:
+      Price: 100
+      Effect: Instead of taking Damage from an attack after the roll (before the Defense), reflect it back to the attacker.
+    Shield of Snakes:
+      Price: 100
+      Effect: +1 Defense vs Ranged; if you take 3 or less Damage from a melee attack, deals 1d6 Poison Damage back to the attacker.
+    Ring of Spell Storage:
+      Effect: None
+
+
+Level 6 Consumables:
+  Description: These are simple utility magic that don't usually have much impact on the game.
+  Items:
+    Splash Potion of ...:
+      Effect: None
+
+
+Level 7 Utility Items:
+  Description: These are simple utility magic that don't usually have much impact on the game.
+  Items:
+    Flying Carpet:
+      Price: 100
+      Effect: None
+    Flying Broom:
+      Effect: None
+
+Level 7 Equipment:
+  Description: These are simple utility magic that don't usually have much impact on the game.
+  Items:
+    Headband of Stat:
+      Price: 100
+      Effect: While wearing, Might/Dexterity/etc is 4.
+  
+    Hand Axe of the North:
+      Price: 100
+      Effect: +1d4 Cold; On Critical Strike, target must pass a Might Check or be Rooted. Works when thrown. On your turn, you can spend half of your Movement to have the Axe dash safely to your hand if within 10 meters.
+    Dragonhand:
+      Price: 100
+      Effect: +1d4 Fire; On Critical Strike, deal 1d4 more Fire Damage.
+    Rapier of Shadows:
+      Price: 100
+      Effect: +1d4 Necrotic; If you roll maximum on the die against a Worthy Enemy, you become invisible for 1 turn
+    Dancer Blade:
+      Price: 100
+      Effect: +1d4; once per day, you can choose to dodge an attack (when it is declared) and instantly counterattack (takes a Reaction)
+    Dagger of the Ink:
+      Price: 100
+      Effect: +1d4; becomes a tattoo or a weapon at will; has 2 meters range
+    Chainblade of Chaos:
+      Price: 100
+      Effect: +1d4; 2 meters range; the extra 1d4 is always direct Damage AoE around you (2m)
+    Cleaver of Berserking:
+      Price: 100
+      Effect: +1d4; every consecutive attack with this in a turn deals +1d4 more Damage than the previous
+    Sickle of Blood:
+      Price: 100
+      Effect: +1d4; Once per Adventure, for 0 Actions, make your next attack have 3 meters range, deal 1d4 extra Damage and you heal for all the weapon Damage dealt (after Defense)
+
+    Pike of Ages:
+      Price: 100
+      Effect: +1d8; On command, the pike rapidly expands to up to 10 meters. Your attacks with it now have that range. Lasts for 2 turns. 1 use per day
+    Scythe of Reaping:
+      Price: 100
+      Effect: +2d4; When killing a Worthy Enemy with it, store 1d4 (up to 10d4). When you attack, you can choose to release any number of the stored
+    Greatsword of the Moon:
+      Price: 100
+      Effect: +2; Once per Adventure, you can activate it for 0 Actions and make its every attack also cast a basic version of Magic Missiles on any other Unit within 6 meters of the main target. Lasts for 10 minutes.
+
+    Musket of Whispers:
+      Price: 100
+      Effect: +2d4 Force; makes no sound; you have Hide and always start combat Hidden, regardless of Cover
+    Technical Ballista:
+      Price: 100
+      Effect: +2d4; Target is pushed back 1 meter for each 4 rolled. If it collides with something, it takes 1d4 extra Damage
+
+    The Quickfire:
+      Price: 100
+      Effect: +1d4; the Crossbow shoots magical arrows and does not need to be reloaded
+
+    Adamantite Armor:
+      Price: 100
+      Effect: Defense equal to your Might. Your attacks beyond 3 meters range have -2 Penalty.
+
+    Ring of Sanity:
+      Effect: Naein
+
+
+Situational Items:
+  Description: These are simple utility magic that don't usually have much impact on the game.
+  Items:
+    Ring of Holding (Level 2 Utility):
+      Price: 100
+      Effect: Doubles carry capacity
+    Rod of Magic Hiding (Level 2 Utility):
+      Price: 100
+      Effect: Conceals magic
+    Ring of Petrification (Level 2 Utility):
+      Price: 200
+      Effect: Putting this ring on will instantly turn the person to stone if it has less than 3 Intelligence. Removing the ring reverts the effect.

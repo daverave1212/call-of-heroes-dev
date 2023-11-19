@@ -14,6 +14,10 @@
       Title & Text Font: StrongSword
 */
 
+x {
+  x: #ffffff;
+}
+
 
 :root {
   --hero-page-height: calc(100vh - var(--nav-height));
@@ -24,7 +28,8 @@
   --home-text-size: 27px;
   /* --home-text-size: max(1.5vw, 22px); */
 
-  --hero-text-color: rgb(65, 41, 74);
+  --hero-logo-color: rgb(39, 26, 48);
+  --hero-text-color: rgb(62, 35, 71);
   --hero-bg-color: rgb(243, 243, 243);
 
   --hero-gap: 4vh;
@@ -90,14 +95,13 @@
 
   overflow: hidden;
   z-index: var(--z-background);
-
-  /* background-color: rgb(16, 17, 21);  /* Fill right side of the screen on wide monitors */
+}
+.hero-image-container.reversed {
+  margin-left: calc((1920px - 100vw) * -0.35);
 }
 .hero-image-container img {
   display: block;
   height: 120%;
-  
-  /* margin-top: var(--nav-height); */
 }
 
 
@@ -117,31 +121,40 @@
   
   z-index: var(--z-content);
 }
-.hero-content .hero-logo {
+.hero-content.reversed {
+  left: var(--hero-img-margin-left);;
+}
+.hero-content .hero-logo-img {
   display: block;
   margin: 0px;
   
   width: calc(0.9 * var(--hero-content-width));
   margin-left: calc(0.05 * var(--hero-content-width));
 }
-.hero-content h1 {
+.hero-logo-text {
   margin: 0px;
 
-  font-family: TitleFont;
-  color: var(--hero-text-color);
-  letter-spacing: calc(var(--hero-h1-size) * 0.04);
+  font-family: LogoFont;
+  /* color: var(--hero-logo-color); */
+  /* color: black; */
   font-size: var(--hero-h1-size);
+
+  text-align: center;
+
+  background: -webkit-linear-gradient(45deg, #1c1a1f, #5515cc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-
-
-/* ---------------- Landing Page ---------------- */
 
 .home-text-style {
   margin: 0px;
   font-family: HomeFont;
-  color: var(--hero-text-color);
+  color: black;
   font-size: var(--home-text-size);
 }
+
+
+/* Buttons */
 .hero-buttons {
   --my-width: var(--hero-content-width);
 

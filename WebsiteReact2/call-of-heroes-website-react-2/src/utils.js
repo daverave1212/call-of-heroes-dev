@@ -15,7 +15,16 @@ function getErrorSpellObject(message) {
         'Effect': `An error has occured with a spell: ${message}`
     }
 }
-// Retrieves all keys as .Name in an array of all objects
+/*  obj = {
+        Push: {
+            Effect: ...
+        },
+        ...
+    }
+    returns = [
+        { Name: "Push", "Effect": ...},
+    ]
+*/
 export function spellsFromObject(obj) {
     if (obj == null) return getErrorSpellObject('Null obj given to spellsFromObject')
 
@@ -99,7 +108,7 @@ export function getMonsterStatsAsObject(statsString) {
     return monsterStats
 }
 export function titleToId(title) {
-    return title.toLowerCase().split(' ').join('-')
+    return title.toLowerCase().split(' ').join('-').split('.').join('_')
 }
 // A hack for GitHub pages; links in browser will look like ...github.io/?/miau/miau (returns "/miau/miau")
 export function getLocationHackyPath(location) {
@@ -164,6 +173,17 @@ export function areArraysEqual(a1, a2) {
     return true
 }
 
+export function mapObject(obj, func) {
+    const keys = Object.keys(obj)
+    let newObj = {}
+    for (const oldKey of keys) {
+        const oldValue = obj[oldKey]
+        const { key, value } = func({key: oldKey, value: oldValue})
+        newObj = {...newObj, [key]: value }
+    }
+    return newObj
+}
+
 
 
 
@@ -185,7 +205,6 @@ export function enspanDamageCalculations(text) {
     let state = 'none'
     let currentPhraseWords = []
     const phrases = []
-    console.log({words})
     for (let i = 0; i < words.length; i++) {
         const word = words[i]
         const nextWord = (i + 1 <= words.length - 1) ? words[i+1] : null
@@ -261,7 +280,7 @@ export function parseTextWithSymbols(text, customSymbols) {
         'Gold': () => (<Icon name="Gold"/>)
     }
     if (customSymbols != null) {
-        symbolToInsertion = customSymbols
+        symbolToInsertion = {...symbolToInsertion, ...customSymbols}
     }
     const symbolToMarkup = {
         '^': text => (<b>{text}</b>),
@@ -404,8 +423,20 @@ export function isStringNumeric(str) {
     return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
            !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
 }
-export function getPageHashFromLocation(location) {       // Use 'useLocation' in a component to get location (from 'react-router-dom')
+export function getPageHashFromLocation(location) {       // Use 'const location = useLocation()' in a component to get location (from 'react-router-dom')
     return decodeURIComponent(location.hash).substring(1) // Remove the "#" at the beginning
+}
+export function scrollToId(id, offset) {
+    offset = offset == null? 0 : offset
+    const elemWithId = document.getElementById(id)
+    if (elemWithId != null) {
+        const elemPosition = elemWithId.getBoundingClientRect().top
+        const scrollPosition = elemPosition + window.scrollY - offset
+        window.scrollTo({
+            top: scrollPosition,
+            behavior: 'smooth'
+        })
+    }
 }
 export function getBasePathBeforeHash(linkWithHash) {
     const hashIndex = linkWithHash.indexOf('#')

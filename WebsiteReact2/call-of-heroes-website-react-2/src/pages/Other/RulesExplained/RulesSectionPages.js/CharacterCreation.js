@@ -1,19 +1,16 @@
-import React from 'react'
+import { Link } from "react-router-dom";
+import RulesPageDefault from "../../../../components/Rules/RulesPageDefault";
+import SmallStat from "../../../../components/SmallStat/SmallStat";
+import PageH2 from "../../../../components/PageH2/PageH2";
+import PageH3 from "../../../../components/PageH3/PageH3";
+import { parseTextWithSymbols } from "../../../../utils";
+import Page from "../../../../containers/Page/Page";
 
-import './CharacterCreation.css'
+import cc from '../../../../databases/Rules/CharacterCreation/CharacterCreationQuick.json'
 
-import abilities from '../../databases/Abilities.json'
 
-import PageH1 from '../../components/PageH1/PageH1'
-import ManySpells from '../../components/Spell/ManySpells'
 
-import cc from '../../databases/Rules/CharacterCreation/CharacterCreationQuick.json'
-import PageH3 from '../../components/PageH3/PageH3'
-import PageH2 from '../../components/PageH2/PageH2'
-import SmallStat from '../../components/SmallStat/SmallStat'
-import Page from '../../containers/Page/Page'
-import { parseTextWithSymbols } from '../../utils'
-import { Link } from 'react-router-dom'
+
 
 const linkStyle = { color: 'blue', textDecoration: 'underline'}
 
@@ -41,6 +38,8 @@ export default function CharacterCreation({ isSecondaryPage }) {
         console.log(`MidSection with ${title}`)
         if (exceptionSubtitles == null) exceptionSubtitles = []
         if (subtitlesThatAreSmallStats == null) subtitlesThatAreSmallStats = []
+        console.log({cc})
+        console.log({title})
         const subtitles = Object.keys(cc[title]).filter(key => exceptionSubtitles.includes(key) == false)
         return (
             <div style={{marginTop: 'var(--page-padding)', whiteSpace: 'pre-wrap'}} className='with-margined-children'>

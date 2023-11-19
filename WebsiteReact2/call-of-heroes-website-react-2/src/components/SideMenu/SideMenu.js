@@ -81,11 +81,10 @@ export function SideMenuFromRace({theRace}) {
     return SideMenu({sections: sections})
 }
 
-export function SideMenuFromRuleSection({ruleSection}) {
-    const subsections = ruleSection.subsections
-    const sections = []
-    for (const subsection of subsections) {
-        sections[subsection.title] = subsection.titles
+export function SideMenuFromRuleSection({rulesSection}) {
+    const sections = {}
+    for (const subsectionName of Object.keys(rulesSection)) {
+        sections[subsectionName] = Object.keys(rulesSection[subsectionName])
     }
     return SideMenu({sections: sections})
 }

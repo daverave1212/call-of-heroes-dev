@@ -18,7 +18,6 @@ import Index from './pages/index'
 import Armors from './pages/Other/Armors'
 import Weapons from './pages/Other/Weapons'
 import Abilities from './pages/Other/Abilities'
-import CharacterCreation from './pages/Other/CharacterCreation'
 import CharacterCreationCalculator from './pages/Other/CharacterCreationCalculator'
 import TransitionGuide from './pages/Other/TransitionGuide'
 import Monsters from './pages/Other/Monsters'
@@ -79,7 +78,14 @@ import Encounters from './pages/Other/Encounters';
 import AbilitySheets from './pages/Other/AbilitySheets';
 import GMGuidelines from './pages/Other/GMGuidelines';
 import AbilitySheetsPrint from './pages/Other/AbilitySheetsPrint';
-import QuestguardForBeginners from './pages/Other/RulesExplained/QuestguardForBeginners';
+import Learn from './pages/Other/RulesExplained/Learn';
+import CharacterCreation from './pages/Other/RulesExplained/RulesSectionPages.js/CharacterCreation';
+import Questguard from './pages/Other/RulesExplained/RulesSectionPages.js/Questguard';
+import PlayingTheGame from './pages/Other/RulesExplained/RulesSectionPages.js/PlayingTheGame';
+import CoreRulesInDepth from './pages/Other/RulesExplained/RulesSectionPages.js/CoreRulesInDepth';
+import GameMasterGuidelines from './pages/Other/RulesExplained/RulesSectionPages.js/GameMasterGuidelines';
+import CustomAbility from './pages/Other/CustomAbility';
+import MagicItems from './pages/Other/MagicItems';
 
 function App() {
 
@@ -123,20 +129,22 @@ function App() {
           <Route path="/" element={(
             isURLHackedForGitHub == false? <Index/> : null  // Prevent loading a page for no reason if path is hacky
           )}/>
-          <Route path="/Other/Rule" element={ <Rule/> }/>
-          <Route path="/Other/Rules" element={ <Rules/> }/>
           <Route path="/Other/GMGuidelines" element={ <GMGuidelines/> }/>
+          <Route path="/Other/Encounters" element={ <Encounters/> }/>
+          <Route path="/Other/Monsters" element={ <Monsters/> }/>
+          <Route path="/Other/Monster" element={ <Monster/> }/>
+          <Route path="/Other/CustomAbilityCreator" element={ <CustomAbility/> }/>
+          <Route path="/Other/MagicItems" element={ <MagicItems/> }/>
+
           <Route path="/Other/Abilities" element={ <Abilities/> }/>
           <Route path="/Other/Feats" element={ <Feats/> }/>
           <Route path="/Other/Proficiencies" element={ <Proficiencies/> }/>
           <Route path="/Other/Armors" element={ <Armors/> }/>
           <Route path="/Other/Weapons" element={ <Weapons/> }/>
           <Route path="/Other/HowToPlayForNewPlayers" element={ <HowToPlayForNewPlayers/> }/>
-          <Route path="/Other/CharacterCreation" element={ <CharacterCreation/> }/>
+          <Route path="/Other/RulesExplained/RulesSectionPages/CharacterCreation" element={ <CharacterCreation/> }/>
           <Route path="/Other/CharacterCreationCalculator" element={ <CharacterCreationCalculator/> }/>
           <Route path="/Other/TransitionGuide" element={ <TransitionGuide/> }/>
-          <Route path="/Other/Monsters" element={ <Monsters/> }/>
-          <Route path="/Other/Monster" element={ <Monster/> }/>
           <Route path="/Other/Prices" element={ <Prices/> }/>
           <Route path="/Other/Obstacles" element={ <Obstacles/> }/>
           <Route path="/Other/PetsAndAnimals" element={ <PetsAndAnimals/> }/>
@@ -144,9 +152,15 @@ function App() {
           <Route path="/Other/AttackModifiers" element={ <AttackModifiers/> }/>
           <Route path="/Other/CrowdControl" element={ <CrowdControl/> }/>
           <Route path="/Other/AreasOfEffect" element={ <AreasOfEffect/> }/>
-          <Route path="/Other/Encounters" element={ <Encounters/> }/>
           
-          <Route path="/Other/RulesExplained/QuestguardForBeginners" element={ <QuestguardForBeginners/> }/>
+          <Route path="/Other/Learn" element={ <Learn/> }/>
+          <Route path="/Other/Rules" element={ <Rules/> }/>
+          <Route path="/Other/RulesExplained/RulesSectionPages/Questguard" element={ <Questguard/> }/>
+          <Route path="/Other/RulesExplained/RulesSectionPages/CharacterCreation" element={ <CharacterCreation/> }/>
+          <Route path="/Other/RulesExplained/RulesSectionPages/PlayingTheGame" element={ <PlayingTheGame/> }/>
+          <Route path="/Other/RulesExplained/RulesSectionPages/CoreRulesInDepth" element={ <CoreRulesInDepth/> }/>
+          <Route path="/Other/RulesExplained/RulesSectionPages/GameMasterGuidelines" element={ <GameMasterGuidelines/> }/>
+          
 
           <Route path="/Other/AbilitySheets" element={ <AbilitySheets/> }/>
           <Route path="/Other/AbilitySheetsPrint" element={ <AbilitySheetsPrint/> }/>

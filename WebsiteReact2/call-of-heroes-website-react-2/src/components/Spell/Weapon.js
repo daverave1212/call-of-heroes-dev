@@ -5,6 +5,7 @@ import Separator from './../Separator/Separator'
 import React from 'react'
 import Icon from '../Icon'
 import { insertBetweenAll, ifOk, stringReplaceAllMany } from '../../utils'
+import { SpellTopStats } from './Spell'
 
 export default function Weapon({ weapon, isActuallyArmor }) {
 
@@ -78,14 +79,7 @@ export default function Weapon({ weapon, isActuallyArmor }) {
                         <div className='spell-top__title__wrapper'>
                             <div className='spell-top__title'>{Name}</div>
                         </div>
-                        <div className='spell-top__stats'>
-                            { Hands != null && (<div><img src="/Icons/UI/Hand.png" className="inline-icon--spell"/>{ Hands }</div>) }
-                            { Stat != null && (<div><img src="/Icons/UI/Special.png" className="inline-icon--spell"/>{ Stat }</div>) }
-                            { Special != null && (<div><img src="/Icons/UI/Hand.png" className="inline-icon--spell"/>{ Special }</div>) }
-                            { Range != null && (<div><img src="/Icons/UI/Range.png" className="inline-icon--spell"/>{ Range }</div>) }
-                            { Requirement != null && (<div><img src="/Icons/UI/Level.png" className="inline-icon--spell"/><span style={{color: '#FF5A00'}}>Requires { Requirement }</span></div>) }
-                            { Price != null && (<div><img src="/Icons/UI/Gold.png" className="inline-icon--spell-downer"/>{ Price }</div>) }
-                        </div>
+                        <SpellTopStats tags={weapon}/>
                     </div>
                 </div>
                 <Separator/>

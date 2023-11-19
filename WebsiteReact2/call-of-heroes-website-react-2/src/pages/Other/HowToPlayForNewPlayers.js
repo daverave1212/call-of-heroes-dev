@@ -2,7 +2,6 @@ import React from 'react'
 
 
 import cohExplained from '../../databases/Rules/COHExplained.json'
-import CharacterCreation from './CharacterCreation'
 
 import abilities from '../../databases/Abilities.json'
 
@@ -13,6 +12,7 @@ import PageH3 from '../../components/PageH3/PageH3'
 import PageH2 from '../../components/PageH2/PageH2'
 import SmallStat from '../../components/SmallStat/SmallStat'
 import Page from '../../containers/Page/Page'
+import CharacterCreation from './RulesExplained/RulesSectionPages.js/CharacterCreation'
 
 export default function HowToPlayForNewPlayers() {
 
