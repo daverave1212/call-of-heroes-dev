@@ -122,7 +122,7 @@ export function RaceFeatures({ theRace }) {
                     <div className='with-margined-children'>
                         <SmallStat name="Stat Distribution" topDown="true">{ theRace.Creation['Stat Restrictions'] }</SmallStat>
                         <SmallStat name="Health">{ theRace.Stats['Base Health'] } + Might<Icon name="Health" type="small-stat"/></SmallStat>
-                        <SmallStat name="Reserve Health" topDown={true}>Half of Maximum Health (rounded down)<Icon name="Health" type="small-stat"/></SmallStat>
+                        <SmallStat name="Health Regen" topDown={true}>{ theRace.Stats['Health Regen'] }<Icon name="Health Regen" type="small-stat"/></SmallStat>
                         <SmallStat name="Speed">{ theRace.Stats.Movement }</SmallStat>
                         { theRace.Weapons && <SmallStat name="Weapons" topDown='true'>{ theRace.Weapons }</SmallStat> }
                         { theRace.Training && <SmallStat name="Other Training" topDown='true'>{ theRace.Training }</SmallStat> }
