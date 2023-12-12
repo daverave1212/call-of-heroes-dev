@@ -86,6 +86,7 @@ import CoreRulesInDepth from './pages/Other/RulesExplained/RulesSectionPages.js/
 import GameMasterGuidelines from './pages/Other/RulesExplained/RulesSectionPages.js/GameMasterGuidelines';
 import CustomAbility from './pages/Other/CustomAbility';
 import MagicItems from './pages/Other/MagicItems';
+import PatchNotes from './pages/Meta/PatchNotes';
 
 function App() {
 
@@ -192,6 +193,8 @@ function App() {
           <Route path="/Tools/TreasureGenerator" element={ <TreasureGenerator/> }/>
           <Route path="/Tools/DungeonGenerator" element={ <DungeonGenerator/> }/>
           <Route path="/Tools/RunePuzzle" element={ <RunePuzzle/> }/>
+
+          <Route path='/Meta/PatchNotes' element={ <PatchNotes/> }/>
         </Routes>
 
       </div>

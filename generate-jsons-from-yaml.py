@@ -59,6 +59,7 @@ files_to_convert = [    # Order matters
     'Other/Languages.yml',
     'Other/Levels.yml',
     'Other/Encounters.yml',
+    'Other/PatchNotes.yml',
 
     'Rules/Rules.yml',
     'Rules/Inventory.yml',
@@ -229,7 +230,7 @@ if __name__ == '__main__':
         print(f'Parsing {file_name}...')
         file_path = yaml_root_folder + '/' + file_name
         file_content = ''
-        with open(file_path, 'r') as f:
+        with open(file_path, 'r', encoding="utf-8") as f:
             file_content = f.read()
         
         dict_content = {}

@@ -401,16 +401,25 @@ export function hasAnyProperty(obj, propList) {
     return false
 }
 
-
-
-
-
 // ---------------- Other Small Utilities ----------------
+export function logAndReturn(obj) {
+    console.log(obj)
+    return obj
+}
+export function def(val, func) {
+    return func(val)
+}
+export function getOnlyProp(obj) {
+    return getAnyPropNameExcept(obj, 'default')
+}
 export function stringReplaceAllMany(str, replaceWhats, replaceWiths) {
     for (let i = 0; i < replaceWhats.length; i++) {
         str = str.split(replaceWhats[i]).join(replaceWiths[i])
     }
     return str
+}
+export function isObject(obj) {
+    return typeof obj === 'object'
 }
 export function isString(obj) {
     return typeof obj === 'string' || obj instanceof String;

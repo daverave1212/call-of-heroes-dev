@@ -753,6 +753,43 @@
             "Leather Pelt* (20g) - low quality, but does the job"
         ]
     },
+    "Necromancer": {
+        "Type": "Person, Undead",
+        "Degree": "Normal",
+        "Experience": -50,
+        "Stats": "1/1/1/1/1",
+        "Health": 23,
+        "Armor": 0,
+        "Speed": 5,
+        "Initiative": 12,
+        "Abilities": [
+            {
+                "Eldritch Bolt (6m)": {
+                    "Damage": "1d4 Damage + target's Might (Necrotic)"
+                }
+            }
+        ],
+        "Passives": [
+            {
+                "Necromantic Control": "When in a group with other undead Unit(s), one undead is bond to this necromancer. When this necromancer dies, that undead dies as well."
+            }
+        ],
+        "Avoids AoE": false,
+        "Behavior": "Avoids damage and sits in the back",
+        "Lore": "None",
+        "Suggested Obstacles": [
+            "Caltrops (bones)",
+            "Barricades",
+            "Hard Terrain",
+            "Web Traps",
+            "Poison Vase"
+        ],
+        "Monster Data": "No tactic, mid HP, no gimmick",
+        "Role": "Extra",
+        "Variants": "None",
+        "Story Ideas": "None",
+        "Valuable Loot": "None"
+    },
     "Bug (Giant)": {
         "Type": "Beast, Insect",
         "Degree": "Normal",
@@ -1526,6 +1563,53 @@
         "Story Ideas": "One fun way for the players to interact with a Griphon is to see her flying in the skies, but not being able to get to her.\nIf the players chase her, the Griphon will realize she is being chased and will lead the players straight into other dangers or even to her nest, where she will fight them on her own ground, with her partner Griphon.\n",
         "Valuable Loot": "A Griphon head might prove a valuable trophy to be sold to collectors (50g). 1d4 of its feathers can also be collected as special feathers, worth 25g each."
     },
+    "Behemoth": {
+        "Type": "Beast",
+        "Degree": "Epic x9",
+        "Experience": "999 (111 x9)",
+        "Stats": "9/3/0/3/3",
+        "Health": 999,
+        "Armor": 0,
+        "Speed": 1,
+        "Initiative": 9,
+        "Abilities": [
+            {
+                "Claws/Bite/Tail": "4 Damage (Slash/Pierce/Smash).\nBreaks all Large or smaller obstacles within 1 meter of the target.\n"
+            },
+            {
+                "Roar": "All enemies that can hear the Behemoth take 3 Psychic Damage that ignores Defense."
+            },
+            {
+                "Throw Boulder (6m)": "7 Damage (Smash). Target must pass a Grade 12 Might Check or be Dazed or Rooted (its choice). This takes 2 turns."
+            },
+            {
+                "Destroy (Last) (10m)": "Leap towards the (an) enemy that took the least Damage this round. They must pass a Grade 12 Might Check, or take 2d6 Damage and be Stunned."
+            }
+        ],
+        "Passives": [
+            {
+                "Nine Hide Layers": "All Damage received is rounded down to a multiple of 9 (e.g. 13 becomes 9, 7 becomes 0, 47 becomes 45)."
+            },
+            {
+                "Ground Smashing": "At 66% Health, the Behemoth immediately (or as soon as possible) stomps the ground. All Units around must make a Grade 12 Might Check or be flung 6 meters up in the air and take 5 Damage (otherwise just 3 meters and no Damage).\nFrom then on, Throw Boulder no longer takes 2 turns.\n"
+            },
+            {
+                "Berserking": "At 33% Health, the Behemoth goes berserking. All Damage it deals AND takes is doubled.\n"
+            }
+        ],
+        "Avoids AoE": false,
+        "Behavior": "None",
+        "Lore": "None",
+        "Suggested Obstacles": [
+            "Open space",
+            "Fallen tree and ruins"
+        ],
+        "Monster Data": "No tactic, mid HP, no gimmick",
+        "Role": "Main Enemy",
+        "Variants": "None",
+        "Story Ideas": "None",
+        "Valuable Loot": "None"
+    },
     "Chromatic Dragon": {
         "Type": "Dragon",
         "Degree": "Epic x3",
@@ -2170,8 +2254,8 @@
         "Abilities": [
             {
                 "Huge Claws (2m)": {
-                    "Damage": "1d6 + 1 Slash",
-                    "Effect": "Half of all Damage done to Health (after Defense) also Damages the Reserve Health. It target has no Reserve Health, damage the normal Health instead."
+                    "Damage": "3 Slash (or 1d6)",
+                    "Effect": "Deals extra Damage equal to the the target's missing Mana points"
                 }
             }
         ],
@@ -2184,7 +2268,7 @@
             }
         ],
         "Avoids AoE": false,
-        "Behavior": "Tries to hit Player Characters that do have Reserve Health.",
+        "Behavior": "Tries to hit Player Characters that have low Mana.",
         "Lore": "None",
         "Suggested Obstacles": [
             "Spiked Barricades",
@@ -3114,21 +3198,21 @@
         "Abilities": [
             {
                 "Summon Undead": {
-                    "Effect": "Summon a number of Zombies equal to 1 + current Round number, anywhere on the map. Icy Zombies have 1d6 + 3 Damage, Corpse Burst, and can do Opportunity Attacks."
+                    "Effect": "Summon a number of Zombies equal to 1 + current Round number, anywhere on the map. Zombies have 1d6 + 3 Damage, Corpse Burst, and can do Opportunity Attacks."
                 }
             },
             {
                 "Frost Breath": {
-                    "Effect": "Breathe cold in a CROSS centered on a Unit, dealing TODO Cold Damage and Slowing them."
+                    "Effect": "Breathe cold in a CROSS centered on a Unit, dealing 2d6 Cold Damage and Slowing them. All further Cold Damage they take increases by 25%."
                 }
             },
             {
                 "Wyvern Poison (2m)": {
-                    "Effect": "Bite a Unit for TODO Poison Damage. They must make a Might Check or be Dazed. At the end of its turn, the poison passes to a nearby ally within 3 meters (once)."
+                    "Effect": "Bite a Unit for 3d6 Poison Damage. They must make a Might Check or be Dazed. At the end of its turn, the poison passes to a nearby ally within 3 meters (once)."
                 }
             },
             {
-                "Dominate": "3 Units must make a Sense Check or be Crippled and take TODO Damage."
+                "Dominate": "3 Units must make a Sense Check or be Crippled and each take 6 True Damage."
             }
         ],
         "Passives": [
@@ -3160,7 +3244,7 @@
     },
     "KingBolgur": {
         "Type": "Person, Undead",
-        "Degree": "Epic x4",
+        "Degree": "Epic x2",
         "Experience": 1200,
         "Stats": "4/4/1/4/4",
         "Health": 275,
@@ -3175,17 +3259,17 @@
             },
             {
                 "Frost Pillars (Free)": {
-                    "Effect": "Summon 2 Frost Pillars with 10 Health. All non-undead Units within 2 meters of them are Slowed."
+                    "Effect": "Summon 2 Frost Pillars with 10 Health. All non-undead Units within 2 meters of them are Slowed and take 50% more Cold Damage."
                 }
             },
             {
                 "Cleave": {
-                    "Effect": "Deal TODO Slash Damage to a Unit, and half of that to all Units within 2 meters."
+                    "Effect": "Deal 4d6 Slash Damage to a Unit, and half of that as COLD to all Units within 2 meters. The Primary target takes 25% more Cold Damage."
                 }
             },
             {
                 "Frosthold": {
-                    "Effect": "All Units in a 3x3 area must pass a Dexterity Check or be Snared and take TODO Damage (or half). All further COLD Damage they take is increased by 25%."
+                    "Effect": "All Units in a 3x3 area must pass a Grade 12 Dexterity Check or be Snared and take 8 Cold Damage (or half). All further Cold Damage they take is increased by 25%."
                 }
             }
         ],
@@ -3222,18 +3306,18 @@
         "Abilities": [
             {
                 "Cold Bite (2m)": {
-                    "Effect": "Bite a Unit for TODO Cold Damage. They must make a Dexterity or Might Check or be lifted and Dazed. The wyvern can then fly up to 5 meters with them in the claws."
+                    "Effect": "Bite a Unit for 2d6 Cold Damage. They must make a Dexterity or Might Check or be lifted and Dazed. The wyvern can then fly up to 5 meters with them in the claws."
                 }
             },
             {
                 "Hollow Gaze": {
-                    "Effect": "A Unit becomes a vessel of the king. It takes TODO Psychic Damage. All Damage it deals becomes Cold and splashes 50% to all Units within 2 meters if it's a single target attack."
+                    "Effect": "A Unit becomes a vessel of the king. It takes 7 Psychic Damage. All Damage it deals becomes Cold and splashes 50% to all Units within 2 meters if it's a single target attack."
                 }
             }
         ],
         "Passives": [
             {
-                "Cold Explosion": "Upon taking 20% of its Health as Damage, it explodes with Cold to all Units within 2 meters, dealign TODO Damage."
+                "Cold Explosion": "Upon taking 20% of its Health as Damage, it explodes with Cold to all Units within 2 meters, dealing 1d12 Damage."
             },
             {
                 "Resistances": "50% Cold Resistance"

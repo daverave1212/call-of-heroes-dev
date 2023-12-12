@@ -150,7 +150,7 @@
     "<Let There Be Light>": {
         "_Value": 0.75,
         "A": "Passive",
-        "Effect": "While not in darkness, when you heal with Awe, half of the healing also heals the target's Reserve Health.\n",
+        "Effect": "While in daylight and not in combat, the healing done by Awe is doubled.",
         "Notes": "Half rounded down."
     },
     "<Let There Be Darkness>": {
@@ -431,7 +431,7 @@
         "A": "Passive",
         "Requirement": "-1 Max Mana and -5 Max Health",
         "Effect": "You have an animal pet that can fight alongside you, but your Mana pool is permanently decreased by 1, and your total Health by 5.\nYour animal has stats depending on its species. Check out the Pets and Animals page to see its stats!\nYour pet takes its turn at the same time as you do, and always has the same initiative as yours.\nYour pet has 1 Action per turn, which it can use to do its own Abilities.\nYour pet can make normal Checks using using its own Stats.\nYour pet will not stray more than 30 meters away from you in hostile territory.\nAll pets have the Pet Attack ability.\n",
-        "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It has no reserve Health, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.",
+        "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.",
         "Notes": "If your pet raises from being Fallen, it has Pet Exhaustion (is Slowed and can only use Pet Attack, but all Pet Attacks have Cover, which is a -2 to the attack).\nTr\n"
     },
     "<Pet Attack>": {
@@ -595,7 +595,7 @@
         "A": "Passive",
         "HasMixins": true,
         "Effect": "You have an animal pet that can fight alongside you! Check out the {Pets and Animals} page and choose an Animal from the Pets section!\nYour pet takes its turn at the same time as you do, and always has the same Initiative as yours, and can make normal Checks using using its own Stats.\nIt has 1 Action per turn, which it can use to do its own Abilities or Pet Attack.\nYour pet will not stray more than 30 meters away from you in hostile territory.\n",
-        "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It has no reserve Health, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.",
+        "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.",
         "Notes": "Your pet can't rise from being Fallen while in combat, even if healed.\nIf your pet ever dies, you can spend 8 hours inbetween Adventures to get a new pet. If you want to change your Pet and abandon your current one, you can do so inbetween Adventures, but the guilt will make you Fumbling for the next 2 Worthy Combat encounters.\n"
     },
     "~Pet Attack~": {
@@ -1124,7 +1124,7 @@
     },
     "~Vigor~": {
         "A": "Passive",
-        "Effect": "You start with 4 extra Max Health.\n"
+        "Effect": "You start with 3 extra Max Health.\n"
     },
     "~Divine Sense~": {
         "A": "0 Actions",
@@ -1200,7 +1200,7 @@
         "_Value": 3,
         "A": "Special",
         "Effect": "You recruit a squire - a trusted NPC who gains combat powers. However, the capabilities of your squire are random: roll 1d6 to determine the type of your squire, based on the Squires category at Pets and Animals (1. Bold, 2. Sneaky, 3. Clever, 4. Wise). The Race is determined by the GM or by circumstance.\nOn its turn, it can do one Pet Attack, cast one Ability it has, or do the equivalent of a Half-Action (e.g. Dash, Defend, etc).\nYou can recruit one squire per Adventure, but only one can follow you in your adventures at a time.\nAt the start of every Adventure (and when you get this Talent), you must spend 1 Mana and train your Squire to permanently increase its Health by 2 or gain one Ability from any other Squire type.\n",
-        "Upgrade": "If your squire drops to 0 Health, it becomes Fallen, like a player. It has no reserve Health, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your squire's wounds and heal it back to full Health.",
+        "Upgrade": "If your squire drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your squire's wounds and heal it back to full Health.",
         "Notes": "Your squire is not a Player Character by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Player Character can). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!"
     },
     "<Motivation Surge>": {
@@ -1578,8 +1578,8 @@
     },
     "~Path of the Berserker~": {
         "A": "Passive",
-        "Effect": "Instead of having normal Reserve Health, all your Reserve Health is added to your Max Health (and as such your Reserve Health is always 0).\nRestoring Reserve Health Heals you instead (and losing Reserve Health loses you Max Health instead).\n",
-        "Notes": "Remember to recalculate your Max Health whenever you increase your Reserve Health or your Max Health.\n"
+        "Effect": "Instead of having normal Health Regen, 200% of your Health Regen is added to your Max Health (and as such your Health Regen after combat is always 0).\nYou can not gain extra Defense from Armor or Shields.\n",
+        "Notes": "Increasing Health Regen increases your Max Health instead (and losing Health Regen loses you Max Health instead).\n"
     },
     "~Bloodlust~": {
         "_Value": 2,
@@ -1592,7 +1592,7 @@
         "_Value": 1,
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "Whenever ^YOU^ kill a Worthy Enemy, gain one Primal Trophy. Every 3 Primal Trophies increase your \"Reserve Health\" by 1.\nEvery 10 Primal Trophies give you an extra Proficiency.\n"
+        "Effect": "Whenever ^YOU^ kill a Worthy Enemy, gain one Primal Trophy. Every 4 Primal Trophies increase your Max Health by 1.\nEvery 10 Primal Trophies give you an extra Proficiency.\n"
     },
     "<Cold Vigor>": {
         "_Value": 1.5,
@@ -1639,7 +1639,7 @@
     "<Tribal Tattoos>": {
         "_Value": 2,
         "A": "Passive",
-        "Effect": "Your \"Reserve Health\" is further increased by 8.\nEvery Adventure, you add another tattoo and increase it by 1.\nEvery 3 new tattoos, gain +1 in any Resist Check of choice.\n"
+        "Effect": "Your Max Health is further increased by 8.\nEvery Adventure, you add another tattoo and increase it by 1.\nEvery 3 new tattoos, gain +1 in any Resist Check of choice.\n"
     },
     "<Jotunn>": {
         "_Value": 3,
@@ -1659,7 +1659,7 @@
         "A": "Passive",
         "HasMixins": true,
         "Effect": "Your Shaman Talents always _echo_.",
-        "Notes": "You don't spend Health or Reserve Health again if any Talents require that."
+        "Notes": "You don't spend Health again if any Talents require that."
     },
     "~Spirit Bond~": {
         "A": "1 Action",
@@ -1758,7 +1758,7 @@
         "A": "0 Actions or Reaction",
         "Cost": "Depends",
         "Range": "10 meters",
-        "Effect": "After you cast a Spell, you can expend 6 Health or Reserve Health to force it to _echo_.\nYou can expend 3 Health or Reserve Health to add or subtract 1d6 from any other Unit's roll (not yours).\n",
+        "Effect": "After you cast a Spell, you can expend 6 Health to force it to _echo_.\nYou can expend 3 Health to add or subtract 1d6 from any other Unit's roll (not yours).\n",
         "Notes": "The GM might not roll Damage for monsters, and instead take the average - even if they take the average, that counts as a roll.\nKeep in mind you only have 1 Reaction per Round.\n"
     },
     "<Voodoo Magic>": {
@@ -1772,13 +1772,13 @@
     "<Corpseblast>": {
         "_Value": 1.25,
         "A": "Reaction",
-        "Cost": "2 Health or Reserve Health",
+        "Cost": "2 Health",
         "Effect": "Use the moment a Worthy Unit dies.\nExplode the corpse, dealing 1d4 Poison Damage to all Units near it.\nHeal for the Damage dealt.\n"
     },
     "<Blood Brew>": {
         "_Value": 1.25,
         "A": "10 minutes",
-        "Cost": "4 Health or Reserve Health",
+        "Cost": "4 Health",
         "Effect": "You spend 10 minutes creating a strange splashable brew made from your own blood, with a random effect.\nThe brew can be splashed (Half-Action) onto a Unit (at 3 meters range).\nWhen you create it, roll 1d4 to determine its effect.\nYou are immune to Blood Brews.\n",
         "Notes": "The brews lose their effect at the end of the Adventure. Acid and Muck ignore real Cover.",
         "DoubleTable": {
@@ -1801,25 +1801,25 @@
     "<Bone Mass>": {
         "_Value": 1.5,
         "A": "Half-Action",
-        "Cost": "Any amount of Health or Reserve Health",
+        "Cost": "Any amount of Health",
         "Range": "6 meters to edge",
-        "Effect": "Declare a square area with a diameter equal to the Health or Reserve Health spent.\nSharp bones grow from the area (occupying 1x1 meters each).\nWhen a Unit steps on a Sharp Bone, it directly takes 1d8 Pierce Damage and loses 1 meter of its remaining speed.\nThe bone then shatters.\n"
+        "Effect": "Declare a square area with a diameter equal to the Health spent.\nSharp bones grow from the area (occupying 1x1 meters each).\nWhen a Unit steps on a Sharp Bone, it directly takes 1d8 Pierce Damage and loses 1 meter of its remaining speed.\nThe bone then shatters.\n"
     },
     "<Dead Hands>": {
         "_Value": 1.5,
         "A": "1 Action",
-        "Cost": "Any amount of Health or Reserve Health",
+        "Cost": "Any amount of Health",
         "Duration": "10 minutes",
-        "Effect": "Declare a square area with a diameter equal to the Health or Reserve Health spent.\nUndead hands appear in that area and make it Hard Terrain.\nAt the start of your next turn, summon a number of Zombies equal to half the Health or Reserve Health spent, each wherever you choose in that area.\nThey take their turn the same time as you and you can command them to do move and attack (they can't do Default Moves or use items).\nThey have 4 Speed, 1 Health, 2 Defense and fail all Checks.\nEach can attack for 1d4 - 1 Necrotic Damage, but ignore Defense.\nZombies last for up to 10 minutes.\n"
+        "Effect": "Declare a square area with a diameter equal to the Health spent.\nUndead hands appear in that area and make it Hard Terrain.\nAt the start of your next turn, summon a number of Zombies equal to half the Health spent, each wherever you choose in that area.\nThey take their turn the same time as you and you can command them to do move and attack (they can't do Default Moves or use items).\nThey have 4 Speed, 1 Health, 2 Defense and fail all Checks.\nEach can attack for 1d4 - 1 Necrotic Damage, but ignore Defense.\nZombies last for up to 10 minutes.\n"
     },
     "<Schizophrenic Suggestion>": {
         "_Value": 2.5,
         "A": "1 Action",
         "Cooldown": "Once / Adventure",
         "Range": "3 meters to edge",
-        "Cost": "Any amount of Health or Reserve Health",
+        "Cost": "Any amount of Health",
         "HasMixins": true,
-        "Effect": "Declare a square area with a diameter equal to ^twice^ the Health or Reserve Health spent.\nAll Units in that area must pass a Sense Check or instantly make an attack or offensive Ability of its choice, at full strength, on its closest ally.\n",
+        "Effect": "Declare a square area with a diameter equal to ^twice^ the Health spent.\nAll Units in that area must pass a Sense Check or instantly make an attack or offensive Ability of its choice, at full strength, on its closest ally.\n",
         "Notes": "Monsters can use any of their Abilities that do Damage or Crowd Control, and target them however they want if they are Area Abilities, as long as it hits its closest ally."
     },
     "<Bumboclaat!>": {
@@ -2289,7 +2289,7 @@
     },
     "~Big Eyes~": {
         "A": "Passive",
-        "Effect": "You have +2 on Charisma Checks for pleading, invoking sympathy or passive-agressive behavior."
+        "Effect": null
     },
     "~Tall Paws~": {
         "A": "Passive",
@@ -2297,7 +2297,7 @@
     },
     "~Herbivore~": {
         "A": "Passive",
-        "Effect": "You have +3 Reserve Health.\nHalf of your meals can consist of grass and leaves, but you can not eat meat.\n",
+        "Effect": "You have +2 Health Regen.\nHalf of your meals can consist of grass and leaves, but you can not eat meat.\n",
         "Notes": "If you eat meat, you become Exhausted for 1 hour."
     },
     "~Know Thy Enemy~": {
@@ -2363,7 +2363,7 @@
     },
     "~Slow Metabolism~": {
         "A": "Passive",
-        "Effect": "Your Total Reserve Health increases by 3 and your lifespan by 50%.\nWhen you drink a potion, its effect is delayed by up to 8 hours.\nFor 0 Actions, you can instantly apply the drank potion's effect ahead of time.\n",
+        "Effect": "Your Total Health Regen increases by 2 and your lifespan by 50%.\nWhen you drink a potion, its effect is delayed by up to 8 hours.\nFor 0 Actions, you can instantly apply the drank potion's effect ahead of time.\n",
         "Notes": "This is useful when consuming potions in combat, or when you need to quickly apply the effect of a potion.\nThis counts as if you consumed the potion when you use the 0 Actions, or when the 8 hours expire (e.g. for overdose).\n"
     },
     "~Wingspan~": {
@@ -2434,7 +2434,7 @@
     },
     "~Stone-Like Bones~": {
         "A": "Passive",
-        "Effect": "Your bones are tough as rock.\nYou only take 50% Damage from falling and from traps that deal physical Damage.\nYour Reserve Health pool increases by 3.\n"
+        "Effect": "Your bones are tough as rock.\nYou only take 50% Damage from falling and from traps that deal physical Damage.\nYour Health Regen increases by 3.\n"
     },
     "~Runesmith~": {
         "A": "Passive",

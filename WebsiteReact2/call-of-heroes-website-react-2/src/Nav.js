@@ -139,27 +139,15 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
         </div>
 
         <div className='subnav-section'>
-          <h4>Proficiencies</h4>
+          <h4>Abilities</h4>
           <div className='subnav-title-underline'></div>
           <ul>
-            <LiLink to="/Other/Proficiencies">All</LiLink>
+            <LiLink to="/Other/Abilities">Basic Ability Lists</LiLink>
+            <LiLink to="/Other/Proficiencies">Proficiencies</LiLink>
+            <LiLink to="/Other/Feats">Feats</LiLink>
           </ul>
 
-          <h4 style={{marginTop: '38px'}}>Abilities</h4>
-          <div className='subnav-title-underline'></div>
-          <ul>
-            <LiLink to="/Other/Abilities">All</LiLink>
-          </ul>
-
-          <h4 style={{marginTop: '38px'}}>Feats</h4>
-          <div className='subnav-title-underline'></div>
-          <ul>
-            <LiLink to="/Other/Feats">All</LiLink>
-          </ul>
-        </div>
-
-        <div className='subnav-section'>
-          <h4>Gear and Items</h4>
+          <h4 style={{marginTop: '38px'}}>Gear and Items</h4>
           <div className='subnav-title-underline'></div>
           <ul>
             <LiLink to="/Other/Weapons">Weapons</LiLink>
@@ -185,48 +173,6 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
       <h3 className="subnav-title-portrait-only">
         <Link style={{color: 'white'}} to="/Other/Learn">Learn To Play</Link>
       </h3>
-
-      {/* <h3 className="subnav-title-portrait-only" onClick={() => onClickOnH3('Learn')}>Learn</h3>
-      <div className={`subnav ${maybeActiveClassLS('Learn')} ${maybeActiveClassPortrait('Learn')}`}>
-
-        <div className='subnav-section learn'>
-          <h4>Resources for Learning</h4>
-          <div className='subnav-title-underline'></div>
-          <ul>
-            <LiLink to="/Other/HowToPlayForNewPlayers">How To Play (for New Players)</LiLink>
-            <LiLink to="/Other/TransitionGuide">How To Play (for D&D Players)</LiLink>
-            <LiLink to="/Other/RulesExplained/RulesSectionPages/CharacterCreation">Character Creation</LiLink>
-            <LiLink to="/Other/CharacterCreationCalculator">Character Helper</LiLink>
-            <LiLink to="/Other/AbilitySheets">Ability Sheet (Online)</LiLink>
-            <LiLink to="/Other/AbilitySheetsPrint">Ability Sheet (Print)</LiLink>
-          </ul>
-        </div>
-
-        <div className='subnav-section'>
-          <h4>Rules</h4>
-          <div className='subnav-title-underline'></div>
-          <ul>
-            <LiLink to="/Other/Rules">All Rules</LiLink>
-            <LiLink to="/Other/CrowdControl">Crowd Control</LiLink>
-            <LiLink to="/Other/AreasOfEffect">Area of Effect</LiLink>
-            <LiLink to="/Other/AttackModifiers">Attack Modifiers</LiLink>
-          </ul>
-        </div>
-
-      </div>
-
-      <h3 className="subnav-title-portrait-only" onClick={() => onClickOnH3('Lore')}>Lore</h3>
-      <div className={`subnav ${maybeActiveClassLS('Lore')} ${maybeActiveClassPortrait('Lore')}`}>
-        <div className='subnav-section'>
-          <h4>Template Lore</h4>
-          <div className='subnav-title-underline'></div>
-          <ul>
-            <LiLink to="/Lore/Languages">Languages</LiLink>
-            <LiLink to="/Lore/SpellSchoolDescriptions">Spell Schools</LiLink>
-            <LiLink to="/Lore/Levels">Levels</LiLink>
-          </ul>
-        </div>
-      </div> */}
 
       <h3 className="subnav-title-portrait-only" onClick={() => onClickOnH3('GM Resources')}>GM Resources</h3>
       <div className={`subnav ${maybeActiveClassLS('GM Resources')} ${maybeActiveClassPortrait('GM Resources')}`}>
@@ -282,6 +228,9 @@ export default function Nav({ navState, setNavState, isSimple, setIsSimple }) {
       <div id="Navigation-Section" onMouseLeave={() => setCurrentlyOpenSubnav(null)}>
           <div className="nav-logo-div">
             <Link to="/"><img src="/favicon.png"/></Link>
+          </div>
+          <div className='nav-logo-version'>
+            v2023-12-04
           </div>
 
           <div className='burger-icon' onClick={onClickOnBurger}>
