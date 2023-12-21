@@ -436,12 +436,11 @@
             "Effect": "Touch an ally (or yourself) and dispell any ongoing or negative short-term magical effects on it. At Level 6, you can remove long-term magical effects with this as well.",
             "Name": "~Dispel Magic~"
         },
-        "~Resistance~": {
-            "A": "1 Action",
-            "Cooldown": "Once / Adventure",
-            "Duration": "Until their next rest",
-            "Effect": "Touch an ally (or yourself) and choose one Stat.\nIt has +1d4 in all Resist Checks with that Stat.\n",
-            "Name": "~Resistance~"
+        "~Conjure Ammo~": {
+            "A": "Passive",
+            "Effect": "You automatically conjure ammo for your weapon the moment you want to fire them.",
+            "Notes": "Alternatively, for 1 Action, you can conjure up to 10 ammo for another party member, which disappear after 1 hour.",
+            "Name": "~Conjure Ammo~"
         },
         "~Dancing Blade~": {
             "A": "Passive",
@@ -458,6 +457,13 @@
             "Notes": "Cover is applied from the object's initial position to the target.\nIf the object can break, it breaks. Obviously, the object must be move-able and not tied/stuck in place.\nThrowing weapons does not apply effects or deal extra Damage.\n",
             "Name": "~Focus Fling~"
         },
+        "~Longblade~": {
+            "A": "0 Actions",
+            "Cooldown": "Once / Adventure",
+            "Duration": "1 minute",
+            "Effect": "Magically extend the weapon of a willing ally you can see (or yourself) to up to 3 meters.\nIts Attacks with that weapon can have up to 3 meters range.\n",
+            "Name": "~Longblade~"
+        },
         "~Flash~": {
             "A": "0 Actions",
             "Cost": "1 Mana",
@@ -465,6 +471,16 @@
             "Effect": "Instantly teleport up to 6 meters away, within line of sight.",
             "Notes": "You take with you all items carried. Does not work if you're Rooted or stuck in place somehow.",
             "Name": "~Flash~"
+        },
+        "~Arrow Barrage~": {
+            "A": "0 Actions",
+            "Cost": "1 Mana",
+            "Range": "10 meters to edge",
+            "Cooldown": "Once / Encounter",
+            "Requirement": "Level 3",
+            "Effect": "You conjure a levitating barrage of arrows in a 3x3 area, up to 10 meters above ground.\nAt any point (for 0 Actions or with a Reaction), you can release these arrows upon the ground, hitting all enemies hit for 2d6 Pierce Damage.\nAt the start of your every turn, if the barrage is not yet released, it increases by 1 meter in size in all directions and gains 1d4 Damage when it will be released (up to +3d4 and 9x9).\n",
+            "Notes": "E.g. every turn, it goes from 3x3 to 5x5, then 7x7, then 9x9, etc and deals from 2d6 Damage to 2d6 + 1d4, then 2d6 + 2d4, etc.\nThe arrows disappear as soon as they hit ground, or when dismissed (all at once) for free at any point, or after 1 minute of staying in the air.\n",
+            "Name": "~Arrow Barrage~"
         },
         "~Arcane Spear~": {
             "A": "1 Action",
@@ -490,6 +506,16 @@
             "Notes": "You can only shoot the star towards North - without an angle.\nAsk the DM which way North is (if your character knows that).\n",
             "Name": "~North Star~"
         },
+        "~Mage Hand~": {
+            "A": "0 Actions",
+            "Cost": "1 Mana",
+            "Range": "5 meters",
+            "Requirement": "Level 3",
+            "Duration": "8 hours",
+            "Effect": "Conjure a spectral hand in a space you can see.\nYou can move the hand as you move your normal hands and you can move your hand by spending meters from your remaining Movement.\nThe hand can't deal Damage and disappears if it goes outside a 10 meters range.\n",
+            "Notes": "The hand can't lift objects weighing more than 10kg.\nMoving the hand spends Actions as if you made moved your own hand.\nOnce / turn, you can summon or vanish the hand for 0 Actions if it's effect is still active, in a space next to you.\n",
+            "Name": "~Mage Hand~"
+        },
         "~Antimagic Rune~": {
             "A": "1 Action",
             "Requirement": "Level 4",
@@ -499,29 +525,47 @@
             "Notes": "Ignores Cover. {Silenced}\n",
             "Name": "~Antimagic Rune~"
         },
-        "~Magic Nova~": {
-            "A": "1 Action",
-            "Cost": "2 Mana",
-            "Range": "5 meters to edge",
+        "~Grow or Shrink~": {
+            "A": "0 Actions",
+            "Cost": "1 Mana",
+            "Cooldown": "Once / turn",
             "Requirement": "Level 4",
-            "Effect": "Declare a 2x2 meter area.\nAll Units in that are must pass a Might Check or take 8d4 Force Damage, or half of that if they pass.\nThe blast extends 2 more meters from its edges in all directions and further Damages directly all Units on this 2-meter edge for half of the Damage rolled.\n",
-            "Notes": "To conclude, the total area of this Spell is 4x4 meters. The Units in the 2x2 center must pass the check or take full Damage and the units on the edge just take half of the Damage (as if they passed a Check for the center).",
-            "Name": "~Magic Nova~"
+            "Effect": "A Unit you can see becomes one size larger/smaller for its next 1d4 turns.\nIt gains or loses 20% of its base (unbuffed) Defense (gain/loss is rounded up), gains or loses 1 Damage on all physical Acts (that would deal Damage) and gains or loses 1 Movement Speed.\nCan stack multiple times.\n",
+            "Notes": "Sizes are Minuscule, Small, Medium, Large, and Larger.\nA Larger Unit becomes 1 meter larger/smaller on all directions.\nIt's number of spaces occupied also changes with this.\n",
+            "Name": "~Grow or Shrink~"
         },
-        "~Phase Orb~": {
-            "A": "Half-Action",
+        "~Major Illusion~": {
+            "A": "1 Action",
+            "Requirement": "Level 4",
             "Cost": "1 Mana",
             "Range": "10 meters",
+            "Effect": "You create an illusion that fits at most in a 2x2x2 meter cube.\nThe illusion appears real to the eyes, ears and by smell, but physical interaction makes it obvious it's an illusion and objects pass through it normally.\nThe illusion can deal no Damage or Crowd Control, but can provide Cover or block Line of Sight (both from the front, and from behind).\nOn your turn, you can and must spend 1 Action to keep and/or move the illusion, otherwise it is dispelled.\nYou can only have 1 illusion active at a time.\n",
+            "Upgrade": "At Level 8, the illusion lasts indefinitely until you cancel it without needing to spend Actions, and it can hold its own simple movement and clockwork-like routines.\nYou can also program this illusion to react on its own in a specific way to specific triggers, but the instructions must be concise - talk with your GM about this.\n",
+            "Name": "~Major Illusion~"
+        },
+        "~Conjure Object~": {
+            "A": "1 Action",
+            "Requirement": "Level 4",
+            "Cost": "1 Mana",
+            "Range": "3 meters",
+            "Effect": "You can conjure an object that is up to 1x1x1 meter in size.\nThe object is solid and glows faintly.\nYou can't conjure mechanical objects.\nThe object disappears after 1 hour (24 hours at Level 8).\n",
+            "Name": "~Conjure Object~"
+        },
+        "~Dancing Weapon~": {
+            "A": "1 Action",
+            "Cost": "1 Mana",
+            "Range": "3 meters",
+            "Duration": "1 minute",
             "Requirement": "Level 3",
-            "HasMixins": true,
-            "Effect": "Pick a 1x1 zone. A magical orb is created in that place.\nAt the start of your next turn, the orb dashes to your position.\nAll Units in the orb's path take 2d6 + ^Intelligence^ + your Charisma Force Damage.\n",
-            "Name": "~Phase Orb~"
+            "Effect": "Conjure a levitating, self-wielding melee weapon on a space within 3 meters.\nOn your each turn (includig this), the weapon can make a melee Attack that deals 1d10 + 1 Force Damage and move up to 3 meters.\n",
+            "Notes": "It costs 1 Action and 1 Mana to summon the weapon. Then, the weapon can Attack once for free every turn (including this), without costing an Action or Mana.\nThe weapon has no special effect. It has 10 Health and 3 Defense.\nThe weapon disappears if it moves more than 20 meters away from you.\n",
+            "Name": "~Dancing Weapon~"
         },
         "~Spell Seal~": {
             "A": "0 Actions",
             "Cost": "1 Mana",
             "Duration": "1 minute",
-            "Requirement": "Level 2",
+            "Requirement": "Level 5",
             "Effect": "Choose a Unit you can see.\nWhenever it casts a Spell that heals or deals Damage, you can roll 1d4 and subtract it from that Unit's act.\n",
             "Upgrade": "At Level 5, you can spend 1 more Mana to increase the roll to 2d4.\nAt Level 8, you can spend 2 more Mana instead to increase the roll to 3d4.\n",
             "Notes": "Does not stack multiple times.\nOn Epic monsters, only applies to the first Spell they cast in the round.\n",
@@ -553,15 +597,23 @@
             "Upgrade": "At Level 8, the amount increases to 5d100.\n",
             "Name": "~Levitate~"
         },
-        "~Water Walk~": {
-            "A": "0 Actions or Reaction",
+        "~Polymorph~": {
+            "A": "Action",
+            "Cost": "3 Mana",
             "Requirement": "Level 5",
+            "Effect": "Choose an animal from the Pet List or any critter, such as a sheep, deer, etc.\nA Unit within 10 meters must pass an Intelligence Check or be transformed into that animal.\nAt the end of its every turn, it must pass the Check again or remain Polymorphed.\nThe unit can retains its Health and Defense, but can't do any non-animal actions.\n",
+            "Notes": "Cover is applied normally.\nA Unit can willingly fail the Check. For enemies, aside from Health and Defense, apply rules for Shapeshift. Allies can apply normal rules for Shapeshift (e.g. gain extra Health from the animal).\nIf used on an Enemy, this is considered Crowd Control.\n",
+            "Name": "~Polymorph~"
+        },
+        "~Distort Vision~": {
+            "A": "1 Action",
             "Cost": "1 Mana",
-            "Range": "3 meters",
-            "Duration": "1 hour",
-            "AlignOnWebsite": "Left",
-            "Effect": "Up to 2 willing Units can walk on water as normally.\nThe effect ends if the Unit takes Damage.\n",
-            "Name": "~Water Walk~"
+            "Range": "5 meters",
+            "Requirement": "Level 2",
+            "Effect": "This incantation distorts the visual space in an area with a diameter equal to your Level.\nMake an Intelligence Check for this.\nWhile keeping the distorsion, you must maintain concentration and line of sight.\nYou lose concentration if you take Damage or become crowd controlled.\n",
+            "Upgrade": "At Level 5, you can use 1 Action to slowly move the area up to 3 meters.",
+            "Notes": "If you have Proficiency in Deception, you can add that to the Check.\nIn combat, a successful Distort Vision can provide Cover if rolled high enough.\n",
+            "Name": "~Distort Vision~"
         },
         "~Lag~": {
             "A": "1 Action",
@@ -605,6 +657,57 @@
             "Effect": "Declare an area with a diameter in meters (in all directions) equal to your Level.\nThe gravity becomes reversed in that area and all Units instantly fall upwards. Units can make a Dexterity Check to grab onto an object to not be lifted.\nUnits suffer fall Damage if they fall onto a ceiling.\nWhen the effect ends, all Units fall at half velocity (and take half of the fall Damage). The same happens to a Unit if it exits the zone.\nLasts for up to 1 minute. You can cancel this effect at will.\n",
             "Notes": "Fall Damage is 1d6 for every 2 meters fallen (e.g. 1d6 for 2 and 3 meters, 2d6 for 4 and 5 meters, etc).\n",
             "Name": "~Reverse Gravity~"
+        },
+        "~Magic Prison~": {
+            "A": "5 minutes",
+            "Requirement": "Level 8",
+            "Cost": "2 Mana",
+            "Effect": "You create a 4x4x4 meter cube.\nChoose a Unit inside the cube.\nIt makes an Intelligence Check with triple disadvantage.\nIf it fails, it can not exit the cube for 24 hours.\nIt can make this Check to try to escape every 24 hours.\nYou can cast this Once / day per Mana.\n",
+            "Name": "~Magic Prison~"
+        },
+        "~Banishment Slip~": {
+            "A": "Half-Action",
+            "Cost": "1 Mana",
+            "Cooldown": "Once / Adventure",
+            "Range": "5 meters",
+            "Requirement": "Level 7",
+            "Effect": "A Medium or smaller Unit becomes Banished to another parallel dimension until the start of your next turn.\nWhile Banished, it can't interact with the normal world and nothing can interact with it.\n",
+            "Name": "~Banishment Slip~"
+        },
+        "~Conjure Lodge~": {
+            "A": "10 minutes",
+            "Requirement": "Level 8",
+            "Duration": "24 hours",
+            "Cost": "3 Mana",
+            "Cooldown": "1 Week",
+            "Effect": "Conjure a cubic room with a width equal to your Level and a 1x2 meter door.\nThis room works like a pocket dimension and only the door is visible from the outside. The room occupies no space in the real world, except for the door (you enter the room through the door).\n",
+            "Notes": "If the Lodge would be destroyed with people inside, each will automatically be expulsed (appear) in a space within 3 meters of the door (randomly or by GM's choice).",
+            "Name": "~Conjure Lodge~"
+        },
+        "~Transmogrification~": {
+            "A": "10 minutes",
+            "Cost": "1 Mana",
+            "Requirement": "Level 7",
+            "Effect": "Touch 2 objects of the same type (e.g. 2 helmets, or 2 arrows, or 2 melee 1-handed weapons, etc).\nYou make one of the look like the other.\nThe change is permanent until the object breaks.\n",
+            "Notes": "Upon close inspection of the shape and colors, this is visibly an illusion.",
+            "Name": "~Transmogrification~"
+        },
+        "~Transmute Rock~": {
+            "A": "1 Action",
+            "Requirement": "Level 7",
+            "Cost": "1 Mana",
+            "HasMixins": true,
+            "Effect": "Touch a 1x1x1 meter cube of rock, mud, sand, etc.\nTransform it into rock, mud, sand, etc.\nA Unit caught in this effect must pass a Might Check or be Rooted.\n",
+            "Notes": "{Rooted}\n",
+            "Name": "~Transmute Rock~"
+        },
+        "~Portal~": {
+            "A": "4 Hours",
+            "Cost": "3 Mana",
+            "Duration": "30 days",
+            "Requirement": "Level 8",
+            "Effect": "You need a partner who can cast Portal to cast this.\nYou both cast it at the same time, in different locations.\nAt the end of the cast time, a portal opens at the locations of the two casters.\nStepping through one of the portals (obviously) teleports the Unit to the other portal.\nYou can only cast this every 30 days.\n",
+            "Name": "~Portal~"
         }
     },
     "Nature": {
@@ -640,20 +743,10 @@
             "A": "0 Actions",
             "Cooldown": "1 Hour",
             "Range": "3 meters",
-            "Effect": "Cure a simple Disease, Debuff or Bleed effect on a Unit (you can choose yourself).\n",
+            "Effect": "Cure a simple Disease, Debuff or Bleed effect on a Unit (you can choose yourself), or clean up to 2 rations or liters of water of microbes, mild poison or impurities.\n",
             "Upgrade": "At Level 4, you can cure harder and stranger diseases and poisons.\nAt level 7, you can cure terminal or chronic diseases and poisons.\n",
             "Notes": "Debuffs are things like curses, weaknesses, etc. Crowd Control like Daze, Fumbling, Fear, Stun, etc are not considered Debuffs.\n",
             "Name": "~Cure Affliction~"
-        },
-        "~Detect Poison and Disease~": {
-            "A": "1 Action",
-            "Effect": "You know if there is any poison (or poisonous Unit) or disease (or ill person) within 5 meters.",
-            "Name": "~Detect Poison and Disease~"
-        },
-        "~Purify Food and Drink~": {
-            "A": "1 Action",
-            "Effect": "Food you touch becomes clean of microbes and mild poison.\nA water containter you touch (up to 2 liters per cast) becomes drinkable, clean and free of microbes and mild poison.\n",
-            "Name": "~Purify Food and Drink~"
         },
         "~Poison Burst~": {
             "A": "Half-Action",
@@ -664,11 +757,20 @@
             "Name": "~Poison Burst~"
         },
         "~Resistance~": {
-            "A": "1 Action",
+            "A": "0 Actions",
             "Cooldown": "Once / Adventure",
-            "Duration": "Until their next rest",
+            "Duration": "Rest of Adventure",
             "Effect": "Touch an ally (or yourself) and choose one Stat.\nIt has +1d4 in all Resist Checks with that Stat.\n",
             "Name": "~Resistance~"
+        },
+        "~Fog Cloud~": {
+            "A": "1 Action",
+            "Cost": "1 Mana",
+            "Range": "5 meters to edge",
+            "Effect": "A 5x5x5 meter cube becomes covered in fog for 1 minute.\n",
+            "Upgrade": "All Attacks done from, through or to Units inside Fog have Cover (-2).",
+            "Notes": "Fog can be dissipated by wind. You can choose the color of the fog. The fog does not go through walls, but does bend around corners (e.g. up to 360 degrees around wall extremities).",
+            "Name": "~Fog Cloud~"
         },
         "~Cutting Winds~": {
             "A": "1 Action",
@@ -689,13 +791,6 @@
             "Notes": "Lasts for 24 hours or until you rolled the d4 3 times. Does not stack multiple times with itself.",
             "Name": "~Earth Shield~"
         },
-        "~Land Breach~": {
-            "A": "1 Action",
-            "Range": "10 meters",
-            "Effect": "You gather stone, dirt, sand, etc from the surroundings and release it upon an enemy.\nA Unit takes 3d6 Damage Force Damage, then all other Units within 1 meter take Damage equal to two of rolled dice (you choose).\n",
-            "Notes": "Ignores Cover",
-            "Name": "~Land Breach~"
-        },
         "~Healing Surge~": {
             "A": "Half-Action",
             "Range": "5 meters",
@@ -709,7 +804,7 @@
             "Cost": "1 Mana",
             "Requirement": "Level 3",
             "HasMixins": true,
-            "Effect": "Declare a 4x4x4 Cube.\nAll units inside take 3d4 Shock Damage now.\nIf a unit carries anything made of metal or is wet, it deals ^double^ the Damage (multiply it by 2).\nOn your turn (for up to 1 minute), you can spend 1 Action to move the storm up to 3 meters and (and/or) its deal Damage again.\nLasts up to 1 minute.\n",
+            "Effect": "Declare a 4x4x4 Cube.\nAll units inside take 3d4 Shock Damage now.\nIf a unit carries anything made of metal or is wet, it 100% more Damage.\nOn your turn (for up to 1 minute), you can spend 1 Action to move the storm up to 3 meters and (and/or) its deal Damage again.\nLasts up to 1 minute.\n",
             "Upgrade": "At Level 6, the area is 6x6x6 (optionally).",
             "Notes": "The storm only deals Damage the moment you spend 1 Action; if you do spend 1 Action, the storm stays in place and deals no Damage.",
             "Name": "~Lightning Storm~"
@@ -722,6 +817,16 @@
             "Effect": "Send out a 5x1 meter wave forward through the ground.\nAll Units hit take 2d8 Force Damage.\nIf they are at or below 50% Health, they become Slowed and Fumbling.\n",
             "Notes": "{Slowed} {Fumbling}\n",
             "Name": "~Quaking Wave~"
+        },
+        "~Fairy Fire~": {
+            "A": "0 Actions",
+            "Cost": "1 Mana",
+            "Range": "10 meters to edge",
+            "Duration": "10 minutes",
+            "Requirement": "Level 2",
+            "Effect": "Declare a 4x4x4 meter zone.\nAll Units in that zone become outlined in a colored glow (you choose the color) and can't benefit from Cover.\n",
+            "Notes": "The Units glow even through walls, but the denser the walls, the less they appear to glow.\nA 1-meter thick concrete wall completely blocks the glow.\nThis is not considered Crowd Control.\n",
+            "Name": "~Fairy Fire~"
         },
         "~Draw Moisture~": {
             "A": "1 Action",
@@ -806,290 +911,25 @@
             "Effect": "Your hands and feet can stick to solid, (more or less) flat surfaces, so you can walk on them.\nWalking on walls and floors acts as Hard Terrain.\n",
             "Upgrade": "Alternatively, you can spend 1 Mana to cast this ignoring the Cooldown.",
             "Name": "~Spider Climb~"
-        }
-    },
-    "Conjuration": {
-        "~Conjure Ammo~": {
-            "A": "Passive",
-            "Effect": "You automatically conjure ammo for your weapon the moment you want to fire them.",
-            "Notes": "Alternatively, for 1 Action, you can conjure up to 10 ammo for another party member, which disappear after 1 hour.",
-            "Name": "~Conjure Ammo~"
-        },
-        "~Light~": {
-            "A": "1 Action",
-            "Range": "1 meter",
-            "Duration": "Your Level hours",
-            "Effect": "Create a magical light bulb that sheds light in a 5 meters radius.\nIt levitates and stays where you put it and can be moved by hand, or you can simply stick it to any solid object.\n",
-            "Notes": "Lasts up to Your Level hours, or until you cancel it or cast Light again, or is purposefully destroyed with an Attack.\nYou choose the color of the light.\nThe light is not strong enough to blind someone.\nThe bulb can't go through solid objects.\n",
-            "Name": "~Light~"
-        },
-        "~Longblade~": {
-            "A": "0 Actions",
-            "Cooldown": "Once / Adventure",
-            "Duration": "1 minute",
-            "Effect": "Magically extend the weapon of a willing ally you can see (or yourself) to up to 3 meters.\nIts Attacks with that weapon can have up to 3 meters range.\n",
-            "Name": "~Longblade~"
-        },
-        "~Alarm~": {
-            "A": "10 minutes",
-            "Duration": "24 hours",
-            "Cooldown": "24 hours",
-            "Requirement": "Level 2",
-            "Effect": "You setup an invisible 4x4x4 meter cube.\nIf an unknown Unit or Enemy enters the cube, it alerts you mentally.\n",
-            "Name": "~Alarm~"
-        },
-        "~Mending~": {
-            "A": "1 Action",
-            "Requirement": "Level 2",
-            "Effect": "Touch a slightly broken piece of material that is still in one piece.\nYou can repair the Damage done to it.\nMending can repair a piece of Armor or Weapon for 1 Defense or Damage, but no more.\n",
-            "Notes": "For example, repair a hole through a chain shirt or textile material, the crack in a piece of glass, etc.",
-            "Name": "~Mending~"
-        },
-        "~Eldritch Steed~": {
-            "A": "5 minutes",
-            "Duration": "24 hours",
-            "Cooldown": "24 hours",
-            "Requirement": "Level 3",
-            "Effect": "You summon a ridable animal which doubles your movement speed on land.\nThe animal takes either a spectral, demonic or skeletal form.\nIt follows the normal rules for Riding.\nIt does not participate in combat.\n",
-            "Upgrade": "At Level 6 the Steed can fly.\n",
-            "Name": "~Eldritch Steed~"
-        },
-        "~Arrow Barrage~": {
-            "A": "0 Actions",
-            "Cost": "1 Mana",
-            "Range": "10 meters to edge",
-            "Cooldown": "Once / Encounter",
-            "Requirement": "Level 3",
-            "Effect": "You conjure a levitating barrage of arrows in a 3x3 area, up to 10 meters above ground.\nAt any point (for 0 Actions or with a Reaction), you can release these arrows upon the ground, hitting all enemies hit for 2d6 Pierce Damage.\nAt the start of your every turn, if the barrage is not yet released, it increases by 1 meter in size in all directions and gains 1d4 Damage when it will be released (up to +3d4 and 9x9).\n",
-            "Notes": "E.g. every turn, it goes from 3x3 to 5x5, then 7x7, then 9x9, etc and deals from 2d6 Damage to 2d6 + 1d4, then 2d6 + 2d4, etc.\nThe arrows disappear as soon as they hit ground, or when dismissed (all at once) for free at any point, or after 1 minute of staying in the air.\n",
-            "Name": "~Arrow Barrage~"
-        },
-        "~Blur~": {
-            "A": "0 Actions or Reaction",
-            "Cost": "1 Mana",
-            "Requirement": "Level 2",
-            "Effect": "A Unit you can see (or yourself) becomes blurry until the start of your next turn.\nIt gains +2 Defense and +2 to all Resist Checks and 3 Movement Speed.\n",
-            "Upgrade": "You can use this as a Reaction when another Unit declares an Attack or Ability (before it makes it).",
-            "Name": "~Blur~"
-        },
-        "~Chaining Grasp~": {
-            "A": "0 Actions",
-            "Cost": "1 Mana",
-            "Range": "5 meters",
-            "Requirement": "Level 3",
-            "Effect": "Deal 1d8 Force Damage to a Unit or point and pull yourself to the closest space near it.\n",
-            "Notes": "You need a clear path to the target point.",
-            "Name": "~Chaining Grasp~"
-        },
-        "~Cloud of Rot~": {
-            "A": "Half-Action",
-            "Cost": "1 Mana",
-            "Range": "5 meters to edge",
-            "Duration": "1 minute",
-            "Requirement": "Level 2",
-            "HasMixins": true,
-            "Effect": "Conjure a 4x4x4 meter cloud of rot.\nUnits starting their turn in the cloud take 1d10 Poison Damage, become Fumbling, can't be healed, and have -2 to all Checks, all until the end of their current turn.\n",
-            "Notes": "{Fumbling}\n",
-            "Name": "~Cloud of Rot~"
-        },
-        "~Dancing Weapon~": {
-            "A": "1 Action",
-            "Cost": "1 Mana",
-            "Range": "3 meters",
-            "Duration": "1 minute",
-            "Requirement": "Level 3",
-            "Effect": "Conjure a levitating, self-wielding melee weapon on a space within 3 meters.\nOn your each turn (includig this), the weapon can make a melee Attack that deals 1d10 + 1 Force Damage and move up to 3 meters.\n",
-            "Notes": "It costs 1 Action and 1 Mana to summon the weapon. Then, the weapon can Attack once for free every turn (including this), without costing an Action or Mana.\nThe weapon has no special effect. It has 10 Health and 3 Defense.\nThe weapon disappears if it moves more than 20 meters away from you.\n",
-            "Name": "~Dancing Weapon~"
-        },
-        "~Distort Vision~": {
-            "A": "1 Action",
-            "Cost": "1 Mana",
-            "Range": "5 meters",
-            "Requirement": "Level 2",
-            "Effect": "This incantation distorts the visual space in an area with a diameter equal to your Level.\nMake an Intelligence Check for this.\nWhile keeping the distorsion, you must maintain concentration and line of sight.\nYou lose concentration if you take Damage or become crowd controlled.\n",
-            "Upgrade": "At Level 5, you can use 1 Action to slowly move the area up to 3 meters.",
-            "Notes": "If you have Proficiency in Deception, you can add that to the Check.\nIn combat, a successful Distort Vision can provide Cover if rolled high enough.\n",
-            "Name": "~Distort Vision~"
-        },
-        "~Fairy Fire~": {
-            "A": "0 Actions",
-            "Cost": "1 Mana",
-            "Range": "10 meters to edge",
-            "Duration": "10 minutes",
-            "Effect": "Declare a 4x4x4 meter zone.\nAll Units in that zone become outlined in a colored glow (you choose the color) and can't benefit from Cover.\n",
-            "Notes": "The Units glow even through walls, but the denser the walls, the less they appear to glow.\nA 1-meter thick concrete wall completely blocks the glow.\nThis is not considered Crowd Control.\n",
-            "Name": "~Fairy Fire~"
-        },
-        "~Fake Sound~": {
-            "A": "Half-Action",
-            "Cost": "1 Mana",
-            "Range": "3 meters",
-            "Duration": "6 seconds",
-            "Effect": "You create a sound out of thin air.\nRoll a Charisma Check and add your Intelligence modifier to it to see how accurate your sound is.\n",
-            "Scaling": "At Level 4, this lasts up to 1 minute. At level 8, this lasts up to 1 hour.",
-            "Name": "~Fake Sound~"
-        },
-        "~Fog Cloud~": {
-            "A": "1 Action",
-            "Cost": "1 Mana",
-            "Range": "5 meters to edge",
-            "Effect": "A 5x5x5 meter cube becomes covered in fog for 1 minute.\n",
-            "Upgrade": "All Attacks done from, through or to Units inside Fog have Cover (-2).",
-            "Notes": "Fog can be dissipated by wind. You can choose the color of the fog. The fog does not go through walls, but does bend around corners (e.g. up to 360 degrees around wall extremities).",
-            "Name": "~Fog Cloud~"
-        },
-        "~Grow or Shrink~": {
-            "A": "0 Actions",
-            "Cost": "1 Mana",
-            "Cooldown": "Once / turn",
-            "Requirement": "Level 3",
-            "Effect": "A Unit you can see becomes one size larger/smaller for its next 1d4 turns.\nIt gains or loses 20% of its base (unbuffed) Defense (gain/loss is rounded up), gains or loses 1 Damage on all physical Acts (that would deal Damage) and gains or loses 1 Movement Speed.\nCan stack multiple times.\n",
-            "Notes": "Sizes are Minuscule, Small, Medium, Large, and Larger.\nA Larger Unit becomes 1 meter larger/smaller on all directions.\nIt's number of spaces occupied also changes with this.\n",
-            "Name": "~Grow or Shrink~"
-        },
-        "~Mage Hand~": {
-            "A": "0 Actions",
-            "Cost": "1 Mana",
-            "Range": "5 meters",
-            "Requirement": "Level 3",
-            "Duration": "8 hours",
-            "Effect": "Conjure a spectral hand in a space you can see.\nYou can move the hand as you move your normal hands and you can move your hand by spending meters from your remaining Movement.\nThe hand can't deal Damage and disappears if it goes outside a 10 meters range.\n",
-            "Notes": "The hand can't lift objects weighing more than 10kg.\nMoving the hand spends Actions as if you made moved your own hand.\nOnce / turn, you can summon or vanish the hand for 0 Actions if it's effect is still active, in a space next to you.\n",
-            "Name": "~Mage Hand~"
-        },
-        "~Major Illusion~": {
-            "A": "1 Action",
-            "Requirement": "Level 5",
-            "Cost": "1 Mana",
-            "Range": "10 meters",
-            "Effect": "You create an illusion that fits at most in a 2x2x2 meter cube.\nThe illusion appears real to the eyes, ears and by smell, but physical interaction makes it obvious it's an illusion and objects pass through it normally.\nThe illusion can deal no Damage or Crowd Control, but can provide Cover or block Line of Sight (both from the front, and from behind).\nOn your turn, you can and must spend 1 Action to keep and/or move the illusion, otherwise it is dispelled.\nYou can only have 1 illusion active at a time.\n",
-            "Upgrade": "At Level 8, the illusion lasts indefinitely until you cancel it without needing to spend Actions, and it can hold its own simple movement and clockwork-like routines.\nYou can also program this illusion to react on its own in a specific way to specific triggers, but the instructions must be concise - talk with your GM about this.\n",
-            "Name": "~Major Illusion~"
-        },
-        "~Meld With Material~": {
-            "A": "1 Action",
-            "Cooldown": "Once / Adventure",
-            "Requirement": "Level 5",
-            "Effect": "Touch a piece of solid material.\nYou become immoving and all your body becomes as if made from that material.\nYou can cancel this for free at any point, but until you do, you are Stunned (can't do anything) and have +3 Defense and to all Checks.\n",
-            "Notes": "You still need to drink water and eat food, but don't need to breathe while melded.\nThis has potential to work like a long term Stealth mechanism.\n",
-            "Name": "~Meld With Material~"
-        },
-        "~Magic Prison~": {
-            "A": "5 minutes",
-            "Requirement": "Level 8",
-            "Cost": "2 Mana",
-            "Effect": "You create a 4x4x4 meter cube.\nChoose a Unit inside the cube.\nIt makes an Intelligence Check with triple disadvantage.\nIf it fails, it can not exit the cube for 24 hours.\nIt can make this Check to try to escape every 24 hours.\nYou can cast this Once / day per Mana.\n",
-            "Name": "~Magic Prison~"
-        },
-        "~Shadow Clone~": {
-            "A": "0 Actions",
-            "Cost": "1 Mana",
-            "Range": "10 meters",
-            "Duration": "10 minutes",
-            "Requirement": "Level 2",
-            "Effect": "You create an illusion of yourself at a target location.\nThe illusion has 1 Health and 1 Defense and it fails all Checks.\nYou can control what the illusion does at will.\nIf the illusion goes more than 10 meters away from you, it disappears and the spell is cancelled.\n",
-            "Upgrade": "At Level 5, the cast range and illusion range become 15 meters and the sound of your voice can come through the illusion's mouth instead of yours. At Level 5 - 25 meters. At Level 7 you can choose to see through the illusion's eyes at any point.",
-            "Notes": "You need maintain line of sight to the clone to keep it working.",
-            "Name": "~Shadow Clone~"
         },
         "~Web~": {
             "A": "Half-Action",
             "Cost": "1 Mana",
             "Range": "5 meters to edge",
             "Duration": "1 minute",
-            "Requirement": "Level 2",
+            "Requirement": "Level 5",
             "HasMixins": true,
             "Effect": "Declare a 4x4 meter zone\nThe zone becomes filled with spider web and counts as Difficult Terrain.\nAfter a Unit exits the zone, it must pass a Dexterity Check or be Rooted.\n",
             "Notes": "{Rooted}\n",
             "Name": "~Web~"
         },
-        "~Conjure Object~": {
+        "~Meld With Material~": {
             "A": "1 Action",
-            "Requirement": "Level 4",
-            "Cost": "1 Mana",
-            "Range": "3 meters",
-            "Effect": "You can conjure an object that is up to 1x1x1 meter in size.\nThe object is solid and glows faintly.\nYou can't conjure mechanical objects.\nThe object disappears after 1 hour (24 hours at Level 8).\n",
-            "Name": "~Conjure Object~"
-        },
-        "~Force Wall~": {
-            "A": "0 Actions or Reaction",
-            "Cost": "1 Mana",
-            "Range": "5 meters to edge",
-            "Duration": "1 minute",
-            "Requirement": "Level 4",
-            "Effect": "You create a 3x3 meter (tall and wide) translicent, magical and thin force wall.\nThe wall provides blocks Line of Sight and projectiles.\nMoving through it counts as Hard Terrain.\n",
-            "Upgrade": "You can use this as a Reaction when someone declares an Attack or Ability to block the missile, before any roll is made.",
-            "Name": "~Force Wall~"
-        },
-        "~Animate Dead~": {
-            "A": "Half-Action",
-            "Cost": "1 Mana",
-            "Requirement": "Level 4",
-            "Range": "5 meters",
-            "Duration": "1 hour",
-            "Effect": "Raise an undead Unit to fight for you from a nearby medium or larger corpse. The corpse is then consumed.\nThe undead Unit always has Medium size, 7 Max Health and 3 Defense.\nIt has Resist Checks equal to yours, but -2 to all Non-Resist Checks.\nIt has 4 meters movement speed.\nIt can use 1 Action to attack and deals 2d4 Damage (Smash, Slash or Pierce, your choice).\nYour undead takes its turn immediately before or after your turn (you choose).\nThe undead will always try to move to and attack the closest enemy to it (you choose if it's a tie).\nYou can use Half-Action on your turn to command (one of) your undead to move to a certain location.\n",
-            "Name": "~Animate Dead~"
-        },
-        "~Polymorph~": {
-            "A": "Half-Action",
-            "Cost": "2 Mana",
-            "Requirement": "Level 5",
-            "Effect": "Choose an animal from the Pet List or any critter, such as a sheep, deer, etc.\nA Unit within 10 meters must pass an Intelligence Check or be transformed into that animal.\nAt the end of its every turn, it must pass the Check again or remain Polymorphed.\nThe unit can retains its Health and Defense, but can't do any non-animal actions.\n",
-            "Notes": "Cover is applied normally.\nA Unit can willingly fail the Check. For enemies, aside from Health and Defense, apply rules for Shapeshift. Allies can apply normal rules for Shapeshift (e.g. gain extra Health from the animal).\nIf used on an Enemy, this is considered Crowd Control.\n",
-            "Name": "~Polymorph~"
-        },
-        "~Watcher Eye~": {
-            "A": "0 Actions",
-            "Requirement": "Level 5",
-            "Range": "5 meters",
-            "Effect": "You conjure a magical eye that records everything it sees for up to 24 hours.\nAfter 24 hours, the eye stops recording.\nYou can use your magic to scan what the eye recorded in your mind.\nAt any point, you can tune into the eye and see what it sees in your mind.\n",
-            "Upgrade": "At Level 8, you can move use your movement to instead move the Eye while you're tuned into it (it can fly) and lasts a number of days equal to your Level.\n",
-            "Name": "~Watcher Eye~"
-        },
-        "~Banishment Slip~": {
-            "A": "Half-Action",
-            "Cost": "1 Mana",
             "Cooldown": "Once / Adventure",
-            "Range": "5 meters",
-            "Requirement": "Level 6",
-            "Effect": "A Medium or smaller Unit becomes Banished to another parallel dimension until the start of your next turn.\nWhile Banished, it can't interact with the normal world and nothing can interact with it.\n",
-            "Name": "~Banishment Slip~"
-        },
-        "~Conjure Lodge~": {
-            "A": "10 minutes",
-            "Requirement": "Level 6",
-            "Duration": "24 hours",
-            "Cost": "3 Mana",
-            "Cooldown": "1 Week",
-            "Effect": "Conjure a cubic room with a width equal to your Level and a 1x2 meter door.\nThis room works like a pocket dimension and only the door is visible from the outside. The room occupies no space in the real world, except for the door (you enter the room through the door).\n",
-            "Notes": "If the Lodge would be destroyed with people inside, each will automatically be expulsed (appear) in a space within 3 meters of the door (randomly or by GM's choice).",
-            "Name": "~Conjure Lodge~"
-        },
-        "~Transmogrification~": {
-            "A": "10 minutes",
-            "Cost": "1 Mana",
-            "Requirement": "Level 6",
-            "Effect": "Touch 2 objects of the same type (e.g. 2 helmets, or 2 arrows, or 2 melee 1-handed weapons, etc).\nYou make one of the look like the other.\nThe change is permanent until the object breaks.\n",
-            "Notes": "Upon close inspection of the shape and colors, this is visibly an illusion.",
-            "Name": "~Transmogrification~"
-        },
-        "~Transmute Rock~": {
-            "A": "1 Action",
-            "Requirement": "Level 6",
-            "Cost": "1 Mana",
-            "HasMixins": true,
-            "Effect": "Touch a 1x1x1 meter cube of rock, mud, sand, etc.\nTransform it into rock, mud, sand, etc.\nA Unit caught in this effect must pass a Might Check or be Rooted.\n",
-            "Notes": "{Rooted}\n",
-            "Name": "~Transmute Rock~"
-        },
-        "~Portal~": {
-            "A": "4 Hours",
-            "Cost": "3 Mana",
-            "Duration": "30 days",
-            "Requirement": "Level 8",
-            "Effect": "You need a partner who can cast Portal to cast this.\nYou both cast it at the same time, in different locations.\nAt the end of the cast time, a portal opens at the locations of the two casters.\nStepping through one of the portals (obviously) teleports the Unit to the other portal.\nYou can only cast this every 30 days.\n",
-            "Name": "~Portal~"
+            "Requirement": "Level 7",
+            "Effect": "Touch a piece of solid material.\nYou become immoving and all your body becomes as if made from that material.\nYou can cancel this for free at any point, but until you do, you are Stunned (can't do anything) and have +3 Defense and to all Checks.\n",
+            "Notes": "You still need to drink water and eat food, but don't need to breathe while melded.\nThis has potential to work like a long term Stealth mechanism.\n",
+            "Name": "~Meld With Material~"
         }
     },
     "Mysticism": {
@@ -1116,9 +956,8 @@
         },
         "~Mending~": {
             "A": "1 Action",
-            "Requirement": "Level 2",
             "Effect": "Touch a slightly broken piece of material that is still in one piece.\nYou can repair the Damage done to it.\nMending can repair a piece of Armor or Weapon for 1 Defense or Damage, but no more.\n",
-            "Notes": "For example, repair a hole through a chain shirt or textile material, the crack in a piece of glass, etc.",
+            "Notes": "For example, repair a hole through a chain shirt or textile material, the crack in a piece of glass, etc.\n",
             "Name": "~Mending~"
         },
         "~Speak With Animals~": {
@@ -1168,6 +1007,14 @@
             "Notes": "Cover is applied normally. {Crippled} {Silenced}\n",
             "Name": "~Mind Blast~"
         },
+        "~Blur~": {
+            "A": "0 Actions or Reaction",
+            "Cost": "1 Mana",
+            "Requirement": "Level 3",
+            "Effect": "A Unit you can see (or yourself) becomes blurry to enemies until the start of your next turn.\nIt gains +2 Defense and +2 to all Resist Checks and 3 Movement Speed.\n",
+            "Upgrade": "You can use this as a Reaction when another Unit declares an Attack or Ability (before it makes it).",
+            "Name": "~Blur~"
+        },
         "~Wild Steed~": {
             "A": "5 minutes",
             "Requirement": "Level 3",
@@ -1184,6 +1031,16 @@
             "Effect": "Choose 2 Units you can see.\nEach must pass a Sense Check or take 2d6 Psychic Damage (or half if it succeeds).\nFor each that fails, also roll 1d4 and the Unit must do one of the 4 options below on its next turn, depending on the number rolled on the d4:\n{Diamond} 1. Moves in a random direction with all of its movement (chosen by the DM) and is Fumbling\n{Diamond} 2. Forgets to move and is Fumbling\n{Diamond} 3. Forgets to move and is Blinded\n{Diamond} 4. Is Rooted and tries to make a ranged Attack\n",
             "Notes": "If you roll 4 and the Unit can't make a ranged Attack, it does not take any action.\n{Fumbling} {Blinded}\nCover is applied normally.\n",
             "Name": "~Confusion~"
+        },
+        "~Fake Sound~": {
+            "A": "Half-Action",
+            "Cost": "1 Mana",
+            "Range": "3 meters",
+            "Duration": "6 seconds",
+            "Requirement": "Level 3",
+            "Effect": "You create a sound out of thin air.\nRoll a Charisma Check and add your Intelligence modifier to it to see how accurate your sound is.\n",
+            "Scaling": "At Level 4, this lasts up to 1 minute. At level 8, this lasts up to 1 hour.",
+            "Name": "~Fake Sound~"
         },
         "~Charming Word~": {
             "A": "1 Action",
@@ -1225,8 +1082,8 @@
         },
         "~Watcher Eye~": {
             "A": "0 Actions",
-            "Requirement": "Level 5",
             "Range": "5 meters",
+            "Requirement": "Level 5",
             "Effect": "You conjure a magical eye that records everything it sees for up to 24 hours.\nAfter 24 hours, the eye stops recording.\nYou can use your magic to scan what the eye recorded in your mind.\nAt any point, you can tune into the eye and see what it sees in your mind.\n",
             "Upgrade": "At Level 8, you can move use your movement to instead move the Eye while you're tuned into it (it can fly) and lasts a number of days equal to your Level.\n",
             "Name": "~Watcher Eye~"
@@ -1242,6 +1099,17 @@
         }
     },
     "Eldritch": {
+        "~Curse of Weakness~": {
+            "A": "Half-Action",
+            "Cost": "1 Mana",
+            "Range": "10 meters",
+            "Duration": "1 minute",
+            "Requirement": "Level 2",
+            "Effect": "A target makes a Charisma Check.\nIf it fails, whenever it makes an Attack or Check, it rolls 1d4 and subtracts it from the result.\n",
+            "Upgrade": "Only affects an Epic monster's first turn.",
+            "Notes": "Cover is applied normally to the Charisma Check.",
+            "Name": "~Curse of Weakness~"
+        },
         "~Decaying Blight~": {
             "A": "Channeled",
             "Cooldown": "1 hour",
@@ -1250,6 +1118,17 @@
             "Upgrade": "At Level 5, you can choose to ommit some of the effects of this blight.\n",
             "Notes": "This Ability is not meant for combat.\nBe creative with how you use this little spell!\n",
             "Name": "~Decaying Blight~"
+        },
+        "~Cloud of Rot~": {
+            "A": "Half-Action",
+            "Cost": "1 Mana",
+            "Range": "5 meters to edge",
+            "Duration": "1 minute",
+            "Requirement": "Level 2",
+            "HasMixins": true,
+            "Effect": "Conjure a 4x4x4 meter cloud of rot.\nUnits starting their turn in the cloud take 1d10 Poison Damage, become Fumbling, can't be healed, and have -2 to all Checks, all until the end of their current turn.\n",
+            "Notes": "{Fumbling}\n",
+            "Name": "~Cloud of Rot~"
         },
         "~Disenchantment~": {
             "HasMixins": true,
@@ -1308,17 +1187,6 @@
             "Effect": "Declare a target.\nWhenever it makes a offensive Act, it takes 4 Psychic Damage.\n",
             "Name": "~Curse of Pain~"
         },
-        "~Curse of Weakness~": {
-            "A": "Half-Action",
-            "Cost": "1 Mana",
-            "Range": "10 meters",
-            "Duration": "1 minute",
-            "Requirement": "Level 2",
-            "Effect": "A target makes a Charisma Check.\nIf it fails, whenever it makes an Attack or Check, it rolls 1d4 and subtracts it from the result.\n",
-            "Upgrade": "Only affects an Epic monster's first turn.",
-            "Notes": "Cover is applied normally to the Charisma Check.",
-            "Name": "~Curse of Weakness~"
-        },
         "~Deathfire Bolt~": {
             "A": "1 Action",
             "Cost": "1 Mana",
@@ -1329,11 +1197,22 @@
         "~Animate Dead~": {
             "A": "Half-Action",
             "Cost": "1 Mana",
-            "Requirement": "Level 4",
             "Range": "5 meters",
             "Duration": "1 hour",
+            "Requirement": "Level 4",
             "Effect": "Raise an undead Unit to fight for you from a nearby medium or larger corpse. The corpse is then consumed.\nThe undead Unit always has Medium size, 7 Max Health and 3 Defense.\nIt has Resist Checks equal to yours, but -2 to all Non-Resist Checks.\nIt has 4 meters movement speed.\nIt can use 1 Action to attack and deals 2d4 Damage (Smash, Slash or Pierce, your choice).\nYour undead takes its turn immediately before or after your turn (you choose).\nThe undead will always try to move to and attack the closest enemy to it (you choose if it's a tie).\nYou can use Half-Action on your turn to command (one of) your undead to move to a certain location.\n",
             "Name": "~Animate Dead~"
+        },
+        "~Shadow Clone~": {
+            "A": "0 Actions",
+            "Cost": "1 Mana",
+            "Range": "10 meters",
+            "Duration": "10 minutes",
+            "Requirement": "Level 4",
+            "Effect": "You create an illusion of yourself at a target location.\nThe illusion has 1 Health and 1 Defense and it fails all Checks.\nYou can control what the illusion does at will.\nIf the illusion goes more than 10 meters away from you, it disappears and the spell is cancelled.\n",
+            "Upgrade": "At Level 7, the cast range and illusion range become 15 meters and the sound of your voice can come through the illusion's mouth instead of yours. At Level 5 - 25 meters. At Level 7 you can choose to see through the illusion's eyes at any point.",
+            "Notes": "You need maintain line of sight to the clone to keep it working.",
+            "Name": "~Shadow Clone~"
         },
         "~Spare the Dying~": {
             "A": "1 Action",
@@ -1348,15 +1227,10 @@
             "A": "0 Actions",
             "Cooldown": "1 Hour",
             "Range": "3 meters",
-            "Effect": "Cure a simple Disease, Debuff or Bleed effect on a Unit (you can choose yourself).\n",
+            "Effect": "Cure a simple Disease, Debuff or Bleed effect on a Unit (you can choose yourself), or clean up to 2 rations or liters of water of microbes, mild poison or impurities.\n",
             "Upgrade": "At Level 4, you can cure harder and stranger diseases and poisons.\nAt level 7, you can cure terminal or chronic diseases and poisons.\n",
             "Notes": "Debuffs are things like curses, weaknesses, etc. Crowd Control like Daze, Fumbling, Fear, Stun, etc are not considered Debuffs.\n",
             "Name": "~Cure Affliction~"
-        },
-        "~Detect Poison and Disease~": {
-            "A": "1 Action",
-            "Effect": "You know if there is any poison (or poisonous Unit) or disease (or ill person) within 5 meters.",
-            "Name": "~Detect Poison and Disease~"
         },
         "~Flameblade~": {
             "A": "Passive",
@@ -1373,15 +1247,9 @@
         },
         "~Mending~": {
             "A": "1 Action",
-            "Requirement": "Level 2",
             "Effect": "Touch a slightly broken piece of material that is still in one piece.\nYou can repair the Damage done to it.\nMending can repair a piece of Armor or Weapon for 1 Defense or Damage, but no more.\n",
-            "Notes": "For example, repair a hole through a chain shirt or textile material, the crack in a piece of glass, etc.",
+            "Notes": "For example, repair a hole through a chain shirt or textile material, the crack in a piece of glass, etc.\n",
             "Name": "~Mending~"
-        },
-        "~Purify Food and Drink~": {
-            "A": "1 Action",
-            "Effect": "Food you touch becomes clean of microbes and mild poison.\nA water containter you touch (up to 2 liters per cast) becomes drinkable, clean and free of microbes and mild poison.\n",
-            "Name": "~Purify Food and Drink~"
         },
         "~Saving Throw~": {
             "A": "0 Actions",
@@ -1499,6 +1367,16 @@
             "Requirement": "Level 5",
             "Effect": "Touch a dead Unit, whose body is still in decent condition (as approved by the GM).\nThe dead Unit comes back to life, conscious and without Exhaustion, with 1 Health.\n",
             "Name": "~Spare the Dying~"
+        },
+        "~Water Walk~": {
+            "A": "0 Actions or Reaction",
+            "Requirement": "Level 5",
+            "Cost": "1 Mana",
+            "Range": "3 meters",
+            "Duration": "1 hour",
+            "AlignOnWebsite": "Left",
+            "Effect": "Up to 2 willing Units can walk on water as normally.\nThe effect ends if the Unit takes Damage.\n",
+            "Name": "~Water Walk~"
         },
         "~Wraithwalk~": {
             "A": "0 Actions",

@@ -27,6 +27,7 @@ import TableNormalLevelUpWarlock from '../TableNormal/TableNormalLevelUpWarlock'
 import ManySmallStats from '../SmallStat/ManySmallStats'
 import Page from '../../containers/Page/Page'
 import { Link } from 'react-router-dom'
+import TableNormalLevelUpHunter from '../TableNormal/TableNormalLevelUpHunter'
 
 export function Proficiencies({ name, theRaceOrClass }) {
 
@@ -187,7 +188,14 @@ export function LevelingUp({ theClass }) {
                     {
                         theClass['Spellcasting']['Type'] == 'Special Mana-based'? (
                             <TableNormalLevelUpWarlock/>
-                        ) : (
+                        ) :
+                        theClass['Spellcasting']['Type'] == 'Hunter'? (
+                            <TableNormalLevelUpHunter/>
+                        ) :
+                        theClass['Spellcasting']['Type'] == 'Paladin'? (
+                            <TableNormalLevelUp/>
+                        ) :
+                        (
                             <TableNormalLevelUp/>
                         )
                     }
@@ -219,7 +227,7 @@ export function LevelingUp({ theClass }) {
                                 {/* <Spell spell={abilities['Default Moves']['~Action Surge~']}/> */}
                             </div>
                         ) :
-                        theClass['Spellcasting']['Type'] == 'Special Mana-based'? (
+                        theClass['Spellcasting']['Type'] == 'Special Mana-based' || theClass['Spellcasting']['Type'] == 'Hunter'? (
                             <div>
                                 <TableNormal columns={['Every Level Above 1 You Get...']}>
                                     <tr>
@@ -353,10 +361,10 @@ export function SpellCasting({ theClass }) {
 
                     <PageH3>Numbers</PageH3>
                     <div className='with-margined-children'>
-                        { theClass['Spellcasting']['Type'] != null && theClass['Spellcasting']['Type'] != 'Mana-based' && (
+                        {/* { theClass['Spellcasting']['Type'] != null && theClass['Spellcasting']['Type'] != 'Mana-based' && (
                             <SmallStat name="Spellcasting Style" color="blue">{ theClass['Spellcasting']['Type'] }</SmallStat>
-                        ) }
-                        { theClass['Spellcasting']['Mana'] != null && (
+                        ) } */}
+                        { theClass['Spellcasting']['Mana'] != null && theClass['Spellcasting']['Mana']['Amount'] != null && (
                             <SmallStat name="Mana" color="blue">{ theClass['Spellcasting']['Mana']['Amount'] }<Icon name="Mana"/></SmallStat>
                         ) }
                         <SmallStat name="Spell Grade" topDown={true} color="blue">{ theClass['Spellcasting']['Spell Grade'] }</SmallStat>
@@ -391,6 +399,8 @@ export function SpellCasting({ theClass }) {
                         }
                 </Column>
             </TwoColumns>
+            
+            <br/>
             <RecommendedBasicSpells/>
             
         </div>

@@ -14,6 +14,7 @@ import TableNormal from '../../components/TableNormal/TableNormal'
 import { Link } from 'react-router-dom'
 import ThreeColumns from '../../components/TwoColumns/ThreeColumns'
 import Column from '../../components/TwoColumns/Column'
+import { TDBullet, TDSleek1, TDSleek2, TDSleek3 } from '../../components/TableNormal/TDSleek'
 
 const [
     questguardForBeginners,
@@ -37,23 +38,23 @@ export default function Rules({}) {
 
         function RulesH1({title}) {
             return (
-                <div className='rules-toc-h1'>
+                <TDSleek1>
                     <Link to={sectionNameToLinkMap[title]}>{ title }</Link>
-                </div>
+                </TDSleek1>
             )
         }
         function RulesH2({title, h1Title}) {
             return (
-                <div className='rules-toc-h2'>
+                <TDSleek2>
                     <Link to={sectionNameToLinkMap[h1Title] + '#' + U.titleToId(title)}>{ title }</Link>
-                </div>
+                </TDSleek2>
             )
         }
         function RulesH3({title, h1Title}) {
             return (
-                <div className='rules-toc-h3'>
-                    <Link to={sectionNameToLinkMap[h1Title] + '#' + U.titleToId(title)}><img src='/Icons/UI/BulletPoint3.png' className='rules-toc-h3-bullet'/>{ title }</Link>
-                </div>
+                <TDSleek3>
+                    <Link to={sectionNameToLinkMap[h1Title] + '#' + U.titleToId(title)}><TDBullet/>{ title }</Link>
+                </TDSleek3>
             )
         }
         return (

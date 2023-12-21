@@ -102,7 +102,7 @@ Technique Feats:
 
     ~Battle Mage~:
         AlignOnWebsite: Right
-        Cost: -4 Initiative
+        Cost: -2 Initiative
         A: Passive
         Requirement: Heavy Armor
         Effect: When attacking with a weapon, instead of adding Might or Dexterity, you can add Intelligence. If you do, the attack's Damage becomes Fire, Cold or Shock (of choice).
@@ -114,7 +114,7 @@ Technique Feats:
 
     ~Double Greatweapon Fighting~:
         A: Passive
-        Cost: -3 Initiative
+        Cost: -2 Initiative
         Requirement: Trained in 2-Handed melee weapons and at least 2 Might
         Effect: |
             You can dual wield 2-Handed melee weapons, one in each hand.
@@ -132,9 +132,16 @@ Technique Feats:
             You can wield 1-Handed melee weapons with both hands.
             If you do, your 2-Handed weapon attacks with 1-Handed melee weapons take 1 Action and deal an extra +2d6 Damage.
 
+    ~Improviser~:
+        A: Passive
+        Cost: -1 in a Stat of choice and -2 Initiative
+        Effect: |
+            Improvised Attack now deals 1d8 + Dexterity for Small objects, 1d8 + Might or Dexterity for Medium objects and 2d10 + Might for Large objects.
+            Additionally, you can pick up objects with 0 Actions.
+
     ~Tower Shield Training~:
         A: Passive
-        Cost: -4 Initiative
+        Cost: -1 in 2 Stats of choice
         Requirement: Trained in Shields, at least 2 Might
         Effect: |
             You can wield a Tower Shield.
@@ -143,7 +150,7 @@ Technique Feats:
 
     ~Shield Dual-Wielding~:
         A: Passive
-        Cost: -1 Movemet Speed
+        Cost: -1 Movement Speed
         Requirements: Trained in Shields, at least 2 Might
         Effect: |
             You can wield a Shield in each hand. If you do, you gain an extra +1 Defense, in addition to what the Shield normally gives.
@@ -156,24 +163,130 @@ Technique Feats:
         A: Passive
         Cost: -2 Max Health
         Effect: You can throw melee weapons at up to 5 meters range and with their own damage and effects. Thrown 1-Handed Weapons have a -2 Penalty and 2-Handed Weapons a -4 Penalty.
-        
+
+Afflictions:
+
     ~Blindness~:
         A: Passive
-        Cost: -2 Max Health
+        Cost: -Sight
         Effect: |
             You are blind in your eyes, but can understand your surroundings using your other senses.
-            You fail all Checks for seeing (or related), but gain Proficiency in Hearing and Smelling.
+            You fail all Checks for seeing (or related).
             You are immune to being Blinded and take only 50% Psychic Damage (after subtracting Defense).
     
     ~Deafness~:
-        Cost: -2 Max Health
         A: Passive
+        Cost: -Hearing
         Effect: |
             You are deaf in your ears, but can read lips and sense the rest of your surroundings using your other senses.
-            You fail all Checks for hearing (or related), but gain Proficiency in Sight and Smelling.
+            You fail all Checks for hearing (or related).
             You are immune to being Silenced and take only 50% Psychic Damage (after subtracting Defense).
 
+    ~Missing Arm~:
+        A: Passive
+        Cost: -1 Arm or Hand
+        Effect: |
+            You are missing an arm or a hand, but make up in accuracy with the other one.
+            You can't use 2-handed weapons.
+            The first time you make an attack every turn, it ignores Cover.
+    
+    ~Missing Leg~:
+        A: Passive
+        Cost: -1 Movement (and -1 Leg or Foot)
+        Effect: |
+            You are missing a leg or a foot, but make up in body movement.
+            You are immune to being Dazed and take only 50% Force Damage (after subtracting Defense).
 
+    ~Chronic Sickness~:
+        A: Passive
+        Cost: -1 Might
+        Effect: |
+            You gain +1 Charisma if it's below 3.
+
+Class Feats:
+
+    <Old Ritual>:
+        _Value: 1.5
+        A: 10 minutes
+        Cooldown: Once / Adventure
+        Cost: You lose access to Shapeshift
+        Requirement: Druid, Level 4
+        Effect: Channel for 10 minutes in a safe space, uninhabited by regular folk. Regain 3 Mana.
+        Upgrade: If you have this Talent, you can no longer use Shapeshift, whether you used it or not.
+        Notes: Your Mana can't exceed your Max Mana.
+
+    <Lycanthropy>:  # 2.5?
+        _Value: 2.5
+        A: Passive
+        Cooldown: Special
+        HasMixins: true
+        Duration: 2 turns
+        Cost: -1 Mana and -1 Sense
+        Requirement: Druid
+        Effect: |
+            Once per _twilight_ (18:00 to 6:00), you can use Shapeshift to transform into a Lycanthrope until the end of your next turn.
+            While a Lycanthrope, you can't willingly shift to another form, and you must Animal Attack with all of your Actions, otherwise you take 5 Damage for each Half-Action spent elsehow.
+            Upgrade: Every Worthy _midnight_, if this is not on Cooldown, roll 1d20. If you roll 20, you automatically transform into a Lycanthrope. This rule can be overridden by the GM.
+        Notes: |
+            While a Lycanthrope, you have one extra Half-Action per turn, can Break your Movement and Pet Attack heals you for half of the Damage done.
+            Additionally, you have a base speed of 8 meters, and can use Ominous Howl, which Fears all Units that can hear you for a Half-Action, once per Adventure.
+
+    <Lone Wolf>:
+        A: Passive
+        Cost: Animal Companion
+        Requirement: Hunter
+        Effect: |
+            You gain +2 Max Health / Level and +2 Health Regen and +1 to any Stat (this can exceed the maximum value allowed by your Level).
+            Additionally, you have the Draven Slay Talent for Free.
+        Notes: You no longer have access to the Animal Companion.
+
+    <Cleric Lich Ritual>:
+        _Value: 2
+        HasMixins: true
+        Cost: -4 Max Health
+        Requirement: Level 5 and Cleric, Mage or Warlock
+        A: Special
+        Effect: |
+            You spend 24 hours in a special place of power (this could be a temple or given to you by your GM).
+            After it's finished, you become a Lich, and you are considered Undead.
+            Apply the following:
+            {Diamond} You are Undead, thus immune to Charm, Fear and being put to Sleep
+            {Diamond} You can no longer cast Basic Abilities that don't cost Mana, but gain 2 extra Max Mana (or 1 if you're a Warlock). Passive Spells that don't cost Mana still apply.
+            {Diamond} You no longer need to eat, drink or sleep.
+            {Diamond} You gain access to the Elemental and Eldritch Basic Ability Lists if you don't have them already
+            You also gain the Phylactery, Dismorphment and Death Pact Abilities.
+        Upgrade: |
+            At Level 6, the range of all your Spells is doubled.
+            At Level 7, Spell Grade increases by 1.
+            At Level 8, all your Checks increase by 1.
+            At Level 9, your Defense increases by 1.
+            At Level 10, your Max Health increases by 5.
+
+    ~Phylactery~:
+        IsSubspell: true
+        A: Special
+        Effect: |
+            When you become a Lich, you place your soul inside a Phylactery - a special object, dear to you.
+            When you would reach 0 Health, instead of going Fallen, you can instantly teleport your body inside the Phylactery.
+            A spellcaster can channel when resting inbetween Adventures to resummon you near the Phylactery with full Health, Spells, etc.
+            If the Phylactery is destroyed, you must wait 1 year to make another one.
+            
+    ~Dismorphment~:
+        IsSubspell: true
+        A: Reaction or 0 Actions
+        Cooldown: Once / Adventure
+        Effect: |
+            When a Unit declares an attack or Spell on you, you can instantly teleport up to 3 meters away.
+            That Unit can keep their action or change it.
+            You can also instantly teleport using 0 Actions on your turn.
+        Notes: Remember that at Level 6, the range of this becomes 6 as per the description of Cleric Lich Ritual.
+        
+    ~Death Pact~:
+        IsSubspell: true
+        A: Half-Action
+        Effect: |
+            Choose an ally (or yourself).
+            They lose 5 Health. You gain 1 Mana this turn only.
 
 Multiclass Feats:   # Should be about 1.5 Mana worth (so 0.5 because of the 1 Max Mana Cost)
 
@@ -200,7 +313,7 @@ Multiclass Feats:   # Should be about 1.5 Mana worth (so 0.5 because of the 1 Ma
         A: Passive
         Cost: -4 Max Health and -4 Initiative
         Effect: |
-            You gain the Magic Mastery Ability from the Mage and access to the Elemental, Conjuration and Arcane Basic Ability Lists.
+            You gain the Magic Mastery Ability from the Mage and access to the Elemental and Arcane Basic Ability Lists.
             The next time when you would pick a Talent from your original class, you can instead pick a Mage Specialization and gain all of its starting Abilities.
 
     ~MC - Paladin~:

@@ -12,31 +12,47 @@ import PageH1 from '../../components/PageH1/PageH1'
 import Page from '../../containers/Page/Page'
 
 import TableNormal from '../../components/TableNormal/TableNormal'
+import ThreeColumns from '../../components/TwoColumns/ThreeColumns'
+import Column from '../../components/TwoColumns/Column'
+import { TDBullet, TDSleek1, TDSleek2, TDSleek3, TDSleekBox } from '../../components/TableNormal/TDSleek'
 
 export default function PetsAndAnimals() {
-
-    const categoryNames = Object.keys(animals)
 
     function PetAnimalTable({categoryName}) {
         const animalNames = Object.keys(animals[categoryName])
         return (
-            <TableNormal columns={[categoryName]}>
+            <div>
+                <TDSleek2>{categoryName}</TDSleek2>
                 { animalNames.map(name => (
-                    <tr key={name}>
-                        <td>
-                            <Link to={`/Other/PetOrAnimal#${name}`} style={{width: '100%', display: 'block'}}>{name}</Link>
-                        </td>
-                    </tr>
+                    <TDSleek3 key={name}>
+                        <TDBullet/>
+                        <Link to={`/Other/PetOrAnimal#${name}`}>{name}</Link>
+                    </TDSleek3>
                 ))}
-            </TableNormal>
+            </div>
         )
     }
 
     return (
         <Page title="Pets and Animals">
-            { categoryNames.map(categoryName => (
-                <PetAnimalTable key={categoryName} categoryName={categoryName}/>
-            )) }
+            <TDSleekBox>
+                <ThreeColumns>
+                    <Column>
+                        <TDSleek1>Animals</TDSleek1>
+                        <PetAnimalTable categoryName="Standard Animals"/>
+                        <PetAnimalTable categoryName="Exotic Pets"/>
+                    </Column>
+                    <Column>
+                        <TDSleek1>Other</TDSleek1>
+                        <PetAnimalTable categoryName="Druid Special"/>
+                        <PetAnimalTable categoryName="Constructs"/>
+                    </Column>
+                    <Column>
+                        <TDSleek1>People</TDSleek1>
+                        <PetAnimalTable categoryName="Squires"/>
+                    </Column>
+                </ThreeColumns>
+            </TDSleekBox>
         </Page>
     )
 }

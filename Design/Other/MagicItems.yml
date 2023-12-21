@@ -207,7 +207,7 @@ Level 2 Consumables:  # 100
       Price: 100
       Effect: If you fail a save, you can shatter the ring to instantly succeed it.
 
-Level 2 Utility Items:
+Level 2 Utility Items: # 200
   Description: |
     These are utility magic items that will help your party in non-combat endeavors. These magical items will not break puzzles or challenges, but will provide extra options to make them more approachable.
     All of these items can be sold to a merchant for 50% of the standard price.
@@ -273,7 +273,7 @@ Level 2 Utility Items:
       Price: 125
       Effect: A small-sized vial of super glue.
 
-Level 2 Equipment:
+Level 2 Equipment:  # 200
   Description: None
   Items:
 
@@ -468,7 +468,6 @@ Level 3 Equipment:  # 300-500
         - Spell: Tumble (Hu)
         - Spell: Sap (Ma)
 
-
     Gloves of Extra Skill:
       Price: 275
       Display Name: "Gloves of Extra {Skill}"
@@ -536,7 +535,6 @@ Level 3 Equipment:  # 300-500
         - Skill: Lockpicking
           Item: Key
 
-
     Cloak of Slow Falling:
       Price: 250
       Effect: The wearer takes no falling Damage, and instead falls slowly.
@@ -596,6 +594,10 @@ Level 3 Equipment:  # 300-500
     Boots of Grounding:
       Price: 300
       Effect: You are immune to being Pushed and have +1 to all Might Checks.
+
+    Steadyfoot Boots:
+      Price: 350
+      Effect: Your party is immune to being Ambushed.
 
     Leggings of Freedom:
       Price: 450
@@ -745,14 +747,20 @@ Level 4 Utility Items:  # 500-700
 Level 5 Consumables:  # 250
   Description: These are simple utility magic that don't usually have much impact on the game.
   Items:
-    Ball of Catching:
+
+    Ball of Imprisonment:
       Price: 300
-      Effect: The
+      Cooldown: 1 attempt / Adventure
+      Range: 3 meters
+      Effect: Throw at a non-Epic Unit. It makes a Check of its will with +1 for every 10% Health it has. If it fails, it becomes instantly trapped inside the ball.
+      Upgrade: The inside of the ball is spherical 3-meter diameter room. You can release the Unit using a Half-Action to tap on the ball.
+
     Potion of Invulnerability:
       Price: 275
       Effect: Become immune to taking Damage until the start of your next turn.
+
     Tome of Stat:
-      Price: 750
+      Price: 1000
       Display Name: "Tome of {Stat}"
       Effect: Gain +1 {Stat}, up to +4.
       Upgrade: Upon opening this sealed tome, the words start swirling, exiting the tome and being absorbed, physically and mentally, by the reader. Then, the tome loses its power and becomes a standard blank book.
@@ -762,26 +770,42 @@ Level 5 Consumables:  # 250
         - Stat: Intelligence
         - Stat: Sense
         - Stat: Charisma
-
-    Tome of Free Feat:
-      Price: 100
-      Effect: None
+    
     Potion of Greater Healing:
-      Price: 100
-      Effect: 2d6 + 4)
+      Price: 175
+      Effect: Restores 2d6 + 4 Health when drank.
+
     Potion of Greater Mana:
-      Price: 100
-      Effect: 2 Mana)
-    Ammo of Explosions(3m)/Chain Lightning(3t):
-      Effect: 1 (1d12 against Defense)
-    Ammo of Fearing/Stunning/Crippling/Charming/Elemental Weakness (all elements):
-      Price: 100
-      Effect: None
-    Chain Lightning Arrow/Bolt/Shot/Javelin:
-      Effect: x3 (Chains to units 1 meter for 1d12 against Defense)
+      Price: 250
+      Effect: Restores 2 Mana when drank.
 
+    Ammo of Effect:
+      Price: 180
+      Display Name: "Ammo of {EffectName}"
+      Effect: Using a Half-Action, load onto a ranged weapon. The next shot also deals 1d12 {Effect}.
+      Variants:
+        - EffectName: Explosions
+          Effect: Fire Damage to the target and all Units within 1 meter of it.
+        - EffectName: Chain Shock
+          Effect: Shock Damage to the target, then to the closes Unit to it, and again to the closest Unit to that Unit.
 
-Level 5 Equipment:
+    Ammo of CC:
+      Price: 125
+      Display Name: "Ammo of {CC}"
+      Effect: Using a Half-Action, load onto a ranged weapon. The next shot also makes the target roll a Might Check. If it fails, it {Effect}.
+      Variants:
+        - CC: Fearing
+          Effect: becomes Feared
+        - CC: Charming
+          Effect: becomes Charmed by you
+        - CC: Crippling
+          Effect: becomes Crippled
+        - CC: Stunning
+          Effect: becomes Stunned
+        - CC: Elements
+          Effect: becomes 50% Weak to all Elements until the start of your next turn
+
+Level 5 Equipment:  # 650
   Description: These are simple utility magic that don't usually have much impact on the game.
   Items:
 
@@ -837,44 +861,70 @@ Level 5 Equipment:
         - Spell: Somatic Pulse (Wl)
 
     Boots of Speed:
-      Price: 100
+      Price: 700
       Effect: +2 Movement Speed
+
     Pendant of Health:
-      Price: 100
-      Effect: +6 Health
-    Pendant of Health:
-      Price: 100
-      Effect: +6 Health
+      Price: 800
+      Effect: +5 Health
+
     Boots of Greater Initiative:
-      Price: 100
-      Effect: +6
-    Ring of Fortitude/Dexterity/Intelligence/Sense (up to +X):
-      Price: 100
-      Effect: None
-    Weapon +1(+2):
-      Price: 100
-      Effect: None
-    Armor +1(+2):
-      Price: 100
-      Effect: None
-    Wand +1(+2):
-      Price: 100
-      Effect: None
-    Shield Without Downsides:
-      Price: 100
-      Effect: None
-    Amulet of Saves:
-      Price: 100
+      Price: 700
+      Effect: +5 Initiative
+
+    Ring of Stat:
+      Price: 700
+      Display Name: "Ring of {Stat}"
+      Effect: You have +1 {Stat} (up to your Level's limit).
+      Variants:
+        - Stat: Might
+        - Stat: Dexterity
+        - Stat: Intelligence
+        - Stat: Sense
+        - Stat: Charisma
+
+    Weapon Plus One:
+      Price: 1000
+      Effect: A {Type} that deals {Damage} Damage
+      Display Name: "{Type} {Damage}"
+      VariantsForEach:
+        - For: Weapon
+          In: $OneHandedWeapons
+          Mixins:
+            Type: "{Weapon}"
+            Damage: +1
+        - For: Weapon
+          In: $TwoHandedWeapons
+          Mixins:
+            Type: {Weapon}
+            Damage: +1d4
+
+    Mithril Armor:
+      Price: 2000
+      Effect: +1 Defense
+
+    Wand +1:
+      Price: 750
+      Effect: All your Spells that deal Damage deal an extra +1 Damage.
+
+    Mithril Tower Shield:
+      Price: 1500
+      Requirement: Tower Shield Feat, 2 Might
+      Effect: +1 Defense
+
+    Amulet of Resisting:
+      Price: 750
       Effect: +1 to all Resist Checks
-    Ring of Spell:
-      Price: 100
-      Effect: Casts a 1.5 Actions worth of Spell (for a Half-Action), once per day
+
     Cloak of Vanishing:
-      Price: 100
-      Effect: When someone declares an attack on you, you can use your Reaction to Flash 6 meters away (once per day)
+      Price: 600
+      Cooldown: Once / Adventure
+      Effect: When someone declares an attack on you, you can use your Reaction to Flash 6 meters away.
+
     Feather of Reflex:
-      Price: 100
+      Price: 600
       Effect: You always dodge (take 0 Damage) the first attack from a Unit at the start of each Adventure (requires attuning)
+
     Belt of Stoicism:
       Price: 100
       Effect: You always succeed the first Resist Check from a Unit at the start of each Adventure.
@@ -901,7 +951,26 @@ Level 5 Equipment:
       Cooldown: Once / Adventure
       Effect: Instantly transform into a puddle of water and avoid any Damage that would make sense to avoid (e.g. arrows or slashes might be avoided, but not rocks falling over you or being hit with Area Abilities). Lasts up to 1 minute, but you can end the effect early using a Half-Action.
 
-
+    Blood Bracer:
+      Price: 100
+      Effect: You deal and take 50% more Damage.
+      Upgrade: Once equipped, this bracer pins itself on your wrist. It takes 1 hour to remove, and upon removal, the wearer takes 1d10 Pierce Damage.
+    Blood Choker:
+      Price: 100
+      Effect: |
+        Your Max Health decreases by 50%, but your Health Regen is doubled.
+      Upgrade: Once equipped, this choker pins itself on your neck. it takes 1 hour to remove, and upon removal, the wearer takes 1d10 Pierce Damage.
+    Eye of the Warlock:
+      Price: 100
+      Effect: |
+        Your Max Mana is reduced by 66% (rounded up). All of your Mana regenerates 10 minutes after each Worthy combat encounter (e.g. instead of inbetween Adventures).
+      Upgrade: When moved close to one of your eyes, this glowing ball attaches itself to your eye and replaces it with this. The eye can only be removed by a spell that removes curses, and upon removal, the wearer takes 1d10 Necrotic Damage.
+    Stone Gauntlets:
+      Price: 100
+      Effect: You can no longer spend Many by any means. Your melee 2-handed attacks deal extra Damage equal to your Max Mana.
+      Upgrade: |
+        When equipped, these gloves meld onto the skin and transforms the wearers hands into larger stone-like appendiges that can be moved, but feel no pain or sensations.
+        Can only be removed with a spell that dispels magic effects.
 
 Level 6 Consumables:
   Description: These are simple utility magic that don't usually have much impact on the game.
@@ -1010,16 +1079,25 @@ Level 7 Equipment:
     Ring of Sanity:
       Effect: Naein
 
+Level 7 Consumables:
+  Description: dasd
+  Items:
+      Tome of Free Feat:
+      Price: 2500
+      Effect: Gain 1 Feat without paying the cost.
 
 Situational Items:
   Description: These are simple utility magic that don't usually have much impact on the game.
   Items:
-    Ring of Holding (Level 2 Utility):
+    Ring of Holding (L2U):
       Price: 100
       Effect: Doubles carry capacity
-    Rod of Magic Hiding (Level 2 Utility):
+    Rod of Magic Hiding (L2U):
       Price: 100
       Effect: Conceals magic
-    Ring of Petrification (Level 2 Utility):
+    Ring of Petrification (L2U):
       Price: 200
       Effect: Putting this ring on will instantly turn the person to stone if it has less than 3 Intelligence. Removing the ring reverts the effect.
+
+
+    

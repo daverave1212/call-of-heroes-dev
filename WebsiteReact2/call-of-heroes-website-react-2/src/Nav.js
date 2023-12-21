@@ -192,6 +192,7 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
           <div className='subnav-title-underline'></div>
           <ul>
             <LiLink to="/Other/Monsters">Monsters</LiLink>
+            <LiLink to="/Other/MagicItems">Magic Items</LiLink>
             <LiLink to="/Other/Encounters">Encounters</LiLink>
           </ul>
         </div>
@@ -240,16 +241,17 @@ export default function Nav({ navState, setNavState, isSimple, setIsSimple }) {
           <nav className="nav-landscape">
             <div className='nav-item'><a href="https://discord.gg/27aqSEDyE3" target="_blank">Play With Us!</a></div>
             <NavItem name='Database'>Database</NavItem>
+
             <div className='nav-item'>
               <Link style={{color: 'white'}} to="/Other/Learn">Learn To Play</Link>
             </div>
             <NavItem name='GM Resources'>GM Resources</NavItem>
 
-            <div className='nav-item'><input className='nav-simple-checkbox' type="checkbox" checked={isSimple} onChange={(evt) => {
+            {/* <div className='nav-item'><input className='nav-simple-checkbox' type="checkbox" checked={isSimple} onChange={(evt) => {
                 const newValue = evt.target.checked
                 window.localStorage.setItem('isSimple', newValue)
                 setIsSimple(newValue)
-            }}/>Simple Mode</div>
+            }}/>Simple Mode</div> */}
           </nav>
 
           {/* <nav className="nav-portrait">

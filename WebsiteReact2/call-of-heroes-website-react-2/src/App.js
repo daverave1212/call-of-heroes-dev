@@ -118,7 +118,8 @@ function App() {
     })
   }
 
-  const isSimple = appState.isSimple
+  // const isSimple = appState.isSimple
+  const isSimple = true
   const setIsSimple = (newIsSimple) => setAppState({isSimple: newIsSimple})
 
   function WindowContent() {

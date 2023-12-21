@@ -14,7 +14,7 @@ function getIconPathByName(name) {
 }
 
 export function SpellTopStats({className, tags}) {
-    const {A, Cost, Range, Cooldown, Duration, Requirement, Hands, Stat, Special, Price} = tags
+    const {A, Cost, Range, Cooldown, Duration, Requirement, Replacement, Hands, Stat, Special, Price} = tags
     return (
         <div className={`spell-top__stats ${className}`}>
             { A != null && (<div><img src="/Icons/UI/Hand.png" className="inline-icon--spell"/>{ A }</div>) }
@@ -34,6 +34,12 @@ export function SpellTopStats({className, tags}) {
                 <div>
                     <img src="/Icons/UI/Level.png" className="inline-icon--spell"/>
                     <span style={{color: '#FF5A00'}}>{ Requirement }</span>
+                </div>
+            ) }
+            { Replacement != null && (
+                <div>
+                    <img src="/Icons/UI/Replacement.png" className="inline-icon--spell"/>
+                    <span style={{color: 'var(--blue-color)'}}>{ Replacement }</span>
                 </div>
             ) }
             { Price != null && (<div><img src="/Icons/UI/Gold.png" className="inline-icon--spell-downer"/>{ Price }</div>) }
