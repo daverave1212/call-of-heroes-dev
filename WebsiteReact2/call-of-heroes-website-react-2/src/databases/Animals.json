@@ -14,7 +14,7 @@
                 "~Maul~": {
                     "A": "1 Action",
                     "Cooldown": "Once / Adventure",
-                    "Effect": "The target must pass a Might Check or take 1d4 Damage (1d10 if Shapeshift) and be Stunned.\nTakes half of the Damage if it passes.\n"
+                    "Effect": "The target takes 1d4 Damage (1d10 if Shapeshift) and is Dazed.\n"
                 },
                 "~Swiping Claw~": {
                     "A": "1 Action",
@@ -55,7 +55,7 @@
                 "~Rake~": {
                     "A": "1 Action",
                     "Cooldown": "Once / Adventure",
-                    "Effect": "A target must pass a Dexterity Check or take 1d8 Damage (3d8 for Shapeshift) and be Crippled.\nTakes half of the Damage if it passes.\nDoes not work on Units that can't bleed.\n"
+                    "Effect": "Make a (Cat's) Dexterity Check against a Unit's Might Check. If you pass, the Unit becomes Crippled and takes 1d8 Damage (3d8 for Shapeshift).\nOtherwise, it takes 50% of the Damage.\nDoes not work on Units that can't bleed.\n"
                 }
             },
             "Alternatives": "Giant Rat"
@@ -116,7 +116,7 @@
                     "A": "0 Actions",
                     "Range": "5 meters",
                     "Cooldown": "Once / Adventure",
-                    "Effect": "A target must pass a Dexterity Check or be Rooted.\n",
+                    "Effect": "A target must succeed a Dexterity Check against 9 or be Rooted.\n",
                     "Notes": "This counts as an Attack."
                 }
             },
@@ -136,7 +136,7 @@
                 "~Beak Poke~": {
                     "A": "1 Action",
                     "Range": "2 meters",
-                    "Effect": "A Unit near the Bird of Prey must pass a Dexterity Check or take 2d4 Pierce Damage (2d10 + 1 for Shapeshift) and be Blinded.\nTakes half of the Damage if it passes.\n"
+                    "Effect": "A Unit near the Bird of Prey takes 1d8 Pierce Damage (2d8 for Shapeshift) and is Blinded.\n"
                 }
             }
         },
@@ -153,7 +153,7 @@
                 "~Fling Over~": {
                     "A": "1 Action",
                     "Cooldown": "Once / Adventure",
-                    "Effect": "A Unit near the Gorilla must pass a Might Check or take 1d6 Smash Damage and be thrown up to 3 meters in any direction,\nIf it collides with another Unit or an obstacle/wall, they both take an extra 1d6 Smash Damage.\n"
+                    "Effect": "Make a (Gorilla's) Might Check against a Unit's Might. If you pass, it takes 1d6 Smash Damage and is thrown up to 3 meters in any direction.\nIf it collides with another Unit or an obstacle/wall, they both take an extra 1d6 Smash Damage.\n"
                 }
             },
             "Alternatives": "Giant Boar, Buffalo, Rhinoceros"
@@ -175,12 +175,12 @@
                 "~Dragon Breath~": {
                     "A": "1 Action",
                     "Cooldown": "Once / Adventure",
-                    "Effect": "The pet breathes its Dragon Wyrm Element in a 3x1 meter line.\nTargets roll a Grade 12 Dexterity Check.\nThey take 2d8 Damage (4d8 if Druid) if they fail, and half of that if they succeed.\n"
+                    "Effect": "The pet breathes its Dragon Wyrm Element in a 4x1 meter line.\nAll Units in the area take 2d6 Damage of that type (4d6 if Druid)\n"
                 }
             }
         },
         "Owlbolg": {
-            "Description": "An Owlbolg is an ape-like owl creature with an innate spell casting Talent.",
+            "Description": "An Owlbolg is an ape-like owl creature with an innate spell casting talent.",
             "Stats": "2/0/3/3/0",
             "Health": "7 + 3 * Level",
             "Speed": "4 meters",
@@ -254,14 +254,14 @@
                 },
                 "~Flesh - Incite Fear~": {
                     "A": "1 Action",
-                    "Effect": "All enemies within 4 meters of the Golem must pass a Sense Check or be Feared by the Golem and take 1d8 + 4 Necrotic Damage.\nIf they pass, they take half of that Damage.\n"
+                    "Effect": "All enemies within 4 meters of the Golem take 1d8 + 2 Psychic Damage.\nAll Units within 1 meter of the Golem become Feared.\n"
                 }
             }
         }
     },
     "Squires": {
         "Bold Squire": {
-            "Health": 15,
+            "Health": "Your Level * 2",
             "Stats": "3/0/-1/1/2",
             "Speed": "5 meters",
             "Abilities": {
@@ -271,7 +271,8 @@
                 },
                 "~Shield Bash~": {
                     "A": "Passive",
-                    "Effect": "If you roll 6 on the Pet Attack die, the target must pass a Might Check or be Crippled and pushed 3 meters away.",
+                    "HasMixins": true,
+                    "Effect": "If you roll 6 on the Pet Attack die, the target must succeed a Might Check against ^Your Initiative^ or be Dazed and pushed 3 meters away.",
                     "Notes": "Requires to be next to the target."
                 },
                 "~Routing Squire~": {
@@ -281,7 +282,7 @@
             }
         },
         "Sneaky Squire": {
-            "Health": 13,
+            "Health": "Your Level * 2",
             "Stats": "0/3/0/1/-1",
             "Speed": "6 meters",
             "Abilities": {
@@ -301,7 +302,7 @@
             }
         },
         "Clever Squire": {
-            "Health": 12,
+            "Health": "Your Level * 2",
             "Stats": "0/1/3/1/1",
             "Speed": "5 meters",
             "Abilities": {
@@ -311,13 +312,13 @@
                 },
                 "~Spellcasting~": {
                     "A": "Special",
-                    "Effect": "Using its Action, the Squire can cast any Basic Ability up to Level 5 from the Elemental, Arcane, Conjuration or Mysticism schools that cost no Mana and deals no Damage. The Squire can cast such Abilities a total of 3 times per Adventure, irrespective of those Abilities' Cooldowns.",
+                    "Effect": "Using its Action, the Squire can cast any Basic Ability up to Level 5 from the Elemental, Arcane or Mysticism schools that cost no Mana and deals no Damage. The Squire can cast such Abilities a total of 3 times per Adventure, irrespective of those Abilities' Cooldowns.",
                     "Notes": "It can cast Control Element."
                 }
             }
         },
         "Wise Squire": {
-            "Health": 13,
+            "Health": "Your Level * 2",
             "Stats": "1/0/1/3/0",
             "Speed": "5 meters",
             "Abilities": {
@@ -331,7 +332,7 @@
                     "A": "1 Action",
                     "Range": "3 meters",
                     "Cooldown": "Once / Adventure",
-                    "Effect": "A target must pass a Dexterity Check or be Blinded."
+                    "Effect": "A Unit becomes Blinded."
                 },
                 "~Freedom~": {
                     "A": "Reaction",

@@ -18,8 +18,7 @@ Standard Animals:
           A: 1 Action
           Cooldown: Once / Adventure
           Effect: |
-            The target must pass a Might Check or take 1d4 Damage (1d10 if Shapeshift) and be Stunned.
-            Takes half of the Damage if it passes.
+            The target takes 1d4 Damage (1d10 if Shapeshift) and is Dazed.
         ~Swiping Claw~:
           A: 1 Action
           Effect: All Units around the Bear take 4 Slash Damage (12 Damage if Druid).
@@ -61,8 +60,8 @@ Standard Animals:
           A: 1 Action
           Cooldown: Once / Adventure
           Effect: |
-            A target must pass a Dexterity Check or take 1d8 Damage (3d8 for Shapeshift) and be Crippled.
-            Takes half of the Damage if it passes.
+            Make a (Cat's) Dexterity Check against a Unit's Might Check. If you pass, the Unit becomes Crippled and takes 1d8 Damage (3d8 for Shapeshift).
+            Otherwise, it takes 50% of the Damage.
             Does not work on Units that can't bleed.
       Alternatives: Giant Rat
             
@@ -118,7 +117,7 @@ Standard Animals:
           Range: 5 meters
           Cooldown: Once / Adventure
           Effect: |
-            A target must pass a Dexterity Check or be Rooted.
+            A target must succeed a Dexterity Check against 9 or be Rooted.
           Notes: This counts as an Attack.
       Alternatives: Giant Frog, Giant Insect, Spider
     
@@ -138,8 +137,7 @@ Standard Animals:
           A: 1 Action
           Range: 2 meters
           Effect: |
-            A Unit near the Bird of Prey must pass a Dexterity Check or take 2d4 Pierce Damage (2d10 + 1 for Shapeshift) and be Blinded.
-            Takes half of the Damage if it passes.
+            A Unit near the Bird of Prey takes 1d8 Pierce Damage (2d8 for Shapeshift) and is Blinded.
 
     Gorilla:
       Stats: 5/0/2/2/-2
@@ -154,7 +152,7 @@ Standard Animals:
           A: 1 Action
           Cooldown: Once / Adventure
           Effect: |
-            A Unit near the Gorilla must pass a Might Check or take 1d6 Smash Damage and be thrown up to 3 meters in any direction,
+            Make a (Gorilla's) Might Check against a Unit's Might. If you pass, it takes 1d6 Smash Damage and is thrown up to 3 meters in any direction.
             If it collides with another Unit or an obstacle/wall, they both take an extra 1d6 Smash Damage.
       Alternatives: Giant Boar, Buffalo, Rhinoceros
 
@@ -185,12 +183,11 @@ Exotic Pets:
         A: 1 Action
         Cooldown: Once / Adventure
         Effect: |
-          The pet breathes its Dragon Wyrm Element in a 3x1 meter line.
-          Targets roll a Grade 12 Dexterity Check.
-          They take 2d8 Damage (4d8 if Druid) if they fail, and half of that if they succeed.
+          The pet breathes its Dragon Wyrm Element in a 4x1 meter line.
+          All Units in the area take 2d6 Damage of that type (4d6 if Druid)
           
   Owlbolg:
-    Description: An Owlbolg is an ape-like owl creature with an innate spell casting Talent.
+    Description: An Owlbolg is an ape-like owl creature with an innate spell casting talent.
     Stats: 2/0/3/3/0
     Health: 7 + 3 * Level
     Speed: 4 meters
@@ -248,7 +245,7 @@ Druid Special:
 #               Range: 3 meters
 #               Effect: |
 #                 Attack a target for 1d6 + 4 Smash Damage.
-#                 If you roll 6, the target must pass a Dexterity Check or be Rooted.
+#                 If you roll 6, the target must succeed a Dexterity Check or be Rooted.
                 
 #     Animated Plant:
 #         Stats: 2/2/0/0/0
@@ -307,12 +304,12 @@ Constructs:
             ~Flesh - Incite Fear~:
                 A: 1 Action
                 Effect: |
-                    All enemies within 4 meters of the Golem must pass a Sense Check or be Feared by the Golem and take 1d8 + 4 Necrotic Damage.
-                    If they pass, they take half of that Damage.
+                    All enemies within 4 meters of the Golem take 1d8 + 2 Psychic Damage.
+                    All Units within 1 meter of the Golem become Feared.
             
 Squires:
     Bold Squire:
-      Health: 15
+      Health: Your Level * 2
       Stats: 3/0/-1/1/2
       Speed: 5 meters
       Abilities:
@@ -323,7 +320,8 @@ Squires:
 
         ~Shield Bash~:
           A: Passive
-          Effect: If you roll 6 on the Pet Attack die, the target must pass a Might Check or be Crippled and pushed 3 meters away.
+          HasMixins: true
+          Effect: If you roll 6 on the Pet Attack die, the target must succeed a Might Check against ^Your Initiative^ or be Dazed and pushed 3 meters away.
           Notes: Requires to be next to the target.
 
         ~Routing Squire~:
@@ -331,7 +329,7 @@ Squires:
           Effect: When the Squire comes within 1 meter of a Worhty Enemy, it gains 3 Shielding. Then it can't gain the Shielding from the same Enemy for the rest of the combat.
 
     Sneaky Squire:
-      Health: 13
+      Health: Your Level * 2
       Stats: 0/3/0/1/-1
       Speed: 6 meters
       Abilities:
@@ -350,7 +348,7 @@ Squires:
           Effect: The Squire becomes effectively invisible to Units more 3 or more meters away from it.
 
     Clever Squire:
-      Health: 12
+      Health: Your Level * 2
       Stats: 0/1/3/1/1
       Speed: 5 meters
       Abilities:
@@ -365,7 +363,7 @@ Squires:
           Notes: It can cast Control Element.
 
     Wise Squire:
-      Health: 13
+      Health: Your Level * 2
       Stats: 1/0/1/3/0
       Speed: 5 meters
       Abilities:
@@ -380,7 +378,7 @@ Squires:
           A: 1 Action
           Range: 3 meters
           Cooldown: Once / Adventure
-          Effect: A target must pass a Dexterity Check or be Blinded.
+          Effect: A Unit becomes Blinded.
 
         ~Freedom~:
           A: Reaction
@@ -402,8 +400,8 @@ Squires:
 #           A: 1 Action
 #           Cooldown: Once / Adventure
 #           Effect: |
-#             The target must pass a Sense Check or take 1d6 Shock Damage and be Feared.
-#             Takes half of the Damage if it passes.
+#             The target must succeed a Sense Check or take 1d6 Shock Damage and be Feared.
+#             Takes half of the Damage if it succeeds.
 #         ~Swiping Claw~:
 #           A: 1 Action
 #           Effect: All Units within 1 meter of the Spirit Bear take (directly, ignoring Defense) 3 Slash Damage.
@@ -421,8 +419,8 @@ Squires:
 #         ~Beak Poke~ :
 #           A: 1 Action
 #           Effect: |
-#             A Unit near the Spirit Eagle must pass a Dexterity Check or take 2d4 Pierce Damage and be Blinded.
-#             Takes half of the Damage if it passes.
+#             A Unit near the Spirit Eagle must succeed a Dexterity Check or take 2d4 Pierce Damage and be Blinded.
+#             Takes half of the Damage if it succeeds.
             
 #     Spirit Wolf:
 #       Stats: 2/3/0/4/3
@@ -459,7 +457,7 @@ Squires:
 #         ~Shriek~:
 #           A: 0 Actions
 #           Cooldown: Once / Adventure
-#           Effect: A Unit within 6 meters of the Owl must pass a Sense Check or be Silenced.
+#           Effect: A Unit within 6 meters of the Owl must succeed a Sense Check or be Silenced.
 
 # Warlock Special:
 
@@ -502,8 +500,8 @@ Squires:
 #                 Cost: 1 Mana (yours)
 #                 Effect: |
 #                     Use when an Enemy comes within its Melee range of an Ally (or yourself) (usually 1 meter).
-#                     It must pass a Might Check or be pulled 3 meters towards the Patron Avatar and take 1d10 Force Damage.
-#                     If takes half of that if it passes.
+#                     It must succeed a Might Check or be pulled 3 meters towards the Patron Avatar and take 1d10 Force Damage.
+#                     If takes half of that if it succeeds.
 #             ~Spirit Unrest~:
 #                 A: Passive
 #                 Effect: All spaces within 1 meter of the Avatar count as Hard Terrain.

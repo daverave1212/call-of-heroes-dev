@@ -116,24 +116,18 @@
     width: calc(var(--subspell-size-multiplier) * var(--spell-icon-size));
     height: calc(var(--subspell-size-multiplier) * var(--spell-icon-size));
 }
-@keyframes spell-icon-blinking {
+@keyframes SpellIconBlinking {
     0% {
-        border-color: rgb(27, 164, 255);
-        border-style: solid;
-    }
-    50% {
-        border-color: var(--orange-color);
-        border-style: solid;
+        box-shadow: 0 0 0 0 rgba(0, 119, 255, 0.8);
     }
     100% {
-        border-color: rgb(27, 164, 255);
-        border-style: solid;
+        box-shadow: 0 0 10px 10px rgba(0, 119, 255, 0.1);
     }
-  }
+}
 .spell--with-variants .spell-top__icon-side img {
     padding: 1px;
     border: solid black 3px;
-    animation: spell-icon-blinking 2.25s infinite;
+    animation: SpellIconBlinking 1.25s infinite;
 }
 .spell-top__variant-counter {
     font-family: var(--font-home);
@@ -263,7 +257,32 @@
     font-size: calc(var(--p-size) * 0.8);
 }
 
+/* Copy Button */
+.spell .copy-button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
 
+    width: calc(var(--p-size) * 1.25);
+    height: calc(var(--p-size) * 1.25);
+
+    opacity: 0.10;
+}
+.spell .copy-button:hover {
+    cursor: pointer;
+    opacity: 0.25;
+}
+.spell .copy-button--rotating {
+    animation: CopyButtonRotating 1s linear infinite;
+}
+@keyframes CopyButtonRotating {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
 
 
 

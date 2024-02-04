@@ -162,12 +162,21 @@
     "Level 2 Consumables": {
         "Description": "These are standard consumables. Award players with one these every now and then. It is also recommended you provide these in limited supply at shops (e.g. if your Adventure is medium difficulty, do not provide more than 2 Potions per Adventure).\nRemember that items always take a Half-Action to use, and a Potion consumer risks an Overdose if 2 Potions are consumed within 1 hour. Special ammo does not need a Half-Action to be loaded - a Player can simply state that they are using that ammo for an attack.\nAll of these items can be sold to a merchant for 50% of the standard price.\n",
         "Items": {
+            "Sharp Vapors": {
+                "Price": 50,
+                "Effect": "When blown towards a Unit within 5 meters, clears all Crowd Control on that Unit."
+            },
+            "Spell Flare": {
+                "Price": 70,
+                "Range": "3 meters to edge",
+                "Effect": "Throw in an 3x3 area. All Units caught in the flare's explosion are dispelled of all magical effects affecting them (including Crowd Control from a magic source)."
+            },
             "Potion of Healing": {
                 "Price": 100,
                 "Effect": "Restores 2d4 + 2 Health when drank."
             },
             "Potion of Mana": {
-                "Price": 125,
+                "Price": 130,
                 "Effect": "Restores 1 Mana when drank."
             },
             "Elemental Oil": {
@@ -293,7 +302,7 @@
             },
             "Ring of Good Omen": {
                 "Price": 100,
-                "Effect": "If you fail a save, you can shatter the ring to instantly succeed it."
+                "Effect": "If you fail a Check, you can shatter the ring to instantly succeed it."
             }
         }
     },
@@ -1135,16 +1144,19 @@
     "Level 5 Consumables": {
         "Description": "These are simple utility magic that don't usually have much impact on the game.",
         "Items": {
-            "Ball of Catching": {
+            "Ball of Imprisonment": {
                 "Price": 300,
-                "Effect": "The"
+                "Cooldown": "1 attempt / Adventure",
+                "Range": "3 meters",
+                "Effect": "Throw at a non-Epic Unit. It makes a Check of its will with +1 for every 10% Health it has. If it fails, it becomes instantly trapped inside the ball.",
+                "Upgrade": "The inside of the ball is spherical 3-meter diameter room. You can release the Unit using a Half-Action to tap on the ball."
             },
             "Potion of Invulnerability": {
                 "Price": 275,
                 "Effect": "Become immune to taking Damage until the start of your next turn."
             },
             "Tome of Stat": {
-                "Price": 750,
+                "Price": 1000,
                 "Display Name": "Tome of {Stat}",
                 "Effect": "Gain +1 {Stat}, up to +4.",
                 "Upgrade": "Upon opening this sealed tome, the words start swirling, exiting the tome and being absorbed, physically and mentally, by the reader. Then, the tome loses its power and becomes a standard blank book.",
@@ -1166,27 +1178,55 @@
                     }
                 ]
             },
-            "Tome of Free Feat": {
-                "Price": 100,
-                "Effect": "None"
-            },
             "Potion of Greater Healing": {
-                "Price": 100,
-                "Effect": "2d6 + 4)"
+                "Price": 175,
+                "Effect": "Restores 2d6 + 4 Health when drank."
             },
             "Potion of Greater Mana": {
-                "Price": 100,
-                "Effect": "2 Mana)"
+                "Price": 250,
+                "Effect": "Restores 2 Mana when drank."
             },
-            "Ammo of Explosions(3m)/Chain Lightning(3t)": {
-                "Effect": "1 (1d12 against Defense)"
+            "Ammo of Effect": {
+                "Price": 180,
+                "Display Name": "Ammo of {EffectName}",
+                "Effect": "Using a Half-Action, load onto a ranged weapon. The next shot also deals 1d12 {Effect}.",
+                "Variants": [
+                    {
+                        "EffectName": "Explosions",
+                        "Effect": "Fire Damage to the target and all Units within 1 meter of it."
+                    },
+                    {
+                        "EffectName": "Chain Shock",
+                        "Effect": "Shock Damage to the target, then to the closes Unit to it, and again to the closest Unit to that Unit."
+                    }
+                ]
             },
-            "Ammo of Fearing/Stunning/Crippling/Charming/Elemental Weakness (all elements)": {
-                "Price": 100,
-                "Effect": "None"
-            },
-            "Chain Lightning Arrow/Bolt/Shot/Javelin": {
-                "Effect": "x3 (Chains to units 1 meter for 1d12 against Defense)"
+            "Ammo of CC": {
+                "Price": 125,
+                "Display Name": "Ammo of {CC}",
+                "Effect": "Using a Half-Action, load onto a ranged weapon. The next shot also makes the target roll a Might Check. If it fails, it {Effect}.",
+                "Variants": [
+                    {
+                        "CC": "Fearing",
+                        "Effect": "becomes Feared"
+                    },
+                    {
+                        "CC": "Charming",
+                        "Effect": "becomes Charmed by you"
+                    },
+                    {
+                        "CC": "Crippling",
+                        "Effect": "becomes Crippled"
+                    },
+                    {
+                        "CC": "Stunning",
+                        "Effect": "becomes Stunned"
+                    },
+                    {
+                        "CC": "Elements",
+                        "Effect": "becomes 50% Weak to all Elements until the start of your next turn"
+                    }
+                ]
             }
         }
     },
@@ -1292,51 +1332,88 @@
                 ]
             },
             "Boots of Speed": {
-                "Price": 100,
+                "Price": 700,
                 "Effect": "+2 Movement Speed"
             },
             "Pendant of Health": {
-                "Price": 100,
-                "Effect": "+6 Health"
+                "Price": 800,
+                "Effect": "+5 Health"
             },
             "Boots of Greater Initiative": {
-                "Price": 100,
-                "Effect": 6
+                "Price": 700,
+                "Effect": "+5 Initiative"
             },
-            "Ring of Fortitude/Dexterity/Intelligence/Sense (up to +X)": {
-                "Price": 100,
-                "Effect": "None"
+            "Ring of Stat": {
+                "Price": 700,
+                "Display Name": "Ring of {Stat}",
+                "Effect": "You have +1 {Stat} (up to your Level's limit).",
+                "Variants": [
+                    {
+                        "Stat": "Might"
+                    },
+                    {
+                        "Stat": "Dexterity"
+                    },
+                    {
+                        "Stat": "Intelligence"
+                    },
+                    {
+                        "Stat": "Sense"
+                    },
+                    {
+                        "Stat": "Charisma"
+                    }
+                ]
             },
-            "Weapon +1(+2)": {
-                "Price": 100,
-                "Effect": "None"
+            "Weapon Plus One": {
+                "Price": 1000,
+                "Effect": "A {Type} that deals {Damage} Damage",
+                "Display Name": "{Type} {Damage}",
+                "VariantsForEach": [
+                    {
+                        "For": "Weapon",
+                        "In": "$OneHandedWeapons",
+                        "Mixins": {
+                            "Type": "{Weapon}",
+                            "Damage": 1
+                        }
+                    },
+                    {
+                        "For": "Weapon",
+                        "In": "$TwoHandedWeapons",
+                        "Mixins": {
+                            "Type": {
+                                "Weapon": null
+                            },
+                            "Damage": "+1d4"
+                        }
+                    }
+                ]
             },
-            "Armor +1(+2)": {
-                "Price": 100,
-                "Effect": "None"
+            "Mithril Armor": {
+                "Price": 2000,
+                "Effect": "+1 Defense"
             },
-            "Wand +1(+2)": {
-                "Price": 100,
-                "Effect": "None"
+            "Wand +1": {
+                "Price": 750,
+                "Effect": "All your Spells that deal Damage deal an extra +1 Damage."
             },
-            "Shield Without Downsides": {
-                "Price": 100,
-                "Effect": "None"
+            "Mithril Tower Shield": {
+                "Price": 1500,
+                "Requirement": "Tower Shield Feat, 2 Might",
+                "Effect": "+1 Defense"
             },
-            "Amulet of Saves": {
-                "Price": 100,
+            "Amulet of Resisting": {
+                "Price": 750,
                 "Effect": "+1 to all Resist Checks"
             },
-            "Ring of Spell": {
-                "Price": 100,
-                "Effect": "Casts a 1.5 Actions worth of Spell (for a Half-Action), once per day"
-            },
             "Cloak of Vanishing": {
-                "Price": 100,
-                "Effect": "When someone declares an attack on you, you can use your Reaction to Flash 6 meters away (once per day)"
+                "Price": 600,
+                "Cooldown": "Once / Adventure",
+                "Effect": "When someone declares an attack on you, you can use your Reaction to Flash 6 meters away."
             },
             "Feather of Reflex": {
-                "Price": 100,
+                "Price": 600,
                 "Effect": "You always dodge (take 0 Damage) the first attack from a Unit at the start of each Adventure (requires attuning)"
             },
             "Belt of Stoicism": {
@@ -1385,7 +1462,7 @@
             },
             "Stone Gauntlets": {
                 "Price": 100,
-                "Effect": "You can no longer spend Many by any means. Your melee 2-handed attacks deal extra Damage equal to your Max Mana.",
+                "Effect": "You can no longer spend Many by any means. Your melee 2-Handed attacks deal extra Damage equal to your Max Mana.",
                 "Upgrade": "When equipped, these gloves meld onto the skin and transforms the wearers hands into larger stone-like appendiges that can be moved, but feel no pain or sensations.\nCan only be removed with a spell that dispels magic effects.\n"
             }
         }
@@ -1483,7 +1560,7 @@
             },
             "Hand Axe of the North": {
                 "Price": 100,
-                "Effect": "+1d4 Cold; On Critical Strike, target must pass a Might Check or be Rooted. Works when thrown. On your turn, you can spend half of your Movement to have the Axe dash safely to your hand if within 10 meters."
+                "Effect": "+1d4 Cold; On Critical Strike, target must succeed a Might Check against 10 or be Rooted. Works when thrown. On your turn, you can spend half of your Movement to have the Axe dash safely to your hand if within 10 meters."
             },
             "Dragonhand": {
                 "Price": 100,
@@ -1503,7 +1580,7 @@
             },
             "Chainblade of Chaos": {
                 "Price": 100,
-                "Effect": "+1d4; 2 meters range; the extra 1d4 is always direct Damage AoE around you (2m)"
+                "Effect": "+1d4; 2 meters range; the extra 1d4 is always direct Damage in an area around you (2m)"
             },
             "Cleaver of Berserking": {
                 "Price": 100,
@@ -1544,6 +1621,14 @@
             "Ring of Sanity": {
                 "Effect": "Naein"
             }
+        }
+    },
+    "Level 7 Consumables": {
+        "Description": "dasd",
+        "Items": {
+            "Tome of Free Feat": null,
+            "Price": 2500,
+            "Effect": "Gain 1 Feat without paying the cost."
         }
     },
     "Situational Items": {

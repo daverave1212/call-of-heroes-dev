@@ -25,7 +25,7 @@ function getErrorSpellObject(message) {
         { Name: "Push", "Effect": ...},
     ]
 */
-export function spellsFromObject(obj) {
+export function spellsFromObject(obj) /* -> Array */ {
     if (obj == null) return getErrorSpellObject('Null obj given to spellsFromObject')
 
     const spellsArray = []
@@ -73,6 +73,15 @@ export function getAllSpellsFromCategoriesObject(spellCategoriesObject) {
 }
 export function getSpellFromCategoriesObject(spellCategoriesObject, category, name) {
     const categoryIndex = spellCategoriesObject.indexOf(category)
+}
+export function getIconPathByName(name) {
+    const iconName = getUniqueSpellID(name)
+    const iconPath = `/Icons/Spells/${iconName}.png`
+    return iconPath
+}
+export function getUniqueSpellID(name) {
+    const idName = stringReplaceAllMany(name, [' ', '/', '%'], ['_', '_', ''])
+    return idName
 }
 
 
@@ -276,6 +285,8 @@ export function parseTextWithSymbols(text, customSymbols) {
         'Slowed': () => (<span>A Slowed Unit has -2 Movement Speed.</span>),
         'Rooted': () => (<span>A Rooted Unit has can't move from its space (but it can attack, cast Spells, etc).</span>),
         'Stunned': () => (<span>A Stunned Unit skips its turn.</span>),
+        'Cover': () => (<span>If a Unit has Cover from you (e.g. is behind an obstacle), everything you do to it gets -2.</span>),
+        'DiceUpgrade': () => (<span>Having <b>Dice Upgraded</b> means, for example, d6's become d8's, or d10's become d12's. D12's and d20's don't increase.</span>),
         
         'Gold': () => (<Icon name="Gold"/>)
     }
@@ -284,7 +295,8 @@ export function parseTextWithSymbols(text, customSymbols) {
     }
     const symbolToMarkup = {
         '^': text => (<b>{text}</b>),
-        '_': text => (<i>{text}</i>)
+        '_': text => (<i>{text}</i>),
+        '~': text => (<span style={{color: 'var(--blue-color)'}}>{text}</span>)
     }
 
     let currentTextPartStart = 0
@@ -302,7 +314,7 @@ export function parseTextWithSymbols(text, customSymbols) {
                     symbolStart = i
                     state = 'reading-symbol'
                 }
-                if (char == '^' || char == '_') {
+                if (char == '^' || char == '_' || char == '~') {
                     textParts.push(text.substring(currentTextPartStart, i))
                     symbolStart = i
                     state = 'reading-markup'

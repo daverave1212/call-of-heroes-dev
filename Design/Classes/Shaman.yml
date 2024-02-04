@@ -201,8 +201,9 @@ Specs:
           _Value: 2
           A: 0.5 Actions
           Cooldown: Once / Adventure
+          HasMixins: true
           Effect: |
-            All units in a line must pass a Might Check or be Stunned. If they pass, they become Fumbling instead.
+            All units in a line must succeed a Might Check against _10% of your Max Health_ or be Stunned. If they succeed, they become Fumbling instead.
             The line is 3 meters wide, and has a length of 1 meter for ever 5 Health you are missing.
           Notes: |
             E.g. if you have 30 out of 50 Health (thus missing 20 Health), then the line will be 4 meters long.
@@ -252,6 +253,16 @@ Specs:
           HasMixins: true
           Effect: Your Shaman Abilities and Talents always _echo_.
           Notes: When Bloodlust echoes, the Damage is dealt directly to another target near you (reduced by 50% from Damage it would normally do).
+
+      Level 9:
+
+        <Echoing Self>:
+          _Value: 1.5
+          A: Half-Action
+          Cooldown: Once / Adventure
+          Effect: |
+            A spectral self appears at the position where you started your turn, and repeats all Acts you have already done this turn.
+          Notes: The clone moves exactly as you did (can go through Units) and repeats the Spells and Attacks on the same targets. If there were any dice rolls, the clone rolls them (don't use the same numbers rolled). The clone is a separate special Unit - self effects apply to the clone (and thus self-heals have no effect).
 
 # Aya huasca
 # Reincarnation
@@ -305,11 +316,11 @@ Specs:
 
         <Dream Walk>:
           _Value: 1.5
-          A: 0.5 Actions
+          A: Half-Actio
           Cooldown: Once / Adventure
           Range: 6 meters
           Effect: |
-            A non-Epic Unit must pass a Sense Check or fall Asleep for 1 turn.
+            Make a Sense Check against another non-Epic Unit's Sense Check. If you succeed, it falls Asleep for 2 turns.
             Alternatively, you can use Dream Walk on an already sleeping target to alter their dreams to your liking.
           Notes: A Sleeping Unit wakes up if it takes Damage or other Crowd Control.
 
@@ -323,8 +334,8 @@ Specs:
           AlignOnWebsite: Right
           Effect: |
             You undergo an isolated, personal and mind-altering ritual with a willing non-Warlock Player Character at a campfire, and using incense, smoke and special herbs.
-            The ally must make a Sense Check (against your Spell Grade).
-            If it passes, its Max Mana permanently increases by 1, and gets +2 to all Checks for the rest of the Adventure.
+            The ally must make a Sense Check against 6 + Your Sense.
+            If it succeeds, its Max Mana permanently increases by 1, and gets +2 to all Checks for the rest of the Adventure.
             If it fails, it takes 1d8 Psychic Damage and gets -1 to all Checks for the rest of the Adventure.
           Upgrade: |
             You can perform this ritual as many times as you want per Adventure until you succeed once. It costs you 1 Mana (not Max Mana), which is spent when the ally passes the ritual.
@@ -479,7 +490,7 @@ Specs:
               - 1. Acid
               - 3d6 Acid Damage
               - 2. Muck
-              - Target takes 1d8 Damage and must pass a Dexterity Check or be Blinded
+              - Target takes 1d8 Damage and becomes Blinded
               - 3. Anaesthetic
               - 1d6 + 1d8 Healing
               - 4. Gas
@@ -523,8 +534,8 @@ Specs:
           Cost: Any amount of Health
           HasMixins: true
           Effect: |
-            Declare a square area with a diameter equal to ^twice^ the Health spent.
-            All Units in that area must pass a Sense Check or instantly make an attack or offensive Ability of its choice, at full strength, on its closest ally.
+            Declare a square area with a diameter equal to ^twice the Health spent^.
+            All Units in that area must succeed a Sense Check agasint _twice the Health spent_ or instantly make an attack or offensive Ability of its choice, at full strength, on its closest ally.
           Notes: Monsters can use any of their Abilities that do Damage or Crowd Control, and target them however they want if they are Area Abilities, as long as it hits its closest ally.
           # [Health Regen Retcon]
 
@@ -591,7 +602,7 @@ Specs:
   #   AlignOnWebsite: Left
   #   A: 1 Action
   #   Cooldown: Once / Adventure
-  #   Effect: All enemies within 3 meters of you must pass a Charisma Check or take 1d6 Psychic Damage and be Crippled.
+  #   Effect: All enemies within 3 meters of you must succeed a Charisma Check or take 1d6 Psychic Damage and be Crippled.
   #   Notes: Cover is applied normally.
 
   # ~Wolf's Leap~:   # 1 Charge

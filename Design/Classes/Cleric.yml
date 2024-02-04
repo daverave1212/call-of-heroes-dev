@@ -281,7 +281,7 @@ Specs:
         <Heartstopping Awe>:  # 4.5 (4 CC = 4 + 2d4)
           _Value: 4.5
           A: Passive
-          Effect: You can cast Spread the Awe once more per Adventure, and the target(s) must pass a Sense Check or be Crippled and Silenced.
+          Effect: You can cast Spread the Awe once more per Adventure, and the target(s) must succeed a Sense Check against double your Sense or be Crippled and Silenced.
 
   Light Cleric:               # 2.25
     
@@ -383,10 +383,9 @@ Specs:
           Effect: |
             You create a 1x1 Black Hole on an empty space.
             Cast Grasp for free on all enemies within 6 meters of the hole.
-            If a Unit gets to the center of the Black Hole, it must pass a Might Check or be Rooted.
+            If a Unit gets to the center of the Black Hole, it becomes Rooted.
             At the end of your turn, all Units within 6 meters of it are pulled 2 meters towards it.
-            The gravity of the black hole works even through walls and obstacles.
-          Notes: If 2 Units would be pulled to the center, you choose which.
+          Notes: If 2 Units would be pulled to the center, you choose which. The black hole's gravity works even for Units behind walls and obstacles.
           OrderOnWebsite: 2
 
       Level 7:
@@ -564,9 +563,11 @@ Specs:
           IsSubspell: true
           Range: 5 meters
           Duration: 1 minute
+          Cooldown: Once / Adventure
           Effect: |
-            A target must pass a Charisma Check or it can't cast healing Spells, do Crowd Control or apply On-Roll Effects.
-          Notes: Can't be cast on Epic Monsters.
+            Make a Check with any Stat against a Unit's Charisma Check.
+            If you pass, it can't cast healing Spells, do Crowd Control or apply On-Roll Effects for 1 minute.
+          Notes: Against Epic Monsters, it only last for 2 turns.
 
       Level 7:
 
@@ -587,7 +588,7 @@ Specs:
           Cooldown: Once / Adventure
           HasMixins: true
           Effect: |
-            All enemies within 5 meters must pass a Sense Check or be Feared.
+            All enemies within 5 meters must succeed a Sense Check against Your Health Regen or be Feared.
             For each Enemy Feared, cast Awe (on anyone).
           Notes: "{Feared}"
 

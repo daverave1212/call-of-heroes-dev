@@ -47,13 +47,15 @@ export default function() {
             width: '60%'
           }}/>
           <p className='home-text-style'>
-            Questguard aims to be a quick, combat-based alternative RPG for the younger generation used to video or board games. With numbers easy to add up and rules for everyone, Questguard makes it a piece of cake to run and organize as a Game Master!
+            Questguard aims to be a quick, combat-based alternative RPG for the younger generation used to video or board games. With numbers easy to add up and rules for everyone, Questguard makes it a piece of cake to run and organize as a Game Master.
+            If you've played games like World of Warcraft, Divinity, or League of Legends, you'll love what you see!
           </p>
           <ul>
-            <li><Icon name="BulletPoint3"/>Simple math, tons of awesome choices</li>
-            <li><Icon name="BulletPoint3"/>GM-oriented (the <b>Adventure</b> system, Worthiness, etc)</li>
-            <li><Icon name="BulletPoint3"/>Grid-based, deep combat with the <b>metric system</b></li>
-            <li><Icon name="BulletPoint3"/>Emphasis on feedback, community and online updates</li>
+            <li><Icon name="BulletPoint3"/>Simplicity, quick maths and tons of fun choices</li>
+            <li><Icon name="BulletPoint3"/>GM-oriented and gamified experience (<b>Adventure</b>, <b>Worthiness</b>, etc)</li>
+            <li><Icon name="BulletPoint3"/>D12, grid-based, deep combat options, <b>metric system</b></li>
+            <li><Icon name="BulletPoint3"/>Emphasis on clarity, feedback, community and online updates</li>
+            <li><Icon name="BulletPoint3"/>Optimized for online play and accessibility</li>
             <li><Icon name="BulletPoint3"/>Open license - homebrew anything, anywhere</li>
           </ul>
         </div>

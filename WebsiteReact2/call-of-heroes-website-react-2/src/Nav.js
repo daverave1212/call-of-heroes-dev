@@ -165,6 +165,7 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
             <LiLink isDownload={true} to="/Download/Sheet-2023-03-24.png">Character Sheet (PNG)</LiLink>
             <LiLink to="/Other/Obstacles">Obstacles</LiLink>
             <LiLink to="/Other/PetsAndAnimals">Pets and Animals</LiLink>
+            <LiLink to="/Meta/PatchNotes">Update Notes</LiLink>
           </ul>
         </div>
 
@@ -202,6 +203,7 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
           <div className='subnav-title-underline'></div>
           <ul>
             <LiLink to="/Tools/TreasureGenerator">Treasure Generator</LiLink>
+            <LiLink to="/Other/CustomAbilityCreator">Custom Ability Creator</LiLink>
           </ul>
         </div>
         
@@ -231,7 +233,7 @@ export default function Nav({ navState, setNavState, isSimple, setIsSimple }) {
             <Link to="/"><img src="/favicon.png"/></Link>
           </div>
           <div className='nav-logo-version'>
-            v2023-12-04
+            v2023-12-31
           </div>
 
           <div className='burger-icon' onClick={onClickOnBurger}>

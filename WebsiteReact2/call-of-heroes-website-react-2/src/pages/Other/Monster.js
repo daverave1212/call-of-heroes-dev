@@ -65,13 +65,14 @@ export default function Monster() {
                     {}
                 </Column>
             </TwoColumns>
+            
             <TwoColumns type='lefty'>
                 <Column>
                     <TwoColumns className="two-columns--half-padding">
                         <Column>
                             <div className='with-margined-children'>
                                 <SmallStat nameStyle={statNameStyle} valueStyle={statValueStyle} name="Health">{monster.Health}<Icon name="Health" type="small-stat"/></SmallStat>
-                                <SmallStat nameStyle={statNameStyle} valueStyle={statValueStyle} name="Defense">{monster.Armor}<Icon name="Defense" type="small-stat"/></SmallStat>
+                                { monster.Armor != 0 && (<SmallStat nameStyle={statNameStyle} valueStyle={statValueStyle} name="Defense">{monster.Armor}<Icon name="Defense" type="small-stat"/></SmallStat>) }
                                 <SmallStat nameStyle={statNameStyle} valueStyle={statValueStyle} name="Speed">{monster.Speed}</SmallStat>
                                 <SmallStat topDown={true} nameStyle={inttvNameStyle} valueStyle={inttvNameStyle} name="Initiative">{monster.Initiative}</SmallStat>
                             </div>
@@ -79,7 +80,7 @@ export default function Monster() {
                         <Column>
                             <div className='with-margined-children'>
                                 <SmallStat color={statOtherColor} nameStyle={metaNameStyle} valueStyle={metaValueStyle} name="XP">{monster.Experience}</SmallStat>
-                                <SmallStat color={statOtherColor} nameStyle={metaNameStyle} valueStyle={metaValueStyle} name="Degree">{monster.Degree != null? monster.Degree : 'Normal'}</SmallStat>
+                                { monster.Degree != 'Normal' && (<SmallStat color={statOtherColor} nameStyle={metaNameStyle} valueStyle={metaValueStyle} name="Degree">{monster.Degree != null? monster.Degree : 'Normal'}</SmallStat>) }
                             </div>
                         </Column>
                     </TwoColumns>

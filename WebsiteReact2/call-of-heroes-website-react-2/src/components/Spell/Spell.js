@@ -2,16 +2,11 @@
 import './Spell.css'
 import PageH2 from './../PageH2/PageH2'
 import Separator from './../Separator/Separator'
-import React from 'react'
-import { parseTextWithSymbols, stringReplaceAllMany } from '../../utils'
+import React, { useEffect, useRef } from 'react'
+import { parseTextWithSymbols, stringReplaceAllMany, getIconPathByName, getUniqueSpellID } from '../../utils'
 import TableNormal from '../TableNormal/TableNormal'
-
-// Attached as a static function to Spell, at the end of the document
-function getIconPathByName(name) {
-    const iconName = stringReplaceAllMany(name, [' ', '/', '%'], ['_', '_', ''])
-    const iconPath = `/Icons/Spells/${iconName}.png`
-    return iconPath
-}
+import html2canvas from 'html2canvas'
+import CopySpellButton from './CopySpellButton'
 
 export function SpellTopStats({className, tags}) {
     const {A, Cost, Range, Cooldown, Duration, Requirement, Replacement, Hands, Stat, Special, Price} = tags
@@ -46,6 +41,8 @@ export function SpellTopStats({className, tags}) {
         </div>
     )
 }
+
+
 
 export default function Spell({ children, spell, style, hasIcon }) {
 
@@ -84,6 +81,7 @@ export default function Spell({ children, spell, style, hasIcon }) {
     if (Name.startsWith('~')) Name = Name.substring(1, Name.length - 1)
 
     const iconPath = CustomIconPath == null? getIconPathByName(Name) : CustomIconPath
+    const uniqueID = getUniqueSpellID(Name)
 
     const spellNormalOrSubClass = IsSubspell == true? 'spell--subspell' : 'spell--normal'
     const spellPassiveOrActiveClass = A == 'Passive' == true? 'spell--passive' : 'spell--active'
@@ -91,6 +89,7 @@ export default function Spell({ children, spell, style, hasIcon }) {
     if (HasMixins === true) {
         try {
             Effect = parseTextWithSymbols(Effect)
+            if (Upgrade != null) Upgrade = parseTextWithSymbols(Upgrade)
             if (Notes != null) Notes = parseTextWithSymbols(Notes)
         } catch (e) {
             throw `Error in Spell ${Name} parsing text: ${e}`
@@ -125,7 +124,7 @@ export default function Spell({ children, spell, style, hasIcon }) {
     }
 
     return (
-        <div className={`spell ${spellNormalOrSubClass} ${spellPassiveOrActiveClass}`} style={style}>
+        <div id={uniqueID} className={`spell ${spellNormalOrSubClass} ${spellPassiveOrActiveClass}`} style={style}>
             <div className="spell__border"></div>
             <div className="spell__background"></div>
             <div className='spell__box'> {/* This has CSS to be perfectly in the bounds of the borders and banner */}
@@ -179,9 +178,8 @@ export default function Spell({ children, spell, style, hasIcon }) {
                         )) }
                     </TableNormal>
                 ) }
+                <CopySpellButton elementId={uniqueID}/>
             </div>
         </div>
     )
 }
-
-Spell.getIconPathByName = getIconPathByName

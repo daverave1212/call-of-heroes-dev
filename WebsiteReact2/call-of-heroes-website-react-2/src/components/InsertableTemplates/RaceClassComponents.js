@@ -28,6 +28,7 @@ import ManySmallStats from '../SmallStat/ManySmallStats'
 import Page from '../../containers/Page/Page'
 import { Link } from 'react-router-dom'
 import TableNormalLevelUpHunter from '../TableNormal/TableNormalLevelUpHunter'
+import ThreeSpells from '../Spell/ThreeSpells'
 
 export function Proficiencies({ name, theRaceOrClass }) {
 
@@ -103,7 +104,7 @@ export function ClassFeatures({ theClass }) {
                         { theClass.Weapons && <SmallStat name="Weapon Training" topDown='true'>{ theClass.Weapons }</SmallStat> }
                         <SmallStat name="Proficiencies" topDown='true'>{ theClass['Proficiency Requirements'] }</SmallStat>
                         {/* <SmallStat name="Armor Training">{ theClass['Armor Training'] }</SmallStat> */}
-                        <SmallStat name="Defense" topDown='true'>Choose any armor from the Armors page and apply Defense if it has any.</SmallStat>
+                        {/* <SmallStat name="Defense" topDown='true'>Choose any armor from the Armors page and apply Defense if it has any.</SmallStat> */}
                     </div>
                 </Column>
                 <Column>
@@ -172,8 +173,8 @@ export function Equipment() {
             <p>Your Character begins their journey with a total of 800 gold.</p>
             <SmallStat name="Starting Gold" color="rgb(23, 80, 0)">800 <Icon name="gold"/></SmallStat>
             <br/>
-            <p>When you create your Character, you can spend these 800 gold on equipment or useful items from the <Link to="/Other/Prices">Prices</Link> page.</p>
-            <p>For weapons and armor, visit the <Link to="/Other/Weapons">Weapons</Link> and <Link to="/Other/Armors">Armors</Link> pages.</p>
+            <p>When you create your Character, you can spend these 800 gold on equipment or useful items from the <Link to="/Other/Prices" style={{color: 'blue'}}><b>Prices</b></Link> page.</p>
+            <p>For weapons and armor, visit the <Link to="/Other/Weapons">Weapons</Link> and <Link to="/Other/Armors" style={{color: 'blue'}}><b>Armors</b></Link> pages.</p>
             <p>Your Character can wear any type of armor.</p>
         </div>
     )
@@ -227,7 +228,9 @@ export function LevelingUp({ theClass }) {
                                 {/* <Spell spell={abilities['Default Moves']['~Action Surge~']}/> */}
                             </div>
                         ) :
-                        theClass['Spellcasting']['Type'] == 'Special Mana-based' || theClass['Spellcasting']['Type'] == 'Hunter'? (
+                        theClass['Spellcasting']['Type'] == 'Special Mana-based' ||
+                        theClass['Spellcasting']['Type'] == 'Hunter' ||
+                        theClass['Spellcasting']['Type'] == 'Paladin' ? (
                             <div>
                                 <TableNormal columns={['Every Level Above 1 You Get...']}>
                                     <tr>
@@ -237,7 +240,7 @@ export function LevelingUp({ theClass }) {
                                     </tr>
                                     <tr>
                                         <td>
-                                            1 Known Spell
+                                            1 Known Basic Ability
                                         </td>
                                     </tr>
                                 </TableNormal>
@@ -436,17 +439,20 @@ export function Spec({ children, name, spec }) {
 }
 
 export function SpecTalents({ spec }) {
+
+    const talentTierCategories = Object.keys(spec.Talents)
     return (
         <div>
             <PageH2>Talents</PageH2>
             <p>At each of the following levels, you can pick one of the Abilities listed.</p>
 
-            {Object.keys(spec.Talents).map(talentTierName => (
-                <div key={talentTierName}>
+            {talentTierCategories.map(talentTierName => {
+                const spellsInThisTier = U.spellsFromObject(spec.Talents[talentTierName])
+                return <div key={talentTierName}>
                     <PageH3>{talentTierName}</PageH3>
-                    <ManySpells spells={U.spellsFromObject(spec.Talents[talentTierName])}/>
+                    <ManySpells spells={spellsInThisTier}/>
                 </div>
-            ))}
+            })}
         </div>
     )
 }

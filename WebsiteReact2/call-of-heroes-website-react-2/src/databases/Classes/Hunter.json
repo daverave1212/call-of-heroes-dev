@@ -52,11 +52,11 @@
                 "Bloodshed": "Slam"
             }
         ],
-        "Recommended Abilities Description": "As a Hunter, your baseline kit with the pet and Class Abilities is very strong, but lacks in the Spells department, so you need to work with what you've got! Resistance is a decent defensive option and Venin Shot might help dish out some more Damage. Cure Affliction can be amazing in certain niche scenarios, and Slam will help you deal with multiple opponents at once - just be careful not to slam into your allies!\n"
+        "Recommended Abilities Description": "As a Hunter, your baseline kit with the pet and Class Abilities is very strong, but you are what some would call a \"semi-caster\" - a class with low access to magic and Abilities, so you need to work with what you've got! Resistance is a decent defensive option and Venin Shot might help dish out some more Damage. Cure Affliction can be amazing in certain niche scenarios, and Slam will help you deal with multiple opponents at once - just be careful not to slam into your allies!\n"
     },
     "Starting Abilities": {
         "~Animal Companion~": {
-            "_Value": 3.5,
+            "_Value": 4.5,
             "AlignOnWebsite": "Left",
             "A": "Passive",
             "HasMixins": true,
@@ -70,11 +70,13 @@
             "AlignOnWebsite": "Right"
         },
         "~Tumble~": {
-            "_Value": 0.5,
+            "_Value": 1.5,
             "AlignOnWebsite": "Right",
             "A": "Reaction or 0 Actions",
-            "Cooldown": "Once / Adventure",
+            "Cooldown": "Once / Combat",
+            "HasMixins": true,
             "Effect": "Roll 2 meters in any possible direction.\nUse when a Unit declares an attack or Ability.\n",
+            "Upgrade": "^You^ can use this to make your pet tumble instead.",
             "Notes": "You can use this to dodge an area Ability or go out of Line of Sight (or behind Cover). The attack carries on if it still has Line of Sight. Otherwise, it must choose something else to do, as if the Act never happened."
         }
     },
@@ -90,7 +92,7 @@
         "Description": "At Level 1, you can choose your specialization.",
         "Choices": [
             "Draven, a tracker and hunter of beats and men, never lost and never without purpose",
-            "Warden, a potent user of fast and practical magic to use against foes, and with allies",
+            "Warden, a potent user of fast and practical magic to use against foes, or with allies",
             "Beastmaster, a pack hunter, who finds friends in even the most ruthless of beasts"
         ]
     },
@@ -101,30 +103,54 @@
                 "~Tracker~": {
                     "_Value": 0.25,
                     "A": "Passive",
-                    "Effect": "You gain Proficiency in Tracking, meaning you can add your Level to all Sense checks for tracking a creature and learning about its size, if it's part of a group or pack, if it's injured or roughly how far away it is.\nYou always know where North is in non-magical environments.\nYou and your pets are unaffected by Hard Terrain.\n"
+                    "Effect": "You gain Proficiency in Tracking (you can add your Level to all Sense checks for tracking a creature and learning about its size, if it's part of a group or pack, if it's injured or roughly how far away it is).\nYou always know where North is in non-magical environments.\nYou and your pets are unaffected by Hard Terrain.\n"
                 },
                 "~Hunter Mark~": {
-                    "_Value": 3,
+                    "_Value": 3.25,
                     "A": "0 Actions",
-                    "Cooldown": "2 times / Adventure",
-                    "Duration": "10 minutes",
-                    "Effect": "Choose and mark a target you can see.\nYour own single target attacks and Abilities against the marked target have the Damage dice increased by 1 tier.\n",
-                    "Notes": "Increasing dice by 1 tier means, for example, d6 become d8, or d10 become d12.\nD12's and d20's don't increase.\nYour pets' attacks don't increase.\nA Unit can only have one Hunter Mark on it at a time.\n"
+                    "Cooldown": "Once / Combat",
+                    "Duration": "1 hour",
+                    "HasMixins": true,
+                    "Effect": "Choose and ^Mark^ a target you can see.\nYour own single target attacks and Abilities against the ^Marked^ target have their ^Dice Upgraded^ to the next die type.\n",
+                    "Notes": "{DiceUpgrade}\nYour pets' attacks don't increase.\nA Unit can only have one Hunter Mark on it at a time.\n"
                 }
             },
             "Talents": {
                 "Level 3": {
-                    "<Slay>": {
-                        "_Value": 0.25,
+                    "<Bola Shot>": {
+                        "_Value": 1.5,
                         "A": "Passive",
-                        "Effect": "You always know the type of a monster.\nYou gain a different bonus when fighting an enemy of a certain type:\nMonstrosities: Attacks against Monstrosities ignore Defense and Resistances.\nBeasts: You have +1 Defense and +1 to all Resist Checks against Beasts.\nFiends: Your Acts against Fiends that use at least a Half-Action (or Reaction) deal 1d4 extra Damage.\nUndead: You have +2 Spell Grade against Undead.\n"
+                        "Range": "5 meters to edge",
+                        "Effect": "After you Tumble, choose a 2x2 meter area and throw a net. Each Unit in the area take 1d4 Force Damage and is Slowed. If you rolled 4 for any of them, it is Rooted instead.",
+                        "Notes": "Requires a Draven Net item, which can be bought for 50 gold (or freely crafted for the same price in materials). Can retrieved after every use."
                     },
-                    "<Flare Shot>": {
-                        "_Value": 0.5,
-                        "A": "Reaction or 0 Actions",
-                        "Range": "15 meters",
-                        "Cooldown": "Once / Combat",
-                        "Effect": "Quickly shoot a flare at a target point.\nThe area around the flare lights up in a 6 meter radius, creating normal light.\nWhen cast, all allies in the area are cleared of Stun, Fear or Cripple.\nAllies in the area have Advantage on rolls against Fear.\nThe flare lasts 1 minute.\n"
+                    "<Bounty Hunting>": {
+                        "_Value": "1 or so",
+                        "A": "Passive",
+                        "HasMixins": true,
+                        "Effect": "When your ^Marked^ target dies, you gain 1d100 {Gold}Gold and heal an ally within 6 meters for 1d8.",
+                        "Notes": "Flavor-wise, you collect a trophy of your kill. The next time you are in a town, you redeem the Gold from selling the trophy."
+                    },
+                    "<Slayer>": {
+                        "_Value": 1,
+                        "A": "Passive",
+                        "Effect": "You always know the type of a monster. You gain a different boon when fighting an enemy of a certain type:\n",
+                        "DoubleTable": {
+                            "Headers": [
+                                "Monster Type",
+                                "Boon"
+                            ],
+                            "Values": [
+                                "Aberrations, Fiends",
+                                "One attack per turn against one deals extra Damage equal to your Sense",
+                                "Beasts",
+                                "You automatically know the Stats, Health and Abilities of a Beast you're fighting (ask the GM)",
+                                "Undead",
+                                "When attacked by your pet, it becomes Fumbling",
+                                "People, Demons",
+                                "When Marking one, it must make an Intelligence Check or be Silenced or Crippled (your choice)"
+                            ]
+                        }
                     }
                 },
                 "Level 5": {
@@ -136,37 +162,64 @@
                         "Effect": "Make an attack on a target.\nFor each meter to the target, the attack deals 1d6 Pierce Damage, up to 8 meters.\nFor each meter to the target over 8 meters, deal one less d6.\n",
                         "Notes": "At exactly 8 meters range, the attack deals 8d6 Damage. At 7 and 9 meters, it deals 7d6. At 6 and 10 meters, 6d6. And so on."
                     },
-                    "<Running Mark>": {
+                    "~Tag-Team Mark~": {
                         "_Value": 2.5,
-                        "A": "Passive",
-                        "Effect": "You can use Tumble one more time per Adventure.\nImmediately after you Tumble, you can freely use Hunter Mark, ignoring its Cooldown.\n"
+                        "A": "0 Actions",
+                        "Cooldown": "Once / Combat",
+                        "Duration": "1 hour",
+                        "HasMixins": true,
+                        "Replacement": "Replaces Hunter Mark",
+                        "Effect": "Choose and mark a target you can see. ~Your Pet immediately dashes to the target and performs a Pet Attack if it's within 6 meters of the target.~\nYour own ~and your pet's~ single target attacks and Abilities against the marked target have their ^Dice Upgraded^ to the next die type.\n",
+                        "Notes": "{DiceUpgrade}\nA Unit can only have one Hunter Mark on it at a time.\nYour Pet lands on the closest space near the target.\n"
                     },
-                    "<Tremor Wave>": {
-                        "_Value": 2.75,
-                        "A": "1 Action",
-                        "Range": "10 meters",
-                        "Cooldown": "Once / Adventure",
-                        "Effect": "Shoot a thundering shot towards an obstacle or wall. A quaking wave travels horizontally towards in both directions of the wall up to 10 meters in each direction.\nAll Units within 2 meters of that wall must pass a Might Check or be Stunned and take 3d4 Shock Damage.\nThey take half of the Damage and are Slowed if they pass.\n",
-                        "Notes": "The floor and ceiling are not considered walls. The wave does not travel through them. This is considered a Spell. Ignores Cover."
+                    "~Chaser Mark~": {
+                        "_Value": 2.5,
+                        "A": "0 Actions",
+                        "Cooldown": "Once / Combat",
+                        "Duration": "1 hour",
+                        "HasMixins": true,
+                        "Replacement": "Replaces Hunter Mark",
+                        "Effect": "Choose and mark a target you can see. ~If it's a non-Epic Unit, it is perpetually Feared while marked and has 0 base Defense.~\nYour own single target attacks and Abilities against the marked target have their ^Dice Upgraded^ to the next die type.\n",
+                        "Notes": "{DiceUpgrade}\n{Feared}\nA Unit can only have one Hunter Mark on it at a time.\nYour Pet lands on the closest space near the target.\n"
                     }
                 },
                 "Level 7": {
+                    "<Tremor Wave>": {
+                        "_Value": 2.75,
+                        "A": "Half-Action",
+                        "Range": "10 meters",
+                        "Cooldown": "Once / Adventure",
+                        "HasMixins": true,
+                        "Effect": "Shoot a thundering shot towards an obstacle or wall. A quaking wave travels horizontally towards in both directions of the wall up to 10 meters in each direction.\nAll Units within 2 meters of that wall must succeed a Might Check against 6 + ^Your Sense^ or be Stunned and take 3d4 Shock Damage.\nThey take half of the Damage and are Slowed if they succeed.\n",
+                        "Notes": "The floor and ceiling are not considered walls. The wave does not travel through them. This is considered a Spell. Ignores Cover."
+                    },
                     "<Improved Hunter Mark>": {
                         "_Value": 2.5,
                         "A": "Passive",
-                        "Effect": "Hunter Mark increases the dice by an extra tier (e.g. from d6 to d10) and your Pet's Damage benefits from Hunter Mark."
-                    },
-                    "<Attack Mark>": {
-                        "_Value": 2.5,
-                        "A": "Passive",
-                        "Effect": "When you cast Hunter Mark, your Pet immediately dashes to the target and performs a Pet Attack if it's within 6 meters of the target.",
-                        "Notes": "Your Pet lands on the closest space near the target."
+                        "HasMixins": true,
+                        "Effect": "Hunter Mark makes your ^Dice^ further ^Upgraded^ to the next die type.",
+                        "Notes": "E.g. from d6 to d10."
                     },
                     "<Leafwalk>": {
                         "_Value": 2.5,
                         "A": "0 Actions",
                         "Cooldown": "Once / Adventure",
-                        "Effect": "Become invisible until the end of your next turn (or for 12 seconds if not in combat). Doing any Act heals you for 1d4 while invisible."
+                        "Duration": "12 seconds",
+                        "HasMixins": true,
+                        "Effect": "You and your pet become ^invisible^. While a Unit is _leafwalking_, it heals for 1d4 whenever it does an Act. Lasts until the end of your next turn (or for 12 seconds if not in combat)."
+                    }
+                },
+                "Level 9": {
+                    "<Pierce and Cleave>": {
+                        "_Value": 4,
+                        "A": "Passive",
+                        "HasMixins": true,
+                        "Effect": "When making a single-target attack on a Unit, your attack hits another target, depending on the weapon range:\n{Diamond} If ranged, the attack hits the first Unit directly behind the main target within 3 meters of it, on a line, for 50% of the base Damage of the attack.\n{Diamond} If melee, the attack hits one Unit of choice within 2 meters of the target, for 50% of the base Damage of the attack.\n"
+                    },
+                    "<Marked for Criticals>": {
+                        "A": "Passive",
+                        "Effect": "After you use Hunter Mark (or an upgrade) on a target, it takes maximum Damage from the next dice roll.\n",
+                        "Notes": "For example, after you Hunter Mark a Unit, if you attack it for 2d8 Damage, you don't roll; it just takes 16 Damage. Applies to bonuses like Dice Upgrades, Smites, etc."
                     }
                 }
             }
@@ -177,13 +230,13 @@
                 "~Warden~": {
                     "_Value": 2,
                     "A": "Passive",
-                    "Effect": "You have 2 Mana that regenerates normally inbetween Adventures.\nAdditionally, choose a Basic Ability List from Elemental, Divine, and Arcane.\nYou now have access to that Basic Ability List as well, permanently (this can not be changed).\nAlso, you can Know a number of extra Abilities equal to your Intelligence (at least 1).\n"
+                    "Effect": "You have 2 Mana that regenerates normally inbetween Adventures.\nAdditionally, choose a Basic Ability List from Elemental, Divine, and Arcane.\nYou now have access to that Basic Ability List as well, permanently.\n"
                 },
                 "~Quick Magic~": {
-                    "_Value": 2,
+                    "_Value": 1.5,
                     "A": "Passive",
-                    "Effect": "After using Tumble or one of your Pet's Abilities that has a \"Once / Adventure\" Cooldown, immediately cast Burning Breath, Flash or Vault Break for free (see the Abilities list).\n",
-                    "Notes": "For quick reference: Burning Breath deals 4 Damage in a 3x3 meter area near you; Flash teleports you up to 6 meters away; Vault Break destroys a medium obstacle within 3 meters.\n"
+                    "Effect": "After using Tumble or one of your Pet's Abilities that has a \"Once / Adventure\" Cooldown, immediately choose and do one of the following effects:\n{Diamond} Deal 1d4 Fire Damage to a Unit\n{Diamond} Cast Flash\n{Diamond} Cast Vault Break\n",
+                    "Notes": "For quick reference: Flash teleports you up to 6 meters away; Vault Break destroys a medium obstacle within 6 meters.\nAll of the effects have a range of 6 meters.\n"
                 }
             },
             "Talents": {
@@ -222,20 +275,25 @@
                     }
                 },
                 "Level 5": {
+                    "<Claw-Eye Coordination>": {
+                        "_Value": 2.5,
+                        "A": "Passive",
+                        "Effect": "After you cast a Basic Ability that doesn't cost Mana, your Pet can immediately make a Pet Attack."
+                    },
                     "<Warden Corral>": {
                         "_Value": 2,
                         "A": "0 Actions",
                         "Range": "10 meters to edge",
                         "Cooldown": "Once / Adventure",
-                        "Effect": "Declare a 6x6 meter zone and it becomes engulfed in a special magical aura.\nAll Units have 0 Defense and their Passive Abilities don't work while in that zone.\nThe zone lasts until the start of your next turn.\n",
-                        "Notes": "Rounded down (e.g. 3 becomes 0, 5 becomes 1). The zone is often subtle, and not all monsters may notice it."
+                        "Effect": "Declare a 6x6 meter area and it becomes engulfed in a special magical aura.\nAll Units have 0 Defense and their Passive Abilities don't work while in that area (including Resistances and Weaknesses).\nThe area lasts until the start of your next turn.\n",
+                        "Notes": "The area is often subtle, and only monsters with a Sense of 3 or higher notice it."
                     },
                     "<Wind Wall>": {
-                        "_Value": 1,
+                        "_Value": 2,
                         "A": "Reaction (or 0 Actions)",
                         "Range": "6 meters to an end",
-                        "Cooldown": "Once / Adventure",
-                        "Effect": "Use when an enemy or enemy group make an attack.\nCreate a 4x4 meter wall of powerful Wind that destroys all projectiles.\nIt can't be passed through from the direction it is facing towards.\nLasts for 1 minute.\n",
+                        "Cooldown": "Once / Combat",
+                        "Effect": "Use when an enemy or enemy group make an attack.\nCreate a thin, vertical 4x4 meter screen of powerful Wind that destroys all projectiles.\nIt can't be passed through from the direction it is facing towards.\nLasts for 1 minute.\n",
                         "Notes": "The wall pushes objects or willing Units away from it and can be used as a platform.\nIf you decide to place it horizontally, it acts as Hard Terrain.\n"
                     }
                 },
@@ -244,13 +302,14 @@
                         "_Value": 3,
                         "A": "Passive",
                         "HasMixins": true,
-                        "Effect": "After you cast an _offensive_ Spell that costs Mana, your next Weapon attack deals +1d6 Damage.",
+                        "Effect": "After you cast an _offensive_ Spell, your next Weapon attack deals +1d6 Damage.",
                         "Notes": "{Offensive Abilities}"
                     },
                     "<Quicker Magic>": {
                         "_Value": 3,
                         "A": "Passive",
-                        "Effect": "Quick Magic also trigger whenever you spend Mana on a Spell.\n"
+                        "HasMixins": true,
+                        "Effect": "Quick Magic also triggers whenever you spend Mana on a Spell and you get more options:\n{Diamond} Cast Burning Breah\n{Diamond} Cast Invigorate\n{Diamond} Cast Blur\n"
                     }
                 }
             }
@@ -260,6 +319,7 @@
             "Starting Abilities": {
                 "~Prowl Around~": {
                     "A": "Passive",
+                    "_Value": 0.5,
                     "Effect": "You have +2 to all Sense Checks.\n",
                     "Notes": "This is because of your Animal Companions roaming about."
                 },
@@ -273,20 +333,20 @@
             "Talents": {
                 "Level 3": {
                     "<Exotic Double>": {
-                        "_Value": 3.5,
+                        "_Value": 5,
                         "A": "Passive",
                         "Effect": "One more of your Animal Companions accompanies you while adventuring.\nThis Animal Companion obeys the same rules as the regular one (takes its turns, requires healing between combats, etc).\nOne of your 3 Animal Companions can be an Exotic Animal.\n",
                         "Notes": "You're instantly kicked from the group if your pets don't have names."
                     },
                     "<Large Double>": {
-                        "_Value": 3.5,
+                        "_Value": 5,
                         "A": "Passive",
-                        "Effect": "One more of your Animal Companions accompanies you while adventuring.\nThis Animal Companion obeys the same rules as the regular one (takes its turns, requires healing between combats, etc).\nOne of your 3 Animal Companions grows to become Large. Its Max Health increases by 50% and its attack range by 1.\n"
+                        "Effect": "One more of your Animal Companions accompanies you while adventuring.\nThis Animal Companion obeys the same rules as the regular one (takes its turns, requires healing between combats, etc).\nOne of your 3 Animal Companions grows to become Large. Its Max Health increases by 25% and its attack range by 1.\n"
                     },
                     "<Wild Single>": {
-                        "_Value": 3,
+                        "_Value": 5,
                         "A": "Passive",
-                        "Effect": "All your Animal Companions are combinations of 2 different Animals from the Animals List, and have the highest Stats of the two and both Abilities. All your Animal Companions must be combinations of all different Animals.\nYour Animal Companion's Pet Attack Damage becomes 1d12.\n"
+                        "Effect": "All your Animal Companions are combinations of 2 different Animals from the Animals List, and have the highest Stats of the two and both Abilities, and has 100% extra Health. All your Animal Companions must be combinations of all different Animals.\nYour Animal Companion's Pet Attack Damage becomes 2d6.\n"
                     }
                 },
                 "Level 5": {
@@ -309,7 +369,7 @@
                         "_Value": 3,
                         "A": "0 Actions",
                         "Cooldown": "Once / Adventure",
-                        "Effect": "One enemy near each of your pets (and/or summons) must pass a Might Check or become Crippled.\n"
+                        "Effect": "One enemy near each of your pets (and/or summons) becomes Dazed, Blinded and Slowed.\n"
                     },
                     "<Call To Action>": {
                         "_Value": 2,

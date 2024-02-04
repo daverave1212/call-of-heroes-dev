@@ -163,7 +163,6 @@ def get_format_sections_object_list(dict_content_list):
     new_children = []
 
     for child in section_object_list:           # Every child is either an object with a string or an object with a list
-        print(child)
         only_key = list(child.keys())[0]
         value = child[only_key]
         if isinstance(value, str):
@@ -210,7 +209,6 @@ def get_format_sections_object_list(dict_content_list):
 
 def get_format_sections_object_dict(dict_content_list):
     def get_recursive_section(section_object_content):
-        print(section_object_content)
         if isinstance(section_object_content, str):
             return section_object_content
         elif isinstance(section_object_content[0], str):

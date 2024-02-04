@@ -4,8 +4,12 @@ import PageH2 from './../PageH2/PageH2'
 import Separator from './../Separator/Separator'
 import React, { useEffect, useState } from 'react'
 import Icon from '../Icon'
-import { insertBetweenAll, ifOk, stringReplaceAllMany, mapObject, parseTextWithSymbols } from '../../utils'
+import { insertBetweenAll, ifOk, stringReplaceAllMany, mapObject, parseTextWithSymbols, getUniqueSpellID } from '../../utils'
 import { SpellTopStats } from './Spell'
+import html2canvas from 'html2canvas'
+import CopySpellButton from './CopySpellButton'
+
+window.html2canvas = html2canvas
 
 export default function Item({ item }) {
 
@@ -44,6 +48,7 @@ export default function Item({ item }) {
     let hasVariants = Variants != null
 
     const iconName = stringReplaceAllMany(Name, [' ', '/', '%'], ['_', '_', ''])
+    const uniqueID = getUniqueSpellID(Name)
 
     let extraText = 
         [
@@ -100,7 +105,7 @@ export default function Item({ item }) {
     }
 
     return (
-        <div className={`spell${hasVariants === true? ' spell--with-variants': ''}`}>
+        <div id={uniqueID} className={`spell${hasVariants === true? ' spell--with-variants': ''}`}>
             <div className="spell__border"></div>
             <div className="spell__background"></div>
             <div className='spell__box'> {/* This has CSS to be perfectly in the bounds of the borders and banner */}
@@ -131,6 +136,7 @@ export default function Item({ item }) {
                         { extraText }
                     </div>
                 ) }
+            <CopySpellButton elementId={uniqueID}/>
             </div>
         </div>
     )

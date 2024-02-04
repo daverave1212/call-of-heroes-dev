@@ -18,79 +18,97 @@ Level Up:
     Health: 6
 
 Spellcasting:
-  Type: Mana-based
+  Type: Paladin
   SpellsOrAbilities: Spell
 
   Spell Grade: 6 + Sense or Charisma, whichever is higher
   Change: You can change your known Spells and Talents inbetween Adventures.
   Other: All Paladin-specific Abilities are considered Spells (unless stated otherwise).
 
-  Mana:
-    Amount: 2
-    Regain: You regain all Mana back inbetween Adventures.
-
-  Known Basic Abilities: 1 + Intelligence
+  Known Basic Abilities: 2
   
-  BaseKnownSpells: 1
+  BaseKnownSpells: 2
 
   Basic Ability Lists:
     - Warfare
     - Divine
 
   Recommended Basic Abilities:
-    - Warfare: Glory Shout
-    - Warfare: Bull Rush
-    - Divine: Hand of Freedom
-    - Divine: Blinding Smite
+    - Divine: Smite
+    - Divine: Solace Wave
+    - Warfare: Assess Their Ranks
 
   Recommended Abilities Description: |
-    Paladins can do decent healing, so Glory Shout will fit neatly with the Paladin class fantasy! Bull rush will give you some extra damage at close range, while Hand of Freedom allows you to help out allies in need. Finally, if you need more ways to disrupt enemies, get Blinding Smite! As the name suggest, it makes enemies go blind, thus protecting you and your allies from their attacks!
+    As a Paladin, you must make use of your limited Spells as best as possible. Solace Wave is a solid heal, while Smite will come in handy when you wish to deal extra Damage. Asses Their Ranks is a decent survivability tool; hold it for when you are fighting multiple enemies. If you have no other options to do with a Half-Action, use Solace Wave in combination with Holy Grace in order to not waste resources on your turn!
 
  
 Starting Abilities:
 
   ~Vigor~:
+    _Value: 0.5
     A: Passive
+    AlignOnWebsite: Left
     Effect: |
       You start with 3 extra Max Health.
 
-  ~Divine Sense~ :      # Ok
-    A: 0 Actions
-    Cooldown: 1 Hour
+  ~Faith Casting~:
+    _Value: 0
+    A: Passive
+    HasMixins: true
+    AlignOnWebsite: Left
     Effect: |
-        You sense if there are Undead, Demons, Fiends or Celestials, or holy or unholy places or objects within 15 meters.
-        Thick walls obstruct your Divine Sense.
+      You do not use Mana.
+      Once per turn, you can cast a Warfare or Divine Ability you Know that costs Mana and you haven't already cast this Adventure, without spending Mana.
+    Upgrade: If your Intelligence is 2 or higher, you can Know an additional Basic Ability.
+    Notes: |
+      For example, if you know Smite and Healing Word, you can cast each of them once this Adventure, without spending Mana.
+      Abilities must still respect their Cooldowns if any.
 
-  ~Lay on Hands~ :
-    _Value: 1.25
+  ~Holy Grace~:
+    _Value: 1.5
     A: Half-Action
+    HasMixins: true
+    AlignOnWebsite: Left
+    Cooldown: Once / Adventure
     Range: 3 meters
+    Effect: |
+      Deal 2 + ^Your Level^ Divine Damage to a Worthy Enemy.
+      Another ally you see is healed for all the Damage done.
+    Notes: This can't heal yourself.
+
+  ~Divine Sense~:
+    _Value: 0
+    A: 1 Action
+    Cooldown: Once / Real Hour
+    Range: 15 meters
+    Duration: 6 seconds
+    AlignOnWebsite: Right
     HasMixins: true
     Effect: |
-      You have 3 + ^Level^ + ^Sense^ + your ^Charisma^ Holy Points.
-      Using a Half-Action, you can spend 3 or more Holy Points to heal a Unit for that amount.
-      All your Holy Points replenish inbetween Adventures.
+      When you use this, for a brief moment, nearby holy and unholy presences emmit a subtle sound and smell ^only you can sense^.
+    Upgrade: |
+      Unholiness smells sulphurous and sounds like a deep, echoing rumbling or breath. Holiness smells churchly and sounds like a reverbing crystaline ringing.
+    Notes: |
+      Walls block this smell and sound as they normally would.
+      This smell and sound can only be concealed with magic.
 
-  ~Divine Smite~ :
-    _Value: 1.5
-    AlignOnWebsite: Right
-    A: 0 Actions
-    Cooldown: Once / Adventure
-    Effect: Add 2d6 Divine Damage to a melee attack (after you roll).
+
     
 Starting Abilities Description:
+  - Faith Casting: |
+      Paladins are not true spellcasters and don't draw power from magical Mana, but rather from their conviction and courage on the battlefield. As such, you can fill your Known Abilities with powerful Ablities and you can use each of them once. This will get better as you Level up, allowing you to pick more options and even Spells that cost more than 1 Mana, which will be free for you! Pick wisely!
+  - Holy Grace: |
+      Use Holy Grace when you are in need of healing either yourself or an ally, or you need to dish out some quick, surefire Damage.
+      Since this takes a Half-Action, get a 1-Handed weapon to fill your turn with something to do after using Holy Grace (or get a Spell that takes a Half-Action).
   - Divine Sense: |
-      You have the power to detect foul creatures within range. Use this carefully, as it has a long cooldown.
-  - Lay on Hands and Divine Smite: |
-      You might receive other Abilities in the future that consume or replenish Holy Points.
-      Divine Smite will bring wrath upon your foes!
+      You have the power to detect foul creatures within range. Use this carefully only when you believe you need to, as it has a long cooldown.
 
 # Mana:       2                        |  2
-# Base        3.5                      |  5.5
-# Spec:       0.75  | 1.25    | 1      |  6.5
-# Talent L3:  1.5   | 1       | 1.25   |  7.75
-# Talent L5:  2     | 2       | 2.75   |  10
-# Talent L7:  2     | 2.25    | 3      |  12.5
+# Base        2                        |  4
+# Spec:       2.5   | 2.5     | 2.5    |  6.5
+# Talent L3:  1.5   | 1.5     | 1.5    |  8
+# Talent L5:  2     | 2       | 2      |  10
+# Talent L7:  3     | 3       | 3      |  13
 
 # Base: 4.5 Charges
 # With Spec: 5.35 Charges
@@ -106,8 +124,8 @@ Specializations:
     By choosing your oath, you dedicate yourself to a purpose; an oath is a lifestyle, not a mere choice!
   Choices:
     - Order of the Crusade, which inspires a strong personality and desire to achieve greatness by any means necessary
-    - Order of Grace, dedicated to helping the unfortunate and being someone to look up to
-    - Order of the Templar, chosen by those who vow to protect and wish to become a paragon of the people
+    - Order of the Tome, knowledgeable paladins dedicated to helping the unfortunate and being someone to look up to
+    - Order of the Templar, an old sect chosen by those who vow to protect and wish to become a silent paragon of the people
 
 # Talent: When you use Divine Smite
 # Talent: Interactions with LoH and other Cooldown-based Spells
@@ -123,17 +141,13 @@ Specializations:
 Specs:
 
 
-  Order of the Crusade:                 # 0.75
-    # Talent: When Oath of Conquest triggers...
-    # Talent: When you use Impose
-
-    # Healing (Gimmick)
+  Order of the Crusade:                 # 2.5
+    # Healing, Damage (Gimmick)
     # CC Medium
 
-    # Healing           (Talents 2)
-    # Charges
-    # AoE
+    # Healing, Damage           (Talents 2)
     # Damage (Sustained)
+    # 
 
     # Charges           (Talents 4)
     # Damage (Burst)
@@ -142,217 +156,321 @@ Specs:
     Starting Abilities:
 
       ~Crusade~:
-        _Value: 0.5
-        A: Passive
+        _Value: 2
+        A: Reaction
+        Range: 5 meters
+        HasMixins: true
         Effect: |
-          Every Worthy Enemy YOU defeat grants you 1d4 Holy Points.
-          You also gain Proficiency in Indimidation if you don't have it already.
+          When ^YOU^ defeat one Worthy Enemy, all excess Damage is converted to healing or Divine Damage to a Unit within 5 meters of you.
+        Notes: E.g. if a Unit has 5 Health and you deal 12 Damage, the Unit dies and you heal an ally (or yourself) for 7 Health using your Reaction, or blast another Unit for 7 Divine Damage. If you kill multiple Units at the same time, this triggers only for one of them.
       
-      ~Impose~ :
-        _Value: 0.25
-        A: Half-Action
-        Range: 3 meters
-        Cooldown: Once / Adventure
-        Effect: A Unit must pass a Sense Check or be Feared. It has -2 to the roll if it's a Person or Unholy.
+      ~True Sense~:
+        _Value: 0.5
+        A: 0 Actions
+        Cooldown: Once / Real Hour
+        Range: 15 meters
+        Duration: 6 seconds
+        Replacement: Replaces Divine Sense
+        HasMixins: true
+        Effect: |
+          When you use this, for a brief moment, nearby ~presences with souls~ emmit a subtle sound and smell ^only you can sense^. ~One of them becomes Feared (randomly, or you can choose it if you see it)~.
+        Upgrade: |
+          Unholiness smells sulphurous and sounds like a deep, echoing rumbling or breath. Holiness smells churchly and sounds like a reverbing crystaline ringing. Normal souls smell like clean mineral water and sound like a flowing waterfall.
+        Notes: |
+          Walls block this smell and sound as they normally would.
+          The smell and sound can be concealed with magic.     
 
     Talents:
       Level 3:
-        <Pledge of the Crusade>:
-          _Value: 1.5
-          A: Special
-          Cooldown: Lifetime
-          Effect: |
-            Ask a party member to join your cause and pledge their honor to you.
-            that person can use Divine Smite once per Adventure.
-            It can also cast Lay on Hands using your Holy Points and always Knows the same Basic Divine Spells you Know at a time.
-            Additionally, Oath of the Crusade also happens when that ally defeats a Worthy Enemy.
-          Notes: |
-            You can only have one character who pledged for you and it must be within 100 meters to have access to all of those.
-            The number of Holy Points of the ally does not increase.
-            If you ever change this Talent, the ally loses access to all things mentioned; it regains them when you get this Talent again.
-            
+
         # <Retribution>:      # 1
         #   A: Special
         #   Effect: |
         #     You lose Lay on Hands, but choose 2 Eldritch Spells that cost 1 Mana. You gain them permanently and, once per Adventure, you can cast each ignoring the Mana cost.
           
 
-        <Fury Smite>:
-          _Value: 1.5
-          A: 0 Actions
-          Effect: After an attack, deal 50% of the weapon Damage done by the attack (dice plus any modifiers) to all other Enemies within 3 meters around the target.
-          Cooldown: Once / Adventure
-          Notes: |
-            The Damage of the attack counts as the dice rolled + any modifiers.
-            Using Divine Smite over an attack, for example, does not count as added to the weapon Damage.
-            Damage done means Damage inflicted after Defense and Resistances calculations.
-            Cover is applied normally for the AoE.
-         
-        <Divine Reach>:
-          _Value: 1.5
-          A: 0 Actions
-          Cooldown: Once / Adventure
+        # <Fury Smite>:
+        #   _Value: 1.5
+        #   A: 0 Actions
+        #   Effect: After an attack, deal 50% of the weapon Damage done by the attack (dice plus any modifiers) to all other Enemies within 3 meters around the target.
+        #   Cooldown: Once / Adventure
+        #   Notes: |
+        #     The Damage of the attack counts as the dice rolled + any modifiers.
+        #     Using Divine Smite over an attack, for example, does not count as added to the weapon Damage.
+        #     Damage done means Damage inflicted after Defense and Resistances calculations.
+        #     Cover is applied normally for the AoE.
+
+        <Jihad>:
+          _Value: No idea
+          A: Passive
           Effect: |
-            You empower yourself to make your melee weapons send fiery waves.
-            Your melee attacks have up to 3 meters range, deal 1d4 extra Damage and deal Fire Damage instead of Physical.
-            Lasts 1 minute.
-            Also, passively, you can now cast smites on ranged attacks (normally, you can only cast Smite on melee attacks).
+            When healing yourself with Crusade, increase the healing by 50%.
+            Additionally, you can heal yourself with Holy Grace.
+
+        <Retribution>:
+          _Value: 1.25
+          A: Half-Action
+          Cooldown: Once / Adventure
+          Range: 3 meters
+          Effect: Stun a Unit.
+         
+        <Flaming Reach>:
+          _Value: 1.5
+          A: Half-Action
+          Cooldown: Once / Adventure
+          Duration: 1 minute
+          Effect: |
+            Your weapon takes on a fiery aspect.
+            Your first melee attack every turn has up to 3 meters range, deals Fire Damage instead of Physical and deals 1d4 Fire Damage to the target and all Enemies within 2 meters of the target.
+          Upgrade: Passively, you can now cast Smite Abilities on ranged attacks.
           Notes: |
             Attacks like this count as either melee or ranged attacks, your choice. Targets still benefit from Cover, regardless.
             Alternatively, if it makes sense for your character, the DM might allow it to deal Cold, Necrotic or Shock Damage instead of Fire. Talk to your DM about this.
 
       Level 5:
-      
-        <Vengeance>:
-          _Value: 2
-          A: Passive
-          Effect: |
-              When a Worthy Enemy dies in combat, get a Vengeance Counter.
-              Immediately when you get to 6 Vengeance Counters, gain 1 Mana or gain 1d8 Holy Points or reset the Cooldown of a Basic Spell you know (you choose).
-              You keep your Vengeance Counters even inbetween Adventures.
-                
-        <Victory Smite>:
-          _Value: 
-          A: Passive
-          Effect: After half (rounded down) of Worthy Enemies in a combat have been defeated, reset the Cooldown of Divine Smite or gain 7 Holy Points (you choose).
-            
-        <Lay on Arms>:
-          _Value: 1
-          A: Reaction
-          Cost: Half of your maximum Holy Points
-          Range: 3 meters
-          Effect: |
-            Use when you or an ally you can see would take Damage from an Enemy.
-            Make a 1-handed melee weapon attack _against the Enemy's attack_ - subtract your Damage rolled from that enemy's Damage. If your rolled Damage exceeds that enemy's Damage, deal the excess Damage back to the attacker.
-          Notes: If you dealt Damage, you can apply weapon effects if any happens.
 
+        <Join the Crusade>:
+          _Value: 2
+          A: Special
+          Cooldown: Lifetime
+          AlignOnWebsite: Right
+          Effect: |
+            Ask a party member to join your cause and pledge their honor to you.
+            That person has the Crusade Ability and the same Tier 1 Talent you have.
+            It also has access to the Divine Ability List.
+          Notes: |
+            Only one person can pledge for you and it must within sight or hearing to have access to all of those.
+            If you ever change this Talent, the ally loses access to all things mentioned; it regains them when you get this Talent again.
+
+        <Suspension of Belief>:
+          A: Passive
+          HasMixins: true
+          AlignOnWebsite: Left
+          Effect: |
+            While you have no Abilities that would cost Mana available to cast, your Paladin Abilities can be cast _Twice_ (e.g. Twice / Adventure, Twice / Hour, Twice / Combat, etc).
+          Notes: |
+            You can achieve Suspension of Belief either by having no Known Abilities with a Mana cost, or having already cast all Abilities you Know that would cost Mana (via Faith Casting).
+            Be wary of your faith, though, for gods seldom hold a positive outlook on those putting their conviction on hiatus.
+
+        <Culling Smite>:
+          _Value: 2.25
+          A: 0 Actions
+          Cooldown: Once / Adventure
+          AlignOnWebsite: Left
+          Effect: |
+            After you roll for a melee attack, add 3d6 Divine Damage.
+          Notes: Can not be used at the same time with other "Smite" Abilities.
+
+        <Lay on Hands>:
+          _Value: 2.15
+          A: 1 Action
+          Cooldown: Once / Adventure
+          AlignOnWebsite: Right
+          Effect: Heal a Unit you can see for 50% of its Max Health.
+
+
+      
+        # <Vengeance>:
+        #   _Value: 2
+        #   A: Passive
+        #   Effect: |
+        #       When a Worthy Enemy dies in combat, get a Vengeance Counter.
+        #       Immediately when you get to 6 Vengeance Counters, gain 1 Mana or gain 1d8 Holy Points or reset the Cooldown of a Basic Spell you know (you choose).
+        #       You keep your Vengeance Counters even inbetween Adventures.
+                
       Level 7:
 
         <Personal Squire>:
-          _Value: 2
+          _Value: 3
           A: Special
+          AlignOnWebsite: Left
           Effect: |
             You recruit a squire - a trusted NPC who gains combat powers. However, the capabilities of your squire are random: roll 1d4 to determine the type of your squire, based on the Squires category at Pets and Animals (1. Bold, 2. Sneaky, 3. Clever, 4. Wise). The Race is determined by the GM or by circumstance.
             On its turn, it can do one Pet Attack, cast one Ability it has, or do the equivalent of a Half-Action (e.g. Dash, Defend, etc).
             You can recruit one squire per Adventure, but only one can follow you in your adventures at a time.
-            At the start of every Adventure (and when you get this Talent), you must spend 1 Mana and train your Squire to permanently increase its Health by 2 or gain one Ability from any other Squire type.
-          Upgrade: If your squire drops to 0 Health, it becomes Fallen, like a player. It has no reserve Health, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your squire's wounds and heal it back to full Health.
+          Upgrade: If your squire drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your squire's wounds and heal it back to full Health.
           Notes: Your squire is not a Player Character by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Player Character can). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!
-        
-        <Motivation Surge>:
-          _Value: 2
-          A: Passive
+
+        <Pet Attack>: Inherit
+
+        <Harrowing Judgement>:
+          _Value: 3... I think
+          A: 1 Action
+          Cooldown: Once / Adventure
+          Range: 1 meter
+          HasMixins: true
           AlignOnWebsite: Right
-          Effect: After you use Impose, reset the Cooldown of Divine Smite and gain 5 Holy Points.
+          Effect: |
+            Choose a Unit with 50% or less Health.
+            A colossal spectral lance hits it and ^crushes it to death^.
+          Upgrade: Against Epic monsters, the threshold is 15% or less Health instead.
+          Note: |
+            You always know if a Unit would die from this (ask the GM).
+            The Unit dies.
 
-        <Towering Figure>:
-          _Value: 2
-          A: Passive
+        ~Crimson Grace~:
+          _Value: 3
+          A: Half-Action
+          HasMixins: true
+          Cooldown: Once / Combat
+          Range: 3 meters
+          Replacement: Replaces Holy Grace
           AlignOnWebsite: Right
-          Effect: Impose now affects 2 targets. After you use Divine Smite, reset the Cooldown of Impose. All Impose targets now have -2 to the roll, not just people.
+          Effect: |
+            Deal 2 + ^Your Level^ Divine Damage to a Worthy Enemy.
+            An ally you see is healed for all the Damage done.
+            ~Deals 50% extra Damage to Units affected by Crowd Control.~
+          Upgrade: ~The Cooldown is Once / Combat.~
+          Notes: This can't heal yourself.
 
+      Level 9:
 
-  Order of Grace:
-    # Healing + Immunity
+        <Aspect of Ascension>:
+          A: Half-Action
+          Cooldown: Once / Adventure
+          Duration: Until end of next turn
+          Effect: |
+            You burst with angelic wings and burning vim.
+            Until the end of your next turn, you have 50% extra Movement and can fly, and can cast unlimited Abilities that cost Mana, ignoring the Mana cost and the limits of Faith Casting.
+          Upgrade: You can't use the same Basic Ability twice on the same turn.
+          Notes: E.g. let's say you used Smite last turn. This turn you activate Aspect of Ascension. You make a 1-Handed weapon attack, and add Smite to it as well. Next turn, you cast Solace Wave and Hand of Freedom, then make anther attack to which you add Smite. Then, you end your turn and Aspect of Ascension ends. You can now still cast Solace Wave and Hand of Freedom once.
+
+  Order of the Tome:
+    # Mana
+    # Dice Upgrade
+
+    # Playstyle             (Talents 2)
+    # Area CC
+
+    # Dice Upgrade          (Talents 4)
     # Healing
-
-    # Damage (Burst)        (Talents 2)
-    # Protection
-    # Damage (Sustained) + Healing
-
-    # Healing               (Talents 4)
-    # Protection/Stats
-    # CC (Hard AoE)
-    # Stats
     Description: Lorem, ipsum, dolor sit amet!
     Starting Abilities:
-      ~Innate Grace~ :
-        _Value: 0.75
+      
+      ~Holy Tome~:
+        _Value: 1
         A: Passive
         Effect: |
-          You have 5 more maximum Holy Points.
-          Healing someone with Lay on Hands for at least 5 Health cures all Crowd Control, diseases, Debuffs and Bleed effects on them.
+          You have a special holy book you carry with you.
+          You can Know the same Ability multiple times.
+          You Know one extra Ability.
         Notes: |
-          Debuffs are things like combat curses, temporary weaknesses, etc.
+          For example, if you can Know 3 Abilities, you can Know Smite, Solace Wave and Solace Wave. This means you can cast Solace Wave twice per Adventure. Or you could get Smite, Smite, Smite. Be creative!
+          You lose access to Innate Grace and your other Talents if you don't have the book somewhere at hand, such as hanging by your belt, in your hand or in your pocket. Should you lose the book, you can buy another one for 200 Gold at a respective temple.
 
-      ~Divine Power~:
-        _Value: 0.5
-        A: 0 Actions
-        Cost: 1 Mana
-        Effect: Gain 2d8 Holy Points.
-        Notes: You can't keep more than your maximum number of Holy Points inbetween Adventures.
+      ~Innate Grace~:
+        _Value: 1.5
+        A: Passive
+        HasMixins: true
+        Effect: All your Divine Basic Spells have their ^Dice Upgraded^ to the next die type.
+        Notes: |
+          {DiceUpgrade}
+          For example, Smite deals 1d8 Damage instead of 1d6, Lucent Wave heals for 1d10 (+1d10 if above 50% HP) instead of 1d8 (+1d8 if above 50% HP), etc.
+
 
     Talents:
 
       Level 3:
-      
-        <Divine Blast> :  # 1? xD
-          _Value: 1
+        
+        <Golden Grace>:
+          _Value: 2
           A: Half-Action
-          Range: 12 meters
-          Cost: Any number of Holy Points
+          HasMixins: true
+          AlignOnWebsite: Right
+          Range: 3 meters
+          Replacement: Replaces Holy Grace
           Effect: |
-            Spend any number of Holy Points. A Unit takes that many d4's Divine Damage.
-            You can apply Smites to this attack.
+            Deal ~2 + Your Sense + Your Charisma~ Divine Damage to a Worthy Enemy.
+            An ally you see is healed for ~half~ of the Damage done.
+          Upgrade: ~This has no Cooldown. You can heal yourself.~
 
-        <Shielding Hand> :
+        # <Blinding Grace>:
+        #   _Value: 1.5
+        #   A: Half-Action
+        #   HasMixins: true
+        #   AlignOnWebsite: Right
+        #   Cooldown: Once / Adventure
+        #   Range: 3 meters
+        #   Replacement: Replaces Holy Grace
+        #   Effect: |
+        #     Deal 2 + ^Your Level^ Divine Damage to a Worthy Enemy.
+        #     An ally you see is healed for all the Damage done.
+        #     ~All Units within 2 meters of the target must succeed a Dexterity Check or be Blinded.
+        #   Notes: This can't heal yourself.
+
+        <Assistance From Afar>:
           _Value: 1
           A: Reaction
-          Cooldown: Once / Adventure
-          Effect:
-            Use after an ally (or yourself) takes Damage.
-            After that ally (or yourself) takes Damage, it gains Shielding equal to the Damage taken (after Defense and Resistances).
-            The shield lasts up to 1 minute.
-
-        <Focused Smites> :
-          _Value: 1
-          A: 0 Actions
-          Cooldown: Once / Adventure
+          Cooldown: Once / Combat
           HasMixins: true
           Effect: |
-            For 1 minute, your weapon attacks and offensive spells deal extra Damage and heal an ally within 6 meters of the target (or yourself). All the Damage of these attacks becomes Divine.
-            Bonus Damage and Heal: 1 for 1-Handed weapons and Half-Action Spells, 2 for 2-Handed weapons and 1 Action Spells.
-          Notes: |
-            If a spell doesn't deal Damage, just instantly deal the Focused Smites Damage to the target.
-            The Damage becoming Divine part is optional.
-            {Offensive Abilities}
- 
-      Level 5:
-      
-        <Life Echo>:
-          _Value: 2
-          A: 0 Actions
-          Effect: |
-              You put a Life Echo on another ally.
-              Whenever YOU heal a different Unit, the unit with the Life Echo on them is also healed for 50% of that amount.
-              Lasts 1 minute.
-                
+            Use when an ally inflicts Crowd Control. That Crowd Control is transformed into a better effect.
+          Upgrade: |
+            ^Slowed^ becomes ^Rooted^.
+            ^Fumbling^ becomes ^Blinded^.
+            Any other harder Crowd Control becomes ^Stunned^.
+          Notes: Hard Terrain is not Crowd Control. All Crowd Controls harder than Slowed, Fumbling, etc become Stunned.
+
         <Devotion Aura>:                # Hard to say
           _Value: 1.5
           A: Passive
           Effect: |
               All allies on your team have +1 Defense if their Defense is 0.
-          Notes: Does not stack with itself multiple times (from multiple Paladins).
-            
-        <Broken Hearts>:
-          _Value: 2.25
-          A: 0 Actions
-          Requirement: Only usable if you have 0 Mana remaining
+
+
+      Level 5:
+
+        <White Knighthood>:
+          A: Passive
+          _Value: 2+
+          HasMixins: true
+          Requirement: White Clothes
+          Effect: |
+            While below 75% Health and wearing white clothes, all your Divine Basic Spells have their ^Dice^ further ^Upgraded^ to the next die type, on top of the upgrade from Divine Grace.
+          Notes: |
+            {DiceUpgrade}
+
+        <Lay on Hands>:
+          _Value: 2.15
+          A: 1 Action
+          Cooldown: Once / Adventure
+          Effect: Heal a Unit you can see for 50% of its Max Health.
+
+        <Divine Blast> :
+          _Value: 2
+          A: 1 Action
+          Range: 10 meters
           Cooldown: Once / Adventure
           Effect: |
-              All Units within 4 meters of you must pass a Sense Check or take 2d4 True Damage and be Stunned.
-              They take half of that Damage if they pass.
-          Notes: Cover is applied normally.
- 
-        <Improved Faith Casting>:
-            A: Special
-            Effect: |
-                Your Basic Faith Spells are amplified:
-                Invigorate now heals for an extra 1d4.
-                Searing Smite deals an extra 1d4 Damage (both on hit and delayed).
-                Vindication always heals for an additional of 1d4.
- 
+            Deal 1d8 Damage for each Spell you cast this combat, all to a Unit.
+            You can apply Smites to this attack.
+
+        # <Shielding Hand> :
+        #   _Value: 1
+        #   A: Reaction
+        #   Cooldown: Once / Adventure
+        #   Effect:
+        #     Use after an ally (or yourself) takes Damage.
+        #     After that ally (or yourself) takes Damage, it gains Shielding equal to the Damage taken (after Defense and Resistances).
+        #     The shield lasts up to 1 minute.
+
       Level 7:
+
+        <Chrism Ritual>:
+          _Value: 3.5
+          A: 10 minutes
+          Cooldown: Once / Adventure
+          Duration: Whole Adventure
+          Effect: |
+            Up to 3 party members gain Max Health (and Health) equal to their Health Regen.
+
+        <Life Echo>:
+          _Value: 2.5
+          A: 0 Actions
+          Duration: 1 minute
+          Effect: |
+              You put a Life Echo on another ally.
+              Whenever YOU heal a different Unit, the Unit with the Life Echo on them is also healed for 50% of that amount.
 
         <Divine Resurgence>:
           _Value: 3
@@ -367,21 +485,18 @@ Specs:
           Duration: 1 minute
           Effect: For 1 minute, all Healing you do is increased by 50%, but all Damage you deal is reduced by 50%.
 
-        <Assistance From Afar>:
-          _Value: 1
-          A: Reaction
-          Cost: 3 Holy Points
-          HasMixins: true
+ 
+      Level 9:
+
+        <Aspect of Ascension>: Inherit
+
+        <Echoing Self>:
+          _Value: 1.5
+          A: Half-Action
+          Cooldown: Once / Adventure
           Effect: |
-            Use when an ally inflicts Crowd Control. That Crowd Control is transformed into a better effect.
-          Upgrade: |
-            ^Slowed^ becomes ^Rooted^.
-            ^Fumbling^ becomes ^Blinded^.
-            Any other harder Crowd Control becomes ^Stunned^.
-          Notes: Hard Terrain is not Crowd Control. All Crowd Controls harder than Slowed, Fumbling, etc become Stunned.
-
-
-
+            A spectral self appears at the position where you started your turn, and repeats all Acts you have already done this turn.
+          Notes: The clone moves exactly as you did (can go through Units) and repeats the Spells and Attacks on the same targets. If there were any dice rolls, the clone rolls them (don't use the same numbers rolled). The clone is a separate special Unit - self effects apply to the clone (and thus self-heals have no effect).
 
   Order of the Templar:               # 0.75
     # Talent: When you use Body Block...
@@ -399,60 +514,105 @@ Specs:
     Description: Lorem. Lorem ipsum dolor sit amet.
     Starting Abilities:
 
-      ~Templar Knighthood~:
-        _Value: 0.75
-        A: Passive
-        Effect: |
-          You stand out for allies adjacent to you.
-          Enemy ranged attacks against other allies within 1 meter of you have Cover.
-        Notes: Nothing happens if an ally adjacent to you already has Cover. If you are playing on a grid, this does work for allies diagonally.
 
-      ~Body Block~:
-        _Value: 0.25
+      ~Blockade~:
+        _Value: 1
         A: Reaction
         Range: 4 meters to that ally
-        Cooldown: Once / Combat
         Effect: |
-          When another ally is attacked (after the roll), dash to the closest space to that ally.
-          The attack is now targeted on you instead of the ally.
+          When another ally is targeted and attacked (after the roll), dash to the closest space to that ally.
+          You take the Damage instead of the ally, and the Damage is reduced by 2.
+        Notes: Acts as if the attack targeted you instead of the ally (apply your own Defense, Resistances, etc). Cover is stil applied as to the ally, though.
 
+      ~Silver Grace~:
+        _Value: 1.5
+        A: Half-Action
+        HasMixins: true
+        AlignOnWebsite: Right
+        Cooldown: Once / Adventure
+        Range: 3 meters
+        Effect: |
+          Deal 2 + ^Your Level^ Divine Damage to a Worthy Enemy.
+          An ally you see is healed for all the Damage done.
+        Upgrade: ~If you are at or below 50% Health, increase the Damage by 50% and you can heal yourself.~
 
     Talents:
       Level 3:
-      
-        <Hallowed Ward>:
-          _Value: 1.75
-          A: 0 Actions
-          Cooldown: Once / Adventure
-          Effect: |
-            You prepare to take a lethal blow.
-            If you would drop to 0 Health until the start of your next turn, you remain instead at 1 Health and can't take Damage until the start of your next turn.
-            When this happens, divine rays strike all enemies within 3 meters of you, and they all take 1d10 Divine Damage.
 
-        <Reckoning> :
-          _Value: 1
-          A: 1 Action
-          Range: 6 meters
-          Cooldown: Once / Adventure
+        <Fellowship Aura>:
+          _Value: 0.75
+          A: Passive
           Effect: |
-            Make a spell attack on a target for 2d8 Force Damage.
-            It must pass a Might Check or be Crippled and pushed away from you until the distance between you and the target is 6 meters.
-            If it stops in a wall or another enemy, it takes another 2d8 Force Damage.
+            You stand out for allies near you.
+            Enemy ranged attacks against other allies within 1 meter of you have Cover.
+          Notes: Nothing happens if an ally near you already has Cover. If playing on a grid, this does work for allies diagonally.
 
-        <Silver Circle>:
-          A: 0 Actions
-          _Value: 1
+        <Retribution>:
+          _Value: 1.25
+          A: Half-Action
+          Cooldown: Once / Adventure
+          Range: 3 meters
+          Effect: Stun a Unit.
+
+        <Martyrdom>:
+          _Value: 2.25  # But it's quite situational
+          A: Reaction
           Cooldown: Once / Adventure
           Effect: |
-            The area in a 5 meter diameter circle around you becomes Consacrated.
-            While inside the area, your and all allies' Divine, Mysticism, Nature and Class Spells (not Abilities) have their dice tier increased by 1.
-            Does not apply to Passive Spells.
-          Notes: |
-            Increasing dice by 1 tier means, for example, d6 become d8, or d10 become d12.
-            D12's and d20's don't increase.
-            Class Spells are Abilities given by the class (including Talents).
+            Use when an ally (or you) falls to 0 Health.
+            Immediately cast Silver Grace, ignoring its Cooldown.
+          Notes: The ally Rises without Exhaustion.
+
+        # <Hallowed Ward>:
+        #   _Value: 1.75
+        #   A: 0 Actions
+        #   Cooldown: Once / Adventure
+        #   Effect: |
+        #     You prepare to take a lethal blow.
+        #     If you would drop to 0 Health until the start of your next turn, you remain instead at 1 Health and can't take Damage until the start of your next turn.
+        #     When this happens, divine rays strike all enemies within 3 meters of you, and they all take 1d10 Divine Damage.
+
+        # <Reckoning> :
+        #   _Value: 1
+        #   A: 1 Action
+        #   Range: 6 meters
+        #   Cooldown: Once / Adventure
+        #   Effect: |
+        #     Make a spell attack on a target for 2d8 Force Damage.
+        #     It must succeed a Might Check or be Crippled and pushed away from you until the distance between you and the target is 6 meters.
+        #     If it stops in a wall or another enemy, it takes another 2d8 Force Damage.
+
+
 
       Level 5:
+
+        <Knight in Black>:
+          A: Passive
+          Requirement: Black Clothes
+          Effect: |
+            You are Trained in all Weapons.
+            You are immune to being Slowed, Rooted and Feared.
+            While there are no allies within 4 meters of you, all your weapon attacks and self healing have their ^Dice Upgraded^ to the next dice type.
+          Notes: |
+            {DiceUpgrade}.
+            While _alone_, your healing Abilities have their Dice Upgraded when healing yourself.
+
+        <Man of Steel>:
+          _Value: 2
+          A: Passive
+          Requirement: Heavy Armor or Shield
+          Effect: |
+            If you're wearing Heavy Armor or a Shield, you have +1 Defense and +5 Max Health.
+
+        <Broken Hearts>:
+          _Value: 2.25
+          A: 0 Actions
+          Cooldown: Once / Adventure
+          Effect: |
+              All Damaged Enemies within 4 meters of you 2d4 + 1 True Damage and are Feared.
+          Notes: Cover is applied normally. Enemies with full Health are not affected.
+
+        
         
         # <Sanctuary Zone>:         # 2?
         #     A: 0 Action
@@ -464,42 +624,33 @@ Specs:
         #         All units in the area take only 50% Damage (after Defense).
         #     Notes: Lasts until the start of your next turn's next turn.
 
-        <Warrior Spirits>:
-          _Value: 3
-          A: Passive
-          Effect: |
-            Whenever you heal with Lay on Hands, you summon a Warrior Spirit near the target with Health equal to the amount restored.
-            Warrior Spirits have 2 Defense and 4 Speed and can attack for 1d4 Divine Damage. They take their turn on your turn.
-                
-        <Oath of Revenge>:
-          _Value: 2.5
-          A: Passive
-          Effect: |
-            After you use Body Block, you can immediately make an attack (freely) with a 1-Handed Melee Weapon on the attacker.
-            This attack has 3 meters range and deals True Damage.
-            You can apply Smites to it.
-          Notes: If the 1-Handed Weapon is not equipped, you quickly and freely equip it, attack, then switch back to your previous weapons.
-                
-        <Improved Faith Casting>: Inherit
 
       Level 7:
         
         <Personal Squire>: Inherit
 
-        <Don't Worry Lad>:
-          _Value: 3
-          A: Passive
-          Effect: |
-            Whenever you use Body Block, you and the ally both gain 1d8 Shielding.
-            Whenever you use Divine Smite, reset the Cooldown of Body Block.
+        <Pet Attack>: Inherit
 
-        <Sense of Duty>:
+        <Warrior Spirits>:
           _Value: 3
           A: Passive
-          Effect: Body Block becomes usable Twice / Combat, and the Damage you take from the redirected attack is reduced by 50%.
+          AlignOnWebsite: Right
+          Effect: |
+            Whenever you heal someone, summon a Warrior Spirit in any space near the target, with Health equal to the amount restored.
+            Warrior Spirits have and 4 Speed and can attack for 1d4 Divine Damage. They take their turn after yours.
                 
-                
-        
+        <Avenging Blockade>:
+          _Value: 2.5
+          A: Passive
+          HasMixins: true
+          Replacement: Replaces Blockade
+          AlignOnWebsite: Right
+          Effect: |
+            When another ally is targeted and attacked (after the roll), dash to the closest space to that ally.
+            You take the Damage instead of the ally, and the Damage is reduced by 2, ~then you can immediately make an attack (freely) with a 1-Handed Melee Weapon on the attacker that deals only 50% Damage (if it's within 3 meters of you).~
+          Notes: If the 1-Handed Weapon is not equipped, you quickly and freely equip it, attack, then switch back to your previous weapons.
+
+   
  
 ##########################################################
 

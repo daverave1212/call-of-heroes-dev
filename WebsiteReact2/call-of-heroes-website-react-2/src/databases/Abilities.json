@@ -12,11 +12,6 @@
             "Effect": "Until the start of your next turn, your Defense and all Resist Checks increase by +1. This can stack multiple times if you use it multiple times.",
             "Name": "~Defend~"
         },
-        "~Halfhand Attack~": {
-            "A": "Half-Action",
-            "Effect": "Make a special attack with a 2-Handed Melee Weapon. It deals 8 less Damage.",
-            "Name": "~Halfhand Attack~"
-        },
         "~Improvised Attack~": {
             "HasMixins": true,
             "A": "Half-Action or 1 Action",
@@ -27,14 +22,14 @@
         "~Intimidating Mock~": {
             "A": "1 Action",
             "HasMixins": true,
-            "Effect": "A Unit that can see or hear you must pass a Charisma Check or become Fumbling until the end of its (next) turn.\n",
+            "Effect": "A Unit that can see or hear becomes Fumbling.\n",
             "Notes": "{Fumbling}",
             "Name": "~Intimidating Mock~"
         },
         "~Push~": {
             "A": "Half-Action",
             "Range": "1 meter",
-            "Effect": "A Unit must pass a Might Check or be pushed 1 meter in any direction you choose.",
+            "Effect": "Push a medium-sized, non-Epic Unit 1 meter in any direction you choose.",
             "Name": "~Push~"
         },
         "~Taunt~": {
@@ -128,15 +123,15 @@
         "~Shank~": {
             "A": "0 Actions",
             "Cost": "1 Mana",
-            "Effect": "Make a melee attack with a 1-Handed Weapon. It has Cover (-2).",
-            "Notes": "If the weapon is not equipped, you freely equip the weapon, Shank with it, then unequip it.",
+            "Effect": "Make a melee attack with a 1-Handed Weapon. It deals only 50% Damage.",
+            "Notes": "If the weapon is not equipped, you freely equip the weapon, Shank with it, then unequip it and equip back whatever you had previously.",
             "Name": "~Shank~"
         },
         "~Vault Break~": {
             "A": "0 Actions",
             "Cost": "1 Mana",
             "Requirement": "Level 4",
-            "Range": "3 meters",
+            "Range": "6 meters",
             "Effect": "Break a breakable obstacle that fits within a 3x3x3 area.\nAfter casting this Ability, if you moved this turn, you can continue your movement.\n",
             "Notes": "It is the GM's call if an obstacle can be broken.",
             "Name": "~Vault Break~"
@@ -188,6 +183,7 @@
         "~Atonement~": {
             "A": "0 Actions",
             "Cooldown": "1 hour",
+            "HasMixins": true,
             "Effect": "Take 5 + ^Sense^ Psychic Damage.\nGain 7 + ^Level^ Shielding for 1 hour.\n",
             "Notes": "Refers to your Character's Level.",
             "Name": "~Atonement~"
@@ -226,7 +222,7 @@
             "Cost": "1 Mana",
             "Range": "3 meters",
             "Requirement": "Level 4",
-            "Effect": "Perform a heavy blow on a Unit within 3 meters.\nIt must pass a Dexterity Check or take 4d10 Damage of your weapon's type.\nIf it passes, it takes half of that Damage.\n",
+            "Effect": "Make a Dexterity Check against a Unit's current Initiative.\nIf you succeed, deal 4d10 Damage of your weapon's type.\n",
             "Notes": "Extra Damage from magic weapons does apply to this Damage (before halving).\n",
             "Name": "~Infailible Reach~"
         },
@@ -236,8 +232,8 @@
             "Range": "2 meters",
             "Requirement": "Level 4",
             "HasMixins": true,
-            "Effect": "Push a Unit up to 6 meters away from you.\nIf it collides with something, it must pass a Might Check or be Stunned and take 1d4 Smash Damage (and it stops).\nIf it collides with another Unit, that Unit is also pushed in the same direction and continues a chain of Row Through.\n",
-            "Notes": "E.g. if it collides with a Unit, that Unit is also pushed up to 6 meters and if it collides with something, it must pass a Might Check or be Stunned and take the Damage. If that thing it collided with was a Unit, that Unit is also pushed up to 6 meters and must pass the Might Check and so on.\n\"{Stunned}\"\n",
+            "Effect": "Push a medium-sized, non-Epic Unit up to 6 meters away from you.\nIf it collides with something, it is Dazed and takes 1d4 Smash Damage (and it stops).\nIf it collided with another Unit, that Unit is also pushed in the same direction and continues a chain of Row Through.\n",
+            "Notes": "E.g. if it collides with a Unit, that Unit is also pushed up to 6 meters and if it collides with something, it is Dazed and takes 1d4 Damage. If that thing it collided with was a Unit, that Unit is also pushed up to 6 meters and is Dazed and so on.\n\"{Stunned}\"\n",
             "Name": "~Row Through~"
         },
         "~Whirlwind~": {
@@ -298,8 +294,8 @@
             "A": "Half-Action",
             "Range": "5 meters to edge",
             "Duration": "1 minute",
-            "Effect": "Declare a 3x3 meter zone made of dirt, sand or other such loose material.\nThat zone becomes Difficult Terrain.\n",
-            "Upgrade": "At Level 4, the zone becomes 5x5.\n",
+            "Effect": "Declare a 3x3 meter area made of dirt, sand or other such loose material.\nThat area becomes Difficult Terrain.\n",
+            "Upgrade": "At Level 4, the area becomes 5x5.\n",
             "Variant": "You can also cause this difficult terrain with vegetation.",
             "Name": "~Quicksand~"
         },
@@ -324,7 +320,7 @@
             "A": "Half-Action",
             "Cost": "1 Mana",
             "Requirement": "Level 3",
-            "Effect": "All Units within 2 meters of you must pass a Dexterity Check or be Slowed and take 1d8 + 1 Cold Damage (or half if they succeed).\nFor each Unit hit, you deal +1 Cold Damage for the rest of the encounter.\n",
+            "Effect": "All Units within 2 meters of you become Slowed and take 1d6 Cold Damage.\nFor each Unit hit, you deal +1 Cold Damage for the rest of the encounter.\n",
             "Notes": "Cover is applied normally.",
             "Name": "~Frost Nova~"
         },
@@ -335,8 +331,8 @@
             "Duration": "24 hours",
             "Requirement": "Level 3",
             "HasMixins": true,
-            "Effect": "Place a rune on a smooth solid surface. The rune covers a 1x1 area.\nHeavy physical contact with the rune detonates it, dealing 3d10 Cold Damage to the Unit that activates it.\nAlso, it must pass a Dexterity Check or be Rooted.\n",
-            "Notes": "{Rooted}\n",
+            "Effect": "Place a rune on a smooth solid surface. \nA Unit touching the rune detonates it, dealing 3d10 Cold Damage to it.\nMake an Intelligence Check against that Unit's Might Check. If you pass, it also becomes Rooted.\n",
+            "Notes": "{Rooted}\nThe rune covers a 1 meter area.\n",
             "Name": "~Frost Rune~"
         },
         "~Explosion Rune~": {
@@ -373,7 +369,7 @@
             "Range": "5 meters",
             "Requirement": "Level 2",
             "HasMixins": true,
-            "Effect": "Choose a piece of metal and heat it.\n- If it's an armor, the wearer takes 5d4 Fire Damage.\n- If it's a weapon, the wearer takes 1d10 Damage and it must pass a Might Check or be Crippled.\n",
+            "Effect": "Choose a piece of metal equipment and heat it.\n- If it's an armor, the wearer takes 5d4 Fire Damage.\n- If it's a weapon, the wearer takes 1d10 Damage. If you rolled higher than its Might, it becomes Crippled.\n",
             "Notes": "Ignores Cover. {Crippled}\n",
             "Name": "~Heat Metal~"
         },
@@ -382,7 +378,7 @@
             "Cost": "1 Mana",
             "Range": "5 meters to edge",
             "Duration": "1 minute or until cancelled",
-            "Effect": "Conjure a 5x5 zone of special flames on the ground.\nAt the end of each of your turns, roll 1d4 + 5.\nAll Units inside the zone take that amount as Fire Damage.\n",
+            "Effect": "Conjure a 5x5 area of special flames on the ground.\nAt the end of each of your turns, roll 1d4 + 5.\nAll Units inside the area take that amount as Fire Damage.\n",
             "Name": "~Flame Strike~"
         },
         "~Scorching Rays~": {
@@ -399,8 +395,8 @@
             "Cost": "3 Mana",
             "Range": "6 meters (to the edge)",
             "Requirement": "Level 4",
-            "Effect": "All Units in a 6x6x6 cube take 6d6 Fire Damage.",
-            "Notes": "Cover is calculated from the center of the zone.",
+            "Effect": "All Units in 6-meter diameter area take 6d6 Fire Damage.",
+            "Notes": "Cover is calculated from the center of the area.",
             "Name": "~Fire Ball~"
         },
         "~Freeze Water~": {
@@ -409,7 +405,7 @@
             "Requirement": "Level 4",
             "Cooldown": "Intelligence uses / Adventure",
             "HasMixins": true,
-            "Effect": "Choose a number of 1x1x1 cubes containing water equal to your Level.\nThe water there freezes.\nIf a Unit is caught in the water, it must pass a Dexterity Check or be Rooted. If it passes, it is expelled to a nearby space near the frozen water (it chooses, within reason).\n",
+            "Effect": "Choose a number of 1x1x1 cubes containing water equal to your Level.\nThe water there freezes.\nIf a Unit is caught in the water, pass an Intelligence Check against its Dexterity Check to make it Rooted. If you fail, it is expelled to a nearby space near the frozen water (it chooses, within reason).\n",
             "Notes": "{Rooted}\n",
             "Name": "~Freeze Water~"
         }
@@ -419,14 +415,14 @@
             "A": "1 Action",
             "Range": "5 meters",
             "Effect": "Shoot a number of missiles equal to your Intelligence + 1. Each missile does 1d4 Force Damage.\n",
-            "Upgrade": "If a missile would hit a target that died from a previous missile, it will seek out another target of your choice within range.",
-            "Notes": "You can send the missiles one by one (after doing damage) or at the same time.\nEach missile is a separate Attack and can be affected individually by Cover, Fumbling, etc (e.g. shooting all 3 missiles at a Unit that has Cover makes each missile deal 1d4 - 2 Damage).\n",
+            "Notes": "Missiles are rolled at the same time. Then you can decide which die Damages which Unit.\nEach missile is a separate Attack and can be affected individually by Cover, Fumbling, etc (e.g. shooting all 3 missiles at a Unit that has Cover makes each missile deal 1d4 - 2 Damage).\n",
             "Name": "~Magic Missiles~"
         },
         "~Magic Tricks~": {
             "A": "1 Action",
-            "Range": "5 meters",
-            "Effect": "You can create harmless sensory effects, sparks or non-damaging heat or cold.\nYou can channel to create simple, small, harmless illusions in your hand or within 3 meters.\nYou can instantly clean or soil objects.\nYou can control a quill with telekinesis to quickly write with it (1 meter range).\n",
+            "Range": "3 meters",
+            "HasMixins": true,
+            "Effect": "Choose one of these effects to cast:\n{Diamond} Create harmless sensory effects, sparks or non-damaging heat or cold.\n{Diamond} Channel to create simple, small, harmless illusions in your hand or within 3 meters.\n{Diamond} Instantly clean or soil objects.\n{Diamond} Control a quill with telekinesis to quickly write with it.\n",
             "Name": "~Magic Tricks~"
         },
         "~Dispel Magic~": {
@@ -436,11 +432,12 @@
             "Effect": "Touch an ally (or yourself) and dispell any ongoing or negative short-term magical effects on it. At Level 6, you can remove long-term magical effects with this as well.",
             "Name": "~Dispel Magic~"
         },
-        "~Conjure Ammo~": {
+        "~Conjure Consumable~": {
             "A": "Passive",
             "Effect": "You automatically conjure ammo for your weapon the moment you want to fire them.",
+            "Upgrade": "At Level 4, you can conjure food for up to 1 day, every day.",
             "Notes": "Alternatively, for 1 Action, you can conjure up to 10 ammo for another party member, which disappear after 1 hour.",
-            "Name": "~Conjure Ammo~"
+            "Name": "~Conjure Consumable~"
         },
         "~Dancing Blade~": {
             "A": "Passive",
@@ -468,12 +465,13 @@
             "A": "0 Actions",
             "Cost": "1 Mana",
             "Requirement": "Level 2",
+            "Cooldown": "Once / Turn",
             "Effect": "Instantly teleport up to 6 meters away, within line of sight.",
             "Notes": "You take with you all items carried. Does not work if you're Rooted or stuck in place somehow.",
             "Name": "~Flash~"
         },
         "~Arrow Barrage~": {
-            "A": "0 Actions",
+            "A": "1 Action",
             "Cost": "1 Mana",
             "Range": "10 meters to edge",
             "Cooldown": "Once / Encounter",
@@ -521,7 +519,7 @@
             "Requirement": "Level 4",
             "Cost": "1 Mana",
             "HasMixins": true,
-            "Effect": "Place a rune on the ground.\nYou can activate it at any time and from any distance.\nWhen you activate it, the rune creates a 5x5 meter zone.\nTry to Silence all units inside (Intelligence Check) and they also take (Your Level) Force Damage on detonation.\n",
+            "Effect": "Place a rune on the ground.\nYou can activate it at any time and from any distance.\nWhen you activate it, the rune creates a 5x5 meter area.\nTry to Silence all units inside (Intelligence Check) and they also take (Your Level) Force Damage on detonation.\n",
             "Notes": "Ignores Cover. {Silenced}\n",
             "Name": "~Antimagic Rune~"
         },
@@ -571,13 +569,6 @@
             "Notes": "Does not stack multiple times.\nOn Epic monsters, only applies to the first Spell they cast in the round.\n",
             "Name": "~Spell Seal~"
         },
-        "~Shield Element~": {
-            "A": "Half-Action",
-            "Cost": "1 Mana",
-            "Range": "10 meters",
-            "Effect": "Name 1 element from Fire/Cold/Electric and choose two allies.\nThe next time those allies would take that type of Damage, that Damage is halved.\n",
-            "Name": "~Shield Element~"
-        },
         "~Invisibility~": {
             "A": "0 Actions",
             "Requirement": "Level 5",
@@ -598,10 +589,12 @@
             "Name": "~Levitate~"
         },
         "~Polymorph~": {
-            "A": "Action",
-            "Cost": "3 Mana",
+            "A": "1 Action",
+            "Cost": "2 Mana",
             "Requirement": "Level 5",
-            "Effect": "Choose an animal from the Pet List or any critter, such as a sheep, deer, etc.\nA Unit within 10 meters must pass an Intelligence Check or be transformed into that animal.\nAt the end of its every turn, it must pass the Check again or remain Polymorphed.\nThe unit can retains its Health and Defense, but can't do any non-animal actions.\n",
+            "Duration": "Depends",
+            "Effect": "Choose an animal from the Pet List or any critter, such as a sheep, deer, etc.\nA Unit within 10 meters becomes transformed into that animal. Last a number of its turns equal to Your Intelligence - Its Intelligence (at least 1).\n",
+            "Upgrade": "The Unit can retain its Health and Defense, but can't do any non-animal actions.\nIt can do Animal Attack for 1d6 Damage if it's an enemy, or 1d6 + Sense Damage if it's an ally.\n",
             "Notes": "Cover is applied normally.\nA Unit can willingly fail the Check. For enemies, aside from Health and Defense, apply rules for Shapeshift. Allies can apply normal rules for Shapeshift (e.g. gain extra Health from the animal).\nIf used on an Enemy, this is considered Crowd Control.\n",
             "Name": "~Polymorph~"
         },
@@ -621,7 +614,7 @@
             "Requirement": "Level 6",
             "Cost": "1 Mana",
             "Range": "10 meters to edge",
-            "Effect": "Declare a 5x5 meter area.\nAll Units inside it must pass an Intelligence Check or be affected by all the following:\n{Diamond} They are Slowed and Fumbling\n{Diamond} They can only make one Attack on their next turn\n{Diamond} They can't make Reactions\n{Diamond} They can't be invisible\n{Diamond} They can't inflict Crowd Control\nLasts until the start of your next turn.\n",
+            "Effect": "Declare a 5x5 meter area.\nAll Units inside it must succeed an Intelligence Check against double your Intelligence or be affected by all the following:\n{Diamond} They are Slowed and Fumbling\n{Diamond} They can only make one Attack on their next turn\n{Diamond} They can't make Reactions\n{Diamond} They can't be invisible\n{Diamond} They can't inflict Crowd Control\nLasts until the start of your next turn.\n",
             "Notes": "Ignores Cover for the Intelligence Check. {Slowed} {Fumbling}\n",
             "Name": "~Lag~"
         },
@@ -654,7 +647,7 @@
             "Cost": "3 Mana",
             "Range": "10 meters to edge",
             "Cooldown": "Once / Adventure",
-            "Effect": "Declare an area with a diameter in meters (in all directions) equal to your Level.\nThe gravity becomes reversed in that area and all Units instantly fall upwards. Units can make a Dexterity Check to grab onto an object to not be lifted.\nUnits suffer fall Damage if they fall onto a ceiling.\nWhen the effect ends, all Units fall at half velocity (and take half of the fall Damage). The same happens to a Unit if it exits the zone.\nLasts for up to 1 minute. You can cancel this effect at will.\n",
+            "Effect": "Declare an area with a diameter in meters (in all directions) equal to your Level.\nThe gravity becomes reversed in that area and all Units instantly fall upwards. Units can make a Dexterity Check to grab onto an object to not be lifted.\nUnits suffer fall Damage if they fall onto a ceiling.\nWhen the effect ends, all Units fall at half velocity (and take half of the fall Damage). The same happens to a Unit if it exits the area.\nLasts for up to 1 minute. You can cancel this effect at will.\n",
             "Notes": "Fall Damage is 1d6 for every 2 meters fallen (e.g. 1d6 for 2 and 3 meters, 2d6 for 4 and 5 meters, etc).\n",
             "Name": "~Reverse Gravity~"
         },
@@ -688,7 +681,7 @@
             "A": "10 minutes",
             "Cost": "1 Mana",
             "Requirement": "Level 7",
-            "Effect": "Touch 2 objects of the same type (e.g. 2 helmets, or 2 arrows, or 2 melee 1-handed weapons, etc).\nYou make one of the look like the other.\nThe change is permanent until the object breaks.\n",
+            "Effect": "Touch 2 objects of the same type (e.g. 2 helmets, or 2 arrows, or 2 melee 1-Handed weapons, etc).\nYou make one of the look like the other.\nThe change is permanent until the object breaks.\n",
             "Notes": "Upon close inspection of the shape and colors, this is visibly an illusion.",
             "Name": "~Transmogrification~"
         },
@@ -697,7 +690,7 @@
             "Requirement": "Level 7",
             "Cost": "1 Mana",
             "HasMixins": true,
-            "Effect": "Touch a 1x1x1 meter cube of rock, mud, sand, etc.\nTransform it into rock, mud, sand, etc.\nA Unit caught in this effect must pass a Might Check or be Rooted.\n",
+            "Effect": "Touch a 1x1x1 meter cube of rock, mud, sand, etc.\nTransform it into rock, mud, sand, etc.\nA Unit caught in this effect becomes Rooted.\n",
             "Notes": "{Rooted}\n",
             "Name": "~Transmute Rock~"
         },
@@ -824,7 +817,7 @@
             "Range": "10 meters to edge",
             "Duration": "10 minutes",
             "Requirement": "Level 2",
-            "Effect": "Declare a 4x4x4 meter zone.\nAll Units in that zone become outlined in a colored glow (you choose the color) and can't benefit from Cover.\n",
+            "Effect": "Declare a 4x4x4 meter area.\nAll Units in that area become outlined in a colored glow (you choose the color) and can't benefit from Cover.\n",
             "Notes": "The Units glow even through walls, but the denser the walls, the less they appear to glow.\nA 1-meter thick concrete wall completely blocks the glow.\nThis is not considered Crowd Control.\n",
             "Name": "~Fairy Fire~"
         },
@@ -899,16 +892,16 @@
             "Cooldown": "Once / Adventure",
             "Requirement": "Level 4",
             "HasMixins": true,
-            "Effect": "Lash out a noxious sting towards a Unit.\nIt must pass a Might or Dexterity Check (your choice) or be Stunned.\nIf it succeeds, it takes 2d10 direct Poison Damage instead.\n",
-            "Notes": "Only works on biological Units. {Stunned}\n",
+            "Effect": "Lash out a noxious sting towards a Unit.\nIt chooses whether to be Crippled or take 2d10 Poison Damage.\n",
+            "Notes": "Only works on biological Units. {Crippled}\n",
             "Name": "~Paralyzing Sting~"
         },
         "~Spider Climb~": {
             "A": "1 Action",
             "Requirement": "Level 5",
-            "Cooldown": "Once / Adventure",
+            "Cooldown": "Once / Real Hour",
             "Duration": "10 minutes",
-            "Effect": "Your hands and feet can stick to solid, (more or less) flat surfaces, so you can walk on them.\nWalking on walls and floors acts as Hard Terrain.\n",
+            "Effect": "Your hands and feet can stick to solid surfaces, so you can walk or crawl on them.\nWalking on walls and floors acts as Hard Terrain.\n",
             "Upgrade": "Alternatively, you can spend 1 Mana to cast this ignoring the Cooldown.",
             "Name": "~Spider Climb~"
         },
@@ -919,7 +912,7 @@
             "Duration": "1 minute",
             "Requirement": "Level 5",
             "HasMixins": true,
-            "Effect": "Declare a 4x4 meter zone\nThe zone becomes filled with spider web and counts as Difficult Terrain.\nAfter a Unit exits the zone, it must pass a Dexterity Check or be Rooted.\n",
+            "Effect": "Declare a 4x4 meter area\nThe area becomes filled with spider web and counts as Difficult Terrain.\nAfter a Unit exits the area, it must succeed a Dexterity Check against 6 + ^Your Sense^ or be Rooted.\n",
             "Notes": "{Rooted}\n",
             "Name": "~Web~"
         },
@@ -1003,7 +996,7 @@
             "Cost": "1 Mana",
             "Requirement": "Level 2",
             "HasMixins": true,
-            "Effect": "A Unit must pass a Sense Check or take 4d6 Psychic Damage and become Crippled or Silenced (your choice).\nIt takes half Damage if it passes.\nAfter you cast Mind Blast on a Unit, it becomes completely immune to Mind Blast for 1 day.\n",
+            "Effect": "A Unit takes 4d6 Psychic Damage and chooses whether to become Crippled or Silenced.\n",
             "Notes": "Cover is applied normally. {Crippled} {Silenced}\n",
             "Name": "~Mind Blast~"
         },
@@ -1019,7 +1012,7 @@
             "A": "5 minutes",
             "Requirement": "Level 3",
             "Duration": "Until you dismount",
-            "Effect": "You call upon a ridable land animal native to the zone you are in.\nYou and up to 1 more party member can ride this animal.\nIt follows the normal rules for Riding.\nIt does not participate in combat.\n",
+            "Effect": "You call upon a ridable land animal native to the area you are in.\nYou and up to 1 more party member can ride this animal.\nIt follows the normal rules for Riding.\nIt does not participate in combat.\n",
             "Upgrade": "At Level 6, this can be a flying animal.\n",
             "Name": "~Wild Steed~"
         },
@@ -1028,8 +1021,8 @@
             "A": "1 Action",
             "Cost": "1 Mana",
             "Requirement": "Level 3",
-            "Effect": "Choose 2 Units you can see.\nEach must pass a Sense Check or take 2d6 Psychic Damage (or half if it succeeds).\nFor each that fails, also roll 1d4 and the Unit must do one of the 4 options below on its next turn, depending on the number rolled on the d4:\n{Diamond} 1. Moves in a random direction with all of its movement (chosen by the DM) and is Fumbling\n{Diamond} 2. Forgets to move and is Fumbling\n{Diamond} 3. Forgets to move and is Blinded\n{Diamond} 4. Is Rooted and tries to make a ranged Attack\n",
-            "Notes": "If you roll 4 and the Unit can't make a ranged Attack, it does not take any action.\n{Fumbling} {Blinded}\nCover is applied normally.\n",
+            "Effect": "Choose 2 Units you can see. Each takes 1d6 + ^Your Sense^ Damage (separately) and is affected by an effect based on the number on the die:\n{Diamond} 1. Immediately moves in a random direction (chosen by the DM) (without consumng Movement), and is Feared.\n{Diamond} 2. Is Rooted and tries to make a Ranged Attack\n{Diamond} 3. Is Blinded\n{Diamond} 4. Is Fumbling and forgets to how to do Ranged Attacks\n{Diamond} 5. Is Silenced\n{Diamond} 5. No effect\n",
+            "Notes": "If you roll 2 and the Unit can't make a ranged Attack, it does not take any action.\nCover is applied normally.\n",
             "Name": "~Confusion~"
         },
         "~Fake Sound~": {
@@ -1214,12 +1207,12 @@
             "Notes": "You need maintain line of sight to the clone to keep it working.",
             "Name": "~Shadow Clone~"
         },
-        "~Spare the Dying~": {
+        "~Resurrection~": {
             "A": "1 Action",
             "Cost": "1 Mana",
             "Requirement": "Level 5",
             "Effect": "Touch a dead Unit, whose body is still in decent condition (as approved by the GM).\nThe dead Unit comes back to life, conscious and without Exhaustion, with 1 Health.\n",
-            "Name": "~Spare the Dying~"
+            "Name": "~Resurrection~"
         }
     },
     "Divine": {
@@ -1251,76 +1244,35 @@
             "Notes": "For example, repair a hole through a chain shirt or textile material, the crack in a piece of glass, etc.\n",
             "Name": "~Mending~"
         },
-        "~Saving Throw~": {
-            "A": "0 Actions",
-            "Cooldown": "1 hour",
-            "Range": "7 meters",
-            "Requirement": "Level 3",
-            "Effect": "Instantly pull another ally to your nearest empty space.\n",
-            "Notes": "The ally goes flying.\nYou need line of sight to the targets. The allies fly to you ignoring obstacles and ground traps (goes around obstacles), unless the ally needs to swerve more than 2 meters in any direction.\n",
-            "Name": "~Saving Throw~"
-        },
-        "~Blinding Smite~": {
-            "A": "0 Actions",
-            "Cost": "2 Mana",
-            "Requirement": "Level 3",
-            "HasMixins": true,
-            "Effect": "After you make a melee weapon attack that did Damage, all enemies within 3 meters of the target make a Dexterity Check.\nIf they fail, they are Blinded for 1 turn.\n",
-            "Notes": "Cover is applied normally for the Dexterity Check. {Blinded}\n",
-            "Name": "~Blinding Smite~"
-        },
-        "~Cleansing Flames~": {
-            "A": "0 Actions",
-            "Cost": "1 Mana",
-            "Range": "5 meters",
-            "Requirement": "Level 3",
-            "Effect": "Deal 1d6 + 1 Fire Damage (ignoring Cover) and remove all buffs and debuffs from the target.",
-            "Name": "~Cleansing Flames~"
-        },
-        "~Cleansing Smite~": {
-            "A": "0 Actions",
-            "Cost": "2 Mana",
-            "Effect": "After you land a melee wepaon attack that did Damage, deal 1d10 Divine Damage to the target and heal yourself for the same amount.",
-            "Name": "~Cleansing Smite~"
-        },
-        "~Cure Wounds~": {
-            "A": "1 Action",
-            "Cost": "1 Mana",
-            "Range": "5 meters",
-            "Effect": "Heal an ally (or yourself) for 1d10 Health.\nIf it were at or above 50% Health before the heal, double the healing.\n",
-            "Name": "~Cure Wounds~"
-        },
-        "~Guiding Bolt~": {
-            "A": "1 Action",
-            "Cost": "1 Mana",
-            "Range": "10 meters",
-            "Requirement": "Level 2",
-            "HasMixins": true,
-            "Effect": "A shining light bursts onto a Unit, dealing 2d8 + ^Sense^ Divine Damage to it.\nThe next time someone would cast a Spell that affects that Unit, the caster can reroll any of the spell's dice, at most one reroll for each die.\n",
-            "Notes": "This affects AoE effects and healing abilities too.",
-            "Name": "~Guiding Bolt~"
-        },
-        "~Hand of Freedom~": {
-            "A": "Reaction or 0 Actions",
-            "Cost": "1 Mana",
-            "Requirement": "Level 3",
-            "Effect": "Instantly remove all Crowd Control from another ally you can see.\n",
-            "Upgrade": "At Level 6, also removes all non-magical debuffs and poisons.\nAt Level 9, also removes all curses and normal negative magical effects.\n",
-            "Name": "~Hand of Freedom~"
-        },
-        "~Radiant Smite~": {
-            "A": "0 Actions",
-            "Cost": "2 Mana",
-            "Effect": "After you make a melee attack, deal 1d10 Divine Damage to the target and all enemies within 6 meters of target.",
-            "Requirement": "Level 2",
-            "Notes": "Units can benefit from Cover, with the targeted Unit as the origin point. Does not go through walls.\nFumbling is substracted from this effect as well, like a normal Ability.\n",
-            "Name": "~Radiant Smite~"
-        },
         "~Radiance~": {
-            "A": "0 Actions",
+            "A": "Half-Action",
             "Cost": "1 Mana",
+            "Cooldown": "1 minute",
             "Effect": "For 1 minute, at the end of your turn, all Units within 1 meter of you take 1d4 Divine Damage.",
             "Name": "~Radiance~"
+        },
+        "~Solace Wave~": {
+            "A": "Half-Action",
+            "Cost": "1 Mana",
+            "Range": "5 meters",
+            "Effect": "Heal an ally (or yourself) for 1d8 Health.\nIf they 50% or more Health before the heal, double the dice's result.\n",
+            "Name": "~Solace Wave~"
+        },
+        "~Burnished Flames~": {
+            "A": "1 Action",
+            "Range": "4 meters",
+            "HasMixins": true,
+            "Requirement": "Level 2",
+            "Effect": "Deal 2d6 + ^Charisma^ Fire Damage (ignoring Cover) and makes the target Fumbling.",
+            "Name": "~Burnished Flames~"
+        },
+        "~Liberation~": {
+            "A": "Reaction or 0 Actions",
+            "Cost": "1 Mana",
+            "Requirement": "Level 2",
+            "Effect": "Instantly remove all Crowd Control from another ally you can see.\n",
+            "Upgrade": "At Level 5, also removes all non-magical debuffs and poisons.\nAt Level 8, also removes all curses and normal negative magical effects.\n",
+            "Name": "~Liberation~"
         },
         "~Restful Soothing~": {
             "A": "1 Hour",
@@ -1331,27 +1283,65 @@
             "Note": "You must be staying in place to channel this.",
             "Name": "~Restful Soothing~"
         },
-        "~Searing Smite~": {
+        "~Smite~": {
             "A": "0 Actions",
-            "Cost": "2 Mana",
-            "Requirement": "Level 4",
-            "Effect": "Add 2d4 + 1 Fire Damage to a melee weapon Attack (after you rolled the Attack). The target takes another 1d6 Fire Damage at the start of each of your next turns for 1 minute.\n",
-            "Name": "~Searing Smite~"
+            "Cooldown": "Once / Turn",
+            "Cost": "1 Mana",
+            "Requirement": "Level 2",
+            "Effect": "After you roll for a melee attack, add 1d6 Divine Damage.\n",
+            "Name": "~Smite~"
         },
-        "~Turn Undead~": {
+        "~Saving Throw~": {
             "A": "0 Actions",
-            "Cost": "2 Mana",
-            "Requirement": "Level 4",
-            "Effect": "All enemy Undead you can see within 5 meters make a Sense Check.\nIf any fails, it is Feared.\n",
-            "Notes": "Cover is applied normally.",
-            "Name": "~Turn Undead~"
+            "Cooldown": "1 hour",
+            "Range": "7 meters",
+            "Requirement": "Level 3",
+            "Effect": "Instantly pull another ally to your nearest empty space.\n",
+            "Notes": "The ally goes flying.\nYou need line of sight to the targets. The allies fly to you ignoring obstacles and ground traps (goes around obstacles), unless the ally needs to swerve more than 2 meters in any direction.\n",
+            "Name": "~Saving Throw~"
         },
-        "~Fearing Ward~": {
+        "~Guiding Bolt~": {
             "A": "1 Action",
             "Cost": "1 Mana",
+            "Range": "10 meters",
+            "Requirement": "Level 3",
+            "HasMixins": true,
+            "Effect": "A shining light bursts onto a Unit, dealing 2d8 + ^Sense^ Divine Damage to it.\nThe next time someone would cast a Spell that affects that Unit, the caster can reroll any of the spell's dice, at most one reroll for each die.\n",
+            "Notes": "This affects AoE effects and healing abilities too.",
+            "Name": "~Guiding Bolt~"
+        },
+        "~Elation~": {
+            "A": "0 Actions",
+            "Cost": "1 Mana",
+            "Requirement": "Level 3",
+            "Effect": "Up to 2 Player Characters you can see gain Health Regen equal to your Intelligence.\n",
+            "Name": "~Elation~"
+        },
+        "~Blinding Light~": {
+            "A": "Half-Action",
+            "Cost": "2 Mana",
             "Requirement": "Level 4",
-            "Effect": "Choose an ally (or yourself) you can see. Put a ward on them until the start of your next turn.\nWhen an enemy wants to make an offensive Act on them, the enemy must pass a Sense Check or be Feared by that ally and take 4d4 Necrotic Damage (or half if it succeeds).\nThe ally is also immune to being Feared, Charmed and Silenced in this time.\n",
-            "Name": "~Fearing Ward~"
+            "Cooldown": "Once / Combat",
+            "Range": "5 meters to edge",
+            "Effect": "All Units in a 4x4 meter area take 2d4 Divine Damage and are Blinded.\n",
+            "Notes": "Cover is calculated from the center of the area.",
+            "Name": "~Blinding Light~"
+        },
+        "~Exorcism~": {
+            "A": "1 Action",
+            "Cost": "1 Mana",
+            "Range": "4 meters",
+            "Requirement": "Level 4",
+            "Effect": "Deal 3d10 True Damage to a Unit.\nIf it's a Demon, Fiend or Undead, increase the Damage by 50%.\n",
+            "Name": "~Exorcism~"
+        },
+        "<Golden Shield>": {
+            "A": "Half-Action",
+            "Cost": "1 Mana",
+            "Duration": "Up to 1 hour",
+            "Requirement": "Level 4",
+            "Effect": "A Unit you can see becomes surrounded in a divine golden shield.\nNext time the Unit would take Damage, it is completely blocked.\n",
+            "Name": "<Golden Shield>"
         },
         "~Rise~": {
             "A": "Half-Action",
@@ -1361,22 +1351,46 @@
             "Effect": "Heal a Fallen Unit to 20% of it total Health.\nIt does not suffer of Exhaustion from rising after being Fallen.\n",
             "Name": "~Rise~"
         },
-        "~Spare the Dying~": {
-            "A": "1 Action",
-            "Cost": "1 Mana",
+        "~Ardent Smite~": {
+            "A": "0 Actions",
+            "Cost": "2 Mana",
             "Requirement": "Level 5",
-            "Effect": "Touch a dead Unit, whose body is still in decent condition (as approved by the GM).\nThe dead Unit comes back to life, conscious and without Exhaustion, with 1 Health.\n",
-            "Name": "~Spare the Dying~"
+            "Cooldown": "Once / Combat",
+            "Effect": "Add 2d4 + 1 Fire Damage to a melee weapon Attack (after you rolled the Attack). The target takes another 1d6 Fire Damage at the start of each of your next turns for 1 minute.\n",
+            "Name": "~Ardent Smite~"
         },
         "~Water Walk~": {
             "A": "0 Actions or Reaction",
-            "Requirement": "Level 5",
             "Cost": "1 Mana",
             "Range": "3 meters",
             "Duration": "1 hour",
             "AlignOnWebsite": "Left",
+            "Requirement": "Level 5",
             "Effect": "Up to 2 willing Units can walk on water as normally.\nThe effect ends if the Unit takes Damage.\n",
             "Name": "~Water Walk~"
+        },
+        "~Resurrection~": {
+            "A": "1 Action",
+            "Cost": "1 Mana",
+            "Requirement": "Level 5",
+            "Effect": "Touch a dead Unit, whose body is still in decent condition (as approved by the GM).\nThe dead Unit comes back to life, conscious and without Exhaustion, with 1 Health.\n",
+            "Name": "~Resurrection~"
+        },
+        "~Reveling Rays~": {
+            "A": "1 Action",
+            "Cost": "2 Mana",
+            "Cooldown": "Once / Combat",
+            "Requirement": "Level 6",
+            "Effect": "You shoot out 8 rays of light.\nRoll 8d4 and assign them to Units within 10 meters as you with.\nEach die heals on odd rolls (1 and 3) and deals Divine Damage on even rolls (2 and 4).\n",
+            "Name": "~Reveling Rays~"
+        },
+        "~Deafening Silence~": {
+            "A": "1 Action",
+            "Cost": "2 Mana",
+            "Requirement": "Level 6",
+            "Effect": "A Unit you can see takes 3d8 Psychic Damage and is Silenced.\n",
+            "Notes": "Cover is applied normally.",
+            "Name": "~Deafening Silence~"
         },
         "~Wraithwalk~": {
             "A": "0 Actions",
@@ -1407,7 +1421,7 @@
             "Requirement": "Level 5",
             "Cost": "1 Mana",
             "Effect": "You spend 10 minutes learning information about an area from a point within 100km.\nYou get a vision (a single snapshot) of whatever is in the line of sight from that point chosen, in any direction.\nUntil your next Long rest, your party ignores Hard Terrain in the scryed area.\n",
-            "Notes": "The Game Master decides what visions you get - you might see that zone from the past, or see only the landscape without the people. An area might also be blocked by anti-scrying magic.\nYou only get one picture, one snapshot, one screenshot that is not moving.\n",
+            "Notes": "The Game Master decides what visions you get - you might see that area from the past, or see only the landscape without the people. An area might also be blocked by anti-scrying magic.\nYou only get one picture, one snapshot, one screenshot that is not moving.\n",
             "Name": "~Scrying~"
         },
         "~Racial Transmutation~": {
