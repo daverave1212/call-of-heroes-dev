@@ -28,9 +28,10 @@ import theRace from '../../databases/Races/Bertle.json'
 
 import ManySpells from '../../components/Spell/ManySpells'
 
-import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies, AbilitiesWithDescription, RaceFeatures, RaceFeatsDescription, RacialFeats, RaceDescription } from '../../components/InsertableTemplates/RaceClassComponents'
+import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies, AbilitiesWithDescription, RaceFeatures, RaceFeatsDescription, RacialFeats, RaceDescription, RaceHeader } from '../../components/InsertableTemplates/RaceClassComponents'
 
 // TODO: Idea - have all races/classes be a separate page with hero banners
+
 
 
 export default function Race() {
@@ -39,16 +40,18 @@ export default function Race() {
         <div>
 
             <SideMenuFromRace theRace={theRace}/>
-            <Page title={ theRace.Race }>
+            <Page>
 
-                <TwoColumnsDescriptive>
+                <RaceHeader theRace={theRace}/>
+
+                {/* <TwoColumnsDescriptive>
                     <Column style={{zIndex: 1}}>
                         <RaceDescription theRace={theRace}/>
                     </Column>
                     <Column style={{position: 'relative'}}>
                         <img style={{ left: '-120px', top: '-155px' }} className="class-image" src={`/Races/${theRace.Race}.png`}/>
                     </Column>
-                </TwoColumnsDescriptive>
+                </TwoColumnsDescriptive> */}
 
                 <RaceFeatures theRace={theRace}/>
 

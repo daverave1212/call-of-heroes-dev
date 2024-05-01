@@ -28,7 +28,7 @@ import theRace from '../../databases/Races/Hollow.json'
 
 import ManySpells from '../../components/Spell/ManySpells'
 
-import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies, AbilitiesWithDescription, RaceFeatures, RacialFeats, RaceDescription } from '../../components/InsertableTemplates/RaceClassComponents'
+import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies, AbilitiesWithDescription, RaceFeatures, RacialFeats, RaceDescription, RaceHeader } from '../../components/InsertableTemplates/RaceClassComponents'
 
 export default function Race() {
 
@@ -36,16 +36,9 @@ export default function Race() {
         <div>
 
             <SideMenuFromRace theRace={theRace}/>
-            <Page title={ theRace.Race }>
+            <Page>
 
-                <TwoColumnsDescriptive>
-                    <Column style={{zIndex: 1}}>
-                        <RaceDescription theRace={theRace}/>
-                    </Column>
-                    <Column style={{position: 'relative'}}>
-                        <img style={{ left: '-120px', top: '-155px' }} className="class-image" src={`/Races/${theRace.Race}.png`}/>
-                    </Column>
-                </TwoColumnsDescriptive>
+                <RaceHeader theRace={theRace}/>
 
                 <RaceFeatures theRace={theRace}/>
 

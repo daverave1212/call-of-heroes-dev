@@ -18,6 +18,14 @@ import { TDBullet, TDSleek1, TDSleek2, TDSleek3, TDSleekBox } from '../../compon
 
 export default function PetsAndAnimals() {
 
+    function getMaybeRequiredLevelText(animalName, categoryName) {
+        const requirement = animals[categoryName][animalName]['Druid Requirement']
+        if (requirement == null)
+            return <span></span>
+        return <span style={{color: '#AAAAAA'}}> ({requirement})</span>
+
+    }
+
     function PetAnimalTable({categoryName}) {
         const animalNames = Object.keys(animals[categoryName])
         return (
@@ -26,7 +34,7 @@ export default function PetsAndAnimals() {
                 { animalNames.map(name => (
                     <TDSleek3 key={name}>
                         <TDBullet/>
-                        <Link to={`/Other/PetOrAnimal#${name}`}>{name}</Link>
+                        <Link to={`/Other/PetOrAnimal#${name}`}>{name}{getMaybeRequiredLevelText(name, categoryName)}</Link>
                     </TDSleek3>
                 ))}
             </div>

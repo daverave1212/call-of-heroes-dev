@@ -1,16 +1,19 @@
 
 Class: Warrior
-Description: Warriors are highly trained combat experts
+Description: |
+  With a resounding impact, the greatsword cleaves through the air, connecting with the beast's tail in a mighty blow. The wyvern wheels around, its massive jaws primed to ensnare the warrior in their deadly embrace. In a daring maneuver, the fighter relinquishes her blade, seizing the wyvern's jaw in a vice-like grip, diverting its momentum towards a nearby tree. She ascends onto the creature's head, plunging her blade deep into its eye with lethal precision. It is then that you observe a miraculous sight: her previously bloody wounds have miraculously sealed, as if cauterized by the scorching heat of battle and the coursing adrenaline of combat.
+  Warriors are talented in using any type of weapon, with hand-to-hand combat capabilities way beyond the average adventurer. Brawn and tactics are a warrior's aces in the sleeve.
+  A warrior is a physical combatant, but that does not stop them from overcoming challenges. With mastery over arms, body or range, a warrior may improvise and lead their way to victory.
 
 Armor Training: Heavy Armor
 
 Difficulty: Easy-Medium
 
-Proficiency Requirements: You have Proficiency in Athletics, Acrobatics and a number of extra Proficiencies equal to your Intelligence.
+Proficiency Requirements: You have Skilled in Athletics, Acrobatics and have a number of extra non-combat Skills equal to your Intelligence.
 
 Proficiencies:
-    ~Proficiency in Athletics~: Inherit
-    ~Proficiency in Acrobatics~: Inherit
+    ~Skilled in Athletics~: Inherit
+    ~Skilled in Acrobatics~: Inherit
 
 Proficiencies Description: |
     Your physical training as a Warrior provides you with enough practice and muscle memory to be able to succeed at the more difficult hand-to-hand tasks, such as swimming, lifting and jumping.
@@ -74,8 +77,8 @@ Starting Abilities:
     Range: 3 meters
     Cooldown: Once / Turn
     Effect: |
-      Freely run up to 3 meters towards a Worthy Enemy and land in the closest space. It becomes Fumbling.
-      You can only use this once on every Unit per combat.
+      Freely dash 1 up to 3 meters towards a Worthy Enemy, landing on the closest space. It becomes Fumbling.
+      You can only use this once on every Worthy Enemy.
 
 Starting Abilities Description:
   - Advanced Flank: |
@@ -126,13 +129,14 @@ Specs:
           _Value: 1
           A: Special
           Cooldown: Once / Turn
-          Effect: Immediately after you make a weapon attack, use Dash, Push, Taunt or Hamstring for free. The target rolls no Check - it is applied instantly.
+          Effect: Immediately after you make a weapon attack, use Sprint, Push, Taunt or Hamstring for free.
+          Notes: Sprint (run up to 2 meters), Push (push a non-Epic medium-sized Unit 1 meter in any direction), Taunt (make a Unit have -2 on its next attack if it's not on you), Hamstring (slow a Unit).
 
       <Opportunity Attacks>:
           _Value: 0.75
           A: Reaction
           Effect: |
-            When an enemy moves 2 or more meters away from near you, you can make a free attack on them with a 1-Handed Melee Weapon.
+            When an enemy moves 1 or more meters away from near you, you can make a free attack on them with a 1-Handed Melee Weapon.
           Notes: If you don't have a 1-Handed Weapone equipped, you automatically freely equip one, attack with it, unequip it and equip what you previously had.
 
       # ~Overpower~ :               # Ok
@@ -230,8 +234,8 @@ Specs:
           _Value: 3
           A: Special
           Effect: |
-            You recruit a squire - a trusted NPC who gains combat powers. However, the capabilities of your squire are random: roll 1d6 to determine the type of your squire, based on the Squires category at Pets and Animals (1. Bold, 2. Sneaky, 3. Clever, 4. Wise). The Race is determined by the GM or by circumstance.
-            On its turn, it can do one Pet Attack, cast one Ability it has, or do the equivalent of a Half-Action (e.g. Dash, Defend, etc).
+            You recruit a squire - a trusted NPC who gains combat powers. However, the capabilities of your squire are random: roll 1d6 to determine the type of your squire, based on the Squires category at Pets and Animals (1. Bold, 2. Sneaky, 3. Clever, 4. Wise). The Race is determined by the QM or by circumstance.
+            On its turn, it can do one Pet Attack, cast one Ability it has, or do the equivalent of a Half-Action (e.g. Dash, Push, etc).
             You can recruit one squire per Adventure, but only one can follow you in your adventures at a time.
             At the start of every Adventure (and when you get this Talent), you must spend 1 Mana and train your Squire to permanently increase its Health by 2 or gain one Ability from any other Squire type.
           Upgrade: If your squire drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your squire's wounds and heal it back to full Health.
@@ -370,12 +374,18 @@ Specs:
         _Value: 1.25
         A: Passive
         HasMixins: true
-        Effect: Whenever ^YOU^ kill a Worthy Enemy, heal for 1d6 Health. In addition, if an Enemy has 25% or less Health, you know exactly how much Health it has (ask the GM).
+        Effect: Whenever ^YOU^ kill a Worthy Enemy, heal for 1d6 Health. In addition, if an Enemy has 25% or less Health, you know exactly how much Health it has (ask the QM).
 
-      ~Reckless Attack~ :     # Ok
+      ~Reckless Charge~:      # Ok
         A: 0 Actions
-        Effect: After you land a weapon attack, deal 2d6 extra Damage to the target and half of that to yourself.
-        Notes: Your part of the Damage can't be mitigated by Defense, Resistances, etc.
+        HasMixins: true
+        Range: 3 meters
+        Replacement: Replaces Charge
+        Cooldown: Once / Turn
+        Effect: |
+          Freely dash 1 up to 3 meters towards a Worthy Enemy, landing on the closest space. It becomes Fumbling.
+          ~Your next weapon attack deals 2d6 extra Damage to the target and half of that to yourself.~
+          You can only use this once on every Worthy Enemy.
 
       ~Blood Boil~ :          # Ok
         A: 0 Actions
@@ -479,12 +489,16 @@ Specs:
     Description: Lorem ipsum dolor sit amet.
     Starting Abilities:
     
-      ~Marksmanship~ :
+      ~Uncharge~:
         _Value: 0.25
-        A: Passive
+        A: 0 Actions
+        HasMixins: true
+        Range: 3 meters
+        Replacement: Replaces Charge
+        Cooldown: Once / Turn
         Effect: |
-          YOU can flank a Unit from up to 6 meters away (if you, the target and the ally/wall/obstacle are on the same line).
-        Notes: As usual, that wall/obstacle/ally helping with your flank must right behind the target (meaning allies can't flank an enemy with you being 6 meters away).
+          ~Freely dash up to 3 meters away from a Worthy Enemy~. It becomes Fumbling.
+          You can only use this once on every Worthy Enemy.
 
       # ~Quick Reload~:
       #   A: 0 Actions
@@ -590,12 +604,12 @@ Specs:
   
       Level 7:
 
-        <Range Control>:
-          _Value: 1.25
-          A: Passive
-          Effect: |
-            Rout is applied when entering within 6 meters of an Enemy.
-            Whenever you make an enemy Fumbling, cast Load Up for free.
+        # <Range Control>:
+        #   _Value: 1.25
+        #   A: Passive
+        #   Effect: |
+        #     Rout is applied when entering within 6 meters of an Enemy.
+        #     Whenever you make an enemy Fumbling, cast Load Up for free.
 
         <Surprise Shot>:
           _Value: 2.25

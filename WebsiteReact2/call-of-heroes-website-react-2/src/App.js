@@ -87,6 +87,7 @@ import GameMasterGuidelines from './pages/Other/RulesExplained/RulesSectionPages
 import CustomAbility from './pages/Other/CustomAbility';
 import MagicItems from './pages/Other/MagicItems';
 import PatchNotes from './pages/Meta/PatchNotes';
+import CustomMonster from './pages/Other/CustomMonster';
 
 function App() {
 
@@ -136,6 +137,7 @@ function App() {
           <Route path="/Other/Monsters" element={ <Monsters/> }/>
           <Route path="/Other/Monster" element={ <Monster/> }/>
           <Route path="/Other/CustomAbilityCreator" element={ <CustomAbility/> }/>
+          <Route path="/Other/CustomMonsterCreator" element={ <CustomMonster/> }/>
           <Route path="/Other/MagicItems" element={ <MagicItems/> }/>
 
           <Route path="/Other/Abilities" element={ <Abilities/> }/>
@@ -145,7 +147,6 @@ function App() {
           <Route path="/Other/Weapons" element={ <Weapons/> }/>
           <Route path="/Other/HowToPlayForNewPlayers" element={ <HowToPlayForNewPlayers/> }/>
           <Route path="/Other/RulesExplained/RulesSectionPages/CharacterCreation" element={ <CharacterCreation/> }/>
-          <Route path="/Other/CharacterCreationCalculator" element={ <CharacterCreationCalculator/> }/>
           <Route path="/Other/TransitionGuide" element={ <TransitionGuide/> }/>
           <Route path="/Other/Prices" element={ <Prices/> }/>
           <Route path="/Other/Obstacles" element={ <Obstacles/> }/>

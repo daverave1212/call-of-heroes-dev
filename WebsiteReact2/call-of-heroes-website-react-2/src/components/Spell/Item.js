@@ -7,7 +7,7 @@ import Icon from '../Icon'
 import { insertBetweenAll, ifOk, stringReplaceAllMany, mapObject, parseTextWithSymbols, getUniqueSpellID } from '../../utils'
 import { SpellTopStats } from './Spell'
 import html2canvas from 'html2canvas'
-import CopySpellButton from './CopySpellButton'
+import CopySpellButton from '../CopyButton/CopySpellButton'
 
 window.html2canvas = html2canvas
 
@@ -47,7 +47,7 @@ export default function Item({ item }) {
     let ArmorBonus = item['Armor Bonus']
     let hasVariants = Variants != null
 
-    const iconName = stringReplaceAllMany(Name, [' ', '/', '%'], ['_', '_', ''])
+    let iconName = stringReplaceAllMany(Name, [' ', '/', '%'], ['_', '_', ''])
     const uniqueID = getUniqueSpellID(Name)
 
     let extraText = 
@@ -136,7 +136,7 @@ export default function Item({ item }) {
                         { extraText }
                     </div>
                 ) }
-            <CopySpellButton elementId={uniqueID}/>
+            <CopySpellButton elementId={uniqueID} shouldAddBorder={true}/>
             </div>
         </div>
     )

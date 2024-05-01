@@ -90,7 +90,7 @@
 
 //     function StatInput({name}) {
 //         return (
-//             <SmallStat name={name} topDown={true}>
+//             <SmallStat name={name} type="vertical">
 //                 <input className='cc-input' name={name} value={state[name]} onChange={evt => updateStateFromFormElemStat(evt, name)}></input>
 //             </SmallStat>
 //         )
@@ -237,7 +237,7 @@
 
 
 //                         <SmallStat name="Speed">{raceObj.Stats.Movement}</SmallStat>
-//                         <SmallStat name="Defense" topDown={true}>Depends on the Armor you choose. You can wear {classObj['Armor Training']} (from {state.Class}). You can also start with an Armor of that type from the Armors list.</SmallStat>
+//                         <SmallStat name="Defense" type="vertical">Depends on the Armor you choose. You can wear {classObj['Armor Training']} (from {state.Class}). You can also start with an Armor of that type from the Armors list.</SmallStat>
 
 //                         <div>
 //                             <SmallStat name="Initiative">{parseInt(state.Dexterity) + parseInt(state.Charisma)}</SmallStat>
@@ -305,7 +305,7 @@
 //                 </Column>
 //                 <Column>
 //                     <div className='with-margined-children'>
-//                         <ManySmallStats name="Weapon Training" topDown={true} texts={(_ => {
+//                         <ManySmallStats name="Weapon Training" type="vertical" texts={(_ => {
 //                             const trainings = []
 //                             if (classObj.Weapons != null) {
 //                                 trainings.push(`${classObj.Weapons} (${state.Class})`)
@@ -329,7 +329,7 @@
 //                             }
 //                             return trainings
 //                         })()}/>
-//                         <ManySmallStats name="Proficiencies" topDown={true} texts={(_ => {
+//                         <ManySmallStats name="Proficiencies" type="vertical" texts={(_ => {
 //                             console.log("ASDASD")
 //                             const profs = []
 //                             if (raceObj.Proficiencies != null) {
@@ -353,7 +353,7 @@
 
 //                             return profs
 //                         })()}/>
-//                         <ManySmallStats name="Languages" color="var(--dark-green)" topDown={true} texts={(_ => {
+//                         <ManySmallStats name="Languages" color="var(--dark-green)" type="vertical" texts={(_ => {
 //                             const languages = []
 
 //                             if (raceObj.Language != null) {
@@ -365,7 +365,7 @@
 //                             return languages
 //                         })()}/>
 
-//                         <ManySmallStats name="Starting Equipment" color="var(--dark-green)" topDown={true} texts={[
+//                         <ManySmallStats name="Starting Equipment" color="var(--dark-green)" type="vertical" texts={[
 //                             'You start with 600 gold that you can spend on any items in the shop. You have a 50% discount on armors.'
 //                         ]}/>
 

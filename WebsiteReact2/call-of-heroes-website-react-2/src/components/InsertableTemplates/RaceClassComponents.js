@@ -30,6 +30,11 @@ import { Link } from 'react-router-dom'
 import TableNormalLevelUpHunter from '../TableNormal/TableNormalLevelUpHunter'
 import ThreeSpells from '../Spell/ThreeSpells'
 
+import './RaceClassComponents.css'
+import TwoColumnsDescriptive from '../TwoColumns/TwoColumnsDescriptive'
+import TableShamanLevelUp from '../TableNormal/TableShamanLevelUp'
+import PageH0 from '../PageH0/PageH0'
+
 export function Proficiencies({ name, theRaceOrClass }) {
 
     const baseProficienciesDescription = `All Classes get a number of extra Proficiencies. Think of something specific your character is good at outside of combat (e.g. things like acrobatics, knowing about monsters, lying, etc). Whenever you make a Check for what you're good at, add your Level to that Check.`
@@ -74,17 +79,42 @@ export function Proficiencies({ name, theRaceOrClass }) {
     )
 }
 
-export function RaceDescription({ theRace }) {
-    const idTitle = theRace.Race ?? theRace.Class
-    const description = theRace.Description
+export function RaceHeader({imgStyle, theRace, theClass}) {
+    const name = theRace != null? theRace.Race : theClass.Class
+    const imagePath = theRace != null? `/Races/${theRace.Race}.png` : `/Classes/${theClass.Class}.png`
+    const description = theRace != null? theRace.Description : theClass.Description
+    return (
+        <div>
+            <div className='landscape-only'>
+                <PageH1>{ name }</PageH1>
+                <TwoColumnsDescriptive>
+                    <Column style={{zIndex: 1}}>
+                        <RaceDescription description={description}/>
+                    </Column>
+                    <Column style={{position: 'relative'}}>
+                        <img style={imgStyle} className="class-image" src={imagePath}/>
+                    </Column>
+                </TwoColumnsDescriptive>
+            </div>
+            <div className='portrait-only'>
+                <PageH1 h1Style={{textAlign: 'center'}}>{ name }</PageH1>
+                <img className="class-image-portrait" src={imagePath}/>
+                <br/><br/>
+                <RaceDescription description={description}/>
+            </div>
+        </div>
+    )
+}
+
+export function RaceDescription({ description }) {
     const descriptionLines = description
         .split('\n')
         .map(str => str.trim())
         .filter(str => str.length > 0)
-        .map(str => <p style={{lineHeight: 'var(--p-size)'}} key={str.substring(0, 10)}>{str}</p>)
+        .map(str => <p key={str.substring(0, 10)}>{str}</p>)
     const descriptionComponents = U.insertBetweenAll(descriptionLines, (i) => <Separator key={i}/>)
     return (
-        <div id={idTitle}>
+        <div>
             { descriptionComponents }
         </div>
     )
@@ -98,13 +128,10 @@ export function ClassFeatures({ theClass }) {
             <TwoColumns>
                 <Column>
                     <div className='with-margined-children'>
-                        {/* <SmallStat name="Health">{ theClass['Base Health'] }<Icon name="Health" type="small-stat"/></SmallStat> */}
                         <SmallStat name="Initiative">Your Dexterity + Your Charisma</SmallStat>
-                        { theClass['Language'] && <SmallStat name="Language" topDown='true'>{ theClass['Language'] }</SmallStat> }
-                        { theClass.Weapons && <SmallStat name="Weapon Training" topDown='true'>{ theClass.Weapons }</SmallStat> }
-                        <SmallStat name="Proficiencies" topDown='true'>{ theClass['Proficiency Requirements'] }</SmallStat>
-                        {/* <SmallStat name="Armor Training">{ theClass['Armor Training'] }</SmallStat> */}
-                        {/* <SmallStat name="Defense" topDown='true'>Choose any armor from the Armors page and apply Defense if it has any.</SmallStat> */}
+                        { theClass['Language'] && <SmallStat name="Language" type="vertical">{ theClass['Language'] }</SmallStat> }
+                        { theClass.Weapons && <SmallStat name="Weapon Training" type="vertical">{ theClass.Weapons }</SmallStat> }
+                        <SmallStat name="Skills" type="vertical">{ theClass['Proficiency Requirements'] }</SmallStat>
                     </div>
                 </Column>
                 <Column>
@@ -122,13 +149,13 @@ export function RaceFeatures({ theRace }) {
             <TwoColumns>
                 <Column>
                     <div className='with-margined-children'>
-                        <SmallStat name="Stat Distribution" topDown="true">{ theRace.Creation['Stat Restrictions'] }</SmallStat>
+                        <SmallStat name="Stat Distribution" type="vertical">{ theRace.Creation['Stat Restrictions'] }</SmallStat>
                         <SmallStat name="Health">{ theRace.Stats['Base Health'] } + Might<Icon name="Health" type="small-stat"/></SmallStat>
-                        <SmallStat name="Health Regen" topDown={true}>{ theRace.Stats['Health Regen'] }<Icon name="Health Regen" type="small-stat"/></SmallStat>
+                        <SmallStat name="Health Regen">{ theRace.Stats['Health Regen'] } <Icon name="HealthRegen" type="small-stat"/></SmallStat>
                         <SmallStat name="Speed">{ theRace.Stats.Movement }</SmallStat>
-                        { theRace.Weapons && <SmallStat name="Weapons" topDown='true'>{ theRace.Weapons }</SmallStat> }
-                        { theRace.Training && <SmallStat name="Other Training" topDown='true'>{ theRace.Training }</SmallStat> }
-                        { theRace.Language && <SmallStat name="Language" topDown='true'>{ theRace.Language }</SmallStat> }
+                        { theRace.Weapons && <SmallStat name="Weapons" type="vertical">{ theRace.Weapons }</SmallStat> }
+                        { theRace.Training && <SmallStat name="Other Training" type="vertical">{ theRace.Training }</SmallStat> }
+                        { theRace.Language && <SmallStat name="Language" type="vertical">{ theRace.Language }</SmallStat> }
                     </div>
                 </Column>
                 <Column>
@@ -193,6 +220,9 @@ export function LevelingUp({ theClass }) {
                         theClass['Spellcasting']['Type'] == 'Hunter'? (
                             <TableNormalLevelUpHunter/>
                         ) :
+                        theClass['Spellcasting']['Type'] == 'Shaman'? (
+                            <TableShamanLevelUp/>
+                        ) :
                         theClass['Spellcasting']['Type'] == 'Paladin'? (
                             <TableNormalLevelUp/>
                         ) :
@@ -230,6 +260,7 @@ export function LevelingUp({ theClass }) {
                         ) :
                         theClass['Spellcasting']['Type'] == 'Special Mana-based' ||
                         theClass['Spellcasting']['Type'] == 'Hunter' ||
+                        theClass['Spellcasting']['Type'] == 'Shaman' ||
                         theClass['Spellcasting']['Type'] == 'Paladin' ? (
                             <div>
                                 <TableNormal columns={['Every Level Above 1 You Get...']}>
@@ -279,11 +310,6 @@ export function SpellCasting({ theClass }) {
                 </p>
                 <p>
                 { theClass.Spellcasting.Other }
-                </p>
-                <PageH3>Spell Grade</PageH3>
-                <p>
-                    The Spell Grade is the number your enemies have to roll to pass Checks when you make them roll a Check.
-                    To pass the Check, they need to roll equal to or higher than your Spell Grade.
                 </p>
             </div>
         )
@@ -356,42 +382,31 @@ export function SpellCasting({ theClass }) {
 
             <TwoColumns>
                 <Column>
-                    
-                    {/* <div className='with-margined-children'>
-                        <PageH3>Main Stat</PageH3>
-                        <SmallStat name="Main Stat" topDown={hasMultipleMainStats} color="blue">{ theClass['Spellcasting']['Main Stat'] }{hasMultipleMainStats ? (<i> (whichever is higher)</i>) : ''}</SmallStat>
-                    </div> */}
-
-                    <PageH3>Numbers</PageH3>
+                    <PageH3>Basic Abilities</PageH3>
                     <div className='with-margined-children'>
-                        {/* { theClass['Spellcasting']['Type'] != null && theClass['Spellcasting']['Type'] != 'Mana-based' && (
-                            <SmallStat name="Spellcasting Style" color="blue">{ theClass['Spellcasting']['Type'] }</SmallStat>
-                        ) } */}
                         { theClass['Spellcasting']['Mana'] != null && theClass['Spellcasting']['Mana']['Amount'] != null && (
                             <SmallStat name="Mana" color="blue">{ theClass['Spellcasting']['Mana']['Amount'] }<Icon name="Mana"/></SmallStat>
                         ) }
-                        <SmallStat name="Spell Grade" topDown={true} color="blue">{ theClass['Spellcasting']['Spell Grade'] }</SmallStat>
                         {
                             theClass['Spellcasting']['Known Basic Abilities'] != null && (
-                                <SmallStat name="Known Abilities (from Basic Ability Lists)" topDown={true} color="blue">
+                                <SmallStat name="Known Abilities (from Basic Ability Lists)" type="vertical" color="blue">
                                     { theClass['Spellcasting']['Known Basic Abilities'] }
                                 </SmallStat>
                             )
                         }
+                        <SmallStatList name="Basic Ability Lists" color="blue">
+                            {
+                                theClass['Spellcasting']['Basic Ability Lists'].map(spellCategory => (
+                                    <div key={spellCategory}>{ spellCategory }</div>
+                                ))
+                            }
+                        </SmallStatList>
                     </div>
-
-                    <PageH3>Basic Ability Lists</PageH3>
-                    <SmallStatList name="Basic Ability Lists" color="blue">
-                        {
-                            theClass['Spellcasting']['Basic Ability Lists'].map(spellCategory => (
-                                <div key={spellCategory}>{ spellCategory }</div>
-                            ))
-                        }
-                    </SmallStatList>
                 </Column>
                 <Column>
                         {
-                            theClass.Spellcasting.Type == 'Mana-based' ? (
+                            theClass.Spellcasting.Type == 'Mana-based' ||
+                            theClass.Spellcasting.Type == 'Shaman' ? (
                                 <ManaBasedSpellcasting/>
                             ) : 
                             theClass.Spellcasting.Type == 'Special Mana-based' ? (

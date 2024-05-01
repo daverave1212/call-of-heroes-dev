@@ -29,7 +29,7 @@ import ManySpells from '../../components/Spell/ManySpells'
 
 import theClass from '../../databases/Classes/Druid.json'
 
-import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies, ClassFeatsDescription, Equipment, } from '../../components/InsertableTemplates/RaceClassComponents'
+import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies, ClassFeatsDescription, Equipment, RaceHeader, } from '../../components/InsertableTemplates/RaceClassComponents'
 import { SideMenuFromClass } from '../../components/SideMenu/SideMenu'
 
 export default function Druid() {
@@ -39,39 +39,9 @@ export default function Druid() {
 
             <SideMenuFromClass theClass={theClass}/>
 
-            <Page title={ theClass.Class }>
-
-                <div><i>Difficulty: { theClass.Difficulty }</i></div>
-
-                <TwoColumnsDescriptive>
-                    <Column style={{zIndex: 1}}>
-
-                        <p>Lorem {theClass.Class} ipsum dolor sit amet.
-                        Aenean blandit metus nisi, non commodo tortor volutpat ut.
-                        Aenean suscipit, justo vitae faucibus viverra, lectus lacus laoreet ipsum, quis suscipit purus ex et tellus. Suspendisse congue libero sed molestie efficitur. Proin maximus sagittis nunc lacinia porttitor.
-                        Maecenas fermentum lacinia mi, a elementum nibh tristique at. In eget nisl nunc.
-
-                        <Separator/>
-
-                        Lorem {theClass.Class} ipsum dolor sit amet.
-                        Aenean blandit metus nisi, non commodo tortor volutpat ut.
-                        Aenean suscipit, justo vitae faucibus viverra, lectus lacus laoreet ipsum, quis suscipit purus ex et tellus. Suspendisse congue libero sed molestie efficitur. Proin maximus sagittis nunc lacinia porttitor.
-                        Maecenas fermentum lacinia mi, a elementum nibh tristique at. In eget nisl nunc.
-
-                        <Separator/>
-
-                        Lorem {theClass.Class} ipsum dolor sit amet.
-                        Aenean blandit metus nisi, non commodo tortor volutpat ut.
-                        Aenean suscipit, justo vitae faucibus viverra, lectus lacus laoreet ipsum, quis suscipit purus ex et tellus. Suspendisse congue libero sed molestie efficitur. Proin maximus sagittis nunc lacinia porttitor.
-                        Maecenas fermentum lacinia mi, a elementum nibh tristique at. In eget nisl nunc.
-                        Lorem {theClass.Class} ipsum dolor sit amet.
-                        Aenean suscipit, justo vitae faucibus viverra, lectus lacus laoreet ipsum, quis suscipit purus ex et tellus. Suspendisse congue libero sed molestie efficitur. Proin maximus sagittis nunc lacinia porttitor.</p>
-
-                    </Column>
-                    <Column style={{position: 'relative'}}>
-                        <img style={{ height: '915px', position: 'absolute', left: '-160px', top: '-175px', zIndex: '0' }} className="class-image" src={`/Classes/${theClass.Class}.png`}/>
-                    </Column>
-                </TwoColumnsDescriptive>
+            <Page>
+                
+                <RaceHeader theClass={theClass}/>
 
                 <ClassFeatures theClass={theClass}/>
                 

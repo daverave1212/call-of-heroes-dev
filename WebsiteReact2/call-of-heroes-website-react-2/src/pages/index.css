@@ -14,10 +14,6 @@
       Title & Text Font: StrongSword
 */
 
-x {
-  x: #ffffff;
-}
-
 
 :root {
   --hero-page-height: calc(100vh - var(--nav-height));
@@ -26,7 +22,6 @@ x {
 
   --hero-h1-size: 75px;
   --home-text-size: 27px;
-  /* --home-text-size: max(1.5vw, 22px); */
 
   --hero-logo-color: rgb(39, 26, 48);
   --hero-text-color: rgb(62, 35, 71);
@@ -51,7 +46,7 @@ x {
   }
   @media (max-height: 720px) {
     :root {
-      --hero-content-width: 525px;
+      --hero-content-width: 475px;
       --advantages-content-width: 650px;
     }
   }
@@ -155,6 +150,17 @@ x {
 
 
 /* Buttons */
+:root {
+  --basic-button-width: calc(var(--hero-content-width) / 3);
+  --basic-button-height: 64px;
+  --separator-width: calc(var(--hero-content-width) / 3);
+}
+@media (orientation: portrait) {
+  :root {
+    --basic-button-width: calc(var(--hero-content-width) / 2.25);
+  }
+}
+
 .hero-buttons {
   --my-width: var(--hero-content-width);
 
@@ -162,7 +168,7 @@ x {
   justify-content: center;
 
   width: var(--my-width);
-  /* gap: min(30px, 2vw); */
+  gap: min(30px, 2vw);
 
   /* width: 100%; */
 
@@ -172,18 +178,15 @@ x {
   object-fit: contain;
   width: var(--hero-buttons-line-width);
 }
-:root {
-  --basic-button-width: calc(var(--hero-content-width) / 3);
-  --basic-button-height: 64px;
-  --separator-width: calc(var(--hero-content-width) / 3);
-}
+
 .Basic-button {
   font-family: HomeFont;
   font-size: var(--home-text-size);
+  line-height: var(--home-text-size);
   width: var(--basic-button-width);
   height: var(--basic-button-height);
 
-  padding: 12px;
+  padding: calc(var(--home-text-size) / 2);
   
   background-color: transparent;
   background: none;
@@ -203,6 +206,18 @@ x {
   overflow: visible;
   margin-left: 0px;
 }
+@media (orientation: portrait) {
+  .hero-buttons-separators {
+    display: none;
+  }
+  .Basic-button {
+    height: auto;
+  }
+}
+
+
+
+
 .hero-buttons-separators img {
   position: absolute;
   width: var(--separator-width);
@@ -241,15 +256,22 @@ x {
 
 :root {
   --advantages-content-width: 650px;
+  --advantages-ul-li-space: 13px;
   
   --advantages-h1-size: calc(var(--hero-h1-size) * 0.6);
   --advantages-font-size: var(--home-text-size);
 
   --adv-inline-icon-size: 30px;
   --inline-icon-top: 2.5px;
+  --inline-icon-margin-right: 20px;
 
   --advantages-bg-color-left: rgb(254, 254, 254);
   --advantages-bg-color-right: rgb(250, 250, 250);
+}
+@media (min-width: 900px) and (max-width: 1366px) {
+  :root {
+    --advantages-content-width: 50vw;
+  }
 }
 @media (orientation: portrait), (max-width: 900px)  {
   :root {
@@ -258,6 +280,22 @@ x {
 
     --adv-inline-icon-size: 4vw;
     --inline-icon-top: 0.5vw;
+  }
+}
+@media (min-width: 350px) {
+  .index-advantages-ul-small {
+    display: none;
+  }
+}
+@media (max-width: 349px) {
+  .index-advantages-ul-large {
+    display: none;
+  }
+  .index-advantages-ul-small li {
+    height: auto;
+  }
+  :root {
+    --inline-icon-margin-right: 8px;
   }
 }
 
@@ -297,14 +335,23 @@ x {
   margin: 0px;
 }
 .advantages-content ul li {
-  height: 45px;
   list-style-type: none;
+  height: calc(var(--adv-inline-icon-size) + 2.5px);
+  line-height: calc(var(--adv-inline-icon-size) + 3px);
+}
+.advantages-content ul li:not(:last-child) {
+  margin-bottom: var(--advantages-ul-li-space);
 }
 .advantages-content .inline-icon {
   margin-top: var(--inline-icon-top);
   height: var(--adv-inline-icon-size);
-  margin-right: 20px;
+  margin-right: var(--inline-icon-margin-right);
 }
+.advantages-feature:hover {
+  cursor: pointer;
+  color: var(--passive-dark-color);
+}
+
 
 
 

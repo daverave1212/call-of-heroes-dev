@@ -87,6 +87,7 @@ export function getUniqueSpellID(name) {
 
 // --------------- Questguard Utilities --------------
 export function isDice(str) {
+    if (str == null) return false
     const parts = str.split('d')
     if (parts.length != 2)          // Must be osmething like <something>d<something>
         return false
@@ -135,7 +136,37 @@ export function getLocationHackyPath(location) {
 
     decodeURIComponent(location.hash).substring(1)
 }
-
+// text: "250 (125 x2)" -> 2
+export function extractXPMultiplierFromText(text) {
+    const indexOfX = text.indexOf('x')
+    if (indexOfX == null)
+        return null
+    const multiplierDigit = text[indexOfX + 1]
+    return parseInt(multiplierDigit)
+}
+// text: "250 (125 x2)" -> 250;     250 -> 250
+export function extractBaseXPFromText(text) {
+    if (Number.isInteger(text))
+        return text
+    let xpSoFar = ''
+    let i = 0
+    while (i < text.length && isCharDigit(text[i])) {
+        xpSoFar += text[i]
+        i += 1
+    }
+    return parseInt(xpSoFar)
+}
+export function extractDefenseFromMonsterArmor(text) {
+    if (Number.isInteger(text))
+        return text
+    let defenseSoFar = ''
+    let i = 0
+    while (i < text.length && isCharDigit(text[i])) {
+        defenseSoFar += text[i]
+        i += 1
+    }
+    return parseInt(defenseSoFar)
+}
 
 
 
@@ -191,6 +222,20 @@ export function mapObject(obj, func) {
         newObj = {...newObj, [key]: value }
     }
     return newObj
+}
+
+export function groupBy(arr, hashFunc) {
+    const hashKeyArrayElemValuePairs = {}
+    for (const elem of arr) {
+        const elemHash = hashFunc(elem)
+        if (elemHash == null)
+            continue
+        if (hashKeyArrayElemValuePairs[elemHash] == null) {
+            hashKeyArrayElemValuePairs[elemHash] = []
+        }
+        hashKeyArrayElemValuePairs[elemHash].push(elem)
+    }
+    return hashKeyArrayElemValuePairs
 }
 
 
@@ -411,6 +456,9 @@ export function hasAnyProperty(obj, propList) {
         if (obj[prop] != undefined) return true
     }
     return false
+}
+export function isCharDigit(char) {
+    return '0123456789'.includes(char)
 }
 
 // ---------------- Other Small Utilities ----------------

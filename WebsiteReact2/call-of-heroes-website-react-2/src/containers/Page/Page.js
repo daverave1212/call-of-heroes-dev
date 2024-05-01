@@ -41,7 +41,7 @@ export default function Page({
     }, [title])
 
     return (
-        <div className={`page ${appState.isSimple? '' : 'page--has-background'} ${hasNoLimits == true? 'page--no-limits' : ''}`}>
+        <div className={`page ${appState.isSimple? '' : 'page--has-background'} ${hasNoLimits == true? 'page--no-limits' : ''}`} id={id}>
             { subtitle != null && (
                 <div>
                     <p className='page-subtitle'>

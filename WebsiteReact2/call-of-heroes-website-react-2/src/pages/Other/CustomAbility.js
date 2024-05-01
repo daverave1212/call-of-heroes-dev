@@ -16,6 +16,9 @@ import Spell from '../../components/Spell/Spell'
 import TwoColumns from '../../components/TwoColumns/TwoColumns'
 import Column from '../../components/TwoColumns/Column'
 
+import yaml from 'js-yaml'
+import { CoolButton } from '../../components/CoolButton/CoolButton.js'
+
 const exampleAbility = `
 [{
     "Name": "Custom Ability",
@@ -85,22 +88,27 @@ export default function CustomAbility() {
                 </textarea>
         
                 <div className='hero-buttons' style={{width: '100%'}}>
-                    <button className='Basic-button'>
-                    <a onClick={() => {
+                    <CoolButton onClick={() => {
                         setJsonContent(JSON.parse(textareaText))
                         console.log({jsonContent})
-                    }}>Create</a>
-                    </button>
-                    <div className='hero-buttons-separators'>
-                    <img src="/button-separator.png"/>
-                    <img src="/button-separator-reversed.png"/>
-                    </div>
+                    }}>
+                        Create
+                    </CoolButton>
+
+                    <CoolButton onClick={() => {
+                        setJsonContent(yaml.load(textareaText))
+                        console.log({jsonContent})
+                    }}>
+                        Create (YAML)
+                    </CoolButton>
                 </div>
 
                 <br/>
                 <br/>
 
-                { jsonContent != null && <ManySpells spells={jsonContent}/> }
+                { jsonContent != null && (
+                    Array.isArray(jsonContent) ? <ManySpells spells={jsonContent}/> : <ManySpells spells={[jsonContent]}/>
+                ) }
 
           </Page>
         </div>

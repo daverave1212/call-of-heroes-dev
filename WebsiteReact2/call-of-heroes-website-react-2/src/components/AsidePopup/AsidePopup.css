@@ -1,0 +1,49 @@
+
+:root {
+    --aside-popup-width: 375px;
+    --aside-popup-right: 40px;
+}
+.aside-popup {
+    position: absolute;
+    z-index: 99998;
+    
+    display: flex;
+    flex-direction: column;
+    
+    font-family: var(--font-home);
+    
+    right: var(--aside-popup-right);
+    top: calc(0.1 * var(--hero-page-height));
+    width: var(--aside-popup-width);
+    /* height: calc(0.8 * var(--hero-page-height)); */
+    padding: var(--element-padding);
+
+    border-radius: 25px;
+    background-color: white;
+    background: rgb(255, 249, 255);
+    background: linear-gradient(-50deg, rgba(255,255,255,1) 0%, rgb(251, 247, 255) 100%);
+}
+.aside-h3, .aside-p {
+    font-size: calc(0.75 * var(--home-text-size));
+}
+
+@media (orientation: portrait) {
+    .aside-popup {
+        display: none;
+    }
+}
+
+.aside-popup--intro {
+    animation-name: AsideIntroAnimation;
+    animation-duration: 1.25s;
+    animation-timing-function: cubic-bezier(0.070, 0.540, 0.000, 1.005);
+}
+
+@keyframes AsideIntroAnimation {
+    0% {
+        right: calc(0px - var(--aside-popup-right) - var(--aside-popup-width));
+    }
+    100% {
+        right: var(--aside-popup-right);
+    }
+}

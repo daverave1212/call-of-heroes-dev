@@ -1,0 +1,95 @@
+
+:root {
+    --animated-border-size: 4px;
+    --animated-border-color: rgb(12, 109, 255);
+}
+
+.cool-button-wrapper {
+    position: relative;
+}
+.cool-button {
+    /* font-family: HomeFont;
+    font-size: var(--home-text-size);
+    line-height: var(--home-text-size);
+    width: var(--basic-button-width);
+    height: var(--basic-button-height); */
+    
+    width: var(--basic-button-width);
+    height: var(--basic-button-height);
+    background-color: transparent;
+    background: none;
+    border: solid var(--passive-dark-color) 3px;
+    /* border-radius: var(--button-border-radius); */
+    outline: none;
+  
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+
+    padding: 0px;
+}
+.cool-button span {
+    font-family: HomeFont;
+    font-size: var(--home-text-size);
+    line-height: calc(0.9 * var(--basic-button-height));
+
+    /* padding: calc(var(--home-text-size) / 2); */
+
+    text-align: center;
+}
+.cool-button:hover {
+    background: transparent;
+    color: var(--animated-border-color);
+}
+.cool-button span {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.cool-button:before,
+.cool-button:after {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 0;
+    background: var(--animated-border-color);
+    transition: all 0.3s ease;
+}
+.cool-button:before {
+    height: 0%;
+    width: var(--animated-border-size);
+}
+.cool-button:after {
+    width: 0%;
+    height: var(--animated-border-size);
+}
+.cool-button:hover:before {
+    height: 100%;
+}
+.cool-button:hover:after {
+    width: 100%;
+}
+.cool-button span:before,
+.cool-button span:after {
+    position: absolute;
+    content: "";
+    right: -3px;
+    bottom: -3px;
+    background: var(--animated-border-color);
+    transition: all 0.3s ease;
+}
+.cool-button span:before {
+    width: var(--animated-border-size);
+    height: 0%;
+}
+.cool-button span:after {
+    width: 0%;
+    height: var(--animated-border-size);
+}
+.cool-button span:hover:before {
+    height: calc(100% + 3px);
+}
+.cool-button span:hover:after {
+    width: calc(100% + 3px);
+}

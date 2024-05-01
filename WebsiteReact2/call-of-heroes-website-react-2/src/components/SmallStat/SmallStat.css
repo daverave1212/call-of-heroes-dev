@@ -16,17 +16,43 @@
 }
 .small-stat {
     width: auto;
-    display: inline-flex;   /* Does not take parent width and rescales with content size */
+    border: solid 2px;
 }
-.small-stat--column { flex-direction: column; }
+
+
+
+
+
+/* Size */
 .small-stat--row    { flex-direction: row; }
+.small-stat--row--normal {
+    display: inline-flex; /* Does not take parent width and rescales with content size */
+}
+.small-stat--row--large {
+    display: flex;
+}
+.small-stat--row--large div {
+    flex: 1;
+    text-align: center;
+}
 
-.small-stat--normal { border: solid var(--darker-color) 2px; }
-.small-stat--blue   { border: solid var(--darker-blue) 2px; }
-.small-stat__name--normal { background-color: var(--dark-color); }
-.small-stat__name--blue   { background-color: var(--dark-blue); }
+.small-stat--column {
+    display: flex;
+    flex-direction: column;
+}
+.small-stat--column--large {
+    width: 100%;
+}
+.small-stat--column--large div {
+    text-align: center;
+}
 
 
+
+
+
+
+/* Contents */
 .small-stat div {   /* Affects both __name and __value */
     padding-top: calc(var(--small-stat-padding-v) + 1px);   /* For pixel-perfect alignment */
     padding-bottom: var(--small-stat-padding-v);
@@ -47,6 +73,18 @@
     font-size: var(--small-stat-font-size);
     /* line-height: calc(var(--small-stat-font-size) * 1.1); */
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* For List variant of SmallStat */
 .small-stat__value--list {

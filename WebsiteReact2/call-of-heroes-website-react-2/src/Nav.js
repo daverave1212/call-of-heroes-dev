@@ -63,12 +63,25 @@ import { getLocalStorageBool } from './utils';
 import AppStateContext from './services/AppStateContext';
 import TreasureGenerator from './pages/Tools/TreasureGenerator';
 
-function LiLink({to, children, isDownload}) {
+
+function LogoQG() {
+  return (
+    <div className='nav-logo-div-wrapper'>
+      <div className="nav-logo-div">
+        <Link to="/"><img src="/favicon.png"/></Link>
+      </div>
+      <div className='nav-logo-version'>
+        v2024-04-28
+      </div>
+    </div>
+  )
+}
+function LiLink({to, children, isDownload, style, className}) {
   if (isDownload === true) {
-    return <li onClick={null}><a href={to} target="_blank" download>{children}</a></li>
+    return <li onClick={null}><a className={className} href={to} target="_blank" style={style} download>{children}</a></li>
   }
   return (
-    <li><Link to={to}>{children}</Link></li>
+    <li><Link className={className} style={style} to={to}>{children}</Link></li>
   )
 }
 
@@ -94,6 +107,29 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
     setAreExpandedState(newState)
   }
 
+  function MegaDropdownMenu({ title, children }) {  // The big thing right underneath the nav; see how it's used below
+    return (
+      <div>
+        <h3 className="subnav-title-portrait-only" onClick={() => onClickOnH3(title)}>{ title }</h3>  {/* This title is only displayed in portrait mode */}
+        <div className={`subnav ${maybeActiveClassLS(title)} ${maybeActiveClassPortrait(title)}`}>    {/* The contents of the mega dropdown */}
+          { children }
+        </div>
+      </div>
+    )
+  }
+
+  function MegaDropdownMenuSection({title, children}) { // Each MegaDropdownMenu has ONLY several MegaDropdownMenuSection's
+    return (
+      <div className='subnav-section'>
+        <h4>{ title }</h4>
+        <div className='subnav-title-underline'></div>
+        <ul>
+          { children }
+        </ul>
+      </div>
+    )
+  }
+
   
   
   // Elements with 'subnav-title-portrait-only' are only visible in portrait mode
@@ -103,9 +139,7 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
       
       <h3 className="subnav-title-portrait-only"><a style={{color: 'white'}} href="https://discord.gg/27aqSEDyE3" target="_blank">Play With Us!</a></h3>
 
-      <h3 className="subnav-title-portrait-only" onClick={() => onClickOnH3('Database')}>Database</h3>
-      <div className={`subnav ${maybeActiveClassLS('Database')} ${maybeActiveClassPortrait('Database')}`}>
-
+      <MegaDropdownMenu title="Database">
         <div className='subnav-section'>
           <h4>Races</h4>
           <div className='subnav-title-underline'></div>
@@ -161,53 +195,51 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
           <div className='subnav-title-underline'></div>
           <ul>
             <LiLink isDownload={true} to="/Download/Sheet-2023-03-24b.pdf">Character Sheet (PDF)</LiLink>
-            <LiLink isDownload={true} to="/Download/Sheet-2023-03-24.psd">Character Sheet (PSD)</LiLink>
-            <LiLink isDownload={true} to="/Download/Sheet-2023-03-24.png">Character Sheet (PNG)</LiLink>
+            <LiLink isDownload={true} to="/Download/Sheet-2024-04-28.psd">Character Sheet (PSD)</LiLink>
+            <LiLink isDownload={true} to="/Download/Sheet-2024-04-28.png">Character Sheet (PNG)</LiLink>
             <LiLink to="/Other/Obstacles">Obstacles</LiLink>
             <LiLink to="/Other/PetsAndAnimals">Pets and Animals</LiLink>
             <LiLink to="/Meta/PatchNotes">Update Notes</LiLink>
           </ul>
         </div>
-
-      </div>
+      </MegaDropdownMenu>
 
       <h3 className="subnav-title-portrait-only">
         <Link style={{color: 'white'}} to="/Other/Learn">Learn To Play</Link>
       </h3>
 
-      <h3 className="subnav-title-portrait-only" onClick={() => onClickOnH3('GM Resources')}>GM Resources</h3>
-      <div className={`subnav ${maybeActiveClassLS('GM Resources')} ${maybeActiveClassPortrait('GM Resources')}`}>
+      <MegaDropdownMenu title="GM Resources">
+        <MegaDropdownMenuSection title="Guides">
+          <LiLink to="/Other/GMGuidelines">GM Guidelines</LiLink>
+          <LiLink to="/Lore/Languages">Game Master Basics</LiLink>
+          <LiLink to="/Lore/Languages">How To Be a Good GM</LiLink>
+        </MegaDropdownMenuSection>
 
-        <div className='subnav-section wider'>
-          <h4>Guides</h4>
-          <div className='subnav-title-underline'></div>
-          <ul>
-            <LiLink to="/Other/GMGuidelines">GM Guidelines</LiLink>
-            <LiLink to="/Lore/Languages">Game Master Basics</LiLink>
-            <LiLink to="/Lore/Languages">How To Be a Good GM</LiLink>
-          </ul>
-        </div>
+        <MegaDropdownMenuSection title="Databases">
+          <LiLink to="/Other/Monsters">Monsters</LiLink>
+          <LiLink to="/Other/MagicItems">Magic Items</LiLink>
+          <LiLink to="/Other/Encounters">Encounters</LiLink>
+        </MegaDropdownMenuSection>
 
-        <div className='subnav-section'>
-          <h4>Databases</h4>
-          <div className='subnav-title-underline'></div>
-          <ul>
-            <LiLink to="/Other/Monsters">Monsters</LiLink>
-            <LiLink to="/Other/MagicItems">Magic Items</LiLink>
-            <LiLink to="/Other/Encounters">Encounters</LiLink>
-          </ul>
-        </div>
+        <MegaDropdownMenuSection title="Tools">
+          <LiLink to="/Tools/TreasureGenerator">Treasure Generator</LiLink>
+          <LiLink to="/Other/CustomAbilityCreator">Custom Ability Creator</LiLink>
+          <LiLink to="/Other/CustomMonsterCreator">Custom Monster Creator</LiLink>
+        </MegaDropdownMenuSection>
+      </MegaDropdownMenu>
 
-        <div className='subnav-section wider'>
-          <h4>Tools</h4>
-          <div className='subnav-title-underline'></div>
-          <ul>
-            <LiLink to="/Tools/TreasureGenerator">Treasure Generator</LiLink>
-            <LiLink to="/Other/CustomAbilityCreator">Custom Ability Creator</LiLink>
-          </ul>
-        </div>
-        
-      </div>
+      <MegaDropdownMenu title="Downloads">
+        <MegaDropdownMenuSection title="Character Sheets">
+          <LiLink isDownload={true} to="/Download/Sheet-2023-03-24b.pdf">Character Sheet (PDF)</LiLink>
+          <LiLink isDownload={true} to="/Download/Sheet-2023-03-24.psd">Character Sheet (PSD)</LiLink>
+          <LiLink isDownload={true} to="/Download/Sheet-2023-03-24.png">Character Sheet (PNG)</LiLink>
+        </MegaDropdownMenuSection>
+
+        <MegaDropdownMenuSection title="Content">
+          <LiLink isDownload={true} className="premium" to="/Download/Sheet-2023-03-24b.pdf">Mount Hyhelm (Starter One-Shot)</LiLink>
+          <LiLink isDownload={true} className="premium" to="/Download/Sheet-2023-03-24b.pdf">Whispervale (Starter Adventure)</LiLink>
+        </MegaDropdownMenuSection>
+      </MegaDropdownMenu>
       
     </div>)
 }
@@ -229,36 +261,28 @@ export default function Nav({ navState, setNavState, isSimple, setIsSimple }) {
 
     return (
       <div id="Navigation-Section" onMouseLeave={() => setCurrentlyOpenSubnav(null)}>
-          <div className="nav-logo-div">
-            <Link to="/"><img src="/favicon.png"/></Link>
-          </div>
-          <div className='nav-logo-version'>
-            v2023-12-31
-          </div>
+          <LogoQG/>
 
-          <div className='burger-icon' onClick={onClickOnBurger}>
-            <img src="burger-icon.png"/>
-          </div>
+          <div className='burger-icon' onClick={onClickOnBurger}> <img src="burger-icon.png"/> </div>
 
           <nav className="nav-landscape">
-            <div className='nav-item'><a href="https://discord.gg/27aqSEDyE3" target="_blank">Play With Us!</a></div>
+            <div className='nav-item'>
+              <a onClick={event => {
+                event.preventDefault()
+                const inviteUrl = 'https://discord.gg/' + '27aqSEDyE3'
+                window.open(inviteUrl, '_blank')
+              }}>
+                Play With Us!
+              </a>
+            </div>
             <NavItem name='Database'>Database</NavItem>
 
             <div className='nav-item'>
               <Link style={{color: 'white'}} to="/Other/Learn">Learn To Play</Link>
             </div>
             <NavItem name='GM Resources'>GM Resources</NavItem>
-
-            {/* <div className='nav-item'><input className='nav-simple-checkbox' type="checkbox" checked={isSimple} onChange={(evt) => {
-                const newValue = evt.target.checked
-                window.localStorage.setItem('isSimple', newValue)
-                setIsSimple(newValue)
-            }}/>Simple Mode</div> */}
+            <NavItem name='Downloads'>Downloads</NavItem>
           </nav>
-
-          {/* <nav className="nav-portrait">
-
-          </nav> */}
 
           <MegaDropdownAndPortraitNav navState={navState} isBurgerClicked={isBurgerClicked}/>
       </div>

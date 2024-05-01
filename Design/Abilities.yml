@@ -144,31 +144,26 @@
 Default Moves:
 
 
-    ~Dash~:
+    ~Sprint~:
         A: Half-Action
         Effect: Move up to 2 meters.
         Upgrade: If you are Slowed, move only 1 meter.
-        Notes: When you Dash, you can move even if you already moved this turn. Dash is affected by being Rooted. You can not Dash if you are Rooted.
+        Notes: When you Sprint, you can move even if you already moved this turn. You can not Sprint if you are Rooted.
         
-    ~Defend~:
-        A: Half-Action
-        Effect: Until the start of your next turn, your Defense and all Resist Checks increase by +1. This can stack multiple times if you use it multiple times.
+    # ~Defend~:
+    #     A: Half-Action
+    #     Effect: Until the start of your next turn, your Defense and all Resist Checks increase by +1. This can stack multiple times if you use it multiple times.
 
     ~Improvised Attack~:
         HasMixins: true
-        A: Half-Action or 1 Action
+        A: Half-Action
+        Range: 4 meters
         Effect: |
-            You can use small, medium or large non-weapon objects from around and attack with them.
-            {Diamond} Small Objects - Half-Action, 1d4 + ^Dexterity^ Smash or Pierce Damage, thrown at exactly 3 to 6 meters range
-            {Diamond} Medium Objects - Half-Action, 1d4 + ^Might^ Smash Damage, up to 3 meters range
-            {Diamond} Large Objects - 1 Action, 2d6 + ^Might^ Smash Damage, up to 2 meter range
-            If you roll maximum on any of those dice and the object can break, it breaks and deals an extra 1d4 Damage.
+            Attack with or throw an object for 1d4 + ^Might^ or ^Dexterity^ (Slash, Smash or Pierce Damage, depending on the object).
         Notes: |
-            Considered weapon Attacks.
-            A Small object is considered something you can hold in your hand (e.g. something up to 20cm across, a rock, etc).
-            A Medium object is considered something you can grab and throw with your hand (e.g. something up to 50cm across, a chair, etc).
-            A Large object is something you would not be able to throw with only one hand (e.g. a table).
-        
+            You can attack with a body part if within 1 meter. Considered weapon Attacks.
+            For monsters, this takes 1 Action and deals only 1d4 Damage.
+
     ~Intimidating Mock~:
         A: 1 Action
         HasMixins: true
@@ -179,7 +174,7 @@ Default Moves:
     ~Push~:
         A: Half-Action
         Range: 1 meter
-        Effect: Push a medium-sized, non-Epic Unit 1 meter in any direction you choose.
+        Effect: Push a non-Epic, max medium-sized Unit 1 meter in any direction you choose.
             
     # ~Shift~:
     #     A: 0 Actions
@@ -189,18 +184,17 @@ Default Moves:
         
     ~Taunt~:
         A: Half-Action
-        Range: 10 meters
+        Range: 5 meters
         Effect: |
-            Make an enemy roll a Sense Check.
-            If it fails, its next offensive Act gains Cover (-2) if it's not on you.
+            Choose a Unit. Its next offensive Act gets -2 if it's not on you.
             
-    ~Wait~:
-        A: 0 Actions
-        Cooldown: 1 turn
-        Effect: |
-            Skip your turn and declare any number as your new initiative.
-            You start your turn later this Encounter at that initiative.
-        Notes: Your new initiative stays like that for later turns.
+    # ~Wait~:
+    #     A: 0 Actions
+    #     Cooldown: 1 turn
+    #     Effect: |
+    #         Skip your turn and declare any number as your new initiative.
+    #         You start your turn later this Encounter at that initiative.
+    #     Notes: Your new initiative stays like that for later turns.
 
     # ~Action Surge~:
     #     A: 0 Actions
@@ -240,7 +234,7 @@ Bloodshed:
         Effect: For your next Act that does Damage within 10 minutes, after you roll it, you can choose to reroll all dice and keep the new result.
         Notes: | 
             Applies to Abilities and buffs added to the attack, like Smite. If you decide to reroll, you have to reroll ALL of them; Smite and similar abilities must be added before the reroll.
-            While out of combat, you can note to the GM that you're keeping Aim always active (e.g. re-cast it as soon as it expires).
+            While out of combat, you can note to the QM that you're keeping Aim always active (e.g. re-cast it as soon as it expires).
     
     ~Bull Rush~:
         A: Passive
@@ -326,7 +320,7 @@ Bloodshed:
         Effect: |
             Break a breakable obstacle that fits within a 3x3x3 area.
             After casting this Ability, if you moved this turn, you can continue your movement.
-        Notes: It is the GM's call if an obstacle can be broken.
+        Notes: It is the QM's call if an obstacle can be broken.
 
     ~Blood Foment~:
         A: Reaction
@@ -453,41 +447,132 @@ Warfare:
             Assign 2 of the rolled d8's to each of those Units, and deal that much Damage as Slash Damage to it.
 
 Elemental:
-
-# [x] Damage (1 Action)                 [Defense (Flame Bolt)]
+# [x] Damage (1 Action)                 [Element Burst]
 # [x] Damage (1 Action)     (Advanced)  [Direct, Direct]
-# [x] Damage (Half-Action)              [Save (Acid Burst)]
-# [x] Damage (Half-Action)  (Advanced)  [Sustained]
-# [x] Damage (AoE)                      [Defense (Land Breach), Direct, Direct]
+# [x] Damage (Half-Action)              [Acid Burst]
+# [x] Damage (Half-Action)  (Advanced)  []
+# [x] Damage (AoE)                      [Burning Breath, Land Breach, Flame Strike]
 # [x] Damage (AoE)          (Advanced)  [Save, Save, Direct]
 # [ ] Return on Investment
 # [ ] Stats
 # [x] Low CC
 # [x] Medium CC
-# [ ] Hard CC
+# [x] Hard CC
 # [ ] Healing
-# [x] Tranking/Protection (Shielding)
+# [x] Tranking/Protection
 # [x] Buff
 # [ ] Debuff
-# [ ] Utility
+# [x] Utility                           [Control Elements, Flameblade, Quicksand]
 # [ ] Mobility
 # [ ] Anti-Heal
 # [x] Summon
+# [ ] Other
 
 
-    # Basic Spells
-    ~Acid Burst~:
-        A: Half-Action
-        Range: 3 meters
+    # Level 1
+
+    ~Element Burst~:
+        A: 1 Action
+        DisplayName: "{Element} Burst"
+        Range: 5 meters
         Effect: |
-            A Unit takes 1d6 + 2 Acid Damage.
-            Ignores Defense.
+            Damage a Unit for 2d6 {Element} Damage.
+            If had taken {Element} Damage this combat before, add another 1d10 Damage.
+            ~Click on the Spell Icon to select the preferred Element!~
+        Notes: These are considered different Spells.
+        Variants:
+            - Element: Fire
+              IconName: Fire Burst
+            - Element: Cold
+              IconName: Cold Burst
+            - Element: Shock
+              IconName: Shock Burst
+        Tag: Damage (1)
 
     ~Burning Breath~:
         A: Half-Action
+        Cooldown: Once / Turn
+        Range: Near you
         Effect: |
-            All Units in a 90 degree, 3 meter cone take 4 Fire Damage.
+            All Units 3x3 meter area take 4 Fire Damage.
             Units can't benefit from Cover from this Ability.
+        Upgrade: At Level 4, this has no Cooldown.
+        Tag: AoE (Half)
+
+    ~Rime Shackles~:
+        A: 1 Action
+        Range: 5 meters
+        Cost: 1 Mana
+        HasMixins: true
+        Effect: Deal Cold Damage to a Unit equal to 2d6 + ^Its Dexterity^. If it's Medium or smaller, it becomes Rooted.
+        Tag: CC Hard
+
+    ~Volt Guard~:    
+        A: Reaction
+        Range: 5 meters
+        Cost: 1 Mana
+        Effect: Use when a Unit would take Damage (after roll). Reduce the incoming Damage by 50%, and shock the Unit back for 1d4 Shock Damage.
+        Tag: Protection
+
+
+    # Level 2
+    ~Land Breach~:
+        A: 1 Action
+        Range: 10 meters
+        Requirement: Level 2
+        Effect: |
+            You gather stone, dirt, sand, etc from the surroundings and release it upon an enemy.
+            A Unit takes 3d6 Damage Force Damage, then all other Units within 1 meter take Damage equal to two of rolled dice (you choose).
+        Notes: Ignores Cover
+        Tag: AoE (1)
+
+    ~Ice Shard~:
+        A: Half-Action
+        Cost: 1 Mana
+        Range: 10 meters
+        Requirement: Level 2
+        Effect: Shoot an Ice Shard toward a Unit, dealing 1d8 + 2 Cold or Pierce Damage (your choice). The target becomes Fumbling.
+        Tag: Damage (Half)
+
+    ~Element Enchantment~:
+        DisplayName: "{Element} Enchantment"
+        A: 1 Action
+        Cost: 1 Mana
+        Range: 3 meters
+        Duration: 24 hours / Depends
+        Requirement: Level 2
+        Effect: |
+            Choose a metallic weapon to imbue it with {Element}.
+            That weapon deals +2 Damage (as part of the Attack) and the total weapon Damage becomes {Element} Damage.
+
+            ~Click on the Spell Icon to select the preferred Element!~
+        Upgrade: Lasts until the end of the next (or current) combat, or for up to 24 hours.
+        Notes: Does not stack with other weapon enchantments from Spells. These are considered different Spells.
+        Tag: Buff
+        Variants:
+            - Element: Fire
+              IconName: Fire Enchantment
+            - Element: Cold
+              IconName: Cold Enchantment
+            - Element: Shock
+              IconName: Shock Enchantment
+
+    ~Heat Metal~ :
+        A: Half-Action
+        Cost: 1 Mana
+        Range: 5 meters
+        Requirement: Level 2
+        HasMixins: true
+        Effect: |
+            Choose a piece of metal equipment and heat it.
+            - If it's an armor, the wearer takes 5d4 Fire Damage.
+            - If it's a weapon, the wearer takes 1d10 Damage. If you rolled higher than its Might, it becomes Crippled.
+        Notes: |
+            Ignores Cover. {Crippled}
+        Tag: CC Hard
+
+
+    # Level 3
 
     ~Control Elements~:
         HasMixins: true
@@ -505,73 +590,30 @@ Elemental:
         Notes: |
             When moving earth or water, it can hold up to 20gk of mass in/on it. Otherwise it can't be moved. Units affected can take up to 1d8 Damage if the circumstances are right.
             Water is Hard Terrain. Normal Fire Damage is 2 when stepping on it
-            Apply common sense. The GM has the final word on whether something is possible.
-
-    ~Flame Bolt~:
+            Apply common sense. The QM has the final word on whether something is possible.
+        Tag: Utility
+    
+    ~Searing Arrows~:
         A: 1 Action
-        Range: 3 meters
-        Effect: |
-            Deal 2d8 Fire Damage to a Unit. It it previously took Fire Damage this combat, deal another 1d6 Fire Damage.
-        
-    ~Flameblade~:
-        A: Passive
-        Effect: You can freely change the Damage of your weapon Attacks to Fire Damage.
-        
-    ~Frostbite~:
-        A: 1 Action
-        Range: 5 meters
-        Effect: |
-            Send out a wave of frost towards a Unit and deal 2d6 + ^Its Dexterity^ Damage and Slow it.
-            If it's already Slowed or Rooted, deal 1d6 extra Damage.
-
-    ~Land Breach~:
-        A: 1 Action
+        Cost: 1 Mana
         Range: 10 meters
-        Effect: |
-            You gather stone, dirt, sand, etc from the surroundings and release it upon an enemy.
-            A Unit takes 3d6 Damage Force Damage, then all other Units within 1 meter take Damage equal to two of rolled dice (you choose).
-        Notes: Ignores Cover
-            
-    ~Quicksand~:
-        A: Half-Action
-        Range: 5 meters to edge
-        Duration: 1 minute
-        Effect: |
-            Declare a 3x3 meter area made of dirt, sand or other such loose material.
-            That area becomes Difficult Terrain.
-        Upgrade: |
-            At Level 4, the area becomes 5x5.
-        Variant: You can also cause this difficult terrain with vegetation.
+        Requirement: Level 3
+        Effect: Shoot 3 rays of fire (at one or more Units). Each does 1d6 + 2 Fire Damage.
+        Notes: You can roll them one by one, after they deal the damage.
+        Tag: Damage (1)
 
-    # ~Thunder Clap~:
-    #     A: 1 Action
-    #     Effect: |
-    #         Choose either 1 meter range or 2 meters range.
-    #         All Units within the chosen range take 3d4 + Main Stat Shock Damage.
-    #     Notes: Ignores Cover and goes through obstacles and walls. You choose if you want to cast this at 1 meter or 2 meters radius.
-
-
-
-    # Advanced Spells
-    ~Absorb Element~ :
-        A: Reaction
-        Cost: 1 Mana
-        Requirement: Level 2
-        Effect: |
-            Use when you or an ally takes Fire, Shock, Cold, Poison or Acid Damage.
-            Reduce the total Damage taken by 50%.
-            
-    ~Crackling Lightning~:
+    ~Lightning Chord~:
         A: Half-Action
         Cost: 1 Mana
         Range: 5 meters
-        Duration: Until the target dies or you don't do this
+        Duration: 1 minute
         Requirement: Level 3
         Effect: |
-            When you cast this, declare a target and it takes 1d10 + 3 Shock Damage.
-            Every turn (except this one), you can use a Half-Action deal 3d6 Shock Damage to the target again (if it is within range).
-            If you don't spend the Half-Action for this on a turn, the spell ends.
-        Notes: You only pay the 1 Mana cost when you activate this Spell, not on every turn's Half-Action that you spend.
+            Shock a Unit for 1d10 Shock Damage.
+            At the start of your every turn, deal another 1d10 to it.
+            The effect is broken if you end your turn more than 5 meters away from it.
+        Upgrade: A Unit can only be affected by one Lightning Chord at a time.
+        Tag: RoI
 
     ~Frost Nova~ :
         A: Half-Action
@@ -581,96 +623,71 @@ Elemental:
             All Units within 2 meters of you become Slowed and take 1d6 Cold Damage.
             For each Unit hit, you deal +1 Cold Damage for the rest of the encounter.
         Notes: Cover is applied normally.
+        Tag: Amplification
 
-    ~Frost Rune~:
+    ~Element Rune~:
+        DisplayName: "{Element} Rune"
         A: 1 Action
         Cost: 1 Mana
         Range: 1 meter
-        Duration: 24 hours
-        Requirement: Level 3
+        Duration: 48 hours
+        Requirement: Level 6
         HasMixins: true
         Effect: |
             Place a rune on a smooth solid surface. 
-            A Unit touching the rune detonates it, dealing 3d10 Cold Damage to it.
-            Make an Intelligence Check against that Unit's Might Check. If you pass, it also becomes Rooted.
+            A Unit touching the rune detonates it, dealing 3d10 {Element} Damage to it.
+            Make an Intelligence Check against that Unit's Might Check. If you pass, {ExtraEffect}.
+            
+            ~Click on the Spell Icon to select the preferred Element!~
         Notes: |
             {Rooted}
             The rune covers a 1 meter area.
+            These are considered different Spells.
+        Variants:
+            - Element: Fire
+              IconName: Fire Rune
+              ExtraEffect: ~also deal 50% of the Damage to all Units within 2 meters of the rune's position~
+            - Element: Cold
+              IconName: Cold Rune
+              ExtraEffect: ~the Unit becomes Rooted~
+            - Element: Shock
+              IconName: Shock Rune
+              ExtraEffect: ~the Unit is pushed 5 meters away from the rune's position~
+        Tag: Trap
 
-    ~Explosion Rune~:
-        A: 1 Action
-        Cost: 1 Mana
-        Range: 1 meter
-        Duration: 24 hours
-        Requirement: Level 5
-        Effect: |
-            Place a rune on a smooth solid surface. The rune covers a 1x1 area.
-            You can use a free Reaction to detonate it, dealing 6d4 half Fire half Force Damage to the Unit that activates it and all Units within 2 meters of it.
-        Upgrade: |
-            At Level 8, this lasts for the rest of the Adventure.
-        Notes: A free Reaction does not use up your Reaction.
 
-    ~Ice Spike~:
+    ~Chain Thunder~:
         A: 1 Action
         Cost: 2 Mana
         Range: 5 meters
-        Requirement: Level 5
+        Requirement: Level 4
         Effect: |
-            The target rolls a Dexterity Check.
-            If it fails, it takes 3d8 + 9 Cold Damage, or half otherwise.
-            The target automatically fails if it's affected by any Crowd Control (except Hard Terrain).
+            Extend a lightning bolt upon a  Unit, dealing for 2d12 Shock Damage to it and its closest Unit within 3 meters.
+            If the lightning touches water, fire, fog or gas (or Unit is standing in it), increase the Damage by 50%.
 
-    ~Fire Enchantment~:
-        A: 1 Action
-        Cost: 1 Mana
-        Range: 3 meters
-        Requirement: Level 2
-        Effect: |
-            Choose a metallic weapon to imbue it with Fire.
-            That weapon deals +2 Damage (as part of the Attack) and the total weapon Damage becomes Fire Damage.
-            Lasts until the end of the next (or current) combat, or for up to 24 hours.
-        Notes: Does not stack with other weapon enchantments from Spells.
 
-    ~Heat Metal~ :
-        A: Half-Action
-        Cost: 1 Mana
-        Range: 5 meters
-        Requirement: Level 2
-        HasMixins: true
-        Effect: |
-            Choose a piece of metal equipment and heat it.
-            - If it's an armor, the wearer takes 5d4 Fire Damage.
-            - If it's a weapon, the wearer takes 1d10 Damage. If you rolled higher than its Might, it becomes Crippled.
-        Notes: |
-            Ignores Cover. {Crippled}
 
-    ~Flame Strike~:
-        A: 1 Action
-        Cost: 1 Mana
-        Range: 5 meters to edge
-        Duration: 1 minute or until cancelled
-        Effect: |
-            Conjure a 5x5 area of special flames on the ground.
-            At the end of each of your turns, roll 1d4 + 5.
-            All Units inside the area take that amount as Fire Damage.
+    # Level 4
 
-    ~Scorching Rays~:
-        A: 1 Action
-        Cost: 1 Mana
-        Range: 10 meters
-        Requirement: Level 2
-        Effect: Shoot 3 rays of fire (at one or more Units). Each does 1d6 + 2 Fire Damage.
-        Notes: You can roll them one by one, after they deal the damage.
-
-    # Higher Level Spells
-    
-    ~Fire Ball~:        # It's definitely more than 3 Mana worth but not that much
+    ~Element Ball~:        # It's definitely more than 3 Mana worth but not that much
+        DisplayName: "{IconName}"
         A: 1 Action
         Cost: 3 Mana
         Range: 6 meters (to the edge)
         Requirement: Level 4
-        Effect: All Units in 6-meter diameter area take 6d6 Fire Damage.
+        Effect: |
+            All Units in 6-meter diameter area take 6d6 {Element} Damage.
+            
+            ~Click on the Spell Icon to select the preferred Element!~
         Notes: Cover is calculated from the center of the area.
+        Variants:
+            - Element: Fire
+              IconName: Pyro Ball
+            - Element: Cold
+              IconName: Glacial Ball
+            - Element: Shock
+              IconName: Thunder Ball
+        Tag: AoE (1)
 
     ~Freeze Water~:
         A: 1 Action
@@ -684,6 +701,112 @@ Elemental:
             If a Unit is caught in the water, pass an Intelligence Check against its Dexterity Check to make it Rooted. If you fail, it is expelled to a nearby space near the frozen water (it chooses, within reason).
         Notes: |
             {Rooted}
+        Tag: Utility
+
+    
+    ~Frostfall~:
+        A: Half-Action
+        Cost: 2 Mana
+        Range: 10 meters
+        Requirement: Level 6
+        Effect: |
+            Choose a Unit. It takes 1d10 Cold Damage, and all Units within 2 meters of it 200% of that amount. All of them are Slowed.
+            If there were no Units within 2 meters of it, the target is Stunned instead.
+        Upgrade: When Stunning a flying target, it remains stuck in the air (levitating) for up to 6 seconds.
+
+
+    # Level 5
+
+    # ~Explosion Rune~:
+    #     A: 1 Action
+    #     Cost: 1 Mana
+    #     Range: 1 meter
+    #     Duration: 24 hours
+    #     Requirement: Level 5
+    #     Effect: |
+    #         Place a rune on a smooth solid surface. The rune covers a 1x1 area.
+    #         You can use a free Reaction to detonate it, dealing 6d4 half Fire half Force Damage to the Unit that activates it and all Units within 2 meters of it.
+    #     Upgrade: |
+    #         At Level 8, this lasts for the rest of the Adventure.
+    #     Notes: A free Reaction does not use up your Reaction.
+    #     Tag: Trap
+
+    ~Ice Spike~:
+        A: 1 Action
+        Cost: 2 Mana
+        Range: 5 meters
+        Requirement: Level 5
+        Effect: |
+            The target rolls a Dexterity Check.
+            If it fails, it takes 3d8 + 9 Cold Damage, or half otherwise.
+            The target automatically fails if it's affected by any Crowd Control (except Hard Terrain).
+        Tag: AoE (1)
+
+    ~Ignition~:
+        A: 1 Action
+        Cost: 1 Mana
+        Requirement: Level 5
+        Duration: 1 minute
+        Effect: |
+            Ignite a Unit you can see. At the end of each of your turns, it takes 7 Fire Damage.
+            Its ignition ends if the Unit is Damaged by Cold, Shock or Acid or is splashed with water.
+
+    # Level 4
+    ~Blazetrail~:
+        A: 0 Actions
+        Requirement: Level 4
+        Duration: 1 minute
+        Cost: 1 Mana
+        Effect: |
+            A Unit gains propulsion by fire. It gains +3 Movement Speed, can Break Movement and, whenever it enters the adjacency of an Enemy, deals 1d4 Fire Damage to it.
+        Notes: The Damage can only happen once per turn per enemy. The Damage source is you (for amplification effects).
+
+    # Level 6
+    ~Elating Jolt~:
+        A: 0 Actions
+        Requirement: Level 6
+        Cost: 1 Mana
+        Cooldown: Once / Adventure
+        Range: 10 meters
+        Effect: |
+            If your last cast Spell was shock-themed, give a Unit Shielding equal to your Charisma and they regain 1 Mana.
+            Otherwise, set a Unit's Defense to 0 and deal 1d6 Shock Damage to it.
+        Upgrade: Only usable in a Worthy Combat encounter.
+
+    # Level 7
+    ~Prismatic Shockwave~:
+        A: 1 Action
+        Cost: 2 Mana
+        Requirement: Level 7
+        Range: 10 meters
+        Effect: |
+            Damage a Unit for a total of 2d6 True Damage for each Element the target had been Damaged with this combat before.
+        Upgrade: Possible elements are Fire, Cold, Shock, Divine, Poison, Necrotic, Acid and Psychic.
+
+    ~Conduit Flow~:
+        A: 1 Action
+        Cost: 1 Mana
+        Requirement: Level 5
+        Range: 5 meters to first target
+        Effect: |
+            Choose a Worthy Unit other than you.
+            If it's an Enemy, it takes 1d10 Shock Damage.
+            Otherwise, it is Healed for 1d8.
+            If there is another Unit within 2 meters of it, repeat Conduit Flow on the new Unit (you choose if multiple).
+        Upgrade: Each Unit can be affected by Conduit Flow only once per cast. Cover is calculated from Unit to Unit (as if the conduit is jumping from Unit to Unit). The conduit can be repeated on you as long as you're not the first target.
+
+    # ~Flame Strike~:
+    #     A: 1 Action
+    #     Cost: 1 Mana
+    #     Range: 5 meters to edge
+    #     Duration: 1 minute or until cancelled
+    #     Effect: |
+    #         Conjure a 5x5 area of special flames on the ground.
+    #         At the end of each of your turns, roll 1d4 + 5.
+    #         All Units inside the area take that amount as Fire Damage.
+
+
+
 
     # ~Water Sphere~:     # Slightly strong if 3 bounces but it has to be
     #     A: 1 Action
@@ -734,6 +857,10 @@ Arcane:
 # [ ] Anti-Heal
 # [ ] Summon
 
+# Create clone of an enemy with exact abilities
+# Gravity - push or pull Units towards a point
+# Transmutation (create gold out of thin air!)
+
     # Basic Spells
 
     ~Magic Missiles~:
@@ -758,9 +885,12 @@ Arcane:
 
     ~Dispel Magic~:
         A: 0 Actions
-        Cooldown: Once / Encounter
+        Cooldown: Once / Combat
         AlignOnWebsite: Right
-        Effect: Touch an ally (or yourself) and dispell any ongoing or negative short-term magical effects on it. At Level 6, you can remove long-term magical effects with this as well.
+        Range: 5 meters
+        HasMixins: true
+        Effect: Dispell all ongoing _non-chronic_ magical effects on a Unit (any magical Crowd Control, magical buffs and debuffs, etc).
+        Notes: Chronic effects are ones that last days, months or are permanent, such as curses, vampirism, etc.
 
     ~Conjure Consumable~:
         A: Passive
@@ -908,12 +1038,12 @@ Arcane:
         Cooldown: Once / turn
         Requirement: Level 4
         Effect: |
-            A Unit you can see becomes one size larger/smaller for its next 1d4 turns.
+            A Unit or object you can see becomes one Size larger/smaller for its next 1d4 turns.
             It gains or loses 20% of its base (unbuffed) Defense (gain/loss is rounded up), gains or loses 1 Damage on all physical Acts (that would deal Damage) and gains or loses 1 Movement Speed.
             Can stack multiple times.
         Notes: |
             Sizes are Minuscule, Small, Medium, Large, and Larger.
-            A Larger Unit becomes 1 meter larger/smaller on all directions.
+            A larger Unit becomes 1 meter larger/smaller in both directions.
             It's number of spaces occupied also changes with this.
     
     ~Major Illusion~:
@@ -929,7 +1059,7 @@ Arcane:
             You can only have 1 illusion active at a time.
         Upgrade: |
             At Level 8, the illusion lasts indefinitely until you cancel it without needing to spend Actions, and it can hold its own simple movement and clockwork-like routines.
-            You can also program this illusion to react on its own in a specific way to specific triggers, but the instructions must be concise - talk with your GM about this.
+            You can also program this illusion to react on its own in a specific way to specific triggers, but the instructions must be concise - talk with your QM about this.
 
     ~Conjure Object~ :
         A: 1 Action
@@ -1044,7 +1174,7 @@ Arcane:
             You lose concentration if you take Damage or become crowd controlled.
         Upgrade: At Level 5, you can use 1 Action to slowly move the area up to 3 meters.
         Notes: |
-            If you have Proficiency in Deception, you can add that to the Check.
+            If you Skilled in a Skill that would fit, you can add that to the Check.
             In combat, a successful Distort Vision can provide Cover if rolled high enough.
 
     # Level 6
@@ -1147,7 +1277,7 @@ Arcane:
         Effect: |
             Conjure a cubic room with a width equal to your Level and a 1x2 meter door.
             This room works like a pocket dimension and only the door is visible from the outside. The room occupies no space in the real world, except for the door (you enter the room through the door).
-        Notes: If the Lodge would be destroyed with people inside, each will automatically be expulsed (appear) in a space within 3 meters of the door (randomly or by GM's choice).
+        Notes: If the Lodge would be destroyed with people inside, each will automatically be expulsed (appear) in a space within 3 meters of the door (randomly or by QM's choice).
 
 
     ~Transmogrification~:
@@ -1183,6 +1313,11 @@ Arcane:
             At the end of the cast time, a portal opens at the locations of the two casters.
             Stepping through one of the portals (obviously) teleports the Unit to the other portal.
             You can only cast this every 30 days.
+    
+    ~Alteration~:
+        A: 0 Actions
+        Cost: 1 Mana
+        Effect: Your next Spell within 1 minute Heals instead of dealing Damage, and deals Damage instead of Healing.
 
 Nature:
 
@@ -1373,7 +1508,7 @@ Nature:
             Using your hands, you draw in water from all objects in a 1x1x1 meter cube and store magically it in your body.
             You can use 1 Action to release all the stored water, without dealing Damage.
         Upgrade: You can store a number of 1x1x1 meter cubes of water equal to your Level / 2.
-        Notes: Just because you target a 1x1x1 meter cube, it doesn't mean you get a 1x1x1 meter cube of water stored. For ease of use, the GM can say you drew in none, a quarter, a half, 3 quarters or a 1x1x1 meter cube of water from the targeted cube.
+        Notes: Just because you target a 1x1x1 meter cube, it doesn't mean you get a 1x1x1 meter cube of water stored. For ease of use, the QM can say you drew in none, a quarter, a half, 3 quarters or a 1x1x1 meter cube of water from the targeted cube.
     
 
 
@@ -1586,7 +1721,7 @@ Mysticism:
             A: Reaction
             Range: 10 meters
             Cooldown: 1 hour
-            Effect: When an ally makes a Check, it can use your modifiers (including Proficiency) instead of its own.
+            Effect: When an ally makes a Check, it can use your modifiers (including being Skilled in that Skill) instead of its own.
 
         ~Hollow Touch~: Inherit
 
@@ -1841,6 +1976,15 @@ Eldritch:
 # [ ] Anti-Heal
 # [x] Summon                            [Summon Familiar, Summon Elementals]
 
+# Curse of Frenzy (take damage every turn but deal extra damage)
+
+    ~Eldritch Blast~:
+        A: 1 Action
+        Range: 4 meters
+        HasMixins: true
+        Effect: |
+            Blast a Unit for 2d8 + ^target's Might^ Necrotic Damage.
+            If you roll maximum on at least one die, deal another 1d6 Damage.
 
     ~Curse of Weakness~:
         A: Half-Action
@@ -1893,19 +2037,13 @@ Eldritch:
             If it fails, it becomes afflicted with a minor (usually non-combat) curse, such as:
             {Diamond} Its Initiative is halved (or its Initiative bonus)
             {Diamond} The target can't properly tie knots, sew, use keys or pick locks, etc
-            {Diamond} The target appears less attractive (its Charisma Skill checks have -3)
+            {Diamond} The target appears less attractive (its Charisma Checks have -3)
             {Diamond} Gains runny nose, eyes and sweats more
             {Diamond} Stumbles randomly
         Notes: |
             A Unit can't be affected by the same Disenchantment effect multiple times.
 
-    ~Eldritch Blast~:
-        A: 1 Action
-        Range: 4 meters
-        HasMixins: true
-        Effect: |
-            Blast a Unit for 2d8 + ^target's Might^ Necrotic Damage.
-            If you roll maximum on at least one die, deal another 1d6 Damage.
+
 
     ~Hollow Touch~:
         A: 1 Action
@@ -1951,7 +2089,7 @@ Eldritch:
             Lasts until killed or unsummoned (for 0 Actions) or if it goes more than 30 meters away from you.
             You can communicate with it telepathically.
         Upgrade: At Level 6, out of combat, the familiar can be invisible.
-        Notes: You can only have one summoned familiar at a time. Your familiar might have a name and personality and it might speak Common or other languages, if allowed by the GM.
+        Notes: You can only have one summoned familiar at a time. Your familiar might have a name and personality and it might speak Common or other languages, if allowed by the QM.
 
     ~Curse of Pain~:
         A: Half-Action
@@ -1961,8 +2099,6 @@ Eldritch:
         Effect: |
             Declare a target.
             Whenever it makes a offensive Act, it takes 4 Psychic Damage.
-
-
 
     ~Deathfire Bolt~:
         A: 1 Action
@@ -2009,7 +2145,7 @@ Eldritch:
         Cost: 1 Mana
         Requirement: Level 5
         Effect: |
-            Touch a dead Unit, whose body is still in decent condition (as approved by the GM).
+            Touch a dead Unit, whose body is still in decent condition (as approved by the QM).
             The dead Unit comes back to life, conscious and without Exhaustion, with 1 Health.
 
 
@@ -2044,7 +2180,10 @@ Divine:
     # Basic Spells
     ~Cure Affliction~: Inherit
 
-    ~Flameblade~: Inherit
+    ~Flameblade~:
+        A: Passive
+        Effect: You can freely change the Damage of your weapon Attacks to Fire Damage.
+      
 
     ~Light~: Inherit
 
@@ -2296,7 +2435,7 @@ Restricted Spells:
             You get a vision (a single snapshot) of whatever is in the line of sight from that point chosen, in any direction.
             Until your next Long rest, your party ignores Hard Terrain in the scryed area.
         Notes: |
-            The Game Master decides what visions you get - you might see that area from the past, or see only the landscape without the people. An area might also be blocked by anti-scrying magic.
+            The Quest Master decides what visions you get - you might see that area from the past, or see only the landscape without the people. An area might also be blocked by anti-scrying magic.
             You only get one picture, one snapshot, one screenshot that is not moving.
 
     ~Racial Transmutation~:
@@ -2304,7 +2443,7 @@ Restricted Spells:
         Requirement: Level 7
         Cooldown: 1 month
         Effect: |
-            You spend a whole day casting this Ability with a willing ally (or by yourself). By the end of it, the race of the ally becomes changed to a chosen Plyer Character Race (from the ones allowed by the GM).
+            You spend a whole day casting this Ability with a willing ally (or by yourself). By the end of it, the race of the ally becomes changed to a chosen Plyer Character Race (from the ones allowed by the QM).
             This changes the base stats and Racial Abilities of that Unit. It must also replace any Racial Feats it had with other Feats.
         Upgrade: This is a Conjuration Spell.        
 

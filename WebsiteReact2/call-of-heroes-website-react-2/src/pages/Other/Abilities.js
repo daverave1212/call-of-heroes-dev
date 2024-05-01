@@ -9,15 +9,16 @@ import ManySpells from '../../components/Spell/ManySpells'
 import Page from '../../containers/Page/Page'
 import { SideMenu } from '../../components/SideMenu/SideMenu'
 
-import { spellsFromObject } from '../../utils.js'
+import { groupBy, spellsFromObject } from '../../utils.js'
+import { useLocation } from 'react-router-dom'
+import TableNormal from '../../components/TableNormal/TableNormal.js'
 
 function AllSpellsSeparatedInLevels({allSpellsInCategoryArray}) {
-    // console.log(allSpellsInCategoryArray)
     const spells = allSpellsInCategoryArray
     const spellsWithNoRequirement = []
     const spellsByRequirement = {}
+    const isDebugMode = window.location.href.includes('localhost:')
 
-    // console.log(spells.length)
     for (const spell of spells) {
         if (spell.Requirement == null) {
             spellsWithNoRequirement.push(spell)
@@ -31,11 +32,39 @@ function AllSpellsSeparatedInLevels({allSpellsInCategoryArray}) {
 
     const requirementsNamesOrder = Object.keys(spellsByRequirement).sort()
 
+    function SpellGroups() {
+        const freeSpells = spells.filter(s => s.Cost == null)
+        const manaSpells = spells.filter(s => s.Cost != null)
+        const freeGroupsByTags = groupBy(freeSpells, spell => spell.Tag)
+        const manaGroupsByTags = groupBy(manaSpells, spell => spell.Tag)
+        return (
+            <div>
+                <TableNormal columns={['Tag', 'Spells']}>
+                    { Object.keys(freeGroupsByTags).sort().map(tag => 
+                        <tr>
+                            <td>{ tag }</td>
+                            <td>{ freeGroupsByTags[tag].map(s => s.Name).join(', ') }</td>
+                        </tr>
+                    ) }
+                </TableNormal>
+                <TableNormal columns={['Tag', 'Spells (Mana)']}>
+                    { Object.keys(manaGroupsByTags).sort().map(tag => 
+                        <tr>
+                            <td>{ tag }</td>
+                            <td>{ manaGroupsByTags[tag].map(s => s.Name).join(', ') }</td>
+                        </tr>
+                    ) }
+                </TableNormal>
+            </div>
+        )
+    }
+
     return (
         <div>
+            { isDebugMode && <SpellGroups/> }
             <ManySpells spells={spellsWithNoRequirement}/>
             { requirementsNamesOrder.map(req => (
-                <div>
+                <div key={req}>
                     <br/>
                     <PageH3>{req}</PageH3>
                     <br/>

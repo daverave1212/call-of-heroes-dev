@@ -4,8 +4,9 @@ import PageH2 from './../PageH2/PageH2'
 import Separator from './../Separator/Separator'
 import React from 'react'
 import Icon from '../Icon'
-import { insertBetweenAll, ifOk, stringReplaceAllMany } from '../../utils'
+import { insertBetweenAll, ifOk, stringReplaceAllMany, getUniqueSpellID } from '../../utils'
 import { SpellTopStats } from './Spell'
+import CopySpellButton from '../CopyButton/CopySpellButton'
 
 export default function Weapon({ weapon, isActuallyArmor }) {
 
@@ -37,9 +38,8 @@ export default function Weapon({ weapon, isActuallyArmor }) {
 
     const ArmorBonus = weapon['Armor Bonus']
 
-    // console.log({weapon})
-
     const iconName = stringReplaceAllMany(Name, [' ', '/', '%'], ['_', '_', ''])
+    const uniqueID = getUniqueSpellID(Name)
 
     let descriptionElements = [
         Damage == null? null : (
@@ -67,7 +67,7 @@ export default function Weapon({ weapon, isActuallyArmor }) {
         .join('\n\n')
 
     return (
-        <div className={`spell`}>
+        <div className={`spell`} id={uniqueID}>
             <div className="spell__border"></div>
             <div className="spell__background"></div>
             <div className='spell__box'> {/* This has CSS to be perfectly in the bounds of the borders and banner */}
@@ -89,6 +89,7 @@ export default function Weapon({ weapon, isActuallyArmor }) {
                 <div className='spell-notes'>
                     { extraText }
                 </div>
+                <CopySpellButton elementId={uniqueID} shouldAddBorder={true}/>
             </div>
         </div>
     )

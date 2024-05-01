@@ -15,7 +15,7 @@ import cc from '../../../../databases/Rules/CharacterCreation/CharacterCreationQ
 const linkStyle = { color: 'blue', textDecoration: 'underline'}
 
 const customInsertables = {
-    'Initiative': () => (<SmallStat topDown={true} name="Initiative">Your Dexterity + Your Charisma</SmallStat>),
+    'Initiative': () => (<SmallStat type="vertical" name="Initiative">Your Dexterity + Your Charisma</SmallStat>),
     'Stats': () => (
         <div className='character-creation__stats-container'>
             <div className='character-creation__stat'>-1</div>
@@ -24,12 +24,12 @@ const customInsertables = {
             <div className='character-creation__stat'>2</div>
             <div className='character-creation__stat'>3</div>
         </div>),
-    'Max Health': () => (<SmallStat topDown={true} name="Max Health">Race Health + Your Might</SmallStat>),
-    'Speed': () => (<SmallStat topDown={true} name="Movement Speed">Given by your Race</SmallStat>),
+    'Max Health': () => (<SmallStat type="vertical" name="Max Health">Race Health + Your Might</SmallStat>),
+    'Speed': () => (<SmallStat type="vertical" name="Movement Speed">Given by your Race</SmallStat>),
     'Armors': () => (<Link style={linkStyle} to="/Other/Armors">Armors</Link>),
     'Proficiencies': () => (<Link style={linkStyle} to="/Other/Proficiencies">Proficiencies</Link>),
     'Feats': () => (<Link style={linkStyle} to="/Other/Feats">Feats</Link>),
-    'Speed': () => (<SmallStat topDown={true} name="Spell Grade">6 + A Specific Stat</SmallStat>),
+    'Speed': () => (<SmallStat type="vertical" name="Spell Grade">6 + A Specific Stat</SmallStat>),
 }
 
 export default function CharacterCreation({ isSecondaryPage }) {
@@ -53,7 +53,7 @@ export default function CharacterCreation({ isSecondaryPage }) {
                     ) : (
                         <div key={subtitle}>
                             <PageH3>{subtitle}</PageH3>
-                            <SmallStat topDown={true} name={subtitle}>{cc[title][subtitle]}</SmallStat>
+                            <SmallStat type="vertical" name={subtitle}>{cc[title][subtitle]}</SmallStat>
                         </div>
                     )
                 ))}
@@ -102,9 +102,9 @@ export default function CharacterCreation({ isSecondaryPage }) {
                 <SmallStat name="Speed">{ cc['Stat Calculations']['Speed'] }</SmallStat>
                 <SmallStat name="Initiative">{ cc['Stat Calculations']['Initiative'] }</SmallStat>
                 <SmallStat name="Defense">{ cc['Stat Calculations']['Defense'] }</SmallStat>
-                <SmallStat name="Armor" topDown={true}>{ cc['Stat Calculations']['Armor'] }</SmallStat>
-                <SmallStat name="Weapon and Tool Training" topDown={true}>{ cc['Stat Calculations']['Training'] }</SmallStat>
-                <SmallStat name="Languages" topDown={true}>{ cc['Stat Calculations']['Languages'] }</SmallStat>
+                <SmallStat name="Armor" type="vertical">{ cc['Stat Calculations']['Armor'] }</SmallStat>
+                <SmallStat name="Weapon and Tool Training" type="vertical">{ cc['Stat Calculations']['Training'] }</SmallStat>
+                <SmallStat name="Languages" type="vertical">{ cc['Stat Calculations']['Languages'] }</SmallStat>
             </div> */}
         </Page>
     )

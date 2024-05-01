@@ -1,5 +1,6 @@
 
-# Template
+# Meta
+
 
 Template:
   Type:         Beast
@@ -8,6 +9,7 @@ Template:
   Stats:        
   Health:       
   Armor:        
+  HPCoef:       1
   Speed:        
   Initiative:   
   Abilities:
@@ -37,6 +39,7 @@ Bannerman:
   Experience:   50
   Stats:        0/0/2/4/4
   Health:       13
+  HPCoef:       0.9
   Speed:        4
   Initiative:   9
   Abilities: None
@@ -58,6 +61,7 @@ Goblin:
   Experience:   75
   Stats:        -1/4/0/2/2
   Health:       20
+  HPCoef:       0.9
   Speed:        5
   Initiative:   4 Melee / 3 Ranged
   Abilities:
@@ -97,6 +101,7 @@ Acolyte:
   Experience:   100
   Stats:        0/0/3/3/3
   Health:       28
+  HPCoef:       1
   Speed:        5
   Initiative:   1
   Abilities:
@@ -124,7 +129,8 @@ Cultist:
   Type:         Person, Person
   Experience:   100
   Stats:        0/1/3/3/2
-  Health:       23 (1 Protection)
+  Health:       28
+  HPCoef:       1
   Speed:        5
   Initiative:   4
   Abilities:
@@ -162,6 +168,7 @@ Koblod:
   Experience:   100
   Stats:        -2/4/0/1/0
   Health:       20
+  HPCoef:       0.7
   Speed:        6
   Initiative:   2 Melee / 5 Ranged
   Abilities:
@@ -194,6 +201,7 @@ Morloc:
   Experience:   100
   Stats:        1/4/0/2/0
   Health:       25
+  HPCoef:       0.8
   Speed:        5
   Initiative:   2
   Abilities:
@@ -223,15 +231,15 @@ Bandit:
   Experience:   125
   Stats:        2/2/0/2/2
   Health:       31 (1 Protection)
+  HPCoef:       1
   Speed:        5
   Initiative:   1 Melee / 3 Ranged
   Abilities: 
     - Bow: 1d6 + 1 Pierce
-    - 1H Weapon (x2):
-        Damage: 1d4
+    - 1H Weapon:
+        Damage: Make 2 attacks for 1d4.
         Kick: |
-            On 6, try Cripple target (10 Grade Dexterity Check).
-            On 1, try steal an item or 4d10 gold from target (10 Grade Dexterity Check).
+            If rolled at least one 1, target must pass a Dexterity Check at least 10 or have 4d10 Gold stolen and become Slowed.
   Avoids AoE: Maybe
   Behavior: |
     Tries to ambush and steal. If they steal something, they run away.
@@ -254,6 +262,7 @@ Drough:
   Experience:   125
   Stats:        1/4/2/2/2
   Health:       29
+  HPCoef:       0.75
   Armor:        3 (Agile/Magical)
   Speed:        6
   Initiative:   4 Melee / 8 Ranged
@@ -289,6 +298,7 @@ Ogre:
   Experience:   250 (125 x2)
   Stats:        6/0/-1/2/-1
   Health:       96
+  HPCoef:       1
   Speed:        3
   Initiative:   0
   Abilities:
@@ -299,7 +309,7 @@ Ogre:
             If it fails, the Ogre throws it up to 5 meters distance.
             If it collides with something, it (and the collider) takes an extra 1d4 Damage.
             Obstacles that can easily break will break.
-    - Hurl Rock (6m range):
+    - Hurl Rock (5m range):
         Damage: 4 Smash (or 1d6 + 1)
         Break: After the attack, if the target had Cover, the Cover breaks (if it can break).
     - Stomp: Attack all units within 2 meters for 4 Damage (or 2d4 - 1).
@@ -329,13 +339,14 @@ Gnoll:
   Experience:   150
   Stats:        2/2/0/2/2
   Health:       43
+  HPCoef:       0.95
   Speed:        5
   Initiative:   4 Melee / 2 Ranged
   Abilities:
     - Ranged Weapon: 4 (2d4 - 1)
     - Melee Weapon: 4 (1d8)
-    - Bite* (x2):
-        Damage: 1d6
+    - Bite*:
+        Damage: Make 2 attacks for 1d6 (Pierce)
         Gnoll Fever: If Bite dealt Damage, the target can't spend Mana on its next turn.
   Passives:
     - Blood Rush: |
@@ -364,6 +375,7 @@ Guard:
   Stats:        3/2/1/2/0
   Health:       38
   Armor:        2 (Armor)
+  HPCoef:       1
   Speed:        4
   Initiative:   1 Melee / 2 Ranged
   Abilities:
@@ -393,6 +405,7 @@ Hobgoblin:
   Experience:   200
   Stats:        3/2/1/2/3
   Health:       66
+  HPCoef:       0.7
   Speed:        5
   Initiative:   2
   Abilities:
@@ -420,6 +433,7 @@ Orc:
   Experience:   200
   Stats:        5/2/1/2/3
   Health:       61
+  HPCoef:       0.99
   Speed:        5
   Initiative:   1 Melee / 2 Ranged
   Abilities:
@@ -445,10 +459,12 @@ Cult Hierarch:
   Experience:   225
   Stats:        1/2/5/2/5
   Health:       76 (half is Shielding)
+  HPCoef:       1
+  Shielding:    half is Shielding
   Speed:        5
   Initiative:   5
   Abilities:
-    - Hollow Touch (6m):
+    - Hollow Touch (5m):
         Damage: 7 Necrotic (or 2d4 + 2)
         Anticoagulate: Target can not cast healing Abilities on its next turn.
     - Dagger: 1d6 Pierce
@@ -486,10 +502,12 @@ Druid:
   Experience:   250
   Stats:        2/2/3/4/2
   Health:       91 (half is Shielding)
+  HPCoef:       1
+  Shielding:    half is Shielding
   Speed:        5
   Initiative:   6
   Abilities:
-    - Roots (Human) (9m):
+    - Roots (Human) (10m):
         Damage: 7 Pierce (against Defense) (or 2d4 + 2)
         Root: The target must succeed a 11 Might Check or be Rooted.
     - Maul (Owlbear):
@@ -498,13 +516,13 @@ Druid:
     - Tongue Grab (Toad):
         Damage: 3d4 Poison
         Pull: If rolled at least one 6 or 1, the target must succeed a 12 Might Check or be Crippled, Slowed and pulled next to the Toad Druid.
-    - Buffet (x2) (Eagle): 1d4 + 1 Pierce
+    - Buffet (Eagle): Make 2 attacks for 1d4 + 1 Pierce
     - Shapeshift (free): Every turn, the Druid can transform into either an Owlbear, Giant Toad or Giant Eagle. It uses a different attack or has a different Passive for each form.
   Passives:
     - Barkskin (Human) (Reaction): Defense becomes 5 until start of its next turn.
     - Owl Screech (Owlbear): Once per round, after an enemy casts a spell, all units that can hear the Owlbear Druid must succeed a 12 Sense Check or be Silenced.
     - Toxins (Toad): Whenever the Toad is Melee attacked, the attacker takes 3 Poison Damage.
-    - Fly and Evasive (Eagle): Flies. Does not flee.
+    - Fly and Evasive (Eagle): Flies.
     - Druidcraft (Non-Combat): Can cast small, non-combat utility Spells like DruiGraderaft, Light, etc. Can also shapeshift into other non-combat animals, like bugs, fish, etc.
   Avoids AoE: Yes
   Behavior: |
@@ -540,6 +558,8 @@ Dryad:
   Experience:   275
   Stats:        0/5/5/3/3
   Health:       100 (half is Shielding)
+  HPCoef:       0.98
+  Shielding:    half is Shielding
   Speed:        5
   Initiative:   5
   Abilities:
@@ -549,13 +569,13 @@ Dryad:
           Instead of the Dryad attacking, she makes a nearby (15 meters) plant attack.
           A plant attack has 3 meters range from the plant.
           E.g. a tree slams with its branches, a bush shoots thorns, etc
-    - Sleep Spores (free) (6m range to edge): |
+    - Sleep Spores (free) (5m range to edge): |
         Choose a 2x2 meter area.
         It becomes Difficult Terrain.
         Any unit ending their turn in Spores must succeed a 11 Sense Check or it falls Asleep and its initiative becomes 0.
         The Dryad casts Sleep Spores every turn before Plant Attack.
   Passives:
-    - Treesposition: Instead of moving normally, the Drayd can touch a tree and teleport near another tree within 10 meters.
+    - Treesposition: Instead of moving normally, the Drayd can touch a tree and teleport near another tree within 10 meters (if not Silenced).
     - Vulnerabilities: Takes 150% Acid Damage.
     - Immunities: Immune to Poison Damage and Sleep.
     - Tree Bound (Non-Combat): Every Dryad is permanently bound to a tree. If that tree dies, the Dryad dies. Dryads keep their home tree secret and can't wander more than a few kilometers away without dying.
@@ -574,7 +594,7 @@ Dryad:
   Variants: None
   Story Ideas: |
     Players might hear a rumor about a place in the forest where there are forbidden Fruit of Knowledge trees. 
-    Eating such a fruit will grant a player Proficiency in any knowledge related Skill.
+    Eating such a fruit will make the player Skilled in anything knowledge-related.
     The Dryads, though, forbid the players from eating them, because the fruits are their children (literally).
     Will they leave, fight the Dryads or sneakily steal the fruit (of course, the Dryads know they are trying to sneak and will ambush the Players).
 
@@ -583,15 +603,16 @@ Naga:
   Degree:       Normal
   Experience:   275
   Stats:        4/3/2/2/2
-  Health:       80 (3 Protection)
+  Health:       80
   Armor:        5 (Innate)
+  HPCoef:       1
   Speed:        4 on land, 6 in water and shallow water
   Initiative:   5 if Mage, 1 if Warrior
   Abilities:
     - Warrior - Melee Weapon (2m):
         Damage: 2d6 + 1
         Chains: If rolled at least one 6 or 1, the target must succeed a 11 Might Check or be pulled to a solid object within 3 meters and be Rooted.
-    - Warrior - Harpoon (6m):
+    - Warrior - Harpoon (5m):
         Damage: 8 Pierce
         Pull: If rolled at least one 6, the target must succeed a 11 Might Check or be pulled to the Naga and be Slowed.
     - Mage - Frostbolt (10m):
@@ -635,6 +656,7 @@ Centaur:
   Stats:        4/2/0/2/2
   Health:       84
   Armor:        2
+  HPCoef:       1
   Speed:        8
   Initiative:   9
   Abilities:
@@ -688,7 +710,7 @@ Necromancer:
   Speed:        5
   Initiative:   12
   Abilities:
-    - Eldritch Bolt (6m):
+    - Eldritch Bolt (5m):
         Damage: 1d4 Damage + target's Might (Necrotic)
   Passives:
     - Necromantic Control: When in a group with other undead Unit(s), one undead is bond to this necromancer. When this necromancer dies, that undead dies as well.
@@ -718,6 +740,7 @@ Bug (Giant):
   Stats:        0/1/0/1/0
   Health:       1
   Armor:        7
+  HPCoef:       0.01
   Speed:        5
   Initiative:   1 if land, 3 if flying
   Abilities:
@@ -746,6 +769,7 @@ Hound:
   Experience:   50
   Stats:        -1/3/0/6/1
   Health:       10 (1 Protection)
+  HPCoef:       0.7
   Speed:        6
   Initiative:   6
   Abilities:
@@ -763,13 +787,13 @@ Hound:
   Role: Extra
   Variants: Mastiff, Undead Hound, Hell Hound
   
-  
 Camazot:
   Type:         Beast, Insect
   Experience:   50
   Stats:        -4/2/0/1/-2
   Health:       8
   Armor:        3
+  HPCoef:       0.8
   Speed:        6
   Initiative:   2
   Abilities:
@@ -797,6 +821,7 @@ Wolf:
   Experience:   75
   Stats:        1/3/-2/6/1
   Health:       19
+  HPCoef:       0.9
   Speed:        7
   Initiative:   5
   Abilities:
@@ -829,7 +854,7 @@ Bat Swarm:
   Abilities:
     - Attack: Half of its current HP (minimum 1).
   Passives:
-    - Flying: Flies. Does not Fumble when fleeing.
+    - Flying: Flies.
     - Swarmy: Takes double Damage from Area Abilities.
   Avoids AoE: No
   Behavior: |
@@ -845,6 +870,7 @@ Crab (Giant):
   Stats:        5/2/-2/1/0
   Health:       23
   Armor:        6
+  HPCoef:       1
   Speed:        5
   Initiative:   1
   Abilities:
@@ -870,6 +896,7 @@ Rat (Giant):
   Experience:   150
   Stats:        1/5/-2/4/0
   Health:       40
+  HPCoef:       0.85
   Speed:        6
   Initiative:   3
   Abilities:
@@ -894,6 +921,7 @@ Raptor:
   Experience:   175
   Stats:        3/3/-2/3/3
   Health:       50
+  HPCoef:       0.9
   Speed:        7
   Initiative:   7
   Abilities:
@@ -901,7 +929,6 @@ Raptor:
         Damage: 6 Slash (or 2d4 + 1)
   Passives:
     - Armor Breakers: Attacks ignore Defense, Protection and Shielding and immediately break all Protection and Shielding on the target.
-    - Evasive: Does not Fumble when fleeing.
     - Jumpers: Can freely jump up to 2 meters high.
   Avoids AoE: No
   Behavior: |
@@ -917,6 +944,7 @@ Spider (Giant):
   Experience:   200
   Stats:        3/4/0/5/0
   Health:       61
+  HPCoef:       0.8
   Speed:        7
   Initiative:   2
   Abilities:
@@ -951,6 +979,7 @@ Bear:
   Experience:   200
   Stats:        5/2/0/2/2
   Health:       65
+  HPCoef:       1
   Speed:        6
   Initiative:   2
   Abilities:
@@ -970,6 +999,7 @@ Pegasus:
   Experience:   200
   Stats:        1/1/3/3/3
   Health:       55
+  HPCoef:       0.85
   Speed:        6
   Initiative:   4
   Abilities:
@@ -998,16 +1028,17 @@ Cockatrice:
   Experience:   550 (225 x2)
   Stats:        3/4/0/4/3
   Health:       180
+  HPCoef:       1
   Speed:        4
   Initiative:   3
   Abilities:
-    - Stone Glare (6m range): |
+    - Stone Glare (5m range): |
         Target makes a 11 Grade Sense Check or it takes 1d8 Damage and is Crippled or Silenced (cockatrice chooses).
     - Tail Sweep (2m range): |
         Target and all units 1 meter from it make a 11 Grade Dexterity Check.
         On fail, they take 9 Smash Damage and are Fumbling (or 2d4 + 5).
         On success, they take half of that Damage.
-    - Talons (x2): 1d6 Pierce
+    - Talons: Make 2 attacks for 1d6 Pierce
   Passives:
     - Bloody Shriek: |
         When dropping below 50% HP, Cockatrice shrieks.
@@ -1031,6 +1062,7 @@ Boar (Dire):
   Stats:        5/1/-2/2/0
   Health:       54
   Armor:        4
+  HPCoef:       1
   Speed:        6
   Initiative:   3
   Abilities:
@@ -1057,18 +1089,19 @@ Stalacmantle:
   Stats:        1/2/0/2/1
   Health:       50
   Armor:        4
+  HPCoef:       0.85
   Speed:        5
   Initiative:   1
   Abilities:
     - Envelop:
         Damage: 8 Pierce (or 3d4)
         Facehug: |
-            If it did Damage, the Darkray remains attached to the target until the end of the target's turn (therefore, the target is in Darkness - has Cover; see Darkray's Passive Ability).
+            If it did Damage, the Stalacmantle remains attached to the target until the end of the target's turn (therefore, the target is in Darkness - has Cover; see Darkray's Passive Ability).
             If the unit underneath moves, the Stalacmantle makes a Dexterity Check. If it succeeds, it moves with the target until the end of its turn (unless it teleports).
   Passives:
     - Magic Absorption: Absorbs (cancels) the first Spell targeting it (the Actions used for it are lost) (apply common sense - Focus Fling is not absorbed).
     - Artificial Darkness: Emmits a beam of Magical Darkness right underneath it (provides Cover).
-    - Flyer: Flies.
+    - Flying: Flies.
     - Camouflage (Non-Combat): Indistinguishable from a stalagmite or stalactite.
   Avoids AoE: No
   Behavior: |
@@ -1091,6 +1124,7 @@ Rust Roach:
   Stats:        2/0/0/2/0
   Health:       35
   Armor:        7
+  HPCoef:       1
   Speed:        5
   Initiative:   1
   Abilities:
@@ -1128,13 +1162,14 @@ Phantrance:
   Experience:   250
   Stats:        0/3/0/2/2
   Health:       70  # Its attack can be a lot stronger than normal.
+  HPCoef:       0.7
   Speed:        7
   Initiative:   3
   Abilities:
     - Sleepless Dive: Attack a Unit for Slash/Pierce/Poison Damage equal to half the number of hours it has been awake.
   Passives:
     - Tiring Presence: Every round passing in combat counts as 2 hours of sleeplessness. Apply Exhaustion rules if necessary.
-    - Flier: Flies. Does not Fumble when fleeing. Can freely Break its Movement.
+    - Flier: Flies. Can freely Break its Movement.
   Avoids AoE: No
   Behavior: None
   Lore: None
@@ -1153,6 +1188,7 @@ Fire Snake:
   Stats:        2/3/0/3/2
   Health:       73
   Armor:        4
+  HPCoef:       1
   Speed:        5
   Initiative:   2
   Abilities:
@@ -1185,12 +1221,13 @@ Fairy Dragon:
   Experience:   500 (250 x2)
   Stats:        1/3/5/3/1
   Health:       190
+  HPCoef:       1
   Speed:        5
   Initiative:   5
   Abilities:
-    - Magic Bolt 1 (6m): Attack 2 units for 1d6 + 1 Force Damage.
+    - Magic Bolt 1 (5m): Attack 2 units for 1d6 + 1 Force Damage.
     - Blink: All units within 2 meters make a Grade 12 Sense Check or become Blinded. Then teleport up to 5 meters.
-    - Magic Bolt 2 (6m): Attack 2 units for 1d6 + 1 Force Damage.
+    - Magic Bolt 2 (5m): Attack 2 units for 1d6 + 1 Force Damage.
     - Force Wall (15 meters): Create transparent magical screen (3m tall, 5m wide) that nothing can pass through, except Magic Bolts. The screen has 7 HP and 7 Defense.
   Passives:
     - Absorb Magic: Whenever a non-Fairy Dragon casts a spell in combat, the Fairy Dragon gains +1 Damage with all Spells and attacks until the combat is over.
@@ -1225,15 +1262,15 @@ Hippogriff:
   Experience:   275
   Stats:        3/5/0/5/3
   Health:       95
+  HPCoef:       0.9
   Speed:        8
   Initiative:   7
   Abilities:
-    - Beak/Claws/Wings (x3):
-        Damage: 3 Pierce/Slash/Force (or 1d6)
+    - Beak/Claws/Wings:
+        Damage: Make 3 attacks for 3 Pierce/Slash/Force (or 1d6)
         Push: Each attack that did Damage pushes the target 1 meter. Target takes 1 extra Damage if it collided with something or had no space to be pushed.
   Passives:
     - Flyby Prone: When it enters the vecinity (1m) of a person, it must succeed a 11 Might Check or be Fumbling.
-    - Evasive: Does not Fumble when fleeing.
     - Flying: Can fly.
   Avoids AoE: No
   Behavior: |
@@ -1271,7 +1308,7 @@ Antheir:
     - Red Attack (Soldier):
         Damage: 3d4 Smash
         Ram: If rolled at least one 4 or 1, the target must succeed a 12 Grade Might Check or be Rooted or take 1d4 extra Damage, of its choice.
-    - Blue Attack (6m) (Mage):
+    - Blue Attack (5m) (Mage):
         Damage: 7 Acid (or 1d8 + 2)
         Bile: All units within 2 meters of target take half of the Damage taken by the main target.
     - Yellow Attack (2m) (Worker): |
@@ -1320,14 +1357,15 @@ Dragon Whelp:
   Experience:   350
   Stats:        1/2/3/2/1
   Health:       135
+  HPCoef:       1.05
   Speed:        6
   Initiative:   2
   Abilities:
-    - Breath (Fire) (6m): Attack the target and all units 2 meters from it for 8 Fire Damage (or 2d6 + 1).
+    - Breath (Fire) (5m): Attack the target and all units 2 meters from it for 8 Fire Damage (or 2d6 + 1).
     - Breath (Cold): Attack all targets in a 6x1 meter line for 8 Cold Damage (or 2d6 + 1).
-    - Breath (Shock) (6m):
+    - Breath (Shock) (5m):
         Damage: 8 Shock (or 2d6 + 1)
-        Chain Lightning: Hits the main target, another target within 4 meters of the main target and another target within 4 meters of the secondary target (against Defense).
+        Chain Lightning: Hits the main target, another target within 3 meters of the main target and another target within 3 meters of the secondary target (against Defense).
   Passives:
     - Elemental: A Dragon Whelp has one element (Fire, Cold, Shock, etc). Its Breath attack depends on its type. If your preferred element isn't here, just change one of the Breath attacks to match your element.
     - Elemental Resistance: Takes only 50% Damage from its elemental type.
@@ -1345,17 +1383,48 @@ Dragon Whelp:
   Role: Main Enemy
   Variants: Fairy Dragon Whelp (its element is Force and takes only 50% Fire, Cold, Shock and Force Damage).
 
+Tyrannosaurus:
+  Type:         Beast
+  Degree:       Epic x2
+  Experience:   800 (400 x2)
+  Stats:        6/2/0/2/5
+  HPCoef:       1
+  Speed:        4
+  Initiative:   9
+  Abilities:
+    - Ripping Bite (2m):
+        Damage: 3d6 + 1 Pierce
+        Bite Off: If this attack did at least 10 Damage, the Tyrannosaurus permanently bites off an arm of a leg (of target's choice). The target gets a Missing Arm or Missing Leg Feat.
+        Upgrade: Can only be used on the first Turn every Round.
+        Notes: Can't leave a target with less than 1 arm and 1 leg.
+    - Slam (1m to edge): Damage all Units in a 3x3 area for 2d8. If any of them is Large or larger, it becomes Dazed.
+  Heroics:
+    - Terrifying Roar (Round 2): Roar - all Units that can hear it must roll a Sense Check at least 11 or become Feared and Silenced.
+    - Tyrant King (Round 4): The Tyrannosaurus is enraged, and can now repeat Abilities (e.g. use Ripping Bite on both turns).
+  Passive:
+  Avoids AoE: No
+  Behavior: None
+  Lore: None
+  Suggested Obstacles:
+    None
+  Monster Data: No tactic, mid HP, no gimmick
+  Role: Main Enemy
+  Variants: None
+  Story Ideas: None
+  Valuable Loot: 1d8 intact T-Rex fangs worth 30g each, 1d4 intact T-Rex bones worth 25g each, T-Rex hide which is a rare valuable material worth 100g.
+
 Griphon:
   Type:         Beast
   Degree:       Normal
   Experience:   450
   Stats:        3/5/1/5/3
-  Health:       185 (3 Protection)
+  Health:       185
+  HPCoef:       1
   Speed:        7
   Initiative:   8
   Abilities:
-    - Beak/Claws (x5):
-        Damage: 1d4 Pierce or Slash (of choice)
+    - Beak/Claws:
+        Damage: Make 5 attacks for 1d4 Pierce or Slash (of choice)
         Defense Break: Every rolled 4 or 1 puts one Stunful token on the target. At 3 Stunful tokens, the target must succeed a Grade 11 Might Check or be Stunned (then remove the tokens).
   Passives:
     - Overwhelm: |
@@ -1399,7 +1468,7 @@ Behemoth:
         4 Damage (Slash/Pierce/Smash).
         Breaks all Large or smaller obstacles within 1 meter of the target.
     - Roar: All enemies that can hear the Behemoth take 3 Psychic Damage that ignores Defense.
-    - Throw Boulder (6m): 7 Damage (Smash). Target must succeed a Grade 12 Might Check or be Dazed or Rooted (its choice). This takes 2 turns.
+    - Throw Boulder (5m): 7 Damage (Smash). Target must succeed a Grade 12 Might Check or be Dazed or Rooted (its choice). This takes 2 turns.
     - Destroy (Last) (10m): Leap towards the (an) enemy that took the least Damage this round. They must succeed a Grade 12 Might Check, or take 2d6 Damage and be Stunned.
   Passives:
     - Nine Hide Layers: All Damage received is rounded down to a multiple of 9 (e.g. 13 becomes 9, 7 becomes 0, 47 becomes 45).
@@ -1427,6 +1496,7 @@ Chromatic Dragon:
   Stats:        7/1/3/3/5
   Health:       334
   Armor:        5
+  HPCoef:       1
   Speed:        3
   Initiative:   3
   Abilities:
@@ -1481,6 +1551,7 @@ Wild Fungus:
   Experience:   150
   Stats:        0/0/0/5/0
   Health:       35
+  HPCoef:       0.8
   Speed:        1
   Initiative:   0
   Abilities:
@@ -1507,7 +1578,8 @@ Harpy:
   Type:         Monster
   Experience:   225
   Stats:        1/6/0/2/2
-  Health:       65 (1 Protection)
+  Health:       65
+  HPCoef:       0.85
   Speed:        6
   Initiative:   5
   Abilities:
@@ -1518,7 +1590,6 @@ Harpy:
             On fail, the Harpy lifts the target, then flies with it with all remaining movement and drops it.
   Passives:
     - Charming Song: When the combat with Harpies starts, each player must succeed a 10 Sense Check or its Initiative is 0 this combat and become Fumbling (for 1 turn).
-    - Evasive: Does not Fumble when fleeing.
     - Mimick Song (Non-Combat): Harpies can mimick any song they have heard. Their voices can even reproduce sounds of instruments.
   Avoids AoE: Yes
   Behavior: |
@@ -1538,6 +1609,7 @@ Mimic:
   Experience:   250
   Stats:        2/-2/0/2/0
   Health:       90
+  HPCoef:       1
   Speed:        3
   Initiative:   8
   Abilities:
@@ -1587,11 +1659,12 @@ Gibberer:
   Experience:   300
   Stats:        1/1/1/1/5
   Health:       110
+  HPCoef:       0.97
   Speed:        4
   Initiative:   3
   Abilities:
     - Dark Whispers: |
-        All units within 4 meters of the Gibbering Mouther must succeed a 11 Sense Check or take 10 Psychic Damage and Gibbering Mouther chooses one of these commands (separately for each) that the unit must respect on its next turn:
+        All units within 3 meters of the Gibbering Mouther must succeed a 11 Sense Check or take 10 Psychic Damage and Gibbering Mouther chooses one of these commands (separately for each) that the unit must respect on its next turn:
         - Move Away: use all movement to move in a straight line in whatever direction they choose (they stop at obstacles; can still move aftewards if they have movement left)
         - Drop Weapon: drop their current weapon (or one of them); must use a Half-Action to pick it up again
         - Silence: becomes Silenced
@@ -1620,13 +1693,13 @@ Gibberer:
     How will they sneak in?
   Valuable Loot: None
 
-
 Ooze:
   Type:         Monster, Elemental, Other
   Degree:       Normal
   Experience:   325
   Stats:        3/3/0/3/0
   Health:       130
+  HPCoef:       1.03
   Speed:        4
   Initiative:   2
   Abilities:
@@ -1660,10 +1733,11 @@ Gelatinous Box:
   Stats:        3/0/0/3/0
   Health:       55
   Armor:        5
+  HPCoef:       0.8
   Speed:        4
   Initiative:   1
   Abilities:
-    - Blop (2m): Deal 1d8 Acid Damage to a Unit. Can only do this if nobody is Engulfed in it, but it would rather Dash 4 meters.
+    - Blop (2m): Deal 1d8 Acid Damage to a Unit. Can only do this if nobody is Engulfed in it, but it would rather Sprint 4 meters.
     - Digest (free): Deal 5 Acid Damage to all Units Engulfed inside (or 2d4).
   Passives:
     - Engulf: |
@@ -1693,13 +1767,17 @@ Mana Spawn:
   Experience:   50
   Stats:        -2/1/0/0/0
   Health:       13
+  HPCoef:       0.95
   Speed:        4
   Initiative:   0
   Abilities:
-    - Bite: 1d4 Force
-    - Spell Block (Reaction) (10m): When an enemy casts a Spell, the Spell is cancelled (Unit loses the Action and Mana for it). Then, the Mana Spawn dies (without triggering Detonation).
+    - Bite: 1d4 Pierce
+    - Spell Block:
+        A: Reaction
+        Range: 10 meters
+        Effect: When an enemy casts a Spell, the Spell is cancelled (Unit loses the Action and Mana for it). Then, the Mana Spawn dies (without triggering Detonation).
   Passives:
-    - Detonation: When killed by Damage, all enemies within 5 meters must succeed a Grade 10 Sense Check or be Silenced and take 1d4 Psychic Damage.
+    - Detonation: When killed by Damage, the closest enemy of the Mana Spawn takes 1d4 Psychic Damage and must pass a Sense Check at least 10 or be Silenced.
   Avoids AoE: No
   Behavior: |
     Gets in your face and is annoying.
@@ -1720,6 +1798,7 @@ Flying Weapon:
   Experience:   75
   Stats:        1/1/-5/-5/-5
   Health:       15
+  HPCoef:       0.66
   Speed:        7
   Initiative:   3
   Abilities:
@@ -1746,6 +1825,7 @@ Animated Armor:
   Stats:        5/0/0/0/0
   Health:       55
   Armor:        12
+  HPCoef:       1
   Speed:        4
   Initiative:   0
   Abilities:
@@ -1778,13 +1858,14 @@ Gargoyle:
   Stats:        7/0/0/0/0
   Health:       165
   Armor:        3
+  HPCoef:       1
   Speed:        3
   Initiative:   1
   Abilities:
     - Downslam:
         Damage: 7 Smash (or 2d6)
         Area Slam: This hits all units within 2 meters of the Gargoyle. Destroys all stone or wood obstacles hit, spreading debris.
-    - Wingdraw (6m): |
+    - Wingdraw (5m): |
         Target a Unit.
         Push away or pull (of choice) it and all other Medium or smaller Units within 2 meters of it in up to 3 meters.
         They all take 1d4 + 4 Force Damage.
@@ -1832,10 +1913,11 @@ Skeleton:
   Stats:        1/0/0/0/0
   Health:       11
   Armor:        2
+  HPCoef:       0.75
   Speed:        4
   Initiative:   0 Melee, 3 Ranged
   Abilities:
-    - Ranged (8m): 1d4
+    - Ranged (10m): 1d4
     - Melee: 1d4 (depending on weapon)
   Passives:
     - Rescramble: |
@@ -1864,6 +1946,7 @@ Zombie:
   Stats:        0/0/0/0/0
   Health:       17
   Armor:        4
+  HPCoef:       1
   Speed:        3
   Initiative:   2
   Abilities:
@@ -1891,6 +1974,7 @@ Mummy:
   Experience:   125
   Stats:        0/0/0/2/2
   Health:       35    # They have high Health because low Speed
+  HPCoef:       1.05
   Speed:        3
   Initiative:   3
   Abilities:
@@ -1926,6 +2010,7 @@ Wraith:
   Stats:        0/0/1/4/4
   Health:       25
   Armor:        0
+  HPCoef:       0.5
   Speed:        4
   Initiative:   1
   Abilities:
@@ -1933,7 +2018,7 @@ Wraith:
   Passives:
     - Resistances: Takes 50% Damage from all sources except True and Divine Damage.
     - Obscure: When within 2 meters of an enemy, the Wraith is completely invisible and can't be targeted (can still take Damage from AoE, DoT, etc). A Unit can make an attack in the air and roll a Grade 10 Luck Check to see if they actually hit by chance.
-    - Flyer: Flies. Does not Fumble when fleeing.
+    - Flying: Flies.
   Avoids AoE: No
   Behavior: Chases
   Lore: |
@@ -1955,13 +2040,14 @@ Ghoul:
   Experience:   175
   Stats:        3/3/-1/3/3
   Health:       50
+  HPCoef:       0.9
   Speed:        5
   Initiative:   3
   Abilities:
     - Claws/Bite: 5 Pierce or Slash (or 2d4)
   Passives:
     - Undead Fuel: +1 Damage for each fresh corpse in the battlefield
-    - Necrotic Aura: Living Units within 4 meters of a Ghoul can't recover Health.
+    - Necrotic Aura: Living Units within 3 meters of a Ghoul can't recover Health.
     - Darkvision: Can see in the dark.
     - Weakness: Takes 150% Fire Damage.
     - Resistances: Takes 50% Necrotic Damage.
@@ -1993,6 +2079,7 @@ Wight:
   Experience:   200
   Stats:        0/3/0/3/3
   Health:       45
+  HPCoef:       0.7
   Speed:        5
   Initiative:   -1
   Abilities:
@@ -2002,7 +2089,7 @@ Wight:
         # Effect: Half of all Damage done to Health (after Defense) also Damages the Reserve Health. It target has no Reserve Health, damage the normal Health instead. [Health Regen Retcon]
   Passives:
     - Aura of Decay: Units that can see or hear a Wight have their Sense and Charisma (the actual Stat) set to 0 (if it's more than 0).
-    - Flyer: Flies. Ignores Fumbling.
+    - Flying: Flies. Ignores Fumbling.
   Avoids AoE: No
   Behavior: Tries to hit Player Characters that have low Mana.
   Lore: None
@@ -2023,6 +2110,7 @@ Will-o-Wisp:
   Stats:        0/0/0/0/0
   Health:       25
   Armor:        3 (magical)
+  HPCoef:       0.5
   Speed:        4
   Initiative:   -1
   Abilities:
@@ -2053,16 +2141,15 @@ Strigoi:
   Experience:   250
   Stats:        2/4/0/4/2
   Health:       90
+  HPCoef:       1
   Speed:        6
   Initiative:   1
   Abilities:
-    - Claws (x1/x2/...):
-        Damage: 1d6 + 1 Slash
-        Effect: Strigoi can make a number of Claws attacks equal to the round number (x1, x2, x3, etc).
+    - Claws (x1/x2/...): Make a number of Claws attacks for 1d6 + 1 Slash each equal to the round number (x1, x2, x3, etc).
     - The Eyes (free) (once): A Unit that can see the Strigoi must succeed a Sense Check or be Charmed.
   Passives:
     - Semi-Undeath: When the Strigoi drops to 0 Health, it can still make its next turn and is immune to Damage until then. After its next turn, it dies.
-    - Leapers: Can freely jump 3 meters. Does not flee.
+    - Leapers: Can freely jump 3 meters.
     - Silver Fearer: Takes 150% Damage from attacks weapons coated in garlic tincture or silver.
   Avoids AoE: No
   Behavior: None
@@ -2084,6 +2171,7 @@ Edimmara:
   Stats:        5/5/0/0/0
   Health:       61
   Armor:        2
+  HPCoef:       0.6
   Speed:        5
   Initiative:   1
   Abilities:
@@ -2093,7 +2181,7 @@ Edimmara:
     - Infinite Reactions: Has unlimited Reactions (for Retaliation and Opportunity Attacks).
     - Retaliation: After a Unit affects the Edimmara in any way, if it's within 5 meters of it, the Edimmara runs towards that Unit and attacks it at 2 meters range.
     - Opportunity Attacks: When a Unit Flees from the Edimmara, the Edimmara can make a free attack on it.
-    - Immunities: Immune to Blind and Hard Terrain. Does not Fumble when fleeing.
+    - Immunities: Immune to Blind and Hard Terrain.
     - Vulnerabilities: Damage with garlic tincture and silver can't be healed and make the Edimmara Fumbling until the end of its next turn (which counts as Crowd Control, so it prevents healing).
   Avoids AoE: Yes
   Behavior: Gets in the middle of the fight and tries to attack everyone with its Retaliation.
@@ -2116,6 +2204,7 @@ Ghast:
   Experience:   325
   Stats:        0/0/0/0/5
   Health:       65
+  HPCoef:       0.5
   Speed:        4
   Initiative:   1
   Abilities:
@@ -2156,6 +2245,7 @@ Bou-Bou:
   Stats:        6/2/0/0/0
   Health:       420
   Armor:        69
+  HPCoef:       1
   Speed:        4
   Initiative:   3
   Abilities:
@@ -2181,6 +2271,7 @@ Lich:
   Experience:   900 (300 x3)
   Stats:        1/1/6/3/3
   Health:       300
+  HPCoef:       1
   Speed:        3
   Initiative:   2
   Abilities:
@@ -2193,7 +2284,7 @@ Lich:
     - Asphyxiate (10m): Up to 3 Units must make a Sense Check or take 1d6 + 3 Force Damage (or half on pass) and be Crowd Controlled. Roll 1d4 (once) for the CC type - 1. Dazed, 2. Fumbling, 3. Sleep, 4. Feared.
   Passives:
     - Finger of Death (Reaction) (10m): When a Unit takes Damage and is at or below 33% Health, shoot a death ray for 8 Damage towards it (against Defense) (or 3d4).
-    - Teleportation: When the Lich moves, it teleports (e.g. Flashes). Alternatively, it can fly.
+    - Teleportation: When the Lich moves, it teleports to the destination within Movement (if not Silenced). Alternatively, it can fly  (if not Silenced).
     - Resistances: Takes only 50% Psychic, Necrotic and Poison Damage.
     - Darkvision: Can perceive in the dark.
     - Spellcasting (non-combat): Can cast miscelaneous spells like Light, Bonfire, etc.
@@ -2225,13 +2316,14 @@ Gasha:
   Experience:   500
   Stats:        8/0/0/0/0
   Health:       200
+  HPCoef:       0.8
   Speed:        6
   Initiative:   1
   Abilities:
     - Smash (5x5 area, 1m to edge): 12 Smash (or 1d8 + 8)
   Passives:
     - Impenetrable Bones: Takes no Damage from missiles (e.g. arrows, Magic Missiles, Flamebolt, etc).
-    - Materialize: For 0 Actions, the Gasha can turn into smoke and ash and disappear, teleport or appear. How, when and why they do this is unknown, though a lot of the time a strange ringing noise can be heard before one appearing.
+    - Materialize: For 0 Actions, the Gasha can turn into smoke and ash and disappear, teleport or appear (if not Silenced). How, when and why they do this is unknown, though a lot of the time a strange ringing noise can be heard before one appearing.
     - Resistances: Takes only 50% Necrotic, Fire, Poison and Pierce Damage.
     - Immunities: Immune to Hard Terrain, Fumbling, Fear and Charm.
   Avoids AoE: No
@@ -2259,6 +2351,7 @@ Imp:
   Experience:   100
   Stats:        -1/3/1/0/1
   Health:       25
+  HPCoef:       0.85
   Speed:        6
   Initiative:   3
   Abilities:
@@ -2285,7 +2378,8 @@ Kasu:
   Degree:       Normal
   Experience:   100
   Stats:        0/5/2/0/0
-  Health:       15 (2 Protection)
+  Health:       15
+  HPCoef:       0.6
   Speed:        8
   Initiative:   0
   Abilities:
@@ -2296,7 +2390,7 @@ Kasu:
         If this one dies, the Kasu dies too.
         Apply common sense to whether a corpse is possessable (e.g. golems and destroyed corpses are probably not).
   Passives:
-    - Flyer: Flies. Does not Fumble when fleeing.
+    - Flying: Flies.
   Avoids AoE: No
   Behavior: |
     In combat, the Kasu will hang out in the back and avoid Damage, but stay in range of other monsters.
@@ -2320,6 +2414,7 @@ Moroy:
   Stats:        2/2/0/0/2
   Health:       50
   Armor:        -2
+  HPCoef:       1
   Speed:        4
   Initiative:   5
   Abilities:
@@ -2328,7 +2423,7 @@ Moroy:
         Strangle: On 5, 6, 7 and 8, target must succeed a Grade 10 Might Check or be Fumbling and Slowed.
   Passives:
     - Minus 3 Defense: Takes 2 extra damage from all sources.
-    - Flyer: Flies. Does not Fumble when fleeing.
+    - Flying: Flies.
   Avoids AoE: No
   Behavior: |
     Note the negative Defense - Moroy are fleshy and easy to hit
@@ -2349,6 +2444,7 @@ Flame Skull:
   Stats:        -2/4/0/0/0
   Health:       25
   Armor:        4
+  HPCoef:       0.9
   Speed:        4
   Initiative:   3
   Abilities:
@@ -2356,7 +2452,7 @@ Flame Skull:
     - Fire! (15m): Shoot that Unit for 10 Fire Damage (or 4d4). Walls block the attack, but the impact is strong enough to break many walls and obstacles.
   Passives:
     - Resistances: Takes only 50% Pierce, Psychic and Fire Damage.
-    - Flier: Flies. Does not Fumble when fleeing.
+    - Flier: Flies.
   Avoids AoE: Yes
   Behavior: |
     Pair with other types of demons, like Imps and Cambions.
@@ -2377,7 +2473,8 @@ Likho:
   Degree:       Epic
   Experience:   200 (100 x2)
   Stats:        2/0/1/2/1
-  Health:       28 (4 Protection)
+  Health:       28
+  HPCoef:       1
   Speed:        2
   Initiative:   -2
   Abilities:
@@ -2407,6 +2504,7 @@ Cambion:
   Experience:   200
   Stats:        3/3/0/2/2
   Health:       65
+  HPCoef:       1
   Speed:        6
   Initiative:   4
   Abilities:
@@ -2417,7 +2515,7 @@ Cambion:
     - Flame Burst: When the Cambion takes Damage, deal 2 Fire Damage to all non-Cambion Units within 3 meters (directly, ignoring Defense).
     - Flame Ray (Reaction): When a Unit exits Cambion's 5 meter range area, make a free attack on that Unit for 1d8 Fire Damage. That Unit can't be targeted by another Flame Ray until the end of its turn.
     - Resistances: Takes only 50% Fire Damage.
-    - Flyer: Flies. Does not Fumble when fleeing.
+    - Flying: Flies (if not Silenced).
   Avoids AoE: No
   Behavior: |
     Goes head-first into as many enemies as possible, to hit as many as it can with Flame Burst and make them run away so it can do a Flame Ray.
@@ -2443,6 +2541,7 @@ Oni:
   Experience:   550 (275 x2)
   Stats:        5/1/3/1/5
   Health:       180
+  HPCoef:       1
   Speed:        3
   Initiative:   2
   Abilities:
@@ -2456,7 +2555,7 @@ Oni:
         Two Units become affected by the Gauze of Death.
         At the end of their next turn, they take 3d4 + 4 Necrotic Damage unless they were healed for at least 1 Health until then.
   Passives:
-    - Big Footed: Immune to Hard Terrain. Does not Fumble when fleeing.
+    - Big Footed: Immune to Hard Terrain.
     - Magic: Can cast small utility Spells like Light, Magic Tricks, etc.
   Avoids AoE: No
   Behavior: |
@@ -2483,6 +2582,7 @@ Nuckelavee:
   Experience:   250
   Stats:        4/4/0/1/2
   Health:       135
+  HPCoef:       1.25
   Speed:        7
   Initiative:   3
   Abilities:
@@ -2491,7 +2591,6 @@ Nuckelavee:
         Effect: For each 1 and 4 rolled, applies (1) Bleed to the target for its next turn. On its next turn, every time it does anything, it takes Damage equal to its Bleed (directly, ignoring Defense).
   Passives:
     - Runner: After every time it takes Damage, it can freely move up to 2 meters.
-    - Evasive: Does not Fumble when fleeing.
     - Weaknesses: Takes 150% Slash and Pierce Damage.
   Avoids AoE: No
   Behavior: None
@@ -2514,6 +2613,7 @@ Dullahan:
   Stats:        4/3/1/1/4
   Health:       155
   Armor:        5
+  HPCoef:       1
   Speed:        6
   Initiative:   0
   Abilities:
@@ -2522,7 +2622,6 @@ Dullahan:
   Passives:
     - Death Strike: If the Dullahan took Damage 3 or more times this Round, its first attack every turn deals 17 Damage (instead of 11).
     - Movement Breaker: Can Break their Movement.
-    - Evasive: Does not Fumble when fleeing.
     - Immunities: Immune to Psychic Damage and to being Blinded and Feared (you know, because they have no head).
   Avoids AoE: No
   Behavior: |
@@ -2550,7 +2649,7 @@ Chernobog:
   Abilities:
     - Fist Smash (3m):
         Damage: 19 Smash
-        Effect: If target is Medium or smaller, it is pushed 4 meters in any direction (Chernobog chooses).
+        Effect: If target is Medium or smaller, it is pushed 5 meters in any direction (Chernobog chooses).
     - Flame Waves (20m): |
         All Units within exactly an even number of meters from the Chernobog take 1d10 + 11 Fire Damage.
     - Soul Lock: |
@@ -2582,10 +2681,12 @@ Sandman:
   Experience:   150
   Stats:        0/5/0/5/0
   Health:       40 (half is Shielding)
+  Shielding:    half is shielding
+  HPCoef:       0.75
   Speed:        5
   Initiative:   4
   Abilities:
-    - Scratch (x2): 1d4 Slash
+    - Scratch: Make 2 attacks for 1d4 Slash
   Passives:
     - Sandstorm: |
         When Sandman is revealed (or whenever it wants), it creates a 4x4 sand storm at its location (free Action).
@@ -2625,6 +2726,7 @@ Shadow:
   Stats:        0/0/0/5/5
   Health:       5
   Armor:        0
+  HPCoef:       0.25
   Speed:        5
   Initiative:   5
   Abilities:
@@ -2658,6 +2760,7 @@ Bubak:
   Experience:   275
   Stats:        0/0/2/3/6
   Health:       100
+  HPCoef:       1
   Speed:        4
   Initiative:   2
   Abilities:
@@ -2703,6 +2806,7 @@ Singularity:
   Experience:   1000 (500 x2)
   Stats:        0/0/5/5/0
   Health:       375
+  HPCoef:       0.7
   Speed:        3
   Initiative:   0
   Abilities:
@@ -2778,6 +2882,7 @@ KingBolgurWithWyvern:
   Stats:        4/4/1/4/4
   Health:       490
   Armor:        3
+  HPCoef:       1
   Speed:        3
   Initiative:   4
   Abilities:
@@ -2812,6 +2917,7 @@ KingBolgur:
   Stats:        4/4/1/4/4
   Health:       275
   Armor:        3
+  HPCoef:       1
   Speed:        3
   Initiative:   12
   Abilities:
@@ -2846,6 +2952,7 @@ BlackWyvern:
   Stats:        2/5/0/5/2
   Health:       275
   Armor:        0
+  HPCoef:       1
   Speed:        4
   Initiative:   7
   Abilities:
@@ -2917,6 +3024,7 @@ Domovoy:
   Stats:        1/1/2/3/-2
   Health:       30
   Armor:        1
+  HPCoef:       1
   Speed:        5
   Initiative:   0
   Abilities:
@@ -2965,6 +3073,7 @@ Satyr:
   Stats:        1/5/2/5/5
   Health:       43
   Armor:        3
+  HPCoef:       1
   Speed:        6
   Initiative:   15
   Abilities:
@@ -2972,7 +3081,7 @@ Satyr:
   # Abilities:
   #   - High Note: 2d8 Psychic to all units that can hear him (against Defense)
   #   - Melee Weapon: 1d8 + 3
-  #   - Curse of Laughter (6m range): |
+  #   - Curse of Laughter (5m range): |
   #       A target rolls a 12 Grade Sense Check.
   #       If it fails, it starts laughing uncontrolably and is Paralyzed.
   #   - Blessing of Joy: |
@@ -3015,6 +3124,7 @@ Milonitse:
   Stats:        0/0/5/5/0
   Health:       60
   Armor:        5
+  HPCoef:       1
   Speed:        5
   Initiative:   14
   Abilities:
@@ -3052,3 +3162,30 @@ Milonitse:
 
 
 
+Whispershade:
+  Type:         Undead, Whispervale
+  Degree:       Normal
+  Experience:   75
+  Stats:        0/1/0/1/0
+  Health:       19
+  Armor:        0
+  HPCoef:       1
+  Speed:        5 (Flies)
+  Initiative:   7
+  Abilities:
+    - Cursed Attack:
+        Damage: 1d6
+        Effect: Inflicts a Curse Mark on the target if it doesn't already have one (see story for explanation).
+  Passives:
+    - Resistances: Takes 50% less Necrotic Damage.
+    - Weaknesses: Takes 50% more Divine Damage.
+  Avoids AoE: No
+  Behavior: Attacks the closest target and fights until death.
+  Lore: None
+  Suggested Obstacles:
+    None
+  Monster Data: No tactic, mid HP, no gimmick
+  Role: Main Enemy
+  Variants: None
+  Story Ideas: None
+  Valuable Loot: None

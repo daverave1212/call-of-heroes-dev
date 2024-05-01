@@ -94,13 +94,13 @@ export default function PetOrAnimal() {
                     </div>
 
                     { animal.Druid != null && (
-                        <SmallStat topDown={true} name="Druid Extras">{animal.Druid}</SmallStat>
+                        <SmallStat type="vertical" name="Druid Extras">{animal.Druid}</SmallStat>
                     ) }
 
                     <Separator/>
                     <div style={{display: 'flex', justifyContent: 'space-around', gap: '10px'}}>
                         { animalStats.map(nameValue => (
-                            <SmallStat style={{width: '19%'}} contentStyle={{width: '100%', textAlign: 'center'}} name={nameValue.name} topDown={true}>{nameValue.value}</SmallStat>
+                            <SmallStat style={{width: '19%'}} contentStyle={{width: '100%', textAlign: 'center'}} name={nameValue.name} type="vertical">{nameValue.value}</SmallStat>
                         )) }
                     </div>
                     <Separator/>

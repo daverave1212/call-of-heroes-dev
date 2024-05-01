@@ -1,16 +1,14 @@
 {
     "Class": "Warrior",
-    "Description": "Warriors are highly trained combat experts",
+    "Description": "With a resounding impact, the greatsword cleaves through the air, connecting with the beast's tail in a mighty blow. The wyvern wheels around, its massive jaws primed to ensnare the warrior in their deadly embrace. In a daring maneuver, the fighter relinquishes her blade, seizing the wyvern's jaw in a vice-like grip, diverting its momentum towards a nearby tree. She ascends onto the creature's head, plunging her blade deep into its eye with lethal precision. It is then that you observe a miraculous sight: her previously bloody wounds have miraculously sealed, as if cauterized by the scorching heat of battle and the coursing adrenaline of combat.\nWarriors are talented in using any type of weapon, with hand-to-hand combat capabilities way beyond the average adventurer. Brawn and tactics are a warrior's aces in the sleeve.\nA warrior is a physical combatant, but that does not stop them from overcoming challenges. With mastery over arms, body or range, a warrior may improvise and lead their way to victory.\n",
     "Armor Training": "Heavy Armor",
     "Difficulty": "Easy-Medium",
-    "Proficiency Requirements": "You have Proficiency in Athletics, Acrobatics and a number of extra Proficiencies equal to your Intelligence.",
+    "Proficiency Requirements": "You have Skilled in Athletics, Acrobatics and have a number of extra non-combat Skills equal to your Intelligence.",
     "Proficiencies": {
-        "~Proficiency in Athletics~": {
-            "Display Name": "Prof. in Athletics",
+        "~Skilled in Athletics~": {
             "Effect": "Add your Level to all Might Checks for using your physical strength (e.g. lifting, breaking by hand, etc)."
         },
-        "~Proficiency in Acrobatics~": {
-            "Display Name": "Prof. in Acrobatics",
+        "~Skilled in Acrobatics~": {
             "Effect": "Add your Level to all Dexterity Checks for jumping, climbing, fitting through gaps, maintaining balance and other acrobatic moves."
         }
     },
@@ -68,13 +66,14 @@
             "Effect": "The first time you Flank-Attack an enemy every turn, the attack deals 1d6 Damage instead of just +1.\nAlso, your melee weapon attacks Flank an enemy if they are pinned against a wall or an obstacle as well.\n",
             "Note": "Flanking is when you melee-attack an enemy, and an ally of yours is directly behind the enemy.\nAlso, instead of an ally being behind the enemy, your attacks count as Flanking even if there is a wall or another obstacle directly behind them.\n"
         },
-        "~Rout~": {
+        "~Charge~": {
             "_Value": 1,
             "AlignOnWebsite": "Left",
-            "A": "Passive",
+            "A": "0 Actions",
             "HasMixins": true,
-            "Effect": "When ^you^ enter within 1 meter of an Enemy, it instantly becomes Fumbling.\nThen it can't be affected by Rout for the rest of the combat.\n",
-            "Notes": "Multiple Warriors can't Rout the same Unit multiple times.\nRout happens when you are not in an Enemy's vicinity, and you move (or are moved) and enter its vicinity. You don't need to end your movement there to trigger Rout on it - you can enter then exit its vicinity and Rout will trigger on it.\n"
+            "Range": "3 meters",
+            "Cooldown": "Once / Turn",
+            "Effect": "Freely dash 1 up to 3 meters towards a Worthy Enemy, landing on the closest space. It becomes Fumbling.\nYou can only use this once on every Worthy Enemy.\n"
         }
     },
     "Starting Abilities Description": [
@@ -99,12 +98,13 @@
                     "_Value": 1,
                     "A": "Special",
                     "Cooldown": "Once / Turn",
-                    "Effect": "Immediately after you make a weapon attack, use Dash, Push, Taunt or Hamstring for free. The target rolls no Check - it is applied instantly."
+                    "Effect": "Immediately after you make a weapon attack, use Sprint, Push, Taunt or Hamstring for free.",
+                    "Notes": "Sprint (run up to 2 meters), Push (push a non-Epic medium-sized Unit 1 meter in any direction), Taunt (make a Unit have -2 on its next attack if it's not on you), Hamstring (slow a Unit)."
                 },
                 "<Opportunity Attacks>": {
                     "_Value": 0.75,
                     "A": "Reaction",
-                    "Effect": "When an enemy moves 2 or more meters away from near you, you can make a free attack on them with a 1-Handed Melee Weapon.\n",
+                    "Effect": "When an enemy moves 1 or more meters away from near you, you can make a free attack on them with a 1-Handed Melee Weapon.\n",
                     "Notes": "If you don't have a 1-Handed Weapone equipped, you automatically freely equip one, attack with it, unequip it and equip what you previously had."
                 }
             },
@@ -120,9 +120,24 @@
                     "<Weaponmaster>": {
                         "_Value": 1,
                         "A": "Passive",
-                        "Effect": "When you get this, choose one weapon type.\nYou have that weapon effect too on all weapons you use, exactly as written, no matter what weapon you are using.\nYou can change this weapon type inbetween Adventures.\n",
-                        "Upgrade": "The following weapon types can't be chosen: Punch, Dagger, Sling",
-                        "Notes": "Pay very close attention to the weapon effect - for example, Katana specifies that you Critical Strike with it when all 3 dice have the same number, so this can only apply to weapons that roll exactly 3 dice. Or, for another example, Slings say that attacks specifically with Slings take 0.33 Actions, so it can not apply to any other weapon!\nWeapons stating \"the die\" (or such) now refer to any one die of the dice rolled, of choice (if multiple).\n"
+                        "Effect": "Your weapon attacks have an extra effect.\nWhen you get this, choose one weapon effect from the list below.\nYou also have that weapon effect on all weapons you use, exactly as written, no matter what weapon you are using.\nYou can change this weapon effect between combats.\n",
+                        "Notes": "Pay very close attention to the weapon effect - for example, Katana specifies that you Critical Strike with it when all 3 dice have the same number, so this can only apply to weapons that roll exactly 3 dice. Or, for another example, Slings say that attacks specifically with Slings take 0.33 Actions, so it can not apply to any other weapon!\nWeapons stating \"the die\" (or such) now refer to any one die of the dice rolled, of choice (if multiple).\n",
+                        "DoubleTable": {
+                            "Headers": [
+                                "Name",
+                                ""
+                            ],
+                            "Values": [
+                                "Mace",
+                                "Cleaver",
+                                "Rapier",
+                                "Spear",
+                                "Warhammer",
+                                "Trident",
+                                "Quarterstaff",
+                                "Blowgun"
+                            ]
+                        }
                     },
                     "~Upper Hand~": {
                         "_Value": 1.5,
@@ -156,7 +171,7 @@
                     "<Personal Squire>": {
                         "_Value": 3,
                         "A": "Special",
-                        "Effect": "You recruit a squire - a trusted NPC who gains combat powers. However, the capabilities of your squire are random: roll 1d6 to determine the type of your squire, based on the Squires category at Pets and Animals (1. Bold, 2. Sneaky, 3. Clever, 4. Wise). The Race is determined by the GM or by circumstance.\nOn its turn, it can do one Pet Attack, cast one Ability it has, or do the equivalent of a Half-Action (e.g. Dash, Defend, etc).\nYou can recruit one squire per Adventure, but only one can follow you in your adventures at a time.\nAt the start of every Adventure (and when you get this Talent), you must spend 1 Mana and train your Squire to permanently increase its Health by 2 or gain one Ability from any other Squire type.\n",
+                        "Effect": "You recruit a squire - a trusted NPC who gains combat powers. However, the capabilities of your squire are random: roll 1d6 to determine the type of your squire, based on the Squires category at Pets and Animals (1. Bold, 2. Sneaky, 3. Clever, 4. Wise). The Race is determined by the QM or by circumstance.\nOn its turn, it can do one Pet Attack, cast one Ability it has, or do the equivalent of a Half-Action (e.g. Dash, Push, etc).\nYou can recruit one squire per Adventure, but only one can follow you in your adventures at a time.\nAt the start of every Adventure (and when you get this Talent), you must spend 1 Mana and train your Squire to permanently increase its Health by 2 or gain one Ability from any other Squire type.\n",
                         "Upgrade": "If your squire drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your squire's wounds and heal it back to full Health.",
                         "Notes": "Your squire is not a Player Character by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Player Character can). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!"
                     },
@@ -183,12 +198,15 @@
                     "_Value": 1.25,
                     "A": "Passive",
                     "HasMixins": true,
-                    "Effect": "Whenever ^YOU^ kill a Worthy Enemy, heal for 1d6 Health. In addition, if an Enemy has 25% or less Health, you know exactly how much Health it has (ask the GM)."
+                    "Effect": "Whenever ^YOU^ kill a Worthy Enemy, heal for 1d6 Health. In addition, if an Enemy has 25% or less Health, you know exactly how much Health it has (ask the QM)."
                 },
-                "~Reckless Attack~": {
+                "~Reckless Charge~": {
                     "A": "0 Actions",
-                    "Effect": "After you land a weapon attack, deal 2d6 extra Damage to the target and half of that to yourself.",
-                    "Notes": "Your part of the Damage can't be mitigated by Defense, Resistances, etc."
+                    "HasMixins": true,
+                    "Range": "3 meters",
+                    "Replacement": "Replaces Charge",
+                    "Cooldown": "Once / Turn",
+                    "Effect": "Freely dash 1 up to 3 meters towards a Worthy Enemy, landing on the closest space. It becomes Fumbling.\n~Your next weapon attack deals 2d6 extra Damage to the target and half of that to yourself.~\nYou can only use this once on every Worthy Enemy.\n"
                 },
                 "~Blood Boil~": {
                     "A": "0 Actions",
@@ -273,11 +291,14 @@
         "Marksman": {
             "Description": "Lorem ipsum dolor sit amet.",
             "Starting Abilities": {
-                "~Marksmanship~": {
+                "~Uncharge~": {
                     "_Value": 0.25,
-                    "A": "Passive",
-                    "Effect": "YOU can flank a Unit from up to 6 meters away (if you, the target and the ally/wall/obstacle are on the same line).\n",
-                    "Notes": "As usual, that wall/obstacle/ally helping with your flank must right behind the target (meaning allies can't flank an enemy with you being 6 meters away)."
+                    "A": "0 Actions",
+                    "HasMixins": true,
+                    "Range": "3 meters",
+                    "Replacement": "Replaces Charge",
+                    "Cooldown": "Once / Turn",
+                    "Effect": "~Freely dash up to 3 meters away from a Worthy Enemy~. It becomes Fumbling.\nYou can only use this once on every Worthy Enemy.\n"
                 },
                 "~Load Up~": {
                     "_Value": 1,
@@ -343,11 +364,6 @@
                     }
                 },
                 "Level 7": {
-                    "<Range Control>": {
-                        "_Value": 1.25,
-                        "A": "Passive",
-                        "Effect": "Rout is applied when entering within 6 meters of an Enemy.\nWhenever you make an enemy Fumbling, cast Load Up for free.\n"
-                    },
                     "<Surprise Shot>": {
                         "_Value": 2.25,
                         "A": "Passive",

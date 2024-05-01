@@ -35,7 +35,9 @@ export default function() {
 
             <LandingPageSeparator type="8"/>
 
-            <div className="hero-page">
+
+
+            <div className="hero-page landscape-only">
                 <div className='hero-image-container reversed'>
                     <img src="/LandingPage/Learn3.png" style={{height: '80%', marginTop: '5%'}}/>
                 </div>
@@ -58,6 +60,32 @@ export default function() {
 
                 </div>
             </div>
+
+            <div className="hero-page portrait-only">
+                <div className='hero-image-container smaller'>
+                    <img src="/LandingPage/Learn3.png" style={{height: '80%', marginTop: '5%'}}/>
+                </div>
+
+                <div className='hero-content'>
+                    <h1 className="hero-logo-text">For <span style={{color: '#880000'}}>D&D</span> Players</h1>
+                    <p className='home-text-style' style={{textAlign: 'center'}}>
+                        If you're familiar with Dungeons and Dragons or Pathfinder, check out this transition guide. It explains the differences and how to transition smoothly to Questguard.
+                    </p>
+                    
+                    <div className='hero-buttons'>
+                        <button className='Basic-button'>
+                            <Link to="/Other/TransitionGuide">Transition Guide</Link>
+                        </button>
+                        <div className='hero-buttons-separators'>
+                            <img src="/button-separator.png"/>
+                            <img src="/button-separator-reversed.png"/>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+ 
 
             <LandingPageSeparator type="8"/>
 

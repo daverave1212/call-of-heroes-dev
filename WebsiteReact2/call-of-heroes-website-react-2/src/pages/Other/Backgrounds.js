@@ -39,8 +39,8 @@ export default function Backgrounds() {
             <p>{ cbg.Description }</p>
             <div className='with-margined-children'>
                 <SmallStat color="var(--dark-green)" name="Starting Money">{ cbg.Money }<Icon name="Gold"/></SmallStat>
-                <SmallStat color="var(--dark-green)" name="Languages" topDown={true}>{cbg.Language}</SmallStat>
-                <SmallStat color="var(--dark-green)" name="Training" topDown={true}>{cbg.Training}</SmallStat>
+                <SmallStat color="var(--dark-green)" name="Languages" type="vertical">{cbg.Language}</SmallStat>
+                <SmallStat color="var(--dark-green)" name="Training" type="vertical">{cbg.Training}</SmallStat>
             </div>
 
             <PageH2>Backgrounds</PageH2>
@@ -51,10 +51,10 @@ export default function Backgrounds() {
                     <div className='with-margined-children'>
                         <SmallStat color="var(--dark-green)" name="Starting Money">{ bg.Money }<Icon name="Gold"/></SmallStat>
                         { bg.Language != null && (
-                            <SmallStat color="var(--dark-green)" name="Languages" topDown={true}>{bg.Language}</SmallStat>
+                            <SmallStat color="var(--dark-green)" name="Languages" type="vertical">{bg.Language}</SmallStat>
                         ) }
                         { bg.Training != null && (
-                            <SmallStat color="var(--dark-green)" name="Training" topDown={true}>{bg.Training}</SmallStat>
+                            <SmallStat color="var(--dark-green)" name="Training" type="vertical">{bg.Training}</SmallStat>
                         ) }
                         { bg.Abilities != null && (
                             Object.keys(bg.Abilities).length == 1? (

@@ -1,20 +1,19 @@
 {
     "Class": "Shaman",
-    "Description": "Shaman are people in close attunement with the spirits.",
+    "Description": "A storm gathers strength on the horizon - a sign of the wrathful spirits that stir with agitation. The seer gazes upon you, eyes as white and cold as frost, peering beyond the mundane realm into the shadowed depths of your soul. \"You are not prepared,\" he intones. Another member of the tribe emerges, draped in a hide of a wolf, arms brown and blue inscribed with unknown marks and a hefty axe resting upon his back. \"The ritual must continue\" he declares. \"We are but frail beings, in these mortal vessels, and the spirit realm draws close. Alone, we stand defenseless.\"\nShamans are spirit guides and warriors of the other realm who often engage in ancient rituals and soul magic beyond most mortals' comprehension. Through body, mind or soul, each shaman finds their way to commune with or destroy the spirits haunting or aiding the lands.\nA shaman is a fierce warrior and a powerful spellcaster who taps into their ancestry to empower magic, survive inhumane conditions, or even engage in occult practices to better flow with the world around them.\n",
     "Armor Training": "Light Armor",
     "Weapons": "You are Trained in 2 Weapon Categories of choice (e.g. 1-Handed Melee, 2-Handed Ranged, Shields, etc).",
     "Difficulty": "Medium",
-    "Proficiency Requirements": "You have Proficiency in Occultism and a number of extra Proficiencies equal to your Intelligence.",
+    "Proficiency Requirements": "You have Skilled in Occultism and have a number of extra non-combat Skills equal to your Intelligence.",
     "Proficiencies": {
-        "~Proficiency in Occultism~": {
-            "Display Name": "Prof. in Occultism",
+        "~Skilled in Occultism~": {
             "Effect": "Add your Level to all Checks for knowing about demons or undead, rituals, myths or cryptids, black magic, etc."
         }
     },
-    "Proficiencies Description": "No two shamans are alike - each specializes in a different type of magic, with different customs and personalized rituals and beliefs. As such, you have Proficiencies in Occultism, and any extra proficiencies you need based on your intelligence.\n",
+    "Proficiencies Description": "No two shamans are alike - each specializes in a different type of magic, with different customs and personalized rituals and beliefs. As such, you are Skilled in Occultism, and any extra Skills you need based, on your intelligence.\n",
     "Level Up": {
         "Every Level": {
-            "Health": 5
+            "Health": 4
         }
     },
     "Spellcasting": {
@@ -65,10 +64,10 @@
     "Starting Abilities": {
         "~Echoes~": {
             "A": "Passive",
-            "Cooldown": "Each Spell can only echo once per Combat",
+            "Cooldown": "Each Ability can only echo once per Combat",
             "HasMixins": true,
-            "Effect": "After you cast a Basic Ability you spent Mana on, if you roll maximum on at least one ^immediate^ Damage or Healing die, the Ability _echoes_ and you cast it again (for 0 Actions), but all Damage or Healing it does is reduced by 50%.\nThe _echoed_ Ability can't affect the same target(s) or area.\n",
-            "Notes": "Immediate means not delayed, not over time, etc (e.g. Scorching Rays, Healing Surge, Mind Blast are immediate; Explosion Rune, Curse of Pain, etc are not immediate). _Echoing_ can only happen if you roll maximum on the initial cast (when you spend the Mana), even if there's more Damage or Healing later (e.g. Crackling Lightning _echoes_ only if you roll maximum the moment you cast it).\nIf the area overlaps the initial area, the overlapped part has no effect. If it hits the same target(s), it has no effect on them.\nTake the Ability text as it is - _echoing_ Lightning Storm repeats the initial Damage, but you'd have to spend another 1 Action to retrigger the second Lightning Storm.\nThe GM has the word on whether something is possible.\n"
+            "Effect": "After you cast a Basic Ability, roll 1d10.\nIf you rolled 10 on it, the Ability _echoes_ and you cast it again (for 0 Actions), but ^all^ Damage or Healing it does is reduced by 50%.\nThe _echoed_ Ability can't affect the same target(s) or area.\n",
+            "Notes": "Abilities like Recuperate can't _echo_, since the only possible target is yourself.\nIf the area overlaps the initial area, the overlapped part has no effect. If it hits the same target(s), it has no effect on them.\nTake the Ability text as it is - _echoing_ Lightning Storm repeats the initial Damage, but you'd have to spend another 1 Action to retrigger the second Lightning Storm.\nThe QM has the word on whether something is possible.\n"
         },
         "~Mind Link~": {
             "A": "0 Actions",
@@ -79,9 +78,9 @@
     "Specializations": {
         "Description": "Lorem.",
         "Choices": [
-            "Berserker, a heavy fighter, guided by the ways of the spirits, both wise and strong - a combination to fear",
-            "Seer, one who can perceive beyond the eyes and ears, who can get to the root of your mind and soul",
-            "Witch Doctor, a strange ally when it comes to helping, and en even stranger foe when it comes to combat"
+            "Berserker, the warrior of the soul guided by the ways of the spirits, both wise and strong",
+            "Sage, the enlightened one, who can tap into the power of the unseen, and whose trance is never-ending",
+            "Witch Doctor, the strange ally when it comes to helping, and the even stranger foe when it comes to combat"
         ]
     },
     "Specs": {
@@ -90,36 +89,43 @@
             "Starting Abilities": {
                 "~Path of the Berserker~": {
                     "A": "Passive",
-                    "Effect": "Instead of having normal Health Regen, 200% of your Health Regen is added to your Max Health (and as such your Health Regen after combat is always 0).\nYou can not gain extra Defense from Armor or Shields.\n",
+                    "Effect": "Instead of having normal Health Regen, 200% of your Health Regen is added to your Max Health (and as such your Health Regen after combat is always 0).\nYou can not gain extra Defense except through magical means (magic items, spells, etc).\n",
                     "Notes": "Increasing Health Regen increases your Max Health instead (and losing Health Regen loses you Max Health instead).\n"
                 },
-                "~Bloodlust~": {
-                    "_Value": 2,
+                "~Cold Vigor~": {
+                    "_Value": 1.5,
                     "A": "0 Actions",
-                    "Cooldown": "Once / Adventure",
-                    "Effect": "Add Damage to a weapon attack equal to 50% of your missing Health.",
-                    "Notes": "This is not considered a Spell."
+                    "Cooldown": "Once / Combat",
+                    "Effect": "Heal for 10% of your Max Health and remove diseases from yourself."
+                },
+                "<Echoing Strikes>": {
+                    "_Value": "0 (?)",
+                    "A": "Passive",
+                    "HasMixins": true,
+                    "Effect": "While at or below 50% Health, your weapon attacks can _echo_ on a Unit within range.",
+                    "Notes": "So, after every weapon attack, roll 1d10, and if you rolled 10, the attack _echoes_"
                 }
             },
             "Talents": {
                 "Level 3": {
                     "<Primal Trophy>": {
-                        "_Value": 1,
+                        "_Value": 1.25,
                         "A": "Passive",
                         "HasMixins": true,
-                        "Effect": "Whenever ^YOU^ kill a Worthy Enemy, gain one Primal Trophy. Every 4 Primal Trophies increase your Max Health by 1.\nEvery 10 Primal Trophies give you an extra Proficiency.\n"
+                        "Effect": "Whenever ^YOU^ kill a Worthy Enemy, gain one Primal Trophy. Every 3 Primal Trophies increase your Max Health by 1.\nEvery 10 Primal Trophies give you an extra non-combat Skill (make you Skilled in a type of activity).\n"
                     },
-                    "<Cold Vigor>": {
-                        "_Value": 1.5,
+                    "~Bloodlust~": {
+                        "_Value": "1.5 (?)",
                         "A": "0 Actions",
-                        "Cooldown": "Once / Combat",
-                        "Effect": "Heal for 10% of your Max Health and remove diseases from yourself."
+                        "Cooldown": "Once / Adventure",
+                        "Effect": "Add 1d4 Damage to a weapon attack for each 10 Health you are missing.",
+                        "Notes": "This is not considered a Spell."
                     },
                     "<Spirit Animal>": {
                         "_Value": 1.5,
                         "A": "Passive",
                         "Effect": "A spirit animal assists you and gives you a boon, depending on its type.\nYou can change which spirit animal assists you while not in Combat.\n",
-                        "Upgrade": "The spirit animal is intangible, and invisible to most people, but can't walk through solid surfaces. You can see through its eyes, but is bound to you and won't go more than 15 meters away from you.",
+                        "Upgrade": "The spirit animal is intangible, invulnerable and invisible to most people. You can use it to scout, but can't walk through solid surfaces. You can see through its eyes, but is bound to you and won't go more than 15 meters away from you. It does not participate in combat.",
                         "Notes": "An Act counts as ranged if it's not made with a melee weapon, and the range is at least 3 meters",
                         "DoubleTable": {
                             "Headers": [
@@ -168,18 +174,18 @@
                         "Duration": "1 Minute",
                         "Effect": "You grow to the size of a giant and become Large.\nYou gain Shielding equal to 50% of your missing Health.\nYour normal Melee attacks hit all Units within 1 meter of the target for the same Damage, without the Stat modifier (e.g. you don't add your Might or Dexterity to the secondary targets).\nYou are immune to being Crowd Control and Hard Terrain.\n"
                     },
-                    "<Echoing Strikes>": {
+                    "<Echoes of Fury>": {
                         "_Value": 3,
                         "A": "Passive",
                         "HasMixins": true,
-                        "Effect": "Your weapon attacks can _echo_ (if you roll one maximum die)."
+                        "Effect": "Your weapon attacks can _echo_ regardless of your Health. Your _echoes_ Damage is no longer reduced by 50% (for Spells and Attacks)."
                     },
                     "<Forced Echoes>": {
                         "_Value": 3,
                         "A": "Passive",
                         "HasMixins": true,
-                        "Effect": "Your Shaman Abilities and Talents always _echo_.",
-                        "Notes": "When Bloodlust echoes, the Damage is dealt directly to another target near you (reduced by 50% from Damage it would normally do)."
+                        "Effect": "Your Shaman Abilities and Talents ALWAYS _echo_.",
+                        "Notes": "When Bloodlust echoes, the baseline attack (with the Bloodlust Damage included) echoes as well."
                     }
                 },
                 "Level 9": {
@@ -193,7 +199,7 @@
                 }
             }
         },
-        "Seer": {
+        "Sage": {
             "Description": "Video morituri...",
             "Starting Abilities": {
                 "~Spirit Bond~": {
@@ -201,13 +207,14 @@
                     "Cooldown": "Once / Adventure",
                     "Duration": "Whole Adventure",
                     "Effect": "Touch another ally.\nWhenever either of you makes a Check, add the higher bonus from either of you instead of their normal Check bonus.\n",
-                    "Notes": "This does apply to Proficiencies - if your bonded ally has Proficiency in something, you also add the ally's Level, as it would normally make sense."
+                    "Notes": "This does apply to non-combat Skills - if your bonded ally has Skilled in something, you also add the ally's Level, as it would normally make sense."
                 },
-                "~Third Echo~": {
+                "~Infinite Echo~": {
                     "_Value": 1,
                     "A": "Passive",
                     "HasMixins": true,
-                    "Effect": "When you roll dice for your _echoed_ Spell, if you roll maximum on any of the _echoed_ dice as well, the Spell _echoes_ a third time!"
+                    "Effect": "Your _echo_ die becomes 1d8.\nAfter you _echo_ an Ability, roll the 1d8 _echo_ die again. If you roll 8, repeat!\n",
+                    "Upgrade": "Your Basic Abilities can _echo_ again and again. The Damage and Healing remains 50% of its normal amount (e.g. it's not 50% of 50%)."
                 }
             },
             "Talents": {
@@ -216,7 +223,7 @@
                         "_Value": 1.5,
                         "A": "Passive",
                         "Effect": "A spirit animal assists you and gives you a boon, depending on its type.\nYou can change which spirit animal assists you while not in Combat.\n",
-                        "Upgrade": "The spirit animal is intangible, and invisible to most people, but can't walk through solid surfaces. You can see through its eyes, but is bound to you and won't go more than 15 meters away from you.",
+                        "Upgrade": "The spirit animal is intangible, invulnerable and invisible to most people. You can use it to scout, but can't walk through solid surfaces. You can see through its eyes, but is bound to you and won't go more than 15 meters away from you. It does not participate in combat.",
                         "Notes": "An Act counts as ranged if it's not made with a melee weapon, and the range is at least 3 meters",
                         "DoubleTable": {
                             "Headers": [
@@ -259,7 +266,7 @@
                         "Cost": "1 Mana / Success",
                         "AlignOnWebsite": "Right",
                         "Effect": "You undergo an isolated, personal and mind-altering ritual with a willing non-Warlock Player Character at a campfire, and using incense, smoke and special herbs.\nThe ally must make a Sense Check against 6 + Your Sense.\nIf it succeeds, its Max Mana permanently increases by 1, and gets +2 to all Checks for the rest of the Adventure.\nIf it fails, it takes 1d8 Psychic Damage and gets -1 to all Checks for the rest of the Adventure.\n",
-                        "Upgrade": "You can perform this ritual as many times as you want per Adventure until you succeed once. It costs you 1 Mana (not Max Mana), which is spent when the ally passes the ritual.\nA person can only succeed one Enlightening Ritual in their lifetime.\n"
+                        "Upgrade": "You can perform this ritual as many times as you want per Adventure until you succeed once. It costs you 1 Mana (not Max Mana), which is spent when the ally passes the ritual.\nA person can only succeed one Enlightening Ritual in their lifetime.\nRespeccing keeps the effects for your Ally.\n"
                     },
                     "<Rainmaking>": {
                         "_Value": 3,
@@ -305,7 +312,7 @@
                         "_Value": 3,
                         "A": "Passive",
                         "HasMixins": true,
-                        "Effect": "Your Basic Abilities that don't cost Mana and deal Damage can now also _echo_."
+                        "Effect": "Your _echo_ dice become 2d8 (instead of 1d8). Each rolled 8 makes the Ability Echo."
                     },
                     "<Reincarnation>": {
                         "_Value": 3,
@@ -340,7 +347,7 @@
                     "Cost": "Depends",
                     "Range": "10 meters",
                     "Effect": "After you cast a Spell, you can expend 6 Health to force it to _echo_.\nYou can expend 3 Health to add or subtract 1d6 from any other Unit's roll (not yours).\n",
-                    "Notes": "The GM might not roll Damage for monsters, and instead take the average - even if they take the average, that counts as a roll.\nKeep in mind you only have 1 Reaction per Round.\n"
+                    "Notes": "The QM might not roll Damage for monsters, and instead take the average - even if they take the average, that counts as a roll.\nKeep in mind you only have 1 Reaction per Round.\n"
                 }
             },
             "Talents": {
@@ -350,7 +357,7 @@
                         "A": "1 Action",
                         "Cooldown": "Once / Adventure",
                         "Range": "6 meters",
-                        "Effect": "A Unit within 6 meters makes a Sense Check.\nIf it fails, it takes 2d6 Psychic Damage at the start of your every turn for 1 minute, and for its next turn, you can choose that enemy's Acts as long as it would seem reasonable to that enemy (decide with your GM).\nEpic Monsters can not be controlled; they only take the Damage.\n",
+                        "Effect": "A Unit within 6 meters makes a Sense Check.\nIf it fails, it takes 2d6 Psychic Damage at the start of your every turn for 1 minute, and for its next turn, you can choose that enemy's Acts as long as it would seem reasonable to that enemy (decide with your QM).\nEpic Monsters can not be controlled; they only take the Damage.\n",
                         "Notes": "For example, you can make a goblin run or recklessly attack one of your party members. But you can't make a guard jump off a cliff, because that's not what it would normally do."
                     },
                     "<Corpseblast>": {
@@ -430,7 +437,7 @@
                         "A": "Half-Action",
                         "Cooldown": "Once / Adventure",
                         "Effect": "Choose a Unit you can see.\nYou possess its body and, on its next turn, you control what it does.\n",
-                        "Upgrades": "Only works on targets with Sense less than 3.\nThe GM will tell you what the Unit can do if it's a monster.\n"
+                        "Upgrades": "Only works on targets with Sense less than 3.\nThe QM will tell you what the Unit can do if it's a monster.\n"
                     }
                 }
             }

@@ -1,8 +1,13 @@
 
+import { getRealColor } from './SmallStat'
 import './SmallStat.css'
 import React from 'react'
 
+
+
 export default function SmallStatList({ children, style, contentStyle, name, color }) {
+
+    const realColor = getRealColor(color)
 
     const smallStatColorClass = color == 'blue'?
         'small-stat--blue':
@@ -19,7 +24,7 @@ export default function SmallStatList({ children, style, contentStyle, name, col
     return (
         <div className='small-stat-container' style={style}>
             <div className={`small-stat small-stat--column ${smallStatColorClass}`} style={extraContentStyle}>
-                <div className={`small-stat__name ${smallStatNameColorClass}`}>{ name }</div>
+                <div style={{backgroundColor: realColor}} className={`small-stat__name ${smallStatNameColorClass}`}>{ name }</div>
                 <div className={`small-stat__value small-stat__value--list ${smallStatListItemsColorClass}`}>{ children }</div>
             </div>
             <br/>
