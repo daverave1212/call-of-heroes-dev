@@ -8,6 +8,7 @@ import { insertBetweenAll, ifOk, stringReplaceAllMany, mapObject, parseTextWithS
 import { SpellTopStats } from './Spell'
 import html2canvas from 'html2canvas'
 import CopySpellButton from '../CopyButton/CopySpellButton'
+import classNames from 'classnames'
 
 window.html2canvas = html2canvas
 
@@ -105,7 +106,7 @@ export default function Item({ item }) {
     }
 
     return (
-        <div id={uniqueID} className={`spell${hasVariants === true? ' spell--with-variants': ''}`}>
+        <div id={uniqueID} className={classNames('spell', {'spell--with-variants': hasVariants === true})}>
             <div className="spell__border"></div>
             <div className="spell__background"></div>
             <div className='spell__box'> {/* This has CSS to be perfectly in the bounds of the borders and banner */}

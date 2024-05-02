@@ -282,15 +282,6 @@
             "Tag": "Protection",
             "Name": "~Volt Guard~"
         },
-        "~Land Breach~": {
-            "A": "1 Action",
-            "Range": "10 meters",
-            "Requirement": "Level 2",
-            "Effect": "You gather stone, dirt, sand, etc from the surroundings and release it upon an enemy.\nA Unit takes 3d6 Damage Force Damage, then all other Units within 1 meter take Damage equal to two of rolled dice (you choose).\n",
-            "Notes": "Ignores Cover",
-            "Tag": "AoE (1)",
-            "Name": "~Land Breach~"
-        },
         "~Ice Shard~": {
             "A": "Half-Action",
             "Cost": "1 Mana",
@@ -337,6 +328,15 @@
             "Notes": "Ignores Cover. {Crippled}\n",
             "Tag": "CC Hard",
             "Name": "~Heat Metal~"
+        },
+        "~Conduit Flow~": {
+            "A": "1 Action",
+            "Cost": "1 Mana",
+            "Requirement": "Level 2",
+            "Range": "5 meters to first target",
+            "Effect": "Choose a Worthy Unit other than you.\nIf it's an Enemy, it takes 1d10 Shock Damage.\nOtherwise, it is Healed for 1d8.\nIf there is another Unit within 2 meters of it, repeat Conduit Flow on the new Unit (you choose if multiple).\n",
+            "Upgrade": "Each Unit can be affected by Conduit Flow only once per cast. Cover is calculated from Unit to Unit (as if the conduit is jumping from Unit to Unit). The conduit can be repeated on you as long as you're not the first target.",
+            "Name": "~Conduit Flow~"
         },
         "~Control Elements~": {
             "HasMixins": true,
@@ -385,7 +385,7 @@
             "Cost": "1 Mana",
             "Range": "1 meter",
             "Duration": "48 hours",
-            "Requirement": "Level 6",
+            "Requirement": "Level 4",
             "HasMixins": true,
             "Effect": "Place a rune on a smooth solid surface. \nA Unit touching the rune detonates it, dealing 3d10 {Element} Damage to it.\nMake an Intelligence Check against that Unit's Might Check. If you pass, {ExtraEffect}.\n\n~Click on the Spell Icon to select the preferred Element!~\n",
             "Notes": "{Rooted}\nThe rune covers a 1 meter area.\nThese are considered different Spells.\n",
@@ -417,12 +417,41 @@
             "Effect": "Extend a lightning bolt upon a  Unit, dealing for 2d12 Shock Damage to it and its closest Unit within 3 meters.\nIf the lightning touches water, fire, fog or gas (or Unit is standing in it), increase the Damage by 50%.\n",
             "Name": "~Chain Thunder~"
         },
+        "~Freeze Water~": {
+            "A": "1 Action",
+            "Range": "10 meters",
+            "Requirement": "Level 4",
+            "Cooldown": "Intelligence uses / Adventure",
+            "HasMixins": true,
+            "Effect": "Choose a number of 1x1x1 cubes containing water equal to your Level.\nThe water there freezes.\nIf a Unit is caught in the water, pass an Intelligence Check against its Dexterity Check to make it Rooted. If you fail, it is expelled to a nearby space near the frozen water (it chooses, within reason).\n",
+            "Notes": "{Rooted}\n",
+            "Tag": "Utility",
+            "Name": "~Freeze Water~"
+        },
+        "~Blazetrail~": {
+            "A": "0 Actions",
+            "Requirement": "Level 4",
+            "Duration": "1 minute",
+            "Cost": "1 Mana",
+            "Effect": "A Unit gains propulsion by fire. It gains +3 Movement Speed, can Break Movement and, whenever it enters the adjacency of an Enemy, deals 1d4 Fire Damage to it.\n",
+            "Notes": "The Damage can only happen once per turn per enemy. The Damage source is you (for amplification effects).",
+            "Name": "~Blazetrail~"
+        },
+        "~Frostfall~": {
+            "A": "Half-Action",
+            "Cost": "2 Mana",
+            "Range": "10 meters",
+            "Requirement": "Level 5",
+            "Effect": "Choose a Unit. It takes 1d10 Cold Damage, and all Units within 2 meters of it 200% of that amount. All of them are Slowed.\nIf there were no Units within 2 meters of it, the target is Stunned instead.\n",
+            "Upgrade": "When Stunning a flying target, it remains stuck in the air (levitating) for up to 6 seconds.",
+            "Name": "~Frostfall~"
+        },
         "~Element Ball~": {
             "DisplayName": "{IconName}",
             "A": "1 Action",
             "Cost": "3 Mana",
             "Range": "6 meters (to the edge)",
-            "Requirement": "Level 4",
+            "Requirement": "Level 5",
             "Effect": "All Units in 6-meter diameter area take 6d6 {Element} Damage.\n\n~Click on the Spell Icon to select the preferred Element!~\n",
             "Notes": "Cover is calculated from the center of the area.",
             "Variants": [
@@ -442,43 +471,11 @@
             "Tag": "AoE (1)",
             "Name": "~Element Ball~"
         },
-        "~Freeze Water~": {
-            "A": "1 Action",
-            "Range": "10 meters",
-            "Requirement": "Level 4",
-            "Cooldown": "Intelligence uses / Adventure",
-            "HasMixins": true,
-            "Effect": "Choose a number of 1x1x1 cubes containing water equal to your Level.\nThe water there freezes.\nIf a Unit is caught in the water, pass an Intelligence Check against its Dexterity Check to make it Rooted. If you fail, it is expelled to a nearby space near the frozen water (it chooses, within reason).\n",
-            "Notes": "{Rooted}\n",
-            "Tag": "Utility",
-            "Name": "~Freeze Water~"
-        },
-        "~Frostfall~": {
-            "A": "Half-Action",
-            "Cost": "2 Mana",
-            "Range": "10 meters",
-            "Requirement": "Level 6",
-            "Effect": "Choose a Unit. It takes 1d10 Cold Damage, and all Units within 2 meters of it 200% of that amount. All of them are Slowed.\nIf there were no Units within 2 meters of it, the target is Stunned instead.\n",
-            "Upgrade": "When Stunning a flying target, it remains stuck in the air (levitating) for up to 6 seconds.",
-            "Name": "~Frostfall~"
-        },
-        "~Explosion Rune~": {
-            "A": "1 Action",
-            "Cost": "1 Mana",
-            "Range": "1 meter",
-            "Duration": "24 hours",
-            "Requirement": "Level 5",
-            "Effect": "Place a rune on a smooth solid surface. The rune covers a 1x1 area.\nYou can use a free Reaction to detonate it, dealing 6d4 half Fire half Force Damage to the Unit that activates it and all Units within 2 meters of it.\n",
-            "Upgrade": "At Level 8, this lasts for the rest of the Adventure.\n",
-            "Notes": "A free Reaction does not use up your Reaction.",
-            "Tag": "Trap",
-            "Name": "~Explosion Rune~"
-        },
         "~Ice Spike~": {
             "A": "1 Action",
             "Cost": "2 Mana",
             "Range": "5 meters",
-            "Requirement": "Level 5",
+            "Requirement": "Level 6",
             "Effect": "The target rolls a Dexterity Check.\nIf it fails, it takes 3d8 + 9 Cold Damage, or half otherwise.\nThe target automatically fails if it's affected by any Crowd Control (except Hard Terrain).\n",
             "Tag": "AoE (1)",
             "Name": "~Ice Spike~"
@@ -486,23 +483,14 @@
         "~Ignition~": {
             "A": "1 Action",
             "Cost": "1 Mana",
-            "Requirement": "Level 5",
+            "Requirement": "Level 6",
             "Duration": "1 minute",
             "Effect": "Ignite a Unit you can see. At the end of each of your turns, it takes 7 Fire Damage.\nIts ignition ends if the Unit is Damaged by Cold, Shock or Acid or is splashed with water.\n",
             "Name": "~Ignition~"
         },
-        "~Blazetrail~": {
-            "A": "0 Actions",
-            "Requirement": "Level 4",
-            "Duration": "1 minute",
-            "Cost": "1 Mana",
-            "Effect": "A Unit gains propulsion by fire. It gains +3 Movement Speed, can Break Movement and, whenever it enters the adjacency of an Enemy, deals 1d4 Fire Damage to it.\n",
-            "Notes": "The Damage can only happen once per turn per enemy. The Damage source is you (for amplification effects).",
-            "Name": "~Blazetrail~"
-        },
         "~Elating Jolt~": {
             "A": "0 Actions",
-            "Requirement": "Level 6",
+            "Requirement": "Level 7",
             "Cost": "1 Mana",
             "Cooldown": "Once / Adventure",
             "Range": "10 meters",
@@ -510,23 +498,14 @@
             "Upgrade": "Only usable in a Worthy Combat encounter.",
             "Name": "~Elating Jolt~"
         },
-        "~Prismatic Shockwave~": {
+        "~Prismatic Convergence~": {
             "A": "1 Action",
             "Cost": "2 Mana",
             "Requirement": "Level 7",
             "Range": "10 meters",
             "Effect": "Damage a Unit for a total of 2d6 True Damage for each Element the target had been Damaged with this combat before.\n",
             "Upgrade": "Possible elements are Fire, Cold, Shock, Divine, Poison, Necrotic, Acid and Psychic.",
-            "Name": "~Prismatic Shockwave~"
-        },
-        "~Conduit Flow~": {
-            "A": "1 Action",
-            "Cost": "1 Mana",
-            "Requirement": "Level 5",
-            "Range": "5 meters to first target",
-            "Effect": "Choose a Worthy Unit other than you.\nIf it's an Enemy, it takes 1d10 Shock Damage.\nOtherwise, it is Healed for 1d8.\nIf there is another Unit within 2 meters of it, repeat Conduit Flow on the new Unit (you choose if multiple).\n",
-            "Upgrade": "Each Unit can be affected by Conduit Flow only once per cast. Cover is calculated from Unit to Unit (as if the conduit is jumping from Unit to Unit). The conduit can be repeated on you as long as you're not the first target.",
-            "Name": "~Conduit Flow~"
+            "Name": "~Prismatic Convergence~"
         }
     },
     "Arcane": {
@@ -957,6 +936,15 @@
             "Upgrade": "You can store a number of 1x1x1 meter cubes of water equal to your Level / 2.",
             "Notes": "Just because you target a 1x1x1 meter cube, it doesn't mean you get a 1x1x1 meter cube of water stored. For ease of use, the QM can say you drew in none, a quarter, a half, 3 quarters or a 1x1x1 meter cube of water from the targeted cube.",
             "Name": "~Draw Moisture~"
+        },
+        "~Land Breach~": {
+            "A": "1 Action",
+            "Range": "10 meters",
+            "Requirement": "Level 2",
+            "Effect": "You gather stone, dirt, sand, etc from the surroundings and release it upon an enemy.\nA Unit takes 3d6 Damage Force Damage, then all other Units within 1 meter take Damage equal to two of rolled dice (you choose).\n",
+            "Notes": "Ignores Cover",
+            "Tag": "AoE (1)",
+            "Name": "~Land Breach~"
         },
         "~Thorn Quills~": {
             "A": "0 Actions",

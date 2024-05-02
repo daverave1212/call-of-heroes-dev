@@ -258,7 +258,7 @@ Bloodshed:
         A: Half-Action
         Range: 2 meters
         Effect: |
-            Make a special melee attack that deals 1d6 + 2 Force Damage.
+            Make a special melee attack that deals 1d6 + 2 Pulse Damage.
             After the attack, your turn ends immediately.
         Notes: This counts as a weapon Attack (1-Handed or 2-Handed, depending on your weapon).
         
@@ -266,7 +266,7 @@ Bloodshed:
         A: 1 Action
         Effect: |
             All Units within 2 meters of you take 2d6 Smash Damage.
-            After that, one of them of your choice takes an extra 1d6 Smash Damage.
+            After that, one of them of your choice takes an extra 1d4 Smash Damage.
         Notes: The extra 1d6 is part of the same Damage (for Defense).
 
     
@@ -290,7 +290,7 @@ Bloodshed:
         Range: 2 meters
         Requirement: Level 2
         Effect: |
-            Deal 1d10 Force Damage to a Unit and it becomes Dazed.
+            Deal 1d10 Pulse Damage to a Unit and it becomes Dazed.
     
     ~Panic Lash~:
         A: Half-Action
@@ -370,7 +370,7 @@ Warfare:
         A: Half-Action
         Range: 2 meters
         Effect: |
-            Make a special melee attack that deals 1d6 + 2 Force Damage.
+            Make a special melee attack that deals 1d6 + 2 Pulse Damage.
             After the Attack, your turn ends immediately.
         
     
@@ -405,7 +405,7 @@ Warfare:
         Cost: 1 Mana
         Duration: 10 minutes
         Effect: |
-            Another ally you can see gains 50% Resistance to a named physical Damage type (Slash, Smash, Pierce or Force).
+            Another ally you can see gains 50% Resistance to a named physical Damage type (Slash, Smash, Pierce or Pulse).
         Notes: You can't use this on yourself
         
     ~Glory Shout~:          # Slightly strong for the cost, but it's distributed weirdly so ok
@@ -516,16 +516,6 @@ Elemental:
 
 
     # Level 2
-    ~Land Breach~:
-        A: 1 Action
-        Range: 10 meters
-        Requirement: Level 2
-        Effect: |
-            You gather stone, dirt, sand, etc from the surroundings and release it upon an enemy.
-            A Unit takes 3d6 Damage Force Damage, then all other Units within 1 meter take Damage equal to two of rolled dice (you choose).
-        Notes: Ignores Cover
-        Tag: AoE (1)
-
     ~Ice Shard~:
         A: Half-Action
         Cost: 1 Mana
@@ -570,6 +560,18 @@ Elemental:
         Notes: |
             Ignores Cover. {Crippled}
         Tag: CC Hard
+
+    ~Conduit Flow~:
+        A: 1 Action
+        Cost: 1 Mana
+        Requirement: Level 2
+        Range: 5 meters to first target
+        Effect: |
+            Choose a Worthy Unit other than you.
+            If it's an Enemy, it takes 1d10 Shock Damage.
+            Otherwise, it is Healed for 1d8.
+            If there is another Unit within 2 meters of it, repeat Conduit Flow on the new Unit (you choose if multiple).
+        Notes: Each Unit can be affected by Conduit Flow only once per cast. Cover is calculated from Unit to Unit (as if the conduit is jumping from Unit to Unit). The conduit can be repeated on you as long as you're not the first target.
 
 
     # Level 3
@@ -625,13 +627,18 @@ Elemental:
         Notes: Cover is applied normally.
         Tag: Amplification
 
+
+
+
+    # Level 4
+
     ~Element Rune~:
         DisplayName: "{Element} Rune"
         A: 1 Action
         Cost: 1 Mana
         Range: 1 meter
         Duration: 48 hours
-        Requirement: Level 6
+        Requirement: Level 4
         HasMixins: true
         Effect: |
             Place a rune on a smooth solid surface. 
@@ -665,30 +672,6 @@ Elemental:
             Extend a lightning bolt upon a  Unit, dealing for 2d12 Shock Damage to it and its closest Unit within 3 meters.
             If the lightning touches water, fire, fog or gas (or Unit is standing in it), increase the Damage by 50%.
 
-
-
-    # Level 4
-
-    ~Element Ball~:        # It's definitely more than 3 Mana worth but not that much
-        DisplayName: "{IconName}"
-        A: 1 Action
-        Cost: 3 Mana
-        Range: 6 meters (to the edge)
-        Requirement: Level 4
-        Effect: |
-            All Units in 6-meter diameter area take 6d6 {Element} Damage.
-            
-            ~Click on the Spell Icon to select the preferred Element!~
-        Notes: Cover is calculated from the center of the area.
-        Variants:
-            - Element: Fire
-              IconName: Pyro Ball
-            - Element: Cold
-              IconName: Glacial Ball
-            - Element: Shock
-              IconName: Thunder Ball
-        Tag: AoE (1)
-
     ~Freeze Water~:
         A: 1 Action
         Range: 10 meters
@@ -704,54 +687,6 @@ Elemental:
         Tag: Utility
 
     
-    ~Frostfall~:
-        A: Half-Action
-        Cost: 2 Mana
-        Range: 10 meters
-        Requirement: Level 6
-        Effect: |
-            Choose a Unit. It takes 1d10 Cold Damage, and all Units within 2 meters of it 200% of that amount. All of them are Slowed.
-            If there were no Units within 2 meters of it, the target is Stunned instead.
-        Upgrade: When Stunning a flying target, it remains stuck in the air (levitating) for up to 6 seconds.
-
-
-    # Level 5
-
-    # ~Explosion Rune~:
-    #     A: 1 Action
-    #     Cost: 1 Mana
-    #     Range: 1 meter
-    #     Duration: 24 hours
-    #     Requirement: Level 5
-    #     Effect: |
-    #         Place a rune on a smooth solid surface. The rune covers a 1x1 area.
-    #         You can use a free Reaction to detonate it, dealing 6d4 half Fire half Force Damage to the Unit that activates it and all Units within 2 meters of it.
-    #     Upgrade: |
-    #         At Level 8, this lasts for the rest of the Adventure.
-    #     Notes: A free Reaction does not use up your Reaction.
-    #     Tag: Trap
-
-    ~Ice Spike~:
-        A: 1 Action
-        Cost: 2 Mana
-        Range: 5 meters
-        Requirement: Level 5
-        Effect: |
-            The target rolls a Dexterity Check.
-            If it fails, it takes 3d8 + 9 Cold Damage, or half otherwise.
-            The target automatically fails if it's affected by any Crowd Control (except Hard Terrain).
-        Tag: AoE (1)
-
-    ~Ignition~:
-        A: 1 Action
-        Cost: 1 Mana
-        Requirement: Level 5
-        Duration: 1 minute
-        Effect: |
-            Ignite a Unit you can see. At the end of each of your turns, it takes 7 Fire Damage.
-            Its ignition ends if the Unit is Damaged by Cold, Shock or Acid or is splashed with water.
-
-    # Level 4
     ~Blazetrail~:
         A: 0 Actions
         Requirement: Level 4
@@ -761,10 +696,70 @@ Elemental:
             A Unit gains propulsion by fire. It gains +3 Movement Speed, can Break Movement and, whenever it enters the adjacency of an Enemy, deals 1d4 Fire Damage to it.
         Notes: The Damage can only happen once per turn per enemy. The Damage source is you (for amplification effects).
 
+
+
+    # Level 5
+
+    ~Frostfall~:
+        A: Half-Action
+        Cost: 2 Mana
+        Range: 10 meters
+        Requirement: Level 5
+        Effect: |
+            Choose a Unit. It takes 1d10 Cold Damage, and each Unit within 2 meters of it takes Cold Damage equal to 200% of the roll. All of them are Slowed.
+            If there were no Units within 2 meters of it, the target is Stunned instead.
+        Upgrade: When Stunning a flying target, it remains stuck in the air (levitating) for up to 6 seconds.
+
+
+    ~Element Ball~:        # It's definitely more than 3 Mana worth but not that much
+        DisplayName: "{IconName}"
+        A: 1 Action
+        Cost: 3 Mana
+        Range: 6 meters (to the edge)
+        Requirement: Level 5
+        Effect: |
+            All Units in 6-meter diameter area take 6d6 {Element} Damage.
+            
+            ~Click on the Spell Icon to select the preferred Element!~
+        Notes: Cover is calculated from the center of the area.
+        Variants:
+            - Element: Fire
+              IconName: Pyro Ball
+            - Element: Cold
+              IconName: Glacial Ball
+            - Element: Shock
+              IconName: Thunder Ball
+        Tag: AoE (1)
+
+
+
     # Level 6
+
+    ~Ice Spike~:
+        A: 1 Action
+        Cost: 2 Mana
+        Range: 5 meters
+        Requirement: Level 6
+        Effect: |
+            The target rolls a Dexterity Check.
+            If it fails, it takes 3d8 + 9 Cold Damage, or half otherwise.
+            The target automatically fails if it's affected by any Crowd Control (except Hard Terrain).
+        Tag: AoE (1)
+
+    ~Ignition~:
+        A: 1 Action
+        Cost: 1 Mana
+        Requirement: Level 6
+        Duration: 1 minute
+        Effect: |
+            Ignite a Unit you can see. At the end of each of your turns, it takes 7 Fire Damage.
+            Its ignition ends if the Unit is Damaged by Cold, Shock or Acid or is splashed with water.
+
+
+    # Level 7
     ~Elating Jolt~:
         A: 0 Actions
-        Requirement: Level 6
+        Requirement: Level 7
         Cost: 1 Mana
         Cooldown: Once / Adventure
         Range: 10 meters
@@ -773,27 +768,15 @@ Elemental:
             Otherwise, set a Unit's Defense to 0 and deal 1d6 Shock Damage to it.
         Upgrade: Only usable in a Worthy Combat encounter.
 
-    # Level 7
-    ~Prismatic Shockwave~:
+    ~Prismatic Convergence~:
         A: 1 Action
         Cost: 2 Mana
         Requirement: Level 7
         Range: 10 meters
         Effect: |
             Damage a Unit for a total of 2d6 True Damage for each Element the target had been Damaged with this combat before.
-        Upgrade: Possible elements are Fire, Cold, Shock, Divine, Poison, Necrotic, Acid and Psychic.
+        Upgrade: Possible elements are Fire, Cold, Shock, Divine, Poison, Scourge, Acid and Psychic.
 
-    ~Conduit Flow~:
-        A: 1 Action
-        Cost: 1 Mana
-        Requirement: Level 5
-        Range: 5 meters to first target
-        Effect: |
-            Choose a Worthy Unit other than you.
-            If it's an Enemy, it takes 1d10 Shock Damage.
-            Otherwise, it is Healed for 1d8.
-            If there is another Unit within 2 meters of it, repeat Conduit Flow on the new Unit (you choose if multiple).
-        Upgrade: Each Unit can be affected by Conduit Flow only once per cast. Cover is calculated from Unit to Unit (as if the conduit is jumping from Unit to Unit). The conduit can be repeated on you as long as you're not the first target.
 
     # ~Flame Strike~:
     #     A: 1 Action
@@ -867,7 +850,7 @@ Arcane:
         A: 1 Action
         Range: 5 meters
         Effect: |
-            Shoot a number of missiles equal to your Intelligence + 1. Each missile does 1d4 Force Damage.
+            Shoot a number of missiles equal to your Intelligence + 1. Each missile does 1d4 Pulse Damage.
         Notes: |
             Missiles are rolled at the same time. Then you can decide which die Damages which Unit.
             Each missile is a separate Attack and can be affected individually by Cover, Fumbling, etc (e.g. shooting all 3 missiles at a Unit that has Cover makes each missile deal 1d4 - 2 Damage).
@@ -1017,7 +1000,7 @@ Arcane:
             Place a rune on the ground.
             You can activate it at any time and from any distance.
             When you activate it, the rune creates a 5x5 meter area.
-            Try to Silence all units inside (Intelligence Check) and they also take (Your Level) Force Damage on detonation.
+            Try to Silence all units inside (Intelligence Check) and they also take (Your Level) Pulse Damage on detonation.
         Notes: |
             Ignores Cover. {Silenced}
 
@@ -1028,7 +1011,7 @@ Arcane:
     #     Requirement: Level 4
     #     Effect: |
     #         Declare a 2x2 meter area.
-    #         All Units in that are must succeed a Might Check or take 8d4 Force Damage, or half of that if they succeed.
+    #         All Units in that are must succeed a Might Check or take 8d4 Pulse Damage, or half of that if they succeed.
     #         The blast extends 2 more meters from its edges in all directions and further Damages directly all Units on this 2-meter edge for half of the Damage rolled.
     #     Notes: To conclude, the total area of this Spell is 4x4 meters. The Units in the 2x2 center must succeed the check or take full Damage and the units on the edge just take half of the Damage (as if they succeeded a Check for the center).
 
@@ -1081,7 +1064,7 @@ Arcane:
     #     Effect: |
     #         Pick a 1x1 area. A magical orb is created in that place.
     #         At the start of your next turn, the orb dashes to your position.
-    #         All Units in the orb's path take 2d6 + ^Intelligence^ + your Charisma Force Damage.
+    #         All Units in the orb's path take 2d6 + ^Intelligence^ + your Charisma Pulse Damage.
 
     ~Dancing Weapon~:
         A: 1 Action
@@ -1091,7 +1074,7 @@ Arcane:
         Requirement: Level 3
         Effect: |
             Conjure a levitating, self-wielding melee weapon on a space within 3 meters.
-            On your each turn (includig this), the weapon can make a melee Attack that deals 1d10 + 1 Force Damage and move up to 3 meters.
+            On your each turn (includig this), the weapon can make a melee Attack that deals 1d10 + 1 Pulse Damage and move up to 3 meters.
         Notes: |
             It costs 1 Action and 1 Mana to summon the weapon. Then, the weapon can Attack once for free every turn (including this), without costing an Action or Mana.
             The weapon has no special effect. It has 10 Health and 3 Defense.
@@ -1321,7 +1304,7 @@ Arcane:
 
 Nature:
 
-# [x] Elemental Damage                  [Poison, Necrotic, Shock]
+# [x] Elemental Damage                  [Poison, Scourge, Shock]
 # [x] Damage (1 Action)                 [Defense AoE (Land Breach), Defense (Venin Shot)]
 # [x] Damage (1 Action)     (Advanced)  [Direct (Cutting Winds)]
 # [x] Damage (Half-Action)              [Save (Poison Burst)]
@@ -1482,7 +1465,7 @@ Nature:
         HasMixins: true
         Effect: |
             Send out a 5x1 meter wave forward through the ground.
-            All Units hit take 2d8 Force Damage.
+            All Units hit take 2d8 Pulse Damage.
             If they are at or below 50% Health, they become Slowed and Fumbling.
         Notes: |
             {Slowed} {Fumbling}
@@ -1510,7 +1493,15 @@ Nature:
         Upgrade: You can store a number of 1x1x1 meter cubes of water equal to your Level / 2.
         Notes: Just because you target a 1x1x1 meter cube, it doesn't mean you get a 1x1x1 meter cube of water stored. For ease of use, the QM can say you drew in none, a quarter, a half, 3 quarters or a 1x1x1 meter cube of water from the targeted cube.
     
-
+    ~Land Breach~:
+        A: 1 Action
+        Range: 10 meters
+        Requirement: Level 2
+        Effect: |
+            You gather stone, dirt, sand, etc from the surroundings and release it upon an enemy.
+            A Unit takes 3d6 Damage Pulse Damage, then all other Units within 1 meter take Damage equal to two of rolled dice (you choose).
+        Notes: Ignores Cover
+        Tag: AoE (1)
 
 
     # ~Scape Grasp~:      # Depends
@@ -1677,7 +1668,7 @@ Nature:
     #     Range: 5 meters
     #     Requirement: Level 3
     #     Effect: |
-    #         Deal 1d8 Force Damage to a Unit or point and pull yourself to the closest space near it.
+    #         Deal 1d8 Pulse Damage to a Unit or point and pull yourself to the closest space near it.
     #     Notes: You need a clear path to the target point.
 
     # ~Force Wall~:
@@ -1788,7 +1779,7 @@ Mysticism:
             Cost: 1 Mana
             Range: 5 meters
             Effect: |
-                Shoot a magical bolt towards a Unit that deals 1d10 + (target's base Movement Speed) Force Damage to it.
+                Shoot a magical bolt towards a Unit that deals 1d10 + (target's base Movement Speed) Pulse Damage to it.
             Notes: Against Epic monsters, the Maximum Speed is calculated as it's (Speed) * (Epic Grade). E.g. if it's an Ogre with Movement Speed of 3 and has an Epic Grade of 2 (meaning it takes 2 turns), its Maximum Movement Speed is 2 * 3 = 6.
 
         ~Invigorate~:
@@ -1983,7 +1974,7 @@ Eldritch:
         Range: 4 meters
         HasMixins: true
         Effect: |
-            Blast a Unit for 2d8 + ^target's Might^ Necrotic Damage.
+            Blast a Unit for 2d8 + ^target's Might^ Scourge Damage.
             If you roll maximum on at least one die, deal another 1d6 Damage.
 
     ~Curse of Weakness~:
@@ -2049,8 +2040,8 @@ Eldritch:
         A: 1 Action
         Range: 4 meters
         Effect: |
-            Reap a Unit from afar, dealing 1d12 + 3 Necrotic Damage and the target is unable to reagain health until the end of its next turn.
-            For the rest of the combat, it takes 1 extra Necrotic Damage from all sources.
+            Reap a Unit from afar, dealing 1d12 + 3 Scourge Damage and the target is unable to reagain health until the end of its next turn.
+            For the rest of the combat, it takes 1 extra Scourge Damage from all sources.
 
     ~Thaumaturgy~:
         HasMixins: true
@@ -2105,7 +2096,7 @@ Eldritch:
         Cost: 1 Mana
         Range: 12 meters
         Effect: |
-            Shoot a Unit with deathly fire for 1d12 + 1d10 + 1d6 Damage, Fire or Necrotic (your choice).
+            Shoot a Unit with deathly fire for 1d12 + 1d10 + 1d6 Damage, Fire or Scourge (your choice).
             If the target has Defense, deals 2 more Damage for each point of Defense.
 
     # Higher Level Spells
@@ -2363,7 +2354,7 @@ Divine:
         Effect: |
             You become spectral for 10 seconds (until the start of your next turn).
             While spectral, you can move through walls, objects and Units, but not through floors and ceilings.
-            If the effect doesn't end in an empty space, you are instantly thrown to the nearest empty space and you take 3d4 Force Damage.
+            If the effect doesn't end in an empty space, you are instantly thrown to the nearest empty space and you take 3d4 Pulse Damage.
 
 
     # ~Cleansing Smite~:
@@ -2401,7 +2392,7 @@ Divine:
     #     Cooldown: Once / turn
     #     Duration: 1 minute (from initial cast)
     #     Effect: |
-    #         Declare an element from Fire, Necrotic, Acid and Poison.
+    #         Declare an element from Fire, Scourge, Acid and Poison.
     #         Now, and at the start of your next 2 turns, summon an elemental of that chosen element with 5 Health, 4 Defense, 3 Movement Speed and 2 in all Stats (for Resist Checks).
     #         You command the elementals, and they take their turn at the same time as you and can only spend 1 Action to shoot an elemental bolt that deals 1d6 Damage of its element, at 3 meters range.
     #     Upgrade: |

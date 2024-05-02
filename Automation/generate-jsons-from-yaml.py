@@ -10,6 +10,7 @@ from os import path
 # NOTE 3: This DOES YES add the Name property to all Spells (or at least it should)
 
 
+
 yaml_root_folder = '../Design'
 json_root_folder = '../WebsiteReact2/call-of-heroes-website-react-2/src/databases'
 

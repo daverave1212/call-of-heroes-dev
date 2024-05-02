@@ -7,6 +7,7 @@ import { parseTextWithSymbols, stringReplaceAllMany, getIconPathByName, getUniqu
 import TableNormal from '../TableNormal/TableNormal'
 import html2canvas from 'html2canvas'
 import CopySpellButton from '../CopyButton/CopySpellButton'
+import classNames from 'classnames'
 
 export function SpellTopStats({className, tags}) {
     const {A, Cost, Range, Cooldown, Duration, Requirement, Replacement, Hands, Stat, Special, Price} = tags
@@ -150,7 +151,12 @@ export default function Spell({ children, spell, style, hasIcon }) {
     }
 
     return (
-        <div id={uniqueID} className={`spell ${spellNormalOrSubClass} ${spellPassiveOrActiveClass}`} style={style}>
+        <div id={uniqueID} style={style} className={classNames(
+            'spell',
+            spellNormalOrSubClass,
+            spellPassiveOrActiveClass,
+            { 'spell--with-variants': hasVariants === true }
+        )}>
             <div className="spell__border"></div>
             <div className="spell__background"></div>
             <div className='spell__box'> {/* This has CSS to be perfectly in the bounds of the borders and banner */}
