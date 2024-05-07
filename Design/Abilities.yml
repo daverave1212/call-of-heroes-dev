@@ -849,8 +849,9 @@ Arcane:
     ~Magic Missiles~:
         A: 1 Action
         Range: 5 meters
+        HasMixins: true
         Effect: |
-            Shoot a number of missiles equal to your Intelligence + 1. Each missile does 1d4 Pulse Damage.
+            Shoot a number of missiles equal to ^your Intelligence^ + 1. Each missile does 1d4 Pulse Damage.
         Notes: |
             Missiles are rolled at the same time. Then you can decide which die Damages which Unit.
             Each missile is a separate Attack and can be affected individually by Cover, Fumbling, etc (e.g. shooting all 3 missiles at a Unit that has Cover makes each missile deal 1d4 - 2 Damage).
@@ -875,23 +876,13 @@ Arcane:
         Effect: Dispell all ongoing _non-chronic_ magical effects on a Unit (any magical Crowd Control, magical buffs and debuffs, etc).
         Notes: Chronic effects are ones that last days, months or are permanent, such as curses, vampirism, etc.
 
-    ~Conjure Consumable~:
-        A: Passive
-        Effect: You automatically conjure ammo for your weapon the moment you want to fire them.
-        Upgrade: At Level 4, you can conjure food for up to 1 day, every day.
-        Notes: Alternatively, for 1 Action, you can conjure up to 10 ammo for another party member, which disappear after 1 hour.
+    # ~Conjure Consumable~:
+    #     A: Passive
+    #     Effect: You automatically conjure ammo for your weapon the moment you want to fire them.
+    #     Upgrade: At Level 4, you can conjure food for up to 1 day, every day.
+    #     Notes: Alternatively, for 1 Action, you can conjure up to 10 ammo for another party member, which disappear after 1 hour.
 
     # Level 2
-
-    ~Dancing Blade~:
-        A: Passive
-        Effect: Your melee weapon Attacks have +1 meter range (up to 3 meters), by levitating to your target, hitting them, then quickly returning to your hand.
-        Requirement: Level 2
-        Notes: |
-            These Attacks are still considered melee Attacks, and are not considered thrown.
-            Flanking applies normally if there's an Ally right behind the enemy you're Attacking (forming a line between the 3 of you).
-
-
     ~Focus Fling~:
         A: Half-Action
         Requirement: Level 2
@@ -923,31 +914,7 @@ Arcane:
         Effect: Instantly teleport up to 6 meters away, within line of sight.
         Notes: You take with you all items carried. Does not work if you're Rooted or stuck in place somehow.
 
-    # Advanced Spells
-
-    ~Arrow Barrage~:
-        A: 1 Action
-        Cost: 1 Mana
-        Range: 10 meters to edge
-        Cooldown: Once / Encounter
-        Requirement: Level 3
-        Effect: |
-            You conjure a levitating barrage of arrows in a 3x3 area, up to 10 meters above ground.
-            At any point (for 0 Actions or with a Reaction), you can release these arrows upon the ground, hitting all enemies hit for 2d6 Pierce Damage.
-            At the start of your every turn, if the barrage is not yet released, it increases by 1 meter in size in all directions and gains 1d4 Damage when it will be released (up to +3d4 and 9x9).
-        Notes: |
-            E.g. every turn, it goes from 3x3 to 5x5, then 7x7, then 9x9, etc and deals from 2d6 Damage to 2d6 + 1d4, then 2d6 + 2d4, etc.
-            The arrows disappear as soon as they hit ground, or when dismissed (all at once) for free at any point, or after 1 minute of staying in the air.
-
-
-    ~Arcane Spear~:
-        A: 1 Action
-        Cost: 1 Mana
-        Requirement: Level 3
-        Effect: |
-            All Units in a 6 meter line from you make a Dexterity Check.
-            Deal 18 Damage to all targets who failed.
-            If no Unit failed, you gain the Mana back.
+    # Level 3
 
     ~Feather Fall~ :
         A: Reaction or 0 Actions
@@ -971,19 +938,19 @@ Arcane:
             You can only shoot the star towards North - without an angle.
             Ask the DM which way North is (if your character knows that).
 
-    ~Mage Hand~:
+    ~Spectral Hand~:
         A: 0 Actions
         Cost: 1 Mana
         Range: 5 meters
         Requirement: Level 3
-        Duration: 8 hours
+        Duration: Rest of Adventure
         Effect: |
             Conjure a spectral hand in a space you can see.
             You can move the hand as you move your normal hands and you can move your hand by spending meters from your remaining Movement.
             The hand can't deal Damage and disappears if it goes outside a 10 meters range.
         # Upgrade: |
         #     At Level 6, when you cast this, you can make the size of the hand Large, and every turn by (you) spending 1 Action, you can make it attack a target for 3d8 + 1 Smash Damage or cast Grapple or Slam around it (from Bloodshed) (using your Stats).
-        #     If cast like this, the Mage Hand has 15 Health and 0 Defense, and the effect ends if it is destroyed.
+        #     If cast like this, the Spectral Hand has 15 Health and 0 Defense, and the effect ends if it is destroyed.
         Notes: |
             The hand can't lift objects weighing more than 10kg.
             Moving the hand spends Actions as if you made moved your own hand.
@@ -991,18 +958,53 @@ Arcane:
 
     # Level 4
 
-    ~Antimagic Rune~ :
+    ~Arrow Barrage~:
         A: 1 Action
-        Requirement: Level 4
         Cost: 1 Mana
+        Range: 10 meters to edge
+        Cooldown: Once / Encounter
+        Requirement: Level 4
+        Effect: |
+            You conjure a levitating barrage of arrows in a 3x3 area, up to 10 meters above ground.
+            At any point (for 0 Actions or with a Reaction), you can release these arrows upon the ground, hitting all enemies hit for 2d6 Pierce Damage.
+            At the start of your every turn, if the barrage is not yet released, it increases by 1 meter in size in all directions and gains 1d4 Damage when it will be released (up to +3d4 and 9x9).
+        Notes: |
+            E.g. every turn, it goes from 3x3 to 5x5, then 7x7, then 9x9, etc and deals from 2d6 Damage to 2d6 + 1d4, then 2d6 + 2d4, etc.
+            The arrows disappear as soon as they hit ground, or when dismissed (all at once) for free at any point, or after 1 minute of staying in the air.
+
+    ~Arcane Spear~:
+        A: 1 Action
+        Cost: 2 Mana
+        Requirement: Level 4
         HasMixins: true
         Effect: |
-            Place a rune on the ground.
-            You can activate it at any time and from any distance.
-            When you activate it, the rune creates a 5x5 meter area.
-            Try to Silence all units inside (Intelligence Check) and they also take (Your Level) Pulse Damage on detonation.
+            Shoot a magical spear in a 6 meter line from in front of you.
+            Each Unit hit takes 14 Damage, except the last Unit hit, which takes only 7 Damage instead.
+            Each Person or _Magical_ Unit killed by the Arcane Spear refunds you 1 Mana.
         Notes: |
-            Ignores Cover. {Silenced}
+            A Magical Unit is one that use a form of magic or are themselves fueled through magic (e.g. Dragons, Unicorns, Elementals, etc are magical; Hippogriffs, Naga Warriors and Gnolls are not magical). Apply common sense.
+            If you only hit one target, it deals 7 Damage.
+
+    ~Countermagic~:
+        A: Reaction
+        Cost: 1 Mana
+        Effect: |
+            Use when a Unit you can see wants to cast a Spell.
+            It becomes Silenced this turn and must choose something else to do.
+        Upgrade: Each combat, you can only Countermagic each Unit once.
+
+    # ~Antimagic Rune~ :
+    #     A: 1 Action
+    #     Requirement: Level 4
+    #     Cost: 1 Mana
+    #     HasMixins: true
+    #     Effect: |
+    #         Place a rune on the ground.
+    #         You can activate it at any time and from any distance.
+    #         When you activate it, the rune creates a 5x5 meter area.
+    #         Try to Silence all units inside (Intelligence Check) and they also take (Your Level) Pulse Damage on detonation.
+    #     Notes: |
+    #         Ignores Cover. {Silenced}
 
     # ~Magic Nova~:
     #     A: 1 Action
@@ -1015,20 +1017,6 @@ Arcane:
     #         The blast extends 2 more meters from its edges in all directions and further Damages directly all Units on this 2-meter edge for half of the Damage rolled.
     #     Notes: To conclude, the total area of this Spell is 4x4 meters. The Units in the 2x2 center must succeed the check or take full Damage and the units on the edge just take half of the Damage (as if they succeeded a Check for the center).
 
-    ~Grow or Shrink~:
-        A: 0 Actions
-        Cost: 1 Mana
-        Cooldown: Once / turn
-        Requirement: Level 4
-        Effect: |
-            A Unit or object you can see becomes one Size larger/smaller for its next 1d4 turns.
-            It gains or loses 20% of its base (unbuffed) Defense (gain/loss is rounded up), gains or loses 1 Damage on all physical Acts (that would deal Damage) and gains or loses 1 Movement Speed.
-            Can stack multiple times.
-        Notes: |
-            Sizes are Minuscule, Small, Medium, Large, and Larger.
-            A larger Unit becomes 1 meter larger/smaller in both directions.
-            It's number of spaces occupied also changes with this.
-    
     ~Major Illusion~:
         A: 1 Action
         Requirement: Level 4
@@ -1066,34 +1054,34 @@ Arcane:
     #         At the start of your next turn, the orb dashes to your position.
     #         All Units in the orb's path take 2d6 + ^Intelligence^ + your Charisma Pulse Damage.
 
-    ~Dancing Weapon~:
+    ~Animated Weapon~:
         A: 1 Action
         Cost: 1 Mana
-        Range: 3 meters
-        Duration: 1 minute
+        Range: 5 meters
+        Duration: Depends
         Requirement: Level 3
         Effect: |
             Conjure a levitating, self-wielding melee weapon on a space within 3 meters.
-            On your each turn (includig this), the weapon can make a melee Attack that deals 1d10 + 1 Pulse Damage and move up to 3 meters.
+            On your each turn (includig this), the weapon can make a melee Attack that deals 1d10 + 1 Damage (Pierce, Slash or Smash) and move up to 3 meters.
+        Upgrade: The weapon lasts until it can't make an attack on a Worthy Unit (it disappears at the end of the turn if it couldn't make an attack on a Worthy Unit).
         Notes: |
             It costs 1 Action and 1 Mana to summon the weapon. Then, the weapon can Attack once for free every turn (including this), without costing an Action or Mana.
-            The weapon has no special effect. It has 10 Health and 3 Defense.
-            The weapon disappears if it moves more than 20 meters away from you.
+            The weapon has no special effect and has 1 Health and 5 Defense.
 
-    ~Spell Seal~:
-        A: 0 Actions
-        Cost: 1 Mana
-        Duration: 1 minute
-        Requirement: Level 5
-        Effect: |
-            Choose a Unit you can see.
-            Whenever it casts a Spell that heals or deals Damage, you can roll 1d4 and subtract it from that Unit's act.
-        Upgrade: |
-            At Level 5, you can spend 1 more Mana to increase the roll to 2d4.
-            At Level 8, you can spend 2 more Mana instead to increase the roll to 3d4.
-        Notes: |
-            Does not stack multiple times.
-            On Epic monsters, only applies to the first Spell they cast in the round.
+    # ~Spell Seal~:
+    #     A: 0 Actions
+    #     Cost: 1 Mana
+    #     Duration: 1 minute
+    #     Requirement: Level 5
+    #     Effect: |
+    #         Choose a Unit you can see.
+    #         Whenever it casts a Spell that heals or deals Damage, you can roll 1d4 and subtract it from that Unit's act.
+    #     Upgrade: |
+    #         At Level 5, you can spend 1 more Mana to increase the roll to 2d4.
+    #         At Level 8, you can spend 2 more Mana instead to increase the roll to 3d4.
+    #     Notes: |
+    #         Does not stack multiple times.
+    #         On Epic monsters, only applies to the first Spell they cast in the round.
 
     # ~Shield Element~:
     #     A: Half-Action
@@ -1107,27 +1095,12 @@ Arcane:
         A: 0 Actions
         Requirement: Level 5
         Cost: 1 Mana
-        AlignOnWebsite: Left
         HasMixins: true
         Effect: |
             You become invisible for up to (Intelligence) minutes (at least 1).
             Attacking, taking Damage or casting _offensive_ Abilities while invisible breaks the invisibility.
         Notes: "{Offensive Abilities}"
 
-    ~Levitate~ :
-        A: 1 Action
-        Requirement: Level 5
-        Cost: 1 Mana
-        AlignOnWebsite: Right
-        Effect: |
-            First, roll 2d100. That's how many kilograms you can levitate when you cast this.
-            You can levitate one object you can see that remains within 10 meters of you.
-            You can slowly move the object vertically, 1 meter for each 2 of your movement points spent to levitate.
-            If you use this on an enemy, it must fail a Might Check to be levitated, and can repeat the Check at the end of each of its turns.
-            A levitated Unit counts as Rooted.
-            Losing concentration (taking Damage or being Crowd Controlled) instantly starts slowly dropping the target and breaks the Levitate.
-        Upgrade: |
-            At Level 8, the amount increases to 5d100.
 
     ~Polymorph~:
         A: 1 Action
@@ -1145,20 +1118,20 @@ Arcane:
             A Unit can willingly fail the Check. For enemies, aside from Health and Defense, apply rules for Shapeshift. Allies can apply normal rules for Shapeshift (e.g. gain extra Health from the animal).
             If used on an Enemy, this is considered Crowd Control.
     
-    ~Distort Vision~:
-        A: 1 Action
-        Cost: 1 Mana
-        Range: 5 meters
-        Requirement: Level 2
-        Effect: |
-            This incantation distorts the visual space in an area with a diameter equal to your Level.
-            Make an Intelligence Check for this.
-            While keeping the distorsion, you must maintain concentration and line of sight.
-            You lose concentration if you take Damage or become crowd controlled.
-        Upgrade: At Level 5, you can use 1 Action to slowly move the area up to 3 meters.
-        Notes: |
-            If you Skilled in a Skill that would fit, you can add that to the Check.
-            In combat, a successful Distort Vision can provide Cover if rolled high enough.
+    # ~Distort Vision~:
+    #     A: 1 Action
+    #     Cost: 1 Mana
+    #     Range: 5 meters
+    #     Requirement: Level 2
+    #     Effect: |
+    #         This incantation distorts the visual space in an area with a diameter equal to your Level.
+    #         Make an Intelligence Check for this.
+    #         While keeping the distorsion, you must maintain concentration and line of sight.
+    #         You lose concentration if you take Damage or become crowd controlled.
+    #     Upgrade: At Level 5, you can use 1 Action to slowly move the area up to 3 meters.
+    #     Notes: |
+    #         If you Skilled in a Skill that would fit, you can add that to the Check.
+    #         In combat, a successful Distort Vision can provide Cover if rolled high enough.
 
     # Level 6
 
@@ -1181,38 +1154,53 @@ Arcane:
         Notes: |
             Ignores Cover for the Intelligence Check. {Slowed} {Fumbling}
 
-    ~Sense Magic~ :
-        A: 0 Actions
-        Requirement: Level 6
-        Cost: 1 Mana
-        Effect: |
-            You can tell if there is magic within (Intelligence * 10) meters from you (at least 10 meters).
-            You can also tell if an object you touch is magical.
-            If it is a common magic item, you can tell what it does (e.g. Potions, Scrolls, etc).
-            
-    ~Unlock~:
+    ~Levitate~ :
         A: 1 Action
         Requirement: Level 6
-        Range: 10 meters
+        Cost: 1 Mana
+        AlignOnWebsite: Right
         Effect: |
-            You can attempt to unlock a lock magically.
-            Using this counts as if you Know How to Pick Locks.
-            You roll a Dexterity Check for this, and you get a +2 on it.
-        
-    
-    ~Hearth Recall~:
-        A: 10 minutes
-        Requirement: Level 6
-        Cost: 2 mana
-        Effect: |
-            At any point, you can freely spend 10 minutes in a place to Bind to it.
-            When you use this Ability, channel for 10 minutes to teleport all allies (and yourself) within 10 meters of you to the bound place.
-            You can only have 1 bound place at a time.
-            The range to your bound place must be at most a a number of kilometers equal to your Intelligence * 100.
+            First, roll 2d100. That's how many kilograms you can levitate when you cast this.
+            You can levitate one object you can see that remains within 10 meters of you.
+            You can slowly move the object vertically, 1 meter for each 2 of your movement points spent to levitate.
+            If you use this on an enemy, it must fail a Might Check to be levitated, and can repeat the Check at the end of each of its turns.
+            A levitated Unit counts as Rooted.
+            Losing concentration (taking Damage or being Crowd Controlled) instantly starts slowly dropping the target and breaks the Levitate.
         Upgrade: |
-            At Level 9, you can have up to 2 bound places.
-        Notes: You can remove the binding of a place at will, from any distance.
+            At Level 8, the amount increases to 5d100.
 
+    ~Grow or Shrink~:
+        A: 0 Actions
+        Cost: 1 Mana
+        Cooldown: Once / turn
+        Requirement: Level 6
+        Effect: |
+            A Unit or object you can see becomes one Size larger/smaller for its next 1d4 turns.
+            It gains or loses 20% of its base (unbuffed) Defense (gain/loss is rounded up), gains or loses 1 Damage on all physical Acts (that would deal Damage) and gains or loses 1 Movement Speed.
+            Can stack multiple times.
+        Notes: |
+            Sizes are Minuscule, Small, Medium, Large, and Larger.
+            A larger Unit becomes 1 meter larger/smaller in both directions.
+            It's number of spaces occupied also changes with this.
+
+    # ~Sense Magic~ :
+    #     A: 0 Actions
+    #     Requirement: Level 6
+    #     Cost: 1 Mana
+    #     Effect: |
+    #         You can tell if there is magic within (Intelligence * 10) meters from you (at least 10 meters).
+    #         You can also tell if an object you touch is magical.
+    #         If it is a common magic item, you can tell what it does (e.g. Potions, Scrolls, etc).
+            
+    # ~Unlock~:
+    #     A: 1 Action
+    #     Requirement: Level 6
+    #     Range: 10 meters
+    #     Effect: |
+    #         You can attempt to unlock a lock magically.
+    #         Using this counts as if you Know How to Pick Locks.
+    #         You roll a Dexterity Check for this, and you get a +2 on it.
+        
 
     ~Reverse Gravity~:
         A: 1 Action
@@ -1229,17 +1217,11 @@ Arcane:
         Notes: |
             Fall Damage is 1d6 for every 2 meters fallen (e.g. 1d6 for 2 and 3 meters, 2d6 for 4 and 5 meters, etc).
 
-    ~Magic Prison~ :
-        A: 5 minutes
-        Requirement: Level 8
-        Cost: 2 Mana
-        Effect: |
-            You create a 4x4x4 meter cube.
-            Choose a Unit inside the cube.
-            It makes an Intelligence Check with triple disadvantage.
-            If it fails, it can not exit the cube for 24 hours.
-            It can make this Check to try to escape every 24 hours.
-            You can cast this Once / day per Mana.
+    ~Alteration~:
+        A: 0 Actions
+        Cost: 1 Mana
+        Requirement: Level 7
+        Effect: Your next Spell within 1 minute Heals instead of dealing Damage, and deals Damage instead of Healing.
 
     ~Banishment Slip~:
         A: Half-Action
@@ -1248,20 +1230,9 @@ Arcane:
         Range: 5 meters
         Requirement: Level 7
         Effect: |
-            A Medium or smaller Unit becomes Banished to another parallel dimension until the start of your next turn.
+            A non-Epic Unit becomes Banished to the Shadow Realm until the start of your next turn.
             While Banished, it can't interact with the normal world and nothing can interact with it.
-
-    ~Conjure Lodge~:
-        A: 10 minutes
-        Requirement: Level 8
-        Duration: 24 hours
-        Cost: 3 Mana
-        Cooldown: 1 Week
-        Effect: |
-            Conjure a cubic room with a width equal to your Level and a 1x2 meter door.
-            This room works like a pocket dimension and only the door is visible from the outside. The room occupies no space in the real world, except for the door (you enter the room through the door).
-        Notes: If the Lodge would be destroyed with people inside, each will automatically be expulsed (appear) in a space within 3 meters of the door (randomly or by QM's choice).
-
+        Notes: The Shadow Realm is a parallel dimension, and people there are sometimes visible from the real world as ghostly apparitions.
 
     ~Transmogrification~:
         A: 10 minutes
@@ -1285,22 +1256,52 @@ Arcane:
         Notes: |
             {Rooted}
 
+    ~Magic Prison~ :
+        A: 5 minutes
+        Requirement: Level 8
+        Cost: 2 Mana
+        Duration: 7 days
+        Effect: |
+            Choose a Unit that has 10% or less Health.
+            You create a 4x4x4 meter magic cube from which that Unit physically can't walk through, no matter how hard they try.
+
+    ~Hearth Recall~:
+        A: 10 minutes
+        Requirement: Level 8
+        Cost: 2 mana
+        Effect: |
+            At any point, you can freely spend 10 minutes in a place to Bind to it.
+            When you use this Ability, channel for 10 minutes to teleport all allies (and yourself) within 10 meters of you to the bound place.
+            You can only have 1 bound place at a time.
+            The range to your bound place must be at most a a number of kilometers equal to your Intelligence * 100.
+        Upgrade: |
+            At Level 9, you can have up to 2 bound places.
+        Notes: You can remove the binding of a place at will, from any distance.
+
+    ~Conjure Lodge~:
+        A: 10 minutes
+        Requirement: Level 9
+        Duration: 24 hours
+        Cost: 3 Mana
+        Cooldown: 1 Week
+        Effect: |
+            Conjure a cubic room with a width equal to your Level and a 1x2 meter door.
+            This room works like a pocket dimension and only the door is visible from the outside. The room occupies no space in the real world, except for the door (you enter the room through the door).
+        Notes: If the Lodge would be destroyed with people inside, each will automatically be expulsed (appear) in a space within 3 meters of the door (randomly or by QM's choice).
+
+
     ~Portal~ :
-        A: 4 Hours
+        A: 4 hours
         Cost: 3 Mana
         Duration: 30 days
-        Requirement: Level 8
+        Requirement: Level 10
         Effect: |
             You need a partner who can cast Portal to cast this.
             You both cast it at the same time, in different locations.
             At the end of the cast time, a portal opens at the locations of the two casters.
             Stepping through one of the portals (obviously) teleports the Unit to the other portal.
             You can only cast this every 30 days.
-    
-    ~Alteration~:
-        A: 0 Actions
-        Cost: 1 Mana
-        Effect: Your next Spell within 1 minute Heals instead of dealing Damage, and deals Damage instead of Healing.
+
 
 Nature:
 
@@ -1357,7 +1358,7 @@ Nature:
     
     ~Cure Affliction~:
         A: 0 Actions
-        Cooldown: 1 Hour
+        Cooldown: 1 hour
         Range: 3 meters
         Effect: |
             Cure a simple Disease, Debuff or Bleed effect on a Unit (you can choose yourself), or clean up to 2 rations or liters of water of microbes, mild poison or impurities.
@@ -1605,7 +1606,7 @@ Nature:
     ~Spider Climb~ :
         A: 1 Action
         Requirement: Level 5
-        Cooldown: Once / Real Hour
+        Cooldown: Once / Real hour
         Duration: 10 minutes
         Effect: |
             Your hands and feet can stick to solid surfaces, so you can walk or crawl on them.
@@ -1738,6 +1739,8 @@ Mysticism:
             Notes: |
                 For example, repair a hole through a chain shirt or textile material, the crack in a piece of glass, etc.
 
+        # Level 2
+
         ~Speak With Animals~:
             A: 1 Action
             Requirement: Level 2
@@ -1749,6 +1752,14 @@ Mysticism:
             Requirement: Level 2
             Effect: You can attempt to speak concrete ideas with willing, large plants.
             Notes: Keep in mind that plants generally have low Intelligence, and they are not expected to 'speak' back to you through language.
+
+        ~Dancing Blade~:
+            A: Passive
+            Effect: Your melee weapon Attacks have +1 meter range (up to 3 meters), by levitating to your target, hitting them, then quickly returning to your hand.
+            Requirement: Level 2
+            Notes: |
+                These Attacks are still considered melee Attacks, and are not considered thrown.
+                Flanking applies normally if there's an Ally right behind the enemy you're Attacking (forming a line between the 3 of you).
 
 
 
@@ -1935,7 +1946,7 @@ Mysticism:
         ~Water Breathing~:
             A: 1 Action
             Requirement: Level 5
-            Duration: (Your Level) Hours
+            Duration: (Your Level) hours
             Cooldown: Once / Adventure
             Effect: |
                 Up to 2 allies you can see (can include yourself) gain the ability to also breathe under water
@@ -2215,7 +2226,7 @@ Divine:
             At Level 8, also removes all curses and normal negative magical effects.
 
     ~Restful Soothing~:
-        A: 1 Hour
+        A: 1 hour
         Cost: 1 Mana
         Cooldown: Once / Adventure
         Requirement: Level 2

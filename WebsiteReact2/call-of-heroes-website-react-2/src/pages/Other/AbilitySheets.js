@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react'
 import './AbilitySheets.css'
 
 import { useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useLocation, useSearchParams } from 'react-router-dom'
 
 import * as U from '../../utils'
 
@@ -25,14 +25,20 @@ import classAndRaceAbilities from '../../databases/ClassAndRaceAbilities.json'
 import ManySpells from '../../components/Spell/ManySpells'
 import PageH0 from '../../components/PageH0/PageH0'
 import PageH3 from '../../components/PageH3/PageH3'
+import CopySpellButton from '../../components/CopyButton/CopySpellButton'
 
 export default function AbilitySheets() {
 
     document.title = 'Ability Sheet Maker'
-    const addedSpellsInURLJSON = new URLSearchParams(window.location.search).get('spellsAdded')
-    const addedSpellsInURL = addedSpellsInURLJSON? JSON.parse(addedSpellsInURLJSON) : []
-    console.log({addedSpellsInURL})
+
+    const location = useLocation()
+    const hash = U.getPageHashFromLocation(location)
+
+    const hasSpellsInUrl = hash != null && hash.length > 0
+    const addedSpellsInURL = hasSpellsInUrl? JSON.parse(hash) : []
+
     
+
     const allBasicAbilities = U.getAllSpellsFromCategoriesObject(BasicAbilities)
     const allFeats = U.getAllSpellsFromCategoriesObject(feats)
     const allClassAndRaceAbilities = U.spellsFromObject(classAndRaceAbilities)
@@ -48,15 +54,15 @@ export default function AbilitySheets() {
     const [spellsAdded, setSpellsAdded] = useState(addedSpellsInURL)
     const [currentlyTypedSpell, setCurrentlyTypedSpell] = useState('Fire Ball')
     const [selectedSpellIndex, setSelectedSpellIndex] = useState(-1)
-    const [searchParams, setSearchParams] = useSearchParams({})
+    console.log({currentlyTypedSpell})
 
     function updateSpellsAdded(newSpellsAdded) {
+        console.log(newSpellsAdded)
         setSpellsAdded(newSpellsAdded)
-        setSearchParams({ spellsAdded: JSON.stringify(newSpellsAdded) })
+        window.location.href = '#' + JSON.stringify(newSpellsAdded)
     }
 
     function queueSpell() {
-        console.log(`Adding: ${currentlyTypedSpell}`)
         const newSpellsAdded = [...spellsAdded, currentlyTypedSpell]
         updateSpellsAdded(newSpellsAdded)
     }
@@ -77,19 +83,18 @@ export default function AbilitySheets() {
         }
         updateSpellsAdded([...spellsAdded.slice(0, selectedSpellIndex), ...spellsAdded.slice(selectedSpellIndex + 1)])
     }
-    function download() {
-
-    }
 
 
-    const canvasDivRef = useRef(null)
-    useEffect(() => {
-        const canvasDiv = canvasDivRef.current
-    }, [])
+    // const canvasDivRef = useRef(null)
+    // useEffect(() => {
+    //     const canvasDiv = canvasDivRef.current
+    // }, [])
 
 
     // To ignore a stupid warning from MUI
     function _isOptionEqualToValueIgnoreWarning(option, value) { if (value == null) return true; else return value == option }
+
+    console.log({spellsAdded})
 
     return (
         <Page hasNoLimits={true}>
@@ -126,8 +131,11 @@ export default function AbilitySheets() {
                 </p>
             </div>
 
-            <ManySpells spells={spellsAdded.map(spellName => allAvailableSpellsByName[spellName])}/>
+            <div id="Spell-Sheet-Div">
+                <ManySpells spells={spellsAdded.map(spellName => allAvailableSpellsByName[spellName])} spellStyle={{border: 'solid black 2px'}}/>   {/* Extra border for copy-paste*/}
+            </div>
 
+            <CopySpellButton elementId="Spell-Sheet-Div"/>
         </Page>
     )
 }

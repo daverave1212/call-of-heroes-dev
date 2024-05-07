@@ -54,7 +54,7 @@
             "_ValueComment": "Scales hard",
             "A": "Passive",
             "Effect": "Unlike other Classes', all of your Mana regenerates 10 minutes after each Worthy combat encounter (e.g. instead of inbetween Adventures).\nYou gain +1 Max Mana only on Levels 3, 6 and 9 (not every Level).\n",
-            "Notes": "For Feats that require you to sacrifice Mana, each Mana counts as 2 sacrificed Mana. For example, MC - Shaman will cost only 1 Max Mana and 2 Max Health for you. Or you can sacrifice 1 Mana to gain multiple feats worth 2 Mana (e.g. sacrifice 1 Mana to get Magic Initiate and Adaptation)."
+            "Notes": "For Feats that require you to sacrifice Mana, each Mana counts as 2 sacrificed Mana. Also, for Feats, instead of sacrificing Mana, you could sacrifice 6 Health for each Mana to sacrifice."
         },
         "~Power Source~": {
             "A": "Passive",
@@ -72,12 +72,99 @@
     "Specializations": {
         "Description": "At Level 1, you can choose your specialization. Every Warlock can choose from the following Warlock specializations.",
         "Choices": [
-            "Cursewielder, a user of both magic and a weapon infused with the power of their master",
             "Occultist, a heavy caster of Eldritch magic that can empower their spells",
+            "Cursewielder, a user of both magic and a weapon infused with the power of their master",
             "Summoner, specialized in calling for aid from familiars and otherworldly beings"
         ]
     },
     "Specs": {
+        "Occultist": {
+            "Description": "LOREM! Dolor, dolor!",
+            "Starting Abilities": {
+                "~Power Overwhelming~": {
+                    "_Value": 2,
+                    "A": "Passive",
+                    "HasMixins": true,
+                    "Effect": "All your Eldritch Basic Spells have their ^Dice Upgraded^ to the next die type.\n",
+                    "Notes": "{DiceUpgrade}\nFor example, Eldritch Blast deals 2d10, Deathflame Bolt deals 1d12 + 1d12 + 1d10, Curse of Weakness reduces by 1d6, etc.\n"
+                }
+            },
+            "Talents": {
+                "Level 3": {
+                    "~Shadow Veil~": {
+                        "_Value": 0.5,
+                        "A": "Passive",
+                        "Effect": "You take only 50% Scourge and Psychic Damage."
+                    },
+                    "~Repower~": {
+                        "_Value": 0.5,
+                        "A": "Passive",
+                        "Effect": "Whenever you roll maximum on a Damage die with an Eldritch Spell on a Worthy Enemy, heal for 1."
+                    },
+                    "~Darkness~": {
+                        "_Value": 0.5,
+                        "A": "0 Actions",
+                        "Range": "5 meters to edge",
+                        "Cooldown": "Once / Adventure",
+                        "Effect": "Conjure a 5x5x5 meter area of magical darkness. Units inside are Blinded, and everything done in or through the darkness has Cover.\nPassively, you can see in normal darkness, up to 10 meters away.\n"
+                    }
+                },
+                "Level 5": {
+                    "<Agile Development>": {
+                        "_Value": 1.25,
+                        "A": "Passive",
+                        "Effect": "Your Basic Spells that cost Mana and can't deal Damage cost 0 Actions for you. Works only once per turn."
+                    },
+                    "<Invoke Self>": {
+                        "_Value": 0.5,
+                        "A": "Passive",
+                        "Effect": "Whenever you roll a d12 on a Spell, teleport 3 meters in any direction.",
+                        "Notes": "You need Line of Sight to the destination point.\n"
+                    },
+                    "<Source Control>": {
+                        "_Value": 1,
+                        "A": "Passive",
+                        "Effect": "Choose any other Basic Abilities List you have. Power Overwhelming applies to Abilities from that List as well."
+                    }
+                },
+                "Level 7": {
+                    "<Blood Pact>": {
+                        "_Value": 2,
+                        "A": "0 Actions",
+                        "Cooldown": "Once / Adventure",
+                        "Effect": "This turn, all Damage you deal is increased by 50%. Every time you roll an 8 or higher on a die, take 5 Psychic Damage.\n",
+                        "Notes": "The 50% increase is not applied to the 5 Psychic Damage."
+                    },
+                    "<Extra Power>": {
+                        "_Value": 2,
+                        "A": "Passive",
+                        "Effect": "Your Power Overwhelming makes your ^Dice^ further ^Upgraded^ to the next die type.",
+                        "Notes": "E.g. from d6 to d10."
+                    },
+                    "<Life Drain>": {
+                        "_Value": 2,
+                        "A": "Passive",
+                        "Effect": "Whenever ^YOU^ kill a Worthy Enemy, heal an Ally (or yourself) for the excess Damage.\nIn addition, if an Enemy has 25% or less Health, you know exactly how much Health it has (ask the QM).\n",
+                        "Notes": "E.g. if the enemy has 10 Health, and you deal 16 Damage, heal an ally for 6 Health."
+                    }
+                },
+                "Level 8": {
+                    "<Stat Bonus 5>": {
+                        "Effect": "Gain +1 in a Stat of choice, up to +5."
+                    },
+                    "<Great Talent Bonus>": {
+                        "Effect": "Gain one more Level 3 Talent, and one more Level 5 Talent."
+                    }
+                },
+                "Level 9": {
+                    "<Final Word>": {
+                        "A": "Passive",
+                        "Effect": "When you have exactly 1 Mana, and you cast a Spell that cost 1 Mana, that Spell casts twice (for free).",
+                        "Notes": "This is akin to casting the Spell again for 0 Actions without spending Mana (not necessarily on the same target)."
+                    }
+                }
+            }
+        },
         "Cursewielder": {
             "Description": "Ha! Lorem ipsum!!",
             "Starting Abilities": {
@@ -135,7 +222,7 @@
                         "A": "Half-Action",
                         "_Value": 2,
                         "Cost": "1 Mana",
-                        "Effect": "Count the Units within 3 meters of you (except you).\nThey are all attacked for 1d4 + (d4's equal to the number of Units) Force Damage.\n",
+                        "Effect": "Count the Units within 3 meters of you (except you).\nThey are all attacked for 1d4 + (d4's equal to the number of Units) Pulse Damage.\n",
                         "Notes": "E.g. if this affects 2 Units, it deals 3d4. If it affects 3 Units, it deals 4d4. 4 Units - 5d4. And so on."
                     }
                 },
@@ -156,84 +243,13 @@
                         "Duration": "2 turns",
                         "Effect": "You become possessed by your patron or power source. While possessed, you have 1 extra Action on your turn and can't spend Mana, but you can't control your character - your patron or power source controls it (the QM).\nYou can suggest Actions for your possession, but your patron may act randomly or unpredictibly.\nYou still roll any dice for Acts your character make.\nLasts until the end of your next turn.\n"
                     }
-                }
-            }
-        },
-        "Occultist": {
-            "Description": "LOREM! Dolor, dolor!",
-            "Starting Abilities": {
-                "~Power Overwhelming~": {
-                    "_Value": 2,
-                    "A": "Passive",
-                    "HasMixins": true,
-                    "Effect": "All your Eldritch Basic Spells have their ^Dice Upgraded^ to the next die type.\n",
-                    "Notes": "{DiceUpgrade}\nFor example, Eldritch Blast deals 2d10, Deathflame Bolt deals 1d12 + 1d12 + 1d10, Curse of Weakness reduces by 1d6, etc.\n"
-                }
-            },
-            "Talents": {
-                "Level 3": {
-                    "~Shadow Veil~": {
-                        "_Value": 0.5,
-                        "A": "Passive",
-                        "Effect": "You take only 50% Necrotic and Psychic Damage."
-                    },
-                    "~Repower~": {
-                        "_Value": 0.5,
-                        "A": "Passive",
-                        "Effect": "Whenever you roll maximum on a Damage die with an Eldritch Spell on a Worthy Enemy, heal for 1."
-                    },
-                    "~Darkness~": {
-                        "_Value": 0.5,
-                        "A": "0 Actions",
-                        "Range": "5 meters to edge",
-                        "Cooldown": "Once / Adventure",
-                        "Effect": "Conjure a 5x5x5 meter area of magical darkness. Units inside are Blinded, and everything done in or through the darkness has Cover.\nPassively, you can see in normal darkness, up to 10 meters away.\n"
-                    }
                 },
-                "Level 5": {
-                    "<Agile Development>": {
-                        "_Value": 1.25,
-                        "A": "Passive",
-                        "Effect": "Your Basic Spells that cost Mana and can't deal Damage cost 0 Actions for you. Works only once per turn."
+                "Level 8": {
+                    "<Stat Bonus 5>": {
+                        "Effect": "Gain +1 in a Stat of choice, up to +5."
                     },
-                    "<Invoke Self>": {
-                        "_Value": 0.5,
-                        "A": "Passive",
-                        "Effect": "Whenever you roll a d12 on a Spell, teleport 3 meters in any direction.",
-                        "Notes": "You need Line of Sight to the destination point.\n"
-                    },
-                    "<Source Control>": {
-                        "_Value": 1,
-                        "A": "Passive",
-                        "Effect": "Choose any other Basic Abilities List you have. Power Overwhelming applies to Abilities from that List as well."
-                    }
-                },
-                "Level 7": {
-                    "<Blood Pact>": {
-                        "_Value": 2,
-                        "A": "0 Actions",
-                        "Cooldown": "Once / Adventure",
-                        "Effect": "This turn, all Damage you deal is increased by 50%. Every time you roll an 8 or higher on a die, take 5 Psychic Damage.\n",
-                        "Notes": "The 50% increase is not applied to the 5 Psychic Damage."
-                    },
-                    "<Extra Power>": {
-                        "_Value": 2,
-                        "A": "Passive",
-                        "Effect": "Your Power Overwhelming makes your ^Dice^ further ^Upgraded^ to the next die type.",
-                        "Notes": "E.g. from d6 to d10."
-                    },
-                    "<Life Drain>": {
-                        "_Value": 2,
-                        "A": "Passive",
-                        "Effect": "Whenever ^YOU^ kill a Worthy Enemy, heal an Ally (or yourself) for the excess Damage.\nIn addition, if an Enemy has 25% or less Health, you know exactly how much Health it has (ask the QM).\n",
-                        "Notes": "E.g. if the enemy has 10 Health, and you deal 16 Damage, heal an ally for 6 Health."
-                    }
-                },
-                "Level 9": {
-                    "<Final Word>": {
-                        "A": "Passive",
-                        "Effect": "When you have exactly 1 Mana, and you cast a Spell that cost 1 Mana, that Spell casts twice (for free).",
-                        "Notes": "This is akin to casting the Spell again for 0 Actions without spending Mana (not necessarily on the same target)."
+                    "<Great Talent Bonus>": {
+                        "Effect": "Gain one more Level 3 Talent, and one more Level 5 Talent."
                     }
                 }
             }
@@ -265,7 +281,7 @@
                         "A": "Half-Action",
                         "Cost": "1 Mana",
                         "Range": "15 meters",
-                        "Effect": "Deal 8 Necrotic Damage to a Unit.\nIf it dies and it was Worthy, you get the Mana back and heal you or an ally for half of the Damage done.\n",
+                        "Effect": "Deal 8 Scourge Damage to a Unit.\nIf it dies and it was Worthy, you get the Mana back and heal you or an ally for half of the Damage done.\n",
                         "Upgrade": "Also, passively, you always know if a Unit would die from this (the QM will answer yes or no)."
                     },
                     "<Mana Flow Tapping>": {
@@ -309,6 +325,15 @@
                         "Cooldown": "Once / Adventure",
                         "Effect": "Choose a Unit you can see.\nYou possess its body and, on its next turn, you control what it does.\n",
                         "Upgrades": "Only works on targets with Sense less than 3.\nThe QM will tell you what the Unit can do if it's a monster.\n"
+                    }
+                },
+                "Level 8": {
+                    "<Stat Bonus 5>": {
+                        "Effect": "Gain +1 in a Stat of choice, up to +5."
+                    },
+                    "<Advanced Talent Bonus>": {
+                        "HasMixins": true,
+                        "Effect": "Gain one more Level 3 Talent, ^or^ one more Level 5 Talent."
                     }
                 }
             }

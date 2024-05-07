@@ -20,7 +20,8 @@ export default function Page({
 
     isCollapsable,                  // If true, clicking on the title collapses the page
     isSecondaryPage,                // Default false; if true, it will not update title
-    hasNoLimits                     // Default is false; if true, it will have no width limits
+    hasNoLimits,                    // Default is false; if true, it will have no width limits
+    hasCopyButton
 }) {
 
     isSecondaryPage = isSecondaryPage == null? false : true

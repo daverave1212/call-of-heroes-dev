@@ -6,7 +6,7 @@ import Separator from "./components/Separator/Separator"
 // ---------------- Spells Utilities ----------------
 
 export function spellWithName(name, spellData) {
-    return {...spellData, Name: name}
+    return {...spellData, Name: removeTildes(name)}
 }
 function getErrorSpellObject(message) {
     return {
@@ -42,20 +42,9 @@ export function spellsFromObject(obj) /* -> Array */ {
     }
     return spellsArray
 }
-// Gets all keys as spell objects into an array, BUT the objects are taken from a database by their key
-// This is useful because some class abilities have ": Inherit", therefore you need to get the spell from the database by name
-export function spellFromObject(obj, name) {
-    if (obj[name] == null) {
-        if (name.startsWith('~')) {
-            name = removeTildes(name)
-        } else {
-            name = addTildes(name)
-        }
-    }
-    return spellWithName(name, obj[name])
-}
+
 export function removeTildes(spellName) {
-    if (spellName.startsWith('~'))
+    if (spellName.startsWith('~') || spellName.startsWith('<'))
         return spellName.substring(1, spellName.length - 1)
     return spellName
 }
@@ -134,7 +123,6 @@ export function getLocationHackyPath(location) {
         return null
     }
 
-    decodeURIComponent(location.hash).substring(1)
 }
 // text: "250 (125 x2)" -> 2
 export function extractXPMultiplierFromText(text) {
@@ -493,7 +481,10 @@ export function isStringNumeric(str) {
            !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
 }
 export function getPageHashFromLocation(location) {       // Use 'const location = useLocation()' in a component to get location (from 'react-router-dom')
-    return decodeURIComponent(location.hash).substring(1) // Remove the "#" at the beginning
+    const decodedHash = decodeURIComponent(location.hash)
+    if (decodedHash == null || decodedHash.length == 0)
+        return ''
+    return decodedHash.substring(1) // Remove the "#" at the beginning
 }
 export function scrollToId(id, offset) {
     offset = offset == null? 0 : offset

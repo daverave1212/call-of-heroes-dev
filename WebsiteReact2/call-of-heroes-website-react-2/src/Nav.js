@@ -71,7 +71,7 @@ function LogoQG() {
         <Link to="/"><img src="/favicon.png"/></Link>
       </div>
       <div className='nav-logo-version'>
-        v2024-04-28
+        v2024-05-04
       </div>
     </div>
   )
@@ -146,7 +146,7 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
           <ul>
             <LiLink to="/Races/Bertle">Bertle</LiLink>
             <LiLink to="/Races/Davel">Davel</LiLink>
-            <LiLink to="/Races/Dragonborn">Dragonborn</LiLink>
+            <LiLink to="/Races/Dragonborn">Dragonsworn</LiLink>
             <LiLink to="/Races/Dwarf">Dwarf</LiLink>
             <LiLink to="/Races/Elf">Elf</LiLink>
             <LiLink to="/Races/Gnome">Gnome</LiLink>
@@ -177,8 +177,9 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
           <div className='subnav-title-underline'></div>
           <ul>
             <LiLink to="/Other/Abilities">Basic Ability Lists</LiLink>
-            <LiLink to="/Other/Proficiencies">Proficiencies</LiLink>
+            <LiLink to="/Other/Proficiencies">Skills</LiLink>
             <LiLink to="/Other/Feats">Feats</LiLink>
+            <LiLink className="premium" to="/Other/AbilitySheets">Ability Sheet Maker</LiLink>
           </ul>
 
           <h4 style={{marginTop: '38px'}}>Gear and Items</h4>
@@ -194,11 +195,9 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
           <h4>Other</h4>
           <div className='subnav-title-underline'></div>
           <ul>
-            <LiLink isDownload={true} to="/Download/Sheet-2023-03-24b.pdf">Character Sheet (PDF)</LiLink>
-            <LiLink isDownload={true} to="/Download/Sheet-2024-04-28.psd">Character Sheet (PSD)</LiLink>
-            <LiLink isDownload={true} to="/Download/Sheet-2024-04-28.png">Character Sheet (PNG)</LiLink>
             <LiLink to="/Other/Obstacles">Obstacles</LiLink>
             <LiLink to="/Other/PetsAndAnimals">Pets and Animals</LiLink>
+            <LiLink to="/Lore/Languages">Languages</LiLink>
             <LiLink to="/Meta/PatchNotes">Update Notes</LiLink>
           </ul>
         </div>

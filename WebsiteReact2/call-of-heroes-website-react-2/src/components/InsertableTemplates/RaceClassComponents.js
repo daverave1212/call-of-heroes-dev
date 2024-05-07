@@ -22,6 +22,7 @@ import Icon from '../Icon'
 
 import rules from '../../databases/Rules/Rules.json'
 import abilities from '../../databases/Abilities.json'
+import classAndRaceAbilities from '../../databases/ClassAndRaceAbilities.json'
 import ManySpells from '../Spell/ManySpells'
 import TableNormalLevelUpWarlock from '../TableNormal/TableNormalLevelUpWarlock'
 import ManySmallStats from '../SmallStat/ManySmallStats'
@@ -37,28 +38,22 @@ import PageH0 from '../PageH0/PageH0'
 
 export function Proficiencies({ name, theRaceOrClass }) {
 
-    const baseProficienciesDescription = `All Classes get a number of extra Proficiencies. Think of something specific your character is good at outside of combat (e.g. things like acrobatics, knowing about monsters, lying, etc). Whenever you make a Check for what you're good at, add your Level to that Check.`
+    const baseProficienciesDescription = `All Classes get a number of extra non-combat Skills. Think of something specific your character is good at outside of combat (e.g. things like acrobatics, knowing about monsters, lying, etc). Whenever you make a Check for what you're good at, add your Level to that Check.`
 
     return (
         <div style={{marginTop: 'var(--page-padding)'}} id="proficiencies">
             {
                 theRaceOrClass.Proficiencies == null || Object.keys(theRaceOrClass.Proficiencies).length == 0 ? (
-                    // <div>
-                    //     <PageH3>Proficiencies</PageH3>
-                    //     <p>{ theRaceOrClass['Proficiencies Description'] }</p>
-                    // </div>
                     <div></div>
                 ) : Object.keys(theRaceOrClass.Proficiencies).length == 1 ? (
                     <div>
-                        <PageH3>Proficiencies</PageH3>
-                        {/* <p>As a { name }, you have all the following Abilities. Each of them is a Proficiency, which is a passive Ability that gives you a bonus on non-combat Checks in a certain domain.</p> */}
+                        <PageH3>Non-Combat Skills</PageH3>
                         <p>{ theRaceOrClass['Proficiencies Description'] }</p>
                         <AbilitiesWithDescription autoAlign={true}  spellsObject={theRaceOrClass.Proficiencies} description={baseProficienciesDescription}/>
                     </div>
                 ) : (
                     <div>
-                        <PageH3>Proficiencies</PageH3>
-                        {/* <p>As a { name }, you have all the following Abilities. Each of them is a Proficiency, which is generally a passive Ability that gives you a bonus on non-combat Checks in a certain domain.</p> */}
+                        <PageH3>Non-Combat Skills</PageH3>
                         <p>{ theRaceOrClass['Proficiencies Description'] }</p>
                         <p>{ baseProficienciesDescription }</p>
                         <AbilitiesWithDescription autoAlign={false} spellsObject={theRaceOrClass.Proficiencies}/>
@@ -67,10 +62,10 @@ export function Proficiencies({ name, theRaceOrClass }) {
             }
             { theRaceOrClass['Proficiency Choices'] != null && (
                 <div>
-                    <PageH3>Proficiency Choices</PageH3>
+                    <PageH3>Non-Combat Skill Choices</PageH3>
                     <p>
-                        As a { name }, you can pick ONE of the following Proficiency Abilities.
-                        { theRaceOrClass.Proficiencies == null && (<span> Each of them is a Proficiency, which is generally a passive Ability that gives you a bonus on non-combat Checks in a certain domain.</span>) }
+                        As a { name }, you can pick ONE of the following Non-Combat Skills.
+                        { theRaceOrClass.Proficiencies == null && (<span> Each of them is a Non-Combat Skill, which is generally a passive Ability that gives you a bonus on non-combat Checks in a certain domain.</span>) }
                     </p>
                     <AbilitiesWithDescription autoAlign={true} spellsObject={theRaceOrClass['Proficiency Choices']} description={theRaceOrClass['Proficiency Choices Description']}/>
                 </div>
@@ -212,7 +207,7 @@ export function LevelingUp({ theClass }) {
             <PageH2>Leveling Up</PageH2>
     
             <TwoColumns type="normal">
-                <Column>
+                {/* <Column>
                     {
                         theClass['Spellcasting']['Type'] == 'Special Mana-based'? (
                             <TableNormalLevelUpWarlock/>
@@ -227,10 +222,11 @@ export function LevelingUp({ theClass }) {
                             <TableNormalLevelUp/>
                         ) :
                         (
-                            <TableNormalLevelUp/>
+                            <div></div>
+                            // <TableNormalLevelUp/>
                         )
                     }
-                </Column>
+                </Column> */}
                 <Column>
                     {
                         theClass['Spellcasting']['Type'] == 'Mana-based'? (
@@ -238,17 +234,22 @@ export function LevelingUp({ theClass }) {
                                 <TableNormal columns={['Every Level Above 1 You Get...']}>
                                     <tr>
                                         <td>
-                                            { theClass['Level Up']['Every Level']['Health'] } <Icon name="Health"/>Health
+                                            +{ theClass['Level Up']['Every Level']['Health'] } <Icon name="Health"/>Health
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            1 Known Spell
+                                            +1 Known Basic Ability
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            1 Extra <Icon name="Mana"/>Mana
+                                            +1 <Icon name="Mana"/>Mana
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            +2 <Icon name="HealthRegen"/>Health Regen
                                         </td>
                                     </tr>
                                 </TableNormal>
@@ -266,12 +267,17 @@ export function LevelingUp({ theClass }) {
                                 <TableNormal columns={['Every Level Above 1 You Get...']}>
                                     <tr>
                                         <td>
-                                            { theClass['Level Up']['Every Level']['Health'] } <Icon name="Health"/>Health
+                                            +{ theClass['Level Up']['Every Level']['Health'] } <Icon name="Health"/>Health
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            1 Known Basic Ability
+                                            +1 Known Basic Ability
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            +2 <Icon name="HealthRegen"/>Health Regen
                                         </td>
                                     </tr>
                                 </TableNormal>
@@ -284,6 +290,13 @@ export function LevelingUp({ theClass }) {
                             null
                         )
                     }
+                </Column>
+                <Column>
+                    <p>
+                        Every Level above Level 1, you get all the bonuses listed - the extra Max Health, the extra Health Regen, etc.<br/>
+                        Remember to pick your Specialization at Level 2, and then from Level 3 on, every Level, you get to pick a Talent choice! Note that when you gain extra Might, you also gain extra Max Health, and the same goes for Dexterity and Charisma with Initiative{ theClass.Class == 'Paladin'? '': <span>, and Intellgience with the number of Known Basic Abilities</span> }.<br/>
+                        You can relearn all Talents inbetween Adventures.
+                    </p>
                 </Column>
             </TwoColumns>
         </div>
@@ -338,7 +351,7 @@ export function SpellCasting({ theClass }) {
                 <PageH3>Recommended Basic Abilities</PageH3>
                 <TwoColumns>
                     <Column className='with-margined-children'>
-                        <SmallStatList name="Quick-Build Abilities" color="blue" contentStyle={{ width: '100%' }}>
+                        {/* <SmallStatList name="Quick-Build Abilities" color="blue" contentStyle={{ width: '100%' }}>
                             {
                                 theClass['Spellcasting']['Recommended Basic Abilities'].map(categoryNameKVP => {
                                     const category = Object.keys(categoryNameKVP)[0]
@@ -353,7 +366,7 @@ export function SpellCasting({ theClass }) {
                                     }}>{ name }</div>)
                                 })
                             }
-                        </SmallStatList>
+                        </SmallStatList> */}
                         { displayedBasicAbilityObj != null && (
                             <Spell spell={displayedBasicAbilityObj}/>
                         ) }
@@ -456,12 +469,39 @@ export function Spec({ children, name, spec }) {
 export function SpecTalents({ spec }) {
 
     const talentTierCategories = Object.keys(spec.Talents)
+
+    const talentTiers = [3,4,5,6,7,8,9]
+    const defaultSmallBonusTalentsByTier = {
+        4: ['<Stat Bonus 4>', '<Double Stat Bonus>'],
+        6: ['<Health Bonus>', '<Health Regen Bonus>'],
+        8: ['<Stat Bonus 5>', '<Mana Bonus>']
+    }
+
     return (
         <div>
             <PageH2>Talents</PageH2>
             <p>At each of the following levels, you can pick one of the Abilities listed.</p>
 
-            {talentTierCategories.map(talentTierName => {
+            {talentTiers.map(talentTier => {
+                const talentTierName = 'Level ' + talentTier
+                const hasThisTier = spec.Talents[talentTierName] != null
+                const isTalentTierForSmallBonuses = [4,6,8].includes(talentTier)
+                
+                if (hasThisTier == false && isTalentTierForSmallBonuses) {
+                    const abilitiesHereNames = defaultSmallBonusTalentsByTier[talentTier]
+                    const abilitiesHere = abilitiesHereNames.map(name => U.spellWithName(name, classAndRaceAbilities[name]))
+                    console.log(abilitiesHere)
+                    return <div>
+                        <PageH3>{talentTierName}</PageH3>
+                        <ManySpells spells={abilitiesHere}/>
+                    </div>
+                }
+                if (hasThisTier == false) {
+                    return <div key={talentTierName}>
+                        <PageH3>{talentTierName}</PageH3>
+                    </div>
+                }
+
                 const spellsInThisTier = U.spellsFromObject(spec.Talents[talentTierName])
                 return <div key={talentTierName}>
                     <PageH3>{talentTierName}</PageH3>

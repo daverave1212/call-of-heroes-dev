@@ -30,7 +30,7 @@ function AllSpellsSeparatedInLevels({allSpellsInCategoryArray}) {
         }
     }
 
-    const requirementsNamesOrder = Object.keys(spellsByRequirement).sort()
+    const requirementsNamesOrder = Object.keys(spellsByRequirement).sort((a, b) => a.length - b.length || a.localeCompare(b))
 
     function SpellGroups() {
         const freeSpells = spells.filter(s => s.Cost == null)

@@ -15,14 +15,14 @@ export default () => (
         <tr>
             <td>Level 2</td>
             <td>
-                Class Specialization<br/>
-                1 Extra <Icon name="Mana"/>Mana
+                Class Specialization
             </td>
         </tr>
         <tr>
             <td>Level 3</td>
             <td>
                 Class Talent (Tier 1)<br/>
+                1 Extra <Icon name="Mana"/>Mana
             </td>
         </tr>
         <tr>
@@ -34,15 +34,15 @@ export default () => (
         <tr>
             <td>Level 5</td>
             <td>
-                Class Talent (Tier 2)<br/>
-                1 Extra <Icon name="Mana"/>Mana
+                Class Talent (Tier 2)
             </td>
         </tr>
         <tr>
             <td>Level 6</td>
             <td>
-                1 Proficiency<br/>
-                1 Weapon Training
+                1 Non-Combat Skill<br/>
+                1 Weapon Training<br/>
+                1 Extra <Icon name="Mana"/>Mana
             </td>
         </tr>
         <tr>
@@ -54,14 +54,14 @@ export default () => (
         <tr>
             <td>Level 8</td>
             <td>
-                +1 in any Stat (up to +5)<br/>
-                1 Extra <Icon name="Mana"/>Mana
+                +1 in any Stat (up to +5)
             </td>
         </tr>
         <tr>
             <td>Level 9</td>
             <td>
-                Class Talent (Tier 4)<br/><br/>
+                Class Talent (Tier 4)<br/>
+                1 Extra <Icon name="Mana"/>Mana
             </td>
         </tr>
         <tr>

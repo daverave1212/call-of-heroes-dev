@@ -66,13 +66,13 @@
         "~Lightstrike~": {
             "A": "Half-Action",
             "Range": "2 meters",
-            "Effect": "Make a special melee attack that deals 1d6 + 2 Force Damage.\nAfter the attack, your turn ends immediately.\n",
+            "Effect": "Make a special melee attack that deals 1d6 + 2 Pulse Damage.\nAfter the attack, your turn ends immediately.\n",
             "Notes": "This counts as a weapon Attack (1-Handed or 2-Handed, depending on your weapon).",
             "Name": "~Lightstrike~"
         },
         "~Slam~": {
             "A": "1 Action",
-            "Effect": "All Units within 2 meters of you take 2d6 Smash Damage.\nAfter that, one of them of your choice takes an extra 1d6 Smash Damage.\n",
+            "Effect": "All Units within 2 meters of you take 2d6 Smash Damage.\nAfter that, one of them of your choice takes an extra 1d4 Smash Damage.\n",
             "Notes": "The extra 1d6 is part of the same Damage (for Defense).",
             "Name": "~Slam~"
         },
@@ -91,7 +91,7 @@
             "Cost": "1 Mana",
             "Range": "2 meters",
             "Requirement": "Level 2",
-            "Effect": "Deal 1d10 Force Damage to a Unit and it becomes Dazed.\n",
+            "Effect": "Deal 1d10 Pulse Damage to a Unit and it becomes Dazed.\n",
             "Name": "~Muscle Tear~"
         },
         "~Panic Lash~": {
@@ -165,7 +165,7 @@
         "~Lightstrike~": {
             "A": "Half-Action",
             "Range": "2 meters",
-            "Effect": "Make a special melee attack that deals 1d6 + 2 Force Damage.\nAfter the Attack, your turn ends immediately.\n",
+            "Effect": "Make a special melee attack that deals 1d6 + 2 Pulse Damage.\nAfter the Attack, your turn ends immediately.\n",
             "Name": "~Lightstrike~"
         },
         "~Atonement~": {
@@ -195,7 +195,7 @@
             "A": "0 Actions",
             "Cost": "1 Mana",
             "Duration": "10 minutes",
-            "Effect": "Another ally you can see gains 50% Resistance to a named physical Damage type (Slash, Smash, Pierce or Force).\n",
+            "Effect": "Another ally you can see gains 50% Resistance to a named physical Damage type (Slash, Smash, Pierce or Pulse).\n",
             "Notes": "You can't use this on yourself",
             "Name": "~Battle Trust~"
         },
@@ -335,7 +335,7 @@
             "Requirement": "Level 2",
             "Range": "5 meters to first target",
             "Effect": "Choose a Worthy Unit other than you.\nIf it's an Enemy, it takes 1d10 Shock Damage.\nOtherwise, it is Healed for 1d8.\nIf there is another Unit within 2 meters of it, repeat Conduit Flow on the new Unit (you choose if multiple).\n",
-            "Upgrade": "Each Unit can be affected by Conduit Flow only once per cast. Cover is calculated from Unit to Unit (as if the conduit is jumping from Unit to Unit). The conduit can be repeated on you as long as you're not the first target.",
+            "Notes": "Each Unit can be affected by Conduit Flow only once per cast. Cover is calculated from Unit to Unit (as if the conduit is jumping from Unit to Unit). The conduit can be repeated on you as long as you're not the first target.",
             "Name": "~Conduit Flow~"
         },
         "~Control Elements~": {
@@ -442,7 +442,7 @@
             "Cost": "2 Mana",
             "Range": "10 meters",
             "Requirement": "Level 5",
-            "Effect": "Choose a Unit. It takes 1d10 Cold Damage, and all Units within 2 meters of it 200% of that amount. All of them are Slowed.\nIf there were no Units within 2 meters of it, the target is Stunned instead.\n",
+            "Effect": "Choose a Unit. It takes 1d10 Cold Damage, and each Unit within 2 meters of it takes Cold Damage equal to 200% of the roll. All of them are Slowed.\nIf there were no Units within 2 meters of it, the target is Stunned instead.\n",
             "Upgrade": "When Stunning a flying target, it remains stuck in the air (levitating) for up to 6 seconds.",
             "Name": "~Frostfall~"
         },
@@ -504,7 +504,7 @@
             "Requirement": "Level 7",
             "Range": "10 meters",
             "Effect": "Damage a Unit for a total of 2d6 True Damage for each Element the target had been Damaged with this combat before.\n",
-            "Upgrade": "Possible elements are Fire, Cold, Shock, Divine, Poison, Necrotic, Acid and Psychic.",
+            "Upgrade": "Possible elements are Fire, Cold, Shock, Divine, Poison, Scourge, Acid and Psychic.",
             "Name": "~Prismatic Convergence~"
         }
     },
@@ -512,7 +512,8 @@
         "~Magic Missiles~": {
             "A": "1 Action",
             "Range": "5 meters",
-            "Effect": "Shoot a number of missiles equal to your Intelligence + 1. Each missile does 1d4 Force Damage.\n",
+            "HasMixins": true,
+            "Effect": "Shoot a number of missiles equal to ^your Intelligence^ + 1. Each missile does 1d4 Pulse Damage.\n",
             "Notes": "Missiles are rolled at the same time. Then you can decide which die Damages which Unit.\nEach missile is a separate Attack and can be affected individually by Cover, Fumbling, etc (e.g. shooting all 3 missiles at a Unit that has Cover makes each missile deal 1d4 - 2 Damage).\n",
             "Name": "~Magic Missiles~"
         },
@@ -532,20 +533,6 @@
             "Effect": "Dispell all ongoing _non-chronic_ magical effects on a Unit (any magical Crowd Control, magical buffs and debuffs, etc).",
             "Notes": "Chronic effects are ones that last days, months or are permanent, such as curses, vampirism, etc.",
             "Name": "~Dispel Magic~"
-        },
-        "~Conjure Consumable~": {
-            "A": "Passive",
-            "Effect": "You automatically conjure ammo for your weapon the moment you want to fire them.",
-            "Upgrade": "At Level 4, you can conjure food for up to 1 day, every day.",
-            "Notes": "Alternatively, for 1 Action, you can conjure up to 10 ammo for another party member, which disappear after 1 hour.",
-            "Name": "~Conjure Consumable~"
-        },
-        "~Dancing Blade~": {
-            "A": "Passive",
-            "Effect": "Your melee weapon Attacks have +1 meter range (up to 3 meters), by levitating to your target, hitting them, then quickly returning to your hand.",
-            "Requirement": "Level 2",
-            "Notes": "These Attacks are still considered melee Attacks, and are not considered thrown.\nFlanking applies normally if there's an Ally right behind the enemy you're Attacking (forming a line between the 3 of you).\n",
-            "Name": "~Dancing Blade~"
         },
         "~Focus Fling~": {
             "A": "Half-Action",
@@ -571,23 +558,6 @@
             "Notes": "You take with you all items carried. Does not work if you're Rooted or stuck in place somehow.",
             "Name": "~Flash~"
         },
-        "~Arrow Barrage~": {
-            "A": "1 Action",
-            "Cost": "1 Mana",
-            "Range": "10 meters to edge",
-            "Cooldown": "Once / Encounter",
-            "Requirement": "Level 3",
-            "Effect": "You conjure a levitating barrage of arrows in a 3x3 area, up to 10 meters above ground.\nAt any point (for 0 Actions or with a Reaction), you can release these arrows upon the ground, hitting all enemies hit for 2d6 Pierce Damage.\nAt the start of your every turn, if the barrage is not yet released, it increases by 1 meter in size in all directions and gains 1d4 Damage when it will be released (up to +3d4 and 9x9).\n",
-            "Notes": "E.g. every turn, it goes from 3x3 to 5x5, then 7x7, then 9x9, etc and deals from 2d6 Damage to 2d6 + 1d4, then 2d6 + 2d4, etc.\nThe arrows disappear as soon as they hit ground, or when dismissed (all at once) for free at any point, or after 1 minute of staying in the air.\n",
-            "Name": "~Arrow Barrage~"
-        },
-        "~Arcane Spear~": {
-            "A": "1 Action",
-            "Cost": "1 Mana",
-            "Requirement": "Level 3",
-            "Effect": "All Units in a 6 meter line from you make a Dexterity Check.\nDeal 18 Damage to all targets who failed.\nIf no Unit failed, you gain the Mana back.\n",
-            "Name": "~Arcane Spear~"
-        },
         "~Feather Fall~": {
             "A": "Reaction or 0 Actions",
             "Requirement": "Level 3",
@@ -605,33 +575,41 @@
             "Notes": "You can only shoot the star towards North - without an angle.\nAsk the DM which way North is (if your character knows that).\n",
             "Name": "~North Star~"
         },
-        "~Mage Hand~": {
+        "~Spectral Hand~": {
             "A": "0 Actions",
             "Cost": "1 Mana",
             "Range": "5 meters",
             "Requirement": "Level 3",
-            "Duration": "8 hours",
+            "Duration": "Rest of Adventure",
             "Effect": "Conjure a spectral hand in a space you can see.\nYou can move the hand as you move your normal hands and you can move your hand by spending meters from your remaining Movement.\nThe hand can't deal Damage and disappears if it goes outside a 10 meters range.\n",
             "Notes": "The hand can't lift objects weighing more than 10kg.\nMoving the hand spends Actions as if you made moved your own hand.\nOnce / turn, you can summon or vanish the hand for 0 Actions if it's effect is still active, in a space next to you.\n",
-            "Name": "~Mage Hand~"
+            "Name": "~Spectral Hand~"
         },
-        "~Antimagic Rune~": {
+        "~Arrow Barrage~": {
             "A": "1 Action",
-            "Requirement": "Level 4",
             "Cost": "1 Mana",
-            "HasMixins": true,
-            "Effect": "Place a rune on the ground.\nYou can activate it at any time and from any distance.\nWhen you activate it, the rune creates a 5x5 meter area.\nTry to Silence all units inside (Intelligence Check) and they also take (Your Level) Force Damage on detonation.\n",
-            "Notes": "Ignores Cover. {Silenced}\n",
-            "Name": "~Antimagic Rune~"
+            "Range": "10 meters to edge",
+            "Cooldown": "Once / Encounter",
+            "Requirement": "Level 4",
+            "Effect": "You conjure a levitating barrage of arrows in a 3x3 area, up to 10 meters above ground.\nAt any point (for 0 Actions or with a Reaction), you can release these arrows upon the ground, hitting all enemies hit for 2d6 Pierce Damage.\nAt the start of your every turn, if the barrage is not yet released, it increases by 1 meter in size in all directions and gains 1d4 Damage when it will be released (up to +3d4 and 9x9).\n",
+            "Notes": "E.g. every turn, it goes from 3x3 to 5x5, then 7x7, then 9x9, etc and deals from 2d6 Damage to 2d6 + 1d4, then 2d6 + 2d4, etc.\nThe arrows disappear as soon as they hit ground, or when dismissed (all at once) for free at any point, or after 1 minute of staying in the air.\n",
+            "Name": "~Arrow Barrage~"
         },
-        "~Grow or Shrink~": {
-            "A": "0 Actions",
-            "Cost": "1 Mana",
-            "Cooldown": "Once / turn",
+        "~Arcane Spear~": {
+            "A": "1 Action",
+            "Cost": "2 Mana",
             "Requirement": "Level 4",
-            "Effect": "A Unit or object you can see becomes one Size larger/smaller for its next 1d4 turns.\nIt gains or loses 20% of its base (unbuffed) Defense (gain/loss is rounded up), gains or loses 1 Damage on all physical Acts (that would deal Damage) and gains or loses 1 Movement Speed.\nCan stack multiple times.\n",
-            "Notes": "Sizes are Minuscule, Small, Medium, Large, and Larger.\nA larger Unit becomes 1 meter larger/smaller in both directions.\nIt's number of spaces occupied also changes with this.\n",
-            "Name": "~Grow or Shrink~"
+            "HasMixins": true,
+            "Effect": "Shoot a magical spear in a 6 meter line from in front of you.\nEach Unit hit takes 14 Damage, except the last Unit hit, which takes only 7 Damage instead.\nEach Person or _Magical_ Unit killed by the Arcane Spear refunds you 1 Mana.\n",
+            "Notes": "A Magical Unit is one that use a form of magic or are themselves fueled through magic (e.g. Dragons, Unicorns, Elementals, etc are magical; Hippogriffs, Naga Warriors and Gnolls are not magical). Apply common sense.\nIf you only hit one target, it deals 7 Damage.\n",
+            "Name": "~Arcane Spear~"
+        },
+        "~Countermagic~": {
+            "A": "Reaction",
+            "Cost": "1 Mana",
+            "Effect": "Use when a Unit you can see wants to cast a Spell.\nIt becomes Silenced this turn and must choose something else to do.\n",
+            "Upgrade": "Each combat, you can only Countermagic each Unit once.",
+            "Name": "~Countermagic~"
         },
         "~Major Illusion~": {
             "A": "1 Action",
@@ -650,44 +628,25 @@
             "Effect": "You can conjure an object that is up to 1x1x1 meter in size.\nThe object is solid and glows faintly.\nYou can't conjure mechanical objects.\nThe object disappears after 1 hour (24 hours at Level 8).\n",
             "Name": "~Conjure Object~"
         },
-        "~Dancing Weapon~": {
+        "~Animated Weapon~": {
             "A": "1 Action",
             "Cost": "1 Mana",
-            "Range": "3 meters",
-            "Duration": "1 minute",
+            "Range": "5 meters",
+            "Duration": "Depends",
             "Requirement": "Level 3",
-            "Effect": "Conjure a levitating, self-wielding melee weapon on a space within 3 meters.\nOn your each turn (includig this), the weapon can make a melee Attack that deals 1d10 + 1 Force Damage and move up to 3 meters.\n",
-            "Notes": "It costs 1 Action and 1 Mana to summon the weapon. Then, the weapon can Attack once for free every turn (including this), without costing an Action or Mana.\nThe weapon has no special effect. It has 10 Health and 3 Defense.\nThe weapon disappears if it moves more than 20 meters away from you.\n",
-            "Name": "~Dancing Weapon~"
-        },
-        "~Spell Seal~": {
-            "A": "0 Actions",
-            "Cost": "1 Mana",
-            "Duration": "1 minute",
-            "Requirement": "Level 5",
-            "Effect": "Choose a Unit you can see.\nWhenever it casts a Spell that heals or deals Damage, you can roll 1d4 and subtract it from that Unit's act.\n",
-            "Upgrade": "At Level 5, you can spend 1 more Mana to increase the roll to 2d4.\nAt Level 8, you can spend 2 more Mana instead to increase the roll to 3d4.\n",
-            "Notes": "Does not stack multiple times.\nOn Epic monsters, only applies to the first Spell they cast in the round.\n",
-            "Name": "~Spell Seal~"
+            "Effect": "Conjure a levitating, self-wielding melee weapon on a space within 3 meters.\nOn your each turn (includig this), the weapon can make a melee Attack that deals 1d10 + 1 Damage (Pierce, Slash or Smash) and move up to 3 meters.\n",
+            "Upgrade": "The weapon lasts until it can't make an attack on a Worthy Unit (it disappears at the end of the turn if it couldn't make an attack on a Worthy Unit).",
+            "Notes": "It costs 1 Action and 1 Mana to summon the weapon. Then, the weapon can Attack once for free every turn (including this), without costing an Action or Mana.\nThe weapon has no special effect and has 1 Health and 5 Defense.\n",
+            "Name": "~Animated Weapon~"
         },
         "~Invisibility~": {
             "A": "0 Actions",
             "Requirement": "Level 5",
             "Cost": "1 Mana",
-            "AlignOnWebsite": "Left",
             "HasMixins": true,
             "Effect": "You become invisible for up to (Intelligence) minutes (at least 1).\nAttacking, taking Damage or casting _offensive_ Abilities while invisible breaks the invisibility.\n",
             "Notes": "{Offensive Abilities}",
             "Name": "~Invisibility~"
-        },
-        "~Levitate~": {
-            "A": "1 Action",
-            "Requirement": "Level 5",
-            "Cost": "1 Mana",
-            "AlignOnWebsite": "Right",
-            "Effect": "First, roll 2d100. That's how many kilograms you can levitate when you cast this.\nYou can levitate one object you can see that remains within 10 meters of you.\nYou can slowly move the object vertically, 1 meter for each 2 of your movement points spent to levitate.\nIf you use this on an enemy, it must fail a Might Check to be levitated, and can repeat the Check at the end of each of its turns.\nA levitated Unit counts as Rooted.\nLosing concentration (taking Damage or being Crowd Controlled) instantly starts slowly dropping the target and breaks the Levitate.\n",
-            "Upgrade": "At Level 8, the amount increases to 5d100.\n",
-            "Name": "~Levitate~"
         },
         "~Polymorph~": {
             "A": "1 Action",
@@ -699,16 +658,6 @@
             "Notes": "Cover is applied normally.\nA Unit can willingly fail the Check. For enemies, aside from Health and Defense, apply rules for Shapeshift. Allies can apply normal rules for Shapeshift (e.g. gain extra Health from the animal).\nIf used on an Enemy, this is considered Crowd Control.\n",
             "Name": "~Polymorph~"
         },
-        "~Distort Vision~": {
-            "A": "1 Action",
-            "Cost": "1 Mana",
-            "Range": "5 meters",
-            "Requirement": "Level 2",
-            "Effect": "This incantation distorts the visual space in an area with a diameter equal to your Level.\nMake an Intelligence Check for this.\nWhile keeping the distorsion, you must maintain concentration and line of sight.\nYou lose concentration if you take Damage or become crowd controlled.\n",
-            "Upgrade": "At Level 5, you can use 1 Action to slowly move the area up to 3 meters.",
-            "Notes": "If you Skilled in a Skill that would fit, you can add that to the Check.\nIn combat, a successful Distort Vision can provide Cover if rolled high enough.\n",
-            "Name": "~Distort Vision~"
-        },
         "~Lag~": {
             "A": "1 Action",
             "HasMixins": true,
@@ -719,28 +668,23 @@
             "Notes": "Ignores Cover for the Intelligence Check. {Slowed} {Fumbling}\n",
             "Name": "~Lag~"
         },
-        "~Sense Magic~": {
-            "A": "0 Actions",
-            "Requirement": "Level 6",
-            "Cost": "1 Mana",
-            "Effect": "You can tell if there is magic within (Intelligence * 10) meters from you (at least 10 meters).\nYou can also tell if an object you touch is magical.\nIf it is a common magic item, you can tell what it does (e.g. Potions, Scrolls, etc).\n",
-            "Name": "~Sense Magic~"
-        },
-        "~Unlock~": {
+        "~Levitate~": {
             "A": "1 Action",
             "Requirement": "Level 6",
-            "Range": "10 meters",
-            "Effect": "You can attempt to unlock a lock magically.\nUsing this counts as if you Know How to Pick Locks.\nYou roll a Dexterity Check for this, and you get a +2 on it.\n",
-            "Name": "~Unlock~"
+            "Cost": "1 Mana",
+            "AlignOnWebsite": "Right",
+            "Effect": "First, roll 2d100. That's how many kilograms you can levitate when you cast this.\nYou can levitate one object you can see that remains within 10 meters of you.\nYou can slowly move the object vertically, 1 meter for each 2 of your movement points spent to levitate.\nIf you use this on an enemy, it must fail a Might Check to be levitated, and can repeat the Check at the end of each of its turns.\nA levitated Unit counts as Rooted.\nLosing concentration (taking Damage or being Crowd Controlled) instantly starts slowly dropping the target and breaks the Levitate.\n",
+            "Upgrade": "At Level 8, the amount increases to 5d100.\n",
+            "Name": "~Levitate~"
         },
-        "~Hearth Recall~": {
-            "A": "10 minutes",
+        "~Grow or Shrink~": {
+            "A": "0 Actions",
+            "Cost": "1 Mana",
+            "Cooldown": "Once / turn",
             "Requirement": "Level 6",
-            "Cost": "2 mana",
-            "Effect": "At any point, you can freely spend 10 minutes in a place to Bind to it.\nWhen you use this Ability, channel for 10 minutes to teleport all allies (and yourself) within 10 meters of you to the bound place.\nYou can only have 1 bound place at a time.\nThe range to your bound place must be at most a a number of kilometers equal to your Intelligence * 100.\n",
-            "Upgrade": "At Level 9, you can have up to 2 bound places.\n",
-            "Notes": "You can remove the binding of a place at will, from any distance.",
-            "Name": "~Hearth Recall~"
+            "Effect": "A Unit or object you can see becomes one Size larger/smaller for its next 1d4 turns.\nIt gains or loses 20% of its base (unbuffed) Defense (gain/loss is rounded up), gains or loses 1 Damage on all physical Acts (that would deal Damage) and gains or loses 1 Movement Speed.\nCan stack multiple times.\n",
+            "Notes": "Sizes are Minuscule, Small, Medium, Large, and Larger.\nA larger Unit becomes 1 meter larger/smaller in both directions.\nIt's number of spaces occupied also changes with this.\n",
+            "Name": "~Grow or Shrink~"
         },
         "~Reverse Gravity~": {
             "A": "1 Action",
@@ -752,12 +696,12 @@
             "Notes": "Fall Damage is 1d6 for every 2 meters fallen (e.g. 1d6 for 2 and 3 meters, 2d6 for 4 and 5 meters, etc).\n",
             "Name": "~Reverse Gravity~"
         },
-        "~Magic Prison~": {
-            "A": "5 minutes",
-            "Requirement": "Level 8",
-            "Cost": "2 Mana",
-            "Effect": "You create a 4x4x4 meter cube.\nChoose a Unit inside the cube.\nIt makes an Intelligence Check with triple disadvantage.\nIf it fails, it can not exit the cube for 24 hours.\nIt can make this Check to try to escape every 24 hours.\nYou can cast this Once / day per Mana.\n",
-            "Name": "~Magic Prison~"
+        "~Alteration~": {
+            "A": "0 Actions",
+            "Cost": "1 Mana",
+            "Requirement": "Level 7",
+            "Effect": "Your next Spell within 1 minute Heals instead of dealing Damage, and deals Damage instead of Healing.",
+            "Name": "~Alteration~"
         },
         "~Banishment Slip~": {
             "A": "Half-Action",
@@ -765,18 +709,9 @@
             "Cooldown": "Once / Adventure",
             "Range": "5 meters",
             "Requirement": "Level 7",
-            "Effect": "A Medium or smaller Unit becomes Banished to another parallel dimension until the start of your next turn.\nWhile Banished, it can't interact with the normal world and nothing can interact with it.\n",
+            "Effect": "A non-Epic Unit becomes Banished to the Shadow Realm until the start of your next turn.\nWhile Banished, it can't interact with the normal world and nothing can interact with it.\n",
+            "Notes": "The Shadow Realm is a parallel dimension, and people there are sometimes visible from the real world as ghostly apparitions.",
             "Name": "~Banishment Slip~"
-        },
-        "~Conjure Lodge~": {
-            "A": "10 minutes",
-            "Requirement": "Level 8",
-            "Duration": "24 hours",
-            "Cost": "3 Mana",
-            "Cooldown": "1 Week",
-            "Effect": "Conjure a cubic room with a width equal to your Level and a 1x2 meter door.\nThis room works like a pocket dimension and only the door is visible from the outside. The room occupies no space in the real world, except for the door (you enter the room through the door).\n",
-            "Notes": "If the Lodge would be destroyed with people inside, each will automatically be expulsed (appear) in a space within 3 meters of the door (randomly or by QM's choice).",
-            "Name": "~Conjure Lodge~"
         },
         "~Transmogrification~": {
             "A": "10 minutes",
@@ -795,19 +730,40 @@
             "Notes": "{Rooted}\n",
             "Name": "~Transmute Rock~"
         },
+        "~Magic Prison~": {
+            "A": "5 minutes",
+            "Requirement": "Level 8",
+            "Cost": "2 Mana",
+            "Duration": "7 days",
+            "Effect": "Choose a Unit that has 10% or less Health.\nYou create a 4x4x4 meter magic cube from which that Unit physically can't walk through, no matter how hard they try.\n",
+            "Name": "~Magic Prison~"
+        },
+        "~Hearth Recall~": {
+            "A": "10 minutes",
+            "Requirement": "Level 8",
+            "Cost": "2 mana",
+            "Effect": "At any point, you can freely spend 10 minutes in a place to Bind to it.\nWhen you use this Ability, channel for 10 minutes to teleport all allies (and yourself) within 10 meters of you to the bound place.\nYou can only have 1 bound place at a time.\nThe range to your bound place must be at most a a number of kilometers equal to your Intelligence * 100.\n",
+            "Upgrade": "At Level 9, you can have up to 2 bound places.\n",
+            "Notes": "You can remove the binding of a place at will, from any distance.",
+            "Name": "~Hearth Recall~"
+        },
+        "~Conjure Lodge~": {
+            "A": "10 minutes",
+            "Requirement": "Level 9",
+            "Duration": "24 hours",
+            "Cost": "3 Mana",
+            "Cooldown": "1 Week",
+            "Effect": "Conjure a cubic room with a width equal to your Level and a 1x2 meter door.\nThis room works like a pocket dimension and only the door is visible from the outside. The room occupies no space in the real world, except for the door (you enter the room through the door).\n",
+            "Notes": "If the Lodge would be destroyed with people inside, each will automatically be expulsed (appear) in a space within 3 meters of the door (randomly or by QM's choice).",
+            "Name": "~Conjure Lodge~"
+        },
         "~Portal~": {
-            "A": "4 Hours",
+            "A": "4 hours",
             "Cost": "3 Mana",
             "Duration": "30 days",
-            "Requirement": "Level 8",
+            "Requirement": "Level 10",
             "Effect": "You need a partner who can cast Portal to cast this.\nYou both cast it at the same time, in different locations.\nAt the end of the cast time, a portal opens at the locations of the two casters.\nStepping through one of the portals (obviously) teleports the Unit to the other portal.\nYou can only cast this every 30 days.\n",
             "Name": "~Portal~"
-        },
-        "~Alteration~": {
-            "A": "0 Actions",
-            "Cost": "1 Mana",
-            "Effect": "Your next Spell within 1 minute Heals instead of dealing Damage, and deals Damage instead of Healing.",
-            "Name": "~Alteration~"
         }
     },
     "Nature": {
@@ -842,7 +798,7 @@
         },
         "~Cure Affliction~": {
             "A": "0 Actions",
-            "Cooldown": "1 Hour",
+            "Cooldown": "1 hour",
             "Range": "3 meters",
             "Effect": "Cure a simple Disease, Debuff or Bleed effect on a Unit (you can choose yourself), or clean up to 2 rations or liters of water of microbes, mild poison or impurities.\n",
             "Upgrade": "At Level 4, you can cure harder and stranger diseases and poisons.\nAt level 7, you can cure terminal or chronic diseases and poisons.\n",
@@ -915,7 +871,7 @@
             "Cost": "1 Mana",
             "Requirement": "Level 2",
             "HasMixins": true,
-            "Effect": "Send out a 5x1 meter wave forward through the ground.\nAll Units hit take 2d8 Force Damage.\nIf they are at or below 50% Health, they become Slowed and Fumbling.\n",
+            "Effect": "Send out a 5x1 meter wave forward through the ground.\nAll Units hit take 2d8 Pulse Damage.\nIf they are at or below 50% Health, they become Slowed and Fumbling.\n",
             "Notes": "{Slowed} {Fumbling}\n",
             "Name": "~Quaking Wave~"
         },
@@ -941,7 +897,7 @@
             "A": "1 Action",
             "Range": "10 meters",
             "Requirement": "Level 2",
-            "Effect": "You gather stone, dirt, sand, etc from the surroundings and release it upon an enemy.\nA Unit takes 3d6 Damage Force Damage, then all other Units within 1 meter take Damage equal to two of rolled dice (you choose).\n",
+            "Effect": "You gather stone, dirt, sand, etc from the surroundings and release it upon an enemy.\nA Unit takes 3d6 Damage Pulse Damage, then all other Units within 1 meter take Damage equal to two of rolled dice (you choose).\n",
             "Notes": "Ignores Cover",
             "Tag": "AoE (1)",
             "Name": "~Land Breach~"
@@ -1016,7 +972,7 @@
         "~Spider Climb~": {
             "A": "1 Action",
             "Requirement": "Level 5",
-            "Cooldown": "Once / Real Hour",
+            "Cooldown": "Once / Real hour",
             "Duration": "10 minutes",
             "Effect": "Your hands and feet can stick to solid surfaces, so you can walk or crawl on them.\nWalking on walls and floors acts as Hard Terrain.\n",
             "Upgrade": "Alternatively, you can spend 1 Mana to cast this ignoring the Cooldown.",
@@ -1053,7 +1009,7 @@
         "~Hollow Touch~": {
             "A": "1 Action",
             "Range": "4 meters",
-            "Effect": "Reap a Unit from afar, dealing 1d12 + 3 Necrotic Damage and the target is unable to reagain health until the end of its next turn.\nFor the rest of the combat, it takes 1 extra Necrotic Damage from all sources.\n",
+            "Effect": "Reap a Unit from afar, dealing 1d12 + 3 Scourge Damage and the target is unable to reagain health until the end of its next turn.\nFor the rest of the combat, it takes 1 extra Scourge Damage from all sources.\n",
             "Name": "~Hollow Touch~"
         },
         "~Light~": {
@@ -1084,6 +1040,13 @@
             "Notes": "Keep in mind that plants generally have low Intelligence, and they are not expected to 'speak' back to you through language.",
             "Name": "~Speak With Plants~"
         },
+        "~Dancing Blade~": {
+            "A": "Passive",
+            "Effect": "Your melee weapon Attacks have +1 meter range (up to 3 meters), by levitating to your target, hitting them, then quickly returning to your hand.",
+            "Requirement": "Level 2",
+            "Notes": "These Attacks are still considered melee Attacks, and are not considered thrown.\nFlanking applies normally if there's an Ally right behind the enemy you're Attacking (forming a line between the 3 of you).\n",
+            "Name": "~Dancing Blade~"
+        },
         "~Restoration~": {
             "A": "0 Actions",
             "Cooldown": "Once / Adventure",
@@ -1094,7 +1057,7 @@
             "A": "Half-Action",
             "Cost": "1 Mana",
             "Range": "5 meters",
-            "Effect": "Shoot a magical bolt towards a Unit that deals 1d10 + (target's base Movement Speed) Force Damage to it.\n",
+            "Effect": "Shoot a magical bolt towards a Unit that deals 1d10 + (target's base Movement Speed) Pulse Damage to it.\n",
             "Notes": "Against Epic monsters, the Maximum Speed is calculated as it's (Speed) * (Epic Grade). E.g. if it's an Ogre with Movement Speed of 3 and has an Epic Grade of 2 (meaning it takes 2 turns), its Maximum Movement Speed is 2 * 3 = 6.",
             "Name": "~Expelling Bolt~"
         },
@@ -1201,7 +1164,7 @@
         "~Water Breathing~": {
             "A": "1 Action",
             "Requirement": "Level 5",
-            "Duration": "(Your Level) Hours",
+            "Duration": "(Your Level) hours",
             "Cooldown": "Once / Adventure",
             "Effect": "Up to 2 allies you can see (can include yourself) gain the ability to also breathe under water\n",
             "Upgrade": "Alternatively, if this Ability is on Cooldown, you can spend 1 Mana to cast it regardless.",
@@ -1213,7 +1176,7 @@
             "A": "1 Action",
             "Range": "4 meters",
             "HasMixins": true,
-            "Effect": "Blast a Unit for 2d8 + ^target's Might^ Necrotic Damage.\nIf you roll maximum on at least one die, deal another 1d6 Damage.\n",
+            "Effect": "Blast a Unit for 2d8 + ^target's Might^ Scourge Damage.\nIf you roll maximum on at least one die, deal another 1d6 Damage.\n",
             "Name": "~Eldritch Blast~"
         },
         "~Curse of Weakness~": {
@@ -1261,7 +1224,7 @@
         "~Hollow Touch~": {
             "A": "1 Action",
             "Range": "4 meters",
-            "Effect": "Reap a Unit from afar, dealing 1d12 + 3 Necrotic Damage and the target is unable to reagain health until the end of its next turn.\nFor the rest of the combat, it takes 1 extra Necrotic Damage from all sources.\n",
+            "Effect": "Reap a Unit from afar, dealing 1d12 + 3 Scourge Damage and the target is unable to reagain health until the end of its next turn.\nFor the rest of the combat, it takes 1 extra Scourge Damage from all sources.\n",
             "Name": "~Hollow Touch~"
         },
         "~Thaumaturgy~": {
@@ -1301,7 +1264,7 @@
             "A": "1 Action",
             "Cost": "1 Mana",
             "Range": "12 meters",
-            "Effect": "Shoot a Unit with deathly fire for 1d12 + 1d10 + 1d6 Damage, Fire or Necrotic (your choice).\nIf the target has Defense, deals 2 more Damage for each point of Defense.\n",
+            "Effect": "Shoot a Unit with deathly fire for 1d12 + 1d10 + 1d6 Damage, Fire or Scourge (your choice).\nIf the target has Defense, deals 2 more Damage for each point of Defense.\n",
             "Name": "~Deathfire Bolt~"
         },
         "~Animate Dead~": {
@@ -1335,7 +1298,7 @@
     "Divine": {
         "~Cure Affliction~": {
             "A": "0 Actions",
-            "Cooldown": "1 Hour",
+            "Cooldown": "1 hour",
             "Range": "3 meters",
             "Effect": "Cure a simple Disease, Debuff or Bleed effect on a Unit (you can choose yourself), or clean up to 2 rations or liters of water of microbes, mild poison or impurities.\n",
             "Upgrade": "At Level 4, you can cure harder and stranger diseases and poisons.\nAt level 7, you can cure terminal or chronic diseases and poisons.\n",
@@ -1392,7 +1355,7 @@
             "Name": "~Liberation~"
         },
         "~Restful Soothing~": {
-            "A": "1 Hour",
+            "A": "1 hour",
             "Cost": "1 Mana",
             "Cooldown": "Once / Adventure",
             "Requirement": "Level 2",
@@ -1513,7 +1476,7 @@
             "A": "0 Actions",
             "Cooldown": "Once / Adventure",
             "Requirement": "Level 8",
-            "Effect": "You become spectral for 10 seconds (until the start of your next turn).\nWhile spectral, you can move through walls, objects and Units, but not through floors and ceilings.\nIf the effect doesn't end in an empty space, you are instantly thrown to the nearest empty space and you take 3d4 Force Damage.\n",
+            "Effect": "You become spectral for 10 seconds (until the start of your next turn).\nWhile spectral, you can move through walls, objects and Units, but not through floors and ceilings.\nIf the effect doesn't end in an empty space, you are instantly thrown to the nearest empty space and you take 3d4 Pulse Damage.\n",
             "Name": "~Wraithwalk~"
         }
     },

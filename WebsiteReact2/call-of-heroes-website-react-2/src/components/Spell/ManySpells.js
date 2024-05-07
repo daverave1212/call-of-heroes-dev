@@ -6,7 +6,7 @@ import TwoSpells from './TwoSpells'
 import { sortObjectArrayByKey, spellsFromObject } from '../../utils'
 
 // Returns many TwoColumns, each fitting 2 spells.
-export default function ManySpells({ spells, spellsObject }) {
+export default function ManySpells({ spells, spellsObject, spellStyle }) {
 
     if (spells == null && spellsObject != null) {
         spells = spellsFromObject(spellsObject)
@@ -44,10 +44,10 @@ export default function ManySpells({ spells, spellsObject }) {
     return (
         <TwoColumns>
             <Column>
-                {column1Spells.map(spell => (<Spell key={spell.Name} spell={spell}/>))}
+                {column1Spells.map(spell => (<Spell key={spell.Name} spell={spell} style={spellStyle}/>))}
             </Column>
             <Column>
-                {column2Spells.map(spell => (<Spell key={spell.Name} spell={spell}/>))}
+                {column2Spells.map(spell => (<Spell key={spell.Name} spell={spell} style={spellStyle}/>))}
             </Column>
         </TwoColumns>
     )
