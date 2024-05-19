@@ -2,9 +2,17 @@
 # Shields:
 # - 50% pierce damage
 
+
+# No Req, 1 Stat, 2 Stat (and rarely 3 Stat)
+# Weapons that do not require any stat deal 1 less Damage than their counterparts
+#   ...and they are more for utility
+
+# 1-Handed Weapon (LOW): 1d4 + Stat
+
 Shields:
     Shield:
-      Effect: You take only 50% Pierce Damage (after subtracting Defense)
+      Effect: You take -50% Pierce Damage
+      Requirement: 2 Might
       Price: 100
       Notes: |
         Remember that you have to declare whether you have a Shield equipped when you start your turn!
@@ -12,7 +20,7 @@ Shields:
         You can't use 2-Handed Weapons with a Shield.
 
     Tower Shield:
-      Requirement: Tower Shield Feat, 2 Might
+      Requirement: Tower Shield Feat, 3 Might
       Effect: +1 Defense
       Price: 1000
       Downside: |
@@ -23,6 +31,8 @@ Shields:
         You can't use 2-Handed Weapons with a Shield.
 
 One-Handed Melee:   # 3.5 Damage + 0.75 Effect = 6.25 + 3 Stat = 9.25
+
+    # Tier 0
     Punch:          # ~4.25
       Stat: Smash
       Hands: 1-Handed Melee
@@ -33,78 +43,30 @@ One-Handed Melee:   # 3.5 Damage + 0.75 Effect = 6.25 + 3 Stat = 9.25
         On a Critical Strike, if you used Might, you also add Dexterity to the roll (or vice-versa, if you used Dexterity, you also add Might).
         If you used another Stat (certain weird Abilities do this), you add either Might or Dexterity, of choice.
     
-    Cleaver:
-      Stat: Slash
-      Price: 120
-      Hands: 1-Handed Melee
-      Damage: 1d6 + Might or Dexterity
-      Effect: The first Flank Attack with this weapon each turn deals 1 extra Damage.
-      Alternatives: Dead Fish (Smash instead of Slash)
-
     Club:
       Stat: Smash
       Price: 20
       Hands: 1-Handed melee
-      Damage: 1d10 - 2 + Might
+      Damage: 1d8 - 1 + Highest Stat
       Effect: Critical Strike - if you roll 1 or 2, the Attack instantly makes the target Fumbling.
       Alternatives: Katar (Slash instead of Smash)
-
-    Dagger: # ~4.25 average Damage
-      Price: 60
-      Stat: Pierce
-      Hands: 1-Handed Melee
-      Damage: 1d4 + Dexterity # prev: 1d6 + 2 Pierce
-      Effect: Critical Strike - if you roll 3 or more the base weapon roll, add another 1d6 Damage.
-      Alternatives: Kunai
-
-    # RE: 1d10; if less than 4, becomes 4 (~6.1)
-    Flail:
-      Stat: Pierce
-      Price: 150
-      Hands: 1-Handed Melee
-      Damage: 1d8 - 1 + Might
-      Effect: You can choose to deal Smash Damage with this weapon. If you roll less than 4 on the d8, it counts as 4.
-      Alternatives: Combat Chains, Kusarigama
-
-    Hand Axe:
-      Price: 80
-      Stat: Slash
-      Hands: 1-Handed Melee
-      Damage: 1d12 - 3 + Might or Dexterity
-      Effect: Critical Strike - if you rolled 11 or 12, heal for 1 health (against a Worthy Enemy).
-      Alternatives: Claws
 
     Hand Hammer:
       Price: 80
       Stat: Smash
       Hands: 1-Handed Melee
-      Damage: 2d4
-      Notes: Attacks with this weapon do not add any Stat to the Damage.
+      Damage: 1d6 + 3
+      Notes: Ignores Defense.
 
     Mace:
       Price: 80
       Stat: Smash
       Hands: 1-Handed Melee
-      Damage: 1d6 + Might
-      Effect: Ignores Resistances and Cover. Attacks while Crippled do -50% Damage instead of -100%.
+      Damage: 1d6 + Highest Stat
+      Effect: Ignores Resistances and Cover.
       Alternatives: Light Morning Star
 
-    Rapier:
-      Price: 160
-      Stat: Pierce
-      Hands: 1-Handed Melee
-      Damage: 1d8 - 1 + Dexterity
-      Effect: If you decide to start your turn with the other hand empty, you have 1 extra movement Speed and you can Break your Movement.
-
-    Scimitar:
-      Price: 170
-      Stat: Slash
-      Hands: 1-Handed Melee
-      Special: You are more appreciated if you pronounce it as 'Skimitar'
-      Damage: 1d6 + Might or Dexterity
-      Effect: If you roll 1 on the weapon die, cancel it and roll 1d8 instead. If you roll 1 again, reroll as 1d10. If you roll 1 again, reroll as 1d12.
-
-    Sickle:
+   Sickle:
       Price: 170
       Stat: Slash
       Hands: 1-Handed Melee
@@ -112,31 +74,107 @@ One-Handed Melee:   # 3.5 Damage + 0.75 Effect = 6.25 + 3 Stat = 9.25
       Alternatives: Nunchaku (Smash instead of Slash)
       Notes: The price is for a battle sickle. A normal peasant's sickle would be half the price, dealing 1 less damage.
 
-    Spear:
+   Spear:
       Price: 110
       Stat: Pierce
       Hands: 1-Handed Melee
-      Damage: 1d6 + Might
-      Effect: Attacks with this weapon have 2 meters range.
+      Damage: 1d6 + Highest Stat
+      Effect: 2 meters range.
       Alternatives: Lance, Chainblade
+
+
+
+
+    # Tier 1
+    Cleaver:  # ~3.5+
+      Stat: Slash
+      Requirement: 1 Dexterity
+      Price: 120
+      Hands: 1-Handed Melee
+      Damage: 1d6 + Highest Stat
+      Effect: Critical Strike - if you roll 6, add another 1d6 Damage, and you take 50% of all the attack's Damage.
+      Alternatives: Dead Fish (Smash instead of Slash)
+
+    Hand Axe:
+      Price: 80
+      Requirement: 1 Might or 1 Dexterity
+      Stat: Slash
+      Hands: 1-Handed Melee
+      Damage: 1d10 - 2 + Highest Stat
+      Effect: Critical Strike - if you roll 9 or 10 against a Worthy Enemy, heal for an amount equal to your Might or Dexterity (your choice).
+      Alternatives: Claws
+
+    Flail:
+      Stat: Pierce
+      Requirement: 1 Might
+      Price: 150
+      Hands: 1-Handed Melee
+      Damage: 1d8 - 1 + Might
+      Effect: You can choose to deal Smash Damage with this weapon. If you roll less than 4 on the d8, it counts as 4.
+      Alternatives: Combat Chains, Kusarigama
 
     Shortsword:
       Price: 130
+      Requirement: 1 Might or 1 Dexterity
       Stat: Slash
       Hands: 1-Handed Melee
-      Damage: 1d6 + Might or Dexterity
-      Effect: Deals 1d8 instead of 1d6 Damage if you Attacked with a different weapon type this turn, before this wepaon attack.
+      Damage: 1d6 + 2
+      Effect: Deals 1d10 + 2 Damage instead if attacking a Unit with higher Initiative than you.
       Alternatives: Falchion, Sabre, Scimitar variant, Arming Sword
+
+
+
+
+    # Tier 2
+    Dagger: # ~4.25 average Damage
+      Price: 60
+      Requirement: 2 Dexterity
+      Stat: Pierce
+      Hands: 1-Handed Melee
+      Damage: 1d4 + Highest Stat
+      Effect: Critical Strike - if you roll 3 or more the base weapon roll, add another 1d6 Damage.
+      Alternatives: Kunai
+
+    Rapier:
+      Price: 160
+      Requirement: 2 Dexterity
+      Stat: Pierce
+      Hands: 1-Handed Melee
+      Damage: 2d4 - 1 + Dexterity
+      Effect: If you decide to start your turn with the other hand empty, you have 1 extra movement Speed and you can Break your Movement.
+
+    Scimitar:
+      Price: 170
+      Requirement: 1 Might and 1 Dexterity
+      Stat: Slash
+      Hands: 1-Handed Melee
+      Special: You are more appreciated if you pronounce it as 'Skimitar'
+      Damage: 1d6 + Highest Stat
+      Effect: If you roll 1 on the weapon die, cancel it and roll 1d8 instead. If you roll 1 again, reroll as 1d10. If you roll 1 again, reroll as 1d12.
 
     Whip:
       Price: 70
       Stat: Pierce
       Hands: 1-Handed Melee
       Requirement: At least 1 Dexterity
-      Damage: 1d4 + 1 + Dexterity
-      Effect: The 1d4 becomes 1d6 Damage against unarmored or lightly armored Units.
+      Damage: 2d4 - 1 + Highest Stat
+      Effect: 3 meters range
     
+
+
+
+
+
+
+
+
+
+
+
 Two-Handed Melee: # 10 + 3 from stat
+
+
+    # Tier 0
     Greatclub:  # 3% chance
       Price: 40
       Stat: Smash
@@ -145,62 +183,13 @@ Two-Handed Melee: # 10 + 3 from stat
       Effect: Critical Strike - if all 4 rolled weapon dice are even, the target must succeed a Might Check against the sum of the dice or be Stunned.
       Notes: If by any chance this weapon rolls more than 3 dice, the Critical Strike triggers if at least 3 of the rolled weapon dice are even.
 
-    Warhammer:
-      Price: 500
-      Stat: Smash
-      Hands: 2-Handed Melee
-      Damage: 2d8 + 2 + Might
-      Effect: Your first attack with this weapon every combat ignores the target's Resistances and Defense and permanently reduces it by 1.
-      Notes: Doesn't do extra Damage if target's Defense would be less than 0.
-
-    Heavy Mace:
-      Price: 280
-      Stat: Smash
-      Hands: 2-Handed Melee
-      Damage: 1d10 + 6 + Might
-      Effect: Critical Strike - if you did maximum Damage on the base weapon roll, push the target up to 4 meters in any direction. It takes another 1d4 Smash Damage if it collides with something.
-
-    Longsword:
-      Price: 190
-      Stat: Slash
-      Hands: 1-Handed or 2-Handed Melee
-      Damage: 1d6 + Might / 1d12 + 4 + Might
-      Effect: Can be wielded either as a 1-Handed (for 1d6 + Might Damage) or 2-Handed weapon (for 1d12 + 4 + Might Damage).
-      Notes: You only need to be Trained in 1-Handed or 2-Handed weapons to wield this weapon in both ways.
-
-    Greatsword:   # 12.1 + Might
-      Price: 280
+    Halberd:
+      Price: 230
       Stat: Slash
       Hands: 2-Handed Melee
-      Damage: 3d6 + Might
-      Effect: Add all 6's rolled together. They hit another Unit within 2 meters of the target for that amount.
-      Alternatives: Claymore
-      Notes: Hitting another Unit with the d6's is optional.
-
-    Ultra Greatsword:
-      Price: 700
-      Stat: Slash
-      Requirement: At least 3 Might
-      Hands: 2-Handed Melee
-      Damage: 1d20 + Might
-      Effect: Critical Strike - if you roll 20 on the base weapon roll, deal another 1d20 Damage.
-
-    Quarterstaff:
-      Price: 100
-      Stat: Smash
-      Hands: 2-Handed Melee
-      Requirement: At least 1 Might and 1 Dexterity
-      Damage: 1d8 + 6 + Dexterity
-      Effect: If you are wearing no armor and wield only this weapon, you have +1 Defense.
-      Notes: A Quarterstaff is a wooden weapon masterfully crafted for physical combat, with correct weight and density and properly balanced; it's not a mage's walking stick!
-
-    Battle Axe:
-      Price: 190
-      Stat: Slash
-      Requirement: 2 Might
-      Hands: 2-Handed Melee
-      Damage: 2d10 + Might
-      Effect: Critical Strike - if you roll 10 on at least one die, heal for the other rolled die (both from the base weapon roll) (only works against Worthy Enemies).
+      Damage: 2d10 - 1 + Might
+      Effect: Has +1d6 Damage against Large or larger enemies.
+      Alternatives: Garden Rake, Glaive, Bardiche
 
     Scythe:
       Price: 210
@@ -214,49 +203,137 @@ Two-Handed Melee: # 10 + 3 from stat
       Price: 150
       Stat: Pierce
       Hands: 2-Handed Melee
-      Damage: 1d12 + 4 + Might
+      Damage: 1d12 + 3 + Might
       Effect: Attacks with this weapon have 2 meters range.
-
-    Halberd:
-      Price: 230
-      Stat: Slash
-      Hands: 2-Handed Melee
-      Damage: 2d10 - 1 + Might
-      Effect: Has +1d6 Damage against Large or larger enemies.
-      Alternatives: Garden Rake, Glaive, Bardiche
-      
-    Katana:
-      Price: 300
-      Stat: Slash
-      Hands: 2-Handed Melee
-      Requirement: At least 1 Dexterity
-      Damage: 1d4 + 1d6 + 1d8 + Dexterity
-      Effect: Critical Strike - if you roll 4 on the d4 on the base weapon roll, the Attack gains +1d10 Damage.
-
-    Trident:
-      Price: 200
-      Stat: Pierce
-      Hands: 2-Handed Melee
-      Damage: 3d6 + Might
-      Effect: If you moved at least 3 meters in a straight line and then attacked, the attack gains +1d4 Damage.
-      Alternatives: Pitchfork
 
     Pickaxe:
       Price: 240
       Stat: Pierce
       Hands: 2-Handed Melee
-      Damage: 2d4 + 6 + Might
+      Damage: 1d8 + 5 + Might
       Effect: Deals +1d6 Damage against Units wearing a shield or heavy armor (or both).
       Alternatives: Falx
 
+    # Tier 1
+    Longsword:
+      Price: 190
+      Stat: Slash
+      Hands: 1-Handed or 2-Handed Melee
+      Requirement: 1 Might or 1 Dexterity
+      Damage: 1d12 + 4 + Highest Stat
+      Effect: Critical Strike - if you roll 12, add Damage equal to 10% of the target's current Health!
+
+    Battle Axe:
+      Price: 190
+      Stat: Slash
+      Requirement: 1 Might
+      Hands: 2-Handed Melee
+      Damage: 2d10 + Highest Stat
+      Effect: Critical Strike - if you roll 10 on at least one die, heal for the other rolled die (both from the base weapon roll) (only works against Worthy Enemies).
+
+    Heavy Mace:
+      Price: 280
+      Stat: Smash
+      Requirement: 1 Might
+      Hands: 2-Handed Melee
+      Damage: 2d4 + 6 + Might
+      Effect: Critical Strike - if you did maximum Damage on the base weapon roll, push the target up to 4 meters in any direction. It takes another 1d4 Smash Damage if it collides with something.
+
+    Warhammer:
+      Price: 500
+      Stat: Smash
+      Hands: 2-Handed Melee
+      Requirement: 1 Might
+      Damage: 2d8 + 1 + Might
+      Effect: Your first attack with this weapon every combat ignores the target's Resistances and Defense and permanently reduces it by 1.
+      Notes: Doesn't do extra Damage if target's Defense would be less than 0.
+
+      
+
+    # Tier 2
+    Greatsword:   # 12.1 + Might
+      Price: 280
+      Stat: Slash
+      Hands: 2-Handed Melee
+      Requirement: 2 Might
+      Damage: 3d6 + Highest Stat
+      Effect: Add all 6's rolled together. They hit another Unit within 2 meters of the target for that amount.
+      Alternatives: Claymore
+      Notes: Hitting another Unit with the d6's is optional.
+
+    Quarterstaff:
+      Price: 100
+      Stat: Smash
+      Hands: 2-Handed Melee
+      Requirement: 2 Dexterity
+      Damage: 1d8 + 6 + Highest Stat
+      Effect: If you are wearing no armor and wield only this weapon, you have +1 Defense.
+      Notes: A Quarterstaff is a wooden weapon masterfully crafted for physical combat, with correct weight and density and properly balanced; it's not a mage's walking stick!
+
+    Katana:
+      Price: 300
+      Stat: Slash
+      Hands: 2-Handed Melee
+      Requirement: 2 Dexterity
+      Damage: 1d4 + 1d6 + 1d8 + Highest Stat
+      Effect: Critical Strike - if you roll 4 on the d4 on the base weapon roll, the Attack gains +1d10 Damage.
+
+    Trident:
+      Price: 200
+      Stat: Pierce
+      Requirement: 2 Might or 2 Dexterity
+      Hands: 2-Handed Melee
+      Damage: 3d4 + 3 + Might
+      Effect: If you attack from at least 3 meters away from where you started your turn, the attack gains +3 Damage.
+      Alternatives: Pitchfork
+
+
+
+    # Tier 3
+    Ultra Greatsword:
+      Price: 700
+      Stat: Slash
+      Requirement: 4 Might
+      Hands: 2-Handed Melee
+      Damage: 1d20 + 1 + Might
+      Effect: Critical Strike - if you roll 20 on the base weapon roll, deal another 1d20 Damage.
+
+
+
+
+
+
+
+
+      
+
+
+
+
+
 
 Two-Handed Ranged:  # 8.5 + 3 from Stat
-    Javelin:
-      Price: 50
+
+    # Tier 0
+    Heavy Gun:
+      Price: 1000
       Range: 5 meters
       Stat: Pierce
       Hands: 2-Handed Ranged
-      Damage: 1d12 + 1 + Might
+      Damage: 4d4 - 1
+      Effect: For 1 Action, you can deal 8 Damage to all creatures in a 3x3 area in front of you.
+      Downside: After attacking, if you rolled at least one 1, the Heavy Gun jams, and must be reloaded with a Half-Action before using it again.
+      Notes: Attacks with this weapon do not add any Stat to the Damage. Using the special effect consumes 2 ammo.
+      Alternative: Ballista
+
+    # Tier 1
+    Javelin:
+      Price: 50
+      Requirement: 2 Might
+      Range: 5 meters
+      Stat: Pierce
+      Hands: 2-Handed Ranged
+      Damage: 1d12 + 1 + Highest Stat
       Notes: This weapon is baseline made for throwing.
     
     Bow:            
@@ -272,36 +349,63 @@ Two-Handed Ranged:  # 8.5 + 3 from Stat
       Range: 10 meters
       Stat: Pierce
       Hands: 2-Handed Ranged
-      Damage: 2d8 + Dexterity
+      Damage: 2d8 + Highest Stat
       Alternative: Musket
 
-    Heavy Gun:
-      Price: 1000
-      Range: 5 meters
-      Stat: Pierce
-      Hands: 2-Handed Ranged
-      Damage: 5d4
-      Effect: For 1 Action, you can deal 8 Damage to all creatures in a 3x3 area in front of you.
-      Downside: After attacking, if you rolled at least one 1, the Heavy Gun must be reloaded with a Half-Action before using it again.
-      Notes: Attacks with this weapon do not add any Stat to the Damage. Using the special effect consumes 2 ammo.
-      Alternative: Ballista
+
 
 One-Handed Ranged:  # 2.5 + 3 from stat
+
+
+    Handgun:
+      Price: 500
+      Stat: Pierce
+      Hands: 1-Handed Ranged
+      Range: 5 meters
+      Damage: 1d10
+      Downside: |
+        Has no penalty for attacking melee with this weapon.
+        If you roll at least one 1, the Handgun jams, and must be reloaded with a Half-Action before using it again.
+      Alternatives: Light Crossbow variant
+      Notes: Handgun attacks do not scale with any Stat.
+
     Boomerang Blade:
       Price: 60
       Stat: Slash
-      Range: 4 meters
+      Range: 2-4 meters
       Hands: 1-Handed Melee
-      Requirement: At least 2 Dexterity
+      Requirement: 1 Dexterity
       Damage: 1d12 - 4 + Dexterity
       Effect: Critical Strike - if you roll 12, the weapon bounces to another chosen Unit within 4 meters and Damages it for 1d12 + Your Dexterity Damage (against its Defense).
       Notes: |
-        This weapon is baseline made for throwing.
-        The effect applies both to throwing it and attacking with it melee. The effect applies even to the bounce attack, so it can keep bouncing as long as you keep rolling 12!
+        The effect applies even to the bounce attack, so it can keep bouncing as long as you keep rolling 12!
       Alternatives: Anchor, Glaive, Chakram, Shuriken
+
+    Blowgun:
+      Price: 40
+      Stat: Pierce
+      Range: 3-10 meters
+      Hands: 1-Handed Ranged
+      Damage: 1d4 + Highest Stat
+      Effect: If the target has 50% Health or less, the Damage Type becomes Poison and the target is Slowed.
+      Alternatives: Poison Darts
+      Notes: The normal ammunition for this is the Regular Poison Darts (full supply). If your darts are somehow not poisoned, you don't apply the effect.
+
+    # Tier 2
+
+    Light Crossbow:
+      Price: 150
+      Requirement: 2 Dexterity
+      Stat: Pierce
+      Range: 3-8 meters
+      Hands: 1-Handed Ranged
+      Damage: 1d4 + Highest Stat
+      Effect: Critical Strike - if you roll 4, add 1d4 Damage!
+      Alternatives: Handgun variant
 
     Sling:
       Price: 30
+      Requirement: 1 Sense and 1 Dexterity
       Stat: Smash
       Hands: 1-Handed Ranged
       Range: 7 meters
@@ -309,36 +413,6 @@ One-Handed Ranged:  # 2.5 + 3 from stat
       Effect: Attacks with Slings use a Third-of-an-Action (0.33 Actions).
       Alternatives: Slingshot
       Notes: Yes, and you can attack 3 times per turn with the same sling. Abilities that require you to make a 1-Handed weapon attack will still take a Half-Action, even if the normal Sling attack would take 0.33 Actions
-
-    Light Crossbow:
-      Price: 150
-      Stat: Pierce
-      Range: 8 meters
-      Hands: 1-Handed Ranged
-      Damage: 1d4 + Dexterity
-      Effect: You have no penalties for melee attacks with this weapon (normally, point-blank attacks have Cover) and your attacks with this weapon don't get the -2 penalty while Fumbling.
-      Alternatives: Handgun variant
-
-    Handgun:
-      Price: 500
-      Stat: Pierce
-      Hands: 1-Handed Ranged
-      Range: 5 meters
-      Damage: 1d8
-      Effect: You have no penalties for melee attacks with this weapon (normally, point-blank attacks have Cover).
-      Alternatives: Light Crossbow variant
-      Notes: Handgun attacks do not scale with any Stat.
-
-    Blowgun:
-      Price: 40
-      Stat: Pierce
-      Range: 10 meters
-      Hands: 1-Handed Ranged
-      Damage: 1d6 - 1 + Dexterity
-      Effect: If the target has 50% Health or less, deals 1 extra Damage and the Damage Type becomes Poison.
-      Alternatives: Poison Darts
-      Notes: The normal ammunition for this is the Regular Poison Darts (full supply). If your darts are somehow not poisoned, you don't apply the effect.
-
 
 
 

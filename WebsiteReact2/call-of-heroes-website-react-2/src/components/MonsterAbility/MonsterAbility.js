@@ -17,16 +17,18 @@ export default function MonsterAbility({ability, isPassive}) {
 
     function getAbilityBodyDiv() {
         if (U.isString(abilityBody))
-            return (<p className='monster-ability-p'>{ U.enspanDamageCalculations(abilityBody) }</p>)
+            return (<p className='monster-ability-p'>{ abilityBody }</p>)
 
-        const effectName = U.getAnyPropNameExcept(abilityBody, ['Damage', 'Notes'])
-        const effectDesc = abilityBody[effectName]
+        const effectName = U.getAnyPropNameExcept(abilityBody, ['Damage', 'Notes', 'A', 'Cooldown', 'Requirement', 'Range', 'Duration'])
+        
         return (
             <div>
                 { abilityBody.Damage && (
-                    <p><span className='monster-ability__damage'>{ abilityBody.Damage }</span></p>
+                    <p><span className='monster-ability__effect-name'>Damage: </span><span className='monster-ability_effect-desc'>{ abilityBody.Damage }</span></p>
                 ) }
-                <p style={{marginTop: '3px'}}><span className='monster-ability__effect-name'>{effectName}</span>: <span className='monster-ability__effect-desc'>{effectDesc}</span></p>
+                { effectName != null && <p style={{marginTop: '3px'}}>
+                    <span className='monster-ability__effect-name'>{effectName}</span>: <span className='monster-ability__effect-desc'>{abilityBody[effectName]}</span>
+                </p>}
                 { abilityBody.Notes != null && (
                     <div className='monster-ability__effect-desc' style={{color: 'gray', fontSize: '0.8em', marginTop: '3px'}}>
                         { abilityBody.Notes }
@@ -36,23 +38,22 @@ export default function MonsterAbility({ability, isPassive}) {
         )
     }
 
-    const passiveOrActveClass = isPassive == true? 'monster-ability--passive' : 'monster-ability--active'
+    const passiveOrActveClass = isPassive === true? 'monster-ability--passive' : 'monster-ability--active'
+    const spellTopTags =
+    abilityBody.A != null? abilityBody : 
+        isPassive === true? abilityBody :
+            {...{A: '1 Action'}, ...abilityBody}
 
-    const topStatsComponent =
-        U.hasAnyProperty(ability, ['A', 'Cost', 'Cooldown', 'Range', 'Duration']) ?
-            <SpellTopStats tags={ability} className="spell-top__stats--no-padding-side spell-top__stats--less-padding-top-bottom"/> :
-        isPassive != true ?
-            <SpellTopStats tags={{ A: '1 Action' }} className="spell-top__stats--no-padding-side spell-top__stats--less-padding-top-bottom"/>
-        :
-            null
+    console.log({spellTopTags})
 
+    const topStatsComponent = <SpellTopStats tags={spellTopTags} className="spell-top__stats--no-padding-side spell-top__stats--less-padding-top-bottom"/>
 
     return (
         <div className={`monster-ability ${passiveOrActveClass}`}>
             <div className={`monster-ability__banner`}></div>
             <div className='monster-ability__body'>
                 <h4>{ name }</h4>
-                { topStatsComponent != null && topStatsComponent }
+                { topStatsComponent }
                 { getAbilityBodyDiv() }
             </div>
         </div>

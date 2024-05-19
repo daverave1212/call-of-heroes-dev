@@ -53,11 +53,17 @@ export default function Race() {
                     </Column>
                 </TwoColumnsDescriptive> */}
 
+                <div id="abilities" style={{
+                    marginTop: '-300px',
+                    paddingBottom: '300px',
+                    height: '0px'
+                }}></div>
                 <RaceFeatures theRace={theRace}/>
 
                 <Proficiencies name={theRace.Race} theRaceOrClass={theRace}/>
 
-                <AbilitiesWithDescription id="abilities" spellsObject={theRace['Starting Abilities']} title='Abilities' description={theRace['Starting Abilities Description']}/>
+                
+                <AbilitiesWithDescription id="a" spellsObject={theRace['Starting Abilities']} title='Abilities' description={theRace['Starting Abilities Description']}/>
 
                 <RacialFeats theRace={theRace}/>
                 

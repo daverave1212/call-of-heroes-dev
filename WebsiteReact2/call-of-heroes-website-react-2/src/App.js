@@ -215,7 +215,13 @@ function App() {
         </AppStateContext.Provider>
         
         <footer className='footer'>
-          <LandingPageSeparator type="8"/>
+          <div className='flex-row' style={{gap: '15px'}}>
+            <img src="/LandingPage/LinkLogoReddit.png"/>
+            <img src="/LandingPage/LinkLogoDiscord.png"/>
+            <img src="/LandingPage/LinkLogoX.png"/>
+            <img src="/LandingPage/LinkLogoYouTube.png"/>
+          </div>
+          <p style={{color: 'gray', fontFamily: 'HomeFont', textAlign: 'center'}}>Dave Doublee | Griffincraft <span style={{color: 'orange'}}>@2024</span></p>
         </footer>
     </div>
 

@@ -3,6 +3,17 @@
 /* This CSS file contains classes for layout, spacing, buttons, custom text, etc. */
 /* All of are generic, and are not part of one specific element. */
 
+
+/* --------------------- Vars --------------------- */
+:root {
+  --z-background: 1;
+  --z-intermediate: 2;
+  --z-under-content: 3;
+  --z-content: 4;
+  --z-overlay: 5;
+}
+
+
 /* -------------------- Layout -------------------- */
 /* Use this to layout the page (e.g. wrap elements in div with these classes */
 /* Also use TwoColumns with Column children */
@@ -27,6 +38,30 @@
     display: flex;
     justify-content: center;
     gap: 20px;
+}
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+
+
+/* ----------------- Responsiveness ---------------- */
+.landscape-only {
+    display: block;
+}
+.portrait-only {
+    display: none;
+}
+
+@media (orientation: portrait) {
+    .landscape-only {
+        display: none !important;
+    }
+    .portrait-only {
+        display: block;
+    }
 }
 
 
@@ -68,3 +103,4 @@
     text-decoration: underline;
     filter: brightness(0.5);
 }
+

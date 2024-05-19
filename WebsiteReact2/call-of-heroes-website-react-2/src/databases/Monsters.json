@@ -64,7 +64,7 @@
         "Health": 20,
         "HPCoef": 0.9,
         "Speed": 5,
-        "Initiative": "4 Melee / 3 Ranged",
+        "Initiative": "6 Melee / 9 Ranged",
         "Abilities": [
             {
                 "Ranged": "1 + number of Goblins"
@@ -82,7 +82,7 @@
             }
         ],
         "Avoids AoE": false,
-        "Lore": "Goblins are Small Units that deal more damage the more Goblins there are.\n",
+        "Lore": "Goblins are Small Units that deal more damage the more Goblins there are. In large numbers, they can be devastating even to high-Level parties.\n",
         "Behavior": "Attack random targets.\nBe careful! Too many goblins can easily overwhelm the party, even if the encounter is balanced with Experience!\nWhen a Goblin dies or flees, describe that their team loses momentum.\n",
         "Pair": "Pair with 1 Boar (Giant), 1 Bannerman.\nFor an intense battle, pair with an Ogre.\n",
         "Suggested Obstacles": [
@@ -107,13 +107,13 @@
         "Initiative": 1,
         "Abilities": [
             {
-                "Heal": "Heal a unit for 12 (15m range) (3 times per combat)."
+                "Healing Light": "Heal a non-Acolyte Unit for 8. All Units around it become Blinded."
             },
             {
-                "Silencing Flame (Ranged Only)": "A target makes a 10 Grade Sense Check.\nOn Fail: takes 7 (2d6) Fire Damage and Silenced.\nOn Success: takes half of the Damage (3).\n1 time per combat.\n"
+                "Flame Bolt (6m)": "1d6"
             },
             {
-                "Weapon": "1d4 + 4"
+                "Weapon": "1d4 (when melee)"
             }
         ],
         "Passives": [
@@ -122,14 +122,15 @@
             }
         ],
         "Avoids AoE": true,
-        "Behavior": "Heals the lowest HP ally.\nUse Silencing Flame when out of Heal.\nIf melee, uses Weapon.\nUse as support for Guards, etc.\n",
+        "Lore": "Acolytes are support healer Units that inflict Blindness.",
+        "Behavior": "Heals the lowest Health ally. If attacked melee, uses Weapon.\nUse as support for Guards, etc.\n",
         "Suggested Obstacles": "None",
         "Monster Data": "No tactic, mid HP, no gimmick",
         "Role": "Support",
         "Variants": "Drow Acolyte"
     },
     "Cultist": {
-        "Type": "Person, Person",
+        "Type": "Person",
         "Experience": 100,
         "Stats": "0/1/3/3/2",
         "Health": 28,
@@ -139,18 +140,18 @@
         "Abilities": [
             {
                 "Eldritch Blast (spell)": {
-                    "Damage": "1d6 Pulse",
-                    "Effect": "On 6, target must succeed a Might Check or be pushed 3 meters.\nOn 1, Slows the target.\n"
+                    "Damage": "1d4 Scourge",
+                    "Decaying": "Target takes +1 Scourge Damage for the rest of combat (after the attack). Stacks infinitely.\n"
                 }
             },
             {
-                "Dagger": "1d4 Pierce (when Silenced)"
+                "Dagger": "1d4 Pierce (when melee)"
             }
         ],
         "Avoids AoE": true,
-        "Behavior": "Stay at range and shoot Eldritch Blast.\n",
+        "Behavior": "Stay at range and shoot Eldritch Blast.\nSmall time Cultists might surrender when they realize they are being overwhelmed.\n",
         "Pair": "Pair with melee monsters like Skeletons, Bandits or Guards to tank for them.",
-        "Lore": "Small time Cultists might surrender when they realize they are being overwhelmed.\nOften, people join a Cult for the sense of community and for small boons like improved health, knowledge, wealth and basic spellcasting.\nNot all Cultists are evil; some are simply misguided or drawn in by friends or family, and they they can't get out.\n",
+        "Lore": "Cultists are weak ranged damage Units.\n\nOften, people join a Cult for the sense of community and for small boons like improved health, knowledge, wealth and basic spellcasting.\nNot all Cultists are evil; some are simply misguided or drawn in by friends or family, and they they can't get out.\n",
         "Suggested Obstacles": [
             "Magical Darkness",
             "Cursed Obelisks",
@@ -168,20 +169,26 @@
         "Experience": 100,
         "Stats": "-2/4/0/1/0",
         "Health": 20,
-        "HPCoef": 0.7,
+        "HPCoef": 0.65,
         "Speed": 6,
-        "Initiative": "2 Melee / 5 Ranged",
+        "Initiative": 9,
         "Abilities": [
             {
-                "Ranged Weapon": "1d6"
+                "Weapon": {
+                    "Damage": "4 (or 2d4 - 1) (Pierce, Slash or Smash)",
+                    "No Remorse": "Deal +50% melee Damage against targets affected by any Crowd Control"
+                }
             },
             {
-                "Melee Weapon": "1d6"
+                "Opportunity Attack": {
+                    "A": "Reaction",
+                    "Effect": "When a Unit exist the melee range of a Kobold, attack it with the weapon."
+                }
             }
         ],
         "Passives": [
             {
-                "Sidestep": "The first time a Koblod would take Damage or be forced to make a Check in a combat, if it makes sense, it is sidestepped and completely negated (unless it's a mind spell, or is unavoidable like Heat Metal; apply common sense; if in doubt, assume it's unavoidable)."
+                "Sidestep": "The first time a Koblod would be affected by a negative thing in Combat, if it makes sense, it is sidestepped and completely negated (unless it's a mind spell, or is unavoidable like Heat Metal; apply common sense; if in doubt, assume it's unavoidable)."
             },
             {
                 "Darkvision": "Can see in the dark."
@@ -191,6 +198,7 @@
             }
         ],
         "Avoids AoE": true,
+        "Lore": "Kobolds are annoying rascals that always dodge the first attack on them.\n",
         "Behavior": "Koblods run away after they finish attacking if they can.\nKoblods prefer to ambush adventurers and fight in the dark.\n",
         "Pair": "Pair with Bannermen, Camazots.\nFor stronger encounters, Koblods might ride on Rust Roaches.\n",
         "Suggested Obstacles": [
@@ -210,20 +218,28 @@
         "Experience": 100,
         "Stats": "1/4/0/2/0",
         "Health": 25,
-        "HPCoef": 0.8,
+        "HPCoef": 0.7,
         "Speed": 5,
-        "Initiative": 2,
+        "Initiative": 5,
         "Abilities": [
             {
-                "Spear Throw (3m range)": "1d4 + 1 Pierce"
+                "Spear": {
+                    "Range": "3 meters",
+                    "Damage": "1d4 + 1 Pierce"
+                }
             },
             {
-                "Net (0 Actions) (5m range)": "Target makes a 10 Grade Dexterity Check or is Rooted. Usable only once per combat."
+                "Net": {
+                    "Range": "5 meters",
+                    "A": "0 Actions",
+                    "Cooldown": "Once / Combat",
+                    "Effect": "Target must roll a Dexterity Check at least 10 or be Rooted."
+                }
             }
         ],
         "Passives": [
             {
-                "Water Healing (group)": "At the end of every Round, all Morlocs heal for 7 Health if in water (even shallow water)."
+                "Water Healing (group)": "At the end of every Round, all Morlocs heal for 10 Health if in water (even shallow water)."
             },
             {
                 "Fast Swimmers": "Can move 2 meters for each 1 meter spent for movement in water."
@@ -233,6 +249,7 @@
             }
         ],
         "Avoids AoE": "Maybe",
+        "Lore": "Morlocs are frog or fish people who heal if in water and prevent their prey from running.",
         "Behavior": "Uses Net on the first round if possible.\nAttack random targets and prefer to fight in water, but will chase outside of water too. They're not smart enough to always use water to their advantage.\n",
         "Pair": "Pair with 1 Crab (Giant), 1 Acolye (Morloc).",
         "Suggested Obstacles": [
@@ -249,10 +266,10 @@
         "Type": "Person, Person",
         "Experience": 125,
         "Stats": "2/2/0/2/2",
-        "Health": "31 (1 Protection)",
+        "Health": 35,
         "HPCoef": 1,
         "Speed": 5,
-        "Initiative": "1 Melee / 3 Ranged",
+        "Initiative": 6,
         "Abilities": [
             {
                 "Bow": "1d6 + 1 Pierce"
@@ -284,7 +301,7 @@
         "HPCoef": 0.75,
         "Armor": "3 (Agile/Magical)",
         "Speed": 6,
-        "Initiative": "4 Melee / 8 Ranged",
+        "Initiative": "6 Melee / 12 Ranged",
         "Abilities": [
             {
                 "Ranged": "1d8"
@@ -293,7 +310,7 @@
                 "Weapon": "1d8"
             },
             {
-                "Darkness (Free)": "At the end of their first turn, they create a 5x5 meter area of Magical Darkness on their spot. This provides Cover to all units inside against all attacks. The darkness remains there for 1 minute."
+                "Darkness (Free)": "At the end of first turn, create a 5x5 meter area of Magical Darkness centered on Drough. This provides Cover to all Units inside against all attacks. The darkness remains there for 1 minute."
             }
         ],
         "Passives": [
@@ -301,7 +318,7 @@
                 "Dodgy": "+3 Defense against ranged (missile) attacks."
             },
             {
-                "Acrobatic": "Can easily jump up to 2 meters."
+                "Acrobatic": "Can easily jump up to 3 meters."
             },
             {
                 "Magical Darkvision": "Can see in the dark and in magical darkness."
@@ -332,27 +349,28 @@
         "Health": 96,
         "HPCoef": 1,
         "Speed": 3,
-        "Initiative": 0,
+        "Initiative": 5,
         "Abilities": [
             {
-                "Slam": {
-                    "Damage": "2d4 Smash",
-                    "Throw": "If rolled at least a 1 or a 4, the target makes a 10 Grade Might Check.\nIf it fails, the Ogre throws it up to 5 meters distance.\nIf it collides with something, it (and the collider) takes an extra 1d4 Damage.\nObstacles that can easily break will break.\n"
+                "Attack": {
+                    "Range": "2 meters",
+                    "Effect": "Deal 1d6 + 1 Smash Damage to a Unit and push it a number of meters equal to the die rolled.",
+                    "Notes": "If the Unit would fall down more than 2 meters, it instead grabs the nearest ledge and can climb it with a Half-Action (on its turn)."
                 }
             },
             {
-                "Hurl Rock (5m range)": {
-                    "Damage": "4 Smash (or 1d6 + 1)",
-                    "Break": "After the attack, if the target had Cover, the Cover breaks (if it can break)."
+                "Hurl Object": {
+                    "Range": "3 to 5 meters",
+                    "Effect": "Throw something nearby into a Unit for 1d6 Damage. If it has obstacle Cover, the obstacle breaks; otherwise, the Unit becomes Dazed."
                 }
             },
             {
-                "Stomp": "Attack all units within 2 meters for 4 Damage (or 2d4 - 1)."
+                "Stomp": "Damage all Units within 2 meters for 4 Pulse Damage (or 2d4 - 1)."
             }
         ],
         "Passives": [
             {
-                "Resistances": "Takes only 50% Smash and Pulse Damage."
+                "Resistances": "Takes -50% Smash and Pulse Damage."
             }
         ],
         "Avoids AoE": false,
@@ -380,21 +398,22 @@
         "Initiative": "4 Melee / 2 Ranged",
         "Abilities": [
             {
-                "Ranged Weapon": "4 (2d4 - 1)"
+                "Melee Weapon": "1d8"
             },
             {
-                "Melee Weapon": "4 (1d8)"
+                "Ranged Weapon": "1d6"
             },
             {
-                "Bite*": {
+                "Bite (*)": {
                     "Damage": "Make 2 attacks for 1d6 (Pierce)",
+                    "Requirement": "Only usable when Blood Rushed",
                     "Gnoll Fever": "If Bite dealt Damage, the target can't spend Mana on its next turn."
                 }
             }
         ],
         "Passives": [
             {
-                "Blood Rush": "As soon as the Gnoll drops to/below 50% HP, it can move up to 5 meters and make a Bite attack (even during other units' turns).\nThen, the other unit can continue its turn.\nFrom then on, the Gnoll can make 2 Bite attacks per turn.\n"
+                "Blood Rush": "As soon as the Gnoll drops to/below 50% HP, it can move up to 5 meters and make a Bite attack (even during other Units' turns).\nThen, the other Unit can continue its turn.\nFrom then on, the Gnoll can make 2 Bite attacks per turn.\n"
             }
         ],
         "Avoids AoE": false,
@@ -430,7 +449,7 @@
                 }
             },
             {
-                "Volley of Arrows": "Target a 3x3 meter area. All units there make a Grade 10 Dexterity Check. On fail, they take (directly, ignoring Defense) 1d8 Pierce Damage, or half if they succeed."
+                "Volley of Arrows": "Target a 3x3 meter area. All Units there make a Grade 10 Dexterity Check. On fail, they take (directly, ignoring Defense) 1d8 Pierce Damage, or half if they succeed."
             }
         ],
         "Avoids AoE": true,
@@ -531,17 +550,17 @@
                 "Dagger": "1d6 Pierce"
             },
             {
-                "Pain Tether (free) (once per combat)": "Choose a target the Cult Hierarch can see.\nUntil the combat is over, that target instanty takes half of all Damage the Cult Hierarch takes.\nOnly one unit can be Pain Tethered to only one Cult Hierarch.\nConcentration (interrupt it with any CC except Slows).\n"
+                "Pain Tether (free) (once per combat)": "Choose a target the Cult Hierarch can see.\nUntil the combat is over, that target instanty takes half of all Damage the Cult Hierarch takes.\nOnly one Unit can be Pain Tethered to only one Cult Hierarch.\nConcentration (interrupt it with any CC except Slows).\n"
             },
             {
-                "Counterspell (free) (once per combat) (Reaction)": "When a unit casts a spell, it must succeed a 11 Grade Sense Check or the spell is cancelled and the action lost, but not the Mana.\nIf it succeeds, then the spell can't be Counterspelled again (e.g. from another Cult Hierarch).\n"
+                "Counterspell (free) (once per combat) (Reaction)": "When a Unit casts a spell, it must succeed a 11 Grade Sense Check or the spell is cancelled and the action lost, but not the Mana.\nIf it succeeds, then the spell can't be Counterspelled again (e.g. from another Cult Hierarch).\n"
             }
         ],
         "Passives": {
             "Basic Magic": "Can cast small non-combat utility spells like Magic Tricks, Light, etc"
         },
         "Avoids AoE": true,
-        "Behavior": "The goal of a Cult Hierarch in combat is not to kill, but inflict Damage long term for the Players' mission.\nWill cast Inflict Wounds on different targets to stall their progress in the current adventure.\nWhen the combat starts, cast Pain Tether on a unit. Each Cult Hierarch casts Pain Tether on a different target.\nCast Counterspell on first occasion. Multiple Cult Hierarchs will NOT cast Counterspell at the same time or to try again.\n",
+        "Behavior": "The goal of a Cult Hierarch in combat is not to kill, but inflict Damage long term for the Players' mission.\nWill cast Inflict Wounds on different targets to stall their progress in the current adventure.\nWhen the combat starts, cast Pain Tether on a Unit. Each Cult Hierarch casts Pain Tether on a different target.\nCast Counterspell on first occasion. Multiple Cult Hierarchs will NOT cast Counterspell at the same time or to try again.\n",
         "Lore": "None",
         "Suggested Obstacles": "None",
         "Monster Data": "No tactic, mid HP, no gimmick",
@@ -591,7 +610,7 @@
                 "Barkskin (Human) (Reaction)": "Defense becomes 5 until start of its next turn."
             },
             {
-                "Owl Screech (Owlbear)": "Once per round, after an enemy casts a spell, all units that can hear the Owlbear Druid must succeed a 12 Sense Check or be Silenced."
+                "Owl Screech (Owlbear)": "Once per round, after an enemy casts a spell, all Units that can hear the Owlbear Druid must succeed a 12 Sense Check or be Silenced."
             },
             {
                 "Toxins (Toad)": "Whenever the Toad is Melee attacked, the attacker takes 3 Poison Damage."
@@ -638,7 +657,7 @@
                 }
             },
             {
-                "Sleep Spores (free) (5m range to edge)": "Choose a 2x2 meter area.\nIt becomes Difficult Terrain.\nAny unit ending their turn in Spores must succeed a 11 Sense Check or it falls Asleep and its initiative becomes 0.\nThe Dryad casts Sleep Spores every turn before Plant Attack.\n"
+                "Sleep Spores (free) (5m range to edge)": "Choose a 2x2 meter area.\nIt becomes Difficult Terrain.\nAny Unit ending their turn in Spores must succeed a 11 Sense Check or it falls Asleep and its initiative becomes 0.\nThe Dryad casts Sleep Spores every turn before Plant Attack.\n"
             }
         ],
         "Passives": [
@@ -646,7 +665,7 @@
                 "Treesposition": "Instead of moving normally, the Drayd can touch a tree and teleport near another tree within 10 meters (if not Silenced)."
             },
             {
-                "Vulnerabilities": "Takes 150% Acid Damage."
+                "Vulnerabilities": "Takes +50% Acid Damage."
             },
             {
                 "Immunities": "Immune to Poison Damage and Sleep."
@@ -674,7 +693,7 @@
         "Armor": "5 (Innate)",
         "HPCoef": 1,
         "Speed": "4 on land, 6 in water and shallow water",
-        "Initiative": "5 if Mage, 1 if Warrior",
+        "Initiative": "10 if Warrior, 1 if Mage",
         "Abilities": [
             {
                 "Warrior - Melee Weapon (2m)": {
@@ -700,14 +719,14 @@
         ],
         "Passives": [
             {
-                "Resistances": "Takes only 50% Cold Damage."
+                "Resistances": "Takes -50% Cold Damage."
             },
             {
                 "Mages and Warriors": "A Naga is either a Mage or a Warrior. A Mage can only use [Mage] Abilities. A Warrior can only use [Warrior] Abilities."
             }
         ],
         "Avoids AoE": false,
-        "Behavior": "Warrior: Use Melee Weapon attacks if the Naga can. If it can't get in range to attack, use Harpoon.\nMage: Always use Enslave Magic on units that players summon (e.g. spirit weapons, demons, etc).\n",
+        "Behavior": "Warrior: Use Melee Weapon attacks if the Naga can. If it can't get in range to attack, use Harpoon.\nMage: Always use Enslave Magic on Units that players summon (e.g. spirit weapons, demons, etc).\n",
         "Pair": "Pair with enslaved Morlocs, Crabs (Giant), a Bannerman.",
         "Lore": "Naga are known to enslave other species, like Morlocs.\nSome of them can cast water magic and take over control of summoned creatures.\nThey can hold their breath long enough to stay on land a few hours at a time.\nThey communicate through vibrations in the water, so their language might be inaudible in the open air.\nAlthough intelligent and resembling people, they are still monsters and have an innate instinct to kill everything they can't enslave.\n",
         "Suggested Obstacles": [
@@ -824,7 +843,7 @@
         "Initiative": "1 if land, 3 if flying",
         "Abilities": [
             {
-                "Bite": 1
+                "Bite": "1 True Damage"
             }
         ],
         "Passives": [
@@ -846,16 +865,16 @@
     "Hound": {
         "Type": "Beast, Undead, Demon",
         "Experience": 50,
-        "Stats": "-1/3/0/6/1",
-        "Health": "10 (1 Protection)",
+        "Stats": "1/1/0/6/3",
+        "Health": 15,
         "HPCoef": 0.7,
         "Speed": 6,
         "Initiative": 6,
         "Abilities": [
             {
                 "Bite (3m)": {
-                    "Damage": "2 Pierce (or 1d4 - 1)",
-                    "Lunge": "Lunge up to 3 meters to reach their target and attack it. This doesn't make the hound Fumbling."
+                    "Damage": "1d4 Pierce",
+                    "Maining": "If rolled 3 or 4, target becomes Slowed."
                 }
             }
         ],
@@ -873,14 +892,14 @@
         "Stats": "-4/2/0/1/-2",
         "Health": 8,
         "Armor": 3,
-        "HPCoef": 0.8,
+        "HPCoef": 0.5,
         "Speed": 6,
         "Initiative": 2,
         "Abilities": [
             {
                 "Facehug": {
-                    "Damage": "2 Pierce (or 1d4)",
-                    "Attach": "If it deals at least 1 Damage, try to Blind the target (10 Grade, Dexterity Check).\nThen, the Camazot remains attached until the end of the target's turn.\n(Yes, it occupies the same space.)\n"
+                    "Damage": "1d4 Scourge",
+                    "Attach": "Target becomes Blinded until the Camazot is killed. The Camazot remains attached to the target and moves with it."
                 }
             }
         ],
@@ -910,15 +929,10 @@
         "Initiative": 5,
         "Abilities": [
             {
-                "Bite": "3 (Pierce) (or 1d6)"
-            }
-        ],
-        "Passives": [
-            {
-                "Packtics": "Wolves are immune to being Flanked, and can Flank enemies with obstacles and walls."
-            },
-            {
-                "Flankers (Reaction)": "After the Wolf is hit by a Crowd Control from a Unit 3 meters away, it can freely move to it and make an attack on that Unit (with a Reaction)."
+                "Bite": {
+                    "Damage": "1d6 Pierce",
+                    "Flanker": "If Flanking, target becomes Fumbling."
+                }
             }
         ],
         "Avoids AoE": false,
@@ -976,10 +990,10 @@
         ],
         "Passives": [
             {
-                "Thick Chitin": "Takes only 50% Pierce and Slash Damage (after Defense)."
+                "Thick Chitin": "Takes -50% Pierce and Slash Damage (after Defense)."
             },
             {
-                "Cold Resistance": "Takes only 50% Cold Damage (after Defense)."
+                "Cold Resistance": "Takes -50% Cold Damage (after Defense)."
             },
             {
                 "Updive": "Crabs might sit under mud or sand. If a Unit is right on top of them, they can use all their movement to get up and directly make them Fumbling."
@@ -1141,7 +1155,7 @@
         ],
         "Passives": [
             {
-                "Antimagic": "Takes only 50% Damage from Spells of any kind."
+                "Antimagic": "Takes -50% Damage from Spells of any kind."
             },
             {
                 "Flying": "Can fly."
@@ -1169,7 +1183,7 @@
                 "Stone Glare (5m range)": "Target makes a 11 Grade Sense Check or it takes 1d8 Damage and is Crippled or Silenced (cockatrice chooses).\n"
             },
             {
-                "Tail Sweep (2m range)": "Target and all units 1 meter from it make a 11 Grade Dexterity Check.\nOn fail, they take 9 Smash Damage and are Fumbling (or 2d4 + 5).\nOn success, they take half of that Damage.\n"
+                "Tail Sweep (2m range)": "Target and all Units 1 meter from it make a 11 Grade Dexterity Check.\nOn fail, they take 9 Smash Damage and are Fumbling (or 2d4 + 5).\nOn success, they take half of that Damage.\n"
             },
             {
                 "Talons": "Make 2 attacks for 1d6 Pierce"
@@ -1177,7 +1191,7 @@
         ],
         "Passives": [
             {
-                "Bloody Shriek": "When dropping below 50% HP, Cockatrice shrieks.\nAll units within 6 meters must succeed a 11 Grade Sense Check or be Dazed and take 1d8 Psychic Damage.\n"
+                "Bloody Shriek": "When dropping below 50% HP, Cockatrice shrieks.\nAll Units within 6 meters must succeed a 11 Grade Sense Check or be Dazed and take 1d8 Psychic Damage.\n"
             }
         ],
         "Avoids AoE": false,
@@ -1233,7 +1247,7 @@
             {
                 "Envelop": {
                     "Damage": "8 Pierce (or 3d4)",
-                    "Facehug": "If it did Damage, the Stalacmantle remains attached to the target until the end of the target's turn (therefore, the target is in Darkness - has Cover; see Darkray's Passive Ability).\nIf the unit underneath moves, the Stalacmantle makes a Dexterity Check. If it succeeds, it moves with the target until the end of its turn (unless it teleports).\n"
+                    "Facehug": "If it did Damage, the Stalacmantle remains attached to the target until the end of the target's turn (therefore, the target is in Darkness - has Cover; see Darkray's Passive Ability).\nIf the Unit underneath moves, the Stalacmantle makes a Dexterity Check. If it succeeds, it moves with the target until the end of its turn (unless it teleports).\n"
                 }
             }
         ],
@@ -1284,10 +1298,10 @@
         ],
         "Passives": [
             {
-                "Upside": "Takes only 50% Pierce, Poison and Acid Damage."
+                "Upside": "Takes -50% Pierce, Poison and Acid Damage."
             },
             {
-                "Downside": "Takes 150% Pulse Damage."
+                "Downside": "Takes +50% Pulse Damage."
             },
             {
                 "Darkvision": "Sees in the dark."
@@ -1356,13 +1370,13 @@
         ],
         "Passives": [
             {
-                "Hot Touch": "When a unit melee attacks the Fire Snake with weapon, it takes 3 Fire Damage.\nIt must succeed a 12 Might Check or drop the weapon.\nIt can use a Half-Action to pick it up on its turn.\n"
+                "Hot Touch": "When a Unit melee attacks the Fire Snake with weapon, it takes 3 Fire Damage.\nIt must succeed a 12 Might Check or drop the weapon.\nIt can use a Half-Action to pick it up on its turn.\n"
             },
             {
                 "Fire Immunity": "Immune to Fire Damage."
             },
             {
-                "Vulnerabilities": "Takes 150% Cold Damage."
+                "Vulnerabilities": "Takes +50% Cold Damage."
             }
         ],
         "Avoids AoE": false,
@@ -1387,13 +1401,13 @@
         "Initiative": 5,
         "Abilities": [
             {
-                "Magic Bolt 1 (5m)": "Attack 2 units for 1d6 + 1 Pulse Damage."
+                "Magic Bolt 1 (5m)": "Attack 2 Units for 1d6 + 1 Pulse Damage."
             },
             {
-                "Blink": "All units within 2 meters make a Grade 12 Sense Check or become Blinded. Then teleport up to 5 meters."
+                "Blink": "All Units within 2 meters make a Grade 12 Sense Check or become Blinded. Then teleport up to 5 meters."
             },
             {
-                "Magic Bolt 2 (5m)": "Attack 2 units for 1d6 + 1 Pulse Damage."
+                "Magic Bolt 2 (5m)": "Attack 2 Units for 1d6 + 1 Pulse Damage."
             },
             {
                 "Force Wall (15 meters)": "Create transparent magical screen (3m tall, 5m wide) that nothing can pass through, except Magic Bolts. The screen has 7 HP and 7 Defense."
@@ -1404,7 +1418,7 @@
                 "Absorb Magic": "Whenever a non-Fairy Dragon casts a spell in combat, the Fairy Dragon gains +1 Damage with all Spells and attacks until the combat is over."
             },
             {
-                "Resistances": "Takes only 50% Fire, Cold, Pulse and Shock Damage."
+                "Resistances": "Takes -50% Fire, Cold, Pulse and Shock Damage."
             },
             {
                 "Basic Magic (Non-Combat)": "Fairy Dragons can also cast minor utility spells out of combat, like creating minor illusions, turning invisible out of combat, etc."
@@ -1483,11 +1497,11 @@
             {
                 "Blue Attack (5m) (Mage)": {
                     "Damage": "7 Acid (or 1d8 + 2)",
-                    "Bile": "All units within 2 meters of target take half of the Damage taken by the main target."
+                    "Bile": "All Units within 2 meters of target take half of the Damage taken by the main target."
                 }
             },
             {
-                "Yellow Attack (2m) (Worker)": "Attack all units within 2 meters of the Antheir for 1d6 + 3.\nAll units hit become Fumbling.\n"
+                "Yellow Attack (2m) (Worker)": "Attack all Units within 2 meters of the Antheir for 1d6 + 3.\nAll Units hit become Fumbling.\n"
             }
         ],
         "Passives": [
@@ -1532,7 +1546,7 @@
         "Initiative": 2,
         "Abilities": [
             {
-                "Breath (Fire) (5m)": "Attack the target and all units 2 meters from it for 8 Fire Damage (or 2d6 + 1)."
+                "Breath (Fire) (5m)": "Attack the target and all Units 2 meters from it for 8 Fire Damage (or 2d6 + 1)."
             },
             {
                 "Breath (Cold)": "Attack all targets in a 6x1 meter line for 8 Cold Damage (or 2d6 + 1)."
@@ -1549,7 +1563,7 @@
                 "Elemental": "A Dragon Whelp has one element (Fire, Cold, Shock, etc). Its Breath attack depends on its type. If your preferred element isn't here, just change one of the Breath attacks to match your element."
             },
             {
-                "Elemental Resistance": "Takes only 50% Damage from its elemental type."
+                "Elemental Resistance": "Takes -50% Damage from its elemental type."
             }
         ],
         "Avoids AoE": false,
@@ -1562,7 +1576,7 @@
         ],
         "Monster Data": "No tactic, mid HP, no gimmick",
         "Role": "Main Enemy",
-        "Variants": "Fairy Dragon Whelp (its element is Pulse and takes only 50% Fire, Cold, Shock and Pulse Damage)."
+        "Variants": "Fairy Dragon Whelp (its element is Pulse and takes -50% Fire, Cold, Shock and Pulse Damage)."
     },
     "Tyrannosaurus": {
         "Type": "Beast",
@@ -1737,7 +1751,7 @@
         "Initiative": 1,
         "Abilities": [
             {
-                "Attack (2m range)": "1d4 (Smash or Pierce of choice)"
+                "Attack (2m range)": "1d4 (Smash or Pierce)"
             }
         ],
         "Passives": [
@@ -1771,10 +1785,10 @@
         ],
         "Passives": [
             {
-                "Death Spores": "On death, shoots one Spore Spike at the closest unit."
+                "Death Spores": "On death, shoots one Spore Spike at the closest Unit."
             },
             {
-                "Vulnerabilities": "Takes 150% Damage from Fire."
+                "Vulnerabilities": "Takes +50% Damage from Fire."
             },
             {
                 "Immunities": "Immune to Poison and Scourge Damage."
@@ -1878,7 +1892,7 @@
         "Initiative": 3,
         "Abilities": [
             {
-                "Dark Whispers": "All units within 3 meters of the Gibbering Mouther must succeed a 11 Sense Check or take 10 Psychic Damage and Gibbering Mouther chooses one of these commands (separately for each) that the unit must respect on its next turn:\n- Move Away: use all movement to move in a straight line in whatever direction they choose (they stop at obstacles; can still move aftewards if they have movement left)\n- Drop Weapon: drop their current weapon (or one of them); must use a Half-Action to pick it up again\n- Silence: becomes Silenced\n"
+                "Dark Whispers": "All Units within 3 meters of the Gibbering Mouther must succeed a 11 Sense Check or take 10 Psychic Damage and Gibbering Mouther chooses one of these commands (separately for each) that the Unit must respect on its next turn:\n- Move Away: use all movement to move in a straight line in whatever direction they choose (they stop at obstacles; can still move aftewards if they have movement left)\n- Drop Weapon: drop their current weapon (or one of them); must use a Half-Action to pick it up again\n- Silence: becomes Silenced\n"
             }
         ],
         "Passives": [
@@ -1966,7 +1980,7 @@
             }
         ],
         "Avoids AoE": false,
-        "Behavior": "Literaly walk over units to automatically Engulf them.\nPrefers to ambush by dropping from the ceiling, appearing from a sewer, etc.\n",
+        "Behavior": "Literaly walk over Units to automatically Engulf them.\nPrefers to ambush by dropping from the ceiling, appearing from a sewer, etc.\n",
         "Pair": "Pair with an Ooze.",
         "Lore": "Gelatinous Boxs are semi-transparent, ooze-like creatures made of bacteria.\nContrary to popular belief, they are not corrossive.\n",
         "Suggested Obstacles": "None",
@@ -2019,18 +2033,15 @@
         "Initiative": 3,
         "Abilities": [
             {
-                "Attack Through": {
-                    "Damage": "1d6 - 1",
-                    "Pass Through": "The Flying Weapon moves in a straight line and attacks one Unit it succeeds by/through."
-                }
+                "Attack Through": "Fly 3 meters in a straight line. All Units hit take 1d6 Damage (Pierce, Slash or Smash).\n"
             }
         ],
         "Passives": [
             {
-                "Nimble": "Can stay and move through spaces of other units. Can perceive in the dark."
+                "Nimble": "Can stay and move through spaces of other Units. Can perceive in the dark."
             },
             {
-                "Immunities (Damage)": "Immune to Fire, Scourge, Poison, Psychic and Pierce Damage.."
+                "Immunities (Damage)": "Immune to Fire, Scourge, Poison, Psychic and Pierce Damage."
             }
         ],
         "Avoids AoE": false,
@@ -2060,7 +2071,7 @@
                 "Crumbling Defense": "Every time the Animated Armor is attacked (against Defense), it permanently loses 1 Defense (down to 0)."
             },
             {
-                "Resistances": "Takes only 50% Damage from Fire and Scourge."
+                "Resistances": "Takes -50% Damage from Fire and Scourge."
             },
             {
                 "Immunities": "Immune to Psychic and Poison Damage and Fear, Charm and Sleep."
@@ -2093,14 +2104,14 @@
             {
                 "Downslam": {
                     "Damage": "7 Smash (or 2d6)",
-                    "Area Slam": "This hits all units within 2 meters of the Gargoyle. Destroys all stone or wood obstacles hit, spreading debris."
+                    "Area Slam": "This hits all Units within 2 meters of the Gargoyle. Destroys all stone or wood obstacles hit, spreading debris."
                 }
             },
             {
                 "Wingdraw (5m)": "Target a Unit.\nPush away or pull (of choice) it and all other Medium or smaller Units within 2 meters of it in up to 3 meters.\nThey all take 1d4 + 4 Pulse Damage.\n"
             },
             {
-                "Flame Breath": "All units in a 90*, 4 meter long cone make a 10 Grade Dexterity Check.\nOn fail, they take 9 Fire Damage (or 3d4 + 1).\nOn success, they take half (4).\n"
+                "Flame Breath": "All Units in a 90*, 4 meter long cone make a 10 Grade Dexterity Check.\nOn fail, they take 9 Fire Damage (or 3d4 + 1).\nOn success, they take half (4).\n"
             }
         ],
         "Passives": [
@@ -2108,10 +2119,10 @@
                 "Searing Cracks": "When the Gargoyle drops below 50% HP, blinding fire is emmited from its cracks. All Units that can see it must succeed a 12 Dexterity of Sense Check (of choice) or be Blinded."
             },
             {
-                "Resistances": "Takes only 50% Fire, Shock and Psychic Damage."
+                "Resistances": "Takes -50% Fire, Shock and Psychic Damage."
             },
             {
-                "Weaknesses": "Takes 150% Smash and Pulse Damage."
+                "Weaknesses": "Takes +50% Smash and Pulse Damage."
             }
         ],
         "Avoids AoE": false,
@@ -2137,21 +2148,21 @@
         "Armor": 2,
         "HPCoef": 0.75,
         "Speed": 4,
-        "Initiative": "0 Melee, 3 Ranged",
+        "Initiative": 7,
         "Abilities": [
             {
-                "Ranged (10m)": "1d4"
+                "Ranged (10m)": "1d6"
             },
             {
-                "Melee": "1d4 (depending on weapon)"
+                "Melee": "1d6 (depending on weapon)"
             }
         ],
         "Passives": [
             {
-                "Rescramble": "When it dies, if there is another dead Skeleton within 6 meters, they magically fuse at the middle point (with 7 Initiative).\nA new Skeleton is created there. The 2 corpses disappear.\nA player can deal any amount of Damage to the corpse to destroy it.\n"
+                "Rescramble": "When it dies, if there is another dead Skeleton within 6 meters, they magically fuse at the middle point.\nA new Skeleton is created there. The 2 corpses disappear.\nA player can deal any amount of Damage to the corpse to destroy it.\n"
             },
             {
-                "Resistances": "Takes only 50% Pierce and Scourge Damage (after Defense)."
+                "Resistances": "Takes -50% Pierce and Scourge Damage."
             },
             {
                 "Immunities": "Immune to Blind, Sleep and Psychic Damage; can perceive through darkness (even magical darkness)."
@@ -2181,7 +2192,7 @@
         "Initiative": 2,
         "Abilities": [
             {
-                "Attack": "1d4 + 4 (depending on weapon)"
+                "Attack": "4 (depending on weapon)"
             }
         ],
         "Passives": [
@@ -2189,7 +2200,7 @@
                 "Undying": "Can only be killed by a hit that deals at least 5 Damage (after Defense). Otherwise, the Zombie remains at 1 HP."
             },
             {
-                "Corpse Burst": "On death, all units within 1 meter take 3 Poison Damage."
+                "Corpse Burst": "On death, all Units within 1 meter take 3 Poison Damage."
             },
             {
                 "Immunities": "Immune to Poison and Scourge Damage. Immune to difficult terrain."
@@ -2314,7 +2325,7 @@
                 "Darkvision": "Can see in the dark."
             },
             {
-                "Weakness": "Takes 150% Fire Damage."
+                "Weakness": "Takes +50% Fire Damage."
             },
             {
                 "Resistances": "Takes 50% Scourge Damage."
@@ -2386,7 +2397,7 @@
         "Initiative": -1,
         "Abilities": [
             {
-                "Flare": "All living units within 3 meters must succeed a 10 Sense Check or take 25% of their current HP as Scourge Damage.\nAfter this, the Will-o-Wisp dies.\n"
+                "Flare": "All living Units within 3 meters must succeed a 10 Sense Check or take 25% of their current HP as Scourge Damage.\nAfter this, the Will-o-Wisp dies.\n"
             }
         ],
         "Passives": [
@@ -2436,7 +2447,7 @@
                 "Leapers": "Can freely jump 3 meters."
             },
             {
-                "Silver Fearer": "Takes 150% Damage from attacks weapons coated in garlic tincture or silver."
+                "Silver Fearer": "Takes +50% Damage from attacks weapons coated in garlic tincture or silver."
             }
         ],
         "Avoids AoE": false,
@@ -2524,7 +2535,7 @@
                 "Mist": "Emmits a Mist within 3 meters around. Its allies inside the mist are immune to Crowd Control and have Cover to actions from outside."
             },
             {
-                "Resistances": "Takes only 50% Damage except True and Divine Damage."
+                "Resistances": "Takes -50% Damage except True and Divine Damage."
             },
             {
                 "Flying": "Can fly."
@@ -2606,7 +2617,7 @@
                 "Teleportation": "When the Lich moves, it teleports to the destination within Movement (if not Silenced). Alternatively, it can fly  (if not Silenced)."
             },
             {
-                "Resistances": "Takes only 50% Psychic, Scourge and Poison Damage."
+                "Resistances": "Takes -50% Psychic, Scourge and Poison Damage."
             },
             {
                 "Darkvision": "Can perceive in the dark."
@@ -2655,7 +2666,7 @@
                 "Materialize": "For 0 Actions, the Gasha can turn into smoke and ash and disappear, teleport or appear (if not Silenced). How, when and why they do this is unknown, though a lot of the time a strange ringing noise can be heard before one appearing."
             },
             {
-                "Resistances": "Takes only 50% Scourge, Fire, Poison and Pierce Damage."
+                "Resistances": "Takes -50% Scourge, Fire, Poison and Pierce Damage."
             },
             {
                 "Immunities": "Immune to Hard Terrain, Fumbling, Fear and Charm."
@@ -2679,7 +2690,7 @@
         "Experience": 100,
         "Stats": "-1/3/1/0/1",
         "Health": 25,
-        "HPCoef": 0.85,
+        "HPCoef": 0.7,
         "Speed": 6,
         "Initiative": 3,
         "Abilities": [
@@ -2687,12 +2698,16 @@
                 "Bite": "1d6"
             },
             {
-                "Embottle Magic (once) (3m)": "A Unit must succeed an Intelligence Check or take 5 Damage and lose 1 Mana (takes half of the Damage if it succeeds) (or 2d4)."
+                "Embottle Magic": {
+                    "A": "Reaction",
+                    "Cooldown": "Once / Combat",
+                    "Effect": "After a Unit finishes using an Ability that costs Mana, the Imp can Silence it."
+                }
             }
         ],
         "Passives": [
             {
-                "Resistances": "Takes only 50% Fire Damage."
+                "Resistances": "Takes -50% Fire Damage."
             },
             {
                 "Camouflage": "Has Cover when near a wall or Large obstacle."
@@ -2799,7 +2814,7 @@
         ],
         "Passives": [
             {
-                "Resistances": "Takes only 50% Pierce, Psychic and Fire Damage."
+                "Resistances": "Takes -50% Pierce, Psychic and Fire Damage."
             },
             {
                 "Flier": "Flies."
@@ -2880,7 +2895,7 @@
                 "Flame Ray (Reaction)": "When a Unit exits Cambion's 5 meter range area, make a free attack on that Unit for 1d8 Fire Damage. That Unit can't be targeted by another Flame Ray until the end of its turn."
             },
             {
-                "Resistances": "Takes only 50% Fire Damage."
+                "Resistances": "Takes -50% Fire Damage."
             },
             {
                 "Flying": "Flies (if not Silenced)."
@@ -2971,7 +2986,7 @@
                 "Runner": "After every time it takes Damage, it can freely move up to 2 meters."
             },
             {
-                "Weaknesses": "Takes 150% Slash and Pierce Damage."
+                "Weaknesses": "Takes +50% Slash and Pierce Damage."
             }
         ],
         "Avoids AoE": false,
@@ -3168,10 +3183,10 @@
         "Initiative": 2,
         "Abilities": [
             {
-                "Spirit Seep": "Attack up to 3 units within 3 meters for 6 Scourge Damage (or 2d4 + 1).\nThey are Slowed.\n"
+                "Spirit Seep": "Attack up to 3 Units within 3 meters for 6 Scourge Damage (or 2d4 + 1).\nThey are Slowed.\n"
             },
             {
-                "Scare Around (Free) (once per combat)": "All units within 3 meters of the Bubak must succeed a 12 Sense Check or be Dazed.\nThe Bubak casts Scare Around on its first turn of combat for free.\n"
+                "Scare Around (Free) (once per combat)": "All Units within 3 meters of the Bubak must succeed a 12 Sense Check or be Dazed.\nThe Bubak casts Scare Around on its first turn of combat for free.\n"
             }
         ],
         "Passives": [
@@ -3268,7 +3283,7 @@
                 "Lightspawns": "Summon 1d4 flying orbs near the Seraph each that will target a different enemy.\nOrbs have only 1 Health, 2 Defense, and have 3 meters speed.\nEach orb chases one player. Upon collision, it explodes and damages it for 12 Damage.\n"
             },
             {
-                "Feather Barrage": "Attack all units in a 4x4 area for 2d6 Pierce Damage.\nForms a \"[\" of caltrops on the ground, towards the Seraph.\n"
+                "Feather Barrage": "Attack all Units in a 4x4 area for 2d6 Pierce Damage.\nForms a \"[\" of caltrops on the ground, towards the Seraph.\n"
             }
         ],
         "Passives": [
@@ -3276,10 +3291,10 @@
                 "Futility": "After someone makes an attack with a weapon or uses an Ability, it can't be used anymore for the rest of the combat. Weapons vanish into thin air and Abilities are forgotten. Improvised Attack counts as 3 separate Abilities (Small, Medium and Large)."
             },
             {
-                "Resistances": "Takes only 50% Divine Damage."
+                "Resistances": "Takes -50% Divine Damage."
             },
             {
-                "Vulnerabilities": "Takes 150% Scourge Damage."
+                "Vulnerabilities": "Takes +50% Scourge Damage."
             }
         ],
         "Avoids AoE": false,
@@ -3336,7 +3351,7 @@
                 "Resistances": "50% Cold Resistance"
             },
             {
-                "Weaknesses": "150% Divine Weakness"
+                "Weaknesses": "+50% Divine Weakness"
             }
         ],
         "Avoids AoE": false,
@@ -3389,7 +3404,7 @@
                 "Resistances": "50% Cold Resistance"
             },
             {
-                "Weaknesses": "150% Divine Weakness"
+                "Weaknesses": "+50% Divine Weakness"
             }
         ],
         "Avoids AoE": false,
@@ -3432,7 +3447,7 @@
                 "Resistances": "50% Cold Resistance"
             },
             {
-                "Weaknesses": "150% Divine Weakness"
+                "Weaknesses": "+50% Divine Weakness"
             }
         ],
         "Avoids AoE": false,

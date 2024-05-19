@@ -35,6 +35,7 @@ import './RaceClassComponents.css'
 import TwoColumnsDescriptive from '../TwoColumns/TwoColumnsDescriptive'
 import TableShamanLevelUp from '../TableNormal/TableShamanLevelUp'
 import PageH0 from '../PageH0/PageH0'
+import AnchorFixer from '../AnchorFixer/AnchorFixer'
 
 export function Proficiencies({ name, theRaceOrClass }) {
 
@@ -80,6 +81,7 @@ export function RaceHeader({imgStyle, theRace, theClass}) {
     const description = theRace != null? theRace.Description : theClass.Description
     return (
         <div>
+            {/* <AnchorFixer */}
             <div className='landscape-only'>
                 <PageH1>{ name }</PageH1>
                 <TwoColumnsDescriptive>

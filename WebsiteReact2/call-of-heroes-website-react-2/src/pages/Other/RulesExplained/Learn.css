@@ -1,0 +1,73 @@
+:root {
+    --slide-content-gap: 5vh;
+}
+@media (orientation: portrait) {
+    :root {
+        --slide-content-gap: 25px;
+    }
+}
+
+.slide-page {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+
+    width: 100vw;
+    height: var(--hero-page-height);
+
+    overflow: hidden;
+
+    background-color: white;
+
+    margin-top: 0px;
+    padding-top: 0px;
+}
+.slide-image {
+    height: 100%;
+    position: absolute;
+}
+.slide-page.normal .slide-image {
+    right: -5vw;
+}
+.slide-page.reverse .slide-image {
+    left: -2.5vw;
+}
+.slide-page.reverse {
+    flex-direction: row-reverse;
+}
+
+.slide-left {
+    position: relative;
+    display: flex;
+    justify-content: center;
+
+    width: 55vw;
+    height: 100%;
+}
+.slide-right {
+    position: relative;
+    display: flex;
+    justify-content: center;
+
+    width: 45vw;
+    height: 100%;
+}
+@media (max-width: 1366px) {
+    .slide-left {
+        width: 75vw;
+    }
+    .slide-right {
+        width: 25vw;
+    }
+}
+
+
+.slide-left-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--slide-content-gap);
+
+    height: 100%;
+    width: 80%;
+}

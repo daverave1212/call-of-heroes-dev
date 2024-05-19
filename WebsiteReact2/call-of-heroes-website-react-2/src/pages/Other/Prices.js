@@ -69,6 +69,7 @@ export default function Prices() {
                 <Column>
                     <PriceTable categoryName="Adventuring Gear"/>
                     <PriceTable categoryName="General Goods"/>
+                    <PriceTable categoryName="Services"/>
                     <PriceTable categoryName="Metals (Per 100grams)"/>
                     <PriceTable categoryName="Tools"/>
                     <PriceTable categoryName="Other Items"/>

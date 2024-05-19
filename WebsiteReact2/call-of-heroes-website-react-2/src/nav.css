@@ -3,7 +3,7 @@
     --nav-height: 80px;
     --nav-item-padding: 40px;
     --nav-font-size: var(--p-size);
-    --nav-background-color: rgba(12, 15, 17, 1);
+    --nav-background-color: var(--dark-gray-color);
     --nav-hover-color: var(--orange-color);
 
     --subnav-height: 50px;
@@ -75,11 +75,14 @@ nav {
     height: 25px;
     width: 25px;
 }
-.nav-item a {
+.nav-item > a {
     display: inline-block;
     color: white;
     height: 100%;
     width: 100%;
+}
+.nav-item a:hover {
+    color: orange;
 }
 
 
@@ -152,12 +155,25 @@ nav {
     color: rgb(167, 167, 167);
     font-family: HomeFont;
     font-size: var(--nav-font-size);
+
+    padding-left: 0px;
+    transition-property: padding-left;
+    transition-duration: var(--transition-duration);
 }
 .subnav li a.premium {
     color: var(--light-blue-color) !important;
 }
 .subnav li a:hover {
     color: var(--nav-hover-color) !important;
+    padding-left: 5px;
+}
+@media (orientation: portrait) {
+    .subnav li a {
+        transition-property: none;
+    }
+    .subnav li a:hover {
+        padding-left: 0px;
+    }
 }
 
 

@@ -276,9 +276,7 @@ export default function Nav({ navState, setNavState, isSimple, setIsSimple }) {
             </div>
             <NavItem name='Database'>Database</NavItem>
 
-            <div className='nav-item'>
-              <Link style={{color: 'white'}} to="/Other/Learn">Learn To Play</Link>
-            </div>
+            <NavItem name="Learn To Play"><Link to="/Other/Learn">Learn To Play</Link></NavItem>
             <NavItem name='GM Resources'>GM Resources</NavItem>
             <NavItem name='Downloads'>Downloads</NavItem>
           </nav>

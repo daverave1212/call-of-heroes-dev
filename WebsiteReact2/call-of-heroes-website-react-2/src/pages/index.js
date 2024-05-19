@@ -8,6 +8,8 @@ import PromoPopup from '../components/PromoPopup/PromoPopup'
 import './index.css'
 import FeaturingAsidePopup from '../components/AsidePopup/FeaturingAsidePopup'
 import { CoolButton } from '../components/CoolButton/CoolButton'
+import HeroButton from '../components/HeroButton/HeroButton'
+import { Link } from 'react-router-dom'
 
 export default function() {
 
@@ -41,11 +43,9 @@ export default function() {
             A gamified tabletop RPG for this generation of video gamers. Battle, explore and host games for the modern world.
           </p>
           
-          <div className='hero-buttons'>
-            <CoolButton>
-              <a href="#Home-Advantages">Show Me</a>
-            </CoolButton>
-          </div>
+          <HeroButton>
+          <a href="#Home-Advantages">Show Me</a>
+          </HeroButton>
 
         </div>
       </div>
@@ -81,6 +81,9 @@ export default function() {
             <li><Icon name="BulletPoint3"/>Clarity, feedback, open community</li>
             <li><Icon name="BulletPoint3"/>100% free and open-license</li>
           </ul>
+          <HeroButton>
+            <Link to="/Other/Learn">Learn To Play!</Link>
+          </HeroButton>
         </div>
 
         <FeaturingAsidePopup featureToDisplay={featureToDisplay}/>

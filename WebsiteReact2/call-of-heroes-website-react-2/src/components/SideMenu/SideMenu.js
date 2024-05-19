@@ -5,6 +5,7 @@ import Icon from '../Icon'
 
 // import './SideMenu.css'
 import './SideMenu.css'
+import classNames from 'classnames'
 
 
 const TEMPLATE_SECTIONS = {
@@ -34,10 +35,12 @@ function MenuSubtitle({name}) {
     )
 }
 
-export function SideMenu({children, sections}) {
+export function SideMenu({isAbsolute, highlightedSection, sections}) {
     const sectionNames = Object.keys(sections)
     return (
-        <div className='side-menu'>
+        <div className={classNames('side-menu', {
+            'absolute': isAbsolute === true
+        })}>
             <div className='side-menu-content'>
                 { sectionNames.map(sectionName => (
                     <div key={sectionName}>
@@ -74,8 +77,8 @@ export function SideMenuFromRace({theRace}) {
         [theRace.Race]: [
             theRace.Race,
             'Race Features',
-            'Proficiencies',
             'Abilities',
+            'Racial Ability Choice'
         ]
     }
     return SideMenu({sections: sections})

@@ -52,12 +52,10 @@ export default function AbilitySheets() {
     const allAvailableSpellNames = Object.keys(allAvailableSpellsByName).sort()
 
     const [spellsAdded, setSpellsAdded] = useState(addedSpellsInURL)
-    const [currentlyTypedSpell, setCurrentlyTypedSpell] = useState('Fire Ball')
+    const [currentlyTypedSpell, setCurrentlyTypedSpell] = useState(allAvailableSpellNames[0])
     const [selectedSpellIndex, setSelectedSpellIndex] = useState(-1)
-    console.log({currentlyTypedSpell})
 
     function updateSpellsAdded(newSpellsAdded) {
-        console.log(newSpellsAdded)
         setSpellsAdded(newSpellsAdded)
         window.location.href = '#' + JSON.stringify(newSpellsAdded)
     }
@@ -93,8 +91,6 @@ export default function AbilitySheets() {
 
     // To ignore a stupid warning from MUI
     function _isOptionEqualToValueIgnoreWarning(option, value) { if (value == null) return true; else return value == option }
-
-    console.log({spellsAdded})
 
     return (
         <Page hasNoLimits={true}>
