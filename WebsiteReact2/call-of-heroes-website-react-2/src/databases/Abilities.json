@@ -77,11 +77,24 @@
             "Notes": "This counts as a weapon Attack (1-Handed or 2-Handed, depending on your weapon).",
             "Name": "~Lightstrike~"
         },
-        "~Slam~": {
-            "A": "1 Action",
-            "Effect": "All Units within 2 meters of you take 2d6 Smash Damage.\nAfter that, one of them of your choice takes an extra 1d4 Smash Damage.\n",
-            "Notes": "The extra 1d6 is part of the same Damage (for Defense).",
-            "Name": "~Slam~"
+        "~Hack and Slash~": {
+            "A": "0 Actions",
+            "DisplayName": "{Name}",
+            "Effect": "Your next {Effect}\n~Click on the Icon to select a preferred effect!~\n",
+            "Notes": "Weapon effects (like Critical Strikes), if necessary, are applied to the main target only.",
+            "Variants": [
+                {
+                    "Name": "Hack and Slash",
+                    "Effect": "melee weapon attack hits all Units 1 meter from you, but deals -50% Damage (roll the attack once).",
+                    "IconName": "Hack and Slash"
+                },
+                {
+                    "Name": "Point and Shoot",
+                    "Effect": "ranged weapon attack hits all Units 1 meter from the target, but deals -50% Damage (except you) (roll the attack once).",
+                    "IconName": "Point and Shoot"
+                }
+            ],
+            "Name": "~Hack and Slash~"
         },
         "~Chilling Shout~": {
             "A": "1 Action",
@@ -111,8 +124,7 @@
         "~Recuperate~": {
             "A": "0 Actions",
             "Cost": "1 Mana",
-            "Effect": "Heal yourself for 1d8 and remove all Fumbling, Root, Slow, Poisons and Bleed effects ongoing on you.\n",
-            "Upgrade": "At Level 4 this also removes Cripple and Blind.\n",
+            "Effect": "Heal yourself for 1d10. If you're affected by Crowd Control (except turn-skipping), remove it instead of healing.\n",
             "Name": "~Recuperate~"
         },
         "~Shank~": {
@@ -187,13 +199,13 @@
             "A": "0 Actions",
             "Cooldown": "Once / Adventure",
             "Requirement": "Level 2",
-            "Effect": "All allies (and you) remove their Roots, Slows and Dazes.\nYou (yourself) can continue your movement if you already moved.\n",
+            "Effect": "All allies (and you) remove their Roots, Slows and Dazes.\nYou (yourself) can continue your Movement if you already moved.\n",
             "Name": "~Stand Stoic~"
         },
         "~Assess Their Ranks~": {
             "A": "0 Action",
             "Cost": "1 Mana",
-            "Cooldown": "Once / Encounter",
+            "Cooldown": "Once / Combat",
             "Duration": "1 minute",
             "Effect": "Gain Shielding equal to the number of Worthy Enemies you can see.",
             "Name": "~Assess Their Ranks~"
@@ -294,7 +306,7 @@
             "Cost": "1 Mana",
             "Range": "10 meters",
             "Requirement": "Level 2",
-            "Effect": "Shoot an Ice Shard toward a Unit, dealing 1d8 + 2 Cold or Pierce Damage (your choice). The target becomes Fumbling.",
+            "Effect": "Shoot an ice shard toward a Unit, dealing 1d8 + 3 Cold or Pierce Damage (your choice). It becomes Fumbling.",
             "Tag": "Damage (Half)",
             "Name": "~Ice Shard~"
         },
@@ -551,7 +563,7 @@
         },
         "~Longblade~": {
             "A": "0 Actions",
-            "Cooldown": "Once / Adventure",
+            "Cooldown": "Once / Combat",
             "Duration": "1 minute",
             "Effect": "Magically extend the weapon of a willing ally you can see (or yourself) to up to 3 meters.\nIts Attacks with that weapon can have up to 3 meters range.\n",
             "Name": "~Longblade~"
@@ -596,7 +608,7 @@
             "A": "1 Action",
             "Cost": "1 Mana",
             "Range": "10 meters to edge",
-            "Cooldown": "Once / Encounter",
+            "Cooldown": "Once / Combat",
             "Requirement": "Level 4",
             "Effect": "You conjure a levitating barrage of arrows in a 3x3 area, up to 10 meters above ground.\nAt any point (for 0 Actions or with a Reaction), you can release these arrows upon the ground, hitting all enemies hit for 2d6 Pierce Damage.\nAt the start of your every turn, if the barrage is not yet released, it increases by 1 meter in size in all directions and gains 1d4 Damage when it will be released (up to +3d4 and 9x9).\n",
             "Notes": "E.g. every turn, it goes from 3x3 to 5x5, then 7x7, then 9x9, etc and deals from 2d6 Damage to 2d6 + 1d4, then 2d6 + 2d4, etc.\nThe arrows disappear as soon as they hit ground, or when dismissed (all at once) for free at any point, or after 1 minute of staying in the air.\n",
@@ -687,7 +699,7 @@
         "~Grow or Shrink~": {
             "A": "0 Actions",
             "Cost": "1 Mana",
-            "Cooldown": "Once / turn",
+            "Cooldown": "Once / Turn",
             "Requirement": "Level 6",
             "Effect": "A Unit or object you can see becomes one Size larger/smaller for its next 1d4 turns.\nIt gains or loses 20% of its base (unbuffed) Defense (gain/loss is rounded up), gains or loses 1 Damage on all physical Acts (that would deal Damage) and gains or loses 1 Movement Speed.\nCan stack multiple times.\n",
             "Notes": "Sizes are Minuscule, Small, Medium, Large, and Larger.\nA larger Unit becomes 1 meter larger/smaller in both directions.\nIt's number of spaces occupied also changes with this.\n",
@@ -698,7 +710,6 @@
             "Requirement": "Level 6",
             "Cost": "3 Mana",
             "Range": "10 meters to edge",
-            "Cooldown": "Once / Adventure",
             "Effect": "Declare an area with a diameter in meters (in all directions) equal to your Level.\nThe gravity becomes reversed in that area and all Units instantly fall upwards. Units can make a Dexterity Check to grab onto an object to not be lifted.\nUnits suffer fall Damage if they fall onto a ceiling.\nWhen the effect ends, all Units fall at half velocity (and take half of the fall Damage). The same happens to a Unit if it exits the area.\nLasts for up to 1 minute. You can cancel this effect at will.\n",
             "Notes": "Fall Damage is 1d6 for every 2 meters fallen (e.g. 1d6 for 2 and 3 meters, 2d6 for 4 and 5 meters, etc).\n",
             "Name": "~Reverse Gravity~"
@@ -713,7 +724,6 @@
         "~Banishment Slip~": {
             "A": "Half-Action",
             "Cost": "1 Mana",
-            "Cooldown": "Once / Adventure",
             "Range": "5 meters",
             "Requirement": "Level 7",
             "Effect": "A non-Epic Unit becomes Banished to the Shadow Realm until the start of your next turn.\nWhile Banished, it can't interact with the normal world and nothing can interact with it.\n",
@@ -797,7 +807,7 @@
             "HasMixins": true,
             "A": "1 Action",
             "Range": "5 meters",
-            "Cooldown": "2 Uses / Adventure",
+            "Cooldown": "Sense uses / Adventure",
             "Requirement": "Level 2",
             "Effect": "You can control gusts of wind in a 6x6x6 area and do one of the following for 1 Action:\n{Diamond} You can create a gust of Heavy Wind blowing from any direction (see notes) that lasts for 1 minute\n{Diamond} You can move a gust of Heavy Wind 3 meters in any direction\n{Diamond} You can create wind that makes Units fall softly\n{Diamond} You can stop it (for 0 Actions)\n",
             "Notes": "Moving against Heavy Wind acts as Hard Terrain.\nProjectiles fired against the Wind have Cover, and projectiles fired with the Wind gain +1.\nHeavy Wind also clears Fog, Smoke, etc in the area.\nMultiple Winds don't stack into eachother.\n",
@@ -819,13 +829,6 @@
             "Effect": "Choose a Unit and poison it.\nAt the end of each of your turns, that Unit takes 1d4 Poison Damage.\n",
             "Notes": "You can stack this on the same Unit multiple times.",
             "Name": "~Poison Burst~"
-        },
-        "~Resistance~": {
-            "A": "0 Actions",
-            "Cooldown": "Once / Adventure",
-            "Duration": "Rest of Adventure",
-            "Effect": "Touch an ally (or yourself) and choose one Stat.\nIt has +1d4 in all Resist Checks with that Stat.\n",
-            "Name": "~Resistance~"
         },
         "~Fog Cloud~": {
             "A": "1 Action",
@@ -913,8 +916,8 @@
             "A": "0 Actions",
             "Cost": "1 Mana",
             "Duration": "1 minute",
-            "Effect": "Choose a Unit you can see.\nWhever another Unit Attacks it (before the roll) and is within 3 meters, it takes 1d4 Pierce Damage.\n",
-            "Notes": "Does not stack with itself.",
+            "Effect": "A Unit you can see grows thorns on its body.\nWhenever it is melee attacked, the attacker takes 1d4 Pierce Damage.\n",
+            "Notes": "A Unit can only be effected by one Thorn Quills effect at a time.",
             "Name": "~Thorn Quills~"
         },
         "~Venin Shot~": {
@@ -968,11 +971,10 @@
         "~Paralyzing Sting~": {
             "A": "Half-Action",
             "Range": "3 meters",
-            "Cost": "1 Mana",
-            "Cooldown": "Once / Adventure",
+            "Cost": "2 Mana",
             "Requirement": "Level 4",
             "HasMixins": true,
-            "Effect": "Lash out a noxious sting towards a Unit.\nIt chooses whether to be Crippled or take 2d10 Poison Damage.\n",
+            "Effect": "Lash out a noxious sting towards a Unit.\nIt chooses whether to be Crippled or take 3d10 Poison Damage.\n",
             "Notes": "Only works on biological Units. {Crippled}\n",
             "Name": "~Paralyzing Sting~"
         },
@@ -998,9 +1000,8 @@
         },
         "~Meld With Material~": {
             "A": "1 Action",
-            "Cooldown": "Once / Adventure",
             "Requirement": "Level 7",
-            "Effect": "Touch a piece of solid material.\nYou become immoving and all your body becomes as if made from that material.\nYou can cancel this for free at any point, but until you do, you are Stunned (can't do anything) and have +3 Defense and to all Checks.\n",
+            "Effect": "Touch a piece of solid material.\nYou become unmoving and all of your body becomes as if made from that material.\nYou can cancel this for free at any point, but until you do, you are Stunned (can't do anything) and have +3 Defense and to all Checks.\n",
             "Notes": "You still need to drink water and eat food, but don't need to breathe while melded.\nThis has potential to work like a long term Stealth mechanism.\n",
             "Name": "~Meld With Material~"
         }
@@ -1057,7 +1058,7 @@
         "~Restoration~": {
             "A": "0 Actions",
             "Cooldown": "Once / Adventure",
-            "Effect": "Remove all your party members' Exhaustion (from any source).\nIf they were Exhausted from lack of sleep, they can resist sleep Exhaustion for 1d8 more hours.\n",
+            "Effect": "Remove all your party members' Exhaustion (from any source).\nIf they were Exhausted from lack of sleep, they can resist sleep Exhaustion for 8 more hours.\n",
             "Name": "~Restoration~"
         },
         "~Expelling Bolt~": {
@@ -1172,9 +1173,8 @@
             "A": "1 Action",
             "Requirement": "Level 5",
             "Duration": "(Your Level) hours",
-            "Cooldown": "Once / Adventure",
-            "Effect": "Up to 2 allies you can see (can include yourself) gain the ability to also breathe under water\n",
-            "Upgrade": "Alternatively, if this Ability is on Cooldown, you can spend 1 Mana to cast it regardless.",
+            "Cost": "1 Mana",
+            "Effect": "Up to 2 allies you can see (can include yourself) can now breathe under water.\n",
             "Name": "~Water Breathing~"
         }
     },
@@ -1245,7 +1245,7 @@
         "~Wyrd Renewal~": {
             "A": "Half-Action",
             "Range": "5 meters",
-            "Cooldown": "Twice / Adventure",
+            "Cooldown": "Twice / Combat",
             "Effect": "Roll 1d10 - 5.\nHeal/Damage a Unit for that amount.\nIf it's positive, heal it.\nIf it's negative, Damage it.\n",
             "Notes": "You choose the target after you roll.",
             "Name": "~Wyrd Renewal~"
@@ -1312,11 +1312,6 @@
             "Notes": "Debuffs are things like curses, weaknesses, etc. Crowd Control like Daze, Fumbling, Fear, Stun, etc are not considered Debuffs.\n",
             "Name": "~Cure Affliction~"
         },
-        "~Flameblade~": {
-            "A": "Passive",
-            "Effect": "You can freely change the Damage of your weapon Attacks to Fire Damage.",
-            "Name": "~Flameblade~"
-        },
         "~Light~": {
             "A": "1 Action",
             "Range": "1 meter",
@@ -1331,19 +1326,20 @@
             "Notes": "For example, repair a hole through a chain shirt or textile material, the crack in a piece of glass, etc.\n",
             "Name": "~Mending~"
         },
-        "~Radiance~": {
-            "A": "Half-Action",
-            "Cost": "1 Mana",
-            "Cooldown": "1 minute",
-            "Effect": "For 1 minute, at the end of your turn, all Units within 1 meter of you take 1d4 Divine Damage.",
-            "Name": "~Radiance~"
-        },
         "~Solace Wave~": {
             "A": "Half-Action",
             "Cost": "1 Mana",
             "Range": "5 meters",
             "Effect": "Heal an ally (or yourself) for 1d8 Health.\nIf they 50% or more Health before the heal, double the dice's result.\n",
             "Name": "~Solace Wave~"
+        },
+        "~Smite~": {
+            "A": "0 Actions",
+            "Cooldown": "Once / Turn",
+            "Cost": "1 Mana",
+            "Effect": "After you roll for a melee attack, add 1d6 Divine Damage.\nIf the target dies, gain the Mana back.\n",
+            "Notes": "If you're a Paladin, you can regain the use of Smite if the target dies.",
+            "Name": "~Smite~"
         },
         "~Burnished Flames~": {
             "A": "1 Action",
@@ -1361,22 +1357,20 @@
             "Upgrade": "At Level 5, also removes all non-magical debuffs and poisons.\nAt Level 8, also removes all curses and normal negative magical effects.\n",
             "Name": "~Liberation~"
         },
+        "~Radiance~": {
+            "A": "Half-Action",
+            "Cost": "1 Mana",
+            "Requirement": "Level 2",
+            "Effect": "For 1 minute, at the end of your turn, all Units within 1 meter of you take 1d4 Divine Damage.",
+            "Name": "~Radiance~"
+        },
         "~Restful Soothing~": {
             "A": "1 hour",
             "Cost": "1 Mana",
-            "Cooldown": "Once / Adventure",
             "Requirement": "Level 2",
             "Effect": "Roll a number of d8's for each player character in your party (except yourself). Assign each rolled d8 to one player character, and heal them for their assigned die.",
             "Note": "You must be staying in place to channel this.",
             "Name": "~Restful Soothing~"
-        },
-        "~Smite~": {
-            "A": "0 Actions",
-            "Cooldown": "Once / Turn",
-            "Cost": "1 Mana",
-            "Requirement": "Level 2",
-            "Effect": "After you roll for a melee attack, add 1d6 Divine Damage.\n",
-            "Name": "~Smite~"
         },
         "~Saving Throw~": {
             "A": "0 Actions",
@@ -1434,16 +1428,15 @@
             "A": "Half-Action",
             "Cost": "1 Mana",
             "Requirement": "Level 4",
-            "Cooldown": "Once / Adventure",
-            "Effect": "Heal a Fallen Unit to 20% of it total Health.\nIt does not suffer of Exhaustion from rising after being Fallen.\n",
+            "Effect": "Heal a Fallen Unit to 20% of it total Health.\nIt does not suffer of Exhaustion from Rising after being Fallen.\n",
             "Name": "~Rise~"
         },
         "~Ardent Smite~": {
             "A": "0 Actions",
             "Cost": "2 Mana",
             "Requirement": "Level 5",
-            "Cooldown": "Once / Combat",
             "Effect": "Add 2d4 + 1 Fire Damage to a melee weapon Attack (after you rolled the Attack). The target takes another 1d6 Fire Damage at the start of each of your next turns for 1 minute.\n",
+            "Notes": "A Unit can only be affected by one Ardent Smite burn.",
             "Name": "~Ardent Smite~"
         },
         "~Water Walk~": {
@@ -1466,7 +1459,6 @@
         "~Reveling Rays~": {
             "A": "1 Action",
             "Cost": "2 Mana",
-            "Cooldown": "Once / Combat",
             "Requirement": "Level 6",
             "Effect": "You shoot out 8 rays of light.\nRoll 8d4 and assign them to Units within 10 meters as you with.\nEach die heals on odd rolls (1 and 3) and deals Divine Damage on even rolls (2 and 4).\n",
             "Name": "~Reveling Rays~"

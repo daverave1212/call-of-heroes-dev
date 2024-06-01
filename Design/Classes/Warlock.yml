@@ -30,7 +30,7 @@ Spellcasting:
     Regain: Your Mana reset after every combat.
   Change: You can change your known Spells and Talents inbetween Adventures.
   Other: All Warlock-specific Abilities are considered Spells.
-  Known Basic Abilities: 2 + Your Intelligence
+  Known Basic Abilities: 2 + Intelligence (if above 0)
   BaseKnownSpells: 2
   Basic Ability Lists:
     - Elemental
@@ -145,12 +145,10 @@ Specs:
 
         ~Darkness~:
           _Value: 0.5
-          A: 0 Actions
-          Range: 5 meters to edge
-          Cooldown: Once / Adventure
+          A: Passive
           Effect: |
-            Conjure a 5x5x5 meter area of magical darkness. Units inside are Blinded, and everything done in or through the darkness has Cover.
-            Passively, you can see in normal darkness, up to 10 meters away.
+            After you spend Mana, conjure (optionally) a 3x3x3 meter area of magical darkness, centered on you and this turn, you can see in magical darkness.
+          Notes: Units inside magical darkness are Blinded, and everything done in or through the darkness has Cover.
 
       Level 5:
 
@@ -327,7 +325,7 @@ Specs:
           _Value: 2.25
           A: Half-Action
           Cost: Depends
-          Cooldown: Once / Encounter
+          Cooldown: Once / Combat
           Effect: Choose an enemy Unit. Cast the last Ability it cast with its exact numbers (can include attacks).
           Notes: Includes weapon attacks, multiattacks and spells. You can't cast Reactions. If you copied an attack, you briefly conjure a weapon for the attack only.
 
@@ -337,7 +335,7 @@ Specs:
         <Control Crowds>:
           _Value: 1
           A: Reaction
-          Cooldown: Once / Encounter
+          Cooldown: Once / Combat
           Effect: Use when an enemy Unit uses an Ability. It must use a different Ability.
           Notes: If it has only one Ability or attack, you can't use Control Crowds (the QM will let you know).
 
@@ -384,14 +382,14 @@ Specs:
         <Redirection>:
           _Value: 2
           A: Reaction
-          Cooldown: Once / Encounter
+          Cooldown: Once / Combat
           Effect: Use when an Unit uses an Ability or attacks. Redirect it to any other valid Unit (e.g. within range). Its Damage or Healing is reduced by 50%.
 
       Level 7:
         <Nuissance to Gods>:
           _Value: 4
           A: Passive
-          Cooldown: All your Abilities with "Once / Encounter" Cooldown can be used Twice / Encounter instead.
+          Cooldown: All your Abilities with "Once / Combat" Cooldown can be used Twice / Encounter instead.
 
         <Possession>: Inherit from Shaman
 

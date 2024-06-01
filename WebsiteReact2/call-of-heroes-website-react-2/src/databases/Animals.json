@@ -5,20 +5,19 @@
             "Stats": "5/1/0/2/2",
             "Speed": "5 meters",
             "Abilities": {
-                "~Bear Fortitude~": {
-                    "A": "0 Actions",
-                    "Cooldown": "Once / Adventure",
-                    "Effect": "The Bear gains Shielding equal to 3 + (Your Level).\nLasts up to 1 hour.\n",
-                    "Notes": "For Druids, the Shielding disappears if Shapeshift is cancelled."
+                "~Stand Proud~": {
+                    "A": "Passive",
+                    "Effect": "If the Bear ends its turn without having dealt Damage, it heals for 1d6.\n",
+                    "Upgrade": "Only works in Worthy Combats, and if the Bear is not Fallen."
                 },
-                "~Maul~": {
+                "~Roar and Maul~": {
                     "A": "1 Action",
-                    "Cooldown": "Once / Adventure",
-                    "Effect": "The target takes 1d4 Damage (1d10 if Shapeshift) and is Dazed.\n"
+                    "Cooldown": "Once / Combat",
+                    "Effect": "The target takes 1d4 Damage (1d10 if Shapeshift) and is Feared.\n"
                 },
-                "~Swiping Claw~": {
-                    "A": "1 Action",
-                    "Effect": "All Units around the Bear take 4 Slash Damage (12 Damage if Druid)."
+                "~Swiping Attack~": {
+                    "A": "Passive",
+                    "Effect": "Critical Strike - If you rolled maximum on the Bear's Attack, deal 50% of the rolled Damage to all Units within 1 meter of the Bear!"
                 }
             },
             "Alternatives": "Giant Badger, Stegosaurus, Giant Crab"
@@ -28,34 +27,39 @@
             "Speed": "6 meters",
             "Health": "8 + 2 * Level",
             "Abilities": {
-                "~Ferocity~": {
+                "~Pack Movement~": {
                     "A": "Passive",
-                    "Effect": "Critical Strike - If you rolled maximum on the Wolf's Pet Attack, deal another 1d6 Damage.\n",
-                    "Notes": "Applies to Animal Attack if it's not a pet."
+                    "HasMixins": true,
+                    "Effect": "Wolf Attacks have their ^Dice Upgraded^ to the next die type if Flanking (in addition to getting the +1).\n",
+                    "Notes": "{DiceUpgrade}"
                 },
                 "~Leap~": {
                     "A": "0 Actions",
                     "Range": "Exactly 3 meters range, no more, no less.",
-                    "Cooldown": "Once / Adventure",
-                    "Effect": "The Wolf leaps at a target (near it).\nThe target rolls a Dexterity Check.\nIf it fails, the target is Dazed.\n"
+                    "Cooldown": "Once / Combat",
+                    "Effect": "The Wolf leaps at a target. If Flanking it, the target takes 1d4 Damage (1d8 if Druid). Otherwise, it becomes Slowed and Fumbling.\n"
                 }
             },
             "Alternatives": "Hyena, Velociraptor"
         },
         "Large Cat": {
-            "Health": "8 + 2 * Level",
+            "Health": "7 + 2 * Level",
             "Stats": "1/5/0/2/2",
             "Speed": "6 meters",
             "Druid Requirement": "Level 2",
             "Abilities": {
                 "~Prowl~": {
                     "A": "Passive",
-                    "Effect": "The first Attack of the Large Cat in a combat ignores the target's Defense.\nThe Cat and it's owner leave no tracks and can see in the Darkness (10 meters).\nThe Cat and it's owner are Skilled in Stealth (see Skills).\n"
+                    "Effect": "The Cat and it's owner leave no tracks and can see in the Darkness (10 meters).\nThe Cat and it's owner are Skilled in Stealth (see Skills).\n"
+                },
+                "~Cat Ambush~": {
+                    "A": "Passive",
+                    "Effect": "The Cat's first regular attack every Combat deals +1d6 Damage (+1d8 if Druid)."
                 },
                 "~Rake~": {
                     "A": "1 Action",
-                    "Cooldown": "Once / Adventure",
-                    "Effect": "Make a (Cat's) Dexterity Check against a Unit's Might Check. If you pass, the Unit becomes Crippled and takes 1d8 Damage (3d8 for Shapeshift).\nOtherwise, it takes 50% of the Damage.\nDoes not work on Units that can't bleed.\n"
+                    "Cooldown": "Once / Combat",
+                    "Effect": "Make a (Cat's) Dexterity Check against a Unit's Might Check.\nIf you pass, the Unit becomes Crippled. Otherwise, deal Damage 1d8 Damage (4d6 + 4 if Druid) to it.\nDoes not work on Units that can't bleed.\n"
                 }
             },
             "Alternatives": "Giant Rat"
@@ -63,21 +67,22 @@
         "Elk": {
             "Stats": "1/3/0/4/0",
             "Health": "8 + 2 * Level",
-            "Speed": "5 meters",
+            "Speed": "7 meters",
             "Druid Requirement": "Level 3",
             "Abilities": {
-                "~Elk Flank~": {
+                "~Antler Charge~": {
                     "A": "Passive",
-                    "Effect": "The Elk's first Flank Attack every turn deals 1 extra Damage."
+                    "Effect": "The Elk has 7 Movement.\nIf the Elk moved at least 5 meters in a straight line, then attacked a target in front of it, the attack deals +1d4 Damage and pushes the target 3 meters away.\n",
+                    "Notes": "In front can also mean diagonally in front (e.g. front-left, or front-right). Does not work on Large or Epic Units."
                 },
                 "~Rideable Steed~": {
                     "A": "Passive",
-                    "Effect": "You (or an ally) can ride your Elk as if you were Trained in riding. The Elk's speed is 8 when not in combat."
+                    "Effect": "You (or an ally) can ride your Elk as if you were Trained in riding. The Elk's speed is 10 when not in combat."
                 },
                 "~Majestic Buffet~": {
                     "A": "0 Actions",
-                    "Cooldown": "Once / Adventure",
-                    "Effect": "Use this after you used Pet Attack.\nThe same target makes a Charisma Check.\nIf it fails, it is Charmed (by the pet).\n",
+                    "Cooldown": "Once / Combat",
+                    "Effect": "Use this after the Elk made an attack.\nA different Unit that can see the Elk, other than the one attacked, becomes Charmed (by the Elk).\n",
                     "Notes": "If you are a Druid, use this after you performed a melee attack."
                 }
             },
@@ -92,12 +97,12 @@
             "Abilities": {
                 "~Spikes~": {
                     "A": "Passive",
-                    "Effect": "After a Unit makes a melee Attack on the Porcupine, it takes 1d4 Pierce Damage."
+                    "Effect": "After a Unit makes a melee Attack on the Porcupine, the attacker takes 1d4 Pierce Damage."
                 },
                 "~Quillshot~": {
                     "A": "1 Action",
-                    "Cooldown": "Once / Adventure",
-                    "Effect": "All Units within 3 meters of the Porcupine are shot with arrow-like quills and take 2d6 + 2 Pierce Damage."
+                    "Cooldown": "Once / Combat",
+                    "Effect": "All Units within 3 meters of the Porcupine are shot with arrow-like quills and take 2d6 + 2 Pierce Damage (3d6 + 3 if Druid)."
                 }
             },
             "Alternatives": "Poisonous Frog, Electric Eel"
@@ -110,12 +115,13 @@
             "Abilities": {
                 "~Poison Fangs~": {
                     "A": "Passive",
-                    "Effect": "Giant Spider Attacks deal +1d6 extra Poison Damage to targets already affected by Crowd Control (except Slows)."
+                    "Effect": "Giant Spider Attacks deal +1d6 extra Poison Damage to targets already affected by Crowd Control.",
+                    "Upgrade": "Also, passively, the Spider can walk on walls at half speed."
                 },
                 "~Web~": {
                     "A": "0 Actions",
                     "Range": "5 meters",
-                    "Cooldown": "Once / Adventure",
+                    "Cooldown": "Once / Combat",
                     "Effect": "A target must succeed a Dexterity Check against 9 or be Rooted.\n",
                     "Notes": "This counts as an Attack."
                 }
@@ -131,11 +137,12 @@
             "Abilities": {
                 "~Talons~": {
                     "A": "Passive",
-                    "Effect": "Bird of Prey attacks have 2 meters range.\nAn enemy starting its turn near the Bird of Prey is Slowed.\n"
+                    "Effect": "Bird of Prey have 2 Defense and can freely Break their Movement.\nAn enemy starting its turn 1 meter from the Bird of Prey is Slowed.\n"
                 },
                 "~Beak Poke~": {
                     "A": "1 Action",
                     "Range": "2 meters",
+                    "Cooldown": "Once / Combat",
                     "Effect": "A Unit near the Bird of Prey takes 1d8 Pierce Damage (2d8 for Shapeshift) and is Blinded.\n"
                 }
             }
@@ -152,8 +159,8 @@
                 },
                 "~Fling Over~": {
                     "A": "1 Action",
-                    "Cooldown": "Once / Adventure",
-                    "Effect": "Make a (Gorilla's) Might Check against a Unit's Might. If you pass, it takes 1d6 Smash Damage and is thrown up to 3 meters in any direction.\nIf it collides with another Unit or an obstacle/wall, they both take an extra 1d6 Smash Damage.\n"
+                    "Cooldown": "Once / Combat",
+                    "Effect": "Make a (Gorilla's) Might Check against a Unit's Might Check. If you pass, it takes 1d6 Smash Damage (2d6 if Druid) and is thrown up to 3 meters in a chosen direction.\nIf it collides with another Unit or an obstacle/wall, they both take an extra 1d6 (2d6 if Druid) Smash Damage.\n"
                 }
             },
             "Alternatives": "Giant Boar, Buffalo, Rhinoceros"
@@ -192,7 +199,7 @@
                 },
                 "~Quicken Spell~": {
                     "A": "0 Actions",
-                    "Cooldown": "Once / Adventure",
+                    "Cooldown": "Once / Combat",
                     "Effect": "The Owlbolg casts a Spell you know that takes Half-Action.",
                     "Notes": "If the Spell has a Cooldown, it goes on Cooldown. If it costs something to cast it, you must still spend that cost."
                 },
@@ -221,7 +228,6 @@
                 "~Ominous Howl~": {
                     "A": "Half-Action",
                     "HasMixins": true,
-                    "Cooldown": "Once / Adventure",
                     "Effect": "All Units that can hear you become Feared.",
                     "Notes": {
                         "Feared": null

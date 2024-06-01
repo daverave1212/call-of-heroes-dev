@@ -24,14 +24,13 @@
     "Spellcasting": {
         "Type": "Mana-based",
         "SpellsOrAbilities": "Spell",
-        "Spell Grade": "6 + Intelligence or Charisma, whichever is higher",
         "Mana": {
             "Amount": 3,
             "Regain": "You regain all Mana back inbetween Adventures."
         },
         "Change": "You can change your known Spells and Talents inbetween Adventures.",
         "Other": "All Mage-specific Abilities are considered Spells (except Magic Mastery).",
-        "Known Basic Abilities": "3 + Your Intelligence",
+        "Known Basic Abilities": "3 + Intelligence (if above 0)",
         "BaseKnownSpells": 3,
         "Basic Ability Lists": [
             "Elemental",
@@ -61,11 +60,12 @@
     },
     "Starting Abilities": {
         "~Magic Mastery~": {
-            "_Value": 1.35,
+            "_Value": 1.5,
             "A": "0 Actions",
-            "Cooldown": "Once / Adventure",
-            "Effect": "The next Ability you use that has the cost of 1 Action now costs a Half-Action.\n",
-            "Notes": "This is not considered a Spell.",
+            "HasMixins": true,
+            "Cooldown": "Once / Turn",
+            "Effect": "Your next Basic Spell (from an Ability List) that costs 1 Action now costs a Half-Action instead, but has all ^Dice Downgraded^ to the previous die tier.\n",
+            "Notes": "This is not considered a Spell. {DiceDowngrade}",
             "AlignOnWebsite": "Left"
         },
         "~Learn Scrolls~": {
@@ -136,9 +136,9 @@
                 },
                 "Level 5": {
                     "<Abjuration>": {
-                        "_Value": 2,
+                        "_Value": "2 or more",
                         "A": "Reaction",
-                        "Cooldown": "Once / Adventure",
+                        "Cost": "1 Mana",
                         "Effect": "Use when an ally (or you) would be hit by a missile (before hitting the target).\nFling it from air back to the attacker (with the exact Damage and effects).\n"
                     },
                     "<Animation>": {
@@ -156,9 +156,9 @@
                         "Notes": "E.g. the clone could cast Magic Missiles, but only one missile will deal 1 Damage (you can choose which, and apply Cover, Defense and other penalties normally - e.g. 1 Damage with Cover becomes 0 Damage). Alternatively, for example, it could attack twice with a one-handed weapon for 1 Damage each.\n"
                     },
                     "<Spellcraft>": {
-                        "_Value": 1.25,
+                        "_Value": 2.5,
                         "A": "0 Actions",
-                        "Cooldown": "Once / Adventure",
+                        "Cooldown": "Once / Combat",
                         "AlignOnWebsite": "Right",
                         "HasMixins": true,
                         "Effect": "When you cast a spell, you can apply this any of the following effects to it:\n{Diamond} For every 2 dice in its Damage, roll 1 more\n{Diamond} If it targets an area, increase it or decrease it by 50%\n{Diamond} Change its Damage type to any type, except Divine and True Damage\n{Diamond} If it specifies a Stat, change it to any other Stat\n{Diamond} Swap any of Root, Cripple or Silence (with any of the remaining)\n{Diamond} Swap Slow, Fumbling, or Pushing with any other of these (Push a target 2 meters away from you or from the area center)\n{Diamond} Double its range\nAt any point, you can expend 1 Mana to reset the Cooldown of this Spell (Spellcraft).\n"
@@ -221,9 +221,9 @@
                 "Level 3": {
                     "<Sap>": {
                         "_Value": 1,
-                        "A": "0 Actions",
+                        "A": "Half-Action",
                         "Range": "10 meters",
-                        "Cooldown": "Once / Adventure",
+                        "Cooldown": "Once / Combat",
                         "Effect": "A Unit must succeed a Charisma Check against your Max Mana or be Crippled, Silenced or Rooted (your choice).\n"
                     },
                     "<Mild Magic>": {
@@ -369,9 +369,9 @@
                         "Effect": "You create a special magical weapon.\nChoose a type of weapon, and choose 2 of the following effects:\n{Diamond} +1 Damage if it's a One-Handed Weapon (or +2 if it's Two-Handed)\n{Diamond} Damage can freely be converted to Fire/Cold/Shock (choose one)\n{Diamond} +2 meters move speed while wielding it\n{Diamond} Wielder starts combat with 1d6 Shielding\nYou can only have 1 Magic Weapon created at a time.\nThe Magic Weapon is automatically destroyed after 24 hours.\n"
                     },
                     "<Spellcraft>": {
-                        "_Value": 1.25,
+                        "_Value": 2.5,
                         "A": "0 Actions",
-                        "Cooldown": "Once / Adventure",
+                        "Cooldown": "Once / Combat",
                         "AlignOnWebsite": "Right",
                         "HasMixins": true,
                         "Effect": "When you cast a spell, you can apply this any of the following effects to it:\n{Diamond} For every 2 dice in its Damage, roll 1 more\n{Diamond} If it targets an area, increase it or decrease it by 50%\n{Diamond} Change its Damage type to any type, except Divine and True Damage\n{Diamond} If it specifies a Stat, change it to any other Stat\n{Diamond} Swap any of Root, Cripple or Silence (with any of the remaining)\n{Diamond} Swap Slow, Fumbling, or Pushing with any other of these (Push a target 2 meters away from you or from the area center)\n{Diamond} Double its range\nAt any point, you can expend 1 Mana to reset the Cooldown of this Spell (Spellcraft).\n"

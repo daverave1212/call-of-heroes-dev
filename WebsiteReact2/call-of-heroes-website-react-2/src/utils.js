@@ -328,6 +328,7 @@ export function parseTextWithSymbols(text, customSymbols) {
         'Stunned': () => (<span>A Stunned Unit skips its turn.</span>),
         'Cover': () => (<span>If a Unit has Cover from you (e.g. is behind an obstacle), everything you do to it gets -2.</span>),
         'DiceUpgrade': () => (<span>Having <b>Dice Upgraded</b> means, for example, d6's become d8's, or d10's become d12's. D12's and d20's don't increase.</span>),
+        'DiceDowngrade': () => (<span>Having <b>Dice Downgraded</b> means, for example, d8's become d6's, or d10's become d8's. D4's and d20's don't decrease.</span>),
         
         'Gold': () => (<Icon name="Gold"/>)
     }

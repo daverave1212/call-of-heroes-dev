@@ -43,13 +43,12 @@ Spellcasting:
   Type: Mana-based
   SpellsOrAbilities: Spell
 
-  Spell Grade: 6 + Intelligence or Charisma, whichever is higher
   Mana:
     Amount: 3
     Regain: You regain all Mana back inbetween Adventures.
   Change: You can change your known Spells and Talents inbetween Adventures.
   Other: All Mage-specific Abilities are considered Spells (except Magic Mastery).
-  Known Basic Abilities: 3 + Your Intelligence
+  Known Basic Abilities: 3 + Intelligence (if above 0)
   BaseKnownSpells: 3
   Basic Ability Lists:
     - Elemental
@@ -72,12 +71,13 @@ Spellcasting:
 Starting Abilities:
 
   ~Magic Mastery~:
-    _Value: 1.35
+    _Value: 1.5
     A: 0 Actions
-    Cooldown: Once / Adventure
+    HasMixins: true
+    Cooldown: Once / Turn
     Effect: |
-      The next Ability you use that has the cost of 1 Action now costs a Half-Action.
-    Notes: This is not considered a Spell.
+      Your next Basic Spell (from an Ability List) that costs 1 Action now costs a Half-Action instead, but has all ^Dice Downgraded^ to the previous die tier.
+    Notes: This is not considered a Spell. {DiceDowngrade}
     AlignOnWebsite: Left
 
   ~Learn Scrolls~:    # 0
@@ -185,9 +185,9 @@ Specs:
       Level 5:
       
         <Abjuration>:
-          _Value: 2
+          _Value: 2 or more
           A: Reaction
-          Cooldown: Once / Adventure
+          Cost: 1 Mana
           Effect: |
             Use when an ally (or you) would be hit by a missile (before hitting the target).
             Fling it from air back to the attacker (with the exact Damage and effects).
@@ -215,9 +215,9 @@ Specs:
             E.g. the clone could cast Magic Missiles, but only one missile will deal 1 Damage (you can choose which, and apply Cover, Defense and other penalties normally - e.g. 1 Damage with Cover becomes 0 Damage). Alternatively, for example, it could attack twice with a one-handed weapon for 1 Damage each.
 
         <Spellcraft>:
-          _Value: 1.25
+          _Value: 2.5
           A: 0 Actions
-          Cooldown: Once / Adventure
+          Cooldown: Once / Combat
           AlignOnWebsite: Right
           HasMixins: true
           Effect: |
@@ -314,9 +314,9 @@ Specs:
 
         <Sap>:
           _Value: 1
-          A: 0 Actions
+          A: Half-Action
           Range: 10 meters
-          Cooldown: Once / Adventure
+          Cooldown: Once / Combat
           Effect: |
             A Unit must succeed a Charisma Check against your Max Mana or be Crippled, Silenced or Rooted (your choice).
 

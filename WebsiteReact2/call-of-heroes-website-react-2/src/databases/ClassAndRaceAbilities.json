@@ -733,11 +733,11 @@
         "Effect": "You have 2 Mana that regenerates normally inbetween Adventures.\nAdditionally, choose a Basic Ability List from Elemental, Divine, and Arcane.\nYou now have access to that Basic Ability List as well, permanently.\n"
     },
     "~Quick Magic~": {
-        "_Value": 1.5,
+        "_Value": 2.5,
         "A": "Passive",
         "Range": "6 meters",
         "HasMixins": true,
-        "Effect": "After using Tumble or one of your Pet's Abilities that has a \"Once / Adventure\" Cooldown, immediately choose and do one of the following effects:\n{Diamond} Deal 1d4 Fire Damage to a Unit\n{Diamond} Cast Flash\n{Diamond} Cast Vault Break\n",
+        "Effect": "After using Tumble or one of your Pet's Abilities that has a \"Once / Combat\" Cooldown, immediately choose and do one of the following effects:\n{Diamond} Deal 1d4 Fire Damage to a Unit\n{Diamond} Cast Flash\n{Diamond} Cast Vault Break\n",
         "Notes": "For quick reference: Flash teleports you up to 6 meters away; Vault Break destroys a medium obstacle within 6 meters.\nAll of the effects have a range of 6 meters.\n"
     },
     "<Watcher Form>": {
@@ -884,11 +884,12 @@
         "Effect": "Add your Level to all Checks related to magic (e.g. identifying spells, magic items or runes, knowledge about magic, etc)."
     },
     "~Magic Mastery~": {
-        "_Value": 1.35,
+        "_Value": 1.5,
         "A": "0 Actions",
-        "Cooldown": "Once / Adventure",
-        "Effect": "The next Ability you use that has the cost of 1 Action now costs a Half-Action.\n",
-        "Notes": "This is not considered a Spell.",
+        "HasMixins": true,
+        "Cooldown": "Once / Turn",
+        "Effect": "Your next Basic Spell (from an Ability List) that costs 1 Action now costs a Half-Action instead, but has all ^Dice Downgraded^ to the previous die tier.\n",
+        "Notes": "This is not considered a Spell. {DiceDowngrade}",
         "AlignOnWebsite": "Left"
     },
     "~Learn Scrolls~": {
@@ -936,9 +937,9 @@
         "Notes": "Hard Terrain does not count as Crowd Control. Pushing counts as Crowd Control."
     },
     "<Abjuration>": {
-        "_Value": 2,
+        "_Value": "2 or more",
         "A": "Reaction",
-        "Cooldown": "Once / Adventure",
+        "Cost": "1 Mana",
         "Effect": "Use when an ally (or you) would be hit by a missile (before hitting the target).\nFling it from air back to the attacker (with the exact Damage and effects).\n"
     },
     "<Animation>": {
@@ -956,9 +957,9 @@
         "Notes": "E.g. the clone could cast Magic Missiles, but only one missile will deal 1 Damage (you can choose which, and apply Cover, Defense and other penalties normally - e.g. 1 Damage with Cover becomes 0 Damage). Alternatively, for example, it could attack twice with a one-handed weapon for 1 Damage each.\n"
     },
     "<Spellcraft>": {
-        "_Value": 1.25,
+        "_Value": 2.5,
         "A": "0 Actions",
-        "Cooldown": "Once / Adventure",
+        "Cooldown": "Once / Combat",
         "AlignOnWebsite": "Right",
         "HasMixins": true,
         "Effect": "When you cast a spell, you can apply this any of the following effects to it:\n{Diamond} For every 2 dice in its Damage, roll 1 more\n{Diamond} If it targets an area, increase it or decrease it by 50%\n{Diamond} Change its Damage type to any type, except Divine and True Damage\n{Diamond} If it specifies a Stat, change it to any other Stat\n{Diamond} Swap any of Root, Cripple or Silence (with any of the remaining)\n{Diamond} Swap Slow, Fumbling, or Pushing with any other of these (Push a target 2 meters away from you or from the area center)\n{Diamond} Double its range\nAt any point, you can expend 1 Mana to reset the Cooldown of this Spell (Spellcraft).\n"
@@ -1008,9 +1009,9 @@
     },
     "<Sap>": {
         "_Value": 1,
-        "A": "0 Actions",
+        "A": "Half-Action",
         "Range": "10 meters",
-        "Cooldown": "Once / Adventure",
+        "Cooldown": "Once / Combat",
         "Effect": "A Unit must succeed a Charisma Check against your Max Mana or be Crippled, Silenced or Rooted (your choice).\n"
     },
     "<Mild Magic>": {
@@ -1193,16 +1194,12 @@
         "A": "Passive",
         "Effect": "You augment your body using chemical, mechanical or magical procedures.\nYour Might, Dexterity and Sense increase by 2, your Health by 10\n"
     },
-    "~Vigor~": {
-        "A": "Passive",
-        "Effect": "You start with 3 extra Max Health.\n"
-    },
     "~Faith Casting~": {
         "_Value": 0,
         "A": "Passive",
         "HasMixins": true,
         "AlignOnWebsite": "Left",
-        "Effect": "You do not use Mana.\nOnce per turn, you can cast a Warfare or Divine Ability you Know that costs Mana and you haven't already cast this Adventure, without spending Mana.\n",
+        "Effect": "You do not use Mana.\nOnce per turn, you can cast an Ability you Know that costs Mana and you haven't already cast this Adventure, without spending Mana.\nYou get +1 Known Ability every Level.\n",
         "Upgrade": "If your Intelligence is 2 or higher, you can Know an additional Basic Ability.",
         "Notes": "For example, if you know Smite and Healing Word, you can cast each of them once this Adventure, without spending Mana.\nAbilities must still respect their Cooldowns if any.\n"
     },
@@ -1614,10 +1611,10 @@
         "Effect": "Using ingredients costing 35 Gold, you are able to create a few drops of Drinkable Poison.\nSomeone ingesting them takes 1d12 Poison Damage instantly.\nCombining multiple instances of Drinkable Poison increases its Damage by 1d12 for each Drinkable Poison combined.\nThe poison loses its effect after 72 hours.\n"
     },
     "<Shadowstep>": {
-        "A": "Half-Action",
-        "Cooldown": "Once / Adventure",
+        "A": "0 Actions",
+        "Cooldown": "Once / Combat",
         "Effect": "If you are covered in shadow, choose another point covered in shadow up to 6 meters away.\nInstantly teleport to that place.\n",
-        "Notes": "This is considered a Spell."
+        "Notes": "Note that you can use this out of combat, but its Cooldown will only reset after you finish the next combat, whenever that is.\nThis is considered a Spell.\n"
     },
     "<Planned Assassination>": {
         "_Value": 0.35,
@@ -1630,7 +1627,7 @@
         "_Value": 2.25,
         "A": "0 Actions",
         "Cooldown": "Once / Adventure",
-        "Effect": "Mark a Unit you can see.\nWhenever YOU deal Damage to it until your next turn, remember the Damage done.\nAt the start of your next turn, the mark bursts and the Unit takes 50% of the Damage it has taken in this time period.\n"
+        "Effect": "Mark a Unit you can see for death.\nWhenever YOU deal Damage to it until your next turn, remember the Damage done.\nAt the start of your next turn, the mark bursts and the Unit takes 50% of the Damage it has taken in this time period.\n"
     },
     "<Finale>": {
         "A": "0 Actions",
@@ -1646,10 +1643,10 @@
         "Notes": "Ambush from Hidden and Savagery don't stack (only one d8 is added)."
     },
     "~Parry~": {
-        "_Value": 1,
+        "_Value": 2,
         "A": "Reaction",
-        "Cooldown": "Once / Adventure",
-        "Effect": "Halve the Damage of a weapon attack you receive (when you see the roll, before subtracting modifiers like Defense, Resistances, etc)."
+        "Cooldown": "Once / Combat",
+        "Effect": "When attacked by a weapon, reduce its Damage by 1d8."
     },
     "<10 Percent Luck>": {
         "_Value": 1,
@@ -1715,8 +1712,8 @@
     },
     "~Mind Link~": {
         "A": "0 Actions",
-        "Cooldown": "Once / Adventure",
-        "Effect": "Establish a mind connection with a willing ally.\nFor the rest of the Adventure, you can talk to eachother telepathically.\n"
+        "Effect": "Establish a mind connection with a willing ally.\nFor the rest of the Adventure, you can talk to eachother telepathically.\n",
+        "Notes": "You can only have one Mind Linked ally at a time."
     },
     "~Path of the Berserker~": {
         "A": "Passive",
@@ -2019,10 +2016,9 @@
     },
     "~Darkness~": {
         "_Value": 0.5,
-        "A": "0 Actions",
-        "Range": "5 meters to edge",
-        "Cooldown": "Once / Adventure",
-        "Effect": "Conjure a 5x5x5 meter area of magical darkness. Units inside are Blinded, and everything done in or through the darkness has Cover.\nPassively, you can see in normal darkness, up to 10 meters away.\n"
+        "A": "Passive",
+        "Effect": "After you spend Mana, conjure (optionally) a 3x3x3 meter area of magical darkness, centered on you and this turn, you can see in magical darkness.\n",
+        "Notes": "Units inside magical darkness are Blinded, and everything done in or through the darkness has Cover."
     },
     "<Agile Development>": {
         "_Value": 1.25,
@@ -2139,14 +2135,14 @@
         "_Value": 2.25,
         "A": "Half-Action",
         "Cost": "Depends",
-        "Cooldown": "Once / Encounter",
+        "Cooldown": "Once / Combat",
         "Effect": "Choose an enemy Unit. Cast the last Ability it cast with its exact numbers (can include attacks).",
         "Notes": "Includes weapon attacks, multiattacks and spells. You can't cast Reactions. If you copied an attack, you briefly conjure a weapon for the attack only."
     },
     "<Control Crowds>": {
         "_Value": 1,
         "A": "Reaction",
-        "Cooldown": "Once / Encounter",
+        "Cooldown": "Once / Combat",
         "Effect": "Use when an enemy Unit uses an Ability. It must use a different Ability.",
         "Notes": "If it has only one Ability or attack, you can't use Control Crowds (the QM will let you know)."
     },
@@ -2182,13 +2178,13 @@
     "<Redirection>": {
         "_Value": 2,
         "A": "Reaction",
-        "Cooldown": "Once / Encounter",
+        "Cooldown": "Once / Combat",
         "Effect": "Use when an Unit uses an Ability or attacks. Redirect it to any other valid Unit (e.g. within range). Its Damage or Healing is reduced by 50%."
     },
     "<Nuissance to Gods>": {
         "_Value": 4,
         "A": "Passive",
-        "Cooldown": "All your Abilities with \"Once / Encounter\" Cooldown can be used Twice / Encounter instead."
+        "Cooldown": "All your Abilities with \"Once / Combat\" Cooldown can be used Twice / Encounter instead."
     },
     "<Advanced Talent Bonus>": {
         "HasMixins": true,
@@ -2278,7 +2274,7 @@
         "_Value": 2,
         "A": "Half-Action",
         "Range": "10 meters",
-        "Cooldown": "Once / Encounter",
+        "Cooldown": "Once / Combat",
         "Effect": "Throw a weapon at a target and attack it (without Throwing penalties and ignoring Cover).\nBefore applying the Damage, the attack destroys all Shielding and Defense on the target and removes all buffs on it.\nThe target can't trigger \"on roll\", can't gain Shielding and can't benefit from Buffs until they spend an Action to recover.\n",
         "Upgrade": "Epic Monsters gain ther Defense back when they spend the Action to recover.",
         "Notes": "Your weapon lands at the nearest space to the target (and you should probably pick it up with a Half-Action).\n\"On roll\" refers to effects like \"if it rolls 10 on a d10, the attack deals 1d10 extra Damage\".\nBuffs are all effects that improve the target; even passive effects like auras or passive stats from abilities are negated.\nYou don't need Training in Throwning and this attack counts as a regular melee attack.\n"
@@ -2341,7 +2337,7 @@
         "_Value": 2.25,
         "A": "Reaction",
         "Cooldown": "Once / Adventure",
-        "Effect": "Taking Damage that would kill you leaves you at 1 Health instead, then you can't take damage until the start of your next turn. At the start of your next turn, heal for 2d6."
+        "Effect": "Taking Damage that would kill you puts you in a state of primal rage, and leaves you at 1 Health instead, then you can't take damage until the start of your next turn. At the start of your next turn, heal for 2d6."
     },
     "<Victory Strike>": {
         "_Value": 2.5,
@@ -2386,7 +2382,7 @@
     "~Point Mark~": {
         "_Value": 0.25,
         "A": "0 Actions",
-        "Cooldown": "Once / Encounter",
+        "Cooldown": "Once / Combat",
         "Range": "15 meters",
         "Effect": "Mark a point on the ground.\nAllies and you can use the mark to flank targets.\n"
     },
@@ -2403,7 +2399,7 @@
         "A": "1 Action",
         "Cooldown": "Once / Adventure",
         "Range": "6 meters",
-        "Effect": "Make a ranged attack that deals 2d12 + 3 Damage.\nThe target makes a Dexterity Check.\nIf it fails, it is pulled to you.\nOtherwise, you are pulled to it.\n",
+        "Effect": "Make a ranged attack that deals 4d8 Damage.\nRoll a Might or Dexterity Check at least equal to the target's Dexterity Check to pull it to you.\nOtherwise, you are pulled to it.\n",
         "Notes": "Requires a Harpoon, which can be bought for 50 Gold."
     },
     "<Precise Weapon>": {
@@ -2438,9 +2434,11 @@
         "Notes": "Applies to added Damage from extra effects like Advanced Flank, Smite, etc."
     },
     "~Skipper~": {
-        "A": "Passive",
-        "Effect": "Your starting Movement Speed is 6 meters.\nAlso, you can freely jump up to 3 meters in length and/or height without rolling a Check (still uses 3 meters of your Movement).\n",
-        "Notes": "If playing with grid, you can jump over 2 squares and land in the next one.\nYou can jump over medium-sized Units and objstacles.\n"
+        "A": "0 Actions",
+        "Cost": "2 remaining Movement",
+        "Cooldown": "Once / Turn",
+        "Effect": "Instantly jump 3 meters in any direction.\n",
+        "Notes": "You essentially have +1 Movement Speed. You can jump over Enemies, obstacles, etc. Costs 2 remaining Movement. You can use this even if you already moved this turn (or before) and have at least 2 remaining Movement."
     },
     "~All Eyes and Noses~": {
         "A": "Passive",
@@ -2536,24 +2534,38 @@
     "~Dragon's Breath~": {
         "AlignOnWebsite": "Right",
         "A": "1 Action",
-        "Cooldown": "Once / Adventure",
+        "Cooldown": "Once every 2 turns",
         "Range": "1 meter to edge",
-        "Effect": "Breathe your Dragonsworn Element in an area determined on your chosen shape (see below).\nMake an attack against all Units caught in your breath.\nThe attack deals 2d6 + 2 Damage of your Dragonsworn Element.\n",
-        "Upgrade": "At Levels 3, 6 and 9, you get one extra use of Dragon's Breath per Adventure (e.g. the Cooldown becomes 2 times / Adventure, 3 times / Adventure, etc).\n",
-        "Notes": "If by any chance your Dragon's Breath has no shape, it shoots in a 3x1 meter line from your position."
+        "HasMixins": true,
+        "Effect": "Breathe your Dragonsworn Element in an area determined by your ^chosen shape^, dealing 2d6 + 2 Damage to all Units caught in the area.\n",
+        "Notes": "You can use this if you didn't use it last turn.\nIf by any chance your Dragon's Breath has no shape, it shoots in a 3x1 meter line from your position.\n"
     },
-    "~Breath - Area~": {
-        "A": "Special",
-        "Effect": "Your Dragon's Breath now breathes in a 3x3 meter area."
+    "~Dragon Breath - Area~": {
+        "A": "1 Action",
+        "Cooldown": "Once every 2 turns",
+        "Range": "1 meter to edge",
+        "Replacement": "Alters Dragon's Breath",
+        "HasMixins": true,
+        "Effect": "Breathe your Dragonsworn Element ~in a 3x3 meter area~, dealing 2d6 + 2 Damage to all Units caught in the area.\n",
+        "Notes": "You can use this if you didn't use it last turn.\n"
     },
-    "~Breath - Line~": {
-        "A": "Special",
-        "Effect": "Your Dragon's Breath now breathes in a 4x2 meter line."
+    "~Dragon Breath - Line~": {
+        "A": "1 Action",
+        "Cooldown": "Once every 2 turns",
+        "Range": "1 meter to edge",
+        "Replacement": "Alters Dragon's Breath",
+        "HasMixins": true,
+        "Effect": "Breathe your Dragonsworn Element ~in a 8 meter long (1 meter thick) line~, dealing 2d6 + 2 Damage to all Units caught in the area.\n",
+        "Notes": "You can use this if you didn't use it last turn.\n"
     },
-    "~Breath - Blast~": {
-        "A": "Special",
-        "Effect": "Your Dragon's Breath now breathes on all Units within 2 meter of you.",
-        "AlignOnWebsite": "Right"
+    "~Dragon Breath - Blast~": {
+        "A": "1 Action",
+        "Cooldown": "Once every 2 turns",
+        "Range": "1 meter to edge",
+        "Replacement": "Alters Dragon's Breath",
+        "HasMixins": true,
+        "Effect": "Breathe your Dragonsworn Element ~on all Units within 2 meters of you~, dealing 2d6 + 2 Damage to all Units caught in the area.\n",
+        "Notes": "You can use this if you didn't use it last turn.\n"
     },
     "~Second Skin~": {
         "A": "Passive",
@@ -2626,16 +2638,17 @@
     },
     "~Mana Block~": {
         "A": "0 Actions",
-        "Cooldown": "Once / Adventure",
+        "Cooldown": "Once / Combat",
         "Effect": "A Unit within 3 meters becomes Silenced.",
         "Downside": "Only usable on Units with Charisma is lower than yours.",
         "Notes": "As such, you always know if a Unit's Charisma is lower than yours."
     },
-    "~Natural Swiftness~": {
-        "A": "0 Actions",
-        "Cooldown": "Once / Adventure",
-        "Effect": "This turn, you gain +5 Movement Speed and can Break your Movement into as many parts as you want.",
-        "Notes": "Breaking your Movement means you can Move, do an Action, then continue your Movement."
+    "~Swift Sprint~": {
+        "A": "Half-Action",
+        "HasMixins": true,
+        "Replacement": "Replaces Sprint",
+        "Effect": "Move up to ~3 meters and remove any Slow or Root effect on your~.",
+        "Notes": "Sprint is a default move everyone can do; Swift Sprint allows you to move 3 meters instead of 2, and remove Slow and Root effects.\nWhen you Sprint, you can move even if you already moved this turn. \n"
     },
     "~Agile Technique~": {
         "A": "Passive",
@@ -2761,32 +2774,37 @@
         "Effect": "In Abilities that use Sense, Intelligence or Charisma, you can use the number 3 instead.\nYou gain Skilled in Luck.\n",
         "Notes": "E.g. Chilling Shout becomes 15 (12 + 3) instead of 12 + ^Charisma^. Phase Orb becomes 2d6 + 3 + 3 instead of 2d6 + ^Intelligence + Charisma^."
     },
-    "~Boiling Blood~": {
-        "A": "0 Actions",
-        "Cost": "Half of your current Health",
-        "Cooldown": "Once / Adventure",
-        "Effect": "Use after you make a Damage roll.\nIncrease the dice Damage of it by 50%.\n",
-        "Notes": "Extra Abilities over an attack are not increased (e.g. Smite), because they are an extra Damage roll. Only increase the total numbers on the dice by 50%, rounded down, without bonuses.\nNote that some Abilities have multiple rolls, like Magic Missile, Slam, etc.\n"
+    "~Apex of Evolution~": {
+        "A": "Passive",
+        "Effect": "Your starting Stats distribution is -1, -1, 3, 3, 3 (instead of -1, 0, 1, 2, 3).\nYou may pick any number of Racial Ability Choices, but each of them costs -1 in a Stat of choice.\n"
     },
     "~Battle Anguish~": {
         "A": "Passive",
+        "Requirement": "-1 in a Stat of choice",
         "Effect": "You do not suffer Exhaustion when you are healed and rise from being Fallen in combat.\nHowever, after you Fall in combat, you can no longer use Abilities that Heal or cost 0 Actions (for the rest of this combat).\n",
         "Notes": "This is considered a Debuff."
     },
+    "~Boiling Blood~": {
+        "A": "0 Actions",
+        "Cost": "10 Health",
+        "Requirement": "-1 in a Stat of choice",
+        "Effect": "Use after you make a Damage roll.\nIncrease all the Damage of it by 50%.\n",
+        "Notes": "Extra Abilities over an attack are not increased (e.g. Smite), because they are an extra Damage roll. Only increase the total numbers on the dice by 50%, rounded down, without bonuses.\nNote that some Abilities have multiple rolls, like Magic Missile, Slam, etc.\n"
+    },
     "~Fierceness~": {
         "A": "Passive",
+        "Requirement": "-1 in a Stat of choice",
         "Effect": "You can use any weapon with your Might Stat (instead of Dexterity, in some cases)."
     },
     "~Bloodthirst~": {
         "A": "0 Actions",
         "Cost": "1 Mana",
-        "Cooldown": "Once / Adventure",
+        "Cooldown": "Once / Combat",
         "Effect": "Gain an additional Half-Action this turn."
     },
     "~Savage Attacks~": {
         "A": "0 Actions",
-        "Cooldown": "Once / Adventure",
-        "Effect": "Use after you roll for Damage.\nChoose one of the rolled Damage dice and double its value.\n"
+        "Effect": "Use after you roll for Damage.\nChoose one of the rolled Damage dice and double its value.\nYou take Damage equal to the initial die rolled.\n"
     },
     "~Bloodshed Wish~": {
         "A": "Passive",

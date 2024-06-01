@@ -125,9 +125,8 @@ export function ClassFeatures({ theClass }) {
             <TwoColumns>
                 <Column>
                     <div className='with-margined-children'>
-                        <SmallStat name="Initiative">Your Dexterity + Your Charisma</SmallStat>
                         { theClass['Language'] && <SmallStat name="Language" type="vertical">{ theClass['Language'] }</SmallStat> }
-                        { theClass.Weapons && <SmallStat name="Weapon Training" type="vertical">{ theClass.Weapons }</SmallStat> }
+                        {/* { theClass.Weapons && <SmallStat name="Weapon Training" type="vertical">{ theClass.Weapons }</SmallStat> } */}
                         <SmallStat name="Skills" type="vertical">{ theClass['Proficiency Requirements'] }</SmallStat>
                     </div>
                 </Column>
@@ -147,9 +146,10 @@ export function RaceFeatures({ theRace }) {
                 <Column>
                     <div className='with-margined-children'>
                         <SmallStat name="Stat Distribution" type="vertical">{ theRace.Creation['Stat Restrictions'] }</SmallStat>
-                        <SmallStat name="Health">{ theRace.Stats['Base Health'] } + Might<Icon name="Health" type="small-stat"/></SmallStat>
-                        <SmallStat name="Health Regen">{ theRace.Stats['Health Regen'] } <Icon name="HealthRegen" type="small-stat"/></SmallStat>
-                        <SmallStat name="Speed">{ theRace.Stats.Movement }</SmallStat>
+                        <SmallStat name="Health"><Icon name="Health" type="small-stat"/>{ theRace.Stats['Base Health'] } + Might * 2</SmallStat>
+                        <SmallStat name="Health Regen"><Icon name="HealthRegen" type="small-stat"/> { theRace.Stats['Health Regen'] } + Sense</SmallStat>
+                        <SmallStat name="Movement">4 + Dexterity / 2 (<b>rounded up</b>)</SmallStat>
+                        <SmallStat name="Initiative">Charisma * 3</SmallStat>
                         { theRace.Weapons && <SmallStat name="Weapons" type="vertical">{ theRace.Weapons }</SmallStat> }
                         { theRace.Training && <SmallStat name="Other Training" type="vertical">{ theRace.Training }</SmallStat> }
                         { theRace.Language && <SmallStat name="Language" type="vertical">{ theRace.Language }</SmallStat> }
@@ -161,14 +161,11 @@ export function RaceFeatures({ theRace }) {
                         When you create your character, you assign the stats -1, 0, 1, 2, 3 to the five Stats.
                         Each Race, including { theRace.Race }, have some special Stat distribution constraints.
                     </p>
-                    <p>When you create your character, after picking your Class as well, your total starting Health will be:</p>
                     <p>
-                        <b><Icon name="Health"/>Race Health + Might.</b>
+                        For Movement Speed, if your Dexterity is -1 or 0, you have 4 Movement, for 1 or 2 you have 5 Movement, and for 3 you have 6 Movement.
                     </p>
-                    <p>Your Defense is always determined by the Armor type you are wearing. Your Class determines what Armor type you can wear. If you have 3 Defense, then you reduce the Damage of all attacks you receive by 3.</p>
                     <PageH3>Race Details</PageH3>
                     <p>As a member of the {theRace.Race} race, your lifespan is about { theRace.Stats.Lifespan } and your size is { theRace.Stats.Size }. </p>
-                    <p>Your standard Speed is always defined by your Race. This determines how many meters you can move per turn in combat.</p>
                     { theRace.Other != null && (<p>{theRace.Other}</p>) }
                 </Column>
             </TwoColumns>
@@ -239,11 +236,11 @@ export function LevelingUp({ theClass }) {
                                             +{ theClass['Level Up']['Every Level']['Health'] } <Icon name="Health"/>Health
                                         </td>
                                     </tr>
-                                    <tr>
+                                    {/* <tr>
                                         <td>
                                             +1 Known Basic Ability
                                         </td>
-                                    </tr>
+                                    </tr> */}
                                     <tr>
                                         <td>
                                             +1 <Icon name="Mana"/>Mana
@@ -272,11 +269,11 @@ export function LevelingUp({ theClass }) {
                                             +{ theClass['Level Up']['Every Level']['Health'] } <Icon name="Health"/>Health
                                         </td>
                                     </tr>
-                                    <tr>
+                                    {/* <tr>
                                         <td>
                                             +1 Known Basic Ability
                                         </td>
-                                    </tr>
+                                    </tr> */}
                                     <tr>
                                         <td>
                                             +2 <Icon name="HealthRegen"/>Health Regen
@@ -443,12 +440,8 @@ export function SpellCasting({ theClass }) {
 export function PHealthAndArmor({ theClass }) {
     return (
         <div>
-            <p>When you create your character, your total starting Health will be:</p>
-            <p>
-                <b><Icon name="Health"/>Race Health + Might.</b>
-            </p>
-            <p>Note that you do <b>not</b> add your Might to your Health every level!</p>
-            <p>For Weapon Training: note that all 5 categories are 1-Handed Melee (Shortswords, Daggers, etc), 1-Handed Ranged (Handguns, Slings, etc), 2-Handed Melee (Battle Axes, Greatswords, etc), 2-Handed Ranged (Bows, Heavy Guns, etc) and Shields. You choose Weapon Categories, not specific weapon types. For instance, if you choose 1-Handed Melee Weapons, you will know how to use all Shortswords, Daggers, Spears, etc.</p>
+            <p>If you have a Non-Combat skill, you can add your Level to all Checks that have to do with that Skill!</p>
+            <p>You can make up your own Non-Combat Skills, or find a comprehensive list of Non-Combat Skills under Databases, Abilities.</p>
         </div>
     )
 }

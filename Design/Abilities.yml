@@ -208,6 +208,26 @@ Default Moves:
     #     Requirement: Level 6
     #     Effect: Gain one more Half-Action this turn only.
 
+
+# What I can/want to give:
+#   AoE
+#   Alternative to attacking
+#   Conditioanl/optional bonus/alteration to attacking
+#   Mobility
+#   Crowd Control
+#   Protection
+#   Healing
+#   Elemental Damage
+#   Steroid
+#   Buff
+#   Ranged Attack
+#   Utility
+#   Health Scaling/Cost
+#   Percent Damage
+#   Benefit for ranged/melee attack
+#   Tanking
+#   Dual wielding
+
 Bloodshed:
 
 
@@ -268,13 +288,23 @@ Bloodshed:
             After the attack, your turn ends immediately.
         Notes: This counts as a weapon Attack (1-Handed or 2-Handed, depending on your weapon).
         
-    ~Slam~:
-        A: 1 Action
+    ~Hack and Slash~:
+        A: 0 Actions
+        DisplayName: "{Name}"
         Effect: |
-            All Units within 2 meters of you take 2d6 Smash Damage.
-            After that, one of them of your choice takes an extra 1d4 Smash Damage.
-        Notes: The extra 1d6 is part of the same Damage (for Defense).
-
+            Your next {Effect}
+            ~Click on the Icon to select a preferred effect!~
+        Notes: |
+            Roll the attack only once.
+            Weapon effects (like Critical Strikes), if necessary, are applied to the main target only (or to one chosen target if melee).
+            This can't Damage yourself.
+        Variants:
+            - Name: Hack and Slash
+              Effect: melee weapon attack instead hits all Units 1 meter from you, but deals -50% Damage.
+              IconName: Hack and Slash
+            - Name: Point and Shoot
+              Effect: ranged weapon attack hits all Units 1 meter from the target (including the target), but deals -50% Damage.
+              IconName: Point and Shoot
     
     # Higher Level Spells
            
@@ -308,9 +338,7 @@ Bloodshed:
         A: 0 Actions
         Cost: 1 Mana
         Effect: |
-            Heal yourself for 1d8 and remove all Fumbling, Root, Slow, Poisons and Bleed effects ongoing on you.
-        Upgrade: |
-            At Level 4 this also removes Cripple and Blind.
+            Heal yourself for 1d10. If you're affected by Crowd Control (except turn-skipping), remove it instead of healing.
 
     ~Shank~:
         A: 0 Actions
@@ -397,12 +425,12 @@ Warfare:
         Requirement: Level 2
         Effect: |
             All allies (and you) remove their Roots, Slows and Dazes.
-            You (yourself) can continue your movement if you already moved.
+            You (yourself) can continue your Movement if you already moved.
     
     ~Assess Their Ranks~:   # Ok
         A: 0 Action
         Cost: 1 Mana
-        Cooldown: Once / Encounter
+        Cooldown: Once / Combat
         Duration: 1 minute
         Effect: Gain Shielding equal to the number of Worthy Enemies you can see.
     
@@ -468,7 +496,7 @@ Elemental:
 # [x] Tranking/Protection
 # [x] Buff
 # [ ] Debuff
-# [x] Utility                           [Control Elements, Flameblade, Quicksand]
+# [x] Utility                           [Control Elements, Quicksand]
 # [ ] Mobility
 # [ ] Anti-Heal
 # [x] Summon
@@ -527,7 +555,7 @@ Elemental:
         Cost: 1 Mana
         Range: 10 meters
         Requirement: Level 2
-        Effect: Shoot an Ice Shard toward a Unit, dealing 1d8 + 2 Cold or Pierce Damage (your choice). The target becomes Fumbling.
+        Effect: Shoot an ice shard toward a Unit, dealing 1d8 + 3 Cold or Pierce Damage (your choice). It becomes Fumbling.
         Tag: Damage (Half)
 
     ~Element Enchantment~:
@@ -906,7 +934,7 @@ Arcane:
 
     ~Longblade~:
         A: 0 Actions
-        Cooldown: Once / Adventure
+        Cooldown: Once / Combat
         Duration: 1 minute
         Effect: |
             Magically extend the weapon of a willing ally you can see (or yourself) to up to 3 meters.
@@ -968,7 +996,7 @@ Arcane:
         A: 1 Action
         Cost: 1 Mana
         Range: 10 meters to edge
-        Cooldown: Once / Encounter
+        Cooldown: Once / Combat
         Requirement: Level 4
         Effect: |
             You conjure a levitating barrage of arrows in a 3x3 area, up to 10 meters above ground.
@@ -1178,7 +1206,7 @@ Arcane:
     ~Grow or Shrink~:
         A: 0 Actions
         Cost: 1 Mana
-        Cooldown: Once / turn
+        Cooldown: Once / Turn
         Requirement: Level 6
         Effect: |
             A Unit or object you can see becomes one Size larger/smaller for its next 1d4 turns.
@@ -1213,7 +1241,6 @@ Arcane:
         Requirement: Level 6
         Cost: 3 Mana
         Range: 10 meters to edge
-        Cooldown: Once / Adventure
         Effect: |
             Declare an area with a diameter in meters (in all directions) equal to your Level.
             The gravity becomes reversed in that area and all Units instantly fall upwards. Units can make a Dexterity Check to grab onto an object to not be lifted.
@@ -1232,7 +1259,6 @@ Arcane:
     ~Banishment Slip~:
         A: Half-Action
         Cost: 1 Mana
-        Cooldown: Once / Adventure
         Range: 5 meters
         Requirement: Level 7
         Effect: |
@@ -1348,7 +1374,7 @@ Nature:
         HasMixins: true
         A: 1 Action
         Range: 5 meters
-        Cooldown: 2 Uses / Adventure
+        Cooldown: Sense uses / Adventure
         Requirement: Level 2
         Effect: |
             You can control gusts of wind in a 6x6x6 area and do one of the following for 1 Action:
@@ -1393,13 +1419,13 @@ Nature:
             At the end of each of your turns, that Unit takes 1d4 Poison Damage.
         Notes: You can stack this on the same Unit multiple times.
 
-    ~Resistance~:
-        A: 0 Actions
-        Cooldown: Once / Adventure
-        Duration: Rest of Adventure
-        Effect: |
-            Touch an ally (or yourself) and choose one Stat.
-            It has +1d4 in all Resist Checks with that Stat.
+    # ~Resistance~:
+    #     A: 0 Actions
+    #     Cooldown: Once / Adventure
+    #     Duration: Rest of Adventure
+    #     Effect: |
+    #         Touch an ally (or yourself) and choose one Stat.
+    #         It has +1d4 in all Resist Checks with that Stat.
 
     ~Fog Cloud~:
         A: 1 Action
@@ -1417,7 +1443,7 @@ Nature:
     #     A: Reaction
     #     Range: 10 meters
     #     Cost: 1 Mana
-    #     Cooldown: Once / Encounter
+    #     Cooldown: Once / Combat
     #     Effect: |
     #         An ally (or yourself) becomes Rooted in the ground for up to 1 minute.
     #         While rooted, that Unit's Defense can't be lower than 6.
@@ -1533,9 +1559,9 @@ Nature:
         Cost: 1 Mana
         Duration: 1 minute
         Effect: |
-            Choose a Unit you can see.
-            Whever another Unit Attacks it (before the roll) and is within 3 meters, it takes 1d4 Pierce Damage.
-        Notes: Does not stack with itself.
+            A Unit you can see grows thorns on its body.
+            Whenever it is melee attacked, the attacker takes 1d4 Pierce Damage.
+        Notes: A Unit can only be effected by one Thorn Quills effect at a time.
 
     ~Venin Shot~:
         A: 1 Action
@@ -1596,13 +1622,12 @@ Nature:
     ~Paralyzing Sting~:
         A: Half-Action
         Range: 3 meters
-        Cost: 1 Mana
-        Cooldown: Once / Adventure
+        Cost: 2 Mana
         Requirement: Level 4
         HasMixins: true
         Effect: |
             Lash out a noxious sting towards a Unit.
-            It chooses whether to be Crippled or take 2d10 Poison Damage.
+            It chooses whether to be Crippled or take 3d10 Poison Damage.
         Notes: |
             Only works on biological Units. {Crippled}
 
@@ -1635,11 +1660,10 @@ Nature:
 
     ~Meld With Material~:
         A: 1 Action
-        Cooldown: Once / Adventure
         Requirement: Level 7
         Effect: |
             Touch a piece of solid material.
-            You become immoving and all your body becomes as if made from that material.
+            You become unmoving and all of your body becomes as if made from that material.
             You can cancel this for free at any point, but until you do, you are Stunned (can't do anything) and have +3 Defense and to all Checks.
         Notes: |
             You still need to drink water and eat food, but don't need to breathe while melded.
@@ -1778,7 +1802,7 @@ Mysticism:
             Cooldown: Once / Adventure
             Effect: |
                 Remove all your party members' Exhaustion (from any source).
-                If they were Exhausted from lack of sleep, they can resist sleep Exhaustion for 1d8 more hours.
+                If they were Exhausted from lack of sleep, they can resist sleep Exhaustion for 8 more hours.
                 
         # ~Blessing of Wisdom~:
         #     A: 0 Actions
@@ -1953,10 +1977,9 @@ Mysticism:
             A: 1 Action
             Requirement: Level 5
             Duration: (Your Level) hours
-            Cooldown: Once / Adventure
+            Cost: 1 Mana
             Effect: |
-                Up to 2 allies you can see (can include yourself) gain the ability to also breathe under water
-            Upgrade: Alternatively, if this Ability is on Cooldown, you can spend 1 Mana to cast it regardless.
+                Up to 2 allies you can see (can include yourself) can now breathe under water.
 
 
 
@@ -2077,7 +2100,7 @@ Eldritch:
     ~Wyrd Renewal~:
         A: Half-Action
         Range: 5 meters
-        Cooldown: Twice / Adventure
+        Cooldown: Twice / Combat
         Effect: |
             Roll 1d10 - 5.
             Heal/Damage a Unit for that amount.
@@ -2188,20 +2211,14 @@ Divine:
     # Basic Spells
     ~Cure Affliction~: Inherit
 
-    ~Flameblade~:
-        A: Passive
-        Effect: You can freely change the Damage of your weapon Attacks to Fire Damage.
+    # ~Flameblade~:
+    #     A: Passive
+    #     Effect: You can freely change the Damage of your weapon Attacks to Fire Damage.
       
 
     ~Light~: Inherit
 
     ~Mending~: Inherit
-
-    ~Radiance~:
-        A: Half-Action
-        Cost: 1 Mana
-        Cooldown: 1 minute
-        Effect: For 1 minute, at the end of your turn, all Units within 1 meter of you take 1d4 Divine Damage.
 
     ~Solace Wave~:
         A: Half-Action
@@ -2211,6 +2228,14 @@ Divine:
             Heal an ally (or yourself) for 1d8 Health.
             If they 50% or more Health before the heal, double the dice's result.
 
+    ~Smite~:            # It's weaker because Clerics and Paladins
+        A: 0 Actions
+        Cooldown: Once / Turn
+        Cost: 1 Mana
+        Effect: |
+            After you roll for a melee attack, add 1d6 Divine Damage.
+            If the target dies, gain the Mana back.
+        Notes: If you're a Paladin, you can regain the use of Smite if the target dies.
 
     # Level 2
     
@@ -2231,22 +2256,18 @@ Divine:
             At Level 5, also removes all non-magical debuffs and poisons.
             At Level 8, also removes all curses and normal negative magical effects.
 
+    ~Radiance~:
+        A: Half-Action
+        Cost: 1 Mana
+        Requirement: Level 2
+        Effect: For 1 minute, at the end of your turn, all Units within 1 meter of you take 1d4 Divine Damage.
+
     ~Restful Soothing~:
         A: 1 hour
         Cost: 1 Mana
-        Cooldown: Once / Adventure
         Requirement: Level 2
         Effect: Roll a number of d8's for each player character in your party (except yourself). Assign each rolled d8 to one player character, and heal them for their assigned die.
         Note: You must be staying in place to channel this.
-
-    ~Smite~:            # It's weaker because Clerics and Paladins
-        A: 0 Actions
-        Cooldown: Once / Turn
-        Cost: 1 Mana
-        Requirement: Level 2
-        Effect: |
-            After you roll for a melee attack, add 1d6 Divine Damage.
-
 
 
     # Level 3
@@ -2314,10 +2335,10 @@ Divine:
         A: Half-Action
         Cost: 1 Mana
         Requirement: Level 4
-        Cooldown: Once / Adventure
+        Cost: 1 Mana
         Effect: |
             Heal a Fallen Unit to 20% of it total Health.
-            It does not suffer of Exhaustion from rising after being Fallen.
+            It does not suffer of Exhaustion from Rising after being Fallen.
 
     # Level 5
 
@@ -2325,9 +2346,9 @@ Divine:
         A: 0 Actions
         Cost: 2 Mana
         Requirement: Level 5
-        Cooldown: Once / Combat
         Effect: |
             Add 2d4 + 1 Fire Damage to a melee weapon Attack (after you rolled the Attack). The target takes another 1d6 Fire Damage at the start of each of your next turns for 1 minute.
+        Notes: A Unit can only be affected by one Ardent Smite burn.
 
     ~Water Walk~:
         A: 0 Actions or Reaction
@@ -2347,7 +2368,6 @@ Divine:
     ~Reveling Rays~:
         A: 1 Action
         Cost: 2 Mana
-        Cooldown: Once / Combat
         Requirement: Level 6
         Effect: |
             You shoot out 8 rays of light.
