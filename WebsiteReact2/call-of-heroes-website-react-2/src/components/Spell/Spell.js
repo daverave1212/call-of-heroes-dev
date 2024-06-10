@@ -10,10 +10,14 @@ import CopySpellButton from '../CopyButton/CopySpellButton'
 import classNames from 'classnames'
 
 export function SpellTopStats({className, tags}) {
-    const {A, Cost, Range, Cooldown, Duration, Requirement, Replacement, Hands, Stat, Special, Price} = tags
+    const {A, DisplayA, Cost, Range, Cooldown, Duration, Requirement, DisplayRequirement, Replacement, Hands, Stat, Special, Price} = tags
     return (
         <div className={`spell-top__stats ${className}`}>
-            { A != null && (<div><img src="/Icons/UI/Hand.png" className="inline-icon--spell"/>{ A }</div>) }
+            { (A != null || DisplayA != null) && (
+                <div><img src="/Icons/UI/Hand.png" className="inline-icon--spell"/>
+                    { A != null? A : DisplayA }
+                </div>
+            ) }
             { Cost != null && (
                 <div>
                     <img src={ Cost.endsWith('Insight')? "/Icons/UI/Insight.png" : "/Icons/UI/Mana.png" } className="inline-icon--spell"/>
@@ -26,10 +30,10 @@ export function SpellTopStats({className, tags}) {
             { Range != null && (<div><img src="/Icons/UI/Range.png" className="inline-icon--spell"/>{ Range }</div>) }
             { Cooldown != null && (<div><img src="/Icons/UI/Cooldown.png" className="inline-icon--spell"/>{ Cooldown }</div>) }
             { Duration != null && (<div><img src="/Icons/UI/Duration.png" className="inline-icon--spell"/>{ Duration }</div>) }
-            { Requirement != null && (
+            { (Requirement != null || DisplayRequirement != null) && (
                 <div>
                     <img src="/Icons/UI/Level.png" className="inline-icon--spell"/>
-                    <span style={{color: '#FF5A00'}}>{ Requirement }</span>
+                    <span style={{color: '#FF5A00'}}>{ Requirement != null? Requirement : DisplayRequirement }</span>
                 </div>
             ) }
             { Replacement != null && (
@@ -95,9 +99,8 @@ export default function Spell({ children, spell, style, hasIcon }) {
             value: () => (<span>{value}</span>)
         }))
         extraMixins = variantMixinsCorrectlyFormatted
-        if (currentVariant.IconName != null) {
-            iconPath = getIconPathByName(currentVariant.IconName)
-        }
+        if (currentVariant.DisplayA != null) currentVariant.DisplayA
+        if (currentVariant.IconName != null) iconPath = getIconPathByName(currentVariant.IconName)
     }
 
     if (HasMixins === true || hasVariants === true) {

@@ -171,7 +171,10 @@ export default function MonsterBlock({monsterName, monster}) {
                         <div>
                             Suggested obstacles:
                             <ul>
-                                { monster['Suggested Obstacles'].map(text => (<li>{text}</li>)) }
+                                { Array.isArray(monster['Suggested Obstacles']) ?
+                                    monster['Suggested Obstacles'].map(text => (<li>{text}</li>)) :
+                                    <li>{ monster['Suggested Obstacles'] }</li>
+                                }
                             </ul>
                         </div>
                     ) }
