@@ -65,19 +65,13 @@
             "Effect": "Whenever you spend Mana, \"cast Awe\" on a Unit.\nThis deals 1d4 Divine Damage to enemies or heals allies for 1d4.\nSome other Cleric spells will \"cast Awe\" for free.\n",
             "Notes": "Ignores Cover."
         },
-        "~Spread the Awe~": {
-            "_Value": 0.5,
-            "A": "Half-Action",
-            "Cooldown": "Once / Adventure",
-            "Effect": "Cast Awe 2 times on target(s) within 5 meters."
-        },
         "~Blessing~": {
             "_Value": 0.25,
-            "A": "0 Actions",
+            "A": "Half-Action",
             "Cooldown": "Once / Adventure",
-            "Duration": "1 Combat",
-            "Effect": "You bless one Ally.\nWhenever it makes a Resist Check, it can add 1d4 to it.\n",
-            "Upgrade": "At Level 4, this affects 2 allies. At Level 8, this affects 3 allies.",
+            "Duration": "1 combat",
+            "Effect": "Cast Awe on 2 Units and they become Blessed until the end of the next (or current) Combat.\nBlessed Allies have +1d4 to Checks made in Combat. Blessed Enemies have -1d4 to Checks made in Combat.\n",
+            "Upgrade": "At Level 4, this affects 3 allies. At Level 8, this affects all allies within 5 meters.",
             "Notes": "You can bless yourself.\nLasts until the end of the next combat encounter.\n",
             "AlignOnWebsite": "Right"
         }
@@ -110,8 +104,9 @@
                 "~March Ahead~": {
                     "_Value": 0.25,
                     "A": "0 Actions",
-                    "Cooldown": "Once / Adventure",
-                    "Effect": "All allies can move 3 extra meters on their next turn (and you too this turn).\nAfter casting this, you can continue your movement.\n"
+                    "Cooldown": "Once / Combat",
+                    "Effect": "All allies and you ^instantly^ move 3 meters.\nAfter casting this, you can Continue your Movement.\n",
+                    "Notes": "Units simply move, as normal, without consuming Movement."
                 },
                 "~Piety~": {
                     "_Value": 0.25,
@@ -131,8 +126,9 @@
                     "<Heavy Burden>": {
                         "_Value": 1,
                         "A": "0 Actions",
-                        "Cooldown": "Once / Adventure",
-                        "Effect": "A Unit within 3 meters makes a Sense Check.\nIf it fails, cast Awe on it and it is Crippled.\n",
+                        "Cooldown": "Once / Combat",
+                        "Range": "3 meters",
+                        "Effect": "Pass a Sense Check against a Unit's Sense Check to make it Crippled.\n",
                         "OrderOnWebsite": 1
                     },
                     "<Repentance>": {
@@ -141,7 +137,7 @@
                         "Cost": "50% of your Max Health",
                         "Range": "1 meter (touch)",
                         "Effect": "Heal another ally for 50% of its Max Health, then cast Awe on yourself.",
-                        "Notes": "You can't cast this if you are at or below 25% of your Max Health (rounded down).\nIf you are below 50% Health, you fall, but you are brought back due to Awe (with Exhaustion).\nRound down.\n",
+                        "Notes": "You can't cast this if you are at or below 25% of your Max Health (rounded down).\nIf you are below 50% Health, you fall, but you are brought back due to Awe (with Exhaustion).\n",
                         "OrderOnWebsite": 2
                     }
                 },
@@ -154,11 +150,12 @@
                     }
                 },
                 "Level 5": {
-                    "<War Smite>": {
+                    "<Exigent Concession>": {
                         "_Value": 2,
-                        "A": "0 Actions",
+                        "A": "1 Action",
                         "Cooldown": "Once / Adventure",
-                        "Effect": "When you land an Attack, roll 1d4 again and again until your roll 1.\nAdd them all together, and add the total to the attack.\n",
+                        "Range": "5 meters",
+                        "Effect": "Roll 1d6 again and again until your roll 1.\nHeal or deal Divine Damage equal to the sum of the dice rolled (including the 1).\n",
                         "OrderOnWebsite": 1
                     },
                     "<Shadow Realm>": {
@@ -240,13 +237,14 @@
         "Light Cleric": {
             "Description": "As a cleric, you become a devotee of darkness or/and light.",
             "Starting Abilities": {
-                "~Grasp~": {
+                "~Grasping Awe~": {
                     "_Value": 1,
-                    "A": "0 Actions",
-                    "Range": "15 meters (you don't need line of sight)",
-                    "Cooldown": "Once / Adventure",
-                    "Effect": "Cast Awe twice, on the same target or on two different targets.\nThat target(s) can't benefit from Cover for 1 minute.\n",
-                    "Notes": "If the target has Cover on attacks from any source, the Cover is negated (e.g. no more -2). Includes attacks while prone, attacks through heavy wind, etc."
+                    "A": "Passive",
+                    "Range": "5 meters",
+                    "HasMixins": true,
+                    "Replacement": "Replaces Awe",
+                    "Effect": "Whenever you spend Mana, \"cast Awe\" on a Unit.\nThis deals 1d4 Divine Damage to enemies ~and makes them Fumbling~ or heals allies for 1d4 ~and makes their next attack ignore Cover~.\nSome other Cleric spells will \"cast Awe\" for free.\n",
+                    "Notes": "Ignores Cover."
                 }
             },
             "Choose your side": "Beacon Cleric!\\nPick only one of the following two abilities!",
@@ -282,7 +280,7 @@
                         "Cost": "50% of your Max Health",
                         "Range": "1 meter (touch)",
                         "Effect": "Heal another ally for 50% of its Max Health, then cast Awe on yourself.",
-                        "Notes": "You can't cast this if you are at or below 25% of your Max Health (rounded down).\nIf you are below 50% Health, you fall, but you are brought back due to Awe (with Exhaustion).\nRound down.\n",
+                        "Notes": "You can't cast this if you are at or below 25% of your Max Health (rounded down).\nIf you are below 50% Health, you fall, but you are brought back due to Awe (with Exhaustion).\n",
                         "OrderOnWebsite": 2
                     }
                 },

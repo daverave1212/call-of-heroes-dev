@@ -15,7 +15,7 @@ export function SpellTopStats({className, tags}) {
         <div className={`spell-top__stats ${className}`}>
             { (A != null || DisplayA != null) && (
                 <div><img src="/Icons/UI/Hand.png" className="inline-icon--spell"/>
-                    { A != null? A : DisplayA }
+                    { DisplayA != null? DisplayA : A }
                 </div>
             ) }
             { Cost != null && (
@@ -99,16 +99,19 @@ export default function Spell({ children, spell, style, hasIcon }) {
             value: () => (<span>{value}</span>)
         }))
         extraMixins = variantMixinsCorrectlyFormatted
-        if (currentVariant.DisplayA != null) currentVariant.DisplayA
         if (currentVariant.IconName != null) iconPath = getIconPathByName(currentVariant.IconName)
+        if (currentVariant.DisplayA != null) A = currentVariant.DisplayA
+        if (Name == 'Lance Heave') {
+            console.log({currentVariant})
+        }
     }
 
     if (HasMixins === true || hasVariants === true) {
         try {
             Effect = parseTextWithSymbols(Effect, extraMixins)
             if (DisplayName != null) DisplayName = parseTextWithSymbols(DisplayName, extraMixins)
-            if (Upgrade != null) Upgrade = parseTextWithSymbols(Upgrade)
-            if (Notes != null) Notes = parseTextWithSymbols(Notes)
+            if (Upgrade != null) Upgrade = parseTextWithSymbols(Upgrade, extraMixins)
+            if (Notes != null) Notes = parseTextWithSymbols(Notes, extraMixins)
         } catch (e) {
             throw `Error in Spell ${Name} parsing text: ${e}`
         }
@@ -177,7 +180,7 @@ export default function Spell({ children, spell, style, hasIcon }) {
                             <div className='spell-top__title__wrapper'>
                                 <div className='spell-top__title'>{ DisplayName != null? DisplayName : Name }</div>
                             </div>
-                            <SpellTopStats tags={spell}/>
+                            <SpellTopStats tags={{...spell, A}}/>
                         </div>
                     </div>
                 ) : (
@@ -187,7 +190,7 @@ export default function Spell({ children, spell, style, hasIcon }) {
                                 <div className='spell-top--iconless__title'>{ Name }</div>
                             </div>
                             <div style={{width: '70%', margin: 'auto'}}>
-                                <SpellTopStats tags={spell} className="spell-top__stats--no-padding-side"/>
+                                <SpellTopStats tags={{...spell, A}} className="spell-top__stats--no-padding-side"/>
                             </div>
                         </div>
                     </div>

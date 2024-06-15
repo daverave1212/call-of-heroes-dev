@@ -50,11 +50,6 @@
         }
     },
     "Bloodshed": {
-        "~Something~": {
-            "A": "Half-Action",
-            "Effect": "Slows",
-            "Name": "~Something~"
-        },
         "~Hack and Slash~": {
             "A": "0 Actions",
             "Cost": "1 Mana",
@@ -91,9 +86,18 @@
             "Effect": "Heal yourself for 1d10. If you're affected by any Crowd Control (except turn-skipping), remove it instead of healing.\n",
             "Name": "~Recuperate~"
         },
+        "~Painful Puncture~": {
+            "A": "Half-Action",
+            "Cooldown": "Once / Combat",
+            "HasMixins": true,
+            "Effect": "Attack a Unit for 1d6 + 2 Damage of your ^weapon^'s type. Its Passives are disabled until your next turn.",
+            "Notes": "Its Passives become disabled before you hit it (e.g. Kobolds don't dodge this attack).",
+            "Name": "~Painful Puncture~"
+        },
         "~Off-Hand Shank~": {
             "A": "Half-Action",
             "Cost": "1 Mana",
+            "Requirement": "Level 5",
             "DisplayRequirement": "Requires wielding 2 weapons to use",
             "Effect": "Make 3 attacks with a weapon you haven't used this turn that would normally scale with a Stat. These attacks do not add your Stat to the Damage.",
             "Name": "~Off-Hand Shank~"
@@ -106,12 +110,6 @@
             "Notes": "It is the Quest Master's call if an obstacle can be broken. Most walls may not be broken, except for thinner ones and fences.",
             "Name": "~Vault Break~"
         },
-        "~Bull Rush~": {
-            "A": "Passive",
-            "Requirement": "Level 2",
-            "Effect": "If you move at least 3 meters in a straight line and then melee Attack a target on the same line, the Attack gains +1.",
-            "Name": "~Bull Rush~"
-        },
         "~Chilling Shout~": {
             "A": "1 Action",
             "Cost": "1 Mana",
@@ -119,23 +117,31 @@
             "Requirement": "Level 2",
             "HasMixins": true,
             "Effect": "Deal 12 + Charisma Cold Damage to a sentient Unit\nIt becomes Slowed.\n",
-            "Notes": "Doesn't work on Units that can't feel fear.\n",
+            "Notes": "Doesn't work on Units that can't feel fear.\n    \n",
             "Name": "~Chilling Shout~"
-        },
-        "~Muscle Tear~": {
-            "A": "Half-Action",
-            "Cost": "1 Mana",
-            "Range": "2 meters",
-            "Requirement": "Level 2",
-            "Effect": "Deal 1d10 Pulse Damage to a Unit and it becomes Dazed.\n",
-            "Name": "~Muscle Tear~"
         },
         "~Panic Lash~": {
             "A": "Half-Action",
             "Cost": "1 Mana",
             "Range": "3 meters",
+            "Requirement": "Level 2",
             "Effect": "A target within 3 meters takes 3d4 + 2 Psychic Damage and can't cast Healing spells or regain Health for 1 turn.",
             "Name": "~Panic Lash~"
+        },
+        "~Bull Rush~": {
+            "A": "Passive",
+            "Requirement": "Level 3",
+            "Effect": "If you move at least 3 meters in a straight line and then melee Attack a target on the same line, the Attack gains +1 for every 3 meters moved in the straight line.",
+            "Notes": "Works if mounted or if using Abilities that dash or jump (in a straight line), but teleporting interrupts this.",
+            "Name": "~Bull Rush~"
+        },
+        "~Muscle Tear~": {
+            "A": "Half-Action",
+            "Cost": "1 Mana",
+            "Range": "2 meters",
+            "Requirement": "Level 3",
+            "Effect": "Deal 1d10 Pulse Damage to a Unit and it becomes Feared.\n",
+            "Name": "~Muscle Tear~"
         },
         "~Blood Foment~": {
             "A": "Reaction",
@@ -146,107 +152,157 @@
             "Note": "E.g. when a Strigoi wants to make 3 Attacks on its turn (before it rolls the 2nd and 3rd Attacks), use Blood Foment on it and it will only be able to do one Attack. Or, when someone casts Magic Missiles, use Blood Foment and only one missile will fire.",
             "Name": "~Blood Foment~"
         },
-        "~FRENZY~": {
+        "~FURY~": {
             "A": "0 Actions",
             "Cost": "1 Mana",
             "Cooldown": "1 turn",
             "Requirement": "Level 4",
-            "Effect": "Gain 3 Frenzy.\nEvery time you do Damage or Healing, deal Damage or Heal an extra amount equal to your Frenzy, then get -1 Frenzy.\n",
-            "Notes": "You can't go below 0 Frenzy.",
-            "Name": "~FRENZY~"
-        },
-        "~All Veins Bursting~": {
-            "A": "1 Action",
-            "Cost": "3 Mana",
-            "Requirement": "Level 6",
-            "Effect": "Heal for 1d100.",
-            "Name": "~All Veins Bursting~"
+            "Effect": "Gain 3 Fury.\nEvery time you do Damage or Healing, deal Damage or Heal an extra amount equal to your Fury, then get -1 Fury.\n",
+            "Notes": "You can't go below 0 Fury.",
+            "Name": "~FURY~"
         },
         "~Snap Out Of It~": {
             "A": "Half-Action",
+            "Requirement": "Level 5",
             "Cost": "1 Mana",
             "Effect": "Attack a different Unit with a 1-handed weapon. It heals instead of dealing Damage.",
             "Notes": "Any extra Damage effects on it heal as well (e.g. Smite, Cursewielder, etc).",
             "Name": "~Snap Out Of It~"
+        },
+        "~All Veins Burning~": {
+            "A": "1 Action",
+            "Cost": "3 Mana",
+            "Requirement": "Level 6",
+            "Effect": "Heal for 1d100.",
+            "Name": "~All Veins Burning~"
         }
     },
     "Warfare": {
-        "~Bull Rush~": {
-            "A": "Passive",
-            "Requirement": "Level 2",
-            "Effect": "If you move at least 3 meters in a straight line and then melee Attack a target on the same line, the Attack gains +1.",
-            "Name": "~Bull Rush~"
-        },
         "~Lance Heave~": {
             "A": "1 Action",
+            "DisplayName": "{Name}",
             "HasMixins": true,
-            "DisplayRequirement": "Only usable if it hits at least 2 Worthy Units",
-            "Effect": "Make a weapon attack that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.\n~Click on the Icon to select a preferred effect!~\n",
-            "Upgrade": "Can apply weapon effects. If the weapon effect requires a target, applies to the farth-most Unit hit.",
-            "Notes": "The Damage will be the same for all Units hit. All bonuses to the attack (e.g. Smite, Cursewielder, etc) also have -50%.",
+            "DisplayRequirement": "Only usable if it hits at least 2 Units",
+            "Effect": "Make a {Weapon} ^weapon^ attack {Effect}\n~Click on the Icon to select a preferred effect!~\n",
+            "Upgrade": "Can apply weapon effects. If the weapon effect requires a target, applies to one chosen Unit hit.",
+            "Notes": "Range increases do increase the length. The Damage must the same for all Units hit. All bonuses to the attack (e.g. Smite, Cursewielder, etc) also split evenly.",
             "Variants": [
                 {
                     "Name": "Lance Heave",
                     "DisplayA": "1 Action",
+                    "Effect": "that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units, ignores Defense, and they all become Slowed.",
+                    "Weapon": "2-handed melee",
                     "IconName": "Lance Heave"
                 },
                 {
                     "Name": "Blade Heave",
                     "DisplayA": "Half-Action",
+                    "Effect": "that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units, ignores Defense, and they all become Slowed.",
+                    "Weapon": "1-handed melee",
                     "IconName": "Blade Heave"
+                },
+                {
+                    "Name": "Penetrating Heave",
+                    "DisplayA": "1 Action",
+                    "Effect": "that hits one more Unit up to 2 meters directly behind the main target.",
+                    "Weapon": "2-handed ranged",
+                    "IconName": "Penetrating Heave"
+                },
+                {
+                    "Name": "Piercing Heave",
+                    "DisplayA": "Half-Action",
+                    "Effect": "that hits one more Unit up to 2 meters directly behind the main target.",
+                    "Weapon": "1-handed ranged",
+                    "IconName": "Piercing Heave"
                 }
             ],
             "Name": "~Lance Heave~"
         },
+        "~Glory Shout~": {
+            "A": "0 Actions",
+            "Cost": "1 Mana",
+            "Effect": "Roll 1d4. Either heal all allies that can hear you (and yourself), or Damage all Worthy Enemies that can hear you for that amount (as Psychic Damage).",
+            "Name": "~Glory Shout~"
+        },
+        "~Chilling Shout~": {
+            "A": "1 Action",
+            "Cost": "1 Mana",
+            "Range": "10 meters",
+            "Requirement": "Level 2",
+            "HasMixins": true,
+            "Effect": "Deal 12 + Charisma Cold Damage to a sentient Unit\nIt becomes Slowed.\n",
+            "Notes": "Doesn't work on Units that can't feel fear.\n    \n",
+            "Name": "~Chilling Shout~"
+        },
+        "~Bull Rush~": {
+            "A": "Passive",
+            "Requirement": "Level 3",
+            "Effect": "If you move at least 3 meters in a straight line and then melee Attack a target on the same line, the Attack gains +1 for every 3 meters moved in the straight line.",
+            "Notes": "Works if mounted or if using Abilities that dash or jump (in a straight line), but teleporting interrupts this.",
+            "Name": "~Bull Rush~"
+        },
+        "~Sword and Board~": {
+            "A": "Reaction",
+            "DisplayRequirement": "Requires a Shield",
+            "Effect": "Use when a Worthy Enemy attacks you and you take no Damag. Attack it back for 1d6 Damage if it's within your equipped ^weapon^'s range.",
+            "Name": "~Sword and Board~"
+        },
+        "~Tactical Aim~": {
+            "A": "Passive",
+            "Cooldown": "Once / Turn",
+            "HasMixins": true,
+            "Effect": "If you did not use a ^weapon^ last Turn, after your first ^weapon^ attack this Turn, you can reroll all the dice (together) if you didn't like the result.",
+            "Upgrade": "Only works from the 2nd Round of combat on.",
+            "Notes": "An Ability counts as using a ^weapon^ if the word ^weapon^ appears in its text. Can reroll attack bonuses like Smite, Cursewielder, etc. Only the final roll applies effects if any. Body parts count as weapons.",
+            "Name": "~Tactical Aim~"
+        },
+        "~Gladiator Grandeur~": {
+            "A": "0 Actions",
+            "Cost": "1 Mana",
+            "Requirement": "Level 2",
+            "HasMixins": true,
+            "Effect": "Push an enemy 1 meter in any direction. Gain {Gold}Fool's Gold equal to the enemy's Experience Worth.\n",
+            "Upgrade": "Epic Monsters award {Gold}Fool's Gold equal to their Experience Worth / Epic Grade.",
+            "Notes": "Fool's Gold is an imaginary currency that can be converted to real Gold by spending 1 hour in a town or city.\nFool's Gold lasts until converted to real Gold.\n",
+            "Name": "~Gladiator Grandeur~"
+        },
         "~Doublesault~": {
             "A": "0 Actions",
             "Cost": "1 Mana",
+            "Requirement": "Level 4",
             "Effect": "Leap up to 3 meters. If you land on a Unit, Doublesault again (for free)!\n",
             "Notes": "You leap from Unit to Unit until you no longer land on a Unit. You can't leap on the same Unit twice. If you land on a Unit, you must leap again.\nYou can use this even while in the air and it cancels out your current fall or acceleration.\n",
             "Name": "~Doublesault~"
         },
-        "~Glory of Gladiators~": {
-            "A": "0 Actions",
-            "Cost": "1 Mana",
-            "Cooldown": "Once / Adventure",
-            "HasMixins": true,
-            "Effect": "Push an enemy 1 meter in any direction. Gain {Gold}Fool's Gold equal to the enemy's Experience Worth.\n{Gold}Fool's Gold is an imaginary currency that can be converted to real {Gold}Gold by spending 1 hour in a town or city.\n{Gold}Fool's Gold lasts until converted to real {Gold}Gold.\n",
-            "Upgrade": "Epic Monsters award {Gold}Fool's Gold equal to their Experience Worth / Epic Grade.",
-            "Name": "~Glory of Gladiators~"
-        },
         "~Stand Stoic~": {
             "A": "0 Actions",
-            "Cooldown": "Once / Adventure",
-            "Requirement": "Level 2",
+            "Cooldown": "Once / Combat",
+            "Requirement": "Level 6",
             "Effect": "All allies (and you) remove their Roots, Slows and Dazes.\nYou (yourself) can continue your Movement if you already moved.\n",
             "Name": "~Stand Stoic~"
         },
         "~Assess Their Ranks~": {
             "A": "Half-Action",
             "Cost": "1 Mana",
+            "Requirement": "Level 5",
             "Effect": "Gain Shielding equal to the number of Worthy Enemies you can see.\nAt the start of your next turn, all Shielding on you is consumed and explodes, dealing Pulse Damage equal to the Shielding consumed to all Units within 1 meter of you.\n",
             "Name": "~Assess Their Ranks~"
-        },
-        "~Glory Shout~": {
-            "A": "0 Actions",
-            "Cost": "1 Mana",
-            "Effect": "Roll 1d4. You and all allies that can hear you are healed for that much Health.",
-            "Name": "~Glory Shout~"
         },
         "~Infailible Reach~": {
             "A": "1 Action",
             "Cost": "1 Mana",
             "Range": "3 meters",
             "Requirement": "Level 4",
-            "Effect": "Make a Dexterity Check against a Unit's current Initiative.\nIf you succeed, deal 4d10 Damage of your weapon's type.\n",
-            "Notes": "Extra Damage from magic weapons does apply to this Damage (before halving).\n",
+            "HasMixins": true,
+            "Effect": "Pass a Dexterity Check against a Unit's current Initiative.\nIf you succeed, deal 4d10 Damage of an equipped ^weapon^'s type.\n",
+            "Notes": "Can apply attack bonuses like Smite, Cursewielder, magic weapon extra Damage, etc.\n",
             "Name": "~Infailible Reach~"
         },
         "~Row Through~": {
             "A": "1 Action",
             "Cost": "2 Mana",
             "Range": "2 meters",
-            "Requirement": "Level 4",
+            "Requirement": "Level 5",
             "HasMixins": true,
             "Effect": "Push a medium-sized, non-Epic Unit up to 6 meters in any direction.\nIf it collides with something, it is Stunned and takes 1d8 Smash Damage (and it stops).\nIf it collided with another Unit, that Unit is also pushed in the same direction and repeats the effect of Row Through.\n",
             "Notes": "E.g. if it collides with a Unit, that Unit is also pushed up to 6 meters and if it collides with something, it is Stunned and takes 1d8 Damage. If that thing it collided with was a Unit, that Unit is also pushed up to 6 meters and is Stunned and so on.\n\"{Stunned}\"\n",
@@ -273,6 +329,14 @@
                 }
             ],
             "Name": "~Whirlwind~"
+        },
+        "~Bravery Despite Fear~": {
+            "A": "Half-Action",
+            "Cost": "1 Mana and 2d6 Health",
+            "Requirement": "Level 6",
+            "Cooldown": "Once / Adventure",
+            "Effect": "Reset the Cooldown of a different Ability.",
+            "Name": "~Bravery Despite Fear~"
         }
     },
     "Elemental": {
@@ -1108,8 +1172,8 @@
             "Cost": "1 Mana",
             "Requirement": "Level 2",
             "HasMixins": true,
-            "Effect": "A Unit takes 4d6 Psychic Damage and chooses whether to become Crippled or Silenced.\n",
-            "Notes": "Cover is applied normally. {Crippled} {Silenced}\n",
+            "Effect": "A Unit takes 4d6 Psychic Damage and chooses whether to become Blinded or Silenced.\n",
+            "Notes": "Cover is applied normally. {Blinded} {Silenced}\n",
             "Name": "~Mind Blast~"
         },
         "~Blur~": {

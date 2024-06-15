@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import HomeBanner1 from '../components/HomeBanner/HomeBanner1'
 import HomeBanner2 from '../components/HomeBanner/HomeBanner2'
 import Icon from '../components/Icon'
@@ -10,6 +10,10 @@ import FeaturingAsidePopup from '../components/AsidePopup/FeaturingAsidePopup'
 import { CoolButton } from '../components/CoolButton/CoolButton'
 import HeroButton from '../components/HeroButton/HeroButton'
 import { Link } from 'react-router-dom'
+import BottomWaveEffect from '../components/BottomWaveEffect/BottomWaveEffect'
+import HeroPageIntroPortrait from '../components/hero/HeroPageIntroPortrait/HeroPageIntroPortrait'
+import { HeroSection } from './Other/RulesExplained/Learn'
+import AnchorFixer from '../components/AnchorFixer/AnchorFixer'
 
 export default function() {
 
@@ -30,10 +34,9 @@ export default function() {
 
 
 
-  
-      <div className="hero-page">
+      <HeroPageIntroPortrait/>
+      <div className="hero-page landscape-only">
         <div className='hero-image-container'>
-          {/* <img src="/LandingPage/LandingPageBackground--variant8.png"/> */}
           <img src="/Classes/Mage.png"/>
         </div>
 
@@ -49,12 +52,14 @@ export default function() {
 
         </div>
       </div>
-  
+      <AnchorFixer id="Home-Advantages"/>
       <LandingPageSeparator type="8"/>
 
-      <div className="hero-page" id="Home-Advantages">
-        <div className='advantages-image-container'>
-          <img src="/LandingPage/LandingPageBackground--variant8.png"/>
+
+
+      <div className="hero-page">
+        <div className='hero-image-container'>
+          <img className='landscape-only' src="/LandingPage/HeroFeatures.png" style={{height: '100%'}}/>
         </div>
 
         <div className='advantages-content hero-content'>
@@ -88,6 +93,9 @@ export default function() {
 
         <FeaturingAsidePopup featureToDisplay={featureToDisplay}/>
 
+        <img className="portrait-only floating-animation-1" style={{position: 'absolute', top: '3vh', left: '15vw', width: '20px'}} src="/LandingPage/FloatingDot1.png"/>
+        <img className="portrait-only floating-animation-2" style={{position: 'absolute', top: '5vh', right: '10vw', width: '100px'}} src="/LandingPage/FloatingRaccoon.png"/>
+        <img className="portrait-only floating-animation-3" style={{position: 'absolute', bottom: '3vh', left: '8vw', width: '70px'}} src="/LandingPage/FloatingBird.png"/>
       </div>
 
 

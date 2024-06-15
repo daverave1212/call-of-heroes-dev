@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 
-import { createContext } from 'react'
+import { createContext, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 
@@ -87,22 +87,24 @@ function LiLink({to, children, isDownload, style, className}) {
 
 function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
 
-  const [areExpandedState, setAreExpandedState] = useState({
+  const getBaseStateAllFalse = () => ({
     'Database': false,
     'Learn': false,
     'Lore': false,
-    'GM Resources': false
+    'GM Resources': false,
+    'Downloads': false
   })
+  const [areExpandedState, setAreExpandedState] = useState(getBaseStateAllFalse())
 
   function maybeActiveClassLS(name) {
     return navState.currentlyOpenSubnav == name? 'subnav--ls-active' : 'subnav--ls-inactive'
   }
   function maybeActiveClassPortrait(name) {
-    return areExpandedState[name] == false? 'subnav--portrait-inactive' : ''
+    return areExpandedState[name] == false? 'subnav--portrait-inactive' : 'subnav--portrait-active'
   }
 
   function onClickOnH3(h3Name) {
-    const newState = { ...areExpandedState }
+    const newState = getBaseStateAllFalse()
     newState[h3Name] = !areExpandedState[h3Name]
     setAreExpandedState(newState)
   }
@@ -130,6 +132,7 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
     )
   }
 
+  console.log({areExpandedState})
   
   
   // Elements with 'subnav-title-portrait-only' are only visible in portrait mode
@@ -243,9 +246,21 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
     </div>)
 }
 
-export default function Nav({ navState, setNavState, isSimple, setIsSimple }) {
+export default function Nav({ isSimple, setIsSimple }) {
 
     const [isBurgerClicked, setIsBurgerClicked] = useState(false)
+    const [navState, setNavState] = useState({ currentlyOpenSubnav: null })
+
+    // useEffect(() => {
+    //   document.querySelector('#Window-Content').addEventListener('click', () => {
+    //     closeNav()
+    //   })
+    // }, [])
+
+    // function closeNav() {
+    //   if (navState.currentlyOpenSubnav == null) return
+    //   setNavState({ currentlyOpenSubnav: null })
+    // }
 
     function setCurrentlyOpenSubnav(name) {
       setNavState({currentlyOpenSubnav: name})

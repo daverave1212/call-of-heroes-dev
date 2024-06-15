@@ -1,0 +1,146 @@
+
+/*
+    Show Image
+    Expand Bar
+    Expand Bottom
+    Collapse Bar
+*/
+
+
+
+
+
+/* Portrait only */
+:root {
+    --hero-intro-description-height: 175px;
+    --hero-animation-delay: 0s, 0.75s, 1.5s, 2.25s, 3s;
+    --hero-animation-duration: 0.75s;
+  }
+  
+  
+  
+  .hero-logo-img--animating {
+    animation-name: Appearing;
+    animation-duration: 1.25s;
+  }
+  @keyframes Hidden {
+    from { opacity: 0%; }
+    to { opacity: 0%; }
+  }
+  @keyframes Appearing {
+    from { opacity: 0%; }
+    to { opacity: 100%; }
+  }
+  .hero-logo-img--done {
+    opacity: 100%;
+  }
+  
+  
+  
+  
+  
+  .animation-bar-holder {
+    width: 100%;
+    height: 0px;
+    margin-top: calc(-0.5 * var(--hero-gap));
+    margin-bottom: calc(-0.5 * var(--hero-gap));
+    overflow-y: visible;
+  }
+  .animation-bar--animating {
+    margin: auto;
+    height: 2px;
+    width: 0%;  /* Will animate */
+    background-color: rgb(136, 85, 158);
+    border-radius: 1px;
+  
+    animation-name: NoWidth, ExpandingWidth, ExpandedWidth, CollapsingWidth, NoWidth;
+    animation-delay: var(--hero-animation-delay);
+    animation-duration: var(--hero-animation-duration);
+  }
+  @keyframes NoWidth {
+    from { width: 0%; }
+    to { width: 0%; }
+  }
+  @keyframes ExpandingWidth {
+    0% { width: 0%; }
+    100% { width: 100%; }
+  }
+  @keyframes ExpandedWidth {
+    0% { width: 100%; }
+    100% { width: 100%; }
+  }
+  @keyframes CollapsingWidth {
+    0% { width: 100%; }
+    100% { width: 0%; }
+  }
+  
+  
+  
+  
+  
+  
+  .hero-intro-description {
+    overflow-y: hidden;
+    max-height: var(--hero-intro-description-height); /* Will animate */
+    
+    display: flex;
+    flex-direction: column;
+    gap: var(--hero-gap);
+  }
+  .hero-intro-description--animating {
+    animation-name: NoHeight, NoHeight, ExpandingHeight, ExpandedHeight, ExpandedHeight;
+    animation-delay: var(--hero-animation-delay);
+    animation-duration: var(--hero-animation-duration);
+  }
+  @keyframes NoHeight {
+    from { max-height: 0px; }
+    to { max-height: 0px; }
+  }
+  @keyframes ExpandingHeight {
+    from { max-height: 0px; }
+    to { max-height: var(--hero-intro-description-height); }
+  }
+  @keyframes ExpandedHeight {
+    from { max-height: var(--hero-intro-description-height); }
+    to { max-height: var(--hero-intro-description-height); }
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  .show-me-button--animating {
+    animation-name: Hidden, Hidden, Hidden, Hidden, Appearing;
+    animation-delay: var(--hero-animation-delay);
+    animation-duration: var(--hero-animation-duration);
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

@@ -2,15 +2,23 @@
     --hero-button-base-width: 1069px;
     --hero-button-base-height: 104px;
     --hero-button-aspect-ratio: 1069/104;
+    --hero-button-image-url: url('./Hero-Button-Background-Landscape.png');
 }
-
+@media (orientation: portrait) {
+    :root {
+        --hero-button-base-width: 706px;
+        --hero-button-base-height: 104px;
+        --hero-button-aspect-ratio: 706/104;
+        --hero-button-image-url: url('./Hero-Button-Background-Portrait.png');
+    }
+}
 
 .hero-button {
     position: relative;
     width: 100%;
-    aspect-ratio: 1069/104;
+    aspect-ratio: var(--hero-button-aspect-ratio);
 
-    background-image: url('./Hero-Buton-Background.png');
+    background-image: var(--hero-button-image-url);
     background-position: center;
     background-size: 100% 100%;
 

@@ -254,12 +254,13 @@ nav {
 }
 @media (orientation: portrait), (max-width: 900px)  {
     :root {
-        --nav-item-padding: 8vw;
+        --nav-height: 60px;
+        --nav-item-padding: 7vw;
         --nav-background-color: rgba(12, 15, 17, 1);
     
         --subnav-height: 50px;
-        --subnav-item-padding-left: 40px;
-        --subnav-item-padding-right: 20px;
+        --subnav-item-padding-left: 30px;
+        --subnav-item-padding-right: 15px;
         --subnav-background-color: rgba(15, 15, 15, 1);
 
         --subnav-section-max-width: 9999px;
@@ -311,7 +312,7 @@ nav {
         top: var(--nav-height);
         right: -20px;   /* To hide scrollbar */
 
-        width: 70vw;
+        width: 60vw;
         height: calc(100vh - var(--nav-height));
 
         overflow-y: scroll;
@@ -329,29 +330,41 @@ nav {
         flex-direction: column;
 
         padding: calc(var(--nav-item-padding));
+        overflow-y: hidden;
     }
     .subnav--portrait-inactive {
         display: none;
     }
+    .subnav--portrait-active {
+        max-height: 200vh;
+        animation: Expanding 2s;
+    }
+    @keyframes Expanding {
+        0% {
+            max-height: 0vh;
+        }
+        100% {
+            max-height: 200vh;
+        }
+    }
     .subnav li a {
-        font-size: calc(1.25 * var(--nav-font-size));
+        font-size: calc(1.15 * var(--nav-font-size));
     }
     .subnav-item {
-        font-size: calc(1.25 * var(--nav-font-size));
+        font-size: calc(1.15 * var(--nav-font-size));
     }
     .mega-dropdown h4 {
-        font-size: calc(1.25 * var(--nav-font-size));
+        font-size: calc(1.15 * var(--nav-font-size));
     }
-    .subnav-title-portrait-only {
+    h3.subnav-title-portrait-only {
         display: block;
 
-        font-size: calc(1.5 * var(--nav-font-size));
+        font-size: calc(1.25 * var(--nav-font-size));
         font-weight: 400;
 
         margin: 0px;
         padding: calc(var(--nav-item-padding));
-        border-bottom: solid gray 1px;
-        border-top: solid gray 1px;
+        border-bottom: solid var(--orange-color) 1px;
         margin-top: -1px;
 
         cursor: pointer;

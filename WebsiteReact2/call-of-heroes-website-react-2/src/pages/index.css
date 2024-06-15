@@ -18,7 +18,6 @@
 :root {
   --hero-page-height: 100vh;
   --hero-content-width: 650px;
-  --advantages-content-width: 650px;
 
   --hero-h1-size: 75px;
   --home-text-size: 27px;
@@ -44,15 +43,14 @@
   @media (max-height: 720px) {
     :root {
       --hero-content-width: 475px;
-      --advantages-content-width: 650px;
     }
   }
 }
 @media (orientation: portrait), (max-width: 900px)  {
   :root {
-    --hero-page-height: 100vh;
-    --hero-content-width: 80vw;
-    --content-left: 10vw;
+    --hero-page-height: calc(100vh - var(--nav-height));
+    --hero-content-width: 90vw;
+    --content-left: 5vw;
 
     --hero-gap: 25px;
     --hero-buttons-line-width: 20vw;
@@ -69,6 +67,7 @@
   position: relative;
   width: 100vw;
   height: var(--hero-page-height);
+  max-height: var(--hero-page-height);
 
   overflow: hidden;
 
@@ -81,6 +80,7 @@
   position: absolute;
   
   height: var(--hero-page-height);
+  max-height: var(--hero-page-height);
   width: 100vw;
 
   margin-left: var(--hero-img-margin-left);
@@ -88,9 +88,6 @@
   overflow: hidden;
   z-index: var(--z-background);
 }
-/* .hero-image-container.reversed {
-  margin-left: calc((1920px - 120vw) * -0.35);
-} */
 .hero-image-container img {
   display: block;
   height: 120%;
@@ -107,6 +104,7 @@
   
   width: var(--hero-content-width);
   height: var(--hero-page-height);
+  max-height: var(--hero-page-height);
 
   left: var(--content-left);
   /* top: var(--nav-height); */
@@ -235,24 +233,12 @@
 }
 
 
-/* .hero-buttons button:nth-child(1) {
-  flex: 1;
-  
-  background-color: var(--hero-text-color);
-  color: white;
-}
-.hero-buttons button:nth-child(2) {
-  flex: 2;
-} */
-
-
 
 
 
 
 
 :root {
-  --advantages-content-width: 650px;
   --advantages-ul-li-space: 13px;
   
   --advantages-h1-size: calc(var(--hero-h1-size) * 0.6);
@@ -265,14 +251,8 @@
   --advantages-bg-color-left: rgb(254, 254, 254);
   --advantages-bg-color-right: rgb(250, 250, 250);
 }
-@media (min-width: 900px) and (max-width: 1366px) {
-  :root {
-    --advantages-content-width: 50vw;
-  }
-}
 @media (orientation: portrait), (max-width: 900px)  {
   :root {
-    --advantages-content-width: 80vw;
     --advantages-font-size: calc(var(--home-text-size) * 0.70);
 
     --adv-inline-icon-size: 4vw;
@@ -296,13 +276,7 @@
   }
 }
 
-#Home-Advantages {
-  /* background-image: linear-gradient(to right, var(--advantages-bg-color-left) 0%, var(--advantages-bg-color-left) 35%, var(--advantages-bg-color-right) 60%); */
-  background-color: var(--hero-bg-color);
-}
-.advantages-content {
-  width: var(--advantages-content-width);
-}
+#Home-Advantages {}
 .advantages-image-container {
   position: absolute;
   
@@ -348,9 +322,5 @@
   cursor: pointer;
   color: var(--passive-dark-color);
 }
-
-
-
-
 
 

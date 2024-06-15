@@ -94,9 +94,6 @@ function App() {
   const [appState, setAppState] = useState({
     isSimple: getLocalStorageBool('isSimple')
   })
-  const [navState, setNavState] = useState({
-    currentlyOpenSubnav: null
-  })
 
 
   const navigate = useNavigate()
@@ -109,23 +106,13 @@ function App() {
     }
   })
 
-
-
-  function closeNav(event) {
-    if (navState.currentlyOpenSubnav == null)
-      return
-    setNavState({
-        currentlyOpenSubnav: null
-    })
-  }
-
   // const isSimple = appState.isSimple
   const isSimple = true
   const setIsSimple = (newIsSimple) => setAppState({isSimple: newIsSimple})
 
   function WindowContent() {
     return (
-      <div id="Window-Content" onClick={() => { closeNav() }}>
+      <div id="Window-Content">
 
           {/* Here will be rendered the page: */}
         <Routes>
@@ -208,7 +195,7 @@ function App() {
   return (
     <div id="Window" className={`${appState.isSimple? '' : 'window--has-background'}`}>
 
-        <Nav navState={navState} setNavState={setNavState} isSimple={isSimple} setIsSimple={setIsSimple}/>
+        <Nav isSimple={isSimple} setIsSimple={setIsSimple}/>
 
         <AppStateContext.Provider value={[appState, setAppState]}>
           <MemoedWindowContent/>

@@ -65,21 +65,15 @@ Starting Abilities:
       Some other Cleric spells will "cast Awe" for free.
     Notes: Ignores Cover.
 
-  ~Spread the Awe~:
-    _Value: 0.5
-    A: Half-Action
-    Cooldown: Once / Adventure
-    Effect: Cast Awe 2 times on target(s) within 5 meters.
-
   ~Blessing~:
     _Value: 0.25
-    A: 0 Actions
+    A: Half-Action
     Cooldown: Once / Adventure
-    Duration: 1 Combat
+    Duration: 1 combat
     Effect: |
-      You bless one Ally.
-      Whenever it makes a Resist Check, it can add 1d4 to it.
-    Upgrade: At Level 4, this affects 2 allies. At Level 8, this affects 3 allies.
+      Cast Awe on 2 Units and they become Blessed until the end of the next (or current) Combat.
+      Blessed Allies have +1d4 to Checks made in Combat. Blessed Enemies have -1d4 to Checks made in Combat.
+    Upgrade: At Level 4, this affects 3 allies. At Level 8, this affects all allies within 5 meters.
     Notes: |
       You can bless yourself.
       Lasts until the end of the next combat encounter.
@@ -165,10 +159,11 @@ Specs:
       ~March Ahead~ :
         _Value: 0.25
         A: 0 Actions
-        Cooldown: Once / Adventure
+        Cooldown: Once / Combat
         Effect: |
-          All allies can move 3 extra meters on their next turn (and you too this turn).
-          After casting this, you can continue your movement.
+          All allies and you ^instantly^ move 3 meters.
+          After casting this, you can Continue your Movement.
+        Notes: Units simply move, as normal, without consuming Movement.
 
       ~Piety~ :
         _Value: 0.25
@@ -193,10 +188,10 @@ Specs:
         <Heavy Burden> :
           _Value: 1
           A: 0 Actions
-          Cooldown: Once / Adventure
+          Cooldown: Once / Combat
+          Range: 3 meters
           Effect: |
-            A Unit within 3 meters makes a Sense Check.
-            If it fails, cast Awe on it and it is Crippled.
+            Pass a Sense Check against a Unit's Sense Check to make it Crippled.
           OrderOnWebsite: 1
               
         <Repentance> :
@@ -208,7 +203,6 @@ Specs:
           Notes: |
             You can't cast this if you are at or below 25% of your Max Health (rounded down).
             If you are below 50% Health, you fall, but you are brought back due to Awe (with Exhaustion).
-            Round down.
           OrderOnWebsite: 2
 
       Level 4:
@@ -221,13 +215,14 @@ Specs:
 
       Level 5:
         
-        <War Smite>:
+        <Exigent Concession>:  # About 2.5 Mana (~10 damage on average)
           _Value: 2
-          A: 0 Actions
+          A: 1 Action
           Cooldown: Once / Adventure
+          Range: 5 meters
           Effect: |
-              When you land an Attack, roll 1d4 again and again until your roll 1.
-              Add them all together, and add the total to the attack.
+              Roll 1d6 again and again until your roll 1.
+              Heal or deal Divine Damage equal to the sum of the dice rolled (including the 1).
           OrderOnWebsite: 1
                 
         <Shadow Realm>:
@@ -328,15 +323,17 @@ Specs:
     Description: As a cleric, you become a devotee of darkness or/and light.
     Starting Abilities:
     
-      ~Grasp~:
+      ~Grasping Awe~:
         _Value: 1
-        A: 0 Actions
-        Range: 15 meters (you don't need line of sight)
-        Cooldown: Once / Adventure
+        A: Passive
+        Range: 5 meters
+        HasMixins: true
+        Replacement: Replaces Awe
         Effect: |
-          Cast Awe twice, on the same target or on two different targets.
-          That target(s) can't benefit from Cover for 1 minute.
-        Notes: If the target has Cover on attacks from any source, the Cover is negated (e.g. no more -2). Includes attacks while prone, attacks through heavy wind, etc.
+          Whenever you spend Mana, "cast Awe" on a Unit.
+          This deals 1d4 Divine Damage to enemies ~and makes them Fumbling~ or heals allies for 1d4 ~and makes their next attack ignore Cover~.
+          Some other Cleric spells will "cast Awe" for free.
+        Notes: Ignores Cover.
 
     Choose your side: Beacon Cleric!\nPick only one of the following two abilities!
   
@@ -372,9 +369,10 @@ Specs:
         <Let There Be Darkness> :
           _Value: 0.75
           A: Passive
+          HasMixins: true
           Effect: |
-            While in darkness, your damaging Awe die is increased by 1 tier.
-          Notes: Increasing the tier of dice means 1d4 becomes 1d6, 1d6 becomes 1d8, and so on. D12's and d20's don't increase.
+            While in darkness, your damaging Awe has its ^Dice Upgraded^ to the next die type.
+          Notes: "{DiceUpgrade}. It is up to the Quest Master what is considered darkness."
 
         <Repentance> : Inherit from Cleric
 
@@ -417,7 +415,7 @@ Specs:
           Cooldown: Once / Adventure
           Effect: |
             You create a 1x1 Black Hole on an empty space.
-            Cast Grasp for free on all enemies within 6 meters of the hole.
+            Cast Awe for free on all enemies within 6 meters of the hole.
             If a Unit gets to the center of the Black Hole, it becomes Rooted.
             At the end of your turn, all Units within 6 meters of it are pulled 2 meters towards it.
           Notes: If 2 Units would be pulled to the center, you choose which. The black hole's gravity works even for Units behind walls and obstacles.
@@ -446,6 +444,7 @@ Specs:
           _Value: 3
           A: Half-Action
           Cooldown: Once / Adventure
+          Requirement: Only usable in Combat
           Effect: Until the end of your next turn, double all healing you and your party does.
           Notes: Doesn't stack with other healing multiplication effects.
 

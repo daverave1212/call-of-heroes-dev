@@ -259,9 +259,6 @@ Bloodshed:
 # [ ] Anti-Heal
 # [ ] Summon
 
-    ~Something~:
-        A: Half-Action
-        Effect: Slows
 
     ~Hack and Slash~:
         A: 0 Actions
@@ -293,10 +290,17 @@ Bloodshed:
         Effect: |
             Heal yourself for 1d10. If you're affected by any Crowd Control (except turn-skipping), remove it instead of healing.
 
+    ~Painful Puncture~:
+        A: Half-Action
+        Cooldown: Once / Combat
+        HasMixins: true
+        Effect: Attack a Unit for 1d6 + 2 Damage of your ^weapon^'s type. Its Passives are disabled until your next turn.
+        Notes: Its Passives become disabled before you hit it (e.g. Kobolds don't dodge this attack).
 
     ~Off-Hand Shank~:
         A: Half-Action
         Cost: 1 Mana
+        Requirement: Level 5
         DisplayRequirement: Requires wielding 2 weapons to use
         Effect: Make 3 attacks with a weapon you haven't used this turn that would normally scale with a Stat. These attacks do not add your Stat to the Damage.
 
@@ -310,13 +314,6 @@ Bloodshed:
         Notes: It is the Quest Master's call if an obstacle can be broken. Most walls may not be broken, except for thinner ones and fences.
 
     # Level 2
-
-    ~Bull Rush~:
-        A: Passive
-        Requirement: Level 2
-        Effect: If you move at least 3 meters in a straight line and then melee Attack a target on the same line, the Attack gains +1.
-
-    # Higher Level Spells
            
     ~Chilling Shout~:
         A: 1 Action
@@ -329,20 +326,31 @@ Bloodshed:
             It becomes Slowed.
         Notes: |
             Doesn't work on Units that can't feel fear.
-            
-    ~Muscle Tear~:
-        A: Half-Action
-        Cost: 1 Mana
-        Range: 2 meters
-        Requirement: Level 2
-        Effect: |
-            Deal 1d10 Pulse Damage to a Unit and it becomes Dazed.
-    
+                
     ~Panic Lash~:
         A: Half-Action
         Cost: 1 Mana
         Range: 3 meters
+        Requirement: Level 2
         Effect: A target within 3 meters takes 3d4 + 2 Psychic Damage and can't cast Healing spells or regain Health for 1 turn.
+
+
+    # Level 3
+
+    ~Bull Rush~:
+        A: Passive
+        Requirement: Level 3
+        Effect: If you move at least 3 meters in a straight line and then melee Attack a target on the same line, the Attack gains +1 for every 3 meters moved in the straight line.
+        Notes: Works if mounted or if using Abilities that dash or jump (in a straight line), but teleporting interrupts this.
+
+
+    ~Muscle Tear~:
+        A: Half-Action
+        Cost: 1 Mana
+        Range: 2 meters
+        Requirement: Level 3
+        Effect: |
+            Deal 1d10 Pulse Damage to a Unit and it becomes Feared.
 
     ~Blood Foment~:
         A: Reaction
@@ -354,27 +362,29 @@ Bloodshed:
            That Unit takes 1d4 Psychic Damage and is limted to only 1 Attack or hit with that Ability.
         Note: E.g. when a Strigoi wants to make 3 Attacks on its turn (before it rolls the 2nd and 3rd Attacks), use Blood Foment on it and it will only be able to do one Attack. Or, when someone casts Magic Missiles, use Blood Foment and only one missile will fire.
 
-    ~FRENZY~:
+    ~FURY~:
         A: 0 Actions
         Cost: 1 Mana
         Cooldown: 1 turn
         Requirement: Level 4
         Effect: |
-            Gain 3 Frenzy.
-            Every time you do Damage or Healing, deal Damage or Heal an extra amount equal to your Frenzy, then get -1 Frenzy.
-        Notes: You can't go below 0 Frenzy.
+            Gain 3 Fury.
+            Every time you do Damage or Healing, deal Damage or Heal an extra amount equal to your Fury, then get -1 Fury.
+        Notes: You can't go below 0 Fury.
 
-    ~All Veins Bursting~:
+    ~Snap Out Of It~:
+        A: Half-Action
+        Requirement: Level 5
+        Cost: 1 Mana
+        Effect: Attack a different Unit with a 1-handed weapon. It heals instead of dealing Damage.
+        Notes: Any extra Damage effects on it heal as well (e.g. Smite, Cursewielder, etc).
+
+    ~All Veins Burning~:
         A: 1 Action
         Cost: 3 Mana
         Requirement: Level 6
         Effect: Heal for 1d100.
 
-    ~Snap Out Of It~:
-        A: Half-Action
-        Cost: 1 Mana
-        Effect: Attack a different Unit with a 1-handed weapon. It heals instead of dealing Damage.
-        Notes: Any extra Damage effects on it heal as well (e.g. Smite, Cursewielder, etc).
 
 Warfare:
 
@@ -399,54 +409,88 @@ Warfare:
 # [ ] Anti-Heal
 # [ ] Summon
 
-
-
-
-    ~Bull Rush~: Inherit
-
     # Advanced Spells
 
     ~Lance Heave~:
         A: 1 Action
+        DisplayName: "{Name}"
         HasMixins: true
-        DisplayRequirement: Only usable if it hits at least 2 Worthy Units
+        DisplayRequirement: Only usable if it hits at least 2 Units
         Effect: |
-            Make a weapon attack that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.
+            Make a {Weapon} ^weapon^ attack {Effect}
             ~Click on the Icon to select a preferred effect!~
-        Upgrade: Can apply weapon effects. If the weapon effect requires a target, applies to the farth-most Unit hit.
-        Notes: The Damage will be the same for all Units hit. All bonuses to the attack (e.g. Smite, Cursewielder, etc) also have -50%.
+        Upgrade: Can apply weapon effects. If the weapon effect requires a target, applies to one chosen Unit hit.
+        Notes: Range increases do increase the length. The Damage must the same for all Units hit. All bonuses to the attack (e.g. Smite, Cursewielder, etc) also split evenly.
         Variants:
             - Name: Lance Heave
               DisplayA: 1 Action
+              Effect: that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units, ignores Defense, and they all become Slowed.
+              Weapon: 2-handed melee
               IconName: Lance Heave
             - Name: Blade Heave
               DisplayA: Half-Action
+              Effect: that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units, ignores Defense, and they all become Slowed.
+              Weapon: 1-handed melee
               IconName: Blade Heave
+            - Name: Penetrating Heave
+              DisplayA: 1 Action
+              Effect: that hits one more Unit up to 2 meters directly behind the main target.
+              Weapon: 2-handed ranged
+              IconName: Penetrating Heave
+            - Name: Piercing Heave
+              DisplayA: Half-Action
+              Effect: that hits one more Unit up to 2 meters directly behind the main target.
+              Weapon: 1-handed ranged
+              IconName: Piercing Heave
+
+    ~Glory Shout~:          # Slightly strong for the cost, but it's distributed weirdly so ok
+        A: 0 Actions
+        Cost: 1 Mana
+        Effect: Roll 1d4. Either heal all allies that can hear you (and yourself), or Damage all Worthy Enemies that can hear you for that amount (as Psychic Damage).
+
+    ~Chilling Shout~: Inherit
+
+    ~Bull Rush~: Inherit
+
+    ~Sword and Board~:
+        A: Reaction
+        DisplayRequirement: Requires a Shield
+        Effect: Use when a Worthy Enemy attacks you and you take no Damag. Attack it back for 1d6 Damage if it's within your equipped ^weapon^'s range.
+
+    ~Tactical Aim~:
+        A: Passive
+        Cooldown: Once / Turn
+        HasMixins: true
+        Effect: If you did not use a ^weapon^ last Turn, after your first ^weapon^ attack this Turn, you can reroll all the dice (together) if you didn't like the result.
+        Upgrade: Only works from the 2nd Round of combat on.
+        Notes: An Ability counts as using a ^weapon^ if the word ^weapon^ appears in its text. Can reroll attack bonuses like Smite, Cursewielder, etc. Only the final roll applies effects if any. Body parts count as weapons.
+
+    ~Gladiator Grandeur~:
+        A: 0 Actions
+        Cost: 1 Mana
+        Requirement: Level 2
+        HasMixins: true
+        Effect: |
+            Push an enemy 1 meter in any direction. Gain {Gold}Fool's Gold equal to the enemy's Experience Worth.
+        Upgrade: Epic Monsters award {Gold}Fool's Gold equal to their Experience Worth / Epic Grade.
+        Notes: |
+            Fool's Gold is an imaginary currency that can be converted to real Gold by spending 1 hour in a town or city.
+            Fool's Gold lasts until converted to real Gold.
 
     ~Doublesault~:
         A: 0 Actions
         Cost: 1 Mana
+        Requirement: Level 4
         Effect: |
             Leap up to 3 meters. If you land on a Unit, Doublesault again (for free)!
         Notes: |
             You leap from Unit to Unit until you no longer land on a Unit. You can't leap on the same Unit twice. If you land on a Unit, you must leap again.
             You can use this even while in the air and it cancels out your current fall or acceleration.
 
-    ~Glory of Gladiators~:
-        A: 0 Actions
-        Cost: 1 Mana
-        Cooldown: Once / Adventure
-        HasMixins: true
-        Effect: |
-            Push an enemy 1 meter in any direction. Gain {Gold}Fool's Gold equal to the enemy's Experience Worth.
-            {Gold}Fool's Gold is an imaginary currency that can be converted to real {Gold}Gold by spending 1 hour in a town or city.
-            {Gold}Fool's Gold lasts until converted to real {Gold}Gold.
-        Upgrade: Epic Monsters award {Gold}Fool's Gold equal to their Experience Worth / Epic Grade.
-
     ~Stand Stoic~:
         A: 0 Actions
-        Cooldown: Once / Adventure
-        Requirement: Level 2
+        Cooldown: Once / Combat
+        Requirement: Level 6
         Effect: |
             All allies (and you) remove their Roots, Slows and Dazes.
             You (yourself) can continue your Movement if you already moved.
@@ -454,31 +498,29 @@ Warfare:
     ~Assess Their Ranks~:   # Ok
         A: Half-Action
         Cost: 1 Mana
+        Requirement: Level 5
         Effect: |
             Gain Shielding equal to the number of Worthy Enemies you can see.
             At the start of your next turn, all Shielding on you is consumed and explodes, dealing Pulse Damage equal to the Shielding consumed to all Units within 1 meter of you.
         
-    ~Glory Shout~:          # Slightly strong for the cost, but it's distributed weirdly so ok
-        A: 0 Actions
-        Cost: 1 Mana
-        Effect: Roll 1d4. You and all allies that can hear you are healed for that much Health.
 
     ~Infailible Reach~:     # Ok
         A: 1 Action
         Cost: 1 Mana
         Range: 3 meters
         Requirement: Level 4
+        HasMixins: true
         Effect: |
-            Make a Dexterity Check against a Unit's current Initiative.
-            If you succeed, deal 4d10 Damage of your weapon's type.
+            Pass a Dexterity Check against a Unit's current Initiative.
+            If you succeed, deal 4d10 Damage of an equipped ^weapon^'s type.
         Notes: |
-            Extra Damage from magic weapons does apply to this Damage (before halving).
+            Can apply attack bonuses like Smite, Cursewielder, magic weapon extra Damage, etc.
         
     ~Row Through~:          # Strong, but hard to land properly
         A: 1 Action
         Cost: 2 Mana
         Range: 2 meters
-        Requirement: Level 4
+        Requirement: Level 5
         HasMixins: true
         Effect: |
             Push a medium-sized, non-Epic Unit up to 6 meters in any direction.
@@ -508,6 +550,13 @@ Warfare:
             - Name: High Noon
               Area: in a chosen 5x5 meter area (5 meter range to the edge).
               IconName: High Noon
+
+    ~Bravery Despite Fear~:
+        A: Half-Action
+        Cost: 1 Mana and 2d6 Health
+        Requirement: Level 6
+        Cooldown: Once / Adventure
+        Effect: Reset the Cooldown of a different Ability.
 
     # ~Hamstring~:
     #     A: Half-Action
@@ -1925,9 +1974,9 @@ Mysticism:
             Requirement: Level 2
             HasMixins: true
             Effect: |
-                A Unit takes 4d6 Psychic Damage and chooses whether to become Crippled or Silenced.
+                A Unit takes 4d6 Psychic Damage and chooses whether to become Blinded or Silenced.
             Notes: |
-                Cover is applied normally. {Crippled} {Silenced}
+                Cover is applied normally. {Blinded} {Silenced}
 
         # Level 3
 
