@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { useState } from 'react'
 import YAML from 'yaml'
 
@@ -76,6 +76,14 @@ export function Proficiencies({ name, theRaceOrClass }) {
 }
 
 export function RaceHeader({imgStyle, theRace, theClass}) {
+    useRef(() => {
+        if (theRace != null) {
+            document.title = theRace.Race
+        }
+        if (theClass != null) {
+            document.title = theClass.Class
+        }
+    }, [])
     const name = theRace != null? theRace.Race : theClass.Class
     const imagePath = theRace != null? `/Races/${theRace.Race}.png` : `/Classes/${theClass.Class}.png`
     const description = theRace != null? theRace.Description : theClass.Description
@@ -146,10 +154,10 @@ export function RaceFeatures({ theRace }) {
                 <Column>
                     <div className='with-margined-children'>
                         <SmallStat name="Stat Distribution" type="vertical">{ theRace.Creation['Stat Restrictions'] }</SmallStat>
-                        <SmallStat name="Health"><Icon name="Health" type="small-stat"/>{ theRace.Stats['Base Health'] } + Might * 2</SmallStat>
+                        <SmallStat name="Health"><Icon name="Health" type="small-stat"/>{ theRace.Stats['Base Health'] } + 200% of Might</SmallStat>
                         <SmallStat name="Health Regen"><Icon name="HealthRegen" type="small-stat"/> { theRace.Stats['Health Regen'] } + Sense</SmallStat>
-                        <SmallStat name="Movement">4 + Dexterity / 2 (<b>rounded up</b>)</SmallStat>
-                        <SmallStat name="Initiative">Charisma * 3</SmallStat>
+                        <SmallStat name="Movement">4 + 50% of Dexterity (<b>result rounded up</b>)</SmallStat>
+                        <SmallStat name="Initiative">300% of Charisma</SmallStat>
                         { theRace.Weapons && <SmallStat name="Weapons" type="vertical">{ theRace.Weapons }</SmallStat> }
                         { theRace.Training && <SmallStat name="Other Training" type="vertical">{ theRace.Training }</SmallStat> }
                         { theRace.Language && <SmallStat name="Language" type="vertical">{ theRace.Language }</SmallStat> }
@@ -206,26 +214,6 @@ export function LevelingUp({ theClass }) {
             <PageH2>Leveling Up</PageH2>
     
             <TwoColumns type="normal">
-                {/* <Column>
-                    {
-                        theClass['Spellcasting']['Type'] == 'Special Mana-based'? (
-                            <TableNormalLevelUpWarlock/>
-                        ) :
-                        theClass['Spellcasting']['Type'] == 'Hunter'? (
-                            <TableNormalLevelUpHunter/>
-                        ) :
-                        theClass['Spellcasting']['Type'] == 'Shaman'? (
-                            <TableShamanLevelUp/>
-                        ) :
-                        theClass['Spellcasting']['Type'] == 'Paladin'? (
-                            <TableNormalLevelUp/>
-                        ) :
-                        (
-                            <div></div>
-                            // <TableNormalLevelUp/>
-                        )
-                    }
-                </Column> */}
                 <Column>
                     {
                         theClass['Spellcasting']['Type'] == 'Mana-based'? (
@@ -236,11 +224,6 @@ export function LevelingUp({ theClass }) {
                                             +{ theClass['Level Up']['Every Level']['Health'] } <Icon name="Health"/>Health
                                         </td>
                                     </tr>
-                                    {/* <tr>
-                                        <td>
-                                            +1 Known Basic Ability
-                                        </td>
-                                    </tr> */}
                                     <tr>
                                         <td>
                                             +1 <Icon name="Mana"/>Mana
@@ -254,14 +237,10 @@ export function LevelingUp({ theClass }) {
                                 </TableNormal>
                 
                                 <p style={{whiteSpace: 'pre-wrap'}} className='margined-bottom'>{ rules['LevelUpBonusesDescription (Mana-based)'] }</p>
-                
-                                {/* <Spell spell={abilities['Default Moves']['~Action Surge~']}/> */}
                             </div>
                         ) :
                         theClass['Spellcasting']['Type'] == 'Special Mana-based' ||
-                        theClass['Spellcasting']['Type'] == 'Hunter' ||
-                        theClass['Spellcasting']['Type'] == 'Shaman' ||
-                        theClass['Spellcasting']['Type'] == 'Paladin' ? (
+                        theClass['Spellcasting']['Type'] == 'Hunter' ? (
                             <div>
                                 <TableNormal columns={['Every Level Above 1 You Get...']}>
                                     <tr>
@@ -269,11 +248,6 @@ export function LevelingUp({ theClass }) {
                                             +{ theClass['Level Up']['Every Level']['Health'] } <Icon name="Health"/>Health
                                         </td>
                                     </tr>
-                                    {/* <tr>
-                                        <td>
-                                            +1 Known Basic Ability
-                                        </td>
-                                    </tr> */}
                                     <tr>
                                         <td>
                                             +2 <Icon name="HealthRegen"/>Health Regen
@@ -282,10 +256,31 @@ export function LevelingUp({ theClass }) {
                                 </TableNormal>
                 
                                 <p style={{whiteSpace: 'pre-wrap'}} className='margined-bottom'>{ rules['LevelUpBonusesDescription (Special Mana-based)'] }</p>
-                
-                                {/* <Spell spell={abilities['Default Moves']['~Action Surge~']}/> */}
                             </div>
-                        ) : (
+                        ) : 
+                        theClass['Spellcasting']['Type'] == 'Paladin' ? (
+                            <div>
+                                <TableNormal columns={['Every Level Above 1 You Get...']}>
+                                    <tr>
+                                        <td>
+                                            +{ theClass['Level Up']['Every Level']['Health'] } <Icon name="Health"/>Health
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            +2 <Icon name="HealthRegen"/>Health Regen
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            +1 Known Basic Ability
+                                        </td>
+                                    </tr>
+                                </TableNormal>
+                
+                                <p style={{whiteSpace: 'pre-wrap'}} className='margined-bottom'>{ rules['LevelUpBonusesDescription (Special Mana-based)'] }</p>
+                            </div>
+                        ): (
                             null
                         )
                     }
@@ -372,7 +367,7 @@ export function SpellCasting({ theClass }) {
                     </Column>
                     <Column>
                         <p>
-                            This is a list of recommended Basic Abilities (from your Basic Ability Lists mentioned above) for when you are undecided on which Basic Abilities to get, or you simply want a quick character creation.
+                            This is a list of recommended Basic Abilities (from your Basic Ability Schools mentioned above) for when you are undecided on which Basic Abilities to get, or you simply want a quick character creation.
                             They are in order of priority, top to bottom. If you don't know what to pick, get these! You can click on them on the left to check out what they do, or check out the Abilities page to see all of them.
                             Unless your Intelligence is 3, you won't be able to get all of them, but you can pick the first few ones.
                         </p>
@@ -401,12 +396,12 @@ export function SpellCasting({ theClass }) {
                         ) }
                         {
                             theClass['Spellcasting']['Known Basic Abilities'] != null && (
-                                <SmallStat name="Known Abilities (from Basic Ability Lists)" type="vertical" color="blue">
+                                <SmallStat name="Number of Known Basic Abilities" type="vertical" color="blue">
                                     { theClass['Spellcasting']['Known Basic Abilities'] }
                                 </SmallStat>
                             )
                         }
-                        <SmallStatList name="Basic Ability Lists" color="blue">
+                        <SmallStatList name="Available Basic Ability Schools" color="blue">
                             {
                                 theClass['Spellcasting']['Basic Ability Lists'].map(spellCategory => (
                                     <div key={spellCategory}>{ spellCategory }</div>
@@ -468,7 +463,7 @@ export function SpecTalents({ spec }) {
     const talentTiers = [3,4,5,6,7,8,9]
     const defaultSmallBonusTalentsByTier = {
         4: ['<Stat Bonus 4>', '<Double Stat Bonus>'],
-        6: ['<Health Bonus>', '<Health Regen Bonus>'],
+        6: ['<Stat Bonus 4>', '<Double Stat Bonus>'],
         8: ['<Stat Bonus 5>', '<Mana Bonus>']
     }
 

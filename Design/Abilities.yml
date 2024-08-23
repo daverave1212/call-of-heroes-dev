@@ -12,7 +12,11 @@
 # Divine Abilities that cost Mana should be slightly weaker (1 tier weaker) compared to other lists.
 #   This is because Clerics and Paladins scale with Mana.
 
-
+    # Degree:
+# Lesser -- Half-Action, 0 Mana
+# Minor -- 1 Action, 0 Mana | Half-Action, 1 Mana
+# Major -- 1 Action, 1 Mana | Half-Action, 2 Mana
+# Grand -- >>>>
 
 # ToDo:
 # Make some good spells that Artificer - Spellcraft can benefit from (e.g. CC, small area, short range, even amount of dice)
@@ -198,7 +202,7 @@ Default Moves:
         A: 1 Action
         Range: 1 meter
         Effect: |
-            Pass a Might Check against a Unit's Dexterity or Might Check (its choice) to make it Rooted and Fumbling.
+            Pass a Might Check against a Unit's Dexterity or Might Check (its choice) to either make it Rooted and Fumbling, or mount it.
         Notes: Like all Crowd Control, being grappled lasts 1 turn. The target becomes not-grappled if the grappler exits its adjacency.
 
     # ~Wait~:
@@ -287,6 +291,7 @@ Bloodshed:
     ~Recuperate~:
         A: 0 Actions
         Cost: 1 Mana
+        Degree: Minor
         Effect: |
             Heal yourself for 1d10. If you're affected by any Crowd Control (except turn-skipping), remove it instead of healing.
 
@@ -294,8 +299,9 @@ Bloodshed:
         A: Half-Action
         Cooldown: Once / Combat
         HasMixins: true
-        Effect: Attack a Unit for 1d6 + 2 Damage of your ^weapon^'s type. Its Passives are disabled until your next turn.
-        Notes: Its Passives become disabled before you hit it (e.g. Kobolds don't dodge this attack).
+        Effect: |
+            Attack a Unit for 1d6 + 2 Damage of your ^weapon^'s type. Its Passives, weapon* effects and Reactions are disabled until your next turn.
+        Notes: Its Passives become disabled before you hit it (e.g. Kobolds don't dodge this attack). Some monsters have special weapon* effects, like Centaurs who gain extra Damage based on how much they moved. These are disabled.
 
     ~Off-Hand Shank~:
         A: Half-Action
@@ -305,6 +311,7 @@ Bloodshed:
         Effect: Make 3 attacks with a weapon you haven't used this turn that would normally scale with a Stat. These attacks do not add your Stat to the Damage.
 
     ~Vault Break~:
+        Degree: Lesser
         A: 0 Actions
         Cooldown: Once / Combat
         Range: 3 meters
@@ -321,6 +328,7 @@ Bloodshed:
         Range: 10 meters
         Requirement: Level 2
         HasMixins: true
+        Degree: Major
         Effect: |
             Deal 12 + Charisma Cold Damage to a sentient Unit
             It becomes Slowed.
@@ -332,6 +340,7 @@ Bloodshed:
         Cost: 1 Mana
         Range: 3 meters
         Requirement: Level 2
+        Degree: Minor
         Effect: A target within 3 meters takes 3d4 + 2 Psychic Damage and can't cast Healing spells or regain Health for 1 turn.
 
 
@@ -349,6 +358,7 @@ Bloodshed:
         Cost: 1 Mana
         Range: 2 meters
         Requirement: Level 3
+        Degree: Minor
         Effect: |
             Deal 1d10 Pulse Damage to a Unit and it becomes Feared.
 
@@ -367,6 +377,7 @@ Bloodshed:
         Cost: 1 Mana
         Cooldown: 1 turn
         Requirement: Level 4
+        Degree: Minor
         Effect: |
             Gain 3 Fury.
             Every time you do Damage or Healing, deal Damage or Heal an extra amount equal to your Fury, then get -1 Fury.
@@ -383,6 +394,7 @@ Bloodshed:
         A: 1 Action
         Cost: 3 Mana
         Requirement: Level 6
+        Degree: Grand
         Effect: Heal for 1d100.
 
 
@@ -446,6 +458,7 @@ Warfare:
     ~Glory Shout~:          # Slightly strong for the cost, but it's distributed weirdly so ok
         A: 0 Actions
         Cost: 1 Mana
+        Degree: Minor
         Effect: Roll 1d4. Either heal all allies that can hear you (and yourself), or Damage all Worthy Enemies that can hear you for that amount (as Psychic Damage).
 
     ~Chilling Shout~: Inherit
@@ -470,6 +483,7 @@ Warfare:
         Cost: 1 Mana
         Requirement: Level 2
         HasMixins: true
+        Degree: Minor
         Effect: |
             Push an enemy 1 meter in any direction. Gain {Gold}Fool's Gold equal to the enemy's Experience Worth.
         Upgrade: Epic Monsters award {Gold}Fool's Gold equal to their Experience Worth / Epic Grade.
@@ -481,6 +495,7 @@ Warfare:
         A: 0 Actions
         Cost: 1 Mana
         Requirement: Level 4
+        Degree: Major
         Effect: |
             Leap up to 3 meters. If you land on a Unit, Doublesault again (for free)!
         Notes: |
@@ -495,14 +510,6 @@ Warfare:
             All allies (and you) remove their Roots, Slows and Dazes.
             You (yourself) can continue your Movement if you already moved.
     
-    ~Assess Their Ranks~:   # Ok
-        A: Half-Action
-        Cost: 1 Mana
-        Requirement: Level 5
-        Effect: |
-            Gain Shielding equal to the number of Worthy Enemies you can see.
-            At the start of your next turn, all Shielding on you is consumed and explodes, dealing Pulse Damage equal to the Shielding consumed to all Units within 1 meter of you.
-        
 
     ~Infailible Reach~:     # Ok
         A: 1 Action
@@ -535,6 +542,7 @@ Warfare:
         Cost: 1 Mana
         DisplayName: "{Name}"
         Requirement: Level 3
+        Degree: Major
         Effect: |
             Roll 2d8 for each Unit {Area}
             Assign 2 of the rolled d8's to each of those Units, and deal that much Damage Damage to it.
@@ -551,9 +559,19 @@ Warfare:
               Area: in a chosen 5x5 meter area (5 meter range to the edge).
               IconName: High Noon
 
+    ~Assess Their Ranks~:   # Ok
+        A: Half-Action
+        Cost: 1 Mana
+        Requirement: Level 5
+        Degree: Minor
+        Effect: |
+            Gain Shielding equal to the number of Worthy Enemies you can see.
+            At the start of your next turn, all Shielding on you is consumed and explodes, dealing Pulse Damage equal to the Shielding consumed to all Units within 1 meter of you.
+        
     ~Bravery Despite Fear~:
         A: Half-Action
         Cost: 1 Mana and 2d6 Health
+        Degree: Major
         Requirement: Level 6
         Cooldown: Once / Adventure
         Effect: Reset the Cooldown of a different Ability.
@@ -641,6 +659,7 @@ Elemental:
         A: 1 Action
         DisplayName: "{Element} Burst"
         Range: 5 meters
+        Degree: Minor
         Effect: |
             Damage a Unit for 2d6 {Element} Damage.
             If had taken {Element} Damage this combat before, add another 1d10 Damage.
@@ -659,6 +678,7 @@ Elemental:
         A: Half-Action
         Cooldown: Once / Turn
         Range: Near you
+        Degree: Lesser
         Effect: |
             All Units 3x3 meter area take 4 Fire Damage.
             Units can't benefit from Cover from this Ability.
@@ -670,6 +690,7 @@ Elemental:
         Range: 5 meters
         Cost: 1 Mana
         HasMixins: true
+        Degree: Major
         Effect: Deal Cold Damage to a Unit equal to 2d6 + ^Its Dexterity^. If it's Medium or smaller, it becomes Rooted.
         Tag: CC Hard
 
@@ -687,6 +708,7 @@ Elemental:
         Cost: 1 Mana
         Range: 10 meters
         Requirement: Level 2
+        Degree: Minor
         Effect: Shoot an ice shard toward a Unit, dealing 1d8 + 3 Cold or Pierce Damage (your choice). It becomes Fumbling.
         Tag: Damage (Half)
 
@@ -697,6 +719,7 @@ Elemental:
         Range: 3 meters
         Duration: 24 hours / Depends
         Requirement: Level 2
+        Degree: Minor
         Effect: |
             Choose a metallic weapon to imbue it with {Element}.
             That weapon deals +2 Damage (as part of the Attack) and the total weapon Damage becomes {Element} Damage.
@@ -718,6 +741,7 @@ Elemental:
         Cost: 1 Mana
         Range: 5 meters
         Requirement: Level 2
+        Degree: Minor
         HasMixins: true
         Effect: |
             Choose a piece of metal equipment and heat it.
@@ -732,6 +756,7 @@ Elemental:
         Cost: 1 Mana
         Requirement: Level 2
         Range: 5 meters to first target
+        Degree: Major
         Effect: |
             Choose a Worthy Unit other than you.
             If it's an Enemy, it takes 1d10 Shock Damage.
@@ -743,6 +768,7 @@ Elemental:
     # Level 3
 
     ~Control Elements~:
+        Degree: Lesser
         HasMixins: true
         A: 1 Action
         Range: 5 meters
@@ -766,6 +792,7 @@ Elemental:
         Cost: 1 Mana
         Range: 10 meters
         Requirement: Level 3
+        Degree: Major
         Effect: Shoot 3 rays of fire (at one or more Units). Each does 1d6 + 2 Fire Damage.
         Notes: You can roll them one by one, after they deal the damage.
         Tag: Damage (1)
@@ -776,6 +803,7 @@ Elemental:
         Range: 5 meters
         Duration: 1 minute
         Requirement: Level 3
+        Degree: Minor
         Effect: |
             Shock a Unit for 1d10 Shock Damage.
             At the start of your every turn, deal another 1d10 to it.
@@ -787,6 +815,7 @@ Elemental:
         A: Half-Action
         Cost: 1 Mana
         Requirement: Level 3
+        Degree: Minor
         Effect: |
             All Units within 2 meters of you become Slowed and take 1d6 Cold Damage.
             For each Unit hit, you deal +1 Cold Damage for the rest of the encounter.
@@ -806,6 +835,7 @@ Elemental:
         Duration: 48 hours
         Requirement: Level 4
         HasMixins: true
+        Degree: Major
         Effect: |
             Place a rune on a smooth solid surface. 
             A Unit touching the rune detonates it, dealing 3d10 {Element} Damage to it.
@@ -834,6 +864,7 @@ Elemental:
         Cost: 2 Mana
         Range: 5 meters
         Requirement: Level 4
+        Degree: Grand
         Effect: |
             Extend a lightning bolt upon a  Unit, dealing for 2d12 Shock Damage to it and its closest Unit within 3 meters.
             If the lightning touches water, fire, fog or gas (or Unit is standing in it), increase the Damage by 50%.
@@ -844,6 +875,7 @@ Elemental:
         Requirement: Level 4
         Cooldown: Intelligence uses / Adventure
         HasMixins: true
+        Degree: Minor
         Effect: |
             Choose a number of 1x1x1 cubes containing water equal to your Level.
             The water there freezes.
@@ -858,6 +890,7 @@ Elemental:
         Requirement: Level 4
         Duration: 1 minute
         Cost: 1 Mana
+        Degree: Minor
         Effect: |
             A Unit gains propulsion by fire. It gains +3 Movement Speed, can Break Movement and, whenever it enters the adjacency of an Enemy, deals 1d4 Fire Damage to it.
         Notes: The Damage can only happen once per turn per enemy. The Damage source is you (for amplification effects).
@@ -871,6 +904,7 @@ Elemental:
         Cost: 2 Mana
         Range: 10 meters
         Requirement: Level 5
+        Degree: Major
         Effect: |
             Choose a Unit. It takes 1d10 Cold Damage, and each Unit within 2 meters of it takes Cold Damage equal to 200% of the roll. All of them are Slowed.
             If there were no Units within 2 meters of it, the target is Stunned instead.
@@ -883,6 +917,7 @@ Elemental:
         Cost: 3 Mana
         Range: 6 meters (to the edge)
         Requirement: Level 5
+        Degree: Grand
         Effect: |
             All Units in 6-meter diameter area take 6d6 {Element} Damage.
             
@@ -916,6 +951,7 @@ Elemental:
         A: 1 Action
         Cost: 1 Mana
         Requirement: Level 6
+        Degree: Major
         Duration: 1 minute
         Effect: |
             Ignite a Unit you can see. At the end of each of your turns, it takes 7 Fire Damage.
@@ -939,6 +975,7 @@ Elemental:
         Cost: 2 Mana
         Requirement: Level 7
         Range: 10 meters
+        Degree: Grand
         Effect: |
             Damage a Unit for a total of 2d6 True Damage for each Element the target had been Damaged with this combat before.
         Upgrade: Possible elements are Fire, Cold, Shock, Divine, Poison, Scourge, Acid and Psychic.
@@ -1016,6 +1053,7 @@ Arcane:
         A: 1 Action
         Range: 5 meters
         HasMixins: true
+        Degree: Minor
         Effect: |
             Shoot a number of missiles equal to ^your Intelligence^ + 1. Each missile does 1d4 Pulse Damage.
         Notes: |
@@ -1026,6 +1064,7 @@ Arcane:
         A: 1 Action
         Range: 3 meters
         HasMixins: true
+        Degree: Lesser
         Effect: |
             Choose one of these effects to cast:
             {Diamond} Create harmless sensory effects, sparks or non-damaging heat or cold.
@@ -1034,10 +1073,12 @@ Arcane:
             {Diamond} Control a quill with telekinesis to quickly write with it.
 
     ~Dispel Magic~:
+        Degree: Lesser
         A: 0 Actions
         Cooldown: Once / Combat
         AlignOnWebsite: Right
         Range: 5 meters
+        Degree: Minor
         HasMixins: true
         Effect: Dispell all ongoing _non-chronic_ magical effects on a Unit (any magical Crowd Control, magical buffs and debuffs, etc).
         Notes: Chronic effects are ones that last days, months or are permanent, such as curses, vampirism, etc.
@@ -1052,6 +1093,7 @@ Arcane:
     ~Focus Fling~:
         A: Half-Action
         Requirement: Level 2
+        Degree: Lesser
         Effect: |
             Choose a medium-sized object within 5 meters that's no heaveier than 10kg.
             Fling the object into a Unit within 3 meters of the object.
@@ -1077,6 +1119,7 @@ Arcane:
         Cost: 1 Mana
         Requirement: Level 2
         Cooldown: Once / Turn
+        Degree: Minor
         Effect: Instantly teleport up to 6 meters away, within line of sight.
         Notes: You take with you all items carried. Does not work if you're Rooted or stuck in place somehow.
 
@@ -1086,6 +1129,7 @@ Arcane:
         A: Reaction or 0 Actions
         Requirement: Level 3
         Range: 10 meters
+        Degree: Minor
         Effect: |
             Up to 2 Units you choose will start falling gently, down to 3 meters per round.
             Once the fall finishes, the spell effect ends.
@@ -1098,6 +1142,7 @@ Arcane:
         Range: 15 meters
         Requirement: Level 3
         Cost: 1 Mana
+        Degree: Major
         Effect: |
             You conjure a magical star that always shoots North and deals 4d8 Shock Damage to the first Unit hit.
         Notes: |
@@ -1110,6 +1155,7 @@ Arcane:
         Range: 5 meters
         Requirement: Level 3
         Duration: Rest of Adventure
+        Degree: Minor
         Effect: |
             Conjure a spectral hand in a space you can see.
             You can move the hand as you move your normal hands and you can move your hand by spending meters from your remaining Movement.
@@ -1130,6 +1176,7 @@ Arcane:
         Range: 10 meters to edge
         Cooldown: Once / Combat
         Requirement: Level 4
+        Degree: Major
         Effect: |
             You conjure a levitating barrage of arrows in a 3x3 area, up to 10 meters above ground.
             At any point (for 0 Actions or with a Reaction), you can release these arrows upon the ground, hitting all enemies hit for 2d6 Pierce Damage.
@@ -1143,6 +1190,7 @@ Arcane:
         Cost: 2 Mana
         Requirement: Level 4
         HasMixins: true
+        Degree: Grand
         Effect: |
             Shoot a magical spear in a 6 meter line from in front of you.
             Each Unit hit takes 14 Damage, except the last Unit hit, which takes only 7 Damage instead.
@@ -1188,6 +1236,7 @@ Arcane:
         Requirement: Level 4
         Cost: 1 Mana
         Range: 10 meters
+        Degree: Major
         Effect: |
             You create an illusion that fits at most in a 2x2x2 meter cube.
             The illusion appears real to the eyes, ears and by smell, but physical interaction makes it obvious it's an illusion and objects pass through it normally.
@@ -1203,6 +1252,7 @@ Arcane:
         Requirement: Level 4
         Cost: 1 Mana
         Range: 3 meters
+        Degree: Major
         Effect: |
             You can conjure an object that is up to 1x1x1 meter in size.
             The object is solid and glows faintly.
@@ -1226,6 +1276,7 @@ Arcane:
         Range: 5 meters
         Duration: Depends
         Requirement: Level 3
+        Degree: Major
         Effect: |
             Conjure a levitating, self-wielding melee weapon on a space within 3 meters.
             On your each turn (includig this), the weapon can make a melee Attack that deals 1d10 + 1 Damage (Pierce, Slash or Smash) and move up to 3 meters.
@@ -1262,6 +1313,7 @@ Arcane:
         Requirement: Level 5
         Cost: 1 Mana
         HasMixins: true
+        Degree: Major
         Effect: |
             You become invisible for up to (Intelligence) minutes (at least 1).
             Attacking, taking Damage or casting _offensive_ Abilities while invisible breaks the invisibility.
@@ -1273,6 +1325,7 @@ Arcane:
         Cost: 2 Mana
         Requirement: Level 5
         Duration: Depends
+        Degree: Grand
         Effect: |
             Choose an animal from the Pet List or any critter, such as a sheep, deer, etc.
             A Unit within 10 meters becomes transformed into that animal. Last a number of its turns equal to Your Intelligence - Its Intelligence (at least 1).
@@ -1308,6 +1361,7 @@ Arcane:
         Cost: 1 Mana
         HasMixins: true
         Range: 10 meters to edge
+        Degree: Major
         Effect: |
             Declare a 5x5 meter area.
             All Units inside it must succeed an Intelligence Check against double your Intelligence or be affected by all the following:
@@ -1325,6 +1379,7 @@ Arcane:
         Requirement: Level 6
         Cost: 1 Mana
         AlignOnWebsite: Right
+        Degree: Major
         Effect: |
             First, roll 2d100. That's how many kilograms you can levitate when you cast this.
             You can levitate one object you can see that remains within 10 meters of you.
@@ -1340,6 +1395,7 @@ Arcane:
         Cost: 1 Mana
         Cooldown: Once / Turn
         Requirement: Level 6
+        Degree: Minor
         Effect: |
             A Unit or object you can see becomes one Size larger/smaller for its next 1d4 turns.
             It gains or loses 20% of its base (unbuffed) Defense (gain/loss is rounded up), gains or loses 1 Damage on all physical Acts (that would deal Damage) and gains or loses 1 Movement Speed.
@@ -1373,6 +1429,7 @@ Arcane:
         Requirement: Level 6
         Cost: 3 Mana
         Range: 10 meters to edge
+        Degree: Grand
         Effect: |
             Declare an area with a diameter in meters (in all directions) equal to your Level.
             The gravity becomes reversed in that area and all Units instantly fall upwards. Units can make a Dexterity Check to grab onto an object to not be lifted.
@@ -1393,6 +1450,7 @@ Arcane:
         Cost: 1 Mana
         Range: 5 meters
         Requirement: Level 7
+        Degree: Major
         Effect: |
             A non-Epic Unit becomes Banished to the Shadow Realm until the start of your next turn.
             While Banished, it can't interact with the normal world and nothing can interact with it.
@@ -1402,6 +1460,7 @@ Arcane:
         A: 10 minutes
         Cost: 1 Mana
         Requirement: Level 7
+        Degree: Major
         Effect: |
             Touch 2 objects of the same type (e.g. 2 helmets, or 2 arrows, or 2 melee 1-Handed weapons, etc).
             You make one of the look like the other.
@@ -1413,6 +1472,7 @@ Arcane:
         Requirement: Level 7
         Cost: 1 Mana
         HasMixins: true
+        Degree: Major
         Effect: |
             Touch a 1x1x1 meter cube of rock, mud, sand, etc.
             Transform it into rock, mud, sand, etc.
@@ -1433,6 +1493,7 @@ Arcane:
         A: 10 minutes
         Requirement: Level 8
         Cost: 2 mana
+        Degree: Major
         Effect: |
             At any point, you can freely spend 10 minutes in a place to Bind to it.
             When you use this Ability, channel for 10 minutes to teleport all allies (and yourself) within 10 meters of you to the bound place.
@@ -1448,6 +1509,7 @@ Arcane:
         Duration: 24 hours
         Cost: 3 Mana
         Cooldown: 1 Week
+        Degree: Grand
         Effect: |
             Conjure a cubic room with a width equal to your Level and a 1x2 meter door.
             This room works like a pocket dimension and only the door is visible from the outside. The room occupies no space in the real world, except for the door (you enter the room through the door).
@@ -1459,6 +1521,7 @@ Arcane:
         Cost: 3 Mana
         Duration: 30 days
         Requirement: Level 10
+        Degree: Grand
         Effect: |
             You need a partner who can cast Portal to cast this.
             You both cast it at the same time, in different locations.
@@ -1496,6 +1559,7 @@ Nature:
         Duration: 24 hours
         Cooldown: 24 hours
         Requirement: Level 2
+        Degree: Lesser
         Effect: |
             You setup an invisible 4x4x4 meter cube.
             If an unknown Unit or Enemy enters the cube, it alerts you mentally.
@@ -1508,6 +1572,7 @@ Nature:
         Range: 5 meters
         Cooldown: Sense uses / Adventure
         Requirement: Level 2
+        Degree: Lesser
         Effect: |
             You can control gusts of wind in a 6x6x6 area and do one of the following for 1 Action:
             {Diamond} You can create a gust of Heavy Wind blowing from any direction (see notes) that lasts for 1 minute
@@ -1524,6 +1589,7 @@ Nature:
         A: 0 Actions
         Cooldown: 1 hour
         Range: 3 meters
+        Degree: Lesser
         Effect: |
             Cure a simple Disease, Debuff or Bleed effect on a Unit (you can choose yourself), or clean up to 2 rations or liters of water of microbes, mild poison or impurities.
         Upgrade: |
@@ -1546,6 +1612,7 @@ Nature:
         A: Half-Action
         Range: 3 meters
         Duration: 1 minute
+        Degree: Lesser
         Effect: |
             Choose a Unit and poison it.
             At the end of each of your turns, that Unit takes 1d4 Poison Damage.
@@ -1560,12 +1627,12 @@ Nature:
     #         It has +1d4 in all Resist Checks with that Stat.
 
     ~Fog Cloud~:
-        A: 1 Action
+        A: Half-Action
         Cost: 1 Mana
         Range: 5 meters to edge
         Effect: |
             A 5x5x5 meter cube becomes covered in fog for 1 minute.
-        Upgrade: All Attacks done from, through or to Units inside Fog have Cover (-2).
+        Upgrade: All Attacks done from, through or to Units inside Fog have Cover (-50%).
         Notes: Fog can be dissipated by wind. You can choose the color of the fog. The fog does not go through walls, but does bend around corners (e.g. up to 360 degrees around wall extremities).
 
     
@@ -1586,6 +1653,7 @@ Nature:
         Cost: 1 Mana
         Range: 5 meters
         Requirement: Level 5
+        Degree: Major
         Effect: |
             A Unit in range takes 2d8 + 3 Slash Damage and ignores Defense.
             If it weighs 75kg or less, it takes another 1d8 Slash Damage and is pushed up to 3 meters in a chosen direction.
@@ -1596,6 +1664,7 @@ Nature:
         Cost: 1 Mana
         Duration: 24 hours or 3 hits
         Requirement: Level 3
+        Degree: Minor
         Effect: |
             A Unit you can see becomes surrounded by 3 floating plates of earth.
             Whenever the Unit would take Damage from an Enemy, it rolls 1d4 and subtracts it from the Damage.
@@ -1606,6 +1675,7 @@ Nature:
         A: Half-Action
         Range: 5 meters
         Cost: 1 Mana
+        Degree: Minor
         Effect: Heal a target for 2d6.
         
     ~Lightning Storm~:  # Per single target, 0.5 Damage weaker than normal attack; but it's AoE!
@@ -1614,6 +1684,7 @@ Nature:
         Cost: 1 Mana
         Requirement: Level 3
         HasMixins: true
+        Degree: Major
         Effect: |
             Declare a 4x4x4 Cube.
             All units inside take 3d4 Shock Damage now.
@@ -1628,6 +1699,7 @@ Nature:
         Cost: 1 Mana
         Requirement: Level 2
         HasMixins: true
+        Degree: Major
         Effect: |
             Send out a 5x1 meter wave forward through the ground.
             All Units hit take 2d8 Pulse Damage.
@@ -1641,6 +1713,7 @@ Nature:
         Range: 10 meters to edge
         Duration: 10 minutes
         Requirement: Level 2
+        Degree: Minor
         Effect: |
             Declare a 4x4x4 meter area.
             All Units in that area become outlined in a colored glow (you choose the color) and can't benefit from Cover.
@@ -1652,6 +1725,7 @@ Nature:
     ~Draw Moisture~:
         A: 1 Action
         Requirement: Level 2
+        Degree: Lesser
         Effect: |
             Using your hands, you draw in water from all objects in a 1x1x1 meter cube and store magically it in your body.
             You can use 1 Action to release all the stored water, without dealing Damage.
@@ -1662,6 +1736,7 @@ Nature:
         A: 1 Action
         Range: 10 meters
         Requirement: Level 2
+        Degree: Minor
         Effect: |
             You gather stone, dirt, sand, etc from the surroundings and release it upon an enemy.
             A Unit takes 3d6 Damage Pulse Damage, then all other Units within 1 meter take Damage equal to two of rolled dice (you choose).
@@ -1690,6 +1765,7 @@ Nature:
         A: 0 Actions
         Cost: 1 Mana
         Duration: 1 minute
+        Degree: Minor
         Effect: |
             A Unit you can see grows thorns on its body.
             Whenever it is melee attacked, the attacker takes 1d4 Pierce Damage.
@@ -1699,6 +1775,7 @@ Nature:
         A: 1 Action
         Range: 6 meters
         HasMixins: true
+        Degree: Minor
         Effect: |
             A target takes 1d8 + ^Sense^ Poison Damage.
             The next time it takes damage from a weapon, it takes an extra 1d8 Poison Damage.
@@ -1707,6 +1784,7 @@ Nature:
         A: 1 Action
         Cost: 1 Mana
         Duration: Whole Adventure
+        Degree: Major
         Effect: Up to 2 allies you touch gain Shielding equal to your Level.
         Notes: Wild Heart can only be cast once on a Unit, per Adventure.
     
@@ -1714,6 +1792,7 @@ Nature:
         A: 0 Actions
         Cooldown: 10 minutes
         Requirement: Level 3
+        Degree: Lesser
         Effect: |
             Your next ranged Attack curves around obstacles, ignoring Cover and Hard Cover and deals 1d6 extra Damage of its type.
         Notes: You still need Line of Sight to the target.
@@ -1735,6 +1814,7 @@ Nature:
         Cost: 1 Mana
         Cooldown: Once / Adventure
         Requirement: Level 4
+        Degree: Minor
         Effect: |
             Roll 3d6. You find and/or enchant that many bites of food. Each bite restores 1 Health to the eater.
         Notes: The Health is evenly spread among the food bites. For example, you might conjure 3d6 berries, each worth 1 Health. Or you might enchant a loaf of bread, each slice being worth 1 Health.
@@ -1745,6 +1825,7 @@ Nature:
         Cost: 1 Mana
         Duration: 1 minute
         Requirement: Level 4
+        Degree: Minor
         Effect: |
             Choose a Unit. A swarm of locusts appears and chases it.
             After the Unit moves willingly, it takes 1 Pierce Damage for each meter it moved.
@@ -1757,6 +1838,7 @@ Nature:
         Cost: 2 Mana
         Requirement: Level 4
         HasMixins: true
+        Degree: Major
         Effect: |
             Lash out a noxious sting towards a Unit.
             It chooses whether to be Crippled or take 3d10 Poison Damage.
@@ -1771,6 +1853,7 @@ Nature:
         Requirement: Level 5
         Cooldown: Once / Real hour
         Duration: 10 minutes
+        Degree: Minor
         Effect: |
             Your hands and feet can stick to solid surfaces, so you can walk or crawl on them.
             Walking on walls and floors acts as Hard Terrain.
@@ -1783,6 +1866,7 @@ Nature:
         Duration: 1 minute
         Requirement: Level 5
         HasMixins: true
+        Degree: Minor
         Effect: |
             Declare a 4x4 meter area
             The area becomes filled with spider web and counts as Difficult Terrain.
@@ -1883,6 +1967,7 @@ Mysticism:
             A: 1 Action
             Range: 1 meter
             Duration: Your Level hours
+            Degree: Lesser
             Effect: |
                 Create a magical light bulb that sheds light in a 5 meters radius.
                 It levitates and stays where you put it and can be moved by hand, or you can simply stick it to any solid object.
@@ -1894,6 +1979,7 @@ Mysticism:
 
         ~Mending~:
             A: 1 Action
+            Degree: Lesser
             Effect: |
                 Touch a slightly broken piece of material that is still in one piece.
                 You can repair the Damage done to it.
@@ -1932,6 +2018,7 @@ Mysticism:
         ~Restoration~:
             A: 0 Actions
             Cooldown: Once / Adventure
+            Degree: Minor
             Effect: |
                 Remove all your party members' Exhaustion (from any source).
                 If they were Exhausted from lack of sleep, they can resist sleep Exhaustion for 8 more hours.
@@ -1951,6 +2038,7 @@ Mysticism:
             A: Half-Action
             Cost: 1 Mana
             Range: 5 meters
+            Degree: Minor
             Effect: |
                 Shoot a magical bolt towards a Unit that deals 1d10 + (target's base Movement Speed) Pulse Damage to it.
             Notes: Against Epic monsters, the Maximum Speed is calculated as it's (Speed) * (Epic Grade). E.g. if it's an Ogre with Movement Speed of 3 and has an Epic Grade of 2 (meaning it takes 2 turns), its Maximum Movement Speed is 2 * 3 = 6.
@@ -1960,6 +2048,7 @@ Mysticism:
             Cost: 1 Mana
             Range: 5 meters
             HasMixins: true
+            Degree: Minor
             Effect: |
                 Heal a target for 1d4 + ^Sense^ Health.
                 After this, if the target is at full Health, repeat this on another target.
@@ -1973,6 +2062,7 @@ Mysticism:
             Cost: 1 Mana
             Requirement: Level 2
             HasMixins: true
+            Degree: Major
             Effect: |
                 A Unit takes 4d6 Psychic Damage and chooses whether to become Blinded or Silenced.
             Notes: |
@@ -1984,6 +2074,7 @@ Mysticism:
             A: 0 Actions or Reaction
             Cost: 1 Mana
             Requirement: Level 3
+            Degree: Minor
             Effect: |
                 A Unit you can see (or yourself) becomes blurry to enemies until the start of your next turn.
                 It gains +2 Defense and +2 to all Resist Checks and 3 Movement Speed.
@@ -2007,6 +2098,7 @@ Mysticism:
             Cost: 1 Mana
             Requirement: Level 3
             HasMixins: true
+            Degree: Major
             Effect: |
                 Choose 2 Units you can see. Each takes 1d6 + ^Your Sense^ Damage (separately) and is affected by an effect based on the number on the die:
                 {Diamond} 1. Immediately moves in a random direction (chosen by the DM) (without consumng Movement), and is Feared.
@@ -2025,6 +2117,7 @@ Mysticism:
             Range: 3 meters
             Duration: 6 seconds
             Requirement: Level 3
+            Degree: Minor
             Effect: |
                 You create a sound out of thin air.
                 Roll a Charisma Check and add your Intelligence modifier to it to see how accurate your sound is.
@@ -2047,6 +2140,7 @@ Mysticism:
             A: 1 Action
             Requirement: Level 4
             Range: 5 meters
+            Degree: Minor
             Effect: |
                 A Unit makes a Sense Check.
                 If it fails, all your Charisma checks for/against it have +2.
@@ -2057,6 +2151,7 @@ Mysticism:
             A: 1 Action
             Requirement: Level 4
             Range: 15 meters
+            Degree: Lesser
             Effect: |
                 A non-Epic beast that can see you makes a Charisma Check.
                 If it fails, you can change the beast's mood (make it hungry, afraid, nervous, etc).
@@ -2066,6 +2161,7 @@ Mysticism:
             A: 1 Action
             Requirement: Level 4
             Duration: 24 hours (unlimited duration at Level 8)
+            Degree: Lesser
             Effect: |
                 You pull a String of Memory or Thoughts (can be visual, auditive, sensory and olphactive) from your own memory.
                 This String can be up to 1 minute in length.
@@ -2074,6 +2170,23 @@ Mysticism:
                 To view the String, a person can willingly absorb it through the mouth, eyes, nose, etc (corresponding to the type of memories) and visualize the String.
                 After that, the String disappears.
                 Encoding another String makes the previous String disappear.
+
+        ~Soul Comet~:     # 2 Charges Damage at 8 meters
+            _Value: 2
+            AlignOnWebsite: Left
+            HasMixins: true
+            A: 1 Action
+            Cost: 2 Mana
+            Range: 8 meters
+            Requirement: Level 4
+            Effect: |
+                Shoot a comet at a Unit that changes in power the longer it travels.
+                It deals 1d6 Pulse Damage for every meter it travels, but the longer it travels, the weaker the Crowd Control is.
+                {Diamond} 1 or 2 meters: Target becomes Stunned
+                {Diamond} 3 or 4 meters: Target becomes Fumbling
+                {Diamond} 5 or 6 meters: Target becomes Rooted
+                {Diamond} 7+ meters: Roll an Unstable Spark die
+            Notes: The Unstable Spark die rolled affects your next Ability this Turn. Good luck with that!
 
 
 
@@ -2091,12 +2204,14 @@ Mysticism:
         ~Translation~ :
             A: 0 Actions
             Requirement: Level 5
+            Degree: Lesser
             Effect: You can understand any spoken or written language that's either Common (Dwarvish, Elvish) or Wild (spoken by "wild", tribal socities, such as Orcish, Goblan, Sylvan, etc).
         
         ~Watcher Eye~:
             A: 0 Actions
             Range: 5 meters
             Requirement: Level 5
+            Degree: Lesser
             Effect: |
                 You conjure a magical eye that records everything it sees for up to 24 hours.
                 After 24 hours, the eye stops recording.
@@ -2110,6 +2225,7 @@ Mysticism:
             Requirement: Level 5
             Duration: (Your Level) hours
             Cost: 1 Mana
+            Degree: Minor
             Effect: |
                 Up to 2 allies you can see (can include yourself) can now breathe under water.
 
@@ -2145,6 +2261,7 @@ Eldritch:
         A: 1 Action
         Range: 4 meters
         HasMixins: true
+        Degree: Minor
         Effect: |
             Blast a Unit for 2d8 + ^target's Might^ Scourge Damage.
             If you roll maximum on at least one die, deal another 1d6 Damage.
@@ -2155,6 +2272,7 @@ Eldritch:
         Range: 10 meters
         Duration: 1 minute
         Requirement: Level 2
+        Degree: Minor
         Effect: |
             A target makes a Charisma Check.
             If it fails, whenever it makes an Attack or Check, it rolls 1d4 and subtracts it from the result.
@@ -2165,6 +2283,7 @@ Eldritch:
         A: Channeled
         Cooldown: 1 hour
         Requirement: Level 2
+        Degree: Lesser
         Effect: |
             Channel to spawn a blight that spreads a 1x1 meter space away from you for each 1 Action channeled.
             The blight kills small plants, insects and rots wood and rusts metal. It also makes fertile soil infertile, turns textile and paper materials into dust and decays food and poisons water.
@@ -2181,10 +2300,11 @@ Eldritch:
         Range: 5 meters to edge
         Duration: 1 minute
         Requirement: Level 2
+        Degree: Minor
         HasMixins: true
         Effect: |
             Conjure a 4x4x4 meter cloud of rot.
-            Units starting their turn in the cloud take 1d10 Poison Damage, become Fumbling, can't be healed, and have -2 to all Checks, all until the end of their current turn.
+            When a Unit touches the cloud it takes 1d10 Poison Damage, become Fumbling and can't be healed all until the end of their current (or next) turn.
         Notes: |
             {Fumbling}
 
@@ -2195,6 +2315,7 @@ Eldritch:
         Duration: 8 hours (24 hours at level 4, 1 week at level 8)
         Cooldown: 8 hours
         Requirement: Level 3
+        Degree: Lesser
         Effect: |
             A person makes a Sense Check.
             If it fails, it becomes afflicted with a minor (usually non-combat) curse, such as:
@@ -2211,14 +2332,16 @@ Eldritch:
     ~Hollow Touch~:
         A: 1 Action
         Range: 4 meters
+        Degree: Minor
         Effect: |
-            Reap a Unit from afar, dealing 1d12 + 3 Scourge Damage and the target is unable to reagain health until the end of its next turn.
-            For the rest of the combat, it takes 1 extra Scourge Damage from all sources.
+            Deal 1d12 + ^Your Sense or Intelligence^ Scourge Damage to a Unit.
+            For the rest of the combat, whenever it would take Scourge Damage, it takes 2 more (stacks indefinitely).
 
     ~Thaumaturgy~:
         HasMixins: true
         A: 1 Action
         Range: 5 meters
+        Degree: Lesser
         Effect: |
             You create one of the following magical effects:
             {Diamond} Your voice booms up to three times as loud as normal for 1 minute.
@@ -2232,19 +2355,18 @@ Eldritch:
     ~Wyrd Renewal~:
         A: Half-Action
         Range: 5 meters
-        Cooldown: Twice / Combat
+        Degree: Lesser
         Effect: |
-            Roll 1d10 - 5.
-            Heal/Damage a Unit for that amount.
-            If it's positive, heal it.
-            If it's negative, Damage it.
-        Notes: You choose the target after you roll.
+            Roll 1d10 - 5. After you see the result, choose a Unit.
+            If it's negative, deal Scourge Damage to it. Otherwise, heal it.
+        Upgrade: Only usable in Worthy Combat.
 
     # Advanced Spells
     ~Summon Familiar~:
         A: 1 Action
         Cost: 1 Mana
         Requirement: Level 3
+        Degree: Major
         Effect: |
             Summon a familiar in a space next to you, that has the aspect of a small demon or animal.
             It has 8 Health, 3 Defense, 5 Movement Speed, 0/0/0/0/0 in Stats and takes its turn at the same time as you (and uses your Spell Grade).
@@ -2267,6 +2389,7 @@ Eldritch:
         A: 1 Action
         Cost: 1 Mana
         Range: 12 meters
+        Degree: Major
         Effect: |
             Shoot a Unit with deathly fire for 1d12 + 1d10 + 1d6 Damage, Fire or Scourge (your choice).
             If the target has Defense, deals 2 more Damage for each point of Defense.
@@ -2279,6 +2402,7 @@ Eldritch:
         Range: 5 meters
         Duration: 1 hour
         Requirement: Level 4
+        Degree: Minor
         Effect: |
             Raise an undead Unit to fight for you from a nearby medium or larger corpse. The corpse is then consumed.
             The undead Unit always has Medium size, 7 Max Health and 3 Defense.
@@ -2295,6 +2419,7 @@ Eldritch:
         Range: 10 meters
         Duration: 10 minutes
         Requirement: Level 4
+        Degree: Major
         Effect: |
             You create an illusion of yourself at a target location.
             The illusion has 1 Health and 1 Defense and it fails all Checks.
@@ -2307,9 +2432,30 @@ Eldritch:
         A: 1 Action
         Cost: 1 Mana
         Requirement: Level 5
+        Degree: Grand
         Effect: |
             Touch a dead Unit, whose body is still in decent condition (as approved by the QM).
             The dead Unit comes back to life, conscious and without Exhaustion, with 1 Health.
+
+
+
+    ~Hand of Annihilation~:
+        A: 1 Action
+        Cost: 3 Mana
+        Requirement: Level 10
+        Degree: Prime
+        Range: 5 meters
+        Effect: |
+            Deal 13d4 Scourge Damage to a Unit.
+
+    ~Curse of Death~:
+        A: 1 Action
+        Cost: 5 Mana
+        Requirement: Level 10
+        Degree: Prime
+        Effect: |
+            Choose a non-Epic Unit you can see.
+            At the start of your next Turn, it dies.
 
 
 # NOTE: Divine Spells are slightly weaker (1 tier weaker) because Clerics and Paladins scale hard with Mana
@@ -2356,6 +2502,7 @@ Divine:
         A: Half-Action
         Cost: 1 Mana
         Range: 5 meters
+        Degree: Minor
         Effect: |
             Heal an ally (or yourself) for 1d8 Health.
             If they 50% or more Health before the heal, double the dice's result.
@@ -2376,12 +2523,14 @@ Divine:
         Range: 4 meters
         HasMixins: true
         Requirement: Level 2
+        Degree: Minor
         Effect: Deal 2d6 + ^Charisma^ Fire Damage (ignoring Cover) and makes the target Fumbling.
 
     ~Liberation~:
         A: Reaction or 0 Actions
         Cost: 1 Mana
         Requirement: Level 2
+        Degree: Minor
         Effect: |
             Instantly remove all Crowd Control from another ally you can see.
         Upgrade: |
@@ -2392,12 +2541,14 @@ Divine:
         A: Half-Action
         Cost: 1 Mana
         Requirement: Level 2
+        Degree: Minor
         Effect: For 1 minute, at the end of your turn, all Units within 1 meter of you take 1d4 Divine Damage.
 
     ~Restful Soothing~:
         A: 1 hour
         Cost: 1 Mana
         Requirement: Level 2
+        Degree: Major
         Effect: Roll a number of d8's for each player character in your party (except yourself). Assign each rolled d8 to one player character, and heal them for their assigned die.
         Note: You must be staying in place to channel this.
 
@@ -2409,6 +2560,7 @@ Divine:
         Cooldown: 1 hour
         Range: 7 meters
         Requirement: Level 3
+        Degree: Minor
         Effect: |
             Instantly pull another ally to your nearest empty space.
         Notes: |
@@ -2421,6 +2573,7 @@ Divine:
         Range: 10 meters
         Requirement: Level 3
         HasMixins: true
+        Degree: Major
         Effect: |
             A shining light bursts onto a Unit, dealing 2d8 + ^Sense^ Divine Damage to it.
             The next time someone would cast a Spell that affects that Unit, the caster can reroll any of the spell's dice, at most one reroll for each die.
@@ -2430,6 +2583,7 @@ Divine:
         A: 0 Actions
         Cost: 1 Mana
         Requirement: Level 3
+        Degree: Minor
         Effect: |
           Up to 2 Player Characters you can see gain Health Regen equal to your Intelligence.
 
@@ -2441,6 +2595,7 @@ Divine:
         Requirement: Level 4
         Cooldown: Once / Combat
         Range: 5 meters to edge
+        Degree: Major
         Effect: |
             All Units in a 4x4 meter area take 2d4 Divine Damage and are Blinded.
         Notes: Cover is calculated from the center of the area.
@@ -2450,6 +2605,7 @@ Divine:
         Cost: 1 Mana
         Range: 4 meters
         Requirement: Level 4
+        Degree: Major
         Effect: |
             Deal 3d10 True Damage to a Unit.
             If it's a Demon, Fiend or Undead, increase the Damage by 50%.
@@ -2459,6 +2615,7 @@ Divine:
         Cost: 1 Mana
         Duration: Up to 1 hour
         Requirement: Level 4
+        Degree: Minor
         Effect: |
             A Unit you can see becomes surrounded in a divine golden shield.
             Next time the Unit would take Damage, it is completely blocked.
@@ -2468,6 +2625,7 @@ Divine:
         Cost: 1 Mana
         Requirement: Level 4
         Cost: 1 Mana
+        Degree: Minor
         Effect: |
             Heal a Fallen Unit to 20% of it total Health.
             It does not suffer of Exhaustion from Rising after being Fallen.
@@ -2489,6 +2647,7 @@ Divine:
         Duration: 1 hour
         AlignOnWebsite: Left
         Requirement: Level 5
+        Degree: Minor
         Effect: |
             Up to 2 willing Units can walk on water as normally.
             The effect ends if the Unit takes Damage.
@@ -2501,6 +2660,7 @@ Divine:
         A: 1 Action
         Cost: 2 Mana
         Requirement: Level 6
+        Degree: Grand
         Effect: |
             You shoot out 8 rays of light.
             Roll 8d4 and assign them to Units within 10 meters as you with.
@@ -2510,6 +2670,7 @@ Divine:
         A: 1 Action
         Cost: 2 Mana
         Requirement: Level 6
+        Degree: Grand
         Effect: |
             A Unit you can see takes 3d8 Psychic Damage and is Silenced.
         Notes: Cover is applied normally.

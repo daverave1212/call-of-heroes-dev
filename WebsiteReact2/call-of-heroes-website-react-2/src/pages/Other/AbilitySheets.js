@@ -81,6 +81,26 @@ export default function AbilitySheets() {
         }
         updateSpellsAdded([...spellsAdded.slice(0, selectedSpellIndex), ...spellsAdded.slice(selectedSpellIndex + 1)])
     }
+    function moveSelectedUp() {
+        if (selectedSpellIndex == 0 || selectedSpellIndex == -1) {
+            return
+        }
+        let newSpellsAdded = [...spellsAdded]
+        const thisSpell = newSpellsAdded[selectedSpellIndex]
+        newSpellsAdded[selectedSpellIndex] = newSpellsAdded[selectedSpellIndex - 1]
+        newSpellsAdded[selectedSpellIndex - 1] = thisSpell
+        updateSpellsAdded(newSpellsAdded)
+    }
+    function moveSelectedDown() {
+        if (selectedSpellIndex == spellsAdded.length - 1 || selectedSpellIndex == -1) {
+            return
+        }
+        let newSpellsAdded = [...spellsAdded]
+        const thisSpell = newSpellsAdded[selectedSpellIndex]
+        newSpellsAdded[selectedSpellIndex] = newSpellsAdded[selectedSpellIndex + 1]
+        newSpellsAdded[selectedSpellIndex + 1] = thisSpell
+        updateSpellsAdded(newSpellsAdded)
+    }
 
 
     // const canvasDivRef = useRef(null)
@@ -92,6 +112,8 @@ export default function AbilitySheets() {
     // To ignore a stupid warning from MUI
     function _isOptionEqualToValueIgnoreWarning(option, value) { if (value == null) return true; else return value == option }
 
+    const selectedValue = spellsAdded.length == 0? null : selectedSpellIndex == -1? null: spellsAdded[selectedSpellIndex]
+    console.log(selectedValue)
     return (
         <Page hasNoLimits={true}>
 
@@ -114,6 +136,10 @@ export default function AbilitySheets() {
             </div>
 
             <div className='centered-content margined-bottom'>
+                <button className='Basic-button' id="MoveUp" onClick={moveSelectedUp} title="Move selected Ability up.">Move Up</button>
+                <button className='Basic-button' id="MoveDown" onClick={moveSelectedDown} title="Move selected Ability down.">Move Down</button>
+            </div>
+            <div className='centered-content margined-bottom'>
                 <button className='Basic-button' id="Reset" onClick={resetSpells} title = "Click here to reset everything.">Reset</button>
                 <button className='Basic-button' id="RemoveSpell" onClick={removeSpellFromSelect} title = "Click here to remove the selected spell">Remove Spell</button>
             </div>
@@ -128,7 +154,7 @@ export default function AbilitySheets() {
             </div>
 
             <div id="Spell-Sheet-Div">
-                <ManySpells spells={spellsAdded.map(spellName => allAvailableSpellsByName[spellName])} spellStyle={{border: 'solid black 2px'}}/>   {/* Extra border for copy-paste*/}
+                <ManySpells shouldIgnoreAlignment={true} spells={spellsAdded.map(spellName => allAvailableSpellsByName[spellName])} spellStyle={{border: 'solid black 2px'}}/>   {/* Extra border for copy-paste*/}
             </div>
 
             <CopySpellButton elementId="Spell-Sheet-Div"/>

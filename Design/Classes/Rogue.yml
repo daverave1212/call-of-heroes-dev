@@ -11,11 +11,9 @@ Weapons: You are Trained in 2 Weapon Categories of choice (e.g. 1-Handed Melee, 
 Difficulty: Easy
 
 Language: |
-  You know Thieves' Cant!
-  Thieves' Cant is not a spoken language, but rather a set of symbols, sign language and code names for various objects, places or people.
-  Use Thieves' Cant wisely!
+  You know Doublespeak! Doublespeak is not exactly a language, but a way to carry out private conversations in public by using code words and phrases with double meaning, such that what you say is indistinguishable from a normal conversation. Doublespeak also has a written version; thieves, rogues and streetspeople might use deliberate writing mistakes, punctuation errors or scratch marks on buildings to warn or convey concepts or even entire sentences; these markings are indistinguishable from random scratches to the unaware. Doublespeak is an art in itself - even if every doublespeaker has their own mannerisms and idiosyncracies, one must know and recognize the patterns to be able to speak this language properly, and as such, some even consider it a poetic "language".
 
-Proficiency Requirements: You have Skilled in Stealth and have a number of extra non-combat Skills equal to your Intelligence.
+Proficiency Requirements: You have Skilled in Stealth and have a number of extra non-combat Skills equal to your Intelligence or Sense, whichever is higher.
 
 Proficiencies:
     ~Skilled in Stealth~: Inherit
@@ -55,7 +53,7 @@ Spellcasting:
     Shank is there to help you spend your Mana in uncanny situations where you need just a little more damage to finish of an enemy. In case of an emergency, Recuperate is there to heal you, while Slam will deal area damage in case you're fighting multiple enemies. Finally, if you find out your enemies are resistant to your weapon attacks, get Lightstrike. It's situational, but it can be effective!
 
  
-
+# Idea: In the first round of every combat, enemies can't target you with attacks or Abilities.
 # Idea: For each Mana spent on Ambush, X happens
 # Spec: Ambush procs when attacking a target you haven't attacked this combat
 # Talents: Choose another condition for ambush and it gains +1d8 for that condition too
@@ -64,7 +62,7 @@ Starting Abilities Description:
   - Ambush: |
       Ambush can normally happen only once per turn, and you can charge it up to deal more Damage!
       However, your Rogue Specialization will give you extra ways to Ambush target!
-  - Hide: |
+  - Stalking: |
       Essentially, you can interrupt another Unit's turn, put that unit on pause, and start your turn. When your turn ends, the Unit resumes its turn.
       Before you attack an enemy group, you can tell your DM where you are sitting, so that you benefit from cover.
       
@@ -74,25 +72,19 @@ Starting Abilities:
     _Value: 1
     AlignOnWebsite: Right
     A: Passive
-    Cooldown: 1 / Turn
     Effect: |
-      If you start your turn Hidden, your first weapon attack deals 1d8 extra Damage.
-    Notes: |
-      Your Specialization will give you extra ways to Ambush.
+      Every Worthy Combat, your first weapon attack deals +1d8 Damage.
+    Upgrade: |
+      At Level 2, your Specialization will give you extra ways to Ambush.
       
-  ~Hide~:       # Ok
+  ~Stalking~:       # Ok
     A: Special
-    Cooldown: Once per encounter
     Effect: |
-      When combat starts, if you have Cover from all enemies, you start as Hidden.
-      While Hidden, you can skip your turn.
-      Then, you can unhide and start your turn whenever you like (even during enemies' turns)!
+      On the first Round of combat, you can skip your Turn.
+      Then, you can start your Turn whenever you like (even during enemies' turns)!
     Notes: |
-      Starting your turn unhides you.
-      Be careful: if you don't start your turn this round, you lose your turn!
-      If you want to start during an enemy's turn, you do so when they declare they want to do something or after they finish doing something.
-      In special circumstances, the DM might ask you to make a Dexterity Check to be or remain Hidden.
-      You can't become Hidden through non-Ability means.
+      Be careful: if you don't start your Turn this Round, you lose your Turn!
+      If you want to start during an enemy's Turn, you do so when they declare they want to do something or after they finish doing something.
   
 
 
@@ -132,70 +124,51 @@ Specs:
     Description: ...lorem... ipsum...
     Starting Abilities:
     
-      ~Backstab~ :
+      ~Backstabbing Ambush~ :
         _Value: 4
+        AlignOnWebsite: Right
         A: Passive
         HasMixins: true
-        Effect: |
-          If you start your turn Hidden, ~or if Flanking an Enemy,~ your first weapon attack this turn deals 1d8 extra Damage.
         Replacement: Replaces Ambush
-        Notes: Ambush from Hidden and Backstab don't stack (only one d8 is added).
-    
-      ~Agile Hand~ :
-        _Value: 0.25
-        A: Passive
-        Effect: You can freely Break your movement.
-        #       Effect: You don't become Fumbling from moving away from an enemy's melee attack range.
-        #       Notes: Fumbling is when you move away from an enemy's melee attack range; if you are Fumbling, all your actions have Cover.
+        Effect: |
+          Every ~Turn~, your first weapon attack deals +1d8 Damage ~if there is an ally of yours near the target~.
 
       ~Fool's Gold~:  # Ok
         A: Passive
         HasMixins: true
         Effect: |
-          After you Ambush, gain 5 times as much {Gold}Fool's Gold as the bonus Ambush Damage rolled.
-          {Gold}Fool's Gold is an imaginary currency that can be converted to real {Gold}Gold by spending 1 hour in a town or city.
-          {Gold}Fool's Gold lasts until converted to real {Gold}Gold.
-          Some other Thief Abilities may consume Fool's Gold.
+          After you Ambush, gain {Gold}Gold equal to all the Damage done by the attack.
         Notes: |
-          Lore-wise, as a Thief, you prepare and build up momentum in combat. When you reach a town, you put your preparations in motion and gain the gold.
+          Lore-wise, as a Thief, you prepare and build up momentum in combat. When you reach a town, you put your preparations in motion and gain the gold. Feel free to them
 
     Talents:
       Level 3:
-        <Screw-It Shot> :
-          _Value: 1.5
-          A: Half-Action
-          Cost: 50 Fool's Gold
-          Range: 2 meters
-          Cooldown: Once / Turn
+        <Hide In Plain Sight>:
+          _Value: 0
+          A: Passive
           Effect: |
-            Choose a Unit.
-            Roll a Dexterity Check at least equal to that Unit's Dexterity Check to make it Stunned.
+            On the first Round of combat, enemies with less than 3 Sense can't see you.
+            Also, you can always Break your Movement.
+          Upgrade: Out of combat, you gain +2 on Checks for sneaking or hiding.
 
-        <Arcane Trickster> :
+        <Magic Trickster> :
           _Value: 1
           A: Passive
+          HasMixins: true
           Effect: |
-            You can now cast spells!
-            Your Intelligence increases by 1 (up to a maximum of 4).
-            You gain access to the Arcane and Mysticism Basic Ability Lists, but at most half of all your Known Basic Abilities can be Arcane or Mysticism Spells.
-            Fool's Coin now also applies when spending Mana on a Spell.
+            Your Intelligence increases by 1 (up to a maximum of 4) and you gain access to the Arcane and Mysticism Basic Ability Schools.
+            Whenever you heal or deal Damage with a Spell that cost Mana, gain {Gold}Gold equal to the Damage done or amount healed.
           Notes: You lose access to these Spells if you change this Talent.
-          
-        <Way of Fooling> :
-          _Value: 0.5
-          A: Passive
-          Effect: Your Charisma increases by 2 (up to a maximum of 4).
-          
-        <Whiplash>:
-          _Value: 1
-          A: 0 Actions
-          Cooldown: 1 hour
+
+        <Pocket Sand>:
+          A: Half-Action
+          Cost: 50 Gold
+          Range: 3 meters
+          HasMixins: true
           Effect: |
-            Throw a whiplash at a grabbable point within 6 meters.
-            Pull yourself to a target point.
-            After using Whiplash, your next weapon attack this turn applies Ambush if you haven't already Ambushed this turn.
-          Notes: Requires a Whiplash item, which can be bought for 50 gold (or freely crafted for the same price in materials).
-          
+            Blind a Unit.
+          Notes: "{Blinded}"
+
       Level 5:
         
         <Thief Shock Wire>:
@@ -280,6 +253,10 @@ Specs:
 
 
   
+  ##### IDEA #######
+  ##### YOUR LEVEL 4/6/8 TALENTS ARE SPECIAL ##### 
+
+
   Assassin:
     # Talent: If you interrupt someone's turn, debuff them
 
@@ -295,63 +272,72 @@ Specs:
     Description: ...LOREMIPSUM! <you died>
     Starting Abilities:
 
-      ~Isolated~ :
-        _Value: 4
+      ~Sudden Ambush~ :
+        _Value: 8
         A: Passive
+        HasMixins: true
+        Replacement: Replaces Ambush
         Effect: |
-          When you attack a Unit, and there is no other Unit within 1 meter of either of you, the attack gains Ambush.
-        Upgrade: |
-          When Ambushing, you can also spend as much Mana as you want.
-          That attack gains 1d8 extra Damage for each Mana spent (on top of the 1d8).
-        Notes: Ambush from Hidden and Isolated don't stack (only one d8 is added).
+          Every Worthy Combat, your first weapon attack deals ~+3d6~ Damage.
+          ~If you end a Turn without having dealt Damage, reset this.~
+
+      <Shadowpass> :  # Ok
+        A: 0 Actions or Reaction
+        Cooldown: 1 hour
+        Effect: |
+          Choose a point covered in shadow up to 6 meters away and teleport to it.
+        Upgrades: You can use this as a Reaction when an enemy wants to attack you (before dealing the Damage). If it can't do the attack anymore, it must choose something else to do.
 
     Talents:
       Level 3:
 
-        <Take Out> :
-          _Value: 1
-          A: Half-Action
-          Cost: 1 Mana
-          Range: 1 meter
-          Effect: |
-            Make a Dexterity Check agasint a non-Epic Unit's Dexterity Check.
-            If you succeed, it is put to Sleep for 1 minute.
-            If you fail, you gain the Half-Action back.
-          Downside: |
-            You must be hiding to use Take Out, and the target must be Isolated.
-            This ability unhides you!
+        <Hide In Plain Sight>: Inherit from Thief
 
-        <Poison Master> : # Ok
-          A: 1 hour
-          Cost: 1 Mana
+        <Practice Makes Lethal>:
+          _Value: 1.5
+          A: Passive
           Effect: |
-            Using ingredients costing 35 Gold, you are able to create a few drops of Drinkable Poison.
-            Someone ingesting them takes 1d12 Poison Damage instantly.
-            Combining multiple instances of Drinkable Poison increases its Damage by 1d12 for each Drinkable Poison combined.
-            The poison loses its effect after 72 hours.
+            Whenever YOU kill a Worthy Enemy, ^Practice Makes Lethal^ point, permanently.
+            Your first Damaging Attack or Ability every Worthy Combat deals extra Damage equal to your ^Practice Makes Lethal^ points.
 
-        <Shadowstep> :  # Ok
-          A: 0 Actions
-          Cooldown: Once / Combat
+        <Planned Assassination>:
+          _Value: 3
+          A: Special
+          Cooldown: Once / Adventure
+          Requirement: Only usable out of Combat
           Effect: |
-            If you are covered in shadow, choose another point covered in shadow up to 6 meters away.
-            Instantly teleport to that place.
-          Notes: |
-            Note that you can use this out of combat, but its Cooldown will only reset after you finish the next combat, whenever that is.
-            This is considered a Spell.
-
-        <Planned Assassination>:   # 1 - 1.5 Charges, but heavily depends
-          _Value: 0.35
-          A: 1 minute
-          Cost: 1 Mana
-          Effect: |
-            You plan an attack for 1 minute.
-            Your next weapon attack on that target deals an extra 1d12 Damage.
-            Planned Assassination fails if your Line of Sight to the target is broken until you attack it.
-          Notes: The Mana is spent the moment you declare Planned Assassination. You can use plan assassinations on multiple targets, but you can't plan an assassination on a single target multiple times at the same time.
-
+            Name a specific Epic Unit, or a non-Epic Unit type.
+            Next Combat, your Ambushes deal +100% Damage against the named Unit or Unit Type.
           
+        <Critical Doubledown>:
+          _Value: 1.5
+          A: Passive
+          HasMixins: true
+          Effect: |
+            When you ^Critical Strike^, the ^Critical Strike^ effect happens twice.
+            If a weapon can't do a ^Critical Strike^, it also has the following effect:
+          EffectGreen: Critical Strike - If you rolled maximum on at leats one die, deal +1 Damage if one-handed (+1d4 if two-handed).
+          Upgrade: Note that the additional (green) Critical Strike is also doubled!
+
+        <Blade Verge>:
+          A: Passive
+          Effect: Whenever YOU would leave an Enemy at 10% Health or below, it dies instead.
+
+        <>:
+          Effect: |
+            When attacking a Unit, if there is no other Unit near it, 
+
       Level 5:
+
+        <Take-Out Shadowpass>:
+          A: 0 Actions or Reaction
+          Cooldown: 1 hour
+          Effect: |
+            Choose a point covered in shadow up to 6 meters away and teleport to it.
+            ~Your next attack makes the target roll a Might Check against the Damage done. If it fails, it becomes put to Sleep for 1 minute.~
+          Upgrades: |
+            You can use this as a Reaction when an enemy wants to attack you (before dealing the Damage). If it can't do the attack anymore, it must choose something else to do.
+            ~Epic monsters are instead Stunned for 1 Turn.~
       
         <Blade Tempest>: Inherit
 
@@ -364,9 +350,11 @@ Specs:
             Whenever YOU deal Damage to it until your next turn, remember the Damage done.
             At the start of your next turn, the mark bursts and the Unit takes directly 33% of the Damage you dealt to it in this time period.
 
-        <Poisoned Weapons>: Inherit from Thief
-
       Level 7:
+
+        <Ambushing Shadowpass>:
+          A: Passive
+          Effect: After you Shadowpass, your first Damaging Attack or Spell that turn applies Ambush.
 
         <Savage Ambush>: Inherit from Thief
 
@@ -436,8 +424,6 @@ Specs:
           Range: 3 meters
           Effect: A Unit within 3 meters takes 2 Poison Damage and becomes Blinded.
           Notes: Pocket sand!!!
-
-        <Whiplash>: Inherit from Thief
 
         <Quickfire>:
           _Value: 1

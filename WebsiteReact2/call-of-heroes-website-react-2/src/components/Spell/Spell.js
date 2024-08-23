@@ -3,7 +3,7 @@ import './Spell.css'
 import PageH2 from './../PageH2/PageH2'
 import Separator from './../Separator/Separator'
 import React, { useEffect, useRef, useState } from 'react'
-import { parseTextWithSymbols, stringReplaceAllMany, getIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll } from '../../utils'
+import { parseTextWithSymbols, stringReplaceAllMany, getSpellIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll, getVariantsForEachCollection, normalizeForEachVariantsToNormalVariants } from '../../utils'
 import TableNormal from '../TableNormal/TableNormal'
 import html2canvas from 'html2canvas'
 import CopySpellButton from '../CopyButton/CopySpellButton'
@@ -49,7 +49,7 @@ export function SpellTopStats({className, tags}) {
 
 
 
-export default function Spell({ children, spell, style, hasIcon }) {
+export default function Spell({ children, spell, style, hasIcon, hasCopyButton=true, showTopStats=true }) {
 
     const [variantIndex, setVariantIndex] = useState(0)
 
@@ -68,43 +68,50 @@ export default function Spell({ children, spell, style, hasIcon }) {
         HasMixins,
         CustomIconPath,
         Effect,
+        EffectGreen,
         Notes,
         IsSubspell,
+        Upgrades,
         Upgrade,
         DoubleTableNumbered,
         DoubleTable,
-        Variants
+        Variants,
+        VariantsForEach
     } = spell
     if (spell['Display Name'] != null) DisplayName = spell['Display Name']
-    let hasVariants = Variants != null
+    let hasVariants = Variants != null || VariantsForEach != null
     
     if (Name == null || (typeof Name) != 'string') {
         Name = 'Default'
+    }
+    if (Upgrades != null) {
+        Upgrade = Upgrades
     }
     if (hasIcon == null) hasIcon = true
 
     if (Name.startsWith('~')) Name = Name.substring(1, Name.length - 1)
 
-    let iconPath = CustomIconPath == null? getIconPathByName(Name) : CustomIconPath
+    let iconPath = CustomIconPath == null? getSpellIconPathByName(Name) : CustomIconPath
     const uniqueID = getUniqueSpellID(Name)
 
     const spellNormalOrSubClass = IsSubspell == true? 'spell--subspell' : 'spell--normal'
     const spellPassiveOrActiveClass = A == 'Passive' == true? 'spell--passive' : 'spell--active'
 
     let extraMixins = {}
-    if (hasVariants === true) {
+    if (hasVariants === true && VariantsForEach != null) {
+        Variants = normalizeForEachVariantsToNormalVariants(VariantsForEach)
+    }
+    if (hasVariants === true && Variants != null) {
         const currentVariant = Variants[variantIndex]
         const variantMixinsCorrectlyFormatted = mapObject(currentVariant, ({key, value}) => ({
             key: key,
             value: () => (<span>{value}</span>)
         }))
         extraMixins = variantMixinsCorrectlyFormatted
-        if (currentVariant.IconName != null) iconPath = getIconPathByName(currentVariant.IconName)
+        if (currentVariant.IconName != null) iconPath = getSpellIconPathByName(currentVariant.IconName)
         if (currentVariant.DisplayA != null) A = currentVariant.DisplayA
-        if (Name == 'Lance Heave') {
-            console.log({currentVariant})
-        }
     }
+
 
     if (HasMixins === true || hasVariants === true) {
         try {
@@ -180,7 +187,7 @@ export default function Spell({ children, spell, style, hasIcon }) {
                             <div className='spell-top__title__wrapper'>
                                 <div className='spell-top__title'>{ DisplayName != null? DisplayName : Name }</div>
                             </div>
-                            <SpellTopStats tags={{...spell, A}}/>
+                            { showTopStats === true && <SpellTopStats tags={{...spell, A}}/>}
                         </div>
                     </div>
                 ) : (
@@ -190,7 +197,7 @@ export default function Spell({ children, spell, style, hasIcon }) {
                                 <div className='spell-top--iconless__title'>{ Name }</div>
                             </div>
                             <div style={{width: '70%', margin: 'auto'}}>
-                                <SpellTopStats tags={{...spell, A}} className="spell-top__stats--no-padding-side"/>
+                                { showTopStats === true && <SpellTopStats tags={{...spell, A}} className="spell-top__stats--no-padding-side"/>}
                             </div>
                         </div>
                     </div>
@@ -201,6 +208,9 @@ export default function Spell({ children, spell, style, hasIcon }) {
                 <div className='spell-description'>
                     { Effect }
                 </div>
+                { EffectGreen != null && (
+                    <span key="EffectGreen" style={{ color: 'rgb(0, 180, 0)' }}>{ EffectGreen }</span>
+                ) }
                 { Upgrade != null && (
                     <div className='spell-upgrade'>
                         { Upgrade }
@@ -221,7 +231,7 @@ export default function Spell({ children, spell, style, hasIcon }) {
                         )) }
                     </TableNormal>
                 ) }
-                <CopySpellButton elementId={uniqueID} shouldAddBorder={true}/>
+                { hasCopyButton === true && <CopySpellButton elementId={uniqueID} shouldAddBorder={true}/> }
             </div>
         </div>
     )

@@ -95,12 +95,6 @@
         "Notes": "E.g. on the first round of combat, this deals 2d10 + 1d6. Second round - 2d10 + 2d6. Third round - 2d10 + 3d6. And so on. Cover is applied from above if needed.",
         "OrderOnWebsite": 2
     },
-    "<Health Bonus>": {
-        "Effect": "Gain +4 Max Health."
-    },
-    "<Health Regen Bonus>": {
-        "Effect": "Gain +2 Health Regen."
-    },
     "<War Mastery>": {
         "_Value": 2,
         "A": "Passive",
@@ -124,7 +118,7 @@
         "Effect": "Gain +1 in a Stat of choice, up to +5."
     },
     "<Mana Bonus>": {
-        "Effect": "Gain +1 Max Mana."
+        "Effect": "Gain +1 Max Mana and +1 Known Ability."
     },
     "<Pledge of Another>": {
         "_Value": 3,
@@ -171,8 +165,9 @@
     "<Let There Be Darkness>": {
         "_Value": 0.75,
         "A": "Passive",
-        "Effect": "While in darkness, your damaging Awe die is increased by 1 tier.\n",
-        "Notes": "Increasing the tier of dice means 1d4 becomes 1d6, 1d6 becomes 1d8, and so on. D12's and d20's don't increase."
+        "HasMixins": true,
+        "Effect": "While in darkness, your damaging Awe has its ^Dice Upgraded^ to the next die type.\n",
+        "Notes": "{DiceUpgrade}. It is up to the Quest Master what is considered darkness."
     },
     "<Circle of Awe>": {
         "_Value": 2,
@@ -186,7 +181,7 @@
         "_Value": 1.75,
         "A": "0 Actions",
         "Cooldown": "Once / Adventure",
-        "Effect": "You create a 1x1 Black Hole on an empty space.\nCast Grasp for free on all enemies within 6 meters of the hole.\nIf a Unit gets to the center of the Black Hole, it becomes Rooted.\nAt the end of your turn, all Units within 6 meters of it are pulled 2 meters towards it.\n",
+        "Effect": "You create a 1x1 Black Hole on an empty space.\nCast Awe for free on all enemies within 6 meters of the hole.\nIf a Unit gets to the center of the Black Hole, it becomes Rooted.\nAt the end of your turn, all Units within 6 meters of it are pulled 2 meters towards it.\n",
         "Notes": "If 2 Units would be pulled to the center, you choose which. The black hole's gravity works even for Units behind walls and obstacles.",
         "OrderOnWebsite": 2
     },
@@ -201,6 +196,7 @@
         "_Value": 3,
         "A": "Half-Action",
         "Cooldown": "Once / Adventure",
+        "Requirement": "Only usable in Combat",
         "Effect": "Until the end of your next turn, double all healing you and your party does.",
         "Notes": "Doesn't stack with other healing multiplication effects."
     },
@@ -294,9 +290,8 @@
     "~Wingspan (Cleric)~": {
         "A": "0 Actions",
         "IsSubspell": true,
-        "Cooldown": "Once / Adventure",
-        "Effect": "Quickly fly up to 5 meters.",
-        "Upgrades": "At Levels 7 and 9, you get one extra use of Wingspan per Adventure (e.g. the Cooldown becomes 2 times / Adventure, 3 times / Adventure, etc)."
+        "Cooldown": "1 hour",
+        "Effect": "Quickly fly up to 3 meters."
     },
     "~Penitence~": {
         "A": "0 Actions",
@@ -460,10 +455,8 @@
     },
     "<Treesposition>": {
         "_Value": 0.75,
-        "A": "0 Actions or Reaction",
-        "Cooldown": "2 times / Adventure",
-        "Effect": "Touch a large or larger piece of wood and choose one of the following:\n1. Teleport near another large or larger piece of wood within 8 meters.\n2. Partially enter the piece of wood, becoming camouflaged. You have +5 Stealth until you exit back to your normal space.\nYou can stay like that for up to 1 hour.\nYou benefit from Cover while inside a tree.\nAs a Reaction, you can use this when you are attacked or right when someone casts a spell (before the roll).\n",
-        "Notes": "If you use this as a Reaction and the attack would fail (out of range, no line of sight, etc), the attacker can then choose a different Act or target."
+        "A": "0 Actions",
+        "Effect": "Whenever you Shapeshift, if you're within 1 meter of a Large or larger piece of wood, teleport 1 meter near another Large (or larger) piece of wood within 5 meters.\n"
     },
     "<Exotic Shapeshift>": {
         "_Value": 1,
@@ -488,9 +481,6 @@
         "_Value": 1,
         "A": "Passive",
         "Effect": "You can cast Spells while Shapeshifted. Gain 1 extra Max Mana and access to one more Basic Ability List of choice."
-    },
-    "<Might Health Bonus>": {
-        "Effect": "Gain Health equal to double your Might."
     },
     "<Weirdvolution>": {
         "Effect": "Gain 2 Racial Ability Choices from any Race(s)."
@@ -542,7 +532,7 @@
         "_Value": 2,
         "A": "1 Action",
         "Cooldown": "Once / Adventure",
-        "Requirement": "Only usable at _twilight_",
+        "Requirement": "Only usable at twilight",
         "Effect": "Your next Spell (this turn or next) casts twice.\n",
         "Upgrade": "If you use this with Shapeshift, you can combine into 2 animals, and have both their Abilities and their highest Stats.",
         "Notes": "On the second cast, you can choose different targets, areas, etc (and it ignores Cooldown, Costs, etc). Works on Spells with cast time longer than 1 Action (e.g. Old Ritualist)."
@@ -563,7 +553,7 @@
     },
     "<Forced Eclipse>": {
         "_Value": 3,
-        "A": "0 Actions",
+        "A": "1 Action",
         "Effect": "Through ancient weather witchcraft, you force 1 minute of artificial day or night in a 1km area around you.",
         "Upgrade": "This can reset the Cooldown of Moonsun Fire's, once when it happens, and again when it ends.\n",
         "Notes": "Nothing happens if used with Equinox."
@@ -594,9 +584,9 @@
         "A": "Reaction or 0 Actions",
         "Cooldown": "Once / Combat",
         "HasMixins": true,
-        "Effect": "Roll 2 meters in any possible direction.\nUse when a Unit declares an attack or Ability.\n",
+        "Effect": "Roll 2 meters in any possible direction.\nYou can use when a Unit declares an attack or Ability to try to get out of Line of Sight or behind Cover.\n",
         "Upgrade": "^You^ can use this to make your pet tumble instead.",
-        "Notes": "You can use this to dodge an area Ability or go out of Line of Sight (or behind Cover). The attack carries on if it still has Line of Sight. Otherwise, it must choose something else to do, as if the Act never happened."
+        "Notes": "The attack carries on if it still has Line of Sight. Otherwise, it must choose something else to do, as if the Act never happened."
     },
     "~Tracker~": {
         "_Value": 0.25,
@@ -651,7 +641,7 @@
         "Effect": "Gain +1 in two Stats of choice, up to +4."
     },
     "<Stat Bonus 4 Extra>": {
-        "Effect": "Gain +1 in a Stat of choice, up to +4, and +3 Initiative."
+        "Effect": "Gain +1 in three Stats of choice, up to +3."
     },
     "<Crosshair Shot>": {
         "_Value": 2,
@@ -684,9 +674,6 @@
     "<Movement Bonus>": {
         "Effect": "Gain +1 Movement Speed."
     },
-    "<Sense Regen Bonus>": {
-        "Effect": "Gain Health Regen equal to your Sense."
-    },
     "<Tremor Wave>": {
         "_Value": 2.75,
         "A": "Half-Action",
@@ -713,6 +700,9 @@
     },
     "<Stat Bonuses 5>": {
         "Effect": "Gain +1 in two Stats of choice, up to +5."
+    },
+    "<Stat Bonuses 4 Extra>": {
+        "Effect": "Gain +1 in three Stats of choice, up to +4."
     },
     "<Pierce and Cleave>": {
         "_Value": 4,
@@ -743,32 +733,23 @@
         "A": "0 Actions",
         "Cooldown": "Once / Adventure",
         "Duration": "1 minute",
-        "Effect": "You take on a special form, called a Watcher Form.\nWhile in this form, your first Attack deals +2d4 extra Damage once per turn, you gain +2 Spell Grade and +2 to all Resist Checks.\nAlso, when you cast a Spell (before you do; excluding this), you can instantly dash 3 meters, ignoring attacks of oportunity, and going through enemies and small obstacles or medium gaps.\n",
-        "Notes": "Your body becomes engulfed in a magical aura (you choose its color), your eyes glow, and you can gain other aesthetics-only body transformations (customize it with your DM)."
+        "Effect": "You take on a special form, called a Watcher Form.\nYou have +2 to all Combat Checks, +1 Defense, and, every turn, your first Attack deals +2d4 extra Damage.\n",
+        "Notes": "Your body becomes engulfed in a magical aura (you choose its color), your eyes glow, and you can gain other aesthetics-only body transformations."
     },
-    "<Combo Set>": {
-        "_Value": 1.5,
-        "A": "Passive",
-        "Effect": "You gain Quickfire, Parry and Tumblestrike. Quick Magic will also trigger after you use Quickfire and Parry.",
-        "AlignOnWebsite": "Right"
-    },
-    "<Quickfire (Hunter)>": {
-        "IsSubspell": true,
+    "<Chaos Form>": {
+        "_Value": 2,
         "A": "0 Actions",
         "Cooldown": "Once / Adventure",
-        "Effect": "Perform an attack with a 1-Handed weapon (for 0 Actions).\nThis attack ignores Cover and has no pentaly if you're Blinded or Fumbling.\nThis attack can be used in melee range without penalty if it's a ranged weapon.            \n"
+        "Duration": "1 minute",
+        "Effect": "You take on a special form, called a Chaos Form.\nYou have +2 Movement, Tumble has a Once / Turn Cooldown, and Quick Magic triggers whenever you do an Act that takes at least a Half-Action.\n",
+        "Notes": "Your body emanates an unusual magical vibration, your eyes turn an ethereal white or black, and you can gain other aesthetics-only body transformations."
     },
-    "<Parry>": {
-        "IsSubspell": true,
-        "A": "Reaction",
-        "Cooldown": "Once / Adventure",
-        "Effect": "When a Unit makes a melee attack with a weapon on you (after you see the roll), you can block this attack and it deals 0 Damage."
-    },
-    "<Tumblestrike>": {
-        "IsSubspell": true,
-        "A": "Passive",
-        "Effect": "After you Tumble or Parry, your next weapon Attack or single target Ability has the dice tiers increased.",
-        "Notes": "For example, instead of 2d6, an attack would be 2d8.\nD12's and d20's don't increase; they stay d12 and d20.\n"
+    "<Focus Form>": {
+        "A": "Half-Action",
+        "Cooldown": "Once / Combat",
+        "Duration": "Rest of Worthy Combat",
+        "Effect": "You take on a special stance, called a Focus Form.\nYou completely dodge the next physical attack you receive from a Unit. After that, immediately attack the Unit back with a 1-handed weapon.\nFrom then on, for the rest of the Worthy Combat, heal for 1d4 Health at the start of your every Turn.\n",
+        "Notes": "Your pupils dilate and take on a different shape, your muscles and body tense up, your wounds start to steam, and you can gain other aesthetics-only body transformations."
     },
     "<Claw-Eye Coordination>": {
         "_Value": 2.5,
@@ -779,8 +760,9 @@
         "_Value": 2,
         "A": "0 Actions",
         "Range": "10 meters to edge",
+        "Duration": "1 minute",
         "Cooldown": "Once / Adventure",
-        "Effect": "Declare a 6x6 meter area and it becomes engulfed in a special magical aura.\nAll Units have 0 Defense and their Passive Abilities don't work while in that area (including Resistances and Weaknesses).\nThe area lasts until the start of your next turn.\n",
+        "Effect": "Declare a 6x6 meter area and it becomes engulfed in a special magical aura.\nAll Units have 0 Defense and their Passive Abilities don't work while in that area (including Resistances and Weaknesses).\n",
         "Notes": "The area is often subtle, and only monsters with a Sense of 3 or higher notice it."
     },
     "<Wind Wall>": {
@@ -805,7 +787,7 @@
         "Effect": "Quick Magic also triggers whenever you spend Mana on a Spell and you get more options:\n{Diamond} Cast Burning Breah\n{Diamond} Cast Invigorate\n{Diamond} Cast Blur\n"
     },
     "<Durability Bonus>": {
-        "Effect": "Gain 4 Health and 2 Health Regen."
+        "Effect": "Gain +1 Defense"
     },
     "~Prowl Around~": {
         "A": "Passive",
@@ -852,10 +834,10 @@
         "Notes": "Goes flying means is pushed, knocked up, dragged, etc.\nThis uses YOUR Reaction, not your pets'.\nObviously, the pets need line of sight and can't jump through walls, or over large obstacles. Apply common sense.\n"
     },
     "<Sense Initiative Bonus>": {
-        "Effect": "Gain Initiative equal to twice your Sense."
+        "Effect": "Gain +10 Initiative."
     },
     "<Pet Movement Bonus>": {
-        "Effect": "All your pets gain +1 Movement Speed."
+        "Effect": "You and all your pets gain +1 Movement Speed."
     },
     "<Coordinated Bite>": {
         "_Value": 3,
@@ -884,15 +866,15 @@
     "~Magic Mastery~": {
         "_Value": 1.5,
         "A": "0 Actions",
-        "HasMixins": true,
         "Cooldown": "Once / Turn",
-        "Effect": "Your next Basic Spell (from an Ability List) that costs 1 Action now costs a Half-Action instead, but has all ^Dice Downgraded^ to the previous die tier.\n",
-        "Notes": "This is not considered a Spell. {DiceDowngrade}",
+        "HasMixins": true,
+        "Effect": "Your next Basic Ability that uses 1 Action now uses a Half-Action instead, but has all ^Dice Downgraded^ to the previous die tier.\n",
+        "Upgrade": "D4's become coin flips (d2's).",
+        "Notes": "{DiceDowngrade}",
         "AlignOnWebsite": "Left"
     },
     "~Learn Scrolls~": {
         "A": "10 minutes",
-        "Cooldown": "Once / Adventure",
         "Effect": "If you have a Scroll that contains a Basic Ability (e.g. from Arcane, Nature, etc), you can destroy it to Know it permanently, without needing to learn it inbetween Adventures.\n",
         "Notes": "You can not learn Class Abilities from Scrolls. Of course, you still need to spend Mana and respect the Cooldown of said Ability.",
         "AlignOnWebsite": "Left"
@@ -962,16 +944,19 @@
         "HasMixins": true,
         "Effect": "When you cast a spell, you can apply this any of the following effects to it:\n{Diamond} For every 2 dice in its Damage, roll 1 more\n{Diamond} If it targets an area, increase it or decrease it by 50%\n{Diamond} Change its Damage type to any type, except Divine and True Damage\n{Diamond} If it specifies a Stat, change it to any other Stat\n{Diamond} Swap any of Root, Cripple or Silence (with any of the remaining)\n{Diamond} Swap Slow, Fumbling, or Pushing with any other of these (Push a target 2 meters away from you or from the area center)\n{Diamond} Double its range\nAt any point, you can expend 1 Mana to reset the Cooldown of this Spell (Spellcraft).\n"
     },
+    "<Minor Mana Bonus>": {
+        "Effect": "Gain +1 Maximum Mana."
+    },
     "<Grand Wizardry>": {
         "_Value": 2.5,
         "A": "Passive",
-        "Effect": "Magic Mastery becomes usable 2 more times per Adventure.\nBasic Spells that cost Mana and have a Cooldown have no Cooldown for you.\n"
+        "Effect": "Spells that cost 3 or more Mana cost 1 less for you.\nBasic Spells that cost Mana and have a Cooldown have no Cooldown for you.\n"
     },
     "<Destruction>": {
         "_Value": 4,
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "Whenever you deal Damage with a Spell that cost Mana or was affected by Magic Mastery, zap a Unit within 4 meters for ^your Intelligence^ Shock Damage.\n",
+        "Effect": "Whenever you deal Damage with a Spell that cost Mana, zap a Unit within 4 meters for ^your Intelligence^ Shock Damage.\n",
         "Notes": "This is optional."
     },
     "<Evocation>": {
@@ -998,32 +983,34 @@
     "~Unstable Spark~": {
         "_Value": 1.5,
         "A": "Passive",
-        "Effect": "At the start of your every turn in a Worthy Combat, roll 1d10.\nIf you roll 10, your first Spell this turn becomes affected by Magic Mastery if possible, regardless of its Cooldown.\n"
+        "HasMixins": true,
+        "Effect": "At the start of your every Turn in a Worthy Combat, roll 1d10.\nIf you roll 10, your first Spell this Turn has its ^Dice Upgraded^ to the next die tier.\n",
+        "Notes": "{DiceUpgrade}\n"
     },
     "~Overcharge~": {
-        "_Value": -0.5,
-        "A": "Passive",
-        "Effect": "After you cast a Basic Spell in a Combat, you can no longer cast that Spell until the Combat ends, regardless of its Cooldown.\n"
+        "A": "0 Actions",
+        "Cooldown": "Once / Turn",
+        "Effect": "Roll an Unstable Spark die. If you roll 1, you take 4 True Damage.",
+        "Upgrade": "Requires you to be in a Worthy Combat."
     },
     "<Sap>": {
         "_Value": 1,
         "A": "Half-Action",
         "Range": "10 meters",
-        "Cooldown": "Once / Combat",
-        "Effect": "A Unit must succeed a Charisma Check against your Max Mana or be Crippled, Silenced or Rooted (your choice).\n"
+        "Effect": "A Unit must succeed a Charisma Check against your last rolled Unstable Spark die or be Blinded, Silenced or Rooted (your choice).\n"
     },
     "<Mild Magic>": {
         "_Value": 0.5,
         "AlignOnWebsite": "Left",
         "A": "Passive",
-        "Effect": "After you manually use Magic Mastery, for the rest of the combat, ignore the limits of Overcharge."
+        "Effect": "Whenever you roll minimum Damage on a Spell, reroll it. Afterwards, roll an Unstable Spark die."
     },
     "<Wild Magic>": {
         "_Value": 0.5,
         "AlignOnWebsite": "Right",
         "A": "Passive",
-        "Effect": "When you roll the Unstable Spark d10, if you roll 1 or 2, roll another 1d20 and a random Spell is automatically cast from the table below on a target/Unit \"randomly\" chosen by the QM.\nIf you roll 1, the effect will be negative for your team, if possible. If you roll 2, the effect is positive, if possible.\n",
-        "Notes": "For example, if you roll 1 and the random Spell is Fire Enchantment, it will be cast on an enemy's weapon if possible (respecting the range). If not possible, then it will be cast on a random, non-Player Character's weapon. If not possible, then it will be cast on a Player Character's weapon. If nothing is possible, nothing happens.\nIf an effect can be cancelled or has ongoing effects, you have control of them as if you yourself had cast the Spell.\n",
+        "Effect": "When you roll the Unstable Spark die, if you roll 2 or 3, roll another 1d20 and a random Spell is automatically cast from the table below on a target/Unit \"randomly\" chosen by the QM.\nIf you roll 2, the effect will be negative for your team, if possible. If you roll 3, the effect is positive, if possible.\n",
+        "Notes": "For example, if you roll 2 and the random Spell is Fire Enchantment, it will be cast on an enemy's weapon if possible (respecting the range). If not possible, then it will be cast on a random, non-Player Character's weapon. If not possible, then it will be cast on a Player Character's weapon. If nothing is possible, nothing happens.\nIf an effect can be cancelled or has ongoing effects, you have control of them as if you yourself had cast the Spell.\n",
         "DoubleTableNumbered": {
             "Headers": [
                 "Spell Name",
@@ -1053,34 +1040,31 @@
             ]
         }
     },
-    "<Arcane Comet>": {
-        "_Value": 2,
-        "AlignOnWebsite": "Left",
-        "HasMixins": true,
-        "A": "1 Action",
-        "Cooldown": "Once / Adventure",
-        "Range": "8 meters",
-        "Effect": "Shoot a comet that changes in power the longer it travels - it deals Damage and Crowd Controls a target.\nIt attacks for 1d6 Pulse Damage for every meter it travels (up to 8d6).\nHowever, the longer it travels, the weaker it's Crowd Control is.\nApply the following Crowd Control (directly, without a Check) to the target depending on the distance traveled (distance between you and the target):\n{Diamond} 1 or 2 meters: Stun\n{Diamond} 3 or 4 meters: Fumbling\n{Diamond} 5 or 6 meters: Root\n{Diamond} 7 or 8 meters: None\n"
+    "<Arcano Mantissa>": {
+        "_Value": "2 (No fucking idea lol)",
+        "A": "Passive",
+        "Effect": "When you roll 3 on the Unstable Spark die, gain 0.5 Max Health and 0.25 Max Mana.",
+        "Notes": "Mana and Health can't be expended or Damaged in fractions, but if you manage to get this 2 times, you essentially get +1 Health permanently (or 1 Mana permanently if you trigger this 4 times)."
     },
     "<Star Burst>": {
         "_Value": 1.35,
         "AlignOnWebsite": "Right",
-        "A": "Half-Action",
-        "Cooldown": "Once / Adventure",
-        "Effect": "Declare up to 4 different targets within 15 meters.\nAssign a different number from #1 to #4 to each.\nRoll a number of d4's equal to double your Intelligence or Charisma (whichever is higher). Each number deals that much Pulse Damage to the target with that number.\nEach rolled 1 deals 1 Damage to target number #1.\nEach rolled 2 deals 2 Damage to target number #2.\nAnd so on.\n",
+        "A": "1 Action",
+        "Cost": "1 Mana",
+        "Effect": "Declare up to 4 different targets you can see.\nAssign a different number from #1 to #4 to each.\nRoll a number of d4's equal to your last rolled Unstable Spark die. Each d4 rolled deals that much Pulse Damage to the target with that number.\nEach rolled 1 deals 1 Damage to target number #1, each rolled 2 deals 2 Damage to target number #2, and so on.\n",
         "Notes": "E.g. if you put #2 on a goblin, and you roll three 2's on the d4's, then that goblin takes 6 Pulse Damage.\nYou should probably assign the higher number to the target you want to do most Damage to.\nYou can declare fewer targets, but then the missing number will deal Damage to no target.\nCover is applied normally.\n"
     },
     "<Honorificabilitudinitatibus>": {
         "_Value": 2.5,
         "AlignOnWebsite": "Left",
         "A": "Passive",
-        "Effect": "Your single-target Spells that deal half Damage when a target passes a Check now deal the full Damage regardless.",
-        "Notes": "That means spells like Acid Burst don't even require a Check anymore."
+        "Effect": "Your Unstable Spark die becomes 1d12 instead of 1d10, and triggers on 11 and 12 instead of 10.\nYour d12 dice become d14's, 1d14's become d16's, etc, when they have their ^Dice Upgraded^ to the next die tier.\n",
+        "Notes": "I don't know. You're a mage, figure it out.\n"
     },
     "<Great Sorcery>": {
         "_Value": 2.5,
         "A": "Passive",
-        "Effect": "Whenever you roll 8 or 9 on the Unstable Spark die, reset the Cooldown of Magic Mastery.\nAdditionally, Magic Mastery can now reduce the Actions cost of any Spell from a Half-Action to 0 Actions.\n"
+        "Effect": "When you roll 8 or 9 on the Unstable Spark die, gain 1 Mana.\n"
     },
     "<Accidental Zap>": {
         "_Value": 2.5,
@@ -1091,11 +1075,13 @@
         "_Value": 2.5,
         "A": "Reaction",
         "Cooldown": "Once / Adventure",
-        "Effect": "Use after you roll an Unstable Spark die. Reroll it and reset ALL your Cooldowns (except this)."
+        "HasMixins": true,
+        "Effect": "Use after you roll an Unstable Spark die. Reroll it and reset ALL your Cooldowns and _Overcharged Cooldowns_ (except this)."
     },
-    "<Double Spark>": {
+    "<Double Spark Triple Quark>": {
         "A": "Passive",
-        "Effect": "You roll 2d10 now instead of just 1d10 for Unstable Spark. Apply effects for both.\nIf both are 10, your first 2 Spells this turn become affected by Magic Mastery instead.\n"
+        "HasMixins": true,
+        "Effect": "You roll 2d10 now instead of just 1d10 for Unstable Spark. Apply effects for both.\nIf both are 10, your first Spell this turn become affected by Unstable Spark ^Dice Upgrade^ 3 times.\n"
     },
     "~Artificer~": {
         "A": "Special",
@@ -1417,7 +1403,7 @@
         "A": "Half-Action",
         "Cooldown": "Once / Adventure",
         "Effect": "A spectral self appears at the position where you started your turn, and repeats all Acts you have already done this turn.\n",
-        "Notes": "The clone moves exactly as you did (can go through Units) and repeats the Spells and Attacks on the same targets. If there were any dice rolls, the clone rolls them (don't use the same numbers rolled). The clone is a separate special Unit - self effects apply to the clone (and thus self-heals have no effect)."
+        "Notes": "An Act is considered any Movement, attack or Ability that took at least 0 Actions (does not include Passives that triggered and _echoes_ that had already happened this turn).\nThe clone moves exactly as you did (can go through Units) and repeats the Spells and Attacks on the same targets. If there were any dice rolls, the clone rolls them (don't use the same numbers rolled). The clone is a separate special Unit - self effects apply to the clone (and thus self-heals have no effect).\n"
     },
     "~Blockade~": {
         "_Value": 1,
@@ -1487,63 +1473,52 @@
         "Effect": "Add your Level to all Dexterity Checks for hiding, remaining quiet, moving silently, blending in a crowd, etc.\n"
     },
     "~Ambush~": {
-        "_Value": 1,
+        "_Value": 3,
         "AlignOnWebsite": "Right",
         "A": "Passive",
-        "Cooldown": "1 / Turn",
-        "Effect": "If you start your turn Hidden, your first weapon attack deals 1d8 extra Damage.\n",
-        "Notes": "Your Specialization will give you extra ways to Ambush.\n"
+        "Effect": "Every combat, your first weapon attack deals +1d6 Damage.\nThen, your next Ability that costs 1 Mana costs no Mana instead!\n",
+        "Upgrade": "At Level 2, your Specialization will give you extra ways to Ambush.\n"
     },
-    "~Hide~": {
+    "~Stalking~": {
         "A": "Special",
-        "Cooldown": "Once per encounter",
-        "Effect": "When combat starts, if you have Cover from all enemies, you start as Hidden.\nWhile Hidden, you can skip your turn.\nThen, you can unhide and start your turn whenever you like (even during enemies' turns)!\n",
-        "Notes": "Starting your turn unhides you.\nBe careful: if you don't start your turn this round, you lose your turn!\nIf you want to start during an enemy's turn, you do so when they declare they want to do something or after they finish doing something.\nIn special circumstances, the DM might ask you to make a Dexterity Check to be or remain Hidden.\nYou can't become Hidden through non-Ability means.\n"
+        "Effect": "On the first Round of combat, you can skip your Turn.\nThen, you can start your Turn whenever you like (even during enemies' turns)!\n",
+        "Notes": "If you want to start during an enemy's Turn, you do so when they declare they want to do something or after they finish doing something.\nBe careful: if you don't start your Turn this Round, you lose your Turn!\n"
     },
-    "~Backstab~": {
-        "_Value": 4,
+    "~Backstabbing Ambush~": {
+        "_Value": 10,
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "If you start your turn Hidden, ~or if Flanking an Enemy,~ your first weapon attack this turn deals 1d8 extra Damage.\n",
         "Replacement": "Replaces Ambush",
-        "Notes": "Ambush from Hidden and Backstab don't stack (only one d8 is added)."
-    },
-    "~Agile Hand~": {
-        "_Value": 0.25,
-        "A": "Passive",
-        "Effect": "You can freely Break your movement."
+        "Effect": "Every ~Turn~, your first weapon attack ~that Flanks an enemy~ deals +1d6 Damage.\n~If it kills a Worthy Enemy,~ your next Ability that costs 1 Mana costs no Mana instead!\n",
+        "Notes": "Does not stack if you kill multiple enemies without casting a Mana Ability."
     },
     "~Fool's Gold~": {
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "After you Ambush, gain 5 times as much {Gold}Fool's Gold as the bonus Ambush Damage rolled.\n{Gold}Fool's Gold is an imaginary currency that can be converted to real {Gold}Gold by spending 1 hour in a town or city.\n{Gold}Fool's Gold lasts until converted to real {Gold}Gold.\nSome other Thief Abilities may consume Fool's Gold.\n",
+        "Effect": "Whenever you deal Damage, gain that much Fool's Gold {Gold}.\n",
+        "Upgrade": "{FoolsGold}",
         "Notes": "Lore-wise, as a Thief, you prepare and build up momentum in combat. When you reach a town, you put your preparations in motion and gain the gold.\n"
     },
-    "<Screw-It Shot>": {
-        "_Value": 1.5,
-        "A": "Half-Action",
-        "Cost": "50 Fool's Gold",
-        "Range": "2 meters",
-        "Cooldown": "Once / Turn",
-        "Effect": "Choose a Unit.\nRoll a Dexterity Check at least equal to that Unit's Dexterity Check to make it Stunned.\n"
+    "<Hide In Plain Sight>": {
+        "_Value": 0,
+        "A": "Passive",
+        "Effect": "On the first Round of combat, enemies with less than 3 Sense can't see you.\nAlso, you can always Break your Movement.\n",
+        "Upgrade": "Out of combat, you gain +2 on Checks for sneaking or hiding."
     },
-    "<Arcane Trickster>": {
+    "<Magic Trickster>": {
         "_Value": 1,
         "A": "Passive",
-        "Effect": "You can now cast spells!\nYour Intelligence increases by 1 (up to a maximum of 4).\nYou gain access to the Arcane and Mysticism Basic Ability Lists, but at most half of all your Known Basic Abilities can be Arcane or Mysticism Spells.\nFool's Coin now also applies when spending Mana on a Spell.\n",
+        "HasMixins": true,
+        "Effect": "Your Intelligence increases by 1 (up to a maximum of 4) and you gain access to the Arcane and Mysticism Basic Ability Schools.\nWhenever you heal or deal Damage with a Spell, gain {Gold}Gold equal to the Damage done or amount healed.\n",
         "Notes": "You lose access to these Spells if you change this Talent."
     },
-    "<Way of Fooling>": {
-        "_Value": 0.5,
-        "A": "Passive",
-        "Effect": "Your Charisma increases by 2 (up to a maximum of 4)."
-    },
-    "<Whiplash>": {
-        "_Value": 1,
-        "A": "0 Actions",
-        "Cooldown": "1 hour",
-        "Effect": "Throw a whiplash at a grabbable point within 6 meters.\nPull yourself to a target point.\nAfter using Whiplash, your next weapon attack this turn applies Ambush if you haven't already Ambushed this turn.\n",
-        "Notes": "Requires a Whiplash item, which can be bought for 50 gold (or freely crafted for the same price in materials)."
+    "<Pocket Sand>": {
+        "A": "Half-Action",
+        "Cost": "50 Gold",
+        "Range": "3 meters",
+        "HasMixins": true,
+        "Effect": "Blind a Unit.\n",
+        "Notes": "{Blinded}"
     },
     "<Thief Shock Wire>": {
         "_Value": 1.5,
@@ -1588,31 +1563,23 @@
         "Effect": "After you use a 0 Actions Ability, your next weapon attack this turn gains Ambush.\nAmbush can happen twice per turn (even at the same time) from 2 different Ambush conditions.\n",
         "Notes": "E.g. if you just used a 0 Actions Ability but you would Ambush anyway, the Ambush Damage is 2d8 Damage. Or, for another example, if you were Hiding and you would also Ambush from your Specialization Ambush Ability condition, the attack gains 2d8 Damage.\nOr, if you were hiding and Ambush, then use a 0 Actions Ability, then attack again, that second attack also gains Ambush (1d8 extra Damage).\n"
     },
-    "~Isolated~": {
-        "_Value": 4,
-        "A": "Passive",
-        "Effect": "When you attack a Unit, and there is no other Unit within 1 meter of either of you, the attack gains Ambush.\n",
-        "Upgrade": "When Ambushing, you can also spend as much Mana as you want.\nThat attack gains 1d8 extra Damage for each Mana spent (on top of the 1d8).\n",
-        "Notes": "Ambush from Hidden and Isolated don't stack (only one d8 is added)."
-    },
-    "<Take Out>": {
+    "~Sudden Ambush~": {
         "_Value": 1,
-        "A": "Half-Action",
-        "Cost": "1 Mana",
-        "Range": "1 meter",
-        "Effect": "Make a Dexterity Check agasint a non-Epic Unit's Dexterity Check.\nIf you succeed, it is put to Sleep for 1 minute.\nIf you fail, you gain the Half-Action back.\n",
-        "Downside": "You must be hiding to use Take Out, and the target must be Isolated.\nThis ability unhides you!\n"
+        "A": "Passive",
+        "HasMixins": true,
+        "Replacement": "Replaces Ambush",
+        "Effect": "Every Worthy Combat, your first weapon attack deals ~+3d6~ Damage.\n~If you end a Turn without having dealt Damage, reset this.~\n"
+    },
+    "<Shadowpass>": {
+        "A": "0 Actions or Reaction",
+        "Cooldown": "1 hour",
+        "Effect": "Choose a point covered in shadow up to 6 meters away and teleport to it.\n",
+        "Upgrades": "You can use this as a Reaction when an enemy wants to attack you (before dealing the Damage). If it can't do the attack anymore, it must choose something else to do."
     },
     "<Poison Master>": {
         "A": "1 hour",
         "Cost": "1 Mana",
         "Effect": "Using ingredients costing 35 Gold, you are able to create a few drops of Drinkable Poison.\nSomeone ingesting them takes 1d12 Poison Damage instantly.\nCombining multiple instances of Drinkable Poison increases its Damage by 1d12 for each Drinkable Poison combined.\nThe poison loses its effect after 72 hours.\n"
-    },
-    "<Shadowstep>": {
-        "A": "0 Actions",
-        "Cooldown": "Once / Combat",
-        "Effect": "If you are covered in shadow, choose another point covered in shadow up to 6 meters away.\nInstantly teleport to that place.\n",
-        "Notes": "Note that you can use this out of combat, but its Cooldown will only reset after you finish the next combat, whenever that is.\nThis is considered a Spell.\n"
     },
     "<Planned Assassination>": {
         "_Value": 0.35,
@@ -1621,11 +1588,17 @@
         "Effect": "You plan an attack for 1 minute.\nYour next weapon attack on that target deals an extra 1d12 Damage.\nPlanned Assassination fails if your Line of Sight to the target is broken until you attack it.\n",
         "Notes": "The Mana is spent the moment you declare Planned Assassination. You can use plan assassinations on multiple targets, but you can't plan an assassination on a single target multiple times at the same time."
     },
+    "<Take-Out Shadowpass>": {
+        "A": "0 Actions or Reaction",
+        "Cooldown": "1 hour",
+        "Effect": "Choose a point covered in shadow up to 6 meters away and teleport to it.\n~Your next attack makes the target roll a Might Check against the Damage done. If it fails, it becomes put to Sleep for 1 minute.~\n",
+        "Upgrades": "You can use this as a Reaction when an enemy wants to attack you (before dealing the Damage). If it can't do the attack anymore, it must choose something else to do.\n~Epic monsters are instead Stunned for 1 Turn.~\n"
+    },
     "<Death Mark>": {
-        "_Value": 2.25,
+        "_Value": 3,
         "A": "0 Actions",
         "Cooldown": "Once / Adventure",
-        "Effect": "Mark a Unit you can see for death.\nWhenever YOU deal Damage to it until your next turn, remember the Damage done.\nAt the start of your next turn, the mark bursts and the Unit takes 50% of the Damage it has taken in this time period.\n"
+        "Effect": "Mark a Unit you can see.\nWhenever YOU deal Damage to it until your next turn, remember the Damage done.\nAt the start of your next turn, the mark bursts and the Unit takes directly 33% of the Damage you dealt to it in this time period.\n"
     },
     "<Finale>": {
         "A": "0 Actions",
@@ -1703,13 +1676,13 @@
     },
     "~Echoes~": {
         "A": "Passive",
-        "Cooldown": "Each Ability can only echo once per Combat",
         "HasMixins": true,
-        "Effect": "After you cast a Basic Ability, roll 1d10.\nIf you rolled 10 on it, the Ability _echoes_ and you cast it again (for 0 Actions), but ^all^ Damage or Healing it does is reduced by 50%.\nThe _echoed_ Ability can't affect the same target(s) or area.\n",
+        "Effect": "After you cast a Basic Ability, roll 1d8.\nIf you rolled 8 on it, the Ability _echoes_ and you cast it again (for 0 Actions), but ^all^ Damage or Healing it does is reduced by 50%.\nThe _echoed_ Ability can't affect the same target(s) or area.\n",
         "Notes": "Abilities like Recuperate can't _echo_, since the only possible target is yourself.\nIf the area overlaps the initial area, the overlapped part has no effect. If it hits the same target(s), it has no effect on them.\nTake the Ability text as it is - _echoing_ Lightning Storm repeats the initial Damage, but you'd have to spend another 1 Action to retrigger the second Lightning Storm.\nThe QM has the word on whether something is possible.\n"
     },
     "~Mind Link~": {
         "A": "0 Actions",
+        "Cooldown": "Once / Adventure",
         "Effect": "Establish a mind connection with a willing ally.\nFor the rest of the Adventure, you can talk to eachother telepathically.\n",
         "Notes": "You can only have one Mind Linked ally at a time."
     },
@@ -1728,8 +1701,9 @@
         "_Value": "0 (?)",
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "While at or below 50% Health, your weapon attacks can _echo_ on a Unit within range.",
-        "Notes": "So, after every weapon attack, roll 1d10, and if you rolled 10, the attack _echoes_"
+        "Replacement": "Replaces Echoes",
+        "Effect": "After you cast a Basic Ability ~or make a weapon attack~, roll 1d8.\nIf you rolled 8 on it, the Ability~/attack~ _echoes_ and you cast it again (for 0 Actions), but ^all^ Damage or Healing it does is reduced by 50%.\nThe _echoed_ Ability~/attack~ can't affect the same target(s) or area.\n",
+        "Notes": "Abilities like Recuperate can't _echo_, since the only possible target is yourself.\nIf the area overlaps the initial area, the overlapped part has no effect. If it hits the same target(s), it has no effect on them.\nTake the Ability text as it is - _echoing_ Lightning Storm repeats the initial Damage, but you'd have to spend another 1 Action to retrigger the second Lightning Storm.\nThe QM has the word on whether something is possible.\n"
     },
     "<Primal Trophy>": {
         "_Value": 1.25,
@@ -1794,10 +1768,10 @@
         "Effect": "You grow to the size of a giant and become Large.\nYou gain Shielding equal to 50% of your missing Health.\nYour normal Melee attacks hit all Units within 1 meter of the target for the same Damage, without the Stat modifier (e.g. you don't add your Might or Dexterity to the secondary targets).\nYou are immune to being Crowd Control and Hard Terrain.\n"
     },
     "<Echoes of Fury>": {
-        "_Value": 3,
+        "_Value": 3.5,
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "Your weapon attacks can _echo_ regardless of your Health. Your _echoes_ Damage is no longer reduced by 50% (for Spells and Attacks)."
+        "Effect": "Your _echoes_ can hit the same target (with -50% Damage/Healing). However, if it hits a different target, the Damage or Healing is no longer reduced by 50%.\n"
     },
     "<Forced Echoes>": {
         "_Value": 3,
@@ -1807,18 +1781,21 @@
         "Notes": "You don't spend Health again if any Talents require that."
     },
     "~Spirit Bond~": {
-        "A": "1 Action",
+        "A": "0 Actions",
         "Cooldown": "Once / Adventure",
-        "Duration": "Whole Adventure",
-        "Effect": "Touch another ally.\nWhenever either of you makes a Check, add the higher bonus from either of you instead of their normal Check bonus.\n",
-        "Notes": "This does apply to non-combat Skills - if your bonded ally has Skilled in something, you also add the ally's Level, as it would normally make sense."
+        "Replacement": "Replaces Mind Link",
+        "HasMixins": true,
+        "Effect": "Establish a mind connection with an Ally you can see.\nFor the rest of the Adventure, you can talk to eachother telepathically, ~and whenever either of you makes a Check, add the higher bonus from either of you instead of their normal Check bonus~.\n",
+        "Notes": "This does apply to non-combat Skills - if your bonded ally has a non-combat Skill, you also add the ally's Level, as it would normally make sense."
     },
     "~Infinite Echo~": {
         "_Value": 1,
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "Your _echo_ die becomes 1d8.\nAfter you _echo_ an Ability, roll the 1d8 _echo_ die again. If you roll 8, repeat!\n",
-        "Upgrade": "Your Basic Abilities can _echo_ again and again. The Damage and Healing remains 50% of its normal amount (e.g. it's not 50% of 50%)."
+        "Replacement": "Replaces Echoes",
+        "Effect": "After you cast a Basic Ability, roll ~1d6~.\nIf you rolled 6 on it, the Ability echoes and you cast it again (for 0 Actions), but all Damage or Healing it does is reduced by 50%.\nThe echoed Ability can't affect the same target(s) or area.\n~After you echo an Ability, roll the 1d6 echo die again. If you roll 8, repeat!~\n",
+        "Upgrade": "~Your Basic Abilities can _echo_ again and again. The Damage and Healing remains 50% of its normal amount (e.g. it's not 50% of 50%).~",
+        "Notes": "Abilities like Recuperate can't echo, since the only possible target is yourself.\nIf the area overlaps the initial area, the overlapped part has no effect. If it hits the same target(s), it has no effect on them.\nTake the Ability text as it is - echoing Lightning Storm repeats the initial Damage, but you'd have to spend another 1 Action to retrigger the second Lightning Storm.\nThe QM has the word on whether something is possible.\n"
     },
     "<Incorporeal Form>": {
         "_Value": 1.5,
@@ -1829,7 +1806,7 @@
     },
     "<Dream Walk>": {
         "_Value": 1.5,
-        "A": "Half-Actio",
+        "A": "Half-Action",
         "Cooldown": "Once / Adventure",
         "Range": "6 meters",
         "Effect": "Make a Sense Check against another non-Epic Unit's Sense Check. If you succeed, it falls Asleep for 2 turns.\nAlternatively, you can use Dream Walk on an already sleeping target to alter their dreams to your liking.\n",
@@ -1898,14 +1875,15 @@
     },
     "~Wicked Magic~": {
         "A": "Passive",
-        "Effect": "You have access to the Eldritch Spell List."
+        "Effect": "You have access to the Eldritch Spell School."
     },
     "~Hex Magic~": {
         "_Value": 1,
         "A": "0 Actions or Reaction",
         "Cost": "Depends",
         "Range": "10 meters",
-        "Effect": "After you cast a Spell, you can expend 6 Health to force it to _echo_.\nYou can expend 3 Health to add or subtract 1d6 from any other Unit's roll (not yours).\n",
+        "HasMixins": true,
+        "Effect": "After you cast a Spell, you can expend 5 Health to force it to _echo_.\nYou can expend 3 Health to add or subtract 1d6 from any other Unit's roll (not yours).\n",
         "Notes": "The QM might not roll Damage for monsters, and instead take the average - even if they take the average, that counts as a roll.\nKeep in mind you only have 1 Reaction per Round.\n"
     },
     "<Voodoo Magic>": {
@@ -1957,7 +1935,7 @@
         "A": "1 Action",
         "Cost": "Any amount of Health",
         "Duration": "10 minutes",
-        "Effect": "Declare a square area with a diameter equal to the Health spent.\nUndead hands appear in that area and make it Hard Terrain.\nAt the start of your next turn, summon a number of Zombies equal to half the Health spent, each wherever you choose in that area.\nThey take their turn the same time as you and you can command them to do move and attack (they can't do Default Moves or use items).\nThey have 4 Speed, 1 Health, 2 Defense and fail all Checks.\nEach can attack for 1d4 - 1 Scourge Damage, but ignore Defense.\nZombies last for up to 10 minutes.\n"
+        "Effect": "Declare a square area with a diameter equal to the Health spent.\nUndead hands appear in that area and make it Hard Terrain.\nAt the start of your next turn, summon a number of Zombies equal to half the Health spent, each wherever you choose in that area.\nThey take their turn the same time as you and you can command them to do move and attack (they can't do Default Moves or use items).\nThey have 4 Speed, 1 Health, 2 Defense and fail all Checks.\nEach can attack for 1d4 - 1 Scourge Damage.\nZombies last for up to 10 minutes.\n"
     },
     "<Schizophrenic Suggestion>": {
         "_Value": 2.5,
@@ -1973,7 +1951,7 @@
         "_Value": 2.5,
         "A": "Half-Action",
         "Cooldown": "Once / Adventure",
-        "Effect": "Target a Unit.\nThe next time it would take Damage from any source before your next turn, the Damage is doubled (after Defense).\n",
+        "Effect": "Target a Unit.\nThe next time it would take Damage from any source before your next turn, the Damage is increased by 100%.\n",
         "Upgrade": "You can only use this on targets that have blood.",
         "Notes": "Applies to added extra Damage if it's the same type as the base Damage (e.g. Advanced Flank works, but not Smites)."
     },
@@ -2015,7 +1993,8 @@
     "~Darkness~": {
         "_Value": 0.5,
         "A": "Passive",
-        "Effect": "After you spend Mana, conjure (optionally) a 3x3x3 meter area of magical darkness, centered on you and this turn, you can see in magical darkness.\n",
+        "Duration": "1 Turn",
+        "Effect": "You can see in the dark.\nAfter you spend Mana, conjure (optionally) a 3x3x3 meter area of magical darkness, centered on you. Lasts until the start of your next Turn.\n",
         "Notes": "Units inside magical darkness are Blinded, and everything done in or through the darkness has Cover."
     },
     "<Agile Development>": {
@@ -2198,8 +2177,9 @@
         "_Value": 3,
         "AlignOnWebsite": "Left",
         "A": "Passive",
-        "Effect": "The first time you Flank-Attack an enemy every turn, the attack deals 1d6 Damage instead of just +1.\nAlso, your melee weapon attacks Flank an enemy if they are pinned against a wall or an obstacle as well.\n",
-        "Note": "Flanking is when you melee-attack an enemy, and an ally of yours is directly behind the enemy.\nAlso, instead of an ally being behind the enemy, your attacks count as Flanking even if there is a wall or another obstacle directly behind them.\n"
+        "HasMixins": true,
+        "Effect": "The first time you _flank_ an enemy every turn, the attack deals +1d6 Damage.\nAlso, your melee weapon attacks Flank an enemy if they are pinned against a wall or an obstacle as well.\n",
+        "Note": "{Flank}\nAlso, instead of an ally being behind the enemy, your attacks count as Flanking even if there is a wall or another obstacle directly behind them.\n"
     },
     "~Charge~": {
         "_Value": 1,
@@ -2430,14 +2410,90 @@
         "A": "Passive",
         "Effect": "Whenever you roll maximum on the Advanced Flank die, gain Shielding equal to the roll."
     },
-    "~Skipper~": {
-        "A": "0 Actions",
-        "Cost": "2 remaining Movement",
+    "~Agile Hand~": {
+        "_Value": 0.25,
+        "A": "Passive",
+        "Effect": "You can freely Break your Movement."
+    },
+    "<Arcane Trickster>": {
+        "_Value": 1,
+        "A": "Passive",
+        "Effect": "Your Intelligence increases by 1 and you gain access to the Arcane and Mysticism Basic Ability Lists.\n"
+    },
+    "<Screw-It Shot>": {
+        "_Value": 1.5,
+        "A": "Half-Action",
+        "Cost": "50 Fool's Gold",
+        "Range": "2 meters",
         "Cooldown": "Once / Turn",
-        "Effect": "Instantly jump 3 meters in any direction.\n",
-        "Notes": "You essentially have +1 Movement Speed. You can jump over Enemies, obstacles, etc. Costs 2 remaining Movement. You can use this even if you already moved this turn (or before) and have at least 2 remaining Movement."
+        "Effect": "Choose a Unit.\nRoll a Dexterity Check at least equal to that Unit's Dexterity Check to make it Stunned.\n"
+    },
+    "<Way of Fooling>": {
+        "_Value": 0.5,
+        "A": "Passive",
+        "Effect": "Your Charisma increases by 2 (up to a maximum of 4)."
+    },
+    "<Whiplash>": {
+        "_Value": 1,
+        "A": "0 Actions",
+        "Cooldown": "1 hour",
+        "Effect": "Throw a whiplash at a grabbable point within 6 meters.\nPull yourself to a target point.\nAfter using Whiplash, your next weapon attack this turn applies Ambush if you haven't already Ambushed this turn.\n",
+        "Notes": "Requires a Whiplash item, which can be bought for 50 gold (or freely crafted for the same price in materials)."
+    },
+    "~Assassinating Ambush~": {
+        "_Value": 7,
+        "AlignOnWebsite": "Right",
+        "A": "Passive",
+        "HasMixins": true,
+        "Replacement": "Replaces Ambush",
+        "Effect": "Every combat, your first ~attack or single-target offensive Ability~ deals ~+3d6~ Damage.\n~Every combat, your first~ Ability that costs Mana 1 costs no Mana instead!\n",
+        "Notes": "Does not stack if you kill multiple enemies without casting a Mana Ability."
+    },
+    "~Shadowpass~": {
+        "A": "0 Actions",
+        "Cooldown": "Once / Combat",
+        "Requirement": "Only usable if covered in shadow",
+        "Effect": "Teleport to a shadowy spot within 6 meters.\nThen, your next Ability that costs Mana 1 costs no Mana instead!\n",
+        "Notes": "Note that you can use this out of combat, but its Cooldown will only reset after you finish the next combat, whenever that is.\nThis is considered a Spell.\n"
+    },
+    "<Take Out>": {
+        "_Value": 1,
+        "A": "Half-Action",
+        "Cost": "1 Mana",
+        "Range": "1 meter",
+        "Effect": "Make a Dexterity Check agasint a non-Epic Unit's Dexterity Check.\nIf you succeed, it is put to Sleep for 1 minute.\nIf you fail, you gain the Half-Action back.\n",
+        "Downside": "You must be hiding to use Take Out, and the target must be Isolated.\nThis ability unhides you!\n"
+    },
+    "<Shadowstep>": {
+        "A": "0 Actions",
+        "Cooldown": "Once / Combat",
+        "Effect": "If you are covered in shadow, choose another point covered in shadow up to 6 meters away.\nInstantly teleport to that place.\n",
+        "Notes": "Note that you can use this out of combat, but its Cooldown will only reset after you finish the next combat, whenever that is.\nThis is considered a Spell.\n"
+    },
+    "~Isolated Ambush~": {
+        "_Value": 10,
+        "AlignOnWebsite": "Right",
+        "A": "Passive",
+        "HasMixins": true,
+        "Replacement": "Replaces Ambush",
+        "Effect": "Every ~Turn~, your first ~attack or single-target offensive Ability against an isolated Unit~ deals +1d6 Damage.\n~If it kills a Worthy Enemy,~ your next Ability that costs 1 Mana costs no Mana instead!\n",
+        "Upgrade": "A Unit is _isolated_ if there are no other Units (except you) within 1 meter of it."
+    },
+    "~Stalk 'n' Parry~": {
+        "_Value": "~2",
+        "A": "Special",
+        "HasMixins": true,
+        "Replacement": "Replaces Stalking",
+        "Effect": "On the first Round of combat, you can skip your Turn.\nThen, you can start your Turn whenever you like (even during enemies' turns)!\n~Until then, reduce any weapon attack's Damage on you by 1d6.~\n",
+        "Notes": "If you want to start during an enemy's Turn, you do so when they declare they want to do something or after they finish doing something.\nBe careful: if you don't start your Turn this Round, you lose your Turn!\n"
+    },
+    "~Skipper~": {
+        "A": "Passive",
+        "Effect": "Your Movement Speed is increased by 1.\nYou can jump 3 meters without requiring a Check (e.g. over enemies, gaps, etc).\n",
+        "Notes": "Jumping still uses Movement."
     },
     "~All Eyes and Noses~": {
+        "AlignOnWebsite": "Right",
         "A": "Passive",
         "Effect": "While roleplaying or exploring (non-combat) at full Health, your Charisma or Sense Checks have +1."
     },
@@ -2513,9 +2569,8 @@
     },
     "~Wingspan~": {
         "A": "0 Actions",
-        "Cooldown": "Once / Adventure",
-        "Effect": "Quickly fly up to 5 meters (e.g. almost instantly).\n",
-        "Upgrade": "At Level 5, you get one extra use of Wingspan per Adventure (e.g. the Cooldown becomes 2 times / Adventure)."
+        "Cooldown": "1 hour",
+        "Effect": "Quickly fly up to 3 meters (e.g. almost instantly)."
     },
     "~Dragon Ancestry~": {
         "AlignOnWebsite": "Left",
@@ -2653,7 +2708,8 @@
     },
     "~Sword Tradition~": {
         "A": "Passive",
-        "Effect": "When using a bow or sword (or rapier) of any kind, you attack with +3 instead of Might or Dexterity."
+        "Effect": "You can use any sword or bow regardless of its Stat requirements, and you can inscribe 1 extra Rune on any sword or bow.",
+        "Notes": "Inscribing a weapon with the extra Rune makes the weapon Soulclaimed by you, and can't be used by another Character until the Rune is removed."
     },
     "~Disenchant Magic~": {
         "A": "10 minutes",
@@ -2739,16 +2795,13 @@
         "Cooldown": "Once / Adventure",
         "Effect": "Choose an enemy near you.\nThat enemy performs an attack on you.\nIf you survive the attack, you gain 1 Action which you can use to make one attack or use one Ability on that enemy.\n"
     },
-    "~Skilled in Persuasion~": {
-        "Effect": "Add your Level to all Checks for persuading people non-agressively (convincing them through dialogue)."
-    },
     "~Jack of all Trades~": {
         "A": "Passive",
         "Effect": "You gain +1 in your 2 lowest Stats."
     },
     "~Talented~": {
         "A": "Passive",
-        "Effect": "You are Trained in any 2 Weapon Categories, or Skilled in any 2 non-combat Skills (or one of each).",
+        "Effect": "You are Skilled in any 2 non-combat Skills.",
         "Notes": "The 5 Weapon Categories are 1-Handed Melee Weapons, 2-Handed Melee Weapons, 1-Handed Ranged Weapons, 2-Handed Ranged Weapons, and Shields.\n"
     },
     "~Human Vigilence~": {
@@ -2796,15 +2849,18 @@
     "~Bloodthirst~": {
         "A": "0 Actions",
         "Cost": "1 Mana",
+        "Requirement": "-1 in a Stat of choice",
         "Cooldown": "Once / Combat",
         "Effect": "Gain an additional Half-Action this turn."
     },
     "~Savage Attacks~": {
         "A": "0 Actions",
+        "Requirement": "-1 in a Stat of choice",
         "Effect": "Use after you roll for Damage.\nChoose one of the rolled Damage dice and double its value.\nYou take Damage equal to the initial die rolled.\n"
     },
     "~Bloodshed Wish~": {
         "A": "Passive",
+        "Requirement": "-1 in a Stat of choice",
         "Effect": "You gain +1 Might or Dexterity (if it's lower than your highest stat), and you can Know Abilities from the Bloodshed Ability List, even if it's not normally available to your Class.\n"
     }
 }

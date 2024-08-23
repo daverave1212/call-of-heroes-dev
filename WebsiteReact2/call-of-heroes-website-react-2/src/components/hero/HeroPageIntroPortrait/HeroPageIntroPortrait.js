@@ -51,7 +51,7 @@ export default function HeroPageIntroPortrait() {
           {/* <BottomWaveEffect/> */}
           <img style={{position: 'absolute', top: '8vh', left: '20vw', width: '20px'}} src="/LandingPage/FloatingDot1.png" className='floating-animation-1'/>
           <img style={{position: 'absolute', top: '15vh', right: '20vw', width: '22px'}} src="/LandingPage/FloatingDot2.png" className='floating-animation-2'/>
-          <img style={{position: 'absolute', bottom: '8vh', right: '15vw', width: '20px'}} src="/LandingPage/FloatingDot2.png" className='floating-animation-3'/>
+          <img style={{position: 'absolute', bottom: '8vh', right: '15vw', width: '20px'}} src="/LandingPage/FloatingDot3.png" className='floating-animation-3'/>
           <img style={{position: 'absolute', bottom: '-95vw', left: '-70vw', width: '125vw'}} src='/LandingPage/FloatingSphere1.png' className='rotating-animation-1'/>
         </div>
     )

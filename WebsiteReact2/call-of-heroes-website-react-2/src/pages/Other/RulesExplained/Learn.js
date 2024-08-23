@@ -7,7 +7,7 @@ import { SideMenu } from "../../../components/SideMenu/SideMenu";
 import BreadcrumbSideMenu from "../../../components/BreadcrumbSideMenu/BreadcrumbSideMenu";
 import { useEffect, useState } from "react";
 
-export function HeroSectionTitle({imgSrc, title}) {
+export function HeroSlidePageTitle({imgSrc, title}) {
     if (imgSrc != null)
         return (
             <img className={'hero-logo-img'} src={imgSrc}/>
@@ -17,7 +17,7 @@ export function HeroSectionTitle({imgSrc, title}) {
     return ""
 }
 
-function Section({
+function SlidePage({
     isReverse, isAlignedLeft, title, logoImgSrc, imgSrc, buttonName, linkTo, children, isDownload,
 
     CHeroLogo
@@ -78,18 +78,18 @@ function Section({
 
                 </div>
             </div>
+            <LandingPageSeparator type="8"/>
         </div>
     )
 }
 
-export function HeroSection({nBullets, CHeroLogo, highlightNumber, isReverse, isAlignedLeft, title, titleStyle, logoImgSrc, imgSrc, buttonName, linkTo, children, isDownload }) {
+export function HeroSlidePage({nBullets, CHeroLogo, highlightNumber, isReverse, isAlignedLeft, title, titleStyle, logoImgSrc, imgSrc, buttonName, linkTo, children, isDownload }) {
     return (
         <div style={{position: 'relative'}}>
             { nBullets != null && (<BreadcrumbSideMenu nBullets={nBullets} highlightNumber={highlightNumber}/>) }
-            <Section CHeroLogo={CHeroLogo} isAlignedLeft={isAlignedLeft} isReverse={isReverse == true? true : false} titleStyle={titleStyle} title={title} isDownload={isDownload} imgSrc={imgSrc} logoImgSrc={logoImgSrc} buttonName={buttonName} linkTo={linkTo}>
+            <SlidePage CHeroLogo={CHeroLogo} isAlignedLeft={isAlignedLeft} isReverse={isReverse == true? true : false} titleStyle={titleStyle} title={title} isDownload={isDownload} imgSrc={imgSrc} logoImgSrc={logoImgSrc} buttonName={buttonName} linkTo={linkTo}>
                 { children }
-            </Section>
-            <LandingPageSeparator type="8"/>
+            </SlidePage>
         </div>
     )
 }
@@ -99,44 +99,43 @@ export default function() {
     return (
         <div>
 
-            <HeroSection
+            <HeroSlidePage
                 nBullets={4} highlightNumber={0}
-                isDownload={true} linkTo={"/Download/Transition_Guide_2024-05-01.pdf"}
+                isDownload={true} linkTo={"/Download/Transition_Guide_2024-06-16b.pdf"}
                 imgSrc="/LandingPage/Learn2.png"
-                CHeroLogo={<HeroSectionTitle imgSrc="/LandingPage/TransitionGuideLogo.png"/>}
+                CHeroLogo={<HeroSlidePageTitle imgSrc="/LandingPage/TransitionGuideLogo.png"/>}
                 buttonName="Transition Guide">
                 If you're familiar with Dungeons and Dragons or Pathfinder, check out this transition guide. It explains the differences and how to transition smoothly to Questguard.
-            </HeroSection>
+            </HeroSlidePage>
 
-            <HeroSection
+            <HeroSlidePage
                 nBullets={4} highlightNumber={1}
                 isReverse={true} isDownload={true}
-                CHeroLogo={<HeroSectionTitle imgSrc="/LandingPage/CharacterCreationLogo.png"/>}
+                CHeroLogo={<HeroSlidePageTitle imgSrc="/LandingPage/CharacterCreationLogo.png"/>}
                 imgSrc="/LandingPage/Learn4.png"
                 buttonName="Creation Guide"
-                linkTo="/Download/Character_Creation_Guide_2024-05-01.pdf">
+                linkTo="/Download/Character_Creation_Guide_2024-06-16b.pdf">
                 Learn how to create a Character and fill in the Character Sheet in QuestGuard. Be sure to share it over on our Discord community when you're done!
-            </HeroSection>
+            </HeroSlidePage>
 
-
-            <HeroSection
+            <HeroSlidePage
                 nBullets={4} highlightNumber={2}
-                CHeroLogo={<HeroSectionTitle title="For New Players"/>}
+                CHeroLogo={<HeroSlidePageTitle title="For New Players"/>}
                 imgSrc="/LandingPage/Learn3.png"
                 buttonName="Tutorial"
                 linkTo="/Other/TransitionGuide">
                 Learn about tabletop roleplaying games and the very basics. Recommended if you are completely new to the genre, and have never played Questguard, Dungeons & Dragons or other similar social games.
-            </HeroSection>
+            </HeroSlidePage>
 
-            <HeroSection
+            <HeroSlidePage
                 nBullets={4} highlightNumber={2}
                 isReverse={true}
-                CHeroLogo={<HeroSectionTitle title="Rules Glossary"/>}
+                CHeroLogo={<HeroSlidePageTitle title="Rules Glossary"/>}
                 imgSrc="/LandingPage/Learn.png"
                 buttonName="View Rules"
                 linkTo="/Other/Rules">
                 Click here for the complete in-depth character creation, rules, clarifications and interactions. Everthing about Questguard inside a neatly tied table of contents.
-            </HeroSection>
+            </HeroSlidePage>
             {/* <div style={{position: 'relative'}}>
                 <BreadcrumbSideMenu nBullets={4} highlightNumber={0}/>
                 <Section isDownload={true} imgSrc="/LandingPage/Learn2.png" logoImgSrc="/LandingPage/TransitionGuideLogo.png" buttonName="Transition Guide" linkTo="/Download/Transition_Guide_2024-05-01.pdf">

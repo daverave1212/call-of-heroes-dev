@@ -3,13 +3,12 @@
     "Description": "In the tumult of battle, you suffer grievous wounds, tumbling injured to the ground. Amidst the chaos, however, a beacon of hope catches your eye across the battlefield. Drawing nearer, you discern a figure brandishing a sacred symbol, poised to intervene in your plight. With a decisive strike, they confront your assailant and then approach, kneeling by your side. Yet disquieting feeling overtakes you - this cleric's powers are not of the same god as yours. All gods demand something... what will this one demand of you for bringing you back on your feet?\nClerics are spellcasters deeply attuned to their religion, and while their magic source may be from a divine source, they nevertheless possess an understanding to wield magic, and more often than not, they have learned the secrets of their creed, and can put them to good use to attain their life's purpose.\nA Cleric is a guide, a seeker of understandings. Clerics have the innate ability to heal and cause harm, and every cleric has the option to embrace either side of the coin - war or peace, light or darkness, life or death. While they usually serve a greater god, no two clerics are alike, and each has their own way of worship and path in life.\n",
     "Difficulty": "Medium-Hard",
     "Armor Training": "Medium Armor",
-    "Weapons": "You are Trained in 2 Weapon Categories of choice (e.g. 1-Handed Melee, 2-Handed Ranged, Shields, etc).",
     "Level Up": {
         "Every Level": {
             "Health": 4
         }
     },
-    "Proficiency Requirements": "You have the Religion Skill and a number of extra non-combat Skills equal to your Intelligence.",
+    "Proficiency Requirements": "You have the Religion Skill and a number of extra non-combat Skills equal to your Intelligence or Sense, whichever is higher.",
     "Proficiencies": {
         "~Skilled in Religion~": {
             "Effect": "Add your Level to Checks for knowing about religions, praying, performing sermons, faith, etc."
@@ -177,11 +176,11 @@
                     }
                 },
                 "Level 6": {
-                    "<Health Bonus>": {
-                        "Effect": "Gain +4 Max Health."
+                    "<Stat Bonus 4>": {
+                        "Effect": "Gain +1 in a Stat of choice, up to +4."
                     },
-                    "<Health Regen Bonus>": {
-                        "Effect": "Gain +2 Health Regen."
+                    "<Double Stat Bonus>": {
+                        "Effect": "Gain +1 in a Stat of choice, up to +3, twice."
                     }
                 },
                 "Level 7": {
@@ -210,7 +209,7 @@
                         "Effect": "Gain +1 in a Stat of choice, up to +5."
                     },
                     "<Mana Bonus>": {
-                        "Effect": "Gain +1 Max Mana."
+                        "Effect": "Gain +1 Max Mana and +1 Known Ability."
                     }
                 },
                 "Level 9": {
@@ -271,8 +270,9 @@
                     "<Let There Be Darkness>": {
                         "_Value": 0.75,
                         "A": "Passive",
-                        "Effect": "While in darkness, your damaging Awe die is increased by 1 tier.\n",
-                        "Notes": "Increasing the tier of dice means 1d4 becomes 1d6, 1d6 becomes 1d8, and so on. D12's and d20's don't increase."
+                        "HasMixins": true,
+                        "Effect": "While in darkness, your damaging Awe has its ^Dice Upgraded^ to the next die type.\n",
+                        "Notes": "{DiceUpgrade}. It is up to the Quest Master what is considered darkness."
                     },
                     "<Repentance>": {
                         "_Value": 1,
@@ -314,17 +314,17 @@
                         "_Value": 1.75,
                         "A": "0 Actions",
                         "Cooldown": "Once / Adventure",
-                        "Effect": "You create a 1x1 Black Hole on an empty space.\nCast Grasp for free on all enemies within 6 meters of the hole.\nIf a Unit gets to the center of the Black Hole, it becomes Rooted.\nAt the end of your turn, all Units within 6 meters of it are pulled 2 meters towards it.\n",
+                        "Effect": "You create a 1x1 Black Hole on an empty space.\nCast Awe for free on all enemies within 6 meters of the hole.\nIf a Unit gets to the center of the Black Hole, it becomes Rooted.\nAt the end of your turn, all Units within 6 meters of it are pulled 2 meters towards it.\n",
                         "Notes": "If 2 Units would be pulled to the center, you choose which. The black hole's gravity works even for Units behind walls and obstacles.",
                         "OrderOnWebsite": 2
                     }
                 },
                 "Level 6": {
-                    "<Health Bonus>": {
-                        "Effect": "Gain +4 Max Health."
+                    "<Stat Bonus 4>": {
+                        "Effect": "Gain +1 in a Stat of choice, up to +4."
                     },
-                    "<Health Regen Bonus>": {
-                        "Effect": "Gain +2 Health Regen."
+                    "<Double Stat Bonus>": {
+                        "Effect": "Gain +1 in a Stat of choice, up to +3, twice."
                     }
                 },
                 "Level 7": {
@@ -339,6 +339,7 @@
                         "_Value": 3,
                         "A": "Half-Action",
                         "Cooldown": "Once / Adventure",
+                        "Requirement": "Only usable in Combat",
                         "Effect": "Until the end of your next turn, double all healing you and your party does.",
                         "Notes": "Doesn't stack with other healing multiplication effects."
                     },
@@ -353,7 +354,7 @@
                         "Effect": "Gain +1 in a Stat of choice, up to +5."
                     },
                     "<Mana Bonus>": {
-                        "Effect": "Gain +1 Max Mana."
+                        "Effect": "Gain +1 Max Mana and +1 Known Ability."
                     }
                 }
             }
@@ -462,9 +463,8 @@
                     "~Wingspan (Cleric)~": {
                         "A": "0 Actions",
                         "IsSubspell": true,
-                        "Cooldown": "Once / Adventure",
-                        "Effect": "Quickly fly up to 5 meters.",
-                        "Upgrades": "At Levels 7 and 9, you get one extra use of Wingspan per Adventure (e.g. the Cooldown becomes 2 times / Adventure, 3 times / Adventure, etc)."
+                        "Cooldown": "1 hour",
+                        "Effect": "Quickly fly up to 3 meters."
                     },
                     "~Penitence~": {
                         "A": "0 Actions",
@@ -477,11 +477,11 @@
                     }
                 },
                 "Level 6": {
-                    "<Health Bonus>": {
-                        "Effect": "Gain +4 Max Health."
+                    "<Stat Bonus 4>": {
+                        "Effect": "Gain +1 in a Stat of choice, up to +4."
                     },
-                    "<Health Regen Bonus>": {
-                        "Effect": "Gain +2 Health Regen."
+                    "<Double Stat Bonus>": {
+                        "Effect": "Gain +1 in a Stat of choice, up to +3, twice."
                     }
                 },
                 "Level 7": {
@@ -513,7 +513,7 @@
                         "Effect": "Gain +1 in a Stat of choice, up to +5."
                     },
                     "<Mana Bonus>": {
-                        "Effect": "Gain +1 Max Mana."
+                        "Effect": "Gain +1 Max Mana and +1 Known Ability."
                     }
                 }
             }

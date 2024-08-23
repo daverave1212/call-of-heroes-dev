@@ -27,7 +27,7 @@ classes = [
     'Rogue',
     'Shaman',
     'Warlock',
-    'Warrior',
+    'Warrior'
 ]
 races = [
     'Bertle',
@@ -83,6 +83,7 @@ files_to_convert = [    # Order matters
     'Classes/Shaman.yml',
     'Classes/Warlock.yml',
     'Classes/Warrior.yml',
+    'Classes/RogueNEW.yml',
 
     'Races/Bertle.yml',
     'Races/Davel.yml',

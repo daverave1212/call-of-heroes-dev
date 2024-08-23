@@ -8,7 +8,7 @@ import ManySpells from '../../components/Spell/ManySpells'
 import Page from '../../containers/Page/Page'
 
 import prices from '../../databases/Prices.json'
-import { randomInt, randomOf } from '../../utils'
+import { isLocalhost, randomInt, randomOf } from '../../utils'
 
 export default function TreasureGenerator() {
 
@@ -254,11 +254,19 @@ export default function TreasureGenerator() {
 		const goldInGoods = totalGoldWorth - goldRaw
 
         const loot = [{ name: 'Gold', price: goldRaw }]
+        
+        if (isLocalhost() && totalGoldWorth > 200) {
+            if (randomOf('bloodgold', 'vestige') == 'bloodgold') {
+                loot.push({ name: '1 Blood Gold', price: '1 Blood Gold'})
+            } else {
+                loot.push({ name: '1 VESTIGE Magic Item', price: '1 Blood Gold'})
+            }
+        }
 
         let remainingGold = goldInGoods
         let nTries = 0
         while (remainingGold > 25) {
-            const lootType = randomOf(1, 1, 1, 2, 3)
+            const lootType = randomOf(1, 1, 1, 3)
             const foundLoot =
                 lootType == 3? getEquipmentInRange(remainingGold):
                 lootType == 2? getScroll(remainingGold):
@@ -314,7 +322,11 @@ export default function TreasureGenerator() {
                     fontSize: '2em',
                 }}>
                     { state.loot.map(item => (
-                        <p style={{marginBottom: '0px'}}>{item.name} ({item.price})</p>
+                        <p style={{marginBottom: '0px'}}>{
+                            item.name.includes('Blood Gold') ? <span style={{color: 'red', fontWeight: 'bold'}}>{item.name} ({item.price})</span> :
+                            item.name.includes('VESTIGE') ? <span style={{color: 'orange', fontWeight: 'bold'}}>{item.name} ({item.price})</span> :
+                                <span>{item.name} (${item.price})</span>
+                        }</p>
                     )) }
                 </div>
             </Page>

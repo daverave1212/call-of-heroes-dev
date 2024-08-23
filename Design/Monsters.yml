@@ -62,8 +62,8 @@ Goblin:
   Stats:        -1/4/0/2/2
   Health:       20
   HPCoef:       0.9
-  Speed:        5
-  Initiative:   6 Melee / 9 Ranged
+  Speed:        6
+  Initiative:   10 Melee / 13 Ranged
   Abilities:
     - Ranged: 1 + number of Goblins
     - Melee: 1 + number of Goblins
@@ -104,12 +104,11 @@ Acolyte:
   Initiative:   1
   Abilities:
     - Healing Light: Heal a non-Acolyte Unit for 8. All Units around it become Blinded.
-    - Flame Bolt (6m): 1d6
-    - Weapon: 1d4 (when melee)
+    - Flame Bolt (6m): 1d6 + 1
   Passives:
     - Holy Spells: Acolytes can also cast other small utility spells, like making light or purifying water.
   Avoids AoE: Yes
-  Lore: Acolytes are support healer Units that inflict Blindness.
+  Lore: Acolytes are support healer Units that inflict Blind.
   Behavior: |
     Heals the lowest Health ally. If attacked melee, uses Weapon.
     Use as support for Guards, etc.
@@ -130,7 +129,7 @@ Cultist:
     - Eldritch Blast (spell):
         Damage: 1d4 Scourge
         Decaying: |
-            Target takes +1 Scourge Damage for the rest of combat (after the attack). Stacks infinitely.
+            Target takes +2 Scourge Damage for the rest of combat (after the attack). Stacks infinitely.
     - Dagger: 1d4 Pierce (when melee)
   Avoids AoE: Yes
   Behavior: |
@@ -167,13 +166,13 @@ Koblod:
   Initiative:   9
   Abilities:
     - Weapon:
-        Damage: 4 (or 2d4 - 1) (Pierce, Slash or Smash)
+        Damage: 1d6 + 1 (Pierce, Slash or Smash)
         No Remorse: Deal +50% melee Damage against targets affected by any Crowd Control
     - Opportunity Attack:
         A: Reaction
         Effect: When a Unit exist the melee range of a Kobold, attack it with the weapon.
   Passives:
-    - Sidestep: The first time a Koblod would be affected by a negative thing in Combat, if it makes sense, it is sidestepped and completely negated (unless it's a mind spell, or is unavoidable like Heat Metal; apply common sense; if in doubt, assume it's unavoidable).
+    - Sidestep: The first time a Koblod would be affected by a negative thing in Combat, if it makes sense, it completely dodges and avoids it it (unless it's a mind spell, or is unavoidable like Heat Metal; apply common sense; if in doubt, assume it's unavoidable).
     - Darkvision: Can see in the dark.
     - Trap Knowledge: Can automatically avoid traps laid by them and have +5 to detecting traps.
   Avoids AoE: Yes
@@ -201,18 +200,18 @@ Morloc:
   Experience:   100
   Stats:        1/4/0/2/0
   Health:       25
-  HPCoef:       0.7
+  HPCoef:       0.75
   Speed:        5
   Initiative:   5
   Abilities:
     - Spear:
         Range: 3 meters
-        Damage: 1d4 + 1 Pierce
+        Damage: 1d8 Pierce
     - Net:
         Range: 5 meters
         A: 0 Actions
         Cooldown: Once / Combat
-        Effect: Target must roll a Dexterity Check at least 10 or be Rooted.
+        Effect: Target becomes Rooted. On its turn, it can spend a Half-Action to break the net.
   Passives:
     - Water Healing (group): At the end of every Round, all Morlocs heal for 10 Health if in water (even shallow water).
     - Fast Swimmers: Can move 2 meters for each 1 meter spent for movement in water.
@@ -242,11 +241,10 @@ Bandit:
   Speed:        5
   Initiative:   6
   Abilities: 
-    - Bow: 1d6 + 1 Pierce
+    - Bow: 1d6 + 2 Pierce
     - 1H Weapon:
-        Damage: Make 2 attacks for 1d4.
-        Kick: |
-            If rolled at least one 1, target must pass a Dexterity Check at least 10 or have 4d10 Gold stolen and become Slowed.
+        Damage: Make 2 attacks for 1d6.
+        Kick: If rolled at least one 1, target becomes Slowed and Fumbling and has a valuable item stolen from them.
   Avoids AoE: Maybe
   Behavior: |
     Tries to ambush and steal. If they steal something, they run away.
@@ -274,14 +272,14 @@ Drough:
   Speed:        6
   Initiative:   6 Melee / 12 Ranged
   Abilities:
-    - Ranged: 1d8
-    - Weapon: 1d8
+    - Ranged: 1d10
+    - Weapon: 1d10
     - Darkness (Free): At the end of first turn, create a 5x5 meter area of Magical Darkness centered on Drough. This provides Cover to all Units inside against all attacks. The darkness remains there for 1 minute.
   Passives:
-    - Dodgy: +3 Defense against ranged (missile) attacks.
+    - Dodgy: Takes -50% Damage from Ranged attacks.
     - Acrobatic: Can easily jump up to 3 meters.
     - Magical Darkvision: Can see in the dark and in magical darkness.
-    - Light Sensitivity: Automatically fail Checks against Blinding.
+    - Light Sensitivity: Deals -100% Damage if Blinded.
   Avoids AoE: Yes
   Behavior: |
     On their first turn, they create a magical darkness area.
@@ -311,7 +309,7 @@ Ogre:
   Abilities:
     - Attack:
         Range: 2 meters
-        Effect: Deal 1d6 + 1 Smash Damage to a Unit and push it a number of meters equal to the die rolled.
+        Effect: Deal 1d6 + 2 Smash Damage to a Unit and push it a number of meters equal to the die rolled.
         Notes: If the Unit would fall down more than 2 meters, it instead grabs the nearest ledge and can climb it with a Half-Action (on its turn).
     - Hurl Object:
         Range: 3 to 5 meters
@@ -344,15 +342,15 @@ Gnoll:
   Stats:        2/2/0/2/2
   Health:       43
   HPCoef:       0.95
-  Speed:        5
-  Initiative:   4 Melee / 2 Ranged
+  Speed:        6
+  Initiative:   8
   Abilities:
-    - Melee Weapon: 1d8
-    - Ranged Weapon: 1d6
+    - Melee Weapon: 6
+    - Ranged Weapon: 5
     - Bite (*):
         Effect: Make 2 attacks for 1d6 (Pierce)
         Requirement: Only usable when Blood Rushed
-        Gnoll Fever: If Bite dealt Damage, the target can't spend Mana on its next turn.
+        Gnoll Fever: If Bite dealt Damage, the target can't use Mana-costing Abilities on its next (or current) Turn.
   Passives:
     - Blood Rush: |
         As soon as the Gnoll drops to/below 50% HP, it can move up to 5 meters and make a Bite attack (even during other Units' turns).
@@ -380,20 +378,21 @@ Guard:
   Stats:        3/2/1/2/0
   Health:       38
   Armor:        2 (Armor)
-  HPCoef:       1
+  HPCoef:       0.8
   Speed:        4
   Initiative:   1 Melee / 2 Ranged
   Abilities:
     - Crossbow: 5 Pierce (or 1d8 + 1)
     - Melee:
-        Damage: 6 (or 2d4 + 1)
-        Shield Bash: If rolled at least one 1, target must roll a Might Check at least 10 or be Cripled.
+        Damage: 1d8 + 1
+        Advanced Flank: If Flanking, deals another +1d4 Damage. Guards can Flank with obstacles and walls.
     - Volley of Arrows:
         A: 1 Action / Guard
         Range: 5 meters to edge
+        Requirement: Ranged Guard
         Effect: |
           ALL ranged Guards target a 4x4 area.
-          All Units there take 1d4 Pierce Damage for each ranged Guard.
+          All Units there take 1d4 Pierce Damage for each ranged Guard (as one attack).
   Avoids AoE: Yes
   Behavior: |
     Attack the closest enemy to them.
@@ -419,7 +418,7 @@ Hobgoblin:
   Speed:        5
   Initiative:   2
   Abilities:
-    - Melee: 1d10
+    - Melee: 7
     - Copy Spell: Once per combat, for 1 Action, the Hobgoblin can cast a Spell another player has cast (with that player's exact stats).
   Passives:
     - Bold in Numbers: Has +1 Defense for each other alive ally on its team.
@@ -436,24 +435,24 @@ Hobgoblin:
   Role: Extra
   Variants: None
 
-
 Orc:
   Type:         Person
   Degree:       Normal
   Experience:   200
   Stats:        5/2/1/2/3
   Health:       61
-  HPCoef:       0.99
+  HPCoef:       1
   Speed:        5
   Initiative:   1 Melee / 2 Ranged
   Abilities:
-    - Bow:      3 (or 1d6)
-    - Melee:    3 (or 1d6)
+    - Bow:      1d8 + 1
+    - Melee:    1d4
   Passives:
-    - RAGE: Whenever an Orc takes Damage, it gains +1 Damage on all melee attacks.
+    - RAGE: Whenever an Orc takes Damage, it gains +2 Damage on all melee attacks.
   Avoids AoE: No
   Behavior: |
     Orcs prefer melee combat. Try to put more Melee orcs than Ranged.
+    If an orc is ranged, it will not hesitate to switch to a melee weapon.
   Pair: Pair with Goblins, Wolves or even Ogres.
   Suggested Obstacles:
     - Pits
@@ -468,9 +467,9 @@ Cult Hierarch:
   Degree:       Normal
   Experience:   225
   Stats:        1/2/5/2/5
-  Health:       76 (half is Shielding)
+  Health:       76 (Half is Shielding)
   HPCoef:       1
-  Shielding:    half is Shielding
+  Shielding:    Half is Shielding
   Speed:        5
   Initiative:   5
   Abilities:
@@ -482,7 +481,7 @@ Cult Hierarch:
         Choose a target the Cult Hierarch can see.
         Until the combat is over, that target instanty takes half of all Damage the Cult Hierarch takes.
         Only one Unit can be Pain Tethered to only one Cult Hierarch.
-        Concentration (interrupt it with any CC except Slows).
+        Concentration (interrupt it with any CC except Slows and Fumbling).
     - Counterspell (free) (once per combat) (Reaction): |
         When a Unit casts a spell, it must succeed a 11 Grade Sense Check or the spell is cancelled and the action lost, but not the Mana.
         If it succeeds, then the spell can't be Counterspelled again (e.g. from another Cult Hierarch).
@@ -518,19 +517,24 @@ Druid:
   Initiative:   6
   Abilities:
     - Roots (Human) (10m):
-        Damage: 7 Pierce (against Defense) (or 2d4 + 2)
-        Root: The target must succeed a 11 Might Check or be Rooted.
+        Damage: 7 Pierce (or 2d4 + 2)
+        Root: The target becomes Rooted or takes an +1d4 Damage (its choice).
     - Maul (Owlbear):
         Damage: 2d6 Smash
-        Daze: If rolled at least one 6 or 1, the target must succeed a 12 Might Check or be Dazed.
-    - Tongue Grab (Toad):
+        Critical Daze: If rolled at least one 6, target becomes Dazed.
+    - Tongue Grab (Toad) (4m):
         Damage: 3d4 Poison
-        Pull: If rolled at least one 6 or 1, the target must succeed a 12 Might Check or be Crippled, Slowed and pulled next to the Toad Druid.
-    - Buffet (Eagle): Make 2 attacks for 1d4 + 1 Pierce
+        Pull: Target is pulled next to the toad.
+    - Buffet (Eagle): Make 2 attacks for 1d4 + 2 Pierce
     - Shapeshift (free): Every turn, the Druid can transform into either an Owlbear, Giant Toad or Giant Eagle. It uses a different attack or has a different Passive for each form.
   Passives:
-    - Barkskin (Human) (Reaction): Defense becomes 5 until start of its next turn.
-    - Owl Screech (Owlbear): Once per round, after an enemy casts a spell, all Units that can hear the Owlbear Druid must succeed a 12 Sense Check or be Silenced.
+    - Barkskin (Human):
+        A: Reaction
+        Cooldown: Once / Combat
+        Effect: Defense becomes 5 until start of its next turn.
+    - Owl Screech (Owlbear):
+        A: 0 Actions
+        Effect: All Units that can hear the Owlbear Druid must succeed a 12 Sense Check or be Silenced.
     - Toxins (Toad): Whenever the Toad is Melee attacked, the attacker takes 3 Poison Damage.
     - Fly and Evasive (Eagle): Flies.
     - Druidcraft (Non-Combat): Can cast small, non-combat utility Spells like DruiGraderaft, Light, etc. Can also shapeshift into other non-combat animals, like bugs, fish, etc.
@@ -780,12 +784,12 @@ Hound:
   Stats:        1/1/0/6/3
   Health:       15
   HPCoef:       0.7
-  Speed:        6
+  Speed:        7
   Initiative:   6
   Abilities:
     - Bite (3m):
         Damage: 1d4 Pierce
-        Maining: If rolled 3 or 4, target becomes Slowed.
+        Maining: Target becomes Slowed.
   Avoids AoE: No
   Behavior: |
     Try to reach the back line and chase them to death.
@@ -829,7 +833,7 @@ Wolf:
   Stats:        1/3/-2/6/1
   Health:       19
   HPCoef:       0.9
-  Speed:        7
+  Speed:        6
   Initiative:   5
   Abilities:
     - Bite:
@@ -880,7 +884,7 @@ Crab (Giant):
   Speed:        5
   Initiative:   1
   Abilities:
-    - Pincer: 5 Pierce, Smash or Slash (or 2d4)
+    - Pincer: 6 Pierce, Smash or Slash (or 2d4 + 1)
   Passives:
     - Thick Chitin: Takes -50% Pierce and Slash Damage (after Defense).
     - Cold Resistance: Takes -50% Cold Damage (after Defense).
@@ -907,7 +911,7 @@ Rat (Giant):
   Initiative:   3
   Abilities:
     - Bite/Claw:
-        Damage: 5 Pierce or Slash (or 1d6 + 1)
+        Damage: 6 Pierce or Slash (or 1d6 + 1)
   Passives:
     - 3rd Round Frenzy: On the 3rd round of combat, all rats become enraged and gain +1d4 Damage on all attacks and +3 Speed.
     - Dark Vision: Can see in the dark
@@ -932,10 +936,10 @@ Raptor:
   Initiative:   7
   Abilities:
     - Beak Attack:
-        Damage: 6 Slash (or 2d4 + 1)
+        Damage: 1d12 (Slash or Pierce)
   Passives:
-    - Armor Breakers: Attacks ignore Defense, Protection and Shielding and immediately break all Protection and Shielding on the target.
-    - Jumpers: Can freely jump up to 2 meters high.
+    - Armor Breakers: Attacks ignore Defense and Shielding and immediately break all Shielding on the target.
+    - Jumpers: Can freely jump up to 3 meters high.
   Avoids AoE: No
   Behavior: |
     Prefers to attack heavily armored enemies.
@@ -950,21 +954,17 @@ Spider (Giant):
   Experience:   200
   Stats:        3/4/0/5/0
   Health:       61
-  HPCoef:       0.8
-  Speed:        7
-  Initiative:   2
+  HPCoef:       0.9
+  Speed:        6
+  Initiative:   7
   Abilities:
-    - Fangs:
-        Damage: 1d6 + 3 Pierce or Poison
-        Spider Effects: |
-            On 6, target must succeed an 11 Grade Might Check or be Crippled.
-            On 1, target becomes Poisoned until cured - takes 1d4 Poison Damage every 6 hours. A Unit can't be Poisoned multiple times.
-    - Coccoon (once) (3m):
-        Damage: 1d6
-        Effect: Target must succeed a 10 Dexterity Check or be Rooted.
-    - Web Wall (free) (once): Create a 3x3, thin wall or area of Web with 20 HP, 0 Defense. It takes 200% Fire Damage. If it's on the ground, it's Hard Terrain for non-spiders.
+    - Spider Attack:
+        Damage: 2d6 (Pierce or Poison)
+        Critical Web/Poison: |
+          If rolled at least one 6, target must pass a Might Check at least 10.
+        Notes: Target can become both Rooted and Crippled (on 5 and 6).
   Passives:
-    - Spider Climb: Can freely walk on walls and on web
+    - Spider Climb: Can freely walk on walls and on web, and ignores Hard Terrain.
     - Immunities: Immune to Poison.
   Avoids AoE: No
   Behavior: |
@@ -1307,13 +1307,13 @@ Antheir:
   Degree:       Normal
   Experience:   300
   Stats:        5/0/0/3/0
-  Health:       50
+  Health:       60
   Speed:        5
   Initiative:   2
   Abilities:
     - Red Attack (Soldier):
         Damage: 3d4 Smash
-        Ram: If rolled at least one 4 or 1, the target must succeed a 12 Grade Might Check or be Rooted or take 1d4 extra Damage, of its choice.
+        Ram: If rolled at least one 4, target is either Rooted, or it takes an extra 1d4 Damage (its choice).
     - Blue Attack (5m) (Mage):
         Damage: 7 Acid (or 1d8 + 2)
         Bile: All Units within 2 meters of target take half of the Damage taken by the main target.
@@ -1322,7 +1322,7 @@ Antheir:
         All Units hit become Fumbling.
   Passives:
     - Chitinous Shell: |
-        Can only take up to 5 Damage at a time (from an attack, a missile, etc; multi-hit spells count as multiple times, such as Magic Missiles).
+        Can only take up to 10 Damage at a time (from an attack, a missile, etc; multi-hit spells count as multiple times, such as Magic Missiles).
         Exception: Psychic and Scourge Damage.
     - Different Roles: |
         Antheirs have different colors, and thus different roles.

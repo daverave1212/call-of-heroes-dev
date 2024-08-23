@@ -81,7 +81,7 @@ export default function AbilitySheetsPrint() {
     useEffect(() => {
         const canvasDiv = canvasDivRef.current
         CanvasManager.setCanvasesParent(canvasDiv)
-        CanvasManager.setIconPathGetter(name => U.getIconPathByName(name))
+        CanvasManager.setIconPathGetter(name => U.getSpellIconPathByName(name))
     }, [])
 
     function generate() {

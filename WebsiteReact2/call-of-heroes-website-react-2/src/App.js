@@ -88,6 +88,7 @@ import CustomAbility from './pages/Other/CustomAbility';
 import MagicItems from './pages/Other/MagicItems';
 import PatchNotes from './pages/Meta/PatchNotes';
 import CustomMonster from './pages/Other/CustomMonster';
+import RogueNEW from './pages/Classes/RogueNEW';
 
 function App() {
 
@@ -178,6 +179,7 @@ function App() {
           <Route path="/Classes/Shaman" element={ <Shaman/> }/>
           <Route path="/Classes/Warlock" element={ <Warlock/> }/>
           <Route path="/Classes/Warrior" element={ <Warrior/> }/>
+          <Route path="/Classes/RogueNEW" element={ <RogueNEW/> }/>
 
           <Route path="/Tools/TreasureGenerator" element={ <TreasureGenerator/> }/>
           <Route path="/Tools/DungeonGenerator" element={ <DungeonGenerator/> }/>

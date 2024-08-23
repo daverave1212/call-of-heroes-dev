@@ -6,7 +6,7 @@
     "Description": "As you evade an oncoming arrow, your focus shifts, leaving you vulnerable to the sudden onslaught of a raptor lunging at your throat. A whirlwind of steel and fang ensues, and as a sword is close to striking you, the attack suddenly stops. \"You're no monster\" he says as he unsheathes his sword, searching for tracks in the mud. \"Best mind your own business, friend. The one I'm seeking is nearby... and it is seeking you.\"\nHunters are keen predators, who fight alongside one (or multiple) trusted beastly companions. While able to cast some rudimentary magic, spellcasting is not their focus, and they more than make up in terms of raw ferocity and power to kill.\nA hunter can always navigate their surroundings, and can track down any monster, or person alike, no matter the scope.\n",
     "Difficulty": "Medium",
     "Weapons": "You are Trained in 2 Weapon Categories of choice (e.g. 1-Handed Melee, 2-Handed Ranged, Shields, etc).",
-    "Proficiency Requirements": "You have Skilled in Hearing, Smelling and have a number of extra non-combat Skills equal to your Intelligence.",
+    "Proficiency Requirements": "You have Skilled in Hearing, Smelling and have a number of extra non-combat Skills equal to your Intelligence or Sense, whichever is higher.",
     "Proficiencies": {
         "~Skilled in Hearing~": {
             "Effect": "Add your Level to all Sense Checks for hearing (e.g. over-hearing dialogue, noticing unusual sounds, discerning sounds, etc)."
@@ -73,9 +73,9 @@
             "A": "Reaction or 0 Actions",
             "Cooldown": "Once / Combat",
             "HasMixins": true,
-            "Effect": "Roll 2 meters in any possible direction.\nUse when a Unit declares an attack or Ability.\n",
+            "Effect": "Roll 2 meters in any possible direction.\nYou can use when a Unit declares an attack or Ability to try to get out of Line of Sight or behind Cover.\n",
             "Upgrade": "^You^ can use this to make your pet tumble instead.",
-            "Notes": "You can use this to dodge an area Ability or go out of Line of Sight (or behind Cover). The attack carries on if it still has Line of Sight. Otherwise, it must choose something else to do, as if the Act never happened."
+            "Notes": "The attack carries on if it still has Line of Sight. Otherwise, it must choose something else to do, as if the Act never happened."
         }
     },
     "Starting Abilities Description": [
@@ -156,7 +156,7 @@
                         "Effect": "Gain +1 in two Stats of choice, up to +4."
                     },
                     "<Stat Bonus 4 Extra>": {
-                        "Effect": "Gain +1 in a Stat of choice, up to +4, and +3 Initiative."
+                        "Effect": "Gain +1 in three Stats of choice, up to +3."
                     }
                 },
                 "Level 5": {
@@ -191,10 +191,10 @@
                 },
                 "Level 6": {
                     "<Movement Bonus>": {
-                        "Effect": "Gain +1 Movement Speed."
+                        "Effect": "Gain +1 Movement Speed and +2 Health Regen."
                     },
-                    "<Sense Regen Bonus>": {
-                        "Effect": "Gain Health Regen equal to your Sense."
+                    "<Double Stat Bonus>": {
+                        "Effect": "Gain +1 in a Stat of choice, up to +3, twice."
                     }
                 },
                 "Level 7": {
@@ -227,8 +227,8 @@
                     "<Stat Bonuses 5>": {
                         "Effect": "Gain +1 in two Stats of choice, up to +5."
                     },
-                    "<Might Health Bonus>": {
-                        "Effect": "Gain Health equal to double your Might."
+                    "<Stat Bonuses 4 Extra>": {
+                        "Effect": "Gain +1 in three Stats of choice, up to +4."
                     }
                 },
                 "Level 9": {
@@ -270,32 +270,23 @@
                         "A": "0 Actions",
                         "Cooldown": "Once / Adventure",
                         "Duration": "1 minute",
-                        "Effect": "You take on a special form, called a Watcher Form.\nWhile in this form, your first Attack deals +2d4 extra Damage once per turn, you gain +2 Spell Grade and +2 to all Resist Checks.\nAlso, when you cast a Spell (before you do; excluding this), you can instantly dash 3 meters, ignoring attacks of oportunity, and going through enemies and small obstacles or medium gaps.\n",
-                        "Notes": "Your body becomes engulfed in a magical aura (you choose its color), your eyes glow, and you can gain other aesthetics-only body transformations (customize it with your DM)."
+                        "Effect": "You take on a special form, called a Watcher Form.\nYou have +2 to all Combat Checks, +1 Defense, and, every turn, your first Attack deals +2d4 extra Damage.\n",
+                        "Notes": "Your body becomes engulfed in a magical aura (you choose its color), your eyes glow, and you can gain other aesthetics-only body transformations."
                     },
-                    "<Combo Set>": {
-                        "_Value": 1.5,
-                        "A": "Passive",
-                        "Effect": "You gain Quickfire, Parry and Tumblestrike. Quick Magic will also trigger after you use Quickfire and Parry.",
-                        "AlignOnWebsite": "Right"
-                    },
-                    "<Quickfire (Hunter)>": {
-                        "IsSubspell": true,
+                    "<Chaos Form>": {
+                        "_Value": 2,
                         "A": "0 Actions",
                         "Cooldown": "Once / Adventure",
-                        "Effect": "Perform an attack with a 1-Handed weapon (for 0 Actions).\nThis attack ignores Cover and has no pentaly if you're Blinded or Fumbling.\nThis attack can be used in melee range without penalty if it's a ranged weapon.            \n"
+                        "Duration": "1 minute",
+                        "Effect": "You take on a special form, called a Chaos Form.\nYou have +2 Movement, Tumble has a Once / Turn Cooldown, and Quick Magic triggers whenever you do an Act that takes at least a Half-Action.\n",
+                        "Notes": "Your body emanates an unusual magical vibration, your eyes turn an ethereal white or black, and you can gain other aesthetics-only body transformations."
                     },
-                    "<Parry>": {
-                        "IsSubspell": true,
-                        "A": "Reaction",
-                        "Cooldown": "Once / Adventure",
-                        "Effect": "When a Unit makes a melee attack with a weapon on you (after you see the roll), you can block this attack and it deals 0 Damage."
-                    },
-                    "<Tumblestrike>": {
-                        "IsSubspell": true,
-                        "A": "Passive",
-                        "Effect": "After you Tumble or Parry, your next weapon Attack or single target Ability has the dice tiers increased.",
-                        "Notes": "For example, instead of 2d6, an attack would be 2d8.\nD12's and d20's don't increase; they stay d12 and d20.\n"
+                    "<Focus Form>": {
+                        "A": "Half-Action",
+                        "Cooldown": "Once / Combat",
+                        "Duration": "Rest of Worthy Combat",
+                        "Effect": "You take on a special stance, called a Focus Form.\nYou completely dodge the next physical attack you receive from a Unit. After that, immediately attack the Unit back with a 1-handed weapon.\nFrom then on, for the rest of the Worthy Combat, heal for 1d4 Health at the start of your every Turn.\n",
+                        "Notes": "Your pupils dilate and take on a different shape, your muscles and body tense up, your wounds start to steam, and you can gain other aesthetics-only body transformations."
                     }
                 },
                 "Level 4": {
@@ -303,7 +294,7 @@
                         "Effect": "Gain +1 in two Stats of choice, up to +4."
                     },
                     "<Stat Bonus 4 Extra>": {
-                        "Effect": "Gain +1 in a Stat of choice, up to +4, and +3 Initiative."
+                        "Effect": "Gain +1 in three Stats of choice, up to +3."
                     }
                 },
                 "Level 5": {
@@ -316,8 +307,9 @@
                         "_Value": 2,
                         "A": "0 Actions",
                         "Range": "10 meters to edge",
+                        "Duration": "1 minute",
                         "Cooldown": "Once / Adventure",
-                        "Effect": "Declare a 6x6 meter area and it becomes engulfed in a special magical aura.\nAll Units have 0 Defense and their Passive Abilities don't work while in that area (including Resistances and Weaknesses).\nThe area lasts until the start of your next turn.\n",
+                        "Effect": "Declare a 6x6 meter area and it becomes engulfed in a special magical aura.\nAll Units have 0 Defense and their Passive Abilities don't work while in that area (including Resistances and Weaknesses).\n",
                         "Notes": "The area is often subtle, and only monsters with a Sense of 3 or higher notice it."
                     },
                     "<Wind Wall>": {
@@ -334,7 +326,7 @@
                         "Effect": "Gain +1 Movement Speed."
                     },
                     "<Mana Bonus>": {
-                        "Effect": "Gain +1 Max Mana."
+                        "Effect": "Gain +1 Max Mana and +1 Known Ability."
                     }
                 },
                 "Level 7": {
@@ -354,10 +346,10 @@
                 },
                 "Level 8": {
                     "<Durability Bonus>": {
-                        "Effect": "Gain 4 Health and 2 Health Regen."
+                        "Effect": "Gain +1 Defense"
                     },
                     "<Mana Bonus>": {
-                        "Effect": "Gain +1 Max Mana."
+                        "Effect": "Gain +1 Max Mana and +1 Known Ability."
                     }
                 }
             }
@@ -422,10 +414,10 @@
                 },
                 "Level 6": {
                     "<Sense Initiative Bonus>": {
-                        "Effect": "Gain Initiative equal to twice your Sense."
+                        "Effect": "Gain +10 Initiative."
                     },
                     "<Pet Movement Bonus>": {
-                        "Effect": "All your pets gain +1 Movement Speed."
+                        "Effect": "You and all your pets gain +1 Movement Speed."
                     }
                 },
                 "Level 7": {
@@ -453,7 +445,7 @@
                         "Effect": "Gain +1 in two Stats of choice, up to +5."
                     },
                     "<Durability Bonus>": {
-                        "Effect": "Gain 4 Health and 2 Health Regen."
+                        "Effect": "Gain +1 Defense"
                     }
                 }
             }

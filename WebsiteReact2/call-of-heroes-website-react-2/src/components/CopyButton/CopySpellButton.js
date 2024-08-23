@@ -50,7 +50,7 @@ export default function CopySpellButton({elementId, shouldAddBorder}) {
     const [displayedIcon, setDisplayedIcon] = useState('copy')
 
     return (
-        <div onClick={onCopyClick}>
+        <div onClick={onCopyClick} style={{position: 'relative'}}>
             <img style={{display: displayedIcon === 'copy' ? '' : 'none'}} className='copy-button' src='/Icons/UI/Copy.png'/>
             <img style={{display: displayedIcon === 'load' ? '' : 'none'}} className='copy-button copy-button--rotating' src='/Icons/UI/CopyLoading.png'/>
         </div>

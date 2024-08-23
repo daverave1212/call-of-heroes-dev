@@ -85,6 +85,8 @@ function LiLink({to, children, isDownload, style, className}) {
   )
 }
 
+const DISCORD_URL = 'https://discord.gg/' + '27aqSEDyE3'
+
 function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
 
   const getBaseStateAllFalse = () => ({
@@ -140,7 +142,7 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
   return (
     <div className={`mega-dropdown ${isBurgerClicked? 'displayed-on-mobile': ''}`}>
       
-      <h3 className="subnav-title-portrait-only"><a style={{color: 'white'}} href="https://discord.gg/27aqSEDyE3" target="_blank">Play With Us!</a></h3>
+      <h3 className="subnav-title-portrait-only"><a style={{color: 'white'}} href={DISCORD_URL} target="_blank">Play With Us!</a></h3>
 
       <MegaDropdownMenu title="Database">
         <div className='subnav-section'>
@@ -179,7 +181,7 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
           <h4>Abilities</h4>
           <div className='subnav-title-underline'></div>
           <ul>
-            <LiLink to="/Other/Abilities">Basic Ability Lists</LiLink>
+            <LiLink to="/Other/Abilities">Basic Abilities (Schools)</LiLink>
             <LiLink to="/Other/Proficiencies">Skills</LiLink>
             <LiLink to="/Other/Feats">Feats</LiLink>
             <LiLink className="premium" to="/Other/AbilitySheets">Ability Sheet Maker</LiLink>
@@ -283,7 +285,7 @@ export default function Nav({ isSimple, setIsSimple }) {
             <div className='nav-item'>
               <a onClick={event => {
                 event.preventDefault()
-                const inviteUrl = 'https://discord.gg/' + '27aqSEDyE3'
+                const inviteUrl = DISCORD_URL
                 window.open(inviteUrl, '_blank')
               }}>
                 Play With Us!

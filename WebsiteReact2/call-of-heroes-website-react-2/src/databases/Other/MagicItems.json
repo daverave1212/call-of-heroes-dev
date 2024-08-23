@@ -159,6 +159,23 @@
             }
         }
     },
+    "Level 2 Utility Consumables": {
+        "Description": "These are standard consumables. Award players with one these every now and then.",
+        "Items": {
+            "Seed of Freezing": {
+                "Price": 100,
+                "Effect": "A small seed, wrapped in silk. It melts upon touching a liquid, and instantly freezes a 2x2 meter part of it."
+            },
+            "Storm Vial": {
+                "Price": 100,
+                "Effect": "The vial holds a small storm inside. When released, it creates a thunderstorm on a 5x5 meter area. Units inside wearing Metal take 1d4 Shock Damage at the start of their turn, and the area counts as Fog."
+            },
+            "Superglue": {
+                "Price": 125,
+                "Effect": "A small-sized vial of super glue."
+            }
+        }
+    },
     "Level 2 Consumables": {
         "Description": "These are standard consumables. Award players with one these every now and then. It is also recommended you provide these in limited supply at shops (e.g. if your Adventure is medium difficulty, do not provide more than 2 Potions per Adventure).\nRemember that items always take a Half-Action to use, and a Potion consumer risks an Overdose if 2 Potions are consumed within 1 hour. Special ammo does not need a Half-Action to be loaded - a Player can simply state that they are using that ammo for an attack.\nAll of these items can be sold to a merchant for 50% of the standard price.\n",
         "Items": {
@@ -272,29 +289,34 @@
             },
             "Elixir of Health": {
                 "Price": 100,
+                "Display Name": "Elixir of {Name}",
                 "Duration": "Whole Adventure",
-                "Effect": "Increases Max Health by 5."
-            },
-            "Elixir of Protection": {
-                "Price": 100,
-                "Duration": "Whole Adventure",
-                "Effect": "Increases all Resist Checks by 1."
+                "Effect": "{E}",
+                "Variants": [
+                    {
+                        "Name": "Health",
+                        "E": "Increases Max Health by 5.",
+                        "IconName": "Elixir of Health"
+                    },
+                    {
+                        "Name": "Protection",
+                        "E": "Increases Defense by 1.",
+                        "IconName": "Elixir of Protection"
+                    },
+                    {
+                        "Name": "Speed",
+                        "E": "Increases Movement Speed by 1.",
+                        "IconName": "Elixir of Speed"
+                    }
+                ]
             },
             "Elixir of Growth": {
                 "Price": 100,
                 "Effect": "Increases your size by 1 tier and gives you 5 Shielding for up to 1 hour."
             },
-            "Seed of Freezing": {
-                "Price": 100,
-                "Effect": "A small seed, wrapped in silk. It melts upon touching a liquid, and instantly freezes a 2x2 meter part of it."
-            },
             "Seed of Flames": {
                 "Price": 100,
                 "Effect": "It explodes upon touching something flamable, dealing 3d6 Fire Damage in a 3x3 meter area."
-            },
-            "Storm Vial": {
-                "Price": 100,
-                "Effect": "The vial holds a small storm inside. When released, it creates a thunderstorm on a 5x5 meter area. Units inside wearing Metal take 1d4 Shock Damage at the start of their turn, and the area counts as Fog."
             },
             "Bottle of Light Absorbtion": {
                 "Price": 100,
@@ -364,410 +386,86 @@
             "Headband of Mind Speak": {
                 "Price": 180,
                 "Effect": "Other Units can attune to the headband for 1 hour. They can send thoughts directly to your mind."
-            },
-            "Superglue": {
-                "Price": 125,
-                "Effect": "A small-sized vial of super glue."
             }
         }
     },
     "Level 2 Equipment": {
         "Description": "None",
         "Items": {
-            "Gloves of Skill": {
-                "Price": 200,
-                "Display Name": "Gloves of {Skill}",
-                "Effect": "The wearer has Skilled in {Skill}.",
+            "Item of Minor Health": {
+                "Price": 300,
+                "Effect": "+2 Max Health.",
+                "Display Name": "{Name} of Minor Health",
                 "Variants": [
                     {
-                        "Skill": "Athletics"
+                        "Name": "Gloves",
+                        "IconName": "Gloves of Minor Health"
                     },
                     {
-                        "Skill": "Crafting"
+                        "Name": "Boots",
+                        "IconName": "Boots of Minor Health"
                     },
                     {
-                        "Skill": "Luck"
+                        "Name": "Cap",
+                        "IconName": "Cap of Minor Health"
                     },
                     {
-                        "Skill": "Mechanisms"
-                    },
-                    {
-                        "Skill": "Using Rope"
-                    },
-                    {
-                        "Skill": "Sleight of Hand"
+                        "Name": "Ring",
+                        "IconName": "Ring of Minor Health"
                     }
                 ]
             },
-            "Boots of Skill": {
-                "Price": 200,
-                "Display Name": "Boots of {Skill}",
-                "Effect": "The wearer has Skilled in {Skill}.",
+            "Item of Minor Recovery": {
+                "Price": 300,
+                "Effect": "+1 Health Regen.",
+                "Display Name": "{Name} of Minor Recovery",
                 "Variants": [
                     {
-                        "Skill": "Acrobatics"
+                        "Name": "Gloves",
+                        "IconName": "Gloves of Minor Recovery"
                     },
                     {
-                        "Skill": "Stealth"
-                    }
-                ]
-            },
-            "Cape of Skill": {
-                "Price": 200,
-                "Display Name": "Cape of {Skill}",
-                "Effect": "The wearer has Skilled in {Skill}.",
-                "Variants": [
-                    {
-                        "Skill": "Animal Handling"
+                        "Name": "Boots",
+                        "IconName": "Boots of Minor Recovery"
                     },
                     {
-                        "Skill": "Biology"
+                        "Name": "Cap",
+                        "IconName": "Cap of Minor Recovery"
                     },
                     {
-                        "Skill": "Dungeoneering"
-                    },
-                    {
-                        "Skill": "Intimidation"
-                    },
-                    {
-                        "Skill": "Investigation"
-                    },
-                    {
-                        "Skill": "Nature"
-                    },
-                    {
-                        "Skill": "Stealth"
+                        "Name": "Ring",
+                        "IconName": "Ring of Minor Recovery"
                     }
                 ]
             },
             "Item of Skill": {
                 "Price": 200,
-                "Display Name": "{Item} of {Skill}",
+                "Display Name": "Pendant of {Skill}",
                 "Effect": "The wearer has Skilled in {Skill}.",
-                "Variants": [
+                "VariantsForEach": [
                     {
-                        "Skill": "Arcane",
-                        "Item": "Necklace"
-                    },
-                    {
-                        "Skill": "Cooking",
-                        "Item": "Apron"
-                    },
-                    {
-                        "Skill": "Sociology",
-                        "Item": "Ring"
-                    },
-                    {
-                        "Skill": "History",
-                        "Item": "Ring"
-                    },
-                    {
-                        "Skill": "Linguistics",
-                        "Item": "Ring"
-                    },
-                    {
-                        "Skill": "Memory",
-                        "Item": "Ring"
-                    },
-                    {
-                        "Skill": "Occultism",
-                        "Item": "Ring"
-                    },
-                    {
-                        "Skill": "Deception",
-                        "Item": "Mask"
-                    },
-                    {
-                        "Skill": "General Knowledge",
-                        "Item": "Tiara"
-                    },
-                    {
-                        "Skill": "Hearing",
-                        "Item": "Earring"
-                    },
-                    {
-                        "Skill": "Monstrology",
-                        "Item": "Pendant"
-                    },
-                    {
-                        "Skill": "Religion",
-                        "Item": "Booklet"
-                    },
-                    {
-                        "Skill": "Sight",
-                        "Item": "Goggles"
+                        "ForEach": "Skill:$Skills"
                     }
                 ]
             },
-            "Gloves of Minor Spell": {
+            "Lesser Wand of Spell": {
                 "Price": 100,
-                "Cooldown": "Once / Adventure",
-                "Effect": "Using a Half-Action, cast {Spell} for free.",
-                "Display Name": "Gloves of {Spell}",
-                "Variants": [
+                "Cooldown": "Once / Combat",
+                "A": "Half-Action",
+                "Effect": "Cast {SpellName} for free.",
+                "Display Name": "Wand of {SpellName}",
+                "SubspellName": "{SpellName}",
+                "VariantsForEach": [
                     {
-                        "Spell": "Acid Burst"
-                    },
-                    {
-                        "Spell": "Magic Tricks"
-                    },
-                    {
-                        "Spell": "Cure Affliction"
-                    },
-                    {
-                        "Spell": "Poison Burst"
-                    },
-                    {
-                        "Spell": "Mage Hand"
-                    }
-                ]
-            },
-            "Rune of Minor Spell": {
-                "Price": 100,
-                "Cooldown": "Once / Adventure",
-                "Effect": "Using a Half-Action, cast {Spell} for free.",
-                "Display Name": "Rune of {Spell}",
-                "Variants": [
-                    {
-                        "Spell": "Dispel Magic"
-                    },
-                    {
-                        "Spell": "Resistance"
-                    },
-                    {
-                        "Spell": "Purify"
-                    },
-                    {
-                        "Spell": "Wild Heart"
-                    },
-                    {
-                        "Spell": "Wind Chaser"
-                    },
-                    {
-                        "Spell": "Light"
-                    },
-                    {
-                        "Spell": "Longblade"
-                    },
-                    {
-                        "Spell": "Eldritch Steed"
-                    },
-                    {
-                        "Spell": "Wyrd Renewal"
-                    }
-                ]
-            },
-            "Scarf of Minor Spell": {
-                "Price": 100,
-                "Cooldown": "Once / Adventure",
-                "Effect": "Using a Half-Action, cast {Spell} for free.",
-                "Display Name": "Scarf of {Spell}",
-                "Variants": [
-                    {
-                        "Spell": "Burning Breath"
-                    },
-                    {
-                        "Spell": "Detect P.D."
-                    },
-                    {
-                        "Spell": "Fake Sound"
-                    },
-                    {
-                        "Spell": "Guidance (R)"
-                    },
-                    {
-                        "Spell": "Restoration"
+                        "ForEach": "SpellName:$LesserSpells"
                     }
                 ]
             }
         }
     },
-    "Level 3 Equipment": {
-        "Description": "These are simple utility magic that don't usually have much impact on the game.",
+    "Level 3 Utility Equipment": {
+        "Description": "These are simple utility magic items that are equipped onto characters, and won't usually affect combat very much.",
         "Items": {
-            "Damage Rune": {
-                "Price": 350,
-                "Effect": "Inscribe on a weapon to permanently increase its Damage by 1."
-            },
-            "Reinforcement Rune": {
-                "Price": 350,
-                "Effect": "Inscribe on a weapon to permanently increase its Damage by 2. Only usable on weapons that originally have no Stat requirement."
-            },
-            "Gloves of Spell": {
-                "Price": 400,
-                "Cooldown": "Once / Adventure",
-                "Effect": "Using a Half-Action, cast {Spell} for free.",
-                "Display Name": "Gloves of {Spell}",
-                "Variants": [
-                    {
-                        "Spell": "Frostbite"
-                    },
-                    {
-                        "Spell": "Flame Bolt"
-                    },
-                    {
-                        "Spell": "Venin Shot (+3)"
-                    },
-                    {
-                        "Spell": "Paralyzing Sting"
-                    },
-                    {
-                        "Spell": "Chaining Grasp"
-                    },
-                    {
-                        "Spell": "Hollow Touch"
-                    },
-                    {
-                        "Spell": "Expelling Bolt"
-                    },
-                    {
-                        "Spell": "Eldritch Blast"
-                    },
-                    {
-                        "Spell": "Hunter Mark"
-                    }
-                ]
-            },
-            "Rune of Spell": {
-                "Price": 400,
-                "Cooldown": "Once / Adventure",
-                "Effect": "Using a Half-Action, cast {Spell} for free.",
-                "Display Name": "Rune of {Spell}",
-                "Variants": [
-                    {
-                        "Spell": "Land Breach"
-                    },
-                    {
-                        "Spell": "Quicksand"
-                    },
-                    {
-                        "Spell": "Heat Metal"
-                    },
-                    {
-                        "Spell": "Fire Enchantment"
-                    },
-                    {
-                        "Spell": "Focus Fling"
-                    },
-                    {
-                        "Spell": "Healing Surge"
-                    },
-                    {
-                        "Spell": "Invigorate"
-                    },
-                    {
-                        "Spell": "Fog Cloud"
-                    },
-                    {
-                        "Spell": "Animate Dead"
-                    }
-                ]
-            },
-            "Ring of Spell": {
-                "Price": 400,
-                "Cooldown": "Once / Adventure",
-                "Effect": "Using a Half-Action, cast {Spell} for free.",
-                "Display Name": "Ring of {Spell}",
-                "Variants": [
-                    {
-                        "Spell": "Fire Enchantment"
-                    },
-                    {
-                        "Spell": "Magic Missiles (4)"
-                    },
-                    {
-                        "Spell": "Flash"
-                    },
-                    {
-                        "Spell": "Fruit o.t.F."
-                    },
-                    {
-                        "Spell": "Cloud of Rot"
-                    },
-                    {
-                        "Spell": "Web"
-                    },
-                    {
-                        "Spell": "Blessing (Cl)"
-                    }
-                ]
-            },
-            "Cape of Spell": {
-                "Price": 400,
-                "Cooldown": "Once / Adventure",
-                "Effect": "Using a Half-Action, cast {Spell} for free.",
-                "Display Name": "Cape of {Spell}",
-                "Variants": [
-                    {
-                        "Spell": "Frost Nova"
-                    },
-                    {
-                        "Spell": "Thorn Quills"
-                    },
-                    {
-                        "Spell": "Control Wind"
-                    },
-                    {
-                        "Spell": "Earth Shield"
-                    },
-                    {
-                        "Spell": "Locust Swarm"
-                    },
-                    {
-                        "Spell": "Fairy Fire"
-                    },
-                    {
-                        "Spell": "Blur"
-                    },
-                    {
-                        "Spell": "Shadow Clone"
-                    },
-                    {
-                        "Spell": "Grow or Shrink"
-                    },
-                    {
-                        "Spell": "Sp.w. Animals"
-                    },
-                    {
-                        "Spell": "Sp.w. Plants"
-                    },
-                    {
-                        "Spell": "Radiance"
-                    },
-                    {
-                        "Spell": "Saving Throw"
-                    },
-                    {
-                        "Spell": "Arcane Comet (Ma)"
-                    },
-                    {
-                        "Spell": "Star Burst (Ma)"
-                    }
-                ]
-            },
-            "Hat of Spell": {
-                "Price": 400,
-                "Cooldown": "Once / Adventure",
-                "Effect": "Using a Half-Action, cast {Spell} for free.",
-                "Display Name": "Hat of {Spell}",
-                "Variants": [
-                    {
-                        "Spell": "Sp.w. Animals"
-                    },
-                    {
-                        "Spell": "Sp.w. Plants"
-                    },
-                    {
-                        "Spell": "Mind Blast"
-                    },
-                    {
-                        "Spell": "Tumble (Hu)"
-                    },
-                    {
-                        "Spell": "Sap (Ma)"
-                    }
-                ]
-            },
             "Gloves of Extra Skill": {
                 "Price": 275,
                 "Display Name": "Gloves of Extra {Skill}",
@@ -898,16 +596,59 @@
                 ]
             },
             "Cloak of Slow Falling": {
-                "Price": 250,
-                "Effect": "The wearer takes no falling Damage, and instead falls slowly."
-            },
-            "Cape of Fins": {
-                "Price": 350,
-                "Effect": "The wearer has a swimming Speed of 6 meters."
+                "Price": 300,
+                "Display Name": "Cloak of {Name}",
+                "Effect": "{E}",
+                "Variants": [
+                    {
+                        "E": "The wearer takes no falling Damage, and instead falls slowly.",
+                        "Name": "Slow Falling"
+                    },
+                    {
+                        "E": "The wearer has a swimming Speed of 6 meters.",
+                        "Name": "Fins"
+                    },
+                    {
+                        "E": "You are immune to Fumbling and have +2 to Dexterity Checks for balancing.",
+                        "Name": "Balance"
+                    }
+                ]
             },
             "Nightvision Goggles": {
                 "Price": 425,
                 "Effect": "Wearer can see up to 5 meters in Darkness without having Cover."
+            }
+        }
+    },
+    "Level 3 Combat Equipment": {
+        "Items": {
+            "Damage Rune": {
+                "Price": 350,
+                "Display Name": "{Name}",
+                "Effect": "{E}",
+                "Variants": [
+                    {
+                        "E": "Inscribe on a weapon to permanently increase its Damage by 1.",
+                        "Name": "Damage Rune"
+                    },
+                    {
+                        "E": "Inscribe on a weapon to permanently increase its Damage by 2. Only usable on weapons that originally have no Stat requirement.",
+                        "Name": "Reinforcement Rune"
+                    }
+                ]
+            },
+            "Minor Wand of Spell": {
+                "Price": 100,
+                "Cooldown": "Once / Adventure",
+                "A": "Half-Action",
+                "Effect": "Cast {SpellName} for free.",
+                "Display Name": "Wand of {SpellName}",
+                "SubspellName": "{SpellName}",
+                "VariantsForEach": [
+                    {
+                        "ForEach": "SpellName:$MinorSpells"
+                    }
+                ]
             },
             "Cape of Element": {
                 "Price": 425,
@@ -934,52 +675,93 @@
                     }
                 ]
             },
-            "Cape of Balance": {
-                "Price": 300,
-                "Effect": "You are immune to Fumbling and have +2 to Dexterity Checks for balancing."
-            },
-            "Gloves of Weapon Training": {
-                "Price": 300,
-                "Effect": "You have Training in all weapons."
-            },
-            "Ring of Health": {
+            "Item of Health": {
                 "Price": 450,
-                "Effect": "+3 Max Health."
+                "Display Name": "{Name} of Health",
+                "Effect": "+4 Max Health.",
+                "Variants": [
+                    {
+                        "Name": "Gloves",
+                        "IconName": "Gloves of Health"
+                    },
+                    {
+                        "Name": "Boots",
+                        "IconName": "Boots of Health"
+                    },
+                    {
+                        "Name": "Hood",
+                        "IconName": "Hood of Health"
+                    },
+                    {
+                        "Name": "Ring",
+                        "IconName": "Ring of Health"
+                    }
+                ]
             },
-            "Ring of Recovery": {
+            "Item of Recovery": {
                 "Price": 450,
-                "Effect": "+2 Health Regen."
+                "Effect": "+2 Health Regen.",
+                "Display Name": "{Name} of Recovery",
+                "Variants": [
+                    {
+                        "Name": "Gloves",
+                        "IconName": "Gloves of Recovery"
+                    },
+                    {
+                        "Name": "Boots",
+                        "IconName": "Boots of Recovery"
+                    },
+                    {
+                        "Name": "Hood",
+                        "IconName": "Hood of Recovery"
+                    },
+                    {
+                        "Name": "Ring",
+                        "IconName": "Ring of Recovery"
+                    }
+                ]
             },
             "Boots of Initiative": {
                 "Price": 375,
                 "Effect": "+3 Initiative."
             },
             "Boots of Tirelessness": {
-                "Price": 450,
-                "Effect": "+1 Speed. Wearing these boots, you are immune to hard terrain and your legs don't tire from walking."
-            },
-            "Boots of Striding": {
                 "Price": 300,
-                "Effect": "Your minimum speed is 5 and unaffected by armor's Speed reduction if any."
-            },
-            "Boots of Tremor Sense": {
-                "Price": 300,
-                "Effect": "Immune to Hard Terrain, being Blinded, and are unaffected by darkness penalties (Cover)."
-            },
-            "Boots of Grounding": {
-                "Price": 300,
-                "Effect": "You are immune to being Pushed and have +1 to all Might Checks."
-            },
-            "Steadyfoot Boots": {
-                "Price": 350,
-                "Effect": "Your party is immune to being Ambushed."
+                "Display Name": "Boots of {Name}",
+                "Effect": "{E}",
+                "Variants": [
+                    {
+                        "E": "+1 Speed. Wearing these boots, you are immune to hard terrain and your legs don't tire from walking.",
+                        "Name": "Tirelessness"
+                    },
+                    {
+                        "E": "Your minimum speed is 5 and unaffected by armor's Speed reduction if any.",
+                        "Name": "Striding"
+                    },
+                    {
+                        "E": "Immune to Hard Terrain, being Blinded, and are unaffected by darkness penalties (Cover).",
+                        "Name": "Tremor Sense"
+                    },
+                    {
+                        "E": "You are immune to being Pushed and have +1 to all Might Checks.",
+                        "Name": "Grounding"
+                    },
+                    {
+                        "E": "Your Ambush bonus is +10 instead of +5.",
+                        "Name": "Ambushing"
+                    },
+                    {
+                        "E": "Enemy Ambush bonus is +3 instead of +5.",
+                        "Name": "Steadyfoot"
+                    }
+                ]
             },
             "Leggings of Freedom": {
                 "Price": 450,
                 "Effect": "You are immune to being Rooted and Slowed.",
                 "Notes": "Can be worn with any armor."
             },
-            "Javeling of Accuracy": {
+            "Javelin of Accuracy": {
                 "Price": 225,
                 "Effect": "A normal Pike, but once per Adventure, it can be thrown without penalties and without needing Training, and it ignores Cover."
             },
@@ -989,22 +771,12 @@
                 "Display Name": "Holy {Weapon}",
                 "VariantsForEach": [
                     {
-                        "For": "Weapon",
-                        "In": "$OneHandedWeapons",
-                        "Mixins": {
-                            "Type": "{Weapon}",
-                            "Damage": 1
-                        }
+                        "ForEach": "Weapon:$OneHandedWeapons",
+                        "Damage": 1
                     },
                     {
-                        "For": "Weapon",
-                        "In": "$TwoHandedWeapons",
-                        "Mixins": {
-                            "Type": {
-                                "Weapon": null
-                            },
-                            "Damage": "+1d4"
-                        }
+                        "ForEach": "Weapon:$TwoHandedWeapons",
+                        "Damage": "+1d4"
                     }
                 ]
             },
@@ -1014,47 +786,27 @@
                 "Display Name": "Pulse {Weapon}",
                 "VariantsForEach": [
                     {
-                        "For": "Weapon",
-                        "In": "$OneHandedWeapons",
-                        "Mixins": {
-                            "Type": "{Weapon}",
-                            "Damage": 1
-                        }
+                        "ForEach": "Weapon:$OneHandedWeapons",
+                        "Damage": 1
                     },
                     {
-                        "For": "Weapon",
-                        "In": "$TwoHandedWeapons",
-                        "Mixins": {
-                            "Type": {
-                                "Weapon": null
-                            },
-                            "Damage": "+1d4"
-                        }
+                        "ForEach": "Weapon:$TwoHandedWeapons",
+                        "Damage": "+1d4"
                     }
                 ]
             },
             "Dryad Weapon": {
                 "Price": 400,
                 "Effect": "Deals {Damage} extra Damage to Beasts and Fiends ad the Damage type becomes Poison.",
-                "Display Name": "Pulse {Weapon}",
+                "Display Name": "Dryad {Weapon}",
                 "VariantsForEach": [
                     {
-                        "For": "Weapon",
-                        "In": "$OneHandedWeapons",
-                        "Mixins": {
-                            "Type": "{Weapon}",
-                            "Damage": 1
-                        }
+                        "ForEach": "Weapon:$OneHandedWeapons",
+                        "Damage": 1
                     },
                     {
-                        "For": "Weapon",
-                        "In": "$TwoHandedWeapons",
-                        "Mixins": {
-                            "Type": {
-                                "Weapon": null
-                            },
-                            "Damage": "+1d4"
-                        }
+                        "ForEach": "Weapon:$TwoHandedWeapons",
+                        "Damage": "+1d4"
                     }
                 ]
             },
@@ -1076,17 +828,23 @@
                 "Cooldown": "Once / Adventure",
                 "Effect": "When someone casts a Spell, you can change one letter in the Spell's name to give it a different meaning. The effect is determined by the DM, but the DM must take the intention into account. You always know the name of a Spell when it is cast."
             },
-            "Ring of the Phoenix": {
-                "Price": 300,
-                "Effect": "50% Fire Resistance. When you get to 0 Health, you are instantly revived to 1 Health without Exhaustion. Then the ring breaks."
-            },
-            "Ring of Withering": {
-                "Price": 300,
-                "Effect": "While wearing this Ring, your body is withering and you have -1 Might, but you are immune to being Feared, Charmed and put to Sleep."
-            },
             "Blessed Ring of Protection": {
-                "Price": 500,
-                "Effect": "After every Worthy Combat, you regain 1d4 Health. Only works if the wearer is religious."
+                "Price": 400,
+                "Effect": "{E}",
+                "Variants": [
+                    {
+                        "E": "After every Worthy Combat, you regain 1d4 Health. Only works if the wearer is religious.",
+                        "Name": "Blessed Ring of Protection"
+                    },
+                    {
+                        "E": "While wearing this Ring, your body is withering and you have -1 Might, but you have +1 Movement.",
+                        "Name": "Ring of Withering"
+                    },
+                    {
+                        "E": "50% Fire Resistance. When you get to 0 Health, you are instantly revived to 1 Health without Exhaustion. Then the ring breaks.",
+                        "Name": "Ring of the Phoenix"
+                    }
+                ]
             },
             "Ring of the Eldritch Thing": {
                 "Price": 500,
@@ -1099,7 +857,7 @@
                 "Cooldown": "Once / Adevnture",
                 "Effect": "50% Pulse Resistance. When activated, make your body weigh 1kg for up to 1 minute."
             },
-            "Rune of Truestrike": {
+            "Charm of Truestrike": {
                 "Price": 500,
                 "A": "0 Actions",
                 "Cooldown": "Once / Adventure",
@@ -1110,10 +868,6 @@
     "Level 4 Utility Items": {
         "Description": "These are simple utility magic that don't usually have much impact on the game.",
         "Items": {
-            "Fortress Seed": {
-                "Price": 300000,
-                "Effect": "Planting this seed in fertile soil starts building a fortress over 5 minutes."
-            },
             "Ring of the Spies": {
                 "Price": 600,
                 "Effect": "Putting this ring against a solid wall or door will reveal the other side, as if it were a door visor. Only works on walls less than 1 foot thick."
@@ -1126,7 +880,7 @@
                 "Price": 500,
                 "Effect": "Contains 2x2x2 meters of space inside, as if it were a pocket-dimension. The bag's content's weight increases the bag's weight."
             },
-            "hourglass of Slowing": {
+            "Hourglass of Slowing": {
                 "Price": 400,
                 "Cooldown": "Once / Adventure",
                 "Effect": "On use, all enemies you can see are Slowed."
@@ -1152,6 +906,10 @@
     "Level 5 Consumables": {
         "Description": "These are simple utility magic that don't usually have much impact on the game.",
         "Items": {
+            "Fortress Seed": {
+                "Price": 300000,
+                "Effect": "Planting this seed in fertile soil starts building a fortress over 5 minutes."
+            },
             "Ball of Imprisonment": {
                 "Price": 300,
                 "Cooldown": "1 attempt / Adventure",
@@ -1197,42 +955,31 @@
             "Ammo of Effect": {
                 "Price": 180,
                 "Display Name": "Ammo of {EffectName}",
-                "Effect": "Using a Half-Action, load onto a ranged weapon. The next shot also deals 1d12 {Effect}.",
+                "Effect": "Using a Half-Action, load onto a ranged weapon. {Effect}.",
                 "Variants": [
                     {
                         "EffectName": "Explosions",
-                        "Effect": "Fire Damage to the target and all Units within 1 meter of it."
+                        "Effect": "The next shot also deals 1d12 Fire Damage to the target and all Units within 1 meter of it"
                     },
                     {
                         "EffectName": "Chain Shock",
-                        "Effect": "Shock Damage to the target, then to the closes Unit to it, and again to the closest Unit to that Unit."
-                    }
-                ]
-            },
-            "Ammo of CC": {
-                "Price": 125,
-                "Display Name": "Ammo of {CC}",
-                "Effect": "Using a Half-Action, load onto a ranged weapon. The next shot also makes the target roll a Might Check. If it fails, it {Effect}.",
-                "Variants": [
-                    {
-                        "CC": "Fearing",
-                        "Effect": "becomes Feared"
+                        "Effect": "The next shot also deals 1d12 Shock Damage to the target, then to the closes Unit to it, and again to the closest Unit to that Unit"
                     },
                     {
-                        "CC": "Charming",
-                        "Effect": "becomes Charmed by you"
+                        "EffectName": "Fearing",
+                        "Effect": "The next shot makes the target Feared"
                     },
                     {
-                        "CC": "Crippling",
-                        "Effect": "becomes Crippled"
+                        "EffectName": "Crippling",
+                        "Effect": "The next shot makes the target Crippled"
                     },
                     {
-                        "CC": "Stunning",
-                        "Effect": "becomes Stunned"
+                        "EffectName": "Stunning",
+                        "Effect": "The next shot makes the target Stunned"
                     },
                     {
-                        "CC": "Elements",
-                        "Effect": "becomes 50% Weak to all Elements until the start of your next turn"
+                        "EffectName": "Elements",
+                        "Effect": "The next shot makes the target +50% Damage from Fire, Shock and Cold until the start of your next turn."
                     }
                 ]
             }
@@ -1241,101 +988,16 @@
     "Level 5 Equipment": {
         "Description": "These are simple utility magic that don't usually have much impact on the game.",
         "Items": {
-            "Gloves of Greater Spell": {
+            "Major Wand of Spell": {
                 "Price": 400,
                 "Cooldown": "Once / Adventure",
-                "Effect": "Using a Half-Action, cast {Spell} for free.",
-                "Display Name": "Gloves of {Spell}",
-                "Variants": [
+                "A": "Half-Action",
+                "Effect": "Cast {SpellName} for free.",
+                "Display Name": "Wand of {SpellName}",
+                "SubspellName": "{SpellName}",
+                "VariantsForEach": [
                     {
-                        "Spell": "Flame Strike"
-                    },
-                    {
-                        "Spell": "Scorching Ray"
-                    },
-                    {
-                        "Spell": "Cutting Winds"
-                    },
-                    {
-                        "Spell": "Deathfire Bolt"
-                    },
-                    {
-                        "Spell": "Flow Tap (Wl)"
-                    },
-                    {
-                        "Spell": "Ruining Throw (Wr)"
-                    }
-                ]
-            },
-            "Rune of Greater Spell": {
-                "Price": 400,
-                "Cooldown": "Once / Adventure",
-                "Effect": "Using a Half-Action, cast {Spell} for free.",
-                "Display Name": "Rune of {Spell}",
-                "Variants": [
-                    {
-                        "Spell": "Frost Rune"
-                    },
-                    {
-                        "Spell": "North Star"
-                    },
-                    {
-                        "Spell": "Arcane Spear"
-                    },
-                    {
-                        "Spell": "Spider Climb"
-                    },
-                    {
-                        "Spell": "Distort Vision"
-                    },
-                    {
-                        "Spell": "Dancing Weapon"
-                    },
-                    {
-                        "Spell": "Restful Soothing"
-                    },
-                    {
-                        "Spell": "Cure Wounds"
-                    },
-                    {
-                        "Spell": "Rise"
-                    }
-                ]
-            },
-            "Boots of Greater Spell": {
-                "Price": 400,
-                "Cooldown": "Once / Adventure",
-                "Effect": "Using a Half-Action, cast {Spell} for free.",
-                "Display Name": "Boots of {Spell}",
-                "Variants": [
-                    {
-                        "Spell": "Quaking Wave"
-                    },
-                    {
-                        "Spell": "Meld"
-                    },
-                    {
-                        "Spell": "Blood Boil (Wr)"
-                    }
-                ]
-            },
-            "Cape of Greater Spell": {
-                "Price": 400,
-                "Cooldown": "Once / Adventure",
-                "Effect": "Using a Half-Action, cast {Spell} for free.",
-                "Display Name": "Cape of {Spell}",
-                "Variants": [
-                    {
-                        "Spell": "Arrow Barrage"
-                    },
-                    {
-                        "Spell": "Charming Word"
-                    },
-                    {
-                        "Spell": "Moonsun Fire"
-                    },
-                    {
-                        "Spell": "Somatic Pulse (Wl)"
+                        "ForEach": "SpellName:$MajorSpells"
                     }
                 ]
             },
@@ -1343,9 +1005,51 @@
                 "Price": 700,
                 "Effect": "+2 Movement Speed"
             },
-            "Pendant of Health": {
-                "Price": 800,
-                "Effect": "+5 Health"
+            "Item of Major Health": {
+                "Price": 700,
+                "Effect": "+6 Max Health.",
+                "Display Name": "{Name} of Major Health",
+                "Variants": [
+                    {
+                        "Name": "Gloves",
+                        "IconName": "Gloves of Major Health"
+                    },
+                    {
+                        "Name": "Boots",
+                        "IconName": "Boots of Major Health"
+                    },
+                    {
+                        "Name": "Helmet",
+                        "IconName": "Helmet of Major Health"
+                    },
+                    {
+                        "Name": "Ring",
+                        "IconName": "Ring of Major Health"
+                    }
+                ]
+            },
+            "Item of Major Recovery": {
+                "Price": 700,
+                "Effect": "+3 Health Regen.",
+                "Display Name": "{Name} of Major Recovery",
+                "Variants": [
+                    {
+                        "Name": "Gloves",
+                        "IconName": "Gloves of Major Recovery"
+                    },
+                    {
+                        "Name": "Boots",
+                        "IconName": "Boots of Major Recovery"
+                    },
+                    {
+                        "Name": "Helmet",
+                        "IconName": "Helmet of Major Recovery"
+                    },
+                    {
+                        "Name": "Ring",
+                        "IconName": "Ring of Major Recovery"
+                    }
+                ]
             },
             "Boots of Greater Initiative": {
                 "Price": 700,
@@ -1376,27 +1080,7 @@
             "Weapon Plus One": {
                 "Price": 1000,
                 "Effect": "A {Type} that deals {Damage} Damage",
-                "Display Name": "{Type} {Damage}",
-                "VariantsForEach": [
-                    {
-                        "For": "Weapon",
-                        "In": "$OneHandedWeapons",
-                        "Mixins": {
-                            "Type": "{Weapon}",
-                            "Damage": 1
-                        }
-                    },
-                    {
-                        "For": "Weapon",
-                        "In": "$TwoHandedWeapons",
-                        "Mixins": {
-                            "Type": {
-                                "Weapon": null
-                            },
-                            "Damage": "+1d4"
-                        }
-                    }
-                ]
+                "Display Name": "{Type} {Damage}"
             },
             "Mithril Armor": {
                 "Price": 2000,
@@ -1420,24 +1104,23 @@
                 "Cooldown": "Once / Adventure",
                 "Effect": "When someone declares an attack on you, you can use your Reaction to Flash 6 meters away."
             },
-            "Feather of Reflex": {
+            "Belt of Reflex": {
                 "Price": 600,
                 "Effect": "You always dodge (take 0 Damage) the first attack from a Unit at the start of each Adventure (requires attuning)"
             },
-            "Belt of Stoicism": {
-                "Price": 100,
-                "Effect": "You always succeed the first Resist Check from a Unit at the start of each Adventure."
-            },
             "Shield of Reflection": {
                 "Price": 100,
-                "Effect": "Instead of taking Damage from an attack after the roll (before the Defense), reflect it back to the attacker."
+                "Cooldown": "Once / Adventure",
+                "Effect": "Instead of taking Damage from an attack after the roll, reflect it back to the attacker."
             },
             "Shield of Snakes": {
                 "Price": 100,
                 "Effect": "+1 Defense vs Ranged; if you take 3 or less Damage from a melee attack, deals 1d6 Poison Damage back to the attacker."
             },
             "Ring of Spell Storage": {
-                "Effect": "None"
+                "Effect": "Spend the Mana Cost and Cooldown (if any) for any Ability, and store it inside this ring.\nUsing a Half-Action, expend the Ability inside to cast it.\n",
+                "A": "Half-Action",
+                "Upgrade": "The ring can only hold 1 Ability at a time."
             },
             "Boots of Water Walking": {
                 "Price": 150,
@@ -1498,67 +1181,16 @@
     "Level 7 Equipment": {
         "Description": "These are simple utility magic that don't usually have much impact on the game.",
         "Items": {
-            "Gloves of Major Spell": {
-                "Price": 650,
+            "Grand Wand of Spell": {
+                "Price": 400,
                 "Cooldown": "Once / Adventure",
-                "Effect": "Using a Half-Action, cast {Spell} for free.",
-                "Display Name": "Gloves of {Spell}",
-                "Variants": [
+                "A": "Half-Action",
+                "Effect": "Cast {SpellName} for free.",
+                "Display Name": "Wand of {SpellName}",
+                "SubspellName": "{SpellName}",
+                "VariantsForEach": [
                     {
-                        "Spell": "Ice Spike"
-                    },
-                    {
-                        "Spell": "Polymorph"
-                    },
-                    {
-                        "Spell": "Holy Apex (Cl)"
-                    },
-                    {
-                        "Spell": "Dazzling Miasma (Dr)"
-                    },
-                    {
-                        "Spell": "Soul Drain (Wl)"
-                    },
-                    {
-                        "Spell": "Hurl Over (Wr)"
-                    }
-                ]
-            },
-            "Rune of Major Spell": {
-                "Price": 650,
-                "Cooldown": "Once / Adventure",
-                "Effect": "Using a Half-Action, cast {Spell} for free.",
-                "Display Name": "Rune of {Spell}",
-                "Variants": [
-                    {
-                        "Spell": "Ice Spike"
-                    },
-                    {
-                        "Spell": "Invisibility"
-                    },
-                    {
-                        "Spell": "Levitate"
-                    },
-                    {
-                        "Spell": "Lag"
-                    },
-                    {
-                        "Spell": "Reverse Gravity"
-                    },
-                    {
-                        "Spell": "Banishment Slip"
-                    },
-                    {
-                        "Spell": "Primal Surge (Dr)"
-                    },
-                    {
-                        "Spell": "Regrowth (Dr)"
-                    },
-                    {
-                        "Spell": "Star Fall (Dr)"
-                    },
-                    {
-                        "Spell": "Broken Hearts (Pa)"
+                        "ForEach": "SpellName:$GrandSpells"
                     }
                 ]
             },

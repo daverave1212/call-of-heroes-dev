@@ -2,8 +2,24 @@ import { Link } from "react-router-dom"
 import Icon from "./components/Icon"
 import Separator from "./components/Separator/Separator"
 
+import weapons from './databases/Weapons.json'
+import skills from './databases/Proficiencies.json'
+import abilities from './databases/Abilities.json'
 
 // ---------------- Spells Utilities ----------------
+
+export function findBasicSpellByName(basicAbilityName) {
+    for (let categoryName of Object.keys(abilities)) {
+        const category = abilities[categoryName]
+        for (let spellName of Object.keys(category)) {
+            const spell = category[spellName]
+            if (removeTildes(spellName) == basicAbilityName) {
+                return spellWithName(removeTildes(spellName), spell)
+            }
+        }
+    }
+    return null
+}
 
 export function spellWithName(name, spellData) {
     return {...spellData, Name: removeTildes(name)}
@@ -51,6 +67,14 @@ export function removeTildes(spellName) {
 export function addTildes(spellName) {
     return `~${spellName}~`
 }
+let CACHED_BASIC_SPELLS_ARRAY = null
+export function getAllBasicSpellsAsArray() {
+    if (CACHED_BASIC_SPELLS_ARRAY == null) {
+        const spellArrays = Object.keys(abilities).map(categoryName => spellsFromObject(abilities[categoryName]))
+        CACHED_BASIC_SPELLS_ARRAY = spellArrays.flat()
+    }
+    return CACHED_BASIC_SPELLS_ARRAY
+}
 export function getAllSpellsFromCategoriesObject(spellCategoriesObject) {
     const categoryNames = Object.keys(spellCategoriesObject)
     let spells = []
@@ -63,14 +87,29 @@ export function getAllSpellsFromCategoriesObject(spellCategoriesObject) {
 export function getSpellFromCategoriesObject(spellCategoriesObject, category, name) {
     const categoryIndex = spellCategoriesObject.indexOf(category)
 }
-export function getIconPathByName(name) {
+export function getSpellIconPathByName(name) {
     const iconName = getUniqueSpellID(name)
     const iconPath = `/Icons/Spells/${iconName}.png`
+    return iconPath
+}
+export function getItemIconPathByName(name) {
+    const iconName = getUniqueSpellID(name)
+    const iconPath = `/Icons/Items/${iconName}.png`
     return iconPath
 }
 export function getUniqueSpellID(name) {
     const idName = stringReplaceAllMany(name, [' ', '/', '%'], ['_', '_', ''])
     return idName
+}
+export function normalizeForEachVariantsToNormalVariants(VariantsForEach) {
+    let allVariants = []
+    for (let variant of VariantsForEach) {
+        const [mixinName, collectionName] = variant.ForEach.split(':')
+        const collection = getVariantsForEachCollection(collectionName)
+        const subvariants = collection.map(str => ({...variant, [mixinName]: str}))
+        allVariants = [...allVariants, ...subvariants]
+    }
+    return allVariants
 }
 
 
@@ -154,6 +193,32 @@ export function extractDefenseFromMonsterArmor(text) {
         i += 1
     }
     return parseInt(defenseSoFar)
+}
+const $LESSER_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Lesser').map(spell => spell.Name)
+const $MINOR_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Minor').map(spell => spell.Name)
+const $MAJOR_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Major').map(spell => spell.Name)
+const $GRAMD_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Grand').map(spell => spell.Name)
+export function getVariantsForEachCollection(collectionName) {
+    switch (collectionName) {
+        case '$OneHandedWeapons': return [...Object.keys(weapons['One-Handed Melee']), ...Object.keys(weapons['One-Handed Ranged'])].filter(weapon => weapon != 'Punch')
+        case '$TwoHandedWeapons': return [...Object.keys(weapons['Two-Handed Melee']), ...Object.keys(weapons['Two-Handed Ranged'])]
+        case '$Skills': return Object.keys(skills).map(name => removeTildes(name)).map(name => name.slice(name.lastIndexOf(' ') + 1))
+        
+        // Half-Action, 0 Mana             Once / Combat
+        case '$LesserSpells': return $LESSER_SPELLS_NAMES
+        
+        // 1 Action, 0 Mana                 Once / Adventure
+        // Half-Action, 1 Mana
+        case '$MinorSpells': return $MINOR_SPELLS_NAMES
+
+        // 1 Action, 1 Mana                 Once / Adventure
+        // Half-Action, 2 Mana
+        case '$MajorSpells': return $MAJOR_SPELLS_NAMES
+
+        // >>
+        case '$GrandSpells': return $GRAMD_SPELLS_NAMES
+    }
+    return []
 }
 
 
@@ -310,7 +375,7 @@ export function enspanDamageCalculations(text) {
 }
 
 // Returns an array of componentos
-export function parseTextWithSymbols(text, customSymbols) {
+export function parseTextWithSymbols(text, customSymbols, isDebug) {
 
     let symbolToInsertion = {
         'Damage': () => (<Icon name="Damage"/>),
@@ -329,12 +394,19 @@ export function parseTextWithSymbols(text, customSymbols) {
         'Cover': () => (<span>If a Unit has Cover from you (e.g. is behind an obstacle), everything you do to it gets -2.</span>),
         'DiceUpgrade': () => (<span>Having <b>Dice Upgraded</b> means, for example, d6's become d8's, or d10's become d12's. D12's and d20's don't increase.</span>),
         'DiceDowngrade': () => (<span>Having <b>Dice Downgraded</b> means, for example, d8's become d6's, or d10's become d8's. D4's and d20's don't decrease.</span>),
+        'Flank': () => (<span>Flanking is when you melee-attack an enemy, and an ally of yours is directly behind the enemy. As an optional rule (ask the QM), flank attacks can deal +1 Damage.</span>),
+        'FoolsGold': () => (<span>Fool's Gold is an imaginary currency that can be converted to real Gold by spending 1 hour in a town or city. Fool's Gold lasts until converted to real Gold.</span>),
         
         'Gold': () => (<Icon name="Gold"/>)
     }
     if (customSymbols != null) {
         symbolToInsertion = {...symbolToInsertion, ...customSymbols}
     }
+    
+    if (isDebug === true) {
+        console.log({symbolToInsertion})
+    }
+
     const symbolToMarkup = {
         '^': text => (<b>{text}</b>),
         '_': text => (<i>{text}</i>),
@@ -352,7 +424,9 @@ export function parseTextWithSymbols(text, customSymbols) {
         switch (state) {
             case 'reading-normal-text':
                 if (char == '{') {
-                    textParts.push(text.substring(currentTextPartStart, i))
+                    if (i > 0) {
+                        textParts.push(text.substring(currentTextPartStart, i))
+                    }
                     symbolStart = i
                     state = 'reading-symbol'
                 }
@@ -562,6 +636,9 @@ export function takeRandomElements(fromArray, numberOfElements) {
 export function capitalizeFirstLetter(str) {
     const str2 = str.charAt(0).toUpperCase() + str.slice(1)
     return str2
+}
+export function isLocalhost() {
+    return window.location.href.includes('localhost')
 }
 
 

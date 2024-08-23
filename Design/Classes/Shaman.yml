@@ -15,7 +15,7 @@ Weapons: You are Trained in 2 Weapon Categories of choice (e.g. 1-Handed Melee, 
 
 Difficulty: Medium
 
-Proficiency Requirements: You have Skilled in Occultism and have a number of extra non-combat Skills equal to your Intelligence.
+Proficiency Requirements: You have Skilled in Occultism and have a number of extra non-combat Skills equal to your Intelligence or Sense, whichever is higher.
 
 Proficiencies:
     ~Skilled in Occultism~: Inherit
@@ -77,11 +77,10 @@ Starting Abilities Description:
 Starting Abilities: 
   ~Echoes~:                   # 1.5 Mana
     A: Passive
-    Cooldown: Each Ability can only echo once per Combat
     HasMixins: true
     Effect: |
-      After you cast a Basic Ability, roll 1d10.
-      If you rolled 10 on it, the Ability _echoes_ and you cast it again (for 0 Actions), but ^all^ Damage or Healing it does is reduced by 50%.
+      After you cast a Basic Ability, roll 1d8.
+      If you rolled 8 on it, the Ability _echoes_ and you cast it again (for 0 Actions), but ^all^ Damage or Healing it does is reduced by 50%.
       The _echoed_ Ability can't affect the same target(s) or area.
     Notes: |
       Abilities like Recuperate can't _echo_, since the only possible target is yourself.
@@ -91,6 +90,7 @@ Starting Abilities:
 
   ~Mind Link~:                # 0
     A: 0 Actions
+    Cooldown: Once / Adventure
     Effect: |
       Establish a mind connection with a willing ally.
       For the rest of the Adventure, you can talk to eachother telepathically.
@@ -161,8 +161,16 @@ Specs:
         _Value: 0 (?)
         A: Passive
         HasMixins: true
-        Effect: While at or below 50% Health, your weapon attacks can _echo_ on a Unit within range.
-        Notes: So, after every weapon attack, roll 1d10, and if you rolled 10, the attack _echoes_
+        Replacement: Replaces Echoes
+        Effect: |
+          After you cast a Basic Ability ~or make a weapon attack~, roll 1d8.
+          If you rolled 8 on it, the Ability~/attack~ _echoes_ and you cast it again (for 0 Actions), but ^all^ Damage or Healing it does is reduced by 50%.
+          The _echoed_ Ability~/attack~ can't affect the same target(s) or area.
+        Notes: |
+          Abilities like Recuperate can't _echo_, since the only possible target is yourself.
+          If the area overlaps the initial area, the overlapped part has no effect. If it hits the same target(s), it has no effect on them.
+          Take the Ability text as it is - _echoing_ Lightning Storm repeats the initial Damage, but you'd have to spend another 1 Action to retrigger the second Lightning Storm.
+          The QM has the word on whether something is possible.
 
 
     Talents:
@@ -253,17 +261,20 @@ Specs:
             You are immune to being Crowd Control and Hard Terrain.
 
         <Echoes of Fury>:
-          _Value: 3
+          _Value: 3.5
           A: Passive
           HasMixins: true
-          Effect: Your weapon attacks can _echo_ regardless of your Health. Your _echoes_ Damage is no longer reduced by 50% (for Spells and Attacks).
+          Effect: |
+            Your _echoes_ can hit the same target (with -50% Damage/Healing). However, if it hits a different target, the Damage or Healing is no longer reduced by 50%.
 
         <Forced Echoes>:
           _Value: 3
           A: Passive
           HasMixins: true
           Effect: Your Shaman Abilities and Talents ALWAYS _echo_.
-          Notes: When Bloodlust echoes, the baseline attack (with the Bloodlust Damage included) echoes as well.
+          Notes: |
+            When Bloodlust _echoes_, the baseline attack (with the Bloodlust Damage included) echoes as well.
+            When Ruining Shout _echoes_, it can hit all the same targets.
 
       Level 9:
 
@@ -273,7 +284,9 @@ Specs:
           Cooldown: Once / Adventure
           Effect: |
             A spectral self appears at the position where you started your turn, and repeats all Acts you have already done this turn.
-          Notes: The clone moves exactly as you did (can go through Units) and repeats the Spells and Attacks on the same targets. If there were any dice rolls, the clone rolls them (don't use the same numbers rolled). The clone is a separate special Unit - self effects apply to the clone (and thus self-heals have no effect).
+          Notes: |
+            An Act is considered any Movement, attack or Ability that took at least 0 Actions (does not include Passives that triggered and _echoes_ that had already happened this turn).
+            The clone moves exactly as you did (can go through Units) and repeats the Spells and Attacks on the same targets. If there were any dice rolls, the clone rolls them (don't use the same numbers rolled). The clone is a separate special Unit - self effects apply to the clone (and thus self-heals have no effect).
 
 # Aya huasca
 # Reincarnation
@@ -290,22 +303,31 @@ Specs:
     Starting Abilities:
 
       ~Spirit Bond~ : # Ok
-        A: 1 Action
+        A: 0 Actions
         Cooldown: Once / Adventure
-        Duration: Whole Adventure
+        Replacement: Replaces Mind Link
+        HasMixins: true
         Effect: |
-          Touch another ally.
-          Whenever either of you makes a Check, add the higher bonus from either of you instead of their normal Check bonus.
-        Notes: This does apply to non-combat Skills - if your bonded ally has Skilled in something, you also add the ally's Level, as it would normally make sense.
+          Establish a mind connection with an Ally you can see.
+          For the rest of the Adventure, you can talk to eachother telepathically, ~and whenever either of you makes a Check, add the higher bonus from either of you instead of their normal Check bonus~.
+        Notes: This does apply to non-combat Skills - if your bonded ally has a non-combat Skill, you also add the ally's Level, as it would normally make sense.
 
       ~Infinite Echo~:
         _Value: 1
         A: Passive
         HasMixins: true
+        Replacement: Replaces Echoes
         Effect: |
-          Your _echo_ die becomes 1d8.
-          After you _echo_ an Ability, roll the 1d8 _echo_ die again. If you roll 8, repeat!
-        Upgrade: Your Basic Abilities can _echo_ again and again. The Damage and Healing remains 50% of its normal amount (e.g. it's not 50% of 50%).
+          After you cast a Basic Ability, roll ~1d6~.
+          If you rolled 6 on it, the Ability echoes and you cast it again (for 0 Actions), but all Damage or Healing it does is reduced by 50%.
+          The echoed Ability can't affect the same target(s) or area.
+          ~After you echo an Ability, roll the 1d6 echo die again. If you roll 8, repeat!~
+        Upgrade: ~Your Basic Abilities can _echo_ again and again. The Damage and Healing remains 50% of its normal amount (e.g. it's not 50% of 50%).~
+        Notes: |
+          Abilities like Recuperate can't echo, since the only possible target is yourself.
+          If the area overlaps the initial area, the overlapped part has no effect. If it hits the same target(s), it has no effect on them.
+          Take the Ability text as it is - echoing Lightning Storm repeats the initial Damage, but you'd have to spend another 1 Action to retrigger the second Lightning Storm.
+          The QM has the word on whether something is possible.
 
     Talents:
       Level 3:
@@ -330,7 +352,7 @@ Specs:
 
         <Dream Walk>:
           _Value: 1.5
-          A: Half-Actio
+          A: Half-Action
           Cooldown: Once / Adventure
           Range: 6 meters
           Effect: |
@@ -448,15 +470,16 @@ Specs:
 
       ~Wicked Magic~:             # Ok
         A: Passive
-        Effect: You have access to the Eldritch Spell List.
+        Effect: You have access to the Eldritch Spell School.
 
       ~Hex Magic~:
         _Value: 1
         A: 0 Actions or Reaction
         Cost: Depends
         Range: 10 meters
+        HasMixins: true
         Effect: |
-          After you cast a Spell, you can expend 6 Health to force it to _echo_.
+          After you cast a Spell, you can expend 5 Health to force it to _echo_.
           You can expend 3 Health to add or subtract 1d6 from any other Unit's roll (not yours).
         Notes: |
           The QM might not roll Damage for monsters, and instead take the average - even if they take the average, that counts as a roll.
@@ -537,7 +560,7 @@ Specs:
             At the start of your next turn, summon a number of Zombies equal to half the Health spent, each wherever you choose in that area.
             They take their turn the same time as you and you can command them to do move and attack (they can't do Default Moves or use items).
             They have 4 Speed, 1 Health, 2 Defense and fail all Checks.
-            Each can attack for 1d4 - 1 Scourge Damage, but ignore Defense.
+            Each can attack for 1d4 - 1 Scourge Damage.
             Zombies last for up to 10 minutes.
           # [Health Regen Retcon]
 
@@ -560,7 +583,7 @@ Specs:
           Cooldown: Once / Adventure
           Effect: |
             Target a Unit.
-            The next time it would take Damage from any source before your next turn, the Damage is doubled (after Defense).
+            The next time it would take Damage from any source before your next turn, the Damage is increased by 100%.
           Upgrade: You can only use this on targets that have blood.
           Notes: Applies to added extra Damage if it's the same type as the base Damage (e.g. Advanced Flank works, but not Smites).
 

@@ -93,8 +93,8 @@ export default function() {
 
         <FeaturingAsidePopup featureToDisplay={featureToDisplay}/>
 
-        <img className="portrait-only floating-animation-1" style={{position: 'absolute', top: '3vh', left: '15vw', width: '20px'}} src="/LandingPage/FloatingDot1.png"/>
-        <img className="portrait-only floating-animation-2" style={{position: 'absolute', top: '5vh', right: '10vw', width: '100px'}} src="/LandingPage/FloatingRaccoon.png"/>
+        <img className="portrait-only floating-animation-1" style={{position: 'absolute', top: '1vh', left: '15vw', width: '20px'}} src="/LandingPage/FloatingDot1.png"/>
+        <img className="portrait-only floating-animation-2" style={{position: 'absolute', top: '3vh', right: '7vw', width: '100px'}} src="/LandingPage/FloatingRaccoon.png"/>
         <img className="portrait-only floating-animation-3" style={{position: 'absolute', bottom: '3vh', left: '8vw', width: '70px'}} src="/LandingPage/FloatingBird.png"/>
       </div>
 

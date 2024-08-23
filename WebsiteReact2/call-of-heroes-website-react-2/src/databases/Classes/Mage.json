@@ -6,7 +6,7 @@
     "Description": "You step inside the magic circle, and an incantation of fire, frost, and lightning begins. The figure with robes and glowing eyes moves around, raw energy emanating from their palms. A book lays open on the floor, pages flipping themselves and shifting through bright violet runes. The circle is abruptly broken, and the magic stops, as you notice the mage caressing his beard, eyes all on you. Did the spell fail? Could this be a mistake? An error in the code of arcane? Mages work in mysterious ways...\nMages are channelers magic, refiners of the coarse arcane, directly from the source, who can transform those vibrations into elemental energies. Mastery over magics has made their spells fast and efficient, but in their choice of spells and invocations, no two mages are alike.\nWizards are in a continuous study of magic, and their mind is trained for accessing higher-order spells ahead of time, while sorcerers prefer a more random (albeit practical) usage of magic, going with the flow. Artificers are the complete opposite, however, prefering rigurious crafts of trial and error until they excel in their preferred creation field - alchemy, tinkering, even blacksmithing.\n",
     "Difficulty": "Easy",
     "Weapons": "You are Trained in a Weapon Category of choice (e.g. 1-Handed Melee, 2-Handed Ranged, etc).",
-    "Proficiency Requirements": "You are Skilled in Knowledge, Arcane and have a number of extra non-combat Skills equal to your Intelligence.",
+    "Proficiency Requirements": "You are Skilled in Knowledge, Arcane and have a number of extra non-combat Skills equal to your Intelligence or Sense, whichever is higher.",
     "Proficiencies": {
         "~Skilled in Knowledge~": {
             "Effect": "Add your Level to all Intelligence Checks for knowing various simple facts about science, astronomy, trades, etc."
@@ -62,15 +62,15 @@
         "~Magic Mastery~": {
             "_Value": 1.5,
             "A": "0 Actions",
-            "HasMixins": true,
             "Cooldown": "Once / Turn",
-            "Effect": "Your next Basic Spell (from an Ability List) that costs 1 Action now costs a Half-Action instead, but has all ^Dice Downgraded^ to the previous die tier.\n",
-            "Notes": "This is not considered a Spell. {DiceDowngrade}",
+            "HasMixins": true,
+            "Effect": "Your next Basic Ability that uses 1 Action now uses a Half-Action instead, but has all ^Dice Downgraded^ to the previous die tier.\n",
+            "Upgrade": "D4's become coin flips (d2's).",
+            "Notes": "{DiceDowngrade}",
             "AlignOnWebsite": "Left"
         },
         "~Learn Scrolls~": {
             "A": "10 minutes",
-            "Cooldown": "Once / Adventure",
             "Effect": "If you have a Scroll that contains a Basic Ability (e.g. from Arcane, Nature, etc), you can destroy it to Know it permanently, without needing to learn it inbetween Adventures.\n",
             "Notes": "You can not learn Class Abilities from Scrolls. Of course, you still need to spend Mana and respect the Cooldown of said Ability.",
             "AlignOnWebsite": "Left"
@@ -164,17 +164,25 @@
                         "Effect": "When you cast a spell, you can apply this any of the following effects to it:\n{Diamond} For every 2 dice in its Damage, roll 1 more\n{Diamond} If it targets an area, increase it or decrease it by 50%\n{Diamond} Change its Damage type to any type, except Divine and True Damage\n{Diamond} If it specifies a Stat, change it to any other Stat\n{Diamond} Swap any of Root, Cripple or Silence (with any of the remaining)\n{Diamond} Swap Slow, Fumbling, or Pushing with any other of these (Push a target 2 meters away from you or from the area center)\n{Diamond} Double its range\nAt any point, you can expend 1 Mana to reset the Cooldown of this Spell (Spellcraft).\n"
                     }
                 },
+                "Level 6": {
+                    "<Stat Bonus 4>": {
+                        "Effect": "Gain +1 in a Stat of choice, up to +4."
+                    },
+                    "<Minor Mana Bonus>": {
+                        "Effect": "Gain +1 Maximum Mana."
+                    }
+                },
                 "Level 7": {
                     "<Grand Wizardry>": {
                         "_Value": 2.5,
                         "A": "Passive",
-                        "Effect": "Magic Mastery becomes usable 2 more times per Adventure.\nBasic Spells that cost Mana and have a Cooldown have no Cooldown for you.\n"
+                        "Effect": "Spells that cost 3 or more Mana cost 1 less for you.\nBasic Spells that cost Mana and have a Cooldown have no Cooldown for you.\n"
                     },
                     "<Destruction>": {
                         "_Value": 4,
                         "A": "Passive",
                         "HasMixins": true,
-                        "Effect": "Whenever you deal Damage with a Spell that cost Mana or was affected by Magic Mastery, zap a Unit within 4 meters for ^your Intelligence^ Shock Damage.\n",
+                        "Effect": "Whenever you deal Damage with a Spell that cost Mana, zap a Unit within 4 meters for ^your Intelligence^ Shock Damage.\n",
                         "Notes": "This is optional."
                     },
                     "<Evocation>": {
@@ -209,12 +217,15 @@
                 "~Unstable Spark~": {
                     "_Value": 1.5,
                     "A": "Passive",
-                    "Effect": "At the start of your every turn in a Worthy Combat, roll 1d10.\nIf you roll 10, your first Spell this turn becomes affected by Magic Mastery if possible, regardless of its Cooldown.\n"
+                    "HasMixins": true,
+                    "Effect": "At the start of your every Turn in a Worthy Combat, roll 1d10.\nIf you roll 10, your first Spell this Turn has its ^Dice Upgraded^ to the next die tier.\n",
+                    "Notes": "{DiceUpgrade}\n"
                 },
                 "~Overcharge~": {
-                    "_Value": -0.5,
-                    "A": "Passive",
-                    "Effect": "After you cast a Basic Spell in a Combat, you can no longer cast that Spell until the Combat ends, regardless of its Cooldown.\n"
+                    "A": "0 Actions",
+                    "Cooldown": "Once / Turn",
+                    "Effect": "Roll an Unstable Spark die. If you roll 1, you take 4 True Damage.",
+                    "Upgrade": "Requires you to be in a Worthy Combat."
                 }
             },
             "Talents": {
@@ -223,21 +234,20 @@
                         "_Value": 1,
                         "A": "Half-Action",
                         "Range": "10 meters",
-                        "Cooldown": "Once / Combat",
-                        "Effect": "A Unit must succeed a Charisma Check against your Max Mana or be Crippled, Silenced or Rooted (your choice).\n"
+                        "Effect": "A Unit must succeed a Charisma Check against your last rolled Unstable Spark die or be Blinded, Silenced or Rooted (your choice).\n"
                     },
                     "<Mild Magic>": {
                         "_Value": 0.5,
                         "AlignOnWebsite": "Left",
                         "A": "Passive",
-                        "Effect": "After you manually use Magic Mastery, for the rest of the combat, ignore the limits of Overcharge."
+                        "Effect": "Whenever you roll minimum Damage on a Spell, reroll it. Afterwards, roll an Unstable Spark die."
                     },
                     "<Wild Magic>": {
                         "_Value": 0.5,
                         "AlignOnWebsite": "Right",
                         "A": "Passive",
-                        "Effect": "When you roll the Unstable Spark d10, if you roll 1 or 2, roll another 1d20 and a random Spell is automatically cast from the table below on a target/Unit \"randomly\" chosen by the QM.\nIf you roll 1, the effect will be negative for your team, if possible. If you roll 2, the effect is positive, if possible.\n",
-                        "Notes": "For example, if you roll 1 and the random Spell is Fire Enchantment, it will be cast on an enemy's weapon if possible (respecting the range). If not possible, then it will be cast on a random, non-Player Character's weapon. If not possible, then it will be cast on a Player Character's weapon. If nothing is possible, nothing happens.\nIf an effect can be cancelled or has ongoing effects, you have control of them as if you yourself had cast the Spell.\n",
+                        "Effect": "When you roll the Unstable Spark die, if you roll 2 or 3, roll another 1d20 and a random Spell is automatically cast from the table below on a target/Unit \"randomly\" chosen by the QM.\nIf you roll 2, the effect will be negative for your team, if possible. If you roll 3, the effect is positive, if possible.\n",
+                        "Notes": "For example, if you roll 2 and the random Spell is Fire Enchantment, it will be cast on an enemy's weapon if possible (respecting the range). If not possible, then it will be cast on a random, non-Player Character's weapon. If not possible, then it will be cast on a Player Character's weapon. If nothing is possible, nothing happens.\nIf an effect can be cancelled or has ongoing effects, you have control of them as if you yourself had cast the Spell.\n",
                         "DoubleTableNumbered": {
                             "Headers": [
                                 "Spell Name",
@@ -269,36 +279,41 @@
                     }
                 },
                 "Level 5": {
-                    "<Arcane Comet>": {
-                        "_Value": 2,
-                        "AlignOnWebsite": "Left",
-                        "HasMixins": true,
-                        "A": "1 Action",
-                        "Cooldown": "Once / Adventure",
-                        "Range": "8 meters",
-                        "Effect": "Shoot a comet that changes in power the longer it travels - it deals Damage and Crowd Controls a target.\nIt attacks for 1d6 Pulse Damage for every meter it travels (up to 8d6).\nHowever, the longer it travels, the weaker it's Crowd Control is.\nApply the following Crowd Control (directly, without a Check) to the target depending on the distance traveled (distance between you and the target):\n{Diamond} 1 or 2 meters: Stun\n{Diamond} 3 or 4 meters: Fumbling\n{Diamond} 5 or 6 meters: Root\n{Diamond} 7 or 8 meters: None\n"
+                    "<Arcano Mantissa>": {
+                        "_Value": "2 (No fucking idea lol)",
+                        "A": "Passive",
+                        "Effect": "When you roll 3 on the Unstable Spark die, gain 0.5 Max Health and 0.25 Max Mana.",
+                        "Notes": "Mana and Health can't be expended or Damaged in fractions, but if you manage to get this 2 times, you essentially get +1 Health permanently (or 1 Mana permanently if you trigger this 4 times)."
                     },
                     "<Star Burst>": {
                         "_Value": 1.35,
                         "AlignOnWebsite": "Right",
-                        "A": "Half-Action",
-                        "Cooldown": "Once / Adventure",
-                        "Effect": "Declare up to 4 different targets within 15 meters.\nAssign a different number from #1 to #4 to each.\nRoll a number of d4's equal to double your Intelligence or Charisma (whichever is higher). Each number deals that much Pulse Damage to the target with that number.\nEach rolled 1 deals 1 Damage to target number #1.\nEach rolled 2 deals 2 Damage to target number #2.\nAnd so on.\n",
+                        "A": "1 Action",
+                        "Cost": "1 Mana",
+                        "Effect": "Declare up to 4 different targets you can see.\nAssign a different number from #1 to #4 to each.\nRoll a number of d4's equal to your last rolled Unstable Spark die. Each d4 rolled deals that much Pulse Damage to the target with that number.\nEach rolled 1 deals 1 Damage to target number #1, each rolled 2 deals 2 Damage to target number #2, and so on.\n",
                         "Notes": "E.g. if you put #2 on a goblin, and you roll three 2's on the d4's, then that goblin takes 6 Pulse Damage.\nYou should probably assign the higher number to the target you want to do most Damage to.\nYou can declare fewer targets, but then the missing number will deal Damage to no target.\nCover is applied normally.\n"
                     },
                     "<Honorificabilitudinitatibus>": {
                         "_Value": 2.5,
                         "AlignOnWebsite": "Left",
                         "A": "Passive",
-                        "Effect": "Your single-target Spells that deal half Damage when a target passes a Check now deal the full Damage regardless.",
-                        "Notes": "That means spells like Acid Burst don't even require a Check anymore."
+                        "Effect": "Your Unstable Spark die becomes 1d12 instead of 1d10, and triggers on 11 and 12 instead of 10.\nYour d12 dice become d14's, 1d14's become d16's, etc, when they have their ^Dice Upgraded^ to the next die tier.\n",
+                        "Notes": "I don't know. You're a mage, figure it out.\n"
+                    }
+                },
+                "Level 6": {
+                    "<Stat Bonus 4>": {
+                        "Effect": "Gain +1 in a Stat of choice, up to +4."
+                    },
+                    "<Minor Mana Bonus>": {
+                        "Effect": "Gain +1 Maximum Mana."
                     }
                 },
                 "Level 7": {
                     "<Great Sorcery>": {
                         "_Value": 2.5,
                         "A": "Passive",
-                        "Effect": "Whenever you roll 8 or 9 on the Unstable Spark die, reset the Cooldown of Magic Mastery.\nAdditionally, Magic Mastery can now reduce the Actions cost of any Spell from a Half-Action to 0 Actions.\n"
+                        "Effect": "When you roll 8 or 9 on the Unstable Spark die, gain 1 Mana.\n"
                     },
                     "<Accidental Zap>": {
                         "_Value": 2.5,
@@ -309,7 +324,8 @@
                         "_Value": 2.5,
                         "A": "Reaction",
                         "Cooldown": "Once / Adventure",
-                        "Effect": "Use after you roll an Unstable Spark die. Reroll it and reset ALL your Cooldowns (except this)."
+                        "HasMixins": true,
+                        "Effect": "Use after you roll an Unstable Spark die. Reroll it and reset ALL your Cooldowns and _Overcharged Cooldowns_ (except this)."
                     }
                 },
                 "Level 9": {
@@ -319,9 +335,10 @@
                         "Cooldown": "Once / Adventure",
                         "Effect": "Instantly return to how and where you were at the start of your turn (or your previous turn if it's not currently your turn), with that same Movement, Actions, Health, Shielding, Buffs and Cooldowns (not Mana, though).\nAlternatively, if you're out of combat, you can turn back time for all the world up to 10 minutes, exactly how it was, but retaining all your information from the future. Allies don't retain the information.\n"
                     },
-                    "<Double Spark>": {
+                    "<Double Spark Triple Quark>": {
                         "A": "Passive",
-                        "Effect": "You roll 2d10 now instead of just 1d10 for Unstable Spark. Apply effects for both.\nIf both are 10, your first 2 Spells this turn become affected by Magic Mastery instead.\n"
+                        "HasMixins": true,
+                        "Effect": "You roll 2d10 now instead of just 1d10 for Unstable Spark. Apply effects for both.\nIf both are 10, your first Spell this turn become affected by Unstable Spark ^Dice Upgrade^ 3 times.\n"
                     }
                 }
             }

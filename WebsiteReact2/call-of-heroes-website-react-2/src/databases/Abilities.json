@@ -44,7 +44,7 @@
         "~Grapple~": {
             "A": "1 Action",
             "Range": "1 meter",
-            "Effect": "Pass a Might Check against a Unit's Dexterity or Might Check (its choice) to make it Rooted and Fumbling.\n",
+            "Effect": "Pass a Might Check against a Unit's Dexterity or Might Check (its choice) to either make it Rooted and Fumbling, or mount it.\n",
             "Notes": "Like all Crowd Control, being grappled lasts 1 turn. The target becomes not-grappled if the grappler exits its adjacency.",
             "Name": "~Grapple~"
         }
@@ -83,6 +83,7 @@
         "~Recuperate~": {
             "A": "0 Actions",
             "Cost": "1 Mana",
+            "Degree": "Minor",
             "Effect": "Heal yourself for 1d10. If you're affected by any Crowd Control (except turn-skipping), remove it instead of healing.\n",
             "Name": "~Recuperate~"
         },
@@ -90,8 +91,8 @@
             "A": "Half-Action",
             "Cooldown": "Once / Combat",
             "HasMixins": true,
-            "Effect": "Attack a Unit for 1d6 + 2 Damage of your ^weapon^'s type. Its Passives are disabled until your next turn.",
-            "Notes": "Its Passives become disabled before you hit it (e.g. Kobolds don't dodge this attack).",
+            "Effect": "Attack a Unit for 1d6 + 2 Damage of your ^weapon^'s type. Its Passives, weapon* effects and Reactions are disabled until your next turn.\n",
+            "Notes": "Its Passives become disabled before you hit it (e.g. Kobolds don't dodge this attack). Some monsters have special weapon* effects, like Centaurs who gain extra Damage based on how much they moved. These are disabled.",
             "Name": "~Painful Puncture~"
         },
         "~Off-Hand Shank~": {
@@ -103,6 +104,7 @@
             "Name": "~Off-Hand Shank~"
         },
         "~Vault Break~": {
+            "Degree": "Lesser",
             "A": "0 Actions",
             "Cooldown": "Once / Combat",
             "Range": "3 meters",
@@ -116,6 +118,7 @@
             "Range": "10 meters",
             "Requirement": "Level 2",
             "HasMixins": true,
+            "Degree": "Major",
             "Effect": "Deal 12 + Charisma Cold Damage to a sentient Unit\nIt becomes Slowed.\n",
             "Notes": "Doesn't work on Units that can't feel fear.\n    \n",
             "Name": "~Chilling Shout~"
@@ -125,6 +128,7 @@
             "Cost": "1 Mana",
             "Range": "3 meters",
             "Requirement": "Level 2",
+            "Degree": "Minor",
             "Effect": "A target within 3 meters takes 3d4 + 2 Psychic Damage and can't cast Healing spells or regain Health for 1 turn.",
             "Name": "~Panic Lash~"
         },
@@ -140,6 +144,7 @@
             "Cost": "1 Mana",
             "Range": "2 meters",
             "Requirement": "Level 3",
+            "Degree": "Minor",
             "Effect": "Deal 1d10 Pulse Damage to a Unit and it becomes Feared.\n",
             "Name": "~Muscle Tear~"
         },
@@ -157,6 +162,7 @@
             "Cost": "1 Mana",
             "Cooldown": "1 turn",
             "Requirement": "Level 4",
+            "Degree": "Minor",
             "Effect": "Gain 3 Fury.\nEvery time you do Damage or Healing, deal Damage or Heal an extra amount equal to your Fury, then get -1 Fury.\n",
             "Notes": "You can't go below 0 Fury.",
             "Name": "~FURY~"
@@ -173,6 +179,7 @@
             "A": "1 Action",
             "Cost": "3 Mana",
             "Requirement": "Level 6",
+            "Degree": "Grand",
             "Effect": "Heal for 1d100.",
             "Name": "~All Veins Burning~"
         }
@@ -221,6 +228,7 @@
         "~Glory Shout~": {
             "A": "0 Actions",
             "Cost": "1 Mana",
+            "Degree": "Minor",
             "Effect": "Roll 1d4. Either heal all allies that can hear you (and yourself), or Damage all Worthy Enemies that can hear you for that amount (as Psychic Damage).",
             "Name": "~Glory Shout~"
         },
@@ -230,6 +238,7 @@
             "Range": "10 meters",
             "Requirement": "Level 2",
             "HasMixins": true,
+            "Degree": "Major",
             "Effect": "Deal 12 + Charisma Cold Damage to a sentient Unit\nIt becomes Slowed.\n",
             "Notes": "Doesn't work on Units that can't feel fear.\n    \n",
             "Name": "~Chilling Shout~"
@@ -261,6 +270,7 @@
             "Cost": "1 Mana",
             "Requirement": "Level 2",
             "HasMixins": true,
+            "Degree": "Minor",
             "Effect": "Push an enemy 1 meter in any direction. Gain {Gold}Fool's Gold equal to the enemy's Experience Worth.\n",
             "Upgrade": "Epic Monsters award {Gold}Fool's Gold equal to their Experience Worth / Epic Grade.",
             "Notes": "Fool's Gold is an imaginary currency that can be converted to real Gold by spending 1 hour in a town or city.\nFool's Gold lasts until converted to real Gold.\n",
@@ -270,6 +280,7 @@
             "A": "0 Actions",
             "Cost": "1 Mana",
             "Requirement": "Level 4",
+            "Degree": "Major",
             "Effect": "Leap up to 3 meters. If you land on a Unit, Doublesault again (for free)!\n",
             "Notes": "You leap from Unit to Unit until you no longer land on a Unit. You can't leap on the same Unit twice. If you land on a Unit, you must leap again.\nYou can use this even while in the air and it cancels out your current fall or acceleration.\n",
             "Name": "~Doublesault~"
@@ -280,13 +291,6 @@
             "Requirement": "Level 6",
             "Effect": "All allies (and you) remove their Roots, Slows and Dazes.\nYou (yourself) can continue your Movement if you already moved.\n",
             "Name": "~Stand Stoic~"
-        },
-        "~Assess Their Ranks~": {
-            "A": "Half-Action",
-            "Cost": "1 Mana",
-            "Requirement": "Level 5",
-            "Effect": "Gain Shielding equal to the number of Worthy Enemies you can see.\nAt the start of your next turn, all Shielding on you is consumed and explodes, dealing Pulse Damage equal to the Shielding consumed to all Units within 1 meter of you.\n",
-            "Name": "~Assess Their Ranks~"
         },
         "~Infailible Reach~": {
             "A": "1 Action",
@@ -313,6 +317,7 @@
             "Cost": "1 Mana",
             "DisplayName": "{Name}",
             "Requirement": "Level 3",
+            "Degree": "Major",
             "Effect": "Roll 2d8 for each Unit {Area}\nAssign 2 of the rolled d8's to each of those Units, and deal that much Damage Damage to it.\n~Click on the Icon to select a preferred effect!~\n",
             "Upgrade": "The Ability is Whirlwind if a melee weapon is equipped, or High Noon if a ranged weapon is equipped.",
             "Notes": "Each rolled die must be assigned to a Unit.\nThe Damage type depends on the weapon currently equipped. Doesn't apply weapon effects (the weapon only matters for the Damage type).\n",
@@ -330,9 +335,18 @@
             ],
             "Name": "~Whirlwind~"
         },
+        "~Assess Their Ranks~": {
+            "A": "Half-Action",
+            "Cost": "1 Mana",
+            "Requirement": "Level 5",
+            "Degree": "Minor",
+            "Effect": "Gain Shielding equal to the number of Worthy Enemies you can see.\nAt the start of your next turn, all Shielding on you is consumed and explodes, dealing Pulse Damage equal to the Shielding consumed to all Units within 1 meter of you.\n",
+            "Name": "~Assess Their Ranks~"
+        },
         "~Bravery Despite Fear~": {
             "A": "Half-Action",
             "Cost": "1 Mana and 2d6 Health",
+            "Degree": "Major",
             "Requirement": "Level 6",
             "Cooldown": "Once / Adventure",
             "Effect": "Reset the Cooldown of a different Ability.",
@@ -344,6 +358,7 @@
             "A": "1 Action",
             "DisplayName": "{Element} Burst",
             "Range": "5 meters",
+            "Degree": "Minor",
             "Effect": "Damage a Unit for 2d6 {Element} Damage.\nIf had taken {Element} Damage this combat before, add another 1d10 Damage.\n~Click on the Spell Icon to select the preferred Element!~\n",
             "Notes": "These are considered different Spells.",
             "Variants": [
@@ -367,6 +382,7 @@
             "A": "Half-Action",
             "Cooldown": "Once / Turn",
             "Range": "Near you",
+            "Degree": "Lesser",
             "Effect": "All Units 3x3 meter area take 4 Fire Damage.\nUnits can't benefit from Cover from this Ability.\n",
             "Upgrade": "At Level 4, this has no Cooldown.",
             "Tag": "AoE (Half)",
@@ -377,6 +393,7 @@
             "Range": "5 meters",
             "Cost": "1 Mana",
             "HasMixins": true,
+            "Degree": "Major",
             "Effect": "Deal Cold Damage to a Unit equal to 2d6 + ^Its Dexterity^. If it's Medium or smaller, it becomes Rooted.",
             "Tag": "CC Hard",
             "Name": "~Rime Shackles~"
@@ -394,6 +411,7 @@
             "Cost": "1 Mana",
             "Range": "10 meters",
             "Requirement": "Level 2",
+            "Degree": "Minor",
             "Effect": "Shoot an ice shard toward a Unit, dealing 1d8 + 3 Cold or Pierce Damage (your choice). It becomes Fumbling.",
             "Tag": "Damage (Half)",
             "Name": "~Ice Shard~"
@@ -405,6 +423,7 @@
             "Range": "3 meters",
             "Duration": "24 hours / Depends",
             "Requirement": "Level 2",
+            "Degree": "Minor",
             "Effect": "Choose a metallic weapon to imbue it with {Element}.\nThat weapon deals +2 Damage (as part of the Attack) and the total weapon Damage becomes {Element} Damage.\n\n~Click on the Spell Icon to select the preferred Element!~\n",
             "Upgrade": "Lasts until the end of the next (or current) combat, or for up to 24 hours.",
             "Notes": "Does not stack with other weapon enchantments from Spells. These are considered different Spells.",
@@ -430,6 +449,7 @@
             "Cost": "1 Mana",
             "Range": "5 meters",
             "Requirement": "Level 2",
+            "Degree": "Minor",
             "HasMixins": true,
             "Effect": "Choose a piece of metal equipment and heat it.\n- If it's an armor, the wearer takes 5d4 Fire Damage.\n- If it's a weapon, the wearer takes 1d10 Damage. If you rolled higher than its Might, it becomes Crippled.\n",
             "Notes": "Ignores Cover. {Crippled}\n",
@@ -441,11 +461,13 @@
             "Cost": "1 Mana",
             "Requirement": "Level 2",
             "Range": "5 meters to first target",
+            "Degree": "Major",
             "Effect": "Choose a Worthy Unit other than you.\nIf it's an Enemy, it takes 1d10 Shock Damage.\nOtherwise, it is Healed for 1d8.\nIf there is another Unit within 2 meters of it, repeat Conduit Flow on the new Unit (you choose if multiple).\n",
             "Notes": "Each Unit can be affected by Conduit Flow only once per cast. Cover is calculated from Unit to Unit (as if the conduit is jumping from Unit to Unit). The conduit can be repeated on you as long as you're not the first target.",
             "Name": "~Conduit Flow~"
         },
         "~Control Elements~": {
+            "Degree": "Lesser",
             "HasMixins": true,
             "A": "1 Action",
             "Range": "5 meters",
@@ -461,6 +483,7 @@
             "Cost": "1 Mana",
             "Range": "10 meters",
             "Requirement": "Level 3",
+            "Degree": "Major",
             "Effect": "Shoot 3 rays of fire (at one or more Units). Each does 1d6 + 2 Fire Damage.",
             "Notes": "You can roll them one by one, after they deal the damage.",
             "Tag": "Damage (1)",
@@ -472,6 +495,7 @@
             "Range": "5 meters",
             "Duration": "1 minute",
             "Requirement": "Level 3",
+            "Degree": "Minor",
             "Effect": "Shock a Unit for 1d10 Shock Damage.\nAt the start of your every turn, deal another 1d10 to it.\nThe effect is broken if you end your turn more than 5 meters away from it.\n",
             "Upgrade": "A Unit can only be affected by one Lightning Chord at a time.",
             "Tag": "RoI",
@@ -481,6 +505,7 @@
             "A": "Half-Action",
             "Cost": "1 Mana",
             "Requirement": "Level 3",
+            "Degree": "Minor",
             "Effect": "All Units within 2 meters of you become Slowed and take 1d6 Cold Damage.\nFor each Unit hit, you deal +1 Cold Damage for the rest of the encounter.\n",
             "Notes": "Cover is applied normally.",
             "Tag": "Amplification",
@@ -494,6 +519,7 @@
             "Duration": "48 hours",
             "Requirement": "Level 4",
             "HasMixins": true,
+            "Degree": "Major",
             "Effect": "Place a rune on a smooth solid surface. \nA Unit touching the rune detonates it, dealing 3d10 {Element} Damage to it.\nMake an Intelligence Check against that Unit's Might Check. If you pass, {ExtraEffect}.\n\n~Click on the Spell Icon to select the preferred Element!~\n",
             "Notes": "{Rooted}\nThe rune covers a 1 meter area.\nThese are considered different Spells.\n",
             "Variants": [
@@ -521,6 +547,7 @@
             "Cost": "2 Mana",
             "Range": "5 meters",
             "Requirement": "Level 4",
+            "Degree": "Grand",
             "Effect": "Extend a lightning bolt upon a  Unit, dealing for 2d12 Shock Damage to it and its closest Unit within 3 meters.\nIf the lightning touches water, fire, fog or gas (or Unit is standing in it), increase the Damage by 50%.\n",
             "Name": "~Chain Thunder~"
         },
@@ -530,6 +557,7 @@
             "Requirement": "Level 4",
             "Cooldown": "Intelligence uses / Adventure",
             "HasMixins": true,
+            "Degree": "Minor",
             "Effect": "Choose a number of 1x1x1 cubes containing water equal to your Level.\nThe water there freezes.\nIf a Unit is caught in the water, pass an Intelligence Check against its Dexterity Check to make it Rooted. If you fail, it is expelled to a nearby space near the frozen water (it chooses, within reason).\n",
             "Notes": "{Rooted}\n",
             "Tag": "Utility",
@@ -540,6 +568,7 @@
             "Requirement": "Level 4",
             "Duration": "1 minute",
             "Cost": "1 Mana",
+            "Degree": "Minor",
             "Effect": "A Unit gains propulsion by fire. It gains +3 Movement Speed, can Break Movement and, whenever it enters the adjacency of an Enemy, deals 1d4 Fire Damage to it.\n",
             "Notes": "The Damage can only happen once per turn per enemy. The Damage source is you (for amplification effects).",
             "Name": "~Blazetrail~"
@@ -549,6 +578,7 @@
             "Cost": "2 Mana",
             "Range": "10 meters",
             "Requirement": "Level 5",
+            "Degree": "Major",
             "Effect": "Choose a Unit. It takes 1d10 Cold Damage, and each Unit within 2 meters of it takes Cold Damage equal to 200% of the roll. All of them are Slowed.\nIf there were no Units within 2 meters of it, the target is Stunned instead.\n",
             "Upgrade": "When Stunning a flying target, it remains stuck in the air (levitating) for up to 6 seconds.",
             "Name": "~Frostfall~"
@@ -559,6 +589,7 @@
             "Cost": "3 Mana",
             "Range": "6 meters (to the edge)",
             "Requirement": "Level 5",
+            "Degree": "Grand",
             "Effect": "All Units in 6-meter diameter area take 6d6 {Element} Damage.\n\n~Click on the Spell Icon to select the preferred Element!~\n",
             "Notes": "Cover is calculated from the center of the area.",
             "Variants": [
@@ -591,6 +622,7 @@
             "A": "1 Action",
             "Cost": "1 Mana",
             "Requirement": "Level 6",
+            "Degree": "Major",
             "Duration": "1 minute",
             "Effect": "Ignite a Unit you can see. At the end of each of your turns, it takes 7 Fire Damage.\nIts ignition ends if the Unit is Damaged by Cold, Shock or Acid or is splashed with water.\n",
             "Name": "~Ignition~"
@@ -610,6 +642,7 @@
             "Cost": "2 Mana",
             "Requirement": "Level 7",
             "Range": "10 meters",
+            "Degree": "Grand",
             "Effect": "Damage a Unit for a total of 2d6 True Damage for each Element the target had been Damaged with this combat before.\n",
             "Upgrade": "Possible elements are Fire, Cold, Shock, Divine, Poison, Scourge, Acid and Psychic.",
             "Name": "~Prismatic Convergence~"
@@ -620,6 +653,7 @@
             "A": "1 Action",
             "Range": "5 meters",
             "HasMixins": true,
+            "Degree": "Minor",
             "Effect": "Shoot a number of missiles equal to ^your Intelligence^ + 1. Each missile does 1d4 Pulse Damage.\n",
             "Notes": "Missiles are rolled at the same time. Then you can decide which die Damages which Unit.\nEach missile is a separate Attack and can be affected individually by Cover, Fumbling, etc (e.g. shooting all 3 missiles at a Unit that has Cover makes each missile deal 1d4 - 2 Damage).\n",
             "Name": "~Magic Missiles~"
@@ -628,10 +662,12 @@
             "A": "1 Action",
             "Range": "3 meters",
             "HasMixins": true,
+            "Degree": "Lesser",
             "Effect": "Choose one of these effects to cast:\n{Diamond} Create harmless sensory effects, sparks or non-damaging heat or cold.\n{Diamond} Channel to create simple, small, harmless illusions in your hand or within 3 meters.\n{Diamond} Instantly clean or soil objects.\n{Diamond} Control a quill with telekinesis to quickly write with it.\n",
             "Name": "~Magic Tricks~"
         },
         "~Dispel Magic~": {
+            "Degree": "Minor",
             "A": "0 Actions",
             "Cooldown": "Once / Combat",
             "AlignOnWebsite": "Right",
@@ -644,6 +680,7 @@
         "~Focus Fling~": {
             "A": "Half-Action",
             "Requirement": "Level 2",
+            "Degree": "Lesser",
             "Effect": "Choose a medium-sized object within 5 meters that's no heaveier than 10kg.\nFling the object into a Unit within 3 meters of the object.\nDeals 1d8 Smash Damage.\n",
             "Upgrade": "You can use this to fling consumables like bombs, vials of acid, magic ammo, flasks of holy water, etc. If you do this, the Damage is added as part of the Attack.\n",
             "Notes": "Cover is applied from the object's initial position to the target.\nIf the object can break, it breaks. Obviously, the object must be move-able and not tied/stuck in place.\nThrowing weapons does not apply effects or deal extra Damage.\n",
@@ -661,6 +698,7 @@
             "Cost": "1 Mana",
             "Requirement": "Level 2",
             "Cooldown": "Once / Turn",
+            "Degree": "Minor",
             "Effect": "Instantly teleport up to 6 meters away, within line of sight.",
             "Notes": "You take with you all items carried. Does not work if you're Rooted or stuck in place somehow.",
             "Name": "~Flash~"
@@ -669,6 +707,7 @@
             "A": "Reaction or 0 Actions",
             "Requirement": "Level 3",
             "Range": "10 meters",
+            "Degree": "Minor",
             "Effect": "Up to 2 Units you choose will start falling gently, down to 3 meters per round.\nOnce the fall finishes, the spell effect ends.\n",
             "Notes": "Arcane Feathers can be bought in most towns.\nFor faster gameplay, you can spend 10 gold when casting the spell, and buy the feather later.\n",
             "Name": "~Feather Fall~"
@@ -678,6 +717,7 @@
             "Range": "15 meters",
             "Requirement": "Level 3",
             "Cost": "1 Mana",
+            "Degree": "Major",
             "Effect": "You conjure a magical star that always shoots North and deals 4d8 Shock Damage to the first Unit hit.\n",
             "Notes": "You can only shoot the star towards North - without an angle.\nAsk the DM which way North is (if your character knows that).\n",
             "Name": "~North Star~"
@@ -688,6 +728,7 @@
             "Range": "5 meters",
             "Requirement": "Level 3",
             "Duration": "Rest of Adventure",
+            "Degree": "Minor",
             "Effect": "Conjure a spectral hand in a space you can see.\nYou can move the hand as you move your normal hands and you can move your hand by spending meters from your remaining Movement.\nThe hand can't deal Damage and disappears if it goes outside a 10 meters range.\n",
             "Notes": "The hand can't lift objects weighing more than 10kg.\nMoving the hand spends Actions as if you made moved your own hand.\nOnce / turn, you can summon or vanish the hand for 0 Actions if it's effect is still active, in a space next to you.\n",
             "Name": "~Spectral Hand~"
@@ -698,6 +739,7 @@
             "Range": "10 meters to edge",
             "Cooldown": "Once / Combat",
             "Requirement": "Level 4",
+            "Degree": "Major",
             "Effect": "You conjure a levitating barrage of arrows in a 3x3 area, up to 10 meters above ground.\nAt any point (for 0 Actions or with a Reaction), you can release these arrows upon the ground, hitting all enemies hit for 2d6 Pierce Damage.\nAt the start of your every turn, if the barrage is not yet released, it increases by 1 meter in size in all directions and gains 1d4 Damage when it will be released (up to +3d4 and 9x9).\n",
             "Notes": "E.g. every turn, it goes from 3x3 to 5x5, then 7x7, then 9x9, etc and deals from 2d6 Damage to 2d6 + 1d4, then 2d6 + 2d4, etc.\nThe arrows disappear as soon as they hit ground, or when dismissed (all at once) for free at any point, or after 1 minute of staying in the air.\n",
             "Name": "~Arrow Barrage~"
@@ -707,6 +749,7 @@
             "Cost": "2 Mana",
             "Requirement": "Level 4",
             "HasMixins": true,
+            "Degree": "Grand",
             "Effect": "Shoot a magical spear in a 6 meter line from in front of you.\nEach Unit hit takes 14 Damage, except the last Unit hit, which takes only 7 Damage instead.\nEach Person or _Magical_ Unit killed by the Arcane Spear refunds you 1 Mana.\n",
             "Notes": "A Magical Unit is one that use a form of magic or are themselves fueled through magic (e.g. Dragons, Unicorns, Elementals, etc are magical; Hippogriffs, Naga Warriors and Gnolls are not magical). Apply common sense.\nIf you only hit one target, it deals 7 Damage.\n",
             "Name": "~Arcane Spear~"
@@ -723,6 +766,7 @@
             "Requirement": "Level 4",
             "Cost": "1 Mana",
             "Range": "10 meters",
+            "Degree": "Major",
             "Effect": "You create an illusion that fits at most in a 2x2x2 meter cube.\nThe illusion appears real to the eyes, ears and by smell, but physical interaction makes it obvious it's an illusion and objects pass through it normally.\nThe illusion can deal no Damage or Crowd Control, but can provide Cover or block Line of Sight (both from the front, and from behind).\nOn your turn, you can and must spend 1 Action to keep and/or move the illusion, otherwise it is dispelled.\nYou can only have 1 illusion active at a time.\n",
             "Upgrade": "At Level 8, the illusion lasts indefinitely until you cancel it without needing to spend Actions, and it can hold its own simple movement and clockwork-like routines.\nYou can also program this illusion to react on its own in a specific way to specific triggers, but the instructions must be concise - talk with your QM about this.\n",
             "Name": "~Major Illusion~"
@@ -732,6 +776,7 @@
             "Requirement": "Level 4",
             "Cost": "1 Mana",
             "Range": "3 meters",
+            "Degree": "Major",
             "Effect": "You can conjure an object that is up to 1x1x1 meter in size.\nThe object is solid and glows faintly.\nYou can't conjure mechanical objects.\nThe object disappears after 1 hour (24 hours at Level 8).\n",
             "Name": "~Conjure Object~"
         },
@@ -741,6 +786,7 @@
             "Range": "5 meters",
             "Duration": "Depends",
             "Requirement": "Level 3",
+            "Degree": "Major",
             "Effect": "Conjure a levitating, self-wielding melee weapon on a space within 3 meters.\nOn your each turn (includig this), the weapon can make a melee Attack that deals 1d10 + 1 Damage (Pierce, Slash or Smash) and move up to 3 meters.\n",
             "Upgrade": "The weapon lasts until it can't make an attack on a Worthy Unit (it disappears at the end of the turn if it couldn't make an attack on a Worthy Unit).",
             "Notes": "It costs 1 Action and 1 Mana to summon the weapon. Then, the weapon can Attack once for free every turn (including this), without costing an Action or Mana.\nThe weapon has no special effect and has 1 Health and 5 Defense.\n",
@@ -751,6 +797,7 @@
             "Requirement": "Level 5",
             "Cost": "1 Mana",
             "HasMixins": true,
+            "Degree": "Major",
             "Effect": "You become invisible for up to (Intelligence) minutes (at least 1).\nAttacking, taking Damage or casting _offensive_ Abilities while invisible breaks the invisibility.\n",
             "Notes": "{Offensive Abilities}",
             "Name": "~Invisibility~"
@@ -760,6 +807,7 @@
             "Cost": "2 Mana",
             "Requirement": "Level 5",
             "Duration": "Depends",
+            "Degree": "Grand",
             "Effect": "Choose an animal from the Pet List or any critter, such as a sheep, deer, etc.\nA Unit within 10 meters becomes transformed into that animal. Last a number of its turns equal to Your Intelligence - Its Intelligence (at least 1).\n",
             "Upgrade": "The Unit can retain its Health and Defense, but can't do any non-animal actions.\nIt can do Animal Attack for 1d6 Damage if it's an enemy, or 1d6 + Sense Damage if it's an ally.\n",
             "Notes": "Cover is applied normally.\nA Unit can willingly fail the Check. For enemies, aside from Health and Defense, apply rules for Shapeshift. Allies can apply normal rules for Shapeshift (e.g. gain extra Health from the animal).\nIf used on an Enemy, this is considered Crowd Control.\n",
@@ -771,6 +819,7 @@
             "Requirement": "Level 6",
             "Cost": "1 Mana",
             "Range": "10 meters to edge",
+            "Degree": "Major",
             "Effect": "Declare a 5x5 meter area.\nAll Units inside it must succeed an Intelligence Check against double your Intelligence or be affected by all the following:\n{Diamond} They are Slowed and Fumbling\n{Diamond} They can only make one Attack on their next turn\n{Diamond} They can't make Reactions\n{Diamond} They can't be invisible\n{Diamond} They can't inflict Crowd Control\nLasts until the start of your next turn.\n",
             "Notes": "Ignores Cover for the Intelligence Check. {Slowed} {Fumbling}\n",
             "Name": "~Lag~"
@@ -780,6 +829,7 @@
             "Requirement": "Level 6",
             "Cost": "1 Mana",
             "AlignOnWebsite": "Right",
+            "Degree": "Major",
             "Effect": "First, roll 2d100. That's how many kilograms you can levitate when you cast this.\nYou can levitate one object you can see that remains within 10 meters of you.\nYou can slowly move the object vertically, 1 meter for each 2 of your movement points spent to levitate.\nIf you use this on an enemy, it must fail a Might Check to be levitated, and can repeat the Check at the end of each of its turns.\nA levitated Unit counts as Rooted.\nLosing concentration (taking Damage or being Crowd Controlled) instantly starts slowly dropping the target and breaks the Levitate.\n",
             "Upgrade": "At Level 8, the amount increases to 5d100.\n",
             "Name": "~Levitate~"
@@ -789,6 +839,7 @@
             "Cost": "1 Mana",
             "Cooldown": "Once / Turn",
             "Requirement": "Level 6",
+            "Degree": "Minor",
             "Effect": "A Unit or object you can see becomes one Size larger/smaller for its next 1d4 turns.\nIt gains or loses 20% of its base (unbuffed) Defense (gain/loss is rounded up), gains or loses 1 Damage on all physical Acts (that would deal Damage) and gains or loses 1 Movement Speed.\nCan stack multiple times.\n",
             "Notes": "Sizes are Minuscule, Small, Medium, Large, and Larger.\nA larger Unit becomes 1 meter larger/smaller in both directions.\nIt's number of spaces occupied also changes with this.\n",
             "Name": "~Grow or Shrink~"
@@ -798,6 +849,7 @@
             "Requirement": "Level 6",
             "Cost": "3 Mana",
             "Range": "10 meters to edge",
+            "Degree": "Grand",
             "Effect": "Declare an area with a diameter in meters (in all directions) equal to your Level.\nThe gravity becomes reversed in that area and all Units instantly fall upwards. Units can make a Dexterity Check to grab onto an object to not be lifted.\nUnits suffer fall Damage if they fall onto a ceiling.\nWhen the effect ends, all Units fall at half velocity (and take half of the fall Damage). The same happens to a Unit if it exits the area.\nLasts for up to 1 minute. You can cancel this effect at will.\n",
             "Notes": "Fall Damage is 1d6 for every 2 meters fallen (e.g. 1d6 for 2 and 3 meters, 2d6 for 4 and 5 meters, etc).\n",
             "Name": "~Reverse Gravity~"
@@ -814,6 +866,7 @@
             "Cost": "1 Mana",
             "Range": "5 meters",
             "Requirement": "Level 7",
+            "Degree": "Major",
             "Effect": "A non-Epic Unit becomes Banished to the Shadow Realm until the start of your next turn.\nWhile Banished, it can't interact with the normal world and nothing can interact with it.\n",
             "Notes": "The Shadow Realm is a parallel dimension, and people there are sometimes visible from the real world as ghostly apparitions.",
             "Name": "~Banishment Slip~"
@@ -822,6 +875,7 @@
             "A": "10 minutes",
             "Cost": "1 Mana",
             "Requirement": "Level 7",
+            "Degree": "Major",
             "Effect": "Touch 2 objects of the same type (e.g. 2 helmets, or 2 arrows, or 2 melee 1-Handed weapons, etc).\nYou make one of the look like the other.\nThe change is permanent until the object breaks.\n",
             "Notes": "Upon close inspection of the shape and colors, this is visibly an illusion.",
             "Name": "~Transmogrification~"
@@ -831,6 +885,7 @@
             "Requirement": "Level 7",
             "Cost": "1 Mana",
             "HasMixins": true,
+            "Degree": "Major",
             "Effect": "Touch a 1x1x1 meter cube of rock, mud, sand, etc.\nTransform it into rock, mud, sand, etc.\nA Unit caught in this effect becomes Rooted.\n",
             "Notes": "{Rooted}\n",
             "Name": "~Transmute Rock~"
@@ -847,6 +902,7 @@
             "A": "10 minutes",
             "Requirement": "Level 8",
             "Cost": "2 mana",
+            "Degree": "Major",
             "Effect": "At any point, you can freely spend 10 minutes in a place to Bind to it.\nWhen you use this Ability, channel for 10 minutes to teleport all allies (and yourself) within 10 meters of you to the bound place.\nYou can only have 1 bound place at a time.\nThe range to your bound place must be at most a a number of kilometers equal to your Intelligence * 100.\n",
             "Upgrade": "At Level 9, you can have up to 2 bound places.\n",
             "Notes": "You can remove the binding of a place at will, from any distance.",
@@ -858,6 +914,7 @@
             "Duration": "24 hours",
             "Cost": "3 Mana",
             "Cooldown": "1 Week",
+            "Degree": "Grand",
             "Effect": "Conjure a cubic room with a width equal to your Level and a 1x2 meter door.\nThis room works like a pocket dimension and only the door is visible from the outside. The room occupies no space in the real world, except for the door (you enter the room through the door).\n",
             "Notes": "If the Lodge would be destroyed with people inside, each will automatically be expulsed (appear) in a space within 3 meters of the door (randomly or by QM's choice).",
             "Name": "~Conjure Lodge~"
@@ -867,6 +924,7 @@
             "Cost": "3 Mana",
             "Duration": "30 days",
             "Requirement": "Level 10",
+            "Degree": "Grand",
             "Effect": "You need a partner who can cast Portal to cast this.\nYou both cast it at the same time, in different locations.\nAt the end of the cast time, a portal opens at the locations of the two casters.\nStepping through one of the portals (obviously) teleports the Unit to the other portal.\nYou can only cast this every 30 days.\n",
             "Name": "~Portal~"
         }
@@ -877,10 +935,12 @@
             "Duration": "24 hours",
             "Cooldown": "24 hours",
             "Requirement": "Level 2",
+            "Degree": "Lesser",
             "Effect": "You setup an invisible 4x4x4 meter cube.\nIf an unknown Unit or Enemy enters the cube, it alerts you mentally.\n",
             "Name": "~Alarm~"
         },
         "~Control Elements~": {
+            "Degree": "Lesser",
             "HasMixins": true,
             "A": "1 Action",
             "Range": "5 meters",
@@ -897,6 +957,7 @@
             "Range": "5 meters",
             "Cooldown": "Sense uses / Adventure",
             "Requirement": "Level 2",
+            "Degree": "Lesser",
             "Effect": "You can control gusts of wind in a 6x6x6 area and do one of the following for 1 Action:\n{Diamond} You can create a gust of Heavy Wind blowing from any direction (see notes) that lasts for 1 minute\n{Diamond} You can move a gust of Heavy Wind 3 meters in any direction\n{Diamond} You can create wind that makes Units fall softly\n{Diamond} You can stop it (for 0 Actions)\n",
             "Notes": "Moving against Heavy Wind acts as Hard Terrain.\nProjectiles fired against the Wind have Cover, and projectiles fired with the Wind gain +1.\nHeavy Wind also clears Fog, Smoke, etc in the area.\nMultiple Winds don't stack into eachother.\n",
             "Name": "~Control Wind~"
@@ -905,6 +966,7 @@
             "A": "0 Actions",
             "Cooldown": "1 hour",
             "Range": "3 meters",
+            "Degree": "Lesser",
             "Effect": "Cure a simple Disease, Debuff or Bleed effect on a Unit (you can choose yourself), or clean up to 2 rations or liters of water of microbes, mild poison or impurities.\n",
             "Upgrade": "At Level 4, you can cure harder and stranger diseases and poisons.\nAt level 7, you can cure terminal or chronic diseases and poisons.\n",
             "Notes": "Debuffs are things like curses, weaknesses, etc. Crowd Control like Daze, Fumbling, Fear, Stun, etc are not considered Debuffs.\n",
@@ -914,16 +976,17 @@
             "A": "Half-Action",
             "Range": "3 meters",
             "Duration": "1 minute",
+            "Degree": "Lesser",
             "Effect": "Choose a Unit and poison it.\nAt the end of each of your turns, that Unit takes 1d4 Poison Damage.\n",
             "Notes": "You can stack this on the same Unit multiple times.",
             "Name": "~Poison Burst~"
         },
         "~Fog Cloud~": {
-            "A": "1 Action",
+            "A": "Half-Action",
             "Cost": "1 Mana",
             "Range": "5 meters to edge",
             "Effect": "A 5x5x5 meter cube becomes covered in fog for 1 minute.\n",
-            "Upgrade": "All Attacks done from, through or to Units inside Fog have Cover (-2).",
+            "Upgrade": "All Attacks done from, through or to Units inside Fog have Cover (-50%).",
             "Notes": "Fog can be dissipated by wind. You can choose the color of the fog. The fog does not go through walls, but does bend around corners (e.g. up to 360 degrees around wall extremities).",
             "Name": "~Fog Cloud~"
         },
@@ -932,6 +995,7 @@
             "Cost": "1 Mana",
             "Range": "5 meters",
             "Requirement": "Level 5",
+            "Degree": "Major",
             "Effect": "A Unit in range takes 2d8 + 3 Slash Damage and ignores Defense.\nIf it weighs 75kg or less, it takes another 1d8 Slash Damage and is pushed up to 3 meters in a chosen direction.\n",
             "Notes": "Cover is applied normally.",
             "Name": "~Cutting Winds~"
@@ -941,6 +1005,7 @@
             "Cost": "1 Mana",
             "Duration": "24 hours or 3 hits",
             "Requirement": "Level 3",
+            "Degree": "Minor",
             "Effect": "A Unit you can see becomes surrounded by 3 floating plates of earth.\nWhenever the Unit would take Damage from an Enemy, it rolls 1d4 and subtracts it from the Damage.\n",
             "Upgrade": "At Level 6, this makes 4 floating plates of earth (4 hits).",
             "Notes": "Lasts for 24 hours or until you rolled the d4 3 times. Does not stack multiple times with itself.",
@@ -950,6 +1015,7 @@
             "A": "Half-Action",
             "Range": "5 meters",
             "Cost": "1 Mana",
+            "Degree": "Minor",
             "Effect": "Heal a target for 2d6.",
             "Name": "~Healing Surge~"
         },
@@ -959,6 +1025,7 @@
             "Cost": "1 Mana",
             "Requirement": "Level 3",
             "HasMixins": true,
+            "Degree": "Major",
             "Effect": "Declare a 4x4x4 Cube.\nAll units inside take 3d4 Shock Damage now.\nIf a unit carries anything made of metal or is wet, it 100% more Damage.\nOn your turn (for up to 1 minute), you can spend 1 Action to move the storm up to 3 meters and (and/or) its deal Damage again.\nLasts up to 1 minute.\n",
             "Upgrade": "At Level 6, the area is 6x6x6 (optionally).",
             "Notes": "The storm only deals Damage the moment you spend 1 Action; if you do spend 1 Action, the storm stays in place and deals no Damage.",
@@ -969,6 +1036,7 @@
             "Cost": "1 Mana",
             "Requirement": "Level 2",
             "HasMixins": true,
+            "Degree": "Major",
             "Effect": "Send out a 5x1 meter wave forward through the ground.\nAll Units hit take 2d8 Pulse Damage.\nIf they are at or below 50% Health, they become Slowed and Fumbling.\n",
             "Notes": "{Slowed} {Fumbling}\n",
             "Name": "~Quaking Wave~"
@@ -979,6 +1047,7 @@
             "Range": "10 meters to edge",
             "Duration": "10 minutes",
             "Requirement": "Level 2",
+            "Degree": "Minor",
             "Effect": "Declare a 4x4x4 meter area.\nAll Units in that area become outlined in a colored glow (you choose the color) and can't benefit from Cover.\n",
             "Notes": "The Units glow even through walls, but the denser the walls, the less they appear to glow.\nA 1-meter thick concrete wall completely blocks the glow.\nThis is not considered Crowd Control.\n",
             "Name": "~Fairy Fire~"
@@ -986,6 +1055,7 @@
         "~Draw Moisture~": {
             "A": "1 Action",
             "Requirement": "Level 2",
+            "Degree": "Lesser",
             "Effect": "Using your hands, you draw in water from all objects in a 1x1x1 meter cube and store magically it in your body.\nYou can use 1 Action to release all the stored water, without dealing Damage.\n",
             "Upgrade": "You can store a number of 1x1x1 meter cubes of water equal to your Level / 2.",
             "Notes": "Just because you target a 1x1x1 meter cube, it doesn't mean you get a 1x1x1 meter cube of water stored. For ease of use, the QM can say you drew in none, a quarter, a half, 3 quarters or a 1x1x1 meter cube of water from the targeted cube.",
@@ -995,6 +1065,7 @@
             "A": "1 Action",
             "Range": "10 meters",
             "Requirement": "Level 2",
+            "Degree": "Minor",
             "Effect": "You gather stone, dirt, sand, etc from the surroundings and release it upon an enemy.\nA Unit takes 3d6 Damage Pulse Damage, then all other Units within 1 meter take Damage equal to two of rolled dice (you choose).\n",
             "Notes": "Ignores Cover",
             "Tag": "AoE (1)",
@@ -1004,6 +1075,7 @@
             "A": "0 Actions",
             "Cost": "1 Mana",
             "Duration": "1 minute",
+            "Degree": "Minor",
             "Effect": "A Unit you can see grows thorns on its body.\nWhenever it is melee attacked, the attacker takes 1d4 Pierce Damage.\n",
             "Notes": "A Unit can only be effected by one Thorn Quills effect at a time.",
             "Name": "~Thorn Quills~"
@@ -1012,6 +1084,7 @@
             "A": "1 Action",
             "Range": "6 meters",
             "HasMixins": true,
+            "Degree": "Minor",
             "Effect": "A target takes 1d8 + ^Sense^ Poison Damage.\nThe next time it takes damage from a weapon, it takes an extra 1d8 Poison Damage.\n",
             "Name": "~Venin Shot~"
         },
@@ -1019,6 +1092,7 @@
             "A": "1 Action",
             "Cost": "1 Mana",
             "Duration": "Whole Adventure",
+            "Degree": "Major",
             "Effect": "Up to 2 allies you touch gain Shielding equal to your Level.",
             "Notes": "Wild Heart can only be cast once on a Unit, per Adventure.",
             "Name": "~Wild Heart~"
@@ -1027,6 +1101,7 @@
             "A": "0 Actions",
             "Cooldown": "10 minutes",
             "Requirement": "Level 3",
+            "Degree": "Lesser",
             "Effect": "Your next ranged Attack curves around obstacles, ignoring Cover and Hard Cover and deals 1d6 extra Damage of its type.\n",
             "Notes": "You still need Line of Sight to the target.",
             "Name": "~Wind Chaser~"
@@ -1042,6 +1117,7 @@
             "Cost": "1 Mana",
             "Cooldown": "Once / Adventure",
             "Requirement": "Level 4",
+            "Degree": "Minor",
             "Effect": "Roll 3d6. You find and/or enchant that many bites of food. Each bite restores 1 Health to the eater.\n",
             "Notes": "The Health is evenly spread among the food bites. For example, you might conjure 3d6 berries, each worth 1 Health. Or you might enchant a loaf of bread, each slice being worth 1 Health.",
             "Name": "~Fruit of the Forest~"
@@ -1052,6 +1128,7 @@
             "Cost": "1 Mana",
             "Duration": "1 minute",
             "Requirement": "Level 4",
+            "Degree": "Minor",
             "Effect": "Choose a Unit. A swarm of locusts appears and chases it.\nAfter the Unit moves willingly, it takes 1 Pierce Damage for each meter it moved.\nA Unit can only be affected by one Locust Swarm at a time.\n",
             "Note": "Locust Swarm can be dispelled like any other effect. Damage is done 1 by 1 meter.",
             "Name": "~Locust Swarm~"
@@ -1062,6 +1139,7 @@
             "Cost": "2 Mana",
             "Requirement": "Level 4",
             "HasMixins": true,
+            "Degree": "Major",
             "Effect": "Lash out a noxious sting towards a Unit.\nIt chooses whether to be Crippled or take 3d10 Poison Damage.\n",
             "Notes": "Only works on biological Units. {Crippled}\n",
             "Name": "~Paralyzing Sting~"
@@ -1071,6 +1149,7 @@
             "Requirement": "Level 5",
             "Cooldown": "Once / Real hour",
             "Duration": "10 minutes",
+            "Degree": "Minor",
             "Effect": "Your hands and feet can stick to solid surfaces, so you can walk or crawl on them.\nWalking on walls and floors acts as Hard Terrain.\n",
             "Upgrade": "Alternatively, you can spend 1 Mana to cast this ignoring the Cooldown.",
             "Name": "~Spider Climb~"
@@ -1082,6 +1161,7 @@
             "Duration": "1 minute",
             "Requirement": "Level 5",
             "HasMixins": true,
+            "Degree": "Minor",
             "Effect": "Declare a 4x4 meter area\nThe area becomes filled with spider web and counts as Difficult Terrain.\nAfter a Unit exits the area, it must succeed a Dexterity Check against 6 + ^Your Sense^ or be Rooted.\n",
             "Notes": "{Rooted}\n",
             "Name": "~Web~"
@@ -1105,19 +1185,22 @@
         "~Hollow Touch~": {
             "A": "1 Action",
             "Range": "4 meters",
-            "Effect": "Reap a Unit from afar, dealing 1d12 + 3 Scourge Damage and the target is unable to reagain health until the end of its next turn.\nFor the rest of the combat, it takes 1 extra Scourge Damage from all sources.\n",
+            "Degree": "Minor",
+            "Effect": "Deal 1d12 + ^Your Sense or Intelligence^ Scourge Damage to a Unit.\nFor the rest of the combat, whenever it would take Scourge Damage, it takes 2 more (stacks indefinitely).\n",
             "Name": "~Hollow Touch~"
         },
         "~Light~": {
             "A": "1 Action",
             "Range": "1 meter",
             "Duration": "Your Level hours",
+            "Degree": "Lesser",
             "Effect": "Create a magical light bulb that sheds light in a 5 meters radius.\nIt levitates and stays where you put it and can be moved by hand, or you can simply stick it to any solid object.\n",
             "Notes": "Lasts up to Your Level hours, or until you cancel it or cast Light again, or is purposefully destroyed with an Attack.\nYou choose the color of the light.\nThe light is not strong enough to blind someone.\nThe bulb can't go through solid objects.\n",
             "Name": "~Light~"
         },
         "~Mending~": {
             "A": "1 Action",
+            "Degree": "Lesser",
             "Effect": "Touch a slightly broken piece of material that is still in one piece.\nYou can repair the Damage done to it.\nMending can repair a piece of Armor or Weapon for 1 Defense or Damage, but no more.\n",
             "Notes": "For example, repair a hole through a chain shirt or textile material, the crack in a piece of glass, etc.\n",
             "Name": "~Mending~"
@@ -1146,6 +1229,7 @@
         "~Restoration~": {
             "A": "0 Actions",
             "Cooldown": "Once / Adventure",
+            "Degree": "Minor",
             "Effect": "Remove all your party members' Exhaustion (from any source).\nIf they were Exhausted from lack of sleep, they can resist sleep Exhaustion for 8 more hours.\n",
             "Name": "~Restoration~"
         },
@@ -1153,6 +1237,7 @@
             "A": "Half-Action",
             "Cost": "1 Mana",
             "Range": "5 meters",
+            "Degree": "Minor",
             "Effect": "Shoot a magical bolt towards a Unit that deals 1d10 + (target's base Movement Speed) Pulse Damage to it.\n",
             "Notes": "Against Epic monsters, the Maximum Speed is calculated as it's (Speed) * (Epic Grade). E.g. if it's an Ogre with Movement Speed of 3 and has an Epic Grade of 2 (meaning it takes 2 turns), its Maximum Movement Speed is 2 * 3 = 6.",
             "Name": "~Expelling Bolt~"
@@ -1162,6 +1247,7 @@
             "Cost": "1 Mana",
             "Range": "5 meters",
             "HasMixins": true,
+            "Degree": "Minor",
             "Effect": "Heal a target for 1d4 + ^Sense^ Health.\nAfter this, if the target is at full Health, repeat this on another target.\n",
             "Notes": "Yes, this can chain again and again.",
             "Name": "~Invigorate~"
@@ -1172,6 +1258,7 @@
             "Cost": "1 Mana",
             "Requirement": "Level 2",
             "HasMixins": true,
+            "Degree": "Major",
             "Effect": "A Unit takes 4d6 Psychic Damage and chooses whether to become Blinded or Silenced.\n",
             "Notes": "Cover is applied normally. {Blinded} {Silenced}\n",
             "Name": "~Mind Blast~"
@@ -1180,6 +1267,7 @@
             "A": "0 Actions or Reaction",
             "Cost": "1 Mana",
             "Requirement": "Level 3",
+            "Degree": "Minor",
             "Effect": "A Unit you can see (or yourself) becomes blurry to enemies until the start of your next turn.\nIt gains +2 Defense and +2 to all Resist Checks and 3 Movement Speed.\n",
             "Upgrade": "You can use this as a Reaction when another Unit declares an Attack or Ability (before it makes it).",
             "Name": "~Blur~"
@@ -1197,6 +1285,7 @@
             "A": "1 Action",
             "Cost": "1 Mana",
             "Requirement": "Level 3",
+            "Degree": "Major",
             "Effect": "Choose 2 Units you can see. Each takes 1d6 + ^Your Sense^ Damage (separately) and is affected by an effect based on the number on the die:\n{Diamond} 1. Immediately moves in a random direction (chosen by the DM) (without consumng Movement), and is Feared.\n{Diamond} 2. Is Rooted and tries to make a Ranged Attack\n{Diamond} 3. Is Blinded\n{Diamond} 4. Is Fumbling and forgets to how to do Ranged Attacks\n{Diamond} 5. Is Silenced\n{Diamond} 5. No effect\n",
             "Notes": "If you roll 2 and the Unit can't make a ranged Attack, it does not take any action.\nCover is applied normally.\n",
             "Name": "~Confusion~"
@@ -1207,6 +1296,7 @@
             "Range": "3 meters",
             "Duration": "6 seconds",
             "Requirement": "Level 3",
+            "Degree": "Minor",
             "Effect": "You create a sound out of thin air.\nRoll a Charisma Check and add your Intelligence modifier to it to see how accurate your sound is.\n",
             "Scaling": "At Level 4, this lasts up to 1 minute. At level 8, this lasts up to 1 hour.",
             "Name": "~Fake Sound~"
@@ -1215,6 +1305,7 @@
             "A": "1 Action",
             "Requirement": "Level 4",
             "Range": "5 meters",
+            "Degree": "Minor",
             "Effect": "A Unit makes a Sense Check.\nIf it fails, all your Charisma checks for/against it have +2.\nLasts until the Unit can't see or hear you anymore.\n",
             "Notes": "The target can't tell it was affected unless it knows about this type of magic. Cover is applied normally.",
             "Name": "~Charming Word~"
@@ -1223,6 +1314,7 @@
             "A": "1 Action",
             "Requirement": "Level 4",
             "Range": "15 meters",
+            "Degree": "Lesser",
             "Effect": "A non-Epic beast that can see you makes a Charisma Check.\nIf it fails, you can change the beast's mood (make it hungry, afraid, nervous, etc).\n",
             "Notes": "Cover is applied normally.",
             "Name": "~Influence Beast~"
@@ -1231,8 +1323,21 @@
             "A": "1 Action",
             "Requirement": "Level 4",
             "Duration": "24 hours (unlimited duration at Level 8)",
+            "Degree": "Lesser",
             "Effect": "You pull a String of Memory or Thoughts (can be visual, auditive, sensory and olphactive) from your own memory.\nThis String can be up to 1 minute in length.\nIt is visible to the eye as an arcane ribbon-like energy.\nYou can transport this String like you would carry a normal 10x10x10 decimeter object.\nTo view the String, a person can willingly absorb it through the mouth, eyes, nose, etc (corresponding to the type of memories) and visualize the String.\nAfter that, the String disappears.\nEncoding another String makes the previous String disappear.\n",
             "Name": "~Encode Thoughts~"
+        },
+        "~Soul Comet~": {
+            "_Value": 2,
+            "AlignOnWebsite": "Left",
+            "HasMixins": true,
+            "A": "1 Action",
+            "Cost": "2 Mana",
+            "Range": "8 meters",
+            "Requirement": "Level 4",
+            "Effect": "Shoot a comet at a Unit that changes in power the longer it travels.\nIt deals 1d6 Pulse Damage for every meter it travels, but the longer it travels, the weaker the Crowd Control is.\n{Diamond} 1 or 2 meters: Target becomes Stunned\n{Diamond} 3 or 4 meters: Target becomes Fumbling\n{Diamond} 5 or 6 meters: Target becomes Rooted\n{Diamond} 7+ meters: Roll an Unstable Spark die\n",
+            "Notes": "The Unstable Spark die rolled affects your next Ability this Turn. Good luck with that!",
+            "Name": "~Soul Comet~"
         },
         "~Locate Unit~": {
             "A": "10 minutes",
@@ -1246,6 +1351,7 @@
         "~Translation~": {
             "A": "0 Actions",
             "Requirement": "Level 5",
+            "Degree": "Lesser",
             "Effect": "You can understand any spoken or written language that's either Common (Dwarvish, Elvish) or Wild (spoken by \"wild\", tribal socities, such as Orcish, Goblan, Sylvan, etc).",
             "Name": "~Translation~"
         },
@@ -1253,6 +1359,7 @@
             "A": "0 Actions",
             "Range": "5 meters",
             "Requirement": "Level 5",
+            "Degree": "Lesser",
             "Effect": "You conjure a magical eye that records everything it sees for up to 24 hours.\nAfter 24 hours, the eye stops recording.\nYou can use your magic to scan what the eye recorded in your mind.\nAt any point, you can tune into the eye and see what it sees in your mind.\n",
             "Upgrade": "At Level 8, you can move use your movement to instead move the Eye while you're tuned into it (it can fly) and lasts a number of days equal to your Level.\n",
             "Name": "~Watcher Eye~"
@@ -1262,6 +1369,7 @@
             "Requirement": "Level 5",
             "Duration": "(Your Level) hours",
             "Cost": "1 Mana",
+            "Degree": "Minor",
             "Effect": "Up to 2 allies you can see (can include yourself) can now breathe under water.\n",
             "Name": "~Water Breathing~"
         }
@@ -1271,6 +1379,7 @@
             "A": "1 Action",
             "Range": "4 meters",
             "HasMixins": true,
+            "Degree": "Minor",
             "Effect": "Blast a Unit for 2d8 + ^target's Might^ Scourge Damage.\nIf you roll maximum on at least one die, deal another 1d6 Damage.\n",
             "Name": "~Eldritch Blast~"
         },
@@ -1280,6 +1389,7 @@
             "Range": "10 meters",
             "Duration": "1 minute",
             "Requirement": "Level 2",
+            "Degree": "Minor",
             "Effect": "A target makes a Charisma Check.\nIf it fails, whenever it makes an Attack or Check, it rolls 1d4 and subtracts it from the result.\n",
             "Upgrade": "Only affects an Epic monster's first turn.",
             "Notes": "Cover is applied normally to the Charisma Check.",
@@ -1289,6 +1399,7 @@
             "A": "Channeled",
             "Cooldown": "1 hour",
             "Requirement": "Level 2",
+            "Degree": "Lesser",
             "Effect": "Channel to spawn a blight that spreads a 1x1 meter space away from you for each 1 Action channeled.\nThe blight kills small plants, insects and rots wood and rusts metal. It also makes fertile soil infertile, turns textile and paper materials into dust and decays food and poisons water.\nYou can channel a number of times (Actions) equal to your Level.\n",
             "Upgrade": "At Level 5, you can choose to ommit some of the effects of this blight.\n",
             "Notes": "This Ability is not meant for combat.\nBe creative with how you use this little spell!\n",
@@ -1300,8 +1411,9 @@
             "Range": "5 meters to edge",
             "Duration": "1 minute",
             "Requirement": "Level 2",
+            "Degree": "Minor",
             "HasMixins": true,
-            "Effect": "Conjure a 4x4x4 meter cloud of rot.\nUnits starting their turn in the cloud take 1d10 Poison Damage, become Fumbling, can't be healed, and have -2 to all Checks, all until the end of their current turn.\n",
+            "Effect": "Conjure a 4x4x4 meter cloud of rot.\nWhen a Unit touches the cloud it takes 1d10 Poison Damage, become Fumbling and can't be healed all until the end of their current (or next) turn.\n",
             "Notes": "{Fumbling}\n",
             "Name": "~Cloud of Rot~"
         },
@@ -1312,6 +1424,7 @@
             "Duration": "8 hours (24 hours at level 4, 1 week at level 8)",
             "Cooldown": "8 hours",
             "Requirement": "Level 3",
+            "Degree": "Lesser",
             "Effect": "A person makes a Sense Check.\nIf it fails, it becomes afflicted with a minor (usually non-combat) curse, such as:\n{Diamond} Its Initiative is halved (or its Initiative bonus)\n{Diamond} The target can't properly tie knots, sew, use keys or pick locks, etc\n{Diamond} The target appears less attractive (its Charisma Checks have -3)\n{Diamond} Gains runny nose, eyes and sweats more\n{Diamond} Stumbles randomly\n",
             "Notes": "A Unit can't be affected by the same Disenchantment effect multiple times.\n",
             "Name": "~Disenchantment~"
@@ -1319,13 +1432,15 @@
         "~Hollow Touch~": {
             "A": "1 Action",
             "Range": "4 meters",
-            "Effect": "Reap a Unit from afar, dealing 1d12 + 3 Scourge Damage and the target is unable to reagain health until the end of its next turn.\nFor the rest of the combat, it takes 1 extra Scourge Damage from all sources.\n",
+            "Degree": "Minor",
+            "Effect": "Deal 1d12 + ^Your Sense or Intelligence^ Scourge Damage to a Unit.\nFor the rest of the combat, whenever it would take Scourge Damage, it takes 2 more (stacks indefinitely).\n",
             "Name": "~Hollow Touch~"
         },
         "~Thaumaturgy~": {
             "HasMixins": true,
             "A": "1 Action",
             "Range": "5 meters",
+            "Degree": "Lesser",
             "Effect": "You create one of the following magical effects:\n{Diamond} Your voice booms up to three times as loud as normal for 1 minute.\n{Diamond} You cause flames to flicker, brighten, dim, or change color for 1 minute.\n{Diamond} You cause harmless tremors in the ground for 1 minute.\n{Diamond} You cause an unlocked door or window to fly open or slam shut.\n{Diamond} You alter the appearance of your eyes for 1 minute.\n",
             "Upgrade": "At Level 4 you can cast this for Half-Action, and at Level 7, for 0 Actions.\n",
             "Name": "~Thaumaturgy~"
@@ -1333,15 +1448,16 @@
         "~Wyrd Renewal~": {
             "A": "Half-Action",
             "Range": "5 meters",
-            "Cooldown": "Twice / Combat",
-            "Effect": "Roll 1d10 - 5.\nHeal/Damage a Unit for that amount.\nIf it's positive, heal it.\nIf it's negative, Damage it.\n",
-            "Notes": "You choose the target after you roll.",
+            "Degree": "Lesser",
+            "Effect": "Roll 1d10 - 5. After you see the result, choose a Unit.\nIf it's negative, deal Scourge Damage to it. Otherwise, heal it.\n",
+            "Upgrade": "Only usable in Worthy Combat.",
             "Name": "~Wyrd Renewal~"
         },
         "~Summon Familiar~": {
             "A": "1 Action",
             "Cost": "1 Mana",
             "Requirement": "Level 3",
+            "Degree": "Major",
             "Effect": "Summon a familiar in a space next to you, that has the aspect of a small demon or animal.\nIt has 8 Health, 3 Defense, 5 Movement Speed, 0/0/0/0/0 in Stats and takes its turn at the same time as you (and uses your Spell Grade).\nOn its turn, it has a Half-Action, usable only for Potions, Scrolls and the Push and Taunt Default Moves, and it can do other small tasks like bringing you objects, picking up a weapon and bringing it to your hand, etc.\nLasts until killed or unsummoned (for 0 Actions) or if it goes more than 30 meters away from you.\nYou can communicate with it telepathically.\n",
             "Upgrade": "At Level 6, out of combat, the familiar can be invisible.",
             "Notes": "You can only have one summoned familiar at a time. Your familiar might have a name and personality and it might speak Common or other languages, if allowed by the QM.",
@@ -1359,6 +1475,7 @@
             "A": "1 Action",
             "Cost": "1 Mana",
             "Range": "12 meters",
+            "Degree": "Major",
             "Effect": "Shoot a Unit with deathly fire for 1d12 + 1d10 + 1d6 Damage, Fire or Scourge (your choice).\nIf the target has Defense, deals 2 more Damage for each point of Defense.\n",
             "Name": "~Deathfire Bolt~"
         },
@@ -1368,6 +1485,7 @@
             "Range": "5 meters",
             "Duration": "1 hour",
             "Requirement": "Level 4",
+            "Degree": "Minor",
             "Effect": "Raise an undead Unit to fight for you from a nearby medium or larger corpse. The corpse is then consumed.\nThe undead Unit always has Medium size, 7 Max Health and 3 Defense.\nIt has Resist Checks equal to yours, but -2 to all Non-Resist Checks.\nIt has 4 meters movement speed.\nIt can use 1 Action to attack and deals 2d4 Damage (Smash, Slash or Pierce, your choice).\nYour undead takes its turn immediately before or after your turn (you choose).\nThe undead will always try to move to and attack the closest enemy to it (you choose if it's a tie).\nYou can use Half-Action on your turn to command (one of) your undead to move to a certain location.\n",
             "Name": "~Animate Dead~"
         },
@@ -1377,6 +1495,7 @@
             "Range": "10 meters",
             "Duration": "10 minutes",
             "Requirement": "Level 4",
+            "Degree": "Major",
             "Effect": "You create an illusion of yourself at a target location.\nThe illusion has 1 Health and 1 Defense and it fails all Checks.\nYou can control what the illusion does at will.\nIf the illusion goes more than 10 meters away from you, it disappears and the spell is cancelled.\n",
             "Upgrade": "At Level 7, the cast range and illusion range become 15 meters and the sound of your voice can come through the illusion's mouth instead of yours. At Level 5 - 25 meters. At Level 7 you can choose to see through the illusion's eyes at any point.",
             "Notes": "You need maintain line of sight to the clone to keep it working.",
@@ -1386,8 +1505,26 @@
             "A": "1 Action",
             "Cost": "1 Mana",
             "Requirement": "Level 5",
+            "Degree": "Grand",
             "Effect": "Touch a dead Unit, whose body is still in decent condition (as approved by the QM).\nThe dead Unit comes back to life, conscious and without Exhaustion, with 1 Health.\n",
             "Name": "~Resurrection~"
+        },
+        "~Hand of Annihilation~": {
+            "A": "1 Action",
+            "Cost": "3 Mana",
+            "Requirement": "Level 10",
+            "Degree": "Prime",
+            "Range": "5 meters",
+            "Effect": "Deal 13d4 Scourge Damage to a Unit.\n",
+            "Name": "~Hand of Annihilation~"
+        },
+        "~Curse of Death~": {
+            "A": "1 Action",
+            "Cost": "5 Mana",
+            "Requirement": "Level 10",
+            "Degree": "Prime",
+            "Effect": "Choose a non-Epic Unit you can see.\nAt the start of your next Turn, it dies.\n",
+            "Name": "~Curse of Death~"
         }
     },
     "Divine": {
@@ -1395,6 +1532,7 @@
             "A": "0 Actions",
             "Cooldown": "1 hour",
             "Range": "3 meters",
+            "Degree": "Lesser",
             "Effect": "Cure a simple Disease, Debuff or Bleed effect on a Unit (you can choose yourself), or clean up to 2 rations or liters of water of microbes, mild poison or impurities.\n",
             "Upgrade": "At Level 4, you can cure harder and stranger diseases and poisons.\nAt level 7, you can cure terminal or chronic diseases and poisons.\n",
             "Notes": "Debuffs are things like curses, weaknesses, etc. Crowd Control like Daze, Fumbling, Fear, Stun, etc are not considered Debuffs.\n",
@@ -1404,12 +1542,14 @@
             "A": "1 Action",
             "Range": "1 meter",
             "Duration": "Your Level hours",
+            "Degree": "Lesser",
             "Effect": "Create a magical light bulb that sheds light in a 5 meters radius.\nIt levitates and stays where you put it and can be moved by hand, or you can simply stick it to any solid object.\n",
             "Notes": "Lasts up to Your Level hours, or until you cancel it or cast Light again, or is purposefully destroyed with an Attack.\nYou choose the color of the light.\nThe light is not strong enough to blind someone.\nThe bulb can't go through solid objects.\n",
             "Name": "~Light~"
         },
         "~Mending~": {
             "A": "1 Action",
+            "Degree": "Lesser",
             "Effect": "Touch a slightly broken piece of material that is still in one piece.\nYou can repair the Damage done to it.\nMending can repair a piece of Armor or Weapon for 1 Defense or Damage, but no more.\n",
             "Notes": "For example, repair a hole through a chain shirt or textile material, the crack in a piece of glass, etc.\n",
             "Name": "~Mending~"
@@ -1418,6 +1558,7 @@
             "A": "Half-Action",
             "Cost": "1 Mana",
             "Range": "5 meters",
+            "Degree": "Minor",
             "Effect": "Heal an ally (or yourself) for 1d8 Health.\nIf they 50% or more Health before the heal, double the dice's result.\n",
             "Name": "~Solace Wave~"
         },
@@ -1434,6 +1575,7 @@
             "Range": "4 meters",
             "HasMixins": true,
             "Requirement": "Level 2",
+            "Degree": "Minor",
             "Effect": "Deal 2d6 + ^Charisma^ Fire Damage (ignoring Cover) and makes the target Fumbling.",
             "Name": "~Burnished Flames~"
         },
@@ -1441,6 +1583,7 @@
             "A": "Reaction or 0 Actions",
             "Cost": "1 Mana",
             "Requirement": "Level 2",
+            "Degree": "Minor",
             "Effect": "Instantly remove all Crowd Control from another ally you can see.\n",
             "Upgrade": "At Level 5, also removes all non-magical debuffs and poisons.\nAt Level 8, also removes all curses and normal negative magical effects.\n",
             "Name": "~Liberation~"
@@ -1449,6 +1592,7 @@
             "A": "Half-Action",
             "Cost": "1 Mana",
             "Requirement": "Level 2",
+            "Degree": "Minor",
             "Effect": "For 1 minute, at the end of your turn, all Units within 1 meter of you take 1d4 Divine Damage.",
             "Name": "~Radiance~"
         },
@@ -1456,6 +1600,7 @@
             "A": "1 hour",
             "Cost": "1 Mana",
             "Requirement": "Level 2",
+            "Degree": "Major",
             "Effect": "Roll a number of d8's for each player character in your party (except yourself). Assign each rolled d8 to one player character, and heal them for their assigned die.",
             "Note": "You must be staying in place to channel this.",
             "Name": "~Restful Soothing~"
@@ -1465,6 +1610,7 @@
             "Cooldown": "1 hour",
             "Range": "7 meters",
             "Requirement": "Level 3",
+            "Degree": "Minor",
             "Effect": "Instantly pull another ally to your nearest empty space.\n",
             "Notes": "The ally goes flying.\nYou need line of sight to the targets. The allies fly to you ignoring obstacles and ground traps (goes around obstacles), unless the ally needs to swerve more than 2 meters in any direction.\n",
             "Name": "~Saving Throw~"
@@ -1475,6 +1621,7 @@
             "Range": "10 meters",
             "Requirement": "Level 3",
             "HasMixins": true,
+            "Degree": "Major",
             "Effect": "A shining light bursts onto a Unit, dealing 2d8 + ^Sense^ Divine Damage to it.\nThe next time someone would cast a Spell that affects that Unit, the caster can reroll any of the spell's dice, at most one reroll for each die.\n",
             "Notes": "This affects AoE effects and healing abilities too.",
             "Name": "~Guiding Bolt~"
@@ -1483,6 +1630,7 @@
             "A": "0 Actions",
             "Cost": "1 Mana",
             "Requirement": "Level 3",
+            "Degree": "Minor",
             "Effect": "Up to 2 Player Characters you can see gain Health Regen equal to your Intelligence.\n",
             "Name": "~Elation~"
         },
@@ -1492,6 +1640,7 @@
             "Requirement": "Level 4",
             "Cooldown": "Once / Combat",
             "Range": "5 meters to edge",
+            "Degree": "Major",
             "Effect": "All Units in a 4x4 meter area take 2d4 Divine Damage and are Blinded.\n",
             "Notes": "Cover is calculated from the center of the area.",
             "Name": "~Blinding Light~"
@@ -1501,6 +1650,7 @@
             "Cost": "1 Mana",
             "Range": "4 meters",
             "Requirement": "Level 4",
+            "Degree": "Major",
             "Effect": "Deal 3d10 True Damage to a Unit.\nIf it's a Demon, Fiend or Undead, increase the Damage by 50%.\n",
             "Name": "~Exorcism~"
         },
@@ -1509,6 +1659,7 @@
             "Cost": "1 Mana",
             "Duration": "Up to 1 hour",
             "Requirement": "Level 4",
+            "Degree": "Minor",
             "Effect": "A Unit you can see becomes surrounded in a divine golden shield.\nNext time the Unit would take Damage, it is completely blocked.\n",
             "Name": "<Golden Shield>"
         },
@@ -1516,6 +1667,7 @@
             "A": "Half-Action",
             "Cost": "1 Mana",
             "Requirement": "Level 4",
+            "Degree": "Minor",
             "Effect": "Heal a Fallen Unit to 20% of it total Health.\nIt does not suffer of Exhaustion from Rising after being Fallen.\n",
             "Name": "~Rise~"
         },
@@ -1534,6 +1686,7 @@
             "Duration": "1 hour",
             "AlignOnWebsite": "Left",
             "Requirement": "Level 5",
+            "Degree": "Minor",
             "Effect": "Up to 2 willing Units can walk on water as normally.\nThe effect ends if the Unit takes Damage.\n",
             "Name": "~Water Walk~"
         },
@@ -1541,6 +1694,7 @@
             "A": "1 Action",
             "Cost": "1 Mana",
             "Requirement": "Level 5",
+            "Degree": "Grand",
             "Effect": "Touch a dead Unit, whose body is still in decent condition (as approved by the QM).\nThe dead Unit comes back to life, conscious and without Exhaustion, with 1 Health.\n",
             "Name": "~Resurrection~"
         },
@@ -1548,6 +1702,7 @@
             "A": "1 Action",
             "Cost": "2 Mana",
             "Requirement": "Level 6",
+            "Degree": "Grand",
             "Effect": "You shoot out 8 rays of light.\nRoll 8d4 and assign them to Units within 10 meters as you with.\nEach die heals on odd rolls (1 and 3) and deals Divine Damage on even rolls (2 and 4).\n",
             "Name": "~Reveling Rays~"
         },
@@ -1555,6 +1710,7 @@
             "A": "1 Action",
             "Cost": "2 Mana",
             "Requirement": "Level 6",
+            "Degree": "Grand",
             "Effect": "A Unit you can see takes 3d8 Psychic Damage and is Silenced.\n",
             "Notes": "Cover is applied normally.",
             "Name": "~Deafening Silence~"

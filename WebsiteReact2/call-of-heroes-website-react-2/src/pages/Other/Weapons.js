@@ -16,10 +16,10 @@ const weaponsSideMenuSections = {
     'Weapons & Shields': [
         'Shields',
         'Runes',
-        '1-Handed Melee',
-        '2-Handed Melee',
-        '1-Handed Ranged',
-        '2-Handed Ranged'
+        'One-Handed Melee',
+        'Two-Handed Melee',
+        'One-Handed Ranged',
+        'Two-Handed Ranged'
     ]
 }
 
