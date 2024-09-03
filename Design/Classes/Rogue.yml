@@ -69,15 +69,16 @@ Starting Abilities Description:
 Starting Abilities:
   
   ~Ambush~ :
-    _Value: 1
+    _Value: 2.5
     AlignOnWebsite: Right
     A: Passive
     Effect: |
       Every Worthy Combat, your first weapon attack deals +1d8 Damage.
     Upgrade: |
-      At Level 2, your Specialization will give you extra ways to Ambush.
+      At Level 2, your Specialization will greatly improve your Ambush.
       
   ~Stalking~:       # Ok
+    _Value: 0
     A: Special
     Effect: |
       On the first Round of combat, you can skip your Turn.
@@ -86,17 +87,24 @@ Starting Abilities:
       Be careful: if you don't start your Turn this Round, you lose your Turn!
       If you want to start during an enemy's Turn, you do so when they declare they want to do something or after they finish doing something.
   
+  ~Roguish Talents~:
+    A: Special
+    Effect: As a Rogue, you don't have Mana. However, your Level 4, 6 and 8 Talents have special powerful effects, and the rest of your Abilities are stronger than average.
 
 
 # One ambush = 1
 # On average, you will do 5-6 Ambushes per Adventure = ~5-6
 
-# Mana:       1                     | 1
-# Base:       1                     | 2
-# Spec:       4.35    | 4  |  3.5   | 6
-# Talent T1:  1       | 1  |  1     | 7
-# Talent T1:  1.5     | 3  |  2     | 9.5
-# Talent T1:  3       | 3  |  3     | 12.5
+# Mana:         0
+# Base:         2.5
+# Spec:         5       | 5     |  5     = 7.5    (-1)    == 6.5
+# Talent L3:    2       | 1.5   |  1     = 9      (-2)    == 7
+# Talent L4:    0.5     | 1     |  1     = 10     (-3)    == 7
+# Talent L5:    1.5     | 2.5   |  2     = 12.5   (-4)    == 8.5
+# Talent L6:    2       | 1.75  |  3     = 14.25  (-5)    == 9.25
+# Talent L7:    3       | 3     |  3     = 17.25  (-6)    == 11.25
+# Talent L8:    3       | 5.25  |  3     = 22.5   (-7)    == 15.5
+# Talent L9:    3       | 3     |  3     = 25.5   (-8)    == 17.5
 
 Specializations:
   Description: |
@@ -125,7 +133,7 @@ Specs:
     Starting Abilities:
     
       ~Backstabbing Ambush~ :
-        _Value: 4
+        _Value: 5
         AlignOnWebsite: Right
         A: Passive
         HasMixins: true
@@ -143,23 +151,20 @@ Specs:
 
     Talents:
       Level 3:
-        <Hide In Plain Sight>:
-          _Value: 0
-          A: Passive
-          Effect: |
-            On the first Round of combat, enemies with less than 3 Sense can't see you.
-            Also, you can always Break your Movement.
-          Upgrade: Out of combat, you gain +2 on Checks for sneaking or hiding.
-
-        <Magic Trickster> :
-          _Value: 1
+        <Jack of Many Trades>:
+          _Value: 2
           A: Passive
           HasMixins: true
           Effect: |
-            Your Intelligence increases by 1 (up to a maximum of 4) and you gain access to the Arcane and Mysticism Basic Ability Schools.
-            Whenever you heal or deal Damage with a Spell that cost Mana, gain {Gold}Gold equal to the Damage done or amount healed.
-          Notes: You lose access to these Spells if you change this Talent.
+            You have 2 Mana that replenishes inbetween Adventures.
+            Also, gain 2 non-Combat Skills of choice.
 
+        <Verge of the Coin>:
+          _Value: 2
+          A: Passive
+          Effect: |
+            Whenever YOU would Damage an Enemy leaving it at 10% Health or below, it dies, and you gain Gold equal to its Maximum Health.
+            
         <Pocket Sand>:
           A: Half-Action
           Cost: 50 Gold
@@ -169,21 +174,69 @@ Specs:
             Blind a Unit.
           Notes: "{Blinded}"
 
+      Level 4:
+
+        <Hide In Plain Sight>:
+          _Value: 0.5
+          A: Passive
+          Effect: |
+            On the first Round of combat, enemies with less than 3 Sense can't see you.
+            Also, you can always Break your Movement.
+          Upgrade: Out of combat, you gain +2 on Checks for sneaking or hiding.
+
+        <Bounty Appraisal>:
+          Value: 1
+          A: Passive
+          HasMixins: true
+          Effect: |
+            When Worthy Combat starts, the QM determines which is the most powerful enemy.
+            When that enemy dies, heal an ally for 1d8 and gain {Gold}Gold equal to 1000% of the amount healed.
+
+        <Magic Trickster> :
+          _Value: 0.5
+          A: Passive
+          HasMixins: true
+          Effect: |
+            You gain access to the Arcane and Mysticism Basic Ability Schools
+            Whenever you heal or deal Damage with a Spell to a Worthy Enemy, gain {Gold}Gold equal to the 50% of Damage or Healing done.
+          Notes: You lose access to these Spells if you change this Talent.
+
       Level 5:
         
-        <Thief Shock Wire>:
+        <Trap Wires>:
           _Value: 1.5
-          A: 0 Actions
-          Cost: 20 Fool's Gold
-          Range: 6 meters to end in line of sight
+          A: Passive
+          HasMixins: true
           Effect: |
-            Deploy a Shock Tripwire of up to 5 meters long between 2 obstacles.
-            When a Unit passes through the tripwire, it takes 1d10 Shock Damage and loses Movement equal to half of their Movement Speed.
-          Upgrade: A Unit can only see the tripwire only if it has 3 or more Sense.
+            When combat starts, deploy a number of Trap Wires equal to ^your Intelligence or Sense^, anywhere on the battlefield.
+            A Trap Wire is thin and up to 3 meters long, and must be deployed between 2 obstacles.
+            Units with less than 3 Sense can't see the Trap Wires.
+            If a Unit touches a Trap Wire, it takes 1d10 Shock damage and become Slowed.
           Notes: |
             Each end of the wire must be attached to something solid and static.
             You can make use of walls, obstacles, etc.
             Requires a Special Tripwire Set item, which can be bought for 100 gold (or freely crafted for the same price in materials).
+
+        <Moneycraft>:
+          _Value: 1.5
+          A: 1 hour
+          HasMixins: true
+          Effect: |
+            Spend 400 {Gold}Gold to permanently improve a piece of equipment. Depending on its type (armor or weapon), roll on the table below to determine the effect you get.
+          DoubleTable:
+            Headers:
+              - Weapon
+              - Equipment
+            Values:
+              - 1. +1 Damage (+2 if 2-Handed)
+              - 1. +2 Maximum Health
+              - 2. +1 Range
+              - 2. +1 Movement Speed
+              - 3. +1 Rune Slot
+              - 3. +1 Health Regen
+              - 4. Upgrade one die of choice
+              - 4. +3 Initiative
+          Upgrade: A piece of equipment can be improved any number of times, but every extra improvement costs twice as much as its previous improvement.
         
         <Blade Tempest>:    # 1.75-ish cause you hit a target multiple times, but it's delayed so idk
           _Value: 1.75
@@ -194,60 +247,79 @@ Specs:
             Each shuriken travels 4 meters, deals 2d6 Slash Damage to all Units it passes through, then stops in place.
             At the end of your next turn, each shuriken returns to you, dealing 2d6 Slash Damage again to all Units it passes through.
           Notes: Requires 8 Special Shuriken items, which can be bought for a total of 120 gold (or freely crafted for the same price in materials). If you're playing on a Grid, take semi-hitting into account for blades that don't travel squares exactly in the 8 directions. Cover applies normally to each blade.
-
-        <Poisoned Weapons>:  # 1.5? seems a bit weak
-          _Value: 1.5
-          HasMixins: true
-          A: 10 minutes
-          Cooldown: 8 hours
-          Duration: 8 hours
-          Effect: |
-            Choose 2 weapons, and choose a different poison to apply for each:
-            {Diamond} Deathly Venom: Deals 1d8 extra Damage to targets with more than 50% Health, and all the Damage type Poison Damage; then the target becomes immune to this poison for 1 minute.
-            {Diamond} Scourge Toxin: The attack's target becomes Slowed and can't regain Health for 1 minute.
-            {Diamond} Phosphorus Mix: The target can't benefit from Cover for 1 minute (and this attack ignores Cover).
-            {Diamond} Weakening Poison: The target deals 1 less Damage on all Attacks
-          Notes: |
-            Remember to specify which weapon you are attacking with.
-            Requires a Poisoner's Kit item, which can be bought for 100 gold on a black market.
-            If you're in a tight scenario, the QM might let you use monster blood or gather herbs for a 1-time use of this Ability.
-            Onl Epic Monsters, Weakening Poison applies to their first turn every round only.
-            
     
+      Level 6:
+
+        <Hoard Sword>:
+          A: Passive
+          Effect: You gain various bonuses based on how much gold you are carrying.
+          DoubleTable:
+            Headers:
+              - Gold
+              - Bonuses
+            Values:
+              - 1000+
+              - +10% to all Checks
+              - 2500+
+              - +10% Health Regen and Initiative
+              - 5000+
+              - +10% gold that YOU find and get from Abilities
+              - 10000+
+              - +10% Maximum Health
+              - 25000+
+              - +10% Damage from all sources
+              - 50000+
+              - -10% Damage from all sources (applied after all other calculations)
+
+        <Finders Keepers>:
+          A: Special
+          Cooldown: Once / Chest
+          Effect: When looting a _lootable object_ that _contains Worthy items_, you can spend any amount of gold to also loot an item worth up to twice the spent amount.
+          Notes: It is up to the Quest Master what a _lootable object_ is (could be a chest, the corpse of an enemy, etc). Also, it is up to the Quest Master what _Worthy items_ means (could be main quest items, magic items, or just a normal chest).
+
       Level 7:
 
-        <Savage Ambush>:
+        <Golden Ambush>:
           _Value: 3
           A: Passive
           Effect: |
-            When you declare an attack on a Unit that has 50% or less Health (before your attack's Damage), the attack gain Ambush.
-            Ambush can apply twice at the same time, from 2 different Ambush conditions.
-          Notes: |
-            E.g. if you Ambush the target and it also has 50% or less Health, the total Ambush Damage is 2d8 Damage. Or, for another example, if you were Hiding and you would also Ambush from your Specialization Ambush Ability condition, the attack gains 2d8 Damage.
-            The maximum Damage is 2d8, even if you match 3 conditions for Ambush (e.g. Hiding, Savage Ambush and your Specialization's Ambush Ability).
-            You can still add Ambush Damage only once per turn (e.g. not with 2 separate attacks; it must be one single attack).
+            When you Ambush, spend 10% of your _real_ total Gold (minimum 100) to add +1d6 Damage.
 
-        <First-Shot Ambush>:
+        <Minor Savage Ambush>:
           _Value: 3
           A: Passive
           Effect: |
-            When you declare an attack on a Unit that has full Health, the attack gain Ambush.
-            Ambush can apply twice at the same time, from 2 different Ambush conditions.
-          Notes: |
-            E.g. if you Ambush the target and it also has full Health, then the total Ambush Damage is 2d8 Damage. Or, for another example, if you were Hiding and you would also Ambush from your Specialization Ambush Ability condition, the attack gains 2d8 Damage.
-            The maximum Damage is 2d8, even if you match 3 conditions for Ambush (e.g. Hiding, First-Shot Ambush and your Specialization's Ambush Ability).
-            You can still add Ambush Damage only once per turn (e.g. not with 2 separate attacks; it must be one single attack).
+            When you Ambush, if the target also has 50% or less Health (before your attack's Damage), the attack deals +1d6 Damage.
 
-        <Instinctive Ambush>:
+        <Minor First-Shot Ambush>:
           _Value: 3
           A: Passive
           Effect: |
-            After you use a 0 Actions Ability, your next weapon attack this turn gains Ambush.
-            Ambush can happen twice per turn (even at the same time) from 2 different Ambush conditions.
-          Notes: |
-            E.g. if you just used a 0 Actions Ability but you would Ambush anyway, the Ambush Damage is 2d8 Damage. Or, for another example, if you were Hiding and you would also Ambush from your Specialization Ambush Ability condition, the attack gains 2d8 Damage.
-            Or, if you were hiding and Ambush, then use a 0 Actions Ability, then attack again, that second attack also gains Ambush (1d8 extra Damage).
-          
+            When you Ambush a Unit that has full Health, the attack deals +1d6 Damage.
+
+        <Minor Isolated Ambush>:
+          _Value: 3
+          A: Passive
+          Effect: |
+            When you Ambush a Unit, if there are no other Units within 1 meter of it (except you), the attack deals +1d6 Damage.
+
+      Level 8:
+
+        <Spellkill>:
+          _Value: 4.5
+          A: Passive
+          Effect: |
+            Passively, you gain access to an Ability School of choice to Know Abilities from.
+            After you Ambush, your next 1-Mana Spell this turn costs no Mana.
+
+        <Sharp Toss>:
+          _Value: 6
+          A: 0 Actions
+          Range: 5 meter
+          Cooldown: Once every 2 turns
+          Effect: This turn, whenever you do an Act, flick a throwable and deal 2 Pierce Damage to a Unit.
+          Notes: Can flick needles, small knives, shuriken, etc. Sharp Toss, when cast and when thrown, is not considered an Act.
+        
 
         #  Talent: Traps, tripwires, thief's tools
 
@@ -273,7 +345,7 @@ Specs:
     Starting Abilities:
 
       ~Sudden Ambush~ :
-        _Value: 8
+        _Value: 5
         A: Passive
         HasMixins: true
         Replacement: Replaces Ambush
@@ -291,24 +363,20 @@ Specs:
     Talents:
       Level 3:
 
-        <Hide In Plain Sight>: Inherit from Thief
-
         <Practice Makes Lethal>:
           _Value: 1.5
           A: Passive
           Effect: |
-            Whenever YOU kill a Worthy Enemy, ^Practice Makes Lethal^ point, permanently.
+            Whenever YOU kill a Worthy Enemy, gain a ^Practice Makes Lethal^ point, permanently.
             Your first Damaging Attack or Ability every Worthy Combat deals extra Damage equal to your ^Practice Makes Lethal^ points.
 
-        <Planned Assassination>:
-          _Value: 3
-          A: Special
-          Cooldown: Once / Adventure
-          Requirement: Only usable out of Combat
+        <Enveloping Shadows>:
+          _Value: 2
+          A: Passive
           Effect: |
-            Name a specific Epic Unit, or a non-Epic Unit type.
-            Next Combat, your Ambushes deal +100% Damage against the named Unit or Unit Type.
-          
+            Immediately before you Shadowpass, all Units within 1 meter from your original position must pass a Dexterity Check against your ^Movement Speed * 2^ or be Blinded.
+          Notes: All Units within 1 meter from where you were when you Shadowpass become Blinded.
+
         <Critical Doubledown>:
           _Value: 1.5
           A: Passive
@@ -316,16 +384,29 @@ Specs:
           Effect: |
             When you ^Critical Strike^, the ^Critical Strike^ effect happens twice.
             If a weapon can't do a ^Critical Strike^, it also has the following effect:
-          EffectGreen: Critical Strike - If you rolled maximum on at leats one die, deal +1 Damage if one-handed (+1d4 if two-handed).
+          EffectGreen: Critical Strike - If you rolled maximum on at least one die, deal +1 Damage if one-handed (+1d4 if two-handed).
           Upgrade: Note that the additional (green) Critical Strike is also doubled!
 
-        <Blade Verge>:
-          A: Passive
-          Effect: Whenever YOU would leave an Enemy at 10% Health or below, it dies instead.
+      Level 4:
 
-        <>:
+        <One Turn Kill>:
+          _Value: 1.35
+          A: Passive
+          Effect: Whenever you take a Worthy Enemy from 50% (or more) to 0% Health in one turn, heal for 1d6 and reset the Cooldown of Shadowpass.
+
+        <Cutting Verve>:
+          _Value: 0.5
+          HasMixins: true
+          A: Passive
           Effect: |
-            When attacking a Unit, if there is no other Unit near it, 
+            Whenever you Ambush, you can choose one of the rolled dice and heal an ally you can see (or yourself) for that amount instead of dealing the Damage.
+
+        <Isolation>:
+          _Value: 1.5
+          A: Passive
+          HasMixins: true
+          Effect: |
+            When Ambushing a Unit, if there is no other Unit near it, the target becomes either Fumbling and Slowed, or Silenced (your choice).
 
       Level 5:
 
@@ -350,27 +431,90 @@ Specs:
             Whenever YOU deal Damage to it until your next turn, remember the Damage done.
             At the start of your next turn, the mark bursts and the Unit takes directly 33% of the Damage you dealt to it in this time period.
 
+      Level 6:
+
+        <Planned Assassination>:
+          _Value: 2
+          A: Special
+          Cooldown: Once / Adventure
+          Requirement: Only usable out of Combat
+          Effect: |
+            Name a specific Epic Unit, or a non-Epic Unit type.
+            Next Combat, your Ambushes deal +100% Damage against the named Unit or Unit Type.
+
+        <Blade Verge>:
+          _Value: 2
+          A: Passive
+          Effect: Whenever YOU would Damage an Enemy leaving it at 10% Health or below, it dies.
+
+        <Shadowlayers>:
+          _Value: 1
+          A: 0 Actions
+          Cooldown: 1 hour
+          Requirement: Only usable until the end of the next Turn after you Shadowpass
+          Effect: Immediately Shadowpass back to where you last Shadowpassed from (to the original position from which you Shadowpassed). Also, passively, you can use Shadowpass to instead teleport an ally instead of yourself.
+          Notes: This special Shadowpass doesn't retrigger Shadowlayers, but is improved by any Shadowpass upgrades and effects you have.
+
+
       Level 7:
 
         <Ambushing Shadowpass>:
           A: Passive
-          Effect: After you Shadowpass, your first Damaging Attack or Spell that turn applies Ambush.
+          Effect: After you Shadowpass, your first Damaging Attack or Spell that turn deals +1d6 Damage.
 
-        <Savage Ambush>: Inherit from Thief
+        <Minor Savage Ambush>:
+          _Value: 3
+          A: Passive
+          Effect: |
+            When you Ambush, if the target also has 50% or less Health (before your attack's Damage), the attack deals +1d6 Damage.
 
-        <First-Shot Ambush>: Inherit from Thief
+        <Minor First-Shot Ambush>:
+          _Value: 3
+          A: Passive
+          Effect: |
+            When you Ambush a Unit that has full Health, the attack deals +1d6 Damage.
 
-        <Instinctive Ambush>: Inherit from Thief
+        <Minor Isolated Ambush>:
+          _Value: 3
+          A: Passive
+          Effect: |
+            When you Ambush a Unit, if there are no other Units within 1 meter of it (except you), the attack deals +1d6 Damage.
 
+
+      Level 8:
+
+        <Spellkill>:
+          _Value: 4.5
+          A: Passive
+          Effect: |
+            Passively, you gain access to an Ability School of choice to Know Abilities from.
+            After you Ambush, your next 1-Mana Spell this turn costs no Mana.
+
+        <Sharp Toss>:
+          _Value: 6
+          A: 0 Actions
+          Range: 5 meter
+          Cooldown: Once every 2 turns
+          Effect: This turn, whenever you do an Act, flick a throwable and deal 2 Pierce Damage to a Unit.
+          Notes: Can flick needles, small knives, shuriken, etc. Sharp Toss, when cast and when thrown, is not considered an Act.
+        
       Level 9:
 
-        <Finale>:       # ~3 or more
+        <Finale>:
+          _Value: 3
           A: 0 Actions
           Cooldown: Once / Adventure
           Range: 3 meters
           Effect: |
             For each attack, Ability and application of Ambush you made this turn, deal 1d10 Damage that ignores Defense.
 
+        <Coup de Grace>:
+          _Value: 3
+          A: Passive
+          Effect: |
+            Whenever you Ambush a Worthy Enemy, roll a Dexterity Check against ^target's total Stats sum^ to increase the Ambush dice Damage by 50%.
+            If you fail, your next Check increases by 50%.
+          Notes: The 'next Check increase' doesn't stack.
   
   Skirmisher:
     # Talent: 2 turns from now, evelyn's charm

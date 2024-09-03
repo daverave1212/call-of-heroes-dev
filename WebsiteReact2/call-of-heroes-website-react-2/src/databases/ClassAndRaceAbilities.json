@@ -999,13 +999,13 @@
         "Range": "10 meters",
         "Effect": "A Unit must succeed a Charisma Check against your last rolled Unstable Spark die or be Blinded, Silenced or Rooted (your choice).\n"
     },
-    "<Mild Magic>": {
+    "<Mild Casting>": {
         "_Value": 0.5,
         "AlignOnWebsite": "Left",
         "A": "Passive",
         "Effect": "Whenever you roll minimum Damage on a Spell, reroll it. Afterwards, roll an Unstable Spark die."
     },
-    "<Wild Magic>": {
+    "<Wild Casting>": {
         "_Value": 0.5,
         "AlignOnWebsite": "Right",
         "A": "Passive",
@@ -1509,7 +1509,7 @@
         "_Value": 1,
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "Your Intelligence increases by 1 (up to a maximum of 4) and you gain access to the Arcane and Mysticism Basic Ability Schools.\nWhenever you heal or deal Damage with a Spell, gain {Gold}Gold equal to the Damage done or amount healed.\n",
+        "Effect": "Your Intelligence increases by 1 (up to a maximum of 4) and you gain access to the Arcane and Mysticism Basic Ability Schools.\nWhenever you heal or deal Damage with a Spell that cost Mana, gain {Gold}Gold equal to the Damage done or amount healed.\n",
         "Notes": "You lose access to these Spells if you change this Talent."
     },
     "<Pocket Sand>": {
@@ -1564,7 +1564,7 @@
         "Notes": "E.g. if you just used a 0 Actions Ability but you would Ambush anyway, the Ambush Damage is 2d8 Damage. Or, for another example, if you were Hiding and you would also Ambush from your Specialization Ambush Ability condition, the attack gains 2d8 Damage.\nOr, if you were hiding and Ambush, then use a 0 Actions Ability, then attack again, that second attack also gains Ambush (1d8 extra Damage).\n"
     },
     "~Sudden Ambush~": {
-        "_Value": 1,
+        "_Value": 8,
         "A": "Passive",
         "HasMixins": true,
         "Replacement": "Replaces Ambush",
@@ -1576,10 +1576,10 @@
         "Effect": "Choose a point covered in shadow up to 6 meters away and teleport to it.\n",
         "Upgrades": "You can use this as a Reaction when an enemy wants to attack you (before dealing the Damage). If it can't do the attack anymore, it must choose something else to do."
     },
-    "<Poison Master>": {
-        "A": "1 hour",
-        "Cost": "1 Mana",
-        "Effect": "Using ingredients costing 35 Gold, you are able to create a few drops of Drinkable Poison.\nSomeone ingesting them takes 1d12 Poison Damage instantly.\nCombining multiple instances of Drinkable Poison increases its Damage by 1d12 for each Drinkable Poison combined.\nThe poison loses its effect after 72 hours.\n"
+    "<Practice Makes Lethal>": {
+        "_Value": 1.5,
+        "A": "Passive",
+        "Effect": "Whenever YOU kill a Worthy Enemy, gain a ^Practice Makes Lethal^ point, permanently.\nYour first Damaging Attack or Ability every Worthy Combat deals extra Damage equal to your ^Practice Makes Lethal^ points.\n"
     },
     "<Planned Assassination>": {
         "_Value": 0.35,
@@ -1587,6 +1587,32 @@
         "Cost": "1 Mana",
         "Effect": "You plan an attack for 1 minute.\nYour next weapon attack on that target deals an extra 1d12 Damage.\nPlanned Assassination fails if your Line of Sight to the target is broken until you attack it.\n",
         "Notes": "The Mana is spent the moment you declare Planned Assassination. You can use plan assassinations on multiple targets, but you can't plan an assassination on a single target multiple times at the same time."
+    },
+    "<Critical Doubledown>": {
+        "_Value": 1.5,
+        "A": "Passive",
+        "HasMixins": true,
+        "Effect": "When you ^Critical Strike^, the ^Critical Strike^ effect happens twice.\nIf a weapon can't do a ^Critical Strike^, it also has the following effect:\n",
+        "EffectGreen": "Critical Strike - If you rolled maximum on at least one die, deal +1 Damage if one-handed (+1d4 if two-handed).",
+        "Upgrade": "Note that the additional (green) Critical Strike is also doubled!"
+    },
+    "<Blade Verge>": {
+        "_Value": 2.5,
+        "A": "Passive",
+        "Effect": "Whenever YOU would leave an Enemy at 10% Health or below, it dies instead."
+    },
+    "<Isolation>": {
+        "_Value": 1.5,
+        "A": "Passive",
+        "HasMixins": true,
+        "Effect": "When attacking a Unit, if there is no other Unit near it, your Ambushes have their ^Dice Upgraded^ to the next die type.\n",
+        "Notes": "{DiceUpgrade}"
+    },
+    "<Verve of the Blade>": {
+        "_Value": 0.5,
+        "HasMixins": true,
+        "A": "Passive",
+        "Effect": "Whenever you would deal Damage with Ambush, you can choose one of the rolled dice and, instead of dealing Damage with it, heal an ally you can see for that amount, or grant yourself that much Movement this turn (and you can ^break^ your Movement).\n"
     },
     "<Take-Out Shadowpass>": {
         "A": "0 Actions or Reaction",
@@ -1599,6 +1625,10 @@
         "A": "0 Actions",
         "Cooldown": "Once / Adventure",
         "Effect": "Mark a Unit you can see.\nWhenever YOU deal Damage to it until your next turn, remember the Damage done.\nAt the start of your next turn, the mark bursts and the Unit takes directly 33% of the Damage you dealt to it in this time period.\n"
+    },
+    "<Ambushing Shadowpass>": {
+        "A": "Passive",
+        "Effect": "After you Shadowpass, your first Damaging Attack or Spell that turn applies Ambush."
     },
     "<Finale>": {
         "A": "0 Actions",
@@ -2463,6 +2493,11 @@
         "Range": "1 meter",
         "Effect": "Make a Dexterity Check agasint a non-Epic Unit's Dexterity Check.\nIf you succeed, it is put to Sleep for 1 minute.\nIf you fail, you gain the Half-Action back.\n",
         "Downside": "You must be hiding to use Take Out, and the target must be Isolated.\nThis ability unhides you!\n"
+    },
+    "<Poison Master>": {
+        "A": "1 hour",
+        "Cost": "1 Mana",
+        "Effect": "Using ingredients costing 35 Gold, you are able to create a few drops of Drinkable Poison.\nSomeone ingesting them takes 1d12 Poison Damage instantly.\nCombining multiple instances of Drinkable Poison increases its Damage by 1d12 for each Drinkable Poison combined.\nThe poison loses its effect after 72 hours.\n"
     },
     "<Shadowstep>": {
         "A": "0 Actions",

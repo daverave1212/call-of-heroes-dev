@@ -47,6 +47,60 @@ export function SpellTopStats({className, tags}) {
     )
 }
 
+export function SpellBorder() {
+    return <div className="spell__border"></div>
+}
+export function SpellBackground() {
+    return <div className='spell__box'></div>
+}
+export function SpellTop({
+    hasVariants, variantIndex, Variants,
+    onIconClick, iconPath, hasIcon,
+    DisplayName, Name, showTopStats=true,
+    A, item, spell
+}) {
+    const obj = item != null? item: spell
+    if (hasIcon === false) {
+        return (
+            <div className='spell-top'>
+                <div style={{width: '100%'}}>
+                    <div className='spell-top--iconless__title-wrapper'>
+                        <div className='spell-top--iconless__title'>{ Name }</div>
+                    </div>
+                    <div style={{width: '70%', margin: 'auto'}}>
+                        { showTopStats === true && <SpellTopStats tags={{...obj, A}} className="spell-top__stats--no-padding-side"/>}
+                    </div>
+                </div>
+            </div>
+        )
+    }
+    return (
+        <div className='spell-top'>
+            <div className='spell-top__icon-side'>
+                
+                { hasVariants === true && (
+                    <div className='spell-top__variant-counter' onClick={onIconClick}>
+                        {variantIndex + 1}/{Variants.length}
+                    </div>
+                )}
+
+                <div className='spell-top__icon-wrapper'>
+                    { hasVariants === true && (
+                        <div className='spell-top__variant-spinner'></div>
+                    )}
+                    <img src={iconPath}/>  
+                </div>
+
+            </div>
+            <div className='spell-top__title-side'>
+                <div className='spell-top__title__wrapper'>
+                    <div className='spell-top__title'>{ DisplayName != null? DisplayName : Name }</div>
+                </div>
+                { showTopStats === true && <SpellTopStats tags={{...obj, A: A == null? obj.A : A}}/>}
+            </div>
+        </div>
+    )
+}
 
 
 export default function Spell({ children, spell, style, hasIcon, hasCopyButton=true, showTopStats=true }) {
@@ -170,39 +224,15 @@ export default function Spell({ children, spell, style, hasIcon, hasCopyButton=t
             spellPassiveOrActiveClass,
             { 'spell--with-variants': hasVariants === true }
         )}>
-            <div className="spell__border"></div>
-            <div className="spell__background"></div>
+            <SpellBorder/>
+            <SpellBackground/>
             <div className='spell__box'> {/* This has CSS to be perfectly in the bounds of the borders and banner */}
-                { hasIcon? (
-                    <div className='spell-top'>
-                        <div className='spell-top__icon-side'>
-                            { hasVariants === true && (
-                                <div className='spell-top__variant-counter' onClick={onIconClick}>
-                                    {variantIndex + 1}/{Variants.length}
-                                </div>
-                            )}
-                            <img src={iconPath}/>
-                        </div>
-                        <div className='spell-top__title-side'>
-                            <div className='spell-top__title__wrapper'>
-                                <div className='spell-top__title'>{ DisplayName != null? DisplayName : Name }</div>
-                            </div>
-                            { showTopStats === true && <SpellTopStats tags={{...spell, A}}/>}
-                        </div>
-                    </div>
-                ) : (
-                    <div className='spell-top'>
-                        <div style={{width: '100%'}}>
-                            <div className='spell-top--iconless__title-wrapper'>
-                                <div className='spell-top--iconless__title'>{ Name }</div>
-                            </div>
-                            <div style={{width: '70%', margin: 'auto'}}>
-                                { showTopStats === true && <SpellTopStats tags={{...spell, A}} className="spell-top__stats--no-padding-side"/>}
-                            </div>
-                        </div>
-                    </div>
-                    
-                )}
+                <SpellTop
+                    hasVariants={hasVariants} variantIndex={variantIndex} Variants={Variants}
+                    onIconClick={onIconClick} iconPath={iconPath} hasIcon={hasIcon}
+                    DisplayName={DisplayName} Name={Name} showTopStats={showTopStats}
+                    A={A} spell={spell}
+                />
                 
                 <Separator hasNoMarginTop={true}/>
                 <div className='spell-description'>

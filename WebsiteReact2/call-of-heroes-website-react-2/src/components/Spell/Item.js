@@ -5,14 +5,14 @@ import Separator from './../Separator/Separator'
 import React, { useEffect, useState } from 'react'
 import Icon from '../Icon'
 import { insertBetweenAll, ifOk, stringReplaceAllMany, mapObject, parseTextWithSymbols, getUniqueSpellID, normalizeForEachVariantsToNormalVariants, spellsFromObject, findBasicSpellByName, getSpellIconPathByName, getItemIconPathByName } from '../../utils'
-import Spell, { SpellTopStats } from './Spell'
+import Spell, { SpellBackground, SpellBorder, SpellTop, SpellTopStats } from './Spell'
 import html2canvas from 'html2canvas'
 import CopySpellButton from '../CopyButton/CopySpellButton'
 import classNames from 'classnames'
 
 window.html2canvas = html2canvas
 
-export default function Item({ item }) {
+export default function Item({ item, style, hasIcon, hasCopyButton=true, showTopStats=true }) {
 
     const [variantIndex, setVariantIndex] = useState(0)
 
@@ -123,25 +123,17 @@ export default function Item({ item }) {
 
     return (
         <div id={uniqueID} className={classNames('spell', {'spell--with-variants': hasVariants === true})}>
-            <div className="spell__border"></div>
-            <div className="spell__background"></div>
+            <SpellBorder/>
+            <SpellBackground/>
             <div className='spell__box'> {/* This has CSS to be perfectly in the bounds of the borders and banner */}
-                <div className='spell-top'>
-                    <div className='spell-top__icon-side'>
-                        { hasVariants === true && (
-                            <div className='spell-top__variant-counter' onClick={onIconClick}>
-                                {variantIndex + 1}/{Variants.length}
-                            </div>
-                        )}
-                        <img src={iconPath}/>
-                    </div>
-                    <div className='spell-top__title-side'>
-                        <div className='spell-top__title__wrapper'>
-                            <div className='spell-top__title'>{DisplayName}</div>
-                        </div>
-                        <SpellTopStats tags={item}/>
-                    </div>
-                </div>
+                
+                <SpellTop
+                    hasVariants={hasVariants} Variants={Variants} variantIndex={variantIndex}
+                    onIconClick={onIconClick} iconPath={iconPath} hasIcon={true}
+                    DisplayName={DisplayName} Name={Name} showTopStats={showTopStats}
+                    A={A} item={item}
+                />
+
                 <Separator hasNoMarginTop={true}/>
                 { descriptionElements != null && (
                     <div className='spell-description'>

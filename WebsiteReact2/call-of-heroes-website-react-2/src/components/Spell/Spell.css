@@ -16,6 +16,16 @@
     --subspell-size-multiplier: 0.85;
     
     --spell-notes-color: #999999;
+
+    --z-background: 20;
+    --z-border: 60;
+    --z-box: 80;
+    --z-title: 100;
+    --z-icon-side: 120;
+    --z-variant-spinner: 130;
+    --z-icon: 140;
+    --z-variant-counter: 150;
+
 }
 @media (max-width: 1366px) {
     :root {
@@ -64,7 +74,7 @@
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    z-index: 60;
+    z-index: var(--z-border);
 }
 .spell--subspell .spell__border {
     border-width: calc(var(--spell-border-width) / 3 * 2);
@@ -73,7 +83,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    z-index: 20;
+    z-index: var(--z-background);
     background-color: white;
     
 }
@@ -87,7 +97,7 @@
     padding-top: calc(var(--spell-banner-height) + var(--spell-padding-small));
     padding-left: var(--spell-padding-small);
     padding-right: var(--spell-padding-small);
-    z-index: 80;
+    z-index: var(--z-box);
 }
 
 
@@ -101,13 +111,57 @@
     position: relative;
     padding: var(--spell-padding);
     padding-right: 0px;
-    z-index: 120;
+    z-index: var(--z-icon-side);
 }
 .spell-top__icon-side img {
-    width: var(--spell-icon-size);
+    width: 100%;
+    position: relative;
+    z-index: var(--z-icon);
+}
+.spell-top__icon-side > img {
+    width: calc(var(--spell-icon-size));
     padding: 1px;
+    position: relative;
+    z-index: var(--z-icon);
     border: solid black 1px;
 }
+.spell-top__icon-wrapper {
+    width: var(--spell-icon-size);
+    height: var(--spell-icon-size);
+    padding: 1px;
+    border: solid black 1px;
+    overflow: hidden;
+    position: relative;
+}
+.spell-top__variant-spinner {
+    position: absolute;
+    width: calc(var(--spell-icon-size) * 2);
+    height: calc(var(--spell-icon-size) * 2);
+    left: calc(var(--spell-icon-size) * -0.5);
+    top: calc(var(--spell-icon-size) * -0.5);
+    z-index: var(--z-variant-spinner);
+
+    background-image: conic-gradient(
+        rgb(0, 174, 255) 0%,
+        #FFFFFF00 50%,
+        rgb(0, 174, 255) 50%,
+        #FFFFFF00 100%
+    );
+
+    animation-name: VariantSpinning;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+@keyframes VariantSpinning {
+    from {
+        transform: rotate(360deg);
+    }
+    to {
+        transform: rotate(0deg);
+    }
+}
+
 .spell--passive .spell-top__icon-side img {
     border-radius: 25%;
     padding: 2px;
@@ -126,8 +180,6 @@
 }
 .spell--with-variants .spell-top__icon-side img {
     padding: 1px;
-    border: solid black 3px;
-    animation: SpellIconBlinking 1.25s infinite;
 }
 .spell-top__variant-counter {
     font-family: var(--font-home);
@@ -141,6 +193,8 @@
     font-size: calc(0.35 * var(--spell-icon-size));
     text-align: center;
     line-height: var(--spell-icon-size);
+
+    z-index: var(--z-variant-counter);
 }
 .spell-top__variant-counter:hover {
     user-select: none;
@@ -158,7 +212,7 @@
     margin-top: calc(var(--spell-padding) + var(--spell-padding-small));
     display: inline-block;
     padding: 1px;
-    z-index: 100;
+    z-index: var(--z-title);
 }
 .spell--passive .spell-top__title__wrapper {
     margin-top: calc(var(--spell-passive-title-top-padding) + var(--spell-padding));
@@ -221,7 +275,7 @@
     margin: auto;
     margin-top: calc(var(--spell-padding) + var(--spell-padding-small));
     width: 70%;
-    z-index: 100;
+    z-index: var(--z-title);
 
     border: solid black 2px;
     padding: 1px;

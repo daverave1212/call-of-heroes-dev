@@ -109,7 +109,7 @@
                         "_Value": 1,
                         "A": "Passive",
                         "HasMixins": true,
-                        "Effect": "Your Intelligence increases by 1 (up to a maximum of 4) and you gain access to the Arcane and Mysticism Basic Ability Schools.\nWhenever you heal or deal Damage with a Spell, gain {Gold}Gold equal to the Damage done or amount healed.\n",
+                        "Effect": "Your Intelligence increases by 1 (up to a maximum of 4) and you gain access to the Arcane and Mysticism Basic Ability Schools.\nWhenever you heal or deal Damage with a Spell that cost Mana, gain {Gold}Gold equal to the Damage done or amount healed.\n",
                         "Notes": "You lose access to these Spells if you change this Talent."
                     },
                     "<Pocket Sand>": {
@@ -174,7 +174,7 @@
             "Description": "...LOREMIPSUM! <you died>",
             "Starting Abilities": {
                 "~Sudden Ambush~": {
-                    "_Value": 1,
+                    "_Value": 8,
                     "A": "Passive",
                     "HasMixins": true,
                     "Replacement": "Replaces Ambush",
@@ -195,17 +195,43 @@
                         "Effect": "On the first Round of combat, enemies with less than 3 Sense can't see you.\nAlso, you can always Break your Movement.\n",
                         "Upgrade": "Out of combat, you gain +2 on Checks for sneaking or hiding."
                     },
-                    "<Poison Master>": {
-                        "A": "1 hour",
-                        "Cost": "1 Mana",
-                        "Effect": "Using ingredients costing 35 Gold, you are able to create a few drops of Drinkable Poison.\nSomeone ingesting them takes 1d12 Poison Damage instantly.\nCombining multiple instances of Drinkable Poison increases its Damage by 1d12 for each Drinkable Poison combined.\nThe poison loses its effect after 72 hours.\n"
+                    "<Practice Makes Lethal>": {
+                        "_Value": 1.5,
+                        "A": "Passive",
+                        "Effect": "Whenever YOU kill a Worthy Enemy, gain a ^Practice Makes Lethal^ point, permanently.\nYour first Damaging Attack or Ability every Worthy Combat deals extra Damage equal to your ^Practice Makes Lethal^ points.\n"
                     },
                     "<Planned Assassination>": {
-                        "_Value": 0.35,
-                        "A": "1 minute",
-                        "Cost": "1 Mana",
-                        "Effect": "You plan an attack for 1 minute.\nYour next weapon attack on that target deals an extra 1d12 Damage.\nPlanned Assassination fails if your Line of Sight to the target is broken until you attack it.\n",
-                        "Notes": "The Mana is spent the moment you declare Planned Assassination. You can use plan assassinations on multiple targets, but you can't plan an assassination on a single target multiple times at the same time."
+                        "_Value": 3,
+                        "A": "Special",
+                        "Cooldown": "Once / Adventure",
+                        "Requirement": "Only usable out of Combat",
+                        "Effect": "Name a specific Epic Unit, or a non-Epic Unit type.\nNext Combat, your Ambushes deal +100% Damage against the named Unit or Unit Type.\n"
+                    },
+                    "<Critical Doubledown>": {
+                        "_Value": 1.5,
+                        "A": "Passive",
+                        "HasMixins": true,
+                        "Effect": "When you ^Critical Strike^, the ^Critical Strike^ effect happens twice.\nIf a weapon can't do a ^Critical Strike^, it also has the following effect:\n",
+                        "EffectGreen": "Critical Strike - If you rolled maximum on at least one die, deal +1 Damage if one-handed (+1d4 if two-handed).",
+                        "Upgrade": "Note that the additional (green) Critical Strike is also doubled!"
+                    },
+                    "<Blade Verge>": {
+                        "_Value": 2.5,
+                        "A": "Passive",
+                        "Effect": "Whenever YOU would leave an Enemy at 10% Health or below, it dies instead."
+                    },
+                    "<Isolation>": {
+                        "_Value": 1.5,
+                        "A": "Passive",
+                        "HasMixins": true,
+                        "Effect": "When attacking a Unit, if there is no other Unit near it, your Ambushes have their ^Dice Upgraded^ to the next die type.\n",
+                        "Notes": "{DiceUpgrade}"
+                    },
+                    "<Verve of the Blade>": {
+                        "_Value": 0.5,
+                        "HasMixins": true,
+                        "A": "Passive",
+                        "Effect": "Whenever you would deal Damage with Ambush, you can choose one of the rolled dice and, instead of dealing Damage with it, heal an ally you can see for that amount, or grant yourself that much Movement this turn (and you can ^break^ your Movement).\n"
                     }
                 },
                 "Level 5": {
@@ -227,18 +253,13 @@
                         "A": "0 Actions",
                         "Cooldown": "Once / Adventure",
                         "Effect": "Mark a Unit you can see.\nWhenever YOU deal Damage to it until your next turn, remember the Damage done.\nAt the start of your next turn, the mark bursts and the Unit takes directly 33% of the Damage you dealt to it in this time period.\n"
-                    },
-                    "<Poisoned Weapons>": {
-                        "_Value": 1.5,
-                        "HasMixins": true,
-                        "A": "10 minutes",
-                        "Cooldown": "8 hours",
-                        "Duration": "8 hours",
-                        "Effect": "Choose 2 weapons, and choose a different poison to apply for each:\n{Diamond} Deathly Venom: Deals 1d8 extra Damage to targets with more than 50% Health, and all the Damage type Poison Damage; then the target becomes immune to this poison for 1 minute.\n{Diamond} Scourge Toxin: The attack's target becomes Slowed and can't regain Health for 1 minute.\n{Diamond} Phosphorus Mix: The target can't benefit from Cover for 1 minute (and this attack ignores Cover).\n{Diamond} Weakening Poison: The target deals 1 less Damage on all Attacks\n",
-                        "Notes": "Remember to specify which weapon you are attacking with.\nRequires a Poisoner's Kit item, which can be bought for 100 gold on a black market.\nIf you're in a tight scenario, the QM might let you use monster blood or gather herbs for a 1-time use of this Ability.\nOnl Epic Monsters, Weakening Poison applies to their first turn every round only.\n"
                     }
                 },
                 "Level 7": {
+                    "<Ambushing Shadowpass>": {
+                        "A": "Passive",
+                        "Effect": "After you Shadowpass, your first Damaging Attack or Spell that turn applies Ambush."
+                    },
                     "<Savage Ambush>": {
                         "_Value": 3,
                         "A": "Passive",
