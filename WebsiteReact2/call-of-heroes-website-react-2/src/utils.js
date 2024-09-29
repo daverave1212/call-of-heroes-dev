@@ -640,7 +640,26 @@ export function capitalizeFirstLetter(str) {
 export function isLocalhost() {
     return window.location.href.includes('localhost')
 }
-
+export function createKey(values) {
+    return Array.from(values).map(value => value.substring(0, 10).split(' ').join('_')).join('-')
+}
+export function assert(cond, message) {
+    if (message == null) {
+        message = `condition given ${cond} is not true`
+    }
+    message = 'Assert error: ' + message
+    if (cond == null) {
+        throw 'Assert error: condition is null'
+    }
+    if (typeof cond === 'function') {
+        if (cond() != true) {
+            throw message
+        }
+    }
+    if (cond != true) {
+        throw message
+    }
+}
 
 
 

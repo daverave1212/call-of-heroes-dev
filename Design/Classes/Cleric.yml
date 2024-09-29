@@ -60,8 +60,7 @@ Starting Abilities:
     Effect: |
       Whenever you spend Mana, "cast Awe" on a Unit.
       This deals 1d4 Divine Damage to enemies or heals allies for 1d4.
-      Some other Cleric spells will "cast Awe" for free.
-    Notes: Ignores Cover.
+    Notes: Ignores Cover. Some other Cleric spells will "cast Awe" for free.
 
   ~Blessing~:
     _Value: 0.25
@@ -71,7 +70,6 @@ Starting Abilities:
     Effect: |
       Cast Awe on 2 Units and they become Blessed until the end of the next (or current) Combat.
       Blessed Allies have +1d4 to Checks made in Combat. Blessed Enemies have -1d4 to Checks made in Combat.
-    Upgrade: At Level 4, this affects 3 allies. At Level 8, this affects all allies within 5 meters.
     Notes: |
       You can bless yourself.
       Lasts until the end of the next combat encounter.
@@ -111,195 +109,38 @@ Specializations:
 # Talent: Cast Awe twice
 
 
+  ~Shielding Awe~:
+    A: Passive
+    Duration: Rest of the Adventure
+    Effect: |
+      If the Awe heal overflows the target's Max Health, the remainder is doubled and transformed into Shielding. This Shielding stacks.
+    Notes: If the target has 29 out of 30 Health and you roll 3 on Awe, the target will be at 30 Health, and the remainder Healing is 2. The target gains 4 Shielding.
+
+  ~Holy March~:
+    A: Passive
+    Effect: |
+      While outnumbered in Combat, you have +1 Defense.
+      While not, you have +2 Movement.
+
+  ~Grasping Blessing~:
+    _Value: 0.25
+    A: Half-Action
+    Cooldown: Once / Adventure
+    Duration: 1 combat
+    Replacement: Replaces Blessing
+    HasMixins: true
+    Effect: |
+      Cast Awe on 2 Units and they become Blessed until the end of the next (or current) Combat.
+      Blessed Allies have +1d4 to Checks made in Combat +and become immune to Crowd Control for 1 Turn.~. Blessed Enemies have -1d4 to Checks made in Combat ~and are Blinded for 1 Turn~.
+    Notes: |
+      You can bless yourself.
+      Lasts until the end of the next combat encounter.
+    AlignOnWebsite: Right
 
 Specs:
 
 
 
-  Battle Cleric:              # 2.75
-    Description: Battle clerics specialize in conditions of war. You must choose your side
-
-    # Heal
-
-    # Mobility              (Choice)
-    # Heal                  (Choice)
-
-    # CC Medium (Root)     (Talents 2)
-    # CC Medium (Cripple)
-    # Heal
-
-    # Damage                (Talents 4)
-    # Tanking
-    # Damage (AoE)
-
-    Starting Abilities:
-
-      ~Pledge of Battle~:
-        _Value: 2.5
-        A: Special
-        Duration: Lifetime
-        Effect: |
-          Ask a party member Player Character to join your cause and pledge their honor to you.
-          They gain the Awe passive Ability (e.g. whenever they use Mana for an Ability, they cast Awe).
-          They also gain access to the Divine Ability List.
-        Upgrades: |
-          There is one condition your ally must match - it can never have its Max Mana higher than yours (if it does, it becomes equal to yours).
-        Notes: |
-          You can only have one character who pledged for you and it must be within 100 meters to have access to all of those.
-          Their Awe is not improved by your Awe improvements, if you have any.
-
-    Choose your side: |
-        Battle Cleric!
-        Pick only one of the following two abilities!
-  
-    Abilities:
-
-      ~March Ahead~ :
-        _Value: 0.25
-        A: 0 Actions
-        Cooldown: Once / Combat
-        Effect: |
-          All allies and you ^instantly^ move 3 meters.
-          After casting this, you can Continue your Movement.
-        Notes: Units simply move, as normal, without consuming Movement.
-
-      ~Piety~ :
-        _Value: 0.25
-        A: Passive
-        Effect: Your pledged ally gains Spread the Awe.
-  
-    Talents:
-      Level 3:
-      
-        <Eternal Bindings> :
-          _Value: 1
-          A: 0 Actions or Reaction
-          Cooldown: Once / Adventure
-          Effect: |
-            A Unit within 3 meters makes a Sense Check.
-            If it fails, cast Awe on it.
-            It becomes magically bound to an object within 3 meters of it and can't willingly move more than 3 meters away from that object.
-            It rolls the Check again at the start end of their turn to escape the binding.
-            Lasts up to 1 minute.
-          OrderOnWebsite: 3
-            
-        <Heavy Burden> :
-          _Value: 1
-          A: 0 Actions
-          Cooldown: Once / Combat
-          Range: 3 meters
-          Effect: |
-            Pass a Sense Check against a Unit's Sense Check to make it Crippled.
-          OrderOnWebsite: 1
-              
-        <Repentance> :
-          _Value: 1
-          A: 0 Actions
-          Cost: 50% of your Max Health
-          Range: 1 meter (touch)
-          Effect: Heal another ally for 50% of its Max Health, then cast Awe on yourself.
-          Notes: |
-            You can't cast this if you are at or below 25% of your Max Health (rounded down).
-            If you are below 50% Health, you fall, but you are brought back due to Awe (with Exhaustion).
-          OrderOnWebsite: 2
-
-      Level 4:
-
-        <Stat Bonus 4>:
-          Effect: Gain +1 in a Stat of choice, up to +4.
-
-        <Double Stat Bonus>:
-          Effect: Gain +1 in a Stat of choice, up to +3, twice.
-
-      Level 5:
-        
-        <Exigent Concession>:  # About 2.5 Mana (~10 damage on average)
-          _Value: 2
-          A: 1 Action
-          Cooldown: Once / Adventure
-          Range: 5 meters
-          Effect: |
-              Roll 1d6 again and again until your roll 1.
-              Heal or deal Divine Damage equal to the sum of the dice rolled (including the 1).
-          OrderOnWebsite: 1
-                
-        <Shadow Realm>:
-          _Value: 2
-          A: 0 Actions
-          Cooldown: Once / Adventure
-          Effect: |
-              A Unit within 6 meters becomes trapped in a Shadow Realm with you for 2 rounds (this and the next).
-              Your offensive Acts against it cast Awe on it for free while inside the Shadow Realm.
-              Neither of you can interact with the outside world, but can feintly see it.
-              Units on the outside can faintly see the two of you, as if you were ghosts.
-          Notes: The Shadow Realm is a copy of the normal world, but with no other units.
-          OrderOnWebsite: 3
-        
-        <Holy Apex>:
-          _Value: 2.25
-          A: 1 Action
-          Cooldown: Once / Adventure
-          Range: 5 meters to edge
-          Effect: |
-              Declare a 6x6 meter area.
-              A giant spectral fist falls onto the ground, hitting all Units there except you for 2d10 + (Round Number d6's) Divine Damage.
-          Notes: E.g. on the first round of combat, this deals 2d10 + 1d6. Second round - 2d10 + 2d6. Third round - 2d10 + 3d6. And so on. Cover is applied from above if needed.
-          OrderOnWebsite: 2
-
-      Level 6:
-
-        <Stat Bonus 4>: Inherit
-        
-        <Double Stat Bonus>: Inherit
-
-      Level 7:
-
-        <War Mastery>:
-          _Value: 2
-          A: Passive
-          Cooldown: Once / Turn
-          Effect: Add your Sense to the first weapon attack you make every turn.
-
-        <Divine Doubledown>:
-          _Value: 2
-          A: Half-Action
-          Cooldown: Once / Adventure
-          Effect: Until the end of your next turn, increase all Divine Damage done by you and your party by 100% (doubled).
-          Notes: The increase stacks additively with other percent increases (e.g. 50% resistance + 100% increased Damage = 50% increased Damage).
-
-        <Hand of Obscurity>:
-          _Value: 2
-          A: Reaction
-          Cooldown: Once / Adventure
-          Effect: When an ally (or you) is attacked, cast Awe on them, make them Invisible until the end of their next turn and they take no damage from that attack.
-  
-      Level 8:
-
-        <Stat Bonus 5>:
-          Effect: Gain +1 in a Stat of choice, up to +5.
-        
-        <Mana Bonus>:
-          Effect: Gain +1 Max Mana and +1 Known Ability.
-
-      Level 9:
-
-        <Pledge of Another>:
-          _Value: 3
-          A: Passive
-          Effect: |
-            One more Player Character to pledge to you. They also gain the effects of Pledge of Battle.
-
-        <Heaviness of Words>:
-          _Value: 3
-          A: Passive
-          HasMixins: true
-          Effect: Your _offensive_ and healing Abilities that cost Mana cast Awe once more for each Mana spent.
-          Notes: "{Offensive Abilities}"
-
-        <Heartstopping Awe>:  # 4.5 (4 CC = 4 + 2d4)
-          _Value: 4.5
-          A: Passive
-          Effect: You can cast Spread the Awe once more per Adventure, and the target(s) must succeed a Sense Check against double your Sense or be Crippled and Silenced.
 
   Light Cleric:               # 2.25
     
@@ -319,58 +160,60 @@ Specs:
     Description: As a cleric, you become a devotee of darkness or/and light.
     Starting Abilities:
     
-      ~Grasping Awe~:
-        _Value: 1
+      ~Vested Awe~:
+        _Value: 3
         A: Passive
         Range: 5 meters
         HasMixins: true
         Replacement: Replaces Awe
         Effect: |
           Whenever you spend Mana, "cast Awe" on a Unit.
-          This deals 1d4 Divine Damage to enemies ~and makes them Fumbling~ or heals allies for 1d4 ~and makes their next attack ignore Cover~.
-          Some other Cleric spells will "cast Awe" for free.
-        Notes: Ignores Cover.
+          This deals 1d4 Divine Damage to enemies or heals allies for 1d4.
+          ~If you roll maximum on the Awe die, increase it by 50%.~
+        Notes: Ignores Cover. Some other Cleric spells will "cast Awe" for free.
 
     Choose your side: Beacon Cleric!\nPick only one of the following two abilities!
   
     Abilities:
     
-      ~Radiance~ :
+      ~Illumination~ :
         _Value: 1.25
         A: Passive
         Effect: |
-          At all times, you radiate light in a 3 meter radius.
-          You can turn this on and off at will.
-          You are immune to being Blinded.
-          If you have full health, Awe Damage and healing is 1d6.
+          Awe Damage and healing is 1d6 if you are at full Health.
+          You radiate light in a 3 meter radius.
+        Notes: You can turn the light off at will.
       
       ~Twilight~ :
         _Value: 1.25
         A: Passive
         Effect: |
-          You can see in normal darkness up to 10 meters away.
-          You are immune to being Feared.
-          Awe Damage and healing is increased to 1d6 on targets at or below 50% Health.
+          Awe Damage and healing is 1d6 on targets at or below 50% Health.
+          You can see normally in the dark up to 5 meters away.
       
     Talents:
       Level 3:
-      
-        <Let There Be Light> :
-          _Value: 0.75
+
+        ~Let There Be Light~:
           A: Passive
-          Effect: While in daylight and not in combat, the healing done by Awe is doubled.
-          # Effect: While not in darkness, when you heal with Awe, half of the healing also heals the target's Reserve Health. [Health Regen Retcon]
-          Notes: Half rounded down.
+          Effect: Awe now hits all Units in a 2x2 area, but can't heal yourself.
         
         <Let There Be Darkness> :
           _Value: 0.75
           A: Passive
           HasMixins: true
           Effect: |
-            While in darkness, your damaging Awe has its ^Dice Upgraded^ to the next die type.
+            While standing in darkness or dim light, your damaging Awe has its ^Dice Upgraded^ to the next die type and your attacks ignore Cover.
           Notes: "{DiceUpgrade}. It is up to the Quest Master what is considered darkness."
 
-        <Repentance> : Inherit from Cleric
+        <Aspect>:
+          A: 0 Actions
+          Cooldown: Once / Adventure
+          HasMixins: true
+          Effect: |
+            You take on a shadowy or illuminated appearance for the rest of the combat. Choose one:
+            {Diamond} Awe deals Scourge Damage. After you cast Awe, all your future Awe's deal +1 Damage. You may not heal (with anything).
+            {Diamond} After you heal someone, all your future heals heal for +1.
 
       Level 4:
 
@@ -401,8 +244,8 @@ Specs:
           Cooldown: Once / Adventure
           Range: 6 meters to edge
           Effect: |
-            Declare a 4x4 area within 6 meters.
-            Now, and at the start of your next turn, cast Awe on all Units inside the area.
+            Declare a 4x4 meter area. Cast Awe on all Units inside the area.
+            After casting Awe 3 times, reset the Cooldown of this Ability (except Awes from this Ability).
           OrderOnWebsite: 1
                 
         <Black Hole>:
@@ -428,11 +271,11 @@ Specs:
         <Maiming Dark>:
           _Value: 2.25
           A: 0 Actions
-          Cooldown: Once / Adventure
+          Cooldown: Once / Combat
           Range: 5 meters
           Effect: |
             Stun a Unit and Daze another willing ally (not you). Then cast Awe on each.
-            These Units' Passive Abilities are disabled while Stunned.
+            These Units' Passive Abilities are disabled while affected.
 
         <Healing Doubledown>:
           _Value: 3
@@ -471,6 +314,214 @@ Specs:
       #     A: ??
       #     Effect: ??
 
+  Battle Cleric:              # 2.75
+    Description: Battle clerics specialize in conditions of war. You must choose your side
+
+    # Heal
+
+    # Mobility              (Choice)
+    # Heal                  (Choice)
+
+    # CC Medium (Root)     (Talents 2)
+    # CC Medium (Cripple)
+    # Heal
+
+    # Damage                (Talents 4)
+    # Tanking
+    # Damage (AoE)
+
+    Starting Abilities:
+
+      ~Pledge of Battle~:
+        _Value: 2.5
+        A: Special
+        Duration: Lifetime
+        Effect: |
+          Ask a party member Player Character to join your cause and pledge their honor to you.
+          They gain the Awe passive Ability (e.g. whenever they use Mana for an Ability, they cast Awe).
+          They also gain access to the Divine Ability List.
+        Upgrades: |
+          There is one condition your ally must match - it can never have its Max Mana higher than yours (if it does, it becomes equal to yours).
+        Notes: |
+          You can only have one character who pledged for you and it must be within 100 meters to have access to all of those.
+          Their Awe is not improved by your Awe improvements, if you have any.
+
+
+
+    Choose your side: |
+        Battle Cleric!
+        Pick only one of the following two abilities!
+  
+    Abilities:
+
+      <Tenets of a Cleric>:
+        A: Passive
+        Effect: |
+          While you have even Mana, you have +1 Movement.
+          While you have odd Mana, your weapon attacks deal +1 Damage (or +2 if 2-Handed).
+
+      ~Blessing of the Forge~:
+        _Value: 1
+        A: Half-Action
+        Cooldown: Once / Adventure
+        HasMixins: true
+        Replacement: Replaces Blessing
+        Effect: |
+          Cast Awe on 2 Units and they become Blessed ~forever~.
+          Blessed Allies have +1d4 to Checks made in Combat ~and +1 Maximum Health and +1 Initiative~. Blessed Enemies have -1d4 to Checks made in Combat.
+          ~The extra Max Health and Initiative may stack indefinitely.~
+        Notes: |
+          You can bless yourself.
+          Lasts until the end of the next combat encounter.
+  
+    Talents:
+      Level 3:
+      
+        <Hammer of Penance>:
+          _Value: 1.75
+          A: Passive
+          Effect: |
+            After the first enemy is killed every Worthy Combat, your next attack pushes the non-Epic target up to 10 meters away from you.
+            It takes 1d12 Damage if it collides with something.
+            
+        <Heavy Burden> :
+          _Value: 1
+          A: Passive
+          Effect: |
+            After a Unit is hit by Awe 3 times, it becomes Crippled.
+          OrderOnWebsite: 1
+
+        ~Anointing Awe~:
+          _Value: 1
+          A: Passive
+          Range: 5 meters
+          HasMixins: true
+          Replacement: Replaces Awe
+          Effect: |
+            Whenever you spend Mana, "cast Awe" on a Unit.
+            This deals 1d4 Divine Damage to enemies or heals allies for 1d4 ~and gives their next attack 10% extra Damage (minimum 1), and reduces the Damage next time they take Damage by 10% (minimum 1) (may stack multiple times additively).~
+          Notes: Ignores Cover. Some other Cleric spells will "cast Awe" for free.
+
+              
+        # <Repentance> :
+        #   _Value: 1
+        #   A: 0 Actions
+        #   Cost: 50% of your Max Health
+        #   Range: 1 meter (touch)
+        #   Effect: Heal another ally for 50% of its Max Health, then cast Awe on yourself.
+        #   Notes: |
+        #     You can't cast this if you are at or below 25% of your Max Health (rounded down).
+        #     If you are below 50% Health, you fall, but you are brought back due to Awe (with Exhaustion).
+        #   OrderOnWebsite: 2
+
+      Level 4:
+
+        <Stat Bonus 4>:
+          Effect: Gain +1 in a Stat of choice, up to +4.
+
+        <Double Stat Bonus>:
+          Effect: Gain +1 in a Stat of choice, up to +3, twice.
+
+      Level 5:
+        
+        <Exigent Concession>:  # About 2.5 Mana (~10 damage on average)
+          _Value: 2
+          A: 1 Action
+          Cooldown: Once / Adventure
+          Range: 5 meters
+          Effect: |
+              Roll 1d6 again and again until your roll 1.
+              Heal or deal Divine Damage equal to the sum of the dice rolled (including the 1).
+          OrderOnWebsite: 1
+        
+        <Domain Missionary>:
+          _Value: 3
+          A: Passive
+          Effect: |
+            When you get this Talent, choose an extra Ability School to Know Spells from and choose an element (Fire, Cold, Shock, Pulse or Scourge).
+            After you spend 5 Mana on Abilities with that damaging element, increase your or your Pledgee's Max (and current) Health or Health Regen by 10% (instantly).
+          Note: Take note of whenever you spend Mana on such Abilities. The increase is instant, and every time it increases multiplicatively, but does not include Max Health/Health Regen from items or temporary buffs.
+
+        <Shadow Realm>:
+          _Value: 2
+          A: 0 Actions
+          Cooldown: Once / Adventure
+          Effect: |
+              A Unit within 6 meters becomes trapped in a Shadow Realm with you for 2 rounds (this and the next).
+              Your offensive Acts against it cast Awe on it for free while inside the Shadow Realm.
+              Neither of you can interact with the outside world, but can feintly see it.
+              Units on the outside can faintly see the two of you, as if you were ghosts.
+          Notes: The Shadow Realm is a copy of the normal world, but with no other units.
+          OrderOnWebsite: 3
+        
+        <Holy Apex>:
+          _Value: 2.25
+          A: 1 Action
+          Cooldown: Once / Adventure
+          Range: 5 meters to edge
+          Effect: |
+              Declare a 6x6 meter area.
+              A giant spectral fist falls onto the ground, hitting all Units there except you for 2d10 + (Round Number d6's) Divine Damage.
+          Notes: E.g. on the first round of combat, this deals 2d10 + 1d6. Second round - 2d10 + 2d6. Third round - 2d10 + 3d6. And so on. Cover is applied from above if needed.
+          OrderOnWebsite: 2
+
+      Level 6:
+
+        <Stat Bonus 4>: Inherit
+        
+        <Double Stat Bonus>: Inherit
+
+      Level 7:
+
+        <War Mastery>:
+          _Value: 2
+          A: Passive
+          Cooldown: Once / Turn
+          Effect: The first time you make a weapon attack every turn, cast Awe.
+
+        <Divine Doubledown>:
+          _Value: 2
+          A: Half-Action
+          Cooldown: Once / Adventure
+          Effect: Until the end of your next turn, increase all Divine Damage done by you and your party by 100% (doubled).
+          Notes: The increase stacks additively with other percent increases (e.g. 50% resistance + 100% increased Damage = 50% increased Damage).
+
+        <Hand of Obscurity>:
+          _Value: 2
+          A: Reaction
+          Cooldown: Once / Adventure
+          Effect: When an ally (or you) is attacked, cast Awe on them, make them Invisible until the end of their next turn and they take no damage from that attack.
+  
+        <Pledge of Another>:
+          _Value: 3
+          A: Passive
+          Effect: |
+            One more Player Character to pledge to you. They also gain the effects of Pledge of Battle.
+
+
+      Level 8:
+
+        <Stat Bonus 5>:
+          Effect: Gain +1 in a Stat of choice, up to +5.
+        
+        <Mana Bonus>:
+          Effect: Gain +1 Max Mana and +1 Known Ability.
+
+      Level 9:
+
+        <Heaviness of Words>:
+          _Value: 3
+          A: Passive
+          HasMixins: true
+          Effect: Your _offensive_ and healing Abilities that cost Mana cast Awe once more for each Mana spent.
+          Notes: "{Offensive Abilities}"
+
+        <Heartstopping Awe>:  # 4.5 (4 CC = 4 + 2d4)
+          _Value: 4.5
+          A: Passive
+          Effect: You can cast Spread the Awe once more per Adventure, and the target(s) must succeed a Sense Check against double your Sense or be Crippled and Silenced.
+
+
   Life Cleric:                # 2 (because of the Mana decrease; would've been more like 3 usually)
     # Pet
 
@@ -493,14 +544,11 @@ Specs:
         _Value: 1
         A: Special
         Effect: |
-          You have another Unit beside you, your companion.
-          Your companion draws power from your own spirit: it shares the same Health pool with you (e.g. whenever one of you takes Damage, the other one takes it as well). It also always has the same Defense and Checks as you, and has Speed equal to your base Speed.
-          Your companion has a 1-Handed Melee weapon. On its turn, it has a Half-Action which it can use to attack for 1d6 Damage without any Stat modifiers, regardless of the weapon's real Damage. It does, however, apply weapon effects, if any.
-          It takes its turn at the same time as you.          
-        Downside: Your Max Mana decreases by 2.
+          You have another Unit beside you that you control which is essentially another Player Character.
+          Your companion is built like a normal Level 1 Player Character, but all its stats are decreased by 1, starts with no separate Gold and can not gain Feats.
+          It always has the same initiative as you and Levels Up only when you Level Up.
+        Upgrade: For the Quest Masters, your companion counts as a normal Player Character for encounter Experience!
         Notes: |
-          Instead of attacking, your minion can do the equivalent of a Half-Action for non-combat uses, like using a potion, throwing a rope, reloading a weapon, etc, but not using a scroll. It can also use Sprint.
-          If both of you take Damage at the same time (e.g. from an AoE effect), the Damage taken is equal to the average of the Damages taken.
           Come up with a story about why you have your companion and why your god allowed this or gave them to you.
 
     Choose your side: Life Cleric!\nPick only one of the following two abilities!
@@ -512,77 +560,64 @@ Specs:
         HasMixins: true
         A: Special
         Effect: |
-          Your companion is an alive being. It can either be a sentient person of any race (without affecting its stats) or an animal.
-          Choose two of the following boons. Your companion will have them forever.
-        DoubleTableNumbered:
-          Headers:
-            - Boon
-            - Effect
-          Values:
-            - Sentience
-            - Your companion is sentient and intelligent, and gains the Mana Tap Ability from the Elf Race
-            - Largeness
-            - Your companion is Large and starts every combat with Shielding equal to your Level (lasts until the end of the combat)
-            - Mounting
-            - You can ride your companion without penalties as a mount, and it has +2 Speed and ignores Hard Terrain
-            - Spell Attacks
-            - Your companion's attacks now have 5 meter range and deal Divine Damage, regardless of the weapon type
-            - Opportunity Attacks
-            - When an enemy exists companion's melee attack range, it can make an attack on it with its Reaction
-        Notes: |
-          While riding your companion, it can still attack, but mounting and dismounting takes either a Half-Action or all of your own total Movement.
-          Note that the Shielding (if you choose it) is on your companion, not on you; it absorbs Damage only if your companion takes it. If you're both hit at the same time, the Shielding applies.
-      
+          Your companion is an alive being. It can be a sentient person of any race, except Hollow.
+          This companion's soul is tied to yours and viceversa - when one of you dies, the other dies as well.
+          Both of you gain +3 Health Regen.
+
       ~True Necromancy~:
         _Value: 1
         HasMixins: true
         A: Special
         Effect: |
-          Your companion is an undead. It can either be a sentient undead person of any race (without affecting its stats) or an abstract undead creature.
-          Choose two of the following boons. Your companion will have them forever.
-        DoubleTableNumbered:
-          Headers:
-            - Boon
-            - Effect
-          Values:
-            - Largeness
-            - Your companion is Large and starts every combat with Shielding equal to your Level (lasts until the end of the combat)
-            - Ghostly
-            - Your companion takes -50% Slashing and Scourge Damage 
-            - Sweeping
-            - Instead of attacking, your Companion can just do 3 Damage (of its weapon type) to all Units within 2 meters of it
-            - Death Burst
-            - For 0 Actions, you can sacrifice your companion to cast Awe on all Units within 5 meters of it (this has a Once / Adventure). Your Companion stays dead for the rest of the Adventure.
-            - Corpsewalk
-            - Once per turn, when your companion walks over a corpse, cast Awe on an enemy within 1 meter of your companion and the corpse is destroyed.
-        Notes: |
-          Note that the Shielding (if you choose it) is on your companion, not on you; it absorbs Damage only if your companion takes it. If you're both hit at the same time, the Shielding applies.
+          Your companion is an undead. It can be a sentient undead person of any race (without affecting its stats) or an abstract undead creature using any race's Abilities.
+          This companion's life depends on yours - when you die, your companion dies as well.
+          Your companion takes -50% Slashing and Scourge Damage.
+        Notes: If your companion dies, you can spend 1 week to "revive" someone else as your new companion.
 
-      ~Renounce~:
-        _Value: 0
-        A: Passive
-        Effect: You renounce your companion, and effectively disable them. Your Max Health increases by 4. You no longer lose the Max Mana, and all upcoming Talents that affect your companion affect you instead.
+      ~Guardian Angel~:
+        _Value: 1
+        A: Special
+        Effect: |
+          Your companion is an otherworldly celestial in material form. It can be a sentient person of any race, or an abstrat celestial creature using any race's Abilities.
+          Your life is tied to your companion's - when it dies, you die.
+          You share the your Health pool with your companion (it does not have separate separate Health). If it goes more than 10 meters away from you, it is teleported near you immediately.
+          You gain +10 Maximum Health.
 
     Talents:
       Level 3:
 
-        <Awe For Corpses>:
-          _Value: 2
-          _ValueComment: Lmao no idea
-          A: Passive
-          Duration: Zombies last 1 minute
-          Effect: |
-            If there are any nearby corpses, your Awe raises a zombie from it instead of "casting Awe".
-            Zombies have 1 Health and 0 Defense, 3 Speed and they can use their Action to attack for 1d4 Damage (Slash, Smash or Pierce, your choice).
-            They take their turn on your turn.
-          Notes: Zombies have -1 in all Stats. When a Zombie dies, it becomes a corpse again.
-      
-        <Awe For Life>:
+        ~Awe For Corpses~:
           _Value: 1.5
-          A: 1 Action
+          A: Passive
+          Range: 5 meters
+          Duration: Zombies last 1 minute
+          Replacement: Replaces Awe
+          Effect: |
+            Whenever you spend Mana, "cast Awe" on a Unit.
+            This deals 1d4 Divine Damage to enemies or heals allies for 1d4.
+            ~However, if there is any nearby corpse within 5 meters when you would cast Awe, you instead raise a zombie to fight for you from that corpse.~
+            ~Zombies have 1 Health and 0 Defense, 4 Speed and they can use their Action to attack for 1d4 Damage. They take their turn on your turn.~
+          Notes: Ignores Cover. Some other Cleric spells will "cast Awe" for free. ~Zombies have -1 in all Stats. When a Zombie dies, it becomes a corpse again.~
+
+        <Divine Transposition>:
+          _Value: 1
+          A: Reaction
+          Cooldown: Once / Combat
+          Effect: Swap places with your companion, then cast Awe on both of you.
+
+        <Blessing of Life>:
+          _Value: 1.5
+          A: Half-Action
           Cooldown: Once / Adventure
-          Effect: Cast Awe once on each Worthy Unit within 10 meters of you.
-          Notes: Player Characters also are Worthy Units, but not their pets and summons.
+          HasMixins: true
+          Duration: 1 combat
+          Effect: |
+            Cast Awe ~twice~ and the target(s) becomes Blessed until the end of the next (or current) Combat.
+            Blessed Allies have +1d4 to Checks made in Combat ~and +1 to all Damage instances~. Blessed Enemies have -1d4 to Checks made in Combat ~and -1 to all Damage instances~.
+          Upgrade: On Epic Monsters, the -1 Damage only affects their first turn.
+          Notes: |
+            You can bless yourself.
+            Lasts until the end of the next combat encounter.
       
       Level 4:
 
@@ -597,16 +632,18 @@ Specs:
         <Ascendance>:
           _Value: 2
           A: Passive
+          HasMixins: true
           Effect: |
-            Your Awe die is increased by one Tier (e.g. from 1d4 to 1d6).
+            Your Awe has its ^Dice Upgraded^ to the next die type.
             You gain Wingspan (Cleric) and Penitence.
             You start every Adventure with one extra Inspiration Point.
+          Notes: "{DiceUpgrade}."
 
         ~Wingspan (Cleric)~:
           A: 0 Actions
           IsSubspell: true
           Cooldown: 1 hour
-          Effect: Quickly fly up to 3 meters.
+          Effect: Quickly fly up to 3 meters. If you're in Worthy Combat, also cast Awe.
 
         ~Penitence~:
           A: 0 Actions
@@ -618,6 +655,27 @@ Specs:
             Make a Check with any Stat against a Unit's Charisma Check.
             If you pass, it can't cast healing Spells, do Crowd Control or apply On-Roll Effects for 1 minute.
           Notes: Against Epic Monsters, it only last for 2 turns.
+        
+        ~Everlasting Sustenance~:
+          A: Passive
+          Effect: |
+            You stop the effects of aging on yourself and your companion.
+            Your companion Levels Up.
+
+        ~The Clerical Trinity~:
+          _Value: 1
+          A: Special
+          Effect: |
+            You have a third Unit beside you that you control, which is another Player Character.
+            Your companion is built like a normal Level 1 Player Character, but all its stats are decreased by 1, starts with no separate Gold and can not gain Feats.
+            It always has the same initiative as you and Levels Up only when you Level Up.
+
+            Apply the same "soul bond death" rules as your chosen Life Cleric Ability at Level 2, and apply the same bonuses to the Stats (or resistances).
+          Upgrade: |
+            For the Quest Masters, note that this companion also counts as a normal Player Character for encounter Experience!
+          Notes: |
+            Come up with a story about why you have your companion and why your god allowed this or gave them to you.
+            You should now have 3 characters of Levels 1, 3 and 5.
 
       Level 6:
 

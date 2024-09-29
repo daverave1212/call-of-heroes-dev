@@ -46,7 +46,7 @@ export function SideMenu({isAbsolute, highlightedSection, sections}) {
                     <div key={sectionName}>
                         <MenuTitle name={sectionName}/>
                         <ul className='side-menu-ul'>
-                            { sections[sectionName].map(subtitle => (<MenuSubtitle name={subtitle}/>)) }
+                            { sections[sectionName].map(subtitle => (<MenuSubtitle name={subtitle} key={subtitle}/>)) }
                         </ul>
                     </div>
                 )) }

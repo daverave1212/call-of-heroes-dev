@@ -88,13 +88,11 @@ import CustomAbility from './pages/Other/CustomAbility';
 import MagicItems from './pages/Other/MagicItems';
 import PatchNotes from './pages/Meta/PatchNotes';
 import CustomMonster from './pages/Other/CustomMonster';
-import RogueNEW from './pages/Classes/RogueNEW';
+import RogueB from './pages/Classes/RogueB';
 
 function App() {
 
-  const [appState, setAppState] = useState({
-    isSimple: getLocalStorageBool('isSimple')
-  })
+  const [appState, setAppState] = useState({})
 
 
   const navigate = useNavigate()
@@ -106,10 +104,6 @@ function App() {
       navigate(hackyPath)
     }
   })
-
-  // const isSimple = appState.isSimple
-  const isSimple = true
-  const setIsSimple = (newIsSimple) => setAppState({isSimple: newIsSimple})
 
   function WindowContent() {
     return (
@@ -179,7 +173,7 @@ function App() {
           <Route path="/Classes/Shaman" element={ <Shaman/> }/>
           <Route path="/Classes/Warlock" element={ <Warlock/> }/>
           <Route path="/Classes/Warrior" element={ <Warrior/> }/>
-          <Route path="/Classes/RogueNEW" element={ <RogueNEW/> }/>
+          <Route path="/Classes/RogueB" element={ <RogueB/> }/>
 
           <Route path="/Tools/TreasureGenerator" element={ <TreasureGenerator/> }/>
           <Route path="/Tools/DungeonGenerator" element={ <DungeonGenerator/> }/>
@@ -195,9 +189,9 @@ function App() {
   const MemoedWindowContent = memo(WindowContent) // This doesn't seem to work though
 
   return (
-    <div id="Window" className={`${appState.isSimple? '' : 'window--has-background'}`}>
+    <div id="Window">
 
-        <Nav isSimple={isSimple} setIsSimple={setIsSimple}/>
+        <Nav/>
 
         <AppStateContext.Provider value={[appState, setAppState]}>
           <MemoedWindowContent/>

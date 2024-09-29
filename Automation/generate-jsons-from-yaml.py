@@ -80,10 +80,10 @@ files_to_convert = [    # Order matters
     'Classes/Mage.yml',
     'Classes/Paladin.yml',
     'Classes/Rogue.yml',
+    'Classes/RogueB.yml',
     'Classes/Shaman.yml',
     'Classes/Warlock.yml',
     'Classes/Warrior.yml',
-    'Classes/RogueNEW.yml',
 
     'Races/Bertle.yml',
     'Races/Davel.yml',

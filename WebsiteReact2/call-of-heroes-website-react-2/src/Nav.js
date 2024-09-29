@@ -132,10 +132,7 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
         </ul>
       </div>
     )
-  }
-
-  console.log({areExpandedState})
-  
+  }  
   
   // Elements with 'subnav-title-portrait-only' are only visible in portrait mode
   // Each div has a class for its display, either portrait or LS (LandScape)
@@ -248,7 +245,7 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
     </div>)
 }
 
-export default function Nav({ isSimple, setIsSimple }) {
+export default function Nav() {
 
     const [isBurgerClicked, setIsBurgerClicked] = useState(false)
     const [navState, setNavState] = useState({ currentlyOpenSubnav: null })

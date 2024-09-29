@@ -476,7 +476,7 @@ Warfare:
         HasMixins: true
         Effect: If you did not use a ^weapon^ last Turn, after your first ^weapon^ attack this Turn, you can reroll all the dice (together) if you didn't like the result.
         Upgrade: Only works from the 2nd Round of combat on.
-        Notes: An Ability counts as using a ^weapon^ if the word ^weapon^ appears in its text. Can reroll attack bonuses like Smite, Cursewielder, etc. Only the final roll applies effects if any. Body parts count as weapons.
+        Notes: An Ability counts as using a ^weapon^ if the word ^weapon^ appears in its text. Can reroll attack bonuses like Smite, Cursewielder, etc. Only the final roll applies effects if any. Body parts in melee are considered weapons.
 
     ~Gladiator Grandeur~:
         A: 0 Actions
@@ -547,7 +547,7 @@ Warfare:
             Roll 2d8 for each Unit {Area}
             Assign 2 of the rolled d8's to each of those Units, and deal that much Damage Damage to it.
             ~Click on the Icon to select a preferred effect!~
-        Upgrade: The Ability is Whirlwind if a melee weapon is equipped, or High Noon if a ranged weapon is equipped.
+        Upgrade: The Ability is Whirlwind if a melee weapon is equipped, or Rain Death if a ranged weapon is equipped.
         Notes: |
             Each rolled die must be assigned to a Unit.
             The Damage type depends on the weapon currently equipped. Doesn't apply weapon effects (the weapon only matters for the Damage type).
@@ -555,9 +555,9 @@ Warfare:
             - Name: Whirlwind
               Area: within 3 meters of you (except you).
               IconName: Whirlwind
-            - Name: High Noon
+            - Name: Rain Death
               Area: in a chosen 5x5 meter area (5 meter range to the edge).
-              IconName: High Noon
+              IconName: Rain Death
 
     ~Assess Their Ranks~:   # Ok
         A: Half-Action
@@ -1964,15 +1964,16 @@ Mysticism:
         ~Hollow Touch~: Inherit
 
         ~Light~:
-            A: 1 Action
-            Range: 1 meter
-            Duration: Your Level hours
+            A: 0 Actions
+            Range: 3 meters
+            Duration: 30 real minutes
+            Cooldown: 30 real minutes
             Degree: Lesser
             Effect: |
-                Create a magical light bulb that sheds light in a 5 meters radius.
+                Create a magical light bulb that sheds light in a 3 meters radius.
                 It levitates and stays where you put it and can be moved by hand, or you can simply stick it to any solid object.
             Notes: |
-                Lasts up to Your Level hours, or until you cancel it or cast Light again, or is purposefully destroyed with an Attack.
+                You may cancel it with 0 Actions. It can be purposefully destroyed with an Attack.
                 You choose the color of the light.
                 The light is not strong enough to blind someone.
                 The bulb can't go through solid objects.
@@ -2496,8 +2497,6 @@ Divine:
 
     ~Light~: Inherit
 
-    ~Mending~: Inherit
-
     ~Solace Wave~:
         A: Half-Action
         Cost: 1 Mana
@@ -2505,7 +2504,7 @@ Divine:
         Degree: Minor
         Effect: |
             Heal an ally (or yourself) for 1d8 Health.
-            If they 50% or more Health before the heal, double the dice's result.
+            If they have 50% or more Health before the heal, double the dice's result.
 
     ~Smite~:            # It's weaker because Clerics and Paladins
         A: 0 Actions
@@ -2538,11 +2537,12 @@ Divine:
             At Level 8, also removes all curses and normal negative magical effects.
 
     ~Radiance~:
-        A: Half-Action
+        A: 0 Actions
         Cost: 1 Mana
         Requirement: Level 2
         Degree: Minor
         Effect: For 1 minute, at the end of your turn, all Units within 1 meter of you take 1d4 Divine Damage.
+        Notes: Can't stack multiple Radiances on the same Unit.
 
     ~Restful Soothing~:
         A: 1 hour
@@ -2550,7 +2550,7 @@ Divine:
         Requirement: Level 2
         Degree: Major
         Effect: Roll a number of d8's for each player character in your party (except yourself). Assign each rolled d8 to one player character, and heal them for their assigned die.
-        Note: You must be staying in place to channel this.
+        Notes: You must be staying in place to channel this and you must have the required Mana by the end of the 1 hour.
 
 
     # Level 3
@@ -2733,6 +2733,16 @@ Divine:
 
 Restricted Spells:
 
+    ~Read Subconscious~:
+        A: 0 Actions
+        Cooldown: Once / Turn
+        Requirement: Level 5
+        Effect: |
+            Take 10% of Max Health Damage and choose a Unit.
+            Pass a Sense Check against its Sense Check to understand what it's feeling right now and its intent.
+        Notes: This is a Mysticism Spell.
+
+
     ~Conceal Magic~:
         A: Passive
         Requirement: Level 4
@@ -2745,7 +2755,9 @@ Restricted Spells:
         Effect: |
             Send a message no longer than 5 seconds long to an ally, wherever it is. It can include images, sounds and smells. That ally knows they received a message from you.
         Upgrade: Requires you to be holding something physical from that ally, such as a piece of clothing, an object, a strand of hair, etc.
-        Notes: Sending might be impeded if sent to another plane/world.
+        Notes: |
+            Sending might be impeded if sent to another plane/world.
+            This is a Mysticism Spell.
 
     ~Scrying~:
         A: 10 minutes
@@ -2758,6 +2770,7 @@ Restricted Spells:
         Notes: |
             The Quest Master decides what visions you get - you might see that area from the past, or see only the landscape without the people. An area might also be blocked by anti-scrying magic.
             You only get one picture, one snapshot, one screenshot that is not moving.
+            This is a Mysticism Spell.
 
     ~Racial Transmutation~:
         A: 1 Day

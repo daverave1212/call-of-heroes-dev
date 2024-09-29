@@ -1,4 +1,5 @@
 
+import { assert } from '../../utils'
 import './TableNormal.css'
 import React from 'react'
 
@@ -20,7 +21,9 @@ export default function TableNormal({ children, columns, type, tableWrapperClass
             <div className={`table-normal-container ${hasBorder? '' : 'table-normal-container--no-border'}`}>
                 <div className='table-normal__header-row-container'>
                     <table className={tableTypeClass} cellSpacing="0"><tbody>
-                        <tr>{ columns.map((col, i) => ( <th key={i}>{ col }</th> )) }</tr>
+                        { columns != null && columns.length > 0 && (
+                            <tr>{ columns.map((col, i) => ( <th key={i}>{ col }</th> )) }</tr>
+                        ) }
                     </tbody></table>
                 </div>
 

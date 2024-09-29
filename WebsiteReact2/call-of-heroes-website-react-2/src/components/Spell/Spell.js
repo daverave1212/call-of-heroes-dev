@@ -3,7 +3,7 @@ import './Spell.css'
 import PageH2 from './../PageH2/PageH2'
 import Separator from './../Separator/Separator'
 import React, { useEffect, useRef, useState } from 'react'
-import { parseTextWithSymbols, stringReplaceAllMany, getSpellIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll, getVariantsForEachCollection, normalizeForEachVariantsToNormalVariants } from '../../utils'
+import { parseTextWithSymbols, stringReplaceAllMany, getSpellIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll, getVariantsForEachCollection, normalizeForEachVariantsToNormalVariants, createKey } from '../../utils'
 import TableNormal from '../TableNormal/TableNormal'
 import html2canvas from 'html2canvas'
 import CopySpellButton from '../CopyButton/CopySpellButton'
@@ -239,7 +239,7 @@ export default function Spell({ children, spell, style, hasIcon, hasCopyButton=t
                     { Effect }
                 </div>
                 { EffectGreen != null && (
-                    <span key="EffectGreen" style={{ color: 'rgb(0, 180, 0)' }}>{ EffectGreen }</span>
+                    <div className="spell-green" key="EffectGreen">{ EffectGreen }</div>
                 ) }
                 { Upgrade != null && (
                     <div className='spell-upgrade'>
@@ -254,7 +254,7 @@ export default function Spell({ children, spell, style, hasIcon, hasCopyButton=t
                 { (DoubleTable != null || DoubleTableNumbered != null) && (
                     <TableNormal columns={tableHeaders} hasBorder={false}>
                         { newTableValuePairs.map(pair => (
-                            <tr>
+                            <tr key={createKey([pair.value1, pair.value2])}>
                                 <td>{ pair.value1 }</td>
                                 <td>{ pair.value2 }</td>
                             </tr>

@@ -24,8 +24,6 @@ export default function Page({
     hasCopyButton
 }) {
 
-    isSecondaryPage = isSecondaryPage == null? false : true
-
     const [appState, setAppState] = useContext(AppStateContext)
     const [state, setState] = useState({ isExpanded: true })
 
@@ -36,13 +34,14 @@ export default function Page({
     }
 
     useEffect(() => {
-        if (! isSecondaryPage) {
+        if (isSecondaryPage != true && title != null) {
+            console.log(`Setting title to ${title}`)
             document.title = title
         }
     }, [title])
 
     return (
-        <div className={`page ${appState.isSimple? '' : 'page--has-background'} ${hasNoLimits == true? 'page--no-limits' : ''}`} id={id}>
+        <div className={`page ${hasNoLimits == true? 'page--no-limits' : ''}`} id={id}>
             { subtitle != null && (
                 <div>
                     <p className='page-subtitle'>

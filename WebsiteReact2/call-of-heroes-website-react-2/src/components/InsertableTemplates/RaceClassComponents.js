@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useState } from 'react'
 import YAML from 'yaml'
 
@@ -76,14 +76,15 @@ export function Proficiencies({ name, theRaceOrClass }) {
 }
 
 export function RaceHeader({imgStyle, theRace, theClass}) {
-    useRef(() => {
+    useEffect(() => {
+        console.log(`OOKKKK@@`)
         if (theRace != null) {
             document.title = theRace.Race
         }
         if (theClass != null) {
             document.title = theClass.Class
         }
-    }, [])
+    }, [theRace, theClass])
     const name = theRace != null? theRace.Race : theClass.Class
     const imagePath = theRace != null? `/Races/${theRace.Race}.png` : `/Classes/${theClass.Class}.png`
     const description = theRace != null? theRace.Description : theClass.Description
@@ -271,11 +272,6 @@ export function LevelingUp({ theClass }) {
                                             +2 <Icon name="HealthRegen"/>Health Regen
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            +1 Known Basic Ability
-                                        </td>
-                                    </tr>
                                 </TableNormal>
                 
                                 <p style={{whiteSpace: 'pre-wrap'}} className='margined-bottom'>{ rules['LevelUpBonusesDescription (Special Mana-based)'] }</p>
@@ -345,22 +341,6 @@ export function SpellCasting({ theClass }) {
                 <PageH3>Recommended Basic Abilities</PageH3>
                 <TwoColumns>
                     <Column className='with-margined-children'>
-                        {/* <SmallStatList name="Quick-Build Abilities" color="blue" contentStyle={{ width: '100%' }}>
-                            {
-                                theClass['Spellcasting']['Recommended Basic Abilities'].map(categoryNameKVP => {
-                                    const category = Object.keys(categoryNameKVP)[0]
-                                    const name = categoryNameKVP[category]
-                                    return (<div className='text-link-with-hover' key={name} onClick={() => {
-                                        const categoryObj = abilities[category]
-                                        const spellObj = U.spellFromObject(categoryObj, name)
-                                        console.log('ONE')
-                                        console.log({spellObj})
-                                        setDisplayedBasicAbilityObj(spellObj)
-                                        console.log({displayedBasicAbilityObj})
-                                    }}>{ name }</div>)
-                                })
-                            }
-                        </SmallStatList> */}
                         { displayedBasicAbilityObj != null && (
                             <Spell spell={displayedBasicAbilityObj}/>
                         ) }
@@ -442,7 +422,6 @@ export function PHealthAndArmor({ theClass }) {
 }
 
 export function Spec({ children, name, spec }) {
-    console.log({spec})
     return (
         <Page title={name} key={name} isSecondaryPage={true}>
             <p>{spec.Description}</p>
@@ -480,7 +459,6 @@ export function SpecTalents({ spec }) {
                 if (hasThisTier == false && isTalentTierForSmallBonuses) {
                     const abilitiesHereNames = defaultSmallBonusTalentsByTier[talentTier]
                     const abilitiesHere = abilitiesHereNames.map(name => U.spellWithName(name, classAndRaceAbilities[name]))
-                    console.log(abilitiesHere)
                     return <div>
                         <PageH3>{talentTierName}</PageH3>
                         <ManySpells spells={abilitiesHere}/>
