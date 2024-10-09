@@ -34,9 +34,11 @@ export default function Item({ item, style, hasIcon, hasCopyButton=true, showTop
         Requirement,
         Price,
         Damage,
+        Upgrade,
         Range,
 
         Effect,
+        EffectGreen,
         Description,
         Alternatives,
         Notes,
@@ -63,6 +65,8 @@ export default function Item({ item, style, hasIcon, hasCopyButton=true, showTop
         ]
         .filter(thing => thing != null && thing.length > 0)
         .join('\n\n')
+    console.log(`For item ${DisplayName} extra text is:`)
+    console.log({extraText})
 
     let extraMixins = {}
     if (hasVariants === true && VariantsForEach != null) {
@@ -135,14 +139,25 @@ export default function Item({ item, style, hasIcon, hasCopyButton=true, showTop
                 />
 
                 <Separator hasNoMarginTop={true}/>
-                { descriptionElements != null && (
+                { Damage == null? null : (
+                    <div key="Damage" className='spell-description' style={{paddingBottom: 'calc(var(--spell-padding-bottom) / 2)'}}><Icon name="Damage"/>{ Damage }</div>
+                )}
+                { Effect != null && (
                     <div className='spell-description'>
-                        { descriptionElements }
+                        { Effect }
                     </div>
                 )}
-                { extraText != null && extraText.length > 0 && (
+                { EffectGreen != null && (
+                    <div className="spell-green" key="EffectGreen">{ EffectGreen }</div>
+                ) }
+                { Upgrade != null && (
+                    <div className='spell-upgrade'>
+                        { Upgrade }
+                    </div>
+                ) }
+                { Notes != null && (
                     <div className='spell-notes'>
-                        { extraText }
+                        { Notes }
                     </div>
                 ) }
 

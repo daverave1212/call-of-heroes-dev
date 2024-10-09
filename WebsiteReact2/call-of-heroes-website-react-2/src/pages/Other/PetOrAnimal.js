@@ -24,7 +24,111 @@ import MonsterAbility from '../../components/MonsterAbility/MonsterAbility'
 import Spell from '../../components/Spell/Spell'
 
 
+export function PetOrAnimalTopSide({animal}) {
+    return (
+        <div>
+            { animal.Description != null? (
+                <p>{animal.Description}</p>
+            ) : (
+                <p>
+                    Lorem ipsum dolor sit amet.
+                    Aenean blandit metus nisi, non commodo tortor volutpat ut.
+                    Aenean suscipit, justo vitae faucibus viverra, lectus lacus laoreet ipsum, quis suscipit purus ex et tellus. Suspendisse congue libero sed molestie efficitur. Proin maximus sagittis nunc lacinia porttitor.
+                    Maecenas fermentum lacinia mi, a elementum nibh tristique at. In eget nisl nunc.
+                </p>
+            ) }
+            { animal.Alternatives && (
+                <div style={{color: 'gray', fontStyle: 'italic' }}>
+                    Alternatives: { animal.Alternatives }
+                    <br/>
+                    <br/>
+                    <br/>
+                </div>
+            ) }
+        </div>
+    )
+}
+export function PetOrAnimalStats({animal}) {
 
+    const animalStats    = U.getMonsterStatsAsObject(animal.Stats)
+    const statValueStyle = { textAlign: 'center' }
+    const statNameStyle  = { textAlign: 'center' }
+
+    return <div>
+        <div className='with-margined-children'>
+            <SmallStat nameStyle={statNameStyle} valueStyle={statValueStyle} name="Health">{animal.Health}<Icon name="Health" type="small-stat"/></SmallStat>
+            <SmallStat nameStyle={statNameStyle} valueStyle={statValueStyle} name="Defense">{animal.Defense}<Icon name="Defense" type="small-stat"/></SmallStat>
+            <SmallStat nameStyle={statNameStyle} valueStyle={statValueStyle} name="Speed">{animal.Speed}</SmallStat>
+            { animal.Initiative != null && (<SmallStat nameStyle={statNameStyle} valueStyle={statValueStyle} name="Initiative">{animal.Initiative}</SmallStat>) }
+        </div>
+
+        { animal.Druid != null && (
+            <SmallStat type="vertical" name="Druid Extras">{animal.Druid}</SmallStat>
+        ) }
+
+        <Separator/>
+        <div style={{display: 'flex', justifyContent: 'space-around', gap: '10px'}}>
+            { animalStats.map(nameValue => (
+                <SmallStat style={{width: '19%'}} contentStyle={{width: '100%', textAlign: 'center'}} name={nameValue.name} type="vertical" key={nameValue.name}>{nameValue.value}</SmallStat>
+            )) }
+        </div>
+        <Separator/>
+    </div>
+}
+export function PetOrAnimalAbilities({animal}) {
+    if (animal.Abilities == null) {
+        return <div></div>
+    }
+    console.log(animal.Abilities)
+    const abilities = U.spellsFromObject(animal.Abilities)
+    return <div>
+        { abilities.map(ability => (
+            <Spell spell={ability} hasIcon={false} hasBorder={false} key={ability.Name}/>
+        )) }
+    </div>
+}
+
+export function PetOrAnimalBlock({animal}) {
+
+    return (
+        <div className='monster'>
+            <TwoColumns type='lefty'>
+                <Column>
+                    <PetOrAnimalTopSide animal={animal}/>
+                </Column>
+                <Column>
+                    {}
+                </Column>
+            </TwoColumns>
+            <TwoColumns type='lefty'>
+                <Column>
+                    <PetOrAnimalStats animal={animal}/>
+                </Column>
+                <Column>
+                    {}
+                </Column>
+            </TwoColumns>
+            
+            <TwoColumns type='lefty'>
+                <Column>
+                    <PetOrAnimalAbilities animal={animal}/>
+                </Column>
+                <Column style={{position: 'relative'}}>
+
+                </Column>
+            </TwoColumns>
+        </div>
+    )
+}
+
+export function PetOrAnimalLeftOnly({animal}) {
+    return <div className='monster'>
+        <PageH2 style={{marginTop: '0px'}}>{ animal.Name }</PageH2>
+        { animal.Description != null && (<p>{ animal.Description }</p>)}
+        <PetOrAnimalStats animal={animal}/>
+        <PetOrAnimalAbilities animal={animal}/>
+    </div>
+}
 
 export default function PetOrAnimal() {
 
@@ -50,76 +154,9 @@ export default function PetOrAnimal() {
         )
     }
 
-    const animalStats    = U.getMonsterStatsAsObject(animal.Stats)
-    const statValueStyle = { textAlign: 'center' }
-    const statNameStyle  = { textAlign: 'center' }
-    const statOtherColor = 'rgb(55, 10, 85)'
-    const abilities      = U.spellsFromObject(animal.Abilities)
-    console.log({abilities})
-
     return (
         <Page title={animalName}>
-            <TwoColumns type='lefty'>
-                <Column>
-                { animal.Description != null? (
-                    <p>{animal.Description}</p>
-                ) : (
-                    <p>
-                        Lorem ipsum dolor sit amet.
-                        Aenean blandit metus nisi, non commodo tortor volutpat ut.
-                        Aenean suscipit, justo vitae faucibus viverra, lectus lacus laoreet ipsum, quis suscipit purus ex et tellus. Suspendisse congue libero sed molestie efficitur. Proin maximus sagittis nunc lacinia porttitor.
-                        Maecenas fermentum lacinia mi, a elementum nibh tristique at. In eget nisl nunc.
-                    </p>
-                ) }
-                { animal.Alternatives && (
-                    <div style={{color: 'gray', fontStyle: 'italic' }}>
-                        Alternatives: { animal.Alternatives }
-                        <br/>
-                        <br/>
-                        <br/>
-                    </div>
-                ) }
-                </Column>
-                <Column>
-                    {}
-                </Column>
-            </TwoColumns>
-            <TwoColumns type='lefty'>
-                <Column>
-                    <div className='with-margined-children'>
-                        <SmallStat nameStyle={statNameStyle} valueStyle={statValueStyle} name="Health">{animal.Health}<Icon name="Health" type="small-stat"/></SmallStat>
-                        <SmallStat nameStyle={statNameStyle} valueStyle={statValueStyle} name="Defense">{animal.Defense}<Icon name="Defense" type="small-stat"/></SmallStat>
-                        <SmallStat nameStyle={statNameStyle} valueStyle={statValueStyle} name="Speed">{animal.Speed}</SmallStat>
-                        { animal.Initiative != null && (<SmallStat nameStyle={statNameStyle} valueStyle={statValueStyle} name="Initiative">{animal.Initiative}</SmallStat>) }
-                    </div>
-
-                    { animal.Druid != null && (
-                        <SmallStat type="vertical" name="Druid Extras">{animal.Druid}</SmallStat>
-                    ) }
-
-                    <Separator/>
-                    <div style={{display: 'flex', justifyContent: 'space-around', gap: '10px'}}>
-                        { animalStats.map(nameValue => (
-                            <SmallStat style={{width: '19%'}} contentStyle={{width: '100%', textAlign: 'center'}} name={nameValue.name} type="vertical">{nameValue.value}</SmallStat>
-                        )) }
-                    </div>
-                    <Separator/>
-                </Column>
-                <Column>
-                    {}
-                </Column>
-            </TwoColumns>
-            
-            <TwoColumns type='lefty'>
-                <Column>
-                    { abilities.map(ability => (
-                        <Spell spell={ability} hasIcon={false}/>
-                    )) }
-                </Column>
-                <Column style={{position: 'relative'}}>
-
-                </Column>
-            </TwoColumns>
+            <PetOrAnimalBlock animal={animal}/>
         </Page>
     )
 }

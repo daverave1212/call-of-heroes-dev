@@ -25,7 +25,7 @@
             "Amount": 2,
             "Regain": "You regain all Mana back inbetween Adventures."
         },
-        "Known Basic Abilities": "2 + Intelligence (if above 0)",
+        "Known Basic Abilities": "2 + Intelligence (minimum 1)",
         "BaseKnownSpells": 2,
         "Basic Ability Lists": [
             "Mysticism",
@@ -75,13 +75,13 @@
         }
     },
     "Starting Abilities Description": "Clerics start with the Awe Spell.\nYour future Cleric Talents will <i>trigger</i> Awe casts for free.\n",
-    "Other Ability Mentions": "The first time you choose a cleric domain (specialization), you must choose between two abilities.\nFor example, for Battle Cleric, you have to choose either March Ahead or Piety.\nChoose wisely...\n",
+    "Other Ability Mentions": "The first time you choose a cleric domain (specialization), you must choose between two abilities.\nFor example, for Inquisitor, you have to choose either March Ahead or Piety.\nChoose wisely...\n",
     "Specializations": {
         "Description": "At Level 1, you can choose your specialization.",
         "Choices": [
-            "Battle Cleric, where you become devoted to either Peace or War (or both) and pursue either of those",
+            "Inquisitor, where you become devoted to either Peace or War (or both) and pursue either of those",
             "Beacon Cleric, a keeper of the light or darkness, whose power draws from flame or shadow...",
-            "Life Cleric, a balancer between life and death; your very fate hangs in this balance"
+            "Soulwright, a balancer between life and death; your very fate hangs in this balance"
         ],
         "~Shielding Awe~": {
             "A": "Passive",
@@ -92,10 +92,27 @@
         "~Holy March~": {
             "A": "Passive",
             "Effect": "While outnumbered in Combat, you have +1 Defense.\nWhile not, you have +2 Movement.\n"
+        },
+        "~Grasping Blessing~": {
+            "_Value": 0.25,
+            "A": "Half-Action",
+            "Cooldown": "Once / Adventure",
+            "Duration": "1 combat",
+            "Replacement": "Replaces Blessing",
+            "HasMixins": true,
+            "Effect": "Cast Awe on 2 Units and they become Blessed until the end of the next (or current) Combat.\nBlessed Allies have +1d4 to Checks made in Combat +and become immune to Crowd Control for 1 Turn.~. Blessed Enemies have -1d4 to Checks made in Combat ~and are Blinded for 1 Turn~.\n",
+            "Notes": "You can bless yourself.\nLasts until the end of the next combat encounter.\n",
+            "AlignOnWebsite": "Right"
+        },
+        "~Reaping~": {
+            "_Value": 2.6666,
+            "A": "Passive",
+            "Effect": "Whenever a Worthy Enemy dies in combat, gain 0.05 Max Mana.\nIf YOU killed that Worthy Enemy, gain 0.2 instead.\n",
+            "Notes": "You can't spend Mana in fractions (usually)."
         }
     },
     "Specs": {
-        "Light Cleric": {
+        "Herald": {
             "Description": "As a cleric, you become a devotee of darkness or/and light.",
             "Starting Abilities": {
                 "~Vested Awe~": {
@@ -110,13 +127,13 @@
             },
             "Choose your side": "Beacon Cleric!\\nPick only one of the following two abilities!",
             "Abilities": {
-                "~Illumination~": {
+                "~Herald of Radiance~": {
                     "_Value": 1.25,
                     "A": "Passive",
                     "Effect": "Awe Damage and healing is 1d6 if you are at full Health.\nYou radiate light in a 3 meter radius.\n",
                     "Notes": "You can turn the light off at will."
                 },
-                "~Twilight~": {
+                "~Herald of Twilight~": {
                     "_Value": 1.25,
                     "A": "Passive",
                     "Effect": "Awe Damage and healing is 1d6 on targets at or below 50% Health.\nYou can see normally in the dark up to 5 meters away.\n"
@@ -217,10 +234,10 @@
                 }
             }
         },
-        "Battle Cleric": {
-            "Description": "Battle clerics specialize in conditions of war. You must choose your side",
+        "Inquisitor": {
+            "Description": "Inquisitors specialize in battle, accusations and raw conviction. You must choose your side",
             "Starting Abilities": {
-                "~Pledge of Battle~": {
+                "~Join the Inquisition~": {
                     "_Value": 2.5,
                     "A": "Special",
                     "Duration": "Lifetime",
@@ -229,9 +246,9 @@
                     "Notes": "You can only have one character who pledged for you and it must be within 100 meters to have access to all of those.\nTheir Awe is not improved by your Awe improvements, if you have any.\n"
                 }
             },
-            "Choose your side": "Battle Cleric!\nPick only one of the following two abilities!\n",
+            "Choose your side": "Inquisitor!\nPick only one of the following two abilities!\n",
             "Abilities": {
-                "<Tenets of a Cleric>": {
+                "<Conviction>": {
                     "A": "Passive",
                     "Effect": "While you have even Mana, you have +1 Movement.\nWhile you have odd Mana, your weapon attacks deal +1 Damage (or +2 if 2-Handed).\n"
                 },
@@ -252,7 +269,7 @@
                         "A": "Passive",
                         "Effect": "After the first enemy is killed every Worthy Combat, your next attack pushes the non-Epic target up to 10 meters away from you.\nIt takes 1d12 Damage if it collides with something.\n"
                     },
-                    "<Heavy Burden>": {
+                    "<Chastise>": {
                         "_Value": 1,
                         "A": "Passive",
                         "Effect": "After a Unit is hit by Awe 3 times, it becomes Crippled.\n",
@@ -322,6 +339,7 @@
                         "_Value": 2,
                         "A": "Passive",
                         "Cooldown": "Once / Turn",
+                        "Requirement": "Only works in Worthy Combat",
                         "Effect": "The first time you make a weapon attack every turn, cast Awe."
                     },
                     "<Divine Doubledown>": {
@@ -353,11 +371,14 @@
                 },
                 "Level 9": {
                     "<Heaviness of Words>": {
-                        "_Value": 3,
+                        "_Value": 4,
                         "A": "Passive",
                         "HasMixins": true,
-                        "Effect": "Your _offensive_ and healing Abilities that cost Mana cast Awe once more for each Mana spent.",
-                        "Notes": "{Offensive Abilities}"
+                        "Effect": "Your Abilities that cost Mana cast Awe once more for each Mana spent. You have +1 Mana."
+                    },
+                    "<By My Will>": {
+                        "A": "Passive",
+                        "Effect": "Your pledgee(s) gain all your Inquisitor"
                     },
                     "<Heartstopping Awe>": {
                         "_Value": 4.5,
@@ -367,8 +388,8 @@
                 }
             }
         },
-        "Life Cleric": {
-            "Description": "You are a worshipper of life and/or death. Seek their balance, and seek balance within yourself.\\nYou have a Second Soul character, which is essentially another toned-down character you play.",
+        "Soulwright": {
+            "Description": "W Soulwright Cleric is one who worships the soul itself under the guidance of one or more chosen gods, and as such has the power to manipulate anima - the very essence of life.\\nYou have a Second Soul character, which is essentially another character you play.",
             "Starting Abilities": {
                 "~Second Soul~": {
                     "_Value": 1,
@@ -378,7 +399,7 @@
                     "Notes": "Come up with a story about why you have your companion and why your god allowed this or gave them to you.\n"
                 }
             },
-            "Choose your side": "Life Cleric!\\nPick only one of the following two abilities!",
+            "Choose your side": "Soulwright!\\nPick only one of the following two abilities!",
             "Abilities": {
                 "~Partner in Life~": {
                     "_Value": 1,
@@ -465,7 +486,7 @@
                     "~The Clerical Trinity~": {
                         "_Value": 1,
                         "A": "Special",
-                        "Effect": "You have a third Unit beside you that you control, which is another Player Character.\nYour companion is built like a normal Level 1 Player Character, but all its stats are decreased by 1, starts with no separate Gold and can not gain Feats.\nIt always has the same initiative as you and Levels Up only when you Level Up.\n\nApply the same \"soul bond death\" rules as your chosen Life Cleric Ability at Level 2, and apply the same bonuses to the Stats (or resistances).\n",
+                        "Effect": "You have a third Unit beside you that you control, which is another Player Character.\nYour companion is built like a normal Level 1 Player Character, but all its stats are decreased by 1, starts with no separate Gold and can not gain Feats.\nIt always has the same initiative as you and Levels Up only when you Level Up.\n\nApply the same \"soul bond death\" rules as your chosen Soulwright Ability at Level 2, and apply the same bonuses to the Stats (or resistances).\n",
                         "Upgrade": "For the Quest Masters, note that this companion also counts as a normal Player Character for encounter Experience!\n",
                         "Notes": "Come up with a story about why you have your companion and why your god allowed this or gave them to you.\nYou should now have 3 characters of Levels 1, 3 and 5.\n"
                     }
@@ -484,8 +505,20 @@
                         "A": "Half-Action",
                         "Cooldown": "Once / Adventure",
                         "Duration": "1 minute",
-                        "Effect": "All your summons and minions instantly transform into Death Ghouls.\nDeath Ghouls have 15 Health, 1 in all Stats, 7 meters speed and their attacks deal 1d10 Damage.\nThey take their turns on your turn (if they haven't already).\n",
-                        "Notes": "After 1 minute, they transform back to how they were previously. If your companion ghoul dies, it transforms to how it previously was. If other minions ghouls die, they remain dead."
+                        "Effect": "All your summons and minions instantly transform into Death Ghouls.\nThey take their turns on your turn (if they haven't already).\nDeath Ghouls have 15 Health, 1 in all Stats, 7 meters speed and their attacks deal 1d10 Damage.\n",
+                        "Monster": {
+                            "Name": "Death Ghoul",
+                            "Description": "After 1 minute, it transforms back to how it was previously. If your companion ghoul dies, it transforms to how it previously was (with its old Health as well). If other minions ghouls die, they remain dead.",
+                            "Health": 15,
+                            "Stats": "1/2/0/2/1",
+                            "Speed": "7 meters",
+                            "Abilities": {
+                                "~Attack~": {
+                                    "A": "1 Action (from ghoul)",
+                                    "Effect": "Melee attack a Unit for 1d10 Damage."
+                                }
+                            }
+                        }
                     },
                     "<Presence of Fear>": {
                         "_Value": 3,

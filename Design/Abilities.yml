@@ -1279,11 +1279,19 @@ Arcane:
         Degree: Major
         Effect: |
             Conjure a levitating, self-wielding melee weapon on a space within 3 meters.
-            On your each turn (includig this), the weapon can make a melee Attack that deals 1d10 + 1 Damage (Pierce, Slash or Smash) and move up to 3 meters.
-        Upgrade: The weapon lasts until it can't make an attack on a Worthy Unit (it disappears at the end of the turn if it couldn't make an attack on a Worthy Unit).
+            It takes its turn on at the same time as you, but disappears if it can't attack an Enemy.
         Notes: |
-            It costs 1 Action and 1 Mana to summon the weapon. Then, the weapon can Attack once for free every turn (including this), without costing an Action or Mana.
-            The weapon has no special effect and has 1 Health and 5 Defense.
+            It costs 1 Action and 1 Mana to summon the weapon and it can act on this same turn.
+        Monster:
+            Name: Animated Weapon
+            Speed: 3 meters
+            Health: 1
+            Defense: 5
+            Abilities:
+                ~Attack~:
+                    A: 1 Action (from weapon)
+                    Effect: Attack an Enemy for 1d10 + 1 Damage (Pierce, Slash or Smash).
+                    Upgrade: If the weapon can't make an attack by the end of your turn, it is unsummoned.
 
     # ~Spell Seal~:
     #     A: 0 Actions
@@ -2309,6 +2317,17 @@ Eldritch:
         Notes: |
             {Fumbling}
 
+    ~Hollow Touch~:
+        A: 1 Action
+        Range: 4 meters
+        Degree: Minor
+        HasMixins: true
+        Requirement: Level 2
+        Effect: |
+            Deal 1d12 + ^Your Sense or Intelligence^ Scourge Damage to a Unit.
+            For the rest of the combat, whenever it would take Scourge Damage, it takes 2 more (stacks indefinitely).
+
+
     ~Disenchantment~ :
         HasMixins: true
         A: 1 minute
@@ -2330,13 +2349,6 @@ Eldritch:
 
 
 
-    ~Hollow Touch~:
-        A: 1 Action
-        Range: 4 meters
-        Degree: Minor
-        Effect: |
-            Deal 1d12 + ^Your Sense or Intelligence^ Scourge Damage to a Unit.
-            For the rest of the combat, whenever it would take Scourge Damage, it takes 2 more (stacks indefinitely).
 
     ~Thaumaturgy~:
         HasMixins: true
@@ -2370,21 +2382,24 @@ Eldritch:
         Degree: Major
         Effect: |
             Summon a familiar in a space next to you, that has the aspect of a small demon or animal.
-            It has 8 Health, 3 Defense, 5 Movement Speed, 0/0/0/0/0 in Stats and takes its turn at the same time as you (and uses your Spell Grade).
-            On its turn, it has a Half-Action, usable only for Potions, Scrolls and the Push and Taunt Default Moves, and it can do other small tasks like bringing you objects, picking up a weapon and bringing it to your hand, etc.
-            Lasts until killed or unsummoned (for 0 Actions) or if it goes more than 30 meters away from you.
-            You can communicate with it telepathically.
-        Upgrade: At Level 6, out of combat, the familiar can be invisible.
-        Notes: You can only have one summoned familiar at a time. Your familiar might have a name and personality and it might speak Common or other languages, if allowed by the QM.
-
-    ~Curse of Pain~:
-        A: Half-Action
-        Cost: 1 Mana
-        Range: 10 meters
-        Duration: 1 minute
-        Effect: |
-            Declare a target.
-            Whenever it makes a offensive Act, it takes 4 Psychic Damage.
+            It takes its turn at the same time as you.
+        Notes: Your familiar might have a name and personality and it might speak Common or other languages, if allowed by the Quest Master.
+        Monster:
+            Name: Familiar
+            Description: Lasts until killed or unsummoned at will, or if it goes more than 100 meters away from you. Can communicate telepathically with the person who summoned it.
+            Health: 13
+            Speed: 5 meters
+            Stats: -2/1/0/2/-2
+            Abilities:
+                ~Attack~:
+                    A: 1 Action (from familiar)
+                    Range: 3 meters
+                    Effect: Hurl a bolt at a target for 1d6 Damage (Fire, Cold, Shock or Scourge), or use a Default Ability or item.
+                ~Invisibility~:
+                    A: 1 Action
+                    Cooldown: Once / Adventure
+                    Requirement: Level 6
+                    Effect: Become invisible for up to 10 minutes.
 
     ~Deathfire Bolt~:
         A: 1 Action
@@ -2397,6 +2412,16 @@ Eldritch:
 
     # Higher Level Spells
 
+    ~Curse of Pain~:
+        A: Half-Action
+        Cost: 1 Mana
+        Range: 10 meters
+        Duration: 1 minute
+        Requirement: Level 4
+        Effect: |
+            Declare a target.
+            Whenever it makes a offensive Act, it takes 4 Psychic Damage.
+
     ~Animate Dead~:
         A: Half-Action
         Cost: 1 Mana
@@ -2405,21 +2430,26 @@ Eldritch:
         Requirement: Level 4
         Degree: Minor
         Effect: |
-            Raise an undead Unit to fight for you from a nearby medium or larger corpse. The corpse is then consumed.
-            The undead Unit always has Medium size, 7 Max Health and 3 Defense.
-            It has Resist Checks equal to yours, but -2 to all Non-Resist Checks.
-            It has 4 meters movement speed.
-            It can use 1 Action to attack and deals 2d4 Damage (Smash, Slash or Pierce, your choice).
-            Your undead takes its turn immediately before or after your turn (you choose).
-            The undead will always try to move to and attack the closest enemy to it (you choose if it's a tie).
-            You can use Half-Action on your turn to command (one of) your undead to move to a certain location.
+            Raise a Zombie to fight for you from a nearby corpse.
+            It has 1 Action it can use to attack and takes its turn at the same time as you, but naturally acts on its own.
+        Monster:
+            Name: Zombie
+            Description: The Zombie always moves to and attacks the closest enemy to it. On your turn, you can spend a Half-Action to command it to do something else.
+            Health: 7
+            Speed: 4 meters
+            Defense: 3
+            Stats: -1/-1/-1/-1/-1
+            Abilities:
+                ~Attack~:
+                    A: 1 Action (from zombie)
+                    Effect: Melee attack a Unit for 2d4 Damage (Slash, Smash or Pierce, of choice).
 
     ~Shadow Clone~:
         A: 0 Actions
         Cost: 1 Mana
         Range: 10 meters
         Duration: 10 minutes
-        Requirement: Level 4
+        Requirement: Level 5
         Degree: Major
         Effect: |
             You create an illusion of yourself at a target location.

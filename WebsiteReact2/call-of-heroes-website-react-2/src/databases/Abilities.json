@@ -787,9 +787,21 @@
             "Duration": "Depends",
             "Requirement": "Level 3",
             "Degree": "Major",
-            "Effect": "Conjure a levitating, self-wielding melee weapon on a space within 3 meters.\nOn your each turn (includig this), the weapon can make a melee Attack that deals 1d10 + 1 Damage (Pierce, Slash or Smash) and move up to 3 meters.\n",
-            "Upgrade": "The weapon lasts until it can't make an attack on a Worthy Unit (it disappears at the end of the turn if it couldn't make an attack on a Worthy Unit).",
-            "Notes": "It costs 1 Action and 1 Mana to summon the weapon. Then, the weapon can Attack once for free every turn (including this), without costing an Action or Mana.\nThe weapon has no special effect and has 1 Health and 5 Defense.\n",
+            "Effect": "Conjure a levitating, self-wielding melee weapon on a space within 3 meters.\nIt takes its turn on at the same time as you, but disappears if it can't attack an Enemy.\n",
+            "Notes": "It costs 1 Action and 1 Mana to summon the weapon and it can act on this same turn.\n",
+            "Monster": {
+                "Name": "Animated Weapon",
+                "Speed": "3 meters",
+                "Health": 1,
+                "Defense": 5,
+                "Abilities": {
+                    "~Attack~": {
+                        "A": "1 Action (from weapon)",
+                        "Effect": "Attack an Enemy for 1d10 + 1 Damage (Pierce, Slash or Smash).",
+                        "Upgrade": "If the weapon can't make an attack by the end of your turn, it is unsummoned."
+                    }
+                }
+            },
             "Name": "~Animated Weapon~"
         },
         "~Invisibility~": {
@@ -1186,6 +1198,8 @@
             "A": "1 Action",
             "Range": "4 meters",
             "Degree": "Minor",
+            "HasMixins": true,
+            "Requirement": "Level 2",
             "Effect": "Deal 1d12 + ^Your Sense or Intelligence^ Scourge Damage to a Unit.\nFor the rest of the combat, whenever it would take Scourge Damage, it takes 2 more (stacks indefinitely).\n",
             "Name": "~Hollow Touch~"
         },
@@ -1418,6 +1432,15 @@
             "Notes": "{Fumbling}\n",
             "Name": "~Cloud of Rot~"
         },
+        "~Hollow Touch~": {
+            "A": "1 Action",
+            "Range": "4 meters",
+            "Degree": "Minor",
+            "HasMixins": true,
+            "Requirement": "Level 2",
+            "Effect": "Deal 1d12 + ^Your Sense or Intelligence^ Scourge Damage to a Unit.\nFor the rest of the combat, whenever it would take Scourge Damage, it takes 2 more (stacks indefinitely).\n",
+            "Name": "~Hollow Touch~"
+        },
         "~Disenchantment~": {
             "HasMixins": true,
             "A": "1 minute",
@@ -1429,13 +1452,6 @@
             "Effect": "A person makes a Sense Check.\nIf it fails, it becomes afflicted with a minor (usually non-combat) curse, such as:\n{Diamond} Its Initiative is halved (or its Initiative bonus)\n{Diamond} The target can't properly tie knots, sew, use keys or pick locks, etc\n{Diamond} The target appears less attractive (its Charisma Checks have -3)\n{Diamond} Gains runny nose, eyes and sweats more\n{Diamond} Stumbles randomly\n",
             "Notes": "A Unit can't be affected by the same Disenchantment effect multiple times.\n",
             "Name": "~Disenchantment~"
-        },
-        "~Hollow Touch~": {
-            "A": "1 Action",
-            "Range": "4 meters",
-            "Degree": "Minor",
-            "Effect": "Deal 1d12 + ^Your Sense or Intelligence^ Scourge Damage to a Unit.\nFor the rest of the combat, whenever it would take Scourge Damage, it takes 2 more (stacks indefinitely).\n",
-            "Name": "~Hollow Touch~"
         },
         "~Thaumaturgy~": {
             "HasMixins": true,
@@ -1459,18 +1475,29 @@
             "Cost": "1 Mana",
             "Requirement": "Level 3",
             "Degree": "Major",
-            "Effect": "Summon a familiar in a space next to you, that has the aspect of a small demon or animal.\nIt has 8 Health, 3 Defense, 5 Movement Speed, 0/0/0/0/0 in Stats and takes its turn at the same time as you (and uses your Spell Grade).\nOn its turn, it has a Half-Action, usable only for Potions, Scrolls and the Push and Taunt Default Moves, and it can do other small tasks like bringing you objects, picking up a weapon and bringing it to your hand, etc.\nLasts until killed or unsummoned (for 0 Actions) or if it goes more than 30 meters away from you.\nYou can communicate with it telepathically.\n",
-            "Upgrade": "At Level 6, out of combat, the familiar can be invisible.",
-            "Notes": "You can only have one summoned familiar at a time. Your familiar might have a name and personality and it might speak Common or other languages, if allowed by the QM.",
+            "Effect": "Summon a familiar in a space next to you, that has the aspect of a small demon or animal.\nIt takes its turn at the same time as you.\n",
+            "Notes": "Your familiar might have a name and personality and it might speak Common or other languages, if allowed by the Quest Master.",
+            "Monster": {
+                "Name": "Familiar",
+                "Description": "Lasts until killed or unsummoned at will, or if it goes more than 100 meters away from you. Can communicate telepathically with the person who summoned it.",
+                "Health": 13,
+                "Speed": "5 meters",
+                "Stats": "-2/1/0/2/-2",
+                "Abilities": {
+                    "~Attack~": {
+                        "A": "1 Action (from familiar)",
+                        "Range": "3 meters",
+                        "Effect": "Hurl a bolt at a target for 1d6 Damage (Fire, Cold, Shock or Scourge), or use a Default Ability or item."
+                    },
+                    "~Invisibility~": {
+                        "A": "1 Action",
+                        "Cooldown": "Once / Adventure",
+                        "Requirement": "Level 6",
+                        "Effect": "Become invisible for up to 10 minutes."
+                    }
+                }
+            },
             "Name": "~Summon Familiar~"
-        },
-        "~Curse of Pain~": {
-            "A": "Half-Action",
-            "Cost": "1 Mana",
-            "Range": "10 meters",
-            "Duration": "1 minute",
-            "Effect": "Declare a target.\nWhenever it makes a offensive Act, it takes 4 Psychic Damage.\n",
-            "Name": "~Curse of Pain~"
         },
         "~Deathfire Bolt~": {
             "A": "1 Action",
@@ -1480,6 +1507,15 @@
             "Effect": "Shoot a Unit with deathly fire for 1d12 + 1d10 + 1d6 Damage, Fire or Scourge (your choice).\nIf the target has Defense, deals 2 more Damage for each point of Defense.\n",
             "Name": "~Deathfire Bolt~"
         },
+        "~Curse of Pain~": {
+            "A": "Half-Action",
+            "Cost": "1 Mana",
+            "Range": "10 meters",
+            "Duration": "1 minute",
+            "Requirement": "Level 4",
+            "Effect": "Declare a target.\nWhenever it makes a offensive Act, it takes 4 Psychic Damage.\n",
+            "Name": "~Curse of Pain~"
+        },
         "~Animate Dead~": {
             "A": "Half-Action",
             "Cost": "1 Mana",
@@ -1487,7 +1523,21 @@
             "Duration": "1 hour",
             "Requirement": "Level 4",
             "Degree": "Minor",
-            "Effect": "Raise an undead Unit to fight for you from a nearby medium or larger corpse. The corpse is then consumed.\nThe undead Unit always has Medium size, 7 Max Health and 3 Defense.\nIt has Resist Checks equal to yours, but -2 to all Non-Resist Checks.\nIt has 4 meters movement speed.\nIt can use 1 Action to attack and deals 2d4 Damage (Smash, Slash or Pierce, your choice).\nYour undead takes its turn immediately before or after your turn (you choose).\nThe undead will always try to move to and attack the closest enemy to it (you choose if it's a tie).\nYou can use Half-Action on your turn to command (one of) your undead to move to a certain location.\n",
+            "Effect": "Raise a Zombie to fight for you from a nearby corpse.\nIt has 1 Action it can use to attack and takes its turn at the same time as you, but naturally acts on its own.\n",
+            "Monster": {
+                "Name": "Zombie",
+                "Description": "The Zombie always moves to and attacks the closest enemy to it. On your turn, you can spend a Half-Action to command it to do something else.",
+                "Health": 7,
+                "Speed": "4 meters",
+                "Defense": 3,
+                "Stats": "-1/-1/-1/-1/-1",
+                "Abilities": {
+                    "~Attack~": {
+                        "A": "1 Action (from zombie)",
+                        "Effect": "Melee attack a Unit for 2d4 Damage (Slash, Smash or Pierce, of choice)."
+                    }
+                }
+            },
             "Name": "~Animate Dead~"
         },
         "~Shadow Clone~": {
@@ -1495,7 +1545,7 @@
             "Cost": "1 Mana",
             "Range": "10 meters",
             "Duration": "10 minutes",
-            "Requirement": "Level 4",
+            "Requirement": "Level 5",
             "Degree": "Major",
             "Effect": "You create an illusion of yourself at a target location.\nThe illusion has 1 Health and 1 Defense and it fails all Checks.\nYou can control what the illusion does at will.\nIf the illusion goes more than 10 meters away from you, it disappears and the spell is cancelled.\n",
             "Upgrade": "At Level 7, the cast range and illusion range become 15 meters and the sound of your voice can come through the illusion's mouth instead of yours. At Level 5 - 25 meters. At Level 7 you can choose to see through the illusion's eyes at any point.",

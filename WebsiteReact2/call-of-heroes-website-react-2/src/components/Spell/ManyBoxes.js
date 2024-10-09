@@ -14,7 +14,7 @@ export default function ManyBoxes({ objects, type }) {
         type = type.toLowerCase()
         switch (type) {
             case 'spell': return (<Spell spell={object}/>)
-            case 'weapon': return <Weapon weapon={object}/>
+            case 'weapon': return <Item item={object}/>
             case 'armor': return <Weapon weapon={object} isActuallyArmor={true}/>
             case 'item': return <Item item={object}/>
             default: throw `Unknown type given to ManyBoxes: type='${type}'`

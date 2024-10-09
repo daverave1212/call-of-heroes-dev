@@ -62,6 +62,7 @@ import { getLocalStorageBool } from './utils';
 
 import AppStateContext from './services/AppStateContext';
 import TreasureGenerator from './pages/Tools/TreasureGenerator';
+import { getIsActionPointsSystem, globalStateStore, setIsActionPointsSystem } from './GlobalState';
 
 
 function LogoQG() {
@@ -232,8 +233,8 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
       <MegaDropdownMenu title="Downloads">
         <MegaDropdownMenuSection title="Character Sheets">
           <LiLink isDownload={true} to="/Download/Sheet-2023-03-24b.pdf">Character Sheet (PDF)</LiLink>
-          <LiLink isDownload={true} to="/Download/Sheet-2023-03-24.psd">Character Sheet (PSD)</LiLink>
-          <LiLink isDownload={true} to="/Download/Sheet-2023-03-24.png">Character Sheet (PNG)</LiLink>
+          <LiLink isDownload={true} to="/Download/Sheet-2024-06-16.psd">Character Sheet (PSD)</LiLink>
+          <LiLink isDownload={true} to="/Download/Sheet-2024-04-28.png">Character Sheet (PNG)</LiLink>
         </MegaDropdownMenuSection>
 
         <MegaDropdownMenuSection title="Content">
@@ -290,9 +291,18 @@ export default function Nav() {
             </div>
             <NavItem name='Database'>Database</NavItem>
 
-            <NavItem name="Learn To Play"><Link to="/Other/Learn">Learn To Play</Link></NavItem>
+            <div className='nav-item'>
+              <Link to="/Other/Learn">Learn To Play</Link>
+            </div>
             <NavItem name='GM Resources'>GM Resources</NavItem>
             <NavItem name='Downloads'>Downloads</NavItem>
+            <div>
+              <input type="checkbox" checked={getIsActionPointsSystem()} onChange={() => {
+                const newValue = !getIsActionPointsSystem()
+                console.log({newValue})
+                setIsActionPointsSystem(newValue)
+              }}/><label>Action Points?</label>
+            </div>
           </nav>
 
           <MegaDropdownAndPortraitNav navState={navState} isBurgerClicked={isBurgerClicked}/>

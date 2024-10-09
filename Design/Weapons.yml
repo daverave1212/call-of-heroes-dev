@@ -10,9 +10,7 @@
 # 1-Handed Weapon (LOW): 1d4 + Stat
 
 Descriptions:
-  Shields: |
-    Any character can freely wear a Shield, as long as the Stat requirements are met. While wearing a Shield, you can't use 2-Handed Weapons, but you can use 1-Action Abilities normally. Note that a Shield requires you to be out of combat to equip or unequip.
-  Runes: |
+  Weapon Runes: |
     Any weapon can be inscribed with 1 rune. A rune is destroyed when used to inscribe a weapon, and inscribing a rune onto a weapon replaces the previous rune (if there was any).
     Standard runes (like the ones below) can be purchased from most regular stores.
   One-Handed Melee: Any character can freely use any One-Handed Weapon, as long as the Stat requirements are met. Attacks with One-Handed Weapons only use a Half-Action, so you can make 2 attacks on your turn, even with the same weapon!
@@ -21,46 +19,26 @@ Descriptions:
   Two-Handed Ranged: Any character can freely use any Two-Handed Weapon, as long as the Stat requirements are met. Attacks with Two-Handed Weapons use 1 Action.
 
 
-Shields:
-    Shield:
-      Effect: You take -50% Damage from ranged physical attacks
-      Requirement: 2 Might
-      Price: 100
-      Notes: |
-        Remember that you have to declare whether you have a Shield equipped when you start your turn!
-        Dual wielding Shields requires a Feat.
-        You can't use 2-Handed Weapons with a Shield.
 
-    Tower Shield:
-      Requirement: Tower Shield Feat, 3 Might
-      Effect: +1 Defense
-      Price: 1000
-      Downside: |
-        -1 movement speed
-      Notes: |
-        Remember that you have to declare whether you have a Shield equipped when you start your turn!
-        Dual wielding Shields requires a Feat.
-        You can't use 2-Handed Weapons with a Shield.
-
-Runes:
+Weapon Runes:
 
     Elemental Rune:
-      Effect: Inscribe on a weapon to permanently change its Damage type to Fire, Cold or Shock.
+      EffectGreen: Inscribe on a weapon to permanently change its Damage type to Fire, Cold or Shock.
       Notes: This rune is consumed when inscribed, and overwrites the previous rune on the weapon if any.
       Price: 75
     
     Traditional Rune:
-      Effect: Inscribe on a weapon to permanently remove its Stat requirements.
+      EffectGreen: Inscribe on a weapon to permanently remove its Stat requirements.
       Notes: This rune is consumed when inscribed, and overwrites the previous rune on the weapon if any.
       Price: 75
     
     Mind Rune:
-      Effect: Inscribe on a weapon to permanently replace one Stat in its text (e.g. Might) with Intelligence.
+      EffectGreen: Inscribe on a weapon to permanently replace one Stat in its text (e.g. Might) with Intelligence.
       Notes: This rune is consumed when inscribed, and overwrites the previous rune on the weapon if any.
       Price: 75
     
     Spirit Rune:
-      Effect: Inscribe on a weapon to permanently replace one Stat in its text (e.g. Might) with Sense or Charisma.
+      EffectGreen: Inscribe on a weapon to permanently replace one Stat in its text (e.g. Might) with Sense or Charisma.
       Notes: This rune is consumed when inscribed, and overwrites the previous rune on the weapon if any.
       Price: 75
 
@@ -69,9 +47,10 @@ One-Handed Melee:   # 3.5 Damage + 0.75 Effect = 6.25 + 3 Stat = 9.25
     # Tier 0
     Punch:          # ~4.25
       Stat: Smash
-      Hands: 1-Handed Melee
+      A: Half-Action
+      Range: 1 meter
       Damage: 1d4 + 1 + Might or Dexterity
-      Effect: Critical Strike - if you roll 4, also add your other Stat to the Damage.
+      EffectGreen: Critical Strike - if you roll 4, also add your other Stat to the Damage.
       Alternatives: Kick, Slam, Karate-Chop, etc
       Notes: |
         On a Critical Strike, if you used Might, you also add Dexterity to the roll (or vice-versa, if you used Dexterity, you also add Might).
@@ -80,31 +59,35 @@ One-Handed Melee:   # 3.5 Damage + 0.75 Effect = 6.25 + 3 Stat = 9.25
     Club:
       Stat: Smash
       Price: 20
-      Hands: 1-Handed melee
+      A: Half-Action
+      Range: 1 meter
       Damage: 1d8 - 1 + Might
-      Effect: Critical Strike - if you roll 1 or 2, the Attack instantly makes the target Fumbling.
+      EffectGreen: Critical Strike - if you roll 1 or 2, the Attack instantly makes the target Fumbling.
       Alternatives: Katar (Slash instead of Smash)
 
     Hand Hammer:
       Price: 80
       Stat: Smash
-      Hands: 1-Handed Melee
+      A: Half-Action
+      Range: 1 meter
       Damage: 1d6 + 2
-      Effect: Ignores Defense.
+      EffectGreen: Ignores Defense.
       Notes: Does not scale with any Stat.
 
     Mace:
       Price: 80
       Stat: Smash
-      Hands: 1-Handed Melee
+      A: Half-Action
+      Range: 1 meter
       Damage: 1d6 + Might
-      Effect: Ignores Resistances and Cover.
+      EffectGreen: Ignores Resistances and Cover.
       Alternatives: Light Morning Star
 
     Sickle:
       Price: 170
       Stat: Slash
-      Hands: 1-Handed Melee
+      A: Half-Action
+      Range: 1 meter
       Damage: 1 + Might + Dexterity
       Alternatives: Nunchaku (Smash instead of Slash)
       Notes: The price is for a battle sickle. A normal peasant's sickle would be half the price, dealing 1 less damage.
@@ -112,9 +95,10 @@ One-Handed Melee:   # 3.5 Damage + 0.75 Effect = 6.25 + 3 Stat = 9.25
     Spear:
       Price: 110
       Stat: Pierce
-      Hands: 1-Handed Melee
+      A: Half-Action
+      Range: 2 meter
       Damage: 1d6 + Might or Dexterity
-      Effect: 2 meters range.
+      EffectGreen: 2 meters range.
       Alternatives: Lance, Chainblade
 
 
@@ -125,27 +109,30 @@ One-Handed Melee:   # 3.5 Damage + 0.75 Effect = 6.25 + 3 Stat = 9.25
       Stat: Slash
       Requirement: 1 Dexterity
       Price: 120
-      Hands: 1-Handed Melee
+      A: Half-Action
+      Range: 1 meter
       Damage: 1d6 + Dexterity
-      Effect: Critical Strike - if you roll 6, add another 1d6 Damage, and you take 50% of all the attack's Damage.
+      EffectGreen: Critical Strike - if you roll 6, add another 1d6 Damage, and you take 50% of all the attack's Damage.
       Alternatives: Dead Fish (Smash instead of Slash)
 
     Hand Axe:
       Price: 80
       Requirement: 1 Might or 1 Dexterity
       Stat: Slash
-      Hands: 1-Handed Melee
+      A: Half-Action
+      Range: 1 meter
       Damage: 1d10 - 2 + Might or Dexterity
-      Effect: Critical Strike - if you roll 9 or 10 against a Worthy Enemy, heal for an amount equal to your Might or Dexterity (your choice).
+      EffectGreen: Critical Strike - if you roll 9 or 10 against a Worthy Enemy, heal for an amount equal to your Might or Dexterity (your choice).
       Alternatives: Claws
 
     Flail:
       Stat: Pierce
       Requirement: 1 Might
       Price: 150
-      Hands: 1-Handed Melee
+      A: Half-Action
+      Range: 1 meter
       Damage: 1d8 + 2
-      Effect: You can choose to deal Smash Damage with this weapon. Deals 1d10 + 2 Damage instead if attacking a Unit with higher Initiative than you.
+      EffectGreen: You can choose to deal Smash Damage with this weapon. Deals 1d10 + 2 Damage instead if attacking a Unit with higher Initiative than you.
       Notes: Does not scale with any Stat.
       Alternatives: Combat Chains, Kusarigama
 
@@ -153,9 +140,10 @@ One-Handed Melee:   # 3.5 Damage + 0.75 Effect = 6.25 + 3 Stat = 9.25
       Price: 130
       Requirement: 1 Might or 1 Dexterity
       Stat: Slash
-      Hands: 1-Handed Melee
+      A: Half-Action
+      Range: 1 meter
       Damage: 1d6 + Might or Dexterity
-      Effect: If you roll less than 3 on the d6, it counts as a 3.
+      EffectGreen: If you roll less than 3 on the d6, it counts as a 3.
       Alternatives: Falchion, Sabre, Scimitar variant, Arming Sword
 
 
@@ -166,35 +154,39 @@ One-Handed Melee:   # 3.5 Damage + 0.75 Effect = 6.25 + 3 Stat = 9.25
       Price: 60
       Requirement: 2 Dexterity
       Stat: Pierce
-      Hands: 1-Handed Melee
+      A: Half-Action
+      Range: 1 meter
       Damage: 1d4 + Dexterity
-      Effect: Critical Strike - if you roll 3 or more the base weapon roll, add another 1d6 Damage.
+      EffectGreen: Critical Strike - if you roll 3 or more the base weapon roll, add another 1d6 Damage.
       Alternatives: Kunai
 
     Rapier:
       Price: 160
       Requirement: 2 Dexterity
       Stat: Pierce
-      Hands: 1-Handed Melee
+      A: Half-Action
+      Range: 1 meter
       Damage: 2d4 - 1 + Dexterity
-      Effect: If you decide to start your turn with the other hand empty, you have 1 extra movement Speed and you can Break your Movement.
+      EffectGreen: If you decide to start your turn with the other hand empty, you have 1 extra movement Speed and you can Break your Movement.
 
     Scimitar:
       Price: 170
       Requirement: 1 Charisma
       Stat: Slash
-      Hands: 1-Handed Melee
+      A: Half-Action
+      Range: 1 meter
       Special: You are more appreciated if you pronounce it as 'Skimitar'
       Damage: 1d6 + Dexterity, Might or Charisma
-      Effect: If you roll 1 on the weapon die, cancel it and roll 1d8 instead. If you roll 1 again, reroll as 1d10. If you roll 1 again, reroll as 1d12.
+      EffectGreen: If you roll 1 on the weapon die, cancel it and roll 1d8 instead. If you roll 1 again, reroll as 1d10. If you roll 1 again, reroll as 1d12.
 
     Whip:
       Price: 70
       Stat: Pierce
-      Hands: 1-Handed Melee
+      A: Half-Action
+      Range: 1 meter
       Requirement: At least 1 Dexterity
       Damage: 1d6 + Dexterity
-      Effect: 3 meters range
+      EffectGreen: 3 meters range
     
 
 
@@ -214,74 +206,82 @@ Two-Handed Melee: # 10 + 3 from stat
     Greatclub:  # 3% chance
       Price: 40
       Stat: Smash
-      Hands: 2-Handed Melee
+      A: 1 Action
+      Range: 1 meter
       Damage: 4d4 + Might
-      Effect: Critical Strike - if all 4 rolled weapon dice are even, the target must succeed a Might Check against the sum of the dice or be Stunned.
+      EffectGreen: Critical Strike - if all 4 rolled weapon dice are even, the target must succeed a Might Check against the sum of the dice or be Stunned.
       Notes: If by any chance this weapon rolls more than 3 dice, the Critical Strike triggers if at least 3 of the rolled weapon dice are even.
 
     Halberd:
       Price: 230
       Stat: Slash
-      Hands: 2-Handed Melee
+      A: 1 Action
+      Range: 1 meter
       Damage: 2d10 - 1 + Might
-      Effect: Has +1d6 Damage against Large or larger enemies.
+      EffectGreen: Has +1d6 Damage against Large or larger enemies.
       Alternatives: Garden Rake, Glaive, Bardiche
 
     Scythe:
       Price: 210
       Stat: Slash
-      Hands: 2-Handed Melee
+      A: 1 Action
+      Range: 1 meter
       Damage: 2d8 + Might + Dexterity
-      Effect: You can use 1 Action to just deal 8 Damage to all Units around you (against their Defense).
+      EffectGreen: You can use 1 Action to just deal 8 Damage to all Units around you (against their Defense).
       Notes: The price is for a battle scythe. A normal peasant's scythe would be half the price and can't use the special effect.
 
     Pike:
       Price: 150
       Stat: Pierce
-      Hands: 2-Handed Melee
+      A: 1 Action
+      Range: 2 meter
       Damage: 1d12 + 3 + Might or Dexterity
-      Effect: Attacks with this weapon have 2 meters range.
+      EffectGreen: 2 meters range.
 
     Pickaxe:
       Price: 240
       Stat: Pierce
-      Hands: 2-Handed Melee
+      A: 1 Action
+      Range: 1 meter
       Damage: 1d8 + 5 + Might
-      Effect: Deals +1d6 Damage against Units wearing a shield or heavy armor (or both).
+      EffectGreen: Deals +1d6 Damage against Units wearing a shield or heavy armor (or both).
       Alternatives: Falx
 
     # Tier 1
     Longsword:
       Price: 190
       Stat: Slash
-      Hands: 1-Handed or 2-Handed Melee
+      A: 1-Handed or 2-Handed Melee
       Requirement: 1 Might or 1 Dexterity
       Damage: 1d12 + 4 + Might or Dexterity
-      Effect: Critical Strike - if you roll 12, add Damage equal to 10% of the target's current Health!
+      EffectGreen: Critical Strike - if you roll 12, add Damage equal to 10% of the target's current Health!
 
     Battle Axe:
       Price: 190
       Stat: Slash
       Requirement: 1 Might
-      Hands: 2-Handed Melee
+      A: 1 Action
+      Range: 1 meter
       Damage: 2d10 + Might
-      Effect: Critical Strike - if you roll 10 on at least one die, heal for the other rolled die (both from the base weapon roll) (only works against Worthy Enemies).
+      EffectGreen: Critical Strike - if you roll 10 on at least one die, heal for the other rolled die (both from the base weapon roll) (only works against Worthy Enemies).
 
     Heavy Mace:
       Price: 280
       Stat: Smash
       Requirement: 1 Might
-      Hands: 2-Handed Melee
+      A: 1 Action
+      Range: 1 meter
       Damage: 2d4 + 6 + Might
-      Effect: Critical Strike - if you did maximum Damage on the base weapon roll, push the target up to 4 meters in any direction. It takes another 1d4 Smash Damage if it collides with something.
+      EffectGreen: Critical Strike - if you did maximum Damage on the base weapon roll, push the target up to 4 meters in any direction. It takes another 1d4 Smash Damage if it collides with something.
 
     Warhammer:
       Price: 500
       Stat: Smash
-      Hands: 2-Handed Melee
+      A: 1 Action
+      Range: 1 meter
       Requirement: 1 Might
       Damage: 2d8 + 1 + Might
-      Effect: Your first attack with this weapon every combat ignores the target's Resistances and Defense and permanently reduces it by 1.
+      EffectGreen: Your first attack with this weapon every combat ignores the target's Resistances and Defense and permanently reduces it by 1.
       Notes: Doesn't do extra Damage if target's Defense would be less than 0.
 
       
@@ -290,37 +290,41 @@ Two-Handed Melee: # 10 + 3 from stat
     Greatsword:   # 12.1 + Might
       Price: 280
       Stat: Slash
-      Hands: 2-Handed Melee
+      A: 1 Action
+      Range: 1 meter
       Requirement: 2 Might
       Damage: 3d6 + Might
-      Effect: Add all 6's rolled together. They hit another Unit within 2 meters of the target for that amount.
+      EffectGreen: Add all 6's rolled together. They hit another Unit within 2 meters of the target for that amount.
       Alternatives: Claymore
       Notes: Hitting another Unit with the d6's is optional.
 
     Quarterstaff:
       Price: 100
       Stat: Smash
-      Hands: 2-Handed Melee
+      A: 1 Action
+      Range: 1 meter
       Requirement: 1 Sense and 1 Dexterity
       Damage: 1d8 + 6 + Dexterity or Sense
-      Effect: If you are wearing no armor and wield only this weapon, you have +1 Defense.
+      EffectGreen: If you are wearing no armor and wield only this weapon, you have +1 Defense.
       Notes: A Quarterstaff is a wooden weapon masterfully crafted for physical combat, with correct weight and density and properly balanced; it's not a mage's walking stick!
 
     Katana:
       Price: 300
       Stat: Slash
-      Hands: 2-Handed Melee
+      A: 1 Action
+      Range: 1 meter
       Requirement: 2 Dexterity
       Damage: 1d4 + 1d6 + 1d8 + Dexterity
-      Effect: Critical Strike - if you roll 4 on the d4, the Attack gains +1d10 Damage.
+      EffectGreen: Critical Strike - if you roll 4 on the d4, the Attack gains +1d10 Damage.
 
     Trident:
       Price: 200
       Stat: Pierce
       Requirement: 2 Might or 2 Dexterity
-      Hands: 2-Handed Melee
+      A: 1 Action
+      Range: 1 meter
       Damage: 3d4 + 3 + Might or Dexterity
-      Effect: If you attack from at least 3 meters away from where you started your turn, the attack gains +3 Damage.
+      EffectGreen: If you attack from at least 3 meters away from where you started your turn, the attack gains +3 Damage.
       Alternatives: Pitchfork
 
 
@@ -330,9 +334,10 @@ Two-Handed Melee: # 10 + 3 from stat
       Price: 700
       Stat: Slash
       Requirement: 4 Might
-      Hands: 2-Handed Melee
+      A: 1 Action
+      Range: 1 meter
       Damage: 1d20 + 1 + Might
-      Effect: Critical Strike - if you roll 20, add 1d20 Damage!
+      EffectGreen: Critical Strike - if you roll 20, add 1d20 Damage!
 
 
 
@@ -355,9 +360,9 @@ Two-Handed Ranged:  # 8.5 + 3 from Stat
       Price: 1000
       Range: 5 meters
       Stat: Pierce
-      Hands: 2-Handed Ranged
+      A: 1 Action
       Damage: 4d4 - 1
-      Effect: For 1 Action, you can deal 8 Damage to all creatures in a 3x3 area in front of you.
+      EffectGreen: For 1 Action, you can deal 8 Damage to all creatures in a 3x3 area in front of you.
       Downside: After attacking, if you rolled at least one 1, the Heavy Gun jams, and must be reloaded with a Half-Action before using it again.
       Notes: Attacks with this weapon do not add any Stat to the Damage. Using the special effect consumes 2 ammo.
       Alternative: Ballista
@@ -368,7 +373,7 @@ Two-Handed Ranged:  # 8.5 + 3 from Stat
       Requirement: 2 Might
       Range: 5 meters
       Stat: Pierce
-      Hands: 2-Handed Ranged
+      A: 1 Action
       Damage: 1d12 + 1 + Might
       Notes: This weapon is baseline made for throwing.
     
@@ -376,15 +381,15 @@ Two-Handed Ranged:  # 8.5 + 3 from Stat
       Price: 170
       Range: 10 meters
       Stat: Pierce
-      Hands: 2-Handed Ranged
+      A: 1 Action
       Damage: 1d8 + 2 * Dexterity
-      Effect: Critical Strike - deal +1d8 extra Damage if you roll 8.
+      EffectGreen: Critical Strike - deal +1d8 extra Damage if you roll 8.
 
     Heavy Crossbow:
       Price: 300
       Range: 10 meters
       Stat: Pierce
-      Hands: 2-Handed Ranged
+      A: 1 Action
       Damage: 2d8 + Dexterity or Sense
       Alternative: Musket
 
@@ -396,7 +401,7 @@ One-Handed Ranged:  # 2.5 + 3 from stat
     Handgun:
       Price: 500
       Stat: Pierce
-      Hands: 1-Handed Ranged
+      A: Half-Action
       Range: 5 meters
       Damage: 1d10
       Downside: |
@@ -409,10 +414,11 @@ One-Handed Ranged:  # 2.5 + 3 from stat
       Price: 60
       Stat: Slash
       Range: 2-4 meters
-      Hands: 1-Handed Melee
+      A: Half-Action
+      Range: 1 meter
       Requirement: 1 Dexterity
       Damage: 1d12 - 4 + Dexterity
-      Effect: Critical Strike - if you roll 12, the weapon bounces to another chosen Unit within 4 meters and Damages it for 1d12 + Your Dexterity Damage (against its Defense).
+      EffectGreen: Critical Strike - if you roll 12, the weapon bounces to another chosen Unit within 4 meters and Damages it for 1d12 + Your Dexterity Damage (against its Defense).
       Notes: |
         The effect applies even to the bounce attack, so it can keep bouncing as long as you keep rolling 12!
       Alternatives: Anchor, Glaive, Chakram, Shuriken
@@ -421,9 +427,9 @@ One-Handed Ranged:  # 2.5 + 3 from stat
       Price: 40
       Stat: Pierce
       Range: 3-10 meters
-      Hands: 1-Handed Ranged
+      A: Half-Action
       Damage: 1d4 + Dexterity
-      Effect: If the target has 50% Health or less, the Damage Type becomes Poison and the target is Slowed.
+      EffectGreen: If the target has 50% Health or less, the Damage Type becomes Poison and the target is Slowed.
       Alternatives: Poison Darts
       Notes: The normal ammunition for this is the Regular Poison Darts (full supply). If your darts are somehow not poisoned, you don't apply the effect.
 
@@ -434,19 +440,19 @@ One-Handed Ranged:  # 2.5 + 3 from stat
       Requirement: 2 Dexterity
       Stat: Pierce
       Range: 3-8 meters
-      Hands: 1-Handed Ranged
+      A: Half-Action
       Damage: 1d4 + Dexterity
-      Effect: Critical Strike - if you roll 4, add 1d4 Damage!
+      EffectGreen: Critical Strike - if you roll 4, add 1d4 Damage!
       Alternatives: Handgun variant
 
     Sling:
       Price: 30
       Requirement: 1 Sense and 1 Dexterity
       Stat: Smash
-      Hands: 1-Handed Ranged
+      A: Half-Action
       Range: 7 meters
       Damage: 1 + Dexterity or Sense
-      Effect: Attacks with Slings use a Third-of-an-Action (0.33 Actions).
+      EffectGreen: Attacks with Slings use a Third-of-an-Action (0.33 Actions).
       Alternatives: Slingshot
       Notes: Yes, and you can attack 3 times per turn with the same sling. Abilities that require you to make a 1-Handed weapon attack will still take a Half-Action, even if the normal Sling attack would take 0.33 Actions
 

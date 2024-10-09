@@ -29,7 +29,7 @@
         "Mana": {
             "Regain": "As a Hunter, you don't use Mana. You rely on weapons, class Abilities and simple Basic Spells."
         },
-        "Known Basic Abilities": "1 + Intelligence (if above 0)",
+        "Known Basic Abilities": "1 + Intelligence (minimum 1)",
         "BaseKnownSpells": 1,
         "Basic Ability Lists": [
             "Bloodshed",
@@ -58,14 +58,17 @@
             "AlignOnWebsite": "Left",
             "A": "Passive",
             "HasMixins": true,
-            "Effect": "You have an animal pet that can fight alongside you! Check out the {Pets and Animals} page and choose an Animal from the Pets section, ignoring those Level requirements!\nYour pet takes its turn at the same time as you do, and always has the same Initiative as yours, and can make normal Checks using using its own Stats.\nIt has 1 Action per turn, which it can use to do its own Abilities or Pet Attack.\nYour pet will not stray more than 30 meters away from you in hostile territory.\n",
+            "Effect": "You have an animal pet that can fight alongside you! Check out the `Pets and Animals page$/Other/PetsAndAnimals` and choose an Animal from the Pets section, ignoring those Level requirements!\nYour pet takes its turn at the same time as you do, and always has the same Initiative as yours, and can make normal Checks using using its own Stats.\nIt has 1 Action per turn, which it can use to do its own Abilities or Pet Attack.\nYour pet will not stray more than 30 meters away from you in hostile territory.\n",
             "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.",
-            "Notes": "Your pet can't rise from being Fallen while in combat, even if healed.\nIf your pet ever dies, you can spend 8 hours inbetween Adventures to get a new pet. If you want to change your Pet and abandon your current one, you can do so inbetween Adventures, but the guilt will make you Fumbling for the next 2 Worthy Combat encounters.\n"
-        },
-        "~Pet Attack~": {
-            "A": "1 Action (from the pet)",
-            "Effect": "The pet melee attacks a target.\nThe attack deals 1d6 Pierce or Slash Damage (your choice).\n",
-            "AlignOnWebsite": "Right"
+            "Notes": "Your pet can't rise from being Fallen while in combat, even if healed.\nIf your pet ever dies, you can spend 8 hours inbetween Adventures to get a new pet. If you want to change your Pet and abandon your current one, you can do so inbetween Adventures, but the guilt will make you Fumbling for the next 2 Worthy Combat encounters.\n",
+            "Subspells": {
+                "~Pet Attack~": {
+                    "A": "1 Action (from the pet)",
+                    "IsSubspell": true,
+                    "Effect": "The pet melee attacks a target.\nThe attack deals 1d6 Pierce or Slash Damage (your choice).\n",
+                    "AlignOnWebsite": "Right"
+                }
+            }
         },
         "~Tumble~": {
             "_Value": 1.5,
@@ -101,7 +104,13 @@
                 "~Tracker~": {
                     "_Value": 0.25,
                     "A": "Passive",
-                    "Effect": "You gain Skilled in Tracking (you can add your Level to all Sense checks for tracking a creature and learning about its size, if it's part of a group or pack, if it's injured or roughly how far away it is).\nYou always know where North is in non-magical environments.\nYou and your pets are unaffected by Hard Terrain.\n"
+                    "Effect": "You gain Skilled in Tracking.\nYou always know where North is in non-magical environments.\nYou and your pets are unaffected by Hard Terrain.\n",
+                    "Subspells": {
+                        "~Skilled in Tracking~": {
+                            "IsSubspell": true,
+                            "Effect": "you can add your Level to all Sense checks for tracking a creature and learning about its size, if it's part of a group or pack, if it's injured or roughly how far away it is"
+                        }
+                    }
                 },
                 "~Hunter Mark~": {
                     "_Value": 3.25,

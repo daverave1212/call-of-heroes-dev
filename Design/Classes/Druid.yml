@@ -30,7 +30,7 @@ Spellcasting:
     Amount: 2
     Regain: You regain all Mana back inbetween Adventures.
   
-  Known Basic Abilities: 2 + Intelligence (if above 0)
+  Known Basic Abilities: 2 + Intelligence (minimum 1)
   BaseKnownSpells: 2
   
   Basic Ability Lists:
@@ -68,46 +68,41 @@ Starting Abilities:       # 1
 
   ~Druidcraft~:            # Ok
     A: Depends
+    Range: 6 meters
     HasMixins: true
     Effect: |
-      {Diamond} You speak Whistletone, a language made up of whistles
-      {Diamond} You can create harmless sensory effects or tiny weather effects (6 meters range).
-      {Diamond} You can massively speed up the growth of small plants (touch by touch).
-      {Diamond} You can slightly soothe physical pains (with no combat effect) (by touch).
-      {Diamond} You can attempt to convey simple ideas to animals and plants (3 meters range) that you would not normally be able to convey.
-      {Diamond} You have +3 on rolls for identifying plants, monsters or monster lairs
+      Every midnight, regain up to {Mana}1 Mana.
+
+      You speak Whistletone, a language made up of whistles, and are Skilled in Nature and Monstrology.
+      You can create harmless sensory effects, tiny weather effects or soothe mild pains.
+      You can speed up the growth of small plants by 1000% while channeling.
     Notes: You can do these even while Shapeshifted.
     AlignOnWebsite: Right
 
   ~Shapeshift~:            # 2
     _Value: 2
     A: Half-Action
-    Cooldown: 2 times / Adventure (see effect)
+    Cost: 0.5 Mana
+    HasMixins: true
+    Duration: Lasts until cancelled (0 Actions) or you Fall
     Effect: |
-      Pick an animal from the Pets and Animals list, within your Level, and instantly transform into it.
-      
-      For Checks, you can choose to use the animal's Stats or your Stats.
-      You also gain its exact Abilities and Animal Attack (see below), but can't cast Spells or use items (obviously).
-      Your Health stays the same, but you use that animal's Defense.
-      
-      Shapeshift ends if you drop to 0 Health, and you Fall.
+      Pick an animal from the `Pets and Animals page$/Other/PetsAndAnimals`, within your Level, and instantly transform into it.
+      You also gain its exact Abilities and Animal Attack (see below), but can't cast Spells or use items (obviously) and your Health stays the same. For Checks, you can choose to use the animal's Stats or your Stats.
     Upgrade: |
       At first, you can't fly, even if your animal can. If your animal can fly, you have the Jumping Skill and you can glide (you don't take falling Damage).
-      From Level 3, you can use this 3 times per Adventure.
-      From Level 6, you can use this 4 times per Adventure and you can fly.
-      From Level 9, you can use this 5 times per Adventure.
+      From Level 6, you can fly.
     Notes: |
+      Each Shapeshift uses half a Mana point (2 Shapeshifts = 1 Mana).
       You choose what items you keep on you when Shapeshifting, and those items are 'merged' into your new form.
-      You can turn back into your person form for 0 Actions (on your turn).
       While Shapeshifted, you can speak, but your voice is slightly altered to match your shape (e.g. guttural for lions, high pitched for birds, etc).
     OrderOnWebsite: 1
+    Subspells:
+      ~Animal Attack~:
+        IsSubspell: true
+        A: Half-Action
+        Effect: |
+          Make a melee attack for 1d6 + your Sense (not the animal's).
     
-  ~Animal Attack~:
-    IsSubspell: true
-    A: Half-Action
-    Effect: |
-      Make a melee attack for 1d6 + your Sense (not the animal's).
-    OrderOnWebsite: 2
 
 # Mana:         2                      |  2
 # Base:         2 (scaling)            |  4
@@ -254,24 +249,24 @@ Specs:
           _ValueComment: (multiplicative)
           A: Passive
           Requirement: -1 Max Mana and -5 Max Health
+          HasMixins: true
           Effect: |
-            You have an animal pet that can fight alongside you, but your Mana pool is permanently decreased by 1, and your total Health by 5.
-            Your animal has stats depending on its species. Check out the Pets and Animals page to see its stats!
-            Your pet takes its turn at the same time as you do, and always has the same initiative as yours.
-            Your pet has 1 Action per turn, which it can use to do its own Abilities.
-            Your pet can make normal Checks using using its own Stats.
+            You have an animal pet that can fight alongside you, but your Max Mana decreases by 1 and your Health by 5. Check out the `Pets and Animals page$/Other/PetsAndAnimals` and choose an Animal from the Pets section, ignoring those Level requirements!
+            Your pet takes its turn at the same time as you do, and always has the same Initiative as yours, and can make normal Checks using using its own Stats.
+            It has 1 Action per turn, which it can use to do its own Abilities or Pet Attack.
             Your pet will not stray more than 30 meters away from you in hostile territory.
-            All pets have the Pet Attack ability.
           Upgrade: If your pet drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.
           Notes: |
-            If your pet raises from being Fallen, it has Pet Exhaustion (is Slowed and can only use Pet Attack, but all Pet Attacks have Cover, which is a -2 to the attack).
-            
-        <Pet Attack>:
-            IsSubspell: true
-            A: 1 Action (from the pet)
-            Effect: |
-                The pet melee attacks a target.
-                The attack deals 1d6 Pierce of Slash Damage (your choice).
+            Your pet can't rise from being Fallen while in combat, even if healed.
+            If your pet ever dies, you can spend 8 hours inbetween Adventures to get a new pet. If you want to change your Pet and abandon your current one, you can do so inbetween Adventures, but the guilt will make you Fumbling for the next 2 Worthy Combat encounters.
+          Subspells:      
+            ~Pet Attack~:
+                A: 1 Action (from the pet)
+                IsSubspell: true
+                Effect: |
+                    The pet melee attacks a target.
+                    The attack deals 1d6 Pierce or Slash Damage (your choice).
+                AlignOnWebsite: Right
 
       Level 7:
 
@@ -290,6 +285,7 @@ Specs:
         <Wicked Animals>:
           _Value: 3
           _ValueComment: (Lmao no idea)
+          HasMixins: true
           A: 1 Action
           Cooldown: Once / Adventure
           Effect: |
@@ -334,6 +330,30 @@ Specs:
           For example, you could transform into a combination of Bird of Prey and Bear, resulting in a Bowlear, with Shielding and a lot of Defense! Be creative!
           The animal size is either the larger or the smaller of the two - your choice.
           Even if you Shapeshift into 2 combinations of a same animal, the cooldown of that animal's Ability persists (e.g. you can't use Bear's Maul twice per Adventure, no matter what animal combination you transform into).
+
+      ~Shapeshift~:            # 2
+        _Value: 2
+        A: Half-Action
+        Cost: 0.5 Mana
+        HasMixins: true
+        Duration: Lasts until cancelled (0 Actions) or you Fall
+        Effect: |
+          Pick an animal from the `Pets and Animals page$/Other/PetsAndAnimals`, within your Level, and instantly transform into it.
+          You also gain its exact Abilities and Animal Attack (see below), but can't cast Spells or use items (obviously) and your Health stays the same. For Checks, you can choose to use the animal's Stats or your Stats.
+        Upgrade: |
+          At first, you can't fly, even if your animal can. If your animal can fly, you have the Jumping Skill and you can glide (you don't take falling Damage).
+          From Level 6, you can fly.
+        Notes: |
+          Each Shapeshift uses half a Mana point (2 Shapeshifts = 1 Mana).
+          You choose what items you keep on you when Shapeshifting, and those items are 'merged' into your new form.
+          While Shapeshifted, you can speak, but your voice is slightly altered to match your shape (e.g. guttural for lions, high pitched for birds, etc).
+        OrderOnWebsite: 1
+        Subspells:
+          ~Animal Attack~:
+            IsSubspell: true
+            A: Half-Action
+            Effect: |
+              Make a melee attack for 1d6 + your Sense (not the animal's).
 
     Talents:
       Level 3:

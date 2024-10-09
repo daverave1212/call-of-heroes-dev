@@ -26,7 +26,7 @@
             "Amount": 2,
             "Regain": "You regain all Mana back inbetween Adventures."
         },
-        "Known Basic Abilities": "2 + Intelligence (if above 0)",
+        "Known Basic Abilities": "2 + Intelligence (minimum 1)",
         "BaseKnownSpells": 2,
         "Basic Ability Lists": [
             "Bloodshed",
@@ -405,10 +405,25 @@
                 "Level 5": {
                     "<Dead Hands>": {
                         "_Value": 1.5,
-                        "A": "1 Action",
+                        "A": "Half-Action",
+                        "Cooldown": "Once / Turn",
                         "Cost": "Any amount of Health",
                         "Duration": "10 minutes",
-                        "Effect": "Declare a square area with a diameter equal to the Health spent.\nUndead hands appear in that area and make it Hard Terrain.\nAt the start of your next turn, summon a number of Zombies equal to half the Health spent, each wherever you choose in that area.\nThey take their turn the same time as you and you can command them to do move and attack (they can't do Default Moves or use items).\nThey have 4 Speed, 1 Health, 2 Defense and fail all Checks.\nEach can attack for 1d4 - 1 Scourge Damage.\nZombies last for up to 10 minutes.\n"
+                        "Effect": "Declare a square area with a diameter equal to the Health spent.\nUndead hands appear in that area and make it Hard Terrain.\nAt the start of your next turn, summon a number of Draugr equal to half the Health spent, each wherever you choose in that area.\n",
+                        "Monster": {
+                            "Name": "Draugr",
+                            "Description": "Draugr take their turn the same time as you and you can command them to do move and attack. They can not do Default Moves or use items. Draugr last for 10 minutes or until killed.",
+                            "Health": 1,
+                            "Defense": 3,
+                            "Speed": 4,
+                            "Stats": "-1/-1/-1/-1/-1",
+                            "Abilities": {
+                                "~Attack~": {
+                                    "A": "1 Action (from Draugr)",
+                                    "Effect": "Make a melee attack for 1d4 Scourge Damage."
+                                }
+                            }
+                        }
                     },
                     "<Schizophrenic Suggestion>": {
                         "_Value": 2.5,

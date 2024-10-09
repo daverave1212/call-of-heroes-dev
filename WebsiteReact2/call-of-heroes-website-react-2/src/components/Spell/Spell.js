@@ -3,19 +3,43 @@ import './Spell.css'
 import PageH2 from './../PageH2/PageH2'
 import Separator from './../Separator/Separator'
 import React, { useEffect, useRef, useState } from 'react'
-import { parseTextWithSymbols, stringReplaceAllMany, getSpellIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll, getVariantsForEachCollection, normalizeForEachVariantsToNormalVariants, createKey } from '../../utils'
+import { parseTextWithSymbols, stringReplaceAllMany, getSpellIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll, getVariantsForEachCollection, normalizeForEachVariantsToNormalVariants, createKey, spellsFromObject } from '../../utils'
 import TableNormal from '../TableNormal/TableNormal'
 import html2canvas from 'html2canvas'
 import CopySpellButton from '../CopyButton/CopySpellButton'
 import classNames from 'classnames'
+import { PetOrAnimalLeftOnly } from '../../pages/Other/PetOrAnimal'
+import { getIsActionPointsSystem } from '../../GlobalState'
+
+const actionPointsMapping = {
+    '1 Action': '2 Action Points',
+    'Half-Action': '1 Action Point',
+    '0 Actions': '0 Action Points'
+}
+const actionPointsMapping2 = {
+    '1 Action': '⦿⦿',
+    'Half-Action': '⦿',
+    '0 Actions': 'Free'
+}
 
 export function SpellTopStats({className, tags}) {
     const {A, DisplayA, Cost, Range, Cooldown, Duration, Requirement, DisplayRequirement, Replacement, Hands, Stat, Special, Price} = tags
+    let displayedA = DisplayA != null? DisplayA : A != null? A : null
+
+    console.log(`Rendering top stats with A ${DisplayA}...`)
+    if (getIsActionPointsSystem()) {
+        console.log('YES...')
+        if (displayedA in actionPointsMapping) {
+            console.log('YEEESSS...')
+            displayedA = actionPointsMapping[displayedA]
+        }
+    }
+
     return (
         <div className={`spell-top__stats ${className}`}>
-            { (A != null || DisplayA != null) && (
-                <div><img src="/Icons/UI/Hand.png" className="inline-icon--spell"/>
-                    { DisplayA != null? DisplayA : A }
+            { (displayedA != null) && (
+                <div>
+                    <img src="/Icons/UI/Hand.png" className="inline-icon--spell"/>{ displayedA }
                 </div>
             ) }
             { Cost != null && (
@@ -25,9 +49,9 @@ export function SpellTopStats({className, tags}) {
                 </div>
             ) }
             { Hands != null && (<div><img src="/Icons/UI/Hand.png" className="inline-icon--spell"/>{ Hands }</div>) }
+            { Range != null && (<div><img src="/Icons/UI/Range.png" className="inline-icon--spell"/>{ Range }</div>) }
             { Stat != null && (<div><img src="/Icons/UI/Special.png" className="inline-icon--spell"/>{ Stat }</div>) }
             { Special != null && (<div><img src="/Icons/UI/Hand.png" className="inline-icon--spell"/>{ Special }</div>) }
-            { Range != null && (<div><img src="/Icons/UI/Range.png" className="inline-icon--spell"/>{ Range }</div>) }
             { Cooldown != null && (<div><img src="/Icons/UI/Cooldown.png" className="inline-icon--spell"/>{ Cooldown }</div>) }
             { Duration != null && (<div><img src="/Icons/UI/Duration.png" className="inline-icon--spell"/>{ Duration }</div>) }
             { (Requirement != null || DisplayRequirement != null) && (
@@ -51,7 +75,7 @@ export function SpellBorder() {
     return <div className="spell__border"></div>
 }
 export function SpellBackground() {
-    return <div className='spell__box'></div>
+    return <div className='spell__background'></div>
 }
 export function SpellTop({
     hasVariants, variantIndex, Variants,
@@ -103,7 +127,7 @@ export function SpellTop({
 }
 
 
-export default function Spell({ children, spell, style, hasIcon, hasCopyButton=true, showTopStats=true }) {
+export default function Spell({ children, spell, style, hasIcon, hasBorder, hasCopyButton=true, showTopStats=true }) {
 
     const [variantIndex, setVariantIndex] = useState(0)
 
@@ -130,8 +154,15 @@ export default function Spell({ children, spell, style, hasIcon, hasCopyButton=t
         DoubleTableNumbered,
         DoubleTable,
         Variants,
-        VariantsForEach
+        VariantsForEach,
+        Monster,
+        Subspells
     } = spell
+
+    if (getIsActionPointsSystem() && Effect != null) {
+        Effect = stringReplaceAllMany(Effect, Object.keys(actionPointsMapping), Object.keys(actionPointsMapping).map(key => actionPointsMapping[key]))
+    }
+
     if (spell['Display Name'] != null) DisplayName = spell['Display Name']
     let hasVariants = Variants != null || VariantsForEach != null
     
@@ -222,9 +253,10 @@ export default function Spell({ children, spell, style, hasIcon, hasCopyButton=t
             'spell',
             spellNormalOrSubClass,
             spellPassiveOrActiveClass,
-            { 'spell--with-variants': hasVariants === true }
+            { 'spell--with-variants': hasVariants === true },
+            { 'spell__no-border': hasBorder == false }
         )}>
-            <SpellBorder/>
+            { hasBorder != false && <SpellBorder/> } 
             <SpellBackground/>
             <div className='spell__box'> {/* This has CSS to be perfectly in the bounds of the borders and banner */}
                 <SpellTop
@@ -261,6 +293,16 @@ export default function Spell({ children, spell, style, hasIcon, hasCopyButton=t
                         )) }
                     </TableNormal>
                 ) }
+                { (Subspells != null) && spellsFromObject(Subspells).map(spell => (
+                    <div style={{paddingBottom: 'var(--spell-padding-bottom)'}}>
+                        <Spell spell={spell} hasBorder={false}/>
+                    </div>
+                ))}
+                { (Monster != null) && (
+                    <div style={{padding: 'var(--spell-padding)'}}>
+                        <PetOrAnimalLeftOnly animal={Monster}/>
+                    </div>
+                )}
                 { hasCopyButton === true && <CopySpellButton elementId={uniqueID} shouldAddBorder={true}/> }
             </div>
         </div>

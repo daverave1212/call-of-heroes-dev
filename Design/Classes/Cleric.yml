@@ -32,7 +32,7 @@ Spellcasting:
     Amount: 2
     Regain: You regain all Mana back inbetween Adventures.
   
-  Known Basic Abilities: 2 + Intelligence (if above 0)
+  Known Basic Abilities: 2 + Intelligence (minimum 1)
   BaseKnownSpells: 2
   
   Basic Ability Lists:
@@ -93,15 +93,15 @@ Starting Abilities Description: |
 
 Other Ability Mentions: |
   The first time you choose a cleric domain (specialization), you must choose between two abilities.
-  For example, for Battle Cleric, you have to choose either March Ahead or Piety.
+  For example, for Inquisitor, you have to choose either March Ahead or Piety.
   Choose wisely...
 
 Specializations:
   Description: At Level 1, you can choose your specialization.
   Choices:
-    - Battle Cleric, where you become devoted to either Peace or War (or both) and pursue either of those
+    - Inquisitor, where you become devoted to either Peace or War (or both) and pursue either of those
     - Beacon Cleric, a keeper of the light or darkness, whose power draws from flame or shadow...
-    - Life Cleric, a balancer between life and death; your very fate hangs in this balance
+    - Soulwright, a balancer between life and death; your very fate hangs in this balance
  
 # Talent: Channel like half of your health into an ally to make him stronger! (combos with undead servant)
 # Talent: 0 Actions, 0 Charges, Your next damaging spell heals instead
@@ -137,12 +137,34 @@ Specializations:
       Lasts until the end of the next combat encounter.
     AlignOnWebsite: Right
 
+  ~Reaping~:
+    _Value: 2.6666
+    A: Passive
+    Effect: |
+      Whenever a Worthy Enemy dies in combat, gain 0.05 Max Mana.
+      If YOU killed that Worthy Enemy, gain 0.2 instead.
+    Notes: You can't spend Mana in fractions (usually).
+
+    # Level 9:
+
+    #   <Summon Celestian>:
+    #     A: ??
+    #     Effect: ??
+
+    #   <Apocalypse>:
+    #     A: ??
+    #     Effect: 
+
+    #   <Summon Voidborn>:
+    #     A: ??
+    #     Effect: ??
+
 Specs:
 
 
 
 
-  Light Cleric:               # 2.25
+  Herald:               # 2.25
     
     # Damage
 
@@ -176,7 +198,7 @@ Specs:
   
     Abilities:
     
-      ~Illumination~ :
+      ~Herald of Radiance~ :
         _Value: 1.25
         A: Passive
         Effect: |
@@ -184,7 +206,7 @@ Specs:
           You radiate light in a 3 meter radius.
         Notes: You can turn the light off at will.
       
-      ~Twilight~ :
+      ~Herald of Twilight~ :
         _Value: 1.25
         A: Passive
         Effect: |
@@ -300,22 +322,10 @@ Specs:
         <Mana Bonus>:
           Effect: Gain +1 Max Mana and +1 Known Ability.
 
-      # Level 9:
 
-      #   <Summon Celestian>:
-      #     A: ??
-      #     Effect: ??
 
-      #   <Apocalypse>:
-      #     A: ??
-      #     Effect: 
-
-      #   <Summon Voidborn>:
-      #     A: ??
-      #     Effect: ??
-
-  Battle Cleric:              # 2.75
-    Description: Battle clerics specialize in conditions of war. You must choose your side
+  Inquisitor:              # 2.75
+    Description: Inquisitors specialize in battle, accusations and raw conviction. You must choose your side
 
     # Heal
 
@@ -332,7 +342,7 @@ Specs:
 
     Starting Abilities:
 
-      ~Pledge of Battle~:
+      ~Join the Inquisition~:
         _Value: 2.5
         A: Special
         Duration: Lifetime
@@ -349,12 +359,12 @@ Specs:
 
 
     Choose your side: |
-        Battle Cleric!
+        Inquisitor!
         Pick only one of the following two abilities!
   
     Abilities:
 
-      <Tenets of a Cleric>:
+      <Conviction>:
         A: Passive
         Effect: |
           While you have even Mana, you have +1 Movement.
@@ -384,7 +394,7 @@ Specs:
             After the first enemy is killed every Worthy Combat, your next attack pushes the non-Epic target up to 10 meters away from you.
             It takes 1d12 Damage if it collides with something.
             
-        <Heavy Burden> :
+        <Chastise> :
           _Value: 1
           A: Passive
           Effect: |
@@ -477,6 +487,7 @@ Specs:
           _Value: 2
           A: Passive
           Cooldown: Once / Turn
+          Requirement: Only works in Worthy Combat
           Effect: The first time you make a weapon attack every turn, cast Awe.
 
         <Divine Doubledown>:
@@ -510,11 +521,14 @@ Specs:
       Level 9:
 
         <Heaviness of Words>:
-          _Value: 3
+          _Value: 4
           A: Passive
           HasMixins: true
-          Effect: Your _offensive_ and healing Abilities that cost Mana cast Awe once more for each Mana spent.
-          Notes: "{Offensive Abilities}"
+          Effect: Your Abilities that cost Mana cast Awe once more for each Mana spent. You have +1 Mana.
+
+        <By My Will>:
+          A: Passive
+          Effect: Your pledgee(s) gain all your Inquisitor
 
         <Heartstopping Awe>:  # 4.5 (4 CC = 4 + 2d4)
           _Value: 4.5
@@ -522,7 +536,7 @@ Specs:
           Effect: You can cast Spread the Awe once more per Adventure, and the target(s) must succeed a Sense Check against double your Sense or be Crippled and Silenced.
 
 
-  Life Cleric:                # 2 (because of the Mana decrease; would've been more like 3 usually)
+  Soulwright:                # 2 (because of the Mana decrease; would've been more like 3 usually)
     # Pet
 
     # Utility       (Talents 2)
@@ -537,7 +551,7 @@ Specs:
     # Spec: Reaction: raise enemy to fight for you
     # Talent: wings for follower
     # Talent: Corpses as a resource
-    Description: You are a worshipper of life and/or death. Seek their balance, and seek balance within yourself.\nYou have a Second Soul character, which is essentially another toned-down character you play.
+    Description: W Soulwright Cleric is one who worships the soul itself under the guidance of one or more chosen gods, and as such has the power to manipulate anima - the very essence of life.\nYou have a Second Soul character, which is essentially another character you play.
     Starting Abilities:
     
       ~Second Soul~:      # 1, but -2 = 1
@@ -551,7 +565,7 @@ Specs:
         Notes: |
           Come up with a story about why you have your companion and why your god allowed this or gave them to you.
 
-    Choose your side: Life Cleric!\nPick only one of the following two abilities!
+    Choose your side: Soulwright!\nPick only one of the following two abilities!
 
     Abilities:
 
@@ -670,7 +684,7 @@ Specs:
             Your companion is built like a normal Level 1 Player Character, but all its stats are decreased by 1, starts with no separate Gold and can not gain Feats.
             It always has the same initiative as you and Levels Up only when you Level Up.
 
-            Apply the same "soul bond death" rules as your chosen Life Cleric Ability at Level 2, and apply the same bonuses to the Stats (or resistances).
+            Apply the same "soul bond death" rules as your chosen Soulwright Ability at Level 2, and apply the same bonuses to the Stats (or resistances).
           Upgrade: |
             For the Quest Masters, note that this companion also counts as a normal Player Character for encounter Experience!
           Notes: |
@@ -692,9 +706,18 @@ Specs:
           Duration: 1 minute
           Effect: |
             All your summons and minions instantly transform into Death Ghouls.
-            Death Ghouls have 15 Health, 1 in all Stats, 7 meters speed and their attacks deal 1d10 Damage.
             They take their turns on your turn (if they haven't already).
-          Notes: After 1 minute, they transform back to how they were previously. If your companion ghoul dies, it transforms to how it previously was. If other minions ghouls die, they remain dead.
+            Death Ghouls have 15 Health, 1 in all Stats, 7 meters speed and their attacks deal 1d10 Damage.
+          Monster:
+            Name: Death Ghoul
+            Description: After 1 minute, it transforms back to how it was previously. If your companion ghoul dies, it transforms to how it previously was (with its old Health as well). If other minions ghouls die, they remain dead.
+            Health: 15
+            Stats: 1/2/0/2/1
+            Speed: 7 meters
+            Abilities:
+              ~Attack~:
+                A: 1 Action (from ghoul)
+                Effect: Melee attack a Unit for 1d10 Damage.
 
         <Presence of Fear>:   # 3 (~3 Awes + 3 Fears)
           _Value: 3

@@ -13,8 +13,7 @@ import { SideMenu } from '../../components/SideMenu/SideMenu'
 
 
 const weaponsSideMenuSections = {
-    'Weapons & Shields': [
-        'Shields',
+    'Weapons & Runes': [
         'Runes',
         'One-Handed Melee',
         'Two-Handed Melee',

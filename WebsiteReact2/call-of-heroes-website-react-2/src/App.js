@@ -89,6 +89,7 @@ import MagicItems from './pages/Other/MagicItems';
 import PatchNotes from './pages/Meta/PatchNotes';
 import CustomMonster from './pages/Other/CustomMonster';
 import RogueB from './pages/Classes/RogueB';
+import TitleGenerator from './pages/Tools/TitleGenerator';
 
 function App() {
 
@@ -178,6 +179,7 @@ function App() {
           <Route path="/Tools/TreasureGenerator" element={ <TreasureGenerator/> }/>
           <Route path="/Tools/DungeonGenerator" element={ <DungeonGenerator/> }/>
           <Route path="/Tools/RunePuzzle" element={ <RunePuzzle/> }/>
+          <Route path="/Tools/TitleGenerator" element={ <TitleGenerator/> }/>
 
           <Route path='/Meta/PatchNotes' element={ <PatchNotes/> }/>
         </Routes>

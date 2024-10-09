@@ -379,6 +379,7 @@ export function parseTextWithSymbols(text, customSymbols, isDebug) {
 
     let symbolToInsertion = {
         'Damage': () => (<Icon name="Damage"/>),
+        'Mana': () => (<Icon name="Mana"/>),
         'Diamond': () => (<span style={{fontSize: '0.8em'}}>🔹</span>),
         'Pets and Animals': () => (<Link to="/Other/PetsAndAnimals">Pets and Animals</Link>),
         'Offensive Abilities': () => (<span>Offensive means that it deals Damage or applies hard Crowd Control (anything better than Slow and creating Hard Terrain).</span>),
@@ -412,6 +413,7 @@ export function parseTextWithSymbols(text, customSymbols, isDebug) {
         '_': text => (<i>{text}</i>),
         '~': text => (<span style={{color: 'var(--blue-color)'}}>{text}</span>)
     }
+    const MARKUP_DELIMITERS = Object.keys(symbolToMarkup)
 
     let currentTextPartStart = 0
     let textParts = []
@@ -419,6 +421,7 @@ export function parseTextWithSymbols(text, customSymbols, isDebug) {
     let state = 'reading-normal-text'
     let symbolStart = null
     let markupSymbol = null
+    let urlText = null
     for (let i = 0; i < text.length; i++) {
         const char = text[i]
         switch (state) {
@@ -430,7 +433,12 @@ export function parseTextWithSymbols(text, customSymbols, isDebug) {
                     symbolStart = i
                     state = 'reading-symbol'
                 }
-                if (char == '^' || char == '_' || char == '~') {
+                if (char == '`') {
+                    textParts.push(text.substring(currentTextPartStart, i))
+                    symbolStart = i
+                    state = 'reading-url'
+                }
+                if (MARKUP_DELIMITERS.includes(char)) {
                     textParts.push(text.substring(currentTextPartStart, i))
                     symbolStart = i
                     state = 'reading-markup'
@@ -453,6 +461,17 @@ export function parseTextWithSymbols(text, customSymbols, isDebug) {
                     state = 'reading-normal-text'
                 }
                 break
+            case 'reading-url':
+                if (char == '$') {
+                    urlText = text.substring(symbolStart + 1, i)
+                    currentTextPartStart = i + 1
+                }
+                if (char == '`') {
+                    const url = text.substring(currentTextPartStart, i)
+                    textParts.push(<Link to={url}>{ urlText }</Link>)
+                    currentTextPartStart = i + 1
+                    state = 'reading-normal-text'
+                }
         }
     }
 
@@ -666,3 +685,160 @@ export function assert(cond, message) {
 // ---------------- React Small Utilities ----------------
 export const styleMargined = { marginBottom: 'var(--element-padding)' }    // Use this as style={styleMargined}
 export const stylePadded   = { padding: 'var(--element-padding)' }
+
+
+
+
+
+// -------------------------- Canvas --------------------------
+
+let ctxSettings = {
+    'default': {}
+}
+export function saveCtxSettings(ctx, key) {
+    let ctxSettingsObject
+    if (key == null) {
+        ctxSettingsObject = ctxSettings['default']
+    } else {
+        if (ctxSettings[key] == null) {
+            ctxSettings[key] = {}
+        }
+        ctxSettingsObject = ctxSettings[key]
+    }
+    ctxSettingsObject.textAlign = ctx.textAlign
+    ctxSettingsObject.font = ctx.font
+    ctxSettingsObject.fillStyle = ctx.fillStyle
+    ctxSettingsObject.globalAlpha = ctx.globalAlpha
+    ctxSettingsObject.stroke = ctx.stroke
+    ctxSettingsObject.lineWidth = ctx.lineWidth
+    console.log(`Saved ctxSettings with key "${key}" as:`)
+    console.log({ctxSettingsObject})
+}
+export function loadCtxSettings(ctx, key) {
+    const ctxSettingsObject = key == null? ctxSettings['default'] : ctxSettings[key]
+    for (const key of Object.keys(ctxSettingsObject)) {
+        ctx[key] = ctxSettingsObject[key]
+    }
+}
+
+export function drawImageOnCanvasAsync(canvas, pathOrImage, x, y, width, height, alpha) {
+    const ctx = canvas.getContext('2d')
+    let image
+    if (typeof pathOrImage === 'string' || pathOrImage instanceof String) {
+        image = new Image()
+        image.src = pathOrImage
+    } else {
+        image = pathOrImage
+    }
+    return new Promise((res, rej) => {
+        image.onload = function() {
+            saveCtxSettings(ctx)
+            if (alpha != null) {
+                ctx.globalAlpha = alpha
+            }
+            if (width == null && height != null) {
+                ctx.drawImage(image, x, y, getImageRelativeWidthAtHeight(image, height), height)
+            } else if (width != null && height == null) {
+                ctx.drawImage(image, x, y, width)
+            } else if (width != null && height != null) {
+                ctx.drawImage(image, x, y, width, height)
+            } else {
+                ctx.drawImage(image, x, y)
+            }
+            loadCtxSettings(ctx)
+            res()
+        }
+    })
+}
+export function getImageRelativeWidthAtHeight(image, atHeight) {
+    const aspectRatio = image.naturalWidth / image.naturalHeight
+    return atHeight * aspectRatio
+}
+export function fillCanvasColor(canvas, color) {
+    const ctx = canvas.getContext('2d')
+    saveCtxSettings(ctx)
+    ctx.fillStyle = color
+    ctx.fillRect(0, 0, canvas.width, canvas.height)
+    loadCtxSettings(ctx)
+}
+export function clearCanvas(canvas) {
+    const ctx = canvas.getContext('2d')
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.reset()
+}
+export function clearRect(canvas, x, y, width, height) {
+    const ctx = canvas.getContext('2d')
+    ctx.clearRect(x, y, width, height)
+}
+export function drawText({canvas, font, x, y, text, textAlign='center', color, strokeColor, strokeSize, rotation}) {
+    const ctx = canvas.getContext('2d')
+    ctx.save()
+    if (color != null) {
+        ctx.fillStyle = color
+    }
+    ctx.textAlign = textAlign
+    ctx.font = font
+    if (strokeColor != null) {
+        ctx.strokeStyle = strokeColor
+    }
+    if (strokeSize != null) {
+        ctx.lineWidth = strokeSize
+    }
+    if (rotation != null) {
+        ctx.rotate(Math.PI / 180 * rotation)
+    }
+    if (strokeSize != null || strokeColor != null) {
+        ctx.strokeText(text, x, y);
+    }
+    ctx.fillText(text, x, y)
+    ctx.restore()
+}
+
+export function drawTextLines({canvas, font, x, y, width, text, lineHeight, textAlign='center', color, isCenteredY=true, strokeColor, strokeSize}) {
+    const ctx = canvas.getContext('2d')
+    saveCtxSettings(ctx, 'drawTextLines')
+    ctx.font = font
+    const lines = getLines(ctx, text, width)
+    console.log(`Got lines as`)
+    console.log({lines})
+    const totalHeight = lines.length * lineHeight
+    const startY = isCenteredY ? y - totalHeight / 2 : y
+    for (let i = 0; i < lines.length; i++) {
+        const textLine = lines[i]
+        const thisY = startY + i * lineHeight
+        drawText({canvas, font, x, y: thisY, text: textLine, textAlign, color, strokeColor, strokeSize})
+    }
+    loadCtxSettings(ctx, 'drawTextLines')
+    return lines
+}
+
+export function getLines(ctx, text, maxWidth) {
+    var words = text.split(" ");
+    var lines = [];
+    var currentLine = words[0];
+
+    for (var i = 1; i < words.length; i++) {
+        var word = words[i];
+        var width = ctx.measureText(currentLine + " " + word).width;
+        if (width < maxWidth) {
+            currentLine += " " + word;
+        } else {
+            lines.push(currentLine);
+            currentLine = word;
+        }
+    }
+    lines.push(currentLine);
+    return lines;
+}
+
+export function getOnlyKey(obj) {
+    return Object.keys(obj)[0]
+}
+export function getTextWidth(font, text) {
+    const canvas = document.createElement('canvas')
+    const ctx = canvas.getContext('2d')
+    ctx.font = font
+    const width = ctx.measureText(text).width
+    return width
+    
+}

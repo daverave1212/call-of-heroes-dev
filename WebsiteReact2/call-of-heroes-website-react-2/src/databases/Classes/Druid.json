@@ -23,7 +23,7 @@
             "Amount": 2,
             "Regain": "You regain all Mana back inbetween Adventures."
         },
-        "Known Basic Abilities": "2 + Intelligence (if above 0)",
+        "Known Basic Abilities": "2 + Intelligence (minimum 1)",
         "BaseKnownSpells": 2,
         "Basic Ability Lists": [
             "Nature",
@@ -60,25 +60,29 @@
     "Starting Abilities": {
         "~Druidcraft~": {
             "A": "Depends",
+            "Range": "6 meters",
             "HasMixins": true,
-            "Effect": "{Diamond} You speak Whistletone, a language made up of whistles\n{Diamond} You can create harmless sensory effects or tiny weather effects (6 meters range).\n{Diamond} You can massively speed up the growth of small plants (touch by touch).\n{Diamond} You can slightly soothe physical pains (with no combat effect) (by touch).\n{Diamond} You can attempt to convey simple ideas to animals and plants (3 meters range) that you would not normally be able to convey.\n{Diamond} You have +3 on rolls for identifying plants, monsters or monster lairs\n",
+            "Effect": "Every midnight, regain up to {Mana}1 Mana.\n\nYou speak Whistletone, a language made up of whistles, and are Skilled in Nature and Monstrology.\nYou can create harmless sensory effects, tiny weather effects or soothe mild pains.\nYou can speed up the growth of small plants by 1000% while channeling.\n",
             "Notes": "You can do these even while Shapeshifted.",
             "AlignOnWebsite": "Right"
         },
         "~Shapeshift~": {
             "_Value": 2,
             "A": "Half-Action",
-            "Cooldown": "2 times / Adventure (see effect)",
-            "Effect": "Pick an animal from the Pets and Animals list, within your Level, and instantly transform into it.\n\nFor Checks, you can choose to use the animal's Stats or your Stats.\nYou also gain its exact Abilities and Animal Attack (see below), but can't cast Spells or use items (obviously).\nYour Health stays the same, but you use that animal's Defense.\n\nShapeshift ends if you drop to 0 Health, and you Fall.\n",
-            "Upgrade": "At first, you can't fly, even if your animal can. If your animal can fly, you have the Jumping Skill and you can glide (you don't take falling Damage).\nFrom Level 3, you can use this 3 times per Adventure.\nFrom Level 6, you can use this 4 times per Adventure and you can fly.\nFrom Level 9, you can use this 5 times per Adventure.\n",
-            "Notes": "You choose what items you keep on you when Shapeshifting, and those items are 'merged' into your new form.\nYou can turn back into your person form for 0 Actions (on your turn).\nWhile Shapeshifted, you can speak, but your voice is slightly altered to match your shape (e.g. guttural for lions, high pitched for birds, etc).\n",
-            "OrderOnWebsite": 1
-        },
-        "~Animal Attack~": {
-            "IsSubspell": true,
-            "A": "Half-Action",
-            "Effect": "Make a melee attack for 1d6 + your Sense (not the animal's).\n",
-            "OrderOnWebsite": 2
+            "Cost": "0.5 Mana",
+            "HasMixins": true,
+            "Duration": "Lasts until cancelled (0 Actions) or you Fall",
+            "Effect": "Pick an animal from the `Pets and Animals page$/Other/PetsAndAnimals`, within your Level, and instantly transform into it.\nYou also gain its exact Abilities and Animal Attack (see below), but can't cast Spells or use items (obviously) and your Health stays the same. For Checks, you can choose to use the animal's Stats or your Stats.\n",
+            "Upgrade": "At first, you can't fly, even if your animal can. If your animal can fly, you have the Jumping Skill and you can glide (you don't take falling Damage).\nFrom Level 6, you can fly.\n",
+            "Notes": "Each Shapeshift uses half a Mana point (2 Shapeshifts = 1 Mana).\nYou choose what items you keep on you when Shapeshifting, and those items are 'merged' into your new form.\nWhile Shapeshifted, you can speak, but your voice is slightly altered to match your shape (e.g. guttural for lions, high pitched for birds, etc).\n",
+            "OrderOnWebsite": 1,
+            "Subspells": {
+                "~Animal Attack~": {
+                    "IsSubspell": true,
+                    "A": "Half-Action",
+                    "Effect": "Make a melee attack for 1d6 + your Sense (not the animal's).\n"
+                }
+            }
         }
     },
     "Specializations": {
@@ -166,14 +170,18 @@
                         "_ValueComment": "(multiplicative)",
                         "A": "Passive",
                         "Requirement": "-1 Max Mana and -5 Max Health",
-                        "Effect": "You have an animal pet that can fight alongside you, but your Mana pool is permanently decreased by 1, and your total Health by 5.\nYour animal has stats depending on its species. Check out the Pets and Animals page to see its stats!\nYour pet takes its turn at the same time as you do, and always has the same initiative as yours.\nYour pet has 1 Action per turn, which it can use to do its own Abilities.\nYour pet can make normal Checks using using its own Stats.\nYour pet will not stray more than 30 meters away from you in hostile territory.\nAll pets have the Pet Attack ability.\n",
+                        "HasMixins": true,
+                        "Effect": "You have an animal pet that can fight alongside you, but your Max Mana decreases by 1 and your Health by 5. Check out the `Pets and Animals page$/Other/PetsAndAnimals` and choose an Animal from the Pets section, ignoring those Level requirements!\nYour pet takes its turn at the same time as you do, and always has the same Initiative as yours, and can make normal Checks using using its own Stats.\nIt has 1 Action per turn, which it can use to do its own Abilities or Pet Attack.\nYour pet will not stray more than 30 meters away from you in hostile territory.\n",
                         "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.",
-                        "Notes": "If your pet raises from being Fallen, it has Pet Exhaustion (is Slowed and can only use Pet Attack, but all Pet Attacks have Cover, which is a -2 to the attack).\n"
-                    },
-                    "<Pet Attack>": {
-                        "IsSubspell": true,
-                        "A": "1 Action (from the pet)",
-                        "Effect": "The pet melee attacks a target.\nThe attack deals 1d6 Pierce of Slash Damage (your choice).\n"
+                        "Notes": "Your pet can't rise from being Fallen while in combat, even if healed.\nIf your pet ever dies, you can spend 8 hours inbetween Adventures to get a new pet. If you want to change your Pet and abandon your current one, you can do so inbetween Adventures, but the guilt will make you Fumbling for the next 2 Worthy Combat encounters.\n",
+                        "Subspells": {
+                            "~Pet Attack~": {
+                                "A": "1 Action (from the pet)",
+                                "IsSubspell": true,
+                                "Effect": "The pet melee attacks a target.\nThe attack deals 1d6 Pierce or Slash Damage (your choice).\n",
+                                "AlignOnWebsite": "Right"
+                            }
+                        }
                     }
                 },
                 "Level 7": {
@@ -187,6 +195,7 @@
                     "<Wicked Animals>": {
                         "_Value": 3,
                         "_ValueComment": "(Lmao no idea)",
+                        "HasMixins": true,
                         "A": "1 Action",
                         "Cooldown": "Once / Adventure",
                         "Effect": "Call upon 2 animals, both of which are specific to your _domain_, but have Max Health as if they were 4 Levels lower than you.\nThey appear on the edge of the battlefield, from the wilderness, and they fight for you for up to 1 minute.\n",
@@ -211,6 +220,24 @@
                     "A": "Passive",
                     "Effect": "After using Shapeshift, you gain back the Half-Action spent on it.\nWhen you use Shapeshift, you can transform into a combination of 2 animals.\nYou take the highest Stat from both animals, and you have access to both of their Abilities.\n",
                     "Notes": "For example, you could transform into a combination of Bird of Prey and Bear, resulting in a Bowlear, with Shielding and a lot of Defense! Be creative!\nThe animal size is either the larger or the smaller of the two - your choice.\nEven if you Shapeshift into 2 combinations of a same animal, the cooldown of that animal's Ability persists (e.g. you can't use Bear's Maul twice per Adventure, no matter what animal combination you transform into).\n"
+                },
+                "~Shapeshift~": {
+                    "_Value": 2,
+                    "A": "Half-Action",
+                    "Cost": "0.5 Mana",
+                    "HasMixins": true,
+                    "Duration": "Lasts until cancelled (0 Actions) or you Fall",
+                    "Effect": "Pick an animal from the `Pets and Animals page$/Other/PetsAndAnimals`, within your Level, and instantly transform into it.\nYou also gain its exact Abilities and Animal Attack (see below), but can't cast Spells or use items (obviously) and your Health stays the same. For Checks, you can choose to use the animal's Stats or your Stats.\n",
+                    "Upgrade": "At first, you can't fly, even if your animal can. If your animal can fly, you have the Jumping Skill and you can glide (you don't take falling Damage).\nFrom Level 6, you can fly.\n",
+                    "Notes": "Each Shapeshift uses half a Mana point (2 Shapeshifts = 1 Mana).\nYou choose what items you keep on you when Shapeshifting, and those items are 'merged' into your new form.\nWhile Shapeshifted, you can speak, but your voice is slightly altered to match your shape (e.g. guttural for lions, high pitched for birds, etc).\n",
+                    "OrderOnWebsite": 1,
+                    "Subspells": {
+                        "~Animal Attack~": {
+                            "IsSubspell": true,
+                            "A": "Half-Action",
+                            "Effect": "Make a melee attack for 1d6 + your Sense (not the animal's).\n"
+                        }
+                    }
                 }
             },
             "Talents": {
@@ -339,9 +366,18 @@
                         "_ValueComment": "(multiplicative)",
                         "A": "Passive",
                         "Requirement": "-1 Max Mana and -5 Max Health",
-                        "Effect": "You have an animal pet that can fight alongside you, but your Mana pool is permanently decreased by 1, and your total Health by 5.\nYour animal has stats depending on its species. Check out the Pets and Animals page to see its stats!\nYour pet takes its turn at the same time as you do, and always has the same initiative as yours.\nYour pet has 1 Action per turn, which it can use to do its own Abilities.\nYour pet can make normal Checks using using its own Stats.\nYour pet will not stray more than 30 meters away from you in hostile territory.\nAll pets have the Pet Attack ability.\n",
+                        "HasMixins": true,
+                        "Effect": "You have an animal pet that can fight alongside you, but your Max Mana decreases by 1 and your Health by 5. Check out the `Pets and Animals page$/Other/PetsAndAnimals` and choose an Animal from the Pets section, ignoring those Level requirements!\nYour pet takes its turn at the same time as you do, and always has the same Initiative as yours, and can make normal Checks using using its own Stats.\nIt has 1 Action per turn, which it can use to do its own Abilities or Pet Attack.\nYour pet will not stray more than 30 meters away from you in hostile territory.\n",
                         "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.",
-                        "Notes": "If your pet raises from being Fallen, it has Pet Exhaustion (is Slowed and can only use Pet Attack, but all Pet Attacks have Cover, which is a -2 to the attack).\n"
+                        "Notes": "Your pet can't rise from being Fallen while in combat, even if healed.\nIf your pet ever dies, you can spend 8 hours inbetween Adventures to get a new pet. If you want to change your Pet and abandon your current one, you can do so inbetween Adventures, but the guilt will make you Fumbling for the next 2 Worthy Combat encounters.\n",
+                        "Subspells": {
+                            "~Pet Attack~": {
+                                "A": "1 Action (from the pet)",
+                                "IsSubspell": true,
+                                "Effect": "The pet melee attacks a target.\nThe attack deals 1d6 Pierce or Slash Damage (your choice).\n",
+                                "AlignOnWebsite": "Right"
+                            }
+                        }
                     },
                     "<Pet Attack>": {
                         "IsSubspell": true,
