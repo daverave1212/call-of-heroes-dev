@@ -57,6 +57,7 @@ files_to_convert = [    # Order matters
     'Obstacles.yml',
     
     'Other/MagicItems.yml',
+    'Other/MagicItemProperties.yml',
     'Other/SpellSchoolDescriptions.yml',
     'Other/Languages.yml',
     'Other/Levels.yml',

@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom'
 import BottomWaveEffect from '../components/BottomWaveEffect/BottomWaveEffect'
 import HeroPageIntroPortrait from '../components/hero/HeroPageIntroPortrait/HeroPageIntroPortrait'
 import { HeroSection } from './Other/RulesExplained/Learn'
-import AnchorFixer from '../components/AnchorFixer/AnchorFixer'
+import AnchorFixer, { AnchorFixerLess } from '../components/AnchorFixer/AnchorFixer'
 
 export default function() {
 
@@ -46,13 +46,13 @@ export default function() {
             A gamified tabletop RPG for this generation of video gamers. Battle, explore and host games for the modern world.
           </p>
           
-          <HeroButton>
-          <a href="#Home-Advantages">Show Me</a>
+          <HeroButton href="#Home-Advantages">
+            Show Me
           </HeroButton>
 
         </div>
       </div>
-      <AnchorFixer id="Home-Advantages"/>
+      <AnchorFixerLess id="Home-Advantages"/>
       <LandingPageSeparator type="8"/>
 
 

@@ -194,15 +194,16 @@ export function extractDefenseFromMonsterArmor(text) {
     }
     return parseInt(defenseSoFar)
 }
-const $LESSER_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Lesser').map(spell => spell.Name)
-const $MINOR_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Minor').map(spell => spell.Name)
-const $MAJOR_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Major').map(spell => spell.Name)
-const $GRAMD_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Grand').map(spell => spell.Name)
+export const $LESSER_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Lesser').map(spell => spell.Name)
+export const $MINOR_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Minor').map(spell => spell.Name)
+export const $MAJOR_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Major').map(spell => spell.Name)
+export const $GRAMD_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Grand').map(spell => spell.Name)
+export const $SKILLS = Object.keys(skills).map(name => removeTildes(name))
 export function getVariantsForEachCollection(collectionName) {
     switch (collectionName) {
         case '$OneHandedWeapons': return [...Object.keys(weapons['One-Handed Melee']), ...Object.keys(weapons['One-Handed Ranged'])].filter(weapon => weapon != 'Punch')
         case '$TwoHandedWeapons': return [...Object.keys(weapons['Two-Handed Melee']), ...Object.keys(weapons['Two-Handed Ranged'])]
-        case '$Skills': return Object.keys(skills).map(name => removeTildes(name)).map(name => name.slice(name.lastIndexOf(' ') + 1))
+        case '$Skills': return $SKILLS.map(name => name.slice(name.lastIndexOf(' ') + 1))
         
         // Half-Action, 0 Mana             Once / Combat
         case '$LesserSpells': return $LESSER_SPELLS_NAMES
@@ -400,6 +401,13 @@ export function parseTextWithSymbols(text, customSymbols, isDebug) {
         
         'Gold': () => (<Icon name="Gold"/>)
     }
+
+    const functions = {
+        'RandomOf': function(args) {
+            return randomOf(...args)
+        }
+    }
+
     if (customSymbols != null) {
         symbolToInsertion = {...symbolToInsertion, ...customSymbols}
     }
@@ -422,6 +430,10 @@ export function parseTextWithSymbols(text, customSymbols, isDebug) {
     let symbolStart = null
     let markupSymbol = null
     let urlText = null
+    let functionName = ''
+    let isReadingFunctionString = false
+    let functionStringStart = 0
+    let functionStrings = []
     for (let i = 0; i < text.length; i++) {
         const char = text[i]
         switch (state) {
@@ -451,6 +463,37 @@ export function parseTextWithSymbols(text, customSymbols, isDebug) {
                     textParts.push(symbolToInsertion[symbol]())    // Push current symbol
                     currentTextPartStart = i + 1
                     state = 'reading-normal-text'
+                } else if (char == '(') {
+                    functionName = text.substring(symbolStart + 1, i)
+                    isReadingFunctionString = false
+                    functionStrings = []
+                    state = 'reading-function'
+                }
+                break
+            case 'reading-function':
+                if (char == '"') {
+                    if (isReadingFunctionString == false) {
+                        console.log(`Started reading string.`)
+                        functionStringStart = i + 1
+                        isReadingFunctionString = true
+                    } else if (isReadingFunctionString) {
+                        const str = text.substring(functionStringStart, i)
+                        functionStrings.push(str)
+                        console.log(`Stopped reading string: ${str}`)
+                        isReadingFunctionString = false
+                    }
+                } else if (char == ')') {
+                    if (isReadingFunctionString) {
+                        continue
+                    }
+                    const func = functions[functionName]
+                    const args = functionStrings
+                    console.log({func, args})
+                    textParts.push(func(args))
+                } else if (char == '}') {
+                    currentTextPartStart = i + 1
+                    state = 'reading-normal-text'
+                    console.log('Done')
                 }
                 break
             case 'reading-markup':
@@ -484,31 +527,7 @@ export function parseTextWithSymbols(text, customSymbols, isDebug) {
     return textParts
 
 }
-export function parseTextWithMixins(text) {
-    const getMixinComponent = {
-        '{Defense}': () => <Icon name="Defense"/>,
-        '{Damage}': () => <Icon name="Damage"/>,
-        '{Health}': () => <Icon name="Health"/>,
-    }
-    const possibleMixins = Object.keys(getMixinComponent)
-
-    let parts = [text]
-    for (const mixin of possibleMixins) {
-        
-        let newParts = []
-        for (const part of parts) {
-            if (part.includes(mixin)) {
-                let partParts = part.split(mixin)
-                partParts = insertBetweenAll(partParts, getMixinComponent[mixin])
-                newParts = [...newParts, ...partParts]
-            } else {
-                newParts.push(part)
-            }
-        }
-        parts = newParts
-    }
-    return parts
-}
+window.parseTextWithSymbols = parseTextWithSymbols
 
 export function isFormValueNumeric(value) {
     if (value.length == 0)

@@ -23,14 +23,11 @@ const actionPointsMapping2 = {
 }
 
 export function SpellTopStats({className, tags}) {
-    const {A, DisplayA, Cost, Range, Cooldown, Duration, Requirement, DisplayRequirement, Replacement, Hands, Stat, Special, Price} = tags
+    const {A, DisplayA, Cost, Range, Cooldown, Duration, Requirement, DisplayRequirement, Replacement, Hands, Stat, Special, Price, XP} = tags
     let displayedA = DisplayA != null? DisplayA : A != null? A : null
 
-    console.log(`Rendering top stats with A ${DisplayA}...`)
     if (getIsActionPointsSystem()) {
-        console.log('YES...')
         if (displayedA in actionPointsMapping) {
-            console.log('YEEESSS...')
             displayedA = actionPointsMapping[displayedA]
         }
     }
@@ -44,7 +41,7 @@ export function SpellTopStats({className, tags}) {
             ) }
             { Cost != null && (
                 <div>
-                    <img src={ Cost.endsWith('Insight')? "/Icons/UI/Insight.png" : "/Icons/UI/Mana.png" } className="inline-icon--spell"/>
+                    <img src="/Icons/UI/Mana.png" className="inline-icon--spell"/>
                     { Cost }
                 </div>
             ) }
@@ -67,6 +64,7 @@ export function SpellTopStats({className, tags}) {
                 </div>
             ) }
             { Price != null && (<div><img src="/Icons/UI/Gold.png" className="inline-icon--spell-downer"/>{ Price }</div>) }
+            { XP != null && (<div><img src="/Icons/UI/XP.png" className="inline-icon--spell"/>{ XP }</div>) }
         </div>
     )
 }
@@ -148,6 +146,7 @@ export default function Spell({ children, spell, style, hasIcon, hasBorder, hasC
         Effect,
         EffectGreen,
         Notes,
+        Downside,
         IsSubspell,
         Upgrades,
         Upgrade,
@@ -273,6 +272,9 @@ export default function Spell({ children, spell, style, hasIcon, hasBorder, hasC
                 { EffectGreen != null && (
                     <div className="spell-green" key="EffectGreen">{ EffectGreen }</div>
                 ) }
+                { Downside != null && (
+                    <div className="spell-red" key="Downside">{ Downside }</div>
+                )}
                 { Upgrade != null && (
                     <div className='spell-upgrade'>
                         { Upgrade }

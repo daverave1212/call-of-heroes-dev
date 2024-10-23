@@ -14,7 +14,7 @@
         "A": "Half-Action",
         "Cooldown": "Once / Adventure",
         "Duration": "1 combat",
-        "Effect": "Cast Awe on 2 Units and they become Blessed until the end of the next (or current) Combat.\nBlessed Allies have +1d4 to Checks made in Combat. Blessed Enemies have -1d4 to Checks made in Combat.\n",
+        "Effect": "Cast Awe on 2 Units and they become Blessed until the end of the next (or current) Combat.\nBlessed Allies have +1 to all Checks. Blessed Enemies have -3 Initiative.\n",
         "Notes": "You can bless yourself.\nLasts until the end of the next combat encounter.\n",
         "AlignOnWebsite": "Right"
     },
@@ -35,7 +35,7 @@
         "Duration": "1 combat",
         "Replacement": "Replaces Blessing",
         "HasMixins": true,
-        "Effect": "Cast Awe on 2 Units and they become Blessed until the end of the next (or current) Combat.\nBlessed Allies have +1d4 to Checks made in Combat +and become immune to Crowd Control for 1 Turn.~. Blessed Enemies have -1d4 to Checks made in Combat ~and are Blinded for 1 Turn~.\n",
+        "Effect": "Cast Awe on 2 Units and they become Blessed until the end of the next (or current) Combat.\nBlessed Allies have +1 to all Checks ~and become immune to Crowd Control for 1 Turn.~. Blessed Enemies have -3 Initiative ~and are Blinded for 1 Turn~.\n",
         "Notes": "You can bless yourself.\nLasts until the end of the next combat encounter.\n",
         "AlignOnWebsite": "Right"
     },
@@ -156,8 +156,8 @@
         "Cooldown": "Once / Adventure",
         "HasMixins": true,
         "Replacement": "Replaces Blessing",
-        "Effect": "Cast Awe on 2 Units and they become Blessed ~forever~.\nBlessed Allies have +1d4 to Checks made in Combat ~and +1 Maximum Health and +1 Initiative~. Blessed Enemies have -1d4 to Checks made in Combat.\n~The extra Max Health and Initiative may stack indefinitely.~\n",
-        "Notes": "You can bless yourself.\nLasts until the end of the next combat encounter.\n"
+        "Effect": "Cast Awe on 2 Units and they become Blessed ~forever~.\nBlessed Allies have ~+1 Maximum Health and +1 Initiative~. Blessed Enemies have -3 Initiative ~and their Defense becomes 0~.\n",
+        "Notes": "You can bless yourself. Lasts until the end of the next combat encounter.\nThe buffs on allies may stack indefinitely.\n"
     },
     "<Hammer of Penance>": {
         "_Value": 1.75,
@@ -225,7 +225,7 @@
     "<Pledge of Another>": {
         "_Value": 3,
         "A": "Passive",
-        "Effect": "One more Player Character to pledge to you. They also gain the effects of Pledge of Battle.\n"
+        "Effect": "One more Player Character to pledge to you. They also gain the effects of Join the Inquisition.\n"
     },
     "<Heaviness of Words>": {
         "_Value": 4,
@@ -235,7 +235,7 @@
     },
     "<By My Will>": {
         "A": "Passive",
-        "Effect": "Your pledgee(s) gain all your Inquisitor"
+        "Effect": "Your pledgee(s) gain all your Inquisitor Class Talents."
     },
     "<Heartstopping Awe>": {
         "_Value": 4.5,
@@ -273,8 +273,26 @@
         "Range": "5 meters",
         "Duration": "Zombies last 1 minute",
         "Replacement": "Replaces Awe",
-        "Effect": "Whenever you spend Mana, \"cast Awe\" on a Unit.\nThis deals 1d4 Divine Damage to enemies or heals allies for 1d4.\n~However, if there is any nearby corpse within 5 meters when you would cast Awe, you instead raise a zombie to fight for you from that corpse.~\n~Zombies have 1 Health and 0 Defense, 4 Speed and they can use their Action to attack for 1d4 Damage. They take their turn on your turn.~\n",
-        "Notes": "Ignores Cover. Some other Cleric spells will \"cast Awe\" for free. ~Zombies have -1 in all Stats. When a Zombie dies, it becomes a corpse again.~"
+        "HasMixins": true,
+        "Effect": "Whenever you spend Mana, \"cast Awe\" on a Unit.\nThis deals 1d4 Divine Damage to enemies or heals allies for 1d4.\n~However, if there is any nearby corpse within 5 meters when you would cast Awe, you instead raise a zombie to fight for you from that corpse.~\n",
+        "Notes": "Ignores Cover. Some other Cleric spells will \"cast Awe\" for free. Zombies take their turn on your turn.",
+        "Monster": {
+            "Name": "Zombie",
+            "Speed": "4 meters",
+            "Stats": "-1/-1/-1/-1/-1",
+            "Health": 1,
+            "Defense": 0,
+            "Abilities": {
+                "~Attack~": {
+                    "A": "1 Action (from zombie)",
+                    "Effect": "Attack an Enemy for 1d4 Damage (Pierce, Slash or Smash)."
+                }
+            }
+        }
+    },
+    "~Attack~": {
+        "A": "1 Action (from Draugr)",
+        "Effect": "Make a melee attack for 1d4 Scourge Damage."
     },
     "<Divine Transposition>": {
         "_Value": 1,
@@ -288,7 +306,7 @@
         "Cooldown": "Once / Adventure",
         "HasMixins": true,
         "Duration": "1 combat",
-        "Effect": "Cast Awe ~twice~ and the target(s) becomes Blessed until the end of the next (or current) Combat.\nBlessed Allies have +1d4 to Checks made in Combat ~and +1 to all Damage instances~. Blessed Enemies have -1d4 to Checks made in Combat ~and -1 to all Damage instances~.\n",
+        "Effect": "Cast Awe ~twice~ and the target(s) becomes Blessed until the end of the next (or current) Combat.\nBlessed Allies have +1 to all Checks ~and +1 to all Damage instances~. Blessed Enemies have -3 Initiative ~and -1 to all Damage instances~.\n",
         "Upgrade": "On Epic Monsters, the -1 Damage only affects their first turn.",
         "Notes": "You can bless yourself.\nLasts until the end of the next combat encounter.\n"
     },
@@ -344,10 +362,6 @@
                 }
             }
         }
-    },
-    "~Attack~": {
-        "A": "1 Action (from Draugr)",
-        "Effect": "Make a melee attack for 1d4 Scourge Damage."
     },
     "<Presence of Fear>": {
         "_Value": 3,
@@ -1597,7 +1611,7 @@
         "_Value": 0.5,
         "A": "Passive",
         "Effect": "On the first Round of combat, enemies with less than 3 Sense can't see you.\nAlso, you can always Break your Movement.\n",
-        "EffectGreen": "When you get this, gain +1 in a Stat of choice, up to +4.",
+        "EffectGreen": "When you get this, gain +1 in a Stat of choice, up to +4, and +1 in another Stat of choice, up to +3.",
         "Upgrade": "Out of combat, you gain +2 on Checks for sneaking or hiding."
     },
     "<Bounty Appraisal>": {
@@ -1772,7 +1786,7 @@
         "_Value": 1.5,
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "When Ambushing a Unit, if there is no other Unit near it, the target becomes either Fumbling and Slowed, or Silenced (your choice).\n",
+        "Effect": "When Ambushing a Unit, if there is no other Unit near it (except you), the target becomes either Fumbling and Slowed, or Silenced (your choice).\n",
         "EffectGreen": "When you get this, gain +1 in a Stat of choice, up to +4."
     },
     "<Take-Out Shadowpass>": {
@@ -1911,6 +1925,7 @@
         "_Value": 3,
         "A": "Special",
         "Replacement": "Replaces Stalk 'n' Parry",
+        "HasMixins": true,
         "Effect": "On the first Round of combat, you can skip your Turn ~and until the end of the second Round of Combat, reduce any weapon attack's Damage on you by 1d6.~\nThen, you can start your Turn whenever you like (even during enemies' turns)!\n",
         "Notes": "If you want to start during an enemy's Turn, you do so when they declare they want to do something or after they finish doing something.\nBe careful: if you don't start your Turn this Round, you lose your Turn!\n",
         "EffectGreen": "When you get this, gain +1 in a Stat of choice, up to +4."
@@ -2487,8 +2502,9 @@
         "_Value": 1,
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "Choose one Basic Ability from the Elemental or Nature spell lists that costs 1 Mana.\nYou can use that Ability once per Adventure (without spending Mana).\nThat Ability becomes a ^physical version of itself^ instead of a spell: instead of using magic to cast that spell, you use your body/weapons/tools. The Damage of that spell becomes Slash, Smash or Pierce, whichever makes sense.\nCome up with a description of how it works!\n",
-        "Notes": "E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage).\nE.g. Frost Nova - you smash the ground with such force that it Damages and Slows units around you (Smash Damage).\nBe creative!\n"
+        "Effect": "Choose a Basic Ability from the Elemental or Nature Schools that costs 1 Mana.\nYou can use that Ability once per Adventure, without spending Mana.\nThat Ability becomes a ^physical version of itself^: instead of using magic to cast that spell, you use your body/weapons/tools.\n",
+        "Upgrade": "Come up with a description of how it works! You can change this Ability inbetween Advetures.",
+        "Notes": "The Damage of that spell becomes Slash, Smash or Pierce, whichever makes sense.\nE.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage).\nE.g. Frost Nova - you smash the ground with such force that it Damages and Slows units around you (Smash Damage).\nBe creative!\n"
     },
     "<Weaponmaster>": {
         "_Value": 1,
@@ -2512,10 +2528,15 @@
             ]
         }
     },
-    "~Upper Hand~": {
+    "~Recovery Maneuvers~": {
         "_Value": 1.5,
-        "A": "Passive",
-        "Effect": "You can Advanced Flank twice per turn (with 2 different attacks)."
+        "A": "Special",
+        "Cooldown": "Once / Turn",
+        "Replacement": "Replaces Quick Maneuvers",
+        "HasMixins": true,
+        "Requirement": "Only usable on Worthy Enemies",
+        "Effect": "Immediately after you make a weapon attack, use Sprint, Push, Taunt or Hamstring for free ~or heal yourself for 1d4.~",
+        "Notes": "Sprint (run up to 2 meters), Push (push a non-Epic medium-sized Unit 1 meter in any direction), Taunt (make a Unit have -2 on its next attack if it's not on you), Hamstring (slow a Unit)."
     },
     "<Into the Fray>": {
         "_Value": 2.25,
@@ -2548,7 +2569,7 @@
         "_Value": 2,
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "Choose ^TWO^ Basic Abilities from the Elemental, Nature or Eldritch Spell lists that cost 1 Mana.\nYou can use each of those Abilities once per Adventure (without spending Mana).\nSee the Level 5 Talent _Might Over Magic_.\n"
+        "Effect": "Choose ^TWO^ Basic Abilities from the Elemental, Nature or Eldritch Schools that cost 1 Mana.\nYou can use each of those Abilities once per Adventure (without spending Mana).\nSee the Level 5 Talent _Might Over Magic_.\n"
     },
     "~Onslaught~": {
         "_Value": 1.25,
@@ -2574,14 +2595,14 @@
         "A": "0 Actions",
         "Cooldown": "Once / Adventure",
         "HasMixins": true,
-        "Effect": "Take 2d6 Damage.\nThen, until the ^end^ of your next turn, you take 50% less Damage (including from your own Abilities).\nWhen Heartbeat Trance ends, heal for 1d6.\n"
+        "Effect": "Take 1d6 Damage.\nThen, until the ^end^ of your next turn, you take 50% less Damage (including from your own Abilities).\nWhen Heartbeat Trance ends, heal for 1d6.\n"
     },
     "<Rage Trance>": {
         "_Value": 2,
         "A": "0 Actions",
         "Cooldown": "Once / Adventure",
         "HasMixins": true,
-        "Effect": "Take 1d6 Damage.\nUntil the ^end^ of your next turn, you are immune to all Crowd Control.\nYour attacks while in Rage Trance have an extra +1d4 Damage to all attacks.\nWhen Rage Trance ends, heal for 2d6.\n"
+        "Effect": "Take 1d6 Damage.\nUntil the ^end^ of your next turn, all your attacks deal +1d4 Damage and Onslaught healing is increased by 100%.\nWhen Rage Trance ends, heal for 1d6.\n"
     },
     "<Battle Trance>": {
         "_Value": 2,
@@ -2589,7 +2610,7 @@
         "Cooldown": "Once / Turn",
         "HasMixins": true,
         "Requirement": "Only usable in Worthy Combat",
-        "Effect": "Take 1d6 Damage.\nUntil the ^start^ of your next turn, you have +1 range on all attacks, +2 Movement, can Break your Movement.\nWhen Battle Trance ends, heal for 2d6.\n"
+        "Effect": "Take 1d6 Damage.\nUntil the ^end^ of your next turn, you are immune to all Crowd Control, you have +1 range on all attacks, +2 Movement, can Break your Movement.\nWhen Battle Trance ends, heal for 2d6.\n"
     },
     "<Undying Rage>": {
         "_Value": 2.25,
@@ -2608,14 +2629,14 @@
     "<Frenzy>": {
         "_Value": 2.75,
         "A": "Passive",
-        "Effect": "If you start your turn with 20 or less Health, you have +1 Movement Speed and can Break your Movement.\nif you start with 10 or less Health, you also have an extra Half-Action.\n"
+        "Effect": "If you start your turn with 25 or less Health, you have +1 Movement Speed and can Break your Movement.\nif you start with 15 or less Health, you also have an extra Half-Action.\n"
     },
     "<Hurl Over>": {
-        "_Value": 2.25,
+        "_Value": 3.5,
         "A": "1 Action",
         "Cooldown": "Once / Combat",
         "Range": "1 meter to the Unit",
-        "Effect": "Grab another non-Epic Unit and throw them up to 10 meters away.\nUpon landing, all other Units within 4 meters of the landing place take 3d8 Pulse Damage.\nIf it was an Enemy, the Thrown Unit takes 50% of the Damage.\n"
+        "Effect": "Grab another non-Epic Unit and throw them up to 10 meters away.\nUpon landing, all other Units within 3 meters of the landing place take 3d8 Pulse Damage.\nIf it was an Enemy, the Thrown Unit takes 50% of the Damage.\n"
     },
     "<Bloodbath>": {
         "A": "Passive",
@@ -2639,6 +2660,7 @@
         "_Value": 1,
         "A": "0 Actions",
         "Cost": "1 Mana",
+        "HasMixins": true,
         "Effect": "You _load up_ your weapons. After you _load up_, your Advanced Flank die becomes 1d12 instead of 1d6, but every time you use it, the Advanced Flank die becomes ^Downgraded^ (down to 1d4).\nIf the attack kills the target, don't Downgrade.\n",
         "Notes": "{DiceDowngrade}"
     },

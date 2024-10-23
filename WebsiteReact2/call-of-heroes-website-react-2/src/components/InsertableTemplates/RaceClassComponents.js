@@ -200,10 +200,10 @@ export function Equipment() {
     return (
         <div id="equipment">
             <PageH2>Equipment and Gold</PageH2>
-            <p>Your Character begins their journey with a total of 800 gold.</p>
-            <SmallStat name="Starting Gold" color="rgb(23, 80, 0)">800 <Icon name="gold"/></SmallStat>
+            <p>Your Character begins their journey with a total of 1000 gold.</p>
+            <SmallStat name="Starting Gold" color="rgb(23, 80, 0)">1000 <Icon name="gold"/></SmallStat>
             <br/>
-            <p>When you create your Character, you can spend these 800 gold on equipment or useful items from the <Link to="/Other/Prices" style={{color: 'blue'}}><b>Prices</b></Link> page.</p>
+            <p>When you create your Character, you can spend these 1000 gold on equipment or useful items from the <Link to="/Other/Prices" style={{color: 'blue'}}><b>Prices</b></Link> page.</p>
             <p>For weapons and armor, visit the <Link to="/Other/Weapons">Weapons</Link> and <Link to="/Other/Armors" style={{color: 'blue'}}><b>Armors</b></Link> pages.</p>
             <p>Your Character can wear any type of armor.</p>
         </div>

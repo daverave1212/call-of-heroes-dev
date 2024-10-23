@@ -7,3 +7,6 @@ import './AnchorFixer.css'
 export default function AnchorFixer({id}) {
     return <div id={id} className="anchor-fixer"></div>
 }
+export function AnchorFixerLess({id}) {
+    return <div id={id} className="anchor-fixer less"></div>
+}
