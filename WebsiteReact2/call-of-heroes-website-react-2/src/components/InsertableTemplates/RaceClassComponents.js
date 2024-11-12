@@ -439,7 +439,7 @@ export function SpecTalents({ spec }) {
 
     const talentTierCategories = Object.keys(spec.Talents)
 
-    const talentTiers = [3,4,5,6,7,8,9]
+    const talentTiers = [3,4,5,6,7,8,9,10]
     const defaultSmallBonusTalentsByTier = {
         4: ['<Stat Bonus 4>', '<Double Stat Bonus>'],
         6: ['<Stat Bonus 4>', '<Double Stat Bonus>'],

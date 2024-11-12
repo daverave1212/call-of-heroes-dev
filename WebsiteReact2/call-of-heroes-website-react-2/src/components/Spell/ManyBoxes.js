@@ -4,7 +4,6 @@ import Column from '../TwoColumns/Column'
 import Spell from './Spell'
 import TwoSpells from './TwoSpells'
 import { sortObjectArrayByKey } from '../../utils'
-import Weapon from './Weapon'
 import Item from './Item'
 
 // objects: Array
@@ -15,7 +14,7 @@ export default function ManyBoxes({ objects, type }) {
         switch (type) {
             case 'spell': return (<Spell spell={object}/>)
             case 'weapon': return <Item item={object}/>
-            case 'armor': return <Weapon weapon={object} isActuallyArmor={true}/>
+            case 'armor': return <Item item={object}/>
             case 'item': return <Item item={object}/>
             default: throw `Unknown type given to ManyBoxes: type='${type}'`
         }

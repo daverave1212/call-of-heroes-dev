@@ -1,13 +1,18 @@
 {
-    "Curses": {
+    "Soulbound": {
         "Armor": [
             "{This} is permanently bound to you, and can't be unequipped. If destroyed, the bearer loses 5 Max Health.",
-            "{This} is permanently bound to you and can't be unequipped. Any attempt to purposefully Damage the item damages you instead."
+            "{This} is permanently bound to you and can't be unequipped. Any attempt to purposefully Damage the item damages you instead.",
+            "{This} is permanently bound to you until destroyed. Equipping a different item of the same type Damages you for 5 Damage for every minute you wear it.",
+            "{This} is permanently bound to you, and can't be unequipped. If you drop to 0 Health while wearing {This}, you permanently become a Hollow (and your Stats and numbers change accordingly) and destroys {This}. Destroying {This} immediately triggers the transformation.",
+            "Once equipped, you permanently lose {RandomOf('4 Max Health' '2 Health Regen' '3 Initiative' '1 random Skill' '1 Intelligence' '1 Might' '1 Dexterity' '1 Sense' '1 Charisma')} whenever you unequip it.",
+            "When equipped, {This} {RandomOf('grows thorny vines' 'extends shadowy tendrils' 'produces a sticky substance' 'biologically melts onto your skin')}, firmly attaching to your body. When you unequip {This}, you take 1d10 True Damage."
         ],
         "Weapon": [
-            "Once Souldbound, {This} permanently bound to you, and you take 1d6 {DamageType} Damage for each 1 meter the item would move away from you.",
-            "Once Soulbound, you have Cover on all attacks with a different weapon than {This}",
-            "Once Souldbound, {This} is permanently bound to you, and all your attacks with other weapons deal -1 Damage.\""
+            "Once Soulbound, {This} permanently bound to you, and you take 1d6 {DamageType} Damage for each 1 meter the item would move away from you.",
+            "Once Soulbound, you have Cover on all attacks with a different weapon than {This}.",
+            "Once Soulbound, {This} is permanently bound to you, and all your attacks with other weapons deal -1 Damage.\"",
+            "When equipped for the first time, {This} melds with your hand, can't be unequipped and you can't use that hand as you normally would. If the weapon is destroyed, you take 10 Damage and there is a 50% chance your hand is destroyed and you gain the Missing Arm Feat."
         ]
     },
     "Armor": {
@@ -16,72 +21,78 @@
                 "The item is cursed, and, while wearing it, you have -1 {Stat}.",
                 "Whenever you drop to 50% Health in Worthy Combat (or when anyone remembers), you immediately attack the closest random Unit to you if within range (for free).",
                 "Whenever you kill a Worthy Enemy, {This} absorbs part of the soul of the target. The item is destroyed when it reaches 10 souls (or when purposefully destroyed), dealing {DamageType} Damage equal to its souls to all Units within 10 meters (including you).",
-                "The item is cursed, and, at the start of each Adventure, you {RandomOf(\"gain a random Affliction\" \"randomly gain +1 in a Stat, and -1 in another Stat\")}. {Soulbound}",
+                "The item is cursed, and, at the start of each Adventure, you {RandomOf('gain a random Affliction' 'randomly gain +1 in a Stat, and -1 in another Stat')}. {Soulbound}",
                 "The first time you take Damage every Combat (or the first time it is remembered afterward), randomly teleport 1d6 meters in a random 1d8 direction (1 for North, 2 for North-East, 3 for East, etc).",
                 "The item is cursed, and you age twice as rapidly. {Soulbound}",
-                "The item is cursed, and, every passing day, you appearance starts to resemble {RandomOf(\"a dwarf, becoming stout in appearance, with rough skin and dense facial hair\" \"a lizard folk, with green scales, a forked tongue and snake pupils\" \"a stone golem, with cold hard, numb skin\" \"an undead hollow, with cold skin and reduced pulse\" \"a dragonsworn, with prismatic scales, elongated limbs and jaw, and growing talons\")} more and more, until you completely transform after 30 days. Your Stats and Abilities do not change to resemble your new form. {Soulbound}"
+                "The item is cursed, and, every passing day, you appearance starts to resemble {RandomOf('a dwarf, becoming stout in appearance, with rough skin and dense facial hair' 'a lizard folk, with green scales, a forked tongue and snake pupils' 'a stone golem, with cold hard, numb skin' 'an undead hollow, with cold skin and reduced pulse' 'a dragonsworn, with prismatic scales, elongated limbs and jaw, and growing talons')} more and more, until you completely transform after 30 days. Your Stats and Abilities do not change to resemble your new form. {Soulbound}"
             ],
             "0": [
-                "You are {Skill}",
-                "You are immune to Hard Terrain",
-                "Your minimum Movement Speed is 5 and you are unaffected by armor's Speed reduction, if any",
-                "You are immune to being pushed and Slowed",
+                "You are {Skill}.",
+                "You are immune to Hard Terrain.",
+                "Your minimum Movement Speed is 5 and you are unaffected by armor's Speed reduction, if any.",
+                "You are immune to being pushed and Slowed.",
                 "You take no falling Damage, and instead falls slowly.",
                 "You have a swimming Speed of 6 meters.",
                 "You can see up to 5 meters in Darkness without having Cover.",
-                "You can breather under water",
-                "You can walk on water as normal"
+                "You can breather under water.",
+                "You can walk on water as normal."
             ],
             "10": [
-                "Your minimum Damage Bonus with {WeaponType} is +3, if any",
-                "When attacking a Worthy Enemy with it, the weapon automatically booms and destroys an obstacle up to 2 meters in diameter within 6 meters"
+                "Your minimum Damage Bonus with {WeaponType} weapons is +3, if any.",
+                "You continuously levitate up to 1 meter above the closest solid surface beneath you (can be turned off at will)."
             ],
             "25": [
                 "You take -50% {DamageType} Damage.",
-                "You are immune to being {CrowdControl}"
+                "You are immune to being {CrowdControl}."
             ],
             "35": [
                 "+4 Max Health",
                 "+2 Health Regen",
                 "+1 Movement Speed",
                 "+3 Initiative",
-                "Your Ambushing Initiative bonus becomes +10 instead of +5",
-                "You have +1 Defense against arrows, bolts, bullets and darts",
-                "Your Initiative can't be lower than +5."
+                "Your Ambushing Initiative bonus becomes +10 instead of +5.",
+                "You have +1 Defense against arrows, bolts, bullets and darts.",
+                "Your Initiative can't be lower than +5.",
+                "Whenever you are hit by a monster's ^weapon effect^, deal 1d6 {DamageType} Damage to it.",
+                "Your Movement Speed can't be lower than 6 meters."
             ],
             "50": [
-                "Your {SpellSchool} Abilities deal +1d4 Damage if they can only hit a single target and deal Damage only once, or +1 Damage if they can hit multiple targets (or deal Damage multiple times).",
-                "When reaching 0% Health, you are instantly teleported to the last friendly _hub_ you visited."
+                "When reaching 0% Health, you are instantly teleported to the last friendly hub you visited.",
+                "On the first round of Combat, you can't be targeted by magic effects or Crowd Controlled.",
+                "When equipped, and at the start of each Adventure, gain 1 Mana (lasts until the end of the Adventure). Once equipped, {This} can't be unequipped until the end of the Adventure, unless destroyed.",
+                "When moving, you can instead {RandomOf('phase in and out of existence' 'teleport' 'glitch through')} to your destination. This uses all your Movement."
             ],
             "75": [
                 "+8 Max Health",
                 "+4 Health Regen",
                 "+2 Movement Speed",
                 "+5 Initiative",
-                "You have +1 Defense against melee physical attacks",
+                "+1 Defense",
+                "You have +1 Defense against melee physical attacks.",
                 "Once per Adventure, you can dodge (take 0 Damage) an attack from a Unit.",
-                "+1 {Stat} (up to your Level's limit)",
-                "You have +1 Defense against {Range} attacks, and, if you take 3 or less Damage from it, reflect 1d6 {DamageType} Damage back to the attacker.",
-                "+1 Defense"
+                "+1 {Stat} (up to your Level's limit).",
+                "You have +1 Defense against {RandomOf('ranged' 'melee')} attacks, and, if you take 3 or less Damage from it, reflect 1d6 {DamageType} Damage back to the attacker.",
+                "Your first {SpellSchool} Ability every Turn deals +1d4 Damage the first time it deals Damage (works for Area Abilities).",
+                "Increases all {DamageType} Damage you deal by 1."
             ],
             "100": [
-                "Your {Stat} becomes 3",
-                "+2 {Stat}",
-                "You have extra Health Regen equal to the number of non-Combat Skills you know"
+                "Your {Stat} becomes 3 and can't change through any means.",
+                "+2 {Stat}.",
+                "You have extra Health Regen equal to the number of non-Combat Skills you know."
             ],
             "150": [
-                "Your {Stat} becomes 4",
-                "You have extra Initiative equal to your Movement Speed"
+                "Your {Stat} becomes 4 and can't change through any means.",
+                "You have extra Initiative equal to your Movement Speed."
             ],
             "175": [
                 "Every combat, you automatically always dodge (take 0 Damage) the first attack coming from a Unit.",
-                "{This} emanates a sense of impending doom, and whenever you are melee attacked, the attacker becomes Feared"
+                "{This} emanates a sense of impending doom, and whenever you are melee attacked, the attacker becomes Feared."
             ],
             "200": [
-                "You have Defense equal to your Might, but your attacks beyond 3 meters range have Cover"
+                "You have Defense equal to your Might, but your attacks beyond 3 meters range have Cover and you have -1 Movement Speed."
             ],
             "225": [
-                "Your {Stat} becomes 5"
+                "Your {Stat} is 5 and can't change through any means."
             ]
         },
         "Shield": {
@@ -94,49 +105,124 @@
         "Any": {
             "-25": [
                 "{Soulbound}",
-                "{This} is cursed, and all attacks with it deal 1 Damage to you and the target."
+                "{This} is cursed, and all attacks with it deal 1 Damage to you and the target.",
+                "{This} is unusually frail. Dealing minimum Damage on all the dice rolls with an attack permanently destroys the weapon after dealing the Damage, shattering it into little pieces.",
+                "{This} is ethereal. Dealing maximum Damage on all the dice rolls with an attack permanently vanishes the weapon into thin air after dealing the Damage."
             ],
             "0": [
-                "When Soulbound, the weapon transforms into a tattoo on your arm, which can be exuded back into a weapon or drawn back into a tattoo at will",
-                "The weapon can be stuck to any solid surface at will, and will remain attached until taken off by the Soulbound wearer."
+                "When Soulbound, the weapon transforms into a tattoo on your arm, which can be exuded back into a weapon or drawn back into a tattoo at will.",
+                "The weapon can be stuck to any solid surface at will, and will remain attached until taken off by the Soulbound wearer.",
+                "While wielding {This}, you are naturally fluent in {Language}. Letting go of the weapon makes you forget the language, unless you already knew it."
             ],
             "10": [
-                "Instead of rolling dice, you can just deal Damage equal to the average of what you would roll (rounded up)."
+                "Instead of rolling dice, you can just deal Damage equal to the average of what you would roll (rounded up).",
+                "When attacking a Worthy Enemy with it, the weapon automatically booms and destroys an obstacle up to 2 meters in diameter within 6 meters."
             ],
             "25": [
                 "Has an extra weapon Rune slot.",
-                "Once per turn, deals an extra 1d4 Damage against {MonsterType}s and the damage type becomes {DamageType}",
-                "Can be thrown up to 6 meters away, dealing {DamageType} Damage. On your Turn, you can spend a Half-Action to return the weapon to your hand",
-                "If the attack kills a Worthy Enemy, you become invisible until the end of your next turn",
-                "Has +1 meter extra range"
+                "Once per Turn, deals an extra 1d4 Damage against {MonsterType}s and the damage type becomes {DamageType}.",
+                "Can be thrown up to 6 meters away, dealing {DamageType} Damage. On your Turn, you can spend a Half-Action to return the weapon to your hand.",
+                "If the attack kills a Worthy Enemy, you become invisible until the end of your next turn.",
+                "Has +1 meter extra range",
+                "Units that take Damage from this weapon can't be healed until the start of your next Turn.",
+                "If you kill a Worthy Enemy with this weapon, immediately gain {Gold}Gold equal to {RandomOf('the Damage of the killing attack' 'half the Experience worth of the monster' '5d10')}.",
+                "While wielding {This} you take -50% {DamageType} Damage.",
+                "While wielding {This} you are immune to being {CrowdControl}.",
+                "Every Turn, the second attack with {This} deals exactly as much Damage as the first (before Damage reductions).",
+                "Attacks with {This} ignore Cover.",
+                "Can be transformed into any other weapon of the same type at will, with 0 Actions."
+            ],
+            "35": [
+                "Every attack with this weapon pushes the target up to {RandomOf(\"2\" \"3\" \"4\" \"1d4\")} meters away from you if it's a non-Epic Unit."
             ],
             "50": [
-                "If you rolled {MinMaxValue} on at least one die, the target takes an extra 1d6 {DamageType} Damage.",
-                "If you rolled {MinMaxValue} on at least one die, the target becomes {RandomOf(Rooted Blinded Silenced Feared)}",
-                "Deals +1d6 {DamageType} Damage to {RandomOf(\"Units at full Health\" \"Units below 25% Health\" \"Units affected by Crowd Control (except Hard Terrain)\")}."
-            ],
-            "100": [
-                "If you rolled {MinMaxValue} on at least one die, the target becomes {RandomOf(Crippled Stunned)}",
-                "When you kill a Worthy Enemy with {This}, a Zombie rises from its corpse which fights for you for 1 minute. Zombies have 1 Health, 4 Movement, -1 in all Stats and deal 1d4 Damage"
-            ]
-        },
-        "1Handed": {
-            "50": [
-                "Attacks with {This} deal +1 Damage and their Damage type is {DamageType}",
-                "While at 50% of less Health, attacks with {This} deal +2 Damage and their Damage type is {DamageType}"
-            ],
-            "125": [
-                "Every consecutive attack with {This} deals an extra 1d4 Damage"
-            ]
-        },
-        "2Handed": {
-            "50": [
-                "Attacks with {This} deal +1d4 Damage and their Damage type is {DamageType}",
-                "While at 50% of less Health, attacks with {This} deal +1d8 Damage and their Damage type is {DamageType}"
+                "The first attack with {This} every Combat makes the target {RandomOf('Slowed' 'Rooted' 'Feared' 'Silenced' 'Blinded')}.",
+                "If you rolled {RandomOf('minimum' 'maximum')} on at least one die, the target takes an extra 1d6 {DamageType} Damage.",
+                "If you rolled {RandomOf('minimum' 'maximum')} on at least one die, the target becomes {RandomOf('Rooted' 'Blinded' 'Silenced' 'Feared')}.",
+                "Deals +1d6 {DamageType} Damage to {RandomOf('Units at full Health' 'Units below 25% Health' 'Units affected by Crowd Control (except Hard Terrain)')}.",
+                "After killing a Worthy Enemy with this weapon, gain 1d6 Shielding for 1 minute.",
+                "After killing a Worthy Enemy with this weapon, their corpse explodes, dealing 1d6 {DamageType} Damage to all Units within 2 meters of it (except you)."
             ],
             "75": [
-                "Whenever you attack with {This}, deal an extra 1d4 {DamageType} to the target and all Units within 1 meter of the target (except you)."
+                "+2 meters extra range",
+                "After attacking with {This}, your next Spell this turn deals +1d8 {DamageType} Damage."
+            ],
+            "100": [
+                "If you rolled {RandomOf('minimum' 'maximum')} on at least one die, the target becomes {RandomOf('Crippled' 'Stunned')}.",
+                "When you kill a Worthy Enemy with {This}, a Zombie rises from its corpse which fights for you for 1 minute. Zombies have 1 Health, 4 Movement, -1 in all Stats and deal 1d4 Damage."
+            ]
+        },
+        "OneHanded": {
+            "25": [
+                "The second attack with {This} every Turn has +3 meters range."
+            ],
+            "50": [
+                "Attacks with {This} deal +1 Damage and their Damage type is {DamageType}.",
+                "While at 50% of less Health, attacks with {This} deal +2 Damage and their Damage type is {DamageType}."
+            ],
+            "75": [
+                "Whenever you attack with this weapon, heal for 1."
+            ],
+            "100": [
+                "The second attack with this weapon each Turn deals +1d4 Damage, the third deals +2d4 Damage, and so on.",
+                "Once per Combat, activate this weapon to increase its next attack's Damage by 1d6, and heal for all the Damage dealt by the attack."
+            ],
+            "150": [
+                "When attacked with a melee attack, you can use your Reaction to attack the Unit back with {This}. You must have the weapon equipped to do this."
+            ]
+        },
+        "TwoHanded": {
+            "50": [
+                "Attacks with {This} deal +1d4 Damage and their Damage type is {DamageType}.",
+                "While at 50% of less Health, attacks with {This} deal +1d8 Damage and their Damage type is {DamageType}."
+            ],
+            "75": [
+                "Whenever you attack with {This}, deal an extra 1d4 {DamageType} to the target and {RandomOf('all Units within 1 meter of the target (except you)' 'all Units within 3 meters directly behind the main target' 'the closest Unit to the target, other than you (you choose if tie)')}.",
+                "Whenever you attack with this weapon, heal for 2."
+            ],
+            "100": [
+                "Once per Combat, activate this weapon to increase its next attack's Damage by 1d4, and heal for 50% of the Damage dealt by the attack."
             ]
         }
+    },
+    "Quirk": {
+        "Any": [
+            "The item perpetually tells telepathic {RandomOf('dark' 'cold')} whispers of {RandomOf('impending doom' 'futility')} into your ear...",
+            "The item cotinuously draws in light, and casting a perpetual shadow around the user.",
+            "The item owner's eyes start to turn {Color}, changing color fully and permanently after 7 days.",
+            "The item produces {RandomOf('continous heat, and protects you from cold temperatures, rain and blizzards' 'a continuous breeze of cool air, and protects you from hot temperatures and clears smoke or fog in your adjacency')}.",
+            "The item is {RandomOf('translucent, allowing some light to travel through it' 'transparent, you can see through it' 'prismatic, and you can see through it, although the image is distorted' 'mirror-like, its surface reflecting all light.')}"
+        ],
+        "Weapon": [
+            "The weapon perpetually shines, emanating a {Color} glow in a 3 meter radius.",
+            "Attacking with {This} briefly shines {Color} light in a 3 meter radius.",
+            "Attacking with {This} briefly creates a burst of {RandomOf('fire' 'frost' 'snow' 'ash' 'light' 'dust' 'steam' 'smoke' 'putrid gas' 'petals' 'lightning' 'swirling wind' 'mist' 'ink' 'water' 'leaves' 'heat' 'eldritch magic' 'divine light' 'sparks' 'starlight' 'stars' 'prismatic light')} that quickly decays before it can do any harm.",
+            "The weapon appears to have a strange will of its own, and you can ocasionally feel it pulling your hand {RandomOf('Northward' 'Westward' 'Southward' 'Eastward')}",
+            "Attacking with {This} creates a musical note resembling {RandomOf('a guitar' 'a lute' 'a harp' 'a violin' 'a drum' 'a bass' 'an organ')} note. The stronger the attack, the louder the sound.",
+            "Attacking with {This} creates a {RandomOf('thundering' 'hissing' 'vibrating' 'bell' 'horn' 'creaking' 'wave crashing')} sound on impact, louder as the attack gets stronger.",
+            "{This} appears to never stain, and any substance will quickly spill or drop off it, keeping it in pristine condition.",
+            "The weapon is perpetually {RandomOf('cold' 'hot' 'warm')} to the touch.",
+            "The weapon has a strange sheen to it, as if it reflects all light that touches it.",
+            "{This} appears extremely durable, and very unlikely to break.",
+            "The weapon instigates strange {RandomOf('anxious' 'fearful' 'peaceful' 'stressful' 'uncanny' 'morbid' 'vivid daydream' 'uncontrollable random' 'overconfidence')} thoughts whenever wielded.",
+            "The weapon is unusually {RandomOf('light' 'heavy')}.",
+            "The weapon is completely silent and makes no sound, no matter how fast it moves or how hard it hits.",
+            "The weapon leaves behind a trail of {RandomOf('scorching air' 'prismatic light' 'moonlight' 'starlight' 'an afterglow')} that decays after a couple of seconds.",
+            "{This} continuously vibrates or reverberates lightly.",
+            "{This} reacts to nearby sounds by mimicking a vibration of a frequency that resembles all sound in the vicinity.",
+            "The weapon stores a speck of the soul of every entity it slays. While wielding this weapon, the image of one of its slain people flashes before your eyes ocasionally, at random intervals.",
+            "Upon attacking with {This}, it briefly {RandomOf('shrinks' 'expands')} in volume by around a tenth.",
+            "When {This} strikes, instead of physically harming the target, it {RandomOf('becomes ethereal' 'glitches in and out of existence')}, also striking at the victim's {RandomOf('psyche' 'spirit' 'essence' 'manaweave')}, inflicting {RandomOf('anxious' 'fearful' 'peaceful' 'stressful' 'uncanny' 'morbid' 'vivid daydream' 'uncontrollable random' 'overconfidence')} thoughts onto the target.",
+            "While wielding {This}, you are lightly transparent.",
+            "{This} is ocasionally appears to blink in and out of existence, reappearing very slightly moved from its previous position. Even when held in hand, {This} will ocasionally move up, down or twist in your hand, seemingly at random.",
+            "Once Soulbound, {This} can respond to its user's vocal commands to return to hand, hold (remains in position), encumber or lighten by up to 50%, or grow or shrink by up to 50%.",
+            "{This} can mechanically fold, reducing its size by up to 90%, essentially being able to fit into a pocket. Collapsing and unfolding the weapon takes 0 Actions, once per Turn."
+        ],
+        "Armor": [
+            "The item perpetually glows {Color}.",
+            "While wearing {This}, you are covered in a faint {Color} aura that can be seen in the dark.",
+            "While wearing {This}, your footsteps are completely silent.",
+            "While wearing {This}, you are lightly transparent."
+        ]
     }
 }

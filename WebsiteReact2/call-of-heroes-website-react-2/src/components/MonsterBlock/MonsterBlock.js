@@ -11,10 +11,13 @@ import CopySpellButton from '../CopyButton/CopySpellButton.js'
 import PageH0 from '../PageH0/PageH0.js'
 import PageH1 from '../PageH1/PageH1.js'
 
-export default function MonsterBlock({monsterName, monster}) {
+export default function MonsterBlock({monsterName, monster, isPreview}) {
 
     if (monsterName == null) {
         monsterName = monster.Name
+    }
+    if (isPreview !== true) {
+        isPreview = false
     }
 
     const monsterStats   = U.getMonsterStatsAsObject(monster.Stats)
@@ -25,8 +28,6 @@ export default function MonsterBlock({monsterName, monster}) {
 
     const monsterSubtitle = monster.Type +
         (monster.Role != null? `, ${monster.Role}`: '')
-
-    console.log({monsterSubtitle, type: monster.Type})
 
     let monsterHealth = monster.Health
     if (monster.HPCoef != null) {
@@ -44,9 +45,7 @@ export default function MonsterBlock({monsterName, monster}) {
             1 :
             (1 - U.extractDefenseFromMonsterArmor(monster.Armor) * hpPenaltyPerDefense)
         
-        console.log({baseHPForThisXP, defenseMultiplier, hpCoefMultiplier, maybeEpicMultiplier})
         monsterHealth = Math.floor(baseHPForThisXP * defenseMultiplier * hpCoefMultiplier * maybeEpicMultiplier)
-        console.log({monsterHealth})
         if (monsterHealth % 10 == 4 || monsterHealth % 10 == 9) {
             monsterHealth += 1
         } else if (monsterHealth % 10 == 6 || monsterHealth % 10 == 1) {
@@ -71,24 +70,28 @@ export default function MonsterBlock({monsterName, monster}) {
 
     return (
         <div subtitle={monsterSubtitle} id={`Monster-Block_${monsterName}`}>
-            <PageH1>{monsterName}</PageH1>
-            <TwoColumns type='lefty'>
-                <Column>
-                    { IsCondensedLeft ? (
-                        <TwoColumns type="lefty">
-                            <Column>
-                                <MonsterLore/>
-                            </Column>
-                            <Column></Column>
-                        </TwoColumns>
-                    ) : (
-                        <MonsterLore/>
-                    )}
-                </Column>
-                <Column>
-                    {}
-                </Column>
-            </TwoColumns>
+            { !isPreview && (
+                <PageH1>{monsterName}</PageH1>
+            ) }
+            { !isPreview && (
+                <TwoColumns type='lefty'>
+                    <Column>
+                        { IsCondensedLeft ? (
+                            <TwoColumns type="lefty">
+                                <Column>
+                                    <MonsterLore/>
+                                </Column>
+                                <Column></Column>
+                            </TwoColumns>
+                        ) : (
+                            <MonsterLore/>
+                        )}
+                    </Column>
+                    <Column>
+                        {}
+                    </Column>
+                </TwoColumns>
+            )}
             
             <TwoColumns type='lefty'>
                 <Column>

@@ -14,14 +14,13 @@ import monsters from '../../databases/Monsters.json'
 import TableNormal from '../../components/TableNormal/TableNormal'
 import { Link } from 'react-router-dom'
 import SmallStat from '../../components/SmallStat/SmallStat'
+import MonsterBlock from '../../components/MonsterBlock/MonsterBlock'
 
 export default function Monsters({}) {
 
-    const [searchObject, setSearchObject] = useState({
-        type: 'simple',
-        searchValue: '',
-        searchKVPs: []
-    })
+    const [searchText, setSearchText] = useState('')
+    const [currentlyHoveredMonster, setCurrentlyHoveredMonster] = useState(null)
+    const [mouseCoords, setMouseCoords] = useState({ x: 0, y: 0 })
 
     const monstersArray = Object.keys(monsters)
         .map(name => ({...monsters[name], Name: name}))
@@ -29,72 +28,42 @@ export default function Monsters({}) {
 
     function onInputChange(evt) {
         const inputValue = evt.target.value
-        
-        const isSimpleSearch = inputValue.includes(':') == false
-        if (isSimpleSearch) {
-            setSearchObject({
-                type: 'simple',
-                searchValue: inputValue.trim(),
-                searchKVPs: []
-            })
+        setSearchText(inputValue)
+    }
+
+    function onMouseEnterMonster(monsterName, evt) {
+        if (window.screen.width < window.screen.height || U.isMobile()) {
             return
         }
-        
-        const searchKeyValuePairs = []
-        for (const kvpByColon of inputValue.split(' ')) {                                       // 'name:ogre type:giant' -> ['name:ogre', 'type:giant']
-            const kvpNice = kvpByColon.trim()
-            const [key, value] = kvpNice.split(':')                                             // 'name:ogre' -> ['name', 'ogre']
-            if (key == null || value == null || key.length == 0 || value.length == 0) continue
-            searchKeyValuePairs.push({                                                          // {key: 'name', value: 'ogre'}
-                key: key.toLowerCase(),
-                value: value.toLowerCase()
-            })
-        }
-        setSearchObject({
-            type: 'complex',
-            searchValue: inputValue,
-            searchKVPs: searchKeyValuePairs
-        })
-
+        setCurrentlyHoveredMonster(monsterName)
+        setMouseCoords({ x: evt.clientX, y: evt.pageY })
+    }
+    function onMouseMoveMonster(evt) {
+        console.log({ x: evt.clientX, y: evt.pageY })
+        setMouseCoords({ x: evt.clientX, y: evt.pageY })
+    }
+    function onMouseLeaveMonster() {
+        setCurrentlyHoveredMonster(null)
     }
 
-    function isMatchingByKVP(monster) {
-        console.log({monster, searchObject})
-        const searchValueTrimmed = searchObject.searchValue.trim()
-        if (searchObject.type == 'simple') {    // Monster name simply matches the search
-            if (searchValueTrimmed == 0) return true
-            console.log({
-                lc: monster.Name.toLowerCase(),
-                includes: monster.Name.toLowerCase().includes(searchValueTrimmed)
-            })
-            return monster.Name.toLowerCase().includes(searchValueTrimmed) ||
-                monster.Type.toLowerCase().includes(searchValueTrimmed) ||
-                (monster.Degree != null && monster.Degree.toLowerCase().includes(searchValueTrimmed)) ||
-                `${monster.Experience}` == searchValueTrimmed
-        }
-        for (const { key, value } of searchObject.searchKVPs) {
-            const realKey = U.capitalizeFirstLetter(key)
-            const monsterValue = `${monster[realKey]}`
-            if (monsterValue == null)
-                return true
-            if (monsterValue.toLowerCase().includes(value) == false)
-                return false
-        }
-        return true
-    }
 
     return (
         <Page title="Monsters">
 
             <SmallStat name="Search">
-                <input value={searchObject.searchValue} onChange={onInputChange} style={{fontSize: 'var(--text-font-size)'}}/>
+                <input placeholder='demon & >100' value={searchText} onChange={onInputChange} style={{fontSize: 'var(--text-font-size)'}}/>
             </SmallStat>
 
+            { currentlyHoveredMonster != null && (
+                <div className='monster-preview' style={{top: (mouseCoords.y - 150) + 'px', left: (mouseCoords.x + 50) + 'px'}} >
+                    <MonsterBlock monsterName={currentlyHoveredMonster} monster={monsters[currentlyHoveredMonster]} isPreview={true}/>
+                </div>
+            ) }
+
             <TableNormal columns={['Name', 'Type', 'Experience', 'Degree']}>
-                { monstersArray
-                    .filter(monster => isMatchingByKVP(monster))
-                    .map(monster => (
-                        <tr key={monster.Name}>
+                {   U.filterArrayBySearch(monstersArray, monster => monster.Name + ' '  + monster.Experience + ' ' + monster.Type + ' ' + monster.Degree, searchText)
+                     .map(monster => (
+                        <tr key={monster.Name} onMouseMove={e => onMouseMoveMonster(e)} onMouseEnter={(e) => onMouseEnterMonster(monster.Name, e)} onMouseLeave={onMouseLeaveMonster}>
                             <td><Link to={`/Other/Monster#${monster.Name}`}>{ monster.Name }</Link></td>
                             <td>{ monster.Type }</td>
                             <td>{ monster.Experience }</td>

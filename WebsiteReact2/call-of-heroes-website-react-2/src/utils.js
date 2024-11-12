@@ -111,7 +111,14 @@ export function normalizeForEachVariantsToNormalVariants(VariantsForEach) {
     }
     return allVariants
 }
-
+export function getAlternativesAsArray(text) {
+    if (text == null) {
+        return []
+    }
+    const alternativesString = text.split('Alternatives: ').join('')
+    const alternatives = alternativesString.split(', ')
+    return alternatives
+}
 
 // --------------- Questguard Utilities --------------
 export function isDice(str) {
@@ -299,7 +306,13 @@ export function numbersUntil(num) {
     }
     return arr
 }
-
+export function last(arr) {
+    return arr[arr.length - 1]
+}
+export function allEqual(arr, val) {
+    const allEqualElems = arr.filter(elem => elem == val)
+    return arr.length == allEqualElems.length
+}
 
 
 
@@ -376,7 +389,13 @@ export function enspanDamageCalculations(text) {
 }
 
 // Returns an array of componentos
-export function parseTextWithSymbols(text, customSymbols, isDebug) {
+export function parseTextWithSymbols(text, customSymbols, options = {}) {
+    if (text == null) {
+        console.log({customSymbols, options})
+        throw `Null text given to parseTextWithSymbols. Other params printed above`
+    }
+
+    const {isDebug, shouldUseOnlyCustomSymbols} = options
 
     let symbolToInsertion = {
         'Damage': () => (<Icon name="Damage"/>),
@@ -388,7 +407,7 @@ export function parseTextWithSymbols(text, customSymbols, isDebug) {
         'Feared': () => (<span>A Feared Unit can only do <b>one</b> Act on its turn (e.g. move, make one attack, use one Ability, etc).</span>),
         'Crippled': () => (<span>A Crippled Unit can't make physical Attacks.</span>),
         'Silenced': () => (<span>A Silenced Unit can't make cast Spells.</span>),
-        'Fumbling': () => (<span>A Fumbling Unit has -2 to all Attacks.</span>),
+        'Fumbling': () => (<span>A Fumbling Unit's next Act is completely negated (Movement, attack, spell, or anything that requires Actions).</span>),
         'Blinded': () => (<span>A Blinded Unit has -4 to all rolls.</span>),
         'Slowed': () => (<span>A Slowed Unit has -2 Movement Speed.</span>),
         'Rooted': () => (<span>A Rooted Unit has can't move from its space (but it can attack, cast Spells, etc).</span>),
@@ -398,6 +417,7 @@ export function parseTextWithSymbols(text, customSymbols, isDebug) {
         'DiceDowngrade': () => (<span>Having <b>Dice Downgraded</b> means, for example, d8's become d6's, or d10's become d8's. D4's and d20's don't decrease.</span>),
         'Flank': () => (<span>Flanking is when you melee-attack an enemy, and an ally of yours is directly behind the enemy. As an optional rule (ask the QM), flank attacks can deal +1 Damage.</span>),
         'FoolsGold': () => (<span>Fool's Gold is an imaginary currency that can be converted to real Gold by spending 1 hour in a town or city. Fool's Gold lasts until converted to real Gold.</span>),
+        'Ultimate': () => (<span>This is your Ultimate Class Ability and, after getting this Talent, you can no longer change your Talents inbetween Adventures.</span>),
         
         'Gold': () => (<Icon name="Gold"/>)
     }
@@ -409,7 +429,11 @@ export function parseTextWithSymbols(text, customSymbols, isDebug) {
     }
 
     if (customSymbols != null) {
-        symbolToInsertion = {...symbolToInsertion, ...customSymbols}
+        if (shouldUseOnlyCustomSymbols === true) {
+            symbolToInsertion = {...customSymbols}
+        } else {
+            symbolToInsertion = {...symbolToInsertion, ...customSymbols}
+        }
     }
     
     if (isDebug === true) {
@@ -434,6 +458,7 @@ export function parseTextWithSymbols(text, customSymbols, isDebug) {
     let isReadingFunctionString = false
     let functionStringStart = 0
     let functionStrings = []
+    let stringSymbol
     for (let i = 0; i < text.length; i++) {
         const char = text[i]
         switch (state) {
@@ -441,6 +466,7 @@ export function parseTextWithSymbols(text, customSymbols, isDebug) {
                 if (char == '{') {
                     if (i > 0) {
                         textParts.push(text.substring(currentTextPartStart, i))
+                        console.log(`Found {, pushing: "${text.substring(currentTextPartStart, i)}"`)
                     }
                     symbolStart = i
                     state = 'reading-symbol'
@@ -450,7 +476,7 @@ export function parseTextWithSymbols(text, customSymbols, isDebug) {
                     symbolStart = i
                     state = 'reading-url'
                 }
-                if (MARKUP_DELIMITERS.includes(char)) {
+                if (MARKUP_DELIMITERS.includes(char) && shouldUseOnlyCustomSymbols !== true) {
                     textParts.push(text.substring(currentTextPartStart, i))
                     symbolStart = i
                     state = 'reading-markup'
@@ -460,8 +486,16 @@ export function parseTextWithSymbols(text, customSymbols, isDebug) {
             case 'reading-symbol':
                 if (char == '}') {
                     const symbol = text.substring(symbolStart + 1, i)
+                    if (symbolToInsertion[symbol] == null) {
+                        throw `ERROR: Symbol ${symbol} not found for parsing.`
+                    }
+                    if (typeof(symbolToInsertion[symbol]) != 'function') {
+                        console.log(symbolToInsertion[symbol])
+                        throw `ERROR: Symbol ${symbol} not a function. Value above.`
+                    }
                     textParts.push(symbolToInsertion[symbol]())    // Push current symbol
                     currentTextPartStart = i + 1
+                    console.log(`Found }. Pushing symbol "${symbolToInsertion[symbol]()}" resuming from leter: "${text[i + 1]}"`)
                     state = 'reading-normal-text'
                 } else if (char == '(') {
                     functionName = text.substring(symbolStart + 1, i)
@@ -471,12 +505,13 @@ export function parseTextWithSymbols(text, customSymbols, isDebug) {
                 }
                 break
             case 'reading-function':
-                if (char == '"') {
+                if (char == '"' || char == "'") {
                     if (isReadingFunctionString == false) {
+                        stringSymbol = char
                         console.log(`Started reading string.`)
                         functionStringStart = i + 1
                         isReadingFunctionString = true
-                    } else if (isReadingFunctionString) {
+                    } else if (isReadingFunctionString && char == stringSymbol) {
                         const str = text.substring(functionStringStart, i)
                         functionStrings.push(str)
                         console.log(`Stopped reading string: ${str}`)
@@ -524,6 +559,8 @@ export function parseTextWithSymbols(text, customSymbols, isDebug) {
         }
     }
 
+    console.log(`final:`)
+    console.log({textParts})
     return textParts
 
 }
@@ -671,6 +708,10 @@ export function range(fromIncluding, toExcluding) {
 export function takeRandomElements(fromArray, numberOfElements) {
     return shuffle([...fromArray]).slice(0, numberOfElements)
 }
+export function percentChance(num) {
+    const roll = (1 - Math.random()) * 100
+    return num >= roll
+}
 export function capitalizeFirstLetter(str) {
     const str2 = str.charAt(0).toUpperCase() + str.slice(1)
     return str2
@@ -697,6 +738,11 @@ export function assert(cond, message) {
     if (cond != true) {
         throw message
     }
+}
+export function isMobile() {
+    let check = false;
+    (function(a){if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4))) check = true;})(navigator.userAgent||navigator.vendor||window.opera);
+    return check;
 }
 
 
@@ -861,3 +907,141 @@ export function getTextWidth(font, text) {
     return width
     
 }
+export function arrayUnion(a, b) {
+    const fullArray = [...a]
+    for (const elem of b) {
+        if (a.includes(b) == false) {
+            fullArray.push(elem)
+        }
+    }
+    return fullArray
+}
+export function arrayDiff(arrayA, arrayB) {
+    const onlyArrayA = []
+    const both = []
+    const onlyArrayB = []
+    for (const elemA of arrayA) {
+        if (arrayB.includes(elemA)) {
+            both.push(elemA)
+        } else {
+            onlyArrayA.push(elemA)
+        }
+    }
+    for (const elemB of arrayB) {
+        if (arrayA.includes(elemB) == false) {
+            onlyArrayB.push(elemB)
+        }
+    }
+    return { left: onlyArrayA, both, right: onlyArrayB }
+}
+export function mergeObjectsContainingArrays(a, b) {
+    console.log('Ok')
+    const { left, both, right } = arrayDiff(Object.keys(a), Object.keys(b))
+    const finalObject = {}
+    for (const key of left) {
+        finalObject[key] = a[key]
+    }
+    for (const key of right) {
+        finalObject[key] = b[key]
+    }
+    for (const key of both) {
+        finalObject[key] = [...a[key], ...b[key]]
+    }
+    console.log('yy')
+    return finalObject
+}
+export function randomOfArrayWeighted(items, _weights) {
+    let i;
+    let weights = [..._weights]
+
+    for (i = 1; i < weights.length; i++)
+        weights[i] += weights[i - 1];
+    
+    let random = Math.random() * weights[weights.length - 1];
+    
+    for (i = 0; i < weights.length; i++)
+        if (weights[i] > random)
+            break;
+    
+    return items[i];
+}
+
+export function containsNumber(str) {
+    for (let i = 0; i < str.length; i++) {
+        if ('0123456789'.includes(str.at(i))) {
+            return true
+        }
+    }
+    return false
+}
+window.containsNumber = containsNumber
+export function parseFloatIgnoreStrings(str) {
+    const allowOnly = '0123456789.'
+    const formattedStr = str.split('').filter(char => allowOnly.includes(char)).join('')
+    if (formattedStr.length == 0 || formattedStr == '.') {
+        throw `Invalid str given to parseFloatIgnoreStrings: "${str}"`
+    }
+    return parseFloat(formattedStr)
+}
+window.parseFloatIgnoreStrings = parseFloatIgnoreStrings
+
+// bio = Druid Person 250 Normal
+export function bioMatchesSearchText(bio, {mathClauses, textClauses}) {
+    const bioNumbers = bio.split(' ').filter(str => containsNumber(str)).map(str => parseFloatIgnoreStrings(str))   // E.g: 400 2   (from "Druid 400 Epic x2")
+    function containsName(bio) {
+        const matches = []
+        for (const clause of textClauses) {
+            if (bio.includes(clause)) {
+                matches.push(true)
+            }
+        }
+        return matches.length == textClauses.length
+    }
+    function byNumber(bio) {
+        if (containsNumber(bio) == false) {
+            return true // 
+        }
+        for (const clause of mathClauses) {
+            let compareNumberToClause = (num, cla) => num == cla
+            if (clause.startsWith('>=')) {
+                compareNumberToClause = (num, cla) => num >= cla
+            } else if (clause.startsWith('>')) {
+                compareNumberToClause = (num, cla) => num > cla
+            } else if (clause.startsWith('<=')) {
+                compareNumberToClause = (num, cla) => num <= cla
+            } else if (clause.startsWith('<')) {
+                compareNumberToClause = (num, cla) => num < cla
+            }
+            const clauseAsNumber = parseFloatIgnoreStrings(clause)                                                      // E.g: 250
+            return bioNumbers.find(num => compareNumberToClause(num, clauseAsNumber)) != null                           // E.g. Any of [400, 2] > 250
+        }
+        return false
+    }
+
+    let shouldFilterNumbers = mathClauses.length > 0
+    let shouldFilterStrings = textClauses.length > 0
+
+    if (shouldFilterNumbers && shouldFilterStrings) {
+        return containsName(bio) && byNumber(bio)
+    }
+    if (shouldFilterNumbers) {
+        return byNumber(bio)
+    }
+    if (shouldFilterStrings) {
+        return containsName(bio)
+    }
+}
+window.bio = "Druid 400 Person x2"
+window.searchText = ">250"
+window.bioMatchesSearchText = bioMatchesSearchText
+export function filterArrayBySearch(arr, getElemBio, searchText) {
+    searchText = searchText.toLowerCase()
+    const clauses = searchText.split('&').map(str => str.trim())
+    const mathClauses = clauses.filter(clause => containsNumber(clause))                                            // E.g: >250    (from "Druid & >250")
+    const textClauses = clauses.filter(clause => containsNumber(clause) == false)
+    return arr.filter(elem => {
+        const bio = getElemBio(elem).toLowerCase()
+        return bioMatchesSearchText(bio, {mathClauses, textClauses})
+    })
+}
+window.filterArrayBySearch = filterArrayBySearch

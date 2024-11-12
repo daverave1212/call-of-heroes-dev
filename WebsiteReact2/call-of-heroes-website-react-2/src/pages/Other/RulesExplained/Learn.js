@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import LandingPageSeparator from "../../../components/LandingPageSeparator/LandingPageSeparator";
 import classNames from "classnames";
 import './Learn.css'
@@ -6,6 +6,8 @@ import HeroButton from "../../../components/HeroButton/HeroButton";
 import { SideMenu } from "../../../components/SideMenu/SideMenu";
 import BreadcrumbSideMenu from "../../../components/BreadcrumbSideMenu/BreadcrumbSideMenu";
 import { useEffect, useState } from "react";
+import { getPageHashFromLocation } from "../../../utils";
+import AnchorFixer from "../../../components/AnchorFixer/AnchorFixer";
 
 export function HeroSlidePageTitle({imgSrc, title}) {
     if (imgSrc != null)
@@ -83,9 +85,10 @@ function SlidePage({
     )
 }
 
-export function HeroSlidePage({nBullets, CHeroLogo, highlightNumber, isReverse, isAlignedLeft, title, titleStyle, logoImgSrc, imgSrc, buttonName, linkTo, children, isDownload }) {
+export function HeroSlidePage({id, nBullets, CHeroLogo, highlightNumber, isReverse, isAlignedLeft, title, titleStyle, logoImgSrc, imgSrc, buttonName, linkTo, children, isDownload }) {
     return (
         <div style={{position: 'relative'}}>
+            <AnchorFixer id={id}/>
             { nBullets != null && (<BreadcrumbSideMenu nBullets={nBullets} highlightNumber={highlightNumber}/>) }
             <SlidePage CHeroLogo={CHeroLogo} isAlignedLeft={isAlignedLeft} isReverse={isReverse == true? true : false} titleStyle={titleStyle} title={title} isDownload={isDownload} imgSrc={imgSrc} logoImgSrc={logoImgSrc} buttonName={buttonName} linkTo={linkTo}>
                 { children }
@@ -95,11 +98,22 @@ export function HeroSlidePage({nBullets, CHeroLogo, highlightNumber, isReverse, 
 }
 
 export default function() {
+
+    const location = useLocation()
+
+    useEffect(() => {
+        const hash = getPageHashFromLocation(location)
+        const element = document.querySelector('#' + hash)
+        if (element != null) {
+            element.scrollIntoView()
+        }
+    }, [])
     
     return (
         <div>
 
             <HeroSlidePage
+                id="Transition-Guide"
                 nBullets={4} highlightNumber={0}
                 isDownload={true} linkTo={"/Download/Transition_Guide_2024-06-16b.pdf"}
                 imgSrc="/LandingPage/Learn2.png"
@@ -109,6 +123,7 @@ export default function() {
             </HeroSlidePage>
 
             <HeroSlidePage
+                id="Character-Creation"
                 nBullets={4} highlightNumber={1}
                 isReverse={true} isDownload={true}
                 CHeroLogo={<HeroSlidePageTitle imgSrc="/LandingPage/CharacterCreationLogo.png"/>}
@@ -119,6 +134,7 @@ export default function() {
             </HeroSlidePage>
 
             <HeroSlidePage
+                id="For-New-Players"
                 nBullets={4} highlightNumber={2}
                 CHeroLogo={<HeroSlidePageTitle title="For New Players"/>}
                 imgSrc="/LandingPage/Learn3.png"
@@ -128,6 +144,7 @@ export default function() {
             </HeroSlidePage>
 
             <HeroSlidePage
+                id="Rules"
                 nBullets={4} highlightNumber={2}
                 isReverse={true}
                 CHeroLogo={<HeroSlidePageTitle title="Rules Glossary"/>}

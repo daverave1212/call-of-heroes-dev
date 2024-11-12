@@ -90,6 +90,7 @@ import PatchNotes from './pages/Meta/PatchNotes';
 import CustomMonster from './pages/Other/CustomMonster';
 import RogueB from './pages/Classes/RogueB';
 import TitleGenerator from './pages/Tools/TitleGenerator';
+import MagicItemCreator from './pages/Other/MagicItemCreator';
 
 function App() {
 
@@ -122,6 +123,7 @@ function App() {
           <Route path="/Other/CustomAbilityCreator" element={ <CustomAbility/> }/>
           <Route path="/Other/CustomMonsterCreator" element={ <CustomMonster/> }/>
           <Route path="/Other/MagicItems" element={ <MagicItems/> }/>
+          <Route path="/Other/MagicItemGenerator" element={ <MagicItemCreator/> }/>
 
           <Route path="/Other/Abilities" element={ <Abilities/> }/>
           <Route path="/Other/Feats" element={ <Feats/> }/>

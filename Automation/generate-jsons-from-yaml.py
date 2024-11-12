@@ -66,7 +66,6 @@ files_to_convert = [    # Order matters
 
     'Rules/Rules.yml',
     'Rules/Inventory.yml',
-    'Rules/CrowdControl.yml',
     'Rules/AreasOfEffect.yml',
     'Rules/AttackModifiers.yml',
     'Rules/CharacterCreation/CharacterCreation.yml',

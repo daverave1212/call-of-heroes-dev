@@ -13,18 +13,24 @@ export default function MonsterAbility({ability, isPassive}) {
     const name = Object.keys(ability)[0]
     const abilityBody = ability[name]
 
-    console.log(ability)
+    function AbilityEffect({children}) {
+        return (<p className='monster-ability-p'>{ children }</p>)
+    }
 
     function getAbilityBodyDiv() {
-        if (U.isString(abilityBody))
-            return (<p className='monster-ability-p'>{ abilityBody }</p>)
+        if (U.isString(abilityBody)) {
+            return <AbilityEffect>{ abilityBody }</AbilityEffect>
+        }
 
-        const effectName = U.getAnyPropNameExcept(abilityBody, ['Damage', 'Notes', 'A', 'Cooldown', 'Requirement', 'Range', 'Duration'])
+        const effectName = U.getAnyPropNameExcept(abilityBody, ['Damage', 'Notes', 'A', 'Cooldown', 'Requirement', 'Range', 'Duration', 'Effect'])
         
         return (
             <div>
                 { abilityBody.Damage && (
                     <p><span className='monster-ability__effect-name'>Damage: </span><span className='monster-ability_effect-desc'>{ abilityBody.Damage }</span></p>
+                ) }
+                { abilityBody.Effect && (
+                    <AbilityEffect>{ abilityBody.Effect }</AbilityEffect>
                 ) }
                 { effectName != null && <p style={{marginTop: '3px'}}>
                     <span className='monster-ability__effect-name'>{effectName}</span>: <span className='monster-ability__effect-desc'>{abilityBody[effectName]}</span>
@@ -44,7 +50,6 @@ export default function MonsterAbility({ability, isPassive}) {
         isPassive === true? abilityBody :
             {...{A: '1 Action'}, ...abilityBody}
 
-    console.log({spellTopTags})
 
     const topStatsComponent = <SpellTopStats tags={spellTopTags} className="spell-top__stats--no-padding-side spell-top__stats--less-padding-top-bottom"/>
 

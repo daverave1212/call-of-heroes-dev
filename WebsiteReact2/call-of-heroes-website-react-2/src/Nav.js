@@ -94,7 +94,7 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
     'Database': false,
     'Learn': false,
     'Lore': false,
-    'GM Resources': false,
+    'QM Resources': false,
     'Downloads': false
   })
   const [areExpandedState, setAreExpandedState] = useState(getBaseStateAllFalse())
@@ -210,7 +210,16 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
         <Link style={{color: 'white'}} to="/Other/Learn">Learn To Play</Link>
       </h3>
 
-      <MegaDropdownMenu title="GM Resources">
+      <MegaDropdownMenu title="Learn To Play">
+      <MegaDropdownMenuSection title="Learn To Play">
+          <LiLink to="/Other/Learn#Character-Creation">Character Creation Guide</LiLink>
+          <LiLink to="/Other/Learn#Transition-Guide">Transition Guide (from D&D)</LiLink>
+          <LiLink to="/Other/Learn#For-New-Players">New Player Guide</LiLink>
+          <LiLink to="/Other/Learn#Rules">Rules</LiLink>
+        </MegaDropdownMenuSection>
+      </MegaDropdownMenu>
+
+      <MegaDropdownMenu title="QM Resources">
         <MegaDropdownMenuSection title="Guides">
           <LiLink to="/Other/GMGuidelines">GM Guidelines</LiLink>
           <LiLink to="/Lore/Languages">Game Master Basics</LiLink>
@@ -251,17 +260,6 @@ export default function Nav() {
     const [isBurgerClicked, setIsBurgerClicked] = useState(false)
     const [navState, setNavState] = useState({ currentlyOpenSubnav: null })
 
-    // useEffect(() => {
-    //   document.querySelector('#Window-Content').addEventListener('click', () => {
-    //     closeNav()
-    //   })
-    // }, [])
-
-    // function closeNav() {
-    //   if (navState.currentlyOpenSubnav == null) return
-    //   setNavState({ currentlyOpenSubnav: null })
-    // }
-
     function setCurrentlyOpenSubnav(name) {
       setNavState({currentlyOpenSubnav: name})
     }
@@ -291,10 +289,11 @@ export default function Nav() {
             </div>
             <NavItem name='Database'>Database</NavItem>
 
-            <div className='nav-item'>
+            {/* <div className='nav-item'>
               <Link to="/Other/Learn">Learn To Play</Link>
-            </div>
-            <NavItem name='GM Resources'>GM Resources</NavItem>
+            </div> */}
+            <NavItem name='Learn To Play'>Learn To Play</NavItem>
+            <NavItem name='QM Resources'>QM Resources</NavItem>
             <NavItem name='Downloads'>Downloads</NavItem>
             <div>
               <input type="checkbox" checked={getIsActionPointsSystem()} onChange={() => {

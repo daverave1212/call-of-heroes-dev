@@ -4,7 +4,7 @@ import PageH2 from './../PageH2/PageH2'
 import Separator from './../Separator/Separator'
 import React, { useEffect, useState } from 'react'
 import Icon from '../Icon'
-import { insertBetweenAll, ifOk, stringReplaceAllMany, mapObject, parseTextWithSymbols, getUniqueSpellID, normalizeForEachVariantsToNormalVariants, spellsFromObject, findBasicSpellByName, getSpellIconPathByName, getItemIconPathByName } from '../../utils'
+import { insertBetweenAll, ifOk, stringReplaceAllMany, mapObject, parseTextWithSymbols, getUniqueSpellID, normalizeForEachVariantsToNormalVariants, spellsFromObject, findBasicSpellByName, getSpellIconPathByName, getItemIconPathByName, allEqual } from '../../utils'
 import Spell, { SpellBackground, SpellBorder, SpellTop, SpellTopStats } from './Spell'
 import html2canvas from 'html2canvas'
 import CopySpellButton from '../CopyButton/CopySpellButton'
@@ -89,25 +89,11 @@ export default function Item({ item, style, hasIcon, hasCopyButton=true, showTop
             if (SubspellName != null) SubspellName = parseTextWithSymbols(SubspellName, extraMixins, true)
             if (extraText.length > 0) extraText = parseTextWithSymbols(extraText)
         } catch (e) {
-            throw `Error in Item ${Name} parsing text: ${e}`
+            console.log({Effect, DisplayName, SubspellName, extraText})
+            throw `Error in Item ${Name} parsing text: ${e} (Item object printed above)`
         }
     }
 
-    let descriptionElements = [
-        Damage == null? null : (
-            <span key="Damage"><Icon name="Damage"/>{ Damage }</span>
-        ),
-        ArmorBonus == null? null : (
-            <span key="ArmorBonus">{ ArmorBonus } <Icon name="Defense"/>Defense</span>
-        ),
-        Effect == null? null : (
-            <span key="Effect">{ Effect }</span>
-        ),
-        Downside == null? null : (
-            <span key="Downside" style={{ color: 'red' }}>{ Downside }</span>
-        )
-    ].filter(elem => elem != null)
-    
     function onIconClick() {
         if (hasVariants !== true)
             return
@@ -133,14 +119,18 @@ export default function Item({ item, style, hasIcon, hasCopyButton=true, showTop
                 
                 <SpellTop
                     hasVariants={hasVariants} Variants={Variants} variantIndex={variantIndex}
-                    onIconClick={onIconClick} iconPath={iconPath} hasIcon={true}
+                    onIconClick={onIconClick} iconPath={iconPath} hasIcon={hasIcon}
                     DisplayName={DisplayName} Name={Name} showTopStats={showTopStats}
                     A={A} item={item}
                 />
 
                 <Separator hasNoMarginTop={true}/>
                 { Damage == null? null : (
-                    <div key="Damage" className='spell-description' style={{paddingBottom: 'calc(var(--spell-padding-bottom) / 2)'}}><Icon name="Damage"/>{ Damage }</div>
+                    <div key="Damage" className='spell-description' style={{
+                        paddingBottom: allEqual([Effect, EffectGreen, Downside, Upgrade, Notes, Alternatives], null)?   // Extra padding bottom if there is nothing after damage
+                            'var(--spell-padding-bottom':
+                            'calc(var(--spell-padding-bottom) / 2)'
+                    }}><Icon name="Damage"/>{ Damage }</div>
                 )}
                 { Effect != null && (
                     <div className='spell-description'>
@@ -149,6 +139,13 @@ export default function Item({ item, style, hasIcon, hasCopyButton=true, showTop
                 )}
                 { EffectGreen != null && (
                     <div className="spell-green" key="EffectGreen">{ EffectGreen }</div>
+                ) }
+                { Downside != null && (
+                    <>
+                        <Separator/>
+                        <div className="spell-red" key="Downside">{ Downside }</div>
+                        <Separator/>
+                    </>
                 ) }
                 { Upgrade != null && (
                     <div className='spell-upgrade'>
@@ -160,6 +157,15 @@ export default function Item({ item, style, hasIcon, hasCopyButton=true, showTop
                         { Notes }
                     </div>
                 ) }
+                { Alternatives != null && (
+                    <div className='spell-notes'>
+                        Alternatives: { Alternatives }
+                    </div>
+                ) }
+                {/* { allEqual([Effect, EffectGreen, Downside, Upgrade, Notes, Alternatives], null) && (
+                    <div className='spell-notes'>
+                    </div>
+                ) } */}
 
 
                 <CopySpellButton elementId={uniqueID} shouldAddBorder={true}/>

@@ -371,7 +371,7 @@
                     },
                     {
                         "title": "Damage and Types",
-                        "value": "Damage is a word for how many Health Points an attack or effect will reduce. Dealing 3 Damage to a Unit with 10 Health will leave the Unit at 7 Health. Upon reaching 0 or less Health, a Unit dies or Falls (see Death and being Fallen).\nThere are multiple \"types\" of Damage, but this is just a classification for certain Abilities, and usually 3 Damage is 3 Damage, no matter the type.\nThe Damage types are Slash, Smash, Pierce, Pulse (e.g. pressure, being flung around, etc), Fire, Cold, Shock, Scourge, Divine, Psychic, and True.\nThere are Passive Abilities (\"Resistances\") that reduce certain Damage types you take by 50%, or increase it by 50% (\"Weaknesses\").\nTrue Damage that can't be reduced by any means and is not reduced by Shielding (ignores Shielding).\n\nThe order in which Damage is added or subtracted from an Attack is:\n1. Calculate all simple (non-percentage) penalties and additions (e.g. Fumbling, range penalty, Cover, etc).\n2. Calculate all percentage penalties or additions (e.g. Weakness, Resistance, other magical buffs, etc).\n3. Calculate Defense\n\nFor example, let's say you Attack a Unit with a Handgun for 1d8 Damage and you roll 7. The enemy has 1 Defense, 50% Weakness to Pierce Damage, Cover, and you are using special Bullets that deal +1 Damage.\nThe Damage becomes:\n1. 7 + 1 (from Bullets) - 2 (from Cover) = 6\n2. 6 + 50% of 6 (from Weakness) = 9\n3. 9 - 1 (from Defense) = 8\nThe final Damage from the Attack is 8.\n"
+                        "value": "Damage is a word for how many Health Points an attack or effect will reduce. Dealing 3 Damage to a Unit with 10 Health will leave the Unit at 7 Health. Upon reaching 0 or less Health, a Unit dies or Falls (see Death and being Fallen).\nThere are multiple \"types\" of Damage, but this is just a classification for certain Abilities, and usually 3 Damage is 3 Damage, no matter the type.\nThe Damage types are Slash, Smash, Pierce, Pulse (e.g. pressure, being flung around, etc), Fire, Cold, Shock, Scourge, Divine, Psychic, and True.\nThere are Passive Abilities (\"Resistances\") that reduce certain Damage types you take by 50%, or increase it by 50% (\"Weaknesses\").\nTrue Damage that can't be reduced by any means and is not reduced by Shielding (ignores Shielding).\n\nThe order in which Damage is added or subtracted from an Attack is:\n1. Calculate all simple (non-percentage) penalties and additions (e.g. -2 Damage from Warrior Charge).\n2. Calculate all percentage penalties or additions (e.g. Weakness, Resistance, other magical buffs, etc).\n3. Calculate Defense\n\nFor example, let's say you Attack a Unit with a Handgun for 1d8 Damage and you roll 7. The enemy has 1 Defense, 50% Weakness to Pierce Damage, Cover, and you are using special Bullets that deal +1 Damage.\nThe Damage becomes:\n1. 7 + 1 (from Bullets) - 2 (from Cover) = 6\n2. 6 + 50% of 6 (from Weakness) = 9\n3. 9 - 1 (from Defense) = 8\nThe final Damage from the Attack is 8.\n"
                     },
                     {
                         "title": "Range",
@@ -456,11 +456,11 @@
                 "value": [
                     {
                         "title": "Crowd Control standards",
-                        "value": "A \"Crowd Control\" effect is a status effect on a Unit that prevents it from doing things normally (e.g. it can't move, it can't make Actions, can't take its turn, etc).\nAll Crowd Control lasts until the end of that Unit's next Turn (or until the end of their current Turn if it's their Turn now), unless stated otherwise.\nCrowd Controls of different types stack together (e.g. a Unit that is both Fumbling and Blinded will have both -2 and -50% to all Attacks).\nCrowd Controls of the same types do NOT stack (e.g. if you make a Unit Fumbling 2 times, it will still be Fumbling as normal for just 1 turn, even if it is an Epic monster).\n"
+                        "value": "A \"Crowd Control\" effect is a status effect on a Unit that prevents it from doing things normally (e.g. it can't move, it can't make Actions, can't take its turn, etc).\nAll Crowd Control lasts until the end of that Unit's next Turn (or until the end of their current Turn if it's their Turn now), unless stated otherwise.\nCrowd Controls of different types stack together (e.g. a Unit that is both Feared and Fumbling is essentially Stunned, since it can only do 1 Act due to being Feared, but whatever Act it decides to do is negated due to Fumbling).\nCrowd Controls of the same types do NOT stack (e.g. if you make a Unit Blinded 2 times, it will still be Blinded as normal for just 1 turn, even if it is an Epic monster).\n"
                     },
                     {
                         "title": "Slowed",
-                        "value": "A Slowed Unit has -2 Maximum Movement Speed."
+                        "value": "A Slowed Unit loses 50% of its maximum Movement (result rounded down)."
                     },
                     {
                         "title": "Rooted",
@@ -475,10 +475,6 @@
                         "value": "A Stunned Unit must skip its turn.\n"
                     },
                     {
-                        "title": "Fumbling",
-                        "value": "A Fumbling Unit has -2 to all Damage it deals.\n"
-                    },
-                    {
                         "title": "Blinded",
                         "value": "A Blinded Unit deals 50% less Damage and Healing and all of its Checks are reduced by 50%.\n"
                     },
@@ -491,8 +487,8 @@
                         "value": "A Crippled Unit deals 100% less Damage.\nNote that percentages stack additively. For example, if you are Crippled but you get an extra 50% Damage from whatever source, you will deal -50% reduced Damage (-100% + 50% = -50%).\n"
                     },
                     {
-                        "title": "Charm",
-                        "value": "A Charmed Unit can't run (move) away from the Charmer and can't directly target the Charmer with attacks or Abilities (but can use Area of Effect Abilities on it).\nMoving away means increasing the distance between you and the Charmer. The Charmed Unit can push itself away, teleport away, etc.\n"
+                        "title": "Fumbling",
+                        "value": "A Fumbling Unit's next Act is completely negated (e.g. moving, attacking, casting one Spell, etc). Any actions or resources spent are lost (all Movement is consumed if it was movement).\nFor example, if the Unit decides to move, the moving is prevented by Fumbling. If a monster wants to make 3 attacks, its first attack deals no Damage and has no effect.\nA Player Character can freely spend one Half-Action to remove Fumbling.\n"
                     },
                     {
                         "title": "Feared",
@@ -504,7 +500,7 @@
                     },
                     {
                         "title": "Other Interactions",
-                        "value": "If a Unit gets Crowd Controlled while doing an Act (e.g. you activate a trap while shooting a bow), what happens depends on the Crowd Control type.\nIf Pushed, the Unit is Pushed immediately (and dashes are cancelled). If the Act was not started yet (e.g. not yet attacked), then the Unit is free to do something else after being Pushed if they want to. However, if the Act already started (e.g. fired 1 out of 3 Magic Missiles), the Unit must continue casting the Spell, on the same target if it was already chosen, only if it's still valid (e.g. has Line of Sight or Range). If the Act can't be continued due to Range, Line of Sight, etc, then the rest of the Act is cancelled; Actions/Resoureces are NOT regained and are lost.\nCripple, Daze, Slow: Nothing happens on the spot; the Crowd Control takes effect after the Ability finishes.\nSilence: If it's a Spell, the rest of the Spell gets cancelled; otherwise nothing else happens.\nStun and other non-listed strong CC: The Ability gets cancelled.\nFear, Charm: The Unit must retract its Act if it was on the Fearer/Charmer; then, it must move. Then, it can resume its turn and use that same Action or another one as it pleases, now or later in the turn (the Unit does not lose its Action).\nBecoming Slowed on your turn immediately reduces your remaining Speed by 2 (but not less than 0, obviously).\n"
+                        "value": "If a Unit gets Crowd Controlled while doing an Act (e.g. you activate a trap while shooting a bow), what happens depends on the Crowd Control type.\nIf Pushed, the Unit is Pushed immediately (and dashes are cancelled). If the Act was not started yet (e.g. not yet attacked), then the Unit is free to do something else after being Pushed if they want to. However, if the Act already started (e.g. fired 1 out of 3 Magic Missiles), the Unit must continue casting the Spell, on the same target if it was already chosen, only if it's still valid (e.g. has Line of Sight or Range). If the Act can't be continued due to Range, Line of Sight, etc, then the rest of the Act is cancelled; Actions/Resoureces are NOT regained and are lost.\nCripple, Daze, Slow: Nothing happens on the spot; the Crowd Control takes effect after the Ability finishes.\nSilence: If it's a Spell, the rest of the Spell gets cancelled; otherwise nothing else happens.\nStun and other non-listed strong CC: The Ability gets cancelled.\nBecoming Slowed on your turn immediately reduces your remaining Speed by 2 (but not less than 0, obviously).\n"
                     }
                 ]
             },

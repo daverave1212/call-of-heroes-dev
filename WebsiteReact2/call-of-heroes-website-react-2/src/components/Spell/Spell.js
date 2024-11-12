@@ -146,6 +146,7 @@ export default function Spell({ children, spell, style, hasIcon, hasBorder, hasC
         Effect,
         EffectGreen,
         Notes,
+        Alternatives,
         Downside,
         IsSubspell,
         Upgrades,
@@ -201,6 +202,7 @@ export default function Spell({ children, spell, style, hasIcon, hasBorder, hasC
         try {
             Effect = parseTextWithSymbols(Effect, extraMixins)
             if (DisplayName != null) DisplayName = parseTextWithSymbols(DisplayName, extraMixins)
+            if (Downside != null) Downside = parseTextWithSymbols(Downside, extraMixins)
             if (Upgrade != null) Upgrade = parseTextWithSymbols(Upgrade, extraMixins)
             if (Notes != null) Notes = parseTextWithSymbols(Notes, extraMixins)
         } catch (e) {
@@ -283,6 +285,11 @@ export default function Spell({ children, spell, style, hasIcon, hasBorder, hasC
                 { Notes != null && (
                     <div className='spell-notes'>
                         { Notes }
+                    </div>
+                ) }
+                { Alternatives != null && (
+                    <div className='spell-notes'>
+                        Alternatives: { Alternatives }
                     </div>
                 ) }
                 { (DoubleTable != null || DoubleTableNumbered != null) && (
