@@ -405,8 +405,8 @@ export function parseTextWithSymbols(text, customSymbols, options = {}) {
         'Offensive Abilities': () => (<span>Offensive means that it deals Damage or applies hard Crowd Control (anything better than Slow and creating Hard Terrain).</span>),
         
         'Feared': () => (<span>A Feared Unit can only do <b>one</b> Act on its turn (e.g. move, make one attack, use one Ability, etc).</span>),
-        'Crippled': () => (<span>A Crippled Unit can't make physical Attacks.</span>),
-        'Silenced': () => (<span>A Silenced Unit can't make cast Spells.</span>),
+        'Crippled': () => (<span>A Crippled Unit deals -100% Damage.</span>),
+        'Silenced': () => (<span>A Silenced Unit can't use Abilities.</span>),
         'Fumbling': () => (<span>A Fumbling Unit's next Act is completely negated (Movement, attack, spell, or anything that requires Actions).</span>),
         'Blinded': () => (<span>A Blinded Unit has -4 to all rolls.</span>),
         'Slowed': () => (<span>A Slowed Unit has -2 Movement Speed.</span>),

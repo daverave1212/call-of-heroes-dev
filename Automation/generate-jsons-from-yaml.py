@@ -9,7 +9,10 @@ from os import path
 # NOTE 2: This DOES YES fix the "Inherit" spells
 # NOTE 3: This DOES YES add the Name property to all Spells (or at least it should)
 
-
+should_generate_specific_files = len(sys.argv) > 1
+specific_files = sys.argv[1:]
+print(should_generate_specific_files)
+print(specific_files)
 
 yaml_root_folder = '../Design'
 json_root_folder = '../WebsiteReact2/call-of-heroes-website-react-2/src/databases'
@@ -228,6 +231,8 @@ def get_format_sections_object_dict(dict_content_list):
 if __name__ == '__main__':
 
     for file_name in files_to_convert:
+        if should_generate_specific_files and file_name not in specific_files:
+            continue
         print(f'Parsing {file_name}...')
         file_path = yaml_root_folder + '/' + file_name
         file_content = ''
@@ -288,17 +293,19 @@ if __name__ == '__main__':
         'Backgrounds': backgrounds
     }
     overall_data_json = json.dumps(overall_data, indent=4)
-    with open(json_root_folder + '/' + 'OverallData.json', 'w+') as f:
-        f.write(overall_data_json)
 
-    class_race_abilities_json = json.dumps(class_race_abilities, indent=4)
-    with open(json_root_folder + '/' + 'ClassAndRaceAbilities.json', 'w+') as f:
-        f.write(class_race_abilities_json)
+    if not should_generate_specific_files:
+        with open(json_root_folder + '/' + 'OverallData.json', 'w+') as f:
+            f.write(overall_data_json)
 
-    rules_lists_json = json.dumps(rules_lists, indent=4)
-    with open(json_root_folder + '/' + 'RulesLists.json', 'w+') as f:
-        f.write(rules_lists_json)
-    rules_lists_dict = json.dumps(rules_dicts, indent=4)
-    with open(json_root_folder + '/' + 'RulesDicts.json', 'w+') as f:
-        f.write(rules_lists_dict)
+        class_race_abilities_json = json.dumps(class_race_abilities, indent=4)
+        with open(json_root_folder + '/' + 'ClassAndRaceAbilities.json', 'w+') as f:
+            f.write(class_race_abilities_json)
+
+        rules_lists_json = json.dumps(rules_lists, indent=4)
+        with open(json_root_folder + '/' + 'RulesLists.json', 'w+') as f:
+            f.write(rules_lists_json)
+        rules_lists_dict = json.dumps(rules_dicts, indent=4)
+        with open(json_root_folder + '/' + 'RulesDicts.json', 'w+') as f:
+            f.write(rules_lists_dict)
 

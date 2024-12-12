@@ -550,6 +550,8 @@ Specs:
     # Spec: Reaction: raise enemy to fight for you
     # Talent: wings for follower
     # Talent: Corpses as a resource
+    # Talent: AoE that scales with how many Units there are there
+    # Talent: Distance between 2 Units and all Units between are affected
     Description: W Soulwright Cleric is one who worships the soul itself under the guidance of one or more chosen gods, and as such has the power to manipulate anima - the very essence of life.\nYou have a Second Soul character, which is essentially another character you play.
     Starting Abilities:
     
@@ -599,12 +601,28 @@ Specs:
     Talents:
       Level 3:
 
+        <Blessing of Life>:
+          _Value: 1.5
+          A: Half-Action
+          Cooldown: Once / Adventure
+          HasMixins: true
+          Duration: 1 combat
+          AlignOnWebsite: Left
+          Effect: |
+            Cast Awe ~twice~ and the target(s) becomes Blessed until the end of the next (or current) Combat.
+            Blessed Allies have +1 to all Checks ~and +1 to all Damage instances~. Blessed Enemies have -3 Initiative ~and -1 to all Damage instances~.
+          Upgrade: On Epic Monsters, the -1 Damage only affects their first turn.
+          Notes: |
+            You can bless yourself.
+            Lasts until the end of the next combat encounter.
+
         ~Awe For Corpses~:
           _Value: 1.5
           A: Passive
           Range: 5 meters
           Duration: Zombies last 1 minute
           Replacement: Replaces Awe
+          AlignOnWebsite: Right
           HasMixins: true
           Effect: |
             Whenever you spend Mana, "cast Awe" on a Unit.
@@ -627,22 +645,11 @@ Specs:
         <Divine Transposition>:
           _Value: 1
           A: Reaction
+          AlignOnWebsite: Left
           Cooldown: Once / Combat
           Effect: Swap places with your companion, then cast Awe on both of you.
 
-        <Blessing of Life>:
-          _Value: 1.5
-          A: Half-Action
-          Cooldown: Once / Adventure
-          HasMixins: true
-          Duration: 1 combat
-          Effect: |
-            Cast Awe ~twice~ and the target(s) becomes Blessed until the end of the next (or current) Combat.
-            Blessed Allies have +1 to all Checks ~and +1 to all Damage instances~. Blessed Enemies have -3 Initiative ~and -1 to all Damage instances~.
-          Upgrade: On Epic Monsters, the -1 Damage only affects their first turn.
-          Notes: |
-            You can bless yourself.
-            Lasts until the end of the next combat encounter.
+
       
       Level 4:
 

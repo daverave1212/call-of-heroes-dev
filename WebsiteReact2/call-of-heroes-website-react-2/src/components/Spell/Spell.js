@@ -3,7 +3,7 @@ import './Spell.css'
 import PageH2 from './../PageH2/PageH2'
 import Separator from './../Separator/Separator'
 import React, { useEffect, useRef, useState } from 'react'
-import { parseTextWithSymbols, stringReplaceAllMany, getSpellIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll, getVariantsForEachCollection, normalizeForEachVariantsToNormalVariants, createKey, spellsFromObject } from '../../utils'
+import { parseTextWithSymbols, stringReplaceAllMany, getSpellIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll, getVariantsForEachCollection, normalizeForEachVariantsToNormalVariants, createKey, spellsFromObject, randomInt } from '../../utils'
 import TableNormal from '../TableNormal/TableNormal'
 import html2canvas from 'html2canvas'
 import CopySpellButton from '../CopyButton/CopySpellButton'
@@ -128,6 +128,7 @@ export function SpellTop({
 export default function Spell({ children, spell, style, hasIcon, hasBorder, hasCopyButton=true, showTopStats=true }) {
 
     const [variantIndex, setVariantIndex] = useState(0)
+    const [thiefRolledGoldAmount, setThiefRolledGoldAmount] = useState('Click here to roll 1000d100!')
 
     if (spell == null) {
         throw `Given null spell to Spell: ${spell}`
@@ -156,7 +157,8 @@ export default function Spell({ children, spell, style, hasIcon, hasBorder, hasC
         Variants,
         VariantsForEach,
         Monster,
-        Subspells
+        Subspells,
+        RollThiefGold
     } = spell
 
     if (getIsActionPointsSystem() && Effect != null) {
@@ -274,6 +276,21 @@ export default function Spell({ children, spell, style, hasIcon, hasBorder, hasC
                 { EffectGreen != null && (
                     <div className="spell-green" key="EffectGreen">{ EffectGreen }</div>
                 ) }
+                { RollThiefGold != null && (
+                    <div className='spell-description'>
+                        <button style={{
+                            fontFamily: 'HomeFont',
+                            fontSize: 'var(--p-size)',
+                            background: 'none',
+                            cursor: 'pointer',
+                            border: 'solid var(--hero-text-color) 3px',
+                            borderRadius: '1em',
+                            padding: '0.5em',
+                            paddingLeft: '1em',
+                            paddingRight: '1em',
+                        }} onClick={() => setThiefRolledGoldAmount(Math.floor((randomInt(1000, 100000) + randomInt(1000, 100000) + randomInt(1000, 100000)) / 3))}>{thiefRolledGoldAmount}</button>
+                    </div>
+                )}
                 { Downside != null && (
                     <div className="spell-red" key="Downside">{ Downside }</div>
                 )}

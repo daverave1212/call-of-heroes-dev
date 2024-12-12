@@ -646,6 +646,13 @@
             "Effect": "Damage a Unit for a total of 2d6 True Damage for each Element the target had been Damaged with this combat before.\n",
             "Upgrade": "Possible elements are Fire, Cold, Shock, Divine, Poison, Scourge, Acid and Psychic.",
             "Name": "~Prismatic Convergence~"
+        },
+        "~Armaggeddon~": {
+            "A": "1 Action",
+            "Requirement": "Level 11",
+            "Cost": "5 Mana",
+            "Effect": "Fire starts raining from the sky, devastating the landscape!\nAll Units in 25x25 meter area centered on you take 5d8 Fire Damage.\nAt the start of your next Turn, another wave of fire hits the same area for another 5d8 Fire Damage.\n",
+            "Name": "~Armaggeddon~"
         }
     },
     "Arcane": {
@@ -939,18 +946,25 @@
             "Degree": "Grand",
             "Effect": "You need a partner who can cast Portal to cast this.\nYou both cast it at the same time, in different locations.\nAt the end of the cast time, a portal opens at the locations of the two casters.\nStepping through one of the portals (obviously) teleports the Unit to the other portal.\nYou can only cast this every 30 days.\n",
             "Name": "~Portal~"
+        },
+        "~Flight~": {
+            "A": "1 Action",
+            "Requirement": "Level 11",
+            "Cost": "1 Mana",
+            "HasMixins": true,
+            "Effect": "Choose a Unit. It can fly at normal Speed for ^Your Intelligence^ * 10 minutes.",
+            "Name": "~Flight~"
+        },
+        "~Mass Teleportation~": {
+            "A": "10 minutes",
+            "Requirement": "Level 12",
+            "Cost": "4 Mana",
+            "Degree": "Grand",
+            "Effect": "Choose an outdoor location you have previously been to.\nAfter channelling for 10 minutes, teleport teleport all allies (and yourself) within 10 meters of you to the chosen location.\n",
+            "Name": "~Mass Teleportation~"
         }
     },
     "Nature": {
-        "~Alarm~": {
-            "A": "10 minutes",
-            "Duration": "24 hours",
-            "Cooldown": "24 hours",
-            "Requirement": "Level 2",
-            "Degree": "Lesser",
-            "Effect": "You setup an invisible 4x4x4 meter cube.\nIf an unknown Unit or Enemy enters the cube, it alerts you mentally.\n",
-            "Name": "~Alarm~"
-        },
         "~Control Elements~": {
             "Degree": "Lesser",
             "HasMixins": true,
@@ -965,28 +979,38 @@
         },
         "~Control Wind~": {
             "HasMixins": true,
-            "A": "1 Action",
+            "A": "Half-Action",
             "Range": "5 meters",
             "Cooldown": "Sense uses / Adventure",
             "Requirement": "Level 2",
             "Degree": "Lesser",
-            "Effect": "You can control gusts of wind in a 6x6x6 area and do one of the following for 1 Action:\n{Diamond} You can create a gust of Heavy Wind blowing from any direction (see notes) that lasts for 1 minute\n{Diamond} You can move a gust of Heavy Wind 3 meters in any direction\n{Diamond} You can create wind that makes Units fall softly\n{Diamond} You can stop it (for 0 Actions)\n",
-            "Notes": "Moving against Heavy Wind acts as Hard Terrain.\nProjectiles fired against the Wind have Cover, and projectiles fired with the Wind gain +1.\nHeavy Wind also clears Fog, Smoke, etc in the area.\nMultiple Winds don't stack into eachother.\n",
+            "Effect": "You can control gusts of wind in a 6x6x6 area and do one of the following for 1 Action:\n{Diamond} Create Heavy Wind blowing from any direction (see notes) that lasts for 1 minute\n{Diamond} Move Heavy Wind 3 meters in any direction\n{Diamond} Create wind that makes Units fall softly\n{Diamond} Stop it (for 0 Actions)\n",
+            "Notes": "Moving against Heavy Wind acts as Hard Terrain.\nProjectiles fired against the Wind have -1 Damage, and projectiles fired with the Wind gain +1.\nHeavy Wind also clears Fog, Smoke, etc in the area.\nMultiple Winds don't stack into eachother.\n",
             "Name": "~Control Wind~"
         },
+        "~Land Breach~": {
+            "A": "1 Action",
+            "Range": "10 meters",
+            "Requirement": "Level 2",
+            "Degree": "Minor",
+            "Effect": "You gather stone, dirt, sand, etc from the surroundings and release it upon an enemy.\nA Unit takes 3d6 Damage Pulse Damage, then all other Units within 1 meter take Damage equal to two of rolled dice (you choose).\n",
+            "Notes": "Ignores Cover",
+            "Tag": "AoE (1)",
+            "Name": "~Land Breach~"
+        },
         "~Cure Affliction~": {
-            "A": "0 Actions",
+            "A": "Half-Action",
             "Cooldown": "1 hour",
             "Range": "3 meters",
             "Degree": "Lesser",
-            "Effect": "Cure a simple Disease, Debuff or Bleed effect on a Unit (you can choose yourself), or clean up to 2 rations or liters of water of microbes, mild poison or impurities.\n",
-            "Upgrade": "At Level 4, you can cure harder and stranger diseases and poisons.\nAt level 7, you can cure terminal or chronic diseases and poisons.\n",
-            "Notes": "Debuffs are things like curses, weaknesses, etc. Crowd Control like Daze, Fumbling, Fear, Stun, etc are not considered Debuffs.\n",
+            "Effect": "Remove all combat-affecting Debuffs and Crowd Control on a Unit.\nAlso cure any non-chronic and non-terminal illness or disease on the Unit.\n",
+            "Notes": "Debuffs are things like curses, weaknesses, etc. Crowd Control like Daze, Fumbling, Fear, Stun, etc are not considered Debuffs.\nAlternatively, clean up to 2 rations or liters of water of microbes, mild poison or impurities.\n",
             "Name": "~Cure Affliction~"
         },
         "~Poison Burst~": {
             "A": "Half-Action",
             "Range": "3 meters",
+            "Requirement": "Level 5",
             "Duration": "1 minute",
             "Degree": "Lesser",
             "Effect": "Choose a Unit and poison it.\nAt the end of each of your turns, that Unit takes 1d4 Poison Damage.\n",
@@ -996,6 +1020,7 @@
         "~Fog Cloud~": {
             "A": "Half-Action",
             "Cost": "1 Mana",
+            "Requirement": "Level 2",
             "Range": "5 meters to edge",
             "Effect": "A 5x5x5 meter cube becomes covered in fog for 1 minute.\n",
             "Upgrade": "All Attacks done from, through or to Units inside Fog have Cover (-50%).",
@@ -1008,9 +1033,18 @@
             "Range": "5 meters",
             "Requirement": "Level 5",
             "Degree": "Major",
-            "Effect": "A Unit in range takes 2d8 + 3 Slash Damage and ignores Defense.\nIf it weighs 75kg or less, it takes another 1d8 Slash Damage and is pushed up to 3 meters in a chosen direction.\n",
+            "Effect": "A Unit in range takes 2d8 + ^Your Dexterity^ Slash Damage and ignores Defense.\nIf it weighs 75kg or less, it takes another 1d8 Slash Damage and is pushed up to 3 meters in a chosen direction.\n",
             "Notes": "Cover is applied normally.",
             "Name": "~Cutting Winds~"
+        },
+        "~Wind Chaser~": {
+            "A": "0 Actions",
+            "Cooldown": "10 minutes",
+            "Requirement": "Level 3",
+            "Degree": "Lesser",
+            "Effect": "Your next targeted ranged attack or Spell curves around obstacles, ignoring Cover and dealing +1d4 Damage.\n",
+            "Notes": "You still need Line of Sight to the target.",
+            "Name": "~Wind Chaser~"
         },
         "~Earth Shield~": {
             "A": "0 Actions",
@@ -1028,25 +1062,24 @@
             "Range": "5 meters",
             "Cost": "1 Mana",
             "Degree": "Minor",
-            "Effect": "Heal a target for 2d6.",
+            "Effect": "Heal an alive Unit for 2d6.",
             "Name": "~Healing Surge~"
         },
         "~Lightning Storm~": {
             "A": "1 Action",
             "Range": "5 meters to edge",
             "Cost": "1 Mana",
-            "Requirement": "Level 3",
+            "Requirement": "Level 6",
             "HasMixins": true,
             "Degree": "Major",
-            "Effect": "Declare a 4x4x4 Cube.\nAll units inside take 3d4 Shock Damage now.\nIf a unit carries anything made of metal or is wet, it 100% more Damage.\nOn your turn (for up to 1 minute), you can spend 1 Action to move the storm up to 3 meters and (and/or) its deal Damage again.\nLasts up to 1 minute.\n",
-            "Upgrade": "At Level 6, the area is 6x6x6 (optionally).",
+            "Effect": "Choose a 5x5x5 meter cube.\nAll units inside take 3d4 Shock Damage now. If a unit carries anything made of metal or is wet, it takes 100% more Damage.\nOn your turn (for up to 1 minute), you can spend 1 Action to move the storm up to 3 meters and (or) its deal Damage again.\n",
             "Notes": "The storm only deals Damage the moment you spend 1 Action; if you do spend 1 Action, the storm stays in place and deals no Damage.",
             "Name": "~Lightning Storm~"
         },
         "~Quaking Wave~": {
             "A": "1 Action",
             "Cost": "1 Mana",
-            "Requirement": "Level 2",
+            "Requirement": "Level 8",
             "HasMixins": true,
             "Degree": "Major",
             "Effect": "Send out a 5x1 meter wave forward through the ground.\nAll Units hit take 2d8 Pulse Damage.\nIf they are at or below 50% Health, they become Slowed and Fumbling.\n",
@@ -1058,7 +1091,7 @@
             "Cost": "1 Mana",
             "Range": "10 meters to edge",
             "Duration": "10 minutes",
-            "Requirement": "Level 2",
+            "Requirement": "Level 3",
             "Degree": "Minor",
             "Effect": "Declare a 4x4x4 meter area.\nAll Units in that area become outlined in a colored glow (you choose the color) and can't benefit from Cover.\n",
             "Notes": "The Units glow even through walls, but the denser the walls, the less they appear to glow.\nA 1-meter thick concrete wall completely blocks the glow.\nThis is not considered Crowd Control.\n",
@@ -1066,22 +1099,12 @@
         },
         "~Draw Moisture~": {
             "A": "1 Action",
-            "Requirement": "Level 2",
+            "Requirement": "Level 4",
             "Degree": "Lesser",
             "Effect": "Using your hands, you draw in water from all objects in a 1x1x1 meter cube and store magically it in your body.\nYou can use 1 Action to release all the stored water, without dealing Damage.\n",
             "Upgrade": "You can store a number of 1x1x1 meter cubes of water equal to your Level / 2.",
             "Notes": "Just because you target a 1x1x1 meter cube, it doesn't mean you get a 1x1x1 meter cube of water stored. For ease of use, the QM can say you drew in none, a quarter, a half, 3 quarters or a 1x1x1 meter cube of water from the targeted cube.",
             "Name": "~Draw Moisture~"
-        },
-        "~Land Breach~": {
-            "A": "1 Action",
-            "Range": "10 meters",
-            "Requirement": "Level 2",
-            "Degree": "Minor",
-            "Effect": "You gather stone, dirt, sand, etc from the surroundings and release it upon an enemy.\nA Unit takes 3d6 Damage Pulse Damage, then all other Units within 1 meter take Damage equal to two of rolled dice (you choose).\n",
-            "Notes": "Ignores Cover",
-            "Tag": "AoE (1)",
-            "Name": "~Land Breach~"
         },
         "~Thorn Quills~": {
             "A": "0 Actions",
@@ -1103,24 +1126,16 @@
         "~Wild Heart~": {
             "A": "1 Action",
             "Cost": "1 Mana",
+            "Requirement": "Level 2",
             "Duration": "Whole Adventure",
             "Degree": "Major",
             "Effect": "Up to 2 allies you touch gain Shielding equal to your Level.",
             "Notes": "Wild Heart can only be cast once on a Unit, per Adventure.",
             "Name": "~Wild Heart~"
         },
-        "~Wind Chaser~": {
-            "A": "0 Actions",
-            "Cooldown": "10 minutes",
-            "Requirement": "Level 3",
-            "Degree": "Lesser",
-            "Effect": "Your next ranged Attack curves around obstacles, ignoring Cover and Hard Cover and deals 1d6 extra Damage of its type.\n",
-            "Notes": "You still need Line of Sight to the target.",
-            "Name": "~Wind Chaser~"
-        },
         "~Tree Stride~": {
             "A": "Passive",
-            "Requirement": "Level 4",
+            "Requirement": "Level 5",
             "Effect": "While within 30 meters of trees, you have + 1 Movement Speed.\nYou can climb trees without rolling Checks, using your normal Movement.\nYou can use as many meters of your Movement as you like to jump that distance from one tree to another.\n",
             "Name": "~Tree Stride~"
         },
@@ -1141,8 +1156,8 @@
             "Duration": "1 minute",
             "Requirement": "Level 4",
             "Degree": "Minor",
-            "Effect": "Choose a Unit. A swarm of locusts appears and chases it.\nAfter the Unit moves willingly, it takes 1 Pierce Damage for each meter it moved.\nA Unit can only be affected by one Locust Swarm at a time.\n",
-            "Note": "Locust Swarm can be dispelled like any other effect. Damage is done 1 by 1 meter.",
+            "Effect": "Choose a Unit. A swarm of locusts appears and chases it.\nAfter the Unit moves from place, it takes 1 Pierce Damage for each meter it moved.\nA Unit can only be affected by one Locust Swarm at a time.\n",
+            "Note": "Locust Swarm can be dispelled like any other effect. Damage is done 1 by 1 per meter.",
             "Name": "~Locust Swarm~"
         },
         "~Paralyzing Sting~": {
@@ -1152,13 +1167,14 @@
             "Requirement": "Level 4",
             "HasMixins": true,
             "Degree": "Major",
-            "Effect": "Lash out a noxious sting towards a Unit.\nIt chooses whether to be Crippled or take 3d10 Poison Damage.\n",
-            "Notes": "Only works on biological Units. {Crippled}\n",
+            "Effect": "Lash out a noxious sting towards a Unit.\nIt chooses whether to take 1d10 Poison Damage and be Crippled, or take 3d10 Poison Damage.\n",
+            "Downside": "Only works on biological Units.",
+            "Notes": "{Crippled}\n",
             "Name": "~Paralyzing Sting~"
         },
         "~Spider Climb~": {
             "A": "1 Action",
-            "Requirement": "Level 5",
+            "Requirement": "Level 6",
             "Cooldown": "Once / Real hour",
             "Duration": "10 minutes",
             "Degree": "Minor",
@@ -1174,7 +1190,7 @@
             "Requirement": "Level 5",
             "HasMixins": true,
             "Degree": "Minor",
-            "Effect": "Declare a 4x4 meter area\nThe area becomes filled with spider web and counts as Difficult Terrain.\nAfter a Unit exits the area, it must succeed a Dexterity Check against 6 + ^Your Sense^ or be Rooted.\n",
+            "Effect": "Declare a 4x4 meter area\nThe area becomes filled with spider web and counts as Hard Terrain.\nAfter a Unit exits the area, it must succeed a Dexterity Check against 6 + ^Your Sense^ or be Rooted.\n",
             "Notes": "{Rooted}\n",
             "Name": "~Web~"
         },
@@ -1184,6 +1200,23 @@
             "Effect": "Touch a piece of solid material.\nYou become unmoving and all of your body becomes as if made from that material.\nYou can cancel this for free at any point, but until you do, you are Stunned (can't do anything) and have +3 Defense and to all Checks.\n",
             "Notes": "You still need to drink water and eat food, but don't need to breathe while melded.\nThis has potential to work like a long term Stealth mechanism.\n",
             "Name": "~Meld With Material~"
+        },
+        "~Barkskin~": {
+            "A": "Reaction",
+            "Cost": "1 Mana",
+            "Requirement": "Level 7",
+            "Cooldown": "Once / Combat",
+            "Effect": "An ally you can see (or yourself) becomes Rooted in the ground.\nWhile rooted, that Unit's Defense can't be lower than 5.\nLasts until that Unit moves from place.\n",
+            "Name": "~Barkskin~"
+        },
+        "~Winter's Blossom~": {
+            "A": "Half-Action",
+            "Range": "5 meters",
+            "Requirement": "Level 11",
+            "Cost": "2 Mana",
+            "HasMixins": true,
+            "Effect": "Heal a Unit for 1d12 + ^Your Sense^ + ^Your Intelligence^. The target becomes 1 year younger.\n",
+            "Name": "~Winter's Blossom~"
         }
     },
     "Mysticism": {
@@ -1219,6 +1252,15 @@
             "Effect": "Touch a slightly broken piece of material that is still in one piece.\nYou can repair the Damage done to it.\nMending can repair a piece of Armor or Weapon for 1 Defense or Damage, but no more.\n",
             "Notes": "For example, repair a hole through a chain shirt or textile material, the crack in a piece of glass, etc.\n",
             "Name": "~Mending~"
+        },
+        "~Alarm~": {
+            "A": "10 minutes",
+            "Duration": "24 hours",
+            "Cooldown": "24 hours",
+            "Requirement": "Level 2",
+            "Degree": "Lesser",
+            "Effect": "You setup an invisible 4x4x4 meter cube.\nIf an unknown Unit or Enemy enters the cube, it alerts you mentally.\n",
+            "Name": "~Alarm~"
         },
         "~Speak With Animals~": {
             "A": "1 Action",
@@ -1576,17 +1618,25 @@
             "Degree": "Prime",
             "Effect": "Choose a non-Epic Unit you can see.\nAt the start of your next Turn, it dies.\n",
             "Name": "~Curse of Death~"
+        },
+        "~Aura of Aging~": {
+            "A": "0 Actions",
+            "Cost": "Depends",
+            "Requirement": "Level 13",
+            "Degree": "Prime",
+            "HasMixins": true,
+            "Effect": "Spend any amount of Mana.\n^Everything^ within 3 meters of you ages a number of years equal to the Mana spent.\n",
+            "Name": "~Aura of Aging~"
         }
     },
     "Divine": {
         "~Cure Affliction~": {
-            "A": "0 Actions",
+            "A": "Half-Action",
             "Cooldown": "1 hour",
             "Range": "3 meters",
             "Degree": "Lesser",
-            "Effect": "Cure a simple Disease, Debuff or Bleed effect on a Unit (you can choose yourself), or clean up to 2 rations or liters of water of microbes, mild poison or impurities.\n",
-            "Upgrade": "At Level 4, you can cure harder and stranger diseases and poisons.\nAt level 7, you can cure terminal or chronic diseases and poisons.\n",
-            "Notes": "Debuffs are things like curses, weaknesses, etc. Crowd Control like Daze, Fumbling, Fear, Stun, etc are not considered Debuffs.\n",
+            "Effect": "Remove all combat-affecting Debuffs and Crowd Control on a Unit.\nAlso cure any non-chronic and non-terminal illness or disease on the Unit.\n",
+            "Notes": "Debuffs are things like curses, weaknesses, etc. Crowd Control like Daze, Fumbling, Fear, Stun, etc are not considered Debuffs.\nAlternatively, clean up to 2 rations or liters of water of microbes, mild poison or impurities.\n",
             "Name": "~Cure Affliction~"
         },
         "~Light~": {

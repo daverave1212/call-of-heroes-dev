@@ -981,6 +981,17 @@ Elemental:
         Upgrade: Possible elements are Fire, Cold, Shock, Divine, Poison, Scourge, Acid and Psychic.
 
 
+
+
+    ~Armaggeddon~:
+        A: 1 Action
+        Requirement: Level 11
+        Cost: 5 Mana
+        Effect: |
+            Fire starts raining from the sky, devastating the landscape!
+            All Units in 25x25 meter area centered on you take 5d8 Fire Damage.
+            At the start of your next Turn, another wave of fire hits the same area for another 5d8 Fire Damage.
+
     # ~Flame Strike~:
     #     A: 1 Action
     #     Cost: 1 Mana
@@ -1537,6 +1548,22 @@ Arcane:
             Stepping through one of the portals (obviously) teleports the Unit to the other portal.
             You can only cast this every 30 days.
 
+    ~Flight~:
+        A: 1 Action
+        Requirement: Level 11
+        Cost: 1 Mana
+        HasMixins: true
+        Effect: Choose a Unit. It can fly at normal Speed for ^Your Intelligence^ * 10 minutes.
+
+    ~Mass Teleportation~:
+        A: 10 minutes
+        Requirement: Level 12
+        Cost: 4 Mana
+        Degree: Grand
+        Effect: |
+            Choose an outdoor location you have previously been to.
+            After channelling for 10 minutes, teleport teleport all allies (and yourself) within 10 meters of you to the chosen location.
+
 
 Nature:
 
@@ -1561,50 +1588,49 @@ Nature:
 # [ ] Anti-Heal
 # [ ] Summon
 
-    # Basic Spells
-    ~Alarm~ :
-        A: 10 minutes
-        Duration: 24 hours
-        Cooldown: 24 hours
-        Requirement: Level 2
-        Degree: Lesser
-        Effect: |
-            You setup an invisible 4x4x4 meter cube.
-            If an unknown Unit or Enemy enters the cube, it alerts you mentally.
- 
     
     ~Control Elements~: Inherit
     ~Control Wind~:
         HasMixins: true
-        A: 1 Action
+        A: Half-Action
         Range: 5 meters
         Cooldown: Sense uses / Adventure
         Requirement: Level 2
         Degree: Lesser
         Effect: |
             You can control gusts of wind in a 6x6x6 area and do one of the following for 1 Action:
-            {Diamond} You can create a gust of Heavy Wind blowing from any direction (see notes) that lasts for 1 minute
-            {Diamond} You can move a gust of Heavy Wind 3 meters in any direction
-            {Diamond} You can create wind that makes Units fall softly
-            {Diamond} You can stop it (for 0 Actions)
+            {Diamond} Create Heavy Wind blowing from any direction (see notes) that lasts for 1 minute
+            {Diamond} Move Heavy Wind 3 meters in any direction
+            {Diamond} Create wind that makes Units fall softly
+            {Diamond} Stop it (for 0 Actions)
         Notes: |
             Moving against Heavy Wind acts as Hard Terrain.
-            Projectiles fired against the Wind have Cover, and projectiles fired with the Wind gain +1.
+            Projectiles fired against the Wind have -1 Damage, and projectiles fired with the Wind gain +1.
             Heavy Wind also clears Fog, Smoke, etc in the area.
             Multiple Winds don't stack into eachother.
     
+    ~Land Breach~:
+        A: 1 Action
+        Range: 10 meters
+        Requirement: Level 2
+        Degree: Minor
+        Effect: |
+            You gather stone, dirt, sand, etc from the surroundings and release it upon an enemy.
+            A Unit takes 3d6 Damage Pulse Damage, then all other Units within 1 meter take Damage equal to two of rolled dice (you choose).
+        Notes: Ignores Cover
+        Tag: AoE (1)
+
     ~Cure Affliction~:
-        A: 0 Actions
+        A: Half-Action
         Cooldown: 1 hour
         Range: 3 meters
         Degree: Lesser
         Effect: |
-            Cure a simple Disease, Debuff or Bleed effect on a Unit (you can choose yourself), or clean up to 2 rations or liters of water of microbes, mild poison or impurities.
-        Upgrade: |
-            At Level 4, you can cure harder and stranger diseases and poisons.
-            At level 7, you can cure terminal or chronic diseases and poisons.
+            Remove all combat-affecting Debuffs and Crowd Control on a Unit.
+            Also cure any non-chronic and non-terminal illness or disease on the Unit.
         Notes: |
             Debuffs are things like curses, weaknesses, etc. Crowd Control like Daze, Fumbling, Fear, Stun, etc are not considered Debuffs.
+            Alternatively, clean up to 2 rations or liters of water of microbes, mild poison or impurities.
 
     # ~Detect Poison and Disease~:
     #     A: 1 Action
@@ -1619,6 +1645,7 @@ Nature:
     ~Poison Burst~:
         A: Half-Action
         Range: 3 meters
+        Requirement: Level 5
         Duration: 1 minute
         Degree: Lesser
         Effect: |
@@ -1637,6 +1664,7 @@ Nature:
     ~Fog Cloud~:
         A: Half-Action
         Cost: 1 Mana
+        Requirement: Level 2
         Range: 5 meters to edge
         Effect: |
             A 5x5x5 meter cube becomes covered in fog for 1 minute.
@@ -1646,15 +1674,7 @@ Nature:
     
     
     # Advanced Spells
-    # ~Barkskin~:     # Debatable how powerful it is
-    #     A: Reaction
-    #     Range: 10 meters
-    #     Cost: 1 Mana
-    #     Cooldown: Once / Combat
-    #     Effect: |
-    #         An ally (or yourself) becomes Rooted in the ground for up to 1 minute.
-    #         While rooted, that Unit's Defense can't be lower than 6.
-    #     Notes: You can cancel this effect at any point at will.
+
 
     ~Cutting Winds~:
         A: 1 Action
@@ -1663,9 +1683,18 @@ Nature:
         Requirement: Level 5
         Degree: Major
         Effect: |
-            A Unit in range takes 2d8 + 3 Slash Damage and ignores Defense.
+            A Unit in range takes 2d8 + ^Your Dexterity^ Slash Damage and ignores Defense.
             If it weighs 75kg or less, it takes another 1d8 Slash Damage and is pushed up to 3 meters in a chosen direction.
         Notes: Cover is applied normally.
+
+    ~Wind Chaser~:
+        A: 0 Actions
+        Cooldown: 10 minutes
+        Requirement: Level 3
+        Degree: Lesser
+        Effect: |
+            Your next targeted ranged attack or Spell curves around obstacles, ignoring Cover and dealing +1d4 Damage.
+        Notes: You still need Line of Sight to the target.
 
     ~Earth Shield~:
         A: 0 Actions
@@ -1684,28 +1713,25 @@ Nature:
         Range: 5 meters
         Cost: 1 Mana
         Degree: Minor
-        Effect: Heal a target for 2d6.
+        Effect: Heal an alive Unit for 2d6.
         
     ~Lightning Storm~:  # Per single target, 0.5 Damage weaker than normal attack; but it's AoE!
         A: 1 Action
         Range: 5 meters to edge
         Cost: 1 Mana
-        Requirement: Level 3
+        Requirement: Level 6
         HasMixins: true
         Degree: Major
         Effect: |
-            Declare a 4x4x4 Cube.
-            All units inside take 3d4 Shock Damage now.
-            If a unit carries anything made of metal or is wet, it 100% more Damage.
-            On your turn (for up to 1 minute), you can spend 1 Action to move the storm up to 3 meters and (and/or) its deal Damage again.
-            Lasts up to 1 minute.
-        Upgrade: At Level 6, the area is 6x6x6 (optionally).
+            Choose a 5x5x5 meter cube.
+            All units inside take 3d4 Shock Damage now. If a unit carries anything made of metal or is wet, it takes 100% more Damage.
+            On your turn (for up to 1 minute), you can spend 1 Action to move the storm up to 3 meters and (or) its deal Damage again.
         Notes: The storm only deals Damage the moment you spend 1 Action; if you do spend 1 Action, the storm stays in place and deals no Damage.
     
     ~Quaking Wave~:
         A: 1 Action
         Cost: 1 Mana
-        Requirement: Level 2
+        Requirement: Level 8
         HasMixins: true
         Degree: Major
         Effect: |
@@ -1720,7 +1746,7 @@ Nature:
         Cost: 1 Mana
         Range: 10 meters to edge
         Duration: 10 minutes
-        Requirement: Level 2
+        Requirement: Level 3
         Degree: Minor
         Effect: |
             Declare a 4x4x4 meter area.
@@ -1732,7 +1758,7 @@ Nature:
 
     ~Draw Moisture~:
         A: 1 Action
-        Requirement: Level 2
+        Requirement: Level 4
         Degree: Lesser
         Effect: |
             Using your hands, you draw in water from all objects in a 1x1x1 meter cube and store magically it in your body.
@@ -1740,17 +1766,6 @@ Nature:
         Upgrade: You can store a number of 1x1x1 meter cubes of water equal to your Level / 2.
         Notes: Just because you target a 1x1x1 meter cube, it doesn't mean you get a 1x1x1 meter cube of water stored. For ease of use, the QM can say you drew in none, a quarter, a half, 3 quarters or a 1x1x1 meter cube of water from the targeted cube.
     
-    ~Land Breach~:
-        A: 1 Action
-        Range: 10 meters
-        Requirement: Level 2
-        Degree: Minor
-        Effect: |
-            You gather stone, dirt, sand, etc from the surroundings and release it upon an enemy.
-            A Unit takes 3d6 Damage Pulse Damage, then all other Units within 1 meter take Damage equal to two of rolled dice (you choose).
-        Notes: Ignores Cover
-        Tag: AoE (1)
-
 
     # ~Scape Grasp~:      # Depends
     #     HasMixins: true
@@ -1791,27 +1806,18 @@ Nature:
     ~Wild Heart~:
         A: 1 Action
         Cost: 1 Mana
+        Requirement: Level 2
         Duration: Whole Adventure
         Degree: Major
         Effect: Up to 2 allies you touch gain Shielding equal to your Level.
         Notes: Wild Heart can only be cast once on a Unit, per Adventure.
     
-    ~Wind Chaser~:
-        A: 0 Actions
-        Cooldown: 10 minutes
-        Requirement: Level 3
-        Degree: Lesser
-        Effect: |
-            Your next ranged Attack curves around obstacles, ignoring Cover and Hard Cover and deals 1d6 extra Damage of its type.
-        Notes: You still need Line of Sight to the target.
-
-
 
     # Level 4
 
     ~Tree Stride~:
         A: Passive
-        Requirement: Level 4
+        Requirement: Level 5
         Effect: |
             While within 30 meters of trees, you have + 1 Movement Speed.
             You can climb trees without rolling Checks, using your normal Movement.
@@ -1836,9 +1842,9 @@ Nature:
         Degree: Minor
         Effect: |
             Choose a Unit. A swarm of locusts appears and chases it.
-            After the Unit moves willingly, it takes 1 Pierce Damage for each meter it moved.
+            After the Unit moves from place, it takes 1 Pierce Damage for each meter it moved.
             A Unit can only be affected by one Locust Swarm at a time.
-        Note: Locust Swarm can be dispelled like any other effect. Damage is done 1 by 1 meter.
+        Note: Locust Swarm can be dispelled like any other effect. Damage is done 1 by 1 per meter.
 
     ~Paralyzing Sting~:
         A: Half-Action
@@ -1849,16 +1855,17 @@ Nature:
         Degree: Major
         Effect: |
             Lash out a noxious sting towards a Unit.
-            It chooses whether to be Crippled or take 3d10 Poison Damage.
+            It chooses whether to take 1d10 Poison Damage and be Crippled, or take 3d10 Poison Damage.
+        Downside: Only works on biological Units.
         Notes: |
-            Only works on biological Units. {Crippled}
+            {Crippled}
 
 
     # Level 5
 
     ~Spider Climb~ :
         A: 1 Action
-        Requirement: Level 5
+        Requirement: Level 6
         Cooldown: Once / Real hour
         Duration: 10 minutes
         Degree: Minor
@@ -1877,7 +1884,7 @@ Nature:
         Degree: Minor
         Effect: |
             Declare a 4x4 meter area
-            The area becomes filled with spider web and counts as Difficult Terrain.
+            The area becomes filled with spider web and counts as Hard Terrain.
             After a Unit exits the area, it must succeed a Dexterity Check against 6 + ^Your Sense^ or be Rooted.
         Notes: |
             {Rooted}
@@ -1892,6 +1899,27 @@ Nature:
         Notes: |
             You still need to drink water and eat food, but don't need to breathe while melded.
             This has potential to work like a long term Stealth mechanism.
+
+    ~Barkskin~:
+        A: Reaction
+        Cost: 1 Mana
+        Requirement: Level 7
+        Cooldown: Once / Combat
+        Effect: |
+            An ally you can see (or yourself) becomes Rooted in the ground.
+            While rooted, that Unit's Defense can't be lower than 5.
+            Lasts until that Unit moves from place.
+
+    
+    ~Winter's Blossom~:
+        A: Half-Action
+        Range: 5 meters
+        Requirement: Level 11
+        Cost: 2 Mana
+        HasMixins: true
+        Effect: |
+            Heal a Unit for 1d12 + ^Your Sense^ + ^Your Intelligence^. The target becomes 1 year younger.
+
 
 # Conjuration:
 
@@ -1997,6 +2025,16 @@ Mysticism:
                 For example, repair a hole through a chain shirt or textile material, the crack in a piece of glass, etc.
 
         # Level 2
+
+        ~Alarm~ :
+            A: 10 minutes
+            Duration: 24 hours
+            Cooldown: 24 hours
+            Requirement: Level 2
+            Degree: Lesser
+            Effect: |
+                You setup an invisible 4x4x4 meter cube.
+                If an unknown Unit or Enemy enters the cube, it alerts you mentally.
 
         ~Speak With Animals~:
             A: 1 Action
@@ -2487,6 +2525,17 @@ Eldritch:
         Effect: |
             Choose a non-Epic Unit you can see.
             At the start of your next Turn, it dies.
+
+    
+    ~Aura of Aging~:
+        A: 0 Actions
+        Cost: Depends
+        Requirement: Level 13
+        Degree: Prime
+        HasMixins: true
+        Effect: |
+            Spend any amount of Mana.
+            ^Everything^ within 3 meters of you ages a number of years equal to the Mana spent.
 
 
 # NOTE: Divine Spells are slightly weaker (1 tier weaker) because Clerics and Paladins scale hard with Mana

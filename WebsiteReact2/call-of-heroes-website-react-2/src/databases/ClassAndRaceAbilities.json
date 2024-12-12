@@ -267,12 +267,24 @@
         "A": "Special",
         "Effect": "Your companion is an otherworldly celestial in material form. It can be a sentient person of any race, or an abstrat celestial creature using any race's Abilities.\nYour life is tied to your companion's - when it dies, you die.\nYou share the your Health pool with your companion (it does not have separate separate Health). If it goes more than 10 meters away from you, it is teleported near you immediately.\nYou gain +10 Maximum Health.\n"
     },
+    "<Blessing of Life>": {
+        "_Value": 1.5,
+        "A": "Half-Action",
+        "Cooldown": "Once / Adventure",
+        "HasMixins": true,
+        "Duration": "1 combat",
+        "AlignOnWebsite": "Left",
+        "Effect": "Cast Awe ~twice~ and the target(s) becomes Blessed until the end of the next (or current) Combat.\nBlessed Allies have +1 to all Checks ~and +1 to all Damage instances~. Blessed Enemies have -3 Initiative ~and -1 to all Damage instances~.\n",
+        "Upgrade": "On Epic Monsters, the -1 Damage only affects their first turn.",
+        "Notes": "You can bless yourself.\nLasts until the end of the next combat encounter.\n"
+    },
     "~Awe For Corpses~": {
         "_Value": 1.5,
         "A": "Passive",
         "Range": "5 meters",
         "Duration": "Zombies last 1 minute",
         "Replacement": "Replaces Awe",
+        "AlignOnWebsite": "Right",
         "HasMixins": true,
         "Effect": "Whenever you spend Mana, \"cast Awe\" on a Unit.\nThis deals 1d4 Divine Damage to enemies or heals allies for 1d4.\n~However, if there is any nearby corpse within 5 meters when you would cast Awe, you instead raise a zombie to fight for you from that corpse.~\n",
         "Notes": "Ignores Cover. Some other Cleric spells will \"cast Awe\" for free. Zombies take their turn on your turn.",
@@ -297,18 +309,9 @@
     "<Divine Transposition>": {
         "_Value": 1,
         "A": "Reaction",
+        "AlignOnWebsite": "Left",
         "Cooldown": "Once / Combat",
         "Effect": "Swap places with your companion, then cast Awe on both of you."
-    },
-    "<Blessing of Life>": {
-        "_Value": 1.5,
-        "A": "Half-Action",
-        "Cooldown": "Once / Adventure",
-        "HasMixins": true,
-        "Duration": "1 combat",
-        "Effect": "Cast Awe ~twice~ and the target(s) becomes Blessed until the end of the next (or current) Combat.\nBlessed Allies have +1 to all Checks ~and +1 to all Damage instances~. Blessed Enemies have -3 Initiative ~and -1 to all Damage instances~.\n",
-        "Upgrade": "On Epic Monsters, the -1 Damage only affects their first turn.",
-        "Notes": "You can bless yourself.\nLasts until the end of the next combat encounter.\n"
     },
     "<Ascendance>": {
         "_Value": 2,
@@ -419,7 +422,7 @@
     },
     "~Nature Domain~": {
         "A": "Passive",
-        "Effect": "You can cast Talent Abilities and Spells from the Nature Basic Ability List while Shapeshifted."
+        "Effect": "You can cast Talent Abilities and Basic Spells while Shapeshifted."
     },
     "~Water Domain~": {
         "A": "Passive",
@@ -428,8 +431,7 @@
     },
     "~Cold Domain~": {
         "A": "Passive",
-        "Effect": "You gain +1 on all Resist Checks, +4 Max Health and you only take 50% Cold Damage.\n",
-        "Upgrade": "For Mountain or Plains domain."
+        "Effect": "You gain +4 Max Health, immunity to Slows and Hard Terrain, and you take -50% Cold Damage.\n"
     },
     "~Rough Domain~": {
         "A": "Passive",
@@ -562,7 +564,7 @@
         "_Value": 2,
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "When Shapeshifting yourself, it doesn't consume a ^use^.",
+        "Effect": "When Shapeshifting yourself, it doesn't cost Mana.",
         "Notes": "This means that unless you use Shapeshift Ally, you can Shapeshift as much as you like. Note that the Cooldowns of Animal Abilities persist and don't reset."
     },
     "<Werebeast Blood>": {
@@ -574,12 +576,13 @@
     "<Beastly Stamina>": {
         "_Value": 2,
         "A": "Passive",
-        "Effect": "For each animal, you gain an extra use of their Abilities that have a Cooldown of Once / Adventure."
+        "Effect": "For each animal, you gain an extra use of their Abilities that have a Cooldown of Once / Combat or Once / Adventure."
     },
     "~Day Night Cycle~": {
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "You have access to the Arcane and Elemental Ability Lists, but you can only use Arcane Abilities at _twilight_, and Elemental Abilities at _day_.\nYou may spend 1 hour of non-combat to change your Known Abilities.\nYou always know if it's day or night, even if indoors.\n",
+        "Effect": "At _day_, you can cast Nature Spells while Shapeshifted.\nAt _twilight_, whenever you roll maximum on a Mysticism Spell die, increase it by 50%.\n",
+        "Upgrade": "You may spend 1 hour of non-combat to change your Known Abilities.\nYou always know if it's day or night, even if indoors.\n",
         "Notes": "_Twilight_ is from 18:00 to 6:00. _Day_ is from 6:00 to 18:00."
     },
     "~Moonsun Fire~": {
@@ -588,13 +591,29 @@
         "Range": "6 meters",
         "Cooldown": "Day/Night (see below)",
         "HasMixins": true,
-        "Effect": "A Unit takes 1d6 + Main Stat Fire Damage and is Blinded (if _day_) or True Damage and is Silenced (if _twilight_).\n"
+        "Effect": "A Unit takes 1d6 + ^Your Highest Stat^ Fire Damage and is Blinded (if _day_) or True Damage and is Feared (if _twilight_).\n"
     },
-    "<Improved Moonsun Fire>": {
-        "_Value": 1,
+    "~Improved Moonsun Fire~": {
+        "_Value": 2,
+        "A": "Half-Action",
+        "Range": "6 meters",
+        "Cooldown": "Day/Night (see below)",
+        "Replacement": "Replaces Moonsun Fire",
+        "HasMixins": true,
+        "Effect": "A Unit takes 1d6 + ^Your Highest Stat^ ~+10% of its current Health~ Fire Damage and is Blinded (if _day_) or True Damage and is Feared ~and another ally you can see is healed for the same amount~ (if _twilight_).\n"
+    },
+    "<Daybreak-Nightfall>": {
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "If _day_, Moonsun Fire also burns the target for 10% of its total Health as Fire Damage.\nIf _twilight_, Moonsun Fire heals a target you choose within 6 meters for the same Damage dealt.\n"
+        "Effect": "When you pass from _day_ to _twilight_ or viceversa, regain 1 Mana or heal yourself for 5 Health."
+    },
+    "~Day Night Power~": {
+        "A": "Passive",
+        "HasMixins": true,
+        "Replacement": "Replaces Day Night Cycle",
+        "Effect": "At _day_, ~your Nature Spells have their Dice Upgraded and~ you can cast Nature Spells while Shapeshifted.\nAt _twilight_, ~your Mysticism Spells have their Dice Upgraded and~ whenever you roll maximum on a Mysticism Spell die, increase it by 50%.\n",
+        "Upgrade": "You may spend 1 hour of non-combat to change your Known Abilities.\nYou always know if it's day or night, even if indoors.\n",
+        "Notes": "_Twilight_ is from 18:00 to 6:00. _Day_ is from 6:00 to 18:00. {DiceUpgrade}"
     },
     "<Sunrise/Moonfall>": {
         "_Value": 1.5,
@@ -806,7 +825,7 @@
         "Effect": "After you use Hunter Mark (or an upgrade) on a target, it takes maximum Damage from the next dice roll.\n",
         "Notes": "For example, after you Hunter Mark a Unit, if you attack it for 2d8 Damage, you don't roll; it just takes 16 Damage. Applies to bonuses like Dice Upgrades, Smites, etc."
     },
-    "~Warden~": {
+    "~Witch Hunter~": {
         "_Value": 2,
         "A": "Passive",
         "Effect": "You have 2 Mana that regenerates normally inbetween Adventures.\nAdditionally, choose a Basic Ability List from Elemental, Divine, and Arcane.\nYou now have access to that Basic Ability List as well, permanently.\n"
@@ -998,8 +1017,8 @@
     "<Eldritchianism>": {
         "_Value": 1,
         "A": "Passive",
-        "Effect": "You gain access to the Eldritch Basic Ability List, and when you cast a Spell, you can choose to split the d8's into 2d4's and d12's into 2d6's.\nAlso, add your Intelligence to your Initiative.\n",
-        "Notes": "For example, if a Spell deals 2d8 Damage, that becomes 4d4.\nIt might sound like the same thing, but because of math, 4d4 is actually, on average, 1 extra Damage compared to 2d8.\n"
+        "Effect": "You gain access to the Eldritch Basic Ability List. After you cast a Spell that costs Mana, your next Eldritch Spell has its ^Dice Upgraded^ to their next die type.\nAlso, add your Intelligence to your Initiative.\n",
+        "Notes": "{DiceUpgrade}\n"
     },
     "<Hydromancy>": {
         "_Value": 1.5,
@@ -1081,6 +1100,7 @@
         "A": "Passive",
         "Effect": "Your chosen Level 3 Talent triggers 3 times when it happens. When using Magic Mastery on a Spell with the same element as your Level 3 Talent, it no longer gets its ^Dice Downgraded^.\n",
         "Upgrade": "All your other Spells become themed to the same element, but keep their original Damage Type. For example, if you chose fire, Frost Nova will now burst in cold, blue flames instead of ice.",
+        "Notes": "For example, when you hit multiple Units with an Ability, you increase your Fire Damage by +3 instead of +1, or you gain +6 Cold Damage from Hydromancy when you Crowd Control an Enemy. For Eldritchianism, your Spells have their ^Dice Upgraded^ 3 times.",
         "HasMixins": true,
         "Downside": "{Ultimate}"
     },

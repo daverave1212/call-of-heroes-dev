@@ -174,7 +174,7 @@ Specs:
 
       ~Nature Domain~:
         A: Passive
-        Effect: You can cast Talent Abilities and Spells from the Nature Basic Ability List while Shapeshifted.
+        Effect: You can cast Talent Abilities and Basic Spells while Shapeshifted.
 
       ~Water Domain~:
         A: Passive
@@ -184,8 +184,7 @@ Specs:
       ~Cold Domain~:               # 1
         A: Passive
         Effect: |
-          You gain +1 on all Resist Checks, +4 Max Health and you only take 50% Cold Damage.
-        Upgrade: For Mountain or Plains domain.
+          You gain +4 Max Health, immunity to Slows and Hard Terrain, and you take -50% Cold Damage.
 
       ~Rough Domain~:
         A: Passive
@@ -437,7 +436,7 @@ Specs:
           _Value: 2
           A: Passive
           HasMixins: true
-          Effect: When Shapeshifting yourself, it doesn't consume a ^use^.
+          Effect: When Shapeshifting yourself, it doesn't cost Mana.
           Notes: This means that unless you use Shapeshift Ally, you can Shapeshift as much as you like. Note that the Cooldowns of Animal Abilities persist and don't reset.
         
         <Werebeast Blood>:
@@ -449,7 +448,7 @@ Specs:
         <Beastly Stamina>:
           _Value: 2
           A: Passive
-          Effect: For each animal, you gain an extra use of their Abilities that have a Cooldown of Once / Adventure.
+          Effect: For each animal, you gain an extra use of their Abilities that have a Cooldown of Once / Combat or Once / Adventure.
 
 
 
@@ -486,10 +485,21 @@ Specs:
         A: Passive
         HasMixins: true
         Effect: |
-          You have access to the Arcane and Elemental Ability Lists, but you can only use Arcane Abilities at _twilight_, and Elemental Abilities at _day_.
+          At _day_, you can cast Nature Spells while Shapeshifted.
+          At _twilight_, whenever you roll maximum on a Mysticism Spell die, increase it by 50%.
+        Upgrade: |
           You may spend 1 hour of non-combat to change your Known Abilities.
           You always know if it's day or night, even if indoors.
         Notes: _Twilight_ is from 18:00 to 6:00. _Day_ is from 6:00 to 18:00.
+
+      # ~Day Night Cycle~:          # 0
+      #   A: Passive
+      #   HasMixins: true
+      #   Effect: |
+      #     You have access to the Arcane and Elemental Ability Lists, but you can only use Arcane Abilities at _twilight_, and Elemental Abilities at _day_.
+      #     You may spend 1 hour of non-combat to change your Known Abilities.
+      #     You always know if it's day or night, even if indoors.
+      #   Notes: _Twilight_ is from 18:00 to 6:00. _Day_ is from 6:00 to 18:00.
 
       # ~Day Night Cycle~ :
       #   A: Passive
@@ -510,18 +520,37 @@ Specs:
         Cooldown: Day/Night (see below)
         HasMixins: true
         Effect: |
-          A Unit takes 1d6 + Main Stat Fire Damage and is Blinded (if _day_) or True Damage and is Silenced (if _twilight_).
+          A Unit takes 1d6 + ^Your Highest Stat^ Fire Damage and is Blinded (if _day_) or True Damage and is Feared (if _twilight_).
 
     Talents:
       Level 3:
-        
-        <Improved Moonsun Fire>:    # 1?
-          _Value: 1
-          A: Passive
+
+        ~Improved Moonsun Fire~ :          # 2 (1.25 damage + 0.75 striaght up effect)
+          _Value: 2
+          A: Half-Action
+          Range: 6 meters
+          Cooldown: Day/Night (see below)
+          Replacement: Replaces Moonsun Fire
           HasMixins: true
           Effect: |
-            If _day_, Moonsun Fire also burns the target for 10% of its total Health as Fire Damage.
-            If _twilight_, Moonsun Fire heals a target you choose within 6 meters for the same Damage dealt.
+            A Unit takes 1d6 + ^Your Highest Stat^ ~+10% of its current Health~ Fire Damage and is Blinded (if _day_) or True Damage and is Feared ~and another ally you can see is healed for the same amount~ (if _twilight_).
+
+        <Daybreak-Nightfall>:
+          A: Passive
+          HasMixins: true
+          Effect: When you pass from _day_ to _twilight_ or viceversa, regain 1 Mana or heal yourself for 5 Health.
+
+        ~Day Night Power~:          # 2
+          A: Passive
+          HasMixins: true
+          Replacement: Replaces Day Night Cycle
+          Effect: |
+            At _day_, ~your Nature Spells have their Dice Upgraded and~ you can cast Nature Spells while Shapeshifted.
+            At _twilight_, ~your Mysticism Spells have their Dice Upgraded and~ whenever you roll maximum on a Mysticism Spell die, increase it by 50%.
+          Upgrade: |
+            You may spend 1 hour of non-combat to change your Known Abilities.
+            You always know if it's day or night, even if indoors.
+          Notes: _Twilight_ is from 18:00 to 6:00. _Day_ is from 6:00 to 18:00. {DiceUpgrade}
 
         # <Lycanthropy> :         # 0.5
         #   A: Passive
