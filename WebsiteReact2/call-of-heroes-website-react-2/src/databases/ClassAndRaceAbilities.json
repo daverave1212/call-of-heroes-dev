@@ -138,6 +138,21 @@
     "<Mana Bonus>": {
         "Effect": "Gain +1 Max Mana and +1 Known Ability."
     },
+    "<Edict of Awe Eternal>": {
+        "A": "0 Actions",
+        "Range": "10 meters",
+        "Cooldown": "Once / Turn",
+        "Replacement": "Replaces Vested Awe",
+        "Effect": "~Cast Awe twice. The dice results are increased by 50%.~\nThis deals 1d4 Divine Damage to enemies or heals allies for 1d4.\nPassively, your Intelligence and Sense increase by 2 and you can effortlessly levitate up to 1 meter above the ground, water etc. and don't take fall Damage.\n",
+        "HasMixins": true,
+        "Downside": "{Ultimate}"
+    },
+    "<Miracle>": {
+        "A": "1 Action",
+        "Cooldown": "Once / Adventure",
+        "Effect": "You pray with divine confidence and purpose, and, with the gods' will, you manifest your wish upon your mortal world.\nChoose one of the following effects to manifest:\n{Diamond} Manifest restoration: Choose a person you can touch to instantly and fully kill, resurrect or heal them, restore their body parts, injuries or handicaps, change their race, etc.\n{Diamond} Manifest materialism: Create an object worth up to 5000 {Gold}Gold and make it appear out of thin air in a beacon of blinding light. Or choose an object or area worth that much and make it disappear; Units with their materialistic value worth a total of 5000 {Gold} or less also disappear.\n{Diamond} Manifest fate: Determine or read the near future of one Unit.\n{Diamond} Manifest mistake: Undo a recent past event that was not a Worthy Combat. You and your party remains in the present to witness the aftermath.\n{Diamond} Manifest destruction: Deal 2d100 Scourge Damage spread (after rolling) as you like among Units within 10 meters.\n{Diamond} Manifest development: Choose a Unit and increase up to 2 of their Stats by 1, or they permanently learn a new Basic Ability, etc.\n{Diamond} Manifest creativity: Choose something else with a similar scope to do, if the gods will.\nAfter casting Miracle, if the gods will, the Cooldown of Miracle may be reset if they deem the effect was not worthy enough.\n",
+        "Notes": "The gods' will is determined by the Quest Master. Talk to the QM about your possibilities."
+    },
     "~Join the Inquisition~": {
         "_Value": 2.5,
         "A": "Special",
@@ -241,6 +256,10 @@
         "_Value": 4.5,
         "A": "Passive",
         "Effect": "You can cast Spread the Awe once more per Adventure, and the target(s) must succeed a Sense Check against double your Sense or be Crippled and Silenced."
+    },
+    "<Verdict of Conscription>": {
+        "A": "Passive",
+        "Effect": "Your entire party of Player Characters pladge to you and gain the effects of Join the Inquisition and an Inquisitor \"Choose one\" Ability (e.g. Conviction or Blessing of the Forge).\nPassively, gain +3 Might, and all other Player Characters in your party gain +1 Might.\n"
     },
     "~Second Soul~": {
         "_Value": 1,
@@ -380,6 +399,34 @@
         "Duration": "Until the start of your next turn",
         "Effect": "Choose a 6x6 meter area. Cast Awe on all Units there.\nNo Enemy can willingly enter the area or attack Units inside the area.\n"
     },
+    "<The Covenant>": {
+        "A": "Passive",
+        "Effect": "All your other Characters Level Up to Level 10.\nOver time, all your Characters start to resemble you (or your equiavalent if a different gender), gaining more and more of your features until they almost resemble you perfectly, with some small flaws.\nPassively, gain +2 Charisma and +25% base Max Health.\n",
+        "HasMixins": true,
+        "Downside": "{Ultimate}"
+    },
+    "<High Benediction>": {
+        "A": "Passive",
+        "Effect": "You Level Up to Level 13. Another Player Character belonging to a different player also Levels Up to Level 11.\nPassively, gain +2 Sense and +25% base Health Regen.\n"
+    },
+    "<Wrath of the Wight King>": {
+        "A": "1 Action",
+        "Cooldown": "Once / 1 hour",
+        "Effect": "You channel your sacremental magic to raise an army of undead.\nIf there are at least 100 corpses within 100 meters of you, roll 7d20, otherwise roll only 5d20. You raise that many corpses or minions that will fight for you.\nYou can have up to 250 such minions active at a time, including the ones from Awe for Corpses.\nPassively, gain +1 in all Stats.\n",
+        "Monster": {
+            "Name": "Zombie",
+            "Speed": "4 meters",
+            "Stats": "-1/-1/-1/-1/-1",
+            "Health": 1,
+            "Defense": 0,
+            "Abilities": {
+                "~Attack~": {
+                    "A": "1 Action (from zombie)",
+                    "Effect": "Attack an Enemy for 1d4 Damage (Pierce, Slash or Smash)."
+                }
+            }
+        }
+    },
     "~Skilled in Nature~": {
         "Effect": "Add your Level to all Checks for identifying plants, knowing about nature and the wilds, etc."
     },
@@ -515,11 +562,37 @@
     "<Land Bonus>": {
         "Effect": "Gain one more Level 3 Talent or one more Domain."
     },
+    "<Landscaping>": {
+        "A": "1 Action",
+        "Cooldown": "Once / Adventure",
+        "Effect": "An area 1d8 kilometers in diameter centered on you changes to match your _domain_, and, when casting this, you can shape the earth, plants, sky, etc within 100 meters to your liking.\nAlso, passively, while in your _domain_, you have all your ^Dice Upgraded^ to the next die type (and d12's become d20's), and You automatically pass all Hard Sense Checks (that require at least 15).\n",
+        "HasMixins": true,
+        "Downside": "{Ultimate}"
+    },
+    "<Embrace Gaia>": {
+        "A": "Passive",
+        "Effect": "You gain the effects of all (4) Domain Abilities.\nWhile in your primary _domain_, Nature Spells cost no Mana.\nYou are immune to normal diseases and ailments, and you can not die from old age, but your body continues to age indefinitely.\n",
+        "HasMixins": true,
+        "Downside": "{Ultimate}"
+    },
     "~Wild Shape~": {
         "_Value": 2,
-        "A": "Passive",
-        "Effect": "After using Shapeshift, you gain back the Half-Action spent on it.\nWhen you use Shapeshift, you can transform into a combination of 2 animals.\nYou take the highest Stat from both animals, and you have access to both of their Abilities.\n",
-        "Notes": "For example, you could transform into a combination of Bird of Prey and Bear, resulting in a Bowlear, with Shielding and a lot of Defense! Be creative!\nThe animal size is either the larger or the smaller of the two - your choice.\nEven if you Shapeshift into 2 combinations of a same animal, the cooldown of that animal's Ability persists (e.g. you can't use Bear's Maul twice per Adventure, no matter what animal combination you transform into).\n"
+        "A": "0 Actions",
+        "Cost": "0.5 Mana",
+        "HasMixins": true,
+        "Duration": "Lasts until cancelled (0 Actions) or you Fall",
+        "Replacement": "Replaces Shapeshift",
+        "Effect": "Pick ~up to 2 animals~ from the `Pets and Animals page$/Other/PetsAndAnimals`, within your Level, and instantly transform into ~a combination of them~.\nYou also gain ~both of their~ exact Abilities and Animal Attack (see below), but can't cast Spells or use items (obviously) and your Health stays the same. For Checks, you can choose to use ~either~ animal's Stats or your Stats.\n",
+        "Upgrade": "At first, you can't fly, even if your animal can. If your animal can fly, you have the Jumping Skill and you can glide (you don't take falling Damage).\nFrom Level 6, you can fly.\n",
+        "Notes": "For example, you could transform into a combination of Bird of Prey and Bear, resulting in a Bowlear, with Shielding and a lot of Defense! Be creative!\nThe animal size is either the larger or the smaller of the two - your choice.\nEven if you Shapeshift into 2 combinations of a same animal, the cooldown of that animal's Ability persists (e.g. you can't use Bear's Maul twice its Cooldown, no matter what animal combination you transform into).\n",
+        "OrderOnWebsite": 1,
+        "Subspells": {
+            "~Animal Attack~": {
+                "IsSubspell": true,
+                "A": "Half-Action",
+                "Effect": "Make a melee attack for 1d6 + your Sense (not the animal's).\n"
+            }
+        }
     },
     "<Forest Friend>": {
         "_Value": 1,
@@ -577,6 +650,25 @@
         "_Value": 2,
         "A": "Passive",
         "Effect": "For each animal, you gain an extra use of their Abilities that have a Cooldown of Once / Combat or Once / Adventure."
+    },
+    "<Ultimate Shapeshift>": {
+        "A": "Passive",
+        "Effect": "Once per Adventure, you can transform into a Beast, Fey, Monster, Plant or Dragon you have previously interacted with that is worth at most 1000 XP using Wild Shape.\nIf it's an Epic Monster, you can use that many of its Abilities on your turn instead of doing your regular Action.\nAlso, passively, your Might and Intelligence increase by 1.\n",
+        "HasMixins": true,
+        "Downside": "{Ultimate}"
+    },
+    "<Apex Predator>": {
+        "A": "Passive",
+        "Effect": "Your Animal Abilities have no Cooldown, their Stats are tripled, and you have an extra Half-Action per Turn while Shapeshifted.\nYou automatically pass all Very Hard Sense Checks (that require at least 20).\n",
+        "HasMixins": true,
+        "Downside": "{Ultimate}"
+    },
+    "<Strong-Soul Shapeshift>": {
+        "A": "Passive",
+        "Duration": "Lasts up to until Shapeshift ends",
+        "Effect": "When Shapeshifting, you gain Shielding equal to the Health of one of the animals.\nWhen all your Shielding is destroyed, you revert back to your person form.\nAlso, passively, your Dexterity and Sense increase by 1.\n",
+        "HasMixins": true,
+        "Downside": "{Ultimate}"
     },
     "~Day Night Cycle~": {
         "A": "Passive",
@@ -654,6 +746,18 @@
         "Effect": "Through ancient weather witchcraft, you force 1 minute of artificial day or night in a 1km area around you.",
         "Upgrade": "This can reset the Cooldown of Moonsun Fire's, once when it happens, and again when it ends.\n",
         "Notes": "Nothing happens if used with Equinox."
+    },
+    "<Soulfire>": {
+        "A": "Passive",
+        "Effect": "Moonsun Fire has no Cooldown.\nYou become immune to Fire and Scourge Damage, and to being Blinded and Feared.\nPassively, you always know the locations of any living Units within 15 meters, and you gain +2 Sense.\n",
+        "HasMixins": true,
+        "Downside": "{Ultimate}"
+    },
+    "<Be It Dawn or Dusk>": {
+        "A": "Passive",
+        "Effect": "When it breaks _day_, you heal for 50% of your Max Health.\nWhen it breaks _twilight_, you recover 50% of your Max Mana.\nGain +1 Sense and Intelligence.\n",
+        "HasMixins": true,
+        "Downside": "{Ultimate}"
     },
     "~Skilled in Hearing~": {
         "Effect": "Add your Level to all Sense Checks for hearing (e.g. over-hearing dialogue, noticing unusual sounds, discerning sounds, etc)."
@@ -825,10 +929,23 @@
         "Effect": "After you use Hunter Mark (or an upgrade) on a target, it takes maximum Damage from the next dice roll.\n",
         "Notes": "For example, after you Hunter Mark a Unit, if you attack it for 2d8 Damage, you don't roll; it just takes 16 Damage. Applies to bonuses like Dice Upgrades, Smites, etc."
     },
+    "<Eye of the Hawk>": {
+        "A": "Passive",
+        "Effect": "All enemies in a Worthy Combat are automatically _Marked_, and your range increases by 500% and your ^Dice^ are further ^Upgraded^ to the ^next^ die type against _Marked_ Units. After manually casting Hunter Mark, your first attack deals 50% more Damage against that Unit.\nYou automatically pass all Hard Dexterity Checks (that require at least 15) and your Sense and Dexterity increase by an extra 2.\n",
+        "HasMixins": true,
+        "Downside": "{Ultimate}"
+    },
+    "<Eye of the Raptor>": {
+        "A": "Passive",
+        "Effect": "Your attacks deal maximum Damage to Units that are not _Marked_ if they are within 3 meters of you or your Pet.\nYou automatically pass all Hard Sense Checks (that require at least 15) and you gain +3 Sense.\n",
+        "HasMixins": true,
+        "Downside": "{Ultimate}"
+    },
     "~Witch Hunter~": {
         "_Value": 2,
         "A": "Passive",
-        "Effect": "You have 2 Mana that regenerates normally inbetween Adventures.\nAdditionally, choose a Basic Ability List from Elemental, Divine, and Arcane.\nYou now have access to that Basic Ability List as well, permanently.\n"
+        "HasMixins": true,
+        "Effect": "You have 2 {Mana} Mana that regenerates normally inbetween Adventures.\nAdditionally, choose a Basic Ability List from Elemental, Divine, and Arcane.\nYou now have access to that Basic Ability List as well, permanently.\n"
     },
     "~Quick Magic~": {
         "_Value": 2.5,
@@ -899,6 +1016,18 @@
     "<Durability Bonus>": {
         "Effect": "Gain +1 Defense"
     },
+    "<The 3-Gate Mutagen>": {
+        "A": "Passive",
+        "Effect": "You have all 3 Level 3 Talent Witch Hunter forms and they are permanently active at all times.\nYou automatically pass all Hard Might and Sense Checks (that require at least equal to 15) and you gain +2 Dexterity.\n",
+        "HasMixins": true,
+        "Downside": "{Ultimate}"
+    },
+    "<Eye of the Arcana>": {
+        "A": "Passive",
+        "Effect": "Your Damage for Quick Magic increases to 1d20 and the range (and radius if applicable) increase by 100%.\nYou regenerate 1d10 Mana at the start of each Combat and you gain +3 Intelligence.\n",
+        "HasMixins": true,
+        "Downside": "{Ultimate}"
+    },
     "~Prowl Around~": {
         "A": "Passive",
         "_Value": 0.5,
@@ -966,6 +1095,20 @@
         "A": "0 Actions",
         "Cooldown": "Once / Adventure",
         "Effect": "Instantly heal yourself and all your pets for 3d6."
+    },
+    "<Shapeshifting Pet>": {
+        "A": "0 Actions",
+        "Cooldown": "Once / Turn",
+        "Effect": "Turn one of your pets into a different animal type from the `Pets and Animals page$/Other/PetsAndAnimals`. If it's enhanced by a Talent, it keeps all enhancements (e.g. from Large Double).\nPassively, your Pets gain +3 in all Stats, +10 Health, +2 Movement Speed and +1d4 Damage on all attacks.\n",
+        "Upgrade": "If you have the Wild Single Talent, you can turn a pet into a combination of 2 Animals.",
+        "HasMixins": true,
+        "Downside": "{Ultimate}"
+    },
+    "<Cryptid Tamer>": {
+        "A": "Passive",
+        "Effect": "One of your Animal Companions becomes a Beast, Dragon or Insect from the `Monsters page$/Other/Monsters` worth less than 500 XP. It doesn't have a regular Pet Attack, but it has exactly the Abilities and attacks, but only 50% of its Max Health. It obeys the rest of your Animal Companion rules as normal.\nPassively, your Pets automatically pass all Very Hard Sense Checks (requiring at least 20).\n",
+        "HasMixins": true,
+        "Downside": "{Ultimate}"
     },
     "~Skilled in Knowledge~": {
         "Effect": "Add your Level to all Intelligence Checks for knowing various simple facts about science, astronomy, trades, etc."
@@ -1224,7 +1367,7 @@
     },
     "<Draconianism>": {
         "A": "Passive",
-        "Effect": "Your natural form changes to that of a large, winged dragon. Your base Maximum Mana increases by 150% and your base Max Health by 50%. You can fly at your normal Speed.\nYou must choose what color you are as a dragon. As your breath attack, you can cast any Basic Ability that deals Damage and doesn't cost Mana, and it also hits all Units within 2 meters of the main target. You also take 50% less Damage from the Damage Type of your chosen Ability.\n",
+        "Effect": "Your natural form changes to that of a large, winged dragon. Your base Maximum Mana increases by 150% and your base Max Health by 50%. You can fly at your normal Speed.\nYou must choose what color you are as a dragon. As your breath attack, you can cast any Basic Ability that deals Damage and doesn't cost Mana, and it also hits all Units within 2 meters of the main target. You also take -50% Damage from the Damage Type of your chosen Ability.\n",
         "Upgrade": "You can transform into your person-self at will, but, to you, your dragon form is more comfortable.",
         "HasMixins": true,
         "Downside": "{Ultimate}"
@@ -1353,7 +1496,7 @@
         "HasMixins": true,
         "Requirement": "Only usable in Worthy Combat. Can't be used on Fallen Units.",
         "Range": "3 meters",
-        "Effect": "Heal an ally for 20% of their Maximum Health (but not yourself).\nYour next attack deals extra Damage equal to the amount just healed.\n"
+        "Effect": "Heal an ally for 20% of their Maximum Health (but not yourself).\nYour next attack until the end of your next Turn deals extra Damage equal to the amount just healed.\n"
     },
     "~Divine Sense~": {
         "_Value": 0,
@@ -1413,11 +1556,12 @@
         "A": "Special",
         "Cooldown": "Lifetime",
         "AlignOnWebsite": "Right",
-        "Effect": "Ask a party member to join your cause and pledge their honor to you.\nThat person has the Crusade Ability and the same Tier 1 Talent you have.\nIt also has access to the Divine Ability List.\n",
+        "Effect": "Ask a party member to join your cause and pledge their honor to you. Write a set of vows, which your companion must vow to abide to and follow with their life, upon death do you two apart.\nThat person has the Crusade Ability, the same Tier 1 Talent you have, and access to the Divine Ability List.\n",
         "Notes": "Only one person can pledge for you and it must within sight or hearing to have access to all of those.\nIf you ever change this Talent, the ally loses access to all things mentioned; it regains them when you get this Talent again.\n"
     },
     "<Suspension of Belief>": {
-        "A": "Passive",
+        "A": "Special",
+        "Cooldown": "Once / Adventure",
         "HasMixins": true,
         "AlignOnWebsite": "Left",
         "Effect": "When you no longer have Abilities usable with Faith Casting, reset the Cooldown of all your Paladin Class and Talent Abilities.\n",
@@ -1443,6 +1587,11 @@
         "Effect": "You recruit a squire - a trusted NPC who gains combat powers. However, the capabilities of your squire are random: roll 1d6 to determine the type of your squire, based on the Squires category at Pets and Animals (1. Bold, 2. Sneaky, 3. Clever, 4. Wise). The Race is determined by the QM or by circumstance.\nOn its turn, it can do one Pet Attack, cast one Ability it has, or do the equivalent of a Half-Action (e.g. Dash, Push, etc).\nYou can recruit one squire per Adventure, but only one can follow you in your adventures at a time.\nAt the start of every Adventure (and when you get this Talent), you must spend 1 Mana and train your Squire to permanently increase its Health by 2 or gain one Ability from any other Squire type.\n",
         "Upgrade": "If your squire drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your squire's wounds and heal it back to full Health.",
         "Notes": "Your squire is not a Player Character by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Player Character can). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!"
+    },
+    "~Squire Attack~": {
+        "A": "1 Action (from the squire)",
+        "IsSubspell": true,
+        "Effect": "Deal 1d6 Damage of the weapon's type, or do the equivalent of a Half-Action (e.g. Sprint, Push, etc).\n"
     },
     "<Harrowing Judgement>": {
         "_Value": "3... I think",
@@ -1473,6 +1622,38 @@
         "Effect": "You burst with angelic wings and burning vim.\nUntil the end of your next turn, you have 50% extra Movement and can fly, and can cast unlimited Abilities that cost Mana, ignoring the Mana cost and the limits of Faith Casting.\n",
         "Upgrade": "You can't use the same Basic Ability twice on the same turn.",
         "Notes": "E.g. let's say you used Smite last turn. This turn you activate Aspect of Ascension. You make a 1-Handed weapon attack, and add Smite to it as well. Next turn, you cast Solace Wave and Hand of Freedom, then make anther attack to which you add Smite. Then, you end your turn and Aspect of Ascension ends. You can now still cast Solace Wave and Hand of Freedom once."
+    },
+    "<Legion of Oathsworn>": {
+        "_Value": 3,
+        "A": "Special",
+        "AlignOnWebsite": "Right",
+        "Effect": "In a place sanctified and pure, you start your own order of knights. Create a set of vows that your knights will abide to and have to recite to join you on your conquest.\nYou recruit a 3 beginner adventurer NPCs as squires! Each is one of the 4 possible squire types from the `Pets and Animals page$/Other/PetsAndAnimals`: Bold, Sneaky, Clever or Wise, whichever makes sense the most (or random). All your squires must be different types.\nPassively, gain +2 in all Stats. \n",
+        "Upgrade": "If your squire drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your squire's wounds and heal it back to full Health.",
+        "Notes": "Your squire is not a Player Character by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Player Character can). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!",
+        "HasMixins": true,
+        "Downside": "{Ultimate}",
+        "Subspells": {
+            "~Squire Attack~": {
+                "A": "1 Action (from the squire)",
+                "IsSubspell": true,
+                "Effect": "Deal 1d6 Damage of the weapon's type, or do the equivalent of a Half-Action (e.g. Sprint, Push, etc).\n"
+            }
+        }
+    },
+    "<March of the Chosen>": {
+        "A": "Passive",
+        "AlignOnWebsite": "Left",
+        "Effect": "Your entire party joins the crusade! All player characters in your party have the Crusade Ability, the same Tier 1 Talent you have and access to the Divine Ability List.\nAlso, your entire party gains +1 Might and +1 Charisma.\n",
+        "HasMixins": true,
+        "Downside": "{Ultimate}"
+    },
+    "<Laying Waste>": {
+        "A": "Passive",
+        "AlignOnWebsite": "Left",
+        "Effect": "After you use Basic Ability that costs Mana with Faith Casting, reset the Cooldowns of all your Paladin Talents.\nPassively, you gain +3 Might.\n",
+        "Notes": "Flaming Reach bonus Damage stacks with itself.",
+        "HasMixins": true,
+        "Downside": "{Ultimate}"
     },
     "~Holy Tome Casting~": {
         "_Value": "6-9",
@@ -1518,7 +1699,7 @@
         "_Value": "2+",
         "HasMixins": true,
         "Requirement": "White Clothes",
-        "Effect": "While below 75% Health and wearing white clothes, all your Divine Basic Spells have their ^Dice^ further ^Upgraded^ to the next die type, on top of the upgrade from Divine Grace.\n",
+        "Effect": "While at or below 35 Health and wearing white clothes, all your Divine Basic Spells have their ^Dice^ further ^Upgraded^ to the next die type, on top of the upgrade from Divine Grace.\n",
         "Notes": "{DiceUpgrade}\n"
     },
     "<Divine Blast>": {
@@ -1561,6 +1742,22 @@
         "Cooldown": "Once / Adventure",
         "Effect": "A spectral self appears at the position where you started your turn, and repeats all Acts you have already done this turn.\n",
         "Notes": "An Act is considered any Movement, attack or Ability that took at least 0 Actions (does not include Passives that triggered and _echoes_ that had already happened this turn).\nThe clone moves exactly as you did (can go through Units) and repeats the Spells and Attacks on the same targets. If there were any dice rolls, the clone rolls them (don't use the same numbers rolled). The clone is a separate special Unit - self effects apply to the clone (and thus self-heals have no effect).\n"
+    },
+    "<Messiah's Grace>": {
+        "_Value": 0,
+        "A": "Half-Action",
+        "HasMixins": true,
+        "Requirement": "Only usable in Worthy Combat.",
+        "Replacement": "Replaces any Grace",
+        "Effect": "Heal an ally ~you can see~ for ~50%~ of their Maximum Health. Your next attack deals extra Damage equal to ~half~ the amount just healed.\nAlso, gain +2 Intelligence and +2 Sense and you become immune to curses, diseases and poisons.\n",
+        "Downside": "{Ultimate}"
+    },
+    "~Conviction Casting~": {
+        "A": "Passive",
+        "HasMixins": true,
+        "Replacement": "Replaces Holy Tome Casting",
+        "Effect": "You do not use Mana.\n~During~ Worthy Combats, you can cast ~any Ability~ that costs Mana, ignoring the Mana cost ~and Cooldown~.\nAlso, gain +3 Sense and you may read, understand and speak any language.\n",
+        "Downside": "{Ultimate}"
     },
     "~Blockade~": {
         "_Value": 1,
@@ -1619,12 +1816,26 @@
     },
     "<Avenging Blockade>": {
         "_Value": 2.5,
-        "A": "Passive",
+        "A": "Reaction",
         "HasMixins": true,
         "Replacement": "Replaces Blockade",
         "AlignOnWebsite": "Right",
         "Effect": "When another ally is targeted and attacked (after the roll), dash to the closest space to that ally.\nYou take the Damage instead of the ally, and the Damage is reduced by 2, ~then you can immediately make an attack (freely) with a 1-Handed Melee Weapon on the attacker that deals -50% Damage (if it's within 3 meters of you).~\n",
         "Notes": "If the 1-Handed Weapon is not equipped, you quickly and freely equip it, attack, then switch back to your previous weapons."
+    },
+    "<Vows of Unbreaking>": {
+        "A": "Passive",
+        "AlignOnWebsite": "Left",
+        "Effect": "Your Max Health (without buffs/items) increases by 100% and you become immune to curses, diseases and poison.\nYou automatically pass all Very Hard Might Checks (requiring at least 20).\n",
+        "HasMixins": true,
+        "Downside": "{Ultimate}"
+    },
+    "<Vows of Truth>": {
+        "A": "Passive",
+        "AlignOnWebsite": "Left",
+        "Effect": "You may use Blockage an unlimited number of times per Round (ignoring its Reaction limit). The first time you use Blockade every Round, you take no Damage.\nYou gain +1 Might and Charisma and you automatically pass all Hard Charisma Checks (requiring at least 15).\nUpon taking the Vows of Truth, you become incapable of telling lies, and you will only tell the truth as you see it (or avoid it).\n",
+        "HasMixins": true,
+        "Downside": "{Ultimate}"
     },
     "~Skilled in Stealth~": {
         "Effect": "Add your Level to all Dexterity Checks for hiding, remaining quiet, moving silently, blending in a crowd, etc.\n"

@@ -50,7 +50,7 @@
             "HasMixins": true,
             "Requirement": "Only usable in Worthy Combat. Can't be used on Fallen Units.",
             "Range": "3 meters",
-            "Effect": "Heal an ally for 20% of their Maximum Health (but not yourself).\nYour next attack deals extra Damage equal to the amount just healed.\n"
+            "Effect": "Heal an ally for 20% of their Maximum Health (but not yourself).\nYour next attack until the end of your next Turn deals extra Damage equal to the amount just healed.\n"
         },
         "~Divine Sense~": {
             "_Value": 0,
@@ -139,11 +139,12 @@
                         "A": "Special",
                         "Cooldown": "Lifetime",
                         "AlignOnWebsite": "Right",
-                        "Effect": "Ask a party member to join your cause and pledge their honor to you.\nThat person has the Crusade Ability and the same Tier 1 Talent you have.\nIt also has access to the Divine Ability List.\n",
+                        "Effect": "Ask a party member to join your cause and pledge their honor to you. Write a set of vows, which your companion must vow to abide to and follow with their life, upon death do you two apart.\nThat person has the Crusade Ability, the same Tier 1 Talent you have, and access to the Divine Ability List.\n",
                         "Notes": "Only one person can pledge for you and it must within sight or hearing to have access to all of those.\nIf you ever change this Talent, the ally loses access to all things mentioned; it regains them when you get this Talent again.\n"
                     },
                     "<Suspension of Belief>": {
-                        "A": "Passive",
+                        "A": "Special",
+                        "Cooldown": "Once / Adventure",
                         "HasMixins": true,
                         "AlignOnWebsite": "Left",
                         "Effect": "When you no longer have Abilities usable with Faith Casting, reset the Cooldown of all your Paladin Class and Talent Abilities.\n",
@@ -170,14 +171,16 @@
                         "_Value": 3,
                         "A": "Special",
                         "AlignOnWebsite": "Left",
-                        "Effect": "You recruit a squire - a trusted NPC who gains combat powers. However, the capabilities of your squire are random: roll 1d4 to determine the type of your squire, based on the Squires category at Pets and Animals (1. Bold, 2. Sneaky, 3. Clever, 4. Wise). The Race is determined by the QM or by circumstance.\nOn its turn, it can do one Pet Attack, cast one Ability it has, or do the equivalent of a Half-Action (e.g. Sprint, Push).\nYou can recruit one squire per Adventure, but only one can follow you in your adventures at a time.\n",
+                        "Effect": "You recruit a trusted beginner adventurer NPC as a squire. It's one of the 4 possible squire types from the `Pets and Animals page$/Other/PetsAndAnimals`: Bold, Sneaky, Clever or Wise, whichever makes sense the most (or random).\nYou can recruit one squire per Adventure, but only one can follow you in your adventures at a time.\n",
                         "Upgrade": "If your squire drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your squire's wounds and heal it back to full Health.",
-                        "Notes": "Your squire is not a Player Character by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Player Character can). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!"
-                    },
-                    "<Pet Attack>": {
-                        "IsSubspell": true,
-                        "A": "1 Action (from the pet)",
-                        "Effect": "The pet melee attacks a target.\nThe attack deals 1d6 Pierce of Slash Damage (your choice).\n"
+                        "Notes": "Your squire is not a Player Character by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Player Character can). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!",
+                        "Subspells": {
+                            "~Squire Attack~": {
+                                "A": "1 Action (from the squire)",
+                                "IsSubspell": true,
+                                "Effect": "Deal 1d6 Damage of the weapon's type, or do the equivalent of a Half-Action (e.g. Sprint, Push, etc).\n"
+                            }
+                        }
                     },
                     "<Harrowing Judgement>": {
                         "_Value": "3... I think",
@@ -218,6 +221,40 @@
                         "Effect": "You burst with angelic wings and burning vim.\nUntil the end of your next turn, you have 50% extra Movement and can fly, and can cast unlimited Abilities that cost Mana, ignoring the Mana cost and the limits of Faith Casting.\n",
                         "Upgrade": "You can't use the same Basic Ability twice on the same turn.",
                         "Notes": "E.g. let's say you used Smite last turn. This turn you activate Aspect of Ascension. You make a 1-Handed weapon attack, and add Smite to it as well. Next turn, you cast Solace Wave and Hand of Freedom, then make anther attack to which you add Smite. Then, you end your turn and Aspect of Ascension ends. You can now still cast Solace Wave and Hand of Freedom once."
+                    }
+                },
+                "Level 10": {
+                    "<Legion of Oathsworn>": {
+                        "_Value": 3,
+                        "A": "Special",
+                        "AlignOnWebsite": "Right",
+                        "Effect": "In a place sanctified and pure, you start your own order of knights. Create a set of vows that your knights will abide to and have to recite to join you on your conquest.\nYou recruit a 3 beginner adventurer NPCs as squires! Each is one of the 4 possible squire types from the `Pets and Animals page$/Other/PetsAndAnimals`: Bold, Sneaky, Clever or Wise, whichever makes sense the most (or random). All your squires must be different types.\nPassively, gain +2 in all Stats. \n",
+                        "Upgrade": "If your squire drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your squire's wounds and heal it back to full Health.",
+                        "Notes": "Your squire is not a Player Character by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Player Character can). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!",
+                        "HasMixins": true,
+                        "Downside": "{Ultimate}",
+                        "Subspells": {
+                            "~Squire Attack~": {
+                                "A": "1 Action (from the squire)",
+                                "IsSubspell": true,
+                                "Effect": "Deal 1d6 Damage of the weapon's type, or do the equivalent of a Half-Action (e.g. Sprint, Push, etc).\n"
+                            }
+                        }
+                    },
+                    "<March of the Chosen>": {
+                        "A": "Passive",
+                        "AlignOnWebsite": "Left",
+                        "Effect": "Your entire party joins the crusade! All player characters in your party have the Crusade Ability, the same Tier 1 Talent you have and access to the Divine Ability List.\nAlso, your entire party gains +1 Might and +1 Charisma.\n",
+                        "HasMixins": true,
+                        "Downside": "{Ultimate}"
+                    },
+                    "<Laying Waste>": {
+                        "A": "Passive",
+                        "AlignOnWebsite": "Left",
+                        "Effect": "After you use Basic Ability that costs Mana with Faith Casting, reset the Cooldowns of all your Paladin Talents.\nPassively, you gain +3 Might.\n",
+                        "Notes": "Flaming Reach bonus Damage stacks with itself.",
+                        "HasMixins": true,
+                        "Downside": "{Ultimate}"
                     }
                 }
             }
@@ -274,7 +311,7 @@
                         "_Value": "2+",
                         "HasMixins": true,
                         "Requirement": "White Clothes",
-                        "Effect": "While below 75% Health and wearing white clothes, all your Divine Basic Spells have their ^Dice^ further ^Upgraded^ to the next die type, on top of the upgrade from Divine Grace.\n",
+                        "Effect": "While at or below 35 Health and wearing white clothes, all your Divine Basic Spells have their ^Dice^ further ^Upgraded^ to the next die type, on top of the upgrade from Divine Grace.\n",
                         "Notes": "{DiceUpgrade}\n"
                     },
                     "<Lay on Hands>": {
@@ -343,6 +380,24 @@
                         "Cooldown": "Once / Adventure",
                         "Effect": "A spectral self appears at the position where you started your turn, and repeats all Acts you have already done this turn.\n",
                         "Notes": "The clone moves exactly as you did (can go through Units) and repeats the Spells and Attacks on the same targets. If there were any dice rolls, the clone rolls them (don't use the same numbers rolled). The clone is a separate special Unit - self effects apply to the clone (and thus self-heals have no effect)."
+                    }
+                },
+                "Level 10": {
+                    "<Messiah's Grace>": {
+                        "_Value": 0,
+                        "A": "Half-Action",
+                        "HasMixins": true,
+                        "Requirement": "Only usable in Worthy Combat.",
+                        "Replacement": "Replaces any Grace",
+                        "Effect": "Heal an ally ~you can see~ for ~50%~ of their Maximum Health. Your next attack deals extra Damage equal to ~half~ the amount just healed.\nAlso, gain +2 Intelligence and +2 Sense and you become immune to curses, diseases and poisons.\n",
+                        "Downside": "{Ultimate}"
+                    },
+                    "~Conviction Casting~": {
+                        "A": "Passive",
+                        "HasMixins": true,
+                        "Replacement": "Replaces Holy Tome Casting",
+                        "Effect": "You do not use Mana.\n~During~ Worthy Combats, you can cast ~any Ability~ that costs Mana, ignoring the Mana cost ~and Cooldown~.\nAlso, gain +3 Sense and you may read, understand and speak any language.\n",
+                        "Downside": "{Ultimate}"
                     }
                 }
             }
@@ -417,9 +472,16 @@
                         "_Value": 3,
                         "A": "Special",
                         "AlignOnWebsite": "Left",
-                        "Effect": "You recruit a squire - a trusted NPC who gains combat powers. However, the capabilities of your squire are random: roll 1d4 to determine the type of your squire, based on the Squires category at Pets and Animals (1. Bold, 2. Sneaky, 3. Clever, 4. Wise). The Race is determined by the QM or by circumstance.\nOn its turn, it can do one Pet Attack, cast one Ability it has, or do the equivalent of a Half-Action (e.g. Sprint, Push).\nYou can recruit one squire per Adventure, but only one can follow you in your adventures at a time.\n",
+                        "Effect": "You recruit a trusted beginner adventurer NPC as a squire. It's one of the 4 possible squire types from the `Pets and Animals page$/Other/PetsAndAnimals`: Bold, Sneaky, Clever or Wise, whichever makes sense the most (or random).\nYou can recruit one squire per Adventure, but only one can follow you in your adventures at a time.\n",
                         "Upgrade": "If your squire drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your squire's wounds and heal it back to full Health.",
-                        "Notes": "Your squire is not a Player Character by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Player Character can). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!"
+                        "Notes": "Your squire is not a Player Character by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Player Character can). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!",
+                        "Subspells": {
+                            "~Squire Attack~": {
+                                "A": "1 Action (from the squire)",
+                                "IsSubspell": true,
+                                "Effect": "Deal 1d6 Damage of the weapon's type, or do the equivalent of a Half-Action (e.g. Sprint, Push, etc).\n"
+                            }
+                        }
                     },
                     "<Pet Attack>": {
                         "IsSubspell": true,
@@ -434,7 +496,7 @@
                     },
                     "<Avenging Blockade>": {
                         "_Value": 2.5,
-                        "A": "Passive",
+                        "A": "Reaction",
                         "HasMixins": true,
                         "Replacement": "Replaces Blockade",
                         "AlignOnWebsite": "Right",
@@ -448,6 +510,39 @@
                     },
                     "<Stat Bonuses 4>": {
                         "Effect": "Gain +1 in two Stats of choice, up to +4."
+                    }
+                },
+                "Level 10": {
+                    "<Vows of Unbreaking>": {
+                        "A": "Passive",
+                        "AlignOnWebsite": "Left",
+                        "Effect": "Your Max Health (without buffs/items) increases by 100% and you become immune to curses, diseases and poison.\nYou automatically pass all Very Hard Might Checks (requiring at least 20).\n",
+                        "HasMixins": true,
+                        "Downside": "{Ultimate}"
+                    },
+                    "<Vows of Truth>": {
+                        "A": "Passive",
+                        "AlignOnWebsite": "Left",
+                        "Effect": "You may use Blockage an unlimited number of times per Round (ignoring its Reaction limit). The first time you use Blockade every Round, you take no Damage.\nYou gain +1 Might and Charisma and you automatically pass all Hard Charisma Checks (requiring at least 15).\nUpon taking the Vows of Truth, you become incapable of telling lies, and you will only tell the truth as you see it (or avoid it).\n",
+                        "HasMixins": true,
+                        "Downside": "{Ultimate}"
+                    },
+                    "<Legion of Oathsworn>": {
+                        "_Value": 3,
+                        "A": "Special",
+                        "AlignOnWebsite": "Right",
+                        "Effect": "In a place sanctified and pure, you start your own order of knights. Create a set of vows that your knights will abide to and have to recite to join you on your conquest.\nYou recruit a 3 beginner adventurer NPCs as squires! Each is one of the 4 possible squire types from the `Pets and Animals page$/Other/PetsAndAnimals`: Bold, Sneaky, Clever or Wise, whichever makes sense the most (or random). All your squires must be different types.\nPassively, gain +2 in all Stats. \n",
+                        "Upgrade": "If your squire drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your squire's wounds and heal it back to full Health.",
+                        "Notes": "Your squire is not a Player Character by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Player Character can). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!",
+                        "HasMixins": true,
+                        "Downside": "{Ultimate}",
+                        "Subspells": {
+                            "~Squire Attack~": {
+                                "A": "1 Action (from the squire)",
+                                "IsSubspell": true,
+                                "Effect": "Deal 1d6 Damage of the weapon's type, or do the equivalent of a Half-Action (e.g. Sprint, Push, etc).\n"
+                            }
+                        }
                     }
                 }
             }

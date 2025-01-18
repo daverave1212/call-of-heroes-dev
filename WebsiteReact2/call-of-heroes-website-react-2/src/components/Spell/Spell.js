@@ -288,7 +288,7 @@ export default function Spell({ children, spell, style, hasIcon, hasBorder, hasC
                             padding: '0.5em',
                             paddingLeft: '1em',
                             paddingRight: '1em',
-                        }} onClick={() => setThiefRolledGoldAmount(Math.floor((randomInt(1000, 100000) + randomInt(1000, 100000) + randomInt(1000, 100000)) / 3))}>{thiefRolledGoldAmount}</button>
+                        }} onClick={() => setThiefRolledGoldAmount(Math.floor((randomInt(2500, 250000) + randomInt(2500, 250000) + randomInt(2500, 250000)) / 3))}>{thiefRolledGoldAmount}</button>
                     </div>
                 )}
                 { Downside != null && (

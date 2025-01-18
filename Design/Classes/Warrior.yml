@@ -149,10 +149,23 @@ Specs:
     Talents:
       Level 3:
 
+        ~Recovery Maneuvers~:
+          _Value: 1.5
+          A: Special
+          AlignOnWebsite: Right
+          Cooldown: Once / Turn
+          Replacement: Replaces Quick Maneuvers
+          HasMixins: true
+          Requirement: Only usable on Worthy Enemies
+          Effect: Immediately after you make a weapon attack, use Sprint, Push, Taunt or Hamstring for free ~or heal yourself for 1d4.~
+          Notes: Sprint (run up to 2 meters), Push (push a non-Epic medium-sized Unit 1 meter in any direction), Taunt (make a Unit have -2 on its next attack if it's not on you), Hamstring (slow a Unit).
+
+
         <Might Over Magic>:
           _Value: 1
           A: Passive
           HasMixins: true
+          AlignOnWebsite: Right
           Effect: |
             Choose a Basic Ability from the Elemental or Nature Schools that costs 1 Mana.
             You can use that Ability once per Adventure, without spending Mana.
@@ -163,10 +176,11 @@ Specs:
             E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage).
             E.g. Frost Nova - you smash the ground with such force that it Damages and Slows units around you (Smash Damage).
             Be creative!
-            
+
         <Weaponmaster> :          # 1 because it's bonkers on 1H weapons
           _Value: 1
           A: Passive
+          AlignOnWebsite: Left
           Effect: |
             Your weapon attacks have an extra effect.
             When you get this, choose one weapon effect from the list below.
@@ -188,15 +202,6 @@ Specs:
               - Quarterstaff
               - Blowgun
 
-        ~Recovery Maneuvers~:
-          _Value: 1.5
-          A: Special
-          Cooldown: Once / Turn
-          Replacement: Replaces Quick Maneuvers
-          HasMixins: true
-          Requirement: Only usable on Worthy Enemies
-          Effect: Immediately after you make a weapon attack, use Sprint, Push, Taunt or Hamstring for free ~or heal yourself for 1d4.~
-          Notes: Sprint (run up to 2 meters), Push (push a non-Epic medium-sized Unit 1 meter in any direction), Taunt (make a Unit have -2 on its next attack if it's not on you), Hamstring (slow a Unit).
 
       Level 5:
         
@@ -266,88 +271,36 @@ Specs:
             You can use each of those Abilities once per Adventure (without spending Mana).
             See the Level 5 Talent _Might Over Magic_.
 
-  # Battlemaster:                   # 0.5
-  
-#   Rework:
-#       Your Main Stat = your Defense
-#       No more adding/removing 1 Defense; you just juggle with your Main Stat
+      Level 10:
 
-#Talents:
-#Move Defense to ally
-#All allies around you gain defense
-#Stances
-#Reach (and flank)
-#Ralying Cry : Clear all allies of Stun and healt hem for 1
-#Every x spells cast, heal all allies for 1
-
-
-# Protection
-
-# Protection                (Talents 2)
-# CC Hard + Mobility
-# Damage + Utility
-
-# Healing + AoE CC Medium   (Talents 4)
-
-    # Description: Lorem? Ipsum!
-    # Starting Abilities:
-
-    #   ~Solid Defense~ :
-    #     A: Passive
-    #     Effect: |
-    #       Whenever you are attacked (after Damage), your Defense is reduced by 1 (if it's more than 0).
-    #       At the start of each Adventure, your Defense resets to its base value and is increased by +1 on top of it.
-
-    #   ~Defense Up~:
-    #     A: 0 Actions
-    #     Cost: 1 Mana
-    #     Effect: Increase your Defense by 2.
-
-    #   ~Obliterate~ :
-    #     A: 0 Actions
-    #     Cost: 1 Mana
-    #     Cooldown: Once per turn
-    #     Effect: |
-    #       Deal bonus Damage on top of an attack equal to your current Defense (minimum 0).
-    #       Reset your Defense.
-
-    # Talents:
-    #   Level 3:
-
-    #     <Protect the Meek> :    # 1?
-    #       A: Reaction
-    #       Cooldown: 2 times / Encounter
-    #       Effect: When an ally within 3 meters of you is targeted by a ranged attack, you become its target instead.
-    #       Notes: If this exceeds the attack's range, the attack gains Cover.
-
-    #     <Bashing Charge> :      # 1
-    #       A: 1 Action
-    #       Cooldown: Once / Adventure
-    #       Effect: |
-    #         Move 3 meters in a straight line, then choose a target near you.
-    #         That target takes 1d8 Damage and it must succeed a Might Check or be Stunned.
-
-    #     <Weaponmaster> :          # 1 because it's bonkers on 1H weapons
-    #       A: Passive
-    #       Effect: |
-    #         When you get this, choose one weapon type.
-    #         You have that weapon effect too, no matter what weapon you are using.
-    #         You can the weapon type you always know inbetween Adventures.
-
-    #   Level 5:
+        <Perfect Strike>:
+          A: 0 Actions
+          Cooldown: Once / Combat
+          Effect: |
+            Your next weapon attack this turn deals +300% Damage. If it kills the target, overkill Damage is dealt to all enemies within 3 meters of the main target.
+            Also, passively, you gain +2 Dexterity and you are immune to monster _weapon effects_ (e.g. critical strikes).
+          HasMixins: true
+          Downside: "{Ultimate}"
         
-    #       <Glory Run>:        # 2?
-    #         A: Passive
-    #         Effect: |
-    #             When combat starts, a Glory Point appears behind the furthermost Enemy from you that you can see.
-    #             If you touch the Glory Point, heal for 20% of your total Health and all Enemies you can see must succeed a Charisma Check or be Crippled.
-    #             The Glory Point then disappears.
-    #         Notes:
-    #             The Glory Point is not a physical thing. It's merely a concept (a point).
-       
+        <Master Tactician>:
+          A: Passive
+          Effect: |
+            Gain +4 Max Health and +1 Damage on all attacks for every 3 sessions the Campaign has progressed.
+            From now on, at the end of every session, gain +4 Max Health and +1 Damage on all attacks.
+            Also, passively, gain +2 Intelligence and you know the Abilities and strategies of all enemies you encounter.
+          HasMixins: true
+          Downside: "{Ultimate}"
 
-
-
+        <Greatwielder>:
+          A: Passive
+          Effect: |
+            You can wield 2-Handed weapons, one in each hand.
+            Attacks like this take only a Half-Action and count as 1-Handed weapon attacks but deal -2 Damage.
+            While dual wielding 2-Handed weapons, if any Ability tells you to perform an attack with a 2-Handed and the ability costs 1 Action, it costs only Half-Action.
+            Also, passively, gain +1 Might and +1 Dexterity.
+          Notes: If you already have a Technique Feat, you can remove it to refund the cost.
+          HasMixins: true
+          Downside: "{Ultimate}"
 
 # Talents:
 # 	Stances
@@ -488,6 +441,33 @@ Specs:
         <Bloodbath>:  # 3 but RoI
           A: Passive
           Effect: You heal for all Damage done by Advanced Flank on Worthy Enemies.
+
+      Level 10:
+
+        <Flesh of Iron>:
+          A: Passive
+          Effect: |
+            You Heal for all Damage you would deal to yourself instead of taking it. Pierce, Slash and Smash attacks can't Damage you below 1 Health (they leave you to 1 Health).
+            Also, passively, you gain +2 Might.
+          HasMixins: true
+          Downside: "{Ultimate}"
+        
+        <Ferocity Unleashed>:
+          A: Passive
+          Effect: |
+            If you start your turn with 50% or less Health, you have an extra 1 Action on your turn.
+            Also, passively, gain +1 Might, Dexterity and Sense, you are immune to exhaustion in Worthy Combat and you can survive without sleep for 7 days.
+          Notes: This stacks with the Frenzy Talent.
+          HasMixins: true
+          Downside: "{Ultimate}"
+        
+        <MIGHT BRAWN FORCE MUSCLE>:
+          A: Passive
+          Effect: |
+            GAIN +10 MIGHT AND THE RESULTS OF ALL YOUR MIGHT CHECKS ARE DOUBLED.
+          HasMixins: true
+          Downside: "{Ultimate}"
+
 
   Marksman:
   
@@ -649,7 +629,23 @@ Specs:
           A: Passive
           Effect: Whenever you roll maximum on the Advanced Flank die, gain Shielding equal to the roll.
 
+      Level 10:
 
+        <Crescendo Technique>:
+          A: Passive
+          Effect: |
+            When NOT flanking a Unit, whenever you make a weapon attack, make another identical attack on the same target for free that does the same Damage (but does not apply effects like Smite and weapon effects).
+            When you flank a Unit, it becomes Feared.
+            Also, passively, gain +2 Dexterity and you automatically pass Very Hard Dexterity Checks (requiring at least 20).
+          HasMixins: true
+          Downside: "{Ultimate}"
+        
+        <Precision Perfection>:
+          A: 0 Actions
+          Cooldown: 4 times / Adventure
+          Effect: |
+            Use after rolling Damage for an attack. You can ignore all the dice rollel and just take maximum Damage for all of them.
+          Notes: Weapon effects might not trigger, since the roll was ignored.
 
 
 
