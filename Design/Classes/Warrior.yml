@@ -78,7 +78,7 @@ Starting Abilities:
     Range: 2 meters
     Cooldown: Once / Turn
     Effect: |
-      TODO: Freely dash 1 or 2 meters towards a Worthy Enemy, landing on the closest space. Its first attack on its next Turn deals -2 Damage.
+      Freely dash exactly 2 meters towards a Worthy Enemy, landing on the closest space. It becomes Rooted.
       You can only use this once on every Worthy Enemy.
 
 Starting Abilities Description:
@@ -344,7 +344,7 @@ Specs:
         Replacement: Replaces Charge
         Cooldown: Once / Turn
         Effect: |
-          Freely dash 1 or 2 meters towards a Worthy Enemy, landing on the closest space. Its first attack on its next Turn deals -2 Damage.
+          Freely dash exactly 2 meters towards a Worthy Enemy, landing on the closest space. It becomes Rooted.
           ~Your next weapon attack deals 2d6 extra Damage to the target and half of that to yourself.~
           You can only use this once on every Worthy Enemy.
 
@@ -461,7 +461,7 @@ Specs:
           HasMixins: true
           Downside: "{Ultimate}"
         
-        <MIGHT BRAWN FORCE MUSCLE>:
+        <MIGHT BRAWN MUSCLE>:
           A: Passive
           Effect: |
             GAIN +10 MIGHT AND THE RESULTS OF ALL YOUR MIGHT CHECKS ARE DOUBLED.
@@ -484,7 +484,7 @@ Specs:
         Replacement: Replaces Charge
         Cooldown: Once / Turn
         Effect: |
-          ~Freely dash up to 2 meters away from a Worthy Enemy~. Its first attack on its next Turn deals -2 Damage.
+          Freely dash 2 meters ~away from~ a Worthy Enemy. ~Its first attack on its next Turn deals -2 Damage.
           You can only use this once on every Worthy Enemy.
 
       ~Marksmanship~:
@@ -644,9 +644,31 @@ Specs:
           A: 0 Actions
           Cooldown: 4 times / Adventure
           Effect: |
-            Use after rolling Damage for an attack. You can ignore all the dice rollel and just take maximum Damage for all of them.
+            Use after rolling Damage for an attack. You can ignore all the dice rolled and just take maximum Damage for all of them.
           Notes: Weapon effects might not trigger, since the roll was ignored.
+          HasMixins: true
+          Downside: "{Ultimate}"
 
+        <Make Every Shot Count>:
+          A: Passive
+          Effect: |
+            Every time you make a weapon attack, roll 1d4 to determine an additional effect for it.
+          DoubleTable:
+            Headers:
+              - Number
+              - Effect
+            Values:
+              - "1."
+              - Reset your Load Up to d12
+              - "2."
+              - Damages all Units in a 5-meter line behind the target for 100% of the Damage
+              - "3."
+              - Increase the Damage by 100%
+              - "4."
+              - Stun the target and push it 6 meters away from you
+          Notes: The Load Up die resets before applying it if it was applied.
+          HasMixins: true
+          Downside: "{Ultimate}"
 
 
 

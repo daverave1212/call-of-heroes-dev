@@ -228,6 +228,42 @@ export function getVariantsForEachCollection(collectionName) {
     }
     return []
 }
+export function assertCorrectSpellFormat(spell) {
+    function error(msg) {
+        throw new Error(`Error: ${msg}`)
+    }
+    if (spell == null) {
+        error('Null spell given.')
+    }
+    if (spell.Name == null) {
+        console.log({spell})
+        error('Spell has no Name (printed above).')
+    }
+    const { DoubleTable, DoubleTableNumbered } = spell
+    if (DoubleTable != null) {
+        const { Headers, Values } = DoubleTable
+        if (Values == null) {
+            error(`Spell ${spell.Name} has no Values property on DoubleTable`)
+        }
+        if (Values.length % 2 != 0) {
+            error(`Spell ${spell.Name} Values property on DoubleTable has incorrect number of values (should be multiple of 2)`)
+        }
+    }
+    if (DoubleTableNumbered != null) {
+        const { Headers, Values } = DoubleTableNumbered
+        if (Headers == null || Headers.length < 2) {
+            error(`Spell ${spell.Name} has no Headers property on DoubleTableNumbered`)
+        }
+        if (Values == null) {
+            error(`Spell ${spell.Name} has no Values property on DoubleTableNumbered`)
+        }
+        if (Values.length % 2 != 0) {
+            error(`Spell ${spell.Name} Values property on DoubleTableNumbered has incorrect number of values (should be multiple of 2)`)
+        }
+    }
+
+}
+
 
 
 

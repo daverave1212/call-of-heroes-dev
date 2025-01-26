@@ -54,6 +54,7 @@ export default function PetsAndAnimals() {
                         <TDSleek1>Other</TDSleek1>
                         <PetAnimalTable categoryName="Druid Special"/>
                         <PetAnimalTable categoryName="Constructs"/>
+                        <PetAnimalTable categoryName="Other"/>
                     </Column>
                     <Column>
                         <TDSleek1>People</TDSleek1>

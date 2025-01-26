@@ -81,6 +81,10 @@ Starting Abilities Description:
 
 # Talent: Circle with teleport, like wow
 # Talent: Curse of 25% damage spread
+# Talent: Imprive cursewielder Damage
+# Talent: Draw buffs and debuffs (Cursewielder and channeler)
+# Talent: 
+
 
 # Summoner: summons either one loyal demon or multiple familiars
 # Summoner: Pix demon, always with you
@@ -91,9 +95,9 @@ Starting Abilities Description:
 Specializations:
   Description: At Level 1, you can choose your specialization. Every Warlock can choose from the following Warlock specializations.
   Choices:
-    - Occultist, a heavy caster of Eldritch magic that can empower their spells
+    - Evoker, a heavy caster of Eldritch magic that can empower their spells
     - Cursewielder, a user of both magic and a weapon infused with the power of their master
-    - Summoner, specialized in calling for aid from familiars and otherworldly beings
+    - Occultist, a dominator and controller of the battlefield, specialized in using enemy powers against themselves
 
 
 # Base:       3                           | 3       + 3 = 
@@ -114,7 +118,7 @@ Specs:
 # Charges + Protection
 # AoE
 
-  Occultist:
+  Evoker:
 
     Description: LOREM! Dolor, dolor!
     Starting Abilities:
@@ -157,7 +161,7 @@ Specs:
         <Agile Development>:
           _Value: 1.25
           A: Passive
-          Effect: Your Basic Spells that cost Mana and can't deal Damage cost 0 Actions for you. Works only once per turn.
+          Effect: A Basic Spell that costs Mana and can't deal Damage costs 0 Actions once per Turn.
 
         <Invoke Self>:
           _Value: 0.5
@@ -169,7 +173,12 @@ Specs:
         <Source Control>:   # 1 I hope
           _Value: 1
           A: Passive
-          Effect: Choose any other Basic Abilities List you have. Power Overwhelming applies to Abilities from that List as well.
+          Replacement: Replaces Power Overwhelming
+          HasMixins: true
+          Effect: All your Eldritch ~and Power Source chosen List~ Basic Spells have their Dice Upgraded to the next die type.
+          Notes: |
+            {DiceUpgrade}
+            For example, Eldritch Blast deals 2d10, Deathflame Bolt deals 1d12 + 1d12 + 1d10, Curse of Weakness reduces by 1d6, etc.
 
       Level 7:
 
@@ -184,14 +193,16 @@ Specs:
         <Extra Power>:
           _Value: 2
           A: Passive
+          HasMixins: true
           Effect: Your Power Overwhelming makes your ^Dice^ further ^Upgraded^ to the next die type.
           Notes: E.g. from d6 to d10.
 
         <Life Drain>:
           _Value: 2
           A: Passive
+          HasMixins: true
           Effect: |
-            Whenever ^YOU^ kill a Worthy Enemy, heal an Ally (or yourself) for the excess Damage.
+            Whenever ^YOU^ kill a Worthy Enemy, Heal a Unit you can see for the excess Damage.
             In addition, if an Enemy has 25% or less Health, you know exactly how much Health it has (ask the QM).
           Notes: E.g. if the enemy has 10 Health, and you deal 16 Damage, heal an ally for 6 Health.
 
@@ -210,6 +221,27 @@ Specs:
           Notes: This is akin to casting the Spell again for 0 Actions without spending Mana (not necessarily on the same target).
 
 
+      Level 10:
+
+        <Invoke Old God>:
+          A: 1 Action
+          Cooldown: Once / Lifetime
+          HasMixins: true
+          Effect: |
+            You bring forth into the mortal realm a manifestation of your source of power - an old god from the `Pets and Animals page$/Other/PetsAndAnimals`.
+            You do not control it - it has its own Turn and Initiative in combat and possesses its own will. What will you compromise to forcefully drag an unknowable entity into the mortal plane?
+            Also, passively, you gain +2 Intelligence and Charisma, and you automatically pass all Impossible Intelligence Checks (requiring at least 25).
+          HasMixins: true
+          Downside: "{Ultimate}"
+
+        <The Dark Ritual>:
+          A: Half-Action
+          Effect: |
+            Spend any amount of Mana. Your next Spell has +50% Damage, Healing, area diameter and range for each Mana spent.
+            After that, restore all your Mana.
+          HasMixins: true
+          Downside: "{Ultimate}"
+
   Cursewielder:
     Description: Ha! Lorem ipsum!!
     Starting Abilities:
@@ -219,14 +251,13 @@ Specs:
         A: Passive
         Effect: |
           You have a Cursewielder Weapon - a special weapon of one chosen type (e.g. Shortsword, Longbow, Pike, etc). This weapon will have extra effects later on. Don't lose it!
-          You gain Training in one more weapon type of choice.
           You gain +1 in Might or Dexterity, up to +3.
         Upgrade: |
-          Reposess: By spending 1 hour, you can transfer the entity posessing your Cursewielder weapon into another weapon. That new weapon becomes your Cursewielder Weapon, and the old one is destroyed.
+          Reposess: By spending 1 hour, you can transfer the curse of your Cursewielder Weapon into another weapon. That new weapon becomes your Cursewielder Weapon, and the old one is destroyed.
         Notes: |
-          You are bound by soul to your Cursewielder Weapon, inside which your patron's avatar lies, either possessing the weapon, being trapped inside it or using it as a means of communication with you.
+          You are bound by soul to your Cursewielder Weapon, inside which your patron's avatar lies, either possessing the weapon, being trapped inside it, cursing it, or using it as a means of communication with you.
           You must choose your weapon type when you become a Cursewielder Warlock.
-          You can customize your weapon's personality, voice, the way it looks. Talk to your QM about this.
+          You can customize your weapon's personality, voice, the way it looks. Talk to your Quest Master.
 
       ~Cursewielder~ :
         _Value: 3
@@ -234,7 +265,7 @@ Specs:
         Cooldown: Once / Turn
         HasMixins: true
         Effect: |
-          After you cast a Spell that costs Mana, your next weapon attack deals 1d6 extra Damage (within 5 minutes).
+          After you cast a Spell that costs Mana, your next Cursewielder Weapon attack deals 1d6 extra Damage (within 5 minutes).
         Notes: "You can only add the 1d6 once per turn. The d6's can stack (from multiple Spells that cost Mana, one after another)."
         
     Talents:
@@ -244,7 +275,7 @@ Specs:
           _Value: 0.25
           A: 0 Actions
           Cooldown: Once / Turn
-          Effect: Instantly change the type of weapon of your Cursewielder.
+          Effect: Instantly change the type of weapon of your Cursewielder Weapon.
 
         <Curseweave> :
           _Value: 0.25
@@ -252,7 +283,7 @@ Specs:
           Cooldown: Once / Turn
           Replacement: Replaces Cursewielder
           Effect: |
-            After you attack with your Cursewielder Weapon, if your next Act is a Damaging Spell that costs Mana, it deals +1d6 Damage (within 5 minutes).
+            After you attack a Worthy Enemy with your Cursewielder Weapon, if your next Act is a Damaging Spell that costs Mana, it deals +1d6 Damage (within 5 minutes).
           Notes: |
             Applies to Area Damage, but only applies once to Spells that hit multiple times (e.g. Magic Missile-like Spells, Damage over time effects, etc).
 
@@ -285,9 +316,9 @@ Specs:
           _Value: 2
           Cost: 1 Mana
           Effect: |
-            Count the Units within 3 meters of you (except you).
-            They are all attacked for 1d4 + (d4's equal to the number of Units) Pulse Damage.
-          Notes: E.g. if this affects 2 Units, it deals 3d4. If it affects 3 Units, it deals 4d4. 4 Units - 5d4. And so on.
+            ^Count^ the Worthy Units within 3 meters of you (including you).
+            They all take Pulse Damage equal to ^Counted^ d4 (except you).
+          Notes: E.g. if this affects 3 Units, it deals 3d4. If it affects 4 Units, it deals 4d4. 5 Units - 5d4. And so on.
 
       Level 7:
         
@@ -299,6 +330,8 @@ Specs:
         <Quick Hex>:
           _Value: 1.5
           A: Passive
+          Requirement: Only usable without Curseweave Talent
+          HasMixins: true
           Effect: Your Spells that cost Mana and can't deal Damage take 0 Actions for you, and your Cursewielder applies after you cast ^any^ Spell that costs Mana, not just offensive ones.
         
         <Possessio>:
@@ -318,7 +351,42 @@ Specs:
         <Great Talent Bonus>:
           Effect: Gain one more Level 3 Talent, and one more Level 5 Talent.
 
-  Channeler:
+      Level 10:
+
+        <Soulstealer Weapon>:
+          A: 0 Actions
+          Cooldown: Once / Turn
+          Effect: |
+            Steal the soul of a dead Worthy Unit.
+            Every 3 stolen souls give your Cursewielder Weapon +1 Damage permanently.
+            At any point, you can release all souls in your weapon to increase the Damage of the attack by 900% of the number of souls released.
+          Upgrade: Dead Units whose souls are locked inside the weapon can not be revived.
+          HasMixins: true
+          Downside: "{Ultimate}"
+        
+        <Whispers of Abeyance>:
+          A: 0 Actions
+          Effect: |
+            Gain a Half-Action this Turn and get -1 in a random Stat permanently.
+            Upon reaching 0 or less in all Stats, you become permanently possessed by the energies residing in your Cursewielder Weapon. Each of your Stats becomes a random of 1d8 permanently.
+            Reaching 0 or less in all Stats immediately kills you, and both your and your patron's souls are sent to the other plane forever.
+          Upgrade: Your soul is sent into a different plane, according to your patronage. From then on, you have the same body, but you are now your patron for all intents and purposes - in mind, personality and soul.
+          HasMixins: true
+          Downside: "{Ultimate}"
+
+        <Cursewrought Avatar>:
+          A: 1 Action
+          Duration: 10 minutes
+          Cooldown: Once / Adventure
+          Effect: |
+            Throw your Cursewielder Weapon on the ground near you. It becomes a Cursewrought Avatar and immediately grows a body of its own, either ethereal, phantomatic or resembling an animated armor fused with the weapon.
+            The Cursewrought Avatar resembles you in all aspects, but can't cast Spells or use Abilities, and can attack only with the Cursewielder Weapon.
+            Spells you cast apply to the Damage of your Cursewrought Avatar for Cursewielder (or Curseweave).
+          Notes: If you're not holding the Cursewielder Weapon, you obviously can't attack with it.
+          HasMixins: true
+          Downside: "{Ultimate}"
+
+  Occultist:
 
     Description: Loremmmmmm ipsummmmm...
     Starting Abilities:
@@ -402,6 +470,40 @@ Specs:
         <Advanced Talent Bonus>:
           HasMixins: true
           Effect: Gain one more Level 3 Talent, ^or^ one more Level 5 Talent.
+      
+      Level 10:
+
+        <Curse of Domination>:
+          A: 1 Action
+          Cooldown: One Success / Adventure
+          Effect: |
+            Choose a Unit you can see. Pass an Intelligence or Charisma Check at least equal to 5% of its Experience Worth to permanently put it under your control. You can command it telepathically what to and it will do your bidding.
+            You can only have one dominated Unit at a time and lasts until the Unit dies, until you dominate another Unit or until you willingly end the curse.
+            Also, passively, you gain +3 Sense.
+          Upgrade: Failing the Check makes the Unit permanently immune to Hand of Domination and it can sense they resisted an attempt of possession. A dominated Unit has the same combat capabilities and acts like themselves but is essentially a _philosophical zombie_ - they feel no emotion, have no will of their own and manifest little sentiment in their speech and expressiveness. When the Unit stops being dominated, they recall nothing that has happened in that period of time.
+          HasMixins: true
+          Downside: "{Ultimate}"
+
+        <Whispers of Oblivion>:
+          A: 0 Actions
+          Effect: |
+            Gain a Half-Action this Turn and get -1 in a random Stat permanently.
+            Upon reaching 0 or less in all Stats, you become permanently possessed by the energies of your power source. Each of your Stats becomes a random of 1d8 permanently.
+            Reaching 0 or less in all Stats immediately kills you, and both your and your patron's souls are sent to the other plane forever.
+          Upgrade: Your soul is sent into a different plane, according to your patronage. From then on, you have the same body, but you are now your patron for all intents and purposes - in mind, personality and soul.
+          HasMixins: true
+          Downside: "{Ultimate}"
+        
+        <Mirror Mirror>:
+          A: Half-Action
+          Cost: 1 Mana
+          Duration: 1 hour
+          Cooldown: Once / Adventure
+          Effect: |
+            Summon a clone of yourself on a space within 5 meters. You control the clone and it resembles you perfectly.
+            In Combat, the clone acts on your Turn. It has Movement of its own, but will always use its Actions to copy all Basic Abilities and Weapon Attacks you make, on the same target.
+          Notes: The clone can't do combat Acts and fine motor skills on its own -- it will always copy yours in parallel.
+
 
 
 # Pet + CC Hard + CC Medium + Healing + Protection
