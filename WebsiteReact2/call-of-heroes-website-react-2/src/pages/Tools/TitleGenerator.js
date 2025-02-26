@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Page from "../../containers/Page/Page";
 import { drawImageOnCanvasAsync, getImageRelativeWidthAtHeight } from "../../utils";
+import './TitleGenerator.css'
 
-
-const letters = 'abcdefghijklmnopqrstuvwxyz'
+const LETTERS = 'abcdefghijklmnopqrstuvwxyz'
 const SPACE_WIDTH = 200
 
 const SHORT_LETTER_HEIGHT = 363
@@ -141,6 +141,107 @@ function getLetterHeight(letter, isCapital=false) {
 
 
 
+export function QGTitle1({ text, className, style, hueShift, size }) {
+    const canvasRef = useRef(null)
+    const newStyle = {
+        height: (size == null? '60px' : size),
+        filter: (hueShift == null? null: `hue-rotate(${hueShift}deg)`),
+        ...style
+    }
+
+    console.log({newStyle})
+
+    useEffect(() => {
+        const canvas = canvasRef.current
+        drawQGTextOnCanvas(canvas, text)
+    }, [])
+
+    return <canvas ref={canvasRef} className={`qg-title1 ${className}`} style={newStyle}/>
+}
+
+
+
+export async function drawQGTextOnCanvas(canvas, text) {
+
+    const letterImage = {}
+    const imageLoadingPromises = LETTERS.split('').map(letter => new Promise((resolve, reject) => {
+        if (letterImage[letter] == null) {
+            letterImage[letter] = new Image()
+            letterImage[letter].src = `/FontLetters/${letter}.png`
+        }
+        const thisLetterImage = letterImage[letter]
+        if (thisLetterImage.complete && thisLetterImage.naturalWidth != NaN) {
+            console.log(`Resolved letter: ${letter}`)
+            resolve()
+        } else {
+            thisLetterImage.onload = () => {
+                console.log(`Resolved letter: ${letter}`)
+                resolve()
+            }
+        }
+    }))
+    await Promise.all(imageLoadingPromises)
+
+    function getTextWidth(text) {
+        console.log(`Getting text width for "${text}"`)
+        let widthSoFar = 0
+        for (let i = 0; i < text.length; i++) {
+            const letter = text.charAt(i)
+            const letterLowerCase = letter.toLowerCase()
+            const isCapital = letter.toLowerCase() != letter
+            if (letter == ' ') {
+                widthSoFar += SPACE_WIDTH
+                continue
+            }
+            const img = letterImage[letterLowerCase]
+            console.log(`  img.naturalWidth: ${img.naturalWidth}`)
+            const extraWidth = isCapital? getImageRelativeWidthAtHeight(img, getLetterHeight(letterLowerCase, isCapital)) : img.naturalWidth
+            widthSoFar += extraWidth
+
+            const previousLetter = i > 0? text.charAt(i - 1): null
+            if (previousLetter != null && previousLetter != ' ') {
+                const kerning = getKerning(previousLetter, letterLowerCase)
+                widthSoFar += kerning
+            }
+        }
+        return widthSoFar
+    }
+
+
+    const textWidth = getTextWidth(text)
+    console.log(`textWidth for "${text}": ${textWidth}`)
+    canvas.width = textWidth
+    canvas.height = TALL_LETTER_HEIGHT
+    let drawX = 0
+
+    for (let i = 0; i < text.length; i++) {
+        const char = text.charAt(i)
+        const letterLowerCase = char.toLowerCase()
+        const isCapital = char.toLowerCase() != char
+
+        if (char == ' ') {
+            drawX += SPACE_WIDTH
+            continue
+        }
+
+        const drawY = (isCapital? 0: CAPITAL_EXTRA_HEIGHT) + LETTER_OFFSET_TOP[letterLowerCase]
+        const image = letterImage[letterLowerCase]
+
+        const previousLetter = i > 0? text.charAt(i - 1): null
+        if (previousLetter != null && previousLetter != ' ') {
+            const kerning = getKerning(previousLetter, letterLowerCase)
+            drawX += kerning
+        }
+
+        const imageHeight = isCapital? image.naturalHeight + CAPITAL_EXTRA_HEIGHT: image.naturalHeight
+        drawImageOnCanvasAsync(canvas, image.src, drawX, drawY, null, imageHeight)
+        const extraWidth = isCapital? getImageRelativeWidthAtHeight(image, getLetterHeight(letterLowerCase, isCapital)) : image.naturalWidth
+        drawX += extraWidth
+    }
+
+    
+}
+
 
 export default function TitleGenerator() {
 
@@ -153,8 +254,8 @@ export default function TitleGenerator() {
         setCanvas(cv)
 
         const newLetterImage = {}
-        for (let i = 0; i < letters.length; i++) {
-            const char = letters.charAt(i)
+        for (let i = 0; i < LETTERS.length; i++) {
+            const char = LETTERS.charAt(i)
             newLetterImage[char] = new Image()
             newLetterImage[char].src = `/FontLetters/${char}.png`
             setLetterImage(newLetterImage)

@@ -21,6 +21,7 @@ export default function Page({
     isCollapsable,                  // If true, clicking on the title collapses the page
     isSecondaryPage,                // Default false; if true, it will not update title
     hasNoLimits,                    // Default is false; if true, it will have no width limits
+    isCentered,                     // Default is false
     hasCopyButton
 }) {
 
@@ -42,6 +43,7 @@ export default function Page({
 
     return (
         <div className={`page ${hasNoLimits == true? 'page--no-limits' : ''}`} id={id}>
+            
             { subtitle != null && (
                 <div>
                     <p className='page-subtitle'>
@@ -49,7 +51,9 @@ export default function Page({
                     </p>
                 </div>
             )}
-            <div className='page-content'>
+
+
+            <div className={`page-content ${isCentered === true? 'page-content-centered': ''}`}>
                 { title != null && (
                     <PageH1 onClick={togglePageDisplay} id={`${titleToId(title)}`}>{ title }</PageH1>
                 ) }
@@ -60,7 +64,8 @@ export default function Page({
                     { children }
                 </div>
             </div>
-            {/* <LandingPageSeparator type="8"/> */}
+
+
         </div>
     )
 

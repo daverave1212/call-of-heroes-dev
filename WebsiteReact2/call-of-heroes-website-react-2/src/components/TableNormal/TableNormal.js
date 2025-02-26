@@ -3,7 +3,7 @@ import { assert } from '../../utils'
 import './TableNormal.css'
 import React from 'react'
 
-export default function TableNormal({ children, columns, type, tableWrapperClass, style, hasBorder }) {
+export default function TableNormal({ children, columns, onClickOnColumn, type, tableWrapperClass, style, hasBorder }) {
 
     if (type == null)
         type = 'normal'
@@ -16,13 +16,19 @@ export default function TableNormal({ children, columns, type, tableWrapperClass
         'table--normal'
     tableWrapperClass = tableWrapperClass == null? 'table-normal-wrapper' : tableWrapperClass
 
+    function onClick(whatColumn) {
+        if (onClickOnColumn != null) {
+            onClickOnColumn(whatColumn)
+        }
+    }
+
     return (
         <div className='table-normal-container-wrapper'>
             <div className={`table-normal-container ${hasBorder? '' : 'table-normal-container--no-border'}`}>
                 <div className='table-normal__header-row-container'>
                     <table className={tableTypeClass} cellSpacing="0"><tbody>
                         { columns != null && columns.length > 0 && (
-                            <tr>{ columns.map((col, i) => ( <th key={i}>{ col }</th> )) }</tr>
+                            <tr>{ columns.map((col, i) => ( <th key={i} onClick={() => onClick(col)}>{ col }</th> )) }</tr>
                         ) }
                     </tbody></table>
                 </div>

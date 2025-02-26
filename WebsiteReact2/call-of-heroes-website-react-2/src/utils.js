@@ -502,7 +502,6 @@ export function parseTextWithSymbols(text, customSymbols, options = {}) {
                 if (char == '{') {
                     if (i > 0) {
                         textParts.push(text.substring(currentTextPartStart, i))
-                        console.log(`Found {, pushing: "${text.substring(currentTextPartStart, i)}"`)
                     }
                     symbolStart = i
                     state = 'reading-symbol'
@@ -531,7 +530,6 @@ export function parseTextWithSymbols(text, customSymbols, options = {}) {
                     }
                     textParts.push(symbolToInsertion[symbol]())    // Push current symbol
                     currentTextPartStart = i + 1
-                    console.log(`Found }. Pushing symbol "${symbolToInsertion[symbol]()}" resuming from leter: "${text[i + 1]}"`)
                     state = 'reading-normal-text'
                 } else if (char == '(') {
                     functionName = text.substring(symbolStart + 1, i)
@@ -544,13 +542,11 @@ export function parseTextWithSymbols(text, customSymbols, options = {}) {
                 if (char == '"' || char == "'") {
                     if (isReadingFunctionString == false) {
                         stringSymbol = char
-                        console.log(`Started reading string.`)
                         functionStringStart = i + 1
                         isReadingFunctionString = true
                     } else if (isReadingFunctionString && char == stringSymbol) {
                         const str = text.substring(functionStringStart, i)
                         functionStrings.push(str)
-                        console.log(`Stopped reading string: ${str}`)
                         isReadingFunctionString = false
                     }
                 } else if (char == ')') {
@@ -559,12 +555,10 @@ export function parseTextWithSymbols(text, customSymbols, options = {}) {
                     }
                     const func = functions[functionName]
                     const args = functionStrings
-                    console.log({func, args})
                     textParts.push(func(args))
                 } else if (char == '}') {
                     currentTextPartStart = i + 1
                     state = 'reading-normal-text'
-                    console.log('Done')
                 }
                 break
             case 'reading-markup':
@@ -595,8 +589,6 @@ export function parseTextWithSymbols(text, customSymbols, options = {}) {
         }
     }
 
-    console.log(`final:`)
-    console.log({textParts})
     return textParts
 
 }
@@ -812,8 +804,6 @@ export function saveCtxSettings(ctx, key) {
     ctxSettingsObject.globalAlpha = ctx.globalAlpha
     ctxSettingsObject.stroke = ctx.stroke
     ctxSettingsObject.lineWidth = ctx.lineWidth
-    console.log(`Saved ctxSettings with key "${key}" as:`)
-    console.log({ctxSettingsObject})
 }
 export function loadCtxSettings(ctx, key) {
     const ctxSettingsObject = key == null? ctxSettings['default'] : ctxSettings[key]

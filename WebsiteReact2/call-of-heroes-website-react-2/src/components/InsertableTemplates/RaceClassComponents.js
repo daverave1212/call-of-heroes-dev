@@ -36,6 +36,7 @@ import TwoColumnsDescriptive from '../TwoColumns/TwoColumnsDescriptive'
 import TableShamanLevelUp from '../TableNormal/TableShamanLevelUp'
 import PageH0 from '../PageH0/PageH0'
 import AnchorFixer from '../AnchorFixer/AnchorFixer'
+import { QGTitle1 } from '../../pages/Tools/TitleGenerator'
 
 export function Proficiencies({ name, theRaceOrClass }) {
 
@@ -75,9 +76,9 @@ export function Proficiencies({ name, theRaceOrClass }) {
     )
 }
 
-export function RaceHeader({imgStyle, theRace, theClass}) {
+export function RaceHeader({imgStyle, theRace, theClass, hueShift, size}) {
+    console.log(`Setting hueShift to ${hueShift}`)
     useEffect(() => {
-        console.log(`OOKKKK@@`)
         if (theRace != null) {
             document.title = theRace.Race
         }
@@ -92,7 +93,8 @@ export function RaceHeader({imgStyle, theRace, theClass}) {
         <div>
             {/* <AnchorFixer */}
             <div className='landscape-only'>
-                <PageH1>{ name }</PageH1>
+                {/* <PageH1>{ name }</PageH1> */}
+                <QGTitle1 text={name} hueShift={hueShift} size={size}/>
                 <TwoColumnsDescriptive>
                     <Column style={{zIndex: 1}}>
                         <RaceDescription description={description}/>
@@ -126,10 +128,11 @@ export function RaceDescription({ description }) {
     )
 }
 
-export function ClassFeatures({ theClass }) {
+export function ClassFeatures({ theClass, hueShift }) {
     return (
         <div id="class-features">
-            <PageH2>Class Features</PageH2>
+            {/* <PageH2>Class Features</PageH2> */}
+            <QGTitle1 text="Class Features" hueShift={hueShift} size={40}/>
 
             <TwoColumns>
                 <Column>

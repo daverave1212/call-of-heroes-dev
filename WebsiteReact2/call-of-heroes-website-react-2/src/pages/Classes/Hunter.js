@@ -40,9 +40,9 @@ export default function Hunter() {
             <SideMenuFromClass theClass={theClass}/>
             <Page>
                 
-                <RaceHeader theClass={theClass}/>
+                <RaceHeader theClass={theClass} hueShift={180}/>
 
-                <ClassFeatures theClass={theClass}/>
+                <ClassFeatures theClass={theClass} hueShift={180}/>
 
                 <Proficiencies name={theClass.Class} theRaceOrClass={theClass}/>
 

@@ -21,10 +21,11 @@ export default function Monsters({}) {
     const [searchText, setSearchText] = useState('')
     const [currentlyHoveredMonster, setCurrentlyHoveredMonster] = useState(null)
     const [mouseCoords, setMouseCoords] = useState({ x: 0, y: 0 })
-
-    const monstersArray = Object.keys(monsters)
-        .map(name => ({...monsters[name], Name: name}))
-        .filter(monster => monster.Name != 'Template' && monster.Name.endsWith('OLD') == false)
+    const [monstersArray, setMonstersArray] = useState(
+        Object.keys(monsters)
+            .map(name => ({...monsters[name], Name: name}))
+            .filter(monster => monster.Name != 'Template' && monster.Name.endsWith('OLD') == false)
+    )
 
     function onInputChange(evt) {
         const inputValue = evt.target.value
@@ -46,6 +47,29 @@ export default function Monsters({}) {
         setCurrentlyHoveredMonster(null)
     }
 
+    const [sortedAscending, setSortedAscending] = useState({
+        name: true,
+        type: true,
+        experience: true,
+        degree: true
+    })
+
+    const compareAscending = (a, b) => a - b
+    const compareDescending = (a, b) => b - a
+    function sortByXP() {
+        const isAscending = sortedAscending.experience
+        setMonstersArray(monstersArray.sort((a, b) => {
+            const compareFunc = isAscending? compareAscending: compareDescending
+            return compareFunc(parseInt(a.Experience), parseInt(b.Experience))
+        }))
+        setSortedAscending({...sortedAscending, experience: !sortedAscending.experience})
+    }
+
+    function onClickOnColumn(whatColumn) {
+        if (whatColumn == 'Experience') {
+            sortByXP()
+        }
+    }
 
     return (
         <Page title="Monsters">
@@ -60,7 +84,7 @@ export default function Monsters({}) {
                 </div>
             ) }
 
-            <TableNormal columns={['Name', 'Type', 'Experience', 'Degree']}>
+            <TableNormal columns={['Name', 'Type', 'Experience', 'Degree']} onClickOnColumn={onClickOnColumn}>
                 {   U.filterArrayBySearch(monstersArray, monster => monster.Name + ' '  + monster.Experience + ' ' + monster.Type + ' ' + monster.Degree, searchText)
                      .map(monster => (
                         <tr key={monster.Name} onMouseMove={e => onMouseMoveMonster(e)} onMouseEnter={(e) => onMouseEnterMonster(monster.Name, e)} onMouseLeave={onMouseLeaveMonster}>

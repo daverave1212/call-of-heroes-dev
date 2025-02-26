@@ -22,7 +22,7 @@ export default function MonsterAbility({ability, isPassive}) {
             return <AbilityEffect>{ abilityBody }</AbilityEffect>
         }
 
-        const effectName = U.getAnyPropNameExcept(abilityBody, ['Damage', 'Notes', 'A', 'Cooldown', 'Requirement', 'Range', 'Duration', 'Effect'])
+        const effectName = U.getAnyPropNameExcept(abilityBody, ['Damage', 'Notes', 'A', 'Special', 'Cooldown', 'Requirement', 'Range', 'Duration', 'Effect'])
         
         return (
             <div>

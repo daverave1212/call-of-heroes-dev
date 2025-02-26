@@ -48,7 +48,7 @@ export function SpellTopStats({className, tags}) {
             { Hands != null && (<div><img src="/Icons/UI/Hand.png" className="inline-icon--spell"/>{ Hands }</div>) }
             { Range != null && (<div><img src="/Icons/UI/Range.png" className="inline-icon--spell"/>{ Range }</div>) }
             { Stat != null && (<div><img src="/Icons/UI/Special.png" className="inline-icon--spell"/>{ Stat }</div>) }
-            { Special != null && (<div><img src="/Icons/UI/Hand.png" className="inline-icon--spell"/>{ Special }</div>) }
+            { Special != null && (<div><img src="/Icons/UI/Special.png" className="inline-icon--spell"/>{ Special }</div>) }
             { Cooldown != null && (<div><img src="/Icons/UI/Cooldown.png" className="inline-icon--spell"/>{ Cooldown }</div>) }
             { Duration != null && (<div><img src="/Icons/UI/Duration.png" className="inline-icon--spell"/>{ Duration }</div>) }
             { (Requirement != null || DisplayRequirement != null) && (
@@ -98,28 +98,57 @@ export function SpellTop({
     }
     return (
         <div className='spell-top'>
-            <div className='spell-top__icon-side'>
-                
-                { hasVariants === true && (
-                    <div className='spell-top__variant-counter' onClick={onIconClick}>
-                        {variantIndex + 1}/{Variants.length}
-                    </div>
-                )}
+            <SpellTopIconSide
+                src={iconPath}
+                onIconClick={onIconClick}
+                hasSpinner={hasVariants} hasVariants={hasVariants}
+                variantIndex={variantIndex} maxVariantIndex={hasVariants? Variants.length: null}
+            />
 
-                <div className='spell-top__icon-wrapper'>
-                    { hasVariants === true && (
-                        <div className='spell-top__variant-spinner'></div>
-                    )}
-                    <img src={iconPath}/>  
-                </div>
-
-            </div>
             <div className='spell-top__title-side'>
                 <div className='spell-top__title__wrapper'>
                     <div className='spell-top__title'>{ DisplayName != null? DisplayName : Name }</div>
                 </div>
                 { showTopStats === true && <SpellTopStats tags={{...obj, A: A == null? obj.A : A}}/>}
             </div>
+        </div>
+    )
+}
+
+export function SpellIconSpinner({ src, className }) {
+    return (
+        <div className='spell-top__icon-wrapper'>
+            <div className='spell-top__variant-spinner'></div>
+            <img src={iconPath}/>  
+        </div>
+    )
+}
+export function SpellTopIconSide({ src, style, className, hasSpinner, hasVariants, variantIndex, maxVariantIndex, onIconClick }) {
+    return (
+        <div className={`spell-top__icon-side ${className}`} style={style}>
+                
+            { hasVariants === true && (
+                <div className='spell-top__variant-counter' onClick={onIconClick}>
+                    {variantIndex + 1}/{maxVariantIndex}
+                </div>
+            )}
+
+            <div className='spell-top__icon-wrapper'>
+                { hasSpinner === true && (
+                    <div className='spell-top__variant-spinner'></div>
+                )}
+                <img src={src}/>  
+            </div>
+
+        </div>
+    )
+}
+
+export function IconWithSpinner({ src, className }) {
+    return (
+        <div style={{position: 'relative'}}>
+            <img className='no-spell-icon' src={src}/>
+            <div className='no-spell-spinner'></div>
         </div>
     )
 }
