@@ -4,28 +4,30 @@ import { drawImageOnCanvasAsync, getImageRelativeWidthAtHeight } from "../../uti
 import './TitleGenerator.css'
 
 const LETTERS = 'abcdefghijklmnopqrstuvwxyz'
-const SPACE_WIDTH = 200
+const GET_SPACE_WIDTH = function(sizeMultiplier=1) { return 200 * sizeMultiplier }
 
-const SHORT_LETTER_HEIGHT = 363
-const TALL_LETTER_HEIGHT = 463
+const GET_SHORT_LETTER_HEIGHT = function(sizeMultiplier=1) { return 363 * sizeMultiplier }
+const GET_TALL_LETTER_HEIGHT = function(sizeMultiplier=1) { return 463 * sizeMultiplier }
 const TALL_LETTERS = ['j', 'q']
-const LETTER_OFFSET_TOP = {
-    'a': 0, 'b': 10, 'c': 0, 'd': 10, 'e': 12, 'f': 11, 'g': 0, 'h': 10,'i': 9,'j': 9,'k': 10, 'l': 9,
-    'm': 13,'n': 13,'o': 0, 'p': 9, 'q': 0,'r': 10,'s': 0,'t': 10,'u': 10,'v': 10,
-    'w': 10,'x': 10,'y': 10,'z': 10,
+const GET_LETTER_OFFSET_TOP = function(letter, sizeMultiplier=1) {
+    return {
+        'a': 0, 'b': 10, 'c': 0, 'd': 10, 'e': 12, 'f': 11, 'g': 0, 'h': 10,'i': 9,'j': 9,'k': 10, 'l': 9,
+        'm': 13,'n': 13,'o': 0, 'p': 9, 'q': 0,'r': 10,'s': 0,'t': 10,'u': 10,'v': 10,
+        'w': 10,'x': 10,'y': 10,'z': 10,
+    }[letter] * sizeMultiplier
 }
-const DEFAULT_KERNING = 28
-const KERNING = {
+const GET_DEFAULT_KERNING = function(sizeMultiplier=1) { return 28 * sizeMultiplier }
+const KERNING = {}
 
-}
-function hasSpaceStartBottom(letter) { return ['c', 'g', 'o', 'q', 't', 'u', 'v', 'w', 'y'].includes(letter) }
-function hasSpaceStartTop(letter) { return ['a', 'c', 'g', 'o', 'q', 's'].includes(letter) }
-function hasSpaceEndBottom(letter) { return ['d', 'f', 'o', 'p', 'u', 'v', 'w', 'y'].includes(letter) }
-function hasSpaceEndTop(letter) { return ['a', 'b', 'd', 'g', 'l', 'o', 'q', 'r'].includes(letter) }
-function getKerning(previousLetter, letter) {
+// function hasSpaceStartBottom(letter) { return ['c', 'g', 'o', 'q', 't', 'u', 'v', 'w', 'y'].includes(letter) }
+// function hasSpaceStartTop(letter) { return ['a', 'c', 'g', 'o', 'q', 's'].includes(letter) }
+// function hasSpaceEndBottom(letter) { return ['d', 'f', 'o', 'p', 'u', 'v', 'w', 'y'].includes(letter) }
+// function hasSpaceEndTop(letter) { return ['a', 'b', 'd', 'g', 'l', 'o', 'q', 'r'].includes(letter) }
+
+function getKerning(previousLetter, letter, sizeMultiplier=1) {
     previousLetter = previousLetter.toLowerCase()
     letter = letter.toLowerCase()
-    let kerning = KERNING[previousLetter] != null? KERNING[previousLetter]: DEFAULT_KERNING
+    let kerning = KERNING[previousLetter] != null? KERNING[previousLetter]: GET_DEFAULT_KERNING(sizeMultiplier)
     const combo = previousLetter + letter
     const COMBOS = {
         'ac': -15,
@@ -113,47 +115,46 @@ function getKerning(previousLetter, letter) {
         'yq': -20,
         'xo': -15,
     }
-    const S_KERNING = 10
+    const S_KERNING = 10 * sizeMultiplier
     if (COMBOS[combo] != null) {
-        return kerning + COMBOS[combo]
+        return kerning + COMBOS[combo] * sizeMultiplier
     }
     if (previousLetter == 's' || letter == 's') {
-        return kerning + S_KERNING 
+        return kerning + S_KERNING
     }
     return kerning
 }
 
 
-
-console.log(getKerning('b', 'c'))
-
-const CAPITAL_EXTRA_HEIGHT = 75
+const GET_CAPITAL_EXTRA_HEIGHT = function(sizeMultiplier=1) { return 75 * sizeMultiplier }
 function isLetterTall(letter) {
     return TALL_LETTERS.includes(letter)
 }
-function getLetterHeight(letter, isCapital=false) {
-    const letterHeight = isLetterTall(letter)? TALL_LETTER_HEIGHT: SHORT_LETTER_HEIGHT
+function getLetterHeight(letter, isCapital=false, sizeMultiplier=1) {
+    const letterHeight = isLetterTall(letter)? GET_TALL_LETTER_HEIGHT(sizeMultiplier): GET_SHORT_LETTER_HEIGHT(sizeMultiplier)
     if (isCapital) {
-        return letterHeight + CAPITAL_EXTRA_HEIGHT
+        return letterHeight + GET_CAPITAL_EXTRA_HEIGHT(sizeMultiplier)
     }
     return letterHeight
 }
 
 
 
-export function QGTitle1({ text, className, style, hueShift, size }) {
+export function QGTitle1({ text, className, style, hueShift, height }) {
     const canvasRef = useRef(null)
+    const defaultSize = 60
     const newStyle = {
-        height: (size == null? '60px' : size),
+        height: (size == null? defaultSize + 'px' : (size + 'px')),
         filter: (hueShift == null? null: `hue-rotate(${hueShift}deg)`),
         ...style
     }
 
     console.log({newStyle})
 
+    const sizeMultiplier = height / defaultSize
     useEffect(() => {
         const canvas = canvasRef.current
-        drawQGTextOnCanvas(canvas, text)
+        drawQGTextOnCanvas(canvas, text, sizeMultiplier)
     }, [])
 
     return <canvas ref={canvasRef} className={`qg-title1 ${className}`} style={newStyle}/>
@@ -161,7 +162,7 @@ export function QGTitle1({ text, className, style, hueShift, size }) {
 
 
 
-export async function drawQGTextOnCanvas(canvas, text) {
+export async function drawQGTextOnCanvas(canvas, text, sizeMultiplier=1) {
 
     const letterImage = {}
     const imageLoadingPromises = LETTERS.split('').map(letter => new Promise((resolve, reject) => {
@@ -190,7 +191,7 @@ export async function drawQGTextOnCanvas(canvas, text) {
             const letterLowerCase = letter.toLowerCase()
             const isCapital = letter.toLowerCase() != letter
             if (letter == ' ') {
-                widthSoFar += SPACE_WIDTH
+                widthSoFar += GET_SPACE_WIDTH(sizeMultiplier)
                 continue
             }
             const img = letterImage[letterLowerCase]
@@ -200,7 +201,7 @@ export async function drawQGTextOnCanvas(canvas, text) {
 
             const previousLetter = i > 0? text.charAt(i - 1): null
             if (previousLetter != null && previousLetter != ' ') {
-                const kerning = getKerning(previousLetter, letterLowerCase)
+                const kerning = getKerning(previousLetter, letterLowerCase, sizeMultiplier)
                 widthSoFar += kerning
             }
         }
@@ -211,7 +212,7 @@ export async function drawQGTextOnCanvas(canvas, text) {
     const textWidth = getTextWidth(text)
     console.log(`textWidth for "${text}": ${textWidth}`)
     canvas.width = textWidth
-    canvas.height = TALL_LETTER_HEIGHT
+    canvas.height = GET_TALL_LETTER_HEIGHT(sizeMultiplier)
     let drawX = 0
 
     for (let i = 0; i < text.length; i++) {
@@ -220,22 +221,22 @@ export async function drawQGTextOnCanvas(canvas, text) {
         const isCapital = char.toLowerCase() != char
 
         if (char == ' ') {
-            drawX += SPACE_WIDTH
+            drawX += GET_SPACE_WIDTH(sizeMultiplier)
             continue
         }
 
-        const drawY = (isCapital? 0: CAPITAL_EXTRA_HEIGHT) + LETTER_OFFSET_TOP[letterLowerCase]
+        const drawY = (isCapital? 0: GET_CAPITAL_EXTRA_HEIGHT(sizeMultiplier)) + GET_LETTER_OFFSET_TOP(letterLowerCase, sizeMultiplier)
         const image = letterImage[letterLowerCase]
 
         const previousLetter = i > 0? text.charAt(i - 1): null
         if (previousLetter != null && previousLetter != ' ') {
-            const kerning = getKerning(previousLetter, letterLowerCase)
+            const kerning = getKerning(previousLetter, letterLowerCase, sizeMultiplier)
             drawX += kerning
         }
 
-        const imageHeight = isCapital? image.naturalHeight + CAPITAL_EXTRA_HEIGHT: image.naturalHeight
+        const imageHeight = isCapital? image.naturalHeight + GET_CAPITAL_EXTRA_HEIGHT(sizeMultiplier): image.naturalHeight
         drawImageOnCanvasAsync(canvas, image.src, drawX, drawY, null, imageHeight)
-        const extraWidth = isCapital? getImageRelativeWidthAtHeight(image, getLetterHeight(letterLowerCase, isCapital)) : image.naturalWidth
+        const extraWidth = isCapital? getImageRelativeWidthAtHeight(image, getLetterHeight(letterLowerCase, isCapital, sizeMultiplier)) : image.naturalWidth
         drawX += extraWidth
     }
 
@@ -269,7 +270,7 @@ export default function TitleGenerator() {
             const letterLowerCase = letter.toLowerCase()
             const isCapital = letter.toLowerCase() != letter
             if (letter == ' ') {
-                widthSoFar += SPACE_WIDTH
+                widthSoFar += GET_SPACE_WIDTH()
                 continue
             }
             const img = letterImage[letterLowerCase]
@@ -297,11 +298,11 @@ export default function TitleGenerator() {
             const isCapital = char.toLowerCase() != char
 
             if (char == ' ') {
-                drawX += SPACE_WIDTH
+                drawX += GET_SPACE_WIDTH()
                 continue
             }
 
-            const drawY = (isCapital? 0: CAPITAL_EXTRA_HEIGHT) + LETTER_OFFSET_TOP[letterLowerCase]
+            const drawY = (isCapital? 0: GET_CAPITAL_EXTRA_HEIGHT()) + LETTER_OFFSET_TOP[letterLowerCase]
             const image = letterImage[letterLowerCase]
 
             const previousLetter = i > 0? text.charAt(i - 1): null
@@ -310,7 +311,7 @@ export default function TitleGenerator() {
                 drawX += kerning
             }
 
-            const imageHeight = isCapital? image.naturalHeight + CAPITAL_EXTRA_HEIGHT: image.naturalHeight
+            const imageHeight = isCapital? image.naturalHeight + GET_CAPITAL_EXTRA_HEIGHT(): image.naturalHeight
             drawImageOnCanvasAsync(canvas, image.src, drawX, drawY, null, imageHeight)
             const extraWidth = isCapital? getImageRelativeWidthAtHeight(image, getLetterHeight(letterLowerCase, isCapital)) : image.naturalWidth
             drawX += extraWidth
