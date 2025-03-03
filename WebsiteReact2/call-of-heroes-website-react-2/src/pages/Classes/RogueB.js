@@ -31,6 +31,7 @@ import theClass from '../../databases/Classes/RogueB.json'
 
 import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies, ClassFeatsDescription, Equipment, RaceHeader, } from '../../components/InsertableTemplates/RaceClassComponents'
 import { SideMenuFromClass } from '../../components/SideMenu/SideMenu'
+import { QGTitle1 } from '../Tools/TitleGenerator'
 
 
 
@@ -45,10 +46,6 @@ export default function RogueB() {
                 
                 <RaceHeader theClass={theClass}/>
 
-                <ClassFeatures theClass={theClass}/>
-
-                <Proficiencies name={theClass.Class} theRaceOrClass={theClass}/>
-
                 <StartingAbilities spellsObject={theClass['Starting Abilities']} description={theClass['Starting Abilities Description']}/>
 
                 <SpellCasting theClass={theClass}/>
@@ -57,7 +54,8 @@ export default function RogueB() {
                 
                 <LevelingUp theClass={theClass}/>
 
-                <PageH2>Specializations</PageH2>
+                <br/><br/>
+                <QGTitle1 text={'Specializations'} height={40}/>
 
                 <p>
                     When you reach Level 2, you can choose one of the Specializations below.

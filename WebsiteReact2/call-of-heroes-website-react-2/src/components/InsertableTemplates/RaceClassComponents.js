@@ -37,6 +37,7 @@ import TableShamanLevelUp from '../TableNormal/TableShamanLevelUp'
 import PageH0 from '../PageH0/PageH0'
 import AnchorFixer from '../AnchorFixer/AnchorFixer'
 import { QGTitle1 } from '../../pages/Tools/TitleGenerator'
+import { SideMenuFromClass } from '../SideMenu/SideMenu'
 
 export function Proficiencies({ name, theRaceOrClass }) {
 
@@ -76,8 +77,7 @@ export function Proficiencies({ name, theRaceOrClass }) {
     )
 }
 
-export function RaceHeader({imgStyle, theRace, theClass, hueShift, size}) {
-    console.log(`Setting hueShift to ${hueShift}`)
+export function RaceHeader({imgStyle, theRace, theClass, hueShift, height=60}) {
     useEffect(() => {
         if (theRace != null) {
             document.title = theRace.Race
@@ -94,7 +94,7 @@ export function RaceHeader({imgStyle, theRace, theClass, hueShift, size}) {
             {/* <AnchorFixer */}
             <div className='landscape-only'>
                 {/* <PageH1>{ name }</PageH1> */}
-                <QGTitle1 text={name} hueShift={hueShift} size={size}/>
+                <QGTitle1 text={name} hueShift={hueShift} height={height}/>
                 <TwoColumnsDescriptive>
                     <Column style={{zIndex: 1}}>
                         <RaceDescription description={description}/>
@@ -132,7 +132,7 @@ export function ClassFeatures({ theClass, hueShift }) {
     return (
         <div id="class-features">
             {/* <PageH2>Class Features</PageH2> */}
-            <QGTitle1 text="Class Features" hueShift={hueShift} size={40}/>
+            <QGTitle1 text="Class Features" hueShift={hueShift} height={40}/>
 
             <TwoColumns>
                 <Column>
@@ -199,12 +199,16 @@ export function ClassFeatsDescription() {
         <p>If you decide to forego your Talent and pick a Feat instead, you can no longer re-pick it inbetween Adventures and you will have to stick to the Feat you chose for the rest of your life! Choose keenly!</p>
     </div>)
 }
-export function Equipment() {
+export function Equipment({ theClass }) {
     return (
         <div id="equipment">
-            <PageH2>Equipment and Gold</PageH2>
+            {/* <PageH2>Skills, Gold and Equipment</PageH2> */}
+            <QGTitle1 text={'Skills Gold and Equipment'} height={40}/>
+            <p>You start with a number of Skills you can pick from the <Link to="/Other/Proficiencies">Non-Combat Skills</Link> page.</p>
+            <SmallStat name="Number of Skills">Sense + 3</SmallStat>
+            <br/>
             <p>Your Character begins their journey with a total of 1000 gold.</p>
-            <SmallStat name="Starting Gold" color="rgb(23, 80, 0)">1000 <Icon name="gold"/></SmallStat>
+            <SmallStat name="Starting Gold">1000 <Icon name="gold"/></SmallStat>    {/* color="rgb(23, 80, 0)" */}
             <br/>
             <p>When you create your Character, you can spend these 1000 gold on equipment or useful items from the <Link to="/Other/Prices" style={{color: 'blue'}}><b>Prices</b></Link> page.</p>
             <p>For weapons and armor, visit the <Link to="/Other/Weapons">Weapons</Link> and <Link to="/Other/Armors" style={{color: 'blue'}}><b>Armors</b></Link> pages.</p>
@@ -212,10 +216,12 @@ export function Equipment() {
         </div>
     )
 }
+
 export function LevelingUp({ theClass }) {
     return (
         <div style={{marginTop: 'var(--page-padding)'}} id="leveling-up">
-            <PageH2>Leveling Up</PageH2>
+            {/* <PageH2>Leveling Up</PageH2> */}
+            <QGTitle1 text={'Leveling Up'} height={40}/>
     
             <TwoColumns type="normal">
                 <Column>
@@ -364,11 +370,12 @@ export function SpellCasting({ theClass }) {
         )
     }
 
-    // const hasMultipleMainStats = theClass['Spellcasting']['Main Stat'].includes('or')
+    const title = (theClass['Spellcasting'].SpellsOrAbilities === 'Spell' ? 'Spells' : 'Abilities') + ' and Mana'
 
     return (
         <div id={theClass['Spellcasting'].SpellsOrAbilities === 'Spell' ? 'spells-and-mana' : 'abilities-and-mana'}>
-            <PageH2>{ theClass['Spellcasting'].SpellsOrAbilities === 'Spell' ? 'Spells' : 'Abilities' } and Mana</PageH2>
+            {/* <PageH2>{ title } and Mana</PageH2> */}
+            <QGTitle1 text={title} height={40}/>
 
             <TwoColumns>
                 <Column>
@@ -426,7 +433,8 @@ export function PHealthAndArmor({ theClass }) {
 
 export function Spec({ children, name, spec }) {
     return (
-        <Page title={name} key={name} isSecondaryPage={true}>
+        <Page key={name} isSecondaryPage={true}>
+            <QGTitle1 text={name} height={60}/>
             <p>{spec.Description}</p>
 
             <PageH3>You start with...</PageH3>
@@ -451,7 +459,7 @@ export function SpecTalents({ spec }) {
 
     return (
         <div>
-            <PageH2>Talents</PageH2>
+            <QGTitle1 text={'Talents'} height={40}/>
             <p>At each of the following levels, you can pick one of the Abilities listed.</p>
 
             {talentTiers.map(talentTier => {
@@ -541,7 +549,7 @@ export function AbilitiesWithDescription({ spellsObject, description, title, aut
 
     return (
         <div id={id}>
-            { title != null && <PageH2>{title}</PageH2> }
+            { title != null && <QGTitle1 text={title} height={40}/> }
 
             <TwoColumns>
                 <Column>
@@ -556,6 +564,66 @@ export function AbilitiesWithDescription({ spellsObject, description, title, aut
                     { description != null && (<SADescription description={description}/>) }
                 </Column>
             </TwoColumns>
+        </div>
+    )
+}
+
+
+export function ClassPage({ theClass }) {
+    return (
+        <div>
+            <SideMenuFromClass theClass={theClass}/>
+            
+            <Page>
+                
+                <RaceHeader theClass={theClass}/>
+                
+                { theClass.Druidic && (
+                    <div>
+                        <PageH3 style={{marginTop: 'var(--page-padding)'}}>Druidic</PageH3>
+                        <p>{theClass.Druidic}</p>
+                    </div>
+                )}            
+                
+                <StartingAbilities spellsObject={theClass['Starting Abilities']} description={theClass['Starting Abilities Description']}/>
+
+                <SpellCasting theClass={theClass}/>
+
+                <Equipment theClass={theClass}/>
+                
+                <LevelingUp theClass={theClass}/>
+
+                <br/><br/>
+                <QGTitle1 text={'Specializations'} height={40}/>
+
+                <p>
+                    When you reach Level 2, you can choose one of the Specializations below.
+                    This decision is permanent, so make the choice that is right for you.
+                </p>
+
+            </Page>
+
+            {
+                Object.keys(theClass['Specs']).map(specName => {
+                    const spec = theClass['Specs'][specName]
+                    return (
+                        <Spec key={specName} name={specName} spec={spec}>
+
+                            {
+                                spec.Abilities != null && (
+                                    <div>
+                                        <PageH3>Choose One...</PageH3>
+                                        <ManySpells spells={U.spellsFromObject(spec.Abilities)}/>
+                                    </div>
+                                )
+                            }
+
+                            <SpecTalents spec={spec}/>
+
+                        </Spec>
+                    )
+                })
+            }
         </div>
     )
 }

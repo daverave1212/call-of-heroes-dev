@@ -27,59 +27,11 @@ import theClass from '../../databases/Classes/Cleric.json'
 
 import ManySpells from '../../components/Spell/ManySpells'
 
-import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies, ClassFeatsDescription, Equipment, RaceHeader } from '../../components/InsertableTemplates/RaceClassComponents'
+import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies, ClassFeatsDescription, Equipment, RaceHeader, ClassPage } from '../../components/InsertableTemplates/RaceClassComponents'
 import { SideMenu, SideMenuFromClass } from '../../components/SideMenu/SideMenu'
+import { QGTitle1 } from '../Tools/TitleGenerator'
 
 export default function Cleric() {
 
-    return (
-        <div>
-            <SideMenuFromClass theClass={theClass}/>
-
-            <Page>
-                
-                <RaceHeader theClass={theClass}/>
-
-                <ClassFeatures theClass={theClass}/>
-
-                <Proficiencies name={theClass.Class} theRaceOrClass={theClass}/>
-
-                <StartingAbilities spellsObject={theClass['Starting Abilities']} description={theClass['Starting Abilities Description']}/>
-
-                <SpellCasting theClass={theClass}/>
-
-                <Equipment theClass={theClass}/>
-
-                <LevelingUp theClass={theClass}/>
-
-                <PageH2>Specializations (Level 2)</PageH2>
-
-                <p>
-                    When you reach Level 2, you can choose one of the Specializations below.
-                    This decision is permanent, so make the choice that is right for you.
-                    The first time you choose a cleric {theClass.Class} (specialization), you must choose between two abilities.
-                    For example, for Battle Cleric, you have to choose either March Ahead or Piety.
-                    Choose wisely...
-                </p>
-
-            </Page>
-
-            {
-                Object.keys(theClass['Specs']).map(specName => {
-                    const spec = theClass['Specs'][specName]
-                    return (
-                        <Spec key={specName} name={specName} spec={spec}>
-
-                            <PageH3>Choose One...</PageH3>
-                            <ManySpells spells={U.spellsFromObject(spec.Abilities)}/>
-
-                            <SpecTalents spec={spec}/>
-
-                        </Spec>
-                    )
-                })
-            }
-
-        </div>
-        )
+    return <ClassPage theClass={theClass}/>
 }

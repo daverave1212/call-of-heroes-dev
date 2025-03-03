@@ -29,66 +29,11 @@ import ManySpells from '../../components/Spell/ManySpells'
 
 import theClass from '../../databases/Classes/Druid.json'
 
-import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies, ClassFeatsDescription, Equipment, RaceHeader, } from '../../components/InsertableTemplates/RaceClassComponents'
+import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies, ClassFeatsDescription, Equipment, RaceHeader, ClassPage, } from '../../components/InsertableTemplates/RaceClassComponents'
 import { SideMenuFromClass } from '../../components/SideMenu/SideMenu'
+import { QGTitle1 } from '../Tools/TitleGenerator'
 
 export default function Druid() {
 
-    return (
-        <div>
-
-            <SideMenuFromClass theClass={theClass}/>
-
-            <Page>
-                
-                <RaceHeader theClass={theClass}/>
-
-                <ClassFeatures theClass={theClass}/>
-                
-                <PageH3 style={{marginTop: 'var(--page-padding)'}}>Druidic</PageH3>
-                <p>{theClass.Druidic}</p>
-
-                <Proficiencies name={theClass.Class} theRaceOrClass={theClass}/>
-
-                <StartingAbilities spellsObject={theClass['Starting Abilities']} description={theClass['Starting Abilities Description']}/>
-
-                <SpellCasting theClass={theClass}/>
-
-                <Equipment theClass={theClass}/>
-                
-                <LevelingUp theClass={theClass}/>
-
-                <PageH2>Specializations</PageH2>
-
-                <p>
-                    When you reach Level 2, you can choose one of the Specializations below.
-                    This decision is permanent, so make the choice that is right for you.
-                </p>
-
-            </Page>
-
-            {
-                Object.keys(theClass['Specs']).map(specName => {
-                    const spec = theClass['Specs'][specName]
-                    return (
-                        <Spec key={specName} name={specName} spec={spec}>
-
-                            {
-                                spec.Abilities != null && (
-                                    <div>
-                                        <PageH3>Choose One Domain...</PageH3>
-                                        <ManySpells spells={U.spellsFromObject(spec.Abilities)}/>
-                                    </div>
-                                )
-                            }
-
-                            <SpecTalents spec={spec}/>
-
-                        </Spec>
-                    )
-                })
-            }
-
-        </div>
-        )
+    return <ClassPage theClass={theClass}/>
 }

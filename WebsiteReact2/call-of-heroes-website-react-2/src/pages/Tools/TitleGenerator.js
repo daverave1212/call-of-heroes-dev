@@ -16,7 +16,7 @@ const GET_LETTER_OFFSET_TOP = function(letter, sizeMultiplier=1) {
         'w': 10,'x': 10,'y': 10,'z': 10,
     }[letter] * sizeMultiplier
 }
-const GET_DEFAULT_KERNING = function(sizeMultiplier=1) { return 28 * sizeMultiplier }
+const GET_DEFAULT_KERNING = function(sizeMultiplier=1) { return 31 * sizeMultiplier }
 const KERNING = {}
 
 // function hasSpaceStartBottom(letter) { return ['c', 'g', 'o', 'q', 't', 'u', 'v', 'w', 'y'].includes(letter) }
@@ -48,7 +48,7 @@ function getKerning(previousLetter, letter, sizeMultiplier=1) {
         'ci': -10,
         'cj': -10,
         'ck': -10,
-        'cl': -15,
+        'cl': 0,
         'cm': -10,
         'cn': -10,
         'cp': -10,
@@ -102,7 +102,7 @@ function getKerning(previousLetter, letter, sizeMultiplier=1) {
         'vg': -20,
         'vo': -20,
         'vq': -20,
-        'wa': -15,
+        'wa': -65,
         'wb': -30,
         'wc': -30,
         'wg': -30,
@@ -115,18 +115,20 @@ function getKerning(previousLetter, letter, sizeMultiplier=1) {
         'yq': -20,
         'xo': -15,
     }
-    const S_KERNING = 10 * sizeMultiplier
+    const adjustedSizeMultiplier = sizeMultiplier < 1? sizeMultiplier + 0.3 : sizeMultiplier
+    const S_KERNING = 10 * adjustedSizeMultiplier
     if (COMBOS[combo] != null) {
-        return kerning + COMBOS[combo] * sizeMultiplier
+        return (kerning + COMBOS[combo]) * adjustedSizeMultiplier
     }
     if (previousLetter == 's' || letter == 's') {
-        return kerning + S_KERNING
+        return kerning * adjustedSizeMultiplier + S_KERNING
     }
-    return kerning
+    return kerning * adjustedSizeMultiplier
 }
 
 
 const GET_CAPITAL_EXTRA_HEIGHT = function(sizeMultiplier=1) { return 75 * sizeMultiplier }
+window.GET_CAPITAL_EXTRA_HEIGHT =GET_CAPITAL_EXTRA_HEIGHT
 function isLetterTall(letter) {
     return TALL_LETTERS.includes(letter)
 }
@@ -144,12 +146,10 @@ export function QGTitle1({ text, className, style, hueShift, height }) {
     const canvasRef = useRef(null)
     const defaultSize = 60
     const newStyle = {
-        height: (size == null? defaultSize + 'px' : (size + 'px')),
+        height: (height == null? defaultSize + 'px' : (height + 'px')),
         filter: (hueShift == null? null: `hue-rotate(${hueShift}deg)`),
         ...style
     }
-
-    console.log({newStyle})
 
     const sizeMultiplier = height / defaultSize
     useEffect(() => {
@@ -172,19 +172,17 @@ export async function drawQGTextOnCanvas(canvas, text, sizeMultiplier=1) {
         }
         const thisLetterImage = letterImage[letter]
         if (thisLetterImage.complete && thisLetterImage.naturalWidth != NaN) {
-            console.log(`Resolved letter: ${letter}`)
             resolve()
         } else {
             thisLetterImage.onload = () => {
-                console.log(`Resolved letter: ${letter}`)
                 resolve()
             }
         }
     }))
     await Promise.all(imageLoadingPromises)
 
+
     function getTextWidth(text) {
-        console.log(`Getting text width for "${text}"`)
         let widthSoFar = 0
         for (let i = 0; i < text.length; i++) {
             const letter = text.charAt(i)
@@ -195,8 +193,8 @@ export async function drawQGTextOnCanvas(canvas, text, sizeMultiplier=1) {
                 continue
             }
             const img = letterImage[letterLowerCase]
-            console.log(`  img.naturalWidth: ${img.naturalWidth}`)
-            const extraWidth = isCapital? getImageRelativeWidthAtHeight(img, getLetterHeight(letterLowerCase, isCapital)) : img.naturalWidth
+            const letterHeight = getLetterHeight(letterLowerCase, isCapital, sizeMultiplier)
+            const extraWidth = (isCapital? getImageRelativeWidthAtHeight(img, letterHeight) : (img.naturalWidth * sizeMultiplier))
             widthSoFar += extraWidth
 
             const previousLetter = i > 0? text.charAt(i - 1): null
@@ -208,9 +206,9 @@ export async function drawQGTextOnCanvas(canvas, text, sizeMultiplier=1) {
         return widthSoFar
     }
 
+    
 
     const textWidth = getTextWidth(text)
-    console.log(`textWidth for "${text}": ${textWidth}`)
     canvas.width = textWidth
     canvas.height = GET_TALL_LETTER_HEIGHT(sizeMultiplier)
     let drawX = 0
@@ -225,7 +223,7 @@ export async function drawQGTextOnCanvas(canvas, text, sizeMultiplier=1) {
             continue
         }
 
-        const drawY = (isCapital? 0: GET_CAPITAL_EXTRA_HEIGHT(sizeMultiplier)) + GET_LETTER_OFFSET_TOP(letterLowerCase, sizeMultiplier)
+        
         const image = letterImage[letterLowerCase]
 
         const previousLetter = i > 0? text.charAt(i - 1): null
@@ -234,9 +232,12 @@ export async function drawQGTextOnCanvas(canvas, text, sizeMultiplier=1) {
             drawX += kerning
         }
 
-        const imageHeight = isCapital? image.naturalHeight + GET_CAPITAL_EXTRA_HEIGHT(sizeMultiplier): image.naturalHeight
+        window.GET_CAPITAL_EXTRA_HEIGHT = GET_CAPITAL_EXTRA_HEIGHT
+        const yOffset = GET_LETTER_OFFSET_TOP(letterLowerCase, sizeMultiplier)
+        const drawY = isCapital? yOffset: (GET_CAPITAL_EXTRA_HEIGHT(sizeMultiplier) + yOffset)
+        const imageHeight = (isCapital? image.naturalHeight * sizeMultiplier + GET_CAPITAL_EXTRA_HEIGHT(sizeMultiplier): (image.naturalHeight * sizeMultiplier))
         drawImageOnCanvasAsync(canvas, image.src, drawX, drawY, null, imageHeight)
-        const extraWidth = isCapital? getImageRelativeWidthAtHeight(image, getLetterHeight(letterLowerCase, isCapital, sizeMultiplier)) : image.naturalWidth
+        const extraWidth = (isCapital? getImageRelativeWidthAtHeight(image, getLetterHeight(letterLowerCase, isCapital, sizeMultiplier)) : image.naturalWidth * sizeMultiplier)
         drawX += extraWidth
     }
 
@@ -270,6 +271,7 @@ export default function TitleGenerator() {
             const letterLowerCase = letter.toLowerCase()
             const isCapital = letter.toLowerCase() != letter
             if (letter == ' ') {
+                
                 widthSoFar += GET_SPACE_WIDTH()
                 continue
             }
