@@ -11,7 +11,7 @@ import './app-text-vars.css'
 import './app-layout-vars.css'
 import './layout-classes.css'
 
-import './Nav.css'
+import './nav.css'
 import './components/SmallStat/InlineIcon.css'
 
 import Index from './pages/index'

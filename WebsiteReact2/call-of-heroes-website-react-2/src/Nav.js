@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 
 import './App.css';
-import './Nav.css'
+import './nav.css'
 
 import Index from './pages/index'
 import Armors from './pages/Other/Armors'
@@ -63,6 +63,9 @@ import { getLocalStorageBool } from './utils';
 import AppStateContext from './services/AppStateContext';
 import TreasureGenerator from './pages/Tools/TreasureGenerator';
 import { getIsActionPointsSystem, globalStateStore, setIsActionPointsSystem } from './GlobalState';
+import * as auth from './Auth'
+import { getAnyDocInCollection, getMyDocInCollection, setMyDocInCollection } from './Database';
+import Icon from './components/Icon';
 
 
 function LogoQG() {
@@ -85,6 +88,36 @@ function LiLink({to, children, isDownload, style, className}) {
     <li><Link className={className} style={style} to={to}>{children}</Link></li>
   )
 }
+function LiLinkWithIcon({to, children, isDownload, style, className, iconName}) {
+
+  function LinkContent() {
+    return (
+      <div className='flex row'>
+        <div>
+          <Icon name={iconName}/>
+        </div>
+        <div>
+          {children}
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <li onClick={null}>
+      { isDownload == true? (
+        <a className={className} href={to} target="_blank" style={style} download>
+          <LinkContent/>
+        </a>
+      ): (
+        <Link className={className} style={style} to={to}>
+          <LinkContent/>
+        </Link>
+      )}
+      
+    </li>
+  )
+}
 
 const DISCORD_URL = 'https://discord.gg/' + '27aqSEDyE3'
 
@@ -100,6 +133,7 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
   const [areExpandedState, setAreExpandedState] = useState(getBaseStateAllFalse())
 
   function maybeActiveClassLS(name) {
+    // return 'subnav--ls-active'
     return navState.currentlyOpenSubnav == name? 'subnav--ls-active' : 'subnav--ls-inactive'
   }
   function maybeActiveClassPortrait(name) {
@@ -182,7 +216,7 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
             <LiLink to="/Other/Abilities">Basic Abilities (Schools)</LiLink>
             <LiLink to="/Other/Proficiencies">Skills</LiLink>
             <LiLink to="/Other/Feats">Feats</LiLink>
-            <LiLink className="premium" to="/Other/AbilitySheets">Ability Sheet Maker</LiLink>
+            <LiLinkWithIcon className="premium" to="/Other/AbilitySheets" iconName="Premium.svg" >Ability Sheet Maker</LiLinkWithIcon>
           </ul>
 
           <h4 style={{marginTop: '38px'}}>Gear and Items</h4>
@@ -211,12 +245,12 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
       </h3>
 
       <MegaDropdownMenu title="Learn To Play">
-      <MegaDropdownMenuSection title="Learn To Play">
-          <LiLink to="/Other/Learn#Character-Creation">Character Creation Guide</LiLink>
-          <LiLink to="/Other/Learn#Transition-Guide">Transition Guide (from D&D)</LiLink>
-          <LiLink to="/Other/Learn#For-New-Players">New Player Guide</LiLink>
-          <LiLink to="/Other/Learn#Rules">Rules</LiLink>
-        </MegaDropdownMenuSection>
+        <MegaDropdownMenuSection title="Learn To Play">
+            <LiLink to="/Other/Learn#Character-Creation">Character Creation Guide</LiLink>
+            <LiLink to="/Other/Learn#Transition-Guide">Transition Guide (from D&D)</LiLink>
+            <LiLink to="/Other/Learn#For-New-Players">New Player Guide</LiLink>
+            <LiLink to="/Other/Learn#Rules">Rules</LiLink>
+          </MegaDropdownMenuSection>
       </MegaDropdownMenu>
 
       <MegaDropdownMenu title="QM Resources">
@@ -255,6 +289,79 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
     </div>)
 }
 
+function AccountButtons() {
+
+  let [isLogged, setIsLogged] = useState(auth.isLoggedIn())
+
+  auth.subscribeToUserStateChanged(() => {
+    setIsLogged(auth.isLoggedIn())
+  })
+
+  function LoginButton() {
+    return (
+      <div className='nav-item flex row center-content' onClick={async () => {
+        const result = await auth.login()
+      }}>
+        <div className="center-content">
+          <Icon name={'Google.webp'} style={{margin: '0px', marginRight: '0.25rem', marginTop: '-2px'}}/>
+        </div>
+        <div className="center-content">
+          <span>Login</span>
+        </div>
+      </div>
+    )
+  }
+
+  function LogoutButton() {
+    return (
+      <div className='nav-item' onClick={async () => {
+        const result = auth.logout()
+        console.log({result})
+      }}>
+        Logout
+      </div>
+    )
+  }
+
+  return (
+    <div className="nav-login-buttons">
+      { isLogged? (
+        <LogoutButton/>
+      ): (
+        <LoginButton/>
+      )}
+    </div>
+  )
+}
+
+
+
+
+
+function TestGetButton() {
+  return (
+    <div className='nav-item' onClick={async () => {
+      console.log(await getMyDocInCollection('user-data'))
+    }}>
+      Get
+    </div>
+  )
+}
+
+function TestSetButton() {
+  return (
+    <div className='nav-item' onClick={async () => {
+      console.log(setMyDocInCollection('user-data', {
+        subscriptionType: 'subscribed'
+      }))
+    }}>
+      Set
+    </div>
+  )
+}
+
+
+
 export default function Nav() {
 
     const [isBurgerClicked, setIsBurgerClicked] = useState(false)
@@ -269,7 +376,33 @@ export default function Nav() {
 
     function NavItem({name, children}) {          // On hover, changes state to display a subnav
       return (<div className='nav-item' onMouseEnter={() => setCurrentlyOpenSubnav(name) }>{ children }</div>)
-  }
+    }
+
+    function PlayWithUsButton() {
+      return (
+        <div className='nav-item'>
+          <a onClick={event => {
+            event.preventDefault()
+            const inviteUrl = DISCORD_URL
+            window.open(inviteUrl, '_blank')
+          }}>
+            Play With Us!
+          </a>
+        </div>
+      )
+    }
+
+    function ActionPointsCheck() {
+      return (
+        <div>
+          <input type="checkbox" checked={getIsActionPointsSystem()} onChange={() => {
+            const newValue = !getIsActionPointsSystem()
+            console.log({newValue})
+            setIsActionPointsSystem(newValue)
+          }}/><label>Action Points?</label>
+        </div>
+      )
+    }
 
     return (
       <div id="Navigation-Section" onMouseLeave={() => setCurrentlyOpenSubnav(null)}>
@@ -278,30 +411,17 @@ export default function Nav() {
           <div className='burger-icon' onClick={onClickOnBurger}> <img src="burger-icon.png"/> </div>
 
           <nav className="nav-landscape">
-            <div className='nav-item'>
-              <a onClick={event => {
-                event.preventDefault()
-                const inviteUrl = DISCORD_URL
-                window.open(inviteUrl, '_blank')
-              }}>
-                Play With Us!
-              </a>
-            </div>
-            <NavItem name='Database'>Database</NavItem>
 
-            {/* <div className='nav-item'>
-              <Link to="/Other/Learn">Learn To Play</Link>
-            </div> */}
+            <PlayWithUsButton/>
+            <NavItem name='Database'>Database</NavItem>
             <NavItem name='Learn To Play'>Learn To Play</NavItem>
             <NavItem name='QM Resources'>QM Resources</NavItem>
             <NavItem name='Downloads'>Downloads</NavItem>
-            <div>
-              <input type="checkbox" checked={getIsActionPointsSystem()} onChange={() => {
-                const newValue = !getIsActionPointsSystem()
-                console.log({newValue})
-                setIsActionPointsSystem(newValue)
-              }}/><label>Action Points?</label>
-            </div>
+            
+            {/* <ActionPointsCheck/> */}
+
+            <AccountButtons/>
+
           </nav>
 
           <MegaDropdownAndPortraitNav navState={navState} isBurgerClicked={isBurgerClicked}/>
