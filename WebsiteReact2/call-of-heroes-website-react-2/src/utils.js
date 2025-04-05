@@ -5,6 +5,7 @@ import Separator from "./components/Separator/Separator"
 import weapons from './databases/Weapons.json'
 import skills from './databases/Proficiencies.json'
 import abilities from './databases/Abilities.json'
+import overallData from './databases/OverallData.json'
 
 // ---------------- Spells Utilities ----------------
 
@@ -263,6 +264,22 @@ export function assertCorrectSpellFormat(spell) {
     }
 
 }
+export async function getAllClasses() {
+    const classNames = overallData.Classes
+    const classes = {}
+    for (const className of classNames) {
+        const classData = await import(`./databases/Classes/${className}.json`)
+        classes[className] = classData
+    }
+    return classes
+}
+export function getClassRepresentativeIconName(classObj) {
+    console.log({classObj})
+    const firstSpellName = Object.keys(classObj['Starting Abilities'])[0]
+    const spellName = removeTildes(firstSpellName)
+    return spellName
+}
+
 
 
 
@@ -349,6 +366,18 @@ export function allEqual(arr, val) {
     const allEqualElems = arr.filter(elem => elem == val)
     return arr.length == allEqualElems.length
 }
+export function splitArrayEvenly(arr, nArrays) {
+    const arrays = new Array(nArrays)
+    for (let i = 0; i < arr.length; i++) {
+        const arrayI = i % nArrays
+        if (arrays[arrayI] == null) {
+            arrays[arrayI] = []
+        }
+        arrays[arrayI].push(arr[i])
+    }
+    return arrays
+}
+window.splitArrayEvenly = splitArrayEvenly
 
 
 
