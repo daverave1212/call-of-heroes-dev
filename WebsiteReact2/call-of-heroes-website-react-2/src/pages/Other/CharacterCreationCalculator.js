@@ -6,8 +6,7 @@
 
 
 
-import { useState } from "react";
-import overallData from '../../databases/OverallData.json'
+import { useEffect, useState } from "react";
 import { Races, Classes } from '../Other/AllRacesAndClasses'
 import SmallStat from "../../components/SmallStat/SmallStat";
 import Page from "../../containers/Page/Page";
@@ -19,7 +18,12 @@ import './CharacterCreationCalculator.css'
 import { IconWithSpinner, SpellTopIconSide } from "../../components/Spell/Spell";
 import { CoolButton } from "../../components/CoolButton/CoolButton";
 import HeroButton from "../../components/HeroButton/HeroButton";
-import { getSpellIconPathByName } from "../../utils";
+import { getAllClasses, getClassRepresentativeIconName, getSpellIconPathByName, splitArrayEvenly } from "../../utils";
+import Selector from "../../components/Selector/Selector";
+import ManySpells from "../../components/Spell/ManySpells";
+
+import overallData from './../../databases/OverallData.json'
+import { connectFirestoreEmulator } from "firebase/firestore";
 
 export function LabelWithInput({ labelText, placeholder }) {
     return (
@@ -31,6 +35,19 @@ export function LabelWithInput({ labelText, placeholder }) {
 }
 
 export default function CharacterCreationCalculator() {
+
+    const [classesData, setClassesData] = useState(null)
+    const [classObjectRows, setClassObjectRows] = useState([[], []])
+    
+    useEffect(() => {
+        getAllClasses().then(classesObj => {
+            setClassesData(classesObj)
+            const classNames = Object.keys(classesObj)
+            const classObjects = classNames.map(name => classesObj[name])
+            const classObjectRows = splitArrayEvenly(classObjects, 2)
+            setClassObjectRows(classObjectRows)
+        })
+    }, [])
 
     function NameAndIcon() {
         return (
@@ -55,16 +72,19 @@ export default function CharacterCreationCalculator() {
         )
     }
 
-    function Selector({ name, iconName}) {
+    function ClassSpoilerSelector({ classObj }) {
         return (
-            <div class="selector">
-                <div className="flex">
-                    <div className="icon-wrapper">
-                        <img src={`${getSpellIconPathByName(iconName)}`}/>
-                    </div>
-                    <div className="name-wrapper">{ name }</div>
-                </div>
-            </div>
+            <Spoiler
+                title={
+                    <Selector
+                        name={classObj.Class}
+                        iconName={getClassRepresentativeIconName(classObj)}
+                    />
+                }
+                content={
+                    <div></div>
+                }
+            />
         )
     }
 
@@ -74,23 +94,14 @@ export default function CharacterCreationCalculator() {
 
             <TwoColumns>
                 <Column>
-                    <Spoiler title={<Selector name="Cleric" iconName="Taunt"/>} content={<div>
-                        <p>asdadasd</p>
-                        <p>asdadasd</p>
-                        <p>asdadasd</p>
-                        <p>asdadasd</p>
-                        <p>asdadasd</p>
-                        <p>asdadasd</p>
-                    </div>}/>
-                    <Selector name="Cleric" iconName="Taunt"/>
-                    <Selector name="Cleric" iconName="Taunt"/>
-                    <Selector name="Cleric" iconName="Taunt"/>
+                    { classObjectRows[0].map(classObj => (
+                        <ClassSpoilerSelector classObj={classObj}/>
+                    )) }
                 </Column>
                 <Column>
-                    <Selector name="Cleric" iconName="Taunt"/>
-                    <Selector name="Cleric" iconName="Taunt"/>
-                    <Selector name="Cleric" iconName="Taunt"/>
-                    <Selector name="Cleric" iconName="Taunt"/>
+                    { classObjectRows[1].map(classObj => (
+                        <ClassSpoilerSelector classObj={classObj}/>
+                    )) }
                 </Column>
             </TwoColumns>
         </Page>
