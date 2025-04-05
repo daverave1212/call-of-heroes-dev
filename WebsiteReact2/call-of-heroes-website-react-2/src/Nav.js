@@ -292,9 +292,11 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
 function AccountButtons() {
 
   let [isLogged, setIsLogged] = useState(auth.isLoggedIn())
+  console.log({isLoggedIn: auth.isLoggedIn()})
 
-  auth.subscribeToUserStateChanged(() => {
-    setIsLogged(auth.isLoggedIn())
+  auth.onUserStateChanged(() => {
+    console.log(`Setting isLogged`)
+    // setIsLogged(console.log(`Log changed :)`))
   })
 
   function LoginButton() {

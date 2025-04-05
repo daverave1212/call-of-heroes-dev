@@ -1,0 +1,48 @@
+
+.spoiler {
+    width: 100%;
+    border: solid gray 1px;
+    border-radius: 3px;
+
+    margin-bottom: 1rem;
+    transition: padding-left 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+.spoiler:hover {
+    cursor: pointer;
+    padding-left: 0.5rem;
+    /* border: solid var(--theme-color-1) 3px; */
+    -webkit-box-shadow: 0px 0px 15px -6px var(--theme-color-1);
+    -moz-box-shadow: 0px 0px 15px -6px var(--theme-color-1);
+    box-shadow: 0px 0px 15px -6px var(--theme-color-1);
+}
+
+.spoiler .top {
+    position: relative;
+    width: 100%;
+}
+.spoiler .top .arrow {
+    position: absolute;
+    height: 1.5rem;
+    top: 1rem;
+    right: 1rem;
+
+    transform: rotate(-90deg);
+    transition: transform 0.2s linear;
+}
+.spoiler:hover .top .arrow {
+    transform: rotate(0deg);
+}
+
+
+.spoiler .bottom {
+    max-height: 0px;
+    overflow-y: hidden;
+    transition: max-height 0.5s;
+}
+.spoiler.expanded .bottom {
+    max-height: 10rem;
+}
+.spoiler .bottom .content {
+    padding: 1rem;
+    padding-top: 0px;
+}

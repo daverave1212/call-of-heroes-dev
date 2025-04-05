@@ -1,6 +1,7 @@
 
+import { configureStore } from "@reduxjs/toolkit"
 import { initializeApp } from "firebase/app"
-import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth'
+import { GoogleAuthProvider, getAuth, onAuthStateChanged, signInWithPopup } from 'firebase/auth'
 import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc, query, getDoc } from "firebase/firestore"
 
 
@@ -30,9 +31,42 @@ googleAuthProvider.setCustomParameters({
 })
 
 
+const firebaseUserStore = configureStore({
+    reducer: function(firebaseUserState = null, {type, payload}) {
+        if (type != 'change') {
+            return firebaseUserState
+        }
+        if (payload == null) {
+            return null
+        }
+        return {...firebaseUserState, ...payload}
+    }
+})
 
 
+onAuthStateChanged(auth, user => {
+    console.log(`Changing auth: user null? ${user == null}`)
+    if (user == null) {
+        firebaseUserStore.dispatch({ type: 'change', payload: null })
+    } else {
+        firebaseUserStore.dispatch({ type: 'change', payload: {
+            id: user.uid,
+            name: user.displayName,
+            token: user.accessToken,
+        }})
+    }
+})
 
+export function onAuthChanged(func) {
+    onAuthStateChanged(auth, user => {
+        func(user)
+    })
+}
+
+export function isLoggedIn() {
+    console.log(`FirebaseAuth.isLoggedIn...`)
+    return firebaseUserStore.getState() != null
+}
 
 export async function loginWithGoogle() {
     const result = await signInWithPopup(auth, googleAuthProvider)  // or signInWithRedirect
@@ -46,16 +80,9 @@ export async function logout() {
     await auth.signOut()
 }
 
-export async function isLoggedIn() {
-    return auth().currentUser != null
-}
 
 export async function test() {
-    // const userDocRef = doc(db, "user-data", 'uHCqdNCbc69tRKk7r6kA')
-    // const docSnapshot = await getDoc(userDocRef)
-    // if (docSnapshot.exists() == false) {
-    //     alert('Document does not exist')
-    // }
-    // const document = docSnapshot.data()
-    // console.log({document})
+
 }
+
+
