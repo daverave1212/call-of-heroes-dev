@@ -12,6 +12,7 @@ import { PetOrAnimalLeftOnly } from '../../pages/Other/PetOrAnimal'
 import { getIsActionPointsSystem } from '../../GlobalState'
 import HeroButton from '../HeroButton/HeroButton'
 import Ribbon from '../Ribbon/Ribbon'
+import CoolButton from '../CoolButton/CoolButton'
 
 const actionPointsMapping = {
     '1 Action': '2 Action Points',
@@ -285,8 +286,8 @@ export default function Spell({ children, spell, style, hasIcon, hasBorder, hasC
             { 'spell--with-variants': hasVariants === true },
             { 'spell__no-border': hasBorder == false }
         )}>
-            { hasBorder != false && <SpellBorder/> } 
             { isSelected && <Ribbon>Selected!</Ribbon>}
+            { hasBorder != false && <SpellBorder/> } 
             <SpellBackground/>
             <div className='spell__box'> {/* This has CSS to be perfectly in the bounds of the borders and banner */}
                 <SpellTop
@@ -359,11 +360,30 @@ export default function Spell({ children, spell, style, hasIcon, hasBorder, hasC
                 { hasCopyButton === true && <CopySpellButton elementId={uniqueID} shouldAddBorder={true}/> }
                 { onSelected != null && (
                     <div>
-                        <HeroButton isCustomContent={true} onClick={() => {
-                            const newIsSelected = !isSelected
-                            setIsSelected(newIsSelected)
-                            onSelected(newIsSelected)
-                        }}>Choose</HeroButton>
+                        <div className='center-content' onClick={() => {
+                                const newIsSelected = !isSelected
+                                setIsSelected(newIsSelected)
+                                onSelected(newIsSelected)
+                            }}>
+                            {/* <button>
+                                { isSelected? 'Unselect': 'Select' }
+                            </button> */}
+
+                            {/* <CoolButton height="48px" width="40%" fontSize="var(--h3-size)" onClick={() => {
+                                const newIsSelected = !isSelected
+                                setIsSelected(newIsSelected)
+                                onSelected(newIsSelected)
+                            }}>
+                                { isSelected? 'Unselect': 'Select'}
+                            </CoolButton> */}
+                            <HeroButton isCustomContent={true} onClick={() => {
+                                const newIsSelected = !isSelected
+                                setIsSelected(newIsSelected)
+                                onSelected(newIsSelected)
+                            }}>
+                                { isSelected? 'Unselect': 'Select' }
+                            </HeroButton>
+                        </div>
                         <div style={{height: '1rem'}}></div>
                     </div>
                 )}

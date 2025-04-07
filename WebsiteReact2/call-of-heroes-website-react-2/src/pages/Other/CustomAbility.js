@@ -17,7 +17,7 @@ import TwoColumns from '../../components/TwoColumns/TwoColumns'
 import Column from '../../components/TwoColumns/Column'
 
 import yaml from 'js-yaml'
-import { CoolButton } from '../../components/CoolButton/CoolButton.js'
+import CoolButton from '../../components/CoolButton/CoolButton.js'
 
 const exampleAbility = `
 [{

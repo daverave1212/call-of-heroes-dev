@@ -23,7 +23,7 @@ export default function Tabs({ tabNames, tabComponents }) {
                 )) }
             </div>
 
-            <div className="tab-content">
+            <div className="tab-content margin-top-2">
                 { tabComponents.map((component, i) => (
                     <div className={`tab ${activeTabI == i? 'selected': 'unselected'}`}>
                         { component }

@@ -9,6 +9,7 @@ import Separator from '../../components/Separator/Separator'
 import AppStateContext from '../../services/AppStateContext'
 import LandingPageSeparator from '../../components/LandingPageSeparator/LandingPageSeparator'
 import { titleToId } from '../../utils'
+import classNames from 'classnames'
 
 
 
@@ -17,16 +18,23 @@ export default function Page({
     title,
     subtitle,
     id,
+    style,
 
     isCollapsable,                  // If true, clicking on the title collapses the page
     isSecondaryPage,                // Default false; if true, it will not update title
     hasNoLimits,                    // Default is false; if true, it will have no width limits
+    hasNoMargins,                   // Default is false; if true, has no margins
     isCentered,                     // Default is false
     hasCopyButton
 }) {
 
     const [appState, setAppState] = useContext(AppStateContext)
     const [state, setState] = useState({ isExpanded: true })
+
+    const pageClasses = classNames('page', {
+        'page--no-limits': hasNoLimits == true,
+        'no-margin': hasNoMargins == true
+    })
 
     const togglePageDisplay = () => {
         if (isCollapsable != false) {
@@ -42,7 +50,7 @@ export default function Page({
     }, [title])
 
     return (
-        <div className={`page ${hasNoLimits == true? 'page--no-limits' : ''}`} id={id}>
+        <div className={pageClasses} id={id} style={style}>
             
             { subtitle != null && (
                 <div>

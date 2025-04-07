@@ -15,7 +15,7 @@ import { spellsFromObject } from '../../utils.js'
 import Spell from '../../components/Spell/Spell'
 import TwoColumns from '../../components/TwoColumns/TwoColumns'
 import Column from '../../components/TwoColumns/Column'
-import { CoolButton } from '../../components/CoolButton/CoolButton.js'
+import CoolButton from '../../components/CoolButton/CoolButton.js'
 import MonsterBlock from '../../components/MonsterBlock/MonsterBlock.js'
 
 import yaml from 'js-yaml'

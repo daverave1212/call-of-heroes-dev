@@ -117,30 +117,33 @@ export default function CharacterCreationCalculator() {
 
         const baseStats = [-1, 0, 1, 2, 3]
         const statNames = ["Might", 'Dexterity', 'Intelligence', 'Sense', 'Charisma']
+        
         const [stats, setStats] = useState(baseStats)
 
-        function verifyStats() {
+        function checkStandardStats() {
             const statsCopy = [...stats].sort()
             const baseStatsCopy = [...baseStats].sort()
             const isIncorrect = statsCopy.filter((stat, i) => baseStatsCopy[i] != stat).length > 0
-            console.log({isIncorrect})
+            return !isIncorrect
         }
 
         return (
-            <div className="flex row">
-                <div className="stats-selector flex column">
-                    { baseStats.map((num, i) => (
-                        <StatInput name={statNames[i]} value={stats[i]} onChange={evt => {
-                            const statsCopy = [...stats]
-                            statsCopy[i] = parseInt(evt.target.value)
-                            setStats(statsCopy)
-                        }}/>
-                    )) }
+            <Page hasNoMargins={true} className>
+                <div className="center-content flex" style={{gap: '2rem'}}>
+                    <div className="stats-selector flex">
+                        { baseStats.map((num, i) => (
+                            <StatInput name={statNames[i]} value={stats[i]} onChange={evt => {
+                                const statsCopy = [...stats]
+                                statsCopy[i] = parseInt(evt.target.value)
+                                setStats(statsCopy)
+                            }}/>
+                        )) }
+                    </div>
+                    <div className="center-content">
+                        <button onClick={checkStandardStats}>Check</button>
+                    </div>
                 </div>
-                <div>
-                    <button onClick={verifyStats}>Check</button>
-                </div>
-            </div>
+            </Page>
         )
     }
 
