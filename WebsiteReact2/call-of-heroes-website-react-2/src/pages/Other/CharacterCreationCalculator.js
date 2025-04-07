@@ -18,17 +18,21 @@ import './CharacterCreationCalculator.css'
 import { IconWithSpinner, SpellTopIconSide } from "../../components/Spell/Spell";
 import { CoolButton } from "../../components/CoolButton/CoolButton";
 import HeroButton from "../../components/HeroButton/HeroButton";
-import { getAllClasses, getClassRepresentativeIconName, getSpellIconPathByName, splitArrayEvenly } from "../../utils";
+import { getAllClasses, getAllRaces, getClassRepresentativeIconName, getSpellIconPathByName, splitArrayEvenly } from "../../utils";
 import Selector from "../../components/Selector/Selector";
 import ManySpells from "../../components/Spell/ManySpells";
 
 import overallData from './../../databases/OverallData.json'
 import { connectFirestoreEmulator } from "firebase/firestore";
+import PageH2 from "../../components/PageH2/PageH2";
+import Tabs from "../../components/Tabs/Tabs";
+import { CCRacePage, RacePage } from "../../components/InsertableTemplates/RaceClassComponents";
+import { QGTitle1 } from "../Tools/TitleGenerator";
 
 export function LabelWithInput({ labelText, placeholder }) {
     return (
         <div className="flex-column align-left">
-            <label style={{marginBottom: '6px'}}>{ labelText }</label>
+            <label className="text-input" style={{marginBottom: '6px'}}>{ labelText }</label>
             <input/>
         </div>
     )
@@ -36,18 +40,24 @@ export function LabelWithInput({ labelText, placeholder }) {
 
 export default function CharacterCreationCalculator() {
 
-    const [classesData, setClassesData] = useState(null)
-    const [classObjectRows, setClassObjectRows] = useState([[], []])
+    const racesObj = getAllRaces()
+    const classesObj = getAllClasses()
+    const raceObjectRows = classesRacesObjectToArrays(racesObj)
+    const classObjectRows = classesRacesObjectToArrays(classesObj)
     
-    useEffect(() => {
-        getAllClasses().then(classesObj => {
-            setClassesData(classesObj)
-            const classNames = Object.keys(classesObj)
-            const classObjects = classNames.map(name => classesObj[name])
-            const classObjectRows = splitArrayEvenly(classObjects, 2)
-            setClassObjectRows(classObjectRows)
-        })
-    }, [])
+
+    const [chosenRace, setChosenRace] = useState(null)
+    const [chosenClass, setChosenClass] = useState(null)
+    
+    function classesRacesObjectToArrays(bigObj) {
+        const classNames = Object.keys(bigObj)
+        const classObjects = classNames.map(name => bigObj[name])
+        const classObjRows = splitArrayEvenly(classObjects, 2)
+        console.log({ classNames, classObjects, classObjRows})
+        return classObjRows
+    }
+
+
 
     function NameAndIcon() {
         return (
@@ -74,17 +84,113 @@ export default function CharacterCreationCalculator() {
 
     function ClassSpoilerSelector({ classObj }) {
         return (
-            <Spoiler
-                title={
-                    <Selector
-                        name={classObj.Class}
-                        iconName={getClassRepresentativeIconName(classObj)}
-                    />
-                }
-                content={
-                    <div></div>
-                }
+            <Selector
+                name={classObj.Class}
+                iconName={getClassRepresentativeIconName(classObj)}
+                isSelected={classObj.Class == chosenClass?.Class}
+                onClick={() => setChosenClass(classObj)}
             />
+        )
+    }
+
+    function RaceSelector({ raceObj }) {
+        return (
+            <Selector
+                name={raceObj.Race}
+                iconName={getClassRepresentativeIconName(raceObj)}
+                isSelected={raceObj.Race == chosenRace?.Race}
+                onClick={() => setChosenRace(raceObj)}
+            />
+        )
+    }
+
+    function StatInput({ name, value, onChange }) {
+        return (
+            <div className="stat-input">
+                <input value={value} onChange={onChange}/>
+                <div className="input-name">{ name }</div>
+            </div>
+        )
+    }
+
+    function StatsAndOther() {
+
+        const baseStats = [-1, 0, 1, 2, 3]
+        const statNames = ["Might", 'Dexterity', 'Intelligence', 'Sense', 'Charisma']
+        const [stats, setStats] = useState(baseStats)
+
+        function verifyStats() {
+            const statsCopy = [...stats].sort()
+            const baseStatsCopy = [...baseStats].sort()
+            const isIncorrect = statsCopy.filter((stat, i) => baseStatsCopy[i] != stat).length > 0
+            console.log({isIncorrect})
+        }
+
+        return (
+            <div className="flex row">
+                <div className="stats-selector flex column">
+                    { baseStats.map((num, i) => (
+                        <StatInput name={statNames[i]} value={stats[i]} onChange={evt => {
+                            const statsCopy = [...stats]
+                            statsCopy[i] = parseInt(evt.target.value)
+                            setStats(statsCopy)
+                        }}/>
+                    )) }
+                </div>
+                <div>
+                    <button onClick={verifyStats}>Check</button>
+                </div>
+            </div>
+        )
+    }
+
+    function RaceSection() {
+        return (
+            <div>
+                <PageH2>Race</PageH2>
+                <TwoColumns>
+                    <Column>
+                        { raceObjectRows[0].map(obj => (
+                            <RaceSelector raceObj={obj}/>
+                        )) }
+                    </Column>
+                    <Column>
+                        { raceObjectRows[1].map(obj => (
+                            <RaceSelector raceObj={obj}/>
+                        )) }
+                    </Column>
+                </TwoColumns>
+
+                { chosenRace && (
+                    <CCRacePage theRace={chosenRace}/>
+                )}
+            </div>
+        )
+    }
+    function ClassSection() {
+        return (
+            <div>
+                <PageH2>Class</PageH2>
+                <TwoColumns>
+                    <Column>
+                        { classObjectRows[0].map(classObj => (
+                            <ClassSpoilerSelector classObj={classObj}/>
+                        )) }
+                    </Column>
+                    <Column>
+                        { classObjectRows[1].map(classObj => (
+                            <ClassSpoilerSelector classObj={classObj}/>
+                        )) }
+                    </Column>
+                </TwoColumns>
+            </div>
+        )
+    }
+    function CharacterSection() {
+        return (
+            <div>
+                <StatsAndOther/>
+            </div>
         )
     }
 
@@ -92,18 +198,14 @@ export default function CharacterCreationCalculator() {
         <Page id="Character-Builder" isCentered={true}>
             <NameAndIcon/>
 
-            <TwoColumns>
-                <Column>
-                    { classObjectRows[0].map(classObj => (
-                        <ClassSpoilerSelector classObj={classObj}/>
-                    )) }
-                </Column>
-                <Column>
-                    { classObjectRows[1].map(classObj => (
-                        <ClassSpoilerSelector classObj={classObj}/>
-                    )) }
-                </Column>
-            </TwoColumns>
+            <Tabs tabNames={['Race', 'Class', 'Abilities', 'Character']} tabComponents={[
+                <RaceSection/>,
+                <ClassSection/>,
+                <div></div>,
+                <StatsAndOther/>
+            ]}/>
+
+
         </Page>
     )
 

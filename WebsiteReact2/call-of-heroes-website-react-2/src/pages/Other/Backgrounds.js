@@ -60,7 +60,7 @@ export default function Backgrounds() {
                             Object.keys(bg.Abilities).length == 1? (
                                 <Spell spell={U.spellsFromObject(bg.Abilities)[0]} style={{maxWidth: '50%', marginLeft: '0px'}}/>
                             ) : (
-                                <ManySpells spellsObject={bg.Abilities}/>
+                                <ManySpells spells={bg.Abilities}/>
                             )
                         ) }
                     </div>

@@ -10,6 +10,8 @@ import CopySpellButton from '../CopyButton/CopySpellButton'
 import classNames from 'classnames'
 import { PetOrAnimalLeftOnly } from '../../pages/Other/PetOrAnimal'
 import { getIsActionPointsSystem } from '../../GlobalState'
+import HeroButton from '../HeroButton/HeroButton'
+import Ribbon from '../Ribbon/Ribbon'
 
 const actionPointsMapping = {
     '1 Action': '2 Action Points',
@@ -154,10 +156,11 @@ export function IconWithSpinner({ src, className }) {
 }
 
 
-export default function Spell({ children, spell, style, hasIcon, hasBorder, hasCopyButton=true, showTopStats=true }) {
+export default function Spell({ children, spell, style, hasIcon, hasBorder, hasCopyButton=true, onSelected, showTopStats=true }) {
 
     const [variantIndex, setVariantIndex] = useState(0)
     const [thiefRolledGoldAmount, setThiefRolledGoldAmount] = useState('Click here to roll 1000d100!')
+    const [isSelected, setIsSelected] = useState(false)
 
     assertCorrectSpellFormat(spell)
 
@@ -283,6 +286,7 @@ export default function Spell({ children, spell, style, hasIcon, hasBorder, hasC
             { 'spell__no-border': hasBorder == false }
         )}>
             { hasBorder != false && <SpellBorder/> } 
+            { isSelected && <Ribbon>Selected!</Ribbon>}
             <SpellBackground/>
             <div className='spell__box'> {/* This has CSS to be perfectly in the bounds of the borders and banner */}
                 <SpellTop
@@ -353,6 +357,16 @@ export default function Spell({ children, spell, style, hasIcon, hasBorder, hasC
                     </div>
                 )}
                 { hasCopyButton === true && <CopySpellButton elementId={uniqueID} shouldAddBorder={true}/> }
+                { onSelected != null && (
+                    <div>
+                        <HeroButton isCustomContent={true} onClick={() => {
+                            const newIsSelected = !isSelected
+                            setIsSelected(newIsSelected)
+                            onSelected(newIsSelected)
+                        }}>Choose</HeroButton>
+                        <div style={{height: '1rem'}}></div>
+                    </div>
+                )}
             </div>
         </div>
     )

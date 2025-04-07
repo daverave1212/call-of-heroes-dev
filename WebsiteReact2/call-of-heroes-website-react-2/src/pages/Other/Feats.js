@@ -22,7 +22,7 @@ export default function Feats() {
             }}/>
             { categories.map(categoryName => (
                 <Page title={categoryName} isSecondaryPage={true}>
-                    <ManySpells spellsObject={feats[categoryName]}/>
+                    <ManySpells spells={feats[categoryName]}/>
                 </Page>
             )) }
         </div>

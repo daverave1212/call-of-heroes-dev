@@ -9,7 +9,7 @@ export default function Proficiencies() {
 
     return (
         <Page title="Skills (Non-Combat)">
-            <ManySpells spellsObject={proficiencies}/>
+            <ManySpells spells={proficiencies}/>
             <TableNormal type="info" columns={['Number', 'Skill']}>
                 { Object.keys(proficiencies).map((prof, i) => (
                     <tr key={prof}>

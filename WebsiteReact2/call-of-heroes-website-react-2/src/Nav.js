@@ -305,7 +305,7 @@ function AccountButtons() {
         const result = await auth.login()
       }}>
         <div className="center-content">
-          <Icon name={'Google.webp'} style={{margin: '0px', marginRight: '0.25rem', marginTop: '-2px'}}/>
+          <Icon name={'Google'} extension="webp" style={{margin: '0px', marginRight: '0.25rem', marginTop: '-2px'}}/>
         </div>
         <div className="center-content">
           <span>Login</span>

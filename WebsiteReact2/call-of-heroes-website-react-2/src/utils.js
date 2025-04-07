@@ -6,6 +6,7 @@ import weapons from './databases/Weapons.json'
 import skills from './databases/Proficiencies.json'
 import abilities from './databases/Abilities.json'
 import overallData from './databases/OverallData.json'
+import { Races, Classes } from './pages/Other/AllRacesAndClasses'
 
 // ---------------- Spells Utilities ----------------
 
@@ -264,14 +265,11 @@ export function assertCorrectSpellFormat(spell) {
     }
 
 }
-export async function getAllClasses() {
-    const classNames = overallData.Classes
-    const classes = {}
-    for (const className of classNames) {
-        const classData = await import(`./databases/Classes/${className}.json`)
-        classes[className] = classData
-    }
-    return classes
+export function getAllClasses() {
+    return Classes
+}
+export function getAllRaces() {
+    return Races
 }
 export function getClassRepresentativeIconName(classObj) {
     console.log({classObj})
@@ -368,11 +366,11 @@ export function allEqual(arr, val) {
 }
 export function splitArrayEvenly(arr, nArrays) {
     const arrays = new Array(nArrays)
+    for (let i = 0; i < nArrays; i++) {
+        arrays[i] = []
+    }
     for (let i = 0; i < arr.length; i++) {
         const arrayI = i % nArrays
-        if (arrays[arrayI] == null) {
-            arrays[arrayI] = []
-        }
         arrays[arrayI].push(arr[i])
     }
     return arrays

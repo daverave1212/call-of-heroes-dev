@@ -37,7 +37,7 @@ import TableShamanLevelUp from '../TableNormal/TableShamanLevelUp'
 import PageH0 from '../PageH0/PageH0'
 import AnchorFixer from '../AnchorFixer/AnchorFixer'
 import { QGTitle1 } from '../../pages/Tools/TitleGenerator'
-import { SideMenuFromClass } from '../SideMenu/SideMenu'
+import { SideMenuFromClass, SideMenuFromRace } from '../SideMenu/SideMenu'
 
 export function Proficiencies({ name, theRaceOrClass }) {
 
@@ -162,6 +162,39 @@ export function RaceFeatures({ theRace }) {
                         <SmallStat name="Health Regen"><Icon name="HealthRegen" type="small-stat"/> { theRace.Stats['Health Regen'] } + Sense</SmallStat>
                         <SmallStat name="Movement">4 + 50% of Dexterity (<b>result rounded up</b>)</SmallStat>
                         <SmallStat name="Initiative">300% of Charisma</SmallStat>
+                        { theRace.Weapons && <SmallStat name="Weapons" type="vertical">{ theRace.Weapons }</SmallStat> }
+                        { theRace.Training && <SmallStat name="Other Training" type="vertical">{ theRace.Training }</SmallStat> }
+                        { theRace.Language && <SmallStat name="Language" type="vertical">{ theRace.Language }</SmallStat> }
+                    </div>
+                </Column>
+                <Column>
+                    <PageH3>Character Creation</PageH3>
+                    <p>
+                        When you create your character, you assign the stats -1, 0, 1, 2, 3 to the five Stats.
+                        Each Race, including { theRace.Race }, have some special Stat distribution constraints.
+                    </p>
+                    <p>
+                        For Movement Speed, if your Dexterity is -1 or 0, you have 4 Movement, for 1 or 2 you have 5 Movement, and for 3 you have 6 Movement.
+                    </p>
+                    <PageH3>Race Details</PageH3>
+                    <p>As a member of the {theRace.Race} race, your lifespan is about { theRace.Stats.Lifespan } and your size is { theRace.Stats.Size }. </p>
+                    { theRace.Other != null && (<p>{theRace.Other}</p>) }
+                </Column>
+            </TwoColumns>
+        </div>
+    )
+}
+export function CCRaceFeatures({ theRace }) {
+    return (
+        <div id="race-features">
+            <PageH2>Race Features</PageH2>
+
+            <TwoColumns>
+                <Column>
+                    <div className='with-margined-children'>
+                        <SmallStat name="Stat Distribution" type="vertical">{ theRace.Creation['Stat Restrictions'] }</SmallStat>
+                        <SmallStat name="Health"><Icon name="Health" type="small-stat"/>{ theRace.Stats['Base Health'] } + 200% of Might</SmallStat>
+                        <SmallStat name="Health Regen"><Icon name="HealthRegen" type="small-stat"/> { theRace.Stats['Health Regen'] } + Sense</SmallStat>
                         { theRace.Weapons && <SmallStat name="Weapons" type="vertical">{ theRace.Weapons }</SmallStat> }
                         { theRace.Training && <SmallStat name="Other Training" type="vertical">{ theRace.Training }</SmallStat> }
                         { theRace.Language && <SmallStat name="Language" type="vertical">{ theRace.Language }</SmallStat> }
@@ -568,6 +601,89 @@ export function AbilitiesWithDescription({ spellsObject, description, title, aut
     )
 }
 
+
+export function RacePage({ theRace }) {
+    return (
+        <div>
+
+            <SideMenuFromRace theRace={theRace}/>
+            <Page>
+
+                <RaceHeader theRace={theRace}/>
+
+                <RaceFeatures theRace={theRace}/>
+
+                <Proficiencies name={theRace.Race} theRaceOrClass={theRace}/>
+
+                
+                <QGTitle1 text={'Abilities'} height={40}/>
+                <ManySpells spells={theRace['Starting Abilities']} description={theRace['Starting Abilities Description']}/>
+                { theRace['Ability Choices'] != null && (
+                    <div>
+                        <PageH2>Ability Choice</PageH2>
+                        <ManySpells spells={theRace['Ability Choices']} description={theRace['Ability Choices Description']}/>
+                    </div>
+                )}
+
+                <PageH2>Race Feats</PageH2>
+                <p>Choose one Race Feat from below. Your choice is permanent!</p>
+                <ManySpells spells={U.spellsFromObject(theRace.Talents)}/>
+
+            </Page>
+
+            
+
+        </div>
+    )
+}
+export function CCRacePage({ theRace }) {
+
+    let [selectedAbilityChoices, setSelectedAbilityChoices] = useState([])
+    let [selectedFeats, setSelectedFeats] = useState([])
+
+    function onAbilityChoicesSelected(spells) {
+        setSelectedAbilityChoices(spells)
+    }
+    function onFeatsSelected(spells) {
+        setSelectedFeats(spells)
+    }
+
+    return (
+        <div>
+            <Page>
+
+                <CCRaceFeatures theRace={theRace}/>
+
+                <Proficiencies name={theRace.Race} theRaceOrClass={theRace}/>
+
+                <QGTitle1 text={'Abilities'} height={40}/>
+                <ManySpells
+                    spells={theRace['Starting Abilities']}
+                    description={theRace['Starting Abilities Description']}
+                />
+                
+                { theRace['Ability Choices'] != null && (
+                    <div>
+                        <PageH2>Ability Choice</PageH2>
+                        <ManySpells
+                            spells={theRace['Ability Choices']}
+                            description={theRace['Ability Choices Description']}
+                            onSpellsSelected={spellsSelected => onAbilityChoicesSelected(spellsSelected)}
+                        />
+                    </div>
+                )}
+
+                <PageH2>Race Feats</PageH2>
+                <p>Choose one Race Feat from below. Your choice is permanent!</p>
+                <ManySpells
+                    spells={U.spellsFromObject(theRace.Talents)}
+                    onSpellsSelected={spellsSelected => onFeatsSelected(spellsSelected)}
+                />
+
+            </Page>
+        </div>
+    )
+}
 
 export function ClassPage({ theClass }) {
     return (
