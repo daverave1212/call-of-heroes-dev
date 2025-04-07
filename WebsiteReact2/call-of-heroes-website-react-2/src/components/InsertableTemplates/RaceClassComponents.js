@@ -650,7 +650,7 @@ export function CCRacePage({ theRace }) {
 
     return (
         <div>
-            <Page>
+            <Page hasNoMargins={true}>
 
                 <CCRaceFeatures theRace={theRace}/>
 
