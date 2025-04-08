@@ -27,30 +27,25 @@ export default function ManySpells({ spells, spellStyle, shouldIgnoreAlignment, 
     column1Spells = [...column1Spells, ...spellsLeft]
     column2Spells = [...column2Spells, ...spellsRight]
 
-    // const middleIndex = spellsRest.length % 2 === 0? (spellsRest.length / 2) : (Math.floor(spellsRest.length / 2) + 1)
-
-    // for (let i = 0; i < spellsRest.length; i++) {
-    //     if (i < middleIndex) {
-    //         column1Spells.push(spellsRest[i])
-    //     } else {
-    //         column2Spells.push(spellsRest[i])
-    //     }
-    // }
-
-    function onSpellClick(spell, isSelected) {
-        if (isSelected) {
-            if (selectedSpells.includes(spell)) {
-                return
-            } else {
-                setSelectedSpells([...selectedSpells, spell])
-            }
-        } else {
-            if (selectedSpells.includes(spell)) {
-                setSelectedSpells(selectedSpells.filter(s => s != spell))
-            } else {
-                return
-            }
+    function onSpellClick(spell, newIsSelected) {
+        console.log({ name: spell.Name, newIsSelected })
+        const wasAlreadySelected = selectedSpells.find(s => s.Name == spell.Name) != null
+        if (wasAlreadySelected && newIsSelected == true) {
+            return
         }
+        if (!wasAlreadySelected && newIsSelected == false) {
+            return
+        }
+        
+        let newSelectedSpells = []
+        if (!wasAlreadySelected && newIsSelected == true) {
+            newSelectedSpells = [...selectedSpells, spell]
+        }
+        if (wasAlreadySelected && newIsSelected == false) {
+            newSelectedSpells = selectedSpells.filter(s => s.Name != spell.Name)
+        }
+        setSelectedSpells(newSelectedSpells)
+        onSpellsSelected(newSelectedSpells)
     }
     
 
@@ -63,9 +58,10 @@ export default function ManySpells({ spells, spellStyle, shouldIgnoreAlignment, 
                     }} key={spell.Name} spell={spell} style={spellStyle}/>))}
             </Column>
             <Column>
-                {column2Spells.map(spell => (<Spell onSelected={isSelected => {
-                    onSpellClick(spell, isSelected)
-                }} key={spell.Name} spell={spell} style={spellStyle}/>))}
+                {column2Spells.map(spell => (
+                    <Spell onSelected={ onSpellsSelected == null? null: isSelected => {
+                        onSpellClick(spell, isSelected)
+                    }} key={spell.Name} spell={spell} style={spellStyle}/>))}
                 { description != null && (<SADescription description={description}/>) }
             </Column>
         </TwoColumns>

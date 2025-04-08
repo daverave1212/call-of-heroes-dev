@@ -68,7 +68,7 @@ export default function RogueB() {
                 Object.keys(theClass['Specs']).map(specName => {
                     const spec = theClass['Specs'][specName]
                     return (
-                        <Spec key={specName} name={specName} spec={spec}>
+                        <Spec key={specName} name={specName} specObj={spec}>
 
                             <SpecTalents spec={spec}/>
 

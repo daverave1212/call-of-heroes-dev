@@ -18,7 +18,7 @@ import './CharacterCreationCalculator.css'
 import { IconWithSpinner, SpellTopIconSide } from "../../components/Spell/Spell";
 import { CoolButton } from "../../components/CoolButton/CoolButton";
 import HeroButton from "../../components/HeroButton/HeroButton";
-import { getAllClasses, getAllRaces, getClassRepresentativeIconName, getSpellIconPathByName, splitArrayEvenly } from "../../utils";
+import { calculateStat, getAllClasses, getAllRaces, getClassRepresentativeIconName, getSpellIconPathByName, splitArrayEvenly } from "../../utils";
 import Selector from "../../components/Selector/Selector";
 import ManySpells from "../../components/Spell/ManySpells";
 
@@ -26,8 +26,9 @@ import overallData from './../../databases/OverallData.json'
 import { connectFirestoreEmulator } from "firebase/firestore";
 import PageH2 from "../../components/PageH2/PageH2";
 import Tabs from "../../components/Tabs/Tabs";
-import { CCRacePage, RacePage } from "../../components/InsertableTemplates/RaceClassComponents";
+import { CCClassPage, CCRacePage, ClassPage, RacePage } from "../../components/InsertableTemplates/RaceClassComponents";
 import { QGTitle1 } from "../Tools/TitleGenerator";
+import Icon from "../../components/Icon";
 
 export function LabelWithInput({ labelText, placeholder }) {
     return (
@@ -47,7 +48,10 @@ export default function CharacterCreationCalculator() {
     
 
     const [chosenRace, setChosenRace] = useState(null)
+    const [selectedRaceAbilities, setSelectedRaceAbilities] = useState([])
+
     const [chosenClass, setChosenClass] = useState(null)
+    const [selectedClassAbilities, setSelectedClassAbilities] = useState([])
     
     function classesRacesObjectToArrays(bigObj) {
         const classNames = Object.keys(bigObj)
@@ -82,22 +86,13 @@ export default function CharacterCreationCalculator() {
         )
     }
 
-    function ClassSpoilerSelector({ classObj }) {
-        return (
-            <Selector
-                name={classObj.Class}
-                iconName={getClassRepresentativeIconName(classObj)}
-                isSelected={classObj.Class == chosenClass?.Class}
-                onClick={() => setChosenClass(classObj)}
-            />
-        )
-    }
+
 
     function RaceSelector({ raceObj }) {
         return (
             <Selector
                 name={raceObj.Race}
-                iconName={getClassRepresentativeIconName(raceObj)}
+                src={`/Icons/Races/${raceObj.Race}.png`}
                 isSelected={raceObj.Race == chosenRace?.Race}
                 onClick={() => setChosenRace(raceObj)}
             />
@@ -119,28 +114,82 @@ export default function CharacterCreationCalculator() {
         const statNames = ["Might", 'Dexterity', 'Intelligence', 'Sense', 'Charisma']
         
         const [stats, setStats] = useState(baseStats)
+        const [statsCorrectError, setStatsCorrectError] = useState(null)    /* { message: string } */
 
-        function checkStandardStats() {
+        function checkStandardStats(stats) {
             const statsCopy = [...stats].sort()
             const baseStatsCopy = [...baseStats].sort()
             const isIncorrect = statsCopy.filter((stat, i) => baseStatsCopy[i] != stat).length > 0
-            return !isIncorrect
+            
+            if (isIncorrect) {
+                setStatsCorrectError({
+                    message: `Your stats might not respect the ${baseStats.join(', ')} numbers, in any order.`
+                })
+                return
+            }
+
+            setStatsCorrectError(null)
+        }
+
+        function StatExplainedDisplay({ i, name, description, iconName }) {
+            return (
+                <TwoColumns className='margin-top-half'>
+                    <Column>
+                        <div>
+                            <SmallStat name={name} type="normal-large">
+                                { calculateStat(statNames[i], stats[i]) }
+                                &nbsp;<Icon name={iconName}/>
+                            </SmallStat>    
+                        </div>
+                    </Column>
+                    <Column>
+                        <p style={{marginTop: '5px'}}>{ description }</p>
+                    </Column>
+                </TwoColumns>
+            )
         }
 
         return (
             <Page hasNoMargins={true} className>
+                <div className="center-content">
+                    <QGTitle1 text="Stats" height={60}/>
+                </div>
                 <div className="center-content flex" style={{gap: '2rem'}}>
-                    <div className="stats-selector flex">
+                    <div className="stats-selector">
                         { baseStats.map((num, i) => (
                             <StatInput name={statNames[i]} value={stats[i]} onChange={evt => {
                                 const statsCopy = [...stats]
                                 statsCopy[i] = parseInt(evt.target.value)
                                 setStats(statsCopy)
+                                checkStandardStats(statsCopy)
                             }}/>
                         )) }
                     </div>
-                    <div className="center-content">
-                        <button onClick={checkStandardStats}>Check</button>
+                    <div style={{ width: '100%' }}>
+                        <StatExplainedDisplay i={0} name="Extra Health" iconName="Health" description={
+                            <div>Your <b>Max Health</b> = Race Health + 200% of Might</div>
+                        }/>
+                        <StatExplainedDisplay i={1} name="Move Speed" iconName="Speed" description={
+                            <div>Your <b>Movement Speed</b> = 4 + 50% of Dexterity (<i>rounded up</i>)</div>
+                        }/>
+                        <StatExplainedDisplay i={2} name="Known Abilities" iconName="Spell" description={
+                            <div>Your <b>Number of Known Basic Abilities</b> = Intelligence</div>
+                        }/>
+                        <StatExplainedDisplay i={3} name="Extra Regen" iconName="HealthRegen" description={
+                            <div>Your <b>Health Regen</b> = Race Health Regen + Sense (<i>rounded up</i>)</div>
+                        }/>
+                        <StatExplainedDisplay i={4} name="Initiative" iconName="Replacement" description={
+                            <div>
+                                Your <b>Initiative</b> = 300% of Charisma
+                                <div className="subtext margin-top-half">Initiative represents the order in which players and NPC's take turns.</div>
+                            </div>
+                        }/>
+                    </div>
+                    <div className="center-content" style={{width: '100%'}}>
+                        {/* <button onClick={checkStandardStats}>Check</button> */}
+                        { statsCorrectError != null && (
+                            <div className="warning-toaster">{ statsCorrectError.message }</div>
+                        ) }
                     </div>
                 </div>
             </Page>
@@ -165,27 +214,52 @@ export default function CharacterCreationCalculator() {
                 </TwoColumns>
 
                 { chosenRace && (
-                    <CCRacePage theRace={chosenRace}/>
+                    <CCRacePage theRace={chosenRace} onSpellsSelected={spells => setSelectedRaceAbilities(spells)}/>
                 )}
             </div>
         )
     }
     function ClassSection() {
+
+        const [chosenClass, setChosenClass] = useState(null)
+
+        function ClassSelector({ classObj }) {
+            return (
+                <Selector
+                    name={classObj.Class}
+                    src={`/Icons/Classes/${classObj.Class}.png`}
+                    isSelected={classObj.Class == chosenClass?.Class}
+                    onClick={() => setChosenClass(classObj)}
+                />
+            )
+        }
+
+        function onSpellsSelected(spells) {
+            console.log(`Setting selected class abilities:`)
+            console.log({spells})
+            setSelectedClassAbilities(spells)
+        }
+
         return (
             <div>
                 <PageH2>Class</PageH2>
                 <TwoColumns>
                     <Column>
+                    TODO: I think nesting so much is causing bugs.
                         { classObjectRows[0].map(classObj => (
-                            <ClassSpoilerSelector classObj={classObj}/>
+                            <ClassSelector classObj={classObj}/>
                         )) }
                     </Column>
                     <Column>
                         { classObjectRows[1].map(classObj => (
-                            <ClassSpoilerSelector classObj={classObj}/>
+                            <ClassSelector classObj={classObj}/>
                         )) }
                     </Column>
                 </TwoColumns>
+
+                { chosenClass != null && (
+                    <CCClassPage theClass={chosenClass} onSpellsSelected={onSpellsSelected}/>
+                )}
             </div>
         )
     }
@@ -201,11 +275,11 @@ export default function CharacterCreationCalculator() {
         <Page id="Character-Builder" isCentered={true}>
             <NameAndIcon/>
 
-            <Tabs tabNames={['Race', 'Class', 'Abilities', 'Character']} tabComponents={[
+            <Tabs tabNames={['Stats', 'Race', 'Class', 'Character']} tabComponents={[
+                <StatsAndOther/>,
                 <RaceSection/>,
                 <ClassSection/>,
-                <div></div>,
-                <StatsAndOther/>
+                <CharacterSection/>
             ]}/>
 
 

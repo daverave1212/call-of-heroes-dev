@@ -1,6 +1,9 @@
 
 :root {
     --image-size: 106px;
+    --stat-selector-size: 6rem;
+    --stats-gap: 3vw;
+    --stats-width: calc(var(--stat-selector-size) * 5 + var(--stats-gap) * 4);
 }
 
 .ccc-image-holder {
@@ -54,11 +57,18 @@
 
 
 .stats-selector {
-    gap: 1rem;
+    display: flex;
+    gap: var(--stats-gap);
 }
+@media (orientation: portrait) {
+    .stats-selector {
+        flex-direction: column;
+    }
+}
+
 .stat-input {
-    width: 6rem;
-    height: 6rem;
+    width: var(--stat-selector-size);
+    height: var(--stat-selector-size);
     position: relative;
 }
 .stat-input input {
