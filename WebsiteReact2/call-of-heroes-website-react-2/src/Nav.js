@@ -291,12 +291,8 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
 
 function AccountButtons() {
 
-  let [isLogged, setIsLogged] = useState(auth.isLoggedIn())
-  console.log({isLoggedIn: auth.isLoggedIn()})
-
-  auth.onUserStateChanged(() => {
-    console.log(`Setting isLogged`)
-    // setIsLogged(console.log(`Log changed :)`))
+  auth.onUserStateChanged('Nav', () => {
+    console.log(`Nav.auth.onUserStateChanged`)
   })
 
   function LoginButton() {
@@ -317,7 +313,8 @@ function AccountButtons() {
   function LogoutButton() {
     return (
       <div className='nav-item' onClick={async () => {
-        const result = auth.logout()
+        const result = await auth.logout()
+        console.log('Logged out')
         console.log({result})
       }}>
         Logout
@@ -327,7 +324,7 @@ function AccountButtons() {
 
   return (
     <div className="nav-login-buttons">
-      { isLogged? (
+      { auth.isLoggedIn()? (
         <LogoutButton/>
       ): (
         <LoginButton/>
