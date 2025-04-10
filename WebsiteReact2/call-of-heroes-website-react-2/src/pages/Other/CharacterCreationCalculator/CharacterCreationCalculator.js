@@ -34,15 +34,6 @@ import SectionNames from "./SectionNames";
 import SectionRace from "./SectionRace";
 import SectionStats from "./SectionStats";
 
-export function LabelWithInput({ labelText, placeholder }) {
-    return (
-        <div className="flex-column align-left">
-            <label className="text-input" style={{marginBottom: '6px'}}>{ labelText }</label>
-            <input/>
-        </div>
-    )
-}
-
 export function classesRacesObjectToArrays(bigObj) {
     const classNames = Object.keys(bigObj)
     const classObjects = classNames.map(name => bigObj[name])

@@ -1,6 +1,3 @@
-import { configureStore, createSlice } from "@reduxjs/toolkit";
-import { StateStore } from "../utils";
-
 const initialDetailsState = {
     src: null,
     playerName: '',
