@@ -670,6 +670,12 @@ export function CCRacePage({ theRace, onSpellsSelected }) {
     let [selectedAbilityChoices, setSelectedAbilityChoices] = useState([])
     let [selectedFeats, setSelectedFeats] = useState([])
 
+    useEffect(() => {
+        setSelectedAbilityChoices([])
+        setSelectedFeats([])
+        onSpellsSelected([])
+    }, [theRace])
+
     function onAbilityChoicesSelected(spells) {
         setSelectedAbilityChoices(spells)
         onSpellsSelected([...selectedAbilityChoices, ...selectedFeats])
@@ -776,34 +782,31 @@ export function ClassPage({ theClass }) {
 }
 
 
-export function CCClassPage({ theClass, onSpellsSelected }) {
+export function CCClassPage({ theClass, onSpecSelected=(specName) => {}, onSpellsSelected=(spells) => {} }) {
 
-    const defaultSelectedSpellsBySpec = {}
-    for (const specName of Object.keys(theClass.Specs)) {
-        defaultSelectedSpellsBySpec[specName] = []
-    }
+
 
     const [selectedSpecName, setSelectedSpecName] = useState(null)
-    const [selectedSpellsBySpec, setSelectedSpellsBySpec] = useState(defaultSelectedSpellsBySpec)
-
-    console.log({selectedSpecName})
+    const [selectedSpellsBySpec, setSelectedSpellsBySpec] = useState([])
 
     const selectedSpecObj = selectedSpecName == null? null: theClass.Specs[selectedSpecName]
 
+    useEffect(() => {
+        setSelectedSpecName(null)   // Prevents mismatch between selected class and selected spec
+    }, [theClass])
+
+
     function onSpecClick(specName) {
         setSelectedSpecName(specName)
-        console.log(`Spells by spec:`)
-        console.log(selectedSpellsBySpec[specName])
-        // onSpellsSelected(selectedSpellsBySpec[specName])
+        onSpecSelected(specName)
     }
 
     function onSpecSpellsSelected(specName, spells) {
-        console.log(`Selected spells: ${spells.map(s => s.Name).join(', ')}`)
-        const newSelectedSpellsBySpec = {...selectedSpellsBySpec}
-        newSelectedSpellsBySpec[specName] = spells
-        console.log({newSelectedSpellsBySpec})
+        const newlySelectedSpellsBySpec = spells.map(spell => ({ ...spell, specName }))
+        const alreadySelectedSpellsExcept = selectedSpellsBySpec.filter(spell => spell.specName != specName)
+        const newSelectedSpellsBySpec = [...alreadySelectedSpellsExcept, ...newlySelectedSpellsBySpec]
         setSelectedSpellsBySpec(newSelectedSpellsBySpec)
-        onSpellsSelected(newSelectedSpellsBySpec[specName])
+        onSpellsSelected(spells)
     }
 
     return (
@@ -827,7 +830,7 @@ export function CCClassPage({ theClass, onSpellsSelected }) {
 
                 <br/><br/>
                 <div className='center-content'>
-                    <QGTitle1 text={'Specializations'} height={40}/>
+                    <QGTitle1 text={'Level 2 Specializations'} height={40}/>
                 </div>
 
                 {/* <p>
