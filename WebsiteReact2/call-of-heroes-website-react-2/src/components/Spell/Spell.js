@@ -365,9 +365,13 @@ export default function Spell({ children, spell, style, hasIcon, hasBorder, hasC
                                 setIsSelected(newIsSelected)
                                 onSelected(newIsSelected)
                             }}>
-                            {/* <button>
+                            <button style={{
+                                fontSize: '17px',
+                                width: 'max(30%, 130px)',
+                                height: '2.5rem'
+                            }}>
                                 { isSelected? 'Unselect': 'Select' }
-                            </button> */}
+                            </button>
 
                             {/* <CoolButton height="48px" width="40%" fontSize="var(--h3-size)" onClick={() => {
                                 const newIsSelected = !isSelected
@@ -376,13 +380,13 @@ export default function Spell({ children, spell, style, hasIcon, hasBorder, hasC
                             }}>
                                 { isSelected? 'Unselect': 'Select'}
                             </CoolButton> */}
-                            <HeroButton isCustomContent={true} onClick={() => {
+                            {/* <HeroButton isCustomContent={true} onClick={() => {
                                 const newIsSelected = !isSelected
                                 setIsSelected(newIsSelected)
                                 onSelected(newIsSelected)
                             }}>
                                 { isSelected? 'Unselect': 'Select' }
-                            </HeroButton>
+                            </HeroButton> */}
                         </div>
                         <div style={{height: '1rem'}}></div>
                     </div>

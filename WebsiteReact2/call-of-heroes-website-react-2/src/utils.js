@@ -122,6 +122,10 @@ export function getAlternativesAsArray(text) {
     return alternatives
 }
 
+
+
+
+
 // --------------- Questguard Utilities --------------
 export function isDice(str) {
     if (str == null) return false
@@ -277,6 +281,25 @@ export function getClassRepresentativeIconName(classObj) {
     const spellName = removeTildes(firstSpellName)
     return spellName
 }
+export function getSpecRepresentativeIconFullPath(classObj, specName) {
+    const specObject = classObj.Specs[specName]
+    const firstSpellName = Object.keys(specObject['Starting Abilities'])[0]
+    const spellName = removeTildes(firstSpellName)
+    return getSpellIconPathByName(spellName)
+}
+export function calculateStat(statName, value) {
+    statName = statName.toLowerCase().trim()
+    value = parseInt(value)
+    const nameToCalc = {
+        'might': value * 2,
+        'dexterity': 4 + Math.ceil(value),
+        'intelligence': value,
+        'sense': value,
+        'charisma': value * 3
+    }
+    return nameToCalc[statName]
+}
+
 
 
 

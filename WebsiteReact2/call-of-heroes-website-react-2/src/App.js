@@ -18,7 +18,7 @@ import Index from './pages/index'
 import Armors from './pages/Other/Armors'
 import Weapons from './pages/Other/Weapons'
 import Abilities from './pages/Other/Abilities'
-import CharacterCreationCalculator from './pages/Other/CharacterCreationCalculator'
+import CharacterCreationCalculator from './pages/Other/CharacterCreationCalculator/CharacterCreationCalculator'
 import TransitionGuide from './pages/Other/TransitionGuide'
 import Monsters from './pages/Other/Monsters'
 
