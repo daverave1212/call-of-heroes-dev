@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 
-import { createContext, memo, useEffect } from 'react'
+import { createContext, memo, useEffect, useReducer } from 'react'
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 
@@ -67,7 +67,6 @@ import CrowdControl from './pages/Other/CrowdControl';
 import AreasOfEffect from './pages/Other/AreasOfEffect';
 import { getBasePathBeforeHash, getLocalStorageBool, getLocationHackyPath, getPageHashFromLocation, isBasePathEmpty, isHashEmpty } from './utils';
 
-import AppStateContext from './services/AppStateContext';
 import TreasureGenerator from './pages/Tools/TreasureGenerator';
 
 import Nav from './Nav'
@@ -91,11 +90,11 @@ import CustomMonster from './pages/Other/CustomMonster';
 import RogueB from './pages/Classes/RogueB';
 import TitleGenerator from './pages/Tools/TitleGenerator';
 import MagicItemCreator from './pages/Other/MagicItemCreator';
+import { AppStateContext } from './global-state/GlobalState';
 
 function App() {
 
   const [appState, setAppState] = useState({})
-
 
   const navigate = useNavigate()
   const hackyPath = getLocationHackyPath(window.location)

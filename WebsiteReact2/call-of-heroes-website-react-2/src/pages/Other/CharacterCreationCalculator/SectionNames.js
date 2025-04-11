@@ -17,13 +17,15 @@ function LabelWithInput({ labelText, onChange }) {
     )
 }
 
-export default function SectionNames() {
+export const BASE_NAMES_STATE = {
+    src: '/Icons/Spells/Skilled_in_Persuasion.png',
+    playerName: '',
+    characterName: ''
+}
 
-    const [namesState, setNamesState] = useState({
-        src: '/Icons/Spells/Skilled_in_Persuasion.png',
-        playerName: '',
-        characterName: ''
-    })
+export default function SectionNames({ onChange }) {
+
+    const [namesState, setNamesState] = useState(BASE_NAMES_STATE)
 
     return (
         <div className="padding-top-4 flex-column align-center with-margined-children">
@@ -34,12 +36,16 @@ export default function SectionNames() {
             </div>
             <div className="center-content">
                 <LabelWithInput labelText="Player Name" onChange={val => {
-                    setNamesState({...namesState, playerName: val})
+                    const newState = {...namesState, playerName: val}
+                    setNamesState(newState)
+                    onChange(newState)
                 }}/>
             </div>
             <div className="center-content">
                 <LabelWithInput labelText="Character Name" onChange={val => {
-                    setNamesState({...namesState, characterName: val})
+                    const newState = {...namesState, characterName: val}
+                    setNamesState(newState)
+                    onChange(newState)
                 }}/>
             </div>
 

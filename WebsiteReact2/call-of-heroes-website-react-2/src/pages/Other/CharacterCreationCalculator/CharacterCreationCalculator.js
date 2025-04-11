@@ -18,7 +18,7 @@ import './CharacterCreationCalculator.css'
 import { IconWithSpinner, SpellTopIconSide } from "../../../components/Spell/Spell";
 import { CoolButton } from "../../../components/CoolButton/CoolButton";
 import HeroButton from "../../../components/HeroButton/HeroButton";
-import { calculateStat, getAllClasses, getAllRaces, getClassRepresentativeIconName, getSpellIconPathByName, splitArrayEvenly } from "../../../utils";
+import { calculateMaxHealth, calculateStat, getAllClasses, getAllRaces, getClassRepresentativeIconName, getSpellIconPathByName, splitArrayEvenly } from "../../../utils";
 import Selector from "../../../components/Selector/Selector";
 import ManySpells from "../../../components/Spell/ManySpells";
 
@@ -30,9 +30,9 @@ import { CCClassPage, CCRacePage, ClassPage, RacePage } from "../../../component
 import { QGTitle1 } from "../../Tools/TitleGenerator";
 import Icon from "../../../components/Icon";
 import SectionClass from "./SectionClass";
-import SectionNames from "./SectionNames";
+import SectionNames, { BASE_NAMES_STATE } from "./SectionNames";
 import SectionRace from "./SectionRace";
-import SectionStats from "./SectionStats";
+import SectionStats, { BASE_STATS, STAT_NAMES, StatValue } from "./SectionStats";
 
 export function classesRacesObjectToArrays(bigObj) {
     const classNames = Object.keys(bigObj)
@@ -41,9 +41,16 @@ export function classesRacesObjectToArrays(bigObj) {
     return classObjRows
 }
 
+const allRacesObj = getAllRaces()
+const allClassesObj = getAllClasses()
+
 export default function CharacterCreationCalculator() {
 
-    const [selectedStats, setSelectedStats] = useState(null)
+    const [activeTabI, setActiveTabI] = useState(0)
+
+    const [level, setLevel] = useState(3)
+    const [names, setNames] = useState(BASE_NAMES_STATE)
+    const [selectedStats, setSelectedStats] = useState(BASE_STATS)
     const [selectedClassName, setSelectedClassName] = useState(null)
     const [selectedSpecName, setSelectedSpecName] = useState(null)
     const [selectedClassSpells, setSelectedClassSpells] = useState([])
@@ -52,9 +59,27 @@ export default function CharacterCreationCalculator() {
 
 
     function CharacterSection() {
+
         return (
             <div>
-                <div>Stats: {selectedStats}</div>
+                <div className="flex flex-column">
+                    <h1 className="center-text full-width">{ names.characterName }</h1>
+                    <h2 className="center-text full-width">Level 1 { selectedRaceName } { selectedClassName } ({ selectedSpecName })</h2>
+                </div>
+
+                <div className="flex flex-row">
+                    <div>
+                        { STAT_NAMES.map((n, i) => (
+                            <StatValue name={n} value={selectedStats[i]}/>
+                        )) }
+                    </div>
+                    <div className="flex flex-column">
+                        <div className="flex">
+                            <StatValue name="Health" value={calculateMaxHealth(selectedRaceName, selectedClassName, selectedStats[0], level)}/>
+                            
+                        </div>
+                    </div>
+                </div>
                 <div>Class: {selectedClassName}</div>
                 <div>Spec: {selectedSpecName}</div>
                 <div>Race: {selectedRaceName}</div>
@@ -65,9 +90,9 @@ export default function CharacterCreationCalculator() {
 
     return (
         <Page id="Character-Builder" isCentered={true}>
-            <SectionNames/>
+            <SectionNames onChange={newNamesState => setNames(newNamesState)}/>
 
-            <Tabs tabNames={['Stats', 'Race', 'Class', 'Character']} tabComponents={[
+            <Tabs activeTabI={activeTabI} setActiveTabI={setActiveTabI} tabNames={['Stats', 'Race', 'Class', 'Character']} tabComponents={[
                 <SectionStats onStatsChanged={stats => {
                     setSelectedStats(stats)
                 }}/>,

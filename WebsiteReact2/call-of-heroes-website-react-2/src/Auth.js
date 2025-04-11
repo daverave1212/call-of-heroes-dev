@@ -1,20 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import * as firebaseAuth from "./services/FirebaseAuth";
+import { useState } from "react";
 
-const userStateStore = configureStore({
-    reducer: function(userState = null, {type, payload}) {
-        if (type != 'change') {
-            return userState
-        }
-        return {...userState, ...payload}
-    }
-})
-const setUserState = (newUserState) => {
-    console.log(`Someone just called setUserState with user:`)
-    console.log({newUserState})
-    userStateStore.dispatch({ type: 'change', payload: newUserState })
-}
-export const getUserState = () => userStateStore.getState()
+let userData = null
+export const getUserState = () => userData
 
 const authChangedListeners = {}
 
@@ -23,23 +12,36 @@ firebaseAuth.onAuthChanged(user => {
     console.log(`onAuthChanged: user:`)
     console.log({user})
     if (user == null) {
-        setUserState(null)
+        userData = null
     } else {
-        setUserState({
+        userData = {
             id: user.uid,
             name: user.displayName,
             token: user.accessToken,
-        })
+        }
     }
     for (const id of Object.keys(authChangedListeners)) {
         const func = authChangedListeners[id]
-        func(user)
+        func(userData)
     }
 })
 
 
 
+export function useAuth(uniqueLocationID) {
+    const [userData, setUserData] = useState(null)
 
+    onUserStateChanged(uniqueLocationID + '-auth', newUserData => {
+        setUserData(newUserData)
+    })
+
+    return { user: userData }
+}
+
+export function useIsLoggedIn(uniqueLocationID) {
+    const { user } = useAuth(uniqueLocationID + '-isLogged')
+    return user != null
+}
 
 
 
@@ -62,7 +64,7 @@ export async function test() {
 export function isLoggedIn() {
     console.log(`Auth.isLoggedIn userState:`)
     console.log(getUserState())
-    return getUserState() != null
+    return userData != null
 }
 
 export function onUserStateChanged(funcId, func) {
