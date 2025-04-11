@@ -1,6 +1,9 @@
 
 import { combineReducers, configureStore, createStore } from '@reduxjs/toolkit'
 import { characterCreationDetails } from './CharacterCreationReducers'
+import { createContext } from 'react'
+
+export const AppStateContext = createContext()
 
 const BASE_STATE = {
     isActionPointsSystem: false
@@ -14,7 +17,4 @@ export const globalStateStore = configureStore({
 export function getIsActionPointsSystem() { return false }
 export function setIsActionPointsSystem(v) { }
 
-// export const getIsActionPointsSystem = () => globalStateStore.getState().isActionPointsSystem
-// export const setIsActionPointsSystem = (val) => globalStateStore.dispatch({type: 'isActionPointsSystem', payload: val})
-// setIsActionPointsSystem(false)
 

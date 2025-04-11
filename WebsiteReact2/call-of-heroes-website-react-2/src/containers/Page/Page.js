@@ -6,10 +6,10 @@ import PageH0 from '../../components/PageH0/PageH0'
 import './Page.css'
 import Separator from '../../components/Separator/Separator'
 
-import AppStateContext from '../../services/AppStateContext'
 import LandingPageSeparator from '../../components/LandingPageSeparator/LandingPageSeparator'
 import { titleToId } from '../../utils'
 import classNames from 'classnames'
+import { AppStateContext } from '../../global-state/GlobalState'
 
 
 

@@ -5,9 +5,7 @@ import './Tabs.css'
 
 
 
-export default function Tabs({ tabNames, tabComponents }) {
-
-    let [activeTabI, setActiveTabI] = useState(0)
+export default function Tabs({ tabNames, tabComponents, activeTabI, setActiveTabI }) {
 
     function onTabClick(i) {
         setActiveTabI(i)

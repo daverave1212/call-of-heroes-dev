@@ -28,22 +28,31 @@ function StatInput({ name, value, onChange }) {
     )
 }
 
-export default function SectionStats({ onStatsChanged }) {
+export function StatValue({ name, value }) {
+    return (
+        <div className="stat-input">
+            <div>{ value }</div>
+            <div className="input-name">{ name }</div>
+        </div>
+    )
+}
 
-    const baseStats = [-1, 0, 1, 2, 3]
-    const statNames = ["Might", 'Dexterity', 'Intelligence', 'Sense', 'Charisma']
-    
-    const [stats, setStats] = useState(baseStats)
+export const STAT_NAMES = ["Might", 'Dexterity', 'Intelligence', 'Sense', 'Charisma']
+export const BASE_STATS = [-1, 0, 1, 2, 3]
+
+export default function SectionStats({ onStatsChanged }) {
+ 
+    const [stats, setStats] = useState(BASE_STATS)
     const [statsCorrectError, setStatsCorrectError] = useState(null)    /* { message: string } */
 
     function checkStandardStats(stats) {
         const statsCopy = [...stats].sort()
-        const baseStatsCopy = [...baseStats].sort()
+        const baseStatsCopy = [...BASE_STATS].sort()
         const isIncorrect = statsCopy.filter((stat, i) => baseStatsCopy[i] != stat).length > 0
         
         if (isIncorrect) {
             setStatsCorrectError({
-                message: `Your stats might not respect the ${baseStats.join(', ')} numbers, in any order.`
+                message: `Your stats might not respect the ${BASE_STATS.join(', ')} numbers, in any order.`
             })
             return
         }
@@ -65,7 +74,7 @@ export default function SectionStats({ onStatsChanged }) {
                 <Column>
                     <div>
                         <SmallStat name={name} type="normal-large">
-                            { calculateStat(statNames[i], stats[i]) }
+                            { calculateStat(STAT_NAMES[i], stats[i]) }
                             &nbsp;<Icon name={iconName}/>
                         </SmallStat>    
                     </div>
@@ -84,8 +93,8 @@ export default function SectionStats({ onStatsChanged }) {
             </div>
             <div className="center-content flex" style={{gap: '2rem'}}>
                 <div className="stats-selector">
-                    { baseStats.map((num, i) => (
-                        <StatInput name={statNames[i]} value={stats[i]} onChange={val => {
+                    { BASE_STATS.map((num, i) => (
+                        <StatInput name={STAT_NAMES[i]} value={stats[i]} onChange={val => {
                             onStatChanged(i, val)
                         }}/>
                     )) }

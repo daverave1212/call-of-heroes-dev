@@ -299,6 +299,17 @@ export function calculateStat(statName, value) {
     }
     return nameToCalc[statName]
 }
+export function calculateMaxHealth(raceName, className, level, might) {
+    if (raceName == null || className == null || level == null || might == null) {
+        return -1
+    }
+    const raceObj = getAllRaces()[raceName]
+    const classObj = getAllClasses()[className]
+
+    return raceObj.Stats['Base Health']
+            + calculateStat('Might', might)
+            + level * classObj['Level Up']['Every Level'].Health
+}
 
 
 

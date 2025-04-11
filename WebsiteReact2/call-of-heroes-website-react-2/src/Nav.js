@@ -60,9 +60,8 @@ import CrowdControl from './pages/Other/CrowdControl';
 import AreasOfEffect from './pages/Other/AreasOfEffect';
 import { getLocalStorageBool } from './utils';
 
-import AppStateContext from './services/AppStateContext';
 import TreasureGenerator from './pages/Tools/TreasureGenerator';
-import { getIsActionPointsSystem, globalStateStore, setIsActionPointsSystem } from './GlobalState';
+import { getIsActionPointsSystem, globalStateStore, setIsActionPointsSystem } from './global-state/GlobalState';
 import * as auth from './Auth'
 import { getAnyDocInCollection, getMyDocInCollection, setMyDocInCollection } from './Database';
 import Icon from './components/Icon';
@@ -291,9 +290,7 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
 
 function AccountButtons() {
 
-  auth.onUserStateChanged('Nav', () => {
-    console.log(`Nav.auth.onUserStateChanged`)
-  })
+  const isLoggedIn = auth.useIsLoggedIn('AccountButtons')
 
   function LoginButton() {
     return (
@@ -324,7 +321,7 @@ function AccountButtons() {
 
   return (
     <div className="nav-login-buttons">
-      { auth.isLoggedIn()? (
+      { isLoggedIn? (
         <LogoutButton/>
       ): (
         <LoginButton/>
