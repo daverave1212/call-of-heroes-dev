@@ -1,18 +1,32 @@
 import { useState } from "react";
 import HeroButton from "../../../components/HeroButton/HeroButton";
 import { IconWithSpinner } from "../../../components/Spell/Spell";
-import { getUserState } from "../../../Auth";
+import { getUserState, useAuth } from "../../../Auth";
+import { useLocalStorageState } from "../../../utils";
 
-function LabelWithInput({ labelText, onChange }) {
+function LabelWithInput({ labelText, value='d', onChange }) {
 
-    const userState = getUserState()
-    console.log(userState)
-    const userName = userState?.name
+    const [inputValue, setInputValue] = useState(value)
 
     return (
         <div className="flex-column align-left">
             <label style={{marginBottom: '6px'}}>{ labelText }</label>
-            <input className="text-input" value={userName} placeholder={userName} onChange={evt => onChange(evt.target.value)}/>
+            <input className="text-input" value={inputValue} placeholder={'Name'} onChange={evt => {
+                setInputValue(evt.target.value)
+                onChange(evt.target.value)
+            }}/>
+        </div>
+    )
+}
+
+function NameInput() {
+
+    const { user } = useAuth('NameInput')
+
+    return (
+        <div className="flex-column align-left">
+            <label style={{marginBottom: '6px'}}>Player Name</label>
+            <input className="text-input" value={user != null? user.name: ''}/>
         </div>
     )
 }
@@ -23,26 +37,36 @@ export const BASE_NAMES_STATE = {
     characterName: ''
 }
 
+export function useSectionNamesState() {
+    return useLocalStorageState('SectionNamesNames', BASE_NAMES_STATE)
+}
+
 export default function SectionNames({ onChange }) {
 
-    const [namesState, setNamesState] = useState(BASE_NAMES_STATE)
+    const [namesState, setNamesState] = useSectionNamesState()
+
+    function onClickOnPortrait() {
+        const url = prompt('Enter image URL')
+        setNamesState({...namesState, src: url})
+    }
 
     return (
         <div className="padding-top-4 flex-column align-center with-margined-children">
             <div className="center-content">
-                <div className="ccc-image-holder">
-                    <IconWithSpinner src="/Icons/Spells/Skilled_in_Persuasion.png"/>
+                <div className="ccc-image-holder" onClick={onClickOnPortrait}>
+                    <IconWithSpinner src={namesState.src}/>
                 </div>
             </div>
             <div className="center-content">
-                <LabelWithInput labelText="Player Name" onChange={val => {
+                <NameInput/>
+                {/* <LabelWithInput labelText="Player Name" onChange={val => {
                     const newState = {...namesState, playerName: val}
                     setNamesState(newState)
                     onChange(newState)
-                }}/>
+                }}/> */}
             </div>
             <div className="center-content">
-                <LabelWithInput labelText="Character Name" onChange={val => {
+                <LabelWithInput value={namesState.characterName} labelText="Character Name" onChange={val => {
                     const newState = {...namesState, characterName: val}
                     setNamesState(newState)
                     onChange(newState)

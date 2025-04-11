@@ -3,10 +3,14 @@ import PageH2 from "../../../components/PageH2/PageH2"
 import TwoColumns from "../../../components/TwoColumns/TwoColumns"
 import Column from "../../../components/TwoColumns/Column"
 import { CCClassPage } from "../../../components/InsertableTemplates/RaceClassComponents"
-import { getAllClasses, splitArrayEvenly } from "../../../utils"
+import { getAllClasses, splitArrayEvenly, useLocalStorageState } from "../../../utils"
 import { classesRacesObjectToArrays } from "./CharacterCreationCalculator"
 import Selector from "../../../components/Selector/Selector"
 
+
+export function useSectionClassName() { return useLocalStorageState('SectionClassName', null) }
+export function useSectionClassSpecName() { return useLocalStorageState('SectionClassSpecName', null) }
+export function useSectionClassSpellNames() { return useLocalStorageState('SectionClassSpellNames', [])}
 
 
 export default function SectionClass({ onClassNameSelected, onSpecNameSelected, onSpellsSelected }) {
@@ -16,9 +20,16 @@ export default function SectionClass({ onClassNameSelected, onSpecNameSelected, 
 
     const [chosenClass, setChosenClass] = useState(null)
 
+    const [className, setClassName] = useSectionClassName()
+    const [specName, setSpecName] = useSectionClassSpecName()
+    const [spellNames, setSpellNames] = useSectionClassSpellNames()
+
     function onClassClick(classObj) {
-        setChosenClass(classObj)
-        onClassNameSelected(classObj.Class)
+        // setChosenClass(classObj)
+        // onClassNameSelected(classObj.Class)
+        setClassName(classObj.Class)
+        setSpecName(null)
+        setSpellNames([])
     }
 
     function ClassSelector({ classObj }) {
@@ -48,8 +59,15 @@ export default function SectionClass({ onClassNameSelected, onSpecNameSelected, 
                 </Column>
             </TwoColumns>
 
-            { chosenClass != null && (
+            {/* { chosenClass != null && (
                 <CCClassPage theClass={chosenClass} onSpecSelected={onSpecNameSelected} onSpellsSelected={onSpellsSelected}/>
+            )} */}
+            { className != null && (
+                <CCClassPage
+                    theClass={classesObj[className]}
+                    selectedSpecName={specName} setSelectedSpecName={setSpecName}
+                    selectedSpellNames={spellNames} setSelectedSpellNames={setSpellNames}
+                />
             )}
         </div>
     )
