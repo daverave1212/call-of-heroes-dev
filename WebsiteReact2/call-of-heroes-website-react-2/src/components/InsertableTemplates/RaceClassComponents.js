@@ -502,7 +502,7 @@ export function Spec({ children, name, specObj }) {
     )
 }
 
-export function SpecTalents({ spec, onSpellsSelected }) {
+export function SpecTalents({ spec, onSpellsSelected, selectedSpellNames, setSelectedSpellNames }) {
 
     const talentTierCategories = Object.keys(spec.Talents)
 
@@ -528,10 +528,11 @@ export function SpecTalents({ spec, onSpellsSelected }) {
                     const abilitiesHere = abilitiesHereNames.map(name => U.spellWithName(name, classAndRaceAbilities[name]))
                     return <div>
                         <PageH3>{talentTierName}</PageH3>
-                        <ManySpells spells={abilitiesHere} onSpellsSelected={spells => {
+                        {/* <ManySpells spells={abilitiesHere} onSpellsSelected={spells => {
                             console.log({ selectedSpellsInManySpellsSpec: spells })
                             onSpellsSelected(spells)
-                        }}/>
+                        }}/> */}
+                        <ManySpells spells={abilitiesHere} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}/>
                     </div>
                 }
                 if (hasThisTier == false) {
@@ -543,10 +544,11 @@ export function SpecTalents({ spec, onSpellsSelected }) {
                 const spellsInThisTier = U.spellsFromObject(spec.Talents[talentTierName])
                 return <div key={talentTierName}>
                     <PageH3>{talentTierName}</PageH3>
-                    <ManySpells spells={spellsInThisTier} onSpellsSelected={spells => {
+                    <ManySpells spells={spellsInThisTier} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}/>
+                    {/* <ManySpells spells={spellsInThisTier} onSpellsSelected={spells => {
                         console.log({ selectedSpellsInManySpellsSpec: spells })
                         onSpellsSelected(spells)
-                    }}/>
+                    }}/> */}
                 </div>
             })}
         </div>
@@ -665,25 +667,25 @@ export function RacePage({ theRace }) {
         </div>
     )
 }
-export function CCRacePage({ theRace, onSpellsSelected }) {
+export function CCRacePage({ theRace, onSpellsSelected, selectedSpellNames, setSelectedSpellNames }) {
 
-    let [selectedAbilityChoices, setSelectedAbilityChoices] = useState([])
-    let [selectedFeats, setSelectedFeats] = useState([])
+    // let [selectedAbilityChoices, setSelectedAbilityChoices] = useState([])
+    // let [selectedFeats, setSelectedFeats] = useState([])
 
     useEffect(() => {
-        setSelectedAbilityChoices([])
-        setSelectedFeats([])
-        onSpellsSelected([])
+        // setSelectedAbilityChoices([])
+        // setSelectedFeats([])
+        // onSpellsSelected([])
     }, [theRace])
 
-    function onAbilityChoicesSelected(spells) {
-        setSelectedAbilityChoices(spells)
-        onSpellsSelected([...selectedAbilityChoices, ...selectedFeats])
-    }
-    function onFeatsSelected(spells) {
-        setSelectedFeats(spells)
-        onSpellsSelected([...selectedAbilityChoices, ...selectedFeats])
-    }
+    // function onAbilityChoicesSelected(spells) {
+    //     setSelectedAbilityChoices(spells)
+    //     onSpellsSelected([...selectedAbilityChoices, ...selectedFeats])
+    // }
+    // function onFeatsSelected(spells) {
+    //     setSelectedFeats(spells)
+    //     onSpellsSelected([...selectedAbilityChoices, ...selectedFeats])
+    // }
 
     return (
         <div>
@@ -702,19 +704,28 @@ export function CCRacePage({ theRace, onSpellsSelected }) {
                 { theRace['Ability Choices'] != null && (
                     <div>
                         <PageH2>Ability Choice</PageH2>
-                        <ManySpells
+                        {/* <ManySpells
                             spells={theRace['Ability Choices']}
                             description={theRace['Ability Choices Description']}
                             onSpellsSelected={spellsSelected => onAbilityChoicesSelected(spellsSelected)}
+                        /> */}
+                        <ManySpells
+                            spells={theRace['Ability Choices']}
+                            description={theRace['Ability Choices Description']}
+                            selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}
                         />
                     </div>
                 )}
 
                 <PageH2>Race Feats</PageH2>
                 <p>Choose one Race Feat from below. Your choice is permanent!</p>
-                <ManySpells
+                {/* <ManySpells
                     spells={U.spellsFromObject(theRace.Talents)}
                     onSpellsSelected={spellsSelected => onFeatsSelected(spellsSelected)}
+                /> */}
+                <ManySpells
+                    spells={U.spellsFromObject(theRace.Talents)}
+                    selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}
                 />
 
             </Page>
@@ -782,32 +793,38 @@ export function ClassPage({ theClass }) {
 }
 
 
-export function CCClassPage({ theClass, onSpecSelected=(specName) => {}, onSpellsSelected=(spells) => {} }) {
+export function CCClassPage({
+    theClass,
+    onSpecSelected=(specName) => {},
+    onSpellsSelected=(spells) => {},
+    selectedSpecName, setSelectedSpecName,
+    selectedSpellNames, setSelectedSpellNames
+}) {
 
-
-
-    const [selectedSpecName, setSelectedSpecName] = useState(null)
+    // const [selectedSpecName, setSelectedSpecName] = useState(null)
     const [selectedSpellsBySpec, setSelectedSpellsBySpec] = useState([])
 
     const selectedSpecObj = selectedSpecName == null? null: theClass.Specs[selectedSpecName]
 
-    useEffect(() => {
-        setSelectedSpecName(null)   // Prevents mismatch between selected class and selected spec
-    }, [theClass])
+    // useEffect(() => {
+    //     setSelectedSpecName(null)   // Prevents mismatch between selected class and selected spec
+    //     setSelectedSpellNames([])
+    // }, [theClass])
 
 
     function onSpecClick(specName) {
         setSelectedSpecName(specName)
-        onSpecSelected(specName)
+        setSelectedSpellNames([])
+        // onSpecSelected(specName)
     }
 
-    function onSpecSpellsSelected(specName, spells) {
-        const newlySelectedSpellsBySpec = spells.map(spell => ({ ...spell, specName }))
-        const alreadySelectedSpellsExcept = selectedSpellsBySpec.filter(spell => spell.specName != specName)
-        const newSelectedSpellsBySpec = [...alreadySelectedSpellsExcept, ...newlySelectedSpellsBySpec]
-        setSelectedSpellsBySpec(newSelectedSpellsBySpec)
-        onSpellsSelected(spells)
-    }
+    // function onSpecSpellsSelected(specName, spells) {
+    //     const newlySelectedSpellsBySpec = spells.map(spell => ({ ...spell, specName }))
+    //     const alreadySelectedSpellsExcept = selectedSpellsBySpec.filter(spell => spell.specName != specName)
+    //     const newSelectedSpellsBySpec = [...alreadySelectedSpellsExcept, ...newlySelectedSpellsBySpec]
+    //     setSelectedSpellsBySpec(newSelectedSpellsBySpec)
+    //     onSpellsSelected(spells)
+    // }
 
     return (
         <div>            
@@ -851,12 +868,13 @@ export function CCClassPage({ theClass, onSpecSelected=(specName) => {}, onSpell
                         selectedSpecObj.Abilities != null && (
                             <div>
                                 <PageH3>Choose One...</PageH3>
-                                <ManySpells spells={U.spellsFromObject(selectedSpecObj)}/>
+                                <ManySpells spells={U.spellsFromObject(selectedSpecObj)} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}/>
                             </div>
                         )
                     }
 
-                    <SpecTalents spec={selectedSpecObj} onSpellsSelected={spells => onSpecSpellsSelected(selectedSpecName, spells)}/>
+                    {/* <SpecTalents spec={selectedSpecObj} onSpellsSelected={spells => onSpecSpellsSelected(selectedSpecName, spells)}/> */}
+                    <SpecTalents spec={selectedSpecObj} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}/>
 
                 </Spec>
             )}

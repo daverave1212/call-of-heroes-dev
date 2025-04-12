@@ -157,11 +157,10 @@ export function IconWithSpinner({ src, className }) {
 }
 
 
-export default function Spell({ children, spell, style, hasIcon, hasBorder, hasCopyButton=true, onSelected, showTopStats=true }) {
+export default function Spell({ children, spell, style, hasIcon, hasBorder, hasCopyButton=true, showTopStats=true, isSelected=false, onSelected }) {
 
     const [variantIndex, setVariantIndex] = useState(0)
     const [thiefRolledGoldAmount, setThiefRolledGoldAmount] = useState('Click here to roll 1000d100!')
-    const [isSelected, setIsSelected] = useState(false)
 
     assertCorrectSpellFormat(spell)
 
@@ -279,7 +278,7 @@ export default function Spell({ children, spell, style, hasIcon, hasBorder, hasC
     }
 
     return (
-        <div id={uniqueID} style={style} className={classNames(
+        <div data-selectable={onSelected != null} id={uniqueID} style={style} className={classNames(
             'spell',
             spellNormalOrSubClass,
             spellPassiveOrActiveClass,
@@ -358,12 +357,12 @@ export default function Spell({ children, spell, style, hasIcon, hasBorder, hasC
                     </div>
                 )}
                 { hasCopyButton === true && <CopySpellButton elementId={uniqueID} shouldAddBorder={true}/> }
-                { onSelected != null && (
+                { /* onSelected != null */ onSelected != null && (
                     <div>
                         <div className='center-content' onClick={() => {
                                 const newIsSelected = !isSelected
-                                setIsSelected(newIsSelected)
                                 onSelected(newIsSelected)
+                                // onSelected(newIsSelected)
                             }}>
                             <button style={{
                                 fontSize: '17px',

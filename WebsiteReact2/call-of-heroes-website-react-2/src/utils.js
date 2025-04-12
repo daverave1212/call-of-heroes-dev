@@ -7,6 +7,10 @@ import skills from './databases/Proficiencies.json'
 import abilities from './databases/Abilities.json'
 import overallData from './databases/OverallData.json'
 import { Races, Classes } from './pages/Other/AllRacesAndClasses'
+import { useEffect, useState } from "react"
+import BasicAbilities from './databases/Abilities.json'
+import Feats from './databases/Feats.json'
+import ClassAndRaceAbilities from './databases/ClassAndRaceAbilities.json'
 
 // ---------------- Spells Utilities ----------------
 
@@ -43,7 +47,7 @@ function getErrorSpellObject(message) {
         { Name: "Push", "Effect": ...},
     ]
 */
-export function spellsFromObject(obj) /* -> Array */ {
+export function spellsFromObject(obj) /* : Array */ {
     if (obj == null) return getErrorSpellObject('Null obj given to spellsFromObject')
 
     const spellsArray = []
@@ -121,7 +125,23 @@ export function getAlternativesAsArray(text) {
     const alternatives = alternativesString.split(', ')
     return alternatives
 }
-
+export function getAllSpells() {
+    const allBasicSpells = getAllBasicSpellsAsArray()
+    const allFeats = getAllSpellsFromCategoriesObject(Feats)
+    const allClassAndRaceAbilities = spellsFromObject(ClassAndRaceAbilities)
+    const allSpells = [...allBasicSpells, ...allFeats, ...allClassAndRaceAbilities]
+    return allSpells
+}
+let allSpellsCached = {}
+export function getAllSpellsByName() {
+    const allSpells = getAllSpells()
+    for (const spell of allSpells) {
+        if (allSpellsCached[spell.Name] == null) {
+            allSpellsCached[spell.Name] = spell
+        }
+    }
+    return allSpellsCached
+}
 
 
 
@@ -309,6 +329,43 @@ export function calculateMaxHealth(raceName, className, level, might) {
     return raceObj.Stats['Base Health']
             + calculateStat('Might', might)
             + level * classObj['Level Up']['Every Level'].Health
+}
+export function calculateBaseCombatStats(raceName, className, level, stats) {
+    if (raceName == null || className == null || level == null || stats == null) {
+        return -1
+    }
+    const raceObj = getAllRaces()[raceName]
+    const classObj = getAllClasses()[className]
+    const [might, dexterity, intelligence, sense, charisma] = stats
+
+    return {
+        maxHealth: raceObj.Stats['Base Health'] + calculateStat('Might', might) + level * classObj['Level Up']['Every Level'].Health,
+        healthRegen: raceObj.Stats['Health Regen'] + calculateStat('Sense', sense) + level * 2,
+        movementSpeed: calculateStat('Dexterity', dexterity),
+        initiative: calculateStat('Charisma', charisma)
+    }
+}
+export function calculateHealthRegen(raceName, className, level, sense) {
+    if (raceName == null || className == null || level == null || sense == null) {
+        return -1
+    }
+    const raceObj = getAllRaces()[raceName]
+    const classObj = getAllClasses()[className]
+
+    return raceObj.Stats['Health Regen']
+            + calculateStat('Sense', sense)
+            + level * 2
+}
+export function calculateMovementSpeed(raceName, className, level, dexterity) {
+    if (raceName == null || className == null || level == null || sense == null) {
+        return -1
+    }
+    const raceObj = getAllRaces()[raceName]
+    const classObj = getAllClasses()[className]
+
+    return raceObj.Stats['Health Regen']
+            + calculateStat('Sense', sense)
+            + level * 2
 }
 
 
@@ -841,6 +898,30 @@ export const styleMargined = { marginBottom: 'var(--element-padding)' }    // Us
 export const stylePadded   = { padding: 'var(--element-padding)' }
 
 
+
+export function useLocalStorageState(keyName, defaultValue) {
+    const existingValue = localStorage.getItem(keyName)
+    if (existingValue == null) {
+        localStorage.setItem(keyName, JSON.stringify(defaultValue))
+    }
+
+    const [state, setInnerState] = useState(JSON.parse(localStorage.getItem(keyName)))
+    
+    useEffect(() => {
+        window.addEventListener('storage', evt => {
+            if (evt.key == keyName) {
+                setInnerState(JSON.parse(evt.newValue))
+            }
+        })
+    }, [])
+
+    function setState(newState) {
+        localStorage.setItem(keyName, JSON.stringify(newState))
+        setInnerState(newState)
+    }
+
+    return [state, setState]
+}
 
 
 

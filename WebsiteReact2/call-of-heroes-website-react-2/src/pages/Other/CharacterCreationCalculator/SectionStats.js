@@ -2,7 +2,7 @@ import { useState } from "react"
 import TwoColumns from "../../../components/TwoColumns/TwoColumns"
 import Column from "../../../components/TwoColumns/Column"
 import SmallStat from "../../../components/SmallStat/SmallStat"
-import { calculateStat } from "../../../utils"
+import { calculateStat, useLocalStorageState } from "../../../utils"
 import Page from "../../../containers/Page/Page"
 import { QGTitle1 } from "../../Tools/TitleGenerator"
 import Icon from "../../../components/Icon"
@@ -40,9 +40,13 @@ export function StatValue({ name, value }) {
 export const STAT_NAMES = ["Might", 'Dexterity', 'Intelligence', 'Sense', 'Charisma']
 export const BASE_STATS = [-1, 0, 1, 2, 3]
 
+export function useSectionStatsState() {
+    return useLocalStorageState('SectionStats.stats', BASE_STATS)
+}
+
 export default function SectionStats({ onStatsChanged }) {
  
-    const [stats, setStats] = useState(BASE_STATS)
+    const [stats, setStats] = useSectionStatsState()
     const [statsCorrectError, setStatsCorrectError] = useState(null)    /* { message: string } */
 
     function checkStandardStats(stats) {
@@ -62,10 +66,10 @@ export default function SectionStats({ onStatsChanged }) {
 
     function onStatChanged(i, val) {
         const statsCopy = [...stats]
-        statsCopy[i] = val
+        statsCopy[i] = parseInt(val)
         setStats(statsCopy)
         checkStandardStats(statsCopy)
-        onStatsChanged(statsCopy)
+        onStatsChanged?.(statsCopy)
     }
 
     function StatExplainedDisplay({ i, name, description, iconName }) {
