@@ -42,24 +42,34 @@ export function classesRacesObjectToArrays(bigObj) {
     return classObjRows
 }
 
-const allRacesObj = getAllRaces()
-const allClassesObj = getAllClasses()
-
 export default function CharacterCreationCalculator() {
 
     const [activeTabI, setActiveTabI] = useLocalStorageState('CCCActiveTabI', 0)
-
     const [names, setNames] = useSectionNamesState()
+
+    const tabNames = [
+        'My Character',
+        'Stats',
+        'Race',
+        'Class',
+        'Basic Abilities',
+        'Feats',
+        'Shop',
+        'Pets and Animals'
+    ]
 
     return (
         <Page id="Character-Builder" isCentered={true}>
             <SectionNames onChange={newNamesState => setNames(newNamesState)}/>
 
-            <Tabs activeTabI={activeTabI} setActiveTabI={setActiveTabI} tabNames={['Stats', 'Race', 'Class', 'Character']} tabComponents={[
+            <Tabs isFirstTabLarge={true} activeTabI={activeTabI} setActiveTabI={setActiveTabI} tabNames={tabNames} tabComponents={[
+                <MyCharacter/>,
                 <SectionStats/>,
                 <SectionRace/>,
                 <SectionClass/>,
-                <MyCharacter/>
+                <div></div>,
+                <div></div>,
+                <div></div>,
             ]}/>
 
 

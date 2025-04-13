@@ -1,10 +1,32 @@
 
 :root {
     --image-size: 106px;
-    --stats-gap: 3vw;
-    --stats-gap-half: 1.5vw;
-    --stats-width: calc(var(--stat-selector-size) * 5 + var(--stats-gap) * 4);
-    --stat-selector-size: 10vw;
+
+    --ccc-unit: calc(var(--page-content-width) / 32);
+
+    --stat-selector-size: calc(4 * var(--ccc-unit));
+    --stats-gap: calc(1 * var(--ccc-unit));
+    --column-2-width: calc((3 * 4 + 2 * 1) * var(--ccc-unit));
+    --column-3-width: calc(12 * var(--ccc-unit));
+
+    --attributes-size: calc((var(--column-2-width) - var(--stats-gap)) / 2);
+
+    --ccc-portrait-size: calc(var(--column-3-width));
+    --ccc-portrait-height: calc(var(--column-2-width));
+    --ccc-description-width: var(var(--column-3-width));
+    --ccc-description-height: calc(var(--stat-selector-size) * 2 + var(--stats-gap));
+}
+@media (orientation: portrait) {    /* In portrait, column 3 is not displayed on the right, but at top */
+    :root {
+        --ccc-unit: calc(var(--page-content-width) / 19);
+
+        --column-3-width: var(--page-content-width);
+
+        --ccc-portrait-size: calc((var(--column-3-width) - var(--stats-gap)) / 2);
+        --ccc-portrait-height: var(--ccc-portrait-size);
+        --ccc-description-width: var(--ccc-portrait-size);
+        --ccc-description-height: var(--ccc-portrait-size);
+    }
 }
 
 .ccc-image-holder {
@@ -18,6 +40,7 @@
     margin-left: 2px;
     margin-top: 2px;
     width: calc(var(--image-size) - 8px);
+    object-fit: cover;
 }
 .ccc-image-holder .no-spell-spinner {
     width: calc(var(--image-size) * 2);
@@ -62,11 +85,6 @@
     display: flex;
     gap: var(--stats-gap);
 }
-@media (orientation: portrait) {
-    .stats-selector {
-        flex-direction: column;
-    }
-}
 
 .stat-input {
     width: var(--stat-selector-size);
@@ -81,9 +99,9 @@
     border-radius: 6px;
 }
 .stat-input.large {
-    width: calc(var(--stat-selector-size) * 1.5);
-    height: calc(var(--stat-selector-size) * 1.5);
-    line-height: calc(var(--stat-selector-size) * 1.5);
+    width: var(--attributes-size);
+    height: var(--attributes-size);
+    line-height: var(--attributes-size);
 }
 .stat-input input {
     font-size: 2rem;
@@ -110,10 +128,6 @@
 
 
 
-:root {
-    --ccc-portrait-size: calc(var(--stat-selector-size) * 3 + 2 * var(--stats-gap-half));
-    --ccc-description-height: calc(var(--stat-selector-size) * 2 + 1 * var(--stats-gap-half));
-}
 #My-Character .wrapper {
     padding: 2px;
 
@@ -129,9 +143,25 @@
 }
 #My-Character .portrait-wrapper {
     width: var(--ccc-portrait-size);
-    height: var(--ccc-portrait-size);
+    height: var(--ccc-portrait-height);
 }
 #My-Character .description-wrapper {
-    width: var(--ccc-portrait-size);
+    width: var(--ccc-description-width);
+    /* height: calc(var(--stat-selector-size) * 2 + var(--stats-gap)); */
     height: var(--ccc-description-height);
+}
+
+#My-Character .combat-notes-wrapper {
+    width: var(--column-2-width);
+    height: calc(var(--stat-selector-size) * 2 + var(--stats-gap));
+}
+
+
+.extra {
+    width: 100%;
+    font-family: TextFont;
+    padding: 0.5rem;
+
+    border: solid 1px gray;
+    border-radius: 3px;
 }

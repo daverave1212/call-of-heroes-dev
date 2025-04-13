@@ -53,9 +53,6 @@ export default function SectionRace({ /* onSpellsSelected, onRaceNameSelected */
     //     setRaceState(newRaceState)
     // }
 
-    console.log(`selectedRaceName: ${selectedRaceName}, RACES_OBJ[...]: `)
-    console.log(RACES_OBJ[selectedRaceName])
-
     return (
         <div>
             <PageH2>Race</PageH2>

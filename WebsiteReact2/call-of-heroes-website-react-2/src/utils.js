@@ -64,6 +64,15 @@ export function spellsFromObject(obj) /* : Array */ {
     }
     return spellsArray
 }
+export function getAllSpellsFromCategoriesObject(spellCategoriesObject) {
+    const categoryNames = Object.keys(spellCategoriesObject)
+    let spells = []
+    for (const categoryName of categoryNames) {
+        const theseSpells = spellsFromObject(spellCategoriesObject[categoryName])
+        spells = [...spells, ...theseSpells]
+    }
+    return spells
+}
 
 export function removeTildes(spellName) {
     if (spellName.startsWith('~') || spellName.startsWith('<'))
@@ -81,18 +90,28 @@ export function getAllBasicSpellsAsArray() {
     }
     return CACHED_BASIC_SPELLS_ARRAY
 }
-export function getAllSpellsFromCategoriesObject(spellCategoriesObject) {
-    const categoryNames = Object.keys(spellCategoriesObject)
-    let spells = []
-    for (const categoryName of categoryNames) {
-        const theseSpells = spellsFromObject(spellCategoriesObject[categoryName])
-        spells = [...spells, ...theseSpells]
+export function getAllSpells() {
+    const allBasicSpells = getAllBasicSpellsAsArray()
+    const allFeats = getAllSpellsFromCategoriesObject(Feats)
+    const allClassAndRaceAbilities = spellsFromObject(ClassAndRaceAbilities)
+    const allSpells = [...allBasicSpells, ...allFeats, ...allClassAndRaceAbilities]
+    return allSpells
+}
+let allSpellsCached = null
+export function getAllSpellsByName() {
+    const allSpells = getAllSpells()
+    if (allSpellsCached != null) {
+        return allSpellsCached
     }
-    return spells
+    allSpellsCached = {}
+    for (const spell of allSpells) {
+        if (allSpellsCached[spell.Name] == null) {
+            allSpellsCached[spell.Name] = spell
+        }
+    }
+    return allSpellsCached
 }
-export function getSpellFromCategoriesObject(spellCategoriesObject, category, name) {
-    const categoryIndex = spellCategoriesObject.indexOf(category)
-}
+
 export function getSpellIconPathByName(name) {
     const iconName = getUniqueSpellID(name)
     const iconPath = `/Icons/Spells/${iconName}.png`
@@ -125,23 +144,35 @@ export function getAlternativesAsArray(text) {
     const alternatives = alternativesString.split(', ')
     return alternatives
 }
-export function getAllSpells() {
-    const allBasicSpells = getAllBasicSpellsAsArray()
-    const allFeats = getAllSpellsFromCategoriesObject(Feats)
-    const allClassAndRaceAbilities = spellsFromObject(ClassAndRaceAbilities)
-    const allSpells = [...allBasicSpells, ...allFeats, ...allClassAndRaceAbilities]
-    return allSpells
-}
-let allSpellsCached = {}
-export function getAllSpellsByName() {
-    const allSpells = getAllSpells()
-    for (const spell of allSpells) {
-        if (allSpellsCached[spell.Name] == null) {
-            allSpellsCached[spell.Name] = spell
+
+export function getAllStatBonusesFromSpellsAsObj(spellsArray) {
+    let bonuses = {}
+    for (const spell of spellsArray) {
+        if (spell.Bonuses != null) {
+            for (const statName of Object.keys(spell.Bonuses)) {
+                if (bonuses[statName] == null) {
+                    bonuses[statName] = 0
+                }
+                bonuses[statName] += spell.Bonuses[statName]
+            }
         }
     }
-    return allSpellsCached
+    return bonuses
 }
+export function getExtrasFromSpells(spellsArray) {
+    let extras = []
+    let combatExtras = []
+    for (const spell of spellsArray) {
+        if (spell.Extras != null) {
+            extras = [...extras, ...spell.Extras]
+        }
+        if (spell['Combat Extras'] != null) {
+            combatExtras = [...combatExtras, ...spell['Combat Extras']]
+        }
+    }
+    return { extras, combatExtras }
+}
+
 
 
 
@@ -307,15 +338,15 @@ export function getSpecRepresentativeIconFullPath(classObj, specName) {
     const spellName = removeTildes(firstSpellName)
     return getSpellIconPathByName(spellName)
 }
-export function calculateStat(statName, value) {
+export function calculateStat(statName, value, bonus=0) {
     statName = statName.toLowerCase().trim()
     value = parseInt(value)
     const nameToCalc = {
-        'might': value * 2,
-        'dexterity': 4 + Math.ceil(value),
-        'intelligence': value,
-        'sense': value,
-        'charisma': value * 3
+        'might': value * 2 + bonus,
+        'dexterity': 4 + Math.ceil(value) + bonus,
+        'intelligence': value + bonus,
+        'sense': value + bonus,
+        'charisma': value * 3 + bonus
     }
     return nameToCalc[statName]
 }
@@ -329,6 +360,12 @@ export function calculateMaxHealth(raceName, className, level, might) {
     return raceObj.Stats['Base Health']
             + calculateStat('Might', might)
             + level * classObj['Level Up']['Every Level'].Health
+}
+export function getRaceHealth(raceName) {
+    return getAllRaces()[raceName].Stats['Base Health']
+}
+export function getRaceRegen(raceName) {
+    return getAllRaces()[raceName].Stats['Health Regen']
 }
 export function calculateBaseCombatStats(raceName, className, level, stats) {
     if (raceName == null || className == null || level == null || stats == null) {
@@ -366,6 +403,29 @@ export function calculateMovementSpeed(raceName, className, level, dexterity) {
     return raceObj.Stats['Health Regen']
             + calculateStat('Sense', sense)
             + level * 2
+}
+export function getAllMySpells({ raceName, className, specName, selectedClassSpellNames, selectedRaceSpellNames }) {
+    const allSpells = getAllSpellsByName()
+
+    const myRace = getAllRaces()[raceName]
+    const myClass = getAllClasses()[className]
+    const mySpec = myClass == null || specName == null? null: myClass.Specs[specName]
+
+    const myRaceBaseSpells = myRace == null? []: spellsFromObject(myRace['Starting Abilities'])
+    const myRaceFeats = selectedRaceSpellNames.map(name => allSpells[name])
+    const myClassBaseSpells = myClass == null? []: spellsFromObject(myClass['Starting Abilities'])
+    const mySpecBaseSpells = mySpec == null? []: spellsFromObject(mySpec['Starting Abilities'])
+    const myClassTalents = selectedClassSpellNames.map(name => allSpells[name])
+
+    const allMySpells = [
+        ...myRaceBaseSpells,
+        ...myRaceFeats,
+        ...myClassBaseSpells,
+        ...mySpecBaseSpells,
+        ...myClassTalents
+    ]
+
+    return allMySpells
 }
 
 
@@ -908,6 +968,12 @@ export function useLocalStorageState(keyName, defaultValue) {
     const [state, setInnerState] = useState(JSON.parse(localStorage.getItem(keyName)))
     
     useEffect(() => {
+        window.addEventListener('custom-storage', evt => {
+            if (evt.detail.key == keyName) {
+                setInnerState(evt.detail.value)
+            }
+        })
+
         window.addEventListener('storage', evt => {
             if (evt.key == keyName) {
                 setInnerState(JSON.parse(evt.newValue))
@@ -916,7 +982,14 @@ export function useLocalStorageState(keyName, defaultValue) {
     }, [])
 
     function setState(newState) {
+        if (newState != null && newState.src != null) {
+            console.log(`setState for key ${keyName} with newValue: ${JSON.stringify(newState)}`)
+        }
         localStorage.setItem(keyName, JSON.stringify(newState))
+        window.dispatchEvent(new CustomEvent('custom-storage', { detail: {
+            key: keyName,
+            value: newState
+        } }))
         setInnerState(newState)
     }
 

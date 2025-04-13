@@ -26,7 +26,7 @@ function NameInput() {
     return (
         <div className="flex-column align-left">
             <label style={{marginBottom: '6px'}}>Player Name</label>
-            <input className="text-input" value={user != null? user.name: ''}/>
+            <input readOnly className="text-input" value={user != null? user.name: ''}/>
         </div>
     )
 }

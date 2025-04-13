@@ -6,6 +6,7 @@ import { calculateStat, useLocalStorageState } from "../../../utils"
 import Page from "../../../containers/Page/Page"
 import { QGTitle1 } from "../../Tools/TitleGenerator"
 import Icon from "../../../components/Icon"
+import { useBonusesFromSpells, useTotalStats } from "./MyCharacter"
 
 
 function StatInput({ name, value, onChange }) {
@@ -41,13 +42,22 @@ export const STAT_NAMES = ["Might", 'Dexterity', 'Intelligence', 'Sense', 'Chari
 export const BASE_STATS = [-1, 0, 1, 2, 3]
 
 export function useSectionStatsState() {
-    return useLocalStorageState('SectionStats.stats', BASE_STATS)
+    return useLocalStorageState('SectionStatsStats', BASE_STATS)
+}
+export function useExtraStats() {
+    return useLocalStorageState('SectionStatsExtraStats', [0, 0, 0, 0, 0])
 }
 
 export default function SectionStats({ onStatsChanged }) {
  
     const [stats, setStats] = useSectionStatsState()
     const [statsCorrectError, setStatsCorrectError] = useState(null)    /* { message: string } */
+
+    const totalStats = useTotalStats()
+    const bonuses = useBonusesFromSpells()
+    console.log(`In section stats:`)
+    console.log({bonuses})
+
 
     function checkStandardStats(stats) {
         const statsCopy = [...stats].sort()
@@ -72,13 +82,13 @@ export default function SectionStats({ onStatsChanged }) {
         onStatsChanged?.(statsCopy)
     }
 
-    function StatExplainedDisplay({ i, name, description, iconName }) {
+    function StatExplainedDisplay({ i, name, description, iconName, bonus }) {
         return (
             <TwoColumns className='margin-top-half'>
                 <Column>
                     <div>
                         <SmallStat name={name} type="normal-large">
-                            { calculateStat(STAT_NAMES[i], stats[i]) }
+                            { calculateStat(STAT_NAMES[i], totalStats[i], bonus) }
                             &nbsp;<Icon name={iconName}/>
                         </SmallStat>    
                     </div>
@@ -104,19 +114,19 @@ export default function SectionStats({ onStatsChanged }) {
                     )) }
                 </div>
                 <div style={{ width: '100%' }}>
-                    <StatExplainedDisplay i={0} name="Extra Health" iconName="Health" description={
+                    <StatExplainedDisplay i={0} name="Extra Health" bonus={bonuses['Max Health'] ?? 0} iconName="Health" description={
                         <div>Your <b>Max Health</b> = Race Health + 200% of Might</div>
                     }/>
-                    <StatExplainedDisplay i={1} name="Move Speed" iconName="Speed" description={
+                    <StatExplainedDisplay i={1} name="Move Speed" bonus={bonuses['Movement Speed'] ?? 0} iconName="Speed" description={
                         <div>Your <b>Movement Speed</b> = 4 + 50% of Dexterity (<i>rounded up</i>)</div>
                     }/>
-                    <StatExplainedDisplay i={2} name="Known Abilities" iconName="Spell" description={
+                    <StatExplainedDisplay i={2} name="Known Abilities" bonus={bonuses['Known Abilities'] ?? 0} iconName="Spell" description={
                         <div>Your <b>Number of Known Basic Abilities</b> = Intelligence</div>
                     }/>
-                    <StatExplainedDisplay i={3} name="Extra Regen" iconName="HealthRegen" description={
+                    <StatExplainedDisplay i={3} name="Extra Regen" iconName="HealthRegen" bonus={bonuses['Health Regen'] ?? 0} description={
                         <div>Your <b>Health Regen</b> = Race Health Regen + Sense (<i>rounded up</i>)</div>
                     }/>
-                    <StatExplainedDisplay i={4} name="Initiative" iconName="Replacement" description={
+                    <StatExplainedDisplay i={4} name="Initiative" bonus={bonuses['Initiative'] ?? 0} iconName="Replacement" description={
                         <div>
                             Your <b>Initiative</b> = 300% of Charisma
                             <div className="subtext margin-top-half">Initiative represents the order in which players and NPC's take turns.</div>
