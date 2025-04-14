@@ -326,6 +326,29 @@ export function getAllClasses() {
 export function getAllRaces() {
     return Races
 }
+export function getRace(raceName) {
+    return Races[raceName]
+}
+export function getAllLanguages() {
+    return {
+        'Common': '',
+        'Dwarvish': '',
+        'Elvish': '',
+        'Tribal Orcish': '',
+        'Goblan': '',
+        'Sylvan': '',
+        'Gian': '',
+        'Undran': '',
+        'Infernan': '',
+        'Celestian': '',
+        'Ancian': '',
+        'Eldrish': '',
+        'Doublespeak': '',
+        'Whistletone': '',
+        'Drakan': '',
+        'Sign Language': ''
+    }
+}
 export function getClassRepresentativeIconName(classObj) {
     console.log({classObj})
     const firstSpellName = Object.keys(classObj['Starting Abilities'])[0]

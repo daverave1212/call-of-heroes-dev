@@ -7,6 +7,8 @@ import { STAT_NAMES, StatValue, useExtraStats, useSectionStatsState } from "./Se
 import ManySpells from "../../../components/Spell/ManySpells"
 import PageH2 from "../../../components/PageH2/PageH2"
 import TextArea from "../../../components/TextArea/TextArea"
+import { useSkills } from "./SectionSkills"
+import { useLanguages } from "./SectionLanguages"
 
 
 function BigStatValue({ name, value }) {
@@ -46,9 +48,9 @@ export function useBonusesFromSpells() {
 
     const bonuses = getAllStatBonusesFromSpellsAsObj(allMySpells)
 
-    console.log({bonuses})
     return bonuses
 }
+
 export function useTotalStats() {
     const bonuses = useBonusesFromSpells()
     const [stats] = useSectionStatsState()
@@ -68,6 +70,7 @@ export default function MyCharacter() {
     let [names] = useSectionNamesState()
     let [level] = useState(3)
     let [selectedStats] = useSectionStatsState()
+    let totalStats = useTotalStats()
     let [extraStatsFromSpells, setExtraStatsFromSpells] = useExtraStats()
     
     let [selectedRaceName] = useSectionRaceName()
@@ -79,16 +82,16 @@ export default function MyCharacter() {
     let [description, setDescription] = useLocalStorageState('characterDescription', 'Enter your character description here')
     let [quickNotes, setQuickNotes] = useLocalStorageState('quickNotes', 'Combat notes...')
     
-    const allMySpells = useAllSpells()
+    let allMySpells = useAllSpells()
+
+    let bonuses = useBonusesFromSpells()
+    let [selectedSkillNames] = useSkills()
+    let [languages] = useLanguages()
 
     // Computed values
-    const allExtras = getExtrasFromSpells(allMySpells)
-    const bonuses = useBonusesFromSpells()
-    const totalStats = useTotalStats()
-
     const allDisplayedSpells = allMySpells.filter(spell => spell.IsIgnored != true)
     const { maxHealth, healthRegen, movementSpeed, initiative } = calculateBaseCombatStats(selectedRaceName, selectedClassName, level, totalStats)
-    const { extras, combatExtras } = allExtras
+    const { extras, combatExtras } = getExtrasFromSpells(allMySpells)
 
     // const { extras, combatExtras } = {}
     
@@ -163,21 +166,18 @@ export default function MyCharacter() {
                 <PortraitAndDescriptionColumnLS/>
             </div>
 
-            <div className="flex flex-row margin-top-1" style={{gap: 'var(--stats-gap)'}}>
+            <div className="flex flex-row margin-top-1 gap-3q">
                 <div className="flex-column" style={{flex: 1, gap: '5px'}}>
-                    { allExtras.combatExtras.map(text => <div className="extra">{ text }</div>) }
+                    { selectedSkillNames.map(text => <div className="extra">{ text }</div>) }
                 </div>
                 <div className="flex-column" style={{flex: 1, gap: '5px'}}>
-                    { allExtras.extras.map(text => <div className="extra italic">{ text }</div>) }
+                    { extras.map(text => <div className="extra italic">{ text }</div>) }
+                    { languages.map(text => <div className="extra italic">You speak { text }</div>) }
                 </div>
-            </div>
-
-            <div>
-                Extras: {extras}
-                <br/>
-                combatExtras: {combatExtras}
-                <br/>
-                bonuses: {JSON.stringify(bonuses)}
+                <div className="flex-column" style={{flex: 1, gap: '5px'}}>
+                    { combatExtras.map(text => <div className="extra">{ text }</div>) }
+                </div>
+                
             </div>
             
             <PageH2 className="margin-top-2">All Abilities</PageH2>

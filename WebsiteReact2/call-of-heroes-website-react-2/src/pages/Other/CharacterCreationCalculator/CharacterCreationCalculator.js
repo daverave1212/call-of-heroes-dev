@@ -34,6 +34,8 @@ import SectionNames, { BASE_NAMES_STATE, useSectionNamesState } from "./SectionN
 import SectionRace, { useSectionRaceName, useSectionRaceSpellNames } from "./SectionRace";
 import SectionStats, { BASE_STATS, STAT_NAMES, StatValue, useSectionStatsState } from "./SectionStats";
 import MyCharacter from "./MyCharacter";
+import SectionSkills from "./SectionSkills";
+import SectionLanguages from "./SectionLanguages";
 
 export function classesRacesObjectToArrays(bigObj) {
     const classNames = Object.keys(bigObj)
@@ -49,13 +51,9 @@ export default function CharacterCreationCalculator() {
 
     const tabNames = [
         'My Character',
-        'Stats',
-        'Race',
-        'Class',
-        'Basic Abilities',
-        'Feats',
-        'Shop',
-        'Pets and Animals'
+        'Stats', 'Race', 'Class',
+        'Languages', 'Skills', 'Shop',
+        'Basic Abilities', 'Feats', 'Pets and Animals'
     ]
 
     return (
@@ -64,12 +62,9 @@ export default function CharacterCreationCalculator() {
 
             <Tabs isFirstTabLarge={true} activeTabI={activeTabI} setActiveTabI={setActiveTabI} tabNames={tabNames} tabComponents={[
                 <MyCharacter/>,
-                <SectionStats/>,
-                <SectionRace/>,
-                <SectionClass/>,
-                <div></div>,
-                <div></div>,
-                <div></div>,
+                <SectionStats/>, <SectionRace/>, <SectionClass/>,
+                <SectionLanguages/>, <SectionSkills/>, <div></div>,
+                <div></div>, <div></div>, <div></div>,
             ]}/>
 
 
