@@ -12,8 +12,6 @@ export default function ManySpells({ spells, spellStyle, shouldIgnoreAlignment, 
     spells = Array.isArray(spells) ? spells : spellsFromObject(spells)
     spells = sortObjectArrayByKey(spells, 'OrderOnWebsite')
 
-    let [selectedSpells, setSelectedSpells] = useState([])
-
     let column1Spells = []
     let column2Spells = []
     let spellsRest = [...spells]
@@ -68,7 +66,6 @@ export default function ManySpells({ spells, spellStyle, shouldIgnoreAlignment, 
                             setSelectedSpellNames(selectedSpellNames.filter(spellName => spellName != spell.Name))
                         }
                     }}
-                    setIsSelected={() => setSelectedSpellNames(...selectedSpellNames, spell.Name)}
                 />)}
             </>
         )

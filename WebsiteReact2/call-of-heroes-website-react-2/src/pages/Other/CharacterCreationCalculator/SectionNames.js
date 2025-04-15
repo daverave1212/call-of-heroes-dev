@@ -54,16 +54,11 @@ export default function SectionNames({ onChange }) {
         <div className="padding-top-4 flex-column align-center with-margined-children">
             <div className="center-content">
                 <div className="ccc-image-holder" onClick={onClickOnPortrait}>
-                    <IconWithSpinner src={namesState.src}/>
+                    <IconWithSpinner className="pointer" src={namesState.src}/>
                 </div>
             </div>
             <div className="center-content">
                 <NameInput/>
-                {/* <LabelWithInput labelText="Player Name" onChange={val => {
-                    const newState = {...namesState, playerName: val}
-                    setNamesState(newState)
-                    onChange(newState)
-                }}/> */}
             </div>
             <div className="center-content">
                 <LabelWithInput value={namesState.characterName} labelText="Character Name" onChange={val => {

@@ -667,25 +667,7 @@ export function RacePage({ theRace }) {
         </div>
     )
 }
-export function CCRacePage({ theRace, onSpellsSelected, selectedSpellNames, setSelectedSpellNames }) {
-
-    // let [selectedAbilityChoices, setSelectedAbilityChoices] = useState([])
-    // let [selectedFeats, setSelectedFeats] = useState([])
-
-    useEffect(() => {
-        // setSelectedAbilityChoices([])
-        // setSelectedFeats([])
-        // onSpellsSelected([])
-    }, [theRace])
-
-    // function onAbilityChoicesSelected(spells) {
-    //     setSelectedAbilityChoices(spells)
-    //     onSpellsSelected([...selectedAbilityChoices, ...selectedFeats])
-    // }
-    // function onFeatsSelected(spells) {
-    //     setSelectedFeats(spells)
-    //     onSpellsSelected([...selectedAbilityChoices, ...selectedFeats])
-    // }
+export function CCRacePage({ theRace, selectedSpellNames, setSelectedSpellNames }) {
 
     return (
         <div>

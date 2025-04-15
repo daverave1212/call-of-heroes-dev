@@ -79,7 +79,6 @@ export function PetOrAnimalAbilities({animal}) {
     if (animal.Abilities == null) {
         return <div></div>
     }
-    console.log(animal.Abilities)
     const abilities = U.spellsFromObject(animal.Abilities)
     return <div>
         { abilities.map(ability => (

@@ -427,7 +427,7 @@ export function calculateMovementSpeed(raceName, className, level, dexterity) {
             + calculateStat('Sense', sense)
             + level * 2
 }
-export function getAllMySpells({ raceName, className, specName, selectedClassSpellNames, selectedRaceSpellNames }) {
+export function getallMyRaceAndClassSpells({ raceName, className, specName, selectedClassSpellNames, selectedRaceSpellNames }) {
     const allSpells = getAllSpellsByName()
 
     const myRace = getAllRaces()[raceName]
@@ -440,7 +440,7 @@ export function getAllMySpells({ raceName, className, specName, selectedClassSpe
     const mySpecBaseSpells = mySpec == null? []: spellsFromObject(mySpec['Starting Abilities'])
     const myClassTalents = selectedClassSpellNames.map(name => allSpells[name])
 
-    const allMySpells = [
+    const allMyRaceAndClassSpells = [
         ...myRaceBaseSpells,
         ...myRaceFeats,
         ...myClassBaseSpells,
@@ -448,9 +448,75 @@ export function getAllMySpells({ raceName, className, specName, selectedClassSpe
         ...myClassTalents
     ]
 
-    return allMySpells
+    return allMyRaceAndClassSpells
+}
+export function getExperienceByLevel(level) {
+    return level * 100
 }
 
+export function checkStatRequirements(stats, requirementStringCode) {
+    requirementStringCode = requirementStringCode.replaceAll('or', '||')
+    requirementStringCode = requirementStringCode.replaceAll('and', '&&')
+    requirementStringCode = requirementStringCode.replaceAll('Might', stats[0])
+    requirementStringCode = requirementStringCode.replaceAll('Dexterity', stats[1])
+    requirementStringCode = requirementStringCode.replaceAll('Intelligence', stats[2])
+    requirementStringCode = requirementStringCode.replaceAll('Sense', stats[3])
+    requirementStringCode = requirementStringCode.replaceAll('Charisma', stats[4])
+    const result = eval(requirementStringCode)
+    return result
+}
+
+
+// export function checkStatsRaceRequirement(strategyName, strategyObj, stats) {
+//     const statsAsObject = {
+//         Might: stats[0],
+//         Dexterity: stats[1],
+//         Intelligence: stats[2],
+//         Sense: stats[3],
+//         Charisma: stats[4],
+//     }
+//     const strategyPropNames = Object.keys(strategyObj)
+//     const compare = (a, b, compareFunc) => compareFunc(a, b)
+//     const compareWithAnyOfBString = (a, b, compareFunc) => {
+//         const options = b.split('/').map(str => parseInt(str))
+//         for (const option of options) {
+//             if (compareFunc(a, option)) {
+//                 return true
+//             }
+//         }
+//         return false
+//     }
+//     const isELargerThan = (a, b) => {
+//         if (isNumber(b)) {
+//             return a >= b
+//         }
+//         if (typeof b == 'string') {
+//             return compareWithAnyOfBString(a, b, (x, y) => x >= y)
+//         }
+//     }
+//     const isELowerThan = (a, b) => {
+//         if (isNumber(b)) {
+//             return a <= b
+//         }
+//         if (typeof b == 'string') {
+//             return compareWithAnyOfBString(a, b, (x, y) => x <= y)
+//         }
+//     }
+
+//     switch (strategyName) {
+//         case 'Minimum Stats':
+//             for (const reqStatName of strategyPropNames) {
+//                 const reqStatValue = strategyPropNames[statName]
+//                 const statValue = statsAsObject[statName]
+//                 if (statValue < reqStatName) {
+//                     return { isCorrect: false, message: `Your ${statName} should be at least ${reqStatValue}.` }
+//                 }
+//             }
+//             break
+//         case 'Minimum Stats Or':
+//             strategyPropNames.map(statName => )
+//     }
+// }
 
 
 

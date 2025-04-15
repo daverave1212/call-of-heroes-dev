@@ -36,6 +36,17 @@ import SectionStats, { BASE_STATS, STAT_NAMES, StatValue, useSectionStatsState }
 import MyCharacter from "./MyCharacter";
 import SectionSkills from "./SectionSkills";
 import SectionLanguages from "./SectionLanguages";
+import SectionBasicAbilities, { useCCCTabs } from "./SectionBasicAbilities";
+import SectionFeats from "./SectionFeats";
+
+export const tabNames = [
+    'My Character',
+    'Stats and Level', 'Race', 'Class',
+    'Languages', 'Skills', 'Shop',
+    'Basic Abilities', 'Feats', 'Pets and Animals'
+]
+
+
 
 export function classesRacesObjectToArrays(bigObj) {
     const classNames = Object.keys(bigObj)
@@ -46,15 +57,9 @@ export function classesRacesObjectToArrays(bigObj) {
 
 export default function CharacterCreationCalculator() {
 
-    const [activeTabI, setActiveTabI] = useLocalStorageState('CCCActiveTabI', 0)
+    const [activeTabI, setActiveTabI, last] = useCCCTabs()
     const [names, setNames] = useSectionNamesState()
 
-    const tabNames = [
-        'My Character',
-        'Stats', 'Race', 'Class',
-        'Languages', 'Skills', 'Shop',
-        'Basic Abilities', 'Feats', 'Pets and Animals'
-    ]
 
     return (
         <Page id="Character-Builder" isCentered={true}>
@@ -64,7 +69,7 @@ export default function CharacterCreationCalculator() {
                 <MyCharacter/>,
                 <SectionStats/>, <SectionRace/>, <SectionClass/>,
                 <SectionLanguages/>, <SectionSkills/>, <div></div>,
-                <div></div>, <div></div>, <div></div>,
+                <SectionBasicAbilities/>, <SectionFeats/>, <div></div>,
             ]}/>
 
 

@@ -30,7 +30,7 @@ export default function SectionLanguages() {
 
     const nTotalLanguages = 1 + Math.max(intelligence, charisma)
     const nRemainingLanguages = nTotalLanguages - selectedLanguages.length
-    const raceLanguageDescription = getRace(selectedRaceName).Language
+    const raceLanguageDescription = getRace(selectedRaceName)?.Language
     const languageNames = Object.keys(getAllLanguages())
     const languageColumns = splitArrayEvenly(languageNames, 3)
 
@@ -43,8 +43,6 @@ export default function SectionLanguages() {
         }
         setSelectedLanguages(newSelectedLanguages)
     }
-
-    console.log({selectedLanguages})
 
     return (
         <div>
