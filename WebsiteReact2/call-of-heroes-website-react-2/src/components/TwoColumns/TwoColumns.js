@@ -2,7 +2,9 @@
 import './TwoColumns.css'
 import React from 'react'
 
-export default function TwoColumns({ children, type, style, className }) {
+export default function TwoColumns(props) {
+
+    const { children, type, style, className } = props
 
     const typeClass = type == 'lefty'?
         'two-columns--lefty':

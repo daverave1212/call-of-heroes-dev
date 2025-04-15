@@ -149,7 +149,7 @@ export function SpellTopIconSide({ src, style, className, hasSpinner, hasVariant
 
 export function IconWithSpinner({ src, className }) {
     return (
-        <div style={{position: 'relative'}}>
+        <div className={className} style={{position: 'relative'}}>
             <img className='no-spell-icon' src={src}/>
             <div className='no-spell-spinner'></div>
         </div>
@@ -362,7 +362,6 @@ export default function Spell({ children, spell, style, hasIcon, hasBorder, hasC
                         <div className='center-content' onClick={() => {
                                 const newIsSelected = !isSelected
                                 onSelected(newIsSelected)
-                                // onSelected(newIsSelected)
                             }}>
                             <button style={{
                                 fontSize: '17px',
@@ -371,21 +370,6 @@ export default function Spell({ children, spell, style, hasIcon, hasBorder, hasC
                             }}>
                                 { isSelected? 'Unselect': 'Select' }
                             </button>
-
-                            {/* <CoolButton height="48px" width="40%" fontSize="var(--h3-size)" onClick={() => {
-                                const newIsSelected = !isSelected
-                                setIsSelected(newIsSelected)
-                                onSelected(newIsSelected)
-                            }}>
-                                { isSelected? 'Unselect': 'Select'}
-                            </CoolButton> */}
-                            {/* <HeroButton isCustomContent={true} onClick={() => {
-                                const newIsSelected = !isSelected
-                                setIsSelected(newIsSelected)
-                                onSelected(newIsSelected)
-                            }}>
-                                { isSelected? 'Unselect': 'Select' }
-                            </HeroButton> */}
                         </div>
                         <div style={{height: '1rem'}}></div>
                     </div>

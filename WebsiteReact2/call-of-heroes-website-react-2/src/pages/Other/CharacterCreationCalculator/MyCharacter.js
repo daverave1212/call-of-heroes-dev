@@ -1,21 +1,22 @@
 import { useEffect, useState } from "react"
-import { calculateBaseCombatStats, calculateHealthRegen, calculateMaxHealth, calculateStat, getAllClasses, getAllMySpells, getAllRaces, getAllSpellsByName, getAllStatBonusesFromSpellsAsObj, getExtrasFromSpells, getRaceHealth, spellsFromObject, useLocalStorageState } from "../../../utils"
+import { calculateBaseCombatStats, calculateHealthRegen, calculateMaxHealth, calculateStat, getAllClasses, getallMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getAllStatBonusesFromSpellsAsObj, getExtrasFromSpells, getRaceHealth, spellsFromObject, useLocalStorageState } from "../../../utils"
 import { useSectionClassName, useSectionClassSpecName, useSectionClassSpellNames } from "./SectionClass"
 import { useSectionNamesState } from "./SectionNames"
 import { useSectionRaceName, useSectionRaceSpellNames } from "./SectionRace"
-import { STAT_NAMES, StatValue, useExtraStats, useSectionStatsState } from "./SectionStats"
+import { STAT_NAMES, StatValue, useExtraStats, useLevel, useSectionStatsState } from "./SectionStats"
 import ManySpells from "../../../components/Spell/ManySpells"
 import PageH2 from "../../../components/PageH2/PageH2"
 import TextArea from "../../../components/TextArea/TextArea"
 import { useSkills } from "./SectionSkills"
 import { useLanguages } from "./SectionLanguages"
+import { useBasicAbilitiesNames } from "./SectionBasicAbilities"
 
 
 function BigStatValue({ name, value }) {
     return (
         <div className="stat-input large">
             <div>{ value }</div>
-            <div className="input-name">{ name }</div>
+            <div className="input-name input-name-styled">{ name }</div>
         </div>
     )
 }
@@ -24,14 +25,14 @@ const ALL_SPELLS_BY_NAME = getAllSpellsByName()
 const ALL_RACES = getAllRaces()
 const ALL_CLASSES = getAllClasses()
 
-function useAllSpells() {
+function useAllRaceAndClassSpells() {
     let [selectedRaceName] = useSectionRaceName()
     let [selectedRaceSpellNames] = useSectionRaceSpellNames()
     let [selectedClassName] = useSectionClassName()
     let [selectedSpecName] = useSectionClassSpecName()
     let [selectedClassSpellNames] = useSectionClassSpellNames()
 
-    const allMySpells = getAllMySpells({
+    const allMyRaceAndClassSpells = getallMyRaceAndClassSpells({
         raceName: selectedRaceName,
         selectedRaceSpellNames,
         className: selectedClassName,
@@ -39,14 +40,14 @@ function useAllSpells() {
         selectedClassSpellNames
     })
 
-    return allMySpells
+    return allMyRaceAndClassSpells
 
 }
 
 export function useBonusesFromSpells() {
-    const allMySpells = useAllSpells()
+    const allMyRaceAndClassSpells = useAllRaceAndClassSpells()
 
-    const bonuses = getAllStatBonusesFromSpellsAsObj(allMySpells)
+    const bonuses = getAllStatBonusesFromSpellsAsObj(allMyRaceAndClassSpells)
 
     return bonuses
 }
@@ -68,7 +69,7 @@ export default function MyCharacter() {
 
     // LocalStorage states
     let [names] = useSectionNamesState()
-    let [level] = useState(3)
+    let [level] = useLevel()
     let [selectedStats] = useSectionStatsState()
     let totalStats = useTotalStats()
     let [extraStatsFromSpells, setExtraStatsFromSpells] = useExtraStats()
@@ -79,32 +80,29 @@ export default function MyCharacter() {
     let [selectedClassName] = useSectionClassName()
     let [selectedSpecName] = useSectionClassSpecName()
 
+    let [selectedBasicAbilitiesNames] = useBasicAbilitiesNames()
+
     let [description, setDescription] = useLocalStorageState('characterDescription', 'Enter your character description here')
     let [quickNotes, setQuickNotes] = useLocalStorageState('quickNotes', 'Combat notes...')
     
-    let allMySpells = useAllSpells()
+    let allMyRaceAndClassSpells = useAllRaceAndClassSpells()
 
     let bonuses = useBonusesFromSpells()
     let [selectedSkillNames] = useSkills()
     let [languages] = useLanguages()
 
     // Computed values
-    const allDisplayedSpells = allMySpells.filter(spell => spell.IsIgnored != true)
+    const myBasicAbilities = selectedBasicAbilitiesNames.map(name => getAllSpellsByName()[name])
+    const allDisplayedRaceAndClassSpells = allMyRaceAndClassSpells.filter(spell => spell.IsIgnored != true)
     const { maxHealth, healthRegen, movementSpeed, initiative } = calculateBaseCombatStats(selectedRaceName, selectedClassName, level, totalStats)
-    const { extras, combatExtras } = getExtrasFromSpells(allMySpells)
+    const { extras, combatExtras } = getExtrasFromSpells(allMyRaceAndClassSpells)
 
-    // const { extras, combatExtras } = {}
-    
-    
-    // console.log({selectedRaceSpellNames, selectedClassSpellNames, ALL_SPELLS_BY_NAME})
-    // console.log({myRaceBaseSpells, myRaceFeats, myClassBaseSpells, mySpecBaseSpells, myClassSpells})    
-    console.log({ totalStats })
-    
+    // TODO: Feats    
 
     function Names() {
         return <div className="flex flex-column">
             <h1 className="center-text full-width">{ names.characterName }</h1>
-            <h2 className="center-text full-width">Level 1 { selectedRaceName } { selectedClassName } ({ selectedSpecName })</h2>
+            <h2 className="center-text full-width">Level {level} { selectedRaceName } { selectedClassName } { selectedSpecName != null && `(${selectedSpecName})`}</h2>
         </div>
     }
     function StatsColumn() {
@@ -156,8 +154,6 @@ export default function MyCharacter() {
         <div id="My-Character">
 
             <Names/>
-            
-
 
             <PortraitAndDescriptionRowP/>
             <div className="flex flex-row margin-top-1" style={{gap: 'var(--stats-gap)'}}>
@@ -180,8 +176,11 @@ export default function MyCharacter() {
                 
             </div>
             
-            <PageH2 className="margin-top-2">All Abilities</PageH2>
-            <ManySpells spells={allDisplayedSpells} shouldIgnoreAlignment={true}/>
+            <PageH2 className="margin-top-2">Race and Class Abilities</PageH2>
+            <ManySpells spells={allDisplayedRaceAndClassSpells} shouldIgnoreAlignment={true}/>
+
+            <PageH2 className="margin-top-1">Basic Abilities</PageH2>
+            <ManySpells spells={myBasicAbilities} shouldIgnoreAlignment={true}/>
         </div>
     )
 }
