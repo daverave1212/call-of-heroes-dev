@@ -10,7 +10,7 @@ import PageH2 from '../../components/PageH2/PageH2'
 import PageH1 from '../../components/PageH1/PageH1'
 import Page from '../../containers/Page/Page'
 
-export default function Armors() {
+export default function Armors({ hasNoMargins }) {
 
     const armorCategories = Object.keys(armors).filter(key => key != 'default')
 
@@ -22,7 +22,7 @@ export default function Armors() {
         <div>
             {
                 armorCategories.map(categoryName => (
-                    <Page>
+                    <Page hasNoMargins={hasNoMargins}>
                         <PageH1>{categoryName}</PageH1>
                         <ManyBoxes objects={U.spellsFromObject(armors[categoryName])} type='armor'/>
                     </Page>

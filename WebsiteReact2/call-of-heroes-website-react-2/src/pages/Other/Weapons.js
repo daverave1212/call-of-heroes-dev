@@ -10,6 +10,7 @@ import weapons from '../../databases/Weapons.json'
 import ManyBoxes from '../../components/Spell/ManyBoxes'
 import Page from '../../containers/Page/Page'
 import { SideMenu } from '../../components/SideMenu/SideMenu'
+import ManySpells from '../../components/Spell/ManySpells'
 
 
 const weaponsSideMenuSections = {
@@ -22,7 +23,7 @@ const weaponsSideMenuSections = {
     ]
 }
 
-export default function Weapons() {
+export default function Weapons({ hasNoMargins }) {
 
     const categories = Object.keys(weapons).filter(name => name != 'default' && name != 'Descriptions')
 
@@ -36,9 +37,10 @@ export default function Weapons() {
             <SideMenu sections={weaponsSideMenuSections}/>
 
             { categories.map(categoryName => (
-                <Page key={categoryName} isSecondaryPage={true}>
+                <Page key={categoryName} isSecondaryPage={true} hasNoMargins={hasNoMargins}>
                     <PageH1>{categoryName}</PageH1>
                     <p>{ Descriptions[categoryName] }</p>
+                    {/* <ManySpells spells={ U.spellsFromObject(weapons[categoryName]) }/> */}
                     <ManyBoxes type='weapon' objects={ U.spellsFromObject(weapons[categoryName]) }/>
                 </Page>
             )) }

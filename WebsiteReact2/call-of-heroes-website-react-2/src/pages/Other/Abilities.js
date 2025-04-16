@@ -108,7 +108,7 @@ export function SelectorsByColumns({ className, selectorData, nColumns, selected
     )
 }
 
-export default function Abilities({ selectedSpellNames, setSelectedSpellNames }) {
+export default function Abilities({ selectedSpellNames, setSelectedSpellNames, hasNoMargins }) {
 
     let [selectedCategoryName, setSelectedCategoryName] = useState('Default Moves')
 
@@ -132,7 +132,7 @@ export default function Abilities({ selectedSpellNames, setSelectedSpellNames })
 
     return (
         <div>
-            <Page>
+            <Page hasNoMargins={hasNoMargins}>
                 <div className='center-content'>
                     <QGTitle1 text="Basic Abilities" height={60}/>
                 </div>
@@ -159,7 +159,7 @@ export default function Abilities({ selectedSpellNames, setSelectedSpellNames })
             </Page>
 
             { selectedCategoryName != null && (
-                <Page title={selectedCategoryName} isSecondaryPage={true}>
+                <Page title={selectedCategoryName} isSecondaryPage={true} hasNoMargins={hasNoMargins}>
                     <p>{ spellSchoolDescriptions[selectedCategoryName] }</p>
                     <AllSpellsSeparatedInLevels allSpellsInCategoryArray={spellsFromObject(abilities[selectedCategoryName])} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}/>
                 </Page>

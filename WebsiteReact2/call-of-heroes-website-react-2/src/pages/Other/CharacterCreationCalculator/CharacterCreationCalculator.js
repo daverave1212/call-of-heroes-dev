@@ -38,6 +38,7 @@ import SectionSkills from "./SectionSkills";
 import SectionLanguages from "./SectionLanguages";
 import SectionBasicAbilities, { useCCCTabs } from "./SectionBasicAbilities";
 import SectionFeats from "./SectionFeats";
+import SectionShop from "./SectionShop";
 
 export const tabNames = [
     'My Character',
@@ -68,7 +69,7 @@ export default function CharacterCreationCalculator() {
             <Tabs isFirstTabLarge={true} activeTabI={activeTabI} setActiveTabI={setActiveTabI} tabNames={tabNames} tabComponents={[
                 <MyCharacter/>,
                 <SectionStats/>, <SectionRace/>, <SectionClass/>,
-                <SectionLanguages/>, <SectionSkills/>, <div></div>,
+                <SectionLanguages/>, <SectionSkills/>, <SectionShop/>,
                 <SectionBasicAbilities/>, <SectionFeats/>, <div></div>,
             ]}/>
 

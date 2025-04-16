@@ -17,7 +17,7 @@ import Column from '../../components/TwoColumns/Column'
 import TableNormal from '../../components/TableNormal/TableNormal'
 import Icon from '../../components/Icon'
 
-export default function Prices() {
+export default function Prices({ hasNoMargins }) {
 
     const effectTextStyle = {
         color: 'gray',
@@ -54,7 +54,7 @@ export default function Prices() {
     }
 
     return (
-        <Page title="Prices">
+        <Page title="Prices" hasNoMargins={hasNoMargins}>
             <TwoColumns>
                 <Column>
                     <PriceTable categoryName="Weapons and Equipment"/>

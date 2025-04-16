@@ -487,9 +487,9 @@ export function PHealthAndArmor({ theClass }) {
     )
 }
 
-export function Spec({ children, name, specObj }) {
+export function Spec({ children, name, specObj, hasNoMargins }) {
     return (
-        <Page key={name} isSecondaryPage={true}>
+        <Page key={name} isSecondaryPage={true} hasNoMargins={hasNoMargins}>
             <QGTitle1 text={name} height={60}/>
             <p>{specObj.Description}</p>
 
@@ -777,8 +777,6 @@ export function ClassPage({ theClass }) {
 
 export function CCClassPage({
     theClass,
-    onSpecSelected=(specName) => {},
-    onSpellsSelected=(spells) => {},
     selectedSpecName, setSelectedSpecName,
     selectedSpellNames, setSelectedSpellNames
 }) {
@@ -788,25 +786,10 @@ export function CCClassPage({
 
     const selectedSpecObj = selectedSpecName == null? null: theClass.Specs[selectedSpecName]
 
-    // useEffect(() => {
-    //     setSelectedSpecName(null)   // Prevents mismatch between selected class and selected spec
-    //     setSelectedSpellNames([])
-    // }, [theClass])
-
-
     function onSpecClick(specName) {
         setSelectedSpecName(specName)
         setSelectedSpellNames([])
-        // onSpecSelected(specName)
     }
-
-    // function onSpecSpellsSelected(specName, spells) {
-    //     const newlySelectedSpellsBySpec = spells.map(spell => ({ ...spell, specName }))
-    //     const alreadySelectedSpellsExcept = selectedSpellsBySpec.filter(spell => spell.specName != specName)
-    //     const newSelectedSpellsBySpec = [...alreadySelectedSpellsExcept, ...newlySelectedSpellsBySpec]
-    //     setSelectedSpellsBySpec(newSelectedSpellsBySpec)
-    //     onSpellsSelected(spells)
-    // }
 
     return (
         <div>            
@@ -823,8 +806,6 @@ export function CCClassPage({
 
                 <SpellCasting theClass={theClass} isCharacterCreationPage={true}/>
 
-                {/* <Equipment theClass={theClass}/> */}
-                
                 <LevelingUp theClass={theClass} isCharacterCreationPage={true}/>
 
                 <br/><br/>
@@ -844,7 +825,7 @@ export function CCClassPage({
             </Page>
 
             { selectedSpecName != null && (
-                <Spec key={selectedSpecName} name={selectedSpecName} specObj={selectedSpecObj}>
+                <Spec hasNoMargins={true} key={selectedSpecName} name={selectedSpecName} specObj={selectedSpecObj}>
 
                     {
                         selectedSpecObj.Abilities != null && (
@@ -855,7 +836,6 @@ export function CCClassPage({
                         )
                     }
 
-                    {/* <SpecTalents spec={selectedSpecObj} onSpellsSelected={spells => onSpecSpellsSelected(selectedSpecName, spells)}/> */}
                     <SpecTalents spec={selectedSpecObj} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}/>
 
                 </Spec>

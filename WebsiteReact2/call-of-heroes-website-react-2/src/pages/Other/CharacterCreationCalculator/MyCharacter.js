@@ -97,8 +97,6 @@ export default function MyCharacter() {
     const { maxHealth, healthRegen, movementSpeed, initiative } = calculateBaseCombatStats(selectedRaceName, selectedClassName, level, totalStats)
     const { extras, combatExtras } = getExtrasFromSpells(allMyRaceAndClassSpells)
 
-    // TODO: Feats    
-
     function Names() {
         return <div className="flex flex-column">
             <h1 className="center-text full-width">{ names.characterName }</h1>
@@ -108,7 +106,7 @@ export default function MyCharacter() {
     function StatsColumn() {
         return <div className="flex flex-column" style={{gap: 'var(--stats-gap)'}}>
             { STAT_NAMES.map((n, i) => (
-                <StatValue name={n} value={totalStats[i]}/>
+                <StatValue name={n.substring(0, 3).toUpperCase()} value={totalStats[i]}/>
             )) }
         </div>
     }

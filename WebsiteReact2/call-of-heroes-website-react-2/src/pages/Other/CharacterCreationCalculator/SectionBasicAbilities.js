@@ -19,7 +19,7 @@ export default function SectionBasicAbilities() {
 
     return (
         (tabName == 'Basic Abilities' && (
-            <Abilities selectedSpellNames={selectedAbilitiesNames} setSelectedSpellNames={setSelectedAbiltiesNames}/>
+            <Abilities hasNoMargins={true} selectedSpellNames={selectedAbilitiesNames} setSelectedSpellNames={setSelectedAbiltiesNames}/>
         ))
     )
 
