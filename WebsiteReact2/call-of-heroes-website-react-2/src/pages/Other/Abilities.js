@@ -87,9 +87,16 @@ function AllSpellsSeparatedInLevels({allSpellsInCategoryArray, selectedSpellName
     )
 }
 
-export function SelectorsByColumns({ className, selectorData, nColumns, selectedSelectorName, setSelectedSelectorName }) {
-    const columns = splitArrayEvenly(selectorData, nColumns)
+export function SelectorsByColumns({ className, selectorData, nColumns, selectedSelectorName, setSelectedSelectorName, onSelectorClick, getSelectedSelectorName }) {
     
+    const columns = splitArrayEvenly(selectorData, nColumns)
+    const realSelectedSelectorName =
+        selectedSelectorName != null?
+            selectedSelectorName:
+        getSelectedSelectorName != null?
+            getSelectedSelectorName():
+        null
+
     return (
         <div className={`flex-row gap-half ${className}`} style={{width: '100%'}} >
             { range(0, nColumns).map(i => (
@@ -98,8 +105,11 @@ export function SelectorsByColumns({ className, selectorData, nColumns, selected
                         <Selector
                             name={name}
                             src={src}
-                            isSelected={selectedSelectorName == name}
-                            onClick={() => setSelectedSelectorName(name)}
+                            isSelected={realSelectedSelectorName == name}
+                            onClick={() => {
+                                setSelectedSelectorName?.(name)
+                                onSelectorClick?.(name)
+                            }}
                         />
                     ))}
                 </div>

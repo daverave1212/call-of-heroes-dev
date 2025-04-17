@@ -41,12 +41,17 @@ import SectionFeats from "./SectionFeats";
 import SectionShop from "./SectionShop";
 
 export const tabNames = [
-    'My Character',
+    'My Character', 'Name and Portrait',
     'Stats and Level', 'Race', 'Class',
     'Languages', 'Skills', 'Shop',
     'Basic Abilities', 'Feats', 'Pets and Animals'
 ]
-
+export const tabLayout = [
+    ['My Character', 'Name and Portrait'],
+    ['Stats and Level', 'Race', 'Class'],
+    ['Languages', 'Skills', 'Shop'],
+    ['Basic Abilities', 'Feats', 'Pets and Animals']
+]
 
 
 export function classesRacesObjectToArrays(bigObj) {
@@ -61,13 +66,15 @@ export default function CharacterCreationCalculator() {
     const [activeTabI, setActiveTabI, last] = useCCCTabs()
     const [names, setNames] = useSectionNamesState()
 
-
     return (
         <Page id="Character-Builder" isCentered={true}>
-            <SectionNames onChange={newNamesState => setNames(newNamesState)}/>
 
-            <Tabs isFirstTabLarge={true} activeTabI={activeTabI} setActiveTabI={setActiveTabI} tabNames={tabNames} tabComponents={[
-                <MyCharacter/>,
+            <div>
+                <QGTitle1 text={"Character"} height="60"/>
+            </div>
+
+            <Tabs layout={tabLayout} activeTabI={activeTabI} setActiveTabI={setActiveTabI} tabComponents={[
+                <MyCharacter/>, <SectionNames onChange={newNamesState => setNames(newNamesState)}/>,
                 <SectionStats/>, <SectionRace/>, <SectionClass/>,
                 <SectionLanguages/>, <SectionSkills/>, <SectionShop/>,
                 <SectionBasicAbilities/>, <SectionFeats/>, <div></div>,

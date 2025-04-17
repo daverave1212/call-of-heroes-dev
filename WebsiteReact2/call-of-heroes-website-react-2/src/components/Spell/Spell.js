@@ -3,7 +3,7 @@ import './Spell.css'
 import PageH2 from './../PageH2/PageH2'
 import Separator from './../Separator/Separator'
 import React, { useEffect, useRef, useState } from 'react'
-import { parseTextWithSymbols, stringReplaceAllMany, getSpellIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll, getVariantsForEachCollection, normalizeForEachVariantsToNormalVariants, createKey, spellsFromObject, randomInt, assertCorrectSpellFormat } from '../../utils'
+import { parseTextWithSymbols, stringReplaceAllMany, getSpellIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll, getVariantsForEachCollection, normalizeForEachVariantsToNormalVariants, createKey, spellsFromObject, randomInt, assertCorrectSpellFormat, findBasicSpellByName, allEqual, getItemIconPathByName } from '../../utils'
 import TableNormal from '../TableNormal/TableNormal'
 import html2canvas from 'html2canvas'
 import CopySpellButton from '../CopyButton/CopySpellButton'
@@ -13,6 +13,7 @@ import { getIsActionPointsSystem } from '../../global-state/GlobalState'
 import HeroButton from '../HeroButton/HeroButton'
 import Ribbon from '../Ribbon/Ribbon'
 import CoolButton from '../CoolButton/CoolButton'
+import Icon from '../Icon'
 
 const actionPointsMapping = {
     '1 Action': '2 Action Points',
@@ -157,7 +158,16 @@ export function IconWithSpinner({ src, className }) {
 }
 
 
-export default function Spell({ children, spell, style, hasIcon, hasBorder, hasCopyButton=true, showTopStats=true, isSelected=false, onSelected }) {
+/*
+If isSelected != null and onSelected != null:
+    It will have a "Select/Unselect" button
+If buttonText != null:
+    It will override any button text
+If onClick != null:
+    It will override onSelected and replace it with onClick
+*/
+
+export default function Spell({ children, spell, style, isItem=false, hasIcon, hasBorder, hasCopyButton=true, showTopStats=true, isSelected=false, onSelected, buttonText, onClick }) {
 
     const [variantIndex, setVariantIndex] = useState(0)
     const [thiefRolledGoldAmount, setThiefRolledGoldAmount] = useState('Click here to roll 1000d100!')
@@ -167,23 +177,31 @@ export default function Spell({ children, spell, style, hasIcon, hasBorder, hasC
     let {
         Name,
         DisplayName,
-        A,
-        HasMixins,
+
         CustomIconPath,
-        Effect,
-        EffectGreen,
-        Notes,
-        Alternatives,
-        Downside,
         IsSubspell,
+        
+        A,
         Upgrades,
         Upgrade,
+        Damage,
+        
+        HasMixins,
+        
+        Effect,
+        EffectGreen,
+        Description,
+        Alternatives,
+        Notes,
+        Downside,
+        
         DoubleTableNumbered,
         DoubleTable,
         Variants,
         VariantsForEach,
         Monster,
         Subspells,
+        SubspellName,
         RollThiefGold
     } = spell
 
@@ -204,11 +222,27 @@ export default function Spell({ children, spell, style, hasIcon, hasBorder, hasC
 
     if (Name.startsWith('~')) Name = Name.substring(1, Name.length - 1)
 
-    let iconPath = CustomIconPath == null? getSpellIconPathByName(Name) : CustomIconPath
+    let iconPath =
+        CustomIconPath != null?
+            CustomIconPath:
+        isItem == true?
+            getItemIconPathByName(Name):    
+        getSpellIconPathByName(Name)
     const uniqueID = getUniqueSpellID(Name)
 
     const spellNormalOrSubClass = IsSubspell == true? 'spell--subspell' : 'spell--normal'
     const spellPassiveOrActiveClass = A == 'Passive' == true? 'spell--passive' : 'spell--active'
+    
+    const subspell = SubspellName != null? findBasicSpellByName(subspell): null
+
+    const hasButton = onSelected != null || onClick != null
+    const finalButtonText =
+        onSelected != null?
+            (isSelected? 'Unselect': 'Select'):
+        buttonText != null?
+            buttonText:
+        'Go'
+    const onButtonClick = onSelected != null? () => onSelected(!isSelected): () => onClick(spell)
 
     let extraMixins = {}
     if (hasVariants === true && VariantsForEach != null) {
@@ -297,9 +331,18 @@ export default function Spell({ children, spell, style, hasIcon, hasBorder, hasC
                 />
                 
                 <Separator hasNoMarginTop={true}/>
-                <div className='spell-description'>
-                    { Effect }
-                </div>
+                { Damage == null? null : (
+                    <div key="Damage" className='spell-description' style={{
+                        paddingBottom: allEqual([Effect, EffectGreen, Downside, Upgrade, Notes, Alternatives], null)?   // Extra padding bottom if there is nothing after damage
+                            'var(--spell-padding-bottom)':
+                            'calc(var(--spell-padding-bottom) / 2)'
+                    }}><Icon name="Damage"/>{ Damage }</div>
+                )}
+                { Effect != null && (
+                    <div className='spell-description'>
+                        { Effect }
+                    </div>
+                )}
                 { EffectGreen != null && (
                     <div className="spell-green" key="EffectGreen">{ EffectGreen }</div>
                 ) }
@@ -357,23 +400,21 @@ export default function Spell({ children, spell, style, hasIcon, hasBorder, hasC
                     </div>
                 )}
                 { hasCopyButton === true && <CopySpellButton elementId={uniqueID} shouldAddBorder={true}/> }
-                { /* onSelected != null */ onSelected != null && (
+                { hasButton && (
                     <div>
-                        <div className='center-content' onClick={() => {
-                                const newIsSelected = !isSelected
-                                onSelected(newIsSelected)
-                            }}>
+                        <div className='center-content' onClick={onButtonClick}>
                             <button style={{
                                 fontSize: '17px',
                                 width: 'max(30%, 130px)',
                                 height: '2.5rem'
                             }}>
-                                { isSelected? 'Unselect': 'Select' }
+                                { finalButtonText }
                             </button>
                         </div>
                         <div style={{height: '1rem'}}></div>
                     </div>
                 )}
+                { subspell != null && <Spell spell={subspell} hasCopyButton={false} showTopStats={false}/>}
             </div>
         </div>
     )

@@ -6,6 +6,7 @@ import { CCClassPage } from "../../../components/InsertableTemplates/RaceClassCo
 import { getAllClasses, splitArrayEvenly, useLocalStorageState } from "../../../utils"
 import { classesRacesObjectToArrays } from "./CharacterCreationCalculator"
 import Selector from "../../../components/Selector/Selector"
+import { SelectorsByColumns } from "../Abilities"
 
 
 export function useSectionClassName() { return useLocalStorageState('SectionClassName', null) }
@@ -24,44 +25,27 @@ export default function SectionClass({ onClassNameSelected, onSpecNameSelected, 
     const [specName, setSpecName] = useSectionClassSpecName()
     const [spellNames, setSpellNames] = useSectionClassSpellNames()
 
-    function onClassClick(classObj) {
-        // setChosenClass(classObj)
-        // onClassNameSelected(classObj.Class)
-        setClassName(classObj.Class)
+    const selectorData = Object.keys(classesObj).map(className => ({
+        name: className,
+        src: `/Icons/Classes/${className}.png`
+    }))
+    function getSelectedClassName() {
+        return chosenClass?.Class
+    }
+
+    function onClassClick(className) {
+        setClassName(className)
         setSpecName(null)
         setSpellNames([])
     }
 
-    function ClassSelector({ classObj }) {
-        return (
-            <Selector
-                name={classObj.Class}
-                src={`/Icons/Classes/${classObj.Class}.png`}
-                isSelected={classObj.Class == chosenClass?.Class}
-                onClick={() => onClassClick(classObj)}
-            />
-        )
-    }
 
     return (
         <div>
             <PageH2>Class</PageH2>
-            <TwoColumns>
-                <Column>
-                    { classObjectRows[0].map(classObj => (
-                        <ClassSelector classObj={classObj}/>
-                    )) }
-                </Column>
-                <Column>
-                    { classObjectRows[1].map(classObj => (
-                        <ClassSelector classObj={classObj}/>
-                    )) }
-                </Column>
-            </TwoColumns>
 
-            {/* { chosenClass != null && (
-                <CCClassPage theClass={chosenClass} onSpecSelected={onSpecNameSelected} onSpellsSelected={onSpellsSelected}/>
-            )} */}
+            <SelectorsByColumns nColumns={2} selectorData={selectorData} onSelectorClick={onClassClick} getSelectedSelectorName={getSelectedClassName}/>
+
             { className != null && (
                 <CCClassPage
                     theClass={classesObj[className]}

@@ -6,6 +6,7 @@ import { CCClassPage, CCRacePage } from "../../../components/InsertableTemplates
 import { getAllClasses, getAllRaces, splitArrayEvenly, useLocalStorageState } from "../../../utils"
 import { classesRacesObjectToArrays } from "./CharacterCreationCalculator"
 import Selector from "../../../components/Selector/Selector"
+import { SelectorsByColumns } from "../Abilities"
 
 function RaceSelector({ raceObj, isSelected, onClick }) {
     return (
@@ -30,10 +31,16 @@ export default function SectionRace({ /* onSpellsSelected, onRaceNameSelected */
 
     const RACES_OBJ = getAllRaces()
     const raceObjectRows = classesRacesObjectToArrays(RACES_OBJ)
+    const selectorData = Object.keys(RACES_OBJ).map(raceName => ({
+        name: raceName,
+        src: `/Icons/Races/${raceName}.png`
+    }))
+    
 
     const [selectedRaceName, setSelectedRaceName] = useSectionRaceName()
     const [selectedSpellNames, setSelectedSpellNames] = useSectionRaceSpellNames()
-    
+
+    const getSelectedRaceName = () => selectedRaceName
 
     // function onRaceSelectorClick(raceObj) {
     //     setChosenRace(raceObj)
@@ -43,9 +50,10 @@ export default function SectionRace({ /* onSpellsSelected, onRaceNameSelected */
     //         spells: []
     //     })
     // }
-    function onRaceSelectorClick(raceObj) {
-        setSelectedRaceName(raceObj.Race)
+    function onRaceSelectorClick(raceName) {
+        setSelectedRaceName(raceName)
         setSelectedSpellNames([])
+        console.log({raceName})
     }
 
     // function onSpellsSelected(spells) {
@@ -56,7 +64,10 @@ export default function SectionRace({ /* onSpellsSelected, onRaceNameSelected */
     return (
         <div>
             <PageH2>Race</PageH2>
-            <TwoColumns>
+
+            <SelectorsByColumns nColumns={2} selectorData={selectorData} onSelectorClick={onRaceSelectorClick} getSelectedSelectorName={getSelectedRaceName}/>
+
+            {/* <TwoColumns>
                 <Column>
                     { raceObjectRows[0].map(obj => (
                         <RaceSelector raceObj={obj} onClick={() => onRaceSelectorClick(obj)} isSelected={selectedRaceName == obj.Race}/>
@@ -67,7 +78,7 @@ export default function SectionRace({ /* onSpellsSelected, onRaceNameSelected */
                         <RaceSelector raceObj={obj} onClick={() => onRaceSelectorClick(obj)} isSelected={selectedRaceName == obj.Race}/>
                     )) }
                 </Column>
-            </TwoColumns>
+            </TwoColumns> */}
 
             {/* { chosenRace && (
                 <CCRacePage theRace={chosenRace} onSpellsSelected={onSpellsSelected}/>

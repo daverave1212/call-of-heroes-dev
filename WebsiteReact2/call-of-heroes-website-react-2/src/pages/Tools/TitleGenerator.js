@@ -171,7 +171,7 @@ export async function drawQGTextOnCanvas(canvas, text, sizeMultiplier=1) {
             letterImage[letter].src = `/FontLetters/${letter}.png`
         }
         const thisLetterImage = letterImage[letter]
-        if (thisLetterImage.complete && thisLetterImage.naturalWidth != NaN) {
+        if (thisLetterImage.complete && !isNaN(thisLetterImage.naturalWidth)) {
             resolve()
         } else {
             thisLetterImage.onload = () => {

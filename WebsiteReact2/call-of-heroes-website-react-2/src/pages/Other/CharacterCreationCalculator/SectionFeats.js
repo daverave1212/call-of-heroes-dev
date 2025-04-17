@@ -15,7 +15,7 @@ export default function SectionFeats() {
 
     return (
         (tabName == 'Feats' && (
-            <Feats selectedSpellNames={selectedAbilitiesNames} setSelectedSpellNames={setSelectedAbiltiesNames}/>
+            <Feats hasNoMargins={true} selectedSpellNames={selectedAbilitiesNames} setSelectedSpellNames={setSelectedAbiltiesNames}/>
         ))
     )
 

@@ -1,9 +1,14 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
-export default function TextArea({ initialValue, onChange, className, style }) {
+export default function TextArea({ initialValue, onChange, reactsToInitialValue=false, className, style }) {
 
     const [text, setText] = useState(initialValue)
-    const [isCtrlPressed, setIsCtrlPressed] = useState(false)
+
+    useEffect(() => {
+        if (reactsToInitialValue) {
+            setText(initialValue)
+        }
+    }, [initialValue])
 
     return <textarea
         className={className}

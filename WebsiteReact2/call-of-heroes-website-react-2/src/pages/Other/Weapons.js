@@ -11,6 +11,8 @@ import ManyBoxes from '../../components/Spell/ManyBoxes'
 import Page from '../../containers/Page/Page'
 import { SideMenu } from '../../components/SideMenu/SideMenu'
 import ManySpells from '../../components/Spell/ManySpells'
+import { SelectorsByColumns } from './Abilities'
+import { QGTitle1 } from '../Tools/TitleGenerator'
 
 
 const weaponsSideMenuSections = {
@@ -23,7 +25,9 @@ const weaponsSideMenuSections = {
     ]
 }
 
-export default function Weapons({ hasNoMargins }) {
+export default function Weapons({ hasNoMargins, onClick, buttonText }) {
+
+    let [selectedCategory, setSelectedCategory] = useState('One-Handed Melee')
 
     const categories = Object.keys(weapons).filter(name => name != 'default' && name != 'Descriptions')
 
@@ -34,16 +38,33 @@ export default function Weapons({ hasNoMargins }) {
     return (
         <div>
 
-            <SideMenu sections={weaponsSideMenuSections}/>
+            <div className='center-content'>
+                <QGTitle1 text={"Weapons"} height={60}/>
+            </div>
+
+            <SelectorsByColumns nColumns={1} selectedSelectorName={selectedCategory} setSelectedSelectorName={setSelectedCategory} selectorData={[
+                { name: 'One-Handed Melee', src: '/Icons/Items/Hand_Axe.png'},
+                { name: 'Two-Handed Melee', src: '/Icons/Items/Ultra_Greatsword.png'},
+                { name: 'One-Handed Ranged', src: '/Icons/Items/Handgun.png'},
+                { name: 'Two-Handed Ranged', src: '/Icons/Items/Heavy_Crossbow.png'},
+                { name: 'Weapon Runes', src: '/Icons/Items/Traditional_Rune.png'},
+            ]}/>
+
+            <Page key={selectedCategory} isSecondaryPage={true} hasNoMargins={hasNoMargins}>
+                <PageH1>{selectedCategory}</PageH1>
+                <p>{ Descriptions[selectedCategory] }</p>
+                <ManySpells areItems={true} onSpellClick={onClick} buttonText={buttonText} spells={ U.spellsFromObject(weapons[selectedCategory]) }/>
+            </Page>
+
+            {/* <SideMenu sections={weaponsSideMenuSections}/>
 
             { categories.map(categoryName => (
                 <Page key={categoryName} isSecondaryPage={true} hasNoMargins={hasNoMargins}>
                     <PageH1>{categoryName}</PageH1>
                     <p>{ Descriptions[categoryName] }</p>
-                    {/* <ManySpells spells={ U.spellsFromObject(weapons[categoryName]) }/> */}
-                    <ManyBoxes type='weapon' objects={ U.spellsFromObject(weapons[categoryName]) }/>
+                    <ManySpells areItems={true} onSpellClick={onClick} buttonText={buttonText} spells={ U.spellsFromObject(weapons[categoryName]) }/>
                 </Page>
-            )) }
+            )) } */}
 
         </div>
     )

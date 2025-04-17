@@ -1046,8 +1046,16 @@ export function isMobile() {
 export const styleMargined = { marginBottom: 'var(--element-padding)' }    // Use this as style={styleMargined}
 export const stylePadded   = { padding: 'var(--element-padding)' }
 
-
-
+export function getLocalStorageJSON(keyName) {
+    return JSON.parse(localStorage.getItem(keyName))
+}
+export function setLocalStorageJSON(keyName, value) {
+    localStorage.setItem(keyName, JSON.stringify(value))
+    window.dispatchEvent(new CustomEvent('custom-storage', { detail: {
+        key: keyName,
+        value: value
+    } }))
+}
 export function useLocalStorageState(keyName, defaultValue) {
     const existingValue = localStorage.getItem(keyName)
     if (existingValue == null) {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { calculateBaseCombatStats, calculateHealthRegen, calculateMaxHealth, calculateStat, getAllClasses, getallMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getAllStatBonusesFromSpellsAsObj, getExtrasFromSpells, getRaceHealth, spellsFromObject, useLocalStorageState } from "../../../utils"
+import { calculateBaseCombatStats, calculateHealthRegen, calculateMaxHealth, calculateStat, getAllClasses, getallMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getAllStatBonusesFromSpellsAsObj, getExtrasFromSpells, getRaceHealth, isString, spellsFromObject, useLocalStorageState } from "../../../utils"
 import { useSectionClassName, useSectionClassSpecName, useSectionClassSpellNames } from "./SectionClass"
 import { useSectionNamesState } from "./SectionNames"
 import { useSectionRaceName, useSectionRaceSpellNames } from "./SectionRace"
@@ -10,6 +10,9 @@ import TextArea from "../../../components/TextArea/TextArea"
 import { useSkills } from "./SectionSkills"
 import { useLanguages } from "./SectionLanguages"
 import { useBasicAbilitiesNames } from "./SectionBasicAbilities"
+import { useGold, useInventory } from "./SectionShop"
+import Icon from "../../../components/Icon"
+import Input from "../../../components/Input/Input"
 
 
 function BigStatValue({ name, value }) {
@@ -63,11 +66,25 @@ export function useTotalStats() {
         stats[4] + (bonuses.Charisma ?? 0)
     ]
 }
+//TODO: Save character to firebase
+export const NO_CHARACTER_ID = 'none'
+// By default, none.
+// When going to MyCharacter, automatically give it an ID if it doesn't have one
+// Also, each localStorage state key name should be standardized in one place via constants like CharacterKeys.GOLD
+// When loading a character from firestore, load all its things from localStorage for each key in CharacterKeys
+export function useCurrentCharacterId(id) {
+    const [currentId, setCurrentId] = useLocalStorageState('CurrentCharacterID', NO_CHARACTER_ID)
+    return [currentId, setCurrentId]
+}
+export function useCharacterId(id) {
+    let [id, setId] = useLocalStorageState(id)
+}
 
 export default function MyCharacter() {
 
 
     // LocalStorage states
+
     let [names] = useSectionNamesState()
     let [level] = useLevel()
     let [selectedStats] = useSectionStatsState()
@@ -84,6 +101,8 @@ export default function MyCharacter() {
 
     let [description, setDescription] = useLocalStorageState('characterDescription', 'Enter your character description here')
     let [quickNotes, setQuickNotes] = useLocalStorageState('quickNotes', 'Combat notes...')
+    let [inventory, setInventory] = useInventory()
+    let [gold, setGold] = useGold()
     
     let allMyRaceAndClassSpells = useAllRaceAndClassSpells()
 
@@ -97,6 +116,10 @@ export default function MyCharacter() {
     const { maxHealth, healthRegen, movementSpeed, initiative } = calculateBaseCombatStats(selectedRaceName, selectedClassName, level, totalStats)
     const { extras, combatExtras } = getExtrasFromSpells(allMyRaceAndClassSpells)
 
+    // Other
+    let setInputGold    // Set in the Input property
+
+    // Subcomponents
     function Names() {
         return <div className="flex flex-column">
             <h1 className="center-text full-width">{ names.characterName }</h1>
@@ -162,16 +185,37 @@ export default function MyCharacter() {
 
             <div className="flex flex-row margin-top-1 gap-3q">
                 <div className="flex-column" style={{flex: 1, gap: '5px'}}>
-                    { selectedSkillNames.map(text => <div className="extra">{ text }</div>) }
+                    { selectedSkillNames.map(text => <div className="extra"><Icon name="CharacterSetupSub"/>{ text }</div>) }
                 </div>
                 <div className="flex-column" style={{flex: 1, gap: '5px'}}>
-                    { extras.map(text => <div className="extra italic">{ text }</div>) }
-                    { languages.map(text => <div className="extra italic">You speak { text }</div>) }
+                    { combatExtras.map(text => <div className="extra"><Icon name="Damage"/>{ text }</div>) }
+                </div>
+            </div>
+
+            <div className="flex-row margin-top-1 gap-3q">
+                <div className="inventory-wrapper wrapper relative">
+                    <TextArea className={`inventory`} initialValue={inventory} reactsToInitialValue={true} onChange={(newVal) => setInventory(newVal)}/>
+                    <div className="gold-wrapper wrapper">
+                        <Input className="gold" value={gold} setSet={func => setInputGold = func} onChange={newVal => {
+                            const newValFloat = parseFloat(newVal)
+                            console.log({newValFloat})
+                            if (isNaN(newValFloat) || (isString(newValFloat) && newValFloat.length == 0)) {
+                                setGold(gold)
+                                console.log(`Resetting gold input to ${gold}`)
+                                setInputGold(gold)   // Reset to what it was
+                            } else {
+                                setGold(newValFloat)
+                            }
+                            
+                        }}/>
+                        <div className="input-description" style={{left: '-1px', bottom: '5px'}}>Gold</div>
+                    </div>
+                    <div className="input-description">Inventory</div>
                 </div>
                 <div className="flex-column" style={{flex: 1, gap: '5px'}}>
-                    { combatExtras.map(text => <div className="extra">{ text }</div>) }
+                    { extras.map(text => <div className="extra italic"><Icon name="Specializations"/>{ text }</div>) }
+                    { languages.map(text => <div className="extra italic"><Icon name="Specializations"/>You speak { text }</div>) }
                 </div>
-                
             </div>
             
             <PageH2 className="margin-top-2">Race and Class Abilities</PageH2>

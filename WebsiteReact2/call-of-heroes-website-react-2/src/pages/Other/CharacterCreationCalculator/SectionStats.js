@@ -8,31 +8,30 @@ import { QGTitle1 } from "../../Tools/TitleGenerator"
 import Icon from "../../../components/Icon"
 import { useBonusesFromSpells, useTotalStats } from "./MyCharacter"
 import { useSectionRaceName } from "./SectionRace"
+import Input from "../../../components/Input/Input"
 
 
-function StatInput({ name, value, onChange }) {
 
-    const [temporaryValue, setTemporaryValue] = useState(value)
+export function StatInput({ name, value, onChange }) {
 
     function onInputChange(newVal) {
-        setTemporaryValue(newVal)
-        console.log(`Triggering onInputChange with newVal ${newVal}`)
-        if (parseInt(newVal) != NaN && newVal != '') {
+        if (!isNaN(parseInt(newVal)) && newVal != '') {
             onChange(newVal)
         }
     }
 
     return (
         <div className="stat-input">
-            <input value={temporaryValue} onChange={evt => onInputChange(evt.target.value)}/>
+            <Input value={value} onChange={onInputChange}/>
+            {/* <input value={temporaryValue} onChange={evt => onInputChange(evt.target.value)}/> */}
             <div className="input-name input-name-styled">{ name }</div>
         </div>
     )
 }
 
-export function StatValue({ name, value }) {
+export function StatValue({ name, value, style, className }) {
     return (
-        <div className="stat-input">
+        <div className={`stat-input ${className}`} style={style}>
             <div>{ value }</div>
             <div className="input-name input-name-styled">{ name }</div>
         </div>
