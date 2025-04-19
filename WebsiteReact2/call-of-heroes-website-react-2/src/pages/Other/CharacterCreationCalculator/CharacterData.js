@@ -2,118 +2,116 @@ import { areArraysEqual, generateUniqueId, getLocalStorageJSON, setLocalStorageJ
 import * as Database from '../../../Database'
 import { useEffect } from "react"
 import { getUserState, useAuth } from "../../../Auth"
+import { showError } from "../../../services/MessageDisplayer"
 
 export const NO_CHARACTER_ID = 'none'
 export const LOCAL_STORAGE_PREFIX = 'character-'
-export const PLAYER_CHARACTER_TEMPLATE = {
-    id: NO_CHARACTER_ID,
-    names: {
-        src: '/Icons/Spells/Skilled_in_Persuasion.png',
-        playerName: '',
-        characterName: ''
-    },
-    level: 1,
-    experience: 0,
-    stats: [-1,0,1,2,3],
+function getNewCharacterTemplate() {
+    return {
+        id: generateUniqueId(),
+        names: {
+            src: '/Icons/Spells/Skilled_in_Persuasion.png',
+            playerName: '',
+            characterName: 'Joe'
+        },
+        level: 1,
+        experience: 0,
+        stats: [-1,0,1,2,3],
+        
+        skillNames: [],
+        languages: [],
     
-    skillNames: [],
-    languages: [],
-
-    raceName: null,
-    raceSpellNames: [],
-
-    className: null,
-    specName: null,
-    classSpellNames: [],
-
-    basicAbilityNames: [],
-    featNames: [],
-
-    quickNotes: '',
-    description: '',
-    inventory: '',
-    gold: 1000,
-
-    shopCart: [],
+        raceName: null,
+        raceSpellNames: [],
+    
+        className: null,
+        specName: null,
+        classSpellNames: [],
+    
+        basicAbilityNames: [],
+        featNames: [],
+    
+        quickNotes: '',
+        description: '',
+        inventory: '',
+        gold: 1000,
+    
+        shopCart: [],
+    }
 }
-
-//TODO: Save character to firebase
-// By default, none.
-// When going to MyCharacter, automatically give it an ID if it doesn't have one
-// Also, each localStorage state key name should be standardized in one place via constants like CharacterKeys.GOLD
-// When loading a character from firestore, load all its things from localStorage for each key in CharacterKeys
+const PLAYER_CHARACTER_TEMPLATE = getNewCharacterTemplate()
 
 
 // -------------- Local Storage Utils --------------
-export function resetCurrentCharacterToDefault() {
-    for (const key of Object.keys(PLAYER_CHARACTER_TEMPLATE)) {
+export function newCharacterLS() {
+    const newCharacterTemplate = getNewCharacterTemplate()
+    for (const key of Object.keys(newCharacterTemplate)) {
         const lsKey = 'character.' + key
-        console.log(`Setting ${lsKey} to ${PLAYER_CHARACTER_TEMPLATE[key]}`)
-        setLocalStorageJSON(lsKey, PLAYER_CHARACTER_TEMPLATE[key])
+        console.log(`Setting ${lsKey} to ${newCharacterTemplate[key]}`)
+        setLocalStorageJSON(lsKey, newCharacterTemplate[key])
     }
 }
 export function getCurrentCharacterFromLocalStorage() {
     const characterObj = {}
-    for (const key of Object.keys(PLAYER_CHARACTER_TEMPLATE)) {
+    const newCharacterTemplate = getNewCharacterTemplate()
+    for (const key of Object.keys(newCharacterTemplate)) {
         characterObj[key] = getLocalStorageJSON('character.' + key)
     }
     return characterObj
 }
 export function setCharacterToLocalStorage(character) {
-    for (const key of Object.keys(PLAYER_CHARACTER_TEMPLATE)) {
-        setLocalStorageJSON('character.' + key, character[key] == null? PLAYER_CHARACTER_TEMPLATE[key]: character[key])
+    const newCharacterTemplate = getNewCharacterTemplate()
+    for (const key of Object.keys(newCharacterTemplate)) {
+        setLocalStorageJSON('character.' + key, character[key] == null? newCharacterTemplate[key]: character[key])
     }
 }
-export function getMyCharactersLS() { return getLocalStorageJSON('myCharacters') }
 export function useMyCharactersDB(locationInCode) {
     const initialUser = getUserState()
     let { user } = useAuth(locationInCode)
     let [myCharacters, innerSetMyCharacters] = useLocalStorageState('myCharacters', [])
 
-    // TODO: this
-    // TODO: check the console....
-
-    console.log({myCharacters})
+    // Sync localstorage characters with DB characters
     if (initialUser != null) {
         Database.getMyCharacters().then(myCharactersFromDB => {
-            console.log(`Gottem as:`)
-            console.log({myCharactersFromDB})
             // Prevent infinite rerendering of this (myCharacter changes every time)
             if (! areArraysEqual(myCharacters, myCharactersFromDB, (a, b) => a?.id == b?.id)) {
                 innerSetMyCharacters(myCharactersFromDB)
             }
         })
     }
-    // useEffect(() => {
-    //     if (user != null) {
-    //         console.log(`Ready to work with userData!`)
-    //         console.log({user})
+    useEffect(() => {
+        if (user != null) {
+            console.log(`Ready to work with userData!`)
+            console.log({user})
             
-    //         Database.getMyCharacters().then(myCharactersFromDB => {
-    //             console.log(`User changed. Got characters from DB:`)
-    //             console.log({myCharactersFromDB})
-    //             innerSetMyCharacters(myCharactersFromDB)
-    //         })
-    //     }
-    // }, [user?.id])
+            Database.getMyCharacters().then(myCharactersFromDB => {
+                console.log(`User changed. Got characters from DB:`)
+                console.log({myCharactersFromDB})
+                innerSetMyCharacters(myCharactersFromDB)
+            })
+        }
+    }, [user?.id])
 
-    function setMyCharacters(array) {
+    async function saveMyCharactersToDB(array) /* : bool */ {
         if (Array.isArray(array) == false) {
-            alert(`ERROR: myCharacters given is not an array`)
-            throw `myCharacters given is not an array`
+            showError(`ERROR: myCharacters given is not an array`)
+            return false
         }
 
-        Database.setMyCharacters(array)
-
-        innerSetMyCharacters(array)
-
-        alert('Character saved!')
+        try {
+            const result = await Database.setMyCharacters(array)            
+            innerSetMyCharacters(array)
+        } catch (e) {
+            showError(`ERROR: An error has occured saving your character: ${e}`)
+            return false
+        }
+        return true
     }
 
-    return [myCharacters, setMyCharacters]
+    return [myCharacters, saveMyCharactersToDB]
 }
 
-window.resetCurrentCharacterToDefault = resetCurrentCharacterToDefault
+window.newCharacterLS = newCharacterLS
 window.getCurrentCharacterFromLocalStorage = getCurrentCharacterFromLocalStorage
 window.setCharacterToLocalStorage = setCharacterToLocalStorage
 
@@ -122,7 +120,8 @@ window.setCharacterToLocalStorage = setCharacterToLocalStorage
 // ------------- Hooks -------------
 
 function useCharacterLocalStorageState(key) {
-    return useLocalStorageState('character.' + key, PLAYER_CHARACTER_TEMPLATE[key])
+    const newCharacterTemplate = getNewCharacterTemplate()
+    return useLocalStorageState('character.' + key, newCharacterTemplate[key])
 }
 export function useCurrentCharacterId() {
     return useCharacterLocalStorageState('id')

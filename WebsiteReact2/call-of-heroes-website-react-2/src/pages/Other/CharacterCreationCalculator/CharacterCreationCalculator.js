@@ -39,7 +39,9 @@ import SectionFeats from "./SectionFeats";
 import SectionShop from "./SectionShop";
 import SectionRace from "./SectionRace";
 import SectionClass from "./SectionClass";
-import { NO_CHARACTER_ID, getCurrentCharacterFromLocalStorage, setCurrentCharacterId, useMyCharactersDB, useSectionNamesState } from "./CharacterData";
+import { NO_CHARACTER_ID, getCurrentCharacterFromLocalStorage, newCharacterLS, setCharacterToLocalStorage, setCurrentCharacterId, useCurrentCharacterId, useMyCharactersDB, useSectionNamesState } from "./CharacterData";
+import { SelectorsByColumns } from "../Abilities";
+import { showSuccessMessage } from "../../../services/MessageDisplayer";
 
 export const tabNames = [
     'My Character', 'Name and Portrait',
@@ -62,6 +64,49 @@ export function classesRacesObjectToArrays(bigObj) {
     return classObjRows
 }
 
+function MyCharacters() {
+    let [myCharacters, saveCharacters] = useMyCharactersDB('CCC.MyCharacters')
+    let [currentCharacterId] = useCurrentCharacterId()
+
+    const selectorData = myCharacters.map(char => ({
+        name: char.names.characterName,
+        src: char.names.src
+    }))
+
+    console.log(`Searching myCharacters for`)
+    const selectedSelectorName = myCharacters.find(char => char.id == currentCharacterId)?.names.characterName
+    console.log({selectedSelectorName})
+
+    function newCharacter() {
+        newCharacterLS()
+        saveCharacters([...myCharacters, getCurrentCharacterFromLocalStorage()])
+    }
+
+    return (
+        <div className="center-content">
+            <div style={{ width: '100%', maxWidth: '700px'}}>
+                <SelectorsByColumns
+                    selectorData={selectorData}
+                    nColumns={1}
+                    selectedSelectorName={selectedSelectorName}
+                    setSelectedSelectorName={(name) => {
+                        console.log(`Searching for character ${name} in myCharacters:`)
+                        console.log({myCharacters})
+                        const foundCharacter = myCharacters.find(char => char.names.characterName == name)
+                        console.log(`Found:`)
+                        console.log({foundCharacter})
+                        setCharacterToLocalStorage(foundCharacter)
+                    }}
+                />
+            </div>
+            <div className="flex-row gap-half margin-top-1">
+                <button onClick={newCharacter}>New Character</button>
+                <button style={{ maxWidth: '25%', backgroundColor: 'red' }}>Delete</button>
+            </div>
+        </div>
+    )
+}
+
 function SaveCharacterButton() {
 
     console.log('RERENDER SAVECHARACTERBUTTON')
@@ -74,14 +119,18 @@ function SaveCharacterButton() {
         const newMyCharacters = [...myCharacters]
         if (willAddNewCharacter) {
             if (currentCharacter.id == NO_CHARACTER_ID) {
-                setCurrentCharacterId(generateUniqueId())
+                const uniqueID = generateUniqueId()
+                currentCharacter.id = uniqueID                
+                setCurrentCharacterId(uniqueID)
             }
             newMyCharacters.push(currentCharacter)
         } else {
             newMyCharacters[existingCharacterIndex] = currentCharacter
         }
-        saveMyCharacters(newMyCharacters)
-        alert('Character saved!')
+        const wasSaveSuccessful = saveMyCharacters(newMyCharacters)
+        if (wasSaveSuccessful) {
+            showSuccessMessage('Character saved successfully!')
+        }
     }
     
     return (
@@ -101,6 +150,12 @@ export default function CharacterCreationCalculator() {
 
     return (
         <Page id="Character-Builder" isCentered={true}>
+
+            <div className="center-content">
+                <QGTitle1 text={"My Characters"} height="60"/>
+            </div>
+
+            <MyCharacters/>
 
             <div className="center-content">
                 <QGTitle1 text={"Character"} height="60"/>

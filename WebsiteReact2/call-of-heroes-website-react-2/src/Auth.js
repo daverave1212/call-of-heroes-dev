@@ -10,7 +10,6 @@ const authChangedListeners = {}
 
 
 firebaseAuth.onAuthChanged(user => {
-    console.log(`Auth changed to user ${user}`)
     if (user == null) {
         userData = null
     } else {
@@ -29,11 +28,9 @@ firebaseAuth.onAuthChanged(user => {
 
 
 export function useAuth(uniqueLocationID) {
-    console.log(`useAuth at ${uniqueLocationID}...`)
     const [userData, setUserData] = useState(getUserState())
 
     onUserStateChanged(uniqueLocationID + '-auth', newUserData => {
-        console.log(`set user data to: ${newUserData}`)
         setUserData(newUserData)
     })
 
@@ -62,8 +59,6 @@ export async function test() {
 }
 
 export function isLoggedIn() {
-    console.log(`Auth.isLoggedIn userState:`)
-    console.log(getUserState())
     return userData != null
 }
 

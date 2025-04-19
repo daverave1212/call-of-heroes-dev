@@ -4,6 +4,7 @@ import { IconWithSpinner } from "../../../components/Spell/Spell";
 import { getUserState, useAuth } from "../../../Auth";
 import { useLocalStorageState } from "../../../utils";
 import { useSectionNamesState } from "./CharacterData";
+import Input from "../../../components/Input/Input";
 
 function LabelWithInput({ labelText, value='d', onChange }) {
 
@@ -12,9 +13,8 @@ function LabelWithInput({ labelText, value='d', onChange }) {
     return (
         <div className="flex-column align-left">
             <label style={{marginBottom: '6px'}}>{ labelText }</label>
-            <input className="text-input" value={inputValue} placeholder={'Name'} onChange={evt => {
-                setInputValue(evt.target.value)
-                onChange(evt.target.value)
+            <Input className="text-input" value={value} placeholder="Name" onChange={newValue => {
+                onChange(newValue)
             }}/>
         </div>
     )
@@ -54,6 +54,7 @@ export default function SectionNames({ onChange }) {
             <div className="center-content">
                 <LabelWithInput value={namesState.characterName} labelText="Character Name" onChange={val => {
                     const newState = {...namesState, characterName: val}
+                    console.log(`New Name: ${newState.characterName}`)
                     setNamesState(newState)
                     onChange(newState)
                 }}/>

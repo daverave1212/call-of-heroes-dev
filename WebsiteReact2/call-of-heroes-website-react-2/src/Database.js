@@ -36,10 +36,9 @@ export async function getMyCharacters() {
     if (await existsMyDocInCollection('player-characters') == false) {
         return []
     }
-    const result = await getMyDocInCollection('player-characters')
-    console.log(`Ok here is what we got from DB:`)
-    console.log({result})
-    return result.characters
+    const getMyCharactersResult = await getMyDocInCollection('player-characters')
+    console.log({getMyCharactersResult})
+    return getMyCharactersResult.characters
 }
 export async function setMyCharacters(array) {
     return await setMyDocInCollection('player-characters', {

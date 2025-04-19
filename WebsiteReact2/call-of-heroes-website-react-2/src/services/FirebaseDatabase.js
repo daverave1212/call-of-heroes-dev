@@ -32,7 +32,6 @@ export async function existsDocument(collectionName, documentId) {
       const docSnap = await getDoc(docRef); // Get the document snapshot
   
       if (docSnap.exists()) {
-        console.log("Document exists:", docSnap.data());
         return true; // Document exists
       } else {
         return false; // Document does not exist

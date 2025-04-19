@@ -87,6 +87,7 @@ function AllSpellsSeparatedInLevels({allSpellsInCategoryArray, selectedSpellName
     )
 }
 
+/* selectorData: { name: string, src: string } */
 export function SelectorsByColumns({ className, selectorData, nColumns, selectedSelectorName, setSelectedSelectorName, onSelectorClick, getSelectedSelectorName }) {
     
     const columns = splitArrayEvenly(selectorData, nColumns)
