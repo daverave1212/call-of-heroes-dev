@@ -24,3 +24,21 @@ export async function getDocument(collectionName, docId) {
     const document = docSnapshot.data()
     return document
 }
+
+export async function existsDocument(collectionName, documentId) {
+    const docRef = doc(db, collectionName, documentId); // Create a document reference
+  
+    try {
+      const docSnap = await getDoc(docRef); // Get the document snapshot
+  
+      if (docSnap.exists()) {
+        console.log("Document exists:", docSnap.data());
+        return true; // Document exists
+      } else {
+        return false; // Document does not exist
+      }
+    } catch (error) {
+      console.error("Error getting document:", error);
+      return false; // Handle errors as needed
+    }
+  }

@@ -22,7 +22,24 @@ export async function getMyDocInCollection(collectionName) {
     const userState = getUserState()
     return await firebaseDatabase.getDocument(collectionName, userState.id)
 }
+export async function existsMyDocInCollection(collectionName) {
+    assertLoggedIn()
+    const userState = getUserState()
+    return firebaseDatabase.existsDocument(collectionName, userState.id)
+}
+window.getMyDocInCollection = getMyDocInCollection
 
-export async function getAnyDocInCollection(collectionName) {
-    return await firebaseDatabase.getDocument(collectionName, 'uHCqdNCbc69tRKk7r6kA')
+
+// ------------- Character API -------------
+export async function getMyCharacters() {
+    assertLoggedIn()
+    if (await existsMyDocInCollection('player-characters') == false) {
+        return []
+    }
+    return await getMyDocInCollection('player-characters').characters
+}
+export async function setMyCharacters(array) {
+    return await setMyDocInCollection('player-characters', {
+        characters: array
+    })
 }

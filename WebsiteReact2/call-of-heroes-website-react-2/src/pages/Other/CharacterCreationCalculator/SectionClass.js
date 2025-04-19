@@ -7,11 +7,9 @@ import { getAllClasses, splitArrayEvenly, useLocalStorageState } from "../../../
 import { classesRacesObjectToArrays } from "./CharacterCreationCalculator"
 import Selector from "../../../components/Selector/Selector"
 import { SelectorsByColumns } from "../Abilities"
+import { useSectionClassName, useSectionClassSpecName, useSectionClassSpellNames } from "./CharacterData"
 
 
-export function useSectionClassName() { return useLocalStorageState('SectionClassName', null) }
-export function useSectionClassSpecName() { return useLocalStorageState('SectionClassSpecName', null) }
-export function useSectionClassSpellNames() { return useLocalStorageState('SectionClassSpellNames', [])}
 
 
 export default function SectionClass({ onClassNameSelected, onSpecNameSelected, onSpellsSelected }) {

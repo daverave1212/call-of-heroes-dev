@@ -4,13 +4,13 @@ import { useState } from "react";
 
 let userData = null
 export const getUserState = () => userData
+window.getUserState = getUserState
 
 const authChangedListeners = {}
 
 
 firebaseAuth.onAuthChanged(user => {
-    console.log(`onAuthChanged: user:`)
-    console.log({user})
+    console.log(`Auth changed to user ${user}`)
     if (user == null) {
         userData = null
     } else {
@@ -29,9 +29,11 @@ firebaseAuth.onAuthChanged(user => {
 
 
 export function useAuth(uniqueLocationID) {
-    const [userData, setUserData] = useState(null)
+    console.log(`useAuth at ${uniqueLocationID}...`)
+    const [userData, setUserData] = useState(getUserState())
 
     onUserStateChanged(uniqueLocationID + '-auth', newUserData => {
+        console.log(`set user data to: ${newUserData}`)
         setUserData(newUserData)
     })
 
@@ -42,8 +44,6 @@ export function useIsLoggedIn(uniqueLocationID) {
     const { user } = useAuth(uniqueLocationID + '-isLogged')
     return user != null
 }
-
-
 
 export async function login() {
     console.log(`  Auth.login`)

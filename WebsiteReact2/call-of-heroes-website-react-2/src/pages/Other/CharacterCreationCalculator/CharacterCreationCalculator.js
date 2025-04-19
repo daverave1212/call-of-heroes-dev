@@ -29,16 +29,17 @@ import Tabs from "../../../components/Tabs/Tabs";
 import { CCClassPage, CCRacePage, ClassPage, RacePage } from "../../../components/InsertableTemplates/RaceClassComponents";
 import { QGTitle1 } from "../../Tools/TitleGenerator";
 import Icon from "../../../components/Icon";
-import SectionClass, { useSectionClassName, useSectionClassSpecName, useSectionClassSpellNames } from "./SectionClass";
-import SectionNames, { BASE_NAMES_STATE, useSectionNamesState } from "./SectionNames";
-import SectionRace, { useSectionRaceName, useSectionRaceSpellNames } from "./SectionRace";
-import SectionStats, { BASE_STATS, STAT_NAMES, StatValue, useSectionStatsState } from "./SectionStats";
+import SectionNames from "./SectionNames";
+import SectionStats from "./SectionStats";
 import MyCharacter from "./MyCharacter";
 import SectionSkills from "./SectionSkills";
 import SectionLanguages from "./SectionLanguages";
 import SectionBasicAbilities, { useCCCTabs } from "./SectionBasicAbilities";
 import SectionFeats from "./SectionFeats";
 import SectionShop from "./SectionShop";
+import SectionRace from "./SectionRace";
+import SectionClass from "./SectionClass";
+import { useMyCharactersDB, useSectionNamesState } from "./CharacterData";
 
 export const tabNames = [
     'My Character', 'Name and Portrait',
@@ -61,15 +62,34 @@ export function classesRacesObjectToArrays(bigObj) {
     return classObjRows
 }
 
+function SaveCharacterButton() {
+
+    console.log('RERENDER SAVECHARACTERBUTTON')
+    let [myCharacters, setMyCharacters] = useMyCharactersDB('CharacterCreationCalculator.SaveCharacterButton')
+
+    function saveCharacter() {
+
+    }
+    
+    return (
+        <div className="center-content">
+            <button onClick={saveCharacter}>Save Character</button>
+        </div>
+    )
+}
+
+
 export default function CharacterCreationCalculator() {
 
     const [activeTabI, setActiveTabI, last] = useCCCTabs()
     const [names, setNames] = useSectionNamesState()
 
+
+
     return (
         <Page id="Character-Builder" isCentered={true}>
 
-            <div>
+            <div className="center-content">
                 <QGTitle1 text={"Character"} height="60"/>
             </div>
 
@@ -80,6 +100,8 @@ export default function CharacterCreationCalculator() {
                 <SectionBasicAbilities/>, <SectionFeats/>, <div></div>,
             ]}/>
 
+            <SaveCharacterButton/>
+            
 
         </Page>
     )

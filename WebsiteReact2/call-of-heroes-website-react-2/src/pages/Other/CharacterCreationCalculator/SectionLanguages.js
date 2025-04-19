@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import Selector from "../../../components/Selector/Selector";
 import { getAllLanguages, getRace, splitArrayEvenly, useLocalStorageState } from "../../../utils";
 import { QGTitle1 } from "../../Tools/TitleGenerator";
-import { useSectionRaceName } from "./SectionRace";
-import { useTotalStats } from "./MyCharacter";
+import { useConstTotalStats } from "./MyCharacter";
+import { useLanguages, useSectionRaceName } from "./CharacterData";
 
 
 function LanguageSelector({ language, isSelected, onClick }) {
@@ -17,16 +17,13 @@ function LanguageSelector({ language, isSelected, onClick }) {
     )
 }
 
-export function useLanguages() {
-    let [languages, setLanguages] = useLocalStorageState('SectionLanguages', [])
-    return [languages, setLanguages]
-}
+
 
 export default function SectionLanguages() {
 
     let [selectedLanguages, setSelectedLanguages] = useLanguages()
     let [selectedRaceName] = useSectionRaceName()
-    let { 2: intelligence, 4: charisma } = useTotalStats()
+    let { 2: intelligence, 4: charisma } = useConstTotalStats()
 
     const nTotalLanguages = 1 + Math.max(intelligence, charisma)
     const nRemainingLanguages = nTotalLanguages - selectedLanguages.length

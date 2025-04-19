@@ -3,6 +3,7 @@ import HeroButton from "../../../components/HeroButton/HeroButton";
 import { IconWithSpinner } from "../../../components/Spell/Spell";
 import { getUserState, useAuth } from "../../../Auth";
 import { useLocalStorageState } from "../../../utils";
+import { useSectionNamesState } from "./CharacterData";
 
 function LabelWithInput({ labelText, value='d', onChange }) {
 
@@ -29,16 +30,6 @@ function NameInput() {
             <input readOnly className="text-input" value={user != null? user.name: ''}/>
         </div>
     )
-}
-
-export const BASE_NAMES_STATE = {
-    src: '/Icons/Spells/Skilled_in_Persuasion.png',
-    playerName: '',
-    characterName: ''
-}
-
-export function useSectionNamesState() {
-    return useLocalStorageState('SectionNamesNames', BASE_NAMES_STATE)
 }
 
 export default function SectionNames({ onChange }) {

@@ -63,8 +63,9 @@ import { getLocalStorageBool } from './utils';
 import TreasureGenerator from './pages/Tools/TreasureGenerator';
 import { getIsActionPointsSystem, globalStateStore, setIsActionPointsSystem } from './global-state/GlobalState';
 import * as auth from './Auth'
-import { getAnyDocInCollection, getMyDocInCollection, setMyDocInCollection } from './Database';
 import Icon from './components/Icon';
+
+window.auth = auth
 
 function NavIcon({name, extension="png"}) {
   return <Icon name={name} extension={extension} style={{margin: '0px', marginRight: '0.25rem', marginTop: '-2px'}}/>

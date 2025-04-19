@@ -7,30 +7,13 @@ import { getAllClasses, getAllRaces, splitArrayEvenly, useLocalStorageState } fr
 import { classesRacesObjectToArrays } from "./CharacterCreationCalculator"
 import Selector from "../../../components/Selector/Selector"
 import { SelectorsByColumns } from "../Abilities"
-
-function RaceSelector({ raceObj, isSelected, onClick }) {
-    return (
-        <Selector
-            name={raceObj.Race}
-            src={`/Icons/Races/${raceObj.Race}.png`}
-            isSelected={isSelected}
-            onClick={onClick}
-        />
-    )
-}
+import { useSectionRaceName, useSectionRaceSpellNames } from "./CharacterData"
 
 
-export function useSectionRaceName() {
-    return useLocalStorageState('SectinRaceName', null)
-}
-export function useSectionRaceSpellNames() {
-    return useLocalStorageState('SectionRaceSpellNames', [])
-}
 
-export default function SectionRace({ /* onSpellsSelected, onRaceNameSelected */ }) {
+export default function SectionRace() {
 
     const RACES_OBJ = getAllRaces()
-    const raceObjectRows = classesRacesObjectToArrays(RACES_OBJ)
     const selectorData = Object.keys(RACES_OBJ).map(raceName => ({
         name: raceName,
         src: `/Icons/Races/${raceName}.png`
@@ -42,24 +25,11 @@ export default function SectionRace({ /* onSpellsSelected, onRaceNameSelected */
 
     const getSelectedRaceName = () => selectedRaceName
 
-    // function onRaceSelectorClick(raceObj) {
-    //     setChosenRace(raceObj)
-    //     onRaceNameSelected(raceObj.Race)
-    //     setRaceState({
-    //         raceName: raceObj.Race,
-    //         spells: []
-    //     })
-    // }
     function onRaceSelectorClick(raceName) {
         setSelectedRaceName(raceName)
         setSelectedSpellNames([])
         console.log({raceName})
     }
-
-    // function onSpellsSelected(spells) {
-    //     const newRaceState = {...raceState, spells }
-    //     setRaceState(newRaceState)
-    // }
 
     return (
         <div>

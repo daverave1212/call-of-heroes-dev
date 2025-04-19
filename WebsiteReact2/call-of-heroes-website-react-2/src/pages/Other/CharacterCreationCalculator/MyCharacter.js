@@ -1,18 +1,13 @@
 import { useEffect, useState } from "react"
 import { calculateBaseCombatStats, calculateHealthRegen, calculateMaxHealth, calculateStat, getAllClasses, getallMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getAllStatBonusesFromSpellsAsObj, getExtrasFromSpells, getRaceHealth, isString, spellsFromObject, useLocalStorageState } from "../../../utils"
-import { useSectionClassName, useSectionClassSpecName, useSectionClassSpellNames } from "./SectionClass"
-import { useSectionNamesState } from "./SectionNames"
-import { useSectionRaceName, useSectionRaceSpellNames } from "./SectionRace"
-import { STAT_NAMES, StatValue, useExtraStats, useLevel, useSectionStatsState } from "./SectionStats"
 import ManySpells from "../../../components/Spell/ManySpells"
 import PageH2 from "../../../components/PageH2/PageH2"
 import TextArea from "../../../components/TextArea/TextArea"
-import { useSkills } from "./SectionSkills"
-import { useLanguages } from "./SectionLanguages"
-import { useBasicAbilitiesNames } from "./SectionBasicAbilities"
-import { useGold, useInventory } from "./SectionShop"
 import Icon from "../../../components/Icon"
 import Input from "../../../components/Input/Input"
+import { useBasicAbilitiesNames, useDescription, useGold, useInventory, useLanguages, useLevel, useQuickNotes, useSectionClassName, useSectionClassSpecName, useSectionClassSpellNames, useSectionNamesState, useSectionRaceName, useSectionRaceSpellNames, useSectionStatsState, useSkills } from "./CharacterData"
+import { STAT_NAMES, StatValue } from "./SectionStats"
+
 
 
 function BigStatValue({ name, value }) {
@@ -24,11 +19,9 @@ function BigStatValue({ name, value }) {
     )
 }
 
-const ALL_SPELLS_BY_NAME = getAllSpellsByName()
-const ALL_RACES = getAllRaces()
-const ALL_CLASSES = getAllClasses()
 
-function useAllRaceAndClassSpells() {
+
+export function useConstAllRaceAndClassSpells() {
     let [selectedRaceName] = useSectionRaceName()
     let [selectedRaceSpellNames] = useSectionRaceSpellNames()
     let [selectedClassName] = useSectionClassName()
@@ -46,17 +39,15 @@ function useAllRaceAndClassSpells() {
     return allMyRaceAndClassSpells
 
 }
-
-export function useBonusesFromSpells() {
-    const allMyRaceAndClassSpells = useAllRaceAndClassSpells()
+export function useConstBonusesFromSpells() {
+    const allMyRaceAndClassSpells = useConstAllRaceAndClassSpells()
 
     const bonuses = getAllStatBonusesFromSpellsAsObj(allMyRaceAndClassSpells)
 
     return bonuses
 }
-
-export function useTotalStats() {
-    const bonuses = useBonusesFromSpells()
+export function useConstTotalStats() {
+    const bonuses = useConstBonusesFromSpells()
     const [stats] = useSectionStatsState()
     return [
         stats[0] + (bonuses.Might ?? 0),
@@ -66,19 +57,7 @@ export function useTotalStats() {
         stats[4] + (bonuses.Charisma ?? 0)
     ]
 }
-//TODO: Save character to firebase
-export const NO_CHARACTER_ID = 'none'
-// By default, none.
-// When going to MyCharacter, automatically give it an ID if it doesn't have one
-// Also, each localStorage state key name should be standardized in one place via constants like CharacterKeys.GOLD
-// When loading a character from firestore, load all its things from localStorage for each key in CharacterKeys
-export function useCurrentCharacterId(id) {
-    const [currentId, setCurrentId] = useLocalStorageState('CurrentCharacterID', NO_CHARACTER_ID)
-    return [currentId, setCurrentId]
-}
-export function useCharacterId(id) {
-    let [id, setId] = useLocalStorageState(id)
-}
+
 
 export default function MyCharacter() {
 
@@ -87,28 +66,27 @@ export default function MyCharacter() {
 
     let [names] = useSectionNamesState()
     let [level] = useLevel()
-    let [selectedStats] = useSectionStatsState()
-    let totalStats = useTotalStats()
-    let [extraStatsFromSpells, setExtraStatsFromSpells] = useExtraStats()
+
     
+
     let [selectedRaceName] = useSectionRaceName()
-    let [selectedRaceSpellNames] = useSectionRaceSpellNames()
-
     let [selectedClassName] = useSectionClassName()
+    
     let [selectedSpecName] = useSectionClassSpecName()
-
+    
     let [selectedBasicAbilitiesNames] = useBasicAbilitiesNames()
-
-    let [description, setDescription] = useLocalStorageState('characterDescription', 'Enter your character description here')
-    let [quickNotes, setQuickNotes] = useLocalStorageState('quickNotes', 'Combat notes...')
+    
+    let [description, setDescription] = useDescription()
+    let [quickNotes, setQuickNotes] = useQuickNotes()
     let [inventory, setInventory] = useInventory()
     let [gold, setGold] = useGold()
     
-    let allMyRaceAndClassSpells = useAllRaceAndClassSpells()
-
-    let bonuses = useBonusesFromSpells()
     let [selectedSkillNames] = useSkills()
     let [languages] = useLanguages()
+    
+    const totalStats = useConstTotalStats()
+    const allMyRaceAndClassSpells = useConstAllRaceAndClassSpells()
+
 
     // Computed values
     const myBasicAbilities = selectedBasicAbilitiesNames.map(name => getAllSpellsByName()[name])

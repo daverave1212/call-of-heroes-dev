@@ -2,11 +2,10 @@ import { useLocalStorageState } from "../../../utils";
 import Abilities from "../Abilities";
 import Feats from "../Feats";
 import { tabNames } from "./CharacterCreationCalculator";
+import { useFeats } from "./CharacterData";
 import { useCCCTabs } from "./SectionBasicAbilities";
 
-export function useFeats() {
-    return useLocalStorageState('SectionFeatsNames', [])
-}
+
 
 export default function SectionFeats() {
 

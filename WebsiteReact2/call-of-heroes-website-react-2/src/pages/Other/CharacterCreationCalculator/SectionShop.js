@@ -9,21 +9,9 @@ import TableNormal from "../../../components/TableNormal/TableNormal";
 import Icon from "../../../components/Icon";
 import HeroButton from "../../../components/HeroButton/HeroButton";
 import { StatValue } from "./SectionStats";
+import { useCharacterShoppingCart, useGetSetCart, useGold, useInventory } from "./CharacterData";
 
-export function useGold() {
-    return useLocalStorageState('SectionShopGold', 1000)
-}
-export function useInventory() {
-    return useLocalStorageState('SectionShopInventory', '')
-}
-export function useCharacterShoppingCart() {
-    return useLocalStorageState('SectionShopCart', [])
-}
-export function useGetSetCart() {
-    let getVal = () => getLocalStorageJSON('SectionShopCart')
-    let setVal = val => setLocalStorageJSON('SectionShopCart', val)
-    return [getVal, setVal]
-}
+
 
 function PricePage({ selectedShopName }) {  // Exists to prevent rerender
 

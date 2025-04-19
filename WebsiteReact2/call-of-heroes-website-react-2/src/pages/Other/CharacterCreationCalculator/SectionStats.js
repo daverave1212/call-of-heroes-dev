@@ -6,9 +6,9 @@ import { calculateStat, checkStatRequirements, getExperienceByLevel, getRace, us
 import Page from "../../../containers/Page/Page"
 import { QGTitle1 } from "../../Tools/TitleGenerator"
 import Icon from "../../../components/Icon"
-import { useBonusesFromSpells, useTotalStats } from "./MyCharacter"
-import { useSectionRaceName } from "./SectionRace"
+import { useConstBonusesFromSpells, useConstTotalStats } from "./MyCharacter"
 import Input from "../../../components/Input/Input"
+import { useExperience, useLevel, useSectionRaceName, useSectionStatsState } from "./CharacterData"
 
 
 
@@ -41,19 +41,6 @@ export function StatValue({ name, value, style, className }) {
 export const STAT_NAMES = ["Might", 'Dexterity', 'Intelligence', 'Sense', 'Charisma']
 export const BASE_STATS = [-1, 0, 1, 2, 3]
 
-export function useSectionStatsState() {
-    return useLocalStorageState('SectionStatsStats', BASE_STATS)
-}
-export function useExtraStats() {
-    return useLocalStorageState('SectionStatsExtraStats', [0, 0, 0, 0, 0])
-}
-export function useLevel() {
-    return useLocalStorageState('SectionStatsLevel', 1)
-}
-export function useExperience() {
-    return useLocalStorageState('SectionStatsXP', 0)
-}
-
 export function ExperienceSlider({max, initialValue, onChange, children}) {
     let [val, setVal] = useState(initialValue)
 
@@ -85,11 +72,11 @@ export function ExperienceSlider({max, initialValue, onChange, children}) {
 
 export default function SectionStats() {
  
+    let [statsCorrectError, setStatsCorrectError] = useState(null)    /* { message: string } */
     let [level, setLevel] = useLevel()
     let [stats, setStats] = useSectionStatsState()
-    let [statsCorrectError, setStatsCorrectError] = useState(null)    /* { message: string } */
-    let totalStats = useTotalStats()
-    let bonuses = useBonusesFromSpells()
+    let totalStats = useConstTotalStats()
+    let bonuses = useConstBonusesFromSpells()
     let [selectedRaceName] = useSectionRaceName()
     let [experience, setExperience] = useExperience()
 

@@ -557,10 +557,16 @@ export function insertBetweenAll(array, insertWhat) {
 
     return newArray
 }
-export function areArraysEqual(a1, a2) {
+export function areArraysEqual(a1, a2, compareElems=null) {
     if (a1.length != a2.length) return false
     for (let i = 0; i < a1.length; i++) {
-        if (a1[i] !== a2[i]) return false
+        if (compareElems != null) {
+            if (compareElems(a1[i], a2[i])) {
+                return false
+            }
+        } else {
+            if (a1[i] !== a2[i]) return false
+        }
     }
     return true
 }
@@ -903,6 +909,10 @@ export function isCharDigit(char) {
 }
 
 // ---------------- Other Small Utilities ----------------
+export function generateUniqueId() {
+    return Date.now().toString(36) + Math.random().toString(36).substr(2);
+}
+window.generateUniqueId = generateUniqueId
 export function logAndReturn(obj) {
     console.log(obj)
     return obj
@@ -1047,33 +1057,57 @@ export const styleMargined = { marginBottom: 'var(--element-padding)' }    // Us
 export const stylePadded   = { padding: 'var(--element-padding)' }
 
 export function getLocalStorageJSON(keyName) {
-    return JSON.parse(localStorage.getItem(keyName))
+    const value = localStorage.getItem(keyName)
+    if (value == null || value == 'undefined') {
+        return value
+    }
+    try {
+        return JSON.parse(value)
+    } catch (e) {
+        throw `${e.toString()} -- keyName: ${keyName}`
+    }
 }
 export function setLocalStorageJSON(keyName, value) {
-    localStorage.setItem(keyName, JSON.stringify(value))
+    if (value == null) {
+        localStorage.removeItem(keyName)
+    } else {
+        try {
+            localStorage.setItem(keyName, JSON.stringify(value))
+        }  catch (e) {
+            throw `${e.toString()} -- keyName: ${keyName}, value: ${value}`
+        }
+    }
     window.dispatchEvent(new CustomEvent('custom-storage', { detail: {
         key: keyName,
         value: value
     } }))
 }
 export function useLocalStorageState(keyName, defaultValue) {
-    const existingValue = localStorage.getItem(keyName)
+    const existingValue = getLocalStorageJSON(keyName)
     if (existingValue == null) {
         localStorage.setItem(keyName, JSON.stringify(defaultValue))
     }
 
-    const [state, setInnerState] = useState(JSON.parse(localStorage.getItem(keyName)))
+    const [state, setInnerState] = useState(existingValue == null? defaultValue: existingValue)
     
     useEffect(() => {
         window.addEventListener('custom-storage', evt => {
             if (evt.detail.key == keyName) {
-                setInnerState(evt.detail.value)
+                if (evt.detail.value == null || evt.detail.value == 'undefined') {
+                    setInnerState(null)    
+                } else {
+                    setInnerState(evt.detail.value)
+                }
             }
         })
 
         window.addEventListener('storage', evt => {
             if (evt.key == keyName) {
-                setInnerState(JSON.parse(evt.newValue))
+                if (evt.newValue == null || evt.newValue == 'undefined') {
+                    setInnerState(null)
+                } else {
+                    setInnerState(JSON.parse(evt.newValue))
+                }
             }
         })
     }, [])

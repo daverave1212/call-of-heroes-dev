@@ -1,13 +1,16 @@
-import { useLocalStorageState } from "../../../utils";
+import { useLocation } from "react-router-dom";
+import { getPageHashFromLocation, useLocalStorageState } from "../../../utils";
 import Abilities from "../Abilities";
 import { tabNames } from "./CharacterCreationCalculator";
+import { useBasicAbilitiesNames } from "./CharacterData";
 
-export function useBasicAbilitiesNames() {
-    return useLocalStorageState('SectionBasicAbilitiesNames', [])
-}
+
 
 export function useCCCTabs() {
-    let [activeTabI, setActiveTabI] = useLocalStorageState('CCCActiveTabI', 0)
+    const location = useLocation()
+    const hash = getPageHashFromLocation(location)
+    const defaultValue = hash.length == 0? 0: tabNames.indexOf(hash)
+    let [activeTabI, setActiveTabI] = useLocalStorageState('CCCActiveTabI', defaultValue == -1? 0: defaultValue)
     const tabName = tabNames[activeTabI]
     return [activeTabI, setActiveTabI, tabName]
 }
