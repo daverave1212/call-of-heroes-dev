@@ -558,10 +558,19 @@ export function insertBetweenAll(array, insertWhat) {
     return newArray
 }
 export function areArraysEqual(a1, a2, compareElems=null) {
+    if (a1 == null && a2 == null) {
+        throw `Both arrays given are null`
+    }
+    if (a1 == null) {
+        throw `First array given is null`
+    }
+    if (a2 == null) {
+        throw `Second array given is null`
+    }
     if (a1.length != a2.length) return false
     for (let i = 0; i < a1.length; i++) {
         if (compareElems != null) {
-            if (compareElems(a1[i], a2[i])) {
+            if (compareElems(a1[i], a2[i]) == false) {
                 return false
             }
         } else {
@@ -570,6 +579,7 @@ export function areArraysEqual(a1, a2, compareElems=null) {
     }
     return true
 }
+window.areArraysEqual = areArraysEqual
 
 export function mapObject(obj, func) {
     const keys = Object.keys(obj)

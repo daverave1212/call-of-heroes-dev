@@ -7,7 +7,7 @@ import * as firebaseDatabase from './services/FirebaseDatabase'
 function assertLoggedIn() {
     if (isLoggedIn() == false) {
         alert('Unauthorized')
-        throw 'Unauthorized - you need to log in first'
+        throw 'Unauthorized - you need to be logged in to do this.'
     }
 }
 
@@ -36,7 +36,10 @@ export async function getMyCharacters() {
     if (await existsMyDocInCollection('player-characters') == false) {
         return []
     }
-    return await getMyDocInCollection('player-characters').characters
+    const result = await getMyDocInCollection('player-characters')
+    console.log(`Ok here is what we got from DB:`)
+    console.log({result})
+    return result.characters
 }
 export async function setMyCharacters(array) {
     return await setMyDocInCollection('player-characters', {

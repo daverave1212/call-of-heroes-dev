@@ -55,13 +55,13 @@ export default function SectionLanguages() {
                 ) }
             </div>
             <div className="flex-row gap-half margin-top-1">
-                <div className="flex-column" style={{flex: 1}}>
+                <div className="flex-column gap-half" style={{flex: 1}}>
                     { languageColumns[0].map(lang => <LanguageSelector language={lang} isSelected={selectedLanguages.includes(lang)} onClick={() => onLanguageClick(lang)}/>) }
                 </div>
-                <div className="flex-column" style={{flex: 1}}>
+                <div className="flex-column gap-half" style={{flex: 1}}>
                     { languageColumns[1].map(lang => (<LanguageSelector language={lang} isSelected={selectedLanguages.includes(lang)} onClick={() => onLanguageClick(lang)}/>)) }
                 </div>
-                <div className="flex-column" style={{flex: 1}}>
+                <div className="flex-column gap-half" style={{flex: 1}}>
                     { languageColumns[2].map(lang => <LanguageSelector language={lang} isSelected={selectedLanguages.includes(lang)} onClick={() => onLanguageClick(lang)}/>) }
                 </div>
             </div>

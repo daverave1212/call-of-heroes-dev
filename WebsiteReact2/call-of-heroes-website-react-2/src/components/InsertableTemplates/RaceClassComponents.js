@@ -781,9 +781,6 @@ export function CCClassPage({
     selectedSpellNames, setSelectedSpellNames
 }) {
 
-    // const [selectedSpecName, setSelectedSpecName] = useState(null)
-    const [selectedSpellsBySpec, setSelectedSpellsBySpec] = useState([])
-
     const selectedSpecObj = selectedSpecName == null? null: theClass.Specs[selectedSpecName]
 
     function onSpecClick(specName) {
@@ -819,7 +816,7 @@ export function CCClassPage({
                 </p> */}
 
                 { Object.keys(theClass['Specs']).map(specName => (
-                    <Selector key={specName} name={specName} onClick={() => onSpecClick(specName)} src={U.getSpecRepresentativeIconFullPath(theClass, specName)} isSelected={selectedSpecName == specName}/>
+                    <Selector className="margin-top-1" key={specName} name={specName} onClick={() => onSpecClick(specName)} src={U.getSpecRepresentativeIconFullPath(theClass, specName)} isSelected={selectedSpecName == specName}/>
                 )) }
 
             </Page>

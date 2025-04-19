@@ -73,32 +73,29 @@ export function useMyCharactersDB(locationInCode) {
     // TODO: this
     // TODO: check the console....
 
+    console.log({myCharacters})
     if (initialUser != null) {
         Database.getMyCharacters().then(myCharactersFromDB => {
             console.log(`Gottem as:`)
             console.log({myCharactersFromDB})
+            // Prevent infinite rerendering of this (myCharacter changes every time)
             if (! areArraysEqual(myCharacters, myCharactersFromDB, (a, b) => a?.id == b?.id)) {
                 innerSetMyCharacters(myCharactersFromDB)
             }
         })
-    } else {
-        useEffect(() => {
-            if (user != null) {
-                console.log(`Ready to work with userData!`)
-                console.log({user})
-                return
-                console.log(`Getting characters..`)
-                
-                Database.getMyCharacters().then(myCharactersFromDB => {
-                    console.log(`Gottem as:`)
-                    console.log({myCharactersFromDB})
-                    innerSetMyCharacters(myCharactersFromDB)
-                })
-            }
-        }, [user?.id])
     }
-
-    
+    // useEffect(() => {
+    //     if (user != null) {
+    //         console.log(`Ready to work with userData!`)
+    //         console.log({user})
+            
+    //         Database.getMyCharacters().then(myCharactersFromDB => {
+    //             console.log(`User changed. Got characters from DB:`)
+    //             console.log({myCharactersFromDB})
+    //             innerSetMyCharacters(myCharactersFromDB)
+    //         })
+    //     }
+    // }, [user?.id])
 
     function setMyCharacters(array) {
         if (Array.isArray(array) == false) {
@@ -113,36 +110,9 @@ export function useMyCharactersDB(locationInCode) {
         alert('Character saved!')
     }
 
-    return [[], () => {}]
     return [myCharacters, setMyCharacters]
 }
 
-export function getReadyToSaveCharacterFromLocalStorage() {
-    const character = getCurrentCharacterFromLocalStorage()
-    if (character.id == NO_CHARACTER_ID) {
-        const uniqueID = generateUniqueId()
-        character.id = uniqueID
-        setCurrentCharacterId(uniqueID)
-    }
-}
-
-export async function saveLocalStorageCharacterToDatabase() {
-    const character = getCurrentCharacterFromLocalStorage()
-    if (character.id == NO_CHARACTER_ID) {
-        const uniqueID = generateUniqueId()
-        character.id = uniqueID
-        setCurrentCharacterId(uniqueID)
-    }
-    const myCharacters = await Database.getMyCharacters()
-    const thisCharacterIndex = myCharacters.findIndex(char => char.id == character.id)
-    if (thisCharacterIndex == -1) {
-        Database.setMyCharacters([character])
-    } else {
-        myCharacters[thisCharacterIndex] = character
-        Database.setMyCharacters(myCharacters)
-    }
-    alert('Character saved!')
-}
 window.resetCurrentCharacterToDefault = resetCurrentCharacterToDefault
 window.getCurrentCharacterFromLocalStorage = getCurrentCharacterFromLocalStorage
 window.setCharacterToLocalStorage = setCharacterToLocalStorage

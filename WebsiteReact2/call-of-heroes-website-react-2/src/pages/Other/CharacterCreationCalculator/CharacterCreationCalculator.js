@@ -18,7 +18,7 @@ import './CharacterCreationCalculator.css'
 import { IconWithSpinner, SpellTopIconSide } from "../../../components/Spell/Spell";
 import { CoolButton } from "../../../components/CoolButton/CoolButton";
 import HeroButton from "../../../components/HeroButton/HeroButton";
-import { calculateMaxHealth, calculateStat, getAllClasses, getAllRaces, getClassRepresentativeIconName, getSpellIconPathByName, splitArrayEvenly, useLocalStorageState } from "../../../utils";
+import { calculateMaxHealth, calculateStat, generateUniqueId, getAllClasses, getAllRaces, getClassRepresentativeIconName, getSpellIconPathByName, splitArrayEvenly, useLocalStorageState } from "../../../utils";
 import Selector from "../../../components/Selector/Selector";
 import ManySpells from "../../../components/Spell/ManySpells";
 
@@ -39,7 +39,7 @@ import SectionFeats from "./SectionFeats";
 import SectionShop from "./SectionShop";
 import SectionRace from "./SectionRace";
 import SectionClass from "./SectionClass";
-import { useMyCharactersDB, useSectionNamesState } from "./CharacterData";
+import { NO_CHARACTER_ID, getCurrentCharacterFromLocalStorage, setCurrentCharacterId, useMyCharactersDB, useSectionNamesState } from "./CharacterData";
 
 export const tabNames = [
     'My Character', 'Name and Portrait',
@@ -65,14 +65,27 @@ export function classesRacesObjectToArrays(bigObj) {
 function SaveCharacterButton() {
 
     console.log('RERENDER SAVECHARACTERBUTTON')
-    let [myCharacters, setMyCharacters] = useMyCharactersDB('CharacterCreationCalculator.SaveCharacterButton')
+    let [myCharacters, saveMyCharacters] = useMyCharactersDB('CharacterCreationCalculator.SaveCharacterButton')
 
     function saveCharacter() {
-
+        const currentCharacter = getCurrentCharacterFromLocalStorage()
+        const existingCharacterIndex = myCharacters.findIndex(char => char.id == currentCharacter.id)
+        const willAddNewCharacter = currentCharacter.id == NO_CHARACTER_ID || existingCharacterIndex == -1
+        const newMyCharacters = [...myCharacters]
+        if (willAddNewCharacter) {
+            if (currentCharacter.id == NO_CHARACTER_ID) {
+                setCurrentCharacterId(generateUniqueId())
+            }
+            newMyCharacters.push(currentCharacter)
+        } else {
+            newMyCharacters[existingCharacterIndex] = currentCharacter
+        }
+        saveMyCharacters(newMyCharacters)
+        alert('Character saved!')
     }
     
     return (
-        <div className="center-content">
+        <div className="center-content margin-top-1">
             <button onClick={saveCharacter}>Save Character</button>
         </div>
     )
