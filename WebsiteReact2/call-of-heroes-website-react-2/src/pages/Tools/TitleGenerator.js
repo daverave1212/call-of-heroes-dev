@@ -194,8 +194,13 @@ export async function drawQGTextOnCanvas(canvas, text, sizeMultiplier=1) {
             }
             const img = letterImage[letterLowerCase]
             const letterHeight = getLetterHeight(letterLowerCase, isCapital, sizeMultiplier)
-            const extraWidth = (isCapital? getImageRelativeWidthAtHeight(img, letterHeight) : (img.naturalWidth * sizeMultiplier))
-            widthSoFar += extraWidth
+            try {
+                const extraWidth = (isCapital? getImageRelativeWidthAtHeight(img, letterHeight) : (img.naturalWidth * sizeMultiplier))
+                widthSoFar += extraWidth
+            } catch (e) {
+                console.error(`An error occurect for getTextWidth("${text}") at i=${i} letter=${letter}; isCapital=${isCapital} letterHeight=${letterHeight}`)
+                throw e
+            }
 
             const previousLetter = i > 0? text.charAt(i - 1): null
             if (previousLetter != null && previousLetter != ' ') {

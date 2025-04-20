@@ -807,7 +807,7 @@ export function CCClassPage({
 
                 <br/><br/>
                 <div className='center-content'>
-                    <QGTitle1 text={'Level 2 Specializations'} height={40}/>
+                    <QGTitle1 text={'Specializations'} height={40}/>
                 </div>
 
                 {/* <p>
