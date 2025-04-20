@@ -36,7 +36,7 @@ export default function Weapons({ hasNoMargins, onClick, buttonText }) {
     document.title = 'Weapons'
 
     return (
-        <div>
+        <Page key={selectedCategory} isSecondaryPage={true} hasNoMargins={hasNoMargins}>
 
             <div className='center-content'>
                 <QGTitle1 text={"Weapons"} height={60}/>
@@ -50,22 +50,16 @@ export default function Weapons({ hasNoMargins, onClick, buttonText }) {
                 { name: 'Weapon Runes', src: '/Icons/Items/Traditional_Rune.png'},
             ]}/>
 
-            <Page key={selectedCategory} isSecondaryPage={true} hasNoMargins={hasNoMargins}>
-                <PageH1>{selectedCategory}</PageH1>
-                <p>{ Descriptions[selectedCategory] }</p>
-                <ManySpells areItems={true} onSpellClick={onClick} buttonText={buttonText} spells={ U.spellsFromObject(weapons[selectedCategory]) }/>
-            </Page>
+            { selectedCategory != null && (
+                <div>
+                    <PageH1>{selectedCategory}</PageH1>
+                    <p>{ Descriptions[selectedCategory] }</p>
+                    <ManySpells areItems={true} onSpellClick={onClick} buttonText={buttonText} spells={ U.spellsFromObject(weapons[selectedCategory]) }/>
+                </div>
+            )}
 
-            {/* <SideMenu sections={weaponsSideMenuSections}/>
+            {/* <SideMenu sections={weaponsSideMenuSections}/> */}
 
-            { categories.map(categoryName => (
-                <Page key={categoryName} isSecondaryPage={true} hasNoMargins={hasNoMargins}>
-                    <PageH1>{categoryName}</PageH1>
-                    <p>{ Descriptions[categoryName] }</p>
-                    <ManySpells areItems={true} onSpellClick={onClick} buttonText={buttonText} spells={ U.spellsFromObject(weapons[categoryName]) }/>
-                </Page>
-            )) } */}
-
-        </div>
+        </Page>
     )
 }

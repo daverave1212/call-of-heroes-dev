@@ -149,24 +149,6 @@ export default function Abilities({ selectedSpellNames, setSelectedSpellNames, h
                 </div>
 
                 <SelectorsByColumns nColumns={3} selectorData={selectorsData} selectedSelectorName={selectedCategoryName} setSelectedSelectorName={setSelectedCategoryName}/>
-
-                {/* <div className='flex-row gap-half margin-top-2' style={{width: '100%'}}>
-                    <div className='flex-column gap-half' style={{flex: 1}}>
-                        { categoriesByColumns[0].map(category => (
-                            <SpellCategorySelector name={category} iconName={categoriesSrcs[category]} isSelected={selectedCategoryName == category} onClick={() => setSelectedCategoryName(category)}/>
-                        )) }
-                    </div>
-                    <div className='flex-column gap-half' style={{flex: 1}}>
-                        { categoriesByColumns[1].map(category => (
-                            <SpellCategorySelector name={category} iconName={categoriesSrcs[category]} isSelected={selectedCategoryName == category} onClick={() => setSelectedCategoryName(category)}/>
-                        )) }
-                    </div>
-                    <div className='flex-column gap-half' style={{flex: 1}}>
-                        { categoriesByColumns[2].map(category => (
-                            <SpellCategorySelector name={category} iconName={categoriesSrcs[category]} isSelected={selectedCategoryName == category} onClick={() => setSelectedCategoryName(category)}/>
-                        )) }
-                    </div>
-                </div> */}
             </Page>
 
             { selectedCategoryName != null && (

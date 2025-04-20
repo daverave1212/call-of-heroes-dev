@@ -810,11 +810,6 @@ export function CCClassPage({
                     <QGTitle1 text={'Specializations'} height={40}/>
                 </div>
 
-                {/* <p>
-                    When you reach Level 2, you can choose one of the Specializations below.
-                    This decision is permanent, so make the choice that is right for you.
-                </p> */}
-
                 { Object.keys(theClass['Specs']).map(specName => (
                     <Selector className="margin-top-1" key={specName} name={specName} onClick={() => onSpecClick(specName)} src={U.getSpecRepresentativeIconFullPath(theClass, specName)} isSelected={selectedSpecName == specName}/>
                 )) }

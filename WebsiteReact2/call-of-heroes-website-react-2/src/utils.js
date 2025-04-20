@@ -1167,7 +1167,14 @@ export function loadCtxSettings(ctx, key) {
         ctx[key] = ctxSettingsObject[key]
     }
 }
-
+export function loadImageAsync(src) {
+    return new Promise((resolve, reject) => {
+        const img = new Image()
+        img.onload = () => resolve(img)
+        img.onerror = reject
+        img.src = src
+    });
+  }
 export function drawImageOnCanvasAsync(canvas, pathOrImage, x, y, width, height, alpha) {
     const ctx = canvas.getContext('2d')
     let image
