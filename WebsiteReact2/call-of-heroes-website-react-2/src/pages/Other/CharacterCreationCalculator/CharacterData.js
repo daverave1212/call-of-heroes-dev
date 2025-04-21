@@ -30,6 +30,8 @@ function getNewCharacterTemplate() {
     
         basicAbilityNames: [],
         featNames: [],
+
+        currentMana: 1,
     
         quickNotes: '',
         description: '',
@@ -188,6 +190,8 @@ export function useLanguages() {
 export function useSkills() {
     return useCharacterLocalStorageState('skillNames', [])
 }
-
+export function useCurrentMana() {
+    return useCharacterLocalStorageState('currentMana', 1)
+}
 
 

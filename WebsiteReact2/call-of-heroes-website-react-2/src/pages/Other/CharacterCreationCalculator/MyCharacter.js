@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react"
-import { calculateBaseCombatStats, calculateHealthRegen, calculateMaxHealth, calculateStat, getAllClasses, getallMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getAllStatBonusesFromSpellsAsObj, getExtrasFromSpells, getRaceHealth, isString, spellsFromObject, useLocalStorageState } from "../../../utils"
+import { calculateBaseCombatStats, calculateHealthRegen, calculateMaxHealth, calculateStat, getAllClasses, getallMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getAllStatBonusesFromSpellsAsObj, getBaseMaxManaByLevel, getExtrasFromSpells, getRaceHealth, isString, spellsFromObject, useLocalStorageState } from "../../../utils"
 import ManySpells from "../../../components/Spell/ManySpells"
 import PageH2 from "../../../components/PageH2/PageH2"
 import TextArea from "../../../components/TextArea/TextArea"
 import Icon from "../../../components/Icon"
 import Input from "../../../components/Input/Input"
-import { useBasicAbilitiesNames, useDescription, useGold, useInventory, useLanguages, useLevel, useQuickNotes, useSectionClassName, useSectionClassSpecName, useSectionClassSpellNames, useSectionNamesState, useSectionRaceName, useSectionRaceSpellNames, useSectionStatsState, useSkills } from "./CharacterData"
+import { useBasicAbilitiesNames, useCurrentMana, useDescription, useGold, useInventory, useLanguages, useLevel, useMaxMana, useQuickNotes, useSectionClassName, useSectionClassSpecName, useSectionClassSpellNames, useSectionNamesState, useSectionRaceName, useSectionRaceSpellNames, useSectionStatsState, useSkills } from "./CharacterData"
 import { STAT_NAMES, StatValue } from "./SectionStats"
+import SmallStat from "../../../components/SmallStat/SmallStat"
 
 
 
@@ -83,6 +84,8 @@ export default function MyCharacter() {
     
     let [selectedSkillNames] = useSkills()
     let [languages] = useLanguages()
+
+    let [currentMana, setCurrentMana] = useCurrentMana()
     
     const totalStats = useConstTotalStats()
     const allMyRaceAndClassSpells = useConstAllRaceAndClassSpells()
@@ -93,6 +96,7 @@ export default function MyCharacter() {
     const allDisplayedRaceAndClassSpells = allMyRaceAndClassSpells.filter(spell => spell.IsIgnored != true)
     const { maxHealth, healthRegen, movementSpeed, initiative } = calculateBaseCombatStats(selectedRaceName, selectedClassName, level, totalStats)
     const { extras, combatExtras } = getExtrasFromSpells(allMyRaceAndClassSpells)
+    const maxMana = getBaseMaxManaByLevel(level, selectedClassName)
 
     // Other
     let setInputGold    // Set in the Input property
@@ -149,6 +153,52 @@ export default function MyCharacter() {
         </div>
     }
 
+    function Spellcasting() {
+        return (
+            <div className="flex flex-row margin-top-1 gap-3q" style={{width: '100%'}}>
+                <ManaBar/>
+            </div>
+        )
+    }
+
+    function ManaBar() {
+        const barHeight = '3rem'
+        const buttonStyle = { width: barHeight, height: barHeight}
+        const percentageFilled = currentMana > maxMana? 100: currentMana < 0? 0: ((currentMana / maxMana) * 100)
+        const labelText = currentMana > maxMana || currentMana < 0? 'Mana (overflowing)': 'Mana'
+
+        function onIncrease() {
+            const newMana = currentMana + 1
+            if (newMana > maxMana + 5) {
+                return
+            }
+            setCurrentMana(newMana)
+        }
+        function onDecrease() {
+            const newMana = currentMana - 1
+            if (newMana < -4) {
+                return
+            }
+            setCurrentMana(newMana)
+        }
+
+        return (
+            <div className="flex-column gap-half">
+                <label className="center-text">{labelText}</label>
+                <div style={{width: '100%'}} className="flex flex-row gap-half">
+                    <button style={buttonStyle} onClick={onDecrease}>-</button>
+                    <div className="wrapper" style={{height: barHeight, overflow: "initial"}}>
+                        <div className="mana-bar">
+                            <div className="filling" style={{width: percentageFilled + '%'}}></div>
+                            <div className="number">{currentMana} / {maxMana}</div>
+                        </div>
+                    </div>
+                    <button style={buttonStyle} onClick={onIncrease}>+</button>
+                </div>
+            </div>
+        )
+    }
+
     return (
         <div id="My-Character">
 
@@ -195,6 +245,8 @@ export default function MyCharacter() {
                     { languages.map(text => <div className="extra italic"><Icon name="Specializations"/>You speak { text }</div>) }
                 </div>
             </div>
+
+            <Spellcasting/>
             
             <PageH2 className="margin-top-2">Race and Class Abilities</PageH2>
             <ManySpells spells={allDisplayedRaceAndClassSpells} shouldIgnoreAlignment={true}/>

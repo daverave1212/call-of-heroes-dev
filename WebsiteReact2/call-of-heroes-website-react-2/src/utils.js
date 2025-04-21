@@ -177,6 +177,7 @@ export function getExtrasFromSpells(spellsArray) {
 
 
 
+
 // --------------- Questguard Utilities --------------
 export function isDice(str) {
     if (str == null) return false
@@ -453,7 +454,6 @@ export function getallMyRaceAndClassSpells({ raceName, className, specName, sele
 export function getExperienceByLevel(level) {
     return level * 100
 }
-
 export function checkStatRequirements(stats, requirementStringCode) {
     requirementStringCode = requirementStringCode.replaceAll('or', '||')
     requirementStringCode = requirementStringCode.replaceAll('and', '&&')
@@ -464,6 +464,17 @@ export function checkStatRequirements(stats, requirementStringCode) {
     requirementStringCode = requirementStringCode.replaceAll('Charisma', stats[4])
     const result = eval(requirementStringCode)
     return result
+}
+export function getBaseMaxManaByLevel(level, className) {
+    const selectedClass = getAllClasses()[className]
+    const { Spellcasting } = selectedClass
+    if (Spellcasting.Type == 'Mana-based') {
+        return Spellcasting.Mana.Amount + (level - 1)
+    }
+    if (Spellcasting.Type == 'Special Mana-based') {
+        return Spellcasting.Mana.Amount + Math.floor((level / 3))        
+    }
+    return 0
 }
 
 
