@@ -119,7 +119,7 @@ export function SelectorsByColumns({ className, selectorData, nColumns, selected
     )
 }
 
-export default function Abilities({ selectedSpellNames, setSelectedSpellNames, hasNoMargins }) {
+export default function Abilities({ selectedSpellNames, setSelectedSpellNames, hasNoMargins, children }) {
 
     let [selectedCategoryName, setSelectedCategoryName] = useState('Default Moves')
 
@@ -150,6 +150,8 @@ export default function Abilities({ selectedSpellNames, setSelectedSpellNames, h
 
                 <SelectorsByColumns nColumns={3} selectorData={selectorsData} selectedSelectorName={selectedCategoryName} setSelectedSelectorName={setSelectedCategoryName}/>
             </Page>
+
+            { children && children }
 
             { selectedCategoryName != null && (
                 <Page title={selectedCategoryName} isSecondaryPage={true} hasNoMargins={hasNoMargins}>

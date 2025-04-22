@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react"
-import { calculateBaseCombatStats, calculateHealthRegen, calculateMaxHealth, calculateStat, getAllClasses, getallMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getAllStatBonusesFromSpellsAsObj, getBaseMaxManaByLevel, getExtrasFromSpells, getRaceHealth, isString, spellsFromObject, useLocalStorageState } from "../../../utils"
+import { calculateBaseCombatStats, calculateHealthRegen, calculateMaxHealth, calculateStat, getAllClasses, getallMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getAllStatBonusesFromSpellsAsObj, calculateBaseMaxManaByLevel, getExtrasFromSpells, getRaceHealth, isString, spellsFromObject, useLocalStorageState } from "../../../utils"
 import ManySpells from "../../../components/Spell/ManySpells"
 import PageH2 from "../../../components/PageH2/PageH2"
 import TextArea from "../../../components/TextArea/TextArea"
 import Icon from "../../../components/Icon"
 import Input from "../../../components/Input/Input"
-import { useBasicAbilitiesNames, useCurrentMana, useDescription, useGold, useInventory, useLanguages, useLevel, useMaxMana, useQuickNotes, useSectionClassName, useSectionClassSpecName, useSectionClassSpellNames, useSectionNamesState, useSectionRaceName, useSectionRaceSpellNames, useSectionStatsState, useSkills } from "./CharacterData"
+import { useBasicAbilitiesNames, useConstAvailableAbilitySchools, useConstKnownAbilitiesObj, useConstNKnownAbilities, useCurrentMana, useDescription, useGold, useInventory, useLanguages, useLevel, useMaxMana, useQuickNotes, useSectionClassName, useSectionClassSpecName, useSectionClassSpellNames, useSectionNamesState, useSectionRaceName, useSectionRaceSpellNames, useSectionStatsState, useSkills } from "./CharacterData"
 import { STAT_NAMES, StatValue } from "./SectionStats"
-import SmallStat from "../../../components/SmallStat/SmallStat"
+import SmallStat, { SmallStatTypes } from "../../../components/SmallStat/SmallStat"
+import ManySmallStats from "../../../components/SmallStat/ManySmallStats"
 
 
 
@@ -62,7 +63,6 @@ export function useConstTotalStats() {
 
 export default function MyCharacter() {
 
-
     // LocalStorage states
 
     let [names] = useSectionNamesState()
@@ -96,7 +96,7 @@ export default function MyCharacter() {
     const allDisplayedRaceAndClassSpells = allMyRaceAndClassSpells.filter(spell => spell.IsIgnored != true)
     const { maxHealth, healthRegen, movementSpeed, initiative } = calculateBaseCombatStats(selectedRaceName, selectedClassName, level, totalStats)
     const { extras, combatExtras } = getExtrasFromSpells(allMyRaceAndClassSpells)
-    const maxMana = getBaseMaxManaByLevel(level, selectedClassName)
+    const maxMana = selectedClassName == null? 1: calculateBaseMaxManaByLevel(level, selectedClassName)
 
     // Other
     let setInputGold    // Set in the Input property
@@ -154,19 +154,24 @@ export default function MyCharacter() {
     }
 
     function Spellcasting() {
+
+        const knownAbilitySchools = useConstAvailableAbilitySchools()
+        const nKnownAbilities = useConstNKnownAbilities()
+
         return (
-            <div className="flex flex-row margin-top-1 gap-3q" style={{width: '100%'}}>
-                <ManaBar/>
+            <div className="flex-row margin-top-1 gap-3q">
+                <div className="flex-column flex-1 gap-3q">
+                    <SmallStat type={SmallStatTypes.VERTICAL} name="Known Basic Abilities">{nKnownAbilities} Abilities</SmallStat>
+                    <ManaBar/>
+                </div>
+                <div className="flex-column flex-1">
+                    <ManySmallStats name="Available Schools" style={{minWidth: '300px', flexGrow: 1}} color={'var(--dark-color)'} texts={knownAbilitySchools}/>
+                </div>
             </div>
         )
     }
 
     function ManaBar() {
-        const barHeight = '3rem'
-        const buttonStyle = { width: barHeight, height: barHeight}
-        const percentageFilled = currentMana > maxMana? 100: currentMana < 0? 0: ((currentMana / maxMana) * 100)
-        const labelText = currentMana > maxMana || currentMana < 0? 'Mana (overflowing)': 'Mana'
-
         function onIncrease() {
             const newMana = currentMana + 1
             if (newMana > maxMana + 5) {
@@ -182,18 +187,33 @@ export default function MyCharacter() {
             setCurrentMana(newMana)
         }
 
+        const percentageFilled = currentMana > maxMana? 100: currentMana < 0? 0: ((currentMana / maxMana) * 100)
+        const labelText = currentMana > maxMana || currentMana < 0? 'Mana (overflowing)': 'Mana'
+        const barHeight = '2.5rem'
+        const innerHeight = `calc(${barHeight} - 0px)`
+        const smallStatValueStyle = {
+            padding: '0px',
+            paddingTop: '3px',
+            height: innerHeight,
+        }
+        const buttonStyle = {
+            height: '100%',
+            width: innerHeight,
+            backgroundColor: 'var(--dark-color)'
+        }
+
         return (
-            <div className="flex-column gap-half">
-                <label className="center-text">{labelText}</label>
-                <div style={{width: '100%'}} className="flex flex-row gap-half">
-                    <button style={buttonStyle} onClick={onDecrease}>-</button>
-                    <div className="wrapper" style={{height: barHeight, overflow: "initial"}}>
-                        <div className="mana-bar">
+            <div className="small-stat-container wrapper">
+                <div className="small-stat small-stat--column" style={{borderColor: 'white'}}>
+                    <div style={{backgroundColor: 'var(--dark-color)', borderRadius: '3px'}} className="small-stat__name">{labelText}</div>
+                    <div className="small-stat__value flex-row gap-quarter" style={smallStatValueStyle}>
+                        <button style={buttonStyle} onClick={onDecrease}>-</button>
+                        <div className="mana-bar flex-grow">
                             <div className="filling" style={{width: percentageFilled + '%'}}></div>
                             <div className="number">{currentMana} / {maxMana}</div>
                         </div>
+                        <button style={buttonStyle} onClick={onIncrease}>+</button>
                     </div>
-                    <button style={buttonStyle} onClick={onIncrease}>+</button>
                 </div>
             </div>
         )

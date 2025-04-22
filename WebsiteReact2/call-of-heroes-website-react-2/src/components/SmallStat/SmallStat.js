@@ -10,6 +10,13 @@ export function getRealColor(color) {
     return color
 }
 
+export const SmallStatTypes = {
+    NORMAL_LARGE: 'normal-large',
+    LARGE: 'large',
+    VERTICAL: 'vertical',
+    VERTICAL_LARGE: 'vertical-large'
+}
+
 export default function SmallStat({ children, name, color, style, contentStyle, nameStyle, valueStyle, type }) {
 
     if (style == null) style = {}

@@ -391,6 +391,58 @@ export function getRaceHealth(raceName) {
 export function getRaceRegen(raceName) {
     return getAllRaces()[raceName].Stats['Health Regen']
 }
+export function getallMyRaceAndClassSpells({ raceName, className, specName, selectedClassSpellNames, selectedRaceSpellNames }) {
+    const allSpells = getAllSpellsByName()
+
+    const myRace = getAllRaces()[raceName]
+    const myClass = getAllClasses()[className]
+    const mySpec = myClass == null || specName == null? null: myClass.Specs[specName]
+
+    const myRaceBaseSpells = myRace == null? []: spellsFromObject(myRace['Starting Abilities'])
+    const myRaceFeats = selectedRaceSpellNames.map(name => allSpells[name])
+    const myClassBaseSpells = myClass == null? []: spellsFromObject(myClass['Starting Abilities'])
+    const mySpecBaseSpells = mySpec == null? []: spellsFromObject(mySpec['Starting Abilities'])
+    const myClassTalents = selectedClassSpellNames.map(name => allSpells[name])
+
+    const allMyRaceAndClassSpells = [
+        ...myRaceBaseSpells,
+        ...myRaceFeats,
+        ...myClassBaseSpells,
+        ...mySpecBaseSpells,
+        ...myClassTalents
+    ]
+
+    return allMyRaceAndClassSpells
+}
+
+
+
+// Stats and Bonuses
+export function checkStatRequirements(stats, requirementStringCode) {
+    requirementStringCode = requirementStringCode.replaceAll('or', '||')
+    requirementStringCode = requirementStringCode.replaceAll('and', '&&')
+    requirementStringCode = requirementStringCode.replaceAll('Might', stats[0])
+    requirementStringCode = requirementStringCode.replaceAll('Dexterity', stats[1])
+    requirementStringCode = requirementStringCode.replaceAll('Intelligence', stats[2])
+    requirementStringCode = requirementStringCode.replaceAll('Sense', stats[3])
+    requirementStringCode = requirementStringCode.replaceAll('Charisma', stats[4])
+    const result = eval(requirementStringCode)
+    return result
+}
+export function calculateBaseMaxManaByLevel(level, className) {
+    const selectedClass = getAllClasses()[className]
+    const { Spellcasting } = selectedClass
+    if (Spellcasting.Type == 'Mana-based') {
+        return Spellcasting.Mana.Amount + (level - 1)
+    }
+    if (Spellcasting.Type == 'Special Mana-based') {
+        return Spellcasting.Mana.Amount + Math.floor((level / 3))        
+    }
+    return 0
+}
+export function calculateExperienceByLevel(level) {
+    return level * 100
+}
 export function calculateBaseCombatStats(raceName, className, level, stats) {
     if (raceName == null || className == null || level == null || stats == null) {
         return -1
@@ -428,55 +480,16 @@ export function calculateMovementSpeed(raceName, className, level, dexterity) {
             + calculateStat('Sense', sense)
             + level * 2
 }
-export function getallMyRaceAndClassSpells({ raceName, className, specName, selectedClassSpellNames, selectedRaceSpellNames }) {
-    const allSpells = getAllSpellsByName()
-
-    const myRace = getAllRaces()[raceName]
-    const myClass = getAllClasses()[className]
-    const mySpec = myClass == null || specName == null? null: myClass.Specs[specName]
-
-    const myRaceBaseSpells = myRace == null? []: spellsFromObject(myRace['Starting Abilities'])
-    const myRaceFeats = selectedRaceSpellNames.map(name => allSpells[name])
-    const myClassBaseSpells = myClass == null? []: spellsFromObject(myClass['Starting Abilities'])
-    const mySpecBaseSpells = mySpec == null? []: spellsFromObject(mySpec['Starting Abilities'])
-    const myClassTalents = selectedClassSpellNames.map(name => allSpells[name])
-
-    const allMyRaceAndClassSpells = [
-        ...myRaceBaseSpells,
-        ...myRaceFeats,
-        ...myClassBaseSpells,
-        ...mySpecBaseSpells,
-        ...myClassTalents
-    ]
-
-    return allMyRaceAndClassSpells
+export function calculateNKnownAbilities(className, totalStats, bonuses) {
+    const theClass = getAllClasses()[className]
+    const bonusKnownAbilities =
+        bonuses == null?
+            0:
+        bonuses['Known Abilities'] == null?
+            0:
+        parseInt(bonuses['Known Abilities'])
+    return theClass.Spellcasting.BaseKnownSpells + totalStats[2] + bonusKnownAbilities
 }
-export function getExperienceByLevel(level) {
-    return level * 100
-}
-export function checkStatRequirements(stats, requirementStringCode) {
-    requirementStringCode = requirementStringCode.replaceAll('or', '||')
-    requirementStringCode = requirementStringCode.replaceAll('and', '&&')
-    requirementStringCode = requirementStringCode.replaceAll('Might', stats[0])
-    requirementStringCode = requirementStringCode.replaceAll('Dexterity', stats[1])
-    requirementStringCode = requirementStringCode.replaceAll('Intelligence', stats[2])
-    requirementStringCode = requirementStringCode.replaceAll('Sense', stats[3])
-    requirementStringCode = requirementStringCode.replaceAll('Charisma', stats[4])
-    const result = eval(requirementStringCode)
-    return result
-}
-export function getBaseMaxManaByLevel(level, className) {
-    const selectedClass = getAllClasses()[className]
-    const { Spellcasting } = selectedClass
-    if (Spellcasting.Type == 'Mana-based') {
-        return Spellcasting.Mana.Amount + (level - 1)
-    }
-    if (Spellcasting.Type == 'Special Mana-based') {
-        return Spellcasting.Mana.Amount + Math.floor((level / 3))        
-    }
-    return 0
-}
-
 
 // export function checkStatsRaceRequirement(strategyName, strategyObj, stats) {
 //     const statsAsObject = {

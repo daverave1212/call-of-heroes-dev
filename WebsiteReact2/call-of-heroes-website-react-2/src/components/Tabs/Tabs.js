@@ -17,6 +17,7 @@ export default function Tabs({ layout, getTabIconSrc, tabComponents, activeTabI,
         setActiveTabI != null?
             tabNames[activeTabI]:
         null
+    const selectedTabI = tabNames.indexOf(selectedTabName)
 
     console.log({selectedTabName})
 
@@ -51,22 +52,6 @@ export default function Tabs({ layout, getTabIconSrc, tabComponents, activeTabI,
     return (
         <div className="tabs">
 
-
-            {/* <div className="tab-headers">
-                { isFirstTabLarge && (
-                    <TabSelector name={firstTabLarge.name} i={0} key={firstTabLarge.name}/>
-                ) }
-                <ThreeColumns style={{gap: '1rem'}}>
-                    { tabNamesByColumns.map(tabNamesColumn => (
-                        <Column>
-                            { tabNamesColumn.map(tab => (
-                                <TabSelector name={tab.name} i={tab.i} key={tab.name}/>
-                            )) }
-                        </Column>
-                    )) }
-                </ThreeColumns>
-            </div> */}
-            
             <div className='tab-headers flex-column gap-half'>
                 { layout.map((row, i) => (
                     <div className='flex-row gap-half' key={`tab-row-${i}`}>
@@ -80,11 +65,11 @@ export default function Tabs({ layout, getTabIconSrc, tabComponents, activeTabI,
 
 
             <div className="tab-content margin-top-2">
-                { tabComponents.map((component, i) => (
-                    <div className={`tab ${selectedTabName == tabNames[i]? 'selected': 'unselected'}`}>
-                        { component }
+                { selectedTabName != null && (
+                    <div className={`tab`}>
+                        { tabComponents[selectedTabI] }
                     </div>
-                )) }
+                ) }
             </div>
         </div>
     )

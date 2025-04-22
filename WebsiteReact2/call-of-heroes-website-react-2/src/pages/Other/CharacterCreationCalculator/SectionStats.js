@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import TwoColumns from "../../../components/TwoColumns/TwoColumns"
 import Column from "../../../components/TwoColumns/Column"
 import SmallStat from "../../../components/SmallStat/SmallStat"
-import { calculateStat, checkStatRequirements, getExperienceByLevel, getRace, useLocalStorageState } from "../../../utils"
+import { calculateStat, checkStatRequirements, calculateExperienceByLevel, getRace, useLocalStorageState } from "../../../utils"
 import Page from "../../../containers/Page/Page"
 import { QGTitle1 } from "../../Tools/TitleGenerator"
 import Icon from "../../../components/Icon"
@@ -156,7 +156,7 @@ export default function SectionStats() {
                     }}/>
                 </p>
                 <div className="flex-column center-content" style={{width: '100%'}}>
-                    <ExperienceSlider max={getExperienceByLevel(level)} initialValue={experience} onChange={val => setExperience(val)}>
+                    <ExperienceSlider max={calculateExperienceByLevel(level)} initialValue={experience} onChange={val => setExperience(val)}>
                         asdadas
                     </ExperienceSlider>
                 </div>

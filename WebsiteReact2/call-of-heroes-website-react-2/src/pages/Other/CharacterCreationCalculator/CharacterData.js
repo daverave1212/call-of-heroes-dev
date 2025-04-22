@@ -1,8 +1,9 @@
-import { areArraysEqual, generateUniqueId, getLocalStorageJSON, setLocalStorageJSON, useLocalStorageState } from "../../../utils"
+import { areArraysEqual, calculateNKnownAbilities, generateUniqueId, getAllClasses, getLocalStorageJSON, setLocalStorageJSON, useLocalStorageState } from "../../../utils"
 import * as Database from '../../../Database'
 import { useEffect } from "react"
 import { getUserState, useAuth } from "../../../Auth"
 import { showError } from "../../../services/MessageDisplayer"
+import { useConstBonusesFromSpells, useConstTotalStats } from "./MyCharacter"
 
 export const NO_CHARACTER_ID = 'none'
 export const LOCAL_STORAGE_PREFIX = 'character-'
@@ -195,3 +196,33 @@ export function useCurrentMana() {
 }
 
 
+// Use const
+export function useConstKnownAbilitiesObj() {
+    let [selectedBasicAbilitiesNames] = useBasicAbilitiesNames()
+    const stats = useConstTotalStats()
+    let maxKnownAbilities = 2 + stats[2]
+    if (maxKnownAbilities < 0) {
+        maxKnownAbilities = 0
+    }
+    const nKnownAbilities = selectedBasicAbilitiesNames.length
+    return {
+        maxKnownAbilities, nKnownAbilities
+    }
+}
+export function useConstAvailableAbilitySchools() {
+    let [selectedClassName] = useSectionClassName()
+    if (selectedClassName == null) {
+        return ['Default Moves']
+    }
+    const classSchools = getAllClasses()[selectedClassName].Spellcasting['Basic Ability Lists']
+    return ['Default Moves', ...classSchools]
+}
+export function useConstNKnownAbilities() {
+    let [level] = useLevel()
+    let [className] = useSectionClassName()
+    
+    const totalStats = useConstTotalStats()
+    const bonuses = useConstBonusesFromSpells()
+
+    return calculateNKnownAbilities(className, totalStats, bonuses)
+}
