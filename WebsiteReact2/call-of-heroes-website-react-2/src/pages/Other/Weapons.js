@@ -29,8 +29,6 @@ export default function Weapons({ hasNoMargins, onClick, buttonText }) {
 
     let [selectedCategory, setSelectedCategory] = useState('One-Handed Melee')
 
-    const categories = Object.keys(weapons).filter(name => name != 'default' && name != 'Descriptions')
-
     const {Descriptions} = weapons
 
     document.title = 'Weapons'

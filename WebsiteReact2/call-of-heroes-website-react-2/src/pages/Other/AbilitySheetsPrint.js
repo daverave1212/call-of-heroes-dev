@@ -107,7 +107,7 @@ export default function AbilitySheetsPrint() {
                     <select className='margined-bottom' id='Spell-Choices' onChange={evt => { setCurrentlyTypedSpell(evt.target.value); console.log(evt.target.value) }}>
                         { allAvailableSpellNames.map(name => (<option value={name} key={name}>{ name }</option>)) }
                     </select>
-                    <button className='Basic-button' onClick={queueSpell} style={{ margin: 'auto', display: 'block' }}>Add</button>
+                    <button onClick={queueSpell} style={{ margin: 'auto', display: 'block' }}>Add</button>
                 </div>
             </div>
 
@@ -118,9 +118,9 @@ export default function AbilitySheetsPrint() {
             </div>
 
             <div className='centered-content margined-bottom'>
-                <button className='Basic-button' id="Reset" onClick={resetSpells} title = "Click here to reset everything.">Reset</button>
-                <button className='Basic-button' id="RemoveSpell" onClick={removeSpellFromSelect} title = "Click here to remove the selected spell">Remove Spell</button>
-                <button className='Basic-button' id="Generate" onClick={generate} title = "Click here to generate your images">Generate</button>
+                <button id="Reset" onClick={resetSpells} title = "Click here to reset everything.">Reset</button>
+                <button id="RemoveSpell" onClick={removeSpellFromSelect} title = "Click here to remove the selected spell">Remove Spell</button>
+                <button id="Generate" onClick={generate} title = "Click here to generate your images">Generate</button>
             </div>
             <div>
                 <PageH3>How To Use</PageH3>

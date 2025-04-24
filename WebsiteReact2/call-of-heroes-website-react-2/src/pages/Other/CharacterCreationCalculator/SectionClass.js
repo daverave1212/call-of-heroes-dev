@@ -15,7 +15,6 @@ import { useSectionClassName, useSectionClassSpecName, useSectionClassSpellNames
 export default function SectionClass({ onClassNameSelected, onSpecNameSelected, onSpellsSelected }) {
 
     const classesObj = getAllClasses()
-    const classObjectRows = classesRacesObjectToArrays(classesObj)
 
     const [chosenClass, setChosenClass] = useState(null)
 
@@ -28,7 +27,7 @@ export default function SectionClass({ onClassNameSelected, onSpecNameSelected, 
         src: `/Icons/Classes/${className}.png`
     }))
     function getSelectedClassName() {
-        return chosenClass?.Class
+        return className
     }
 
     function onClassClick(className) {

@@ -3,6 +3,7 @@ import Icon from "./components/Icon"
 import Separator from "./components/Separator/Separator"
 
 import weapons from './databases/Weapons.json'
+import armors from './databases/Armors.json'
 import skills from './databases/Proficiencies.json'
 import abilities from './databases/Abilities.json'
 import overallData from './databases/OverallData.json'
@@ -110,6 +111,35 @@ export function getAllSpellsByName() {
         }
     }
     return allSpellsCached
+}
+let allWeaponsCached = null
+function objectsWithNameFromCategoriesObjToObject(categoriesObj, exceptionCategoryNames=[]) {
+    const toObj = {}
+    const categoryNames = Object.keys(categoriesObj).filter(key => exceptionCategoryNames.includes(key) == false)
+    for (const categoryName of categoryNames) {
+        const category = categoriesObj[categoryName]
+        const objNames = Object.keys(category)
+        for (const objName of objNames) {
+            const obj = {...category[objName]}
+            obj.Name = objName
+            obj.Category = categoryName
+            toObj[objName] = obj
+        }
+    }
+    return toObj
+}
+export function getAllWeaponsByName() {
+    if (allWeaponsCached == null) {
+        allWeaponsCached = objectsWithNameFromCategoriesObjToObject(weapons, ['Descriptions'])
+    }
+    return allWeaponsCached
+}
+let allArmorsCached = null
+export function getAllArmorsByName() {
+    if (allArmorsCached == null) {
+        allArmorsCached = objectsWithNameFromCategoriesObjToObject(armors, ['Descriptions'])
+    }
+    return allArmorsCached
 }
 
 export function getSpellIconPathByName(name) {
@@ -414,7 +444,11 @@ export function getallMyRaceAndClassSpells({ raceName, className, specName, sele
 
     return allMyRaceAndClassSpells
 }
-
+export function hasClassMana(className) {
+    const classObj = getAllClasses()[className]
+    const hasMana = classObj.Spellcasting.Type.toLowerCase().includes('mana')
+    return hasMana
+}
 
 
 // Stats and Bonuses
@@ -488,7 +522,7 @@ export function calculateNKnownAbilities(className, totalStats, bonuses) {
         bonuses['Known Abilities'] == null?
             0:
         parseInt(bonuses['Known Abilities'])
-    return theClass.Spellcasting.BaseKnownSpells + totalStats[2] + bonusKnownAbilities
+    return Math.max(1, theClass.Spellcasting.BaseKnownSpells + totalStats[2] + bonusKnownAbilities)
 }
 
 // export function checkStatsRaceRequirement(strategyName, strategyObj, stats) {

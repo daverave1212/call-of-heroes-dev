@@ -341,7 +341,12 @@ export function LevelingUp({ theClass, isCharacterCreationPage=false }) {
     )
 }
 
-
+export function ManaDescriptionNormal() {
+    return <p>
+        Mana is a resource you can spend to cast Abilities. Some Abilities have a Mana cost, some don't.
+        All your Mana replenishes inbetween Adventures (e.g. at the start of a new Adventure).
+    </p>
+}
 export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
 
     const [displayedBasicAbilityObj, setDisplayedBasicAbilityObj] = useState(null)
@@ -350,19 +355,16 @@ export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
         return (
             <div>
                 <PageH3>Mana-Based {theClass['Spellcasting'].SpellsOrAbilities} Casting</PageH3>
-                <p>
-                    Mana is a resource you can spend to cast Abilities. Some Abilities have a Mana cost, some don't.
-                    All your Mana replenishes inbetween Adventures (e.g. at the start of a new Adventure).
-                </p>
+                <ManaDescriptionNormal/>
                 <PageH3>Changing {theClass['Spellcasting'].SpellsOrAbilities === 'Spell' ? 'Spells' : 'Abilities'}</PageH3>
                 <p>
                     You can change your known Basic Abilities and Talents inbetween Adventures.<br/>
-                    { isCharacterCreationPage == false && ( /* For spacing */
+                    { isCharacterCreationPage == false && (
                         "Feats can't generally be changed once picked; they are permenant decisions."
                     )}
                 </p>
                 {
-                    isCharacterCreationPage == false && ( /* For spacing */
+                    isCharacterCreationPage == false && (
                         <p>{ theClass.Spellcasting.Other }</p>    
                     )
                 }
@@ -432,8 +434,8 @@ export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
                 <Column>
                     <PageH3>Basic Abilities</PageH3>
                     <div className='with-margined-children'>
-                        { theClass['Spellcasting']['Mana'] != null && theClass['Spellcasting']['Mana']['Amount'] != null && (
-                            <SmallStat name="Mana" color="blue">{ theClass['Spellcasting']['Mana']['Amount'] }<Icon name="Mana"/></SmallStat>
+                        { theClass.Spellcasting.Mana != null && theClass.Spellcasting.Mana.Amount != null && (
+                            <SmallStat name="Mana" color="blue">{ theClass.Spellcasting.Mana.Amount }<Icon name="Mana"/></SmallStat>
                         ) }
                         {
                             theClass['Spellcasting']['Known Basic Abilities'] != null &&

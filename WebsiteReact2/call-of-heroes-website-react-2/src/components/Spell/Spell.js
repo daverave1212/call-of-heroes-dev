@@ -15,12 +15,12 @@ import Ribbon from '../Ribbon/Ribbon'
 import CoolButton from '../CoolButton/CoolButton'
 import Icon from '../Icon'
 
-const actionPointsMapping = {
+const ACTION_POINTS_MAPPING = {
     '1 Action': '2 Action Points',
     'Half-Action': '1 Action Point',
     '0 Actions': '0 Action Points'
 }
-const actionPointsMapping2 = {
+const ACTION_POINTS_MAPPING2 = {
     '1 Action': '⦿⦿',
     'Half-Action': '⦿',
     '0 Actions': 'Free'
@@ -31,8 +31,8 @@ export function SpellTopStats({className, tags}) {
     let displayedA = DisplayA != null? DisplayA : A != null? A : null
 
     if (getIsActionPointsSystem()) {
-        if (displayedA in actionPointsMapping) {
-            displayedA = actionPointsMapping[displayedA]
+        if (displayedA in ACTION_POINTS_MAPPING) {
+            displayedA = ACTION_POINTS_MAPPING[displayedA]
         }
     }
 
@@ -167,7 +167,22 @@ If onClick != null:
     It will override onSelected and replace it with onClick
 */
 
-export default function Spell({ children, spell, style, isItem=false, hasIcon, hasBorder, hasCopyButton=true, showTopStats=true, isSelected=false, onSelected, buttonText, onClick }) {
+export default function Spell({ 
+    spell,
+    style,
+    
+    isItem=false,
+    hasIcon=true,
+    hasBorder=true,
+    hasCopyButton=true,
+    showTopStats=true,
+    isSelected=false,
+
+    
+    onSelected,
+    buttonText,
+    onClick
+}) {
 
     const [variantIndex, setVariantIndex] = useState(0)
     const [thiefRolledGoldAmount, setThiefRolledGoldAmount] = useState('Click here to roll 1000d100!')
@@ -206,7 +221,7 @@ export default function Spell({ children, spell, style, isItem=false, hasIcon, h
     } = spell
 
     if (getIsActionPointsSystem() && Effect != null) {
-        Effect = stringReplaceAllMany(Effect, Object.keys(actionPointsMapping), Object.keys(actionPointsMapping).map(key => actionPointsMapping[key]))
+        Effect = stringReplaceAllMany(Effect, Object.keys(ACTION_POINTS_MAPPING), Object.keys(ACTION_POINTS_MAPPING).map(key => ACTION_POINTS_MAPPING[key]))
     }
 
     if (spell['Display Name'] != null) DisplayName = spell['Display Name']
@@ -218,7 +233,6 @@ export default function Spell({ children, spell, style, isItem=false, hasIcon, h
     if (Upgrades != null) {
         Upgrade = Upgrades
     }
-    if (hasIcon == null) hasIcon = true
 
     if (Name.startsWith('~')) Name = Name.substring(1, Name.length - 1)
 

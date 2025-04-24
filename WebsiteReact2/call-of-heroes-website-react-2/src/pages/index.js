@@ -26,7 +26,7 @@ export default function() {
           <p className='home-text-style'>
             Coming to Kickstarter in December 2024!
           </p>
-        <button className='Basic-button' onClick={() => {
+        <button onClick={() => {
           document.querySelector('#Kickstarter-Promo-Popup').style.display = 'none'
         }}>Awesome!</button>
       </PromoPopup> */}

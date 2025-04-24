@@ -5,3 +5,6 @@ export function showError(message) {
 export function showSuccessMessage(message) {
     alert(message)
 }
+export function askConfirmation(message) {
+    return window.confirm(message)
+}

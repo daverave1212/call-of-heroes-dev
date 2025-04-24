@@ -9,29 +9,33 @@ import TableNormal from "../../../components/TableNormal/TableNormal";
 import Icon from "../../../components/Icon";
 import HeroButton from "../../../components/HeroButton/HeroButton";
 import { StatValue } from "./SectionStats";
-import { useCharacterShoppingCart, useGetSetCart, useGold, useInventory } from "./CharacterData";
+import { useArmors, useCharacterShoppingCart, useGetSetCart, useGold, useInventory, useWeapons } from "./CharacterData";
 
-
+export const ShopItemTypes = {
+    WEAPON: 'weapon',
+    ARMOR: 'armor',
+    GOOD: 'good'
+}
 
 function PricePage({ selectedShopName }) {  // Exists to prevent rerender
 
     const [getCart, setCart] = useGetSetCart()  // To prevent rerender
 
-    function onWeaponOrArmorClick(item) {
+    function onWeaponOrArmorClick(item, type) {
         if (item.Price == null) return
-        setCart([...getCart(), { name: item.Name, price: item.Price }])
+        setCart([...getCart(), { name: item.Name, price: item.Price, type: type }])
     }
     function onGoodsItemClick({ name, price, effect }) {
         if (price == null) return
-        setCart([...getCart(), { name, price }])
+        setCart([...getCart(), { name, price, type: 'good' }])
     }
 
     return (
         <div key="shop-items">
             { selectedShopName == 'Weapons'? (
-                <Weapons hasNoMargins={true} onClick={onWeaponOrArmorClick} buttonText="Add"/>
+                <Weapons hasNoMargins={true} onClick={item => onWeaponOrArmorClick(item, ShopItemTypes.WEAPON)} buttonText="Add"/>
             ) : selectedShopName == 'Armors'? (
-                <Armors hasNoMargins={true} onClick={onWeaponOrArmorClick} buttonText="Add"/>
+                <Armors hasNoMargins={true} onClick={item => onWeaponOrArmorClick(item, 'armor')} buttonText="Add"/>
             ) : (
                 <Prices key="Goods" hasNoMargins={true} shouldPlayAnimationOnClick={true} onClick={item => onGoodsItemClick(item)}/>
             )}
@@ -45,9 +49,13 @@ export default function SectionShop() {
     let [gold, setGold] = useGold()
     let [inventory, setInventory] = useInventory()
     let [cart, setCart] = useCharacterShoppingCart()
+    let [weaponNames, setWeaponNames] = useWeapons()
+    let [armorNames, setArmorNames] = useArmors()
+    
+    let [selectedShopName, setSelectedShopName] = useState('Weapons')
+
     const totalPrice = cart.map(item => item.price).reduce((sum, price) => sum + price, 0)
 
-    let [selectedShopName, setSelectedShopName] = useState('Weapons')
 
     const shopSelectorData = [
         { name: 'Weapons', src: '/Icons/Items/Hand_Axe.png' },
@@ -56,10 +64,6 @@ export default function SectionShop() {
     ]
 
     
-    function onGoodsItemClick({ name, price, effect }) {
-        if (price == null) return
-        setCart([...cart, { name, price }])
-    }
     function removeItem(itemName) {
         const index = cart.findIndex(item => item.name == itemName)
         let newCart = [...cart]
@@ -70,6 +74,8 @@ export default function SectionShop() {
         setCart([])
     }
     function checkout() {
+        const cartWeaponNames = cart.filter(item => item.type == ShopItemTypes.WEAPON).map(item => item.name)
+        const cartArmorNames = cart.filter(item => item.type == ShopItemTypes.ARMOR).map(item => item.name)
         const cartItemNames = cart.map(item => item.name)
         const cartItems = cartItemNames.reduce((soFar, itemName) => (
             soFar[itemName] == null?
@@ -80,6 +86,8 @@ export default function SectionShop() {
         const newInventory = inventory.endsWith('\n')? inventory + cartItemsText: (inventory + '\n' + cartItemsText)
         setInventory(newInventory.trim())
         setGold(gold - totalPrice)
+        setWeaponNames(cartWeaponNames)
+        setArmorNames(cartArmorNames)
         clearCart()
     }
 

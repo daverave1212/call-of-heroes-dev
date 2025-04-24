@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react"
-import { calculateBaseCombatStats, calculateHealthRegen, calculateMaxHealth, calculateStat, getAllClasses, getallMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getAllStatBonusesFromSpellsAsObj, calculateBaseMaxManaByLevel, getExtrasFromSpells, getRaceHealth, isString, spellsFromObject, useLocalStorageState } from "../../../utils"
+import { calculateBaseCombatStats, calculateHealthRegen, calculateMaxHealth, calculateStat, getAllClasses, getallMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getAllStatBonusesFromSpellsAsObj, calculateBaseMaxManaByLevel, getExtrasFromSpells, getRaceHealth, isString, spellsFromObject, useLocalStorageState, hasClassMana, getAllWeaponsByName, getAllArmorsByName } from "../../../utils"
 import ManySpells from "../../../components/Spell/ManySpells"
 import PageH2 from "../../../components/PageH2/PageH2"
 import TextArea from "../../../components/TextArea/TextArea"
 import Icon from "../../../components/Icon"
 import Input from "../../../components/Input/Input"
-import { useBasicAbilitiesNames, useConstAvailableAbilitySchools, useConstKnownAbilitiesObj, useConstNKnownAbilities, useCurrentMana, useDescription, useGold, useInventory, useLanguages, useLevel, useMaxMana, useQuickNotes, useSectionClassName, useSectionClassSpecName, useSectionClassSpellNames, useSectionNamesState, useSectionRaceName, useSectionRaceSpellNames, useSectionStatsState, useSkills } from "./CharacterData"
+import { useArmors, useBasicAbilitiesNames, useConstAvailableAbilitySchools, useConstKnownAbilitiesObj, useConstNKnownAbilities, useCurrentMana, useDescription, useGold, useInventory, useLanguages, useLevel, useMaxMana, useQuickNotes, useSectionClassName, useSectionClassSpecName, useSectionClassSpellNames, useSectionNamesState, useSectionRaceName, useSectionRaceSpellNames, useSectionStatsState, useSkills, useWeapons } from "./CharacterData"
 import { STAT_NAMES, StatValue } from "./SectionStats"
 import SmallStat, { SmallStatTypes } from "../../../components/SmallStat/SmallStat"
 import ManySmallStats from "../../../components/SmallStat/ManySmallStats"
+import { askConfirmation } from "../../../services/MessageDisplayer"
 
 
 
@@ -80,6 +81,8 @@ export default function MyCharacter() {
     let [description, setDescription] = useDescription()
     let [quickNotes, setQuickNotes] = useQuickNotes()
     let [inventory, setInventory] = useInventory()
+    let [weaponNames, setWeaponNames] = useWeapons()
+    let [armorNames, setArmorNames] = useArmors()
     let [gold, setGold] = useGold()
     
     let [selectedSkillNames] = useSkills()
@@ -92,8 +95,11 @@ export default function MyCharacter() {
 
 
     // Computed values
-    const myBasicAbilities = selectedBasicAbilitiesNames.map(name => getAllSpellsByName()[name])
     const allDisplayedRaceAndClassSpells = allMyRaceAndClassSpells.filter(spell => spell.IsIgnored != true)
+    const allMyWeapons = weaponNames.map(name => getAllWeaponsByName()[name])
+    const allMyArmors = armorNames.map(name => getAllArmorsByName()[name])
+    const selectedClassObj = selectedClassName == null? null: getAllClasses()[selectedClassName]
+    const myBasicAbilities = selectedBasicAbilitiesNames.map(name => getAllSpellsByName()[name])
     const { maxHealth, healthRegen, movementSpeed, initiative } = calculateBaseCombatStats(selectedRaceName, selectedClassName, level, totalStats)
     const { extras, combatExtras } = getExtrasFromSpells(allMyRaceAndClassSpells)
     const maxMana = selectedClassName == null? 1: calculateBaseMaxManaByLevel(level, selectedClassName)
@@ -161,11 +167,21 @@ export default function MyCharacter() {
         return (
             <div className="flex-row margin-top-1 gap-3q">
                 <div className="flex-column flex-1 gap-3q">
-                    <SmallStat type={SmallStatTypes.VERTICAL} name="Known Basic Abilities">{nKnownAbilities} Abilities</SmallStat>
-                    <ManaBar/>
+                    <SmallStat type={SmallStatTypes.VERTICAL} name="Number of Known Basic Abilities">{nKnownAbilities} Basic {nKnownAbilities == 1? 'Ability': 'Abilities'}</SmallStat>
+                    { selectedClassName != null && (
+                        <div>
+                            { hasClassMana(selectedClassName) && (<ManaBar/>) }
+                            { selectedClassObj.Spellcasting?.Mana?.Regain != null && (
+                                <p>{ selectedClassObj.Spellcasting?.Mana?.Regain }</p>
+                            ) }
+                        </div>
+                    ) }
+                    { selectedClassName != null && hasClassMana(selectedClassName) && (
+                        <ManaBar/>
+                    ) }
                 </div>
                 <div className="flex-column flex-1">
-                    <ManySmallStats name="Available Schools" style={{minWidth: '300px', flexGrow: 1}} color={'var(--dark-color)'} texts={knownAbilitySchools}/>
+                    <ManySmallStats name="Available Ability Schools" style={{minWidth: '300px', flexGrow: 1}} color={'var(--dark-color)'} texts={knownAbilitySchools}/>
                 </div>
             </div>
         )
@@ -188,7 +204,7 @@ export default function MyCharacter() {
         }
 
         const percentageFilled = currentMana > maxMana? 100: currentMana < 0? 0: ((currentMana / maxMana) * 100)
-        const labelText = currentMana > maxMana || currentMana < 0? 'Mana (overflowing)': 'Mana'
+        const labelText = currentMana > maxMana? 'Mana (extra)': currentMana < 0? 'Mana (?)' : 'Mana'
         const barHeight = '2.5rem'
         const innerHeight = `calc(${barHeight} - 0px)`
         const smallStatValueStyle = {
@@ -218,6 +234,28 @@ export default function MyCharacter() {
             </div>
         )
     }
+    function CombatItem({name, type=''}) {
+        type = type.toLowerCase()
+
+        function onClick() {
+            const bool = askConfirmation('Remove item?')
+            if (bool) {
+                setArmorNames(armorNames.filter(armorName => armorName != name))
+            }
+        }
+
+        return (
+            <div className="extra bold flex-column left-content ccc-combat-item relative" onClick={onClick}>
+                <div className="minus">
+                    Remove
+                </div>
+                <div>
+                    <Icon name={type == 'armor'? 'Defense': 'Damage'}/> {name}
+                </div>
+                <div style={{marginTop: '0.25rem', fontWeight: 'normal', fontSize: '0.8em', color: 'rgb(0, 180, 0)'}}>{getAllArmorsByName()[name].EffectGreen}</div>
+            </div>
+        )
+    }
 
     return (
         <div id="My-Character">
@@ -236,7 +274,8 @@ export default function MyCharacter() {
                     { selectedSkillNames.map(text => <div className="extra"><Icon name="CharacterSetupSub"/>{ text }</div>) }
                 </div>
                 <div className="flex-column" style={{flex: 1, gap: '5px'}}>
-                    { combatExtras.map(text => <div className="extra"><Icon name="Damage"/>{ text }</div>) }
+                { extras.map(text => <div className="extra italic"><Icon name="Specializations"/>{ text }</div>) }
+                    { languages.map(text => <div className="extra italic"><Icon name="Specializations"/>You speak { text }</div>) }
                 </div>
             </div>
 
@@ -261,10 +300,12 @@ export default function MyCharacter() {
                     <div className="input-description">Inventory</div>
                 </div>
                 <div className="flex-column" style={{flex: 1, gap: '5px'}}>
-                    { extras.map(text => <div className="extra italic"><Icon name="Specializations"/>{ text }</div>) }
-                    { languages.map(text => <div className="extra italic"><Icon name="Specializations"/>You speak { text }</div>) }
+                    { combatExtras.map(text => <div className="extra"><Icon name="Damage"/>{ text }</div>) }
+                    { armorNames.map(text => <CombatItem name={text} type="armor"/>) }
                 </div>
             </div>
+
+            <ManySpells className="margin-top-1" spells={allMyWeapons} areItems={true} shouldIgnoreAlignment={true}/>
 
             <Spellcasting/>
             

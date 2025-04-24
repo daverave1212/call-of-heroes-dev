@@ -37,6 +37,8 @@ function getNewCharacterTemplate() {
         quickNotes: '',
         description: '',
         inventory: '',
+        weaponNames: [],
+        armorNames: [],
         gold: 1000,
     
         shopCart: [],
@@ -193,6 +195,12 @@ export function useSkills() {
 }
 export function useCurrentMana() {
     return useCharacterLocalStorageState('currentMana', 1)
+}
+export function useWeapons() {
+    return useCharacterLocalStorageState('weaponNames', [])
+}
+export function useArmors() {
+    return useCharacterLocalStorageState('armorNames', [])
 }
 
 

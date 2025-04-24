@@ -65,7 +65,7 @@ function SlidePage({
                     <Text/>
                     
                     <div className='hero-buttons'>
-                        <button className='Basic-button'>
+                        <button>
                             {
                                 isDownload === true ?
                                     <a href={linkTo} target="_blank" download>{ buttonName }</a> :

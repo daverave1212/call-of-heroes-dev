@@ -125,7 +125,7 @@ export default function AbilitySheets() {
                     <select className='margined-bottom' id='Spell-Choices' onChange={evt => { setCurrentlyTypedSpell(evt.target.value); console.log(evt.target.value) }}>
                         { allAvailableSpellNames.map(name => (<option value={name} key={name}>{ name }</option>)) }
                     </select>
-                    <button className='Basic-button' onClick={queueSpell} style={{ margin: 'auto', display: 'block' }}>Add</button>
+                    <button onClick={queueSpell} style={{ margin: 'auto', display: 'block' }}>Add</button>
                 </div>
             </div>
 
@@ -136,12 +136,12 @@ export default function AbilitySheets() {
             </div>
 
             <div className='centered-content margined-bottom'>
-                <button className='Basic-button' id="MoveUp" onClick={moveSelectedUp} title="Move selected Ability up.">Move Up</button>
-                <button className='Basic-button' id="MoveDown" onClick={moveSelectedDown} title="Move selected Ability down.">Move Down</button>
+                <button id="MoveUp" onClick={moveSelectedUp} title="Move selected Ability up.">Move Up</button>
+                <button id="MoveDown" onClick={moveSelectedDown} title="Move selected Ability down.">Move Down</button>
             </div>
             <div className='centered-content margined-bottom'>
-                <button className='Basic-button' id="Reset" onClick={resetSpells} title = "Click here to reset everything.">Reset</button>
-                <button className='Basic-button' id="RemoveSpell" onClick={removeSpellFromSelect} title = "Click here to remove the selected spell">Remove Spell</button>
+                <button id="Reset" onClick={resetSpells} title = "Click here to reset everything.">Reset</button>
+                <button id="RemoveSpell" onClick={removeSpellFromSelect} title = "Click here to remove the selected spell">Remove Spell</button>
             </div>
             <div>
                 <PageH3>How To Use</PageH3>

@@ -7,7 +7,7 @@ import { sortObjectArrayByKey, spellsFromObject, splitArrayEvenly } from '../../
 import { SADescription } from '../InsertableTemplates/RaceClassComponents'
 
 // Returns many TwoColumns, each fitting 2 spells.
-export default function ManySpells({ spells, spellStyle, shouldIgnoreAlignment, description, selectedSpellNames, setSelectedSpellNames, areItems=false, onSpellClick, buttonText }) {
+export default function ManySpells({ className, spells, spellStyle, shouldIgnoreAlignment, description, selectedSpellNames, setSelectedSpellNames, areItems=false, onSpellClick, buttonText }) {
 
     spells = Array.isArray(spells) ? spells : spellsFromObject(spells)
     spells = sortObjectArrayByKey(spells, 'OrderOnWebsite')
@@ -54,7 +54,7 @@ export default function ManySpells({ spells, spellStyle, shouldIgnoreAlignment, 
     }
     
     return (
-        <TwoColumns>
+        <TwoColumns className={className}>
             <Column>
                 <SpellsInColumn spells={column1Spells}/>
             </Column>
