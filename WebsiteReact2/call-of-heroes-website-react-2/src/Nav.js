@@ -286,7 +286,7 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
           <LiLink to="/Tools/TreasureGenerator">Treasure Generator</LiLink>
           <LiLinkPremium to="/Other/CustomAbilityCreator">Custom Ability Creator</LiLinkPremium>
           <LiLinkPremium to="/Other/CustomMonsterCreator">Custom Monster Creator</LiLinkPremium>
-          <LiLinkPremium to="/Tools/RunePuzzle">Rune Puzzle</LiLinkPremium>
+          <LiLinkPremium to="/Tools/RunePuzzle">Rune Puzzle Maker</LiLinkPremium>
         </MegaDropdownMenuSection>
       </MegaDropdownMenu>
     </div>)

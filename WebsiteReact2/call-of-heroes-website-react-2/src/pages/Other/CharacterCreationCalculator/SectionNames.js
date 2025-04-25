@@ -6,7 +6,7 @@ import { useLocalStorageState } from "../../../utils";
 import { useSectionNamesState } from "./CharacterData";
 import Input from "../../../components/Input/Input";
 
-function LabelWithInput({ labelText, value='d', onChange }) {
+export function LabelWithInput({ labelText, value='d', onChange }) {
 
     const [inputValue, setInputValue] = useState(value)
 

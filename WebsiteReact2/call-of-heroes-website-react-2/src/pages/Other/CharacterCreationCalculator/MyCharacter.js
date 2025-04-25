@@ -1,22 +1,24 @@
 import { useEffect, useState } from "react"
-import { calculateBaseCombatStats, calculateHealthRegen, calculateMaxHealth, calculateStat, getAllClasses, getallMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getAllStatBonusesFromSpellsAsObj, calculateBaseMaxManaByLevel, getExtrasFromSpells, getRaceHealth, isString, spellsFromObject, useLocalStorageState, hasClassMana, getAllWeaponsByName, getAllArmorsByName } from "../../../utils"
+import { calculateBaseCombatStats, calculateHealthRegen, calculateMaxHealth, calculateStat, getAllClasses, getAlMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getAllStatBonusesAsObjFromSpellsArray, calculateBaseMaxManaByLevel, getExtrasFromSpells, getRaceHealth, isString, spellsFromObject, useLocalStorageState, hasClassMana, getAllWeaponsByName, getAllArmorsByName, addObjects } from "../../../utils"
 import ManySpells from "../../../components/Spell/ManySpells"
 import PageH2 from "../../../components/PageH2/PageH2"
 import TextArea from "../../../components/TextArea/TextArea"
 import Icon from "../../../components/Icon"
 import Input from "../../../components/Input/Input"
-import { useArmors, useBasicAbilitiesNames, useConstAvailableAbilitySchools, useConstKnownAbilitiesObj, useConstNKnownAbilities, useCurrentMana, useDescription, useGold, useInventory, useLanguages, useLevel, useMaxMana, useQuickNotes, useSectionClassName, useSectionClassSpecName, useSectionClassSpellNames, useSectionNamesState, useSectionRaceName, useSectionRaceSpellNames, useSectionStatsState, useSkills, useWeapons } from "./CharacterData"
+import { useArmors, useBasicAbilitiesNames, useConstAvailableAbilitySchools, useConstKnownAbilitiesObj, useConstNKnownAbilities, useCurrentMana, useDescription, useGold, useInventory, useLanguages, useLevel, useManualBonuses, useMaxMana, useQuickNotes, useSectionClassName, useSectionClassSpecName, useSectionClassSpellNames, useSectionNamesState, useSectionRaceName, useSectionRaceSpellNames, useSectionStatsState, useSkills, useWeapons } from "./CharacterData"
 import { STAT_NAMES, StatValue } from "./SectionStats"
 import SmallStat, { SmallStatTypes } from "../../../components/SmallStat/SmallStat"
 import ManySmallStats from "../../../components/SmallStat/ManySmallStats"
 import { askConfirmation } from "../../../services/MessageDisplayer"
+import Dialog from "../../../components/Dialog/Dialog"
+import ChangeStatDialog from "./ChangeStatDialog"
 
 
 
-function BigStatValue({ name, value }) {
+function BigStatValue({ name, value, onClick}) {
     return (
-        <div className="stat-input large">
-            <div>{ value }</div>
+        <div className="stat-input large pointer">
+            <div onClick={onClick}>{ value }</div>
             <div className="input-name input-name-styled">{ name }</div>
         </div>
     )
@@ -31,7 +33,7 @@ export function useConstAllRaceAndClassSpells() {
     let [selectedSpecName] = useSectionClassSpecName()
     let [selectedClassSpellNames] = useSectionClassSpellNames()
 
-    const allMyRaceAndClassSpells = getallMyRaceAndClassSpells({
+    const allMyRaceAndClassSpells = getAlMyRaceAndClassSpells({
         raceName: selectedRaceName,
         selectedRaceSpellNames,
         className: selectedClassName,
@@ -42,34 +44,54 @@ export function useConstAllRaceAndClassSpells() {
     return allMyRaceAndClassSpells
 
 }
-export function useConstBonusesFromSpells() {
+export function useConstBonusesFromSpellsAndItems() {
+    let [armorNames] = useArmors()
+    const allMyArmors = armorNames.map(name => getAllArmorsByName()[name])
     const allMyRaceAndClassSpells = useConstAllRaceAndClassSpells()
-
-    const bonuses = getAllStatBonusesFromSpellsAsObj(allMyRaceAndClassSpells)
+    const everything = [...allMyArmors, allMyRaceAndClassSpells]
+    
+    const bonuses = getAllStatBonusesAsObjFromSpellsArray(everything)
 
     return bonuses
 }
+export function useConstAllBonuses() {
+    const abilitiesBonuses = useConstBonusesFromSpellsAndItems()
+    const [characterBonuses] = useManualBonuses()
+    const allBonuses = addObjects(abilitiesBonuses, characterBonuses)
+    return allBonuses
+}
 export function useConstTotalStats() {
-    const bonuses = useConstBonusesFromSpells()
+    const bonuses = useConstBonusesFromSpellsAndItems()
+    const characterBonuses = useManualBonuses()
     const [stats] = useSectionStatsState()
     return [
-        stats[0] + (bonuses.Might ?? 0),
-        stats[1] + (bonuses.Dexterity ?? 0),
-        stats[2] + (bonuses.Intelligence ?? 0),
-        stats[3] + (bonuses.Sense ?? 0),
-        stats[4] + (bonuses.Charisma ?? 0)
+        stats[0] + (bonuses.Might ?? 0) + (characterBonuses.Might ?? 0),
+        stats[1] + (bonuses.Dexterity ?? 0) + (characterBonuses.Dexterity ?? 0),
+        stats[2] + (bonuses.Intelligence ?? 0) + (characterBonuses.Intelligence ?? 0),
+        stats[3] + (bonuses.Sense ?? 0) + (characterBonuses.Sense ?? 0),
+        stats[4] + (bonuses.Charisma ?? 0) + (characterBonuses.Charisma ?? 0)
     ]
+}
+export function useConstAllAbilitiesAndItemsExtras() {
+    const allMyRaceAndClassSpells = useConstAllRaceAndClassSpells()
+    const [weaponNames] = useWeapons()
+    const [armorNames] = useArmors()
+
+    const allMyWeapons = weaponNames.map(name => getAllWeaponsByName()[name])
+    const allMyArmors = armorNames.map(name => getAllArmorsByName()[name])
+
+    return getExtrasFromSpells([...allMyWeapons, ...allMyArmors, ...allMyRaceAndClassSpells])
 }
 
 
 export default function MyCharacter() {
 
-    // LocalStorage states
+    // Local states
+    let [statNameToChange, setStatNameToChange] = useState(null)
 
+    // LocalStorage states
     let [names] = useSectionNamesState()
     let [level] = useLevel()
-
-    
 
     let [selectedRaceName] = useSectionRaceName()
     let [selectedClassName] = useSectionClassName()
@@ -81,7 +103,7 @@ export default function MyCharacter() {
     let [description, setDescription] = useDescription()
     let [quickNotes, setQuickNotes] = useQuickNotes()
     let [inventory, setInventory] = useInventory()
-    let [weaponNames, setWeaponNames] = useWeapons()
+    let [weaponNames] = useWeapons()
     let [armorNames, setArmorNames] = useArmors()
     let [gold, setGold] = useGold()
     
@@ -90,9 +112,12 @@ export default function MyCharacter() {
 
     let [currentMana, setCurrentMana] = useCurrentMana()
     
-    const totalStats = useConstTotalStats()
+    const [baseStats] = useSectionStatsState()
     const allMyRaceAndClassSpells = useConstAllRaceAndClassSpells()
+    const bonuses = useConstAllBonuses()
+    const { extras, combatExtras } = useConstAllAbilitiesAndItemsExtras()
 
+    console.log({bonuses, yes: 'yes'})
 
     // Computed values
     const allDisplayedRaceAndClassSpells = allMyRaceAndClassSpells.filter(spell => spell.IsIgnored != true)
@@ -100,8 +125,7 @@ export default function MyCharacter() {
     const allMyArmors = armorNames.map(name => getAllArmorsByName()[name])
     const selectedClassObj = selectedClassName == null? null: getAllClasses()[selectedClassName]
     const myBasicAbilities = selectedBasicAbilitiesNames.map(name => getAllSpellsByName()[name])
-    const { maxHealth, healthRegen, movementSpeed, initiative } = calculateBaseCombatStats(selectedRaceName, selectedClassName, level, totalStats)
-    const { extras, combatExtras } = getExtrasFromSpells(allMyRaceAndClassSpells)
+    const { maxHealth, healthRegen, movementSpeed, initiative } = calculateBaseCombatStats({raceName: selectedRaceName, className: selectedClassName, level, baseStats, bonuses})
     const maxMana = selectedClassName == null? 1: calculateBaseMaxManaByLevel(level, selectedClassName)
 
     // Other
@@ -117,7 +141,7 @@ export default function MyCharacter() {
     function StatsColumn() {
         return <div className="flex flex-column" style={{gap: 'var(--stats-gap)'}}>
             { STAT_NAMES.map((n, i) => (
-                <StatValue name={n.substring(0, 3).toUpperCase()} value={totalStats[i]}/>
+                <StatValue onClick={() => setStatNameToChange(n)} key={n} name={n.substring(0, 3).toUpperCase()} value={baseStats[i] + bonuses[n]}/>
             )) }
         </div>
     }
@@ -125,12 +149,12 @@ export default function MyCharacter() {
         return <div className={`flex flex-column ${className}`} style={{gap: 'var(--stats-gap)'}}>
             <div className="flex-column" style={{gap: 'var(--stats-gap)'}}>    
                 <div className="flex" style={{gap: 'var(--stats-gap)'}}>
-                    <BigStatValue name="Health" value={maxHealth}/>
-                    <BigStatValue name="Health Regen" value={healthRegen}/>
+                    <BigStatValue onClick={() => setStatNameToChange('Max Health')} name="Health" value={maxHealth}/>
+                    <BigStatValue onClick={() => setStatNameToChange('Health Regen')} name="Health Regen" value={healthRegen}/>
                 </div>
                 <div className="flex" style={{gap: 'var(--stats-gap)'}}>
-                    <BigStatValue name="Movement Speed" value={movementSpeed}/>
-                    <BigStatValue name="Initiative" value={initiative}/>
+                    <BigStatValue onClick={() => setStatNameToChange('Movement Speed')} name="Movement Speed" value={movementSpeed}/>
+                    <BigStatValue onClick={() => setStatNameToChange('Initiative')} name="Initiative" value={initiative}/>
                 </div>
             </div>
             <div className="wrapper description-wrapper combat-notes-wrapper">
@@ -167,7 +191,7 @@ export default function MyCharacter() {
         return (
             <div className="flex-row margin-top-1 gap-3q">
                 <div className="flex-column flex-1 gap-3q">
-                    <SmallStat type={SmallStatTypes.VERTICAL} name="Number of Known Basic Abilities">{nKnownAbilities} Basic {nKnownAbilities == 1? 'Ability': 'Abilities'}</SmallStat>
+                    <SmallStat onClick={() => setStatNameToChange('Known Abilities')} type={SmallStatTypes.VERTICAL} name="Number of Known Basic Abilities">{nKnownAbilities} Basic {nKnownAbilities == 1? 'Ability': 'Abilities'}</SmallStat>
                     { selectedClassName != null && (
                         <div>
                             { hasClassMana(selectedClassName) && (<ManaBar/>) }
@@ -234,13 +258,13 @@ export default function MyCharacter() {
             </div>
         )
     }
-    function CombatItem({name, type=''}) {
+    function CombatItem({item, type=''}) {
         type = type.toLowerCase()
 
         function onClick() {
             const bool = askConfirmation('Remove item?')
             if (bool) {
-                setArmorNames(armorNames.filter(armorName => armorName != name))
+                setArmorNames(armorNames.filter(armorName => armorName != item.Name))
             }
         }
 
@@ -250,15 +274,17 @@ export default function MyCharacter() {
                     Remove
                 </div>
                 <div>
-                    <Icon name={type == 'armor'? 'Defense': 'Damage'}/> {name}
+                    <Icon name={type == 'armor'? 'Defense': 'Damage'}/> {item.Name}
                 </div>
-                <div style={{marginTop: '0.25rem', fontWeight: 'normal', fontSize: '0.8em', color: 'rgb(0, 180, 0)'}}>{getAllArmorsByName()[name].EffectGreen}</div>
+                <div style={{marginTop: '0.25rem', fontWeight: 'normal', fontSize: '0.8em', color: 'rgb(0, 180, 0)'}}>{item.CCCDisplayEffect}</div>
             </div>
         )
     }
 
     return (
         <div id="My-Character">
+
+            <ChangeStatDialog statName={statNameToChange} setStatName={setStatNameToChange}/>
 
             <Names/>
 
@@ -301,7 +327,7 @@ export default function MyCharacter() {
                 </div>
                 <div className="flex-column" style={{flex: 1, gap: '5px'}}>
                     { combatExtras.map(text => <div className="extra"><Icon name="Damage"/>{ text }</div>) }
-                    { armorNames.map(text => <CombatItem name={text} type="armor"/>) }
+                    { allMyArmors.map(item => <CombatItem item={item} type="armor"/>) }
                 </div>
             </div>
 

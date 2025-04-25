@@ -175,14 +175,16 @@ export function getAlternativesAsArray(text) {
     return alternatives
 }
 
-export function getAllStatBonusesFromSpellsAsObj(spellsArray) {
+export function getAllStatBonusesAsObjFromSpellsArray(spellsArray) {
     let bonuses = {}
+    let sources = []
     for (const spell of spellsArray) {
         if (spell.Bonuses != null) {
             for (const statName of Object.keys(spell.Bonuses)) {
                 if (bonuses[statName] == null) {
                     bonuses[statName] = 0
                 }
+                sources.push({ statName, bonus: spell.Bonuses[statName], source: spell.Name })
                 bonuses[statName] += spell.Bonuses[statName]
             }
         }
@@ -421,7 +423,7 @@ export function getRaceHealth(raceName) {
 export function getRaceRegen(raceName) {
     return getAllRaces()[raceName].Stats['Health Regen']
 }
-export function getallMyRaceAndClassSpells({ raceName, className, specName, selectedClassSpellNames, selectedRaceSpellNames }) {
+export function getAlMyRaceAndClassSpells({ raceName, className, specName, selectedClassSpellNames=[], selectedRaceSpellNames=[] }) {
     const allSpells = getAllSpellsByName()
 
     const myRace = getAllRaces()[raceName]
@@ -439,7 +441,7 @@ export function getallMyRaceAndClassSpells({ raceName, className, specName, sele
         ...myRaceFeats,
         ...myClassBaseSpells,
         ...mySpecBaseSpells,
-        ...myClassTalents
+        ...myClassTalents,
     ]
 
     return allMyRaceAndClassSpells
@@ -477,19 +479,41 @@ export function calculateBaseMaxManaByLevel(level, className) {
 export function calculateExperienceByLevel(level) {
     return level * 100
 }
-export function calculateBaseCombatStats(raceName, className, level, stats) {
-    if (raceName == null || className == null || level == null || stats == null) {
+export function calculateBaseCombatStats({raceName, className, level, baseStats, bonuses}) {
+    if (raceName == null || className == null || level == null || baseStats == null) {
         return -1
     }
     const raceObj = getAllRaces()[raceName]
     const classObj = getAllClasses()[className]
-    const [might, dexterity, intelligence, sense, charisma] = stats
+    const bonusStats = [
+        bonuses.Might ?? 0,
+        bonuses.Dexterity ?? 0,
+        bonuses.Intelligence ?? 0,
+        bonuses.Sense ?? 0,
+        bonuses.Charisma ?? 0
+    ]
+    const [might, dexterity, intelligence, sense, charisma] = addArrays(baseStats, bonusStats)
+
+    console.log(`Base combat stats`)
+    console.log({bonuses})
 
     return {
-        maxHealth: raceObj.Stats['Base Health'] + calculateStat('Might', might) + level * classObj['Level Up']['Every Level'].Health,
-        healthRegen: raceObj.Stats['Health Regen'] + calculateStat('Sense', sense) + level * 2,
-        movementSpeed: calculateStat('Dexterity', dexterity),
-        initiative: calculateStat('Charisma', charisma)
+        maxHealth:
+            raceObj.Stats['Base Health']
+            + calculateStat('Might', might)
+            + (level - 1) * classObj['Level Up']['Every Level'].Health
+            + (bonuses['Max Health'] ?? bonuses['Health'] ?? 0),
+        healthRegen:
+            raceObj.Stats['Health Regen']
+            + calculateStat('Sense', sense)
+            + (level - 1) * 2
+            + (bonuses['Health Regen'] ?? 0),
+        movementSpeed:
+            calculateStat('Dexterity', dexterity)
+            + (bonuses['Movement'] ?? bonuses['Movement Speed'] ?? 0),
+        initiative:
+            calculateStat('Charisma', charisma)
+            + (bonuses['Initiative'] ?? 0)
     }
 }
 export function calculateHealthRegen(raceName, className, level, sense) {
@@ -649,6 +673,27 @@ export function mapObject(obj, func) {
     }
     return newObj
 }
+export function addObjects(a, b) {
+    const bKeys = Object.keys(b)
+    let finalObject = {...a}
+    for (const bKey of bKeys) {
+        if (finalObject[bKey] == null) {
+            finalObject[bKey] = b[bKey]
+        } else {
+            const aValue = finalObject[bKey]
+            const bValue = b[bKey]
+            if (isNumber(aValue) && isNumber(bValue)) {
+                finalObject[bKey] = finalObject[bKey] + bValue
+            } else if (Array.isArray(aValue) && Array.isArray(bValue)) {
+                finalObject[bKey] = [...finalObject[bKey], ...b[bKey]]
+            } else {
+                console.log({a, b})
+                throw `For addObject at key ${bKey} could not match types from a with b.`
+            }
+        }
+    }
+    return finalObject
+}
 
 export function groupBy(arr, hashFunc) {
     const hashKeyArrayElemValuePairs = {}
@@ -663,7 +708,13 @@ export function groupBy(arr, hashFunc) {
     }
     return hashKeyArrayElemValuePairs
 }
-
+export function addArrays(a, b) {
+    const newArr = [...a]
+    for (let i = 0; i < a.length; i++) {
+        newArr[i] += b[i]
+    }
+    return newArr
+}
 export function numbersUntil(num) {
     const arr = []
     for (let i = 0; i < num; i++) {
@@ -1127,7 +1178,7 @@ export const stylePadded   = { padding: 'var(--element-padding)' }
 export function getLocalStorageJSON(keyName) {
     const value = localStorage.getItem(keyName)
     if (value == null || value == 'undefined') {
-        return value
+        return null
     }
     try {
         return JSON.parse(value)

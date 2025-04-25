@@ -37,7 +37,6 @@ export async function getMyCharacters() {
         return []
     }
     const getMyCharactersResult = await getMyDocInCollection('player-characters')
-    console.log({getMyCharactersResult})
     return getMyCharactersResult.characters
 }
 export async function setMyCharacters(array) {

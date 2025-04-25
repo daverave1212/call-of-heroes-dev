@@ -19,8 +19,6 @@ export default function Tabs({ layout, getTabIconSrc, tabComponents, activeTabI,
         null
     const selectedTabI = tabNames.indexOf(selectedTabName)
 
-    console.log({selectedTabName})
-
     function onTabClick(i, name) {
         if (setActiveTabI != null) {
             setActiveTabI(i)

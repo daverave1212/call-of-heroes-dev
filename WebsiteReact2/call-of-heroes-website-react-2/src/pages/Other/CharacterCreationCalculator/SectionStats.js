@@ -6,7 +6,7 @@ import { calculateStat, checkStatRequirements, calculateExperienceByLevel, getRa
 import Page from "../../../containers/Page/Page"
 import { QGTitle1 } from "../../Tools/TitleGenerator"
 import Icon from "../../../components/Icon"
-import { useConstBonusesFromSpells, useConstTotalStats } from "./MyCharacter"
+import { useConstBonusesFromSpellsAndItems, useConstTotalStats } from "./MyCharacter"
 import Input from "../../../components/Input/Input"
 import { useExperience, useLevel, useSectionRaceName, useSectionStatsState } from "./CharacterData"
 
@@ -29,10 +29,11 @@ export function StatInput({ name, value, onChange }) {
     )
 }
 
-export function StatValue({ name, value, style, className }) {
+export function StatValue({ name, value, style, className, onClick }) {
+    const hoverStyle = onClick == null? {}: { cursor: 'pointer' }
     return (
-        <div className={`stat-input ${className}`} style={style}>
-            <div>{ value }</div>
+        <div className={`stat-input ${className}`} style={{...style, ...hoverStyle}}>
+            <div onClick={onClick}>{ value }</div>
             <div className="input-name input-name-styled">{ name }</div>
         </div>
     )
@@ -76,7 +77,7 @@ export default function SectionStats() {
     let [level, setLevel] = useLevel()
     let [stats, setStats] = useSectionStatsState()
     let totalStats = useConstTotalStats()
-    let bonuses = useConstBonusesFromSpells()
+    let bonuses = useConstBonusesFromSpellsAndItems()
     let [selectedRaceName] = useSectionRaceName()
     let [experience, setExperience] = useExperience()
 

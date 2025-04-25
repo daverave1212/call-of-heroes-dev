@@ -194,7 +194,6 @@ function App() {
 
   return (
     <div id="Window">
-
         <Nav/>
 
         <AppStateContext.Provider value={[appState, setAppState]}>

@@ -181,8 +181,6 @@ const letterImage = {}
 
 export async function drawQGTextOnCanvas(canvas, text, sizeMultiplier=1) {
 
-    console.log(`Drawing text ${text} at sizeMultiplier=${sizeMultiplier}`)
-
     async function maybePreloadLetterImages() {
         async function maybePreloadLetterImage(letter) {
             if (letterImage[letter] == null) {

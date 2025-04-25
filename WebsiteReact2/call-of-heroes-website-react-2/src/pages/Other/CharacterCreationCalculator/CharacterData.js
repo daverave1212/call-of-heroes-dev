@@ -3,7 +3,7 @@ import * as Database from '../../../Database'
 import { useEffect } from "react"
 import { getUserState, useAuth } from "../../../Auth"
 import { showError } from "../../../services/MessageDisplayer"
-import { useConstBonusesFromSpells, useConstTotalStats } from "./MyCharacter"
+import { useConstAllBonuses, useConstBonusesFromSpellsAndItems, useConstTotalStats } from "./MyCharacter"
 
 export const NO_CHARACTER_ID = 'none'
 export const LOCAL_STORAGE_PREFIX = 'character-'
@@ -18,6 +18,22 @@ function getNewCharacterTemplate() {
         level: 1,
         experience: 0,
         stats: [-1,0,1,2,3],
+        bonuses: {
+            'Might': 0,
+            'Dexterity': 0,
+            'Intelligence': 0,
+            'Sense': 0,
+            'Charisma': 0,
+
+            'Max Health': 0,
+            'Health Regen': 0,
+            'Movement Speed': 0,
+            'Initiative': 0,
+
+            'Known Abilities': 0,
+            'Extras': [],
+            'Combat Extras': []
+        },
         
         skillNames: [],
         languages: [],
@@ -52,7 +68,7 @@ export function newCharacterLS() {
     const newCharacterTemplate = getNewCharacterTemplate()
     for (const key of Object.keys(newCharacterTemplate)) {
         const lsKey = 'character.' + key
-        console.log(`Setting ${lsKey} to ${newCharacterTemplate[key]}`)
+        // console.log(`Setting ${lsKey} to ${newCharacterTemplate[key]}`)
         setLocalStorageJSON(lsKey, newCharacterTemplate[key])
     }
 }
@@ -60,7 +76,8 @@ export function getCurrentCharacterFromLocalStorage() {
     const characterObj = {}
     const newCharacterTemplate = getNewCharacterTemplate()
     for (const key of Object.keys(newCharacterTemplate)) {
-        characterObj[key] = getLocalStorageJSON('character.' + key)
+        const propValueFromLS = getLocalStorageJSON('character.' + key)
+        characterObj[key] = propValueFromLS ?? newCharacterTemplate[key]
     }
     return characterObj
 }
@@ -70,6 +87,7 @@ export function setCharacterToLocalStorage(character) {
         setLocalStorageJSON('character.' + key, character[key] == null? newCharacterTemplate[key]: character[key])
     }
 }
+let myCharactersFromDBTestCache = []
 export function useMyCharactersDB(locationInCode) {
     const initialUser = getUserState()
     let { user } = useAuth(locationInCode)
@@ -86,12 +104,9 @@ export function useMyCharactersDB(locationInCode) {
     }
     useEffect(() => {
         if (user != null) {
-            console.log(`Ready to work with userData!`)
-            console.log({user})
-            
             Database.getMyCharacters().then(myCharactersFromDB => {
-                console.log(`User changed. Got characters from DB:`)
-                console.log({myCharactersFromDB})
+                // console.log(`User changed. Got characters from DB:`)
+                // console.log({myCharactersFromDB})
                 innerSetMyCharacters(myCharactersFromDB)
             })
         }
@@ -112,13 +127,14 @@ export function useMyCharactersDB(locationInCode) {
         }
         return true
     }
-
+    myCharactersFromDBTestCache = myCharacters
     return [myCharacters, saveMyCharactersToDB]
 }
 
 window.newCharacterLS = newCharacterLS
 window.getCurrentCharacterFromLocalStorage = getCurrentCharacterFromLocalStorage
 window.setCharacterToLocalStorage = setCharacterToLocalStorage
+window.getMyCharactersTest = () => myCharactersFromDBTestCache
 
 
 
@@ -139,6 +155,9 @@ export function useSectionNamesState() {
 }
 export function useSectionStatsState() {
     return useCharacterLocalStorageState('stats')
+}
+export function useManualBonuses() {    // Manual != bonuses from abilities; those are derived
+    return useCharacterLocalStorageState('bonuses')
 }
 export function useLevel() {
     return useCharacterLocalStorageState('level')
@@ -228,9 +247,13 @@ export function useConstAvailableAbilitySchools() {
 export function useConstNKnownAbilities() {
     let [level] = useLevel()
     let [className] = useSectionClassName()
+
+    if (className == null) {
+        return 0
+    }
     
     const totalStats = useConstTotalStats()
-    const bonuses = useConstBonusesFromSpells()
+    const bonuses = useConstAllBonuses()
 
     return calculateNKnownAbilities(className, totalStats, bonuses)
 }

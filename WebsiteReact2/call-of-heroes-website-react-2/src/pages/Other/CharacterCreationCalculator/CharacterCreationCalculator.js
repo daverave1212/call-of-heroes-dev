@@ -73,9 +73,7 @@ function MyCharacters() {
         src: char.names.src
     }))
 
-    console.log(`Searching myCharacters for`)
     const selectedSelectorName = myCharacters.find(char => char.id == currentCharacterId)?.names.characterName
-    console.log({selectedSelectorName})
 
     function newCharacter() {
         newCharacterLS()
@@ -109,7 +107,6 @@ function MyCharacters() {
 
 function SaveCharacterButton() {
 
-    console.log('RERENDER SAVECHARACTERBUTTON')
     let [myCharacters, saveMyCharacters] = useMyCharactersDB('CharacterCreationCalculator.SaveCharacterButton')
 
     function saveCharacter() {

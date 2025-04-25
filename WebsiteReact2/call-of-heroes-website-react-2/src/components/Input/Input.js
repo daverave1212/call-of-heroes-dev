@@ -24,7 +24,6 @@ export default function Input({ value, onChange, className, style, setSet }) {
         onChange={evt => setTemporaryValue(evt.target.value)}
         onBlur={evt => onInputChange(evt)}
         onKeyUp={evt => {
-            console.log({evt})
             if (evt.key == 'Enter') {
                 onInputChange(evt)
             }
