@@ -717,7 +717,10 @@ export function CCRacePage({ theRace, selectedSpellNames, setSelectedSpellNames 
     )
 }
 
-export function ClassPage({ theClass }) {
+export function ClassPage(props) {
+    return <ClassPageV2 {...props}/>
+}
+export function ClassPageV1({ theClass }) {
     return (
         <div>
             <SideMenuFromClass theClass={theClass}/>
@@ -775,24 +778,35 @@ export function ClassPage({ theClass }) {
         </div>
     )
 }
-
-
-export function CCClassPage({
+export function ClassPageV2({
     theClass,
+    hasNoMargins=false,
+    hasHeader=true,
     selectedSpecName, setSelectedSpecName,
     selectedSpellNames, setSelectedSpellNames
 }) {
 
-    const selectedSpecObj = selectedSpecName == null? null: theClass.Specs[selectedSpecName]
+    let [innerSelectedSpecName, setInnerSelectedSpecName] = useState(null)
+
+    const finalSelectedSpecName = selectedSpecName ?? innerSelectedSpecName
+    const selectedSpecObj = finalSelectedSpecName == null? null: theClass.Specs[finalSelectedSpecName]
 
     function onSpecClick(specName) {
-        setSelectedSpecName(specName)
-        setSelectedSpellNames([])
+        if (setSelectedSpecName != null) {
+            setSelectedSpecName?.(specName)
+        } else {
+            setInnerSelectedSpecName(specName)
+        }
+        setSelectedSpellNames?.([])
     }
 
     return (
         <div>            
-            <Page hasNoMargins={true}>
+            <Page hasNoMargins={hasNoMargins}>
+
+                { hasHeader && (
+                    <RaceHeader theClass={theClass}/>
+                )}
                                 
                 { theClass.Druidic && (
                     <div>
@@ -813,19 +827,19 @@ export function CCClassPage({
                 </div>
 
                 { Object.keys(theClass['Specs']).map(specName => (
-                    <Selector className="margin-top-1" key={specName} name={specName} onClick={() => onSpecClick(specName)} src={U.getSpecRepresentativeIconFullPath(theClass, specName)} isSelected={selectedSpecName == specName}/>
+                    <Selector className="margin-top-1" key={specName} name={specName} onClick={() => onSpecClick(specName)} src={U.getSpecRepresentativeIconFullPath(theClass, specName)} isSelected={finalSelectedSpecName == specName}/>
                 )) }
 
             </Page>
 
-            { selectedSpecName != null && (
-                <Spec hasNoMargins={true} key={selectedSpecName} name={selectedSpecName} specObj={selectedSpecObj}>
+            { finalSelectedSpecName != null && (
+                <Spec hasNoMargins={hasNoMargins} key={finalSelectedSpecName} name={finalSelectedSpecName} specObj={selectedSpecObj}>
 
                     {
                         selectedSpecObj.Abilities != null && (
                             <div>
                                 <PageH3>Choose One...</PageH3>
-                                <ManySpells spells={U.spellsFromObject(selectedSpecObj)} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}/>
+                                <ManySpells spells={U.spellsFromObject(selectedSpecObj.Abilities)} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}/>
                             </div>
                         )
                     }

@@ -26,7 +26,7 @@ import overallData from '../../../databases/OverallData.json'
 import { connectFirestoreEmulator } from "firebase/firestore";
 import PageH2 from "../../../components/PageH2/PageH2";
 import Tabs from "../../../components/Tabs/Tabs";
-import { CCClassPage, CCRacePage, ClassPage, RacePage } from "../../../components/InsertableTemplates/RaceClassComponents";
+import { ClassPageV2, CCRacePage, ClassPage, RacePage } from "../../../components/InsertableTemplates/RaceClassComponents";
 import { QGTitle1 } from "../../Tools/TitleGenerator";
 import Icon from "../../../components/Icon";
 import SectionNames from "./SectionNames";

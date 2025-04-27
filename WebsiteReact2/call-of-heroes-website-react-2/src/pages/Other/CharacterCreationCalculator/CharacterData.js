@@ -31,6 +31,7 @@ function getNewCharacterTemplate() {
             'Initiative': 0,
 
             'Known Abilities': 0,
+            "Skills": 0,
             'Extras': [],
             'Combat Extras': []
         },
@@ -55,9 +56,11 @@ function getNewCharacterTemplate() {
         inventory: '',
         weaponNames: [],
         armorNames: [],
+        
         gold: 1000,
-    
         shopCart: [],
+
+        variables: {}
     }
 }
 const PLAYER_CHARACTER_TEMPLATE = getNewCharacterTemplate()
@@ -221,6 +224,9 @@ export function useWeapons() {
 export function useArmors() {
     return useCharacterLocalStorageState('armorNames', [])
 }
+export function useCustomCharacterVariables() {
+    return useCharacterLocalStorageState('variables', {})
+}
 
 
 // Use const
@@ -253,7 +259,7 @@ export function useConstNKnownAbilities() {
     }
     
     const totalStats = useConstTotalStats()
-    const bonuses = useConstAllBonuses()
+    const { bonuses } = useConstAllBonuses()
 
     return calculateNKnownAbilities(className, totalStats, bonuses)
 }

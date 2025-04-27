@@ -77,7 +77,7 @@ export default function SectionStats() {
     let [level, setLevel] = useLevel()
     let [stats, setStats] = useSectionStatsState()
     let totalStats = useConstTotalStats()
-    let bonuses = useConstBonusesFromSpellsAndItems()
+    let { bonuses } = useConstBonusesFromSpellsAndItems()
     let [selectedRaceName] = useSectionRaceName()
     let [experience, setExperience] = useExperience()
 
@@ -88,6 +88,7 @@ export default function SectionStats() {
     const myRace = getRace(selectedRaceName)
     const exactStats = myRace?.['Custom Stat Array']
     const statRequirementCode = myRace?.['Stat Requirements']
+    const ignoreStatRequirements = myRace?.['IgnoreStatRestrictions'] ?? false
     const levelError = checkLevel(level)
     
 
@@ -161,7 +162,7 @@ export default function SectionStats() {
                         asdadas
                     </ExperienceSlider>
                 </div>
-                { levelError && (
+                { levelError && !ignoreStatRequirements && (
                     <div className="warning-toaster">{ levelError }</div>
                 ) }
             </div>

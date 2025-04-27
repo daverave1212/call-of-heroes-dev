@@ -2,7 +2,7 @@ import { useState } from "react"
 import PageH2 from "../../../components/PageH2/PageH2"
 import TwoColumns from "../../../components/TwoColumns/TwoColumns"
 import Column from "../../../components/TwoColumns/Column"
-import { CCClassPage } from "../../../components/InsertableTemplates/RaceClassComponents"
+import { ClassPage, ClassPageV2 } from "../../../components/InsertableTemplates/RaceClassComponents"
 import { getAllClasses, splitArrayEvenly, useLocalStorageState } from "../../../utils"
 import { classesRacesObjectToArrays } from "./CharacterCreationCalculator"
 import Selector from "../../../components/Selector/Selector"
@@ -44,7 +44,8 @@ export default function SectionClass({ onClassNameSelected, onSpecNameSelected, 
             <SelectorsByColumns nColumns={2} selectorData={selectorData} onSelectorClick={onClassClick} getSelectedSelectorName={getSelectedClassName}/>
 
             { className != null && (
-                <CCClassPage
+                <ClassPage
+                    hasNoMargins={true}
                     theClass={classesObj[className]}
                     selectedSpecName={specName} setSelectedSpecName={setSpecName}
                     selectedSpellNames={spellNames} setSelectedSpellNames={setSpellNames}

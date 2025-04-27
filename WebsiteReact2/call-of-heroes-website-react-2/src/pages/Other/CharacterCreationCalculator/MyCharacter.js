@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { calculateBaseCombatStats, calculateHealthRegen, calculateMaxHealth, calculateStat, getAllClasses, getAlMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getAllStatBonusesAsObjFromSpellsArray, calculateBaseMaxManaByLevel, getExtrasFromSpells, getRaceHealth, isString, spellsFromObject, useLocalStorageState, hasClassMana, getAllWeaponsByName, getAllArmorsByName, addObjects } from "../../../utils"
+import { calculateBaseCombatStats, calculateHealthRegen, calculateMaxHealth, calculateStat, getAllClasses, getAlMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getAllStatBonusesAsObjFromSpellsArray, calculateBaseMaxManaByLevel, getExtrasFromSpells, getRaceHealth, isString, spellsFromObject, useLocalStorageState, hasClassMana, getAllWeaponsByName, getAllArmorsByName, addObjects, getSpellReplacementName, reverseObject } from "../../../utils"
 import ManySpells from "../../../components/Spell/ManySpells"
 import PageH2 from "../../../components/PageH2/PageH2"
 import TextArea from "../../../components/TextArea/TextArea"
@@ -50,18 +50,18 @@ export function useConstBonusesFromSpellsAndItems() {
     const allMyRaceAndClassSpells = useConstAllRaceAndClassSpells()
     const everything = [...allMyArmors, allMyRaceAndClassSpells]
     
-    const bonuses = getAllStatBonusesAsObjFromSpellsArray(everything)
+    const { bonuses, sources } = getAllStatBonusesAsObjFromSpellsArray(everything)
 
-    return bonuses
+    return { bonuses, sources }
 }
 export function useConstAllBonuses() {
-    const abilitiesBonuses = useConstBonusesFromSpellsAndItems()
+    const { bonuses, sources } = useConstBonusesFromSpellsAndItems()
     const [characterBonuses] = useManualBonuses()
-    const allBonuses = addObjects(abilitiesBonuses, characterBonuses)
-    return allBonuses
+    const allBonuses = addObjects(bonuses, characterBonuses)
+    return { bonuses: allBonuses, sources: sources }
 }
 export function useConstTotalStats() {
-    const bonuses = useConstBonusesFromSpellsAndItems()
+    const { bonuses } = useConstBonusesFromSpellsAndItems()
     const characterBonuses = useManualBonuses()
     const [stats] = useSectionStatsState()
     return [
@@ -114,13 +114,44 @@ export default function MyCharacter() {
     
     const [baseStats] = useSectionStatsState()
     const allMyRaceAndClassSpells = useConstAllRaceAndClassSpells()
-    const bonuses = useConstAllBonuses()
+    const { bonuses, sources: bonusesSources } = useConstAllBonuses()
     const { extras, combatExtras } = useConstAllAbilitiesAndItemsExtras()
 
     console.log({bonuses, yes: 'yes'})
 
     // Computed values
-    const allDisplayedRaceAndClassSpells = allMyRaceAndClassSpells.filter(spell => spell.IsIgnored != true)
+    const spellsNotIgnored = allMyRaceAndClassSpells.filter(spell => spell.IsIgnored != true)
+    console.log({spellsNotIgnored})
+    const spellNamesBeingReplaced = spellsNotIgnored
+        .filter(spell => spell.Replacement != null)
+        .map(spell => getSpellReplacementName(spell))
+    console.log({spellNamesBeingReplaced})
+    const allDisplayedRaceAndClassSpells = []
+    for (const spell of spellsNotIgnored) {
+        console.log(`At spell ${spell.Name}`)
+        console.log(spell)
+        if (spellNamesBeingReplaced.includes(spell.Name)) {     // Add the replacement on the same position
+            console.log(`${spellNamesBeingReplaced} includes it`)
+            const replacementSpell = spellsNotIgnored.find(replacer => replacer?.Replacement?.includes(spell.Name))
+            allDisplayedRaceAndClassSpells.push(replacementSpell)
+        } else if (spell.Replacement != null) {                 // Ignore because we already add it
+            continue
+        } else {
+            console.log(`Just adding it`)
+            allDisplayedRaceAndClassSpells.push(spell)
+        }
+    }
+
+    // const originalToReplacementNames = reverseObject(replacementToOriginalNames)
+    // const spellsBeingReplacedNames = Object.keys(originalToReplacementNames)
+    // const allDisplayedRaceAndClassSpells = allMyRaceAndClassSpells
+    //     .filter(spell => spell.IsIgnored != true)
+    //     .filter(spell => spellsThatReplaceNames.includes(spell.Name) == false)  // First remove spells that replace other spells
+    //     .map(spell => spellsBeingReplacedNames.includes(spell.Name)? getAllSpellsByName()[originalToReplacementNames[spell.Name]]: spell) // Then replace it with the replacement
+    console.log({allDisplayedRaceAndClassSpells})
+
+
+
     const allMyWeapons = weaponNames.map(name => getAllWeaponsByName()[name])
     const allMyArmors = armorNames.map(name => getAllArmorsByName()[name])
     const selectedClassObj = selectedClassName == null? null: getAllClasses()[selectedClassName]
@@ -319,13 +350,17 @@ export default function MyCharacter() {
                             } else {
                                 setGold(newValFloat)
                             }
-                            
                         }}/>
                         <div className="input-description" style={{left: '-1px', bottom: '5px'}}>Gold</div>
                     </div>
                     <div className="input-description">Inventory</div>
                 </div>
                 <div className="flex-column" style={{flex: 1, gap: '5px'}}>
+                    { bonusesSources.map(source => <div className="extra" style={{color: 'var(--green-text)'}}>
+                        { source.bonus >= 0? <span>+</span>: ''}
+                        { source.bonus } { source.statName }
+                        &nbsp;({ source.source })
+                    </div>) }
                     { combatExtras.map(text => <div className="extra"><Icon name="Damage"/>{ text }</div>) }
                     { allMyArmors.map(item => <CombatItem item={item} type="armor"/>) }
                 </div>
