@@ -1,4 +1,4 @@
-import { areArraysEqual, calculateNKnownAbilities, generateUniqueId, getAllClasses, getLocalStorageJSON, setLocalStorageJSON, useLocalStorageState } from "../../../utils"
+import { areArraysEqual, calculateNKnownAbilities, generateUniqueId, getAlMyRaceAndClassSpells, getAllClasses, getAllSkillsByName, getAllSpellsByName, getLocalStorageJSON, setLocalStorageJSON, useLocalStorageState } from "../../../utils"
 import * as Database from '../../../Database'
 import { useEffect } from "react"
 import { getUserState, useAuth } from "../../../Auth"
@@ -35,6 +35,16 @@ function getNewCharacterTemplate() {
             'Extras': [],
             'Combat Extras': []
         },
+        choiceBonuses: [
+            {
+                source: {
+                    sourceType: 'spell',
+                    name: 'Stat Bonus 4'
+                },
+                statName: 'Might',
+                bonus: 1
+            }
+        ],
         
         skillNames: [],
         languages: [],
@@ -162,6 +172,15 @@ export function useSectionStatsState() {
 export function useManualBonuses() {    // Manual != bonuses from abilities; those are derived
     return useCharacterLocalStorageState('bonuses')
 }
+export function useChoiceAbiliesObjects() {
+    return useCharacterLocalStorageState('choiceBonuses')
+}
+export function getChoiceAbilitiesObjects() {
+    return getLocalStorageJSON('character.choiceBonuses')
+}
+export function setChoiceAbilitiesObjects(arr) {
+    return setLocalStorageJSON('character.choiceBonuses', arr)
+}
 export function useLevel() {
     return useCharacterLocalStorageState('level')
 }
@@ -262,4 +281,47 @@ export function useConstNKnownAbilities() {
     const { bonuses } = useConstAllBonuses()
 
     return calculateNKnownAbilities(className, totalStats, bonuses)
+}
+export function useConstAllRaceAndClassSpells() {
+    let [selectedRaceName] = useSectionRaceName()
+    let [selectedRaceSpellNames] = useSectionRaceSpellNames()
+    let [selectedClassName] = useSectionClassName()
+    let [selectedSpecName] = useSectionClassSpecName()
+    let [selectedClassSpellNames] = useSectionClassSpellNames()
+
+    const allMyRaceAndClassSpells = getAlMyRaceAndClassSpells({
+        raceName: selectedRaceName,
+        selectedRaceSpellNames,
+        className: selectedClassName,
+        specName: selectedSpecName,
+        selectedClassSpellNames
+    })
+
+    return allMyRaceAndClassSpells
+}
+export function useConstAllBasicAbilities() {
+    let [selectedBasicAbilitiesNames] = useBasicAbilitiesNames()
+    return selectedBasicAbilitiesNames.map(spellName => getAllSpellsByName()[spellName])
+}
+export function useConstAllFeats() {
+    let [featNames] = useFeats()
+    const feats = featNames.map(name => getAllSpellsByName()[name])
+    return feats
+}
+export function useConstAllMyAbilities() {
+    const rcSpells = useConstAllRaceAndClassSpells()
+    const basicAbilities = useConstAllBasicAbilities()
+    const feats = useConstAllFeats()
+    return [...rcSpells, ...basicAbilities, ...feats]
+}
+export function useConstAllSkillNames() {
+    let [skillNames] = useSkills()
+    
+    const abilities = useConstAllMyAbilities()
+    const spellsWithSkills = abilities.filter(a => a.Skills != null)
+    const skillsUnflat = spellsWithSkills.map(a => a.Skills)
+    const skillsFlat = skillsUnflat.flat()
+    const allMySkills = [...skillNames, ...skillsFlat]
+
+    return allMySkills
 }

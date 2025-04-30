@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
-import { calculateBaseCombatStats, calculateHealthRegen, calculateMaxHealth, calculateStat, getAllClasses, getAlMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getAllStatBonusesAsObjFromSpellsArray, calculateBaseMaxManaByLevel, getExtrasFromSpells, getRaceHealth, isString, spellsFromObject, useLocalStorageState, hasClassMana, getAllWeaponsByName, getAllArmorsByName, addObjects, getSpellReplacementName, reverseObject } from "../../../utils"
+import { calculateBaseCombatStats, calculateHealthRegen, calculateMaxHealth, calculateStat, getAllClasses, getAlMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getAllStatBonusesAsObjFromSpellsArray, calculateBaseMaxManaByLevel, getExtrasFromSpells, getRaceHealth, isString, spellsFromObject, useLocalStorageState, hasClassMana, getAllWeaponsByName, getAllArmorsByName, addObjects, getSpellReplacementName, reverseObject, addManyObjects } from "../../../utils"
 import ManySpells from "../../../components/Spell/ManySpells"
 import PageH2 from "../../../components/PageH2/PageH2"
 import TextArea from "../../../components/TextArea/TextArea"
 import Icon from "../../../components/Icon"
 import Input from "../../../components/Input/Input"
-import { useArmors, useBasicAbilitiesNames, useConstAvailableAbilitySchools, useConstKnownAbilitiesObj, useConstNKnownAbilities, useCurrentMana, useDescription, useGold, useInventory, useLanguages, useLevel, useManualBonuses, useMaxMana, useQuickNotes, useSectionClassName, useSectionClassSpecName, useSectionClassSpellNames, useSectionNamesState, useSectionRaceName, useSectionRaceSpellNames, useSectionStatsState, useSkills, useWeapons } from "./CharacterData"
+import { getChoiceAbilitiesObjects, useArmors, useBasicAbilitiesNames, useConstAllBasicAbilities, useConstAllMyAbilities, useConstAllRaceAndClassSpells, useConstAllSkillNames, useConstAvailableAbilitySchools, useConstKnownAbilitiesObj, useConstNKnownAbilities, useCurrentMana, useDescription, useGold, useInventory, useLanguages, useLevel, useManualBonuses, useMaxMana, useQuickNotes, useSectionClassName, useSectionClassSpecName, useSectionClassSpellNames, useSectionNamesState, useSectionRaceName, useSectionRaceSpellNames, useSectionStatsState, useSkills, useWeapons } from "./CharacterData"
 import { STAT_NAMES, StatValue } from "./SectionStats"
 import SmallStat, { SmallStatTypes } from "../../../components/SmallStat/SmallStat"
 import ManySmallStats from "../../../components/SmallStat/ManySmallStats"
@@ -26,24 +26,7 @@ function BigStatValue({ name, value, onClick}) {
 
 
 
-export function useConstAllRaceAndClassSpells() {
-    let [selectedRaceName] = useSectionRaceName()
-    let [selectedRaceSpellNames] = useSectionRaceSpellNames()
-    let [selectedClassName] = useSectionClassName()
-    let [selectedSpecName] = useSectionClassSpecName()
-    let [selectedClassSpellNames] = useSectionClassSpellNames()
 
-    const allMyRaceAndClassSpells = getAlMyRaceAndClassSpells({
-        raceName: selectedRaceName,
-        selectedRaceSpellNames,
-        className: selectedClassName,
-        specName: selectedSpecName,
-        selectedClassSpellNames
-    })
-
-    return allMyRaceAndClassSpells
-
-}
 export function useConstBonusesFromSpellsAndItems() {
     let [armorNames] = useArmors()
     const allMyArmors = armorNames.map(name => getAllArmorsByName()[name])
@@ -57,7 +40,11 @@ export function useConstBonusesFromSpellsAndItems() {
 export function useConstAllBonuses() {
     const { bonuses, sources } = useConstBonusesFromSpellsAndItems()
     const [characterBonuses] = useManualBonuses()
-    const allBonuses = addObjects(bonuses, characterBonuses)
+    const choiceBonusesObj = getChoiceAbilitiesObjects().map(obj => ({ [obj.statName]: obj.bonus }))
+    const choiceBonuses = addManyObjects(choiceBonusesObj)
+    const allBonuses = addManyObjects([bonuses, characterBonuses, choiceBonuses])
+    console.log(`Adding the following`)
+    console.log({ bonuses, characterBonuses, choiceBonusesObj, choiceBonuses, allBonuses})
     return { bonuses: allBonuses, sources: sources }
 }
 export function useConstTotalStats() {
@@ -82,7 +69,13 @@ export function useConstAllAbilitiesAndItemsExtras() {
 
     return getExtrasFromSpells([...allMyWeapons, ...allMyArmors, ...allMyRaceAndClassSpells])
 }
-
+export function useConstManuallyAddedExtrasFromAbilities() {
+    const allMyRaceAndClassSpells = useConstAllRaceAndClassSpells()
+    const spellsWithManualExtras = allMyRaceAndClassSpells.filter(s => s['Manual Extras'] != null)
+    const manualExtrasArrays = spellsWithManualExtras.map(s => s['Manual Extras'].map(me => ({ extra: me, source: s.Name})))
+    const allManualExtras = manualExtrasArrays.flat()
+    return allManualExtras
+}
 
 export default function MyCharacter() {
 
@@ -107,21 +100,24 @@ export default function MyCharacter() {
     let [armorNames, setArmorNames] = useArmors()
     let [gold, setGold] = useGold()
     
-    let [selectedSkillNames] = useSkills()
+    // let [selectedSkillNames] = useSkills()
     let [languages] = useLanguages()
 
     let [currentMana, setCurrentMana] = useCurrentMana()
     
-    const [baseStats] = useSectionStatsState()
+    let [baseStats] = useSectionStatsState()
+
+    const myBasicAbilities = useConstAllBasicAbilities()
+    const mySkills = useConstAllSkillNames()
+
     const allMyRaceAndClassSpells = useConstAllRaceAndClassSpells()
     const { bonuses, sources: bonusesSources } = useConstAllBonuses()
     const { extras, combatExtras } = useConstAllAbilitiesAndItemsExtras()
 
-    console.log({bonuses, yes: 'yes'})
-
     // Computed values
     const spellsNotIgnored = allMyRaceAndClassSpells.filter(spell => spell.IsIgnored != true)
-    console.log({spellsNotIgnored})
+    const spellsIgnored = allMyRaceAndClassSpells.filter(spell => spell.IsIgnored == true);
+    console.log({spellsNotIgnored, spellsIgnored})
     const spellNamesBeingReplaced = spellsNotIgnored
         .filter(spell => spell.Replacement != null)
         .map(spell => getSpellReplacementName(spell))
@@ -155,13 +151,24 @@ export default function MyCharacter() {
     const allMyWeapons = weaponNames.map(name => getAllWeaponsByName()[name])
     const allMyArmors = armorNames.map(name => getAllArmorsByName()[name])
     const selectedClassObj = selectedClassName == null? null: getAllClasses()[selectedClassName]
-    const myBasicAbilities = selectedBasicAbilitiesNames.map(name => getAllSpellsByName()[name])
     const { maxHealth, healthRegen, movementSpeed, initiative } = calculateBaseCombatStats({raceName: selectedRaceName, className: selectedClassName, level, baseStats, bonuses})
     const maxMana = selectedClassName == null? 1: calculateBaseMaxManaByLevel(level, selectedClassName)
 
     // Other
     let setInputGold    // Set in the Input property
 
+    // Extras Components
+    const ArmorExtras = () => <>{ allMyArmors.map(item => <CombatItem item={item} type="armor"/>) }</>
+    const CombatExtras = () => <>{ combatExtras.map(text => <div className="extra"><Icon name="Damage"/>{ text }</div>) }</>
+    const BonusesWithSources = () => <>{
+        bonusesSources.map(source => <div className="extra" style={{color: 'var(--green-text)'}}>
+            { source.bonus >= 0? <span>+</span>: ''}
+            { source.bonus } { source.statName }
+            &nbsp;({ source.source })
+        </div>) }</>
+    const Skills = () => <>{ mySkills.map(text => <div className="extra"><Icon name="CharacterSetupSub"/>{ text }</div>) }</>
+    const Languages = () => <>{ languages.map(text => <div className="extra italic"><Icon name="Specializations"/>You speak { text }</div>) }</>
+    
     // Subcomponents
     function Names() {
         return <div className="flex flex-column">
@@ -213,7 +220,6 @@ export default function MyCharacter() {
             </div>
         </div>
     }
-
     function Spellcasting() {
 
         const knownAbilitySchools = useConstAvailableAbilitySchools()
@@ -241,7 +247,6 @@ export default function MyCharacter() {
             </div>
         )
     }
-
     function ManaBar() {
         function onIncrease() {
             const newMana = currentMana + 1
@@ -328,7 +333,7 @@ export default function MyCharacter() {
 
             <div className="flex flex-row margin-top-1 gap-3q">
                 <div className="flex-column" style={{flex: 1, gap: '5px'}}>
-                    { selectedSkillNames.map(text => <div className="extra"><Icon name="CharacterSetupSub"/>{ text }</div>) }
+                    <Skills/>
                 </div>
                 <div className="flex-column" style={{flex: 1, gap: '5px'}}>
                 { extras.map(text => <div className="extra italic"><Icon name="Specializations"/>{ text }</div>) }

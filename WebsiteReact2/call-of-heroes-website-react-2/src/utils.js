@@ -12,6 +12,7 @@ import { useEffect, useState } from "react"
 import BasicAbilities from './databases/Abilities.json'
 import Feats from './databases/Feats.json'
 import ClassAndRaceAbilities from './databases/ClassAndRaceAbilities.json'
+import { getChoiceAbilitiesObjects, setChoiceAbilitiesObjects } from "./pages/Other/CharacterCreationCalculator/CharacterData"
 
 // ---------------- Spells Utilities ----------------
 
@@ -119,6 +120,19 @@ export function getAllSpellsByName() {
     }
     return allSpellsCached
 }
+let allSkillsCached = null
+export function getAllSkillsByName() {
+    if (allSkillsCached != null) {
+        return allSkillsCached
+    }
+    allSkillsCached = {}
+    const skillsArray = spellsFromObject(skills)
+    for (const spell of skillsArray) {
+        allSkillsCached[spell.Name] = spell
+    }
+    return allSkillsCached
+}
+window.getAllSkillsByName = getAllSkillsByName
 let allWeaponsCached = null
 function objectsWithNameFromCategoriesObjToObject(categoriesObj, exceptionCategoryNames=[]) {
     const toObj = {}
@@ -211,6 +225,26 @@ export function getExtrasFromSpells(spellsArray) {
         }
     }
     return { extras, combatExtras }
+}
+export function addAbilityOrOpenPopup(spell, selectedAbilitiesNames, setSelectedAbiltiesNames, onOpenChoicePicker) {
+    
+    if (spell == null) {
+        console.warn(`Null spell given to addAbilityOrOpenPopup`)
+        return
+    }
+
+    const choiceBonuses = getChoiceAbilitiesObjects()
+
+    if (selectedAbilitiesNames.includes(spell.Name)) {
+        setSelectedAbiltiesNames(selectedAbilitiesNames.filter(name => name != spell.Name))
+        const newChoiceBonuses = choiceBonuses.filter(obj => obj.source.name != spell.Name)
+        setChoiceAbilitiesObjects(newChoiceBonuses)
+    } else if (spell['Choice Bonuses'] != null || spell['Extra Skills']) {
+        onOpenChoicePicker?.(spell)
+    } else {
+        console.log('False and let it go')
+        setSelectedAbiltiesNames([...selectedAbilitiesNames, spell.Name])
+    }
 }
 
 
@@ -696,6 +730,13 @@ export function addObjects(a, b) {
                 throw `For addObject at key ${bKey} could not match types from a with b.`
             }
         }
+    }
+    return finalObject
+}
+export function addManyObjects(arr) {
+    let finalObject = arr[0]
+    for (let i = 1; i < arr.length; i++) { 
+        finalObject = addObjects(finalObject, arr[i])
     }
     return finalObject
 }

@@ -14,9 +14,11 @@ export default function Dialog({ children, buttonText, isOpen, setIsOpen, onButt
         <div className='dialog center-content' style={{display: displayStyle}} onClick={onBackgroundClick}>
             <div className='dialog-card shadowed' onClick={onCardClick}>
                 { children }
-                <div className='center-content margin-top-1'>
-                    <button onClick={onButtonClick}>{buttonText}</button>
-                </div>
+                { buttonText != null && (
+                    <div className='center-content margin-top-1'>
+                        <button onClick={onButtonClick}>{buttonText}</button>
+                    </div>
+                ) }
             </div>
         </div>
     )

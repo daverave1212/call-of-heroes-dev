@@ -16,16 +16,7 @@ import ThreeColumns from '../../components/TwoColumns/ThreeColumns.js'
 import Selector from '../../components/Selector/Selector.js'
 import { QGTitle1 } from '../Tools/TitleGenerator.js'
 
-function SpellCategorySelector({ name, iconName, isSelected, onClick }) {
-    return <Selector
-        name={name}
-        src={`/Icons/Spells/${iconName}.png`}
-        isSelected={isSelected}
-        onClick={onClick}
-    />
-}
-
-function AllSpellsSeparatedInLevels({allSpellsInCategoryArray, selectedSpellNames, setSelectedSpellNames}) {
+function AllSpellsSeparatedInLevels({allSpellsInCategoryArray, selectedSpellNames, setSelectedSpellNames, onSpellClick}) {
     const spells = allSpellsInCategoryArray
     const spellsWithNoRequirement = []
     const spellsByRequirement = {}
@@ -74,13 +65,13 @@ function AllSpellsSeparatedInLevels({allSpellsInCategoryArray, selectedSpellName
     return (
         <div>
             { isDebugMode && <SpellGroups/> }
-            <ManySpells spells={spellsWithNoRequirement} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}/>
+            <ManySpells spells={spellsWithNoRequirement} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames} onSpellClick={onSpellClick}/>
             { requirementsNamesOrder.map(req => (
                 <div key={req}>
                     <br/>
                     <PageH3>{req}</PageH3>
                     <br/>
-                    <ManySpells spells={spellsByRequirement[req]} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}/>
+                    <ManySpells spells={spellsByRequirement[req]} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}  onSpellClick={onSpellClick}/>
                 </div>
             )) }
         </div>
@@ -119,7 +110,7 @@ export function SelectorsByColumns({ className, selectorData, nColumns, selected
     )
 }
 
-export default function Abilities({ selectedSpellNames, setSelectedSpellNames, hasNoMargins, children }) {
+export default function Abilities({ selectedSpellNames, setSelectedSpellNames, onSpellClick, hasNoMargins, children }) {
 
     let [selectedCategoryName, setSelectedCategoryName] = useState('Default Moves')
 
@@ -156,7 +147,7 @@ export default function Abilities({ selectedSpellNames, setSelectedSpellNames, h
             { selectedCategoryName != null && (
                 <Page title={selectedCategoryName} isSecondaryPage={true} hasNoMargins={hasNoMargins}>
                     <p>{ spellSchoolDescriptions[selectedCategoryName] }</p>
-                    <AllSpellsSeparatedInLevels allSpellsInCategoryArray={spellsFromObject(abilities[selectedCategoryName])} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}/>
+                    <AllSpellsSeparatedInLevels allSpellsInCategoryArray={spellsFromObject(abilities[selectedCategoryName])} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames} onSpellClick={onSpellClick}/>
                 </Page>
             )}
 

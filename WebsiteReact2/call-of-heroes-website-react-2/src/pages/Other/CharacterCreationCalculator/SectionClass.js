@@ -3,7 +3,7 @@ import PageH2 from "../../../components/PageH2/PageH2"
 import TwoColumns from "../../../components/TwoColumns/TwoColumns"
 import Column from "../../../components/TwoColumns/Column"
 import { ClassPage, ClassPageV2 } from "../../../components/InsertableTemplates/RaceClassComponents"
-import { getAllClasses, splitArrayEvenly, useLocalStorageState } from "../../../utils"
+import { addAbilityOrOpenPopup, getAllClasses, splitArrayEvenly, useLocalStorageState } from "../../../utils"
 import { classesRacesObjectToArrays } from "./CharacterCreationCalculator"
 import Selector from "../../../components/Selector/Selector"
 import { SelectorsByColumns } from "../Abilities"
@@ -12,11 +12,9 @@ import { useSectionClassName, useSectionClassSpecName, useSectionClassSpellNames
 
 
 
-export default function SectionClass({ onClassNameSelected, onSpecNameSelected, onSpellsSelected }) {
+export default function SectionClass({ openPopup }) {
 
     const classesObj = getAllClasses()
-
-    const [chosenClass, setChosenClass] = useState(null)
 
     const [className, setClassName] = useSectionClassName()
     const [specName, setSpecName] = useSectionClassSpecName()
@@ -36,6 +34,13 @@ export default function SectionClass({ onClassNameSelected, onSpecNameSelected, 
         setSpellNames([])
     }
 
+    function onAbilityClick(spell) {
+        console.log({spell})
+        addAbilityOrOpenPopup(spell, spellNames, setSpellNames, (spell) => {
+            openPopup(spell, spellNames, setSpellNames)
+        })
+    }
+
 
     return (
         <div>
@@ -49,6 +54,7 @@ export default function SectionClass({ onClassNameSelected, onSpecNameSelected, 
                     theClass={classesObj[className]}
                     selectedSpecName={specName} setSelectedSpecName={setSpecName}
                     selectedSpellNames={spellNames} setSelectedSpellNames={setSpellNames}
+                    onSpellClick={onAbilityClick}
                 />
             )}
         </div>

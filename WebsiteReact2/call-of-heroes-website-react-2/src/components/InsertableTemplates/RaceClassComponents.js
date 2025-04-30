@@ -504,7 +504,7 @@ export function Spec({ children, name, specObj, hasNoMargins }) {
     )
 }
 
-export function SpecTalents({ spec, onSpellsSelected, selectedSpellNames, setSelectedSpellNames }) {
+export function SpecTalents({ spec, onSpellsSelected, selectedSpellNames, setSelectedSpellNames, onSpellClick }) {
 
     const talentTierCategories = Object.keys(spec.Talents)
 
@@ -534,7 +534,7 @@ export function SpecTalents({ spec, onSpellsSelected, selectedSpellNames, setSel
                             console.log({ selectedSpellsInManySpellsSpec: spells })
                             onSpellsSelected(spells)
                         }}/> */}
-                        <ManySpells spells={abilitiesHere} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}/>
+                        <ManySpells spells={abilitiesHere} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames} onSpellClick={onSpellClick}/>
                     </div>
                 }
                 if (hasThisTier == false) {
@@ -546,7 +546,7 @@ export function SpecTalents({ spec, onSpellsSelected, selectedSpellNames, setSel
                 const spellsInThisTier = U.spellsFromObject(spec.Talents[talentTierName])
                 return <div key={talentTierName}>
                     <PageH3>{talentTierName}</PageH3>
-                    <ManySpells spells={spellsInThisTier} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}/>
+                    <ManySpells spells={spellsInThisTier} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames} onSpellClick={onSpellClick}/>
                     {/* <ManySpells spells={spellsInThisTier} onSpellsSelected={spells => {
                         console.log({ selectedSpellsInManySpellsSpec: spells })
                         onSpellsSelected(spells)
@@ -758,13 +758,13 @@ export function ClassPageV1({ theClass }) {
                 Object.keys(theClass['Specs']).map(specName => {
                     const spec = theClass['Specs'][specName]
                     return (
-                        <Spec key={specName} name={specName} specObj={spec}>
+                        <Spec key={specName} name={specName} specObj={spec} onSpellClick={onSpellClick}>
 
                             {
                                 spec.Abilities != null && (
                                     <div>
                                         <PageH3>Choose One...</PageH3>
-                                        <ManySpells spells={U.spellsFromObject(spec.Abilities)}/>
+                                        <ManySpells spells={U.spellsFromObject(spec.Abilities)} onSpellClick={onSpellClick}/>
                                     </div>
                                 )
                             }
@@ -783,7 +783,8 @@ export function ClassPageV2({
     hasNoMargins=false,
     hasHeader=true,
     selectedSpecName, setSelectedSpecName,
-    selectedSpellNames, setSelectedSpellNames
+    selectedSpellNames, setSelectedSpellNames,
+    onSpellClick
 }) {
 
     let [innerSelectedSpecName, setInnerSelectedSpecName] = useState(null)
@@ -833,18 +834,18 @@ export function ClassPageV2({
             </Page>
 
             { finalSelectedSpecName != null && (
-                <Spec hasNoMargins={hasNoMargins} key={finalSelectedSpecName} name={finalSelectedSpecName} specObj={selectedSpecObj}>
+                <Spec hasNoMargins={hasNoMargins} key={finalSelectedSpecName} name={finalSelectedSpecName} specObj={selectedSpecObj} onSpellClick={onSpellClick}>
 
                     {
                         selectedSpecObj.Abilities != null && (
                             <div>
                                 <PageH3>Choose One...</PageH3>
-                                <ManySpells spells={U.spellsFromObject(selectedSpecObj.Abilities)} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}/>
+                                <ManySpells spells={U.spellsFromObject(selectedSpecObj.Abilities)} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames} onSpellClick={onSpellClick}/>
                             </div>
                         )
                     }
 
-                    <SpecTalents spec={selectedSpecObj} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}/>
+                    <SpecTalents spec={selectedSpecObj} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames} onSpellClick={onSpellClick}/>
 
                 </Spec>
             )}

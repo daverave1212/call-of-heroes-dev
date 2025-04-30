@@ -26,6 +26,45 @@ const ACTION_POINTS_MAPPING2 = {
     '0 Actions': 'Free'
 }
 
+/*
+    Spell Example
+
+<Spirit Animal>:
+    _Value: 1.5
+    IsIgnored: false    # For being displayed on CCC
+    HasMixins: true
+    
+    Bonuses:
+        Might: 3
+        Max Health Percent: 20
+
+    Choice Bonuses:
+        - type: stat
+    
+    Skills:
+        - Skilled in Stealth
+
+    A: Passive
+    Effect: |
+        A _spirit animal_ assists you and gives you a boon, depending on its type.
+        You can change which spirit animal assists you while not in Combat.
+    Upgrade: The spirit animal is intangible, invulnerable and invisible to most people. You can use it to scout, but can't walk through solid surfaces. You can see through its eyes, but is bound to you and won't go more than 15 meters away from you. It does not participate in combat.
+    Notes: An Act counts as ranged if it's not made with a melee weapon, and the range is at least 3 meters
+    DoubleTable:
+        Headers:
+            - Animal Spirit
+            - Boon
+        Values:
+            - Bear
+            - You are immune to Slows and Fumbling
+            - Wolf
+            - +1 Movement Speed
+            - Owl
+            - +3 Range on all ranged Acts
+            - Eagle
+            - +5 Initiative
+*/
+
 export function SpellTopStats({className, tags}) {
     const {A, DisplayA, Cost, Range, Cooldown, Duration, Requirement, DisplayRequirement, Replacement, Hands, Stat, Special, Price, XP} = tags
     let displayedA = DisplayA != null? DisplayA : A != null? A : null
@@ -157,14 +196,13 @@ export function IconWithSpinner({ src, className }) {
     )
 }
 
-
 /*
-If isSelected != null and onSelected != null:
-    It will have a "Select/Unselect" button
 If buttonText != null:
     It will override any button text
+If isSelected != null
+    It will have a "Select/Unselect" button
 If onClick != null:
-    It will override onSelected and replace it with onClick
+    It will have onClick
 */
 
 export default function Spell({ 
@@ -176,12 +214,10 @@ export default function Spell({
     hasBorder=true,
     hasCopyButton=true,
     showTopStats=true,
-    isSelected=false,
-
     
-    onSelected,
-    buttonText,
-    onClick
+    isSelected=false,
+    onClick,
+    buttonText
 }) {
 
     const [variantIndex, setVariantIndex] = useState(0)
@@ -249,14 +285,21 @@ export default function Spell({
     
     const subspell = SubspellName != null? findBasicSpellByName(subspell): null
 
-    const hasButton = onSelected != null || onClick != null
+    const hasButton = onClick != null
     const finalButtonText =
-        onSelected != null?
-            (isSelected? 'Unselect': 'Select'):
         buttonText != null?
-            buttonText:
-        'Go'
-    const onButtonClick = onSelected != null? () => onSelected(!isSelected): () => onClick(spell)
+            buttonText
+        :isSelected != null?
+            (isSelected? 'Unselect': 'Select')
+        :
+            'Go'
+    
+    function onButtonClick() {
+        if (onClick != null) {
+            onClick(spell)
+        }
+    }
+
 
     let extraMixins = {}
     if (hasVariants === true && VariantsForEach != null) {
@@ -326,7 +369,7 @@ export default function Spell({
     }
 
     return (
-        <div data-selectable={onSelected != null} id={uniqueID} style={style} className={classNames(
+        <div data-selectable={isSelected != null} id={uniqueID} style={style} className={classNames(
             'spell',
             spellNormalOrSubClass,
             spellPassiveOrActiveClass,

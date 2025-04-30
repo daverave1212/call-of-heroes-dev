@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { getPageHashFromLocation, useLocalStorageState } from "../../../utils";
+import { getPageHashFromLocation, addAbilityOrOpenPopup, useLocalStorageState } from "../../../utils";
 import Abilities from "../Abilities";
 import { tabNames } from "./CharacterCreationCalculator";
 import { useBasicAbilitiesNames, useConstAvailableAbilitySchools, useConstKnownAbilitiesObj } from "./CharacterData";
@@ -16,9 +16,9 @@ export function useCCCTabs() {
     return [activeTabI, setActiveTabI, tabName]
 }
 
-export default function SectionBasicAbilities() {
+export default function SectionBasicAbilities({ openPopup }) {
 
-    let [tabI, setTabI, tabName] = useCCCTabs()
+    let { 2: tabName } = useCCCTabs()
 
     if (tabName != 'Basic Abilities') {
         return <div></div>
@@ -31,9 +31,15 @@ export default function SectionBasicAbilities() {
     const isIncorrect = nKnownAbilities > maxKnownAbilities || nKnownAbilities < 0
     const isNotFinished = nKnownAbilities != maxKnownAbilities
 
+    function onAbilityClick(spell) {
+        addAbilityOrOpenPopup(spell, selectedAbilitiesNames, setSelectedAbiltiesNames, (spell) => {
+            openPopup(spell, selectedAbilitiesNames, setSelectedAbiltiesNames)
+        })
+    }
+
     return (
         <div>
-            <Abilities hasNoMargins={true} selectedSpellNames={selectedAbilitiesNames} setSelectedSpellNames={setSelectedAbiltiesNames}>
+            <Abilities hasNoMargins={true} selectedSpellNames={selectedAbilitiesNames} onSpellClick={onAbilityClick}>
                 
                 <div className="flex-column center-content gap-half">
                     <p>You can pick a total of up to {maxKnownAbilities} Abilities from any of the following Ability Schools:</p>

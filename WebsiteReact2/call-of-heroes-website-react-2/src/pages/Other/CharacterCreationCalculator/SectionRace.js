@@ -37,22 +37,6 @@ export default function SectionRace() {
 
             <SelectorsByColumns nColumns={2} selectorData={selectorData} onSelectorClick={onRaceSelectorClick} getSelectedSelectorName={getSelectedRaceName}/>
 
-            {/* <TwoColumns>
-                <Column>
-                    { raceObjectRows[0].map(obj => (
-                        <RaceSelector raceObj={obj} onClick={() => onRaceSelectorClick(obj)} isSelected={selectedRaceName == obj.Race}/>
-                    )) }
-                </Column>
-                <Column>
-                    { raceObjectRows[1].map(obj => (
-                        <RaceSelector raceObj={obj} onClick={() => onRaceSelectorClick(obj)} isSelected={selectedRaceName == obj.Race}/>
-                    )) }
-                </Column>
-            </TwoColumns> */}
-
-            {/* { chosenRace && (
-                <CCRacePage theRace={chosenRace} onSpellsSelected={onSpellsSelected}/>
-            )} */}
             { selectedRaceName && (
                 <CCRacePage theRace={RACES_OBJ[selectedRaceName]} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}/>
             )}
