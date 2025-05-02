@@ -18,7 +18,7 @@ import './CharacterCreationCalculator.css'
 import { IconWithSpinner, SpellTopIconSide } from "../../../components/Spell/Spell";
 import { CoolButton } from "../../../components/CoolButton/CoolButton";
 import HeroButton from "../../../components/HeroButton/HeroButton";
-import { calculateMaxHealth, calculateStat, generateUniqueId, getAllClasses, getAllRaces, getClassRepresentativeIconName, getSpellIconPathByName, splitArrayEvenly, useLocalStorageState } from "../../../utils";
+import { calculateMaxHealth, calculateStat, generateUniqueId, getAllClasses, getAllRaces, getClassRepresentativeIconName, getSpellIconPathByName, splitArrayEvenly, uncapitalizeFirstLetter, useLocalStorageState } from "../../../utils";
 import Selector from "../../../components/Selector/Selector";
 import ManySpells from "../../../components/Spell/ManySpells";
 
@@ -138,7 +138,7 @@ const DIALOG_STATE_TEMPLATE = {
     spell: 'object',
     selectedAbilitiesNames: [],
     setSelectedAbiltiesNames: [],
-    dialogType: 'stat' | 'skills'
+    dialogType: 'stat' | 'reminder'
 }
 function AbilityStatDialog({ dialogState, setDialogState }) {
 
@@ -146,12 +146,24 @@ function AbilityStatDialog({ dialogState, setDialogState }) {
 
     let [choiceBonuses, setChoiceBonuses] = useChoiceAbiliesObjects()
 
-    const { dialogType, spell, selectedAbilitiesNames, setSelectedAbiltiesNames } = dialogState ?? {}
+    const { dialogType, spell, selectedAbilitiesNames, setSelectedAbiltiesNames, choiceData } = dialogState ?? {}
+
+    const buttonText =
+        dialogType == 'stat' && choiceBonus != null?
+            'Add':
+        dialogType == 'reminder'?
+            'Ok':
+        'Hmm'
     
     useEffect(() => {
         setChoiceBonus(null)
     }, [dialogState])
 
+    function DialogReminder() {
+        return <div className="center-content">
+            <p className="center-text">After getting this Ability, { uncapitalizeFirstLetter(choiceData.DialogText) }</p>
+        </div>
+    }
     function StatPicker() {
         return <div className="flex-row center-content gap-half">
             { STAT_NAMES.map(statName => (
@@ -176,15 +188,18 @@ function AbilityStatDialog({ dialogState, setDialogState }) {
 
     function onAddClick() {
         setSelectedAbiltiesNames([...selectedAbilitiesNames, spell.Name])
-        setChoiceBonuses([...choiceBonuses, choiceBonus])
+        if (choiceBonus != null) {
+            setChoiceBonuses([...choiceBonuses, choiceBonus])
+        }
         setDialogState(null)
 
     }
 
-    return <Dialog buttonText={choiceBonus != null? 'Add': null} isOpen={spell != null} onButtonClick={onAddClick} setIsOpen={() => setDialogState(null)}>
+    return <Dialog buttonText={buttonText} isOpen={spell != null} onButtonClick={onAddClick} setIsOpen={() => setDialogState(null)}>
         { dialogState != null && (
             <div>
                 { dialogType == 'stat' && <StatPicker/> }
+                { dialogType == 'reminder' && <DialogReminder/> }
             </div>
         ) } 
     </Dialog>
@@ -198,12 +213,19 @@ export default function CharacterCreationCalculator() {
     let [dialogState, setDialogState] = useState(null)
 
     function openPopup(spell, selectedAbilitiesNames, setSelectedAbiltiesNames) {
-        console.log({spell})
+        const choiceType = spell['Choice Bonuses'][0].Type
         setDialogState({
             spell: spell,
             selectedAbilitiesNames: selectedAbilitiesNames,
             setSelectedAbiltiesNames: setSelectedAbiltiesNames,
-            dialogType: spell['Choice Bonuses'][0].Type
+            dialogType: choiceType,
+            choiceData:
+                choiceType == 'stat'?
+                    null
+                :choiceType == 'reminder'?
+                    spell['Choice Bonuses'][0]
+                :
+                    null
         })
     }
 

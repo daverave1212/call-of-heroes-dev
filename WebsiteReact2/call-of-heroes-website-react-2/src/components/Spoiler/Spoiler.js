@@ -2,7 +2,7 @@ import { useState } from "react"
 
 import './Spoiler.css'
 
-export default function Spoiler({ title, content, style, className }) {
+export default function Spoiler({ children, title, content, style, className }) {
 
     let [isExpanded, setIsExpanded] = useState(false)
     let [toggleArrow, setToggleArrow] = useState(() => {})
@@ -20,6 +20,7 @@ export default function Spoiler({ title, content, style, className }) {
             <div className="bottom">
                 <div className="content">
                     { content }
+                    { children }
                 </div>
             </div>
         </div>

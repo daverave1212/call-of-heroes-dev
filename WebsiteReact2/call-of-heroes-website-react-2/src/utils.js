@@ -1196,6 +1196,10 @@ export function capitalizeFirstLetter(str) {
     const str2 = str.charAt(0).toUpperCase() + str.slice(1)
     return str2
 }
+export function uncapitalizeFirstLetter(str) {
+    const str2 = str.charAt(0).toLowerCase() + str.slice(1)
+    return str2
+}
 export function isLocalhost() {
     return window.location.href.includes('localhost')
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { calculateBaseCombatStats, calculateHealthRegen, calculateMaxHealth, calculateStat, getAllClasses, getAlMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getAllStatBonusesAsObjFromSpellsArray, calculateBaseMaxManaByLevel, getExtrasFromSpells, getRaceHealth, isString, spellsFromObject, useLocalStorageState, hasClassMana, getAllWeaponsByName, getAllArmorsByName, addObjects, getSpellReplacementName, reverseObject, addManyObjects } from "../../../utils"
+import { calculateBaseCombatStats, calculateHealthRegen, calculateMaxHealth, calculateStat, getAllClasses, getAlMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getAllStatBonusesAsObjFromSpellsArray, calculateBaseMaxManaByLevel, getExtrasFromSpells, getRaceHealth, isString, spellsFromObject, useLocalStorageState, hasClassMana, getAllWeaponsByName, getAllArmorsByName, addObjects, getSpellReplacementName, reverseObject, addManyObjects, getSpellIconPathByName } from "../../../utils"
 import ManySpells from "../../../components/Spell/ManySpells"
 import PageH2 from "../../../components/PageH2/PageH2"
 import TextArea from "../../../components/TextArea/TextArea"
@@ -12,6 +12,8 @@ import ManySmallStats from "../../../components/SmallStat/ManySmallStats"
 import { askConfirmation } from "../../../services/MessageDisplayer"
 import Dialog from "../../../components/Dialog/Dialog"
 import ChangeStatDialog from "./ChangeStatDialog"
+import Spoiler from "../../../components/Spoiler/Spoiler"
+import Selector from "../../../components/Selector/Selector"
 
 
 
@@ -81,6 +83,7 @@ export default function MyCharacter() {
 
     // Local states
     let [statNameToChange, setStatNameToChange] = useState(null)
+    let [areMinorSpellsHidden, setAreMinorSpellsHidden] = useState(true)
 
     // LocalStorage states
     let [names] = useSectionNamesState()
@@ -158,6 +161,7 @@ export default function MyCharacter() {
     let setInputGold    // Set in the Input property
 
     // Extras Components
+    const AbilitiesExtras = () => <>{ extras.map(text => <div className="extra italic"><Icon name="Specializations"/>{ text }</div>) }</>
     const ArmorExtras = () => <>{ allMyArmors.map(item => <CombatItem item={item} type="armor"/>) }</>
     const CombatExtras = () => <>{ combatExtras.map(text => <div className="extra"><Icon name="Damage"/>{ text }</div>) }</>
     const BonusesWithSources = () => <>{
@@ -229,20 +233,17 @@ export default function MyCharacter() {
             <div className="flex-row margin-top-1 gap-3q">
                 <div className="flex-column flex-1 gap-3q">
                     <SmallStat onClick={() => setStatNameToChange('Known Abilities')} type={SmallStatTypes.VERTICAL} name="Number of Known Basic Abilities">{nKnownAbilities} Basic {nKnownAbilities == 1? 'Ability': 'Abilities'}</SmallStat>
+                    { selectedClassName && hasClassMana(selectedClassName) && (<ManaBar/>) }
+                </div>
+                <div className="flex-column flex-1">
+                    <ManySmallStats name="Available Ability Schools" style={{minWidth: '300px', flexGrow: 1}} color={'var(--dark-color)'} texts={knownAbilitySchools}/>
                     { selectedClassName != null && (
-                        <div>
-                            { hasClassMana(selectedClassName) && (<ManaBar/>) }
+                        <div className="margin-top-half">
                             { selectedClassObj.Spellcasting?.Mana?.Regain != null && (
                                 <p>{ selectedClassObj.Spellcasting?.Mana?.Regain }</p>
                             ) }
                         </div>
                     ) }
-                    { selectedClassName != null && hasClassMana(selectedClassName) && (
-                        <ManaBar/>
-                    ) }
-                </div>
-                <div className="flex-column flex-1">
-                    <ManySmallStats name="Available Ability Schools" style={{minWidth: '300px', flexGrow: 1}} color={'var(--dark-color)'} texts={knownAbilitySchools}/>
                 </div>
             </div>
         )
@@ -336,8 +337,8 @@ export default function MyCharacter() {
                     <Skills/>
                 </div>
                 <div className="flex-column" style={{flex: 1, gap: '5px'}}>
-                { extras.map(text => <div className="extra italic"><Icon name="Specializations"/>{ text }</div>) }
-                    { languages.map(text => <div className="extra italic"><Icon name="Specializations"/>You speak { text }</div>) }
+                <AbilitiesExtras/>
+                <Languages/>
                 </div>
             </div>
 
@@ -361,13 +362,9 @@ export default function MyCharacter() {
                     <div className="input-description">Inventory</div>
                 </div>
                 <div className="flex-column" style={{flex: 1, gap: '5px'}}>
-                    { bonusesSources.map(source => <div className="extra" style={{color: 'var(--green-text)'}}>
-                        { source.bonus >= 0? <span>+</span>: ''}
-                        { source.bonus } { source.statName }
-                        &nbsp;({ source.source })
-                    </div>) }
-                    { combatExtras.map(text => <div className="extra"><Icon name="Damage"/>{ text }</div>) }
-                    { allMyArmors.map(item => <CombatItem item={item} type="armor"/>) }
+                    <BonusesWithSources/>
+                    <CombatExtras/>
+                    <ArmorExtras/>
                 </div>
             </div>
 
@@ -375,6 +372,13 @@ export default function MyCharacter() {
 
             <Spellcasting/>
             
+            <PageH2 className="margin-top-2">Race and Class Abilities</PageH2>
+            <ManySpells spells={allDisplayedRaceAndClassSpells} shouldIgnoreAlignment={true}/>
+
+            <PageH2 className="margin-top-2">Minor Spells (hidden)</PageH2>
+            <button onClick={() => setAreMinorSpellsHidden(!areMinorSpellsHidden)}>{ areMinorSpellsHidden? 'Show': 'Hide' }</button>
+            { areMinorSpellsHidden == false && <ManySpells className="margin-top-1" spells={spellsIgnored} shouldIgnoreAlignment={true}/> }
+
             <PageH2 className="margin-top-2">Race and Class Abilities</PageH2>
             <ManySpells spells={allDisplayedRaceAndClassSpells} shouldIgnoreAlignment={true}/>
 

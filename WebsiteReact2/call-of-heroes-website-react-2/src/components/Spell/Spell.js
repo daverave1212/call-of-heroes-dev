@@ -37,12 +37,15 @@ const ACTION_POINTS_MAPPING2 = {
     Bonuses:
         Might: 3
         Max Health Percent: 20
-
-    Choice Bonuses:
-        - type: stat
     
     Skills:
         - Skilled in Stealth
+
+    Choice Bonuses:
+        - Type: stat
+        - Type: reminder
+          DialogText: Don't forget to look at the animals page!
+          ReminderText: I looked at the animals page.
 
     A: Passive
     Effect: |
