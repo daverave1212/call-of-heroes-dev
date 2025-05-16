@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom"
+import markdownit from 'markdown-it'
+
 import Icon from "./components/Icon"
 import Separator from "./components/Separator/Separator"
 
@@ -1241,7 +1243,116 @@ export function objectFromKVArrays(keys, values) {
     }
     return obj
 }
+export function htmlToJson(str) {
+    const wrappedStr = `<xml>${str}</xml>`
+    let xmlNode = new DOMParser().parseFromString(wrappedStr, 'text/html')
+    return xmlNode.children[0]
+}
+window.xmlToJson = htmlToJson
+export function doesSubstringFromStartWith(string, i, startingWith) {
+    let withI = 0
+    if (i + startingWith.length - 1 > string.length) {
+        return false
+    }
+    while (withI < startingWith.length && i < string.length) {
+        const strChar = string.charAt(i)
+        const withChar = startingWith.charAt(withI)
+        if (strChar != withChar) {
+            return false
+        }
+        withI++
+        i++
+    }
+    return true
+}
+export function customMarkdownToJSON(markdownText) {
+    const markdown = markdownit()
+    const htmlText = markdown.render(markdownText)
+    console.log(htmlText)
+    const customHTMLText = parseCustomMarkdownStringToString(htmlText)
+    const fullHTML = htmlToJson(customHTMLText)
+    const body = fullHTML.children[1]
+    const xmlNode = body.childNodes[0]
+    return Array.from(xmlNode.childNodes)
+}
 
+const customMappings = {
+    '@@$#': () => ({ end: '@@$#', tag: 'span', attributes: 'style="color: red;"'}),
+    "<p>^^^": () => ({ end: '</p>', tag: 'div', attributes: 'style="margin-top: 5rem"'}),
+    '\\aside': () => ({ end: '\\aside', tag: 'div', attributes: 'class="hbc-quote"'}),
+    '\\if': () => ({ end: '\\if', tag: 'div', attributes: 'class="hbc-maybe"'}),
+    '\\img': (params=[]) => ({ end: '\n', tag: 'img', attributes: 
+        `src="${params[0]}" style="${params[2] != 'right'? '': 'position: absolute; right: 12px;'} ${params[1] == 'null'? '': 'width: ' + params[1]};"`,
+    ignoreContent: true })
+}
+
+
+export function parseCustomMarkdownStringToString(string) {
+    function findMappingItStartsWith(i) {
+        for (const key of Object.keys(customMappings)) {
+            if (doesSubstringFromStartWith(string, i, key)) {
+                return key
+            }
+        }
+        return null
+    }
+    function getMappingAsHTML(startI, mappingName) {
+        const mapping = customMappings[mappingName]()
+        let i = startI + mappingName.length
+        while (doesSubstringFromStartWith(string, i, mapping.end) == false) {
+            i++
+        }
+        const parameters = []
+        let htmlContents = string.substring(startI + mappingName.length, i)
+        while (htmlContents.startsWith('(')) {
+            const paramEnd = htmlContents.indexOf(')')
+            const param = htmlContents.substring(1, paramEnd)
+            parameters.push(param)
+            htmlContents = htmlContents.substring(paramEnd + 1)
+        }
+
+        console.log({parameters})
+
+        const finalMapping = customMappings[mappingName](parameters)
+
+        const finalHTML = 
+            finalMapping.ignoreContent?
+                `<${finalMapping.tag} ${finalMapping.attributes}/>`
+            :
+                `<${finalMapping.tag} ${finalMapping.attributes}>${htmlContents}</${finalMapping.tag}>`
+        return {
+            string,
+            html: finalHTML,
+            i: i,
+            newI: i + finalMapping.end.length - 1  // -1 because of the i++ in the for below
+        }
+    }
+
+    let newString = ''
+    for (let i = 0; i < string.length; i++) {
+        const char = string.charAt(i)
+        let mappingName = findMappingItStartsWith(i)
+        if (mappingName == null) {
+            newString += char
+            continue
+        }
+        console.log(`Found one at i = ${i} mappingName="${mappingName}" in string: "${string}"`)
+        const result = getMappingAsHTML(i, mappingName)
+        console.log({result})
+        newString += result.html
+        i = result.newI
+    }
+
+    return newString
+}
+export function getDOMNodeAttributes(node) {
+    if (node.attributes == null) {
+        return null
+    }
+    return Array
+        .from(node.attribute)
+        .reduce((soFar, nvp) => ({ ...soFar, [nvp.name]: nvp.value }), {})
+}
 
 // ---------------- React Small Utilities ----------------
 export const styleMargined = { marginBottom: 'var(--element-padding)' }    // Use this as style={styleMargined}

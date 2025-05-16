@@ -375,18 +375,6 @@ export default function Nav() {
 
     function PlayWithUsButton() {
       return <NavItem to={DISCORD_URL} isExternal={true}>Play With Us!</NavItem>
-
-      return (
-        <div className='nav-item'>
-          <a onClick={event => {
-            event.preventDefault()
-            const inviteUrl = DISCORD_URL
-            window.open(inviteUrl, '_blank')
-          }}>
-            Play With Us!
-          </a>
-        </div>
-      )
     }
 
     function ActionPointsCheck() {

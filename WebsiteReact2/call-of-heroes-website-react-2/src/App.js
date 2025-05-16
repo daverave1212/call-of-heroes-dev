@@ -91,6 +91,7 @@ import RogueB from './pages/Classes/RogueB';
 import TitleGenerator from './pages/Tools/TitleGenerator';
 import MagicItemCreator from './pages/Other/MagicItemCreator';
 import { AppStateContext } from './global-state/GlobalState';
+import HomebrewBookCreator from './pages/HomebrewBookCreator/HomebrewBookCreator';
 
 function App() {
 
@@ -182,6 +183,7 @@ function App() {
           <Route path="/Tools/RunePuzzle" element={ <RunePuzzle/> }/>
           <Route path="/Tools/TitleGenerator" element={ <TitleGenerator/> }/>
           <Route path="/Tools/CharacterCreationCalculator" element = { <CharacterCreationCalculator/> }/>
+          <Route path="/Tools/HomebrewBookCreator" element = { <HomebrewBookCreator/> }/>
 
           <Route path='/Meta/PatchNotes' element={ <PatchNotes/> }/>
         </Routes>
