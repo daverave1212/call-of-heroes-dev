@@ -341,7 +341,12 @@ export function LevelingUp({ theClass, isCharacterCreationPage=false }) {
     )
 }
 
-
+export function ManaDescriptionNormal() {
+    return <p>
+        Mana is a resource you can spend to cast Abilities. Some Abilities have a Mana cost, some don't.
+        All your Mana replenishes inbetween Adventures (e.g. at the start of a new Adventure).
+    </p>
+}
 export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
 
     const [displayedBasicAbilityObj, setDisplayedBasicAbilityObj] = useState(null)
@@ -350,19 +355,16 @@ export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
         return (
             <div>
                 <PageH3>Mana-Based {theClass['Spellcasting'].SpellsOrAbilities} Casting</PageH3>
-                <p>
-                    Mana is a resource you can spend to cast Abilities. Some Abilities have a Mana cost, some don't.
-                    All your Mana replenishes inbetween Adventures (e.g. at the start of a new Adventure).
-                </p>
+                <ManaDescriptionNormal/>
                 <PageH3>Changing {theClass['Spellcasting'].SpellsOrAbilities === 'Spell' ? 'Spells' : 'Abilities'}</PageH3>
                 <p>
                     You can change your known Basic Abilities and Talents inbetween Adventures.<br/>
-                    { isCharacterCreationPage == false && ( /* For spacing */
+                    { isCharacterCreationPage == false && (
                         "Feats can't generally be changed once picked; they are permenant decisions."
                     )}
                 </p>
                 {
-                    isCharacterCreationPage == false && ( /* For spacing */
+                    isCharacterCreationPage == false && (
                         <p>{ theClass.Spellcasting.Other }</p>    
                     )
                 }
@@ -432,8 +434,8 @@ export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
                 <Column>
                     <PageH3>Basic Abilities</PageH3>
                     <div className='with-margined-children'>
-                        { theClass['Spellcasting']['Mana'] != null && theClass['Spellcasting']['Mana']['Amount'] != null && (
-                            <SmallStat name="Mana" color="blue">{ theClass['Spellcasting']['Mana']['Amount'] }<Icon name="Mana"/></SmallStat>
+                        { theClass.Spellcasting.Mana != null && theClass.Spellcasting.Mana.Amount != null && (
+                            <SmallStat name="Mana" color="blue">{ theClass.Spellcasting.Mana.Amount }<Icon name="Mana"/></SmallStat>
                         ) }
                         {
                             theClass['Spellcasting']['Known Basic Abilities'] != null &&
@@ -502,7 +504,7 @@ export function Spec({ children, name, specObj, hasNoMargins }) {
     )
 }
 
-export function SpecTalents({ spec, onSpellsSelected, selectedSpellNames, setSelectedSpellNames }) {
+export function SpecTalents({ spec, onSpellsSelected, selectedSpellNames, setSelectedSpellNames, onSpellClick }) {
 
     const talentTierCategories = Object.keys(spec.Talents)
 
@@ -532,7 +534,7 @@ export function SpecTalents({ spec, onSpellsSelected, selectedSpellNames, setSel
                             console.log({ selectedSpellsInManySpellsSpec: spells })
                             onSpellsSelected(spells)
                         }}/> */}
-                        <ManySpells spells={abilitiesHere} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}/>
+                        <ManySpells spells={abilitiesHere} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames} onSpellClick={onSpellClick}/>
                     </div>
                 }
                 if (hasThisTier == false) {
@@ -544,7 +546,7 @@ export function SpecTalents({ spec, onSpellsSelected, selectedSpellNames, setSel
                 const spellsInThisTier = U.spellsFromObject(spec.Talents[talentTierName])
                 return <div key={talentTierName}>
                     <PageH3>{talentTierName}</PageH3>
-                    <ManySpells spells={spellsInThisTier} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}/>
+                    <ManySpells spells={spellsInThisTier} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames} onSpellClick={onSpellClick}/>
                     {/* <ManySpells spells={spellsInThisTier} onSpellsSelected={spells => {
                         console.log({ selectedSpellsInManySpellsSpec: spells })
                         onSpellsSelected(spells)
@@ -715,7 +717,10 @@ export function CCRacePage({ theRace, selectedSpellNames, setSelectedSpellNames 
     )
 }
 
-export function ClassPage({ theClass }) {
+export function ClassPage(props) {
+    return <ClassPageV2 {...props}/>
+}
+export function ClassPageV1({ theClass }) {
     return (
         <div>
             <SideMenuFromClass theClass={theClass}/>
@@ -753,13 +758,13 @@ export function ClassPage({ theClass }) {
                 Object.keys(theClass['Specs']).map(specName => {
                     const spec = theClass['Specs'][specName]
                     return (
-                        <Spec key={specName} name={specName} specObj={spec}>
+                        <Spec key={specName} name={specName} specObj={spec} onSpellClick={onSpellClick}>
 
                             {
                                 spec.Abilities != null && (
                                     <div>
                                         <PageH3>Choose One...</PageH3>
-                                        <ManySpells spells={U.spellsFromObject(spec.Abilities)}/>
+                                        <ManySpells spells={U.spellsFromObject(spec.Abilities)} onSpellClick={onSpellClick}/>
                                     </div>
                                 )
                             }
@@ -773,27 +778,36 @@ export function ClassPage({ theClass }) {
         </div>
     )
 }
-
-
-export function CCClassPage({
+export function ClassPageV2({
     theClass,
+    hasNoMargins=false,
+    hasHeader=true,
     selectedSpecName, setSelectedSpecName,
-    selectedSpellNames, setSelectedSpellNames
+    selectedSpellNames, setSelectedSpellNames,
+    onSpellClick
 }) {
 
-    // const [selectedSpecName, setSelectedSpecName] = useState(null)
-    const [selectedSpellsBySpec, setSelectedSpellsBySpec] = useState([])
+    let [innerSelectedSpecName, setInnerSelectedSpecName] = useState(null)
 
-    const selectedSpecObj = selectedSpecName == null? null: theClass.Specs[selectedSpecName]
+    const finalSelectedSpecName = selectedSpecName ?? innerSelectedSpecName
+    const selectedSpecObj = finalSelectedSpecName == null? null: theClass.Specs[finalSelectedSpecName]
 
     function onSpecClick(specName) {
-        setSelectedSpecName(specName)
-        setSelectedSpellNames([])
+        if (setSelectedSpecName != null) {
+            setSelectedSpecName?.(specName)
+        } else {
+            setInnerSelectedSpecName(specName)
+        }
+        setSelectedSpellNames?.([])
     }
 
     return (
         <div>            
-            <Page hasNoMargins={true}>
+            <Page hasNoMargins={hasNoMargins}>
+
+                { hasHeader && (
+                    <RaceHeader theClass={theClass}/>
+                )}
                                 
                 { theClass.Druidic && (
                     <div>
@@ -810,33 +824,28 @@ export function CCClassPage({
 
                 <br/><br/>
                 <div className='center-content'>
-                    <QGTitle1 text={'Level 2 Specializations'} height={40}/>
+                    <QGTitle1 text={'Specializations'} height={40}/>
                 </div>
 
-                {/* <p>
-                    When you reach Level 2, you can choose one of the Specializations below.
-                    This decision is permanent, so make the choice that is right for you.
-                </p> */}
-
                 { Object.keys(theClass['Specs']).map(specName => (
-                    <Selector key={specName} name={specName} onClick={() => onSpecClick(specName)} src={U.getSpecRepresentativeIconFullPath(theClass, specName)} isSelected={selectedSpecName == specName}/>
+                    <Selector className="margin-top-1" key={specName} name={specName} onClick={() => onSpecClick(specName)} src={U.getSpecRepresentativeIconFullPath(theClass, specName)} isSelected={finalSelectedSpecName == specName}/>
                 )) }
 
             </Page>
 
-            { selectedSpecName != null && (
-                <Spec hasNoMargins={true} key={selectedSpecName} name={selectedSpecName} specObj={selectedSpecObj}>
+            { finalSelectedSpecName != null && (
+                <Spec hasNoMargins={hasNoMargins} key={finalSelectedSpecName} name={finalSelectedSpecName} specObj={selectedSpecObj} onSpellClick={onSpellClick}>
 
                     {
                         selectedSpecObj.Abilities != null && (
                             <div>
                                 <PageH3>Choose One...</PageH3>
-                                <ManySpells spells={U.spellsFromObject(selectedSpecObj)} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}/>
+                                <ManySpells spells={U.spellsFromObject(selectedSpecObj.Abilities)} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames} onSpellClick={onSpellClick}/>
                             </div>
                         )
                     }
 
-                    <SpecTalents spec={selectedSpecObj} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}/>
+                    <SpecTalents spec={selectedSpecObj} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames} onSpellClick={onSpellClick}/>
 
                 </Spec>
             )}

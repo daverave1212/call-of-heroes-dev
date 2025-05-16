@@ -10,8 +10,6 @@ import html2canvas from 'html2canvas'
 import CopySpellButton from '../CopyButton/CopySpellButton'
 import classNames from 'classnames'
 
-window.html2canvas = html2canvas
-
 export default function Item({ item, style, hasIcon, hasCopyButton=true, showTopStats=true }) {
 
     const [variantIndex, setVariantIndex] = useState(0)
@@ -51,22 +49,20 @@ export default function Item({ item, style, hasIcon, hasCopyButton=true, showTop
         SubspellName
     } = item
     let DisplayName = item['Display Name'] != null? item['Display Name'] : Name
-    let ArmorBonus = item['Armor Bonus']
+
     let hasVariants = Variants != null || VariantsForEach != null
 
     let iconPath = CustomIconPath == null? getItemIconPathByName(Name) : CustomIconPath
     const uniqueID = getUniqueSpellID(Name)
 
-    let extraText = 
-        [
-            Description,
-            Notes,
-            Alternatives == null? null : `Alternatives: ${Alternatives}`
-        ]
-        .filter(thing => thing != null && thing.length > 0)
-        .join('\n\n')
-    console.log(`For item ${DisplayName} extra text is:`)
-    console.log({extraText})
+    // let extraText = 
+    //     [
+    //         Description,
+    //         Notes,
+    //         Alternatives == null? null : `Alternatives: ${Alternatives}`
+    //     ]
+    //     .filter(thing => thing != null && thing.length > 0)
+    //     .join('\n\n')
 
     let extraMixins = {}
     if (hasVariants === true && VariantsForEach != null) {
@@ -87,9 +83,9 @@ export default function Item({ item, style, hasIcon, hasCopyButton=true, showTop
             Effect = parseTextWithSymbols(Effect, extraMixins)
             DisplayName = parseTextWithSymbols(DisplayName, extraMixins)
             if (SubspellName != null) SubspellName = parseTextWithSymbols(SubspellName, extraMixins, true)
-            if (extraText.length > 0) extraText = parseTextWithSymbols(extraText)
+            // if (extraText.length > 0) extraText = parseTextWithSymbols(extraText)
         } catch (e) {
-            console.log({Effect, DisplayName, SubspellName, extraText})
+            // console.log({Effect, DisplayName, SubspellName, extraText})
             throw `Error in Item ${Name} parsing text: ${e} (Item object printed above)`
         }
     }

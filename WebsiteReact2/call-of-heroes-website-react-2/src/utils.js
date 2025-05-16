@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom"
+import markdownit from 'markdown-it'
+
 import Icon from "./components/Icon"
 import Separator from "./components/Separator/Separator"
 
 import weapons from './databases/Weapons.json'
+import armors from './databases/Armors.json'
 import skills from './databases/Proficiencies.json'
 import abilities from './databases/Abilities.json'
 import overallData from './databases/OverallData.json'
@@ -11,6 +14,7 @@ import { useEffect, useState } from "react"
 import BasicAbilities from './databases/Abilities.json'
 import Feats from './databases/Feats.json'
 import ClassAndRaceAbilities from './databases/ClassAndRaceAbilities.json'
+import { getChoiceAbilitiesObjects, setChoiceAbilitiesObjects } from "./pages/Other/CharacterCreationCalculator/CharacterData"
 
 // ---------------- Spells Utilities ----------------
 
@@ -73,7 +77,14 @@ export function getAllSpellsFromCategoriesObject(spellCategoriesObject) {
     }
     return spells
 }
-
+export function getSpellReplacementName(obj) {
+    if (obj.Replacement == null) {
+        return null
+    }
+    const replacementText = obj.Replacement.replaceAll('Replaces ', '')
+    return replacementText
+}
+window.getSpellReplacementName = getSpellReplacementName
 export function removeTildes(spellName) {
     if (spellName.startsWith('~') || spellName.startsWith('<'))
         return spellName.substring(1, spellName.length - 1)
@@ -111,6 +122,48 @@ export function getAllSpellsByName() {
     }
     return allSpellsCached
 }
+let allSkillsCached = null
+export function getAllSkillsByName() {
+    if (allSkillsCached != null) {
+        return allSkillsCached
+    }
+    allSkillsCached = {}
+    const skillsArray = spellsFromObject(skills)
+    for (const spell of skillsArray) {
+        allSkillsCached[spell.Name] = spell
+    }
+    return allSkillsCached
+}
+window.getAllSkillsByName = getAllSkillsByName
+let allWeaponsCached = null
+function objectsWithNameFromCategoriesObjToObject(categoriesObj, exceptionCategoryNames=[]) {
+    const toObj = {}
+    const categoryNames = Object.keys(categoriesObj).filter(key => exceptionCategoryNames.includes(key) == false)
+    for (const categoryName of categoryNames) {
+        const category = categoriesObj[categoryName]
+        const objNames = Object.keys(category)
+        for (const objName of objNames) {
+            const obj = {...category[objName]}
+            obj.Name = objName
+            obj.Category = categoryName
+            toObj[objName] = obj
+        }
+    }
+    return toObj
+}
+export function getAllWeaponsByName() {
+    if (allWeaponsCached == null) {
+        allWeaponsCached = objectsWithNameFromCategoriesObjToObject(weapons, ['Descriptions'])
+    }
+    return allWeaponsCached
+}
+let allArmorsCached = null
+export function getAllArmorsByName() {
+    if (allArmorsCached == null) {
+        allArmorsCached = objectsWithNameFromCategoriesObjToObject(armors, ['Descriptions'])
+    }
+    return allArmorsCached
+}
 
 export function getSpellIconPathByName(name) {
     const iconName = getUniqueSpellID(name)
@@ -145,19 +198,22 @@ export function getAlternativesAsArray(text) {
     return alternatives
 }
 
-export function getAllStatBonusesFromSpellsAsObj(spellsArray) {
+export function getAllStatBonusesAsObjFromSpellsArray(spellsArray) {
     let bonuses = {}
+    let sources = []
     for (const spell of spellsArray) {
         if (spell.Bonuses != null) {
-            for (const statName of Object.keys(spell.Bonuses)) {
+            const statNames = Object.keys(spell.Bonuses)
+            for (const statName of statNames) {
                 if (bonuses[statName] == null) {
                     bonuses[statName] = 0
                 }
+                sources.push({ statName, bonus: spell.Bonuses[statName], source: spell.Name })
                 bonuses[statName] += spell.Bonuses[statName]
             }
         }
     }
-    return bonuses
+    return { bonuses, sources }
 }
 export function getExtrasFromSpells(spellsArray) {
     let extras = []
@@ -172,6 +228,27 @@ export function getExtrasFromSpells(spellsArray) {
     }
     return { extras, combatExtras }
 }
+export function addAbilityOrOpenPopup(spell, selectedAbilitiesNames, setSelectedAbiltiesNames, onOpenChoicePicker) {
+    
+    if (spell == null) {
+        console.warn(`Null spell given to addAbilityOrOpenPopup`)
+        return
+    }
+
+    const choiceBonuses = getChoiceAbilitiesObjects()
+
+    if (selectedAbilitiesNames.includes(spell.Name)) {
+        setSelectedAbiltiesNames(selectedAbilitiesNames.filter(name => name != spell.Name))
+        const newChoiceBonuses = choiceBonuses.filter(obj => obj.source.name != spell.Name)
+        setChoiceAbilitiesObjects(newChoiceBonuses)
+    } else if (spell['Choice Bonuses'] != null || spell['Extra Skills']) {
+        onOpenChoicePicker?.(spell)
+    } else {
+        console.log('False and let it go')
+        setSelectedAbiltiesNames([...selectedAbilitiesNames, spell.Name])
+    }
+}
+
 
 
 
@@ -390,19 +467,94 @@ export function getRaceHealth(raceName) {
 export function getRaceRegen(raceName) {
     return getAllRaces()[raceName].Stats['Health Regen']
 }
-export function calculateBaseCombatStats(raceName, className, level, stats) {
-    if (raceName == null || className == null || level == null || stats == null) {
+export function getAlMyRaceAndClassSpells({ raceName, className, specName, selectedClassSpellNames=[], selectedRaceSpellNames=[] }) {
+    const allSpells = getAllSpellsByName()
+
+    const myRace = getAllRaces()[raceName]
+    const myClass = getAllClasses()[className]
+    const mySpec = myClass == null || specName == null? null: myClass.Specs[specName]
+
+    const myRaceBaseSpells = myRace == null? []: spellsFromObject(myRace['Starting Abilities'])
+    const myRaceFeats = selectedRaceSpellNames.map(name => allSpells[name])
+    const myClassBaseSpells = myClass == null? []: spellsFromObject(myClass['Starting Abilities'])
+    const mySpecBaseSpells = mySpec == null? []: spellsFromObject(mySpec['Starting Abilities'])
+    const myClassTalents = selectedClassSpellNames.map(name => allSpells[name])
+
+    const allMyRaceAndClassSpells = [
+        ...myRaceBaseSpells,
+        ...myRaceFeats,
+        ...myClassBaseSpells,
+        ...mySpecBaseSpells,
+        ...myClassTalents,
+    ]
+
+    return allMyRaceAndClassSpells
+}
+export function hasClassMana(className) {
+    const classObj = getAllClasses()[className]
+    const hasMana = classObj.Spellcasting.Type.toLowerCase().includes('mana')
+    return hasMana
+}
+
+
+// Stats and Bonuses
+export function checkStatRequirements(stats, requirementStringCode) {
+    requirementStringCode = requirementStringCode.replaceAll('or', '||')
+    requirementStringCode = requirementStringCode.replaceAll('and', '&&')
+    requirementStringCode = requirementStringCode.replaceAll('Might', stats[0])
+    requirementStringCode = requirementStringCode.replaceAll('Dexterity', stats[1])
+    requirementStringCode = requirementStringCode.replaceAll('Intelligence', stats[2])
+    requirementStringCode = requirementStringCode.replaceAll('Sense', stats[3])
+    requirementStringCode = requirementStringCode.replaceAll('Charisma', stats[4])
+    const result = eval(requirementStringCode)
+    return result
+}
+export function calculateBaseMaxManaByLevel(level, className) {
+    const selectedClass = getAllClasses()[className]
+    const { Spellcasting } = selectedClass
+    if (Spellcasting.Type == 'Mana-based') {
+        return Spellcasting.Mana.Amount + (level - 1)
+    }
+    if (Spellcasting.Type == 'Special Mana-based') {
+        return Spellcasting.Mana.Amount + Math.floor((level / 3))        
+    }
+    return 0
+}
+export function calculateExperienceByLevel(level) {
+    return level * 100
+}
+export function calculateBaseCombatStats({raceName, className, level, baseStats, bonuses}) {
+    if (raceName == null || className == null || level == null || baseStats == null) {
         return -1
     }
     const raceObj = getAllRaces()[raceName]
     const classObj = getAllClasses()[className]
-    const [might, dexterity, intelligence, sense, charisma] = stats
+    const bonusStats = [
+        bonuses.Might ?? 0,
+        bonuses.Dexterity ?? 0,
+        bonuses.Intelligence ?? 0,
+        bonuses.Sense ?? 0,
+        bonuses.Charisma ?? 0
+    ]
+    const [might, dexterity, intelligence, sense, charisma] = addArrays(baseStats, bonusStats)
 
     return {
-        maxHealth: raceObj.Stats['Base Health'] + calculateStat('Might', might) + level * classObj['Level Up']['Every Level'].Health,
-        healthRegen: raceObj.Stats['Health Regen'] + calculateStat('Sense', sense) + level * 2,
-        movementSpeed: calculateStat('Dexterity', dexterity),
-        initiative: calculateStat('Charisma', charisma)
+        maxHealth:
+            raceObj.Stats['Base Health']
+            + calculateStat('Might', might)
+            + (level - 1) * classObj['Level Up']['Every Level'].Health
+            + (bonuses['Max Health'] ?? bonuses['Health'] ?? 0),
+        healthRegen:
+            raceObj.Stats['Health Regen']
+            + calculateStat('Sense', sense)
+            + (level - 1) * 2
+            + (bonuses['Health Regen'] ?? 0),
+        movementSpeed:
+            calculateStat('Dexterity', dexterity)
+            + (bonuses['Movement'] ?? bonuses['Movement Speed'] ?? 0),
+        initiative:
+            calculateStat('Charisma', charisma)
+            + (bonuses['Initiative'] ?? 0)
     }
 }
 export function calculateHealthRegen(raceName, className, level, sense) {
@@ -427,45 +579,16 @@ export function calculateMovementSpeed(raceName, className, level, dexterity) {
             + calculateStat('Sense', sense)
             + level * 2
 }
-export function getallMyRaceAndClassSpells({ raceName, className, specName, selectedClassSpellNames, selectedRaceSpellNames }) {
-    const allSpells = getAllSpellsByName()
-
-    const myRace = getAllRaces()[raceName]
-    const myClass = getAllClasses()[className]
-    const mySpec = myClass == null || specName == null? null: myClass.Specs[specName]
-
-    const myRaceBaseSpells = myRace == null? []: spellsFromObject(myRace['Starting Abilities'])
-    const myRaceFeats = selectedRaceSpellNames.map(name => allSpells[name])
-    const myClassBaseSpells = myClass == null? []: spellsFromObject(myClass['Starting Abilities'])
-    const mySpecBaseSpells = mySpec == null? []: spellsFromObject(mySpec['Starting Abilities'])
-    const myClassTalents = selectedClassSpellNames.map(name => allSpells[name])
-
-    const allMyRaceAndClassSpells = [
-        ...myRaceBaseSpells,
-        ...myRaceFeats,
-        ...myClassBaseSpells,
-        ...mySpecBaseSpells,
-        ...myClassTalents
-    ]
-
-    return allMyRaceAndClassSpells
+export function calculateNKnownAbilities(className, totalStats, bonuses) {
+    const theClass = getAllClasses()[className]
+    const bonusKnownAbilities =
+        bonuses == null?
+            0:
+        bonuses['Known Abilities'] == null?
+            0:
+        parseInt(bonuses['Known Abilities'])
+    return Math.max(1, theClass.Spellcasting.BaseKnownSpells + totalStats[2] + bonusKnownAbilities)
 }
-export function getExperienceByLevel(level) {
-    return level * 100
-}
-
-export function checkStatRequirements(stats, requirementStringCode) {
-    requirementStringCode = requirementStringCode.replaceAll('or', '||')
-    requirementStringCode = requirementStringCode.replaceAll('and', '&&')
-    requirementStringCode = requirementStringCode.replaceAll('Might', stats[0])
-    requirementStringCode = requirementStringCode.replaceAll('Dexterity', stats[1])
-    requirementStringCode = requirementStringCode.replaceAll('Intelligence', stats[2])
-    requirementStringCode = requirementStringCode.replaceAll('Sense', stats[3])
-    requirementStringCode = requirementStringCode.replaceAll('Charisma', stats[4])
-    const result = eval(requirementStringCode)
-    return result
-}
-
 
 // export function checkStatsRaceRequirement(strategyName, strategyObj, stats) {
 //     const statsAsObject = {
@@ -557,13 +680,29 @@ export function insertBetweenAll(array, insertWhat) {
 
     return newArray
 }
-export function areArraysEqual(a1, a2) {
+export function areArraysEqual(a1, a2, compareElems=null) {
+    if (a1 == null && a2 == null) {
+        throw `Both arrays given are null`
+    }
+    if (a1 == null) {
+        throw `First array given is null`
+    }
+    if (a2 == null) {
+        throw `Second array given is null`
+    }
     if (a1.length != a2.length) return false
     for (let i = 0; i < a1.length; i++) {
-        if (a1[i] !== a2[i]) return false
+        if (compareElems != null) {
+            if (compareElems(a1[i], a2[i]) == false) {
+                return false
+            }
+        } else {
+            if (a1[i] !== a2[i]) return false
+        }
     }
     return true
 }
+window.areArraysEqual = areArraysEqual
 
 export function mapObject(obj, func) {
     const keys = Object.keys(obj)
@@ -575,7 +714,45 @@ export function mapObject(obj, func) {
     }
     return newObj
 }
-
+export function addObjects(a, b) {
+    const bKeys = Object.keys(b)
+    let finalObject = {...a}
+    for (const bKey of bKeys) {
+        if (finalObject[bKey] == null) {
+            finalObject[bKey] = b[bKey]
+        } else {
+            const aValue = finalObject[bKey]
+            const bValue = b[bKey]
+            if (isNumber(aValue) && isNumber(bValue)) {
+                finalObject[bKey] = finalObject[bKey] + bValue
+            } else if (Array.isArray(aValue) && Array.isArray(bValue)) {
+                finalObject[bKey] = [...finalObject[bKey], ...b[bKey]]
+            } else {
+                console.log({a, b})
+                throw `For addObject at key ${bKey} could not match types from a with b.`
+            }
+        }
+    }
+    return finalObject
+}
+export function addManyObjects(arr) {
+    let finalObject = arr[0]
+    for (let i = 1; i < arr.length; i++) { 
+        finalObject = addObjects(finalObject, arr[i])
+    }
+    return finalObject
+}
+export function reverseObject(obj) {
+    const keys = Object.keys(obj)
+    const values = Object.values(obj)
+    const newObj = {}
+    for (let i = 0; i < keys.length; i++) {
+        const key = keys[i]
+        const value = values[i]
+        newObj[value] = key
+    }
+    return newObj
+}
 export function groupBy(arr, hashFunc) {
     const hashKeyArrayElemValuePairs = {}
     for (const elem of arr) {
@@ -589,7 +766,13 @@ export function groupBy(arr, hashFunc) {
     }
     return hashKeyArrayElemValuePairs
 }
-
+export function addArrays(a, b) {
+    const newArr = [...a]
+    for (let i = 0; i < a.length; i++) {
+        newArr[i] += b[i]
+    }
+    return newArr
+}
 export function numbersUntil(num) {
     const arr = []
     for (let i = 0; i < num; i++) {
@@ -903,6 +1086,10 @@ export function isCharDigit(char) {
 }
 
 // ---------------- Other Small Utilities ----------------
+export function generateUniqueId() {
+    return Date.now().toString(36) + Math.random().toString(36).substr(2);
+}
+window.generateUniqueId = generateUniqueId
 export function logAndReturn(obj) {
     console.log(obj)
     return obj
@@ -1011,6 +1198,10 @@ export function capitalizeFirstLetter(str) {
     const str2 = str.charAt(0).toUpperCase() + str.slice(1)
     return str2
 }
+export function uncapitalizeFirstLetter(str) {
+    const str2 = str.charAt(0).toLowerCase() + str.slice(1)
+    return str2
+}
 export function isLocalhost() {
     return window.location.href.includes('localhost')
 }
@@ -1039,33 +1230,186 @@ export function isMobile() {
     (function(a){if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4))) check = true;})(navigator.userAgent||navigator.vendor||window.opera);
     return check;
 }
+export function objectFromKVArrays(keys, values) {
+    if (keys.length != values.length) {
+        console.log({keys, values})
+        throw `Given keys and values to objectFromKVArrays have unequal lengths`
+    }
+    const obj = {}
+    for (let i = 0; i < keys.length; i++) {
+        const key = keys[i]
+        const value = values[i]
+        obj[key] = value
+    }
+    return obj
+}
+export function htmlToJson(str) {
+    const wrappedStr = `<xml>${str}</xml>`
+    let xmlNode = new DOMParser().parseFromString(wrappedStr, 'text/html')
+    return xmlNode.children[0]
+}
+window.xmlToJson = htmlToJson
+export function doesSubstringFromStartWith(string, i, startingWith) {
+    let withI = 0
+    if (i + startingWith.length - 1 > string.length) {
+        return false
+    }
+    while (withI < startingWith.length && i < string.length) {
+        const strChar = string.charAt(i)
+        const withChar = startingWith.charAt(withI)
+        if (strChar != withChar) {
+            return false
+        }
+        withI++
+        i++
+    }
+    return true
+}
+export function customMarkdownToJSON(markdownText) {
+    const markdown = markdownit()
+    const htmlText = markdown.render(markdownText)
+    console.log(htmlText)
+    const customHTMLText = parseCustomMarkdownStringToString(htmlText)
+    const fullHTML = htmlToJson(customHTMLText)
+    const body = fullHTML.children[1]
+    const xmlNode = body.childNodes[0]
+    return Array.from(xmlNode.childNodes)
+}
+
+const customMappings = {
+    '@@$#': () => ({ end: '@@$#', tag: 'span', attributes: 'style="color: red;"'}),
+    "<p>^^^": () => ({ end: '</p>', tag: 'div', attributes: 'style="margin-top: 5rem"'}),
+    '\\aside': () => ({ end: '\\aside', tag: 'div', attributes: 'class="hbc-quote"'}),
+    '\\if': () => ({ end: '\\if', tag: 'div', attributes: 'class="hbc-maybe"'}),
+    '\\img': (params=[]) => ({ end: '\n', tag: 'img', attributes: 
+        `src="${params[0]}" style="${params[2] != 'right'? '': 'position: absolute; right: 12px;'} ${params[1] == 'null'? '': 'width: ' + params[1]};"`,
+    ignoreContent: true })
+}
 
 
+export function parseCustomMarkdownStringToString(string) {
+    function findMappingItStartsWith(i) {
+        for (const key of Object.keys(customMappings)) {
+            if (doesSubstringFromStartWith(string, i, key)) {
+                return key
+            }
+        }
+        return null
+    }
+    function getMappingAsHTML(startI, mappingName) {
+        const mapping = customMappings[mappingName]()
+        let i = startI + mappingName.length
+        while (doesSubstringFromStartWith(string, i, mapping.end) == false) {
+            i++
+        }
+        const parameters = []
+        let htmlContents = string.substring(startI + mappingName.length, i)
+        while (htmlContents.startsWith('(')) {
+            const paramEnd = htmlContents.indexOf(')')
+            const param = htmlContents.substring(1, paramEnd)
+            parameters.push(param)
+            htmlContents = htmlContents.substring(paramEnd + 1)
+        }
+
+        console.log({parameters})
+
+        const finalMapping = customMappings[mappingName](parameters)
+
+        const finalHTML = 
+            finalMapping.ignoreContent?
+                `<${finalMapping.tag} ${finalMapping.attributes}/>`
+            :
+                `<${finalMapping.tag} ${finalMapping.attributes}>${htmlContents}</${finalMapping.tag}>`
+        return {
+            string,
+            html: finalHTML,
+            i: i,
+            newI: i + finalMapping.end.length - 1  // -1 because of the i++ in the for below
+        }
+    }
+
+    let newString = ''
+    for (let i = 0; i < string.length; i++) {
+        const char = string.charAt(i)
+        let mappingName = findMappingItStartsWith(i)
+        if (mappingName == null) {
+            newString += char
+            continue
+        }
+        console.log(`Found one at i = ${i} mappingName="${mappingName}" in string: "${string}"`)
+        const result = getMappingAsHTML(i, mappingName)
+        console.log({result})
+        newString += result.html
+        i = result.newI
+    }
+
+    return newString
+}
+export function getDOMNodeAttributes(node) {
+    if (node.attributes == null) {
+        return null
+    }
+    return Array
+        .from(node.attribute)
+        .reduce((soFar, nvp) => ({ ...soFar, [nvp.name]: nvp.value }), {})
+}
 
 // ---------------- React Small Utilities ----------------
 export const styleMargined = { marginBottom: 'var(--element-padding)' }    // Use this as style={styleMargined}
 export const stylePadded   = { padding: 'var(--element-padding)' }
 
-
-
+export function getLocalStorageJSON(keyName) {
+    const value = localStorage.getItem(keyName)
+    if (value == null || value == 'undefined') {
+        return null
+    }
+    try {
+        return JSON.parse(value)
+    } catch (e) {
+        throw `${e.toString()} -- keyName: ${keyName}`
+    }
+}
+export function setLocalStorageJSON(keyName, value) {
+    if (value == null) {
+        localStorage.removeItem(keyName)
+    } else {
+        try {
+            localStorage.setItem(keyName, JSON.stringify(value))
+        }  catch (e) {
+            throw `${e.toString()} -- keyName: ${keyName}, value: ${value}`
+        }
+    }
+    window.dispatchEvent(new CustomEvent('custom-storage', { detail: {
+        key: keyName,
+        value: value
+    } }))
+}
 export function useLocalStorageState(keyName, defaultValue) {
-    const existingValue = localStorage.getItem(keyName)
+    const existingValue = getLocalStorageJSON(keyName)
     if (existingValue == null) {
         localStorage.setItem(keyName, JSON.stringify(defaultValue))
     }
 
-    const [state, setInnerState] = useState(JSON.parse(localStorage.getItem(keyName)))
+    const [state, setInnerState] = useState(existingValue == null? defaultValue: existingValue)
     
     useEffect(() => {
         window.addEventListener('custom-storage', evt => {
             if (evt.detail.key == keyName) {
-                setInnerState(evt.detail.value)
+                if (evt.detail.value == null || evt.detail.value == 'undefined') {
+                    setInnerState(null)    
+                } else {
+                    setInnerState(evt.detail.value)
+                }
             }
         })
 
         window.addEventListener('storage', evt => {
             if (evt.key == keyName) {
-                setInnerState(JSON.parse(evt.newValue))
+                if (evt.newValue == null || evt.newValue == 'undefined') {
+                    setInnerState(null)
+                } else {
+                    setInnerState(JSON.parse(evt.newValue))
+                }
             }
         })
     }, [])
@@ -1115,7 +1459,14 @@ export function loadCtxSettings(ctx, key) {
         ctx[key] = ctxSettingsObject[key]
     }
 }
-
+export function loadImageAsync(src) {
+    return new Promise((resolve, reject) => {
+        const img = new Image()
+        img.onload = () => resolve(img)
+        img.onerror = reject
+        img.src = src
+    });
+  }
 export function drawImageOnCanvasAsync(canvas, pathOrImage, x, y, width, height, alpha) {
     const ctx = canvas.getContext('2d')
     let image

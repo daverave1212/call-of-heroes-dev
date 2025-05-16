@@ -7,7 +7,7 @@ import * as firebaseDatabase from './services/FirebaseDatabase'
 function assertLoggedIn() {
     if (isLoggedIn() == false) {
         alert('Unauthorized')
-        throw 'Unauthorized - you need to log in first'
+        throw 'Unauthorized - you need to be logged in to do this.'
     }
 }
 
@@ -22,7 +22,25 @@ export async function getMyDocInCollection(collectionName) {
     const userState = getUserState()
     return await firebaseDatabase.getDocument(collectionName, userState.id)
 }
+export async function existsMyDocInCollection(collectionName) {
+    assertLoggedIn()
+    const userState = getUserState()
+    return firebaseDatabase.existsDocument(collectionName, userState.id)
+}
+window.getMyDocInCollection = getMyDocInCollection
 
-export async function getAnyDocInCollection(collectionName) {
-    return await firebaseDatabase.getDocument(collectionName, 'uHCqdNCbc69tRKk7r6kA')
+
+// ------------- Character API -------------
+export async function getMyCharacters() {
+    assertLoggedIn()
+    if (await existsMyDocInCollection('player-characters') == false) {
+        return []
+    }
+    const getMyCharactersResult = await getMyDocInCollection('player-characters')
+    return getMyCharactersResult.characters
+}
+export async function setMyCharacters(array) {
+    return await setMyDocInCollection('player-characters', {
+        characters: array
+    })
 }

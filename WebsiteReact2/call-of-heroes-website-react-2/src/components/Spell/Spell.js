@@ -3,7 +3,7 @@ import './Spell.css'
 import PageH2 from './../PageH2/PageH2'
 import Separator from './../Separator/Separator'
 import React, { useEffect, useRef, useState } from 'react'
-import { parseTextWithSymbols, stringReplaceAllMany, getSpellIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll, getVariantsForEachCollection, normalizeForEachVariantsToNormalVariants, createKey, spellsFromObject, randomInt, assertCorrectSpellFormat } from '../../utils'
+import { parseTextWithSymbols, stringReplaceAllMany, getSpellIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll, getVariantsForEachCollection, normalizeForEachVariantsToNormalVariants, createKey, spellsFromObject, randomInt, assertCorrectSpellFormat, findBasicSpellByName, allEqual, getItemIconPathByName } from '../../utils'
 import TableNormal from '../TableNormal/TableNormal'
 import html2canvas from 'html2canvas'
 import CopySpellButton from '../CopyButton/CopySpellButton'
@@ -13,25 +13,68 @@ import { getIsActionPointsSystem } from '../../global-state/GlobalState'
 import HeroButton from '../HeroButton/HeroButton'
 import Ribbon from '../Ribbon/Ribbon'
 import CoolButton from '../CoolButton/CoolButton'
+import Icon from '../Icon'
 
-const actionPointsMapping = {
+const ACTION_POINTS_MAPPING = {
     '1 Action': '2 Action Points',
     'Half-Action': '1 Action Point',
     '0 Actions': '0 Action Points'
 }
-const actionPointsMapping2 = {
+const ACTION_POINTS_MAPPING2 = {
     '1 Action': '⦿⦿',
     'Half-Action': '⦿',
     '0 Actions': 'Free'
 }
+
+/*
+    Spell Example
+
+<Spirit Animal>:
+    _Value: 1.5
+    IsIgnored: false    # For being displayed on CCC
+    HasMixins: true
+    
+    Bonuses:
+        Might: 3
+        Max Health Percent: 20
+    
+    Skills:
+        - Skilled in Stealth
+
+    Choice Bonuses:
+        - Type: stat
+        - Type: reminder
+          DialogText: Don't forget to look at the animals page!
+          ReminderText: I looked at the animals page.
+
+    A: Passive
+    Effect: |
+        A _spirit animal_ assists you and gives you a boon, depending on its type.
+        You can change which spirit animal assists you while not in Combat.
+    Upgrade: The spirit animal is intangible, invulnerable and invisible to most people. You can use it to scout, but can't walk through solid surfaces. You can see through its eyes, but is bound to you and won't go more than 15 meters away from you. It does not participate in combat.
+    Notes: An Act counts as ranged if it's not made with a melee weapon, and the range is at least 3 meters
+    DoubleTable:
+        Headers:
+            - Animal Spirit
+            - Boon
+        Values:
+            - Bear
+            - You are immune to Slows and Fumbling
+            - Wolf
+            - +1 Movement Speed
+            - Owl
+            - +3 Range on all ranged Acts
+            - Eagle
+            - +5 Initiative
+*/
 
 export function SpellTopStats({className, tags}) {
     const {A, DisplayA, Cost, Range, Cooldown, Duration, Requirement, DisplayRequirement, Replacement, Hands, Stat, Special, Price, XP} = tags
     let displayedA = DisplayA != null? DisplayA : A != null? A : null
 
     if (getIsActionPointsSystem()) {
-        if (displayedA in actionPointsMapping) {
-            displayedA = actionPointsMapping[displayedA]
+        if (displayedA in ACTION_POINTS_MAPPING) {
+            displayedA = ACTION_POINTS_MAPPING[displayedA]
         }
     }
 
@@ -156,8 +199,29 @@ export function IconWithSpinner({ src, className }) {
     )
 }
 
+/*
+If buttonText != null:
+    It will override any button text
+If isSelected != null
+    It will have a "Select/Unselect" button
+If onClick != null:
+    It will have onClick
+*/
 
-export default function Spell({ children, spell, style, hasIcon, hasBorder, hasCopyButton=true, showTopStats=true, isSelected=false, onSelected }) {
+export default function Spell({ 
+    spell,
+    style,
+    
+    isItem=false,
+    hasIcon=true,
+    hasBorder=true,
+    hasCopyButton=true,
+    showTopStats=true,
+    
+    isSelected=false,
+    onClick,
+    buttonText
+}) {
 
     const [variantIndex, setVariantIndex] = useState(0)
     const [thiefRolledGoldAmount, setThiefRolledGoldAmount] = useState('Click here to roll 1000d100!')
@@ -167,28 +231,36 @@ export default function Spell({ children, spell, style, hasIcon, hasBorder, hasC
     let {
         Name,
         DisplayName,
-        A,
-        HasMixins,
+
         CustomIconPath,
-        Effect,
-        EffectGreen,
-        Notes,
-        Alternatives,
-        Downside,
         IsSubspell,
+        
+        A,
         Upgrades,
         Upgrade,
+        Damage,
+        
+        HasMixins,
+        
+        Effect,
+        EffectGreen,
+        Description,
+        Alternatives,
+        Notes,
+        Downside,
+        
         DoubleTableNumbered,
         DoubleTable,
         Variants,
         VariantsForEach,
         Monster,
         Subspells,
+        SubspellName,
         RollThiefGold
     } = spell
 
     if (getIsActionPointsSystem() && Effect != null) {
-        Effect = stringReplaceAllMany(Effect, Object.keys(actionPointsMapping), Object.keys(actionPointsMapping).map(key => actionPointsMapping[key]))
+        Effect = stringReplaceAllMany(Effect, Object.keys(ACTION_POINTS_MAPPING), Object.keys(ACTION_POINTS_MAPPING).map(key => ACTION_POINTS_MAPPING[key]))
     }
 
     if (spell['Display Name'] != null) DisplayName = spell['Display Name']
@@ -200,15 +272,37 @@ export default function Spell({ children, spell, style, hasIcon, hasBorder, hasC
     if (Upgrades != null) {
         Upgrade = Upgrades
     }
-    if (hasIcon == null) hasIcon = true
 
     if (Name.startsWith('~')) Name = Name.substring(1, Name.length - 1)
 
-    let iconPath = CustomIconPath == null? getSpellIconPathByName(Name) : CustomIconPath
+    let iconPath =
+        CustomIconPath != null?
+            CustomIconPath:
+        isItem == true?
+            getItemIconPathByName(Name):    
+        getSpellIconPathByName(Name)
     const uniqueID = getUniqueSpellID(Name)
 
     const spellNormalOrSubClass = IsSubspell == true? 'spell--subspell' : 'spell--normal'
     const spellPassiveOrActiveClass = A == 'Passive' == true? 'spell--passive' : 'spell--active'
+    
+    const subspell = SubspellName != null? findBasicSpellByName(subspell): null
+
+    const hasButton = onClick != null
+    const finalButtonText =
+        buttonText != null?
+            buttonText
+        :isSelected != null?
+            (isSelected? 'Unselect': 'Select')
+        :
+            'Go'
+    
+    function onButtonClick() {
+        if (onClick != null) {
+            onClick(spell)
+        }
+    }
+
 
     let extraMixins = {}
     if (hasVariants === true && VariantsForEach != null) {
@@ -278,7 +372,7 @@ export default function Spell({ children, spell, style, hasIcon, hasBorder, hasC
     }
 
     return (
-        <div data-selectable={onSelected != null} id={uniqueID} style={style} className={classNames(
+        <div data-selectable={isSelected != null} id={uniqueID} style={style} className={classNames(
             'spell',
             spellNormalOrSubClass,
             spellPassiveOrActiveClass,
@@ -297,9 +391,18 @@ export default function Spell({ children, spell, style, hasIcon, hasBorder, hasC
                 />
                 
                 <Separator hasNoMarginTop={true}/>
-                <div className='spell-description'>
-                    { Effect }
-                </div>
+                { Damage == null? null : (
+                    <div key="Damage" className='spell-description' style={{
+                        paddingBottom: allEqual([Effect, EffectGreen, Downside, Upgrade, Notes, Alternatives], null)?   // Extra padding bottom if there is nothing after damage
+                            'var(--spell-padding-bottom)':
+                            'calc(var(--spell-padding-bottom) / 2)'
+                    }}><Icon name="Damage"/>{ Damage }</div>
+                )}
+                { Effect != null && (
+                    <div className='spell-description'>
+                        { Effect }
+                    </div>
+                )}
                 { EffectGreen != null && (
                     <div className="spell-green" key="EffectGreen">{ EffectGreen }</div>
                 ) }
@@ -357,23 +460,21 @@ export default function Spell({ children, spell, style, hasIcon, hasBorder, hasC
                     </div>
                 )}
                 { hasCopyButton === true && <CopySpellButton elementId={uniqueID} shouldAddBorder={true}/> }
-                { /* onSelected != null */ onSelected != null && (
+                { hasButton && (
                     <div>
-                        <div className='center-content' onClick={() => {
-                                const newIsSelected = !isSelected
-                                onSelected(newIsSelected)
-                            }}>
+                        <div className='center-content' onClick={onButtonClick}>
                             <button style={{
                                 fontSize: '17px',
                                 width: 'max(30%, 130px)',
                                 height: '2.5rem'
                             }}>
-                                { isSelected? 'Unselect': 'Select' }
+                                { finalButtonText }
                             </button>
                         </div>
                         <div style={{height: '1rem'}}></div>
                     </div>
                 )}
+                { subspell != null && <Spell spell={subspell} hasCopyButton={false} showTopStats={false}/>}
             </div>
         </div>
     )

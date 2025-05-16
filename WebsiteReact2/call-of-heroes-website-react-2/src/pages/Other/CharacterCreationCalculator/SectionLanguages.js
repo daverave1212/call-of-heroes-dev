@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import Selector from "../../../components/Selector/Selector";
 import { getAllLanguages, getRace, splitArrayEvenly, useLocalStorageState } from "../../../utils";
 import { QGTitle1 } from "../../Tools/TitleGenerator";
-import { useSectionRaceName } from "./SectionRace";
-import { useTotalStats } from "./MyCharacter";
+import { useConstTotalStats } from "./MyCharacter";
+import { useLanguages, useSectionRaceName } from "./CharacterData";
 
 
 function LanguageSelector({ language, isSelected, onClick }) {
@@ -17,16 +17,13 @@ function LanguageSelector({ language, isSelected, onClick }) {
     )
 }
 
-export function useLanguages() {
-    let [languages, setLanguages] = useLocalStorageState('SectionLanguages', [])
-    return [languages, setLanguages]
-}
+
 
 export default function SectionLanguages() {
 
     let [selectedLanguages, setSelectedLanguages] = useLanguages()
     let [selectedRaceName] = useSectionRaceName()
-    let { 2: intelligence, 4: charisma } = useTotalStats()
+    let { 2: intelligence, 4: charisma } = useConstTotalStats()
 
     const nTotalLanguages = 1 + Math.max(intelligence, charisma)
     const nRemainingLanguages = nTotalLanguages - selectedLanguages.length
@@ -58,13 +55,13 @@ export default function SectionLanguages() {
                 ) }
             </div>
             <div className="flex-row gap-half margin-top-1">
-                <div className="flex-column" style={{flex: 1}}>
+                <div className="flex-column gap-half" style={{flex: 1}}>
                     { languageColumns[0].map(lang => <LanguageSelector language={lang} isSelected={selectedLanguages.includes(lang)} onClick={() => onLanguageClick(lang)}/>) }
                 </div>
-                <div className="flex-column" style={{flex: 1}}>
+                <div className="flex-column gap-half" style={{flex: 1}}>
                     { languageColumns[1].map(lang => (<LanguageSelector language={lang} isSelected={selectedLanguages.includes(lang)} onClick={() => onLanguageClick(lang)}/>)) }
                 </div>
-                <div className="flex-column" style={{flex: 1}}>
+                <div className="flex-column gap-half" style={{flex: 1}}>
                     { languageColumns[2].map(lang => <LanguageSelector language={lang} isSelected={selectedLanguages.includes(lang)} onClick={() => onLanguageClick(lang)}/>) }
                 </div>
             </div>

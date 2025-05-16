@@ -1,13 +1,9 @@
 
 import ManySpells from '../../../components/Spell/ManySpells'
-import { useLocalStorageState } from '../../../utils'
 import nonCombatSkills from './../../../databases/Proficiencies.json'
+import { useSkills } from './CharacterData'
 
-export function useSkills() {
-    let [skillNames, setSkillNames] = useLocalStorageState('SectionSkills', [])
 
-    return [skillNames, setSkillNames]
-}
 
 export default function SectionSkills() {
 

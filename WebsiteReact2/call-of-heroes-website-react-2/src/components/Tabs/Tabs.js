@@ -8,12 +8,24 @@ import Column from '../TwoColumns/Column'
 import ThreeColumns from '../TwoColumns/ThreeColumns'
 
 
+export default function Tabs({ layout, getTabIconSrc, tabComponents, activeTabI, setActiveTabI, activeTabName, setActiveTabName, isFirstTabLarge=false }) {
+    
+    const tabNames = layout.flat()
+    const selectedTabName =
+        setActiveTabName != null?
+            activeTabName:
+        setActiveTabI != null?
+            tabNames[activeTabI]:
+        null
+    const selectedTabI = tabNames.indexOf(selectedTabName)
 
-
-export default function Tabs({ tabNames, tabComponents, activeTabI, setActiveTabI, isFirstTabLarge=false }) {
-
-    function onTabClick(i) {
-        setActiveTabI(i)
+    function onTabClick(i, name) {
+        if (setActiveTabI != null) {
+            setActiveTabI(i)
+        }
+        if (setActiveTabName != null) {
+            setActiveTabName(name)
+        }
     }
 
     function TabSelector({name, i}) {
@@ -21,8 +33,8 @@ export default function Tabs({ tabNames, tabComponents, activeTabI, setActiveTab
             <Selector
                 name={name}
                 src={`/Icons/UI/Tabs/${name.split(' ').join('_')}.png`}
-                isSelected={activeTabI == i}
-                onClick={() => onTabClick(i)}
+                isSelected={selectedTabName == name}
+                onClick={() => onTabClick(i, name)}
             />
         )
     }
@@ -37,34 +49,25 @@ export default function Tabs({ tabNames, tabComponents, activeTabI, setActiveTab
 
     return (
         <div className="tabs">
-            {/* <div className="tab-names">
-                { tabNames.map((name, i) => (
-                    <h4 onClick={() => onTabClick(i)} className={activeTabI == i? 'selected': ''}>
-                        { name }
-                    </h4>
-                )) }
-            </div> */}
-            <div className="tab-headers">
-                { isFirstTabLarge && (
-                    <TabSelector name={firstTabLarge.name} i={0} key={firstTabLarge.name}/>
-                ) }
-                <ThreeColumns style={{gap: '1rem'}}>
-                    { tabNamesByColumns.map(tabNamesColumn => (
-                        <Column>
-                            { tabNamesColumn.map(tab => (
-                                <TabSelector name={tab.name} i={tab.i} key={tab.name}/>
-                            )) }
-                        </Column>
-                    )) }
-                </ThreeColumns>
-            </div>
 
-            <div className="tab-content margin-top-2">
-                { tabComponents.map((component, i) => (
-                    <div className={`tab ${activeTabI == i? 'selected': 'unselected'}`}>
-                        { component }
+            <div className='tab-headers flex-column gap-half'>
+                { layout.map((row, i) => (
+                    <div className='flex-row gap-half' key={`tab-row-${i}`}>
+                        { row.map((tabName, i) => (
+                            <TabSelector name={tabName} i={tabNames.indexOf(tabName)} key={tabName}/>
+                        )) }
                     </div>
                 )) }
+
+            </div>
+
+
+            <div className="tab-content margin-top-2">
+                { selectedTabName != null && (
+                    <div className={`tab`}>
+                        { tabComponents[selectedTabI] }
+                    </div>
+                ) }
             </div>
         </div>
     )

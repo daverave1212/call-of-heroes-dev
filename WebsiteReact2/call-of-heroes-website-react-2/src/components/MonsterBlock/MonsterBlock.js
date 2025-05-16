@@ -56,15 +56,24 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
     }
 
     function MonsterLore() {
-        return monster.Lore != null? (
-            <p>{monster.Lore}</p>
-        ) : (
-            <p>
-                Lorem ipsum dolor sit amet.
-                Aenean blandit metus nisi, non commodo tortor volutpat ut.
-                Aenean suscipit, justo vitae faucibus viverra, lectus lacus laoreet ipsum, quis suscipit purus ex et tellus. Suspendisse congue libero sed molestie efficitur. Proin maximus sagittis nunc lacinia porttitor.
-                Maecenas fermentum lacinia mi, a elementum nibh tristique at. In eget nisl nunc.
-            </p>
+        return (
+            <div className='margin-bottom-1'>
+                {
+                    monster.Lore != null? (
+                        <p>{monster.Lore}</p>
+                    ) : (
+                        <p>
+                            Lorem ipsum dolor sit amet.
+                            Aenean blandit metus nisi, non commodo tortor volutpat ut.
+                            Aenean suscipit, justo vitae faucibus viverra, lectus lacus laoreet ipsum, quis suscipit purus ex et tellus. Suspendisse congue libero sed molestie efficitur. Proin maximus sagittis nunc lacinia porttitor.
+                            Maecenas fermentum lacinia mi, a elementum nibh tristique at. In eget nisl nunc.
+                        </p>
+                    ) 
+                }
+                <div className='center-content'>
+                    <button style={{backgroundColor: 'var(--theme-color-1-darkest)'}}><Icon name="Premium"/> Scale to different XP</button>
+                </div>
+            </div>
         )
     }
 

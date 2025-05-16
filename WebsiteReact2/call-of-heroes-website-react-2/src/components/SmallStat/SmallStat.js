@@ -10,7 +10,14 @@ export function getRealColor(color) {
     return color
 }
 
-export default function SmallStat({ children, name, color, style, contentStyle, nameStyle, valueStyle, type }) {
+export const SmallStatTypes = {
+    NORMAL_LARGE: 'normal-large',
+    LARGE: 'large',
+    VERTICAL: 'vertical',
+    VERTICAL_LARGE: 'vertical-large'
+}
+
+export default function SmallStat({ children, name, color, style, contentStyle, nameStyle, valueStyle, type, onClick }) {
 
     if (style == null) style = {}
     if (nameStyle == null) nameStyle = {}
@@ -26,7 +33,7 @@ export default function SmallStat({ children, name, color, style, contentStyle, 
 
 
     return (
-        <div className='small-stat-container' style={style}>
+        <div className='small-stat-container' style={style} onClick={onClick}>
             <div style={{...contentStyle, ...{borderColor: realColor}}} className={`small-stat ${smallStatClassesByType}`}>
                 <div style={{...nameStyle, ...{backgroundColor: realColor}}} className={`small-stat__name`}>{ name }</div>
                 <div className="small-stat__value" style={valueStyle}>{ children }</div>

@@ -2,38 +2,38 @@ import { useEffect, useState } from "react"
 import TwoColumns from "../../../components/TwoColumns/TwoColumns"
 import Column from "../../../components/TwoColumns/Column"
 import SmallStat from "../../../components/SmallStat/SmallStat"
-import { calculateStat, checkStatRequirements, getExperienceByLevel, getRace, useLocalStorageState } from "../../../utils"
+import { calculateStat, checkStatRequirements, calculateExperienceByLevel, getRace, useLocalStorageState } from "../../../utils"
 import Page from "../../../containers/Page/Page"
 import { QGTitle1 } from "../../Tools/TitleGenerator"
 import Icon from "../../../components/Icon"
-import { useBonusesFromSpells, useTotalStats } from "./MyCharacter"
-import { useSectionRaceName } from "./SectionRace"
+import { useConstBonusesFromSpellsAndItems, useConstTotalStats } from "./MyCharacter"
+import Input from "../../../components/Input/Input"
+import { useExperience, useLevel, useSectionRaceName, useSectionStatsState } from "./CharacterData"
 
 
-function StatInput({ name, value, onChange }) {
 
-    const [temporaryValue, setTemporaryValue] = useState(value)
+export function StatInput({ name, value, onChange }) {
 
     function onInputChange(newVal) {
-        setTemporaryValue(newVal)
-        console.log(`Triggering onInputChange with newVal ${newVal}`)
-        if (parseInt(newVal) != NaN && newVal != '') {
+        if (!isNaN(parseInt(newVal)) && newVal != '') {
             onChange(newVal)
         }
     }
 
     return (
         <div className="stat-input">
-            <input value={temporaryValue} onChange={evt => onInputChange(evt.target.value)}/>
+            <Input value={value} onChange={onInputChange}/>
+            {/* <input value={temporaryValue} onChange={evt => onInputChange(evt.target.value)}/> */}
             <div className="input-name input-name-styled">{ name }</div>
         </div>
     )
 }
 
-export function StatValue({ name, value }) {
+export function StatValue({ name, value, style, className, onClick }) {
+    const hoverStyle = onClick == null? {}: { cursor: 'pointer' }
     return (
-        <div className="stat-input">
-            <div>{ value }</div>
+        <div className={`stat-input ${className}`} style={{...style, ...hoverStyle}}>
+            <div onClick={onClick}>{ value }</div>
             <div className="input-name input-name-styled">{ name }</div>
         </div>
     )
@@ -41,19 +41,6 @@ export function StatValue({ name, value }) {
 
 export const STAT_NAMES = ["Might", 'Dexterity', 'Intelligence', 'Sense', 'Charisma']
 export const BASE_STATS = [-1, 0, 1, 2, 3]
-
-export function useSectionStatsState() {
-    return useLocalStorageState('SectionStatsStats', BASE_STATS)
-}
-export function useExtraStats() {
-    return useLocalStorageState('SectionStatsExtraStats', [0, 0, 0, 0, 0])
-}
-export function useLevel() {
-    return useLocalStorageState('SectionStatsLevel', 1)
-}
-export function useExperience() {
-    return useLocalStorageState('SectionStatsXP', 0)
-}
 
 export function ExperienceSlider({max, initialValue, onChange, children}) {
     let [val, setVal] = useState(initialValue)
@@ -86,11 +73,11 @@ export function ExperienceSlider({max, initialValue, onChange, children}) {
 
 export default function SectionStats() {
  
+    let [statsCorrectError, setStatsCorrectError] = useState(null)    /* { message: string } */
     let [level, setLevel] = useLevel()
     let [stats, setStats] = useSectionStatsState()
-    let [statsCorrectError, setStatsCorrectError] = useState(null)    /* { message: string } */
-    let totalStats = useTotalStats()
-    let bonuses = useBonusesFromSpells()
+    let totalStats = useConstTotalStats()
+    let { bonuses } = useConstBonusesFromSpellsAndItems()
     let [selectedRaceName] = useSectionRaceName()
     let [experience, setExperience] = useExperience()
 
@@ -101,6 +88,7 @@ export default function SectionStats() {
     const myRace = getRace(selectedRaceName)
     const exactStats = myRace?.['Custom Stat Array']
     const statRequirementCode = myRace?.['Stat Requirements']
+    const ignoreStatRequirements = myRace?.['IgnoreStatRestrictions'] ?? false
     const levelError = checkLevel(level)
     
 
@@ -170,11 +158,11 @@ export default function SectionStats() {
                     }}/>
                 </p>
                 <div className="flex-column center-content" style={{width: '100%'}}>
-                    <ExperienceSlider max={getExperienceByLevel(level)} initialValue={experience} onChange={val => setExperience(val)}>
+                    <ExperienceSlider max={calculateExperienceByLevel(level)} initialValue={experience} onChange={val => setExperience(val)}>
                         asdadas
                     </ExperienceSlider>
                 </div>
-                { levelError && (
+                { levelError && !ignoreStatRequirements && (
                     <div className="warning-toaster">{ levelError }</div>
                 ) }
             </div>

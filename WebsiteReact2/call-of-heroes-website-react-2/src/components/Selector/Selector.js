@@ -2,7 +2,7 @@
 import { getSpellIconPathByName } from '../../utils'
 import './Selector.css'
 
-export default function Selector({ name, src, onClick, isSelected=false, className, style }) {
+export default function Selector({ name, src, onClick, isSelected=false, className, style, children }) {
     return (
         <div class={`selector spoiler ${isSelected? 'selected': ''} ${className}`} onClick={onClick} style={style}>
             <div className="flex">
@@ -12,6 +12,9 @@ export default function Selector({ name, src, onClick, isSelected=false, classNa
                     </div>
                 </div>
                 <div className="name-wrapper">{ name }</div>
+            </div>
+            <div>
+                { children }
             </div>
         </div>
     )

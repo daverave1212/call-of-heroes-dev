@@ -11,7 +11,7 @@ import { QGTitle1 } from '../Tools/TitleGenerator'
 
 
 
-export default function Feats({ selectedSpellNames, setSelectedSpellNames }) {
+export default function Feats({ selectedSpellNames, setSelectedSpellNames, hasNoMargins=false }) {
 
     let [selectedSelectorName, setSelectedSelectorName] = useState('Standard Feats')
 
@@ -30,16 +30,16 @@ export default function Feats({ selectedSpellNames, setSelectedSpellNames }) {
 
     return (
         <div>
-            <SideMenu sections={{
+            {/* <SideMenu sections={{
                 'Feats': categories
-            }}/>
+            }}/> */}
 
-            <Page>
+            <Page hasNoMargins={hasNoMargins}>
                 <QGTitle1 text="Feats" height={60}/>
                 <SelectorsByColumns nColumns={2} selectorData={selectorData} selectedSelectorName={selectedSelectorName} setSelectedSelectorName={setSelectedSelectorName}/>
             </Page>
             
-            <Page title={selectedSelectorName} isSecondaryPage={true}>
+            <Page  hasNoMargins={hasNoMargins} title={selectedSelectorName} isSecondaryPage={true}>
                 <ManySpells spells={feats[selectedSelectorName]} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}/>
             </Page>
         </div>

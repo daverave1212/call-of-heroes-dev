@@ -62,6 +62,7 @@
         "~Druidcraft~": {
             "A": "Depends",
             "Range": "6 meters",
+            "Skills": ["Skilled in Nature"],
             "HasMixins": true,
             "Effect": "Every midnight, regain up to {Mana}1 Mana.\n\nYou speak Whistletone, a language made up of whistles, and are Skilled in Nature and Monstrology.\nYou can create harmless sensory effects, tiny weather effects or soothe mild pains.\nYou can speed up the growth of small plants by 1000% while channeling.\n",
             "Notes": "You can do these even while Shapeshifted.",
@@ -101,6 +102,13 @@
                 "~Circle of the Land~": {
                     "_Value": 1.25,
                     "A": "Passive",
+                    "IsIgnored": true,
+                    "Choice Bonuses": [
+                        {
+                            "Type": "Reminder",
+                            "DialogText": "Pick one of the 4 domain Abilities from below"
+                        }
+                    ],
                     "HasMixins": true,
                     "Effect": "Choose one _domain_. Each _domain_ gives you extra powers.\n"
                 }
@@ -146,7 +154,12 @@
                 },
                 "Level 4": {
                     "<Stat Bonus 4 Plus>": {
-                        "Effect": "Gain +1 in a Stat of choice, up to +4.\nGain 2 more non-combat Skills.\n"
+                        "Effect": "Gain +1 in a Stat of choice, up to +4.\nGain 2 more non-combat Skills.\n",
+                        "Choice Bonuses": [
+                            {
+                                "Type": "stat"
+                            }
+                        ]
                     },
                     "<Double Stat Bonus Plus>": {
                         "Effect": "Gain +1 in a Stat of choice, up to +4, and +1 in another Stat of choice, up to +3.\n"
@@ -171,6 +184,13 @@
                         "A": "Passive",
                         "Requirement": "-1 Max Mana and -5 Max Health",
                         "HasMixins": true,
+                        "Choice Bonuses": [
+                            {
+                                "Type": "reminder",
+                                "DialogText": "Go to the Pets and Animals page and pick your animal companion",
+                                "ReminderText": "I picked a pet and wrote down its stats."
+                            }
+                        ],
                         "Effect": "You have an animal pet that can fight alongside you, but your Max Mana decreases by 1 and your Health by 5. Check out the `Pets and Animals page$/Other/PetsAndAnimals` and choose an Animal from the Pets section, ignoring those Level requirements!\nYour pet takes its turn at the same time as you do, and always has the same Initiative as yours, and can make normal Checks using using its own Stats.\nIt has 1 Action per turn, which it can use to do its own Abilities or Pet Attack.\nYour pet will not stray more than 30 meters away from you in hostile territory.\n",
                         "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.",
                         "Notes": "Your pet can't rise from being Fallen while in combat, even if healed.\nIf your pet ever dies, you can spend 8 hours inbetween Adventures to get a new pet. If you want to change your Pet and abandon your current one, you can do so inbetween Adventures, but the guilt will make you Fumbling for the next 2 Worthy Combat encounters.\n",

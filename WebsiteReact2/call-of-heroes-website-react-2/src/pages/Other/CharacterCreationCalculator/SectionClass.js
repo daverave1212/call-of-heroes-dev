@@ -2,71 +2,59 @@ import { useState } from "react"
 import PageH2 from "../../../components/PageH2/PageH2"
 import TwoColumns from "../../../components/TwoColumns/TwoColumns"
 import Column from "../../../components/TwoColumns/Column"
-import { CCClassPage } from "../../../components/InsertableTemplates/RaceClassComponents"
-import { getAllClasses, splitArrayEvenly, useLocalStorageState } from "../../../utils"
+import { ClassPage, ClassPageV2 } from "../../../components/InsertableTemplates/RaceClassComponents"
+import { addAbilityOrOpenPopup, getAllClasses, splitArrayEvenly, useLocalStorageState } from "../../../utils"
 import { classesRacesObjectToArrays } from "./CharacterCreationCalculator"
 import Selector from "../../../components/Selector/Selector"
+import { SelectorsByColumns } from "../Abilities"
+import { useSectionClassName, useSectionClassSpecName, useSectionClassSpellNames } from "./CharacterData"
 
 
-export function useSectionClassName() { return useLocalStorageState('SectionClassName', null) }
-export function useSectionClassSpecName() { return useLocalStorageState('SectionClassSpecName', null) }
-export function useSectionClassSpellNames() { return useLocalStorageState('SectionClassSpellNames', [])}
 
 
-export default function SectionClass({ onClassNameSelected, onSpecNameSelected, onSpellsSelected }) {
+export default function SectionClass({ openPopup }) {
 
     const classesObj = getAllClasses()
-    const classObjectRows = classesRacesObjectToArrays(classesObj)
-
-    const [chosenClass, setChosenClass] = useState(null)
 
     const [className, setClassName] = useSectionClassName()
     const [specName, setSpecName] = useSectionClassSpecName()
     const [spellNames, setSpellNames] = useSectionClassSpellNames()
 
-    function onClassClick(classObj) {
-        // setChosenClass(classObj)
-        // onClassNameSelected(classObj.Class)
-        setClassName(classObj.Class)
+    const selectorData = Object.keys(classesObj).map(className => ({
+        name: className,
+        src: `/Icons/Classes/${className}.png`
+    }))
+    function getSelectedClassName() {
+        return className
+    }
+
+    function onClassClick(className) {
+        setClassName(className)
         setSpecName(null)
         setSpellNames([])
     }
 
-    function ClassSelector({ classObj }) {
-        return (
-            <Selector
-                name={classObj.Class}
-                src={`/Icons/Classes/${classObj.Class}.png`}
-                isSelected={classObj.Class == chosenClass?.Class}
-                onClick={() => onClassClick(classObj)}
-            />
-        )
+    function onAbilityClick(spell) {
+        console.log({spell})
+        addAbilityOrOpenPopup(spell, spellNames, setSpellNames, (spell) => {
+            openPopup(spell, spellNames, setSpellNames)
+        })
     }
+
 
     return (
         <div>
             <PageH2>Class</PageH2>
-            <TwoColumns>
-                <Column>
-                    { classObjectRows[0].map(classObj => (
-                        <ClassSelector classObj={classObj}/>
-                    )) }
-                </Column>
-                <Column>
-                    { classObjectRows[1].map(classObj => (
-                        <ClassSelector classObj={classObj}/>
-                    )) }
-                </Column>
-            </TwoColumns>
 
-            {/* { chosenClass != null && (
-                <CCClassPage theClass={chosenClass} onSpecSelected={onSpecNameSelected} onSpellsSelected={onSpellsSelected}/>
-            )} */}
+            <SelectorsByColumns nColumns={2} selectorData={selectorData} onSelectorClick={onClassClick} getSelectedSelectorName={getSelectedClassName}/>
+
             { className != null && (
-                <CCClassPage
+                <ClassPage
+                    hasNoMargins={true}
                     theClass={classesObj[className]}
                     selectedSpecName={specName} setSelectedSpecName={setSpecName}
                     selectedSpellNames={spellNames} setSelectedSpellNames={setSpellNames}
+                    onSpellClick={onAbilityClick}
                 />
             )}
         </div>

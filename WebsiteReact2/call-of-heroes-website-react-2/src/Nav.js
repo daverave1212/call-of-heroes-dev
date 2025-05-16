@@ -63,9 +63,13 @@ import { getLocalStorageBool } from './utils';
 import TreasureGenerator from './pages/Tools/TreasureGenerator';
 import { getIsActionPointsSystem, globalStateStore, setIsActionPointsSystem } from './global-state/GlobalState';
 import * as auth from './Auth'
-import { getAnyDocInCollection, getMyDocInCollection, setMyDocInCollection } from './Database';
 import Icon from './components/Icon';
 
+window.auth = auth
+
+function NavIcon({name, extension="png"}) {
+  return <Icon name={name} extension={extension} style={{margin: '0px', marginRight: '0.25rem', marginTop: '-2px'}}/>
+}
 
 function LogoQG() {
   return (
@@ -86,6 +90,9 @@ function LiLink({to, children, isDownload, style, className}) {
   return (
     <li><Link className={className} style={style} to={to}>{children}</Link></li>
   )
+}
+function LiLinkPremium({to, children, isDownload, style }) {
+  return <LiLinkWithIcon iconName="Premium.svg" className="premium" to={to} isDownload={isDownload} style={style}>{ children }</LiLinkWithIcon>
 }
 function LiLinkWithIcon({to, children, isDownload, style, className, iconName}) {
 
@@ -123,11 +130,10 @@ const DISCORD_URL = 'https://discord.gg/' + '27aqSEDyE3'
 function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
 
   const getBaseStateAllFalse = () => ({
-    'Database': false,
+    'Game': false,
     'Learn': false,
     'Lore': false,
-    'QM Resources': false,
-    'Downloads': false
+    'QM Resources': false
   })
   const [areExpandedState, setAreExpandedState] = useState(getBaseStateAllFalse())
 
@@ -175,7 +181,7 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
       
       <h3 className="subnav-title-portrait-only"><a style={{color: 'white'}} href={DISCORD_URL} target="_blank">Play With Us!</a></h3>
 
-      <MegaDropdownMenu title="Database">
+      <MegaDropdownMenu title="Game">
         <div className='subnav-section'>
           <h4>Races</h4>
           <div className='subnav-title-underline'></div>
@@ -215,7 +221,7 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
             <LiLink to="/Other/Abilities">Basic Abilities (Schools)</LiLink>
             <LiLink to="/Other/Proficiencies">Skills</LiLink>
             <LiLink to="/Other/Feats">Feats</LiLink>
-            <LiLinkWithIcon className="premium" to="/Other/AbilitySheets" iconName="Premium.svg" >Ability Sheet Maker</LiLinkWithIcon>
+            <LiLinkPremium to="/Other/AbilitySheets">Ability Sheet Maker</LiLinkPremium>
           </ul>
 
           <h4 style={{marginTop: '38px'}}>Gear and Items</h4>
@@ -237,6 +243,17 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
             <LiLink to="/Meta/PatchNotes">Update Notes</LiLink>
           </ul>
         </div>
+
+        <MegaDropdownMenuSection title="Character Sheets">
+          <LiLink isDownload={true} to="/Download/Sheet-2023-03-24b.pdf">Character Sheet (PDF)</LiLink>
+          <LiLink isDownload={true} to="/Download/Sheet-2024-06-16.psd">Character Sheet (PSD)</LiLink>
+          <LiLink isDownload={true} to="/Download/Sheet-2024-04-28.png">Character Sheet (PNG)</LiLink>
+        </MegaDropdownMenuSection>
+
+        <MegaDropdownMenuSection title="Content">
+          <LiLinkPremium isDownload={true} to="/Download/Sheet-2023-03-24b.pdf">Mount Hyhelm (Starter One-Shot)</LiLinkPremium>
+          <LiLinkPremium isDownload={true} to="/Download/Sheet-2023-03-24b.pdf">Whispervale (Starter Adventure)</LiLinkPremium>
+        </MegaDropdownMenuSection>
       </MegaDropdownMenu>
 
       <h3 className="subnav-title-portrait-only">
@@ -259,32 +276,19 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
           <LiLink to="/Lore/Languages">How To Be a Good GM</LiLink>
         </MegaDropdownMenuSection>
 
-        <MegaDropdownMenuSection title="Databases">
+        <MegaDropdownMenuSection title="QM Content">
           <LiLink to="/Other/Monsters">Monsters</LiLink>
-          <LiLink to="/Other/MagicItems">Magic Items</LiLink>
+          <LiLinkPremium to="/Other/MagicItems">Magic Items</LiLinkPremium>
           <LiLink to="/Other/Encounters">Encounters</LiLink>
         </MegaDropdownMenuSection>
 
         <MegaDropdownMenuSection title="Tools">
           <LiLink to="/Tools/TreasureGenerator">Treasure Generator</LiLink>
-          <LiLink to="/Other/CustomAbilityCreator">Custom Ability Creator</LiLink>
-          <LiLink to="/Other/CustomMonsterCreator">Custom Monster Creator</LiLink>
+          <LiLinkPremium to="/Other/CustomAbilityCreator">Custom Ability Creator</LiLinkPremium>
+          <LiLinkPremium to="/Other/CustomMonsterCreator">Custom Monster Creator</LiLinkPremium>
+          <LiLinkPremium to="/Tools/RunePuzzle">Rune Puzzle Maker</LiLinkPremium>
         </MegaDropdownMenuSection>
       </MegaDropdownMenu>
-
-      <MegaDropdownMenu title="Downloads">
-        <MegaDropdownMenuSection title="Character Sheets">
-          <LiLink isDownload={true} to="/Download/Sheet-2023-03-24b.pdf">Character Sheet (PDF)</LiLink>
-          <LiLink isDownload={true} to="/Download/Sheet-2024-06-16.psd">Character Sheet (PSD)</LiLink>
-          <LiLink isDownload={true} to="/Download/Sheet-2024-04-28.png">Character Sheet (PNG)</LiLink>
-        </MegaDropdownMenuSection>
-
-        <MegaDropdownMenuSection title="Content">
-          <LiLink isDownload={true} className="premium" to="/Download/Sheet-2023-03-24b.pdf">Mount Hyhelm (Starter One-Shot)</LiLink>
-          <LiLink isDownload={true} className="premium" to="/Download/Sheet-2023-03-24b.pdf">Whispervale (Starter Adventure)</LiLink>
-        </MegaDropdownMenuSection>
-      </MegaDropdownMenu>
-      
     </div>)
 }
 
@@ -298,7 +302,7 @@ function AccountButtons() {
         const result = await auth.login()
       }}>
         <div className="center-content">
-          <Icon name={'Google'} extension="webp" style={{margin: '0px', marginRight: '0.25rem', marginTop: '-2px'}}/>
+          <NavIcon name="Google" extension='webp'/>
         </div>
         <div className="center-content">
           <span>Login</span>
@@ -332,32 +336,6 @@ function AccountButtons() {
 
 
 
-
-
-function TestGetButton() {
-  return (
-    <div className='nav-item' onClick={async () => {
-      console.log(await getMyDocInCollection('user-data'))
-    }}>
-      Get
-    </div>
-  )
-}
-
-function TestSetButton() {
-  return (
-    <div className='nav-item' onClick={async () => {
-      console.log(setMyDocInCollection('user-data', {
-        subscriptionType: 'subscribed'
-      }))
-    }}>
-      Set
-    </div>
-  )
-}
-
-
-
 export default function Nav() {
 
     const [isBurgerClicked, setIsBurgerClicked] = useState(false)
@@ -370,22 +348,33 @@ export default function Nav() {
       setIsBurgerClicked(!isBurgerClicked)
     }
 
-    function NavItem({name, children}) {          // On hover, changes state to display a subnav
-      return (<div className='nav-item' onMouseEnter={() => setCurrentlyOpenSubnav(name) }>{ children }</div>)
+    function NavItem({name, children, to, isExternal=false }) {          // On hover, changes state to display a subnav
+      
+      const onExternalAClick = evt => {
+        evt.preventDefault()
+        window.open(to, '_blank')
+      }
+      function ExternalLink() {
+        return <a onClick={onExternalAClick}>{ children }</a> 
+      }
+
+      return (<div className='nav-item' onMouseEnter={ () => setCurrentlyOpenSubnav(name) }>
+        {
+          to == null?
+            children:
+          (
+            isExternal? (
+              <ExternalLink/>
+            ) : (
+              <Link to={to}>{ children }</Link>
+            )
+          ) }
+      </div>)
+
     }
 
     function PlayWithUsButton() {
-      return (
-        <div className='nav-item'>
-          <a onClick={event => {
-            event.preventDefault()
-            const inviteUrl = DISCORD_URL
-            window.open(inviteUrl, '_blank')
-          }}>
-            Play With Us!
-          </a>
-        </div>
-      )
+      return <NavItem to={DISCORD_URL} isExternal={true}>Play With Us!</NavItem>
     }
 
     function ActionPointsCheck() {
@@ -409,11 +398,10 @@ export default function Nav() {
           <nav className="nav-landscape">
 
             <PlayWithUsButton/>
-            <NavItem name='Database'>Database</NavItem>
+            <NavItem name='Game'>Game</NavItem>
+            <NavItem to="/Tools/CharacterCreationCalculator">Create a Character</NavItem>
             <NavItem name='Learn To Play'>Learn To Play</NavItem>
             <NavItem name='QM Resources'>QM Resources</NavItem>
-            <NavItem name='Downloads'>Downloads</NavItem>
-            
             {/* <ActionPointsCheck/> */}
 
             <AccountButtons/>
