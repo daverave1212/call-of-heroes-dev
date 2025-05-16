@@ -1268,26 +1268,62 @@ export function doesSubstringFromStartWith(string, i, startingWith) {
 export function customMarkdownToJSON(markdownText) {
     const markdown = markdownit()
     const htmlText = markdown.render(markdownText)
-    console.log(htmlText)
-    const customHTMLText = parseCustomMarkdownStringToString(htmlText)
-    const fullHTML = htmlToJson(customHTMLText)
+    let variables = {}
+    let customHTMLText = htmlText
+    while (true) {
+        const prevHTMLText = customHTMLText
+        const result = parseCustomMarkdownStringToString(customHTMLText)
+        customHTMLText = result.newString
+        if (result.variables != null && JSON.stringify(result.variables) != '{}') {
+            variables = result.variables
+        }
+        if (prevHTMLText == customHTMLText) {
+            break
+        }
+    }
+    console.log({variables})    // TODO: Broken
+    const htmlWithVars = stringReplaceAllMany(customHTMLText, Object.keys(variables).map(varName => `%${varName}%`, Object.values(variables)))
+    const fullHTML = htmlToJson(htmlWithVars)
     const body = fullHTML.children[1]
     const xmlNode = body.childNodes[0]
     return Array.from(xmlNode.childNodes)
 }
 
+export function objContainsAnyKey(obj, keys) {
+    for (const key of keys) {
+        if (obj[key] != null) {
+            return true
+        }
+    }
+    return false
+}
+
 const customMappings = {
-    '@@$#': () => ({ end: '@@$#', tag: 'span', attributes: 'style="color: red;"'}),
+    '@#$': () => ({ end: '@#$', tag: 'span', attributes: 'style="color: red;"'}),
     "<p>^^^": () => ({ end: '</p>', tag: 'div', attributes: 'style="margin-top: 5rem"'}),
     '\\aside': () => ({ end: '\\aside', tag: 'div', attributes: 'class="hbc-quote"'}),
     '\\if': () => ({ end: '\\if', tag: 'div', attributes: 'class="hbc-maybe"'}),
-    '\\img': (params=[]) => ({ end: '\n', tag: 'img', attributes: 
-        `src="${params[0]}" style="${params[2] != 'right'? '': 'position: absolute; right: 12px;'} ${params[1] == 'null'? '': 'width: ' + params[1]};"`,
-    ignoreContent: true })
+    '\\img': (params=[], props={}) => ({ end: '\n', tag: 'img', attributes: `src="${params[0]}" style="${
+        (objContainsAnyKey(props, ['left', 'right', 'top', 'bottom']) ? `position: absolute; `: '') +
+        (props.left? `left: ${props.left}; `: '') +
+        (props.top? `top: ${props.top}; `: '') +
+        (props.right? `right: ${props.right}; `: '') +
+        (props.bottom? `bottom: ${props.bottom}; `: '') +
+        (props.width? `width: ${props.width}; `: '')
+    }"`, ignoreContent: true }),
+    '\\columns': () => ({ end: '\\columns', tag: 'div', attributes: `class="columns space-between"`}),
+    '\\left': () => ({ end: '\\left', tag: 'div', attributes: `class="column left"`}),
+    '\\right': () => ({ end: '\\right', tag: 'div', attributes: `class="column right"`}),
+    '\\code': (params=[], props={}) => ({ end: '\\code', tag: 'code', content: `${props.text?.replaceAll('\\', '&#92;')}` }),
+    '\\var': (params, props={}) => ({ end: '\n', tag: 'div', attributes: `style="display: none;"` }),
+
 }
 
 
 export function parseCustomMarkdownStringToString(string) {
+
+    const variables = {}
+
     function findMappingItStartsWith(i) {
         for (const key of Object.keys(customMappings)) {
             if (doesSubstringFromStartWith(string, i, key)) {
@@ -1299,9 +1335,12 @@ export function parseCustomMarkdownStringToString(string) {
     function getMappingAsHTML(startI, mappingName) {
         const mapping = customMappings[mappingName]()
         let i = startI + mappingName.length
-        while (doesSubstringFromStartWith(string, i, mapping.end) == false) {
-            i++
+        if (mapping.end != null) {
+            while (doesSubstringFromStartWith(string, i, mapping.end) == false) {
+                i++
+            }
         }
+        
         const parameters = []
         let htmlContents = string.substring(startI + mappingName.length, i)
         while (htmlContents.startsWith('(')) {
@@ -1310,19 +1349,27 @@ export function parseCustomMarkdownStringToString(string) {
             parameters.push(param)
             htmlContents = htmlContents.substring(paramEnd + 1)
         }
+        const attributes = parameters
+            .filter(param => param.indexOf('=') != null)
+            .map(param => param.split('='))
+            .reduce((soFar, kvp) => ({ ...soFar, [kvp[0]]: kvp[1] }), {})
 
-        console.log({parameters})
+        console.log({parameters, attributes})
 
-        const finalMapping = customMappings[mappingName](parameters)
+        const finalMapping = customMappings[mappingName](parameters, attributes)
 
         const finalHTML = 
             finalMapping.ignoreContent?
                 `<${finalMapping.tag} ${finalMapping.attributes}/>`
+            :finalMapping.content?
+                `<${finalMapping.tag} ${finalMapping.attributes? finalMapping.attributes: ''}>${finalMapping.content}</${finalMapping.tag}>`
             :
-                `<${finalMapping.tag} ${finalMapping.attributes}>${htmlContents}</${finalMapping.tag}>`
+                `<${finalMapping.tag} ${finalMapping.attributes? finalMapping.attributes: ''}>${htmlContents}</${finalMapping.tag}>`
         return {
             string,
             html: finalHTML,
+            varName: mappingName == '\\var' && getOnlyKey(attributes),
+            varValue: mappingName == '\\var' && getOnlyProp(attributes),
             i: i,
             newI: i + finalMapping.end.length - 1  // -1 because of the i++ in the for below
         }
@@ -1336,14 +1383,15 @@ export function parseCustomMarkdownStringToString(string) {
             newString += char
             continue
         }
-        console.log(`Found one at i = ${i} mappingName="${mappingName}" in string: "${string}"`)
         const result = getMappingAsHTML(i, mappingName)
-        console.log({result})
         newString += result.html
+        if (result.varName != null) {
+            variables[result.varName] = result.varValue
+        }
         i = result.newI
     }
 
-    return newString
+    return { newString, variables }
 }
 export function getDOMNodeAttributes(node) {
     if (node.attributes == null) {
