@@ -30,6 +30,9 @@ export async function existsMyDocInCollection(collectionName) {
 window.getMyDocInCollection = getMyDocInCollection
 
 
+
+
+
 // ------------- Character API -------------
 export async function getMyCharacters() {
     assertLoggedIn()
@@ -42,5 +45,22 @@ export async function getMyCharacters() {
 export async function setMyCharacters(array) {
     return await setMyDocInCollection('player-characters', {
         characters: array
+    })
+}
+
+
+
+// ------------- Homebrew API -------------
+export async function getMyHomebrews() {
+    assertLoggedIn()
+    if (await existsMyDocInCollection('player-homebrew') == false) {
+        return []
+    }
+    const getMyHomebrewResult = await getMyDocInCollection('player-homebrew')
+    return getMyHomebrewResult.homebrews
+}
+export async function setMyHomebrews(array) {
+    return await setMyDocInCollection('player-homebrew', {
+        homebrews: array
     })
 }

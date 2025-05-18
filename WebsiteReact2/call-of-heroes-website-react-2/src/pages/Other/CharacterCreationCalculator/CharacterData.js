@@ -118,8 +118,6 @@ export function useMyCharactersDB(locationInCode) {
     useEffect(() => {
         if (user != null) {
             Database.getMyCharacters().then(myCharactersFromDB => {
-                // console.log(`User changed. Got characters from DB:`)
-                // console.log({myCharactersFromDB})
                 innerSetMyCharacters(myCharactersFromDB)
             })
         }

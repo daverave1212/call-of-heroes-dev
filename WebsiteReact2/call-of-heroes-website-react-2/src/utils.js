@@ -1368,8 +1368,8 @@ export function parseCustomMarkdownStringToString(string) {
         return {
             string,
             html: finalHTML,
-            varName: mappingName == '\\var' && getOnlyKey(attributes),
-            varValue: mappingName == '\\var' && getOnlyProp(attributes),
+            varName: mappingName == '\\var'? getOnlyKey(attributes): null,
+            varValue: mappingName == '\\var'? getOnlyProp(attributes): null,
             i: i,
             newI: i + finalMapping.end.length - 1  // -1 because of the i++ in the for below
         }
