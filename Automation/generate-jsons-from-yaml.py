@@ -108,7 +108,7 @@ def add_name_to_spells_recursively(dict_to_search):
         subobj = dict_to_search[key]
         if subobj == None:
             continue
-        if type(subobj) is not dict:   # Don't care about anything that's not nested
+        if type(subobj) is not dict:   # Don't care about anything that's not nested, like string, number, bool, etc
             continue
         if is_spell_name(key):
             subobj['Name'] = key
