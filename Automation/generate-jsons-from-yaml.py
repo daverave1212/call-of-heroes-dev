@@ -187,29 +187,29 @@ def get_format_sections_object_list(dict_content_list):
 
 
 
-    def get_recursive_section(section_object_list):
-        
-        if isinstance(section_object, str):
-            return section_object
-        
-        # else, it must be a list of objects
+def get_recursive_section(section_object_list):
+    
+    if isinstance(section_object, str):
+        return section_object
+    
+    # else, it must be a list of objects
 
-        only_key = list(section_object.keys())[0]
-        children = section_object[only_key]
+    only_key = list(section_object.keys())[0]
+    children = section_object[only_key]
 
-        new_object = {
-            'title': only_key,
-            'children': None
-        }
+    new_object = {
+        'title': only_key,
+        'children': None
+    }
 
-        if isinstance(children, str):
-            new_object['children'] = children
-        elif isinstance(children[0], str):
-            new_object['children'] = children
-        else:
-            new_object['children'] = [get_recursive_section(child) for child in children]
+    if isinstance(children, str):
+        new_object['children'] = children
+    elif isinstance(children[0], str):
+        new_object['children'] = children
+    else:
+        new_object['children'] = [get_recursive_section(child) for child in children]
 
-        return new_object
+    return new_object
     
     
 

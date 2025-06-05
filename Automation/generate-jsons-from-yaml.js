@@ -1,11 +1,13 @@
 
 import fs from 'fs'
 import { parse, stringify } from 'yaml'
+import path from 'path'
 
 const yamlRootFolder = '../Design'
 const jsonRootFolder = '../WebsiteReact2/call-of-heroes-website-react-2/src/databases'
 
-const shouldGenerateSpecificFiles = process.argv.length > 1
+const shouldGenerateSpecificFiles = process.argv.length > 2
+console.log({shouldGenerateSpecificFiles, argv: process.argv})
 const specificFiles = process.argv.slice(1)
 
 let abilities = {}
@@ -39,9 +41,9 @@ const races = [
     'Human',
     'Orc',
 ]
-const backgrounds = []        // Polulated at runtime
-const rulesLists = []        // Polulated at runtime ( title: "X", children: [...])
-const rulesDicts = []        // Polulated at runtime ("X": [...])
+let backgrounds = []        // Polulated at runtime
+let rulesLists = []        // Polulated at runtime ( title: "X", children: [...])
+let rulesDicts = []        // Polulated at runtime ("X": [...])
 
 const filesToConvert = [    // Order matters
     'Abilities.yml',
@@ -228,7 +230,7 @@ function getFormatSectionsObjectDict(dictContentList) {
 }
     
 
-async function processFiles(filesToConvert, yamlRootFolder, jsonRootFolder, shouldGenerateSpecificFiles = false, specificFiles = []) {
+async function processFiles() {
     for (const fileName of filesToConvert) {
         if (shouldGenerateSpecificFiles && !specificFiles.includes(fileName)) {
             continue;
@@ -239,7 +241,7 @@ async function processFiles(filesToConvert, yamlRootFolder, jsonRootFolder, shou
         let fileContent = '';
 
         try {
-            fileContent = await fs.readFile(filePath, 'utf-8');
+            fileContent = fs.readFileSync(filePath, 'utf-8');
         } catch (err) {
             console.error(`ERROR: Failed to read file ${fileName}`);
             throw err;
@@ -297,8 +299,8 @@ async function processFiles(filesToConvert, yamlRootFolder, jsonRootFolder, shou
         const jsonString = JSON.stringify(dictContent, null, 4);
 
         try {
-            await fs.mkdir(path.dirname(outputPath), { recursive: true });
-            await fs.writeFile(outputPath, jsonString, 'utf-8');
+            fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+            fs.writeFileSync(outputPath, jsonString, 'utf-8');
         } catch (err) {
             console.error(`ERROR: Failed to write JSON to ${outputPath}`);
             throw err;
@@ -315,25 +317,25 @@ async function processFiles(filesToConvert, yamlRootFolder, jsonRootFolder, shou
         };
 
         try {
-            await fs.writeFile(
+            fs.writeFileSync(
                 path.join(jsonRootFolder, 'OverallData.json'),
                 JSON.stringify(overallData, null, 4),
                 'utf-8'
             );
 
-            await fs.writeFile(
+            fs.writeFileSync(
                 path.join(jsonRootFolder, 'ClassAndRaceAbilities.json'),
                 JSON.stringify(classRaceAbilities, null, 4),
                 'utf-8'
             );
 
-            await fs.writeFile(
+            fs.writeFileSync(
                 path.join(jsonRootFolder, 'RulesLists.json'),
                 JSON.stringify(rulesLists, null, 4),
                 'utf-8'
             );
 
-            await fs.writeFile(
+            fs.writeFileSync(
                 path.join(jsonRootFolder, 'RulesDicts.json'),
                 JSON.stringify(rulesDicts, null, 4),
                 'utf-8'
@@ -346,3 +348,4 @@ async function processFiles(filesToConvert, yamlRootFolder, jsonRootFolder, shou
 }
 
 
+processFiles()
