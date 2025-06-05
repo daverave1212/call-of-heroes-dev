@@ -434,9 +434,17 @@ export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
                 <Column>
                     <PageH3>Basic Abilities</PageH3>
                     <div className='with-margined-children'>
-                        { theClass.Spellcasting.Mana != null && theClass.Spellcasting.Mana.Amount != null && (
-                            <SmallStat name="Mana" color="blue">{ theClass.Spellcasting.Mana.Amount }<Icon name="Mana"/></SmallStat>
-                        ) }
+                        <SmallStat name="Mana" color="blue">
+                            <Icon name="Mana"/>
+                            {
+                                theClass.Spellcasting.Type == 'Paladin' || theClass.Spellcasting.Type == 'Special Mana-based'?
+                                    <span>{theClass.Spellcasting.Mana.Amount}</span>
+                                :theClass.Spellcasting.Type == 'Mana-based'?
+                                    <span>{theClass.Spellcasting.Mana.Amount} + <b>50% of Intelligence</b> (rounded UP)</span>
+                                :null
+                            
+                            }
+                        </SmallStat>
                         {
                             theClass['Spellcasting']['Known Basic Abilities'] != null &&
                             isCharacterCreationPage == false &&
@@ -508,7 +516,7 @@ export function SpecTalents({ spec, onSpellsSelected, selectedSpellNames, setSel
 
     const talentTierCategories = Object.keys(spec.Talents)
 
-    const talentTiers = [3,4,5,6,7,8,9,10]
+    const talentTiers = [2,3,4,5,6,7,8,9,10]
     const defaultSmallBonusTalentsByTier = {
         4: ['<Stat Bonus 4>', '<Double Stat Bonus>'],
         6: ['<Stat Bonus 4>', '<Double Stat Bonus>'],
@@ -530,10 +538,6 @@ export function SpecTalents({ spec, onSpellsSelected, selectedSpellNames, setSel
                     const abilitiesHere = abilitiesHereNames.map(name => U.spellWithName(name, classAndRaceAbilities[name]))
                     return <div>
                         <PageH3>{talentTierName}</PageH3>
-                        {/* <ManySpells spells={abilitiesHere} onSpellsSelected={spells => {
-                            console.log({ selectedSpellsInManySpellsSpec: spells })
-                            onSpellsSelected(spells)
-                        }}/> */}
                         <ManySpells spells={abilitiesHere} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames} onSpellClick={onSpellClick}/>
                     </div>
                 }
@@ -817,6 +821,30 @@ export function ClassPageV2({
                 )}            
                 
                 <StartingAbilities spellsObject={theClass['Starting Abilities']} description={theClass['Starting Abilities Description']}/>
+
+                
+
+                { theClass['Ability Choices'] != null && (
+                    <div>
+                        <PageH2>Level 1 Talent</PageH2>
+                        <ManySpells
+                            spells={theClass['Ability Choices']}
+                            description={theClass['Ability Choices Description']}
+                            selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}
+                        />
+                    </div>
+                )}
+
+                { theClass['Utility'] != null && (
+                    <div>
+                        <PageH2>Utility Talent</PageH2>
+                        <ManySpells
+                            spells={theClass['Utility']}
+                            description={theClass['Utility Description']}
+                            selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}
+                        />
+                    </div>
+                )}
 
                 <SpellCasting theClass={theClass} isCharacterCreationPage={true}/>
 

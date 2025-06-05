@@ -443,8 +443,8 @@ export function calculateStat(statName, value, bonus=0) {
     value = parseInt(value)
     const nameToCalc = {
         'might': value * 2 + bonus,
-        'dexterity': 4 + Math.ceil(value) + bonus,
-        'intelligence': value + bonus,
+        'dexterity': 4 + Math.ceil(value / 2) + bonus,
+        'intelligence': Math.ceil(value / 2) + bonus,
         'sense': value + bonus,
         'charisma': value * 3 + bonus
     }

@@ -17,11 +17,18 @@ Proficiencies:
 
 Level Up:
   Every Level:
-    Health: 5
+    Health: 4
+  Mana:
+    Amount: 2
+    Regain: Your Mana resets after every combat.
 
 Spellcasting:
   Type: Paladin
   SpellsOrAbilities: Spell
+
+  Mana:
+    Amount: 2
+    Regain: You regain all Mana at the end of each Worthy Combat.
 
   Change: You can change your known Spells and Talents inbetween Adventures.
   Other: All Paladin-specific Abilities are considered Spells (unless stated otherwise).
@@ -44,13 +51,6 @@ Spellcasting:
 
  
 Starting Abilities:
-
-  ~Faith Casting~:
-    _Value: 6-9
-    A: Passive
-    Effect: |
-      You do not use Mana.
-      Every Worthy Combat, you can cast up to 2 different Abilities that cost Mana, ignoring the Mana cost.
 
   ~Holy Grace~:
     _Value: 0
@@ -78,11 +78,53 @@ Starting Abilities:
       Walls block this smell and sound as they normally would.
       This smell and sound can only be concealed with magic.
 
+Ability Choices:
+
+    ~Smite~:
+      A: 0 Actions
+      Cooldown: Once / Turn
+      Cost: 1 Mana
+      Effect: |
+          After you roll Damage for an attack or Spell made in melee range, add 1d6 Divine Damage.
+          If the target dies, gain back the Mana spent on Smite.
+
+    ~Invigorate~:
+        A: 0 Actions
+        Cost: 1 Mana
+        Range: 5 meters
+        HasMixins: true
+        Degree: Minor
+        Effect: |
+            Heal a target for 1d4 + ^Sense or Inteligence^ Health.
+            After this, if the target is at full Health, repeat this on another target within 5 meters of you.
+        Notes: Yes, this can chain again and again.
+
+
+Utility:
+
+    ~Light~:
+        A: 0 Actions
+        Range: 3 meters
+        Duration: 30 real minutes
+        Cooldown: 30 real minutes
+        Degree: Lesser
+        Effect: |
+            Create a faithful source of light in a 3 meters radius (of any color).
+            It levitates and stays where you put it and can be moved by hand, or you can simply stick it to any solid object.
+        Notes: |
+            You may cancel it with 0 Actions. It can be purposefully destroyed with an Attack.
+            The light is not strong enough to blind someone.
+            The bulb can't go through solid objects.
+
+    ~Guidance~ :
+        A: Reaction
+        Range: 10 meters
+        Cooldown: 1 hour
+        Effect: When an ally makes a Check, it can use your modifiers (including being Skilled in that Skill) instead of its own.
+
 
     
 Starting Abilities Description:
-  - Faith Casting: |
-      Paladins are not true spellcasters and don't draw power from magical Mana, but rather from their conviction and courage on the battlefield. As such, you can fill your Known Abilities with powerful Ablities and you can use each of them once. This will get better as you Level up, allowing you to pick more options and even Spells that cost more than 1 Mana, which will be free for you! Pick wisely!
   - Holy Grace: |
       Use Holy Grace when you are in need of healing either yourself or an ally, or you need to dish out some quick, surefire Damage.
       Since this takes a Half-Action, get a 1-Handed weapon to fill your turn with something to do after using Holy Grace (or get a Spell that takes a Half-Action).
@@ -167,6 +209,49 @@ Specs:
           The smell and sound can be concealed with magic.     
 
     Talents:
+      Level 2:
+
+        ~Lance Heave~:
+            A: 1 Action
+            DisplayName: "{Name}"
+            HasMixins: true
+            DisplayRequirement: Only usable if it hits at least 2 Units
+            Effect: |
+                Make a {Weapon} ^weapon^ attack {Effect}
+                ~Click on the Icon to select a preferred effect!~
+            Upgrade: Can apply weapon effects. If the weapon effect requires a target, applies to one chosen Unit hit.
+            Notes: Range increases do increase the length. The Damage must the same for all Units hit. All bonuses to the attack (e.g. Smite, Cursewielder, etc) also split evenly.
+            Variants:
+                - Name: Lance Heave
+                  DisplayA: 1 Action
+                  Effect: that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units, ignores Defense, and they all become Slowed.
+                  Weapon: 2-handed melee
+                  IconName: Lance Heave
+                - Name: Blade Heave
+                  DisplayA: Half-Action
+                  Effect: that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units, ignores Defense, and they all become Slowed.
+                  Weapon: 1-handed melee
+                  IconName: Blade Heave
+                - Name: Penetrating Heave
+                  DisplayA: 1 Action
+                  Effect: that hits one more Unit up to 2 meters directly behind the main target.
+                  Weapon: 2-handed ranged
+                  IconName: Penetrating Heave
+                - Name: Piercing Heave
+                  DisplayA: Half-Action
+                  Effect: that hits one more Unit up to 2 meters directly behind the main target.
+                  Weapon: 1-handed ranged
+                  IconName: Piercing Heave
+
+        ~Expelling Bolt~:
+            A: Half-Action
+            Cost: 1 Mana
+            Range: 5 meters
+            Degree: Minor
+            Effect: |
+                Shoot a magical bolt towards a Unit that deals 1d10 + (target's Movement Speed) Pulse Damage to it.
+            Notes: Against Epic monsters, the Speed is calculated as it's (Speed) * (Epic Grade). E.g. if it's an Ogre with Movement Speed of 3 and has an Epic Grade of 2 (meaning it takes 2 turns), its Maximum Movement Speed is 2 * 3 = 6.
+
       Level 3:
 
         # <Retribution>:      # 1
@@ -743,47 +828,7 @@ Specs:
 # Spec idea: Cavalier (you ride a horse and have abilities based on that)
 
 
-# #Spec#
-# Crusader //: 4.5 Charges?
-# Lorem ipsum snitel dolor.
-# 
-# ~Oath of the Crusade~ :   # 1-ish Charge, maybe more
-#   A: Passive
-#   Effect: 
-#     You permanently know Radiant Smite, Blinding Smite and Cleansing Smite, aside from your prepared spells.
-#     After killing an enemy with an attack that had Divine Smite on it, deal the amount rolled with Divine Smite to all enemies in the room (against their Defense).
-# 
-# 
-# ~Reckoning~ :
-#   A: 1 Action
-#   Cost: 1 Charge
-# Make an attack roll on a creature within 3 meters and that creature also rolls a Charisma Check.
-# The attack deals 1d4 + 3 Damage if it hits, and the target is stunned if it fails the Check.
-# 
-# 
-# At Level 2, pick one of the following Talents and learn it permanently:
-# 
-# 
-# <Wrathful Smite> : 0.5 Actions
-# Spend 1 Charge.
-# Make a ranged spell attack against a target within 6 meters.
-# If you hit, deal 2d8 True Damage.
-
-
-#PageEnd#
-
-# <Zeal> : Passive
-# Moving does not provoke attacks of oportunity.
-# Choose any Skill and increase it by +2.
-# 
-# 	At Level X
-# <Ravaging Smite> : 1 Action
-# Spend 4 Charges.
-# Your next landed melee attack within 1 minute deals 8d6 extra True Damage.
-# 
 # 	Talents
-# Smite is not limited to melee attacks
-# Kayle's E
 # Divine Shield
 
 
