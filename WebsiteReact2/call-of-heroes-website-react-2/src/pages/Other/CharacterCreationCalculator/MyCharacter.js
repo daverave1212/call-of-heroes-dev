@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { calculateBaseCombatStats, calculateHealthRegen, calculateMaxHealth, calculateStat, getAllClasses, getAlMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getAllStatBonusesAsObjFromSpellsArray, calculateBaseMaxManaByLevel, getExtrasFromSpells, getRaceHealth, isString, spellsFromObject, useLocalStorageState, hasClassMana, getAllWeaponsByName, getAllArmorsByName, addObjects, getSpellReplacementName, reverseObject, addManyObjects, getSpellIconPathByName } from "../../../utils"
+import { calculateBaseCombatStats, calculateHealthRegen, calculateMaxHealth, calculateStat, getAllClasses, getAlMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getAllStatBonusesYMLAsObjFromSpellsArray, calculateBaseMaxManaByLevel, getExtrasFromSpells, getRaceHealth, isString, spellsFromObject, useLocalStorageState, hasClassMana, getAllWeaponsByName, getAllArmorsByName, addObjects, getSpellReplacementName, reverseObject, addManyObjects, getSpellIconPathByName } from "../../../utils"
 import ManySpells from "../../../components/Spell/ManySpells"
 import PageH2 from "../../../components/PageH2/PageH2"
 import TextArea from "../../../components/TextArea/TextArea"
@@ -29,18 +29,19 @@ function BigStatValue({ name, value, onClick}) {
 
 
 
-export function useConstBonusesFromSpellsAndItems() {
+export function useConstBonusesYMLFromSpellsAndItems() {
     let [armorNames] = useArmors()
     const allMyArmors = armorNames.map(name => getAllArmorsByName()[name])
     const allMyRaceAndClassSpells = useConstAllRaceAndClassSpells()
     const everything = [...allMyArmors, allMyRaceAndClassSpells]
     
-    const { bonuses, sources } = getAllStatBonusesAsObjFromSpellsArray(everything)
+    const { bonuses, sources } = getAllStatBonusesYMLAsObjFromSpellsArray(everything)
+    console.log({allMyArmors, allMyRaceAndClassSpells, bonuses, sources})
 
     return { bonuses, sources }
 }
 export function useConstAllBonuses() {
-    const { bonuses, sources } = useConstBonusesFromSpellsAndItems()
+    const { bonuses, sources } = useConstBonusesYMLFromSpellsAndItems()
     const [characterBonuses] = useManualBonuses()
     const choiceBonusesObj = getChoiceAbilitiesObjects().map(obj => ({ [obj.statName]: obj.bonus }))
     const choiceBonuses = addManyObjects(choiceBonusesObj)
@@ -50,7 +51,7 @@ export function useConstAllBonuses() {
     return { bonuses: allBonuses, sources: sources }
 }
 export function useConstTotalStats() {
-    const { bonuses } = useConstBonusesFromSpellsAndItems()
+    const { bonuses } = useConstBonusesYMLFromSpellsAndItems()
     const characterBonuses = useManualBonuses()
     const [stats] = useSectionStatsState()
     return [

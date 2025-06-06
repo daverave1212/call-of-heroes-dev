@@ -198,7 +198,7 @@ export function getAlternativesAsArray(text) {
     return alternatives
 }
 
-export function getAllStatBonusesAsObjFromSpellsArray(spellsArray) {
+export function getAllStatBonusesYMLAsObjFromSpellsArray(spellsArray) {
     let bonuses = {}
     let sources = []
     for (const spell of spellsArray) {
@@ -449,6 +449,15 @@ export function calculateStat(statName, value, bonus=0) {
         'charisma': value * 3 + bonus
     }
     return nameToCalc[statName]
+}
+export function calculateAttributesFromStatsAndBonuses(totalStatsArray, bonusesYML) {
+    const [might, dexterity, intelligence, sense] = totalStatsArray
+    return {
+        maxHealth: might + sense + (bonusesYML['Max Health'] ?? bonusesYML['Health'] ?? 0),
+        movementSpeed: 2 + dexterity + intelligence + (bonusesYML['Movement'] ?? bonusesYML['Movement Speed'] ?? 0),
+        healthRegen: might + dexterity + (bonusesYML['Health Regen'] ?? bonusesYML['Regen'] ?? 0),
+        initiative: intelligence + sense + (bonusesYML['Initiative'] ?? 0)
+    }
 }
 export function calculateMaxHealth(raceName, className, level, might) {
     if (raceName == null || className == null || level == null || might == null) {

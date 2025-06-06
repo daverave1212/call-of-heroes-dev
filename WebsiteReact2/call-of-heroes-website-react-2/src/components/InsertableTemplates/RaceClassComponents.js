@@ -8,7 +8,7 @@ import PageH1 from '../PageH1/PageH1'
 import PageH2 from '../PageH2/PageH2'
 import PageH3 from '../PageH3/PageH3'
 
-import SmallStat from '../SmallStat/SmallStat'
+import SmallStat, { SmallStatTypes } from '../SmallStat/SmallStat'
 import SmallStatList from '../SmallStat/SmallStatList'
 
 import Separator from '../Separator/Separator'
@@ -347,9 +347,53 @@ export function ManaDescriptionNormal() {
         All your Mana replenishes inbetween Adventures (e.g. at the start of a new Adventure).
     </p>
 }
+export function SpecialManaDescriptionNormal() {
+    return <p>
+        Mana is a resource you can spend to cast Abilities. Some Abilities have a Mana cost, some don't.
+        Unlike other Mana-based classes, your Mana instantly regenerates 10 minutes after finishing every combat encounter (if you don't enter another combat meanwhile).
+        If you want to use Mana inbetween encounters, you spend Mana normally and, as specified, it replenishes 10 minutes after the next combat encounter.
+    </p>
+}
+
 export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
 
     const [displayedBasicAbilityObj, setDisplayedBasicAbilityObj] = useState(null)
+
+    const titlesByType = {
+        'Paladin': 'Paladin',
+        'Mana-based': 2,
+        'Special Mana-based': 2
+    }
+
+    function SpellcastingType() {
+
+
+        return (
+            <div>
+                <PageH3>{theClass.Spellcasting.Type} Casting</PageH3>
+                
+                { theClass.Spellcasting.Type == 'Mana-based'? (
+                    <ManaDescriptionNormal/>
+                ): (
+                    <SpecialManaDescriptionNormal/>
+                ) }
+
+                <PageH3>Changing Abilities (Respec)</PageH3>
+                <p>
+                    You can change your character's chosen Utility Abilities and chosen Talents (your build) inbetween Adventures.<br/>
+                    Note that non-talent Abilities that grant Stats can't be changed.<br/>
+                    { isCharacterCreationPage == false && (
+                        "Feats can't generally be changed once picked; they are permenant decisions."
+                    )}
+                </p>
+                {
+                    isCharacterCreationPage == false && (
+                        <p>{ theClass.Spellcasting.Other }</p>    
+                    )
+                }
+            </div>
+        )
+    }
 
     function ManaBasedSpellcasting() {
         return (
@@ -461,20 +505,13 @@ export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
                                 ))
                             }
                         </SmallStatList>
+                        <SmallStat name="Extra Talents" color="blue" type={SmallStatTypes.VERTICAL}>
+                            You can have a number of extra Talents from Utility, and Levels 1, 2, 4, 6 and 8 equal to your <b>Morale</b>.
+                        </SmallStat>
                     </div>
                 </Column>
                 <Column>
-                        {
-                            theClass.Spellcasting.Type == 'Mana-based' ||
-                            theClass.Spellcasting.Type == 'Shaman' ? (
-                                <ManaBasedSpellcasting/>
-                            ) : 
-                            theClass.Spellcasting.Type == 'Special Mana-based' ? (
-                                <SpecialManaBasedSpellcasting/>
-                            ) : (
-                                null
-                            )
-                        }
+                    <SpellcastingType/>
                 </Column>
             </TwoColumns>
             
@@ -822,6 +859,7 @@ export function ClassPageV2({
                 
                 <StartingAbilities spellsObject={theClass['Starting Abilities']} description={theClass['Starting Abilities Description']}/>
 
+                <SpellCasting theClass={theClass} isCharacterCreationPage={true}/>
                 
 
                 { theClass['Ability Choices'] != null && (
@@ -846,7 +884,7 @@ export function ClassPageV2({
                     </div>
                 )}
 
-                <SpellCasting theClass={theClass} isCharacterCreationPage={true}/>
+                
 
                 <LevelingUp theClass={theClass} isCharacterCreationPage={true}/>
 

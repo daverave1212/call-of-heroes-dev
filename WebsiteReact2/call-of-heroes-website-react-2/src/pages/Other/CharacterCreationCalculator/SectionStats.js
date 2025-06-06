@@ -2,11 +2,11 @@ import { useEffect, useState } from "react"
 import TwoColumns from "../../../components/TwoColumns/TwoColumns"
 import Column from "../../../components/TwoColumns/Column"
 import SmallStat from "../../../components/SmallStat/SmallStat"
-import { calculateStat, checkStatRequirements, calculateExperienceByLevel, getRace, useLocalStorageState } from "../../../utils"
+import { calculateStat, checkStatRequirements, calculateExperienceByLevel, getRace, useLocalStorageState, calculateAttributesFromStatsAndBonuses } from "../../../utils"
 import Page from "../../../containers/Page/Page"
 import { QGTitle1 } from "../../Tools/TitleGenerator"
 import Icon from "../../../components/Icon"
-import { useConstBonusesFromSpellsAndItems, useConstTotalStats } from "./MyCharacter"
+import { useConstBonusesYMLFromSpellsAndItems, useConstTotalStats } from "./MyCharacter"
 import Input from "../../../components/Input/Input"
 import { useExperience, useLevel, useSectionRaceName, useSectionStatsState } from "./CharacterData"
 
@@ -77,13 +77,15 @@ export default function SectionStats() {
     let [level, setLevel] = useLevel()
     let [stats, setStats] = useSectionStatsState()
     let totalStats = useConstTotalStats()
-    let { bonuses } = useConstBonusesFromSpellsAndItems()
+    let { bonuses } = useConstBonusesYMLFromSpellsAndItems()
     let [selectedRaceName] = useSectionRaceName()
     let [experience, setExperience] = useExperience()
 
     useEffect(() => {
         checkStandardStats(stats)
     }, [selectedRaceName])
+
+    console.log({bonuses})
 
     const myRace = getRace(selectedRaceName)
     const exactStats = myRace?.['Custom Stat Array']
@@ -130,13 +132,13 @@ export default function SectionStats() {
         checkStandardStats(statsCopy)
     }
 
-    function StatExplainedDisplay({ i, name, description, iconName, bonus }) {
+    function StatExplainedDisplay({ name, description, iconName, attributeName }) {
         return (
             <TwoColumns className='margin-top-half'>
                 <Column>
                     <div>
                         <SmallStat name={name} type="normal-large">
-                            { calculateStat(STAT_NAMES[i], totalStats[i], bonus) }
+                            { calculateAttributesFromStatsAndBonuses(totalStats, bonuses)[attributeName] }
                             &nbsp;<Icon name={iconName}/>
                         </SmallStat>    
                     </div>
@@ -180,19 +182,19 @@ export default function SectionStats() {
                     )) }
                 </div>
                 <div style={{ width: '100%' }}>
-                    <StatExplainedDisplay i={0} name="Extra Health" bonus={bonuses['Max Health'] ?? 0} iconName="Health" description={
+                    <StatExplainedDisplay name="Extra Health" iconName="Health" attributeName="maxHealth" description={
                         <div>Your <b>Max Health</b> = Race Health + 200% of Might</div>
                     }/>
-                    <StatExplainedDisplay i={1} name="Move Speed" bonus={bonuses['Movement Speed'] ?? 0} iconName="Speed" description={
+                    <StatExplainedDisplay name="Move Speed" iconName="Speed" attributeName="movementSpeed" description={
                         <div>Your <b>Movement Speed</b> = 4 + 50% of Dexterity (<i>rounded up</i>)</div>
                     }/>
-                    <StatExplainedDisplay i={2} name="Known Abilities" bonus={bonuses['Known Abilities'] ?? 0} iconName="Spell" description={
+                    {/* <StatExplainedDisplay name="Known Abilities" iconName="Spell" attributeName="maxHealth" description={
                         <div>Your <b>Number of Known Basic Abilities</b> = Intelligence</div>
-                    }/>
-                    <StatExplainedDisplay i={3} name="Extra Regen" iconName="HealthRegen" bonus={bonuses['Health Regen'] ?? 0} description={
+                    }/> */}
+                    <StatExplainedDisplay name="Extra Regen" iconName="HealthRegen" attributeName="healthRegen" description={
                         <div>Your <b>Health Regen</b> = Race Health Regen + Sense</div>
                     }/>
-                    <StatExplainedDisplay i={4} name="Initiative" bonus={bonuses['Initiative'] ?? 0} iconName="Replacement" description={
+                    <StatExplainedDisplay name="Initiative" iconName="Replacement" attributeName="initiative" description={
                         <div>
                             Your <b>Initiative</b> = 300% of Charisma
                             <div className="subtext margin-top-half">Initiative represents the order in which players and NPC's take turns.</div>

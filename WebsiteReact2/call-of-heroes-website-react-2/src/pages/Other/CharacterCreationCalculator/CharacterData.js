@@ -3,7 +3,7 @@ import * as Database from '../../../Database'
 import { useEffect } from "react"
 import { getUserState, useAuth } from "../../../Auth"
 import { showError } from "../../../services/MessageDisplayer"
-import { useConstAllBonuses, useConstBonusesFromSpellsAndItems, useConstTotalStats } from "./MyCharacter"
+import { useConstAllBonuses, useConstBonusesYMLFromSpellsAndItems, useConstTotalStats } from "./MyCharacter"
 
 export const NO_CHARACTER_ID = 'none'
 export const LOCAL_STORAGE_PREFIX = 'character-'
