@@ -43,7 +43,8 @@ export default function() {
         <div className='hero-content'>
           <img className='hero-logo-img' src='/LandingPage/QuestGuardLogo.png'/>
           <p className='home-text-style' style={{textAlign: 'center'}}>
-            A gamified tabletop RPG for this generation of video gamers. Battle, explore and host games for the modern world.
+            QuestGuard is what happens when a tactical RPG speedruns itself.
+            Create wild characters, stack combos, and break the game in an RPG build for today's generation.
           </p>
           
           <HeroButton href="#Home-Advantages">
@@ -67,12 +68,11 @@ export default function() {
             width: '60%'
           }}/>
           <p className='home-text-style'>
-            Questguard is a quick, combat-based alternative RPG for the younger generation used to video or board games, with focus on making it easy for GM's to host.
-            If you've played games like World of Warcraft, Divinity, or League of Legends, you'll love what you see!
+            QuestGuard plays like a tactical video game: clean, deep and dangerously fun!
           </p>
           <ul className='index-advantages-ul-large'>
             <li><Icon name="BulletPoint3"/>Gamified for GM's (<b className="advantages-feature" onClick={() => setFeatureToDisplay('Quests')}>Quests</b>, <b className="advantages-feature" onClick={() => setFeatureToDisplay('Worthiness')}>Worthiness</b>)</li>
-            <li><Icon name="BulletPoint3"/>Tons of builds (<b className="advantages-feature" onClick={() => setFeatureToDisplay('Abilities')}>Abilities</b>, <b className="advantages-feature" onClick={() => setFeatureToDisplay('Talents')}>Talents</b>, <b className="advantages-feature" onClick={() => setFeatureToDisplay('Respec')}>Respec</b>)</li>
+            <li><Icon name="BulletPoint3"/>Game-breaking builds (<b className="advantages-feature" onClick={() => setFeatureToDisplay('Abilities')}>Abilities</b>, <b className="advantages-feature" onClick={() => setFeatureToDisplay('Talents')}>Talents</b>, <b className="advantages-feature" onClick={() => setFeatureToDisplay('Respec')}>Respec</b>)</li>
             <li><Icon name="BulletPoint3"/>European and D12 (<b>metric system</b>)</li>
             <li><Icon name="BulletPoint3"/>Clarity, feedback, community, online updates</li>
             <li><Icon name="BulletPoint3"/>Optimized for online play and accessibility</li>

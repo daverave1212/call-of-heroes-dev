@@ -125,7 +125,7 @@
         "A": "0 Actions",
         "Cooldown": "Once / Combat",
         "Range": "5 meters",
-        "Effect": "Stun a Unit and Daze another willing ally (not you). Then cast Awe on each.\nThese Units' Passive Abilities are disabled while affected.\n"
+        "Effect": "Triple-Stun a Unit and Single-Stunn another willing ally (not you). Then cast Awe on each.\nThese Units' Passive Abilities are disabled while affected.\n"
     },
     "<Healing Doubledown>": {
         "_Value": 3,
@@ -1004,7 +1004,7 @@
         "Range": "10 meters",
         "Cooldown": "Once / Adventure",
         "HasMixins": true,
-        "Effect": "Shoot a thundering shot towards an obstacle or wall. A quaking wave travels horizontally towards in both directions of the wall up to 10 meters in each direction.\nAll Units within 2 meters of that wall must succeed a Might Check against 6 + ^Your Sense^ or be Stunned and take 3d4 Shock Damage.\nThey take half of the Damage and are Slowed if they succeed.\n",
+        "Effect": "Shoot a thundering shot towards an obstacle or wall. A quaking wave travels horizontally towards in both directions of the wall up to 10 meters in each direction.\nAll Units within 2 meters of that wall must succeed a Might Check against 6 + ^Your Sense^ or be Triple-Stunned and take 3d4 Shock Damage.\nThey take half of the Damage and are Slowed if they succeed.\n",
         "Notes": "The floor and ceiling are not considered walls. The wave does not travel through them. This is considered a Spell. Ignores Cover."
     },
     "<Improved Hunter Mark>": {
@@ -1192,7 +1192,7 @@
         "_Value": 3,
         "A": "0 Actions",
         "Cooldown": "Once / Adventure",
-        "Effect": "One enemy near each of your pets (and/or summons) becomes Dazed, Blinded and Slowed.\n"
+        "Effect": "One enemy near each of your pets (and/or summons) becomes Single-Stunned, Blinded and Slowed.\n"
     },
     "<Call To Action>": {
         "_Value": 2,
@@ -1599,29 +1599,41 @@
     },
     "~Holy Grace~": {
         "_Value": 0,
-        "A": "1 Action",
+        "A": "Half-Action",
         "HasMixins": true,
         "Requirement": "Only usable in Worthy Combat. Can't be used on Fallen Units.",
         "Range": "3 meters",
-        "Effect": "Heal an ally for 20% of their Maximum Health (but not yourself).\nYour next attack until the end of your next Turn deals extra Damage equal to the amount just healed.\n"
+        "Tags": [
+            "Healing",
+            "Damage"
+        ],
+        "Effect": "Heal an ally for 10% of their Maximum Health (but not yourself).\nYour next attack until the end of your next Turn deals extra Damage equal to the amount just healed.\n"
     },
     "~Divine Sense~": {
         "_Value": 0,
-        "A": "1 Action",
-        "Cooldown": "Once / Real hour",
+        "A": "Half-Action",
+        "Cooldown": "1 real hour",
         "Range": "15 meters",
         "Duration": "6 seconds",
         "AlignOnWebsite": "Right",
         "HasMixins": true,
-        "Effect": "When you use this, for a brief moment, nearby holy and unholy presences emmit a subtle sound and smell ^only you can sense^.\n",
+        "Tags": "Utility",
+        "Effect": "When you use this, for a brief moment, nearby holy and unholy presences emmit a subtle sound and smell ^only you can sense^.\nApply a ~Combo~ to a random one.\n",
         "Upgrade": "Unholiness smells sulphurous and sounds like a deep, echoing rumbling or breath. Holiness smells churchly and sounds like a reverbing crystaline ringing.\n",
         "Notes": "Walls block this smell and sound as they normally would.\nThis smell and sound can only be concealed with magic.\n"
     },
     "~Smite~": {
+        "_Value": "1 (you gain 1 mana back)",
         "A": "0 Actions",
         "Cooldown": "Once / Turn",
         "Cost": "1 Mana",
-        "Effect": "After you roll Damage for an attack or Spell made in melee range, add 1d6 Divine Damage.\nIf the target dies, gain back the Mana spent on Smite.\n"
+        "Tags": [
+            "Damage",
+            "Finisher"
+        ],
+        "Effect": "After you roll Damage for a melee attack or Spell made in melee range, add 1d6 Divine Damage.\nIf the target dies, regain 1 Mana.\n",
+        "Combo": "Regain 1 Mana.",
+        "Notes": "Melee range is 1 meter, longer if made with a Weapon with longer range."
     },
     "~Invigorate~": {
         "A": "0 Actions",
@@ -1629,7 +1641,9 @@
         "Range": "5 meters",
         "HasMixins": true,
         "Degree": "Minor",
-        "Effect": "Heal a target for 1d4 + ^Sense^ Health.\nAfter this, if the target is at full Health, repeat this on another target.\n",
+        "Tags": "Healing",
+        "Effect": "Heal a target for 1d4 + ^Soul or Mind^ Health.\nAfter this, if the target is at full Health, repeat this on another target within 5 meters of you.\n",
+        "Combo": "If the target is Comboed and still not full Health, increase the Healing by 50%.",
         "Notes": "Yes, this can chain again and again."
     },
     "~Light~": {
@@ -1638,20 +1652,43 @@
         "Duration": "30 real minutes",
         "Cooldown": "30 real minutes",
         "Degree": "Lesser",
+        "Tags": "Utility",
         "Effect": "Create a faithful source of light in a 3 meters radius (of any color).\nIt levitates and stays where you put it and can be moved by hand, or you can simply stick it to any solid object.\n",
         "Notes": "You may cancel it with 0 Actions. It can be purposefully destroyed with an Attack.\nThe light is not strong enough to blind someone.\nThe bulb can't go through solid objects.\n"
     },
     "~Guidance~": {
         "A": "Reaction",
         "Range": "10 meters",
-        "Cooldown": "1 hour",
-        "Effect": "When an ally makes a Check, it can use your modifiers (including being Skilled in that Skill) instead of its own."
+        "Cooldown": "1 real hour",
+        "Tags": "Utility",
+        "Effect": "When an ally makes a Check, also add your respective Stat for that Check."
+    },
+    "~Smiting Fireheart~": {
+        "A": "Passive",
+        "_Value": 8,
+        "HasMixins": true,
+        "Effect": "After you defeat a ^Worthy Enemy^, your next attack deals +50% Damage (but can't retrigger Fire Heart)."
+    },
+    "~Eye for Revolution~": {
+        "_Value": 3,
+        "A": "Passive",
+        "Effect": "Your melee attacks deal +25% Damage for each Crowd Control they have (Double-Stun and Triple-Stun count as separate). The Damage of those attacks becoms Fire.",
+        "Combo": "+25% Damage."
+    },
+    "<Jihad>": {
+        "_Value": "No idea",
+        "A": "Passive",
+        "Effect": "When healing yourself with Crusade, increase the healing by 50%.\nAdditionally, you can heal yourself with Holy Grace.\n"
     },
     "~Crusade~": {
         "_Value": 2,
         "A": "Reaction",
         "Range": "5 meters",
         "HasMixins": true,
+        "Tags": [
+            "Healing",
+            "Damage"
+        ],
         "Effect": "When ^YOU^ defeat one Worthy Enemy, all excess Damage is converted to healing or Divine Damage to a Unit within 5 meters of you.\n",
         "Notes": "E.g. if a Unit has 5 Health and you deal 12 Damage, the Unit dies and you heal an ally (or yourself) for 7 Health using your Reaction, or blast another Unit for 7 Divine Damage. If you kill multiple Units at the same time, this triggers only for one of them, of your choice. Excess Damage from Crusade can also trigger Crusade."
     },
@@ -1663,30 +1700,47 @@
         "Duration": "6 seconds",
         "Replacement": "Replaces Divine Sense",
         "HasMixins": true,
-        "Effect": "When you use this, for a brief moment, nearby ~presences with souls~ emmit a subtle sound and smell ^only you can sense^. ~One of them becomes Feared (randomly, or you can choose it if you see it)~.\n",
+        "Tags": [
+            "Utility"
+        ],
+        "Effect": "When you use this, for a brief moment, nearby ~presences with souls~ emmit a subtle sound and smell ^only you can sense^.\nA random one gets a ~Combo and is Single-Stunned~.\n",
         "Upgrade": "Unholiness smells sulphurous and sounds like a deep, echoing rumbling or breath. Holiness smells churchly and sounds like a reverbing crystaline ringing. Normal souls smell like clean mineral water and sound like a flowing waterfall.\n",
         "Notes": "Walls block this smell and sound as they normally would.\nThe smell and sound can be concealed with magic.     \n"
+    },
+    "~Expelling Bolt~": {
+        "A": "Half-Action",
+        "Cost": "1 Mana",
+        "Range": "5 meters",
+        "Degree": "Minor",
+        "HasMixins": true,
+        "Tags": [
+            "Damage",
+            "Ranged"
+        ],
+        "Effect": "Shoot a magical bolt towards a Unit that deals 1d10 + (target's Movement Speed) Fire Damage to it.\n",
+        "Combo": "Apply 2 Combos to it."
     },
     "~Lance Heave~": {
         "A": "1 Action",
         "DisplayName": "{Name}",
         "HasMixins": true,
         "DisplayRequirement": "Only usable if it hits at least 2 Units",
+        "Tags": "AoE",
         "Effect": "Make a {Weapon} ^weapon^ attack {Effect}\n~Click on the Icon to select a preferred effect!~\n",
-        "Upgrade": "Can apply weapon effects. If the weapon effect requires a target, applies to one chosen Unit hit.",
-        "Notes": "Range increases do increase the length. The Damage must the same for all Units hit. All bonuses to the attack (e.g. Smite, Cursewielder, etc) also split evenly.",
+        "Combo": "Comboed Units take the original full Damage.",
+        "Notes": "Can apply weapon effects. If the weapon effect requires a target, applies to one chosen Unit hit.\nRange increases do increase the length. The Damage must the same for all Units hit. All bonuses to the attack (e.g. Smite, Cursewielder, etc) also split evenly.\n",
         "Variants": [
             {
                 "Name": "Lance Heave",
                 "DisplayA": "1 Action",
-                "Effect": "that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units, ignores Defense, and they all become Slowed.",
+                "Effect": "that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.",
                 "Weapon": "2-handed melee",
                 "IconName": "Lance Heave"
             },
             {
                 "Name": "Blade Heave",
                 "DisplayA": "Half-Action",
-                "Effect": "that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units, ignores Defense, and they all become Slowed.",
+                "Effect": "that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.",
                 "Weapon": "1-handed melee",
                 "IconName": "Blade Heave"
             },
@@ -1706,19 +1760,6 @@
             }
         ]
     },
-    "~Expelling Bolt~": {
-        "A": "Half-Action",
-        "Cost": "1 Mana",
-        "Range": "5 meters",
-        "Degree": "Minor",
-        "Effect": "Shoot a magical bolt towards a Unit that deals 1d10 + (target's Movement Speed) Pulse Damage to it.\n",
-        "Notes": "Against Epic monsters, the Speed is calculated as it's (Speed) * (Epic Grade). E.g. if it's an Ogre with Movement Speed of 3 and has an Epic Grade of 2 (meaning it takes 2 turns), its Maximum Movement Speed is 2 * 3 = 6."
-    },
-    "<Jihad>": {
-        "_Value": "No idea",
-        "A": "Passive",
-        "Effect": "When healing yourself with Crusade, increase the healing by 50%.\nAdditionally, you can heal yourself with Holy Grace.\n"
-    },
     "<Retribution>": {
         "_Value": 1.25,
         "A": "Half-Action",
@@ -1726,29 +1767,100 @@
         "Range": "3 meters",
         "Effect": "Stun a Unit."
     },
-    "<Flaming Reach>": {
-        "_Value": 1.5,
-        "A": "Half-Action",
-        "Cooldown": "Once / Adventure",
-        "Duration": "1 minute",
-        "Effect": "Your weapon takes on a fiery aspect.\nYour first melee attack every turn has up to 3 meters range, deals Fire Damage instead of Physical and deals 1d4 Fire Damage to the target and all Enemies within 2 meters of the target.\n",
-        "Upgrade": "Passively, you can now cast Smite Abilities on ranged attacks.",
-        "Notes": "Attacks like this count as either melee or ranged attacks, your choice. Targets still benefit from Cover, regardless.\nAlternatively, if it makes sense for your character, the DM might allow it to deal Cold, Scourge or Shock Damage instead of Fire. Talk to your DM about this.\n"
+    "~Gaiety~": {
+        "A": "Passive",
+        "_Value": 3,
+        "HasMixins": true,
+        "Tags": [
+            "Movement"
+        ],
+        "Effect": "After you cast a Utility Spell, immediately make a Movement Action (for free) or apply a ~Combo~ to an ally.\n"
+    },
+    "~Crimson Contrition~": {
+        "A": "Reaction",
+        "Tags": [
+            "RoI Damage"
+        ],
+        "Effect": "Whenever you deal Damage to multiple Units at the same time, increase all Divine and Fire Damage you deal by 10% for the rest of the Combat.",
+        "Upgrade": "This stacks indefinitely."
     },
     "<Join the Crusade>": {
-        "_Value": 2,
+        "_Value": 4,
         "A": "Special",
         "Cooldown": "Lifetime",
         "AlignOnWebsite": "Right",
-        "Effect": "Ask a party member to join your cause and pledge their honor to you. Write a set of vows, which your companion must vow to abide to and follow with their life, upon death do you two apart.\nThat person has the Crusade Ability, the same Tier 1 Talent you have, and access to the Divine Ability List.\n",
+        "Tags": "Other",
+        "Effect": "A party member pledges to you. They have the Crusade Ability, and the same Level 1 and 2 Talents (including Utility) you have..\n",
+        "Upgrade": "Ask a party member to join your cause and pledge their honor to you. Write a set of vows, which your companion must vow to abide to and follow with their life, upon death do you two apart.",
         "Notes": "Only one person can pledge for you and it must within sight or hearing to have access to all of those.\nIf you ever change this Talent, the ally loses access to all things mentioned; it regains them when you get this Talent again.\n"
     },
-    "<Suspension of Belief>": {
-        "A": "Special",
+    "~Seal of the Aurora~": {
+        "A": "Passive",
+        "_Value": 4,
+        "Tags": [
+            "Healing",
+            "AoE Healing"
+        ],
+        "Effect": "Whenever you heal a Unit to full Health, heal another Unit within 5 meters of it for 50% of the amount healed.",
+        "Upgrade": "The secondary heals can trigger Seal of the Aurora again."
+    },
+    "~Flaming Reach~": {
+        "A": "Passive",
+        "_Value": 6,
+        "Tags": [
+            "Damage",
+            "Quick Attacks"
+        ],
+        "Effect": "Your second and all further melee attacks each Turn deal +1d4 Damage on targets you haven't attacked this Turn.\nTheir range is 3 meters and all their Damage becomes Fire.\n"
+    },
+    "~Exorcism~": {
+        "A": "3 Action Points",
+        "Cost": "1 Mana",
+        "Range": "5 meters",
         "Cooldown": "Once / Adventure",
+        "Degree": "Major",
+        "Tags": "Nuke, Ultimate",
+        "Effect": "Deal 5d10 True Damage to a Unit.\nIf it's a Demon, Fiend or Undead, increase the Damage by 50%.\n",
+        "Combo": "Increase the Damage by 50% anyway."
+    },
+    "~Radiance~": {
+        "A": "0 Actions",
+        "Cost": "1 Mana",
+        "Degree": "Minor",
+        "Tags": "AoE",
+        "Effect": "For 1 minute, at the end of your Turn, all Units within 1 meter of you take 1d4 Divine Damage.",
+        "Notes": "Can't stack multiple Radiances on the same Unit."
+    },
+    "<Golden Shield>": {
+        "A": "Half-Action",
+        "Cost": "1 Mana",
+        "Duration": "Up to 1 hour",
+        "Degree": "Minor",
+        "Tags": "Protection",
+        "Effect": "A Unit you can see becomes surrounded in a divine golden shield.\nNext time the Unit would take Damage, it is completely blocked.\n",
+        "Combo": "Gain back the Action Point spent."
+    },
+    "~Row Through~": {
+        "A": "1 Action",
+        "Cost": "2 Mana",
+        "Range": "2 meters",
+        "HasMixins": true,
+        "Effect": "Push a medium-sized, non-Epic Unit up to 6 meters in any direction.\nIf it collides with something, it is Triple-Stunned and takes 1d8 Smash Damage (and it stops).\nIf it collided with another Unit, that Unit is also pushed in the same direction and repeats the effect of Row Through.\n",
+        "Notes": "E.g. if it collides with a Unit, that Unit is also pushed up to 6 meters and if it collides with something, it is Triple-Stunned and takes 1d8 Damage. If that thing it collided with was a Unit, that Unit is also pushed up to 6 meters and is Triple-Stunned and so on.\n\"{Stunned}\"\n"
+    },
+    "~Spreading Exigency~": {
+        "A": "Reaction",
+        "Cooldown": "1 Real Hour",
+        "_Value": 6,
+        "Effect": "When a Unit becomes Crowd Controlled, all Enemies within 3 meters of it must pass a Heart Check against your Heart Check, or also be affected by that Crowd Control.\n",
+        "Downside": "Units affected by Retribution gain +2 to the Check."
+    },
+    "<Suspension of Belief>": {
+        "_Value": "5 (can be comboed with Smite)",
+        "A": "Reaction",
         "HasMixins": true,
         "AlignOnWebsite": "Left",
-        "Effect": "When you no longer have Abilities usable with Faith Casting, reset the Cooldown of all your Paladin Class and Talent Abilities.\n",
+        "Effect": "The moment your Mana drops to 0, freely cast Holy Grace (or an upgrade).\n",
         "Notes": "Be wary of your faith, though, for gods seldom hold a positive outlook on those putting their conviction on hiatus.\n"
     },
     "<Culling Smite>": {
@@ -1756,7 +1868,7 @@
         "A": "0 Actions",
         "Cooldown": "Once / Adventure",
         "AlignOnWebsite": "Left",
-        "Effect": "After you roll for a melee attack, add 3d6 Divine Damage.\n",
+        "Effect": "After you roll for a melee attack, add 3d6 Divine Damage.\nIf the target does not die, refresh 1 Mana.\n",
         "Notes": "Can not be used at the same time with other \"Smite\" Abilities."
     },
     "<Lay on Hands>": {
@@ -1764,6 +1876,14 @@
         "A": "1 Action",
         "Cooldown": "Once / Adventure",
         "Effect": "Heal a Unit you can see for 50% of its Max Health."
+    },
+    "~Bravery Despite Fear~": {
+        "A": "Half-Action",
+        "Cost": "1 Mana and 2d6 Health",
+        "Degree": "Major",
+        "Requirement": "Level 6",
+        "Cooldown": "Once / Adventure",
+        "Effect": "Reset the Cooldown of a different Ability."
     },
     "<Personal Squire>": {
         "_Value": 3,
@@ -1871,7 +1991,7 @@
         "HasMixins": true,
         "Effect": "Use when an ally inflicts Crowd Control. That Crowd Control is transformed into a better effect.\n",
         "Upgrade": "^Slowed^ becomes ^Rooted^.\n^Fumbling^ becomes ^Feared^.\nAny other harder Crowd Control becomes ^Stunned^.\n",
-        "Notes": "Hard Terrain is not Crowd Control. All Crowd Controls harder than Slowed, Fumbling, etc become Stunned."
+        "Notes": "Hard Terrain is not Crowd Control. All Crowd Controls harder than Slowed, Fumbling, etc become Triple-Stunned."
     },
     "<Devotion Aura>": {
         "_Value": 1.5,
@@ -2262,7 +2382,7 @@
         "HasMixins": true,
         "Cooldown": "1 hour",
         "Effect": "Choose a point covered in shadow up to 6 meters away and teleport to it.\n~Your next attack makes the target roll a Might Check against the Damage done. If it fails, it becomes put to Sleep for 1 minute.~\n",
-        "Upgrades": "You can use this as a Reaction when an enemy wants to attack you (before dealing the Damage). If it can't do the attack anymore, it must choose something else to do.\n~Epic monsters are instead Stunned for 1 Turn.~\n"
+        "Upgrades": "You can use this as a Reaction when an enemy wants to attack you (before dealing the Damage). If it can't do the attack anymore, it must choose something else to do.\n~Epic monsters are instead Triple-Stunned for 1 Turn.~\n"
     },
     "<Death Mark>": {
         "_Value": 2.25,
@@ -2500,7 +2620,7 @@
         "A": "0.5 Actions",
         "Cooldown": "Once / Adventure",
         "HasMixins": true,
-        "Effect": "All units in a line must succeed a Might Check against _10% of your Max Health_ or be Stunned. If they succeed, they become Fumbling instead.\nThe line is 3 meters wide, and has a length of 1 meter for ever 5 Health you are missing.\n",
+        "Effect": "All units in a line must succeed a Might Check against _10% of your Max Health_ or be Triple-Stunned. If they succeed, they become Fumbling instead.\nThe line is 3 meters wide, and has a length of 1 meter for ever 5 Health you are missing.\n",
         "Notes": "E.g. if you have 30 out of 50 Health (thus missing 20 Health), then the line will be 4 meters long.\nCover is applied normally.\n"
     },
     "<Ruining Shout>": {
@@ -3084,7 +3204,7 @@
     "<Glory Run>": {
         "_Value": 2.25,
         "A": "Passive",
-        "Effect": "When combat starts, a Glory Point appears behind the furthermost Enemy from you that you can see.\nIf you touch the Glory Point, heal for 20% of your total Health and all Enemies you can see must become Dazed.\nThe Glory Point then disappears.\n",
+        "Effect": "When combat starts, a Glory Point appears behind the furthermost Enemy from you that you can see.\nIf you touch the Glory Point, heal for 20% of your total Health and all Enemies you can see must become Single-Stunned.\nThe Glory Point then disappears.\n",
         "Notes": "The Glory Point is not a physical thing. It's merely a concept (a point)."
     },
     "<Ruining Throw>": {

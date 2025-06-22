@@ -313,7 +313,7 @@ Ogre:
         Notes: If the Unit would fall down more than 2 meters, it instead grabs the nearest ledge and can climb it with a Half-Action (on its turn).
     - Hurl Object:
         Range: 3 to 5 meters
-        Effect: Throw something nearby into a Unit for 1d6 Damage. If it has obstacle Cover, the obstacle breaks; otherwise, the Unit becomes Dazed.
+        Effect: Throw something nearby into a Unit for 1d6 Damage. If it has obstacle Cover, the obstacle breaks; otherwise, the Unit becomes Single-Stunned.
     - Stomp: Damage all Units within 2 meters for 4 Pulse Damage (or 2d4 - 1).
   Passives:
     - Resistances: Takes -50% Smash and Pulse Damage.
@@ -521,7 +521,7 @@ Druid:
         Root: The target becomes Rooted or takes an +1d4 Damage (its choice).
     - Maul (Owlbear):
         Damage: 2d6 Smash
-        Critical Daze: If rolled at least one 6, target becomes Dazed.
+        Critical Stun: For each 6 rolled, the target becomes Single-Stunned.
     - Tongue Grab (Toad) (4m):
         Damage: 3d4 Poison
         Pull: Target is pulled next to the toad.
@@ -678,7 +678,7 @@ Centaur:
     - Melee Weapon:
         Damage: 5 (or 1d8)
         Onset: +1 Damage for each meter moved towards the target (strafing around the target does not count, it has to be straight movement towards it; diagonals are valid if you play on a grid).
-    - Back Hooves (free) (usable only before moving): A target must succeed a 11 Grade Dexterity Check or it takes 1d8 Smash Damage and is Dazed.
+    - Back Hooves (free) (usable only before moving): A target must succeed a 11 Grade Dexterity Check or it takes 1d8 Smash Damage and is Single-Stunned.
   Passives:
     - Moving Target: If the Centaur moved this round, its Defense is doubled for the rest of the round.
     - Hooves: Immune to Caltrops and Difficult Terrain.
@@ -687,7 +687,7 @@ Centaur:
   Behavior: |
     Moving towards the target, then switching direction, then moving towards it again only counts the meters AFTER switching direction as moving towards it.
     Centaur move as much as they possibly can to maximize their Onset Damage.
-    If there is only one enemy around it, it will use Back Hooves. If it Dazes the target, it will move towards another target.
+    If there is only one enemy around it, it will use Back Hooves. If it Stuns the target, it will move towards another target.
     If there are multiple enemies around it, will use Back Hooves and attack the other.
     Centaur strive when they are high on the Initiative track, as any attacks made against them before they take their turn deals more Damage (due to Moving Target).
     Snaring a Centaur is very effective.
@@ -1048,7 +1048,7 @@ Cockatrice:
   Passives:
     - Bloody Shriek: |
         When dropping below 50% HP, Cockatrice shrieks.
-        All Units within 6 meters must succeed a 11 Grade Sense Check or be Dazed and take 1d8 Psychic Damage.
+        All Units become a Triple-Stunned level equal to 4 - Their Sense (e.g. if their Sense is 1, they become Triple-Stunned).
   Avoids AoE: No
   Behavior: |
     Every turn, the Cockatrice jumps to attack a different target.
@@ -1363,7 +1363,9 @@ Tyrannosaurus:
         Bite Off: If this attack did at least 10 Damage, the Tyrannosaurus permanently bites off an arm of a leg (of target's choice). The target gets a Missing Arm or Missing Leg Feat.
         Upgrade: Can only be used on the first Turn every Round.
         Notes: Can't leave a target with less than 1 arm and 1 leg.
-    - Slam (1m to edge): Damage all Units in a 3x3 area for 2d8. If any of them is Large or larger, it becomes Dazed.
+    - Slam (1m to edge): |
+        Damage all Units in a 3x3 area for 2d8.
+        If any of them is Large or larger, it becomes Single-Stunned.
   Heroics:
     - Terrifying Roar (Round 2): Roar - all Units that can hear it must roll a Sense Check at least 11 or become Feared and Silenced.
     - Tyrant King (Round 4): The Tyrannosaurus is enraged, and can now repeat Abilities (e.g. use Ripping Bite on both turns).
@@ -1391,7 +1393,7 @@ Griphon:
   Abilities:
     - Beak/Claws:
         Damage: Make 5 attacks for 1d4 Pierce or Slash (of choice)
-        Defense Break: Every rolled 4 or 1 puts one Stunful token on the target. At 3 Stunful tokens, the target must succeed a Grade 11 Might Check or be Stunned (then remove the tokens).
+        Defense Break: Every rolled 4 or 1 puts one Stunful token on the target. At 3 Stunful tokens, the target must succeed a Grade 11 Might Check or be Triple-Stunned (then remove the tokens).
   Passives:
     - Overwhelm: |
         Once per turn, the Griphon can try to move on the space of another Unit.
@@ -1434,8 +1436,8 @@ Behemoth:
         4 Damage (Slash/Pierce/Smash).
         Breaks all Large or smaller obstacles within 1 meter of the target.
     - Roar: All enemies that can hear the Behemoth take 3 Psychic Damage that ignores Defense.
-    - Throw Boulder (5m): 7 Damage (Smash). Target must succeed a Grade 12 Might Check or be Dazed or Rooted (its choice). This takes 2 turns.
-    - Destroy (Last) (10m): Leap towards the (an) enemy that took the least Damage this round. They must succeed a Grade 12 Might Check, or take 2d6 Damage and be Stunned.
+    - Throw Boulder (5m): 7 Damage (Smash). Target must succeed a Grade 12 Might Check or be Single-Stunned. This takes 2 turns.
+    - Destroy (Last) (10m): Leap towards the (an) enemy that took the least Damage this round. They must succeed a Grade 12 Might Check, or take 2d6 Damage and be Triple-Stunned.
   Passives:
     - Nine Hide Layers: All Damage received is rounded down to a multiple of 9 (e.g. 13 becomes 9, 7 becomes 0, 47 becomes 45).
     - Ground Smashing: |
@@ -1790,7 +1792,7 @@ Eldritch Abomination:
   Passives:
     - Distanced Mirrage: |
         The Eldritch Abomination is perpetually 15 meters away from anyone looking at it.
-        This effect disappears permanently if Silenced, Stunned or dealt Psychic Damage.
+        This effect disappears permanently if Silenced, Triple-Stunned or dealt Psychic Damage.
     - Whispers: |
         Can whisper anything, in any voice, to anyone, at any time.
   Avoids AoE: No
@@ -1935,7 +1937,7 @@ Gargoyle:
     Due to their heavy nature, their flight is limited.
     They can glide, but they can't stay in the air for very long.
     
-    If you wish to have non-fire Gargoyles, 'reskin' Flame Breath to a large sweep attack, and Searing Cracks becomes a large gust of wind from its wings that Dazes instead of Blinds (regardless of whether Units see the Gargoyle or not).
+    If you wish to have non-fire Gargoyles, 'reskin' Flame Breath to a large sweep attack, and Searing Cracks becomes a large gust of wind from its wings that Single-Stuns instead of Blinds (regardless of whether Units see the Gargoyle or not).
   Suggested Obstacles:
     - Crevices and Cliffs
     - Explosive Barrels
@@ -2073,7 +2075,7 @@ Amber Dragon:
         Damage: 13 Pierce or Slash
     - Aging Breath:
         Range: 3 meters
-        Effect: A Unit takes 11 Fire Damage. It must roll a Might Check at least 13 or it ages 1 year, becomes Dazed, and Aging Breath explodes and is recast on all Units within 2 meters of it (except Amber Dragon).
+        Effect: A Unit takes 11 Fire Damage. It must roll a Might Check at least 13 or it ages 1 year, becomes Single-Stunned, and Aging Breath explodes and is recast on all Units within 2 meters of it (except Amber Dragon).
         Notes: Doesn't retrigger on Units already hit.
     - Sands of Distortion: |
         All enemies take 2d6 Pulse Damage and are Slowed.
@@ -2507,7 +2509,7 @@ Lich:
         A cloud of Scourge Gas (Toxic Gas) forms there and remains for 1 minute. Enemies are Silenced while inside the gas.
     - Summon Skeletons: Summon a skeleton in a chosen space near every enemy. Skeletons have 1 Health and 4 Speed, and can attack for 1d4 Damage (Slash/Pierce/Smash). They have 0 Initiative.
     - Soul Bolts (10m): Shoot (2) Soul Bolts at random enemies, each dealing 1d4 True Damage (directly, ignoring Defense). Next cast shoots 1 more bolt than the previous (e.g round 1 - 2 bolts, round 2 - 3 bolts, round 3 - 4 bolts, etc).
-    - Asphyxiate (10m): Up to 3 Units must make a Sense Check or take 1d6 + 3 Pulse Damage (or half on pass) and be Crowd Controlled. Roll 1d4 (once) for the CC type - 1. Dazed, 2. Fumbling, 3. Sleep, 4. Feared.
+    - Asphyxiate (10m): Up to 3 Units must make a Sense Check or take 1d6 + 3 Pulse Damage (or half on pass) and be Crowd Controlled. Roll 1d4 (once) for the CC type - 1. Rooted, 2. Single-Stunned, 3. Double-Stunned, 4. Silenced
   Passives:
     - Finger of Death (Reaction) (10m): When a Unit takes Damage and is at or below 33% Health, shoot a death ray for 8 Damage towards it (against Defense) (or 3d4).
     - Teleportation: When the Lich moves, it teleports to the destination within Movement (if not Silenced). Alternatively, it can fly  (if not Silenced).
@@ -2886,7 +2888,7 @@ Chernobog:
     - Fire Ball (10m to edge): |
         All Units in a 6x6x6 meter area take 6d6 Fire Damage.
   Passives:
-    - Act or Die: After the end of every enemy's turn, if it didn't do Damage to the Chernobog, they take 1d10 + 5 Psychic Damage and are Dazed.
+    - Act or Die: After the end of every enemy's turn, if it didn't do Damage to the Chernobog, they take 1d10 + 5 Psychic Damage and are Single-Stunned.
     - Hell Fissure: When reaching 50% or less Health, the Chernobog creates a gigantic fissure in the ground, underneat all enemies. This fissure is a gateway to a delimited part of hell, and everyone falls inside. Demons might await or emerge from the fissure. The fissure is isolated from the rest of the hell. The fissure closes 10 minutes after the Chernobog dies. Anyone still inside remain trapped that part of hell.
     - Immunities: Immune to Fire Damage.
   Avoids AoE: No
@@ -2997,7 +2999,7 @@ Bubak:
         Attack up to 3 Units within 3 meters for 6 Scourge Damage (or 2d4 + 1).
         They are Slowed.
     - Scare Around (Free) (once per combat): |
-        All Units within 3 meters of the Bubak must succeed a 12 Sense Check or be Dazed.
+        All Units within 3 meters of the Bubak must succeed a 12 Sense Check or be Single-Stunned.
         The Bubak casts Scare Around on its first turn of combat for free.
   Passives:
     - Dormant: |
@@ -3046,7 +3048,7 @@ Singularity:
         Each Unit within 15 meters takes Pulse Damage equal to its distance to the Singularity, then is pulled 3 up to meters towards it.
   Passives:
     - Time Distorsion: Every Unit takes its turns twice, including the Singularity (so it takes 4 turns total). You should make sure Players understand the danger that's coming.
-    - Warp Effect: At the start of every Unit's turn (except the Singularity), it chooses whether to be instantly Rooted, Crippled, Silenced or Stunned. It can't choose the same thing again until it has chosen each once (then repeat).
+    - Warp Effect: At the start of every Unit's turn (except the Singularity), it chooses whether to be instantly Rooted, Crippled, Silenced or Triple-Stunned. It can't choose the same thing again until it has chosen each once (then repeat).
     - MC-like Levitation: Things put in the air remain floating in the air until moved.
     - Flyer and Teleporter: Flies. Can teleport instead of moving.
     - Weaknesses: Takes 50% more Psychic Damage.
@@ -3076,7 +3078,7 @@ Seraph:
   Abilities:
     - Dazzling Wave: |
         Create a 20x1x2 meter wall of light that can move 3 meters at the start of Seraph's every turn.
-        Enemies passing through it must make a Might Check or take 9 direct Divine Damage and are Dazed and Slowed (or half) until their next turn.
+        Enemies passing through it must make a Might Check or take 9 direct Divine Damage and are Single-Stunned and Slowed (or half) until their next turn.
         They do not provide cover and can be jumped.
     - Rays: |
         Players choose 2 targets for this attack (not necessraily knowing what will happen).
@@ -3120,7 +3122,7 @@ KingBolgurWithWyvern:
     - Frost Breath:
         Effect: Breathe cold in a CROSS centered on a Unit, dealing 2d6 Cold Damage and Slowing them. All further Cold Damage they take increases by 25%.
     - Wyvern Poison (2m):
-        Effect: Bite a Unit for 3d6 Poison Damage. They must make a Might Check or be Dazed. At the end of its turn, the poison passes to a nearby ally within 3 meters (once).
+        Effect: Bite a Unit for 3d6 Poison Damage. They must make a Might Check or be Single-Stunned. At the end of its turn, the poison passes to a nearby ally within 3 meters (once).
     - Dominate: 3 Units must make a Sense Check or be Crippled and each take 6 True Damage.
   Passives:
     - Growing Power: Gains 1 Initiative position every Round.
@@ -3186,7 +3188,7 @@ BlackWyvern:
   Initiative:   7
   Abilities:
     - Cold Bite (2m):
-        Effect: Bite a Unit for 2d6 Cold Damage. They must make a Dexterity or Might Check or be lifted and Dazed. The wyvern can then fly up to 5 meters with them in the claws.
+        Effect: Bite a Unit for 2d6 Cold Damage. They must make a Dexterity or Might Check or be lifted and Single-Stunned. The wyvern can then fly up to 5 meters with them in the claws.
     - Hollow Gaze:
         Effect: A Unit becomes a vessel of the king. It takes 7 Psychic Damage. All Damage it deals becomes Cold and splashes 50% to all Units within 2 meters if it's a single target attack.
   Passives:
@@ -3222,7 +3224,7 @@ BlackWyvern:
 #         A 4x4 Cone that deals 3d6 Acid Damage (against Defense) and leaves Acid on the ground.
 #     - Curse of Confusion: |
 #         2 Units must succeed a Sense Check or take 1d8 + 4 Psychic Damage.
-#         Then roll 1d6 and apply either 1. Daze, 2. Silence, 3. Cripple, 4. Root, 5. Charm, 6. Fear.
+#         Then roll 1d6 and apply either 1. Single-Stunned, 2. Silence, 3. Cripple, 4. Root, 5. Charm, 6. Fear.
 #     - Curse of Weakness (2nd Phase Only): |
 #         Target a Unit. It becomes cursed. It and every allied Unit withn 3 meters of it have Cover to all Attacks.
 #         Lasts for 2 turns.

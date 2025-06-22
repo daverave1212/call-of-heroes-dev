@@ -51,7 +51,7 @@ export default function MonsterAbility({ability, isPassive}) {
             {...{A: '1 Action'}, ...abilityBody}
 
 
-    const topStatsComponent = <SpellTopStats tags={spellTopTags} className="spell-top__stats--no-padding-side spell-top__stats--less-padding-top-bottom"/>
+    const topStatsComponent = <SpellTopStats tags={spellTopTags} keywords={abilityBody.Tags} className="spell-top__stats--no-padding-side spell-top__stats--less-padding-top-bottom"/>
 
     return (
         <div className={`monster-ability ${passiveOrActveClass}`}>

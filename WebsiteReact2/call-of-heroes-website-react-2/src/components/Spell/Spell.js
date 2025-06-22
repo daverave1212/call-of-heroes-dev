@@ -68,7 +68,7 @@ const ACTION_POINTS_MAPPING2 = {
             - +5 Initiative
 */
 
-export function SpellTopStats({className, tags}) {
+export function SpellTopStats({className, tags, keywords}) {
     const {A, DisplayA, Cost, Range, Cooldown, Duration, Requirement, DisplayRequirement, Replacement, Hands, Stat, Special, Price, XP} = tags
     let displayedA = DisplayA != null? DisplayA : A != null? A : null
 
@@ -78,40 +78,49 @@ export function SpellTopStats({className, tags}) {
         }
     }
 
+    const parsedKeywords = keywords == null? []: Array.isArray(keywords)? keywords: [keywords]
+
     return (
-        <div className={`spell-top__stats ${className}`}>
-            { (displayedA != null) && (
-                <div>
-                    <img src="/Icons/UI/Hand.png" className="inline-icon--spell"/>{ displayedA }
+        <>
+            <div className={`spell-top__stats ${className}`}>
+                { (displayedA != null) && (
+                    <div>
+                        <img src="/Icons/UI/Hand.png" className="inline-icon--spell"/>{ displayedA }
+                    </div>
+                ) }
+                { Cost != null && (
+                    <div>
+                        <img src="/Icons/UI/Mana.png" className="inline-icon--spell"/>
+                        { Cost }
+                    </div>
+                ) }
+                { Hands != null && (<div><img src="/Icons/UI/Hand.png" className="inline-icon--spell"/>{ Hands }</div>) }
+                { Range != null && (<div><img src="/Icons/UI/Range.png" className="inline-icon--spell"/>{ Range }</div>) }
+                { Stat != null && (<div><img src="/Icons/UI/Special.png" className="inline-icon--spell"/>{ Stat }</div>) }
+                { Special != null && (<div><img src="/Icons/UI/Special.png" className="inline-icon--spell"/>{ Special }</div>) }
+                { Cooldown != null && (<div><img src="/Icons/UI/Cooldown.png" className="inline-icon--spell"/>{ Cooldown }</div>) }
+                { Duration != null && (<div><img src="/Icons/UI/Duration.png" className="inline-icon--spell"/>{ Duration }</div>) }
+                { (Requirement != null || DisplayRequirement != null) && (
+                    <div>
+                        <img src="/Icons/UI/Level.png" className="inline-icon--spell"/>
+                        <span style={{color: '#FF5A00'}}>{ Requirement != null? Requirement : DisplayRequirement }</span>
+                    </div>
+                ) }
+                { Replacement != null && (
+                    <div>
+                        <img src="/Icons/UI/Replacement.png" className="inline-icon--spell"/>
+                        <span style={{color: 'var(--blue-color)'}}>{ Replacement }</span>
+                    </div>
+                ) }
+                { Price != null && (<div><img src="/Icons/UI/Gold.png" className="inline-icon--spell-downer"/>{ Price }</div>) }
+                { XP != null && (<div><img src="/Icons/UI/XP.png" className="inline-icon--spell"/>{ XP }</div>) }
+            </div>
+            { keywords != null && (
+                <div className='spell-top__stats' style={{paddingTop: 0, gap: '0rem'}}>
+                    { parsedKeywords.map(tag => <div className='tag'>{ tag }</div>) }
                 </div>
-            ) }
-            { Cost != null && (
-                <div>
-                    <img src="/Icons/UI/Mana.png" className="inline-icon--spell"/>
-                    { Cost }
-                </div>
-            ) }
-            { Hands != null && (<div><img src="/Icons/UI/Hand.png" className="inline-icon--spell"/>{ Hands }</div>) }
-            { Range != null && (<div><img src="/Icons/UI/Range.png" className="inline-icon--spell"/>{ Range }</div>) }
-            { Stat != null && (<div><img src="/Icons/UI/Special.png" className="inline-icon--spell"/>{ Stat }</div>) }
-            { Special != null && (<div><img src="/Icons/UI/Special.png" className="inline-icon--spell"/>{ Special }</div>) }
-            { Cooldown != null && (<div><img src="/Icons/UI/Cooldown.png" className="inline-icon--spell"/>{ Cooldown }</div>) }
-            { Duration != null && (<div><img src="/Icons/UI/Duration.png" className="inline-icon--spell"/>{ Duration }</div>) }
-            { (Requirement != null || DisplayRequirement != null) && (
-                <div>
-                    <img src="/Icons/UI/Level.png" className="inline-icon--spell"/>
-                    <span style={{color: '#FF5A00'}}>{ Requirement != null? Requirement : DisplayRequirement }</span>
-                </div>
-            ) }
-            { Replacement != null && (
-                <div>
-                    <img src="/Icons/UI/Replacement.png" className="inline-icon--spell"/>
-                    <span style={{color: 'var(--blue-color)'}}>{ Replacement }</span>
-                </div>
-            ) }
-            { Price != null && (<div><img src="/Icons/UI/Gold.png" className="inline-icon--spell-downer"/>{ Price }</div>) }
-            { XP != null && (<div><img src="/Icons/UI/XP.png" className="inline-icon--spell"/>{ XP }</div>) }
-        </div>
+            )}
+        </>
     )
 }
 
@@ -136,7 +145,7 @@ export function SpellTop({
                         <div className='spell-top--iconless__title'>{ Name }</div>
                     </div>
                     <div style={{width: '70%', margin: 'auto'}}>
-                        { showTopStats === true && <SpellTopStats tags={{...obj, A}} className="spell-top__stats--no-padding-side"/>}
+                        { showTopStats === true && <SpellTopStats tags={{...obj, A}} keywords={spell.Tags} className="spell-top__stats--no-padding-side"/>}
                     </div>
                 </div>
             </div>
@@ -155,7 +164,7 @@ export function SpellTop({
                 <div className='spell-top__title__wrapper'>
                     <div className='spell-top__title'>{ DisplayName != null? DisplayName : Name }</div>
                 </div>
-                { showTopStats === true && <SpellTopStats tags={{...obj, A: A == null? obj.A : A}}/>}
+                { showTopStats === true && <SpellTopStats keywords={spell.Tags} tags={{...obj, A: A == null? obj.A : A}}/>}
             </div>
         </div>
     )
@@ -244,6 +253,7 @@ export default function Spell({
         
         Effect,
         EffectGreen,
+        Combo,
         Description,
         Alternatives,
         Notes,
@@ -256,7 +266,8 @@ export default function Spell({
         Monster,
         Subspells,
         SubspellName,
-        RollThiefGold
+        RollThiefGold,
+        Tags
     } = spell
 
     if (getIsActionPointsSystem() && Effect != null) {
@@ -403,6 +414,9 @@ export default function Spell({
                         { Effect }
                     </div>
                 )}
+                { Combo != null && (
+                    <div className='spell-combo' key="Combo"><span style={{color: 'var(--blue-color)'}}>Combo: </span>{ Combo }</div>
+                ) }
                 { EffectGreen != null && (
                     <div className="spell-green" key="EffectGreen">{ EffectGreen }</div>
                 ) }

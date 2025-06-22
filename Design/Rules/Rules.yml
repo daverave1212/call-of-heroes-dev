@@ -476,14 +476,12 @@
             When a Fallen Player Character (with 0 Health, but not dead) is healed, it Rises. It can continue to take its turns, but is Exhausted indefinitely.
 
         - Exhaustion: |
-            An Exhausted Unit is Dazed and Slowed indefinitely: it has only a Half-Action every turn and -2 Movement Speed.
+            An Exhausted Unit is Single-Stunned and Slowed indefinitely: it has only a Half-Action every turn and -2 Movement Speed.
             
             Exhaustion does NOT last just 1 turn - Exhaustion from being Fallen is automatically cured 10 minutes after the end of the combat encounter.
             Otherwise, Exhaustion is cured upon sleeping for 8 hours.
             
             You can also become Exhausted if you go more than 24 hours without sleep, from overdosing on potions (e.g. if you drink more than 1 potion per hour) or from magical effects.
-
-            Since you are already Dazed and Slowed, being Dazed or Slowed again has no effect.
         - Melee vs Ranged: |
             Abilities usually specify if an attack is considered melee or ranged.
             If it is not specified, then any attack with a melee weapon that is not thrown is considered a melee attack, even if it has longer range (e.g. 2 meters or 3 meters even).
@@ -558,15 +556,16 @@
         - Crowd Control standards: |
             A "Crowd Control" effect is a status effect on a Unit that prevents it from doing things normally (e.g. it can't move, it can't make Actions, can't take its turn, etc).
             All Crowd Control lasts until the end of that Unit's next Turn (or until the end of their current Turn if it's their Turn now), unless stated otherwise.
-            Crowd Controls of different types stack together (e.g. a Unit that is both Feared and Fumbling is essentially Stunned, since it can only do 1 Act due to being Feared, but whatever Act it decides to do is negated due to Fumbling).
+            Crowd Controls of different types stack together (e.g. a Unit that is both Feared and Fumbling is essentially Triple-Stunned, since it can only do 1 Act due to being Feared, but whatever Act it decides to do is negated due to Fumbling).
             Crowd Controls of the same types do NOT stack (e.g. if you make a Unit Blinded 2 times, it will still be Blinded as normal for just 1 turn, even if it is an Epic monster).
         - Slowed: A Slowed Unit loses 50% of its maximum Movement (result rounded down).
         - Rooted: A Rooted Unit can't willingly Move from its place on its turn except with Abilities (e.g. being pushed, teleporting, etc). It's Actions are unaffected.
-        - Dazed: |
-            A Dazed Player Character only has a Half-Action on its turn.
-            A Dazed NPC makes one less non-movement Act (e.g. a Koblod can only make 1 attack instead of 2, a Morloc must choose between using its Net or its standard attack, a monster with only 1 attack can't attack, etc).
-        - Stunned: |
-            A Stunned Unit must skip its turn.
+        - Triple-Stunned: |
+            A Triple-Stunned Unit loses 1 Action Point on its next Turn.
+            A Double-Stunned Unit loses 2 Actions Point on its next Turn.
+            A Triple-Stunned Unit loses 3 Actions Point on its next Turn.
+
+            Stunning a Unit multiple times stacks up to Triple-Stunned.
         - Blinded: |
             A Blinded Unit deals 50% less Damage and Healing and all of its Checks are reduced by 50%.
         - Silenced: |
@@ -582,20 +581,19 @@
         - Feared: |
             A Feared Unit can only do 1 Act per turn (e.g. moving, attacking, casting one Spell, etc).
         - Exhausted: |
-            An Exhausted Unit is Dazed and Slowed indefinitely: it has only a Half-Action every turn and -2 Movement Speed.
+            An Exhausted Unit is Single-Stunned and Slowed indefinitely: it has only a Half-Action every turn and -2 Movement Speed.
             
             Exhaustion does NOT last just 1 turn - Exhaustion from being Fallen is automatically cured 10 minutes after the end of the combat encounter.
             Otherwise, Exhaustion is cured upon sleeping for 8 hours.
             
             You can also become Exhausted if you go more than 24 hours without sleep, from overdosing on potions (e.g. if you drink more than 1 potion per hour) or from magical effects.
-
-            Since you are already Dazed and Slowed, being Dazed or Slowed again has no effect.
         - Other Interactions: |
             If a Unit gets Crowd Controlled while doing an Act (e.g. you activate a trap while shooting a bow), what happens depends on the Crowd Control type.
             If Pushed, the Unit is Pushed immediately (and dashes are cancelled). If the Act was not started yet (e.g. not yet attacked), then the Unit is free to do something else after being Pushed if they want to. However, if the Act already started (e.g. fired 1 out of 3 Magic Missiles), the Unit must continue casting the Spell, on the same target if it was already chosen, only if it's still valid (e.g. has Line of Sight or Range). If the Act can't be continued due to Range, Line of Sight, etc, then the rest of the Act is cancelled; Actions/Resoureces are NOT regained and are lost.
-            Cripple, Daze, Slow: Nothing happens on the spot; the Crowd Control takes effect after the Ability finishes.
+            Cripple, Slow: Nothing happens on the spot; the Crowd Control takes effect after the Ability finishes.
             Silence: If it's a Spell, the rest of the Spell gets cancelled; otherwise nothing else happens.
-            Stun and other non-listed strong CC: The Ability gets cancelled.
+            Single-Stun and Double-Stun: If the target still has enough Action Points for the Act, it continues. Otherwise, it is cancelled and the Unit may do something else if it still has Action Points.
+            Triple-Stun and other non-listed strong CC: The Ability gets cancelled.
             Becoming Slowed on your turn immediately reduces your remaining Speed by 2 (but not less than 0, obviously).
 
     - Weapons and Armor:

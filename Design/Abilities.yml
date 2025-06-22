@@ -507,7 +507,7 @@ Warfare:
         Cooldown: Once / Combat
         Requirement: Level 6
         Effect: |
-            All allies (and you) remove their Roots, Slows and Dazes.
+            All allies (and you) remove their Roots, Slows, Stuns and Double-Stuns.
             You (yourself) can continue your Movement if you already moved.
     
 
@@ -531,10 +531,10 @@ Warfare:
         HasMixins: true
         Effect: |
             Push a medium-sized, non-Epic Unit up to 6 meters in any direction.
-            If it collides with something, it is Stunned and takes 1d8 Smash Damage (and it stops).
+            If it collides with something, it is Double-Stunned and takes 1d8 Smash Damage (and it stops).
             If it collided with another Unit, that Unit is also pushed in the same direction and repeats the effect of Row Through.
         Notes: |
-            E.g. if it collides with a Unit, that Unit is also pushed up to 6 meters and if it collides with something, it is Stunned and takes 1d8 Damage. If that thing it collided with was a Unit, that Unit is also pushed up to 6 meters and is Stunned and so on.
+            E.g. if it collides with a Unit, that Unit is also pushed up to 6 meters and if it collides with something, it is Triple-Stunned and takes 1d8 Damage. If that thing it collided with was a Unit, that Unit is also pushed up to 6 meters and is Triple-Stunned and so on.
             "{Stunned}"
             
     ~Whirlwind~:
@@ -691,14 +691,16 @@ Elemental:
         Cost: 1 Mana
         HasMixins: true
         Degree: Major
-        Effect: Deal Cold Damage to a Unit equal to 2d6 + ^Its Dexterity^. If it's Medium or smaller, it becomes Rooted.
+        Effect: |
+            Deal Cold Damage to a Unit equal to 2d6 + ^Its Dexterity^.
+            If it's Medium or smaller, Root it.
         Tag: CC Hard
 
     ~Volt Guard~:    
         A: Reaction
         Range: 5 meters
         Cost: 1 Mana
-        Effect: Use when a Unit would take Damage (after roll). Reduce the incoming Damage by 50%, and shock the Unit back for 1d4 Shock Damage.
+        Effect: Use when a Unit would take Damage (after roll). Reduce the incoming Damage by 50%, and shock the Unit back for 25% of the original Damage as Shock Damage.
         Tag: Protection
 
 
@@ -907,7 +909,7 @@ Elemental:
         Degree: Major
         Effect: |
             Choose a Unit. It takes 1d10 Cold Damage, and each Unit within 2 meters of it takes Cold Damage equal to 200% of the roll. All of them are Slowed.
-            If there were no Units within 2 meters of it, the target is Stunned instead.
+            If there were no Units within 2 meters of it, the target is Triple-Stunned instead.
         Upgrade: When Stunning a flying target, it remains stuck in the air (levitating) for up to 6 seconds.
 
 
@@ -1780,7 +1782,7 @@ Nature:
     #         It takes Damage (directly, ignoring Defense) and must succeed a Sense Check or suffer a Crowd Control effect based on its number of matched criteria:
     #         {Diamond} 1: 1d6 Damage, Rooted
     #         {Diamond} 2: 2d6 Damage, Rooted and Crippled
-    #         {Diamond} 3: 3d6 Damage, Stunned
+    #         {Diamond} 3: 3d6 Damage, Triple-Stunned
 
     ~Thorn Quills~:
         A: 0 Actions
@@ -1893,7 +1895,7 @@ Nature:
         Effect: |
             Touch a piece of solid material.
             You become unmoving and all of your body becomes as if made from that material.
-            You can cancel this for free at any point, but until you do, you are Stunned (can't do anything) and have +3 Defense and to all Checks.
+            You can cancel this for free at any point, but until you do, you are Triple-Stunned (can't do anything) and have +3 Defense and to all Checks.
         Notes: |
             You still need to drink water and eat food, but don't need to breathe while melded.
             This has potential to work like a long term Stealth mechanism.
@@ -2225,7 +2227,7 @@ Mysticism:
             Effect: |
                 Shoot a comet at a Unit that changes in power the longer it travels.
                 It deals 1d6 Pulse Damage for every meter it travels, but the longer it travels, the weaker the Crowd Control is.
-                {Diamond} 1 or 2 meters: Target becomes Stunned
+                {Diamond} 1 or 2 meters: Target becomes Triple-Stunned
                 {Diamond} 3 or 4 meters: Target becomes Fumbling
                 {Diamond} 5 or 6 meters: Target becomes Rooted
                 {Diamond} 7+ meters: Roll an Unstable Spark die
@@ -2694,6 +2696,7 @@ Divine:
         Effect: |
             A Unit you can see becomes surrounded in a divine golden shield.
             Next time the Unit would take Damage, it is completely blocked.
+       
 
     ~Rise~:
         A: Half-Action

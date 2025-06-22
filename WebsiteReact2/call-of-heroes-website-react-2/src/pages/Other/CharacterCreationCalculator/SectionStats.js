@@ -183,16 +183,16 @@ export default function SectionStats() {
                 </div>
                 <div style={{ width: '100%' }}>
                     <StatExplainedDisplay name="Extra Health" iconName="Health" attributeName="maxHealth" description={
-                        <div>Your <b>Max Health</b> = Race Health + 200% of Might</div>
+                        <div>Your <b>Max Health</b> = Race Health + Body + Soul</div>
                     }/>
                     <StatExplainedDisplay name="Move Speed" iconName="Speed" attributeName="movementSpeed" description={
-                        <div>Your <b>Movement Speed</b> = 4 + 50% of Dexterity (<i>rounded up</i>)</div>
+                        <div>Your <b>Movement Speed</b> = 2 + Heart + Mind</div>
                     }/>
                     {/* <StatExplainedDisplay name="Known Abilities" iconName="Spell" attributeName="maxHealth" description={
                         <div>Your <b>Number of Known Basic Abilities</b> = Intelligence</div>
                     }/> */}
                     <StatExplainedDisplay name="Extra Regen" iconName="HealthRegen" attributeName="healthRegen" description={
-                        <div>Your <b>Health Regen</b> = Race Health Regen + Sense</div>
+                        <div>Your <b>Health Regen</b> = Race Health Regen + Body + Heart</div>
                     }/>
                     <StatExplainedDisplay name="Initiative" iconName="Replacement" attributeName="initiative" description={
                         <div>
