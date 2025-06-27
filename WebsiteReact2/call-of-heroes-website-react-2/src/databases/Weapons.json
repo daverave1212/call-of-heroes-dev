@@ -33,7 +33,7 @@
             "Stat": "Smash",
             "A": "Half-Action",
             "Range": "1 meter",
-            "Damage": "1d4 + 1 + Might or Dexterity",
+            "Damage": "1d4 + Might or Dexterity",
             "EffectGreen": "Critical Strike - if you roll 4, also add your other Stat to the Damage.",
             "Alternatives": "Kick, Slam, Karate-Chop, etc",
             "Notes": "On a Critical Strike, if you used Might, you also add Dexterity to the roll (or vice-versa, if you used Dexterity, you also add Might).\nIf you used another Stat (certain weird Abilities do this), you add either Might or Dexterity, of choice.\n"
@@ -44,7 +44,7 @@
             "A": "Half-Action",
             "Range": "1 meter",
             "Damage": "1d8 - 1 + Might",
-            "EffectGreen": "Critical Strike - if you roll 1, the Attack instantly makes the target Fumbling.",
+            "EffectGreen": "Critical Strike - if you roll 1, the target becomes Single-Stunned.",
             "Alternatives": "Katar, Dead Fish"
         },
         "Hand Hammer": {
@@ -62,7 +62,7 @@
             "A": "Half-Action",
             "Range": "1 meter",
             "Damage": "1d6 + Might",
-            "EffectGreen": "Ignores Resistances and Cover.",
+            "EffectGreen": "Critical Strike - If you roll 6, apply a Combo to the target.",
             "Alternatives": "Light Morning Star"
         },
         "Sickle": {
@@ -95,12 +95,13 @@
         },
         "Hand Axe": {
             "Price": 80,
-            "Requirement": "1 Might or 1 Dexterity",
+            "Requirement": "1 Might and 1 Dexterity",
             "Stat": "Slash",
             "A": "Half-Action",
             "Range": "1 meter",
-            "Damage": "1d10 - 2 + Might or Dexterity",
-            "EffectGreen": "Critical Strike - if you roll 9 or 10 against a Worthy Enemy, heal for an amount equal to your Might or Dexterity (your choice).",
+            "Damage": "1d12 - 3 + Might or Dexterity",
+            "Combo": "Heal for an amount equal to your Sense.",
+            "EffectGreen": "Critical Strike - If you rolled 12, apply a Combo.",
             "Alternatives": "Claws"
         },
         "Flail": {
@@ -110,7 +111,7 @@
             "A": "Half-Action",
             "Range": "1 meter",
             "Damage": "1d8 + 2",
-            "EffectGreen": "You can choose to deal Smash Damage with this weapon. Deals 1d10 + 2 Damage instead if attacking a Unit with higher Initiative than you.",
+            "Combo": "+1d4 Damage and all the Damage type becomes Pulse.",
             "Notes": "Does not scale with any Stat.",
             "Alternatives": "Combat Chains, Kusarigama"
         },
@@ -136,23 +137,22 @@
         },
         "Rapier": {
             "Price": 160,
-            "Requirement": "2 Dexterity",
+            "Requirement": "1 Dexterity",
             "Stat": "Pierce",
             "A": "Half-Action",
             "Range": "1 meter",
             "Damage": "2d4 - 1 + Dexterity",
-            "EffectGreen": "If you decide to start your turn with the other hand empty, you have 1 extra movement Speed and you can Break your Movement.",
+            "EffectGreen": "Critical Strike - If you rolled doubles, make a free Movement Act.",
             "Alternatives": "Falchion"
         },
         "Scimitar": {
             "Price": 170,
-            "Requirement": "1 Charisma",
             "Stat": "Slash",
             "A": "Half-Action",
             "Range": "1 meter",
             "Special": "You are more appreciated if you pronounce it as 'Skimitar'",
-            "Damage": "1d6 + Dexterity, Might or Charisma",
-            "EffectGreen": "If you roll 1 on the weapon die, cancel it and roll 1d8 instead. If you roll 1 again, reroll as 1d10. If you roll 1 again, reroll as 1d12.",
+            "Damage": "1d6 + Charisma",
+            "EffectGreen": "Your next ranged weapon attack applies a Combo.",
             "Alternatives": "Machete"
         },
         "Whip": {
@@ -162,7 +162,7 @@
             "Range": "1 meter",
             "Requirement": "At least 1 Dexterity",
             "Damage": "1d6 + Dexterity",
-            "EffectGreen": "3 meters range",
+            "Combo": "The attack has 6 meters range and ignores Cover.",
             "Alternatives": "Hookshot, Harpoon"
         }
     },
@@ -173,8 +173,7 @@
             "A": "1 Action",
             "Range": "1 meter",
             "Damage": "4d4 + Might",
-            "EffectGreen": "Critical Strike - if all 4 rolled weapon dice are even, the target must succeed a Might Check against the sum of the dice or be Triple-Stunned.",
-            "Notes": "If by any chance this weapon rolls more than 3 dice, the Critical Strike triggers if at least 3 of the rolled weapon dice are even."
+            "Combo": "Double-Stun the target."
         },
         "Halberd": {
             "Price": 230,
@@ -224,11 +223,12 @@
         "Battle Axe": {
             "Price": 190,
             "Stat": "Slash",
-            "Requirement": "1 Might",
+            "Requirement": "1 Might and Worthy Unit",
             "A": "1 Action",
             "Range": "1 meter",
             "Damage": "2d10 + Might",
-            "EffectGreen": "Critical Strike - if you roll 10 on at least one die, heal for the other rolled die (both from the base weapon roll) (only works against Worthy Enemies)."
+            "Combo": "Heal for the lower die rolled for each Combo on the target.",
+            "EffectGreen": "Critical Strike - for each 10 rolled, apply a Combo."
         },
         "Heavy Mace": {
             "Price": 280,
@@ -265,9 +265,9 @@
             "Stat": "Smash",
             "A": "1 Action",
             "Range": "1 meter",
-            "Requirement": "1 Sense and 1 Dexterity",
-            "Damage": "1d8 + 6 + Dexterity or Sense",
-            "EffectGreen": "If you are wearing no armor and wield only this weapon, you have +1 Defense.",
+            "Requirement": "1 Dexterity",
+            "Damage": "1d8 + 6 + Sense",
+            "EffectGreen": "Critical Strike - If you roll 8, the next attack on you deals -50% Damage (if you're still wieleding this weapon).",
             "Notes": "A Quarterstaff is a wooden weapon masterfully crafted for physical combat, with correct weight and density and properly balanced; it's not a mage's walking stick!"
         },
         "Katana": {
@@ -293,21 +293,21 @@
         "Ultra Greatsword": {
             "Price": 700,
             "Stat": "Slash",
-            "Requirement": "4 Might",
-            "A": "1 Action",
+            "Requirement": "3 Might",
+            "A": "3 Action Points",
             "Range": "1 meter",
-            "Damage": "1d20 + 1 + Might",
-            "EffectGreen": "Critical Strike - if you roll 20, add 1d20 Damage!"
+            "Damage": "2d20",
+            "EffectGreen": "Critical Strike - for each rolled 20, add +1d20 Damage!"
         }
     },
     "Two-Handed Ranged": {
         "Heavy Gun": {
             "Price": 1000,
-            "Range": "5 meters",
+            "Range": "3-5 meters",
             "Stat": "Pierce",
-            "A": "1 Action",
-            "Damage": "4d4 - 1",
-            "EffectGreen": "For 1 Action, you can deal 8 Damage to all creatures in a 3x3 area in front of you.",
+            "A": "3 Action Points",
+            "Damage": "7d4",
+            "Combo": "Deals 50% of the Damage to all other Units within 2 meters of the main target.",
             "Downside": "After attacking, if you rolled at least one 1, the Heavy Gun jams, and must be reloaded with a Half-Action before using it again.",
             "Notes": "Attacks with this weapon do not add any Stat to the Damage. Using the special effect consumes 2 ammo.",
             "Alternative": "Ballista"
@@ -315,7 +315,7 @@
         "Javelin": {
             "Price": 50,
             "Requirement": "2 Might",
-            "Range": "5 meters",
+            "Range": "1-5 meters",
             "Stat": "Pierce",
             "A": "1 Action",
             "Damage": "1d12 + 1 + Might",
@@ -323,18 +323,19 @@
         },
         "Bow": {
             "Price": 170,
-            "Range": "10 meters",
+            "Range": "3-10 meters",
             "Stat": "Pierce",
             "A": "1 Action",
-            "Damage": "1d8 + 2 * Dexterity",
-            "EffectGreen": "Critical Strike - deal +1d8 extra Damage if you roll 8."
+            "Damage": "2d8 + Dexterity",
+            "EffectGreen": "Critical Strike - deal +1d8 extra Damage and applies a Combo if you roll 8."
         },
         "Heavy Crossbow": {
             "Price": 300,
-            "Range": "10 meters",
+            "Range": "3-10 meters",
             "Stat": "Pierce",
             "A": "1 Action",
-            "Damage": "2d8 + Dexterity or Sense",
+            "Damage": "2d6 + Dexterity or Sense",
+            "Combo": "+50% Damage.",
             "Alternative": "Musket, Arbalest"
         }
     },
@@ -343,16 +344,17 @@
             "Price": 500,
             "Stat": "Pierce",
             "A": "Half-Action",
-            "Range": "5 meters",
+            "Range": "1-5 meters",
             "Damage": "1d10",
-            "Downside": "Has no penalty for attacking melee with this weapon.\nIf you roll at least one 1, the Handgun jams, and must be reloaded with a Half-Action before using it again.\n",
+            "Combo": "Deals 50% more Damage.",
+            "Downside": "If you roll at least one 1, the Handgun jams, and must be reloaded with a Half-Action before using it again.\n",
             "Alternatives": "Light Crossbow",
             "Notes": "Handgun attacks do not scale with any Stat."
         },
         "Boomerang Blade": {
             "Price": 60,
             "Stat": "Slash",
-            "Range": "2-4 meters",
+            "Range": "3-5 meters",
             "A": "Half-Action",
             "Requirement": "1 Dexterity",
             "Damage": "1d12 - 4 + Dexterity",
@@ -366,7 +368,7 @@
             "Range": "3-10 meters",
             "A": "Half-Action",
             "Damage": "1d4 + Dexterity",
-            "EffectGreen": "If the target has 50% Health or less, the Damage Type becomes Poison and the target is Slowed.",
+            "EffectGreen": "Critical Strike - if you roll 4, apply a Combo. Whatever triggers the Combo deals +1d4 Damage and all the Damage becomes Poison.",
             "Alternatives": "Poison Darts",
             "Notes": "The normal ammunition for this is the Regular Poison Darts (full supply). If your darts are somehow not poisoned, you don't apply the effect."
         },
@@ -374,7 +376,7 @@
             "Price": 150,
             "Requirement": "2 Dexterity",
             "Stat": "Pierce",
-            "Range": "3-8 meters",
+            "Range": "3-5 meters",
             "A": "Half-Action",
             "Damage": "1d4 + Dexterity",
             "EffectGreen": "Critical Strike - if you roll 4, add 1d4 Damage!",
@@ -385,7 +387,7 @@
             "Requirement": "1 Sense and 1 Dexterity",
             "Stat": "Smash",
             "A": "Half-Action",
-            "Range": "7 meters",
+            "Range": "3-7 meters",
             "Damage": "1 + Dexterity or Sense",
             "EffectGreen": "Attacks with Slings use a Third-of-an-Action (0.33 Actions).",
             "Alternatives": "Slingshot",

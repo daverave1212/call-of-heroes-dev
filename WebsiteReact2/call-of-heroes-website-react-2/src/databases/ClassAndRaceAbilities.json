@@ -1601,6 +1601,7 @@
         "_Value": 0,
         "A": "Half-Action",
         "HasMixins": true,
+        "Cooldown": "Once / Turn",
         "Requirement": "Only usable in Worthy Combat. Can't be used on Fallen Units.",
         "Range": "3 meters",
         "Tags": [
@@ -1618,7 +1619,7 @@
         "AlignOnWebsite": "Right",
         "HasMixins": true,
         "Tags": "Utility",
-        "Effect": "When you use this, for a brief moment, nearby holy and unholy presences emmit a subtle sound and smell ^only you can sense^.\nApply a ~Combo~ to a random one.\n",
+        "Effect": "When you use this, for a brief moment, nearby holy and unholy presences emmit a subtle sound and smell ^only you can sense^.\n",
         "Upgrade": "Unholiness smells sulphurous and sounds like a deep, echoing rumbling or breath. Holiness smells churchly and sounds like a reverbing crystaline ringing.\n",
         "Notes": "Walls block this smell and sound as they normally would.\nThis smell and sound can only be concealed with magic.\n"
     },
@@ -1645,6 +1646,15 @@
         "Effect": "Heal a target for 1d4 + ^Soul or Mind^ Health.\nAfter this, if the target is at full Health, repeat this on another target within 5 meters of you.\n",
         "Combo": "If the target is Comboed and still not full Health, increase the Healing by 50%.",
         "Notes": "Yes, this can chain again and again."
+    },
+    "~Zeal~": {
+        "A": "Passive",
+        "Effect": "Your first attack each Turn deals +10% Damage for each Mana you still have.",
+        "Notes": "10% is easy to calculate, so calculate 10% and double it (rounded down)."
+    },
+    "~Knighthood~": {
+        "A": "Passive",
+        "Effect": "While mounted, after moving in a straight line at least 3 meters, your first attack this turn also hits a Unit directly behind the main target for 50% of the incoming Damage.\n"
     },
     "~Light~": {
         "A": "0 Actions",
@@ -1694,7 +1704,7 @@
     },
     "~True Sense~": {
         "_Value": 0.5,
-        "A": "0 Actions",
+        "A": "Half-Action",
         "Cooldown": "Once / Real hour",
         "Range": "15 meters",
         "Duration": "6 seconds",
@@ -1717,11 +1727,11 @@
             "Damage",
             "Ranged"
         ],
-        "Effect": "Shoot a magical bolt towards a Unit that deals 1d10 + (target's Movement Speed) Fire Damage to it.\n",
+        "Effect": "Shoot a magical bolt towards a Unit that deals 1d10 + (target's Movement Speed) Fire or Divine Damage to it.\n",
         "Combo": "Apply 2 Combos to it."
     },
     "~Lance Heave~": {
-        "A": "1 Action",
+        "A": "Depends on Weapon",
         "DisplayName": "{Name}",
         "HasMixins": true,
         "DisplayRequirement": "Only usable if it hits at least 2 Units",
@@ -1732,28 +1742,24 @@
         "Variants": [
             {
                 "Name": "Lance Heave",
-                "DisplayA": "1 Action",
                 "Effect": "that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.",
                 "Weapon": "2-handed melee",
                 "IconName": "Lance Heave"
             },
             {
                 "Name": "Blade Heave",
-                "DisplayA": "Half-Action",
                 "Effect": "that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.",
                 "Weapon": "1-handed melee",
                 "IconName": "Blade Heave"
             },
             {
                 "Name": "Penetrating Heave",
-                "DisplayA": "1 Action",
                 "Effect": "that hits one more Unit up to 2 meters directly behind the main target.",
                 "Weapon": "2-handed ranged",
                 "IconName": "Penetrating Heave"
             },
             {
                 "Name": "Piercing Heave",
-                "DisplayA": "Half-Action",
                 "Effect": "that hits one more Unit up to 2 meters directly behind the main target.",
                 "Weapon": "1-handed ranged",
                 "IconName": "Piercing Heave"
@@ -3145,6 +3151,21 @@
         "Range": "2 meters",
         "Cooldown": "Once / Turn",
         "Effect": "Freely dash exactly 2 meters towards a Worthy Enemy, landing on the closest space. It becomes Rooted.\nYou can only use this once on every Worthy Enemy.\n"
+    },
+    "~Vault Break~": {
+        "Degree": "Lesser",
+        "A": "0 Actions",
+        "Cooldown": "1 real hour",
+        "Range": "3 meters",
+        "Effect": "Slam the ground so hard that it shatters one obstacle that fits within a 3x3x3 meter area.\nAfter casting this Ability, if you moved this turn, you can continue your movement.\n",
+        "Notes": "It is the Quest Master's call if an obstacle can be broken. Most walls may not be broken, except for thinner ones and fences."
+    },
+    "~Sound Mind Technique~": {
+        "A": "Reaction",
+        "Cooldown": "Once / Adventure",
+        "HasMixins": true,
+        "Effect": "Block any negative incoming _effect_ on an ally you can see.\n",
+        "Upgrade": "Negative effects in this case means any Crowd Control, Debuff, Curse, mind-altering magic, non-Damaging Poison, etc."
     },
     "<Quick Maneuvers>": {
         "_Value": 1,

@@ -56,6 +56,7 @@ Starting Abilities:
     _Value: 0
     A: Half-Action
     HasMixins: true
+    Cooldown: Once / Turn
     Requirement: Only usable in Worthy Combat. Can't be used on Fallen Units.
     Range: 3 meters
     Tags: [Healing, Damage]
@@ -74,7 +75,6 @@ Starting Abilities:
     Tags: Utility
     Effect: |
       When you use this, for a brief moment, nearby holy and unholy presences emmit a subtle sound and smell ^only you can sense^.
-      Apply a ~Combo~ to a random one.
     Upgrade: |
       Unholiness smells sulphurous and sounds like a deep, echoing rumbling or breath. Holiness smells churchly and sounds like a reverbing crystaline ringing.
     Notes: |
@@ -107,6 +107,16 @@ Ability Choices:
             After this, if the target is at full Health, repeat this on another target within 5 meters of you.
         Combo: If the target is Comboed and still not full Health, increase the Healing by 50%.
         Notes: Yes, this can chain again and again.
+    
+    ~Zeal~:
+      A: Passive
+      Effect: Your first attack each Turn deals +10% Damage for each Mana you still have.
+      Notes: 10% is easy to calculate, so calculate 10% and double it (rounded down).
+
+    ~Knighthood~:
+      A: Passive
+      Effect: |
+        While mounted, after moving in a straight line at least 3 meters, your first attack this turn also hits a Unit directly behind the main target for 50% of the incoming Damage.
 
 
 Utility:
@@ -226,7 +236,7 @@ Specs:
       
       ~True Sense~:
         _Value: 0.5
-        A: 0 Actions
+        A: Half-Action
         Cooldown: Once / Real hour
         Range: 15 meters
         Duration: 6 seconds
@@ -253,11 +263,11 @@ Specs:
             HasMixins: true
             Tags: [Damage, Ranged]
             Effect: |
-                Shoot a magical bolt towards a Unit that deals 1d10 + (target's Movement Speed) Fire Damage to it.
+                Shoot a magical bolt towards a Unit that deals 1d10 + (target's Movement Speed) Fire or Divine Damage to it.
             Combo: Apply 2 Combos to it.
 
         ~Lance Heave~:
-            A: 1 Action
+            A: Depends on Weapon
             DisplayName: "{Name}"
             HasMixins: true
             DisplayRequirement: Only usable if it hits at least 2 Units
@@ -271,22 +281,18 @@ Specs:
               Range increases do increase the length. The Damage must the same for all Units hit. All bonuses to the attack (e.g. Smite, Cursewielder, etc) also split evenly.
             Variants:
                 - Name: Lance Heave
-                  DisplayA: 1 Action
                   Effect: that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.
                   Weapon: 2-handed melee
                   IconName: Lance Heave
                 - Name: Blade Heave
-                  DisplayA: Half-Action
                   Effect: that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.
                   Weapon: 1-handed melee
                   IconName: Blade Heave
                 - Name: Penetrating Heave
-                  DisplayA: 1 Action
                   Effect: that hits one more Unit up to 2 meters directly behind the main target.
                   Weapon: 2-handed ranged
                   IconName: Penetrating Heave
                 - Name: Piercing Heave
-                  DisplayA: Half-Action
                   Effect: that hits one more Unit up to 2 meters directly behind the main target.
                   Weapon: 1-handed ranged
                   IconName: Piercing Heave

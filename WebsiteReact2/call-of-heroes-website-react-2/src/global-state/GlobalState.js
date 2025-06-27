@@ -14,7 +14,7 @@ export const globalStateStore = configureStore({
 })
 
 
-export function getIsActionPointsSystem() { return false }
+export function getIsActionPointsSystem() { return true }
 export function setIsActionPointsSystem(v) { }
 
 
