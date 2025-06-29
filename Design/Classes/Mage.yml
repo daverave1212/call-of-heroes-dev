@@ -85,12 +85,135 @@ Starting Abilities:
     Notes: "{DiceDowngrade}"
     AlignOnWebsite: Left
 
+  ~Adept Spellcaster~:
+    A: Special
+    AlignOnWebsite: Left
+    Effect: |
+      Instead of one, pick ^two^ Level 1 Talents and ^two^ Utility Talents.
+
+
+
+Ability Choices:
+
+    ~Element Burst~:
+        A: 1 Action
+        DisplayName: "{Element} Burst"
+        Range: 5 meters
+        Degree: Minor
+        Effect: |
+            Damage a Unit for 2d6 {Element} Damage.
+            If had taken {Element} Damage this combat before, add another 1d10 Damage.
+            ~Click on the Spell Icon to select the preferred Element!~
+        Notes: These are considered different Spells.
+        Variants:
+            - Element: Fire
+              IconName: Fire Burst
+            - Element: Cold
+              IconName: Cold Burst
+            - Element: Shock
+              IconName: Shock Burst
+        Tag: Damage (1)
+
+    ~Magic Arrows~:
+        A: 1 Action
+        Range: 5 meters
+        HasMixins: true
+        Degree: Minor
+        Effect: |
+            Shoot ^(your highest Stat)^ arcane arrows. Each does 1d4 Pulse Damage.
+            Each arrow after the first into the same target deals only 1d2 instead.
+        Notes: |
+            When you cast this, decide the targets before rolling the dice.
+            Each missile is a separate Attack and can be affected individually by Cover, Defense, etc (e.g. shooting all 3 missiles at a Unit that has 2 Defense makes each missile deal 1d4 - 2 Damage).
+
+
+
+Utility:
+
   ~Learn Scrolls~:    # 0
-    A: 10 minutes
+    A: 1 minute
     Effect: |
       If you have a Scroll that contains a Basic Ability (e.g. from Arcane, Nature, etc), you can destroy it to Know it permanently, without needing to learn it inbetween Adventures.
     Notes: You can not learn Class Abilities from Scrolls. Of course, you still need to spend Mana and respect the Cooldown of said Ability.
     AlignOnWebsite: Left
+
+  ~Control Elements~:
+      Degree: Lesser
+      HasMixins: true
+      A: 1 Action
+      DisplayName: Control {Element}
+      Range: 5 meters
+      Cooldown: Your Level uses / Adventure
+      Effect: |
+          {DoWhat}
+      Notes: |
+          {ElementNotes}
+          Apply common sense. The QM has the final word on whether something is possible.
+      Tag: Utility
+      Variants:
+        - Element: Fire
+          DoWhat: |
+            Target a 2x2x2 meter cube containing Fire.
+            Choose any of the following to do with it:
+            🔹 Move it up to 5 meters in any direction
+            🔹 Extinguish it
+            🔹 Lower or increase its intensity or light emission by 50%
+            🔹 Roughly alter its shape and/or color
+          ElementNotes: A Unit that touches the fire takes 2 Damage.
+          IconName: Control Elements
+        - Element: Water
+          DoWhat: |
+            Target a 1 meter cube containing {Element}.
+            Choose any of the following to do with it:
+            🔹 Move it up to 5 meters in any direction
+            🔹 Destroy it
+            🔹 Lower or increase its temperature down to near-freezing or near-boiling
+            🔹 Roughly its shape and/or color
+          IconName: Control Elements
+          ElementNotes: Water is Hard Terrain. A Unit that touches near-boiling or near-freezing water takes 2 Damage.
+
+  ~Flash~:
+      A: Reaction (or 0 Actions)
+      Cost: 1 Mana
+      Cooldown: Once / Turn
+      Degree: Minor
+      Effect: Instantly teleport up to 5 meters away, within line of sight.
+      Notes: You take with you all items carried. Does not work if you're Rooted or stuck in place somehow.
+
+  ~Magic Tricks~:
+      A: 1 Action
+      Range: 3 meters
+      HasMixins: true
+      Degree: Lesser
+      AlignOnWebsite: Right
+      Effect: |
+          Choose one of these effects to cast:
+          {Diamond} Create harmless sensory effects, sparks or non-damaging heat or cold.
+          {Diamond} Channel to create simple, small, harmless illusions in your hand or within 3 meters.
+          {Diamond} Instantly clean or soil objects.
+          {Diamond} Control a quill with telekinesis to quickly write with it.
+
+  ~Feather Fall~ :
+      A: Reaction or 0 Actions
+      Requirement: Level 3
+      Range: 10 meters
+      Degree: Minor
+      Effect: |
+          Up to 2 Units you choose will start falling gently, down to 3 meters per round.
+          Once the fall finishes, the spell effect ends.
+      Notes: |
+          Arcane Feathers can be bought in most towns.
+          For faster gameplay, you can spend 10 gold when casting the spell, and buy the feather later.
+
+  ~Longblade~:
+      A: 0 Actions
+      Cooldown: 1 real hour
+      Duration: 1 minute
+      Effect: |
+          Magically extend the weapon of a willing ally you can see (or yourself) to up to 3 meters.
+          Its Attacks with that weapon can have up to 3 meters range.
+
+
 
 Starting Abilities Description:
   - Magic Mastery: |
@@ -153,34 +276,39 @@ Specs:
         <Pyromancy>:
           _Value: 1.5
           A: Passive
-          Effect: After the first time you hit 2 or more Worthy Enemies with a Spell every turn, increase all Fire Damage you deal by 1 for the rest of the combat.
+          Effect: After the first time you deal Area Damage to 2 or more Worthy Enemies every Turn, increase all Fire Damage you deal by 1 for the rest of the combat.
 
         <Arcanism>:
           _Value: 2
           A: Passive
-          Effect: Whenever you spend any amount of Mana on an Arcane Spell, shoot a magic missile at a target within 10 meters that instantly deals 1d4 Pulse Damage and ignores Defense and Cover.
+          Effect: |
+            Your dice can't roll less than 0 (see below).
+            After every 5 rolled dice, increase that number by 1 this Combat.
+          Notes: The rolled dice carry on to the next turn.
 
         <Electromancy>:
           _Value: 1.5
           A: Passive
           Cooldown: Max +2 gain per Turn
-          Effect: After the first time you affect each ally with a Spell in Combat, increase all Healing and Shock Damage you deal by 1 for the rest of the combat.
-
-        <Eldritchianism>:
-          _Value: 1
-          A: Passive
-          HasMixins: true
           Effect: |
-            You gain access to the Eldritch Basic Ability List. After you cast a Spell that costs Mana, your next Eldritch Spell has its ^Dice Upgraded^ to their next die type.
-            Also, add your Intelligence to your Initiative.
-          Notes: |
-            {DiceUpgrade}
+            After you affect an ally with a Spell in Combat, heal it for 2 Health and increase all Shock Damage you deal by 1 for the rest of the combat.
 
         <Hydromancy>:
           _Value: 1.5
           A: Passive
           Effect: After the first time you apply Crowd Control (other than Slow) to a Worthy Enemy every turn, increase all Cold Damage you deal by 2 for the rest of the combat.
           Notes: Hard Terrain does not count as Crowd Control. Pushing counts as Crowd Control.
+
+        # <Eldritchianism>:
+        #   _Value: 1
+        #   A: Passive
+        #   HasMixins: true
+        #   Effect: |
+        #     You gain access to the Eldritch Basic Ability List. After you cast a Spell that costs Mana, your next Eldritch Spell has its ^Dice Upgraded^ to their next die type.
+        #     Also, add your Intelligence to your Initiative.
+        #   Notes: |
+        #     {DiceUpgrade}
+
 
         # <Force Pulse>:  # 1 Charge
         #   A: 0 Actions
@@ -365,7 +493,7 @@ Specs:
           AlignOnWebsite: Right
           A: Passive
           Effect: |
-            When you roll the Unstable Spark die, if you roll 2 or 3, roll another 1d20 and a random Spell is automatically cast from the table below on a target/Unit "randomly" chosen by the QM.
+            When you roll the Unstable Spark die, if you roll 2 or 3, roll 1d20 and freely cast that Spell from the table below, "randomly" chosen by the QM.
             If you roll 2, the effect will be negative for your team, if possible. If you roll 3, the effect is positive, if possible.
           Notes: |
             For example, if you roll 2 and the random Spell is Fire Enchantment, it will be cast on an enemy's weapon if possible (respecting the range). If not possible, then it will be cast on a random, non-Player Character's weapon. If not possible, then it will be cast on a Player Character's weapon. If nothing is possible, nothing happens.

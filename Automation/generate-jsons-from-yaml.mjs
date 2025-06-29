@@ -3,6 +3,13 @@ import fs from 'fs'
 import { parse, stringify } from 'yaml'
 import path from 'path'
 
+
+// Use this script to convert all ./Design/ files to their JSON variant in WebsiteReact/call-of-heroes-react-static/src/databases
+// NOTE 1: This does NOT remove the < and ~ symbols from the spell names!
+// NOTE 2: This DOES YES fix the "Inherit" spells
+// NOTE 3: This DOES YES add the Name property to all Spells (or at least it should)
+
+
 const yamlRootFolder = '../Design'
 const jsonRootFolder = '../WebsiteReact2/call-of-heroes-website-react-2/src/databases'
 
@@ -100,6 +107,18 @@ const filesToConvert = [    // Order matters
 function isSpellName(dictKey) {
     return typeof dictKey === 'string' && (dictKey.startsWith('~') || dictKey.startsWith('<'));
 }
+function stringHasAnyOfChars(str, chars) {
+    if (Array.isArray(chars) == false) {
+        chars = chars.split('')
+    }
+    for (let i = 0; i < str.length; i++) {
+        const char = str.charAt(i)
+        if (chars.includes(char)) {
+            return true
+        }
+    }
+    return false
+}
 
 // If it finds an Ability and it's not 'Inherit', it adds the name of the Ability as a 'Name' property
 function addNameToSpellsRecursively(dictToSearch) {
@@ -162,7 +181,17 @@ function normalizeInheritAbilities(dictToSearch) {
     }
 }
 
-
+function maybeAddHasMixins(subobj) {
+    if (subobj == null) {
+        return
+    }
+    if (subobj.Effect == null) {
+        return
+    }
+    if (stringHasAnyOfChars(subobj.Effect, '{^_~')) {
+        subobj.HasMixins = true
+    }
+}
 
 function recordAbilitiesFrom(fromDict, toDict) {
     for (const key of Object.keys(fromDict)) {
@@ -176,6 +205,7 @@ function recordAbilitiesFrom(fromDict, toDict) {
             if (typeof subobj === 'string' && subobj.trim().toLowerCase().startsWith('inherit')) {
                 continue;
             }
+            maybeAddHasMixins(subobj)
             toDict[key] = subobj;
         }
 

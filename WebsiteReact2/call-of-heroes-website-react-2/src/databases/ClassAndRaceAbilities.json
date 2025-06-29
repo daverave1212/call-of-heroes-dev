@@ -1236,11 +1236,104 @@
         "Notes": "{DiceDowngrade}",
         "AlignOnWebsite": "Left"
     },
+    "~Adept Spellcaster~": {
+        "A": "Special",
+        "AlignOnWebsite": "Left",
+        "Effect": "Instead of one, pick ^two^ Level 1 Talents and ^two^ Utility Talents.\n",
+        "HasMixins": true
+    },
+    "~Element Burst~": {
+        "A": "1 Action",
+        "DisplayName": "{Element} Burst",
+        "Range": "5 meters",
+        "Degree": "Minor",
+        "Effect": "Damage a Unit for 2d6 {Element} Damage.\nIf had taken {Element} Damage this combat before, add another 1d10 Damage.\n~Click on the Spell Icon to select the preferred Element!~\n",
+        "Notes": "These are considered different Spells.",
+        "Variants": [
+            {
+                "Element": "Fire",
+                "IconName": "Fire Burst"
+            },
+            {
+                "Element": "Cold",
+                "IconName": "Cold Burst"
+            },
+            {
+                "Element": "Shock",
+                "IconName": "Shock Burst"
+            }
+        ],
+        "Tag": "Damage (1)",
+        "HasMixins": true
+    },
+    "~Magic Arrows~": {
+        "A": "1 Action",
+        "Range": "5 meters",
+        "HasMixins": true,
+        "Degree": "Minor",
+        "Effect": "Shoot ^(your highest Stat)^ arcane arrows. Each does 1d4 Pulse Damage.\nEach arrow after the first into the same target deals only 1d2 instead.\n",
+        "Notes": "When you cast this, decide the targets before rolling the dice.\nEach missile is a separate Attack and can be affected individually by Cover, Defense, etc (e.g. shooting all 3 missiles at a Unit that has 2 Defense makes each missile deal 1d4 - 2 Damage).\n"
+    },
     "~Learn Scrolls~": {
-        "A": "10 minutes",
+        "A": "1 minute",
         "Effect": "If you have a Scroll that contains a Basic Ability (e.g. from Arcane, Nature, etc), you can destroy it to Know it permanently, without needing to learn it inbetween Adventures.\n",
         "Notes": "You can not learn Class Abilities from Scrolls. Of course, you still need to spend Mana and respect the Cooldown of said Ability.",
         "AlignOnWebsite": "Left"
+    },
+    "~Control Elements~": {
+        "Degree": "Lesser",
+        "HasMixins": true,
+        "A": "1 Action",
+        "DisplayName": "Control {Element}",
+        "Range": "5 meters",
+        "Cooldown": "Your Level uses / Adventure",
+        "Effect": "{DoWhat}\n",
+        "Notes": "{ElementNotes}\nApply common sense. The QM has the final word on whether something is possible.\n",
+        "Tag": "Utility",
+        "Variants": [
+            {
+                "Element": "Fire",
+                "DoWhat": "Target a 2x2x2 meter cube containing Fire.\nChoose any of the following to do with it:\n🔹 Move it up to 5 meters in any direction\n🔹 Extinguish it\n🔹 Lower or increase its intensity or light emission by 50%\n🔹 Roughly alter its shape and/or color\n",
+                "ElementNotes": "A Unit that touches the fire takes 2 Damage.",
+                "IconName": "Control Elements"
+            },
+            {
+                "Element": "Water",
+                "DoWhat": "Target a 1 meter cube containing {Element}.\nChoose any of the following to do with it:\n🔹 Move it up to 5 meters in any direction\n🔹 Destroy it\n🔹 Lower or increase its temperature down to near-freezing or near-boiling\n🔹 Roughly its shape and/or color\n",
+                "IconName": "Control Elements",
+                "ElementNotes": "Water is Hard Terrain. A Unit that touches near-boiling or near-freezing water takes 2 Damage."
+            }
+        ]
+    },
+    "~Flash~": {
+        "A": "Reaction (or 0 Actions)",
+        "Cost": "1 Mana",
+        "Cooldown": "Once / Turn",
+        "Degree": "Minor",
+        "Effect": "Instantly teleport up to 5 meters away, within line of sight.",
+        "Notes": "You take with you all items carried. Does not work if you're Rooted or stuck in place somehow."
+    },
+    "~Magic Tricks~": {
+        "A": "1 Action",
+        "Range": "3 meters",
+        "HasMixins": true,
+        "Degree": "Lesser",
+        "AlignOnWebsite": "Right",
+        "Effect": "Choose one of these effects to cast:\n{Diamond} Create harmless sensory effects, sparks or non-damaging heat or cold.\n{Diamond} Channel to create simple, small, harmless illusions in your hand or within 3 meters.\n{Diamond} Instantly clean or soil objects.\n{Diamond} Control a quill with telekinesis to quickly write with it.\n"
+    },
+    "~Feather Fall~": {
+        "A": "Reaction or 0 Actions",
+        "Requirement": "Level 3",
+        "Range": "10 meters",
+        "Degree": "Minor",
+        "Effect": "Up to 2 Units you choose will start falling gently, down to 3 meters per round.\nOnce the fall finishes, the spell effect ends.\n",
+        "Notes": "Arcane Feathers can be bought in most towns.\nFor faster gameplay, you can spend 10 gold when casting the spell, and buy the feather later.\n"
+    },
+    "~Longblade~": {
+        "A": "0 Actions",
+        "Cooldown": "1 real hour",
+        "Duration": "1 minute",
+        "Effect": "Magically extend the weapon of a willing ally you can see (or yourself) to up to 3 meters.\nIts Attacks with that weapon can have up to 3 meters range.\n"
     },
     "~Spell Book~": {
         "_Value": 1,
@@ -1255,25 +1348,19 @@
     "<Pyromancy>": {
         "_Value": 1.5,
         "A": "Passive",
-        "Effect": "After the first time you hit 2 or more Worthy Enemies with a Spell every turn, increase all Fire Damage you deal by 1 for the rest of the combat."
+        "Effect": "After the first time you deal Area Damage to 2 or more Worthy Enemies every Turn, increase all Fire Damage you deal by 1 for the rest of the combat."
     },
     "<Arcanism>": {
         "_Value": 2,
         "A": "Passive",
-        "Effect": "Whenever you spend any amount of Mana on an Arcane Spell, shoot a magic missile at a target within 10 meters that instantly deals 1d4 Pulse Damage and ignores Defense and Cover."
+        "Effect": "Your dice can't roll less than 0 (see below).\nAfter every 5 rolled dice, increase that number by 1 this Combat.\n",
+        "Notes": "The rolled dice carry on to the next turn."
     },
     "<Electromancy>": {
         "_Value": 1.5,
         "A": "Passive",
         "Cooldown": "Max +2 gain per Turn",
-        "Effect": "After the first time you affect each ally with a Spell in Combat, increase all Healing and Shock Damage you deal by 1 for the rest of the combat."
-    },
-    "<Eldritchianism>": {
-        "_Value": 1,
-        "A": "Passive",
-        "HasMixins": true,
-        "Effect": "You gain access to the Eldritch Basic Ability List. After you cast a Spell that costs Mana, your next Eldritch Spell has its ^Dice Upgraded^ to their next die type.\nAlso, add your Intelligence to your Initiative.\n",
-        "Notes": "{DiceUpgrade}\n"
+        "Effect": "After you affect an ally with a Spell in Combat, heal it for 2 Health and increase all Shock Damage you deal by 1 for the rest of the combat.\n"
     },
     "<Hydromancy>": {
         "_Value": 1.5,
@@ -1449,7 +1536,8 @@
     "<Accidental Zap>": {
         "_Value": 2.5,
         "A": "Passive",
-        "Effect": "When you roll 7, 8 or 9 on the Unstable Spark die, immediately Zap the closest Unit to you for ^your Intelligence^ Shock Damage."
+        "Effect": "When you roll 7, 8 or 9 on the Unstable Spark die, immediately Zap the closest Unit to you for ^your Intelligence^ Shock Damage.",
+        "HasMixins": true
     },
     "<Second Try>": {
         "_Value": 2.5,
@@ -3003,7 +3091,8 @@
         "_Value": 2,
         "Cost": "1 Mana",
         "Effect": "^Count^ the Worthy Units within 3 meters of you (including you).\nThey all take Pulse Damage equal to ^Counted^ d4 (except you).\n",
-        "Notes": "E.g. if this affects 3 Units, it deals 3d4. If it affects 4 Units, it deals 4d4. 5 Units - 5d4. And so on."
+        "Notes": "E.g. if this affects 3 Units, it deals 3d4. If it affects 4 Units, it deals 4d4. 5 Units - 5d4. And so on.",
+        "HasMixins": true
     },
     "<Hexdrain>": {
         "_Value": 3,
@@ -3150,7 +3239,8 @@
         "HasMixins": true,
         "Range": "2 meters",
         "Cooldown": "Once / Turn",
-        "Effect": "Freely dash exactly 2 meters towards a Worthy Enemy, landing on the closest space. It becomes Rooted.\nYou can only use this once on every Worthy Enemy.\n"
+        "Effect": "Freely dash exactly 2 meters towards a Worthy Enemy, landing on the closest space.\n",
+        "Combo": "Single-Stun it."
     },
     "~Vault Break~": {
         "Degree": "Lesser",
