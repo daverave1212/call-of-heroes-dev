@@ -63,9 +63,9 @@
         "~Magic Mastery~": {
             "_Value": 1.5,
             "A": "0 Actions",
-            "Cooldown": "Once / Turn",
+            "Cost": "1 Mana",
             "HasMixins": true,
-            "Effect": "Your next Basic Ability that uses 1 Action now uses a Half-Action instead, but has all ^Dice Downgraded^ to the previous die tier.\n",
+            "Effect": "Your next Spell costs 1 less Actin Point, but has all ^Dice Downgraded^ to the previous die tier.\n",
             "Upgrade": "D4's become coin flips (d2's).",
             "Notes": "{DiceDowngrade}",
             "AlignOnWebsite": "Left"
@@ -83,7 +83,7 @@
             "DisplayName": "{Element} Burst",
             "Range": "5 meters",
             "Degree": "Minor",
-            "Effect": "Damage a Unit for 2d6 {Element} Damage.\nIf had taken {Element} Damage this combat before, add another 1d10 Damage.\n~Click on the Spell Icon to select the preferred Element!~\n",
+            "Effect": "Damage a Unit for 2d6 {Element} Damage.\nDeals +1d10 Damage if the target had taken {Element} Damage this combat before.\n~Click on the Spell Icon to select the preferred Element!~\n",
             "Notes": "These are considered different Spells.",
             "Variants": [
                 {
@@ -103,12 +103,49 @@
             "HasMixins": true
         },
         "~Magic Arrows~": {
-            "A": "1 Action",
+            "A": "Half-Action",
             "Range": "5 meters",
             "HasMixins": true,
             "Degree": "Minor",
-            "Effect": "Shoot ^(your highest Stat)^ arcane arrows. Each does 1d4 Pulse Damage.\nEach arrow after the first into the same target deals only 1d2 instead.\n",
-            "Notes": "When you cast this, decide the targets before rolling the dice.\nEach missile is a separate Attack and can be affected individually by Cover, Defense, etc (e.g. shooting all 3 missiles at a Unit that has 2 Defense makes each missile deal 1d4 - 2 Damage).\n"
+            "Effect": "Shoot 3 arcane arrows. Each does 1d4 Pulse Damage.\nEach arrow after the first into the same target deals only 1d2 instead.\n",
+            "Notes": "When you cast this, decide the targets before rolling the dice. Roll the dice for each target at a time.\n"
+        },
+        "~Burning Breath~": {
+            "A": "Half-Action",
+            "Cooldown": "Once / Turn",
+            "Range": "Near you",
+            "Degree": "Lesser",
+            "Effect": "All Units 3x3 meter area take 4 Fire Damage.\n",
+            "Combo": "If any affected Unit has a Combo, +50% total Damage (to all) and does not trigger the Cooldown.",
+            "Tag": "AoE (Half)"
+        },
+        "~Volt Guard~": {
+            "A": "Reaction",
+            "Range": "5 meters (25 meters for return Damage)",
+            "Cost": "1 Mana",
+            "Effect": "Use when a Unit would take Damage (after roll). Negate 50% of the incoming Damage and return it back to the source as Shock Damage.\nApply a ~Combo~ to either of them.\n",
+            "Upgrade": "The returned Damage is a quick lightning that bends around obstacles, ignoring Cover or Line of Sight.",
+            "Tag": "Protection",
+            "HasMixins": true
+        },
+        "~Rime Shackles~": {
+            "A": "1 Action",
+            "Range": "5 meters",
+            "Cost": "1 Mana",
+            "HasMixins": true,
+            "Degree": "Major",
+            "Effect": "Deal Cold Damage to a Unit equal to 1d12 + ^Its Dexterity^.\nIf it's Medium or smaller, Root it.\n",
+            "Combo": "This either hits one more Unit within 2 meters of it, or also Single-Stuns the target.",
+            "Tag": "CC Hard"
+        },
+        "~North Star~": {
+            "A": "3 Action Points",
+            "Range": "15 meters",
+            "Cost": "1 Mana",
+            "Degree": "Major",
+            "Effect": "You conjure a magical star that always shoots North and deals 5d10 Pulse Damage to the first Unit hit.\n",
+            "Combo": "The star explodes, dealing 50% of the total Damage to all other Units within 2 meters of the hit target.",
+            "Notes": "You can only shoot the star towards North - without an angle.\nAsk the DM which way North is (if your character knows that).\n"
         }
     },
     "Utility": {
@@ -198,37 +235,91 @@
                 },
                 "~Magic Expertise~": {
                     "A": "Passive",
-                    "Effect": "For you, all Basic Spells have their Level requirement lowered by 3.",
-                    "Notes": "E.g. You can learn Reverse Gravity from Level 3 (which would normally require Level 6)."
+                    "Effect": "At Levels 3 through 9, pick ^two^ Talents instead of one.",
+                    "HasMixins": true
                 }
             },
             "Talents": {
-                "Level 3": {
+                "Level 2": {
                     "<Pyromancy>": {
                         "_Value": 1.5,
                         "A": "Passive",
                         "Effect": "After the first time you deal Area Damage to 2 or more Worthy Enemies every Turn, increase all Fire Damage you deal by 1 for the rest of the combat."
                     },
+                    "<Electromancy>": {
+                        "_Value": 1.5,
+                        "A": "Passive",
+                        "Effect": "After the first time you deal Shock Damage each Turn, increase all Healing and Shock Damage you deal by 1 for the rest of the Combat.\n"
+                    },
                     "<Arcanism>": {
                         "_Value": 2,
                         "A": "Passive",
                         "Effect": "Your dice can't roll less than 0 (see below).\nAfter every 5 rolled dice, increase that number by 1 this Combat.\n",
-                        "Notes": "The rolled dice carry on to the next turn."
-                    },
-                    "<Electromancy>": {
-                        "_Value": 1.5,
-                        "A": "Passive",
-                        "Cooldown": "Max +2 gain per Turn",
-                        "Effect": "After you affect an ally with a Spell in Combat, heal it for 2 Health and increase all Shock Damage you deal by 1 for the rest of the combat.\n"
+                        "Notes": "The rolled dice carry on to the next Turn. This number can even exceed a die's highest numbe."
                     },
                     "<Hydromancy>": {
                         "_Value": 1.5,
                         "A": "Passive",
-                        "Effect": "After the first time you apply Crowd Control (other than Slow) to a Worthy Enemy every turn, increase all Cold Damage you deal by 2 for the rest of the combat.",
+                        "Effect": "After you apply Crowd Control (other than Slow) to a Worthy Enemy, increase all Cold Damage you deal by 2 for the rest of the combat.",
                         "Notes": "Hard Terrain does not count as Crowd Control. Pushing counts as Crowd Control."
                     }
                 },
-                "Level 5": {
+                "Level 3": {
+                    "~Countermagic~": {
+                        "A": "Reaction",
+                        "Cooldown": "Once / Round",
+                        "Cost": "1 Mana",
+                        "Effect": "Use when a Unit you can see wants to cast a Spell. It becomes Silenced this Turn and must choose something else to do.\nApply a ~Combo~ to that Unit.\n",
+                        "HasMixins": true
+                    },
+                    "~Conduit Flow~": {
+                        "A": "1 Action",
+                        "Cost": "1 Mana",
+                        "Range": "5 meters to first target",
+                        "Degree": "Major",
+                        "Effect": "Choose a Worthy Unit other than you. If Enemy, it takes 1d10 Shock Damage. Otherwise, Heal it for 1d8.\nIf there is another Unit within 2 meters of it, repeat Conduit Flow on the new Unit (you choose if multiple).\n",
+                        "Notes": "Each Unit can be affected by Conduit Flow only once per cast. Cover is calculated from Unit to Unit (as if the conduit is jumping from Unit to Unit). The conduit can be repeated on you as long as you're not the first target."
+                    },
+                    "~Magic Arrow Barrage~": {
+                        "A": "1 Action",
+                        "Cost": "1 Mana",
+                        "Range": "10 meters to edge",
+                        "Cooldown": "Once / Combat",
+                        "Degree": "Major",
+                        "Effect": "Conjure floating arrows in a 3x3 area, up to 10 meters above ground.\nAt any point (for 0 Actions or with a Reaction), you can release these arrows downward. All Enemies hit take 2d6 Pierce Damage.\n",
+                        "Upgrade": "At the start of your every Turn, if the barrage is not yet released, it increases by 1 meter in size in all directions and gains 1d4 Damage when it will be released (up to +3d4 and 9x9).",
+                        "Notes": "E.g. every turn, it goes from 3x3 to 5x5, then 7x7, then 9x9, etc and deals from 2d6 Damage to 2d6 + 1d4, then 2d6 + 2d4, etc.\nThe arrows disappear as soon as they hit ground, or when dismissed (all at once) for free at any point, or after 1 minute of staying in the air.\n"
+                    },
+                    "~Element Enchantment~": {
+                        "DisplayName": "{Element} Enchantment",
+                        "A": "1 Action",
+                        "Cost": "1 Mana",
+                        "Range": "3 meters",
+                        "Duration": "24 hours / Depends",
+                        "Requirement": "Level 2",
+                        "Degree": "Minor",
+                        "Effect": "Choose a metallic weapon to imbue it with {Element}.\nThat weapon deals +2 Damage (as part of the Attack) and the total weapon Damage becomes {Element} Damage.\n\n~Click on the Spell Icon to select the preferred Element!~\n",
+                        "Upgrade": "Lasts until the end of the next (or current) combat, or for up to 24 hours.",
+                        "Notes": "Does not stack with other weapon enchantments from Spells. These are considered different Spells.",
+                        "Tag": "Buff",
+                        "Variants": [
+                            {
+                                "Element": "Fire",
+                                "IconName": "Fire Enchantment"
+                            },
+                            {
+                                "Element": "Cold",
+                                "IconName": "Cold Enchantment"
+                            },
+                            {
+                                "Element": "Shock",
+                                "IconName": "Shock Enchantment"
+                            }
+                        ],
+                        "HasMixins": true
+                    }
+                },
+                "Level 4": {
                     "<Abjuration>": {
                         "_Value": "2 or more",
                         "A": "Reaction",
@@ -255,7 +346,7 @@
                         "Cooldown": "Once / Combat",
                         "AlignOnWebsite": "Right",
                         "HasMixins": true,
-                        "Effect": "When you cast a spell, you can apply this any of the following effects to it:\n{Diamond} For every 2 dice in its Damage, roll 1 more\n{Diamond} If it targets an area, increase it or decrease it by 50%\n{Diamond} Change its Damage type to any type, except Divine and True Damage\n{Diamond} If it specifies a Stat, change it to any other Stat\n{Diamond} Swap any of Root, Cripple or Silence (with any of the remaining)\n{Diamond} Swap Slow, Fumbling, or Pushing with any other of these (Push a target 2 meters away from you or from the area center)\n{Diamond} Double its range\nAt any point, you can expend 1 Mana to reset the Cooldown of this Spell (Spellcraft).\n"
+                        "Effect": "When you cast a spell, you can apply this any of the following effects to it:\n{Diamond} For every 2 dice in its Damage, roll 1 more\n{Diamond} Increase it or decrease its Area by 50% (if AoE)\n{Diamond} Change its Damage type to any type\n{Diamond} Increase its Stunning by 1 tier\n{Diamond} Double its range\nYou can spend 1 {Mana}Mana to cast this ignoring its Cooldown.\n"
                     }
                 },
                 "Level 6": {
@@ -343,69 +434,128 @@
                 }
             },
             "Talents": {
-                "Level 3": {
+                "Level 2": {
+                    "<Guiled Casting>": {
+                        "A": "Passive",
+                        "AlignOnWebsite": "Left",
+                        "Effect": "When you roll 2 on the Unstable Spark die, one random Damage Type you deal increases by 1 _forever_.\n",
+                        "HasMixins": true
+                    },
                     "<Sap>": {
                         "_Value": 1,
                         "A": "Half-Action",
                         "Range": "10 meters",
-                        "Effect": "A Unit must succeed a Charisma Check against your last rolled Unstable Spark die or be Blinded, Silenced or Rooted (your choice).\n"
+                        "AlignOnWebsite": "Left",
+                        "Effect": "A Unit must succeed a Charisma Check against your last rolled Unstable Spark die or be Blinded, Silenced or Rooted (your choice).\n",
+                        "Notes": "What are you doing, just pick Wild Casting."
                     },
                     "<Mild Casting>": {
                         "_Value": 0.5,
                         "AlignOnWebsite": "Left",
                         "A": "Passive",
-                        "Effect": "Whenever you roll minimum Damage on a Spell, reroll it. Afterwards, roll an Unstable Spark die."
+                        "Effect": "After you cast a Spell or one of its variants, you can't cast that spell or variant again this Combat.\nYour base Unstable Spark also triggers on 9.\n"
+                    },
+                    "<Viled Casting>": {
+                        "A": "Passive",
+                        "AlignOnWebsite": "Left",
+                        "Effect": "All non-physical Damage you deal becomes Eldritch Damage. When you roll 5 on the Unstable Spark die, increase all Eldritch Damage you deal for the rest of the combat by 3. Then roll another Unstable Spark die."
                     },
                     "<Wild Casting>": {
                         "_Value": 0.5,
                         "AlignOnWebsite": "Right",
                         "A": "Passive",
-                        "Effect": "When you roll the Unstable Spark die, if you roll 2 or 3, roll another 1d20 and a random Spell is automatically cast from the table below on a target/Unit \"randomly\" chosen by the QM.\nIf you roll 2, the effect will be negative for your team, if possible. If you roll 3, the effect is positive, if possible.\n",
+                        "Effect": "When you roll the Unstable Spark die, if you roll 2 or 3, roll 1d20. Freely cast that Spell from the table below, \"randomly\" by the QM.\nIf you rolled 2 on the Unstable Spark die, the effect is negative for your team. Otherwise, it's positive.\nThe lower Health you are, the more intense the effect (probably).\n",
                         "Notes": "For example, if you roll 2 and the random Spell is Fire Enchantment, it will be cast on an enemy's weapon if possible (respecting the range). If not possible, then it will be cast on a random, non-Player Character's weapon. If not possible, then it will be cast on a Player Character's weapon. If nothing is possible, nothing happens.\nIf an effect can be cancelled or has ongoing effects, you have control of them as if you yourself had cast the Spell.\n",
-                        "DoubleTableNumbered": {
-                            "Headers": [
-                                "Spell Name",
-                                "Spell Name"
-                            ],
-                            "Values": [
-                                "Fake Sound",
-                                "Quicksand",
-                                "Eldritch Steed",
-                                "Force Wall",
-                                "Vault Break",
-                                "Glory Shout",
-                                "Fairy Fire",
-                                "Fog Cloud",
-                                "Fire Enchantment",
-                                "Saving Throw",
-                                "Chaining Grasp",
-                                "Invisibility",
-                                "Flash",
-                                "Curse of Weakness",
-                                "Magic Missiles (3)",
-                                "Focus Fling",
-                                "Thunder Clap",
-                                "Healing Surge",
-                                "Banishment Slip",
-                                "Reverse Gravity"
-                            ]
-                        }
+                        "SpellTable": [
+                            {
+                                "Name": "1. Fake Sound",
+                                "Effect": "A sound is magically created at a point (it can Silence some Units)."
+                            },
+                            {
+                                "Name": "2. Quicksand",
+                                "Effect": "An 3x3 to 9x9 area becomes Hard Terrain."
+                            },
+                            {
+                                "Name": "3. Conjure Steed",
+                                "Effect": "A random animal is conjured as a mount for 1 to 5 Units."
+                            },
+                            {
+                                "Name": "4. Force Wall",
+                                "Effect": "A thin 2x2 to 6x6 transparent wall is created."
+                            },
+                            {
+                                "Name": "5. Obstable Break",
+                                "Effect": "One or more obstacles or traps are destroyed."
+                            },
+                            {
+                                "Name": "6. Strange Wave",
+                                "Effect": "1 to 5 Units are Healed or Damaged for 1d4."
+                            },
+                            {
+                                "Name": "7. Teleportation",
+                                "Effect": "1 to 5 Units are teleported 1 to 10 meters."
+                            },
+                            {
+                                "Name": "8. Fog",
+                                "Effect": "A 3x3 to 9x9 fog cloud is created."
+                            },
+                            {
+                                "Name": "9. Enchanted Weapons",
+                                "Effect": "1 to 5 Units have their weapons enchanted (+2 Damage, any element)"
+                            },
+                            {
+                                "Name": "10. Invisibility",
+                                "Effect": "1 to 5 Units become invisible for 1 to 99 Turns."
+                            },
+                            {
+                                "Name": "11. FULMINATION",
+                                "Effect": "A 3x3 to 9x9 explosion happens, dealing 2d6 to 6d6 Damage of any element."
+                            },
+                            {
+                                "Name": "12. Fling",
+                                "Effect": "1 to 5 objects or items are flung around. If any hits a Unit, deals 1d6 Damage."
+                            },
+                            {
+                                "Name": "13. Thunder Clap",
+                                "Effect": "All Units within 2 to 6 meters of you take 1d6 to 3d6 Damage (any type)."
+                            },
+                            {
+                                "Name": "14. Wilder Casting",
+                                "Effect": "Roll 2 more times on this table."
+                            },
+                            {
+                                "Name": "15. Reverse Gravity",
+                                "Effect": "The gravity in a 3x3x3 to 9x9x9 area is reversed."
+                            },
+                            {
+                                "Name": "16. Banish",
+                                "Effect": "1 to 3 Units are banished to another plane for 1 Turn. When they come back, they immediately take 1 Turn."
+                            },
+                            {
+                                "Name": "17. Unknowable Health",
+                                "Effect": "A Unit is healed for 5 to 55 Health."
+                            },
+                            {
+                                "Name": "18. Lightning Strikes Again",
+                                "Effect": "1 to 3 Units get any Crowd Control."
+                            },
+                            {
+                                "Name": "19. Nervous System Jolt",
+                                "Effect": "One Unit permanently gains +1 in a Stat, or +1 to +3 Max Health, Regen or Mana."
+                            },
+                            {
+                                "Name": "20. Resurrection",
+                                "Effect": "1 to 3 dead or Fallen Units come back to life (without Exhaustion) with 1 to full Health."
+                            }
+                        ]
                     }
                 },
-                "Level 5": {
+                "Level 3": {
                     "<Arcano Mantissa>": {
                         "_Value": "2 (No fucking idea lol)",
                         "A": "Passive",
-                        "Effect": "When you roll 3 on the Unstable Spark die, gain 0.5 Max Health and 0.25 Max Mana.",
+                        "Effect": "When you roll 4 on the Unstable Spark die, gain 0.5 Max Health and 0.25 Max Mana.",
                         "Notes": "Mana and Health can't be expended or Damaged in fractions, but if you manage to get this 2 times, you essentially get +1 Health permanently (or 1 Mana permanently if you trigger this 4 times)."
-                    },
-                    "<Star Burst>": {
-                        "_Value": 1.35,
-                        "AlignOnWebsite": "Right",
-                        "A": "1 Action",
-                        "Cost": "1 Mana",
-                        "Effect": "Declare up to 4 different targets you can see.\nAssign a different number from #1 to #4 to each.\nRoll a number of d4's equal to your last rolled Unstable Spark die. Each d4 rolled deals that much Pulse Damage to the target with that number.\nEach rolled 1 deals 1 Damage to target number #1, each rolled 2 deals 2 Damage to target number #2, and so on.\n",
-                        "Notes": "E.g. if you put #2 on a goblin, and you roll three 2's on the d4's, then that goblin takes 6 Pulse Damage.\nYou should probably assign the higher number to the target you want to do most Damage to.\nYou can declare fewer targets, but then the missing number will deal Damage to no target.\nCover is applied normally.\n"
                     },
                     "<Honorificabilitudinitatibus>": {
                         "_Value": 2.5,
@@ -414,8 +564,24 @@
                         "HasMixins": true,
                         "Effect": "Your Unstable Spark die becomes 1d12 instead of 1d10, and triggers on 11 and 12 instead of 10.\nYour d12 dice become d14's, 1d14's become d16's, etc, when they have their ^Dice Upgraded^ to the next die tier.\n",
                         "Notes": "I don't know. You're a mage, figure it out.\n"
+                    },
+                    "<Second Try>": {
+                        "_Value": 2.5,
+                        "A": "Reaction",
+                        "Cooldown": "Once / Combat",
+                        "HasMixins": true,
+                        "Effect": "Use after you roll an Unstable Spark die. You may cancel the roll. Then roll 2 more."
+                    },
+                    "<Star Burst>": {
+                        "_Value": 1.35,
+                        "AlignOnWebsite": "Right",
+                        "A": "1 Action",
+                        "Cost": "1 Mana",
+                        "Effect": "Declare up to 4 different targets you can see.\nAssign a different number from #1 to #4 to each.\nRoll a number of d4's equal to your last rolled Unstable Spark die. Each d4 rolled deals that much Pulse Damage to the target with that number.\nEach rolled 1 deals 1 Damage to target number #1, each rolled 2 deals 2 Damage to target number #2, and so on.\n",
+                        "Notes": "E.g. if you put #2 on a goblin, and you roll three 2's on the d4's, then that goblin takes 6 Pulse Damage.\nYou should probably assign the higher number to the target you want to do most Damage to.\nYou can declare fewer targets, but then the missing number will deal Damage to no target.\nCover is applied normally.\n"
                     }
                 },
+                "Level 5": null,
                 "Level 6": {
                     "<Stat Bonus 4>": {
                         "IsIgnored": true,
@@ -437,15 +603,8 @@
                     "<Accidental Zap>": {
                         "_Value": 2.5,
                         "A": "Passive",
-                        "Effect": "When you roll 7, 8 or 9 on the Unstable Spark die, immediately Zap the closest Unit to you for ^your Intelligence^ Shock Damage.",
+                        "Effect": "When you roll 6, 7 or 8 on the Unstable Spark die, immediately Zap the closest Unit to you for ^your Intelligence^ Shock Damage.",
                         "HasMixins": true
-                    },
-                    "<Second Try>": {
-                        "_Value": 2.5,
-                        "A": "Reaction",
-                        "Cooldown": "Once / Adventure",
-                        "HasMixins": true,
-                        "Effect": "Use after you roll an Unstable Spark die. Reroll it and reset ALL your Cooldowns (except this)."
                     }
                 },
                 "Level 9": {
@@ -490,35 +649,47 @@
             "Description": "Losum iprem",
             "Starting Abilities": {
                 "~Artificer~": {
-                    "A": "Special",
-                    "Effect": "You have a set of Artificer's Tools.\nSpending 10 minutes, you can make an item shed light, emmit a sound or smell or paint surfaces in rough images or writing. The magical effects last for up to 8 hours.\nWhen you Create Scroll or Create Elixir, you can instead spend 1 Mana to ignore the Cooldown.\n",
-                    "Notes": "Artificer's Tools's small tasks are a non-combat. You can't use them to deal Damage, crowd control or heal. Feel free to be creative with what you can do - the tools might do other small artificer tasks as well. Ask your QM!"
-                },
-                "~Create Device~": {
-                    "AlignOnWebsite": "Right",
                     "A": "10 minutes",
-                    "Duration": "Whole Adventure",
-                    "Cooldown": "Once / Adventure",
-                    "Effect": "Choose a Spell you can cast and spend Mana for it if it requires Mana.\nYou create a device (or scroll) containing that Spell.\nAfter being used, or at the end of the Adventure, it is destroyed.\n",
-                    "Notes": "Devices always take a Half-Action to use and can be used by anyone.\n"
+                    "Effect": "You have a set of Artificer's Tools.\nSpending an amount of {Gold}Gold for its components, you can create a device that does repetitive tasks, shed light, emmits a sound or smell or paints surfaces in rough images or writing.\nYou can create any non-food normal weapon, armor, general good or adventurer gear item piece by spending its {Gold}Gold cost, wherever you are.\nYou can _dismantransmute_ any good into {Gold}Gold equal to 25% of its value (which is usually the normal sell price to a vendor).\n",
+                    "Notes": "Artificer's Tools's small tasks are a non-combat. You can't use them to deal Damage, crowd control or heal. Feel free to be creative with what you can do - the tools might do other small artificer tasks as well. Ask your QM! The spent {Gold}Gold for this is used as resource for obtaining or transmuting materials.",
+                    "HasMixins": true
                 },
-                "~Create Elixir~": {
-                    "AlignOnWebsite": "Right",
-                    "HasMixins": true,
-                    "A": "10 minutes",
-                    "Duration": "Whole Adventure",
-                    "Cooldown": "Once / Adventure",
-                    "Effect": "Choose one of the following types of potions and create it\n{Diamond} Elixir of Healing - Heal for 2d6.\n{Diamond} Elixir of Strength - Attacks with 2-Handed weapons deal +2 Damage, and attacks with 1-Handed weapons deal +1 Damage (lasts 1 combat encounter).\n{Diamond} Elixir of Agility - Gain 100% base Movement Speed (lasts for 4 hours).\n{Diamond} Elixir of Mana - Gain 1 Mana\n"
+                "~Spell Rifle~": {
+                    "A": "Depends",
+                    "Replacement": "Replaces Magic Matery",
+                    "Effect": "You can't cast Spells normally. You have a special weapon called a Spell Rifle that must be loaded ahead of time with ^spell bullets^ for specific Spells, using Load Spell Bullet.\n\nShooting a _Spell Bullet_ costs 1 less Action Point than the initial cost of the Spell (but not less than Half-Action).\n",
+                    "HasMixins": true
+                },
+                "~Shoot Spell Rifle~": {
+                    "A": "1 Action",
+                    "Range": "2-3 meters",
+                    "Effect": "Deal 2d8 + 1 Damage to a Unit (of any element type). Apply a ~Combo~ to it.",
+                    "HasMixins": true
+                },
+                "~Load Spell Bullet~": {
+                    "A": "Half-Action",
+                    "Cost": "1 Mana",
+                    "Duration": "Bullets last until end of Adventure",
+                    "Replacement": "Replaces Magic Matery",
+                    "Effect": "Choose a Spell you have and also spend its Mana Cost. Load it into your Spell Rifle.\n",
+                    "Upgrade": "Hint: You should load your Bullets ahead of time before a Combat."
                 }
             },
             "Talents": {
-                "Level 3": {
-                    "<Eclecticism>": {
-                        "_Value": 0.75,
-                        "AlignOnWebsite": "Left",
+                "Level 2": {
+                    "~Create Device~": {
                         "A": "Passive",
-                        "Effect": "You gain access to the Nature, Mysticism, Eldritch and Divine Ability Lists to Know Basic Abilities from.\n",
-                        "Notes": "If a Spell requires a certain Level, you need that Level to Know it, as usual."
+                        "Duration": "Whole Adventure",
+                        "Effect": "You may create Spell Bullets with Spells from other player characters. They spend the base Spell Mana cost, but only you can use these.\nOther player characters can use regular Spell Bullets you give to them, without a Spell Rifle.\n",
+                        "Notes": "Devices always take a Half-Action to use and can be used by anyone.\n"
+                    },
+                    "~Create Elixir~": {
+                        "AlignOnWebsite": "Right",
+                        "HasMixins": true,
+                        "A": "10 minutes",
+                        "Duration": "Whole Adventure",
+                        "Cooldown": "Once / Adventure",
+                        "Effect": "Choose one of the following types of potions and create it\n{Diamond} Elixir of Healing - Heal for 2d6.\n{Diamond} Elixir of Strength - Attacks with 2-Handed weapons deal +2 Damage, and attacks with 1-Handed weapons deal +1 Damage (lasts 1 combat encounter).\n{Diamond} Elixir of Agility - Gain 100% base Movement Speed (lasts for 4 hours).\n{Diamond} Elixir of Mana - Gain 1 Mana\n"
                     },
                     "<Create Magic Weapon>": {
                         "_Value": 1.25,
@@ -527,6 +698,15 @@
                         "A": "10 minutes",
                         "Cooldown": "Once / Adventure",
                         "Effect": "You create a special magical weapon.\nChoose a type of weapon, and choose 2 of the following effects:\n{Diamond} +1 Damage if it's a One-Handed Weapon (or +2 if it's Two-Handed)\n{Diamond} Damage can freely be converted to Fire/Cold/Shock (choose one)\n{Diamond} +2 meters move speed while wielding it\n{Diamond} Wielder starts combat with 1d6 Shielding\nYou can only have 1 Magic Weapon created at a time.\nThe Magic Weapon is automatically destroyed after 24 hours.\n"
+                    }
+                },
+                "Level 3": {
+                    "<Eclecticism>": {
+                        "_Value": 0.75,
+                        "AlignOnWebsite": "Left",
+                        "A": "Passive",
+                        "Effect": "You gain access to the Nature, Mysticism, Eldritch and Divine Ability Lists to Know Basic Abilities from.\n",
+                        "Notes": "If a Spell requires a certain Level, you need that Level to Know it, as usual."
                     },
                     "<Spellcraft>": {
                         "_Value": 2.5,
@@ -534,7 +714,7 @@
                         "Cooldown": "Once / Combat",
                         "AlignOnWebsite": "Right",
                         "HasMixins": true,
-                        "Effect": "When you cast a spell, you can apply this any of the following effects to it:\n{Diamond} For every 2 dice in its Damage, roll 1 more\n{Diamond} If it targets an area, increase it or decrease it by 50%\n{Diamond} Change its Damage type to any type, except Divine and True Damage\n{Diamond} If it specifies a Stat, change it to any other Stat\n{Diamond} Swap any of Root, Cripple or Silence (with any of the remaining)\n{Diamond} Swap Slow, Fumbling, or Pushing with any other of these (Push a target 2 meters away from you or from the area center)\n{Diamond} Double its range\nAt any point, you can expend 1 Mana to reset the Cooldown of this Spell (Spellcraft).\n"
+                        "Effect": "When you cast a spell, you can apply this any of the following effects to it:\n{Diamond} For every 2 dice in its Damage, roll 1 more\n{Diamond} Increase it or decrease its Area by 50% (if AoE)\n{Diamond} Change its Damage type to any type\n{Diamond} Increase its Stunning by 1 tier\n{Diamond} Double its range\nYou can spend 1 {Mana}Mana to cast this ignoring its Cooldown.\n"
                     }
                 },
                 "Level 5": {

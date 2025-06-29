@@ -14,6 +14,7 @@ import HeroButton from '../HeroButton/HeroButton'
 import Ribbon from '../Ribbon/Ribbon'
 import CoolButton from '../CoolButton/CoolButton'
 import Icon from '../Icon'
+import EffectTable from '../TableNormal/EffectTable'
 
 const ACTION_POINTS_MAPPING = {
     '1 Action': '2 Action Points',
@@ -267,6 +268,7 @@ export default function Spell({
         Subspells,
         SubspellName,
         RollThiefGold,
+        SpellTable,
         Tags
     } = spell
 
@@ -343,8 +345,6 @@ export default function Spell({
         }
     }
 
-    
-
     let tableHeaders = null
     const newTableValuePairs = []
     if (DoubleTableNumbered != null) {
@@ -371,6 +371,8 @@ export default function Spell({
             }
         }
     }
+
+
 
     function onIconClick() {
         if (hasVariants !== true)
@@ -453,6 +455,12 @@ export default function Spell({
                         Alternatives: { Alternatives }
                     </div>
                 ) }
+
+                { (SpellTable != null && (
+                    <EffectTable nameEffectPairs={SpellTable.map(({Name, Effect}) => ({ name: Name, effect: Effect}))}/>
+                )) }
+
+
                 { (DoubleTable != null || DoubleTableNumbered != null) && (
                     <TableNormal columns={tableHeaders} hasBorder={false}>
                         { newTableValuePairs.map(pair => (
