@@ -611,7 +611,7 @@
         "_Value": 2,
         "A": "1 Action",
         "Cooldown": "Once / Adventure",
-        "Effect": "Heal yourself for 50% of your missing Health, and all Units within 2 meters for 25% of your missing Health."
+        "Effect": "Heal yourself for 50% of your missing Health, and all Units within 2 meters for half the final amount just Healed."
     },
     "<Dazzling Miasma>": {
         "_Value": 2,
@@ -1271,7 +1271,8 @@
         "Range": "5 meters",
         "HasMixins": true,
         "Degree": "Minor",
-        "Effect": "Shoot 3 arcane arrows. Each does 1d4 Pulse Damage.\nEach arrow after the first into the same target deals only 1d2 instead.\n",
+        "Effect": "Shoot 2 arcane arrows. Each does 1d4 Pulse Damage.\nThis turn, each arrow after the first into the same target deals only 1d2 instead.\n",
+        "Combo": "2 more arcane arrows shoot from the target into any targets within 5 meters of it. They ignore the same-target penalty.",
         "Notes": "When you cast this, decide the targets before rolling the dice. Roll the dice for each target at a time.\n"
     },
     "~Burning Breath~": {
@@ -1776,6 +1777,11 @@
         "Cooldown": "Once / Adventure",
         "Effect": "You create a special magical weapon.\nChoose a type of weapon, and choose 2 of the following effects:\n{Diamond} +1 Damage if it's a One-Handed Weapon (or +2 if it's Two-Handed)\n{Diamond} Damage can freely be converted to Fire/Cold/Shock (choose one)\n{Diamond} +2 meters move speed while wielding it\n{Diamond} Wielder starts combat with 1d6 Shielding\nYou can only have 1 Magic Weapon created at a time.\nThe Magic Weapon is automatically destroyed after 24 hours.\n"
     },
+    "<Create Ammo>": {
+        "A": "Half-Action",
+        "Cooldown": "Once / Combat",
+        "Effect": "Use immediately after you shot a Spell Bullet.\nFreely load your Rifle with an identical Spell Bullet, ignoring Mana cost.\n"
+    },
     "<Eclecticism>": {
         "_Value": 0.75,
         "AlignOnWebsite": "Left",
@@ -1862,7 +1868,7 @@
     },
     "~Faith Casting~": {
         "A": "Special",
-        "Effect": "You have 2 Mana Points that can't increase.\nYour Mana replenishes 10 minutes after a Worthy Combat.\n"
+        "Effect": "You have 2 Mana Points that can't increase.\nYour Mana replenishes inbetween Worthy Combats.\n"
     },
     "~Holy Grace~": {
         "_Value": 0,
@@ -1875,7 +1881,7 @@
             "Healing",
             "Damage"
         ],
-        "Effect": "Heal an ally for 10% of their Maximum Health (but not yourself).\nYour next attack until the end of your next Turn deals extra Damage equal to the amount just healed.\n"
+        "Effect": "Heal a Unit for 1d6 (but not yourself).\nYour next attack until the end of your next Turn deals extra Damage equal to the amount just Healed.\n"
     },
     "~Divine Sense~": {
         "_Value": 0,
@@ -1887,8 +1893,7 @@
         "HasMixins": true,
         "Tags": "Utility",
         "Effect": "When you use this, for a brief moment, nearby holy and unholy presences emmit a subtle sound and smell ^only you can sense^.\n",
-        "Upgrade": "Unholiness smells sulphurous and sounds like a deep, echoing rumbling or breath. Holiness smells churchly and sounds like a reverbing crystaline ringing.\n",
-        "Notes": "Walls block this smell and sound as they normally would.\nThis smell and sound can only be concealed with magic.\n"
+        "Notes": "Unholiness smells sulphurous and sounds like a deep, echoing rumbling or breath. Holiness smells churchly and sounds like a reverbing crystaline ringing.\nWalls block this smell and sound as they normally would.\nThis smell and sound can only be concealed with magic.\n"
     },
     "~Smite~": {
         "_Value": "1 (you gain 1 mana back)",
@@ -1914,14 +1919,17 @@
         "Combo": "If the target is Comboed and still not full Health, increase the Healing by 50%.",
         "Notes": "Yes, this can chain again and again."
     },
-    "~Zeal~": {
-        "A": "Passive",
-        "Effect": "Your first attack each Turn deals +10% Damage for each Mana you still have.",
-        "Notes": "10% is easy to calculate, so calculate 10% and double it (rounded down)."
+    "~Safeguard~": {
+        "A": "1 Action",
+        "Cost": "1 Mana",
+        "Tags": "Protection",
+        "Effect": "A Unit you can see gains 2 Shieldings. Each can block 1d8 Damage.\nEach die that rolled maximum applies a ~Combo~.\n",
+        "HasMixins": true
     },
     "~Knighthood~": {
         "A": "Passive",
-        "Effect": "While mounted, after moving in a straight line at least 3 meters, your first attack this turn also hits a Unit directly behind the main target for 50% of the incoming Damage.\n"
+        "Effect": "While mounted, after moving in a straight line at least 3 meters, your first attack this turn also hits a Unit directly behind the main target for 50% of the incoming Damage.\n",
+        "Combo": "Each Comboed Unit hit becomes Single-Stunned."
     },
     "~Light~": {
         "A": "0 Actions",
@@ -1939,23 +1947,6 @@
         "Cooldown": "1 real hour",
         "Tags": "Utility",
         "Effect": "When an ally makes a Check, also add your respective Stat for that Check."
-    },
-    "~Smiting Fireheart~": {
-        "A": "Passive",
-        "_Value": 8,
-        "HasMixins": true,
-        "Effect": "After you defeat a ^Worthy Enemy^, your next attack deals +50% Damage (but can't retrigger Fire Heart)."
-    },
-    "~Eye for Revolution~": {
-        "_Value": 3,
-        "A": "Passive",
-        "Effect": "Your melee attacks deal +25% Damage for each Crowd Control they have (Double-Stun and Triple-Stun count as separate). The Damage of those attacks becoms Fire.",
-        "Combo": "+25% Damage."
-    },
-    "<Jihad>": {
-        "_Value": "No idea",
-        "A": "Passive",
-        "Effect": "When healing yourself with Crusade, increase the healing by 50%.\nAdditionally, you can heal yourself with Holy Grace.\n"
     },
     "~Crusade~": {
         "_Value": 2,
@@ -1985,7 +1976,7 @@
         "Notes": "Walls block this smell and sound as they normally would.\nThe smell and sound can be concealed with magic.     \n"
     },
     "~Expelling Bolt~": {
-        "A": "Half-Action",
+        "A": "1 Action",
         "Cost": "1 Mana",
         "Range": "5 meters",
         "Degree": "Minor",
@@ -1994,7 +1985,7 @@
             "Damage",
             "Ranged"
         ],
-        "Effect": "Shoot a magical bolt towards a Unit that deals 1d10 + (target's Movement Speed) Fire or Divine Damage to it.\n",
+        "Effect": "Shoot a magical bolt towards a Unit that deals 3d8 + (target's Movement Speed) Fire or Divine Damage to it.\n",
         "Combo": "Apply 2 Combos to it."
     },
     "~Lance Heave~": {
@@ -2054,7 +2045,7 @@
         "Tags": [
             "RoI Damage"
         ],
-        "Effect": "Whenever you deal Damage to multiple Units at the same time, increase all Divine and Fire Damage you deal by 10% for the rest of the Combat.",
+        "Effect": "Whenever you deal Damage to multiple Units at the same time, increase all Divine and Fire Damage you deal by 10% for the rest of the Combat (including that Damage).",
         "Upgrade": "This stacks indefinitely."
     },
     "<Join the Crusade>": {
@@ -2120,6 +2111,23 @@
         "HasMixins": true,
         "Effect": "Push a medium-sized, non-Epic Unit up to 6 meters in any direction.\nIf it collides with something, it is Triple-Stunned and takes 1d8 Smash Damage (and it stops).\nIf it collided with another Unit, that Unit is also pushed in the same direction and repeats the effect of Row Through.\n",
         "Notes": "E.g. if it collides with a Unit, that Unit is also pushed up to 6 meters and if it collides with something, it is Triple-Stunned and takes 1d8 Damage. If that thing it collided with was a Unit, that Unit is also pushed up to 6 meters and is Triple-Stunned and so on.\n\"{Stunned}\"\n"
+    },
+    "~Smiting Fireheart~": {
+        "A": "Passive",
+        "_Value": 8,
+        "HasMixins": true,
+        "Effect": "After you defeat a ^Worthy Enemy^, your next attack deals +50% Damage (but can't retrigger Fire Heart)."
+    },
+    "~Eye for Revolution~": {
+        "_Value": 3,
+        "A": "Passive",
+        "Effect": "Your melee attacks deal +25% Damage for each Crowd Control they have (Double-Stun counts as 2 and Triple-Stun counts as 3). The Damage of those attacks becoms Fire.",
+        "Combo": "+25% Damage."
+    },
+    "<Jihad>": {
+        "_Value": "No idea",
+        "A": "Passive",
+        "Effect": "When healing yourself with Crusade, increase the healing by 50%.\nAdditionally, you can heal yourself with Holy Grace.\n"
     },
     "~Spreading Exigency~": {
         "A": "Reaction",
@@ -2231,30 +2239,62 @@
         "HasMixins": true,
         "Downside": "{Ultimate}"
     },
-    "~Holy Tome Casting~": {
-        "_Value": "6-9",
-        "A": "Passive",
+    "~Holy Tome~": {
+        "_Value": 3,
+        "A": "Special",
         "HasMixins": true,
-        "Replacement": "Replaces Faith Casting",
-        "Effect": "You do not use Mana.\n~Twice per~ Worthy Combat, you can cast ~any Ability~ that costs Mana, ignoring the Mana cost ~and Cooldown~.\n",
-        "Notes": "You lose access to Innate Grace and your other Talents if you don't have the book somewhere at hand, such as hanging by your belt, in your hand or in your pocket. Should you lose the book, you can buy another one for 200 Gold at a respective temple."
+        "Effect": "If your previous Act was different, your next Act has its ^Dice Upgraded^ to the next die type.\n",
+        "Upgrade": "You have a special tome that grants you extra power when held visibly on you, on your belt, weapon, or levitating around you.\nDoes not apply to your first Act every combat.\n",
+        "Notes": "{DiceUpgrade}\nAnything that uses 0 or more Action Points is an Act.\nUsing X, Smite, then X - this does trigger the Holy Tome Dice Upgrade for both X and Smite.\n"
     },
-    "~Innate Grace~": {
-        "_Value": 1.5,
-        "A": "Passive",
+    "~Innate Sense~": {
+        "_Value": 0,
+        "A": "0 Actions",
+        "Cooldown": "1 real hour",
+        "Range": "15 meters",
+        "Duration": "6 seconds",
         "HasMixins": true,
-        "Effect": "All your Divine Basic Spells have their ^Dice Upgraded^ to the next die type.",
-        "Notes": "{DiceUpgrade}\n"
+        "Tags": "Utility",
+        "Replacement": "Replaces Divine Sense",
+        "Effect": "When you use this, for a brief moment, nearby ~allies and enemies~ emit a sound or smell ^only you can sense^ ~and discern~.\n~Apply a Combo to one of each.~\n",
+        "Upgrade": "~You can discern a person's intent by its smell and sound.~",
+        "Notes": "Allies have a pleasant, earthy and sweet smell and emit a beautiful hum in their voice. Enemies smell rotten and their voices have a specific reverb and shifted pitch.\nWalls block this smell and sound as they normally would.\nThis smell and sound can only be concealed with magic.\n"
+    },
+    "~Blinding Light~": {
+        "A": "1 Action",
+        "Cost": "1 Mana",
+        "Cooldown": "Once / Combat",
+        "Range": "5 meters to edge",
+        "Degree": "Major",
+        "Tags": [
+            "AoE Damage",
+            "AoE Crowd Control"
+        ],
+        "Effect": "All Units in a 4x4 meter area take 2d4 Divine Damage and are Blinded.\n",
+        "Notes": "Cover is calculated from the center of the area."
+    },
+    "~Liberating Judgement~": {
+        "A": "Half-Action",
+        "Range": "3 meters",
+        "Degree": "Lesser",
+        "Tags": [
+            "Damage",
+            "Mobility"
+        ],
+        "Effect": "Deal 2d4 Damage to a Unit (you choose the Damage Type).\nThen move a number of meters equal to the lower of the dice.\n"
     },
     "~Golden Grace~": {
-        "_Value": 0,
+        "_Value": "0.5 for each cast so... (no more Damage)",
         "A": "1 Action",
         "HasMixins": true,
         "Cooldown": "Once every 2 turns",
         "Requirement": "Only usable in Worthy Combat. Can't be used on Fallen Units.",
         "Replacement": "Replaces Holy Grace",
         "Range": "6 meters",
-        "Effect": "Heal an ally for ~33% (a third)~ of their Maximum Health (but not yourself).\n"
+        "Tags": [
+            "Healing"
+        ],
+        "Effect": "Heal an ally for ~3d6~.\n"
     },
     "<Assistance From Afar>": {
         "_Value": 1,
@@ -2349,7 +2389,7 @@
         "Requirement": "Only usable in Worthy Combat. Can't be used on Fallen Units.",
         "Range": "3 meters",
         "Replacement": "Replaces Holy Grace",
-        "Effect": "Heal an ally for 20% of their Maximum Health. ~You can target yourself.~\nYour next attack deals extra Damage equal to the amount just healed.\n~While at or below 50% Health, this extra Damage deals 100% more Damage, even if you cast Silver Grace before being at or below 50% Health.~\n"
+        "Effect": "Heal an ally for 2d6. ~You can target yourself.~\nYour next attack deals extra Damage equal to the amount just healed.\n~While at or below 50% Health, add 1d6, even if you cast Silver Grace before being at or below 50% Health.~\n"
     },
     "<Fellowship Aura>": {
         "_Value": 0.75,
@@ -3407,7 +3447,7 @@
         "AlignOnWebsite": "Left",
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "The first time you _flank_ an enemy every turn, the attack deals +1d6 Damage.\nAlso, your melee weapon attacks Flank an enemy if they are pinned against a wall or an obstacle as well.\n",
+        "Effect": "The first time you _flank_ an enemy every turn, the attack deals +1d4 Damage.\nAlso, your melee weapon attacks Flank an enemy if they are pinned against a wall or an obstacle as well.\n",
         "Note": "{Flank}\nAlso, instead of an ally being behind the enemy, your attacks count as Flanking even if there is a wall or another obstacle directly behind them.\n"
     },
     "~Charge~": {
@@ -4026,6 +4066,12 @@
     "~Arcane Veins~": {
         "A": "Passive",
         "Effect": "You have access to the Arcane Spell School, no matter what Class you are.\n"
+    },
+    "~Combat Meditation~": {
+        "A": "Half-Action",
+        "Requirement": "Only usable in Worthy Combat, after first Round.",
+        "Cooldown": "Once / Combat",
+        "Effect": "Gain 1 Mana. You must spend it this Turn.\n"
     },
     "~Fae Veins~": {
         "A": "Passive",

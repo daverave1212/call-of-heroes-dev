@@ -92,6 +92,7 @@ import TitleGenerator from './pages/Tools/TitleGenerator';
 import MagicItemCreator from './pages/Other/MagicItemCreator';
 import { AppStateContext } from './global-state/GlobalState';
 import HomebrewBookCreator from './pages/HomebrewBookCreator/HomebrewBookCreator';
+import Quirks from './pages/Other/Quirks';
 
 function App() {
 
@@ -140,6 +141,7 @@ function App() {
           <Route path="/Other/AttackModifiers" element={ <AttackModifiers/> }/>
           <Route path="/Other/CrowdControl" element={ <CrowdControl/> }/>
           <Route path="/Other/AreasOfEffect" element={ <AreasOfEffect/> }/>
+          <Route path="/Other/Quirks" element={ <Quirks/> }/>
           
           <Route path="/Other/Learn" element={ <Learn/> }/>
           <Route path="/Other/Rules" element={ <Rules/> }/>
