@@ -56,7 +56,7 @@ Starting Abilities:
     A: Special
     Effect: |
       You have 2 Mana Points that can't increase.
-      Your Mana replenishes 10 minutes after a Worthy Combat.
+      Your Mana replenishes inbetween Worthy Combats.
 
   ~Holy Grace~:
     _Value: 0
@@ -67,8 +67,8 @@ Starting Abilities:
     Range: 3 meters
     Tags: [Healing, Damage]
     Effect: |
-      Heal an ally for 10% of their Maximum Health (but not yourself).
-      Your next attack until the end of your next Turn deals extra Damage equal to the amount just healed.
+      Heal a Unit for 1d6 (but not yourself).
+      Your next attack until the end of your next Turn deals extra Damage equal to the amount just Healed.
 
   ~Divine Sense~:
     _Value: 0
@@ -113,15 +113,19 @@ Ability Choices:
         Combo: If the target is Comboed and still not full Health, increase the Healing by 50%.
         Notes: Yes, this can chain again and again.
     
-    ~Zeal~:
-      A: Passive
-      Effect: Your first attack each Turn deals +10% Damage for each Mana you still have.
-      Notes: 10% is easy to calculate, so calculate 10% and double it (rounded down).
+    ~Safeguard~:
+      A: 1 Action
+      Cost: 1 Mana
+      Tags: Protection
+      Effect: |
+        A Unit you can see gains 2 Shieldings. Each can block 1d8 Damage.
+        Each die that rolled maximum applies a ~Combo~.
 
     ~Knighthood~:
       A: Passive
       Effect: |
         While mounted, after moving in a straight line at least 3 meters, your first attack this turn also hits a Unit directly behind the main target for 50% of the incoming Damage.
+      Combo: Each Comboed Unit hit becomes Single-Stunned.
 
 
 Utility:
@@ -151,24 +155,7 @@ Utility:
 
 Ability Ideas:
 
-  ~Smiting Fireheart~:
-    A: Passive
-    _Value: 8
-    HasMixins: true
-    Effect: After you defeat a ^Worthy Enemy^, your next attack deals +50% Damage (but can't retrigger Fire Heart).
-  
-  ~Eye for Revolution~:
-    _Value: 3
-    A: Passive
-    Effect: Your melee attacks deal +25% Damage for each Crowd Control they have (Double-Stun counts as 2 and Triple-Stun counts as 3). The Damage of those attacks becoms Fire.
-    Combo: '+25% Damage.'
 
-  <Jihad>:
-    _Value: No idea
-    A: Passive
-    Effect: |
-      When healing yourself with Crusade, increase the healing by 50%.
-      Additionally, you can heal yourself with Holy Grace.
 
 Starting Abilities Description:
   - Holy Grace: |
@@ -177,12 +164,12 @@ Starting Abilities Description:
   - Divine Sense: |
       You have the power to detect foul creatures within range. Use this carefully only when you believe you need to, as it has a long cooldown.
 
-# Mana:       2                        |  2
-# Base        2                        |  4
-# Spec:       2.5   | 2.5     | 2.5    |  6.5
-# Talent L3:  1.5   | 1.5     | 1.5    |  8
-# Talent L5:  2     | 2       | 2      |  10
-# Talent L7:  3     | 3       | 3      |  13
+# Mana:       6                        |  6
+# Base        0                        |  6
+# Spec:       2.5   | 3       | 2.5    |  8.5
+# Talent L3:  4     | 1.5     | 1.5    |  12.5
+# Talent L4:  0     | 2       | 2      |  12.5
+
 
 # Base: 4.5 Charges
 # With Spec: 5.35 Charges
@@ -261,14 +248,14 @@ Specs:
       Level 2:
 
         ~Expelling Bolt~:
-            A: Half-Action
+            A: 1 Action
             Cost: 1 Mana
             Range: 5 meters
             Degree: Minor
             HasMixins: true
             Tags: [Damage, Ranged]
             Effect: |
-                Shoot a magical bolt towards a Unit that deals 1d10 + (target's Movement Speed) Fire or Divine Damage to it.
+                Shoot a magical bolt towards a Unit that deals 3d8 + (target's Movement Speed) Fire or Divine Damage to it.
             Combo: Apply 2 Combos to it.
 
         ~Lance Heave~:
@@ -325,7 +312,7 @@ Specs:
         ~Crimson Contrition~:
           A: Reaction
           Tags: [RoI Damage]
-          Effect: Whenever you deal Damage to multiple Units at the same time, increase all Divine and Fire Damage you deal by 10% for the rest of the Combat.
+          Effect: Whenever you deal Damage to multiple Units at the same time, increase all Divine and Fire Damage you deal by 10% for the rest of the Combat (including that Damage).
           Upgrade: This stacks indefinitely.
 
         <Join the Crusade>:
@@ -403,6 +390,25 @@ Specs:
                 "{Stunned}"
 
       Level 5:
+
+        ~Smiting Fireheart~:
+          A: Passive
+          _Value: 8
+          HasMixins: true
+          Effect: After you defeat a ^Worthy Enemy^, your next attack deals +50% Damage (but can't retrigger Fire Heart).
+        
+        ~Eye for Revolution~:
+          _Value: 3
+          A: Passive
+          Effect: Your melee attacks deal +25% Damage for each Crowd Control they have (Double-Stun counts as 2 and Triple-Stun counts as 3). The Damage of those attacks becoms Fire.
+          Combo: '+25% Damage.'
+
+        <Jihad>:
+          _Value: No idea
+          A: Passive
+          Effect: |
+            When healing yourself with Crusade, increase the healing by 50%.
+            Additionally, you can heal yourself with Holy Grace.
 
         ~Spreading Exigency~:
           A: Reaction
@@ -576,11 +582,18 @@ Specs:
     Starting Abilities:
       
       ~Holy Tome~:
-        _Value: 0
+        _Value: 3
         A: Special
         HasMixins: true
         Effect: |
-          Your Abilites that take between 1 or 2 Action Points cost 1 more Action Point, but have +50% Damage and Healing.
+          If your previous Act was different, your next Act has its ^Dice Upgraded^ to the next die type.
+        Upgrade: |
+          You have a special tome that grants you extra power when held visibly on you, on your belt, weapon, or levitating around you.
+          Does not apply to your first Act every combat.
+        Notes: |
+          {DiceUpgrade}
+          Anything that uses 0 or more Action Points is an Act.
+          Using X, Smite, then X - this does trigger the Holy Tome Dice Upgrade for both X and Smite.
 
       ~Innate Sense~:
         _Value: 0
@@ -600,29 +613,73 @@ Specs:
           Walls block this smell and sound as they normally would.
           This smell and sound can only be concealed with magic.
 
-      ~Innate Sense~:
-        _Value: 1.5
-        A: Passive
-        HasMixins: true
-        Effect: All your Divine and Fire Damage and Healing Spells have their ^Dice Upgraded^ to the next die type.
-        Notes: |
-          {DiceUpgrade}
-
-
     Talents:
 
-      Level 3:
+      Level 2:
+
+        ~Expelling Bolt~:
+            A: 1 Action
+            Cost: 1 Mana
+            Range: 5 meters
+            Degree: Minor
+            HasMixins: true
+            Tags: [Damage, Ranged]
+            Effect: |
+                Shoot a magical bolt towards a Unit that deals 3d8 + (target's Movement Speed) Fire or Divine Damage to it.
+            Combo: Apply 2 Combos to it.
+
+        <Golden Shield>:
+          A: Half-Action
+          Cost: 1 Mana
+          Duration: Up to 1 hour
+          Degree: Minor
+          Tags: Protection
+          Effect: |
+              A Unit you can see becomes surrounded in a divine golden shield.
+              Next time the Unit would take Damage, it is completely blocked.
+          Combo: Gain back the Action Point spent.
+
+        ~Blinding Light~:
+          A: 1 Action
+          Cost: 1 Mana
+          Cooldown: Once / Combat
+          Range: 5 meters to edge
+          Degree: Major
+          Tags: [AoE Damage, AoE Crowd Control]
+          Effect: |
+              All Units in a 4x4 meter area take 2d4 Divine Damage and are Blinded.
+          Notes: Cover is calculated from the center of the area.
         
+        ~Liberating Judgement~:
+          A: Half-Action
+          Range: 3 meters
+          Degree: Lesser
+          Tags: [Damage, Mobility]
+          Effect: |
+            Deal 2d4 Damage to a Unit (you choose the Damage Type).
+            Then move a number of meters equal to the lower of the dice.
+
+
+      Level 3:
+
+        ~Seal of the Aurora~:
+          A: Passive
+          _Value: 4
+          Tags: [Healing, AoE Healing]
+          Effect: Whenever you heal a Unit to full Health, heal another Unit within 5 meters of it for 50% of the amount healed.
+          Upgrade: The secondary heals can trigger Seal of the Aurora again.
+
         ~Golden Grace~:
-          _Value: 0
+          _Value: 0.5 for each cast so... (no more Damage)
           A: 1 Action
           HasMixins: true
           Cooldown: Once every 2 turns
           Requirement: Only usable in Worthy Combat. Can't be used on Fallen Units.
           Replacement: Replaces Holy Grace
           Range: 6 meters
+          Tags: [Healing]
           Effect: |
-            Heal an ally for ~33% (a third)~ of their Maximum Health (but not yourself).
+            Heal an ally for ~3d6~.
 
         <Assistance From Afar>:
           _Value: 1
@@ -800,9 +857,9 @@ Specs:
         Range: 3 meters
         Replacement: Replaces Holy Grace
         Effect: |
-          Heal an ally for 20% of their Maximum Health. ~You can target yourself.~
+          Heal an ally for 2d6. ~You can target yourself.~
           Your next attack deals extra Damage equal to the amount just healed.
-          ~While at or below 50% Health, this extra Damage deals 100% more Damage, even if you cast Silver Grace before being at or below 50% Health.~
+          ~While at or below 50% Health, add 1d6, even if you cast Silver Grace before being at or below 50% Health.~
 
 
     Talents:
