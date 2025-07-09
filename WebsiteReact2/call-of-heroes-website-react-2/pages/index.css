@@ -1,0 +1,316 @@
+/*
+    Hero Heights:
+    New World: 720px
+    Lost Ark: 720px
+    Palia: 720px
+
+    Arche Age: 820px
+
+    AoC: 872px
+      Title Font: Artiflex 30px, LH 36px
+      Text Font: Roboto Condensed 20px, LH 28px
+
+    BDO:
+      Title & Text Font: StrongSword
+*/
+
+
+:root {
+  --hero-page-height: 100vh;
+  --hero-content-width: 650px;
+
+  --hero-logo-color: rgb(39, 26, 48);
+  --hero-text-color: rgb(62, 35, 71);
+  --hero-bg-color: rgb(243, 243, 243);
+
+  --hero-gap: 5vh;
+  --hero-buttons-line-width: 230px;
+  --button-border-radius: 50px;
+  --button-min-width: 240px;
+
+  --content-margin-left: 10vw;
+
+  --hero-img-margin-left: 52.5%;
+}
+@media (max-width: 1366px) {
+  @media (max-height: 720px) {
+    :root {
+      --hero-content-width: 475px;
+    }
+  }
+}
+@media (orientation: portrait), (max-width: 900px)  {
+  :root {
+    --hero-page-height: calc(100vh - var(--nav-height));
+    --hero-content-width: 90vw;
+    --content-margin-left: 5vw;
+
+    --hero-gap: 25px;
+    --hero-buttons-line-width: 20vw;
+    --button-border-radius: 13vw;
+    --button-min-width: 40vw;
+  }
+}
+
+
+.hero-page {
+  position: relative;
+  width: 100vw;
+  height: var(--hero-page-height);
+  max-height: var(--hero-page-height);
+
+  overflow: hidden;
+
+  background-color: white;
+
+  margin-top: 0px;
+  padding-top: 0px;
+}
+.hero-image-container {
+  position: absolute;
+  
+  height: var(--hero-page-height);
+  max-height: var(--hero-page-height);
+  width: 100vw;
+
+  margin-left: var(--hero-img-margin-left);
+
+  overflow: hidden;
+  z-index: var(--z-background);
+}
+.hero-image-container img {
+  display: block;
+  height: 120%;
+}
+
+
+.hero-content {
+  position: absolute;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--hero-gap);
+  
+  width: var(--hero-content-width);
+  height: var(--hero-page-height);
+  max-height: var(--hero-page-height);
+
+  left: var(--content-margin-left);
+  /* top: var(--nav-height); */
+  
+  z-index: var(--z-content);
+}
+/* .hero-content.reversed {
+  left: var(--hero-img-margin-left);
+} */
+.hero-logo-img {
+  display: block;
+  margin: 0px;
+  
+  width: 90%;
+  margin-left: 5%;
+}
+.hero-logo-text {
+  margin: 0px;
+
+  font-family: LogoFont;
+  /* color: var(--hero-logo-color); */
+  /* color: black; */
+  font-size: var(--hero-h1-size);
+
+  text-align: center;
+
+  background: -webkit-linear-gradient(45deg, #1c1a1f, #5515cc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.home-text-style {
+  margin: 0px;
+  font-family: HomeFont;
+  color: black;
+  font-size: var(--home-text-size);
+}
+
+
+/* Buttons */
+:root {
+  --basic-button-width: calc(var(--hero-content-width) / 3);
+  --basic-button-height: 64px;
+  --separator-width: calc(var(--hero-content-width) / 3);
+}
+@media (orientation: portrait) {
+  :root {
+    --basic-button-width: calc(var(--hero-content-width) / 2.25);
+  }
+}
+
+.hero-buttons {
+  --my-width: var(--hero-content-width);
+
+  display: flex;
+  justify-content: center;
+
+  width: var(--my-width);
+  gap: min(30px, 2vw);
+
+  /* width: 100%; */
+
+  margin-top: 20px;
+}
+.hero-buttons img {
+  object-fit: contain;
+  width: var(--hero-buttons-line-width);
+}
+
+.Basic-button {
+  font-family: HomeFont;
+  font-size: var(--home-text-size);
+  line-height: var(--home-text-size);
+  width: var(--basic-button-width);
+  height: var(--basic-button-height);
+
+  padding: calc(var(--home-text-size) / 2);
+  
+  background-color: transparent;
+  background: none;
+  border: solid var(--hero-text-color) 3px;
+  border-radius: var(--button-border-radius);
+
+  cursor: pointer;
+}
+.Basic-button:hover {
+  color: var(--light-medium-color);
+  border-color: var(--light-medium-color);
+}
+
+.hero-buttons-separators {
+  position: absolute;
+  width: var(--hero-content-width);
+  overflow: visible;
+  margin-left: 0px;
+}
+@media (orientation: portrait) {
+  .hero-buttons-separators {
+    display: none;
+  }
+  .Basic-button {
+    height: auto;
+  }
+}
+
+
+
+
+.hero-buttons-separators img {
+  position: absolute;
+  width: var(--separator-width);
+  height: var(--basic-button-height);
+  margin-top: 0px;
+}
+.hero-buttons-separators img:nth-child(1) {
+  margin-left: calc(
+    -1 * var(--separator-width)
+    + (var(--hero-content-width) - var(--basic-button-width)) / 2
+  );
+}
+.hero-buttons-separators img:nth-child(2) {
+  margin-left: calc(
+    (var(--hero-content-width) - var(--basic-button-width)) / 2
+    + var(--basic-button-width)
+  );
+}
+
+
+
+
+
+
+
+:root {
+  --advantages-ul-li-space: 13px;
+  
+  --advantages-h1-size: calc(var(--hero-h1-size) * 0.6);
+  --advantages-font-size: var(--home-text-size);
+
+  --adv-inline-icon-size: 30px;
+  --inline-icon-top: 2.5px;
+  --inline-icon-margin-right: 20px;
+
+  --advantages-bg-color-left: rgb(254, 254, 254);
+  --advantages-bg-color-right: rgb(250, 250, 250);
+}
+@media (orientation: portrait), (max-width: 900px)  {
+  :root {
+    --advantages-font-size: calc(var(--home-text-size) * 0.70);
+
+    --adv-inline-icon-size: 4vw;
+    --inline-icon-top: 0.5vw;
+  }
+}
+@media (min-width: 350px) {
+  .index-advantages-ul-small {
+    display: none;
+  }
+}
+@media (max-width: 349px) {
+  .index-advantages-ul-large {
+    display: none;
+  }
+  .index-advantages-ul-small li {
+    height: auto;
+  }
+  :root {
+    --inline-icon-margin-right: 8px;
+  }
+}
+
+#Home-Advantages {}
+.advantages-image-container {
+  position: absolute;
+  
+  height: 100vh;
+  width: 100vw;
+
+  overflow: hidden;
+  z-index: var(--z-background);
+}
+.advantages-image-container img {
+  display: block;
+  height: 100%;
+  
+  margin-left: 20%;
+  transform: translateX(40%);
+} 
+
+#Home-Advantages .home-text-style {
+  font-size: var(--advantages-font-size);
+}
+
+.advantages-content ul {
+  font-size: var(--advantages-font-size);
+  font-family: HomeFont;
+
+  padding: 0px;
+  margin: 0px;
+}
+.advantages-content ul li {
+  list-style-type: none;
+  height: calc(var(--adv-inline-icon-size) + 2.5px);
+  line-height: calc(var(--adv-inline-icon-size) + 3px);
+}
+.advantages-content ul li:not(:last-child) {
+  margin-bottom: var(--advantages-ul-li-space);
+}
+.advantages-content .inline-icon {
+  margin-top: var(--inline-icon-top);
+  height: var(--adv-inline-icon-size);
+  margin-right: var(--inline-icon-margin-right);
+}
+.advantages-feature:hover {
+  cursor: pointer;
+  color: var(--passive-dark-color);
+}
+
+
