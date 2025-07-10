@@ -71,6 +71,7 @@ const filesToConvert = [    // Order matters
     'Other/Levels.yml',
     'Other/Encounters.yml',
     'Other/PatchNotes.yml',
+    'Other/Quirks.yml',
 
     'Rules/Rules.yml',
     'Rules/Inventory.yml',

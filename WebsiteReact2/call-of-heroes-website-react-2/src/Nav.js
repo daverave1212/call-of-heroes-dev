@@ -218,9 +218,10 @@ function MegaDropdownAndPortraitNav({ navState, isBurgerClicked }) {
           <h4>Abilities</h4>
           <div className='subnav-title-underline'></div>
           <ul>
-            {/* <LiLink to="/Other/Abilities">Basic Abilities (Schools)</LiLink> */}
+            <LiLink to="/Other/Abilities">Basic Abilities (Schools)</LiLink>
             {/* <LiLink to="/Other/Proficiencies">Skills</LiLink> */}
             <LiLink to="/Other/Feats">Feats</LiLink>
+            <LiLink to="/Other/Quirks">Quirks</LiLink>
             <LiLinkPremium to="/Other/AbilitySheets">Ability Sheet Maker</LiLinkPremium>
           </ul>
 

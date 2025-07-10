@@ -43,8 +43,8 @@ export default function() {
         <div className='hero-content'>
           <img className='hero-logo-img' src='/LandingPage/QuestGuardLogo.png'/>
           <p className='home-text-style' style={{textAlign: 'center'}}>
-            QuestGuard is what happens when a tactical RPG speedruns itself.
-            Create wild characters, stack combos, and break the game in an RPG build for today's generation.
+            QuestGuard is a tactical RPG that plays like a fighting game.<br/>
+            Speedrun boss fights, stack combos, and break the game in an RPG build for today's generation.
           </p>
           
           <HeroButton href="#Home-Advantages">
