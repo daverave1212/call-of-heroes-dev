@@ -1,0 +1,97 @@
+
+:root {
+    --hbc-page-padding: 32px;
+    --hbc-font-unit: 1px;
+    
+    --hbc-p-fs: calc(var(--hbc-font-unit) * 17);
+    --hbc-quote-fs: calc(var(--hbc-font-unit) * 15);
+    --hbc-h2-fs: calc(var(--hbc-font-unit) * 32);
+    --hbc-h3-fs: calc(var(--hbc-font-unit) * 24);
+    
+    --hbc-title-color: rgb(81, 41, 104);
+    --hbc-quote-color: rgb(250, 243, 238);
+}
+
+.hbc-page {
+    background-color: white;
+    padding: var(--hbc-page-padding);
+    width: 23.5cm;
+    overflow-x: hidden;
+}
+.hbc-page * {
+    z-index: 20;
+}
+.hbc-page p, div, hr, br, h1, h2, h3, h4, ul, li {
+    position: relative;
+    z-index: 20;
+}
+.hbc-page img {
+    z-index: 10;
+}
+
+.hbc p {
+    font-family: TextFont;
+    font-size: var(--hbc-p-fs);
+}
+
+.hbc h2, .hbc h3 {
+    font-family: HomebrewTitle;
+    font-weight: normal;
+    color: var(--hbc-title-color);
+    
+    transform: scaleY(1.1);
+}
+.hbc h2 {
+    font-size: var(--hbc-h2-fs);
+}
+.hbc h3 {
+    font-size: var(--hbc-h3-fs);
+}
+.hbc-h2-underscore {
+    position: absolute;
+    top: 10px;
+    left: calc(var(--hbc-page-padding) * (-1) - 10px);
+    width: 10cm;
+}
+
+
+.hbc-quote {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: var(--hbc-quote-fs);
+    font-style: italic;
+
+    padding: 8px;
+    width: 10cm;
+
+    background: linear-gradient(to bottom, var(--hbc-quote-color), transparent);
+}
+
+.hbc-quote em {
+    color: purple;
+}
+.hbc-quote em::before {
+    content: '[';
+    color: purple;
+}
+.hbc-quote em::after {
+    content: ']';
+    color: purple;
+}
+
+.hbc-maybe {
+    border-style: dashed;
+    border-width: 3px;
+    border-color: purple;
+    border-left: none;
+    
+    width: 13cm;
+
+    padding: 12px;
+    padding-left: var(--hbc-page-padding);
+    margin-left: calc(-1 * var(--hbc-page-padding));
+}
+
+.hbc img {
+    max-width: 50%;
+    border-radius: 8px;
+}
