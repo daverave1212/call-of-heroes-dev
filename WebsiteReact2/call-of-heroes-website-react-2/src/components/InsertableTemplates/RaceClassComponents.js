@@ -506,7 +506,7 @@ export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
                             }
                         </SmallStatList>
                         <SmallStat name="Extra Talents" color="blue" type={SmallStatTypes.VERTICAL}>
-                            You can have a number of extra Talents from Utility, and Levels 1, 2, 4, 6 and 8 equal to your <b>Morale</b>.
+                            You can have a number of extra Talents from Utility, and Levels 1, 2, 4, 6 and 8 equal to your <b>Mind</b>.
                         </SmallStat>
                     </div>
                 </Column>

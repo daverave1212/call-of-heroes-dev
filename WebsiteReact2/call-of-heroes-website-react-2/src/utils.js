@@ -452,11 +452,14 @@ export function calculateStat(statName, value, bonus=0) {
 }
 export function calculateAttributesFromStatsAndBonuses(totalStatsArray, bonusesYML) {
     const [might, dexterity, intelligence, sense] = totalStatsArray
+    const statsKnownTalents = intelligence + (bonusesYML['Known Talents'] ?? bonusesYML['Extra Known Talents'] ?? 0)
+    const statsMovementSpeed = dexterity + (bonusesYML['Movement'] ?? bonusesYML['Movement Speed'] ?? 0)
     return {
-        maxHealth: might + sense + (bonusesYML['Max Health'] ?? bonusesYML['Health'] ?? 0),
-        movementSpeed: 2 + dexterity + intelligence + (bonusesYML['Movement'] ?? bonusesYML['Movement Speed'] ?? 0),
-        healthRegen: might + dexterity + (bonusesYML['Health Regen'] ?? bonusesYML['Regen'] ?? 0),
-        initiative: intelligence + sense + (bonusesYML['Initiative'] ?? 0)
+        maxHealth: 3 * might + (bonusesYML['Max Health'] ?? 0),
+        movementSpeed: 3 + (statsMovementSpeed < 0? 0: statsMovementSpeed),
+        healthRegen: 2 * sense + (bonusesYML['Health Regen'] ?? bonusesYML['Regen'] ?? 0),
+        initiative: intelligence + sense + (bonusesYML['Initiative'] ?? 0),
+        knownTalents: statsKnownTalents < 0? 0: statsKnownTalents
     }
 }
 export function calculateMaxHealth(raceName, className, level, might) {

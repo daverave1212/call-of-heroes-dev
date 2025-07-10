@@ -181,22 +181,34 @@ export default function SectionStats() {
                         }}/>
                     )) }
                 </div>
+
+Attributes in order of priority:
+1. Health           = 3 * Body
+3. Movement         = Heart
+2. Health Regen     = 2 * Soul
+4. Known Talents    = Mind
+5. Initiative       = Mind + Soul
+
+
+
+
+
                 <div style={{ width: '100%' }}>
                     <StatExplainedDisplay name="Extra Health" iconName="Health" attributeName="maxHealth" description={
-                        <div>Your <b>Max Health</b> = Race Health + Body + Soul</div>
+                        <div>Your <b>Max Health</b> = Race Health + 3 × Body</div>
+                    }/>
+                    <StatExplainedDisplay name="Extra Regen" iconName="HealthRegen" attributeName="healthRegen" description={
+                        <div>Your <b>Health Regen</b> = Race Health Regen + 2 × Soul</div>
                     }/>
                     <StatExplainedDisplay name="Move Speed" iconName="Speed" attributeName="movementSpeed" description={
-                        <div>Your <b>Movement Speed</b> = 2 + Heart + Mind</div>
+                        <div>Your <b>Movement Speed</b> = 3 + Dexterity (minimum 3)</div>
                     }/>
-                    {/* <StatExplainedDisplay name="Known Abilities" iconName="Spell" attributeName="maxHealth" description={
-                        <div>Your <b>Number of Known Basic Abilities</b> = Intelligence</div>
-                    }/> */}
-                    <StatExplainedDisplay name="Extra Regen" iconName="HealthRegen" attributeName="healthRegen" description={
-                        <div>Your <b>Health Regen</b> = Race Health Regen + Body + Heart</div>
+                    <StatExplainedDisplay name="Extra Talents" iconName="Spell" attributeName="knownTalents" description={
+                        <div>Your <b>Number of Extra Talents</b> = Mind</div>
                     }/>
                     <StatExplainedDisplay name="Initiative" iconName="Replacement" attributeName="initiative" description={
                         <div>
-                            Your <b>Initiative</b> = 300% of Charisma
+                            Your <b>Initiative</b> = Mind + Soul
                             <div className="subtext margin-top-half">Initiative represents the order in which players and NPC's take turns.</div>
                         </div>
                     }/>
