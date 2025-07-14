@@ -64,9 +64,9 @@ Starting Abilities:
     A: Half-Action
     HasMixins: true
     Cooldown: Once / Turn
+    Tags: [Healing, Damage]
     Requirement: Only usable in Worthy Combat. Can't be used on Fallen Units.
     Range: 3 meters
-    Tags: [Healing, Damage]
     Effect: |
       Heal a Unit for 1d6 (but not yourself).
       Your next attack until the end of your next Turn deals extra Damage equal to the amount just Healed.
@@ -98,7 +98,7 @@ Ability Choices:
       Effect: |
           After you roll Damage for a melee attack or Spell made in melee range, add 1d6 Divine Damage.
           If the target dies, regain 1 Mana.
-      Combo: Regain 1 Mana.
+      Combo: Heal for the extra Damage dealt.
       Notes: Melee range is 1 meter, longer if made with a Weapon with longer range.
 
     ~Invigorate~:
@@ -586,8 +586,9 @@ Specs:
         _Value: 3
         A: Special
         HasMixins: true
+        Requirement: Only usable in Worthy Combat
         Effect: |
-          If your previous Act was different, your next Act has its ^Dice Upgraded^ to the next die type.
+          Your every Act has its ^Dice Upgraded^ to the next die type, but only if the last Act was different from it.
         Upgrade: |
           You have a special tome that grants you extra power when held visibly on you, on your belt, weapon, or levitating around you.
           Does not apply to your first Act every combat.
@@ -835,10 +836,19 @@ Specs:
         _Value: 1
         A: Reaction
         Range: 4 meters to that ally
+        HasMixins: true
         Effect: |
-          When another ally is targeted and attacked (after the roll), dash to the closest space to that ally.
-          You take the Damage instead of the ally, and the Damage is reduced by 2.
-        Notes: Acts as if the attack targeted you instead of the ally (apply your own Defense, Resistances, etc). Cover is stil applied as to the ally, though.
+          When another Unit is targeted and attacked (after the roll), dash to the closest space to that ally.
+          You take the ^exact Damage^ instead of the Unit. Apply a ~Combo~ to the attacker.
+        Upgrade: This Damage can only be mitigated by Shielding.
+        Notes: Requires a clear direct path.
+
+      ~Templar Strike~:
+        A: Half-Action
+        Requirement: Only usable if you've just used Blockade*
+        Cooldown: Once / Turn
+        Effect: |
+          Make a 1-Handed Weapon attack. It deals +50% base Damage.
 
       # ~Silver Grace~:
       #   _Value: 1.5
@@ -852,21 +862,69 @@ Specs:
       #     An ally you see is healed for all the Damage done.
       #   Upgrade: ~If you are at or below 50% Health, increase the Damage by 50% and you can heal yourself.~
 
-      ~Silver Grace~:
-        _Value: 0
-        A: 1 Action
-        HasMixins: true
-        Requirement: Only usable in Worthy Combat. Can't be used on Fallen Units.
-        Range: 3 meters
-        Replacement: Replaces Holy Grace
-        Effect: |
-          Heal an ally for 2d6. ~You can target yourself.~
-          Your next attack deals extra Damage equal to the amount just healed.
-          ~While at or below 50% Health, add 1d6, even if you cast Silver Grace before being at or below 50% Health.~
 
 
     Talents:
       Level 3:
+
+        ~Lance Heave~:
+            A: Depends on Weapon
+            DisplayName: "{Name}"
+            HasMixins: true
+            DisplayRequirement: Only usable if it hits at least 2 Units
+            Tags: AoE
+            Effect: |
+                Make a {Weapon} ^weapon^ attack {Effect}
+                ~Click on the Icon to select a preferred effect!~
+            Combo: Comboed Units take the original full Damage.
+            Notes: |
+              Can apply weapon effects. If the weapon effect requires a target, applies to one chosen Unit hit.
+              Range increases do increase the length. The Damage must the same for all Units hit. All bonuses to the attack (e.g. Smite, Cursewielder, etc) also split evenly.
+            Variants:
+                - Name: Lance Heave
+                  Effect: that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.
+                  Weapon: 2-handed melee
+                  IconName: Lance Heave
+                - Name: Blade Heave
+                  Effect: that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.
+                  Weapon: 1-handed melee
+                  IconName: Blade Heave
+                - Name: Penetrating Heave
+                  Effect: that hits one more Unit up to 2 meters directly behind the main target.
+                  Weapon: 2-handed ranged
+                  IconName: Penetrating Heave
+                - Name: Piercing Heave
+                  Effect: that hits one more Unit up to 2 meters directly behind the main target.
+                  Weapon: 1-handed ranged
+                  IconName: Piercing Heave
+
+        <Retribution>:
+          _Value: 0.25
+          A: Half-Action
+          Cost: 1 Mana
+          Range: 3 meters
+          Tags: CC
+          Effect: Double-Stun a Unit.
+          Combo: Triple-Stun it instead.
+
+        ~Silver Grace~:
+          _Value: 0
+          A: 1 Action
+          Cooldown: Once / Turn
+          Tags: [Healing, Damage, Shielding]
+          Requirement: Only usable in Worthy Combat. Can't be used on Fallen Units.
+          Range: 3 meters
+          Replacement: Replaces Holy Grace
+          Effect: |
+            Heal an ally for 1d6 (but not yourself).
+            Your next attack deals extra Damage equal to the amount just healed ~and gain 1 Shielding that can block the same amount~.
+
+        ~Templar Assault~:
+          A: Half-Action
+          Requirement: Only usable if you've just used Blockade*
+          Replacement: Replaces Templar Strike
+          Effect: |
+            Make a ~2-Handed Weapon~ attack. It deals +50% base Damage.
 
         <Fellowship Aura>:
           _Value: 0.75
@@ -876,13 +934,6 @@ Specs:
             Enemy ranged attacks against other allies within 1 meter of you have Cover.
           Notes: Nothing happens if an ally near you already has Cover. If playing on a grid, this does work for allies diagonally.
 
-        <Retribution>:
-          _Value: 1.25
-          A: Half-Action
-          Cooldown: Once / Adventure
-          Range: 3 meters
-          Effect: Stun a Unit.
-
         <Martyrdom>:
           _Value: 2.25  # But it's quite situational
           A: Reaction
@@ -891,6 +942,20 @@ Specs:
             Use when an ally (or you) falls to 0 Health.
             Immediately cast Holy Grace (or an upgraded version), ignoring its Cooldown and the Fallen Unit limitation.
           Notes: If that Fallen ally was healed, it Rises without Exhaustion.
+
+        <Join the Templar>:
+          _Value: 2
+          A: Special
+          Cooldown: Lifetime
+          AlignOnWebsite: Right
+          Tags: Other
+          Effect: |
+            A party member pledges to you. They have the Blockade Ability, and the same Level 1 and 2 Talents (including Utility) you have.
+          Upgrade: Ask a party member to join your cause and pledge their honor to you. Write a set of vows, which your companion must vow to abide to and follow with their life, upon death do you two apart.
+          Notes: |
+            Only one person can pledge for you and it must within sight or hearing to have access to all of those.
+            If you ever change this Talent, the ally loses access to all things mentioned; it regains them when you get this Talent again.
+
 
         # <Hallowed Ward>:
         #   _Value: 1.75
@@ -918,8 +983,7 @@ Specs:
           Requirement: Requires Black Clothes
           HasMixins: true
           Effect: |
-            You are Trained in all Weapons.
-            You are immune to being Slowed, Rooted and Feared.
+            Single-Stuns have no effect on your. Double-Stuns and Triple-Stuns only reduce your Actions by 1 and 2 (respectively).
             While there are no allies within 4 meters of you, all your weapon attacks and self healing have their ^Dice Upgraded^ to the next dice type.
           Notes: |
             {DiceUpgrade}.

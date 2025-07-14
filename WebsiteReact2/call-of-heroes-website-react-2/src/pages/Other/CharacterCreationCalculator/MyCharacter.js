@@ -237,7 +237,7 @@ export default function MyCharacter() {
                     { selectedClassName && hasClassMana(selectedClassName) && (<ManaBar/>) }
                 </div>
                 <div className="flex-column flex-1">
-                    <ManySmallStats name="Available Ability Schools" style={{minWidth: '300px', flexGrow: 1}} color={'var(--dark-color)'} texts={knownAbilitySchools}/>
+                    {/* <ManySmallStats name="Available Ability Schools" style={{minWidth: '300px', flexGrow: 1}} color={'var(--dark-color)'} texts={knownAbilitySchools}/> */}
                     { selectedClassName != null && (
                         <div className="margin-top-half">
                             { selectedClassObj.Spellcasting?.Mana?.Regain != null && (

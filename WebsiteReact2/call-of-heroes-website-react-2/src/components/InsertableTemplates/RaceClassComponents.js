@@ -498,13 +498,13 @@ export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
                                 </SmallStat>
                             )
                         }
-                        <SmallStatList name="Available Basic Ability Schools" color="blue">
+                        {/* <SmallStatList name="Available Basic Ability Schools" color="blue">
                             {
                                 theClass['Spellcasting']['Basic Ability Lists'].map(spellCategory => (
                                     <div key={spellCategory}>{ spellCategory }</div>
                                 ))
                             }
-                        </SmallStatList>
+                        </SmallStatList> */}
                         <SmallStat name="Extra Talents" color="blue" type={SmallStatTypes.VERTICAL}>
                             You can have a number of extra Talents from Utility, and Levels 1, 2, 4, 6 and 8 equal to your <b>Mind</b>.
                         </SmallStat>
