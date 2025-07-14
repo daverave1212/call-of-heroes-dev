@@ -1876,12 +1876,12 @@
         "A": "Half-Action",
         "HasMixins": true,
         "Cooldown": "Once / Turn",
-        "Requirement": "Only usable in Worthy Combat. Can't be used on Fallen Units.",
-        "Range": "3 meters",
         "Tags": [
             "Healing",
             "Damage"
         ],
+        "Requirement": "Only usable in Worthy Combat. Can't be used on Fallen Units.",
+        "Range": "3 meters",
         "Effect": "Heal a Unit for 1d6 (but not yourself).\nYour next attack until the end of your next Turn deals extra Damage equal to the amount just Healed.\n"
     },
     "~Divine Sense~": {
@@ -1906,7 +1906,7 @@
             "Finisher"
         ],
         "Effect": "After you roll Damage for a melee attack or Spell made in melee range, add 1d6 Divine Damage.\nIf the target dies, regain 1 Mana.\n",
-        "Combo": "Regain 1 Mana.",
+        "Combo": "Heal for the extra Damage dealt.",
         "Notes": "Melee range is 1 meter, longer if made with a Weapon with longer range."
     },
     "~Invigorate~": {
@@ -1995,9 +1995,8 @@
         "HasMixins": true,
         "DisplayRequirement": "Only usable if it hits at least 2 Units",
         "Tags": "AoE",
-        "Effect": "Make a {Weapon} ^weapon^ attack {Effect}\n~Click on the Icon to select a preferred effect!~\n",
-        "Combo": "Comboed Units take the original full Damage.",
-        "Notes": "Can apply weapon effects. If the weapon effect requires a target, applies to one chosen Unit hit.\nRange increases do increase the length. The Damage must the same for all Units hit. All bonuses to the attack (e.g. Smite, Cursewielder, etc) also split evenly.\n",
+        "Effect": "Make a {Weapon} ^weapon^ attack {Effect}\n~Click on the Icon to select a preferred effect!~\n\n{Chain} Blockade: +4 Range.\n{Chain} Stun: Increase it by 1 tier.\n{Chain} Deal Area Damage: Dice Upgraded to next die type.\n",
+        "Notes": "Can apply weapon effects. If the weapon effect requires a target, applies to one chosen Unit hit.\nRange increases do increase the length. The Damage must the same for all Units hit. All bonuses to the attack (e.g. Smite, Cursewielder, etc) also split evenly.\n{DiceUpgraded}\n",
         "Variants": [
             {
                 "Name": "Lance Heave",
@@ -2026,11 +2025,13 @@
         ]
     },
     "<Retribution>": {
-        "_Value": 1.25,
+        "_Value": 0.25,
         "A": "Half-Action",
-        "Cooldown": "Once / Adventure",
+        "Cost": "1 Mana",
         "Range": "3 meters",
-        "Effect": "Stun a Unit."
+        "Tags": "CC",
+        "Effect": "Double-Stun a Unit.",
+        "Combo": "Triple-Stun it instead."
     },
     "~Gaiety~": {
         "A": "Passive",
@@ -2244,7 +2245,8 @@
         "_Value": 3,
         "A": "Special",
         "HasMixins": true,
-        "Effect": "If your previous Act was different, your next Act has its ^Dice Upgraded^ to the next die type.\n",
+        "Requirement": "Only usable in Worthy Combat",
+        "Effect": "Your every Act has its ^Dice Upgraded^ to the next die type, but only if the last Act was different from it.\n",
         "Upgrade": "You have a special tome that grants you extra power when held visibly on you, on your belt, weapon, or levitating around you.\nDoes not apply to your first Act every combat.\n",
         "Notes": "{DiceUpgrade}\nAnything that uses 0 or more Action Points is an Act.\nUsing X, Smite, then X - this does trigger the Holy Tome Dice Upgrade for both X and Smite.\n"
     },
@@ -2380,17 +2382,41 @@
         "_Value": 1,
         "A": "Reaction",
         "Range": "4 meters to that ally",
-        "Effect": "When another ally is targeted and attacked (after the roll), dash to the closest space to that ally.\nYou take the Damage instead of the ally, and the Damage is reduced by 2.\n",
-        "Notes": "Acts as if the attack targeted you instead of the ally (apply your own Defense, Resistances, etc). Cover is stil applied as to the ally, though."
+        "HasMixins": true,
+        "Effect": "When another Unit is targeted and attacked (after the roll), dash to the closest space to that ally.\nYou take the ^exact Damage^ instead of the Unit.\n\n{Chain} Move: +100% Move Speed\n{Chain} Half-Action Attack: +50% Damage\n{Chain} Silver Grace: Gives you 1 Shielding equal to the Healed Amount.\n",
+        "Upgrade": "This Damage can only be mitigated by Shielding (and Silver Grace).",
+        "Notes": "Requires a clear direct path."
     },
     "~Silver Grace~": {
         "_Value": 0,
-        "A": "1 Action",
+        "A": "Half-Action",
         "HasMixins": true,
+        "Cooldown": "Once / Turn",
+        "Tags": [
+            "Healing",
+            "Damage"
+        ],
         "Requirement": "Only usable in Worthy Combat. Can't be used on Fallen Units.",
         "Range": "3 meters",
         "Replacement": "Replaces Holy Grace",
-        "Effect": "Heal an ally for 2d6. ~You can target yourself.~\nYour next attack deals extra Damage equal to the amount just healed.\n~While at or below 50% Health, add 1d6, even if you cast Silver Grace before being at or below 50% Health.~\n"
+        "Effect": "Heal a Unit for 1d6 (but not yourself).\nYour next attack until the end of your next Turn deals extra Damage equal to the amount just Healed.\n\n{Chain} Other Healing: +50% Heal.\n{Chain} Blockade: +100% Range and -2 Damage taken.\n{Chain} Non-Healing Mana Ability: Costs 1 less Action Point.\n"
+    },
+    "<Consacrated Ground>": {
+        "A": "Half-Action",
+        "Cost": "1 Mana",
+        "Cooldown": "Once / Turn",
+        "Effect": "All *enemies* within 2 meters of you take 1d10 Fire Damage.\nAt the start of your next Turn, deal another 1d10 Fire Damage to all *Units* in the same area.\n\n{Chain} Healing: Permanently increase their Health by 1.\n{Chain} Blockade: Move the area with you. Only affects *enemies*.\n{Chain} Different Area Damage: +100% size and effects only *enemies*.\n",
+        "HasMixins": true
+    },
+    "<Templar Retribution>": {
+        "_Value": 0.25,
+        "A": "0 Action Points",
+        "Cost": "1 Mana",
+        "Range": "3 meters",
+        "Tags": "CC",
+        "Effect": "Single-Stun a Unit.\n\n{Chain} Healing: Clears all Crowd Control on the target.\n{Chain} Crowd Control: Spreads to 1 other Unit within 5 meters of you.\n{Chain} Divine Sense: Damages all unholies for 1d4. Heals all holies for 1d4.\n",
+        "Combo": "Double-Stun it instead.",
+        "HasMixins": true
     },
     "<Fellowship Aura>": {
         "_Value": 0.75,
@@ -2405,11 +2431,21 @@
         "Effect": "Use when an ally (or you) falls to 0 Health.\nImmediately cast Holy Grace (or an upgraded version), ignoring its Cooldown and the Fallen Unit limitation.\n",
         "Notes": "If that Fallen ally was healed, it Rises without Exhaustion."
     },
+    "<Join the Templar>": {
+        "_Value": 4,
+        "A": "Special",
+        "Cooldown": "Lifetime",
+        "AlignOnWebsite": "Right",
+        "Tags": "Other",
+        "Effect": "A party member pledges to you. They have the Blockade and Silver Grace Abilities.\n",
+        "Upgrade": "Ask a party member to join your cause and pledge their honor to you. Write a set of vows, which your companion must vow to abide to and follow with their life, upon death do you two apart.",
+        "Notes": "Only one person can pledge for you and it must within sight or hearing to have access to all of those.\nIf you ever change this Talent, the ally loses access to all things mentioned; it regains them when you get this Talent again.\n"
+    },
     "<Knight in Black>": {
         "A": "Passive",
         "Requirement": "Requires Black Clothes",
         "HasMixins": true,
-        "Effect": "You are Trained in all Weapons.\nYou are immune to being Slowed, Rooted and Feared.\nWhile there are no allies within 4 meters of you, all your weapon attacks and self healing have their ^Dice Upgraded^ to the next dice type.\n",
+        "Effect": "Single-Stuns have no effect on your. Double-Stuns and Triple-Stuns only reduce your Actions by 1 and 2 (respectively).\nWhile there are no allies within 4 meters of you, all your weapon attacks and self healing have their ^Dice Upgraded^ to the next dice type.\n",
         "Notes": "{DiceUpgrade}.\nWhile _alone_, your healing Abilities have their Dice Upgraded when healing yourself.\n"
     },
     "<Man of Steel>": {
