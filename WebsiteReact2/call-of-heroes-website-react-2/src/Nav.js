@@ -67,6 +67,36 @@ import Icon from './components/Icon';
 
 window.auth = auth
 
+const NAV_TEMPLATE = [
+  {
+    name: "Play With Us!",
+    href: 'discord...'
+  },
+  {
+    name: "Game",
+    categories: [
+      { name: "Races", items: [
+        { name: 'Bertle', href: '/Races/Bertle' },
+        { name: 'Bertle', href: '/Races/Bertle', isDownload: true },
+        { name: 'Bertle', href: '/Races/Bertle' },
+        { name: 'Bertle', href: '/Races/Bertle' },
+        { name: 'Bertle', href: '/Races/Bertle' },
+        { name: 'Bertle', href: '/Races/Bertle' },
+        { name: 'Bertle', href: '/Races/Bertle' },
+      ]},
+      { name: "Races", items: [
+        { name: 'Bertle', href: '/Races/Bertle' },
+        { name: 'Bertle', href: '/Races/Bertle', isDownload: true },
+        { name: 'Bertle', href: '/Races/Bertle' },
+        { name: 'Bertle', href: '/Races/Bertle' },
+        { name: 'Bertle', href: '/Races/Bertle' },
+        { name: 'Bertle', href: '/Races/Bertle' },
+        { name: 'Bertle', href: '/Races/Bertle' },
+      ]},
+    ]
+  }
+]
+
 function NavIcon({name, extension="png"}) {
   return <Icon name={name} extension={extension} style={{margin: '0px', marginRight: '0.25rem', marginTop: '-2px'}}/>
 }
