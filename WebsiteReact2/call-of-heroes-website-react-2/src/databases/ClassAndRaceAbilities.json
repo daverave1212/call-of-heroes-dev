@@ -2405,8 +2405,8 @@
         "A": "Half-Action",
         "Cost": "1 Mana",
         "Cooldown": "Once / Turn",
-        "Effect": "All *enemies* within 2 meters of you take 1d10 Fire Damage.\nAt the start of your next Turn, deal another 1d10 Fire Damage to all *Units* in the same area.\n\n{Chain} Healing: Permanently increase their Health by 1.\n{Chain} Blockade: Move the area with you. Only affects *enemies*.\n{Chain} Different Area Damage: +100% size and effects only *enemies*.\n",
-        "HasMixins": true
+        "HasMixins": true,
+        "Effect": "All ^enemies^ within 2 meters of you take 1d10 Fire Damage.\nAt the start of your next Turn, deal another 1d10 Fire Damage to all ^Units^ in the same area.\n\n{Chain} Healing: Permanently increase their Health by 1.\n{Chain} Blockade: Move the area with you. Only affects ^enemies^.\n{Chain} Different Area Damage: +100% size and effects only ^enemies^.\n"
     },
     "<Templar Retribution>": {
         "_Value": 0.25,
@@ -3200,23 +3200,84 @@
         "Effect": "Choose a Unit you can see.\nYou possess its body and, on its next turn, you control what it does.\n",
         "Upgrades": "Only works on targets with Sense less than 3.\nThe QM will tell you what the Unit can do if it's a monster.\n"
     },
-    "~Warlock Mana~": {
-        "_Value": 3,
-        "_ValueComment": "Scales hard",
-        "A": "Passive",
-        "Effect": "Unlike other Classes', all of your Mana regenerates 10 minutes after each Worthy combat encounter (e.g. instead of inbetween Adventures).\nYou gain +1 Max Mana only on Levels 3, 6 and 9 (not every Level).\n",
-        "Notes": "For Feats that require you to sacrifice Mana, each Mana counts as 2 sacrificed Mana. Also, for Feats, instead of sacrificing Mana, you could sacrifice 6 Health for each Mana to sacrifice."
+    "~Affiance Casting~": {
+        "A": "Special",
+        "AlignOnWebsite": "Left",
+        "Effect": "You have 2 Mana Points that can't increase.\nYour Mana replenishes inbetween Worthy Combats.\n"
     },
     "~Power Source~": {
         "A": "Passive",
-        "Effect": "Your powers have an external source: a demon overlord, an unknowable eldritch entity, a blood corruption, a celestial, etc.\nPick one more Ability List to know Abilities from, which should match your power source.\n"
+        "Effect": "Your powers have an external source. Choose another Class and an Element. You can get Level 1 Talents from that Class.\nYou take -50% Damage from that Element.\n",
+        "Upgrade": "You are bound to a Power Source: something vast, unknowable, or unstable. It might be a pact, a curse, a parasite, a god, or a force of nature. You choose what it is, and when the power speaks you listen.\n",
+        "Notes": "The Class and Element you choose must be thematically tied to your power source, but you can theme it however you want! Be creative!\n"
     },
-    "~Power Overwhelming~": {
+    "~Hail~": {
+        "A": "1 Action",
+        "Range": "4 meters",
+        "HasMixins": true,
+        "Degree": "Minor",
+        "Effect": "Blast a Unit for 2d8 + ^target's Might^ Damage of your chosen Element.\n",
+        "Combo": "+1d6 Damage."
+    },
+    "~Wyrd Renewal~": {
+        "A": "Half-Action",
+        "Range": "5 meters",
+        "Degree": "Lesser",
+        "Requirement": "Only usable in Worthy Combat",
+        "Effect": "Roll 1d10 - 5. After you see the result, choose a Unit.\nIf it's negative, deal Scourge Damage to it. Otherwise, heal it.\n"
+    },
+    "~Deathfire Bolt~": {
+        "A": "1 Action",
+        "Cost": "1 Mana",
+        "Range": "10 meters",
+        "Degree": "Major",
+        "Effect": "Shoot a bolt of deathly fire in a 1x10 meter line. All Units it touches take 1d6 + 1d8 + 1d10 Scourge or Fire Damage (your choice).\n"
+    },
+    "~Aura of Ruin~": {
+        "A": "0 Actions",
+        "Requirement": "Only usable at the beginning of a Combat",
+        "Cooldown": "Once / Adventure",
+        "Effect": "Reduce the Max Health of all enemies by 10%."
+    },
+    "~Scourge Blast~": {
+        "A": "1 Action",
+        "Range": "4 meters",
+        "Degree": "Minor",
+        "HasMixins": true,
+        "Effect": "Deal 1d12 + ^Mind or Soul^ Scourge Damage to a Unit.\nFor the rest of the combat, you deal +1 Scourge Damage (stacks indefinitely).\n"
+    },
+    "~Mind Blast~": {
+        "A": "1 Action",
+        "Range": "3 meters",
+        "Cost": "1 Mana",
+        "HasMixins": true,
+        "Degree": "Major",
+        "Effect": "A Unit takes 4d6 Psychic Damage and chooses whether to become Blinded or Silenced.\n",
+        "Notes": "Cover is applied normally. {Blinded} {Silenced}\n"
+    },
+    "~Disenchantment~": {
+        "HasMixins": true,
+        "A": "1 minute",
+        "Duration": "8 hours (24 hours at level 4, 1 week at level 8)",
+        "Cooldown": "8 hours",
+        "Requirement": "Level 3",
+        "Degree": "Lesser",
+        "Effect": "A person you can see must pass a Soul Roll against your Soul Roll or:\n{Diamond} Have its Initiative (rolls) halved.\n{Diamond} Not properly tie knots, sew, use keys or pick locks, etc.\n{Diamond} Appear less attractive and have -3 Soul rolls.\n{Diamond} Gains runny nose, eyes and sweats more.\n{Diamond} Stumbles randomly.\n",
+        "Notes": "You can choose which of these the target is affected by.\n"
+    },
+    "~Evoke~": {
         "_Value": 2,
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "All your Eldritch Basic Spells have their ^Dice Upgraded^ to the next die type.\n",
-        "Notes": "{DiceUpgrade}\nFor example, Eldritch Blast deals 2d10, Deathflame Bolt deals 1d12 + 1d12 + 1d10, Curse of Weakness reduces by 1d6, etc.\n"
+        "Effect": "You start each Worthy Combat with 0 Evoke Points.\nWhen you roll at least 1 maximum die on any Act, gain 1 Evoke Point.\nSome Spells can consume all Evoke Points to gain an improved effect ^for each Evoke Point spent^.\n",
+        "Upgrade": "Spells that consume EP do not produce EP.",
+        "Notes": "You must spend ^all^ EP when you decide to."
+    },
+    "~Ebon Lance~": {
+        "A": "0 Actions",
+        "Cost": "1 Mana",
+        "Effect": "Your next weapon attack deals +1d4 Damage.\n\n{Evoke}: +1d4 for each Evoke Point spent.\n",
+        "HasMixins": true
     },
     "~Shadow Veil~": {
         "_Value": 0.5,
