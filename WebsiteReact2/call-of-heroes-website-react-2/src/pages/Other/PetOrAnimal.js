@@ -55,10 +55,10 @@ export function PetOrAnimalStats({animal}) {
     const statNameStyle  = { textAlign: 'center' }
 
     return <div>
-        <div className='with-margined-children'>
-            <SmallStat nameStyle={statNameStyle} valueStyle={statValueStyle} name="Health">{animal.Health}<Icon name="Health" type="small-stat"/></SmallStat>
-            <SmallStat nameStyle={statNameStyle} valueStyle={statValueStyle} name="Defense">{animal.Defense}<Icon name="Defense" type="small-stat"/></SmallStat>
-            <SmallStat nameStyle={statNameStyle} valueStyle={statValueStyle} name="Speed">{animal.Speed}</SmallStat>
+        <div className='with-margined-children flex-row gap-half align-left'>
+            { animal.Health != null && <SmallStat nameStyle={statNameStyle} valueStyle={statValueStyle} name="Health">{animal.Health}<Icon name="Health" type="small-stat"/></SmallStat> }
+            { animal.Defense != null && <SmallStat nameStyle={statNameStyle} valueStyle={statValueStyle} name="Defense">{animal.Defense}<Icon name="Defense" type="small-stat"/></SmallStat> }
+            { animal.Speed != null && <SmallStat nameStyle={statNameStyle} valueStyle={statValueStyle} name="Speed">{animal.Speed}</SmallStat> }
             { animal.Initiative != null && (<SmallStat nameStyle={statNameStyle} valueStyle={statValueStyle} name="Initiative">{animal.Initiative}</SmallStat>) }
         </div>
 
@@ -66,13 +66,7 @@ export function PetOrAnimalStats({animal}) {
             <SmallStat type="vertical" name="Druid Extras">{animal.Druid}</SmallStat>
         ) }
 
-        <Separator/>
-        <div style={{display: 'flex', justifyContent: 'space-around', gap: '10px'}}>
-            { animalStats.map(nameValue => (
-                <SmallStat style={{width: '19%'}} contentStyle={{width: '100%', textAlign: 'center'}} name={nameValue.name} type="vertical" key={nameValue.name}>{nameValue.value}</SmallStat>
-            )) }
-        </div>
-        <Separator/>
+        <SmallStat style={{width: 'auto'}} name="Stats">{animal.Stats.split('/').join(' / ')}</SmallStat>
     </div>
 }
 export function PetOrAnimalAbilities({animal}) {
@@ -80,7 +74,7 @@ export function PetOrAnimalAbilities({animal}) {
         return <div></div>
     }
     const abilities = U.spellsFromObject(animal.Abilities)
-    return <div>
+    return <div className='margin-top-1'>
         { abilities.map(ability => (
             <Spell spell={ability} hasIcon={false} hasBorder={false} key={ability.Name}/>
         )) }
