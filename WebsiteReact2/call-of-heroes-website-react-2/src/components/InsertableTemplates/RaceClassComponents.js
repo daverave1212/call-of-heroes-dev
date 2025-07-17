@@ -549,9 +549,7 @@ export function Spec({ children, name, specObj, hasNoMargins }) {
     )
 }
 
-export function SpecTalents({ spec, onSpellsSelected, selectedSpellNames, setSelectedSpellNames, onSpellClick }) {
-
-    const talentTierCategories = Object.keys(spec.Talents)
+export function SpecTalents({ spec, selectedSpellNames, setSelectedSpellNames, onSpellClick }) {
 
     const talentTiers = [2,3,4,5,6,7,8,9,10]
     const defaultSmallBonusTalentsByTier = {
@@ -568,7 +566,7 @@ export function SpecTalents({ spec, onSpellsSelected, selectedSpellNames, setSel
             {talentTiers.map(talentTier => {
                 const talentTierName = 'Level ' + talentTier
                 const hasThisTier = spec.Talents[talentTierName] != null
-                const isTalentTierForSmallBonuses = [4,6,8].includes(talentTier)
+                const isTalentTierForSmallBonuses = false // [4,6,8].includes(talentTier)
                 
                 if (hasThisTier == false && isTalentTierForSmallBonuses) {
                     const abilitiesHereNames = defaultSmallBonusTalentsByTier[talentTier]
@@ -588,10 +586,6 @@ export function SpecTalents({ spec, onSpellsSelected, selectedSpellNames, setSel
                 return <div key={talentTierName}>
                     <PageH3>{talentTierName}</PageH3>
                     <ManySpells spells={spellsInThisTier} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames} onSpellClick={onSpellClick}/>
-                    {/* <ManySpells spells={spellsInThisTier} onSpellsSelected={spells => {
-                        console.log({ selectedSpellsInManySpellsSpec: spells })
-                        onSpellsSelected(spells)
-                    }}/> */}
                 </div>
             })}
         </div>
@@ -827,6 +821,8 @@ export function ClassPageV2({
     selectedSpellNames, setSelectedSpellNames,
     onSpellClick
 }) {
+
+    console.log({onSpellClick})
 
     let [innerSelectedSpecName, setInnerSelectedSpecName] = useState(null)
 
