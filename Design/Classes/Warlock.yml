@@ -92,11 +92,11 @@ Ability Choices:
         Requirement: Only usable in Worthy Combat
         Tags: [Healing, Damage]
         Effect: |
-            Roll 1d10 - 5. After you see the result, choose a Unit.
+            Roll 1d10 - 5. After you see the result, choose a Worthy Unit.
             If it's negative, deal Scourge Damage to it. Otherwise, heal it.
         Combo: +50% Damage or Healing
 
-    ~Deathfire Bolt~:
+    ~Deathfire Flame~:
         A: 1 Action
         Cost: 1 Mana
         Range: 10 meters
@@ -104,12 +104,7 @@ Ability Choices:
         Tags: Area Damage
         Effect: |
             Shoot a bolt of deathly fire in a 1x10 meter line. All Units it touches take 1d6 + 1d8 + 1d10 Scourge or Fire Damage (your choice).
-
-    ~Aura of Ruin~:
-        A: 0 Actions
-        Requirement: Only usable at the beginning of a Combat
-        Cooldown: Once / Adventure
-        Effect: Reduce the Max Health of all enemies by 10%.
+        Notes: Ignores Half-Hitting Damage reduction.
 
     ~Curse of Weakness~:
         A: Half-Action
@@ -130,17 +125,7 @@ Ability Choices:
         Requirement: Level 4
         Tags: Damage
         Effect: |
-            Choose a Unit. At the start of each of your Turns, it takes 1d4 Scourge Damage.
-
-    ~Scourge Blast~:
-        A: 1 Action
-        Range: 4 meters
-        Degree: Minor
-        HasMixins: true
-        Tags: Damage
-        Effect: |
-            Deal 1d12 + ^Mind or Soul^ Scourge Damage to a Unit.
-            For the rest of the combat, you deal +1 Scourge Damage (stacks indefinitely).
+            Choose a Unit. At the start of each of your Turns, it takes 1d4 Scourge Damage (ignoring Cover).
 
     ~Mind Blast~:
         A: 1 Action
@@ -153,13 +138,9 @@ Ability Choices:
             A Unit takes 4d6 Psychic Damage and chooses whether to become Blinded or Silenced.
             Apply a ~Combo~ to it.
         Notes: |
-            Cover is applied normally. {Blinded} {Silenced}
+            Cover is applied normally.
 
-    ~Curse of Frailty~:
-        A: Half-Action
-        Cost: 1 Mana
-        Tags: Debuff
-        Effect: A Unit you can see takes +50% Damage the next time it takes Damage.
+
 
 Utility:
 
@@ -305,28 +286,14 @@ Specs:
             All Units in a 2x2 meter area take 3d4 Damage of your chosen Element and are Single-Stunned.
 
             {Evoke}: +1 meter area (all directions).
-        
-        ~Invoke Kindred~:
-          A: 1 Action
-          Range: 10 meters to each invoked point
-          Duration: 1 minute
-          Effect: |
-            Invoke 3 _Kindred Beings_, each within 10 meters from you. These are creatures themed and shaped to your chosen Power Source, which will do your bidding before returning to their original world.
-
-            {Evoke}: +1 summon per Evoke Point spent.
-          Monster:
-            Name: Kindred Being
-            Health: 1
-            Description: Has a Half-Action. Takes its Turn at the end of your Turn.
-            Speed: 4 meters
-            Stats: 0/0/0/0/0
-            Abilities:
-                ~Attack~:
-                    A: Half-Action (from it)
-                    Range: 3 meters
-                    Effect: Deal 1d6 Damage of your chosen Element, or use an Item or Default Ability.
                 
       Level 3:
+
+        ~Aura of Ruin~:
+          A: 0 Actions
+          Requirement: Only usable the moment Combat starts
+          Cooldown: Once / Adventure
+          Effect: Reduce the Max Health of all enemies by 10%.
 
         ~Cursemaster~:
           _Value: 2
@@ -347,94 +314,87 @@ Specs:
         ~Borrowed Power~: 
           A: Passive
           Effect: |
-            Pick 2 extra Talents that cost Mana (up to your Level) from your chosen Power Source Class.
+            Pick 2 extra Talents from Level 1 or that cost Mana (up to your Level) from your chosen Power Source Class.
             Pick 1 extra Racial Talent from any Race.
             From now on, you age 10 times as rapidly.
-        
 
+      Level 4:
 
-        ~Shadow Veil~:
-          _Value: 0.5
-          A: Passive
-          Effect: You take -50% Scourge and Psychic Damage.
+        ~Curse of Frailty~:
+            A: Half-Action
+            Cost: 1 Mana
+            Tags: Debuff
+            Effect: A Unit you can see takes +50% Damage the next time it takes Damage.
 
-        ~Repower~:
-          _Value: 0.5
-          A: Passive
-          Effect: Whenever you roll maximum on a Damage die with an Eldritch Spell on a Worthy Enemy, heal for 1.
-
-        ~Darkness~:
-          _Value: 0.5
-          A: Passive
-          Duration: 1 Turn
+        ~Invoke Kindred~:
+          A: 1 Action
+          Range: 10 meters to each invoked point
+          Cost: 1 Mana
+          Duration: 1 minute
           Effect: |
-            You can see in the dark.
-            After you spend Mana, conjure (optionally) a 3x3x3 meter area of magical darkness, centered on you. Lasts until the start of your next Turn.
-          Notes: Units inside magical darkness are Blinded, and everything done in or through the darkness has Cover.
+            Invoke 3 _Kindred Beings_, each within 10 meters from you. These are creatures themed and shaped to your chosen Power Source, which will do your bidding before returning to their original world.
+
+            {Evoke}: +1 summon per Evoke Point spent.
+          Monster:
+            Name: Kindred Being
+            Health: 1
+            Description: Has a Half-Action. Takes its Turn at the end of your Turn.
+            Speed: 4 meters
+            Stats: 0/0/0/0/0
+            Abilities:
+                ~Attack~:
+                    A: Half-Action (from it)
+                    Range: 3 meters
+                    Effect: Deal 1d6 Damage of your chosen Element, or use an Item or Default Ability.
 
       Level 5:
-
-        <Agile Development>:
-          _Value: 1.25
-          A: Passive
-          Effect: A Basic Spell that costs Mana and can't deal Damage costs 0 Actions once per Turn.
-
-        <Invoke Self>:
-          _Value: 0.5
-          A: Passive
-          Effect: Whenever you roll a d12 on a Spell, teleport 3 meters in any direction.
-          Notes: |
-            You need Line of Sight to the destination point.
-
-        <Source Control>:   # 1 I hope
-          _Value: 1
-          A: Passive
-          Replacement: Replaces Power Overwhelming
-          HasMixins: true
-          Effect: All your Eldritch ~and Power Source chosen List~ Basic Spells have their Dice Upgraded to the next die type.
-          Notes: |
-            {DiceUpgrade}
-            For example, Eldritch Blast deals 2d10, Deathflame Bolt deals 1d12 + 1d12 + 1d10, Curse of Weakness reduces by 1d6, etc.
-
-      Level 7:
 
         <Blood Pact>:       # 2? Can be strong but not _that_ strong
           _Value: 2
           A: 0 Actions
           Cooldown: Once / Adventure
           Effect: |
-            This turn, all Damage you deal is increased by 50%. Every time you roll an 8 or higher on a die, take 5 Psychic Damage.
+            This turn, all Damage you deal is increased by 50%. Every time you roll maximum on a die, take 5 Psychic Damage.
           Notes: The 50% increase is not applied to the 5 Psychic Damage.
 
-        <Extra Power>:
-          _Value: 2
-          A: Passive
-          HasMixins: true
-          Effect: Your Power Overwhelming makes your ^Dice^ further ^Upgraded^ to the next die type.
-          Notes: E.g. from d6 to d10.
-
-        <Life Drain>:
-          _Value: 2
-          A: Passive
-          HasMixins: true
-          Effect: |
-            Whenever ^YOU^ kill a Worthy Enemy, Heal a Unit you can see for the excess Damage.
-            In addition, if an Enemy has 25% or less Health, you know exactly how much Health it has (ask the QM).
-          Notes: E.g. if the enemy has 10 Health, and you deal 16 Damage, heal an ally for 6 Health.
-
-      Level 8:
-
-        <Stat Bonus 5>: Inherit
-
-        <Great Talent Bonus>:
-          Effect: Gain one more Level 3 Talent, and one more Level 5 Talent.
-
-      Level 9:
-
         <Final Word>:
+          _Value: 3
           A: Passive
           Effect: When you have exactly 1 Mana, and you cast a Spell that cost 1 Mana, that Spell casts twice (for free).
           Notes: This is akin to casting the Spell again for 0 Actions without spending Mana (not necessarily on the same target).
+
+        <Higher Evoke>:
+          _Value: 2
+          A: Passive
+          HasMixins: true
+          Replacement: Replaces Evoke
+          Effect: |
+            You start each Worthy Combat with ~1 Evoke Point~.
+            When you roll ~maximum on a die in Worthy Combat~, gain 1 Evoke Point.
+            Some Spells can consume all Evoke Points to gain an improved effect ^for each Evoke Point spent^.
+          Upgrade: Spells that consume EP do not produce EP.
+          Notes: You must spend ^all^ EP when you decide to.
+
+        # <Agile Development>:
+        #   _Value: 1.25
+        #   A: Passive
+        #   Effect: A Basic Spell that costs Mana and can't deal Damage costs 0 Actions once per Turn.
+
+        <Invoke Self>:
+          _Value: 0.5
+          A: Passive
+          Effect: Whenever you roll maximum on a die against a Worthy Unit (or for healing), teleport 3 meters.
+          Notes: |
+            You need Line of Sight to the destination point.
+
+      Level 7:
+
+
+
+      Level 9:
+
+
+
 
 
       Level 10:
@@ -615,6 +575,18 @@ Specs:
           Notes: Includes weapon attacks, multiattacks, spells, bodily actions, etc. You can't cast Reactions, Passives or Abilities triggered through Passives. If you copied an attack, you briefly conjure a weapon for the attack only. If the Ability uses any Stats, use yours.
 
     Talents:
+      Level 2:
+
+        ~Scourge Blast~:
+          A: 1 Action
+          Range: 4 meters
+          Degree: Minor
+          HasMixins: true
+          Tags: Damage
+          Effect: |
+              Deal 1d12 + ^Mind or Soul^ Scourge Damage to a Unit.
+              For the rest of the combat, you deal +1 Scourge Damage (stacks indefinitely).
+
       Level 3:
 
         <Control Crowds>:

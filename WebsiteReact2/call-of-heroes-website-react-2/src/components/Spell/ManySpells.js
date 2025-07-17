@@ -30,7 +30,7 @@ export default function ManySpells({ className, spells, spellStyle, shouldIgnore
     function SpellsInColumn({ spells }) {
         
         const isSelected = spell => selectedSpellNames != null && spell != null && selectedSpellNames.includes(spell.Name)
-        const onClick = spell => {
+        const onClick = onSpellClick == null? null: spell => {
             if (onSpellClick != null) {
                 onSpellClick(spell)
             }

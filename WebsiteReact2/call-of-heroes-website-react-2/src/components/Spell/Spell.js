@@ -79,7 +79,14 @@ export function SpellTopStats({className, tags, keywords}) {
         }
     }
 
-    const parsedKeywords = keywords == null? []: Array.isArray(keywords)? keywords: [keywords]
+    const parsedKeywords =
+        keywords == null?
+            []
+        :Array.isArray(keywords)?
+            keywords
+        :keywords.includes(',')?
+            keywords.replaceAll(', ', ',').split(',')
+        :[keywords]
 
     return (
         <>
