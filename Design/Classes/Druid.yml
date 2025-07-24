@@ -11,6 +11,8 @@ Difficulty: Hard
 
 Weapons: You are Trained in 2 Weapon Categories of choice (e.g. 1-Handed Melee, 2-Handed Ranged, Shields, etc).
 
+Languages: Druidic
+
 Proficiency Requirements: You are Skilled in Nature and have a number of extra non-combat Skills equal to your Intelligence or Sense, whichever is higher.
 
 Proficiencies:
@@ -68,6 +70,11 @@ Starting Abilities Description:
 
 Starting Abilities:       # 1
 
+  ~Naturality~:
+    A: Passive
+    AlignOnWebsite: Right
+    Effect: Every midnight, regain up to {Mana}1 Mana.
+
   ~Druidcraft~:            # Ok
     A: Depends
     Range: 6 meters
@@ -75,37 +82,98 @@ Starting Abilities:       # 1
     Manual Extras:
       - Get Nature and Monstrology Skills
     Effect: |
-      Every midnight, regain up to {Mana}1 Mana.
-
-      You speak Whistletone, a language made up of whistles, and are Skilled in Nature and Monstrology.
       You can create harmless sensory effects, tiny weather effects or soothe mild pains.
       You can speed up the growth of small plants by 1000% while channeling.
-    Notes: You can do these even while Shapeshifted.
+    EffectGreen: Usable while Shapeshifted.
     AlignOnWebsite: Right
 
-  ~Shapeshift~:            # 2
-    _Value: 2
+  ~Animal Attack~:
+    Requirement: Only usable while Shapeshifted
     A: Half-Action
-    Cost: 0.5 Mana
-    HasMixins: true
-    Duration: Lasts until cancelled (0 Actions) or you Fall
+    AlignOnWebsite: Right
     Effect: |
-      Pick an animal from the `Pets and Animals page$/Other/PetsAndAnimals`, within your Level, and instantly transform into it.
-      You also gain its exact Abilities and Animal Attack (see below), but can't cast Spells or use items (obviously) and your Health stays the same. For Checks, you can choose to use the animal's Stats or your Stats.
-    Upgrade: |
-      At first, you can't fly, even if your animal can. If your animal can fly, you have the Jumping Skill and you can glide (you don't take falling Damage).
-      From Level 6, you can fly.
+      Make a melee attack for 1d6 + your Highest Stat (not the animal's).
+      If you roll maximum, apply a Combo to the target.
+
+  ~Shapeshift~:
+    A: 0 Actions
+    Cost: 1 Mana
+    HasMixins: true
+    Duration: Until cancelled (0 AP) or you Fall
+    Effect: |
+      Transform into a regular animal, or a mystical beast resembling one you've encountered this Campaign.
+
+      Choose 2 animal features from below to apply.
+    Upgrade: You can't cast Druid Abilities when transformed unless they say ^"usable while Shapeshifted"^. Your animal's Stats are 3/1/0/-1 spread as you like.
     Notes: |
-      Each Shapeshift uses half a Mana point (2 Shapeshifts = 1 Mana).
       You choose what items you keep on you when Shapeshifting, and those items are 'merged' into your new form.
       While Shapeshifted, you can speak, but your voice is slightly altered to match your shape (e.g. guttural for lions, high pitched for birds, etc).
-    OrderOnWebsite: 1
-    Subspells:
-      ~Animal Attack~:
-        IsSubspell: true
-        A: Half-Action
+    SpellTable:
+      - Name: Hefty
+        Effect: When Shapeshifting, gain 3 Shieldings that block 1d4 Damage each. You are Long (2x1 meters) and Ridable.
+      - Name: Sweep (2 Action Points)
+        Effect: All Units within 2 meters take 2d4 + Your Level Damage (any type). If only one Unit is hit, +50% Damage and apply a Combo.
+      - Name: Clawed
+        Effect: Your Shapeshift-only Abilities and features have their Dice Upgraded to the next die type.
+
+      - Name: Bash (1 Action Point) (Level 2)
         Effect: |
-          Make a melee attack for 1d6 + your Highest Stat (not the animal's).
+          Single-Stun a Unit and deal 1d4 Smash Damage to it.
+          Combo: and a one Unit 2 meter from you.
+      - Name: Charge (Level 2)
+        Effect: Your next Attack deals +1 Damage for each meter moved with your previous Act. Push it 3 meters (any direction) if affected by Crowd Control.
+
+      - Name: Spikes (Level 3)
+        Effect: After you are attacked from 1 meter away, deal 1d4 Damage back to the attacker. You take -50% Pierce Damage.
+      - Name: Venomous (level 3)
+        Effect: Animal Attacks deal +1d4 Damage to Units affected by Crowd Control. +1d4 Damage if Comboed.
+      - Name: Leap (1 Action Point) (Level 3)
+        Effect: "Leap at a Unit 2-3 meters away. Deal 2d6 Pulse Damage and apply a Combo. Combo: it becomes Frail."
+
+      - Name: Fast (Level 4)
+        Effect: You have +3 Movement Speed. You are immune to being Slowed, Rooted, and to Hard Terrain. You can freely Break Movement.
+      - Name: Prowl (Level 4)
+        Effect: First Shapeshifted attack deals +1d8 Damage. If starting combat shapeshifted, YOU Surprise enemies and can't be Surprised.
+      
+      - Name: Sticky (1 Action Point) (3 meters) (Level 5)
+        Effect: Shoot a sticky substance at a Unit. It takes 1d4 Damage, becomes Rooted and apply a Combo. Usable once per Shapeshift.
+      - Name: Shred (2 Action Points) (Level 5)
+        Effect: Attack a Unit for 2d8 + 3 Slash Damage. Deals +1d8 Damage for each level of Stun on it.
+
+      - Name: Large (Level 6)
+        Effect: You have 2 Defense. You are Large (2x2 meters) and Ridable.
+
+      - Name: Fly (Level 7)
+        Effect: You can fly up to your speed. You take -50% Smash Damage.
+      
+
+
+
+
+
+  # ~Shapeshift~:            # 2
+  #   _Value: 2
+  #   A: 0 Actions
+  #   Cost: 1 Mana
+  #   HasMixins: true
+  #   Duration: Lasts until cancelled (0 Actions) or you Fall
+  #   Effect: |
+  #     Pick an animal from the `Pets and Animals page$/Other/PetsAndAnimals`, within your Level, and instantly transform into it.
+  #     You also gain its exact Abilities and Animal Attack (see below), but can't cast Spells or use items (obviously) and your Health stays the same. For Checks, you can choose to use the animal's Stats or your Stats.
+  #   Upgrade: |
+  #     At first, you can't fly, even if your animal can. If your animal can fly, you have the Jumping Skill and you can glide (you don't take falling Damage).
+  #     From Level 6, you can fly.
+  #   Notes: |
+  #     Each Shapeshift uses half a Mana point (2 Shapeshifts = 1 Mana).
+  #     You choose what items you keep on you when Shapeshifting, and those items are 'merged' into your new form.
+  #     While Shapeshifted, you can speak, but your voice is slightly altered to match your shape (e.g. guttural for lions, high pitched for birds, etc).
+  #   OrderOnWebsite: 1
+  #   Subspells:
+  #     ~Animal Attack~:
+  #       IsSubspell: true
+  #       A: Half-Action
+  #       Effect: |
+  #         Make a melee attack for 1d6 + your Highest Stat (not the animal's).
     
 
 # Mana:         2                      |  2
