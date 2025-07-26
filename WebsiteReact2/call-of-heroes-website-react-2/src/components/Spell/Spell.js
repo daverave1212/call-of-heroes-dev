@@ -275,6 +275,7 @@ export default function Spell({
         Subspells,
         SubspellName,
         RollThiefGold,
+        HasSpellTableNumbers,
         SpellTable,
         Tags
     } = spell
@@ -337,6 +338,7 @@ export default function Spell({
         extraMixins = variantMixinsCorrectlyFormatted
         if (currentVariant.IconName != null) iconPath = getSpellIconPathByName(currentVariant.IconName)
         if (currentVariant.DisplayA != null) A = currentVariant.DisplayA
+        if (currentVariant.Requirement != null) Requirement = currentVariant.Requirement
     }
 
 
@@ -464,7 +466,11 @@ export default function Spell({
                 ) }
 
                 { (SpellTable != null && (
-                    <EffectTable nameEffectPairs={SpellTable.map(({Name, Effect}) => ({ name: Name, effect: Effect}))}/>
+                    <EffectTable nameEffectPairs={SpellTable.map((nameEffectPair, i) => {
+                        const { Name, Effect } = nameEffectPair
+                        const finalName = HasSpellTableNumbers? (i + 1) + '. ' + Name: Name
+                        return ({ name: parseTextWithSymbols(finalName), effect: parseTextWithSymbols(Effect)})
+                    })}/>
                 )) }
 
 

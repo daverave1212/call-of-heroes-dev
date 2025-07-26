@@ -509,6 +509,12 @@
     "~Skilled in Nature~": {
         "Effect": "Add your Level to all Checks for identifying plants, knowing about nature and the wilds, etc."
     },
+    "~Naturality~": {
+        "A": "Passive",
+        "AlignOnWebsite": "Right",
+        "Effect": "Every midnight, regain up to {Mana}1 Mana.",
+        "HasMixins": true
+    },
     "~Druidcraft~": {
         "A": "Depends",
         "Range": "6 meters",
@@ -516,72 +522,212 @@
         "Manual Extras": [
             "Get Nature and Monstrology Skills"
         ],
-        "Effect": "Every midnight, regain up to {Mana}1 Mana.\n\nYou speak Whistletone, a language made up of whistles, and are Skilled in Nature and Monstrology.\nYou can create harmless sensory effects, tiny weather effects or soothe mild pains.\nYou can speed up the growth of small plants by 1000% while channeling.\n",
-        "Notes": "You can do these even while Shapeshifted.",
+        "Effect": "You can create harmless sensory effects, tiny weather effects or soothe mild pains.\nYou can speed up the growth of small plants by 1000% while channeling.\n",
+        "EffectGreen": "Usable while Shapeshifted.",
         "AlignOnWebsite": "Right"
-    },
-    "~Shapeshift~": {
-        "_Value": 2,
-        "A": "Half-Action",
-        "Cost": "0.5 Mana",
-        "HasMixins": true,
-        "Duration": "Lasts until cancelled (0 Actions) or you Fall",
-        "Effect": "Pick an animal from the `Pets and Animals page$/Other/PetsAndAnimals`, within your Level, and instantly transform into it.\nYou also gain its exact Abilities and Animal Attack (see below), but can't cast Spells or use items (obviously) and your Health stays the same. For Checks, you can choose to use the animal's Stats or your Stats.\n",
-        "Upgrade": "At first, you can't fly, even if your animal can. If your animal can fly, you have the Jumping Skill and you can glide (you don't take falling Damage).\nFrom Level 6, you can fly.\n",
-        "Notes": "Each Shapeshift uses half a Mana point (2 Shapeshifts = 1 Mana).\nYou choose what items you keep on you when Shapeshifting, and those items are 'merged' into your new form.\nWhile Shapeshifted, you can speak, but your voice is slightly altered to match your shape (e.g. guttural for lions, high pitched for birds, etc).\n",
-        "OrderOnWebsite": 1,
-        "Subspells": {
-            "~Animal Attack~": {
-                "IsSubspell": true,
-                "A": "Half-Action",
-                "Effect": "Make a melee attack for 1d6 + your Highest Stat (not the animal's).\n"
-            }
-        }
     },
     "~Animal Attack~": {
         "IsSubspell": true,
         "A": "Half-Action",
         "Effect": "Make a melee attack for 1d6 + your Sense (not the animal's).\n"
     },
-    "~Circle of the Land~": {
+    "~Shapeshift~": {
+        "A": "0 Actions",
+        "Cost": "1 Mana",
+        "HasMixins": true,
+        "Duration": "Until cancelled (0 AP) or you Fall",
+        "Effect": "Transform into a regular animal, or a mystical beast resembling one you've encountered this Campaign. It has 2 features of choice from below (up to your Level).\n",
+        "Notes": "Your animal's Stats are 3/1/0/-1 spread as you like (for Rolls only).\nYou can only cast _some_ Abilities while Shapeshifted.\nYou choose what items you keep on you when Shapeshifting, and those items are 'merged' into your new form.\nWhile Shapeshifted, you can speak, but your voice is slightly altered to match your shape (e.g. guttural for lions, high pitched for birds, etc).\n",
+        "HasSpellTableNumbers": true,
+        "SpellTable": [
+            {
+                "Name": "Hefty",
+                "Effect": "When Shapeshifting, gain 3 Shieldings that block 1d4 Damage each. You are Long (2x1 meters) and Ridable."
+            },
+            {
+                "Name": "Clawed",
+                "Effect": "Your Shapeshift-only Abilities and features have their Dice Upgraded to the next die type."
+            },
+            {
+                "Name": "Sweep {Action}2 Action Points {Cooldown} Once / Shapeshift",
+                "Effect": "All Units within 2 meters take 2d4 + Your Level Damage (any type). If only one Unit is hit, +50% Damage and apply a Combo."
+            },
+            {
+                "Name": "Bash {Action}1 Action Point {Level}Level 2 {Cooldown} Once / Combat",
+                "Effect": "Single-Stun a Unit and deal 1d4 Smash Damage to it.\n{Combo} and a one Unit 2 meter from you.\n"
+            },
+            {
+                "Name": "Charge {Level}Level 2",
+                "Effect": "Your next Attack deals +1 Damage per meter just moved (*).\n{Combo} And pushes target 3 meters (any direction).\n"
+            },
+            {
+                "Name": "Tiny {Level}Level 2",
+                "Effect": "You are Tiny. After shapeshifting, automatically dodge the next weapon attack you receive."
+            },
+            {
+                "Name": "Spikes {Level}Level 3",
+                "Effect": "After you are attacked from 1 meter away, deal 1d4 Damage back to the attacker. You take -50% Pierce Damage."
+            },
+            {
+                "Name": "Venomous {Level}Level 3",
+                "Effect": "Animal Attacks deal +1d4 Damage to Units affected by Crowd Control. {Combo} +1d4 Damage."
+            },
+            {
+                "Name": "Leap {Action}1 Action Point {Level}Level 3",
+                "Effect": "Leap at a Unit 2-3 meters away. Deal 2d6 Pulse Damage and apply a Combo. {Combo} it becomes Frail."
+            },
+            {
+                "Name": "Fast {Level}Level 4",
+                "Effect": "You have +3 Movement Speed. You are immune to being Slowed, Rooted, and to Hard Terrain. You can freely Break Movement."
+            },
+            {
+                "Name": "Prowl {Level}Level 4",
+                "Effect": "First Shapeshifted attack deals +1d8 Damage. If starting combat shapeshifted, YOU Surprise enemies and can't be Surprised."
+            },
+            {
+                "Name": "Sticky {Action}1 Action Point {Range}3 meters {Level}Level 5",
+                "Effect": "Shoot a sticky substance at a Unit. It takes 1d4 Damage, becomes Rooted and apply a Combo. Usable once per Shapeshift."
+            },
+            {
+                "Name": "Shred {Action}2 Action Points {Level}Level 5",
+                "Effect": "Attack a Unit for 2d8 + 3 Slash Damage. Deals +1d8 Damage for each level of Stun on it."
+            },
+            {
+                "Name": "Large {Level}Level 7",
+                "Effect": "You have 2 Defense. You are Large (2x2 meters) and Ridable."
+            },
+            {
+                "Name": "Fly {Level}Level 7",
+                "Effect": "You can fly up to your speed. You take -50% Smash Damage."
+            }
+        ]
+    },
+    "~Thornskin~": {
+        "A": "0 Actions",
+        "Cost": "1 Mana",
+        "Duration": "1 minute",
+        "Degree": "Minor",
+        "Effect": "Choose a Unit you can see. Apply a Combo to it.\nWhenever it is melee attacked, the attacker takes 1d4 Pierce Damage.\n",
+        "EffectGreen": "Usable while Shapeshifted.",
+        "Notes": "A Unit can only be effected by one Thornskin effect at a time."
+    },
+    "~Everbloom~": {
+        "A": "Half-Action",
+        "Range": "5 meters",
+        "Cost": "1 Mana",
+        "Degree": "Minor",
+        "Effect": "Heal an alive Unit for 2d6.\n",
+        "Combo": "+1d6 Healing."
+    },
+    "~Venin Shot~": {
+        "A": "1 Action",
+        "Range": "6 meters",
+        "HasMixins": true,
+        "Degree": "Minor",
+        "Effect": "A target takes 1d8 + ^Soul^ Poison Damage.\nThe _next time_ it takes damage from a weapon, it takes an extra 1d8 Poison Damage.\n",
+        "Combo": "The next time Damage happens now instead.",
+        "Notes": "Body parts count as weapons."
+    },
+    "~Ripstorm~": {
+        "A": "3 Action Points",
+        "Cost": "1 Mana",
+        "Cooldown": "Once / Adventure",
+        "Requirement": "Only usable while Shapeshifted",
+        "Effect": "Deal 5d6 Damage to all Worthy Units within 2 meters of you.\nHeal for 1 Health per 5 Damage done (of the total).\nOne of the Units hit becomes Crippled.\n",
+        "Notes": "Calculate 20% by doing 10% and doubling it."
+    },
+    "~Cure Affliction~": {
+        "A": "Half-Action",
+        "Cooldown": "1 hour",
+        "Range": "3 meters",
+        "Degree": "Lesser",
+        "Effect": "Remove all combat-affecting Debuffs and Crowd Control on a Unit.\nAlso cure any non-chronic and non-terminal illness or disease on the Unit.\n",
+        "Upgrade": "Alternatively, clean up to 2 rations or liters of water of microbes, mild poison or impurities.",
+        "Notes": "Debuffs are things like curses, weaknesses, etc.\n"
+    },
+    "~Control Wind~": {
+        "HasMixins": true,
+        "A": "Half-Action",
+        "Range": "5 meters",
+        "Cooldown": "Sense uses / Adventure",
+        "Requirement": "Level 2",
+        "Degree": "Lesser",
+        "Effect": "You can control gusts of wind in a 6x6x6 area and do one of the following for 1 Action:\n{Diamond} Create Heavy Wind blowing from any direction (see notes) that lasts for 1 minute\n{Diamond} Move Heavy Wind 3 meters in any direction\n{Diamond} Create wind that makes Units fall softly\n{Diamond} Stop it (for 0 Actions)\n{Diamond} Push all Units in the wind 1 meter in the wind's direction\n",
+        "Notes": "Moving against Heavy Wind acts as Hard Terrain.\nProjectiles fired against the Wind have -1 Damage, and projectiles fired with the Wind gain +1.\nMultiple Winds don't stack into eachother.\nHeavy Wind also clears Fog, Smoke, etc in the area.\n"
+    },
+    "~Domain~": {
         "_Value": 1.25,
         "A": "Passive",
         "IsIgnored": true,
         "HasMixins": true,
-        "Effect": "Choose one _domain_. Each _domain_ gives you extra powers.\n"
+        "Effect": "Choose a _domain environment_ from: {Brown('Nature, Water, Air, Earth')}.\nYour Abilities may have extra effects based both on your _domain_ and the current _environment_ (if you're outside).\n",
+        "Upgrade": "The Quest Master determines what environment you're in. It's possible to not be in any domain.",
+        "Notes": "Nature (Forests, Jungles, etc), Water (Lakes, Swamps, etc), Air (Fields, Mountains, etc) and Earth (Deserts, Caves, etc).\n"
     },
-    "~Nature Domain~": {
-        "A": "Passive",
-        "Effect": "You can cast Talent Abilities and Basic Spells while Shapeshifted."
+    "~Regrowth~": {
+        "_Value": 1,
+        "A": "0 Actions",
+        "Cost": "1 Mana",
+        "Effect": "Your next Ability is improved based on your and current _domains_.\n\n{Brown('Nature:')} Dice Upgraded to next die type.\n{Brown('Water:')} Heals an ally you can see for 1d8.\n{Brown('Wind:')} No Cooldown. You gain +2 Speed this combat.\n{Brown('Earth:')} +2 Max Health to you or a target.\n",
+        "EffectGreen": "Usable while Shapeshifted.",
+        "HasMixins": true
     },
-    "~Water Domain~": {
-        "A": "Passive",
-        "Effect": "Whenever you heal someone else with a Spell, heal them for another 1d4.",
-        "Notes": "Only works for Acts (doesn't work for Passive or Passive-like Spells)."
+    "~Wild Heart~": {
+        "A": "0 Actions",
+        "Cost": "1 Mana",
+        "Duration": "Whole Adventure",
+        "Degree": "Major",
+        "Effect": "Up to 2 allies gain 1d4 Health Regen.\n\n{Brown('Nature:')} +1 Unit affected.\n{Brown('Water:')} 1d6 instead.\n",
+        "Combo": "A Comboed target gains +1 Max Health permanently.",
+        "HasMixins": true
     },
-    "~Cold Domain~": {
-        "A": "Passive",
-        "IsIgnored": true,
-        "Bonuses": {
-            "Max Health": 4
-        },
-        "Combat": [
-            "Immune to Slows and Hard Terrain",
-            "-50% Cold Damage taken"
-        ],
-        "Effect": "You gain +4 Max Health, immunity to Slows and Hard Terrain, and you take -50% Cold Damage.\n"
+    "~Wind Chaser~": {
+        "A": "0 Actions",
+        "Cooldown": "Once / Combat",
+        "Degree": "Lesser",
+        "Effect": "Your next targeted attack or Spell curves around obstacles, ignoring Cover and dealing +1d4 Damage.\n\n{Brown('Wind:')} +1d6 Damage instead.\n{Brown('Earth:')} And Slows it.\n",
+        "Notes": "You still need Line of Sight to the target.",
+        "HasMixins": true
     },
-    "~Rough Domain~": {
-        "A": "Passive",
-        "Effect": "After you attack with a real, non-bodily weapon, your next Animal Attack deals an extra 1d4 Damage.\nStacks up to 2 times (maximum bonus of 2d4).\n",
-        "Notes": "Only weapons in the weapons list trigger this (e.g. not Improvised Attacks, punching, biting, etc)."
+    "~Earth Shield~": {
+        "A": "0 Actions",
+        "Cost": "1 Mana",
+        "Duration": "Until end of Adventure",
+        "Degree": "Minor",
+        "Effect": "A Unit you can see gains 2 Shieldings that block 1d4 Damage each.\n\n{Brown('Earth:')} 1d6 instead.\n{Brown('Nature:')} 3 Shieldings instead.\n",
+        "EffectGreen": "Usable while Shapeshifted.",
+        "Notes": "Lasts for 24 hours or until you rolled the d4 3 times. Does not stack multiple times with itself.",
+        "HasMixins": true
     },
-    "<Beastly Fortitude>": {
+    "~Nami~": {
+        "A": "1 Action",
+        "Cost": "1 Mana",
+        "HasMixins": true,
+        "Degree": "Major",
+        "Cooldown": "Once / Combat",
+        "Effect": "Send out a 4x1 meter wave forward. Each Unit* hit takes 2d8 Cold Damage and is Slowed.\n\n{Brown('Water:')} Heals allies hit for 1d6.\n{Brown('Wind:')} 6x2 meter wave instead.\n",
+        "Notes": "If in a Water environment/domain, Allies are Healed and Enemies are Damaged. Otherwise, all Units hit are Damaged."
+    },
+    "~Cutting Winds~": {
+        "A": "1 Action",
+        "Cost": "1 Mana",
+        "Range": "5 meters",
+        "Cooldown": "Once / Combat",
+        "Degree": "Major",
+        "Effect": "A Unit takes 2d6 + ^Your Dexterity^ Slash Damage.\n\n{Brown('Cold:')} Push it 3 meters (any direction).\n{Brown('Water:')} +1d6 Damage\n",
+        "EffectGreen": "Usable while Shapeshifted.",
+        "Notes": "Cover is applied normally.",
+        "HasMixins": true
+    },
+    "~Way of the Water~": {
         "_Value": 1.5,
         "A": "Passive",
-        "HasMixins": true,
-        "Effect": "Whenever you Shapeshift into an animal specific to your _domain_, heal for 1d4.",
-        "Notes": "You are allowed to use the variant animal suggestions for each animal. Of course, some animals can correspond to multiple domains (e.g. bears can live both in nature (forests) and in cold (snowy) domains)."
+        "Effect": "Whenever you heal someone else with a Spell, heal them for another 1d4.\n",
+        "Notes": "Only works for Acts (doesn't work for Passive or Passive-like Spells)."
+    },
+    "~Primal Ferocity~": {
+        "A": "Passive",
+        "Effect": "After dealing more than 7 immediate Damage as a Person, your next \n"
     },
     "<Innervate>": {
         "_Value": 1.5,
@@ -648,7 +794,7 @@
         "Effect": "The pet melee attacks a target.\nThe attack deals 1d6 Pierce or Slash Damage (your choice).\n",
         "AlignOnWebsite": "Right"
     },
-    "<Regrowth>": {
+    "<Moonwing Lullaby>": {
         "_Value": 2.5,
         "A": "1 Action",
         "Cooldown": "Once / Adventure",
@@ -784,7 +930,7 @@
     "~Day Night Cycle~": {
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "At _day_, you can cast Nature Spells while Shapeshifted.\nAt _twilight_, whenever you roll maximum on a Mysticism Spell die, increase it by 50%.\n",
+        "Effect": "At _day_, you can cast Spells while Shapeshifted.\nAt _twilight_, whenever you roll maximum on a die, increase it by 50%.\n",
         "Upgrade": "You may spend 1 hour of non-combat to change your Known Abilities.\nYou always know if it's day or night, even if indoors.\n",
         "Notes": "_Twilight_ is from 18:00 to 6:00. _Day_ is from 6:00 to 18:00."
     },
@@ -3233,13 +3379,14 @@
         "Effect": "Roll 1d10 - 5. After you see the result, choose a Worthy Unit.\nIf it's negative, deal Scourge Damage to it. Otherwise, heal it.\n",
         "Combo": "+50% Damage or Healing"
     },
-    "~Deathfire Bolt~": {
+    "~Deathfire Flame~": {
         "A": "1 Action",
         "Cost": "1 Mana",
         "Range": "10 meters",
         "Degree": "Major",
         "Tags": "Area Damage",
-        "Effect": "Shoot a bolt of deathly fire in a 1x10 meter line. All Units it touches take 1d6 + 1d8 + 1d10 Scourge or Fire Damage (your choice).\n"
+        "Effect": "Shoot a bolt of deathly fire in a 1x10 meter line. All Units it touches take 1d6 + 1d8 + 1d10 Scourge or Fire Damage (your choice).\n",
+        "Notes": "Ignores Half-Hitting Damage reduction."
     },
     "~Curse of Weakness~": {
         "A": "Half-Action",
@@ -3258,7 +3405,7 @@
         "Duration": "1 minute",
         "Requirement": "Level 4",
         "Tags": "Damage",
-        "Effect": "Choose a Unit. At the start of each of your Turns, it takes 1d4 Scourge Damage.\n"
+        "Effect": "Choose a Unit. At the start of each of your Turns, it takes 1d4 Scourge Damage (ignoring Cover).\n"
     },
     "~Mind Blast~": {
         "A": "1 Action",
@@ -3271,7 +3418,7 @@
             "Crowd Control"
         ],
         "Effect": "A Unit takes 4d6 Psychic Damage and chooses whether to become Blinded or Silenced.\nApply a ~Combo~ to it.\n",
-        "Notes": "Cover is applied normally. {Blinded} {Silenced}\n"
+        "Notes": "Cover is applied normally.\n"
     },
     "~Disenchantment~": {
         "HasMixins": true,

@@ -921,6 +921,14 @@ export function parseTextWithSymbols(text, customSymbols, options = {}) {
         'Flank': () => (<span>Flanking is when you melee-attack an enemy, and an ally of yours is directly behind the enemy. As an optional rule (ask the QM), flank attacks can deal +1 Damage.</span>),
         'FoolsGold': () => (<span>Fool's Gold is an imaginary currency that can be converted to real Gold by spending 1 hour in a town or city. Fool's Gold lasts until converted to real Gold.</span>),
         'Ultimate': () => (<span>This is your Ultimate Class Ability and, after getting this Talent, you can no longer change your Talents inbetween Adventures.</span>),
+        'Action': () => (<Icon name="Hand"/>),
+        'Range': () => (<Icon name="Range"/>),
+        'Cooldown': () => (<Icon name="Cooldown"/>),
+        'Duration': () => (<Icon name="Duration"/>),
+        'Duration': () => (<Icon name="Duration"/>),
+        'Level': () => (<Icon name="Level"/>),
+        'Combo': () => (<span style={{color: 'var(--blue-color)'}}>Combo:</span>),
+        
         
         'Gold': () => (<Icon name="Gold"/>)
     }
@@ -928,7 +936,13 @@ export function parseTextWithSymbols(text, customSymbols, options = {}) {
     const functions = {
         'RandomOf': function(args) {
             return randomOf(...args)
-        }
+        },
+        'Brown': function(args) {
+            return (<span style={{color: 'brown'}}>{args[0]}</span>)
+        },
+        'Color': function(args) {
+            return `<span style="color: ${args[0]}">${args[1]}</span>`
+        },
     }
 
     if (customSymbols != null) {
@@ -976,7 +990,7 @@ export function parseTextWithSymbols(text, customSymbols, options = {}) {
                 if (char == '`') {
                     textParts.push(text.substring(currentTextPartStart, i))
                     symbolStart = i
-                    state = 'reading-url'
+                    state = 'reading-tick'
                 }
                 if (MARKUP_DELIMITERS.includes(char) && shouldUseOnlyCustomSymbols !== true) {
                     textParts.push(text.substring(currentTextPartStart, i))
@@ -1036,7 +1050,7 @@ export function parseTextWithSymbols(text, customSymbols, options = {}) {
                     state = 'reading-normal-text'
                 }
                 break
-            case 'reading-url':
+            case 'reading-tick':
                 if (char == '$') {
                     urlText = text.substring(symbolStart + 1, i)
                     currentTextPartStart = i + 1
