@@ -11,6 +11,8 @@ Difficulty: Hard
 
 Weapons: You are Trained in 2 Weapon Categories of choice (e.g. 1-Handed Melee, 2-Handed Ranged, Shields, etc).
 
+Languages: Druidic
+
 Proficiency Requirements: You are Skilled in Nature and have a number of extra non-combat Skills equal to your Intelligence or Sense, whichever is higher.
 
 Proficiencies:
@@ -68,6 +70,11 @@ Starting Abilities Description:
 
 Starting Abilities:       # 1
 
+  ~Naturality~:
+    A: Passive
+    AlignOnWebsite: Right
+    Effect: Every midnight, regain up to {Mana}1 Mana.
+
   ~Druidcraft~:            # Ok
     A: Depends
     Range: 6 meters
@@ -75,38 +82,153 @@ Starting Abilities:       # 1
     Manual Extras:
       - Get Nature and Monstrology Skills
     Effect: |
-      Every midnight, regain up to {Mana}1 Mana.
-
-      You speak Whistletone, a language made up of whistles, and are Skilled in Nature and Monstrology.
       You can create harmless sensory effects, tiny weather effects or soothe mild pains.
       You can speed up the growth of small plants by 1000% while channeling.
-    Notes: You can do these even while Shapeshifted.
+    EffectGreen: Usable while Shapeshifted.
     AlignOnWebsite: Right
 
-  ~Shapeshift~:            # 2
-    _Value: 2
+  ~Animal Attack~:
+    Requirement: Only usable while Shapeshifted
     A: Half-Action
-    Cost: 0.5 Mana
-    HasMixins: true
-    Duration: Lasts until cancelled (0 Actions) or you Fall
+    AlignOnWebsite: Right
     Effect: |
-      Pick an animal from the `Pets and Animals page$/Other/PetsAndAnimals`, within your Level, and instantly transform into it.
-      You also gain its exact Abilities and Animal Attack (see below), but can't cast Spells or use items (obviously) and your Health stays the same. For Checks, you can choose to use the animal's Stats or your Stats.
-    Upgrade: |
-      At first, you can't fly, even if your animal can. If your animal can fly, you have the Jumping Skill and you can glide (you don't take falling Damage).
-      From Level 6, you can fly.
+      Make a melee attack for 1d6 + your Highest Stat (not the animal's).
+      If you roll maximum, apply a Combo to the target.
+
+  ~Shapeshift~:
+    A: 0 Actions
+    Cost: 1 Mana
+    HasMixins: true
+    Duration: Until cancelled (0 AP) or you Fall
+    Effect: |
+      Transform into a regular animal, or a mystical beast resembling one you've encountered this Campaign.
+
+      Choose 2 animal features from below to apply.
+    Upgrade: You can't cast Druid Abilities when transformed unless they say ^"usable while Shapeshifted"^. Your animal's Stats are 3/1/0/-1 spread as you like.
     Notes: |
-      Each Shapeshift uses half a Mana point (2 Shapeshifts = 1 Mana).
       You choose what items you keep on you when Shapeshifting, and those items are 'merged' into your new form.
       While Shapeshifted, you can speak, but your voice is slightly altered to match your shape (e.g. guttural for lions, high pitched for birds, etc).
-    OrderOnWebsite: 1
-    Subspells:
-      ~Animal Attack~:
-        IsSubspell: true
-        A: Half-Action
+    SpellTable:
+      - Name: Hefty
+        Effect: When Shapeshifting, gain 3 Shieldings that block 1d4 Damage each. You are Long (2x1 meters) and Ridable.
+      - Name: Sweep (2 Action Points)
+        Effect: All Units within 2 meters take 2d4 + Your Level Damage (any type). If only one Unit is hit, +50% Damage and apply a Combo.
+      - Name: Clawed
+        Effect: Your Shapeshift-only Abilities and features have their Dice Upgraded to the next die type.
+
+      - Name: Bash (1 Action Point) (Level 2)
         Effect: |
-          Make a melee attack for 1d6 + your Highest Stat (not the animal's).
+          Single-Stun a Unit and deal 1d4 Smash Damage to it.
+          Combo: and a one Unit 2 meter from you.
+      - Name: Charge (Level 2)
+        Effect: Your next Attack deals +1 Damage for each meter moved with your previous Act. Push it 3 meters (any direction) if affected by Crowd Control.
+
+      - Name: Spikes (Level 3)
+        Effect: After you are attacked from 1 meter away, deal 1d4 Damage back to the attacker. You take -50% Pierce Damage.
+      - Name: Venomous (level 3)
+        Effect: Animal Attacks deal +1d4 Damage to Units affected by Crowd Control. +1d4 Damage if Comboed.
+      - Name: Leap (1 Action Point) (Level 3)
+        Effect: "Leap at a Unit 2-3 meters away. Deal 2d6 Pulse Damage and apply a Combo. Combo: it becomes Frail."
+
+      - Name: Fast (Level 4)
+        Effect: You have +3 Movement Speed. You are immune to being Slowed, Rooted, and to Hard Terrain. You can freely Break Movement.
+      - Name: Prowl (Level 4)
+        Effect: First Shapeshifted attack deals +1d8 Damage. If starting combat shapeshifted, YOU Surprise enemies and can't be Surprised.
+      
+      - Name: Sticky (1 Action Point) (3 meters) (Level 5)
+        Effect: Shoot a sticky substance at a Unit. It takes 1d4 Damage, becomes Rooted and apply a Combo. Usable once per Shapeshift.
+      - Name: Shred (2 Action Points) (Level 5)
+        Effect: Attack a Unit for 2d8 + 3 Slash Damage. Deals +1d8 Damage for each level of Stun on it.
+
+      - Name: Large (Level 6)
+        Effect: You have 2 Defense. You are Large (2x2 meters) and Ridable.
+
+      - Name: Fly (Level 7)
+        Effect: You can fly up to your speed. You take -50% Smash Damage.
+      
+Ability Choices:
+
+    ~Healing Surge~:    # Almost 1 Mana worth
+        A: Half-Action
+        Range: 5 meters
+        Cost: 1 Mana
+        Degree: Minor
+        Effect: Heal an alive Unit for 2d6.
+        Combo: Its next Movement cost 0 Action Points.
+
+    ~Wind Chaser~:
+        A: 0 Actions
+        Cooldown: Once / Combat
+        Degree: Lesser
+        Effect: |
+            Your next targeted ranged attack or Spell curves around obstacles, ignoring Cover and dealing +1d4 Damage.
+        EffectGreen: Usable while Shapeshifted.
+        Notes: You still need Line of Sight to the target.
+
+    ~Venin Shot~:
+        A: 1 Action
+        Range: 5 meters
+        HasMixins: true
+        Degree: Minor
+        Effect: |
+            Deal 1d8 + ^Sense^ Poison Damage to a Unit and apply a Combo.
+        Combo: Deal an extra 1d8 Poison Damage.
+
+    ~Paralyzing Sting~:
+        A: 1 Action
+        Range: 3 meters
+        Cost: 1 Mana
+        HasMixins: true
+        Cooldown: Once / Combat
+        Degree: Major
+        Effect: |
+            Lash out a noxious sting towards a Unit.
+            It chooses whether to take 1d10 Poison Damage and be Crippled, or take 3d10 Poison Damage.
+        Downside: Only works on biological Units.
+        Notes: |
+            {Crippled}
     
+    ~Sablewind Mark~:
+        A: Half-Action
+        Cooldown: Once / Combat
+        Cost: 1 Mana
+        Effect: Choose a Unit. The next time it deals Damage, it deals +50% Damage. Apply a Combo to it.
+
+Utility:
+
+    ~Cure Affliction~:
+        A: Half-Action
+        Cooldown: 1 hour
+        Range: 3 meters
+        Degree: Lesser
+        Effect: |
+            Remove all combat-affecting Debuffs and Crowd Control on a Unit.
+            Also cure any non-chronic and non-terminal illness or disease on the Unit.
+        Upgrade: Alternatively, clean up to 2 rations or liters of water of microbes, mild poison or impurities.
+        Notes: |
+            Debuffs are things like curses, weaknesses, etc.
+
+    ~Water Breathing~:
+        A: 1 Action
+        Requirement: Level 5
+        Duration: (Your Level) hours
+        Cost: 1 Mana
+        Degree: Minor
+        Effect: |
+            Up to 2 allies you can see (can include yourself) can now breathe under water.
+    
+    ~Speak With Animals~:
+        A: 1 Action
+        Cooldown: Once / Real Hour
+        Effect: Choose an animal. Communicate an idea or question to it. It communicates a response back to you only you can understand.
+        Notes: Keep in mind that animals generally have low Intelligence, and they are not expected to 'speak' back to you through language.
+
+    ~Speak With Plants~:
+        A: 1 Action
+        Cooldown: Once / Real Hour
+        Effect: Choose a plant. Communicate an idea or question to it. It communicates a response back to you only you can understand.
+        Notes: Keep in mind that plants generally have low Intelligence, and they are not expected to 'speak' back to you through language.
+
 
 # Mana:         2                      |  2
 # Base:         2 (scaling)            |  4
@@ -167,44 +289,24 @@ Specs:
     Description: The Druid of the Land is a guardian of its own domain. Be it a lush forest, a snowy mountain or a rocky cave, the Druid of the Land knows its own ways.
     
     Starting Abilities:
-      ~Circle of the Land~:
-        _Value: 1.25
-        A: Passive
-        IsIgnored: true
-        HasMixins: true
-        Effect: |
-          Choose one _domain_. Each _domain_ gives you extra powers.
+
+      ~Regrowth~:
+        A: 0 Actions
+        Cooldown: Once / Combat
+        Effect: Refresh the Cooldown of another Ability you have.
+
+        TODO
+      
     
-    Abilities:
-
-      ~Nature Domain~:
-        A: Passive
-        Effect: You can cast Talent Abilities and Basic Spells while Shapeshifted.
-
-      ~Water Domain~:
-        A: Passive
-        Effect: Whenever you heal someone else with a Spell, heal them for another 1d4.
-        Notes: Only works for Acts (doesn't work for Passive or Passive-like Spells).
-
-      ~Cold Domain~:               # 1
-        A: Passive
-        IsIgnored: true
-        Bonuses:
-          Max Health: 4
-        Combat:
-          - Immune to Slows and Hard Terrain
-          - -50% Cold Damage taken
-        Effect: |
-          You gain +4 Max Health, immunity to Slows and Hard Terrain, and you take -50% Cold Damage.
-
-      ~Rough Domain~:
-        A: Passive
-        Effect: |
-          After you attack with a real, non-bodily weapon, your next Animal Attack deals an extra 1d4 Damage.
-          Stacks up to 2 times (maximum bonus of 2d4).
-        Notes: Only weapons in the weapons list trigger this (e.g. not Improvised Attacks, punching, biting, etc).
 
     Talents:
+
+      Level 2:
+
+
+
+
+
       Level 3:
       
         <Beastly Fortitude>:
@@ -344,6 +446,36 @@ Specs:
             You are immune to normal diseases and ailments, and you can not die from old age, but your body continues to age indefinitely.
           HasMixins: true
           Downside: "{Ultimate}"
+
+    # Abilities:
+
+    #   ~Nature Domain~:
+    #     A: Passive
+    #     Effect: You can cast Talent Abilities and Basic Spells while Shapeshifted.
+
+    #   ~Water Domain~:
+    #     A: Passive
+    #     Effect: Whenever you heal someone else with a Spell, heal them for another 1d4.
+    #     Notes: Only works for Acts (doesn't work for Passive or Passive-like Spells).
+
+    #   ~Cold Domain~:               # 1
+    #     A: Passive
+    #     IsIgnored: true
+    #     Bonuses:
+    #       Max Health: 4
+    #     Combat:
+    #       - Immune to Slows and Hard Terrain
+    #       - -50% Cold Damage taken
+    #     Effect: |
+    #       You gain +4 Max Health, immunity to Slows and Hard Terrain, and you take -50% Cold Damage.
+
+    #   ~Rough Domain~:
+    #     A: Passive
+    #     Effect: |
+    #       After you attack with a real, non-bodily weapon, your next Animal Attack deals an extra 1d4 Damage.
+    #       Stacks up to 2 times (maximum bonus of 2d4).
+    #     Notes: Only weapons in the weapons list trigger this (e.g. not Improvised Attacks, punching, biting, etc).
+
 
 # Talent: Cast any spell while shapeshifted
 # Choose your ancestry: leprechaun/dryad/normal omg
