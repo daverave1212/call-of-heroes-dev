@@ -19,11 +19,12 @@ export default function FeaturingAsidePopup({featureToDisplay}) {
     
     return (
         <div className={'aside-popup ' + maybeIntroAnimClass} style={isPopupDisplayedStyle}>
-            <div style={isThisFeatureDisplayedStyle('Quests')}>
+            <div style={isThisFeatureDisplayedStyle('Adventures')}>
                 <AsideH3>Quests</AsideH3>
                 <AsideP>
-                    A completed Quest is a milestone for the players. When the players complete a Quest, they regain all resources (Health, Mana, etc).
-                    The Game Master decides what a Completed Quest is - it could be the end of a dungeon, saving an NPC, or finishing the game session.
+                    An Adventure is a period of time or a section of the game. It could mean completing a quest, a dungeon, a day of fighting, etc.
+                    Players heal back up after finishing an Adventure.
+                    Typically, an Adventure takes 2-3 combats.
                 </AsideP>
             </div>
             <div style={isThisFeatureDisplayedStyle('Worthiness')}>
@@ -46,6 +47,21 @@ export default function FeaturingAsidePopup({featureToDisplay}) {
                     Every 2 Levels, a Player Character can choose one Talent Ability from several options provided by their Class Specialization.
                 </AsideP>
                 <Spell spell={spellWithName('Jihad', classAndRaceAbilities['<Jihad>'])}/>
+            </div>
+            <div style={isThisFeatureDisplayedStyle('Farming')}>
+                <AsideH3>Farming</AsideH3>
+                <AsideP>
+                    Many Abilities allow you to "farm" gold or permanently improve your character!
+                </AsideP>
+                <Spell spell={spellWithName("Fool's Gold", {...classAndRaceAbilities["~Fool's Gold~"], Notes: null})}/>
+                <Spell spell={spellWithName("Primal Trophy", classAndRaceAbilities["<Primal Trophy>"])}/>
+            </div>
+            <div style={isThisFeatureDisplayedStyle('Player Quirks')}>
+                <AsideH3>Player Quirks</AsideH3>
+                <AsideP>
+                    At the end of every Adventure, each player character gains a positive and a negative Quirk. The player decides one of them, the QM the other.
+                    Quirks are bonuses that range from increasing/decreasing Stats, gaining non-combat Skills, phobias, etc.
+                </AsideP>
             </div>
             <div style={isThisFeatureDisplayedStyle('Respec')}>
                 <AsideH3>Respeccing</AsideH3>

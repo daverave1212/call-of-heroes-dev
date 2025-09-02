@@ -73,19 +73,8 @@ Starting Abilities:       # 1
   ~Naturality~:
     A: Passive
     AlignOnWebsite: Right
-    Effect: Every midnight, regain up to {Mana}1 Mana.
-
-  ~Druidcraft~:            # Ok
-    A: Depends
-    Range: 6 meters
-    HasMixins: true
-    Manual Extras:
-      - Get Nature and Monstrology Skills
-    Effect: |
-      You can create harmless sensory effects, tiny weather effects or soothe mild pains.
-      You can speed up the growth of small plants by 1000% while channeling.
-    EffectGreen: Usable while Shapeshifted.
-    AlignOnWebsite: Right
+    Requirement: Can't activate in combat.
+    Effect: Every 2 real hours, regain up to {Mana}1 Mana.
 
   ~Animal Attack~:
     Requirement: Only usable while Shapeshifted
@@ -102,7 +91,7 @@ Starting Abilities:       # 1
     HasMixins: true
     Duration: Until cancelled (0 AP) or you Fall
     Effect: |
-      Transform into a regular animal, or a mystical beast resembling one you've encountered this Campaign. It has 2 features of choice from below (up to your Level).
+      Transform into a medium-sized, regular animal, or a mystical beast resembling one you've encountered this Campaign. It has 2 features of choice from below (up to your Level).
     Notes: |
       Your animal's Stats are 3/1/0/-1 spread as you like (for Rolls only).
       You can only cast _some_ Abilities while Shapeshifted.
@@ -113,43 +102,48 @@ Starting Abilities:       # 1
       - Name: Hefty
         Effect: When Shapeshifting, gain 3 Shieldings that block 1d4 Damage each. You are Long (2x1 meters) and Ridable.
       - Name: Clawed
-        Effect: Your Shapeshift-only Abilities and features have their Dice Upgraded to the next die type.
+        Effect: Your animal features listed here have their Dice Upgraded to the next die type.
       - Name: Sweep {Action}2 Action Points {Cooldown} Once / Shapeshift
-        Effect: All Units within 2 meters take 2d4 + Your Level Damage (any type). If only one Unit is hit, +50% Damage and apply a Combo.
+        Effect: All Units within 2 meters take 2d4 + Your Highest Stat (any type). If only one Unit is hit, +50% Damage and apply a Combo.
 
       - Name: Bash {Action}1 Action Point {Level}Level 2 {Cooldown} Once / Combat
         Effect: |
           Single-Stun a Unit and deal 1d4 Smash Damage to it.
           {Combo} and a one Unit 2 meter from you.
-      - Name: Charge {Level}Level 2
-        Effect: |
-          Your next Attack deals +1 Damage per meter just moved (*).
-          {Combo} And pushes target 3 meters (any direction).
-      - Name: Tiny {Level}Level 2
-        Effect: You are Tiny. After shapeshifting, automatically dodge the next weapon attack you receive.
 
-      - Name: Spikes {Level}Level 3
-        Effect: After you are attacked from 1 meter away, deal 1d4 Damage back to the attacker. You take -50% Pierce Damage.
+      # - Name: Charge {Level}Level 2
+      #   Effect: |
+      #     Your next Attack deals +1 Damage per meter just moved (*).
+      #     {Combo} And pushes target 3 meters (any direction).
+      # - Name: Tiny {Level}Level 2
+      #   Effect: You are Tiny. After shapeshifting, automatically dodge the next weapon attack you receive.
+
+      # - Name: Spikes {Level}Level 3
+      #   Effect: After you are attacked from 1 meter away, deal 1d4 Damage back to the attacker. You take -50% Pierce Damage.
+
       - Name: Venomous {Level}Level 3
         Effect: Animal Attacks deal +1d4 Damage to Units affected by Crowd Control. {Combo} +1d4 Damage.
-      - Name: Leap {Action}1 Action Point {Level}Level 3
-        Effect: "Leap at a Unit 2-3 meters away. Deal 2d6 Pulse Damage and apply a Combo. {Combo} it becomes Frail."
 
       - Name: Fast {Level}Level 4
-        Effect: You have +3 Movement Speed. You are immune to being Slowed, Rooted, and to Hard Terrain. You can freely Break Movement.
-      - Name: Prowl {Level}Level 4
-        Effect: First Shapeshifted attack deals +1d8 Damage. If starting combat shapeshifted, YOU Surprise enemies and can't be Surprised.
+        Effect: You have +3 Movement Speed. You can freely Break Movement.
+      
+      # - Name: Prowl {Level}Level 4
+      #   Effect: First Shapeshifted attack deals +1d8 Damage. If starting combat shapeshifted, YOU Surprise enemies and can't be Surprised.
       
       - Name: Sticky {Action}1 Action Point {Range}3 meters {Level}Level 5
         Effect: Shoot a sticky substance at a Unit. It takes 1d4 Damage, becomes Rooted and apply a Combo. Usable once per Shapeshift.
-      - Name: Shred {Action}2 Action Points {Level}Level 5
+      
+      - Name: Shred {Action}2 Action Points {Level}Level 6
         Effect: Attack a Unit for 2d8 + 3 Slash Damage. Deals +1d8 Damage for each level of Stun on it.
 
-      - Name: Large {Level}Level 7
-        Effect: You have 2 Defense. You are Large (2x2 meters) and Ridable.
+      - Name: Leap {Action}1 Action Point {Level}Level 7
+        Effect: "Leap at a Unit 2-3 meters away. Deal 2d6 Pulse Damage and apply a Combo. {Combo} it becomes Frail."
 
-      - Name: Fly {Level}Level 7
+      - Name: Fly {Level}Level 8
         Effect: You can fly up to your speed. You take -50% Smash Damage.
+
+      - Name: Large {Level}Level 9
+        Effect: You have 2 Defense. You are Large (2x2 meters) and Ridable.
       
 Ability Choices:
 
@@ -191,31 +185,28 @@ Ability Choices:
         Requirement: Only usable while Shapeshifted
         Effect: |
           Deal 5d6 Damage to all Worthy Units within 2 meters of you.
-          Heal for 1 Health per 5 Damage done (of the total).
+          Heal for 1 Health per 5 real Damage done (total).
           One of the Units hit becomes Crippled.
-        Notes: Calculate 20% by doing 10% and doubling it.
     
 
 Utility:
 
-    ~Cure Affliction~:
-        A: Half-Action
-        Cooldown: 1 hour
-        Range: 3 meters
-        Degree: Lesser
-        Effect: |
-            Remove all combat-affecting Debuffs and Crowd Control on a Unit.
-            Also cure any non-chronic and non-terminal illness or disease on the Unit.
-        Upgrade: Alternatively, clean up to 2 rations or liters of water of microbes, mild poison or impurities.
-        Notes: |
-            Debuffs are things like curses, weaknesses, etc.
+    ~Druidcraft~:
+      A: Depends
+      Range: 6 meters
+      HasMixins: true
+      Effect: |
+        You can create harmless sensory effects, tiny weather effects or soothe mild pains.
+        You can speed up the growth of small plants by 1000% while channeling.
+        You can speed up the progress of a disease or illness by 1000% while channeling.
+      EffectGreen: Usable while Shapeshifted.
+      AlignOnWebsite: Right
 
     ~Control Wind~:
         HasMixins: true
         A: Half-Action
         Range: 5 meters
         Cooldown: Sense uses / Adventure
-        Requirement: Level 2
         Degree: Lesser
         Effect: |
             You can control gusts of wind in a 6x6x6 area and do one of the following for 1 Action:
@@ -229,6 +220,40 @@ Utility:
             Projectiles fired against the Wind have -1 Damage, and projectiles fired with the Wind gain +1.
             Multiple Winds don't stack into eachother.
             Heavy Wind also clears Fog, Smoke, etc in the area.
+
+    ~Fog Cloud~:
+        A: 0 Actions
+        Cost: 1 Mana
+        Range: 5 meters to edge
+        Effect: |
+            A 5x5x5 meter cube becomes covered in fog for 1 minute.
+        Upgrade: All Attacks done from, through or to Units inside Fog have Cover (-50%).
+        Notes: Fog can be dissipated by wind. You can choose the color of the fog. The fog does not go through walls, but does bend around corners (e.g. up to 360 degrees around wall extremities).
+
+    ~Wild Steed~ :
+        A: 5 minutes
+        Requirement: Level 3
+        Duration: Until you dismount
+        Effect: |
+            You call upon a ridable land animal native to the area you are in.
+            You and up to 1 more party member can ride this animal.
+            It follows the normal rules for Riding.
+            It does not participate in combat.
+        Upgrade: |
+            At Level 6, this can be a flying animal.
+
+    # ~Speak With Animals~:
+    #     A: 1 Action
+    #     Cooldown: Once / real hour
+    #     Effect: Choose a willing, non-hostile animal. Communicate an idea or question to it. It responds in a way only you understand.
+    #     Notes: Keep in mind that animals generally have low Intelligence, and they are not expected to 'speak' back to you through language.
+
+    # ~Speak With Plants~:
+    #     A: 1 Action
+    #     Cooldown: Once / real hour
+    #     Effect: Choose a willing, large plant. Communicate an idea or question to it. It responds in a way only you understand.
+    #     Notes: Keep in mind that plants generally have low Intelligence, and they are not expected to 'speak' back to you through language.
+
 
 # Mana:         2                      |  2
 # Base:         2 (scaling)            |  4
@@ -298,7 +323,7 @@ Specs:
         Effect: |
           Choose a _domain environment_ from: {Brown('Nature, Water, Air, Earth')}.
           Your Abilities may have extra effects based both on your _domain_ and the current _environment_ (if you're outside).
-        Upgrade: The Quest Master determines what environment you're in. It's possible to not be in any domain.
+        Upgrade: The Quest Master determines what environment you're in. It's possible to not be in any domain (e.g. urban areas, interiors, etc).
         Notes: |
           Nature (Forests, Jungles, etc), Water (Lakes, Swamps, etc), Air (Fields, Mountains, etc) and Earth (Deserts, Caves, etc).
 
@@ -307,41 +332,14 @@ Specs:
         A: 0 Actions
         Cooldown: Once / Adventure
         Effect: |
-          Your next Ability is improved based on your and current _domains_.
+          Your next Ability or animal feature is improved based on your and current _domains_.
           
           {Brown('Nature:')} Dice Upgraded to next die type.
           {Brown('Water:')} Heals an ally you can see for 1d8.
           {Brown('Wind:')} No Cooldown. You gain +2 Speed this combat.
-          {Brown('Earth:')} +2 Max Health to you or a target.
+          {Brown('Earth:')} +2 Max Health to you or a target (permanently).
         # Effect: Reset the Cooldown of a different Ability or Animal feature.
         EffectGreen: Usable while Shapeshifted.
-
-
-    # Abilities:
-
-    #   ~Nature Domain~:
-    #     A: Passive
-    #     Effect: You can cast Talent Abilities and Basic Spells while Shapeshifted.
-
-
-
-    #   ~Cold Domain~:               # 1
-    #     A: Passive
-    #     IsIgnored: true
-    #     Bonuses:
-    #       Max Health: 4
-    #     Combat:
-    #       - Immune to Slows and Hard Terrain
-    #       - -50% Cold Damage taken
-    #     Effect: |
-    #       You gain +4 Max Health, immunity to Slows and Hard Terrain, and you take -50% Cold Damage.
-
-    #   ~Rough Domain~:
-    #     A: Passive
-    #     Effect: |
-    #       After you attack with a real, non-bodily weapon, your next Animal Attack deals an extra 1d4 Damage.
-    #       Stacks up to 2 times (maximum bonus of 2d4).
-    #     Notes: Only weapons in the weapons list trigger this (e.g. not Improvised Attacks, punching, biting, etc).
 
     Talents:
 
@@ -353,7 +351,7 @@ Specs:
             Duration: Whole Adventure
             Degree: Major
             Effect: |
-              Up to 2 allies gain 1d4 Health Regen.
+              Up to 2 allies gain 1d4 Health Regen each.
               
               {Brown('Nature:')} +1 Unit affected.
               {Brown('Water:')} 1d6 instead.
@@ -392,42 +390,28 @@ Specs:
             Effect: |
                 Send out a 4x1 meter wave forward. Each Unit* hit takes 2d8 Cold Damage and is Slowed.
 
-                {Brown('Water:')} Heals allies hit for 1d6.
+                {Brown('Water:')} Allies hit are Healed for 1d6 instead.
                 {Brown('Wind:')} 6x2 meter wave instead.
             Notes: If in a Water environment/domain, Allies are Healed and Enemies are Damaged. Otherwise, all Units hit are Damaged.
 
-        
-
-
 
       Level 3:
-      
-        ~Cutting Winds~:
-            A: 1 Action
-            Cost: 1 Mana
-            Range: 5 meters
-            Cooldown: Once / Combat
-            Degree: Major
-            Effect: |
-                A Unit takes 2d6 + ^Your Dexterity^ Slash Damage.
 
-                {Brown('Cold:')} Push it 3 meters (any direction).
-                {Brown('Water:')} +1d6 Damage
-            EffectGreen: Usable while Shapeshifted.
-            Notes: Cover is applied normally.
-
-        ~Way of the Water~:
-          _Value: 1.5
-          A: Passive
+        ~Domain Animal Attack~:
+          _Value: 2.5
+          Requirement: Only usable while Shapeshifted
+          A: Half-Action
+          AlignOnWebsite: Right
+          Damage: 1d6 + Any Stat
+          Replacement: Replaces Animal Attack
           Effect: |
-            Whenever you heal someone else with a Spell, heal them for another 1d4.
-          Notes: Only works for Acts (doesn't work for Passive or Passive-like Spells).
-
-        ~Primal Ferocity~:
-          A: Passive
-          Effect: |
-            After dealing more than 7 immediate Damage as a Person, your next 
-            
+            {Brown('Nature:')} ~Heal for 10% of the attack's Damage.~
+            {Brown('Water:')} ~Target is Slowed and +1 range.~
+            {Brown('Wind:')} ~1d8 Damage instead of 1d6.~
+            {Brown('Earth:')} ~Taunt the target.~
+          Range: 1 meter
+          Stat: Smash, Slash or Pierce
+          EffectGreen: Critical Strike - if you roll maximum, apply a Combo.
 
         <Innervate>:
           _Value: 1.5
@@ -436,37 +420,99 @@ Specs:
           Range: 6 meters
           Cooldown: Once / Adventure
           Effect: |
-            Heal another ally for 1d10 Health and it regains 1 Mana or provides 1 more use of an Ability that is on Cooldown.
+            Heal another ally for 1d12 Health and it regains 1 Mana or provides 1 more use of an Ability that is on Cooldown.
           Downside:
             Can not be cast on Druids.
 
-      
+        ~Nativity~:
+          A: Passive
+          Replacement: Replaces Naturality
+          Requirement: Can't activate in combat.
+          AlignOnWebsite: Left
+          Effect: Every ~real hour~, regain up to {Mana}1 Mana.
+   
       Level 4:
 
-        <Stat Bonus 4 Plus>:
-          IsIgnored: true
-          Manual Extras:
-            - +1 in a Stat of choice (up to +4)
-            - +2 non-combat Skills
+        ~Cutting Winds~:
+          A: 1 Action
+          Cost: 1 Mana
+          Range: 5 meters
+          Cooldown: Once / Combat
+          Degree: Major
           Effect: |
-            Gain +1 in a Stat of choice, up to +4.
-            Gain 2 more non-combat Skills.
+              A Unit takes 2d6 + ^Your Dexterity^ Slash Damage.
 
-        <Double Stat Bonus Plus>:
-          IsIgnored: true
-          Manual Extras:
-            - +1 in a Stat of choice (up to +4)
-            - +1 in a Stat of choice (up to +3)
+              {Brown('Wind:')} Push it 3 meters (any direction).
+              {Brown('Water:')} +1d6 Damage
+          EffectGreen: Usable while Shapeshifted.
+          Notes: Cover is applied normally.
+
+        ~Roots~:
+          A: 1 Action
+          Cost: 1 Mana
+          Cooldown: Once / Adventure
           Effect: |
-            Gain +1 in a Stat of choice, up to +4, and +1 in another Stat of choice, up to +3.
+            All Enemies within 4 meters of you take 2d6 Pierce Damage and become Rooted.
+
+            {Brown('Nature:')} 6 meters instead.
+            {Brown('Earth:')} 2d8 Damage instead.
+
+        ~Lightning Storm~:
+            A: Half-Action
+            Range: 5 meters to edge
+            Cost: 1 Mana
+            HasMixins: true
+            Cooldown: Once / Combat
+            Degree: Major
+            Effect: |
+                Choose a 4x4x4 meter cube.
+                All units inside take 3d4 Shock Damage now. If a unit carries anything made of metal or is wet, it takes 100% more Damage.
+
+                {Brown('Wind:')} 4d4 Damage instead.
+                {Brown('Nature:')} The Damage triggers again at the start of your next Turn in the same area.
+
+        <Brineborne Lullaby>:
+          _Value: 2
+          A: 1 Action
+          Cost: 2 Mana
+          Cooldown: Once / Adventure
+          Effect: |
+            Choose yourself.
+            Heal the chosen Unit for 1d8 for each 10 Health it is missing, and all Units within 2 meters of it for half the final amount just Healed.
+
+            {Brown('Water:')} For each 7 Health missing instead.
+            {Brown('Earth:')} Choose any Unit instead.
+
+# Nature, Wind, Water, Earth
 
       Level 5:
 
-        <Primal Surge>:
-          _Value: 2
-          A: 1 Action
-          Cooldown: Once / Adventure
-          Effect: Heal yourself for 50% of your missing Health, and all Units within 2 meters for half the final amount just Healed.
+        ~Runeback Form~:
+          _Value: 3
+          A: Passive
+          Effect: |
+            Your animal forms become improved by visible tattoos, runes or trinkets adorning your horns, paws or back.
+            Depending on your and current _domain_, you gain additional powers when Shapeshifted.
+
+            {Brown('Earth:')} You take -1 Damage from all sources.
+            {Brown('Nature:')} Every Turn end, Heal yourself for 1d4.
+            {Brown('Water:')} You do +1 Damage and Healing.
+            {Brown('Wind:')} You can cast any Spell while Shapeshifted, and any animal feature while not.
+
+        ~Celestine Regrowth~:
+          _Value: 1
+          A: 0 Actions
+          Cooldown: Once / Combat
+          Replacement: Replaces Regrowth
+          Effect: |
+            Your next Ability or animal feature is improved based on your and current _domains_.
+            
+            {Brown('Nature:')} Dice Upgraded to next die type.
+            {Brown('Water:')} Heals an ally you can see for 1d8.
+            {Brown('Wind:')} No Cooldown. You gain +2 Speed this combat.
+            {Brown('Earth:')} +2 Max Health to you or a target (permanently).
+          EffectGreen: Usable while Shapeshifted.
+          Notes: ~The Cooldown is now Once / Combat~.
         
         <Dazzling Miasma>:
           _Value: 2
@@ -477,33 +523,6 @@ Specs:
             It hits the first 2 Units it travels into.
             If you hit one Unit, it takes 7d6 Poison Damage.
             If you hit 2 Units, each takes 2d10 Poison Damage and is Blinded.
-        
-        <Druid Animal Companion>:
-          _Value: 2
-          _ValueComment: (multiplicative)
-          A: Passive
-          Bonuses:
-            Mana: -1
-            Max Health: -5
-          Requirement: -1 Max Mana and -5 Max Health
-          HasMixins: true
-          Effect: |
-            You have an animal pet that can fight alongside you, but your Max Mana decreases by 1 and your Health by 5. Check out the `Pets and Animals page$/Other/PetsAndAnimals` and choose an Animal from the Pets section, ignoring those Level requirements!
-            Your pet takes its turn at the same time as you do, and always has the same Initiative as yours, and can make normal Checks using using its own Stats.
-            It has 1 Action per turn, which it can use to do its own Abilities or Pet Attack.
-            Your pet will not stray more than 30 meters away from you in hostile territory.
-          Upgrade: If your pet drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.
-          Notes: |
-            Your pet can't rise from being Fallen while in combat, even if healed.
-            If your pet ever dies, you can spend 8 hours inbetween Adventures to get a new pet. If you want to change your Pet and abandon your current one, you can do so inbetween Adventures, but the guilt will make you Fumbling for the next 2 Worthy Combat encounters.
-          Subspells:      
-            ~Pet Attack~:
-                A: 1 Action (from the pet)
-                IsSubspell: true
-                Effect: |
-                    The pet melee attacks a target.
-                    The attack deals 1d6 Pierce or Slash Damage (your choice).
-                AlignOnWebsite: Right
 
       Level 7:
 
@@ -579,90 +598,221 @@ Specs:
     Description: You are heavily in touch with nature and with strange creatures, uncommon to the normal folk.
     Starting Abilities:
     
-      ~Wild Shape~:            # 2
-        _Value: 2
+      ~Wild Shapeshift~:
         A: 0 Actions
-        Cost: 0.5 Mana
+        Cost: 1 Mana
         HasMixins: true
-        Duration: Lasts until cancelled (0 Actions) or you Fall
+        Duration: Until cancelled (0 AP) or you Fall
         Replacement: Replaces Shapeshift
         Effect: |
-          Pick ~up to 2 animals~ from the `Pets and Animals page$/Other/PetsAndAnimals`, within your Level, and instantly transform into ~a combination of them~.
-          You also gain ~both of their~ exact Abilities and Animal Attack (see below), but can't cast Spells or use items (obviously) and your Health stays the same. For Checks, you can choose to use ~either~ animal's Stats or your Stats.
-        Upgrade: |
-          At first, you can't fly, even if your animal can. If your animal can fly, you have the Jumping Skill and you can glide (you don't take falling Damage).
-          From Level 6, you can fly.
+          Transform into a medium-sized, regular animal, or a mystical beast resembling one you've encountered this Campaign. It has ~3~ features of choice from below (up to your Level).
+          ~Many of the features are available earlier or upgraded.~
+          ~You can cast any Druid Ability while Shapeshifted.~
         Notes: |
-          For example, you could transform into a combination of Bird of Prey and Bear, resulting in a Bowlear, with Shielding and a lot of Defense! Be creative!
-          The animal size is either the larger or the smaller of the two - your choice.
-          Even if you Shapeshift into 2 combinations of a same animal, the cooldown of that animal's Ability persists (e.g. you can't use Bear's Maul twice its Cooldown, no matter what animal combination you transform into).
-        OrderOnWebsite: 1
-        Subspells:
-          ~Animal Attack~:
-            IsSubspell: true
-            A: Half-Action
+          Your animal's Stats are 3/1/0/-1 spread as you like (for Rolls only).
+          You can only cast _some_ Abilities while Shapeshifted.
+          You choose what items you keep on you when Shapeshifting, and those items are 'merged' into your new form.
+          While Shapeshifted, you can speak, but your voice is slightly altered to match your shape (e.g. guttural for lions, high pitched for birds, etc).
+        HasSpellTableNumbers: true
+        SpellTable:
+          - Name: Hefty
+            Effect: When Shapeshifting, gain 3 Shieldings that block 1d4 Damage each. You are Long (2x1 meters) and Ridable.
+          - Name: Clawed
+            Effect: Your ~Abilities that say 'Usable/Only usable while Shapeshifted', Animal Attack and~ animal features here have their Dice Upgraded to the next die type.
+          - Name: Sweep {Action}2 Action Points {Cooldown} Once / Shapeshift
+            Effect: All Units within 2 meters take ~2d4 + Your Level Damage (any type)~. If only one Unit is hit, +50% Damage and apply a Combo.
+
+          - Name: Bash {Action}1 Action Point {Level}Level 2 {Cooldown} Once / Combat
             Effect: |
-              Make a melee attack for 1d6 + your Sense (not the animal's).
+              Single-Stun a Unit and deal 1d4 Smash Damage to it.
+              {Combo} and a one Unit 2 meter from you.
+
+          - Name: Venomous {Level}Level 3
+            Effect: Animal Attacks deal +1d4 Damage to Units affected by Crowd Control. {Combo} +1d4 Damage.
+
+          - Name: Fast and Tiny {Level}Level 4
+            Effect: You have +3 Movement Speed. You can freely Break Movement. ~Optionally, your size can be Tiny.~
+
+          - Name: Sticky {Action}1 Action Point {Range}3 meters {Level}Level 4
+            Effect: Shoot a sticky substance at a Unit. It takes 1d4 Damage, becomes Rooted and apply a Combo. Usable once per Shapeshift.
+          
+          - Name: Shred {Action}2 Action Points {Level}Level 5
+            Effect: Attack a Unit for 2d8 + ~Any of your Stats (not the animal's)~ Slash Damage. Deals +1d8 Damage for each level of Stun on it.
+
+          - Name: Leap {Action}1 Action Point {Level}Level 6
+            Effect: "Leap at a Unit ~2-4~ meters away. Deal 2d6 Pulse Damage and apply a Combo. {Combo} it becomes Frail."
+
+          - Name: Fly {Level}Level 7
+            Effect: You can fly up to your speed. You take -50% Smash Damage.
+
+          - Name: Large {Level}Level 8
+            Effect: You have 2 Defense. You are Large (2x2 meters) ~or larger (3x3 meters)~ and Ridable.
+
+          - Name: Charge {Level}Level 9
+            Effect: |
+              After Shapeshifting, your next Attack deals +2 Damage per meter just moved (*).
+              {Combo} And pushes target 3 meters (any direction).
+
 
     Talents:
-      Level 3:
-        <Forest Friend>:
-          _Value: 1
-          A: Passive
-          Effect: |
-            You have a flying Pixie companion, a very small person with wings.
-            The Pixie has 5 Defense, 5 Health, 5 meters Movement Speed.
-            It takes its turn at the same time as you. While in combat, on its turn, it has the equivalen of 1 Action, and can either melee attack for 1 Pulse Damage or heal a non-Fallen Unit for 1 Health. Instead of that, it can also use Taunt or use consumable items like potions or scrolls. 
-          Upgrade: |
-            If it goes more than 50 meters away from you, it becomes unsummoned (you can summon it back by channeling for 10 minuets).
-            The Pixie has Charisma, Sense and Intelligence equal to yours, but its Dexterity is 0 and its Might is -5.
-          Notes: The Pixie can stay in your backpack or pocket if you don't want it to take Damage. Decide with your QM whether you or the QM controls the Pixie roleplay-wise, and whether it is sentient. Have fun!
 
-        <Treesposition>:
-          _Value: 0.75
-          A: 0 Actions
-          Effect: |
-            Whenever you Shapeshift, if you're within 1 meter of a Large or larger piece of wood, teleport 1 meter near another Large (or larger) piece of wood within 5 meters.
-          
-        <Exotic Shapeshift>:
-          _Value: 1
+      Level 2:
+
+        ~Recuperate~:
+            A: 0 Actions
+            Cost: 1 Mana
+            Degree: Minor
+            Effect: |
+                Heal yourself for 1d10. If you're affected by any Crowd Control, remove them instead of Healing.
+            EffectGreen: Usable while Shapeshifted!
+
+        ~Blightborne Wither~:
+            A: Half-Action
+            Cost: 1 Mana
+            HasMixins: true
+            Effect: |
+                Attack a Unit for 3d4 Poison Damage. Its Passives, weapon* effects and Reactions are disabled until your next Turn.
+            EffectGreen: Usable while Shapeshifted!
+            Notes: Its Passives become disabled before you hit it (e.g. Kobolds don't dodge this attack). Some monsters have special weapon* effects, like Centaurs who gain extra Damage based on how much they moved. These are disabled.
+
+        ~Web~:
+            A: Half-Action
+            Cost: 1 Mana
+            Range: 5 meters to edge
+            Duration: 1 minute
+            HasMixins: true
+            Degree: Minor
+            Effect: |
+                Declare a 4x4 meter area. All Units there become Rooted or Single-Stunned (their choice).
+                The area becomes filled with spider web and counts as Hard Terrain.
+                If inside, your next Move Action has doubled speed.
+            Notes: |
+                {Rooted}
+        
+        ~Fenfever~:
+            A: 0 Actions
+            Cost: 1 Mana
+            Effect: |
+              Your next Ability of animal feature has its ^Dice Upgraded^ to the next die type.
+            Notes: |
+              {DiceUpgrade}
+              Can stack multiple times.
+
+      Level 3:
+
+        ~Elderform~:
+          Effect: You have extra available features originating from the flora and microbiomes of the outdoors.
+          SpellTable:
+            - Name: Spikes
+              Effect: After you are attacked from 1 meter away, deal 1d4 Damage back to the attacker. You take -50% Pierce Damage.
+            
+            - Name: Photosynthesis
+              Effect: You regenerate 1d4 Health at the end of every Turn.
+
+            - Name: Blossoming {Cooldown} Once / Adventure
+              Effect: At the end of the Adventure, the Quest Master gives you an additional positive Quirk.
+
+        ~Drakeform~:
+          Effect: You gain extra animal features based on dragons.
+          SpellTable:
+            - Name: Manathirst {Requirement} Only usable in Worthy Combat {Cooldown} Once / Adventure
+              Effect: When Shapeshifting, refresh 1 Mana.
+            
+            - Name: Elemental Breath {Range} 5 meters
+              Effect: When Shapeshifting, choose any Element. Your Animal Attack is ranged, its Damage Type is of the chosen Element and 50% of the dealt Damage is splashed to all Units within 2 meters of the main target.
+            
+            - Name: Elemental Scales
+              Effect: When Shapeshifting, choose any Element. You take -50% Damage Type of that Element.
+
+        ~Primalform~:
+          Effect: You gain extra animal features originating from wild creatures of the faey.
+          SpellTable:
+            - Name: Prowling
+              Effect: First Shapeshifted attack deals +1d8 Damage. If starting combat shapeshifted, YOU Surprise enemies and can't be Surprised.
+
+            - Name: Horned
+              Effect: First Shapeshifted attack deals +1d4 Damage and Slams the target 1d4 meters in any direction.
+            
+            - Name: Hulking
+              Effect: When Shapeshifting, permanently increase your current and Max Health by 1.
+
+        ~Wildcasting Form~:
           A: Passive
           Effect: |
-            You can now Shapeshift into Exotic Animals.
-            You can also use Shapeshift to also transform into other people.
-            When you want to do this, roll a Deception check.
-            This check determines how close you get to the form of that person (12 or more means a perfect copy).
-            This copy just mimicks the look of the person, not the voice or personality.
-          Notes: |
-            You can cast your own spells while transformed into someone else.
-            Other people are not considered Animals, so you can't use Wild Shape to transform into a combination of a person and an Animal.
+            When you Shapeshift, transform into a combination of 4 ^random^ animal features instead of choosing, ignoring the Level requirements.
+            Roll 4d12 and reroll any duplicates to determine your form.
 
       Level 4:
 
-        <Stat Bonus 4 Plus>: Inherit
+        ~FURY~:
+            A: Half-Action
+            Cost: 1 Mana
+            Cooldown: 1 turn
+            Degree: Minor
+            Effect: |
+                Gain 3 {Orange('Fury')}.
+            Upgrade: Every time you do Healing or weapon Damage, do +1 for each {Orange('Fury')}, then lose 1 {Orange('Fury')}.
+            Notes: You can't go below 0 Fury.
 
-        <Double Stat Bonus Plus>: Inherit
+        ~All Veins Burning~:
+            A: 1 Action
+            Cost: 3 Mana
+            Degree: Grand
+            Effect: Heal for 1d100.
+
+        ~Fruit of the Forest~:      # Ok
+            A: 10 minutes
+            Cost: 1 Mana
+            Cooldown: Once / Adventure
+            Requirement: Level 4
+            Degree: Minor
+            Effect: |
+                Find, conjure or enchant 3 bites of food. Each bite restores 1d6 Health when eaten (with 1 Action Point).
 
       Level 5:
-      
+
         <Shapeshift Ally>:
           _Value: 1.5
-          A: 0 Actions
-          Cost: 1 use of Shapeshift
+          A: Passive
           Range: 6 meters
           Effect: |
-            Passively, you get 2 more uses of Shapeshift per Adventure.
-            Choose a willing Ally and Shapeshift them into a standard animal of your choice.
-            They have Animal Attack and all of the animal's Abilities.
-            They can cancel it for 0 Actions on their turn.
-        
-        <Strangevolution>:
-          _Value: 1.25
-          _ValueComment: (potential for gamebreaking combos)
-          IsIgnored: True
-          
+            Passively, increase your Max Mana by 1.
+            Instead of Shapeshifting yourself, you can choose an ally and Shapeshift them into an animal with 3 features of your choice from your available features.
+            They have Animal Attack Ability. They can cancel it for 0 Actions on their turn.
+
+        <Evershape>:
+          _Value: 3
           A: Passive
-          Effect: When you gain this Talent, gain 2 racial Ablities, from any Race(s).
+          HasMixins: true
+          Effect: Shapeshifting yourself doesn't cost Mana, but it has a Once / Combat Cooldown.
+
+        ~Manshape~:
+          A: Passive
+          _Value: No freakin idea
+          Effect: |
+            Choose a Unit you can see that you've talked to and fought with.
+            You transform into a copy of them, with their equipment, Stats, non-combat Skills and Abilities.
+          Upgrade: Your Max Health and Mana stay the same and you still have access to all your Abilities and non-combat Skills.
+          EffectRed: You can't use their Abilities that have a Cooldown longer than Once / Combat or Once / real hour.
+          Notes: Your copy of their equipment is not unequippable and vanishes immediately if dropped or unquipped.
+
+        ~Strangevolution~:
+          _Value: 1.5 maybe?
+          A: Special
+          Effect: Permanently gain 4 Race Talents, from any Race(s) except Orcs.
+        
+
+
+
+
+
+
+
+
+
+        
+
+
                 
         # <Regrowth>:             # 2?
         #   A: 1 Action
@@ -670,17 +820,17 @@ Specs:
         #   Range: 5 meters
         #   Effect: Heal a Unit for 1d8 for each 10 Health it is missing.
         
-        <Dryad Ancestry>:    # 1? It's pretty bad
-          _Value: 1
-          A: Passive
-          Effect: You can cast Spells while Shapeshifted. Gain 1 extra Max Mana and access to one more Basic Ability List of choice.
-
       Level 6:
-        
-        <Weirdvolution>:
-          Effect: Gain 2 Racial Ability Choices from any Race(s).
 
-        <Double Stat Bonus>: Inherit
+
+        ~Camouflage~:
+          Effect: Turn effectively invisible (you are undetectable but practically visible).
+
+        
+        ~Wilder Shape~:
+          Effect: You can have 4 animal features instead of just 3.
+          Upgrade: In addition, you're free to just choose one animal at first when you use Shapeshift, then freely add animals to the combination if you need their Abilities. Build-a-werebeast, step by step!
+
 
       Level 7:
 
@@ -854,7 +1004,6 @@ Specs:
           Upgrade: If you use this with Shapeshift, you can combine into 2 animals, and have both their Abilities and their highest Stats.
           Notes: On the second cast, you can choose different targets, areas, etc (and it ignores Cooldown, Costs, etc). Works on Spells with cast time longer than 1 Action (e.g. Old Ritualist).
 
-        <Druid Animal Companion>: Inherit
         <Pet Attack>:
             IsSubspell: true
             A: 1 Action (from the pet)
@@ -973,7 +1122,6 @@ Specs:
 #           Upgrade: If you have this Talent, you can no longer use Shapeshift, whether you used it or not.
 #           Notes: Your Mana can't exceed your Max Mana.
         
-#         <Druid Animal Companion> : Inherit from Druid
             
 #         <Pet Attack>:
 #             IsSubspell: true

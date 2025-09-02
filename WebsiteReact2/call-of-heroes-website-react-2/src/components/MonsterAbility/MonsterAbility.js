@@ -9,7 +9,7 @@ import { SpellTopStats } from '../Spell/Spell'
 
 
 // A monster ability is formatted like "- Ranged: 1d6 + 20 Slash"
-export default function MonsterAbility({ability, isPassive}) {
+export default function MonsterAbility({ability, isPassive, style}) {
     const name = Object.keys(ability)[0]
     const abilityBody = ability[name]
 
@@ -54,10 +54,10 @@ export default function MonsterAbility({ability, isPassive}) {
     const topStatsComponent = <SpellTopStats tags={spellTopTags} keywords={abilityBody.Tags} className="spell-top__stats--no-padding-side spell-top__stats--less-padding-top-bottom"/>
 
     return (
-        <div className={`monster-ability ${passiveOrActveClass}`}>
+        <div className={`monster-ability ${passiveOrActveClass}`} style={style}>
             <div className={`monster-ability__banner`}></div>
             <div className='monster-ability__body'>
-                <h4>{ name }</h4>
+                <h4 style={style}>{ name }</h4>
                 { topStatsComponent }
                 { getAbilityBodyDiv() }
             </div>

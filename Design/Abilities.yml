@@ -368,14 +368,13 @@ Bloodshed:
         Note: E.g. when a Strigoi wants to make 3 Attacks on its turn (before it rolls the 2nd and 3rd Attacks), use Blood Foment on it and it will only be able to do one Attack. Or, when someone casts Magic Missiles, use Blood Foment and only one missile will fire.
 
     ~FURY~:
-        A: 0 Actions
+        A: Half-Action
         Cost: 1 Mana
         Cooldown: 1 turn
-        Requirement: Level 4
         Degree: Minor
         Effect: |
-            Gain 3 Fury.
-            Every time you do Damage or Healing, deal Damage or Heal an extra amount equal to your Fury, then get -1 Fury.
+            Gain 3 {Orange('Fury')}.
+        Upgrade: Every time you do Healing or weapon Damage, do +1 for each {Orange('Fury')}, then lose 1 {Orange('Fury')}.
         Notes: You can't go below 0 Fury.
 
     ~Snap Out Of It~:
@@ -1287,6 +1286,7 @@ Arcane:
             Speed: 3 meters
             Health: 1
             Defense: 5
+            Stats: 0/0/0/0/0
             Abilities:
                 ~Attack~:
                     A: 1 Action (from weapon)
@@ -1703,7 +1703,13 @@ Nature:
         Cost: 1 Mana
         Degree: Minor
         Effect: Heal an alive Unit for 2d6.
-        
+
+    <Treesposition>:
+        _Value: 0.75
+        A: 0 Actions
+        Effect: |
+            Whenever you Shapeshift, if you're within 1 meter of a Large or larger piece of wood, teleport 1 meter near another Large (or larger) piece of wood within 5 meters.
+
     ~Lightning Storm~:  # Per single target, 0.5 Damage weaker than normal attack; but it's AoE!
         A: 1 Action
         Range: 5 meters to edge
@@ -1819,8 +1825,7 @@ Nature:
         Requirement: Level 4
         Degree: Minor
         Effect: |
-            Roll 3d6. You find and/or enchant that many bites of food. Each bite restores 1 Health to the eater.
-        Notes: The Health is evenly spread among the food bites. For example, you might conjure 3d6 berries, each worth 1 Health. Or you might enchant a loaf of bread, each slice being worth 1 Health.
+            Find, conjure or enchant 3 bites of food. Each bite restores 1d6 Health when eaten (with 1 Action Point).
 
     ~Locust Swarm~:     # Ok
         A: 0 Actions
@@ -1983,7 +1988,7 @@ Mysticism:
         ~Guidance~ :
             A: Reaction
             Range: 10 meters
-            Cooldown: 1 hour
+            Cooldown: 1 real hour
             Effect: When an ally makes a Check, it can use your modifiers (including being Skilled in that Skill) instead of its own.
 
         ~Hollow Touch~: Inherit
@@ -2014,15 +2019,23 @@ Mysticism:
 
         # Level 2
 
-        ~Alarm~ :
+        ~Camping~:
+            A: 5 minutes
+            Cooldown: Once / in-game day
+            Effect: |
+                Setup camp, creating favorable conditions for your party for up to 8 in-game hours.
+                Units in the camp are protected from all bad weather and are immune to being poisoned by food.
+                Until the end of the Adventure, all Units who camped here are immune to Hard Terrain.
+
+        ~Bells and Whistles~ :
             A: 10 minutes
             Duration: 24 hours
             Cooldown: 24 hours
-            Requirement: Level 2
             Degree: Lesser
             Effect: |
-                You setup an invisible 4x4x4 meter cube.
-                If an unknown Unit or Enemy enters the cube, it alerts you mentally.
+                You setup an invisible 6x6x6 meter area.
+                If an unknown Unit or Enemy enters the cube, you are immediately alerted and woken up.
+                While inside the area, ^YOU^ cannot be Surprised.
 
         ~Speak With Animals~:
             A: 1 Action
@@ -2182,14 +2195,15 @@ Mysticism:
             Notes: The target can't tell it was affected unless it knows about this type of magic. Cover is applied normally.
 
         ~Influence Beast~ :
-            A: 1 Action
-            Requirement: Level 4
+            A: Half-Action
+            Cooldown: Once / Turn
+            Requirement: Level 3
             Range: 15 meters
             Degree: Lesser
             Effect: |
-                A non-Epic beast that can see you makes a Charisma Check.
+                A non-Epic beast must make a Charisma Roll at least equal to your Charisma roll.
                 If it fails, you can change the beast's mood (make it hungry, afraid, nervous, etc).
-            Notes: Cover is applied normally.
+                The effect lasts 10 minutes, or until the end of its Turn if in Combat.
 
         ~Encode Thoughts~ :
             A: 1 Action

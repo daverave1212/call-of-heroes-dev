@@ -55,6 +55,8 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
             monsterHealth = 1
     }
 
+    const maybeElderStyle = monsterName != 'Elder'? {}: { fontFamily: 'UnknownFont'}
+
     function MonsterLore() {
         return (
             <div className='margin-bottom-1'>
@@ -78,7 +80,7 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
     }
 
     return (
-        <div subtitle={monsterSubtitle} id={`Monster-Block_${monsterName}`}>
+        <div subtitle={monsterSubtitle} id={`Monster-Block_${monsterName}`} style={maybeElderStyle}>
             { !isPreview && (
                 <PageH1>{monsterName}</PageH1>
             ) }
@@ -151,25 +153,25 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
                             <div>
                                 <TwoColumns className="two-columns--quarter-padding">
                                     <Column>
-                                        <MonsterAbility ability={monster.Abilities[0]} key={0}/>
-                                        { monster.Abilities.length >= 3 && (<MonsterAbility ability={monster.Abilities[2]} key={2}/>) }
+                                        <MonsterAbility ability={monster.Abilities[0]} key={0} style={maybeElderStyle}/>
+                                        { monster.Abilities.length >= 3 && (<MonsterAbility ability={monster.Abilities[2]} key={2} style={maybeElderStyle}/>) }
                                     </Column>
                                     <Column>
-                                        <MonsterAbility ability={monster.Abilities[1]} key={1}/>
-                                        { monster.Abilities.length >= 4 && (<MonsterAbility ability={monster.Abilities[3]} key={3}/>) }
+                                        <MonsterAbility ability={monster.Abilities[1]} key={1} style={maybeElderStyle}/>
+                                        { monster.Abilities.length >= 4 && (<MonsterAbility ability={monster.Abilities[3]} key={3} style={maybeElderStyle}/>) }
                                     </Column>
                                 </TwoColumns>
                             </div>
                         ) : (
                             monster.Abilities.map((ability, i) => (
-                                <MonsterAbility ability={ability} key={i}/>
+                                <MonsterAbility ability={ability} key={i} style={maybeElderStyle}/>
                             ))
                         )}
                     </div>
 
                     <div>
                         { monster.Passives != null && monster.Passives.map((ability, i) => (
-                            <MonsterAbility ability={ability} key={i} isPassive={true}/>
+                            <MonsterAbility ability={ability} key={i} isPassive={true} style={maybeElderStyle}/>
                         )) }
                     </div>
                 </Column>

@@ -71,20 +71,18 @@ export default function() {
             QuestGuard plays like a tactical video game: clean, deep and dangerously fun!
           </p>
           <ul className='index-advantages-ul-large'>
-            <li><Icon name="BulletPoint3"/>Gamified for GM's (<b className="advantages-feature" onClick={() => setFeatureToDisplay('Quests')}>Quests</b>, <b className="advantages-feature" onClick={() => setFeatureToDisplay('Worthiness')}>Worthiness</b>)</li>
+            <li><Icon name="BulletPoint3"/>Gamified for GM's (<b className="advantages-feature" onClick={() => setFeatureToDisplay('Adventures')}>Adventures</b>, <b className="advantages-feature" onClick={() => setFeatureToDisplay('Worthiness')}>Worthiness</b>)</li>
             <li><Icon name="BulletPoint3"/>Game-breaking builds (<b className="advantages-feature" onClick={() => setFeatureToDisplay('Abilities')}>Abilities</b>, <b className="advantages-feature" onClick={() => setFeatureToDisplay('Talents')}>Talents</b>, <b className="advantages-feature" onClick={() => setFeatureToDisplay('Respec')}>Respec</b>)</li>
-            <li><Icon name="BulletPoint3"/>European and D12 (<b>metric system</b>)</li>
+            <li><Icon name="BulletPoint3"/><b className="advantages-feature" onClick={() => setFeatureToDisplay('Farming')}>Farming</b> and <b className="advantages-feature" onClick={() => setFeatureToDisplay('Player Quirks')}>Player Quirks</b></li>
             <li><Icon name="BulletPoint3"/>Clarity, feedback, community, online updates</li>
             <li><Icon name="BulletPoint3"/>Optimized for online play and accessibility</li>
-            <li><Icon name="BulletPoint3"/>100% free and open-license</li>
           </ul>
           <ul className='index-advantages-ul-small'>
             <li><Icon name="BulletPoint3"/>RPG for this generation</li>
             <li><Icon name="BulletPoint3"/>Gamified for GM's</li>
             <li><Icon name="BulletPoint3"/>Rebuild easily, fight fast</li>
-            <li><Icon name="BulletPoint3"/>European, D12, metric</li>
+            <li><Icon name="BulletPoint3"/>Farm mobs and gain Quirks</li>
             <li><Icon name="BulletPoint3"/>Clarity, feedback, open community</li>
-            <li><Icon name="BulletPoint3"/>100% free and open-license</li>
           </ul>
           <HeroButton>
             <Link to="/Other/Learn">Learn To Play!</Link>

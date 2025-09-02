@@ -940,6 +940,9 @@ export function parseTextWithSymbols(text, customSymbols, options = {}) {
         'Brown': function(args) {
             return (<span style={{color: 'brown'}}>{args[0]}</span>)
         },
+        'Orange': function(args) {
+            return (<span style={{color: '#FF5500'}}>{args[0]}</span>)
+        },
         'Color': function(args) {
             return `<span style="color: ${args[0]}">${args[1]}</span>`
         },

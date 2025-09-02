@@ -50,6 +50,10 @@ export function PetOrAnimalTopSide({animal}) {
 }
 export function PetOrAnimalStats({animal}) {
 
+    if (animal.Stats == null) {
+        throw `Animal ${animal.Name} has no Stats property.`
+    }
+
     const animalStats    = U.getMonsterStatsAsObject(animal.Stats)
     const statValueStyle = { textAlign: 'center' }
     const statNameStyle  = { textAlign: 'center' }

@@ -158,14 +158,15 @@
             "Name": "~Blood Foment~"
         },
         "~FURY~": {
-            "A": "0 Actions",
+            "A": "Half-Action",
             "Cost": "1 Mana",
             "Cooldown": "1 turn",
-            "Requirement": "Level 4",
             "Degree": "Minor",
-            "Effect": "Gain 3 Fury.\nEvery time you do Damage or Healing, deal Damage or Heal an extra amount equal to your Fury, then get -1 Fury.\n",
+            "Effect": "Gain 3 {Orange('Fury')}.\n",
+            "Upgrade": "Every time you do Healing or weapon Damage, do +1 for each {Orange('Fury')}, then lose 1 {Orange('Fury')}.",
             "Notes": "You can't go below 0 Fury.",
-            "Name": "~FURY~"
+            "Name": "~FURY~",
+            "HasMixins": true
         },
         "~Snap Out Of It~": {
             "A": "Half-Action",
@@ -799,6 +800,7 @@
                 "Speed": "3 meters",
                 "Health": 1,
                 "Defense": 5,
+                "Stats": "0/0/0/0/0",
                 "Abilities": {
                     "~Attack~": {
                         "A": "1 Action (from weapon)",
@@ -1065,6 +1067,12 @@
             "Effect": "Heal an alive Unit for 2d6.",
             "Name": "~Everbloom~"
         },
+        "<Treesposition>": {
+            "_Value": 0.75,
+            "A": "0 Actions",
+            "Effect": "Whenever you Shapeshift, if you're within 1 meter of a Large or larger piece of wood, teleport 1 meter near another Large (or larger) piece of wood within 5 meters.\n",
+            "Name": "<Treesposition>"
+        },
         "~Lightning Storm~": {
             "A": "1 Action",
             "Range": "5 meters to edge",
@@ -1145,8 +1153,7 @@
             "Cooldown": "Once / Adventure",
             "Requirement": "Level 4",
             "Degree": "Minor",
-            "Effect": "Roll 3d6. You find and/or enchant that many bites of food. Each bite restores 1 Health to the eater.\n",
-            "Notes": "The Health is evenly spread among the food bites. For example, you might conjure 3d6 berries, each worth 1 Health. Or you might enchant a loaf of bread, each slice being worth 1 Health.",
+            "Effect": "Find, conjure or enchant 3 bites of food. Each bite restores 1d6 Health when eaten (with 1 Action Point).\n",
             "Name": "~Fruit of the Forest~"
         },
         "~Locust Swarm~": {
@@ -1223,7 +1230,7 @@
         "~Guidance~": {
             "A": "Reaction",
             "Range": "10 meters",
-            "Cooldown": "1 hour",
+            "Cooldown": "1 real hour",
             "Effect": "When an ally makes a Check, it can use your modifiers (including being Skilled in that Skill) instead of its own.",
             "Name": "~Guidance~"
         },
@@ -1252,14 +1259,20 @@
             "Notes": "For example, repair a hole through a chain shirt or textile material, the crack in a piece of glass, etc.\n",
             "Name": "~Mending~"
         },
-        "~Alarm~": {
+        "~Camping~": {
+            "A": "5 minutes",
+            "Cooldown": "Once / in-game day",
+            "Effect": "Setup camp, creating favorable conditions for your party for up to 8 in-game hours.\nUnits in the camp are protected from all bad weather and are immune to being poisoned by food.\nUntil the end of the Adventure, all Units who camped here are immune to Hard Terrain.\n",
+            "Name": "~Camping~"
+        },
+        "~Bells and Whistles~": {
             "A": "10 minutes",
             "Duration": "24 hours",
             "Cooldown": "24 hours",
-            "Requirement": "Level 2",
             "Degree": "Lesser",
-            "Effect": "You setup an invisible 4x4x4 meter cube.\nIf an unknown Unit or Enemy enters the cube, it alerts you mentally.\n",
-            "Name": "~Alarm~"
+            "Effect": "You setup an invisible 6x6x6 meter area.\nIf an unknown Unit or Enemy enters the cube, you are immediately alerted and woken up.\nWhile inside the area, ^YOU^ cannot be Surprised.\n",
+            "Name": "~Bells and Whistles~",
+            "HasMixins": true
         },
         "~Speak With Animals~": {
             "A": "1 Action",
@@ -1367,12 +1380,12 @@
             "Name": "~Charming Word~"
         },
         "~Influence Beast~": {
-            "A": "1 Action",
-            "Requirement": "Level 4",
+            "A": "Half-Action",
+            "Cooldown": "Once / Turn",
+            "Requirement": "Level 3",
             "Range": "15 meters",
             "Degree": "Lesser",
-            "Effect": "A non-Epic beast that can see you makes a Charisma Check.\nIf it fails, you can change the beast's mood (make it hungry, afraid, nervous, etc).\n",
-            "Notes": "Cover is applied normally.",
+            "Effect": "A non-Epic beast must make a Charisma Roll at least equal to your Charisma roll.\nIf it fails, you can change the beast's mood (make it hungry, afraid, nervous, etc).\nThe effect lasts 10 minutes, or until the end of its Turn if in Combat.\n",
             "Name": "~Influence Beast~"
         },
         "~Encode Thoughts~": {
