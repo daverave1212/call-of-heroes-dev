@@ -89,7 +89,7 @@ Starting Abilities:
     A: Special
     AlignOnWebsite: Left
     Effect: |
-      Instead of one, pick ^two^ Level 1 Talents and ^two^ Utility Talents.
+      You may have one additional Minor Talent and one additional Utility Talent.
 
 
 Ability Choices:
@@ -312,7 +312,7 @@ Specs:
         Effect: At Levels 3 through 9, pick ^two^ Talents instead of one.
 
     Talents:
-      Level 2:
+      Level 2 - Keystone Talent:
 
         <Pyromancy>:
           _Value: 1.5
@@ -351,7 +351,7 @@ Specs:
         #   Notes: |
         #     {DiceUpgrade}
 
-      Level 3:
+      Level 3 - Minor Talent:
 
         ~Countermagic~:
             A: Reaction
@@ -411,7 +411,7 @@ Specs:
                   IconName: Shock Enchantment
 
 
-      Level 4:
+      Level 4 - Minor Talent:
       
         <Abjuration>:
           _Value: 2 or more
@@ -458,7 +458,7 @@ Specs:
             {Diamond} Double its range
             You can spend 1 {Mana}Mana to cast this ignoring its Cooldown.
 
-      Level 6:
+      Level 6 - Utility Talent:
 
         ~Levitate~ :
             A: 1 Action
@@ -489,7 +489,7 @@ Specs:
                 You can also program this illusion to react on its own in a specific way to specific triggers, but the instructions must be concise - talk with your QM about this.
 
 
-      Level 7:
+      Level 7 - Keystone Talent:
 
         <Grand Wizardry>:
           _Value: 2.5
@@ -518,7 +518,7 @@ Specs:
             You can breathe underwater and fly at normal Speed.
           Notes: You can't end your turn inside an obstacle, and you can't move through walls, ceilings and floors.
 
-      Level 9:
+      Level 9 - Keystone Talent:
 
         <Chronomancy>:  # ~3 or more
           A: 0 Actions
@@ -537,7 +537,7 @@ Specs:
             That area become frozen in time - Units skip their turns and can't be damaged or affected by anything.
             Any object that touches the area becomes frozen, too (and, if it is a missile, resumes its trajectory when the area ends).
 
-      Level 10:
+      Level 10 - Ultimate Talent:
 
         <Hermeticism>:
           A: Passive
@@ -579,25 +579,28 @@ Specs:
         HasMixins: true
         Effect: |
           At the start of your every Turn in a Worthy Combat, roll 1d10.
-          If you roll 10, your first Spell this Turn has its ^Dice Upgraded^ to the next die tier.
+          If you roll 1, you take 1d6 True Damage.
+          If you roll 10, your next Spell this Turn has its ^Dice Upgraded^ to the next die tier.
         Notes: |
           {DiceUpgrade}
 
       ~Overcharge~:
         A: 0 Actions
         Cooldown: Once / Turn
-        Effect: Roll an Unstable Spark die. If you roll 1, you take 4 True Damage.
-        Upgrade: Requires you to be in a Worthy Combat.
+        Requirement: Only usable in Worthy Combat
+        Effect: Roll an Unstable Spark die.
+
 
       
     Talents:
-      Level 2:
+      Level 2 - Keystone Talent:
 
         <Guiled Casting>:
           A: Passive
           AlignOnWebsite: Left
           Effect: |
-            When you roll 2 on the Unstable Spark die, one random Damage Type you deal increases by 1 _forever_.
+            When you roll 1 on the Unstable Spark die, after taking the Damage, you deal +1 Damage of a random Damage Type _permanently_ as long as you have this Talent.
+          Notes: 1. Fire, 2. Cold, 3. Shock, 4. Pulse, 5. Poison, 6. Acid, 7. Divine, 8. Scourge.
 
         <Sap>:
           _Value: 1
@@ -605,7 +608,7 @@ Specs:
           Range: 10 meters
           AlignOnWebsite: Left
           Effect: |
-            A Unit must succeed a Charisma Check against your last rolled Unstable Spark die or be Blinded, Silenced or Rooted (your choice).
+            A Unit must make a Charisma Roll at least equal to your last rolled Unstable Spark die or be Blinded, Silenced or Rooted (your choice).
           Notes: What are you doing, just pick Wild Casting.
 
         <Mild Casting>:
@@ -676,7 +679,7 @@ Specs:
             - Name: 20. Resurrection
               Effect: 1 to 3 dead or Fallen Units come back to life (without Exhaustion) with 1 to full Health.
 
-      Level 3:
+      Level 3 - Minor Talent:
 
         <Arcano Mantissa>:
           _Value: 2 (No fucking idea lol)
@@ -718,12 +721,12 @@ Specs:
                 You can declare fewer targets, but then the missing number will deal Damage to no target.
                 Cover is applied normally.
 
-      Level 5:
+      Level 5 - Keystone Talent:
 
         ~Crocodile~:
           Effect: None
 
-      Level 6:
+      Level 6 - Utility Talent:
 
         ~Reverse Gravity~:
             A: 1 Action
@@ -752,7 +755,7 @@ Specs:
             Notes: You can remove the binding of a place at will, from any distance.
 
 
-      Level 7:
+      Level 7 - Keystone Talent:
 
         <Great Sorcery>:
           _Value: 2.5
@@ -765,7 +768,7 @@ Specs:
           A: Passive
           Effect: When you roll 6, 7 or 8 on the Unstable Spark die, immediately Zap the closest Unit to you for ^your Intelligence^ Shock Damage.
 
-      Level 9:
+      Level 9 - Keystone Talent:
 
         <Chronomancy>:  # ~3 or more
           A: 0 Actions
@@ -779,10 +782,9 @@ Specs:
           A: Passive
           HasMixins: true
           Effect: |
-            You roll 2d10 now instead of just 1d10 for Unstable Spark. Apply effects for both.
-            If both are 10, your first Spell this turn become affected by Unstable Spark ^Dice Upgrade^ 3 times.
+            Whenever you would roll an Unstable Spark die, roll 2 instead of one. Apply effects for both.
 
-      Level 10:
+      Level 10 - Ultimate Talent:
         <Grand Sorcery>:
           A: Passive
           Effect: |
@@ -804,7 +806,7 @@ Specs:
         <Draconianism>:
           A: Passive
           Effect: |
-            Your natural form changes to that of a large, winged dragon. Your base Maximum Mana increases by 150% and your base Max Health by 50%. You can fly at your normal Speed.
+            Your natural form changes to that of a large, winged dragon. Your base Maximum Mana increases by 10 and your base Max Health by 50%. You can fly at your normal Speed.
             You must choose what color you are as a dragon. As your breath attack, you can cast any Basic Ability that deals Damage and doesn't cost Mana, and it also hits all Units within 2 meters of the main target. You also take -50% Damage from the Damage Type of your chosen Ability.
           Upgrade: You can transform into your person-self at will, but, to you, your dragon form is more comfortable.
           HasMixins: true
@@ -863,7 +865,7 @@ Specs:
 
     Talents:
 
-      Level 2:
+      Level 2 - Keystone Talent:
 
         ~Create Device~:    # 0?
           A: Passive
@@ -904,7 +906,7 @@ Specs:
             The Magic Weapon is automatically destroyed after 24 hours.
 
 
-      Level 3:
+      Level 3 - Minor Talent:
       
         <Create Ammo>:
           A: Half-Action
@@ -923,7 +925,7 @@ Specs:
         
         <Spellcraft>: Inherit from Wizard
 
-      Level 5:
+      Level 5 - Keystone Talent:
         
         <Create Golem>:            # 2, but it costs 1 Charge so #1 first time, then #0; However, golems can be quite strong, so I hope it evens out
             _Value: 2
@@ -965,7 +967,7 @@ Specs:
                 {Diamond} The grenade explodes at the start of your next turn and deals Fire Damage equal to 4d6 + your Intelligence or Charisma (whichever is higher).
             Notes: Alternatively, you create the Grenade and give it to an ally to use. If you do this, only one Grenade can be thrown during a combat. A second grenade has no effect (since it's magical by nature and draws from your magic power).
 
-      Level 6:
+      Level 6 - Utility Talent:
 
         ~Transmute Rock~:
             A: 1 Action
@@ -991,7 +993,7 @@ Specs:
                 The object disappears after 1 hour (24 hours at Level 8).
 
 
-      Level 7:
+      Level 7 - Keystone Talent:
                 
         <Create Magic Armor>:
           _Value: 3
@@ -1020,7 +1022,7 @@ Specs:
           AlignOnWebsite: Left
           Effect: You can use Create Device 4 times per Adventure.
 
-      Level 9:
+      Level 9 - Keystone Talent:
 
         <Create Replica>:   # 3?
           A: 10 minutes
@@ -1038,7 +1040,7 @@ Specs:
             You augment your body using chemical, mechanical or magical procedures.
             Your Might, Dexterity and Sense increase by 2, your Health by 10
 
-      Level 10:
+      Level 10 - Ultimate Talent:
 
         <Transfiguration>:
           A: Passive

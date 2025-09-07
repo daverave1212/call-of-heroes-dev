@@ -551,40 +551,17 @@ export function Spec({ children, name, specObj, hasNoMargins }) {
 
 export function SpecTalents({ spec, selectedSpellNames, setSelectedSpellNames, onSpellClick }) {
 
-    const talentTiers = [2,3,4,5,6,7,8,9,10]
-    const defaultSmallBonusTalentsByTier = {
-        4: ['<Stat Bonus 4>', '<Double Stat Bonus>'],
-        6: ['<Stat Bonus 4>', '<Double Stat Bonus>'],
-        8: ['<Stat Bonus 5>', '<Mana Bonus>']
-    }
+    const talentTitles = Object.keys(spec.Talents)
 
     return (
         <div>
             <QGTitle1 text={'Talents'} height={40}/>
-            <p>At each of the following levels, you can pick one of the Abilities listed.</p>
+            <p>Every Level, you can pick 1 Talent from that Level's available Talents. There are Minor Talents, Major Talents and Utility Talents.</p>
 
-            {talentTiers.map(talentTier => {
-                const talentTierName = 'Level ' + talentTier
-                const hasThisTier = spec.Talents[talentTierName] != null
-                const isTalentTierForSmallBonuses = false // [4,6,8].includes(talentTier)
-                
-                if (hasThisTier == false && isTalentTierForSmallBonuses) {
-                    const abilitiesHereNames = defaultSmallBonusTalentsByTier[talentTier]
-                    const abilitiesHere = abilitiesHereNames.map(name => U.spellWithName(name, classAndRaceAbilities[name]))
-                    return <div>
-                        <PageH3>{talentTierName}</PageH3>
-                        <ManySpells spells={abilitiesHere} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames} onSpellClick={onSpellClick}/>
-                    </div>
-                }
-                if (hasThisTier == false) {
-                    return <div key={talentTierName}>
-                        <PageH3>{talentTierName}</PageH3>
-                    </div>
-                }
-
-                const spellsInThisTier = U.spellsFromObject(spec.Talents[talentTierName])
-                return <div key={talentTierName}>
-                    <PageH3>{talentTierName}</PageH3>
+            { talentTitles.map(talentTitle => {
+                const spellsInThisTier = U.spellsFromObject(spec.Talents[talentTitle])
+                return <div key={talentTitle}>
+                    <PageH3>{talentTitle}</PageH3>
                     <ManySpells spells={spellsInThisTier} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames} onSpellClick={onSpellClick}/>
                 </div>
             })}
@@ -860,7 +837,7 @@ export function ClassPageV2({
 
                 { theClass['Ability Choices'] != null && (
                     <div>
-                        <PageH2>Level 1 Talent</PageH2>
+                        <PageH2>Level 1 - Minor Talent</PageH2>
                         <ManySpells
                             spells={theClass['Ability Choices']}
                             description={theClass['Ability Choices Description']}
@@ -871,7 +848,7 @@ export function ClassPageV2({
 
                 { theClass['Utility'] != null && (
                     <div>
-                        <PageH2>Utility Talent</PageH2>
+                        <PageH2>Level 1 - Utility Talent</PageH2>
                         <ManySpells
                             spells={theClass['Utility']}
                             description={theClass['Utility Description']}

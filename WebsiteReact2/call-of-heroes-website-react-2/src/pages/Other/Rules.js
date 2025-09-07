@@ -74,6 +74,7 @@ export default function Rules({}) {
 
     return (
         <Page title="Questguard Rules">
+            <p style={{fontSize: '1.5em'}}>Hit <span className='keyboard-key'>CTRL</span> + <span className='keyboard-key'>F</span> to search for your rule!</p>
             <div className='rules-box'>
                 <ThreeColumns>
                     <Column>

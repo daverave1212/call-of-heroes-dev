@@ -67,6 +67,11 @@ const ACTION_POINTS_MAPPING2 = {
             - +3 Range on all ranged Acts
             - Eagle
             - +5 Initiative
+    SingleTable:
+        - Bear
+        - Fox
+        - Ferret
+        - Narwhal
 */
 
 export function SpellTopStats({className, tags, keywords}) {
@@ -269,6 +274,7 @@ export default function Spell({
         
         DoubleTableNumbered,
         DoubleTable,
+        SingleTable,
         Variants,
         VariantsForEach,
         Monster,
@@ -295,6 +301,7 @@ export default function Spell({
     }
 
     if (Name.startsWith('~')) Name = Name.substring(1, Name.length - 1)
+
 
     let iconPath =
         CustomIconPath != null?
@@ -382,7 +389,6 @@ export default function Spell({
     }
 
 
-
     function onIconClick() {
         if (hasVariants !== true)
             return
@@ -402,7 +408,7 @@ export default function Spell({
             { 'spell__no-border': hasBorder == false }
         )}>
             { isSelected && <Ribbon>Selected!</Ribbon>}
-            { hasBorder != false && <SpellBorder/> } 
+            {/* { hasBorder != false && <SpellBorder/> }  */}
             <SpellBackground/>
             <div className='spell__box'> {/* This has CSS to be perfectly in the bounds of the borders and banner */}
                 <SpellTop
@@ -484,6 +490,15 @@ export default function Spell({
                         )) }
                     </TableNormal>
                 ) }
+                { SingleTable != null && (
+                    <TableNormal hasBorder={false}>
+                        { SingleTable.map(str => (
+                            <tr key={str}>
+                                <td style={{textAlign: 'left', paddingLeft: '0.75rem'}}>{str}</td>
+                            </tr>
+                        )) }
+                    </TableNormal>
+                )}
                 { (Subspells != null) && spellsFromObject(Subspells).map(spell => (
                     <div style={{paddingBottom: 'var(--spell-padding-bottom)'}}>
                         <Spell spell={spell} hasBorder={false}/>

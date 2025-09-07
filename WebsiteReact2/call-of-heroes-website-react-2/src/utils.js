@@ -925,7 +925,7 @@ export function parseTextWithSymbols(text, customSymbols, options = {}) {
         'Range': () => (<Icon name="Range"/>),
         'Cooldown': () => (<Icon name="Cooldown"/>),
         'Duration': () => (<Icon name="Duration"/>),
-        'Duration': () => (<Icon name="Duration"/>),
+        'Requirement': () => (<Icon name="Requirement"/>),
         'Level': () => (<Icon name="Level"/>),
         'Combo': () => (<span style={{color: 'var(--blue-color)'}}>Combo:</span>),
         
@@ -942,6 +942,9 @@ export function parseTextWithSymbols(text, customSymbols, options = {}) {
         },
         'Orange': function(args) {
             return (<span style={{color: '#FF5500'}}>{args[0]}</span>)
+        },
+        'Purple': function(args) {
+            return (<span style={{color: '#6f00ffff'}}>{args[0]}</span>)
         },
         'Color': function(args) {
             return `<span style="color: ${args[0]}">${args[1]}</span>`
@@ -1006,11 +1009,11 @@ export function parseTextWithSymbols(text, customSymbols, options = {}) {
                 if (char == '}') {
                     const symbol = text.substring(symbolStart + 1, i)
                     if (symbolToInsertion[symbol] == null) {
-                        throw `ERROR: Symbol ${symbol} not found for parsing.`
+                        throw `ERROR: Symbol {${symbol}} not found for parsing: "${text}"`
                     }
                     if (typeof(symbolToInsertion[symbol]) != 'function') {
                         console.log(symbolToInsertion[symbol])
-                        throw `ERROR: Symbol ${symbol} not a function. Value above.`
+                        throw `ERROR: Symbol ${symbol} not a function. Value above: "${text}"`
                     }
                     textParts.push(symbolToInsertion[symbol]())    // Push current symbol
                     currentTextPartStart = i + 1

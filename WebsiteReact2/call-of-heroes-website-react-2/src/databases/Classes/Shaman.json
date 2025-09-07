@@ -88,31 +88,31 @@
             "A": "0 Actions",
             "Cooldown": "Once / Combat",
             "AlignOnWebsite": "Right",
+            "Requirement": "Level 3",
             "Range": "5 meters",
             "HasMixins": true,
             "Effect": "Dispell all ongoing _non-chronic_ magical effects on a Unit (any magical Crowd Control, magical buffs and debuffs, etc).",
             "Notes": "Chronic effects are ones that last days, months or are permanent, such as curses, vampirism, etc."
         },
-        "~Shadow Clone~": {
+        "~Disenchantment~": {
+            "HasMixins": true,
+            "A": "1 minute",
+            "Range": "12 meters",
+            "Duration": "8 hours (24 hours at level 4, 1 week at level 8)",
+            "Cooldown": "8 hours",
+            "Requirement": "Level 3",
+            "Degree": "Lesser",
+            "Effect": "A person makes a Sense Check.\nIf it fails, it becomes afflicted with a minor (usually non-combat) curse, such as:\n{Diamond} Its Initiative is halved (or its Initiative bonus)\n{Diamond} The target can't properly tie knots, sew, use keys or pick locks, etc\n{Diamond} The target appears less attractive (its Charisma Checks have -3)\n{Diamond} Gains runny nose, eyes and sweats more\n{Diamond} Stumbles randomly\n",
+            "Notes": "A Unit can't be affected by the same Disenchantment effect multiple times.\n"
+        },
+        "~Fairy Fire~": {
             "A": "0 Actions",
             "Cost": "1 Mana",
-            "Range": "10 meters",
+            "Range": "10 meters to edge",
             "Duration": "10 minutes",
-            "Requirement": "Level 5",
-            "Degree": "Major",
-            "Effect": "You create an illusion of yourself at a target location.\nThe illusion has 1 Health and 1 Defense and it fails all Checks.\nYou can control what the illusion does at will.\nIf the illusion goes more than 10 meters away from you, it disappears and the spell is cancelled.\n",
-            "Upgrade": "At Level 7, the cast range and illusion range become 15 meters and the sound of your voice can come through the illusion's mouth instead of yours. At Level 5 - 25 meters. At Level 7 you can choose to see through the illusion's eyes at any point.",
-            "Notes": "You need maintain line of sight to the clone to keep it working."
-        },
-        "~Compel~": {
-            "A": "0 Actions",
-            "Range": "5 meters",
             "Degree": "Minor",
-            "Duration": "Lasts until they can't see/hear you",
-            "Cooldown": "1 real hour",
-            "Tags": "Roleplaying",
-            "Effect": "Choose a Unit you can see. You have +1d2 to Soul Rolls against it.\n",
-            "Notes": "The target can't tell it was affected unless it knows about this type of magic."
+            "Effect": "Declare a 4x4x4 meter area.\nAll Units in that area become outlined in a colored glow (you choose the color). They can't benefit from Cover, turn invisible and their Surprise bonus/minus is cancelled.\n",
+            "Notes": "The Units glow even through walls, but the denser the walls, the less they appear to glow.\nA 1-meter (thickness) of concrete wall completely blocks the glow.\nThis is not considered Crowd Control.\n"
         }
     },
     "Specializations": {
@@ -148,7 +148,7 @@
                 }
             },
             "Talents": {
-                "Level 3": {
+                "Level 3 - Keystone Talent": {
                     "<Primal Trophy>": {
                         "_Value": 1.25,
                         "A": "Passive",
@@ -186,7 +186,7 @@
                         }
                     }
                 },
-                "Level 5": {
+                "Level 5 - Keystone Talent": {
                     "<Earthshattering Wave>": {
                         "_Value": 2,
                         "A": "0.5 Actions",
@@ -207,7 +207,27 @@
                         "Effect": "Your Max Health is further increased by 8.\nEvery Adventure, you add another tattoo and increase it by 1.\nEvery 3 new tattoos, gain +1 in any Resist Check of choice.\n"
                     }
                 },
-                "Level 7": {
+                "Level 6 - Utility Talent": {
+                    "~Freeze Water~": {
+                        "A": "1 Action",
+                        "Range": "10 meters",
+                        "Cooldown": "Intelligence uses / Adventure",
+                        "HasMixins": true,
+                        "Degree": "Minor",
+                        "Effect": "Choose a number of 1x1x1 cubes containing water equal to your Level.\nThe water there freezes.\nIf a Unit is caught in the water, roll an Intelligence Roll at least equal to its Dexterity Roll to make it Double-Stunned. If you fail, it is expelled to a nearby space near the frozen water (it chooses, within reason).\n",
+                        "Notes": "{Rooted}\n",
+                        "Tag": "Utility"
+                    },
+                    "~Inhumane Climbing~": {
+                        "A": "0 Actions",
+                        "Cooldown": "Once / real hour",
+                        "Duration": "10 minutes",
+                        "Degree": "Minor",
+                        "Effect": "For 10 minutes, you can climb and walk on any surface except glass and straight metal.\n",
+                        "Upgrade": "Alternatively, you can spend 1 Mana to cast this ignoring the Cooldown."
+                    }
+                },
+                "Level 7 - Keystone Talent": {
                     "<Jotunn>": {
                         "_Value": 3,
                         "A": "0 Actions",
@@ -229,7 +249,7 @@
                         "Notes": "When Bloodlust _echoes_, the baseline attack (with the Bloodlust Damage included) echoes as well.\nWhen Ruining Shout _echoes_, it can hit all the same targets.\n"
                     }
                 },
-                "Level 9": {
+                "Level 9 - Keystone Talent": {
                     "<Echoing Self>": {
                         "_Value": 1.5,
                         "A": "Half-Action",
@@ -262,7 +282,7 @@
                 }
             },
             "Talents": {
-                "Level 3": {
+                "Level 3 - Keystone Talent": {
                     "<Spirit Animal>": {
                         "_Value": 1.5,
                         "A": "Passive",
@@ -302,7 +322,7 @@
                         "Notes": "A Sleeping Unit wakes up if it takes Damage or other Crowd Control."
                     }
                 },
-                "Level 5": {
+                "Level 5 - Keystone Talent": {
                     "<Enlightening Ritual>": {
                         "_Value": 3,
                         "A": "1 hour",
@@ -344,7 +364,23 @@
                         "Notes": "If both are Damaged/Healed at the same time, this only applies once and you choose which takes the Damage/Healing of the other.\nThe extra Damage of Smites, Ambush, etc over an attack counts as the same Damage source.\n"
                     }
                 },
-                "Level 7": {
+                "Level 6 - Utility Talent": {
+                    "~Sending~": {
+                        "A": "1 Action",
+                        "Effect": "Send a message no longer than 5 seconds long to an ally, wherever it is. It can include images, sounds and smells. That ally knows they received a message from you.\n",
+                        "Upgrade": "Requires you to be holding something physical from that ally, such as a piece of clothing, an object, a strand of hair, etc.",
+                        "Notes": "Sending might be impeded if sent to another plane/world.\n"
+                    },
+                    "~Telekinesis~": {
+                        "A": "0 Actions",
+                        "Cooldown": "Once / real hour",
+                        "Range": "10 meters",
+                        "Degree": "Minor",
+                        "Effect": "For the next 1 minute, while channeling, you can manipulate objects 10 meters away from you as if used by your own hand.\nYou can also zoom in on your vision, hearing and smelling up to 10 meters away.\n",
+                        "Upgrade": "Taking Damage ends the Spell."
+                    }
+                },
+                "Level 7 - Keystone Talent": {
                     "<Forced Echoes>": {
                         "_Value": 3,
                         "A": "Passive",
@@ -370,7 +406,7 @@
                         }
                     }
                 },
-                "Level 9": {
+                "Level 9 - Keystone Talent": {
                     "<Realm Walk>": {
                         "A": "Passive",
                         "Effect": "TBD"
@@ -396,7 +432,7 @@
                 }
             },
             "Talents": {
-                "Level 3": {
+                "Level 3 - Keystone Talent": {
                     "<Voodoo Magic>": {
                         "_Value": 1.25,
                         "A": "1 Action",
@@ -442,7 +478,7 @@
                         "Effect": "Declare a square area with a diameter equal to the Health spent.\nSharp bones grow from the area (occupying 1x1 meters each).\nWhen a Unit steps on a Sharp Bone, it directly takes 1d8 Pierce Damage and loses 1 meter of its remaining speed.\nThe bone then shatters.\n"
                     }
                 },
-                "Level 5": {
+                "Level 5 - Keystone Talent": {
                     "<Dead Hands>": {
                         "_Value": 1.5,
                         "A": "Half-Action",
@@ -484,7 +520,24 @@
                         "Notes": "Applies to added extra Damage if it's the same type as the base Damage (e.g. Advanced Flank works, but not Smites)."
                     }
                 },
-                "Level 7": {
+                "Level 6 - Utility Talent": {
+                    "~Spectral Hand~": {
+                        "A": "Passive",
+                        "Range": "5 meters",
+                        "Degree": "Minor",
+                        "Effect": "You have a spectral, ghostly hand that levitates around you within 5 meters and is invisible when resting.\nYou can manipulate and move the hand as you do your own, spending Action Points or Movement.\nThe hand can't attack, but it can cast Spells as if from your own hand.\n",
+                        "Notes": "The hand can't deal Damage or go more than 5 meters away from you.\nThe hand can't lift objects weighing more than 10kg.\nMoving the hand spends Actions as if you made moved your own hand.\nOnce / turn, you can summon or vanish the hand for 0 Actions if it's effect is still active, in a space next to you.\n"
+                    },
+                    "~Grow or Shrink~": {
+                        "A": "0 Actions",
+                        "Cost": "1 Mana",
+                        "Cooldown": "Once / Turn",
+                        "Degree": "Minor",
+                        "Effect": "A Unit or object you can see becomes one Size larger/smaller for its next 1d4 turns.\nIt gains or loses 1 Deense, gains or loses 1 Damage on all physical Acts (that would deal Damage) and gains or loses 1 Movement Speed.\nCan stack multiple times.\n",
+                        "Notes": "Sizes are Minuscule, Small, Medium, Large, and Larger.\nA larger Unit becomes 1 meter larger/smaller in both directions.\nIt's number of spaces occupied also changes with this.\n"
+                    }
+                },
+                "Level 7 - Keystone Talent": {
                     "<Forced Echoes>": {
                         "_Value": 3,
                         "A": "Passive",

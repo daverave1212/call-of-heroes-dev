@@ -73,8 +73,7 @@
         "~Adept Spellcaster~": {
             "A": "Special",
             "AlignOnWebsite": "Left",
-            "Effect": "Instead of one, pick ^two^ Level 1 Talents and ^two^ Utility Talents.\n",
-            "HasMixins": true
+            "Effect": "You may have one additional Minor Talent and one additional Utility Talent.\n"
         }
     },
     "Ability Choices": {
@@ -243,7 +242,7 @@
                 }
             },
             "Talents": {
-                "Level 2": {
+                "Level 2 - Keystone Talent": {
                     "<Pyromancy>": {
                         "_Value": 1.5,
                         "A": "Passive",
@@ -267,7 +266,7 @@
                         "Notes": "Hard Terrain does not count as Crowd Control. Pushing counts as Crowd Control."
                     }
                 },
-                "Level 3": {
+                "Level 3 - Minor Talent": {
                     "~Countermagic~": {
                         "A": "Reaction",
                         "Cooldown": "Once / Round",
@@ -322,7 +321,7 @@
                         "HasMixins": true
                     }
                 },
-                "Level 4": {
+                "Level 4 - Minor Talent": {
                     "<Abjuration>": {
                         "_Value": "2 or more",
                         "A": "Reaction",
@@ -352,19 +351,26 @@
                         "Effect": "When you cast a spell, you can apply this any of the following effects to it:\n{Diamond} For every 2 dice in its Damage, roll 1 more\n{Diamond} Increase it or decrease its Area by 50% (if AoE)\n{Diamond} Change its Damage type to any type\n{Diamond} Increase its Stunning by 1 tier\n{Diamond} Double its range\nYou can spend 1 {Mana}Mana to cast this ignoring its Cooldown.\n"
                     }
                 },
-                "Level 6": {
-                    "<Stat Bonus 4>": {
-                        "IsIgnored": true,
-                        "Manual Extras": [
-                            "+1 in a Stat of choice (up to +4)"
-                        ],
-                        "Effect": "Gain +1 in a Stat of choice, up to +4."
+                "Level 6 - Utility Talent": {
+                    "~Levitate~": {
+                        "A": "1 Action",
+                        "Cost": "1 Mana",
+                        "Degree": "Major",
+                        "Range": "10 meters",
+                        "Effect": "First, roll 2d100. That's how many kilograms you can levitate when you cast this.\nLevitate one object or Unit you can see and move it as you like as long as it is and remains within 10 meters of you.\nOn each of your Turns, you can spend 1 Action to keep the Object levitated or move it again. Otherwise, it falls slowly and the Spell ends.\n",
+                        "Upgrade": "A levitated Unit is Rooted.\nAt Level 8, the amount increases to 5d100.\n",
+                        "Notes": "Lasts until you don't spend 1 Action, or you become at least Single-Stunned."
                     },
-                    "<Minor Mana Bonus>": {
-                        "Effect": "Gain +1 Maximum Mana."
+                    "~Major Illusion~": {
+                        "A": "1 Action",
+                        "Cost": "1 Mana",
+                        "Range": "10 meters",
+                        "Degree": "Major",
+                        "Effect": "You create an illusion that fits at most in a 3x3x3 meter area.\nThe illusion appears real to the eyes, ears and by smell, but physical interaction makes it obvious it's an illusion and objects pass through it normally.\nThe illusion can deal no Damage or Crowd Control, but can provide Cover or block Line of Sight (both from the front, and from behind).\nOn your Turn, you can spend 1 Action to keep and/or move the illusion, otherwise the Spell ends.\n",
+                        "Upgrade": "At Level 8, the illusion lasts indefinitely until you cancel it without needing to spend Actions, and it can hold its own simple movement and clockwork-like routines.\nYou can also program this illusion to react on its own in a specific way to specific triggers, but the instructions must be concise - talk with your QM about this.\n"
                     }
                 },
-                "Level 7": {
+                "Level 7 - Keystone Talent": {
                     "<Grand Wizardry>": {
                         "_Value": 2.5,
                         "A": "Passive",
@@ -387,7 +393,7 @@
                         "Notes": "You can't end your turn inside an obstacle, and you can't move through walls, ceilings and floors."
                     }
                 },
-                "Level 9": {
+                "Level 9 - Keystone Talent": {
                     "<Chronomancy>": {
                         "A": "0 Actions",
                         "Cost": "1 Mana",
@@ -401,7 +407,7 @@
                         "Effect": "Choose a 5x5x5 meter cube.\nThat area become frozen in time - Units skip their turns and can't be damaged or affected by anything.\nAny object that touches the area becomes frozen, too (and, if it is a missile, resumes its trajectory when the area ends).\n"
                     }
                 },
-                "Level 10": {
+                "Level 10 - Ultimate Talent": {
                     "<Hermeticism>": {
                         "A": "Passive",
                         "Effect": "You know all Basic Spells and they all cost 1 less Mana to cast. If they cost 0 Mana, they instead restore 1 Mana if used in Combat.\nYou may create your own _homebrew_ Spells as per the rules of _QM Resources, Homebrewing Abilities_.\nYou can use Restricted Abilities even if restricted in your current adventures.\n",
@@ -426,22 +432,23 @@
                     "_Value": 1.5,
                     "A": "Passive",
                     "HasMixins": true,
-                    "Effect": "At the start of your every Turn in a Worthy Combat, roll 1d10.\nIf you roll 10, your first Spell this Turn has its ^Dice Upgraded^ to the next die tier.\n",
+                    "Effect": "At the start of your every Turn in a Worthy Combat, roll 1d10.\nIf you roll 1, you take 1d6 True Damage.\nIf you roll 10, your next Spell this Turn has its ^Dice Upgraded^ to the next die tier.\n",
                     "Notes": "{DiceUpgrade}\n"
                 },
                 "~Overcharge~": {
                     "A": "0 Actions",
                     "Cooldown": "Once / Turn",
-                    "Effect": "Roll an Unstable Spark die. If you roll 1, you take 4 True Damage.",
-                    "Upgrade": "Requires you to be in a Worthy Combat."
+                    "Requirement": "Only usable in Worthy Combat",
+                    "Effect": "Roll an Unstable Spark die."
                 }
             },
             "Talents": {
-                "Level 2": {
+                "Level 2 - Keystone Talent": {
                     "<Guiled Casting>": {
                         "A": "Passive",
                         "AlignOnWebsite": "Left",
-                        "Effect": "When you roll 2 on the Unstable Spark die, one random Damage Type you deal increases by 1 _forever_.\n",
+                        "Effect": "When you roll 1 on the Unstable Spark die, after taking the Damage, you deal +1 Damage of a random Damage Type _permanently_ as long as you have this Talent.\n",
+                        "Notes": "1. Fire, 2. Cold, 3. Shock, 4. Pulse, 5. Poison, 6. Acid, 7. Divine, 8. Scourge.",
                         "HasMixins": true
                     },
                     "<Sap>": {
@@ -449,7 +456,7 @@
                         "A": "Half-Action",
                         "Range": "10 meters",
                         "AlignOnWebsite": "Left",
-                        "Effect": "A Unit must succeed a Charisma Check against your last rolled Unstable Spark die or be Blinded, Silenced or Rooted (your choice).\n",
+                        "Effect": "A Unit must make a Charisma Roll at least equal to your last rolled Unstable Spark die or be Blinded, Silenced or Rooted (your choice).\n",
                         "Notes": "What are you doing, just pick Wild Casting."
                     },
                     "<Mild Casting>": {
@@ -553,7 +560,7 @@
                         ]
                     }
                 },
-                "Level 3": {
+                "Level 3 - Minor Talent": {
                     "<Arcano Mantissa>": {
                         "_Value": "2 (No fucking idea lol)",
                         "A": "Passive",
@@ -584,20 +591,31 @@
                         "Notes": "E.g. if you put #2 on a goblin, and you roll three 2's on the d4's, then that goblin takes 6 Pulse Damage.\nYou should probably assign the higher number to the target you want to do most Damage to.\nYou can declare fewer targets, but then the missing number will deal Damage to no target.\nCover is applied normally.\n"
                     }
                 },
-                "Level 5": null,
-                "Level 6": {
-                    "<Stat Bonus 4>": {
-                        "IsIgnored": true,
-                        "Manual Extras": [
-                            "+1 in a Stat of choice (up to +4)"
-                        ],
-                        "Effect": "Gain +1 in a Stat of choice, up to +4."
-                    },
-                    "<Minor Mana Bonus>": {
-                        "Effect": "Gain +1 Maximum Mana."
+                "Level 5 - Keystone Talent": {
+                    "~Crocodile~": {
+                        "Effect": "None"
                     }
                 },
-                "Level 7": {
+                "Level 6 - Utility Talent": {
+                    "~Reverse Gravity~": {
+                        "A": "1 Action",
+                        "Cost": "3 Mana",
+                        "Range": "10 meters to edge",
+                        "Degree": "Grand",
+                        "Effect": "Declare an area with a diameter in meters (in all directions) equal to your Level.\nThe gravity becomes reversed in that area and all Units instantly fall upwards. Units can make a Dexterity Check to grab onto an object to not be lifted.\nUnits suffer fall Damage if they fall onto a ceiling.\nWhen the effect ends, all Units fall at half velocity (and take half of the fall Damage). The same happens to a Unit if it exits the area.\nLasts for up to 1 minute. You can cancel this effect at will.\n",
+                        "Notes": "Fall Damage is 1d6 for every 2 meters fallen (e.g. 1d6 for 2 and 3 meters, 2d6 for 4 and 5 meters, etc).\n"
+                    },
+                    "~Hearth Recall~": {
+                        "A": "10 minutes",
+                        "Cost": "2 mana",
+                        "Degree": "Major",
+                        "Range": "Up to Intelligence * 100 kilometers",
+                        "Effect": "You can spend 10 minutes in a place to Bind to it.\nWhen you use this Ability, channel for 10 minutes to teleport up to 1d6 Allies (and yourself) within 10 meters of you to the bound place.\nYou can only have 1 bound place at a time.\n",
+                        "EffectRed": "You can teleport more Allies than the rolled die, but the teleportation will have strange side effects or consequences.",
+                        "Notes": "You can remove the binding of a place at will, from any distance."
+                    }
+                },
+                "Level 7 - Keystone Talent": {
                     "<Great Sorcery>": {
                         "_Value": 2.5,
                         "A": "Passive",
@@ -610,7 +628,7 @@
                         "HasMixins": true
                     }
                 },
-                "Level 9": {
+                "Level 9 - Keystone Talent": {
                     "<Chronomancy>": {
                         "A": "0 Actions",
                         "Cost": "1 Mana",
@@ -620,10 +638,10 @@
                     "<Double Spark Triple Quark>": {
                         "A": "Passive",
                         "HasMixins": true,
-                        "Effect": "You roll 2d10 now instead of just 1d10 for Unstable Spark. Apply effects for both.\nIf both are 10, your first Spell this turn become affected by Unstable Spark ^Dice Upgrade^ 3 times.\n"
+                        "Effect": "Whenever you would roll an Unstable Spark die, roll 2 instead of one. Apply effects for both.\n"
                     }
                 },
-                "Level 10": {
+                "Level 10 - Ultimate Talent": {
                     "<Grand Sorcery>": {
                         "A": "Passive",
                         "Effect": "Arcane power flows potently through your veins! Whenever you would roll one or more Unstable Spark dice, roll 3 more.\nWhenever you would roll dice for a Spell, all the dice are a baseline d10, no matter what die type it is (can still have ^Dice Upgraded^).\n",
@@ -640,7 +658,7 @@
                     },
                     "<Draconianism>": {
                         "A": "Passive",
-                        "Effect": "Your natural form changes to that of a large, winged dragon. Your base Maximum Mana increases by 150% and your base Max Health by 50%. You can fly at your normal Speed.\nYou must choose what color you are as a dragon. As your breath attack, you can cast any Basic Ability that deals Damage and doesn't cost Mana, and it also hits all Units within 2 meters of the main target. You also take -50% Damage from the Damage Type of your chosen Ability.\n",
+                        "Effect": "Your natural form changes to that of a large, winged dragon. Your base Maximum Mana increases by 10 and your base Max Health by 50%. You can fly at your normal Speed.\nYou must choose what color you are as a dragon. As your breath attack, you can cast any Basic Ability that deals Damage and doesn't cost Mana, and it also hits all Units within 2 meters of the main target. You also take -50% Damage from the Damage Type of your chosen Ability.\n",
                         "Upgrade": "You can transform into your person-self at will, but, to you, your dragon form is more comfortable.",
                         "HasMixins": true,
                         "Downside": "{Ultimate}"
@@ -679,7 +697,7 @@
                 }
             },
             "Talents": {
-                "Level 2": {
+                "Level 2 - Keystone Talent": {
                     "~Create Device~": {
                         "A": "Passive",
                         "Duration": "Whole Adventure",
@@ -703,7 +721,7 @@
                         "Effect": "You create a special magical weapon.\nChoose a type of weapon, and choose 2 of the following effects:\n{Diamond} +1 Damage if it's a One-Handed Weapon (or +2 if it's Two-Handed)\n{Diamond} Damage can freely be converted to Fire/Cold/Shock (choose one)\n{Diamond} +2 meters move speed while wielding it\n{Diamond} Wielder starts combat with 1d6 Shielding\nYou can only have 1 Magic Weapon created at a time.\nThe Magic Weapon is automatically destroyed after 24 hours.\n"
                     }
                 },
-                "Level 3": {
+                "Level 3 - Minor Talent": {
                     "<Create Ammo>": {
                         "A": "Half-Action",
                         "Cooldown": "Once / Combat",
@@ -725,7 +743,7 @@
                         "Effect": "When you cast a spell, you can apply this any of the following effects to it:\n{Diamond} For every 2 dice in its Damage, roll 1 more\n{Diamond} Increase it or decrease its Area by 50% (if AoE)\n{Diamond} Change its Damage type to any type\n{Diamond} Increase its Stunning by 1 tier\n{Diamond} Double its range\nYou can spend 1 {Mana}Mana to cast this ignoring its Cooldown.\n"
                     }
                 },
-                "Level 5": {
+                "Level 5 - Keystone Talent": {
                     "<Create Golem>": {
                         "_Value": 2,
                         "A": "1 Action",
@@ -756,7 +774,24 @@
                         "Notes": "Alternatively, you create the Grenade and give it to an ally to use. If you do this, only one Grenade can be thrown during a combat. A second grenade has no effect (since it's magical by nature and draws from your magic power)."
                     }
                 },
-                "Level 7": {
+                "Level 6 - Utility Talent": {
+                    "~Transmute Rock~": {
+                        "A": "1 Action",
+                        "HasMixins": true,
+                        "Degree": "Major",
+                        "Effect": "Touch a 1x1x1 meter cube of rock, mud, sand, etc.\nTransform it into rock, mud, sand, etc.\nA Unit caught in this effect becomes Rooted.\n",
+                        "Upgrade": "At Level 8, Once / Adventure, you can transmute a piece of metal you can hold in your hand into gold worth up to 400% its original worth in {Gold}Gold.",
+                        "Notes": "{Rooted}\n"
+                    },
+                    "~Conjure Object~": {
+                        "A": "1 Action",
+                        "Cost": "1 Mana",
+                        "Range": "3 meters",
+                        "Degree": "Major",
+                        "Effect": "You can conjure an object that is up to 1x1x1 meter in size.\nThe object is solid and glows faintly.\nYou can't conjure mechanical objects.\nThe object disappears after 1 hour (24 hours at Level 8).\n"
+                    }
+                },
+                "Level 7 - Keystone Talent": {
                     "<Create Magic Armor>": {
                         "_Value": 3,
                         "HasMixins": true,
@@ -779,7 +814,7 @@
                         "Effect": "You can use Create Device 4 times per Adventure."
                     }
                 },
-                "Level 9": {
+                "Level 9 - Keystone Talent": {
                     "<Create Replica>": {
                         "A": "10 minutes",
                         "Cooldown": "Special",
@@ -790,7 +825,7 @@
                         "Effect": "You augment your body using chemical, mechanical or magical procedures.\nYour Might, Dexterity and Sense increase by 2, your Health by 10\n"
                     }
                 },
-                "Level 10": {
+                "Level 10 - Ultimate Talent": {
                     "<Transfiguration>": {
                         "A": "Passive",
                         "Effect": "You replace your body entirely with magical constructs, and transfuse your mind and consciousness into a different part of your new transcendental body, which can be entirely biological or mechanical in nature.\nYour Might and Dexterity increase by 4, your base Defense is 4, and you are Skilled when doing anything with Might, Dexterity or Intelligence.            \nYou no longer age and you are immune to all diseases.\n",

@@ -1,0 +1,72 @@
+
+.drawer-page-wrapper {
+    --width: 100%;
+    
+    --z-black-overlay: calc(var(--z-content) + 1);
+    --z-drawer-page: calc(var(--z-content) + 2);
+}
+
+.drawer-page-wrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+
+    z-index: var(--z-drawer-page) !important;
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    width: 0vw;
+    height: 100vh;
+
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 2px 8px;
+}
+
+.drawer-page-wrapper.open {
+    width: 100vw;
+}
+
+
+
+
+
+.drawer-page {
+    --width: min(300px, 70vw);
+
+    position: absolute;
+
+    width: var(--width);
+    height: 100vh;
+
+    overflow-y: scroll;
+
+    top: 0;
+    right: calc(-1 * var(--width));
+    
+    z-index: var(--z-drawer-page) !important;
+
+    transition: 0.5s;
+    
+    background-color: white;
+}
+.drawer-page.open {
+    right: 0vw !important;
+}
+
+
+
+
+
+
+.drawer-page-black-overlay {
+    height: 100vh;
+    width: 100%;
+
+    background-color: black;
+
+    z-index: var(--z-black-overlay);
+    opacity: 0;
+    transition: 0.5s;
+}
+.drawer-page-black-overlay.open {
+    opacity: 0.5;
+}
