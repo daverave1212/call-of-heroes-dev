@@ -157,6 +157,22 @@ function getLetterHeight(letter, isCapital=false, sizeMultiplier=1) {
 
 
 
+export function QGTitle1__({ text, className, style, hueShift, height=60 }) {
+
+    const h2Style = {
+        fontFamily: 'NewTitleFont',
+        fontSize: `${Math.floor(height * 1.25)}px`,
+        lineHeight: `${Math.floor(height * 1.25)}px`,
+        margin: '0px',
+        paddingTop: '32px',
+        paddingBottom: '16px',
+        filter: (hueShift == null? null: `hue-rotate(${hueShift}deg)`)
+    }
+
+    return <h2 className={"title-text " + className} style={{...h2Style, ...style}}>{text}</h2>
+
+    return <canvas ref={canvasRef} className={`qg-title1 ${className}`}/>
+}
 export function QGTitle1({ text, className, style, hueShift, height=60 }) {
     const canvasRef = useRef(null)
     const newStyle = {
@@ -173,7 +189,7 @@ export function QGTitle1({ text, className, style, hueShift, height=60 }) {
         drawQGTextOnCanvas(canvas, text, sizeMultiplier)
     }, [])
 
-    return <canvas ref={canvasRef} className={`qg-title1 ${className}`}/>
+    return <canvas style={newStyle} ref={canvasRef} className={`qg-title1 ${className}`}/>
 }
 
 

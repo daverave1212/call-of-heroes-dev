@@ -149,6 +149,10 @@ export function SpellTop({
     DisplayName, Name, showTopStats=true,
     A, item, spell
 }) {
+    if (spell == null) {
+        return <div style={{color: 'red'}}>Error</div>
+    }
+
     const obj = item != null? item: spell
     if (hasIcon === false) {
         return (
@@ -245,6 +249,14 @@ export default function Spell({
     buttonText
 }) {
 
+    if (spell == null) {
+        return <div>An error occured :(</div>
+    } else {
+    }
+
+    console.log(`Rendering spell`)
+    console.log({spell})
+
     const [variantIndex, setVariantIndex] = useState(0)
     const [thiefRolledGoldAmount, setThiefRolledGoldAmount] = useState('Click here to roll 1000d100!')
 
@@ -264,6 +276,7 @@ export default function Spell({
         
         HasMixins,
         
+        PreEffectGreen,
         Effect,
         EffectGreen,
         Combo,
@@ -357,7 +370,8 @@ export default function Spell({
             if (Upgrade != null) Upgrade = parseTextWithSymbols(Upgrade, extraMixins)
             if (Notes != null) Notes = parseTextWithSymbols(Notes, extraMixins)
         } catch (e) {
-            throw `Error in Spell ${Name} parsing text: ${e}`
+            console.log({spell})
+            throw `Error in Spell ${Name} parsing text: ${e}. Spell printed above.`
         }
     }
 
@@ -408,15 +422,17 @@ export default function Spell({
             { 'spell__no-border': hasBorder == false }
         )}>
             { isSelected && <Ribbon>Selected!</Ribbon>}
-            {/* { hasBorder != false && <SpellBorder/> }  */}
+            { hasBorder != false && <SpellBorder/> } 
             <SpellBackground/>
             <div className='spell__box'> {/* This has CSS to be perfectly in the bounds of the borders and banner */}
-                <SpellTop
-                    hasVariants={hasVariants} variantIndex={variantIndex} Variants={Variants}
-                    onIconClick={onIconClick} iconPath={iconPath} hasIcon={hasIcon}
-                    DisplayName={DisplayName} Name={Name} showTopStats={showTopStats}
-                    A={A} spell={spell}
-                />
+                { spell != null && (
+                    <SpellTop
+                        hasVariants={hasVariants} variantIndex={variantIndex} Variants={Variants}
+                        onIconClick={onIconClick} iconPath={iconPath} hasIcon={hasIcon}
+                        DisplayName={DisplayName} Name={Name} showTopStats={showTopStats}
+                        A={A} spell={spell}
+                    />
+                )}
                 
                 <Separator hasNoMarginTop={true}/>
                 { Damage == null? null : (
@@ -426,6 +442,9 @@ export default function Spell({
                             'calc(var(--spell-padding-bottom) / 2)'
                     }}><Icon name="Damage"/>{ Damage }</div>
                 )}
+                { PreEffectGreen != null && (
+                    <div className="spell-green" key="PreEffectGreen">{ PreEffectGreen }</div>
+                ) }
                 { Effect != null && (
                     <div className='spell-description'>
                         { Effect }

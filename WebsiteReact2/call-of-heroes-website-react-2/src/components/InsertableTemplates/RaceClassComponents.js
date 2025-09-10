@@ -796,7 +796,8 @@ export function ClassPageV2({
     hasHeader=true,
     selectedSpecName, setSelectedSpecName,
     selectedSpellNames, setSelectedSpellNames,
-    onSpellClick
+    onSpellClick,
+    hueShift
 }) {
 
     console.log({onSpellClick})
@@ -820,7 +821,7 @@ export function ClassPageV2({
             <Page hasNoMargins={hasNoMargins}>
 
                 { hasHeader && (
-                    <RaceHeader theClass={theClass}/>
+                    <RaceHeader theClass={theClass} hueShift={hueShift}/>
                 )}
                                 
                 { theClass.Druidic && (

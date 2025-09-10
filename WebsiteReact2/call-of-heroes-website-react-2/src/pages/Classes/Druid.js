@@ -35,5 +35,5 @@ import { QGTitle1 } from '../Tools/TitleGenerator'
 
 export default function Druid() {
 
-    return <ClassPage theClass={theClass}/>
+    return <ClassPage theClass={theClass} hueShift={140}/>
 }

@@ -747,6 +747,24 @@ export function addObjects(a, b) {
     }
     return finalObject
 }
+export function filterObject(obj, func) {
+    const newKeys = Object.keys(obj).filter(key => func({ key, value: obj[key] }))
+    const newObj = {}
+    for (const key of newKeys) {
+        newObj[key] = obj[key]
+    }
+    return newObj
+}
+export function joinObjectValues(obj, str) {
+   return Object.keys(obj).map(key => obj[key]).join(str)
+}
+export function mergeObjects(a, b) {
+    const newA = {...a}
+    for (const key of Object.keys(b)) {
+        newA[key] = b[key]
+    }
+    return newA
+}
 export function addManyObjects(arr) {
     let finalObject = arr[0]
     for (let i = 1; i < arr.length; i++) { 
@@ -810,6 +828,13 @@ export function splitArrayEvenly(arr, nArrays) {
     }
     return arrays
 }
+export function uniqueElements(arr) {
+    return [...new Set(arr)]
+}
+export function onlyUniqueFilter(value, index, array) {   // Use as .filter(onlyUniqueFilter)
+    return array.indexOf(value) === index;
+}
+
 window.splitArrayEvenly = splitArrayEvenly
 
 
@@ -886,89 +911,146 @@ export function enspanDamageCalculations(text) {
     return phrases
 }
 
-// Returns an array of componentos
+const SYMBOLS = {
+    'Template': { tag: 'Icon', props: {}, text: '🔹', func: () => (<span>A Feared Unit can only do <b>one</b> Act on its turn (e.g. move, make one attack, use one Ability, etc).</span>) },
+    'Template2': {
+        tag: 'Icon',            // Tag to use
+        props: {},              // Tag props
+        text: '🔹',             // Text inside the tag (required even if has func)
+        func: () => (           // If it has a func, everything else will be replaced
+            <span>A Feared Unit can only do <b>one</b> Act on its turn (e.g. move, make one attack, use one Ability, etc).</span>
+        )
+    },
+
+    'Damage': { tag: 'Icon', props: { name: 'Damage' } },
+    'Mana': { tag: 'Icon', props: { name: 'Mana' } },
+    'Diamond': { tag: 'span', text: '🔹', props: { fontSize: '0.8em' } },
+    'Pets and Animals': { tag: 'Link', props: { to: "/Other/PetsAndAnimals" }, text: 'Pets and Animals' },
+    'Offensive Abilities': { tag: 'span', text: "Offensive means that it deals Damage or applies hard Crowd Control (anything better than Slow and creating Hard Terrain)." },
+    'Action': { tag: 'Icon', props: { name: "Hand" } },
+    'Range': { tag: 'Icon', props: { name: "Range" } },
+    'Cooldown': { tag: 'Icon', props: { name: "Cooldown" } },
+    'Duration': { tag: 'Icon', props: { name: "Duration" } },
+    'Requirement': { tag: 'Icon', props: { name: "Requirement" } },
+    'Level': { tag: 'Icon', props: { name: "Level" } },
+    'Gold': { tag: 'Icon', props: { name: "Gold" } },
+    
+    'Feared': { tag: 'span', text: "A Feared Unit can only do one Act on its turn (e.g. move, make one attack, use one Ability, etc)." },
+    'Crippled': { tag: 'span', text: "A Crippled Unit deals -100% Damage." },
+    'Silenced': { tag: 'span', text: "A Silenced Unit can't use Abilities." },
+    'Fumbling': { tag: 'span', text: "A Fumbling Unit's next Act is completely negated (Movement, attack, spell, or anything that requires Actions)." },
+    'Blinded': { tag: 'span', text: "A Blinded Unit has -4 to all rolls." },
+    'Slowed': { tag: 'span', text: "A Slowed Unit has -2 Movement Speed." },
+    'Rooted': { tag: 'span', text: "A Rooted Unit has can't move from its space (but it can attack, cast Spells, etc)." },
+    'Stunned': { tag: 'span', text: "A Stunned Unit skips its turn." },
+    'Cover': { tag: 'span', text: "If a Unit has Cover from you (e.g. is behind an obstacle), everything you do to it gets -2." },
+
+    'DiceUpgrade': { tag: 'span', text: "Having Dice Upgraded means, for example, d6's become d8's, or d10's become d12's. D12's and d20's don't increase." },
+    'DiceUpgraded': { tag: 'span', text: "Having Dice Upgraded means, for example, d6's become d8's, or d10's become d12's. D12's and d20's don't increase." },
+    'DiceDowngrade': { tag: 'span', text: "Having Dice Downgraded means, for example, d8's become d6's, or d10's become d8's. D4's and d20's don't decrease." },
+    'DiceDowngraded': { tag: 'span', text: "Having Dice Downgraded means, for example, d8's become d6's, or d10's become d8's. D4's and d20's don't decrease." },
+
+    'Chain': { tag: 'span', text: 'Chain', func: () => <span style={{color: 'rgb(120, 80, 225)', fontWeight: 'bold'}}><Icon name="Chain"/>Chain</span> },
+    'Evoke': { tag: 'span', text: 'Evoke', func: () => <span style={{color: 'rgb(109, 0, 255)', fontWeight: 'bold'}}><Icon name="Evoke"/>Evoke</span> },
+    
+    'Chainable': { tag: 'span', text: "Chainable means only usable if your previous Act was the one mentioned." },
+    'Flank': { tag: 'span', text: "Flanking is when you melee-attack an enemy, and an ally of yours is directly behind the enemy. As an optional rule (ask the QM), flank attacks can deal +1 Damage." },
+    'FoolsGold': { tag: 'span', text: "Fool's Gold is an imaginary currency that can be converted to real Gold by spending 1 hour in a town or city. Fool's Gold lasts until converted to real Gold." },
+    'Ultimate': { tag: 'span', text: "This is your Ultimate Class Ability and, after getting this Talent, you can no longer change your Talents inbetween Adventures." },
+
+    'Combo': { tag: 'span', props: { style: {color: 'var(--blue-color)'} }, text: "Combo:" },
+
+}
+const FUNCTION_SYMBOLS = {
+    'RandomOf': args => ({ tag: 'span', text: randomOf(...args) }),
+    'Brown': args => ({ tag: 'span',  props: { style: { color: 'brown' } }, text: args[0] }),
+    'Orange': args => ({ tag: 'span', props: { style: { color: '#FF5500' } }, text: args[0] }),
+    'Purple': args => ({ tag: 'span', props: { style: { color: '#6f00ffff' } }, text: args[0] }),
+    'Color': args => ({ tag: 'span', props: { style: { color: args[0] } }, text: args[1] }),
+    
+    '^': args => ({ tag: 'b', text: args[0] }),
+    '_': args => ({ tag: 'i', text: args[0] }),
+    '~': args => ({ tag: 'span', props: { style: { color: 'var(--blue-color)' } }, text: args[0] }),
+}
+
+function ComponentForSymbolConfig({ config, children }) {
+    switch (config.tag) {
+        case 'b': return <b {...config.props}>{children}</b>
+        case 'i': return <i {...config.props}>{children}</i>
+        case 'span': return <span {...config.props}>{children}</span>
+        case 'Icon': return <Icon {...config.props}/>
+        case 'Link': return <Link {...config.props}>{children}</Link>
+        default: return <span {...config.props}>{children}</span>
+    }
+}
+function formSymbolComponentFunc(allSymbols, symbol, shouldReturnString=false) {
+    const config = allSymbols[symbol]
+
+    if (shouldReturnString) {
+        return () => config.text
+    }
+
+    if (config.func != null) {
+        return config.func
+    }
+
+    const text = config.text ?? undefined
+
+    return () => <ComponentForSymbolConfig config={config}>{text}</ComponentForSymbolConfig>
+}
+
+function formFunctionSymbolComponentFunc(symbol, args, shouldReturnString=false) {
+    const configFunc = FUNCTION_SYMBOLS[symbol]
+
+    const funcResult = configFunc(args)
+
+    if (shouldReturnString) {
+        return () => funcResult.text
+    }
+
+    if (funcResult.func != null) {
+        return funcResult.func
+    }
+
+    const text = funcResult.text ?? undefined
+
+    return () => <ComponentForSymbolConfig config={funcResult}>{text}</ComponentForSymbolConfig>
+}
+
+// Returns an array of components, or an array of strings if { shouldReturnStringsOnly: true }
 export function parseTextWithSymbols(text, customSymbols, options = {}) {
     if (text == null) {
         console.log({customSymbols, options})
         throw `Null text given to parseTextWithSymbols. Other params printed above`
     }
 
-    const {isDebug, shouldUseOnlyCustomSymbols} = options
+    const {isDebug, shouldUseOnlyCustomSymbols, shouldReturnStringsOnly} = options
 
-    let symbolToInsertion = {
-        'Damage': () => (<Icon name="Damage"/>),
-        'Mana': () => (<Icon name="Mana"/>),
-        'Diamond': () => (<span style={{fontSize: '0.8em'}}>🔹</span>),
-        'Pets and Animals': () => (<Link to="/Other/PetsAndAnimals">Pets and Animals</Link>),
-        'Offensive Abilities': () => (<span>Offensive means that it deals Damage or applies hard Crowd Control (anything better than Slow and creating Hard Terrain).</span>),
-        
-        'Feared': () => (<span>A Feared Unit can only do <b>one</b> Act on its turn (e.g. move, make one attack, use one Ability, etc).</span>),
-        'Crippled': () => (<span>A Crippled Unit deals -100% Damage.</span>),
-        'Silenced': () => (<span>A Silenced Unit can't use Abilities.</span>),
-        'Fumbling': () => (<span>A Fumbling Unit's next Act is completely negated (Movement, attack, spell, or anything that requires Actions).</span>),
-        'Blinded': () => (<span>A Blinded Unit has -4 to all rolls.</span>),
-        'Slowed': () => (<span>A Slowed Unit has -2 Movement Speed.</span>),
-        'Rooted': () => (<span>A Rooted Unit has can't move from its space (but it can attack, cast Spells, etc).</span>),
-        'Stunned': () => (<span>A Stunned Unit skips its turn.</span>),
-        'Cover': () => (<span>If a Unit has Cover from you (e.g. is behind an obstacle), everything you do to it gets -2.</span>),
-        'DiceUpgrade': () => (<span>Having <b>Dice Upgraded</b> means, for example, d6's become d8's, or d10's become d12's. D12's and d20's don't increase.</span>),
-        'DiceUpgraded': () => (<span>Having <b>Dice Upgraded</b> means, for example, d6's become d8's, or d10's become d12's. D12's and d20's don't increase.</span>),
-        'DiceDowngrade': () => (<span>Having <b>Dice Downgraded</b> means, for example, d8's become d6's, or d10's become d8's. D4's and d20's don't decrease.</span>),
-        'DiceDowngraded': () => (<span>Having <b>Dice Downgraded</b> means, for example, d8's become d6's, or d10's become d8's. D4's and d20's don't decrease.</span>),
-        'Chain': () => (<span style={{color: 'rgb(120, 80, 225)', fontWeight: 'bold'}}><Icon name="Chain"/>Chain</span>),
-        'Evoke': () => (<span style={{color: 'rgb(109, 0, 255)', fontWeight: 'bold'}}><Icon name="Evoke"/>Evoke</span>),
-        'Chainable': () => (<span>Chainable means only usable if your previous Act was the one mentioned.</span>),
-        'Flank': () => (<span>Flanking is when you melee-attack an enemy, and an ally of yours is directly behind the enemy. As an optional rule (ask the QM), flank attacks can deal +1 Damage.</span>),
-        'FoolsGold': () => (<span>Fool's Gold is an imaginary currency that can be converted to real Gold by spending 1 hour in a town or city. Fool's Gold lasts until converted to real Gold.</span>),
-        'Ultimate': () => (<span>This is your Ultimate Class Ability and, after getting this Talent, you can no longer change your Talents inbetween Adventures.</span>),
-        'Action': () => (<Icon name="Hand"/>),
-        'Range': () => (<Icon name="Range"/>),
-        'Cooldown': () => (<Icon name="Cooldown"/>),
-        'Duration': () => (<Icon name="Duration"/>),
-        'Requirement': () => (<Icon name="Requirement"/>),
-        'Level': () => (<Icon name="Level"/>),
-        'Combo': () => (<span style={{color: 'var(--blue-color)'}}>Combo:</span>),
-        
-        
-        'Gold': () => (<Icon name="Gold"/>)
-    }
-
-    const functions = {
-        'RandomOf': function(args) {
-            return randomOf(...args)
-        },
-        'Brown': function(args) {
-            return (<span style={{color: 'brown'}}>{args[0]}</span>)
-        },
-        'Orange': function(args) {
-            return (<span style={{color: '#FF5500'}}>{args[0]}</span>)
-        },
-        'Purple': function(args) {
-            return (<span style={{color: '#6f00ffff'}}>{args[0]}</span>)
-        },
-        'Color': function(args) {
-            return `<span style="color: ${args[0]}">${args[1]}</span>`
-        },
-    }
+    let symbolToInsertion = mapObject(SYMBOLS, ({ key, value }) => ({ key, value: formSymbolComponentFunc(SYMBOLS, key, shouldReturnStringsOnly) }))
 
     if (customSymbols != null) {
-        if (shouldUseOnlyCustomSymbols === true) {
+        const customSymbolsKeys = Object.keys(customSymbols)
+        const randomValue = customSymbols[customSymbolsKeys[0]]
+        
+        if (typeof randomValue === 'function') {
+            if (shouldUseOnlyCustomSymbols === true) {
             symbolToInsertion = {...customSymbols}
+            } else {
+                symbolToInsertion = {...symbolToInsertion, ...customSymbols}
+            }
         } else {
-            symbolToInsertion = {...symbolToInsertion, ...customSymbols}
+            const customSymbolToInsertion = mapObject(customSymbols, ({ key, value }) => ({ key, value: formSymbolComponentFunc(customSymbols, key, shouldReturnStringsOnly) }))
+            symbolToInsertion = mergeObjects(symbolToInsertion, customSymbolToInsertion)
         }
+        
     }
     
     if (isDebug === true) {
         console.log({symbolToInsertion})
     }
 
-    const symbolToMarkup = {
-        '^': text => (<b>{text}</b>),
-        '_': text => (<i>{text}</i>),
-        '~': text => (<span style={{color: 'var(--blue-color)'}}>{text}</span>)
-    }
-    const MARKUP_DELIMITERS = Object.keys(symbolToMarkup)
+
+    const MARKUP_DELIMITERS = ['^', '_', '~']
 
     let currentTextPartStart = 0
     let textParts = []
@@ -1015,7 +1097,9 @@ export function parseTextWithSymbols(text, customSymbols, options = {}) {
                         console.log(symbolToInsertion[symbol])
                         throw `ERROR: Symbol ${symbol} not a function. Value above: "${text}"`
                     }
-                    textParts.push(symbolToInsertion[symbol]())    // Push current symbol
+                    const getComponentFromSymbol = symbolToInsertion[symbol]
+                    const finalComponent = getComponentFromSymbol()
+                    textParts.push(finalComponent)    // Push current symbol
                     currentTextPartStart = i + 1
                     state = 'reading-normal-text'
                 } else if (char == '(') {
@@ -1040,9 +1124,11 @@ export function parseTextWithSymbols(text, customSymbols, options = {}) {
                     if (isReadingFunctionString) {
                         continue
                     }
-                    const func = functions[functionName]
                     const args = functionStrings
-                    textParts.push(func(args))
+                    const getSymbolComponent = formFunctionSymbolComponentFunc(functionName, args, shouldReturnStringsOnly)
+                    const finalComponent = getSymbolComponent()
+                    // textParts.push(<span style={{color: 'blue'}}>TEST</span>)
+                    textParts.push(finalComponent)
                 } else if (char == '}') {
                     currentTextPartStart = i + 1
                     state = 'reading-normal-text'
@@ -1051,7 +1137,10 @@ export function parseTextWithSymbols(text, customSymbols, options = {}) {
             case 'reading-markup':
                 if (char == markupSymbol) {
                     const markupedText = text.substring(symbolStart + 1, i)
-                    textParts.push(symbolToMarkup[markupSymbol](markupedText))    // Push markuped text
+                    const args = [markupedText]
+                    const getSymbolComponent = formFunctionSymbolComponentFunc(markupSymbol, args, shouldReturnStringsOnly)
+                    const finalComponent = getSymbolComponent()
+                    textParts.push(finalComponent)    // Push markuped text
                     currentTextPartStart = i + 1
                     state = 'reading-normal-text'
                 }
@@ -1138,6 +1227,10 @@ export function getOnlyProp(obj) {
     return getAnyPropNameExcept(obj, 'default')
 }
 export function stringReplaceAllMany(str, replaceWhats, replaceWiths) {
+    if (!isString(str)) {
+        console.log({str, replaceWhats, replaceWiths})
+        throw `stringReplaceAllMany: str parameter is not a string. Params printed above`
+    }
     for (let i = 0; i < replaceWhats.length; i++) {
         str = str.split(replaceWhats[i]).join(replaceWiths[i])
     }
@@ -1232,6 +1325,9 @@ export function percentChance(num) {
     return num >= roll
 }
 export function capitalizeFirstLetter(str) {
+    if (str == null) {
+        return 'capitalizeFirstLetter Error'
+    }
     const str2 = str.charAt(0).toUpperCase() + str.slice(1)
     return str2
 }
@@ -1669,6 +1765,10 @@ export function mergeObjectsContainingArrays(a, b) {
     return finalObject
 }
 export function randomOfArrayWeighted(items, _weights) {
+    if (items.length == 1) {
+        return items[0]
+    }
+
     let i;
     let weights = [..._weights]
 
@@ -1683,7 +1783,15 @@ export function randomOfArrayWeighted(items, _weights) {
     
     return items[i];
 }
-
+export function includesAll(str, strings) {
+    for (const included of strings) {
+        if (!str.includes(included)) {
+            return false
+        }
+    }
+    return true
+}
+window.includesAll = includesAll
 export function containsNumber(str) {
     for (let i = 0; i < str.length; i++) {
         if ('0123456789'.includes(str.at(i))) {

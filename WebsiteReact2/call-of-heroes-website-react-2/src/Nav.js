@@ -43,13 +43,21 @@ const NAV_CONFIG = [
       { name: 'Warlock',      href: '/Classes/Warlock' },
       { name: 'Warrior',      href: '/Classes/Warrior' },
     ]},
-    { name: 'Abilities', children: [
-      { name: 'Basic Abilities',      href: '/Other/Abilities' },
-      { name: 'Feats',                href: '/Other/Feats' },
-      { name: 'Quirks',               href: '/Other/Quirks' },
-      { name: 'Ability Sheet Maker',  href: 'Other/AbilitySheets', lock: 'premium' },
+    { isGrouping: true, children: [
+      { name: 'Abilities', children: [
+        { name: 'Basic Abilities',      href: '/Other/Abilities' },
+        { name: 'Feats',                href: '/Other/Feats' },
+        { name: 'Quirks',               href: '/Other/Quirks' },
+        { name: 'Ability Sheet Maker',  href: 'Other/AbilitySheets', lock: 'premium' },
+      ]},
+      { name: 'Items & Gear', landscapeStyle: { marginTop: '1rem' }, children: [
+        { name: 'Shop & Prices',  href: '/Other/Prices' },
+        { name: 'Weapons',        href: '/Other/Weapons' },
+        { name: 'Armors',         href: '/Other/Armors' },
+      ]}
     ]},
     { name: 'Other', children: [
+      { name: 'Shop & Prices',    href: '/Other/Prices' },
       { name: 'Obstacles',        href: '/Other/Obstacles' },
       { name: 'Pets and Animals', href: '/Other/PetsAndAnimals' },
       { name: 'Languages',        href: '/Other/Languages' },
@@ -137,15 +145,29 @@ function MegaDropdown({ currentlyOpenSubnav, isBurgerClicked }) {
 
       { NAV_CONFIG.filter(config => config.children != null).map(({ name, children }) =>
           <MegaDropdownMenu title={name}>
-            { children.map(({ name, children }) =>
-              <div className='subnav-section'>
-                <h4>{name}</h4>
-                <div className='subnav-title-underline'></div>
-                <div className='flex column'>
-                  { children.map(config => <NavItem config={config} className="subnav-section-item"/>)}
+            { children.map(({ name, children, isGrouping }) => (
+              isGrouping? (
+                <div className='subnav-section'>
+                  { children.map(({ name, children }) => (
+                    <>
+                      <h4>{name}</h4>
+                      <div className='subnav-title-underline'></div>
+                      <div className='flex column'>
+                        { children.map(config => <NavItem config={config} className="subnav-section-item"/>)}
+                      </div>    
+                    </>
+                  )) }
                 </div>
-              </div>
-            ) }
+              ) : (
+                <div className='subnav-section'>
+                  <h4>{name}</h4>
+                  <div className='subnav-title-underline'></div>
+                  <div className='flex column'>
+                    { children.map(config => <NavItem config={config} className="subnav-section-item"/>)}
+                  </div>
+                </div>
+              )
+            )) }
           </MegaDropdownMenu>
       )}
       
@@ -250,7 +272,7 @@ function NavLandscapeTopItem({ config, onMouseEnter }) {
 }
 
 function NavPortraitNode({ config }) {
-    const { name, href, isDownload, isExternal, lock, children } = config
+    const { name, href, isDownload, isExternal, lock, children, isGrouping } = config
 
     if (children == null) {
         const link = <NavLink {...config}/>
@@ -260,6 +282,12 @@ function NavPortraitNode({ config }) {
         } else {
             return link
         }
+    }
+
+    if (isGrouping) {
+      return <>
+        { children.map(childConfig => <NavPortraitNode config={childConfig}/>)}
+      </>
     }
 
     return (
