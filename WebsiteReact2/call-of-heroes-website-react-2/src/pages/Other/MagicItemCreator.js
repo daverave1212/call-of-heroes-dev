@@ -1,4 +1,4 @@
-import { $SKILLS, capitalizeFirstLetter, filterObject, getAlternativesAsArray, includesAll, joinObjectValues, last, mapObject, mergeObjectsContainingArrays, onlyUniqueFilter, parseTextWithSymbols, percentChance, randomInt, randomOf, randomOfArrayWeighted, shuffle, spellsFromObject, stringReplaceAllMany } from "../../utils";
+import { $SKILLS, capitalizeFirstLetter, filterObject, getAlternativesAsArray, includesAll, includesAny, joinObjectValues, last, mapObject, mergeObjectsContainingArrays, onlyUniqueFilter, parseTextWithSymbols, percentChance, randomInt, randomOf, randomOfArrayWeighted, shuffle, spellsFromObject, stringReplaceAllMany } from "../../utils";
 import MagicItemProperties from '../../databases/Other/MagicItemProperties.json'
 import Weapons from '../../databases/Weapons.json'
 import Armors from '../../databases/Armors.json'
@@ -62,147 +62,197 @@ function tryNameItem(item) {
         }
         return randomOf(...fallbackArray)
     }
-    const prefixNameByKeyword = {
-        'tentacle': ['Fathom', "Depth's"],
-        'damages you instead': ['Bound', 'Fleshbound'],
-        'Hollow': ['Hollowing'],
-        'whenever you unequip it': ['Withholding'],
-        '+1 Defense': ['Steelplated', 'Titanforged', 'Ironclad', 'Dreadnought', 'Warborn', 'Obsidian', 'Stormforged', 'Runefused', 'Ironblood'],
-        'floats': ["Airwielder's"]
+    function maybeGetAnyKeyordByConditions(text, matchConditions, fallbackArray=[null]) {
+        const allAffixesClumped = Object.keys(matchConditions)
+        const possibleAffixesClumped = allAffixesClumped.filter(conditionKey => matchConditions[conditionKey](text))
+        const possibleAffixes = possibleAffixesClumped.map(str => str.split('|')).flat()
+        return randomOf(...possibleAffixes)
     }
-    const curseNames = ['Ruined', 'Cursed', 'Blighted', 'Damned', 'Accursed', 'Vile', 'Afflicted', 'Burdened']
-    const midfixByKeyword = {
-        'Slash': ['Slaying', 'Slashing', 'Sharp', 'Slay'],
-        'Pierce': ['Stinger', 'Spiked', 'Serrated', 'Jagged'],
-        'Smash': ['Lumbering'],
-        'Pulse': ['Arcanic', 'Night\'s', 'Night'],
-        'Fire': ['Flaming', 'Scorching', 'Ember', 'Ashen', 'Burning', 'Searing', 'Smouldering'],
-        'Cold': ['Frost', 'Frozen', 'Rime', 'Ice'],
-        'Shock': ['Static', 'Lightning'],
-        'Poison': ['Toxic', 'Nox', 'Noxious', "Viper's", 'Viper'],
-        'Acid': ['Septic'],
-        'Divine': ['Divine', 'Holy', 'Celestian', 'Reckoning', 'Retribution'],
-        'Scourge': ['Deathly', 'Unholy', 'Eldritch', 'Death'],
-        "can't be targeted": ['Elusive'],
-        'glitch': ['Realmcutting', 'Realm'],
-        'Feared': ['Fearing', 'Frightening', 'Dooming', 'Doom'],
-        'Blinded': ['Blinding', 'Flaring', 'Flare'],
-        'Crippled': ['Weakening', 'Breathtaking'],
-        'Slowed': ['Slowing', 'Slow'],
-        'Rooted': ['Rooting', 'Snaring', 'Unmoving', 'Root', 'Grasp'],
-        'Damage you deal by': ['Unleashing', 'Ravaging'],
-        'Skill': ['Skillful', 'Skill'],
-        'Rune': ['Runic', 'Rune'],
-        'stuck': ['Stoic', 'Unmoving'],
-        'average': ["Man's", 'Even-Strike', 'Rebalanced', 'Reforged', 'Man'],
-        'Person': ["Man Slayer's"],
-        'Dragon': ["Dragon Slayer's", 'Drake'],
-        'Undead': ["Dead Slayer's", "Deadstriker's"],
-        "Demon": ["Demon Slayer's", 'Demon'],
-        "Monster": ["Monster Hunter's"],
-        "Beast": ["Beast Hunter's", "Hunter's", 'Beast'],
-        "Fae": ["Magehunter's", "Faehunter's", "Fae Slayer's", 'Fae'],
-        'Fiend': ['Fiendsbane', 'Fiend'],
-        'thrown': ['Returning', 'Homecoming', 'Lodestone', 'Galechaser', 'Echoing'],
-        'range': ["Reach's", "Longshot", "Arced", "Skystrike", "Horizon's", "Cloudborne", "Veilbreaker's", 'Arc', 'Reach'],
-        "can't be healed": ['Necrotic', 'Mortal', 'Necro'],
-        "deals exactly as much Damage": ['Echoing', "Everlasting", "Ceaseless", "Resonating", "Secular", "Enduring", "Cascading"],
-        'ignore Cover': ['Veilpiercer', "Ghoststepper", "The Unseen", "The Piercing", "Obscurite", 'Ghost', 'Hide'],
-        'transformed into any other weapon': ["Shapeshifter's", "Mimic's", "Morphing", "Shiftsteel", "Formiron", "Mercurial", 'Mimic'],
-        'pushes the target': ['Gust', 'Blasting', "Cyclon's", 'Hurricane', 'Thundering', 'Boom'],
-        'Units at full Health': ['Empowered', "High-Tide", "Apex", "Rend", "Rending", "Unrestrained", "Maximal", 'Max'],
-        'Units below': ["Slayer's", "Slay", "Ender's", "Ender", "Sanguine", "Reaper's", 'End', 'Reap'],
-        'corpse explodes': ['Corpsebursting', 'Necroburst', 'Cadaver', 'Corpse'],
-        'your next Spell this turn deals': ['Spellblade', 'Hex'],
-        'second attack': ['Quantic', 'Savage', "Barbarian's"],
-        'heal for all the Damage dealt': ['Vampiric', "Lifestealer", "Lifestealer's"]
+    const prefixConditions = {
+        "Colossus": text => text.includes('Might'),
+        "Airwielder": s => s.includes('floats'),
+        "Man Slayer": s => s.includes('Person'),
+        "Man|Simpleton": s => s.includes('average'),
+        "Dragon Slayer|Drakeslayer": s => s.includes('Dragon'),
+        "Dead Slayer|Deadstriker": s => s.includes('Undead'),
+        "Demon Slayer's": s => s.includes('Demon'),
+        "Monster Hunter's": s => s.includes('Monster'),
+        "Beast Hunter|Hunter": s => s.includes('Beast'),
+        "Magehunter|Faehunter|Fae Slayer": s => s.includes('Fae'),
+        "Shapeshifter|Mimic": s => s.includes('transformed into any other weapon'),
+        "Cat": text => text.includes('no falling Damage'),
+        "Waterway": text => text.includes('swim'),
+        "Icestepper": text => text.includes('walk on water'),
+        "Dancer": text => text.includes('dodge'),
+        "Woundkeeper": text => text.includes("can't be healed"),
+        "Aspects|Chameleon": text => text.includes('transformed into any other weapon'),
+        "Necromancer|Wraithcaller|Tombstone": text => text.includes('Zombie'),
     }
-    const suffixByKeyword = {
-        'Might': ['Might', 'the Colossus', 'Fortitude'],
-        'Dexterity': ['Dexterity', 'Agility'],
-        'Intelligence': ['Intelligence'],
-        'Sense': ['Sense', 'Resolve', 'Will'],
-        'Charisma': ['Charisma'],
-        'immune': ['Immunity'],
-        'minimum Movement': ['Unmoving'],
-        'being pushed': ['Resilience'],
-        'no falling Damage': ['the Cat', 'Slowfall'],
-        'swim': ['the Waterway'],
-        'walk on water': ['the Icestepper'],
-        'minimum Damage': ['Accuracy'],
-        'levitate': ['Levitation'],
-        'Max Health': ['Vitality', 'Vigor'],
-        'Health Regen': ['Restoration'],
-        'Movement Speed': ['Speed', 'the Wind', 'Swiftness', 'Haste'],
-        'Initiative': ['Initiative', 'Quickstep'],
-        'Shielding': ['Shielding'],
-        'Ambushing Initiative': ['Ambushing', 'Quickness'],
-        'arrows': ['Bracing'],
-        'Whenever you are hit by a monster': ['Retaliation'],
-        'you are instantly teleported': ['Homesafe', 'Recalling', 'the Hearth'],
-        'gain 1 Mana': ['Mana'],
-        'phase in and out': ['Phasing'],
-        'you can dodge': ['Mirage'],
-        'Ability every Turn': ['Magic', 'Arcane', 'Spell', 'Evocation', 'Wrath'],
-        'dodge': ['Elusion', 'Evasion', 'the Dancer'],
-        'tattoo': ['the Ink', 'Vanishing'],
-        'fluent': ['Fluency', 'Tongues'],
-        'obstacle': ['Booming', 'the Vault Breaker'],
-        'invisible': ['Invisibility', 'Vanishing'],
-        "can't be healed": ['the Woundkeeper', "Baning", "Wounding", "Pain"],
-        'transformed into any other weapon': ["Aspects", 'the Chameleon'],
-        "on at least one die": ['Critting', 'Lethality', 'Deathstriking', 'Murdering', 'Culling', 'Bloodletting', 'Bloodbathing'],
-        'Zombie': ['the Necromancer', 'the Wraithcaller', 'Tombstones']
+    const midfixConditions = {
+        "Fathom|Depth": s => s.includes('tentacle'),
+        "Bloodbound|Fleshbound": s => s.includes('damages you'),
+        "Hollow": s => s.includes('hollow'),
+        "Withholding": s => s.includes('whenever you unequip it'),
+        'Steelplated|Titanforged|Ironclad|Dreadnought|Warborn|Obsidian|Stormforged|Runefused|Ironblood': s => includesAny(s, ['+1 defense', '+2 defense']),
+        "Slaying|Slashing|Sharp|Slay": s => s.includes('Slash'),
+        "Stinger|Spiked|Serrated|Jagged": s => s.includes('Pierce'),
+        "Lumbering": s => s.includes('Smash'),
+        "Arcanic|Night's|Night": s => s.includes('Pulse'),
+        "Flaming|Scorching|Ember|Ashen|Burning|Searing|Smouldering": s => s.includes('Fire'),
+        "Frost|Frozen|Rime|Ice": s => s.includes('Cold'),
+        "Static|Lightning": s => s.includes('Shock'),
+        "Toxic|Nox|Noxious|Viper's|Viper": s => s.includes('Poison'),
+        "Septic": s => s.includes('Acid'),
+        "Divine|Holy|Celestian|Reckoning|Retribution": s => s.includes('Divine'),
+        "Deathly|Unholy|Eldritch|Death": s => s.includes('Scourge'),
+        "Elusive": s => s.includes("can't be targeted"),
+        "Realmcutting|Realm": s => s.includes('glitch'),
+        "Fearing|Frightening|Dooming|Doom": s => s.includes('Feared'),
+        "Blinding|Flaring|Flare": s => s.includes('Blinded'),
+        "Weakening|Breathtaking": s => s.includes('Crippled'),
+        "Slowing|Slow": s => s.includes('Slowed'),
+        "Rooting|Snaring|Unmoving|Root|Grasp": s => s.includes('Rooted'),
+        "Unleashing|Ravaging": s => s.includes('Damage you deal by'),
+        "Skillful|Skill": s => s.includes('Skill'),
+        "Runic|Rune": s => s.includes('Rune'),
+        "Stoic|Unmoving": s => s.includes('stuck'),
+        "Even-Strike|Rebalanced|Reforged|Man": s => s.includes('average'),
+        "Drake": s => s.includes('Dragon'),
+        "Demon|Demonic": s => s.includes('Demon'),
+        "Beastly": s => s.includes('Beast'),
+        "Fae": s => s.includes('Fae'),
+        "Fiendsbane|Fiend": s => s.includes('Fiend'),
+        "Returning|Homecoming|Lodestone|Galechaser|Echoing": s => s.includes('thrown'),
+        "Longshot|Arced|Skystrike|Horizon's|Cloudborne|Veilbreaker's|Arc|Reach": s => s.includes('range'),
+        "Necrotic|Mortal|Necro": s => s.includes("can't be healed"),
+        "Echoing|Everlasting|Ceaseless|Resonating|Secular|Enduring|Cascading": s => s.includes('deals exactly as much Damage'),
+        "Veilpiercer|Ghoststepper|The Unseen|The Piercing|Obscurite|Ghost|Hide": s => s.includes('ignore Cover'),
+        "Morphing|Shiftsteel|Formiron|Mercurial|Mimic": s => s.includes('transformed into any other weapon'),
+        "Gust|Blasting|Cyclon's|Hurricane|Thundering|Boom": s => s.includes('pushes the target'),
+        "Empowered|High-Tide|Apex|Rend|Rending|Unrestrained|Maximal|Max": s => s.includes('Units at full Health'),
+        "Slay|Ender's|Ender|Sanguine|Reaper's|End|Reap": s => s.includes('Units below'),
+        "Corpsebursting|Necroburst|Cadaver|Corpse": s => s.includes('corpse explodes'),
+        "Spellblade|Hex": s => s.includes('your next Spell this turn deals'),
+        "Quantic|Savage|Barbarian's": s => s.includes('second attack'),
+        "Vampiric|Lifestealer|Lifestealer's": s => s.includes('heal for all the Damage dealt')
     }
-
-    let prefix = null
-    if (item.Downside != null) {
-        prefix = getAnyTextByKeywordsOrFallback(item.Downside, prefixNameByKeyword, curseNames)
+    const suffixConditions = {
+        "Might|Fortitude": text => text.includes('Might'),
+        "Dexterity|Agility": text => text.includes('Dexterity'),
+        "Intelligence": text => text.includes('Intelligence'),
+        "Sense|Resolve|Will": text => text.includes('Sense'),
+        "Charisma": text => text.includes('Charisma'),
+        "Immunity": text => text.includes('immune'),
+        "Unmoving": text => text.includes('minimum Movement'),
+        "Resilience": text => text.includes('being pushed'),
+        "Slowfall": text => text.includes('no falling Damage'),
+        "Accuracy": text => text.includes('minimum Damage'),
+        "Levitation": text => text.includes('levitate'),
+        "Vitality|Vigor": text => text.includes('Max Health'),
+        "Restoration": text => text.includes('Health Regen'),
+        "Speed|the Wind|Swiftness|Haste": text => text.includes('Movement Speed'),
+        "Initiative|Quickstep": text => text.includes('Initiative'),
+        "Shielding": text => text.includes('Shielding'),
+        "Ambushing|Quickness": text => text.includes('Ambushing Initiative'),
+        "Bracing": text => text.includes('arrows'),
+        "Retaliation": text => text.includes('Whenever you are hit by a monster'),
+        "Homesafe|Recalling|the Hearth": text => text.includes('you are instantly teleported'),
+        "Mana": text => text.includes('gain 1 Mana'),
+        "Phasing": text => text.includes('phase in and out'),
+        "Mirage": text => text.includes('you can dodge'),
+        "Magic|Arcane|Spell|Evocation|Wrath": text => text.includes('Ability every Turn'),
+        "the Ink|Vanishing": text => text.includes('tattoo'),
+        "Fluency|Tongues": text => text.includes('fluent'),
+        "Booming|the Vault Breaker": text => text.includes('obstacle'),
+        "Invisibility|Vanishing": text => text.includes('invisible'),
+        "Critting|Lethality|Deathstriking|Murdering|Culling|Bloodletting|Bloodbathing": text => text.includes('on at least one die'),
+        "Elusion|Evasion|the Dancer": text => text.includes('dodge'),
+        "the Woundkeeper|Baning|Wounding|Pain": text => text.includes("can't be healed"),
+        "Aspects|the Chameleon": text => text.includes('transformed into any other weapon'),
+        "Tombstones": text => text.includes('Zombie'),
     }
 
     const itemNameShortened = last(item.Name.split(' '))
-    const itemName = itemNameShortened.toLowerCase().includes('sword') && percentChance(50)? randomOf('Sword', 'Blade', 'Edge'): itemNameShortened
-    const midfix = getAnyTextByKeywordsOrFallback(item._AllText, midfixByKeyword, [null])
-    const suffix = getAnyTextByKeywordsOrFallback(item._AllText, suffixByKeyword, [null])
+    const itemName = itemNameShortened
+    const aPrefix = maybeGetAnyKeyordByConditions(item._AllText, prefixConditions, [null])
+    const aMidfix = maybeGetAnyKeyordByConditions(item._AllText, midfixConditions, [null])
+    const aSuffix = maybeGetAnyKeyordByConditions(item._AllText, suffixConditions, [null])
+    const fullNameSoFar = `${aPrefix} ${aMidfix} ${itemName} of ${aSuffix}`
 
     let finalMid
     let hasAlreadyUsedOf = false
-    if (midfix == null) {
-        finalMid = itemName
-    } else if (percentChance(50)) {
-        if (midfix.length <= 5 && midfix.includes("'" == false)) {
-            finalMid = midfix + itemName.toLowerCase()
+
+    const affixesWithTypes = [['prefix', aPrefix], ['midfix', aMidfix], ['suffix', aSuffix]]
+        .filter(([type, affix]) => affix != null)
+
+    let usedAffixes = []
+    if (affixesWithTypes.length <= 2) {
+        usedAffixes = affixesWithTypes
+    } else if (fullNameSoFar.length < MAX_NAME_LENGTH) {
+        usedAffixes = affixesWithTypes
+    } else if (affixesWithTypes.length == 3) {
+        const shuffledAffixes = shuffle(affixesWithTypes)
+        if (percentChance(90)) {
+            usedAffixes = shuffledAffixes.slice(0, 2)
         } else {
-            finalMid = midfix + ' ' + itemName
+            usedAffixes = shuffledAffixes.slice(0, 1)
         }
-    } else {
-        if (suffix != null && suffix.includes('the')) {
-            finalMid = itemName + ' of the ' + midfix
-        } else {
-            finalMid = itemName + ' of ' + midfix
-        }
-        hasAlreadyUsedOf = true
     }
 
-    let finalSuffix
-    if (suffix == null) {
-        finalSuffix = ''
-    } else if (hasAlreadyUsedOf) {
-        if (suffix.includes('the')) {
-            finalSuffix = ' ' + suffix.split('the ').join('')
-        } else {
-            finalSuffix = ' ' + suffix
+    const prefix = usedAffixes.find(([type, affix]) => type == 'prefix')?.[1]
+    const midfix = usedAffixes.find(([type, affix]) => type == 'midfix')?.[1]
+    const suffix = usedAffixes.find(([type, affix]) => type == 'suffix')?.[1]
+
+    const prefixWithPossessive =  `${prefix}${prefix?.endsWith("s")? "": "s"}`
+    const getMidfixAndItemName = () => midfix.length <= 6 && itemNameShortened.length <= 6? `${midfix}${itemName.toLowerCase()}`: `${midfix} ${itemName}`
+    const allCombinations = [
+        {
+            requires: [prefix],                     // Slayer's Axe
+            name: () => `${prefixWithPossessive} ${itemName}`
+        },
+        {
+            requires: [prefix],                     // Axe of the Slayer
+            name: () => `${itemName} of the ${prefix}`
+        },
+        {
+            requires: [midfix],                     // Rune Axe
+            name: () => `${getMidfixAndItemName()}`
+        },
+        {
+            requires: [suffix],                     // Axe of Mana
+            name: () => `${itemName} of ${suffix}`
+        },
+        {
+            requires: [prefix, midfix],             // Slayer's Rune Axe
+            name: () => `${prefixWithPossessive} ${getMidfixAndItemName()}`
+        },
+        {
+            requires: [prefix, midfix],             // Rune Axe of the Slayer
+            name: () => `${getMidfixAndItemName()} of the ${prefix}`
+        },
+        {
+            requires: [prefix, suffix],             // Slayer's Axe of Mana
+            name: () => `${prefix} ${itemName} of ${suffix}`
+        },
+        {
+            requires: [prefix, suffix],             // Axe of Slayer's Mana
+            name: () => `${itemName} of ${prefixWithPossessive} ${suffix}`
+        },
+        {
+            requires: [midfix, suffix],             // Rune Axe of Mana
+            name: () => `${getMidfixAndItemName()} of ${suffix}`
+        },
+        {
+            requires: [midfix, suffix],             // Axe of Rune Mana
+            name: () => `${itemName} of ${midfix} ${suffix.replace('the')}`
         }
-    } else {
-        finalSuffix = ' of ' + suffix
-    }
+    ]
 
-
-    const finalPrefix = prefix != null && (prefix + finalMid + finalSuffix).length < MAX_NAME_LENGTH ? prefix + ' ': ''
-
-    let nameSoFar = finalPrefix + finalMid + finalSuffix
+    const possibilities = allCombinations.filter(c => !c.requires.includes(null) && !c.requires.includes(undefined))
+    const possibilitiesText = possibilities.map(c => c.name())
+    const randomName = randomOf(...possibilitiesText)
     
-    return nameSoFar
+    return randomName
 }
 
 
@@ -231,7 +281,6 @@ function getBaselineItemByType(xp, itemType) {
         ...(templateWeapon.Alternatives != null? templateWeapon.Alternatives.split(', '): []),
         ...(templateWeapon.MagicAlternatives != null? templateWeapon.MagicAlternatives.split(', '): [])
     ]
-    console.log({weaponNames, ALL_WEAPONS_ARRAY, itemType})
 
     return {
         Name: randomOf(...weaponNames),
@@ -249,7 +298,7 @@ function createItem(xp, itemType) {
     // e.'Item Type' contains any of those tags
     let possibleEffects = MagicItemProperties.Effects
         possibleEffects = possibleEffects.filter(e => e['Item Type'] == 'Any' || includesAll(itemType, e['Item Type'].split(' ')))
-        possibleEffects = possibleEffects.map(e => ({...e, Weight: (e.XP + 10)}))
+        possibleEffects = possibleEffects.map(e => ({...e, Weight: (Math.max(e.XP, 0) + 10)}))
 
     const baselineItem = getBaselineItemByType(xp, itemType)
 
@@ -285,7 +334,6 @@ function createItem(xp, itemType) {
                 weights == null?
                     randomOf(...availableEffects)
                 :randomOfArrayWeighted(availableEffects, weights)
-            console.log({randomEffect, availableEffects, weights, randomPick: randomOfArrayWeighted(availableEffects, weights)})
             if (randomEffect == null) { // Not sure how, but it happens
                 return false
             }
@@ -298,8 +346,8 @@ function createItem(xp, itemType) {
         return false
     }
 
-    maybeAddEffect(possibleEffects, 'Minor', 25)
     maybeAddEffect(possibleEffects, 'Cursed', 25)
+    maybeAddEffect(possibleEffects, 'Minor', 25)
     maybeAddEffect(possibleEffects, 'Property', 15)
     maybeAddEffect(possibleEffects, 'Active', 25)
     maybeAddEffect(possibleEffects, 'Quirk', 25)
@@ -359,26 +407,47 @@ function createItem(xp, itemType) {
     /* ---------- Reparse ---------- */
     const reparsedTextByGroups = mapObject(preparsedTextByGroups, ({key, value}) => ({key, value: parseItemText(value, baselineItem.Name)}))
 
+    function compileAddedEffectsArrayToText(arr) {
+        if (arr == null || arr.length == 0) {
+            return null
+        }
+        const effectsWithParsedEffect = arr.map(e => ({...e, Effect: parseItemText(e.Effect, baselineItem.Name)}))
+        const effectsTexts = effectsWithParsedEffect.map(e => e.A == null? e.Effect: `{Hand}${e.A}: ${e.Effect}`)
+        const text = effectsTexts.join('\n')
+        return text
+    }
+
+    function reparseAndAddSuffixAndJoin(arr, suffix) {
+        
+        return arr
+            .map(text => parseItemText(text, baselineItem.Name))
+            .map(text => suffix + text)
+            .join('\n')
+    }
+
     const color = (col, text) => text == null? null: `{Color('${col}' '${text}')}`
+    if (addedEffectsByGroup['Active'].length > 0) {
+        console.log('GOT HERE')
+    }
     let validEffects
     if (itemType == 'Armor' || itemType == 'Shield') {
         validEffects = [
             color('var(--green-text)', reparsedTextByGroups['Stats']),
             color('var(--green-text)', reparsedTextByGroups['Property']),
             reparsedTextByGroups['Passive'],
-            reparsedTextByGroups['Active'],
+            compileAddedEffectsArrayToText(addedEffectsByGroup['Active']),
             color('var(--blue-color)', reparsedTextByGroups['Minor']),
         ]
     } else {
         validEffects = [
             color('var(--green-text)', reparsedTextByGroups['Property']),
             reparsedTextByGroups['Passive'],
-            reparsedTextByGroups['Active'],
+            compileAddedEffectsArrayToText(addedEffectsByGroup['Active']),
             color('var(--green-text)', reparsedTextByGroups['Stats']),
             color('var(--blue-color)', reparsedTextByGroups['Minor']),
         ]
     }
-    validEffects = validEffects.filter(text => text != null)
+    validEffects = validEffects.filter(s => s != null)
     const finalEffect = validEffects.length == 0? null: validEffects.join('\n\n')
 
     console.log({finalEffect})
@@ -502,7 +571,7 @@ export default function MagicItemCreator() {
         if (itemCategory == 'Weapon') {
             itemCategory = randomOf('One-Handed', 'Two-Handed') + ' ' + randomOf('Melee', 'Ranged') + ' Weapon'
         }
-        return createItem(randomInt(3, 10) * 25, itemCategory)
+        return createItem(randomInt(1, 10) * 25, itemCategory)
     }
     const [item, setItem] = useState(createAnItem())
 

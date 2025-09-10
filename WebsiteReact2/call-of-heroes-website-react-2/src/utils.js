@@ -911,6 +911,49 @@ export function enspanDamageCalculations(text) {
     return phrases
 }
 
+function ComponentForSymbolConfig({ config, children }) {
+    switch (config.tag) {
+        case 'b': return <b {...config.props}>{children}</b>
+        case 'i': return <i {...config.props}>{children}</i>
+        case 'span': return <span {...config.props}>{children}</span>
+        case 'Icon': return <Icon {...config.props}/>
+        case 'Link': return <Link {...config.props}>{children}</Link>
+        default: return <span {...config.props}>{children}</span>
+    }
+}
+function formSymbolComponentFunc(allSymbols, symbol, shouldReturnString=false) {
+    const config = allSymbols[symbol]
+
+    if (shouldReturnString) {
+        return () => config.text
+    }
+
+    if (config.func != null) {
+        return config.func
+    }
+
+    const text = config.text ?? undefined
+
+    return () => <ComponentForSymbolConfig config={config}>{text}</ComponentForSymbolConfig>
+}
+function formFunctionSymbolComponentFunc(symbol, args, shouldReturnString=false) {
+    const configFunc = FUNCTION_SYMBOLS[symbol]
+
+    const funcResult = configFunc(args)
+
+    if (shouldReturnString) {
+        return () => funcResult.text
+    }
+
+    if (funcResult.func != null) {
+        return funcResult.func
+    }
+
+    const text = funcResult.text ?? undefined
+
+    return () => <ComponentForSymbolConfig config={funcResult}>{text}</ComponentForSymbolConfig>
+}
+
 const SYMBOLS = {
     'Template': { tag: 'Icon', props: {}, text: '🔹', func: () => (<span>A Feared Unit can only do <b>one</b> Act on its turn (e.g. move, make one attack, use one Ability, etc).</span>) },
     'Template2': {
@@ -928,6 +971,7 @@ const SYMBOLS = {
     'Pets and Animals': { tag: 'Link', props: { to: "/Other/PetsAndAnimals" }, text: 'Pets and Animals' },
     'Offensive Abilities': { tag: 'span', text: "Offensive means that it deals Damage or applies hard Crowd Control (anything better than Slow and creating Hard Terrain)." },
     'Action': { tag: 'Icon', props: { name: "Hand" } },
+    'Hand': { tag: 'Icon', props: { name: "Hand" } },
     'Range': { tag: 'Icon', props: { name: "Range" } },
     'Cooldown': { tag: 'Icon', props: { name: "Cooldown" } },
     'Duration': { tag: 'Icon', props: { name: "Duration" } },
@@ -973,49 +1017,7 @@ const FUNCTION_SYMBOLS = {
     '~': args => ({ tag: 'span', props: { style: { color: 'var(--blue-color)' } }, text: args[0] }),
 }
 
-function ComponentForSymbolConfig({ config, children }) {
-    switch (config.tag) {
-        case 'b': return <b {...config.props}>{children}</b>
-        case 'i': return <i {...config.props}>{children}</i>
-        case 'span': return <span {...config.props}>{children}</span>
-        case 'Icon': return <Icon {...config.props}/>
-        case 'Link': return <Link {...config.props}>{children}</Link>
-        default: return <span {...config.props}>{children}</span>
-    }
-}
-function formSymbolComponentFunc(allSymbols, symbol, shouldReturnString=false) {
-    const config = allSymbols[symbol]
 
-    if (shouldReturnString) {
-        return () => config.text
-    }
-
-    if (config.func != null) {
-        return config.func
-    }
-
-    const text = config.text ?? undefined
-
-    return () => <ComponentForSymbolConfig config={config}>{text}</ComponentForSymbolConfig>
-}
-
-function formFunctionSymbolComponentFunc(symbol, args, shouldReturnString=false) {
-    const configFunc = FUNCTION_SYMBOLS[symbol]
-
-    const funcResult = configFunc(args)
-
-    if (shouldReturnString) {
-        return () => funcResult.text
-    }
-
-    if (funcResult.func != null) {
-        return funcResult.func
-    }
-
-    const text = funcResult.text ?? undefined
-
-    return () => <ComponentForSymbolConfig config={funcResult}>{text}</ComponentForSymbolConfig>
-}
 
 // Returns an array of components, or an array of strings if { shouldReturnStringsOnly: true }
 export function parseTextWithSymbols(text, customSymbols, options = {}) {
@@ -1790,6 +1792,14 @@ export function includesAll(str, strings) {
         }
     }
     return true
+}
+export function includesAny(str, strings) {
+    for (const included of strings) {
+        if (!str.includes(included)) {
+            return true
+        }
+    }
+    return false
 }
 window.includesAll = includesAll
 export function containsNumber(str) {
