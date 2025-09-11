@@ -1795,13 +1795,14 @@ export function includesAll(str, strings) {
 }
 export function includesAny(str, strings) {
     for (const included of strings) {
-        if (!str.includes(included)) {
-            return true
+        if (str.includes(included)) {
+            return included
         }
     }
     return false
 }
 window.includesAll = includesAll
+window.includesAny = includesAny
 export function containsNumber(str) {
     for (let i = 0; i < str.length; i++) {
         if ('0123456789'.includes(str.at(i))) {

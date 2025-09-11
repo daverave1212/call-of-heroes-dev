@@ -17,22 +17,194 @@ const ALL_WEAPONS_ARRAY = [
     ...spellsFromObject(Weapons['Two-Handed Ranged']).map(item => ({...item, type: 'Two-Handed Ranged'}))
 ]
 
-
-function getRandomSoulboundCurse(item, armorOrWeapon) {
-    const possibilities =
-        item.Type == 'Armor' || item.Type == 'Shield'?
-            MagicItemProperties.Soulbound.Armor
-        :MagicItemProperties.Soulbound.Weapon
-    const randomPossibility = randomOf(...possibilities)
-    return randomPossibility
-}
 function parseItemText(text, thisText='#####') {
     const randomElement = () => randomOf('Slash', 'Pierce', 'Smash', 'Pulse', 'Fire', 'Cold', 'Shock', 'Poison', 'Acid', 'Divine', 'Scourge')
     const preferredElement = randomElement()
 
     let customSymbols = {
+        'When': { tag: 'span', text: randomOf(
+            'when struck', 'when hit', 'upon impact', 'when touched',
+            'when not looked at',
+            'the more it is used',
+            'when picked up',
+            
+            `${randomOf('at certain hours', 'at random times', 'randomly', 'at random')} ${randomOf('at', 'during the', 'in the')} ${randomOf('day', 'night', 'twilight', 'morning', 'evening', 'sundown', 'dusk')}`,
+            `when${randomOf('placed', '')} in ${randomOf('strong', 'direct ', '')}${randomOf('sunlight', 'daylight', 'moonlight', 'dim light', 'shadow')}`,
+            `under the open ${randomOf('night ', 'day ', '', '')}sky`,
+            `in the presence of ${randomOf('fire', 'flames', 'heat', 'the scorching sun', 'the cold moon', 'freezing cold', 'frost', 'ice', 'water', 'acid', 'poisoned air', 'poisonous creatures', 'lightning', 'electricity')}`,
+            `in the presence of ${randomOf('wild beasts', 'dragons', 'humanoids', 'people with ill intent', 'people deemed trustworthy', 'aberrations', 'fiends', 'monsters')}`,
+        )},
+        'As': { tag: 'span', text:
+            `${randomOf(`when`, 'when', 'as', 'as', 'in the time when')} the ${randomOf('night sky', 'day sky', 'weather', 'time of the year')} ${randomOf('changes', 'changes', 'varies', 'evolves', 'fluctuates', 'adjusts', 'settles')}`
+        },
+        'Sometimes': { tag: 'span', text: randomOf(
+            'sometimes', 'ocassionally', 'randomly',
+            'in alternating breaths',
+            'in a rhythmic pattern'
+        )},
+        'InCondition': { tag: 'span', text: randomOf(
+            'when looked at', 'when not looked at', 'when looked at with the peripheral vision',
+            `${randomOf('at certain hours', 'at random times', 'randomly', 'at random')} ${randomOf('at', 'during the', 'in the')} ${randomOf('day', 'night', 'twilight', 'morning', 'evening', 'sundown', 'dusk')}`,
+            `${randomOf(`when ${randomOf(' placed in', '')}`, 'under', 'in')} ${randomOf('strong ', 'direct ', '')}${randomOf('sunlight', 'daylight', 'moonlight', 'dim light', 'shadow')}`,
+            `under the open ${randomOf('night ', 'day ', '', '')}sky`,
+            `in the presence of ${randomOf('fire', 'flames', 'heat', 'the scorching sun', 'the cold moon', 'freezing cold', 'frost', 'ice', 'water', 'acid', 'poisoned air', 'poisonous creatures', 'lightning', 'electricity')}`,
+            `in the presence of ${randomOf('wild beasts', 'dragons', 'humanoids', 'people with ill intent', 'people deemed trustworthy', 'aberrations', 'fiends', 'monsters')}`,            
+        )},
+        'Changing': { tag: 'span', text: randomOf(
+            'mutating', 'shifting', 'transforming', 'changing patterns',
+            'increasing', 'amplifying', 'intensifying', 'strenghtening', 'raising',
+            'reducing', 'decreasing', 'stopping', 'waning', 'falling off', 'weakening', 'fading'
+        )},
+        'Changes': { tag: 'span', text: randomOf(
+            'mutates', 'shifts', 'transforms', 'changes patterns',
+            'increases', 'amplifies', 'intensifies', 'strenghtens', 'raises',
+            'reduces', 'decreases', 'stops', 'wanes', 'falls off', 'weakens', 'fades'
+        )},
+        'Size': { tag: 'span', text: randomOf(
+            'small', 'tiny', 'little',
+            'large', 'great', 'vast'
+        )},
+        'But': { tag: 'span', text: randomOf(
+            'but', 'yet', 'though'
+        )},
+        'AdjectiveForMovement': { tag: 'span', text: randomOf(
+            'rapid', 'quick', 'sudden',
+            'slow', 'calm', 'gentle',
+            'soft', 'smooth', 'delicate',
+            'heavy', 'easy', 'weightless', 'strong', 'poweful',
+            'sharp', 'intense',
+            'endless', 'faint', 'delicate', 'hazy', 'mild',
+            'clear', 'distinct', 'noticeable',
+        ) },
+        'AdverbForMovementNoSpace': { tag: 'span', text: randomOf(
+            ' raplidly', ' quickly', ' suddenly',
+            ' slowly', ' calmly', ' gently', ' softly', 'smoothly',
+            ' heavily', ' easily', ' weightlessly',
+            ' even more so', ' more and more',
+            ' endlessly',
+            '', '', '', '', '', ''
+        ) },
+        'InDirection': { tag: 'span', text: randomOf(
+            'skyward', 'downward', 'upward', 'in midair',
+            'into mist', 'into nothingness',
+            'into the air',
+            'into the ether',
+            'toward the sky', 'toward the ceiling', 'up high',
+            'on a breeze',
+            'into a whisper',
+            'in random directions'
+        )},
+        'Element': { tag: 'span', text: randomOf(
+            'molten lava',
+            'lava',
+            'fire',
+            'flames',
+            'scorching fire',
+            'frost',
+            'pure frost',
+            'ice',
+            'true ice',
+            'lightning',
+            'a current',
+            'electricity',
+            'arcane',
+            'arcane magic',
+            'divine energy',
+            'holy energy',
+            'evil energy',
+            'deathly magic'
+        )},
+        'APeriod': { tag: 'span', text: randomOf(
+            'a while', 'a period', 'a brief period', 'short bursts', 'a time',
+            'only a heartbeat',
+        )},
+        'SeemsTo': { tag: 'span', text: randomOf(
+            'appears to', 'seems to', 'looks to',
+        )},
+        'SeemsToBe': { tag: 'span', text: randomOf(
+            'is', 'appears', 'seems', 'looks', 'resembles', 'seems to be', 'appears to be', 
+        )},
+        'Seeming': { tag: 'span', text: randomOf(
+            'being', 'appearing', 'seeming', 'lookin', 'resembling', 'seeming to be', 'appearing to be', 
+        )},
+        'MadeOf': { tag: 'span', text: randomOf(
+            'made of', 'woven from', 'created of', 'of', 'fashioned from', 'formed of', 'hewn from', 'forged of',
+            'shaped from', 'wrought in', 'carven of', 'crafted of', 'crafted from', 'born of', 'drawn from',
+            'spun of', 'raised from'
+        )},
+        'Glows': { tag: 'span', text: randomOf(
+            'glows', 'scintilates', 'sparkles', 'lightens up', 'tints', 'glimmers'
+        )},
+        'Glow': { tag: 'span', text: randomOf(
+            'glow', 'sparkle', 'light', 'tint', 'glimmer'
+        )},
+        'Fading': { tag: 'span', text: randomOf(
+            'fading', 'rising', 'soaring', 'ascending', 'drifting',
+            'evaporating', 'scattering', 'expanding', 'drifting away',
+            'dispersing', 'disappearing'
+        )},
+        'Flows': { tag: 'span', text: randomOf(
+            'curls', 'rises', 'flows', 'cascades', 'ebbs', 'ebbs and flows', 'streams', 'swirls', 'trickles', 'ripples', 'coils', 'oscillates',
+        )},
+        'ArmorMaterial': { tag: 'span', text: randomOf(
+            'Iron', 'Steel', 'Bronze', 'Copper', 'Brass', 'Silver', 'Gold', 'Platinum',
+            'Mithril', 'Obsidian',
+            'Hide', 'Leather', 'Pelt',
+            'Quartz', 'Crystal', 'Glass', 'Marble', 'Moonstone', 'Sunstone',
+            'Ironwood', 'Thornwood', 'Hardwood', 'Ironbark',
+            'Bone', 'Shell', 'Giant Bone',
+            'Serpenthide', 'Serpentleather', 'Chitin',
+            'Dragonscale', 'Shadowsteel', 'Starforge Metal'
+        )},
+        'ClothMaterial': { tag: 'span', text: randomOf(
+            'Silk', 'Velvet', 'Cotton', 'Satin', 'Chainmail',
+            'Moonthread', 'Enchanted Cloth', 'Vineweave',
+            'Hide', 'Leather', 'Pelt', 'Starweave', 'Ghostsilk',
+            'Trollskin', 'Serpenthide', 'Serpentleather',
+            'Aetherweave', 'Dreamthread',
+        )},
+        'WeaponMaterial': { tag: 'span', text: randomOf(
+            'Iron', 'Steel', 'Bronze', 'Copper', 'Brass',
+            'Quartz', 'Crystal', 'Glass', 'Marble', 'Moonstone', 'Sunstone',
+            'Ironwood', 'Thornwood', 'Hardwood', 'Ironbark',
+            'Bone', 'Ivory', 'Giant Fang', 'Giant Claw',
+            'Shadowsteel', 'Starforge Metal'
+        )},
+        'WeaponPart': { tag: 'span', text: randomOf(
+            'tip', 'handle', 'side', 'crossguard', 'etchings', 'fissures', 'cracks',
+            'underside'
+        )},
+        'Gemstone': { tag: 'span', text: randomOf(
+            "Diamond", "Ruby", "Sapphire", "Emerald", "Topaz", "Amethyst", "Garnet",
+            "Aquamarine", "Peridot", "Opal", "Turquoise", "Jade", "Onyx", "Pearl",
+            "Moonstone", "Sunstone", "Spinel", "Chrysoberyl", "Citrine", "Labradorite",
+            "Malachite", "Quartz", "Obsidian", "Bloodstone", "Carnelian", "Kyanite", "Zircon",
+            "Alexandrite", "Amber", "Iolite", "Chrysoprase", "Aventurine", "Smoky Quartz",
+            "Selenite", "Fluorite", "Celestite", "Angelite", "Star Ruby", "Star Sapphire",
+            "Mystic Topaz", "Black Diamond", "Fire Opal", "Aether Crystal", "Starlight Gem",
+            "Voidstone", "Moonfire Crystal",
+            "Sunheart Ruby", "Dream Quartz", "Shadow Amethyst", "Dragon’s Eye Emerald"
+        )},
+        'Texture': { tag: 'span', text: randomOf(
+            'rough', 'harsh', 'smooth', 'leveled', 'rounded',
+            'embossed', 'unpolished', 'polished', 'crude',
+            'rugged', 'jagged', 'lighter than normal', 'heavier than normal',
+            'glossy', 'shiny', 'soft', 'refined', 'unrefined',
+            'raw', 'coarse', 'cheap', 'expensive'
+        )},
         'This': { tag: 'span', text: thisText },
-        'Color': { tag: 'span', text: randomOf('red', 'crimson-red', 'amber', 'turquoise', 'emerald-green', 'green', 'sapphire-blue', 'blue', 'ethereal-blue', 'orange', 'yellow', 'purple', 'teal', 'black', 'white', 'celsetial silver')},
+        'PatternsOf': { tag: 'span', text: randomOf(
+            'flowing patterns of',
+            'layers of',
+            'various shades of',
+            'shades of',
+            'moving patterns of',
+            'hues of'
+        ) },
+        'Color': { tag: 'span', text: randomOf(
+            'red', 'crimson', 'amber', 'turquoise', 'emerald-green', 'green', 'sapphire-blue', 'blue', 'ethereal blue', 'orange', 'yellow', 'purple', 'teal', 'black', 'white', 'silvery')
+        },
+        
         'DamageType': { tag: 'span', text: (percentChance(75)? preferredElement: randomElement())},
         'Soulbound': { tag: 'span', text: 'CURSED TO DO' },
         'Stat': { tag: 'span', text: randomOf('Might', 'Dexterity', 'Intelligence', 'Sense', 'Charisma')},
@@ -55,121 +227,220 @@ function tryNameItem(item) {
     }
 
     const MAX_NAME_LENGTH = 30
-    function getAnyTextByKeywordsOrFallback(text, keywords, fallbackArray) {
-        const keysRandomized = shuffle(Object.keys(keywords))
-        for (const key of keysRandomized) {
-            if (text.includes(key)) return randomOf(...keywords[key])
-        }
-        return randomOf(...fallbackArray)
-    }
-    function maybeGetAnyKeyordByConditions(text, matchConditions, fallbackArray=[null]) {
+    function maybeGetAnyKeyordByConditions(text, matchConditions) {
         const allAffixesClumped = Object.keys(matchConditions)
-        const possibleAffixesClumped = allAffixesClumped.filter(conditionKey => matchConditions[conditionKey](text))
-        const possibleAffixes = possibleAffixesClumped.map(str => str.split('|')).flat()
-        return randomOf(...possibleAffixes)
+        const allMaybeAffixesClumped = allAffixesClumped
+            .map(key => ({ key, result: matchConditions[key](text.toLowerCase()) }))
+        const possibleAffixesClumped = allMaybeAffixesClumped.filter(({result}) => result)
+        
+        if (possibleAffixesClumped.length == 0) {
+            return null
+        }
+
+        const randomAffixObject = randomOf(...possibleAffixesClumped)
+        const affixParts = randomAffixObject.key.split('|')
+        const randomAffixString = randomOf(...affixParts)
+
+        const finalAffix =
+            randomAffixString.includes('$')?
+                capitalizeFirstLetter(randomAffixString.replace('$', randomAffixObject.result))
+            :
+                randomAffixString
+        
+        return finalAffix
     }
     const prefixConditions = {
         "Colossus": text => text.includes('Might'),
         "Airwielder": s => s.includes('floats'),
         "Man Slayer": s => s.includes('Person'),
         "Man|Simpleton": s => s.includes('average'),
+        "Booming|the Vault Breaker": text => text.includes('obstacle'),
+
         "Dragon Slayer|Drakeslayer": s => s.includes('Dragon'),
         "Dead Slayer|Deadstriker": s => s.includes('Undead'),
         "Demon Slayer's": s => s.includes('Demon'),
         "Monster Hunter's": s => s.includes('Monster'),
         "Beast Hunter|Hunter": s => s.includes('Beast'),
         "Magehunter|Faehunter|Fae Slayer": s => s.includes('Fae'),
-        "Shapeshifter|Mimic": s => s.includes('transformed into any other weapon'),
         "Cat": text => text.includes('no falling Damage'),
+        
+        "Shapeshifter|Mimic": s => s.includes('transformed into any other weapon'),
+        
         "Waterway": text => text.includes('swim'),
         "Icestepper": text => text.includes('walk on water'),
+        "Nature|Spring|Summer": text => includesAny(text, ['green leaves', 'verdant leaves', 'ivy', 'vine']),
+        "Autumn": text => includesAny(text, ['orange leaves', 'red leaves', 'burnished leaves', 'autumn']),
+        
+        "Alchemist|Mercurio": text => includesAny(text, ['potion', 'poison', 'toxic', 'mercury', 'sulfur', 'ammonia', 'oxygen']),
+        
+        "Aspects|Chameleon": text => text.includes('transformed into any other weapon'),
         "Dancer": text => text.includes('dodge'),
         "Woundkeeper": text => text.includes("can't be healed"),
-        "Aspects|Chameleon": text => text.includes('transformed into any other weapon'),
-        "Necromancer|Wraithcaller|Tombstone": text => text.includes('Zombie'),
+        "Specter": text => text.includes('spectral'),
+        "Necromancer|Wraithcaller|Tombstone": s => includesAny(s, ['zombie', 'raise', 'skeleton']),
+        "Barbarian": s => s.includes('second attack'),
+        "Lifestealer": s => s.includes('heal for all the Damage dealt'),
+        
+        "Highflier|Skybreaker|Skyflier|Skyrider|Windrider|Falconer|Cloudstriker|Stormrider|Sunwing|Moonglide": text => includesAny(text, ['flying', 'whelp', 'pegasus', 'hippogriff', 'thunderbird', 'stormcrow', 'giant eagle', 'giant falcon', 'giant owl']),
+        "Rider": text => includesAny(text, ['ground mount']),
+        "Horseman|Cavalier": text => includesAny(text, ['horse', 'unicorn', 'pony', 'stag', 'elk']),
+        "Dragonrider": text => includesAll(text, ['dragon whelp', 'flying mount']),
+        "$rider|$tamer|$wright|Wild Hunt": text => includesAny(text, ['horse', 'unicorn', 'zebra', 'stag', 'elk', 'wolf', 'bear', 'spider', 'insect']),
+        "Howler|Nighthowler|Wildhowler": text => includesAny(text, ['wolf', 'hound']),
+        "Specter|Ghostrider|Spiritrider|Soulstrider": text => includesAny(text, ['spectral', 'ghostly']),
+        
+        "River": text => includesAny(text, ['river', 'erosion']),
     }
     const midfixConditions = {
+
+        "Withholding": s => s.includes('whenever you unequip it'),
+        'Steelplated|Titanforged|Ironclad|Dreadnought|Warborn|Obsidian|Stormforged|Runefused|Ironblood': s => includesAny(s, ['+1 defense', '+2 defense', 'obsidian']),
+        "Lumbering": s => s.includes('smash'),
+        "Unleashing|Ravaging": s => s.includes('damage you deal by'),
+        "Stoic|Unmoving": s => s.includes('stuck'),
+        "Even-Strike|Rebalanced|Reforged|Man": s => s.includes('average'),
+        "Returning|Homecoming|Lodestone|Galechaser|Echoing": s => s.includes('thrown'),
+        "Longshot|Arced|Skystrike|Horizon's|Cloudborne|Veilbreaker's|Arc|Reach": s => s.includes('range'),
+        
+        "Slaying|Slashing|Sharp|Slay": s => s.includes('slash'),
+        "Stinger|Spiked|Serrated|Jagged": s => s.includes('pierce'),
+        
+        "Fire|Flame|Burn|Blaze|Tar|Flaming|Scorching|Ember|Ashen|Burning|Searing|Smouldering": s => includesAny(s, ['fire', 'flame', 'burn', 'blaze', 'tar']),
+        "Warm|Heat": s => includesAny(s, ['warm', 'heat', 'hot']),
+        "Frost|Frozen|Snow|Rime|Ice": s => includesAny(s, ['frost', 'rime', 'frozen', 'ice', 'snow']),
+        "Wind|Cloud": s => includesAny(s, ['scent', 'smell', 'miasma', 'aroma', 'wind', 'air', 'cloud']),
+        "Shock|Static|Lightning": s => s.includes('shock'),
+        "Toxic|Nox|Noxious|Viper's|Viper": s => s.includes('poison'),
+        "Septic|Ooze|Slime": s => includesAny(s, ['acid', 'ooze', 'slime']),
+        "Divine|Holy|Celestian|Reckoning|Retribution|Dawn|Daybreak": s => s.includes('divine'),
+        "Deathly|Unholy|Eldritch|Death": s => s.includes('scourge'),
+
+        "Elusive": s => s.includes("can't be targeted"),
+        "Realmcutting|Realm": s => s.includes('glitch'),
+
+        "Fearing|Frightening|Dooming|Doom": s => s.includes('feared'),
+        "Blinding|Flaring|Flare": s => s.includes('blinded'),
+        "Weakening|Breathtaking": s => s.includes('crippled'),
+        "Slowing|Slow": s => s.includes('slowed'),
+        "Rooting|Snaring|Unmoving|Root|Grasp": s => s.includes('rooted'),
+
+        "Skillful|Skill": s => s.includes('skill'),
+        
+        "Drake": s => s.includes('dragon'),
+        "Demon|Demonic": s => s.includes('demon'),
+        "Beastly": s => s.includes('beast'),
+        "Fae": s => includesAny(s, ['fae']),
+        "Fiendsbane|Fiend": s => s.includes('fiend'),
+        
+        "Echoing|Everlasting|Ceaseless|Resonating|Secular|Enduring|Cascading": s => s.includes('deals exactly as much damage'),
+        "Veilpiercer|Ghoststepper|The Unseen|The Piercing|Obscurite|Ghost|Hide": s => s.includes('ignore Cover'),
+        "Morphing|Shiftsteel|Formiron|Mercurial|Mimic": s => s.includes('transformed into any other weapon'),
+        "Gust|Blasting|Cyclone|Hurricane|Thundering|Boom": s => s.includes('pushes the target'),
+        "Empowered|High-Tide|Apex|Rend|Rending|Unrestrained|Maximal|Max": s => s.includes('units at full health'),
+        "Spellblade|Hex": s => s.includes('your next spell this turn deals'),
+        "Quantic|Savage": s => s.includes('second attack'),
+        "Vampiric": s => s.includes('heal for all the damage dealt'),
+        "Necrotic|Mortal|Necro": s => s.includes("can't be healed"),
+        
+        "Runic|Rune": s => includesAny(s, ['rune', 'runic', 'etch', 'carved', 'symbols']),
+
+        "Black|Onyx|Obsidian": text => includesAny(text, ['black', 'scourge', 'fire']),
+        "White|Silver": text => includesAny(text, ['white', 'moth', 'silver', 'true damage', 'divine']),
+        "Green|Verdant|Emerald|Jade": text => includesAny(text, ['green', 'verdant', 'poison', 'toxic', 'acid', 'jade']),
+        "Red|Crimson|Scarlet|Rose": text => includesAny(text, ['red', 'crimson', 'scarlet', 'fire', 'rose']),
+        "Gold|Amber": text => includesAny(text, ['gold', 'yellow', 'orange', 'amber', 'fire', 'divine']),
+        "Azure": text => includesAny(text, ['blue', 'teal', 'turquoise', 'azure', 'cold damage']),
+        "Royal": text => includesAny(text, ['purple', 'gold', 'king', 'royal']),
+        "Charging": text => includesAny(text, ['horse', 'unicorn', 'pony', 'stag', 'elk']),
+        
+        "Lead": text => includesAny(text, ['lead']),
+        "Stone|Stoneborn|Rock|Rockborn": text => includesAny(text, ['stone', 'rock']),
+        'Bark': text => includesAny(text, ['wood', 'bark']),
+        'Earth': text => includesAny(text, ['earth', 'soil', 'dirt']),
+        'Petal|Flower|Rose': text => includesAny(text, ['flower', 'petal', 'rose']),
+        'Vine|Ivy': text => includesAny(text, ['vine', 'ivy']),
+        'Sand|Desert': text => includesAny(text, ['sand', 'desert']),
+        "Magic|Arcane|Spell|Evocation|Wrath": text => text.includes('ability every turn'),
+        "$": s => includesAny(s, [
+            'dust', 'candy', 'bone',
+            'Iron', 'Steel', 'Bronze', 'Copper', 'Brass', 'Silver', 'Gold', 'Platinum',
+            'Mithril', 'Obsidian',
+            'Hide', 'Leather', 'Pelt',
+            'Quartz', 'Crystal', 'Glass', 'Marble', 'Moonstone', 'Sunstone',
+            'Ironwood', 'Thornwood', 'Hardwood', 'Ironbark',
+            'Bone', 'Shell', 'Giant Bone',
+            'Serpenthide', 'Serpentleather', 'Chitin',
+            'Dragonscale', 'Shadowsteel', 'Starforge',
+            'Silk', 'Velvet', 'Cotton', 'Satin', 'Chainmail',
+            'Moonthread', 'Enchanted Cloth', 'Vineweave',
+            'Starweave', 'Ghostsilk',
+            'Trollskin', 'Serpenthide', 'Serpentleather',
+            'Aetherweave', 'Dreamthread',
+            'Ivory', 'Fang', 'Claw',
+            'Jaw', 'Maw',
+            "Diamond", "Ruby", "Sapphire", "Emerald", "Topaz", "Amethyst", "Garnet",
+            "Aquamarine", "Peridot", "Opal", "Turquoise", "Jade", "Onyx", "Pearl",
+            "Moonstone", "Sunstone", "Spinel", "Chrysoberyl", "Citrine", "Labradorite",
+            "Malachite", "Quartz", "Obsidian", "Bloodstone", "Carnelian", "Kyanite", "Zircon",
+            "Alexandrite", "Amber", "Iolite", "Chrysoprase", "Aventurine",
+            "Selenite", "Fluorite", "Celestite", "Angelite", "Star Ruby", "Star Sapphire",
+            "Mystic Topaz", "Black Diamond", "Aether", "Starlight",
+            "Voidstone", "Moonfire",
+            "Sunheart",
+        ]),
+
+        "Dark|Night|Twilight|Dusk": s => includesAny(s, ['scourge', 'night', 'dark', 'shadow', 'twilight', 'dusk', 'sundown']),
+        "Day|Dawn": s => includesAny(s, ['day', 'light', 'dawn', 'sunrise']),
+
+        "Arcanic|Night|Arcane": s => includesAny(s, ['pulse', 'arcane', 'moon']),
         "Fathom|Depth": s => s.includes('tentacle'),
         "Bloodbound|Fleshbound": s => s.includes('damages you'),
         "Hollow": s => s.includes('hollow'),
-        "Withholding": s => s.includes('whenever you unequip it'),
-        'Steelplated|Titanforged|Ironclad|Dreadnought|Warborn|Obsidian|Stormforged|Runefused|Ironblood': s => includesAny(s, ['+1 defense', '+2 defense']),
-        "Slaying|Slashing|Sharp|Slay": s => s.includes('Slash'),
-        "Stinger|Spiked|Serrated|Jagged": s => s.includes('Pierce'),
-        "Lumbering": s => s.includes('Smash'),
-        "Arcanic|Night's|Night": s => s.includes('Pulse'),
-        "Flaming|Scorching|Ember|Ashen|Burning|Searing|Smouldering": s => s.includes('Fire'),
-        "Frost|Frozen|Rime|Ice": s => s.includes('Cold'),
-        "Static|Lightning": s => s.includes('Shock'),
-        "Toxic|Nox|Noxious|Viper's|Viper": s => s.includes('Poison'),
-        "Septic": s => s.includes('Acid'),
-        "Divine|Holy|Celestian|Reckoning|Retribution": s => s.includes('Divine'),
-        "Deathly|Unholy|Eldritch|Death": s => s.includes('Scourge'),
-        "Elusive": s => s.includes("can't be targeted"),
-        "Realmcutting|Realm": s => s.includes('glitch'),
-        "Fearing|Frightening|Dooming|Doom": s => s.includes('Feared'),
-        "Blinding|Flaring|Flare": s => s.includes('Blinded'),
-        "Weakening|Breathtaking": s => s.includes('Crippled'),
-        "Slowing|Slow": s => s.includes('Slowed'),
-        "Rooting|Snaring|Unmoving|Root|Grasp": s => s.includes('Rooted'),
-        "Unleashing|Ravaging": s => s.includes('Damage you deal by'),
-        "Skillful|Skill": s => s.includes('Skill'),
-        "Runic|Rune": s => s.includes('Rune'),
-        "Stoic|Unmoving": s => s.includes('stuck'),
-        "Even-Strike|Rebalanced|Reforged|Man": s => s.includes('average'),
-        "Drake": s => s.includes('Dragon'),
-        "Demon|Demonic": s => s.includes('Demon'),
-        "Beastly": s => s.includes('Beast'),
-        "Fae": s => s.includes('Fae'),
-        "Fiendsbane|Fiend": s => s.includes('Fiend'),
-        "Returning|Homecoming|Lodestone|Galechaser|Echoing": s => s.includes('thrown'),
-        "Longshot|Arced|Skystrike|Horizon's|Cloudborne|Veilbreaker's|Arc|Reach": s => s.includes('range'),
-        "Necrotic|Mortal|Necro": s => s.includes("can't be healed"),
-        "Echoing|Everlasting|Ceaseless|Resonating|Secular|Enduring|Cascading": s => s.includes('deals exactly as much Damage'),
-        "Veilpiercer|Ghoststepper|The Unseen|The Piercing|Obscurite|Ghost|Hide": s => s.includes('ignore Cover'),
-        "Morphing|Shiftsteel|Formiron|Mercurial|Mimic": s => s.includes('transformed into any other weapon'),
-        "Gust|Blasting|Cyclon's|Hurricane|Thundering|Boom": s => s.includes('pushes the target'),
-        "Empowered|High-Tide|Apex|Rend|Rending|Unrestrained|Maximal|Max": s => s.includes('Units at full Health'),
-        "Slay|Ender's|Ender|Sanguine|Reaper's|End|Reap": s => s.includes('Units below'),
+        "Slay|Ender|Sanguine|Reaper's|End|Reap": s => s.includes('units below'),
         "Corpsebursting|Necroburst|Cadaver|Corpse": s => s.includes('corpse explodes'),
-        "Spellblade|Hex": s => s.includes('your next Spell this turn deals'),
-        "Quantic|Savage|Barbarian's": s => s.includes('second attack'),
-        "Vampiric|Lifestealer|Lifestealer's": s => s.includes('heal for all the Damage dealt')
     }
     const suffixConditions = {
-        "Might|Fortitude": text => text.includes('Might'),
-        "Dexterity|Agility": text => text.includes('Dexterity'),
-        "Intelligence": text => text.includes('Intelligence'),
-        "Sense|Resolve|Will": text => text.includes('Sense'),
-        "Charisma": text => text.includes('Charisma'),
+        "Might|Fortitude": text => text.includes('might'),
+        "Dexterity|Agility": text => text.includes('dexterity'),
+        "Intelligence": text => text.includes('intelligence'),
+        "Sense|Resolve|Will": text => text.includes('sense'),
+        "Charisma": text => text.includes('charisma'),
+        "Vitality|Vigor": text => text.includes('max health'),
+        "Speed|the Wind|Swiftness|Haste": text => text.includes('movement speed'),
+        "Initiative|Quickstep": text => text.includes('initiative'),
+        "Mana": s => includesAny(s, ['1 mana', '2 mana']),
+
         "Immunity": text => text.includes('immune'),
-        "Unmoving": text => text.includes('minimum Movement'),
+        "Unmoving": text => text.includes('minimum movement'),
         "Resilience": text => text.includes('being pushed'),
-        "Slowfall": text => text.includes('no falling Damage'),
-        "Accuracy": text => text.includes('minimum Damage'),
+        "Slowfall": text => text.includes('no falling damage'),
+        "Accuracy": text => text.includes('minimum damage'),
         "Levitation": text => text.includes('levitate'),
-        "Vitality|Vigor": text => text.includes('Max Health'),
-        "Restoration": text => text.includes('Health Regen'),
-        "Speed|the Wind|Swiftness|Haste": text => text.includes('Movement Speed'),
-        "Initiative|Quickstep": text => text.includes('Initiative'),
-        "Shielding": text => text.includes('Shielding'),
-        "Ambushing|Quickness": text => text.includes('Ambushing Initiative'),
+        "Restoration": text => text.includes('health regen'),
+        "Shielding": text => text.includes('shielding'),
+        "Ambushing|Quickness": text => text.includes('ambushing'),
         "Bracing": text => text.includes('arrows'),
-        "Retaliation": text => text.includes('Whenever you are hit by a monster'),
+        "Retaliation": text => text.includes('whenever you are hit by a monster'),
         "Homesafe|Recalling|the Hearth": text => text.includes('you are instantly teleported'),
-        "Mana": text => text.includes('gain 1 Mana'),
         "Phasing": text => text.includes('phase in and out'),
         "Mirage": text => text.includes('you can dodge'),
-        "Magic|Arcane|Spell|Evocation|Wrath": text => text.includes('Ability every Turn'),
-        "the Ink|Vanishing": text => text.includes('tattoo'),
-        "Fluency|Tongues": text => text.includes('fluent'),
-        "Booming|the Vault Breaker": text => text.includes('obstacle'),
         "Invisibility|Vanishing": text => text.includes('invisible'),
+        "Elusion|Evasion": text => text.includes('dodge'),
         "Critting|Lethality|Deathstriking|Murdering|Culling|Bloodletting|Bloodbathing": text => text.includes('on at least one die'),
-        "Elusion|Evasion|the Dancer": text => text.includes('dodge'),
-        "the Woundkeeper|Baning|Wounding|Pain": text => text.includes("can't be healed"),
+        "Fluency|Tongues": text => text.includes('fluent'),
+        
+        "Constellations": text => text.includes('constellation'),
+        "the Wind": s => includesAny(s, ['scent', 'smell', 'miasma', 'aroma']),
+        "the $": text => includesAny(text, [
+            'moth', 'dragon', 'eagle', 'manticore', 'griffin',
+            'constellation'
+        ]),
+
+        "the Ink|Vanishing": text => text.includes('tattoo'),
+        "Baning|Wounding|Pain": text => text.includes("can't be healed"),
         "Aspects|the Chameleon": text => text.includes('transformed into any other weapon'),
-        "Tombstones": text => text.includes('Zombie'),
+        "Tombstones": text => text.includes('zombie'),
+        
     }
 
     const itemNameShortened = last(item.Name.split(' '))
@@ -215,7 +486,7 @@ function tryNameItem(item) {
             name: () => `${itemName} of the ${prefix}`
         },
         {
-            requires: [midfix],                     // Rune Axe
+            requires: [midfix],                     // Runic Axe
             name: () => `${getMidfixAndItemName()}`
         },
         {
@@ -223,12 +494,16 @@ function tryNameItem(item) {
             name: () => `${itemName} of ${suffix}`
         },
         {
-            requires: [prefix, midfix],             // Slayer's Rune Axe
+            requires: [prefix, midfix],             // Slayer's Runic Axe
             name: () => `${prefixWithPossessive} ${getMidfixAndItemName()}`
         },
         {
-            requires: [prefix, midfix],             // Rune Axe of the Slayer
+            requires: [prefix, midfix],             // Runic Axe of the Slayer
             name: () => `${getMidfixAndItemName()} of the ${prefix}`
+        },
+        {
+            requires: [prefix, midfix],             // Axe of the Runic Slayer
+            name: () => `${itemName} of the ${midfix} ${prefix}`
         },
         {
             requires: [prefix, suffix],             // Slayer's Axe of Mana
@@ -239,18 +514,27 @@ function tryNameItem(item) {
             name: () => `${itemName} of ${prefixWithPossessive} ${suffix}`
         },
         {
-            requires: [midfix, suffix],             // Rune Axe of Mana
+            requires: [midfix, suffix],             // Runic Axe of Mana
             name: () => `${getMidfixAndItemName()} of ${suffix}`
         },
         {
-            requires: [midfix, suffix],             // Axe of Rune Mana
+            requires: [midfix, suffix],             // Axe of Runic Mana
             name: () => `${itemName} of ${midfix} ${suffix.replace('the')}`
         }
     ]
 
     const possibilities = allCombinations.filter(c => !c.requires.includes(null) && !c.requires.includes(undefined))
-    const possibilitiesText = possibilities.map(c => c.name())
-    const randomName = randomOf(...possibilitiesText)
+    const randomPossibility = randomOfArrayWeighted(possibilities, possibilities.map(({ requires }) =>
+        requires.length == 1?
+            1
+        :requires.length == 2?
+            3
+        :requires.length == 2?
+            2
+        :
+            1
+    ))
+    const randomName = randomPossibility.name()
     
     return randomName
 }
@@ -350,7 +634,7 @@ function createItem(xp, itemType) {
     maybeAddEffect(possibleEffects, 'Minor', 25)
     maybeAddEffect(possibleEffects, 'Property', 15)
     maybeAddEffect(possibleEffects, 'Active', 25)
-    maybeAddEffect(possibleEffects, 'Quirk', 25)
+    maybeAddEffect(possibleEffects, 'Quirk', 75)
 
     let nFails = 0
     while (xpLeft > 0) {
