@@ -715,7 +715,13 @@ export function areArraysEqual(a1, a2, compareElems=null) {
     return true
 }
 window.areArraysEqual = areArraysEqual
-
+export function mapKeysToObject(keys, func) {
+    const obj = {}
+    for (const key of keys) {
+        obj[key] = func(key)
+    }
+    return obj
+}
 export function mapObject(obj, func) {
     const keys = Object.keys(obj)
     let newObj = {}

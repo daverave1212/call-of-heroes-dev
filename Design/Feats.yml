@@ -1,21 +1,63 @@
 # Idea: Dragonborn wings
 
 Standard Feats:
-
-    ~Skill Training~:
-        A: Passive
-        Cost: -2 Initiative or -1 Health
-        Effect: |
-            Become Skilled in any Skill (see Skills).
-            You can get this Feat multiple times (for different Skills, obviously).
-        Notes: You need at least 2 Base Initiative to get this.
             
-    ~Magic Initiate~:
+    ~Novice Magic~:
+        DisplayName: "Novice {Type}"
         A: Passive
         Cost: -1 in a Stat of choice
         Effect: |
-            Choose one more Basic Ability List to gain access to.
-        Notes: You can only get this if your Character has Mana.
+            You can also pick Level 1 Minor and Utility Talents from the {Class} Class (instead of picking from yours).
+        Notes: You pick them as if they were available from your Class. E.g. with extra Minor Talents (from the Mind Stat) or the 1 free pick for Level 1.
+        Variants:
+            - Type: Holy Magic
+              Class: Cleric
+            - Type: Nature Magic
+              Class: Cleric
+            - Type: Survivalism
+              Class: Hunter
+            - Type: Elementalism
+              Class: Mage
+            - Type: Faith Magic
+              Class: Paladin
+            - Type: Knifework
+              Class: Rogue
+            - Type: Mysticism Magic
+              Class: Shaman
+            - Type: Shadow Magic
+              Class: Warlock
+            - Type: Tactics
+              Class: Warrior
+
+    ~Adept Magic~:
+        DisplayName: "Adept {Type}"
+        A: Passive
+        Cost: -1 in a Stat of choice
+        Requirement: Novice {Type}
+        Effect: |
+            Pick a specialization from the {Class} Class.
+            You can also pick Minor and Utility Talents from that specialization (instead of picking from yours, at the respective Levels).
+        Notes: You pick them as if they were available from your Class. E.g. with extra Minor Talents (from the Mind Stat) or the 1 free pick for that Level.
+        Variants:
+            - Type: Holy Magic
+              Class: Cleric
+            - Type: Nature Magic
+              Class: Cleric
+            - Type: Survivalism
+              Class: Hunter
+            - Type: Elementalism
+              Class: Mage
+            - Type: Faith Magic
+              Class: Paladin
+            - Type: Knifework
+              Class: Rogue
+            - Type: Mysticism Magic
+              Class: Shaman
+            - Type: Shadow Magic
+              Class: Warlock
+            - Type: Tactics
+              Class: Warrior
+
 
     # ~Point Blanking~:
     #     A: Passive
@@ -29,7 +71,8 @@ Standard Feats:
     
     ~Adaptation~:
         A: Passive
-        Cost: -1 Known Basic Ability
+        Cost: -2 Health
+        Requirement: Not pickable for Orcs
         Effect: Gain one more Racial Ability.
         Upgrade: You can get this Feat multiple times.
 
@@ -323,9 +366,9 @@ Multiclass Feats:   # Should be about 1.5 Mana worth (so 0.5 because of the 1 Ma
 
     ~MC - Cleric~:
         A: Passive
-        Cost: -1 in 3 Stats of choice
+        Cost: -1 in each Stat
         Effect: |
-            You gain the Awe, Spread the Awe, and Blessing Abilities from the Cleric Class, and access to the Divine Ability List.
+            You gain the Awe and Blessing Abilities from the Cleric Class. Pick a specialization, and you can also pick Minor and Utility Talents from the base Class and that specialization.
 
     ~MC - Druid~:
         A: Passive

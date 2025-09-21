@@ -1,18 +1,99 @@
 {
     "Standard Feats": {
-        "~Skill Training~": {
-            "A": "Passive",
-            "Cost": "-2 Initiative or -1 Health",
-            "Effect": "Become Skilled in any Skill (see Skills).\nYou can get this Feat multiple times (for different Skills, obviously).\n",
-            "Notes": "You need at least 2 Base Initiative to get this.",
-            "Name": "~Skill Training~"
-        },
-        "~Magic Initiate~": {
+        "~Novice Magic~": {
+            "DisplayName": "Novice {Type}",
             "A": "Passive",
             "Cost": "-1 in a Stat of choice",
-            "Effect": "Choose one more Basic Ability List to gain access to.\n",
-            "Notes": "You can only get this if your Character has Mana.",
-            "Name": "~Magic Initiate~"
+            "Effect": "You can also pick Level 1 Minor and Utility Talents from the {Class} Class (instead of picking from yours).\n",
+            "Notes": "You pick them as if they were available from your Class. E.g. with extra Minor Talents (from the Mind Stat) or the 1 free pick for Level 1.",
+            "Variants": [
+                {
+                    "Type": "Holy Magic",
+                    "Class": "Cleric"
+                },
+                {
+                    "Type": "Nature Magic",
+                    "Class": "Cleric"
+                },
+                {
+                    "Type": "Survivalism",
+                    "Class": "Hunter"
+                },
+                {
+                    "Type": "Elementalism",
+                    "Class": "Mage"
+                },
+                {
+                    "Type": "Faith Magic",
+                    "Class": "Paladin"
+                },
+                {
+                    "Type": "Knifework",
+                    "Class": "Rogue"
+                },
+                {
+                    "Type": "Mysticism Magic",
+                    "Class": "Shaman"
+                },
+                {
+                    "Type": "Shadow Magic",
+                    "Class": "Warlock"
+                },
+                {
+                    "Type": "Tactics",
+                    "Class": "Warrior"
+                }
+            ],
+            "Name": "~Novice Magic~",
+            "HasMixins": true
+        },
+        "~Adept Magic~": {
+            "DisplayName": "Adept {Type}",
+            "A": "Passive",
+            "Cost": "-1 in a Stat of choice",
+            "Requirement": "Novice {Type}",
+            "Effect": "Pick a specialization from the {Class} Class.\nYou can also pick Minor and Utility Talents from that specialization (instead of picking from yours, at the respective Levels).\n",
+            "Notes": "You pick them as if they were available from your Class. E.g. with extra Minor Talents (from the Mind Stat) or the 1 free pick for that Level.",
+            "Variants": [
+                {
+                    "Type": "Holy Magic",
+                    "Class": "Cleric"
+                },
+                {
+                    "Type": "Nature Magic",
+                    "Class": "Cleric"
+                },
+                {
+                    "Type": "Survivalism",
+                    "Class": "Hunter"
+                },
+                {
+                    "Type": "Elementalism",
+                    "Class": "Mage"
+                },
+                {
+                    "Type": "Faith Magic",
+                    "Class": "Paladin"
+                },
+                {
+                    "Type": "Knifework",
+                    "Class": "Rogue"
+                },
+                {
+                    "Type": "Mysticism Magic",
+                    "Class": "Shaman"
+                },
+                {
+                    "Type": "Shadow Magic",
+                    "Class": "Warlock"
+                },
+                {
+                    "Type": "Tactics",
+                    "Class": "Warrior"
+                }
+            ],
+            "Name": "~Adept Magic~",
+            "HasMixins": true
         },
         "~Darkvision~": {
             "A": "Passive",
@@ -22,7 +103,8 @@
         },
         "~Adaptation~": {
             "A": "Passive",
-            "Cost": "-1 Known Basic Ability",
+            "Cost": "-2 Health",
+            "Requirement": "Not pickable for Orcs",
             "Effect": "Gain one more Racial Ability.",
             "Upgrade": "You can get this Feat multiple times.",
             "Name": "~Adaptation~"
@@ -275,8 +357,8 @@
     "Multiclass Feats": {
         "~MC - Cleric~": {
             "A": "Passive",
-            "Cost": "-1 in 3 Stats of choice",
-            "Effect": "You gain the Awe, Spread the Awe, and Blessing Abilities from the Cleric Class, and access to the Divine Ability List.\n",
+            "Cost": "-1 in each Stat",
+            "Effect": "You gain the Awe and Blessing Abilities from the Cleric Class. Pick a specialization, and you can also pick Minor and Utility Talents from the base Class and that specialization.\n",
             "Name": "~MC - Cleric~"
         },
         "~MC - Druid~": {

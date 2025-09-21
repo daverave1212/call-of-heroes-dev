@@ -364,7 +364,7 @@ export default function Spell({
 
     if (HasMixins === true || hasVariants === true) {
         try {
-            Effect = parseTextWithSymbols(Effect, extraMixins)
+            if (Effect != null) Effect = parseTextWithSymbols(Effect, extraMixins)
             if (DisplayName != null) DisplayName = parseTextWithSymbols(DisplayName, extraMixins)
             if (Downside != null) Downside = parseTextWithSymbols(Downside, extraMixins)
             if (Upgrade != null) Upgrade = parseTextWithSymbols(Upgrade, extraMixins)

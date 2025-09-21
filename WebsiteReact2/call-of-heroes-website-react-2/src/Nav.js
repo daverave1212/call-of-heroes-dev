@@ -311,7 +311,7 @@ export default function Nav() {
       <div id="Navigation-Section" onMouseLeave={() => setCurrentlyOpenSubnav(null)}>
           <LogoQG/>
 
-          <div className='burger-icon' onClick={() => setIsBurgerClicked(!isBurgerClicked)}> <img src="burger-icon.png"/> </div>
+          <div className='burger-icon' onClick={() => setIsBurgerClicked(!isBurgerClicked)}> <img src="/burger-icon.png"/> </div>
 
           <nav className="nav-landscape">
 

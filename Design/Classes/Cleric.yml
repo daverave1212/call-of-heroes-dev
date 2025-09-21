@@ -59,6 +59,7 @@ Starting Abilities:
     _Value: 3
     A: Passive
     Range: 5 meters
+    Tags: [Damage, Healing]
     Effect: |
       Whenever you spend Mana, "cast Awe" on a Unit.
       This deals 1d4 Divine Damage to enemies or heals allies for 1d4.
@@ -69,6 +70,7 @@ Starting Abilities:
     A: Half-Action
     Cooldown: Once / Adventure
     Duration: 1 combat
+    Tags: [Utility, Debuff, Awe]
     Effect: |
       Cast Awe on 2 Units and they become Blessed until the end of the next (or current) Combat.
       Blessed Allies have +1 to all Checks. Blessed Enemies have -3 Initiative.
@@ -77,20 +79,91 @@ Starting Abilities:
       Lasts until the end of the next combat encounter.
     AlignOnWebsite: Right
 
+Ability Choices:
+
+
+    ~Privilege~:
+      A: Half-Action
+      Cooldown: Once / Unit / Combat
+      Requirement: Only usable in Worthy Combat
+      Tags: [Healing, Combo]
+      Effect: |
+        Heal a Player Character you can see for an amount equal to their Health Regen.
+        They do not Regen Health at the end of the Combat.
+      Combo: They can Regen Health after Combat, but only for 50% of Health Regen.
+
+    ~Mind's Thing~:
+        DisplayName: "Mind's {Name}"
+        A: 1 Action
+        Range: 3 meters
+        Degree: Minor
+        HasMixins: true
+        Tags: [Damage]
+        Effect: |
+            Deal 1d12 + ^Your Sense or Intelligence^ {Type} Damage to a Unit.
+            For the rest of the combat, whenever it would take {Type} Damage, it takes {Damage} more (stacks indefinitely).
+
+            ~Click on the icon to selecte the preferred effect!~
+        Variants:
+          - Name: Shadow
+            Type: Scourge
+            Damage: 2
+          - Name: Abolition
+            Type: Divine
+            Damage: 1
+
+    ~Solace Wave~:
+        A: Half-Action
+        Cost: 1 Mana
+        Range: 5 meters
+        Degree: Minor
+        Tags: [Healing, Combo]
+        Effect: |
+            Heal an ally (or yourself) for 1d8 Health.
+            If they have 50% or more Health before the heal, double the result!
+        Combo: Cast Awe.
+
+    ~Elation~:
+        A: 0 Actions
+        Cost: 1 Mana
+        Degree: Minor
+        Tags: [Buff]
+        Effect: |
+          Up to 2 Player Characters you can see gain Health Regen equal to your Intelligence.
+
+    <Weakness of the Soul>:
+      A: Half-Action
+      Cost: 1 Mana
+      Range: 5 meters
+      Tags: [CC, Combo]
+      Effect: Cast Awe on a Unit. It becomes Slowed and Blinded. Apply a ~Combo~.
+    
+    ~Warding Incense~:
+      A: Reaction
+      Cost: 1 Mana
+      Tags: [Protection, Combo]
+      Effect: |
+        Use when an ally would take Damage.
+        Roll 1d6 and subtract that much from the attack.
+        Then give them the rolled die as 1 Shielding and apply a ~Combo~ on them.
+    
 Utility:
         
     ~Guidance~ :
         A: Reaction
         Range: 10 meters
         Cooldown: 1 real hour
+        Tags: [Utility]
         Effect: When an ally makes a Check, it can use your modifiers (including being Skilled in that Skill) instead of its own.
 
     ~Saving Throw~:
-        A: 0 Actions
+        A: 0 Actions or Reaction
         Cooldown: 1 hour
         Range: 7 meters
         Degree: Minor
+        Tags: [Protection, Other]
         Effect: |
+            Use when the Turn of an Enemy starts (or on your Turn).
             Instantly pull another ally to your nearest empty space.
         Notes: |
             The ally goes flying.
@@ -99,6 +172,7 @@ Utility:
     ~Mending~:
         A: 1 Action
         Degree: Lesser
+        Tags: [Utility]
         Effect: |
             Touch a slightly broken piece of material that is still in one piece.
             You can repair the Damage done to it.
@@ -151,41 +225,7 @@ Specializations:
 # Talent: Cast Awe twice
 
 
-  ~Shielding Awe~:
-    A: Passive
-    Duration: Rest of the Adventure
-    Effect: |
-      If the Awe heal overflows the target's Max Health, the remainder is doubled and transformed into Shielding. This Shielding stacks.
-    Notes: If the target has 29 out of 30 Health and you roll 3 on Awe, the target will be at 30 Health, and the remainder Healing is 2. The target gains 4 Shielding.
 
-  ~Holy March~:
-    A: Passive
-    Effect: |
-      While outnumbered in Combat, you have +1 Defense.
-      While not, you have +2 Movement.
-
-  ~Grasping Blessing~:
-    _Value: 0.25
-    A: Half-Action
-    Cooldown: Once / Adventure
-    Duration: 1 combat
-    Replacement: Replaces Blessing
-    HasMixins: true
-    Effect: |
-      Cast Awe on 2 Units and they become Blessed until the end of the next (or current) Combat.
-      Blessed Allies have +1 to all Checks ~and become immune to Crowd Control for 1 Turn.~. Blessed Enemies have -3 Initiative ~and are Blinded for 1 Turn~.
-    Notes: |
-      You can bless yourself.
-      Lasts until the end of the next combat encounter.
-    AlignOnWebsite: Right
-
-  ~Reaping~:
-    _Value: 2.6666
-    A: Passive
-    Effect: |
-      Whenever a Worthy Enemy dies in combat, gain 0.05 Max Mana.
-      If YOU killed that Worthy Enemy, gain 0.2 instead.
-    Notes: You can't spend Mana in fractions (usually).
 
     # Level 9 - Keystone Talent:
 
@@ -230,6 +270,7 @@ Specs:
         Range: 5 meters
         HasMixins: true
         Replacement: Replaces Awe
+        Tags: [Upgrade, Damage, Healing]
         Effect: |
           Whenever you spend Mana, "cast Awe" on a Unit.
           This deals 1d4 Divine Damage to enemies or heals allies for 1d4.
@@ -238,67 +279,111 @@ Specs:
 
     Choose your side: Beacon Cleric!\nPick only one of the following two abilities!
   
-    Abilities:
-    
-      ~Herald of Radiance~ :
-        _Value: 1.25
-        A: Passive
-        Effect: |
-          Awe Damage and healing is 1d6 if you are at full Health.
-          You radiate light in a 3 meter radius.
-        Notes: You can turn the light off at will.
-      
-      ~Herald of Twilight~ :
-        _Value: 1.25
-        A: Passive
-        Effect: |
-          Awe Damage and healing is 1d6 on targets at or below 50% Health.
-          You can see normally in the dark up to 5 meters away.
-      
     Talents:
+      Level 2 - Keystone Talent:
+
+        ~Herald of Radiance~ :
+          _Value: 1.25
+          A: Passive
+          Tags: [Upgrade]
+          Effect: |
+            Awe Damage and healing is 1d6 if you are at full Health.
+            You radiate light in a 3 meter radius.
+          Notes: You can turn the light off at will.
+        
+        ~Herald of Twilight~ :
+          _Value: 1.25
+          A: Passive
+          Tags: [Upgrade, Finisher]
+          Effect: |
+            Awe Damage and healing is 1d6 on targets at or below 50% Health.
+            You can see normally in the dark up to 5 meters away.
+
       Level 3 - Keystone Talent:
 
         ~Let There Be Light~:
           A: Passive
-          Effect: Awe now hits all Units in a 2x2 area, but can't heal yourself.
+          Tags: [Upgrade]
+          Effect: While standing in natural light (e.g. the sun), your Healing Awe has its ^Dice Upgraded^ to the next die type and you are immune to being Silenced.
+          Notes: "{DiceUpgrade}. It is up to the Quest Master what is considered natural light."
         
         <Let There Be Darkness> :
           _Value: 0.75
           A: Passive
           HasMixins: true
+          Tags: [Upgrade]
           Effect: |
-            While standing in darkness or dim light, your damaging Awe has its ^Dice Upgraded^ to the next die type and your attacks ignore Cover.
-          Notes: "{DiceUpgrade}. It is up to the Quest Master what is considered darkness."
+            While standing in environmental shadows, your damaging Awe has its ^Dice Upgraded^ to the next die type and your attacks ignore Cover.
+          Notes: "{DiceUpgrade}. It is up to the Quest Master what is considered shadow."
 
         <Aspect>:
           A: 0 Actions
           Cooldown: Once / Adventure
           HasMixins: true
+          Tags: [Power Surge]
           Effect: |
             You take on a shadowy or illuminated appearance for the rest of the combat. Choose one:
             {Diamond} Awe deals Scourge Damage. After you cast Awe, all your future Awe's deal +1 Damage. You can't heal (with anything).
             {Diamond} After you heal someone, all your future heals heal for +1.
 
+        ~Assistance of Merit~:
+          A: Passive
+          Range: 5 meters
+          Tags: [Reaction, CC]
+          Effect: Whenever you use a Reaction, cast Awe or Single-Stun a Unit.
+
       Level 4 - Minor Talent:
 
-        <Stat Bonus 4>:
-          IsIgnored: true
-          Manual Extras:
-            - +1 in a Stat of choice (up to +4)
-          Effect: Gain +1 in a Stat of choice, up to +4.
+        <Golden Shield>:
+          A: Half-Action
+          Cost: 1 Mana
+          Duration: Up to 1 hour
+          Degree: Minor
+          Tags: [Protection, Combo]
+          Effect: |
+              A Unit you can see becomes surrounded in a divine golden shield.
+              Next time the Unit would take Damage, it is completely blocked.
+          Combo: Gain back the Action Point spent.
 
-        <Double Stat Bonus>:
-          IsIgnored: true
-          Manual Extras:
-            - +1 in two Stats of choice (up to +3)
-          Effect: Gain +1 in a Stat of choice, up to +3, twice.
-          
+        ~Guiding Bolt~:
+            A: 1 Action
+            Cost: 1 Mana
+            Range: 10 meters
+            HasMixins: true
+            Degree: Major
+            Tags: [Damage]
+            Effect: |
+                A shining light bursts onto a Unit, dealing 2d8 + ^Sense^ Divine Damage to it.
+                The next time someone would cast a Spell that affects that Unit, the caster can reroll any of the spell's dice, at most one reroll for each die.
+            Notes: This affects AoE effects and healing abilities too.
+        
+        ~Deafening Silence~:
+            A: 1 Action
+            Cost: 2 Mana
+            Degree: Grand
+            Tags: [Damage, CC]
+            Effect: |
+                A Unit you can see takes 3d8 Psychic Damage and is Silenced.
+            Notes: Cover is applied normally.
+
+        ~Reveling Rays~:
+            A: 1 Action
+            Cost: 2 Mana
+            Degree: Grand
+            Tags: [Damage, Healing, AoE]
+            Effect: |
+                You shoot out 10 rays of light.
+                Roll 10d4 and assign them to Units within 10 meters as you with.
+                Each die heals on odd rolls (1 and 3) and deals Divine Damage on even rolls (2 and 4).
+
+
       Level 5 - Keystone Talent:
       
         <Shadow Realm>:             # 2? Good Damage, 0 actions, no Check requred...
           _Value: 2
           A: 0 Actions
           Cooldown: Once / Adventure
+          Tags: [CC, Damage]
           Effect: |
             A Unit within 6 meters becomes trapped in a Shadow Realm with you for 2 rounds (this and the next).
             Your attacks cast Awe on it for free while inside the Shadow Realm.
@@ -310,8 +395,9 @@ Specs:
         
         <Circle of Awe>:
           _Value: 2
-          A: Half-Action
+          A: 1 Action
           Cooldown: Once / Adventure
+          Tags: [AoE, AoE Healing]
           Range: 6 meters to edge
           Effect: |
             Declare a 4x4 meter area. Cast Awe on all Units inside the area.
@@ -321,21 +407,59 @@ Specs:
         <Black Hole>:
           _Value: 1.75
           A: 0 Actions
+          Range: 10 meters to point
+          Duration: 1 minute
+          Tags: [AoE CC]
           Cooldown: Once / Adventure
           Effect: |
-            You create a 1x1 Black Hole on an empty space.
-            Cast Awe for free on all enemies within 6 meters of the hole.
-            If a Unit gets to the center of the Black Hole, it becomes Rooted.
-            At the end of your turn, all Units within 6 meters of it are pulled 2 meters towards it.
-          Notes: If 2 Units would be pulled to the center, you choose which. The black hole's gravity works even for Units behind walls and obstacles.
+            Choose a point as the center of a Black Hole.
+            At the end of each Round, Slam* all Units within 6 meters of the Black Hole towards the center.
+            When one comes within 1 meter of the center, cast Awe on it and it becomes Slowed.
+          Upgrade: Only Units that meet in the center take Damage from the Slam. Each takes Damage equal to their own distance thrown (if they slam into eachother).
+          Notes: If Units are Slammed into other things, they take Damage as normal.
           OrderOnWebsite: 2
 
+
+
+        ~Shielding Awe~:
+          A: Passive
+          Duration: Rest of the Adventure
+          Effect: |
+            If the Awe heal overflows the target's Max Health, the remainder is doubled and transformed into Shielding. This Shielding stacks.
+          Notes: If the target has 29 out of 30 Health and you roll 3 on Awe, the target will be at 30 Health, and the remainder Healing is 2. The target gains 4 Shielding.
+
+        ~People's Awe~:
+          A: Passive
+          Effect: Awe now hits all Units in a 2x2 area, but can't heal yourself.
+
+        ~Holy March~:
+          A: Passive
+          Effect: |
+            While outnumbered in Combat, you have +1 Defense.
+            While not, you have +2 Movement.
+
+        ~Grasping Blessing~:
+          _Value: 0.25
+          A: Half-Action
+          Cooldown: Once / Adventure
+          Duration: 1 combat
+          Replacement: Replaces Blessing
+          HasMixins: true
+          Effect: |
+            Cast Awe on 2 Units and they become Blessed until the end of the next (or current) Combat.
+            Blessed Allies have +1 to all Checks ~and become immune to Crowd Control for 1 Turn.~. Blessed Enemies have -3 Initiative ~and are Blinded for 1 Turn~.
+          Notes: |
+            You can bless yourself.
+            Lasts until the end of the next combat encounter.
+          AlignOnWebsite: Right
+        
       Level 6 - Utility Talent:
 
         ~Resurrection~ : 
             A: 1 Action
             Cost: 1 Mana
             Degree: Grand
+            Tags: [Utility, Roleplay]
             Effect: |
                 Touch a dead Unit, whose body is still in decent condition (as approved by the QM).
                 The dead Unit comes back to life, conscious and without Exhaustion, with 1 Health.
@@ -349,6 +473,7 @@ Specs:
             AlignOnWebsite: Left
             Requirement: Level 5
             Degree: Minor
+            Tags: [Utility]
             Effect: |
                 Up to 2 willing Units can walk on water as normally.
                 The effect ends if the Unit takes Damage. 
@@ -449,64 +574,65 @@ Specs:
     Starting Abilities:
 
       ~Join the Inquisition~:
-        _Value: 2.5
+        _Value: 3
         A: Special
         Duration: Lifetime
         IsIgnored: true
+        Tags: [Party]
         Extras:
           - One of your companions joined the inquisition.
         Effect: |
           Ask a party member Player Character to join your cause and pledge their honor to you.
           They gain the Awe passive Ability (e.g. whenever they use Mana for an Ability, they cast Awe).
-          They also gain access to the Divine Ability List.
+          They can also pick Level 1 Minor Talents and Utility Talents from the Cleric Class.
         Upgrades: |
           There is one condition your ally must match - it can never have its Max Mana higher than yours (if it does, it becomes equal to yours).
         Notes: |
           You can only have one character who pledged for you and it must be within 100 meters to have access to all of those.
           Their Awe is not improved by your Awe improvements, if you have any.
 
-
-
-    Choose your side: |
-        Inquisitor!
-        Pick only one of the following two abilities!
-  
-    Abilities:
-
-      <Conviction>:
-        A: Passive
-        Effect: |
-          While you have even Mana, you have +1 Movement.
-          While you have odd Mana, your weapon attacks deal +1 Damage (or +2 if 2-Handed).
-
-      ~Blessing of the Forge~:
-        _Value: 1
-        A: Half-Action
-        Cooldown: Once / Adventure
-        HasMixins: true
-        Replacement: Replaces Blessing
-        Effect: |
-          Cast Awe on 2 Units and they become Blessed ~forever~.
-          Blessed Allies have ~+1 Maximum Health and +1 Initiative~. Blessed Enemies have -3 Initiative ~and their Defense becomes 0~.
-        Notes: |
-          You can bless yourself. Lasts until the end of the next combat encounter.
-          The buffs on allies may stack indefinitely.
-  
     Talents:
+
+      Level 2 - Keystone Talent:
+
+        <Conviction>:
+          A: Passive
+          Tags: [Speed, Damage]
+          Effect: |
+            While you have even Mana, you have +1 Movement Speed.
+            While you have odd Mana, your weapon attacks deal +1 Damage (or +2 if 2-Handed).
+
+        ~Blessing of the Forge~:
+          _Value: 1
+          A: Half-Action
+          Cooldown: Once / Adventure
+          HasMixins: true
+          Replacement: Replaces Blessing
+          Tags: [Permanent Buff, Debuff]
+          Effect: |
+            Cast Awe on 2 Units and they become Blessed ~forever~.
+            Blessed Allies have ~+1 Maximum Health and +1 Initiative~. Blessed Enemies have -3 Initiative ~and their Defense becomes 0~.
+          Notes: |
+            You can bless yourself. Lasts until the end of the next combat encounter.
+            The buffs on allies may stack indefinitely.
+
+
       Level 3 - Keystone Talent:
       
         <Hammer of Penance>:
           _Value: 1.75
           A: Passive
+          Tags: [CC, Damage]
           Effect: |
-            After the first enemy is killed every Worthy Combat, your next attack pushes the non-Epic target up to 10 meters away from you.
-            It takes 1d12 Damage if it collides with something.
+            After ^you^ kill a Worthy Enemy, choose a direction, then Slam its body 1d12 meters in that direction.
             
         <Chastise> :
           _Value: 1
           A: Passive
+          Tags: [CC]
           Effect: |
-            After a Unit is hit by Awe 3 times, it becomes Crippled.
+            After a Unit is hit by Awe the 3rd time, it becomes Crippled.
+          Upgrade: This can happen again, every 3rd Awe hit on it.
           OrderOnWebsite: 1
 
         ~Anointing Awe~:
@@ -515,11 +641,11 @@ Specs:
           Range: 5 meters
           HasMixins: true
           Replacement: Replaces Awe
+          Tags: [Buff, Protection]
           Effect: |
             Whenever you spend Mana, "cast Awe" on a Unit.
             This deals 1d4 Divine Damage to enemies or heals allies for 1d4 ~and gives their next attack 10% extra Damage (minimum 1), and reduces the Damage next time they take Damage by 10% (minimum 1) (may stack multiple times additively).~
           Notes: Ignores Cover. Some other Cleric spells will "cast Awe" for free.
-
               
         # <Repentance> :
         #   _Value: 1
@@ -534,17 +660,39 @@ Specs:
 
       Level 4 - Minor Talent:
 
-        <Stat Bonus 4>:
-          IsIgnored: true
-          Manual Extras:
-            - +1 in a Stat of choice (up to +4)
-          Effect: Gain +1 in a Stat of choice, up to +4.
+        ~Soulbrand~:
+          A: Half-Action
+          Range: 5 meters
+          Cooldown: Once / Combat
+          Tags: [Damage, Delayed, Combo]
+          Effect: |
+            At the start of your next Turn, as your first Act, spend 1 Action and deliver ruin upon a Worthy Enemy, dealing 5d6 + ^Sense^ True Damage.        
+          Combo: The Damage is evenly spread among all Units within 2 meters of the target (and the target).
+          Notes: If you don't have 1 Action available at the start of your Turn (e.g. if Stunned), you spend what you have and then deliver ruin.
 
-        <Double Stat Bonus>:
-          IsIgnored: true
-          Manual Extras:
-            - +1 in a 2 Stats of choice (up to +3).
-          Effect: Gain +1 in a Stat of choice, up to +3, twice.
+        ~Holy Fire~:
+          A: 0 Actions
+          Cooldown: Once / 2 Turns
+          Tags: [Other, Combo]
+          Effect: Your next weapon attack deals Fire Damage and either gains +2 range, or applies a ~Combo~.
+
+        ~Rising From The Ashes~:
+          A: Half-Action
+          Cost: 1 Mana
+          Requirement: Only usable if Fallen
+          Tags: [Self Healing, Combo]
+          Effect: |
+            Cast Awe on yourself 3 times and rise from being Fallen, without Exhaustion!
+            Apply a ~Combo~ to yourself.
+        
+        ~Time of Reckoning~:
+          A: Half-Action
+          Cost: 1 Mana
+          Range: 5 meters
+          Tags: [AoE CC]
+          Effect: |
+            Choose a number of Units equal to the number of times you have cast Awe this Combat (including this).
+            Each becomes Single-Stunned and is Slammed up to 3 meters away from you.
 
       Level 5 - Keystone Talent:
         
@@ -553,6 +701,7 @@ Specs:
           A: 1 Action
           Cooldown: Once / Adventure
           Range: 5 meters
+          Tags: [Damage]
           Effect: |
               Roll 1d6 again and again until your roll 1.
               Heal or deal Divine Damage equal to the sum of the dice rolled (including the 1).
@@ -561,8 +710,9 @@ Specs:
         <Domain Missionary>:
           _Value: 3
           A: Passive
+          Tags: [Options, Permanent Buff]
           Effect: |
-            When you get this Talent, choose an extra Ability School to Know Spells from and choose an element (Fire, Cold, Shock, Pulse or Scourge).
+            When you get this Talent, gain a chosen Novice Magic Feat, and choose an element (Fire, Cold, Shock, Pulse, Poison or Scourge).
             After you spend 5 Mana on Abilities with that damaging element, increase your or your Pledgee's Max (and current) Health or Health Regen by 10% (instantly).
           Note: Take note of whenever you spend Mana on such Abilities. The increase is instant, and every time it increases multiplicatively, but does not include Max Health/Health Regen from items or temporary buffs.
 
@@ -570,8 +720,9 @@ Specs:
           _Value: 2
           A: 0 Actions
           Cooldown: Once / Adventure
+          Tags: [Crowd Control, Damage]
           Effect: |
-              A Unit within 6 meters becomes trapped in a Shadow Realm with you for 2 rounds (this and the next).
+              A Unit within 6 meters becomes trapped in a Shadow Realm with you until the start of your next Turn.
               Your offensive Acts against it cast Awe on it for free while inside the Shadow Realm.
               Neither of you can interact with the outside world, but can feintly see it.
               Units on the outside can faintly see the two of you, as if you were ghosts.
@@ -583,6 +734,7 @@ Specs:
           A: 1 Action
           Cooldown: Once / Adventure
           Range: 5 meters to edge
+          Tags: [AoE Damage]
           Effect: |
               Declare a 6x6 meter area.
               A giant spectral fist falls onto the ground, hitting all Units there except you for 2d10 + (Round Number d6's) Divine Damage.
@@ -704,46 +856,44 @@ Specs:
         Effect: |
           You have another Unit beside you that you control which is essentially another Player Character.
           Your companion is built like a normal Level 1 Player Character, but all its stats are decreased by 1, starts with no separate Gold and can not gain Feats.
-          It always has the same initiative as you and Levels Up only when you Level Up.
+          It always has the same Initiative as you and Levels Up only when you Level Up (doesn't have personal Experience).
         Upgrade: For the Quest Masters, your companion counts as a normal Player Character for encounter Experience!
         Notes: |
           Come up with a story about why you have your companion and why your god allowed this or gave them to you.
 
-    Choose your side: Soulwright!\nPick only one of the following two abilities!
-
-    Abilities:
-
-      ~Partner in Life~:
-        _Value: 1
-        HasMixins: true
-        A: Special
-        Effect: |
-          Your companion is an alive being. It can be a sentient person of any race, except Hollow.
-          This companion's soul is tied to yours and viceversa - when one of you dies, the other dies as well.
-          Both of you gain +3 Health Regen.
-
-      ~True Necromancy~:
-        _Value: 1
-        HasMixins: true
-        A: Special
-        Effect: |
-          Your companion is an undead. It can be a sentient undead person of any race (without affecting its stats) or an abstract undead creature using any race's Abilities.
-          This companion's life depends on yours - when you die, your companion dies as well.
-          Your companion takes -50% Slashing and Scourge Damage.
-        Notes: If your companion dies, you can spend 1 week to "revive" someone else as your new companion.
-
-      ~Guardian Angel~:
-        _Value: 1
-        A: Special
-        Bonuses:
-          - Max Health: 10
-        Effect: |
-          Your companion is an otherworldly celestial in material form. It can be a sentient person of any race, or an abstrat celestial creature using any race's Abilities.
-          Your life is tied to your companion's - when it dies, you die.
-          You share the your Health pool with your companion (it does not have separate separate Health). If it goes more than 10 meters away from you, it is teleported near you immediately.
-          You gain +10 Maximum Health.
-
     Talents:
+
+      Level 2 - Keystone Talent:
+        ~Partner in Life~:
+          _Value: 1
+          HasMixins: true
+          A: Special
+          Effect: |
+            Your companion is an alive being. It can be a sentient person of any race, except Hollow.
+            This companion's soul is tied to yours and viceversa - when one of you dies, the other dies as well.
+            Both of you gain +3 Health Regen.
+
+        ~True Necromancy~:
+          _Value: 1
+          HasMixins: true
+          A: Special
+          Effect: |
+            Your companion is an undead. It can be a sentient undead person of any race (without affecting its stats) or an abstract undead creature using any race's Abilities.
+            This companion's life depends on yours - when you die, your companion dies as well.
+            Your companion takes -50% Slashing and Scourge Damage.
+          Notes: If your companion dies, you can spend 1 week to "revive" someone else as your new companion.
+
+        ~Guardian Angel~:
+          _Value: 1
+          A: Special
+          Bonuses:
+            - Max Health: 10
+          Effect: |
+            Your companion is an otherworldly celestial in material form. It can be a sentient person of any race, or an abstrat celestial creature using any race's Abilities.
+            Your life is tied to your companion's - when it dies, you die.
+            You share the your Health pool with your companion (it does not have separate separate Health). If it goes more than 10 meters away from you, it is teleported near you immediately.
+            You gain +10 Maximum Health.
+
       Level 3 - Keystone Talent:
 
         <Blessing of Life>:
@@ -785,7 +935,13 @@ Specs:
                     A: 1 Action (from zombie)
                     Effect: Attack an Enemy for 1d4 Damage (Pierce, Slash or Smash).
 
-
+        ~Reaping~:
+          _Value: 2.6666
+          A: Passive
+          Effect: |
+            Whenever a Worthy Enemy dies in combat, gain 0.05 Max Mana.
+            If YOU killed that Worthy Enemy, gain 0.2 instead.
+          Notes: You can't spend Mana in fractions (usually).
 
         <Divine Transposition>:
           _Value: 1
