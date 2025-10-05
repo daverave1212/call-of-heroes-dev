@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
-import { calculateBaseCombatStats, calculateHealthRegen, calculateMaxHealth, calculateStat, getAllClasses, getAlMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getAllStatBonusesYMLAsObjFromSpellsArray, calculateBaseMaxManaByLevel, getExtrasFromSpells, getRaceHealth, isString, spellsFromObject, useLocalStorageState, hasClassMana, getAllWeaponsByName, getAllArmorsByName, addObjects, getSpellReplacementName, reverseObject, addManyObjects, getSpellIconPathByName } from "../../../utils"
+import { getAllClasses, getAlMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getExtrasFromSpells, isString, spellsFromObject, useLocalStorageState, hasClassMana, getAllWeaponsByName, getAllArmorsByName, addObjects, getSpellReplacementName, reverseObject, addManyObjects, getSpellIconPathByName, addArrays } from "../../../utils"
 import ManySpells from "../../../components/Spell/ManySpells"
 import PageH2 from "../../../components/PageH2/PageH2"
 import TextArea from "../../../components/TextArea/TextArea"
 import Icon from "../../../components/Icon"
 import Input from "../../../components/Input/Input"
 import { getChoiceAbilitiesObjects, useArmors, useBasicAbilitiesNames, useConstAllBasicAbilities, useConstAllMyAbilities, useConstAllRaceAndClassSpells, useConstAllSkillNames, useConstAvailableAbilitySchools, useConstKnownAbilitiesObj, useConstNKnownAbilities, useCurrentMana, useDescription, useGold, useInventory, useLanguages, useLevel, useManualBonuses, useMaxMana, useQuickNotes, useSectionClassName, useSectionClassSpecName, useSectionClassSpellNames, useSectionNamesState, useSectionRaceName, useSectionRaceSpellNames, useSectionStatsState, useSkills, useWeapons } from "./CharacterData"
-import { STAT_NAMES, StatValue } from "./SectionStats"
+import { StatValue } from "./SectionStats"
 import SmallStat, { SmallStatTypes } from "../../../components/SmallStat/SmallStat"
 import ManySmallStats from "../../../components/SmallStat/ManySmallStats"
 import { askConfirmation } from "../../../services/MessageDisplayer"
@@ -14,6 +14,7 @@ import Dialog from "../../../components/Dialog/Dialog"
 import ChangeStatDialog from "./ChangeStatDialog"
 import Spoiler from "../../../components/Spoiler/Spoiler"
 import Selector from "../../../components/Selector/Selector"
+import { calculateAllAtributes, calculateBaseMaxManaByLevel, getAllStatBonusesYMLAsObjFromSpellsArray, getStatsArrayFromObject, HEALTH_REGEN, INITIATIVE, MAX_HEALTH, MOVEMENT_SPEED, STAT_NAMES } from "../../../services/game-lib/stat-calculations"
 
 
 
@@ -42,25 +43,23 @@ export function useConstBonusesYMLFromSpellsAndItems() {
 }
 export function useConstAllBonuses() {
     const { bonuses, sources } = useConstBonusesYMLFromSpellsAndItems()
-    const [characterBonuses] = useManualBonuses()
-    const choiceBonusesObj = getChoiceAbilitiesObjects().map(obj => ({ [obj.statName]: obj.bonus }))
-    const choiceBonuses = addManyObjects(choiceBonusesObj)
-    const allBonuses = addManyObjects([bonuses, characterBonuses, choiceBonuses])
+    const [manualBonuses] = useManualBonuses()
+    // const choiceBonusesObj = getChoiceAbilitiesObjects().map(obj => ({ [obj.statName]: obj.bonus }))
+    // const choiceBonuses = addManyObjects(choiceBonusesObj)
+    const allBonuses = addManyObjects([bonuses, manualBonuses])
     console.log(`Adding the following`)
-    console.log({ bonuses, characterBonuses, choiceBonusesObj, choiceBonuses, allBonuses})
+    console.log({ bonuses, manualBonuses, allBonuses})
     return { bonuses: allBonuses, sources: sources }
 }
 export function useConstTotalStats() {
     const { bonuses } = useConstBonusesYMLFromSpellsAndItems()
-    const characterBonuses = useManualBonuses()
-    const [stats] = useSectionStatsState()
-    return [
-        stats[0] + (bonuses.Might ?? 0) + (characterBonuses.Might ?? 0),
-        stats[1] + (bonuses.Dexterity ?? 0) + (characterBonuses.Dexterity ?? 0),
-        stats[2] + (bonuses.Intelligence ?? 0) + (characterBonuses.Intelligence ?? 0),
-        stats[3] + (bonuses.Sense ?? 0) + (characterBonuses.Sense ?? 0),
-        stats[4] + (bonuses.Charisma ?? 0) + (characterBonuses.Charisma ?? 0)
-    ]
+    const [manualBonuses, _] = useManualBonuses()
+    const [baseStats] = useSectionStatsState()
+    
+    const manualBonusesStatsArray = getStatsArrayFromObject(manualBonuses)
+    const autoBonusesStatsArray = getStatsArrayFromObject(bonuses)
+    console.log({ manualBonuses, manualBonusesStatsArray, baseStats, autoBonusesStatsArray, getStatsArrayFromObject })
+    return addArrays(baseStats, manualBonusesStatsArray, autoBonusesStatsArray)
 }
 export function useConstAllAbilitiesAndItemsExtras() {
     const allMyRaceAndClassSpells = useConstAllRaceAndClassSpells()
@@ -109,7 +108,8 @@ export default function MyCharacter() {
 
     let [currentMana, setCurrentMana] = useCurrentMana()
     
-    let [baseStats] = useSectionStatsState()
+    let totalStats = useConstTotalStats()
+
 
     const myBasicAbilities = useConstAllBasicAbilities()
     const mySkills = useConstAllSkillNames()
@@ -121,41 +121,26 @@ export default function MyCharacter() {
     // Computed values
     const spellsNotIgnored = allMyRaceAndClassSpells.filter(spell => spell.IsIgnored != true)
     const spellsIgnored = allMyRaceAndClassSpells.filter(spell => spell.IsIgnored == true);
-    console.log({spellsNotIgnored, spellsIgnored})
     const spellNamesBeingReplaced = spellsNotIgnored
         .filter(spell => spell.Replacement != null)
         .map(spell => getSpellReplacementName(spell))
-    console.log({spellNamesBeingReplaced})
     const allDisplayedRaceAndClassSpells = []
     for (const spell of spellsNotIgnored) {
-        console.log(`At spell ${spell.Name}`)
-        console.log(spell)
         if (spellNamesBeingReplaced.includes(spell.Name)) {     // Add the replacement on the same position
-            console.log(`${spellNamesBeingReplaced} includes it`)
             const replacementSpell = spellsNotIgnored.find(replacer => replacer?.Replacement?.includes(spell.Name))
             allDisplayedRaceAndClassSpells.push(replacementSpell)
         } else if (spell.Replacement != null) {                 // Ignore because we already add it
             continue
         } else {
-            console.log(`Just adding it`)
             allDisplayedRaceAndClassSpells.push(spell)
         }
     }
-
-    // const originalToReplacementNames = reverseObject(replacementToOriginalNames)
-    // const spellsBeingReplacedNames = Object.keys(originalToReplacementNames)
-    // const allDisplayedRaceAndClassSpells = allMyRaceAndClassSpells
-    //     .filter(spell => spell.IsIgnored != true)
-    //     .filter(spell => spellsThatReplaceNames.includes(spell.Name) == false)  // First remove spells that replace other spells
-    //     .map(spell => spellsBeingReplacedNames.includes(spell.Name)? getAllSpellsByName()[originalToReplacementNames[spell.Name]]: spell) // Then replace it with the replacement
-    console.log({allDisplayedRaceAndClassSpells})
-
 
 
     const allMyWeapons = weaponNames.map(name => getAllWeaponsByName()[name])
     const allMyArmors = armorNames.map(name => getAllArmorsByName()[name])
     const selectedClassObj = selectedClassName == null? null: getAllClasses()[selectedClassName]
-    const { maxHealth, healthRegen, movementSpeed, initiative } = calculateBaseCombatStats({raceName: selectedRaceName, className: selectedClassName, level, baseStats, bonuses})
+    const attributes = calculateAllAtributes({raceName: selectedRaceName, className: selectedClassName, level, totalStats, bonuses})
     const maxMana = selectedClassName == null? 1: calculateBaseMaxManaByLevel(level, selectedClassName)
 
     // Other
@@ -184,7 +169,12 @@ export default function MyCharacter() {
     function StatsColumn() {
         return <div className="flex flex-column" style={{gap: 'var(--stats-gap)'}}>
             { STAT_NAMES.map((n, i) => (
-                <StatValue onClick={() => setStatNameToChange(n)} key={n} name={n.substring(0, 3).toUpperCase()} value={baseStats[i] + bonuses[n]}/>
+                <StatValue
+                    onClick={() => setStatNameToChange(n)}
+                    key={n}
+                    name={n.substring(0, 3).toUpperCase()}
+                    value={totalStats[i]}
+                />
             )) }
         </div>
     }
@@ -192,12 +182,12 @@ export default function MyCharacter() {
         return <div className={`flex flex-column ${className}`} style={{gap: 'var(--stats-gap)'}}>
             <div className="flex-column" style={{gap: 'var(--stats-gap)'}}>    
                 <div className="flex" style={{gap: 'var(--stats-gap)'}}>
-                    <BigStatValue onClick={() => setStatNameToChange('Max Health')} name="Health" value={maxHealth}/>
-                    <BigStatValue onClick={() => setStatNameToChange('Health Regen')} name="Health Regen" value={healthRegen}/>
+                    <BigStatValue onClick={() => setStatNameToChange(MAX_HEALTH)} name={MAX_HEALTH} value={attributes[MAX_HEALTH]}/>
+                    <BigStatValue onClick={() => setStatNameToChange(HEALTH_REGEN)} name={HEALTH_REGEN} value={attributes[HEALTH_REGEN]}/>
                 </div>
                 <div className="flex" style={{gap: 'var(--stats-gap)'}}>
-                    <BigStatValue onClick={() => setStatNameToChange('Movement Speed')} name="Movement Speed" value={movementSpeed}/>
-                    <BigStatValue onClick={() => setStatNameToChange('Initiative')} name="Initiative" value={initiative}/>
+                    <BigStatValue onClick={() => setStatNameToChange(MOVEMENT_SPEED)} name={MOVEMENT_SPEED} value={attributes[MOVEMENT_SPEED]}/>
+                    <BigStatValue onClick={() => setStatNameToChange(INITIATIVE)} name={INITIATIVE} value={attributes[INITIATIVE]}/>
                 </div>
             </div>
             <div className="wrapper description-wrapper combat-notes-wrapper">
@@ -373,9 +363,6 @@ export default function MyCharacter() {
 
             <Spellcasting/>
             
-            <PageH2 className="margin-top-2">Race and Class Abilities</PageH2>
-            <ManySpells spells={allDisplayedRaceAndClassSpells} shouldIgnoreAlignment={true}/>
-
             <PageH2 className="margin-top-2">Minor Spells (hidden)</PageH2>
             <button onClick={() => setAreMinorSpellsHidden(!areMinorSpellsHidden)}>{ areMinorSpellsHidden? 'Show': 'Hide' }</button>
             { areMinorSpellsHidden == false && <ManySpells className="margin-top-1" spells={spellsIgnored} shouldIgnoreAlignment={true}/> }

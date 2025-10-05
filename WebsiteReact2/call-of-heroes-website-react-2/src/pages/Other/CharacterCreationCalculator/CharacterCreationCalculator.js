@@ -18,7 +18,7 @@ import './CharacterCreationCalculator.css'
 import { IconWithSpinner, SpellTopIconSide } from "../../../components/Spell/Spell";
 import { CoolButton } from "../../../components/CoolButton/CoolButton";
 import HeroButton from "../../../components/HeroButton/HeroButton";
-import { calculateMaxHealth, calculateStat, generateUniqueId, getAllClasses, getAllRaces, getClassRepresentativeIconName, getSpellIconPathByName, splitArrayEvenly, uncapitalizeFirstLetter, useLocalStorageState } from "../../../utils";
+import { generateUniqueId, getAllClasses, getAllRaces, getClassRepresentativeIconName, getSpellIconPathByName, splitArrayEvenly, uncapitalizeFirstLetter, useLocalStorageState } from "../../../utils";
 import Selector from "../../../components/Selector/Selector";
 import ManySpells from "../../../components/Spell/ManySpells";
 
@@ -30,7 +30,7 @@ import { ClassPageV2, CCRacePage, ClassPage, RacePage } from "../../../component
 import { QGTitle1 } from "../../Tools/TitleGenerator";
 import Icon from "../../../components/Icon";
 import SectionNames from "./SectionNames";
-import SectionStats, { BASE_STATS, STAT_NAMES } from "./SectionStats";
+import SectionStats from "./SectionStats";
 import MyCharacter from "./MyCharacter";
 import SectionSkills from "./SectionSkills";
 import SectionLanguages from "./SectionLanguages";
@@ -43,6 +43,7 @@ import { NO_CHARACTER_ID, getCurrentCharacterFromLocalStorage, newCharacterLS, s
 import { SelectorsByColumns } from "../Abilities";
 import { showSuccessMessage } from "../../../services/MessageDisplayer";
 import Dialog from "../../../components/Dialog/Dialog";
+import { STAT_NAMES } from "../../../services/game-lib/stat-calculations";
 
 
 export const tabLayout = [
@@ -140,66 +141,17 @@ const DIALOG_STATE_TEMPLATE = {
     setSelectedAbiltiesNames: [],
     dialogType: 'stat' | 'reminder'
 }
-function AbilityStatDialog({ dialogState, setDialogState }) {
+function SpellPopup({ dialogState, setDialogState }) {
 
-    let [choiceBonus, setChoiceBonus] = useState(null)
+    const close = () => setDialogState(null)
 
-    let [choiceBonuses, setChoiceBonuses] = useChoiceAbiliesObjects()
-
-    const { dialogType, spell, selectedAbilitiesNames, setSelectedAbiltiesNames, choiceData } = dialogState ?? {}
-
-    const buttonText =
-        dialogType == 'stat' && choiceBonus != null?
-            'Add':
-        dialogType == 'reminder'?
-            'Ok':
-        'Hmm'
-    
-    useEffect(() => {
-        setChoiceBonus(null)
-    }, [dialogState])
-
-    function DialogReminder() {
-        return <div className="center-content">
-            <p className="center-text">After getting this Ability, { uncapitalizeFirstLetter(choiceData.DialogText) }</p>
-        </div>
-    }
-    function StatPicker() {
-        return <div className="flex-row center-content gap-half">
-            { STAT_NAMES.map(statName => (
-                <div
-                    className={`stat-input small ${choiceBonus != null && choiceBonus.statName == statName? 'shadow-purple': ''}`}
-                    onClick={() => {
-                        setChoiceBonus({
-                            source: {
-                                sourceType: 'spell',
-                                name: spell.Name
-                            },
-                            statName: statName,
-                            bonus: 1
-                        })
-                    }}
-                >
-                    {statName.toUpperCase().substring(0, 3)}
-                </div>
-            )) }
-        </div>
-    }
-
-    function onAddClick() {
-        setSelectedAbiltiesNames([...selectedAbilitiesNames, spell.Name])
-        if (choiceBonus != null) {
-            setChoiceBonuses([...choiceBonuses, choiceBonus])
-        }
-        setDialogState(null)
-
-    }
-
-    return <Dialog buttonText={buttonText} isOpen={spell != null} onButtonClick={onAddClick} setIsOpen={() => setDialogState(null)}>
+    return <Dialog buttonText={dialogState?.['Button State'] ?? 'Ok'} isOpen={dialogState != null} onButtonClick={() => {
+        dialogState.callback()
+        close()
+    }} setIsOpen={close}>
         { dialogState != null && (
-            <div>
-                { dialogType == 'stat' && <StatPicker/> }
-                { dialogType == 'reminder' && <DialogReminder/> }
+            <div className="center-content">
+                <p className="center-text">{ dialogState?.Message }</p>
             </div>
         ) } 
     </Dialog>
@@ -212,27 +164,17 @@ export default function CharacterCreationCalculator() {
     
     let [dialogState, setDialogState] = useState(null)
 
-    function openPopup(spell, selectedAbilitiesNames, setSelectedAbiltiesNames) {
-        const choiceType = spell['Choice Bonuses'][0].Type
-        setDialogState({
-            spell: spell,
-            selectedAbilitiesNames: selectedAbilitiesNames,
-            setSelectedAbiltiesNames: setSelectedAbiltiesNames,
-            dialogType: choiceType,
-            choiceData:
-                choiceType == 'stat'?
-                    null
-                :choiceType == 'reminder'?
-                    spell['Choice Bonuses'][0]
-                :
-                    null
-        })
+    function openPopup(dialogState) {
+        setDialogState(dialogState)
     }
+
+
 
     return (
         <Page id="Character-Builder" isCentered={true}>
 
-            <AbilityStatDialog dialogState={dialogState} setDialogState={setDialogState}/>
+            <SpellPopup dialogState={dialogState} setDialogState={setDialogState}/>
+            {/* <AbilityStatDialog dialogState={dialogState} setDialogState={setDialogState}/> */}
 
             <div className="center-content">
                 <QGTitle1 text={"My Characters"} height="60"/>
@@ -246,7 +188,7 @@ export default function CharacterCreationCalculator() {
 
             <Tabs layout={tabLayout} activeTabI={activeTabI} setActiveTabI={setActiveTabI} tabComponents={[
                 <MyCharacter/>, <SectionNames onChange={newNamesState => setNames(newNamesState)}/>,
-                <SectionStats/>, <SectionRace/>, <SectionClass openPopup={openPopup}/>,
+                <SectionStats/>, <SectionRace openPopup={openPopup}/>, <SectionClass openPopup={openPopup}/>,
                 <SectionLanguages/>, <SectionSkills/>, <SectionShop/>,
                 <SectionBasicAbilities openPopup={openPopup}/>, <SectionFeats/>, <div></div>,
             ]}/>
@@ -258,3 +200,73 @@ export default function CharacterCreationCalculator() {
     )
 
 }
+
+
+
+
+
+
+// function AbilityStatDialog({ dialogState, setDialogState }) {
+
+//     let [choiceBonus, setChoiceBonus] = useState(null)
+
+//     let [choiceBonuses, setChoiceBonuses] = useChoiceAbiliesObjects()
+
+//     const { dialogType, spell, selectedAbilitiesNames, setSelectedAbiltiesNames, choiceData } = dialogState ?? {}
+
+//     const buttonText =
+//         dialogType == 'stat' && choiceBonus != null?
+//             'Add':
+//         dialogType == 'reminder'?
+//             'Ok':
+//         'Hmm'
+    
+//     useEffect(() => {
+//         setChoiceBonus(null)
+//     }, [dialogState])
+
+//     function DialogReminder() {
+//         return <div className="center-content">
+//             <p className="center-text">After getting this Ability, { uncapitalizeFirstLetter(choiceData.DialogText) }</p>
+//         </div>
+//     }
+//     function StatPicker() {
+//         return <div className="flex-row center-content gap-half">
+//             { STAT_NAMES.map(statName => (
+//                 <div
+//                     className={`stat-input small ${choiceBonus != null && choiceBonus.statName == statName? 'shadow-purple': ''}`}
+//                     onClick={() => {
+//                         setChoiceBonus({
+//                             source: {
+//                                 sourceType: 'spell',
+//                                 name: spell.Name
+//                             },
+//                             statName: statName,
+//                             bonus: 1
+//                         })
+//                     }}
+//                 >
+//                     {statName.toUpperCase().substring(0, 3)}
+//                 </div>
+//             )) }
+//         </div>
+//     }
+
+//     function onAddClick() {
+//         setSelectedAbiltiesNames([...selectedAbilitiesNames, spell.Name])
+//         if (choiceBonus != null) {
+//             setChoiceBonuses([...choiceBonuses, choiceBonus])
+//         }
+//         setDialogState(null)
+
+//     }
+
+//     return <Dialog buttonText={buttonText} isOpen={spell != null} onButtonClick={onAddClick} setIsOpen={() => setDialogState(null)}>
+//         { dialogState != null && (
+//             <div>
+//                 { dialogType == 'stat' && <StatPicker/> }
+//                 { dialogType == 'reminder' && <DialogReminder/> }
+//             </div>
+//         ) } 
+//     </Dialog>
+// }

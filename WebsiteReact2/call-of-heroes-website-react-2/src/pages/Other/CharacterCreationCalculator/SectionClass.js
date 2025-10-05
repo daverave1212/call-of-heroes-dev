@@ -7,7 +7,7 @@ import { addAbilityOrOpenPopup, getAllClasses, splitArrayEvenly, useLocalStorage
 import { classesRacesObjectToArrays } from "./CharacterCreationCalculator"
 import Selector from "../../../components/Selector/Selector"
 import { SelectorsByColumns } from "../Abilities"
-import { useSectionClassName, useSectionClassSpecName, useSectionClassSpellNames } from "./CharacterData"
+import { toggleSpellMaybePopup, useSectionClassName, useSectionClassSpecName, useSectionClassSpellNames } from "./CharacterData"
 
 
 
@@ -34,11 +34,8 @@ export default function SectionClass({ openPopup }) {
         setSpellNames([])
     }
 
-    function onAbilityClick(spell) {
-        console.log({spell})
-        addAbilityOrOpenPopup(spell, spellNames, setSpellNames, (spell) => {
-            openPopup(spell, spellNames, setSpellNames)
-        })
+    function onAbilityClick(spell, metadata) {
+        toggleSpellMaybePopup(spell, metadata, spellNames, setSpellNames, openPopup)
     }
 
 

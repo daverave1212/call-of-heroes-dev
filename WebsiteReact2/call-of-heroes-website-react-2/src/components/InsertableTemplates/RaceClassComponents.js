@@ -39,6 +39,8 @@ import AnchorFixer from '../AnchorFixer/AnchorFixer'
 import { QGTitle1 } from '../../pages/Tools/TitleGenerator'
 import { SideMenuFromClass, SideMenuFromRace } from '../SideMenu/SideMenu'
 import Selector from '../Selector/Selector'
+import { toggleSpellForSelectedSpellNames } from '../../pages/Other/CharacterCreationCalculator/CharacterData'
+import { BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP, HEALTH_REGEN, INITIATIVE, MAX_HEALTH, MOVEMENT_SPEED, normalizeTextWithStats } from '../../services/game-lib/stat-calculations'
 
 export function Proficiencies({ name, theRaceOrClass }) {
 
@@ -158,11 +160,11 @@ export function RaceFeatures({ theRace }) {
             <TwoColumns>
                 <Column>
                     <div className='with-margined-children'>
-                        <SmallStat name="Stat Distribution" type="vertical">{ theRace.Creation['Stat Restrictions'] }</SmallStat>
-                        <SmallStat name="Health"><Icon name="Health" type="small-stat"/>{ theRace.Stats['Base Health'] } + 200% of Might</SmallStat>
-                        <SmallStat name="Health Regen"><Icon name="HealthRegen" type="small-stat"/> { theRace.Stats['Health Regen'] } + Sense</SmallStat>
-                        <SmallStat name="Movement">4 + 50% of Dexterity (<b>result rounded up</b>)</SmallStat>
-                        <SmallStat name="Initiative">300% of Charisma</SmallStat>
+                        <SmallStat name="Stat Distribution" type="vertical">{ normalizeTextWithStats(theRace.Creation['Stat Restrictions']) }</SmallStat>
+                        <SmallStat name="Max Health"><Icon name="Health" type="small-stat"/>{ theRace.Stats['Base Health'] } + ({BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[MAX_HEALTH]})</SmallStat>
+                        <SmallStat name="Health Regen"><Icon name="HealthRegen" type="small-stat"/> { theRace.Stats['Health Regen'] } + ({BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[HEALTH_REGEN]})</SmallStat>
+                        <SmallStat name="Movement Speed">4 + {BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[MOVEMENT_SPEED]}</SmallStat>
+                        <SmallStat name="Initiative">{BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[INITIATIVE]}</SmallStat>
                         { theRace.Weapons && <SmallStat name="Weapons" type="vertical">{ theRace.Weapons }</SmallStat> }
                         { theRace.Training && <SmallStat name="Other Training" type="vertical">{ theRace.Training }</SmallStat> }
                         { theRace.Language && <SmallStat name="Language" type="vertical">{ theRace.Language }</SmallStat> }
@@ -193,7 +195,7 @@ export function CCRaceFeatures({ theRace }) {
             <TwoColumns>
                 <Column>
                     <div className='with-margined-children'>
-                        <SmallStat name="Stat Distribution" type="vertical">{ theRace.Creation['Stat Restrictions'] }</SmallStat>
+                        <SmallStat name="Stat Distribution" type="vertical">{ normalizeTextWithStats(theRace.Creation['Stat Restrictions']) }</SmallStat>
                         <SmallStat name="Base Health"><Icon name="Health" type="small-stat"/>{ theRace.Stats['Base Health'] }</SmallStat>
                         <SmallStat name="Base Regen"><Icon name="HealthRegen" type="small-stat"/> { theRace.Stats['Health Regen'] }</SmallStat>
                         { theRace.Weapons && <SmallStat name="Weapons" type="vertical">{ theRace.Weapons }</SmallStat> }
@@ -478,17 +480,19 @@ export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
                 <Column>
                     <PageH3>Basic Abilities</PageH3>
                     <div className='with-margined-children'>
-                        <SmallStat name="Mana" color="blue">
-                            <Icon name="Mana"/>
-                            {
-                                theClass.Spellcasting.Type == 'Paladin' || theClass.Spellcasting.Type == 'Special Mana-based'?
-                                    <span>{theClass.Spellcasting.Mana.Amount}</span>
-                                :theClass.Spellcasting.Type == 'Mana-based'?
-                                    <span>{theClass.Spellcasting.Mana.Amount} + <b>50% of Intelligence</b> (rounded UP)</span>
-                                :null
-                            
-                            }
-                        </SmallStat>
+                        { theClass.Spellcasting?.Type != null && theClass.Spellcasting?.Mana?.Amount != null && (
+                            <SmallStat name="Mana" color="blue">
+                                <Icon name="Mana"/>
+                                {
+                                    theClass.Spellcasting.Type == 'Paladin' || theClass.Spellcasting.Type == 'Special Mana-based'?
+                                        <span>{theClass.Spellcasting.Mana.Amount}</span>
+                                    :theClass.Spellcasting.Type == 'Mana-based'?
+                                        <span>{theClass.Spellcasting.Mana.Amount} + <b>50% of Intelligence</b> (rounded UP)</span>
+                                    :null
+                                
+                                }
+                            </SmallStat>
+                        )}
                         {
                             theClass['Spellcasting']['Known Basic Abilities'] != null &&
                             isCharacterCreationPage == false &&
@@ -506,7 +510,8 @@ export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
                             }
                         </SmallStatList> */}
                         <SmallStat name="Extra Talents" color="blue" type={SmallStatTypes.VERTICAL}>
-                            You can have a number of extra Talents from Utility, and Levels 1, 2, 4, 6 and 8 equal to your <b>Mind</b>.
+                            Each Level, choose a free Talent from that Level.<br/><br/>
+                            However, if your <b>Mind</b> above 0, you can choose a number of <b>extra Minor or Utility Talents</b> equal to your <b>Mind</b>.
                         </SmallStat>
                     </div>
                 </Column>
@@ -681,7 +686,7 @@ export function RacePage({ theRace }) {
         </div>
     )
 }
-export function CCRacePage({ theRace, selectedSpellNames, setSelectedSpellNames }) {
+export function CCRacePage({ theRace, selectedSpellNames, onSpellClick, openPopup }) {
 
     return (
         <div>
@@ -708,7 +713,8 @@ export function CCRacePage({ theRace, selectedSpellNames, setSelectedSpellNames 
                         <ManySpells
                             spells={theRace['Ability Choices']}
                             description={theRace['Ability Choices Description']}
-                            selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}
+                            selectedSpellNames={selectedSpellNames}
+                            onSpellClick={onSpellClick}
                         />
                     </div>
                 )}
@@ -721,7 +727,8 @@ export function CCRacePage({ theRace, selectedSpellNames, setSelectedSpellNames 
                 /> */}
                 <ManySpells
                     spells={U.spellsFromObject(theRace.Talents)}
-                    selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}
+                    selectedSpellNames={selectedSpellNames}
+                    onSpellClick={onSpellClick}
                 />
 
             </Page>
@@ -835,6 +842,16 @@ export function ClassPageV2({
 
                 <SpellCasting theClass={theClass} isCharacterCreationPage={true}/>
                 
+                { theClass['Other Abilities'] != null && (
+                    <div>
+                        <PageH2>{theClass['Other Abilities Title']}</PageH2>
+                        <ManySpells
+                            spells={theClass['Other Abilities']}
+                            description={theClass['Other Abilities Description']}
+                            selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}
+                        />
+                    </div>
+                )}
 
                 { theClass['Ability Choices'] != null && (
                     <div>
@@ -847,6 +864,8 @@ export function ClassPageV2({
                     </div>
                 )}
 
+
+                
                 { theClass['Utility'] != null && (
                     <div>
                         <PageH2>Level 1 - Utility Talent</PageH2>
@@ -858,7 +877,16 @@ export function ClassPageV2({
                     </div>
                 )}
 
-                
+                { theClass['Ideas'] != null && (
+                    <div>
+                        <PageH2>Ideas</PageH2>
+                        <ManySpells
+                            spells={theClass['Ideas']}
+                            description={'This is for testing purposes only. Ignore this section.'}
+                            selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}
+                        />
+                    </div>
+                )}
 
                 <LevelingUp theClass={theClass} isCharacterCreationPage={true}/>
 

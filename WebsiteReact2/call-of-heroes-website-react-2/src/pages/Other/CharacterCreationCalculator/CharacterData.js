@@ -1,9 +1,10 @@
-import { areArraysEqual, calculateNKnownAbilities, generateUniqueId, getAlMyRaceAndClassSpells, getAllClasses, getAllSkillsByName, getAllSpellsByName, getLocalStorageJSON, setLocalStorageJSON, useLocalStorageState } from "../../../utils"
+import { areArraysEqual, generateUniqueId, getAlMyRaceAndClassSpells, getAllClasses, getAllSkillsByName, getAllSpellsByName, getLocalStorageJSON, setLocalStorageJSON, useLocalStorageState } from "../../../utils"
 import * as Database from '../../../Database'
 import { useEffect } from "react"
 import { getUserState, useAuth } from "../../../Auth"
 import { showError } from "../../../services/MessageDisplayer"
 import { useConstAllBonuses, useConstBonusesYMLFromSpellsAndItems, useConstTotalStats } from "./MyCharacter"
+import { calculateNKnownAbilities, DEFAULT_CHARACTER_BONUSES, DEFAULT_STAT_ARRAY, STAT_NAMES } from "../../../services/game-lib/stat-calculations"
 
 export const NO_CHARACTER_ID = 'none'
 export const LOCAL_STORAGE_PREFIX = 'character-'
@@ -17,31 +18,15 @@ function getNewCharacterTemplate() {
         },
         level: 1,
         experience: 0,
-        stats: [-1,0,1,2,3],
-        bonuses: {
-            'Might': 0,
-            'Dexterity': 0,
-            'Intelligence': 0,
-            'Sense': 0,
-            'Charisma': 0,
-
-            'Max Health': 0,
-            'Health Regen': 0,
-            'Movement Speed': 0,
-            'Initiative': 0,
-
-            'Known Abilities': 0,
-            "Skills": 0,
-            'Extras': [],
-            'Combat Extras': []
-        },
+        stats: DEFAULT_STAT_ARRAY,
+        manualBonuses: DEFAULT_CHARACTER_BONUSES,
         choiceBonuses: [
             {
                 source: {
                     sourceType: 'spell',
                     name: 'Stat Bonus 4'
                 },
-                statName: 'Might',
+                statName: STAT_NAMES[0],
                 bonus: 1
             }
         ],
@@ -163,51 +148,15 @@ export function useCurrentCharacterId() {
 export function setCurrentCharacterId(id) {
     setLocalStorageJSON('character.id', id)
 }
+
+// ---------- Page specific hooks ----------
+
+// Names
 export function useSectionNamesState() {
     return useCharacterLocalStorageState('names')
 }
-export function useSectionStatsState() {
-    return useCharacterLocalStorageState('stats')
-}
-export function useManualBonuses() {    // Manual != bonuses from abilities; those are derived
-    return useCharacterLocalStorageState('bonuses')
-}
-export function useChoiceAbiliesObjects() {
-    return useCharacterLocalStorageState('choiceBonuses')
-}
-export function getChoiceAbilitiesObjects() {
-    return getLocalStorageJSON('character.choiceBonuses')
-}
-export function setChoiceAbilitiesObjects(arr) {
-    return setLocalStorageJSON('character.choiceBonuses', arr)
-}
-export function useLevel() {
-    return useCharacterLocalStorageState('level')
-}
-export function useExperience() {
-    return useCharacterLocalStorageState('experience')
-}
-export function useSectionRaceName() {
-    return useCharacterLocalStorageState('raceName')
-}
-export function useSectionRaceSpellNames() {
-    return useCharacterLocalStorageState('raceSpellNames')
-}
-export function useBasicAbilitiesNames() {
-    return useCharacterLocalStorageState('basicAbilityNames')
-}
-export function useFeats() {
-    return useCharacterLocalStorageState('featNames')
-}
-export function useSectionClassName() {
-    return useCharacterLocalStorageState('className')
-}
-export function useSectionClassSpecName() {
-    return useCharacterLocalStorageState('specName')
-}
-export function useSectionClassSpellNames() {
-    return useCharacterLocalStorageState('classSpellNames')
-}
+
+// Character Details
 export function useGold() {
     return useCharacterLocalStorageState('gold')
 }
@@ -220,6 +169,70 @@ export function useDescription() {
 export function useQuickNotes() {
     return useCharacterLocalStorageState('quickNotes')
 }
+export function useLanguages() {
+    return useCharacterLocalStorageState('languages', [])
+}
+export function useSkills() {
+    return useCharacterLocalStorageState('skillNames', [])
+}
+
+// Stats and Level
+export function useSectionStatsState() {
+    return useCharacterLocalStorageState('stats')
+}
+export function useLevel() {
+    return useCharacterLocalStorageState('level')
+}
+export function useExperience() {
+    return useCharacterLocalStorageState('experience')
+}
+
+// General
+export function useManualBonuses() {    // Manual != bonuses from abilities; those are derived
+    return useCharacterLocalStorageState('manualBonuses')
+}
+
+export function useChoiceAbiliesObjects() {
+    return useCharacterLocalStorageState('choiceBonuses')
+}
+export function getChoiceAbilitiesObjects() {
+    return getLocalStorageJSON('character.choiceBonuses')
+}
+export function setChoiceAbilitiesObjects(arr) {
+    return setLocalStorageJSON('character.choiceBonuses', arr)
+}
+export function useCustomCharacterVariables() {
+    return useCharacterLocalStorageState('variables', {})
+}
+
+// Race
+export function useSectionRaceName() {
+    return useCharacterLocalStorageState('raceName')
+}
+export function useSectionRaceSpellNames() {
+    return useCharacterLocalStorageState('raceSpellNames')
+}
+
+// Class
+export function useSectionClassName() {
+    return useCharacterLocalStorageState('className')
+}
+export function useSectionClassSpecName() {
+    return useCharacterLocalStorageState('specName')
+}
+export function useSectionClassSpellNames() {
+    return useCharacterLocalStorageState('classSpellNames')
+}
+
+// Feats and Basic Abilities
+export function useBasicAbilitiesNames() {
+    return useCharacterLocalStorageState('basicAbilityNames')
+}
+export function useFeats() {
+    return useCharacterLocalStorageState('featNames')
+}
+
+// Shopping
 export function useCharacterShoppingCart() {
     return useCharacterLocalStorageState('shopCart')
 }
@@ -228,24 +241,18 @@ export function useGetSetCart() {
     let setVal = val => setLocalStorageJSON('character.shopCart', val)
     return [getVal, setVal]
 }
-export function useLanguages() {
-    return useCharacterLocalStorageState('languages', [])
-}
-export function useSkills() {
-    return useCharacterLocalStorageState('skillNames', [])
-}
-export function useCurrentMana() {
-    return useCharacterLocalStorageState('currentMana', 1)
-}
 export function useWeapons() {
     return useCharacterLocalStorageState('weaponNames', [])
 }
 export function useArmors() {
     return useCharacterLocalStorageState('armorNames', [])
 }
-export function useCustomCharacterVariables() {
-    return useCharacterLocalStorageState('variables', {})
+
+// Tracking
+export function useCurrentMana() {
+    return useCharacterLocalStorageState('currentMana', 1)
 }
+
 
 
 // Use const
@@ -270,7 +277,6 @@ export function useConstAvailableAbilitySchools() {
     return ['Default Moves', ...classSchools]
 }
 export function useConstNKnownAbilities() {
-    let [level] = useLevel()
     let [className] = useSectionClassName()
 
     if (className == null) {
@@ -295,7 +301,7 @@ export function useConstAllRaceAndClassSpells() {
         className: selectedClassName,
         specName: selectedSpecName,
         selectedClassSpellNames
-    })
+    }).filter(spell => spell != null)
 
     return allMyRaceAndClassSpells
 }
@@ -318,10 +324,32 @@ export function useConstAllSkillNames() {
     let [skillNames] = useSkills()
     
     const abilities = useConstAllMyAbilities()
-    const spellsWithSkills = abilities.filter(a => a.Skills != null)
+    const spellsWithSkills = abilities.filter(a => a?.Skills != null)
     const skillsUnflat = spellsWithSkills.map(a => a.Skills)
     const skillsFlat = skillsUnflat.flat()
     const allMySkills = [...skillNames, ...skillsFlat]
 
     return allMySkills
+}
+
+
+// Other
+export function toggleSpellForSelectedSpellNames(spell, spellMetadata, selectedSpellNames, setSelectedSpellNames) {
+    const { variantIndex } = spellMetadata
+
+    if (selectedSpellNames.includes(spell.Name)) {
+        setSelectedSpellNames(selectedSpellNames.filter(name => name != spell.Name))
+    } else {
+        setSelectedSpellNames([...selectedSpellNames, spell.Name])
+    }
+}
+
+export function toggleSpellMaybePopup(spell, spellMetadata, selectedSpellNames, setSelectedAbiltiesNames, openPopup) {
+    if (spell.Popup != null) {
+        openPopup({...spell.Popup, callback: () => {
+            toggleSpellForSelectedSpellNames(spell, spellMetadata, selectedSpellNames, setSelectedAbiltiesNames)
+        }})
+    } else {
+        toggleSpellForSelectedSpellNames(spell, spellMetadata, selectedSpellNames, setSelectedAbiltiesNames)
+    }
 }

@@ -7,11 +7,11 @@ import { getAllClasses, getAllRaces, splitArrayEvenly, useLocalStorageState } fr
 import { classesRacesObjectToArrays } from "./CharacterCreationCalculator"
 import Selector from "../../../components/Selector/Selector"
 import { SelectorsByColumns } from "../Abilities"
-import { useSectionRaceName, useSectionRaceSpellNames } from "./CharacterData"
+import { toggleSpellMaybePopup, useSectionRaceName, useSectionRaceSpellNames } from "./CharacterData"
 
 
 
-export default function SectionRace() {
+export default function SectionRace({ openPopup }) {
 
     const RACES_OBJ = getAllRaces()
     const selectorData = Object.keys(RACES_OBJ).map(raceName => ({
@@ -24,11 +24,19 @@ export default function SectionRace() {
     const [selectedSpellNames, setSelectedSpellNames] = useSectionRaceSpellNames()
 
     const getSelectedRaceName = () => selectedRaceName
+    
+    window.getAllRaces = getAllRaces
+    window.getSelectedRaceName = getSelectedRaceName
+    window.selectedRaceName = selectedRaceName
 
     function onRaceSelectorClick(raceName) {
         setSelectedRaceName(raceName)
         setSelectedSpellNames([])
         console.log({raceName})
+    }
+
+    function onAbilityClick(spell, metadata) {
+        toggleSpellMaybePopup(spell, metadata, selectedSpellNames, setSelectedSpellNames, openPopup)
     }
 
     return (
@@ -37,8 +45,13 @@ export default function SectionRace() {
 
             <SelectorsByColumns nColumns={2} selectorData={selectorData} onSelectorClick={onRaceSelectorClick} getSelectedSelectorName={getSelectedRaceName}/>
 
-            { selectedRaceName && (
-                <CCRacePage theRace={RACES_OBJ[selectedRaceName]} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}/>
+            { selectedRaceName != null && selectedRaceName in RACES_OBJ && (
+                <CCRacePage
+                    theRace={RACES_OBJ[selectedRaceName]}
+                    selectedSpellNames={selectedSpellNames} 
+                    setSelectedSpellNames={setSelectedSpellNames}
+                    onSpellClick={onAbilityClick}
+                />
             )}
         </div>
     )

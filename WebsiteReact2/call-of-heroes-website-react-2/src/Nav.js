@@ -20,11 +20,12 @@ const DISCORD_URL = 'https://discord.gg/' + '27aqSEDyE3'
 
 const NAV_CONFIG = [
   { name: 'Play With Us!', href: DISCORD_URL, isExternal: true },
+  { name: 'Create Character', href: '/Tools/CharacterCreationCalculator' },
   { name: 'Game', children: [
     { name: 'Races', children: [
       { name: 'Bertle',       href: '/Races/Bertle' },
       { name: 'Davel',        href: '/Races/Davel' },
-      { name: 'Dragonsworn',  href: '/Races/Dragonsworn' },
+      { name: 'Dragon',       href: '/Races/Dragonborn' },
       { name: 'Dwarf',        href: '/Races/Dwarf' },
       { name: 'Elf',          href: '/Races/Elf' },
       { name: 'Gnome',        href: '/Races/Gnome' },

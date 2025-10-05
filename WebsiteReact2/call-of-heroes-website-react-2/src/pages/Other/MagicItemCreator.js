@@ -10,6 +10,7 @@ import { useState } from "react";
 import HeroButton from "../../components/HeroButton/HeroButton";
 import Spell from '../../components/Spell/Spell'
 import { isString } from "markdown-it/lib/common/utils";
+import { STAT_NAMES } from "../../services/game-lib/stat-calculations";
 const ALL_WEAPONS_ARRAY = [
     ...spellsFromObject(Weapons['One-Handed Melee']).map(item => ({...item, type: 'One-Handed Melee'})),
     ...spellsFromObject(Weapons['Two-Handed Melee']).map(item => ({...item, type: 'Two-Handed Melee'})),
@@ -764,7 +765,7 @@ function parseItemText(text, thisText='{This}') {
         
 
         
-        'Stat': { text: () => randomOf('Might', 'Dexterity', 'Intelligence', 'Sense', 'Charisma')},
+        'Stat': { text: () => randomOf(STAT_NAMES)},
         'Attribute': { text: () => randomOf('Max Health', 'Health Regen', 'Skill Point', 'Initiative')},
         'Skill': { text: () => randomOf(...$SKILLS)},
         'WeaponType': { text: () => randomOf('1-Handed Melee', '2-Handed Melee', '1-Handed Ranged', '2-Handed Ranged')},

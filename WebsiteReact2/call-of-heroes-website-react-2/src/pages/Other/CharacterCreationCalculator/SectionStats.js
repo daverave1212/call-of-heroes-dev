@@ -2,13 +2,14 @@ import { useEffect, useState } from "react"
 import TwoColumns from "../../../components/TwoColumns/TwoColumns"
 import Column from "../../../components/TwoColumns/Column"
 import SmallStat from "../../../components/SmallStat/SmallStat"
-import { calculateStat, checkStatRequirements, calculateExperienceByLevel, getRace, useLocalStorageState, calculateAttributesFromStatsAndBonuses } from "../../../utils"
+import { getRace, useLocalStorageState, calculateAttributesFromStatsAndBonuses } from "../../../utils"
 import Page from "../../../containers/Page/Page"
 import { QGTitle1 } from "../../Tools/TitleGenerator"
 import Icon from "../../../components/Icon"
 import { useConstBonusesYMLFromSpellsAndItems, useConstTotalStats } from "./MyCharacter"
 import Input from "../../../components/Input/Input"
 import { useExperience, useLevel, useSectionRaceName, useSectionStatsState } from "./CharacterData"
+import { AttributeCalculationTextComponent, calculateExperienceByLevel, calculateStatsToAttributesObject, checkStatRequirements, DEFAULT_STAT_ARRAY, STAT_ICON_NAME_MAP, STAT_NAMES } from "../../../services/game-lib/stat-calculations"
 
 
 
@@ -38,9 +39,6 @@ export function StatValue({ name, value, style, className, onClick }) {
         </div>
     )
 }
-
-export const STAT_NAMES = ["Might", 'Dexterity', 'Intelligence', 'Sense', 'Charisma']
-export const BASE_STATS = [-1, 0, 1, 2, 3]
 
 export function ExperienceSlider({max, initialValue, onChange, children}) {
     let [val, setVal] = useState(initialValue)
@@ -93,6 +91,8 @@ export default function SectionStats() {
     const ignoreStatRequirements = myRace?.['IgnoreStatRestrictions'] ?? false
     const levelError = checkLevel(level)
     
+    const attributesFromStats = calculateStatsToAttributesObject(stats)
+    
 
     function checkLevel(level) {
         const levelError = level <= 0? 'Your level should not be lower than 0': Math.floor(level) != level? 'Your level should not be decimal': null
@@ -100,7 +100,7 @@ export default function SectionStats() {
     }
     function checkStandardStats(stats) {
         const statsCopy = [...stats].sort()
-        const statArray = exactStats != null? exactStats: BASE_STATS
+        const statArray = exactStats != null? exactStats: DEFAULT_STAT_ARRAY
         const baseStatsCopy = [...statArray].sort()
         let isCorrect = !(statsCopy.filter((stat, i) => baseStatsCopy[i] != stat).length > 0)
         
@@ -132,13 +132,13 @@ export default function SectionStats() {
         checkStandardStats(statsCopy)
     }
 
-    function StatExplainedDisplay({ name, description, iconName, attributeName }) {
+    function StatExplainedDisplay({ name, description, iconName, value }) {
         return (
             <TwoColumns className='margin-top-half'>
                 <Column>
                     <div>
                         <SmallStat name={name} type="normal-large">
-                            { calculateAttributesFromStatsAndBonuses(totalStats, bonuses)[attributeName] }
+                            { value }
                             &nbsp;<Icon name={iconName}/>
                         </SmallStat>    
                     </div>
@@ -170,12 +170,12 @@ export default function SectionStats() {
             </div>
             <div className="center-content">
                 <QGTitle1 text="Stats" height={60}/>
-                <p>As standard, use the numbers -1, 0, 1, 2, 3 and distribute them as you like among the 5 stats.</p>
+                <p>As standard, use the numbers {DEFAULT_STAT_ARRAY} and distribute them as you like among the 5 stats.</p>
                 <p>{ myRace && myRace.Creation['Stat Restrictions'] != null && <span>Pay attention to your races's stat <i>restrictions</i>: {myRace.Creation['Stat Restrictions']}</span> }</p>
             </div>
             <div className="center-content flex" style={{gap: '2rem'}}>
                 <div className="stats-selector">
-                    { BASE_STATS.map((num, i) => (
+                    { DEFAULT_STAT_ARRAY.map((num, i) => (
                         <StatInput name={STAT_NAMES[i]} value={stats[i]} onChange={val => {
                             onStatChanged(i, val)
                         }}/>
@@ -194,10 +194,15 @@ Attributes in order of priority:
 
 
                 <div style={{ width: '100%' }}>
-                    <StatExplainedDisplay name="Extra Health" iconName="Health" attributeName="maxHealth" description={
-                        <div>Your <b>Max Health</b> = Race Health + 3 × Body</div>
-                    }/>
-                    <StatExplainedDisplay name="Extra Regen" iconName="HealthRegen" attributeName="healthRegen" description={
+                    { Object.keys(attributesFromStats).map(name => (
+                        <StatExplainedDisplay name={name} iconName={STAT_ICON_NAME_MAP[name]} value={attributesFromStats[name]} description={
+                            <div>
+                                <AttributeCalculationTextComponent statName={name}/>
+                            </div>
+                        }/>
+                    )) }
+                    
+                    {/* <StatExplainedDisplay name="Extra Regen" iconName="HealthRegen" attributeName="healthRegen" description={
                         <div>Your <b>Health Regen</b> = Race Health Regen + 2 × Soul</div>
                     }/>
                     <StatExplainedDisplay name="Move Speed" iconName="Speed" attributeName="movementSpeed" description={
@@ -211,7 +216,7 @@ Attributes in order of priority:
                             Your <b>Initiative</b> = Mind + Soul
                             <div className="subtext margin-top-half">Initiative represents the order in which players and NPC's take turns.</div>
                         </div>
-                    }/>
+                    }/> */}
                 </div>
                 <div className="center-content" style={{width: '100%'}}>
                     { statsCorrectError != null && (

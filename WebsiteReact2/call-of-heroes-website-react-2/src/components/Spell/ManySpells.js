@@ -3,41 +3,19 @@ import TwoColumns from '../TwoColumns/TwoColumns'
 import Column from '../TwoColumns/Column'
 import Spell from './Spell'
 import TwoSpells from './TwoSpells'
-import { addAbilityOrOpenPopup, sortObjectArrayByKey, spellsFromObject, splitArrayEvenly } from '../../utils'
+import { addAbilityOrOpenPopup, sortObjectArrayByKey, spellsFromObject, splitArrayEvenly, splitSpellsArrayInto2Columns } from '../../utils'
 import { SADescription } from '../InsertableTemplates/RaceClassComponents'
 
 // Returns many TwoColumns, each fitting 2 spells.
-export default function ManySpells({ className, spells, spellStyle, shouldIgnoreAlignment, description, selectedSpellNames, setSelectedSpellNames, areItems=false, onSpellClick, buttonText }) {
+export default function ManySpells({ className, spells, spellStyle, shouldIgnoreAlignment, description, selectedSpellNames, areItems=false, onSpellClick, buttonText }) {
 
     spells = Array.isArray(spells) ? spells : spellsFromObject(spells)
-    spells = sortObjectArrayByKey(spells, 'OrderOnWebsite')
-
-    console.log({spells})
-
-    let column1Spells = []
-    let column2Spells = []
-    let spellsRest = [...spells]
-    if (shouldIgnoreAlignment !== true) {
-        column1Spells = spells.filter(spell => spell.AlignOnWebsite == 'Left')
-        column2Spells = spells.filter(spell => spell.AlignOnWebsite == 'Right')
-        spellsRest = spells.filter(spell => spell.AlignOnWebsite == null)
-    }
     
-    const [spellsLeft, spellsRight] = splitArrayEvenly(spellsRest, 2)
-    column1Spells = [...column1Spells, ...spellsLeft]
-    column2Spells = [...column2Spells, ...spellsRight]
+    const [column1Spells, column2Spells] = splitSpellsArrayInto2Columns(spells, shouldIgnoreAlignment)
 
     function SpellsInColumn({ spells }) {
         
         const isSelected = spell => selectedSpellNames != null && spell != null && selectedSpellNames.includes(spell.Name)
-        const onClick = onSpellClick == null? null: spell => {
-            if (onSpellClick != null) {
-                onSpellClick(spell)
-            }
-            if (setSelectedSpellNames != null) {
-                addAbilityOrOpenPopup(spell, selectedSpellNames, setSelectedSpellNames, null)
-            }
-        }
 
         return (
             <>
@@ -50,7 +28,7 @@ export default function ManySpells({ className, spells, spellStyle, shouldIgnore
                         return <Spell
                             isItem={areItems} 
                             key={spell.Name} spell={spell} style={spellStyle}
-                            onClick={onClick} buttonText={buttonText}
+                            onClick={onSpellClick} buttonText={buttonText}
                             isSelected={isSelected(spell)}
                         />
                     }

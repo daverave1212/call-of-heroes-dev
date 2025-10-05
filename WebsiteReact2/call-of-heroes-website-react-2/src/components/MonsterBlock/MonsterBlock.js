@@ -10,6 +10,7 @@ import Icon from '../Icon'
 import CopySpellButton from '../CopyButton/CopySpellButton.js'
 import PageH0 from '../PageH0/PageH0.js'
 import PageH1 from '../PageH1/PageH1.js'
+import { getMonsterStatsAsObject } from '../../services/game-lib/stat-calculations.js'
 
 export default function MonsterBlock({monsterName, monster, isPreview}) {
 
@@ -20,7 +21,7 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
         isPreview = false
     }
 
-    const monsterStats   = U.getMonsterStatsAsObject(monster.Stats)
+    const monsterStats   = getMonsterStatsAsObject(monster.Stats)
     const statOtherColor = 'rgb(55, 10, 85)'
 
     const IsCondensedLeft = monster.IsCondensedLeft == true

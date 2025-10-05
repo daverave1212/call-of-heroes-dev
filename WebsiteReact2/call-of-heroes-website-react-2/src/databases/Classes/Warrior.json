@@ -4,13 +4,13 @@
     "Quick Note": "A warrior is a physical combatant, but that does not stop them from overcoming challenges. With mastery over arms, body or range, a warrior may improvise and lead their way to victory.",
     "Armor Training": "Heavy Armor",
     "Difficulty": "Easy-Medium",
-    "Proficiency Requirements": "You have Skilled in Athletics, Acrobatics and have a number of extra non-combat Skills equal to your Intelligence or Sense, whichever is higher.",
+    "Proficiency Requirements": "You have Skilled in Athletics, Acrobatics and have a number of extra non-combat Skills equal to your Mind or Spirit, whichever is higher.",
     "Proficiencies": {
         "~Skilled in Athletics~": {
-            "Effect": "Add your Level to all Might Checks for using your physical strength (e.g. lifting, breaking by hand, etc)."
+            "Effect": "Add your Level to all Body Checks for using your physical strength (e.g. lifting, breaking by hand, etc)."
         },
         "~Skilled in Acrobatics~": {
-            "Effect": "Add your Level to all Dexterity Checks for jumping, climbing, fitting through gaps, maintaining balance and other acrobatic moves."
+            "Effect": "Add your Level to all Heart Checks for jumping, climbing, fitting through gaps, maintaining balance and other acrobatic moves."
         }
     },
     "Proficiencies Description": "Your physical training as a Warrior provides you with enough practice and muscle memory to be able to succeed at the more difficult hand-to-hand tasks, such as swimming, lifting and jumping.\n",
@@ -23,14 +23,14 @@
     "Spellcasting": {
         "Type": "Mana-based",
         "SpellsOrAbilities": "Ability",
-        "Spell Grade": "6 + Intelligence, Sense or Charisma, whichever is higher",
+        "Spell Grade": "6 + Mind, Spirit or Spirit, whichever is higher",
         "Mana": {
             "Amount": 1,
             "Regain": "You regain all Mana back inbetween Adventures."
         },
         "Change": "You can change your known Spells and Talents inbetween Adventures.",
         "Other": "All Warrior-specific Abilities are not considered Spells (unless stated otherwise).",
-        "Known Basic Abilities": "2 + Intelligence (minimum 1)",
+        "Known Basic Abilities": "2 + Mind (minimum 1)",
         "BaseKnownSpells": 2,
         "Basic Ability Lists": [
             "Bloodshed",
@@ -53,17 +53,9 @@
                 "Warfare": "Atonement"
             }
         ],
-        "Recommended Abilities Description": "Warriors should be able to withhold damage, and as such, we recommend Recuperate for some extra healing and breaking enemy effects on you. Slam will provide you with area damage and Chilling Shout is a great ranged attack for the Mana cost. If you still have more available Basic Spells, no-one ever complained about having Bull Rush - it's a great passive effect for dealing extra damage. Lastly, if your Sense is low, Atonement will be great in combat for survival, if you're expecting to take a lot of damage.\n"
+        "Recommended Abilities Description": "Warriors should be able to withhold damage, and as such, we recommend Recuperate for some extra healing and breaking enemy effects on you. Slam will provide you with area damage and Chilling Shout is a great ranged attack for the Mana cost. If you still have more available Basic Spells, no-one ever complained about having Bull Rush - it's a great passive effect for dealing extra damage. Lastly, if your Spirit is low, Atonement will be great in combat for survival, if you're expecting to take a lot of damage.\n"
     },
     "Starting Abilities": {
-        "~Advanced Flank~": {
-            "_Value": 3,
-            "AlignOnWebsite": "Left",
-            "A": "Passive",
-            "HasMixins": true,
-            "Effect": "The first time you _flank_ an enemy every turn, the attack deals +1d4 Damage.\nAlso, your melee weapon attacks Flank an enemy if they are pinned against a wall or an obstacle as well.\n",
-            "Note": "{Flank}\nAlso, instead of an ally being behind the enemy, your attacks count as Flanking even if there is a wall or another obstacle directly behind them.\n"
-        },
         "~Charge~": {
             "_Value": 1,
             "AlignOnWebsite": "Left",
@@ -71,23 +63,124 @@
             "HasMixins": true,
             "Range": "2 meters",
             "Cooldown": "Once / Turn",
-            "Effect": "Freely dash exactly 2 meters towards a Worthy Enemy, landing on the closest space.\n",
+            "Effect": "Freely dash exactly 2 meters toward a Worthy Enemy, landing on the closest space, near them.\n",
             "Combo": "Single-Stun it."
+        },
+        "~War Craft~": {
+            "A": "Passive",
+            "Effect": "No two warriors fight alike. Choose your War Craft from below!\nEach War Craft usually gives you a way to deal {Color('#ff5900' '+1d4 extra Damage each Turn')}.\n",
+            "Upgrade": "You may change your War Craft inbetween Adventures.",
+            "HasMixins": true
         }
     },
-    "Starting Abilities Description": [
-        {
-            "Advanced Flank": "Warriors are great at using their teammates and the terrain to make flanking attacks!\nWhen an enemy is caught directly between you and another ally of yours, that attack counts as a Flank Attack, and it deals +1 Damage (normally). Your Advanced Flank transforms the +1 into 1d6 Damage to the first Flank Attack you make every turn!\nThis works now if there is a wall or an obstacle directly behind your target, so use the environment to your advantage!\nNote that this only works for melee attacks and on enemies 1 meter away from you (e.g. enemies directly in front of you).\n"
+    "Other Abilities Title": "War Crafts",
+    "Other Abilities Description": "Choose one of the following War Crafts that will change your playstyle! These are not the same as the Level 1 Talents (which are below), and you still get one free War Craft and one free Level 1 Talent.",
+    "Other Abilities": {
+        "~Shield Craft~": {
+            "A": "Reaction",
+            "Requirement": "Requires an equipped shield",
+            "Effect": "Use after you are melee attacked. Deal 1d4 Smash Damage with your {Color('#ff5900' 'shield')} to the attacker.",
+            "Combo": "Single-Stun it instead.",
+            "HasMixins": true
+        },
+        "~Dualwield Craft~": {
+            "A": "Passive",
+            "Effect": "Your {Color('#ff5900' 'second one-handed')} attack with a real weapon each Turn deals +1d4 Damage {Color('#ff5900' 'if it is with a different weapon than the first attack')}.",
+            "HasMixins": true
+        },
+        "~Heavy Weapon Craft~": {
+            "A": "Passive",
+            "Effect": "Your first {Color('#ff5900' 'two-handed')} weapon attack each Turn deals +1d4 Damage {Color('#ff5900' 'if there is an Ally, obstacle or wall directly behind the target')}.",
+            "HasMixins": true
+        },
+        "~Throw Craft~": {
+            "A": "Passive",
+            "Effect": "You may throw real melee weapons with a 3-5 meter range. They deal -1 Damage for one-handed weapons (or -2 Damage for two-handed weapons).\nYour first {Color('#ff5900' 'thrown')} weapon attack each Turn deals +1d4 Damage {Color('#ff5900' 'if it's the first Act you do on your Turn and you have a clear throw to the target')}.\n",
+            "HasMixins": true
+        },
+        "~Unarmed Craft~": {
+            "A": "Passive",
+            "Effect": "Your {Color('#ff5900' 'second Punch')} attack each Turn deals +1d4 Damage {Color('#ff5900' \"if it's on a different target than the first\")}.",
+            "HasMixins": true
+        },
+        "~Marksman Craft~": {
+            "A": "Passive",
+            "Effect": "Your first ~ranged~ weapon attack each Turn deals +1d4 Damage {Color('#ff5900' 'if there is no Unit or obstacle near the target')}.\nYour Charge becomes Uncharge.\n",
+            "Subspells": {
+                "~Uncharge~": {
+                    "_Value": 0.25,
+                    "A": "0 Actions",
+                    "HasMixins": true,
+                    "Range": "2 meters",
+                    "Replacement": "Replaces Charge",
+                    "Cooldown": "Once / Turn",
+                    "Effect": "Freely dash exactly 2 meters toward an ~Ally~, landing on the closest space, near them.\n",
+                    "Combo": "If the Ally had a Combo, make a free Movement Action."
+                }
+            },
+            "HasMixins": true
+        },
+        "~Dual Shield Craft~": {
+            "A": "Passive",
+            "Effect": "You can Dual Wield shields and attack with them for 1d6 + ^Any Stat^ Damage.\nAfter you Charge, gain 1d4 Shielding.\n",
+            "HasMixins": true
+        },
+        "~Improvisation Craft~": {
+            "A": "Passive",
+            "Effect": "Your first {Color('#ff5900' 'Improvised Attack')} each Turn deals +1d6 Damage {Color('#ff5900' 'if it's with an improvised weapon type you haven't used this Adventure')}.\n",
+            "HasMixins": true
+        },
+        "~Old-Fashioned Craft~": {
+            "A": "Passive",
+            "Effect": "Your first {Color('#ff5900' 'old-fashioned')} weapon attack each Turn deals extra Damage equal to ^Any Stat^, {Color('#ff5900' 'and applies a Combo if the target is a Person')}.",
+            "Upgrade": "Old-fashioned weapons are weapons that do not deal extra Damage with any Stat (e.g. Hammer).",
+            "HasMixins": true
         }
-    ],
-    "Specializations": {
-        "Description": "At Level 1, you can choose your specialization. Every Warrior can choose from the following Warrior specializations",
-        "Choices": [
-            "Fighter, a person specialized in weapon fighting and body-to-body combat",
-            "Battlemaster, a heavily trained and armed warrior; master yourself - master the enemy",
-            "Barbarian, a crude and battle thirsty warrior, who seeks to shed blood and lives for the fight",
-            "Marksman, a precise and mechanical soldier, always finding the best tactic and position; the Marksman wins the battle before it begins"
-        ]
+    },
+    "Ability Choices": {
+        "~Command - March~": {
+            "A": "0 Actions",
+            "Cooldown": "Once / Combat",
+            "Tags": [
+                "Utility"
+            ],
+            "Effect": "Choose a direction. All Allies (including you) may move up to 3 meters in that direction."
+        },
+        "~Break Mountains~": {
+            "A": "1 Action",
+            "Cost": "1 Mana",
+            "Effect": "Pick up an object up to 2x2x2 meters in size, and Slam it 3d10 meters in any direction.",
+            "EffectGreen": "Critical Strike - for each max die rolled, deal +1d6 Damage and the object breaks on impact!"
+        },
+        "~Whirlwind~": {
+            "A": "3 Action Points",
+            "Cost": "1 Mana",
+            "DisplayName": "{Name}",
+            "Degree": "Major",
+            "Effect": "Roll 2d10 for each Unit {Area}\nAssign 2 of the rolled d10's to each of those Units, and deal that much Damage Damage to each.\n~Click on the Icon to select a preferred effect!~\n",
+            "Upgrade": "The Ability is Whirlwind if a melee weapon is equipped, or Rain Death if a ranged weapon is equipped.",
+            "Notes": "Each rolled die ^must^ be assigned to a Unit.\nThe Damage type depends on the weapon currently equipped. Doesn't apply weapon effects (the weapon only matters for the Damage type).\n",
+            "Variants": [
+                {
+                    "Name": "Whirlwind",
+                    "Area": "within 2 meters of you (except you).",
+                    "IconName": "Whirlwind"
+                },
+                {
+                    "Name": "Rain Death",
+                    "Area": "in a chosen 4x4 meter area (5 meter range to the edge).",
+                    "IconName": "Rain Death"
+                }
+            ],
+            "HasMixins": true
+        },
+        "~Takeback~": {
+            "A": "Half-Action",
+            "Cooldown": "Once / Turn",
+            "Range": "Weapon Range",
+            "Effect": "Deal 1d4 Damage to a Unit and Single-Stun it. Then end your Turn.",
+            "Combo": "+1d4 Damage."
+        }
     },
     "Utility": {
         "~Vault Break~": {
@@ -120,71 +213,260 @@
             "Notes": "Any extra Damage effects on it heal as well (e.g. Smite, Cursewielder, etc)."
         }
     },
+    "Starting Abilities Description": [
+        {
+            "Advanced Flank": "Warriors are great at using their teammates and the terrain to make flanking attacks!\nWhen an enemy is caught directly between you and another ally of yours, that attack counts as a Flank Attack, and it deals +1 Damage (normally). Your Advanced Flank transforms the +1 into 1d6 Damage to the first Flank Attack you make every turn!\nThis works now if there is a wall or an obstacle directly behind your target, so use the environment to your advantage!\nNote that this only works for melee attacks and on enemies 1 meter away from you (e.g. enemies directly in front of you).\n"
+        }
+    ],
+    "Specializations": {
+        "Description": "At Level 1, you can choose your specialization. Every Warrior can choose from the following Warrior specializations",
+        "Choices": [
+            "Fighter, a person specialized in weapon fighting and body-to-body combat",
+            "Battlemaster, a heavily trained and armed warrior; master yourself - master the enemy",
+            "Barbarian, a crude and battle thirsty warrior, who seeks to shed blood and lives for the fight",
+            "Marksman, a precise and mechanical soldier, always finding the best tactic and position; the Marksman wins the battle before it begins"
+        ]
+    },
+    "_Ideas": {
+        "~Strength and Honor~": {
+            "A": "Passive",
+            "Effect": "You may exceed the Level limits for maximum Stats.\nYou start with +1 in any Stat.\n",
+            "Notes": "The maximum a Stat can be until Level 4 is +3. Between 4 and 8 is +4. There is no limit from Level 8 on."
+        },
+        "~Bristleback~": {
+            "A": "Passive",
+            "Effect": "You take less Damage when struck from behind. Enemies with 2 or less Spirit..."
+        },
+        "~Hemmingstep~": {
+            "A": "Passive",
+            "Effect": "When standing right next to a wall, you take -1 Damage from all sources."
+        },
+        "~Painfeast~": {
+            "A": "0 Actions",
+            "Effect": "Until the start of your next Turn, all Damage you take is transformed into Healing instead!"
+        },
+        "~Heavenbreaker~": {
+            "A": "1 Action",
+            "Cooldown": "Once / Adventure",
+            "Range": "15 meters",
+            "Effect": "You jump high up above the battlefield and end your Turn.\nAt the start of your next Turn, you plunge into the earth like a comet toward a destintion space.\nAll Units within 3 meters of you take X Damage TODO and a crater forms in the zone, 2 meters deep at the extremities of the area.\n"
+        }
+    },
     "Specs": {
         "Fighter": {
-            "Description": "Lorem!",
+            "Description": "Lorem ipsum.",
             "Starting Abilities": {
                 "<Quick Maneuvers>": {
                     "_Value": 1,
                     "A": "Special",
                     "Cooldown": "Once / Turn",
-                    "Effect": "Immediately after you make a weapon attack, use Sprint, Push, Taunt or Hamstring for free.",
-                    "Notes": "Sprint (run up to 2 meters), Push (push a non-Epic medium-sized Unit 1 meter in any direction), Taunt (make a Unit have -2 on its next attack if it's not on you), Hamstring (slow a Unit)."
+                    "Effect": "Immediately after you make a weapon attack, choose one effect to apply.",
+                    "SingleTable": [
+                        "1. Freely move up to 2 meters",
+                        "2. Slow the target",
+                        "3. Taunt a Unit within 5 meters",
+                        "4. Slam the target 1 meter (any direction)"
+                    ],
+                    "Notes": "Taunted means its next offensive Act has Cover if it's not on you."
                 },
-                "<Opportunity Attacks>": {
-                    "_Value": 0.75,
-                    "A": "Reaction",
-                    "Effect": "When an enemy moves 1 or more meters away from near you, you can make a free attack on them with a 1-Handed Melee Weapon.\n",
-                    "Notes": "If you don't have a 1-Handed Weapone equipped, you automatically freely equip one, attack with it, unequip it and equip what you previously had."
+                "~Third Wind~": {
+                    "A": "0 Actions",
+                    "Cooldown": "Once / Adventure",
+                    "Effect": "Take 1d10 Damage. Gain +1 Action this Turn."
                 }
             },
             "Talents": {
-                "Level 3 - Keystone Talent": {
-                    "~Recovery Maneuvers~": {
-                        "_Value": 1.5,
-                        "A": "Special",
-                        "AlignOnWebsite": "Right",
-                        "Cooldown": "Once / Turn",
-                        "Replacement": "Replaces Quick Maneuvers",
+                "Level 2 - Minor Talents": {
+                    "~Command - Patience~": {
+                        "A": "Half-Action",
+                        "Cost": "1 Mana",
+                        "Effect": "A Unit you can see gains a number of 1d8 Shieldings equal to the Round Number."
+                    },
+                    "<Opportunity Attacks>": {
+                        "A": "Reaction",
+                        "Cost": "1 Mana",
+                        "Effect": "When an enemy exits your melee attack range, make a free attack on them with a one-handed melee weapon.\n",
+                        "Notes": "If you don't have the weapon equipped, you automatically freely equip it, attack with it, unequip it and equip what you previously had."
+                    },
+                    "<Might Over Magic>": {
+                        "_Value": 1,
+                        "A": "Depends",
+                        "Cost": "1 Mana",
                         "HasMixins": true,
-                        "Requirement": "Only usable on Worthy Enemies",
-                        "Effect": "Immediately after you make a weapon attack, use Sprint, Push, Taunt or Hamstring for free ~or heal yourself for 1d4.~",
-                        "Notes": "Sprint (run up to 2 meters), Push (push a non-Epic medium-sized Unit 1 meter in any direction), Taunt (make a Unit have -2 on its next attack if it's not on you), Hamstring (slow a Unit)."
+                        "Effect": "When you get this, choose a Minor Talent from (any Specialization of) Cleric, Mage or Warlock, up to your Level.\nThat Ability becomes a ^physical version of itself^: instead of using magic to cast that spell, you use your body/weapons/tools!\n",
+                        "Upgrade": "The Damage of that Spell becomes Slash, Smash or Pierce, whichever makes sense.\n",
+                        "Notes": "E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage). Be creative, come up with a description of how it works!\nYou can change this Ability inbetween Adventures.\n"
+                    }
+                },
+                "Level 3 - Keystone Talents": {
+                    "<Glory Run>": {
+                        "_Value": "1 (because movement takes actions now)",
+                        "A": "Passive",
+                        "Effect": "When Worthy Combat starts, a Glory Point appears directly behind the furthermost Enemy from you.\nThe first time you reach the Glory Point, heal for 1d10.\n",
+                        "Notes": "The Glory Point is just a space/zone."
+                    },
+                    "<Overthrow>": {
+                        "Value": "2?",
+                        "A": "Passive",
+                        "Effect": "When you Slam a Unit into a Wall, it becomes Single-Stunned."
+                    },
+                    "~Lead Commander~": {
+                        "Value": "2 (3-4 uses per Adventure)",
+                        "A": "Passive",
+                        "Effect": "Whenever you use a Command Ability, heal yourself or an affected Unit by 1d6."
+                    }
+                },
+                "Level 4 - Minor Talents": {
+                    "~Command - Focus Fire~": {
+                        "A": "1 Action",
+                        "Cost": "1 Mana",
+                        "Cooldown": "Once / Adventure",
+                        "Effect": "Choose a target. Command all Allies (except you) in your party to make a Half-Action Act on the chosen target.",
+                        "Upgrade": "Can affect up to 5 Allies. If there are only 2 or less Allies, you also make the Half-Action."
+                    }
+                }
+            }
+        },
+        "Gladiator": {
+            "Description": "Lorem!",
+            "Starting Abilities": {
+                "~Deathblow~": {
+                    "A": "Passive",
+                    "Value": "3 (trigger it once per combat)",
+                    "Effect": "If your last 2 offensive Acts both either triggered a Critical Strike or a Combo, your next single target {Type} deals +{Amount}% Damage.\n~Click on the Icon to select a preferred effect!~\n",
+                    "Variants": [
+                        {
+                            "Type": "one-handed weapon attack",
+                            "Amount": 100
+                        },
+                        {
+                            "Type": "two-handed weapon attack",
+                            "Amount": 50
+                        }
+                    ],
+                    "Notes": "This is not considered a Critical Strike. The extra Damage includes bonuses from War Craft and similar Abilities.",
+                    "HasMixins": true
+                },
+                "~Critical Strike~": {
+                    "A": "0 Actions",
+                    "Cost": "1 Mana",
+                    "Effect": "Your next weapon attack triggers its Critical Strike and Combo effect anyway!",
+                    "Notes": "Has no effect on weapons without such an effect."
+                }
+            },
+            "Talents": {
+                "Level 2 - Minor Talents": {
+                    "~Hack and Slash~": {
+                        "A": "0 Actions",
+                        "Cost": "1 Mana",
+                        "DisplayName": "{Name}",
+                        "Effect": "Your next {Effect}\n~Click on the Icon to select a preferred effect!~\n",
+                        "Notes": "Roll the attack only once.\nWeapon effects (like Critical Strikes), if necessary, are applied to the main target only.\n",
+                        "Variants": [
+                            {
+                                "Name": "Hack and Slash",
+                                "Effect": "melee 2-handed weapon attack also hits all other Units 1 meter from you, but deals -50% Damage to them (deals normal Damage to the main target).",
+                                "IconName": "Hack and Slash"
+                            },
+                            {
+                                "Name": "Slice and Dice",
+                                "Effect": "melee 1-handed weapon attack also hits all other Units 1 meter from you.",
+                                "IconName": "Slice and Dice"
+                            },
+                            {
+                                "Name": "Lock and Load",
+                                "Effect": "ranged 2-handed weapon attack also hits all other Units 1 meter from the main target, but deals -50% Damage to them (deals normal Damage to the main target).",
+                                "IconName": "Lock and Load"
+                            },
+                            {
+                                "Name": "Point and Shoot",
+                                "Effect": "ranged 1-handed weapon attack also hits all other Units 1 meter from the main target.",
+                                "IconName": "Point and Shoot"
+                            }
+                        ],
+                        "HasMixins": true
+                    },
+                    "~Bull Rush~": {
+                        "A": "Passive",
+                        "Effect": "If you move at least 3 meters in a straight line and then melee Attack a target on the same line, the Attack gains +1 for every 3 meters moved in the straight line.",
+                        "Notes": "Works if mounted or if using Abilities that dash or jump (in a straight line), but teleporting interrupts this."
+                    },
+                    "~Fame and Fortune~": {
+                        "A": "0 Actions",
+                        "Cost": "1 Mana",
+                        "Effect": "The next time you deal Damage, gain {Gold}Gold equal to 300% of the Damage dealt.\n\nYou also get Goldborn.\n",
+                        "Subspells": {
+                            "~Goldborn~": {
+                                "A": "10 minutes",
+                                "Cost": "300 Gold",
+                                "Cooldown": "Once / Adventure",
+                                "Effect": "You can spend 300 {Gold}Gold to gain +2 Maximum Health, up to +10 total.",
+                                "HasMixins": true
+                            }
+                        },
+                        "HasMixins": true
+                    }
+                },
+                "Level 3 - Keystone Talent": {
+                    "~Overunder Blow~": {
+                        "Value": 0.5,
+                        "A": "Passive",
+                        "Effect": "Instead of dealing extra Damage with Deathblow, do one of the following.\n\nAlso, passively, you have +1 Mind (up to your Level limit).\n",
+                        "SingleTable": [
+                            "1. Heal yourself for that amount",
+                            "2. Single-Stun the target (Double-Stun for two-handed weapons)",
+                            "3. Freely move that many meters"
+                        ]
+                    },
+                    "~Weaponmaster~": {
+                        "Value": 1.5,
+                        "A": "Passive",
+                        "Effect": "If your {Type} weapon can't Critical Strike, it gains the following effect.",
+                        "EffectGreen": "Critical Strike - if you rolled maximum on at least one die, deal {Amount} Damage.",
+                        "Variants": [
+                            {
+                                "Type": "one-handed weapon",
+                                "Amount": "+1"
+                            },
+                            {
+                                "Type": "two-handed weapon",
+                                "Amount": "+1d4"
+                            }
+                        ],
+                        "HasMixins": true
                     },
                     "<Might Over Magic>": {
                         "_Value": 1,
                         "A": "Passive",
                         "HasMixins": true,
                         "AlignOnWebsite": "Right",
-                        "Effect": "Choose a Basic Ability from the Elemental or Nature Schools that costs 1 Mana.\nYou can use that Ability once per Adventure, without spending Mana.\nThat Ability becomes a ^physical version of itself^: instead of using magic to cast that spell, you use your body/weapons/tools.\n",
-                        "Upgrade": "Come up with a description of how it works! You can change this Ability inbetween Advetures.",
-                        "Notes": "The Damage of that spell becomes Slash, Smash or Pierce, whichever makes sense.\nE.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage).\nE.g. Frost Nova - you smash the ground with such force that it Damages and Slows units around you (Smash Damage).\nBe creative!\n"
+                        "Effect": "Choose a Minor Talent from (any Specialization of) Cleric, Mage or Warlock, up to your Level.\nYou can use it Once / Adventure, without spending Mana.\nThat Ability becomes a ^physical version of itself^: instead of using magic to cast that spell, you use your body/weapons/tools!\n",
+                        "Upgrade": "The Damage of that spell becomes Slash, Smash or Pierce, whichever makes sense.\nCome up with a description of how it works! You can change this Ability inbetween Advetures.\n",
+                        "Notes": "E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage).\nE.g. Frost Nova - you smash the ground with such force that it Damages and Slows units around you (Smash Damage).\nBe creative!\n"
+                    }
+                },
+                "Level 4 - Minor Talent": {
+                    "~Off-Hand Shank~": {
+                        "A": "Half-Action",
+                        "Cost": "1 Mana",
+                        "Effect": "Make 3 attacks with a one-handed weapon you haven't used this turn that would normally scale with a Stat. These attacks do not add your Stat to the Damage."
                     },
-                    "<Weaponmaster>": {
-                        "_Value": 1,
-                        "A": "Passive",
-                        "AlignOnWebsite": "Left",
-                        "Effect": "Your weapon attacks have an extra effect.\nWhen you get this, choose one weapon effect from the list below.\nYou also have that weapon effect on all weapons you use, exactly as written, no matter what weapon you are using.\nYou can change this weapon effect between combats.\n",
-                        "Notes": "Weapons stating \"the die\" (or such) now refer to any one die of the dice rolled, of choice (if multiple).\n",
-                        "DoubleTable": {
-                            "Headers": [
-                                "",
-                                ""
-                            ],
-                            "Values": [
-                                "Mace",
-                                "Cleaver",
-                                "Rapier",
-                                "Spear",
-                                "Warhammer",
-                                "Trident",
-                                "Quarterstaff",
-                                "Blowgun"
-                            ]
-                        }
+                    "~Second Wind~": {
+                        "A": "0 Actions",
+                        "Cost": "1 Mana",
+                        "Cooldown": "Once / Turn",
+                        "Effect": "Take 1d6 Damage. Gain +Half-Action this Turn."
                     }
                 },
                 "Level 5 - Keystone Talent": {
+                    "~Tug of War~": {
+                        "A": "Passive",
+                        "Effect": "After you move from place, your next attack deals +1 Damage and is considered a Critical Strike."
+                    },
+                    "~Critical War Craft~": {
+                        "A": "Passive",
+                        "Effect": "Bonus Damage dealt by your War Craft is considered Critical Strike."
+                    },
                     "<Into the Fray>": {
                         "_Value": 2.25,
                         "A": "Passive",
@@ -201,7 +483,7 @@
                         "A": "Half-Action",
                         "Range": "10 meters",
                         "Cooldown": "Once / Combat",
-                        "Effect": "Throw a weapon at a target and attack it (without Throwing penalties and ignoring Cover).\nBefore applying the Damage, the attack destroys all Shielding and Defense on the target and removes all buffs on it.\nThe target can't trigger \"on roll\", can't gain Shielding and can't benefit from Buffs until they spend an Action to recover.\n",
+                        "Effect": "TODO: MAKE THIS COOLER BRUV\nALSO it has an upgrade that makes it return.\nThrow a weapon at a target and attack it (without Throwing penalties and ignoring Cover).\nBefore applying the Damage, the attack destroys all Shielding and Defense on the target and removes all buffs on it.\nThe target can't trigger \"on roll\", can't gain Shielding and can't benefit from Buffs until they spend an Action to recover.\n",
                         "Upgrade": "Epic Monsters gain ther Defense back when they spend the Action to recover.",
                         "Notes": "Your weapon lands at the nearest space to the target (and you should probably pick it up with a Half-Action).\n\"On roll\" refers to effects like \"if it rolls 10 on a d10, the attack deals 1d10 extra Damage\".\nBuffs are all effects that improve the target; even passive effects like auras or passive stats from abilities are negated.\nYou don't need Training in Throwning and this attack counts as a regular melee attack.\n"
                     }
@@ -243,19 +525,19 @@
                     "<Perfect Strike>": {
                         "A": "0 Actions",
                         "Cooldown": "Once / Combat",
-                        "Effect": "Your next weapon attack this turn deals +300% Damage. If it kills the target, overkill Damage is dealt to all enemies within 3 meters of the main target.\nAlso, passively, you gain +2 Dexterity and you are immune to monster _weapon effects_ (e.g. critical strikes).\n",
+                        "Effect": "Your next weapon attack this turn deals +300% Damage. If it kills the target, overkill Damage is dealt to all enemies within 3 meters of the main target.\nAlso, passively, you gain +2 Heart and you are immune to monster _weapon effects_ (e.g. critical strikes).\n",
                         "HasMixins": true,
                         "Downside": "{Ultimate}"
                     },
                     "<Master Tactician>": {
                         "A": "Passive",
-                        "Effect": "Gain +4 Max Health and +1 Damage on all attacks for every 3 sessions the Campaign has progressed.\nFrom now on, at the end of every session, gain +4 Max Health and +1 Damage on all attacks.\nAlso, passively, gain +2 Intelligence and you know the Abilities and strategies of all enemies you encounter.\n",
+                        "Effect": "Gain +4 Max Health and +1 Damage on all attacks for every 3 sessions the Campaign has progressed.\nFrom now on, at the end of every session, gain +4 Max Health and +1 Damage on all attacks.\nAlso, passively, gain +2 Mind and you know the Abilities and strategies of all enemies you encounter.\n",
                         "HasMixins": true,
                         "Downside": "{Ultimate}"
                     },
                     "<Greatwielder>": {
                         "A": "Passive",
-                        "Effect": "You can wield 2-Handed weapons, one in each hand.\nAttacks like this take only a Half-Action and count as 1-Handed weapon attacks but deal -2 Damage.\nWhile dual wielding 2-Handed weapons, if any Ability tells you to perform an attack with a 2-Handed and the ability costs 1 Action, it costs only Half-Action.\nAlso, passively, gain +1 Might and +1 Dexterity.\n",
+                        "Effect": "You can wield 2-Handed weapons, one in each hand.\nAttacks like this take only a Half-Action and count as 1-Handed weapon attacks but deal -2 Damage.\nWhile dual wielding 2-Handed weapons, if any Ability tells you to perform an attack with a 2-Handed and the ability costs 1 Action, it costs only Half-Action.\nAlso, passively, gain +1 Body and +1 Heart.\n",
                         "Notes": "If you already have a Technique Feat, you can remove it to refund the cost.",
                         "HasMixins": true,
                         "Downside": "{Ultimate}"
@@ -287,20 +569,64 @@
                 }
             },
             "Talents": {
+                "Level 2 - Minor Talents": {
+                    "<Hack and Slash>": {
+                        "A": "0 Actions",
+                        "Cost": "1 Mana",
+                        "DisplayName": "{Name}",
+                        "Effect": "Your next {Effect}\n~Click on the Icon to select a preferred effect!~\n",
+                        "Notes": "Roll the attack only once.\nWeapon effects (like Critical Strikes), if necessary, are applied to the main target only.\n",
+                        "Variants": [
+                            {
+                                "Name": "Hack and Slash",
+                                "Effect": "melee 2-handed weapon attack also hits all other Units 1 meter from you, but deals -50% Damage to them (deals normal Damage to the main target).",
+                                "IconName": "Hack and Slash"
+                            },
+                            {
+                                "Name": "Slice and Dice",
+                                "Effect": "melee 1-handed weapon attack also hits all other Units 1 meter from you.",
+                                "IconName": "Slice and Dice"
+                            },
+                            {
+                                "Name": "Lock and Load",
+                                "Effect": "ranged 2-handed weapon attack also hits all other Units 1 meter from the main target, but deals -50% Damage to them (deals normal Damage to the main target).",
+                                "IconName": "Lock and Load"
+                            },
+                            {
+                                "Name": "Point and Shoot",
+                                "Effect": "ranged 1-handed weapon attack also hits all other Units 1 meter from the main target.",
+                                "IconName": "Point and Shoot"
+                            }
+                        ],
+                        "HasMixins": true
+                    },
+                    "<Undying Rage>": {
+                        "A": "Reaction",
+                        "Cost": "1 Mana",
+                        "Cooldown": "Once / Adventure",
+                        "Effect": "Taking Damage that would kill you puts you in a state of primal rage, and leaves you at 1 Health instead.\nFor the rest of the Combat, increase all Healing you do on yourself by 50%.\n  \n"
+                    },
+                    "<Blood and Fire>": {
+                        "A": "Half-Action",
+                        "Range": "1 meter",
+                        "Cooldown": "Once / Turn",
+                        "Effect": "Take 1d6 Damage.\nStrike a Unit for an amount of Fire Damage equal to 50% of your missing Health.\n"
+                    }
+                },
                 "Level 3 - Keystone Talent": {
                     "<Heartbeat Trance>": {
                         "_Value": 2,
                         "A": "0 Actions",
                         "Cooldown": "Once / Adventure",
                         "HasMixins": true,
-                        "Effect": "Take 1d6 Damage.\nThen, until the ^end^ of your next turn, you take 50% less Damage (including from your own Abilities).\nWhen Heartbeat Trance ends, heal for 1d6.\n"
+                        "Effect": "Take 1d6 Damage.\nThen, until the ^end^ of your next Turn, you take 50% less Damage (including from your own Abilities).\nWhen Heartbeat Trance ends, heal for 1d6.\n"
                     },
                     "<Rage Trance>": {
                         "_Value": 2,
                         "A": "0 Actions",
                         "Cooldown": "Once / Adventure",
                         "HasMixins": true,
-                        "Effect": "Take 1d6 Damage.\nUntil the ^end^ of your next turn, all your attacks deal +1d4 Damage and Onslaught healing is increased by 100%.\nWhen Rage Trance ends, heal for 1d6.\n"
+                        "Effect": "Take 1d6 Damage.\nUntil the ^end^ of your next Turn, all your attacks deal +1d4 Damage and Onslaught healing is increased by 100%.\nWhen Rage Trance ends, heal for 1d6.\n"
                     },
                     "<Battle Trance>": {
                         "_Value": 2,
@@ -308,27 +634,48 @@
                         "Cooldown": "Once / Turn",
                         "HasMixins": true,
                         "Requirement": "Only usable in Worthy Combat",
-                        "Effect": "Take 1d6 Damage.\nUntil the ^end^ of your next turn, you are immune to all Crowd Control, you have +1 range on all attacks, +2 Movement, can Break your Movement.\nWhen Battle Trance ends, heal for 2d6.\n"
+                        "Effect": "Take 1d6 Damage.\nUntil the ^end^ of your next Turn, all Damage you do to yourself becomes Healing instead and you are immune to Crowd Control.\nWhen Battle Trance ends, heal for 2d6.\n"
+                    },
+                    "<Hunger For Blood>": {
+                        "A": "Passive",
+                        "Effect": "Whenever you deal Damage to a Worthy Enemy, heal for 10% of it (rounded down)."
+                    }
+                },
+                "Level 4 - Minor Talent": {
+                    "<Last Resort>": {
+                        "A": "0 Actions",
+                        "Cost": "1 Mana",
+                        "Cooldown": "Once / Adventure",
+                        "Effect": "Take 1d6 Damage.\nYour next single-target weapon attack deals +1d20 Damage.\nFor the rest of the Combat, you deal -50% Damage but increase all Healing you do by 50%.\n"
+                    },
+                    "~FURY~": {
+                        "A": "Half-Action",
+                        "Cost": "1 Mana",
+                        "Cooldown": "1 turn",
+                        "Degree": "Minor",
+                        "Effect": "Gain 3 {Orange('Fury')}.\n",
+                        "Upgrade": "Every time you do Healing or weapon Damage, do +1 for each {Orange('Fury')}, then lose 1 {Orange('Fury')}.",
+                        "Notes": "You can't go below 0 Fury.",
+                        "HasMixins": true
+                    },
+                    "~Painful Puncture~": {
+                        "A": "Half-Action",
+                        "Cooldown": "Once / Combat",
+                        "HasMixins": true,
+                        "Effect": "Attack a Unit for 1d6 + 2 Damage of your ^weapon^'s type. Its Passives, weapon* effects and Reactions are disabled until the start of your next Turn.\n",
+                        "Notes": "Its Passives become disabled before you hit it (e.g. Kobolds don't dodge this attack). Some monsters have special weapon* effects, like Centaurs who gain extra Damage based on how much they moved. These are disabled."
                     }
                 },
                 "Level 5 - Keystone Talent": {
+                    "<Blood Craft>": {
+                        "A": "Passive",
+                        "Effect": "Whenever you Damage with War Craft to a Worthy Enemy, Damage yourself equal to the original roll, then increase it by 100% to the enemy."
+                    },
                     "<Death Mark>": {
                         "_Value": 2.25,
                         "A": "0 Actions",
                         "Cooldown": "Once / Adventure",
                         "Effect": "Mark a Unit you can see for death.\nWhenever YOU deal Damage to it until your next turn, remember the Damage done.\nAt the start of your next turn, the mark bursts and the Unit takes 50% of the Damage it has taken in this time period.\n"
-                    },
-                    "<Glory Run>": {
-                        "_Value": 2.25,
-                        "A": "Passive",
-                        "Effect": "When combat starts, a Glory Point appears behind the furthermost Enemy from you that you can see.\nIf you touch the Glory Point, heal for 20% of your total Health and all Enemies you can see must become Single-Stunned.\nThe Glory Point then disappears.\n",
-                        "Notes": "The Glory Point is not a physical thing. It's merely a concept (a point)."
-                    },
-                    "<Undying Rage>": {
-                        "_Value": 2.25,
-                        "A": "Reaction",
-                        "Cooldown": "Once / Adventure",
-                        "Effect": "Taking Damage that would kill you puts you in a state of primal rage, and leaves you at 1 Health instead, then you can't take damage until the start of your next turn. At the start of your next turn, heal for 2d6."
                     }
                 },
                 "Level 6 - Utility Talent": {
@@ -368,13 +715,13 @@
                 "Level 10 - Ultimate Talent": {
                     "<Flesh of Iron>": {
                         "A": "Passive",
-                        "Effect": "You Heal for all Damage you would deal to yourself instead of taking it. Pierce, Slash and Smash attacks can't Damage you below 1 Health (they leave you to 1 Health).\nAlso, passively, you gain +2 Might.\n",
+                        "Effect": "You Heal for all Damage you would deal to yourself instead of taking it. Pierce, Slash and Smash attacks can't Damage you below 1 Health (they leave you to 1 Health).\nAlso, passively, you gain +2 Body.\n",
                         "HasMixins": true,
                         "Downside": "{Ultimate}"
                     },
                     "<Ferocity Unleashed>": {
                         "A": "Passive",
-                        "Effect": "If you start your turn with 50% or less Health, you have an extra 1 Action on your turn.\nAlso, passively, gain +1 Might, Dexterity and Sense, you are immune to exhaustion in Worthy Combat and you can survive without sleep for 7 days.\n",
+                        "Effect": "If you start your turn with 50% or less Health, you have an extra 1 Action on your turn.\nAlso, passively, gain +1 Body, Heart and Spirit, you are immune to exhaustion in Worthy Combat and you can survive without sleep for 7 days.\n",
                         "Notes": "This stacks with the Frenzy Talent.",
                         "HasMixins": true,
                         "Downside": "{Ultimate}"
@@ -438,7 +785,7 @@
                     "<Precise Rune>": {
                         "_Value": 1,
                         "A": "1 hour",
-                        "Effect": "Craft a Precise Rune.\nInscribe on a weapon to permanently replace one Stat in its text (e.g. Might) with number 4.\nThe wielder of the weapon is also immune to being Crippled and has +1 Movement Speed.\n",
+                        "Effect": "Craft a Precise Rune.\nInscribe on a weapon to permanently replace one Stat in its text (e.g. Body) with number 4.\nThe wielder of the weapon is also immune to being Crippled and has +1 Movement Speed.\n",
                         "Notes": "You can only have one weapon with the Precise Rune at a time. When you apply a Precise Rune to a different, the other one loses its Precise Rune."
                     }
                 },
@@ -494,7 +841,7 @@
                 "Level 10 - Ultimate Talent": {
                     "<Crescendo Technique>": {
                         "A": "Passive",
-                        "Effect": "When NOT flanking a Unit, whenever you make a weapon attack, make another identical attack on the same target for free that does the same Damage (but does not apply effects like Smite and weapon effects).\nWhen you flank a Unit, it becomes Feared.\nAlso, passively, gain +2 Dexterity and you automatically pass Very Hard Dexterity Checks (requiring at least 20).\n",
+                        "Effect": "When NOT flanking a Unit, whenever you make a weapon attack, make another identical attack on the same target for free that does the same Damage (but does not apply effects like Smite and weapon effects).\nWhen you flank a Unit, it becomes Feared.\nAlso, passively, gain +2 Heart and you automatically pass Very Hard Heart Checks (requiring at least 20).\n",
                         "HasMixins": true,
                         "Downside": "{Ultimate}"
                     },

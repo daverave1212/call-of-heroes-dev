@@ -8,8 +8,8 @@ Description: |
 Variant: Vulper
 
 Creation:
-  Stat Restrictions: Your Dexterity must be at least 2.
-Stat Requirements: Dexterity >= 2
+  Stat Restrictions: Your Heart must be at least 2.
+Stat Requirements: Heart >= 2
 
 Stats:
   Base Health: 16
@@ -18,7 +18,7 @@ Stats:
   Lifespan: 75 years
   Size: Small or Medium (your choice)
 
-Language: You speak Common and a number of chosen languages equal to your Intelligence or Charisma (whichever is higher).
+Language: You speak Common and a number of chosen languages equal to your Mind or Spirit (whichever is higher).
 Languages:
 - Common
 
@@ -43,8 +43,8 @@ Starting Abilities:
     A: Reaction
     Cooldown: 1 hour
     IsNonCombat: true
-    Effect: Whenever you fail a Charisma Check, you can spend 2 Health to reroll it.
-    Notes: You always know if you failed a Charisma Check.
+    Effect: Whenever you fail a Spirit Check, you can spend 2 Health to reroll it.
+    Notes: You always know if you failed a Spirit Check.
 
 Starting Abilities Description: |
   Bertles have extra movement speed compared to other Races, and can naturally jump very high. That speed will be detrimental in combat!
@@ -58,62 +58,84 @@ Talents:
       IsIgnored: true
       Combat Extras:
       - You are immune to Slows.
-      Effect: You are immune to Slows.
+      Effect: You are immune to being Slowed.
+
+    ~Carnivore~:
+      A: Passive
+      Effect: |
+        Gain +1 Spirit (up to the Level limit).
 
     ~Herbivore~ :
       A: Passive
       IsIgnored: true
       Bonuses:
-        Might: 1
-        Max Health: 1
+        Max Health: 2
       Extras:
         - Half of your meals can consist of grass and leaves, but you can not eat meat.
       Effect: |
-        Your Might increases by 1 (up to +3), and your Max Health by an extra +1.
+        Gain +2 Max Health.
         Half of your meals can consist of grass and leaves, but you can not eat meat.
-      Notes: If you eat meat, you become Exhausted for 1 hour. Remember that Might also affects Max Health!
+      Notes: If you eat meat, you become Exhausted for 1 hour. Remember that Body also affects Max Health!
+
+    ~Thick Shell~:
+      A: Passive
+      Effect: While unarmored, You take -50% Slash Damage when hit from behind instead of having +1 Movement Speed.
+
+    ~Horns~:
+      A: Passive
+      Effect: |
+        Whenever you gain Shielding, increase its value by 1.
+        You have +2 in Intimidation.
+      Skills:
+        - +2 Intimidation
+      Downside: You can't wear helmets (hats might fit you, though).
+    
+    ~Feral Claws~:
+      A: Half-Action
+      Cooldown: Once / Turn
+      Damage: 1d6 + Any Stat
+      EffectGreen: |
+        Critical Strike - if you rolled minimum, apply a Combo.
+        Critical Strike - if you rolled maximum, the target becomes Blinded.
+      Subspells:
+        ~Sharpen With Magic~:
+          A: 10 minutes
+          IsSubspell: true
+          Cooldown: Once / Adventure
+          Effect: |
+            Permanently sharpen your claws with a ^magic weapon^ worth at least 25 XP.
+            Increase the Damage of Feral Claws by +1.
+            The magic weapon is then destroyed.
+
+    ~Avian Wings~:
+      A: 0 Actions
+      Cooldown: Once / real hour
+      Effect: |
+        Quickly fly up to 3 meters (e.g. almost instantly).
+        Passively, you don't take Falling Damage.
+      Upgrade: Your arms and hands become bird-like wings, but that makes it harder for you to hold and use weapons.
+      Downside: -1 on all weapon attacks
 
     ~Thick Fur~:
       A: Passive
       IsIgnored: true
       Combat Extras:
-        - You only take 50% Cold Damage.
-        - You take no extra Damage when being Flanked.
+        - -50% Cold Damage taken
+        - -50% Smash Damage taken while below 50% Health
       Effect: |
-        You only take 50% Cold Damage.
-        You take no extra Damage when being Flanked.
-      Notes: Flanking is when you are attacked by an enemy, and there's another enemy right behind you (relative to the attacker).
-      
-    ~Gatherer Instincts~:
-      A: Passive
-      IsIgnored: true
-      Extras:
-        - You have +5 on Checks for identifying plants, fruits, mushrooms, vegetables, etc.
-      Combat Extras:
-        - You only take 50% Poison and Acid Damage.
-      Effect: |
-        You only take 50% Poison and Acid Damage.
-        You have +5 on Checks for identifying plants, fruits, mushrooms, vegetables, etc.
-        
-    ~Innate Dexterity~:
-      A: Passive
-      IsIgnored: true
-      Bonuses:
-        Dexterity: 1
-        Initiative: 1
-      Effect: Your Dexterity increases by 1 (up to +3), and your Initiative increases by an extra +1.
-      Notes: Remember that Dexterity also affects Initiative!
+        You take -50% Cold Damage.
+        You take -50% Smash Damage while below 50% Health
 
     ~I Am Speed~:
       A: Passive
       HasMixins: true
       Effect: |
-        In Abilities that use Sense, Intelligence or Charisma, you can use your Dexterity instead.
-      Notes: E.g. Chilling Shout becomes 12 + ^Dexterity^ instead of 12 + ^Charisma^. Phase Orb becomes 2d6 + ^Dexterity + Dexterity^ instead of 2d6 + ^Intelligence + Charisma^.
+        In Abilities or weapons that use Mind or Spirit, you can use your Heart instead.
+      Notes: E.g. Chilling Shout becomes 12 + ^Heart^ instead of 12 + ^Spirit^. Phase Orb becomes 2d6 + ^Heart + Heart^ instead of 2d6 + ^Mind + Spirit^.
 
     # ~Know Thy Enemy~ :
     #   A: Passive
-    #   Effect: When making Units roll Dexterity or Might Resist Checks, roll 1d4 and subtract it from their Check.
+    #   Effect: When making Units roll Heart or Body Resist Checks, roll 1d4 and subtract it from their Check.
 
 
     # ~No, Thanks~:

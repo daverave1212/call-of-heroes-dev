@@ -1,5 +1,8 @@
 Ideas:
-- Instead of choosing a preferred enemy, you just get a bonus after killing an enemy type
+
+  <Know your Enemy>:
+    A: Passive
+    Effect: After killing a Unit of type X, you gain...
 
 Class: Hunter
 Description: |
@@ -13,7 +16,7 @@ Difficulty: Medium
 
 Weapons: You are Trained in 2 Weapon Categories of choice (e.g. 1-Handed Melee, 2-Handed Ranged, Shields, etc).
 
-Proficiency Requirements: You have Skilled in Hearing, Smelling and have a number of extra non-combat Skills equal to your Intelligence or Sense, whichever is higher.
+Proficiency Requirements: You have Skilled in Hearing, Smelling and have a number of extra non-combat Skills equal to your Mind or Spirit, whichever is higher.
 
 Proficiencies:
     ~Skilled in Hearing~: Inherit
@@ -29,14 +32,14 @@ Spellcasting:
   Type: Hunter
   SpellsOrAbilities: Ability
     
-  Spell Grade: 6 + Sense
+  Spell Grade: 6 + Spirit
   Change: You can change your known Spells and Talents inbetween Adventures.
   Other: All Hunter-specific Abilities are not considered Spells (unless stated otherwise).
 
   Mana:
     Regain: As a Hunter, you don't use Mana. You rely on weapons, class Abilities and simple Basic Spells.
 
-  Known Basic Abilities: 2 + Intelligence (minimum 1)
+  Known Basic Abilities: 2 + Mind (minimum 1)
   
   BaseKnownSpells: 2
   
@@ -89,10 +92,9 @@ Starting Abilities:
     Cooldown: Once / Combat
     HasMixins: true
     Effect: |
-      Roll 2 meters in any possible direction.
-      You can use when a Unit declares an attack or Ability to try to get out of Line of Sight or behind Cover.
+      Use when taking Damage (or any time on your Turn).
+      Roll 2 meters in any possible direction. Reduce the Damage by 50%.
     Upgrade: ^You^ can use this to make your pet tumble instead.
-    Notes: The attack carries on if it still has Line of Sight. Otherwise, it must choose something else to do, as if the Act never happened.
 
 Utility:
 
@@ -116,7 +118,7 @@ Utility:
         Degree: Minor
         Effect: |
             You create a sound out of thin air.
-            Make a Charisma or Intelligence Roll (with no non-combat Skill) to determine its accuracy.
+            Make a Spirit or Mind Roll (with no non-combat Skill) to determine its accuracy.
         Scaling: At Level 4, this lasts up to 1 minute. At level 8, this lasts up to 1 hour.
 
     ~Influence Beast~ :
@@ -126,7 +128,7 @@ Utility:
         Range: 15 meters
         Degree: Lesser
         Effect: |
-            A non-Epic beast must make a Charisma Roll at least equal to your Charisma roll.
+            A non-Epic beast must make a Spirit Roll at least equal to your Spirit roll.
             If it fails, you can change the beast's mood (make it hungry, afraid, nervous, etc).
             The effect lasts 10 minutes, or until the end of its Turn if in Combat.
 
@@ -135,7 +137,7 @@ Utility:
         Cooldown: Once / in-game day
         Effect: |
             Setup camp, creating favorable conditions for your party for up to 8 in-game hours.
-            Units in the camp are protected from all bad weather and are immune to being poisoned by food.
+            Units in the camp are protected from all bad weather and are immune to being poisoned by food or drink.
             Until the end of the Adventure, all Units who camped here are immune to Hard Terrain.
 
 
@@ -177,18 +179,6 @@ Specs:
   Ranger:               # 3.25  | 0.5 Talent  | 2.5 Talent
     Description: lorem
     Starting Abilities:
-      ~Tracker~ :
-        _Value: 0.25
-        A: Passive
-        Effect: |
-          You gain Skilled in Tracking.
-          You always know where North is in non-magical environments.
-          You and your pets are unaffected by Hard Terrain.
-        Subspells:
-          ~Skilled in Tracking~:
-            IsSubspell: true
-            Effect: you can add your Level to all Sense checks for tracking a creature and learning about its size, if it's part of a group or pack, if it's injured or roughly how far away it is
-
           
       ~Hunter Mark~:
         _Value: 3.25
@@ -205,6 +195,31 @@ Specs:
           A Unit can only have one Hunter Mark on it at a time.
           
     Talents:
+      Level 2 - Minor Talents:
+
+        ~Tracker~ :
+          _Value: 0.25
+          A: Passive
+          Effect: |
+            You have +2 in Tracking (non-Combat Skill)
+            You always know where North is in non-magical environments.
+            You and your pets are unaffected by Hard Terrain.
+        
+        ~Infused Shots~:
+          A: Passive
+          DisplayName: "{DisplayName}"
+          Effect: You can change your weapon attacks' Damage Type to {Type}.
+          Variants:
+            - IconName: Fire Shots
+              DisplayName: Fire Shots
+              Type: Fire
+            - IconName: Ice Shots
+              DisplayName: Ice Shots
+              Type: Cold
+            - IconName: Poisoned Shots
+              DisplayName: Poisoned Shots
+              Type: Poison
+
       Level 3 - Keystone Talent:
 
         <Bola Shot>:
@@ -232,13 +247,13 @@ Specs:
               - Boon
             Values:
               - Aberrations, Fiends
-              - One attack per turn against one deals extra Damage equal to your Sense
+              - One attack per turn against one deals extra Damage equal to your Spirit
               - Beasts
               - You automatically know the Stats, Health and Abilities of a Beast you're fighting (ask the QM)
               - Undead
               - When attacked by your pet, it becomes Slowed and Taunted (by your pet)
               - People, Demons
-              - When Marking one, it must make an Intelligence Check or be Silenced or Crippled (your choice)
+              - When Marking one, it must make an Mind Check or be Silenced or Crippled (your choice)
               
         # Talents: Headhunt, Bountyhunt, Pet   
       
@@ -321,7 +336,7 @@ Specs:
           HasMixins: true
           Effect: |
               Shoot a thundering shot towards an obstacle or wall. A quaking wave travels horizontally towards in both directions of the wall up to 10 meters in each direction.
-              All Units within 2 meters of that wall must succeed a Might Check against 6 + ^Your Sense^ or be Triple-Stunned and take 3d4 Shock Damage.
+              All Units within 2 meters of that wall must succeed a Body Check against 6 + ^Your Spirit^ or be Triple-Stunned and take 3d4 Shock Damage.
               They take half of the Damage and are Slowed if they succeed.
           Notes: The floor and ceiling are not considered walls. The wave does not travel through them. This is considered a Spell. Ignores Cover.
       
@@ -371,7 +386,7 @@ Specs:
           A: Passive
           Effect: |
             All enemies in a Worthy Combat are automatically _Marked_, and your range increases by 500% and your ^Dice^ are further ^Upgraded^ to the ^next^ die type against _Marked_ Units. After manually casting Hunter Mark, your first attack deals 50% more Damage against that Unit.
-            You automatically pass all Hard Dexterity Checks (that require at least 15) and your Sense and Dexterity increase by an extra 2.
+            You automatically pass all Hard Heart Checks (that require at least 15) and your Spirit and Heart increase by an extra 2.
           HasMixins: true
           Downside: "{Ultimate}"
 
@@ -379,7 +394,7 @@ Specs:
           A: Passive
           Effect: |
             Your attacks deal maximum Damage to Units that are not _Marked_ if they are within 3 meters of you or your Pet.
-            You automatically pass all Hard Sense Checks (that require at least 15) and you gain +3 Sense.
+            You automatically pass all Hard Spirit Checks (that require at least 15) and you gain +3 Spirit.
           HasMixins: true
           Downside: "{Ultimate}"
 
@@ -515,7 +530,7 @@ Specs:
             Effect: |
                 Declare a 6x6 meter area and it becomes engulfed in a special magical aura.
                 All Units have 0 Defense and their Passive Abilities don't work while in that area (including Resistances and Weaknesses).
-            Notes: The area is often subtle, and only monsters with a Sense of 3 or higher notice it.
+            Notes: The area is often subtle, and only monsters with a Spirit of 3 or higher notice it.
                 
         <Wind Wall>:
             _Value: 2
@@ -537,11 +552,11 @@ Specs:
             A: 1 Action
             Cost: 1 Mana
             HasMixins: true
-            Effect: Choose a Unit. It can fly at normal Speed for ^Your Intelligence^ * 10 minutes.
+            Effect: Choose a Unit. It can fly at normal Speed for ^Your Mind^ * 10 minutes.
 
         ~Eye of the Warden~:
             A: Passive
-            Effect: You have +2 to all non-combat Charisma and Sense Rolls.
+            Effect: You have +2 to all non-combat Spirit and Spirit Rolls.
 
 
       Level 7 - Keystone Talent:
@@ -576,7 +591,7 @@ Specs:
           A: Passive
           Effect: |
             You have all 3 Level 3 Talent Witch Hunter forms and they are permanently active at all times.
-            You automatically pass all Hard Might and Sense Checks (that require at least equal to 15) and you gain +2 Dexterity.
+            You automatically pass all Hard Body and Spirit Checks (that require at least equal to 15) and you gain +2 Heart.
           HasMixins: true
           Downside: "{Ultimate}"
 
@@ -584,7 +599,7 @@ Specs:
           A: Passive
           Effect: |
             Your Damage for Quick Magic increases to 1d20 and the range (and radius if applicable) increase by 100%.
-            You regenerate 1d10 Mana at the start of each Combat and you gain +3 Intelligence.
+            You regenerate 1d10 Mana at the start of each Combat and you gain +3 Mind.
           HasMixins: true
           Downside: "{Ultimate}"
 
@@ -608,7 +623,7 @@ Specs:
           A: Passive
           _Value: 0.5
           Effect: |
-            You have +2 to all Sense Checks.
+            You have +2 to all Spirit Checks.
           Notes: This is because of your Animal Companions roaming about.
         
         ~Stablemaster~:
@@ -741,7 +756,7 @@ Specs:
           A: Passive
           Effect: |
             One of your Animal Companions becomes a Beast, Dragon or Insect from the `Monsters page$/Other/Monsters` worth less than 500 XP. It doesn't have a regular Pet Attack, but it has exactly the Abilities and attacks, but only 50% of its Max Health. It obeys the rest of your Animal Companion rules as normal.
-            Passively, your Pets automatically pass all Very Hard Sense Checks (requiring at least 20).
+            Passively, your Pets automatically pass all Very Hard Spirit Checks (requiring at least 20).
           HasMixins: true
           Downside: "{Ultimate}"
 

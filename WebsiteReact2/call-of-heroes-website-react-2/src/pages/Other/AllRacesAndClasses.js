@@ -20,7 +20,7 @@ import Warrior from '../../databases/Classes/Warrior.json'
 export const Races = {
     Bertle,
     Dwarf,
-    Dragonsworn: Dragonborn,
+    Dragon: Dragonborn,
     Elf,
     Gnome,
     Hollow,

@@ -15,6 +15,7 @@ import BasicAbilities from './databases/Abilities.json'
 import Feats from './databases/Feats.json'
 import ClassAndRaceAbilities from './databases/ClassAndRaceAbilities.json'
 import { getChoiceAbilitiesObjects, setChoiceAbilitiesObjects } from "./pages/Other/CharacterCreationCalculator/CharacterData"
+import { STAT_SYMBOLS } from "./services/game-lib/stat-calculations"
 
 // ---------------- Spells Utilities ----------------
 
@@ -198,23 +199,6 @@ export function getAlternativesAsArray(text) {
     return alternatives
 }
 
-export function getAllStatBonusesYMLAsObjFromSpellsArray(spellsArray) {
-    let bonuses = {}
-    let sources = []
-    for (const spell of spellsArray) {
-        if (spell.Bonuses != null) {
-            const statNames = Object.keys(spell.Bonuses)
-            for (const statName of statNames) {
-                if (bonuses[statName] == null) {
-                    bonuses[statName] = 0
-                }
-                sources.push({ statName, bonus: spell.Bonuses[statName], source: spell.Name })
-                bonuses[statName] += spell.Bonuses[statName]
-            }
-        }
-    }
-    return { bonuses, sources }
-}
 export function getExtrasFromSpells(spellsArray) {
     let extras = []
     let combatExtras = []
@@ -228,7 +212,7 @@ export function getExtrasFromSpells(spellsArray) {
     }
     return { extras, combatExtras }
 }
-export function addAbilityOrOpenPopup(spell, selectedAbilitiesNames, setSelectedAbiltiesNames, onOpenChoicePicker) {
+export function addAbilityOrOpenPopup(spell, spellMetadata, selectedAbilitiesNames, setSelectedAbiltiesNames) {
     
     if (spell == null) {
         console.warn(`Null spell given to addAbilityOrOpenPopup`)
@@ -241,14 +225,31 @@ export function addAbilityOrOpenPopup(spell, selectedAbilitiesNames, setSelected
         setSelectedAbiltiesNames(selectedAbilitiesNames.filter(name => name != spell.Name))
         const newChoiceBonuses = choiceBonuses.filter(obj => obj.source.name != spell.Name)
         setChoiceAbilitiesObjects(newChoiceBonuses)
-    } else if (spell['Choice Bonuses'] != null || spell['Extra Skills']) {
-        onOpenChoicePicker?.(spell)
     } else {
         console.log('False and let it go')
         setSelectedAbiltiesNames([...selectedAbilitiesNames, spell.Name])
     }
 }
+export function splitSpellsArrayInto2Columns(spellsArray, shouldIgnoreAlignment=false) {
+    console.log(`Splitting spells array:`)
+    console.log({spellsArray})
+    const spells = sortObjectArrayByKey([...spellsArray], 'OrderOnWebsite')
 
+    let column1Spells = []
+    let column2Spells = []
+    let spellsRest = [...spells]
+    if (shouldIgnoreAlignment !== true) {
+        column1Spells = spells.filter(spell => spell.AlignOnWebsite == 'Left')
+        column2Spells = spells.filter(spell => spell.AlignOnWebsite == 'Right')
+        spellsRest = spells.filter(spell => spell.AlignOnWebsite != 'Left' && spell.AlignOnWebsite != 'Right')
+    }
+    const [spellsLeft, spellsRight] = splitArrayEvenly(spellsRest, 2)
+    console.log({column1Spells, column2Spells, spellsRest, spellsLeft})
+    column1Spells = [...column1Spells, ...spellsLeft]
+    column2Spells = [...column2Spells, ...spellsRight]
+    console.log({ column1Spells, column2Spells })
+    return [column1Spells, column2Spells]
+}
 
 
 
@@ -269,23 +270,7 @@ export function isDice(str) {
 export function isOperator(str) {
     return str == '+' || str == '-'
 }
-export function getMonsterStatsAsObject(statsString) {
-    let monsterStatsNormalized
-    if (isString(statsString) == false) monsterStatsNormalized = '?/?/?/?/?'
-    else if (statsString.indexOf('/') == -1) monsterStatsNormalized = '?/?/?/?/?'
-    else monsterStatsNormalized = statsString
 
-    const monsterStatsNumbers = monsterStatsNormalized.split('/')
-    const monsterStats = [
-        { name: 'Mig', value: monsterStatsNumbers[0] },
-        { name: 'Dex', value: monsterStatsNumbers[1] },
-        { name: 'Int', value: monsterStatsNumbers[2] },
-        { name: 'Wis', value: monsterStatsNumbers[3] },
-        { name: 'Cha', value: monsterStatsNumbers[4] }
-    ]
-
-    return monsterStats
-}
 export function titleToId(title) {
     return title.toLowerCase().split(' ').join('-').split('.').join('_')
 }
@@ -438,18 +423,7 @@ export function getSpecRepresentativeIconFullPath(classObj, specName) {
     const spellName = removeTildes(firstSpellName)
     return getSpellIconPathByName(spellName)
 }
-export function calculateStat(statName, value, bonus=0) {
-    statName = statName.toLowerCase().trim()
-    value = parseInt(value)
-    const nameToCalc = {
-        'might': value * 2 + bonus,
-        'dexterity': 4 + Math.ceil(value / 2) + bonus,
-        'intelligence': Math.ceil(value / 2) + bonus,
-        'sense': value + bonus,
-        'charisma': value * 3 + bonus
-    }
-    return nameToCalc[statName]
-}
+
 export function calculateAttributesFromStatsAndBonuses(totalStatsArray, bonusesYML) {
     const [might, dexterity, intelligence, sense] = totalStatsArray
     const statsKnownTalents = intelligence + (bonusesYML['Known Talents'] ?? bonusesYML['Extra Known Talents'] ?? 0)
@@ -462,23 +436,7 @@ export function calculateAttributesFromStatsAndBonuses(totalStatsArray, bonusesY
         knownTalents: statsKnownTalents < 0? 0: statsKnownTalents
     }
 }
-export function calculateMaxHealth(raceName, className, level, might) {
-    if (raceName == null || className == null || level == null || might == null) {
-        return -1
-    }
-    const raceObj = getAllRaces()[raceName]
-    const classObj = getAllClasses()[className]
 
-    return raceObj.Stats['Base Health']
-            + calculateStat('Might', might)
-            + level * classObj['Level Up']['Every Level'].Health
-}
-export function getRaceHealth(raceName) {
-    return getAllRaces()[raceName].Stats['Base Health']
-}
-export function getRaceRegen(raceName) {
-    return getAllRaces()[raceName].Stats['Health Regen']
-}
 export function getAlMyRaceAndClassSpells({ raceName, className, specName, selectedClassSpellNames=[], selectedRaceSpellNames=[] }) {
     const allSpells = getAllSpellsByName()
 
@@ -507,154 +465,6 @@ export function hasClassMana(className) {
     const hasMana = classObj.Spellcasting.Type.toLowerCase().includes('mana')
     return hasMana
 }
-
-
-// Stats and Bonuses
-export function checkStatRequirements(stats, requirementStringCode) {
-    requirementStringCode = requirementStringCode.replaceAll('or', '||')
-    requirementStringCode = requirementStringCode.replaceAll('and', '&&')
-    requirementStringCode = requirementStringCode.replaceAll('Might', stats[0])
-    requirementStringCode = requirementStringCode.replaceAll('Dexterity', stats[1])
-    requirementStringCode = requirementStringCode.replaceAll('Intelligence', stats[2])
-    requirementStringCode = requirementStringCode.replaceAll('Sense', stats[3])
-    requirementStringCode = requirementStringCode.replaceAll('Charisma', stats[4])
-    const result = eval(requirementStringCode)
-    return result
-}
-export function calculateBaseMaxManaByLevel(level, className) {
-    const selectedClass = getAllClasses()[className]
-    const { Spellcasting } = selectedClass
-    if (Spellcasting.Type == 'Mana-based') {
-        return Spellcasting.Mana.Amount + (level - 1)
-    }
-    if (Spellcasting.Type == 'Special Mana-based') {
-        return Spellcasting.Mana.Amount + Math.floor((level / 3))        
-    }
-    return 0
-}
-export function calculateExperienceByLevel(level) {
-    return level * 100
-}
-export function calculateBaseCombatStats({raceName, className, level, baseStats, bonuses}) {
-    if (raceName == null || className == null || level == null || baseStats == null) {
-        return -1
-    }
-    const raceObj = getAllRaces()[raceName]
-    const classObj = getAllClasses()[className]
-    const bonusStats = [
-        bonuses.Might ?? 0,
-        bonuses.Dexterity ?? 0,
-        bonuses.Intelligence ?? 0,
-        bonuses.Sense ?? 0,
-        bonuses.Charisma ?? 0
-    ]
-    const [might, dexterity, intelligence, sense, charisma] = addArrays(baseStats, bonusStats)
-
-    return {
-        maxHealth:
-            raceObj.Stats['Base Health']
-            + calculateStat('Might', might)
-            + (level - 1) * classObj['Level Up']['Every Level'].Health
-            + (bonuses['Max Health'] ?? bonuses['Health'] ?? 0),
-        healthRegen:
-            raceObj.Stats['Health Regen']
-            + calculateStat('Sense', sense)
-            + (level - 1) * 2
-            + (bonuses['Health Regen'] ?? 0),
-        movementSpeed:
-            calculateStat('Dexterity', dexterity)
-            + (bonuses['Movement'] ?? bonuses['Movement Speed'] ?? 0),
-        initiative:
-            calculateStat('Charisma', charisma)
-            + (bonuses['Initiative'] ?? 0)
-    }
-}
-export function calculateHealthRegen(raceName, className, level, sense) {
-    if (raceName == null || className == null || level == null || sense == null) {
-        return -1
-    }
-    const raceObj = getAllRaces()[raceName]
-    const classObj = getAllClasses()[className]
-
-    return raceObj.Stats['Health Regen']
-            + calculateStat('Sense', sense)
-            + level * 2
-}
-export function calculateMovementSpeed(raceName, className, level, dexterity) {
-    if (raceName == null || className == null || level == null || sense == null) {
-        return -1
-    }
-    const raceObj = getAllRaces()[raceName]
-    const classObj = getAllClasses()[className]
-
-    return raceObj.Stats['Health Regen']
-            + calculateStat('Sense', sense)
-            + level * 2
-}
-export function calculateNKnownAbilities(className, totalStats, bonuses) {
-    const theClass = getAllClasses()[className]
-    const bonusKnownAbilities =
-        bonuses == null?
-            0:
-        bonuses['Known Abilities'] == null?
-            0:
-        parseInt(bonuses['Known Abilities'])
-    return Math.max(1, theClass.Spellcasting.BaseKnownSpells + totalStats[2] + bonusKnownAbilities)
-}
-
-// export function checkStatsRaceRequirement(strategyName, strategyObj, stats) {
-//     const statsAsObject = {
-//         Might: stats[0],
-//         Dexterity: stats[1],
-//         Intelligence: stats[2],
-//         Sense: stats[3],
-//         Charisma: stats[4],
-//     }
-//     const strategyPropNames = Object.keys(strategyObj)
-//     const compare = (a, b, compareFunc) => compareFunc(a, b)
-//     const compareWithAnyOfBString = (a, b, compareFunc) => {
-//         const options = b.split('/').map(str => parseInt(str))
-//         for (const option of options) {
-//             if (compareFunc(a, option)) {
-//                 return true
-//             }
-//         }
-//         return false
-//     }
-//     const isELargerThan = (a, b) => {
-//         if (isNumber(b)) {
-//             return a >= b
-//         }
-//         if (typeof b == 'string') {
-//             return compareWithAnyOfBString(a, b, (x, y) => x >= y)
-//         }
-//     }
-//     const isELowerThan = (a, b) => {
-//         if (isNumber(b)) {
-//             return a <= b
-//         }
-//         if (typeof b == 'string') {
-//             return compareWithAnyOfBString(a, b, (x, y) => x <= y)
-//         }
-//     }
-
-//     switch (strategyName) {
-//         case 'Minimum Stats':
-//             for (const reqStatName of strategyPropNames) {
-//                 const reqStatValue = strategyPropNames[statName]
-//                 const statValue = statsAsObject[statName]
-//                 if (statValue < reqStatName) {
-//                     return { isCorrect: false, message: `Your ${statName} should be at least ${reqStatValue}.` }
-//                 }
-//             }
-//             break
-//         case 'Minimum Stats Or':
-//             strategyPropNames.map(statName => )
-//     }
-// }
-
-
-
 
 
 // ---------------- Array Utilities ----------------
@@ -802,13 +612,17 @@ export function groupBy(arr, hashFunc) {
     }
     return hashKeyArrayElemValuePairs
 }
-export function addArrays(a, b) {
+export function addArrays(a, b, c=null) {
     const newArr = [...a]
     for (let i = 0; i < a.length; i++) {
         newArr[i] += b[i]
+        if (c != null) {
+            newArr[i] += c[i]
+        }
     }
     return newArr
 }
+window.addArrays = addArrays
 export function numbersUntil(num) {
     const arr = []
     for (let i = 0; i < num; i++) {
@@ -970,6 +784,8 @@ const SYMBOLS = {
             <span>A Feared Unit can only do <b>one</b> Act on its turn (e.g. move, make one attack, use one Ability, etc).</span>
         )
     },
+
+    ...STAT_SYMBOLS,
 
     'Damage': { tag: 'Icon', props: { name: 'Damage' } },
     'Mana': { tag: 'Icon', props: { name: 'Mana' } },

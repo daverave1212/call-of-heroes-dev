@@ -254,9 +254,6 @@ export default function Spell({
     } else {
     }
 
-    console.log(`Rendering spell`)
-    console.log({spell})
-
     const [variantIndex, setVariantIndex] = useState(0)
     const [thiefRolledGoldAmount, setThiefRolledGoldAmount] = useState('Click here to roll 1000d100!')
 
@@ -340,7 +337,7 @@ export default function Spell({
     
     function onButtonClick() {
         if (onClick != null) {
-            onClick(spell)
+            onClick(spell, { variantIndex })
         }
     }
 
@@ -365,6 +362,7 @@ export default function Spell({
     if (HasMixins === true || hasVariants === true) {
         try {
             if (Effect != null) Effect = parseTextWithSymbols(Effect, extraMixins)
+            if (EffectGreen != null) EffectGreen = parseTextWithSymbols(EffectGreen, extraMixins)
             if (DisplayName != null) DisplayName = parseTextWithSymbols(DisplayName, extraMixins)
             if (Downside != null) Downside = parseTextWithSymbols(Downside, extraMixins)
             if (Upgrade != null) Upgrade = parseTextWithSymbols(Upgrade, extraMixins)
