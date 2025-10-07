@@ -8,8 +8,9 @@ Description: |
 Variant: Vulper
 
 Creation:
-  Stat Restrictions: Your Dexterity must be at least 2.
-Stat Requirements: Dexterity >= 2
+  Stat Restrictions: Your Dexterity must be at least 1.
+Stat Requirements: Dexterity >= 1
+Custom Stat Array: [0, 0, 0, 2]
 
 Stats:
   Base Health: 16
@@ -34,17 +35,10 @@ Starting Abilities:
     Combat Extras:
       - You can jump 3 meters without requiring a Check
     Effect: |
-      Your Movement Speed is increased by 1.
+      Your starting Stats distribution is 0, 0, 0, 2 (instead of -1, 0, 1, 2).
+      You have +1 Movement Speed
       You can jump 3 meters without requiring a Check (e.g. over enemies, gaps, etc).
     Notes: Jumping still uses Movement.
-
-  ~All Eyes and Noses~:
-    AlignOnWebsite: Right
-    A: Reaction
-    Cooldown: 1 hour
-    IsNonCombat: true
-    Effect: Whenever you fail a Spirit Check, you can spend 2 Health to reroll it.
-    Notes: You always know if you failed a Spirit Check.
 
 Starting Abilities Description: |
   Bertles have extra movement speed compared to other Races, and can naturally jump very high. That speed will be detrimental in combat!
@@ -57,7 +51,8 @@ Talents:
       A: Passive
       IsIgnored: true
       Combat Extras:
-      - You are immune to Slows.
+      - You are immune to Slows
+      - You can not wear Boots
       Effect: You are immune to being Slowed.
       Downside: You can not wear boots.
 
@@ -86,15 +81,19 @@ Talents:
 
     ~Thick Shell~:
       A: Passive
-      Effect: While unarmored, You take -50% Slash Damage when hit from behind instead of having +1 Movement Speed.
+      Combat Extras:
+        - -50% Slash Damage taken from behind while unarmored.
+      Effect: While unarmored, you take -50% Slash Damage when hit from behind instead of having +1 Movement Speed.
 
     ~Horns~:
       A: Passive
+      Combat Extras:
+        - When you gain Shielding, give it +1
       Effect: |
         Whenever you gain Shielding, increase its value by 1.
         You have +2 in Intimidation.
       Skills:
-        - +2 Intimidation
+        Intimidation: 2
       Downside: You can't wear helmets (hats might fit you, though).
     
     ~Feral Claws~:
@@ -117,6 +116,8 @@ Talents:
     ~Avian Wings~:
       A: 0 Actions
       Cooldown: Once / real hour
+      Combat Extras:
+        - You don't take Falling Damage.
       Effect: |
         Quickly fly up to 3 meters (e.g. almost instantly).
         Passively, you don't take Falling Damage.
@@ -135,16 +136,30 @@ Talents:
 
     ~Fins~:
       A: Passive
+      Bonuses:
+        Initiative: 2
+      Combat Bonuses:
+        - You swim at your Movement Speed + 1 meter
       Effect: |
         You have +2 Initiative.
-        You can swim at your normal speed + 1 meter.
+        You can swim at your normal Movement Speed + 1 meter.
 
     ~I Am Speed~:
       A: Passive
       HasMixins: true
+      Combat Extras:
+        - You can use Dexterity instead of Intelligence or Spirit for weapons and Abilities
       Effect: |
         In Abilities or weapons that use Intelligence or Spirit, you can use your Dexterity instead.
       Notes: E.g. Chilling Shout becomes 12 + ^Dexterity^ instead of 12 + ^Spirit^. Phase Orb becomes 2d6 + ^Dexterity + Dexterity^ instead of 2d6 + ^Intelligence + Spirit^.
+
+    ~All Eyes and Noses~:
+      AlignOnWebsite: Right
+      A: Reaction
+      Cooldown: 1 hour
+      IsNonCombat: true
+      Effect: Whenever you fail a Spirit Check, you can spend 2 Health to reroll it.
+      Notes: You always know if you failed a Spirit Check.
 
     # ~Know Thy Enemy~ :
     #   A: Passive

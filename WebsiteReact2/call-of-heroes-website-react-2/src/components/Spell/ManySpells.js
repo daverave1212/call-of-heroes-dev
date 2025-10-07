@@ -7,7 +7,7 @@ import { addAbilityOrOpenPopup, sortObjectArrayByKey, spellsFromObject, splitArr
 import { SADescription } from '../InsertableTemplates/RaceClassComponents'
 
 // Returns many TwoColumns, each fitting 2 spells.
-export default function ManySpells({ className, spells, spellStyle, shouldIgnoreAlignment, description, selectedSpellNames, areItems=false, onSpellClick, buttonText }) {
+export default function ManySpells({ className, spells, spellStyle, shouldIgnoreAlignment, description, selectedSpellNames, onSpellClick, spellsMetadata={}, areItems=false, buttonText }) {
 
     spells = Array.isArray(spells) ? spells : spellsFromObject(spells)
     
@@ -30,6 +30,7 @@ export default function ManySpells({ className, spells, spellStyle, shouldIgnore
                             key={spell.Name} spell={spell} style={spellStyle}
                             onClick={onSpellClick} buttonText={buttonText}
                             isSelected={isSelected(spell)}
+                            metadata={spellsMetadata[spell.Name] ?? null}
                         />
                     }
                 })}

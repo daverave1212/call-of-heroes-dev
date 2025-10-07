@@ -7,7 +7,7 @@ import { addAbilityOrOpenPopup, getAllClasses, splitArrayEvenly, useLocalStorage
 import { classesRacesObjectToArrays } from "./CharacterCreationCalculator"
 import Selector from "../../../components/Selector/Selector"
 import { SelectorsByColumns } from "../Abilities"
-import { toggleSpellMaybePopup, useSectionClassName, useSectionClassSpecName, useSectionClassSpellNames } from "./CharacterData"
+import { toggleSpellMaybePopup, useAllSpellsMetadata, useSectionClassName, useSectionClassSpecName, useSectionClassSpellNames } from "./CharacterData"
 
 
 
@@ -19,6 +19,7 @@ export default function SectionClass({ openPopup }) {
     const [className, setClassName] = useSectionClassName()
     const [specName, setSpecName] = useSectionClassSpecName()
     const [spellNames, setSpellNames] = useSectionClassSpellNames()
+    const [spellsMetadata, setSpellsMetadata] = useAllSpellsMetadata()
 
     const selectorData = Object.keys(classesObj).map(className => ({
         name: className,
@@ -34,7 +35,7 @@ export default function SectionClass({ openPopup }) {
         setSpellNames([])
     }
 
-    function onAbilityClick(spell, metadata) {
+    function selectSpell(spell, metadata) {
         toggleSpellMaybePopup(spell, metadata, spellNames, setSpellNames, openPopup)
     }
 
@@ -51,7 +52,8 @@ export default function SectionClass({ openPopup }) {
                     theClass={classesObj[className]}
                     selectedSpecName={specName} setSelectedSpecName={setSpecName}
                     selectedSpellNames={spellNames} setSelectedSpellNames={setSpellNames}
-                    onSpellClick={onAbilityClick}
+                    onSpellClick={selectSpell}
+                    spellsMetadata={spellsMetadata}
                 />
             )}
         </div>

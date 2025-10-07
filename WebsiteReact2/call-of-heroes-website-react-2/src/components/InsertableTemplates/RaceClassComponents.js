@@ -554,7 +554,7 @@ export function Spec({ children, name, specObj, hasNoMargins }) {
     )
 }
 
-export function SpecTalents({ spec, selectedSpellNames, setSelectedSpellNames, onSpellClick }) {
+export function SpecTalents({ spec, selectedSpellNames, onSpellClick, spellsMetadata }) {
 
     const talentTitles = Object.keys(spec.Talents)
 
@@ -567,7 +567,7 @@ export function SpecTalents({ spec, selectedSpellNames, setSelectedSpellNames, o
                 const spellsInThisTier = U.spellsFromObject(spec.Talents[talentTitle])
                 return <div key={talentTitle}>
                     <PageH3>{talentTitle}</PageH3>
-                    <ManySpells spells={spellsInThisTier} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames} onSpellClick={onSpellClick}/>
+                    <ManySpells spells={spellsInThisTier} selectedSpellNames={selectedSpellNames} onSpellClick={onSpellClick} spellsMetadata={spellsMetadata}/>
                 </div>
             })}
         </div>
@@ -804,7 +804,8 @@ export function ClassPageV2({
     selectedSpecName, setSelectedSpecName,
     selectedSpellNames, setSelectedSpellNames,
     onSpellClick,
-    hueShift
+    hueShift,
+    spellsMetadata
 }) {
 
     console.log({onSpellClick})
@@ -848,7 +849,9 @@ export function ClassPageV2({
                         <ManySpells
                             spells={theClass['Other Abilities']}
                             description={theClass['Other Abilities Description']}
-                            selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}
+                            selectedSpellNames={selectedSpellNames}
+                            onSpellClick={onSpellClick}
+                            spellsMetadata={spellsMetadata}
                         />
                     </div>
                 )}
@@ -859,7 +862,9 @@ export function ClassPageV2({
                         <ManySpells
                             spells={theClass['Ability Choices']}
                             description={theClass['Ability Choices Description']}
-                            selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}
+                            selectedSpellNames={selectedSpellNames}
+                            onSpellClick={onSpellClick}
+                            spellsMetadata={spellsMetadata}
                         />
                     </div>
                 )}
@@ -872,7 +877,9 @@ export function ClassPageV2({
                         <ManySpells
                             spells={theClass['Utility']}
                             description={theClass['Utility Description']}
-                            selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}
+                            selectedSpellNames={selectedSpellNames}
+                            onSpellClick={onSpellClick}
+                            spellsMetadata={spellsMetadata}
                         />
                     </div>
                 )}
@@ -883,7 +890,7 @@ export function ClassPageV2({
                         <ManySpells
                             spells={theClass['Ideas']}
                             description={'This is for testing purposes only. Ignore this section.'}
-                            selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames}
+                            selectedSpellNames={selectedSpellNames}
                         />
                     </div>
                 )}
@@ -908,12 +915,22 @@ export function ClassPageV2({
                         selectedSpecObj.Abilities != null && (
                             <div>
                                 <PageH3>Choose One...</PageH3>
-                                <ManySpells spells={U.spellsFromObject(selectedSpecObj.Abilities)} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames} onSpellClick={onSpellClick}/>
+                                <ManySpells
+                                    spells={U.spellsFromObject(selectedSpecObj.Abilities)}
+                                    selectedSpellNames={selectedSpellNames}
+                                    onSpellClick={onSpellClick}
+                                    spellsMetadata={spellsMetadata}
+                                />
                             </div>
                         )
                     }
 
-                    <SpecTalents spec={selectedSpecObj} selectedSpellNames={selectedSpellNames} setSelectedSpellNames={setSelectedSpellNames} onSpellClick={onSpellClick}/>
+                    <SpecTalents
+                        spec={selectedSpecObj}
+                        selectedSpellNames={selectedSpellNames}
+                        onSpellClick={onSpellClick}
+                        spellsMetadata={spellsMetadata}
+                    />
 
                 </Spec>
             )}

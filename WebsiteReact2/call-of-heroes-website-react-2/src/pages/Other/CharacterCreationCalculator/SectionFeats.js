@@ -1,7 +1,7 @@
 import { useLocalStorageState } from "../../../utils";
 import Abilities from "../Abilities";
 import Feats from "../Feats";
-import { tabNames } from "./CharacterCreationCalculator";
+import { TAB_NAMES } from "./CharacterCreationCalculator";
 import { useFeats } from "./CharacterData";
 import { useCCCTabs } from "./SectionBasicAbilities";
 

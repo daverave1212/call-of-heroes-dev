@@ -543,6 +543,17 @@ export function mapObject(obj, func) {
     return newObj
 }
 export function addObjects(a, b) {
+    if (a == null || b == null) {
+        console.log({a, b})
+        console.error(`addObjects: a or b null! Printed above.`)
+        return a ?? b ?? {}
+    }
+    if (a == null && b != null) {
+        return b;
+    }
+    if (a != null && b == null) {
+        return a;
+    }
     const bKeys = Object.keys(b)
     let finalObject = {...a}
     for (const bKey of bKeys) {
@@ -582,6 +593,12 @@ export function mergeObjects(a, b) {
     return newA
 }
 export function addManyObjects(arr) {
+    if (arr.length == 0) {
+        return {}
+    }
+    if (arr.length == 1) {
+        return arr[0] ?? {}
+    }
     let finalObject = arr[0]
     for (let i = 1; i < arr.length; i++) { 
         finalObject = addObjects(finalObject, arr[i])
@@ -1386,7 +1403,28 @@ export function useLocalStorageState(keyName, defaultValue) {
 
     return [state, setState]
 }
+function getWindowDimensions() {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+        width,
+        height
+    };
+}
 
+export default function useConstWindowDimensions() {
+    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+
+    useEffect(() => {
+        function handleResize() {
+            setWindowDimensions(getWindowDimensions());
+        }
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    return windowDimensions;
+}
 
 
 // -------------------------- Canvas --------------------------

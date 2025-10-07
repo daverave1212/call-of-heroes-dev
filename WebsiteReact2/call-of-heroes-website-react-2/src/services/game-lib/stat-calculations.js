@@ -197,16 +197,18 @@ export function getAllStatBonusesYMLAsObjFromSpellsArray(spellsArray) {
     let bonuses = {}
     let sources = []
     for (const spell of spellsArray) {
-        if (spell.Bonuses != null) {
-            const statNames = Object.keys(spell.Bonuses)
-            for (const statName of statNames) {
-                if (bonuses[statName] == null) {
-                    bonuses[statName] = 0
-                }
-                sources.push({ statName, bonus: spell.Bonuses[statName], source: spell.Name })
-                bonuses[statName] += spell.Bonuses[statName]
-            }
+        if (spell.Bonuses == null) {
+            continue
         }
+        const statNames = Object.keys(spell.Bonuses)
+        for (const statName of statNames) {
+            if (bonuses[statName] == null) {
+                bonuses[statName] = 0
+            }
+            sources.push({ statName, bonus: spell.Bonuses[statName], source: spell.Name })
+            bonuses[statName] += spell.Bonuses[statName]
+        }
+    
     }
     return { bonuses, sources }
 }

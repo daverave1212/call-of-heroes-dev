@@ -1,4 +1,4 @@
-import { areArraysEqual, generateUniqueId, getAlMyRaceAndClassSpells, getAllClasses, getAllSkillsByName, getAllSpellsByName, getLocalStorageJSON, setLocalStorageJSON, useLocalStorageState } from "../../../utils"
+import { addManyObjects, addObjects, areArraysEqual, generateUniqueId, getAlMyRaceAndClassSpells, getAllClasses, getAllSkillsByName, getAllSpellsByName, getLocalStorageJSON, setLocalStorageJSON, useLocalStorageState } from "../../../utils"
 import * as Database from '../../../Database'
 import { useEffect } from "react"
 import { getUserState, useAuth } from "../../../Auth"
@@ -32,6 +32,7 @@ function getNewCharacterTemplate() {
         ],
         
         skillNames: [],
+        manualSkillBonuses: {},
         languages: [],
     
         raceName: null,
@@ -41,6 +42,7 @@ function getNewCharacterTemplate() {
         specName: null,
         classSpellNames: [],
     
+        spellsMetadata: {},
         basicAbilityNames: [],
         featNames: [],
 
@@ -62,6 +64,13 @@ const PLAYER_CHARACTER_TEMPLATE = getNewCharacterTemplate()
 
 
 // -------------- Local Storage Utils --------------
+export function normalizeCharacter(character) {
+    const newCharacterTemplate = getNewCharacterTemplate()
+    return {
+        ...newCharacterTemplate,
+        ...character
+    }
+}
 export function newCharacterLS() {
     const newCharacterTemplate = getNewCharacterTemplate()
     for (const key of Object.keys(newCharacterTemplate)) {
@@ -77,7 +86,7 @@ export function getCurrentCharacterFromLocalStorage() {
         const propValueFromLS = getLocalStorageJSON('character.' + key)
         characterObj[key] = propValueFromLS ?? newCharacterTemplate[key]
     }
-    return characterObj
+    return normalizeCharacter(characterObj)
 }
 export function setCharacterToLocalStorage(character) {
     const newCharacterTemplate = getNewCharacterTemplate()
@@ -96,7 +105,8 @@ export function useMyCharactersDB(locationInCode) {
         Database.getMyCharacters().then(myCharactersFromDB => {
             // Prevent infinite rerendering of this (myCharacter changes every time)
             if (! areArraysEqual(myCharacters, myCharactersFromDB, (a, b) => a?.id == b?.id)) {
-                innerSetMyCharacters(myCharactersFromDB)
+                const myCharactersNormalized = myCharactersFromDB.map(char => normalizeCharacter(char))
+                innerSetMyCharacters(myCharactersNormalized)
             }
         })
     }
@@ -105,7 +115,8 @@ export function useMyCharactersDB(locationInCode) {
             Database.getMyCharacters().then(myCharactersFromDB => {
                 // console.log(`User changed. Got characters from DB:`)
                 // console.log({myCharactersFromDB})
-                innerSetMyCharacters(myCharactersFromDB)
+                const myCharactersNormalized = myCharactersFromDB.map(char => normalizeCharacter(char))
+                innerSetMyCharacters(myCharactersNormalized)
             })
         }
     }, [user?.id])
@@ -175,6 +186,9 @@ export function useLanguages() {
 export function useSkills() {
     return useCharacterLocalStorageState('skillNames', [])
 }
+export function useManualSkillBonuses() {
+    return useCharacterLocalStorageState('manualSkillBonuses', {})
+}
 
 // Stats and Level
 export function useSectionStatsState() {
@@ -224,7 +238,16 @@ export function useSectionClassSpellNames() {
     return useCharacterLocalStorageState('classSpellNames')
 }
 
-// Feats and Basic Abilities
+// Feats and Basic Abilities and Other
+export function useAllSpellsMetadata() {
+    return useCharacterLocalStorageState('spellsMetadata')
+}
+export function getAllSpellsMetadata() {
+    return getLocalStorageJSON('character.spellsMetadata')
+}
+export function setAllSpellsMetadata(obj) {
+    return setLocalStorageJSON('character.spellsMetadata', obj)
+}
 export function useBasicAbilitiesNames() {
     return useCharacterLocalStorageState('basicAbilityNames')
 }
@@ -331,15 +354,29 @@ export function useConstAllSkillNames() {
 
     return allMySkills
 }
+export function useConstAllSkillBonuses() {
+    const abilities = useConstAllMyAbilities()
+    const [manualSkillBonuses, _] = useManualSkillBonuses()
+    const spellsWithSkillObjects = abilities.filter(a => a?.Skills != null && !Array.isArray(a?.Skills))
+    const allSpellSkillsObject = addManyObjects(spellsWithSkillObjects.map(s => s.Skills))
+    const allSkillsObject = addObjects(allSpellSkillsObject, manualSkillBonuses)
+    return allSkillsObject
+}
 
 
 // Other
 export function toggleSpellForSelectedSpellNames(spell, spellMetadata, selectedSpellNames, setSelectedSpellNames) {
     const { variantIndex } = spellMetadata
 
+    const allSpellsMetadata = getAllSpellsMetadata()
+
     if (selectedSpellNames.includes(spell.Name)) {
+        // delete allSpellsMetadata[spell.Name]
+        // setAllSpellsMetadata(allSpellsMetadata)
         setSelectedSpellNames(selectedSpellNames.filter(name => name != spell.Name))
     } else {
+        allSpellsMetadata[spell.Name] = spellMetadata
+        setAllSpellsMetadata(allSpellsMetadata)
         setSelectedSpellNames([...selectedSpellNames, spell.Name])
     }
 }

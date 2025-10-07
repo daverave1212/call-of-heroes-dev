@@ -35,7 +35,7 @@ export default function SectionRace({ openPopup }) {
         console.log({raceName})
     }
 
-    function onAbilityClick(spell, metadata) {
+    function selectSpell(spell, metadata) {
         toggleSpellMaybePopup(spell, metadata, selectedSpellNames, setSelectedSpellNames, openPopup)
     }
 
@@ -50,7 +50,7 @@ export default function SectionRace({ openPopup }) {
                     theRace={RACES_OBJ[selectedRaceName]}
                     selectedSpellNames={selectedSpellNames} 
                     setSelectedSpellNames={setSelectedSpellNames}
-                    onSpellClick={onAbilityClick}
+                    onSpellClick={selectSpell}
                 />
             )}
         </div>

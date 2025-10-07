@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { getPageHashFromLocation, addAbilityOrOpenPopup, useLocalStorageState } from "../../../utils";
 import Abilities from "../Abilities";
-import { tabNames } from "./CharacterCreationCalculator";
+import { TAB_NAMES } from "./CharacterCreationCalculator";
 import { useBasicAbilitiesNames, useConstAvailableAbilitySchools, useConstKnownAbilitiesObj } from "./CharacterData";
 import ManySmallStats from "../../../components/SmallStat/ManySmallStats";
 
@@ -10,9 +10,9 @@ import ManySmallStats from "../../../components/SmallStat/ManySmallStats";
 export function useCCCTabs() {
     const location = useLocation()
     const hash = getPageHashFromLocation(location)
-    const defaultValue = hash.length == 0? 0: tabNames.indexOf(hash)
+    const defaultValue = hash.length == 0? 0: TAB_NAMES.indexOf(hash)
     let [activeTabI, setActiveTabI] = useLocalStorageState('CCCActiveTabI', defaultValue == -1? 0: defaultValue)
-    const tabName = tabNames[activeTabI]
+    const tabName = TAB_NAMES[activeTabI]
     return [activeTabI, setActiveTabI, tabName]
 }
 

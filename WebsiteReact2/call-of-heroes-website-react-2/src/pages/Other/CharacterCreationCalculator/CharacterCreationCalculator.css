@@ -2,30 +2,60 @@
 :root {
     --image-size: 106px;
 
-    --ccc-unit: calc(var(--page-content-width) / 32);
+    --ccc-unit: calc(var(--page-content-width) / 60);
 
-    --stat-selector-size: calc(4 * var(--ccc-unit));
-    --stats-gap: calc(1 * var(--ccc-unit));
-    --column-2-width: calc((3 * 4 + 2 * 1) * var(--ccc-unit));
-    --column-3-width: calc(12 * var(--ccc-unit));
+    --stat-selector-size: calc(11 * var(--ccc-unit));
+    --stats-gap: calc(2 * var(--ccc-unit));
 
-    --attributes-size: calc((var(--column-2-width) - var(--stats-gap)) / 2);
+    --columns-remaining-space: calc((60 - 11 - 2) * var(--ccc-unit));
+    --columns-2-3-real-space: calc(var(--columns-remaining-space) - var(--stats-gap));
+    
+    --attributes-size: calc(var(--stat-selector-size));
+    
+    --column-1-width: var(--stat-selector-size);
+    --column-2-width: calc(var(--attributes-size) * 2 + var(--stats-gap));
+    --column-3-width: calc(
+        var(--page-content-width)
+        - var(--column-1-width)
+        - var(--stats-gap)
+        - var(--column-2-width)
+        - var(--stats-gap)
+    );
+    --column-3-flex-direction: column;
+
+    --combat-notes-width: calc(var(--attributes-size) * 2 + var(--stats-gap));
 
     --ccc-portrait-size: calc(var(--column-3-width));
-    --ccc-portrait-height: calc(var(--column-2-width));
-    --ccc-description-width: var(var(--column-3-width));
+    --ccc-portrait-height: calc(var(--attributes-size) * 2 + var(--stats-gap));
+    --ccc-description-width: var(--column-3-width);
     --ccc-description-height: calc(var(--stat-selector-size) * 2 + var(--stats-gap));
+
+    
 }
 @media (orientation: portrait) {    /* In portrait, column 3 is not displayed on the right, but at top */
     :root {
-        --ccc-unit: calc(var(--page-content-width) / 19);
+
+
+        --column-3-width: var(--page-content-width);
+        --column-3-flex-direction: row;
+
+        --ccc-portrait-size: calc((var(--column-3-width) - var(--stats-gap)) / 2);
+        --ccc-portrait-height: var(--ccc-portrait-size);
+        --ccc-description-width: var(--ccc-portrait-size);
+        --ccc-description-height: var(--ccc-portrait-size);
+
+        --column-2-width: var(--page-content-width);
+        --stat-selector-size: calc((var(--column-2-width) - var(--stats-gap) * 2) / 3);
+
+
+        /* --ccc-unit: calc(var(--page-content-width) / 19);
 
         --column-3-width: var(--page-content-width);
 
         --ccc-portrait-size: calc((var(--column-3-width) - var(--stats-gap)) / 2);
         --ccc-portrait-height: var(--ccc-portrait-size);
         --ccc-description-width: var(--ccc-portrait-size);
-        --ccc-description-height: var(--ccc-portrait-size);
+        --ccc-description-height: var(--ccc-portrait-size); */
     }
 }
 
@@ -166,6 +196,29 @@
     height: 100%;
     border-radius: 4px;
 }
+#My-Character .column-1 {
+    
+}
+#My-Character .column-1 {
+    
+}
+#My-Character .column-3 {
+    display: flex;
+    flex-direction: var(--column-3-flex-direction);
+
+    width: var(--column-3-width);
+    gap: var(--stats-gap);
+}
+
+#My-Character .column-1-width {
+    width: var(--stat-selector-size);
+}
+#My-Character .column-2-width {
+    width: var(--column-2-width);
+}
+#My-Character .column-3-width {
+    width: var(--column-3-width);
+}
 #My-Character .portrait-wrapper {
     width: var(--ccc-portrait-size);
     height: var(--ccc-portrait-height);
@@ -177,7 +230,7 @@
 }
 
 #My-Character .combat-notes-wrapper {
-    width: var(--column-2-width);
+    width: var(--combat-notes-width);
     height: calc(var(--stat-selector-size) * 2 + var(--stats-gap));
 }
 
@@ -208,8 +261,8 @@
     bottom: 3px;
     right: 3px;
 
-    width: var(--stat-selector-size);
-    height: var(--stat-selector-size);
+    width: 25%;
+    aspect-ratio: 1/1;
 
     border-radius: 50% !important;
 }

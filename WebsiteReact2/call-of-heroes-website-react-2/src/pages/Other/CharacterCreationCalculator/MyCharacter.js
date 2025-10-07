@@ -5,7 +5,7 @@ import PageH2 from "../../../components/PageH2/PageH2"
 import TextArea from "../../../components/TextArea/TextArea"
 import Icon from "../../../components/Icon"
 import Input from "../../../components/Input/Input"
-import { getChoiceAbilitiesObjects, useArmors, useBasicAbilitiesNames, useConstAllBasicAbilities, useConstAllMyAbilities, useConstAllRaceAndClassSpells, useConstAllSkillNames, useConstAvailableAbilitySchools, useConstKnownAbilitiesObj, useConstNKnownAbilities, useCurrentMana, useDescription, useGold, useInventory, useLanguages, useLevel, useManualBonuses, useMaxMana, useQuickNotes, useSectionClassName, useSectionClassSpecName, useSectionClassSpellNames, useSectionNamesState, useSectionRaceName, useSectionRaceSpellNames, useSectionStatsState, useSkills, useWeapons } from "./CharacterData"
+import { getChoiceAbilitiesObjects, useAllSpellsMetadata, useArmors, useBasicAbilitiesNames, useConstAllBasicAbilities, useConstAllMyAbilities, useConstAllRaceAndClassSpells, useConstAllSkillBonuses, useConstAllSkillNames, useConstAvailableAbilitySchools, useConstKnownAbilitiesObj, useConstNKnownAbilities, useCurrentMana, useDescription, useGold, useInventory, useLanguages, useLevel, useManualBonuses, useMaxMana, useQuickNotes, useSectionClassName, useSectionClassSpecName, useSectionClassSpellNames, useSectionNamesState, useSectionRaceName, useSectionRaceSpellNames, useSectionStatsState, useSkills, useWeapons } from "./CharacterData"
 import { StatValue } from "./SectionStats"
 import SmallStat, { SmallStatTypes } from "../../../components/SmallStat/SmallStat"
 import ManySmallStats from "../../../components/SmallStat/ManySmallStats"
@@ -15,6 +15,7 @@ import ChangeStatDialog from "./ChangeStatDialog"
 import Spoiler from "../../../components/Spoiler/Spoiler"
 import Selector from "../../../components/Selector/Selector"
 import { calculateAllAtributes, calculateBaseMaxManaByLevel, getAllStatBonusesYMLAsObjFromSpellsArray, getStatsArrayFromObject, HEALTH_REGEN, INITIATIVE, MAX_HEALTH, MOVEMENT_SPEED, STAT_NAMES } from "../../../services/game-lib/stat-calculations"
+import PageH3 from "../../../components/PageH3/PageH3"
 
 
 
@@ -94,6 +95,7 @@ export default function MyCharacter() {
     
     let [selectedSpecName] = useSectionClassSpecName()
     
+    let [spellsMetadata, setSpellsMetadata] = useAllSpellsMetadata()
     let [selectedBasicAbilitiesNames] = useBasicAbilitiesNames()
     
     let [description, setDescription] = useDescription()
@@ -112,7 +114,9 @@ export default function MyCharacter() {
 
 
     const myBasicAbilities = useConstAllBasicAbilities()
-    const mySkills = useConstAllSkillNames()
+    const mySkillBonuses = useConstAllSkillBonuses()
+    // const mySkills = useConstAllSkillNames()
+
 
     const allMyRaceAndClassSpells = useConstAllRaceAndClassSpells()
     const { bonuses, sources: bonusesSources } = useConstAllBonuses()
@@ -156,7 +160,18 @@ export default function MyCharacter() {
             { source.bonus } { source.statName }
             &nbsp;({ source.source })
         </div>) }</>
-    const Skills = () => <>{ mySkills.map(text => <div className="extra"><Icon name="CharacterSetupSub"/>{ text }</div>) }</>
+    const Skills = () => <>{
+        Object.keys(mySkillBonuses).map(skillName => <div className="extra">
+            <Icon name="CharacterSetupSub"/>
+            {
+                mySkillBonuses[skillName] > 0? '+' + mySkillBonuses[skillName]: mySkillBonuses[skillName]
+            }
+            in
+            {
+                skillName
+            }
+        </div>)
+    }</>
     const Languages = () => <>{ languages.map(text => <div className="extra italic"><Icon name="Specializations"/>You speak { text }</div>) }</>
     
     // Subcomponents
@@ -178,8 +193,8 @@ export default function MyCharacter() {
             )) }
         </div>
     }
-    function BaseStatsAndCombatColumn({ className }) {
-        return <div className={`flex flex-column ${className}`} style={{gap: 'var(--stats-gap)'}}>
+    function BaseStatsAndCombatColumn() {
+        return <div className={`flex flex-column column-2-width`} style={{gap: 'var(--stats-gap)'}}>
             <div className="flex-column" style={{gap: 'var(--stats-gap)'}}>    
                 <div className="flex" style={{gap: 'var(--stats-gap)'}}>
                     <BigStatValue onClick={() => setStatNameToChange(MAX_HEALTH)} name={MAX_HEALTH} value={attributes[MAX_HEALTH]}/>
@@ -195,18 +210,8 @@ export default function MyCharacter() {
             </div>
         </div>
     }
-    function PortraitAndDescriptionColumnLS() {
-        return <div className={`flex-column landscape-only`} style={{gap: 'var(--stats-gap)'}}>
-            <div className="wrapper portrait-wrapper">
-                <img className="wrapped-child cover" src={names.src}/>
-            </div>
-            <div className="wrapper description-wrapper">
-                <TextArea className="wrapped-child" initialValue={description} onChange={text => setDescription(text)}/>
-            </div>
-        </div>
-    }
-    function PortraitAndDescriptionRowP() {
-        return <div className={`flex-row portrait-only`} style={{gap: 'var(--stats-gap)'}}>
+    function PortraitAndDescription() {
+        return <div className="column-3">
             <div className="wrapper portrait-wrapper">
                 <img className="wrapped-child cover" src={names.src}/>
             </div>
@@ -316,20 +321,27 @@ export default function MyCharacter() {
 
             <Names/>
 
-            <PortraitAndDescriptionRowP/>
+            {/* <PortraitAndDescriptionRowP/> */}
+            <div className="portrait-only">
+                <PortraitAndDescription/>
+            </div>
             <div className="flex flex-row margin-top-1" style={{gap: 'var(--stats-gap)'}}>
                 <StatsColumn/>
                 <BaseStatsAndCombatColumn/>
-                <PortraitAndDescriptionColumnLS/>
+                <div className="landscape-only">
+                    <PortraitAndDescription/>
+                </div>
             </div>
 
             <div className="flex flex-row margin-top-1 gap-3q">
                 <div className="flex-column" style={{flex: 1, gap: '5px'}}>
+                    <PageH3>Non-Combat Skills</PageH3>
                     <Skills/>
                 </div>
                 <div className="flex-column" style={{flex: 1, gap: '5px'}}>
-                <AbilitiesExtras/>
-                <Languages/>
+                    <PageH3>Languages</PageH3>
+                    <AbilitiesExtras/>
+                    <Languages/>
                 </div>
             </div>
 
@@ -368,10 +380,10 @@ export default function MyCharacter() {
             { areMinorSpellsHidden == false && <ManySpells className="margin-top-1" spells={spellsIgnored} shouldIgnoreAlignment={true}/> }
 
             <PageH2 className="margin-top-2">Race and Class Abilities</PageH2>
-            <ManySpells spells={allDisplayedRaceAndClassSpells} shouldIgnoreAlignment={true}/>
+            <ManySpells spells={allDisplayedRaceAndClassSpells} shouldIgnoreAlignment={true} spellsMetadata={spellsMetadata}/>
 
             <PageH2 className="margin-top-1">Basic Abilities</PageH2>
-            <ManySpells spells={myBasicAbilities} shouldIgnoreAlignment={true}/>
+            <ManySpells spells={myBasicAbilities} shouldIgnoreAlignment={true} spellsMetadata={spellsMetadata}/>
         </div>
     )
 }
