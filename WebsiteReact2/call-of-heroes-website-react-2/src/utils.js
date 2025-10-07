@@ -15,7 +15,7 @@ import BasicAbilities from './databases/Abilities.json'
 import Feats from './databases/Feats.json'
 import ClassAndRaceAbilities from './databases/ClassAndRaceAbilities.json'
 import { getChoiceAbilitiesObjects, setChoiceAbilitiesObjects } from "./pages/Other/CharacterCreationCalculator/CharacterData"
-import { STAT_SYMBOLS } from "./services/game-lib/stat-calculations"
+import { STAT_LIMITS_TEXT, STAT_SYMBOLS } from "./services/game-lib/stat-calculations"
 
 // ---------------- Spells Utilities ----------------
 
@@ -785,6 +785,7 @@ const SYMBOLS = {
         )
     },
 
+    'StatLimit': { tag: 'span', text: STAT_LIMITS_TEXT },
     ...STAT_SYMBOLS,
 
     'Damage': { tag: 'Icon', props: { name: 'Damage' } },

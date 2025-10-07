@@ -182,16 +182,6 @@ export default function SectionStats() {
                     )) }
                 </div>
 
-Attributes in order of priority:
-1. Health           = 3 * Body
-3. Movement         = Heart
-2. Health Regen     = 2 * Soul
-4. Known Talents    = Mind
-5. Initiative       = Mind + Soul
-
-
-
-
 
                 <div style={{ width: '100%' }}>
                     { Object.keys(attributesFromStats).map(name => (

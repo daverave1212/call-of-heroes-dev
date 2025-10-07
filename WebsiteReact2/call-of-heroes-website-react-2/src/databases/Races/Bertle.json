@@ -3,9 +3,9 @@
     "Description": "Peering from behind a towering tree, a whimsical creature captures your attention with its keen eyes. Its fluffy form, resembling a bipedal rabbit, fox, raccoon, or other enchanting woodland creature, emanates an aura of curiosity and grace.\nBertles possess a gentle and herbivorous nature, thriving on a vegetarian diet. While their love for greens is unmatched, it is their remarkable agility that truly sets them apart, as they excel in evading danger and traversing treacherous terrains with ease. This makes them excellent adventurers who leave thier homes in search of great wonders and stories to tell when they return!\nBertles are known for their tribal societies, where they forge strong bonds within their communities. Living harmoniously amidst lush woodlands and enchanting meadows, these tribes prioritize unity and cooperation. Standing at heights ranging from 1 meter to 2 meters, depending on the species, Bertles showcase an array of vibrant hair and eye colorations, adding to the diversity of their appearances. They, however, are not afraid to fight! They can't hunt for food, but some might have retractible claws or sharp fangs, making them great exceptional monster hunters!\n",
     "Variant": "Vulper",
     "Creation": {
-        "Stat Restrictions": "Your Heart must be at least 2."
+        "Stat Restrictions": "Your Dexterity must be at least 2."
     },
-    "Stat Requirements": "Heart >= 2",
+    "Stat Requirements": "Dexterity >= 2",
     "Stats": {
         "Base Health": 16,
         "Health Regen": 8,
@@ -13,7 +13,7 @@
         "Lifespan": "75 years",
         "Size": "Small or Medium (your choice)"
     },
-    "Language": "You speak Common and a number of chosen languages equal to your Mind or Spirit (whichever is higher).",
+    "Language": "You speak Common and a number of chosen languages equal to your Intelligence or Spirit (whichever is higher).",
     "Languages": [
         "Common"
     ],
@@ -42,70 +42,85 @@
     },
     "Starting Abilities Description": "Bertles have extra movement speed compared to other Races, and can naturally jump very high. That speed will be detrimental in combat!\n",
     "Talents": {
-        "~Tall Paws~": {
+        "~Tall Paws or Hooves~": {
             "A": "Passive",
             "IsIgnored": true,
             "Combat Extras": [
                 "You are immune to Slows."
             ],
-            "Effect": "You are immune to Slows."
+            "Effect": "You are immune to being Slowed.",
+            "Downside": "You can not wear boots."
         },
-        "~A Choice~": {
+        "~Carnivore~": {
             "A": "Passive",
-            "Effect": "Choose +1 Health or +1 Mind.",
-            "Popup": {
-                "Message": "Eat your vegetables!"
-            }
+            "Effect": "Once inbetween Worthy Combats, you can eat a piece of meat to restore 1 Health.\n",
+            "Downside": "You can not eat grains and can only lightly eat vegetables.\nExclusive with Herbivore.\n"
         },
         "~Herbivore~": {
             "A": "Passive",
             "IsIgnored": true,
             "Bonuses": {
-                "Body": 1,
-                "Max Health": 1
+                "Max Health": 2
             },
             "Extras": [
                 "Half of your meals can consist of grass and leaves, but you can not eat meat."
             ],
-            "Effect": "Your Body increases by 1 (up to +3), and your Max Health by an extra +1.\nHalf of your meals can consist of grass and leaves, but you can not eat meat.\n",
-            "Notes": "If you eat meat, you become Exhausted for 1 hour. Remember that Body also affects Max Health!"
+            "Effect": "Gain +2 Max Health.\nHalf of your meals can consist of grass and leaves.\n",
+            "Downside": "You can not eat meat.\nExclusive with Carnivore.\n",
+            "Notes": "If you eat meat, you become Exhausted for 1 hour. Remember that Might also affects Max Health!"
+        },
+        "~Thick Shell~": {
+            "A": "Passive",
+            "Effect": "While unarmored, You take -50% Slash Damage when hit from behind instead of having +1 Movement Speed."
+        },
+        "~Horns~": {
+            "A": "Passive",
+            "Effect": "Whenever you gain Shielding, increase its value by 1.\nYou have +2 in Intimidation.\n",
+            "Skills": [
+                "+2 Intimidation"
+            ],
+            "Downside": "You can't wear helmets (hats might fit you, though)."
+        },
+        "~Feral Claws~": {
+            "A": "Half-Action",
+            "Cooldown": "Once / Turn",
+            "Damage": "1d6 + Any Stat",
+            "EffectGreen": "Critical Strike - if you rolled minimum, apply a Combo.\nCritical Strike - if you rolled maximum, the target becomes Blinded.\n",
+            "Subspells": {
+                "~Sharpen With Magic~": {
+                    "A": "10 minutes",
+                    "IsSubspell": true,
+                    "Cooldown": "Once / Adventure",
+                    "Effect": "Permanently sharpen your claws with a ^magic weapon^ worth at least 25 XP.\nIncrease the Damage of Feral Claws by +1.\nThe magic weapon is then destroyed.\n",
+                    "HasMixins": true
+                }
+            }
+        },
+        "~Avian Wings~": {
+            "A": "0 Actions",
+            "Cooldown": "Once / real hour",
+            "Effect": "Quickly fly up to 3 meters (e.g. almost instantly).\nPassively, you don't take Falling Damage.\n",
+            "Upgrade": "Your arms and hands become bird-like wings, but that makes it harder for you to hold and use weapons.",
+            "Downside": "-1 on all weapon attacks"
         },
         "~Thick Fur~": {
             "A": "Passive",
             "IsIgnored": true,
             "Combat Extras": [
-                "You only take 50% Cold Damage.",
-                "You take no extra Damage when being Flanked."
+                "-50% Cold Damage taken",
+                "-50% Smash Damage taken while below 50% Health"
             ],
-            "Effect": "You only take 50% Cold Damage.\nYou take no extra Damage when being Flanked.\n",
-            "Notes": "Flanking is when you are attacked by an enemy, and there's another enemy right behind you (relative to the attacker)."
+            "Effect": "You take -50% Cold Damage.\nYou take -50% Smash Damage while below 50% Health\n"
         },
-        "~Gatherer Instincts~": {
+        "~Fins~": {
             "A": "Passive",
-            "IsIgnored": true,
-            "Extras": [
-                "You have +5 on Checks for identifying plants, fruits, mushrooms, vegetables, etc."
-            ],
-            "Combat Extras": [
-                "You only take 50% Poison and Acid Damage."
-            ],
-            "Effect": "You only take 50% Poison and Acid Damage.\nYou have +5 on Checks for identifying plants, fruits, mushrooms, vegetables, etc.\n"
-        },
-        "~Innate Heart~": {
-            "A": "Passive",
-            "IsIgnored": true,
-            "Bonuses": {
-                "Heart": 1,
-                "Initiative": 1
-            },
-            "Effect": "Your Heart increases by 1 (up to +3), and your Initiative increases by an extra +1.",
-            "Notes": "Remember that Heart also affects Initiative!"
+            "Effect": "You have +2 Initiative.\nYou can swim at your normal speed + 1 meter.\n"
         },
         "~I Am Speed~": {
             "A": "Passive",
             "HasMixins": true,
-            "Effect": "In Abilities that use Spirit, Mind or Spirit, you can use your Heart instead.\n",
-            "Notes": "E.g. Chilling Shout becomes 12 + ^Heart^ instead of 12 + ^Spirit^. Phase Orb becomes 2d6 + ^Heart + Heart^ instead of 2d6 + ^Mind + Spirit^."
+            "Effect": "In Abilities or weapons that use Intelligence or Spirit, you can use your Dexterity instead.\n",
+            "Notes": "E.g. Chilling Shout becomes 12 + ^Dexterity^ instead of 12 + ^Spirit^. Phase Orb becomes 2d6 + ^Dexterity + Dexterity^ instead of 2d6 + ^Intelligence + Spirit^."
         }
     }
 }

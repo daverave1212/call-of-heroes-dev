@@ -157,15 +157,15 @@ Default Moves:
     ~Quick Attack~:
         A: Half-Action
         Range: Weapon Range
-        Effect: Use a weapon to make a quick attack that deals 1d6 + Body Damage of the weapon's type.
+        Effect: Use a weapon to make a quick attack that deals 1d6 + Might Damage of the weapon's type.
 
     ~Improvised Attack~:
         HasMixins: true
         A: Half-Action
         Range: 3-5 meters
         Effect: |
-            Attack with or throw an object for 1d4 + ^Heart^ (Slash, Smash or Pierce Damage, depending on the object).
-        Upgrade: For larger objects, you can combine 2 attacks into one for 1d12 + ^Body^ Damage.
+            Attack with or throw an object for 1d4 + ^Dexterity^ (Slash, Smash or Pierce Damage, depending on the object).
+        Upgrade: For larger objects, you can combine 2 attacks into one for 1d12 + ^Might^ Damage.
         Notes: |
             You can attack with a body part if within 1 meter. Considered weapon Attacks.
             For monsters, this takes 1 Action and deals only 1d4 Damage.
@@ -196,14 +196,14 @@ Default Moves:
     ~Examine Monster~:
         A: 0 Actions
         Cooldown: Once / Combat
-        Effect: Choose a Worthy Unit to examine. You get a small description and a general idea of its gimmicks. Body require a Check for certain monsters.
+        Effect: Choose a Worthy Unit to examine. You get a small description and a general idea of its gimmicks. Might require a Check for certain monsters.
         Notes: The Quest Master may tell you the the first part of a monster's description (e.g. Koblods always dodge the first incoming attack). For some monsters, it is up to the Quest Master whether they ask for a Check.
 
     ~Grapple~:
         A: 1 Action
         Range: 1 meter
         Effect: |
-            Pass a Body Check against a Unit's Heart or Body Check (its choice) to either make it Rooted and Blinded, or mount it until the end of its Turn.
+            Pass a Might Check against a Unit's Dexterity or Might Check (its choice) to either make it Rooted and Blinded, or mount it until the end of its Turn.
         Notes: Like all Crowd Control, being grappled lasts 1 turn. The target becomes not-grappled if the grappler exits its adjacency.
 
     # ~Wait~:
@@ -477,7 +477,7 @@ Warfare:
         HasMixins: true
         Effect: If you did not use a ^weapon^ last Turn, after your first ^weapon^ attack this Turn, you can reroll all the dice (together) if you didn't like the result.
         Upgrade: Only works from the 2nd Round of combat on.
-        Notes: An Ability counts as using a ^weapon^ if the word ^weapon^ appears in its text. Can reroll attack bonuses like Smite, Cursewielder, etc. Only the final roll applies effects if any. Body parts in melee are considered weapons.
+        Notes: An Ability counts as using a ^weapon^ if the word ^weapon^ appears in its text. Can reroll attack bonuses like Smite, Cursewielder, etc. Only the final roll applies effects if any. Might parts in melee are considered weapons.
 
     ~Gladiator Grandeur~:
         A: 0 Actions
@@ -519,7 +519,7 @@ Warfare:
         Requirement: Level 4
         HasMixins: true
         Effect: |
-            Pass a Heart Check against a Unit's current Initiative.
+            Pass a Dexterity Check against a Unit's current Initiative.
             If you succeed, deal 4d10 Damage of an equipped ^weapon^'s type.
         Notes: |
             Can apply attack bonuses like Smite, Cursewielder, magic weapon extra Damage, etc.
@@ -693,7 +693,7 @@ Elemental:
         HasMixins: true
         Degree: Major
         Effect: |
-            Deal Cold Damage to a Unit equal to 2d6 + ^Its Heart^.
+            Deal Cold Damage to a Unit equal to 2d6 + ^Its Dexterity^.
             If it's Medium or smaller, Root it.
         Tag: CC Hard
 
@@ -749,7 +749,7 @@ Elemental:
         Effect: |
             Choose a piece of metal equipment and heat it.
             - If it's an armor, the wearer takes 5d4 Fire Damage.
-            - If it's a weapon, the wearer takes 1d10 Damage. If you rolled higher than its Body, it becomes Crippled.
+            - If it's a weapon, the wearer takes 1d10 Damage. If you rolled higher than its Might, it becomes Crippled.
         Notes: |
             Ignores Cover. {Crippled}
         Tag: CC Hard
@@ -840,7 +840,7 @@ Elemental:
         Effect: |
             Place a rune on a smooth solid surface. 
             A Unit touching the rune detonates it, dealing 3d10 {Element} Damage to it.
-            Make an Mind Check against that Unit's Body Check. If you pass, {ExtraEffect}.
+            Make an Intelligence Check against that Unit's Might Check. If you pass, {ExtraEffect}.
             
             ~Click on the Spell Icon to select the preferred Element!~
         Notes: |
@@ -874,13 +874,13 @@ Elemental:
         A: 1 Action
         Range: 10 meters
         Requirement: Level 4
-        Cooldown: Mind uses / Adventure
+        Cooldown: Intelligence uses / Adventure
         HasMixins: true
         Degree: Minor
         Effect: |
             Choose a number of 1x1x1 cubes containing water equal to your Level.
             The water there freezes.
-            If a Unit is caught in the water, pass an Mind Check against its Heart Check to make it Rooted. If you fail, it is expelled to a nearby space near the frozen water (it chooses, within reason).
+            If a Unit is caught in the water, pass an Intelligence Check against its Dexterity Check to make it Rooted. If you fail, it is expelled to a nearby space near the frozen water (it chooses, within reason).
         Notes: |
             {Rooted}
         Tag: Utility
@@ -943,7 +943,7 @@ Elemental:
         Range: 5 meters
         Requirement: Level 6
         Effect: |
-            The target rolls a Heart Check.
+            The target rolls a Dexterity Check.
             If it fails, it takes 3d8 + 9 Cold Damage, or half otherwise.
             The target automatically fails if it's affected by any Crowd Control (except Hard Terrain).
         Tag: AoE (1)
@@ -1067,7 +1067,7 @@ Arcane:
         HasMixins: true
         Degree: Minor
         Effect: |
-            Shoot a number of missiles equal to ^your Mind^ + 1. Each missile does 1d4 Pulse Damage.
+            Shoot a number of missiles equal to ^your Intelligence^ + 1. Each missile does 1d4 Pulse Damage.
         Notes: |
             Missiles are rolled at the same time. Then you can decide which die Damages which Unit.
             Each missile is a separate Attack and can be affected individually by Cover, Defense, etc (e.g. shooting all 3 missiles at a Unit that has 2 Defense makes each missile deal 1d4 - 2 Damage).
@@ -1221,7 +1221,7 @@ Arcane:
     #         Place a rune on the ground.
     #         You can activate it at any time and from any distance.
     #         When you activate it, the rune creates a 5x5 meter area.
-    #         Try to Silence all units inside (Mind Check) and they also take (Your Level) Pulse Damage on detonation.
+    #         Try to Silence all units inside (Intelligence Check) and they also take (Your Level) Pulse Damage on detonation.
     #     Notes: |
     #         Ignores Cover. {Silenced}
 
@@ -1232,7 +1232,7 @@ Arcane:
     #     Requirement: Level 4
     #     Effect: |
     #         Declare a 2x2 meter area.
-    #         All Units in that are must succeed a Body Check or take 8d4 Pulse Damage, or half of that if they succeed.
+    #         All Units in that are must succeed a Might Check or take 8d4 Pulse Damage, or half of that if they succeed.
     #         The blast extends 2 more meters from its edges in all directions and further Damages directly all Units on this 2-meter edge for half of the Damage rolled.
     #     Notes: To conclude, the total area of this Spell is 4x4 meters. The Units in the 2x2 center must succeed the check or take full Damage and the units on the edge just take half of the Damage (as if they succeeded a Check for the center).
 
@@ -1273,7 +1273,7 @@ Arcane:
     #     Effect: |
     #         Pick a 1x1 area. A magical orb is created in that place.
     #         At the start of your next turn, the orb dashes to your position.
-    #         All Units in the orb's path take 2d6 + ^Mind^ + your Spirit Pulse Damage.
+    #         All Units in the orb's path take 2d6 + ^Intelligence^ + your Spirit Pulse Damage.
 
     ~Animated Weapon~:
         A: 1 Action
@@ -1329,7 +1329,7 @@ Arcane:
         HasMixins: true
         Degree: Major
         Effect: |
-            You become invisible for up to (Mind) minutes (at least 1).
+            You become invisible for up to (Intelligence) minutes (at least 1).
             Attacking, taking Damage or casting _offensive_ Abilities while invisible breaks the invisibility.
         Notes: "{Offensive Abilities}"
 
@@ -1342,7 +1342,7 @@ Arcane:
         Degree: Grand
         Effect: |
             Choose an animal from the Pet List or any critter, such as a sheep, deer, etc.
-            A Unit within 10 meters becomes transformed into that animal. Last a number of its turns equal to Your Mind - Its Mind (at least 1).
+            A Unit within 10 meters becomes transformed into that animal. Last a number of its turns equal to Your Intelligence - Its Intelligence (at least 1).
         Upgrade: |
             The Unit can retain its Health and Defense, but can't do any non-animal actions.
             It can do Animal Attack for 1d6 Damage if it's an enemy, or 1d6 + Spirit Damage if it's an ally.
@@ -1358,7 +1358,7 @@ Arcane:
     #     Requirement: Level 2
     #     Effect: |
     #         This incantation distorts the visual space in an area with a diameter equal to your Level.
-    #         Make an Mind Check for this.
+    #         Make an Intelligence Check for this.
     #         While keeping the distorsion, you must maintain concentration and line of sight.
     #         You lose concentration if you take Damage or become crowd controlled.
     #     Upgrade: At Level 5, you can use 1 Action to slowly move the area up to 3 meters.
@@ -1377,7 +1377,7 @@ Arcane:
         Degree: Major
         Effect: |
             Declare a 5x5 meter area.
-            All Units inside it must succeed an Mind Check against double your Mind or be affected by all the following:
+            All Units inside it must succeed an Intelligence Check against double your Intelligence or be affected by all the following:
             {Diamond} They are Slowed and Feared
             {Diamond} They can only make one Attack on their next turn
             {Diamond} They can't make Reactions
@@ -1385,7 +1385,7 @@ Arcane:
             {Diamond} They can't inflict Crowd Control
             Lasts until the start of your next turn.
         Notes: |
-            Ignores Cover for the Mind Check. {Slowed}
+            Ignores Cover for the Intelligence Check. {Slowed}
 
     ~Levitate~ :
         A: 1 Action
@@ -1420,7 +1420,7 @@ Arcane:
     #     Requirement: Level 6
     #     Cost: 1 Mana
     #     Effect: |
-    #         You can tell if there is magic within (Mind * 10) meters from you (at least 10 meters).
+    #         You can tell if there is magic within (Intelligence * 10) meters from you (at least 10 meters).
     #         You can also tell if an object you touch is magical.
     #         If it is a common magic item, you can tell what it does (e.g. Potions, Scrolls, etc).
             
@@ -1431,7 +1431,7 @@ Arcane:
     #     Effect: |
     #         You can attempt to unlock a lock magically.
     #         Using this counts as if you Know How to Pick Locks.
-    #         You roll a Heart Check for this, and you get a +2 on it.
+    #         You roll a Dexterity Check for this, and you get a +2 on it.
         
 
     ~Reverse Gravity~:
@@ -1442,7 +1442,7 @@ Arcane:
         Degree: Grand
         Effect: |
             Declare an area with a diameter in meters (in all directions) equal to your Level.
-            The gravity becomes reversed in that area and all Units instantly fall upwards. Units can make a Heart Check to grab onto an object to not be lifted.
+            The gravity becomes reversed in that area and all Units instantly fall upwards. Units can make a Dexterity Check to grab onto an object to not be lifted.
             Units suffer fall Damage if they fall onto a ceiling.
             When the effect ends, all Units fall at half velocity (and take half of the fall Damage). The same happens to a Unit if it exits the area.
             Lasts for up to 1 minute. You can cancel this effect at will.
@@ -1508,7 +1508,7 @@ Arcane:
             At any point, you can freely spend 10 minutes in a place to Bind to it.
             When you use this Ability, channel for 10 minutes to teleport all allies (and yourself) within 10 meters of you to the bound place.
             You can only have 1 bound place at a time.
-            The range to your bound place must be at most a a number of kilometers equal to your Mind * 100.
+            The range to your bound place must be at most a a number of kilometers equal to your Intelligence * 100.
         Upgrade: |
             At Level 9, you can have up to 2 bound places.
         Notes: You can remove the binding of a place at will, from any distance.
@@ -1544,7 +1544,7 @@ Arcane:
         Requirement: Level 11
         Cost: 1 Mana
         HasMixins: true
-        Effect: Choose a Unit. It can fly at normal Speed for ^Your Mind^ * 10 minutes.
+        Effect: Choose a Unit. It can fly at normal Speed for ^Your Intelligence^ * 10 minutes.
 
     ~Mass Teleportation~:
         A: 10 minutes
@@ -1566,7 +1566,7 @@ Nature:
 # [x] Damage (AoE)                      [(Land Breach)]
 # [x] Damage (AoE)          (Advanced)  [Defense (Lightning Storm)]
 # [ ] Return on Investment
-# [x] Stats                             [Wild Heart]
+# [x] Stats                             [Wild Dexterity]
 # [x] Low CC                            [Push (Cutting Winds)]
 # [x] Medium CC                         [Fumbling (Quaking Wave)]
 # [x] Hard CC
@@ -1675,7 +1675,7 @@ Nature:
         Requirement: Level 5
         Degree: Major
         Effect: |
-            A Unit in range takes 2d8 + ^Your Heart^ Slash Damage and ignores Defense.
+            A Unit in range takes 2d8 + ^Your Dexterity^ Slash Damage and ignores Defense.
             If it weighs 75kg or less, it takes another 1d8 Slash Damage and is pushed up to 3 meters in a chosen direction.
         Notes: Cover is applied normally.
 
@@ -1808,7 +1808,7 @@ Nature:
         Duration: Whole Adventure
         Degree: Major
         Effect: Up to 2 allies you touch gain Shielding equal to your Level.
-        Notes: Wild Heart can only be cast once on a Unit, per Adventure.
+        Notes: Wild Dexterity can only be cast once on a Unit, per Adventure.
     
 
     # Level 4
@@ -1882,7 +1882,7 @@ Nature:
         Effect: |
             Declare a 4x4 meter area
             The area becomes filled with spider web and counts as Hard Terrain.
-            After a Unit exits the area, it must succeed a Heart Check against 6 + ^Your Spirit^ or be Rooted.
+            After a Unit exits the area, it must succeed a Dexterity Check against 6 + ^Your Spirit^ or be Rooted.
         Notes: |
             {Rooted}
 
@@ -1915,7 +1915,7 @@ Nature:
         Cost: 2 Mana
         HasMixins: true
         Effect: |
-            Heal a Unit for 1d12 + ^Your Spirit^ + ^Your Mind^. The target becomes 1 year younger.
+            Heal a Unit for 1d12 + ^Your Spirit^ + ^Your Intelligence^. The target becomes 1 year younger.
 
 
 # Conjuration:
@@ -1977,7 +1977,7 @@ Mysticism:
 # [ ] Return on Investment
 # [ ] Stats
 # [ ] Low CC
-# [x] Medium CC                         [Cripple/Silence (Mind Blast), Other (Confusion)]
+# [x] Medium CC                         [Cripple/Silence (Intelligence Blast), Other (Confusion)]
 # [ ] Hard CC
 # [x] Healing
 # [ ] Tranking/Protection (Shielding)
@@ -2044,13 +2044,13 @@ Mysticism:
             A: 1 Action
             Requirement: Level 2
             Effect: You can attempt to speak concrete ideas with willing, non-hostile animals.
-            Notes: Keep in mind that animals generally have low Mind, and they are not expected to 'speak' back to you through language.
+            Notes: Keep in mind that animals generally have low Intelligence, and they are not expected to 'speak' back to you through language.
 
         ~Speak With Plants~:
             A: 1 Action
             Requirement: Level 2
             Effect: You can attempt to speak concrete ideas with willing, large plants.
-            Notes: Keep in mind that plants generally have low Mind, and they are not expected to 'speak' back to you through language.
+            Notes: Keep in mind that plants generally have low Intelligence, and they are not expected to 'speak' back to you through language.
 
         ~Dancing Blade~:
             A: Passive
@@ -2171,7 +2171,7 @@ Mysticism:
             Degree: Minor
             Effect: |
                 You create a sound out of thin air.
-                Roll a Spirit Check and add your Mind modifier to it to see how accurate your sound is.
+                Roll a Spirit Check and add your Intelligence modifier to it to see how accurate your sound is.
             Scaling: At Level 4, this lasts up to 1 minute. At level 8, this lasts up to 1 hour.
 
 
@@ -2315,7 +2315,7 @@ Eldritch:
         HasMixins: true
         Degree: Minor
         Effect: |
-            Blast a Unit for 2d8 + ^target's Body^ Scourge Damage.
+            Blast a Unit for 2d8 + ^target's Might^ Scourge Damage.
             If you roll maximum on at least one die, deal another 1d6 Damage.
 
     ~Curse of Weakness~:
@@ -2366,7 +2366,7 @@ Eldritch:
         Degree: Minor
         HasMixins: true
         Effect: |
-            Deal 1d12 + ^Your Spirit or Mind^ Scourge Damage to a Unit.
+            Deal 1d12 + ^Your Spirit or Intelligence^ Scourge Damage to a Unit.
             For the rest of the combat, whenever it would take Scourge Damage, it takes 2 more (stacks indefinitely).
 
 
@@ -2668,7 +2668,7 @@ Divine:
         Requirement: Level 3
         Degree: Minor
         Effect: |
-          Up to 2 Player Characters you can see gain Health Regen equal to your Mind.
+          Up to 2 Player Characters you can see gain Health Regen equal to your Intelligence.
 
     # Level 4
 

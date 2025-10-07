@@ -8,8 +8,8 @@ Description: |
 Variant: Vulper
 
 Creation:
-  Stat Restrictions: Your Heart must be at least 2.
-Stat Requirements: Heart >= 2
+  Stat Restrictions: Your Dexterity must be at least 2.
+Stat Requirements: Dexterity >= 2
 
 Stats:
   Base Health: 16
@@ -18,7 +18,7 @@ Stats:
   Lifespan: 75 years
   Size: Small or Medium (your choice)
 
-Language: You speak Common and a number of chosen languages equal to your Mind or Spirit (whichever is higher).
+Language: You speak Common and a number of chosen languages equal to your Intelligence or Spirit (whichever is higher).
 Languages:
 - Common
 
@@ -53,17 +53,21 @@ Talents:
     # Bravery
     # Annoying
 
-    ~Tall Paws~:
+    ~Tall Paws or Hooves~:
       A: Passive
       IsIgnored: true
       Combat Extras:
       - You are immune to Slows.
       Effect: You are immune to being Slowed.
+      Downside: You can not wear boots.
 
     ~Carnivore~:
       A: Passive
       Effect: |
-        Gain +1 Spirit (up to the Level limit).
+        Once inbetween Worthy Combats, you can eat a piece of meat to restore 1 Health.
+      Downside: |
+        You can not eat grains and can only lightly eat vegetables.
+        Exclusive with Herbivore.
 
     ~Herbivore~ :
       A: Passive
@@ -74,8 +78,11 @@ Talents:
         - Half of your meals can consist of grass and leaves, but you can not eat meat.
       Effect: |
         Gain +2 Max Health.
-        Half of your meals can consist of grass and leaves, but you can not eat meat.
-      Notes: If you eat meat, you become Exhausted for 1 hour. Remember that Body also affects Max Health!
+        Half of your meals can consist of grass and leaves.
+      Downside: |
+        You can not eat meat.
+        Exclusive with Carnivore.
+      Notes: If you eat meat, you become Exhausted for 1 hour. Remember that Might also affects Max Health!
 
     ~Thick Shell~:
       A: Passive
@@ -126,16 +133,22 @@ Talents:
         You take -50% Cold Damage.
         You take -50% Smash Damage while below 50% Health
 
+    ~Fins~:
+      A: Passive
+      Effect: |
+        You have +2 Initiative.
+        You can swim at your normal speed + 1 meter.
+
     ~I Am Speed~:
       A: Passive
       HasMixins: true
       Effect: |
-        In Abilities or weapons that use Mind or Spirit, you can use your Heart instead.
-      Notes: E.g. Chilling Shout becomes 12 + ^Heart^ instead of 12 + ^Spirit^. Phase Orb becomes 2d6 + ^Heart + Heart^ instead of 2d6 + ^Mind + Spirit^.
+        In Abilities or weapons that use Intelligence or Spirit, you can use your Dexterity instead.
+      Notes: E.g. Chilling Shout becomes 12 + ^Dexterity^ instead of 12 + ^Spirit^. Phase Orb becomes 2d6 + ^Dexterity + Dexterity^ instead of 2d6 + ^Intelligence + Spirit^.
 
     # ~Know Thy Enemy~ :
     #   A: Passive
-    #   Effect: When making Units roll Heart or Body Resist Checks, roll 1d4 and subtract it from their Check.
+    #   Effect: When making Units roll Dexterity or Might Resist Checks, roll 1d4 and subtract it from their Check.
 
 
     # ~No, Thanks~:

@@ -28,10 +28,10 @@ const NAV_CONFIG = [
       { name: 'Dragon',       href: '/Races/Dragonborn' },
       { name: 'Dwarf',        href: '/Races/Dwarf' },
       { name: 'Elf',          href: '/Races/Elf' },
+      { name: 'Giant',        href: '/Races/Orc' },
       { name: 'Gnome',        href: '/Races/Gnome' },
       { name: 'Hollow',       href: '/Races/Hollow', lock: 'premium' },
       { name: 'Human',        href: '/Races/Human' },
-      { name: 'Orc',          href: '/Races/Orc' },
     ]},
     { name: 'Classes', children: [
       { name: 'Cleric',       href: '/Classes/Cleric' },
