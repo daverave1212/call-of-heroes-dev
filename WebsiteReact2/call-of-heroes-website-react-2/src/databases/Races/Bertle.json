@@ -3,9 +3,15 @@
     "Description": "Peering from behind a towering tree, a whimsical creature captures your attention with its keen eyes. Its fluffy form, resembling a bipedal rabbit, fox, raccoon, or other enchanting woodland creature, emanates an aura of curiosity and grace.\nBertles possess a gentle and herbivorous nature, thriving on a vegetarian diet. While their love for greens is unmatched, it is their remarkable agility that truly sets them apart, as they excel in evading danger and traversing treacherous terrains with ease. This makes them excellent adventurers who leave thier homes in search of great wonders and stories to tell when they return!\nBertles are known for their tribal societies, where they forge strong bonds within their communities. Living harmoniously amidst lush woodlands and enchanting meadows, these tribes prioritize unity and cooperation. Standing at heights ranging from 1 meter to 2 meters, depending on the species, Bertles showcase an array of vibrant hair and eye colorations, adding to the diversity of their appearances. They, however, are not afraid to fight! They can't hunt for food, but some might have retractible claws or sharp fangs, making them great exceptional monster hunters!\n",
     "Variant": "Vulper",
     "Creation": {
-        "Stat Restrictions": "Your Dexterity must be at least 2."
+        "Stat Restrictions": "Your Dexterity must be at least 1."
     },
-    "Stat Requirements": "Dexterity >= 2",
+    "Stat Requirements": "Dexterity >= 1",
+    "Custom Stat Array": [
+        0,
+        0,
+        0,
+        2
+    ],
     "Stats": {
         "Base Health": 16,
         "Health Regen": 8,
@@ -28,16 +34,8 @@
             "Combat Extras": [
                 "You can jump 3 meters without requiring a Check"
             ],
-            "Effect": "Your Movement Speed is increased by 1.\nYou can jump 3 meters without requiring a Check (e.g. over enemies, gaps, etc).\n",
+            "Effect": "Your starting Stats distribution is 0, 0, 0, 2 (instead of -1, 0, 1, 2).\nYou have +1 Movement Speed\nYou can jump 3 meters without requiring a Check (e.g. over enemies, gaps, etc).\n",
             "Notes": "Jumping still uses Movement."
-        },
-        "~All Eyes and Noses~": {
-            "AlignOnWebsite": "Right",
-            "A": "Reaction",
-            "Cooldown": "1 hour",
-            "IsNonCombat": true,
-            "Effect": "Whenever you fail a Spirit Check, you can spend 2 Health to reroll it.",
-            "Notes": "You always know if you failed a Spirit Check."
         }
     },
     "Starting Abilities Description": "Bertles have extra movement speed compared to other Races, and can naturally jump very high. That speed will be detrimental in combat!\n",
@@ -46,7 +44,8 @@
             "A": "Passive",
             "IsIgnored": true,
             "Combat Extras": [
-                "You are immune to Slows."
+                "You are immune to Slows",
+                "You can not wear Boots"
             ],
             "Effect": "You are immune to being Slowed.",
             "Downside": "You can not wear boots."
@@ -71,14 +70,20 @@
         },
         "~Thick Shell~": {
             "A": "Passive",
-            "Effect": "While unarmored, You take -50% Slash Damage when hit from behind instead of having +1 Movement Speed."
+            "Combat Extras": [
+                "-50% Slash Damage taken from behind while unarmored."
+            ],
+            "Effect": "While unarmored, you take -50% Slash Damage when hit from behind instead of having +1 Movement Speed."
         },
         "~Horns~": {
             "A": "Passive",
-            "Effect": "Whenever you gain Shielding, increase its value by 1.\nYou have +2 in Intimidation.\n",
-            "Skills": [
-                "+2 Intimidation"
+            "Combat Extras": [
+                "When you gain Shielding, give it +1"
             ],
+            "Effect": "Whenever you gain Shielding, increase its value by 1.\nYou have +2 in Intimidation.\n",
+            "Skills": {
+                "Intimidation": 2
+            },
             "Downside": "You can't wear helmets (hats might fit you, though)."
         },
         "~Feral Claws~": {
@@ -99,6 +104,9 @@
         "~Avian Wings~": {
             "A": "0 Actions",
             "Cooldown": "Once / real hour",
+            "Combat Extras": [
+                "You don't take Falling Damage."
+            ],
             "Effect": "Quickly fly up to 3 meters (e.g. almost instantly).\nPassively, you don't take Falling Damage.\n",
             "Upgrade": "Your arms and hands become bird-like wings, but that makes it harder for you to hold and use weapons.",
             "Downside": "-1 on all weapon attacks"
@@ -114,13 +122,30 @@
         },
         "~Fins~": {
             "A": "Passive",
-            "Effect": "You have +2 Initiative.\nYou can swim at your normal speed + 1 meter.\n"
+            "Bonuses": {
+                "Initiative": 2
+            },
+            "Combat Bonuses": [
+                "You swim at your Movement Speed + 1 meter"
+            ],
+            "Effect": "You have +2 Initiative.\nYou can swim at your normal Movement Speed + 1 meter.\n"
         },
         "~I Am Speed~": {
             "A": "Passive",
             "HasMixins": true,
+            "Combat Extras": [
+                "You can use Dexterity instead of Intelligence or Spirit for weapons and Abilities"
+            ],
             "Effect": "In Abilities or weapons that use Intelligence or Spirit, you can use your Dexterity instead.\n",
             "Notes": "E.g. Chilling Shout becomes 12 + ^Dexterity^ instead of 12 + ^Spirit^. Phase Orb becomes 2d6 + ^Dexterity + Dexterity^ instead of 2d6 + ^Intelligence + Spirit^."
+        },
+        "~All Eyes and Noses~": {
+            "AlignOnWebsite": "Right",
+            "A": "Reaction",
+            "Cooldown": "1 hour",
+            "IsNonCombat": true,
+            "Effect": "Whenever you fail a Spirit Check, you can spend 2 Health to reroll it.",
+            "Notes": "You always know if you failed a Spirit Check."
         }
     }
 }

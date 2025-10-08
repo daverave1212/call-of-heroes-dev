@@ -3,23 +3,25 @@ import * as Database from '../../../Database'
 import { useEffect } from "react"
 import { getUserState, useAuth } from "../../../Auth"
 import { showError } from "../../../services/MessageDisplayer"
-import { useConstAllBonuses, useConstBonusesYMLFromSpellsAndItems, useConstTotalStats } from "./MyCharacter"
+import { useConstAllBonuses, useConstBonusesFromSpellsAndItems, useConstTotalStats } from "./MyCharacter"
 import { calculateNKnownAbilities, DEFAULT_CHARACTER_BONUSES, DEFAULT_STAT_ARRAY, STAT_NAMES } from "../../../services/game-lib/stat-calculations"
+import { Names } from "../../../services/NameGenerator/name-generator"
 
 export const NO_CHARACTER_ID = 'none'
-export const LOCAL_STORAGE_PREFIX = 'character-'
 function getNewCharacterTemplate() {
     return {
         id: generateUniqueId(),
         names: {
             src: '/Icons/Spells/Skilled_in_Persuasion.png',
             playerName: '',
-            characterName: 'Joe'
+            characterName: Names.humanMale()
         },
         level: 1,
         experience: 0,
         stats: DEFAULT_STAT_ARRAY,
         manualBonuses: DEFAULT_CHARACTER_BONUSES,
+        manualExtras: [],
+        manualCombatExtras: [],
         choiceBonuses: [
             {
                 source: {
@@ -46,6 +48,7 @@ function getNewCharacterTemplate() {
         basicAbilityNames: [],
         featNames: [],
 
+        currentHealth: 1,
         currentMana: 1,
     
         quickNotes: '',
@@ -189,6 +192,12 @@ export function useSkills() {
 export function useManualSkillBonuses() {
     return useCharacterLocalStorageState('manualSkillBonuses', {})
 }
+export function useManualNormalExtras() {
+    return useCharacterLocalStorageState('manualExtras', {})
+}
+export function useManualCombatExtras() {
+    return useCharacterLocalStorageState('manualCombatExtras', {})
+}
 
 // Stats and Level
 export function useSectionStatsState() {
@@ -273,9 +282,11 @@ export function useArmors() {
 
 // Tracking
 export function useCurrentMana() {
-    return useCharacterLocalStorageState('currentMana', 1)
+    return useCharacterLocalStorageState('currentMana')
 }
-
+export function useCurrentHealth() {
+    return useCharacterLocalStorageState('currentHealth')
+}
 
 
 // Use const
@@ -357,10 +368,16 @@ export function useConstAllSkillNames() {
 export function useConstAllSkillBonuses() {
     const abilities = useConstAllMyAbilities()
     const [manualSkillBonuses, _] = useManualSkillBonuses()
-    const spellsWithSkillObjects = abilities.filter(a => a?.Skills != null && !Array.isArray(a?.Skills))
-    const allSpellSkillsObject = addManyObjects(spellsWithSkillObjects.map(s => s.Skills))
+    const spellsWithSkillObjects = abilities.filter(a => a?.['Skill Bonuses'] != null && !Array.isArray(a?.['Skill Bonuses']))
+    const allSpellSkillsObject = addManyObjects(spellsWithSkillObjects.map(s => s['Skill Bonuses']))
     const allSkillsObject = addObjects(allSpellSkillsObject, manualSkillBonuses)
     return allSkillsObject
+}
+export function useConstAutoSkillBonuses() {
+    const abilities = useConstAllMyAbilities()
+    const spellsWithSkillObjects = abilities.filter(a => a?.['Skill Bonuses'] != null && !Array.isArray(a?.['Skill Bonuses']))
+    const allSpellSkillsObject = addManyObjects(spellsWithSkillObjects.map(s => s['Skill Bonuses']))
+    return allSpellSkillsObject
 }
 
 

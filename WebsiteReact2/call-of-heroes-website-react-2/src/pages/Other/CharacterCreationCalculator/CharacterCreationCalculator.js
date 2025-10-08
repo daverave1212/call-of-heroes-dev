@@ -39,19 +39,16 @@ import { STAT_NAMES } from "../../../services/game-lib/stat-calculations";
 
 
 const TAB_LAYOUT_LANDSCAPE = [
-    ['My Character', 'Name and Portrait'],
-    ['Stats and Level', 'Race', 'Class'],
-    ['Languages', 'Skills', 'Shop'],
-    ['Basic Abilities', 'Feats', 'Pets and Animals']
+    ['My Character'],
+    ['Name and Portrait', 'Stats and Level'],
+    ['Race', 'Class', 'Feats'],
+    ['Shop', 'Pets and Animals']
 ]
 const TAB_LAYOUT_PORTRAIT = [
     ['My Character'],
-    ['Name and Portrait'],
-    ['Stats and Level', 'Race'],
-    ['Class', 'Languages'],
-    ['Skills', 'Shop'],
-    ['Basic Abilities', 'Feats'],
-    ['Pets and Animals']
+    ['Name and Portrait', 'Stats and Level'],
+    ['Race', 'Class', 'Feats'],
+    ['Shop', 'Pets and Animals']
 ]
 const TAB_LAYOUT_MOBILE = TAB_LAYOUT_LANDSCAPE.flat().map(tabName => [tabName])
 export const TAB_NAMES = TAB_LAYOUT_LANDSCAPE.flat()
@@ -162,7 +159,7 @@ export default function CharacterCreationCalculator() {
     let [dialogState, setDialogState] = useState(null)
 
     const tabsLayout = 
-        windowDimensions.width <= 300?
+        windowDimensions.width <= 455?
             TAB_LAYOUT_MOBILE:
         windowDimensions.width > 900?
             TAB_LAYOUT_LANDSCAPE:
@@ -194,8 +191,8 @@ export default function CharacterCreationCalculator() {
             <Tabs layout={tabsLayout} activeTabI={activeTabI} setActiveTabI={setActiveTabI} tabComponents={[
                 <MyCharacter/>, <SectionNames onChange={newNamesState => setNames(newNamesState)}/>,
                 <SectionStats/>, <SectionRace openPopup={openPopup}/>, <SectionClass openPopup={openPopup}/>,
-                <SectionLanguages/>, <SectionSkills/>, <SectionShop/>,
-                <SectionBasicAbilities openPopup={openPopup}/>, <SectionFeats/>, <div></div>,
+                <SectionFeats/>, <SectionShop/>,
+                <div></div>,
             ]}/>
 
             <SaveCharacterButton/>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export default function TextArea({ initialValue, rows=30, cols=90, onChange, reactsToInitialValue=false, className, style }) {
+export default function TextArea({ initialValue, rows=17, cols=90, onChange, reactsToInitialValue=false, className, style }) {
 
     const [text, setText] = useState(initialValue)
 

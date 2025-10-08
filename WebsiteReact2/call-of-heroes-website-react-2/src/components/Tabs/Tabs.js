@@ -65,7 +65,12 @@ export default function Tabs({ layout, getTabIconSrc, tabComponents, activeTabI,
             <div className="tab-content margin-top-2">
                 { selectedTabName != null && (
                     <div className={`tab`}>
-                        { tabComponents[selectedTabI] }
+                        {
+                            selectedTabI >= tabComponents.length?
+                                tabComponents[0]
+                            :
+                                tabComponents[selectedTabI]
+                        }
                     </div>
                 ) }
             </div>

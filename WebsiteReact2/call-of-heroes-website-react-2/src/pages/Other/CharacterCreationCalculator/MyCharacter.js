@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
-import { getAllClasses, getAlMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getExtrasFromSpells, isString, spellsFromObject, useLocalStorageState, hasClassMana, getAllWeaponsByName, getAllArmorsByName, addObjects, getSpellReplacementName, reverseObject, addManyObjects, getSpellIconPathByName, addArrays } from "../../../utils"
+import { getAllClasses, getAlMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getExtrasFromSpells, isString, spellsFromObject, useLocalStorageState, hasClassMana, getAllWeaponsByName, getAllArmorsByName, addObjects, getSpellReplacementName, reverseObject, addManyObjects, getSpellIconPathByName, addArrays, withToggledElement } from "../../../utils"
 import ManySpells from "../../../components/Spell/ManySpells"
 import PageH2 from "../../../components/PageH2/PageH2"
 import TextArea from "../../../components/TextArea/TextArea"
 import Icon from "../../../components/Icon"
 import Input from "../../../components/Input/Input"
-import { getChoiceAbilitiesObjects, useAllSpellsMetadata, useArmors, useBasicAbilitiesNames, useConstAllBasicAbilities, useConstAllMyAbilities, useConstAllRaceAndClassSpells, useConstAllSkillBonuses, useConstAllSkillNames, useConstAvailableAbilitySchools, useConstKnownAbilitiesObj, useConstNKnownAbilities, useCurrentMana, useDescription, useGold, useInventory, useLanguages, useLevel, useManualBonuses, useMaxMana, useQuickNotes, useSectionClassName, useSectionClassSpecName, useSectionClassSpellNames, useSectionNamesState, useSectionRaceName, useSectionRaceSpellNames, useSectionStatsState, useSkills, useWeapons } from "./CharacterData"
+import { getChoiceAbilitiesObjects, useAllSpellsMetadata, useArmors, useBasicAbilitiesNames, useConstAllBasicAbilities, useConstAllMyAbilities, useConstAllRaceAndClassSpells, useConstAllSkillBonuses, useConstAllSkillNames, useConstAutoSkillBonuses, useConstAvailableAbilitySchools, useConstKnownAbilitiesObj, useConstNKnownAbilities, useCurrentHealth, useCurrentMana, useDescription, useGold, useInventory, useLanguages, useLevel, useManualBonuses, useManualCombatExtras, useManualNormalExtras, useManualSkillBonuses, useMaxMana, useQuickNotes, useSectionClassName, useSectionClassSpecName, useSectionClassSpellNames, useSectionNamesState, useSectionRaceName, useSectionRaceSpellNames, useSectionStatsState, useSkills, useWeapons } from "./CharacterData"
 import { StatValue } from "./SectionStats"
 import SmallStat, { SmallStatTypes } from "../../../components/SmallStat/SmallStat"
 import ManySmallStats from "../../../components/SmallStat/ManySmallStats"
@@ -14,8 +14,12 @@ import Dialog from "../../../components/Dialog/Dialog"
 import ChangeStatDialog from "./ChangeStatDialog"
 import Spoiler from "../../../components/Spoiler/Spoiler"
 import Selector from "../../../components/Selector/Selector"
-import { calculateAllAtributes, calculateBaseMaxManaByLevel, getAllStatBonusesYMLAsObjFromSpellsArray, getStatsArrayFromObject, HEALTH_REGEN, INITIATIVE, MAX_HEALTH, MOVEMENT_SPEED, STAT_NAMES } from "../../../services/game-lib/stat-calculations"
+import { calculateAllAtributes, calculateBaseMaxManaByLevel, getAllStatBonusesYMLAsObjFromSpellsArray, getStatsArrayFromObject, HEALTH_REGEN, INITIATIVE, KNOWN_ABILITIES, MAX_HEALTH, MOVEMENT_SPEED, STAT_NAMES } from "../../../services/game-lib/stat-calculations"
 import PageH3 from "../../../components/PageH3/PageH3"
+import CopySpellButton from "../../../components/CopyButton/CopySpellButton"
+import { ResourceBar } from "../../../components/ResourceBar/ResourceBar"
+import { QGTitle1 } from "../../Tools/TitleGenerator"
+import PageH1 from "../../../components/PageH1/PageH1"
 
 
 
@@ -31,7 +35,7 @@ function BigStatValue({ name, value, onClick}) {
 
 
 
-export function useConstBonusesYMLFromSpellsAndItems() {
+export function useConstBonusesFromSpellsAndItems() {
     let [armorNames] = useArmors()
     const allMyArmors = armorNames.map(name => getAllArmorsByName()[name])
     const allMyRaceAndClassSpells = useConstAllRaceAndClassSpells()
@@ -43,17 +47,15 @@ export function useConstBonusesYMLFromSpellsAndItems() {
     return { bonuses, sources }
 }
 export function useConstAllBonuses() {
-    const { bonuses, sources } = useConstBonusesYMLFromSpellsAndItems()
+    const { bonuses, sources } = useConstBonusesFromSpellsAndItems()
     const [manualBonuses] = useManualBonuses()
-    // const choiceBonusesObj = getChoiceAbilitiesObjects().map(obj => ({ [obj.statName]: obj.bonus }))
-    // const choiceBonuses = addManyObjects(choiceBonusesObj)
     const allBonuses = addManyObjects([bonuses, manualBonuses])
     console.log(`Adding the following`)
     console.log({ bonuses, manualBonuses, allBonuses})
     return { bonuses: allBonuses, sources: sources }
 }
 export function useConstTotalStats() {
-    const { bonuses } = useConstBonusesYMLFromSpellsAndItems()
+    const { bonuses } = useConstBonusesFromSpellsAndItems()
     const [manualBonuses, _] = useManualBonuses()
     const [baseStats] = useSectionStatsState()
     
@@ -84,6 +86,8 @@ export default function MyCharacter() {
 
     // Local states
     let [statNameToChange, setStatNameToChange] = useState(null)
+    let [skillToChange, setSkillToChange] = useState(null)
+
     let [areMinorSpellsHidden, setAreMinorSpellsHidden] = useState(true)
 
     // LocalStorage states
@@ -94,9 +98,13 @@ export default function MyCharacter() {
     let [selectedClassName] = useSectionClassName()
     
     let [selectedSpecName] = useSectionClassSpecName()
+
+    let [manualBonuses, setManualBonuses] = useManualBonuses()
+    let [manualSkillBonuses, setManualSkillBonuses] = useManualSkillBonuses()
+    let [manualNormalExtras, setManualNormalExtras] = useManualNormalExtras()
+    let [manualCombatExtras, setManualCombatExtras] = useManualCombatExtras()
     
     let [spellsMetadata, setSpellsMetadata] = useAllSpellsMetadata()
-    let [selectedBasicAbilitiesNames] = useBasicAbilitiesNames()
     
     let [description, setDescription] = useDescription()
     let [quickNotes, setQuickNotes] = useQuickNotes()
@@ -109,12 +117,14 @@ export default function MyCharacter() {
     let [languages] = useLanguages()
 
     let [currentMana, setCurrentMana] = useCurrentMana()
+    let [currentHealth, setCurrentHealth] = useCurrentHealth()
     
     let totalStats = useConstTotalStats()
 
 
     const myBasicAbilities = useConstAllBasicAbilities()
     const mySkillBonuses = useConstAllSkillBonuses()
+    const autoSkillBonuses = useConstAutoSkillBonuses()
     // const mySkills = useConstAllSkillNames()
 
 
@@ -147,6 +157,39 @@ export default function MyCharacter() {
     const attributes = calculateAllAtributes({raceName: selectedRaceName, className: selectedClassName, level, totalStats, bonuses})
     const maxMana = selectedClassName == null? 1: calculateBaseMaxManaByLevel(level, selectedClassName)
 
+
+    // Functions
+    function addSkill() {
+        setStatDialogOptions({
+            defaultInputValue: '',
+            defaultNumberValue: 0,
+            title: "New Skill",
+            description: `Add new Non-Combat Skill.`,
+            onDone: ({ name, value }) => setManualSkillBonuses({
+                ...manualSkillBonuses,
+                [name]: value
+            })
+        })
+    }
+    function addNormalExtra() {
+        setStatDialogOptions({
+            defaultInputValue: '',
+            defaultNumberValue: null,
+            title: "New Quick Reference",
+            description: `Add new quick reference tidbit.`,
+            onDone: ({ name, value }) => setManualNormalExtras(withToggledElement(manualNormalExtras, name))
+        })
+    }
+    function addCombatExtra() {
+        setStatDialogOptions({
+            defaultInputValue: '',
+            defaultNumberValue: null,
+            title: "New Quick Combat Reference",
+            description: `Add new quick combat reference tidbit.`,
+            onDone: ({ name, value }) => setManualCombatExtras(withToggledElement(manualCombatExtras, name))
+        })
+    }
+
     // Other
     let setInputGold    // Set in the Input property
 
@@ -160,25 +203,37 @@ export default function MyCharacter() {
             { source.bonus } { source.statName }
             &nbsp;({ source.source })
         </div>) }</>
+    const SkillBonus = ({name, value}) => {
+        return <div className="skill-bonus pointer" onClick={() => setSkillToChange(name)}>
+            <div className="left">
+                <Icon name="CharacterSetupSub"/> {name}
+            </div>
+            <div className="right">
+                {value}
+            </div>
+        </div>
+    }
     const Skills = () => <>{
-        Object.keys(mySkillBonuses).map(skillName => <div className="extra">
-            <Icon name="CharacterSetupSub"/>
-            {
-                mySkillBonuses[skillName] > 0? '+' + mySkillBonuses[skillName]: mySkillBonuses[skillName]
-            }
-            in
-            {
-                skillName
-            }
-        </div>)
+        Object.keys(mySkillBonuses)
+            .filter(skillName => {
+                if (manualSkillBonuses[skillName] == 0 && !(skillName in autoSkillBonuses)) {
+                    return false
+                }
+                return true
+            })
+            .map(skillName => <SkillBonus name={skillName} value={mySkillBonuses[skillName] > 0? '+' + mySkillBonuses[skillName]: mySkillBonuses[skillName]}/>)
     }</>
-    const Languages = () => <>{ languages.map(text => <div className="extra italic"><Icon name="Specializations"/>You speak { text }</div>) }</>
-    
+    const Languages = () => <>{ languages.map(text => <div className="extra"><Icon name="Specializations"/>You speak { text }</div>) }</>
+
     // Subcomponents
     function Names() {
         return <div className="flex flex-column">
-            <h1 className="center-text full-width">{ names.characterName }</h1>
-            <h2 className="center-text full-width">Level {level} { selectedRaceName } { selectedClassName } { selectedSpecName != null && `(${selectedSpecName})`}</h2>
+            <div className="center-content">
+                <QGTitle1 text={names.characterName} height={45}/>
+            </div>
+            {/* <PageH3>Level {level} { selectedRaceName } { selectedClassName } { selectedSpecName != null && `(${selectedSpecName})`}</PageH3> */}
+            {/* <h1 className="center-text full-width">{ names.characterName }</h1> */}
+            <h2 className="center-text full-width margin-top-0" style={{fontFamily: 'HomeFont', color: 'var(--dark-color)'}}>Level {level} { selectedRaceName } { selectedClassName } { selectedSpecName != null && `(${selectedSpecName})`}</h2>
         </div>
     }
     function StatsColumn() {
@@ -226,70 +281,30 @@ export default function MyCharacter() {
         const nKnownAbilities = useConstNKnownAbilities()
 
         return (
-            <div className="flex-row margin-top-1 gap-3q">
-                <div className="flex-column flex-1 gap-3q">
-                    <SmallStat onClick={() => setStatNameToChange('Known Abilities')} type={SmallStatTypes.VERTICAL} name="Number of Known Basic Abilities">{nKnownAbilities} Basic {nKnownAbilities == 1? 'Ability': 'Abilities'}</SmallStat>
-                    { selectedClassName && hasClassMana(selectedClassName) && (<ManaBar/>) }
-                </div>
-                <div className="flex-column flex-1">
-                    {/* <ManySmallStats name="Available Ability Schools" style={{minWidth: '300px', flexGrow: 1}} color={'var(--dark-color)'} texts={knownAbilitySchools}/> */}
-                    { selectedClassName != null && (
-                        <div className="margin-top-half">
-                            { selectedClassObj.Spellcasting?.Mana?.Regain != null && (
-                                <p>{ selectedClassObj.Spellcasting?.Mana?.Regain }</p>
-                            ) }
-                        </div>
-                    ) }
-                </div>
+            <div className="flex-column gap-3q">
+                <HealthBar/>
+                { selectedClassName && hasClassMana(selectedClassName) && (<ManaBar/>) }
+                <SmallStat onClick={() => setStatNameToChange('Known Abilities')} type={SmallStatTypes.VERTICAL} name="Extra Minor & Utility Talents">{attributes[KNOWN_ABILITIES]} {attributes[KNOWN_ABILITIES] == 1? 'Ability': 'Abilities'}</SmallStat>
+                { selectedClassName != null && (
+                    <div className="margin-top-half">
+                        { selectedClassObj.Spellcasting?.Mana?.Regain != null && (
+                            <p>{ selectedClassObj.Spellcasting?.Mana?.Regain }</p>
+                        ) }
+                    </div>
+                ) }
             </div>
         )
     }
+
     function ManaBar() {
-        function onIncrease() {
-            const newMana = currentMana + 1
-            if (newMana > maxMana + 5) {
-                return
-            }
-            setCurrentMana(newMana)
-        }
-        function onDecrease() {
-            const newMana = currentMana - 1
-            if (newMana < -4) {
-                return
-            }
-            setCurrentMana(newMana)
-        }
-
-        const percentageFilled = currentMana > maxMana? 100: currentMana < 0? 0: ((currentMana / maxMana) * 100)
-        const labelText = currentMana > maxMana? 'Mana (extra)': currentMana < 0? 'Mana (?)' : 'Mana'
-        const barHeight = '2.5rem'
-        const innerHeight = `calc(${barHeight} - 0px)`
-        const smallStatValueStyle = {
-            padding: '0px',
-            paddingTop: '3px',
-            height: innerHeight,
-        }
-        const buttonStyle = {
-            height: '100%',
-            width: innerHeight,
-            backgroundColor: 'var(--dark-color)'
-        }
-
-        return (
-            <div className="small-stat-container wrapper">
-                <div className="small-stat small-stat--column" style={{borderColor: 'white'}}>
-                    <div style={{backgroundColor: 'var(--dark-color)', borderRadius: '3px'}} className="small-stat__name">{labelText}</div>
-                    <div className="small-stat__value flex-row gap-quarter" style={smallStatValueStyle}>
-                        <button style={buttonStyle} onClick={onDecrease}>-</button>
-                        <div className="mana-bar flex-grow">
-                            <div className="filling" style={{width: percentageFilled + '%'}}></div>
-                            <div className="number">{currentMana} / {maxMana}</div>
-                        </div>
-                        <button style={buttonStyle} onClick={onIncrease}>+</button>
-                    </div>
-                </div>
-            </div>
-        )
+        return <div className="small-stat-container wrapper">
+            <ResourceBar name="Mana" maxValue={maxMana} value={currentMana} setValue={setCurrentMana}/>
+        </div>
+    }
+    function HealthBar() {
+        return <div className="small-stat-container wrapper">
+            <ResourceBar name="Health" maxValue={attributes[MAX_HEALTH]} value={currentHealth} setValue={setCurrentHealth} color1='var(--dark-red-color)' color2='rgba(223, 28, 28, 1)'/>
+        </div>
     }
     function CombatItem({item, type=''}) {
         type = type.toLowerCase()
@@ -314,66 +329,83 @@ export default function MyCharacter() {
         )
     }
 
+    let [statDialogOptions, setStatDialogOptions] = useState(null)
+
     return (
         <div id="My-Character">
 
-            <ChangeStatDialog statName={statNameToChange} setStatName={setStatNameToChange}/>
+            {statDialogOptions != null && <ChangeStatDialog
+                {...statDialogOptions}
+                close={() => setStatDialogOptions(null)}
+            />}
 
-            <Names/>
+            <div id="My-Character-Upper-Part">
+                <Names/>
 
-            {/* <PortraitAndDescriptionRowP/> */}
-            <div className="portrait-only">
-                <PortraitAndDescription/>
-            </div>
-            <div className="flex flex-row margin-top-1" style={{gap: 'var(--stats-gap)'}}>
-                <StatsColumn/>
-                <BaseStatsAndCombatColumn/>
-                <div className="landscape-only">
+                {/* <PortraitAndDescriptionRowP/> */}
+                <div className="portrait-only">
                     <PortraitAndDescription/>
                 </div>
-            </div>
-
-            <div className="flex flex-row margin-top-1 gap-3q">
-                <div className="flex-column" style={{flex: 1, gap: '5px'}}>
-                    <PageH3>Non-Combat Skills</PageH3>
-                    <Skills/>
-                </div>
-                <div className="flex-column" style={{flex: 1, gap: '5px'}}>
-                    <PageH3>Languages</PageH3>
-                    <AbilitiesExtras/>
-                    <Languages/>
-                </div>
-            </div>
-
-            <div className="flex-row margin-top-1 gap-3q">
-                <div className="inventory-wrapper wrapper relative">
-                    <TextArea className={`inventory`} initialValue={inventory} reactsToInitialValue={true} onChange={(newVal) => setInventory(newVal)}/>
-                    <div className="gold-wrapper wrapper">
-                        <Input className="gold" value={gold} setSet={func => setInputGold = func} onChange={newVal => {
-                            const newValFloat = parseFloat(newVal)
-                            console.log({newValFloat})
-                            if (isNaN(newValFloat) || (isString(newValFloat) && newValFloat.length == 0)) {
-                                setGold(gold)
-                                console.log(`Resetting gold input to ${gold}`)
-                                setInputGold(gold)   // Reset to what it was
-                            } else {
-                                setGold(newValFloat)
-                            }
-                        }}/>
-                        <div className="input-description" style={{left: '-1px', bottom: '5px'}}>Gold</div>
+                <div className="flex flex-row margin-top-1" style={{gap: 'var(--stats-gap)'}}>
+                    <StatsColumn/>
+                    <BaseStatsAndCombatColumn/>
+                    <div className="landscape-only">
+                        <PortraitAndDescription/>
                     </div>
-                    <div className="input-description">Inventory</div>
                 </div>
-                <div className="flex-column" style={{flex: 1, gap: '5px'}}>
-                    <BonusesWithSources/>
-                    <CombatExtras/>
-                    <ArmorExtras/>
+
+                <div className="flex flex-row margin-top-1 gap-3q">
+                    <div className="flex-column" style={{flex: 1, gap: '5px'}}>
+                        <PageH3>Non-Combat Skills</PageH3>
+                        <Skills/>
+                        <button className="extra" onClick={addSkill}>+</button>
+                    </div>
+                    <div className="flex-column" style={{flex: 1, gap: '5px'}}>
+                        <PageH3>Languages</PageH3>
+                        <AbilitiesExtras/>
+                        <Languages/>
+                        { manualNormalExtras.map(str => <div className="extra">{str}</div>) }
+                        <button className="extra" onClick={addNormalExtra}>+</button>
+                    </div>
+                    <div className="flex-column" style={{flex: 1, gap: '5px'}}>
+                        <PageH3>Combat Other</PageH3>
+                        <CombatExtras/>
+                        <ArmorExtras/>
+                        { manualCombatExtras.map(str => <div className="extra">{str}</div>) }
+                        <button className="extra" onClick={addCombatExtra}>+</button>
+                    </div>
                 </div>
+
+                <div className="flex-row margin-top-1 gap-3q">
+                    <div className="inventory-wrapper wrapper relative flex-2">
+                        <TextArea className={`inventory`} initialValue={inventory} reactsToInitialValue={true} onChange={(newVal) => setInventory(newVal)}/>
+                        <div className="gold-wrapper wrapper">
+                            <Input className="gold" value={gold} setSet={func => setInputGold = func} onChange={newVal => {
+                                const newValFloat = parseFloat(newVal)
+                                console.log({newValFloat})
+                                if (isNaN(newValFloat) || (isString(newValFloat) && newValFloat.length == 0)) {
+                                    setGold(gold)
+                                    console.log(`Resetting gold input to ${gold}`)
+                                    setInputGold(gold)   // Reset to what it was
+                                } else {
+                                    setGold(newValFloat)
+                                }
+                            }}/>
+                            <div className="input-description" style={{left: '-1px', bottom: '5px'}}>Gold</div>
+                        </div>
+                        <div className="input-description">Inventory</div>
+                    </div>
+                    <div className="flex-1">
+                        <Spellcasting/>
+                    </div>
+                </div>
+                
+
+                <CopySpellButton elementId="My-Character-Upper-Part" shouldAddBorder={false}/>
             </div>
 
             <ManySpells className="margin-top-1" spells={allMyWeapons} areItems={true} shouldIgnoreAlignment={true}/>
 
-            <Spellcasting/>
             
             <PageH2 className="margin-top-2">Minor Spells (hidden)</PageH2>
             <button onClick={() => setAreMinorSpellsHidden(!areMinorSpellsHidden)}>{ areMinorSpellsHidden? 'Show': 'Hide' }</button>

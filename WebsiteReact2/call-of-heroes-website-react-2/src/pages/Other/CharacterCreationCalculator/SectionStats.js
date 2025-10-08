@@ -6,7 +6,7 @@ import { getRace, useLocalStorageState, calculateAttributesFromStatsAndBonuses }
 import Page from "../../../containers/Page/Page"
 import { QGTitle1 } from "../../Tools/TitleGenerator"
 import Icon from "../../../components/Icon"
-import { useConstBonusesYMLFromSpellsAndItems, useConstTotalStats } from "./MyCharacter"
+import { useConstBonusesFromSpellsAndItems, useConstTotalStats } from "./MyCharacter"
 import Input from "../../../components/Input/Input"
 import { useExperience, useLevel, useSectionRaceName, useSectionStatsState } from "./CharacterData"
 import { AttributeCalculationTextComponent, calculateExperienceByLevel, calculateStatsToAttributesObject, checkStatRequirements, DEFAULT_STAT_ARRAY, STAT_ICON_NAME_MAP, STAT_NAMES } from "../../../services/game-lib/stat-calculations"
@@ -75,7 +75,7 @@ export default function SectionStats() {
     let [level, setLevel] = useLevel()
     let [stats, setStats] = useSectionStatsState()
     let totalStats = useConstTotalStats()
-    let { bonuses } = useConstBonusesYMLFromSpellsAndItems()
+    let { bonuses } = useConstBonusesFromSpellsAndItems()
     let [selectedRaceName] = useSectionRaceName()
     let [experience, setExperience] = useExperience()
 

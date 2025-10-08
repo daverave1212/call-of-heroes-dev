@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import html2canvas from 'html2canvas'
 import './CopySpellButton.css'
 
 function drawOuterBorderOnCanvas(canvas) {

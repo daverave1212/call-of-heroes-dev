@@ -75,7 +75,8 @@ export function getAttributeBonusesFromLevel(level, classObj) {
         [MAX_HEALTH]: (level - 1) * classObj['Level Up']['Every Level'].Health,
         [HEALTH_REGEN]: (level - 1) * 2,
         [MOVEMENT_SPEED]: 0,
-        [INITIATIVE]: 0
+        [INITIATIVE]: 0,
+        [KNOWN_ABILITIES]: 0
     }
 }
 export const BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP = {

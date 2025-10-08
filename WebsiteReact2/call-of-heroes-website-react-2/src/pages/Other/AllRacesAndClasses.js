@@ -25,7 +25,7 @@ export const Races = {
     Gnome,
     Hollow,
     Human,
-    Orc
+    Giant: Orc
 }
 export const Classes = {
     Cleric,

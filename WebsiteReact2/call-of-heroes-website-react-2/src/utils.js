@@ -671,6 +671,13 @@ export function uniqueElements(arr) {
 export function onlyUniqueFilter(value, index, array) {   // Use as .filter(onlyUniqueFilter)
     return array.indexOf(value) === index;
 }
+export function withToggledElement(arr, elem) {
+    if (arr.includes(elem)) {
+        return arr.filter(e => e != elem)
+    } else {
+        return [...arr, elem]
+    }
+}
 
 window.splitArrayEvenly = splitArrayEvenly
 

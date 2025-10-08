@@ -5303,22 +5303,15 @@
         "Combat Extras": [
             "You can jump 3 meters without requiring a Check"
         ],
-        "Effect": "Your Movement Speed is increased by 1.\nYou can jump 3 meters without requiring a Check (e.g. over enemies, gaps, etc).\n",
+        "Effect": "Your starting Stats distribution is 0, 0, 0, 2 (instead of -1, 0, 1, 2).\nYou have +1 Movement Speed\nYou can jump 3 meters without requiring a Check (e.g. over enemies, gaps, etc).\n",
         "Notes": "Jumping still uses Movement."
-    },
-    "~All Eyes and Noses~": {
-        "AlignOnWebsite": "Right",
-        "A": "Reaction",
-        "Cooldown": "1 hour",
-        "IsNonCombat": true,
-        "Effect": "Whenever you fail a Spirit Check, you can spend 2 Health to reroll it.",
-        "Notes": "You always know if you failed a Spirit Check."
     },
     "~Tall Paws or Hooves~": {
         "A": "Passive",
         "IsIgnored": true,
         "Combat Extras": [
-            "You are immune to Slows."
+            "You are immune to Slows",
+            "You can not wear Boots"
         ],
         "Effect": "You are immune to being Slowed.",
         "Downside": "You can not wear boots."
@@ -5343,14 +5336,20 @@
     },
     "~Thick Shell~": {
         "A": "Passive",
-        "Effect": "While unarmored, You take -50% Slash Damage when hit from behind instead of having +1 Movement Speed."
+        "Combat Extras": [
+            "-50% Slash Damage taken from behind while unarmored."
+        ],
+        "Effect": "While unarmored, you take -50% Slash Damage when hit from behind instead of having +1 Movement Speed."
     },
     "~Horns~": {
         "A": "Passive",
-        "Effect": "Whenever you gain Shielding, increase its value by 1.\nYou have +2 in Intimidation.\n",
-        "Skills": [
-            "+2 Intimidation"
+        "Combat Extras": [
+            "When you gain Shielding, give it +1"
         ],
+        "Effect": "Whenever you gain Shielding, increase its value by 1.\nYou have +2 in Intimidation.\n",
+        "Skills": {
+            "Intimidation": 2
+        },
         "Downside": "You can't wear helmets (hats might fit you, though)."
     },
     "~Feral Claws~": {
@@ -5378,6 +5377,9 @@
     "~Avian Wings~": {
         "A": "0 Actions",
         "Cooldown": "Once / real hour",
+        "Combat Extras": [
+            "You don't take Falling Damage."
+        ],
         "Effect": "Quickly fly up to 3 meters (e.g. almost instantly).\nPassively, you don't take Falling Damage.\n",
         "Upgrade": "Your arms and hands become bird-like wings, but that makes it harder for you to hold and use weapons.",
         "Downside": "-1 on all weapon attacks"
@@ -5393,13 +5395,30 @@
     },
     "~Fins~": {
         "A": "Passive",
-        "Effect": "You have +2 Initiative.\nYou can swim at your normal speed + 1 meter.\n"
+        "Bonuses": {
+            "Initiative": 2
+        },
+        "Combat Bonuses": [
+            "You swim at your Movement Speed + 1 meter"
+        ],
+        "Effect": "You have +2 Initiative.\nYou can swim at your normal Movement Speed + 1 meter.\n"
     },
     "~I Am Speed~": {
         "A": "Passive",
         "HasMixins": true,
+        "Combat Extras": [
+            "You can use Dexterity instead of Intelligence or Spirit for weapons and Abilities"
+        ],
         "Effect": "In Abilities or weapons that use Intelligence or Spirit, you can use your Dexterity instead.\n",
         "Notes": "E.g. Chilling Shout becomes 12 + ^Dexterity^ instead of 12 + ^Spirit^. Phase Orb becomes 2d6 + ^Dexterity + Dexterity^ instead of 2d6 + ^Intelligence + Spirit^."
+    },
+    "~All Eyes and Noses~": {
+        "AlignOnWebsite": "Right",
+        "A": "Reaction",
+        "Cooldown": "1 hour",
+        "IsNonCombat": true,
+        "Effect": "Whenever you fail a Spirit Check, you can spend 2 Health to reroll it.",
+        "Notes": "You always know if you failed a Spirit Check."
     },
     "~Alignment~": {
         "A": "Passive",
@@ -5451,7 +5470,7 @@
         "AlignOnWebsite": "Left",
         "IsIgnored": true,
         "Combat Extras": [
-            "You take -50% Damage from your chosen element."
+            "-50% Damage Taken from your chosen element."
         ],
         "A": "Special",
         "Effect": "When creating your character, choose any element from Acid, Cold, Fire, Shock, Pulse, Poison and Scourge.\nYou take -50% Damage from that Damage type.\n",
@@ -5475,34 +5494,42 @@
         "A": "0 Actions",
         "Cost": "1 Mana or 6 Health",
         "Cooldown": "Once / Turn",
+        "Combat Extras": [
+            "You don't take Falling Damage"
+        ],
+        "Skill Bonuses": {
+            "Stealth": -2
+        },
         "Effect": "Quickly fly up to 6 meters (e.g. almost instantly).\nPassively, you don't take Falling Damage.\n",
         "Downside": "You have -2 in Stealth",
-        "Skills": [
-            "-2 Stealth"
-        ],
         "Upgrade": "You have membranous dragon-like wings growing from your back, which allow you to fly for short distances."
     },
     "~Hulking Dracontaur~": {
         "A": "Special",
         "IsIgnored": true,
-        "Bonuses": [
-            {
-                "Health Regen": -2
-            },
-            {
-                "Dexterity": -1
-            },
-            {
-                "Might": 1
-            }
-        ],
+        "Bonuses": {
+            "Health Regen": -2,
+            "Dexterity": -1,
+            "Might": 1
+        },
         "Combat Extras": [
-            "+1 Defense while Unarmored (-2 HR, -1 DEX and +1 MIG were added automatically)."
+            "+1 Defense while Unarmored",
+            "You are Long (2x1 meters)"
         ],
-        "Effect": "Your lower body is 4-legged, like a draconic-centaur, and your size is Long.\nYou have -2 Health Regen and -1 Dexterity, but +1 Might (up to +4) and, while Unarmored, you have +1 Defense instead of +1 Movement Speed.\nYou are Long and occupy a 2x1 meter area.\n"
+        "Effect": "Your lower body is 4-legged, like a draconic-centaur, and your size is Long.\nYou have -2 Health Regen and -1 Dexterity, but +1 Might and, while Unarmored, you have +1 Defense instead of +1 Movement Speed.\nYou are Long and occupy a 2x1 meter area.\n"
     },
     "~Primordial Dragon~": {
         "A": "Special",
+        "Combat Extras": [
+            "You are Large (2x2 meters)",
+            "Your armor needs to be fitted"
+        ],
+        "Bonuses": {
+            "Intelligence": 1,
+            "Max Health": 6,
+            "Dexterity": -1,
+            "Spirit": -1
+        },
         "Effect": "You are Large and occupy a 2x2 meter area.\nYou have +1 Intelligence (up to +4) and +6 Max Health, but -1 Dexterity and -1 Spirit.\n",
         "Downside": "Body and legs armor must be fitted on you by paying 50% of its original cost.\nYou can wear belts as bracers, and bracers as rings.\n"
     },
@@ -5520,14 +5547,9 @@
         "A": "Passive",
         "IsIgnored": true,
         "Combat Extras": [
-            "You also take -50% Damage from your 2nd chosen element."
+            "-50% Damage from your 2nd chosen element."
         ],
         "Effect": "Choose one more Element from Dragon Ancestry\nYou take -50% Damage from that Damage type.\n    \n"
-    },
-    "~Dwarf Resting~": {
-        "A": "Passive",
-        "Effect": "As a Dwarf, you sleep in one single 8 hour cycle, without dreaming or moving in your sleep. You can also choose to hibernate for up to 48 hours without needing to eat or drink to cure all normal diseases and poisons on you.\n",
-        "Notes": "Loud noises and movement still wake you up as they normally would.\n"
     },
     "~Stouthearten~": {
         "A": "Passive",
@@ -5538,61 +5560,60 @@
         "Effect": "You can wear an extra layer of Light or Medium armor over (or underneath) your armor. Apply all of its effects as normal.\n",
         "Notes": "Unarmored is not an armor. 50% Damage reductions of the same type do not stack"
     },
-    "~Dwarven Determination~": {
-        "A": "Reaction",
-        "Cooldown": "Once / Adventure",
-        "Effect": "Use when you or an ally takes Damage that would make them fallen. That Damage is reduced by 100%."
-    },
-    "~Stone-Like Bones~": {
-        "A": "Passive",
-        "IsIgnored": true,
-        "Combat Extras": [
-            "You take -50% Pulse, Falling and physical trap Damage"
-        ],
-        "Effect": "Your bones are tough as rock.\nYou only take 50% Pulse Damage, from falling and from traps that deal physical Damage.\n"
-    },
-    "~Inscription Scholar~": {
-        "A": "Passive",
-        "Effect": "You can inscribe one extra Rune onto weapons.\nYou can inscribe one Elemental, Intelligence or Spirit Rune onto gloves. All Spells gain the Rune's effect when cast wearing these gloves, if possible.\n",
-        "Upgrade": "If it makes sense, you can also inscribe other more powerful Runes (Magic Items) onto gloves.",
-        "Notes": "Only one Rune can be inscribed onto gloves."
-    },
-    "~Adept of the Forge~": {
+    "~Forgeborn~": {
         "A": "1 hour",
         "Cooldown": "Once / Adventure",
         "HasMixins": true,
-        "Effect": "Spend 1 hour at a forge while in a friendly town to craft an artisanal 2-handed weapon or an armor, that's made of metal.\nSpend {Gold}Gold equal the item's base cost.\nIf it's a 2-handed weapon, it deals +1 Damage. If it's an armor, its wearer has +2 Max Health.\n",
-        "Upgrade": "If the weapon baseline contains any wood, increase the cost by 50% {Gold}Gold.",
+        "Effect": "Spend 1 hour at a forge while in a friendly town to craft an artisanal 2-handed weapon or an armor, that's made of metal.\nSpend {Gold}Gold equal the item's base cost + 100.\nIf it's a 2-handed weapon, it deals +1 Damage. If it's an armor, its wearer has +2 Max Health.\n",
+        "Upgrade": "Smelting, forging, and crafting - must-know skills for many dwarves. It is not just a mere rumor that many of the best blacksmiths are dwarves, or have been born and raised in Forgeborn dwarf societies.",
         "Notes": "For example, you can't craft padded armor, robes, leather armor, etc."
     },
-    "~Thick Feet~": {
-        "A": "Passive",
-        "Effect": "Your movement speed can't be reduced below 4, and you are immune to being Slowed and to Hard Terrain.\n",
-        "Notes": "You are not immune to Roots.\n"
-    },
-    "~Runesmith~": {
-        "A": "Passive",
-        "Effect": "You permanently know 2 Basic Abilities from the Arcane or Mysticism Basic Ability Lists.\nYou become Skilled in Arcane (see Skills).\n",
-        "Notes": "You can't change these Spells, so choose wisely.\nYou must still respect the Level requirement for these Spells, if any.\n"
-    },
-    "~Nap Time~": {
+    "~Uldran Ancestry~": {
         "A": "12 hours",
         "Cooldown": "Once / Adventure",
-        "Effect": "You can spend 12 hours sleeping to recover 5 Health.\n"
+        "Effect": "You can spend 12 hours sleeping to recover 1d6 Health.\n\nAlso, you can choose to hibernate for 48 hours to cure all your minor diseases and poisons.\n",
+        "Upgrade": "The nordic dwarves have made hibernation a core skill to surviving the harsh winters of the mountains.",
+        "Notes": "Loud noises and movement still wake you up as they normally would."
     },
-    "~Skill of Trade~": {
+    "~Shoreraider~": {
         "A": "Passive",
-        "IsIgnored": true,
-        "Extras": [
-            "+5 to Checks for stone environments",
-            "Free food and shelter in taverns"
-        ],
-        "Bonuses": [
-            {
-                "Spirit": 1
-            }
-        ],
-        "Effect": "Your Spirit increases by 1 (up to a maximum of +3).\nYou gain an extra +5 to Checks when checking environment elements made of stone.\nYou can get free shelter and food in inns and taverns (if you would normally be able to pay for them).\n"
+        "Skill Bonuses": {
+            "Boating": 1,
+            "Swimming": 1
+        },
+        "Effect": "When defeating people, your team loots +10% {Gold}Gold and goods like gems, metals, textiles, etc.\nYou have +1 in Boating and Swimming.\n",
+        "Upgrade": "Long boats, wooden homes and raiding parties are the common sight you grew up with, and you have learned much about these crafts throughout the years, for better or worse...",
+        "HasMixins": true
+    },
+    "~Stonekin~": {
+        "A": "Reaction",
+        "Cooldown": "Once / Adventure",
+        "Effect": "Use when you or an ally takes Damage that would make them fallen. That Damage is reduced by 100%.",
+        "Upgrade": "Certain subspecies of dwarves come from Stonekin clans, and are fit for roles of leadership due to their thick, almost stone-like textured skin and temper."
+    },
+    "~Child of the Runes~": {
+        "A": "Passive",
+        "Effect": "You can inscribe one extra Rune onto weapons.\nYou can inscribe one Elemental, Intelligence or Spirit Rune onto gloves. All Spells gain the Rune's effect when cast wearing these gloves, if possible.\nIf it makes sense, you can also inscribe other more powerful Runes (Magic Items) onto gloves.\n",
+        "Upgrade": "Some dwarven communities rely on runes for protection, enchantment and utility. Many of their buildings are laid out on key coordinates representing numbers or conceprs with strong meanings, and their clothes are often woven in the shape of constelations for good fortune and increased control over magic.",
+        "Notes": "Only one Rune can be inscribed onto gloves."
+    },
+    "~Irontouched~": {
+        "A": "Passive",
+        "Bonuses": {
+            "Movement Speed": -1,
+            "Might": 1
+        },
+        "Effect": "You have -1 Movement Speed, but +1 Might.\n",
+        "Upgrade": "Your skin has a metal-like sheen to it, your beard and hair are thick like metal strings and your finger nails resemble gems the same color as your eyes. As you age, these become more and more valuable, even being made of gold and emeralds in your days of age.\nDwarves with Irontouched ancestries have learend to be wary of strangers and bandits, many of whom will not waste the chance to kill and sell Irontouched body parts for money.\n"
+    },
+    "~Landliving~": {
+        "A": "Passive",
+        "Effect": "You have access to Level 1 Minor and Utility Druid Talents, up to your Level, no matter what Class you are.",
+        "Upgrade": "From more obscure and hidden dwellings around the world, the Landliving dwarves inhabit forests, hill-houses and sometimes swamps, and have learned to live off the land. However, some of them are said to innately wield nature magic, and they may be regarded as oddly special or particularly uncanny."
+    },
+    "~Dvergr Blood~": {
+        "A": "Passive",
+        "Effect": "TBD"
     },
     "~Meditation~": {
         "A": "Passive",
@@ -5603,35 +5624,52 @@
         "IsIgnored": true,
         "Effect": "When creating your character, choose 3 Elf Talents from below instead of 1."
     },
-    "~Ancient Old Race~": {
+    "~High Elf Ancestry~": {
         "A": "Passive",
         "Effect": "You have access to Level 1 Minor and Utility Mage Talents, up to your Level, no matter what Class you are."
     },
     "~Seasonal Changes~": {
         "A": "Passive",
-        "Effect": "Elemental hair"
+        "Effect": "Elemental hair and such."
     },
-    "~High Elf Ancestry~": {
+    "~Moon Elf Ancestry~": {
         "A": "0 Actions",
-        "Cooldown": "Once / Combat",
-        "Range": "3 meters",
-        "Effect": "A Unit within 3 meters becomes Silenced.",
-        "Downside": "Only usable on Units with Spirit is lower than yours.",
-        "Notes": "As such, you always know if a Unit's Spirit is lower than yours."
+        "Cooldown": "Once / Adventure",
+        "Range": "3 meters.",
+        "Combat Extras": [
+            "You can inscribe 1 extra Rune on swords, bows, spear"
+        ],
+        "Effect": "Silence a Unit.\nAlso, passively, you can inscribe 1 extra Rune on any sword, bow or spear.\n"
+    },
+    "~Purebreed~": {
+        "A": "10 minutes",
+        "Cooldown": "Once / Adventure",
+        "Effect": "Destroy a Magic Item equipment piece to permanently gain its Magic Item properties.",
+        "Notes": "E.g. you disenchant Gloves of Athletics to permanently gain Skilled in Athletics, or you disenchant Gloves of Eldritch Blast to permanently gain the power to cast Eldritch Blast with a Half-Action once per Adventure."
     },
     "~Wood Elf Ancestry~": {
         "A": "Passive",
-        "Effect": "You -1 Dexterity, but +1 Movement Speed.\nWhen using a Sword or Bow of any kind (except Sickle), you attack with your Stat Limit instead of that specific Stat.\n"
+        "Bonuses": {
+            "Might": -1,
+            "Movement Speed": 1
+        },
+        "Combat Extras": [
+            "You can use bows and arrows with Stat Limit"
+        ],
+        "Effect": "You -1 Might, but +1 Movement Speed.\nWhen using a Sword or Bow of any kind (except Sickle), you attack with your Stat Limit instead of that specific Stat.\n"
     },
-    "~Shadow Origins~": {
+    "~Dark Elf Ancestry~": {
         "A": "Passive",
         "Effect": "You have access to Level 1 Minor and Utility Warlock Talents, up to your Level, no matter what Class you are."
     },
-    "~Vastaya~": {
-        "A": "Passive",
-        "Effect": "TBD"
+    "~Aos Si Power~": {
+        "A": "Half-Action",
+        "Cooldown": "Once / Combat",
+        "Requirement": "Only usable in Worthy Combat.",
+        "Effect": "Gain 1 Mana. You must spend it this Turn.\n",
+        "Upgrade": "With fox ears, the tail of a squirrel or eyes of a cat, the Aos Si (pronounced Ees Shee) are a mythical type of elf with whimsical roots in the strange magic of the forest. The animal traits are said to resemble the personality of the Aos Si from birth, the animal features do not necessarily correspond to the parents'!"
     },
-    "~Faey~": {
+    "~Faey Heritage~": {
         "A": "Passive",
         "Effect": "You have access to Level 1 Minor and Utility Druid Talents, up to your Level, no matter what Class you are."
     },
@@ -5639,48 +5677,12 @@
         "A": "Passive",
         "Effect": "You have -1 Might, but +1 Dexterity (up to the Level Limit). You can move through spaces of enemy Units. You can climb and ride on the back of an ally and move with them on their turn (without them having a Speed penalty). You are Small."
     },
-    "~Combat Meditation~": {
-        "A": "Half-Action",
-        "Requirement": "Only usable in Worthy Combat, after first Round.",
-        "Cooldown": "Once / Combat",
-        "Effect": "Gain 1 Mana. You must spend it this Turn.\n"
-    },
-    "~The Blade Dance~": {
-        "A": "Passive",
-        "Effect": "When YOU kill a Worthy Enemy, replenish all your Movement and you can Break your Movement this turn."
-    },
-    "~Lithe~": {
-        "A": "Passive",
-        "Effect": "When targeted by an attack or Spell and you are at or below 25% Health, if there is another viable Player Character the attack can target, you can force the Enemy to target that Player Character instead."
-    },
     "~Mana Block~": {
         "A": "0 Actions",
         "Cooldown": "Once / Combat",
         "Effect": "A Unit within 3 meters becomes Silenced.",
         "Downside": "Only usable on Units with Spirit is lower than yours.",
         "Notes": "As such, you always know if a Unit's Spirit is lower than yours."
-    },
-    "~Swift Sprint~": {
-        "A": "Half-Action",
-        "HasMixins": true,
-        "Replacement": "Replaces Sprint",
-        "Effect": "Move up to ~3 meters and remove any Slow or Root effect on your~.",
-        "Notes": "Sprint is a default move everyone can do; Swift Sprint allows you to move 3 meters instead of 2, and remove Slow and Root effects.\nWhen you Sprint, you can move even if you already moved this turn. \n"
-    },
-    "~Agile Technique~": {
-        "A": "Passive",
-        "Effect": "You can use any weapon with your Dexterity Stat (e.g. instead of Might)."
-    },
-    "~Sword Tradition~": {
-        "A": "Passive",
-        "Effect": "You can use any sword or bow regardless of its Stat requirements, and you can inscribe 1 extra Rune on any sword or bow.",
-        "Notes": "Inscribing a weapon with the extra Rune makes the weapon Soulclaimed by you, and can't be used by another Character until the Rune is removed."
-    },
-    "~Disenchant Magic~": {
-        "A": "10 minutes",
-        "Cooldown": "Once / Adventure",
-        "Effect": "Destroy a Magic Item equipment piece to permanently gain its Magic Item properties.",
-        "Notes": "E.g. you disenchant Gloves of Athletics to permanently gain Skilled in Athletics, or you disenchant Gloves of Eldritch Blast to permanently gain the power to cast Eldritch Blast with a Half-Action once per Adventure."
     },
     "~Inherited Tastes~": {
         "A": "Passive",
@@ -5691,16 +5693,15 @@
         ],
         "Effect": "As a Gnome, you don't age from the passing of time. Instead, you age more rapidly when you are suffering emotionally (about 10 times faster than a human, in periods when you're depressed, anxious, fearful, etc).\n\nYou don't have a sense of taste, but your eyes perceive colors sharper than other races.\n\nGnomes' daydreams tend to be very vivid, almost as vivid as regular dreams at night or akin to hallucinations.\n"
     },
-    "~Lucky Presence~": {
-        "A": "Reaction",
-        "Cooldown": "Once / Adventure",
-        "Effect": "After another Unit you can see of you makes a roll, you can force them to reroll one die once and keep the new result.",
-        "Upgrade": "At Level 4, you can use this twice per Adventure."
-    },
     "~Quick to Act~": {
         "A": "Passive",
         "Effect": "You don't roll for Initiative.\nYour Initiative is always 1 less than the highest Initiative in combat.\n",
         "Notes": "Your Initiative bonus effectively doesn't matter. However, if you get Feats that reduces Initiative, you also subtract that from your Initiative."
+    },
+    "~Lucky Presence~": {
+        "A": "Reaction",
+        "Cooldown": "Once / Adventure",
+        "Effect": "After another Unit you can see of you makes a roll, you can force them to reroll one die once and keep the new result."
     },
     "~Catch Me If You Can~": {
         "A": "Passive",
@@ -5722,17 +5723,9 @@
         ],
         "Effect": "You now have a sense of taste. Congratulations!\nYou can detect whether something is poisonous by licking it without being affected by that poison.\nYou have 50% resistance to Acid and Poison.\n"
     },
-    "~Luckier~": {
-        "A": "Passive",
-        "Effect": "You can use Lucky Presence once more per Adventure."
-    },
     "~Environmentalist~": {
         "A": "Passive",
-        "Effect": "You can move normally through Hard Terrain.\nYou gain access to the Nature Basic Ability List, regardless of your Class.\n"
-    },
-    "~Little Handed~": {
-        "A": "Passive",
-        "Effect": "You can move through spaces of enemy Units.\nYou can climb and ride on the back of an ally and move with them on their turn (without them having a Speed penalty).\n"
+        "Effect": "You can move normally through Hard Terrain.\nYou have access to Level 1 Minor and Utility Druid Talents, up to your Level, no matter what Class you are.\n"
     },
     "~Undeath~": {
         "A": "Passive",
@@ -5769,13 +5762,13 @@
         "IsIgnored": true,
         "Bonuses": [
             {
-                "Health Regen": 2
+                "Max Health": 2
             }
         ],
         "Combat Extras": [
-            "Your lifespan is up to 100 years (and +2 Health Regen was added automatically)."
+            "Your lifespan is up to 100 years."
         ],
-        "Effect": "Get an Affliction of choice (see Feats).\nYou slow down the decaying of your body and increase your life span by up to 100 years.\nYour Health Regen increases by 2.\n"
+        "Effect": "Get an Affliction of choice (see Feats).\nYou slow down the decaying of your body and increase your life span by up to 100 years.\nYour have +2 Max Health.\n"
     },
     "~O.B.E.~": {
         "A": "0 Actions",
@@ -5807,15 +5800,29 @@
     },
     "~Tideborn~": {
         "A": "Passive",
+        "Combat Extras": [
+            "You swim at normal Movement Speed"
+        ],
+        "Skill Bonuses": {
+            "Swimming": 1,
+            "Boating": 1,
+            "Fishing": 1
+        },
         "Effect": "You can swim at your normal Movement Speed.\nYou have +1 in Swimming, Boating and Fishing.\n"
     },
     "~Blue Blood~": {
         "A": "Passive",
+        "Skill Bonuses": {
+            "Survival": -2
+        },
         "Effect": "You can choose +1 Minor or Utility Talent.\n",
         "Downside": "You have -2 in Survival."
     },
     "~Hunter-Gatherer~": {
         "A": "Passive",
+        "Skill Bonuses": {
+            "Harvesting": 1
+        },
         "Effect": "Whenever you and your party defeats a boss, gain +1 non-Combat Skill Point.\nYou have +1 in Harvesting.\n"
     },
     "~Pigmy~": {
@@ -5826,24 +5833,51 @@
     },
     "~Spiritually Aligned~": {
         "A": "Passive",
+        "Combat Extras": [
+            "Immune to Silence",
+            "Immune to Curses"
+        ],
+        "Skill Bonuses": {
+            "Mental Resilience": 2
+        },
         "Effect": "You are immune to being Silenced and Cursed, and have +2 in Mental Resilience.\n"
     },
     "~Fated~": {
         "A": "Passive",
+        "Skill Bonuses": {
+            "Luck": 2
+        },
         "Effect": "At the start of each Combat, a random Enemy gets a ~Combo~.\nYou have +2 in Luck.\n",
         "HasMixins": true
     },
     "~Genes of Olden Roots~": {
         "A": "Passive",
+        "Bonuses": {
+            "Initiative": 2
+        },
+        "Combat Extras": [
+            "Immune to sleep Exhaustion"
+        ],
         "Effect": "You gain +2 Initiative and you are immune to Exhaustion from lack of sleep.\n"
     },
     "~Diversity and Inclusion~": {
         "A": "Passive",
-        "Effect": "You get -1 Max Health. Choose a Race Talent from any other Race."
+        "Bonuses": {
+            "Max Health": -2
+        },
+        "Effect": "You get -2 Max Health. Choose a Race Talent from any other Race."
     },
     "~Augmented~": {
         "A": "Passive",
-        "Effect": "You have +3 Max Health and +1 Health Regen, but -1 Spirit.\nWhen rolling an Event (two equal numbers on the 2d6), something slightly good or bad might happen to your body. The higher the roll, the better.\n"
+        "Bonuses": {
+            "Max Health": 2,
+            "Health Regen": 1,
+            "Spirit": -1
+        },
+        "Combat Extras": [
+            "When rolling Event, something good or bad might happen"
+        ],
+        "Effect": "You have +2 Max Health and +1 Health Regen, but -1 Spirit.\nWhen rolling an Event (two equal numbers on the 2d6), something slightly good or bad might happen to your body. The higher the roll, the better.\n"
     },
     "~Human Vigilence~": {
         "A": "Passive",
@@ -5853,7 +5887,7 @@
         "A": "Passive",
         "Requirement": "0 or less Intelligence",
         "HasMixins": true,
-        "Effect": "In Abilities that use Spirit, Intelligence or Spirit, you can use the number 3 instead.\nYou gain Skilled in Luck.\n",
+        "Effect": "In Abilities that use Spirit, Intelligence or Spirit, you can use the number 3 instead.\n",
         "Notes": "E.g. Chilling Shout becomes 15 (12 + 3) instead of 12 + ^Spirit^. Phase Orb becomes 2d6 + 3 + 3 instead of 2d6 + ^Intelligence + Spirit^."
     },
     "~Apex of Evolution~": {
@@ -5861,28 +5895,56 @@
         "Effect": "Your starting Stats distribution is -2, 0, 2, 3 (instead of -1, 0, 1, 2).\n"
     },
     "~Trollskin~": {
+        "Bonuses": {
+            "Max Health": -4,
+            "Health Regen": 3
+        },
+        "Combat Extras": "+50% Fire Damage taken",
         "Effect": "You have +3 Health Regen, but -4 Max Health.\n",
         "Upgrade": "Your skin is akin to a troll's skin - rough and prone to blisters or acne, but regenerates much quicker than normal.",
         "Downside": "+50% Fire Damage taken"
     },
     "~Greenskin Strength~": {
+        "Skill Bonuses": {
+            "Mental Resilience": -2
+        },
+        "Combat Extras": [
+            "You can use MIG instead of DEX, INT or SPI for weapons and abilities"
+        ],
         "Effect": "In Abilities or weapons that use Dexterity, Intelligence or Spirit, you can use your Might instead.",
         "Downside": "You have -2 in Control Emotions.",
         "Upgrade": "Your skin is a shade of green due to the stronger hormones and pigment flowing through your body, making your emotions more difficult to control."
     },
     "~True Giant Ancestry~": {
-        "Effect": "You have +2 Max Health and +1 Might, but -1 Spirit.\nYou are Large and occupy a 2x2 meter area.\n\nWhen getting this, the +1 Might can exceed the Stats Limit.\n",
+        "Bonuses": {
+            "Max Health": 4,
+            "Spirit": -1
+        },
+        "Combat Extras": [
+            "You are Large (2x2 meters)"
+        ],
+        "Effect": "You have +4 Max Health, but -1 Spirit.\nYou are Large and occupy a 2x2 meter area.\n",
         "Downside": "Body and legs armor must be fitted on you by paying 50% of its original cost.\nYou can wear belts as bracers, and bracers as rings.\n"
     },
     "~Cyclopian Eye~": {
         "A": "Passive",
+        "Skill Bonuses": {
+            "Sight": -1,
+            "Persuasion": -2
+        },
         "Effect": "Your first attack every Turn ignores Cover (if there is Cover).\n",
         "Downside": [
             "You have -1 Sight and -2 Persuasion."
         ]
     },
     "~Ogre Fat Tissue~": {
-        "Effect": "You are immune to being Pushed and to Falling Damage.\nOne meal per day can consist\nYou have +2 in Survival.\n",
+        "Skill Bonuses": {
+            "Survival": 2
+        },
+        "Combat Extras": [
+            "You can eat rocks, dirt and bark once per day"
+        ],
+        "Effect": "You are immune to being Pushed and to Falling Damage.\nOne meal per day can consist of rocks, dirt and bark.\nYou have +2 in Survival.\n",
         "Upgrade": "As an ogre-blood who can metabolize various debris, fat tissue is important to you not only for social status, but also for survivability!\n"
     },
     "~Ettin Crests~": {
@@ -5892,11 +5954,21 @@
     },
     "~Stone Skin~": {
         "A": "Passive",
+        "Combat Extras": [
+            "-50% Slash Damage from the front while unarmored"
+        ],
         "Effect": "While unarmored, You take -50% Slash Damage when hit from the front instead of having +1 Movement Speed."
     },
     "~Two Heads~": {
         "A": "Passive",
-        "Effect": "You have +1 Intelligence (up to the Level Limit), but -1 Spirit.\n\nYou have +2 in Observin Detail.\n",
+        "Bonuses": {
+            "Intelligence": 1,
+            "Spirit": -1
+        },
+        "Skill Bonuses": {
+            "Observing Detail": 2
+        },
+        "Effect": "You have +1 Intelligence (up to the Level Limit), but -1 Spirit.\n\nYou have +2 in Observing Detail.\n",
         "Upgrade": "Having 2 heads often means having 2 opposite personalities with different skills, 2 mental headspaces and 2 names, but folklore says 2-headed giants have only one soul, as they have one body, one heart. Life as a two-header is tough, facing likely ridicule or ostracization. But chins up! Two heads think better than one, and contrary to popular belief, such giants seem to have even more thorough control over their body!"
     }
 }

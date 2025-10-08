@@ -29,52 +29,63 @@ import { LabelWithInput } from './SectionNames'
 //         </Dialog>
 //     )
 // }
-export default function ChangeStatDialog({ statName, setStatName }) {
+export default function ChangeStatDialog({ defaultInputValue, defaultNumberValue, description, title, close, onDone }) {
 
-    const [bonuses, setBonuses] = useManualBonuses()
-    const [currentValue, setCurrentValue] = useState(bonuses[statName])
+    
+    const [numberValue, setNumberValue] = useState(defaultNumberValue)
+    const [inputValue, setInputValue] = useState(defaultInputValue)
+    
+    const nameUsed = defaultInputValue ?? defaultNumberValue ?? 'Unknown'
+    const usedTitle = title ?? 'Add'
+    const descriptionUsed = description ?? `Add extra points to this that are not autocalculated (e.g. from magic items, level up, etc)`
 
     useEffect(() => {
-        setCurrentValue(bonuses[statName])
-    }, [bonuses, statName])
+        setNumberValue(defaultNumberValue)
+    }, [defaultNumberValue])
 
-    function close() {
-        setStatName(null)
-    }
     function onMinus() {
-        setCurrentValue(currentValue - 1)
+        setNumberValue(numberValue - 1)
     }
     function onPlus() {
-        setCurrentValue(currentValue + 1)
+        setNumberValue(numberValue + 1)
     }
     function onSave() {
-        bonuses[statName] = currentValue
-        setBonuses(bonuses)
+        onDone({ name: inputValue, value: numberValue})
         close()
     }
 
     return (
-        <Dialog buttonText="Finished" isOpen={statName != null} onButtonClick={onSave} setIsOpen={(bool) => {
+        <Dialog buttonText="Finished" isOpen={true} onButtonClick={onSave} setIsOpen={(bool) => {
             if (bool == false) {
-                setStatName(null)
+                close()
             }
         }}>
             <div className="center-content">
-                <h2 className='center-text' style={{fontFamily: 'HomeFont', fontWeight: 'normal'}}>Add Extra to {statName} (from other sources)</h2>
+                <h2 className='center-text' style={{fontFamily: 'HomeFont', fontWeight: 'normal'}}>{usedTitle}</h2>
                 <p className='center-text'>
-                    Use this to add extra {statName} from other sources, like magic items or permanent stat buffs from magic tomes, etc.<br/>
-                    It will be automatically calculated into your Character's {statName}.<br/>
-                    Don't forget to remove it if you ever remove magic item, or a permanent stat buff is lost, etc.
+                    { descriptionUsed }
                 </p>
-                <div className="flex-row gap-1">
-                    <div className="wrapper plus-minus" onClick={onMinus}>
-                        <div>-</div>
+                { defaultInputValue != null &&
+                    <div>
+                        <input className="text-input margin-bottom-1" onChange={evt => setInputValue(evt.target.value)} value={inputValue} onKeyUp={evt => {
+                            if (evt.key == 'Enter') {
+                                onSave()
+                            }
+                        }}/>
                     </div>
-                    <StatValue name={statName} value={currentValue}/>
-                    <div className="wrapper plus-minus" onClick={onPlus}>
-                        <div>+</div>
+                }
+                
+                { defaultNumberValue != null && 
+                    <div className="flex-row gap-1">
+                        <div className="wrapper plus-minus unselectable" onClick={onMinus}>
+                            <div>-</div>
+                        </div>
+                        <StatValue name={nameUsed} value={numberValue}/>
+                        <div className="wrapper plus-minus unselectable" onClick={onPlus}>
+                            <div>+</div>
+                        </div>
                     </div>
-                </div>
+                }
             </div>
         </Dialog>
     )
