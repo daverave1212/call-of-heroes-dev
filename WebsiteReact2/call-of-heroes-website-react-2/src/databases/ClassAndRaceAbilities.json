@@ -38,8 +38,8 @@
         "Effect": "Heal a Player Character you can see for an amount equal to their Health Regen.\nThey do not Regen Health at the end of the Combat.\n",
         "Combo": "They can Regen Health after Combat, but only for 50% of Health Regen."
     },
-    "~Wit's Thing~": {
-        "DisplayName": "Intelligence's {Name}",
+    "~Mind's Thing~": {
+        "DisplayName": "Mind's {Name}",
         "A": "1 Action",
         "Range": "3 meters",
         "Degree": "Minor",
@@ -52,12 +52,14 @@
             {
                 "Name": "Shadow",
                 "Type": "Scourge",
-                "Damage": 2
+                "Damage": 2,
+                "IconName": "Minds Shadow"
             },
             {
                 "Name": "Abolition",
                 "Type": "Divine",
-                "Damage": 1
+                "Damage": 1,
+                "IconName": "Minds Abolition"
             }
         ]
     },
@@ -843,7 +845,7 @@
     "~Naturality~": {
         "A": "Passive",
         "AlignOnWebsite": "Right",
-        "Effect": "You start with +1 in any Stat (up to +2) and +2 Skill Points.\nYou may have 1 additional Utility Talent from any available Level.\n"
+        "Effect": "You start with +1 in any Stat (up to +3) and +2 Skill Points.\nYou may have 1 additional Utility Talent from any available Level.\n"
     },
     "~Animal Attack~": {
         "Requirement": "Only usable while Shapeshifted",
@@ -1051,10 +1053,9 @@
     },
     "~Nativity~": {
         "A": "Passive",
-        "Replacement": "Replaces Naturality",
         "Requirement": "Can't activate in combat.",
         "AlignOnWebsite": "Left",
-        "Effect": "Every ~real hour~, regain up to {Mana}1 Mana.",
+        "Effect": "Every ~real hour~, regain up to {Mana}0.5 Mana.",
         "HasMixins": true
     },
     "~Cutting Winds~": {
@@ -1841,25 +1842,25 @@
         "Downside": "{Ultimate}"
     },
     "~Witch Hunter~": {
-        "_Value": 2,
+        "_Value": 2.5,
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "You have 2 {Mana} Mana that regenerates normally inbetween Adventures.\nAdditionally, choose a Basic Ability List from Elemental, Divine, and Arcane.\nYou now have access to that Basic Ability List as well, permanently.\n"
+        "Effect": "You have 2 {Mana} Mana that regenerates normally inbetween Adventures.\nAdditionally, choose another Class. You can also get Minor and Utility Talents from that Class (any specialization).\n"
     },
     "~Quick Magic~": {
         "_Value": 2.5,
         "A": "Passive",
         "Range": "6 meters",
         "HasMixins": true,
-        "Effect": "After using Tumble or one of your Pet's Abilities that has a \"Once / Combat\" Cooldown, immediately choose and do one of the following effects:\n{Diamond} Deal 1d4 Fire Damage to a Unit\n{Diamond} Cast Flash\n{Diamond} Cast Vault Break\n",
-        "Notes": "For quick reference: Flash teleports you up to 6 meters away; Vault Break destroys a medium obstacle within 6 meters.\nAll of the effects have a range of 6 meters.\n"
+        "Effect": "After using Tumble or one of your Pet's Abilities that has a \"Once / Combat\" Cooldown, immediately choose and do one of the following effects:\n{Diamond} Deal 1d4 Fire Damage to a Unit\n{Diamond} Teleport 3 meters\n{Diamond} Apply a Combo to a Unit in\n{Diamond} Slam a Unit 2 meters in any direction\n",
+        "Notes": "All of the effects have a range of 6 meters (except Teleport).\n"
     },
     "<Watcher Form>": {
         "_Value": 2,
         "A": "0 Actions",
         "Cooldown": "Once / Adventure",
         "Duration": "1 minute",
-        "Effect": "You take on a special form, called a Watcher Form.\nYou have +2 to all Combat Checks, +1 Defense, and, every turn, your first Attack deals +2d4 extra Damage.\n",
+        "Effect": "You take on a special form, called a Watcher Form.\nYou have +1 Defense, and, every turn, your first Attack deals +2d4 extra Damage.\n",
         "Notes": "Your body becomes engulfed in a magical aura (you choose its color), your eyes glow, and you can gain other aesthetics-only body transformations."
     },
     "<Chaos Form>": {
@@ -1867,7 +1868,7 @@
         "A": "0 Actions",
         "Cooldown": "Once / Adventure",
         "Duration": "1 minute",
-        "Effect": "You take on a special form, called a Chaos Form.\nYou have +2 Movement, Tumble has a Once / Turn Cooldown, and Quick Magic triggers whenever you do an Act that takes at least a Half-Action.\n",
+        "Effect": "You take on a special form, called a Chaos Form.\nYou can make a free Movement Act per Turn, and Quick Magic triggers whenever you do an Act that takes at least a Half-Action.\n",
         "Notes": "Your body emanates an unusual magical vibration, your eyes turn an ethereal white or black, and you can gain other aesthetics-only body transformations."
     },
     "<Focus Form>": {
@@ -1940,7 +1941,7 @@
     "~Prowl Around~": {
         "A": "Passive",
         "_Value": 0.5,
-        "Effect": "You have +2 to all Spirit Checks.\n",
+        "Effect": "You have +2 to all non-Combat Presence Rolls.\n",
         "Notes": "This is because of your Animal Companions roaming about."
     },
     "~Stablemaster~": {
@@ -2042,7 +2043,7 @@
     "~Adept Spellcaster~": {
         "A": "Special",
         "AlignOnWebsite": "Left",
-        "Effect": "You may have one additional Minor Talent and one additional Utility Talent.\n"
+        "Effect": "While you have 0 Mana, you have +1 Movement Speed and can not be Silenced.\n"
     },
     "~Element Burst~": {
         "A": "1 Action",
@@ -2374,14 +2375,6 @@
         "Notes": "1. Fire, 2. Cold, 3. Shock, 4. Pulse, 5. Poison, 6. Acid, 7. Divine, 8. Scourge.",
         "HasMixins": true
     },
-    "<Sap>": {
-        "_Value": 1,
-        "A": "Half-Action",
-        "Range": "10 meters",
-        "AlignOnWebsite": "Left",
-        "Effect": "A Unit must make a Spirit Roll at least equal to your last rolled Unstable Spark die or be Blinded, Silenced or Rooted (your choice).\n",
-        "Notes": "What are you doing, just pick Wild Casting."
-    },
     "<Mild Casting>": {
         "_Value": 0.5,
         "AlignOnWebsite": "Left",
@@ -2392,6 +2385,14 @@
         "A": "Passive",
         "AlignOnWebsite": "Left",
         "Effect": "All non-physical Damage you deal becomes Eldritch Damage. When you roll 5 on the Unstable Spark die, increase all Eldritch Damage you deal for the rest of the combat by 3. Then roll another Unstable Spark die."
+    },
+    "<Sap>": {
+        "_Value": 1,
+        "A": "Half-Action",
+        "Range": "10 meters",
+        "AlignOnWebsite": "Left",
+        "Effect": "A Unit must make a Spirit Roll at least equal to your last rolled Unstable Spark die or be Blinded, Silenced or Rooted (your choice).\n",
+        "Notes": "What are you doing, just pick Wild Casting."
     },
     "<Wild Casting>": {
         "_Value": 0.5,
@@ -2738,7 +2739,7 @@
         "Range": "3 meters",
         "Effect": "Heal a Unit for 1d6 (but not yourself).\nYour next attack until the end of your next Turn deals extra Damage equal to the amount just Healed.\n"
     },
-    "~Divine Insight~": {
+    "~Divine Sense~": {
         "_Value": 0,
         "A": "Half-Action",
         "Cooldown": "1 real hour",
@@ -2824,13 +2825,13 @@
         "Effect": "When ^YOU^ defeat one Worthy Enemy, all excess Damage is converted to healing or Divine Damage to a Unit within 5 meters of you.\n",
         "Notes": "E.g. if a Unit has 5 Health and you deal 12 Damage, the Unit dies and you heal an ally (or yourself) for 7 Health using your Reaction, or blast another Unit for 7 Divine Damage. If you kill multiple Units at the same time, this triggers only for one of them, of your choice. Excess Damage from Crusade can also trigger Crusade."
     },
-    "~True Insight~": {
+    "~True Sense~": {
         "_Value": 0.5,
         "A": "Half-Action",
         "Cooldown": "Once / Real hour",
         "Range": "15 meters",
         "Duration": "6 seconds",
-        "Replacement": "Replaces Divine Insight",
+        "Replacement": "Replaces Divine Sense",
         "HasMixins": true,
         "Tags": [
             "Utility"
@@ -3110,7 +3111,7 @@
         "Upgrade": "Does not apply to your first Act every combat.\n\nYou have a special tome that grants you extra power when held visibly on you, on your belt, weapon, or levitating around you.\n",
         "Notes": "{DiceUpgrade}\nAnything that uses 0 or more Action Points is an Act.\nUsing X, Smite, then X - this does trigger the Holy Tome Dice Upgrade for both X and Smite.\n"
     },
-    "~Innate Insight~": {
+    "~Innate Sense~": {
         "_Value": 0,
         "A": "0 Actions",
         "Cooldown": "1 real hour",
@@ -3118,7 +3119,7 @@
         "Duration": "6 seconds",
         "HasMixins": true,
         "Tags": "Utility",
-        "Replacement": "Replaces Divine Insight",
+        "Replacement": "Replaces Divine Sense",
         "Effect": "When you use this, for a brief moment, nearby ~allies and enemies~ emit a sound or smell ^only you can detect^ ~and discern~.\n~Apply a Combo to one of each.~\n",
         "Upgrade": "~You can discern a person's intent by its smell and sound.~",
         "Notes": "Allies have a pleasant, earthy and sweet smell and emit a beautiful hum in their voice. Enemies smell rotten and their voices have a specific reverb and shifted pitch.\nWalls block this smell and sound as they normally would.\nThis smell and sound can only be concealed with magic.\n"
@@ -3274,7 +3275,7 @@
         "Cost": "1 Mana",
         "Range": "3 meters",
         "Tags": "CC",
-        "Effect": "Single-Stun a Unit.\n\n{Chain} Healing: Clears all Crowd Control on the target.\n{Chain} Crowd Control: Spreads to 1 other Unit within 5 meters of you.\n{Chain} Divine Insight: Damages all unholies for 1d4. Heals all holies for 1d4.\n",
+        "Effect": "Single-Stun a Unit.\n\n{Chain} Healing: Clears all Crowd Control on the target.\n{Chain} Crowd Control: Spreads to 1 other Unit within 5 meters of you.\n{Chain} Divine Sense: Damages all unholies for 1d4. Heals all holies for 1d4.\n",
         "Combo": "Double-Stun it instead.",
         "HasMixins": true
     },
@@ -5306,7 +5307,7 @@
         "Effect": "Your starting Stats distribution is 0, 0, 0, 2 (instead of -1, 0, 1, 2).\nYou have +1 Movement Speed\nYou can jump 3 meters without requiring a Check (e.g. over enemies, gaps, etc).\n",
         "Notes": "Jumping still uses Movement."
     },
-    "~Tall Paws or Hooves~": {
+    "~Tall Paws (or Hooves)~": {
         "A": "Passive",
         "IsIgnored": true,
         "Combat Extras": [
@@ -5319,7 +5320,8 @@
     "~Carnivore~": {
         "A": "Passive",
         "Effect": "Once inbetween Worthy Combats, you can eat a piece of meat to restore 1 Health.\n",
-        "Downside": "You can not eat grains and can only lightly eat vegetables.\nExclusive with Herbivore.\n"
+        "Downside": "You can not eat grains and can only lightly eat vegetables.\nExclusive with Herbivore.\n",
+        "Notes": "If you do, you take 1d4 Damage."
     },
     "~Herbivore~": {
         "A": "Passive",
@@ -5332,7 +5334,7 @@
         ],
         "Effect": "Gain +2 Max Health.\nHalf of your meals can consist of grass and leaves.\n",
         "Downside": "You can not eat meat.\nExclusive with Carnivore.\n",
-        "Notes": "If you eat meat, you become Exhausted for 1 hour. Remember that Might also affects Max Health!"
+        "Notes": "If you do, you take 1d4 Damage."
     },
     "~Thick Shell~": {
         "A": "Passive",
@@ -5403,7 +5405,7 @@
         ],
         "Effect": "You have +2 Initiative.\nYou can swim at your normal Movement Speed + 1 meter.\n"
     },
-    "~I Am Speed~": {
+    "~Aerodynamic~": {
         "A": "Passive",
         "HasMixins": true,
         "Combat Extras": [
@@ -5591,7 +5593,7 @@
         "Effect": "Use when you or an ally takes Damage that would make them fallen. That Damage is reduced by 100%.",
         "Upgrade": "Certain subspecies of dwarves come from Stonekin clans, and are fit for roles of leadership due to their thick, almost stone-like textured skin and temper."
     },
-    "~Child of the Runes~": {
+    "~Rúndottir~": {
         "A": "Passive",
         "Effect": "You can inscribe one extra Rune onto weapons.\nYou can inscribe one Elemental, Intelligence or Spirit Rune onto gloves. All Spells gain the Rune's effect when cast wearing these gloves, if possible.\nIf it makes sense, you can also inscribe other more powerful Runes (Magic Items) onto gloves.\n",
         "Upgrade": "Some dwarven communities rely on runes for protection, enchantment and utility. Many of their buildings are laid out on key coordinates representing numbers or conceprs with strong meanings, and their clothes are often woven in the shape of constelations for good fortune and increased control over magic.",
@@ -5622,7 +5624,7 @@
     "~Gene Diversity~": {
         "A": "Passive",
         "IsIgnored": true,
-        "Effect": "When creating your character, choose 3 Elf Talents from below instead of 1."
+        "Effect": "When creating your character, choose 4 Elf Talents from below."
     },
     "~High Elf Ancestry~": {
         "A": "Passive",

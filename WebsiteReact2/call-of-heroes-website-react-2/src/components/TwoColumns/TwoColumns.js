@@ -6,8 +6,11 @@ export default function TwoColumns(props) {
 
     const { children, type, style, className } = props
 
-    const typeClass = type == 'lefty'?
-        'two-columns--lefty':
+    const typeClass =
+        type == 'lefty'?
+            'two-columns--lefty':
+        type == 'leftier'?
+            'two-columns--leftier':
         'two-columns--normal'
 
     const extraClasses = className != null? className : ''

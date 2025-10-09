@@ -98,14 +98,25 @@ export function RaceHeader({imgStyle, theRace, theClass, hueShift, height=60}) {
             <div className='landscape-only'>
                 {/* <PageH1>{ name }</PageH1> */}
                 <QGTitle1 text={name} hueShift={hueShift} height={height}/>
-                <TwoColumnsDescriptive>
-                    <Column style={{zIndex: 1}}>
-                        <RaceDescription description={description}/>
-                    </Column>
-                    <Column style={{position: 'relative'}}>
-                        <img style={imgStyle} className="class-image" src={imagePath}/>
-                    </Column>
-                </TwoColumnsDescriptive>
+                { theRace?.IsShort || theClass?.IsShort? (
+                    <TwoColumns type="leftier">
+                        <Column style={{zIndex: 1}}>
+                            <RaceDescription description={description}/>
+                        </Column>
+                        <Column style={{position: 'relative'}}>
+                            <img style={imgStyle} className="class-image" src={imagePath}/>
+                        </Column>
+                    </TwoColumns>
+                ) : (
+                    <TwoColumnsDescriptive>
+                        <Column style={{zIndex: 1}}>
+                            <RaceDescription description={description}/>
+                        </Column>
+                        <Column style={{position: 'relative'}}>
+                            <img style={imgStyle} className="class-image" src={imagePath}/>
+                        </Column>
+                    </TwoColumnsDescriptive>
+                )}
             </div>
             <div className='portrait-only'>
                 <PageH1 h1Style={{textAlign: 'center'}}>{ name }</PageH1>
@@ -482,15 +493,9 @@ export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
                     <div className='with-margined-children'>
                         { theClass.Spellcasting?.Type != null && theClass.Spellcasting?.Mana?.Amount != null && (
                             <SmallStat name="Mana" color="blue">
-                                <Icon name="Mana"/>
-                                {
-                                    theClass.Spellcasting.Type == 'Paladin' || theClass.Spellcasting.Type == 'Special Mana-based'?
-                                        <span>{theClass.Spellcasting.Mana.Amount}</span>
-                                    :theClass.Spellcasting.Type == 'Mana-based'?
-                                        <span>{theClass.Spellcasting.Mana.Amount} + <b>50% of Intelligence</b> (rounded UP)</span>
-                                    :null
-                                
-                                }
+                                <Icon name="Mana"/>{ theClass.Spellcasting.Mana.Amount } ({
+                                    theClass.Spellcasting.Mana.Per ?? ''
+                                })
                             </SmallStat>
                         )}
                         {

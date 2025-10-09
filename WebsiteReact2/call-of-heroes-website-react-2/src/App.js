@@ -93,6 +93,7 @@ import MagicItemCreator from './pages/Other/MagicItemCreator';
 import { AppStateContext } from './global-state/GlobalState';
 import HomebrewBookCreator from './pages/HomebrewBookCreator/HomebrewBookCreator';
 import Quirks from './pages/Other/Quirks';
+import WorkInProgress from './pages/Meta/WorkInProgress';
 
 function App() {
 
@@ -188,6 +189,7 @@ function App() {
           <Route path="/Tools/HomebrewBookCreator" element = { <HomebrewBookCreator/> }/>
 
           <Route path='/Meta/PatchNotes' element={ <PatchNotes/> }/>
+          <Route path='/WorkInProgress' element={ <WorkInProgress/> }/>
         </Routes>
 
       </div>

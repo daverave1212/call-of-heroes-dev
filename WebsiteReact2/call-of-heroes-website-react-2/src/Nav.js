@@ -24,7 +24,7 @@ const NAV_CONFIG = [
   { name: 'Game', children: [
     { name: 'Races', children: [
       { name: 'Bertle',       href: '/Races/Bertle' },
-      { name: 'Davel',        href: '/Races/Davel' },
+      { name: 'Davel',        href: '/WorkInProgress' },
       { name: 'Dragon',       href: '/Races/Dragonborn' },
       { name: 'Dwarf',        href: '/Races/Dwarf' },
       { name: 'Elf',          href: '/Races/Elf' },
@@ -48,7 +48,7 @@ const NAV_CONFIG = [
       { name: 'Abilities', children: [
         { name: 'Basic Abilities',      href: '/Other/Abilities' },
         { name: 'Feats',                href: '/Other/Feats' },
-        { name: 'Quirks',               href: '/Other/Quirks' },
+        { name: 'Quirks',               href: '/WorkInProgress' },
         { name: 'Ability Sheet Maker',  href: 'Other/AbilitySheets', lock: 'premium' },
       ]},
       { name: 'Items & Gear', landscapeStyle: { marginTop: '1rem' }, children: [
@@ -76,17 +76,17 @@ const NAV_CONFIG = [
   ]},
   { name: 'Learn To Play', children: [
     { name: 'Learn To Play', children: [
-      { name: 'Character Creation Guide',     href: '/Other/PetsAndAnimals' },
-      { name: 'Transition Guide (from D&D)',  href: '/Other/Languages' },
-      { name: 'New Player Guide',             href: '/Meta/PatchNotes' },
-      { name: 'Rules',                        href: '/Meta/PatchNotes' },
+      { name: 'Rules',                        href: '/Other/Rules' },
+      { name: 'Transition Guide (from D&D)',  href: '/Download/Transition_Guide_2025-10-09.pdf', isDownload: true },
+      { name: 'Character Creation Guide',     href: '/WorkInProgress' },
+      { name: 'New Player Guide',             href: '/WorkInProgress' },
     ]}
   ]},
   { name: 'Game Mastering', children: [
     { name: 'Guides', children: [
       { name: 'GM Guidelines',                href: '/Other/GMGuidelines' },
-      { name: 'Game Master Basics',           href: '/Other/Feats' },
-      { name: 'How To Be a Good GM',          href: '/Other/Quirks', lock: 'premium' },
+      { name: 'Game Master Basics',           href: '/WorkInProgress' },
+      { name: 'How To Be a Good GM',          href: '/WorkInProgress', lock: 'premium' },
     ]},
     { name: 'QM Content', children: [
       { name: 'Monsters',                 href: '/Other/Monsters' },
@@ -177,6 +177,7 @@ function MegaDropdown({ currentlyOpenSubnav, isBurgerClicked }) {
 
 function AccountButtons() {
 
+  // const isLoggedIn = auth.useIsLoggedIn('AccountButtons')
   const isLoggedIn = auth.useIsLoggedIn('AccountButtons')
 
   function LoginButton() {

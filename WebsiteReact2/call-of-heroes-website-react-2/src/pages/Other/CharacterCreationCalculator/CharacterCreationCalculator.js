@@ -36,6 +36,8 @@ import { SelectorsByColumns } from "../Abilities";
 import { showSuccessMessage } from "../../../services/MessageDisplayer";
 import Dialog from "../../../components/Dialog/Dialog";
 import { STAT_NAMES } from "../../../services/game-lib/stat-calculations";
+import { useIsLoggedIn } from "../../../Auth";
+import LoginRequired from "../../../components/LoginRequired/LoginRequired";
 
 
 const TAB_LAYOUT_LANDSCAPE = [
@@ -63,7 +65,7 @@ export function classesRacesObjectToArrays(bigObj) {
 
 function MyCharacters() {
     let [myCharacters, saveCharacters] = useMyCharactersDB('CCC.MyCharacters')
-    let [currentCharacterId] = useCurrentCharacterId()
+    let [currentCharacterId, setCurrentCharacterId] = useCurrentCharacterId()
 
     const selectorData = myCharacters.map(char => ({
         name: char.names.characterName,
@@ -77,6 +79,16 @@ function MyCharacters() {
         saveCharacters([...myCharacters, getCurrentCharacterFromLocalStorage()])
     }
 
+    function deleteCharacter() {
+        const willDelete = confirm(`Are you sure you want to delete ${selectedSelectorName}?`)
+        if (!willDelete) {
+            return
+        }
+        const newMyCharacters = myCharacters.filter(char => char.id != currentCharacterId)
+        saveCharacters(newMyCharacters)
+        setCurrentCharacterId(null)
+    }
+
     return (
         <div className="center-content">
             <div style={{ width: '100%', maxWidth: '700px'}}>
@@ -85,18 +97,14 @@ function MyCharacters() {
                     nColumns={1}
                     selectedSelectorName={selectedSelectorName}
                     setSelectedSelectorName={(name) => {
-                        console.log(`Searching for character ${name} in myCharacters:`)
-                        console.log({myCharacters})
                         const foundCharacter = myCharacters.find(char => char.names.characterName == name)
-                        console.log(`Found:`)
-                        console.log({foundCharacter})
                         setCharacterToLocalStorage(foundCharacter)
                     }}
                 />
             </div>
             <div className="flex-row gap-half margin-top-1">
                 <button onClick={newCharacter}>New Character</button>
-                <button style={{ maxWidth: '25%', backgroundColor: 'red' }}>Delete</button>
+                <button style={{ maxWidth: '25%', backgroundColor: 'red' }} onClick={deleteCharacter}>Delete</button>
             </div>
         </div>
     )
@@ -155,6 +163,7 @@ export default function CharacterCreationCalculator() {
     const [activeTabI, setActiveTabI, last] = useCCCTabs()
     const [names, setNames] = useSectionNamesState()
     const windowDimensions = useConstWindowDimensions()
+    const isLoggedIn = useIsLoggedIn('CharacterCreationCalculator')
     
     let [dialogState, setDialogState] = useState(null)
 
@@ -178,24 +187,28 @@ export default function CharacterCreationCalculator() {
             <SpellPopup dialogState={dialogState} setDialogState={setDialogState}/>
             {/* <AbilityStatDialog dialogState={dialogState} setDialogState={setDialogState}/> */}
 
-            <div className="center-content">
-                <QGTitle1 text={"My Characters"} height="60"/>
-            </div>
+            { !isLoggedIn? <LoginRequired/>: (<>
+                <div className="center-content">
+                    <QGTitle1 text={"My Characters"} height="60"/>
+                </div>
 
-            <MyCharacters/>
+                <MyCharacters/>
 
-            <div className="center-content">
-                <QGTitle1 text={"Character"} height="60"/>
-            </div>
+                <div className="center-content">
+                    <QGTitle1 text={"Character"} height="60"/>
+                </div>
 
-            <Tabs layout={tabsLayout} activeTabI={activeTabI} setActiveTabI={setActiveTabI} tabComponents={[
-                <MyCharacter/>, <SectionNames onChange={newNamesState => setNames(newNamesState)}/>,
-                <SectionStats/>, <SectionRace openPopup={openPopup}/>, <SectionClass openPopup={openPopup}/>,
-                <SectionFeats/>, <SectionShop/>,
-                <div></div>,
-            ]}/>
+                <Tabs layout={tabsLayout} activeTabI={activeTabI} setActiveTabI={setActiveTabI} tabComponents={[
+                    <MyCharacter/>, <SectionNames onChange={newNamesState => setNames(newNamesState)}/>,
+                    <SectionStats/>, <SectionRace openPopup={openPopup}/>, <SectionClass openPopup={openPopup}/>,
+                    <SectionFeats/>, <SectionShop/>,
+                    <div></div>,
+                ]}/>
 
-            <SaveCharacterButton/>
+                <SaveCharacterButton/>
+            </>)}
+
+            
             
 
         </Page>
