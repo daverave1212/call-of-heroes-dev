@@ -53,7 +53,7 @@ let rulesLists = []        // Polulated at runtime ( title: "X", children: [...]
 let rulesDicts = []        // Polulated at runtime ("X": [...])
 
 const filesToConvert = [    // Order matters
-    'Abilities.yml',
+    // 'Abilities.yml',
     'Animals.yml',
     'Armors.yml',
     'Feats.yml',
@@ -286,11 +286,11 @@ async function processFiles() {
             throw err;
         }
 
-        if (fileName === 'Abilities.yml') {
-            addNameToSpellsRecursively(dictContent);
-            recordAbilitiesFrom(dictContent, abilities);
-            normalizeInheritAbilities(dictContent);
-        }
+        // if (fileName === 'Abilities.yml') {
+        //     addNameToSpellsRecursively(dictContent);
+        //     recordAbilitiesFrom(dictContent, abilities);
+        //     normalizeInheritAbilities(dictContent);
+        // }
 
         if (fileName === 'Feats.yml') {
             addNameToSpellsRecursively(dictContent);

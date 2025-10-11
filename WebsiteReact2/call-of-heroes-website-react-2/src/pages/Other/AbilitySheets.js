@@ -115,17 +115,17 @@ export default function AbilitySheets() {
     const selectedValue = spellsAdded.length == 0? null : selectedSpellIndex == -1? null: spellsAdded[selectedSpellIndex]
     console.log(selectedValue)
     return (
-        <Page hasNoLimits={true}>
+        <Page>
 
             <PageH1 style={{ textAlign: 'center' }}>Ability Sheet Maker</PageH1>
 
             
             <div className='centered-content margined-bottom'>
-                <div style={{ width: '300px', margin: 'auto', display: 'block' }}>
+                <div className='center-content' style={{ width: '300px' }}>
                     <select className='margined-bottom' id='Spell-Choices' onChange={evt => { setCurrentlyTypedSpell(evt.target.value); console.log(evt.target.value) }}>
                         { allAvailableSpellNames.map(name => (<option value={name} key={name}>{ name }</option>)) }
                     </select>
-                    <button onClick={queueSpell} style={{ margin: 'auto', display: 'block' }}>Add</button>
+                    <button onClick={queueSpell}>Add</button>
                 </div>
             </div>
 

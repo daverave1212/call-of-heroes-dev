@@ -66,7 +66,7 @@ const NAV_CONFIG = [
     ]},
     { name: 'Character Sheets', children: [
       { name: 'Character Sheet (PDF)', isDownload: true, href: '/Download/Sheet-2023-03-24b.pdf' },
-      { name: 'Character Sheet (PSD)', isDownload: true, href: '/Download/Sheet-2023-03-24b.pdf' },
+      { name: 'Character Sheet (PSD)', isDownload: true, href: '/Download/Sheet-2024-06-16.psd' },
       { name: 'Character Sheet (PNG)', isDownload: true, href: '/Download/Sheet-2024-04-28.png' },
     ]},
     { name: 'Content', children: [

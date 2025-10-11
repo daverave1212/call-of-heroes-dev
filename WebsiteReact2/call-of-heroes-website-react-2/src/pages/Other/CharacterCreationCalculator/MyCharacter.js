@@ -131,6 +131,7 @@ export default function MyCharacter() {
     const allMyRaceAndClassSpells = useConstAllRaceAndClassSpells()
     const { bonuses, sources: bonusesSources } = useConstAllBonuses()
     const { extras, combatExtras } = useConstAllAbilitiesAndItemsExtras()
+    window.bonuses = bonuses
 
     // Computed values
     const spellsNotIgnored = allMyRaceAndClassSpells.filter(spell => spell.IsIgnored != true)
@@ -171,6 +172,16 @@ export default function MyCharacter() {
             })
         })
     }
+    function changeSkill(name) {
+        setStatDialogOptions({
+            defaultInputValue: null,
+            defaultNumberValue: manualSkillBonuses[name],
+            onDone: ({ value }) => setManualSkillBonuses({
+                ...manualSkillBonuses,
+                [name]: value
+            })
+        })
+    }
     function addNormalExtra() {
         setStatDialogOptions({
             defaultInputValue: '',
@@ -189,6 +200,20 @@ export default function MyCharacter() {
             onDone: ({ name, value }) => setManualCombatExtras(withToggledElement(manualCombatExtras, name))
         })
     }
+    function modifyManualBonus(attributeName) {
+        setStatDialogOptions({
+            defaultInputValue: null,
+            defaultNumberValue: bonuses[attributeName] ?? 0,
+            title: "Add Extra to " + attributeName,
+            onDone: (({ name, value }) => {
+                const newManualBonuses = {
+                    ...manualBonuses,
+                    [attributeName]: value
+                }
+                setManualBonuses(newManualBonuses)
+            })
+        })
+    }
 
     // Other
     let setInputGold    // Set in the Input property
@@ -204,7 +229,7 @@ export default function MyCharacter() {
             &nbsp;({ source.source })
         </div>) }</>
     const SkillBonus = ({name, value}) => {
-        return <div className="skill-bonus pointer" onClick={() => setSkillToChange(name)}>
+        return <div className="skill-bonus pointer" onClick={() => changeSkill(name)}>
             <div className="left">
                 <Icon name="CharacterSetupSub"/> {name}
             </div>
@@ -240,7 +265,7 @@ export default function MyCharacter() {
         return <div className="flex flex-column" style={{gap: 'var(--stats-gap)'}}>
             { STAT_NAMES.map((n, i) => (
                 <StatValue
-                    onClick={() => setStatNameToChange(n)}
+                    onClick={() => modifyManualBonus(n)}
                     key={n}
                     name={n.substring(0, 3).toUpperCase()}
                     value={totalStats[i]}
@@ -252,12 +277,12 @@ export default function MyCharacter() {
         return <div className={`flex flex-column column-2-width`} style={{gap: 'var(--stats-gap)'}}>
             <div className="flex-column" style={{gap: 'var(--stats-gap)'}}>    
                 <div className="flex" style={{gap: 'var(--stats-gap)'}}>
-                    <BigStatValue onClick={() => setStatNameToChange(MAX_HEALTH)} name={MAX_HEALTH} value={attributes[MAX_HEALTH]}/>
-                    <BigStatValue onClick={() => setStatNameToChange(HEALTH_REGEN)} name={HEALTH_REGEN} value={attributes[HEALTH_REGEN]}/>
+                    <BigStatValue onClick={() => modifyManualBonus(MAX_HEALTH)} name={MAX_HEALTH} value={attributes[MAX_HEALTH]}/>
+                    <BigStatValue onClick={() => modifyManualBonus(HEALTH_REGEN)} name={HEALTH_REGEN} value={attributes[HEALTH_REGEN]}/>
                 </div>
                 <div className="flex" style={{gap: 'var(--stats-gap)'}}>
-                    <BigStatValue onClick={() => setStatNameToChange(MOVEMENT_SPEED)} name={MOVEMENT_SPEED} value={attributes[MOVEMENT_SPEED]}/>
-                    <BigStatValue onClick={() => setStatNameToChange(INITIATIVE)} name={INITIATIVE} value={attributes[INITIATIVE]}/>
+                    <BigStatValue onClick={() => modifyManualBonus(MOVEMENT_SPEED)} name={MOVEMENT_SPEED} value={attributes[MOVEMENT_SPEED]}/>
+                    <BigStatValue onClick={() => modifyManualBonus(INITIATIVE)} name={INITIATIVE} value={attributes[INITIATIVE]}/>
                 </div>
             </div>
             <div className="wrapper description-wrapper combat-notes-wrapper">
