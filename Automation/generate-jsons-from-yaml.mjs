@@ -194,7 +194,7 @@ function maybeAddHasMixins(subobj) {
     }
 }
 
-function recordAbilitiesFrom(fromDict, toDict) {
+function recordAbilitiesFrom(fromDict, toDict, parentKey=null) {
     for (const key of Object.keys(fromDict)) {
         const subobj = fromDict[key];
 
@@ -207,6 +207,7 @@ function recordAbilitiesFrom(fromDict, toDict) {
                 continue;
             }
             maybeAddHasMixins(subobj)
+            subobj.ParentKey = parentKey
             toDict[key] = subobj;
         }
 
@@ -214,7 +215,7 @@ function recordAbilitiesFrom(fromDict, toDict) {
             continue;
         }
 
-        recordAbilitiesFrom(subobj, toDict);
+        recordAbilitiesFrom(subobj, toDict, key);
     }
 }
         

@@ -61,7 +61,6 @@ export function useConstTotalStats() {
     
     const manualBonusesStatsArray = getStatsArrayFromObject(manualBonuses)
     const autoBonusesStatsArray = getStatsArrayFromObject(bonuses)
-    console.log({ manualBonuses, manualBonusesStatsArray, baseStats, autoBonusesStatsArray, getStatsArrayFromObject })
     return addArrays(baseStats, manualBonusesStatsArray, autoBonusesStatsArray)
 }
 export function useConstAllAbilitiesAndItemsExtras() {
@@ -379,7 +378,7 @@ export default function MyCharacter() {
                     </div>
                 </div>
 
-                <div className="flex flex-row margin-top-1 gap-3q">
+                <div className="flex flex-direction-responsive margin-top-1 gap-3q">
                     <div className="flex-column" style={{flex: 1, gap: '5px'}}>
                         <PageH3>Non-Combat Skills</PageH3>
                         <Skills/>
@@ -401,7 +400,7 @@ export default function MyCharacter() {
                     </div>
                 </div>
 
-                <div className="flex-row margin-top-1 gap-3q">
+                <div className="flex-direction-responsive margin-top-1 gap-3q">
                     <div className="inventory-wrapper wrapper relative flex-2">
                         <TextArea className={`inventory`} initialValue={inventory} reactsToInitialValue={true} onChange={(newVal) => setInventory(newVal)}/>
                         <div className="gold-wrapper wrapper">

@@ -250,7 +250,24 @@ export function splitSpellsArrayInto2Columns(spellsArray, shouldIgnoreAlignment=
     console.log({ column1Spells, column2Spells })
     return [column1Spells, column2Spells]
 }
-
+export function isTalentTierNameMinor(tierName) {
+    return tierName?.includes('Minor')
+}
+export function isTalentTierNameUtility(tierName) {
+    return tierName?.includes('Ability Choice')
+}
+export function isTalentTierNameKeystone(tierName) {
+    return tierName?.includes('Keystone')
+}
+export function isSpellMinorTalent(spell) {
+    return isTalentTierNameMinor(spell?.ParentKey)
+}
+export function isSpellUtilityTalent(spell) {
+    return isTalentTierNameUtility(spell.ParentKey)
+}
+export function isSpellKeystoneTalent(spell) {
+    return isTalentTierNameKeystone(spell.ParentKey)
+}
 
 
 
@@ -422,19 +439,6 @@ export function getSpecRepresentativeIconFullPath(classObj, specName) {
     const firstSpellName = Object.keys(specObject['Starting Abilities'])[0]
     const spellName = removeTildes(firstSpellName)
     return getSpellIconPathByName(spellName)
-}
-
-export function calculateAttributesFromStatsAndBonuses(totalStatsArray, bonusesYML) {
-    const [might, dexterity, intelligence, sense] = totalStatsArray
-    const statsKnownTalents = intelligence + (bonusesYML['Known Talents'] ?? bonusesYML['Extra Known Talents'] ?? 0)
-    const statsMovementSpeed = dexterity + (bonusesYML['Movement'] ?? bonusesYML['Movement Speed'] ?? 0)
-    return {
-        maxHealth: 3 * might + (bonusesYML['Max Health'] ?? 0),
-        movementSpeed: 3 + (statsMovementSpeed < 0? 0: statsMovementSpeed),
-        healthRegen: 2 * sense + (bonusesYML['Health Regen'] ?? bonusesYML['Regen'] ?? 0),
-        initiative: intelligence + sense + (bonusesYML['Initiative'] ?? 0),
-        knownTalents: statsKnownTalents < 0? 0: statsKnownTalents
-    }
 }
 
 export function getAlMyRaceAndClassSpells({ raceName, className, specName, selectedClassSpellNames=[], selectedRaceSpellNames=[] }) {

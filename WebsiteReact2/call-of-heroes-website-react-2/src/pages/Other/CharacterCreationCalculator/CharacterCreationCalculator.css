@@ -30,7 +30,7 @@
     --ccc-description-width: var(--column-3-width);
     --ccc-description-height: calc(var(--stat-selector-size) * 2 + var(--stats-gap));
 
-    
+    --inventory-width: 66%;
 }
 @media (orientation: portrait) {    /* In portrait, column 3 is not displayed on the right, but at top */
     :root {
@@ -47,15 +47,7 @@
         --column-2-width: var(--page-content-width);
         --stat-selector-size: calc((var(--column-2-width) - var(--stats-gap) * 2) / 3);
 
-
-        /* --ccc-unit: calc(var(--page-content-width) / 19);
-
-        --column-3-width: var(--page-content-width);
-
-        --ccc-portrait-size: calc((var(--column-3-width) - var(--stats-gap)) / 2);
-        --ccc-portrait-height: var(--ccc-portrait-size);
-        --ccc-description-width: var(--ccc-portrait-size);
-        --ccc-description-height: var(--ccc-portrait-size); */
+        --inventory-width: 100%;
     }
 }
 
@@ -247,7 +239,7 @@
 
 
 .inventory-wrapper {
-    width: 66% !important;
+    width: var(--inventory-width) !important;
     min-height: 15rem;
 }
 .inventory {
@@ -277,6 +269,11 @@
 
     border: solid 1px var(--orange-color);
     border-radius: 50%;
+}
+@media (max-width: 575px) {
+    .gold {
+        font-size: 1.25rem;
+    }
 }
 
 
