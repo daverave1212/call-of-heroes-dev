@@ -691,7 +691,7 @@ export function RacePage({ theRace }) {
         </div>
     )
 }
-export function CCRacePage({ theRace, selectedSpellNames, onSpellClick, openPopup }) {
+export function CCRacePage({ theRace, selectedSpellNames, onSpellClick }) {
 
     return (
         <div>

@@ -142,6 +142,7 @@ function SaveCharacterButton() {
     )
 }
 
+/* { Message: string, Button State: string, callback: function,  } */
 function SpellPopup({ dialogState, setDialogState }) {
 
     const close = () => setDialogState(null)

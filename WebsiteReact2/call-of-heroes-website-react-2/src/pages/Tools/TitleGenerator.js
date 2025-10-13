@@ -174,19 +174,24 @@ export function QGTitle1__({ text, className, style, hueShift, height=60 }) {
     return <canvas ref={canvasRef} className={`qg-title1 ${className}`}/>
 }
 export function QGTitle1({ text, className, style, hueShift, height=60 }) {
-    const canvasRef = useRef(null)
-    const newStyle = {
-        height: height + 'px',
+    const [newStyle, setNewStyle] = useState({
+        // height: height + 'px',
         filter: (hueShift == null? null: `hue-rotate(${hueShift}deg)`),
         ...style
-    }
+    })
+    const canvasRef = useRef(null)
 
     const size60BaseMultiplier = 0.1296
     const heightMultiplier = height / 60
     const sizeMultiplier = size60BaseMultiplier * heightMultiplier
     useEffect(() => {
         const canvas = canvasRef.current
-        drawQGTextOnCanvas(canvas, text, sizeMultiplier)
+        drawQGTextOnCanvas(canvas, text, sizeMultiplier).then(() => {
+            setNewStyle({
+                ...newStyle,
+                aspectRatio: `${canvas.width}/${canvas.height}`
+            })
+        })
     }, [])
 
     return <canvas style={newStyle} ref={canvasRef} className={`qg-title1 ${className}`}/>

@@ -7,10 +7,12 @@
     "Proficiency Requirements": "You have Skilled in Athletics, Acrobatics and have a number of extra non-combat Skills equal to your Intelligence or Presence, whichever is higher.",
     "Proficiencies": {
         "~Skilled in Athletics~": {
-            "Effect": "Add your Level to all Might Checks for using your physical strength (e.g. lifting, breaking by hand, etc)."
+            "Effect": "Add your Level to all Might Checks for using your physical strength (e.g. lifting, breaking by hand, etc).",
+            "ParentKey": "Proficiencies"
         },
         "~Skilled in Acrobatics~": {
-            "Effect": "Add your Level to all Dexterity Checks for jumping, climbing, fitting through gaps, maintaining balance and other acrobatic moves."
+            "Effect": "Add your Level to all Dexterity Checks for jumping, climbing, fitting through gaps, maintaining balance and other acrobatic moves.",
+            "ParentKey": "Proficiencies"
         }
     },
     "Proficiencies Description": "Your physical training as a Warrior provides you with enough practice and muscle memory to be able to succeed at the more difficult hand-to-hand tasks, such as swimming, lifting and jumping.\n",
@@ -65,13 +67,15 @@
             "Range": "2 meters",
             "Cooldown": "Once / Turn",
             "Effect": "Freely dash exactly 2 meters toward a Worthy Enemy, landing on the closest space, near them.\n",
-            "Combo": "Single-Stun it."
+            "Combo": "Single-Stun it.",
+            "ParentKey": "Starting Abilities"
         },
         "~War Craft~": {
             "A": "Passive",
             "Effect": "No two warriors fight alike. Choose your War Craft from below!\nEach War Craft usually gives you a way to deal {Color('#ff5900' '+1d4 extra Damage each Turn')}.\n",
             "Upgrade": "You may change your War Craft inbetween Adventures.",
-            "HasMixins": true
+            "HasMixins": true,
+            "ParentKey": "Starting Abilities"
         }
     },
     "Other Abilities Title": "War Crafts",
@@ -82,27 +86,32 @@
             "Requirement": "Requires an equipped shield",
             "Effect": "Use after you are melee attacked. Deal 1d4 Smash Damage with your {Color('#ff5900' 'shield')} to the attacker.",
             "Combo": "Single-Stun it instead.",
-            "HasMixins": true
+            "HasMixins": true,
+            "ParentKey": "Other Abilities"
         },
         "~Dualwield Craft~": {
             "A": "Passive",
             "Effect": "Your {Color('#ff5900' 'second one-handed')} attack with a real weapon each Turn deals +1d4 Damage {Color('#ff5900' 'if it is with a different weapon than the first attack')}.",
-            "HasMixins": true
+            "HasMixins": true,
+            "ParentKey": "Other Abilities"
         },
         "~Heavy Weapon Craft~": {
             "A": "Passive",
             "Effect": "Your first {Color('#ff5900' 'two-handed')} weapon attack each Turn deals +1d4 Damage {Color('#ff5900' 'if there is an Ally, obstacle or wall directly behind the target')}.",
-            "HasMixins": true
+            "HasMixins": true,
+            "ParentKey": "Other Abilities"
         },
         "~Throw Craft~": {
             "A": "Passive",
             "Effect": "You may throw real melee weapons with a 3-5 meter range. They deal -1 Damage for one-handed weapons (or -2 Damage for two-handed weapons).\nYour first {Color('#ff5900' 'thrown')} weapon attack each Turn deals +1d4 Damage {Color('#ff5900' 'if it's the first Act you do on your Turn and you have a clear throw to the target')}.\n",
-            "HasMixins": true
+            "HasMixins": true,
+            "ParentKey": "Other Abilities"
         },
         "~Unarmed Craft~": {
             "A": "Passive",
             "Effect": "Your {Color('#ff5900' 'second Punch')} attack each Turn deals +1d4 Damage {Color('#ff5900' \"if it's on a different target than the first\")}.",
-            "HasMixins": true
+            "HasMixins": true,
+            "ParentKey": "Other Abilities"
         },
         "~Marksman Craft~": {
             "A": "Passive",
@@ -116,26 +125,31 @@
                     "Replacement": "Replaces Charge",
                     "Cooldown": "Once / Turn",
                     "Effect": "Freely dash exactly 2 meters toward an ~Ally~, landing on the closest space, near them.\n",
-                    "Combo": "If the Ally had a Combo, make a free Movement Action."
+                    "Combo": "If the Ally had a Combo, make a free Movement Action.",
+                    "ParentKey": "Subspells"
                 }
             },
-            "HasMixins": true
+            "HasMixins": true,
+            "ParentKey": "Other Abilities"
         },
         "~Dual Shield Craft~": {
             "A": "Passive",
             "Effect": "You can Dual Wield shields and attack with them for 1d6 + ^Any Stat^ Damage.\nAfter you Charge, gain 1d4 Shielding.\n",
-            "HasMixins": true
+            "HasMixins": true,
+            "ParentKey": "Other Abilities"
         },
         "~Improvisation Craft~": {
             "A": "Passive",
             "Effect": "Your first {Color('#ff5900' 'Improvised Attack')} each Turn deals +1d6 Damage {Color('#ff5900' 'if it's with an improvised weapon type you haven't used this Adventure')}.\n",
-            "HasMixins": true
+            "HasMixins": true,
+            "ParentKey": "Other Abilities"
         },
         "~Old-Fashioned Craft~": {
             "A": "Passive",
             "Effect": "Your first {Color('#ff5900' 'old-fashioned')} weapon attack each Turn deals extra Damage equal to ^Any Stat^, {Color('#ff5900' 'and applies a Combo if the target is a Person')}.",
             "Upgrade": "Old-fashioned weapons are weapons that do not deal extra Damage with any Stat (e.g. Hammer).",
-            "HasMixins": true
+            "HasMixins": true,
+            "ParentKey": "Other Abilities"
         }
     },
     "Ability Choices": {
@@ -145,13 +159,15 @@
             "Tags": [
                 "Utility"
             ],
-            "Effect": "Choose a direction. All Allies (including you) may move up to 3 meters in that direction."
+            "Effect": "Choose a direction. All Allies (including you) may move up to 3 meters in that direction.",
+            "ParentKey": "Ability Choices"
         },
         "~Break Mountains~": {
             "A": "1 Action",
             "Cost": "1 Mana",
             "Effect": "Pick up an object up to 2x2x2 meters in size, and Slam it 3d10 meters in any direction.",
-            "EffectGreen": "Critical Strike - for each max die rolled, deal +1d6 Damage and the object breaks on impact!"
+            "EffectGreen": "Critical Strike - for each max die rolled, deal +1d6 Damage and the object breaks on impact!",
+            "ParentKey": "Ability Choices"
         },
         "~Whirlwind~": {
             "A": "3 Action Points",
@@ -173,14 +189,16 @@
                     "IconName": "Rain Death"
                 }
             ],
-            "HasMixins": true
+            "HasMixins": true,
+            "ParentKey": "Ability Choices"
         },
         "~Takeback~": {
             "A": "Half-Action",
             "Cooldown": "Once / Turn",
             "Range": "Weapon Range",
             "Effect": "Deal 1d4 Damage to a Unit and Single-Stun it. Then end your Turn.",
-            "Combo": "+1d4 Damage."
+            "Combo": "+1d4 Damage.",
+            "ParentKey": "Ability Choices"
         }
     },
     "Utility": {
@@ -190,28 +208,32 @@
             "Cooldown": "1 real hour",
             "Range": "3 meters",
             "Effect": "Slam the ground so hard that it shatters one obstacle that fits within a 3x3x3 meter area.\nAfter casting this Ability, if you moved this turn, you can continue your movement.\n",
-            "Notes": "It is the Quest Master's call if an obstacle can be broken. Most walls can't be broken, except for thinner ones and fences."
+            "Notes": "It is the Quest Master's call if an obstacle can be broken. Most walls can't be broken, except for thinner ones and fences.",
+            "ParentKey": "Utility"
         },
         "~Sound Mind~": {
             "A": "Reaction",
             "Cooldown": "Once / Adventure",
             "HasMixins": true,
             "Effect": "Block any non-damaging negative incoming _effect_ on an ally you can see.\n",
-            "Upgrade": "Negative effects in this case means any Crowd Control, Debuff, Curse, mind-altering magic, non-Damaging Poison, etc."
+            "Upgrade": "Negative effects in this case means any Crowd Control, Debuff, Curse, mind-altering magic, non-Damaging Poison, etc.",
+            "ParentKey": "Utility"
         },
         "~Doublesault~": {
             "A": "0 Actions",
             "Cooldown": "Once / Adventure",
             "Degree": "Major",
             "Effect": "Leap up to 3 meters. If you land on a Unit, Doublesault again (for free)!\n",
-            "Notes": "You leap from Unit to Unit until you no longer land on a Unit. If you land on a Unit, you must leap again. You can't leap on the same Unit twice; if you do, you end your leap in the closest space near it.\nYou can use this even while in the air and it cancels out your current fall or acceleration.            \n"
+            "Notes": "You leap from Unit to Unit until you no longer land on a Unit. If you land on a Unit, you must leap again. You can't leap on the same Unit twice; if you do, you end your leap in the closest space near it.\nYou can use this even while in the air and it cancels out your current fall or acceleration.            \n",
+            "ParentKey": "Utility"
         },
         "~Snap Out Of It~": {
             "A": "Half-Action",
             "Requirement": "Level 4",
             "Cost": "1 Mana",
             "Effect": "Attack a different Unit with a 1-handed weapon. It heals instead of dealing Damage.",
-            "Notes": "Any extra Damage effects on it heal as well (e.g. Smite, Cursewielder, etc)."
+            "Notes": "Any extra Damage effects on it heal as well (e.g. Smite, Cursewielder, etc).",
+            "ParentKey": "Utility"
         }
     },
     "Starting Abilities Description": [
@@ -232,25 +254,30 @@
         "~Strength and Honor~": {
             "A": "Passive",
             "Effect": "You may exceed the Level limits for maximum Stats.\nYou start with +1 in any Stat.\n",
-            "Notes": "The maximum a Stat can be until Level 4 is +3. Between 4 and 8 is +4. There is no limit from Level 8 on."
+            "Notes": "The maximum a Stat can be until Level 4 is +3. Between 4 and 8 is +4. There is no limit from Level 8 on.",
+            "ParentKey": "_Ideas"
         },
         "~Bristleback~": {
             "A": "Passive",
-            "Effect": "You take less Damage when struck from behind. Enemies with 2 or less Presence..."
+            "Effect": "You take less Damage when struck from behind. Enemies with 2 or less Presence...",
+            "ParentKey": "_Ideas"
         },
         "~Hemmingstep~": {
             "A": "Passive",
-            "Effect": "When standing right next to a wall, you take -1 Damage from all sources."
+            "Effect": "When standing right next to a wall, you take -1 Damage from all sources.",
+            "ParentKey": "_Ideas"
         },
         "~Painfeast~": {
             "A": "0 Actions",
-            "Effect": "Until the start of your next Turn, all Damage you take is transformed into Healing instead!"
+            "Effect": "Until the start of your next Turn, all Damage you take is transformed into Healing instead!",
+            "ParentKey": "_Ideas"
         },
         "~Heavenbreaker~": {
             "A": "1 Action",
             "Cooldown": "Once / Adventure",
             "Range": "15 meters",
-            "Effect": "You jump high up above the battlefield and end your Turn.\nAt the start of your next Turn, you plunge into the earth like a comet toward a destintion space.\nAll Units within 3 meters of you take X Damage TODO and a crater forms in the zone, 2 meters deep at the extremities of the area.\n"
+            "Effect": "You jump high up above the battlefield and end your Turn.\nAt the start of your next Turn, you plunge into the earth like a comet toward a destintion space.\nAll Units within 3 meters of you take X Damage TODO and a crater forms in the zone, 2 meters deep at the extremities of the area.\n",
+            "ParentKey": "_Ideas"
         }
     },
     "Specs": {
@@ -268,12 +295,14 @@
                         "3. Taunt a Unit within 5 meters",
                         "4. Slam the target 1 meter (any direction)"
                     ],
-                    "Notes": "Taunted means its next offensive Act has Cover if it's not on you."
+                    "Notes": "Taunted means its next offensive Act has Cover if it's not on you.",
+                    "ParentKey": "Starting Abilities"
                 },
                 "~Third Wind~": {
                     "A": "0 Actions",
                     "Cooldown": "Once / Adventure",
-                    "Effect": "Take 1d10 Damage. Gain +1 Action this Turn."
+                    "Effect": "Take 1d10 Damage. Gain +1 Action this Turn.",
+                    "ParentKey": "Starting Abilities"
                 }
             },
             "Talents": {
@@ -281,13 +310,15 @@
                     "~Command - Patience~": {
                         "A": "Half-Action",
                         "Cost": "1 Mana",
-                        "Effect": "A Unit you can see gains a number of 1d8 Shieldings equal to the Round Number."
+                        "Effect": "A Unit you can see gains a number of 1d8 Shieldings equal to the Round Number.",
+                        "ParentKey": "Level 2 - Minor Talents"
                     },
                     "<Opportunity Attacks>": {
                         "A": "Reaction",
                         "Cost": "1 Mana",
                         "Effect": "When an enemy exits your melee attack range, make a free attack on them with a one-handed melee weapon.\n",
-                        "Notes": "If you don't have the weapon equipped, you automatically freely equip it, attack with it, unequip it and equip what you previously had."
+                        "Notes": "If you don't have the weapon equipped, you automatically freely equip it, attack with it, unequip it and equip what you previously had.",
+                        "ParentKey": "Level 2 - Minor Talents"
                     },
                     "<MIGHT OVER MAGIC>": {
                         "_Value": 1,
@@ -296,7 +327,8 @@
                         "HasMixins": true,
                         "Effect": "When you get this, choose a Minor Talent from (any Specialization of) Cleric, Mage or Warlock, up to your Level.\nThat Ability becomes a ^physical version of itself^: instead of using magic to cast that spell, you use your body/weapons/tools!\n",
                         "Upgrade": "The Damage of that Spell becomes Slash, Smash or Pierce, whichever makes sense.\n",
-                        "Notes": "E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage). Be creative, come up with a description of how it works!\nYou can change this Ability inbetween Adventures.\n"
+                        "Notes": "E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage). Be creative, come up with a description of how it works!\nYou can change this Ability inbetween Adventures.\n",
+                        "ParentKey": "Level 2 - Minor Talents"
                     }
                 },
                 "Level 3 - Keystone Talents": {
@@ -304,17 +336,20 @@
                         "_Value": "1 (because movement takes actions now)",
                         "A": "Passive",
                         "Effect": "When Worthy Combat starts, a Glory Point appears directly behind the furthermost Enemy from you.\nThe first time you reach the Glory Point, heal for 1d10.\n",
-                        "Notes": "The Glory Point is just a space/zone."
+                        "Notes": "The Glory Point is just a space/zone.",
+                        "ParentKey": "Level 3 - Keystone Talents"
                     },
                     "<Overthrow>": {
                         "Value": "2?",
                         "A": "Passive",
-                        "Effect": "When you Slam a Unit into a Wall, it becomes Single-Stunned."
+                        "Effect": "When you Slam a Unit into a Wall, it becomes Single-Stunned.",
+                        "ParentKey": "Level 3 - Keystone Talents"
                     },
                     "~Lead Commander~": {
                         "Value": "2 (3-4 uses per Adventure)",
                         "A": "Passive",
-                        "Effect": "Whenever you use a Command Ability, heal yourself or an affected Unit by 1d6."
+                        "Effect": "Whenever you use a Command Ability, heal yourself or an affected Unit by 1d6.",
+                        "ParentKey": "Level 3 - Keystone Talents"
                     }
                 },
                 "Level 4 - Minor Talents": {
@@ -323,7 +358,8 @@
                         "Cost": "1 Mana",
                         "Cooldown": "Once / Adventure",
                         "Effect": "Choose a target. Command all Allies (except you) in your party to make a Half-Action Act on the chosen target.",
-                        "Upgrade": "Can affect up to 5 Allies. If there are only 2 or less Allies, you also make the Half-Action."
+                        "Upgrade": "Can affect up to 5 Allies. If there are only 2 or less Allies, you also make the Half-Action.",
+                        "ParentKey": "Level 4 - Minor Talents"
                     }
                 }
             }
@@ -346,13 +382,15 @@
                         }
                     ],
                     "Notes": "This is not considered a Critical Strike. The extra Damage includes bonuses from War Craft and similar Abilities.",
-                    "HasMixins": true
+                    "HasMixins": true,
+                    "ParentKey": "Starting Abilities"
                 },
                 "~Critical Strike~": {
                     "A": "0 Actions",
                     "Cost": "1 Mana",
                     "Effect": "Your next weapon attack triggers its Critical Strike and Combo effect anyway!",
-                    "Notes": "Has no effect on weapons without such an effect."
+                    "Notes": "Has no effect on weapons without such an effect.",
+                    "ParentKey": "Starting Abilities"
                 }
             },
             "Talents": {
@@ -385,12 +423,14 @@
                                 "IconName": "Point and Shoot"
                             }
                         ],
-                        "HasMixins": true
+                        "HasMixins": true,
+                        "ParentKey": "Level 2 - Minor Talents"
                     },
                     "~Bull Rush~": {
                         "A": "Passive",
                         "Effect": "If you move at least 3 meters in a straight line and then melee Attack a target on the same line, the Attack gains +1 for every 3 meters moved in the straight line.",
-                        "Notes": "Works if mounted or if using Abilities that dash or jump (in a straight line), but teleporting interrupts this."
+                        "Notes": "Works if mounted or if using Abilities that dash or jump (in a straight line), but teleporting interrupts this.",
+                        "ParentKey": "Level 2 - Minor Talents"
                     },
                     "~Fame and Fortune~": {
                         "A": "0 Actions",
@@ -402,10 +442,12 @@
                                 "Cost": "300 Gold",
                                 "Cooldown": "Once / Adventure",
                                 "Effect": "You can spend 300 {Gold}Gold to gain +2 Maximum Health, up to +10 total.",
-                                "HasMixins": true
+                                "HasMixins": true,
+                                "ParentKey": "Subspells"
                             }
                         },
-                        "HasMixins": true
+                        "HasMixins": true,
+                        "ParentKey": "Level 2 - Minor Talents"
                     }
                 },
                 "Level 3 - Keystone Talent": {
@@ -417,7 +459,8 @@
                             "1. Heal yourself for that amount",
                             "2. Single-Stun the target (Double-Stun for two-handed weapons)",
                             "3. Freely move that many meters"
-                        ]
+                        ],
+                        "ParentKey": "Level 3 - Keystone Talent"
                     },
                     "~Weaponmaster~": {
                         "Value": 1.5,
@@ -434,7 +477,8 @@
                                 "Amount": "+1d4"
                             }
                         ],
-                        "HasMixins": true
+                        "HasMixins": true,
+                        "ParentKey": "Level 3 - Keystone Talent"
                     },
                     "<MIGHT OVER MAGIC>": {
                         "_Value": 1,
@@ -443,41 +487,48 @@
                         "AlignOnWebsite": "Right",
                         "Effect": "Choose a Minor Talent from (any Specialization of) Cleric, Mage or Warlock, up to your Level.\nYou can use it Once / Adventure, without spending Mana.\nThat Ability becomes a ^physical version of itself^: instead of using magic to cast that spell, you use your body/weapons/tools!\n",
                         "Upgrade": "The Damage of that spell becomes Slash, Smash or Pierce, whichever makes sense.\nCome up with a description of how it works! You can change this Ability inbetween Advetures.\n",
-                        "Notes": "E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage).\nE.g. Frost Nova - you smash the ground with such force that it Damages and Slows units around you (Smash Damage).\nBe creative!\n"
+                        "Notes": "E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage).\nE.g. Frost Nova - you smash the ground with such force that it Damages and Slows units around you (Smash Damage).\nBe creative!\n",
+                        "ParentKey": "Level 3 - Keystone Talent"
                     }
                 },
                 "Level 4 - Minor Talent": {
                     "~Off-Hand Shank~": {
                         "A": "Half-Action",
                         "Cost": "1 Mana",
-                        "Effect": "Make 3 attacks with a one-handed weapon you haven't used this turn that would normally scale with a Stat. These attacks do not add your Stat to the Damage."
+                        "Effect": "Make 3 attacks with a one-handed weapon you haven't used this turn that would normally scale with a Stat. These attacks do not add your Stat to the Damage.",
+                        "ParentKey": "Level 4 - Minor Talent"
                     },
                     "~Second Wind~": {
                         "A": "0 Actions",
                         "Cost": "1 Mana",
                         "Cooldown": "Once / Turn",
-                        "Effect": "Take 1d6 Damage. Gain +Half-Action this Turn."
+                        "Effect": "Take 1d6 Damage. Gain +Half-Action this Turn.",
+                        "ParentKey": "Level 4 - Minor Talent"
                     }
                 },
                 "Level 5 - Keystone Talent": {
                     "~Tug of War~": {
                         "A": "Passive",
-                        "Effect": "After you move from place, your next attack deals +1 Damage and is considered a Critical Strike."
+                        "Effect": "After you move from place, your next attack deals +1 Damage and is considered a Critical Strike.",
+                        "ParentKey": "Level 5 - Keystone Talent"
                     },
                     "~Critical War Craft~": {
                         "A": "Passive",
-                        "Effect": "Bonus Damage dealt by your War Craft is considered Critical Strike."
+                        "Effect": "Bonus Damage dealt by your War Craft is considered Critical Strike.",
+                        "ParentKey": "Level 5 - Keystone Talent"
                     },
                     "<Into the Fray>": {
                         "_Value": 2.25,
                         "A": "Passive",
-                        "Effect": "When combat starts, determine which side is your Allied Side and which is the Enemy Side of the battlefield. Each side has a direction (Allied Direction and Enemy Direction).\nIf you end your turn more to the Allied Direction than you started, you gain 4 Shielding until the start of your next turn.\nIf you end your turn more to the Enemy Direction than you started, your first attack next turn deals 1d6 extra Damage.\n  \n"
+                        "Effect": "When combat starts, determine which side is your Allied Side and which is the Enemy Side of the battlefield. Each side has a direction (Allied Direction and Enemy Direction).\nIf you end your turn more to the Allied Direction than you started, you gain 4 Shielding until the start of your next turn.\nIf you end your turn more to the Enemy Direction than you started, your first attack next turn deals 1d6 extra Damage.\n  \n",
+                        "ParentKey": "Level 5 - Keystone Talent"
                     },
                     "<Glory Run>": {
                         "_Value": 2.25,
                         "A": "Passive",
                         "Effect": "When combat starts, a Glory Point appears behind the furthermost Enemy from you that you can see.\nIf you touch the Glory Point, heal for 20% of your total Health and all Enemies you can see must become Single-Stunned.\nThe Glory Point then disappears.\n",
-                        "Notes": "The Glory Point is not a physical thing. It's merely a concept (a point)."
+                        "Notes": "The Glory Point is not a physical thing. It's merely a concept (a point).",
+                        "ParentKey": "Level 5 - Keystone Talent"
                     },
                     "<Ruining Throw>": {
                         "_Value": 2,
@@ -486,18 +537,21 @@
                         "Cooldown": "Once / Combat",
                         "Effect": "TODO: MAKE THIS COOLER BRUV\nALSO it has an upgrade that makes it return.\nThrow a weapon at a target and attack it (without Throwing penalties and ignoring Cover).\nBefore applying the Damage, the attack destroys all Shielding and Defense on the target and removes all buffs on it.\nThe target can't trigger \"on roll\", can't gain Shielding and can't benefit from Buffs until they spend an Action to recover.\n",
                         "Upgrade": "Epic Monsters gain ther Defense back when they spend the Action to recover.",
-                        "Notes": "Your weapon lands at the nearest space to the target (and you should probably pick it up with a Half-Action).\n\"On roll\" refers to effects like \"if it rolls 10 on a d10, the attack deals 1d10 extra Damage\".\nBuffs are all effects that improve the target; even passive effects like auras or passive stats from abilities are negated.\nYou don't need Training in Throwning and this attack counts as a regular melee attack.\n"
+                        "Notes": "Your weapon lands at the nearest space to the target (and you should probably pick it up with a Half-Action).\n\"On roll\" refers to effects like \"if it rolls 10 on a d10, the attack deals 1d10 extra Damage\".\nBuffs are all effects that improve the target; even passive effects like auras or passive stats from abilities are negated.\nYou don't need Training in Throwning and this attack counts as a regular melee attack.\n",
+                        "ParentKey": "Level 5 - Keystone Talent"
                     }
                 },
                 "Level 6 - Utility Talent": {
                     "~Breathing Technique~": {
                         "A": "0 Actions",
                         "Cooldown": "Once / real hour",
-                        "Effect": "You can breathe underwater for up to 1d20 minutes and swim at your normal speed."
+                        "Effect": "You can breathe underwater for up to 1d20 minutes and swim at your normal speed.",
+                        "ParentKey": "Level 6 - Utility Talent"
                     },
                     "~Renown~": {
                         "A": "Passive",
-                        "Effect": "Due to your deeds and radiating confidence, have an extra 10% discount on buying anything."
+                        "Effect": "Due to your deeds and radiating confidence, have an extra 10% discount on buying anything.",
+                        "ParentKey": "Level 6 - Utility Talent"
                     }
                 },
                 "Level 7 - Keystone Talent": {
@@ -506,20 +560,23 @@
                         "A": "Special",
                         "Effect": "You recruit a squire - a trusted NPC who gains combat powers. However, the capabilities of your squire are random: roll 1d6 to determine the type of your squire, based on the Squires category at Pets and Animals (1. Bold, 2. Sneaky, 3. Clever, 4. Wise). The Race is determined by the QM or by circumstance.\nOn its turn, it can do one Pet Attack, cast one Ability it has, or do the equivalent of a Half-Action (e.g. Dash, Push, etc).\nYou can recruit one squire per Adventure, but only one can follow you in your adventures at a time.\nAt the start of every Adventure (and when you get this Talent), you must spend 1 Mana and train your Squire to permanently increase its Health by 2 or gain one Ability from any other Squire type.\n",
                         "Upgrade": "If your squire drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your squire's wounds and heal it back to full Health.",
-                        "Notes": "Your squire is not a Player Character by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Player Character can). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!"
+                        "Notes": "Your squire is not a Player Character by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Player Character can). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!",
+                        "ParentKey": "Level 7 - Keystone Talent"
                     },
                     "<Attack Command>": {
                         "_Value": 2.25,
                         "A": "Reaction or 0 Actions",
                         "Cooldown": "Once / Adventure",
                         "HasMixins": true,
-                        "Effect": "An ally immediately makes an Act that takes 1 Action (can spend Mana, Cooldowns, etc on it, as if it were on its turn).\nYou can use this at any point, before or after someone does an Act.\n^You^ roll all the dice for this Act.\n"
+                        "Effect": "An ally immediately makes an Act that takes 1 Action (can spend Mana, Cooldowns, etc on it, as if it were on its turn).\nYou can use this at any point, before or after someone does an Act.\n^You^ roll all the dice for this Act.\n",
+                        "ParentKey": "Level 7 - Keystone Talent"
                     },
                     "<MIGHT OVER MAAAGIC!!!>": {
                         "_Value": 2,
                         "A": "Passive",
                         "HasMixins": true,
-                        "Effect": "Choose ^TWO^ Basic Abilities from the Elemental, Nature or Eldritch Schools that cost 1 Mana.\nYou can use each of those Abilities once per Adventure (without spending Mana).\nSee the Level 5 Talent _Might Over Magic_.\n"
+                        "Effect": "Choose ^TWO^ Basic Abilities from the Elemental, Nature or Eldritch Schools that cost 1 Mana.\nYou can use each of those Abilities once per Adventure (without spending Mana).\nSee the Level 5 Talent _Might Over Magic_.\n",
+                        "ParentKey": "Level 7 - Keystone Talent"
                     }
                 },
                 "Level 10 - Ultimate Talent": {
@@ -528,20 +585,23 @@
                         "Cooldown": "Once / Combat",
                         "Effect": "Your next weapon attack this turn deals +300% Damage. If it kills the target, overkill Damage is dealt to all enemies within 3 meters of the main target.\nAlso, passively, you gain +2 Dexterity and you are immune to monster _weapon effects_ (e.g. critical strikes).\n",
                         "HasMixins": true,
-                        "Downside": "{Ultimate}"
+                        "Downside": "{Ultimate}",
+                        "ParentKey": "Level 10 - Ultimate Talent"
                     },
                     "<Master Tactician>": {
                         "A": "Passive",
                         "Effect": "Gain +4 Max Health and +1 Damage on all attacks for every 3 sessions the Campaign has progressed.\nFrom now on, at the end of every session, gain +4 Max Health and +1 Damage on all attacks.\nAlso, passively, gain +2 Intelligence and you know the Abilities and strategies of all enemies you encounter.\n",
                         "HasMixins": true,
-                        "Downside": "{Ultimate}"
+                        "Downside": "{Ultimate}",
+                        "ParentKey": "Level 10 - Ultimate Talent"
                     },
                     "<Greatwielder>": {
                         "A": "Passive",
                         "Effect": "You can wield 2-Handed weapons, one in each hand.\nAttacks like this take only a Half-Action and count as 1-Handed weapon attacks but deal -2 Damage.\nWhile dual wielding 2-Handed weapons, if any Ability tells you to perform an attack with a 2-Handed and the ability costs 1 Action, it costs only Half-Action.\nAlso, passively, gain +1 Might and +1 Dexterity.\n",
                         "Notes": "If you already have a Technique Feat, you can remove it to refund the cost.",
                         "HasMixins": true,
-                        "Downside": "{Ultimate}"
+                        "Downside": "{Ultimate}",
+                        "ParentKey": "Level 10 - Ultimate Talent"
                     }
                 }
             }
@@ -553,7 +613,8 @@
                     "_Value": 1.25,
                     "A": "Passive",
                     "HasMixins": true,
-                    "Effect": "Whenever ^YOU^ kill a Worthy Enemy, heal for 1d6 Health. In addition, if an Enemy has 25% or less Health, you know exactly how much Health it has (ask the QM)."
+                    "Effect": "Whenever ^YOU^ kill a Worthy Enemy, heal for 1d6 Health. In addition, if an Enemy has 25% or less Health, you know exactly how much Health it has (ask the QM).",
+                    "ParentKey": "Starting Abilities"
                 },
                 "~Reckless Charge~": {
                     "A": "0 Actions",
@@ -561,12 +622,14 @@
                     "Range": "2 meters",
                     "Replacement": "Replaces Charge",
                     "Cooldown": "Once / Turn",
-                    "Effect": "Freely dash exactly 2 meters towards a Worthy Enemy, landing on the closest space. It becomes Rooted.\n~Your next weapon attack deals 2d6 extra Damage to the target and half of that to yourself.~\nYou can only use this once on every Worthy Enemy.\n"
+                    "Effect": "Freely dash exactly 2 meters towards a Worthy Enemy, landing on the closest space. It becomes Rooted.\n~Your next weapon attack deals 2d6 extra Damage to the target and half of that to yourself.~\nYou can only use this once on every Worthy Enemy.\n",
+                    "ParentKey": "Starting Abilities"
                 },
                 "~Blood Boil~": {
                     "A": "0 Actions",
                     "Cost": "1 Mana",
-                    "Effect": "Heal for 2d6 Health."
+                    "Effect": "Heal for 2d6 Health.",
+                    "ParentKey": "Starting Abilities"
                 }
             },
             "Talents": {
@@ -599,19 +662,22 @@
                                 "IconName": "Point and Shoot"
                             }
                         ],
-                        "HasMixins": true
+                        "HasMixins": true,
+                        "ParentKey": "Level 2 - Minor Talents"
                     },
                     "<Undying Rage>": {
                         "A": "Reaction",
                         "Cost": "1 Mana",
                         "Cooldown": "Once / Adventure",
-                        "Effect": "Taking Damage that would kill you puts you in a state of primal rage, and leaves you at 1 Health instead.\nFor the rest of the Combat, increase all Healing you do on yourself by 50%.\n  \n"
+                        "Effect": "Taking Damage that would kill you puts you in a state of primal rage, and leaves you at 1 Health instead.\nFor the rest of the Combat, increase all Healing you do on yourself by 50%.\n  \n",
+                        "ParentKey": "Level 2 - Minor Talents"
                     },
                     "<Blood and Fire>": {
                         "A": "Half-Action",
                         "Range": "1 meter",
                         "Cooldown": "Once / Turn",
-                        "Effect": "Take 1d6 Damage.\nStrike a Unit for an amount of Fire Damage equal to 50% of your missing Health.\n"
+                        "Effect": "Take 1d6 Damage.\nStrike a Unit for an amount of Fire Damage equal to 50% of your missing Health.\n",
+                        "ParentKey": "Level 2 - Minor Talents"
                     }
                 },
                 "Level 3 - Keystone Talent": {
@@ -620,14 +686,16 @@
                         "A": "0 Actions",
                         "Cooldown": "Once / Adventure",
                         "HasMixins": true,
-                        "Effect": "Take 1d6 Damage.\nThen, until the ^end^ of your next Turn, you take 50% less Damage (including from your own Abilities).\nWhen Heartbeat Trance ends, heal for 1d6.\n"
+                        "Effect": "Take 1d6 Damage.\nThen, until the ^end^ of your next Turn, you take 50% less Damage (including from your own Abilities).\nWhen Heartbeat Trance ends, heal for 1d6.\n",
+                        "ParentKey": "Level 3 - Keystone Talent"
                     },
                     "<Rage Trance>": {
                         "_Value": 2,
                         "A": "0 Actions",
                         "Cooldown": "Once / Adventure",
                         "HasMixins": true,
-                        "Effect": "Take 1d6 Damage.\nUntil the ^end^ of your next Turn, all your attacks deal +1d4 Damage and Onslaught healing is increased by 100%.\nWhen Rage Trance ends, heal for 1d6.\n"
+                        "Effect": "Take 1d6 Damage.\nUntil the ^end^ of your next Turn, all your attacks deal +1d4 Damage and Onslaught healing is increased by 100%.\nWhen Rage Trance ends, heal for 1d6.\n",
+                        "ParentKey": "Level 3 - Keystone Talent"
                     },
                     "<Battle Trance>": {
                         "_Value": 2,
@@ -635,11 +703,13 @@
                         "Cooldown": "Once / Turn",
                         "HasMixins": true,
                         "Requirement": "Only usable in Worthy Combat",
-                        "Effect": "Take 1d6 Damage.\nUntil the ^end^ of your next Turn, all Damage you do to yourself becomes Healing instead and you are immune to Crowd Control.\nWhen Battle Trance ends, heal for 2d6.\n"
+                        "Effect": "Take 1d6 Damage.\nUntil the ^end^ of your next Turn, all Damage you do to yourself becomes Healing instead and you are immune to Crowd Control.\nWhen Battle Trance ends, heal for 2d6.\n",
+                        "ParentKey": "Level 3 - Keystone Talent"
                     },
                     "<Hunger For Blood>": {
                         "A": "Passive",
-                        "Effect": "Whenever you deal Damage to a Worthy Enemy, heal for 10% of it (rounded down)."
+                        "Effect": "Whenever you deal Damage to a Worthy Enemy, heal for 10% of it (rounded down).",
+                        "ParentKey": "Level 3 - Keystone Talent"
                     }
                 },
                 "Level 4 - Minor Talent": {
@@ -647,7 +717,8 @@
                         "A": "0 Actions",
                         "Cost": "1 Mana",
                         "Cooldown": "Once / Adventure",
-                        "Effect": "Take 1d6 Damage.\nYour next single-target weapon attack deals +1d20 Damage.\nFor the rest of the Combat, you deal -50% Damage but increase all Healing you do by 50%.\n"
+                        "Effect": "Take 1d6 Damage.\nYour next single-target weapon attack deals +1d20 Damage.\nFor the rest of the Combat, you deal -50% Damage but increase all Healing you do by 50%.\n",
+                        "ParentKey": "Level 4 - Minor Talent"
                     },
                     "~FURY~": {
                         "A": "Half-Action",
@@ -657,32 +728,37 @@
                         "Effect": "Gain 3 {Orange('Fury')}.\n",
                         "Upgrade": "Every time you do Healing or weapon Damage, do +1 for each {Orange('Fury')}, then lose 1 {Orange('Fury')}.",
                         "Notes": "You can't go below 0 Fury.",
-                        "HasMixins": true
+                        "HasMixins": true,
+                        "ParentKey": "Level 4 - Minor Talent"
                     },
                     "~Painful Puncture~": {
                         "A": "Half-Action",
                         "Cooldown": "Once / Combat",
                         "HasMixins": true,
                         "Effect": "Attack a Unit for 1d6 + 2 Damage of your ^weapon^'s type. Its Passives, weapon* effects and Reactions are disabled until the start of your next Turn.\n",
-                        "Notes": "Its Passives become disabled before you hit it (e.g. Kobolds don't dodge this attack). Some monsters have special weapon* effects, like Centaurs who gain extra Damage based on how much they moved. These are disabled."
+                        "Notes": "Its Passives become disabled before you hit it (e.g. Kobolds don't dodge this attack). Some monsters have special weapon* effects, like Centaurs who gain extra Damage based on how much they moved. These are disabled.",
+                        "ParentKey": "Level 4 - Minor Talent"
                     }
                 },
                 "Level 5 - Keystone Talent": {
                     "<Blood Craft>": {
                         "A": "Passive",
-                        "Effect": "Whenever you Damage with War Craft to a Worthy Enemy, Damage yourself equal to the original roll, then increase it by 100% to the enemy."
+                        "Effect": "Whenever you Damage with War Craft to a Worthy Enemy, Damage yourself equal to the original roll, then increase it by 100% to the enemy.",
+                        "ParentKey": "Level 5 - Keystone Talent"
                     },
                     "<Death Mark>": {
                         "_Value": 2.25,
                         "A": "0 Actions",
                         "Cooldown": "Once / Adventure",
-                        "Effect": "Mark a Unit you can see for death.\nWhenever YOU deal Damage to it until your next turn, remember the Damage done.\nAt the start of your next turn, the mark bursts and the Unit takes 50% of the Damage it has taken in this time period.\n"
+                        "Effect": "Mark a Unit you can see for death.\nWhenever YOU deal Damage to it until your next turn, remember the Damage done.\nAt the start of your next turn, the mark bursts and the Unit takes 50% of the Damage it has taken in this time period.\n",
+                        "ParentKey": "Level 5 - Keystone Talent"
                     }
                 },
                 "Level 6 - Utility Talent": {
                     "<One With My Body>": {
                         "A": "Special",
-                        "Effect": "Choose any Druid or Hunter Utility Talent from any Level."
+                        "Effect": "Choose any Druid or Hunter Utility Talent from any Level.",
+                        "ParentKey": "Level 6 - Utility Talent"
                     }
                 },
                 "Level 7 - Keystone Talent": {
@@ -692,25 +768,29 @@
                         "Cooldown": "Once / Adventure",
                         "Range": "2 meters",
                         "HasMixins": true,
-                        "Effect": "Attack a Unit for 2d10 Damage of your weapon's type.\nWhenever ^YOU^ kill a Worthy Enemy (with anything), reset the Cooldown of this Ability.\n"
+                        "Effect": "Attack a Unit for 2d10 Damage of your weapon's type.\nWhenever ^YOU^ kill a Worthy Enemy (with anything), reset the Cooldown of this Ability.\n",
+                        "ParentKey": "Level 7 - Keystone Talent"
                     },
                     "<Frenzy>": {
                         "_Value": 2.75,
                         "A": "Passive",
-                        "Effect": "If you start your turn with 25 or less Health, you have +1 Movement Speed and can Break your Movement.\nif you start with 15 or less Health, you also have an extra Half-Action.\n"
+                        "Effect": "If you start your turn with 25 or less Health, you have +1 Movement Speed and can Break your Movement.\nif you start with 15 or less Health, you also have an extra Half-Action.\n",
+                        "ParentKey": "Level 7 - Keystone Talent"
                     },
                     "<Hurl Over>": {
                         "_Value": 3.5,
                         "A": "1 Action",
                         "Cooldown": "Once / Combat",
                         "Range": "1 meter to the Unit",
-                        "Effect": "Grab another non-Epic Unit and throw them up to 10 meters away.\nUpon landing, all other Units within 3 meters of the landing place take 3d8 Pulse Damage.\nIf it was an Enemy, the Thrown Unit takes 50% of the Damage.\n"
+                        "Effect": "Grab another non-Epic Unit and throw them up to 10 meters away.\nUpon landing, all other Units within 3 meters of the landing place take 3d8 Pulse Damage.\nIf it was an Enemy, the Thrown Unit takes 50% of the Damage.\n",
+                        "ParentKey": "Level 7 - Keystone Talent"
                     }
                 },
                 "Level 9 - Keystone Talent": {
                     "<Bloodbath>": {
                         "A": "Passive",
-                        "Effect": "You heal for all Damage done by Advanced Flank on Worthy Enemies."
+                        "Effect": "You heal for all Damage done by Advanced Flank on Worthy Enemies.",
+                        "ParentKey": "Level 9 - Keystone Talent"
                     }
                 },
                 "Level 10 - Ultimate Talent": {
@@ -718,20 +798,23 @@
                         "A": "Passive",
                         "Effect": "You Heal for all Damage you would deal to yourself instead of taking it. Pierce, Slash and Smash attacks can't Damage you below 1 Health (they leave you to 1 Health).\nAlso, passively, you gain +2 Might.\n",
                         "HasMixins": true,
-                        "Downside": "{Ultimate}"
+                        "Downside": "{Ultimate}",
+                        "ParentKey": "Level 10 - Ultimate Talent"
                     },
                     "<Ferocity Unleashed>": {
                         "A": "Passive",
                         "Effect": "If you start your turn with 50% or less Health, you have an extra 1 Action on your turn.\nAlso, passively, gain +1 Might, Dexterity and Presence, you are immune to exhaustion in Worthy Combat and you can survive without sleep for 7 days.\n",
                         "Notes": "This stacks with the Frenzy Talent.",
                         "HasMixins": true,
-                        "Downside": "{Ultimate}"
+                        "Downside": "{Ultimate}",
+                        "ParentKey": "Level 10 - Ultimate Talent"
                     },
                     "<MIGHT BRAWN MUSCLE>": {
                         "A": "Passive",
                         "Effect": "GAIN +10 MIGHT AND THE RESULTS OF ALL YOUR MIGHT CHECKS ARE DOUBLED.\n",
                         "HasMixins": true,
-                        "Downside": "{Ultimate}"
+                        "Downside": "{Ultimate}",
+                        "ParentKey": "Level 10 - Ultimate Talent"
                     }
                 }
             }
@@ -746,12 +829,14 @@
                     "Range": "2 meters",
                     "Replacement": "Replaces Charge",
                     "Cooldown": "Once / Turn",
-                    "Effect": "Freely dash 2 meters ~away from~ a Worthy Enemy. ~Its first attack on its next Turn deals -2 Damage.\nYou can only use this once on every Worthy Enemy.\n"
+                    "Effect": "Freely dash 2 meters ~away from~ a Worthy Enemy. ~Its first attack on its next Turn deals -2 Damage.\nYou can only use this once on every Worthy Enemy.\n",
+                    "ParentKey": "Starting Abilities"
                 },
                 "~Marksmanship~": {
                     "A": "Passive",
                     "Effect": "YOU can Flank a Unit from any range (if you, the target, and the ally, wall or obstacle are on the same line).",
-                    "Notes": "As usual, that ally, wall or obstacle helping with your Flank must be right behind the target (meaning allies can't Flank an enemy with you being far away)."
+                    "Notes": "As usual, that ally, wall or obstacle helping with your Flank must be right behind the target (meaning allies can't Flank an enemy with you being far away).",
+                    "ParentKey": "Starting Abilities"
                 },
                 "~Load Up~": {
                     "_Value": 1,
@@ -759,7 +844,8 @@
                     "Cost": "1 Mana",
                     "HasMixins": true,
                     "Effect": "You _load up_ your weapons. After you _load up_, your Advanced Flank die becomes 1d12 instead of 1d6, but every time you use it, the Advanced Flank die becomes ^Downgraded^ (down to 1d4).\nIf the attack kills the target, don't Downgrade.\n",
-                    "Notes": "{DiceDowngrade}"
+                    "Notes": "{DiceDowngrade}",
+                    "ParentKey": "Starting Abilities"
                 }
             },
             "Talents": {
@@ -772,7 +858,8 @@
                         "Replacement": "Replaces Uncharge",
                         "Cooldown": "Once / Turn",
                         "Effect": "Freely dash up to 2 meters away from a Worthy Enemy. Its first attack on its next Turn deals -2 Damage.\n~If it's non-Epic, push it 2 meters away from you. If it collides with something, deal Damage with your current Advanced Flank (load up) die.~\nYou can only use this once on every Worthy Enemy.\n",
-                        "Notes": "Dealing Damage with this ^Downgrades^ the Advanced Flank die."
+                        "Notes": "Dealing Damage with this ^Downgrades^ the Advanced Flank die.",
+                        "ParentKey": "Level 3 - Keystone Talent"
                     },
                     "<Harpoon Load Up>": {
                         "_Value": 1,
@@ -781,13 +868,15 @@
                         "Replacement": "Replaces Load Up",
                         "HasMixins": true,
                         "Effect": "You _load up_ your weapons. After you _load up_, your Advanced Flank die becomes 1d12 instead of 1d6, but every time you use it, the Advanced Flank die becomes ^Downgraded^ (down to 1d4).\n~If you roll maximum on the Advanced Flank die, deal an extra 1d6 Damage and either pull yourself to the target, or pull the target to you (your choice).~\nIf the attack kills the target, don't Downgrade.\n",
-                        "Notes": "{DiceDowngrade}. Requires a Harpoon, which can be bought for 50 Gold."
+                        "Notes": "{DiceDowngrade}. Requires a Harpoon, which can be bought for 50 Gold.",
+                        "ParentKey": "Level 3 - Keystone Talent"
                     },
                     "<Precise Rune>": {
                         "_Value": 1,
                         "A": "1 hour",
                         "Effect": "Craft a Precise Rune.\nInscribe on a weapon to permanently replace one Stat in its text (e.g. Might) with number 4.\nThe wielder of the weapon is also immune to being Crippled and has +1 Movement Speed.\n",
-                        "Notes": "You can only have one weapon with the Precise Rune at a time. When you apply a Precise Rune to a different, the other one loses its Precise Rune."
+                        "Notes": "You can only have one weapon with the Precise Rune at a time. When you apply a Precise Rune to a different, the other one loses its Precise Rune.",
+                        "ParentKey": "Level 3 - Keystone Talent"
                     }
                 },
                 "Level 5 - Keystone Talent": {
@@ -795,14 +884,16 @@
                         "_Value": 2,
                         "A": "Passive",
                         "Effect": "On your turn, you can freely lower yourself on the ground without penalties.\nYour first attack every turn while on the ground like this deals +1d6 Damage.\n",
-                        "Notes": "To get up, you must use all a Half-Action."
+                        "Notes": "To get up, you must use all a Half-Action.",
+                        "ParentKey": "Level 5 - Keystone Talent"
                     },
                     "<Scatterblast>": {
                         "_Value": 2,
                         "A": "1 Action",
                         "Range": "20 meters",
                         "Cooldown": "Once / Adventure",
-                        "Effect": "Make an attack on a target for 5d6 Smash Damage.\nThe impact is so powerful that all Units within 3 meters of the target take the final Damage taken by the target.\nThis attack is affected by your Reload state.\n"
+                        "Effect": "Make an attack on a target for 5d6 Smash Damage.\nThe impact is so powerful that all Units within 3 meters of the target take the final Damage taken by the target.\nThis attack is affected by your Reload state.\n",
+                        "ParentKey": "Level 5 - Keystone Talent"
                     },
                     "<Crosshair Shot>": {
                         "_Value": 2,
@@ -810,33 +901,38 @@
                         "Range": "14 meters",
                         "Cooldown": "Once / Adventure",
                         "Effect": "Make an attack on a target.\nFor each meter to the target, the attack deals 1d6 Pierce Damage, up to 7 meters.\nFor each meter to the target over 7 meters, deal one less d6.\n",
-                        "Notes": "At exactly 7 meters range, the attack deals 7d6 Damage. At 6 and 8 meters, it deals 6d6. At 5 and 9 meters, 5d6. And so on."
+                        "Notes": "At exactly 7 meters range, the attack deals 7d6 Damage. At 6 and 8 meters, it deals 6d6. At 5 and 9 meters, 5d6. And so on.",
+                        "ParentKey": "Level 5 - Keystone Talent"
                     }
                 },
                 "Level 6 - Utility Talent": {
                     "<Eagle Eye>": {
                         "A": "Passive",
                         "Effect": "While concentrating, you can zoom in on your vision x10 times.\nYou gain +3 Skill Points you can spend for Skills related to sight, ignoring the normal limit.\n",
-                        "EffectRed": "Once you get this Talent, you can no longer change it."
+                        "EffectRed": "Once you get this Talent, you can no longer change it.",
+                        "ParentKey": "Level 6 - Utility Talent"
                     },
                     "<Manufacturing>": {
                         "A": "10 minutes",
                         "Cooldown": "Once / real hour",
                         "Effect": "You can craft any standard weapon, good or adventuring gear by spending the {Gold}Gold amount.\nFor 150 {Gold}Gold, you can also craft a parachute, glider, raft, pulley lift, barricade or scuba kit (1 hour duration).\n",
                         "Notes": "Like most items, you can sell these to a vendor for 30 {Gold} after being used (20% of the original price).",
-                        "HasMixins": true
+                        "HasMixins": true,
+                        "ParentKey": "Level 6 - Utility Talent"
                     }
                 },
                 "Level 7 - Keystone Talent": {
                     "<Surprise Shot>": {
                         "_Value": 2.25,
                         "A": "Passive",
-                        "Effect": "Your first weapon attack every combat instantly Stuns the target.\n"
+                        "Effect": "Your first weapon attack every combat instantly Stuns the target.\n",
+                        "ParentKey": "Level 7 - Keystone Talent"
                     },
                     "<Offense Is Defense>": {
                         "_Value": 2,
                         "A": "Passive",
-                        "Effect": "Whenever you roll maximum on the Advanced Flank die, gain Shielding equal to the roll."
+                        "Effect": "Whenever you roll maximum on the Advanced Flank die, gain Shielding equal to the roll.",
+                        "ParentKey": "Level 7 - Keystone Talent"
                     }
                 },
                 "Level 10 - Ultimate Talent": {
@@ -844,7 +940,8 @@
                         "A": "Passive",
                         "Effect": "When NOT flanking a Unit, whenever you make a weapon attack, make another identical attack on the same target for free that does the same Damage (but does not apply effects like Smite and weapon effects).\nWhen you flank a Unit, it becomes Feared.\nAlso, passively, gain +2 Dexterity and you automatically pass Very Hard Dexterity Checks (requiring at least 20).\n",
                         "HasMixins": true,
-                        "Downside": "{Ultimate}"
+                        "Downside": "{Ultimate}",
+                        "ParentKey": "Level 10 - Ultimate Talent"
                     },
                     "<Precision Perfection>": {
                         "A": "0 Actions",
@@ -852,7 +949,8 @@
                         "Effect": "Use after rolling Damage for an attack. You can ignore all the dice rolled and just take maximum Damage for all of them.\n",
                         "Notes": "Weapon effects might not trigger, since the roll was ignored.",
                         "HasMixins": true,
-                        "Downside": "{Ultimate}"
+                        "Downside": "{Ultimate}",
+                        "ParentKey": "Level 10 - Ultimate Talent"
                     },
                     "<Make Every Shot Count>": {
                         "A": "Passive",
@@ -875,7 +973,8 @@
                         },
                         "Notes": "The Load Up die resets before applying it if it was applied.",
                         "HasMixins": true,
-                        "Downside": "{Ultimate}"
+                        "Downside": "{Ultimate}",
+                        "ParentKey": "Level 10 - Ultimate Talent"
                     }
                 }
             }
