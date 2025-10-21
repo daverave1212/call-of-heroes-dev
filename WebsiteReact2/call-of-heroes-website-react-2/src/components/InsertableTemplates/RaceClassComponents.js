@@ -42,6 +42,7 @@ import Selector from '../Selector/Selector'
 import { toggleSpellForSelectedSpellNames } from '../../pages/Other/CharacterCreationCalculator/CharacterData'
 import { BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP, HEALTH_REGEN, INITIATIVE, MAX_HEALTH, MOVEMENT_SPEED, normalizeTextWithStats } from '../../services/game-lib/stat-calculations'
 
+
 export function Proficiencies({ name, theRaceOrClass }) {
 
     const baseProficienciesDescription = `All Classes get a number of extra non-combat Skills. Think of something specific your character is good at outside of combat (e.g. things like acrobatics, knowing about monsters, lying, etc). Whenever you make a Check for what you're good at, add your Level to that Check.`
@@ -903,13 +904,28 @@ export function ClassPageV2({
                 <LevelingUp theClass={theClass} isCharacterCreationPage={true}/>
 
                 <br/><br/>
-                <div className='center-content'>
-                    <QGTitle1 text={'Specializations'} height={40}/>
-                </div>
+                { theClass.Specializations != null &&
+                    <div className='center-content'>
+                        <QGTitle1 text={'Specializations'} height={40}/>
+                    </div>
+                }
+                { theClass.Specs != null && (<>  
+                    <div className='flex-responsive gap-half'>
+                        { Object.keys(theClass['Specs']).map(specName => (
+                            <Selector className="margin-top-1" key={specName} name={specName} onClick={() => onSpecClick(specName)} src={U.getSpecRepresentativeIconFullPath(theClass, specName)} isSelected={finalSelectedSpecName == specName}/>
+                        )) }
+                    </div>
+                </>)}
 
-                { Object.keys(theClass['Specs']).map(specName => (
-                    <Selector className="margin-top-1" key={specName} name={specName} onClick={() => onSpecClick(specName)} src={U.getSpecRepresentativeIconFullPath(theClass, specName)} isSelected={finalSelectedSpecName == specName}/>
-                )) }
+                { theClass.Talents != null && <>
+                    <SpecTalents
+                        spec={theClass}
+                        selectedSpellNames={selectedSpellNames}
+                        onSpellClick={onSpellClick}
+                        spellsMetadata={spellsMetadata}
+                    />
+                </>}
+
 
             </Page>
 

@@ -1,6 +1,6 @@
 import { addArrays, addManyObjects, addObjects, capitalizeFirstLetter, getAllClasses, getAllRaces, isString } from "../../utils"
 
-export const STAT_LIMITS_TEXT = "Your Stat limit is 3 and increases by 1 every 3 Levels (it's 3 at Levels 1-3, 4 at Levels 4-6, etc)."
+export const STAT_LIMITS_TEXT = "Your Stat limit (and non-combat Skill limit) is 3 and increases by 1 every 3 Levels (it's 3 at Levels 1-3, 4 at Levels 4-6, etc)."
 
 export const MIGHT = 'Might'
 export const DEXTERITY = 'Dexterity'

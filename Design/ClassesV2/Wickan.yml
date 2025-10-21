@@ -1,0 +1,681 @@
+Class: Wickan
+Description: |
+      You worship the sun, the moon and the stars, for only they can truly guide your path.
+      Pagan Druids believe no one has the right to dictate someone else's spiritual path.
+      As a Pagan Druid, you oppose fanaticism, opressors and stupidity.
+      Pagan Druids usually worship no god, but they do acknowledge their power and they heavily respect nature and the earth.
+      A Pagan Druid gains the power through not black, nor white magic.
+      The suggested alignment for Pagan Druids is True Neutral.
+
+
+Quick Note: A druid is a spellcaster heavily attuned to their environment, who can shapeshift into animals, cast nature magic and channel the old powers of the stars themselves.
+
+Difficulty: Hard
+Level Up:
+  Every Level: 
+    Health: 5
+
+
+Spellcasting:
+  Type: Mana-based
+  SpellsOrAbilities: Spell
+  
+  Change: You can change your known Spells and Talents inbetween Adventures.
+  Other: All Druid-specific abilities are considered spells (unless stated otherwise).
+  
+  Mana:
+    Amount: 1
+    Regain: You regain all Mana back inbetween Adventures.
+    Per: per Adventure
+  
+  Known Basic Abilities: 2 + Intelligence (minimum 1)
+  BaseKnownSpells: 2
+  
+Starting Abilities:
+  # ~Day Night Cycle~:
+  #   A: Passive
+  #   Effect: |
+  #     At night, you can see in the dark, your attacks ignore Cover and enemies don't gain the Ambush Advantage if they ambush you.
+  #     At day, you have +1 Movement Speed and +3 Initiative.
+
+  ~Hex Magic~:
+    _Value: 1
+    A: 0 Actions or Reaction
+    Cost: Depends
+    Range: 10 meters
+    HasMixins: true
+    Effect: |
+      After you cast a Spell, you can expend 5 Health to force it to _echo_.
+      You can expend 3 Health to add or subtract 1d6 from any other Unit's roll (not yours).
+    Notes: |
+      The QM might not roll Damage for monsters, and instead take the average - even if they take the average, that counts as a roll.
+      Keep in mind you only have 1 Reaction per Round.
+
+  ~Day Night Cycle~:          # 0
+    _Value: 1
+    A: Passive
+    HasMixins: true
+    Effect: |
+      You are always in either {Orange('Solar')} or {Purple('Lunar')} stance, based on the _period of day_ (see gray text).
+      
+      {Orange('Solar Stance')}: you have +3 Health Regen and can cast any Ability Shapeshifted.
+
+      {Purple('Lunar Stance')}: once per attack/Ability/animal feature, when you roll maximum on a die, roll one more.
+    Notes: |
+      {Orange('Solar Stance')} period is from 6:00 to 18:00. {Purple('Lunar Stance')} period is from 18:00 to 6:00.
+      Your stance may change during combat. {Orange('Solar Stance')} Health Regen applies if you end the combat in Solar Stance.
+      If the campaign setting somehow skewes the day/night cycle, the Quest Master should find a different criterion to determine day/night.
+
+  ~Moonsun Fire~ :          # 2 (1.25 damage + 0.75 striaght up effect)
+    _Value: 2.5
+    A: Half-Action
+    Range: 6 meters
+    Cooldown: Once / period of day
+    HasMixins: true
+    Effect: |
+      {Orange('Solar Stance')}: Damage an enemy for 1d4 + ^Any Stat^ (Fire), then Heal an ally for the same amount.
+
+Ability Choices:
+
+    ~Thornskin~:
+        A: 0 Actions
+        Cost: 1 Mana
+        Duration: 1 minute
+        Degree: Minor
+        Effect: |
+            Choose a Unit you can see. Apply a Combo to it.
+            Whenever it is melee attacked, the attacker takes 1d4 Pierce Damage.
+        EffectGreen: Usable while Shapeshifted.
+        Notes: A Unit can only be effected by one Thornskin effect at a time.
+
+    ~Everbloom~:    # Almost 1 Mana worth
+        A: Half-Action
+        Range: 5 meters
+        Cost: 1 Mana
+        Degree: Minor
+        Effect: |
+          Heal an alive Unit for 2d6.
+        Combo: +1d6 Healing.
+
+    ~Venin Shot~:
+        A: 1 Action
+        Range: 6 meters
+        HasMixins: true
+        Degree: Minor
+        Effect: |
+            A target takes 1d8 + ^Presence^ Poison Damage.
+            The _next time_ it takes damage from a weapon, it takes an extra 1d8 Poison Damage.
+        Combo: The next time Damage happens now instead.
+        Notes: Might parts count as weapons.
+
+    ~Ripstorm~:
+        A: 3 Action Points
+        Cost: 1 Mana
+        Cooldown: Once / Adventure
+        Requirement: Only usable while Shapeshifted
+        Effect: |
+          Deal 5d6 Damage to all Worthy Units within 2 meters of you.
+          Heal for 1 Health per 5 real Damage done (total).
+          One of the Units hit becomes Crippled.
+    
+
+Utility:
+
+    ~Druidcraft~:
+      A: Depends
+      Range: 6 meters
+      HasMixins: true
+      Effect: |
+        You can create harmless sensory effects, tiny weather effects or soothe mild pains.
+        You can speed up the growth of small plants by 1000% while channeling.
+        You can speed up the progress of a disease or illness by 1000% while channeling.
+      EffectGreen: Usable while Shapeshifted.
+      AlignOnWebsite: Right
+
+    ~Control Wind~:
+        HasMixins: true
+        A: Half-Action
+        Range: 5 meters
+        Cooldown: Presence uses / Adventure
+        Degree: Lesser
+        Effect: |
+            You can control gusts of wind in a 6x6x6 area and do one of the following for 1 Action:
+            {Diamond} Create Heavy Wind blowing from any direction (see notes) that lasts for 1 minute
+            {Diamond} Move Heavy Wind 3 meters in any direction
+            {Diamond} Create wind that makes Units fall softly
+            {Diamond} Stop it (for 0 Actions)
+            {Diamond} Push all Units in the wind 1 meter in the wind's direction
+        Notes: |
+            Moving against Heavy Wind acts as Hard Terrain.
+            Projectiles fired against the Wind have -1 Damage, and projectiles fired with the Wind gain +1.
+            Multiple Winds don't stack into eachother.
+            Heavy Wind also clears Fog, Smoke, etc in the area.
+
+    ~Fog Cloud~:
+        A: 0 Actions
+        Cost: 1 Mana
+        Range: 5 meters to edge
+        Effect: |
+            A 5x5x5 meter cube becomes covered in fog for 1 minute.
+        Upgrade: All Attacks done from, through or to Units inside Fog have Cover (-50%).
+        Notes: Fog can be dissipated by wind. You can choose the color of the fog. The fog does not go through walls, but does bend around corners (e.g. up to 360 degrees around wall extremities).
+
+    ~Wild Steed~ :
+        A: 5 minutes
+        Requirement: Level 3
+        Duration: Until you dismount
+        Effect: |
+            You call upon a ridable land animal native to the area you are in.
+            You and up to 1 more party member can ride this animal.
+            It follows the normal rules for Riding.
+            It does not participate in combat.
+        Upgrade: |
+            At Level 6, this can be a flying animal.
+
+      
+
+
+Talents:
+
+  Level 2 Minor Talents:
+
+    ~Burnished Flames~:
+        A: 1 Action
+        Range: 4 meters
+        HasMixins: true
+        Degree: Minor
+        Requirement: Worthy Combat
+        Effect: |
+          Deal 1d12 + ^Presence^ Damage (Fire if {Orange('Solar')}, Scourge if {Purple('Lunar')}) and apply a Combo.
+        Combo: Heal it for 1d12 instead.
+
+    ~Curse of Locusts~:     # Ok
+        A: 0 Actions
+        Range: 10 meters
+        Cost: 1 Mana
+        Duration: 1 minute
+        Degree: Minor
+        Effect: |
+            A swarm of locusts appears and chases a Unit you can see for 1 minute.
+
+            {Orange('Solar Stance')}: Whenever it makes a Move Act, it takes 1d4 Poison Damage.
+
+            {Purple('Lunar Stance')}: For every Act not spent Moving, it takes 1d4 Acid Damage
+    
+    ~Effigy of Warding~:
+      A: 1 Action
+      Cooldown: Up to 1 effigy placed at a time
+      Duration: Until you place another effigy
+      Range: 5 meters
+      Effect: |
+        Place an effigy in a space. It triggers an effect when a Unit comes within 2 meters of it:
+        If Enemy, it takes +50% Damage next time it takes Damage.
+        If Ally, it takes -50% Damage next time it takes Damage.
+      Upgrade: Does not trigger if the Unit was already there.
+    
+    ~Solunar Psyche Blast~:
+      A: 1 Action
+      Range: 3 meters
+      Cost: 1 Mana
+      HasMixins: true
+      Cooldown: Once / Combat
+      Degree: Major
+      Tags: [Damage, Crowd Control]
+      Effect: |
+          A Unit takes 3d6 Psychic Damage and:
+
+          {Orange('Solar Stance')}: it becomes Blinded or Silenced (your choice).
+
+          {Purple('Lunar Stance')}: An ally within 3 meters is healed for 50% of the Damage dealt.
+
+
+
+  Level 3 - Keystone Talent:
+
+    ~Improved Moonsun Fire~:
+      _Value: 1.5
+      A: Half-Action
+      Range: 6 meters
+      Cooldown: Once / period of day
+      HasMixins: true
+      Replacement: Replaces Moonsun Fire
+      Effect: |
+        {Orange('Solar Stance')}: Damage ~and Root~ an enemy for 1d4 + ^Any Stat^ (Fire), then Heal an ally for the same amount.
+
+        {Purple('Lunar Stance')}: Damage ~and Single-Stun~ or Heal a Unit for ~2d4~ + ^Any Stat^ (Pulse) and apply a ~Combo~. The next ~Combo~ on that Unit triggers twice!
+
+    <Daybreak-Nightfall>:
+      A: Passive
+      HasMixins: true
+      Effect: When you pass from day to night and viceversa, roll 1d4 and gain one of these boons.
+      SingleTable:
+        - 1. Regain 5 Health
+        - 2. Your next Shapeshift costs 0 Mana
+        - 3. Your next Spell costs -1 Action Point
+        - 4. Regain 1 Mana
+
+    <Forced Eclipse>:   # 3+
+      _Value: 3
+      A: 1 Action
+      Cooldown: Once / Adventure
+      Effect: |
+        By weather-wight and star-song, I bid the sun forth and call the moon to reign!
+        Force 1 minute of artificial day or night in a 1km area around you.
+      Upgrade: |
+        This can reset the Cooldown of Moonsun Fire's, once when it happens, and again when it ends.
+      Notes: Nothing happens if used with Equinox.
+
+    ~Love and Lust~:
+      A: Passive
+      Effect: |
+        At the end of the Adventure, if most of your time was spent in a certain stance this Adventure, gain a permanent bonus:
+        
+        {Orange('Solar Stance')}: Gain +2 Skill Points.
+        
+        {Purple('Lunar Stance')}: Gain an extra positive Quirk.
+      Upgrade: These effects are permanent, even after you no longer have this Talent.
+
+    <Voodoo Magic> :
+      _Value: 1.25
+      A: 1 Action
+      Cooldown: Once / Adventure
+      Range: 6 meters
+      Effect: |
+        A Unit within 6 meters makes a Presence Check.
+        If it fails, it takes 2d6 Psychic Damage at the start of your every turn for 1 minute, and for its next turn, you can choose that enemy's Acts as long as it would seem reasonable to that enemy (decide with your QM).
+        Epic Monsters can not be controlled; they only take the Damage.
+      Notes: For example, you can make a goblin run or recklessly attack one of your party members. But you can't make a guard jump off a cliff, because that's not what it would normally do.
+
+    <Corpseblast>:
+      _Value: 1.25
+      A: Reaction
+      Cost: 2 Health
+      Effect: |
+        Use the moment a Worthy Unit dies.
+        Explode the corpse, dealing 1d4 Poison Damage to all Units near it.
+        Heal for the Damage dealt.
+      # [Health Regen Retcon]
+
+    <Blood Brew>:
+      _Value: 1.25
+      A: 10 minutes
+      Cost: 4 Health
+      Effect: |
+        You spend 10 minutes creating a strange splashable brew made from your own blood, with a random effect.
+        The brew can be splashed (Half-Action) onto a Unit (at 3 meters range).
+        When you create it, roll 1d4 to determine its effect.
+        You are immune to Blood Brews.
+      Notes: The brews lose their effect at the end of the Adventure. Acid and Muck ignore real Cover.
+      DoubleTable:
+        Headers:
+          - Brew
+          - Effect
+        Values:
+          - 1. Acid
+          - 3d6 Acid Damage
+          - 2. Muck
+          - Target takes 1d8 Damage and becomes Blinded
+          - 3. Anaesthetic
+          - 1d6 + 1d8 Healing
+          - 4. Gas
+          - Deals 1d12 Damage in a 5x5 area centered on the target, and a Toxic Gas cloud forms there.
+      # [Health Regen Retcon]
+
+    <Bone Mass>:
+      _Value: 1.5
+      A: Half-Action
+      Cost: Any amount of Health
+      Range: 6 meters to edge
+      Effect: |
+        Declare a square area with a diameter equal to the Health spent.
+        Sharp bones grow from the area (occupying 1x1 meters each).
+        When a Unit steps on a Sharp Bone, it directly takes 1d8 Pierce Damage and loses 1 meter of its remaining speed.
+        The bone then shatters.
+
+
+  Level 4 - Minor Talent:
+
+    <Star Fall>:
+      _Value: 2.25
+      A: 3 Action Points
+      Cost: 3 Mana
+      HasMixins: true
+      Range: 6 meters
+      Effect: |
+        {Orange('Solar Stance')}: Heal a Unit for 6d12.
+
+        {Purple('Lunar Stance')}: Damage a Unit for 6d10 True Damage.
+
+    ~Eclipsis Penumbrae~:
+      _Value: 2
+      A: 0 Actions
+      Cost: 1 Mana
+      Cooldown: Once / Adventure
+      Effect: For 1 hour, you are both in {Orange('Solar Stance')} and {Purple('Lunar Stance')}. Both effects apply.
+
+    ~Zodiac Alignment~:
+      A: 1 Action
+      Cost: 2 Mana
+      Range: 10 meters
+      Effect: |
+        Declare a 4x4 meter area.
+
+        {Orange('Solar Stance')}: Deal Fire Damage to all Units caught equal to the number of empty spaces in the area.
+
+        {Purple('Lunar Stance')}: Declare 1 animal feature. Shapeshift all Units caught into an animal with that feature for their next Turn.
+      Notes: The Damage is dealt all at once, not 1 by 1. Shapeshifted Units can not do their regular Abilities and can't cancel the effect. They remain Shapeshifted until the end of their (next) Turn.
+
+    ~Consummation~:
+      A: Half-Action
+      Cost: 1 Mana
+      Range: 3 meters
+      Degree: Major
+      Effect: |
+        {Orange('Solar Stance')}: Eat a non-Epic, Large or smaller Unit. While inside you, they are Blinded and Rooted to you and can only target you. {Color('red' 'Only usable while Shapeshifted')}.
+
+        {Purple('Lunar Stance')}: You and a chosen Unit are bound in exile, banished together into the Celestial Veil until the end of their (next) Turn. It is Single-Stunned and Slowed. Your Turn ends immediately after casting this Spell.
+
+        You can only target each Unit Once / Combat.
+      Notes: Whilst beneath the Celestial Veil, no hand nor spell may pass between banished ones and the waking world. Yet to mortal sight, those who walk the Celestial Realm are glimpsed faintly, as wraith-shadows drifting at the edge of vision.
+
+
+  Level 5 - Keystone Talent:
+
+    ~Primal Form~:
+      A: Passive
+      Effect: |
+        Your animal forms become improved and more akin to feral or primal animals, with larger fur, longer claws, thicker horns or even glowing eyes, depending on your stance.
+
+        {Orange('Solar Stance')}: You can pick one additional animal feature when Shapeshifting.
+
+        {Purple('Lunar Stance')}: You deal +1 Damage (from all source) and have +1 Movement Speed while Shapeshifted.
+
+    ~Blessing of Yune~:
+      A: 5 minutes
+      Effect: |
+        You weave a Blessing of Yune upon a willing ally whose spirit is clean and mind at ease, binding their soul to the turning of the sun and moon forever, while you have this Talent.
+
+        That ally now has the Day Night Cycle Ability, permanently.
+      Notes: Once blessed, they are bound by celestial worship until death. Should they be reborn anew, you may bestow the blessing upon someone else.
+
+    <Sunrise/Moonfall>:     # 1.5
+      _Value: 1.5
+      A: Passive
+      Effect: Moonsun Fire now hits one extra target, deals 1d4 extra Damage and ignores Defense and Resistances.
+
+    <Equinox>:              # It's 0.5 Actions + 1 Mana = 2 Mana
+      _Value: 2
+      A: 1 Action
+      Cooldown: Once / Adventure
+      Requirement: Only usable at twilight
+      Effect: |
+        Your next Spell (this Turn or next) casts twice.
+      Upgrade: If you use this with Shapeshift, you can combine into 2 animals, and have both their Abilities and their highest Stats.
+      Notes: On the second cast, you can choose different targets, areas, etc (and it ignores Cooldown, Costs, etc).
+
+    <Dead Hands>:
+      _Value: 1.5
+      A: Half-Action
+      Cooldown: Once / Turn
+      Cost: Any amount of Health
+      Duration: 10 minutes
+      Effect: |
+        Declare a square area with a diameter equal to the Health spent.
+        Undead hands appear in that area and make it Hard Terrain.
+        At the start of your next turn, summon a number of Draugr equal to half the Health spent, each wherever you choose in that area.
+      Monster:
+        Name: Draugr
+        Description: Draugr take their turn the same time as you and you can command them to do move and attack. They can not do Default Moves or use items. Draugr last for 10 minutes or until killed.
+        Health: 1
+        Defense: 3
+        Speed: 4
+        Stats: -1/-1/-1/-1/-1
+        Abilities:
+          ~Attack~:
+            A: 1 Action (from Draugr)
+            Effect: Make a melee attack for 1d4 Scourge Damage.
+
+    <Schizophrenic Suggestion>: # Lmao no idea
+      _Value: 2.5
+      A: 1 Action
+      Cooldown: Once / Adventure
+      Range: 3 meters to edge
+      Cost: Any amount of Health
+      HasMixins: true
+      Effect: |
+        Declare a square area with a diameter equal to ^twice the Health spent^.
+        All Units in that area must succeed a Presence Check agasint _twice the Health spent_ or instantly make an attack or offensive Ability of its choice, at full strength, on its closest ally.
+      Notes: Monsters can use any of their Abilities that do Damage or Crowd Control, and target them however they want if they are Area Abilities, as long as it hits its closest ally.
+      # [Health Regen Retcon]
+
+    <Bumboclaat!>:            # 1 Action + 1 Mana is the follow up you'd do, so 2 Mana-ish
+      _Value: 2.5
+      A: Half-Action
+      Cooldown: Once / Adventure
+      Effect: |
+        Target a Unit.
+        The next time it would take Damage from any source before your next turn, the Damage is increased by 100%.
+      Upgrade: You can only use this on targets that have blood.
+      Notes: Applies to added extra Damage if it's the same type as the base Damage (e.g. Advanced Flank works, but not Smites).
+
+
+  Level 6 - Utility Talent:
+
+    ~Portal~ :
+        A: 4 in-game hours
+        Duration: Until you make another portal
+        Cooldown: Once / real month
+        Degree: Grand
+        Effect: |
+            Start conjuring a portal at your location resembling the nature of your specialization and studies.
+            Think of an exact destination within 1000km.
+            At the end of the cast time, a portal opens at this location and the destination.
+        Notes: |
+            At the end of the spell, the destination must be empty for the portal to appear there. Otherwise the portal spell is cancelled and goes on a 1 real hour Cooldown.
+            Stepping through one of the portals (obviously) teleports the Unit to the other portal.
+
+    ~Barkskin~:
+        A: Reaction
+        Cost: 1 Mana
+        Cooldown: Once / Adventure
+        Effect: |
+            An ally you can see (or yourself) becomes Rooted in the ground.
+            While rooted, that Unit's Defense can't be lower than 5.
+            Lasts until that Unit moves from place.
+
+    ~Spectral Hand~:
+        A: Passive
+        Range: 5 meters
+        Degree: Minor
+        Effect: |
+            You have a spectral, ghostly hand that levitates around you within 5 meters and is invisible when resting.
+            You can manipulate and move the hand as you do your own, spending Action Points or Movement.
+            The hand can't attack, but it can cast Spells as if from your own hand.
+        Notes: |
+            The hand can't deal Damage or go more than 5 meters away from you.
+            The hand can't lift objects weighing more than 10kg.
+            Moving the hand spends Actions as if you made moved your own hand.
+            Once / turn, you can summon or vanish the hand for 0 Actions if it's effect is still active, in a space next to you.
+
+    ~Grow or Shrink~:
+        A: 0 Actions
+        Cost: 1 Mana
+        Cooldown: Once / Turn
+        Degree: Minor
+        Effect: |
+            A Unit or object you can see becomes one Size larger/smaller for its next 1d4 turns.
+            It gains or loses 1 Deense, gains or loses 1 Damage on all physical Acts (that would deal Damage) and gains or loses 1 Movement Speed.
+            Can stack multiple times.
+        Notes: |
+            Sizes are Minuscule, Small, Medium, Large, and Larger.
+            A larger Unit becomes 1 meter larger/smaller in both directions.
+            It's number of spaces occupied also changes with this.
+
+  Level 7 - Keystone Talent:
+
+    <Shapeshift Fire>:  # 3+
+      _Value: 3
+      A: Passive
+      Effect: Whenever you Shapeshift into an animal specific to the current time of day, cast Moonsun Fire for free, ignoring its Cooldown.
+      Notes: The chosen animal must be approved by the QM to trigger the free Moonsun Fire.
+
+    ~Stunning~:
+      A: Passive
+      Effect: Solar or Lunar - max die = heal or CC
+    
+    <Pet Attack>:
+        IsSubspell: true
+        A: 1 Action (from the pet)
+        Effect: |
+            The pet melee attacks a target.
+            The attack deals 1d6 Pierce of Slash Damage (your choice).
+
+    ~Full Moon~:
+      Effect: At the start of every Combat, if twilight, you have a 1/6 chance to be a full moon.
+
+    ~Solunar Naturality~:
+      _Value: OP af boy
+      A: Passive
+      Effect: Every _sunrise_ or _sundown_, regain 1 {Mana}Mana.
+
+    ~Animal Feature~:
+      Effect: You have any animal feature while not shapeshifted.
+
+    <Possession>:
+      _Value: 3
+      A: Half-Action
+      Cooldown: Once / Adventure
+      Effect: |
+        Choose a Unit you can see.
+        You possess its body and, on its next turn, you control what it does.
+      Upgrades: |
+        Only works on targets with Presence less than 3.
+        The QM will tell you what the Unit can do if it's a monster.
+
+  Level 10 - Ultimate Talent:
+
+    <Soulfire>:
+      A: Passive
+      Effect: |
+        Moonsun Fire has no Cooldown.
+        You become immune to Fire and Scourge Damage, and to being Blinded and Feared.
+        Passively, you always know the locations of any living Units within 15 meters, and you gain +2 Presence.
+      HasMixins: true
+      Downside: "{Ultimate}"
+
+    <Be It Dawn or Dusk>:
+      A: Passive
+      Effect: |
+        When it breaks _day_, you heal for 50% of your Max Health.
+        When it breaks _twilight_, you recover 50% of your Max Mana.
+        Gain +1 Presence and Intelligence.
+      HasMixins: true
+      Downside: "{Ultimate}"
+
+
+
+
+# Charges
+# CC Hard + RoI
+
+# Healing       (Talents 2)
+# Charges
+# Pet
+
+# Healing       (Talents 4)
+
+# Talent: Blood Magic also can use for X and Y
+# Talent: Black Charm extra Damage
+
+#   Coven of the Wicked:          # 2.5
+#     Description: |
+#       Witch druids use eldritch magic of the nature to bend reality in an unseen way, cast curses and dispell magic.
+#       However, this comes at a price, usually of its own sanity and control over the powers.
+#       Wiccan Druids believe no one has the right to dictate someone else's spiritual path.
+#       As a Wiccan Druid, you oppose fanaticism, opressors and stupidity.
+#       Wiccan Druids worship no god, but they do acknowledge their power and they heavily respect nature and the earth.
+#       A Wiccan Druid gains the power through not black, nor white eldritch magic.
+#       The suggested alignment for Wiccan Druids is True Neutral.
+
+#     Starting Abilities:
+
+#       ~Eldritch Spells:
+#         A: Passive
+#         Effect: |
+#             You can also learn Spells from the Eldritch Basic Ability List.
+#             If a Spell costs Mana to cast, you can cast it with Blood Magic.
+
+#       ~Blood Magic~:    # 1.25
+#         A: 0 Actions
+#         Cooldown: 1 Turn
+#         Effect:
+#             Choose an offensive Basic Ability. If it costs nothing, take 6 Damage or otherwise take 6 Damage for each Mana point it costs.
+#             Cast that spell regardless of its Cost and Cooldown.
+#             You can instead spend 6 Health to cast Black Charm.
+
+#       ~Black Charm~:    # 1.5 but it's ROI
+#         A: 0.5 Action
+#         Range: 10 meters
+#         Cooldown: Once / Adventure
+#         Effect: |
+#           Choose a target. It must make a Presence Check.
+#           If it fails, at the start of your next turn, it is Triple-Stunned and takes 2d8 Psychic Damage (or half if it succeeds).
+#         Notes: Ignores Cover.
+
+#     Talents:
+#       Level 3 - Keystone Talent:
+  
+#         <Future Blood>:
+#           A: Passive
+#           Effect: |
+#             Blood Magic can now draw Health from your Reserve Health Pool.
+#             Your Reserve Health Pool increases by 5.
+  
+#         <Old Ritualist>:
+#           A: 10 minutes
+#           Cooldown: Once / Adventure
+#           Requirement: You lose access to Shapeshift
+#           Effect: Channel for 10 minutes in a safe space, uninhabited by regular folk. Regain 3 Mana.
+#           Upgrade: If you have this Talent, you can no longer use Shapeshift, whether you used it or not.
+#           Notes: Your Mana can't exceed your Max Mana.
+    
+        
+#         <Pet Attack>:
+#             IsSubspell: true
+#             A: 1 Action (from the pet)
+#             Effect: |
+#                 The pet melee attacks a target.
+#                 The attack deals 1d6 Pierce of Slash Damage (your choice).
+  
+#       Level 5 - Keystone Talent:
+
+#         <Schizophrenic Suggestion>: # Lmao no idea
+#           A: 1 Action
+#           Cooldown: Once / Adventure
+#           Range: 3 meters to edge
+#           Effect: |
+#             Declare a 6x6 meter area.
+#             All Units in that area must succeed a Presence Check or instantly make an attack or offensive Ability of its choice, at full strength, on its closest ally.
+#           Notes: Monsters can use any of their Abilities that do Damage or Crowd Control, and target them however they want if they are Area Abilities, as long as it hits its closest ally.
+
+#         <Blood Curse>:            # 1 Action + 1 Mana is the follow up you'd do, so 2 Mana-ish
+#           A: Half-Action
+#           Cooldown: Once / Adventure
+#           Effect: |
+#             Target a Unit.
+#             The next time it would take Damage from any source before your next turn, the Damage is doubled (after Defense).
+#           Upgrade: You can only use this on targets that have blood.
+#           Notes: Applies to added extra Damage if it's the same type as the base Damage (e.g. Advanced Flank works, but not Smites).
+
+#         <Wicked Animals>:
+#           A: 1 Action
+#           Cooldown: Once / Adventure
+#           Effect: |
+#             Call upon 2 animals, both of which are either Wolves, Giant Spiders or Giant Bats (Birds of Prey).
+#             They appear on the edge of the battlefield, from the wilderness, and they fight for you for up to 1 minute.
+#           Notes: Both animals must be of the same type.
+
+
+
+# # Fey Druids are people bound to the Fey and to Fey creatures, a whimsical yet chaotic magic.
+# # A worshipper of the Forgotten Gods praises Mother Earth, the Stars and possibly gods long forgotten by civilization.

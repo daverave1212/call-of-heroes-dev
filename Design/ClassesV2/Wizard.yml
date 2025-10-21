@@ -1,0 +1,506 @@
+
+
+Ideas:
+    
+    ~Book Is Alive!~:
+      A: Passive
+      Effect: Your spell book is alive!
+
+
+Class: Wizard
+Description: |
+  You step inside the magic circle, and an incantation of fire, frost, and lightning begins. The figure with robes and glowing eyes moves around, raw energy emanating from their palms. A book lays open on the floor, pages flipping themselves and shifting through bright violet runes. The circle is abruptly broken, and the magic stops, as you notice the Wizard caressing his beard, eyes all on you. Did the spell fail? Could this be a mistake? An error in the code of arcane? Wizards work in mysterious ways...
+  Wizards are channelers magic, refiners of the coarse arcane, directly from the source, who can transform those vibrations into elemental energies. Mastery over magics has made their spells fast and efficient, but in their choice of spells and invocations, no two Wizards are alike.
+  Wizards are in a continuous study of magic, and their mind is trained for accessing higher-order spells ahead of time, while sorcerers prefer a more random (albeit practical) usage of magic, going with the flow. Artificers are the complete opposite, however, prefering rigurious crafts of trial and error until they excel in their preferred creation field - alchemy, tinkering, even blacksmithing.
+
+Quick Note: |
+  Wizards are channelers magic, refiners of the coarse arcane, directly from the source, who can transform those vibrations into elemental energies. Mastery over magics has made their spells fast and efficient, but in their choice of spells and invocations, no two Wizards are alike.
+  Wizards are in a continuous study of magic, and their mind is trained for accessing higher-order spells ahead of time, while sorcerers prefer a more random (albeit practical) usage of magic, going with the flow. Artificers are the complete opposite, however, prefering rigurious crafts of trial and error until they excel in their preferred creation field - alchemy, tinkering, even blacksmithing.
+
+Difficulty: Easy
+ 
+Weapons: You are Trained in a Weapon Category of choice (e.g. 1-Handed Melee, 2-Handed Ranged, etc).
+
+
+
+Proficiencies Description: |
+    With all the study involved in becoming a Wizard, you have undoubtedly come across facts and tidbits on how the things work in this world, hence your proficiency in general knowledge.
+
+    Depending on what you studied, you will know quite a bit about either the occult or the arcane - what is your alignment?
+
+
+# Idea: What is the Wizard class fantasy?
+# Idea: Summon a wizard's tower
+# Idea: You become a dragon
+# Idea: You become an ethereal being of pure magic
+# Idea: Stop time for a few seconds (you literally get a free turn xD)
+# Idea: Cast Spells that cost 2+ Charges with -1 Charge
+# Idea: Create bombs
+# Idea: Chronomancy - gain some chronomancy spells, like Slow (which limits Epics to 1 turn too)
+
+
+Level Up:
+  Every Level: 
+    Health: 4
+
+Spellcasting:
+  Type: Mana-based
+  SpellsOrAbilities: Spell
+
+  Mana:
+    Amount: 3
+    Regain: You regain all Mana back inbetween Adventures.
+    Per: per Adventure
+
+  Change: You can change your known Spells and Talents inbetween Adventures.
+  Other: All Wizard-specific Abilities are considered Spells (except Magic Mastery).
+  Known Basic Abilities: 3 + Intelligence (minimum 1)
+  BaseKnownSpells: 3
+
+
+Ability Choices:
+
+    ~Element Burst~:
+        A: 1 Action
+        DisplayName: "{Element} Burst"
+        Range: 5 meters
+        Degree: Minor
+        Effect: |
+            DaWizard a Unit for 2d6 {Element} DaWizard.
+            Deals +1d10 DaWizard if the target had taken {Element} DaWizard this combat before.
+            ~Click on the Spell Icon to select the preferred Element!~
+        Notes: These are considered different Spells.
+        Variants:
+            - Element: Fire
+              IconName: Fire Burst
+            - Element: Cold
+              IconName: Cold Burst
+            - Element: Shock
+              IconName: Shock Burst
+        Tag: DaWizard (1)
+
+    ~Magic Arrows~:
+        A: Half-Action
+        Range: 5 meters
+        HasMixins: true
+        Degree: Minor
+        Effect: |
+            Shoot 2 arcane arrows. Each does 1d4 Pulse DaWizard.
+            This turn, each arrow after the first into the same target deals only 1d2 instead.
+        Combo: 2 more arcane arrows shoot from the target into any targets within 5 meters of it. They ignore the same-target penalty.
+        Notes: |
+            When you cast this, decide the targets before rolling the dice. Roll the dice for each target at a time.
+
+    ~Burning Breath~:
+        A: Half-Action
+        Cooldown: Once / Turn
+        Range: Near you
+        Degree: Lesser
+        Effect: |
+            All Units 3x3 meter area take 4 Fire DaWizard.
+        Combo: If any affected Unit has a Combo, +50% total DaWizard (to all) and does not trigger the Cooldown.
+        Tag: AoE (Half)
+
+    ~Volt Guard~:    
+        A: Reaction
+        Range: 5 meters
+        Cost: 1 Mana
+        Effect: |
+          Use when a Unit would take DaWizard (after roll). Negate 50% of the incoming DaWizard and return it back to the source as Shock DaWizard.
+          Apply a ~Combo~ to either of them.
+        Upgrade: The returned DaWizard is a quick lightning that bends around obstacles, ignoring Cover or Line of Sight.
+        Tag: Protection
+
+    ~Rime Shackles~:
+        A: 1 Action
+        Range: 5 meters
+        Cost: 1 Mana
+        HasMixins: true
+        Degree: Major
+        Effect: |
+            Deal Cold DaWizard to a Unit equal to 1d12 + ^Its Dexterity^.
+            If it's Medium or smaller, Root it.
+        Combo: This either hits one more Unit within 2 meters of it, or also Single-Stuns the target.
+        Tag: CC Hard
+
+    ~North Star~:
+        A: 3 Action Points
+        Range: 15 meters
+        Cost: 1 Mana
+        Degree: Major
+        Effect: |
+            You conjure a magical star that always shoots North and deals 5d10 Pulse DaWizard to the first Unit hit.
+        Combo: The star explodes, dealing 50% of the total DaWizard to all other Units within 2 meters of the hit target.
+        Notes: |
+            You can only shoot the star towards North - without an angle.
+            Ask the DM which way North is (if your character knows that).
+
+Utility:
+
+  ~Learn Scrolls~:    # 0
+    A: 1 minute
+    Effect: |
+      If you have a Scroll that contains a Basic Ability (e.g. from Arcane, Nature, etc), you can destroy it to Know it permanently, without needing to learn it inbetween Adventures.
+    Notes: You can not learn Class Abilities from Scrolls. Of course, you still need to spend Mana and respect the Cooldown of said Ability.
+    AlignOnWebsite: Left
+
+  ~Control Elements~:
+      Degree: Lesser
+      HasMixins: true
+      A: 1 Action
+      DisplayName: Control {Element}
+      Range: 5 meters
+      Cooldown: Your Level uses / Adventure
+      Effect: |
+          {DoWhat}
+      Notes: |
+          {ElementNotes}
+          Apply common sense. The QM has the final word on whether something is possible.
+      Tag: Utility
+      Variants:
+        - Element: Fire
+          DoWhat: |
+            Target a 2x2x2 meter cube containing Fire.
+            Choose any of the following to do with it:
+            🔹 Move it up to 5 meters in any direction
+            🔹 Extinguish it
+            🔹 Lower or increase its intensity or light emission by 50%
+            🔹 Roughly alter its shape and/or color
+          ElementNotes: A Unit that touches the fire takes 2 DaWizard.
+          IconName: Control Elements
+        - Element: Water
+          DoWhat: |
+            Target a 1 meter cube containing {Element}.
+            Choose any of the following to do with it:
+            🔹 Move it up to 5 meters in any direction
+            🔹 Destroy it
+            🔹 Lower or increase its temperature down to near-freezing or near-boiling
+            🔹 Roughly its shape and/or color
+          IconName: Control Elements
+          ElementNotes: Water is Hard Terrain. A Unit that touches near-boiling or near-freezing water takes 2 DaWizard.
+
+  ~Flash~:
+      A: Reaction (or 0 Actions)
+      Cost: 1 Mana
+      Cooldown: Once / Turn
+      Degree: Minor
+      Requirement: Level 3
+      Effect: Instantly teleport up to 5 meters away, within line of sight.
+      Notes: You take with you all items carried. Does not work if you're Rooted or stuck in place somehow.
+
+  ~Magic Tricks~:
+      A: 1 Action
+      Range: 3 meters
+      HasMixins: true
+      Degree: Lesser
+      AlignOnWebsite: Right
+      Effect: |
+          Choose one of these effects to cast:
+          {Diamond} Create harmless sensory effects, sparks or non-damaging heat or cold.
+          {Diamond} Channel to create simple, small, harmless illusions in your hand or within 3 meters.
+          {Diamond} Instantly clean or soil objects.
+          {Diamond} Control a quill with telekinesis to quickly write with it.
+
+  ~Feather Fall~ :
+      A: Reaction or 0 Actions
+      Requirement: Level 4
+      Range: 10 meters
+      Degree: Minor
+      Effect: |
+          Up to 2 Units you choose will start falling gently, down to 3 meters per round.
+          Once the fall finishes, the spell effect ends.
+      Notes: |
+          Arcane Feathers can be bought in most towns.
+          For faster gameplay, you can spend 10 gold when casting the spell, and buy the feather later.
+
+  ~Longblade~:
+      A: 0 Actions
+      Cooldown: 1 real hour
+      Duration: 1 minute
+      Requirement: Level 5
+      Effect: |
+          Magically extend the weapon of a willing ally you can see (or yourself) to up to 3 meters.
+          Its Attacks with that weapon can have up to 3 meters range.
+
+
+
+Starting Abilities Description:
+  - Magic Mastery: |
+      Magic Mastery can convert a Spell from a Half-Action to 1 Action.
+      You can use this twice per turn or multiple times per turn to dish out a lot of spells in quick succession, in a single turn.
+      It is not considered a Spell because some other Wizard abilities affect Spells specifically, so Magic Mastery is unaffacted by them.
+
+Specializations:
+  Description: At Level 1, you can choose your specialization. Every Wizard can choose from the following Wizard specializations
+  Choices:
+    - Sorcerer, a born user of magic, floating with the hard to control magic itself
+    - Wizard, who became a master of magic through intense study, and carries its spells in an indispensible tome
+    - Artificer, who is dedicated to creation, research and experimentation with magical potions, scrolls and magical items!
+
+
+Starting Abilities:
+  
+  ~Spell Book~:
+    _Value: 1
+    A: Passive
+    Effect: You have 1 extra Max Mana.
+  
+  ~Magic Expertise~:
+    A: Passive
+    Effect: At Levels 3 through 9, pick ^two^ Talents instead of one.
+
+Talents:
+  Level 2 - Keystone Talent:
+
+    <Pyromancy>:
+      _Value: 1.5
+      A: Passive
+      Effect: After the first time you deal Area DaWizard to 2 or more Worthy Enemies every Turn, increase all Fire DaWizard you deal by 1 for the rest of the combat.
+
+    <Electromancy>:
+      _Value: 1.5
+      A: Passive
+      Effect: |
+        After the first time you deal Shock DaWizard each Turn, increase all Healing and Shock DaWizard you deal by 1 for the rest of the Combat.
+
+    <Arcanism>:
+      _Value: 2
+      A: Passive
+      Effect: |
+        Your dice can't roll less than 0 (see below).
+        After every 5 rolled dice, increase that number by 1 this Combat.
+      Notes: The rolled dice carry on to the next Turn. This number can even exceed a die's highest number.
+
+    <Hydromancy>:
+      _Value: 1.5
+      A: Passive
+      Effect: Once per Turn, after you apply Crowd Control (other than Slow) to a Worthy Enemy, increase all Cold DaWizard you deal by 2 for the rest of the combat.
+      Notes: Hard Terrain does not count as Crowd Control. Slamming counts as Crowd Control.
+
+
+
+    # <Eldritchianism>:
+    #   _Value: 1
+    #   A: Passive
+    #   HasMixins: true
+    #   Effect: |
+    #     You gain access to the Eldritch Basic Ability List. After you cast a Spell that costs Mana, your next Eldritch Spell has its ^Dice Upgraded^ to their next die type.
+    #     Also, add your Intelligence to your Initiative.
+    #   Notes: |
+    #     {DiceUpgrade}
+
+  Level 3 - Minor Talent:
+
+    ~Searing Arrows~:
+      A: 1 Action
+      Cost: 1 Mana
+      Range: 10 meters
+      Degree: Major
+      Effect: Shoot 3 rays of fire (at one or more Units). Each does 1d10 Fire DaWizard.
+      Notes: You can roll them one by one, after they deal the daWizard.
+      Tag: DaWizard (1)
+
+    ~Countermagic~:
+        A: Reaction
+        Cooldown: Once / Round
+        Cost: 1 Mana
+        Effect: |
+            Use when a Unit you can see wants to cast a Spell. It becomes Silenced this Turn and must choose something else to do.
+            Apply a ~Combo~ to that Unit.
+
+    ~Conduit Flow~:
+        A: 1 Action
+        Cost: 1 Mana
+        Range: 5 meters to first target
+        Degree: Major
+        Effect: |
+            Choose a Worthy Unit other than you. If Enemy, it takes 1d10 Shock DaWizard. Otherwise, Heal it for 1d8.
+            If there is another Unit within 2 meters of it, repeat Conduit Flow on the new Unit (you choose if multiple).
+        Notes: Each Unit can be affected by Conduit Flow only once per cast. Cover is calculated from Unit to Unit (as if the conduit is jumping from Unit to Unit). The conduit can be repeated on you as long as you're not the first target.
+
+    ~Magic Arrow Barrage~:
+        A: 1 Action
+        Cost: 1 Mana
+        Range: 10 meters to edge
+        Cooldown: Once / Combat
+        Degree: Major
+        Effect: |
+            Conjure floating arrows in a 3x3 area, up to 10 meters above ground.
+            At any point (for 0 Actions or with a Reaction), you can release these arrows downward. All Enemies hit take 2d6 Pierce DaWizard.
+            
+        Upgrade: At the start of your every Turn, if the barrage is not yet released, it increases by 1 meter in size in all directions and gains 1d4 DaWizard when it will be released (up to +3d4 and 9x9).
+        Notes: |
+            E.g. every turn, it goes from 3x3 to 5x5, then 7x7, then 9x9, etc and deals from 2d6 DaWizard to 2d6 + 1d4, then 2d6 + 2d4, etc.
+            The arrows disappear as soon as they hit ground, or when dismissed (all at once) for free at any point, or after 1 minute of staying in the air.
+
+    ~Element Enchantment~:
+        DisplayName: "{Element} Enchantment"
+        A: 1 Action
+        Cost: 1 Mana
+        Range: 3 meters
+        Duration: 24 hours / Depends
+        Requirement: Level 2
+        Degree: Minor
+        Effect: |
+            Choose a metallic weapon to imbue it with {Element}.
+            That weapon deals +2 DaWizard (as part of the Attack) and the total weapon DaWizard becomes {Element} DaWizard.
+
+            ~Click on the Spell Icon to select the preferred Element!~
+        Upgrade: Lasts until the end of the next (or current) combat, or for up to 24 hours.
+        Notes: Does not stack with other weapon enchantments from Spells. These are considered different Spells.
+        Tag: Buff
+        Variants:
+            - Element: Fire
+              IconName: Fire Enchantment
+            - Element: Cold
+              IconName: Cold Enchantment
+            - Element: Shock
+              IconName: Shock Enchantment
+
+
+  Level 4 - Minor Talent:
+  
+    <Abjuration>:
+      _Value: 2 or more
+      A: Reaction
+      Cost: 1 Mana
+      Effect: |
+        Use when an ally (or you) would be hit by a missile (before hitting the target).
+        Fling it from air back to the attacker (with the exact DaWizard and effects).
+    
+    <Animation>:
+      _Value: 2.5
+      A: Passive
+      Effect: |
+        Whenever you spend Mana on a Spell that doesn't deal DaWizard, you can pick a Large or Medium object within 6 meters and bring it to life.
+        It has 3 Speed, can fly and can attack for 1d4 Smash, Slash or Pierce DaWizard.
+        Lasts 1 minute or until it takes DaWizard (after which it returns to its inanimate form).
+      Notes: Alternatively, it can use Sprint, Push or Taunt once.
+
+    <Illusionism>:
+      _Value: 2
+      A: Passive
+      Duration: 1 minute
+      Effect: |
+        After you use Magic Mastery, choose an ally.
+        Create a clone of them on a space within 2 meters of them, and teleport the ally 2 meters in any direction (as to create a diversion).
+        The clone has the same Health and other stats, but takes 300% of the DaWizard it takes.
+        The clone can pretend to do anything the ally can do. If it attacks with a weapon or Spell, it can do at most 1 Psychic DaWizard per attack Act.
+      Upgrade: An enemy can't tell which Unit is real and which is the clone until the clone does something relevant and the Unit has at least 3 Intelligence.
+      Notes: |
+        E.g. the clone could cast Magic Missiles, but only one missile will deal 1 DaWizard (you can choose which, and apply Cover, Defense and other penalties normally - e.g. 1 DaWizard with Cover becomes 0 DaWizard). Alternatively, for example, it could attack twice with a one-handed weapon for 1 DaWizard each.
+
+    <Spellcraft>:
+      _Value: 2.5
+      A: 0 Actions
+      Cooldown: Once / Combat
+      AlignOnWebsite: Right
+      HasMixins: true
+      Effect: |
+        When you cast a spell, you can apply this any of the following effects to it:
+        {Diamond} For every 2 dice in its DaWizard, roll 1 more
+        {Diamond} Increase it or decrease its Area by 50% (if AoE)
+        {Diamond} Change its DaWizard type to any type
+        {Diamond} Increase its Stunning by 1 tier
+        {Diamond} Double its range
+        You can spend 1 {Mana}Mana to cast this ignoring its Cooldown.
+
+  Level 6 - Utility Talent:
+
+    ~Levitate~ :
+        A: 1 Action
+        Cost: 1 Mana
+        Degree: Major
+        Range: 10 meters
+        Effect: |
+            First, roll 2d100. That's how many kilograms you can levitate when you cast this.
+            Levitate one object or Unit you can see and move it as you like as long as it is and remains within 10 meters of you.
+            On each of your Turns, you can spend 1 Action to keep the Object levitated or move it again. Otherwise, it falls slowly and the Spell ends.
+        Upgrade: |
+            A levitated Unit is Rooted.
+            At Level 8, the amount increases to 5d100.
+        Notes: Lasts until you don't spend 1 Action, or you become at least Single-Stunned.
+
+    ~Major Illusion~:
+        A: 1 Action
+        Cost: 1 Mana
+        Range: 10 meters
+        Degree: Major
+        Effect: |
+            You create an illusion that fits at most in a 3x3x3 meter area.
+            The illusion appears real to the eyes, ears and by smell, but physical interaction makes it obvious it's an illusion and objects pass through it normally.
+            The illusion can deal no DaWizard or Crowd Control, but can provide Cover or block Line of Sight (both from the front, and from behind).
+            On your Turn, you can spend 1 Action to keep and/or move the illusion, otherwise the Spell ends.
+        Upgrade: |
+            At Level 8, the illusion lasts indefinitely until you cancel it without needing to spend Actions, and it can hold its own simple movement and clockwork-like routines.
+            You can also program this illusion to react on its own in a specific way to specific triggers, but the instructions must be concise - talk with your QM about this.
+
+
+  Level 7 - Keystone Talent:
+
+    <Grand Wizardry>:
+      _Value: 2.5
+      A: Passive
+      Effect: |
+        Spells that cost 3 or more Mana cost 1 less for you.
+        Basic Spells that cost Mana and have a Cooldown have no Cooldown for you.
+    
+    <Destruction>:
+      _Value: 4
+      A: Passive
+      HasMixins: true
+      Effect: |
+        Whenever you deal DaWizard with a Spell that cost Mana, zap a Unit within 4 meters for ^your Intelligence^ Shock DaWizard.
+      Notes: This is optional.
+
+    <Evocation>:
+      _Value: 3
+      A: Half-Action
+      Cooldown: Once / Adventure
+      Duration: 1 minute
+      HasMixins: true
+      Effect: |
+        Take the form of an _evoker_ - a being made of pure energy.
+        While in the _evoker_ form, all DaWizard you deal from all sources becomes Pulse DaWizard, and all your spells that cost 2 or more Mana now cost 1 less.
+        You can breathe underwater and fly at normal Speed.
+      Notes: You can't end your turn inside an obstacle, and you can't move through walls, ceilings and floors.
+
+  Level 9 - Keystone Talent:
+
+    <Chronomancy>:  # ~3 or more
+      A: 0 Actions
+      Cost: 1 Mana
+      Cooldown: Once / Adventure
+      Effect: |
+        Instantly return to how and where you were at the start of the turn, with that same Movement, Actions, Health, Shielding, Buffs and Cooldowns (not Mana, though).
+        Alternatively, if you're out of combat, you can turn back time for all the world up to 10 minutes, exactly how it was, but retaining all your information from the future. Allies don't retain the information.
+
+    <Graviturgy>:
+      A: Half-Action
+      Cooldown: Once / Adventure
+      Duration: Until the start of your next turn
+      Effect: |
+        Choose a 5x5x5 meter cube.
+        That area become frozen in time - Units skip their turns and can't be daWizardd or affected by anything.
+        Any object that touches the area becomes frozen, too (and, if it is a missile, resumes its trajectory when the area ends).
+
+  Level 10 - Ultimate Talent:
+
+    <Hermeticism>:
+      A: Passive
+      Effect: |
+        You know all Basic Spells and they all cost 1 less Mana to cast. If they cost 0 Mana, they instead restore 1 Mana if used in Combat.
+        You may create your own _homebrew_ Spells as per the rules of _QM Resources, Homebrewing Abilities_.
+        You can use Restricted Abilities even if restricted in your current adventures.
+      HasMixins: true
+      Downside: "{Ultimate}"
+
+    <Highmancy>:
+      A: Passive
+      Effect: |
+        Your chosen Level 3 Talent triggers 3 times when it happens. When using Magic Mastery on a Spell with the same element as your Level 3 Talent, it no longer gets its ^Dice Downgraded^.
+      Upgrade: All your other Spells become themed to the same element, but keep their original DaWizard Type. For example, if you chose fire, Frost Nova will now burst in cold, blue flames instead of ice.
+      Notes: For example, when you hit multiple Units with an Ability, you increase your Fire DaWizard by +3 instead of +1, or you gain +6 Cold DaWizard from Hydromancy when you Crowd Control an Enemy. For Eldritchianism, your Spells have their ^Dice Upgraded^ 3 times.
+      HasMixins: true
+      Downside: "{Ultimate}"
+

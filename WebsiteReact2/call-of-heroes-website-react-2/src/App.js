@@ -95,6 +95,26 @@ import HomebrewBookCreator from './pages/HomebrewBookCreator/HomebrewBookCreator
 import Quirks from './pages/Other/Quirks';
 import WorkInProgress from './pages/Meta/WorkInProgress';
 
+import V2Artificer from './databases/ClassesV2/Artificer.json'
+import V2Berserker from './databases/ClassesV2/Berserker.json'
+import V2Cursewielder from './databases/ClassesV2/Cursewielder.json'
+import V2Druid from './databases/ClassesV2/Druid.json'
+import V2Hunter from './databases/ClassesV2/Hunter.json'
+import V2Knight from './databases/ClassesV2/Knight.json'
+import V2Mystic from './databases/ClassesV2/Mystic.json'
+import V2Paladin from './databases/ClassesV2/Paladin.json'
+import V2Priest from './databases/ClassesV2/Priest.json'
+import V2Rogue from './databases/ClassesV2/Rogue.json'
+import V2Shaman from './databases/ClassesV2/Shaman.json'
+import V2Sorcerer from './databases/ClassesV2/Sorcerer.json'
+import V2Soulwright from './databases/ClassesV2/Soulwright.json'
+import V2Swashbuckler from './databases/ClassesV2/Swashbuckler.json'
+import V2Warlock from './databases/ClassesV2/Warlock.json'
+import V2Warrior from './databases/ClassesV2/Warrior.json'
+import V2Wickan from './databases/ClassesV2/Wickan.json'
+import V2Wizard from './databases/ClassesV2/Wizard.json'
+import { ClassPage } from './components/InsertableTemplates/RaceClassComponents';
+
 function App() {
 
   const [appState, setAppState] = useState({})
@@ -180,6 +200,26 @@ function App() {
           <Route path="/Classes/Warlock" element={ <Warlock/> }/>
           <Route path="/Classes/Warrior" element={ <Warrior/> }/>
           <Route path="/Classes/RogueB" element={ <RogueB/> }/>
+
+
+          <Route path='ClassesV2/Artificer' element={<ClassPage theClass={V2Artificer}/>}/>
+          <Route path='ClassesV2/Berserker' element={<ClassPage theClass={V2Berserker}/>}/>
+          <Route path='ClassesV2/Cursewielder' element={<ClassPage theClass={V2Cursewielder}/>}/>
+          <Route path='ClassesV2/Druid' element={<ClassPage theClass={V2Druid}/>}/>
+          <Route path='ClassesV2/Hunter' element={<ClassPage theClass={V2Hunter}/>}/>
+          <Route path='ClassesV2/Knight' element={<ClassPage theClass={V2Knight}/>}/>
+          <Route path='ClassesV2/Mystic' element={<ClassPage theClass={V2Mystic}/>}/>
+          <Route path='ClassesV2/Paladin' element={<ClassPage theClass={V2Paladin}/>}/>
+          <Route path='ClassesV2/Priest' element={<ClassPage theClass={V2Priest}/>}/>
+          <Route path='ClassesV2/Rogue' element={<ClassPage theClass={V2Rogue}/>}/>
+          <Route path='ClassesV2/Shaman' element={<ClassPage theClass={V2Shaman}/>}/>
+          <Route path='ClassesV2/Sorcerer' element={<ClassPage theClass={V2Sorcerer}/>}/>
+          <Route path='ClassesV2/Soulwright' element={<ClassPage theClass={V2Soulwright}/>}/>
+          <Route path='ClassesV2/Swashbuckler' element={<ClassPage theClass={V2Swashbuckler}/>}/>
+          <Route path='ClassesV2/Warlock' element={<ClassPage theClass={V2Warlock}/>}/>
+          <Route path='ClassesV2/Warrior' element={<ClassPage theClass={V2Warrior}/>}/>
+          <Route path='ClassesV2/Wickan' element={<ClassPage theClass={V2Wickan}/>}/>
+          <Route path='ClassesV2/Wizard' element={<ClassPage theClass={V2Wizard}/>}/>
 
           <Route path="/Tools/TreasureGenerator" element={ <TreasureGenerator/> }/>
           <Route path="/Tools/DungeonGenerator" element={ <DungeonGenerator/> }/>

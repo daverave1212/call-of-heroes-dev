@@ -1,0 +1,350 @@
+{
+    "Class": "Knight",
+    "Description": "Behold, a knight clad in armor, commanding the king's army with unvavering determination, his presence inspiring the rallied masses trailing in his wake while striking fear into the hearts of the enemy ranks! A heavy blow of his lance shatters the enemy's defence line, clearing a path for victory. Radiating with divine energy of righteousness and bearing the standard of his allegiance, the Knight fearlessly presses forward, to victory!\nKnights are the knights, the crusaders and the vigilantes who bear divine magic through conviction and purpose, perhaps aided by their god, rather than mastery over the arcane. They are able to both heal, resist damage and fell enemies with holy retribution.\nBe it by the sword, by the shield or by the book, Knights join (or form) an order or community of like-minded individuals, and follow their calling into battle - to attack, to protect, to serve for a greater future.\n",
+    "Quick Note": "Knights are the knights, the crusaders and the vigilantes who bear divine magic through conviction and purpose, perhaps aided by their god, rather than mastery over the arcane. They are able to both heal, resist damage and fell enemies with holy retribution.",
+    "Weapons": "You are Trained in 2 Weapon Categories of choice (e.g. 1-Handed Melee, 2-Handed Ranged, Shields, etc).",
+    "Difficulty": "Medium",
+    "Level Up": {
+        "Every Level": {
+            "Health": 4
+        },
+        "Mana": {
+            "Amount": 2,
+            "Regain": "Your Mana resets after every combat.",
+            "Per": "per Worthy Combat"
+        }
+    },
+    "Spellcasting": {
+        "Type": "Knight",
+        "SpellsOrAbilities": "Spell",
+        "Mana": {
+            "Amount": 2,
+            "Regain": "You regain all Mana at the end of each Worthy Combat."
+        },
+        "Change": "You can change your known Spells and Talents inbetween Adventures.",
+        "Other": "All Knight-specific Abilities are considered Spells (unless stated otherwise).",
+        "Known Basic Abilities": 2,
+        "BaseKnownSpells": 2
+    },
+    "Starting Abilities": {
+        "~Blockade~": {
+            "_Value": 1,
+            "A": "Reaction",
+            "Range": "4 meters to that ally",
+            "HasMixins": true,
+            "Effect": "When another Unit is targeted and attacked (after the roll), dash to the closest space to that ally.\nYou take the ^exact Damage^ instead of the Unit.\n\n{Chain} Move: +100% Move Speed\n{Chain} Half-Action Attack: +50% Damage\n{Chain} Silver Grace: Gives you 1 Shielding equal to the Healed Amount.\n",
+            "Upgrade": "This Damage can only be mitigated by Shielding (and Silver Grace).",
+            "Notes": "Requires a clear direct path.",
+            "ParentKey": "Starting Abilities"
+        },
+        "~Silver Grace~": {
+            "_Value": 0,
+            "A": "Half-Action",
+            "HasMixins": true,
+            "Cooldown": "Once / Turn",
+            "Tags": [
+                "Healing",
+                "Damage"
+            ],
+            "Requirement": "Only usable in Worthy Combat. Can't be used on Fallen Units.",
+            "Range": "3 meters",
+            "Replacement": "Replaces Holy Grace",
+            "Effect": "Heal a Unit for 1d6 (but not yourself).\nYour next attack until the end of your next Turn deals extra Damage equal to the amount just Healed.\n\n{Chain} Other Healing: +50% Heal.\n{Chain} Blockade: +100% Range and -2 Damage taken.\n{Chain} Non-Healing Mana Ability: Costs 1 less Action Point.\n",
+            "ParentKey": "Starting Abilities"
+        }
+    },
+    "Ability Choices": {
+        "~Smite~": {
+            "_Value": "1 (you gain 1 mana back)",
+            "A": "0 Actions",
+            "Cooldown": "Once / Turn",
+            "Cost": "1 Mana",
+            "Tags": [
+                "Damage",
+                "Finisher"
+            ],
+            "Effect": "After you roll Damage for a melee attack or Spell made in melee range, add 1d6 Divine Damage.\nIf the target dies, regain 1 Mana.\n",
+            "Combo": "Heal for the extra Damage dealt.",
+            "Notes": "Melee range is 1 meter, longer if made with a Weapon with longer range.",
+            "ParentKey": "Ability Choices"
+        },
+        "~Invigorate~": {
+            "A": "0 Actions",
+            "Cost": "1 Mana",
+            "Range": "5 meters",
+            "HasMixins": true,
+            "Degree": "Minor",
+            "Tags": "Healing",
+            "Effect": "Heal a target for 1d4 + ^Presence or Intelligence^ Health.\nAfter this, if the target is at full Health, repeat this on another target within 5 meters of you.\n",
+            "Combo": "If the target is Comboed and still not full Health, increase the Healing by 50%.",
+            "Notes": "Yes, this can chain again and again.",
+            "ParentKey": "Ability Choices"
+        },
+        "~Safeguard~": {
+            "A": "1 Action",
+            "Cost": "1 Mana",
+            "Tags": "Protection",
+            "Effect": "A Unit you can see gains 2 Shieldings. Each can block 1d8 Damage.\nEach die that rolled maximum applies a ~Combo~.\n",
+            "HasMixins": true,
+            "ParentKey": "Ability Choices"
+        },
+        "~Knighthood~": {
+            "A": "Passive",
+            "Effect": "While mounted, after moving in a straight line at least 3 meters, your first attack this turn also hits a Unit directly behind the main target for 50% of the incoming Damage.\n",
+            "Combo": "Each Comboed Unit hit becomes Single-Stunned.",
+            "ParentKey": "Ability Choices"
+        }
+    },
+    "Utility": {
+        "~Light~": {
+            "A": "0 Actions",
+            "Range": "3 meters",
+            "Duration": "30 real minutes",
+            "Cooldown": "30 real minutes",
+            "Degree": "Lesser",
+            "Tags": "Utility",
+            "Effect": "Create a faithful source of light in a 3 meters radius (of any color).\nIt levitates and stays where you put it and can be moved by hand, or you can simply stick it to any solid object.\n",
+            "Notes": "You may cancel it with 0 Actions. It can be purposefully destroyed with an Attack.\nThe light is not strong enough to blind someone.\nThe bulb can't go through solid objects.\n",
+            "ParentKey": "Utility"
+        },
+        "~Guidance~": {
+            "A": "Reaction",
+            "Range": "10 meters",
+            "Cooldown": "1 real hour",
+            "Tags": "Utility",
+            "Effect": "When an ally makes a Check, also add your respective Stat for that Check.",
+            "ParentKey": "Utility"
+        },
+        "~Liberation~": {
+            "A": "Reaction or 0 Actions",
+            "Cost": "1 Mana",
+            "Requirement": "Level 3",
+            "Degree": "Minor",
+            "Effect": "Instantly remove all Crowd Control from another ally you can see.\n",
+            "Upgrade": "At Level 5, also removes all non-magical debuffs and poisons.\nAt Level 8, also removes all curses and normal negative magical effects.\n",
+            "ParentKey": "Utility"
+        },
+        "~Vault Break~": {
+            "Degree": "Lesser",
+            "A": "0 Actions",
+            "Cooldown": "1 real hour",
+            "Range": "3 meters",
+            "Effect": "Slam the ground so hard that it shatters one obstacle that fits within a 3x3x3 meter area.\nAfter casting this Ability, if you moved this turn, you can continue your movement.\n",
+            "Notes": "It is the Quest Master's call if an obstacle can be broken. Most walls can't be broken, except for thinner ones and fences.",
+            "ParentKey": "Utility"
+        }
+    },
+    "Talents": {
+        "Level 2 - Minor Talent": {
+            "~Lance Heave~": {
+                "A": "Depends on Weapon",
+                "DisplayName": "{Name}",
+                "HasMixins": true,
+                "DisplayRequirement": "Only usable if it hits at least 2 Units",
+                "Tags": "AoE",
+                "Effect": "Make a {Weapon} ^weapon^ attack {Effect}\n~Click on the Icon to select a preferred effect!~\n\n{Chain} Blockade: +4 Range.\n{Chain} Stun: Increase it by 1 tier.\n{Chain} Deal Area Damage: Dice Upgraded to next die type.\n",
+                "Notes": "Can apply weapon effects. If the weapon effect requires a target, applies to one chosen Unit hit.\nRange increases do increase the length. The Damage must the same for all Units hit. All bonuses to the attack (e.g. Smite, Cursewielder, etc) also split evenly.\n{DiceUpgraded}\n",
+                "Variants": [
+                    {
+                        "Name": "Lance Heave",
+                        "Effect": "that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.",
+                        "Weapon": "2-handed melee",
+                        "IconName": "Lance Heave"
+                    },
+                    {
+                        "Name": "Blade Heave",
+                        "Effect": "that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.",
+                        "Weapon": "1-handed melee",
+                        "IconName": "Blade Heave"
+                    },
+                    {
+                        "Name": "Penetrating Heave",
+                        "Effect": "that hits one more Unit up to 2 meters directly behind the main target.",
+                        "Weapon": "2-handed ranged",
+                        "IconName": "Penetrating Heave"
+                    },
+                    {
+                        "Name": "Piercing Heave",
+                        "Effect": "that hits one more Unit up to 2 meters directly behind the main target.",
+                        "Weapon": "1-handed ranged",
+                        "IconName": "Piercing Heave"
+                    }
+                ],
+                "ParentKey": "Level 2 - Minor Talent"
+            },
+            "<Consacrated Ground>": {
+                "A": "Half-Action",
+                "Cost": "1 Mana",
+                "Cooldown": "Once / Turn",
+                "HasMixins": true,
+                "Effect": "All ^enemies^ within 2 meters of you take 1d10 Fire Damage.\nAt the start of your next Turn, deal another 1d10 Fire Damage to all ^Units^ in the same area.\n\n{Chain} Healing: Permanently increase their Health by 1.\n{Chain} Blockade: Move the area with you. Only affects ^enemies^.\n{Chain} Different Area Damage: +100% size and effects only ^enemies^.\n",
+                "ParentKey": "Level 2 - Minor Talent"
+            },
+            "<Templar Retribution>": {
+                "_Value": 0.25,
+                "A": "0 Action Points",
+                "Cost": "1 Mana",
+                "Range": "3 meters",
+                "Tags": "CC",
+                "Effect": "Single-Stun a Unit.\n\n{Chain} Healing: Clears all Crowd Control on the target.\n{Chain} Crowd Control: Spreads to 1 other Unit within 5 meters of you.\n{Chain} Divine Sense: Damages all unholies for 1d4. Heals all holies for 1d4.\n",
+                "Combo": "Double-Stun it instead.",
+                "HasMixins": true,
+                "ParentKey": "Level 2 - Minor Talent"
+            }
+        },
+        "Level 3 - Keystone Talent": {
+            "<Join the Templar>": {
+                "_Value": 4,
+                "A": "Special",
+                "Cooldown": "Lifetime",
+                "AlignOnWebsite": "Right",
+                "Tags": "Other",
+                "Effect": "A party member pledges to you. They have the Blockade and Silver Grace Abilities.\n",
+                "Upgrade": "Ask a party member to join your cause and pledge their honor to you. Write a set of vows, which your companion must vow to abide to and follow with their life, upon death do you two apart.",
+                "Notes": "Only one person can pledge for you and it must within sight or hearing to have access to all of those.\nIf you ever change this Talent, the ally loses access to all things mentioned; it regains them when you get this Talent again.\n",
+                "ParentKey": "Level 3 - Keystone Talent"
+            },
+            "<Fellowship Aura>": {
+                "_Value": 0.75,
+                "A": "Passive",
+                "Effect": "You stand out for allies near you.\nEnemy ranged attacks against other allies within 1 meter of you have Cover.\n",
+                "Notes": "Nothing happens if an ally near you already has Cover. If playing on a grid, this does work for allies diagonally.",
+                "ParentKey": "Level 3 - Keystone Talent"
+            },
+            "<Martyrdom>": {
+                "_Value": 2.25,
+                "A": "Reaction",
+                "Cooldown": "Once / Adventure",
+                "Effect": "Use when an ally (or you) falls to 0 Health.\nImmediately cast Holy Grace (or an upgraded version), ignoring its Cooldown and the Fallen Unit limitation.\n",
+                "Notes": "If that Fallen ally was healed, it Rises without Exhaustion.",
+                "ParentKey": "Level 3 - Keystone Talent"
+            }
+        },
+        "Level 5 - Keystone Talent": {
+            "<Knight in Black>": {
+                "A": "Passive",
+                "Requirement": "Requires Black Clothes",
+                "HasMixins": true,
+                "Effect": "Single-Stuns have no effect on your. Double-Stuns and Triple-Stuns only reduce your Actions by 1 and 2 (respectively).\nWhile there are no allies within 4 meters of you, all your weapon attacks and self healing have their ^Dice Upgraded^ to the next dice type.\n",
+                "Notes": "{DiceUpgrade}.\nWhile _alone_, your healing Abilities have their Dice Upgraded when healing yourself.\n",
+                "ParentKey": "Level 5 - Keystone Talent"
+            },
+            "<Man of Steel>": {
+                "_Value": 2,
+                "A": "Passive",
+                "Requirement": "Heavy Armor or Shield",
+                "Effect": "If you're wearing Heavy Armor or a Shield, you have +1 Defense and +5 Max Health.\n",
+                "ParentKey": "Level 5 - Keystone Talent"
+            },
+            "<Broken Hearts>": {
+                "_Value": 2.25,
+                "A": "0 Actions",
+                "Cooldown": "Once / Adventure",
+                "Effect": "All Damaged Enemies within 4 meters of you 2d4 + 1 True Damage and are Feared.\n",
+                "Notes": "Cover is applied normally. Enemies with full Health are not affected.",
+                "ParentKey": "Level 5 - Keystone Talent"
+            }
+        },
+        "Level 6 - Utility Talent": {
+            "~People's Temple~": {
+                "A": "10 minutes",
+                "Duration": "24 hours or until you exit",
+                "Cooldown": "1 in-game week",
+                "Degree": "Grand",
+                "Effect": "Create a sanctified space with a diameter equal to your Level centered on you.\nWhile inside the space, Units can't be seen or heard from the outside.\nEnemies tend to avoid the space, feeling a resistance against stepping towards the space.\nAt the end of the duration, all Units inside gain +1 Max Health.\n",
+                "Notes": "If the Lodge would be destroyed with people inside, each will automatically be expulsed (appear) in a space within 3 meters of the door (randomly or by QM's choice).",
+                "ParentKey": "Level 6 - Utility Talent"
+            },
+            "~The Coming Again~": {
+                "A": "Half-Action",
+                "Cooldown": "Once / real month",
+                "Effect": "When you die, your body stays unharmed for up to 7 days and enemies tend to avoid damaging you further, feeling a resistance against hurting your dead body.\nWhen you use this Ability, you rise back from the dead with 15 Health and no Exhaustion, at any point within the 7 days.\n",
+                "ParentKey": "Level 6 - Utility Talent"
+            }
+        },
+        "Level 7 - Keystone Talent": {
+            "<Personal Squire>": {
+                "_Value": 3,
+                "A": "Special",
+                "Effect": "You recruit a squire - a trusted NPC who gains combat powers. However, the capabilities of your squire are random: roll 1d6 to determine the type of your squire, based on the Squires category at Pets and Animals (1. Bold, 2. Sneaky, 3. Clever, 4. Wise). The Race is determined by the QM or by circumstance.\nOn its turn, it can do one Pet Attack, cast one Ability it has, or do the equivalent of a Half-Action (e.g. Dash, Push, etc).\nYou can recruit one squire per Adventure, but only one can follow you in your adventures at a time.\nAt the start of every Adventure (and when you get this Talent), you must spend 1 Mana and train your Squire to permanently increase its Health by 2 or gain one Ability from any other Squire type.\n",
+                "Upgrade": "If your squire drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your squire's wounds and heal it back to full Health.",
+                "Notes": "Your squire is not a Player Character by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Player Character can). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!",
+                "ParentKey": "Level 7 - Keystone Talent"
+            },
+            "<Pet Attack>": {
+                "IsSubspell": true,
+                "A": "1 Action (from the pet)",
+                "Effect": "The pet melee attacks a target.\nThe attack deals 1d6 Pierce of Slash Damage (your choice).\n",
+                "ParentKey": "Level 7 - Keystone Talent"
+            },
+            "<Warrior Apparitions>": {
+                "_Value": 3,
+                "A": "Passive",
+                "AlignOnWebsite": "Right",
+                "Effect": "Whenever you heal someone else, summon a Warrior Presence in any space near the target, with Health equal to the amount restored.\nWarrior Spirits have 4 Speed and can attack for 1d4 Divine Damage. They take their turn after yours.\n    \n",
+                "ParentKey": "Level 7 - Keystone Talent"
+            },
+            "<Avenging Blockade>": {
+                "_Value": 2.5,
+                "A": "Reaction",
+                "HasMixins": true,
+                "Replacement": "Replaces Blockade",
+                "AlignOnWebsite": "Right",
+                "Effect": "When another ally is targeted and attacked (after the roll), dash to the closest space to that ally.\nYou take the Damage instead of the ally, and the Damage is reduced by 2, ~then you can immediately make an attack (freely) with a 1-Handed Melee Weapon on the attacker that deals -50% Damage (if it's within 3 meters of you).~\n",
+                "Notes": "If the 1-Handed Weapon is not equipped, you quickly and freely equip it, attack, then switch back to your previous weapons.",
+                "ParentKey": "Level 7 - Keystone Talent"
+            }
+        },
+        "Level 8 - Minor Talent": {
+            "<Stat Bonus 5>": {
+                "IsIgnored": true,
+                "Manual Extras": [
+                    "+1 in a Stat of choice (up to +5)"
+                ],
+                "Effect": "Gain +1 in a Stat of choice, up to +5.",
+                "ParentKey": "Level 8 - Minor Talent"
+            },
+            "<Stat Bonuses 4>": {
+                "Effect": "Gain +1 in two Stats of choice, up to +4.",
+                "ParentKey": "Level 8 - Minor Talent"
+            }
+        },
+        "Level 10 - Ultimate Talent": {
+            "<Vows of Unbreaking>": {
+                "A": "Passive",
+                "AlignOnWebsite": "Left",
+                "Effect": "Your Max Health (without buffs/items) increases by 100% and you become immune to curses, diseases and poison.\nYou automatically pass all Very Hard Might Checks (requiring at least 20).\n",
+                "HasMixins": true,
+                "Downside": "{Ultimate}",
+                "ParentKey": "Level 10 - Ultimate Talent"
+            },
+            "<Vows of Truth>": {
+                "A": "Passive",
+                "AlignOnWebsite": "Left",
+                "Effect": "You may use Blockage an unlimited number of times per Round (ignoring its Reaction limit). The first time you use Blockade every Round, you take no Damage.\nYou gain +1 Might and Presence and you automatically pass all Hard Presence Checks (requiring at least 15).\nUpon taking the Vows of Truth, you become incapable of telling lies, and you will only tell the truth as you see it (or avoid it).\n",
+                "HasMixins": true,
+                "Downside": "{Ultimate}",
+                "ParentKey": "Level 10 - Ultimate Talent"
+            },
+            "<Legion of Oathsworn>": {
+                "_Value": 3,
+                "A": "Special",
+                "AlignOnWebsite": "Right",
+                "Effect": "In a place sanctified and pure, you start your own order of knights. Create a set of vows that your knights will abide to and have to recite to join you on your conquest.\nYou recruit a 3 beginner adventurer NPCs as squires! Each is one of the 4 possible squire types from the `Pets and Animals page$/Other/PetsAndAnimals`: Bold, Sneaky, Clever or Wise, whichever makes fits better story-wise (or random). All your squires must be different types.\nPassively, gain +2 in all Stats. \n",
+                "Upgrade": "If your squire drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your squire's wounds and heal it back to full Health.",
+                "Notes": "Your squire is not a Player Character by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Player Character can). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!",
+                "HasMixins": true,
+                "Downside": "{Ultimate}",
+                "Subspells": {
+                    "~Squire Attack~": {
+                        "A": "1 Action (from the squire)",
+                        "IsSubspell": true,
+                        "Effect": "Deal 1d6 Damage of the weapon's type, or do the equivalent of a Half-Action (e.g. Sprint, Push, etc).\n",
+                        "ParentKey": "Subspells"
+                    }
+                },
+                "ParentKey": "Level 10 - Ultimate Talent"
+            }
+        }
+    }
+}

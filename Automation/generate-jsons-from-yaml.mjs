@@ -26,29 +26,9 @@ function readYAMLFromFile(fileName) {
     return data
 }
 
-const classes = [
-    'Cleric',
-    'Druid',
-    'Hunter',
-    'Mage',
-    'Paladin',
-    'Rogue',
-    'Shaman',
-    'Warlock',
-    'Warrior'
-]
-const races = [
-    'Bertle',
-    'Davel',
-    'Dragonborn',
-    'Dwarf',
-    'Elf',
-    'Gnome',
-    'Hollow',
-    'Human',
-    'Orc',
-]
-let backgrounds = []        // Polulated at runtime
+const classes = []         // Polulated at runtime (Array<string>)
+const races = []           // Polulated at runtime (Array<string>)
+let backgrounds = []       // Polulated at runtime
 let rulesLists = []        // Polulated at runtime ( title: "X", children: [...])
 let rulesDicts = []        // Polulated at runtime ("X": [...])
 
@@ -93,6 +73,25 @@ const filesToConvert = [    // Order matters
     'Classes/Shaman.yml',
     'Classes/Warlock.yml',
     'Classes/Warrior.yml',
+
+    'ClassesV2/Artificer.yml',
+    'ClassesV2/Berserker.yml',
+    'ClassesV2/Cursewielder.yml',
+    'ClassesV2/Druid.yml',
+    'ClassesV2/Hunter.yml',
+    'ClassesV2/Knight.yml',
+    'ClassesV2/Mystic.yml',
+    'ClassesV2/Paladin.yml',
+    'ClassesV2/Priest.yml',
+    'ClassesV2/Rogue.yml',
+    'ClassesV2/Shaman.yml',
+    'ClassesV2/Sorcerer.yml',
+    'ClassesV2/Soulwright.yml',
+    'ClassesV2/Swashbuckler.yml',
+    'ClassesV2/Warlock.yml',
+    'ClassesV2/Warrior.yml',
+    'ClassesV2/Wickan.yml',
+    'ClassesV2/Wizard.yml',
 
     'Races/Bertle.yml',
     'Races/Davel.yml',
@@ -292,25 +291,17 @@ async function processFiles() {
         //     recordAbilitiesFrom(dictContent, abilities);
         //     normalizeInheritAbilities(dictContent);
         // }
+        // if (fileName === 'Backgrounds.yml' || fileName === 'Proficiencies.yml') {
+        //     recordAbilitiesFrom(dictContent, abilities);
+        //     normalizeInheritAbilities(dictContent);
+        // }
+        // if (fileName === 'Backgrounds.yml') {
+        //     backgrounds = Object.keys(dictContent);
+        // }
 
-        if (fileName === 'Feats.yml') {
+        if (fileName.includes('Feats.yml')) {
             addNameToSpellsRecursively(dictContent);
             recordAbilitiesFrom(dictContent, abilities);
-        }
-
-        if (fileName === 'Backgrounds.yml' || fileName === 'Proficiencies.yml') {
-            recordAbilitiesFrom(dictContent, abilities);
-            normalizeInheritAbilities(dictContent);
-        }
-
-        if ('Class' in dictContent) {
-            recordAbilitiesFrom(dictContent, abilities);
-            normalizeInheritAbilities(dictContent);
-            recordAbilitiesFrom(dictContent, classRaceAbilities);
-        }
-
-        if (fileName === 'Backgrounds.yml') {
-            backgrounds = Object.keys(dictContent);
         }
 
         if (fileName.includes('Rules.yml')) {
@@ -318,7 +309,16 @@ async function processFiles() {
             rulesDicts = getFormatSectionsObjectDict(dictContent);
         }
 
+
+        if ('Class' in dictContent) {
+            classes.push(dictContent.Class)
+            recordAbilitiesFrom(dictContent, abilities);
+            normalizeInheritAbilities(dictContent);
+            recordAbilitiesFrom(dictContent, classRaceAbilities);
+        }
+
         if ('Race' in dictContent) {
+            races.push(dictContent.Race)
             recordAbilitiesFrom(dictContent, abilities);
             normalizeInheritAbilities(dictContent);
             recordAbilitiesFrom(dictContent, classRaceAbilities);

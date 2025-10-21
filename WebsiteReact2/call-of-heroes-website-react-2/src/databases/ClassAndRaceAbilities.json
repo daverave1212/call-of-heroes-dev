@@ -1,8 +1,4 @@
 {
-    "~Skilled in Religion~": {
-        "Effect": "Add your Level to Checks for knowing about religions, praying, performing sermons, faith, etc.",
-        "ParentKey": "Proficiencies"
-    },
     "~Awe~": {
         "_Value": 3,
         "A": "Passive",
@@ -12,7 +8,7 @@
             "Healing"
         ],
         "Effect": "Whenever you spend Mana, \"cast Awe\" on a Unit.\nThis deals 1d4 Divine Damage to enemies or heals allies for 1d4.\n",
-        "Notes": "Ignores Cover. Some other Cleric spells will \"cast Awe\" for free.",
+        "Notes": "Ignores Cover. Some other Priest spells will \"cast Awe\" for free.",
         "ParentKey": "Starting Abilities"
     },
     "~Blessing~": {
@@ -118,6 +114,9 @@
         "A": "Reaction",
         "Range": "10 meters",
         "Cooldown": "1 real hour",
+        "Tags": [
+            "Utility"
+        ],
         "Effect": "When an ally makes a Check, it can use your modifiers (including being Skilled in that Skill) instead of its own.",
         "ParentKey": "Utility"
     },
@@ -151,7 +150,7 @@
         "Duration": "Lasts until they can't see/hear you",
         "Cooldown": "1 real hour",
         "Tags": "Roleplaying",
-        "Effect": "Choose a Unit you can see. You have +1d2 to Soul Rolls against it.\n",
+        "Effect": "Choose a Unit you can see. You have +1d2 to Presensce Rolls against it.\n",
         "Notes": "The target can't tell it was affected unless it knows about this type of magic.",
         "ParentKey": "Utility"
     },
@@ -236,10 +235,13 @@
         "Cost": "1 Mana",
         "Duration": "Up to 1 hour",
         "Degree": "Minor",
-        "Tags": "Protection",
+        "Tags": [
+            "Protection",
+            "Combo"
+        ],
         "Effect": "A Unit you can see becomes surrounded in a divine golden shield.\nNext time the Unit would take Damage, it is completely blocked.\n",
         "Combo": "Gain back the Action Point spent.",
-        "ParentKey": "Level 2 - Minor Talent"
+        "ParentKey": "Level 4 - Minor Talent"
     },
     "~Guiding Bolt~": {
         "A": "1 Action",
@@ -283,10 +285,11 @@
         "A": "0 Actions",
         "Cooldown": "Once / Adventure",
         "Tags": [
-            "Crowd Control",
+            "CC",
             "Damage"
         ],
-        "Effect": "A Unit within 6 meters becomes trapped in a Shadow Realm with you until the start of your next Turn.\nYour offensive Acts against it cast Awe on it for free while inside the Shadow Realm.\nNeither of you can interact with the outside world, but can feintly see it.\nUnits on the outside can faintly see the two of you, as if you were ghosts.\n",
+        "Effect": "A Unit within 6 meters becomes trapped in a Shadow Realm with you for 2 rounds (this and the next).\nYour attacks cast Awe on it for free while inside the Shadow Realm.\n",
+        "Upgrade": "Neither of you can interact with the outside world, but can feintly see it.\nUnits on the outside can faintly see the two of you, as if you were ghosts.\n",
         "Notes": "The Shadow Realm is a copy of the normal world, but with no other units.",
         "OrderOnWebsite": 3,
         "ParentKey": "Level 5 - Keystone Talent"
@@ -352,6 +355,10 @@
         "A": "1 Action",
         "Cost": "1 Mana",
         "Degree": "Grand",
+        "Tags": [
+            "Utility",
+            "Roleplay"
+        ],
         "Effect": "Touch a dead Unit, whose body is still in decent condition (as approved by the QM).\nThe dead Unit comes back to life, conscious and without Exhaustion, with 1 Health.\n",
         "ParentKey": "Level 6 - Utility Talent"
     },
@@ -363,6 +370,9 @@
         "AlignOnWebsite": "Left",
         "Requirement": "Level 5",
         "Degree": "Minor",
+        "Tags": [
+            "Utility"
+        ],
         "Effect": "Up to 2 willing Units can walk on water as normally.\nThe effect ends if the Unit takes Damage. \n",
         "ParentKey": "Level 6 - Utility Talent"
     },
@@ -742,9 +752,8 @@
         "ParentKey": "Level 3 - Keystone Talent"
     },
     "~Attack~": {
-        "A": "Half-Action (from it)",
-        "Range": "3 meters",
-        "Effect": "Deal 1d6 Damage of your chosen Element, or use an Item or Default Ability.",
+        "A": "1 Action (from Draugr)",
+        "Effect": "Make a melee attack for 1d4 Scourge Damage.",
         "ParentKey": "Abilities"
     },
     "~Reaping~": {
@@ -929,10 +938,6 @@
         },
         "ParentKey": "Level 10 - Ultimate Talent"
     },
-    "~Skilled in Nature~": {
-        "Effect": "Add your Level to all Checks for identifying plants, knowing about nature and the wilds, etc.",
-        "ParentKey": "Proficiencies"
-    },
     "~Naturality~": {
         "A": "Passive",
         "AlignOnWebsite": "Right",
@@ -1029,7 +1034,7 @@
         "Range": "6 meters",
         "HasMixins": true,
         "Degree": "Minor",
-        "Effect": "A target takes 1d8 + ^Soul^ Poison Damage.\nThe _next time_ it takes damage from a weapon, it takes an extra 1d8 Poison Damage.\n",
+        "Effect": "A target takes 1d8 + ^Presence^ Poison Damage.\nThe _next time_ it takes damage from a weapon, it takes an extra 1d8 Poison Damage.\n",
         "Combo": "The next time Damage happens now instead.",
         "Notes": "Might parts count as weapons.",
         "ParentKey": "Ability Choices"
@@ -1568,7 +1573,7 @@
         "Range": "6 meters",
         "Cooldown": "Once / period of day",
         "HasMixins": true,
-        "Effect": "{Orange('Solar Stance')}: Damage an enemy for 1d4 + ^Any Stat^ (Fire), then Heal an ally for the same amount.\n\n{Purple('Lunar Stance')}: Damage or Heal a Unit for 1d4 + ^Any Stat^ (Pulse) and apply a ~Combo~. The next ~Combo~ on that Unit triggers twice!\n",
+        "Effect": "{Orange('Solar Stance')}: Damage an enemy for 1d4 + ^Any Stat^ (Fire), then Heal an ally for the same amount.\n",
         "ParentKey": "Starting Abilities"
     },
     "~Burnished Flames~": {
@@ -1758,7 +1763,7 @@
     "~Solunar Naturality~": {
         "_Value": "OP af boy",
         "A": "Passive",
-        "Effect": "Every _sunrise_ or _sundown_, regain 1 {Mana}Mana",
+        "Effect": "Every _sunrise_ or _sundown_, regain 1 {Mana}Mana.",
         "HasMixins": true,
         "ParentKey": "Level 7 - Keystone Talent"
     },
@@ -1784,14 +1789,6 @@
         "A": "Passive",
         "Effect": "After killing a Unit of type X, you gain...",
         "ParentKey": "Ideas"
-    },
-    "~Skilled in Hearing~": {
-        "Effect": "Add your Level to all Spirit Checks for hearing (e.g. over-hearing dialogue, noticing unusual sounds, discerning sounds, etc).",
-        "ParentKey": "Proficiencies"
-    },
-    "~Skilled in Smelling~": {
-        "Effect": "Add your Level to all Spirit Checks for sensing smells and identifying things based on their scent.",
-        "ParentKey": "Proficiencies"
     },
     "~Animal Companion~": {
         "_Value": 4.5,
@@ -1951,12 +1948,12 @@
         "ParentKey": "Level 4 - Minor Talent"
     },
     "<Crosshair Shot>": {
-        "_Value": 2,
+        "_Value": 2.25,
         "A": "1 Action",
-        "Range": "14 meters",
+        "Range": "16 meters",
         "Cooldown": "Once / Adventure",
-        "Effect": "Make an attack on a target.\nFor each meter to the target, the attack deals 1d6 Pierce Damage, up to 7 meters.\nFor each meter to the target over 7 meters, deal one less d6.\n",
-        "Notes": "At exactly 7 meters range, the attack deals 7d6 Damage. At 6 and 8 meters, it deals 6d6. At 5 and 9 meters, 5d6. And so on.",
+        "Effect": "Make an attack on a target.\nFor each meter to the target, the attack deals 1d6 Pierce Damage, up to 8 meters.\nFor each meter to the target over 8 meters, deal one less d6.\n",
+        "Notes": "At exactly 8 meters range, the attack deals 8d6 Damage. At 7 and 9 meters, it deals 7d6. At 6 and 10 meters, 6d6. And so on.",
         "ParentKey": "Level 5 - Keystone Talent"
     },
     "~Tag-Team Mark~": {
@@ -2263,14 +2260,6 @@
         "Effect": "Your spell book is alive!",
         "ParentKey": "Ideas"
     },
-    "~Skilled in Knowledge~": {
-        "Effect": "Add your Level to all Intelligence Checks for knowing various simple facts about science, astronomy, trades, etc.",
-        "ParentKey": "Proficiencies"
-    },
-    "~Skilled in Arcane~": {
-        "Effect": "Add your Level to all Checks related to magic (e.g. identifying spells, magic items or runes, knowledge about magic, etc).",
-        "ParentKey": "Proficiencies"
-    },
     "~Magic Mastery~": {
         "_Value": 1.5,
         "A": "0 Actions",
@@ -2293,7 +2282,7 @@
         "DisplayName": "{Element} Burst",
         "Range": "5 meters",
         "Degree": "Minor",
-        "Effect": "Damage a Unit for 2d6 {Element} Damage.\nDeals +1d10 Damage if the target had taken {Element} Damage this combat before.\n~Click on the Spell Icon to select the preferred Element!~\n",
+        "Effect": "DaWizard a Unit for 2d6 {Element} DaWizard.\nDeals +1d10 DaWizard if the target had taken {Element} DaWizard this combat before.\n~Click on the Spell Icon to select the preferred Element!~\n",
         "Notes": "These are considered different Spells.",
         "Variants": [
             {
@@ -2309,7 +2298,7 @@
                 "IconName": "Shock Burst"
             }
         ],
-        "Tag": "Damage (1)",
+        "Tag": "DaWizard (1)",
         "HasMixins": true,
         "ParentKey": "Ability Choices"
     },
@@ -2318,7 +2307,7 @@
         "Range": "5 meters",
         "HasMixins": true,
         "Degree": "Minor",
-        "Effect": "Shoot 2 arcane arrows. Each does 1d4 Pulse Damage.\nThis turn, each arrow after the first into the same target deals only 1d2 instead.\n",
+        "Effect": "Shoot 2 arcane arrows. Each does 1d4 Pulse DaWizard.\nThis turn, each arrow after the first into the same target deals only 1d2 instead.\n",
         "Combo": "2 more arcane arrows shoot from the target into any targets within 5 meters of it. They ignore the same-target penalty.",
         "Notes": "When you cast this, decide the targets before rolling the dice. Roll the dice for each target at a time.\n",
         "ParentKey": "Ability Choices"
@@ -2328,8 +2317,8 @@
         "Cooldown": "Once / Turn",
         "Range": "Near you",
         "Degree": "Lesser",
-        "Effect": "All Units 3x3 meter area take 4 Fire Damage.\n",
-        "Combo": "If any affected Unit has a Combo, +50% total Damage (to all) and does not trigger the Cooldown.",
+        "Effect": "All Units 3x3 meter area take 4 Fire DaWizard.\n",
+        "Combo": "If any affected Unit has a Combo, +50% total DaWizard (to all) and does not trigger the Cooldown.",
         "Tag": "AoE (Half)",
         "ParentKey": "Ability Choices"
     },
@@ -2337,8 +2326,8 @@
         "A": "Reaction",
         "Range": "5 meters",
         "Cost": "1 Mana",
-        "Effect": "Use when a Unit would take Damage (after roll). Negate 50% of the incoming Damage and return it back to the source as Shock Damage.\nApply a ~Combo~ to either of them.\n",
-        "Upgrade": "The returned Damage is a quick lightning that bends around obstacles, ignoring Cover or Line of Sight.",
+        "Effect": "Use when a Unit would take DaWizard (after roll). Negate 50% of the incoming DaWizard and return it back to the source as Shock DaWizard.\nApply a ~Combo~ to either of them.\n",
+        "Upgrade": "The returned DaWizard is a quick lightning that bends around obstacles, ignoring Cover or Line of Sight.",
         "Tag": "Protection",
         "HasMixins": true,
         "ParentKey": "Ability Choices"
@@ -2349,7 +2338,7 @@
         "Cost": "1 Mana",
         "HasMixins": true,
         "Degree": "Major",
-        "Effect": "Deal Cold Damage to a Unit equal to 1d12 + ^Its Dexterity^.\nIf it's Medium or smaller, Root it.\n",
+        "Effect": "Deal Cold DaWizard to a Unit equal to 1d12 + ^Its Dexterity^.\nIf it's Medium or smaller, Root it.\n",
         "Combo": "This either hits one more Unit within 2 meters of it, or also Single-Stuns the target.",
         "Tag": "CC Hard",
         "ParentKey": "Ability Choices"
@@ -2359,8 +2348,8 @@
         "Range": "15 meters",
         "Cost": "1 Mana",
         "Degree": "Major",
-        "Effect": "You conjure a magical star that always shoots North and deals 5d10 Pulse Damage to the first Unit hit.\n",
-        "Combo": "The star explodes, dealing 50% of the total Damage to all other Units within 2 meters of the hit target.",
+        "Effect": "You conjure a magical star that always shoots North and deals 5d10 Pulse DaWizard to the first Unit hit.\n",
+        "Combo": "The star explodes, dealing 50% of the total DaWizard to all other Units within 2 meters of the hit target.",
         "Notes": "You can only shoot the star towards North - without an angle.\nAsk the DM which way North is (if your character knows that).\n",
         "ParentKey": "Ability Choices"
     },
@@ -2385,14 +2374,14 @@
             {
                 "Element": "Fire",
                 "DoWhat": "Target a 2x2x2 meter cube containing Fire.\nChoose any of the following to do with it:\n🔹 Move it up to 5 meters in any direction\n🔹 Extinguish it\n🔹 Lower or increase its intensity or light emission by 50%\n🔹 Roughly alter its shape and/or color\n",
-                "ElementNotes": "A Unit that touches the fire takes 2 Damage.",
+                "ElementNotes": "A Unit that touches the fire takes 2 DaWizard.",
                 "IconName": "Control Elements"
             },
             {
                 "Element": "Water",
                 "DoWhat": "Target a 1 meter cube containing {Element}.\nChoose any of the following to do with it:\n🔹 Move it up to 5 meters in any direction\n🔹 Destroy it\n🔹 Lower or increase its temperature down to near-freezing or near-boiling\n🔹 Roughly its shape and/or color\n",
                 "IconName": "Control Elements",
-                "ElementNotes": "Water is Hard Terrain. A Unit that touches near-boiling or near-freezing water takes 2 Damage."
+                "ElementNotes": "Water is Hard Terrain. A Unit that touches near-boiling or near-freezing water takes 2 DaWizard."
             }
         ],
         "ParentKey": "Utility"
@@ -2448,13 +2437,13 @@
     "<Pyromancy>": {
         "_Value": 1.5,
         "A": "Passive",
-        "Effect": "After the first time you deal Area Damage to 2 or more Worthy Enemies every Turn, increase all Fire Damage you deal by 1 for the rest of the combat.",
+        "Effect": "After the first time you deal Area DaWizard to 2 or more Worthy Enemies every Turn, increase all Fire DaWizard you deal by 1 for the rest of the combat.",
         "ParentKey": "Level 2 - Keystone Talent"
     },
     "<Electromancy>": {
         "_Value": 1.5,
         "A": "Passive",
-        "Effect": "After the first time you deal Shock Damage each Turn, increase all Healing and Shock Damage you deal by 1 for the rest of the Combat.\n",
+        "Effect": "After the first time you deal Shock DaWizard each Turn, increase all Healing and Shock DaWizard you deal by 1 for the rest of the Combat.\n",
         "ParentKey": "Level 2 - Keystone Talent"
     },
     "<Arcanism>": {
@@ -2467,7 +2456,7 @@
     "<Hydromancy>": {
         "_Value": 1.5,
         "A": "Passive",
-        "Effect": "Once per Turn, after you apply Crowd Control (other than Slow) to a Worthy Enemy, increase all Cold Damage you deal by 2 for the rest of the combat.",
+        "Effect": "Once per Turn, after you apply Crowd Control (other than Slow) to a Worthy Enemy, increase all Cold DaWizard you deal by 2 for the rest of the combat.",
         "Notes": "Hard Terrain does not count as Crowd Control. Slamming counts as Crowd Control.",
         "ParentKey": "Level 2 - Keystone Talent"
     },
@@ -2476,9 +2465,9 @@
         "Cost": "1 Mana",
         "Range": "10 meters",
         "Degree": "Major",
-        "Effect": "Shoot 3 rays of fire (at one or more Units). Each does 1d10 Fire Damage.",
-        "Notes": "You can roll them one by one, after they deal the damage.",
-        "Tag": "Damage (1)",
+        "Effect": "Shoot 3 rays of fire (at one or more Units). Each does 1d10 Fire DaWizard.",
+        "Notes": "You can roll them one by one, after they deal the daWizard.",
+        "Tag": "DaWizard (1)",
         "ParentKey": "Level 3 - Minor Talent"
     },
     "~Countermagic~": {
@@ -2494,7 +2483,7 @@
         "Cost": "1 Mana",
         "Range": "5 meters to first target",
         "Degree": "Major",
-        "Effect": "Choose a Worthy Unit other than you. If Enemy, it takes 1d10 Shock Damage. Otherwise, Heal it for 1d8.\nIf there is another Unit within 2 meters of it, repeat Conduit Flow on the new Unit (you choose if multiple).\n",
+        "Effect": "Choose a Worthy Unit other than you. If Enemy, it takes 1d10 Shock DaWizard. Otherwise, Heal it for 1d8.\nIf there is another Unit within 2 meters of it, repeat Conduit Flow on the new Unit (you choose if multiple).\n",
         "Notes": "Each Unit can be affected by Conduit Flow only once per cast. Cover is calculated from Unit to Unit (as if the conduit is jumping from Unit to Unit). The conduit can be repeated on you as long as you're not the first target.",
         "ParentKey": "Level 3 - Minor Talent"
     },
@@ -2504,9 +2493,9 @@
         "Range": "10 meters to edge",
         "Cooldown": "Once / Combat",
         "Degree": "Major",
-        "Effect": "Conjure floating arrows in a 3x3 area, up to 10 meters above ground.\nAt any point (for 0 Actions or with a Reaction), you can release these arrows downward. All Enemies hit take 2d6 Pierce Damage.\n",
-        "Upgrade": "At the start of your every Turn, if the barrage is not yet released, it increases by 1 meter in size in all directions and gains 1d4 Damage when it will be released (up to +3d4 and 9x9).",
-        "Notes": "E.g. every turn, it goes from 3x3 to 5x5, then 7x7, then 9x9, etc and deals from 2d6 Damage to 2d6 + 1d4, then 2d6 + 2d4, etc.\nThe arrows disappear as soon as they hit ground, or when dismissed (all at once) for free at any point, or after 1 minute of staying in the air.\n",
+        "Effect": "Conjure floating arrows in a 3x3 area, up to 10 meters above ground.\nAt any point (for 0 Actions or with a Reaction), you can release these arrows downward. All Enemies hit take 2d6 Pierce DaWizard.\n",
+        "Upgrade": "At the start of your every Turn, if the barrage is not yet released, it increases by 1 meter in size in all directions and gains 1d4 DaWizard when it will be released (up to +3d4 and 9x9).",
+        "Notes": "E.g. every turn, it goes from 3x3 to 5x5, then 7x7, then 9x9, etc and deals from 2d6 DaWizard to 2d6 + 1d4, then 2d6 + 2d4, etc.\nThe arrows disappear as soon as they hit ground, or when dismissed (all at once) for free at any point, or after 1 minute of staying in the air.\n",
         "ParentKey": "Level 3 - Minor Talent"
     },
     "~Element Enchantment~": {
@@ -2517,7 +2506,7 @@
         "Duration": "24 hours / Depends",
         "Requirement": "Level 2",
         "Degree": "Minor",
-        "Effect": "Choose a metallic weapon to imbue it with {Element}.\nThat weapon deals +2 Damage (as part of the Attack) and the total weapon Damage becomes {Element} Damage.\n\n~Click on the Spell Icon to select the preferred Element!~\n",
+        "Effect": "Choose a metallic weapon to imbue it with {Element}.\nThat weapon deals +2 DaWizard (as part of the Attack) and the total weapon DaWizard becomes {Element} DaWizard.\n\n~Click on the Spell Icon to select the preferred Element!~\n",
         "Upgrade": "Lasts until the end of the next (or current) combat, or for up to 24 hours.",
         "Notes": "Does not stack with other weapon enchantments from Spells. These are considered different Spells.",
         "Tag": "Buff",
@@ -2542,13 +2531,13 @@
         "_Value": "2 or more",
         "A": "Reaction",
         "Cost": "1 Mana",
-        "Effect": "Use when an ally (or you) would be hit by a missile (before hitting the target).\nFling it from air back to the attacker (with the exact Damage and effects).\n",
+        "Effect": "Use when an ally (or you) would be hit by a missile (before hitting the target).\nFling it from air back to the attacker (with the exact DaWizard and effects).\n",
         "ParentKey": "Level 4 - Minor Talent"
     },
     "<Animation>": {
         "_Value": 2.5,
         "A": "Passive",
-        "Effect": "Whenever you spend Mana on a Spell that doesn't deal Damage, you can pick a Large or Medium object within 6 meters and bring it to life.\nIt has 3 Speed, can fly and can attack for 1d4 Smash, Slash or Pierce Damage.\nLasts 1 minute or until it takes Damage (after which it returns to its inanimate form).\n",
+        "Effect": "Whenever you spend Mana on a Spell that doesn't deal DaWizard, you can pick a Large or Medium object within 6 meters and bring it to life.\nIt has 3 Speed, can fly and can attack for 1d4 Smash, Slash or Pierce DaWizard.\nLasts 1 minute or until it takes DaWizard (after which it returns to its inanimate form).\n",
         "Notes": "Alternatively, it can use Sprint, Push or Taunt once.",
         "ParentKey": "Level 4 - Minor Talent"
     },
@@ -2556,9 +2545,9 @@
         "_Value": 2,
         "A": "Passive",
         "Duration": "1 minute",
-        "Effect": "After you use Magic Mastery, choose an ally.\nCreate a clone of them on a space within 2 meters of them, and teleport the ally 2 meters in any direction (as to create a diversion).\nThe clone has the same Health and other stats, but takes 300% of the Damage it takes.\nThe clone can pretend to do anything the ally can do. If it attacks with a weapon or Spell, it can do at most 1 Psychic Damage per attack Act.\n",
+        "Effect": "After you use Magic Mastery, choose an ally.\nCreate a clone of them on a space within 2 meters of them, and teleport the ally 2 meters in any direction (as to create a diversion).\nThe clone has the same Health and other stats, but takes 300% of the DaWizard it takes.\nThe clone can pretend to do anything the ally can do. If it attacks with a weapon or Spell, it can do at most 1 Psychic DaWizard per attack Act.\n",
         "Upgrade": "An enemy can't tell which Unit is real and which is the clone until the clone does something relevant and the Unit has at least 3 Intelligence.",
-        "Notes": "E.g. the clone could cast Magic Missiles, but only one missile will deal 1 Damage (you can choose which, and apply Cover, Defense and other penalties normally - e.g. 1 Damage with Cover becomes 0 Damage). Alternatively, for example, it could attack twice with a one-handed weapon for 1 Damage each.\n",
+        "Notes": "E.g. the clone could cast Magic Missiles, but only one missile will deal 1 DaWizard (you can choose which, and apply Cover, Defense and other penalties normally - e.g. 1 DaWizard with Cover becomes 0 DaWizard). Alternatively, for example, it could attack twice with a one-handed weapon for 1 DaWizard each.\n",
         "ParentKey": "Level 4 - Minor Talent"
     },
     "<Spellcraft>": {
@@ -2567,8 +2556,8 @@
         "Cooldown": "Once / Combat",
         "AlignOnWebsite": "Right",
         "HasMixins": true,
-        "Effect": "When you cast a spell, you can apply this any of the following effects to it:\n{Diamond} For every 2 dice in its Damage, roll 1 more\n{Diamond} Increase it or decrease its Area by 50% (if AoE)\n{Diamond} Change its Damage type to any type\n{Diamond} Increase its Stunning by 1 tier\n{Diamond} Double its range\nYou can spend 1 {Mana}Mana to cast this ignoring its Cooldown.\n",
-        "ParentKey": "Level 3 - Minor Talent"
+        "Effect": "When you cast a spell, you can apply this any of the following effects to it:\n{Diamond} For every 2 dice in its DaWizard, roll 1 more\n{Diamond} Increase it or decrease its Area by 50% (if AoE)\n{Diamond} Change its DaWizard type to any type\n{Diamond} Increase its Stunning by 1 tier\n{Diamond} Double its range\nYou can spend 1 {Mana}Mana to cast this ignoring its Cooldown.\n",
+        "ParentKey": "Level 4 - Minor Talent"
     },
     "~Levitate~": {
         "A": "1 Action",
@@ -2585,7 +2574,7 @@
         "Cost": "1 Mana",
         "Range": "10 meters",
         "Degree": "Major",
-        "Effect": "You create an illusion that fits at most in a 3x3x3 meter area.\nThe illusion appears real to the eyes, ears and by smell, but physical interaction makes it obvious it's an illusion and objects pass through it normally.\nThe illusion can deal no Damage or Crowd Control, but can provide Cover or block Line of Sight (both from the front, and from behind).\nOn your Turn, you can spend 1 Action to keep and/or move the illusion, otherwise the Spell ends.\n",
+        "Effect": "You create an illusion that fits at most in a 3x3x3 meter area.\nThe illusion appears real to the eyes, ears and by smell, but physical interaction makes it obvious it's an illusion and objects pass through it normally.\nThe illusion can deal no DaWizard or Crowd Control, but can provide Cover or block Line of Sight (both from the front, and from behind).\nOn your Turn, you can spend 1 Action to keep and/or move the illusion, otherwise the Spell ends.\n",
         "Upgrade": "At Level 8, the illusion lasts indefinitely until you cancel it without needing to spend Actions, and it can hold its own simple movement and clockwork-like routines.\nYou can also program this illusion to react on its own in a specific way to specific triggers, but the instructions must be concise - talk with your QM about this.\n",
         "ParentKey": "Level 6 - Utility Talent"
     },
@@ -2599,7 +2588,7 @@
         "_Value": 4,
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "Whenever you deal Damage with a Spell that cost Mana, zap a Unit within 4 meters for ^your Intelligence^ Shock Damage.\n",
+        "Effect": "Whenever you deal DaWizard with a Spell that cost Mana, zap a Unit within 4 meters for ^your Intelligence^ Shock DaWizard.\n",
         "Notes": "This is optional.",
         "ParentKey": "Level 7 - Keystone Talent"
     },
@@ -2609,7 +2598,7 @@
         "Cooldown": "Once / Adventure",
         "Duration": "1 minute",
         "HasMixins": true,
-        "Effect": "Take the form of an _evoker_ - a being made of pure energy.\nWhile in the _evoker_ form, all Damage you deal from all sources becomes Pulse Damage, and all your spells that cost 2 or more Mana now cost 1 less.\nYou can breathe underwater and fly at normal Speed.\n",
+        "Effect": "Take the form of an _evoker_ - a being made of pure energy.\nWhile in the _evoker_ form, all DaWizard you deal from all sources becomes Pulse DaWizard, and all your spells that cost 2 or more Mana now cost 1 less.\nYou can breathe underwater and fly at normal Speed.\n",
         "Notes": "You can't end your turn inside an obstacle, and you can't move through walls, ceilings and floors.",
         "ParentKey": "Level 7 - Keystone Talent"
     },
@@ -2617,14 +2606,14 @@
         "A": "0 Actions",
         "Cost": "1 Mana",
         "Cooldown": "Once / Adventure",
-        "Effect": "Instantly return to how and where you were at the start of your turn (or your previous turn if it's not currently your turn), with that same Movement, Actions, Health, Shielding, Buffs and Cooldowns (not Mana, though).\nAlternatively, if you're out of combat, you can turn back time for all the world up to 10 minutes, exactly how it was, but retaining all your information from the future. Allies don't retain the information.\n",
+        "Effect": "Instantly return to how and where you were at the start of the turn, with that same Movement, Actions, Health, Shielding, Buffs and Cooldowns (not Mana, though).\nAlternatively, if you're out of combat, you can turn back time for all the world up to 10 minutes, exactly how it was, but retaining all your information from the future. Allies don't retain the information.\n",
         "ParentKey": "Level 9 - Keystone Talent"
     },
     "<Graviturgy>": {
         "A": "Half-Action",
         "Cooldown": "Once / Adventure",
         "Duration": "Until the start of your next turn",
-        "Effect": "Choose a 5x5x5 meter cube.\nThat area become frozen in time - Units skip their turns and can't be damaged or affected by anything.\nAny object that touches the area becomes frozen, too (and, if it is a missile, resumes its trajectory when the area ends).\n",
+        "Effect": "Choose a 5x5x5 meter cube.\nThat area become frozen in time - Units skip their turns and can't be daWizardd or affected by anything.\nAny object that touches the area becomes frozen, too (and, if it is a missile, resumes its trajectory when the area ends).\n",
         "ParentKey": "Level 9 - Keystone Talent"
     },
     "<Hermeticism>": {
@@ -2637,8 +2626,8 @@
     "<Highmancy>": {
         "A": "Passive",
         "Effect": "Your chosen Level 3 Talent triggers 3 times when it happens. When using Magic Mastery on a Spell with the same element as your Level 3 Talent, it no longer gets its ^Dice Downgraded^.\n",
-        "Upgrade": "All your other Spells become themed to the same element, but keep their original Damage Type. For example, if you chose fire, Frost Nova will now burst in cold, blue flames instead of ice.",
-        "Notes": "For example, when you hit multiple Units with an Ability, you increase your Fire Damage by +3 instead of +1, or you gain +6 Cold Damage from Hydromancy when you Crowd Control an Enemy. For Eldritchianism, your Spells have their ^Dice Upgraded^ 3 times.",
+        "Upgrade": "All your other Spells become themed to the same element, but keep their original DaWizard Type. For example, if you chose fire, Frost Nova will now burst in cold, blue flames instead of ice.",
+        "Notes": "For example, when you hit multiple Units with an Ability, you increase your Fire DaWizard by +3 instead of +1, or you gain +6 Cold DaWizard from Hydromancy when you Crowd Control an Enemy. For Eldritchianism, your Spells have their ^Dice Upgraded^ 3 times.",
         "HasMixins": true,
         "Downside": "{Ultimate}",
         "ParentKey": "Level 10 - Ultimate Talent"
@@ -2647,7 +2636,7 @@
         "_Value": 1.5,
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "At the start of your every Turn in a Worthy Combat, roll 1d10.\nIf you roll 1, you take 1d6 True Damage.\nIf you roll 10, your next Spell this Turn has its ^Dice Upgraded^ to the next die tier.\n",
+        "Effect": "At the start of your every Turn in a Worthy Combat, roll 1d10.\nIf you roll 1, you take 1d6 True DaSorcerer.\nIf you roll 10, your next Spell this Turn has its ^Dice Upgraded^ to the next die tier.\n",
         "Notes": "{DiceUpgrade}\n",
         "ParentKey": "Starting Abilities"
     },
@@ -2661,7 +2650,7 @@
     "<Guiled Casting>": {
         "A": "Passive",
         "AlignOnWebsite": "Left",
-        "Effect": "When you roll 1 on the Unstable Spark die, after taking the Damage, you deal +1 Damage of a random Damage Type _permanently_ as long as you have this Talent.\n",
+        "Effect": "When you roll 1 on the Unstable Spark die, after taking the DaSorcerer, you deal +1 DaSorcerer of a random DaSorcerer Type _permanently_ as long as you have this Talent.\n",
         "Notes": "1. Fire, 2. Cold, 3. Shock, 4. Pulse, 5. Poison, 6. Acid, 7. Divine, 8. Scourge.",
         "HasMixins": true,
         "ParentKey": "Level 2 - Keystone Talent"
@@ -2676,7 +2665,7 @@
     "<Viled Casting>": {
         "A": "Passive",
         "AlignOnWebsite": "Left",
-        "Effect": "All non-physical Damage you deal becomes Eldritch Damage. When you roll 5 on the Unstable Spark die, increase all Eldritch Damage you deal for the rest of the combat by 3. Then roll another Unstable Spark die.",
+        "Effect": "All non-physical DaSorcerer you deal becomes Eldritch DaSorcerer. When you roll 5 on the Unstable Spark die, increase all Eldritch DaSorcerer you deal for the rest of the combat by 3. Then roll another Unstable Spark die.",
         "ParentKey": "Level 2 - Keystone Talent"
     },
     "<Sap>": {
@@ -2717,7 +2706,7 @@
             },
             {
                 "Name": "6. Strange Wave",
-                "Effect": "1 to 5 Units are Healed or Damaged for 1d4."
+                "Effect": "1 to 5 Units are Healed or DaSorcererd for 1d4."
             },
             {
                 "Name": "7. Teleportation",
@@ -2729,7 +2718,7 @@
             },
             {
                 "Name": "9. Enchanted Weapons",
-                "Effect": "1 to 5 Units have their weapons enchanted (+2 Damage, any element)"
+                "Effect": "1 to 5 Units have their weapons enchanted (+2 DaSorcerer, any element)"
             },
             {
                 "Name": "10. Invisibility",
@@ -2737,15 +2726,15 @@
             },
             {
                 "Name": "11. FULMINATION",
-                "Effect": "A 3x3 to 9x9 explosion happens, dealing 2d6 to 6d6 Damage of any element."
+                "Effect": "A 3x3 to 9x9 explosion happens, dealing 2d6 to 6d6 DaSorcerer of any element."
             },
             {
                 "Name": "12. Fling",
-                "Effect": "1 to 5 objects or items are flung around. If any hits a Unit, deals 1d6 Damage."
+                "Effect": "1 to 5 objects or items are flung around. If any hits a Unit, deals 1d6 DaSorcerer."
             },
             {
                 "Name": "13. Thunder Clap",
-                "Effect": "All Units within 2 to 6 meters of you take 1d6 to 3d6 Damage (any type)."
+                "Effect": "All Units within 2 to 6 meters of you take 1d6 to 3d6 DaSorcerer (any type)."
             },
             {
                 "Name": "14. Wilder Casting",
@@ -2782,7 +2771,7 @@
         "_Value": "2 (No fucking idea lol)",
         "A": "Passive",
         "Effect": "When you roll 4 on the Unstable Spark die, gain 0.5 Max Health and 0.25 Max Mana.",
-        "Notes": "Mana and Health can't be expended or Damaged in fractions, but if you manage to get this 2 times, you essentially get +1 Health permanently (or 1 Mana permanently if you trigger this 4 times).",
+        "Notes": "Mana and Health can't be expended or DaSorcererd in fractions, but if you manage to get this 2 times, you essentially get +1 Health permanently (or 1 Mana permanently if you trigger this 4 times).",
         "ParentKey": "Level 3 - Minor Talent"
     },
     "<Honorificabilitudinitatibus>": {
@@ -2791,7 +2780,7 @@
         "A": "Passive",
         "HasMixins": true,
         "Effect": "Your Unstable Spark die becomes 1d12 instead of 1d10, and triggers on 11 and 12 instead of 10.\nYour d12 dice become d14's, 1d14's become d16's, etc, when they have their ^Dice Upgraded^ to the next die tier.\n",
-        "Notes": "I don't know. You're a mage, figure it out.\n",
+        "Notes": "I don't know. You're a Sorcerer, figure it out.\n",
         "ParentKey": "Level 3 - Minor Talent"
     },
     "<Second Try>": {
@@ -2807,8 +2796,8 @@
         "AlignOnWebsite": "Right",
         "A": "1 Action",
         "Cost": "1 Mana",
-        "Effect": "Declare up to 4 different targets you can see.\nAssign a different number from #1 to #4 to each.\nRoll a number of d4's equal to your last rolled Unstable Spark die. Each d4 rolled deals that much Pulse Damage to the target with that number.\nEach rolled 1 deals 1 Damage to target number #1, each rolled 2 deals 2 Damage to target number #2, and so on.\n",
-        "Notes": "E.g. if you put #2 on a goblin, and you roll three 2's on the d4's, then that goblin takes 6 Pulse Damage.\nYou should probably assign the higher number to the target you want to do most Damage to.\nYou can declare fewer targets, but then the missing number will deal Damage to no target.\nCover is applied normally.\n",
+        "Effect": "Declare up to 4 different targets you can see.\nAssign a different number from #1 to #4 to each.\nRoll a number of d4's equal to your last rolled Unstable Spark die. Each d4 rolled deals that much Pulse DaSorcerer to the target with that number.\nEach rolled 1 deals 1 DaSorcerer to target number #1, each rolled 2 deals 2 DaSorcerer to target number #2, and so on.\n",
+        "Notes": "E.g. if you put #2 on a goblin, and you roll three 2's on the d4's, then that goblin takes 6 Pulse DaSorcerer.\nYou should probably assign the higher number to the target you want to do most DaSorcerer to.\nYou can declare fewer targets, but then the missing number will deal DaSorcerer to no target.\nCover is applied normally.\n",
         "ParentKey": "Level 3 - Minor Talent"
     },
     "~Crocodile~": {
@@ -2820,8 +2809,8 @@
         "Cost": "3 Mana",
         "Range": "10 meters to edge",
         "Degree": "Grand",
-        "Effect": "Declare an area with a diameter in meters (in all directions) equal to your Level.\nThe gravity becomes reversed in that area and all Units instantly fall upwards. Units can make a Dexterity Check to grab onto an object to not be lifted.\nUnits suffer fall Damage if they fall onto a ceiling.\nWhen the effect ends, all Units fall at half velocity (and take half of the fall Damage). The same happens to a Unit if it exits the area.\nLasts for up to 1 minute. You can cancel this effect at will.\n",
-        "Notes": "Fall Damage is 1d6 for every 2 meters fallen (e.g. 1d6 for 2 and 3 meters, 2d6 for 4 and 5 meters, etc).\n",
+        "Effect": "Declare an area with a diameter in meters (in all directions) equal to your Level.\nThe gravity becomes reversed in that area and all Units instantly fall upwards. Units can make a Dexterity Check to grab onto an object to not be lifted.\nUnits suffer fall DaSorcerer if they fall onto a ceiling.\nWhen the effect ends, all Units fall at half velocity (and take half of the fall DaSorcerer). The same happens to a Unit if it exits the area.\nLasts for up to 1 minute. You can cancel this effect at will.\n",
+        "Notes": "Fall DaSorcerer is 1d6 for every 2 meters fallen (e.g. 1d6 for 2 and 3 meters, 2d6 for 4 and 5 meters, etc).\n",
         "ParentKey": "Level 6 - Utility Talent"
     },
     "~Hearth Recall~": {
@@ -2843,7 +2832,7 @@
     "<Accidental Zap>": {
         "_Value": 2.5,
         "A": "Passive",
-        "Effect": "When you roll 6, 7 or 8 on the Unstable Spark die, immediately Zap the closest Unit to you for ^your Intelligence^ Shock Damage.",
+        "Effect": "When you roll 6, 7 or 8 on the Unstable Spark die, immediately Zap the closest Unit to you for ^your Intelligence^ Shock DaSorcerer.",
         "HasMixins": true,
         "ParentKey": "Level 7 - Keystone Talent"
     },
@@ -2871,7 +2860,7 @@
     },
     "<Draconianism>": {
         "A": "Passive",
-        "Effect": "Your natural form changes to that of a large, winged dragon. Your base Maximum Mana increases by 10 and your base Max Health by 50%. You can fly at your normal Speed.\nYou must choose what color you are as a dragon. As your breath attack, you can cast any Basic Ability that deals Damage and doesn't cost Mana, and it also hits all Units within 2 meters of the main target. You also take -50% Damage from the Damage Type of your chosen Ability.\n",
+        "Effect": "Your natural form changes to that of a large, winged dragon. Your base Maximum Mana increases by 10 and your base Max Health by 50%. You can fly at your normal Speed.\nYou must choose what color you are as a dragon. As your breath attack, you can cast any Basic Ability that deals DaSorcerer and doesn't cost Mana, and it also hits all Units within 2 meters of the main target. You also take -50% DaSorcerer from the DaSorcerer Type of your chosen Ability.\n",
         "Upgrade": "You can transform into your person-self at will, but, to you, your dragon form is more comfortable.",
         "HasMixins": true,
         "Downside": "{Ultimate}",
@@ -2879,8 +2868,8 @@
     },
     "~Artificer~": {
         "A": "10 minutes",
-        "Effect": "You have a set of Artificer's Tools.\nSpending an amount of {Gold}Gold for its components, you can create a device that does repetitive tasks, shed light, emmits a sound or smell or paints surfaces in rough images or writing.\nYou can create any non-food normal weapon, armor, general good or adventurer gear item piece by spending its {Gold}Gold cost, wherever you are.\nYou can _dismantransmute_ any good into {Gold}Gold equal to 25% of its value (which is usually the normal sell price to a vendor).\n",
-        "Notes": "Artificer's Tools's small tasks are a non-combat. You can't use them to deal Damage, crowd control or heal. Feel free to be creative with what you can do - the tools might do other small artificer tasks as well. Ask your QM! The spent {Gold}Gold for this is used as resource for obtaining or transmuting materials.",
+        "Effect": "Spending {Gold}Gold for its components, design and assemble a mechanized apparatus capable of performing simple, repetitive operations such as illumination, sound emission, olfactory diffusion, or the projection of pigment to form crude symbols or imagery.\nYou can create any normal weapon, armor, non-food general good or adventuring gear item piece by spending its {Gold}Gold cost.\nYou can _dismantle_ any good into {Gold}Gold equal to its selling worth.\n",
+        "Notes": "You can't use them to deal Damage, crowd control or heal. Typically, items sell at 25% of their base cost, and magic items at 50% of their base cost. Feel free to be creative with what you can do - the tools might do other small artificer tasks as well. Ask your QM! The spent {Gold}Gold for this is used as resource for obtaining or transmuting materials.",
         "HasMixins": true,
         "ParentKey": "Starting Abilities"
     },
@@ -2915,13 +2904,20 @@
         "ParentKey": "Level 2 - Keystone Talent"
     },
     "~Create Elixir~": {
-        "AlignOnWebsite": "Right",
+        "_Value": 2,
         "HasMixins": true,
-        "A": "10 minutes",
-        "Duration": "Whole Adventure",
+        "A": "1 hour",
         "Cooldown": "Once / Adventure",
-        "Effect": "Choose one of the following types of potions and create it\n{Diamond} Elixir of Healing - Heal for 2d6.\n{Diamond} Elixir of Strength - Attacks with 2-Handed weapons deal +2 Damage, and attacks with 1-Handed weapons deal +1 Damage (lasts 1 combat encounter).\n{Diamond} Elixir of Agility - Gain 100% base Movement Speed (lasts for 4 hours).\n{Diamond} Elixir of Mana - Gain 1 Mana\n",
-        "ParentKey": "Level 2 - Keystone Talent"
+        "Duration": "10 minutes",
+        "Effect": "Choose 2 of the following types of elixirs and create one of each.\nWhen consumed with Half-Action, each elixir has a different effect:\n",
+        "SingleTable": [
+            "Elixir of Health: Heal for 2d6 Health",
+            "Elixir of Mana: Gain 1 Mana",
+            "Elixir of Strength: +1d4 Damage with first weapon attack each Turn",
+            "Elixir of Speed: +2 Movement Speed"
+        ],
+        "Notes": "Effects last 10 minutes from consumption",
+        "ParentKey": "Level 1 - Keystone Talents"
     },
     "<Create Magic Weapon>": {
         "_Value": 1.25,
@@ -2947,13 +2943,35 @@
         "ParentKey": "Level 3 - Minor Talent"
     },
     "<Create Golem>": {
-        "_Value": 2,
-        "A": "1 Action",
-        "Cost": "Depends",
+        "_Value": "3+",
+        "A": "10 Action",
+        "Cooldown": "Once / Adventure",
         "Range": "3 meters to edge",
-        "Duration": "Whole Adventure",
-        "Effect": "Choose an empty 2x2 meter space and deploy a Golem there that lasts until the end of your next Adventure.\nChoose if it's made of Clay, Metal or Flesh. It has different Abilities based on its material. You can find the Golem's stats in the Pets section.\nThe first time you summon a Golem this Adventure, it costs 1 Mana. Then, every Golem you summon costs 1 Mana more than the previous.\n",
-        "Notes": "The Golem has 0 initiative, so it usually takes its turn last in combat.",
+        "IsWide": true,
+        "Effect": "Permanently get {Brown('-1 Presence')} and -1 Health Regen and craft a Golem that does your bidding.\n\nIt has Half-Action and takes its Turn on the same Turn as you. It has the Attack Ability, but you need to choose the material it's made out of.\n",
+        "Upgrade": "Each additional Golem you craft takes -2 Health Regen more than the previous.",
+        "Notes": "If the Golem is destroyed, you can spend 10 minutes to repair it. You can change its type between Adventures.\nThe Golem can be stored as a smaller version of itself that expands at the beginning of the Combat, or when thrown somewhere for Half-Action.\n",
+        "Monster": {
+            "Name": "Golem",
+            "Speed": "3 meters",
+            "Stats": "2/0/0/0",
+            "Health": "15 - 200% of Your Presence",
+            "Abilities": {
+                "~Attack~": {
+                    "A": "Half-Action",
+                    "Damage": "1d6 Smash",
+                    "EffectGreen": "Critical Strike (Clay) - if you rolled 6, Single-Stun the target.\nCritical Strike (Flesh) - if you rolled 6, +1d6 Damage.\nCritical Strike (Metal) - if you rolled 6, deal the Damage to one more Unit near the target.\n",
+                    "ParentKey": "Abilities"
+                },
+                "~Effect~": {
+                    "A": "Passive",
+                    "Effect": "Brown('Clay:') Enemies ending their Turn near the Clay Golem are Slowed.\nBrown('Flesh:') Instead of attacking, pull a Unit up to 5 meters away next to the Golem (Once / Combat).\nBrown('Metal:') Allies within 1 meter of the Metal Golem have Cover from Ranged attacks.\n",
+                    "Notes": "The Flesh Golem can use a hook to pull an enemy to the closest space near the Golem (requires clear path).",
+                    "ParentKey": "Abilities"
+                }
+            }
+        },
+        "HasMixins": true,
         "ParentKey": "Level 5 - Keystone Talent"
     },
     "<Create Autoturret>": {
@@ -2982,8 +3000,8 @@
         "A": "1 Action",
         "HasMixins": true,
         "Degree": "Major",
-        "Effect": "Touch a 1x1x1 meter cube of rock, mud, sand, etc.\nTransform it into rock, mud, sand, etc.\nA Unit caught in this effect becomes Rooted.\n",
-        "Upgrade": "At Level 8, Once / Adventure, you can transmute a piece of metal you can hold in your hand into gold worth up to 400% its original worth in {Gold}Gold.",
+        "Range": "1 meter",
+        "Effect": "Select a 1x1x1 meter cube of rock, mud, sand, or similar material and transform it into a different material of similar composition, rarity and worth. A Unit caught in this effect becomes Rooted.\nOnce per Adventure, you can transmute a piece of metal you can hold in your hand into gold worth up to 400% its original worth in {Gold}Gold.\n",
         "Notes": "{Rooted}\n",
         "ParentKey": "Level 6 - Utility Talent"
     },
@@ -3006,10 +3024,10 @@
         "ParentKey": "Level 7 - Keystone Talent"
     },
     "<Alchemy>": {
-        "_Value": 3,
         "A": "Passive",
-        "AlignOnWebsite": "Left",
-        "Effect": "You can use Create Elixir 4 times per Adventure.",
+        "Requirement": "Requires Create Elixir and Presence > 0",
+        "Effect": "You can use Create Elixir a number of ^extra^ times per Adventure equal to your Presence.",
+        "HasMixins": true,
         "ParentKey": "Level 7 - Keystone Talent"
     },
     "<Engineering>": {
@@ -3020,14 +3038,14 @@
         "ParentKey": "Level 7 - Keystone Talent"
     },
     "<Create Replica>": {
-        "A": "10 minutes",
+        "A": "1 hour",
         "Cooldown": "Special",
-        "Effect": "You create a replica of a non-legendary magic item.\nOnly one replica of that item can exist.\nWhile the replica exists, you can't create another (you must completely destroy it first, and can do so by touching it).\n",
+        "Effect": "Fabricate a perfect replica of a non-legendary magic item.\nOnly one replica of that item can exist, and the previous one must be destroyed in order to use Create Replica again.\n",
         "ParentKey": "Level 9 - Keystone Talent"
     },
     "<Augmentation>": {
         "A": "Passive",
-        "Effect": "You augment your body using chemical, mechanical or magical procedures.\nYour Might, Dexterity and Presence increase by 2, your Health by 10\n",
+        "Effect": "You augment your body using chemical, mechanical or magical procedures.\nYour Might and Dexterity increase by 2, your Health by 10\n",
         "ParentKey": "Level 9 - Keystone Talent"
     },
     "<Transfiguration>": {
@@ -3046,7 +3064,7 @@
     },
     "<Carbonic Reflection>": {
         "A": "Passive",
-        "Effect": "You create a perfect clone of yourself, that can be biological or mechanical in nature. It resembles you identically in appearance, Stats, personality, etc.\nIt can cast any Basic Abilities you have access to, but can't spend Mana or use Class Abilities. You control both in Combat and they act on the same initiative.\nBeware: The clone is intelligent, and while its goals are aligned with yours, it is not guaranteed to always listen to your commands and desires outside of Combat. You decide if its intelligence is natural or artificial, and if your clone is truly sentient or conscious or not.\n",
+        "Effect": "You create a perfect clone of yourself, that can be biological or mechanical in nature. It resembles you identically in appearance, Stats, personality, etc.\nIt can cast any Abilities you have access to, but they share a Cooldown. You control both in Combat and they act on the same initiative.\nBeware: The clone is intelligent, and while its goals are aligned with yours, it is not guaranteed to always listen to your commands and desires outside of Combat. You decide if its intelligence is natural or artificial, and if your clone is truly sentient or conscious or not.\n",
         "HasMixins": true,
         "Downside": "{Ultimate}",
         "ParentKey": "Level 10 - Ultimate Talent"
@@ -3105,7 +3123,7 @@
         "HasMixins": true,
         "Degree": "Minor",
         "Tags": "Healing",
-        "Effect": "Heal a target for 1d4 + ^Soul or Intelligence^ Health.\nAfter this, if the target is at full Health, repeat this on another target within 5 meters of you.\n",
+        "Effect": "Heal a target for 1d4 + ^Presence or Intelligence^ Health.\nAfter this, if the target is at full Health, repeat this on another target within 5 meters of you.\n",
         "Combo": "If the target is Comboed and still not full Health, increase the Healing by 50%.",
         "Notes": "Yes, this can chain again and again.",
         "ParentKey": "Ability Choices"
@@ -3202,8 +3220,9 @@
         "HasMixins": true,
         "DisplayRequirement": "Only usable if it hits at least 2 Units",
         "Tags": "AoE",
-        "Effect": "Make a {Weapon} ^weapon^ attack {Effect}\n~Click on the Icon to select a preferred effect!~\n\n{Chain} Blockade: +4 Range.\n{Chain} Stun: Increase it by 1 tier.\n{Chain} Deal Area Damage: Dice Upgraded to next die type.\n",
-        "Notes": "Can apply weapon effects. If the weapon effect requires a target, applies to one chosen Unit hit.\nRange increases do increase the length. The Damage must the same for all Units hit. All bonuses to the attack (e.g. Smite, Cursewielder, etc) also split evenly.\n{DiceUpgraded}\n",
+        "Effect": "Make a {Weapon} ^weapon^ attack {Effect}\n~Click on the Icon to select a preferred effect!~\n",
+        "Combo": "Comboed Units take the original full Damage.",
+        "Notes": "Can apply weapon effects. If the weapon effect requires a target, applies to one chosen Unit hit.\nRange increases do increase the length. The Damage must the same for all Units hit. All bonuses to the attack (e.g. Smite, Cursewielder, etc) also split evenly.\n",
         "Variants": [
             {
                 "Name": "Lance Heave",
@@ -3372,6 +3391,7 @@
         "_Value": 2.15,
         "A": "1 Action",
         "Cooldown": "Once / Adventure",
+        "AlignOnWebsite": "Right",
         "Effect": "Heal a Unit you can see for 50% of its Max Health.",
         "ParentKey": "Level 5 - Keystone Talent"
     },
@@ -3767,10 +3787,6 @@
         "Downside": "{Ultimate}",
         "ParentKey": "Level 10 - Ultimate Talent"
     },
-    "~Skilled in Stealth~": {
-        "Effect": "Add your Level to all Dexterity Checks for hiding, remaining quiet, moving silently, blending in a crowd, etc.\n",
-        "ParentKey": "Proficiencies"
-    },
     "~Ambush~": {
         "_Value": 2.5,
         "AlignOnWebsite": "Right",
@@ -3838,7 +3854,6 @@
         "A": "Passive",
         "HasMixins": true,
         "Effect": "You have 2 Mana that replenishes inbetween Adventures.\nAlso, gain 2 non-Combat Skills of choice.\n",
-        "EffectGreen": "If you're playing with Rogue B, also gain access to the Arcane and Mysticism Ability Lists.",
         "ParentKey": "Level 3 - Keystone Talent"
     },
     "<Verge of the Coin>": {
@@ -3924,6 +3939,7 @@
     "<Gold_Hoard>": {
         "A": "Passive",
         "Effect": "You gain various bonuses based on how much gold you are carrying.",
+        "EffectGreen": "When you get this, gain +1 in a Stat of choice, up to +4.",
         "DoubleTable": {
             "Headers": [
                 "Gold",
@@ -3944,7 +3960,7 @@
                 "-10% Damage from all sources (applied after all other calculations)"
             ]
         },
-        "ParentKey": "Level 3 - Keystone Talent"
+        "ParentKey": "Level 6 - Utility Talent"
     },
     "<Finders Keepers>": {
         "A": "Special",
@@ -3952,7 +3968,8 @@
         "HasMixins": true,
         "Effect": "When looting a _lootable object_ that _contains Worthy items_, you can spend any amount of gold to also loot an item worth up to twice the spent amount.",
         "Notes": "It is up to the Quest Master what a _lootable object_ is (could be a chest, the corpse of an enemy, etc). Also, it is up to the Quest Master what _Worthy items_ means (could be main quest items, magic items, or just a normal chest).",
-        "ParentKey": "Starting Abilities"
+        "EffectGreen": "When you get this, gain +1 in a Stat of choice, up to +4.",
+        "ParentKey": "Level 6 - Utility Talent"
     },
     "<Minor Golden Ambush>": {
         "_Value": 3,
@@ -4064,15 +4081,15 @@
         "A": "0 Actions or Reaction",
         "HasMixins": true,
         "Cooldown": "1 hour",
-        "Effect": "Choose a point covered in shadow up to 6 meters away and teleport to it.\n~Your next attack makes the target roll a Might Check against the Damage done. If it fails, it becomes put to Sleep for 1 minute.~\n",
+        "Effect": "Choose a point covered in shadow up to 6 meters away and teleport to it.\n~Your next attack within 1 minute makes the attack's target roll a Might Check against the Damage done. If it fails, it becomes put to Sleep for 1 minute.~\n",
         "Upgrades": "You can use this as a Reaction when an enemy wants to attack you (before dealing the Damage). If it can't do the attack anymore, it must choose something else to do.\n~Epic monsters are instead Triple-Stunned for 1 Turn.~\n",
         "ParentKey": "Level 5 - Keystone Talent"
     },
     "<Death Mark>": {
-        "_Value": 2.25,
+        "_Value": 3,
         "A": "0 Actions",
         "Cooldown": "Once / Adventure",
-        "Effect": "Mark a Unit you can see for death.\nWhenever YOU deal Damage to it until your next turn, remember the Damage done.\nAt the start of your next turn, the mark bursts and the Unit takes 50% of the Damage it has taken in this time period.\n",
+        "Effect": "Mark a Unit you can see.\nWhenever YOU deal Damage to it until your next turn, remember the Damage done.\nAt the start of your next turn, the mark bursts and the Unit takes directly 33% of the Damage you dealt to it in this time period.\n",
         "ParentKey": "Level 5 - Keystone Talent"
     },
     "<Planned Assassination>": {
@@ -4087,8 +4104,9 @@
     "<Blade Verge>": {
         "_Value": 2,
         "A": "Passive",
-        "Effect": "Whenever YOU would Damage an Enemy leaving it at 10% Health or below, it dies.",
-        "ParentKey": "Level 3 - Keystone Talent"
+        "Effect": "Whenever YOU would Damage an Enemy leaving it at 10% Health or below, it dies, and you can instantly Shadowpass now regardless of its Cooldown.",
+        "EffectGreen": "When you get this, gain +1 in a Stat of choice, up to +4.",
+        "ParentKey": "Level 6 - Utility Talent"
     },
     "<Shadowlayers>": {
         "_Value": 1.75,
@@ -4156,7 +4174,7 @@
                 "6. +1 Ambush Damage"
             ]
         },
-        "Notes": "First, you continue your Turn; then the Enemy has its turn. After the duel is over, resume Turn order from the Unit after you. All of these Turns happen on the same Round, as if in a vaccuum (e.g. Round number does not increase).",
+        "Notes": "First, you continue your Turn; then the Enemy has its turn. After the duel is over, resume Turn order, as if you just finished your Turn. All of these Turns happen on the same Round, as if in a vaccuum (e.g. Round number does not increase for some effects' purposes).",
         "ParentKey": "Level 3 - Keystone Talent"
     },
     "<Swing Thing>": {
@@ -4208,7 +4226,8 @@
         "_Value": 3,
         "A": "Passive",
         "Effect": "Whenever you Ambush a Unit you haven't Ambushed this Combat, heal an ally you can see (or yourself) for the number of Worthy Enemies in the Combat.\n",
-        "ParentKey": "Level 5 - Keystone Talent"
+        "EffectGreen": "When you get this, gain +1 in a Stat of choice, up to +4.",
+        "ParentKey": "Level 6 - Utility Talent"
     },
     "<Long Stalk 'n' Parry>": {
         "_Value": 3,
@@ -4224,8 +4243,9 @@
         "_Value": "2 (but it's inconsistent)",
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "After Ambushing a Unit 2 of your Turns in a row, inflict a random Crowd Control from the following options. Then the Unit becomes immune to ^At Me!^ for the rest of the Combat.\n{Diamond} 1. Charm\n{Diamond} 2. Silence\n{Diamond} 3. Fear\n{Diamond} 4. Cripple\n",
-        "ParentKey": "Level 3 - Keystone Talent"
+        "Effect": "After Ambushing a Unit 2 of your Turns in a row, inflict a random Crowd Control from the following options. Then the Unit becomes immune to ^At Me!^ for the rest of the Combat.\n{Diamond} 1. Blind\n{Diamond} 2. Silence\n{Diamond} 3. Fear\n{Diamond} 4. Cripple\n",
+        "EffectGreen": "When you get this, gain +1 in a Stat of choice, up to +4.",
+        "ParentKey": "Level 6 - Utility Talent"
     },
     "<Critical Ambush>": {
         "A": "Passive",
@@ -4251,10 +4271,6 @@
         "Duration": "1 minute",
         "Effect": "Gain Shielding equal to your current Initiative in combat.\n",
         "ParentKey": "Level 9 - Keystone Talent"
-    },
-    "~Skilled in Occultism~": {
-        "Effect": "Add your Level to all Checks for knowing about demons or undead, rituals, myths or cryptids, black magic, etc.",
-        "ParentKey": "Proficiencies"
     },
     "~Echoes~": {
         "A": "Passive",
@@ -4290,7 +4306,7 @@
         "Requirement": "Level 3",
         "Degree": "Lesser",
         "Tags": "Roleplaying",
-        "Effect": "A person you can see must pass a Soul Roll against your Soul Roll or have its Initiative (rolls) halved, have -2 to non-combat Rolls, and be afflicted by minor curse effects (e.g. is clumsy, stumbles, get pimples, etc).\n",
+        "Effect": "A person you can see must pass a Presensce Roll against your Presensce Roll or have its Initiative (rolls) halved, have -2 to non-combat Rolls, and be afflicted by minor curse effects (e.g. is clumsy, stumbles, get pimples, etc).\n",
         "Notes": "Be creative with the effects of the minor curse effects!\n",
         "ParentKey": "Utility"
     },
@@ -4432,8 +4448,8 @@
         "_Value": 3,
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "Your Shaman Talents always _echo_.",
-        "Notes": "You don't spend Health again if any Talents require that.",
+        "Effect": "Your Shaman Abilities and Talents always _echo_.",
+        "Notes": "Rainmaking applies 2 effects when echoed. Enlightening Ritual can now, instead, succeed twice per Adventure (Units still can't succeed it more than once).",
         "ParentKey": "Level 7 - Keystone Talent"
     },
     "~Soul Bond~": {
@@ -4960,7 +4976,7 @@
         "A": "Passive",
         "Effect": "You have a Cursewielder Weapon - a special weapon of one chosen type (e.g. Shortsword, Longbow, Pike, etc). This weapon will have extra effects later on. Don't lose it!\nYou gain +1 in Might or Dexterity, up to +3.\n",
         "Upgrade": "Reposess: By spending 1 hour, you can transfer the curse of your Cursewielder Weapon into another weapon. That new weapon becomes your Cursewielder Weapon, and the old one is destroyed.\n",
-        "Notes": "You are bound by soul to your Cursewielder Weapon, inside which your patron's avatar lies, either possessing the weapon, being trapped inside it, cursing it, or using it as a means of communication with you.\nYou must choose your weapon type when you become a Cursewielder Warlock.\nYou can customize your weapon's personality, voice, the way it looks. Talk to your Quest Master.\n",
+        "Notes": "You are bound by soul to your Cursewielder Weapon, inside which your patron's avatar lies, either possessing the weapon, being trapped inside it, cursing it, or using it as a means of communication with you.\nYou must choose your weapon type when you become a Cursewielder Cursewielder.\nYou can customize your weapon's personality, voice, the way it looks. Talk to your Quest Master.\n",
         "ParentKey": "Starting Abilities"
     },
     "~Cursewielder~": {
@@ -5088,7 +5104,7 @@
         "Cooldown": "Once / Combat",
         "Effect": "Choose an enemy Unit. Cast the last Ability it cast (can include attacks).",
         "Notes": "Includes weapon attacks, multiattacks, spells, bodily actions, etc. You can't cast Reactions, Passives or Abilities triggered through Passives. If you copied an attack, you briefly conjure a weapon for the attack only. If the Ability uses any Stats, use yours.",
-        "ParentKey": "Starting Abilities"
+        "ParentKey": "~Power Source~"
     },
     "~Mind's Shadow~": {
         "DisplayName": "Mind's Shadow",
@@ -5204,14 +5220,6 @@
         "Notes": "The clone can't do combat Acts and fine motor skills on its own -- it will always copy yours in parallel.",
         "ParentKey": "Level 10 - Ultimate Talent"
     },
-    "~Skilled in Athletics~": {
-        "Effect": "Add your Level to all Might Checks for using your physical strength (e.g. lifting, breaking by hand, etc).",
-        "ParentKey": "Proficiencies"
-    },
-    "~Skilled in Acrobatics~": {
-        "Effect": "Add your Level to all Dexterity Checks for jumping, climbing, fitting through gaps, maintaining balance and other acrobatic moves.",
-        "ParentKey": "Proficiencies"
-    },
     "~Charge~": {
         "_Value": 1,
         "AlignOnWebsite": "Left",
@@ -5288,8 +5296,9 @@
         "Range": "2 meters",
         "Replacement": "Replaces Charge",
         "Cooldown": "Once / Turn",
-        "Effect": "Freely dash 2 meters ~away from~ a Worthy Enemy. ~Its first attack on its next Turn deals -2 Damage.\nYou can only use this once on every Worthy Enemy.\n",
-        "ParentKey": "Starting Abilities"
+        "Effect": "Freely dash exactly 2 meters toward an ~Ally~, landing on the closest space, near them.\n",
+        "Combo": "If the Ally had a Combo, make a free Movement Action.",
+        "ParentKey": "Subspells"
     },
     "~Dual Shield Craft~": {
         "A": "Passive",
@@ -5448,13 +5457,13 @@
         "Value": "2?",
         "A": "Passive",
         "Effect": "When you Slam a Unit into a Wall, it becomes Single-Stunned.",
-        "ParentKey": "Level 3 - Keystone Talents"
+        "ParentKey": "Level 3 - Keystone Talent"
     },
     "~Lead Commander~": {
         "Value": "2 (3-4 uses per Adventure)",
         "A": "Passive",
         "Effect": "Whenever you use a Command Ability, heal yourself or an affected Unit by 1d6.",
-        "ParentKey": "Level 3 - Keystone Talents"
+        "ParentKey": "Level 3 - Keystone Talent"
     },
     "~Command - Focus Fire~": {
         "A": "1 Action",
@@ -5462,7 +5471,7 @@
         "Cooldown": "Once / Adventure",
         "Effect": "Choose a target. Command all Allies (except you) in your party to make a Half-Action Act on the chosen target.",
         "Upgrade": "Can affect up to 5 Allies. If there are only 2 or less Allies, you also make the Half-Action.",
-        "ParentKey": "Level 4 - Minor Talents"
+        "ParentKey": "Level 4 - Minor Talent"
     },
     "~Deathblow~": {
         "A": "Passive",
@@ -5957,6 +5966,224 @@
         "HasMixins": true,
         "Downside": "{Ultimate}",
         "ParentKey": "Level 10 - Ultimate Talent"
+    },
+    "~Peace Through Faith~": {
+        "A": "TBD",
+        "ParentKey": "Ideas"
+    },
+    "~Better Faster Stronger~": {
+        "A": "Passive",
+        "HasMixins": true,
+        "Effect": "You start with +1 Presence.\nYou get a Keystone Talent at Level 1.\nYou can pick an extra number of Keystone (up to Level 7), Minor and Utility Talents equal to your Intelligence.\n",
+        "Upgrade": "_Optimization through augmentation:_ the governing axiom of all Artificers. Every enhancement demands equivalence; every ascension a sacrifice. How much of your humanity will you surrender in pursuit of God?\nMany Artificer Talents are conversions of your Presence into long-term, structural refinements, some of which can be gained over and over.\n",
+        "ParentKey": "Starting Abilities"
+    },
+    "<Grenade>": {
+        "_Value": 2,
+        "HasMixins": true,
+        "A": "1 Action",
+        "Range": "6 meters to edge",
+        "Duration": "Whole Adventure",
+        "Requirement": "Only usable in Worthy Combat",
+        "Effect": "Throw a grenade within 6 meters and choose an effects.\nEach effect has a different area size (centered on the grenade).\n",
+        "SingleTable": [
+            "2x2 meters; Blinds all Units hit",
+            "3x3 meters; Units hit take 2d8 Smash Damage and are Slammed 4 meters away from the center",
+            "5x5 meters; the grenade explodes at the start of your next Turn for 2d10 Smash Damage to Units hit",
+            "6x6 meters; all Allies hit get a 1d4 Shielding and can instantly move 1 meter"
+        ],
+        "Notes": "Each grenade costs 50 {Gold}Gold to craft, but can be freely recovered and repaired after Combat.\nAlternatively, you create the grenade and give it to an ally to use (throwable with 1 Action).\nYou can only have 3 grenades created at a time.\n",
+        "ParentKey": "Ability Choices"
+    },
+    "~Mobility Device~": {
+        "A": "1 hour",
+        "Effect": "Spend 200 {Gold}Gold to design a gyroscopically balanced locomotor platform, functioning similarly to a hoverboard or twin-wheel vehicle that gives the rider +1 Movement Speed.\n",
+        "Upgrade": "You can only have one mobility device created at any point.",
+        "HasMixins": true,
+        "ParentKey": "Ability Choices"
+    },
+    "~Force Field~": {
+        "A": "Reaction",
+        "Cooldown": "Once / Combat",
+        "Range": "5 meters to any part of the field",
+        "Duration": "1 minute",
+        "Effect": "Immediately raise a thin, 3-meter wide force field.\nAny missile passing through the force field get -50% Damage.\n",
+        "Upgrade": "Units can't pass through the field, but it can be deliberately destroyed with a Half-Action.",
+        "ParentKey": "Ability Choices"
+    },
+    "~Autoturret~": {
+        "A": "Half-Action",
+        "Range": "3 meters",
+        "Effect": "Deploy a simple autoturret on a space within 3 meters. It has a 3-meter range.\nAt the end of your Turn, each autoturret automatically attacks the closest enemy to it within range for 1d4 Pierce Damage.\n",
+        "Upgrade": "Each autoturret has 1 Health and costs 50 {Gold}Gold to craft, but can be freely repaired after Combat and carried in the pocket.\nYou can only have 3 autoturrets deployed at a time.\n",
+        "ParentKey": "Ability Choices"
+    },
+    "~Teleportation Zone~": {
+        "A": "0 Actions",
+        "Cooldown": "Once / Adventure",
+        "Range": "4 meters",
+        "Effect": "Throw a _teleportation pad_ or draw a _teleportation circle_ on a space.\nAt the start of your next Turn, teleport yourself or an ally near you to it.\n",
+        "Upgrade": "Beyond a range of 100 meters, the translocative processes may produce anomalous results.",
+        "HasMixins": true,
+        "ParentKey": "Utility"
+    },
+    "~Toolbelt~": {
+        "A": "Passive",
+        "Effect": "You possess compact Toolbelt engineered to provide immediate access to one of each Adventuring Gear piece costing at most 100 {Gold}Gold (except food).",
+        "Upgrade": "If one tool is used once, it replenishes between Adventures.",
+        "HasMixins": true,
+        "ParentKey": "Utility"
+    },
+    "~Weaponized Arms~": {
+        "A": "1 hour",
+        "Effect": "Spend 100 {Gold}Gold to fabricate a specialized arm sleeve capable of securely housing and concealing up to 3 weapons inside.\nOne may rapidly draw and sheathe any of the weapon at will with the move of a finger.\nYou can only have one special sleeve created at a time.\n",
+        "HasMixins": true,
+        "ParentKey": "Utility"
+    },
+    "~Bionic Eye~": {
+        "A": "1 hour",
+        "Effect": "Execute a precision operation to integrate a bionic eye into an Ally (or yourself).\nThe subject gets {Brown('-1 Presence')}, but gains +3 Health Regen, can see in the Dark, can record visuals with the eye, and gains +2 in Sight (or a similar Non-Combat Skill).\n",
+        "Upgrade": "This +2 in Sight can go higher than the Stat Limit.",
+        "Notes": "{StatLimit}. Only one operation can be conducted per eye.",
+        "HasMixins": true,
+        "ParentKey": "Utility"
+    },
+    "~Embracing Humanity~": {
+        "Value": 1,
+        "A": "Passive",
+        "Effect": "You have extra Health Regen and Skill Points equal to double your Presence.",
+        "Downside": "Unlearning this Talent does remove the Skills and Health Regen added.",
+        "ParentKey": "Level 1 - Keystone Talents"
+    },
+    "~Gene Editing~": {
+        "_Value": 2,
+        "A": "1 hour",
+        "Cooldown": "Once / Adventure",
+        "Effect": "Use your tools to conduct a scientific experiment on a person (even yourself).\nThey get {Brown('-1 Presence')} but get a random upgrade permanently.\nIf used on yourself, you gain an extra +1 Health.\n",
+        "SingleTable": [
+            "1. +1 Might and +2 Max Health and veins glow in the dark",
+            "2. +1 Dexterity and +3 Initiative and skin tints to a color",
+            "3. +1 Intelligence and +3 Skill Points and eyes change color",
+            "4. +4 Health Regen and the inability to feel pain",
+            "5. +1 Health, Health Regen, Movement Speed and Initiative",
+            "6. The experiment fails and nothing else happens"
+        ],
+        "Notes": "These changes are kept even if you change this Talent.",
+        "HasMixins": true,
+        "ParentKey": "Level 1 - Keystone Talents"
+    },
+    "~Mechanical Precision~": {
+        "_Value": 2.5,
+        "A": "0 Actions",
+        "Cooldown": "Once / 2 Turns",
+        "Effect": "Your next attack, if it's with the same metal weapon as the previous attack, deals exactly the same Damage.",
+        "Notes": "Same Damage as after the attack's final Damage (after all calculations).\nThis attack does not trigger Critical Strikes.\nIf your last Gun attack dealt 11 Damage, use this and your next Gun attack will deal exactly 11 Damage.\n",
+        "ParentKey": "Level 1 - Keystone Talents"
+    },
+    "~Spell Scroll~": {
+        "_Value": 2,
+        "A": "1 hour",
+        "Cooldown": "Once / Adventure",
+        "Effect": "An Ally spends Action Points, Mana and triggers the Cooldown for a Spell.\nThat Spell becomes stored in a single-use Scroll that can be used for Half-Action.\n",
+        "Notes": "You can only have one Spell Scroll created at a time.",
+        "ParentKey": "Level 2 - Keystone Talent"
+    },
+    "<Reforge Weapon>": {
+        "_Value": 1.25,
+        "HasMixins": true,
+        "A": "1 hour",
+        "Cooldown": "Once / Adventure",
+        "Effect": "You reforge a weapon to provide 2 from the following benefits:\n",
+        "Upgrade": "Reforging it again changes the benefit.",
+        "SingleTable": [
+            "+1 Damage (if One-Handed)",
+            "+1d4 Damage (if Two-Handed)",
+            "+1 Movement Speed while wielding it",
+            "Damage becomes Fire or Shock",
+            "Wielder starts Combat with a 1d6 Shielding."
+        ],
+        "ParentKey": "Level 2 - Keystone Talent"
+    },
+    "~Iron Mask~": {
+        "_Value": 1.5,
+        "A": "1 hour",
+        "Effect": "Spend 150 {Gold}Gold to craft a special _mask_ that can be permanently attached to one's face.\n\nOnce attached, the wearer permanently get {Brown('-1 Presence')}, +8 Max Health, +2 Range on all Abilities and attacks, they are immune to being Blinded.\n",
+        "HasMixins": true,
+        "ParentKey": "Level 2 - Keystone Talent"
+    },
+    "~Body Augmentation~": {
+        "_Value": 3,
+        "A": "1 hour",
+        "Cooldown": "Once / Adventure",
+        "Effect": "Perform a surgical augmentation to replace one of your biological limbs with a mechanized, gear-driven prosthesis.\nGet {Brown('-1 Presence')} permanently.\nGain +2 Health and +1 in Might or Dexterity.\nThe extra Might or Dexterity can exceed your Stat Limit by up to 2.\n",
+        "Notes": "{StatLimit}",
+        "HasMixins": true,
+        "ParentKey": "Level 3 - Keystone Talent"
+    },
+    "<Reforge Armor>": {
+        "_Value": 2.5,
+        "HasMixins": true,
+        "A": "1 hour",
+        "Cooldown": "Once / Adventure",
+        "Effect": "You reforge a set of body armor to provide 2 of the following benefits:\n",
+        "SingleTable": [
+            "+4 Health",
+            "+2 Health Regen",
+            "+1 Movement Speed",
+            "+3 Initiative",
+            "-50% Damage Taken of a chosen Damage Type"
+        ],
+        "Notes": "You can only reforge an armor once to give it benefits, but you can reforge it again to change them.",
+        "ParentKey": "Level 3 - Keystone Talent"
+    },
+    "~Give In To Metal~": {
+        "_Value": 2.5,
+        "A": "0 Actions",
+        "Cooldown": "Once / Adventure",
+        "Requirement": "Requires Presence < 0",
+        "Effect": "Gain a number of Action Points equal to the opposite of your Presence.",
+        "Notes": "If your Presence is -2, you gain 2 Action Points.",
+        "ParentKey": "Level 3 - Keystone Talent"
+    },
+    "~Effect~": {
+        "A": "Passive",
+        "Effect": "Brown('Clay:') Enemies ending their Turn near the Clay Golem are Slowed.\nBrown('Flesh:') Instead of attacking, pull a Unit up to 5 meters away next to the Golem (Once / Combat).\nBrown('Metal:') Allies within 1 meter of the Metal Golem have Cover from Ranged attacks.\n",
+        "Notes": "The Flesh Golem can use a hook to pull an enemy to the closest space near the Golem (requires clear path).",
+        "ParentKey": "Abilities"
+    },
+    "~Land Vehicle~": {
+        "A": "1 hour",
+        "Effect": "Spend 2000 {Gold}Gold to engineer a multi-passenger transport vehicle. Maximum operational velocity is 100 km/h, consuming 50 {Gold} worth of fuel per hour, but it is impractical for combat.\nDue to mechanical complexity, the vehicle requires 1 minute of calibration in order to start moving from being stationary.\n",
+        "Upgrade": "At level 9, it can fly.",
+        "HasMixins": true,
+        "ParentKey": "Level 6 - Utility Talent"
+    },
+    "~Circle of Manifestation~": {
+        "A": "1 hour",
+        "Cooldown": "Once / Adventure",
+        "Effect": "Inscribe a grand alchemical glyph on a flat plane and make a wish, translating your intent into the circle through precise mathematical symbology.\nWhen activating it with your palm, it initiates the transmutation of the inscribed wish into reality, but you pay an unknown cost proportional to your wish's value.\n\nMake a Roll (2d6). The higher you roll, the more accurately you gain what you wished for.\n",
+        "Upgrade": "On doubles, there may be complications or bonuses.",
+        "ParentKey": "Level 6 - Utility Talent"
+    },
+    "~Propulsion Backpack~": {
+        "A": "1 hour",
+        "Cooldown": "Once / Adventure",
+        "Effect": "Spend 400 {Gold}Gold to construct a specialized backpack which generates sustained lift when activated, allowing the user to achieve flight at their normal Speed for up to 1 hour.\nThe backpack is destroyed once exhausted.\n",
+        "HasMixins": true,
+        "ParentKey": "Level 6 - Utility Talent"
+    },
+    "<Adrenaline Steroid>": {
+        "A": "0 Actions",
+        "Cooldown": "Once / Adventure",
+        "Effect": "Enter a state of chemical surge until the end of your next Turn.\nYou get +100% healing on you (from any source) and all your offensive attacks and Abilities consume a Combo to increase their Damage by 100%.\n",
+        "Notes": "Does not work for after-Combat Health Regen.",
+        "ParentKey": "Level 7 - Keystone Talent"
+    },
+    "<Inscription>": {
+        "A": "Passive",
+        "Requirement": "Requires Create Scroll and Presence > 0",
+        "Effect": "You can use Create Scroll a number of times per Adventure equal to your Presence.",
+        "ParentKey": "Level 7 - Keystone Talent"
     },
     "~Skipper~": {
         "A": "Passive",

@@ -1,0 +1,398 @@
+
+Class: Sorcerer
+Description: |
+  You step inside the magic circle, and an incantation of fire, frost, and lightning begins. The figure with robes and glowing eyes moves around, raw energy emanating from their palms. A book lays open on the floor, pages flipping themselves and shifting through bright violet runes. The circle is abruptly broken, and the magic stops, as you notice the Sorcerer caressing his beard, eyes all on you. Did the spell fail? Could this be a mistake? An error in the code of arcane? Sorcerers work in mysterious ways...
+  You are magic: not a student of it, not a wielder of it. Magic is your blood, your breath, your pulse.
+  Where wizards study and warlocks bargain, you erupt. Your power doesn’t ask permission. It happens.
+
+Quick Note: |
+  You are magic: not a student of it, not a wielder of it. Magic is your blood, your breath, your pulse.
+  Where wizards study and warlocks bargain, you erupt. Your power doesn’t ask permission. It happens.
+
+Difficulty: Easy
+ 
+Weapons: You are Trained in a Weapon Category of choice (e.g. 1-Handed Melee, 2-Handed Ranged, etc).
+
+
+# Idea: What is the Sorcerer class fantasy?
+# Idea: Summon a wizard's tower
+# Idea: You become a dragon
+# Idea: You become an ethereal being of pure magic
+# Idea: Stop time for a few seconds (you literally get a free turn xD)
+# Idea: Cast Spells that cost 2+ Charges with -1 Charge
+# Idea: Create bombs
+# Idea: Chronomancy - gain some chronomancy spells, like Slow (which limits Epics to 1 turn too)
+
+
+Level Up:
+  Every Level: 
+    Health: 4
+
+Spellcasting:
+  Type: Mana-based
+  SpellsOrAbilities: Spell
+
+  Mana:
+    Amount: 3
+    Regain: You regain all Mana back inbetween Adventures.
+    Per: per Adventure
+
+  Change: You can change your known Spells and Talents inbetween Adventures.
+  Other: All Sorcerer-specific Abilities are considered Spells (except Magic Mastery).
+  Known Basic Abilities: 3 + Intelligence (minimum 1)
+  BaseKnownSpells: 3
+
+
+
+Starting Abilities:
+
+  ~Unstable Spark~:
+    _Value: 1.5
+    A: Passive
+    HasMixins: true
+    Effect: |
+      At the start of your every Turn in a Worthy Combat, roll 1d10.
+      If you roll 1, you take 1d6 True Damage.
+      If you roll 10, your next Spell this Turn has +50% Damage.
+
+  ~Overcharge~:
+    A: 0 Actions
+    Cooldown: Once / Turn
+    Requirement: Only usable in Worthy Combat
+    Effect: Roll an Unstable Spark die.
+  
+  ~Magical Archetype~:
+    A: Passive
+    Effect: Choose a Damage Type from the ones listed below. Some of your Spells's Damage deal that Damage Type (written explicitly on those Spells).
+    Notes: 1. Fire, 2. Cold, 3. Shock, 4. Pulse, 5. Poison, 6. Acid, 7. Divine, 8. Scourge.
+
+
+Ability Choices:
+
+    ~Chaos Storm~:
+      A: 1 Action
+      Requirement: Only usable in Worthy Combat
+      Effect: |
+        Roll an Unstable Spark die (and apply its effect if any).
+        Deal that much Damage of a random Damage Type to exactly that many Worthy Units you can see.
+      Notes: |
+        Roll for a random Damage type from the following: 1. Fire, 2. Cold, 3. Shock, 4. Pulse, 5. Poison, 6. Acid, 7. Divine, 8. Scourge.
+        Targeting Worthy Units is mandatory.
+
+    ~Gathering the Magic~:
+      A: 0 Actions
+      Cost: 1 Mana
+      Requirement: Only usable in Worthy Combat
+      Effect: |
+        For the rest of the Combat, whenever you roll 3 on the Unstable Spark die, gain +1 Skill Point permanently.
+
+    ~Soulflare~:
+      A: Half-Action
+      Range: 4 meters
+      Cost: 1 Mana
+      Effect: |
+        Deal {Amount} Damage to {ToWhat} (of your chosen Magical Archetype).
+
+        ~You have access to all Variants of this Spell (click on the icon to select the preferred effect)!~
+      Variants:
+        - DisplayA: 0 Actions
+          Amount: 1d8
+          ToWhat: 1 Unit
+        - DisplayA: Half-Action
+          Amount: 1d6 + 1d8
+          ToWhat: 2 Units
+        - DisplayA: 1 Action
+          Amount: 1d6 + 1d8 + 1d10
+          ToWhat: 3 Units
+        - DisplayA: 3 Action Points
+          Amount: 1d6 + 1d8 + 1d10 + 1d12
+          ToWhat: 4 Units
+
+    ~Arcane Fire~:
+      A: Half-Action
+      Requirement: Only usable in Worthy Combat
+      Effect: |
+        Your next weapon attack until the end of your next Turn deals extra Damage equal to your Highest Stat.
+        The attack's Damage Type becomes of your chosen Magical Archetype
+
+    ~Spellbloodweave~:
+      A: 0 Actions
+      Cost: 1 Mana
+      Effect: Your next attack or offensive Spell deals -50% Damage, but heals an ally you can see for the Damage dealt.
+
+
+
+Utility:
+
+  ~Poetic Justice~:
+    A: Reaction
+    Cooldown: Once / real hour
+    Requirement: Requires Level 3
+    Effect: |
+      At any point where it's fit, you can call for a _poetic justice moment_, representing a living metaphor, turning a situation around, karma, irony, or coming full circle.
+      In the next 10 real minutes, an event may happen that can be interpreted as _poetic justice_, which could be either good or bad for your team.
+      The Quest Master may fumble one die roll or alter the current situation so that it reflects a _poetic moment_.
+    Upgrade: There may be no place for poetic justice at that time, and it's possible nothing happens as the result of this.
+    Notes: They can be events such as being saved by your worst enemy, or a xenophobic person being discriminated against by someone else who is xenophobic. Or perhaps a goblin dies by an arrow to the kn-, I mean shoulder, after he launched an arrow in someone else's shoulder.
+
+  ~Fracture Reality~:
+    A: 0 Actions
+    Cooldown: Once / Adventure
+    Effect: |
+      Lightly alter reality to change a small detail in a story or environment that does not have large consequences. All other characters believe it didn't change, and it's always been like that.
+    Upgrade: This may not be the right time to fracture reality, and it's possible your request does not happen.
+    Notes: They can be _Mandela effect_ events such as changing the color of an object, a character placing something in a different room, you having bought a certain item that you didn't buy. Ask the Quest Master if your request fits!
+
+  ~Flash~:
+      A: Reaction (or 0 Actions)
+      Cost: 1 Mana
+      Cooldown: Once / Turn
+      Degree: Minor
+      Requirement: Level 3
+      Effect: Instantly teleport up to 5 meters away, within line of sight.
+      Notes: You take with you all items carried. Does not work if you're Rooted or stuck in place somehow.
+
+  ~Magic Tricks~:
+      A: 1 Action
+      Range: 3 meters
+      HasMixins: true
+      Degree: Lesser
+      AlignOnWebsite: Right
+      Effect: |
+          Choose one of these effects to cast:
+          {Diamond} Create harmless sensory effects, sparks or non-damaging heat or cold.
+          {Diamond} Channel to create simple, small, harmless illusions in your hand or within 3 meters.
+          {Diamond} Instantly clean or soil objects.
+          {Diamond} Control a quill with telekinesis to quickly write with it.
+  
+Talents:
+  Level 2 - Keystone Talent:
+
+    <Guiled Casting>:
+      A: Passive
+      AlignOnWebsite: Left
+      Effect: |
+        When you roll 2 on the Unstable Spark die, after taking the Damage, you deal +1 Damage of a random Damage Type _permanently_ as long as you have this Talent.
+      Notes: 1. Fire, 2. Cold, 3. Shock, 4. Pulse, 5. Poison, 6. Acid, 7. Divine, 8. Scourge.
+
+    <Mild Casting>:
+      _Value: 0.5
+      AlignOnWebsite: Left
+      A: Passive
+      Effect: |
+        After you cast a Spell or one of its variants, you can't cast that spell or variant again this Combat.
+        Your base Unstable Spark also triggers on 9.
+      Notes: If you cast the 1st version Soulflare, you can still cast its other versions this Combat.
+
+    <Viled Casting>:
+      A: Passive
+      AlignOnWebsite: Left
+      Effect: 
+        All non-physical Damage you deal becomes Eldritch Damage.
+        When you roll 2 on the Unstable Spark die, increase all Eldritch Damage you deal for the rest of the combat by 3. Then roll another Unstable Spark die.
+
+    <Sap>:
+      _Value: 1
+      A: Half-Action
+      Range: 10 meters
+      AlignOnWebsite: Left
+      Effect: |
+        A Unit must make a Presence Roll at least equal to your last rolled Unstable Spark die or be Blinded, Silenced or Rooted (your choice).
+      Notes: What are you doing, just pick Wild Casting.
+
+
+    <Wild Casting>:
+      _Value: 0.5
+      AlignOnWebsite: Right
+      A: Passive
+      Effect: |
+        When you roll the Unstable Spark die, if you roll 1 or 2, roll 1d20 (after taking Damage on 1). The Quest Master freely casts that Spell from the table below.
+        If you rolled 2 on the Unstable Spark die, the effect is negative for your team. Otherwise, it's positive.
+        The lower Health you are, the more intense the effect (probably).
+      Notes: |
+        For example, if you roll 1 and the random Spell is Fire Enchantment, it will be cast on an enemy's weapon if possible (respecting the range). If not possible, then it will be cast on a random, non-Player Character's weapon. If not possible, then it will be cast on a Player Character's weapon. If nothing is possible, nothing happens.
+        If an effect can be cancelled or has ongoing effects, you have control of them as if you yourself had cast the Spell.
+      SpellTable:
+        - Name: 1. Fake Sound
+          Effect: A sound is magically created at a point (it can Silence some Units).
+        - Name: 2. Quicksand
+          Effect: An 3x3 to 9x9 area becomes Hard Terrain.
+        - Name: 3. Conjure Steed
+          Effect: A random animal is conjured as a mount for 1 to 5 Units.
+        - Name: 4. Force Wall
+          Effect: A thin 2x2 to 6x6 transparent wall is created.
+        - Name: 5. Obstable Break
+          Effect: One or more obstacles or traps are destroyed.
+        - Name: 6. Strange Wave
+          Effect: 1 to 5 Units are Healed or Damaged for 1d4.
+        - Name: 7. Teleportation
+          Effect: 1 to 5 Units are teleported 1 to 10 meters.
+        - Name: 8. Fog
+          Effect: A 3x3 to 9x9 fog cloud is created.
+        - Name: 9. Enchanted Weapons
+          Effect: 1 to 5 Units have their weapons enchanted (+2 Damage, any element)
+        - Name: 10. Invisibility
+          Effect: 1 to 5 Units become invisible for 1 to 99 Turns.
+        - Name: 11. FULMINATION
+          Effect: A 3x3 to 9x9 explosion happens, dealing 2d6 to 6d6 Damage of any element.
+        - Name: 12. Fling
+          Effect: 1 to 5 objects or items are flung around. If any hits a Unit, deals 1d6 Damage.
+        - Name: 13. Thunder Clap
+          Effect: All Units within 2 to 6 meters of you take 1d6 to 3d6 Damage (any type).
+        - Name: 14. Wilder Casting
+          Effect: Roll 2 more times on this table.
+        - Name: 15. Reverse Gravity
+          Effect: The gravity in a 3x3x3 to 9x9x9 area is reversed.
+        - Name: 16. Banish
+          Effect: 1 to 3 Units are banished to another plane for 1 Turn. When they come back, they immediately take 1 Turn.
+        - Name: 17. Unknowable Health
+          Effect: A Unit is healed for 5 to 55 Health.
+        - Name: 18. Lightning Strikes Again
+          Effect: 1 to 3 Units get any Crowd Control.
+        - Name: 19. Nervous System Jolt
+          Effect: One Unit permanently gains +1 in a Stat, or +1 to +3 Max Health, Regen or Mana.
+        - Name: 20. Resurrection
+          Effect: 1 to 3 dead or Fallen Units come back to life (without Exhaustion) with 1 to full Health.
+
+  Level 3 - Minor Talent:
+
+    ~Throwback~:
+      A: Passive
+      Effect: Get one more Level 2 Keystone Talent.
+
+    <Second Try>:   # 2.5 + Basic Abilities 0.5
+      _Value: 2.5
+      A: Reaction
+      Cooldown: Once / Combat
+      HasMixins: true
+      Effect: Use after you roll an Unstable Spark die. You may cancel the roll. Then roll 2 more.
+
+    <Star Burst>:
+        _Value: 1.35
+        AlignOnWebsite: Right
+        A: 1 Action
+        Cost: 1 Mana
+        Effect: |
+            Declare up to 4 different targets you can see.
+            Assign a different number from #1 to #4 to each.
+            Roll a number of d4's equal to your last rolled Unstable Spark die. Each d4 rolled deals that much Pulse Damage to the target with that number.
+            Each rolled 1 deals 1 Damage to target number #1, each rolled 2 deals 2 Damage to target number #2, and so on.
+        Notes: |
+            E.g. if you put #2 on a goblin, and you roll three 2's on the d4's, then that goblin takes 6 Pulse Damage.
+            You should probably assign the higher number to the target you want to do most Damage to.
+            You can declare fewer targets, but then the missing number will deal Damage to no target.
+            Cover is applied normally.
+
+  Level 4 - Keystone Talent:
+
+    <Arcano Mantissa>:
+      _Value: 2 (No fucking idea lol)
+      A: Passive
+      Effect: When you roll 4 on the Unstable Spark die, gain 0.5 Max Health and 0.25 Max Mana.
+      Notes: Mana and Health can't be expended or Damaged in fractions, but if you manage to get this 2 times, you essentially get +1 Health permanently (or 1 Mana permanently if you trigger this 4 times).
+
+    <Honorificabilitudinitatibus>:
+        _Value: 2.5
+        AlignOnWebsite: Left
+        A: Passive
+        HasMixins: true
+        Effect: |
+          Your Unstable Spark die becomes 1d12 instead of 1d10, and triggers on 11 and 12 instead of 10.
+        Notes: |
+          I don't know. You're a Sorcerer, figure it out.
+
+  Level 5 - Minor Talent:
+
+    ~Will You Just Die~:
+      A: Reaction
+      Cost: 1 Mana
+      Effect: |
+        Use when you drop to or below 0 Health.
+        You can go into debt with Health, down to 50% of your Max Health.
+      Upgrade: At the end of the Combat, if you are at or below 0 Health, you become Fallen and unconscious, until you are healed to 1 or more Health. Heal to recover Health debt!
+
+  Level 6 - Utility Talent:
+
+    ~Reverse Gravity~:
+        A: 1 Action
+        Cost: 3 Mana
+        Range: 10 meters to edge
+        Degree: Grand
+        Effect: |
+            Declare an area with a diameter in meters (in all directions) equal to your Level.
+            The gravity becomes reversed in that area and all Units instantly fall upwards. Units can make a Dexterity Check to grab onto an object to not be lifted.
+            Units suffer fall Damage if they fall onto a ceiling.
+            When the effect ends, all Units fall at half velocity (and take half of the fall Damage). The same happens to a Unit if it exits the area.
+            Lasts for up to 1 minute. You can cancel this effect at will.
+        Notes: |
+            Fall Damage is 1d6 for every 2 meters fallen (e.g. 1d6 for 2 and 3 meters, 2d6 for 4 and 5 meters, etc).
+
+    ~Hearth Recall~:
+        A: 10 minutes
+        Cost: 2 mana
+        Degree: Major
+        Range: Up to Intelligence * 100 kilometers
+        Effect: |
+            You can spend 10 minutes in a place to Bind to it.
+            When you use this Ability, channel for 10 minutes to teleport up to 1d6 Allies (and yourself) within 10 meters of you to the bound place.
+            You can only have 1 bound place at a time.
+        EffectRed: You can teleport more Allies than the rolled die, but the teleportation will have strange side effects or consequences.
+        Notes: You can remove the binding of a place at will, from any distance.
+
+
+  Level 7 - Keystone Talent:
+
+    <Great Sorcery>:
+      _Value: 2.5
+      A: Passive
+      Effect: |
+        When you roll 8 or 9 on the Unstable Spark die, gain 1 Mana.
+    
+    <Accidental Zap>:
+      _Value: 2.5
+      A: Passive
+      Effect: When you roll 6, 7 or 8 on the Unstable Spark die, immediately Zap the closest Unit to you for ^your Intelligence^ Shock Damage.
+
+  Level 9 - Keystone Talent:
+
+    <Chronomancy>:  # ~3 or more
+      A: 0 Actions
+      Cost: 1 Mana
+      Cooldown: Once / Adventure
+      Effect: |
+        Instantly return to how and where you were at the start of your turn (or your previous turn if it's not currently your turn), with that same Movement, Actions, Health, Shielding, Buffs and Cooldowns (not Mana, though).
+        Alternatively, if you're out of combat, you can turn back time for all the world up to 10 minutes, exactly how it was, but retaining all your information from the future. Allies don't retain the information.
+  
+    <Double Spark Triple Quark>:
+      A: Passive
+      HasMixins: true
+      Effect: |
+        Whenever you would roll an Unstable Spark die, roll 2 instead of one. Apply effects for both.
+
+  Level 10 - Ultimate Talent:
+    <Grand Sorcery>:
+      A: Passive
+      Effect: |
+        Arcane power flows potently through your veins! Whenever you would roll one or more Unstable Spark dice, roll 3 more.
+        Whenever you would roll dice for a Spell, all the dice are a baseline d10, no matter what die type it is (can still have ^Dice Upgraded^).
+      Upgrade: Your appearance changes to reflect your sorcerer powers, resulting in glowing eyes, or your hair resembling a particular element, like fire or electricity.
+      HasMixins: true
+      Downside: "{Ultimate}"
+
+    <Locus of Control>:
+      A: Passive
+      Effect: |
+        You gain control over your own magic, and, whenever you would roll an Unstable Spark die, you can instead choose the number. In fact, whenever you roll one or more dice for a Spell, instead of rolling half of them, you can even choose the numbers.
+        Screw it, once per Round, when someone else would roll a die, just name what number you want and it happens!
+      Upgrade: The control over magic reflects in your physical appearance, resulting in effects such as contracted pupils, uncannily smooth body and hair, or an uncoventionally toned voice.
+      HasMixins: true
+      Downside: "{Ultimate}"
+
+    <Draconianism>:
+      A: Passive
+      Effect: |
+        Your natural form changes to that of a large, winged dragon. Your base Maximum Mana increases by 10 and your base Max Health by 50%. You can fly at your normal Speed.
+        You must choose what color you are as a dragon. As your breath attack, you can cast any Basic Ability that deals Damage and doesn't cost Mana, and it also hits all Units within 2 meters of the main target. You also take -50% Damage from the Damage Type of your chosen Ability.
+      Upgrade: You can transform into your person-self at will, but, to you, your dragon form is more comfortable.
+      HasMixins: true
+      Downside: "{Ultimate}"

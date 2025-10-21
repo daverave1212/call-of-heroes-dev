@@ -1,0 +1,450 @@
+Class: Soulwright
+Description: A Soulwright Cleric is one who worships the soul itself under the guidance of one or more chosen gods, and as such has the power to manipulate anima - the very essence of life.\nYou have a Second Soul character, which is essentially another character you play.
+Quick Note: A Soulwright is a guide, a seeker of understandings. Soulwrights have the innate ability to heal and cause harm, and every Soulwright has the option to embrace either side of the coin - war or peace, light or darkness, life or death. While they usually serve a greater god, no two Soulwrights are alike, and each has their own way of worship and path in life.
+
+Difficulty: Medium-Hard
+
+Armor Training: Medium Armor
+
+Level Up:
+  Every Level: 
+    Health: 4
+
+Spellcasting:
+  Type: Mana-based
+  SpellsOrAbilities: Spell
+    
+  Spell Grade: 6 + Presence or Presence, whichever is higher
+  Change: You can change your known Spells and Talents inbetween Adventures.
+  Other: All Soulwright-specific Abilities are considered Spells (unless stated otherwise).
+  
+  Mana:
+    Amount: 2
+    Regain: You regain all Mana back inbetween Adventures.
+    Per: per Adventure
+  
+  Known Basic Abilities: 2 + Intelligence (minimum 1)
+  BaseKnownSpells: 2
+
+Starting Abilities:
+
+  ~Second Soul~:      # 1, but -2 = 1
+    _Value: 1
+    A: Special
+    Effect: |
+      You have another Unit beside you that you control which is essentially another Player Character.
+      Your companion is built like a normal Level 1 Player Character, but all its stats are decreased by 1, starts with no separate Gold and can not gain Feats.
+      It always has the same Initiative as you and Levels Up only when you Level Up (doesn't have personal Experience).
+    Upgrade: For the Quest Masters, your companion counts as a normal Player Character for encounter Experience!
+    Notes: |
+      Come up with a story about why you have your companion and why your god allowed this or gave them to you.
+
+
+Ability Choices:
+
+
+    ~Privilege~:
+      A: Half-Action
+      Cooldown: Once / Unit / Combat
+      Requirement: Only usable in Worthy Combat
+      Tags: [Healing, Combo]
+      Effect: |
+        Heal a Player Character you can see for an amount equal to their Health Regen.
+        They do not Regen Health at the end of the Combat.
+      Combo: They can Regen Health after Combat, but only for 50% of Health Regen.
+
+    ~Mind's Thing~:
+        DisplayName: "Mind's {Name}"
+        A: 1 Action
+        Range: 3 meters
+        Degree: Minor
+        HasMixins: true
+        Tags: [Damage]
+        Effect: |
+            Deal 1d12 + ^Your Presence or Intelligence^ {Type} Damage to a Unit.
+            For the rest of the combat, whenever it would take {Type} Damage, it takes {Damage} more (stacks indefinitely).
+
+            ~Click on the icon to selecte the preferred effect!~
+        Variants:
+          - Name: Shadow
+            Type: Scourge
+            Damage: 2
+            IconName: Minds Shadow
+          - Name: Abolition
+            Type: Divine
+            Damage: 1
+            IconName: Minds Abolition
+
+    ~Solace Wave~:
+        A: Half-Action
+        Cost: 1 Mana
+        Range: 5 meters
+        Degree: Minor
+        Tags: [Healing, Combo]
+        Effect: |
+            Heal an ally (or yourself) for 1d8 Health.
+            If they have 50% or more Health before the heal, double the result!
+        Combo: Cast Awe.
+
+    ~Elation~:
+        A: 0 Actions
+        Cost: 1 Mana
+        Degree: Minor
+        Tags: [Buff]
+        Effect: |
+          Up to 2 Player Characters you can see gain Health Regen equal to your Intelligence.
+
+    <Weakness of the Soul>:
+      A: Half-Action
+      Cost: 1 Mana
+      Range: 5 meters
+      Tags: [CC, Combo]
+      Effect: Cast Awe on a Unit. It becomes Slowed and Blinded. Apply a ~Combo~.
+    
+    ~Warding Incense~:
+      A: Reaction
+      Cost: 1 Mana
+      Tags: [Protection, Combo]
+      Effect: |
+        Use when an ally would take Damage.
+        Roll 1d6 and subtract that much from the attack.
+        Then give them the rolled die as 1 Shielding and apply a ~Combo~ on them.
+    
+Utility:
+        
+    ~Guidance~ :
+        A: Reaction
+        Range: 10 meters
+        Cooldown: 1 real hour
+        Tags: [Utility]
+        Effect: When an ally makes a Check, it can use your modifiers (including being Skilled in that Skill) instead of its own.
+
+    ~Saving Throw~:
+        A: 0 Actions or Reaction
+        Cooldown: 1 hour
+        Range: 7 meters
+        Degree: Minor
+        Tags: [Protection, Other]
+        Effect: |
+            Use when the Turn of an Enemy starts (or on your Turn).
+            Instantly pull another ally to your nearest empty space.
+        Notes: |
+            The ally goes flying.
+            You need line of sight to the targets. The allies fly to you ignoring obstacles and ground traps (goes around obstacles), unless the ally needs to swerve more than 2 meters in any direction.
+
+    ~Mending~:
+        A: 1 Action
+        Degree: Lesser
+        Tags: [Utility]
+        Effect: |
+            Touch a slightly broken piece of material that is still in one piece.
+            You can repair the Damage done to it.
+            Mending can repair a piece of Armor or Weapon for 1 Defense or Damage, but no more.
+        Notes: |
+            For example, repair a hole through a chain shirt or textile material, the crack in a piece of glass, etc.
+
+    ~Compel~:
+        A: 0 Actions
+        Range: 5 meters
+        Degree: Minor
+        Duration: Lasts until they can't see/hear you
+        Cooldown: 1 real hour
+        Tags: Roleplaying
+        Effect: |
+            Choose a Unit you can see. You have +1d2 to Presence Rolls against it.
+        Notes: The target can't tell it was affected unless it knows about this type of magic.
+
+
+Talents:
+
+  Level 2 - Keystone Talent:
+    ~Partner in Life~:
+      _Value: 1
+      HasMixins: true
+      A: Special
+      Effect: |
+        Your companion is an alive being. It can be a sentient person of any race, except Hollow.
+        This companion's soul is tied to yours and viceversa - when one of you dies, the other dies as well.
+        Both of you gain +3 Health Regen.
+
+    ~True Necromancy~:
+      _Value: 1
+      HasMixins: true
+      A: Special
+      Effect: |
+        Your companion is an undead. It can be a sentient undead person of any race (without affecting its stats) or an abstract undead creature using any race's Abilities.
+        This companion's life depends on yours - when you die, your companion dies as well.
+        Your companion takes -50% Slashing and Scourge Damage.
+      Notes: If your companion dies, you can spend 1 week to "revive" someone else as your new companion.
+
+    ~Guardian Angel~:
+      _Value: 1
+      A: Special
+      Bonuses:
+        - Max Health: 10
+      Effect: |
+        Your companion is an otherworldly celestial in material form. It can be a sentient person of any race, or an abstrat celestial creature using any race's Abilities.
+        Your life is tied to your companion's - when it dies, you die.
+        You share the your Health pool with your companion (it does not have separate separate Health). If it goes more than 10 meters away from you, it is teleported near you immediately.
+        You gain +10 Maximum Health.
+
+  Level 3 - Keystone Talent:
+
+    <Blessing of Life>:
+      _Value: 1.5
+      A: Half-Action
+      Cooldown: Once / Adventure
+      HasMixins: true
+      Duration: 1 combat
+      AlignOnWebsite: Left
+      Effect: |
+        Cast Awe ~twice~ and the target(s) becomes Blessed until the end of the next (or current) Combat.
+        Blessed Allies have +1 to all Checks ~and +1 to all Damage instances~. Blessed Enemies have -3 Initiative ~and -1 to all Damage instances~.
+      Upgrade: On Epic Monsters, the -1 Damage only affects their first turn.
+      Notes: |
+        You can bless yourself.
+        Lasts until the end of the next combat encounter.
+
+    ~Awe For Corpses~:
+      _Value: 1.5
+      A: Passive
+      Range: 5 meters
+      Duration: Zombies last 1 minute
+      Replacement: Replaces Awe
+      AlignOnWebsite: Right
+      HasMixins: true
+      Effect: |
+        Whenever you spend Mana, "cast Awe" on a Unit.
+        This deals 1d4 Divine Damage to enemies or heals allies for 1d4.
+        ~However, if there is any nearby corpse within 5 meters when you would cast Awe, you instead raise a zombie to fight for you from that corpse.~
+      Notes: Ignores Cover. Some other Cleric spells will "cast Awe" for free. Zombies take their turn on your turn.
+      Monster:
+        Name: Zombie
+        Speed: 4 meters
+        Stats: -1/-1/-1/-1/-1
+        Health: 1
+        Defense: 0
+        Abilities:
+            ~Attack~:
+                A: 1 Action (from zombie)
+                Effect: Attack an Enemy for 1d4 Damage (Pierce, Slash or Smash).
+
+    ~Reaping~:
+      _Value: 2.6666
+      A: Passive
+      Effect: |
+        Whenever a Worthy Enemy dies in combat, gain 0.05 Max Mana.
+        If YOU killed that Worthy Enemy, gain 0.2 instead.
+      Notes: You can't spend Mana in fractions (usually).
+
+    <Divine Transposition>:
+      _Value: 1
+      A: Reaction
+      AlignOnWebsite: Left
+      Cooldown: Once / Combat
+      Effect: Swap places with your companion, then cast Awe on both of you.
+
+
+  
+  Level 4 - Minor Talent:
+
+    <Stat Bonus 4>:
+      IsIgnored: true
+      Manual Extras:
+        - +1 in a Stat of choice (up to +4)
+      Effect: Gain +1 in a Stat of choice, up to +4.
+
+    <Double Stat Bonus>:
+      IsIgnored: true
+      Manual Extras:
+        - +1 in 2 Stats of choice (up to +3)
+      Effect: Gain +1 in a Stat of choice, up to +3, twice.
+
+  Level 5 - Keystone Talent:
+
+    <Ascendance>:
+      _Value: 2
+      A: Passive
+      HasMixins: true
+      Effect: |
+        Your Awe has its ^Dice Upgraded^ to the next die type.
+        You gain Wingspan (Cleric) and Penitence.
+        You start every Adventure with one extra Inspiration Point.
+      Notes: "{DiceUpgrade}."
+
+    ~Wingspan (Cleric)~:
+      A: 0 Actions
+      IsSubspell: true
+      Cooldown: 1 hour
+      Effect: Quickly fly up to 3 meters. If you're in Worthy Combat, also cast Awe.
+
+    ~Penitence~:
+      A: 0 Actions
+      IsSubspell: true
+      Range: 5 meters
+      Duration: 1 minute
+      Cooldown: Once / Adventure
+      Effect: |
+        Make a Check with any Stat against a Unit's Presence Check.
+        If you pass, it can't cast healing Spells, do Crowd Control or apply On-Roll Effects for 1 minute.
+      Notes: Against Epic Monsters, it only last for 2 turns.
+    
+    ~Everlasting Sustenance~:
+      A: Passive
+      Effect: |
+        You stop the effects of aging on yourself and your companion.
+        Your companion Levels Up.
+
+    ~The Clerical Trinity~:
+      _Value: 1
+      A: Special
+      Effect: |
+        You have a third Unit beside you that you control, which is another Player Character.
+        Your companion is built like a normal Level 1 Player Character, but all its stats are decreased by 1, starts with no separate Gold and can not gain Feats.
+        It always has the same initiative as you and Levels Up only when you Level Up.
+
+        Apply the same "soul bond death" rules as your chosen Soulwright Ability at Level 2, and apply the same bonuses to the Stats (or resistances).
+      Upgrade: |
+        For the Quest Masters, note that this companion also counts as a normal Player Character for encounter Experience!
+      Notes: |
+        Come up with a story about why you have your companion and why your god allowed this or gave them to you.
+        You should now have 3 characters of Levels 1, 3 and 5.
+
+  Level 6 - Utility Talent:
+
+    ~Encode Thoughts~ :
+        A: 1 Action
+        Duration: 24 hours (unlimited duration at Level 8)
+        Degree: Lesser
+        Effect: |
+            You pull a String of Memory or Thoughts (can be visual, auditive, sensory and olphactive) from your own memory.
+            This String can be up to 1 minute in length.
+            To view the String, a person can willingly absorb it through the mouth, eyes, nose, etc (corresponding to the type of memories) and visualize the String.
+        Notes: |
+            It is visible to the eye as a magical ribbon-like energy. You can transport this String like you would carry a normal 10x10x10 centimeter object.
+            The String disappears after being absorbed or if you make another String.
+
+    ~Wraithwalk~: 
+        A: 0 Actions
+        Cooldown: Once / Adventure
+        Effect: |
+            You become spectral for 10 seconds (until the start of your next turn).
+            While spectral, you can move through walls, objects and Units, but not through floors and ceilings.
+            If the effect doesn't end in an empty space, you are instantly thrown to the nearest empty space and you take 3d4 Pulse Damage.
+
+  Level 7 - Keystone Talent:
+
+    <Army of Death>:      # 3 (more like 4 but it's a Half-Action)
+      _Value: 3
+      A: Half-Action
+      Cooldown: Once / Adventure
+      Duration: 1 minute
+      Effect: |
+        All your summons and minions instantly transform into Death Ghouls.
+        They take their turns on your turn (if they haven't already).
+        Death Ghouls have 15 Health, 1 in all Stats, 7 meters speed and their attacks deal 1d10 Damage.
+      Monster:
+        Name: Death Ghoul
+        Description: After 1 minute, it transforms back to how it was previously. If your companion ghoul dies, it transforms to how it previously was (with its old Health as well). If other minions ghouls die, they remain dead.
+        Health: 15
+        Stats: 1/2/0/2/1
+        Speed: 7 meters
+        Abilities:
+          ~Attack~:
+            A: 1 Action (from ghoul)
+            Effect: Melee attack a Unit for 1d10 Damage.
+
+    <Presence of Fear>:   # 3 (~3 Awes + 3 Fears)
+      _Value: 3
+      A: 1 Action
+      Cooldown: Once / Adventure
+      HasMixins: true
+      Effect: |
+        All enemies within 5 meters must succeed a Presence Check against Your Health Regen or be Feared.
+        For each Enemy Feared, cast Awe (on anyone).
+      Notes: "{Feared}"
+
+    <Sanctuary>:          # 3 (more like 4 but Half-Action (~4 healing Awes = 2.25 + defense)
+      _Value: 3
+      A: Half-Action
+      Duration: Until the start of your next turn
+      Effect: |
+        Choose a 6x6 meter area. Cast Awe on all Units there.
+        No Enemy can willingly enter the area or attack Units inside the area.
+  
+  Level 8 - Minor Talent:
+
+    <Stat Bonus 5>:
+      IsIgnored: true
+      Manual Extras:
+        - +1 in a Stat of choice (up to +5)
+      Effect: Gain +1 in a Stat of choice, up to +5.
+    
+    <Mana Bonus>:
+      IsIgnored: true
+      Bonuses:
+        - Known Abilities: 1
+        - Mana: 1
+      Effect: Gain +1 Max Mana and +1 Known Ability.
+
+  Level 10 - Ultimate Talent:
+    <The Covenant>:
+      A: Passive
+      Bonuses:
+        - Max Health Percent: 25
+        - Presence: 2
+      Effect: |
+        All your other Characters Level Up to Level 10.
+        Over time, all your Characters start to resemble you (or your equiavalent if a different gender), gaining more and more of your features until they almost resemble you perfectly, with some small flaws.
+        Passively, gain +2 Presence and +25% base Max Health.
+      HasMixins: true
+      Downside: "{Ultimate}"
+    
+    <High Benediction>:
+      A: Passive
+      Manual Extras:
+        - You are Level 13
+      Bonuses:
+        - Max Health Percent: 25
+        - Presence: 2
+      Effect: |
+        You Level Up to Level 13. Another Player Character belonging to a different player also Levels Up to Level 11.
+        Passively, gain +2 Presence and +25% base Health Regen.
+      HasMixins: true
+      Downside: "{Ultimate}"
+
+
+    <Wrath of the Wight King>:
+      A: 1 Action
+      Cooldown: Once / 1 hour
+      Bonuses:
+        Might: 1
+        Dexterity: 1
+        Intelligence: 1
+        Presence: 1
+      Effect: |
+        You channel your sacremental magic to raise an army of undead.
+        If there are at least 100 corpses within 100 meters of you, roll 7d20, otherwise roll only 5d20. You raise that many corpses or minions that will fight for you.
+        You can have up to 250 such minions active at a time, including the ones from Awe for Corpses.
+        Passively, gain +1 in all Stats.
+      HasMixins: true
+      Downside: "{Ultimate}"
+      Monster:
+        Name: Zombie
+        Speed: 4 meters
+        Stats: -1/-1/-1/-1/-1
+        Health: 1
+        Defense: 0
+        Abilities:
+            ~Attack~:
+                A: 1 Action (from zombie)
+                Effect: Attack an Enemy for 1d4 Damage (Pierce, Slash or Smash).
+
+
+
+
+
+
+
+
+

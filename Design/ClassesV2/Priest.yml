@@ -1,0 +1,463 @@
+Class: Priest
+Description: |
+  In the tumult of battle, you suffer grievous wounds, tumbling injured to the ground. Amidst the chaos, however, a beacon of hope catches your eye across the battlefield. Drawing nearer, you discern a figure brandishing a sacred symbol, poised to intervene in your plight. With a decisive strike, they confront your assailant and then approach, kneeling by your side. Yet disquieting feeling overtakes you - this Priest's powers are not of the same god as yours. All gods demand something... what will this one demand of you for bringing you back on your feet?
+  Priests are spellcasters deeply attuned to their religion, and while their magic source may be from a divine source, they nevertheless possess an understanding to wield magic, and more often than not, they have learned the secrets of their creed, and can put them to good use to attain their life's purpose.
+  A Priest is a guide, a seeker of understandings. Priests have the innate ability to heal and cause harm, and every Priest has the option to embrace either side of the coin - war or peace, light or darkness, life or death. While they usually serve a greater god, no two Priests are alike, and each has their own way of worship and path in life.
+
+Quick Note: A Priest is a guide, a seeker of understandings. Priests have the innate ability to heal and cause harm, and every Priest has the option to embrace either side of the coin - war or peace, light or darkness, life or death. While they usually serve a greater god, no two Priests are alike, and each has their own way of worship and path in life.
+
+Difficulty: Medium-Hard
+
+Armor Training: Medium Armor
+
+Level Up:
+  Every Level: 
+    Health: 4
+
+Spellcasting:
+  Type: Mana-based
+  SpellsOrAbilities: Spell
+    
+  Spell Grade: 6 + Presence or Presence, whichever is higher
+  Change: You can change your known Spells and Talents inbetween Adventures.
+  Other: All Priest-specific Abilities are considered Spells (unless stated otherwise).
+  
+  Mana:
+    Amount: 2
+    Regain: You regain all Mana back inbetween Adventures.
+    Per: per Adventure
+  
+  Known Basic Abilities: 2 + Intelligence (minimum 1)
+  BaseKnownSpells: 2
+  
+  Basic Ability Lists:
+    - Mysticism
+    - Divine
+
+  Recommended Basic Abilities:
+    - Divine: Light
+    - Divine: Cure Wounds
+    - Conjuration: Dancing Weapon
+    - Divine: Radiant Smite
+    - Divine: Cure Affliction
+    - Divine: Saving Throw
+    - Divine: Guiding Bolt
+
+  Recommended Abilities Description: |
+    They provide a good range of utility with Light, healing and supporting with Cure Wounds, Cure Affliction and Saving Throw, and some good damage with Dancing Weapon, Guiding Bolt (single-target) and Radiant Smite (area).
+
+Starting Abilities:
+
+  ~Awe~:
+    _Value: 3
+    A: Passive
+    Range: 5 meters
+    Tags: [Damage, Healing]
+    Effect: |
+      Whenever you spend Mana, "cast Awe" on a Unit.
+      This deals 1d4 Divine Damage to enemies or heals allies for 1d4.
+    Notes: Ignores Cover. Some other Priest spells will "cast Awe" for free.
+
+  ~Blessing~:
+    _Value: 0.25
+    A: Half-Action
+    Cooldown: Once / Adventure
+    Duration: 1 combat
+    Tags: [Utility, Debuff, Awe]
+    Effect: |
+      Cast Awe on 2 Units and they become Blessed until the end of the next (or current) Combat.
+      Blessed Allies have +1 to all Checks. Blessed Enemies have -3 Initiative.
+    Notes: |
+      You can bless yourself.
+      Lasts until the end of the next combat encounter.
+    AlignOnWebsite: Right
+
+Ability Choices:
+
+    ~Privilege~:
+      A: Half-Action
+      Cooldown: Once / Unit / Combat
+      Requirement: Only usable in Worthy Combat
+      Tags: [Healing, Combo]
+      Effect: |
+        Heal a Player Character you can see for an amount equal to their Health Regen.
+        They do not Regen Health at the end of the Combat.
+      Combo: They can Regen Health after Combat, but only for 50% of Health Regen.
+
+    ~Mind's Thing~:
+        DisplayName: "Mind's {Name}"
+        A: 1 Action
+        Range: 3 meters
+        Degree: Minor
+        HasMixins: true
+        Tags: [Damage]
+        Effect: |
+            Deal 1d12 + ^Your Presence or Intelligence^ {Type} Damage to a Unit.
+            For the rest of the combat, whenever it would take {Type} Damage, it takes {Damage} more (stacks indefinitely).
+
+            ~Click on the icon to selecte the preferred effect!~
+        Variants:
+          - Name: Shadow
+            Type: Scourge
+            Damage: 2
+            IconName: Minds Shadow
+          - Name: Abolition
+            Type: Divine
+            Damage: 1
+            IconName: Minds Abolition
+
+    ~Solace Wave~:
+        A: Half-Action
+        Cost: 1 Mana
+        Range: 5 meters
+        Degree: Minor
+        Tags: [Healing, Combo]
+        Effect: |
+            Heal an ally (or yourself) for 1d8 Health.
+            If they have 50% or more Health before the heal, double the result!
+        Combo: Cast Awe.
+
+    ~Elation~:
+        A: 0 Actions
+        Cost: 1 Mana
+        Degree: Minor
+        Tags: [Buff]
+        Effect: |
+          Up to 2 Player Characters you can see gain Health Regen equal to your Intelligence.
+
+    <Weakness of the Soul>:
+      A: Half-Action
+      Cost: 1 Mana
+      Range: 5 meters
+      Tags: [CC, Combo]
+      Effect: Cast Awe on a Unit. It becomes Slowed and Blinded. Apply a ~Combo~.
+    
+    ~Warding Incense~:
+      A: Reaction
+      Cost: 1 Mana
+      Tags: [Protection, Combo]
+      Effect: |
+        Use when an ally would take Damage.
+        Roll 1d6 and subtract that much from the attack.
+        Then give them the rolled die as 1 Shielding and apply a ~Combo~ on them.
+    
+Utility:
+        
+    ~Guidance~ :
+        A: Reaction
+        Range: 10 meters
+        Cooldown: 1 real hour
+        Tags: [Utility]
+        Effect: When an ally makes a Check, it can use your modifiers (including being Skilled in that Skill) instead of its own.
+
+    ~Saving Throw~:
+        A: 0 Actions or Reaction
+        Cooldown: 1 hour
+        Range: 7 meters
+        Degree: Minor
+        Tags: [Protection, Other]
+        Effect: |
+            Use when the Turn of an Enemy starts (or on your Turn).
+            Instantly pull another ally to your nearest empty space.
+        Notes: |
+            The ally goes flying.
+            You need line of sight to the targets. The allies fly to you ignoring obstacles and ground traps (goes around obstacles), unless the ally needs to swerve more than 2 meters in any direction.
+
+    ~Mending~:
+        A: 1 Action
+        Degree: Lesser
+        Tags: [Utility]
+        Effect: |
+            Touch a slightly broken piece of material that is still in one piece.
+            You can repair the Damage done to it.
+            Mending can repair a piece of Armor or Weapon for 1 Defense or Damage, but no more.
+        Notes: |
+            For example, repair a hole through a chain shirt or textile material, the crack in a piece of glass, etc.
+
+    ~Compel~:
+        A: 0 Actions
+        Range: 5 meters
+        Degree: Minor
+        Duration: Lasts until they can't see/hear you
+        Cooldown: 1 real hour
+        Tags: Roleplaying
+        Effect: |
+            Choose a Unit you can see. You have +1d2 to Presence Rolls against it.
+        Notes: The target can't tell it was affected unless it knows about this type of magic.
+
+Talents:
+
+  Level 2 - Keystone Talent:
+
+    ~Herald of Radiance~:
+      _Value: 1.25
+      A: Passive
+      Tags: [Upgrade]
+      Effect: |
+        Awe Damage and healing is 1d6 if you are at full Health.
+        You radiate light in a 3 meter radius.
+      Notes: You can turn the light off at will.
+    
+    ~Herald of Twilight~ :
+      _Value: 1.25
+      A: Passive
+      Tags: [Upgrade, Finisher]
+      Effect: |
+        Awe Damage and healing is 1d6 on targets at or below 50% Health.
+        You can see normally in the dark up to 5 meters away.
+
+  Level 3 - Keystone Talent:
+
+    ~Let There Be Light~:
+      A: Passive
+      Tags: [Upgrade]
+      Effect: While standing in natural light (e.g. the sun), your Healing Awe has its ^Dice Upgraded^ to the next die type and you are immune to being Silenced.
+      Notes: "{DiceUpgrade}. It is up to the Quest Master what is considered natural light."
+    
+    <Let There Be Darkness> :
+      _Value: 0.75
+      A: Passive
+      HasMixins: true
+      Tags: [Upgrade]
+      Effect: |
+        While standing in environmental shadows, your damaging Awe has its ^Dice Upgraded^ to the next die type and your attacks ignore Cover.
+      Notes: "{DiceUpgrade}. It is up to the Quest Master what is considered shadow."
+
+    <Aspect>:
+      A: 0 Actions
+      Cooldown: Once / Adventure
+      HasMixins: true
+      Tags: [Power Surge]
+      Effect: |
+        You take on a shadowy or illuminated appearance for the rest of the combat. Choose one:
+        {Diamond} Awe deals Scourge Damage. After you cast Awe, all your future Awe's deal +1 Damage. You can't heal (with anything).
+        {Diamond} After you heal someone, all your future heals heal for +1.
+
+    ~Assistance of Merit~:
+      A: Passive
+      Range: 5 meters
+      Tags: [Reaction, CC]
+      Effect: Whenever you use a Reaction, cast Awe or Single-Stun a Unit.
+
+  Level 4 - Minor Talent:
+
+    <Golden Shield>:
+      A: Half-Action
+      Cost: 1 Mana
+      Duration: Up to 1 hour
+      Degree: Minor
+      Tags: [Protection, Combo]
+      Effect: |
+          A Unit you can see becomes surrounded in a divine golden shield.
+          Next time the Unit would take Damage, it is completely blocked.
+      Combo: Gain back the Action Point spent.
+
+    ~Guiding Bolt~:
+        A: 1 Action
+        Cost: 1 Mana
+        Range: 10 meters
+        HasMixins: true
+        Degree: Major
+        Tags: [Damage]
+        Effect: |
+            A shining light bursts onto a Unit, dealing 2d8 + ^Presence^ Divine Damage to it.
+            The next time someone would cast a Spell that affects that Unit, the caster can reroll any of the spell's dice, at most one reroll for each die.
+        Notes: This affects AoE effects and healing abilities too.
+    
+    ~Deafening Silence~:
+        A: 1 Action
+        Cost: 2 Mana
+        Degree: Grand
+        Tags: [Damage, CC]
+        Effect: |
+            A Unit you can see takes 3d8 Psychic Damage and is Silenced.
+        Notes: Cover is applied normally.
+
+    ~Reveling Rays~:
+        A: 1 Action
+        Cost: 2 Mana
+        Degree: Grand
+        Tags: [Damage, Healing, AoE]
+        Effect: |
+            You shoot out 10 rays of light.
+            Roll 10d4 and assign them to Units within 10 meters as you with.
+            Each die heals on odd rolls (1 and 3) and deals Divine Damage on even rolls (2 and 4).
+
+
+  Level 5 - Keystone Talent:
+
+    <Shadow Realm>:             # 2? Good Damage, 0 actions, no Check requred...
+      _Value: 2
+      A: 0 Actions
+      Cooldown: Once / Adventure
+      Tags: [CC, Damage]
+      Effect: |
+        A Unit within 6 meters becomes trapped in a Shadow Realm with you for 2 rounds (this and the next).
+        Your attacks cast Awe on it for free while inside the Shadow Realm.
+      Upgrade: |
+        Neither of you can interact with the outside world, but can feintly see it.
+        Units on the outside can faintly see the two of you, as if you were ghosts.
+      Notes: The Shadow Realm is a copy of the normal world, but with no other units.
+      OrderOnWebsite: 3
+    
+    <Circle of Awe>:
+      _Value: 2
+      A: 1 Action
+      Cooldown: Once / Adventure
+      Tags: [AoE, AoE Healing]
+      Range: 6 meters to edge
+      Effect: |
+        Declare a 4x4 meter area. Cast Awe on all Units inside the area.
+        After casting Awe 3 times, reset the Cooldown of this Ability (except Awes from this Ability).
+      OrderOnWebsite: 1
+            
+    <Black Hole>:
+      _Value: 1.75
+      A: 0 Actions
+      Range: 10 meters to point
+      Duration: 1 minute
+      Tags: [AoE CC]
+      Cooldown: Once / Adventure
+      Effect: |
+        Choose a point as the center of a Black Hole.
+        At the end of each Round, Slam* all Units within 6 meters of the Black Hole towards the center.
+        When one comes within 1 meter of the center, cast Awe on it and it becomes Slowed.
+      Upgrade: Only Units that meet in the center take Damage from the Slam. Each takes Damage equal to their own distance thrown (if they slam into eachother).
+      Notes: If Units are Slammed into other things, they take Damage as normal.
+      OrderOnWebsite: 2
+
+
+
+    ~Shielding Awe~:
+      A: Passive
+      Duration: Rest of the Adventure
+      Effect: |
+        If the Awe heal overflows the target's Max Health, the remainder is doubled and transformed into Shielding. This Shielding stacks.
+      Notes: If the target has 29 out of 30 Health and you roll 3 on Awe, the target will be at 30 Health, and the remainder Healing is 2. The target gains 4 Shielding.
+
+    ~People's Awe~:
+      A: Passive
+      Effect: Awe now hits all Units in a 2x2 area, but can't heal yourself.
+
+    ~Holy March~:
+      A: Passive
+      Effect: |
+        While outnumbered in Combat, you have +1 Defense.
+        While not, you have +2 Movement.
+
+    ~Grasping Blessing~:
+      _Value: 0.25
+      A: Half-Action
+      Cooldown: Once / Adventure
+      Duration: 1 combat
+      Replacement: Replaces Blessing
+      HasMixins: true
+      Effect: |
+        Cast Awe on 2 Units and they become Blessed until the end of the next (or current) Combat.
+        Blessed Allies have +1 to all Checks ~and become immune to Crowd Control for 1 Turn.~. Blessed Enemies have -3 Initiative ~and are Blinded for 1 Turn~.
+      Notes: |
+        You can bless yourself.
+        Lasts until the end of the next combat encounter.
+      AlignOnWebsite: Right
+    
+  Level 6 - Utility Talent:
+
+    ~Resurrection~ : 
+        A: 1 Action
+        Cost: 1 Mana
+        Degree: Grand
+        Tags: [Utility, Roleplay]
+        Effect: |
+            Touch a dead Unit, whose body is still in decent condition (as approved by the QM).
+            The dead Unit comes back to life, conscious and without Exhaustion, with 1 Health.
+
+
+    ~Water Walk~:
+        A: 0 Actions or Reaction
+        Cost: 1 Mana
+        Range: 3 meters
+        Duration: 1 hour
+        AlignOnWebsite: Left
+        Requirement: Level 5
+        Degree: Minor
+        Tags: [Utility]
+        Effect: |
+            Up to 2 willing Units can walk on water as normally.
+            The effect ends if the Unit takes Damage. 
+
+  Level 7 - Keystone Talent:
+
+    <Maiming Dark>:
+      _Value: 2.25
+      A: 0 Actions
+      Cooldown: Once / Combat
+      Range: 5 meters
+      Effect: |
+        Triple-Stun a Unit and Single-Stunn another willing ally (not you). Then cast Awe on each.
+        These Units' Passive Abilities are disabled while affected.
+
+    <Healing Doubledown>:
+      _Value: 3
+      A: Half-Action
+      Cooldown: Once / Adventure
+      Requirement: Only usable in Combat
+      Effect: Until the end of your next turn, double all healing you and your party does.
+      Notes: Doesn't stack with other healing multiplication effects.
+
+    <Inedianism>:
+      _Value: 3
+      A: Passive
+      Effect: |
+        Whenever you cast a 0 Actions Class Ability or Talent, another ally gains 1 Mana.
+        Also, you don't need to eat or drink to live - you only need exposure to light.
+    
+  Level 8 - Minor Talent:
+
+    <Stat Bonus 5>:
+      IsIgnored: true
+      Manual Extras:
+        - +1 in a Stat of choice (up to +5)
+      Effect: Gain +1 in a Stat of choice, up to +5.
+    
+    <Mana Bonus>:
+      IsIgnored: true
+      Bonuses:
+        - Known Abilities: 1
+        - Mana: 1
+      Effect: Gain +1 Max Mana and +1 Known Ability.
+
+  Level 10 - Ultimate Talent:
+
+    <Edict of Awe Eternal>:
+      A: 0 Actions
+      Range: 10 meters
+      Cooldown: Once / Turn
+      Replacement: Replaces Vested Awe
+      Effect: |
+        ~Cast Awe twice. The dice results are increased by 50%.~
+        This deals 1d4 Divine Damage to enemies or heals allies for 1d4.
+        Passively, your Intelligence and Presence increase by 2 and you can effortlessly levitate up to 1 meter above the ground, water etc. and don't take fall Damage.
+      HasMixins: true
+      Bonuses:
+        - Intelligence: 2
+        - Presence: 2
+      Downside: "{Ultimate}"
+
+    <Miracle>:
+      A: 1 Action
+      Cooldown: Once / Adventure
+      Effect: |
+        You pray with divine confidence and purpose, and, with the gods' will, you manifest your wish upon your mortal world.
+        Choose one of the following effects to manifest:
+        {Diamond} Manifest restoration: Choose a person you can touch to instantly and fully kill, resurrect or heal them, restore their body parts, injuries or handicaps, change their race, etc.
+        {Diamond} Manifest materialism: Create an object worth up to 5000 {Gold}Gold and make it appear out of thin air in a beacon of blinding light. Or choose an object or area worth that much and make it disappear; Units with their materialistic value worth a total of 5000 {Gold} or less also disappear.
+        {Diamond} Manifest fate: Determine or read the near future of one Unit.
+        {Diamond} Manifest mistake: Undo a recent past event that was not a Worthy Combat. You and your party remains in the present to witness the aftermath.
+        {Diamond} Manifest destruction: Deal 2d100 Scourge Damage spread (after rolling) as you like among Units within 10 meters.
+        {Diamond} Manifest development: Choose a Unit and increase up to 2 of their Stats by 1, or they permanently learn a new Basic Ability, etc.
+        {Diamond} Manifest creativity: Choose something else with a similar scope to do, if the gods will.
+        After casting Miracle, if the gods will, the Cooldown of Miracle may be reset if they deem the effect was not worthy enough.
+      Notes: The gods' will is determined by the Quest Master. Talk to the QM about your possibilities.
+      HasMixins: true
+      Downside: "{Ultimate}"
+

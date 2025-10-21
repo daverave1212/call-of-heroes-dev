@@ -11,12 +11,14 @@ export default function ManySpells({ className, spells, spellStyle, shouldIgnore
 
     spells = Array.isArray(spells) ? spells : spellsFromObject(spells)
     
-    const [column1Spells, column2Spells] = splitSpellsArrayInto2Columns(spells, shouldIgnoreAlignment)
+    const wideSpells = spells.filter(spell => spell.IsWide)
+    const nonWideSpells = spells.filter(spell => !spell.IsWide)
+    const [column1Spells, column2Spells] = splitSpellsArrayInto2Columns(nonWideSpells, shouldIgnoreAlignment)
 
+    const isSelected = spell => selectedSpellNames != null && spell != null && selectedSpellNames.includes(spell.Name)
+    
     function SpellsInColumn({ spells }) {
         
-        const isSelected = spell => selectedSpellNames != null && spell != null && selectedSpellNames.includes(spell.Name)
-
         return (
             <>
                 { spells.map(spell => {
@@ -37,17 +39,35 @@ export default function ManySpells({ className, spells, spellStyle, shouldIgnore
             </>
         )
     }
+
+    function SpellColumns() {
+        return (
+            <TwoColumns className={className}>
+                <Column>
+                    <SpellsInColumn spells={column1Spells}/>
+                </Column>
+                <Column>
+                    <SpellsInColumn spells={column2Spells}/>
+                    { description != null && (<SADescription description={description}/>) }
+                </Column>
+            </TwoColumns>
+        )
+    }
     
-    return (
-        <TwoColumns className={className}>
-            <Column>
-                <SpellsInColumn spells={column1Spells}/>
-            </Column>
-            <Column>
-                <SpellsInColumn spells={column2Spells}/>
-                { description != null && (<SADescription description={description}/>) }
-            </Column>
-        </TwoColumns>
-    )
+    if (wideSpells?.length > 0) {
+        return <>
+            { wideSpells.map(spell => <Spell
+                isItem={areItems} 
+                key={spell.Name} spell={spell} style={spellStyle}
+                onClick={onSpellClick} buttonText={buttonText}
+                isSelected={isSelected(spell)}
+                metadata={spellsMetadata[spell.Name] ?? null}
+            />) }
+            <SpellColumns/>
+        </>
+    }
+
+    return <SpellColumns/>
+
 
 }

@@ -1,0 +1,433 @@
+{
+    "Class": "Sorcerer",
+    "Description": "You step inside the magic circle, and an incantation of fire, frost, and lightning begins. The figure with robes and glowing eyes moves around, raw energy emanating from their palms. A book lays open on the floor, pages flipping themselves and shifting through bright violet runes. The circle is abruptly broken, and the magic stops, as you notice the Sorcerer caressing his beard, eyes all on you. Did the spell fail? Could this be a mistake? An error in the code of arcane? Sorcerers work in mysterious ways...\nSorcerers are channelers magic, refiners of the coarse arcane, directly from the source, who can transform those vibrations into elemental energies. Mastery over magics has made their spells fast and efficient, but in their choice of spells and invocations, no two Sorcerers are alike.\nWizards are in a continuous study of magic, and their mind is trained for accessing higher-order spells ahead of time, while sorcerers prefer a more random (albeit practical) usage of magic, going with the flow. Artificers are the complete opposite, however, prefering rigurious crafts of trial and error until they excel in their preferred creation field - alchemy, tinkering, even blacksmithing.\n",
+    "Quick Note": "Sorcerers are channelers magic, refiners of the coarse arcane, directly from the source, who can transform those vibrations into elemental energies. Mastery over magics has made their spells fast and efficient, but in their choice of spells and invocations, no two Sorcerers are alike.\nWizards are in a continuous study of magic, and their mind is trained for accessing higher-order spells ahead of time, while sorcerers prefer a more random (albeit practical) usage of magic, going with the flow. Artificers are the complete opposite, however, prefering rigurious crafts of trial and error until they excel in their preferred creation field - alchemy, tinkering, even blacksmithing.\n",
+    "Difficulty": "Easy",
+    "Weapons": "You are Trained in a Weapon Category of choice (e.g. 1-Handed Melee, 2-Handed Ranged, etc).",
+    "Level Up": {
+        "Every Level": {
+            "Health": 4
+        }
+    },
+    "Spellcasting": {
+        "Type": "Mana-based",
+        "SpellsOrAbilities": "Spell",
+        "Mana": {
+            "Amount": 3,
+            "Regain": "You regain all Mana back inbetween Adventures.",
+            "Per": "per Adventure"
+        },
+        "Change": "You can change your known Spells and Talents inbetween Adventures.",
+        "Other": "All Sorcerer-specific Abilities are considered Spells (except Magic Mastery).",
+        "Known Basic Abilities": "3 + Intelligence (minimum 1)",
+        "BaseKnownSpells": 3
+    },
+    "Starting Abilities": {
+        "~Unstable Spark~": {
+            "_Value": 1.5,
+            "A": "Passive",
+            "HasMixins": true,
+            "Effect": "At the start of your every Turn in a Worthy Combat, roll 1d10.\nIf you roll 1, you take 1d6 True DaSorcerer.\nIf you roll 10, your next Spell this Turn has its ^Dice Upgraded^ to the next die tier.\n",
+            "Notes": "{DiceUpgrade}\n",
+            "ParentKey": "Starting Abilities"
+        },
+        "~Overcharge~": {
+            "A": "0 Actions",
+            "Cooldown": "Once / Turn",
+            "Requirement": "Only usable in Worthy Combat",
+            "Effect": "Roll an Unstable Spark die.",
+            "ParentKey": "Starting Abilities"
+        }
+    },
+    "Ability Choices": {
+        "~Element Burst~": {
+            "A": "1 Action",
+            "DisplayName": "{Element} Burst",
+            "Range": "5 meters",
+            "Degree": "Minor",
+            "Effect": "DaSorcerer a Unit for 2d6 {Element} DaSorcerer.\nDeals +1d10 DaSorcerer if the target had taken {Element} DaSorcerer this combat before.\n~Click on the Spell Icon to select the preferred Element!~\n",
+            "Notes": "These are considered different Spells.",
+            "Variants": [
+                {
+                    "Element": "Fire",
+                    "IconName": "Fire Burst"
+                },
+                {
+                    "Element": "Cold",
+                    "IconName": "Cold Burst"
+                },
+                {
+                    "Element": "Shock",
+                    "IconName": "Shock Burst"
+                }
+            ],
+            "Tag": "DaSorcerer (1)",
+            "HasMixins": true,
+            "ParentKey": "Ability Choices"
+        },
+        "~Magic Arrows~": {
+            "A": "Half-Action",
+            "Range": "5 meters",
+            "HasMixins": true,
+            "Degree": "Minor",
+            "Effect": "Shoot 2 arcane arrows. Each does 1d4 Pulse DaSorcerer.\nThis turn, each arrow after the first into the same target deals only 1d2 instead.\n",
+            "Combo": "2 more arcane arrows shoot from the target into any targets within 5 meters of it. They ignore the same-target penalty.",
+            "Notes": "When you cast this, decide the targets before rolling the dice. Roll the dice for each target at a time.\n",
+            "ParentKey": "Ability Choices"
+        },
+        "~Burning Breath~": {
+            "A": "Half-Action",
+            "Cooldown": "Once / Turn",
+            "Range": "Near you",
+            "Degree": "Lesser",
+            "Effect": "All Units 3x3 meter area take 4 Fire DaSorcerer.\n",
+            "Combo": "If any affected Unit has a Combo, +50% total DaSorcerer (to all) and does not trigger the Cooldown.",
+            "Tag": "AoE (Half)",
+            "ParentKey": "Ability Choices"
+        },
+        "~Volt Guard~": {
+            "A": "Reaction",
+            "Range": "5 meters",
+            "Cost": "1 Mana",
+            "Effect": "Use when a Unit would take DaSorcerer (after roll). Negate 50% of the incoming DaSorcerer and return it back to the source as Shock DaSorcerer.\nApply a ~Combo~ to either of them.\n",
+            "Upgrade": "The returned DaSorcerer is a quick lightning that bends around obstacles, ignoring Cover or Line of Sight.",
+            "Tag": "Protection",
+            "HasMixins": true,
+            "ParentKey": "Ability Choices"
+        },
+        "~Rime Shackles~": {
+            "A": "1 Action",
+            "Range": "5 meters",
+            "Cost": "1 Mana",
+            "HasMixins": true,
+            "Degree": "Major",
+            "Effect": "Deal Cold DaSorcerer to a Unit equal to 1d12 + ^Its Dexterity^.\nIf it's Medium or smaller, Root it.\n",
+            "Combo": "This either hits one more Unit within 2 meters of it, or also Single-Stuns the target.",
+            "Tag": "CC Hard",
+            "ParentKey": "Ability Choices"
+        },
+        "~North Star~": {
+            "A": "3 Action Points",
+            "Range": "15 meters",
+            "Cost": "1 Mana",
+            "Degree": "Major",
+            "Effect": "You conjure a magical star that always shoots North and deals 5d10 Pulse DaSorcerer to the first Unit hit.\n",
+            "Combo": "The star explodes, dealing 50% of the total DaSorcerer to all other Units within 2 meters of the hit target.",
+            "Notes": "You can only shoot the star towards North - without an angle.\nAsk the DM which way North is (if your character knows that).\n",
+            "ParentKey": "Ability Choices"
+        }
+    },
+    "Utility": {
+        "~Learn Scrolls~": {
+            "A": "1 minute",
+            "Effect": "If you have a Scroll that contains a Basic Ability (e.g. from Arcane, Nature, etc), you can destroy it to Know it permanently, without needing to learn it inbetween Adventures.\n",
+            "Notes": "You can not learn Class Abilities from Scrolls. Of course, you still need to spend Mana and respect the Cooldown of said Ability.",
+            "AlignOnWebsite": "Left",
+            "ParentKey": "Utility"
+        },
+        "~Control Elements~": {
+            "Degree": "Lesser",
+            "HasMixins": true,
+            "A": "1 Action",
+            "DisplayName": "Control {Element}",
+            "Range": "5 meters",
+            "Cooldown": "Your Level uses / Adventure",
+            "Effect": "{DoWhat}\n",
+            "Notes": "{ElementNotes}\nApply common sense. The QM has the final word on whether something is possible.\n",
+            "Tag": "Utility",
+            "Variants": [
+                {
+                    "Element": "Fire",
+                    "DoWhat": "Target a 2x2x2 meter cube containing Fire.\nChoose any of the following to do with it:\n🔹 Move it up to 5 meters in any direction\n🔹 Extinguish it\n🔹 Lower or increase its intensity or light emission by 50%\n🔹 Roughly alter its shape and/or color\n",
+                    "ElementNotes": "A Unit that touches the fire takes 2 DaSorcerer.",
+                    "IconName": "Control Elements"
+                },
+                {
+                    "Element": "Water",
+                    "DoWhat": "Target a 1 meter cube containing {Element}.\nChoose any of the following to do with it:\n🔹 Move it up to 5 meters in any direction\n🔹 Destroy it\n🔹 Lower or increase its temperature down to near-freezing or near-boiling\n🔹 Roughly its shape and/or color\n",
+                    "IconName": "Control Elements",
+                    "ElementNotes": "Water is Hard Terrain. A Unit that touches near-boiling or near-freezing water takes 2 DaSorcerer."
+                }
+            ],
+            "ParentKey": "Utility"
+        },
+        "~Flash~": {
+            "A": "Reaction (or 0 Actions)",
+            "Cost": "1 Mana",
+            "Cooldown": "Once / Turn",
+            "Degree": "Minor",
+            "Requirement": "Level 3",
+            "Effect": "Instantly teleport up to 5 meters away, within line of sight.",
+            "Notes": "You take with you all items carried. Does not work if you're Rooted or stuck in place somehow.",
+            "ParentKey": "Utility"
+        },
+        "~Magic Tricks~": {
+            "A": "1 Action",
+            "Range": "3 meters",
+            "HasMixins": true,
+            "Degree": "Lesser",
+            "AlignOnWebsite": "Right",
+            "Effect": "Choose one of these effects to cast:\n{Diamond} Create harmless sensory effects, sparks or non-damaging heat or cold.\n{Diamond} Channel to create simple, small, harmless illusions in your hand or within 3 meters.\n{Diamond} Instantly clean or soil objects.\n{Diamond} Control a quill with telekinesis to quickly write with it.\n",
+            "ParentKey": "Utility"
+        },
+        "~Feather Fall~": {
+            "A": "Reaction or 0 Actions",
+            "Requirement": "Level 4",
+            "Range": "10 meters",
+            "Degree": "Minor",
+            "Effect": "Up to 2 Units you choose will start falling gently, down to 3 meters per round.\nOnce the fall finishes, the spell effect ends.\n",
+            "Notes": "Arcane Feathers can be bought in most towns.\nFor faster gameplay, you can spend 10 gold when casting the spell, and buy the feather later.\n",
+            "ParentKey": "Utility"
+        },
+        "~Longblade~": {
+            "A": "0 Actions",
+            "Cooldown": "1 real hour",
+            "Duration": "1 minute",
+            "Requirement": "Level 5",
+            "Effect": "Magically extend the weapon of a willing ally you can see (or yourself) to up to 3 meters.\nIts Attacks with that weapon can have up to 3 meters range.\n",
+            "ParentKey": "Utility"
+        }
+    },
+    "Talents": {
+        "Level 2 - Keystone Talent": {
+            "<Guiled Casting>": {
+                "A": "Passive",
+                "AlignOnWebsite": "Left",
+                "Effect": "When you roll 1 on the Unstable Spark die, after taking the DaSorcerer, you deal +1 DaSorcerer of a random DaSorcerer Type _permanently_ as long as you have this Talent.\n",
+                "Notes": "1. Fire, 2. Cold, 3. Shock, 4. Pulse, 5. Poison, 6. Acid, 7. Divine, 8. Scourge.",
+                "HasMixins": true,
+                "ParentKey": "Level 2 - Keystone Talent"
+            },
+            "<Mild Casting>": {
+                "_Value": 0.5,
+                "AlignOnWebsite": "Left",
+                "A": "Passive",
+                "Effect": "After you cast a Spell or one of its variants, you can't cast that spell or variant again this Combat.\nYour base Unstable Spark also triggers on 9.\n",
+                "ParentKey": "Level 2 - Keystone Talent"
+            },
+            "<Viled Casting>": {
+                "A": "Passive",
+                "AlignOnWebsite": "Left",
+                "Effect": "All non-physical DaSorcerer you deal becomes Eldritch DaSorcerer. When you roll 5 on the Unstable Spark die, increase all Eldritch DaSorcerer you deal for the rest of the combat by 3. Then roll another Unstable Spark die.",
+                "ParentKey": "Level 2 - Keystone Talent"
+            },
+            "<Sap>": {
+                "_Value": 1,
+                "A": "Half-Action",
+                "Range": "10 meters",
+                "AlignOnWebsite": "Left",
+                "Effect": "A Unit must make a Presence Roll at least equal to your last rolled Unstable Spark die or be Blinded, Silenced or Rooted (your choice).\n",
+                "Notes": "What are you doing, just pick Wild Casting.",
+                "ParentKey": "Level 2 - Keystone Talent"
+            },
+            "<Wild Casting>": {
+                "_Value": 0.5,
+                "AlignOnWebsite": "Right",
+                "A": "Passive",
+                "Effect": "When you roll the Unstable Spark die, if you roll 2 or 3, roll 1d20. Freely cast that Spell from the table below, \"randomly\" by the QM.\nIf you rolled 2 on the Unstable Spark die, the effect is negative for your team. Otherwise, it's positive.\nThe lower Health you are, the more intense the effect (probably).\n",
+                "Notes": "For example, if you roll 2 and the random Spell is Fire Enchantment, it will be cast on an enemy's weapon if possible (respecting the range). If not possible, then it will be cast on a random, non-Player Character's weapon. If not possible, then it will be cast on a Player Character's weapon. If nothing is possible, nothing happens.\nIf an effect can be cancelled or has ongoing effects, you have control of them as if you yourself had cast the Spell.\n",
+                "SpellTable": [
+                    {
+                        "Name": "1. Fake Sound",
+                        "Effect": "A sound is magically created at a point (it can Silence some Units)."
+                    },
+                    {
+                        "Name": "2. Quicksand",
+                        "Effect": "An 3x3 to 9x9 area becomes Hard Terrain."
+                    },
+                    {
+                        "Name": "3. Conjure Steed",
+                        "Effect": "A random animal is conjured as a mount for 1 to 5 Units."
+                    },
+                    {
+                        "Name": "4. Force Wall",
+                        "Effect": "A thin 2x2 to 6x6 transparent wall is created."
+                    },
+                    {
+                        "Name": "5. Obstable Break",
+                        "Effect": "One or more obstacles or traps are destroyed."
+                    },
+                    {
+                        "Name": "6. Strange Wave",
+                        "Effect": "1 to 5 Units are Healed or DaSorcererd for 1d4."
+                    },
+                    {
+                        "Name": "7. Teleportation",
+                        "Effect": "1 to 5 Units are teleported 1 to 10 meters."
+                    },
+                    {
+                        "Name": "8. Fog",
+                        "Effect": "A 3x3 to 9x9 fog cloud is created."
+                    },
+                    {
+                        "Name": "9. Enchanted Weapons",
+                        "Effect": "1 to 5 Units have their weapons enchanted (+2 DaSorcerer, any element)"
+                    },
+                    {
+                        "Name": "10. Invisibility",
+                        "Effect": "1 to 5 Units become invisible for 1 to 99 Turns."
+                    },
+                    {
+                        "Name": "11. FULMINATION",
+                        "Effect": "A 3x3 to 9x9 explosion happens, dealing 2d6 to 6d6 DaSorcerer of any element."
+                    },
+                    {
+                        "Name": "12. Fling",
+                        "Effect": "1 to 5 objects or items are flung around. If any hits a Unit, deals 1d6 DaSorcerer."
+                    },
+                    {
+                        "Name": "13. Thunder Clap",
+                        "Effect": "All Units within 2 to 6 meters of you take 1d6 to 3d6 DaSorcerer (any type)."
+                    },
+                    {
+                        "Name": "14. Wilder Casting",
+                        "Effect": "Roll 2 more times on this table."
+                    },
+                    {
+                        "Name": "15. Reverse Gravity",
+                        "Effect": "The gravity in a 3x3x3 to 9x9x9 area is reversed."
+                    },
+                    {
+                        "Name": "16. Banish",
+                        "Effect": "1 to 3 Units are banished to another plane for 1 Turn. When they come back, they immediately take 1 Turn."
+                    },
+                    {
+                        "Name": "17. Unknowable Health",
+                        "Effect": "A Unit is healed for 5 to 55 Health."
+                    },
+                    {
+                        "Name": "18. Lightning Strikes Again",
+                        "Effect": "1 to 3 Units get any Crowd Control."
+                    },
+                    {
+                        "Name": "19. Nervous System Jolt",
+                        "Effect": "One Unit permanently gains +1 in a Stat, or +1 to +3 Max Health, Regen or Mana."
+                    },
+                    {
+                        "Name": "20. Resurrection",
+                        "Effect": "1 to 3 dead or Fallen Units come back to life (without Exhaustion) with 1 to full Health."
+                    }
+                ],
+                "ParentKey": "Level 2 - Keystone Talent"
+            }
+        },
+        "Level 3 - Minor Talent": {
+            "<Arcano Mantissa>": {
+                "_Value": "2 (No fucking idea lol)",
+                "A": "Passive",
+                "Effect": "When you roll 4 on the Unstable Spark die, gain 0.5 Max Health and 0.25 Max Mana.",
+                "Notes": "Mana and Health can't be expended or DaSorcererd in fractions, but if you manage to get this 2 times, you essentially get +1 Health permanently (or 1 Mana permanently if you trigger this 4 times).",
+                "ParentKey": "Level 3 - Minor Talent"
+            },
+            "<Honorificabilitudinitatibus>": {
+                "_Value": 2.5,
+                "AlignOnWebsite": "Left",
+                "A": "Passive",
+                "HasMixins": true,
+                "Effect": "Your Unstable Spark die becomes 1d12 instead of 1d10, and triggers on 11 and 12 instead of 10.\nYour d12 dice become d14's, 1d14's become d16's, etc, when they have their ^Dice Upgraded^ to the next die tier.\n",
+                "Notes": "I don't know. You're a Sorcerer, figure it out.\n",
+                "ParentKey": "Level 3 - Minor Talent"
+            },
+            "<Second Try>": {
+                "_Value": 2.5,
+                "A": "Reaction",
+                "Cooldown": "Once / Combat",
+                "HasMixins": true,
+                "Effect": "Use after you roll an Unstable Spark die. You may cancel the roll. Then roll 2 more.",
+                "ParentKey": "Level 3 - Minor Talent"
+            },
+            "<Star Burst>": {
+                "_Value": 1.35,
+                "AlignOnWebsite": "Right",
+                "A": "1 Action",
+                "Cost": "1 Mana",
+                "Effect": "Declare up to 4 different targets you can see.\nAssign a different number from #1 to #4 to each.\nRoll a number of d4's equal to your last rolled Unstable Spark die. Each d4 rolled deals that much Pulse DaSorcerer to the target with that number.\nEach rolled 1 deals 1 DaSorcerer to target number #1, each rolled 2 deals 2 DaSorcerer to target number #2, and so on.\n",
+                "Notes": "E.g. if you put #2 on a goblin, and you roll three 2's on the d4's, then that goblin takes 6 Pulse DaSorcerer.\nYou should probably assign the higher number to the target you want to do most DaSorcerer to.\nYou can declare fewer targets, but then the missing number will deal DaSorcerer to no target.\nCover is applied normally.\n",
+                "ParentKey": "Level 3 - Minor Talent"
+            }
+        },
+        "Level 5 - Keystone Talent": {
+            "~Crocodile~": {
+                "Effect": "None",
+                "ParentKey": "Level 5 - Keystone Talent"
+            }
+        },
+        "Level 6 - Utility Talent": {
+            "~Reverse Gravity~": {
+                "A": "1 Action",
+                "Cost": "3 Mana",
+                "Range": "10 meters to edge",
+                "Degree": "Grand",
+                "Effect": "Declare an area with a diameter in meters (in all directions) equal to your Level.\nThe gravity becomes reversed in that area and all Units instantly fall upwards. Units can make a Dexterity Check to grab onto an object to not be lifted.\nUnits suffer fall DaSorcerer if they fall onto a ceiling.\nWhen the effect ends, all Units fall at half velocity (and take half of the fall DaSorcerer). The same happens to a Unit if it exits the area.\nLasts for up to 1 minute. You can cancel this effect at will.\n",
+                "Notes": "Fall DaSorcerer is 1d6 for every 2 meters fallen (e.g. 1d6 for 2 and 3 meters, 2d6 for 4 and 5 meters, etc).\n",
+                "ParentKey": "Level 6 - Utility Talent"
+            },
+            "~Hearth Recall~": {
+                "A": "10 minutes",
+                "Cost": "2 mana",
+                "Degree": "Major",
+                "Range": "Up to Intelligence * 100 kilometers",
+                "Effect": "You can spend 10 minutes in a place to Bind to it.\nWhen you use this Ability, channel for 10 minutes to teleport up to 1d6 Allies (and yourself) within 10 meters of you to the bound place.\nYou can only have 1 bound place at a time.\n",
+                "EffectRed": "You can teleport more Allies than the rolled die, but the teleportation will have strange side effects or consequences.",
+                "Notes": "You can remove the binding of a place at will, from any distance.",
+                "ParentKey": "Level 6 - Utility Talent"
+            }
+        },
+        "Level 7 - Keystone Talent": {
+            "<Great Sorcery>": {
+                "_Value": 2.5,
+                "A": "Passive",
+                "Effect": "When you roll 8 or 9 on the Unstable Spark die, gain 1 Mana.\n",
+                "ParentKey": "Level 7 - Keystone Talent"
+            },
+            "<Accidental Zap>": {
+                "_Value": 2.5,
+                "A": "Passive",
+                "Effect": "When you roll 6, 7 or 8 on the Unstable Spark die, immediately Zap the closest Unit to you for ^your Intelligence^ Shock DaSorcerer.",
+                "HasMixins": true,
+                "ParentKey": "Level 7 - Keystone Talent"
+            }
+        },
+        "Level 9 - Keystone Talent": {
+            "<Chronomancy>": {
+                "A": "0 Actions",
+                "Cost": "1 Mana",
+                "Cooldown": "Once / Adventure",
+                "Effect": "Instantly return to how and where you were at the start of your turn (or your previous turn if it's not currently your turn), with that same Movement, Actions, Health, Shielding, Buffs and Cooldowns (not Mana, though).\nAlternatively, if you're out of combat, you can turn back time for all the world up to 10 minutes, exactly how it was, but retaining all your information from the future. Allies don't retain the information.\n",
+                "ParentKey": "Level 9 - Keystone Talent"
+            },
+            "<Double Spark Triple Quark>": {
+                "A": "Passive",
+                "HasMixins": true,
+                "Effect": "Whenever you would roll an Unstable Spark die, roll 2 instead of one. Apply effects for both.\n",
+                "ParentKey": "Level 9 - Keystone Talent"
+            }
+        },
+        "Level 10 - Ultimate Talent": {
+            "<Grand Sorcery>": {
+                "A": "Passive",
+                "Effect": "Arcane power flows potently through your veins! Whenever you would roll one or more Unstable Spark dice, roll 3 more.\nWhenever you would roll dice for a Spell, all the dice are a baseline d10, no matter what die type it is (can still have ^Dice Upgraded^).\n",
+                "Upgrade": "Your appearance changes to reflect your sorcerer powers, resulting in glowing eyes, or your hair resembling a particular element, like fire or electricity.",
+                "HasMixins": true,
+                "Downside": "{Ultimate}",
+                "ParentKey": "Level 10 - Ultimate Talent"
+            },
+            "<Locus of Control>": {
+                "A": "Passive",
+                "Effect": "You gain control over your own magic, and, whenever you would roll an Unstable Spark die, you can instead choose the number. In fact, whenever you roll one or more dice for a Spell, instead of rolling half of them, you can even choose the numbers.\nScrew it, once per Round, when someone else would roll a die, just name what number you want and it happens!\n",
+                "Upgrade": "The control over magic reflects in your physical appearance, resulting in effects such as contracted pupils, uncannily smooth body and hair, or an uncoventionally toned voice.",
+                "HasMixins": true,
+                "Downside": "{Ultimate}",
+                "ParentKey": "Level 10 - Ultimate Talent"
+            },
+            "<Draconianism>": {
+                "A": "Passive",
+                "Effect": "Your natural form changes to that of a large, winged dragon. Your base Maximum Mana increases by 10 and your base Max Health by 50%. You can fly at your normal Speed.\nYou must choose what color you are as a dragon. As your breath attack, you can cast any Basic Ability that deals DaSorcerer and doesn't cost Mana, and it also hits all Units within 2 meters of the main target. You also take -50% DaSorcerer from the DaSorcerer Type of your chosen Ability.\n",
+                "Upgrade": "You can transform into your person-self at will, but, to you, your dragon form is more comfortable.",
+                "HasMixins": true,
+                "Downside": "{Ultimate}",
+                "ParentKey": "Level 10 - Ultimate Talent"
+            }
+        }
+    }
+}

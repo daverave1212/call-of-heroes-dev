@@ -24,7 +24,7 @@ const NAV_CONFIG = [
   { name: 'Game', children: [
     { name: 'Races', children: [
       { name: 'Bertle',       href: '/Races/Bertle' },
-      { name: 'Davel',        href: '/WorkInProgress' },
+      { name: 'Davel',        href: '/WorkInProgress', isDisabled: true },
       { name: 'Dragon',       href: '/Races/Dragonborn' },
       { name: 'Dwarf',        href: '/Races/Dwarf' },
       { name: 'Elf',          href: '/Races/Elf' },
@@ -33,16 +33,41 @@ const NAV_CONFIG = [
       { name: 'Hollow',       href: '/Races/Hollow', lock: 'premium' },
       { name: 'Human',        href: '/Races/Human' },
     ]},
-    { name: 'Classes', children: [
-      { name: 'Cleric',       href: '/Classes/Cleric' },
-      { name: 'Druid',        href: '/Classes/Druid' },
-      { name: 'Hunter',       href: '/Classes/Hunter' },
-      { name: 'Mage',         href: '/Classes/Mage' },
-      { name: 'Paladin',      href: '/Classes/Paladin' },
-      { name: 'Rogue',        href: '/Classes/Rogue' },
-      { name: 'Shaman',       href: '/Classes/Shaman', lock: 'premium' },
-      { name: 'Warlock',      href: '/Classes/Warlock' },
-      { name: 'Warrior',      href: '/Classes/Warrior' },
+    // { name: 'Classes', children: [
+    //   { name: 'Cleric',       href: '/Classes/Cleric' },
+    //   { name: 'Druid',        href: '/Classes/Druid' },
+    //   { name: 'Hunter',       href: '/Classes/Hunter' },
+    //   { name: 'Mage',         href: '/Classes/Mage' },
+    //   { name: 'Paladin',      href: '/Classes/Paladin' },
+    //   { name: 'Rogue',        href: '/Classes/Rogue' },
+    //   { name: 'Shaman',       href: '/Classes/Shaman', lock: 'premium' },
+    //   { name: 'Warlock',      href: '/Classes/Warlock' },
+    //   { name: 'Warrior',      href: '/Classes/Warrior' },
+    // ]},
+    { name: 'Classes (Base)', children: [
+      { name: 'Druid', href: "/ClassesV2/Druid" },
+      { name: 'Hunter', href: "/ClassesV2/Hunter" },
+      { name: 'Priest', href: "/ClassesV2/Priest" },
+      { name: 'Rogue', href: "/ClassesV2/Rogue" },
+      { name: 'Shaman', href: "/ClassesV2/Shaman", isDisabled: true },
+      { name: 'Sorcerer', href: "/ClassesV2/Sorcerer" },
+      { name: 'Warlock', href: "/ClassesV2/Warlock" },
+      { name: 'Warrior', href: "/ClassesV2/Warrior" },
+      { name: 'Wizard', href: "/ClassesV2/Wizard" },
+    ]},
+    { name: 'Classes (Premium)', children: [
+      { name: 'Artificer', href: "/ClassesV2/Artificer", lock: 'premium' },
+      { name: 'Bard', href: "/WorkInProgress", lock: 'premium' },
+      { name: 'Berserker', href: "/ClassesV2/Berserker", lock: 'premium' },
+      { name: 'Cursewielder', href: "/ClassesV2/Cursewielder", lock: 'premium' },
+      { name: 'Knight', href: "/ClassesV2/Knight", lock: 'premium', isDisabled: true },
+      { name: 'Monk', href: "/WorkInProgress", lock: 'premium', isDisabled: true },
+      { name: 'Mystic', href: "/ClassesV2/Mystic", lock: 'premium', isDisabled: true },
+      { name: 'Necromancer', href: "/WorkInProgress", lock: 'premium', isDisabled: true },
+      { name: 'Paladin', href: "/ClassesV2/Paladin", lock: 'premium' },
+      { name: 'Soulwright', href: "/ClassesV2/Soulwright", lock: 'premium', isDisabled: true },
+      { name: 'Swashbuckler', href: "/WorkInProgress", lock: 'premium', isDisabled: true },
+      { name: 'Wickan', href: "/WorkInProgress", lock: 'premium', isDisabled: true },
     ]},
     { isGrouping: true, children: [
       { name: 'Abilities', children: [
@@ -222,14 +247,16 @@ function AccountButtons() {
 
 
 
-function NavLink({ name, href, isDownload, isExternal, onMouseEnter, className }) {
+function NavLink({ name, href, isDownload, isExternal, isDisabled, onMouseEnter, className }) {
+
+    const classes = 'nav-link ' + (isDisabled === true? 'disabled ': ' ') + className
 
     if (href == null) {
-      return <div className={"nav-link " + className} onMouseEnter={onMouseEnter}>{name}</div>
+      return <div className={classes} onMouseEnter={onMouseEnter}>{name}</div>
     }
     
     if (isDownload) {
-        return <a className={"nav-link " + className} href={href} download={isDownload} onMouseEnter={onMouseEnter}>{name}</a>
+        return <a className={classes} href={href} download={isDownload} onMouseEnter={onMouseEnter}>{name}</a>
     }
 
     if (isExternal) {
@@ -237,10 +264,10 @@ function NavLink({ name, href, isDownload, isExternal, onMouseEnter, className }
             evt.preventDefault()
             window.open(href, '_blank')
         }
-        return <a className={"nav-link " + className} href={href} onClick={onExternalAClick} onMouseEnter={onMouseEnter}>{name}</a>
+        return <a className={classes} href={href} onClick={onExternalAClick} onMouseEnter={onMouseEnter}>{name}</a>
     }
 
-    return <Link className={"nav-link " + className} to={href} onMouseEnter={onMouseEnter}>{ name }</Link>
+    return <Link className={classes} to={href} onMouseEnter={onMouseEnter}>{ name }</Link>
 
 }
 function WithIcon({ iconName, children, className }) {
@@ -254,7 +281,7 @@ function WithIcon({ iconName, children, className }) {
   )
 }
 function NavItem({ config, onMouseEnter, className }) {
-    const { name, href, isDownload, isExternal, lock, children } = config
+    const { name, href, isDownload, isExternal, lock, children, isDisabled } = config
 
     const link = <NavLink {...config} onMouseEnter={onMouseEnter}/>
     if (lock != null) {
