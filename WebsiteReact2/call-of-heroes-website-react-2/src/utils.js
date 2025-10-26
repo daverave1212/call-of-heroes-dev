@@ -231,6 +231,34 @@ export function addAbilityOrOpenPopup(spell, spellMetadata, selectedAbilitiesNam
     }
 }
 export function splitSpellsArrayInto2Columns(spellsArray, shouldIgnoreAlignment=false) {
+    
+    
+    
+    const spells = spellsArray.map(spell => ({...spell, Height: estimteSpellHeight(spell)}))
+    const spellsSorted = sortObjectArrayByKey(spells, 'Height').reverse()
+
+    if (spellsArray.find(s => s.Name.includes('Ripstorm')) != null) {
+        console.log({spellsArray, spells, spellsSorted})
+    }
+
+    let column1Spells = []
+    let column2Spells = []
+    
+    column1Spells.height = 0
+    column2Spells.height = 0
+
+    for (const spell of spellsSorted) {
+        const columnToUse = column2Spells.height < column1Spells.height? column2Spells: column1Spells
+        columnToUse.push(spell)
+        columnToUse.height += spell.Height
+        if (spellsArray.find(s => s.Name.includes('Ripstorm')) != null) {
+            console.log([`Added ${spell.Name}`, column1Spells.height, column2Spells.height])
+        }
+    }
+
+    return [column1Spells, column2Spells]
+}
+export function splitSpellsArrayInto2Columns_OLD(spellsArray, shouldIgnoreAlignment=false) {
     console.log(`Splitting spells array:`)
     console.log({spellsArray})
     const spells = sortObjectArrayByKey([...spellsArray], 'OrderOnWebsite')
@@ -273,6 +301,30 @@ export function isSpellKeystoneTalent(spell) {
 
 
 // --------------- Questguard Utilities --------------
+export function estimteSpellHeight(spell) { // Height as in rem (approximately)
+    if (spell.Height != null) {
+        return spell.Height
+    }
+    const topHeight = 4
+    const topMarginBottom = 2
+    let height = topHeight + topMarginBottom
+    if (spell.Effect != null) {
+        height += Math.max(1, spell.Effect.length / 7.5) // Average of 7.5 words per line
+    }
+    if (spell.Upgrade != null) {
+        height += Math.max(spell.Effect.length / 8.5) + 1
+    }
+    if (spell.Notes != null) {
+        height += Math.max(spell.Effect.length / 9.5) + 1
+    }
+    if (spell.EffectGreen != null) {
+        height += Math.max(spell.Effect.length / 7.5) + 1
+    }
+    if (spell.SingleTable != null) {
+        height += Math.max(spell.SingleTable.length * 2) + 1
+    }
+    return height
+}
 export function isDice(str) {
     if (str == null) return false
     const parts = str.split('d')
@@ -763,6 +815,7 @@ function ComponentForSymbolConfig({ config, children }) {
     switch (config.tag) {
         case 'b': return <b {...config.props}>{children}</b>
         case 'i': return <i {...config.props}>{children}</i>
+        case 'img': return <img {...config.props}/>
         case 'span': return <span {...config.props}>{children}</span>
         case 'Icon': return <Icon {...config.props}/>
         case 'Link': return <Link {...config.props}>{children}</Link>
@@ -816,6 +869,9 @@ const SYMBOLS = {
     'StatLimit': { tag: 'span', text: STAT_LIMITS_TEXT },
     ...STAT_SYMBOLS,
 
+    'Hr': { tag: 'img', props: {src: '/separator.png', class: 'spell-separator' } },
+    'Separator': { tag: 'img', props: {src: '/separator.png', class: 'separator'} },
+
     'Damage': { tag: 'Icon', props: { name: 'Damage' } },
     'Mana': { tag: 'Icon', props: { name: 'Mana' } },
     'Diamond': { tag: 'span', text: '🔹', props: { fontSize: '0.8em' } },
@@ -861,6 +917,7 @@ const FUNCTION_SYMBOLS = {
     'Brown': args => ({ tag: 'span',  props: { style: { color: 'brown' } }, text: args[0] }),
     'Orange': args => ({ tag: 'span', props: { style: { color: '#FF5500' } }, text: args[0] }),
     'Purple': args => ({ tag: 'span', props: { style: { color: '#6f00ffff' } }, text: args[0] }),
+    'Green': args => ({ tag: 'span', props: { style: { color: 'var(--green-text)' } }, text: args[0] }),
     'Color': args => ({ tag: 'span', props: { style: { color: args[0] } }, text: args[1] }),
     
     '^': args => ({ tag: 'b', text: args[0] }),
