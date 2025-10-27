@@ -301,6 +301,81 @@ export function isSpellKeystoneTalent(spell) {
 
 
 // --------------- Questguard Utilities --------------
+export function monsterXPDnDToQG(dndXP) {
+  const newXP = 0.365 * dndXP + 100
+  return Math.floor(newXP / 25) * 25;
+}
+export function dndDCToQGDC(dc) {
+    return Math.floor(parseInt(dc) * 0.7)
+}
+
+
+const MONSTER_TEXT_REPLACEMENTS = {
+    'fall unconscious': 'become Double-Stunned',
+    'frightened': 'Single-Stunned',
+    'restrained': 'Rooted',
+    'grappled by it': 'Rooted to it',
+    'grappling it': 'near it',
+    'difficult terrain': 'Hard Terrain',
+    'surprised': 'Ambushed',
+    'ability check': 'Roll',
+    'creature': 'Unit',
+    'turn': 'Turn',
+
+    'must succeed on a': 'must roll at least',
+    'spell save DC': 'Intelligence Roll',
+
+    'saving throw': 'Roll',
+    'Strength': 'Might',
+    'Constitution': 'Might',
+    'Wisdom': 'Sense',
+
+    'a hostile': 'an Enemy',
+    'hostile': 'Enemy',
+    
+    'As a bonus action': 'For 0 Action Points',
+
+    'advantage': '+50%',
+    'disadvantage': '-50%',
+    'half damage': '-50% Damage',
+
+    'radiant': 'Divine',
+    'necrotic': 'Scourge',
+    'blinded': 'Blinded',
+
+}
+export function dndMonsterToQGText(text) {
+    // Feet replacement
+    const matches = text.match(/\b\d+(?:-|\s)?(?:foot|feet)\b/g) ?? []
+    const matchesReplacements = matches.map(inFeet => {
+        let dashOrSpaceIndex = inFeet.indexOf('-')
+        if (dashOrSpaceIndex == -1) {
+            dashOrSpaceIndex = inFeet.indexOf(' ')
+        }
+        const nFeet = inFeet.substring(0, inFeet.indexOf('-'))
+        const meters = parseInt(nFeet) / 5
+        return meters + (inFeet.includes('-')? '-': ' ') + (inFeet.includes('feet')? 'meters': 'meter')
+    })
+    for (let i = 0; i < matches.length; i++) {
+        text = text.replaceAll(matches[i], matchesReplacements[i])
+    }
+
+    // DC replacement
+    const dcMatches = text.match(/DC\s*(\d+)/g) ?? []
+    for (const dc of dcMatches) {
+        const number = parseInt(dc.match(/\d+/g)[0])
+        text = text.replaceAll(dc, 'DC ' + dndDCToQGDC(number))
+    }
+
+    // Other
+    for (const key of Object.keys(MONSTER_TEXT_REPLACEMENTS)) {
+        text = text.replaceAll(key, MONSTER_TEXT_REPLACEMENTS[key])
+    }
+
+    return text
+}
+window.dndMonsterToQGText = dndMonsterToQGText
+
 export function estimteSpellHeight(spell) { // Height as in rem (approximately)
     if (spell.Height != null) {
         return spell.Height
