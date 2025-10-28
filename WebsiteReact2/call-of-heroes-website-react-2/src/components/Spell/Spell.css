@@ -14,7 +14,7 @@
     --spell-padding-small: 6px;
     --spell-icon-size: 90px;
 
-    --subspell-size-multiplier: 0.85;
+    --subspell-size-multiplier: 0.55;
     
     --spell-notes-color: #999999;
 
@@ -60,16 +60,13 @@
 
     /* border: solid 1px black; */
 }
+
 .spell a {
     text-decoration: underline;
     color: var(--purple-color);
 }
 
 .spell--normal {}
-.spell--subspell {
-    width: calc(100% * var(--subspell-size-multiplier));
-    max-width: calc(var(--subspell-size-multiplier) * var(--spell-max-width));
-}
 /* Decoration */
 .spell__no-border {
     border: solid 2px black;
@@ -86,9 +83,6 @@
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     z-index: var(--z-border);
-}
-.spell--subspell .spell__border {
-    border-width: calc(var(--spell-border-width) / 3 * 2);
 }
 .spell__background {
     position: absolute;
@@ -202,14 +196,7 @@
 .spell--passive .spell-top__icon-wrapper {
     border-radius: 25%;
 }
-.spell--subspell .spell-top__icon-wrapper {
-    width: calc(var(--subspell-size-multiplier) * var(--spell-icon-size));
-    height: calc(var(--subspell-size-multiplier) * var(--spell-icon-size));
-}
-.spell--subspell .spell-top__icon-side img {
-    width: calc(var(--subspell-size-multiplier) * var(--spell-icon-size));
-    height: calc(var(--subspell-size-multiplier) * var(--spell-icon-size));
-}
+
 @keyframes SpellIconBlinking {
     0% {
         box-shadow: 0 0 0 0 rgba(0, 119, 255, 0.8);
@@ -276,10 +263,6 @@
 }
 .spell--passive .spell-top__title__wrapper {
     margin-top: calc(var(--spell-passive-title-top-padding) + var(--spell-padding));
-    margin-left: -1px;
-}
-.spell--subspell.spell--passive .spell-top__title__wrapper {
-    margin-top: calc(8px + var(--spell-padding));
     margin-left: -1px;
 }
 .spell-top__title, .spell-top--iconless__title {
@@ -430,4 +413,58 @@
     background-color: aqua;
     height: 220px;
   }
+
+
+
+
+/* ------- Subspell Modifications --------- */
+.spell--subspell {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+.spell--subspell * {
+    font-size: calc(var(--p-size) * 0.9);
+}
+/* -- Border -- */
+.spell--subspell .spell__border {
+    border-width: calc(var(--spell-border-width) / 3 * 2);
+}
+
+/* -- Title -- */
+.spell--subspell .spell-top__title__wrapper {
+    border: none;
+}
+.spell--subspell.spell--passive .spell-top__title__wrapper {
+    margin-top: calc(8px + var(--spell-padding));
+    margin-left: -1px;
+}
+.spell--subspell .spell-top__title {
+    padding: calc(var(--spell-padding) / 4);
+}
+
+/* -- Stats -- */
+.spell--subspell .spell-top {
+    min-height: calc(var(--spell-icon-size));
+}
+.spell--subspell .spell-top__stats {
+    padding: calc(var(--spell-padding) / 2 - 2px); /* For pixel perfect alignment of the text */
+}
+/* -- Body -- */
+.spell--subspell .spell-description,
+.spell--subspell .spell-green,
+.spell--subspell .spell-red,
+.spell--subspell .spell-combo {
+    font-size: calc(var(--p-size) * 0.9);
+    padding-bottom: calc(var(--spell-padding-bottom) / 4);
+}
+
+/* -- Icon -- */
+.spell--subspell .spell-top__icon-wrapper {
+    width: calc(var(--subspell-size-multiplier) * var(--spell-icon-size));
+    height: calc(var(--subspell-size-multiplier) * var(--spell-icon-size));
+}
+.spell--subspell .spell-top__icon-side img {
+    width: calc(var(--subspell-size-multiplier) * var(--spell-icon-size) - 4px);
+    height: calc(var(--subspell-size-multiplier) * var(--spell-icon-size) - 4px);
+}
 

@@ -2,7 +2,7 @@
 import './TableNormal.css'
 
 export default function EffectTable({nameEffectPairs}) {
-    return <div className="effect-table">
+    return <div className="effect-table padding-bottom-3q">
         { nameEffectPairs.map(({ name, effect }) => (
             <div className="row">
                 <div className="name">{name}</div>

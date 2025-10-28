@@ -237,7 +237,7 @@ export function splitSpellsArrayInto2Columns(spellsArray, shouldIgnoreAlignment=
     const spells = spellsArray.map(spell => ({...spell, Height: estimteSpellHeight(spell)}))
     const spellsSorted = sortObjectArrayByKey(spells, 'Height').reverse()
 
-    if (spellsArray.find(s => s.Name.includes('Ripstorm')) != null) {
+    if (spellsArray.find(s => s.Name.includes('Elderform')) != null) {
         console.log({spellsArray, spells, spellsSorted})
     }
 
@@ -251,7 +251,7 @@ export function splitSpellsArrayInto2Columns(spellsArray, shouldIgnoreAlignment=
         const columnToUse = column2Spells.height < column1Spells.height? column2Spells: column1Spells
         columnToUse.push(spell)
         columnToUse.height += spell.Height
-        if (spellsArray.find(s => s.Name.includes('Ripstorm')) != null) {
+        if (spellsArray.find(s => s.Name.includes('Elderform')) != null) {
             console.log([`Added ${spell.Name}`, column1Spells.height, column2Spells.height])
         }
     }
@@ -380,26 +380,33 @@ export function estimteSpellHeight(spell) { // Height as in rem (approximately)
     if (spell.Height != null) {
         return spell.Height
     }
+    if (spell.Name.includes('Celestine')) {
+        console.log('Here')
+    }
     const topHeight = 4
     const topMarginBottom = 2
     let height = topHeight + topMarginBottom
     if (spell.Effect != null) {
-        height += Math.max(1, spell.Effect.length / 7.5) // Average of 7.5 words per line
+        height += Math.max(1, spell.Effect.length / 50) // Average of 7.5 words per line
     }
     if (spell.Upgrade != null) {
-        height += Math.max(spell.Effect.length / 8.5) + 1
+        height += Math.max(1, spell.Upgrade.length / 55) + 1
     }
     if (spell.Notes != null) {
-        height += Math.max(spell.Effect.length / 9.5) + 1
+        height += Math.max(1, spell.Notes.length / 60) + 1
     }
     if (spell.EffectGreen != null) {
-        height += Math.max(spell.Effect.length / 7.5) + 1
+        height += Math.max(1, spell.EffectGreen.length / 50) + 1
     }
     if (spell.SingleTable != null) {
-        height += Math.max(spell.SingleTable.length * 2) + 1
+        height += Math.max(1, spell.SingleTable.length * 2) + 1
     }
-    return height
+    if (spell.SpellTable != null) {
+        height += Math.max(1, spell.SpellTable.length * 3) + 1
+    }
+    return Math.floor(height)
 }
+window.estimteSpellHeight = estimteSpellHeight
 export function isDice(str) {
     if (str == null) return false
     const parts = str.split('d')
@@ -993,6 +1000,7 @@ const FUNCTION_SYMBOLS = {
     'Orange': args => ({ tag: 'span', props: { style: { color: '#FF5500' } }, text: args[0] }),
     'Purple': args => ({ tag: 'span', props: { style: { color: '#6f00ffff' } }, text: args[0] }),
     'Green': args => ({ tag: 'span', props: { style: { color: 'var(--green-text)' } }, text: args[0] }),
+    'DarkGreen': args => ({ tag: 'span', props: { style: { color: '#00a71cff' } }, text: args[0] }),
     'Color': args => ({ tag: 'span', props: { style: { color: args[0] } }, text: args[1] }),
     
     '^': args => ({ tag: 'b', text: args[0] }),

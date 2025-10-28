@@ -945,21 +945,30 @@
         "ParentKey": "Starting Abilities"
     },
     "~Animal Attack~": {
-        "Requirement": "Only usable while Shapeshifted",
-        "A": "Half-Action",
-        "AlignOnWebsite": "Right",
-        "Damage": "1d6 + Any Stat",
         "Range": "1 meter",
-        "Stat": "Smash, Slash or Pierce",
+        "IsSubspell": true,
+        "A": "Half-Action",
+        "Damage": "1d6 + Any Stat (Slash, Smash or Pierce)",
         "EffectGreen": "Critical Strike - if you roll maximum, apply a Combo.",
-        "ParentKey": "Starting Abilities"
+        "ParentKey": "Subspells"
     },
     "~Shapeshift~": {
         "A": "0 Actions",
         "Cost": "1 Mana",
         "HasMixins": true,
         "Duration": "Until cancelled (0 AP) or you Fall",
-        "Effect": "Transform into a medium-sized, regular animal, or a mystical beast resembling one you've encountered this Campaign. It has 2 features of choice from below (up to your Level).\nWhile Shapeshifted, you can Animal Attack for Half-Action.\n\n{Hr}\n^Animal Attack^ ({Action}Half-Action {Range} 1 meter)\n{Damage} 1d6 + Any Stat (Slash, Smash or Pierce)\n{Green('Critical Strike - if you roll maximum, apply a Combo.')}\n{Hr}\n",
+        "Height": 120,
+        "Effect": "Transform into a medium-sized animal or a mystical beast resembling one you've encountered this Campaign. It has 2 features of choice from below (up to your Level).\nWhile Shapeshifted, you can Animal Attack for Half-Action.\n",
+        "Subspells": {
+            "~Animal Attack~": {
+                "Range": "1 meter",
+                "IsSubspell": true,
+                "A": "Half-Action",
+                "Damage": "1d6 + Any Stat (Slash, Smash or Pierce)",
+                "EffectGreen": "Critical Strike - if you roll maximum, apply a Combo.",
+                "ParentKey": "Subspells"
+            }
+        },
         "Notes": "Your animal's Stats are 3/1/0/-1 spread as you like (for Rolls only).\nYou can only cast _some_ Abilities while Shapeshifted.\nYou choose what items you keep on you when Shapeshifting, and those items are 'merged' into your new form.\nWhile Shapeshifted, you can speak, but your voice is slightly altered to match your shape (e.g. guttural for lions, high pitched for birds, etc).\n",
         "HasSpellTableNumbers": true,
         "SpellTable": [
@@ -1036,7 +1045,7 @@
         "Degree": "Minor",
         "Effect": "A target takes 1d8 + ^Presence^ Poison Damage.\nThe _next time_ it takes damage from a weapon, it takes an extra 1d8 Poison Damage.\n",
         "Combo": "The next time Damage happens now instead.",
-        "Notes": "Might parts count as weapons.",
+        "Notes": "Body parts count as weapons.",
         "ParentKey": "Ability Choices"
     },
     "~Ripstorm~": {
@@ -1088,7 +1097,7 @@
         "A": "Passive",
         "IsIgnored": true,
         "HasMixins": true,
-        "Effect": "Choose a _domain environment_ from: {Brown('Nature, Water, Air, Earth')}.\nYour Abilities may have extra effects based both on your _domain_ and the current _environment_ (if you're outside).\n",
+        "Effect": "Choose a _domain environment_ from: {Brown('Nature, Water, Air, Earth')}.\nYour Abilities may have extra effects based both on your _domain_, and the current _environment_.\n",
         "Upgrade": "The Quest Master determines what environment you're in. It's possible to not be in any domain (e.g. urban areas, interiors, etc).",
         "Notes": "Nature (Forests, Jungles, etc), Water (Lakes, Swamps, etc), Air (Fields, Mountains, etc) and Earth (Deserts, Caves, etc).\n",
         "ParentKey": "Starting Abilities"
@@ -1148,7 +1157,7 @@
         "A": "Half-Action",
         "Damage": "1d6 + Any Stat",
         "Replacement": "Replaces Animal Attack",
-        "Effect": "{Brown('Nature:')} ~Heal for 10% of the attack's Damage.~\n{Brown('Water:')} ~Target is Slowed and +1 range.~\n{Brown('Wind:')} ~1d8 Damage instead of 1d6.~\n{Brown('Earth:')} ~Taunt the target.~\n",
+        "Effect": "{Brown('Nature:')} ~Heal for 10% of the attack's Damage.~\n{Brown('Earth:')} ~Taunt the target.~\n{Brown('Water:')} ~Target is Slowed and +1 range.~\n{Brown('Wind:')} ~1d8 Damage instead of 1d6.~\n",
         "Range": "1 meter",
         "Stat": "Smash, Slash or Pierce",
         "EffectGreen": "Critical Strike - if you roll maximum, apply a Combo.",
@@ -1170,7 +1179,7 @@
         "Requirement": "Can't activate in combat.",
         "Effect": "Every ~real hour~, regain up to {Mana}0.5 Mana.",
         "HasMixins": true,
-        "ParentKey": "Level 3 - Keystone Talent"
+        "ParentKey": "Level 5 - Keystone Talent"
     },
     "~Cutting Winds~": {
         "A": "1 Action",
@@ -1189,6 +1198,7 @@
         "Cost": "1 Mana",
         "Cooldown": "Once / Adventure",
         "Effect": "All Enemies within 4 meters of you take 2d6 Pierce Damage and become Rooted.\n\n{Brown('Nature:')} 6 meters instead.\n{Brown('Earth:')} 2d8 Damage instead.\n",
+        "EffectGreen": "Usable while Shapeshifted.",
         "HasMixins": true,
         "ParentKey": "Level 4 - Minor Talent"
     },
@@ -1389,21 +1399,8 @@
         "ParentKey": "Level 2 - Minor Talent"
     },
     "~Elderform~": {
-        "Effect": "You have extra available features originating from the flora and microbiomes of the outdoors.",
-        "SpellTable": [
-            {
-                "Name": "Spikes",
-                "Effect": "After you are attacked from 1 meter away, deal 1d4 Damage back to the attacker. You take -50% Pierce Damage."
-            },
-            {
-                "Name": "Photosynthesis",
-                "Effect": "You regenerate 1d4 Health at the end of every Turn."
-            },
-            {
-                "Name": "Blossoming {Cooldown} Once / Adventure",
-                "Effect": "At the end of the Adventure, the Quest Master gives you an additional positive Quirk."
-            }
-        ],
+        "Effect": "You have extra available features originating from the flora and microbiomes of the outdoors.\n\n{Brown('Nature:')} You regenerate 1d4 Health at the end of every Turn.\n{Brown('Earth:')} After you are attacked from 1 meter away, deal 1d4 Damage back to the attacker.\n{Brown('Water:')} At the end of the Adventure, the Quest Master gives you an additional positive Quirk.\n{Brown('Wind:')} Your Animal Attack has 5 meters range and deals Fire, Cold, Shock or Poison Damage.\n",
+        "HasMixins": true,
         "ParentKey": "Level 3 - Keystone Talent"
     },
     "~Drakeform~": {
@@ -1425,11 +1422,11 @@
         "ParentKey": "Level 3 - Keystone Talent"
     },
     "~Primalform~": {
-        "Effect": "You gain extra animal features originating from wild creatures of the faey.",
+        "Effect": "You gain extra animal features originating from creatures of the wild and mysterious.\n\n{Brown('Nature:')} First Shapeshifted Animal Attack hits one more Unit within 2 meters of the main target.\n{Brown('Earth:')} When Shapeshifting, permanently increase your current and Max Health by 0.5.\n{Brown('Water:')} At the end of the Adventure, the Quest Master gives you an additional positive Quirk.\n{Brown('Wind:')} First Shapeshifted Animal Attack Slams the target 1d4 meters in any direction.\n",
         "SpellTable": [
             {
                 "Name": "Prowling",
-                "Effect": "First Shapeshifted attack deals +1d8 Damage. If starting combat shapeshifted, YOU Surprise enemies and can't be Surprised."
+                "Effect": "If starting combat shapeshifted, YOU Surprise enemies and can't be Surprised."
             },
             {
                 "Name": "Horned",
@@ -1440,6 +1437,7 @@
                 "Effect": "When Shapeshifting, permanently increase your current and Max Health by 1."
             }
         ],
+        "HasMixins": true,
         "ParentKey": "Level 3 - Keystone Talent"
     },
     "~Wildcasting Form~": {
@@ -1483,11 +1481,10 @@
         "ParentKey": "Level 5 - Keystone Talent"
     },
     "<Evershape>": {
-        "_Value": 2,
+        "_Value": 3,
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "When Shapeshifting yourself, it doesn't cost Mana.",
-        "Notes": "This means that unless you use Shapeshift Ally, you can Shapeshift as much as you like. Note that the Cooldowns of Animal Abilities persist and don't reset.",
+        "Effect": "Shapeshifting yourself doesn't cost Mana, but it has a Once / Combat Cooldown.",
         "ParentKey": "Level 7 - Keystone Talent"
     },
     "~Manshape~": {
@@ -1918,23 +1915,8 @@
     "<Slayer>": {
         "_Value": 1,
         "A": "Passive",
-        "Effect": "You always know the type of a monster. You gain a different boon when fighting an enemy of a certain type:\n",
-        "DoubleTable": {
-            "Headers": [
-                "Monster Type",
-                "Boon"
-            ],
-            "Values": [
-                "Aberrations, Fiends",
-                "One attack per turn against one deals extra Damage equal to your Presence",
-                "Beasts",
-                "You automatically know the Stats, Health and Abilities of a Beast you're fighting (ask the QM)",
-                "Undead",
-                "When attacked by your pet, it becomes Slowed and Taunted (by your pet)",
-                "People, Demons",
-                "When Marking one, it must make an Intelligence Check or be Silenced or Crippled (your choice)"
-            ]
-        },
+        "Effect": "You always know the type of a monster. You gain a different boon when ^you^ defeat a Worthy Enemy of a certain type:\n\n{DarkGreen('Beasts:')} Heal an Ally for 1d4.\n{DarkGreen('Demons:')} Your pet gains +1 Damage this Combat.\n{DarkGreen('Fiends:')} Gain 50 {Gold}Gold.\n{DarkGreen('People:')} Your next attack Cripples the target.\n{DarkGreen('Undead:')} Your pet's next attack Single-Stuns the target.\n",
+        "HasMixins": true,
         "ParentKey": "Level 3 - Keystone Talent"
     },
     "<Stat Bonuses 4>": {
@@ -1950,7 +1932,7 @@
         "A": "1 Action",
         "Range": "16 meters",
         "Cooldown": "Once / Adventure",
-        "Effect": "Make an attack on a target.\nFor each meter to the target, the attack deals 1d6 Pierce Damage, up to 8 meters.\nFor each meter to the target over 8 meters, deal one less d6.\n",
+        "Effect": "Make an attack on a target.\nFor each meter to the target, the attack deals 1d6 Pierce Damage, up to 8 meters.\nFor each meter to the target over 8 meters, deal -1d6 Damage.\n",
         "Notes": "At exactly 8 meters range, the attack deals 8d6 Damage. At 7 and 9 meters, it deals 7d6. At 6 and 10 meters, 6d6. And so on.",
         "ParentKey": "Level 5 - Keystone Talent"
     },
@@ -1972,7 +1954,7 @@
         "Duration": "1 hour",
         "HasMixins": true,
         "Replacement": "Replaces Hunter Mark",
-        "Effect": "Choose and mark a target you can see. ~If it's a non-Epic Unit, it is perpetually Feared while marked and has 0 base Defense.~\nYour own single target attacks and Abilities against the marked target have their ^Dice Upgraded^ to the next die type.\n",
+        "Effect": "Choose and mark a target you can see. ~If it's a non-Epic Unit, it is perpetually Single-Stunned while Marked.~\nYour own single target attacks and Abilities against the marked target have their ^Dice Upgraded^ to the next die type.\n",
         "Notes": "{DiceUpgrade}\n{Feared}\nA Unit can only have one Hunter Mark on it at a time.\nYour Pet lands on the closest space near the target.\n",
         "ParentKey": "Level 5 - Keystone Talent"
     },
@@ -3802,7 +3784,7 @@
     },
     "~Roguish Talents~": {
         "A": "Special",
-        "Effect": "As a Rogue, you don't have Mana. However, your Level 4, 6 and 8 Talents have special powerful effects, and the rest of your Abilities are stronger than average.",
+        "Effect": "As a Rogue, you don't have Mana. However, from Level 3, all your Talents are Keystone Talents.",
         "ParentKey": "Starting Abilities"
     },
     "~Bells and Whistles~": {
@@ -4001,7 +3983,7 @@
         "A": "Passive",
         "Effect": "Passively, you gain access to an Ability School of choice to Know Abilities from.\nAfter you Ambush, your next 1-Mana Spell this turn costs no Mana.\n",
         "EffectGreen": "When you get this, gain +1 in a Stat of choice, up to +5.",
-        "ParentKey": "Level 8 - Minor Talent"
+        "ParentKey": "Level 8 - Keystone Talent"
     },
     "<Sharp Toss>": {
         "_Value": 6,
@@ -4011,7 +3993,7 @@
         "Effect": "This turn, whenever you do an Act, flick a throwable and deal 2 Pierce Damage to a Unit.",
         "Notes": "Can flick needles, small knives, shuriken, etc. Sharp Toss, when cast and when thrown, is not considered an Act.",
         "EffectGreen": "When you get this, gain +1 in a Stat of choice, up to +5.",
-        "ParentKey": "Level 8 - Minor Talent"
+        "ParentKey": "Level 8 - Keystone Talent"
     },
     "~Sudden Ambush~": {
         "_Value": 5,
@@ -4057,7 +4039,7 @@
         "A": "Passive",
         "Effect": "Whenever you take a Worthy Enemy from 50% (or more) to 0% Health in one turn, heal for 1d6 and reset the Cooldown of Shadowpass.",
         "EffectGreen": "When you get this, gain +1 in a Stat of choice, up to +4.",
-        "ParentKey": "Level 4 - Minor Talent"
+        "ParentKey": "Level 4 - Keystone Talent"
     },
     "<Cutting Verve>": {
         "_Value": 0.5,
@@ -4073,7 +4055,7 @@
         "HasMixins": true,
         "Effect": "When Ambushing a Unit, if there is no other Unit near it (except you), the target becomes either Fumbling or Silenced (your choice).\n",
         "EffectGreen": "When you get this, gain +1 in a Stat of choice, up to +4.",
-        "ParentKey": "Level 4 - Minor Talent"
+        "ParentKey": "Level 4 - Keystone Talent"
     },
     "<Take-Out Shadowpass>": {
         "A": "0 Actions or Reaction",
@@ -4097,14 +4079,14 @@
         "Requirement": "Only usable out of Combat",
         "Effect": "Name a specific Epic Unit, or a non-Epic Unit type.\nNext Combat, your Ambushes deal +100% Damage against the named Unit or Unit Type.\n",
         "EffectGreen": "When you get this, gain +1 in a Stat of choice, up to +4.",
-        "ParentKey": "Level 6 - Utility Talent"
+        "ParentKey": "Level 6 - Keystone Talent"
     },
     "<Blade Verge>": {
         "_Value": 2,
         "A": "Passive",
         "Effect": "Whenever YOU would Damage an Enemy leaving it at 10% Health or below, it dies, and you can instantly Shadowpass now regardless of its Cooldown.",
         "EffectGreen": "When you get this, gain +1 in a Stat of choice, up to +4.",
-        "ParentKey": "Level 6 - Utility Talent"
+        "ParentKey": "Level 6 - Keystone Talent"
     },
     "<Shadowlayers>": {
         "_Value": 1.75,
@@ -4114,7 +4096,7 @@
         "Effect": "Immediately Shadowpass back to where you last Shadowpassed from (to the original position from which you Shadowpassed), then become invisible until the start of your next Turn (or for 6 seconds). Also, passively, you can use Shadowpass to instead teleport an ally instead of yourself.",
         "Notes": "This special Shadowpass doesn't retrigger Shadowlayers, but is improved by any Shadowpass upgrades and effects you have.",
         "EffectGreen": "When you get this, gain +1 in a Stat of choice, up to +4.",
-        "ParentKey": "Level 6 - Utility Talent"
+        "ParentKey": "Level 6 - Keystone Talent"
     },
     "<Ambushing Shadowpass>": {
         "A": "Passive",
@@ -6182,6 +6164,66 @@
         "Requirement": "Requires Create Scroll and Presence > 0",
         "Effect": "You can use Create Scroll a number of times per Adventure equal to your Presence.",
         "ParentKey": "Level 7 - Keystone Talent"
+    },
+    "~Lick Wounds~": {
+        "A": "Pet Feature!",
+        "Effect": "This should be on the pet feature and can heal.",
+        "ParentKey": "Ideas"
+    },
+    "<Pet Versatile Training>": {
+        "A": "Special",
+        "Effect": "When you get this Talent and at the end of every Adventure, you can change one of your pet's animal features.",
+        "ParentKey": "Level 4 - Minor Talent"
+    },
+    "<Pet Training 101>": {
+        "A": "Passive",
+        "Effect": "Choose one more Animal feature.\nWhile you have this Talent, your pet also has that Animal feature.\n",
+        "ParentKey": "Level 3 - Keystone Talent"
+    },
+    "<Bandage Wounds>": {
+        "Cooldown": "Once / Adventure",
+        "A": "10 minutes",
+        "Effect": "Heal a Unit for 1d4 for each 10 Health it is missing.",
+        "ParentKey": "Level 4 - Minor Talent"
+    },
+    "<Pet Versatile Trainings>": {
+        "A": "Special",
+        "Effect": "When you get this Talent and at the end of every Adventure, you can change one animal feature of one of your pets.",
+        "ParentKey": "Level 2 - Minor Talent"
+    },
+    "<Pet Training 102>": {
+        "A": "Passive",
+        "Effect": "Choose one more Animal feature.\nWhile you have this Talent, your pet also has that Animal feature.\n",
+        "ParentKey": "Level 5 - Keystone Talent"
+    },
+    "~Infused Bites~": {
+        "A": "Passive",
+        "DisplayName": "{DisplayName}",
+        "Effect": "You can change your pet's attacks' Damage Type to {Type}.",
+        "Variants": [
+            {
+                "IconName": "Acid Bites",
+                "DisplayName": "Acid Bites",
+                "Type": "Acid"
+            },
+            {
+                "IconName": "Venom Bites",
+                "DisplayName": "Venom Bites",
+                "Type": "Poison"
+            },
+            {
+                "IconName": "Necrotic Bites",
+                "DisplayName": "Necrotic Bites",
+                "Type": "Scourge"
+            }
+        ],
+        "HasMixins": true,
+        "ParentKey": "Level 2 - Minor Talent"
+    },
+    "<Double Training>": {
+        "A": "Passive",
+        "Effect": "Teach each of your Animal Companions one more Animal feature.",
+        "ParentKey": "Level 4 - Minor Talent"
     },
     "~Magical Archetype~": {
         "A": "Passive",

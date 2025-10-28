@@ -1,8 +1,8 @@
 {
     "Ideas": {
-        "<Know your Enemy>": {
-            "A": "Passive",
-            "Effect": "After killing a Unit of type X, you gain...",
+        "~Lick Wounds~": {
+            "A": "Pet Feature!",
+            "Effect": "This should be on the pet feature and can heal.",
             "ParentKey": "Ideas"
         }
     },
@@ -177,6 +177,11 @@
                         ],
                         "HasMixins": true,
                         "ParentKey": "Level 2 - Minor Talents"
+                    },
+                    "<Pet Versatile Training>": {
+                        "A": "Special",
+                        "Effect": "When you get this Talent and at the end of every Adventure, you can change one of your pet's animal features.",
+                        "ParentKey": "Level 2 - Minor Talents"
                     }
                 },
                 "Level 3 - Keystone Talent": {
@@ -199,33 +204,63 @@
                     "<Slayer>": {
                         "_Value": 1,
                         "A": "Passive",
-                        "Effect": "You always know the type of a monster. You gain a different boon when fighting an enemy of a certain type:\n",
-                        "DoubleTable": {
-                            "Headers": [
-                                "Monster Type",
-                                "Boon"
-                            ],
-                            "Values": [
-                                "Aberrations, Fiends",
-                                "One attack per turn against one deals extra Damage equal to your Presence",
-                                "Beasts",
-                                "You automatically know the Stats, Health and Abilities of a Beast you're fighting (ask the QM)",
-                                "Undead",
-                                "When attacked by your pet, it becomes Slowed and Taunted (by your pet)",
-                                "People, Demons",
-                                "When Marking one, it must make an Intelligence Check or be Silenced or Crippled (your choice)"
-                            ]
-                        },
+                        "Effect": "You always know the type of a monster. You gain a different boon when ^you^ defeat a Worthy Enemy of a certain type:\n\n{DarkGreen('Beasts:')} Heal an Ally for 1d4.\n{DarkGreen('Demons:')} Your pet gains +1 Damage this Combat.\n{DarkGreen('Fiends:')} Gain 50 {Gold}Gold.\n{DarkGreen('People:')} Your next attack Cripples the target.\n{DarkGreen('Undead:')} Your pet's next attack Single-Stuns the target.\n",
+                        "HasMixins": true,
+                        "ParentKey": "Level 3 - Keystone Talent"
+                    },
+                    "<Pet Training 101>": {
+                        "A": "Passive",
+                        "Effect": "Choose one more Animal feature.\nWhile you have this Talent, your pet also has that Animal feature.\n",
                         "ParentKey": "Level 3 - Keystone Talent"
                     }
                 },
                 "Level 4 - Minor Talent": {
-                    "<Stat Bonuses 4>": {
-                        "Effect": "Gain +1 in two Stats of choice, up to +4.",
+                    "<Bandage Wounds>": {
+                        "Cooldown": "Once / Adventure",
+                        "A": "10 minutes",
+                        "Effect": "Heal a Unit for 1d4 for each 10 Health it is missing.",
                         "ParentKey": "Level 4 - Minor Talent"
                     },
-                    "<Stat Bonus 4 Extra>": {
-                        "Effect": "Gain +1 in three Stats of choice, up to +3.",
+                    "<Pet Versatile Trainings>": {
+                        "A": "Special",
+                        "Effect": "When you get this Talent and at the end of every Adventure, you can change one animal feature of one of your pets.",
+                        "ParentKey": "Level 4 - Minor Talent"
+                    },
+                    "~Lance Heave~": {
+                        "A": "Depends on Weapon",
+                        "DisplayName": "{Name}",
+                        "HasMixins": true,
+                        "DisplayRequirement": "Only usable if it hits at least 2 Units",
+                        "Tags": "AoE",
+                        "Effect": "Make a {Weapon} ^weapon^ attack {Effect}\n~Click on the Icon to select a preferred effect!~\n",
+                        "Combo": "Comboed Units take the original full Damage.",
+                        "Notes": "Can apply weapon effects. If the weapon effect requires a target, applies to one chosen Unit hit.\nRange increases do increase the length. The Damage must the same for all Units hit. All bonuses to the attack (e.g. Smite, Cursewielder, etc) also split evenly.\n",
+                        "Variants": [
+                            {
+                                "Name": "Lance Heave",
+                                "Effect": "that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.",
+                                "Weapon": "2-handed melee",
+                                "IconName": "Lance Heave"
+                            },
+                            {
+                                "Name": "Blade Heave",
+                                "Effect": "that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.",
+                                "Weapon": "1-handed melee",
+                                "IconName": "Blade Heave"
+                            },
+                            {
+                                "Name": "Penetrating Heave",
+                                "Effect": "that hits one more Unit up to 2 meters directly behind the main target.",
+                                "Weapon": "2-handed ranged",
+                                "IconName": "Penetrating Heave"
+                            },
+                            {
+                                "Name": "Piercing Heave",
+                                "Effect": "that hits one more Unit up to 2 meters directly behind the main target.",
+                                "Weapon": "1-handed ranged",
+                                "IconName": "Piercing Heave"
+                            }
+                        ],
                         "ParentKey": "Level 4 - Minor Talent"
                     }
                 },
@@ -235,7 +270,7 @@
                         "A": "1 Action",
                         "Range": "16 meters",
                         "Cooldown": "Once / Adventure",
-                        "Effect": "Make an attack on a target.\nFor each meter to the target, the attack deals 1d6 Pierce Damage, up to 8 meters.\nFor each meter to the target over 8 meters, deal one less d6.\n",
+                        "Effect": "Make an attack on a target.\nFor each meter to the target, the attack deals 1d6 Pierce Damage, up to 8 meters.\nFor each meter to the target over 8 meters, deal -1d6 Damage.\n",
                         "Notes": "At exactly 8 meters range, the attack deals 8d6 Damage. At 7 and 9 meters, it deals 7d6. At 6 and 10 meters, 6d6. And so on.",
                         "ParentKey": "Level 5 - Keystone Talent"
                     },
@@ -257,8 +292,13 @@
                         "Duration": "1 hour",
                         "HasMixins": true,
                         "Replacement": "Replaces Hunter Mark",
-                        "Effect": "Choose and mark a target you can see. ~If it's a non-Epic Unit, it is perpetually Feared while marked and has 0 base Defense.~\nYour own single target attacks and Abilities against the marked target have their ^Dice Upgraded^ to the next die type.\n",
+                        "Effect": "Choose and mark a target you can see. ~If it's a non-Epic Unit, it is perpetually Single-Stunned while Marked.~\nYour own single target attacks and Abilities against the marked target have their ^Dice Upgraded^ to the next die type.\n",
                         "Notes": "{DiceUpgrade}\n{Feared}\nA Unit can only have one Hunter Mark on it at a time.\nYour Pet lands on the closest space near the target.\n",
+                        "ParentKey": "Level 5 - Keystone Talent"
+                    },
+                    "<Pet Training 102>": {
+                        "A": "Passive",
+                        "Effect": "Choose one more Animal feature.\nWhile you have this Talent, your pet also has that Animal feature.\n",
                         "ParentKey": "Level 5 - Keystone Talent"
                     }
                 },
@@ -367,6 +407,37 @@
                 }
             },
             "Talents": {
+                "Level 2 - Minor Talent": {
+                    "<Pet Versatile Trainings>": {
+                        "A": "Special",
+                        "Effect": "When you get this Talent and at the end of every Adventure, you can change one animal feature of one of your pets.",
+                        "ParentKey": "Level 2 - Minor Talent"
+                    },
+                    "~Infused Bites~": {
+                        "A": "Passive",
+                        "DisplayName": "{DisplayName}",
+                        "Effect": "You can change your pet's attacks' Damage Type to {Type}.",
+                        "Variants": [
+                            {
+                                "IconName": "Acid Bites",
+                                "DisplayName": "Acid Bites",
+                                "Type": "Acid"
+                            },
+                            {
+                                "IconName": "Venom Bites",
+                                "DisplayName": "Venom Bites",
+                                "Type": "Poison"
+                            },
+                            {
+                                "IconName": "Necrotic Bites",
+                                "DisplayName": "Necrotic Bites",
+                                "Type": "Scourge"
+                            }
+                        ],
+                        "HasMixins": true,
+                        "ParentKey": "Level 2 - Minor Talent"
+                    }
+                },
                 "Level 3 - Keystone Talent": {
                     "<Exotic Double>": {
                         "_Value": 5,
@@ -389,12 +460,14 @@
                     }
                 },
                 "Level 4 - Minor Talent": {
-                    "<Stat Bonuses 4>": {
-                        "Effect": "Gain +1 in two Stats of choice, up to +4.",
+                    "<Double Training>": {
+                        "A": "Passive",
+                        "Effect": "Teach each of your Animal Companions one more Animal feature.",
                         "ParentKey": "Level 4 - Minor Talent"
                     },
-                    "<Pet Damage Bonus>": {
-                        "Effect": "All your Animal Companions gain +2 Max Health and +1 Damage with all attacks.",
+                    "<Pet Versatile Training>": {
+                        "A": "Special",
+                        "Effect": "When you get this Talent and at the end of every Adventure, you can change one of your pet's animal features.",
                         "ParentKey": "Level 4 - Minor Talent"
                     }
                 },

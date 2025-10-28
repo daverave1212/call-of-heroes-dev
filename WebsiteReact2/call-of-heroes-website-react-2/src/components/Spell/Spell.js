@@ -172,9 +172,6 @@ export default function Spell({
             getItemIconPathByName(Name):    
         getSpellIconPathByName(Name)
     const uniqueID = getUniqueSpellID(Name)
-
-    const spellNormalOrSubClass = IsSubspell == true? 'spell--subspell' : 'spell--normal'
-    const spellPassiveOrActiveClass = A == 'Passive' == true? 'spell--passive' : 'spell--active'
     
     const subspell = SubspellName != null? findBasicSpellByName(subspell): null
 
@@ -269,10 +266,10 @@ export default function Spell({
     return (
         <div data-selectable={isSelected != null} id={uniqueID} style={style} className={classNames(
             'spell',
-            spellNormalOrSubClass,
-            spellPassiveOrActiveClass,
+            IsSubspell == true? 'spell--subspell' : 'spell--normal',
+            A == 'Passive' == true? 'spell--passive' : 'spell--active',
             { 'spell--with-variants': hasVariants === true },
-            { 'spell__no-border': hasBorder == false }
+            // { 'spell__no-border': hasBorder == false }
         )}>
             { isSelected && <Ribbon>Selected!</Ribbon>}
             { hasBorder != false && <SpellBorder/> } 
@@ -332,17 +329,11 @@ export default function Spell({
                         { Upgrade }
                     </div>
                 ) }
-                { Notes != null && (
-                    <div className='spell-notes'>
-                        { Notes }
+                { (Subspells != null) && spellsFromObject(Subspells).map(spell => (
+                    <div style={{paddingBottom: 'var(--spell-padding-bottom)'}}>
+                        <Spell spell={spell} hasBorder={false}/>
                     </div>
-                ) }
-                { Alternatives != null && (
-                    <div className='spell-notes'>
-                        Alternatives: { Alternatives }
-                    </div>
-                ) }
-
+                ))}
                 { (SpellTable != null && (
                     <EffectTable nameEffectPairs={SpellTable.map((nameEffectPair, i) => {
                         const { Name, Effect } = nameEffectPair
@@ -350,8 +341,6 @@ export default function Spell({
                         return ({ name: parseTextWithSymbols(finalName), effect: parseTextWithSymbols(Effect)})
                     })}/>
                 )) }
-
-
                 { (DoubleTable != null || DoubleTableNumbered != null) && (
                     <TableNormal columns={tableHeaders} hasBorder={false}>
                         { newTableValuePairs.map(pair => (
@@ -371,16 +360,21 @@ export default function Spell({
                         )) }
                     </TableNormal>
                 )}
-                { (Subspells != null) && spellsFromObject(Subspells).map(spell => (
-                    <div style={{paddingBottom: 'var(--spell-padding-bottom)'}}>
-                        <Spell spell={spell} hasBorder={false}/>
-                    </div>
-                ))}
                 { (Monster != null) && (
                     <div style={{padding: 'var(--spell-padding)'}}>
                         <PetOrAnimalLeftOnly animal={Monster}/>
                     </div>
                 )}
+                { Notes != null && (
+                    <div className='spell-notes'>
+                        { Notes }
+                    </div>
+                ) }
+                { Alternatives != null && (
+                    <div className='spell-notes'>
+                        Alternatives: { Alternatives }
+                    </div>
+                ) }
                 { hasCopyButton === true && <CopySpellButton elementId={uniqueID} shouldAddBorder={true}/> }
                 { hasButton && (
                     <div>
