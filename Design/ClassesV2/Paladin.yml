@@ -172,16 +172,15 @@ Utility:
       Notes: It is the Quest Master's call if an obstacle can be broken. Most walls can't be broken, except for thinner ones and fences.
 
 
-Ability Ideas:
-
-
-
 Starting Abilities Description:
   - Holy Grace: |
       Use Holy Grace when you are in need of healing either yourself or an ally, or you need to dish out some quick, surefire Damage.
       Since this takes a Half-Action, get a 1-Handed weapon to fill your turn with something to do after using Holy Grace (or get a Spell that takes a Half-Action).
   - Divine Sense: |
       You have the power to detect foul creatures within range. Use this carefully only when you believe you need to, as it has a long cooldown.
+
+
+Talents:
 
 # Mana:       6                        |  6
 # Base        0                        |  6
@@ -196,16 +195,6 @@ Starting Abilities Description:
 # Utility
 # Healing
 # Damage
-
-
-Specializations:
-  Description: |
-    At Level 1, you can choose your oath (Specialization).
-    By choosing your oath, you dedicate yourself to a purpose; an oath is a lifestyle, not a mere choice!
-  Choices:
-    - Order of the Crusade, which inspires a strong personality and desire to achieve greatness by any means necessary
-    - Order of the Tome, knowledgeable paladins dedicated to helping the unfortunate and being someone to look up to
-    - Order of the Templar, an old sect chosen by those who vow to protect and wish to become a silent paragon of the people
 
 # Talent: When you use Divine Smite
 # Talent: Interactions with LoH and other Cooldown-based Spells
@@ -235,371 +224,396 @@ Specs:
     Description: Lorem! Lorem ipsum!!
     Starting Abilities:
 
-      ~Crusade~:
-        _Value: 2
-        A: Reaction
+
+
+Talents:
+
+  Level 3 - Minor Talent:
+
+    ~Expelling Bolt~:
+        A: 1 Action
+        Cost: 1 Mana
         Range: 5 meters
+        Degree: Minor
         HasMixins: true
-        Tags: [Healing, Damage]
+        Tags: [Damage, Ranged]
         Effect: |
-          When ^YOU^ defeat one Worthy Enemy, all excess Damage is converted to healing or Divine Damage to a Unit within 5 meters of you.
-        Notes: E.g. if a Unit has 5 Health and you deal 12 Damage, the Unit dies and you heal an ally (or yourself) for 7 Health using your Reaction, or blast another Unit for 7 Divine Damage. If you kill multiple Units at the same time, this triggers only for one of them, of your choice. Excess Damage from Crusade can also trigger Crusade.
-      
-      ~True Sense~:
-        _Value: 0.5
-        A: Half-Action
-        Cooldown: Once / Real hour
-        Range: 15 meters
-        Duration: 6 seconds
-        Replacement: Replaces Divine Sense
+            Shoot a magical bolt towards a Unit that deals 3d8 + (target's Movement Speed) Fire or Divine Damage to it.
+        Combo: Apply 2 Combos to it.
+
+    ~Lance Heave~:
+        A: Depends on Weapon
+        DisplayName: "{Name}"
         HasMixins: true
-        Tags: [Utility]
+        DisplayRequirement: Only usable if it hits at least 2 Units
+        Tags: AoE
         Effect: |
-          When you use this, for a brief moment, nearby ~presences with souls~ emmit a subtle sound and smell ^only you can detect^.
-          A random one gets a ~Combo and is Single-Stunned~.
-        Upgrade: |
-          Unholiness smells sulphurous and sounds like a deep, echoing rumbling or breath. Holiness smells churchly and sounds like a reverbing crystaline ringing. Normal souls smell like clean mineral water and sound like a flowing waterfall.
+            Make a {Weapon} ^weapon^ attack {Effect}
+            ~Click on the Icon to select a preferred effect!~
+        Combo: Comboed Units take the original full Damage.
         Notes: |
-          Walls block this smell and sound as they normally would.
-          The smell and sound can be concealed with magic.     
+          Can apply weapon effects. If the weapon effect requires a target, applies to one chosen Unit hit.
+          Range increases do increase the length. The Damage must the same for all Units hit. All bonuses to the attack (e.g. Smite, Cursewielder, etc) also split evenly.
+        Variants:
+            - Name: Lance Heave
+              Effect: that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.
+              Weapon: 2-handed melee
+              IconName: Lance Heave
+            - Name: Blade Heave
+              Effect: that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.
+              Weapon: 1-handed melee
+              IconName: Blade Heave
+            - Name: Penetrating Heave
+              Effect: that hits one more Unit up to 2 meters directly behind the main target.
+              Weapon: 2-handed ranged
+              IconName: Penetrating Heave
+            - Name: Piercing Heave
+              Effect: that hits one more Unit up to 2 meters directly behind the main target.
+              Weapon: 1-handed ranged
+              IconName: Piercing Heave
 
-    Talents:
-      Level 2 - Minor Talent:
+    <Retribution>:
+      _Value: 0.25
+      A: Half-Action
+      Cost: 1 Mana
+      Range: 3 meters
+      Tags: CC
+      Effect: Double-Stun a Unit.
+      Combo: Triple-Stun it instead.
+    
+    ~Gaiety~:
+      A: Passive
+      _Value: 3
+      HasMixins: true
+      Tags: [Movement]
+      Effect: |
+        After you cast a Utility Spell, immediately make a Movement Action (for free) or apply a ~Combo~ to an ally.
 
-        ~Expelling Bolt~:
-            A: 1 Action
-            Cost: 1 Mana
-            Range: 5 meters
-            Degree: Minor
-            HasMixins: true
-            Tags: [Damage, Ranged]
-            Effect: |
-                Shoot a magical bolt towards a Unit that deals 3d8 + (target's Movement Speed) Fire or Divine Damage to it.
-            Combo: Apply 2 Combos to it.
+  Level 2 - Keystone Talent:
 
-        ~Lance Heave~:
-            A: Depends on Weapon
-            DisplayName: "{Name}"
-            HasMixins: true
-            DisplayRequirement: Only usable if it hits at least 2 Units
-            Tags: AoE
-            Effect: |
-                Make a {Weapon} ^weapon^ attack {Effect}
-                ~Click on the Icon to select a preferred effect!~
-            Combo: Comboed Units take the original full Damage.
-            Notes: |
-              Can apply weapon effects. If the weapon effect requires a target, applies to one chosen Unit hit.
-              Range increases do increase the length. The Damage must the same for all Units hit. All bonuses to the attack (e.g. Smite, Cursewielder, etc) also split evenly.
-            Variants:
-                - Name: Lance Heave
-                  Effect: that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.
-                  Weapon: 2-handed melee
-                  IconName: Lance Heave
-                - Name: Blade Heave
-                  Effect: that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.
-                  Weapon: 1-handed melee
-                  IconName: Blade Heave
-                - Name: Penetrating Heave
-                  Effect: that hits one more Unit up to 2 meters directly behind the main target.
-                  Weapon: 2-handed ranged
-                  IconName: Penetrating Heave
-                - Name: Piercing Heave
-                  Effect: that hits one more Unit up to 2 meters directly behind the main target.
-                  Weapon: 1-handed ranged
-                  IconName: Piercing Heave
+    ~Crusade~:
+      _Value: 2
+      A: Reaction
+      Range: 5 meters
+      HasMixins: true
+      Tags: [Healing, Damage]
+      Effect: |
+        When ^YOU^ defeat one Worthy Enemy, all excess Damage is converted to healing or Divine Damage to a Unit within 5 meters of you.
+      Notes: E.g. if a Unit has 5 Health and you deal 12 Damage, the Unit dies and you heal an ally (or yourself) for 7 Health using your Reaction, or blast another Unit for 7 Divine Damage. If you kill multiple Units at the same time, this triggers only for one of them, of your choice. Excess Damage from Crusade can also trigger Crusade.
+    
+    ~True Sense~:
+      _Value: 0.5
+      A: Half-Action
+      Cooldown: Once / Real hour
+      Range: 15 meters
+      Duration: 6 seconds
+      Replacement: Replaces Divine Sense
+      HasMixins: true
+      Tags: [Utility]
+      Effect: |
+        When you use this, for a brief moment, nearby ~presences with souls~ emmit a subtle sound and smell ^only you can detect^.
+        A random one gets a ~Combo and is Single-Stunned~.
+      Upgrade: |
+        Unholiness smells sulphurous and sounds like a deep, echoing rumbling or breath. Holiness smells churchly and sounds like a reverbing crystaline ringing. Normal souls smell like clean mineral water and sound like a flowing waterfall.
+      Notes: |
+        Walls block this smell and sound as they normally would.
+        The smell and sound can be concealed with magic.     
 
-        <Retribution>:
-          _Value: 0.25
-          A: Half-Action
-          Cost: 1 Mana
-          Range: 3 meters
-          Tags: CC
-          Effect: Double-Stun a Unit.
-          Combo: Triple-Stun it instead.
-        
-        ~Gaiety~:
-          A: Passive
-          _Value: 3
-          HasMixins: true
-          Tags: [Movement]
-          Effect: |
-            After you cast a Utility Spell, immediately make a Movement Action (for free) or apply a ~Combo~ to an ally.
+    ~Crimson Contrition~:
+      A: Reaction
+      Tags: [RoI Damage]
+      Effect: Whenever you deal Damage to multiple Units at the same time, increase all Divine and Fire Damage you deal by 10% for the rest of the Combat (including that Damage).
+      Upgrade: This stacks indefinitely.
 
+    <Join the Crusade>:
+      _Value: 4
+      A: Special
+      Cooldown: Lifetime
+      AlignOnWebsite: Right
+      Tags: Other
+      Effect: |
+        A party member pledges to you. They have the Crusade Ability, and the same Level 1 and 2 Talents (including Utility) you have..
+      Upgrade: Ask a party member to join your cause and pledge their honor to you. Write a set of vows, which your companion must vow to abide to and follow with their life, upon death do you two apart.
+      Notes: |
+        Only one person can pledge for you and it must within sight or hearing to have access to all of those.
+        If you ever change this Talent, the ally loses access to all things mentioned; it regains them when you get this Talent again.
 
-      Level 3 - Keystone Talent:
-
-        ~Crimson Contrition~:
-          A: Reaction
-          Tags: [RoI Damage]
-          Effect: Whenever you deal Damage to multiple Units at the same time, increase all Divine and Fire Damage you deal by 10% for the rest of the Combat (including that Damage).
-          Upgrade: This stacks indefinitely.
-
-        <Join the Crusade>:
-          _Value: 4
-          A: Special
-          Cooldown: Lifetime
-          AlignOnWebsite: Right
-          Tags: Other
-          Effect: |
-            A party member pledges to you. They have the Crusade Ability, and the same Level 1 and 2 Talents (including Utility) you have..
-          Upgrade: Ask a party member to join your cause and pledge their honor to you. Write a set of vows, which your companion must vow to abide to and follow with their life, upon death do you two apart.
-          Notes: |
-            Only one person can pledge for you and it must within sight or hearing to have access to all of those.
-            If you ever change this Talent, the ally loses access to all things mentioned; it regains them when you get this Talent again.
-
-        ~Seal of the Aurora~:
-          A: Passive
-          _Value: 4
-          Tags: [Healing, AoE Healing]
-          Effect: Whenever you heal a Unit to full Health, heal another Unit within 5 meters of it for 50% of the amount healed.
-          Upgrade: The secondary heals can trigger Seal of the Aurora again.
-         
-        ~Flaming Reach~:
-          A: Passive
-          _Value: 6
-          Tags: [Damage, Quick Attacks]
-          Effect: |
-            Your second and all further melee attacks each Turn deal +1d4 Damage on targets you haven't attacked this Turn.
-            Their range is 3 meters and all their Damage becomes Fire.
-
-      Level 4 - Minor Talent:
-
-        ~Exorcism~:
-          A: 3 Action Points
-          Cost: 1 Mana
-          Range: 5 meters
-          Cooldown: Once / Adventure
-          Degree: Major
-          Tags: Nuke, Ultimate
-          Effect: |
-              Deal 5d10 True Damage to a Unit.
-              If it's a Demon, Fiend or Undead, increase the Damage by 50%.
-          Combo: Increase the Damage by 50%.
-
-        ~Radiance~:
-          A: 0 Actions
-          Cost: 1 Mana
-          Degree: Minor
-          Tags: AoE
-          Effect: For 1 minute, at the end of your Turn, all Units within 1 meter of you take 1d4 Divine Damage.
-          Notes: Can't stack multiple Radiances on the same Unit.
-
-        <Golden Shield>:
-          A: Half-Action
-          Cost: 1 Mana
-          Duration: Up to 1 hour
-          Degree: Minor
-          Tags: Protection
-          Effect: |
-              A Unit you can see becomes surrounded in a divine golden shield.
-              Next time the Unit would take Damage, it is completely blocked.
-          Combo: Gain back the Action Point spent.
-
-        ~Row Through~:          # Strong, but hard to land properly
-            A: 1 Action
-            Cost: 2 Mana
-            Range: 2 meters
-            HasMixins: true
-            Effect: |
-                Push a medium-sized, non-Epic Unit up to 6 meters in any direction.
-                If it collides with something, it is Triple-Stunned and takes 1d8 Smash Damage (and it stops).
-                If it collided with another Unit, that Unit is also pushed in the same direction and repeats the effect of Row Through.
-            Notes: |
-                E.g. if it collides with a Unit, that Unit is also pushed up to 6 meters and if it collides with something, it is Triple-Stunned and takes 1d8 Damage. If that thing it collided with was a Unit, that Unit is also pushed up to 6 meters and is Triple-Stunned and so on.
-                "{Stunned}"
-
-      Level 5 - Keystone Talent:
-
-        ~Smiting Fireheart~:
-          A: Passive
-          _Value: 8
-          HasMixins: true
-          Effect: After you defeat a ^Worthy Enemy^, your next attack deals +50% Damage (but can't retrigger Fire Dexterity).
-        
-        ~Eye for Revolution~:
-          _Value: 3
-          A: Passive
-          Effect: Your melee attacks deal +25% Damage for each Crowd Control they have (Double-Stun counts as 2 and Triple-Stun counts as 3). The Damage of those attacks becoms Fire.
-          Combo: '+25% Damage.'
-
-        <Jihad>:
-          _Value: No idea
-          A: Passive
-          Effect: |
-            When healing yourself with Crusade, increase the healing by 50%.
-            Additionally, you can heal yourself with Holy Grace.
-
-        ~Spreading Exigency~:
-          A: Reaction
-          Cooldown: 1 Real Hour
-          _Value: 6
-          Effect: |
-            When a Unit becomes Crowd Controlled, all Enemies within 3 meters of it must pass a Dexterity Check against your Dexterity Check, or also be affected by that Crowd Control.
-          Downside: Units affected by Retribution gain +2 to the Check.
-
-        <Suspension of Belief>:
-          _Value: 5 (can be comboed with Smite)
-          A: Reaction
-          HasMixins: true
-          AlignOnWebsite: Left
-          Effect: |
-            The moment your Mana drops to 0, freely cast Holy Grace (or an upgrade).
-          Notes: |
-            Be wary of your faith, though, for gods seldom hold a positive outlook on those putting their conviction on hiatus.
-
-        <Culling Smite>:
-          _Value: 2.25
-          A: 0 Actions
-          Cooldown: Once / Adventure
-          AlignOnWebsite: Left
-          Effect: |
-            After you roll for a melee attack, add 3d6 Divine Damage.
-            If the target does not die, refresh 1 Mana.
-          Notes: Can not be used at the same time with other "Smite" Abilities.
-
-        <Lay on Hands>:
-          _Value: 2.15
-          A: 1 Action
-          Cooldown: Once / Adventure
-          AlignOnWebsite: Right
-          Effect: Heal a Unit you can see for 50% of its Max Health.
-
-      Level 6 - Utility Talent:
-
-        ~Magic Prison~ :
-            A: 5 minutes
-            Cost: 2 Mana
-            Duration: Up to 7 days
-            Effect: |
-                Choose a Unit that has 10% or less Health.
-                You create a 4x4x4 meter magic cube from which that Unit physically can't walk through, no matter how hard they try.
-
-        ~Resurrection~ : 
-            A: 1 Action
-            Cost: 1 Mana
-            Degree: Grand
-            Effect: |
-                Touch a dead Unit, whose body is still in decent condition (as approved by the QM).
-                The dead Unit comes back to life, conscious and without Exhaustion, with 1 Health.
-
+    ~Seal of the Aurora~:
+      A: Passive
+      _Value: 4
+      Tags: [Healing, AoE Healing]
+      Effect: Whenever you heal a Unit to full Health, heal another Unit within 5 meters of it for 50% of the amount healed.
+      Upgrade: The secondary heals can trigger Seal of the Aurora again.
       
-        # <Vengeance>:
-        #   _Value: 2
-        #   A: Passive
-        #   Effect: |
-        #       When a Worthy Enemy dies in combat, get a Vengeance Counter.
-        #       Immediately when you get to 6 Vengeance Counters, gain 1 Mana or gain 1d8 Holy Points or reset the Cooldown of a Basic Spell you know (you choose).
-        #       You keep your Vengeance Counters even inbetween Adventures.
-                
-      Level 7 - Keystone Talent:
+    ~Flaming Reach~:
+      A: Passive
+      _Value: 6
+      Tags: [Damage, Quick Attacks]
+      Effect: |
+        Your second and all further melee attacks each Turn deal +1d4 Damage on targets you haven't attacked this Turn.
+        Their range is 3 meters and all their Damage becomes Fire.
 
-        ~Bravery Despite Fear~:
-          A: Half-Action
-          Cost: 1 Mana and 2d6 Health
-          Degree: Major
-          Requirement: Level 6
-          Cooldown: Once / Adventure
-          Effect: Reset the Cooldown of a different Ability.
+  Level 4 - Minor Talent:
 
-        <Personal Squire>:
-          _Value: 3
-          A: Special
-          AlignOnWebsite: Left
+    ~Exorcism~:
+      A: 3 Action Points
+      Cost: 1 Mana
+      Range: 5 meters
+      Cooldown: Once / Adventure
+      Degree: Major
+      Tags: Nuke, Ultimate
+      Effect: |
+          Deal 5d10 True Damage to a Unit.
+          If it's a Demon, Fiend or Undead, increase the Damage by 50%.
+      Combo: Increase the Damage by 50%.
+
+    ~Radiance~:
+      A: 0 Actions
+      Cost: 1 Mana
+      Degree: Minor
+      Tags: AoE
+      Effect: For 1 minute, at the end of your Turn, all Units within 1 meter of you take 1d4 Divine Damage.
+      Notes: Can't stack multiple Radiances on the same Unit.
+
+    <Golden Shield>:
+      A: Half-Action
+      Cost: 1 Mana
+      Duration: Up to 1 hour
+      Degree: Minor
+      Tags: Protection
+      Effect: |
+          A Unit you can see becomes surrounded in a divine golden shield.
+          Next time the Unit would take Damage, it is completely blocked.
+      Combo: Gain back the Action Point spent.
+
+    ~Blinding Light~:
+      A: 1 Action
+      Cost: 1 Mana
+      Cooldown: Once / Combat
+      Range: 5 meters to edge
+      Degree: Major
+      Tags: [AoE Damage, AoE Crowd Control]
+      Effect: |
+          All Units in a 4x4 meter area take 2d4 Divine Damage and are Blinded.
+
+          If only one Unit is hit by the area, it instead takes 5d4 Divine Damage and is Crippled.
+      Notes: Cover is calculated from the center of the area.
+        
+
+  Level 5 - Keystone Talent:
+
+    ~Smiting Fireheart~:
+      A: Passive
+      _Value: 8
+      HasMixins: true
+      Effect: After you defeat a ^Worthy Enemy^, your next attack deals +50% Damage (but can't retrigger Fire Dexterity).
+    
+    ~Eye for Revolution~:
+      _Value: 3
+      A: Passive
+      Effect: Your melee attacks deal +25% Damage for each Crowd Control they have (Double-Stun counts as 2 and Triple-Stun counts as 3). The Damage of those attacks becoms Fire.
+      Combo: '+25% Damage.'
+
+    <Jihad>:
+      _Value: No idea
+      A: Passive
+      Effect: |
+        When healing yourself with Crusade, increase the healing by 50%.
+        Additionally, you can heal yourself with Holy Grace.
+
+    ~Spreading Exigency~:
+      A: Reaction
+      Cooldown: 1 Real Hour
+      _Value: 6
+      Effect: |
+        When a Unit becomes Crowd Controlled, all Enemies within 3 meters of it must pass a Dexterity Check against your Dexterity Check, or also be affected by that Crowd Control.
+      Downside: Units affected by Retribution gain +2 to the Check.
+
+    <Suspension of Belief>:
+      _Value: 5 (can be comboed with Smite)
+      A: Reaction
+      HasMixins: true
+      AlignOnWebsite: Left
+      Effect: |
+        The moment your Mana drops to 0, freely cast Holy Grace (or an upgrade).
+      Notes: |
+        Be wary of your faith, though, for gods seldom hold a positive outlook on those putting their conviction on hiatus.
+
+    <Culling Smite>:
+      _Value: 2.25
+      A: 0 Actions
+      Cooldown: Once / Adventure
+      AlignOnWebsite: Left
+      Effect: |
+        After you roll for a melee attack, add 3d6 Divine Damage.
+        If the target does not die, refresh 1 Mana.
+      Notes: Can not be used at the same time with other "Smite" Abilities.
+
+    <Lay on Hands>:
+      _Value: 2.15
+      A: 1 Action
+      Cooldown: Once / Adventure
+      AlignOnWebsite: Right
+      Effect: Heal a Unit you can see for 50% of its Max Health.
+
+  Level 6 - Utility Talent:
+
+    ~Magic Prison~ :
+        A: 5 minutes
+        Cost: 2 Mana
+        Duration: Up to 7 days
+        Effect: |
+            Choose a Unit that has 10% or less Health.
+            You create a 4x4x4 meter magic cube from which that Unit physically can't walk through, no matter how hard they try.
+
+    ~Resurrection~ : 
+        A: 1 Action
+        Cost: 1 Mana
+        Degree: Grand
+        Effect: |
+            Touch a dead Unit, whose body is still in decent condition (as approved by the QM).
+            The dead Unit comes back to life, conscious and without Exhaustion, with 1 Health.
+
+  
+    # <Vengeance>:
+    #   _Value: 2
+    #   A: Passive
+    #   Effect: |
+    #       When a Worthy Enemy dies in combat, get a Vengeance Counter.
+    #       Immediately when you get to 6 Vengeance Counters, gain 1 Mana or gain 1d8 Holy Points or reset the Cooldown of a Basic Spell you know (you choose).
+    #       You keep your Vengeance Counters even inbetween Adventures.
+            
+  Level 7 - Keystone Talent:
+
+    ~Bravery Despite Fear~:
+      A: Half-Action
+      Cost: 1 Mana and 2d6 Health
+      Degree: Major
+      Requirement: Level 6
+      Cooldown: Once / Adventure
+      Effect: Reset the Cooldown of a different Ability.
+
+    <Personal Squire>:
+      _Value: 3
+      A: Special
+      AlignOnWebsite: Left
+      Effect: |
+        You recruit a trusted beginner adventurer NPC as a squire. It's one of the 4 possible squire types from the `Pets and Animals page$/Other/PetsAndAnimals`: Bold, Sneaky, Clever or Wise, whichever makes fits better story-wise (or random).
+        You can recruit one squire per Adventure, but only one can follow you in your adventures at a time.
+      Upgrade: If your squire drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your squire's wounds and heal it back to full Health.
+      Notes: Your squire is not a Player Character by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Player Character can). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!
+      Subspells:
+        ~Squire Attack~:
+          A: 1 Action (from the squire)
+          IsSubspell: true
           Effect: |
-            You recruit a trusted beginner adventurer NPC as a squire. It's one of the 4 possible squire types from the `Pets and Animals page$/Other/PetsAndAnimals`: Bold, Sneaky, Clever or Wise, whichever makes fits better story-wise (or random).
-            You can recruit one squire per Adventure, but only one can follow you in your adventures at a time.
-          Upgrade: If your squire drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your squire's wounds and heal it back to full Health.
-          Notes: Your squire is not a Player Character by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Player Character can). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!
-          Subspells:
-            ~Squire Attack~:
-              A: 1 Action (from the squire)
-              IsSubspell: true
-              Effect: |
-                  Deal 1d6 Damage of the weapon's type, or do the equivalent of a Half-Action (e.g. Sprint, Push, etc).
+              Deal 1d6 Damage of the weapon's type, or do the equivalent of a Half-Action (e.g. Sprint, Push, etc).
 
-        <Harrowing Judgement>:
-          _Value: 3... I think
-          A: 3 Action Points
-          Range: 2 meter
-          HasMixins: true
-          AlignOnWebsite: Right
+    <Harrowing Judgement>:
+      _Value: 3... I think
+      A: 3 Action Points
+      Range: 2 meter
+      HasMixins: true
+      AlignOnWebsite: Right
+      Effect: |
+        Choose a Unit with 50% or less Health.
+        A colossal spectral lance hits it and ^crushes it to death^.
+      Upgrade: Against Epic monsters, the threshold is 15% or less Health instead.
+      Note: |
+        You always know if a Unit would die from this (ask the QM).
+        The Unit dies.
+
+    ~Crimson Grace~:
+      _Value: 2.5
+      A: Half-Action
+      HasMixins: true
+      Cooldown: Once / Turn
+      Range: 3 meters
+      Replacement: Replaces Holy Grace
+      AlignOnWebsite: Right
+      Requirement: Only usable in Worthy Combat. Can't be used on Fallen Units.
+      Effect: |
+        ~Deal 2 + Your Level Divine Damage to a Worthy Enemy.~
+        ~An ally you see is healed for half of the Damage done.~
+
+    <Life Echo>:
+      _Value: 2.5
+      A: 0 Actions
+      Duration: 1 minute
+      Effect: |
+          You put a Life Echo on another ally.
+          Whenever YOU heal a different Unit, the Unit with the Life Echo on them is also healed for 50% of that amount.
+
+    <Divine Resurgence>:
+      _Value: 3
+      A: 0 Actions
+      Cooldown: Once / Adventure
+      Effect: All other Player Characters you healed this combat gain an extra Half-Action on their next turn.
+
+    <Asceticism>:
+      _Value: 2.25
+      A: 0 Actions
+      Cooldown: Once / Adventure
+      Duration: 1 minute
+      Effect: For 1 minute, all Healing you do is increased by 50%, but all Damage you deal is reduced by 50%.
+
+
+  Level 8 - Minor Talent:
+
+    <Stat Bonus 5>: Inherit
+
+    <Stat Bonuses 4>: Inherit
+
+  Level 9 - Keystone Talent:
+
+    <Aspect of Ascension>:
+      A: Half-Action
+      Cooldown: Once / Adventure
+      Duration: Until end of next turn
+      Effect: |
+        You burst with angelic wings and burning vim.
+        Until the end of your next turn, you have 50% extra Movement and can fly, and can cast unlimited Abilities that cost Mana, ignoring the Mana cost and the limits of Faith Casting.
+      Upgrade: You can't use the same Basic Ability twice on the same turn.
+      Notes: E.g. let's say you used Smite last turn. This turn you activate Aspect of Ascension. You make a 1-Handed weapon attack, and add Smite to it as well. Next turn, you cast Solace Wave and Hand of Freedom, then make anther attack to which you add Smite. Then, you end your turn and Aspect of Ascension ends. You can now still cast Solace Wave and Hand of Freedom once.
+
+  Level 10 - Ultimate Talent:
+
+    <Legion of Oathsworn>:
+      _Value: 3
+      A: Special
+      AlignOnWebsite: Right
+      Effect: |
+        In a place sanctified and pure, you start your own order of knights. Create a set of vows that your knights will abide to and have to recite to join you on your conquest.
+        You recruit a 3 beginner adventurer NPCs as squires! Each is one of the 4 possible squire types from the `Pets and Animals page$/Other/PetsAndAnimals`: Bold, Sneaky, Clever or Wise, whichever makes fits better story-wise (or random). All your squires must be different types.
+        Passively, gain +2 in all Stats. 
+      Upgrade: If your squire drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your squire's wounds and heal it back to full Health.
+      Notes: Your squire is not a Player Character by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Player Character can). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!
+      HasMixins: true
+      Downside: "{Ultimate}"
+      Subspells:
+        ~Squire Attack~:
+          A: 1 Action (from the squire)
+          IsSubspell: true
           Effect: |
-            Choose a Unit with 50% or less Health.
-            A colossal spectral lance hits it and ^crushes it to death^.
-          Upgrade: Against Epic monsters, the threshold is 15% or less Health instead.
-          Note: |
-            You always know if a Unit would die from this (ask the QM).
-            The Unit dies.
+              Deal 1d6 Damage of the weapon's type, or do the equivalent of a Half-Action (e.g. Sprint, Push, etc).
 
-        ~Crimson Grace~:
-          _Value: 2.5
-          A: Half-Action
-          HasMixins: true
-          Cooldown: Once / Turn
-          Range: 3 meters
-          Replacement: Replaces Holy Grace
-          AlignOnWebsite: Right
-          Requirement: Only usable in Worthy Combat. Can't be used on Fallen Units.
-          Effect: |
-            ~Deal 2 + Your Level Divine Damage to a Worthy Enemy.~
-            ~An ally you see is healed for half of the Damage done.~
-
-      Level 8 - Minor Talent:
-
-        <Stat Bonus 5>: Inherit
-
-        <Stat Bonuses 4>: Inherit
-
-      Level 9 - Keystone Talent:
-
-        <Aspect of Ascension>:
-          A: Half-Action
-          Cooldown: Once / Adventure
-          Duration: Until end of next turn
-          Effect: |
-            You burst with angelic wings and burning vim.
-            Until the end of your next turn, you have 50% extra Movement and can fly, and can cast unlimited Abilities that cost Mana, ignoring the Mana cost and the limits of Faith Casting.
-          Upgrade: You can't use the same Basic Ability twice on the same turn.
-          Notes: E.g. let's say you used Smite last turn. This turn you activate Aspect of Ascension. You make a 1-Handed weapon attack, and add Smite to it as well. Next turn, you cast Solace Wave and Hand of Freedom, then make anther attack to which you add Smite. Then, you end your turn and Aspect of Ascension ends. You can now still cast Solace Wave and Hand of Freedom once.
-
-      Level 10 - Ultimate Talent:
-
-        <Legion of Oathsworn>:
-          _Value: 3
-          A: Special
-          AlignOnWebsite: Right
-          Effect: |
-            In a place sanctified and pure, you start your own order of knights. Create a set of vows that your knights will abide to and have to recite to join you on your conquest.
-            You recruit a 3 beginner adventurer NPCs as squires! Each is one of the 4 possible squire types from the `Pets and Animals page$/Other/PetsAndAnimals`: Bold, Sneaky, Clever or Wise, whichever makes fits better story-wise (or random). All your squires must be different types.
-            Passively, gain +2 in all Stats. 
-          Upgrade: If your squire drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your squire's wounds and heal it back to full Health.
-          Notes: Your squire is not a Player Character by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Player Character can). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!
-          HasMixins: true
-          Downside: "{Ultimate}"
-          Subspells:
-            ~Squire Attack~:
-              A: 1 Action (from the squire)
-              IsSubspell: true
-              Effect: |
-                  Deal 1d6 Damage of the weapon's type, or do the equivalent of a Half-Action (e.g. Sprint, Push, etc).
-
-        <March of the Chosen>:
-          A: Passive
-          AlignOnWebsite: Left
-          Effect: |
-            Your entire party joins the crusade! All player characters in your party have the Crusade Ability, the same Tier 1 Talent you have and access to the Divine Ability List.
-            Also, your entire party gains +1 Might and +1 Presence.
-          HasMixins: true
-          Downside: "{Ultimate}"
+    <March of the Chosen>:
+      A: Passive
+      AlignOnWebsite: Left
+      Effect: |
+        Your entire party joins the crusade! All player characters in your party have the Crusade Ability, the same Tier 1 Talent you have and access to the Divine Ability List.
+        Also, your entire party gains +1 Might and +1 Presence.
+      HasMixins: true
+      Downside: "{Ultimate}"
 
 
-        <Laying Waste>:
-          A: Passive
-          AlignOnWebsite: Left
-          Effect: |
-            After you use Basic Ability that costs Mana with Faith Casting, reset the Cooldowns of all your Paladin Talents.
-            Passively, you gain +3 Might.
-          Notes: Flaming Reach bonus Damage stacks with itself.
-          HasMixins: true
-          Downside: "{Ultimate}"
+    <Laying Waste>:
+      A: Passive
+      AlignOnWebsite: Left
+      Effect: |
+        After you use Basic Ability that costs Mana with Faith Casting, reset the Cooldowns of all your Paladin Talents.
+        Passively, you gain +3 Might.
+      Notes: Flaming Reach bonus Damage stacks with itself.
+      HasMixins: true
+      Downside: "{Ultimate}"
 

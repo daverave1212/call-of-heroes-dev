@@ -8,71 +8,189 @@ Quick Note: Knights are the knights, the crusaders and the vigilantes who bear d
 
 Weapons: You are Trained in 2 Weapon Categories of choice (e.g. 1-Handed Melee, 2-Handed Ranged, Shields, etc).
 
-Difficulty: Medium
-
+Difficulty: Hard
 
 
 Level Up:
   Every Level:
-    Health: 4
-  Mana:
-    Amount: 2
-    Regain: Your Mana resets after every combat.
-    Per: per Worthy Combat
+    Health: 5
 
 Spellcasting:
-  Type: Knight
-  SpellsOrAbilities: Spell
+  Type: Mana-based
+  SpellsOrAbilities: Ability
 
+  Spell Grade: 6 + Intelligence, Presence or Presence, whichever is higher
   Mana:
-    Amount: 2
-    Regain: You regain all Mana at the end of each Worthy Combat.
+    Amount: 1
+    Regain: You regain all Mana back inbetween Adventures.
+    Per: per Adventure
 
   Change: You can change your known Spells and Talents inbetween Adventures.
-  Other: All Knight-specific Abilities are considered Spells (unless stated otherwise).
-
-  Known Basic Abilities: 2
-  
+  Other: All Warrior-specific Abilities are not considered Spells (unless stated otherwise).
+  Known Basic Abilities: 2 + Intelligence (minimum 1)
   BaseKnownSpells: 2
+  Basic Ability Lists:
+    - Bloodshed
+    - Warfare
+
+  Recommended Basic Abilities:
+    - Bloodshed: Recuperate
+    - Bloodshed: Slam
+    - Bloodshed: Chilling Shout
+    - Bloodshed: Bull Rush
+    - Warfare: Atonement
+
+  Recommended Abilities Description: |
+    Warriors should be able to withhold damage, and as such, we recommend Recuperate for some extra healing and breaking enemy effects on you. Slam will provide you with area damage and Chilling Shout is a great ranged attack for the Mana cost. If you still have more available Basic Spells, no-one ever complained about having Bull Rush - it's a great passive effect for dealing extra damage. Lastly, if your Presence is low, Atonement will be great in combat for survival, if you're expecting to take a lot of damage.
 
 
-Starting Abilities:
+Ideas:
+  ~Silver Valor~:
+    A: 0 Actions
+    Cooldown: Once / 2 Turns
+    Effect: |
+      Your Abilities can ^chain^ after eachother.
+      After using an Ability (A), the next Act (B) might get a bonus. The Ability (A) lists what the bonus on the next Act is, depending on its type.
+      When casting this, start a ^chain^:
 
+      {Chain} Weapon Attack: +1d4 Damage
+      {Chain} Area Damage: +100% length and width
+  
+  ~Actions With Valor~:
+    A: Passive
+    Effect: |
+      Your Abilities and attacks have bonus effects if made with {Teal('Valor')}.
+      An Ability triggers its {Teal('Valor')} effect if it was made immediately after another Ability's {Teal('next')} property.
+
+  ~True Attack~:
+    A: 0 Actions
+    Effect: |
+      {Teal('Valor:')} Your next weapon attack deals +1 Damge for each Action Point it costs.
+
+  ~Row Through~:
+    A: Depends on weapon
+    Cooldown: Once / Turn
+    Effect: |
+      Make a weapon attack with +1 Range.
+      
+      {Teal('With Valor:')} Hits one more Unit within 2 meters of the main target with -50% Damage.
+      {Teal('Next:')} Healing Ability
+
+  ~Run of Champions~:
+    A: Half-Action
+    Cooldown: Once / Turn
+    Effect: |
+      Make a Movement Act with +1 Movement Speed.
+
+      {Teal('With Valor:')} Gain 1 Shielding that can block 1d6 Damage.
+      {Teal('Next:')} Crowd Control Ability
 
   ~Blockade~:
     _Value: 1
     A: Reaction
-    Range: 4 meters to that ally
+    Range: 3 meters to that ally
     HasMixins: true
     Effect: |
       When another Unit is targeted and attacked (after the roll), dash to the closest space to that ally.
       You take the ^exact Damage^ instead of the Unit.
 
-      {Chain} Move: +100% Move Speed
-      {Chain} Half-Action Attack: +50% Damage
-      {Chain} Silver Grace: Gives you 1 Shielding equal to the Healed Amount.
-    Upgrade: This Damage can only be mitigated by Shielding (and Silver Grace).
+      {Teal('With Valor:')} You take -50% Damage from the final Damage
+      {Teal('Next:')} Area Damage or Ability that can move yourself
+    Upgrade: This Damage can only be mitigated by Shielding.
     Notes: Requires a clear direct path.
 
-  ~Silver Grace~:
-    _Value: 0
+  ~Stand Strong, Fellows~:
     A: Half-Action
-    HasMixins: true
     Cooldown: Once / Turn
-    Tags: [Healing, Damage]
-    Requirement: Only usable in Worthy Combat. Can't be used on Fallen Units.
-    Range: 3 meters
-    Replacement: Replaces Holy Grace
+    Requirement: Only usable in Worthy Comabt
     Effect: |
-      Heal a Unit for 1d6 (but not yourself).
-      Your next attack until the end of your next Turn deals extra Damage equal to the amount just Healed.
+      Heal all Units within 1 meter of you for 1d2.
 
-      {Chain} Other Healing: +50% Heal.
-      {Chain} Blockade: +100% Range and -2 Damage taken.
-      {Chain} Non-Healing Mana Ability: Costs 1 less Action Point.
+      {Teal('With Valor:')} 1d4 Healing instead
+      {Teal('Next:')} Ability that can hit multiple Units
+
+  ~Templar Retribution~:
+    A: Half-Action
+    Range: 3 meters
+    Effect: |
+      Single-Stun a Unit.
+
+      {Teal('With Valor:')} Double-Stun instead.
+      {Teal('Next:')} Ability that can Heal
+
+  ~No Matter What~:
+    A: Passive
+    Requirement: Only applies in Worthy Combat
+    Effect: |
+      At the end of your every Turn, heal for an amount equal to the Round Number.
+
+      {Teal('With Valor:')} Also heals an Ally you can see
+      {Teal('Next:')} Damaging Ability
+
+  <Fellowship Aura>:
+    _Value: 0.75
+    A: Passive
+    Effect: |
+      You stand out for allies near you.
+      Enemy ranged attacks against other allies within 1 meter of you have Cover.
+    Notes: Nothing happens if an ally near you already has Cover. If playing on a grid, this does work for allies diagonally.
+
+  ~Liberating Judgement~:
+    A: Half-Action
+    Range: 3 meters
+    Degree: Lesser
+    Tags: [Damage, Mobility]
+    Effect: |
+      Deal 2d4 Damage to a Unit (you choose the Damage Type).
+      
+      {Teal('With Valor:')} Then move a number of meters equal to the lower of the dice.
+      {Teal('Next:')} Damaging Ability
+
+
+
+
+Starting Abilities:
+
+  ~War Craft~:
+    A: Passive
+    Effect: |
+      No two warriors fight alike. Choose your War Craft from below!
+      Each War Craft usually gives you a way to deal {Color('#ff5900' '+1d4 extra Damage each Turn')}.
+    Upgrade: You may change your War Craft inbetween Adventures.
 
 
 Ability Choices:
+
+    ~Lance Heave~:
+        A: Depends on Weapon
+        DisplayName: "{Name}"
+        HasMixins: true
+        DisplayRequirement: Only usable if it hits at least 2 Units
+        Tags: AoE
+        Effect: |
+            Make a {Weapon} ^weapon^ attack {Effect}
+            ~Click on the Icon to select a preferred effect!~
+        Combo: Comboed Units take the original full Damage.
+        Notes: |
+          Can apply weapon effects. If the weapon effect requires a target, applies to one chosen Unit hit.
+          Range increases do increase the length. The Damage must the same for all Units hit. All bonuses to the attack (e.g. Smite, Cursewielder, etc) also split evenly.
+        Variants:
+            - Name: Lance Heave
+              Effect: that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.
+              Weapon: 2-handed melee
+              IconName: Lance Heave
+            - Name: Blade Heave
+              Effect: that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.
+              Weapon: 1-handed melee
+              IconName: Blade Heave
+            - Name: Penetrating Heave
+              Effect: that hits one more Unit up to 2 meters directly behind the main target.
+              Weapon: 2-handed ranged
+              IconName: Penetrating Heave
+            - Name: Piercing Heave
+              Effect: that hits one more Unit up to 2 meters directly behind the main target.
+              Weapon: 1-handed ranged
+              IconName: Piercing Heave
 
     ~Smite~:
       _Value: 1 (you gain 1 mana back)
@@ -159,128 +277,7 @@ Utility:
           After casting this Ability, if you moved this turn, you can continue your movement.
       Notes: It is the Quest Master's call if an obstacle can be broken. Most walls can't be broken, except for thinner ones and fences.
 
-
 Talents:
-  Level 2 - Minor Talent:
-
-    ~Lance Heave~:
-        A: Depends on Weapon
-        DisplayName: "{Name}"
-        HasMixins: true
-        DisplayRequirement: Only usable if it hits at least 2 Units
-        Tags: AoE
-        Effect: |
-            Make a {Weapon} ^weapon^ attack {Effect}
-            ~Click on the Icon to select a preferred effect!~
-
-            {Chain} Blockade: +4 Range.
-            {Chain} Stun: Increase it by 1 tier.
-            {Chain} Deal Area Damage: Dice Upgraded to next die type.
-        Notes: |
-          Can apply weapon effects. If the weapon effect requires a target, applies to one chosen Unit hit.
-          Range increases do increase the length. The Damage must the same for all Units hit. All bonuses to the attack (e.g. Smite, Cursewielder, etc) also split evenly.
-          {DiceUpgraded}
-        Variants:
-            - Name: Lance Heave
-              Effect: that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.
-              Weapon: 2-handed melee
-              IconName: Lance Heave
-            - Name: Blade Heave
-              Effect: that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.
-              Weapon: 1-handed melee
-              IconName: Blade Heave
-            - Name: Penetrating Heave
-              Effect: that hits one more Unit up to 2 meters directly behind the main target.
-              Weapon: 2-handed ranged
-              IconName: Penetrating Heave
-            - Name: Piercing Heave
-              Effect: that hits one more Unit up to 2 meters directly behind the main target.
-              Weapon: 1-handed ranged
-              IconName: Piercing Heave
-    
-    <Consacrated Ground>:
-      A: Half-Action
-      Cost: 1 Mana
-      Cooldown: Once / Turn
-      HasMixins: true
-      Effect: |
-        All ^enemies^ within 2 meters of you take 1d10 Fire Damage.
-        At the start of your next Turn, deal another 1d10 Fire Damage to all ^Units^ in the same area.
-
-        {Chain} Healing: Permanently increase their Health by 1.
-        {Chain} Blockade: Move the area with you. Only affects ^enemies^.
-        {Chain} Different Area Damage: +100% size and effects only ^enemies^.
-        
-
-    <Templar Retribution>:
-      _Value: 0.25
-      A: 0 Action Points
-      Cost: 1 Mana
-      Range: 3 meters
-      Tags: CC
-      Effect: |
-        Single-Stun a Unit.
-        
-        {Chain} Healing: Clears all Crowd Control on the target.
-        {Chain} Crowd Control: Spreads to 1 other Unit within 5 meters of you.
-        {Chain} Divine Sense: Damages all unholies for 1d4. Heals all holies for 1d4.
-
-      Combo: Double-Stun it instead.
-
-
-
-
-    # <Hallowed Ward>:
-    #   _Value: 1.75
-    #   A: 0 Actions
-    #   Cooldown: Once / Adventure
-    #   Effect: |
-    #     You prepare to take a lethal blow.
-    #     If you would drop to 0 Health until the start of your next turn, you remain instead at 1 Health and can't take Damage until the start of your next turn.
-    #     When this happens, divine rays strike all enemies within 3 meters of you, and they all take 1d10 Divine Damage.
-
-    # <Reckoning> :
-    #   _Value: 1
-    #   A: 1 Action
-    #   Range: 6 meters
-    #   Cooldown: Once / Adventure
-    #   Effect: |
-    #     Make a spell attack on a target for 2d8 Pulse Damage.
-    #     It must succeed a Might Check or be Crippled and pushed away from you until the distance between you and the target is 6 meters.
-    #     If it stops in a wall or another enemy, it takes another 2d8 Pulse Damage.
-
-  Level 3 - Keystone Talent:
-
-    <Join the Templar>:
-      _Value: 4
-      A: Special
-      Cooldown: Lifetime
-      AlignOnWebsite: Right
-      Tags: Other
-      Effect: |
-        A party member pledges to you. They have the Blockade and Silver Grace Abilities.
-      Upgrade: Ask a party member to join your cause and pledge their honor to you. Write a set of vows, which your companion must vow to abide to and follow with their life, upon death do you two apart.
-      Notes: |
-        Only one person can pledge for you and it must within sight or hearing to have access to all of those.
-        If you ever change this Talent, the ally loses access to all things mentioned; it regains them when you get this Talent again.
-
-    <Fellowship Aura>:
-      _Value: 0.75
-      A: Passive
-      Effect: |
-        You stand out for allies near you.
-        Enemy ranged attacks against other allies within 1 meter of you have Cover.
-      Notes: Nothing happens if an ally near you already has Cover. If playing on a grid, this does work for allies diagonally.
-
-    <Martyrdom>:
-      _Value: 2.25  # But it's quite situational
-      A: Reaction
-      Cooldown: Once / Adventure
-      Effect: |
-        Use when an ally (or you) falls to 0 Health.
-        Immediately cast Holy Grace (or an upgraded version), ignoring its Cooldown and the Fallen Unit limitation.
-      Notes: If that Fallen ally was healed, it Rises without Exhaustion.
-
 
   Level 5 - Keystone Talent:
 
@@ -302,96 +299,23 @@ Talents:
       Effect: |
         If you're wearing Heavy Armor or a Shield, you have +1 Defense and +5 Max Health.
 
-    <Broken Hearts>:
-      _Value: 2.25
-      A: 0 Actions
-      Cooldown: Once / Adventure
+    <White Knighthood>:
+      A: Passive
+      _Value: 2+
+      HasMixins: true
+      Requirement: White Clothes
       Effect: |
-          All Damaged Enemies within 4 meters of you 2d4 + 1 True Damage and are Feared.
-      Notes: Cover is applied normally. Enemies with full Health are not affected.
+        While at or above 35 Health and wearing white clothes, all your Abilities have their ^Dice Upgraded^ to the next die type.
+      Notes: |
+        {DiceUpgrade}
 
   Level 6 - Utility Talent:
 
-    ~People's Temple~:
-        A: 10 minutes
-        Duration: 24 hours or until you exit
-        Cooldown: 1 in-game week
-        Degree: Grand
+    ~Get Up, Stand Up~:
+        A: 0 Actions
+        Cooldown: Once / Adventure
+        Degree: Minor
         Effect: |
-            Create a sanctified space with a diameter equal to your Level centered on you.
-            While inside the space, Units can't be seen or heard from the outside.
-            Enemies tend to avoid the space, feeling a resistance against stepping towards the space.
-            At the end of the duration, all Units inside gain +1 Max Health.
-        Notes: If the Lodge would be destroyed with people inside, each will automatically be expulsed (appear) in a space within 3 meters of the door (randomly or by QM's choice).
-
-    ~The Coming Again~:
-        A: Half-Action
-        Cooldown: Once / real month
-        Effect: |
-          When you die, your body stays unharmed for up to 7 days and enemies tend to avoid damaging you further, feeling a resistance against hurting your dead body.
-          When you use this Ability, you rise back from the dead with 15 Health and no Exhaustion, at any point within the 7 days.
-
-    # <Sanctuary Zone>:         # 2?
-    #     A: 0 Action
-    #     Cooldown: Once / Adventure
-    #     Range: 6 meters to edge
-    #     Duration: 2 turns
-    #     Effect: |
-    #         Declare a 7x7 area.
-    #         All units in the area take -50% Damage (after Defense).
-    #     Notes: Lasts until the start of your next turn's next turn.
-
-  Level 7 - Keystone Talent:
-    
-    <Personal Squire>: Inherit
-
-    <Pet Attack>: Inherit
-
-    <Warrior Apparitions>:
-      _Value: 3
-      A: Passive
-      AlignOnWebsite: Right
-      Effect: |
-        Whenever you heal someone else, summon a Warrior Presence in any space near the target, with Health equal to the amount restored.
-        Warrior Spirits have 4 Speed and can attack for 1d4 Divine Damage. They take their turn after yours.
+            Remove all your party members' Exhaustion (from any source).
+            If they were Exhausted from lack of sleep, they can resist sleep Exhaustion for 8 more hours.
             
-    <Avenging Blockade>:
-      _Value: 2.5
-      A: Reaction
-      HasMixins: true
-      Replacement: Replaces Blockade
-      AlignOnWebsite: Right
-      Effect: |
-        When another ally is targeted and attacked (after the roll), dash to the closest space to that ally.
-        You take the Damage instead of the ally, and the Damage is reduced by 2, ~then you can immediately make an attack (freely) with a 1-Handed Melee Weapon on the attacker that deals -50% Damage (if it's within 3 meters of you).~
-      Notes: If the 1-Handed Weapon is not equipped, you quickly and freely equip it, attack, then switch back to your previous weapons.
-
-  Level 8 - Minor Talent:
-
-    <Stat Bonus 5>: Inherit
-
-    <Stat Bonuses 4>: Inherit
-
-  Level 10 - Ultimate Talent:
-
-    <Vows of Unbreaking>:
-      A: Passive
-      AlignOnWebsite: Left
-      Effect: |
-        Your Max Health (without buffs/items) increases by 100% and you become immune to curses, diseases and poison.
-        You automatically pass all Very Hard Might Checks (requiring at least 20).
-      HasMixins: true
-      Downside: "{Ultimate}"
-
-    <Vows of Truth>:
-      A: Passive
-      AlignOnWebsite: Left
-      Effect: |
-        You may use Blockage an unlimited number of times per Round (ignoring its Reaction limit). The first time you use Blockade every Round, you take no Damage.
-        You gain +1 Might and Presence and you automatically pass all Hard Presence Checks (requiring at least 15).
-        Upon taking the Vows of Truth, you become incapable of telling lies, and you will only tell the truth as you see it (or avoid it).
-      HasMixins: true
-      Downside: "{Ultimate}"
-
-    <Legion of Oathsworn>: Inherit
-
