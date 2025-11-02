@@ -45,95 +45,6 @@ Spellcasting:
 
 
 Ideas:
-  ~Silver Valor~:
-    A: 0 Actions
-    Cooldown: Once / 2 Turns
-    Effect: |
-      Your Abilities can ^chain^ after eachother.
-      After using an Ability (A), the next Act (B) might get a bonus. The Ability (A) lists what the bonus on the next Act is, depending on its type.
-      When casting this, start a ^chain^:
-
-      {Chain} Weapon Attack: +1d4 Damage
-      {Chain} Area Damage: +100% length and width
-  
-  ~Actions With Valor~:
-    A: Passive
-    Effect: |
-      Your Abilities and attacks have bonus effects if made with {Teal('Valor')}.
-      An Ability triggers its {Teal('Valor')} effect if it was made immediately after another Ability's {Teal('next')} property.
-
-  ~True Attack~:
-    A: 0 Actions
-    Effect: |
-      {Teal('Valor:')} Your next weapon attack deals +1 Damge for each Action Point it costs.
-
-  ~Row Through~:
-    A: Depends on weapon
-    Cooldown: Once / Turn
-    Effect: |
-      Make a weapon attack with +1 Range.
-      
-      {Teal('With Valor:')} Hits one more Unit within 2 meters of the main target with -50% Damage.
-      {Teal('Next:')} Healing Ability
-
-  ~Run of Champions~:
-    A: Half-Action
-    Cooldown: Once / Turn
-    Effect: |
-      Make a Movement Act with +1 Movement Speed.
-
-      {Teal('With Valor:')} Gain 1 Shielding that can block 1d6 Damage.
-      {Teal('Next:')} Crowd Control Ability
-
-  ~Blockade~:
-    _Value: 1
-    A: Reaction
-    Range: 3 meters to that ally
-    HasMixins: true
-    Effect: |
-      When another Unit is targeted and attacked (after the roll), dash to the closest space to that ally.
-      You take the ^exact Damage^ instead of the Unit.
-
-      {Teal('With Valor:')} You take -50% Damage from the final Damage
-      {Teal('Next:')} Area Damage or Ability that can move yourself
-    Upgrade: This Damage can only be mitigated by Shielding.
-    Notes: Requires a clear direct path.
-
-  ~Stand Strong, Fellows~:
-    A: Half-Action
-    Cooldown: Once / Turn
-    Requirement: Only usable in Worthy Comabt
-    Effect: |
-      Heal all Units within 1 meter of you for 1d2.
-
-      {Teal('With Valor:')} 1d4 Healing instead
-      {Teal('Next:')} Ability that can hit multiple Units
-
-  ~Templar Retribution~:
-    A: Half-Action
-    Range: 3 meters
-    Effect: |
-      Single-Stun a Unit.
-
-      {Teal('With Valor:')} Double-Stun instead.
-      {Teal('Next:')} Ability that can Heal
-
-  ~No Matter What~:
-    A: Passive
-    Requirement: Only applies in Worthy Combat
-    Effect: |
-      At the end of your every Turn, heal for an amount equal to the Round Number.
-
-      {Teal('With Valor:')} Also heals an Ally you can see
-      {Teal('Next:')} Damaging Ability
-
-  <Fellowship Aura>:
-    _Value: 0.75
-    A: Passive
-    Effect: |
-      You stand out for allies near you.
-      Enemy ranged attacks against other allies within 1 meter of you have Cover.
-    Notes: Nothing happens if an ally near you already has Cover. If playing on a grid, this does work for allies diagonally.
 
   ~Liberating Judgement~:
     A: Half-Action
@@ -144,140 +55,177 @@ Ideas:
       Deal 2d4 Damage to a Unit (you choose the Damage Type).
       
       {Teal('With Valor:')} Then move a number of meters equal to the lower of the dice.
-      {Teal('Next:')} Damaging Ability
-
-
-
-
-Starting Abilities:
-
-  ~War Craft~:
-    A: Passive
-    Effect: |
-      No two warriors fight alike. Choose your War Craft from below!
-      Each War Craft usually gives you a way to deal {Color('#ff5900' '+1d4 extra Damage each Turn')}.
-    Upgrade: You may change your War Craft inbetween Adventures.
-
-
-Ability Choices:
-
-    ~Lance Heave~:
-        A: Depends on Weapon
-        DisplayName: "{Name}"
-        HasMixins: true
-        DisplayRequirement: Only usable if it hits at least 2 Units
-        Tags: AoE
-        Effect: |
-            Make a {Weapon} ^weapon^ attack {Effect}
-            ~Click on the Icon to select a preferred effect!~
-        Combo: Comboed Units take the original full Damage.
-        Notes: |
-          Can apply weapon effects. If the weapon effect requires a target, applies to one chosen Unit hit.
-          Range increases do increase the length. The Damage must the same for all Units hit. All bonuses to the attack (e.g. Smite, Cursewielder, etc) also split evenly.
-        Variants:
-            - Name: Lance Heave
-              Effect: that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.
-              Weapon: 2-handed melee
-              IconName: Lance Heave
-            - Name: Blade Heave
-              Effect: that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.
-              Weapon: 1-handed melee
-              IconName: Blade Heave
-            - Name: Penetrating Heave
-              Effect: that hits one more Unit up to 2 meters directly behind the main target.
-              Weapon: 2-handed ranged
-              IconName: Penetrating Heave
-            - Name: Piercing Heave
-              Effect: that hits one more Unit up to 2 meters directly behind the main target.
-              Weapon: 1-handed ranged
-              IconName: Piercing Heave
-
-    ~Smite~:
-      _Value: 1 (you gain 1 mana back)
-      A: 0 Actions
-      Cooldown: Once / Turn
-      Cost: 1 Mana
-      Tags: [Damage, Finisher]
-      Effect: |
-          After you roll Damage for a melee attack or Spell made in melee range, add 1d6 Divine Damage.
-          If the target dies, regain 1 Mana.
-      Combo: Heal for the extra Damage dealt.
-      Notes: Melee range is 1 meter, longer if made with a Weapon with longer range.
-
-    ~Invigorate~:
-        A: 0 Actions
-        Cost: 1 Mana
-        Range: 5 meters
-        HasMixins: true
-        Degree: Minor
-        Tags: Healing
-        Effect: |
-            Heal a target for 1d4 + ^Presence or Intelligence^ Health.
-            After this, if the target is at full Health, repeat this on another target within 5 meters of you.
-        Combo: If the target is Comboed and still not full Health, increase the Healing by 50%.
-        Notes: Yes, this can chain again and again.
-    
-    ~Safeguard~:
-      A: 1 Action
-      Cost: 1 Mana
-      Tags: Protection
-      Effect: |
-        A Unit you can see gains 2 Shieldings. Each can block 1d8 Damage.
-        Each die that rolled maximum applies a ~Combo~.
-
-    ~Knighthood~:
-      A: Passive
-      Effect: |
-        While mounted, after moving in a straight line at least 3 meters, your first attack this turn also hits a Unit directly behind the main target for 50% of the incoming Damage.
-      Combo: Each Comboed Unit hit becomes Single-Stunned.
+      {Teal('Next:')} Damaging Act
 
 
 Utility:
 
-    ~Light~:
-        A: 0 Actions
-        Range: 3 meters
-        Duration: 30 real minutes
-        Cooldown: 30 real minutes
-        Degree: Lesser
-        Tags: Utility
-        Effect: |
-            Create a faithful source of light in a 3 meters radius (of any color).
-            It levitates and stays where you put it and can be moved by hand, or you can simply stick it to any solid object.
-        Notes: |
-            You may cancel it with 0 Actions. It can be purposefully destroyed with an Attack.
-            The light is not strong enough to blind someone.
-            The bulb can't go through solid objects.
-
-    ~Guidance~ :
-        A: Reaction
-        Range: 10 meters
-        Cooldown: 1 real hour
-        Tags: Utility
-        Effect: When an ally makes a Check, also add your respective Stat for that Check.
-
-    ~Liberation~:
-        A: Reaction or 0 Actions
-        Cost: 1 Mana
-        Requirement: Level 3
-        Degree: Minor
-        Effect: |
-            Instantly remove all Crowd Control from another ally you can see.
-        Upgrade: |
-            At Level 5, also removes all non-magical debuffs and poisons.
-            At Level 8, also removes all curses and normal negative magical effects.
-
-    ~Vault Break~:
-      Degree: Lesser
-      A: 0 Actions
-      Cooldown: 1 real hour
-      Range: 3 meters
+  ~Liberation~:
+      A: Reaction or 0 Actions
+      Cost: 1 Mana
+      Requirement: Level 3
+      Degree: Minor
       Effect: |
-          Slam the ground so hard that it shatters one obstacle that fits within a 3x3x3 meter area.
-          After casting this Ability, if you moved this turn, you can continue your movement.
-      Notes: It is the Quest Master's call if an obstacle can be broken. Most walls can't be broken, except for thinner ones and fences.
+          Instantly remove all Crowd Control from another ally you can see.
+      Upgrade: |
+          At Level 5, also removes all non-magical debuffs and poisons.
+          At Level 8, also removes all curses and normal negative magical effects.
+
+  ~Nominate Squire~:
+    A: Special
+    Effect: |
+      Nominate a Player Character from your party to become your _squire_ - your trusted companion and helper in your quest.
+      You get +3 Max Health and your squire gets -2 Max Health.
+      Whenever one of you would get a Quirk, you can choose to deny it, and be given a different Quirk that fits the situation.
+
+  ~Vows~:
+    A: 10 minutes
+    Cooldown: Depends
+    Requirement: Only usable in Campaigns with multiple sessions
+    Effect: |
+      Vow on achieving a goal that would take at least 1 full Adventure.
+      Upon reaching your goal, you get Max Health and a number of Positive Quirks equal to the number of sessions it took.
+    Upgrade: You can only have one vow at a time. Abandoning a vow gives you a Negative Quirk.
+
+  ~Trusted Steed~:
+    A: Passive
+    Effect: |
+      You have a steed that increases ^your^ non-Combat movement speed 50%.
+      When dismounting, your steed runs away and disappears into the surroundings.
+      Once per real hour, you can whistle for your steed and it will appear running toward you and you automatically mount it.
+    Notes: The steed can be any animal that fits the story. The steed does not participate in Combat.
+
+
+Starting Abilities:
+
+  ~Actions With Valor~:
+    A: Passive
+    Effect: |
+      Your Abilities and attacks have bonus effects if made {Teal('With Valor')}.
+      An Ability triggers its {Teal('Valor')} effect if it was made immediately after another Ability's {Teal('Next')}.
+
+  ~Bannerman~:
+    A: Half-Action
+    Effect: 
 
 Talents:
+
+  Level 1 - Minor Talent:
+
+    ~Row Through~:
+      A: Depends on weapon
+      Cooldown: Once / Turn
+      Tags: [Damage, Area Damge]
+      Effect: |
+        Make a weapon attack with +1 Range.
+        
+        {Teal('With Valor:')} Hits one more Unit within 2 meters of the main target with -50% Damage.
+        {Teal('Next:')} Healing Ability
+
+    ~Stand Strong, Fellows~:
+      A: Half-Action
+      Cooldown: Once / Turn
+      Requirement: Only usable in Worthy Comabt
+      Tags: [Healing]
+      Effect: |
+        Heal all Units within 1 meter of you for 1d2.
+
+        {Teal('With Valor:')} 1d4 Healing instead
+        {Teal('Next:')} Movement Ability
+
+    ~Champion's Gallop~:
+      A: Half-Action
+      Cooldown: Once / Turn
+      Tags: [Movement, Tanking]
+      Effect: |
+        Make a Movement Act with +1 Movement Speed.
+
+        {Teal('With Valor:')} {Effect}.
+        {Teal('Next:')} Crowd Control Ability
+      Variants:
+        - Effect: Gain 1 Shielding that can block 1d4 Damage.
+        - Effect: With +2 Movement Speed instead (requires a mount).
+      
+    ~Knockback~:
+      A: Half-Action
+      Tags: [Crowd Control]
+      Effect: |
+        Slam a Unit 1d4 meters in any direction.
+        
+        {Teal('With Valor:')} 1d8 meters instead
+        {Teal('Next:')} Damage Ability
+
+
+# Extra keywords: Buff
+  Level 2 - Minor Talent:
+
+    ~True Attack~:
+      A: Depends on weapon
+      Cooldown: Once / Turn
+      Tags: [Damage]
+      Effect: |
+        Make a weapon attack. The target gains a Combo.
+
+        {Teal('With Valor:')} +1 Damage for each Action Point it costs.
+        {Teal('Next:')} Movement Ability
+
+    ~Self-Sacrifice~:
+      A: Half-Action
+      Cooldown: Once / Turn
+      Requirement: Only usable in Worthy Combat
+      Tags: [Healing]
+      Range: 5 meters
+      Effect: |
+        Take 2d6 True Damage. Heal a different ally for 200% of the rolled amount.
+
+        {Teal('With Valor:')} They gain +1 Health Regen for the rest of the Adventure.
+        {Teal('Next:')} Crowd Control Ability
+      Notes: Can not be used on other Knights.
+
+    ~Blockade~:
+      _Value: 1
+      A: Reaction
+      Range: 3 meters to that ally
+      HasMixins: true
+      Tags: [Movement, Shielding]
+      Effect: |
+        When another Unit is targeted and attacked (after the roll), dash to the closest space to that ally.
+        You take the ^exact Damage^ instead of the Unit.
+
+        {Teal('With Valor:')} Give them 1 Shielding that can block 1d4 Damage
+        {Teal('Next:')} Damage Ability
+      Upgrade: This Damage can only be mitigated by Shielding.
+      Notes: Requires a clear direct path.
+
+    ~Templar Retribution~:
+      A: Half-Action
+      Range: 3 meters
+      Tags: [Crowd Control]
+      Effect: |
+        Single-Stun a Unit. Gain 3d10 Gold.
+
+        {Teal('With Valor:')} Double-Stun instead.
+        {Teal('Next:')} Healing Ability
+
+  Level 3 - Keystone Talent:
+
+    ~No Matter What~:
+      A: Passive
+      Requirement: Only applies in Worthy Combat
+      Effect: |
+        At the end of your every Turn, heal for an amount equal to the Round Number.
+
+        {Teal('With Valor:')} Also heals an Ally you can see
+        {Teal('Next:')} Crowd Control
+
+    <Fellowship Aura>:
+      _Value: 0.75
+      A: Passive
+      Effect: |
+        You stand out for allies near you.
+        Enemy ranged attacks against other allies within 1 meter of you have Cover.
+      Notes: Nothing happens if an ally near you already has Cover. If playing on a grid, this does work for allies diagonally.
+
 
   Level 5 - Keystone Talent:
 
