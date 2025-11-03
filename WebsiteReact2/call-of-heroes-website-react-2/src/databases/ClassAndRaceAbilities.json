@@ -4184,7 +4184,7 @@
     "<Opportunity Attacks>": {
         "A": "Reaction",
         "Cost": "1 Mana",
-        "Effect": "When an enemy exits your melee attack range, make a free attack on them with a one-handed melee weapon.\n",
+        "Effect": "When an enemy leaves your melee attack range, make a free attack on them with a one-handed melee weapon.\n",
         "Notes": "If you don't have the weapon equipped, you automatically freely equip it, attack with it, unequip it and equip what you previously had.",
         "ParentKey": "Level 2 - Minor Talents"
     },
@@ -4881,7 +4881,7 @@
     },
     "~Borrowed Power~": {
         "A": "Passive",
-        "Effect": "Pick 2 extra Talents from Level 1 or that cost Mana (up to your Level) from your chosen Power Source Class.\nPick 1 extra Racial Talent from any Race.\nFrom now on, you age 10 times as rapidly.\n",
+        "Effect": "You start the first Combat of each Adventure with 1 Evoke Point.\nYou age 12 times as rapidly.\n",
         "ParentKey": "Level 3 - Keystone Talent"
     },
     "~Curse of Frailty~": {
@@ -5284,12 +5284,14 @@
     },
     "~Marksman Craft~": {
         "A": "Passive",
+        "Replacement": "Replaces Charge",
         "Effect": "Your first ~ranged~ weapon attack each Turn deals +1d4 Damage {Color('#ff5900' 'if there is no Unit or obstacle near the target')}.\nYour Charge becomes Uncharge.\n",
         "Subspells": {
             "~Uncharge~": {
                 "_Value": 0.25,
                 "A": "0 Actions",
                 "HasMixins": true,
+                "IsSubspell": true,
                 "Range": "2 meters",
                 "Replacement": "Replaces Charge",
                 "Cooldown": "Once / Turn",
@@ -5305,6 +5307,7 @@
         "_Value": 0.25,
         "A": "0 Actions",
         "HasMixins": true,
+        "IsSubspell": true,
         "Range": "2 meters",
         "Replacement": "Replaces Charge",
         "Cooldown": "Once / Turn",
@@ -5343,8 +5346,9 @@
     "~Break Mountains~": {
         "A": "1 Action",
         "Cost": "1 Mana",
-        "Effect": "Pick up an object up to 2x2x2 meters in size, and Slam it 3d10 meters in any direction.",
-        "EffectGreen": "Critical Strike - for each max die rolled, deal +1d6 Damage and the object breaks on impact!",
+        "Effect": "Pick up an object up to 2x2x2 meters in size, and throw it 3d10 meters in any direction. If it hits a Unit, it takes Damage equal to the number of meters left (e.g. similar to Slamming)",
+        "EffectGreen": "Critical Strike - for each max die rolled, deal +1d6 Damage and, if it's an object, it breaks on impact!",
+        "Upgrade": "You can instead pick up an enemy and Slam it a number of meters equal to half the rolled dice.",
         "ParentKey": "Ability Choices"
     },
     "~Whirlwind~": {
@@ -5398,29 +5402,29 @@
         "A": "Passive",
         "Effect": "You may exceed the Level limits for maximum Stats.\nYou start with +1 in any Stat.\n",
         "Notes": "The maximum a Stat can be until Level 4 is +3. Between 4 and 8 is +4. There is no limit from Level 8 on.",
-        "ParentKey": "_Ideas"
+        "ParentKey": "Ideas"
     },
     "~Bristleback~": {
         "A": "Passive",
         "Effect": "You take less Damage when struck from behind. Enemies with 2 or less Presence...",
-        "ParentKey": "_Ideas"
+        "ParentKey": "Ideas"
     },
     "~Hemmingstep~": {
         "A": "Passive",
         "Effect": "When standing right next to a wall, you take -1 Damage from all sources.",
-        "ParentKey": "_Ideas"
+        "ParentKey": "Ideas"
     },
     "~Painfeast~": {
         "A": "0 Actions",
         "Effect": "Until the start of your next Turn, all Damage you take is transformed into Healing instead!",
-        "ParentKey": "_Ideas"
+        "ParentKey": "Ideas"
     },
     "~Heavenbreaker~": {
         "A": "1 Action",
         "Cooldown": "Once / Adventure",
         "Range": "15 meters",
         "Effect": "You jump high up above the battlefield and end your Turn.\nAt the start of your next Turn, you plunge into the earth like a comet toward a destintion space.\nAll Units within 3 meters of you take X Damage TODO and a crater forms in the zone, 2 meters deep at the extremities of the area.\n",
-        "ParentKey": "_Ideas"
+        "ParentKey": "Ideas"
     },
     "<Quick Maneuvers>": {
         "_Value": 1,
@@ -5439,7 +5443,7 @@
     "~Third Wind~": {
         "A": "0 Actions",
         "Cooldown": "Once / Adventure",
-        "Effect": "Take 1d10 Damage. Gain +1 Action this Turn.",
+        "Effect": "Gain +1 Action this Turn.",
         "ParentKey": "Starting Abilities"
     },
     "~Command - Patience~": {
@@ -5453,41 +5457,43 @@
         "A": "Passive",
         "HasMixins": true,
         "AlignOnWebsite": "Right",
-        "Effect": "Choose a Minor Talent from (any Specialization of) Cleric, Mage or Warlock, up to your Level.\nYou can use it Once / Adventure, without spending Mana.\nThat Ability becomes a ^physical version of itself^: instead of using magic to cast that spell, you use your body/weapons/tools!\n",
+        "Effect": "Choose a Minor Talent that costs 1 Mana from (any Specialization of) Cleric, Mage or Warlock, up to your Level.\nYou can use it Once / Adventure, without spending Mana.\nThat Ability becomes a ^physical version of itself^: instead of using magic to cast that spell, you use your body/weapons/tools!\n",
         "Upgrade": "The Damage of that spell becomes Slash, Smash or Pierce, whichever makes sense.\nCome up with a description of how it works! You can change this Ability inbetween Advetures.\n",
-        "Notes": "E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage).\nE.g. Frost Nova - you smash the ground with such force that it Damages and Slows units around you (Smash Damage).\nBe creative!\n",
+        "Notes": "E.g. Scorching Arrows - you shoot 3 arrows with your bow (Pierce Damage).\nE.g. Frost Nova - you smash the ground with such force that it Damages and Slows units around you (Smash Damage).\nBe creative!\n",
         "ParentKey": "Level 3 - Keystone Talent"
     },
     "<Glory Run>": {
-        "_Value": 2.25,
+        "_Value": "1 (because movement takes actions now)",
         "A": "Passive",
-        "Effect": "When combat starts, a Glory Point appears behind the furthermost Enemy from you that you can see.\nIf you touch the Glory Point, heal for 20% of your total Health and all Enemies you can see must become Single-Stunned.\nThe Glory Point then disappears.\n",
-        "Notes": "The Glory Point is not a physical thing. It's merely a concept (a point).",
-        "ParentKey": "Level 5 - Keystone Talent"
+        "Effect": "When Worthy Combat starts, a Glory Point appears directly behind the furthermost Enemy from you.\nThe first time you reach the Glory Point, heal for 1d10.\n",
+        "Notes": "The Glory Point is just a space/zone.",
+        "ParentKey": "Level 3 - Keystone Talents"
     },
     "<Overthrow>": {
         "Value": "2?",
         "A": "Passive",
         "Effect": "When you Slam a Unit into a Wall, it becomes Single-Stunned.",
-        "ParentKey": "Level 3 - Keystone Talent"
+        "ParentKey": "Level 3 - Keystone Talents"
     },
     "~Lead Commander~": {
         "Value": "2 (3-4 uses per Adventure)",
         "A": "Passive",
-        "Effect": "Whenever you use a Command Ability, heal yourself or an affected Unit by 1d6.",
-        "ParentKey": "Level 3 - Keystone Talent"
+        "Requirement": "Can only trigger in Worthy Combat",
+        "Effect": "Whenever you use a Command Ability, give yourself or an affected Unit 1 Shielding that can block 1d6 Damage.",
+        "ParentKey": "Level 3 - Keystone Talents"
     },
     "~Command - Focus Fire~": {
         "A": "1 Action",
         "Cost": "1 Mana",
         "Cooldown": "Once / Adventure",
+        "HasMixins": true,
         "Effect": "Choose a target. Command all Allies (except you) in your party to make a Half-Action Act on the chosen target.",
         "Upgrade": "Can affect up to 5 Allies. If there are only 2 or less Allies, you also make the Half-Action.",
-        "ParentKey": "Level 4 - Minor Talent"
+        "ParentKey": "Level 4 - Minor Talents"
     },
     "~Deathblow~": {
         "A": "Passive",
-        "Value": "3 (trigger it once per combat)",
+        "_Value": "3 (trigger it once per combat)",
         "Effect": "If your last 2 offensive Acts both either triggered a Critical Strike or a Combo, your next single target {Type} deals +{Amount}% Damage.\n~Click on the Icon to select a preferred effect!~\n",
         "Variants": [
             {
@@ -5549,6 +5555,7 @@
     },
     "~Fame and Fortune~": {
         "A": "0 Actions",
+        "Height": 22,
         "Cost": "1 Mana",
         "Effect": "The next time you deal Damage, gain {Gold}Gold equal to 300% of the Damage dealt.\n\nYou also get Goldborn.\n",
         "Subspells": {
@@ -5556,6 +5563,7 @@
                 "A": "10 minutes",
                 "Cost": "300 Gold",
                 "Cooldown": "Once / Adventure",
+                "IsSubspell": true,
                 "Effect": "You can spend 300 {Gold}Gold to gain +2 Maximum Health, up to +10 total.",
                 "HasMixins": true,
                 "ParentKey": "Subspells"
@@ -5568,6 +5576,7 @@
         "A": "10 minutes",
         "Cost": "300 Gold",
         "Cooldown": "Once / Adventure",
+        "IsSubspell": true,
         "Effect": "You can spend 300 {Gold}Gold to gain +2 Maximum Health, up to +10 total.",
         "HasMixins": true,
         "ParentKey": "Subspells"
@@ -5635,8 +5644,9 @@
         "A": "Half-Action",
         "Range": "10 meters",
         "Cooldown": "Once / Combat",
-        "Effect": "TODO: MAKE THIS COOLER BRUV\nALSO it has an upgrade that makes it return.\nThrow a weapon at a target and attack it (without Throwing penalties and ignoring Cover).\nBefore applying the Damage, the attack destroys all Shielding and Defense on the target and removes all buffs on it.\nThe target can't trigger \"on roll\", can't gain Shielding and can't benefit from Buffs until they spend an Action to recover.\n",
+        "Effect": "Throw a weapon at a target and attack it (without Throwing penalties and ignoring Cover).\nBefore applying the Damage, the attack destroys all Shielding and Defense on the target and removes all buffs on it.\nThe target can't trigger \"on roll\", can't gain Shielding and can't benefit from Buffs until they spend an Action to recover.\n",
         "Upgrade": "Epic Monsters gain ther Defense back when they spend the Action to recover.",
+        "Downside": "TODO - Make this more interesting. Also it has an _Upgrade_ that makes the weapon return.",
         "Notes": "Your weapon lands at the nearest space to the target (and you should probably pick it up with a Half-Action).\n\"On roll\" refers to effects like \"if it rolls 10 on a d10, the attack deals 1d10 extra Damage\".\nBuffs are all effects that improve the target; even passive effects like auras or passive stats from abilities are negated.\nYou don't need Training in Throwning and this attack counts as a regular melee attack.\n",
         "ParentKey": "Level 5 - Keystone Talent"
     },
@@ -6666,6 +6676,11 @@
         "Effect": "Use when you drop to or below 0 Health.\nYou can go into debt with Health, down to 50% of your Max Health.\n",
         "Upgrade": "At the end of the Combat, if you are at or below 0 Health, you become Fallen and unconscious, and you keep your Health Debt until you are healed to 1 or more Health. Heal to recover Health debt!",
         "ParentKey": "Level 5 - Minor Talent"
+    },
+    "~Strafe and Backpedal~": {
+        "A": "Passive",
+        "Effect": "After you move 2 times on the same Turn, your next weapon attack triggers its Critical Strike regardless.",
+        "ParentKey": "Level 3 - Keystone Talent"
     },
     "~Skipper~": {
         "A": "Passive",

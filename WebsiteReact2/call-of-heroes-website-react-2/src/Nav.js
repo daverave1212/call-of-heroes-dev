@@ -51,8 +51,8 @@ const NAV_CONFIG = [
       { name: 'Rogue', href: "/ClassesV2/Rogue" },
       { name: 'Shaman', href: "/ClassesV2/Shaman", isDisabled: true },
       { name: 'Sorcerer', href: "/ClassesV2/Sorcerer" },
-      { name: 'Warlock', href: "/ClassesV2/Warlock", isDisabled: true },
-      { name: 'Warrior', href: "/ClassesV2/Warrior", isDisabled: true },
+      { name: 'Warlock', href: "/ClassesV2/Warlock" },
+      { name: 'Warrior', href: "/ClassesV2/Warrior" },
       { name: 'Wizard', href: "/ClassesV2/Wizard" },
     ]},
     { name: 'Classes (Premium)', children: [
