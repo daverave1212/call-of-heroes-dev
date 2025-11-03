@@ -34,8 +34,9 @@
         "~Better Faster Stronger~": {
             "A": "Passive",
             "HasMixins": true,
-            "Effect": "You start with +1 Presence.\nYou get a Keystone Talent at Level 1.\nYou can pick an extra number of Keystone (up to Level 7), Minor and Utility Talents equal to your Intelligence.\n",
+            "Effect": "You start with +1 in a Stat of choice (up to +3).\n\nYou have both a set of Minor and Keystone Talents at Level 1. All your other Talents are Keystone Talents.\nInstead of picking extra Minor Talents due to your Intelligence, you can pick extra Keystone Talents (but only for Talents up to and including Level 5 Talents).\n",
             "Upgrade": "_Optimization through augmentation:_ the governing axiom of all Artificers. Every enhancement demands equivalence; every ascension a sacrifice. How much of your humanity will you surrender in pursuit of God?\nMany Artificer Talents are conversions of your Presence into long-term, structural refinements, some of which can be gained over and over.\n",
+            "Notes": "For Keystone Talents Level 6 and above, you can only pick 1 of each.",
             "ParentKey": "Starting Abilities"
         }
     },
@@ -43,18 +44,18 @@
         "<Grenade>": {
             "_Value": 2,
             "HasMixins": true,
-            "A": "1 Action",
+            "A": "5 minutes",
             "Range": "6 meters to edge",
             "Duration": "Whole Adventure",
             "Requirement": "Only usable in Worthy Combat",
-            "Effect": "Throw a grenade within 6 meters and choose an effects.\nEach effect has a different area size (centered on the grenade).\n",
+            "Effect": "Create a grenade with one of the effects below.\nEach effect has a different area size (centered on the grenade).\nYou can have up to 3 grenades created at a time.\n\nA grenade can be thrown with 1 Action, up to 6 meters range.\n",
             "SingleTable": [
                 "2x2 meters; Blinds all Units hit",
                 "3x3 meters; Units hit take 2d8 Smash Damage and are Slammed 4 meters away from the center",
                 "5x5 meters; the grenade explodes at the start of your next Turn for 2d10 Smash Damage to Units hit",
                 "6x6 meters; all Allies hit get a 1d4 Shielding and can instantly move 1 meter"
             ],
-            "Notes": "Each grenade costs 50 {Gold}Gold to craft, but can be freely recovered and repaired after Combat.\nAlternatively, you create the grenade and give it to an ally to use (throwable with 1 Action).\nYou can only have 3 grenades created at a time.\n",
+            "Notes": "Each grenade costs 50 {Gold}Gold to craft, but can be freely recovered and repaired after Combat.\nAlternatively, you create the grenade and give it to an ally to use (throwable with 1 Action).\nYou can only have 3 grenades created at a time. You can destroy a grenae to create another one of a different type.\n",
             "ParentKey": "Ability Choices"
         },
         "~Mobility Device~": {
@@ -76,6 +77,7 @@
         "~Autoturret~": {
             "A": "Half-Action",
             "Range": "3 meters",
+            "HasMixins": true,
             "Effect": "Deploy a simple autoturret on a space within 3 meters. It has a 3-meter range.\nAt the end of your Turn, each autoturret automatically attacks the closest enemy to it within range for 1d4 Pierce Damage.\n",
             "Upgrade": "Each autoturret has 1 Health and costs 50 {Gold}Gold to craft, but can be freely repaired after Combat and carried in the pocket.\nYou can only have 3 autoturrets deployed at a time.\n",
             "ParentKey": "Ability Choices"
@@ -167,10 +169,11 @@
         "Level 2 - Keystone Talent": {
             "~Spell Scroll~": {
                 "_Value": 2,
-                "A": "1 hour",
+                "A": "1 minute",
                 "Cooldown": "Once / Adventure",
-                "Effect": "An Ally spends Action Points, Mana and triggers the Cooldown for a Spell.\nThat Spell becomes stored in a single-use Scroll that can be used for Half-Action.\n",
+                "Effect": "You create a special _scroll_.\nAn Ally (or you) casts a Spell on your _scroll_, which absorbs the spell before it takes effect.\nThe _scroll_ can be used with Half-Action, and is destroyed after being used.\n",
                 "Notes": "You can only have one Spell Scroll created at a time.",
+                "HasMixins": true,
                 "ParentKey": "Level 2 - Keystone Talent"
             },
             "<Reforge Weapon>": {
@@ -192,6 +195,7 @@
             "~Iron Mask~": {
                 "_Value": 1.5,
                 "A": "1 hour",
+                "Cooldown": "Once / Adventure",
                 "Effect": "Spend 150 {Gold}Gold to craft a special _mask_ that can be permanently attached to one's face.\n\nOnce attached, the wearer permanently get {Brown('-1 Presence')}, +8 Max Health, +2 Range on all Abilities and attacks, they are immune to being Blinded.\n",
                 "HasMixins": true,
                 "ParentKey": "Level 2 - Keystone Talent"
@@ -212,15 +216,16 @@
                 "HasMixins": true,
                 "A": "1 hour",
                 "Cooldown": "Once / Adventure",
-                "Effect": "You reforge a set of body armor to provide 2 of the following benefits:\n",
+                "Effect": "You reforge a set of body armor to provide 1 of the following benefits:\n",
                 "SingleTable": [
                     "+4 Health",
                     "+2 Health Regen",
                     "+1 Movement Speed",
                     "+3 Initiative",
-                    "-50% Damage Taken of a chosen Damage Type"
+                    "-50% Damage Taken of a chosen non-physical Damage Type"
                 ],
-                "Notes": "You can only reforge an armor once to give it benefits, but you can reforge it again to change them.",
+                "Upgrade": "An armor can only be reforged twice, to have up to 2 different benefits.",
+                "Notes": "After reforging twice, you can keep reforging an armor to change one of its benefits to a different one.\nA reforged armor can't have 2 of the same Reforge Armor benefit at a time.\n",
                 "ParentKey": "Level 3 - Keystone Talent"
             },
             "~Give In To Metal~": {

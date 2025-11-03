@@ -3562,7 +3562,7 @@
         "Requirement": "White Clothes",
         "Effect": "While at or above 35 Health and wearing white clothes, all your Abilities have their ^Dice Upgraded^ to the next die type.\n",
         "Notes": "{DiceUpgrade}\n",
-        "ParentKey": "Level 5 - Keystone Talent"
+        "ParentKey": "Level 7 - Keystone Talent"
     },
     "<Divine Blast>": {
         "_Value": 2,
@@ -3638,7 +3638,7 @@
             "Movement",
             "Shielding"
         ],
-        "Effect": "When another Unit is targeted and attacked (after the roll), dash to the closest space to that ally.\nYou take the ^exact Damage^ instead of the Unit.\n\n{Teal('With Valor:')} Give them 1 Shielding that can block 1d4 Damage\n{Teal('Next:')} Damage Ability\n",
+        "Effect": "When another Unit would take Damage, dash to the closest space to that ally.\nYou take the ^exact Damage^ instead of the Unit.\n\n{Teal('With Valor:')} Give them 1 Shielding that can block 1d4 Damage\n{Teal('Next:')} Offensive Damage Ability\n",
         "Upgrade": "This Damage can only be mitigated by Shielding.",
         "Notes": "Requires a clear direct path.",
         "ParentKey": "Level 2 - Minor Talent"
@@ -3709,14 +3709,14 @@
         "HasMixins": true,
         "Effect": "Single-Stuns have no effect on your. Double-Stuns and Triple-Stuns only reduce your Actions by 1 and 2 (respectively).\nWhile there are no allies within 4 meters of you, all your weapon attacks and self healing have their ^Dice Upgraded^ to the next dice type.\n",
         "Notes": "{DiceUpgrade}.\nWhile _alone_, your healing Abilities have their Dice Upgraded when healing yourself.\n",
-        "ParentKey": "Level 5 - Keystone Talent"
+        "ParentKey": "Level 7 - Keystone Talent"
     },
     "<Man of Steel>": {
         "_Value": 2,
         "A": "Passive",
         "Requirement": "Heavy Armor or Shield",
         "Effect": "If you're wearing Heavy Armor or a Shield, you have +1 Defense and +5 Max Health.\n",
-        "ParentKey": "Level 5 - Keystone Talent"
+        "ParentKey": "Level 7 - Keystone Talent"
     },
     "<Broken Hearts>": {
         "_Value": 2.25,
@@ -5961,25 +5961,26 @@
     "~Better Faster Stronger~": {
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "You start with +1 Presence.\nYou get a Keystone Talent at Level 1.\nYou can pick an extra number of Keystone (up to Level 7), Minor and Utility Talents equal to your Intelligence.\n",
+        "Effect": "You start with +1 in a Stat of choice (up to +3).\n\nYou have both a set of Minor and Keystone Talents at Level 1. All your other Talents are Keystone Talents.\nInstead of picking extra Minor Talents due to your Intelligence, you can pick extra Keystone Talents (but only for Talents up to and including Level 5 Talents).\n",
         "Upgrade": "_Optimization through augmentation:_ the governing axiom of all Artificers. Every enhancement demands equivalence; every ascension a sacrifice. How much of your humanity will you surrender in pursuit of God?\nMany Artificer Talents are conversions of your Presence into long-term, structural refinements, some of which can be gained over and over.\n",
+        "Notes": "For Keystone Talents Level 6 and above, you can only pick 1 of each.",
         "ParentKey": "Starting Abilities"
     },
     "<Grenade>": {
         "_Value": 2,
         "HasMixins": true,
-        "A": "1 Action",
+        "A": "5 minutes",
         "Range": "6 meters to edge",
         "Duration": "Whole Adventure",
         "Requirement": "Only usable in Worthy Combat",
-        "Effect": "Throw a grenade within 6 meters and choose an effects.\nEach effect has a different area size (centered on the grenade).\n",
+        "Effect": "Create a grenade with one of the effects below.\nEach effect has a different area size (centered on the grenade).\nYou can have up to 3 grenades created at a time.\n\nA grenade can be thrown with 1 Action, up to 6 meters range.\n",
         "SingleTable": [
             "2x2 meters; Blinds all Units hit",
             "3x3 meters; Units hit take 2d8 Smash Damage and are Slammed 4 meters away from the center",
             "5x5 meters; the grenade explodes at the start of your next Turn for 2d10 Smash Damage to Units hit",
             "6x6 meters; all Allies hit get a 1d4 Shielding and can instantly move 1 meter"
         ],
-        "Notes": "Each grenade costs 50 {Gold}Gold to craft, but can be freely recovered and repaired after Combat.\nAlternatively, you create the grenade and give it to an ally to use (throwable with 1 Action).\nYou can only have 3 grenades created at a time.\n",
+        "Notes": "Each grenade costs 50 {Gold}Gold to craft, but can be freely recovered and repaired after Combat.\nAlternatively, you create the grenade and give it to an ally to use (throwable with 1 Action).\nYou can only have 3 grenades created at a time. You can destroy a grenae to create another one of a different type.\n",
         "ParentKey": "Ability Choices"
     },
     "~Mobility Device~": {
@@ -6001,6 +6002,7 @@
     "~Autoturret~": {
         "A": "Half-Action",
         "Range": "3 meters",
+        "HasMixins": true,
         "Effect": "Deploy a simple autoturret on a space within 3 meters. It has a 3-meter range.\nAt the end of your Turn, each autoturret automatically attacks the closest enemy to it within range for 1d4 Pierce Damage.\n",
         "Upgrade": "Each autoturret has 1 Health and costs 50 {Gold}Gold to craft, but can be freely repaired after Combat and carried in the pocket.\nYou can only have 3 autoturrets deployed at a time.\n",
         "ParentKey": "Ability Choices"
@@ -6069,10 +6071,11 @@
     },
     "~Spell Scroll~": {
         "_Value": 2,
-        "A": "1 hour",
+        "A": "1 minute",
         "Cooldown": "Once / Adventure",
-        "Effect": "An Ally spends Action Points, Mana and triggers the Cooldown for a Spell.\nThat Spell becomes stored in a single-use Scroll that can be used for Half-Action.\n",
+        "Effect": "You create a special _scroll_.\nAn Ally (or you) casts a Spell on your _scroll_, which absorbs the spell before it takes effect.\nThe _scroll_ can be used with Half-Action, and is destroyed after being used.\n",
         "Notes": "You can only have one Spell Scroll created at a time.",
+        "HasMixins": true,
         "ParentKey": "Level 2 - Keystone Talent"
     },
     "<Reforge Weapon>": {
@@ -6094,6 +6097,7 @@
     "~Iron Mask~": {
         "_Value": 1.5,
         "A": "1 hour",
+        "Cooldown": "Once / Adventure",
         "Effect": "Spend 150 {Gold}Gold to craft a special _mask_ that can be permanently attached to one's face.\n\nOnce attached, the wearer permanently get {Brown('-1 Presence')}, +8 Max Health, +2 Range on all Abilities and attacks, they are immune to being Blinded.\n",
         "HasMixins": true,
         "ParentKey": "Level 2 - Keystone Talent"
@@ -6112,15 +6116,16 @@
         "HasMixins": true,
         "A": "1 hour",
         "Cooldown": "Once / Adventure",
-        "Effect": "You reforge a set of body armor to provide 2 of the following benefits:\n",
+        "Effect": "You reforge a set of body armor to provide 1 of the following benefits:\n",
         "SingleTable": [
             "+4 Health",
             "+2 Health Regen",
             "+1 Movement Speed",
             "+3 Initiative",
-            "-50% Damage Taken of a chosen Damage Type"
+            "-50% Damage Taken of a chosen non-physical Damage Type"
         ],
-        "Notes": "You can only reforge an armor once to give it benefits, but you can reforge it again to change them.",
+        "Upgrade": "An armor can only be reforged twice, to have up to 2 different benefits.",
+        "Notes": "After reforging twice, you can keep reforging an armor to change one of its benefits to a different one.\nA reforged armor can't have 2 of the same Reforge Armor benefit at a time.\n",
         "ParentKey": "Level 3 - Keystone Talent"
     },
     "~Give In To Metal~": {
@@ -6234,7 +6239,7 @@
     },
     "~Nominate Squire~": {
         "A": "Special",
-        "Effect": "Nominate a Player Character from your party to become your _squire_ - your trusted companion and helper in your quest.\nYou get +3 Max Health and your squire gets -2 Max Health.\nWhenever one of you would get a Quirk, you can choose to deny it, and be given a different Quirk that fits the situation.\n",
+        "Effect": "Nominate a Player Character from your party to become your _squire_ - your trusted companion and helper in your quest.\n\nYour squire gets -2 Max Health, but you get +3 Max Health.\nYour squire has doubled inventory capacity and you can instantly swap items from eachother with 0 Actions (if near eachother).\nWhenever one of you would get a Quirk, you can choose to deny it, and be given a different Quirk that fits the situation.\n",
         "HasMixins": true,
         "ParentKey": "Utility"
     },
@@ -6242,7 +6247,7 @@
         "A": "10 minutes",
         "Cooldown": "Depends",
         "Requirement": "Only usable in Campaigns with multiple sessions",
-        "Effect": "Vow on achieving a goal that would take at least 1 full Adventure.\nUpon reaching your goal, you get Max Health and a number of Positive Quirks equal to the number of sessions it took.\n",
+        "Effect": "Vow on achieving a goal that would take at least 1 full Adventure.\nUpon reaching your goal, you get a number of Positive Quirks equal to the number of sessions it took.\n",
         "Upgrade": "You can only have one vow at a time. Abandoning a vow gives you a Negative Quirk.",
         "ParentKey": "Utility"
     },
@@ -6256,12 +6261,18 @@
     "~Actions With Valor~": {
         "A": "Passive",
         "Effect": "Your Abilities and attacks have bonus effects if made {Teal('With Valor')}.\nAn Ability triggers its {Teal('Valor')} effect if it was made immediately after another Ability's {Teal('Next')}.\n",
+        "Notes": "For example, on your first Turn, you use Knockback (Level 1 Minor Talent). It does not trigger the With Valor part, so you Slam a Unit 1d4 meter. It says \"Offensive Damage Ability\" at \"Next\", so you use Row Through, which activates its With Valor effect, hitting one more. It says \"Healing Ability\" at \"Next\", so you can use Stand Strong, Fellows to heal for 1d4 instead of 1d2. And so on.",
         "HasMixins": true,
         "ParentKey": "Starting Abilities"
     },
-    "~Bannerman~": {
+    "~Challenge of Arms~": {
         "A": "Half-Action",
-        "Effect": null,
+        "Cooldown": "Once / Combat",
+        "Duration": "1 minute",
+        "Range": "3 meters",
+        "Effect": "Gain 1d4 Shielding.\nDeal 1d4 Damage to a Unit (Smash, Slash or Pierce).\n\n{Teal('With Valor:')} No Cooldown\n{Teal('Next:')} Any other Ability\n",
+        "Notes": "Use this to start a chain of Abilities With Valor!",
+        "HasMixins": true,
         "ParentKey": "Starting Abilities"
     },
     "~Stand Strong, Fellows~": {
@@ -6299,15 +6310,16 @@
         "Tags": [
             "Crowd Control"
         ],
-        "Effect": "Slam a Unit 1d4 meters in any direction.\n\n{Teal('With Valor:')} 1d8 meters instead\n{Teal('Next:')} Damage Ability\n",
+        "Effect": "Slam a Unit 1d4 meters in any direction.\n\n{Teal('With Valor:')} 1d8 meters instead\n{Teal('Next:')} Other Offensive Damage Ability\n",
         "HasMixins": true,
         "ParentKey": "Level 1 - Minor Talent"
     },
-    "~True Attack~": {
+    "~Lance Unbound~": {
         "A": "Depends on weapon",
         "Cooldown": "Once / Turn",
         "Tags": [
-            "Damage"
+            "Damage",
+            "Combo"
         ],
         "Effect": "Make a weapon attack. The target gains a Combo.\n\n{Teal('With Valor:')} +1 Damage for each Action Point it costs.\n{Teal('Next:')} Movement Ability\n",
         "HasMixins": true,
@@ -6318,7 +6330,8 @@
         "Cooldown": "Once / Turn",
         "Requirement": "Only usable in Worthy Combat",
         "Tags": [
-            "Healing"
+            "Healing",
+            "Buff"
         ],
         "Range": "5 meters",
         "Effect": "Take 2d6 True Damage. Heal a different ally for 200% of the rolled amount.\n\n{Teal('With Valor:')} They gain +1 Health Regen for the rest of the Adventure.\n{Teal('Next:')} Crowd Control Ability\n",
@@ -6329,8 +6342,10 @@
     "~Templar Retribution~": {
         "A": "Half-Action",
         "Range": "3 meters",
+        "Cooldown": "Once / Turn",
         "Tags": [
-            "Crowd Control"
+            "Crowd Control",
+            "Gold Generation"
         ],
         "Effect": "Single-Stun a Unit. Gain 3d10 Gold.\n\n{Teal('With Valor:')} Double-Stun instead.\n{Teal('Next:')} Healing Ability\n",
         "HasMixins": true,
@@ -6339,9 +6354,50 @@
     "~No Matter What~": {
         "A": "Passive",
         "Requirement": "Only applies in Worthy Combat",
-        "Effect": "At the end of your every Turn, heal for an amount equal to the Round Number.\n\n{Teal('With Valor:')} Also heals an Ally you can see\n{Teal('Next:')} Crowd Control\n",
+        "Effect": "At the end of your every Turn, heal for an amount equal to the Round Number.\n\n{Teal('With Valor:')} Also heals an Ally you can see\n{Teal('Next:')} TBD\n",
         "HasMixins": true,
-        "ParentKey": "Level 3 - Keystone Talent"
+        "ParentKey": "Level 4 - Minor Talent"
+    },
+    "~Creed of the Crown~": {
+        "A": "Special",
+        "Effect": "You serve the realm above all else. Your sword defends law, order, and your liege’s will.\n\nYou are immune to being Slowed, Rooted and to Hard Terrain.\nAt the end of your Turn, give yourself or an ally a Shielding equal to 50% and gain {Gold}Gold equal to 200% the number of meters you moved this Turn.\n",
+        "HasMixins": true,
+        "ParentKey": "Level 5 - Keystone Talent"
+    },
+    "~Creed of the Rose~": {
+        "A": "Special",
+        "Effect": "You are the knight of beauty and grace, a protector of the innocent, and a paragon of compassion.\n\nYou get +4 Max Health.\nAll your Healing or Shielding Abilities not done with Valor are automatically made with Valor.\nIf they were already done with Valor, they do +50% Healing or Shielding.\n",
+        "ParentKey": "Level 5 - Keystone Talent"
+    },
+    "~Creed of the Dragon~": {
+        "A": "Special",
+        "Requirement": "Requires finding a dragon patron",
+        "Effect": "You swear your allegiance to an elder dragon you have encountered on your journey.\n\nYou take -50% Damage from that dragon's element Type.\nWhen dealing Damage with an Ability that was cast With Valor, 50% of the main target's Damage is also dealt to all Units within 1 meter of the target (of your dragon's element Type).\n",
+        "ParentKey": "Level 5 - Keystone Talent"
+    },
+    "~Creed of Vengeance~": {
+        "A": "Special",
+        "Requirement": "Requires having been betrayed this Campaign",
+        "Effect": "Justice has failed. Your oath was broken, your faith was betrayed, but you swore a new one: to hunt those who wronged you and make the world remember.\n\nWhenever you buff an Ally, also apply that buff to yourself.\nOnce per Ability, when applying Crowd Control to a Unit, it takes 1d4 Scourge Damage and another Unit within 2 meters of it must pass a Might Roll at least equal to 9 + Your Highest Stat or also be affected by that Crowd Control.\n",
+        "Notes": "The secondary Crowd Control does not retrigger Creed of Vengeance.",
+        "ParentKey": "Level 5 - Keystone Talent"
+    },
+    "~Creed of the Sun~": {
+        "A": "Half-Action",
+        "Cooldown": "Once / Combat",
+        "Replacement": "Replaces Challenge of Arms",
+        "Duration": "1 minute",
+        "Range": "3 meters",
+        "Tags": [
+            "Healing",
+            "Movement",
+            "Damage",
+            "Crowd Control"
+        ],
+        "Effect": "~Heal yourself for 1d8 and move up to 1d4 meters~.\nDeal ~1d8~ Fire Damage to a Unit ~and Slow it~.\n\n{Teal('With Valor:')} No Cooldown\n{Teal('Next:')} Any other Ability\n",
+        "Upgrade": "You are the dawn that banishes despair. You ride with the light at your back and hope in your hand.",
+        "HasMixins": true,
+        "ParentKey": "Level 5 - Keystone Talent"
     },
     "~Get Up, Stand Up~": {
         "A": "0 Actions",

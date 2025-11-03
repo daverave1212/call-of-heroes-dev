@@ -62,8 +62,8 @@
     "Utility": {
         "~Liberation~": {
             "A": "Reaction or 0 Actions",
-            "Cost": "1 Mana",
             "Requirement": "Level 3",
+            "Cooldown": "Once / Adventure",
             "Degree": "Minor",
             "Effect": "Instantly remove all Crowd Control from another ally you can see.\n",
             "Upgrade": "At Level 5, also removes all non-magical debuffs and poisons.\nAt Level 8, also removes all curses and normal negative magical effects.\n",
@@ -71,7 +71,7 @@
         },
         "~Nominate Squire~": {
             "A": "Special",
-            "Effect": "Nominate a Player Character from your party to become your _squire_ - your trusted companion and helper in your quest.\nYou get +3 Max Health and your squire gets -2 Max Health.\nWhenever one of you would get a Quirk, you can choose to deny it, and be given a different Quirk that fits the situation.\n",
+            "Effect": "Nominate a Player Character from your party to become your _squire_ - your trusted companion and helper in your quest.\n\nYour squire gets -2 Max Health, but you get +3 Max Health.\nYour squire has doubled inventory capacity and you can instantly swap items from eachother with 0 Actions (if near eachother).\nWhenever one of you would get a Quirk, you can choose to deny it, and be given a different Quirk that fits the situation.\n",
             "HasMixins": true,
             "ParentKey": "Utility"
         },
@@ -79,7 +79,7 @@
             "A": "10 minutes",
             "Cooldown": "Depends",
             "Requirement": "Only usable in Campaigns with multiple sessions",
-            "Effect": "Vow on achieving a goal that would take at least 1 full Adventure.\nUpon reaching your goal, you get Max Health and a number of Positive Quirks equal to the number of sessions it took.\n",
+            "Effect": "Vow on achieving a goal that would take at least 1 full Adventure.\nUpon reaching your goal, you get a number of Positive Quirks equal to the number of sessions it took.\n",
             "Upgrade": "You can only have one vow at a time. Abandoning a vow gives you a Negative Quirk.",
             "ParentKey": "Utility"
         },
@@ -95,12 +95,18 @@
         "~Actions With Valor~": {
             "A": "Passive",
             "Effect": "Your Abilities and attacks have bonus effects if made {Teal('With Valor')}.\nAn Ability triggers its {Teal('Valor')} effect if it was made immediately after another Ability's {Teal('Next')}.\n",
+            "Notes": "For example, on your first Turn, you use Knockback (Level 1 Minor Talent). It does not trigger the With Valor part, so you Slam a Unit 1d4 meter. It says \"Offensive Damage Ability\" at \"Next\", so you use Row Through, which activates its With Valor effect, hitting one more. It says \"Healing Ability\" at \"Next\", so you can use Stand Strong, Fellows to heal for 1d4 instead of 1d2. And so on.",
             "HasMixins": true,
             "ParentKey": "Starting Abilities"
         },
-        "~Bannerman~": {
+        "~Challenge of Arms~": {
             "A": "Half-Action",
-            "Effect": null,
+            "Cooldown": "Once / Combat",
+            "Duration": "1 minute",
+            "Range": "3 meters",
+            "Effect": "Gain 1d4 Shielding.\nDeal 1d4 Damage to a Unit (Smash, Slash or Pierce).\n\n{Teal('With Valor:')} No Cooldown\n{Teal('Next:')} Any other Ability\n",
+            "Notes": "Use this to start a chain of Abilities With Valor!",
+            "HasMixins": true,
             "ParentKey": "Starting Abilities"
         }
     },
@@ -152,17 +158,18 @@
                 "Tags": [
                     "Crowd Control"
                 ],
-                "Effect": "Slam a Unit 1d4 meters in any direction.\n\n{Teal('With Valor:')} 1d8 meters instead\n{Teal('Next:')} Damage Ability\n",
+                "Effect": "Slam a Unit 1d4 meters in any direction.\n\n{Teal('With Valor:')} 1d8 meters instead\n{Teal('Next:')} Other Offensive Damage Ability\n",
                 "HasMixins": true,
                 "ParentKey": "Level 1 - Minor Talent"
             }
         },
         "Level 2 - Minor Talent": {
-            "~True Attack~": {
+            "~Lance Unbound~": {
                 "A": "Depends on weapon",
                 "Cooldown": "Once / Turn",
                 "Tags": [
-                    "Damage"
+                    "Damage",
+                    "Combo"
                 ],
                 "Effect": "Make a weapon attack. The target gains a Combo.\n\n{Teal('With Valor:')} +1 Damage for each Action Point it costs.\n{Teal('Next:')} Movement Ability\n",
                 "HasMixins": true,
@@ -173,7 +180,8 @@
                 "Cooldown": "Once / Turn",
                 "Requirement": "Only usable in Worthy Combat",
                 "Tags": [
-                    "Healing"
+                    "Healing",
+                    "Buff"
                 ],
                 "Range": "5 meters",
                 "Effect": "Take 2d6 True Damage. Heal a different ally for 200% of the rolled amount.\n\n{Teal('With Valor:')} They gain +1 Health Regen for the rest of the Adventure.\n{Teal('Next:')} Crowd Control Ability\n",
@@ -190,7 +198,7 @@
                     "Movement",
                     "Shielding"
                 ],
-                "Effect": "When another Unit is targeted and attacked (after the roll), dash to the closest space to that ally.\nYou take the ^exact Damage^ instead of the Unit.\n\n{Teal('With Valor:')} Give them 1 Shielding that can block 1d4 Damage\n{Teal('Next:')} Damage Ability\n",
+                "Effect": "When another Unit would take Damage, dash to the closest space to that ally.\nYou take the ^exact Damage^ instead of the Unit.\n\n{Teal('With Valor:')} Give them 1 Shielding that can block 1d4 Damage\n{Teal('Next:')} Offensive Damage Ability\n",
                 "Upgrade": "This Damage can only be mitigated by Shielding.",
                 "Notes": "Requires a clear direct path.",
                 "ParentKey": "Level 2 - Minor Talent"
@@ -198,8 +206,10 @@
             "~Templar Retribution~": {
                 "A": "Half-Action",
                 "Range": "3 meters",
+                "Cooldown": "Once / Turn",
                 "Tags": [
-                    "Crowd Control"
+                    "Crowd Control",
+                    "Gold Generation"
                 ],
                 "Effect": "Single-Stun a Unit. Gain 3d10 Gold.\n\n{Teal('With Valor:')} Double-Stun instead.\n{Teal('Next:')} Healing Ability\n",
                 "HasMixins": true,
@@ -207,13 +217,6 @@
             }
         },
         "Level 3 - Keystone Talent": {
-            "~No Matter What~": {
-                "A": "Passive",
-                "Requirement": "Only applies in Worthy Combat",
-                "Effect": "At the end of your every Turn, heal for an amount equal to the Round Number.\n\n{Teal('With Valor:')} Also heals an Ally you can see\n{Teal('Next:')} Crowd Control\n",
-                "HasMixins": true,
-                "ParentKey": "Level 3 - Keystone Talent"
-            },
             "<Fellowship Aura>": {
                 "_Value": 0.75,
                 "A": "Passive",
@@ -222,29 +225,55 @@
                 "ParentKey": "Level 3 - Keystone Talent"
             }
         },
+        "Level 4 - Minor Talent": {
+            "~No Matter What~": {
+                "A": "Passive",
+                "Requirement": "Only applies in Worthy Combat",
+                "Effect": "At the end of your every Turn, heal for an amount equal to the Round Number.\n\n{Teal('With Valor:')} Also heals an Ally you can see\n{Teal('Next:')} TBD\n",
+                "HasMixins": true,
+                "ParentKey": "Level 4 - Minor Talent"
+            }
+        },
         "Level 5 - Keystone Talent": {
-            "<Knight in Black>": {
-                "A": "Passive",
-                "Requirement": "Requires Black Clothes",
+            "~Creed of the Crown~": {
+                "A": "Special",
+                "Effect": "You serve the realm above all else. Your sword defends law, order, and your liege’s will.\n\nYou are immune to being Slowed, Rooted and to Hard Terrain.\nAt the end of your Turn, give yourself or an ally a Shielding equal to 50% and gain {Gold}Gold equal to 200% the number of meters you moved this Turn.\n",
                 "HasMixins": true,
-                "Effect": "Single-Stuns have no effect on your. Double-Stuns and Triple-Stuns only reduce your Actions by 1 and 2 (respectively).\nWhile there are no allies within 4 meters of you, all your weapon attacks and self healing have their ^Dice Upgraded^ to the next dice type.\n",
-                "Notes": "{DiceUpgrade}.\nWhile _alone_, your healing Abilities have their Dice Upgraded when healing yourself.\n",
                 "ParentKey": "Level 5 - Keystone Talent"
             },
-            "<Man of Steel>": {
-                "_Value": 2,
-                "A": "Passive",
-                "Requirement": "Heavy Armor or Shield",
-                "Effect": "If you're wearing Heavy Armor or a Shield, you have +1 Defense and +5 Max Health.\n",
+            "~Creed of the Rose~": {
+                "A": "Special",
+                "Effect": "You are the knight of beauty and grace, a protector of the innocent, and a paragon of compassion.\n\nYou get +4 Max Health.\nAll your Healing or Shielding Abilities not done with Valor are automatically made with Valor.\nIf they were already done with Valor, they do +50% Healing or Shielding.\n",
                 "ParentKey": "Level 5 - Keystone Talent"
             },
-            "<White Knighthood>": {
-                "A": "Passive",
-                "_Value": "2+",
+            "~Creed of the Dragon~": {
+                "A": "Special",
+                "Requirement": "Requires finding a dragon patron",
+                "Effect": "You swear your allegiance to an elder dragon you have encountered on your journey.\n\nYou take -50% Damage from that dragon's element Type.\nWhen dealing Damage with an Ability that was cast With Valor, 50% of the main target's Damage is also dealt to all Units within 1 meter of the target (of your dragon's element Type).\n",
+                "ParentKey": "Level 5 - Keystone Talent"
+            },
+            "~Creed of Vengeance~": {
+                "A": "Special",
+                "Requirement": "Requires having been betrayed this Campaign",
+                "Effect": "Justice has failed. Your oath was broken, your faith was betrayed, but you swore a new one: to hunt those who wronged you and make the world remember.\n\nWhenever you buff an Ally, also apply that buff to yourself.\nOnce per Ability, when applying Crowd Control to a Unit, it takes 1d4 Scourge Damage and another Unit within 2 meters of it must pass a Might Roll at least equal to 9 + Your Highest Stat or also be affected by that Crowd Control.\n",
+                "Notes": "The secondary Crowd Control does not retrigger Creed of Vengeance.",
+                "ParentKey": "Level 5 - Keystone Talent"
+            },
+            "~Creed of the Sun~": {
+                "A": "Half-Action",
+                "Cooldown": "Once / Combat",
+                "Replacement": "Replaces Challenge of Arms",
+                "Duration": "1 minute",
+                "Range": "3 meters",
+                "Tags": [
+                    "Healing",
+                    "Movement",
+                    "Damage",
+                    "Crowd Control"
+                ],
+                "Effect": "~Heal yourself for 1d8 and move up to 1d4 meters~.\nDeal ~1d8~ Fire Damage to a Unit ~and Slow it~.\n\n{Teal('With Valor:')} No Cooldown\n{Teal('Next:')} Any other Ability\n",
+                "Upgrade": "You are the dawn that banishes despair. You ride with the light at your back and hope in your hand.",
                 "HasMixins": true,
-                "Requirement": "White Clothes",
-                "Effect": "While at or above 35 Health and wearing white clothes, all your Abilities have their ^Dice Upgraded^ to the next die type.\n",
-                "Notes": "{DiceUpgrade}\n",
                 "ParentKey": "Level 5 - Keystone Talent"
             }
         },
@@ -255,6 +284,32 @@
                 "Degree": "Minor",
                 "Effect": "Remove all your party members' Exhaustion (from any source).\nIf they were Exhausted from lack of sleep, they can resist sleep Exhaustion for 8 more hours.\n",
                 "ParentKey": "Level 6 - Utility Talent"
+            }
+        },
+        "Level 7 - Keystone Talent": {
+            "<Knight in Black>": {
+                "A": "Passive",
+                "Requirement": "Requires Black Clothes",
+                "HasMixins": true,
+                "Effect": "Single-Stuns have no effect on your. Double-Stuns and Triple-Stuns only reduce your Actions by 1 and 2 (respectively).\nWhile there are no allies within 4 meters of you, all your weapon attacks and self healing have their ^Dice Upgraded^ to the next dice type.\n",
+                "Notes": "{DiceUpgrade}.\nWhile _alone_, your healing Abilities have their Dice Upgraded when healing yourself.\n",
+                "ParentKey": "Level 7 - Keystone Talent"
+            },
+            "<Man of Steel>": {
+                "_Value": 2,
+                "A": "Passive",
+                "Requirement": "Heavy Armor or Shield",
+                "Effect": "If you're wearing Heavy Armor or a Shield, you have +1 Defense and +5 Max Health.\n",
+                "ParentKey": "Level 7 - Keystone Talent"
+            },
+            "<White Knighthood>": {
+                "A": "Passive",
+                "_Value": "2+",
+                "HasMixins": true,
+                "Requirement": "White Clothes",
+                "Effect": "While at or above 35 Health and wearing white clothes, all your Abilities have their ^Dice Upgraded^ to the next die type.\n",
+                "Notes": "{DiceUpgrade}\n",
+                "ParentKey": "Level 7 - Keystone Talent"
             }
         }
     }

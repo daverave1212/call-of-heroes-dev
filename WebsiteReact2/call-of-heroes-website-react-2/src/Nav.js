@@ -46,7 +46,7 @@ const NAV_CONFIG = [
     // ]},
     { name: 'Classes (Base)', children: [
       { name: 'Druid', href: "/ClassesV2/Druid" },
-      { name: 'Hunter', href: "/ClassesV2/Hunter", isDisabled: true },
+      { name: 'Hunter', href: "/ClassesV2/Hunter" },
       { name: 'Priest', href: "/ClassesV2/Priest" },
       { name: 'Rogue', href: "/ClassesV2/Rogue" },
       { name: 'Shaman', href: "/ClassesV2/Shaman", isDisabled: true },
@@ -60,7 +60,7 @@ const NAV_CONFIG = [
       { name: 'Bard', href: "/WorkInProgress", lock: 'premium', isDisabled: true },
       { name: 'Berserker', href: "/ClassesV2/Berserker", lock: 'premium', isDisabled: true },
       { name: 'Cursewielder', href: "/ClassesV2/Cursewielder", lock: 'premium' },
-      { name: 'Knight', href: "/ClassesV2/Knight", lock: 'premium', isDisabled: true },
+      { name: 'Knight', href: "/ClassesV2/Knight", lock: 'premium' },
       { name: 'Monk', href: "/WorkInProgress", lock: 'premium', isDisabled: true },
       { name: 'Mystic', href: "/ClassesV2/Mystic", lock: 'premium', isDisabled: true },
       { name: 'Necromancer', href: "/WorkInProgress", lock: 'premium', isDisabled: true },

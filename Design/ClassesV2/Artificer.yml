@@ -78,12 +78,14 @@ Starting Abilities:
     A: Passive
     HasMixins: true
     Effect: |
-      You start with +1 Presence.
-      You get a Keystone Talent at Level 1.
-      You can pick an extra number of Keystone (up to Level 7), Minor and Utility Talents equal to your Intelligence.
+      You start with +1 in a Stat of choice (up to +3).
+
+      You have both a set of Minor and Keystone Talents at Level 1. All your other Talents are Keystone Talents.
+      Instead of picking extra Minor Talents due to your Intelligence, you can pick extra Keystone Talents (but only for Talents up to and including Level 5 Talents).
     Upgrade: |
       _Optimization through augmentation:_ the governing axiom of all Artificers. Every enhancement demands equivalence; every ascension a sacrifice. How much of your humanity will you surrender in pursuit of God?
       Many Artificer Talents are conversions of your Presence into long-term, structural refinements, some of which can be gained over and over.
+    Notes: For Keystone Talents Level 6 and above, you can only pick 1 of each.
 
 
 Ability Choices:
@@ -91,13 +93,16 @@ Ability Choices:
     <Grenade>:
       _Value: 2
       HasMixins: true
-      A: 1 Action
+      A: 5 minutes
       Range: 6 meters to edge
       Duration: Whole Adventure
       Requirement: Only usable in Worthy Combat
       Effect: |
-          Throw a grenade within 6 meters and choose an effects.
+          Create a grenade with one of the effects below.
           Each effect has a different area size (centered on the grenade).
+          You can have up to 3 grenades created at a time.
+          
+          A grenade can be thrown with 1 Action, up to 6 meters range.
       SingleTable:
         - 2x2 meters; Blinds all Units hit
         - 3x3 meters; Units hit take 2d8 Smash Damage and are Slammed 4 meters away from the center
@@ -106,7 +111,7 @@ Ability Choices:
       Notes: |
         Each grenade costs 50 {Gold}Gold to craft, but can be freely recovered and repaired after Combat.
         Alternatively, you create the grenade and give it to an ally to use (throwable with 1 Action).
-        You can only have 3 grenades created at a time.
+        You can only have 3 grenades created at a time. You can destroy a grenae to create another one of a different type.
 
     ~Mobility Device~:
       A: 1 hour
@@ -127,6 +132,7 @@ Ability Choices:
     ~Autoturret~:
       A: Half-Action
       Range: 3 meters
+      HasMixins: true
       Effect: |
         Deploy a simple autoturret on a space within 3 meters. It has a 3-meter range.
         At the end of your Turn, each autoturret automatically attacks the closest enemy to it within range for 1d4 Pierce Damage.
@@ -227,11 +233,12 @@ Talents:
 
     ~Spell Scroll~:
       _Value: 2
-      A: 1 hour
+      A: 1 minute
       Cooldown: Once / Adventure
       Effect: |
-        An Ally spends Action Points, Mana and triggers the Cooldown for a Spell.
-        That Spell becomes stored in a single-use Scroll that can be used for Half-Action.
+        You create a special _scroll_.
+        An Ally (or you) casts a Spell on your _scroll_, which absorbs the spell before it takes effect.
+        The _scroll_ can be used with Half-Action, and is destroyed after being used.
       Notes: You can only have one Spell Scroll created at a time.
 
     <Reforge Weapon> :         # Bit stronger than average
@@ -252,6 +259,7 @@ Talents:
     ~Iron Mask~:
       _Value: 1.5
       A: 1 hour
+      Cooldown: Once / Adventure
       Effect: |
         Spend 150 {Gold}Gold to craft a special _mask_ that can be permanently attached to one's face.
 
@@ -278,14 +286,17 @@ Talents:
       A: 1 hour
       Cooldown: Once / Adventure
       Effect: |
-        You reforge a set of body armor to provide 2 of the following benefits:
+        You reforge a set of body armor to provide 1 of the following benefits:
       SingleTable:
         - +4 Health
         - +2 Health Regen
         - +1 Movement Speed
         - +3 Initiative
-        - -50% Damage Taken of a chosen Damage Type
-      Notes: You can only reforge an armor once to give it benefits, but you can reforge it again to change them.
+        - -50% Damage Taken of a chosen non-physical Damage Type
+      Upgrade: An armor can only be reforged twice, to have up to 2 different benefits.
+      Notes: |
+        After reforging twice, you can keep reforging an armor to change one of its benefits to a different one.
+        A reforged armor can't have 2 of the same Reforge Armor benefit at a time.
 
     ~Give In To Metal~:
       _Value: 2.5

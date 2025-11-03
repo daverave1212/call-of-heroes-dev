@@ -62,8 +62,8 @@ Utility:
 
   ~Liberation~:
       A: Reaction or 0 Actions
-      Cost: 1 Mana
       Requirement: Level 3
+      Cooldown: Once / Adventure
       Degree: Minor
       Effect: |
           Instantly remove all Crowd Control from another ally you can see.
@@ -75,8 +75,12 @@ Utility:
     A: Special
     Effect: |
       Nominate a Player Character from your party to become your _squire_ - your trusted companion and helper in your quest.
-      You get +3 Max Health and your squire gets -2 Max Health.
+      
+      Your squire gets -2 Max Health, but you get +3 Max Health.
       Whenever one of you would get a Quirk, you can choose to deny it, and be given a different Quirk that fits the situation.
+    Upgrade: |
+      Your squire has doubled inventory capacity and you can instantly swap items from eachother with 0 Actions (if near eachother).
+      They also have +2 in War Machines.
 
   ~Vows~:
     A: 10 minutes
@@ -84,7 +88,7 @@ Utility:
     Requirement: Only usable in Campaigns with multiple sessions
     Effect: |
       Vow on achieving a goal that would take at least 1 full Adventure.
-      Upon reaching your goal, you get Max Health and a number of Positive Quirks equal to the number of sessions it took.
+      Upon reaching your goal, you get a number of Positive Quirks equal to the number of sessions it took.
     Upgrade: You can only have one vow at a time. Abandoning a vow gives you a Negative Quirk.
 
   ~Trusted Steed~:
@@ -103,10 +107,21 @@ Starting Abilities:
     Effect: |
       Your Abilities and attacks have bonus effects if made {Teal('With Valor')}.
       An Ability triggers its {Teal('Valor')} effect if it was made immediately after another Ability's {Teal('Next')}.
+    Notes: For example, on your first Turn, you use Knockback (Level 1 Minor Talent). It does not trigger the With Valor part, so you Slam a Unit 1d4 meter. It says "Offensive Damage Ability" at "Next", so you use Row Through, which activates its With Valor effect, hitting one more. It says "Healing Ability" at "Next", so you can use Stand Strong, Fellows to heal for 1d4 instead of 1d2. And so on.
 
-  ~Bannerman~:
+  ~Challenge of Arms~:
     A: Half-Action
-    Effect: 
+    Cooldown: Once / Combat
+    Duration: 1 minute
+    Range: 3 meters
+    Effect: |
+      Gain 1d4 Shielding.
+      Deal 1d4 Damage to a Unit (Smash, Slash or Pierce).
+
+      {Teal('With Valor:')} No Cooldown
+      {Teal('Next:')} Any other Ability
+    Notes: Use this to start a chain of Abilities With Valor!
+
 
 Talents:
 
@@ -153,16 +168,16 @@ Talents:
         Slam a Unit 1d4 meters in any direction.
         
         {Teal('With Valor:')} 1d8 meters instead
-        {Teal('Next:')} Damage Ability
+        {Teal('Next:')} Other Offensive Damage Ability
 
 
 # Extra keywords: Buff
   Level 2 - Minor Talent:
 
-    ~True Attack~:
+    ~Lance Unbound~:
       A: Depends on weapon
       Cooldown: Once / Turn
-      Tags: [Damage]
+      Tags: [Damage, Combo]
       Effect: |
         Make a weapon attack. The target gains a Combo.
 
@@ -173,7 +188,7 @@ Talents:
       A: Half-Action
       Cooldown: Once / Turn
       Requirement: Only usable in Worthy Combat
-      Tags: [Healing]
+      Tags: [Healing, Buff]
       Range: 5 meters
       Effect: |
         Take 2d6 True Damage. Heal a different ally for 200% of the rolled amount.
@@ -189,18 +204,19 @@ Talents:
       HasMixins: true
       Tags: [Movement, Shielding]
       Effect: |
-        When another Unit is targeted and attacked (after the roll), dash to the closest space to that ally.
+        When another Unit would take Damage, dash to the closest space to that ally.
         You take the ^exact Damage^ instead of the Unit.
 
         {Teal('With Valor:')} Give them 1 Shielding that can block 1d4 Damage
-        {Teal('Next:')} Damage Ability
+        {Teal('Next:')} Offensive Damage Ability
       Upgrade: This Damage can only be mitigated by Shielding.
       Notes: Requires a clear direct path.
 
     ~Templar Retribution~:
       A: Half-Action
       Range: 3 meters
-      Tags: [Crowd Control]
+      Cooldown: Once / Turn
+      Tags: [Crowd Control, Gold Generation]
       Effect: |
         Single-Stun a Unit. Gain 3d10 Gold.
 
@@ -208,15 +224,6 @@ Talents:
         {Teal('Next:')} Healing Ability
 
   Level 3 - Keystone Talent:
-
-    ~No Matter What~:
-      A: Passive
-      Requirement: Only applies in Worthy Combat
-      Effect: |
-        At the end of your every Turn, heal for an amount equal to the Round Number.
-
-        {Teal('With Valor:')} Also heals an Ally you can see
-        {Teal('Next:')} Crowd Control
 
     <Fellowship Aura>:
       _Value: 0.75
@@ -226,8 +233,103 @@ Talents:
         Enemy ranged attacks against other allies within 1 meter of you have Cover.
       Notes: Nothing happens if an ally near you already has Cover. If playing on a grid, this does work for allies diagonally.
 
+    <Banner of Honor>:
+      A: 1 Action
+      Cooldown: Once / Adventure
+      Duration: 
+      Effect: |
+        Activate and fling a Banner on a space within 5 meters, dealing 1d6 Damage to Units it lands next to.
+        Allies (and you) starting their Turn within 2 meters of the banner start with +Half-Action.
+
+        {Teal('With Valor:')} TBD
+        {Teal('Next:')} TBD
+      Upgrade: The banner counts as a Unit with 10 Health, but can't take Area Damage.
+      Notes: The banner's effect only applies if it's planted into the ground. To be moved, the banner can be picked up with a Half-Action, and thrown again with a Half-Action to reposition and deal the Damage again.
+
+# New: Trigger Combo, Trap, Elemental Damage, Summon
+  Level 4 - Minor Talent:
+
+    ~No Matter What~:
+      A: Passive
+      Requirement: Only applies in Worthy Combat
+      Effect: |
+        At the end of your every Turn, heal for an amount equal to the Round Number.
+
+        {Teal('With Valor:')} Also heals an Ally you can see
+        {Teal('Next:')} TBD
+    
+    ~CATAPULT!~:
+      A: 1 hour
+      Effect: |
+        Craft a special catapult that you can take with you on your adventures.
+        It can't move on its own, but once per Round, it can be activated with a Half-Action to shoot a 3x3 area within 10 meters. All Units hit take 2d6 Smash Damage.
 
   Level 5 - Keystone Talent:
+
+    ~Creed of the Crown~:  # Improves Movement and Gold Generation
+      A: Special
+      Effect: |
+        You serve the realm above all else. Your sword defends law, order, and your liege’s will.
+
+        You are immune to being Slowed, Rooted and to Hard Terrain.
+        At the end of your Turn, give yourself or an ally a Shielding equal to 50% and gain {Gold}Gold equal to 200% the number of meters you moved this Turn.
+    
+    ~Creed of the Rose~:  # Improves Healing and Shielding
+      A: Special
+      Effect: |
+        You are the knight of beauty and grace, a protector of the innocent, and a paragon of compassion.
+
+        You get +4 Max Health.
+        All your Healing or Shielding Abilities not done with Valor are automatically made with Valor.
+        If they were already done with Valor, they do +50% Healing or Shielding.
+
+    ~Creed of the Dragon~:  # Improves Damage + Combo (though not specified)
+      A: Special
+      Requirement: Requires finding a dragon patron
+      Effect: |
+        You swear your allegiance to an elder dragon you have encountered on your journey.
+        
+        You take -50% Damage from that dragon's element Type.
+        When dealing Damage with an Ability that was cast With Valor, 50% of the main target's Damage is also dealt to all Units within 1 meter of the target (of your dragon's element Type).
+
+    ~Creed of Vengeance~:   # Improves Crowd Control + Buffs
+      A: Special
+      Requirement: Requires having been betrayed this Campaign
+      Effect: |
+        Justice has failed. Your oath was broken, your faith was betrayed, but you swore a new one: to hunt those who wronged you and make the world remember.
+
+        Whenever you buff an Ally, also apply that buff to yourself.
+        Once per Ability, when applying Crowd Control to a Unit, it takes 1d4 Scourge Damage and another Unit within 2 meters of it must pass a Might Roll at least equal to 9 + Your Highest Stat or also be affected by that Crowd Control.
+      Notes: The secondary Crowd Control does not retrigger Creed of Vengeance.
+
+
+    ~Creed of the Sun~:   # Generic improvement
+      A: Half-Action
+      Cooldown: Once / Combat
+      Replacement: Replaces Challenge of Arms
+      Duration: 1 minute
+      Range: 3 meters
+      Tags: [Healing, Movement, Damage, Crowd Control]
+      Effect: |
+        ~Heal yourself for 1d8 and move up to 1d4 meters~.
+        Deal ~1d8~ Fire Damage to a Unit ~and Slow it~.
+
+        {Teal('With Valor:')} No Cooldown
+        {Teal('Next:')} Any other Ability
+      Upgrade: You are the dawn that banishes despair. You ride with the light at your back and hope in your hand.
+
+  Level 6 - Utility Talent:
+
+    ~Get Up, Stand Up~:
+        A: 0 Actions
+        Cooldown: Once / Adventure
+        Degree: Minor
+        Effect: |
+            Remove all your party members' Exhaustion (from any source).
+            If they were Exhausted from lack of sleep, they can resist sleep Exhaustion for 8 more hours.
+            
+
+  Level 7 - Keystone Talent:
 
     <Knight in Black>:
       A: Passive
@@ -257,13 +359,3 @@ Talents:
       Notes: |
         {DiceUpgrade}
 
-  Level 6 - Utility Talent:
-
-    ~Get Up, Stand Up~:
-        A: 0 Actions
-        Cooldown: Once / Adventure
-        Degree: Minor
-        Effect: |
-            Remove all your party members' Exhaustion (from any source).
-            If they were Exhausted from lack of sleep, they can resist sleep Exhaustion for 8 more hours.
-            

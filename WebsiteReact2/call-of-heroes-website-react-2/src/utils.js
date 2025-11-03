@@ -1001,7 +1001,7 @@ const FUNCTION_SYMBOLS = {
     'Purple': args => ({ tag: 'span', props: { style: { color: '#6f00ffff' } }, text: args[0] }),
     'Green': args => ({ tag: 'span', props: { style: { color: 'var(--green-text)' } }, text: args[0] }),
     'DarkGreen': args => ({ tag: 'span', props: { style: { color: '#00a71cff' } }, text: args[0] }),
-    'Teal': args => ({ tag: 'span', props: { style: { color: '#0091a7' } }, text: args[0] }),
+    'Teal': args => ({ tag: 'span', props: { style: { color: '#0097ab' } }, text: args[0] }),
     'Color': args => ({ tag: 'span', props: { style: { color: args[0] } }, text: args[1] }),
     
     '^': args => ({ tag: 'b', text: args[0] }),
