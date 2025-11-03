@@ -8,7 +8,7 @@
             "Healing"
         ],
         "Effect": "Whenever you spend Mana, \"cast Awe\" on a Unit.\nThis deals 1d4 Divine Damage to enemies or heals allies for 1d4.\n",
-        "Notes": "Ignores Cover. Some other Priest spells will \"cast Awe\" for free.",
+        "Notes": "Ignores Cover. Some other Cleric spells will \"cast Awe\" for free.",
         "ParentKey": "Starting Abilities"
     },
     "~Blessing~": {
@@ -1790,12 +1790,13 @@
         "AlignOnWebsite": "Left",
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "You have an animal pet that can fight alongside you! Check out the `Pets and Animals page$/Other/PetsAndAnimals` and choose an Animal from the Pets section, ignoring those Level requirements!\nYour pet takes its turn at the same time as you do, and always has the same Initiative as yours, and can make normal Checks using using its own Stats.\nIt has 1 Action per turn, which it can use to do its own Abilities or Pet Attack.\nYour pet will not stray more than 30 meters away from you in hostile territory.\n",
-        "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.",
-        "Notes": "Your pet can't rise from being Fallen while in combat, even if healed.\nIf your pet ever dies, you can spend 8 hours inbetween Adventures to get a new pet. If you want to change your Pet and abandon your current one, you can do so inbetween Adventures, but the guilt will make you Fumbling for the next 2 Worthy Combat encounters.\n",
+        "Effect": "You have an animal pet that can fight alongside you!\nYour pet has the Stats 3, 1, 0, 0, -1 in any order, but they do not affect its Combat capabilities.\nIt has ^8 + 200% of Your Level^ Max Health.\nIt takes its Turn at the same time as you do (and always has the same Initiative as yours).\nIt has 1 Action per turn, which it can use to do its own Abilities or Pet Attack.\n\nInstead of picking Level 1 Minor Talents for yourself, they apply to your Pet.\nAlso, choose 2 Level 1 - Pet Talents from below to give to your pet.\n",
+        "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.\nYour pet will not stray more than 30 meters away from you in hostile territory.\n",
+        "Notes": "Your pet can make normal non-Combat Rolls using using its own Stats.\nYour pet can't rise from being Fallen while in Combat, even if healed.\nIf your pet ever dies, you can spend 8 hours inbetween Adventures to get a new pet. If you want to change your Pet and abandon your current one, you can do so inbetween Adventures, but the guilt will make you Fumbling for the next 2 Worthy Combat encounters.\n",
         "Subspells": {
             "~Pet Attack~": {
                 "A": "1 Action (from the pet)",
+                "Cooldown": "Once / Turn",
                 "IsSubspell": true,
                 "Effect": "The pet melee attacks a target.\nThe attack deals 1d6 Pierce or Slash Damage (your choice).\n",
                 "AlignOnWebsite": "Right",
@@ -1806,6 +1807,7 @@
     },
     "~Pet Attack~": {
         "A": "1 Action (from the pet)",
+        "Cooldown": "Once / Turn",
         "IsSubspell": true,
         "Effect": "The pet melee attacks a target.\nThe attack deals 1d6 Pierce or Slash Damage (your choice).\n",
         "AlignOnWebsite": "Right",
@@ -2149,7 +2151,7 @@
     "~Stablemaster~": {
         "_Value": 1,
         "A": "Passive",
-        "Effect": "You have 3 different Animal Companion pets, but only one can adventure with you at a time.\nWhile not with you, your other Animal Companions hang out on their own in the wilderness, but no more than 5 kilometers away from you.\nYou can send your current companion off, then spend 30 minutes to telepathically call another one to come join you.\n",
+        "Effect": "You have 3 different Animal Companion pets, but only one can adventure with you at a time.\nEach of your Animal Companions has 2 Pet Talents, and you can distribute your Minor Level 1 Talents among your pets as you like.\n\nWhile not with you, your other Animal Companions hang out on their own in the wilderness, but no more than 5 kilometers away from you.\nYou can send your current companion off, then spend 30 minutes to call for another one to come join you.\n",
         "Notes": "The advantage is you can use several animal Abilities that have longer Cooldowns; these are usually stronger.\nIt is possible that the animal you're calling can't come to your aid if you're indoors, flying or the trail you're on is too difficult. In that case, you will have to return outside or on a safe trail (QM's decision).\nIn that case, your current companion can not go away, either.\n",
         "ParentKey": "Starting Abilities"
     },
@@ -4044,15 +4046,15 @@
     "<One Turn Kill>": {
         "_Value": 1.35,
         "A": "Passive",
-        "Effect": "Whenever you take a Worthy Enemy from 50% (or more) to 0% Health in one turn, heal for 1d6 and reset the Cooldown of Shadowpass.",
+        "Effect": "Whenever you take a Worthy Enemy from 50% (or more) to 0% Health in one turn, heal for 1d8 and reset the Cooldown of Shadowpass.",
         "EffectGreen": "When you get this, gain +1 in a Stat of choice, up to +4.",
         "ParentKey": "Level 4 - Keystone Talent"
     },
     "<Cutting Verve>": {
-        "_Value": 0.5,
+        "_Value": 2,
         "HasMixins": true,
         "A": "Passive",
-        "Effect": "Whenever you Ambush, you can choose one of the rolled dice and heal an ally you can see (or yourself) for that amount instead of dealing the Damage.\n",
+        "Effect": "After you Ambush, you can choose one of the rolled dice and give it to an ally you can see (or yourself) as a Shielding after dealing the Damage.\n",
         "EffectGreen": "When you get this, gain +1 in a Stat of choice, up to +4.",
         "ParentKey": "Level 4 - Minor Talent"
     },
@@ -4060,7 +4062,7 @@
         "_Value": 1.5,
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "When Ambushing a Unit, if there is no other Unit near it (except you), the target becomes either Fumbling or Silenced (your choice).\n",
+        "Effect": "When Ambushing a Unit, if there is no other Unit near it (except you), the target becomes either Single-Stunned.\n",
         "EffectGreen": "When you get this, gain +1 in a Stat of choice, up to +4.",
         "ParentKey": "Level 4 - Keystone Talent"
     },
@@ -4708,9 +4710,13 @@
         "Range": "4 meters",
         "HasMixins": true,
         "Degree": "Minor",
-        "Tags": "Damage",
-        "Effect": "Blast a Unit for 2d8 + ^target's Might^ Damage of your chosen Element.\n",
-        "Combo": "+1d6 Damage.",
+        "Tags": [
+            "Damage",
+            "Multi-Target Damage"
+        ],
+        "Effect": "Blast a Unit for 2d8 + ^target's Might^ Damage of your chosen Element.\n\n{Evoke}: Hits an extra Unit (for 1d8 + ^that Unit's Might^) for each Evoke Point spend.\n",
+        "Combo": "Generates an extra Evoke Point.",
+        "Notes": "Each extra Unit hit must be different than the others.",
         "ParentKey": "Ability Choices"
     },
     "~Wyrd Renewal~": {
@@ -4722,8 +4728,9 @@
             "Healing",
             "Damage"
         ],
-        "Effect": "Roll 1d10 - 5. After you see the result, choose a Worthy Unit.\nIf it's negative, deal Scourge Damage to it. Otherwise, heal it.\n",
+        "Effect": "Roll 1d12 - 5. After you see the result, choose a Worthy Unit.\nIf it's negative, deal Scourge Damage to it. Otherwise, heal it.\n\n{Evoke}: +50% Damage or Healing per Evoke Point spent.\n",
         "Combo": "+50% Damage or Healing",
+        "HasMixins": true,
         "ParentKey": "Ability Choices"
     },
     "~Deathfire Flame~": {
@@ -4732,8 +4739,9 @@
         "Range": "10 meters",
         "Degree": "Major",
         "Tags": "Area Damage",
-        "Effect": "Shoot a bolt of deathly fire in a 1x10 meter line. All Units it touches take 1d6 + 1d8 + 1d10 Scourge or Fire Damage (your choice).\n",
-        "Notes": "Ignores Half-Hitting Damage reduction.",
+        "Effect": "Shoot a bolt of deathly fire in a 1x10 meter line. All Units it touches take 1d4 + 1d6 + 1d8 Scourge or Fire Damage (your choice).\n\n{Evoke}: Deals an extra ^higher^ die Damage for each Evoke Point spent.\n",
+        "Notes": "For 1 Evoke Point, deals +1d10 Damage. For 2 spent, deals +1d10 + 1d12. And so on.",
+        "HasMixins": true,
         "ParentKey": "Ability Choices"
     },
     "~Curse of Weakness~": {
@@ -4743,8 +4751,9 @@
         "Duration": "1 minute",
         "Degree": "Minor",
         "Tags": "Debuff",
-        "Effect": "Choose a Unit. The first time it deals Damage on its every Turn, roll 1d4 and subtract it from its dealt Damage.\n",
+        "Effect": "Choose a Unit. The first time it deals Damage on its every Turn, roll 1d4 and subtract it from its dealt Damage.\n\n{Evoke}: Has ^Dice Upgraded^ for each Evoke Point spent.\n",
         "Upgrade": "Only affects an Epic monster's first turn.",
+        "HasMixins": true,
         "ParentKey": "Ability Choices"
     },
     "~Curse of Pain~": {
@@ -4754,7 +4763,8 @@
         "Duration": "1 minute",
         "Requirement": "Level 4",
         "Tags": "Damage",
-        "Effect": "Choose a Unit. At the start of each of your Turns, it takes 1d4 Scourge Damage (ignoring Cover).\n",
+        "Effect": "Choose a Unit. At the start of each of your Turns, it takes 1d4 Scourge Damage (ignoring Cover).\n\n{Evoke}: Has ^Dice Upgraded^ for each Evoke Point spent.\n",
+        "HasMixins": true,
         "ParentKey": "Ability Choices"
     },
     "~Psyche Blast~": {
@@ -4767,8 +4777,8 @@
             "Damage",
             "Crowd Control"
         ],
-        "Effect": "A Unit takes 4d6 Psychic Damage and chooses whether to become Blinded or Silenced.\nApply a ~Combo~ to it.\n",
-        "Notes": "Cover is applied normally.\n",
+        "Effect": "A Unit takes 4d6 Psychic Damage.\nApply a ~Combo~ to it.\n\n{Evoke}: Single-Stuns the target for each Evoke Point spent.\n",
+        "Notes": "Cover is applied normally. Note that Single-Stuns can stack to become Double-Stunned or Triple-Stunned.\n",
         "ParentKey": "Ability Choices"
     },
     "~Oculus~": {
@@ -4803,13 +4813,25 @@
         "ParentKey": "Starting Abilities"
     },
     "~Ebon Lance~": {
+        "_Value": 0.75,
         "A": "0 Actions",
         "Cost": "1 Mana",
-        "Effect": "Your next melee weapon attack deals +1d4 Damage.\n\n{Evoke}: +1d4 per Evoke Point spent.\n",
+        "Effect": "Your next {Type} weapon attack deals {Amount} Damage.\nThe Damage Types becomes of your chosen element Type.\n\n{Evoke}: +1d4 per Evoke Point spent.\n",
+        "Variants": [
+            {
+                "Type": "melee",
+                "Amount": "1d6"
+            },
+            {
+                "Type": "ranged",
+                "Amount": "1d4"
+            }
+        ],
         "HasMixins": true,
         "ParentKey": "Level 2 - Minor Talent"
     },
     "~Soul Drain~": {
+        "_Value": 0.25,
         "A": "Half-Action",
         "Cost": "1 Mana",
         "Range": "5 meters",
@@ -4818,6 +4840,7 @@
         "ParentKey": "Level 2 - Minor Talent"
     },
     "~Empower~": {
+        "_Value": "Combo, irdk",
         "A": "0 Actions",
         "Cost": "1 Mana",
         "Effect": "Your next Spell has its ^Dice Upgraded^ to the next die type.\n\n{Evoke}: Has ^Dice Upgraded^ one type higher per Evoke Point spent.\n",
@@ -4862,10 +4885,12 @@
         "ParentKey": "Level 3 - Keystone Talent"
     },
     "~Curse of Frailty~": {
+        "_Value": "Baseline, 0, but can go up to 1 if used correctly",
         "A": "Half-Action",
         "Cost": "1 Mana",
         "Tags": "Debuff",
-        "Effect": "A Unit you can see takes +50% Damage the next time it takes Damage.",
+        "Effect": "A Unit you can see takes +50% Damage the next time it takes Damage from an ally.\n\n{Evoke}: +50% extra Damage per Evoke Point spent.\n",
+        "HasMixins": true,
         "ParentKey": "Level 4 - Minor Talent"
     },
     "~Invoke Kindred~": {
@@ -6178,18 +6203,128 @@
         "ParentKey": "Level 7 - Keystone Talent"
     },
     "~Lick Wounds~": {
-        "A": "Pet Feature!",
-        "Effect": "This should be on the pet feature and can heal.",
-        "ParentKey": "Ideas"
+        "A": "Half-Action",
+        "IsSubspell": true,
+        "Cooldown": "Once / Combat",
+        "Effect": "Your pet heals a Unit near it for 1d12.",
+        "ParentKey": "Other Abilities"
+    },
+    "~Large~": {
+        "A": "Passive",
+        "IsSubspell": true,
+        "Effect": "Your pet is Large and occupies a 2x2 meter area.",
+        "ParentKey": "Ability Choices"
+    },
+    "~Ridable Steed~": {
+        "A": "Passive",
+        "IsSubspell": true,
+        "Effect": "Your pet is ridable as a mount and has +50% Movement Speed outside combat.",
+        "ParentKey": "Ability Choices"
+    },
+    "~Opposable Thumbs~": {
+        "A": "Passive",
+        "IsSubspell": true,
+        "Effect": "Your pet has opposable thumbs and can use Potions, Scrolls and other similar items.",
+        "ParentKey": "Ability Choices"
+    },
+    "~Flying~": {
+        "A": "Passive",
+        "IsSubspell": true,
+        "Effect": "Your pet can fly at its normal Movement Speed.",
+        "ParentKey": "Ability Choices"
+    },
+    "~Dig~": {
+        "A": "Passive",
+        "IsSubspell": true,
+        "Effect": "Your pet can dig and move through dirt as if it were just Hard Terrain.",
+        "ParentKey": "Ability Choices"
+    },
+    "~Stand Proud~": {
+        "A": "Passive",
+        "IsSubspell": true,
+        "Effect": "If the pet ends its Turn without having dealt Damage, it heals for 1d4.\n",
+        "ParentKey": "Other Abilities"
+    },
+    "~Resilient~": {
+        "A": "Passive",
+        "IsSubspell": true,
+        "Effect": "Your pet is Large (2x2 meters) and has +6 Max Health.\n",
+        "ParentKey": "Other Abilities"
+    },
+    "~Grabbing Talon~": {
+        "A": "Passive",
+        "IsSubspell": true,
+        "Effect": "If an enemy starts its Turn next to your pet, it is Slowed.\n",
+        "ParentKey": "Other Abilities"
+    },
+    "~Ambushing~": {
+        "A": "Passive",
+        "IsSubspell": true,
+        "Effect": "Your pet's first regular attack every Combat deals +1d6 Damage.",
+        "ParentKey": "Other Abilities"
+    },
+    "~Breath Attack~": {
+        "A": "Passive",
+        "IsSubspell": true,
+        "Effect": "Choose an element.\nYour pet's attack range becomes 4 meters and deals Damage of the chosen element Type.\n",
+        "ParentKey": "Other Abilities"
+    },
+    "~Antler Charge~": {
+        "A": "Passive",
+        "IsSubspell": true,
+        "Effect": "Your pet has +1 Movement Speed.\nIf the pet moved at least 5 meters in a straight line, then attacked a target in front of it, Slam the target +1d4 Damage away from the pet.\n",
+        "ParentKey": "Other Abilities"
+    },
+    "~Spiky~": {
+        "A": "Passive",
+        "IsSubspell": true,
+        "Effect": "After a Unit makes an Attack on the pet from 1 meter away, the attacker takes 1d4 Pierce Damage.",
+        "ParentKey": "Other Abilities"
+    },
+    "~Venomous Fangs~": {
+        "A": "Passive",
+        "IsSubspell": true,
+        "Effect": "Your pet's attacks deal +1d4 extra Poison Damage to targets already affected by Crowd Control.",
+        "ParentKey": "Other Abilities"
+    },
+    "~Leaping~": {
+        "A": "Half-Action",
+        "IsSubspell": true,
+        "Range": "2-3 meters range",
+        "Cooldown": "Once / Combat",
+        "Effect": "Your pet leaps next to a Unit, Blinding it.\n",
+        "ParentKey": "Other Abilities"
+    },
+    "~Entrap~": {
+        "A": "Half-Action",
+        "IsSubspell": true,
+        "Range": "4 meters",
+        "Cooldown": "Once / Combat",
+        "Effect": "Your pet entraps a Unit in web, goo or a similar substance, Rooting it.",
+        "ParentKey": "Other Abilities"
+    },
+    "~Grab and Throw~": {
+        "A": "Half-Action",
+        "IsSubspell": true,
+        "Cooldown": "Once / Combat",
+        "Effect": "Your pet picks up and Slams a Medium or smaller Unit up to 1d8 in any direction.",
+        "ParentKey": "Other Abilities"
+    },
+    "~Quillshot~": {
+        "A": "1 Action",
+        "IsSubspell": true,
+        "Cooldown": "Once / Combat",
+        "Effect": "All Units within 3 meters of the Porcupine are shot with arrow-like quills and take 1d6 + 1d8 Pierce Damage.",
+        "ParentKey": "Other Abilities"
     },
     "<Pet Versatile Training>": {
         "A": "Special",
-        "Effect": "When you get this Talent and at the end of every Adventure, you can change one of your pet's animal features.",
+        "Effect": "When you get this Talent and at the end of every Adventure, you can change one of your pet's Pet Talents.",
         "ParentKey": "Level 4 - Minor Talent"
     },
     "<Pet Training 101>": {
         "A": "Passive",
-        "Effect": "Choose one more Animal feature.\nWhile you have this Talent, your pet also has that Animal feature.\n",
+        "Effect": "Choose one more Pet Talent.\nWhile you have this Talent, your pet also has that Pet Talent.\n",
         "ParentKey": "Level 3 - Keystone Talent"
     },
     "<Bandage Wounds>": {
@@ -6200,12 +6335,12 @@
     },
     "<Pet Versatile Trainings>": {
         "A": "Special",
-        "Effect": "When you get this Talent and at the end of every Adventure, you can change one animal feature of one of your pets.",
+        "Effect": "When you get this Talent and at the end of every Adventure, you can change one Pet Talent of one of your pets.",
         "ParentKey": "Level 2 - Minor Talent"
     },
     "<Pet Training 102>": {
         "A": "Passive",
-        "Effect": "Choose one more Animal feature.\nWhile you have this Talent, your pet also has that Animal feature.\n",
+        "Effect": "Choose one more Pet Talent.\nWhile you have this Talent, your pet also has that Pet Talent.\n",
         "ParentKey": "Level 5 - Keystone Talent"
     },
     "~Infused Bites~": {
@@ -6232,14 +6367,28 @@
         "HasMixins": true,
         "ParentKey": "Level 2 - Minor Talent"
     },
+    "<Kindred Spirits>": {
+        "_Value": 5,
+        "A": "Passive",
+        "Effect": "One more of your Animal Companions accompanies you while adventuring.\nThis Animal Companion obeys the same rules as the regular one (takes its turns, requires healing between combats, etc).\n",
+        "Notes": "You're instantly kicked from the group if your pets don't have names.",
+        "ParentKey": "Level 3 - Keystone Talent"
+    },
+    "<Singular Apex>": {
+        "_Value": 5,
+        "A": "Passive",
+        "Effect": "Each of your Animals now has 4 instead of 2 Pet Talents, +100% Health and deals 2d6 Pet Attack Damage instead of 1d6.\n",
+        "ParentKey": "Level 3 - Keystone Talent"
+    },
     "<Double Training>": {
         "A": "Passive",
-        "Effect": "Teach each of your Animal Companions one more Animal feature.",
+        "Effect": "Teach each of your Animal Companions one more Pet Talent.",
         "ParentKey": "Level 4 - Minor Talent"
     },
     "~Nominate Squire~": {
         "A": "Special",
-        "Effect": "Nominate a Player Character from your party to become your _squire_ - your trusted companion and helper in your quest.\n\nYour squire gets -2 Max Health, but you get +3 Max Health.\nYour squire has doubled inventory capacity and you can instantly swap items from eachother with 0 Actions (if near eachother).\nWhenever one of you would get a Quirk, you can choose to deny it, and be given a different Quirk that fits the situation.\n",
+        "Effect": "Nominate a Player Character from your party to become your _squire_ - your trusted companion and helper in your quest.\n\nYour squire gets -2 Max Health, but you get +3 Max Health.\nWhenever one of you would get a Quirk, you can choose to deny it, and be given a different Quirk that fits the situation.\n",
+        "Upgrade": "Your squire has doubled inventory capacity and you can instantly swap items from eachother with 0 Actions (if near eachother).\nThey also have +2 in War Machines.\n",
         "HasMixins": true,
         "ParentKey": "Utility"
     },
@@ -6351,11 +6500,26 @@
         "HasMixins": true,
         "ParentKey": "Level 2 - Minor Talent"
     },
+    "<Banner of Honor>": {
+        "A": "1 Action",
+        "Cooldown": "Once / Adventure",
+        "Duration": null,
+        "Effect": "Activate and fling a Banner on a space within 5 meters, dealing 1d6 Damage to Units it lands next to.\nAllies (and you) starting their Turn within 2 meters of the banner start with +Half-Action.\n\n{Teal('With Valor:')} TBD\n{Teal('Next:')} TBD\n",
+        "Upgrade": "The banner counts as a Unit with 10 Health, but can't take Area Damage.",
+        "Notes": "The banner's effect only applies if it's planted into the ground. To be moved, the banner can be picked up with a Half-Action, and thrown again with a Half-Action to reposition and deal the Damage again.",
+        "HasMixins": true,
+        "ParentKey": "Level 3 - Keystone Talent"
+    },
     "~No Matter What~": {
         "A": "Passive",
         "Requirement": "Only applies in Worthy Combat",
         "Effect": "At the end of your every Turn, heal for an amount equal to the Round Number.\n\n{Teal('With Valor:')} Also heals an Ally you can see\n{Teal('Next:')} TBD\n",
         "HasMixins": true,
+        "ParentKey": "Level 4 - Minor Talent"
+    },
+    "~CATAPULT!~": {
+        "A": "1 hour",
+        "Effect": "Craft a special catapult that you can take with you on your adventures.\nIt can't move on its own, but once per Round, it can be activated with a Half-Action to shoot a 3x3 area within 10 meters. All Units hit take 2d6 Smash Damage.\n",
         "ParentKey": "Level 4 - Minor Talent"
     },
     "~Creed of the Crown~": {
@@ -6405,6 +6569,11 @@
         "Degree": "Minor",
         "Effect": "Remove all your party members' Exhaustion (from any source).\nIf they were Exhausted from lack of sleep, they can resist sleep Exhaustion for 8 more hours.\n",
         "ParentKey": "Level 6 - Utility Talent"
+    },
+    "~Bouncing Ambush~": {
+        "A": "Passive",
+        "Effect": "Insted of dealing Damage to the same target with Ambush, deal it to another Unit you can see.",
+        "ParentKey": "Ability Choices"
     },
     "~Magical Archetype~": {
         "A": "Passive",

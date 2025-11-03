@@ -54,12 +54,13 @@
             "AlignOnWebsite": "Left",
             "A": "Passive",
             "HasMixins": true,
-            "Effect": "You have an animal pet that can fight alongside you! Check out the `Pets and Animals page$/Other/PetsAndAnimals` and choose an Animal from the Pets section, ignoring those Level requirements!\nYour pet takes its turn at the same time as you do, and always has the same Initiative as yours, and can make normal Checks using using its own Stats.\nIt has 1 Action per turn, which it can use to do its own Abilities or Pet Attack.\nYour pet will not stray more than 30 meters away from you in hostile territory.\n",
-            "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.",
-            "Notes": "Your pet can't rise from being Fallen while in combat, even if healed.\nIf your pet ever dies, you can spend 8 hours inbetween Adventures to get a new pet. If you want to change your Pet and abandon your current one, you can do so inbetween Adventures, but the guilt will make you Fumbling for the next 2 Worthy Combat encounters.\n",
+            "Effect": "You have an animal pet that can fight alongside you!\nYour pet has the Stats 3, 1, 0, 0, -1 in any order, but they do not affect its Combat capabilities.\nIt has ^8 + 200% of Your Level^ Max Health.\nIt takes its Turn at the same time as you do (and always has the same Initiative as yours).\nIt has 1 Action per turn, which it can use to do its own Abilities or Pet Attack.\n\nInstead of picking Level 1 Minor Talents for yourself, they apply to your Pet.\nAlso, choose 2 Level 1 - Pet Talents from below to give to your pet.\n",
+            "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.\nYour pet will not stray more than 30 meters away from you in hostile territory.\n",
+            "Notes": "Your pet can make normal non-Combat Rolls using using its own Stats.\nYour pet can't rise from being Fallen while in Combat, even if healed.\nIf your pet ever dies, you can spend 8 hours inbetween Adventures to get a new pet. If you want to change your Pet and abandon your current one, you can do so inbetween Adventures, but the guilt will make you Fumbling for the next 2 Worthy Combat encounters.\n",
             "Subspells": {
                 "~Pet Attack~": {
                     "A": "1 Action (from the pet)",
+                    "Cooldown": "Once / Turn",
                     "IsSubspell": true,
                     "Effect": "The pet melee attacks a target.\nThe attack deals 1d6 Pierce or Slash Damage (your choice).\n",
                     "AlignOnWebsite": "Right",
@@ -114,6 +115,127 @@
             "Cooldown": "Once / in-game day",
             "Effect": "Setup camp, creating favorable conditions for your party for up to 8 in-game hours.\nUnits in the camp are protected from all bad weather and are immune to being poisoned by food or drink.\nUntil the end of the Adventure, all Units who camped here are immune to Hard Terrain.\n",
             "ParentKey": "Utility"
+        }
+    },
+    "Ability Choices": {
+        "~Large~": {
+            "A": "Passive",
+            "IsSubspell": true,
+            "Effect": "Your pet is Large and occupies a 2x2 meter area.",
+            "ParentKey": "Ability Choices"
+        },
+        "~Ridable Steed~": {
+            "A": "Passive",
+            "IsSubspell": true,
+            "Effect": "Your pet is ridable as a mount and has +50% Movement Speed outside combat.",
+            "ParentKey": "Ability Choices"
+        },
+        "~Opposable Thumbs~": {
+            "A": "Passive",
+            "IsSubspell": true,
+            "Effect": "Your pet has opposable thumbs and can use Potions, Scrolls and other similar items.",
+            "ParentKey": "Ability Choices"
+        },
+        "~Flying~": {
+            "A": "Passive",
+            "IsSubspell": true,
+            "Effect": "Your pet can fly at its normal Movement Speed.",
+            "ParentKey": "Ability Choices"
+        },
+        "~Dig~": {
+            "A": "Passive",
+            "IsSubspell": true,
+            "Effect": "Your pet can dig and move through dirt as if it were just Hard Terrain.",
+            "ParentKey": "Ability Choices"
+        }
+    },
+    "Other Abilities Title": "Pet Talents",
+    "Other Abilities Description": "Choose up to 2 Pet Talents to give to your pet. These are permanent and can only be changed by retraining your pet in later levels, via special Talents.",
+    "Other Abilities": {
+        "~Stand Proud~": {
+            "A": "Passive",
+            "IsSubspell": true,
+            "Effect": "If the pet ends its Turn without having dealt Damage, it heals for 1d4.\n",
+            "ParentKey": "Other Abilities"
+        },
+        "~Resilient~": {
+            "A": "Passive",
+            "IsSubspell": true,
+            "Effect": "Your pet is Large (2x2 meters) and has +6 Max Health.\n",
+            "ParentKey": "Other Abilities"
+        },
+        "~Grabbing Talon~": {
+            "A": "Passive",
+            "IsSubspell": true,
+            "Effect": "If an enemy starts its Turn next to your pet, it is Slowed.\n",
+            "ParentKey": "Other Abilities"
+        },
+        "~Ambushing~": {
+            "A": "Passive",
+            "IsSubspell": true,
+            "Effect": "Your pet's first regular attack every Combat deals +1d6 Damage.",
+            "ParentKey": "Other Abilities"
+        },
+        "~Breath Attack~": {
+            "A": "Passive",
+            "IsSubspell": true,
+            "Effect": "Choose an element.\nYour pet's attack range becomes 4 meters and deals Damage of the chosen element Type.\n",
+            "ParentKey": "Other Abilities"
+        },
+        "~Antler Charge~": {
+            "A": "Passive",
+            "IsSubspell": true,
+            "Effect": "Your pet has +1 Movement Speed.\nIf the pet moved at least 5 meters in a straight line, then attacked a target in front of it, Slam the target +1d4 Damage away from the pet.\n",
+            "ParentKey": "Other Abilities"
+        },
+        "~Spiky~": {
+            "A": "Passive",
+            "IsSubspell": true,
+            "Effect": "After a Unit makes an Attack on the pet from 1 meter away, the attacker takes 1d4 Pierce Damage.",
+            "ParentKey": "Other Abilities"
+        },
+        "~Venomous Fangs~": {
+            "A": "Passive",
+            "IsSubspell": true,
+            "Effect": "Your pet's attacks deal +1d4 extra Poison Damage to targets already affected by Crowd Control.",
+            "ParentKey": "Other Abilities"
+        },
+        "~Leaping~": {
+            "A": "Half-Action",
+            "IsSubspell": true,
+            "Range": "2-3 meters range",
+            "Cooldown": "Once / Combat",
+            "Effect": "Your pet leaps next to a Unit, Blinding it.\n",
+            "ParentKey": "Other Abilities"
+        },
+        "~Entrap~": {
+            "A": "Half-Action",
+            "IsSubspell": true,
+            "Range": "4 meters",
+            "Cooldown": "Once / Combat",
+            "Effect": "Your pet entraps a Unit in web, goo or a similar substance, Rooting it.",
+            "ParentKey": "Other Abilities"
+        },
+        "~Grab and Throw~": {
+            "A": "Half-Action",
+            "IsSubspell": true,
+            "Cooldown": "Once / Combat",
+            "Effect": "Your pet picks up and Slams a Medium or smaller Unit up to 1d8 in any direction.",
+            "ParentKey": "Other Abilities"
+        },
+        "~Quillshot~": {
+            "A": "1 Action",
+            "IsSubspell": true,
+            "Cooldown": "Once / Combat",
+            "Effect": "All Units within 3 meters of the Porcupine are shot with arrow-like quills and take 1d6 + 1d8 Pierce Damage.",
+            "ParentKey": "Other Abilities"
+        },
+        "~Lick Wounds~": {
+            "A": "Half-Action",
+            "IsSubspell": true,
+            "Cooldown": "Once / Combat",
+            "Effect": "Your pet heals a Unit near it for 1d12.",
+            "ParentKey": "Other Abilities"
         }
     },
     "Starting Abilities Description": [
@@ -180,7 +302,7 @@
                     },
                     "<Pet Versatile Training>": {
                         "A": "Special",
-                        "Effect": "When you get this Talent and at the end of every Adventure, you can change one of your pet's animal features.",
+                        "Effect": "When you get this Talent and at the end of every Adventure, you can change one of your pet's Pet Talents.",
                         "ParentKey": "Level 2 - Minor Talents"
                     }
                 },
@@ -210,7 +332,7 @@
                     },
                     "<Pet Training 101>": {
                         "A": "Passive",
-                        "Effect": "Choose one more Animal feature.\nWhile you have this Talent, your pet also has that Animal feature.\n",
+                        "Effect": "Choose one more Pet Talent.\nWhile you have this Talent, your pet also has that Pet Talent.\n",
                         "ParentKey": "Level 3 - Keystone Talent"
                     }
                 },
@@ -223,7 +345,7 @@
                     },
                     "<Pet Versatile Trainings>": {
                         "A": "Special",
-                        "Effect": "When you get this Talent and at the end of every Adventure, you can change one animal feature of one of your pets.",
+                        "Effect": "When you get this Talent and at the end of every Adventure, you can change one Pet Talent of one of your pets.",
                         "ParentKey": "Level 4 - Minor Talent"
                     },
                     "~Lance Heave~": {
@@ -298,7 +420,7 @@
                     },
                     "<Pet Training 102>": {
                         "A": "Passive",
-                        "Effect": "Choose one more Animal feature.\nWhile you have this Talent, your pet also has that Animal feature.\n",
+                        "Effect": "Choose one more Pet Talent.\nWhile you have this Talent, your pet also has that Pet Talent.\n",
                         "ParentKey": "Level 5 - Keystone Talent"
                     }
                 },
@@ -401,7 +523,7 @@
                 "~Stablemaster~": {
                     "_Value": 1,
                     "A": "Passive",
-                    "Effect": "You have 3 different Animal Companion pets, but only one can adventure with you at a time.\nWhile not with you, your other Animal Companions hang out on their own in the wilderness, but no more than 5 kilometers away from you.\nYou can send your current companion off, then spend 30 minutes to telepathically call another one to come join you.\n",
+                    "Effect": "You have 3 different Animal Companion pets, but only one can adventure with you at a time.\nEach of your Animal Companions has 2 Pet Talents, and you can distribute your Minor Level 1 Talents among your pets as you like.\n\nWhile not with you, your other Animal Companions hang out on their own in the wilderness, but no more than 5 kilometers away from you.\nYou can send your current companion off, then spend 30 minutes to call for another one to come join you.\n",
                     "Notes": "The advantage is you can use several animal Abilities that have longer Cooldowns; these are usually stronger.\nIt is possible that the animal you're calling can't come to your aid if you're indoors, flying or the trail you're on is too difficult. In that case, you will have to return outside or on a safe trail (QM's decision).\nIn that case, your current companion can not go away, either.\n",
                     "ParentKey": "Starting Abilities"
                 }
@@ -410,7 +532,7 @@
                 "Level 2 - Minor Talent": {
                     "<Pet Versatile Trainings>": {
                         "A": "Special",
-                        "Effect": "When you get this Talent and at the end of every Adventure, you can change one animal feature of one of your pets.",
+                        "Effect": "When you get this Talent and at the end of every Adventure, you can change one Pet Talent of one of your pets.",
                         "ParentKey": "Level 2 - Minor Talent"
                     },
                     "~Infused Bites~": {
@@ -439,35 +561,29 @@
                     }
                 },
                 "Level 3 - Keystone Talent": {
-                    "<Exotic Double>": {
+                    "<Kindred Spirits>": {
                         "_Value": 5,
                         "A": "Passive",
-                        "Effect": "One more of your Animal Companions accompanies you while adventuring.\nThis Animal Companion obeys the same rules as the regular one (takes its turns, requires healing between combats, etc).\nOne of your 3 Animal Companions can be an Exotic Animal.\n",
+                        "Effect": "One more of your Animal Companions accompanies you while adventuring.\nThis Animal Companion obeys the same rules as the regular one (takes its turns, requires healing between combats, etc).\n",
                         "Notes": "You're instantly kicked from the group if your pets don't have names.",
                         "ParentKey": "Level 3 - Keystone Talent"
                     },
-                    "<Large Double>": {
+                    "<Singular Apex>": {
                         "_Value": 5,
                         "A": "Passive",
-                        "Effect": "One more of your Animal Companions accompanies you while adventuring.\nThis Animal Companion obeys the same rules as the regular one (takes its turns, requires healing between combats, etc).\nOne of your 3 Animal Companions grows to become Large. Its Max Health increases by 25% and its attack range by 1.\n",
-                        "ParentKey": "Level 3 - Keystone Talent"
-                    },
-                    "<Wild Single>": {
-                        "_Value": 5,
-                        "A": "Passive",
-                        "Effect": "All your Animal Companions are combinations of 2 different Animals from the Animals List, and have the highest Stats of the two and both Abilities, and has 100% extra Health. All your Animal Companions must be combinations of all different Animals.\nYour Animal Companion's Pet Attack Damage becomes 2d6.\n",
+                        "Effect": "Each of your Animals now has 4 instead of 2 Pet Talents, +100% Health and deals 2d6 Pet Attack Damage instead of 1d6.\n",
                         "ParentKey": "Level 3 - Keystone Talent"
                     }
                 },
                 "Level 4 - Minor Talent": {
                     "<Double Training>": {
                         "A": "Passive",
-                        "Effect": "Teach each of your Animal Companions one more Animal feature.",
+                        "Effect": "Teach each of your Animal Companions one more Pet Talent.",
                         "ParentKey": "Level 4 - Minor Talent"
                     },
                     "<Pet Versatile Training>": {
                         "A": "Special",
-                        "Effect": "When you get this Talent and at the end of every Adventure, you can change one of your pet's animal features.",
+                        "Effect": "When you get this Talent and at the end of every Adventure, you can change one of your pet's Pet Talents.",
                         "ParentKey": "Level 4 - Minor Talent"
                     }
                 },

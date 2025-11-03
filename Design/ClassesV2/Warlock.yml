@@ -67,38 +67,45 @@ Starting Abilities:
 
 Ability Choices:
 
-    ~Hail~:
+    ~Hail~:   # Adds AoE (+0.65/EP)
         A: 1 Action
         Range: 4 meters
         HasMixins: true
         Degree: Minor
-        Tags: Damage
+        Tags: [Damage, Multi-Target Damage]
         Effect: |
             Blast a Unit for 2d8 + ^target's Might^ Damage of your chosen Element.
-        Combo: +1d6 Damage.
 
-    ~Wyrd Renewal~:
+            {Evoke}: Hits an extra Unit (for 1d8 + ^that Unit's Might^) for each Evoke Point spend.
+        Combo: Generates an extra Evoke Point.
+        Notes: Each extra Unit hit must be different than the others.
+
+    ~Wyrd Renewal~: # Adds healing
         A: Half-Action
         Range: 5 meters
         Degree: Lesser
         Requirement: Only usable in Worthy Combat
         Tags: [Healing, Damage]
         Effect: |
-            Roll 1d10 - 5. After you see the result, choose a Worthy Unit.
+            Roll 1d12 - 5. After you see the result, choose a Worthy Unit.
             If it's negative, deal Scourge Damage to it. Otherwise, heal it.
+
+            {Evoke}: +50% Damage or Healing per Evoke Point spent.
         Combo: +50% Damage or Healing
 
-    ~Deathfire Flame~:
+    ~Deathfire Flame~:  # Adds insane Damage (+1/EP)
         A: 1 Action
         Cost: 1 Mana
         Range: 10 meters
         Degree: Major
         Tags: Area Damage
         Effect: |
-            Shoot a bolt of deathly fire in a 1x10 meter line. All Units it touches take 1d6 + 1d8 + 1d10 Scourge or Fire Damage (your choice).
-        Notes: Ignores Half-Hitting Damage reduction.
+            Shoot a bolt of deathly fire in a 1x10 meter line. All Units it touches take 1d4 + 1d6 + 1d8 Scourge or Fire Damage (your choice).
 
-    ~Curse of Weakness~:
+            {Evoke}: Deals an extra ^higher^ die Damage for each Evoke Point spent.
+        Notes: For 1 Evoke Point, deals +1d10 Damage. For 2 spent, deals +1d10 + 1d12. And so on.
+
+    ~Curse of Weakness~:  # Improves debuff
         A: Half-Action
         Range: 5 meters
         Cost: 1 Mana
@@ -107,9 +114,11 @@ Ability Choices:
         Tags: Debuff
         Effect: |
           Choose a Unit. The first time it deals Damage on its every Turn, roll 1d4 and subtract it from its dealt Damage.
+
+          {Evoke}: Has ^Dice Upgraded^ for each Evoke Point spent.
         Upgrade: Only affects an Epic monster's first turn.
 
-    ~Curse of Pain~:
+    ~Curse of Pain~:  # Adds DoT (+0.5/EP)
         A: 0 Actions
         Cost: 1 Mana
         Range: 5 meters
@@ -119,7 +128,9 @@ Ability Choices:
         Effect: |
             Choose a Unit. At the start of each of your Turns, it takes 1d4 Scourge Damage (ignoring Cover).
 
-    ~Psyche Blast~:
+            {Evoke}: Has ^Dice Upgraded^ for each Evoke Point spent.
+
+    ~Psyche Blast~: # Adds CC (+1/EP)
         A: 1 Action
         Range: 3 meters
         Cost: 1 Mana
@@ -127,12 +138,12 @@ Ability Choices:
         Degree: Major
         Tags: [Damage, Crowd Control]
         Effect: |
-            A Unit takes 4d6 Psychic Damage and chooses whether to become Blinded or Silenced.
+            A Unit takes 4d6 Psychic Damage.
             Apply a ~Combo~ to it.
+
+            {Evoke}: Single-Stuns the target for each Evoke Point spent.
         Notes: |
-            Cover is applied normally.
-
-
+            Cover is applied normally. Note that Single-Stuns can stack to become Double-Stunned or Triple-Stunned.
 
 Utility:
 
@@ -192,15 +203,23 @@ Talents:
 
   Level 2 - Minor Talent:
 
-    ~Ebon Lance~:
+    ~Ebon Lance~: # Adds single-target Damage (+0.65/EP)
+      _Value: 0.75
       A: 0 Actions
       Cost: 1 Mana
       Effect: |
-        Your next melee weapon attack deals +1d4 Damage.
+        Your next {Type} weapon attack deals {Amount} Damage.
+        The Damage Types becomes of your chosen element Type.
 
         {Evoke}: +1d4 per Evoke Point spent.
+      Variants:
+        - Type: melee
+          Amount: 1d6
+        - Type: ranged
+          Amount: 1d4
     
-    ~Soul Drain~:
+    ~Soul Drain~: # Adds AoE farming (+1.25/EP)
+      _Value: 0.25
       A: Half-Action
       Cost: 1 Mana
       Range: 5 meters
@@ -210,7 +229,8 @@ Talents:
 
         {Evoke}: Hits 1 extra Unit per Evoke Point spent.
 
-    ~Empower~:
+    ~Empower~:  # No idea
+      _Value: Combo, irdk
       A: 0 Actions
       Cost: 1 Mana
       Effect: |
@@ -220,7 +240,7 @@ Talents:
       Upgrade: A die that goes higher than d12 just gets a +1 per extra type.
       Notes: "{DiceUpgraded}"
 
-    ~Veinlight~:
+    ~Veinlight~:  # Adds opportunity
       A: 3 Action Points
       Range: 5 meters to edge
       Effect: |
@@ -255,19 +275,22 @@ Talents:
     ~Borrowed Power~: 
       A: Passive
       Effect: |
-        Pick 2 extra Talents from Level 1 or that cost Mana (up to your Level) from your chosen Power Source Class.
-        Pick 1 extra Racial Talent from any Race.
-        From now on, you age 10 times as rapidly.
+        You start the first Combat of each Adventure with 1 Evoke Point.
+        You age 12 times as rapidly.
 
   Level 4 - Minor Talent:
 
-    ~Curse of Frailty~:
+    ~Curse of Frailty~: # Adds massive Damage
+        _Value: Baseline, 0, but can go up to 1 if used correctly
         A: Half-Action
         Cost: 1 Mana
         Tags: Debuff
-        Effect: A Unit you can see takes +50% Damage the next time it takes Damage.
+        Effect: |
+          A Unit you can see takes +50% Damage the next time it takes Damage from an ally.
 
-    ~Invoke Kindred~:
+          {Evoke}: +50% extra Damage per Evoke Point spent.
+
+    ~Invoke Kindred~: # Adds summon (implicitly adds defense) (0.75/EP)
       A: 1 Action
       Range: 10 meters to each invoked point
       Cost: 1 Mana

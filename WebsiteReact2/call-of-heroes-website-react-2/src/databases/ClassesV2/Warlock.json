@@ -53,9 +53,13 @@
             "Range": "4 meters",
             "HasMixins": true,
             "Degree": "Minor",
-            "Tags": "Damage",
-            "Effect": "Blast a Unit for 2d8 + ^target's Might^ Damage of your chosen Element.\n",
-            "Combo": "+1d6 Damage.",
+            "Tags": [
+                "Damage",
+                "Multi-Target Damage"
+            ],
+            "Effect": "Blast a Unit for 2d8 + ^target's Might^ Damage of your chosen Element.\n\n{Evoke}: Hits an extra Unit (for 1d8 + ^that Unit's Might^) for each Evoke Point spend.\n",
+            "Combo": "Generates an extra Evoke Point.",
+            "Notes": "Each extra Unit hit must be different than the others.",
             "ParentKey": "Ability Choices"
         },
         "~Wyrd Renewal~": {
@@ -67,8 +71,9 @@
                 "Healing",
                 "Damage"
             ],
-            "Effect": "Roll 1d10 - 5. After you see the result, choose a Worthy Unit.\nIf it's negative, deal Scourge Damage to it. Otherwise, heal it.\n",
+            "Effect": "Roll 1d12 - 5. After you see the result, choose a Worthy Unit.\nIf it's negative, deal Scourge Damage to it. Otherwise, heal it.\n\n{Evoke}: +50% Damage or Healing per Evoke Point spent.\n",
             "Combo": "+50% Damage or Healing",
+            "HasMixins": true,
             "ParentKey": "Ability Choices"
         },
         "~Deathfire Flame~": {
@@ -77,8 +82,9 @@
             "Range": "10 meters",
             "Degree": "Major",
             "Tags": "Area Damage",
-            "Effect": "Shoot a bolt of deathly fire in a 1x10 meter line. All Units it touches take 1d6 + 1d8 + 1d10 Scourge or Fire Damage (your choice).\n",
-            "Notes": "Ignores Half-Hitting Damage reduction.",
+            "Effect": "Shoot a bolt of deathly fire in a 1x10 meter line. All Units it touches take 1d4 + 1d6 + 1d8 Scourge or Fire Damage (your choice).\n\n{Evoke}: Deals an extra ^higher^ die Damage for each Evoke Point spent.\n",
+            "Notes": "For 1 Evoke Point, deals +1d10 Damage. For 2 spent, deals +1d10 + 1d12. And so on.",
+            "HasMixins": true,
             "ParentKey": "Ability Choices"
         },
         "~Curse of Weakness~": {
@@ -88,8 +94,9 @@
             "Duration": "1 minute",
             "Degree": "Minor",
             "Tags": "Debuff",
-            "Effect": "Choose a Unit. The first time it deals Damage on its every Turn, roll 1d4 and subtract it from its dealt Damage.\n",
+            "Effect": "Choose a Unit. The first time it deals Damage on its every Turn, roll 1d4 and subtract it from its dealt Damage.\n\n{Evoke}: Has ^Dice Upgraded^ for each Evoke Point spent.\n",
             "Upgrade": "Only affects an Epic monster's first turn.",
+            "HasMixins": true,
             "ParentKey": "Ability Choices"
         },
         "~Curse of Pain~": {
@@ -99,7 +106,8 @@
             "Duration": "1 minute",
             "Requirement": "Level 4",
             "Tags": "Damage",
-            "Effect": "Choose a Unit. At the start of each of your Turns, it takes 1d4 Scourge Damage (ignoring Cover).\n",
+            "Effect": "Choose a Unit. At the start of each of your Turns, it takes 1d4 Scourge Damage (ignoring Cover).\n\n{Evoke}: Has ^Dice Upgraded^ for each Evoke Point spent.\n",
+            "HasMixins": true,
             "ParentKey": "Ability Choices"
         },
         "~Psyche Blast~": {
@@ -112,8 +120,8 @@
                 "Damage",
                 "Crowd Control"
             ],
-            "Effect": "A Unit takes 4d6 Psychic Damage and chooses whether to become Blinded or Silenced.\nApply a ~Combo~ to it.\n",
-            "Notes": "Cover is applied normally.\n",
+            "Effect": "A Unit takes 4d6 Psychic Damage.\nApply a ~Combo~ to it.\n\n{Evoke}: Single-Stuns the target for each Evoke Point spent.\n",
+            "Notes": "Cover is applied normally. Note that Single-Stuns can stack to become Double-Stunned or Triple-Stunned.\n",
             "ParentKey": "Ability Choices"
         }
     },
@@ -167,13 +175,25 @@
     "Talents": {
         "Level 2 - Minor Talent": {
             "~Ebon Lance~": {
+                "_Value": 0.75,
                 "A": "0 Actions",
                 "Cost": "1 Mana",
-                "Effect": "Your next melee weapon attack deals +1d4 Damage.\n\n{Evoke}: +1d4 per Evoke Point spent.\n",
+                "Effect": "Your next {Type} weapon attack deals {Amount} Damage.\nThe Damage Types becomes of your chosen element Type.\n\n{Evoke}: +1d4 per Evoke Point spent.\n",
+                "Variants": [
+                    {
+                        "Type": "melee",
+                        "Amount": "1d6"
+                    },
+                    {
+                        "Type": "ranged",
+                        "Amount": "1d4"
+                    }
+                ],
                 "HasMixins": true,
                 "ParentKey": "Level 2 - Minor Talent"
             },
             "~Soul Drain~": {
+                "_Value": 0.25,
                 "A": "Half-Action",
                 "Cost": "1 Mana",
                 "Range": "5 meters",
@@ -182,6 +202,7 @@
                 "ParentKey": "Level 2 - Minor Talent"
             },
             "~Empower~": {
+                "_Value": "Combo, irdk",
                 "A": "0 Actions",
                 "Cost": "1 Mana",
                 "Effect": "Your next Spell has its ^Dice Upgraded^ to the next die type.\n\n{Evoke}: Has ^Dice Upgraded^ one type higher per Evoke Point spent.\n",
@@ -230,10 +251,12 @@
         },
         "Level 4 - Minor Talent": {
             "~Curse of Frailty~": {
+                "_Value": "Baseline, 0, but can go up to 1 if used correctly",
                 "A": "Half-Action",
                 "Cost": "1 Mana",
                 "Tags": "Debuff",
-                "Effect": "A Unit you can see takes +50% Damage the next time it takes Damage.",
+                "Effect": "A Unit you can see takes +50% Damage the next time it takes Damage from an ally.\n\n{Evoke}: +50% extra Damage per Evoke Point spent.\n",
+                "HasMixins": true,
                 "ParentKey": "Level 4 - Minor Talent"
             },
             "~Invoke Kindred~": {
