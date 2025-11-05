@@ -24,14 +24,14 @@ const NAV_CONFIG = [
   { name: 'Game', children: [
     { name: 'Races', children: [
       { name: 'Bertle',       href: '/Races/Bertle' },
-      { name: 'Davel',        href: '/WorkInProgress', isDisabled: true },
-      { name: 'Dragon',       href: '/Races/Dragonborn' },
       { name: 'Dwarf',        href: '/Races/Dwarf' },
       { name: 'Elf',          href: '/Races/Elf' },
       { name: 'Giant',        href: '/Races/Orc' },
-      { name: 'Gnome',        href: '/Races/Gnome' },
-      { name: 'Hollow',       href: '/Races/Hollow', lock: 'premium' },
       { name: 'Human',        href: '/Races/Human' },
+      { name: 'Littlefolk',   href: '/Races/Gnome' },
+      { name: 'Davel',        href: '/WorkInProgress', lock: 'premium', isDisabled: true },
+      { name: 'Dragon',       href: '/Races/Dragonborn', lock: 'premium' },
+      { name: 'Hollow',       href: '/Races/Hollow', lock: 'premium' },
     ]},
     // { name: 'Classes', children: [
     //   { name: 'Cleric',       href: '/Classes/Cleric' },
@@ -73,8 +73,8 @@ const NAV_CONFIG = [
       { name: 'Abilities', children: [
         { name: 'Basic Abilities',      href: '/Other/Abilities' },
         { name: 'Feats',                href: '/Other/Feats' },
-        { name: 'Quirks',               href: '/WorkInProgress' },
-        { name: 'Ability Sheet Maker',  href: 'Other/AbilitySheets', lock: 'premium' },
+        { name: 'Quirks',               href: '/Other/Quirks' },
+        { name: 'Ability Sheet Maker',  href: '/Other/AbilitySheets', lock: 'premium' },
       ]},
       { name: 'Items & Gear', landscapeStyle: { marginTop: '1rem' }, children: [
         { name: 'Shop & Prices',  href: '/Other/Prices' },
