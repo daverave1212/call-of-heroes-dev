@@ -55,7 +55,7 @@ export default function RogueB() {
                 <LevelingUp theClass={theClass}/>
 
                 <br/><br/>
-                <QGTitle1 text={'Specializations'} height={40}/>
+                <QGTitle1 text={'Specializations'} height={35}/>
 
                 <p>
                     When you reach Level 2, you can choose one of the Specializations below.

@@ -82,48 +82,72 @@ export function Proficiencies({ name, theRaceOrClass }) {
 }
 
 export function RaceHeader({imgStyle, theRace, theClass, hueShift, height=60}) {
+
+    const theRaceOrClass = theRace ?? theClass
+    const name = theRaceOrClass.Race ?? theRaceOrClass.Class
+    const layoutType = theRaceOrClass.LayoutType ?? 'A'
+    const imageStyle = imgStyle ?? theRaceOrClass.ImageStyle
+
+    console.log({theRaceOrClass})
+
     useEffect(() => {
-        if (theRace != null) {
-            document.title = theRace.Race
-        }
-        if (theClass != null) {
-            document.title = theClass.Class
-        }
+        document.title = name
     }, [theRace, theClass])
-    const name = theRace != null? theRace.Race : theClass.Class
+
     const imagePath = theRace != null? `/Races/${theRace.Race}.png` : `/Classes/${theClass.Class}.png`
-    const description = theRace != null? theRace.Description : theClass.Description
+    const imageClass = layoutType == 'B'? 'type-b': 'type-a'
+    const descriptionBefore = theRaceOrClass.DescriptionBefore
+    const description = theRaceOrClass.Description
+    const descriptionLeft = theRaceOrClass.DescriptionLeft
+    const descriptionRightTop = theRaceOrClass.DescriptionRightTop
+    const descriptionRightBottom = theRaceOrClass.DescriptionRightBottom
+    const descriptionAfter = theRaceOrClass.DescriptionAfter
+    const completeDescription = [descriptionBefore, description, descriptionLeft, descriptionRightTop, descriptionRightBottom, descriptionAfter].filter(txt => txt != null).join('\n')
     return (
         <div>
-            {/* <AnchorFixer */}
             <div className='landscape-only'>
-                {/* <PageH1>{ name }</PageH1> */}
-                <QGTitle1 text={name} hueShift={hueShift} height={height}/>
+                <br/>
+                <br/>
+                <br/>
+                <div className='center-content margin-bottom-2'>
+                    <QGTitle1 text={name} hueShift={hueShift} height={height}/>
+                </div>
+                <br/>
+                <br/>
+                { descriptionBefore && <p>{descriptionBefore}</p>}
                 { theRace?.IsShort || theClass?.IsShort? (
                     <TwoColumns type="leftier">
                         <Column style={{zIndex: 1}}>
-                            <RaceDescription description={description}/>
+                            <RaceDescription description={descriptionLeft ?? description}/>
                         </Column>
                         <Column style={{position: 'relative'}}>
+                            { descriptionRightTop && <p>{descriptionRightTop}</p>}
                             <img style={imgStyle} className="class-image" src={imagePath}/>
+                            { descriptionRightBottom && <p>{descriptionRightBottom}</p>}
                         </Column>
                     </TwoColumns>
                 ) : (
-                    <TwoColumnsDescriptive>
+                    <TwoColumns style={{gap: '2rem' }}>
                         <Column style={{zIndex: 1}}>
-                            <RaceDescription description={description}/>
+                            <RaceDescription description={descriptionLeft ?? description}/>
                         </Column>
-                        <Column style={{position: 'relative'}}>
-                            <img style={imgStyle} className="class-image" src={imagePath}/>
+                        <Column className={`flex column`} style={{position: 'relative'}}>
+                            { descriptionRightTop && <p>{descriptionRightTop}</p>}
+                            <img style={imageStyle} className={`class-image ${imageClass}`} src={imagePath}/>
+                            { descriptionRightBottom && <p>{descriptionRightBottom}</p>}
                         </Column>
-                    </TwoColumnsDescriptive>
+                    </TwoColumns>
                 )}
+                { descriptionAfter && <p>{descriptionAfter}</p>}
             </div>
             <div className='portrait-only'>
-                <PageH1 h1Style={{textAlign: 'center'}}>{ name }</PageH1>
+                <div className='center-content margin-bottom-2'>
+                    <QGTitle1 text={name} height={45}/>
+                </div>
+                {/* <PageH1 h1Style={{textAlign: 'center'}}>{ name }</PageH1> */}
                 <img className="class-image-portrait" src={imagePath}/>
                 <br/><br/>
-                <RaceDescription description={description}/>
+                <RaceDescription description={completeDescription}/>
             </div>
         </div>
     )
@@ -135,7 +159,8 @@ export function RaceDescription({ description }) {
         .map(str => str.trim())
         .filter(str => str.length > 0)
         .map(str => <p key={str.substring(0, 10)}>{str}</p>)
-    const descriptionComponents = U.insertBetweenAll(descriptionLines, (i) => <Separator key={i}/>)
+    // const descriptionComponents = U.insertBetweenAll(descriptionLines, (i) => <Separator key={i}/>)
+    const descriptionComponents = U.insertBetweenAll(descriptionLines, (i) => <br/>)
     return (
         <div>
             { descriptionComponents }
@@ -147,7 +172,7 @@ export function ClassFeatures({ theClass, hueShift }) {
     return (
         <div id="class-features">
             {/* <PageH2>Class Features</PageH2> */}
-            <QGTitle1 text="Class Features" hueShift={hueShift} height={40}/>
+            <QGTitle1 text="Class Features" hueShift={hueShift} height={35}/>
 
             <TwoColumns>
                 <Column>
@@ -251,7 +276,7 @@ export function Equipment({ theClass }) {
     return (
         <div id="equipment">
             {/* <PageH2>Skills, Gold and Equipment</PageH2> */}
-            <QGTitle1 text={'Skills Gold and Equipment'} height={40}/>
+            <QGTitle1 text={'Skills Gold and Equipment'} height={35}/>
             <p>You start with a number of Skills you can pick from the <Link to="/Other/Proficiencies">Non-Combat Skills</Link> page.</p>
             <SmallStat name="Number of Skills">Sense + 3</SmallStat>
             <br/>
@@ -270,7 +295,7 @@ export function LevelingUp({ theClass, isCharacterCreationPage=false }) {
     return (
         <div style={{marginTop: pageMarginTop}} id="leveling-up">
             {/* <PageH2>Leveling Up</PageH2> */}
-            <QGTitle1 text={'Leveling Up'} height={40}/>
+            <QGTitle1 text={'Leveling Up'} height={35}/>
     
             <TwoColumns type="normal">
                 <Column>
@@ -486,7 +511,7 @@ export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
 
     return (
         <div id={theClass['Spellcasting'].SpellsOrAbilities === 'Spell' ? 'spells-and-mana' : 'abilities-and-mana'}>
-            <QGTitle1 text={title} height={40}/>
+            <QGTitle1 text={title} height={35}/>
 
             <TwoColumns>
                 <Column>
@@ -566,7 +591,7 @@ export function SpecTalents({ spec, selectedSpellNames, onSpellClick, spellsMeta
 
     return (
         <div>
-            <QGTitle1 text={'Talents'} height={40}/>
+            <QGTitle1 text={'Talents'} height={35}/>
             <p>Every Level, you can pick 1 Talent from that Level's available Talents. There are Minor Talents, Major Talents and Utility Talents.</p>
 
             { talentTitles.map(talentTitle => {
@@ -638,7 +663,7 @@ export function AbilitiesWithDescription({ spellsObject, description, title, aut
 
     return (
         <div id={id}>
-            { title != null && <QGTitle1 text={title} height={40}/> }
+            { title != null && <QGTitle1 text={title} height={35}/> }
 
             <TwoColumns>
                 <Column>
@@ -672,7 +697,7 @@ export function RacePage({ theRace }) {
                 <Proficiencies name={theRace.Race} theRaceOrClass={theRace}/>
 
                 
-                <QGTitle1 text={'Abilities'} height={40}/>
+                <QGTitle1 text={'Abilities'} height={35}/>
                 <ManySpells spells={theRace['Starting Abilities']} description={theRace['Starting Abilities Description']}/>
                 { theRace['Ability Choices'] != null && (
                     <div>
@@ -702,7 +727,7 @@ export function CCRacePage({ theRace, selectedSpellNames, onSpellClick }) {
 
                 <Proficiencies name={theRace.Race} theRaceOrClass={theRace}/>
 
-                <QGTitle1 text={'Abilities'} height={40}/>
+                <QGTitle1 text={'Abilities'} height={35}/>
                 <ManySpells
                     spells={theRace['Starting Abilities']}
                     description={theRace['Starting Abilities Description']}
@@ -770,7 +795,7 @@ export function ClassPageV1({ theClass }) {
                 <LevelingUp theClass={theClass}/>
 
                 <br/><br/>
-                <QGTitle1 text={'Specializations'} height={40}/>
+                <QGTitle1 text={'Specializations'} height={35}/>
 
                 <p>
                     When you reach Level 2, you can choose one of the Specializations below.
@@ -906,7 +931,7 @@ export function ClassPageV2({
                 <br/><br/>
                 { theClass.Specializations != null &&
                     <div className='center-content'>
-                        <QGTitle1 text={'Specializations'} height={40}/>
+                        <QGTitle1 text={'Specializations'} height={35}/>
                     </div>
                 }
                 { theClass.Specs != null && (<>  

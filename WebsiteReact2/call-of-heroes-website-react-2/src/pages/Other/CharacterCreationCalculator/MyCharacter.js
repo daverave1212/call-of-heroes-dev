@@ -253,7 +253,7 @@ export default function MyCharacter() {
     function Names() {
         return <div className="flex flex-column">
             <div className="center-content">
-                <QGTitle1 text={names.characterName} height={45}/>
+                <QGTitle1 text={names.characterName} height={60}/>
             </div>
             {/* <PageH3>Level {level} { selectedRaceName } { selectedClassName } { selectedSpecName != null && `(${selectedSpecName})`}</PageH3> */}
             {/* <h1 className="center-text full-width">{ names.characterName }</h1> */}
