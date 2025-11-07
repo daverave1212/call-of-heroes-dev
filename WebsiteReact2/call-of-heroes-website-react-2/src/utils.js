@@ -967,6 +967,7 @@ const SYMBOLS = {
     'Requirement': { tag: 'Icon', props: { name: "Requirement" } },
     'Level': { tag: 'Icon', props: { name: "Level" } },
     'Gold': { tag: 'Icon', props: { name: "Gold" } },
+    'Blood': { tag: 'Icon', props: { name: "Blood" } },
     
     'Feared': { tag: 'span', text: "A Feared Unit can only do one Act on its turn (e.g. move, make one attack, use one Ability, etc)." },
     'Crippled': { tag: 'span', text: "A Crippled Unit deals -100% Damage." },

@@ -59,7 +59,6 @@ const NAV_CONFIG = [
       { name: 'Artificer', href: "/ClassesV2/Artificer", lock: 'premium' },
       { name: 'Bard', href: "/WorkInProgress", lock: 'premium', isDisabled: true },
       { name: 'Berserker', href: "/ClassesV2/Berserker", lock: 'premium', isDisabled: true },
-      { name: 'Cursewielder', href: "/ClassesV2/Cursewielder", lock: 'premium' },
       { name: 'Knight', href: "/ClassesV2/Knight", lock: 'premium' },
       { name: 'Monk', href: "/WorkInProgress", lock: 'premium', isDisabled: true },
       { name: 'Mystic', href: "/ClassesV2/Mystic", lock: 'premium', isDisabled: true },
@@ -68,6 +67,7 @@ const NAV_CONFIG = [
       { name: 'Soulwright', href: "/ClassesV2/Soulwright", lock: 'premium', isDisabled: true },
       { name: 'Swashbuckler', href: "/WorkInProgress", lock: 'premium', isDisabled: true },
       { name: 'Wickan', href: "/WorkInProgress", lock: 'premium', isDisabled: true },
+      { name: 'Witchblade', href: "/ClassesV2/Cursewielder", lock: 'premium' },
     ]},
     { isGrouping: true, children: [
       { name: 'Abilities', children: [
