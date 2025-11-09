@@ -8,7 +8,7 @@ import TableNormal from '../TableNormal/TableNormal'
 import html2canvas from 'html2canvas'
 import CopySpellButton from '../CopyButton/CopySpellButton'
 import classNames from 'classnames'
-import { PetOrAnimalLeftOnly } from '../../pages/Other/PetOrAnimal'
+import { PetOrAnimalLeftOnly, PetOrAnimalSpell } from '../../pages/Other/PetOrAnimal'
 import { getIsActionPointsSystem } from '../../global-state/GlobalState'
 import HeroButton from '../HeroButton/HeroButton'
 import Ribbon from '../Ribbon/Ribbon'
@@ -215,6 +215,7 @@ export default function Spell({
             if (DisplayName != null) DisplayName = parseTextWithSymbols(DisplayName, extraMixins)
             if (Downside != null) Downside = parseTextWithSymbols(Downside, extraMixins)
             if (Upgrade != null) Upgrade = parseTextWithSymbols(Upgrade, extraMixins)
+            if (Combo != null) Combo = parseTextWithSymbols(Combo, extraMixins)
             if (Notes != null) Notes = parseTextWithSymbols(Notes, extraMixins)
         } catch (e) {
             console.log({spell})
@@ -361,8 +362,8 @@ export default function Spell({
                     </TableNormal>
                 )}
                 { (Monster != null) && (
-                    <div style={{padding: 'var(--spell-padding)'}}>
-                        <PetOrAnimalLeftOnly animal={Monster}/>
+                    <div style={{padding: 'var(--spell-padding)', paddingTop: '0px'}}>
+                        <PetOrAnimalSpell animal={Monster}/>
                     </div>
                 )}
                 { Notes != null && (

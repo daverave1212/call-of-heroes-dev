@@ -22,6 +22,7 @@ import Separator from '../../components/Separator/Separator'
 import LandingPageSeparator from '../../components/LandingPageSeparator/LandingPageSeparator'
 import MonsterAbility from '../../components/MonsterAbility/MonsterAbility'
 import Spell from '../../components/Spell/Spell'
+import PageH3 from '../../components/PageH3/PageH3'
 
 
 export function PetOrAnimalTopSide({animal}) {
@@ -77,9 +78,11 @@ export function PetOrAnimalAbilities({animal}) {
         return <div></div>
     }
     const abilities = U.spellsFromObject(animal.Abilities)
+    console.log({abilities})
     return <div className='margin-top-1'>
         { abilities.map(ability => (
-            <Spell spell={ability} hasIcon={false} hasBorder={false} key={ability.Name}/>
+            <MonsterAbility ability={ability} isPassive={ability.A == 'Passive'}/>
+            // <Spell spell={ability} hasIcon={false} hasBorder={false} key={ability.Name}/>
         )) }
     </div>
 }
@@ -120,6 +123,15 @@ export function PetOrAnimalBlock({animal}) {
 export function PetOrAnimalLeftOnly({animal}) {
     return <div className='monster'>
         <PageH2 style={{marginTop: '0px'}}>{ animal.Name }</PageH2>
+        { animal.Description != null && (<p>{ animal.Description }</p>)}
+        <PetOrAnimalStats animal={animal}/>
+        <PetOrAnimalAbilities animal={animal}/>
+    </div>
+}
+
+export function PetOrAnimalSpell({animal}) {
+    return <div className='monster'>
+        <PageH3 style={{marginTop: '0px'}}>{ animal.Name }</PageH3>
         { animal.Description != null && (<p>{ animal.Description }</p>)}
         <PetOrAnimalStats animal={animal}/>
         <PetOrAnimalAbilities animal={animal}/>

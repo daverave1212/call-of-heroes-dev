@@ -60,7 +60,7 @@ export default function() {
 
       <div className="hero-page">
         <div className='hero-image-container'>
-          <img className='landscape-only' src="/LandingPage/HeroFeatures.png" style={{height: '100%'}}/>
+          <img className='landscape-only' src="/Races/Bertle.png" style={{height: '100%'}}/>
         </div>
 
         <div className='advantages-content hero-content'>

@@ -170,11 +170,13 @@ function MegaDropdown({ currentlyOpenSubnav, isBurgerClicked }) {
     <div className={`mega-dropdown landscape-only`}>
 
       { NAV_CONFIG.filter(config => config.children != null).map(({ name, children }) =>
-          <MegaDropdownMenu title={name}>
+          <MegaDropdownMenu title={name}>            
             { children.map(({ name, children, isGrouping }) => (
+              
               isGrouping? (
                 <div className='subnav-section'>
                   { children.map(({ name, children }) => (
+
                     <>
                       <h4>{name}</h4>
                       <div className='subnav-title-underline'></div>
@@ -182,6 +184,7 @@ function MegaDropdown({ currentlyOpenSubnav, isBurgerClicked }) {
                         { children.map(config => <NavItem config={config} className="subnav-section-item"/>)}
                       </div>    
                     </>
+
                   )) }
                 </div>
               ) : (
@@ -193,6 +196,7 @@ function MegaDropdown({ currentlyOpenSubnav, isBurgerClicked }) {
                   </div>
                 </div>
               )
+              
             )) }
           </MegaDropdownMenu>
       )}
@@ -247,7 +251,7 @@ function AccountButtons() {
 
 
 
-function NavLink({ name, href, isDownload, isExternal, isDisabled, onMouseEnter, className }) {
+function NavLink({ name, href, isDownload, isExternal, isDisabled, lock, onMouseEnter, className }) {
 
     const classes = 'nav-link ' + (isDisabled === true? 'disabled ': ' ') + className
 

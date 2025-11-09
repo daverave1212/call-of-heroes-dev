@@ -87,18 +87,6 @@
             "HasMixins": true,
             "ParentKey": "Ability Choices"
         },
-        "~Curse of Weakness~": {
-            "A": "Half-Action",
-            "Range": "5 meters",
-            "Cost": "1 Mana",
-            "Duration": "1 minute",
-            "Degree": "Minor",
-            "Tags": "Debuff",
-            "Effect": "Choose a Unit. The first time it deals Damage on its every Turn, roll 1d4 and subtract it from its dealt Damage.\n\n{Evoke}: Has ^Dice Upgraded^ for each Evoke Point spent.\n",
-            "Upgrade": "Only affects an Epic monster's first turn.",
-            "HasMixins": true,
-            "ParentKey": "Ability Choices"
-        },
         "~Curse of Pain~": {
             "A": "0 Actions",
             "Cost": "1 Mana",
@@ -122,6 +110,24 @@
             ],
             "Effect": "A Unit takes 4d6 Psychic Damage.\nApply a ~Combo~ to it.\n\n{Evoke}: Single-Stuns the target for each Evoke Point spent.\n",
             "Notes": "Cover is applied normally. Note that Single-Stuns can stack to become Double-Stunned or Triple-Stunned.\n",
+            "ParentKey": "Ability Choices"
+        },
+        "~Ebon Lance~": {
+            "_Value": 0.75,
+            "A": "0 Actions",
+            "Cost": "1 Mana",
+            "Effect": "Your next {Type} weapon attack deals {Amount} Damage.\nThe Damage Types becomes of your chosen element Type.\n\n{Evoke}: +1d4 per Evoke Point spent.\n",
+            "Variants": [
+                {
+                    "Type": "melee",
+                    "Amount": "1d6"
+                },
+                {
+                    "Type": "ranged",
+                    "Amount": "1d4"
+                }
+            ],
+            "HasMixins": true,
             "ParentKey": "Ability Choices"
         }
     },
@@ -174,24 +180,6 @@
     },
     "Talents": {
         "Level 2 - Minor Talent": {
-            "~Ebon Lance~": {
-                "_Value": 0.75,
-                "A": "0 Actions",
-                "Cost": "1 Mana",
-                "Effect": "Your next {Type} weapon attack deals {Amount} Damage.\nThe Damage Types becomes of your chosen element Type.\n\n{Evoke}: +1d4 per Evoke Point spent.\n",
-                "Variants": [
-                    {
-                        "Type": "melee",
-                        "Amount": "1d6"
-                    },
-                    {
-                        "Type": "ranged",
-                        "Amount": "1d4"
-                    }
-                ],
-                "HasMixins": true,
-                "ParentKey": "Level 2 - Minor Talent"
-            },
             "~Soul Drain~": {
                 "_Value": 0.25,
                 "A": "Half-Action",
@@ -214,7 +202,19 @@
             "~Veinlight~": {
                 "A": "3 Action Points",
                 "Range": "5 meters to edge",
-                "Effect": "All Units in a 2x2 meter area take 3d4 Damage of your chosen Element and are Single-Stunned.\n\n{Evoke}: +1 meter area (all directions).\n    \n",
+                "Effect": "All Units in a 2x2 meter area take 3d4 Damage of your chosen Element and are Single-Stunned.\n\n{Evoke}: +1 meter area (all directions).\n",
+                "HasMixins": true,
+                "ParentKey": "Level 2 - Minor Talent"
+            },
+            "~Curse of Weakness~": {
+                "A": "Half-Action",
+                "Range": "5 meters",
+                "Cost": "1 Mana",
+                "Duration": "1 minute",
+                "Degree": "Minor",
+                "Tags": "Debuff",
+                "Effect": "Choose a Unit. The first time it deals Damage on its every Turn, roll 1d4 and subtract it from its dealt Damage.\n\n{Evoke}: Has ^Dice Upgraded^ for each Evoke Point spent.\n",
+                "Upgrade": "Only affects an Epic monster's first turn.",
                 "HasMixins": true,
                 "ParentKey": "Level 2 - Minor Talent"
             }
@@ -259,11 +259,28 @@
                 "HasMixins": true,
                 "ParentKey": "Level 4 - Minor Talent"
             },
+            "~Hail Torrent~": {
+                "A": "1 Action",
+                "Range": "4 meters",
+                "HasMixins": true,
+                "Degree": "Minor",
+                "Replacement": "Replaces Hail",
+                "Requirement": "Requires Hail",
+                "Tags": [
+                    "Damage",
+                    "Multi-Target Damage"
+                ],
+                "Effect": "Blast a Unit for ~2d10~ + ^target's Might^ Damage of your chosen Element.\n\n{Evoke}: Hits an extra Unit (for ~1d10~ + ^that Unit's Might^) for each Evoke Point spend.\n",
+                "Combo": "Generates an extra Evoke Point.",
+                "Notes": "Each extra Unit hit must be different than the others.",
+                "ParentKey": "Level 4 - Minor Talent"
+            },
             "~Invoke Kindred~": {
                 "A": "1 Action",
                 "Range": "10 meters to each invoked point",
                 "Cost": "1 Mana",
                 "Duration": "1 minute",
+                "Height": 30,
                 "Effect": "Invoke 3 _Kindred Beings_, each within 10 meters from you. These are creatures themed and shaped to your chosen Power Source, which will do your bidding before returning to their original world.\n\n{Evoke}: +1 summon per Evoke Point spent.\n",
                 "Monster": {
                     "Name": "Kindred Being",

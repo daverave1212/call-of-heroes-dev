@@ -10,8 +10,15 @@ import { SpellTopStats } from '../Spell/Spell'
 
 // A monster ability is formatted like "- Ranged: 1d6 + 20 Slash"
 export default function MonsterAbility({ability, isPassive, style}) {
-    const name = Object.keys(ability)[0]
-    const abilityBody = ability[name]
+    let name
+    let abilityBody
+    if (ability.Name != null) {
+        name = ability.Name
+        abilityBody = ability
+    } else {
+        name = Object.keys(ability)[0]
+        abilityBody = ability[name]
+    }
 
     function AbilityEffect({children}) {
         return (<p className='monster-ability-p'>{ children }</p>)
@@ -22,7 +29,7 @@ export default function MonsterAbility({ability, isPassive, style}) {
             return <AbilityEffect>{ abilityBody }</AbilityEffect>
         }
 
-        const effectName = U.getAnyPropNameExcept(abilityBody, ['Damage', 'Notes', 'A', 'Special', 'Cooldown', 'Requirement', 'Range', 'Duration', 'Effect'])
+        const effectName = U.getAnyPropNameExcept(abilityBody, ['Name', 'Damage', 'Notes', 'A', 'Special', 'Cooldown', 'Requirement', 'Range', 'Duration', 'Effect', 'ParentKey'])
         
         return (
             <div>

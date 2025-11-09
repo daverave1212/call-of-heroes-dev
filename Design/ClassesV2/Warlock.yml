@@ -105,19 +105,6 @@ Ability Choices:
             {Evoke}: Deals an extra ^higher^ die Damage for each Evoke Point spent.
         Notes: For 1 Evoke Point, deals +1d10 Damage. For 2 spent, deals +1d10 + 1d12. And so on.
 
-    ~Curse of Weakness~:  # Improves debuff
-        A: Half-Action
-        Range: 5 meters
-        Cost: 1 Mana
-        Duration: 1 minute
-        Degree: Minor
-        Tags: Debuff
-        Effect: |
-          Choose a Unit. The first time it deals Damage on its every Turn, roll 1d4 and subtract it from its dealt Damage.
-
-          {Evoke}: Has ^Dice Upgraded^ for each Evoke Point spent.
-        Upgrade: Only affects an Epic monster's first turn.
-
     ~Curse of Pain~:  # Adds DoT (+0.5/EP)
         A: 0 Actions
         Cost: 1 Mana
@@ -144,6 +131,21 @@ Ability Choices:
             {Evoke}: Single-Stuns the target for each Evoke Point spent.
         Notes: |
             Cover is applied normally. Note that Single-Stuns can stack to become Double-Stunned or Triple-Stunned.
+
+    ~Ebon Lance~: # Adds single-target Damage (+0.65/EP)
+      _Value: 0.75
+      A: 0 Actions
+      Cost: 1 Mana
+      Effect: |
+        Your next {Type} weapon attack deals {Amount} Damage.
+        The Damage Types becomes of your chosen element Type.
+
+        {Evoke}: +1d4 per Evoke Point spent.
+      Variants:
+        - Type: melee
+          Amount: 1d6
+        - Type: ranged
+          Amount: 1d4
 
 Utility:
 
@@ -202,21 +204,6 @@ Utility:
 Talents:
 
   Level 2 - Minor Talent:
-
-    ~Ebon Lance~: # Adds single-target Damage (+0.65/EP)
-      _Value: 0.75
-      A: 0 Actions
-      Cost: 1 Mana
-      Effect: |
-        Your next {Type} weapon attack deals {Amount} Damage.
-        The Damage Types becomes of your chosen element Type.
-
-        {Evoke}: +1d4 per Evoke Point spent.
-      Variants:
-        - Type: melee
-          Amount: 1d6
-        - Type: ranged
-          Amount: 1d4
     
     ~Soul Drain~: # Adds AoE farming (+1.25/EP)
       _Value: 0.25
@@ -247,7 +234,20 @@ Talents:
         All Units in a 2x2 meter area take 3d4 Damage of your chosen Element and are Single-Stunned.
 
         {Evoke}: +1 meter area (all directions).
-            
+
+    ~Curse of Weakness~:  # Improves debuff
+        A: Half-Action
+        Range: 5 meters
+        Cost: 1 Mana
+        Duration: 1 minute
+        Degree: Minor
+        Tags: Debuff
+        Effect: |
+          Choose a Unit. The first time it deals Damage on its every Turn, roll 1d4 and subtract it from its dealt Damage.
+
+          {Evoke}: Has ^Dice Upgraded^ for each Evoke Point spent.
+        Upgrade: Only affects an Epic monster's first turn.
+
   Level 3 - Keystone Talent:
 
     ~Aura of Ruin~:
@@ -290,11 +290,27 @@ Talents:
 
           {Evoke}: +50% extra Damage per Evoke Point spent.
 
+    ~Hail Torrent~:   # Adds AoE (+0.65/EP)
+        A: 1 Action
+        Range: 4 meters
+        HasMixins: true
+        Degree: Minor
+        Replacement: Replaces Hail
+        Requirement: Requires Hail
+        Tags: [Damage, Multi-Target Damage]
+        Effect: |
+            Blast a Unit for ~2d10~ + ^target's Might^ Damage of your chosen Element.
+
+            {Evoke}: Hits an extra Unit (for ~1d10~ + ^that Unit's Might^) for each Evoke Point spend.
+        Combo: Generates an extra Evoke Point.
+        Notes: Each extra Unit hit must be different than the others.
+
     ~Invoke Kindred~: # Adds summon (implicitly adds defense) (0.75/EP)
       A: 1 Action
       Range: 10 meters to each invoked point
       Cost: 1 Mana
       Duration: 1 minute
+      Height: 30
       Effect: |
         Invoke 3 _Kindred Beings_, each within 10 meters from you. These are creatures themed and shaped to your chosen Power Source, which will do your bidding before returning to their original world.
 

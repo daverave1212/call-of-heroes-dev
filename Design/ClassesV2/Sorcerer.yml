@@ -61,7 +61,7 @@ Starting Abilities:
     Requirement: Only usable in Worthy Combat
     Effect: Roll an Unstable Spark die.
   
-  ~Magical Archetype~:
+  ~Flux~:
     A: Passive
     Effect: Choose a Damage Type from the ones listed below. Some of your Spells's Damage deal that Damage Type (written explicitly on those Spells).
     Notes: 1. Fire, 2. Cold, 3. Shock, 4. Pulse, 5. Poison, 6. Acid, 7. Divine, 8. Scourge.
@@ -74,10 +74,11 @@ Ability Choices:
       Requirement: Only usable in Worthy Combat
       Effect: |
         Roll an Unstable Spark die (and apply its effect if any).
-        Deal that much Damage of a random Damage Type to exactly that many Worthy Units you can see.
+        Deal that much Damage of that Damage Type to exactly that many Worthy Units you can see.
       Notes: |
-        Roll for a random Damage type from the following: 1. Fire, 2. Cold, 3. Shock, 4. Pulse, 5. Poison, 6. Acid, 7. Divine, 8. Scourge.
-        Targeting Worthy Units is mandatory.
+        Roll for a random Damage type from the following: 1. Pierce, 2. Slash, 3. Pulse, 4. Poison, 5. Acid, 6. Divine, 7. Scourge, 8. Shock, 9. Cold, 10. Fire.
+        Targeting Worthy Units is mandatory, and you count as a Worthy Unit.
+        If your Unstable Spark is higher than 10, you can choose the Damage Type.
 
     ~Gathering the Magic~:
       A: 0 Actions
@@ -91,7 +92,7 @@ Ability Choices:
       Range: 4 meters
       Cost: 1 Mana
       Effect: |
-        Deal {Amount} Damage to {ToWhat} (of your chosen Magical Archetype).
+        Deal {Amount} Damage to {ToWhat} (of your chosen Flux).
 
         ~You have access to all Variants of this Spell (click on the icon to select the preferred effect)!~
       Variants:
@@ -113,7 +114,7 @@ Ability Choices:
       Requirement: Only usable in Worthy Combat
       Effect: |
         Your next weapon attack until the end of your next Turn deals extra Damage equal to your Highest Stat.
-        The attack's Damage Type becomes of your chosen Magical Archetype
+        The attack's Damage Type becomes of your chosen Flux Type.
 
     ~Spellbloodweave~:
       A: 0 Actions
@@ -254,7 +255,7 @@ Talents:
         - Name: 20. Resurrection
           Effect: 1 to 3 dead or Fallen Units come back to life (without Exhaustion) with 1 to full Health.
 
-  Level 3 - Minor Talent:
+  Level 3 - Keystone Talent:
 
     ~Throwback~:
       A: Passive
@@ -266,24 +267,6 @@ Talents:
       Cooldown: Once / Combat
       HasMixins: true
       Effect: Use after you roll an Unstable Spark die. You may cancel the roll. Then roll 2 more.
-
-    <Star Burst>:
-        _Value: 1.35
-        AlignOnWebsite: Right
-        A: 1 Action
-        Cost: 1 Mana
-        Effect: |
-            Declare up to 4 different targets you can see.
-            Assign a different number from #1 to #4 to each.
-            Roll a number of d4's equal to your last rolled Unstable Spark die. Each d4 rolled deals that much Pulse Damage to the target with that number.
-            Each rolled 1 deals 1 Damage to target number #1, each rolled 2 deals 2 Damage to target number #2, and so on.
-        Notes: |
-            E.g. if you put #2 on a goblin, and you roll three 2's on the d4's, then that goblin takes 6 Pulse Damage.
-            You should probably assign the higher number to the target you want to do most Damage to.
-            You can declare fewer targets, but then the missing number will deal Damage to no target.
-            Cover is applied normally.
-
-  Level 4 - Keystone Talent:
 
     <Arcano Mantissa>:
       _Value: 2 (No fucking idea lol)
@@ -300,8 +283,13 @@ Talents:
           Your Unstable Spark die becomes 1d12 instead of 1d10, and triggers on 11 and 12 instead of 10.
         Notes: |
           I don't know. You're a Sorcerer, figure it out.
+    
+    <Tap>:
+      A: Passive
+      Effect: "When you roll 4 on the Unstable Spark die, deal 1d4 Damage (of your Flux Type). It gets affected by that effect:"
+      Upgrade: 1. Single-Stun, 2. Blind, 3. Root, 4. Slow
 
-  Level 5 - Minor Talent:
+  Level 4 - Minor Talent:
 
     ~Will You Just Die~:
       A: Reaction
@@ -310,6 +298,47 @@ Talents:
         Use when you drop to or below 0 Health.
         You can go into debt with Health, down to 50% of your Max Health.
       Upgrade: At the end of the Combat, if you are at or below 0 Health, you become Fallen and unconscious, and you keep your Health Debt until you are healed to 1 or more Health. Heal to recover Health debt!
+
+    ~Spiritflare~:
+      A: Half-Action
+      Range: 4 meters
+      Cost: 1 Mana
+      Replacement: Replaces Soulflare
+      Requirement: Requires Soulflare
+      Effect: |
+        Deal {Amount} Damage to {ToWhat} (of your chosen Flux).
+
+        ~You have access to all Variants of this Spell (click on the icon to select the preferred effect)!~
+      Notes: ~The Damage is higher than the regular Soulflare.~
+      Variants:
+        - DisplayA: 0 Actions
+          Amount: 1d10
+          ToWhat: 1 Unit
+        - DisplayA: Half-Action
+          Amount: 1d8 + 1d10
+          ToWhat: 2 Units
+        - DisplayA: 1 Action
+          Amount: 1d8 + 1d10 + 1d12
+          ToWhat: 3 Units
+        - DisplayA: 3 Action Points
+          Amount: 1d8 + 1d10 + 1d12 + 1d14
+          ToWhat: 4 Units
+
+    <Star Burst>:
+        _Value: 1.35
+        AlignOnWebsite: Right
+        A: 1 Action
+        Cost: 1 Mana
+        Effect: |
+            Declare up to 4 different targets you can see.
+            Assign a different number from #1 to #4 to each.
+            Roll a number of d4's equal to your last rolled Unstable Spark die. Each d4 rolled deals that much Pulse Damage to the target with that number.
+            Each rolled 1 deals 1 Damage to target number #1, each rolled 2 deals 2 Damage to target number #2, and so on.
+        Notes: |
+            E.g. if you put #2 on a goblin, and you roll three 2's on the d4's, then that goblin takes 6 Pulse Damage.
+            You should probably assign the higher number to the target you want to do most Damage to.
+            You can declare fewer targets, but then the missing number will deal Damage to no target.
+            Cover is applied normally.
 
   Level 6 - Utility Talent:
 

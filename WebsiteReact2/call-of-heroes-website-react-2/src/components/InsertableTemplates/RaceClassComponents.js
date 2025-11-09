@@ -533,13 +533,6 @@ export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
                                 </SmallStat>
                             )
                         }
-                        {/* <SmallStatList name="Available Basic Ability Schools" color="blue">
-                            {
-                                theClass['Spellcasting']['Basic Ability Lists'].map(spellCategory => (
-                                    <div key={spellCategory}>{ spellCategory }</div>
-                                ))
-                            }
-                        </SmallStatList> */}
                         <SmallStat name="Extra Talents" color="blue" type={SmallStatTypes.VERTICAL}>
                             Each Level, choose a free Talent from that Level.<br/><br/>
                             However, if your <b>Mind</b> above 0, you can choose a number of <b>extra Minor or Utility Talents</b> equal to your <b>Mind</b>.
@@ -874,6 +867,10 @@ export function ClassPageV2({
 
                 <SpellCasting theClass={theClass} isCharacterCreationPage={true}/>
                 
+                <LevelingUp theClass={theClass} isCharacterCreationPage={true}/>
+
+                <QGTitle1 text={"Starting Talents"} height={45}/>
+
                 { theClass['Other Abilities'] != null && (
                     <div>
                         <PageH2>{theClass['Other Abilities Title']}</PageH2>
@@ -925,8 +922,6 @@ export function ClassPageV2({
                         />
                     </div>
                 )}
-
-                <LevelingUp theClass={theClass} isCharacterCreationPage={true}/>
 
                 <br/><br/>
                 { theClass.Specializations != null &&

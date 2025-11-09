@@ -97,7 +97,7 @@
         },
         "~Unarmed Craft~": {
             "A": "Passive",
-            "Effect": "Your {Color('#ff5900' 'second Punch')} attack each Turn deals +1d4 Damage {Color('#ff5900' \"if it's on a different target than the first\")}.",
+            "Effect": "Your {Color('#ff5900' 'second Punch')} attack each Turn deals +1d6 Damage {Color('#ff5900' \"if it's on a different target than the first\")}.",
             "HasMixins": true,
             "ParentKey": "Other Abilities"
         },
@@ -124,13 +124,13 @@
         },
         "~Dual Shield Craft~": {
             "A": "Passive",
-            "Effect": "You can Dual Wield shields and attack with them for 1d6 + ^Any Stat^ Damage.\nAfter you Charge, gain 1d4 Shielding.\n",
+            "Effect": "You can Dual Wield shields and attack with them for 1d6 + ^Might or Dexterity^ Damage.\nAfter you Charge, gain one Shielding that can block 1d4 Damage.\n",
             "HasMixins": true,
             "ParentKey": "Other Abilities"
         },
         "~Improvisation Craft~": {
             "A": "Passive",
-            "Effect": "Your first {Color('#ff5900' 'Improvised Attack')} each Turn deals +1d6 Damage {Color('#ff5900' 'if it's with an improvised weapon type you haven't used this Adventure')}.\n",
+            "Effect": "Your first {Color('#ff5900' 'Improvised Attack')} each Turn deals +1d6 Damage {Color('#ff5900' 'if you have never used that object as a weapon')}.\n",
             "HasMixins": true,
             "ParentKey": "Other Abilities"
         },
@@ -198,7 +198,7 @@
             "A": "0 Actions",
             "Cooldown": "1 real hour",
             "Range": "3 meters",
-            "Effect": "Slam the ground so hard that it shatters one obstacle that fits within a 3x3x3 meter area.\nAfter casting this Ability, if you moved this turn, you can continue your movement.\n",
+            "Effect": "Slam the ground so hard that it shatters one obstacle that fits within a 3x3x3 meter area.\n",
             "Notes": "It is the Quest Master's call if an obstacle can be broken. Most walls can't be broken, except for thinner ones and fences.",
             "ParentKey": "Utility"
         },
@@ -222,8 +222,8 @@
             "A": "Half-Action",
             "Requirement": "Level 4",
             "Cost": "1 Mana",
-            "Effect": "Attack a different Unit with a 1-handed weapon. It heals instead of dealing Damage.",
-            "Notes": "Any extra Damage effects on it heal as well (e.g. Smite, Cursewielder, etc).",
+            "Effect": "Attack a different Unit with a 1-handed weapon. It Heals them instead of dealing Damage to them.",
+            "Notes": "Any extra Damage effects on it heal as well (e.g. War Craft, Criticl Strikes, etc). Apply any weapon effects if they happen. The attack might still do Damage to other collateral Units (if applies, e.g. Cleaver to you).",
             "ParentKey": "Utility"
         }
     },
@@ -261,13 +261,6 @@
         "~Painfeast~": {
             "A": "0 Actions",
             "Effect": "Until the start of your next Turn, all Damage you take is transformed into Healing instead!",
-            "ParentKey": "Ideas"
-        },
-        "~Heavenbreaker~": {
-            "A": "1 Action",
-            "Cooldown": "Once / Adventure",
-            "Range": "15 meters",
-            "Effect": "You jump high up above the battlefield and end your Turn.\nAt the start of your next Turn, you plunge into the earth like a comet toward a destintion space.\nAll Units within 3 meters of you take X Damage TODO and a crater forms in the zone, 2 meters deep at the extremities of the area.\n",
             "ParentKey": "Ideas"
         }
     },
@@ -316,7 +309,7 @@
                         "A": "Depends",
                         "Cost": "1 Mana",
                         "HasMixins": true,
-                        "Effect": "When you get this, choose a Minor Talent from (any Specialization of) Cleric, Mage or Warlock, up to your Level.\nThat Ability becomes a ^physical version of itself^: instead of using magic to cast that spell, you use your body/weapons/tools!\n",
+                        "Effect": "When you get this, choose a Minor Talent that costs 1 Mana from (any Specialization of) Cleric, Mage or Warlock, up to your Level.\nThat Ability becomes a ^physical version of itself^: instead of using magic to cast that spell, you use your body/weapons/tools!\n",
                         "Upgrade": "The Damage of that Spell becomes Slash, Smash or Pierce, whichever makes sense.\n",
                         "Notes": "E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage). Be creative, come up with a description of how it works!\nYou can change this Ability inbetween Adventures.\n",
                         "ParentKey": "Level 2 - Minor Talents"
@@ -340,11 +333,21 @@
                         "Value": "2 (3-4 uses per Adventure)",
                         "A": "Passive",
                         "Requirement": "Can only trigger in Worthy Combat",
-                        "Effect": "Whenever you use a Command Ability, give yourself or an affected Unit 1 Shielding that can block 1d6 Damage.",
+                        "Effect": "Whenever you use a Command Ability, give yourself or an affected Unit one Shielding that can block 1d6 Damage.",
                         "ParentKey": "Level 3 - Keystone Talents"
                     }
                 },
                 "Level 4 - Minor Talents": {
+                    "<MIGHT OVER MAAAGIC!!!>": {
+                        "_Value": 1,
+                        "A": "Depends",
+                        "Cost": "1 Mana",
+                        "HasMixins": true,
+                        "Effect": "When you get this, choose ~two~ Minor Talents that costs 1 Mana from (any Specialization of) Cleric, Mage or Warlock, up to your Level.\nThose Abilities become ^physical versions of themselves^: instead of using magic to cast that spell, you use your body/weapons/tools!\n",
+                        "Upgrade": "The Damage of that Spell becomes Slash, Smash or Pierce, whichever makes sense.\n",
+                        "Notes": "E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage). Be creative, come up with a description of how it works!\nYou can change this Ability inbetween Adventures.\n",
+                        "ParentKey": "Level 4 - Minor Talents"
+                    },
                     "~Command - Focus Fire~": {
                         "A": "1 Action",
                         "Cost": "1 Mana",
@@ -352,6 +355,24 @@
                         "HasMixins": true,
                         "Effect": "Choose a target. Command all Allies (except you) in your party to make a Half-Action Act on the chosen target.",
                         "Upgrade": "Can affect up to 5 Allies. If there are only 2 or less Allies, you also make the Half-Action.",
+                        "ParentKey": "Level 4 - Minor Talents"
+                    },
+                    "~Move Mountains~": {
+                        "A": "1 Action",
+                        "Cost": "1 Mana",
+                        "Requirement": "Requires Break Mountains",
+                        "Replacement": "Replaces Break Mountains",
+                        "Effect": "Pick up an object up to 2x2x2 meters in size, and throw it ~3d12~ meters in any direction. If it hits a Unit, it takes Damage equal to the number of meters left (e.g. similar to Slamming)",
+                        "EffectGreen": "Critical Strike - for each max die rolled, deal +1d6 Damage and, if it's an object, it breaks on impact!",
+                        "Upgrade": "You can instead pick up an enemy and Slam it a number of meters equal to half the rolled dice.",
+                        "HasMixins": true,
+                        "ParentKey": "Level 4 - Minor Talents"
+                    },
+                    "~Heavenbreaker~": {
+                        "A": "1 Action",
+                        "Cooldown": "Once / Adventure",
+                        "Range": "15 meters",
+                        "Effect": "You jump high up above the battlefield and end your Turn.\nAt the start of your next Turn, you plunge into the earth like a comet toward a destintion space within 15 meters.\nAll Units within a zone of 3 meters from your landing point take 3d6 Smash Damage and a crater forms in the zone, 2 meters deep at the extremities of the area.\n",
                         "ParentKey": "Level 4 - Minor Talents"
                     }
                 }

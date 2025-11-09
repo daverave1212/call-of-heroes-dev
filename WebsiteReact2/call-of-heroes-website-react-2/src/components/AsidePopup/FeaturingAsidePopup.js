@@ -3,6 +3,7 @@ import './AsidePopup.css'
 
 import abilities from '../../databases/Abilities.json'
 import classAndRaceAbilities from '../../databases/ClassAndRaceAbilities.json'
+import quirks from '../../databases/Other/Quirks.json'
 import { spellWithName } from '../../utils'
 
 export default function FeaturingAsidePopup({featureToDisplay}) {
@@ -18,7 +19,7 @@ export default function FeaturingAsidePopup({featureToDisplay}) {
     const AsideP = ({children}) => <p className='aside-p'>{children}</p>
     
     return (
-        <div className={'aside-popup ' + maybeIntroAnimClass} style={isPopupDisplayedStyle}>
+        <div className={'aside-popup shadowed ' + maybeIntroAnimClass} style={isPopupDisplayedStyle}>
             <div style={isThisFeatureDisplayedStyle('Adventures')}>
                 <AsideH3>Quests</AsideH3>
                 <AsideP>
@@ -62,6 +63,7 @@ export default function FeaturingAsidePopup({featureToDisplay}) {
                     At the end of every Adventure, each player character gains a positive and a negative Quirk. The player decides one of them, the QM the other.
                     Quirks are bonuses that range from increasing/decreasing Stats, gaining non-combat Skills, phobias, etc.
                 </AsideP>
+                <Spell spell={spellWithName("Fatigue", quirks.Negative['Fatigue'])}/>
             </div>
             <div style={isThisFeatureDisplayedStyle('Respec')}>
                 <AsideH3>Respeccing</AsideH3>
