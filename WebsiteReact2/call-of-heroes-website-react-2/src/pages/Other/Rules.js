@@ -16,13 +16,15 @@ import ThreeColumns from '../../components/TwoColumns/ThreeColumns'
 import Column from '../../components/TwoColumns/Column'
 import { TDBullet, TDSleek1, TDSleek2, TDSleek3 } from '../../components/TableNormal/TDSleek'
 
+import rules from '../../databases/Rules/Rules.json'
+
 const [
     questguardForBeginners,
     characterCreation,
     playingTheGame,
     coreRulesInDepth,
     gameMasterGuidelines
-] = rulesDataLists
+] = rules
 
 const sectionNameToLinkMap = {
     'A. Questguard':                '/Other/RulesExplained/RulesSectionPages/Questguard',
@@ -32,45 +34,59 @@ const sectionNameToLinkMap = {
     'E. Game Master Guidelines':    '/Other/RulesExplained/RulesSectionPages/GameMasterGuidelines'
 }
 
-export default function Rules({}) {
+function RulesSubsection({obj}) {
+    const title = U.getOnlyKey(obj)
+    const subobjects = obj[title]
 
-    function RulesSection({obj}) {
-
-        function RulesH1({title}) {
-            return (
-                <TDSleek1>
-                    <Link to={sectionNameToLinkMap[title]}>{ title }</Link>
-                </TDSleek1>
-            )
-        }
-        function RulesH2({title, h1Title}) {
-            return (
-                <TDSleek2>
-                    <Link to={sectionNameToLinkMap[h1Title] + '#' + U.titleToId(title)}>{ title }</Link>
-                </TDSleek2>
-            )
-        }
-        function RulesH3({title, h1Title}) {
-            return (
-                <TDSleek3>
-                    <Link to={sectionNameToLinkMap[h1Title] + '#' + U.titleToId(title)}><TDBullet/>{ title }</Link>
-                </TDSleek3>
-            )
-        }
+    function RulesH2({title, h1Title}) {
         return (
-            <div>
-                <RulesH1 title={obj.title}/>
-                { obj.value.map(sectionObj => (
-                    <div>
-                        <RulesH2 title={sectionObj.title} h1Title={obj.title}/>
-                        { sectionObj.value.map(subsubsection => (
-                            <RulesH3 title={subsubsection.title} h1Title={obj.title}/>
-                        )) }
-                    </div>
-                )) }
-            </div>
+            <TDSleek2>
+                <Link to={sectionNameToLinkMap[h1Title] + '#' + U.titleToId(title)}>{ title }</Link>
+            </TDSleek2>
         )
     }
+
+    function RulesH3({title, h1Title}) {
+        return (
+            <TDSleek3>
+                <Link to={sectionNameToLinkMap[h1Title] + '#' + U.titleToId(title)}><TDBullet/>{ title }</Link>
+            </TDSleek3>
+        )
+    }
+
+    return <div>
+        <RulesH2 title={title} h1Title={null}/>
+        { subobjects.map(subsubsection => (
+            <RulesH3 title={U.getOnlyKey(subsubsection)} h1Title={null}/>
+        )) }
+    </div>
+}
+
+function RulesSection({obj}) {
+
+    const title = U.getOnlyKey(obj)
+    const subobjects = obj[title]
+
+    function RulesH1({title}) {
+        return (
+            <TDSleek1>
+                <Link to={sectionNameToLinkMap[title]}>{ title }</Link>
+            </TDSleek1>
+        )
+    }
+
+
+    return (
+        <div>
+            <RulesH1 title={title}/>
+            { subobjects.map(sectionObj => (
+                <RulesSubsection obj={sectionObj}/>
+            )) }
+        </div>
+    )
+}
+
+export default function Rules({}) {
 
     return (
         <Page title="Questguard Rules">
@@ -83,27 +99,14 @@ export default function Rules({}) {
                     </Column>
                     <Column>
                         <RulesSection obj={playingTheGame}/>
-                        <RulesSection obj={gameMasterGuidelines}/>
+                        <RulesSection obj={coreRulesInDepth}/>
                     </Column>
                     <Column>
-                        <RulesSection obj={coreRulesInDepth}/>
+                        <RulesSection obj={gameMasterGuidelines}/>
                     </Column>
                 </ThreeColumns>
             </div>
         </Page>
     )
 
-    return (
-        <Page title="Rules">
-
-            {/* <TableNormal columns={['Rule']}>
-                { rulesArray.map(rule => (
-                    <tr key={rule}>
-                        <td><Link to={`/Other/Rule#${rule}`}>{ rule }</Link></td>
-                    </tr>
-                )) }
-                
-            </TableNormal> */}
-        </Page>
-    )
 }

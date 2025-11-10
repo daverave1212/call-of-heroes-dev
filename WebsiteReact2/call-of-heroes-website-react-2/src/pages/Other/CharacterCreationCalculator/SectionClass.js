@@ -3,12 +3,14 @@ import PageH2 from "../../../components/PageH2/PageH2"
 import TwoColumns from "../../../components/TwoColumns/TwoColumns"
 import Column from "../../../components/TwoColumns/Column"
 import { ClassPage, ClassPageV2 } from "../../../components/InsertableTemplates/RaceClassComponents"
-import { addAbilityOrOpenPopup, getAllClasses, getAllSpellsByName, groupBy, isSpellMinorTalent, isSpellUtilityTalent, isTalentTierNameMinor, isTalentTierNameUtility, splitArrayEvenly, useLocalStorageState } from "../../../utils"
+import { addAbilityOrOpenPopup, getAllClasses, getAllSpellsByName, getBaseClasses, getPremiumClasses, groupBy, isSpellMinorTalent, isSpellUtilityTalent, isTalentTierNameMinor, isTalentTierNameUtility, splitArrayEvenly, useLocalStorageState } from "../../../utils"
 import { classesRacesObjectToArrays } from "./CharacterCreationCalculator"
 import Selector from "../../../components/Selector/Selector"
 import { SelectorsByColumns } from "../Abilities"
 import { toggleSpellMaybePopup, useAllSpellsMetadata, useConstTotalAttributes, useLevel, useSectionClassName, useSectionClassSpecName, useSectionClassSpellNames, useSectionRaceName } from "./CharacterData"
 import { KNOWN_ABILITIES } from "../../../services/game-lib/stat-calculations"
+import { ClassesBase, ClassesLegacy, ClassesPremium } from "../AllRacesAndClasses"
+import Icon from "../../../components/Icon"
 
 
 const allSpells = getAllSpellsByName()
@@ -24,10 +26,28 @@ export default function SectionClass({ openPopup }) {
 
     const attributes = useConstTotalAttributes()
 
-    const selectorData = Object.keys(classesObj).map(className => ({
+    const classesBaseData = Object.keys(ClassesBase).map(className => ({
         name: className,
+        displayName: className,
+        lock: 'none',
         src: `/Icons/Classes/${className}.png`
     }))
+    const classesPremiumData = Object.keys(ClassesPremium).map(className => ({
+        name: className,
+        displayName: <span>{ className } <Icon name="Premium" style={{marginTop: `calc(var(--selector-fs) * 0.15)`}}/></span>,
+        lock: 'premium',
+        src: `/Icons/Classes/${className}.png`
+    }))
+    const classesLegacyData = Object.keys(ClassesLegacy).map(className => ({
+        name: className,
+        displayName: <span>{ className } <span className="gray">(Old)</span></span>,
+        lock: 'none',
+        src: `/Icons/Classes/${className}.png`
+    }))
+
+
+
+    const selectorData = [...classesBaseData, ...classesPremiumData, ...classesLegacyData]
     function getSelectedClassName() {
         return className
     }

@@ -101,8 +101,8 @@ const NAV_CONFIG = [
   ]},
   { name: 'Learn To Play', children: [
     { name: 'Learn To Play', children: [
+      { name: 'Transition Guide (from D&D)',  href: '/Download/Transition_Guide_2025-11-10.pdf', isDownload: true },
       { name: 'Rules',                        href: '/Other/Rules' },
-      { name: 'Transition Guide (from D&D)',  href: '/Download/Transition_Guide_2025-10-09.pdf', isDownload: true },
       { name: 'Character Creation Guide',     href: '/WorkInProgress' },
       { name: 'New Player Guide',             href: '/WorkInProgress' },
     ]}

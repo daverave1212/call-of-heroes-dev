@@ -5,8 +5,8 @@ export const STAT_LIMITS_TEXT = "Your Stat limit (and non-combat Skill limit) is
 export const MIGHT = 'Might'
 export const DEXTERITY = 'Dexterity'
 export const INTELLIGENCE = 'Intelligence'
-export const SENSE = 'Presence'
-export const CHARISMA = 'Presence'
+export const SENSE = 'Sense'
+export const CHARISMA = 'Charisma'
 
 export const MAX_HEALTH = 'Max Health'
 export const HEALTH_REGEN = 'Health Regen'
@@ -16,8 +16,8 @@ export const KNOWN_ABILITIES = 'Known Minor Talents'
 export const MANA = 'Mana'
 export const ATTRIBUTE_NAMES = [MAX_HEALTH, HEALTH_REGEN, MOVEMENT_SPEED, INITIATIVE]
 
-export const STAT_NAMES = [MIGHT, DEXTERITY,INTELLIGENCE, CHARISMA]
-export const DEFAULT_STAT_ARRAY = [-1, 0, 1, 2]
+export const STAT_NAMES = [MIGHT, DEXTERITY, INTELLIGENCE, SENSE, CHARISMA]
+export const DEFAULT_STAT_ARRAY = [-1, 0, 1, 2, 3]
 export const DEFAULT_CHARACTER_BONUSES = {
     [MIGHT]: 0,
     [DEXTERITY]: 0,
@@ -66,7 +66,7 @@ export function calculateStatsToAttributesObject(statArray) {
         [MAX_HEALTH]: statArray[0] * 3,
         [HEALTH_REGEN]: statArray[3] * 2,
         [MOVEMENT_SPEED]: Math.floor(statArray[1] / 2),
-        [INITIATIVE]: statArray[1] + statArray[2],
+        [INITIATIVE]: statArray[4] * 3,
         [KNOWN_ABILITIES]: statArray[2]
     }
 }
@@ -84,7 +84,7 @@ export const BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP = {
     [MOVEMENT_SPEED]: `1 for each 2 Dexterity points (or -1 for each -1 Dexterity point!)`,
     [HEALTH_REGEN]: `2 × ${SENSE}`,
     [KNOWN_ABILITIES]: `${INTELLIGENCE}`,
-    [INITIATIVE]: `${DEXTERITY} + ${INTELLIGENCE}`
+    [INITIATIVE]: `3 × ${CHARISMA}`
 }
 export const ATTRIBUTES_CALCULATIONS_SPANS = {
     [MAX_HEALTH]: () => <span>Your <b>{MAX_HEALTH}</b> = Race Health + {BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[MAX_HEALTH]}</span>,

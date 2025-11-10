@@ -82,6 +82,7 @@ export default function Prices({ hasNoMargins, onClick, shouldPlayAnimationOnCli
             <TwoColumns>
                 <Column>
                     <PriceTable categoryName="Weapons and Equipment"/>
+                    <PriceTable categoryName="Crafting"/>
                     <PriceTable categoryName="Magic and Religion"/>
                     <PriceTable categoryName="Potions and Poisons"/>
                     <PriceTable categoryName="Instruments"/>

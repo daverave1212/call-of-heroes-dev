@@ -9,7 +9,7 @@ import armors from './databases/Armors.json'
 import skills from './databases/Proficiencies.json'
 import abilities from './databases/Abilities.json'
 import overallData from './databases/OverallData.json'
-import { Races, Classes } from './pages/Other/AllRacesAndClasses'
+import { Races, Classes, ClassesBase, ClassesPremium, ClassesLegacy } from './pages/Other/AllRacesAndClasses'
 import { useEffect, useState } from "react"
 import BasicAbilities from './databases/Abilities.json'
 import Feats from './databases/Feats.json'
@@ -535,6 +535,15 @@ export function assertCorrectSpellFormat(spell) {
 }
 export function getAllClasses() {
     return Classes
+}
+export function getBaseClasses() {
+    return ClassesBase
+}
+export function getPremiumClasses() {
+    return ClassesPremium
+}
+export function getLegacyClasses() {
+    return ClassesLegacy
 }
 export function getAllRaces() {
     return Races
