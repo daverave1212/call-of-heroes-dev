@@ -231,13 +231,10 @@ export function addAbilityOrOpenPopup(spell, spellMetadata, selectedAbilitiesNam
     }
 }
 export function splitSpellsArrayInto2Columns(spellsArray, shouldIgnoreAlignment=false) {
-    
-    
-    
     const spells = spellsArray.map(spell => ({...spell, Height: estimteSpellHeight(spell)}))
     const spellsSorted = sortObjectArrayByKey(spells, 'Height').reverse()
 
-    if (spellsArray.find(s => s.Name.includes('Elderform')) != null) {
+    if (spellsArray.find(s => s.Name.includes('Overthrow')) != null) {
         console.log({spellsArray, spells, spellsSorted})
     }
 
@@ -251,7 +248,7 @@ export function splitSpellsArrayInto2Columns(spellsArray, shouldIgnoreAlignment=
         const columnToUse = column2Spells.height < column1Spells.height? column2Spells: column1Spells
         columnToUse.push(spell)
         columnToUse.height += spell.Height
-        if (spellsArray.find(s => s.Name.includes('Elderform')) != null) {
+        if (spellsArray.find(s => s.Name.includes('Overthrow')) != null) {
             console.log([`Added ${spell.Name}`, column1Spells.height, column2Spells.height])
         }
     }
@@ -404,7 +401,7 @@ export function estimteSpellHeight(spell) { // Height as in rem (approximately)
     if (spell.SpellTable != null) {
         height += Math.max(1, spell.SpellTable.length * 3) + 1
     }
-    return Math.floor(height)
+    return height
 }
 window.estimteSpellHeight = estimteSpellHeight
 export function isDice(str) {
@@ -762,6 +759,9 @@ export function reverseObject(obj) {
         newObj[value] = key
     }
     return newObj
+}
+export function mapEachKeyValue(obj, func) {
+    return Object.keys(obj).map(key => func(key, obj[key]))
 }
 export function groupBy(arr, hashFunc) {
     const hashKeyArrayElemValuePairs = {}

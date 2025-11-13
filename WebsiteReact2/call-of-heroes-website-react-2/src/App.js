@@ -114,6 +114,7 @@ import V2Warrior from './databases/ClassesV2/Warrior.json'
 import V2Wickan from './databases/ClassesV2/Wickan.json'
 import V2Wizard from './databases/ClassesV2/Wizard.json'
 import { ClassPage } from './components/InsertableTemplates/RaceClassComponents';
+import RulesAll from './pages/Other/RulesAll';
 
 function App() {
 
@@ -166,6 +167,7 @@ function App() {
           
           <Route path="/Other/Learn" element={ <Learn/> }/>
           <Route path="/Other/Rules" element={ <Rules/> }/>
+          <Route path="/Other/RulesAll" element={ <RulesAll/> }/>
           <Route path="/Other/RulesExplained/RulesSectionPages/Questguard" element={ <Questguard/> }/>
           <Route path="/Other/RulesExplained/RulesSectionPages/CharacterCreation" element={ <CharacterCreation/> }/>
           <Route path="/Other/RulesExplained/RulesSectionPages/PlayingTheGame" element={ <PlayingTheGame/> }/>

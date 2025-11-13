@@ -3,84 +3,36 @@ import { useState } from 'react'
 import './Rules.css'
 
 import * as U from '../../utils'
-
-import ManyBoxes from '../../components/Spell/ManyBoxes'
-import PageH2 from '../../components/PageH2/PageH2'
-import PageH1 from '../../components/PageH1/PageH1'
 import Page from '../../containers/Page/Page'
-
-import rulesDataLists from '../../databases/RulesLists.json'
-import TableNormal from '../../components/TableNormal/TableNormal'
 import { Link } from 'react-router-dom'
 import ThreeColumns from '../../components/TwoColumns/ThreeColumns'
 import Column from '../../components/TwoColumns/Column'
 import { TDBullet, TDSleek1, TDSleek2, TDSleek3 } from '../../components/TableNormal/TDSleek'
 
 import rules from '../../databases/Rules/Rules.json'
+import { QGTitle1 } from '../Tools/TitleGenerator'
+import PageH1 from '../../components/PageH1/PageH1'
+import PageH2 from '../../components/PageH2/PageH2'
+import PageH3 from '../../components/PageH3/PageH3'
 
-const [
-    questguardForBeginners,
-    characterCreation,
-    playingTheGame,
-    coreRulesInDepth,
-    gameMasterGuidelines
-] = rules
 
-const sectionNameToLinkMap = {
-    'A. Questguard':                '/Other/RulesExplained/RulesSectionPages/Questguard',
-    'B. Character Creation':        '/Other/RulesExplained/RulesSectionPages/CharacterCreation',
-    'C. Playing the Game':          '/Other/RulesExplained/RulesSectionPages/PlayingTheGame',
-    'D. Core Rules (In-Depth)':     '/Other/RulesExplained/RulesSectionPages/CoreRulesInDepth',
-    'E. Game Master Guidelines':    '/Other/RulesExplained/RulesSectionPages/GameMasterGuidelines'
-}
 
-function RulesSubsection({obj}) {
-    const title = U.getOnlyKey(obj)
-    const subobjects = obj[title]
 
-    function RulesH2({title, h1Title}) {
-        return (
-            <TDSleek2>
-                <Link to={sectionNameToLinkMap[h1Title] + '#' + U.titleToId(title)}>{ title }</Link>
-            </TDSleek2>
-        )
-    }
-
-    function RulesH3({title, h1Title}) {
-        return (
-            <TDSleek3>
-                <Link to={sectionNameToLinkMap[h1Title] + '#' + U.titleToId(title)}><TDBullet/>{ title }</Link>
-            </TDSleek3>
-        )
-    }
-
-    return <div>
-        <RulesH2 title={title} h1Title={null}/>
-        { subobjects.map(subsubsection => (
-            <RulesH3 title={U.getOnlyKey(subsubsection)} h1Title={null}/>
-        )) }
-    </div>
-}
 
 function RulesSection({obj}) {
-
-    const title = U.getOnlyKey(obj)
-    const subobjects = obj[title]
-
-    function RulesH1({title}) {
-        return (
-            <TDSleek1>
-                <Link to={sectionNameToLinkMap[title]}>{ title }</Link>
-            </TDSleek1>
-        )
-    }
-
 
     return (
         <div>
             <RulesH1 title={title}/>
             { subobjects.map(sectionObj => (
-                <RulesSubsection obj={sectionObj}/>
+                <>
+                    {/* <RulesH2 title={U.getOnlyKey(sectionObj)}/> */}
+                    {/* { U.getOnlyProp(sectionObj).map(subsectionObj => (
+                        <RulesH3 title={U.getOnlyKey(subsectionObj)}/>
+                    )) } */}
+
+                </>
+
             )) }
         </div>
     )
@@ -88,23 +40,79 @@ function RulesSection({obj}) {
 
 export default function Rules({}) {
 
+    const [currentRule, setCurrentRule] = useState(null)
+
+    function RulesH1({title}) {
+        return (
+            <TDSleek1>
+                <Link to={`/Other/RulesAll#${U.titleToId(title)}`}>{ title }</Link>
+            </TDSleek1>
+        )
+    }
+    function RulesH2({title}) {
+        return (
+            <TDSleek2>
+                <Link to={`/Other/RulesAll#${U.titleToId(title)}`}>{ title }</Link>
+            </TDSleek2>
+        )
+    }
+    function RulesH3({title}) {
+        return (
+            <TDSleek3>
+                <Link to={`/Other/RulesAll#${U.titleToId(title)}`}><TDBullet/>{ title }</Link>
+            </TDSleek3>
+        )
+    }
+    function ColumnsContent() {
+        return <>
+            { U.mapEachKeyValue(rules, (columnName, chapters) => (
+                <Column>
+                    { U.mapEachKeyValue(chapters, (chapterTitle, sections) => (<>
+                        <RulesH1 title={chapterTitle}/>
+                        { U.mapEachKeyValue(sections, (sectionName, section) => (
+                            <>
+                                <RulesH2 title={sectionName}/>
+                                { U.mapEachKeyValue(section, (pointName, pointText) => (
+                                    <RulesH3 title={pointName}/>
+                                )) }
+                            </>
+                        )) }
+                    </>)) } 
+                </Column>
+            ))}
+        </>
+    }
+
+
+
+    // return (
+    //     <Page hasNoLimits={true} hasNoMargins={true}>
+    //         <div className='full-width flex row' style={{gap: '2rem'}}>
+    //             <div style={{flex: 1, border: 'solid black 1px', padding: '2px'}}>
+    //                 <ThreeColumns style={{gap: '2px'}}>
+    //                     <ColumnsContent/>
+    //                 </ThreeColumns>
+    //             </div>
+
+    //             <div style={{flex: 4}}>
+    //                 <AllRules/>
+    //             </div>
+    //         </div>
+    //     </Page>
+    // )
+
     return (
-        <Page title="Questguard Rules">
-            <p style={{fontSize: '1.5em'}}>Hit <span className='keyboard-key'>CTRL</span> + <span className='keyboard-key'>F</span> to search for your rule!</p>
-            <div className='rules-box'>
+        <Page>
+            <div className='center-text center-content'>
+                <QGTitle1 text={"Rules"}/>
+                <p style={{fontSize: '1.5em'}} className='margin-top-1'>Hit <span className='keyboard-key'>CTRL</span> + <span className='keyboard-key'>F</span> to search for your rule!</p>
+            </div>
+            <div className='rules-box margin-top-2'>
+                
                 <ThreeColumns>
-                    <Column>
-                        <RulesSection obj={questguardForBeginners}/>
-                        <RulesSection obj={characterCreation}/>
-                    </Column>
-                    <Column>
-                        <RulesSection obj={playingTheGame}/>
-                        <RulesSection obj={coreRulesInDepth}/>
-                    </Column>
-                    <Column>
-                        <RulesSection obj={gameMasterGuidelines}/>
-                    </Column>
+                    <ColumnsContent/>
                 </ThreeColumns>
+
             </div>
         </Page>
     )

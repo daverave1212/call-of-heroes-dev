@@ -304,10 +304,10 @@ async function processFiles() {
             recordAbilitiesFrom(dictContent, abilities);
         }
 
-        if (fileName.includes('Rules.yml')) {
-            rulesLists = getFormatSectionsObjectList(dictContent);
-            rulesDicts = getFormatSectionsObjectDict(dictContent);
-        }
+        // if (fileName.includes('Rules.yml')) {
+        //     rulesLists = getFormatSectionsObjectList(dictContent);
+        //     rulesDicts = getFormatSectionsObjectDict(dictContent);
+        // }
 
 
         if ('Class' in dictContent) {
@@ -361,17 +361,17 @@ async function processFiles() {
                 'utf-8'
             );
 
-            fs.writeFileSync(
-                path.join(jsonRootFolder, 'RulesLists.json'),
-                JSON.stringify(rulesLists, null, 4),
-                'utf-8'
-            );
+            // fs.writeFileSync(
+            //     path.join(jsonRootFolder, 'RulesLists.json'),
+            //     JSON.stringify(rulesLists, null, 4),
+            //     'utf-8'
+            // );
 
-            fs.writeFileSync(
-                path.join(jsonRootFolder, 'RulesDicts.json'),
-                JSON.stringify(rulesDicts, null, 4),
-                'utf-8'
-            );
+            // fs.writeFileSync(
+            //     path.join(jsonRootFolder, 'RulesDicts.json'),
+            //     JSON.stringify(rulesDicts, null, 4),
+            //     'utf-8'
+            // );
         } catch (err) {
             console.error('ERROR: Failed to write summary JSON files:', err);
             throw err;

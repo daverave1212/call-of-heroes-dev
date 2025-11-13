@@ -2,8 +2,8 @@
 export function TDSleekBox({children}) {
     return <div className="rules-box">{children}</div>
 }
-export function TDBullet() {
-    return <img src='/Icons/UI/BulletPoint3.png' className='rules-toc-h3-bullet'/>
+export function TDBullet({ style, className }) {
+    return <img src='/Icons/UI/BulletPoint3.png' style={style} className={`rules-toc-h3-bullet ` + className}/>
 }
 export function TDSleek1({children}) {
     return <div className='rules-toc-h1'>{children}</div>

@@ -116,7 +116,7 @@ export function RaceHeader({imgStyle, theRace, theClass, hueShift, height=60}) {
                 <br/>
                 { descriptionBefore && <p>{descriptionBefore}</p>}
                 { theRace?.IsShort || theClass?.IsShort? (
-                    <TwoColumns type="leftier">
+                    <TwoColumns>
                         <Column style={{zIndex: 1}}>
                             <RaceDescription description={descriptionLeft ?? description}/>
                         </Column>
@@ -515,8 +515,8 @@ export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
 
             <TwoColumns>
                 <Column>
-                    <PageH3>Basic Abilities</PageH3>
                     <div className='with-margined-children'>
+                        <PageH3>Basic Abilities</PageH3>
                         { theClass.Spellcasting?.Type != null && theClass.Spellcasting?.Mana?.Amount != null && (
                             <SmallStat name="Mana" color="blue">
                                 <Icon name="Mana"/>{ theClass.Spellcasting.Mana.Amount } ({
@@ -858,7 +858,7 @@ export function ClassPageV2({
                                 
                 { theClass.Druidic && (
                     <div>
-                        <PageH3 style={{marginTop: 'var(--page-padding)'}}>Druidic</PageH3>
+                        <h4 style={{marginTop: 'var(--page-padding)'}}>Druidic</h4>
                         <p>{theClass.Druidic}</p>
                     </div>
                 )}            
