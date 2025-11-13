@@ -47,6 +47,52 @@ ________________________
 
 
 
+Time to kill 1 Unit: 1 rounds
+Combat duration: 4 rounds
+
+1 Unit AP per combat: 6 Action Points
+1 Unit AP / Combat = 2
+
+1 Unit Damage AP / combat: 2 AP (gets only 1 turn)
+2 Unit Damage AP / combat: 2 AP | 2 AP + 1 AP (2nd Unit gets 1.5 turns)
+3 Unit Damage AP / combat: 2 AP | 2 AP + 1 AP | 2 AP + 2 AP (3rd Unit gets 2 turns)
+4 Unit Damage AP / combat: 2 AP | 2 AP + 1 AP | 2 AP + 2 AP | 2 AP + 3 AP
+
+  Effective AP / combat
+1 Damage AP / combat: 1 AP (gets only 1 turn)
+2 Damage AP / combat: 1 AP | 1 + 0.5 AP = 2.5 AP
+3 Damage AP / combat: 1 AP | 1 + 0.5 AP | 1 + 1 AP = 4.5
+4 Damage AP / combat: 1 AP | 1 + 0.5 AP | 1 + 1 AP | 1 + 1.5 AP = 7
+5 Damage AP / combat: 1 AP | 1 + 0.5 AP | 1 + 1 AP | 1 + 1.5 AP | 1 + 2 AP = 10
+
+  Additive AP / epic monster combat (one 2 AP monster will make 2.5 AP per combat)
+1 Damage AP / combat: 1 AP * 1 = 1 AP
+2 Damage AP / combat: (1 + 0.5 AP) * 2 = 3 AP
+3 Damage AP / combat: (1 + 1 AP) * 3 = 6 AP
+4 Damage AP / combat: (1 + 1.5 AP) * 4 = 10 AP
+
+function singleDamageAPToAPPerCombat(ap) {
+  return (1 + (ap - 1) / 2) * ap
+}
+
+function multipleDamageAPToAPPerCombat(ap) {
+  let total = 0
+  for (let i = 1; i <= ap; i++) {
+    total += 1 + (i - 1) / 2
+  }
+  return total
+}
+
+function getNormalHealthPerAPAndXP(xp) {
+  return Math.floor(MonsterCalculations.Calculations.XPToHPTable[xp] / 2)
+}
+
+function getEpicMonsterHPRatio(xp, nActionPoints) {
+  const damageActionPoints = nActionPoints - 1
+  const accurateAPPerCombatIfSpreadBetweenMultipleUnits = multipleDamageAPToAPPerCombat(ap)
+  const apPerCombatIfItWereJust1Unit = singleDamageAPToAPPerCombat(ap)
+  const hpRatio = accurateAPPerCombatIfSpreadBetweenMultipleUnits / apPerCombatIfItWereJust1Unit
+}
 
 
 
@@ -74,6 +120,7 @@ Monsters to replace cause they boring:
 
 
 Monster Abilities (Standard):
+  o Shielding
   o Immune to all effects except Damage
   o Curse - whenever you roll dice, roll 1 less
   o Can only be damaged once per turn

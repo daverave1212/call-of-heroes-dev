@@ -11,6 +11,8 @@ import CopySpellButton from '../CopyButton/CopySpellButton.js'
 import PageH0 from '../PageH0/PageH0.js'
 import PageH1 from '../PageH1/PageH1.js'
 import { getMonsterStatsAsObject } from '../../services/game-lib/stat-calculations.js'
+import PageH3 from '../PageH3/PageH3.js'
+import PageH2 from '../PageH2/PageH2.js'
 
 export default function MonsterBlock({monsterName, monster, isPreview}) {
 
@@ -27,36 +29,41 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
     const IsCondensedLeft = monster.IsCondensedLeft == true
     const upperPartTwoColumnsType = IsCondensedLeft? 'lefty' : 'normal'
 
+    const setback = calculateMonsterSetback(monster.Initiative)
+    const isEpic = monster.Degree?.includes?.('Epic')
+
     const monsterSubtitle = monster.Type +
         (monster.Role != null? `, ${monster.Role}`: '')
 
     let monsterHealth = monster.Health
     if (monster.HPCoef != null) {
-        const isEpic = monster.Degree != null && monster.Degree.includes('Epic')
-        const maybeEpicMultiplier = isEpic == false? 1 : U.extractXPMultiplierFromText(monster.Experience)
-        const monsterXPBase = U.extractBaseXPFromText(monster.Experience)
-        const monsterXPToSearch = isEpic == false? monsterXPBase : monsterXPBase / maybeEpicMultiplier
-        const baseHPForThisXP = MonsterCalculations.Calculations.XPToHPTable['' + monsterXPToSearch]
-        if (baseHPForThisXP == null) { 
-            throw `Could not find XP ${monsterXPToSearch} in calculations table`
+        if (isEpic) {
+            monsterHealth = getEpicMonsterBaseHP(monster.Experience, monster.Degree)
+        } else {
+            const maybeEpicMultiplier = isEpic == false? 1 : U.extractXPMultiplierFromText(monster.Experience)
+            const monsterXPBase = U.extractBaseXPFromText(monster.Experience)
+            const monsterXPToSearch = isEpic == false? monsterXPBase : monsterXPBase / maybeEpicMultiplier
+            const baseHPForThisXP = MonsterCalculations.Calculations.XPToHPTable['' + monsterXPToSearch]
+            if (baseHPForThisXP == null) { 
+                throw `Could not find XP ${monsterXPToSearch} in calculations table`
+            }
+            const hpCoefMultiplier = parseFloat(monster.HPCoef)
+            const hpPenaltyPerDefense = MonsterCalculations.Calculations.HPPenaltyPercentPer1Defense / 100
+            
+            monsterHealth = Math.floor(baseHPForThisXP * hpCoefMultiplier * maybeEpicMultiplier)
+            if (monsterHealth % 10 == 4 || monsterHealth % 10 == 9) {
+                monsterHealth += 1
+            } else if (monsterHealth % 10 == 6 || monsterHealth % 10 == 1) {
+                monsterHealth -= 1
+            }
+            if (monsterHealth <= 0)
+                monsterHealth = 1
         }
-        const hpCoefMultiplier = parseFloat(monster.HPCoef)
-        const hpPenaltyPerDefense = MonsterCalculations.Calculations.HPPenaltyPercentPer1Defense / 100
-        const defenseMultiplier = (monster.Armor == null || monster.Armor == 0) ?
-            1 :
-            (1 - U.extractDefenseFromMonsterArmor(monster.Armor) * hpPenaltyPerDefense)
-        
-        monsterHealth = Math.floor(baseHPForThisXP * defenseMultiplier * hpCoefMultiplier * maybeEpicMultiplier)
-        if (monsterHealth % 10 == 4 || monsterHealth % 10 == 9) {
-            monsterHealth += 1
-        } else if (monsterHealth % 10 == 6 || monsterHealth % 10 == 1) {
-            monsterHealth -= 1
-        }
-        if (monsterHealth <= 0)
-            monsterHealth = 1
     }
 
     const maybeElderStyle = monsterName != 'Elder'? {}: { fontFamily: 'UnknownFont'}
+
+
 
     function MonsterLore() {
         return (
@@ -73,9 +80,6 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
                         </p>
                     ) 
                 }
-                <div className='center-content'>
-                    <button style={{backgroundColor: 'var(--theme-color-1-darkest)'}}><Icon name="Premium"/> Scale to different XP</button>
-                </div>
             </div>
         )
     }
@@ -105,6 +109,7 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
                 </TwoColumns>
             )}
             
+            
             <TwoColumns type='lefty'>
                 <Column>
                     <TwoColumns className="two-columns--half-padding" type={upperPartTwoColumnsType}>
@@ -112,10 +117,12 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
                             <div className='with-margined-children'>
                                 <SmallStat type="large" name="Health">{monsterHealth}<Icon name="Health" type="small-stat"/></SmallStat>
                                 { monster.Armor != '0' && monster.Armor != null && (<SmallStat type="large" name="Defense">{monster.Armor}<Icon name="Defense" type="small-stat"/></SmallStat>) }
-                                <SmallStat type="large" name="Speed">{monster.Speed}</SmallStat>
-                                <SmallStat type="vertical-large" name="Initiative">{monster.Initiative}</SmallStat>
+                                <SmallStat type="large" name="Speed">{monster.Speed} meters</SmallStat>
+                                {/* <SmallStat type="vertical-large" name="Initiative">{monster.Initiative}</SmallStat> */}
+                                { setback != null && <SmallStat type="vertical-large" name="Setback">{setback}</SmallStat>}
                                 { IsCondensedLeft && <SmallStat color={statOtherColor} type="large" name="XP">{monster.Experience}</SmallStat> }
-                                { IsCondensedLeft && monster.Degree != 'Normal' && monster.Degree != null && (<SmallStat color={statOtherColor} type="large" name="Degree">{monster.Degree != null? monster.Degree : 'Normal'}</SmallStat>) }
+                                {/* { IsCondensedLeft && monster.Degree != 'Normal' && monster.Degree != null && (<SmallStat color={statOtherColor} type="large" name="Degree">{monster.Degree != null? monster.Degree : 'Normal'}</SmallStat>) } */}
+                                { IsCondensedLeft && monster.Degree != 'Normal' && monster.Degree != null && (<SmallStat color={statOtherColor} type="large" name="Action Points">{monster.Degree != null? monster.Degree : '3'}</SmallStat>) }
 
                             </div>
                         </Column>
@@ -123,8 +130,13 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
                             {
                                 IsCondensedLeft == false && (
                                     <div className='with-margined-children'>
+                                        <PageH2 hasMargin={false} className="center-text">EPIC Monster</PageH2>
                                         <SmallStat color={statOtherColor} type="large" name="XP">{monster.Experience}</SmallStat>
-                                        { monster.Degree != 'Normal' && monster.Degree != null && (<SmallStat color={statOtherColor} type="large" name="Degree">{monster.Degree != null? monster.Degree : 'Normal'}</SmallStat>) }
+                                        {/* { monster.Degree != 'Normal' && monster.Degree != null && (<SmallStat color={statOtherColor} type="large" name="Degree">{monster.Degree != null? monster.Degree : 'Normal'}</SmallStat>) } */}
+                                        { monster.Degree != 'Normal' && monster.Degree != null && (<SmallStat color={statOtherColor} type="large" name="Action Points">{monster.Degree != null? monster.Degree : '3'}</SmallStat>) }
+                                        <div className='center-content'>
+                                            <button style={{backgroundColor: 'var(--theme-color-1-darkest)', width: '100%'}}><Icon name="Premium"/> Scale to different XP</button>
+                                        </div>
                                     </div>
                                 )
                             }
@@ -202,3 +214,96 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
         </div>
     )
 }
+
+function calculateMonsterSetback(initiative) {
+
+    function getSetbackFromInitiativeNumber(number) {
+        number = parseInt(number)
+        const reverseInitiative = Math.min(Math.max(number, 0), 10);
+        const setback = Math.floor(reverseInitiative / 2)
+        return setback
+    }
+    window.getSetbackFromInitiativeNumber = getSetbackFromInitiativeNumber
+
+
+    if (initiative == null) {
+        return 99
+    }
+    
+    const parts = U.splitByNumbers((initiative + '').trim())
+    const parsedParts = parts.map(part => U.isNumber(part)? getSetbackFromInitiativeNumber(part): part)
+    return parsedParts.join(' ')
+
+}
+
+
+// 1 Unit AP per combat: 6 Action Points
+// 1 Unit AP / Combat = 2
+
+// 1 Unit Damage AP / combat: 2 AP (gets only 1 turn)
+// 2 Unit Damage AP / combat: 2 AP | 2 AP + 1 AP (2nd Unit gets 1.5 turns)
+// 3 Unit Damage AP / combat: 2 AP | 2 AP + 1 AP | 2 AP + 2 AP (3rd Unit gets 2 turns)
+// 4 Unit Damage AP / combat: 2 AP | 2 AP + 1 AP | 2 AP + 2 AP | 2 AP + 3 AP
+
+//   Effective AP / combat
+// 1 Damage AP / combat: 1 AP (gets only 1 turn)
+// 2 Damage AP / combat: 1 AP | 1 + 0.5 AP = 2.5 AP
+// 3 Damage AP / combat: 1 AP | 1 + 0.5 AP | 1 + 1 AP = 4.5
+// 4 Damage AP / combat: 1 AP | 1 + 0.5 AP | 1 + 1 AP | 1 + 1.5 AP = 7
+// 5 Damage AP / combat: 1 AP | 1 + 0.5 AP | 1 + 1 AP | 1 + 1.5 AP | 1 + 2 AP = 10
+
+//   Additive AP / epic monster combat (one 2 AP monster will make 2.5 AP per combat)
+// 1 Damage AP / combat: 1 AP * 1 = 1 AP
+// 2 Damage AP / combat: (1 + 0.5 AP) * 2 = 3 AP
+// 3 Damage AP / combat: (1 + 1 AP) * 3 = 6 AP
+// 4 Damage AP / combat: (1 + 1.5 AP) * 4 = 10 AP
+
+// Jesus don't ask why... it just kind of works
+function singleDamageAPToAPPerCombat(ap) {
+  return (1 + (ap) / 2) * (ap - 1) + 0.5
+}
+window.singleDamageAPToAPPerCombat = singleDamageAPToAPPerCombat
+
+function multipleDamageAPToAPPerCombat(ap) {
+  let total = 0
+  for (let i = 1; i <= ap; i++) {
+    total += 1 + (i - 1) / 2
+  }
+  return total
+}
+window.multipleDamageAPToAPPerCombat = multipleDamageAPToAPPerCombat
+
+function getNormalHealthPerAP(xp) {
+  return MonsterCalculations.Calculations.XPToHPTable[xp] / 2
+}
+window.getNormalHealthPerAP = getNormalHealthPerAP
+
+function getEpicMonsterHPRatio(nActionPoints) {
+  const damageActionPoints = nActionPoints - 1
+  const accurateAPPerCombatIfSpreadBetweenMultipleUnits = multipleDamageAPToAPPerCombat(damageActionPoints)
+  const apPerCombatIfItWereJust1Unit = singleDamageAPToAPPerCombat(damageActionPoints)
+  const hpRatio = accurateAPPerCombatIfSpreadBetweenMultipleUnits / apPerCombatIfItWereJust1Unit
+  return hpRatio
+}
+window.getEpicMonsterHPRatio = getEpicMonsterHPRatio
+
+function roundDownTo25(n) {
+  return Math.floor(n / 25) * 25;
+}
+function roundToNearest25(n) {
+  return Math.round(n / 25) * 25;
+}
+
+function getEpicMonsterBaseHP(xp, actionPoints) {
+    const damageActionPoints = actionPoints - 1
+    const howManyUnitsTheEpicMonsterIsWorth = damageActionPoints / 2
+    const howMuch1UnitWouldBeWorthInXP = roundToNearest25(xp / howManyUnitsTheEpicMonsterIsWorth)
+    
+    const normalUnitHPPerAP = getNormalHealthPerAP(howMuch1UnitWouldBeWorthInXP)
+    const normalTotalUnitHP = damageActionPoints * normalUnitHPPerAP
+    
+    const epicMonsterHealthRatio = getEpicMonsterHPRatio(actionPoints)
+    return normalTotalUnitHP * epicMonsterHealthRatio
+
+}
+window.getEpicMonsterBaseHP = getEpicMonsterBaseHP

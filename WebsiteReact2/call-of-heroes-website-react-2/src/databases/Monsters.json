@@ -75,7 +75,7 @@
         ],
         "Passives": [
             {
-                "Strength in Numbers": "Every Goblin attack deals +1 Damage for each Goblin fighting in their squad.\nSo, even if a goblin is alone, it has +1.\nWhen a Goblin dies or flees, it no longer counts as a fighting Goblin.\n"
+                "Strength in Numbers": "Every Goblin attack deals +1 Damage for each Worthy Goblin in their squad.\nSo, even if a goblin is alone, it has +1.\nWhen a Goblin dies or flees, it no longer counts as a Worthy Goblin.\n"
             },
             {
                 "Darkvision": "Can see in the dark"
@@ -162,7 +162,7 @@
         "Story Ideas": "A Cultist might snitch on her \"family\" and wants out of the Cult, but she can't without risking her life.\nShe needs the help of the Players.\nBut to do so, the Players must infiltrate the Cult or help her find out more about their leader.\nThey will need to kill the local leader; thus, a friendship might be made with the ex-Cultist.\n"
     },
     "Kobold": {
-        "Type": "Person",
+        "Type": "Person, Beast",
         "Experience": 100,
         "Stats": "-2/4/0/1/0",
         "Health": 20,
@@ -171,9 +171,14 @@
         "Initiative": 9,
         "Abilities": [
             {
-                "Weapon": {
-                    "Damage": "1d6 + 1 (Pierce, Slash or Smash)",
-                    "No Remorse": "Deal +50% melee Damage against targets affected by any Crowd Control"
+                "Melee Weapon": {
+                    "Damage": "1d6",
+                    "Pin Down": "1d10 instead if the target is near a wall or obstacle."
+                }
+            },
+            {
+                "Ranged Weapon": {
+                    "Damage": "1d6"
                 }
             },
             {
@@ -195,7 +200,7 @@
             }
         ],
         "Avoids AoE": "Yes",
-        "Lore": "Kobolds are annoying rascals that always dodge the first attack on them.\n",
+        "Lore": "Kobolds are annoying rascals that always dodge the first attack on them.\nThey are feral animal-like creatures that can be found in all corners of the world.\n",
         "Behavior": "Kobolds run away after they finish attacking if they can.\nKobolds prefer to ambush adventurers and fight in the dark.\n",
         "Pair": "Pair with Bannermen, Camazots.\nFor stronger encounters, Kobolds might ride on Rust Roaches.\n",
         "Suggested Obstacles": [
@@ -220,34 +225,41 @@
         "Initiative": 5,
         "Abilities": [
             {
-                "Spear": {
-                    "Range": "3 meters",
-                    "Damage": "1d8 Pierce"
+                "Melee Weapon": {
+                    "Damage": "1d8 Pierce",
+                    "Water Heal": "If the target is standing in water, it becomes Frail."
+                }
+            },
+            {
+                "Throw Weapon": {
+                    "A": "Half-Action",
+                    "Range": "2-3 meters",
+                    "Damage": "1d4 Pierce"
                 }
             },
             {
                 "Net": {
                     "Range": "5 meters",
-                    "A": "0 Actions",
-                    "Cooldown": "Once / Combat",
-                    "Effect": "Target becomes Rooted. On its turn, it can spend a Half-Action to break the net."
+                    "A": "Half-Action",
+                    "Cooldown": "Once / Turn",
+                    "Effect": "A Unit becomes Slowed."
                 }
             }
         ],
         "Passives": [
             {
-                "Water Healing (group)": "At the end of every Round, all Morlocs heal for 10 Health if in water (even shallow water)."
+                "Water Resistance": "Takes -50% Damage if standing in water (even shallow water)."
             },
             {
                 "Fast Swimmers": "Can move 2 meters for each 1 meter spent for movement in water."
             },
             {
-                "Paddle Feet": "Immune to difficult terrain and caltrops (except wind)."
+                "Paddle Feet": "Immune to Hard Terrain, Caltrops and Wind."
             }
         ],
         "Avoids AoE": "Maybe",
-        "Lore": "Morlocs are frog or fish people who heal if in water and prevent their prey from running.",
-        "Behavior": "Uses Net on the first round if possible.\nAttack random targets and prefer to fight in water, but will chase outside of water too. They're not smart enough to always use water to their advantage.\n",
+        "Lore": "Morlocs are frog or fish people who fight exceptionally well in water.",
+        "Behavior": "Use Net as often as possible.\nAttack random targets and prefer to fight in water, but will chase outside of water too. They're not smart enough to always use water to their advantage.\n",
         "Pair": "Pair with 1 Crab (Giant), 1 Acolye (Morloc).",
         "Suggested Obstacles": [
             "Net Trap (10 Grade Dexterity Check, Root)",
@@ -269,13 +281,27 @@
         "Initiative": 6,
         "Abilities": [
             {
-                "Bow": "1d6 + 2 Pierce"
+                "Ranged Attack": {
+                    "Damage": "1d8"
+                }
             },
             {
-                "1H Weapon": {
-                    "Damage": "Make 2 attacks for 1d6.",
-                    "Kick": "If rolled at least one 1, target becomes Slowed and Fumbling and has a valuable item stolen from them."
+                "Kick": {
+                    "A": "Half-Action",
+                    "Cooldown": "Once / Turn",
+                    "Effect": "Slam a Unit 1d4 meters. If you rolled 4, it also becomes Dazed."
                 }
+            },
+            {
+                "Quick Attack": {
+                    "A": "Half-Action",
+                    "Damage": "1d6"
+                }
+            }
+        ],
+        "Passives": [
+            {
+                "Ambush": "The first weapon attack each Bandit Makes deals +1d6 Damage, and steals Gold equal to the total Damage dealt."
             }
         ],
         "Avoids AoE": "Maybe",
@@ -290,24 +316,32 @@
         "Monster Data": "No tactic, mid HP, no gimmick",
         "Story Ideas": "There could be Bandits that only steal from the rich to distribute to the poor.\nThey might also be people who turned to bandits because they opposed the current political regime and all their property was taken away.\nThey could be secretly employed by the mayor to bring him riches.\n"
     },
-    "Drough": {
-        "Type": "Person, Person",
+    "Dancer": {
+        "Type": "Person",
         "Experience": 125,
         "Stats": "1/4/2/2/2",
         "Health": 29,
         "HPCoef": 0.75,
-        "Armor": "3 (Agile/Magical)",
         "Speed": 6,
         "Initiative": "6 Melee / 12 Ranged",
         "Abilities": [
             {
-                "Ranged": "1d10"
+                "Ranged Weapon": {
+                    "Damage": "1d10"
+                }
             },
             {
-                "Weapon": "1d10"
+                "Melee Weapon": {
+                    "Damage": "1d12",
+                    "Cleaving": "Also hits another Unit near the target with -50% Damage."
+                }
             },
             {
-                "Darkness (Free)": "At the end of first turn, create a 5x5 meter area of Magical Darkness centered on Drough. This provides Cover to all Units inside against all attacks. The darkness remains there for 1 minute."
+                "Free Movement": {
+                    "A": "0 Actions",
+                    "Cooldown": "Once / Combat",
+                    "Effect": "On its first Turn in Combat, the Dancer can make a free Movement Act."
+                }
             }
         ],
         "Passives": [
@@ -319,13 +353,9 @@
             },
             {
                 "Magical Darkvision": "Can see in the dark and in magical darkness."
-            },
-            {
-                "Light Sensitivity": "Deals -100% Damage if Blinded."
             }
         ],
         "Avoids AoE": "Yes",
-        "Behavior": "On their first turn, they create a magical darkness area.\nThey try to remain in the darkness.\n",
         "Pair": "For a more magical fight, pair with 1 Acolyte, Flying Weapons.\nFor a more physical fight, pair with Camazots, Bat Swarms.\n",
         "Suggested Obstacles": [
             "Magical Darkness",
@@ -340,7 +370,7 @@
     },
     "Ogre": {
         "Type": "Person, Giant",
-        "Degree": "Epic x2",
+        "Degree": 5,
         "Experience": "250 (125 x2)",
         "Stats": "6/0/-1/2/-1",
         "Health": 96,

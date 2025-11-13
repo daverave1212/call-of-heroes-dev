@@ -437,6 +437,12 @@ export function getLocationHackyPath(location) {
     }
 
 }
+export function splitByNumbers(str) {
+  return str
+    .split(/(\d+)/)          // split and keep numbers
+    .filter(part => part !== '') // remove empty strings
+    .map(part => (isNaN(part) ? part : Number(part))); // convert numbers
+}
 // text: "250 (125 x2)" -> 2
 export function extractXPMultiplierFromText(text) {
     const indexOfX = text.indexOf('x')

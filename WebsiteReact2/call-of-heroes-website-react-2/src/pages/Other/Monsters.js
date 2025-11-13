@@ -79,7 +79,7 @@ export default function Monsters({}) {
             </SmallStat>
 
             { currentlyHoveredMonster != null && (
-                <div className='monster-preview' style={{top: (mouseCoords.y - 150) + 'px', left: (mouseCoords.x + 50) + 'px'}} >
+                <div className='monster-preview' style={{top: (mouseCoords.y - 450) + 'px', left: (mouseCoords.x - 50) + 'px', transform: 'scale(0.8, 0.8)'}} >
                     <MonsterBlock monsterName={currentlyHoveredMonster} monster={monsters[currentlyHoveredMonster]} isPreview={true}/>
                 </div>
             ) }

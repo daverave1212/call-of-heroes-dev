@@ -6,6 +6,7 @@ import { useState } from 'react'
 import * as U from '../../utils'
 
 import { SpellTopStats } from '../Spell/Spell'
+import Icon from '../Icon'
 
 
 // A monster ability is formatted like "- Ranged: 1d6 + 20 Slash"
@@ -34,7 +35,7 @@ export default function MonsterAbility({ability, isPassive, style}) {
         return (
             <div>
                 { abilityBody.Damage && (
-                    <p><span className='monster-ability__effect-name'>Damage: </span><span className='monster-ability_effect-desc'>{ abilityBody.Damage }</span></p>
+                    <p><Icon name="Damage" style={{marginTop: '2px'}}/> <span className='monster-ability_effect-desc'>{ abilityBody.Damage } Damage</span></p>
                 ) }
                 { abilityBody.Effect && (
                     <AbilityEffect>{ abilityBody.Effect }</AbilityEffect>
@@ -53,9 +54,11 @@ export default function MonsterAbility({ability, isPassive, style}) {
 
     const passiveOrActveClass = isPassive === true? 'monster-ability--passive' : 'monster-ability--active'
     const spellTopTags =
-    abilityBody.A != null? abilityBody : 
-        isPassive === true? abilityBody :
-            {...{A: '1 Action'}, ...abilityBody}
+        abilityBody.A != null?
+            abilityBody: 
+        isPassive === true?
+            abilityBody:
+        {...{A: '1 Action'}, ...abilityBody}
 
 
     const topStatsComponent = <SpellTopStats tags={spellTopTags} keywords={abilityBody.Tags} className="spell-top__stats--no-padding-side spell-top__stats--less-padding-top-bottom"/>

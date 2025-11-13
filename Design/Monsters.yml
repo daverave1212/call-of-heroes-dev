@@ -43,6 +43,7 @@ Bannerman:
   Speed:        4
   Initiative:   9
   Abilities: None
+
   Passives:
     - Inspiration: All allies that can hear/see the Bannerman do +1 Damage with all attacks.
   Avoids AoE: Yes
@@ -69,9 +70,9 @@ Goblin:
     - Melee: 1 + number of Goblins
   Passives:
     - Strength in Numbers: |
-        Every Goblin attack deals +1 Damage for each Goblin fighting in their squad.
+        Every Goblin attack deals +1 Damage for each Worthy Goblin in their squad.
         So, even if a goblin is alone, it has +1.
-        When a Goblin dies or flees, it no longer counts as a fighting Goblin.
+        When a Goblin dies or flees, it no longer counts as a Worthy Goblin.
     - Darkvision: Can see in the dark
   Avoids AoE: No
   Lore: |
@@ -157,7 +158,7 @@ Cultist:
     They will need to kill the local leader; thus, a friendship might be made with the ex-Cultist.
 
 Kobold:
-  Type:         Person
+  Type:         Person, Beast
   Experience:   100
   Stats:        -2/4/0/1/0
   Health:       20
@@ -165,9 +166,11 @@ Kobold:
   Speed:        6
   Initiative:   9
   Abilities:
-    - Weapon:
-        Damage: 1d6 + 1 (Pierce, Slash or Smash)
-        No Remorse: Deal +50% melee Damage against targets affected by any Crowd Control
+    - Melee Weapon:
+        Damage: 1d6
+        Pin Down: 1d10 instead if the target is near a wall or obstacle.
+    - Ranged Weapon:
+        Damage: 1d6
     - Opportunity Attack:
         A: Reaction
         Effect: When a Unit exist the melee range of a Kobold, attack it with the weapon.
@@ -178,6 +181,7 @@ Kobold:
   Avoids AoE: Yes
   Lore: |
     Kobolds are annoying rascals that always dodge the first attack on them.
+    They are feral animal-like creatures that can be found in all corners of the world.
   Behavior: |
     Kobolds run away after they finish attacking if they can.
     Kobolds prefer to ambush adventurers and fight in the dark.
@@ -204,22 +208,26 @@ Morloc:
   Speed:        5
   Initiative:   5
   Abilities:
-    - Spear:
-        Range: 3 meters
+    - Melee Weapon:
         Damage: 1d8 Pierce
+        Water Heal: If the target is standing in water, it becomes Frail.
+    - Throw Weapon:
+        A: Half-Action
+        Range: 2-3 meters
+        Damage: 1d4 Pierce
     - Net:
         Range: 5 meters
-        A: 0 Actions
-        Cooldown: Once / Combat
-        Effect: Target becomes Rooted. On its turn, it can spend a Half-Action to break the net.
+        A: Half-Action
+        Cooldown: Once / Turn
+        Effect: A Unit becomes Slowed.
   Passives:
-    - Water Healing (group): At the end of every Round, all Morlocs heal for 10 Health if in water (even shallow water).
+    - Water Resistance: Takes -50% Damage if standing in water (even shallow water).
     - Fast Swimmers: Can move 2 meters for each 1 meter spent for movement in water.
-    - Paddle Feet: Immune to difficult terrain and caltrops (except wind).
+    - Paddle Feet: Immune to Hard Terrain, Caltrops and Wind.
   Avoids AoE: Maybe
-  Lore: Morlocs are frog or fish people who heal if in water and prevent their prey from running.
+  Lore: Morlocs are frog or fish people who fight exceptionally well in water.
   Behavior: |
-    Uses Net on the first round if possible.
+    Use Net as often as possible.
     Attack random targets and prefer to fight in water, but will chase outside of water too. They're not smart enough to always use water to their advantage.
   Pair: Pair with 1 Crab (Giant), 1 Acolye (Morloc).
   Suggested Obstacles:
@@ -241,10 +249,17 @@ Bandit:
   Speed:        5
   Initiative:   6
   Abilities: 
-    - Bow: 1d6 + 2 Pierce
-    - 1H Weapon:
-        Damage: Make 2 attacks for 1d6.
-        Kick: If rolled at least one 1, target becomes Slowed and Fumbling and has a valuable item stolen from them.
+    - Ranged Attack:
+        Damage: 1d8
+    - Kick:
+        A: Half-Action
+        Cooldown: Once / Turn
+        Effect: Slam a Unit 1d4 meters. If you rolled 4, it also becomes Dazed.
+    - Quick Attack:
+        A: Half-Action
+        Damage: 1d6
+  Passives:
+    - Ambush: The first weapon attack each Bandit Makes deals +1d6 Damage, and steals Gold equal to the total Damage dealt.
   Avoids AoE: Maybe
   Behavior: |
     Tries to ambush and steal. If they steal something, they run away.
@@ -262,28 +277,29 @@ Bandit:
     They might also be people who turned to bandits because they opposed the current political regime and all their property was taken away.
     They could be secretly employed by the mayor to bring him riches.
     
-Drough:
-  Type:         Person, Person
+Dancer:
+  Type:         Person
   Experience:   125
   Stats:        1/4/2/2/2
   Health:       29
   HPCoef:       0.75
-  Armor:        3 (Agile/Magical)
   Speed:        6
   Initiative:   6 Melee / 12 Ranged
   Abilities:
-    - Ranged: 1d10
-    - Weapon: 1d10
-    - Darkness (Free): At the end of first turn, create a 5x5 meter area of Magical Darkness centered on Drough. This provides Cover to all Units inside against all attacks. The darkness remains there for 1 minute.
+    - Ranged Weapon:
+        Damage: 1d10
+    - Melee Weapon:
+        Damage: 1d12
+        Cleaving: Also hits another Unit near the target with -50% Damage.
+    - Free Movement:
+        A: 0 Actions
+        Cooldown: Once / Combat
+        Effect: On its first Turn in Combat, the Dancer can make a free Movement Act.
   Passives:
     - Dodgy: Takes -50% Damage from Ranged attacks.
     - Acrobatic: Can easily jump up to 3 meters.
     - Magical Darkvision: Can see in the dark and in magical darkness.
-    - Light Sensitivity: Deals -100% Damage if Blinded.
   Avoids AoE: Yes
-  Behavior: |
-    On their first turn, they create a magical darkness area.
-    They try to remain in the darkness.
   Pair: |
     For a more magical fight, pair with 1 Acolyte, Flying Weapons.
     For a more physical fight, pair with Camazots, Bat Swarms.
@@ -299,22 +315,26 @@ Drough:
 
 Ogre:
   Type:         Person, Giant
-  Degree:       Epic x2
+  Degree:       5
   Experience:   250 (125 x2)
   Stats:        6/0/-1/2/-1
   Health:       96
   HPCoef:       1
-  Speed:        3
+  Speed:        4
   Initiative:   5
   Abilities:
     - Attack:
         Range: 2 meters
+        Cooldown: Once / Turn
         Effect: Deal 1d6 + 2 Smash Damage to a Unit and push it a number of meters equal to the die rolled.
         Notes: If the Unit would fall down more than 2 meters, it instead grabs the nearest ledge and can climb it with a Half-Action (on its turn).
     - Hurl Object:
+        Cooldown: Once / Turn
         Range: 3 to 5 meters
         Effect: Throw something nearby into a Unit for 1d6 Damage. If it has obstacle Cover, the obstacle breaks; otherwise, the Unit becomes Single-Stunned.
-    - Stomp: Damage all Units within 2 meters for 4 Pulse Damage (or 2d4 - 1).
+    - Stomp:
+        Cooldown: Once / Turn
+        Effect: Damage all Units within 2 meters for 4 Pulse Damage (or 2d4 - 1).
   Passives:
     - Resistances: Takes -50% Smash and Pulse Damage.
   Avoids AoE: No
