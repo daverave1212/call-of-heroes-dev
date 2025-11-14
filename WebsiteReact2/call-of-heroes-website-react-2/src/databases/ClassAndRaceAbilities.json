@@ -221,7 +221,7 @@
             "Damage",
             "CC"
         ],
-        "Effect": "A Unit you can see takes 3d8 Psychic Damage and is Silenced.\n",
+        "Effect": "A Unit you can see takes 3d8 Psychic Damage and is Deafened.\n",
         "Notes": "Cover is applied normally.",
         "ParentKey": "Level 3 - Minor Talent"
     },
@@ -997,7 +997,7 @@
             },
             {
                 "Name": "Sticky {Action}1 Action Point {Range}3 meters {Level}Level 5",
-                "Effect": "Shoot a sticky substance at a Unit. It takes 1d4 Damage, becomes Rooted and apply a Combo. Usable once per Shapeshift."
+                "Effect": "Shoot a sticky substance at a Unit. It takes 1d4 Damage, becomes Double-Slowed and apply a Combo. Usable once per Shapeshift."
             },
             {
                 "Name": "Shred {Action}2 Action Points {Level}Level 6",
@@ -1092,7 +1092,7 @@
         "ParentKey": "Utility"
     },
     "~Domain~": {
-        "_Value": 1.25,
+        "_Value": 0,
         "A": "Passive",
         "IsIgnored": true,
         "HasMixins": true,
@@ -1121,6 +1121,7 @@
         "ParentKey": "Level 2 - Minor Talent"
     },
     "~Wind Chaser~": {
+        "_Value": 0.75,
         "A": "0 Actions",
         "Cooldown": "Once / Combat",
         "Degree": "Lesser",
@@ -1146,7 +1147,7 @@
         "HasMixins": true,
         "Degree": "Major",
         "Cooldown": "Once / Combat",
-        "Effect": "Send out a 4x1 meter wave forward. Each Unit* hit takes 2d8 Cold Damage and is Slowed.\n\n{Brown('Water:')} Allies hit are Healed for 1d6 instead.\n{Brown('Wind:')} 6x2 meter wave instead.\n",
+        "Effect": "Send out a 4x1 meter wave forward. Each Unit* hit takes 2d8 Cold Damage.\nThe first Unit hit is Slowed.\n\n{Brown('Water:')} Allies hit are Healed for 1d6 instead of taking Damge.\n{Brown('Wind:')} 6x2 meter wave instead.\n",
         "Notes": "If in a Water environment/domain, Allies are Healed and Enemies are Damaged. Otherwise, all Units hit are Damaged.",
         "ParentKey": "Level 2 - Minor Talent"
     },
@@ -1156,7 +1157,7 @@
         "A": "Half-Action",
         "Damage": "1d6 + Any Stat",
         "Replacement": "Replaces Animal Attack",
-        "Effect": "{Brown('Nature:')} ~Heal for 10% of the attack's Damage.~\n{Brown('Earth:')} ~Taunt the target.~\n{Brown('Water:')} ~Target is Slowed and +1 range.~\n{Brown('Wind:')} ~1d8 Damage instead of 1d6.~\n",
+        "Effect": "{Brown('Nature:')} ~Heal for 10% of the attack's Damage.~\n{Brown('Earth:')} ~Taunt the target.~\n{Brown('Water:')} ~+2 range.~\n{Brown('Wind:')} ~1d8 Damage instead of 1d6.~\n",
         "Range": "1 meter",
         "Stat": "Smash, Slash or Pierce",
         "EffectGreen": "Critical Strike - if you roll maximum, apply a Combo.",
@@ -1196,7 +1197,7 @@
         "A": "1 Action",
         "Cost": "1 Mana",
         "Cooldown": "Once / Adventure",
-        "Effect": "All Enemies within 4 meters of you take 2d6 Pierce Damage and become Rooted.\n\n{Brown('Nature:')} 6 meters instead.\n{Brown('Earth:')} 2d8 Damage instead.\n",
+        "Effect": "All Enemies within 4 meters of you take 2d6 Pierce Damage and become Double-Slowed.\n\n{Brown('Nature:')} 6 meters instead.\n{Brown('Earth:')} 2d8 Damage instead.\n",
         "EffectGreen": "Usable while Shapeshifted.",
         "HasMixins": true,
         "ParentKey": "Level 4 - Minor Talent"
@@ -1398,6 +1399,7 @@
         "ParentKey": "Level 2 - Minor Talent"
     },
     "~Elderform~": {
+        "_Value": 1,
         "Effect": "You have extra available features originating from the flora and microbiomes of the outdoors.\n\n{Brown('Nature:')} You regenerate 1d4 Health at the end of every Turn.\n{Brown('Earth:')} After you are attacked from 1 meter away, deal 1d4 Damage back to the attacker.\n{Brown('Water:')} At the end of the Adventure, the Quest Master gives you an additional positive Quirk.\n{Brown('Wind:')} Your Animal Attack has 5 meters range and deals Fire, Cold, Shock or Poison Damage.\n",
         "HasMixins": true,
         "ParentKey": "Level 3 - Keystone Talent"
@@ -1421,21 +1423,8 @@
         "ParentKey": "Level 3 - Keystone Talent"
     },
     "~Primalform~": {
+        "_Value": null,
         "Effect": "You gain extra animal features originating from creatures of the wild and mysterious.\n\n{Brown('Nature:')} First Shapeshifted Animal Attack hits one more Unit within 2 meters of the main target.\n{Brown('Earth:')} When Shapeshifting, permanently increase your current and Max Health by 0.5.\n{Brown('Water:')} At the end of the Adventure, the Quest Master gives you an additional positive Quirk.\n{Brown('Wind:')} First Shapeshifted Animal Attack Slams the target 1d4 meters in any direction.\n",
-        "SpellTable": [
-            {
-                "Name": "Prowling",
-                "Effect": "If starting combat shapeshifted, YOU Surprise enemies and can't be Surprised."
-            },
-            {
-                "Name": "Horned",
-                "Effect": "First Shapeshifted attack deals +1d4 Damage and Slams the target 1d4 meters in any direction."
-            },
-            {
-                "Name": "Hulking",
-                "Effect": "When Shapeshifting, permanently increase your current and Max Health by 1."
-            }
-        ],
         "HasMixins": true,
         "ParentKey": "Level 3 - Keystone Talent"
     },
@@ -1787,7 +1776,7 @@
         "ParentKey": "Ideas"
     },
     "~Animal Companion~": {
-        "_Value": 4.5,
+        "_Value": 7.5,
         "AlignOnWebsite": "Left",
         "A": "Passive",
         "HasMixins": true,
@@ -1815,7 +1804,7 @@
         "ParentKey": "Subspells"
     },
     "~Tumble~": {
-        "_Value": 1.5,
+        "_Value": 0.5,
         "AlignOnWebsite": "Right",
         "A": "Reaction or 0 Actions",
         "Cooldown": "Once / Combat",
@@ -1903,7 +1892,7 @@
         "_Value": 1.5,
         "A": "Passive",
         "Range": "5 meters to edge",
-        "Effect": "After you Tumble, choose a 2x2 meter area and throw a net. Each Unit in the area take 1d4 Pulse Damage and is Slowed. If you rolled 4 for any of them, it is Rooted instead.",
+        "Effect": "After you Tumble, choose a 2x2 meter area and throw a net. Each Unit in the area take 1d4 Pulse Damage and is Slowed. If you rolled 4 for any of them, it is Double-Slowed instead.",
         "Notes": "Requires a Draven Net item, which can be bought for 50 gold (or freely crafted for the same price in materials). Can retrieved after every use.",
         "ParentKey": "Level 3 - Keystone Talent"
     },
@@ -1974,7 +1963,7 @@
         "Range": "10 meters",
         "Cooldown": "Once / Adventure",
         "HasMixins": true,
-        "Effect": "Shoot a thundering shot towards an obstacle or wall. A quaking wave travels horizontally towards in both directions of the wall up to 10 meters in each direction.\nAll Units within 2 meters of that wall must succeed a Might Check against 6 + ^Your Sense^ or be Triple-Stunned and take 3d4 Shock Damage.\nThey take half of the Damage and are Slowed if they succeed.\n",
+        "Effect": "Shoot a thundering shot towards an obstacle or wall. A quaking wave travels horizontally towards in both directions of the wall up to 10 meters in each direction.\nAll Units within 2 meters of that wall must succeed a Might Check at least equal to your Sense Check or be Triple-Stunned and take 3d4 Shock Damage.\nThey take half of the Damage and are Single-Stun even if they pass.\n",
         "Notes": "The floor and ceiling are not considered walls. The wave does not travel through them. This is considered a Spell. Ignores Cover.",
         "ParentKey": "Level 7 - Keystone Talent"
     },
@@ -2205,7 +2194,7 @@
         "_Value": 3,
         "A": "0 Actions",
         "Cooldown": "Once / Adventure",
-        "Effect": "One enemy near each of your pets (and/or summons) becomes Single-Stunned, Blinded and Slowed.\n",
+        "Effect": "One enemy near each of your pets (and/or summons) becomes Single-Stunned, Blinded and Deafened.\n",
         "ParentKey": "Level 7 - Keystone Talent"
     },
     "<Call To Action>": {
@@ -2321,7 +2310,7 @@
         "Cost": "1 Mana",
         "HasMixins": true,
         "Degree": "Major",
-        "Effect": "Deal Cold Damage to a Unit equal to 1d12 + ^Its Dexterity^.\nIf it's Medium or smaller, Root it.\n",
+        "Effect": "Deal Cold Damage to a Unit equal to 1d12 + ^Its Dexterity^.\nIf it's non-Epic and Medium or smaller, Root it.\n",
         "Combo": "This either hits one more Unit within 2 meters of it, or also Single-Stuns the target.",
         "Tag": "CC Hard",
         "ParentKey": "Ability Choices"
@@ -2439,7 +2428,7 @@
     "<Hydromancy>": {
         "_Value": 1.5,
         "A": "Passive",
-        "Effect": "Once per Turn, after you apply Crowd Control (other than Slow) to a Worthy Enemy, increase all Cold Damage you deal by 2 for the rest of the combat.",
+        "Effect": "Once per Turn, after you apply Crowd Control to a Worthy Enemy, increase all Cold Damage you deal by 2 for the rest of the combat.",
         "Notes": "Hard Terrain does not count as Crowd Control. Slamming counts as Crowd Control.",
         "ParentKey": "Level 2 - Keystone Talent"
     },
@@ -2457,7 +2446,7 @@
         "A": "Reaction",
         "Cooldown": "Once / Round",
         "Cost": "1 Mana",
-        "Effect": "Use when a Unit you can see wants to cast a Spell. It becomes Silenced this Turn and must choose something else to do.\nApply a ~Combo~ to that Unit.\n",
+        "Effect": "Use when a Unit you can see wants to cast a Spell. That spell becomes cancelled. The caster loses any resources spent on it, Half-Action and can't cast that Spell this Round.\nApply a ~Combo~ to that Unit.\n",
         "HasMixins": true,
         "ParentKey": "Level 3 - Minor Talent"
     },
@@ -2548,7 +2537,7 @@
         "Degree": "Major",
         "Range": "10 meters",
         "Effect": "First, roll 2d100. That's how many kilograms you can levitate when you cast this.\nLevitate one object or Unit you can see and move it as you like as long as it is and remains within 10 meters of you.\nOn each of your Turns, you can spend 1 Action to keep the Object levitated or move it again. Otherwise, it falls slowly and the Spell ends.\n",
-        "Upgrade": "A levitated Unit is Rooted.\nAt Level 8, the amount increases to 5d100.\n",
+        "Upgrade": "A levitated Unit is Slowed perpetually.\nAt Level 8, the amount increases to 5d100.\n",
         "Notes": "Lasts until you don't spend 1 Action, or you become at least Single-Stunned.",
         "ParentKey": "Level 6 - Utility Talent"
     },
@@ -2656,7 +2645,7 @@
         "A": "Half-Action",
         "Range": "10 meters",
         "AlignOnWebsite": "Left",
-        "Effect": "A Unit must make a Charisma Roll at least equal to your last rolled Unstable Spark die or be Blinded, Silenced or Rooted (your choice).\n",
+        "Effect": "A Unit must make a Charisma Roll at least equal to your last rolled Unstable Spark die or be Deafened, Slowed or Dazed (your choice).\n",
         "Notes": "What are you doing, just pick Wild Casting.",
         "ParentKey": "Level 2 - Keystone Talent"
     },
@@ -2669,7 +2658,7 @@
         "SpellTable": [
             {
                 "Name": "1. Fake Sound",
-                "Effect": "A sound is magically created at a point (it can Silence some Units)."
+                "Effect": "A sound is magically created at a point (it can Deafen some Units)."
             },
             {
                 "Name": "2. Quicksand",
@@ -2984,8 +2973,8 @@
         "HasMixins": true,
         "Degree": "Major",
         "Range": "1 meter",
-        "Effect": "Select a 1x1x1 meter cube of rock, mud, sand, or similar material and transform it into a different material of similar composition, rarity and worth. A Unit caught in this effect becomes Rooted.\nOnce per Adventure, you can transmute a piece of metal you can hold in your hand into gold worth up to 400% its original worth in {Gold}Gold.\n",
-        "Notes": "{Rooted}\n",
+        "Effect": "Select a 1x1x1 meter cube of rock, mud, sand, or similar material and transform it into a different material of similar composition, rarity and worth. A Unit caught in this effect becomes Slowed.\nOnce per Adventure, you can transmute a piece of metal you can hold in your hand into gold worth up to 400% its original worth in {Gold}Gold.\n",
+        "Notes": "{Slowed}\n",
         "ParentKey": "Level 6 - Utility Talent"
     },
     "~Conjure Object~": {
@@ -3890,7 +3879,7 @@
         "_Value": 1.5,
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "When combat starts, deploy a number of Trap Wires equal to ^your Intelligence or Charisma^, anywhere on the battlefield.\nA Trap Wire is thin and up to 3 meters long, and must be deployed between 2 obstacles.\nUnits with less than 3 Sense can't see the Trap Wires.\nIf a Unit touches a Trap Wire, it takes 1d10 Shock damage and becomes Slowed.\n",
+        "Effect": "When combat starts, deploy a number of Trap Wires equal to ^your Intelligence or Charisma^, anywhere on the battlefield.\nA Trap Wire is thin and up to 3 meters long, and must be deployed between 2 obstacles.\nUnits with less than 3 Sense can't see the Trap Wires.\nIf a Unit touches a Trap Wire, it takes 1d10 Shock damage and becomes Dazed.\n",
         "Notes": "Each end of the wire must be attached to something solid and static.\nYou can make use of walls, obstacles, etc.\nRequires a Special Tripwire Set item, which can be bought for 100 gold (or freely crafted for the same price in materials).\n",
         "ParentKey": "Level 5 - Keystone Talent"
     },
@@ -5420,14 +5409,13 @@
     },
     "<Quick Maneuvers>": {
         "_Value": 1,
-        "A": "Special",
+        "A": "0 Actions",
         "Cooldown": "Once / Turn",
         "Effect": "Immediately after you make a weapon attack, choose one effect to apply.",
         "SingleTable": [
-            "1. Freely move up to 2 meters",
-            "2. Slow the target",
-            "3. Taunt a Unit you can see (that can see you)",
-            "4. Slam the target 1 meter (any direction)"
+            "Freely move up to 2 meters",
+            "Taunt a Unit you can see (that can see you)",
+            "Slam the target 1 meter (any direction)"
         ],
         "Notes": "Taunted means its next offensive Act has Cover if it's not on you.",
         "ParentKey": "Starting Abilities"
@@ -5994,7 +5982,7 @@
         "ParentKey": "Starting Abilities"
     },
     "<Grenade>": {
-        "_Value": 2,
+        "_Value": 0,
         "HasMixins": true,
         "A": "5 minutes",
         "Range": "6 meters to edge",
@@ -6011,6 +5999,7 @@
         "ParentKey": "Ability Choices"
     },
     "~Mobility Device~": {
+        "_Value": 0.5,
         "A": "1 hour",
         "Effect": "Spend 200 {Gold}Gold to design a gyroscopically balanced locomotor platform, functioning similarly to a hoverboard or twin-wheel vehicle that gives the rider +1 Movement Speed.\n",
         "Upgrade": "You can only have one mobility device created at any point.",
@@ -6018,6 +6007,7 @@
         "ParentKey": "Ability Choices"
     },
     "~Force Field~": {
+        "_Value": 0.75,
         "A": "Reaction",
         "Cooldown": "Once / Combat",
         "Range": "5 meters to any part of the field",
@@ -6027,6 +6017,7 @@
         "ParentKey": "Ability Choices"
     },
     "~Autoturret~": {
+        "_Value": 0,
         "A": "Half-Action",
         "Range": "3 meters",
         "HasMixins": true,
@@ -6065,7 +6056,7 @@
         "ParentKey": "Utility"
     },
     "~Embracing Humanity~": {
-        "Value": 1,
+        "Value": 1.5,
         "A": "Passive",
         "Effect": "You have extra Health Regen and Skill Points equal to double your Sense.",
         "Downside": "Unlearning this Talent does remove the Skills and Health Regen added.",
@@ -6271,7 +6262,7 @@
     "~Grasping Talons~": {
         "A": "Passive",
         "IsSubspell": true,
-        "Effect": "If an enemy starts its Turn next to your pet, it is Slowed.\n",
+        "Effect": "If an enemy starts its Turn next to your pet, it is Taunted by it.\n",
         "ParentKey": "Other Abilities"
     },
     "~Ambushing~": {
@@ -6317,7 +6308,7 @@
         "IsSubspell": true,
         "Range": "4 meters",
         "Cooldown": "Once / Combat",
-        "Effect": "Your pet entraps a Unit in web, goo or a similar substance, Rooting it.",
+        "Effect": "Your pet entraps a non-Epic Unit in web, goo or a similar substance, Rooting it.",
         "ParentKey": "Other Abilities"
     },
     "~Grab and Throw~": {
@@ -6791,7 +6782,7 @@
     "<Tap>": {
         "A": "Passive",
         "Effect": "When you roll 4 on the Unstable Spark die, deal 1d4 Damage (of your Flux Type). It gets affected by that effect:",
-        "Upgrade": "1. Single-Stun, 2. Blind, 3. Root, 4. Slow",
+        "Upgrade": "1. Single-Stun, 2. Blind, 3. Slow, 4. Frail",
         "ParentKey": "Level 3 - Keystone Talent"
     },
     "~Will You Just Die~": {
@@ -6915,7 +6906,7 @@
         "Requirement": "Rime Shackles",
         "Replacement": "Replaces Shackles",
         "Degree": "Major",
-        "Effect": "Deal Cold Damage to a Unit equal to 2d8 + ^Its Dexterity^.\nIf it's Medium or smaller, Root it.\n",
+        "Effect": "Deal Cold Damage to a Unit equal to 2d8 + ^Its Dexterity^. ~It becomes Slowed~.\n",
         "Combo": "This either hits one more Unit within 2 meters of it, or also Single-Stuns the target.",
         "Tag": "CC Hard",
         "ParentKey": "Level 5 - Minor Talent"

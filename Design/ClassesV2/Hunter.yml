@@ -52,11 +52,19 @@ Spellcasting:
     As a Hunter, your baseline kit with the pet and Class Abilities is very strong, but you are what some would call a "semi-caster" - a class with low access to magic and Abilities, so you need to work with what you've got! Resistance is a decent defensive option and Venin Shot might help dish out some more Damage. Cure Affliction can be amazing in certain niche scenarios, and Slam will help you deal with multiple opponents at once - just be careful not to slam into your allies!
 
 
+# Mana:         0         |              | 0
+# Base:         7.5       |              | 7.5
+# Talents L1    1.5       |              | 1.5
+# Talents L2    3.5       |              | 3.25 + 1 Mana
+# Talents L3    1.5       |              | 4.5 + 2 Mana  = 6.5 Mana
+# Talents L4    1         |              | 4.5 + 2 Mana  = 6.5 Mana
+# Talents L5    1         |              | 4.5 + 2 Mana  = 6.5 Mana
+
 
 Starting Abilities:
 
   ~Animal Companion~:
-    _Value: 4.5
+    _Value: 7.5
     AlignOnWebsite: Left
     A: Passive
     HasMixins: true
@@ -87,7 +95,7 @@ Starting Abilities:
           AlignOnWebsite: Right
 
   ~Tumble~:
-    _Value: 1.5
+    _Value: 0.5
     AlignOnWebsite: Right
     A: Reaction or 0 Actions
     Cooldown: Once / Combat
@@ -195,7 +203,7 @@ Other Abilities:
     A: Passive
     IsSubspell: true
     Effect: |
-      If an enemy starts its Turn next to your pet, it is Slowed.
+      If an enemy starts its Turn next to your pet, it is Taunted by it.
   
   
   # Offensive Passives
@@ -242,7 +250,7 @@ Other Abilities:
     IsSubspell: true
     Range: 4 meters
     Cooldown: Once / Combat
-    Effect: Your pet entraps a Unit in web, goo or a similar substance, Rooting it.
+    Effect: Your pet entraps a non-Epic Unit in web, goo or a similar substance, Rooting it.
   
   ~Grab and Throw~:
     A: Half-Action
@@ -351,7 +359,7 @@ Specs:
           _Value: 1.5
           A: Passive
           Range: 5 meters to edge
-          Effect: After you Tumble, choose a 2x2 meter area and throw a net. Each Unit in the area take 1d4 Pulse Damage and is Slowed. If you rolled 4 for any of them, it is Rooted instead.
+          Effect: After you Tumble, choose a 2x2 meter area and throw a net. Each Unit in the area take 1d4 Pulse Damage and is Slowed. If you rolled 4 for any of them, it is Double-Slowed instead.
           Notes: Requires a Draven Net item, which can be bought for 50 gold (or freely crafted for the same price in materials). Can retrieved after every use.
 
         <Bounty Hunting>:
@@ -501,8 +509,8 @@ Specs:
           HasMixins: true
           Effect: |
               Shoot a thundering shot towards an obstacle or wall. A quaking wave travels horizontally towards in both directions of the wall up to 10 meters in each direction.
-              All Units within 2 meters of that wall must succeed a Might Check against 6 + ^Your Sense^ or be Triple-Stunned and take 3d4 Shock Damage.
-              They take half of the Damage and are Slowed if they succeed.
+              All Units within 2 meters of that wall must succeed a Might Check at least equal to your Sense Check or be Triple-Stunned and take 3d4 Shock Damage.
+              They take half of the Damage and are Single-Stun even if they pass.
           Notes: The floor and ceiling are not considered walls. The wave does not travel through them. This is considered a Spell. Ignores Cover.
       
         <Improved Hunter Mark>:   # 2.5?
@@ -692,7 +700,7 @@ Specs:
           A: 0 Actions
           Cooldown: Once / Adventure
           Effect: |
-            One enemy near each of your pets (and/or summons) becomes Single-Stunned, Blinded and Slowed.
+            One enemy near each of your pets (and/or summons) becomes Single-Stunned, Blinded and Deafened.
         
         <Call To Action>:
           _Value: 2

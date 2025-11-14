@@ -68,7 +68,7 @@ Starting Abilities Description:
 Starting Abilities:       # 1
 
   ~Domain~:
-    _Value: 1.25
+    _Value: 0
     A: Passive
     IsIgnored: true
     HasMixins: true
@@ -137,7 +137,7 @@ Ability Choices:
           Effect: You have +3 Movement Speed. You can freely Break Movement.
               
         - Name: Sticky {Action}1 Action Point {Range}3 meters {Level}Level 5
-          Effect: Shoot a sticky substance at a Unit. It takes 1d4 Damage, becomes Rooted and apply a Combo. Usable once per Shapeshift.
+          Effect: Shoot a sticky substance at a Unit. It takes 1d4 Damage, becomes Double-Slowed and apply a Combo. Usable once per Shapeshift.
         
         - Name: Shred {Action}2 Action Points {Level}Level 6
           Effect: Attack a Unit for 2d8 + 3 Slash Damage. Deals +1d8 Damage for each level of Stun on it.
@@ -268,12 +268,11 @@ Utility:
     #     Notes: Keep in mind that plants generally have low Intelligence, and they are not expected to 'speak' back to you through language.
 
 
-# Mana:         2                      |  2
-# Base:         2 (scaling)            |  4
-# Spec:         1.25   | 2     | 2.5   |  6.25
-# Talents L3:   1.5    | 1     | 1     |  7.5
-# Talents L5:   2      | 1.5   | 2     |  9.5
-# Talents L7:   2.5    | 2     | 3     |  12
+# Mana:         1                      | 1
+# Base:         1.25                   | 2.25
+# Minor Talent  0.5                    | 2.75
+# Talents L2    0.5                    | 3.25 + 1 Mana
+# Talents L3    1.25                   | 4.5 + 2 Mana  = 6.5 Mana
 
 Talents:
 
@@ -292,6 +291,7 @@ Talents:
         Combo: A Comboed target gains +1 Max Health permanently.
 
     ~Wind Chaser~:
+        _Value: 0.75
         A: 0 Actions
         Cooldown: Once / Combat
         Degree: Lesser
@@ -322,9 +322,10 @@ Talents:
         Degree: Major
         Cooldown: Once / Combat
         Effect: |
-            Send out a 4x1 meter wave forward. Each Unit* hit takes 2d8 Cold Damage and is Slowed.
+            Send out a 4x1 meter wave forward. Each Unit* hit takes 2d8 Cold Damage.
+            The first Unit hit is Slowed.
 
-            {Brown('Water:')} Allies hit are Healed for 1d6 instead.
+            {Brown('Water:')} Allies hit are Healed for 1d6 instead of taking Damge.
             {Brown('Wind:')} 6x2 meter wave instead.
         Notes: If in a Water environment/domain, Allies are Healed and Enemies are Damaged. Otherwise, all Units hit are Damaged.
 
@@ -340,7 +341,7 @@ Talents:
       Effect: |
         {Brown('Nature:')} ~Heal for 10% of the attack's Damage.~
         {Brown('Earth:')} ~Taunt the target.~
-        {Brown('Water:')} ~Target is Slowed and +1 range.~
+        {Brown('Water:')} ~+2 range.~
         {Brown('Wind:')} ~1d8 Damage instead of 1d6.~
       Range: 1 meter
       Stat: Smash, Slash or Pierce
@@ -358,6 +359,7 @@ Talents:
         Can not be cast on Druids.
 
     ~Elderform~:
+      _Value: 1
       Effect: |
         You have extra available features originating from the flora and microbiomes of the outdoors.
         
@@ -367,6 +369,7 @@ Talents:
         {Brown('Wind:')} Your Animal Attack has 5 meters range and deals Fire, Cold, Shock or Poison Damage.
       
     ~Primalform~:
+      _Value: 
       Effect: |
         You gain extra animal features originating from creatures of the wild and mysterious.
 
@@ -374,15 +377,15 @@ Talents:
         {Brown('Earth:')} When Shapeshifting, permanently increase your current and Max Health by 0.5.
         {Brown('Water:')} At the end of the Adventure, the Quest Master gives you an additional positive Quirk.
         {Brown('Wind:')} First Shapeshifted Animal Attack Slams the target 1d4 meters in any direction.
-      SpellTable:
-        - Name: Prowling
-          Effect:  If starting combat shapeshifted, YOU Surprise enemies and can't be Surprised.
+      # SpellTable:
+      #   - Name: Prowling
+      #     Effect:  If starting combat shapeshifted, YOU Surprise enemies and can't be Surprised.
 
-        - Name: Horned
-          Effect: First Shapeshifted attack deals +1d4 Damage and Slams the target 1d4 meters in any direction.
+      #   - Name: Horned
+      #     Effect: First Shapeshifted attack deals +1d4 Damage and Slams the target 1d4 meters in any direction.
         
-        - Name: Hulking
-          Effect: When Shapeshifting, permanently increase your current and Max Health by 1.
+      #   - Name: Hulking
+      #     Effect: When Shapeshifting, permanently increase your current and Max Health by 1.
 
   Level 4 - Minor Talent:
 
@@ -405,7 +408,7 @@ Talents:
       Cost: 1 Mana
       Cooldown: Once / Adventure
       Effect: |
-        All Enemies within 4 meters of you take 2d6 Pierce Damage and become Rooted.
+        All Enemies within 4 meters of you take 2d6 Pierce Damage and become Double-Slowed.
 
         {Brown('Nature:')} 6 meters instead.
         {Brown('Earth:')} 2d8 Damage instead.

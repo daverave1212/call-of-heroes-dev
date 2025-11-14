@@ -21,6 +21,13 @@ export default function MonsterAbility({ability, isPassive, style}) {
         abilityBody = ability[name]
     }
 
+    const {
+        Combo,
+        EffectGreen,
+        Upgrade,
+        Downside
+    } = abilityBody
+
     function AbilityEffect({children}) {
         return (<p className='monster-ability-p'>{ children }</p>)
     }
@@ -33,7 +40,7 @@ export default function MonsterAbility({ability, isPassive, style}) {
         const effectName = U.getAnyPropNameExcept(abilityBody, ['Name', 'Damage', 'Notes', 'A', 'Special', 'Cooldown', 'Requirement', 'Range', 'Duration', 'Effect', 'ParentKey'])
         
         return (
-            <div>
+            <div className='flex column gap-half' style={{paddingTop: '0.5rem'}}>
                 { abilityBody.Damage && (
                     <p><Icon name="Damage" style={{marginTop: '2px'}}/> <span className='monster-ability_effect-desc'>{ abilityBody.Damage } Damage</span></p>
                 ) }
@@ -43,6 +50,20 @@ export default function MonsterAbility({ability, isPassive, style}) {
                 { effectName != null && <p style={{marginTop: '3px'}}>
                     <span className='monster-ability__effect-name'>{effectName}</span>: <span className='monster-ability__effect-desc'>{abilityBody[effectName]}</span>
                 </p>}
+                { Combo != null && (
+                    <div className='monster-ability__effect-desc' key="Combo"><span style={{color: 'var(--blue-color)'}}>Combo: </span>{ Combo }</div>
+                ) }
+                { EffectGreen != null && (
+                    <div className="monster-ability__effect-desc spell-green" key="EffectGreen">{ EffectGreen }</div>
+                ) }
+                { Downside != null && (
+                    <div className="monster-ability__effect-desc spell-red" key="Downside">{ Downside }</div>
+                )}
+                { Upgrade != null && (
+                    <div className='monster-ability__effect-desc spell-upgrade'>
+                        { Upgrade }
+                    </div>
+                ) }
                 { abilityBody.Notes != null && (
                     <div className='monster-ability__effect-desc' style={{color: 'gray', fontSize: '0.8em', marginTop: '3px'}}>
                         { abilityBody.Notes }

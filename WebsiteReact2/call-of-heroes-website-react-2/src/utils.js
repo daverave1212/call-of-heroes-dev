@@ -438,11 +438,13 @@ export function getLocationHackyPath(location) {
 
 }
 export function splitByNumbers(str) {
-  return str
+  return ((str ?? '') + '')
+    .trim()
     .split(/(\d+)/)          // split and keep numbers
     .filter(part => part !== '') // remove empty strings
     .map(part => (isNaN(part) ? part : Number(part))); // convert numbers
 }
+window.splitByNumbers = splitByNumbers
 // text: "250 (125 x2)" -> 2
 export function extractXPMultiplierFromText(text) {
     const indexOfX = text.indexOf('x')
@@ -830,6 +832,12 @@ export function withToggledElement(arr, elem) {
     } else {
         return [...arr, elem]
     }
+}
+export function average(arr) {
+    if (arr == null || arr.length == 0) {
+        return 0
+    }
+    return arr.reduce((soFar, x) => soFar + x, 0) / arr.length
 }
 
 window.splitArrayEvenly = splitArrayEvenly
@@ -1222,6 +1230,9 @@ export function isCharDigit(char) {
 }
 
 // ---------------- Other Small Utilities ----------------
+export function roundToNearest(number, multipleOf) {
+    return Math.round(number / multipleOf) * multipleOf
+}
 export function generateUniqueId() {
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
 }

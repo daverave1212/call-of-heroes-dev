@@ -976,6 +976,63 @@ export function ClassPageV2({
                 </Spec>
             )}
 
+            <Page>
+                { theClass.Specs == null && (
+                    <ClassPowerLevelTable theClass={theClass}/>
+                )}
+            </Page>
         </div>
     )
+}
+
+function calculateSpellsObjectAveragePower(obj) {
+    const spells = U.spellsFromObject(obj)
+    const powers = spells
+        .map(a => a._Value)
+        .filter(value => value != null && U.isNumber(value))
+    return U.average(powers)
+}
+function ClassPowerLevelTable({theClass}) {
+
+    const baseMana = theClass.Spellcasting?.Mana?.Amount ?? 0
+
+    const startingAbilities = U.spellsFromObject(theClass['Starting Abilities'])
+    const startingAbilitiesPower = startingAbilities
+        .map(a => a._Value ?? 0)
+        .map(value => U.isNumber(value)? parseFloat(value): 0)
+        .reduce((soFar, v) => soFar + v, 0)
+    
+    const minorLevel1TalentsPower = calculateSpellsObjectAveragePower(theClass['Ability Choices'])
+
+    const talentTiersPowers = U.mapObject(theClass.Talents, ({ key, value }) => ({
+        key: key,
+        value: calculateSpellsObjectAveragePower(U.spellsFromObject(value))
+    }))
+    
+
+
+    return <TableNormal columns={['', 'Value', 'Total Value So Far']}>
+        <tr>
+            <td>Mana</td>
+            <td>{baseMana}</td>
+            <td>{baseMana}</td>
+        </tr>
+        <tr>
+            <td>Base Class</td>
+            <td>{startingAbilitiesPower}</td>
+            <td>{startingAbilitiesPower + baseMana}</td>
+        </tr>
+        <tr>
+            <td>Minors Level 1</td>
+            <td>{minorLevel1TalentsPower}</td>
+            <td>{startingAbilitiesPower + baseMana + minorLevel1TalentsPower}</td>
+        </tr>
+        { Object.keys(talentTiersPowers).map(tierName => (
+            <tr>
+                <td>{tierName}</td>
+                <td>{talentTiersPowers[tierName]}</td>
+                <td>{talentTiersPowers[tierName]}</td>
+            </tr>
+        ))}
+    </TableNormal>
 }

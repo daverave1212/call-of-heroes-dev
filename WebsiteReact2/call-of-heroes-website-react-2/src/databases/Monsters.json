@@ -5,7 +5,7 @@
         "Experience": null,
         "Stats": null,
         "Health": null,
-        "Armor": null,
+        "Defense": null,
         "HPCoef": 1,
         "Speed": null,
         "Initiative": null,
@@ -33,7 +33,7 @@
         "Role": "Main Enemy",
         "Variants": "None",
         "Story Ideas": "None",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Bannerman": {
         "Type": "Person, Person",
@@ -375,33 +375,41 @@
         "Stats": "6/0/-1/2/-1",
         "Health": 96,
         "HPCoef": 1,
-        "Speed": 3,
+        "Speed": 4,
         "Initiative": 5,
         "Abilities": [
             {
                 "Attack": {
                     "Range": "2 meters",
-                    "Effect": "Deal 1d6 + 2 Smash Damage to a Unit and push it a number of meters equal to the die rolled.",
-                    "Notes": "If the Unit would fall down more than 2 meters, it instead grabs the nearest ledge and can climb it with a Half-Action (on its turn)."
+                    "Cooldown": "Once / Turn",
+                    "Damage": "1d12 Smash",
+                    "Slam": "The Unit chooses a direction to be Slammed that many meters as the rolled Damage.",
+                    "Combo": "And becomes Single-Stunned."
                 }
             },
             {
                 "Hurl Object": {
+                    "A": "Half-Action",
                     "Range": "3 to 5 meters",
-                    "Effect": "Throw something nearby into a Unit for 1d6 Damage. If it has obstacle Cover, the obstacle breaks; otherwise, the Unit becomes Single-Stunned."
+                    "Damage": "1d6 Smash",
+                    "Stun": "The target becomes Single-Stunned.",
+                    "Notes": "This can hurl allies of Ogres as well (doesn't count as Slamming)."
                 }
             },
             {
-                "Stomp": "Damage all Units within 2 meters for 4 Pulse Damage (or 2d4 - 1)."
+                "Stomp": {
+                    "Cooldown": "Once / Turn",
+                    "Effect": "All Units within 2 meters take 5 Smash Damage and become Slowed."
+                }
             }
         ],
         "Passives": [
             {
-                "Resistances": "Takes -50% Smash and Pulse Damage."
+                "Thick Skin": "The Ogre takes -50% when hit from behind."
             }
         ],
         "Avoids AoE": "No",
-        "Behavior": "Ogres will attack whatever is convenient.\nThrow rocks at the party's back line.\nAn Ogre might also choose to throw (Slam: Throw) one of its allies without dealing the base Damage!\n",
+        "Behavior": "Ogres will attack whatever is convenient.\nThrow rocks at the party's back line.\nAn Ogre might also choose to throw (Hurl) one of its allies without dealing the base Damage!\n",
         "Pair": "Pair with Goblins, Boar (Dire).",
         "Suggested Obstacles": [
             "Pits",
@@ -412,35 +420,41 @@
         "Lore": "A common question regarding Ogres is: if they are so large, what do they eat?\nOgres can eat stones, tree bark, bones, even dirt, but they'll always eat meat if given the option.\n",
         "Monster Data": "No tactic, mid HP, no gimmick",
         "Role": "Main Enemy",
-        "Variants": "Ape (Giant), Ettin"
+        "Variants": "Ape (Giant), Ettin",
+        "Loot": "Horn (20g), Gut Stone (50g), Acid Vial",
+        "Rare Loot": "Ogre Gull Bladder (Acid Component)"
     },
-    "Gnoll": {
-        "Type": "Person, Beast",
+    "Skinwalker": {
+        "Type": "Person, Beast, Fiend",
         "Degree": "Normal",
-        "Experience": 150,
+        "Experience": 175,
         "Stats": "2/2/0/2/2",
         "Health": 43,
         "HPCoef": 0.95,
         "Speed": 6,
-        "Initiative": 8,
+        "Initiative": 5,
         "Abilities": [
             {
-                "Melee Weapon": 6
+                "Claw": {
+                    "A": "Half-Action",
+                    "Damage": "1d8",
+                    "Inflict Fear": "If rolled 8, the target gets a Phobia Negative Quirk."
+                }
             },
             {
-                "Ranged Weapon": 5
-            },
-            {
-                "Bite (*)": {
-                    "Effect": "Make 2 attacks for 1d6 (Pierce)",
+                "Bite": {
+                    "Effect": "1d8 + 1d10",
                     "Requirement": "Only usable when Blood Rushed",
-                    "Gnoll Fever": "If Bite dealt Damage, the target can't use Mana-costing Abilities on its next (or current) Turn."
+                    "Blood Fever": "The target becomes Silenced (it can't use Abilities)."
                 }
             }
         ],
         "Passives": [
             {
-                "Blood Rush": "As soon as the Gnoll drops to/below 50% HP, it can move up to 5 meters and make a Bite attack (even during other Units' turns).\nThen, the other Unit can continue its turn.\nFrom then on, the Gnoll can make 2 Bite attacks per turn.\n"
+                "Blood Rush": "As soon as the Skinwalker drops to/below 50% HP, it can make a free Movement Act and a free Bite (even during other Units' turns).\nThen, the other Unit can continue its Turn.\n"
+            },
+            {
+                "Shapeshift & Mimickry": "While at least 10 meters away from an observer, the Skinwalker can shapeshift into any animal or person they have seen, and can mimick any voice or sound.\nThe closer you get to a Skinwalker, the more apparent it seems that the transformation is disfigured and uncanny.\n"
             }
         ],
         "Avoids AoE": "No",
@@ -458,21 +472,26 @@
     },
     "Guard": {
         "Type": "Person, Person",
-        "Experience": 175,
+        "Experience": 150,
         "Stats": "3/2/1/2/0",
         "Health": 38,
-        "Armor": "2 (Armor)",
-        "HPCoef": 0.8,
+        "Defense": 2,
+        "HPCoef": 1,
         "Speed": 4,
-        "Initiative": "1 Melee / 2 Ranged",
+        "Initiative": 3,
         "Abilities": [
             {
-                "Crossbow": "5 Pierce (or 1d8 + 1)"
+                "Crossbow": {
+                    "Damage": "2d6 Pierce",
+                    "Immobilizing": "For each rolled 6, apply a Combo."
+                }
             },
             {
-                "Melee": {
-                    "Damage": "1d8 + 1",
-                    "Advanced Flank": "If Flanking, deals another +1d4 Damage. Guards can Flank with obstacles and walls."
+                "Quick Attack": {
+                    "A": "Half-Action",
+                    "Damage": "1d6",
+                    "Advanced Flank": "+1d4 Damage if flanking. Guards can flank with obstacles and walls.",
+                    "Combo": "Slow the target."
                 }
             },
             {
@@ -495,7 +514,13 @@
         ],
         "Role": "Main Enemy",
         "Monster Data": "No tactic, mid HP, no gimmick",
-        "Variants": "Lizardfolk"
+        "Variants": "Lizardfolk",
+        "Loot": [
+            "2d20 Gold",
+            "Weapon",
+            "Chain Mail",
+            "Jewelry worth 1d100 Gold"
+        ]
     },
     "Hobgoblin": {
         "Type": "Person",
@@ -505,13 +530,24 @@
         "Health": 66,
         "HPCoef": 0.7,
         "Speed": 5,
-        "Initiative": 2,
+        "Initiative": 1,
         "Abilities": [
             {
-                "Melee": 7
+                "Attack": {
+                    "Damage": "2d8"
+                }
             },
             {
-                "Copy Spell": "Once per combat, for 1 Action, the Hobgoblin can cast a Spell another player has cast (with that player's exact stats)."
+                "Bite": {
+                    "A": "Half-Action",
+                    "Damage": "1d4"
+                }
+            },
+            {
+                "Copy Spell": {
+                    "Cooldown": "Once / Combat",
+                    "Effect": "The Hobgoblin uses an Ability a Player Character has used this Combat (with that Character's exact stats)."
+                }
             }
         ],
         "Passives": [
@@ -527,7 +563,7 @@
         "Role": "Extra",
         "Variants": "None"
     },
-    "Orc": {
+    "Berserker": {
         "Type": "Person",
         "Degree": "Normal",
         "Experience": 200,
@@ -535,22 +571,31 @@
         "Health": 61,
         "HPCoef": 1,
         "Speed": 5,
-        "Initiative": "1 Melee / 2 Ranged",
+        "Initiative": 4,
         "Abilities": [
             {
-                "Bow": "1d8 + 1"
+                "Bow": "1d12"
             },
             {
-                "Melee": "1d4"
+                "Attack": {
+                    "Damage": 3,
+                    "RAGE": "+3 Damage for each time the Berserker took Damage this Combat"
+                }
+            },
+            {
+                "Improvised Attack": {
+                    "A": "Half-Action",
+                    "Damage": "1d4"
+                }
             }
         ],
         "Passives": [
             {
-                "RAGE": "Whenever an Orc takes Damage, it gains +2 Damage on all melee attacks."
+                "RAGE": "Whenever a Berserker takes Damage, it gains +3 Damage on normal attacks."
             }
         ],
         "Avoids AoE": "No",
-        "Behavior": "Orcs prefer melee combat. Try to put more Melee orcs than Ranged.\nIf an orc is ranged, it will not hesitate to switch to a melee weapon.\n",
+        "Behavior": "Berserkers prefer melee combat. Try to put more Melee Berserkers than Ranged.\nIf a Berserker is ranged, it will not hesitate to switch to a melee weapon.\n",
         "Pair": "Pair with Goblins, Wolves or even Ogres.",
         "Suggested Obstacles": [
             "Pits",
@@ -599,7 +644,7 @@
         "Role": "Main Enemy",
         "Variants": "None",
         "Story Ideas": "Cult Hierarchs should be among the first or mid-way through a dungeon-delve or mission, as they inflict Damage that can not be healed.\nPlayers might hear reports of mutilated cows or other animals - no blood, and perfectly removed organs.\nYes, it's a cult.\n",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Druid": {
         "Type": "Person, Person",
@@ -676,7 +721,7 @@
         "Role": "Main Enemy",
         "Variants": "None",
         "Story Ideas": "An encounter idea is that a druid circle attempts to summon a fey being (a sort of magical forest creature from another dimension).\nTheir intentions are pure, but they don't know they are being tricked into actually summoning a fiend.\nThe players know the true identity of the fey.\nWill they stop the druids peacefully?\n",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Dryad": {
         "Type": "Person, Fey",
@@ -729,7 +774,7 @@
         "Experience": 275,
         "Stats": "4/3/2/2/2",
         "Health": 80,
-        "Armor": "5 (Innate)",
+        "Defense": "5 (Innate)",
         "HPCoef": 1,
         "Speed": "4 on land, 6 in water and shallow water",
         "Initiative": "10 if Warrior, 1 if Mage",
@@ -777,7 +822,7 @@
         "Role": "Main Enemy",
         "Variants": "Merrow, Merfolk, Tritons",
         "Story Ideas": "Here's an encounter idea: a camp of Morlocs is expanding and getting too close to a village.\nWhen they get there, the players find out that some Naga have enslaved them and are hiding in a nearby cove.\n",
-        "Valuable Loot": "Nagas might carry pearls worth 20g each"
+        "Loot": "Nagas might carry pearls worth 20g each"
     },
     "Centaur": {
         "Type": "Person",
@@ -785,7 +830,7 @@
         "Experience": 300,
         "Stats": "4/2/0/2/2",
         "Health": 84,
-        "Armor": 2,
+        "Defense": 2,
         "HPCoef": 1,
         "Speed": 8,
         "Initiative": 9,
@@ -827,7 +872,7 @@
         "Role": "Main Enemy",
         "Variants": "None",
         "Story Ideas": "If you need an encounter idea, a camp of adventurers might need help defending against a Centaur attack in a few hours.\nTurns out, Centaurs were way ahead and attack just 30 minutes later.\nCentaurs do the best when they are the ones attacking and ambushing.\n",
-        "Valuable Loot": [
+        "Loot": [
             "Weapons",
             "Small patches of leather armor",
             "Leather Pelt* (20g) - low quality, but does the job"
@@ -839,7 +884,7 @@
         "Experience": -50,
         "Stats": "1/1/1/1/1",
         "Health": 23,
-        "Armor": 0,
+        "Defense": 0,
         "Speed": 5,
         "Initiative": 12,
         "Abilities": [
@@ -868,7 +913,7 @@
         "Role": "Extra",
         "Variants": "None",
         "Story Ideas": "None",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Bug (Giant)": {
         "Type": "Beast, Insect",
@@ -876,7 +921,7 @@
         "Experience": 25,
         "Stats": "0/1/0/1/0",
         "Health": 1,
-        "Armor": 7,
+        "Defense": 7,
         "HPCoef": 0.01,
         "Speed": 5,
         "Initiative": "1 if land, 3 if flying",
@@ -930,7 +975,7 @@
         "Experience": 50,
         "Stats": "-4/2/0/1/-2",
         "Health": 8,
-        "Armor": 3,
+        "Defense": 3,
         "HPCoef": 0.5,
         "Speed": 6,
         "Initiative": 2,
@@ -990,7 +1035,7 @@
         "Experience": 100,
         "Stats": "1/5/0/5/1",
         "Health": 14,
-        "Armor": 5,
+        "Defense": 5,
         "Speed": 6,
         "Initiative": 5,
         "Abilities": [
@@ -1018,7 +1063,7 @@
         "Experience": 150,
         "Stats": "5/2/-2/1/0",
         "Health": 23,
-        "Armor": 6,
+        "Defense": 6,
         "HPCoef": 1,
         "Speed": 5,
         "Initiative": 1,
@@ -1242,7 +1287,7 @@
         "Experience": 225,
         "Stats": "5/1/-2/2/0",
         "Health": 54,
-        "Armor": 4,
+        "Defense": 4,
         "HPCoef": 1,
         "Speed": 6,
         "Initiative": 3,
@@ -1270,7 +1315,7 @@
         "Experience": 250,
         "Stats": "1/2/0/2/1",
         "Health": 50,
-        "Armor": 4,
+        "Defense": 4,
         "HPCoef": 0.85,
         "Speed": 5,
         "Initiative": 1,
@@ -1315,7 +1360,7 @@
         "Experience": 250,
         "Stats": "2/0/0/2/0",
         "Health": 35,
-        "Armor": 7,
+        "Defense": 7,
         "HPCoef": 1,
         "Speed": 5,
         "Initiative": 1,
@@ -1380,7 +1425,7 @@
         "Role": "Main Enemy",
         "Variants": "None",
         "Story Ideas": "Have a sidequest to investigate an area of town where people are believed to be getting sick from a virus that makes them exhausted. In reality, it's just Phantrances combined with a mildly toxic gas that's been naturally occuring in the vicinity. As reward, the players may take the Phantrances to a study center, or even exploit the natural gas as a resource for the village.",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Fire Snake": {
         "Type": "Beast, Elemental",
@@ -1388,7 +1433,7 @@
         "Experience": 275,
         "Stats": "2/3/0/3/2",
         "Health": 73,
-        "Armor": 4,
+        "Defense": 4,
         "HPCoef": 1,
         "Speed": 5,
         "Initiative": 2,
@@ -1512,7 +1557,7 @@
         "Role": "Main Enemy",
         "Variants": "Ankheg, Endrega",
         "Story Ideas": "Deep within the rural area of a kingdom, a village has an unwritten \"pact\" with a tribe of Antheirs.\nVillages don't enter Antheir territory, and Antheirs don't enter village territory.\nThis proves difficult when the Players must traverse the Antheir domain to reach their destination.\nWill they go around or risk a battle with the Antheirs?\n",
-        "Valuable Loot": [
+        "Loot": [
             "Chitinous Carapace (20g) can be used for as temporary plating",
             "Vial of Acid (25g); this should require a Check, and the Player takes Acid Damage on a failed Check"
         ]
@@ -1598,7 +1643,7 @@
         "Role": "Main Enemy",
         "Variants": "None",
         "Story Ideas": "None",
-        "Valuable Loot": "1d8 intact T-Rex fangs worth 30g each, 1d4 intact T-Rex bones worth 25g each, T-Rex hide which is a rare valuable material worth 100g."
+        "Loot": "1d8 intact T-Rex fangs worth 30g each, 1d4 intact T-Rex bones worth 25g each, T-Rex hide which is a rare valuable material worth 100g."
     },
     "Griphon": {
         "Type": "Beast",
@@ -1633,7 +1678,7 @@
         "Role": "Main Enemy",
         "Variants": "None",
         "Story Ideas": "One fun way for the players to interact with a Griphon is to see her flying in the skies, but not being able to get to her.\nIf the players chase her, the Griphon will realize she is being chased and will lead the players straight into other dangers or even to her nest, where she will fight them on her own ground, with her partner Griphon.\n",
-        "Valuable Loot": "A Griphon head might prove a valuable trophy to be sold to collectors (50g). 1d4 of its feathers can also be collected as special feathers, worth 25g each."
+        "Loot": "A Griphon head might prove a valuable trophy to be sold to collectors (50g). 1d4 of its feathers can also be collected as special feathers, worth 25g each."
     },
     "Behemoth": {
         "Type": "Beast",
@@ -1641,7 +1686,7 @@
         "Experience": "999 (111 x9)",
         "Stats": "9/3/0/3/3",
         "Health": 999,
-        "Armor": 0,
+        "Defense": 0,
         "Speed": 1,
         "Initiative": 9,
         "Abilities": [
@@ -1680,7 +1725,7 @@
         "Role": "Main Enemy",
         "Variants": "None",
         "Story Ideas": "None",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Chromatic Dragon": {
         "Type": "Dragon",
@@ -1688,7 +1733,7 @@
         "Experience": "1050 (350 x3)",
         "Stats": "7/1/3/3/5",
         "Health": 334,
-        "Armor": 5,
+        "Defense": 5,
         "HPCoef": 1,
         "Speed": 3,
         "Initiative": 3,
@@ -1722,7 +1767,7 @@
         "Role": "Main Enemy",
         "Variants": "None",
         "Story Ideas": "None",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Twigling": {
         "Type": "Plant, Monster",
@@ -1758,7 +1803,7 @@
         "Experience": 125,
         "Stats": "1/2/0/3/0",
         "Health": 1,
-        "Armor": 0,
+        "Defense": 0,
         "HPCoef": 0.85,
         "Speed": 5,
         "Initiative": "Other",
@@ -1801,7 +1846,7 @@
         "Role": "Main Enemy",
         "Variants": "None",
         "Story Ideas": "None",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Wild Fungus": {
         "Type": "Plant, Monster",
@@ -1912,7 +1957,7 @@
         "Role": "Main Enemy",
         "Variants": "Mimick",
         "Story Ideas": "Imagine this: a Mimic camouflages into a horse inside a dungeon.\nPlayers can see skeletons and a backpack right near the horse.\nThe horse is obviously a mimic waiting for its prey.\nHowever, the backpack/one of the skeletons is also a Mimic in disguise.\nAdd layers upon layers of disguise!\n",
-        "Valuable Loot": "Whatever non-digestible items the Mimic has eaten"
+        "Loot": "Whatever non-digestible items the Mimic has eaten"
     },
     "Gibberer": {
         "Type": "Monster",
@@ -1946,7 +1991,7 @@
         "Role": "Support",
         "Variants": "None",
         "Story Ideas": "Encounter idea: The inhabitants of a mansion seem to be going insane.\nIf there, the players can sometimes hear knocks and strange sounds coming from under the floor.\nOf course, under no circumstance are the players allowed to go into the cellar by the mansion inhabitants.\nIf the players go into their cellar, they will find a dungeon with a Gibbering Mouther and a mad scientist living there.\nHow will they sneak in?\n",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Ooze": {
         "Type": "Monster, Elemental, Other",
@@ -1995,7 +2040,7 @@
         "Experience": 350,
         "Stats": "3/0/0/3/0",
         "Health": 55,
-        "Armor": 5,
+        "Defense": 5,
         "HPCoef": 0.8,
         "Speed": 4,
         "Initiative": 1,
@@ -2026,7 +2071,7 @@
         "Experience": "1700 (425 x4)",
         "Stats": "8/2/6/9/0",
         "Health": 1,
-        "Armor": 0,
+        "Defense": 0,
         "HPCoef": 0.35,
         "Speed": "3 (Flies)",
         "Initiative": "1d20",
@@ -2063,7 +2108,7 @@
         "Role": "Main Enemy",
         "Variants": "None",
         "Story Ideas": "None",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Mana Spawn": {
         "Type": "Elemental",
@@ -2099,7 +2144,7 @@
         "Role": "Support",
         "Variants": "None",
         "Story Ideas": "None",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Flying Weapon": {
         "Type": "Construct",
@@ -2135,7 +2180,7 @@
         "Experience": 300,
         "Stats": "5/0/0/0/0",
         "Health": 55,
-        "Armor": 12,
+        "Defense": 12,
         "HPCoef": 1,
         "Speed": 4,
         "Initiative": 0,
@@ -2174,7 +2219,7 @@
         "Experience": "600 (300 x2)",
         "Stats": "7/0/0/0/0",
         "Health": 165,
-        "Armor": 3,
+        "Defense": 3,
         "HPCoef": 1,
         "Speed": 3,
         "Initiative": 1,
@@ -2216,7 +2261,7 @@
         "Role": "Main Enemy",
         "Variants": "Gargoyle (Smaller) - you can make a custom 300 XP Gargoyle with 60 HP, a speed of 6 and only one Action per turn. Feel free to use any of its Abilities in any order.\n",
         "Story Ideas": "While on their way to the mission, a group of adventurers approach an ominous building with two Gargoyle statues at its entrance.\nThose two statues are actually just statues - the real Gargoyle is inside the building.\nOr, simply have a Gargoyle attack the players before they enter the building - a separate Gargoyle, different from the regular statues.\nThey won't expect either of these scenarios!\n",
-        "Valuable Loot": "Gem Eyes (65g each), Magic Core Dexterity (200g) - used by Artificers to create golems"
+        "Loot": "Gem Eyes (65g each), Magic Core Dexterity (200g) - used by Artificers to create golems"
     },
     "Fairy Dragon": {
         "Type": "Dragon",
@@ -2273,7 +2318,7 @@
         "Experience": "1200 (400 x3)",
         "Stats": "3/3/2/4/0",
         "Health": 1,
-        "Armor": 0,
+        "Defense": 0,
         "HPCoef": 0.7,
         "Speed": "3 (flies)",
         "Initiative": 8,
@@ -2327,7 +2372,7 @@
         "Role": "Main Enemy",
         "Variants": "None",
         "Story Ideas": "Players pass multiple times past a Verdant Dragon without either of them noticing eachother - the dragon is camouflaged and hybernating.",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Amber Dragon": {
         "Type": "Dragon",
@@ -2335,7 +2380,7 @@
         "Experience": "1500 (500 x3)",
         "Stats": "2/5/6/5/0",
         "Health": 1,
-        "Armor": 0,
+        "Defense": 0,
         "HPCoef": 0.2,
         "Speed": 4,
         "Initiative": 10,
@@ -2387,14 +2432,14 @@
         "Role": "Main Enemy",
         "Variants": "None",
         "Story Ideas": "There are rumors of an artefact or long-abandoned temple that claims to reverse aging. Turns out, it's not the artefact or temple, but there's an Amber Dragon living there.",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Skeleton": {
         "Type": "Undead",
         "Experience": 75,
         "Stats": "1/0/0/0/0",
         "Health": 11,
-        "Armor": 2,
+        "Defense": 2,
         "HPCoef": 0.75,
         "Speed": 4,
         "Initiative": 7,
@@ -2435,7 +2480,7 @@
         "Experience": 100,
         "Stats": "0/0/0/0/0",
         "Health": 17,
-        "Armor": 4,
+        "Defense": 4,
         "HPCoef": 1,
         "Speed": 3,
         "Initiative": 2,
@@ -2507,7 +2552,7 @@
         "Role": "Main Enemy",
         "Variants": "None",
         "Story Ideas": "A coven of druids or warlocks can't deal with the mummies because they're immune to their magic.\nAlso, you could trap the players inside a tomb with mummies chasing after them from outside just as they enter.\n",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Wraith": {
         "Type": "Undead",
@@ -2515,7 +2560,7 @@
         "Experience": 150,
         "Stats": "0/0/1/4/4",
         "Health": 25,
-        "Armor": 0,
+        "Defense": 0,
         "HPCoef": 0.5,
         "Speed": 4,
         "Initiative": 1,
@@ -2547,7 +2592,7 @@
         "Role": "Main Enemy",
         "Variants": "Noonwraith",
         "Story Ideas": "The players are being haunted for several rooms or minutes until the Wraiths suddenly decide to attack. They can feel a presence...",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Ghoul": {
         "Type": "Undead",
@@ -2632,7 +2677,7 @@
         "Role": "Main Enemy, Extra",
         "Variants": "None",
         "Story Ideas": "Have an encounter with Wights in the middle of a day of adventuring. Too early might make the players retired, and too late might kill them.\n",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Will-o-Wisp": {
         "Type": "Undead, Fey",
@@ -2640,7 +2685,7 @@
         "Experience": 225,
         "Stats": "0/0/0/0/0",
         "Health": 25,
-        "Armor": "3 (magical)",
+        "Defense": "3 (magical)",
         "HPCoef": 0.5,
         "Speed": 4,
         "Initiative": -1,
@@ -2714,7 +2759,7 @@
         "Role": "Main Enemy",
         "Variants": "None",
         "Story Ideas": "None",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Edimmara": {
         "Type": "Undead, Beast",
@@ -2722,7 +2767,7 @@
         "Experience": 275,
         "Stats": "5/5/0/0/0",
         "Health": 61,
-        "Armor": 2,
+        "Defense": 2,
         "HPCoef": 0.6,
         "Speed": 5,
         "Initiative": 1,
@@ -2763,7 +2808,7 @@
         "Role": "Main Enemy, Extra Annoyance",
         "Variants": "None",
         "Story Ideas": "Have the players make a Luck Check to see if they by any chance have some garlic in their rations.\nNote that Edimmara can be very strong against low level parties, and it is recommended that you allow Intelligence Checks for the players to determine if they know what an Edimmara does and how to combat it (Crowd Control, garlic and silver).\n",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Ghast": {
         "Type": "Undead",
@@ -2806,7 +2851,7 @@
         "Role": "Support",
         "Variants": "None",
         "Story Ideas": "There's a quest to clear an old uninhabited village of possible scavengers to make it live-able again.\nA Ghast formed at the remains of a ruined house, where an empoverished family died inside of starvation.\nThe same person who sent the Players failed to distribute food among the population of that village.\nIt could be that this person was a livery of supplies for this village, but chose to keep and sell the supplies instead.    \n",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Bou-Bou": {
         "Type": "Undead, Fiend",
@@ -2814,7 +2859,7 @@
         "Experience": "650 (325 x2)",
         "Stats": "6/2/0/0/0",
         "Health": 420,
-        "Armor": 69,
+        "Defense": 69,
         "HPCoef": 1,
         "Speed": 4,
         "Initiative": 3,
@@ -2836,7 +2881,7 @@
         "Role": "Main Enemy",
         "Variants": "None",
         "Story Ideas": "None",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Lich": {
         "Type": "Undead, Person",
@@ -2894,7 +2939,7 @@
         "Role": "Main Enemy",
         "Variants": "None",
         "Story Ideas": "None",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Gasha": {
         "Type": "Undead, Giant, Fiend",
@@ -2934,7 +2979,7 @@
         "Role": "Main Enemy",
         "Variants": "None",
         "Story Ideas": "Players fight a Gasha. The first round goes well, until, out of nowhere, another Gasha appears. The players will struggle, but just as they think they got it, look them dead in the eye and tell them a third Gasha appears out of nowhere.\nIf the players ever try to \"cheese\" or \"cheat\" a Gasha fight, make it disappear. Then it will appear again at the worst possible moment for the players.\n",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Imp": {
         "Type": "Demon",
@@ -2973,7 +3018,7 @@
         "Role": "Main Enemy",
         "Variants": "None",
         "Story Ideas": "None",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Kasu": {
         "Type": "Demon, Fiend",
@@ -3008,7 +3053,7 @@
         "Role": "Extra, Support",
         "Variants": "None",
         "Story Ideas": "None",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Moroy": {
         "Type": "Demon, Undead",
@@ -3016,7 +3061,7 @@
         "Experience": 125,
         "Stats": "2/2/0/0/2",
         "Health": 50,
-        "Armor": -2,
+        "Defense": -2,
         "HPCoef": 1,
         "Speed": 4,
         "Initiative": 5,
@@ -3044,7 +3089,7 @@
         "Role": "Main Enemy",
         "Variants": "Botchspawn",
         "Story Ideas": "Players must investigate an abandoned maternity. Why was it abandoned? What do they find inside?",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Flame Skull": {
         "Type": "Demon",
@@ -3052,7 +3097,7 @@
         "Experience": 150,
         "Stats": "-2/4/0/0/0",
         "Health": 25,
-        "Armor": 4,
+        "Defense": 4,
         "HPCoef": 0.9,
         "Speed": 4,
         "Initiative": 3,
@@ -3085,7 +3130,7 @@
         "Role": "Extra",
         "Variants": "None",
         "Story Ideas": "None",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Likho": {
         "Type": "Demon, Elemental, Fiend",
@@ -3120,7 +3165,7 @@
         "Role": "Support",
         "Variants": "None",
         "Story Ideas": "None",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Cambion": {
         "Type": "Demon, Person",
@@ -3167,7 +3212,7 @@
         "Role": "Main Enemy",
         "Variants": "Turn the Cambion into a Balor by making it Epic (x2) for 400 XP (200 x2), with 70 Health and +1 to all Damage it deals.",
         "Story Ideas": "None",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Oni": {
         "Type": "Demon, Giant",
@@ -3214,7 +3259,7 @@
         "Role": "Main Enemy",
         "Variants": "None",
         "Story Ideas": "None",
-        "Valuable Loot": "Oni use Greatswords (normally selling for 325g), though the sword might be Damaged further. Oni might also carry items such as simple jewelry, alcohol or stolen religious symbols."
+        "Loot": "Oni use Greatswords (normally selling for 325g), though the sword might be Damaged further. Oni might also carry items such as simple jewelry, alcohol or stolen religious symbols."
     },
     "Nuckelavee": {
         "Type": "Demon",
@@ -3254,7 +3299,7 @@
         "Role": "Main Enemy",
         "Variants": "Whip Demon",
         "Story Ideas": "None",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Dullahan": {
         "Type": "Demon, Undead",
@@ -3262,7 +3307,7 @@
         "Experience": 400,
         "Stats": "4/3/1/1/4",
         "Health": 155,
-        "Armor": 5,
+        "Defense": 5,
         "HPCoef": 1,
         "Speed": 6,
         "Initiative": 0,
@@ -3296,7 +3341,7 @@
         "Role": "Main Enemy",
         "Variants": "Wild Hunt, Nazguul, Chaos Knights",
         "Story Ideas": "None",
-        "Valuable Loot": "Dullahan might drop their armors (Scale Mails, usually) and weapons (Sickle, usually)."
+        "Loot": "Dullahan might drop their armors (Scale Mails, usually) and weapons (Sickle, usually)."
     },
     "Chernobog": {
         "Type": "Demon",
@@ -3346,7 +3391,7 @@
         "Role": "Main Enemy",
         "Variants": "None",
         "Story Ideas": "None",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Elder": {
         "Type": "Fiend",
@@ -3381,7 +3426,7 @@
         "Role": "nhl g ijhfshijc",
         "Variants": "nmrjo",
         "Story Ideas": "nmrjo",
-        "Valuable Loot": "nmrjo"
+        "Loot": "nmrjo"
     },
     "Sandman": {
         "Type": "Fiend",
@@ -3430,7 +3475,7 @@
         "Experience": 225,
         "Stats": "0/0/0/5/5",
         "Health": 5,
-        "Armor": 0,
+        "Defense": 0,
         "HPCoef": 0.25,
         "Speed": 5,
         "Initiative": 5,
@@ -3549,7 +3594,7 @@
         "Role": "Main Enemy",
         "Variants": "None",
         "Story Ideas": "Strange distorsions are seen throughout an area or at a distance. What could be causing them?",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Seraph": {
         "Type": "Celestian",
@@ -3592,7 +3637,7 @@
         "Role": "Main Enemy",
         "Variants": "None",
         "Story Ideas": "None",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "KingBolgurWithWyvern": {
         "Type": "Person, Undead",
@@ -3600,7 +3645,7 @@
         "Experience": 2400,
         "Stats": "4/4/1/4/4",
         "Health": 490,
-        "Armor": 3,
+        "Defense": 3,
         "HPCoef": 1,
         "Speed": 3,
         "Initiative": 4,
@@ -3649,7 +3694,7 @@
         "Role": "Main Enemy",
         "Variants": "None",
         "Story Ideas": "None",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "KingBolgur": {
         "Type": "Person, Undead",
@@ -3657,7 +3702,7 @@
         "Experience": 1200,
         "Stats": "4/4/1/4/4",
         "Health": 275,
-        "Armor": 3,
+        "Defense": 3,
         "HPCoef": 1,
         "Speed": 3,
         "Initiative": 12,
@@ -3702,7 +3747,7 @@
         "Role": "Main Enemy",
         "Variants": "None",
         "Story Ideas": "None",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "BlackWyvern": {
         "Type": "Beast",
@@ -3710,7 +3755,7 @@
         "Experience": 1200,
         "Stats": "2/5/0/5/2",
         "Health": 275,
-        "Armor": 0,
+        "Defense": 0,
         "HPCoef": 1,
         "Speed": 4,
         "Initiative": 7,
@@ -3745,7 +3790,7 @@
         "Role": "Main Enemy",
         "Variants": "None",
         "Story Ideas": "None",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Domovoy": {
         "Type": "Fey",
@@ -3753,7 +3798,7 @@
         "Experience": 100,
         "Stats": "1/1/2/3/-2",
         "Health": 30,
-        "Armor": 1,
+        "Defense": 1,
         "HPCoef": 1,
         "Speed": 5,
         "Initiative": 0,
@@ -3773,7 +3818,7 @@
         "Role": "Non-Combat",
         "Variants": "Kikimora, Yaramayhawho",
         "Story Ideas": "A quest panel states that the Domovoy of a house is distressed and nobody knows why.\nThe Domovody will not answer if asked anything directly, or if asked to show himself.\nThe players must find a creative way to communicate with the Domovoy to figure out what's distressing him.\nIt could be a group of monsters nearby the Domovoy is afraid of.\nThe players might give up if they see no sign of the Domovoy, and that's ok. That is the feeling the Domovoy transmits: shy, and hard to know they truly exist if you don't live inside the house.\n",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Satyr": {
         "Type": "Fiend",
@@ -3781,7 +3826,7 @@
         "Experience": 200,
         "Stats": "1/5/2/5/5",
         "Health": 43,
-        "Armor": 3,
+        "Defense": 3,
         "HPCoef": 1,
         "Speed": 6,
         "Initiative": 15,
@@ -3808,7 +3853,7 @@
         "Experience": 400,
         "Stats": "0/0/5/5/0",
         "Health": 60,
-        "Armor": 5,
+        "Defense": 5,
         "HPCoef": 1,
         "Speed": 5,
         "Initiative": 14,
@@ -3833,7 +3878,7 @@
         "Role": "Main Enemy",
         "Variants": "None",
         "Story Ideas": "Players can encounter them on the road, or at a campfire at night.\nMake the atmosphere dark and silent, to fit with the theme of Milonitse.\n",
-        "Valuable Loot": "None"
+        "Loot": "None"
     },
     "Whispershade": {
         "Type": "Undead, Whispervale",
@@ -3841,7 +3886,7 @@
         "Experience": 75,
         "Stats": "0/1/0/1/0",
         "Health": 19,
-        "Armor": 0,
+        "Defense": 0,
         "HPCoef": 1,
         "Speed": "5 (Flies)",
         "Initiative": 7,
@@ -3869,6 +3914,6 @@
         "Role": "Main Enemy",
         "Variants": "None",
         "Story Ideas": "None",
-        "Valuable Loot": "None"
+        "Loot": "None"
     }
 }
