@@ -744,6 +744,13 @@ export function mergeObjects(a, b) {
     }
     return newA
 }
+export function mergeManyObjects(objects) {
+    let soFar = {}
+    for (const obj of objects) {
+        soFar = mergeObjects(soFar, obj)
+    }
+    return soFar
+}
 export function addManyObjects(arr) {
     if (arr.length == 0) {
         return {}
@@ -837,9 +844,9 @@ export function average(arr) {
     if (arr == null || arr.length == 0) {
         return 0
     }
-    return arr.reduce((soFar, x) => soFar + x, 0) / arr.length
+    return (arr.reduce((soFar, x) => soFar + parseFloat(x), 0)) / arr.length
 }
-
+window.average = average
 window.splitArrayEvenly = splitArrayEvenly
 
 

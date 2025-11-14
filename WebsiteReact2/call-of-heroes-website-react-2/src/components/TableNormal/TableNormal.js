@@ -23,7 +23,7 @@ export default function TableNormal({ children, columns, onClickOnColumn, type, 
     }
 
     return (
-        <div className='table-normal-container-wrapper'>
+        <div className='table-normal-container-wrapper' style={style}>
             <div className={`table-normal-container ${hasBorder? '' : 'table-normal-container--no-border'}`}>
                 <div className='table-normal__header-row-container'>
                     <table className={tableTypeClass} cellSpacing="0"><tbody>
