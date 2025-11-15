@@ -1778,36 +1778,33 @@
         "ParentKey": "Ideas"
     },
     "~Animal Companion~": {
-        "_Value": 7.5,
+        "_Value": 5,
         "AlignOnWebsite": "Left",
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "You have an animal pet that can fight alongside you!\nYour pet has the Stats 3, 1, 0, 0, -1 in any order, but they do not affect its Combat capabilities.\nIt has ^8 + 200% of Your Level^ Max Health.\nIt takes its Turn at the same time as you do (and always has the same Initiative as yours).\nIt has 1 Action per turn, which it can use to do its own Abilities or Pet Attack.\n\nInstead of picking Level 1 Minor Talents for yourself, they apply to your Pet.\nAlso, choose 2 Level 1 - Pet Talents from below to give to your pet.\n",
+        "Effect": "You have an animal pet that can fight alongside you!\nYour pet has the Stats 3, 1, 0, 0, -1 in any order, but they do not affect its Combat capabilities.\nIt has ^8 + 200% of Your Level^ Max Health.\nIt takes its Turn at the same time as you do (and always has the same Initiative as yours).\nOn its turn, it has 1 Action, but it can only attack once per Turn.\n",
         "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.\nYour pet will not stray more than 30 meters away from you in hostile territory.\n",
-        "Notes": "Your pet can make normal non-Combat Rolls using using its own Stats.\nYour pet can't rise from being Fallen while in Combat, even if healed.\nIf your pet ever dies, you can spend 8 hours inbetween Adventures to get a new pet. If you want to change your Pet and abandon your current one, you can do so inbetween Adventures, but the guilt will make you Fumbling for the next 2 Worthy Combat encounters.\n",
+        "Notes": "Your pet can't do Default Moves except Taunt.\nYour pet can make normal non-Combat Rolls using using its own Stats.\nYour pet can't rise from being Fallen while in Combat, even if healed.\nIf your pet ever dies, you can spend 8 hours inbetween Adventures to get a new pet. If you want to change your Pet and abandon your current one, you can do so inbetween Adventures, but the guilt will make you Fumbling for the next 2 Worthy Combat encounters.\n",
         "Subspells": {
             "~Pet Attack~": {
-                "A": "1 Action (from the pet)",
                 "Cooldown": "Once / Turn",
                 "IsSubspell": true,
-                "Effect": "The pet melee attacks a target.\nThe attack deals 1d6 Pierce or Slash Damage (your choice).\n",
-                "AlignOnWebsite": "Right",
+                "Range": "1 meter",
+                "Effect": "The pet attacks a target for 1d4 Pierce or Slash Damage (your choice).\n",
                 "ParentKey": "Subspells"
             }
         },
         "ParentKey": "Starting Abilities"
     },
     "~Pet Attack~": {
-        "A": "1 Action (from the pet)",
         "Cooldown": "Once / Turn",
         "IsSubspell": true,
-        "Effect": "The pet melee attacks a target.\nThe attack deals 1d6 Pierce or Slash Damage (your choice).\n",
-        "AlignOnWebsite": "Right",
+        "Range": "1 meter",
+        "Effect": "The pet attacks a target for 1d4 Pierce or Slash Damage (your choice).\n",
         "ParentKey": "Subspells"
     },
     "~Tumble~": {
         "_Value": 0.5,
-        "AlignOnWebsite": "Right",
         "A": "Reaction or 0 Actions",
         "Cooldown": "Once / Combat",
         "HasMixins": true,
@@ -1894,8 +1891,9 @@
         "_Value": 1.5,
         "A": "Passive",
         "Range": "5 meters to edge",
-        "Effect": "After you Tumble, choose a 2x2 meter area and throw a net. Each Unit in the area take 1d4 Pulse Damage and is Slowed. If you rolled 4 for any of them, it is Double-Slowed instead.",
-        "Notes": "Requires a Draven Net item, which can be bought for 50 gold (or freely crafted for the same price in materials). Can retrieved after every use.",
+        "Effect": "After you Tumble, choose a 2x2 meter area and throw a net. Each Unit in the area take 1d4 Pulse Damage and is Slowed.",
+        "Combo": "Each Comboed Unit is Double-Slowed instead.",
+        "Notes": "Requires a Ranger Net item, which can be bought for 50 gold (or freely crafted for the same price in materials). Can retrieved after every use.",
         "ParentKey": "Level 3 - Keystone Talent"
     },
     "<Bounty Hunting>": {
@@ -3635,7 +3633,7 @@
             "Movement",
             "Shielding"
         ],
-        "Effect": "When another Unit would take Damage, dash to the closest space to that ally.\nYou take the ^exact Damage^ instead of the Unit.\n\n{Teal('With Valor:')} Give them one Shielding that can block 1d4 Damage\n{Teal('Next:')} Offensive Damage Ability\n",
+        "Effect": "When another Unit would take Damage, dash to the closest space to that ally.\nYou take the ^exact Damage^ instead of the Unit.\n\n{Teal('With Valor:')} Block 1d4 of that Damage.\n{Teal('Next:')} Offensive Damage Ability\n",
         "Upgrade": "This Damage can only be mitigated by Shielding.",
         "Notes": "Requires a clear direct path.",
         "ParentKey": "Level 2 - Minor Talent"
@@ -6225,6 +6223,11 @@
         "Effect": "Your pet heals a Unit near it for 1d12.",
         "ParentKey": "Other Abilities"
     },
+    "~Bear Necessities~": {
+        "A": "Passive",
+        "Effect": "Choose 2 Level 1 - Pet Talents from below to give to your pet.\nAlso, your Level 1 Minor Talents apply to your Pet instead of yourself.\n",
+        "ParentKey": "Starting Abilities"
+    },
     "~Large~": {
         "A": "Passive",
         "IsSubspell": true,
@@ -6296,7 +6299,7 @@
     "~Antler Charge~": {
         "A": "Passive",
         "IsSubspell": true,
-        "Effect": "Your pet has +1 Movement Speed.\nIf the pet moved at least 5 meters in a straight line, then attacked a target in front of it, Slam the target +1d4 Damage away from the pet.\n",
+        "Effect": "Your pet has +1 Movement Speed.\nIf the pet moved at least 4 meters in a straight line, then attacked a target in front of it, Slam the target +1d4 Damage away from the pet.\n",
         "ParentKey": "Other Abilities"
     },
     "~Spiky~": {
@@ -6309,7 +6312,8 @@
     "~Venomous Attacks~": {
         "A": "Passive",
         "IsSubspell": true,
-        "Effect": "Your pet's attacks deal +1d4 extra Poison Damage to targets already affected by Crowd Control.",
+        "Effect": "Your pet's attacks deal +1d4 extra Poison Damage to targets already affected by Crowd Control.\n",
+        "Combo": "+1d4 extra Poison Damage.",
         "ParentKey": "Other Abilities"
     },
     "~Leaping~": {
@@ -6351,6 +6355,13 @@
         "A": "Passive",
         "Effect": "Choose one more Pet Talent.\nWhile you have this Talent, your pet also has that Pet Talent.\n",
         "ParentKey": "Level 3 - Keystone Talent"
+    },
+    "<Fang and Claw>": {
+        "_Value": 3,
+        "Requirement": "You can only have Fang and Claw once",
+        "A": "Passive",
+        "Effect": "Pet Attack deals 1d6 Damage instead of 1d4.",
+        "ParentKey": "Level 5 - Keystone Talent"
     },
     "<Bandage Wounds>": {
         "_Value": 0.75,
@@ -6394,14 +6405,14 @@
         "ParentKey": "Level 2 - Minor Talent"
     },
     "<Kindred Spirits>": {
-        "_Value": 7.5,
+        "_Value": 5,
         "A": "Passive",
         "Effect": "One more of your Animal Companions accompanies you while adventuring.\nThis Animal Companion obeys the same rules as the regular one (takes its Turns, requires Healing between combats, etc).\n",
         "Notes": "You're instantly kicked from the group if your pets don't have names.",
         "ParentKey": "Level 3 - Keystone Talent"
     },
     "<Singular Apex>": {
-        "_Value": 7.5,
+        "_Value": 5,
         "A": "Passive",
         "Effect": "Each of your Animals now has 4 instead of 2 Pet Talents, +100% Health and deals 2d6 Pet Attack Damage instead of 1d6.\n",
         "ParentKey": "Level 3 - Keystone Talent"
@@ -6441,13 +6452,27 @@
         "ParentKey": "Starting Abilities"
     },
     "~Challenge of Arms~": {
+        "_Value": 0.5,
         "A": "Half-Action",
         "Cooldown": "Once / Combat",
+        "Requirement": "Only usable in Worthy Combat",
         "Duration": "1 minute",
         "Range": "3 meters",
-        "Effect": "Gain 1d4 Shielding.\nDeal 1d4 Damage to a Unit (Smash, Slash or Pierce).\n\n{Teal('With Valor:')} No Cooldown\n{Teal('Next:')} Any other Ability\n",
+        "Tags": [
+            "Damage",
+            "Healing",
+            "Mobility",
+            "Crowd Control"
+        ],
+        "Effect": "Heal yourself for 1d4, or move 1d4 meters.\nThen deal 1d6 Smash Damage to a Unit, or Slam it 1d6 meters.\n\n{Teal('With Valor:')} No Cooldown\n{Teal('Next:')} Any other Ability\n",
         "Notes": "Use this to start a chain of Abilities With Valor!",
         "HasMixins": true,
+        "ParentKey": "Starting Abilities"
+    },
+    "~Paragon of Strength~": {
+        "_Value": 1,
+        "A": "Passive",
+        "Effect": "Your Stat Limit is 1 higher. You start with +1 in 2 Stats of choice.",
         "ParentKey": "Starting Abilities"
     },
     "~Stand Strong, Fellows~": {
@@ -6463,42 +6488,45 @@
         "ParentKey": "Level 1 - Minor Talent"
     },
     "~Champion's Gallop~": {
+        "_Value": 1,
         "A": "Half-Action",
         "Cooldown": "Once / Turn",
         "Tags": [
-            "Movement",
-            "Tanking"
+            "Movement"
         ],
-        "Effect": "Make a Movement Act with +1 Movement Speed.\n~You have access to all Variants of this Ability (click on the icon to select the preferred effect)!~\n\n{Teal('With Valor:')} {Effect}.\n{Teal('Next:')} Crowd Control Ability\n",
+        "Effect": "Make a Movement Act with +2 Movement Speed.\n~You have access to all Variants of this Ability (click on the icon to select the preferred effect)!~\n\n{Teal('With Valor:')} {Effect}.\n{Teal('Next:')} Crowd Control Ability\n",
         "Variants": [
             {
-                "Effect": "Gain one Shielding that can block 1d4 Damage."
+                "Effect": "All Units you pass near take 1d4 Damage (requires a mount)."
             },
             {
-                "Effect": "With +2 Movement Speed instead (requires a mount)."
+                "Effect": "Gain one Shielding that can block 1d4 Damage."
             }
         ],
         "HasMixins": true,
         "ParentKey": "Level 1 - Minor Talent"
     },
-    "~Knockback~": {
+    "~Provocation~": {
+        "_Value": 1,
         "A": "Half-Action",
         "Tags": [
             "Crowd Control"
         ],
-        "Effect": "Slam a Unit 1d4 meters in any direction.\n\n{Teal('With Valor:')} 1d8 meters instead\n{Teal('Next:')} Other Offensive Damage Ability\n",
+        "Cooldown": "Once / Turn",
+        "Range": "4 meters",
+        "Effect": "Slam a Unit 3 meters toward you, or 3 meters away from you.\n\n{Teal('With Valor:')} If toward you, Taunt it. If away from you, Daze it.\n{Teal('Next:')} Other Offensive Damage Ability\n",
         "HasMixins": true,
         "ParentKey": "Level 1 - Minor Talent"
     },
     "~Lance Unbound~": {
-        "_Value": 1,
+        "_Value": 2,
         "A": "Depends on weapon",
         "Cooldown": "Once / Turn",
         "Tags": [
             "Damage",
             "Combo"
         ],
-        "Effect": "Make a weapon attack. The target gains a Combo.\n\n{Teal('With Valor:')} +1 Damage for each Action Point it costs.\n{Teal('Next:')} Movement Ability\n",
+        "Effect": "Make a weapon attack that deals Damage. The target gains a Combo.\n\n{Teal('With Valor:')} +2 Damage for each Action Point it costs.\n{Teal('Next:')} Movement Ability\n",
         "HasMixins": true,
         "ParentKey": "Level 2 - Minor Talent"
     },
@@ -6525,7 +6553,7 @@
             "Crowd Control",
             "Gold Generation"
         ],
-        "Effect": "Single-Stun a Unit. Gain 1d10 {Gold}Gold.\n\n{Teal('With Valor:')} Double-Stun instead, or 3d10 Gold instead.\n{Teal('Next:')} Healing Ability\n",
+        "Effect": "Single-Stun a Unit. Gain 1d10 {Gold}Gold.\n\n{Teal('With Valor:')} Double-Stun instead, or 4d10 Gold instead.\n{Teal('Next:')} Healing Ability\n",
         "HasMixins": true,
         "ParentKey": "Level 2 - Minor Talent"
     },
@@ -6746,6 +6774,7 @@
         "ParentKey": "Ability Choices"
     },
     "~Soulflare~": {
+        "_Value": 0,
         "A": "Half-Action",
         "Range": "4 meters",
         "Cost": "1 Mana",

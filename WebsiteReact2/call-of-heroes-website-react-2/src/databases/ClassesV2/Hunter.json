@@ -49,20 +49,19 @@
     },
     "Starting Abilities": {
         "~Animal Companion~": {
-            "_Value": 7.5,
+            "_Value": 5,
             "AlignOnWebsite": "Left",
             "A": "Passive",
             "HasMixins": true,
-            "Effect": "You have an animal pet that can fight alongside you!\nYour pet has the Stats 3, 1, 0, 0, -1 in any order, but they do not affect its Combat capabilities.\nIt has ^8 + 200% of Your Level^ Max Health.\nIt takes its Turn at the same time as you do (and always has the same Initiative as yours).\nIt has 1 Action per turn, which it can use to do its own Abilities or Pet Attack.\n\nInstead of picking Level 1 Minor Talents for yourself, they apply to your Pet.\nAlso, choose 2 Level 1 - Pet Talents from below to give to your pet.\n",
+            "Effect": "You have an animal pet that can fight alongside you!\nYour pet has the Stats 3, 1, 0, 0, -1 in any order, but they do not affect its Combat capabilities.\nIt has ^8 + 200% of Your Level^ Max Health.\nIt takes its Turn at the same time as you do (and always has the same Initiative as yours).\nOn its turn, it has 1 Action, but it can only attack once per Turn.\n",
             "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.\nYour pet will not stray more than 30 meters away from you in hostile territory.\n",
-            "Notes": "Your pet can make normal non-Combat Rolls using using its own Stats.\nYour pet can't rise from being Fallen while in Combat, even if healed.\nIf your pet ever dies, you can spend 8 hours inbetween Adventures to get a new pet. If you want to change your Pet and abandon your current one, you can do so inbetween Adventures, but the guilt will make you Fumbling for the next 2 Worthy Combat encounters.\n",
+            "Notes": "Your pet can't do Default Moves except Taunt.\nYour pet can make normal non-Combat Rolls using using its own Stats.\nYour pet can't rise from being Fallen while in Combat, even if healed.\nIf your pet ever dies, you can spend 8 hours inbetween Adventures to get a new pet. If you want to change your Pet and abandon your current one, you can do so inbetween Adventures, but the guilt will make you Fumbling for the next 2 Worthy Combat encounters.\n",
             "Subspells": {
                 "~Pet Attack~": {
-                    "A": "1 Action (from the pet)",
                     "Cooldown": "Once / Turn",
                     "IsSubspell": true,
-                    "Effect": "The pet melee attacks a target.\nThe attack deals 1d6 Pierce or Slash Damage (your choice).\n",
-                    "AlignOnWebsite": "Right",
+                    "Range": "1 meter",
+                    "Effect": "The pet attacks a target for 1d4 Pierce or Slash Damage (your choice).\n",
                     "ParentKey": "Subspells"
                 }
             },
@@ -70,12 +69,16 @@
         },
         "~Tumble~": {
             "_Value": 0.5,
-            "AlignOnWebsite": "Right",
             "A": "Reaction or 0 Actions",
             "Cooldown": "Once / Combat",
             "HasMixins": true,
             "Effect": "Use when taking Damage (or any time on your Turn).\nRoll 2 meters in any possible direction. Reduce the Damage by 50%.\n",
             "Upgrade": "^You^ can use this to make your pet tumble instead.",
+            "ParentKey": "Starting Abilities"
+        },
+        "~Bear Necessities~": {
+            "A": "Passive",
+            "Effect": "Choose 2 Level 1 - Pet Talents from below to give to your pet.\nAlso, your Level 1 Minor Talents apply to your Pet instead of yourself.\n",
             "ParentKey": "Starting Abilities"
         }
     },
@@ -154,7 +157,7 @@
             "ParentKey": "Ability Choices"
         }
     },
-    "Other Abilities Title": "Pet Talents",
+    "Other Abilities Title": "Level 1 Pet Talents",
     "Other Abilities Description": "Choose up to 2 Pet Talents to give to your pet. These are permanent and can only be changed by retraining your pet in later levels, via special Talents.",
     "Other Abilities": {
         "~Stand Proud~": {
@@ -192,7 +195,7 @@
         "~Antler Charge~": {
             "A": "Passive",
             "IsSubspell": true,
-            "Effect": "Your pet has +1 Movement Speed.\nIf the pet moved at least 5 meters in a straight line, then attacked a target in front of it, Slam the target +1d4 Damage away from the pet.\n",
+            "Effect": "Your pet has +1 Movement Speed.\nIf the pet moved at least 4 meters in a straight line, then attacked a target in front of it, Slam the target +1d4 Damage away from the pet.\n",
             "ParentKey": "Other Abilities"
         },
         "~Spiky~": {
@@ -205,7 +208,8 @@
         "~Venomous Attacks~": {
             "A": "Passive",
             "IsSubspell": true,
-            "Effect": "Your pet's attacks deal +1d4 extra Poison Damage to targets already affected by Crowd Control.",
+            "Effect": "Your pet's attacks deal +1d4 extra Poison Damage to targets already affected by Crowd Control.\n",
+            "Combo": "+1d4 extra Poison Damage.",
             "ParentKey": "Other Abilities"
         },
         "~Leaping~": {
@@ -320,8 +324,9 @@
                         "_Value": 1.5,
                         "A": "Passive",
                         "Range": "5 meters to edge",
-                        "Effect": "After you Tumble, choose a 2x2 meter area and throw a net. Each Unit in the area take 1d4 Pulse Damage and is Slowed. If you rolled 4 for any of them, it is Double-Slowed instead.",
-                        "Notes": "Requires a Draven Net item, which can be bought for 50 gold (or freely crafted for the same price in materials). Can retrieved after every use.",
+                        "Effect": "After you Tumble, choose a 2x2 meter area and throw a net. Each Unit in the area take 1d4 Pulse Damage and is Slowed.",
+                        "Combo": "Each Comboed Unit is Double-Slowed instead.",
+                        "Notes": "Requires a Ranger Net item, which can be bought for 50 gold (or freely crafted for the same price in materials). Can retrieved after every use.",
                         "ParentKey": "Level 3 - Keystone Talent"
                     },
                     "<Bounty Hunting>": {
@@ -342,6 +347,12 @@
                     "<Pet Training 101>": {
                         "A": "Passive",
                         "Effect": "Choose one more Pet Talent.\nWhile you have this Talent, your pet also has that Pet Talent.\n",
+                        "ParentKey": "Level 3 - Keystone Talent"
+                    },
+                    "<Fang and Claw>": {
+                        "_Value": 1.5,
+                        "A": "Passive",
+                        "Effect": "Pet Attack deals 1d6 Damage instead of 1d4.",
                         "ParentKey": "Level 3 - Keystone Talent"
                     }
                 },
@@ -431,6 +442,14 @@
                     "<Pet Training 102>": {
                         "A": "Passive",
                         "Effect": "Choose one more Pet Talent.\nWhile you have this Talent, your pet also has that Pet Talent.\n",
+                        "ParentKey": "Level 5 - Keystone Talent"
+                    },
+                    "<Fang and Claw>": {
+                        "_Value": 1.5,
+                        "Requirement": "You can only have Fang and Claw once",
+                        "A": "Passive",
+                        "Effect": "Pet Attack deals 1d6 Damage instead of 1d4.",
+                        "Notes": "This Talent is also available at an earlier Level, and does ^not^ stack with this.",
                         "ParentKey": "Level 5 - Keystone Talent"
                     }
                 },
@@ -572,14 +591,14 @@
                 },
                 "Level 3 - Keystone Talent": {
                     "<Kindred Spirits>": {
-                        "_Value": 7.5,
+                        "_Value": 5,
                         "A": "Passive",
                         "Effect": "One more of your Animal Companions accompanies you while adventuring.\nThis Animal Companion obeys the same rules as the regular one (takes its Turns, requires Healing between combats, etc).\n",
                         "Notes": "You're instantly kicked from the group if your pets don't have names.",
                         "ParentKey": "Level 3 - Keystone Talent"
                     },
                     "<Singular Apex>": {
-                        "_Value": 7.5,
+                        "_Value": 5,
                         "A": "Passive",
                         "Effect": "Each of your Animals now has 4 instead of 2 Pet Talents, +100% Health and deals 2d6 Pet Attack Damage instead of 1d6.\n",
                         "ParentKey": "Level 3 - Keystone Talent"
@@ -611,6 +630,13 @@
                         "A": "Reaction",
                         "Effect": "Use when a Unit goes flying against its will on someone else's turn.\nYour pet(s) within 5 meters of its landing place can dash to it (after it lands) and make a total of 2 Pet Attacks on it.\n",
                         "Notes": "Goes flying means is pushed, knocked up, dragged, etc.\nThis uses YOUR Reaction, not your pets'.\nObviously, the pets need line of sight and can't jump through walls, or over large obstacles. Apply common sense.\n",
+                        "ParentKey": "Level 5 - Keystone Talent"
+                    },
+                    "<Fang and Claw>": {
+                        "_Value": 3,
+                        "Requirement": "You can only have Fang and Claw once",
+                        "A": "Passive",
+                        "Effect": "Pet Attack deals 1d6 Damage instead of 1d4.",
                         "ParentKey": "Level 5 - Keystone Talent"
                     }
                 },

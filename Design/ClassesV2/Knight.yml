@@ -19,11 +19,6 @@ Spellcasting:
   Type: Mana-based
   SpellsOrAbilities: Ability
 
-  Mana:
-    Amount: 1
-    Regain: You regain all Mana back inbetween Adventures.
-    Per: per Adventure
-
   Change: You can change your known Spells and Talents inbetween Adventures.
   Other: All Warrior-specific Abilities are not considered Spells (unless stated otherwise).
   Known Basic Abilities: 2 + Intelligence (minimum 1)
@@ -55,7 +50,6 @@ Ideas:
       
       {Teal('With Valor:')} Then move a number of meters equal to the lower of the dice.
       {Teal('Next:')} Damaging Act
-
 
 Utility:
 
@@ -109,17 +103,25 @@ Starting Abilities:
     Notes: For example, on your first Turn, you use Knockback (Level 1 Minor Talent). It does not trigger the With Valor part, so you Slam a Unit 1d4 meter. It says "Offensive Damage Ability" at "Next", so you use Row Through, which activates its With Valor effect, hitting one more. It says "Healing Ability" at "Next", so you can use Stand Strong, Fellows to heal for 1d4 instead of 1d2. And so on.
 
   ~Challenge of Arms~:
+    _Value: 0.5
     A: Half-Action
     Cooldown: Once / Combat
+    Requirement: Only usable in Worthy Combat
     Duration: 1 minute
     Range: 3 meters
+    Tags: [Damage, Healing, Mobility, Crowd Control]
     Effect: |
-      Gain 1d4 Shielding.
-      Deal 1d4 Damage to a Unit (Smash, Slash or Pierce).
+      Heal yourself for 1d4, or move 1d4 meters.
+      Then deal 1d6 Smash Damage to a Unit, or Slam it 1d6 meters.
 
       {Teal('With Valor:')} No Cooldown
       {Teal('Next:')} Any other Ability
     Notes: Use this to start a chain of Abilities With Valor!
+
+  ~Paragon of Strength~:
+    _Value: 1
+    A: Passive
+    Effect: Your Stat Limit is 1 higher. You start with +1 in 2 Stats of choice.
 
 
 Talents:
@@ -150,41 +152,44 @@ Talents:
         {Teal('Next:')} Movement Ability
 
     ~Champion's Gallop~:
+      _Value: 1
       A: Half-Action
       Cooldown: Once / Turn
-      Tags: [Movement, Tanking]
+      Tags: [Movement]
       Effect: |
-        Make a Movement Act with +1 Movement Speed.
+        Make a Movement Act with +2 Movement Speed.
         ~You have access to all Variants of this Ability (click on the icon to select the preferred effect)!~
 
         {Teal('With Valor:')} {Effect}.
         {Teal('Next:')} Crowd Control Ability
       Variants:
+        - Effect: All Units you pass near take 1d4 Damage (requires a mount).
         - Effect: Gain one Shielding that can block 1d4 Damage.
-        - Effect: With +2 Movement Speed instead (requires a mount).
       
-    ~Knockback~:
+    ~Provocation~:
+      _Value: 1
       A: Half-Action
       Tags: [Crowd Control]
+      Cooldown: Once / Turn
+      Range: 4 meters
       Effect: |
-        Slam a Unit 1d4 meters in any direction.
+        Slam a Unit 3 meters toward you, or 3 meters away from you.
         
-        {Teal('With Valor:')} 1d8 meters instead
+        {Teal('With Valor:')} If toward you, Taunt it. If away from you, Daze it.
         {Teal('Next:')} Other Offensive Damage Ability
-
 
 # Extra keywords: Buff
   Level 2 - Minor Talent:
 
     ~Lance Unbound~:
-      _Value: 1
+      _Value: 2
       A: Depends on weapon
       Cooldown: Once / Turn
       Tags: [Damage, Combo]
       Effect: |
-        Make a weapon attack. The target gains a Combo.
+        Make a weapon attack that deals Damage. The target gains a Combo.
 
-        {Teal('With Valor:')} +1 Damage for each Action Point it costs.
+        {Teal('With Valor:')} +2 Damage for each Action Point it costs.
         {Teal('Next:')} Movement Ability
 
     ~Self-Sacrifice~:
@@ -211,7 +216,7 @@ Talents:
         When another Unit would take Damage, dash to the closest space to that ally.
         You take the ^exact Damage^ instead of the Unit.
 
-        {Teal('With Valor:')} Give them one Shielding that can block 1d4 Damage
+        {Teal('With Valor:')} Block 1d4 of that Damage.
         {Teal('Next:')} Offensive Damage Ability
       Upgrade: This Damage can only be mitigated by Shielding.
       Notes: Requires a clear direct path.
@@ -224,7 +229,7 @@ Talents:
       Effect: |
         Single-Stun a Unit. Gain 1d10 {Gold}Gold.
 
-        {Teal('With Valor:')} Double-Stun instead, or 3d10 Gold instead.
+        {Teal('With Valor:')} Double-Stun instead, or 4d10 Gold instead.
         {Teal('Next:')} Healing Ability
 
   Level 3 - Keystone Talent:
