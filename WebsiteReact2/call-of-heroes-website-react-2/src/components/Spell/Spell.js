@@ -116,6 +116,7 @@ export default function Spell({
         DisplayName,
 
         CustomIconPath,
+        IconName,
         IsSubspell,
         
         A,
@@ -168,6 +169,8 @@ export default function Spell({
     let iconPath =
         CustomIconPath != null?
             CustomIconPath:
+        IconName != null?
+            getSpellIconPathByName(IconName):
         isItem == true?
             getItemIconPathByName(Name):    
         getSpellIconPathByName(Name)
@@ -502,6 +505,7 @@ export function SpellTop({
                 onIconClick={onIconClick}
                 hasSpinner={hasVariants} hasVariants={hasVariants}
                 variantIndex={variantIndex} maxVariantIndex={hasVariants? Variants.length: null}
+                hasUpgradeIcon={spell.HasUpgradeIcon}
             />
 
             <div className='spell-top__title-side'>
@@ -522,7 +526,7 @@ export function SpellIconSpinner({ src, className }) {
         </div>
     )
 }
-export function SpellTopIconSide({ src, style, className, hasSpinner, hasVariants, variantIndex, maxVariantIndex, onIconClick }) {
+export function SpellTopIconSide({ src, style, className, hasUpgradeIcon, hasSpinner, hasVariants, variantIndex, maxVariantIndex, onIconClick }) {
     return (
         <div className={`spell-top__icon-side ${className}`} style={style}>
                 
@@ -532,11 +536,16 @@ export function SpellTopIconSide({ src, style, className, hasSpinner, hasVariant
                 </div>
             )}
 
-            <div className='spell-top__icon-wrapper'>
+            <div className='spell-top__icon-wrapper relative'>
                 { hasSpinner === true && (
                     <div className='spell-top__variant-spinner'></div>
                 )}
                 <img src={src}/>  
+                { hasUpgradeIcon === true && (
+                    <div className='secondary-icon-wrapper absolute'>
+                        <img src="/Icons/Spells/!UpgradeIcon.png"/>
+                    </div>
+                )}
             </div>
 
         </div>
