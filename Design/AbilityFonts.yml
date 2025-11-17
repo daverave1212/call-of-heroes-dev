@@ -1,0 +1,633 @@
+
+
+Divine: 
+
+  Utility:
+
+    ~Guidance~ :
+        A: Reaction
+        Range: 10 meters
+        Cooldown: 1 real hour
+        Tags: [Utility]
+        Font: Divine
+        Effect: When an ally makes a Check, it can use your modifiers (including being Skilled in that Skill) instead of its own.
+
+    ~Saving Throw~:
+        A: 0 Actions or Reaction
+        Cooldown: 1 hour
+        Range: 7 meters
+        Degree: Minor
+        Tags: [Protection, Other]
+        Font: Divine
+        Effect: |
+            Use when the Turn of an Enemy starts (or on your Turn).
+            Instantly pull another ally to your nearest empty space.
+        Notes: |
+            The ally goes flying.
+            You need line of sight to the targets. The allies fly to you ignoring obstacles and ground traps (goes around obstacles), unless the ally needs to swerve more than 2 meters in any direction.
+
+  Talents:
+    1:
+
+      ~Privilege~:
+        A: Half-Action
+        Cooldown: Once / Unit / Combat
+        Requirement: Only usable in Worthy Combat
+        Tags: [Healing, Combo]
+        Font: [Divine, Chivalry]
+        Effect: |
+          Heal a Player Character you can see for an amount equal to their Health Regen.
+          They do not Regen Health at the end of the Combat.
+        Combo: They can Regen Health after Combat, but only for 50% of Health Regen.
+
+      ~Elation~:
+          A: 0 Actions
+          Cost: 1 Mana
+          Degree: Minor
+          Tags: [Buff]
+          Effect: |
+            Up to 2 Player Characters you can see gain Health Regen equal to your Intelligence.
+
+      <Weakness of the Soul>:
+        A: Half-Action
+        Cost: 1 Mana
+        Range: 5 meters
+        Tags: [CC, Combo]
+        Effect: Cast Awe on a Unit. It becomes Dazed. Apply a ~Combo~.
+      
+      ~Warding Incense~:
+        A: Reaction
+        Cost: 1 Mana
+        Tags: [Protection, Combo]
+        Effect: |
+          Use when an ally would take Damage.
+          Roll 1d6 and subtract that much from the attack.
+          Then give them the rolled die as one Shielding and apply a ~Combo~ on them.
+
+      ~Mind's Thing~:
+          DisplayName: "Mind's {Name}"
+          A: 1 Action
+          Range: 3 meters
+          Degree: Minor
+          HasMixins: true
+          Tags: [Damage]
+          Font: Divine
+          Effect: |
+              Deal 1d12 + ^Your Sense or Intelligence^ {Type} Damage to a Unit.
+              For the rest of the combat, whenever it would take {Type} Damage, it takes {Damage} more (stacks indefinitely).
+
+              ~Click on the icon to selecte the preferred effect!~
+          Variants:
+            - Name: Shadow
+              Type: Scourge
+              Damage: 2
+              IconName: Minds Shadow
+            - Name: Abolition
+              Type: Divine
+              Damage: 1
+              IconName: Minds Abolition
+
+      ~Solace Wave~:
+          A: Half-Action
+          Cost: 1 Mana
+          Range: 5 meters
+          Degree: Minor
+          Tags: [Healing, Combo]
+          Font: Divine
+          Effect: |
+              Heal an ally (or yourself) for 1d8 Health.
+              If they have 50% or more Health before the heal, double the result!
+          Combo: Double the result anyway!
+      
+    3:
+      <Golden Shield>:
+        A: 0 Actions or Reaction
+        Cost: 1 Mana
+        Duration: Up to 1 hour
+        Degree: Minor
+        Tags: [Protection, Combo]
+        Font: Divine
+        Effect: |
+            Use before a Unit you can see would take Damage (before the roll), or on your Turn.
+            It becomes surrounded in a divine golden shield.
+            This (or next) time it would take Damage, it is completely blocked.
+            If used on your Turn, apply a Combo.
+        
+
+      ~Guiding Bolt~:
+          A: 1 Action
+          Cost: 1 Mana
+          Range: 10 meters
+          HasMixins: true
+          Degree: Major
+          Tags: [Damage]
+          Font: Divine
+          Effect: |
+              A shining light bursts onto a Unit, dealing 2d8 + ^Sense^ Divine Damage to it.
+              The next time someone would cast a Spell that affects that Unit, the caster can reroll any of the spell's dice, at most one reroll for each die.
+          Notes: This affects AoE effects and healing abilities too.
+
+      ~Deafening Silence~:
+          A: 1 Action
+          Cost: 2 Mana
+          Degree: Grand
+          Tags: [Damage, CC]
+          Effect: |
+              A Unit you can see takes 3d8 Psychic Damage and is Deafened.
+          Notes: Cover is applied normally.
+
+      ~Reveling Rays~:
+          A: 1 Action
+          Cost: 2 Mana
+          Degree: Grand
+          Tags: [Damage, Healing, AoE]
+          Effect: |
+              You shoot out 10 rays of light.
+              Roll 10d4 and assign them to Units within 10 meters as you with.
+              Each die heals on odd rolls (1 and 3) and deals Divine Damage on even rolls (2 and 4).
+
+
+    5:
+
+      ~Solace Tide~:
+          A: Half-Action
+          Cost: 1 Mana
+          Range: 5 meters
+          Degree: Minor
+          IconName: Solace Wave
+          HasUpgradeIcon: true
+          Replacement: Replaces Solace Wave
+          Requirement: Requires Solace Wave
+          Tags: [Healing, Combo]
+          Font: Divine
+          Effect: |
+              Heal an ally (or yourself) for ~1d10~ Health.
+              If they have 50% or more Health before the heal, double the result!
+          Combo: Cast Awe ~twice~.
+
+      <Shadow Realm>:             # 2? Good Damage, 0 actions, no Check requred...
+        _Value: 2
+        A: 0 Actions
+        Cost: 2 Mana
+        Tags: [CC, Damage]
+        Effect: |
+          A Unit within 6 meters becomes trapped in a Shadow Realm with you for 2 rounds (this and the next).
+          Your attacks cast Awe on it for free while inside the Shadow Realm.
+        Upgrade: |
+          Neither of you can interact with the outside world, but can feintly see it.
+          Units on the outside can faintly see the two of you, as if you were ghosts.
+        Notes: The Shadow Realm is a copy of the normal world, but with no other units.
+        OrderOnWebsite: 3
+      
+      <Black Hole>:
+        _Value: 1.75
+        A: Half-Action
+        Range: 10 meters to point
+        Duration: 1 minute
+        Tags: [AoE CC]
+        Cost: 1 Mana
+        Effect: |
+          Choose a point as the center of a Black Hole.
+          At the end of each Round, Slam* all Units within 6 meters of the Black Hole towards the center.
+          When one comes within 1 meter of the center, cast Awe on it and it becomes Slowed.
+        Upgrade: Only Units that meet in the center take Damage from the Slam. Each takes Damage equal to their own distance thrown (if they slam into eachother).
+        Notes: If Units are Slammed into other things, they take Damage as normal.
+
+    6:
+      ~Resurrection~ : 
+          A: 1 Action
+          Cost: 1 Mana
+          Degree: Grand
+          Tags: [Utility, Roleplay]
+          Font: Divine
+          Effect: |
+              Touch a dead Unit, whose body is still in decent condition (as approved by the QM).
+              The dead Unit comes back to life, conscious and without Exhaustion, with 1 Health.
+
+Wild:
+
+  Utility:
+    ~Wild Steed~ :
+        A: 5 minutes
+        Requirement: Level 3
+        Duration: Until you dismount
+        Font: Wild
+        Effect: |
+            You call upon a ridable land animal native to the area you are in.
+            You and up to 1 more party member can ride this animal.
+            It follows the normal rules for Riding.
+            It does not participate in combat.
+        Upgrade: |
+            At Level 6, this can be a flying animal.
+
+    ~Control Wind~:
+        HasMixins: true
+        A: Half-Action
+        Range: 5 meters
+        Cooldown: Once / real hour
+        Degree: Lesser
+        Effect: |
+            You can control gusts of wind in a 6x6x6 area and do one of the following for 1 Action:
+            {Diamond} Create Heavy Wind blowing from any direction (see notes) that lasts for 1 minute
+            {Diamond} Move Heavy Wind 3 meters in any direction
+            {Diamond} Create wind that makes Units fall softly
+            {Diamond} Stop it (for 0 Actions)
+            {Diamond} Push all Units in the wind 1 meter in the wind's direction
+        Notes: |
+            Moving against Heavy Wind acts as Hard Terrain.
+            Projectiles fired against the Wind have -1 Damage, and projectiles fired with the Wind gain +1.
+            Multiple Winds don't stack into eachother.
+            Heavy Wind also clears Fog, Smoke, etc in the area.
+  Talents:
+
+    1:
+
+
+      ~Shapeshift~:
+        A: 0 Actions
+        Cost: 1 Mana
+        HasMixins: true
+        Duration: Until cancelled (0 AP) or you Fall
+        Height: 120
+        Font: Wild
+        Effect: |
+          Transform into a medium-sized animal or a mystical beast resembling one you've encountered this Campaign. It has 2 features of choice from below (up to your Level).
+          While Shapeshifted, you can Animal Attack for Half-Action.
+        Subspells:
+          ~Animal Attack~:
+            Range: 1 meter
+            IsSubspell: true
+            A: Half-Action
+            Damage: 1d6 + Any Stat (Slash, Smash or Pierce)
+            EffectGreen: Critical Strike - if you roll maximum, apply a Combo.
+        Notes: |
+          Your animal's Stats are 3/1/0/-1 spread as you like (for Rolls only).
+          You can only cast _some_ Abilities while Shapeshifted.
+          You choose what items you keep on you when Shapeshifting, and those items are 'merged' into your new form.
+          While Shapeshifted, you can speak, but your voice is slightly altered to match your shape (e.g. guttural for lions, high pitched for birds, etc).
+        HasSpellTableNumbers: true
+        SpellTable:
+          - Name: Hefty
+            Effect: When Shapeshifting, gain 3 Shieldings that block 1d4 Damage each. You are Long (2x1 meters) and Ridable.
+          - Name: Clawed
+            Effect: Your animal features listed here have their Dice Upgraded to the next die type.
+          - Name: Sweep {Action}2 Action Points {Cooldown} Once / Shapeshift
+            Effect: All Units within 2 meters take 2d4 + Your Highest Stat (any type). If only one Unit is hit, +50% Damage and apply a Combo.
+
+          - Name: Bash {Action}1 Action Point {Level}Level 2 {Cooldown} Once / Combat
+            Effect: |
+              Single-Stun a Unit and deal 1d4 Smash Damage to it.
+              {Combo} and a one Unit 2 meter from you.
+
+          - Name: Venomous {Level}Level 3
+            Effect: Animal Attacks deal +1d4 Damage to Units affected by Crowd Control. {Combo} +1d4 Damage.
+
+          - Name: Fast {Level}Level 4
+            Effect: You have +3 Movement Speed. You can freely Break Movement.
+                
+          - Name: Sticky {Action}1 Action Point {Range}3 meters {Level}Level 5
+            Effect: Shoot a sticky substance at a Unit. It takes 1d4 Damage, becomes Double-Slowed and apply a Combo. Usable once per Shapeshift.
+          
+          - Name: Shred {Action}2 Action Points {Level}Level 6
+            Effect: Attack a Unit for 2d8 + 3 Slash Damage. Deals +1d8 Damage for each level of Stun on it.
+
+          - Name: Leap {Action}1 Action Point {Level}Level 7
+            Effect: "Leap at a Unit 2-3 meters away. Deal 2d6 Pulse Damage and apply a Combo. {Combo} it becomes Frail."
+
+          - Name: Fly {Level}Level 8
+            Effect: You can fly up to your speed. You take -50% Smash Damage.
+
+          - Name: Large {Level}Level 9
+            Effect: You have 2 Defense. You are Large (2x2 meters) and Ridable.
+
+      ~Ripstorm~:
+          A: 3 Action Points
+          Cost: 1 Mana
+          Cooldown: Once / Adventure
+          Requirement: Only usable while Shapeshifted
+          Font: Wild
+          Effect: |
+            Deal 4d6 Damage to all Worthy Units within 2 meters of you.
+            Heal for 1 Health per 5 real Damage done (total).
+          Combo: +1d6 Damage and one of the Units hit becomes Dazed.
+
+    3:
+
+      ~Wild Heart~:
+          A: 0 Actions
+          Cost: 1 Mana
+          Duration: Whole Adventure
+          Degree: Major
+          Font: Wild
+          Effect: |
+            Up to 2 allies gain 1d6 Health Regen each.
+          Combo: A Comboed target gains +1 Max Health permanently.
+
+      ~Wind Chaser~:
+          _Value: 0.75
+          A: 0 Actions
+          Cooldown: Once / Combat
+          Degree: Lesser
+          Font: Wild
+          Effect: |
+              Your next targeted attack or Spell curves around obstacles, ignoring Cover.
+              Apply a Combo to the target.
+          Notes: You still need Line of Sight to the target.
+
+    5: 
+      ~Cutting Winds~:
+        A: 1 Action
+        Cost: 1 Mana
+        Range: 5 meters
+        Cooldown: Once / Combat
+        Degree: Major
+        Font: Wild
+        Effect: |
+            A Unit takes 2d6 + ^Your Dexterity^ Slash Damage.
+
+        Combo: Slam it a number of meters equal to one of the rolled dice, in any direction.
+        EffectGreen: Usable while Shapeshifted.
+        Notes: Cover is applied normally.
+
+      ~Roots~:
+        A: 1 Action
+        Cost: 1 Mana
+        Cooldown: Once / Adventure
+        Font: Wild
+        Effect: |
+          All Enemies within 4 meters of you take 2d6 Pierce Damage and become Slowed.
+        Combo: A Comboed Enemy hit becomes Double-Slowed
+        EffectGreen: Usable while Shapeshifted.
+
+    6:
+
+      ~Camouflage~:
+        A: 0 Actions
+        Cooldown: Once / Adventure
+        Font: Wild
+        Effect: |
+          You and all your pets (if any) become camouflaged and turn effectively invisible and causing no sound, undetectable by the naked eye.
+          While camouflaged, your Movement is halved.
+          You appear, however, in mirrors, reflections and in recordings (as well as your sounds).
+
+      ~Water Breathing~:
+          A: 1 Action
+          Duration: (Your Level) hours
+          Cost: 1 Mana
+          Degree: Minor
+          Effect: |
+              Up to 2 allies you can see (can include yourself) can now breathe under water.
+
+
+Nature:
+
+  Utility:
+
+    ~Fog Cloud~:
+        A: 0 Actions
+        Cost: 1 Mana
+        Range: 5 meters to edge
+        Effect: |
+            A 5x5x5 meter cube becomes covered in fog for 1 minute.
+        Upgrade: All Attacks done from, through or to Units inside Fog have Cover (-50%).
+        Notes: Fog can be dissipated by wind. You can choose the color of the fog. The fog does not go through walls, but does bend around corners (e.g. up to 360 degrees around wall extremities).
+
+    ~Gentle Breeze~:
+      A: Depends
+      Range: 6 meters
+      HasMixins: true
+      Effect: |
+        You can create harmless sensory effects, tiny weather effects or soothe mild pains.
+        You can speed up the growth of small plants by 1000% while channeling.
+        You can speed up the progress of a disease or illness by 1000% while channeling.
+      EffectGreen: Usable while Shapeshifted.
+      AlignOnWebsite: Right
+
+  Talents:
+
+    1:
+
+      ~Thornskin~:
+          A: 0 Actions
+          Cost: 1 Mana
+          Duration: 1 minute
+          Degree: Minor
+          Effect: |
+              Choose a Unit you can see.
+              Whenever it is melee attacked, the attacker takes 1d4 Pierce Damage.
+          Combo: 3 Damage instead of 1d4 and apply a Combo to it.
+          EffectGreen: Usable while Shapeshifted.
+          Notes: A Unit can only be effected by one Thornskin effect at a time.
+
+      ~Everbloom~:    # Almost 1 Mana worth
+          A: Half-Action
+          Range: 5 meters
+          Cost: 1 Mana
+          Degree: Minor
+          Effect: |
+            Heal an alive Unit for 2d4.
+            
+          Combo: +1d6 Healing
+
+      ~Venin Shot~:
+          A: 1 Action
+          Range: 6 meters
+          HasMixins: true
+          Degree: Minor
+          Effect: |
+              A target takes 1d8 + ^Sense^ Poison Damage.
+              The _next time_ it takes damage from a weapon, it takes an extra 1d8 Poison Damage.
+          Combo: 1d10 Damage instead (on both).
+          Notes: Body parts count as weapons.
+
+    3:
+
+      ~Earth Shield~:
+          A: 0 Actions
+          Cost: 1 Mana
+          Duration: Until end of Adventure
+          Degree: Minor
+          Effect: |
+              A Unit you can see gains 2 Shieldings that block 1d6 Damage each.
+          Combo: 3 Shieldings instead
+          EffectGreen: Usable while Shapeshifted.
+
+      ~Nami~:
+          A: 1 Action
+          Cost: 1 Mana
+          HasMixins: true
+          Degree: Major
+          Cooldown: Once / Combat
+          Effect: |
+              Send out a 4x1 meter wave forward. Each Unit* hit takes 2d8 Cold Damage.
+              The first Unit hit is Slowed.
+          Combo: If you have a Combo on yourself, consume it to increase the area to 6x3 meters instead.
+
+    5:
+
+      ~Lightning Storm~:
+          A: Half-Action
+          Range: 5 meters to edge
+          Cost: 1 Mana
+          HasMixins: true
+          Cooldown: Once / Combat
+          Degree: Major
+          Effect: |
+              Choose a 4x4x4 meter cube.
+              All units inside take 4d4 Shock Damage now. Deals +50% Damage to wet Units, or Units carrying anything made of metal, it takes +50% Damage.
+          Combo: Each Comboed Unit has the Damage repeated at the start of your next Turn.
+          Notes: Roll the dice again for the second trigger due to the Combo.
+
+      <Brineborne Lullaby>:
+        _Value: 2
+        A: 1 Action
+        Cost: 2 Mana
+        Cooldown: Once / Adventure
+        Range: 2 meters
+        Effect: |
+          Heal a Unit for 1d8 for each 10 Health it is missing, and all Units within 2 meters of it for 50% of that amount.
+        Combo: Unlimited range, and 1d10 for each 10 Health it is missing.
+
+    6:
+      ~Tree Stride~:
+          A: Passive
+          Effect: |
+              While within 30 meters of trees, you have +1 Movement Speed.
+              You can climb trees without making Rolls, using your normal Movement.
+              You can use as many meters of your Movement as you like to jump that distance from one tree to another.
+
+
+Chaos:
+
+  Utility:
+
+
+    ~Poetic Justice~:
+      A: Reaction
+      Cooldown: Once / real hour
+      Font: Chaos
+      Effect: |
+        At any point where it's fit, you can call for a _poetic justice moment_, representing a living metaphor, turning a situation around, karma, irony, or coming full circle.
+        In the next 10 real minutes, an event may happen that can be interpreted as _poetic justice_, which could be either good or bad for your team.
+        The Quest Master may fumble one die roll or alter the current situation so that it reflects a _poetic moment_.
+      Upgrade: There may be no place for poetic justice at that time, and it's possible nothing happens as the result of this.
+      Notes: They can be events such as being saved by your worst enemy, or a xenophobic person being discriminated against by someone else who is xenophobic. Or perhaps a goblin dies by an arrow to the kn-, I mean shoulder, after he launched an arrow in someone else's shoulder.
+
+
+  Talents:
+
+    1:
+
+      ~Chaos Storm~:
+        A: 1 Action
+        Requirement: Only usable in Worthy Combat
+        Font: Chaos
+        Effect: |
+          Roll 1d10.
+          Deal that much Damage of that Damage Type to exactly that many Worthy Units you can see.
+        Notes: |
+          Roll for a random Damage type from the following: 1. Pierce, 2. Slash, 3. Pulse, 4. Poison, 5. Acid, 6. Divine, 7. Scourge, 8. Shock, 9. Cold, 10. Fire.
+          Targeting Worthy Units is mandatory, and you count as a Worthy Unit.
+
+      ~Soulflare~:
+        _Value: 0
+        A: Half-Action
+        Range: 5 meters
+        Cost: 1 Mana
+        Font: Chaos
+        Effect: |
+          Deal {Amount} Damage to {ToWhat}.
+
+          ~You have access to all Variants of this Spell (click on the icon to select the preferred effect)!~
+        Variants:
+          - DisplayA: 0 Actions
+            Amount: 1d8 Fire
+            ToWhat: 1 Unit
+          - DisplayA: Half-Action
+            Amount: 1d6 + 1d8 Shock
+            ToWhat: 2 Units
+          - DisplayA: 1 Action
+            Amount: 1d6 + 1d8 + 1d10 Scourge
+            ToWhat: 3 Units
+          - DisplayA: 3 Action Points
+            Amount: 1d6 + 1d8 + 1d10 + 1d12 True
+            ToWhat: 4 Units
+    
+    3:
+      ~Will You Just Die~:
+        A: Reaction
+        Cost: 1 Mana
+        Effect: |
+          Use when you drop to or below 0 Health.
+          You can go into debt with Health, down to 50% of your Max Health.
+        Upgrade: At the end of the Combat, if you are at or below 0 Health, you become Fallen and unconscious, and you keep your Health Debt until you are healed to 1 or more Health. Heal to recover Health debt!
+
+      ~Spiritflare~:
+        A: Half-Action
+        Range: 4 meters
+        IconName: Soulflare
+        HasUpgradeIcon: true
+        Cost: 1 Mana
+        Replacement: Replaces Soulflare
+        Requirement: Requires Soulflare
+        Font: Chaos
+        Effect: |
+          Deal {Amount} Damage to {ToWhat}.
+
+          ~You have access to all Variants of this Spell (click on the icon to select the preferred effect)!~
+        Notes: ~The Damage is higher than the regular Soulflare.~
+        Variants:
+          - DisplayA: 0 Actions
+            Amount: 1d10 Fire
+            ToWhat: 1 Unit
+          - DisplayA: Half-Action
+            Amount: 1d8 + 1d10 Shock
+            ToWhat: 2 Units
+          - DisplayA: 1 Action
+            Amount: 1d8 + 1d10 + 1d12 Scourge
+            ToWhat: 3 Units
+          - DisplayA: 3 Action Points
+            Amount: 1d8 + 1d10 + 1d12 + 1d14 True
+            ToWhat: 4 Units
+
+      <Star Burst>:
+          _Value: 1.35
+          AlignOnWebsite: Right
+          A: 1 Action
+          Cost: 1 Mana
+          Font: Chaos
+          Effect: |
+              Declare up to 4 different targets you can see.
+              Assign a different number from #1 to #4 to each.
+              Roll a number of d4's equal to your last rolled Unstable Spark die. Each d4 rolled deals that much Pulse Damage to the target with that number.
+              Each rolled 1 deals 1 Damage to target number #1, each rolled 2 deals 2 Damage to target number #2, and so on.
+          Notes: |
+              E.g. if you put #2 on a goblin, and you roll three 2's on the d4's, then that goblin takes 6 Pulse Damage.
+              You should probably assign the higher number to the target you want to do most Damage to.
+              You can declare fewer targets, but then the missing number will deal Damage to no target.
+              Cover is applied normally.
+    6:
+
+      ~Reverse Gravity~:
+          A: 1 Action
+          Cost: 3 Mana
+          Range: 10 meters to edge
+          Degree: Grand
+          Font: Chaos
+          Effect: |
+              Declare an area with a diameter in meters (in all directions) equal to your Level.
+              The gravity becomes reversed in that area and all Units instantly fall upwards. Units can make a Dexterity Check to grab onto an object to not be lifted.
+              Units suffer fall Damage if they fall onto a ceiling.
+              When the effect ends, all Units fall at half velocity (and take half of the fall Damage). The same happens to a Unit if it exits the area.
+              Lasts for up to 1 minute. You can cancel this effect at will.
+          Notes: |
+              Fall Damage is 1d6 for every 2 meters fallen (e.g. 1d6 for 2 and 3 meters, 2d6 for 4 and 5 meters, etc).
+
+
+
+
+
+
+
+
+

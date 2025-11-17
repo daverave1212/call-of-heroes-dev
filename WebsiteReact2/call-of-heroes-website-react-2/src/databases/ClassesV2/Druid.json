@@ -54,6 +54,18 @@
             "Shapeshift": "As a Druid, you can tranform into various animals, both in combat and outside of combat.\nThe Shapeshift Spell provides an infinite amount of options to help out your party in any situation!\nYou can choose any animal from the Animals list to Shapeshift into, as long as it's not Exotic or non-standard. Each Animal allows you to use its special Ability once per Adventure. You are still only allowed to use that Ability once per Adventure, even if you Shapeshift into that animal twice (the cooldown stays the same).\nOther Druid Talents might allow you to Shapeshift into more unusual beasts.\nShapeshift is considered a Spell.\n\nWhen in Shapeshift form, you always have access to the Animal Attack Ability, which is not considered a Spell.\nAnimal Attack is, of course, impaired if you are Crippled.\n"
         }
     ],
+    "Ideas": {
+        "~Domain (Alt)~": {
+            "_Value": 0,
+            "A": "Passive",
+            "IsIgnored": true,
+            "HasMixins": true,
+            "Effect": "Choose a _domain environment_ from: {Brown('Nature, Water, Air, Earth')}.\nYour Abilities may have extra effects based both on your _domain_, and the current _environment_:\n\n{Brown('Nature:')} Right before you spend Mana, apply a Combo to a Unit you can see\n{Brown('Water:')} +1d4 Healing you do\n{Brown('Wind:')} +2 Range on all Acts and +1 Movement Speed\n{Brown('Earth:')} After you spend Mana, Slow one Unit you can see\n",
+            "Upgrade": "The Quest Master determines what environment you're in. It's possible to not be in any domain (e.g. urban areas, interiors, etc).",
+            "Notes": "Nature (Forests, Jungles, etc), Water (Lakes, Swamps, etc), Air (Fields, Mountains, etc) and Earth (Deserts, Caves, etc).\n",
+            "ParentKey": "Ideas"
+        }
+    },
     "Starting Abilities": {
         "~Domain~": {
             "_Value": 0,
@@ -82,6 +94,7 @@
             "HasMixins": true,
             "Duration": "Until cancelled (0 AP) or you Fall",
             "Height": 120,
+            "Font": "Wild",
             "Effect": "Transform into a medium-sized animal or a mystical beast resembling one you've encountered this Campaign. It has 2 features of choice from below (up to your Level).\nWhile Shapeshifted, you can Animal Attack for Half-Action.\n",
             "Subspells": {
                 "~Animal Attack~": {
@@ -148,10 +161,10 @@
             "Cost": "1 Mana",
             "Duration": "1 minute",
             "Degree": "Minor",
-            "Effect": "Choose a Unit you can see.\nWhenever it is melee attacked, the attacker takes 1d4 Pierce Damage.\n\n{Brown('Earth:')} 3 Damage instead of 1d4.\n{Brown('Nature:')} Apply a Combo to it.\n",
+            "Effect": "Choose a Unit you can see.\nWhenever it is melee attacked, the attacker takes 1d4 Pierce Damage.\n",
+            "Combo": "3 Damage instead of 1d4 and apply a Combo to it.",
             "EffectGreen": "Usable while Shapeshifted.",
             "Notes": "A Unit can only be effected by one Thornskin effect at a time.",
-            "HasMixins": true,
             "ParentKey": "Ability Choices"
         },
         "~Everbloom~": {
@@ -159,8 +172,8 @@
             "Range": "5 meters",
             "Cost": "1 Mana",
             "Degree": "Minor",
-            "Effect": "Heal an alive Unit for 2d4.\n\n{Brown('Water:')} +1d4 Healing.\n{Brown('Wind:')} +1d4 Healing.\n",
-            "HasMixins": true,
+            "Effect": "Heal an alive Unit for 2d4.\n",
+            "Combo": "+1d6 Healing",
             "ParentKey": "Ability Choices"
         },
         "~Venin Shot~": {
@@ -168,7 +181,8 @@
             "Range": "6 meters",
             "HasMixins": true,
             "Degree": "Minor",
-            "Effect": "A target takes 1d8 + ^Sense^ Poison Damage.\nThe _next time_ it takes damage from a weapon, it takes an extra 1d8 Poison Damage.\n\n{Brown('Nature:')} The extra Damage happens now.\n{Brown('Water:')} 1d10 Damage instead (on both).\n",
+            "Effect": "A target takes 1d8 + ^Sense^ Poison Damage.\nThe _next time_ it takes damage from a weapon, it takes an extra 1d8 Poison Damage.\n",
+            "Combo": "1d10 Damage instead (on both).",
             "Notes": "Body parts count as weapons.",
             "ParentKey": "Ability Choices"
         },
@@ -177,8 +191,9 @@
             "Cost": "1 Mana",
             "Cooldown": "Once / Adventure",
             "Requirement": "Only usable while Shapeshifted",
-            "Effect": "Deal 4d6 Damage to all Worthy Units within 2 meters of you.\nHeal for 1 Health per 5 real Damage done (total).\n\n{Brown('Earth:')} One of the Units hit becomes Crippled.\n{Brown('Wind:')} +1d6 Damage.\n",
-            "HasMixins": true,
+            "Font": "Wild",
+            "Effect": "Deal 4d6 Damage to all Worthy Units within 2 meters of you.\nHeal for 1 Health per 5 real Damage done (total).\n",
+            "Combo": "+1d6 Damage and one of the Units hit becomes Dazed.",
             "ParentKey": "Ability Choices"
         }
     },
@@ -196,7 +211,7 @@
             "HasMixins": true,
             "A": "Half-Action",
             "Range": "5 meters",
-            "Cooldown": "Sense uses / Adventure",
+            "Cooldown": "Once / real hour",
             "Degree": "Lesser",
             "Effect": "You can control gusts of wind in a 6x6x6 area and do one of the following for 1 Action:\n{Diamond} Create Heavy Wind blowing from any direction (see notes) that lasts for 1 minute\n{Diamond} Move Heavy Wind 3 meters in any direction\n{Diamond} Create wind that makes Units fall softly\n{Diamond} Stop it (for 0 Actions)\n{Diamond} Push all Units in the wind 1 meter in the wind's direction\n",
             "Notes": "Moving against Heavy Wind acts as Hard Terrain.\nProjectiles fired against the Wind have -1 Damage, and projectiles fired with the Wind gain +1.\nMultiple Winds don't stack into eachother.\nHeavy Wind also clears Fog, Smoke, etc in the area.\n",
@@ -215,6 +230,7 @@
             "A": "5 minutes",
             "Requirement": "Level 3",
             "Duration": "Until you dismount",
+            "Font": "Wild",
             "Effect": "You call upon a ridable land animal native to the area you are in.\nYou and up to 1 more party member can ride this animal.\nIt follows the normal rules for Riding.\nIt does not participate in combat.\n",
             "Upgrade": "At Level 6, this can be a flying animal.\n",
             "ParentKey": "Utility"
@@ -227,9 +243,9 @@
                 "Cost": "1 Mana",
                 "Duration": "Whole Adventure",
                 "Degree": "Major",
-                "Effect": "Up to 2 allies gain 1d4 Health Regen each.\n\n{Brown('Nature:')} +1 Unit affected.\n{Brown('Water:')} 1d6 instead.\n",
+                "Font": "Wild",
+                "Effect": "Up to 2 allies gain 1d6 Health Regen each.\n",
                 "Combo": "A Comboed target gains +1 Max Health permanently.",
-                "HasMixins": true,
                 "ParentKey": "Level 2 - Minor Talent"
             },
             "~Wind Chaser~": {
@@ -237,9 +253,9 @@
                 "A": "0 Actions",
                 "Cooldown": "Once / Combat",
                 "Degree": "Lesser",
-                "Effect": "Your next targeted attack or Spell curves around obstacles, ignoring Cover and dealing +1 Damage.\n\n{Brown('Wind:')} +1d4 Damage instead.\n{Brown('Earth:')} And Slows it.\n",
+                "Font": "Wild",
+                "Effect": "Your next targeted attack or Spell curves around obstacles, ignoring Cover.\nApply a Combo to the target.\n",
                 "Notes": "You still need Line of Sight to the target.",
-                "HasMixins": true,
                 "ParentKey": "Level 2 - Minor Talent"
             },
             "~Earth Shield~": {
@@ -247,10 +263,9 @@
                 "Cost": "1 Mana",
                 "Duration": "Until end of Adventure",
                 "Degree": "Minor",
-                "Effect": "A Unit you can see gains 2 Shieldings that block 1d4 Damage each.\n\n{Brown('Earth:')} 1d6 instead.\n{Brown('Nature:')} 3 Shieldings instead.\n",
+                "Effect": "A Unit you can see gains 2 Shieldings that block 1d6 Damage each.\n",
+                "Combo": "3 Shieldings instead",
                 "EffectGreen": "Usable while Shapeshifted.",
-                "Notes": "Lasts for 24 hours or until you rolled the d4 3 times. Does not stack multiple times with itself.",
-                "HasMixins": true,
                 "ParentKey": "Level 2 - Minor Talent"
             },
             "~Nami~": {
@@ -259,8 +274,8 @@
                 "HasMixins": true,
                 "Degree": "Major",
                 "Cooldown": "Once / Combat",
-                "Effect": "Send out a 4x1 meter wave forward. Each Unit* hit takes 2d8 Cold Damage.\nThe first Unit hit is Slowed.\n\n{Brown('Water:')} Allies hit are Healed for 1d6 instead of taking Damge.\n{Brown('Wind:')} 6x2 meter wave instead.\n",
-                "Notes": "If in a Water environment/domain, Allies are Healed and Enemies are Damaged. Otherwise, all Units hit are Damaged.",
+                "Effect": "Send out a 4x1 meter wave forward. Each Unit* hit takes 2d8 Cold Damage.\nThe first Unit hit is Slowed.\n",
+                "Combo": "If you have a Combo on yourself, consume it to increase the area to 6x3 meters instead.",
                 "ParentKey": "Level 2 - Minor Talent"
             }
         },
@@ -271,7 +286,7 @@
                 "A": "Half-Action",
                 "Damage": "1d6 + Any Stat",
                 "Replacement": "Replaces Animal Attack",
-                "Effect": "{Brown('Nature:')} ~Heal for 10% of the attack's Damage.~\n{Brown('Earth:')} ~Taunt the target.~\n{Brown('Water:')} ~+2 range.~\n{Brown('Wind:')} ~1d8 Damage instead of 1d6.~\n",
+                "Effect": "Your Animal Attack has an effect based on both your and _current domain environments_:\n\n{Brown('Nature:')} ~Heal for 10% of the attack's Damage.~\n{Brown('Earth:')} ~Taunt the target.~\n{Brown('Water:')} ~+2 range.~\n{Brown('Wind:')} ~1d8 Damage instead of 1d6.~\n",
                 "Range": "1 meter",
                 "Stat": "Smash, Slash or Pierce",
                 "EffectGreen": "Critical Strike - if you roll maximum, apply a Combo.",
@@ -290,13 +305,13 @@
             },
             "~Elderform~": {
                 "_Value": 1,
-                "Effect": "You have extra available features originating from the flora and microbiomes of the outdoors.\n\n{Brown('Nature:')} You regenerate 1d4 Health at the end of every Turn.\n{Brown('Earth:')} After you are attacked from 1 meter away, deal 1d4 Damage back to the attacker.\n{Brown('Water:')} At the end of the Adventure, the Quest Master gives you an additional positive Quirk.\n{Brown('Wind:')} Your Animal Attack has 5 meters range and deals Fire, Cold, Shock or Poison Damage.\n",
+                "Effect": "You have extra available features originating from the flora and microbiomes of the outdoors, based on both your and _current domain environments_:\n\n{Brown('Nature:')} You regenerate 1d4 Health at the end of every Turn.\n{Brown('Earth:')} After you are attacked from 1 meter away, deal 1d4 Damage back to the attacker.\n{Brown('Water:')} At the end of the Adventure, the Quest Master gives you an additional positive Quirk.\n{Brown('Wind:')} Your Animal Attack has 5 meters range and deals Fire, Cold, Shock or Poison Damage.\n",
                 "HasMixins": true,
                 "ParentKey": "Level 3 - Keystone Talent"
             },
             "~Primalform~": {
                 "_Value": null,
-                "Effect": "You gain extra animal features originating from creatures of the wild and mysterious.\n\n{Brown('Nature:')} First Shapeshifted Animal Attack hits one more Unit within 2 meters of the main target.\n{Brown('Earth:')} When Shapeshifting, permanently increase your current and Max Health by 0.5.\n{Brown('Water:')} At the end of the Adventure, the Quest Master gives you an additional positive Quirk.\n{Brown('Wind:')} First Shapeshifted Animal Attack Slams the target 1d4 meters in any direction.\n",
+                "Effect": "You gain extra animal features originating from creatures of the wild and mysterious, based on both your and _current domain environments_:\n\n{Brown('Nature:')} First Shapeshifted Animal Attack hits one more Unit within 2 meters of the main target.\n{Brown('Earth:')} When Shapeshifting, permanently increase your current and Max Health by 0.5.\n{Brown('Water:')} At the end of the Adventure, the Quest Master gives you an additional positive Quirk.\n{Brown('Wind:')} First Shapeshifted Animal Attack Slams the target 1d4 meters in any direction.\n",
                 "HasMixins": true,
                 "ParentKey": "Level 3 - Keystone Talent"
             }
@@ -308,7 +323,9 @@
                 "Range": "5 meters",
                 "Cooldown": "Once / Combat",
                 "Degree": "Major",
-                "Effect": "A Unit takes 2d6 + ^Your Dexterity^ Slash Damage.\n\n{Brown('Wind:')} Push it 3 meters (any direction).\n{Brown('Water:')} +1d6 Damage\n",
+                "Font": "Wild",
+                "Effect": "A Unit takes 2d6 + ^Your Dexterity^ Slash Damage.\n",
+                "Combo": "Slam it a number of meters equal to one of the rolled dice, in any direction.",
                 "EffectGreen": "Usable while Shapeshifted.",
                 "Notes": "Cover is applied normally.",
                 "HasMixins": true,
@@ -318,9 +335,10 @@
                 "A": "1 Action",
                 "Cost": "1 Mana",
                 "Cooldown": "Once / Adventure",
-                "Effect": "All Enemies within 4 meters of you take 2d6 Pierce Damage and become Double-Slowed.\n\n{Brown('Nature:')} 6 meters instead.\n{Brown('Earth:')} 2d8 Damage instead.\n",
+                "Font": "Wild",
+                "Effect": "All Enemies within 4 meters of you take 2d6 Pierce Damage and become Slowed.\n",
+                "Combo": "A Comboed Enemy hit becomes Double-Slowed",
                 "EffectGreen": "Usable while Shapeshifted.",
-                "HasMixins": true,
                 "ParentKey": "Level 4 - Minor Talent"
             },
             "~Lightning Storm~": {
@@ -330,7 +348,9 @@
                 "HasMixins": true,
                 "Cooldown": "Once / Combat",
                 "Degree": "Major",
-                "Effect": "Choose a 4x4x4 meter cube.\nAll units inside take 3d4 Shock Damage now. If a unit carries anything made of metal or is wet, it takes 100% more Damage.\n\n{Brown('Wind:')} 4d4 Damage instead.\n{Brown('Nature:')} The Damage triggers again at the start of your next Turn in the same area.\n",
+                "Effect": "Choose a 4x4x4 meter cube.\nAll units inside take 4d4 Shock Damage now. Deals +50% Damage to wet Units, or Units carrying anything made of metal, it takes +50% Damage.\n",
+                "Combo": "Each Comboed Unit has the Damage repeated at the start of your next Turn.",
+                "Notes": "Roll the dice again for the second trigger due to the Combo.",
                 "ParentKey": "Level 4 - Minor Talent"
             },
             "<Brineborne Lullaby>": {
@@ -338,8 +358,9 @@
                 "A": "1 Action",
                 "Cost": "2 Mana",
                 "Cooldown": "Once / Adventure",
-                "Effect": "Choose yourself.\nHeal the chosen Unit for 1d8 for each 10 Health it is missing, and all Units within 2 meters of it for half the final amount just Healed.\n\n{Brown('Water:')} For each 7 Health missing instead.\n{Brown('Earth:')} Choose any Unit instead.\n",
-                "HasMixins": true,
+                "Range": "2 meters",
+                "Effect": "Heal a Unit for 1d8 for each 10 Health it is missing, and all Units within 2 meters of it for 50% of that amount.\n",
+                "Combo": "Unlimited range, and 1d10 for each 10 Health it is missing.",
                 "ParentKey": "Level 4 - Minor Talent"
             },
             "~FURY~": {
@@ -407,6 +428,7 @@
             "~Camouflage~": {
                 "A": "0 Actions",
                 "Cooldown": "Once / Adventure",
+                "Font": "Wild",
                 "Effect": "You and all your pets (if any) become camouflaged and turn effectively invisible and causing no sound, undetectable by the naked eye.\nWhile camouflaged, your Movement is halved.\nYou appear, however, in mirrors, reflections and in recordings (as well as your sounds).\n",
                 "ParentKey": "Level 6 - Utility Talent"
             }

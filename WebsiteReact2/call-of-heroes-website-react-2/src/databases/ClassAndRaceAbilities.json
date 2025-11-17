@@ -197,6 +197,7 @@
             "Protection",
             "Combo"
         ],
+        "Font": "Divine",
         "Effect": "Use before a Unit you can see would take Damage (before the roll), or on your Turn.\nIt becomes surrounded in a divine golden shield.\nThis (or next) time it would take Damage, it is completely blocked.\nIf used on your Turn, apply a Combo.\n",
         "ParentKey": "Level 3 - Minor Talent"
     },
@@ -209,6 +210,7 @@
         "Tags": [
             "Damage"
         ],
+        "Font": "Divine",
         "Effect": "A shining light bursts onto a Unit, dealing 2d8 + ^Sense^ Divine Damage to it.\nThe next time someone would cast a Spell that affects that Unit, the caster can reroll any of the spell's dice, at most one reroll for each die.\n",
         "Notes": "This affects AoE effects and healing abilities too.",
         "ParentKey": "Level 3 - Minor Talent"
@@ -957,6 +959,7 @@
         "HasMixins": true,
         "Duration": "Until cancelled (0 AP) or you Fall",
         "Height": 120,
+        "Font": "Wild",
         "Effect": "Transform into a medium-sized animal or a mystical beast resembling one you've encountered this Campaign. It has 2 features of choice from below (up to your Level).\nWhile Shapeshifted, you can Animal Attack for Half-Action.\n",
         "Subspells": {
             "~Animal Attack~": {
@@ -1115,9 +1118,9 @@
         "Cost": "1 Mana",
         "Duration": "Whole Adventure",
         "Degree": "Major",
-        "Effect": "Up to 2 allies gain 1d4 Health Regen each.\n\n{Brown('Nature:')} +1 Unit affected.\n{Brown('Water:')} 1d6 instead.\n",
+        "Font": "Wild",
+        "Effect": "Up to 2 allies gain 1d6 Health Regen each.\n",
         "Combo": "A Comboed target gains +1 Max Health permanently.",
-        "HasMixins": true,
         "ParentKey": "Level 2 - Minor Talent"
     },
     "~Wind Chaser~": {
@@ -1125,9 +1128,9 @@
         "A": "0 Actions",
         "Cooldown": "Once / Combat",
         "Degree": "Lesser",
-        "Effect": "Your next targeted attack or Spell curves around obstacles, ignoring Cover and dealing +1 Damage.\n\n{Brown('Wind:')} +1d4 Damage instead.\n{Brown('Earth:')} And Slows it.\n",
+        "Font": "Wild",
+        "Effect": "Your next targeted attack or Spell curves around obstacles, ignoring Cover.\nApply a Combo to the target.\n",
         "Notes": "You still need Line of Sight to the target.",
-        "HasMixins": true,
         "ParentKey": "Level 2 - Minor Talent"
     },
     "~Earth Shield~": {
@@ -1135,10 +1138,9 @@
         "Cost": "1 Mana",
         "Duration": "Until end of Adventure",
         "Degree": "Minor",
-        "Effect": "A Unit you can see gains 2 Shieldings that block 1d4 Damage each.\n\n{Brown('Earth:')} 1d6 instead.\n{Brown('Nature:')} 3 Shieldings instead.\n",
+        "Effect": "A Unit you can see gains 2 Shieldings that block 1d6 Damage each.\n",
+        "Combo": "3 Shieldings instead",
         "EffectGreen": "Usable while Shapeshifted.",
-        "Notes": "Lasts for 24 hours or until you rolled the d4 3 times. Does not stack multiple times with itself.",
-        "HasMixins": true,
         "ParentKey": "Level 2 - Minor Talent"
     },
     "~Nami~": {
@@ -1147,8 +1149,8 @@
         "HasMixins": true,
         "Degree": "Major",
         "Cooldown": "Once / Combat",
-        "Effect": "Send out a 4x1 meter wave forward. Each Unit* hit takes 2d8 Cold Damage.\nThe first Unit hit is Slowed.\n\n{Brown('Water:')} Allies hit are Healed for 1d6 instead of taking Damge.\n{Brown('Wind:')} 6x2 meter wave instead.\n",
-        "Notes": "If in a Water environment/domain, Allies are Healed and Enemies are Damaged. Otherwise, all Units hit are Damaged.",
+        "Effect": "Send out a 4x1 meter wave forward. Each Unit* hit takes 2d8 Cold Damage.\nThe first Unit hit is Slowed.\n",
+        "Combo": "If you have a Combo on yourself, consume it to increase the area to 6x3 meters instead.",
         "ParentKey": "Level 2 - Minor Talent"
     },
     "~Domain Animal Attack~": {
@@ -1157,7 +1159,7 @@
         "A": "Half-Action",
         "Damage": "1d6 + Any Stat",
         "Replacement": "Replaces Animal Attack",
-        "Effect": "{Brown('Nature:')} ~Heal for 10% of the attack's Damage.~\n{Brown('Earth:')} ~Taunt the target.~\n{Brown('Water:')} ~+2 range.~\n{Brown('Wind:')} ~1d8 Damage instead of 1d6.~\n",
+        "Effect": "Your Animal Attack has an effect based on both your and _current domain environments_:\n\n{Brown('Nature:')} ~Heal for 10% of the attack's Damage.~\n{Brown('Earth:')} ~Taunt the target.~\n{Brown('Water:')} ~+2 range.~\n{Brown('Wind:')} ~1d8 Damage instead of 1d6.~\n",
         "Range": "1 meter",
         "Stat": "Smash, Slash or Pierce",
         "EffectGreen": "Critical Strike - if you roll maximum, apply a Combo.",
@@ -1187,7 +1189,9 @@
         "Range": "5 meters",
         "Cooldown": "Once / Combat",
         "Degree": "Major",
-        "Effect": "A Unit takes 2d6 + ^Your Dexterity^ Slash Damage.\n\n{Brown('Wind:')} Push it 3 meters (any direction).\n{Brown('Water:')} +1d6 Damage\n",
+        "Font": "Wild",
+        "Effect": "A Unit takes 2d6 + ^Your Dexterity^ Slash Damage.\n",
+        "Combo": "Slam it a number of meters equal to one of the rolled dice, in any direction.",
         "EffectGreen": "Usable while Shapeshifted.",
         "Notes": "Cover is applied normally.",
         "HasMixins": true,
@@ -1197,9 +1201,10 @@
         "A": "1 Action",
         "Cost": "1 Mana",
         "Cooldown": "Once / Adventure",
-        "Effect": "All Enemies within 4 meters of you take 2d6 Pierce Damage and become Double-Slowed.\n\n{Brown('Nature:')} 6 meters instead.\n{Brown('Earth:')} 2d8 Damage instead.\n",
+        "Font": "Wild",
+        "Effect": "All Enemies within 4 meters of you take 2d6 Pierce Damage and become Slowed.\n",
+        "Combo": "A Comboed Enemy hit becomes Double-Slowed",
         "EffectGreen": "Usable while Shapeshifted.",
-        "HasMixins": true,
         "ParentKey": "Level 4 - Minor Talent"
     },
     "~Lightning Storm~": {
@@ -1209,7 +1214,9 @@
         "HasMixins": true,
         "Cooldown": "Once / Combat",
         "Degree": "Major",
-        "Effect": "Choose a 4x4x4 meter cube.\nAll units inside take 3d4 Shock Damage now. If a unit carries anything made of metal or is wet, it takes 100% more Damage.\n\n{Brown('Wind:')} 4d4 Damage instead.\n{Brown('Nature:')} The Damage triggers again at the start of your next Turn in the same area.\n",
+        "Effect": "Choose a 4x4x4 meter cube.\nAll units inside take 4d4 Shock Damage now. Deals +50% Damage to wet Units, or Units carrying anything made of metal, it takes +50% Damage.\n",
+        "Combo": "Each Comboed Unit has the Damage repeated at the start of your next Turn.",
+        "Notes": "Roll the dice again for the second trigger due to the Combo.",
         "ParentKey": "Level 4 - Minor Talent"
     },
     "<Brineborne Lullaby>": {
@@ -1217,8 +1224,9 @@
         "A": "1 Action",
         "Cost": "2 Mana",
         "Cooldown": "Once / Adventure",
-        "Effect": "Choose yourself.\nHeal the chosen Unit for 1d8 for each 10 Health it is missing, and all Units within 2 meters of it for half the final amount just Healed.\n\n{Brown('Water:')} For each 7 Health missing instead.\n{Brown('Earth:')} Choose any Unit instead.\n",
-        "HasMixins": true,
+        "Range": "2 meters",
+        "Effect": "Heal a Unit for 1d8 for each 10 Health it is missing, and all Units within 2 meters of it for 50% of that amount.\n",
+        "Combo": "Unlimited range, and 1d10 for each 10 Health it is missing.",
         "ParentKey": "Level 4 - Minor Talent"
     },
     "~Runeback Form~": {
@@ -1402,7 +1410,7 @@
     },
     "~Elderform~": {
         "_Value": 1,
-        "Effect": "You have extra available features originating from the flora and microbiomes of the outdoors.\n\n{Brown('Nature:')} You regenerate 1d4 Health at the end of every Turn.\n{Brown('Earth:')} After you are attacked from 1 meter away, deal 1d4 Damage back to the attacker.\n{Brown('Water:')} At the end of the Adventure, the Quest Master gives you an additional positive Quirk.\n{Brown('Wind:')} Your Animal Attack has 5 meters range and deals Fire, Cold, Shock or Poison Damage.\n",
+        "Effect": "You have extra available features originating from the flora and microbiomes of the outdoors, based on both your and _current domain environments_:\n\n{Brown('Nature:')} You regenerate 1d4 Health at the end of every Turn.\n{Brown('Earth:')} After you are attacked from 1 meter away, deal 1d4 Damage back to the attacker.\n{Brown('Water:')} At the end of the Adventure, the Quest Master gives you an additional positive Quirk.\n{Brown('Wind:')} Your Animal Attack has 5 meters range and deals Fire, Cold, Shock or Poison Damage.\n",
         "HasMixins": true,
         "ParentKey": "Level 3 - Keystone Talent"
     },
@@ -1426,7 +1434,7 @@
     },
     "~Primalform~": {
         "_Value": null,
-        "Effect": "You gain extra animal features originating from creatures of the wild and mysterious.\n\n{Brown('Nature:')} First Shapeshifted Animal Attack hits one more Unit within 2 meters of the main target.\n{Brown('Earth:')} When Shapeshifting, permanently increase your current and Max Health by 0.5.\n{Brown('Water:')} At the end of the Adventure, the Quest Master gives you an additional positive Quirk.\n{Brown('Wind:')} First Shapeshifted Animal Attack Slams the target 1d4 meters in any direction.\n",
+        "Effect": "You gain extra animal features originating from creatures of the wild and mysterious, based on both your and _current domain environments_:\n\n{Brown('Nature:')} First Shapeshifted Animal Attack hits one more Unit within 2 meters of the main target.\n{Brown('Earth:')} When Shapeshifting, permanently increase your current and Max Health by 0.5.\n{Brown('Water:')} At the end of the Adventure, the Quest Master gives you an additional positive Quirk.\n{Brown('Wind:')} First Shapeshifted Animal Attack Slams the target 1d4 meters in any direction.\n",
         "HasMixins": true,
         "ParentKey": "Level 3 - Keystone Talent"
     },
@@ -1501,6 +1509,7 @@
     "~Breathing Technique~": {
         "A": "0 Actions",
         "Cooldown": "Once / real hour",
+        "Font": "Warfare",
         "Effect": "You can breathe underwater for up to 1d20 minutes and swim at your normal speed.",
         "ParentKey": "Level 6 - Utility Talent"
     },
@@ -2254,6 +2263,7 @@
         "DisplayName": "{Element} Burst",
         "Range": "5 meters",
         "Degree": "Minor",
+        "Font": "Elemental",
         "Effect": "Damage a Unit for 2d6 {Element} Damage.\nDeals +1d10 Damage if the target had taken {Element} Damage this combat before.\n~Click on the Spell Icon to select the preferred Element!~\n",
         "Notes": "These are considered different Spells.",
         "Variants": [
@@ -2289,6 +2299,7 @@
         "Cooldown": "Once / Turn",
         "Range": "Near you",
         "Degree": "Lesser",
+        "Font": "Elemental",
         "Effect": "All Units 3x3 meter area take 4 Fire Damage.\n",
         "Combo": "If any affected Unit has a Combo, +50% total Damage (to all) and does not trigger the Cooldown.",
         "Tag": "AoE (Half)",
@@ -2339,6 +2350,7 @@
         "DisplayName": "Control {Element}",
         "Range": "5 meters",
         "Cooldown": "Your Level uses / Adventure",
+        "Font": "Elemental",
         "Effect": "{DoWhat}\n",
         "Notes": "{ElementNotes}\nApply common sense. The QM has the final word on whether something is possible.\n",
         "Tag": "Utility",
@@ -2438,6 +2450,7 @@
         "Cost": "1 Mana",
         "Range": "10 meters",
         "Degree": "Major",
+        "Font": "Elemental",
         "Effect": "Shoot 3 rays of fire (at one or more Units). Each does 1d10 Fire Damage.",
         "Notes": "You can roll them one by one, after they deal the daWizard.",
         "Tag": "Damage (1)",
@@ -2478,6 +2491,7 @@
         "Range": "3 meters",
         "Duration": "24 hours / Depends",
         "Requirement": "Level 2",
+        "Font": "Elemental",
         "Degree": "Minor",
         "Effect": "Choose a metallic weapon to imbue it with {Element}.\nThat weapon deals +2 Damage (as part of the Attack) and the total weapon Damage becomes {Element} Damage.\n\n~Click on the Spell Icon to select the preferred Element!~\n",
         "Upgrade": "Lasts until the end of the next (or current) combat, or for up to 24 hours.",
@@ -2770,6 +2784,7 @@
         "AlignOnWebsite": "Right",
         "A": "1 Action",
         "Cost": "1 Mana",
+        "Font": "Chaos",
         "Effect": "Declare up to 4 different targets you can see.\nAssign a different number from #1 to #4 to each.\nRoll a number of d4's equal to your last rolled Unstable Spark die. Each d4 rolled deals that much Pulse Damage to the target with that number.\nEach rolled 1 deals 1 Damage to target number #1, each rolled 2 deals 2 Damage to target number #2, and so on.\n",
         "Notes": "E.g. if you put #2 on a goblin, and you roll three 2's on the d4's, then that goblin takes 6 Pulse Damage.\nYou should probably assign the higher number to the target you want to do most Damage to.\nYou can declare fewer targets, but then the missing number will deal Damage to no target.\nCover is applied normally.\n",
         "ParentKey": "Level 4 - Minor Talent"
@@ -2783,6 +2798,7 @@
         "Cost": "3 Mana",
         "Range": "10 meters to edge",
         "Degree": "Grand",
+        "Font": "Chaos",
         "Effect": "Declare an area with a diameter in meters (in all directions) equal to your Level.\nThe gravity becomes reversed in that area and all Units instantly fall upwards. Units can make a Dexterity Check to grab onto an object to not be lifted.\nUnits suffer fall Damage if they fall onto a ceiling.\nWhen the effect ends, all Units fall at half velocity (and take half of the fall Damage). The same happens to a Unit if it exits the area.\nLasts for up to 1 minute. You can cancel this effect at will.\n",
         "Notes": "Fall Damage is 1d6 for every 2 meters fallen (e.g. 1d6 for 2 and 3 meters, 2d6 for 4 and 5 meters, etc).\n",
         "ParentKey": "Level 6 - Utility Talent"
@@ -3097,7 +3113,7 @@
         "HasMixins": true,
         "Degree": "Minor",
         "Tags": "Healing",
-        "Effect": "Heal a target for 1d4 + ^Presence or Intelligence^ Health.\nAfter this, if the target is at full Health, repeat this on another target within 5 meters of you.\n",
+        "Effect": "Heal a target for 1d4 + ^Charisma or Intelligence^ Health.\nAfter this, if the target is at full Health, repeat this on another target within 5 meters of you.\n",
         "Combo": "If the target is Comboed and still not full Health, increase the Healing by 50%.",
         "Notes": "Yes, this can chain again and again.",
         "ParentKey": "Ability Choices"
@@ -3141,6 +3157,7 @@
         "A": "0 Actions",
         "Cooldown": "1 real hour",
         "Range": "3 meters",
+        "Font": "Warfare",
         "Effect": "Slam the ground so hard that it shatters one obstacle that fits within a 3x3x3 meter area.\n",
         "Notes": "It is the Quest Master's call if an obstacle can be broken. Most walls can't be broken, except for thinner ones and fences.",
         "ParentKey": "Utility"
@@ -3456,7 +3473,7 @@
     "<March of the Chosen>": {
         "A": "Passive",
         "AlignOnWebsite": "Left",
-        "Effect": "Your entire party joins the crusade! All player characters in your party have the Crusade Ability, the same Tier 1 Talent you have and access to the Divine Ability List.\nAlso, your entire party gains +1 Might and +1 Presence.\n",
+        "Effect": "Your entire party joins the crusade! All player characters in your party have the Crusade Ability, the same Tier 1 Talent you have and access to the Divine Ability List.\nAlso, your entire party gains +1 Might and +1 Charisma.\n",
         "HasMixins": true,
         "Downside": "{Ultimate}",
         "ParentKey": "Level 10 - Ultimate Talent"
@@ -3802,6 +3819,7 @@
         "A": "0 Actions",
         "Cooldown": "Once / Adventure",
         "Degree": "Major",
+        "Font": "Warfare",
         "Effect": "Leap up to 3 meters. If you land on a Unit, Doublesault again (for free)!\n",
         "Notes": "You leap from Unit to Unit until you no longer land on a Unit. If you land on a Unit, you must leap again. You can't leap on the same Unit twice; if you do, you end your leap in the closest space near it.\nYou can use this even while in the air and it cancels out your current fall or acceleration.            \n",
         "ParentKey": "Utility"
@@ -4277,6 +4295,7 @@
         "Requirement": "Level 3",
         "Degree": "Lesser",
         "Tags": "Roleplaying",
+        "Font": "Eldritch",
         "Effect": "A person you can see must pass a Presensce Roll against your Presensce Roll or have its Initiative (rolls) halved, have -2 to non-combat Rolls, and be afflicted by minor curse effects (e.g. is clumsy, stumbles, get pimples, etc).\n",
         "Notes": "Be creative with the effects of the minor curse effects!\n",
         "ParentKey": "Utility"
@@ -4696,9 +4715,9 @@
             "Damage",
             "Multi-Target Damage"
         ],
-        "Effect": "Blast a Unit for 2d8 + ^target's Might^ Damage of your chosen Element.\n\n{Evoke}: Hits an extra Unit (for 1d8 + ^that Unit's Might^) for each Evoke Point spend.\n",
-        "Combo": "Generates an extra Evoke Point.",
-        "Notes": "Each extra Unit hit must be different than the others.",
+        "Font": "Eldritch",
+        "Effect": "Blast a Unit for 2d8 + ^target's Might^ Scourge Damage.\n",
+        "Combo": "Hits 1 extra Unit within range for 50% of the original Damage.",
         "ParentKey": "Ability Choices"
     },
     "~Wyrd Renewal~": {
@@ -4710,9 +4729,9 @@
             "Healing",
             "Damage"
         ],
-        "Effect": "Roll 1d12 - 5. After you see the result, choose a Worthy Unit.\nIf it's negative, deal Scourge Damage to it. Otherwise, heal it.\n\n{Evoke}: +50% Damage or Healing per Evoke Point spent.\n",
-        "Combo": "+50% Damage or Healing",
-        "HasMixins": true,
+        "Font": "Eldritch",
+        "Effect": "Roll 1d12 - 5. After you see the result, choose a Worthy Unit.\nIf it's negative, deal Scourge Damage to it. Otherwise, heal it.\n",
+        "Combo": "+50% Damage or Healing per Combo consumed.",
         "ParentKey": "Ability Choices"
     },
     "~Deathfire Flame~": {
@@ -4721,9 +4740,9 @@
         "Range": "10 meters",
         "Degree": "Major",
         "Tags": "Area Damage",
-        "Effect": "Shoot a bolt of deathly fire in a 1x10 meter line. All Units it touches take 1d4 + 1d6 + 1d8 Scourge or Fire Damage (your choice).\n\n{Evoke}: Deals an extra ^higher^ die Damage for each Evoke Point spent.\n",
-        "Notes": "For 1 Evoke Point, deals +1d10 Damage. For 2 spent, deals +1d10 + 1d12. And so on.",
-        "HasMixins": true,
+        "Font": "Eldritch",
+        "Effect": "Shoot a bolt of deathly fire in a 1x10 meter line. All Units it touches take 1d4 + 1d6 + 1d8 Scourge or Fire Damage (your choice).\n",
+        "Combo": "If one or more Units hit has a Combo, ALL Units hit take +1d10 Damage.",
         "ParentKey": "Ability Choices"
     },
     "~Curse of Weakness~": {
@@ -4733,9 +4752,10 @@
         "Duration": "1 minute",
         "Degree": "Minor",
         "Tags": "Debuff",
-        "Effect": "Choose a Unit. The first time it deals Damage on its every Turn, roll 1d4 and subtract it from its dealt Damage.\n\n{Evoke}: Has ^Dice Upgraded^ for each Evoke Point spent.\n",
+        "Font": "Eldritch",
+        "Effect": "Choose a Unit. The first time it deals Damage on its every Turn, roll 1d4 and subtract it from its dealt Damage.\n",
+        "Combo": "1d6 instead",
         "Upgrade": "Only affects an Epic monster's first turn.",
-        "HasMixins": true,
         "ParentKey": "Level 2 - Minor Talent"
     },
     "~Curse of Pain~": {
@@ -4781,6 +4801,7 @@
         "A": "1 Action",
         "Range": "5 meters",
         "Degree": "Lesser",
+        "Font": "Eldritch",
         "Effect": "You create one of the following magical effects:\n{Diamond} Your voice booms up to three times as loud as normal for 1 minute.\n{Diamond} You cause flames to flicker, brighten, dim, or change color for 1 minute.\n{Diamond} You cause harmless tremors in the ground for 1 minute.\n{Diamond} You cause an unlocked door or window to fly open or slam shut.\n{Diamond} You alter the appearance of your eyes for 1 minute.\n",
         "Upgrade": "At Level 4 you can cast this for Half-Action, and at Level 7, for 0 Actions.\n",
         "ParentKey": "Utility"
@@ -4817,8 +4838,8 @@
         "A": "Half-Action",
         "Cost": "1 Mana",
         "Range": "5 meters",
-        "Effect": "Deal 6 True Damage to 2 Units.\nFor each killed, heal for 4 Health or gain +1 Max Health permanently (your choice).\n\n{Evoke}: Hits 1 extra Unit per Evoke Point spent.\n",
-        "HasMixins": true,
+        "Font": "Eldritch",
+        "Effect": "Deal 10 True Damage to a Unit.\nIf it dies, heal for 4 Health or gain +1 Max Health permanently (your choice).\n",
         "ParentKey": "Level 2 - Minor Talent"
     },
     "~Empower~": {
@@ -4868,12 +4889,14 @@
         "ParentKey": "Level 3 - Keystone Talent"
     },
     "~Curse of Frailty~": {
-        "_Value": "Baseline, 0, but can go up to 1 if used correctly",
+        "_Value": 0.5,
         "A": "Half-Action",
         "Cost": "1 Mana",
         "Tags": "Debuff",
-        "Effect": "A Unit you can see takes +50% Damage the next time it takes Damage from an ally.\n\n{Evoke}: +50% extra Damage per Evoke Point spent.\n",
-        "HasMixins": true,
+        "Range": "5 meters",
+        "Font": "Eldritch",
+        "Effect": "A Unit you can see becomes Frail.\n",
+        "Combo": "Get the Half-Action spent back.",
         "ParentKey": "Level 4 - Minor Talent"
     },
     "~Invoke Kindred~": {
@@ -4946,6 +4969,7 @@
         "Cooldown": "1 hour",
         "Range": "10 meters",
         "Degree": "Lesser",
+        "Font": "Eldritch",
         "Effect": "Channel to spawn a blight that spreads a 1x1 meter space away from a chosen space for each 1 Action channeled.\nThe blight kills small plants, insects and rots wood and rusts metal. It also makes fertile soil infertile, turns textile and paper materials into dust and decays food and poisons water.\nYou can channel a number of times (Actions) equal to your Level.\nWhile within the Blight, you have +1 to all non-combat Rolls.\n",
         "Notes": "You can choose to ommit some of the effects of this blight.\nThis Ability is not meant for combat.\nBe creative with how you use this little Spell!\n",
         "ParentKey": "Level 6 - Utility Talent"
@@ -5334,6 +5358,7 @@
     "~Break Mountains~": {
         "A": "1 Action",
         "Cost": "1 Mana",
+        "Font": "Warfare",
         "Effect": "Pick up an object up to 2x2x2 meters in size, and throw it 3d10 meters in any direction. If it hits a Unit, it takes Damage equal to the number of meters left (e.g. similar to Slamming)",
         "EffectGreen": "Critical Strike - for each max die rolled, deal +1d6 Damage and, if it's an object, it breaks on impact!",
         "Upgrade": "You can instead pick up an enemy and Slam it a number of meters equal to half the rolled dice.",
@@ -5344,6 +5369,7 @@
         "Cost": "1 Mana",
         "DisplayName": "{Name}",
         "Degree": "Major",
+        "Font": "Warfare",
         "Effect": "Roll 2d10 for each Unit {Area}\nAssign 2 of the rolled d10's to each of those Units, and deal that much Damage Damage to each.\n~Click on the Icon to select a preferred effect!~\n",
         "Upgrade": "The Ability is Whirlwind if a melee weapon is equipped, or Rain Death if a ranged weapon is equipped.",
         "Notes": "Each rolled die ^must^ be assigned to a Unit.\nThe Damage type depends on the weapon currently equipped. Doesn't apply weapon effects (the weapon only matters for the Damage type).\n",
@@ -5537,6 +5563,7 @@
     },
     "~Bull Rush~": {
         "A": "Passive",
+        "Font": "Warfare",
         "Effect": "If you move at least 3 meters in a straight line and then melee Attack a target on the same line, the Attack gains +1 for every 3 meters moved in the straight line.",
         "Notes": "Works if mounted or if using Abilities that dash or jump (in a straight line), but teleporting interrupts this.",
         "ParentKey": "Level 2 - Minor Talent"
@@ -6215,6 +6242,16 @@
         "Notes": "You can only add the 1d6 once per turn. The d6's can stack (from multiple Spells that cost Mana, one after another).",
         "ParentKey": "Starting Abilities"
     },
+    "~Domain (Alt)~": {
+        "_Value": 0,
+        "A": "Passive",
+        "IsIgnored": true,
+        "HasMixins": true,
+        "Effect": "Choose a _domain environment_ from: {Brown('Nature, Water, Air, Earth')}.\nYour Abilities may have extra effects based both on your _domain_, and the current _environment_:\n\n{Brown('Nature:')} Right before you spend Mana, apply a Combo to a Unit you can see\n{Brown('Water:')} +1d4 Healing you do\n{Brown('Wind:')} +2 Range on all Acts and +1 Movement Speed\n{Brown('Earth:')} After you spend Mana, Slow one Unit you can see\n",
+        "Upgrade": "The Quest Master determines what environment you're in. It's possible to not be in any domain (e.g. urban areas, interiors, etc).",
+        "Notes": "Nature (Forests, Jungles, etc), Water (Lakes, Swamps, etc), Air (Fields, Mountains, etc) and Earth (Deserts, Caves, etc).\n",
+        "ParentKey": "Ideas"
+    },
     "~Lick Wounds~": {
         "_Value": 1.25,
         "A": "Half-Action",
@@ -6668,6 +6705,7 @@
             "Healing",
             "Combo"
         ],
+        "Font": "Divine",
         "Effect": "Heal an ally (or yourself) for ~1d10~ Health.\nIf they have 50% or more Health before the heal, double the result!\n",
         "Combo": "Cast Awe ~twice~.",
         "HasMixins": true,
@@ -6762,8 +6800,9 @@
     "~Chaos Storm~": {
         "A": "1 Action",
         "Requirement": "Only usable in Worthy Combat",
-        "Effect": "Roll an Unstable Spark die (and apply its effect if any).\nDeal that much Damage of that Damage Type to exactly that many Worthy Units you can see.\n",
-        "Notes": "Roll for a random Damage type from the following: 1. Pierce, 2. Slash, 3. Pulse, 4. Poison, 5. Acid, 6. Divine, 7. Scourge, 8. Shock, 9. Cold, 10. Fire.\nTargeting Worthy Units is mandatory, and you count as a Worthy Unit.\nIf your Unstable Spark is higher than 10, you can choose the Damage Type.\n",
+        "Font": "Chaos",
+        "Effect": "Roll 1d10.\nDeal that much Damage of that Damage Type to exactly that many Worthy Units you can see.\n",
+        "Notes": "Roll for a random Damage type from the following: 1. Pierce, 2. Slash, 3. Pulse, 4. Poison, 5. Acid, 6. Divine, 7. Scourge, 8. Shock, 9. Cold, 10. Fire.\nTargeting Worthy Units is mandatory, and you count as a Worthy Unit.\n",
         "ParentKey": "Ability Choices"
     },
     "~Gathering the Magic~": {
@@ -6776,28 +6815,29 @@
     "~Soulflare~": {
         "_Value": 0,
         "A": "Half-Action",
-        "Range": "4 meters",
+        "Range": "5 meters",
         "Cost": "1 Mana",
-        "Effect": "Deal {Amount} Damage to {ToWhat} (of your chosen Flux).\n\n~You have access to all Variants of this Spell (click on the icon to select the preferred effect)!~\n",
+        "Font": "Chaos",
+        "Effect": "Deal {Amount} Damage to {ToWhat}.\n\n~You have access to all Variants of this Spell (click on the icon to select the preferred effect)!~\n",
         "Variants": [
             {
                 "DisplayA": "0 Actions",
-                "Amount": "1d8",
+                "Amount": "1d8 Fire",
                 "ToWhat": "1 Unit"
             },
             {
                 "DisplayA": "Half-Action",
-                "Amount": "1d6 + 1d8",
+                "Amount": "1d6 + 1d8 Shock",
                 "ToWhat": "2 Units"
             },
             {
                 "DisplayA": "1 Action",
-                "Amount": "1d6 + 1d8 + 1d10",
+                "Amount": "1d6 + 1d8 + 1d10 Scourge",
                 "ToWhat": "3 Units"
             },
             {
                 "DisplayA": "3 Action Points",
-                "Amount": "1d6 + 1d8 + 1d10 + 1d12",
+                "Amount": "1d6 + 1d8 + 1d10 + 1d12 True",
                 "ToWhat": "4 Units"
             }
         ],
@@ -6819,7 +6859,7 @@
     "~Poetic Justice~": {
         "A": "Reaction",
         "Cooldown": "Once / real hour",
-        "Requirement": "Requires Level 3",
+        "Font": "Chaos",
         "Effect": "At any point where it's fit, you can call for a _poetic justice moment_, representing a living metaphor, turning a situation around, karma, irony, or coming full circle.\nIn the next 10 real minutes, an event may happen that can be interpreted as _poetic justice_, which could be either good or bad for your team.\nThe Quest Master may fumble one die roll or alter the current situation so that it reflects a _poetic moment_.\n",
         "Upgrade": "There may be no place for poetic justice at that time, and it's possible nothing happens as the result of this.",
         "Notes": "They can be events such as being saved by your worst enemy, or a xenophobic person being discriminated against by someone else who is xenophobic. Or perhaps a goblin dies by an arrow to the kn-, I mean shoulder, after he launched an arrow in someone else's shoulder.",
@@ -6860,27 +6900,28 @@
         "Cost": "1 Mana",
         "Replacement": "Replaces Soulflare",
         "Requirement": "Requires Soulflare",
-        "Effect": "Deal {Amount} Damage to {ToWhat} (of your chosen Flux).\n\n~You have access to all Variants of this Spell (click on the icon to select the preferred effect)!~\n",
+        "Font": "Chaos",
+        "Effect": "Deal {Amount} Damage to {ToWhat}.\n\n~You have access to all Variants of this Spell (click on the icon to select the preferred effect)!~\n",
         "Notes": "~The Damage is higher than the regular Soulflare.~",
         "Variants": [
             {
                 "DisplayA": "0 Actions",
-                "Amount": "1d10",
+                "Amount": "1d10 Fire",
                 "ToWhat": "1 Unit"
             },
             {
                 "DisplayA": "Half-Action",
-                "Amount": "1d8 + 1d10",
+                "Amount": "1d8 + 1d10 Shock",
                 "ToWhat": "2 Units"
             },
             {
                 "DisplayA": "1 Action",
-                "Amount": "1d8 + 1d10 + 1d12",
+                "Amount": "1d8 + 1d10 + 1d12 Scourge",
                 "ToWhat": "3 Units"
             },
             {
                 "DisplayA": "3 Action Points",
-                "Amount": "1d8 + 1d10 + 1d12 + 1d14",
+                "Amount": "1d8 + 1d10 + 1d12 + 1d14 True",
                 "ToWhat": "4 Units"
             }
         ],
@@ -6896,6 +6937,20 @@
         "Notes": "{Feared}",
         "ParentKey": "Level 7 - Keystone Talent"
     },
+    "~Betwixing~": {
+        "A": "0 Actions",
+        "Requirement": "Requires spending at least 1 Evoke Point",
+        "Effect": "{Evoke}: Your next single-target Ability targets one extra Unit per Evoke Point spent (but deals -50% Damage or Healing to these secondary targets).\n",
+        "HasMixins": true,
+        "ParentKey": "Ideas"
+    },
+    "~Subjugate~": {
+        "A": "0 Actions",
+        "Requirement": "Requires spending at least 1 Evoke Point",
+        "Effect": "{Evoke}: Your next single-target Ability Single-Stuns the target for each Evoke Point spent.\n",
+        "HasMixins": true,
+        "ParentKey": "Ideas"
+    },
     "~Hail Torrent~": {
         "A": "1 Action",
         "Range": "4 meters",
@@ -6905,6 +6960,7 @@
         "HasUpgradeIcon": true,
         "Replacement": "Replaces Hail",
         "Requirement": "Requires Hail",
+        "Font": "Eldritch",
         "Tags": [
             "Damage",
             "Multi-Target Damage"
@@ -6926,6 +6982,7 @@
         "A": "1 Action",
         "Cost": "1 Mana",
         "IconName": "Break Mountains",
+        "Font": "Warfare",
         "HasUpgradeIcon": true,
         "Requirement": "Requires Break Mountains",
         "Replacement": "Replaces Break Mountains",
@@ -6946,6 +7003,7 @@
         "Range": "5 meters",
         "Replacement": "Replaces Element Burst",
         "Requirement": "Requires Element Burst",
+        "Font": "Elemental",
         "Degree": "Minor",
         "Effect": "Damage a Unit for ~2d8~ {Element} Damage.\nDeals ~+1d12~ Damage if the target had taken {Element} Damage this combat before.\n~Click on the Spell Icon to select the preferred Element!~\n",
         "Notes": "These are considered different Spells.",
@@ -6974,6 +7032,7 @@
         "HasMixins": true,
         "Requirement": "Rime Shackles",
         "Replacement": "Replaces Shackles",
+        "Font": "Elemental",
         "Degree": "Major",
         "Effect": "Deal Cold Damage to a Unit equal to 2d8 + ^Its Dexterity^. ~It becomes Slowed~.\n",
         "Combo": "This either hits one more Unit within 2 meters of it, or also Single-Stuns the target.",

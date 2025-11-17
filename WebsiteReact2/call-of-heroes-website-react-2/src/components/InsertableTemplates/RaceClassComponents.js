@@ -22,6 +22,7 @@ import Icon from '../Icon'
 
 import rules from '../../databases/Rules/Rules.json'
 import abilities from '../../databases/Abilities.json'
+import abilityFonts from '../../databases/AbilityFonts.json'
 import classAndRaceAbilities from '../../databases/ClassAndRaceAbilities.json'
 import ManySpells from '../Spell/ManySpells'
 import TableNormalLevelUpWarlock from '../TableNormal/TableNormalLevelUpWarlock'
@@ -835,9 +836,15 @@ export function ClassPageV2({
     console.log({onSpellClick})
 
     let [innerSelectedSpecName, setInnerSelectedSpecName] = useState(null)
+    let [selectedFontName, setSelectedFontName] = useState('Wild')
 
     const finalSelectedSpecName = selectedSpecName ?? innerSelectedSpecName
     const selectedSpecObj = finalSelectedSpecName == null? null: theClass.Specs[finalSelectedSpecName]
+    const fontTalents = abilityFonts[selectedFontName]
+
+    const getStartingAbilitiesWithFont = () => U.mergeObjects(theClass['Ability Choices'], fontTalents['Ability Choices'] )
+    const getClassTalentsWithFont = () => U.addObjects(theClass.Talents, {...fontTalents, 'Ability Choices': undefined})
+
 
     function onSpecClick(specName) {
         if (setSelectedSpecName != null) {
@@ -847,6 +854,23 @@ export function ClassPageV2({
         }
         setSelectedSpellNames?.([])
     }
+
+    function FontTabs() {
+        const fontNames = Object.keys(abilityFonts)
+        const fontColumns = U.splitArrayEvenly(fontNames, 2)
+        console.log({fontNames, fontColumns})
+
+        return <div className='flex row full-width gap-half'>
+            { fontColumns.map(names => (
+                <div className='flex column gap-half flex-1'>
+                    { names.map(fontName => (
+                        <Selector name={fontName} src={''} isSelected={selectedFontName == fontName} onClick={() => setSelectedFontName(fontName)}/>
+                    ))}
+                </div>
+            )) }
+        </div>
+    }
+
 
     return (
         <div>            
@@ -869,6 +893,8 @@ export function ClassPageV2({
                 
                 <LevelingUp theClass={theClass} isCharacterCreationPage={true}/>
 
+                <FontTabs/>
+
                 <QGTitle1 text={"Starting Talents"} height={45}/>
 
                 { theClass['Other Abilities'] != null && (
@@ -888,7 +914,7 @@ export function ClassPageV2({
                     <div>
                         <PageH2>Level 1 - Minor Talent</PageH2>
                         <ManySpells
-                            spells={theClass['Ability Choices']}
+                            spells={getStartingAbilitiesWithFont()}
                             description={theClass['Ability Choices Description']}
                             selectedSpellNames={selectedSpellNames}
                             onSpellClick={onSpellClick}
@@ -986,12 +1012,10 @@ export function ClassPageV2({
 }
 
 function calculateSpellsObjectAveragePower(obj) {
-    console.log({obj})
     const spells = U.spellsFromObject(obj)
     const powers = spells
         .map(a => parseFloat(a._Value))
         .filter(value => value != null && U.isNumber(value))
-    console.log({powers})
     return parseFloat(U.average(powers).toFixed(2))
 }
 function calculateSpellsObjectTotalPower(obj) {

@@ -84,10 +84,12 @@ Ability Choices:
         HasMixins: true
         Degree: Minor
         Tags: [Damage, Multi-Target Damage]
-        Font: Eldritch
         Effect: |
-            Blast a Unit for 2d8 + ^target's Might^ Scourge Damage.
-        Combo: Hits 1 extra Unit within range for 50% of the original Damage.
+            Blast a Unit for 2d8 + ^target's Might^ Damage of your chosen Element.
+
+            {Evoke}: Hits an extra Unit (for 1d8 + ^that Unit's Might^) for each Evoke Point spend.
+        Combo: Generates an extra Evoke Point.
+        Notes: Each extra Unit hit must be different than the others.
 
     ~Wyrd Renewal~: # Adds healing
         A: Half-Action
@@ -95,11 +97,12 @@ Ability Choices:
         Degree: Lesser
         Requirement: Only usable in Worthy Combat
         Tags: [Healing, Damage]
-        Font: Eldritch
         Effect: |
             Roll 1d12 - 5. After you see the result, choose a Worthy Unit.
             If it's negative, deal Scourge Damage to it. Otherwise, heal it.
-        Combo: +50% Damage or Healing per Combo consumed.
+
+            {Evoke}: +50% Damage or Healing per Evoke Point spent.
+        Combo: +50% Damage or Healing
 
     ~Deathfire Flame~:  # Adds insane Damage (+1/EP)
         A: 1 Action
@@ -107,10 +110,11 @@ Ability Choices:
         Range: 10 meters
         Degree: Major
         Tags: Area Damage
-        Font: Eldritch
         Effect: |
             Shoot a bolt of deathly fire in a 1x10 meter line. All Units it touches take 1d4 + 1d6 + 1d8 Scourge or Fire Damage (your choice).
-        Combo: If one or more Units hit has a Combo, ALL Units hit take +1d10 Damage.
+
+            {Evoke}: Deals an extra ^higher^ die Damage for each Evoke Point spent.
+        Notes: For 1 Evoke Point, deals +1d10 Damage. For 2 spent, deals +1d10 + 1d12. And so on.
 
     ~Curse of Pain~:  # Adds DoT (+0.5/EP)
         A: 0 Actions
@@ -164,7 +168,6 @@ Utility:
         Requirement: Level 3
         Degree: Lesser
         Tags: Roleplaying
-        Font: Eldritch
         Effect: |
             A person you can see must pass a Presensce Roll against your Presensce Roll or have its Initiative (rolls) halved, have -2 to non-combat Rolls, and be afflicted by minor curse effects (e.g. is clumsy, stumbles, get pimples, etc).
         Notes: |
@@ -198,7 +201,6 @@ Utility:
         A: 1 Action
         Range: 5 meters
         Degree: Lesser
-        Font: Eldritch
         Effect: |
             You create one of the following magical effects:
             {Diamond} Your voice booms up to three times as loud as normal for 1 minute.
@@ -219,10 +221,11 @@ Talents:
       A: Half-Action
       Cost: 1 Mana
       Range: 5 meters
-      Font: Eldritch
       Effect: |
-        Deal 10 True Damage to a Unit.
-        If it dies, heal for 4 Health or gain +1 Max Health permanently (your choice).
+        Deal 6 True Damage to 2 Units.
+        For each killed, heal for 4 Health or gain +1 Max Health permanently (your choice).
+
+        {Evoke}: Hits 1 extra Unit per Evoke Point spent.
 
     ~Empower~:  # No idea
       _Value: Combo, irdk
@@ -250,10 +253,10 @@ Talents:
         Duration: 1 minute
         Degree: Minor
         Tags: Debuff
-        Font: Eldritch
         Effect: |
           Choose a Unit. The first time it deals Damage on its every Turn, roll 1d4 and subtract it from its dealt Damage.
-        Combo: 1d6 instead
+
+          {Evoke}: Has ^Dice Upgraded^ for each Evoke Point spent.
         Upgrade: Only affects an Epic monster's first turn.
 
   Level 3 - Keystone Talent:
@@ -290,15 +293,14 @@ Talents:
   Level 4 - Minor Talent:
 
     ~Curse of Frailty~: # Adds massive Damage
-        _Value: 0.5 # Baseline 0, but can go up to 1 if used correctly
+        _Value: Baseline, 0, but can go up to 1 if used correctly
         A: Half-Action
         Cost: 1 Mana
         Tags: Debuff
-        Range: 5 meters
-        Font: Eldritch
         Effect: |
-          A Unit you can see becomes Frail.
-        Combo: Get the Half-Action spent back.
+          A Unit you can see takes +50% Damage the next time it takes Damage from an ally.
+
+          {Evoke}: +50% extra Damage per Evoke Point spent.
 
     ~Hail Torrent~:   # Adds AoE (+0.65/EP)
         A: 1 Action
@@ -309,7 +311,6 @@ Talents:
         HasUpgradeIcon: true
         Replacement: Replaces Hail
         Requirement: Requires Hail
-        Font: Eldritch
         Tags: [Damage, Multi-Target Damage]
         Effect: |
             Blast a Unit for ~2d10~ + ^target's Might^ Damage of your chosen Element.
@@ -394,7 +395,6 @@ Talents:
         Cooldown: 1 hour
         Range: 10 meters
         Degree: Lesser
-        Font: Eldritch
         Effect: |
             Channel to spawn a blight that spreads a 1x1 meter space away from a chosen space for each 1 Action channeled.
             The blight kills small plants, insects and rots wood and rusts metal. It also makes fertile soil infertile, turns textile and paper materials into dust and decays food and poisons water.

@@ -17,20 +17,12 @@ const shouldGenerateSpecificFiles = process.argv.length > 2
 console.log({shouldGenerateSpecificFiles, argv: process.argv})
 const specificFiles = process.argv.slice(1)
 
-let abilities = {}
-let classRaceAbilities = {} 
-
-function readYAMLFromFile(fileName) {
-    const fileContents = fs.readFileSync(fileName, 'utf8');
-    const data = parse(fileContents);
-    return data
-}
-
-const classes = []         // Polulated at runtime (Array<string>)
-const races = []           // Polulated at runtime (Array<string>)
-let backgrounds = []       // Polulated at runtime
-let rulesLists = []        // Polulated at runtime ( title: "X", children: [...])
-let rulesDicts = []        // Polulated at runtime ("X": [...])
+let abilities = {}              // Only used in runtime, not written to file
+let classRaceAbilities = {}     // Written to file at the end
+const classNames = []           // Polulated at runtime (Array<string>)
+const raceNames = []            // Polulated at runtime (Array<string>)
+let backgrounds = []            // Polulated at runtime
+let spellFonts = {}             // Polulated at runtime { 'Divine': { "Level 1 - Minor Talent": { "Solace Wave": ... } } }
 
 const filesToConvert = [    // Order matters
     // 'Abilities.yml',
@@ -208,6 +200,7 @@ function recordAbilitiesFrom(fromDict, toDict, parentKey=null) {
             maybeAddHasMixins(subobj)
             subobj.ParentKey = parentKey
             toDict[key] = subobj;
+            onAbilityParsed(key, subobj, parentKey)
         }
 
         if (typeof subobj !== 'object' || Array.isArray(subobj)) {
@@ -217,49 +210,27 @@ function recordAbilitiesFrom(fromDict, toDict, parentKey=null) {
         recordAbilitiesFrom(subobj, toDict, key);
     }
 }
-        
 
-function getFormatSectionsObjectList(dictContentList) {
-    const sectionObjectList = dictContentList;
-    const newChildren = [];
-
-    for (const child of sectionObjectList) {
-        const onlyKey = Object.keys(child)[0];
-        const value = child[onlyKey];
-
-        const newChild = {
-            title: onlyKey,
-            value: typeof value === 'string'
-                ? value
-                : getFormatSectionsObjectList(value)
-        };
-
-        newChildren.push(newChild);
-    }
-
-    return newChildren;
-}
-
-
-function getFormatSectionsObjectDict(dictContentList) {
-    function getRecursiveSection(sectionObjectContent) {
-        if (typeof sectionObjectContent === 'string') {
-            return sectionObjectContent;
-        } else if (typeof sectionObjectContent[0] === 'string') {
-            return sectionObjectContent;
-        } else {
-            const newObject = {};
-            for (const child of sectionObjectContent) {
-                const onlyKeyOfChild = Object.keys(child)[0];
-                newObject[onlyKeyOfChild] = getRecursiveSection(child[onlyKeyOfChild]);
-            }
-            return newObject;
-        }
-    }
-
-    return getRecursiveSection(dictContentList);
-}
+function onAbilityParsed(name, ability, parentKey) {
+    let { Font } = ability
     
+    if (Font == null) {
+        return
+    }
+
+    const thisAbilityFonts = Array.isArray(Font)? Font: [Font]
+
+    for (const fontName of thisAbilityFonts) {
+        if (spellFonts[fontName] == null) {
+            spellFonts[fontName] = {}
+        }
+        if (spellFonts[fontName][parentKey] == null) {
+            spellFonts[fontName][parentKey] = {}
+        }
+        spellFonts[fontName][parentKey][name] = ability
+    }
+}
+
 
 async function processFiles() {
     for (const fileName of filesToConvert) {
@@ -291,34 +262,22 @@ async function processFiles() {
         //     recordAbilitiesFrom(dictContent, abilities);
         //     normalizeInheritAbilities(dictContent);
         // }
-        // if (fileName === 'Backgrounds.yml' || fileName === 'Proficiencies.yml') {
-        //     recordAbilitiesFrom(dictContent, abilities);
-        //     normalizeInheritAbilities(dictContent);
-        // }
-        // if (fileName === 'Backgrounds.yml') {
-        //     backgrounds = Object.keys(dictContent);
-        // }
 
         if (fileName.includes('Feats.yml')) {
             addNameToSpellsRecursively(dictContent);
             recordAbilitiesFrom(dictContent, abilities);
         }
 
-        // if (fileName.includes('Rules.yml')) {
-        //     rulesLists = getFormatSectionsObjectList(dictContent);
-        //     rulesDicts = getFormatSectionsObjectDict(dictContent);
-        // }
-
 
         if ('Class' in dictContent) {
-            classes.push(dictContent.Class)
+            classNames.push(dictContent.Class)
             recordAbilitiesFrom(dictContent, abilities);
             normalizeInheritAbilities(dictContent);
             recordAbilitiesFrom(dictContent, classRaceAbilities);
         }
 
         if ('Race' in dictContent) {
-            races.push(dictContent.Race)
+            raceNames.push(dictContent.Race)
             recordAbilitiesFrom(dictContent, abilities);
             normalizeInheritAbilities(dictContent);
             recordAbilitiesFrom(dictContent, classRaceAbilities);
@@ -343,8 +302,8 @@ async function processFiles() {
 
     if (!shouldGenerateSpecificFiles) {
         const overallData = {
-            Races: races,
-            Classes: classes,
+            Races: raceNames,
+            Classes: classNames,
             Backgrounds: backgrounds
         };
 
@@ -358,6 +317,12 @@ async function processFiles() {
             fs.writeFileSync(
                 path.join(jsonRootFolder, 'ClassAndRaceAbilities.json'),
                 JSON.stringify(classRaceAbilities, null, 4),
+                'utf-8'
+            );
+            
+            fs.writeFileSync(
+                path.join(jsonRootFolder, 'AbilityFonts.json'),
+                JSON.stringify(spellFonts, null, 4),
                 'utf-8'
             );
 
