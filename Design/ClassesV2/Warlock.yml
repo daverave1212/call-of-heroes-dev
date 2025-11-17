@@ -31,20 +31,6 @@ Spellcasting:
   BaseKnownSpells: 2
 
 
-Ideas:
-
-  ~Betwixing~:
-    A: 0 Actions
-    Requirement: Requires spending at least 1 Evoke Point
-    Effect: |
-      {Evoke}: Your next single-target Ability targets one extra Unit per Evoke Point spent (but deals -50% Damage or Healing to these secondary targets).
-
-  ~Subjugate~:
-    A: 0 Actions
-    Requirement: Requires spending at least 1 Evoke Point
-    Effect: |
-      {Evoke}: Your next single-target Ability Single-Stuns the target for each Evoke Point spent.
-
 
 Starting Abilities:
 
@@ -76,99 +62,8 @@ Starting Abilities:
     Notes: |
       The Class and Element you choose must be thematically tied to your power source, but you can theme it however you want! Be creative!
 
-Ability Choices:
-
-    ~Hail~:   # Adds AoE (+0.65/EP)
-        A: 1 Action
-        Range: 4 meters
-        HasMixins: true
-        Degree: Minor
-        Tags: [Damage, Multi-Target Damage]
-        Font: Eldritch
-        Effect: |
-            Blast a Unit for 2d8 + ^target's Might^ Scourge Damage.
-        Combo: Hits 1 extra Unit within range for 50% of the original Damage.
-
-    ~Wyrd Renewal~: # Adds healing
-        A: Half-Action
-        Range: 5 meters
-        Degree: Lesser
-        Requirement: Only usable in Worthy Combat
-        Tags: [Healing, Damage]
-        Font: Eldritch
-        Effect: |
-            Roll 1d12 - 5. After you see the result, choose a Worthy Unit.
-            If it's negative, deal Scourge Damage to it. Otherwise, heal it.
-        Combo: +50% Damage or Healing per Combo consumed.
-
-    ~Deathfire Flame~:  # Adds insane Damage (+1/EP)
-        A: 1 Action
-        Cost: 1 Mana
-        Range: 10 meters
-        Degree: Major
-        Tags: Area Damage
-        Font: Eldritch
-        Effect: |
-            Shoot a bolt of deathly fire in a 1x10 meter line. All Units it touches take 1d4 + 1d6 + 1d8 Scourge or Fire Damage (your choice).
-        Combo: If one or more Units hit has a Combo, ALL Units hit take +1d10 Damage.
-
-    ~Curse of Pain~:  # Adds DoT (+0.5/EP)
-        A: 0 Actions
-        Cost: 1 Mana
-        Range: 5 meters
-        Duration: 1 minute
-        Requirement: Level 4
-        Tags: Damage
-        Effect: |
-            Choose a Unit. At the start of each of your Turns, it takes 1d4 Scourge Damage (ignoring Cover).
-
-            {Evoke}: Has ^Dice Upgraded^ for each Evoke Point spent.
-
-    ~Psyche Blast~: # Adds CC (+1/EP)
-        A: 1 Action
-        Range: 3 meters
-        Cost: 1 Mana
-        HasMixins: true
-        Degree: Major
-        Tags: [Damage, Crowd Control]
-        Effect: |
-            A Unit takes 4d6 Psychic Damage.
-            Apply a ~Combo~ to it.
-
-            {Evoke}: Single-Stuns the target for each Evoke Point spent.
-        Notes: |
-            Cover is applied normally. Note that Single-Stuns can stack to become Double-Stunned or Triple-Stunned.
-
-    ~Ebon Lance~: # Adds single-target Damage (+0.65/EP)
-      _Value: 0.75
-      A: 0 Actions
-      Cost: 1 Mana
-      Effect: |
-        Your next {Type} weapon attack deals {Amount} Damage.
-        The Damage Types becomes of your chosen element Type.
-
-        {Evoke}: +1d4 per Evoke Point spent.
-      Variants:
-        - Type: melee
-          Amount: 1d6
-        - Type: ranged
-          Amount: 1d4
 
 Utility:
-
-    ~Disenchantment~ :
-        HasMixins: true
-        A: 0 Actions
-        Duration: Until end of Adventure
-        Cooldown: 1 real hour
-        Requirement: Level 3
-        Degree: Lesser
-        Tags: Roleplaying
-        Font: Eldritch
-        Effect: |
-            A person you can see must pass a Presensce Roll against your Presensce Roll or have its Initiative (rolls) halved, have -2 to non-combat Rolls, and be afflicted by minor curse effects (e.g. is clumsy, stumbles, get pimples, etc).
-        Notes: |
-            Be creative with the effects of the minor curse effects!
 
     ~Compel~:
         A: 0 Actions
@@ -193,70 +88,25 @@ Utility:
             At will, a Tuner Eye allows you to see what it sees, live, in your mind.
             A Recording Eye records everything it sees. You can retrieve it to see everything recorded in it.
 
-    ~Thaumaturgy~:
-        HasMixins: true
-        A: 1 Action
-        Range: 5 meters
-        Degree: Lesser
-        Font: Eldritch
-        Effect: |
-            You create one of the following magical effects:
-            {Diamond} Your voice booms up to three times as loud as normal for 1 minute.
-            {Diamond} You cause flames to flicker, brighten, dim, or change color for 1 minute.
-            {Diamond} You cause harmless tremors in the ground for 1 minute.
-            {Diamond} You cause an unlocked door or window to fly open or slam shut.
-            {Diamond} You alter the appearance of your eyes for 1 minute.
-        Upgrade: |
-            At Level 4 you can cast this for Half-Action, and at Level 7, for 0 Actions.
-
 
 Talents:
+  Level 1 - Evoke Talent:
 
-  Level 2 - Minor Talent:
-    
-    ~Soul Drain~: # Adds AoE farming (+1.25/EP)
-      _Value: 0.25
-      A: Half-Action
-      Cost: 1 Mana
-      Range: 5 meters
-      Font: Eldritch
-      Effect: |
-        Deal 10 True Damage to a Unit.
-        If it dies, heal for 4 Health or gain +1 Max Health permanently (your choice).
-
-    ~Empower~:  # No idea
-      _Value: Combo, irdk
+    ~Betwixing~:
       A: 0 Actions
-      Cost: 1 Mana
+      Requirement: Requires spending at least 1 Evoke Point
       Effect: |
-        Your next Spell has its ^Dice Upgraded^ to the next die type.
+        {Evoke}: Your next single-target Ability targets one extra Unit per Evoke Point spent (but deals -50% Damage or Healing to these secondary targets).
 
-        {Evoke}: Has ^Dice Upgraded^ one type higher per Evoke Point spent.
-      Upgrade: A die that goes higher than d12 just gets a +1 per extra type.
-      Notes: "{DiceUpgraded}"
-
-    ~Veinlight~:  # Adds opportunity
-      A: 3 Action Points
-      Range: 5 meters to edge
+    ~Subjugate~:
+      A: 0 Actions
+      Requirement: Requires spending at least 1 Evoke Point
       Effect: |
-        All Units in a 2x2 meter area take 3d4 Damage of your chosen Element and are Single-Stunned.
+        {Evoke}: Your next single-target Ability Single-Stuns the target for each Evoke Point spent.
 
-        {Evoke}: +1 meter area (all directions).
 
-    ~Curse of Weakness~:  # Improves debuff
-        A: Half-Action
-        Range: 5 meters
-        Cost: 1 Mana
-        Duration: 1 minute
-        Degree: Minor
-        Tags: Debuff
-        Font: Eldritch
-        Effect: |
-          Choose a Unit. The first time it deals Damage on its every Turn, roll 1d4 and subtract it from its dealt Damage.
-        Combo: 1d6 instead
-        Upgrade: Only affects an Epic monster's first turn.
 
-  Level 3 - Keystone Talent:
+  Level 2 - Keystone Talent:
 
     ~Aura of Ruin~:
       _Value: 2.5
@@ -287,60 +137,7 @@ Talents:
         You start the first Combat of each Adventure with 1 Evoke Point.
         You age 12 times as rapidly.
 
-  Level 4 - Minor Talent:
-
-    ~Curse of Frailty~: # Adds massive Damage
-        _Value: 0.5 # Baseline 0, but can go up to 1 if used correctly
-        A: Half-Action
-        Cost: 1 Mana
-        Tags: Debuff
-        Range: 5 meters
-        Font: Eldritch
-        Effect: |
-          A Unit you can see becomes Frail.
-        Combo: Get the Half-Action spent back.
-
-    ~Hail Torrent~:   # Adds AoE (+0.65/EP)
-        A: 1 Action
-        Range: 4 meters
-        HasMixins: true
-        Degree: Minor
-        IconName: Hail
-        HasUpgradeIcon: true
-        Replacement: Replaces Hail
-        Requirement: Requires Hail
-        Font: Eldritch
-        Tags: [Damage, Multi-Target Damage]
-        Effect: |
-            Blast a Unit for ~2d10~ + ^target's Might^ Damage of your chosen Element.
-
-            {Evoke}: Hits an extra Unit (for ~1d10~ + ^that Unit's Might^) for each Evoke Point spend.
-        Combo: Generates an extra Evoke Point.
-        Notes: Each extra Unit hit must be different than the others.
-
-    ~Invoke Kindred~: # Adds summon (implicitly adds defense) (0.75/EP)
-      A: 1 Action
-      Range: 10 meters to each invoked point
-      Cost: 1 Mana
-      Duration: 1 minute
-      Height: 30
-      Effect: |
-        Invoke 3 _Kindred Beings_, each within 10 meters from you. These are creatures themed and shaped to your chosen Power Source, which will do your bidding before returning to their original world.
-
-        {Evoke}: +1 summon per Evoke Point spent.
-      Monster:
-        Name: Kindred Being
-        Health: 1
-        Description: Has a Half-Action. Takes its Turn at the end of your Turn.
-        Speed: 4 meters
-        Stats: 0/0/0/0/0
-        Abilities:
-            ~Attack~:
-                A: Half-Action (from it)
-                Range: 3 meters
-                Effect: Deal 1d6 Damage of your chosen Element, or use an Item or Default Ability.
-
-  Level 5 - Keystone Talent:
+  Level 4 - Keystone Talent:
 
     <Blood Pact>:       # 2? Can be strong but not _that_ strong
       _Value: 2
@@ -382,43 +179,13 @@ Talents:
       Notes: |
         You need Line of Sight to the destination point.
 
-  Level 6 - Utility Talent:
-
-    ~Translation~:
-        A: Passive
-        Degree: Lesser
-        Effect: You can understand any spoken or written language that's either Common (Dwarvish, Elvish) or Wild (spoken by "wild", tribal socities, such as Orcish, Goblan, Sylvan, etc).
-
-    ~Decaying Blight~:
-        A: Channeled
-        Cooldown: 1 hour
-        Range: 10 meters
-        Degree: Lesser
-        Font: Eldritch
-        Effect: |
-            Channel to spawn a blight that spreads a 1x1 meter space away from a chosen space for each 1 Action channeled.
-            The blight kills small plants, insects and rots wood and rusts metal. It also makes fertile soil infertile, turns textile and paper materials into dust and decays food and poisons water.
-            You can channel a number of times (Actions) equal to your Level.
-            While within the Blight, you have +1 to all non-combat Rolls.
-        Notes: |
-            You can choose to ommit some of the effects of this blight.
-            This Ability is not meant for combat.
-            Be creative with how you use this little Spell!
-
-
-
   Level 7 - Keystone Talent:
     <Placeholder>:
       Effect: None
 
-
-
   Level 9 - Keystone Talent:
     <Placeholder>:
       Effect: None
-
-
-
 
   Level 10 - Ultimate Talent:
 

@@ -26,6 +26,7 @@ let spellFonts = {}             // Polulated at runtime { 'Divine': { "Level 1 -
 
 const filesToConvert = [    // Order matters
     // 'Abilities.yml',
+    'AbilityFonts.yml',
     'Animals.yml',
     'Armors.yml',
     'Feats.yml',
@@ -212,23 +213,7 @@ function recordAbilitiesFrom(fromDict, toDict, parentKey=null) {
 }
 
 function onAbilityParsed(name, ability, parentKey) {
-    let { Font } = ability
-    
-    if (Font == null) {
-        return
-    }
 
-    const thisAbilityFonts = Array.isArray(Font)? Font: [Font]
-
-    for (const fontName of thisAbilityFonts) {
-        if (spellFonts[fontName] == null) {
-            spellFonts[fontName] = {}
-        }
-        if (spellFonts[fontName][parentKey] == null) {
-            spellFonts[fontName][parentKey] = {}
-        }
-        spellFonts[fontName][parentKey][name] = ability
-    }
 }
 
 
@@ -317,12 +302,6 @@ async function processFiles() {
             fs.writeFileSync(
                 path.join(jsonRootFolder, 'ClassAndRaceAbilities.json'),
                 JSON.stringify(classRaceAbilities, null, 4),
-                'utf-8'
-            );
-            
-            fs.writeFileSync(
-                path.join(jsonRootFolder, 'AbilityFonts.json'),
-                JSON.stringify(spellFonts, null, 4),
                 'utf-8'
             );
 

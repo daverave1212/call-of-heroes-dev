@@ -56,85 +56,6 @@ Spellcasting:
   BaseKnownSpells: 3
 
 
-Ability Choices:
-
-    ~Element Burst~:
-        A: 1 Action
-        DisplayName: "{Element} Burst"
-        Range: 5 meters
-        Degree: Minor
-        Font: Elemental
-        Effect: |
-            Damage a Unit for 2d6 {Element} Damage.
-            Deals +1d10 Damage if the target had taken {Element} Damage this combat before.
-            ~Click on the Spell Icon to select the preferred Element!~
-        Notes: These are considered different Spells.
-        Variants:
-            - Element: Fire
-              IconName: Fire Burst
-            - Element: Cold
-              IconName: Cold Burst
-            - Element: Shock
-              IconName: Shock Burst
-        Tag: Damage (1)
-
-    ~Magic Arrows~:
-        A: Half-Action
-        Range: 5 meters
-        HasMixins: true
-        Degree: Minor
-        Effect: |
-            Shoot 2 arcane arrows. Each does 1d4 Pulse Damage.
-            This turn, each arrow after the first into the same target deals only 1d2 instead.
-        Combo: 2 more arcane arrows shoot from the target into any targets within 5 meters of it. They ignore the same-target penalty.
-        Notes: |
-            When you cast this, decide the targets before rolling the dice. Roll the dice for each target at a time.
-
-    ~Burning Breath~:
-        A: Half-Action
-        Cooldown: Once / Turn
-        Range: Near you
-        Degree: Lesser
-        Font: Elemental
-        Effect: |
-            All Units 3x3 meter area take 4 Fire Damage.
-        Combo: If any affected Unit has a Combo, +50% total Damage (to all) and does not trigger the Cooldown.
-        Tag: AoE (Half)
-
-    ~Volt Guard~:    
-        A: Reaction
-        Range: 5 meters
-        Cost: 1 Mana
-        Effect: |
-          Use when a Unit would take Damage (after roll). Negate 50% of the incoming Damage and return it back to the source as Shock Damage.
-          Apply a ~Combo~ to either of them.
-        Upgrade: The returned Damage is a quick lightning that bends around obstacles, ignoring Cover or Line of Sight.
-        Tag: Protection
-
-    ~Rime Shackles~:
-        A: 1 Action
-        Range: 5 meters
-        Cost: 1 Mana
-        HasMixins: true
-        Degree: Major
-        Effect: |
-            Deal Cold Damage to a Unit equal to 1d12 + ^Its Dexterity^.
-            If it's non-Epic and Medium or smaller, Root it.
-        Combo: This either hits one more Unit within 2 meters of it, or also Single-Stuns the target.
-        Tag: CC Hard
-
-    ~North Star~:
-        A: 3 Action Points
-        Range: 15 meters
-        Cost: 1 Mana
-        Degree: Major
-        Effect: |
-            You conjure a magical star that always shoots North and deals 5d10 Pulse Damage to the first Unit hit.
-        Combo: The star explodes, dealing 50% of the total Damage to all other Units within 2 meters of the hit target.
-        Notes: |
-            You can only shoot the star towards North - without an angle.
-            Ask the DM which way North is (if your character knows that).
-
 Utility:
 
   ~Learn Scrolls~:    # 0
@@ -143,51 +64,6 @@ Utility:
       If you have a Scroll that contains a Basic Ability (e.g. from Arcane, Nature, etc), you can destroy it to Know it permanently, without needing to learn it inbetween Adventures.
     Notes: You can not learn Class Abilities from Scrolls. Of course, you still need to spend Mana and respect the Cooldown of said Ability.
     AlignOnWebsite: Left
-
-  ~Control Elements~:
-      Degree: Lesser
-      HasMixins: true
-      A: 1 Action
-      DisplayName: Control {Element}
-      Range: 5 meters
-      Cooldown: Your Level uses / Adventure
-      Font: Elemental
-      Effect: |
-          {DoWhat}
-      Notes: |
-          {ElementNotes}
-          Apply common sense. The QM has the final word on whether something is possible.
-      Tag: Utility
-      Variants:
-        - Element: Fire
-          DoWhat: |
-            Target a 2x2x2 meter cube containing Fire.
-            Choose any of the following to do with it:
-            🔹 Move it up to 5 meters in any direction
-            🔹 Extinguish it
-            🔹 Lower or increase its intensity or light emission by 50%
-            🔹 Roughly alter its shape and/or color
-          ElementNotes: A Unit that touches the fire takes 2 Damage.
-          IconName: Control Elements
-        - Element: Water
-          DoWhat: |
-            Target a 1 meter cube containing {Element}.
-            Choose any of the following to do with it:
-            🔹 Move it up to 5 meters in any direction
-            🔹 Destroy it
-            🔹 Lower or increase its temperature down to near-freezing or near-boiling
-            🔹 Roughly its shape and/or color
-          IconName: Control Elements
-          ElementNotes: Water is Hard Terrain. A Unit that touches near-boiling or near-freezing water takes 2 Damage.
-
-  ~Flash~:
-      A: Reaction (or 0 Actions)
-      Cost: 1 Mana
-      Cooldown: Once / Turn
-      Degree: Minor
-      Requirement: Level 3
-      Effect: Instantly teleport up to 5 meters away, within line of sight.
-      Notes: You take with you all items carried. Does not work if you're Rooted or stuck in place somehow.
 
   ~Magic Tricks~:
       A: 1 Action
@@ -201,18 +77,6 @@ Utility:
           {Diamond} Channel to create simple, small, harmless illusions in your hand or within 3 meters.
           {Diamond} Instantly clean or soil objects.
           {Diamond} Control a quill with telekinesis to quickly write with it.
-
-  ~Feather Fall~ :
-      A: Reaction or 0 Actions
-      Requirement: Level 4
-      Range: 10 meters
-      Degree: Minor
-      Effect: |
-          Up to 2 Units you choose will start falling gently, down to 3 meters per round.
-          Once the fall finishes, the spell effect ends.
-      Notes: |
-          Arcane Feathers can be bought in most towns.
-          For faster gameplay, you can spend 10 gold when casting the spell, and buy the feather later.
 
   ~Longblade~:
       A: 0 Actions
@@ -283,76 +147,6 @@ Talents:
     #   Notes: |
     #     {DiceUpgrade}
 
-  Level 3 - Minor Talent:
-
-    ~Searing Arrows~:
-      A: 1 Action
-      Cost: 1 Mana
-      Range: 10 meters
-      Degree: Major
-      Font: Elemental
-      Effect: Shoot 3 rays of fire (at one or more Units). Each does 1d10 Fire Damage.
-      Notes: You can roll them one by one, after they deal the daWizard.
-      Tag: Damage (1)
-
-    ~Countermagic~:
-        A: Reaction
-        Cooldown: Once / Round
-        Cost: 1 Mana
-        Effect: |
-            Use when a Unit you can see wants to cast a Spell. That spell becomes cancelled. The caster loses any resources spent on it, Half-Action and can't cast that Spell this Round.
-            Apply a ~Combo~ to that Unit.
-
-    ~Conduit Flow~:
-        A: 1 Action
-        Cost: 1 Mana
-        Range: 5 meters to first target
-        Degree: Major
-        Effect: |
-            Choose a Worthy Unit other than you. If Enemy, it takes 1d10 Shock Damage. Otherwise, Heal it for 1d8.
-            If there is another Unit within 2 meters of it, repeat Conduit Flow on the new Unit (you choose if multiple).
-        Notes: Each Unit can be affected by Conduit Flow only once per cast. Cover is calculated from Unit to Unit (as if the conduit is jumping from Unit to Unit). The conduit can be repeated on you as long as you're not the first target.
-
-    ~Magic Arrow Barrage~:
-        A: 1 Action
-        Cost: 1 Mana
-        Range: 10 meters to edge
-        Cooldown: Once / Combat
-        Degree: Major
-        Effect: |
-            Conjure floating arrows in a 3x3 area, up to 10 meters above ground.
-            At any point (for 0 Actions or with a Reaction), you can release these arrows downward. All Enemies hit take 2d6 Pierce Damage.
-            
-        Upgrade: At the start of your every Turn, if the barrage is not yet released, it increases by 1 meter in size in all directions and gains 1d4 Damage when it will be released (up to +3d4 and 9x9).
-        Notes: |
-            E.g. every turn, it goes from 3x3 to 5x5, then 7x7, then 9x9, etc and deals from 2d6 Damage to 2d6 + 1d4, then 2d6 + 2d4, etc.
-            The arrows disappear as soon as they hit ground, or when dismissed (all at once) for free at any point, or after 1 minute of staying in the air.
-
-    ~Element Enchantment~:
-        DisplayName: "{Element} Enchantment"
-        A: 1 Action
-        Cost: 1 Mana
-        Range: 3 meters
-        Duration: 24 hours / Depends
-        Requirement: Level 2
-        Font: Elemental
-        Degree: Minor
-        Effect: |
-            Choose a metallic weapon to imbue it with {Element}.
-            That weapon deals +2 Damage (as part of the Attack) and the total weapon Damage becomes {Element} Damage.
-
-            ~Click on the Spell Icon to select the preferred Element!~
-        Upgrade: Lasts until the end of the next (or current) combat, or for up to 24 hours.
-        Notes: Does not stack with other weapon enchantments from Spells. These are considered different Spells.
-        Tag: Buff
-        Variants:
-            - Element: Fire
-              IconName: Fire Enchantment
-            - Element: Cold
-              IconName: Cold Enchantment
-            - Element: Shock
-              IconName: Shock Enchantment
-
 
   Level 4 - Keystone Talent:
   
@@ -401,59 +195,8 @@ Talents:
         {Diamond} Double its range
         You can spend 1 {Mana}Mana to cast this ignoring its Cooldown.
 
-  Level 5 - Minor Talent:
-
-    ~Element Blast~:
-        A: 1 Action
-        DisplayName: "{Element} Blast"
-        Range: 5 meters
-        Replacement: Replaces Element Burst
-        Requirement: Requires Element Burst
-        Font: Elemental
-        Degree: Minor
-        Effect: |
-            Damage a Unit for ~2d8~ {Element} Damage.
-            Deals ~+1d12~ Damage if the target had taken {Element} Damage this combat before.
-            ~Click on the Spell Icon to select the preferred Element!~
-        Notes: These are considered different Spells.
-        Variants:
-            - Element: Fire
-              IconName: Fire Blast
-            - Element: Cold
-              IconName: Cold Blast
-            - Element: Shock
-              IconName: Shock Blast
-        Tag: Damage (1)
-
-    ~Frost Shackles~:
-        A: 1 Action
-        Range: 5 meters
-        Cost: 1 Mana
-        HasMixins: true
-        Requirement: Rime Shackles
-        Replacement: Replaces Shackles
-        Font: Elemental
-        Degree: Major
-        Effect: |
-            Deal Cold Damage to a Unit equal to 2d8 + ^Its Dexterity^. ~It becomes Slowed~.
-        Combo: This either hits one more Unit within 2 meters of it, or also Single-Stuns the target.
-        Tag: CC Hard
-
   Level 6 - Utility Talent:
 
-    ~Levitate~ :
-        A: 1 Action
-        Cost: 1 Mana
-        Degree: Major
-        Range: 10 meters
-        Effect: |
-            First, roll 2d100. That's how many kilograms you can levitate when you cast this.
-            Levitate one object or Unit you can see and move it as you like as long as it is and remains within 10 meters of you.
-            On each of your Turns, you can spend 1 Action to keep the Object levitated or move it again. Otherwise, it falls slowly and the Spell ends.
-        Upgrade: |
-            A levitated Unit is Slowed perpetually.
-            At Level 8, the amount increases to 5d100.
-        Notes: Lasts until you don't spend 1 Action, or you become at least Single-Stunned.
 
     ~Major Illusion~:
         A: 1 Action

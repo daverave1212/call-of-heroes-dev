@@ -637,6 +637,16 @@ export function sortObjectArrayByKey(array, keyName) {
 export function sortSpellsArrayByOrderOnWebsite(array) {
     return sortObjectArrayByKey(array, 'OrderOnWebsite')
 }
+export function sortStringArrayNaturally(arr) {
+    const newArr = [...arr]
+    newArr.sort((a, b) => {
+        const numA = parseInt(a.match(/\d+/));
+        const numB = parseInt(b.match(/\d+/));
+        if (numA !== numB) return numA - numB;
+        return a.localeCompare(b);
+    });
+    return newArr
+}
 
 export function insertBetweenAll(array, insertWhat) {
     if (array.length == 0) return array;
@@ -694,7 +704,7 @@ export function mapObject(obj, func) {
     }
     return newObj
 }
-export function addObjects(a, b) {
+export function addObjects(a, b, mergesInnerObjects=false) {
     if (a == null || b == null) {
         console.log({a, b})
         console.error(`addObjects: a or b null! Printed above.`)
@@ -718,6 +728,8 @@ export function addObjects(a, b) {
                 finalObject[bKey] = finalObject[bKey] + bValue
             } else if (Array.isArray(aValue) && Array.isArray(bValue)) {
                 finalObject[bKey] = [...finalObject[bKey], ...b[bKey]]
+            } else if (isObject(aValue) && isObject(bValue) && mergesInnerObjects) {
+                finalObject[bKey] = mergeObjects(aValue, bValue)
             } else {
                 console.log({a, b})
                 throw `For addObject at key ${bKey} could not match types from a with b.`
@@ -1264,8 +1276,8 @@ export function stringReplaceAllMany(str, replaceWhats, replaceWiths) {
     }
     return str
 }
-export function isObject(obj) {
-    return typeof obj === 'object'
+export function isObject(x) {
+    return typeof x === 'object' && !Array.isArray(x) && x !== null
 }
 export function isString(obj) {
     return typeof obj === 'string' || obj instanceof String;

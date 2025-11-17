@@ -78,7 +78,8 @@
         },
         "~Bear Necessities~": {
             "A": "Passive",
-            "Effect": "Choose 2 Level 1 - Pet Talents from below to give to your pet.\nAlso, your Level 1 Minor Talents apply to your Pet instead of yourself.\n",
+            "Effect": "Choose 2 Level 1 - Pet Talents from below to give to your pet. At the end of every Adventure, you can change one of them.\nAlso, you have Level 1 Minor Talents that apply to your Pet instead of yourself. These Level 1 Minor Talents are ^mixed^ with your Level 1 Font Minor Talents.\n",
+            "HasMixins": true,
             "ParentKey": "Starting Abilities"
         }
     },
@@ -157,7 +158,7 @@
             "ParentKey": "Ability Choices"
         }
     },
-    "Other Abilities Title": "Level 1 Pet Talents",
+    "Other Abilities Title": "special Pet Talents",
     "Other Abilities Description": "Choose up to 2 Pet Talents to give to your pet. These are permanent and can only be changed by retraining your pet in later levels, via special Talents.",
     "Other Abilities": {
         "~Stand Proud~": {
@@ -279,47 +280,16 @@
                     "Effect": "Choose and ^Mark^ a target you can see.\nYour own single target attacks and Abilities against the ^Marked^ target have their ^Dice Upgraded^ to the next die type.\n",
                     "Notes": "{DiceUpgrade}\nYour pets' attacks don't increase.\nA Unit can only have one Hunter Mark on it at a time.\n",
                     "ParentKey": "Starting Abilities"
+                },
+                "~Tracker~": {
+                    "_Value": 0.25,
+                    "A": "Passive",
+                    "Effect": "You have +2 in Tracking (non-Combat Skill)\nYou always know where North is in non-magical environments.\nYou and your pets are unaffected by Hard Terrain.\n",
+                    "ParentKey": "Starting Abilities"
                 }
             },
             "Talents": {
-                "Level 2 - Minor Talent": {
-                    "~Tracker~": {
-                        "_Value": 0.25,
-                        "A": "Passive",
-                        "Effect": "You have +2 in Tracking (non-Combat Skill)\nYou always know where North is in non-magical environments.\nYou and your pets are unaffected by Hard Terrain.\n",
-                        "ParentKey": "Level 2 - Minor Talent"
-                    },
-                    "~Infused Shots~": {
-                        "A": "Passive",
-                        "DisplayName": "{DisplayName}",
-                        "Effect": "You can change your weapon attacks' Damage Type to {Type}.",
-                        "Variants": [
-                            {
-                                "IconName": "Fire Shots",
-                                "DisplayName": "Fire Shots",
-                                "Type": "Fire"
-                            },
-                            {
-                                "IconName": "Ice Shots",
-                                "DisplayName": "Ice Shots",
-                                "Type": "Cold"
-                            },
-                            {
-                                "IconName": "Poisoned Shots",
-                                "DisplayName": "Poisoned Shots",
-                                "Type": "Poison"
-                            }
-                        ],
-                        "HasMixins": true,
-                        "ParentKey": "Level 2 - Minor Talent"
-                    },
-                    "<Pet Versatile Training>": {
-                        "A": "Special",
-                        "Effect": "When you get this Talent and at the end of every Adventure, you can change one of your pet's Pet Talents.",
-                        "ParentKey": "Level 2 - Minor Talent"
-                    }
-                },
-                "Level 3 - Keystone Talent": {
+                "Level 2 - Keystone Talent": {
                     "<Bola Shot>": {
                         "_Value": 1.5,
                         "A": "Passive",
@@ -327,7 +297,7 @@
                         "Effect": "After you Tumble, choose a 2x2 meter area and throw a net. Each Unit in the area take 1d4 Pulse Damage and is Slowed.",
                         "Combo": "Each Comboed Unit is Double-Slowed instead.",
                         "Notes": "Requires a Ranger Net item, which can be bought for 50 gold (or freely crafted for the same price in materials). Can retrieved after every use.",
-                        "ParentKey": "Level 3 - Keystone Talent"
+                        "ParentKey": "Level 2 - Keystone Talent"
                     },
                     "<Bounty Hunting>": {
                         "_Value": 1.5,
@@ -335,79 +305,35 @@
                         "HasMixins": true,
                         "Effect": "When your ^Marked^ target dies, you gain 1d100 {Gold}Gold and heal an ally within 6 meters for 1d8.",
                         "Notes": "Flavor-wise, you collect a trophy of your kill. The next time you are in a town, you redeem the Gold from selling the trophy.",
-                        "ParentKey": "Level 3 - Keystone Talent"
+                        "ParentKey": "Level 2 - Keystone Talent"
                     },
                     "<Slayer>": {
                         "_Value": 1,
                         "A": "Passive",
                         "Effect": "You always know the type of a monster. You gain a different boon when ^you^ defeat a Worthy Enemy of a certain type:\n\n{DarkGreen('Beasts:')} Heal an Ally for 1d4.\n{DarkGreen('Demons:')} Your pet gains +1 Damage this Combat.\n{DarkGreen('Fiends:')} Gain 50 {Gold}Gold.\n{DarkGreen('People:')} Your next attack Cripples the target.\n{DarkGreen('Undead:')} Your pet's next attack Single-Stuns the target.\n",
                         "HasMixins": true,
-                        "ParentKey": "Level 3 - Keystone Talent"
+                        "ParentKey": "Level 2 - Keystone Talent"
                     },
                     "<Pet Training 101>": {
                         "A": "Passive",
                         "Effect": "Choose one more Pet Talent.\nWhile you have this Talent, your pet also has that Pet Talent.\n",
-                        "ParentKey": "Level 3 - Keystone Talent"
+                        "ParentKey": "Level 2 - Keystone Talent"
                     },
                     "<Fang and Claw>": {
                         "_Value": 1.5,
                         "A": "Passive",
                         "Effect": "Pet Attack deals 1d6 Damage instead of 1d4.",
-                        "ParentKey": "Level 3 - Keystone Talent"
-                    }
-                },
-                "Level 4 - Minor Talent": {
+                        "ParentKey": "Level 2 - Keystone Talent"
+                    },
                     "<Bandage Wounds>": {
                         "_Value": 0.75,
                         "Cooldown": "Once / Adventure",
                         "A": "10 minutes",
-                        "Effect": "Heal a Unit for 1d4 for each 10 Health it is missing.",
-                        "ParentKey": "Level 4 - Minor Talent"
-                    },
-                    "<Pet Versatile Trainings>": {
-                        "A": "Special",
-                        "Effect": "When you get this Talent and at the end of every Adventure, you can change one Pet Talent of one of your pets.",
-                        "ParentKey": "Level 4 - Minor Talent"
-                    },
-                    "~Lance Heave~": {
-                        "A": "Depends on Weapon",
-                        "DisplayName": "{Name}",
-                        "HasMixins": true,
-                        "DisplayRequirement": "Only usable if it hits at least 2 Units",
-                        "Tags": "AoE",
-                        "Effect": "Make a {Weapon} ^weapon^ attack {Effect}\n~Click on the Icon to select a preferred effect!~\n",
-                        "Combo": "Comboed Units take the original full Damage.",
-                        "Notes": "Can apply weapon effects. If the weapon effect requires a target, applies to one chosen Unit hit.\nRange increases do increase the length. The Damage must the same for all Units hit. All bonuses to the attack (e.g. Smite, Cursewielder, etc) also split evenly.\n",
-                        "Variants": [
-                            {
-                                "Name": "Lance Heave",
-                                "Effect": "that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.",
-                                "Weapon": "2-handed melee",
-                                "IconName": "Lance Heave"
-                            },
-                            {
-                                "Name": "Blade Heave",
-                                "Effect": "that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.",
-                                "Weapon": "1-handed melee",
-                                "IconName": "Blade Heave"
-                            },
-                            {
-                                "Name": "Penetrating Heave",
-                                "Effect": "that hits one more Unit up to 2 meters directly behind the main target.",
-                                "Weapon": "2-handed ranged",
-                                "IconName": "Penetrating Heave"
-                            },
-                            {
-                                "Name": "Piercing Heave",
-                                "Effect": "that hits one more Unit up to 2 meters directly behind the main target.",
-                                "Weapon": "1-handed ranged",
-                                "IconName": "Piercing Heave"
-                            }
-                        ],
-                        "ParentKey": "Level 4 - Minor Talent"
+                        "Effect": "Heal a Unit for 1d6 for each 10 Health it is missing.",
+                        "ParentKey": "Level 2 - Keystone Talent"
                     }
                 },
-                "Level 5 - Keystone Talent": {
+                "Level 4 - Keystone Talent": {
                     "<Crosshair Shot>": {
                         "_Value": 2.25,
                         "A": "1 Action",
@@ -415,7 +341,7 @@
                         "Cooldown": "Once / Adventure",
                         "Effect": "Make an attack on a target.\nFor each meter to the target, the attack deals 1d6 Pierce Damage, up to 8 meters.\nFor each meter to the target over 8 meters, deal -1d6 Damage.\n",
                         "Notes": "At exactly 8 meters range, the attack deals 8d6 Damage. At 7 and 9 meters, it deals 7d6. At 6 and 10 meters, 6d6. And so on.",
-                        "ParentKey": "Level 5 - Keystone Talent"
+                        "ParentKey": "Level 4 - Keystone Talent"
                     },
                     "~Tag-Team Mark~": {
                         "_Value": 2.5,
@@ -426,7 +352,7 @@
                         "Replacement": "Replaces Hunter Mark",
                         "Effect": "Choose and mark a target you can see. ~Your Pet immediately dashes to the target and performs a Pet Attack if it's within 6 meters of the target.~\nYour own ~and your pet's~ single target attacks and Abilities against the marked target have their ^Dice Upgraded^ to the next die type.\n",
                         "Notes": "{DiceUpgrade}\nA Unit can only have one Hunter Mark on it at a time.\nYour Pet lands on the closest space near the target.\n",
-                        "ParentKey": "Level 5 - Keystone Talent"
+                        "ParentKey": "Level 4 - Keystone Talent"
                     },
                     "~Chaser Mark~": {
                         "_Value": 2.5,
@@ -437,12 +363,12 @@
                         "Replacement": "Replaces Hunter Mark",
                         "Effect": "Choose and mark a target you can see. ~If it's a non-Epic Unit, it is perpetually Single-Stunned while Marked.~\nYour own single target attacks and Abilities against the marked target have their ^Dice Upgraded^ to the next die type.\n",
                         "Notes": "{DiceUpgrade}\n{Feared}\nA Unit can only have one Hunter Mark on it at a time.\nYour Pet lands on the closest space near the target.\n",
-                        "ParentKey": "Level 5 - Keystone Talent"
+                        "ParentKey": "Level 4 - Keystone Talent"
                     },
                     "<Pet Training 102>": {
                         "A": "Passive",
                         "Effect": "Choose one more Pet Talent.\nWhile you have this Talent, your pet also has that Pet Talent.\n",
-                        "ParentKey": "Level 5 - Keystone Talent"
+                        "ParentKey": "Level 4 - Keystone Talent"
                     },
                     "<Fang and Claw>": {
                         "_Value": 1.5,
@@ -450,7 +376,7 @@
                         "A": "Passive",
                         "Effect": "Pet Attack deals 1d6 Damage instead of 1d4.",
                         "Notes": "This Talent is also available at an earlier Level, and does ^not^ stack with this.",
-                        "ParentKey": "Level 5 - Keystone Talent"
+                        "ParentKey": "Level 4 - Keystone Talent"
                     }
                 },
                 "Level 6 - Utility Talent": {
@@ -558,86 +484,48 @@
                 }
             },
             "Talents": {
-                "Level 2 - Minor Talent": {
-                    "<Pet Versatile Trainings>": {
-                        "A": "Special",
-                        "Effect": "When you get this Talent and at the end of every Adventure, you can change one Pet Talent of one of your pets.",
-                        "ParentKey": "Level 2 - Minor Talent"
-                    },
-                    "~Infused Bites~": {
-                        "A": "Passive",
-                        "DisplayName": "{DisplayName}",
-                        "Effect": "You can change your pet's attacks' Damage Type to {Type}.",
-                        "Variants": [
-                            {
-                                "IconName": "Acid Bites",
-                                "DisplayName": "Acid Bites",
-                                "Type": "Acid"
-                            },
-                            {
-                                "IconName": "Venom Bites",
-                                "DisplayName": "Venom Bites",
-                                "Type": "Poison"
-                            },
-                            {
-                                "IconName": "Necrotic Bites",
-                                "DisplayName": "Necrotic Bites",
-                                "Type": "Scourge"
-                            }
-                        ],
-                        "HasMixins": true,
-                        "ParentKey": "Level 2 - Minor Talent"
-                    }
-                },
-                "Level 3 - Keystone Talent": {
+                "Level 2 - Keystone Talent": {
                     "<Kindred Spirits>": {
                         "_Value": 5,
                         "A": "Passive",
                         "Effect": "One more of your Animal Companions accompanies you while adventuring.\nThis Animal Companion obeys the same rules as the regular one (takes its Turns, requires Healing between combats, etc).\n",
                         "Notes": "You're instantly kicked from the group if your pets don't have names.",
-                        "ParentKey": "Level 3 - Keystone Talent"
+                        "ParentKey": "Level 2 - Keystone Talent"
                     },
                     "<Singular Apex>": {
                         "_Value": 5,
                         "A": "Passive",
                         "Effect": "Each of your Animals now has 4 instead of 2 Pet Talents, +100% Health and deals 2d6 Pet Attack Damage instead of 1d6.\n",
-                        "ParentKey": "Level 3 - Keystone Talent"
+                        "ParentKey": "Level 2 - Keystone Talent"
                     }
                 },
-                "Level 4 - Minor Talent": {
+                "Level 4 - Keystone Talent": {
                     "<Double Training>": {
                         "A": "Passive",
                         "Effect": "Teach each of your Animal Companions one more Pet Talent.",
-                        "ParentKey": "Level 4 - Minor Talent"
+                        "ParentKey": "Level 4 - Keystone Talent"
                     },
-                    "<Pet Versatile Training>": {
-                        "A": "Special",
-                        "Effect": "When you get this Talent and at the end of every Adventure, you can change one of your pet's Pet Talents.",
-                        "ParentKey": "Level 4 - Minor Talent"
-                    }
-                },
-                "Level 5 - Keystone Talent": {
                     "<Ravage!>": {
                         "_Value": 2.25,
                         "A": "1 Action",
                         "Cooldown": "Once / Adventure",
                         "Effect": "One pet makes a melee Attack for 5d6 Slash Damage.\nIf the target is at or below 50% Health, deal 2d6 extra Damage and the target halves all healing it receives for the rest of the encounter.\n",
                         "Notes": "This takes 1 Action from YOU, not your pet.",
-                        "ParentKey": "Level 5 - Keystone Talent"
+                        "ParentKey": "Level 4 - Keystone Talent"
                     },
                     "<Sickem>": {
                         "_Value": 2.5,
                         "A": "Reaction",
                         "Effect": "Use when a Unit goes flying against its will on someone else's turn.\nYour pet(s) within 5 meters of its landing place can dash to it (after it lands) and make a total of 2 Pet Attacks on it.\n",
                         "Notes": "Goes flying means is pushed, knocked up, dragged, etc.\nThis uses YOUR Reaction, not your pets'.\nObviously, the pets need line of sight and can't jump through walls, or over large obstacles. Apply common sense.\n",
-                        "ParentKey": "Level 5 - Keystone Talent"
+                        "ParentKey": "Level 4 - Keystone Talent"
                     },
                     "<Fang and Claw>": {
                         "_Value": 3,
                         "Requirement": "You can only have Fang and Claw once",
                         "A": "Passive",
                         "Effect": "Pet Attack deals 1d6 Damage instead of 1d4.",
-                        "ParentKey": "Level 5 - Keystone Talent"
+                        "ParentKey": "Level 4 - Keystone Talent"
                     }
                 },
                 "Level 6 - Utility Talent": {

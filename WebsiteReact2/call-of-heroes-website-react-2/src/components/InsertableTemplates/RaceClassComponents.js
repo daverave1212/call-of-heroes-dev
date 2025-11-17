@@ -598,6 +598,25 @@ export function SpecTalents({ spec, selectedSpellNames, onSpellClick, spellsMeta
         </div>
     )
 }
+export function Talents({ talentsByTiers, selectedSpellNames, onSpellClick, spellsMetadata }) {
+
+    const talentTitles = U.sortStringArrayNaturally(Object.keys(talentsByTiers))
+
+    return (
+        <div>
+            <QGTitle1 text={'Talents'} height={35}/>
+            <p>Every Level, you can pick 1 Talent from that Level's available Talents. There are Minor Talents, Major Talents and Utility Talents.</p>
+
+            { talentTitles.map(talentTitle => {
+                const spellsInThisTier = U.spellsFromObject(talentsByTiers[talentTitle])
+                return <div key={talentTitle}>
+                    <PageH3>{talentTitle}</PageH3>
+                    <ManySpells spells={spellsInThisTier} selectedSpellNames={selectedSpellNames} onSpellClick={onSpellClick} spellsMetadata={spellsMetadata}/>
+                </div>
+            })}
+        </div>
+    )
+}
 
 export function StartingAbilities({ spellsObject, description }) {
     return AbilitiesWithDescription({ spellsObject, description, title: 'Starting Abilities', autoAlign: true, id: 'starting-abilities' })    
@@ -813,7 +832,7 @@ export function ClassPageV1({ theClass }) {
                                 )
                             }
 
-                            <SpecTalents spec={spec}/>
+                            <Talents talentsByTiers={spec.Talents}/>
 
                         </Spec>
                     )
@@ -840,10 +859,26 @@ export function ClassPageV2({
 
     const finalSelectedSpecName = selectedSpecName ?? innerSelectedSpecName
     const selectedSpecObj = finalSelectedSpecName == null? null: theClass.Specs[finalSelectedSpecName]
-    const fontTalents = abilityFonts[selectedFontName]
+    const fontCategory = abilityFonts[selectedFontName]
 
-    const getStartingAbilitiesWithFont = () => U.mergeObjects(theClass['Ability Choices'], fontTalents['Ability Choices'] )
-    const getClassTalentsWithFont = () => U.addObjects(theClass.Talents, {...fontTalents, 'Ability Choices': undefined})
+    const fontExceptions = theClass.Spellcasting?.FontExceptions ?? {}
+    const fontUtilityTalents = fontExceptions['Utility']? {}: (fontCategory.Utility ?? {})
+    const fontMinorTalents = U.filterObject(fontCategory.Talents, ({ key, value }) => fontExceptions[key]? false: true)
+
+
+    const getStartingAbilitiesWithFont = () => U.mergeObjects(theClass['Ability Choices'] ?? theClass.Talents?.['Level 1 - Minor Talent'] ?? {}, fontCategory.Talents['Level 1 - Minor Talent'] ?? {} )
+    const getUtilityTalentsWithFont = () => U.mergeObjects(theClass.Utility ?? {}, fontUtilityTalents)
+    const getClassTalentsWithFont = () => U.addObjects(theClass.Talents ?? {}, fontMinorTalents, true)
+
+    const getSpecTalentsWithFont = () => {
+        const fontTalentsExceptSome = {...fontMinorTalents}
+        delete fontTalentsExceptSome["Level 1 - Minor Talent"]
+        const specTalents = selectedSpecObj.Talents
+        console.log({fontTalentsExceptSome, specTalents})
+        return U.addObjects(specTalents, fontTalentsExceptSome, true)
+    }
+
+    window.getSpecTalentsWithFont = getSpecTalentsWithFont
 
 
     function onSpecClick(specName) {
@@ -910,7 +945,7 @@ export function ClassPageV2({
                     </div>
                 )}
 
-                { theClass['Ability Choices'] != null && (
+                { theClass.Specs != null && (
                     <div>
                         <PageH2>Level 1 - Minor Talent</PageH2>
                         <ManySpells
@@ -925,11 +960,11 @@ export function ClassPageV2({
 
 
                 
-                { theClass['Utility'] != null && (
+                { (theClass['Utility'] != null || fontCategory['Utility'] != null) && (
                     <div>
                         <PageH2>Level 1 - Utility Talent</PageH2>
                         <ManySpells
-                            spells={theClass['Utility']}
+                            spells={getUtilityTalentsWithFont()}
                             description={theClass['Utility Description']}
                             selectedSpellNames={selectedSpellNames}
                             onSpellClick={onSpellClick}
@@ -964,8 +999,8 @@ export function ClassPageV2({
                 </>)}
 
                 { theClass.Talents != null && <>
-                    <SpecTalents
-                        spec={theClass}
+                    <Talents
+                        talentsByTiers={getClassTalentsWithFont()}
                         selectedSpellNames={selectedSpellNames}
                         onSpellClick={onSpellClick}
                         spellsMetadata={spellsMetadata}
@@ -992,8 +1027,8 @@ export function ClassPageV2({
                         )
                     }
 
-                    <SpecTalents
-                        spec={selectedSpecObj}
+                    <Talents
+                        talentsByTiers={getSpecTalentsWithFont()}
                         selectedSpellNames={selectedSpellNames}
                         onSpellClick={onSpellClick}
                         spellsMetadata={spellsMetadata}

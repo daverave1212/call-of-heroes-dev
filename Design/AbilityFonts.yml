@@ -27,18 +27,7 @@ Divine:
             You need line of sight to the targets. The allies fly to you ignoring obstacles and ground traps (goes around obstacles), unless the ally needs to swerve more than 2 meters in any direction.
 
   Talents:
-    1:
-
-      ~Privilege~:
-        A: Half-Action
-        Cooldown: Once / Unit / Combat
-        Requirement: Only usable in Worthy Combat
-        Tags: [Healing, Combo]
-        Font: [Divine, Chivalry]
-        Effect: |
-          Heal a Player Character you can see for an amount equal to their Health Regen.
-          They do not Regen Health at the end of the Combat.
-        Combo: They can Regen Health after Combat, but only for 50% of Health Regen.
+    Level 1 - Minor Talent:
 
       ~Elation~:
           A: 0 Actions
@@ -99,7 +88,7 @@ Divine:
               If they have 50% or more Health before the heal, double the result!
           Combo: Double the result anyway!
       
-    3:
+    Level 3 - Minor Talent:
       <Golden Shield>:
         A: 0 Actions or Reaction
         Cost: 1 Mana
@@ -147,7 +136,7 @@ Divine:
               Each die heals on odd rolls (1 and 3) and deals Divine Damage on even rolls (2 and 4).
 
 
-    5:
+    Level 5 - Minor Talent:
 
       ~Solace Tide~:
           A: Half-Action
@@ -193,7 +182,7 @@ Divine:
         Upgrade: Only Units that meet in the center take Damage from the Slam. Each takes Damage equal to their own distance thrown (if they slam into eachother).
         Notes: If Units are Slammed into other things, they take Damage as normal.
 
-    6:
+    Level 6 - Utility Talent:
       ~Resurrection~ : 
           A: 1 Action
           Cost: 1 Mana
@@ -240,8 +229,7 @@ Wild:
             Heavy Wind also clears Fog, Smoke, etc in the area.
   Talents:
 
-    1:
-
+    Level 1 - Minor Talent:
 
       ~Shapeshift~:
         A: 0 Actions
@@ -311,7 +299,22 @@ Wild:
             Heal for 1 Health per 5 real Damage done (total).
           Combo: +1d6 Damage and one of the Units hit becomes Dazed.
 
-    3:
+      ~Infused Shots~:
+        A: Passive
+        DisplayName: "{DisplayName}"
+        Effect: You can change your weapon attacks' Damage Type to {Type}.
+        Variants:
+          - IconName: Fire Shots
+            DisplayName: Fire Shots
+            Type: Fire
+          - IconName: Ice Shots
+            DisplayName: Ice Shots
+            Type: Cold
+          - IconName: Poisoned Shots
+            DisplayName: Poisoned Shots
+            Type: Poison
+
+    Level 3 - Minor Talent:
 
       ~Wild Heart~:
           A: 0 Actions
@@ -334,7 +337,7 @@ Wild:
               Apply a Combo to the target.
           Notes: You still need Line of Sight to the target.
 
-    5: 
+    Level 5 - Minor Talent: 
       ~Cutting Winds~:
         A: 1 Action
         Cost: 1 Mana
@@ -359,7 +362,7 @@ Wild:
         Combo: A Comboed Enemy hit becomes Double-Slowed
         EffectGreen: Usable while Shapeshifted.
 
-    6:
+    Level 6 - Utility Talent:
 
       ~Camouflage~:
         A: 0 Actions
@@ -405,7 +408,7 @@ Nature:
 
   Talents:
 
-    1:
+    Level 1 - Minor Talent:
 
       ~Thornskin~:
           A: 0 Actions
@@ -440,7 +443,7 @@ Nature:
           Combo: 1d10 Damage instead (on both).
           Notes: Body parts count as weapons.
 
-    3:
+    Level 3 - Minor Talent:
 
       ~Earth Shield~:
           A: 0 Actions
@@ -463,7 +466,7 @@ Nature:
               The first Unit hit is Slowed.
           Combo: If you have a Combo on yourself, consume it to increase the area to 6x3 meters instead.
 
-    5:
+    Level 5 - Minor Talent:
 
       ~Lightning Storm~:
           A: Half-Action
@@ -488,7 +491,7 @@ Nature:
           Heal a Unit for 1d8 for each 10 Health it is missing, and all Units within 2 meters of it for 50% of that amount.
         Combo: Unlimited range, and 1d10 for each 10 Health it is missing.
 
-    6:
+    Level 6 - Utility Talent:
       ~Tree Stride~:
           A: Passive
           Effect: |
@@ -516,7 +519,7 @@ Chaos:
 
   Talents:
 
-    1:
+    Level 1 - Minor Talent:
 
       ~Chaos Storm~:
         A: 1 Action
@@ -553,7 +556,7 @@ Chaos:
             Amount: 1d6 + 1d8 + 1d10 + 1d12 True
             ToWhat: 4 Units
     
-    3:
+    Level 3 - Minor Talent:
       ~Will You Just Die~:
         A: Reaction
         Cost: 1 Mana
@@ -606,7 +609,7 @@ Chaos:
               You should probably assign the higher number to the target you want to do most Damage to.
               You can declare fewer targets, but then the missing number will deal Damage to no target.
               Cover is applied normally.
-    6:
+    Level 6 - Utility Talent:
 
       ~Reverse Gravity~:
           A: 1 Action
@@ -623,11 +626,695 @@ Chaos:
           Notes: |
               Fall Damage is 1d6 for every 2 meters fallen (e.g. 1d6 for 2 and 3 meters, 2d6 for 4 and 5 meters, etc).
 
+Eldritch:
+
+  Utility:
+
+    ~Disenchantment~ :
+        HasMixins: true
+        A: 0 Actions
+        Duration: Until end of Adventure
+        Cooldown: 1 real hour
+        Requirement: Level 3
+        Degree: Lesser
+        Tags: Roleplaying
+        Effect: |
+            A person you can see must pass a Presensce Roll against your Presensce Roll or have its Initiative (rolls) halved, have -2 to non-combat Rolls, and be afflicted by minor curse effects (e.g. is clumsy, stumbles, get pimples, etc).
+        Notes: |
+            Be creative with the effects of the minor curse effects!
+
+    ~Thaumaturgy~:
+        HasMixins: true
+        A: 1 Action
+        Range: 5 meters
+        Degree: Lesser
+        Effect: |
+            You create one of the following magical effects:
+            {Diamond} Your voice booms up to three times as loud as normal for 1 minute.
+            {Diamond} You cause flames to flicker, brighten, dim, or change color for 1 minute.
+            {Diamond} You cause harmless tremors in the ground for 1 minute.
+            {Diamond} You cause an unlocked door or window to fly open or slam shut.
+            {Diamond} You alter the appearance of your eyes for 1 minute.
+        Upgrade: |
+            At Level 4 you can cast this for Half-Action, and at Level 7, for 0 Actions.
+
+
+  Talents:
+    Level 1 - Minor Talent:
+
+      ~Hail~:
+          A: 1 Action
+          Range: 4 meters
+          HasMixins: true
+          Degree: Minor
+          Tags: Damage
+          Effect: |
+              Blast a Unit for 2d8 + ^target's Might^ Damage of your chosen Element.
+          Combo: +1d6 Damage.
+
+      ~Wyrd Renewal~:
+          A: Half-Action
+          Range: 5 meters
+          Degree: Lesser
+          Requirement: Only usable in Worthy Combat
+          Tags: [Healing, Damage]
+          Effect: |
+              Roll 1d10 - 5. After you see the result, choose a Worthy Unit.
+              If it's negative, deal Scourge Damage to it. Otherwise, heal it.
+          Combo: +50% Damage or Healing
+
+      ~Deathfire Flame~:
+          A: 1 Action
+          Cost: 1 Mana
+          Range: 10 meters
+          Degree: Major
+          Tags: Area Damage
+          Effect: |
+              Shoot a bolt of deathly fire in a 1x10 meter line. All Units it touches take 1d6 + 1d8 + 1d10 Scourge or Fire Damage (your choice).
+          Notes: Ignores Half-Hitting Damage reduction.
+
+      ~Curse of Weakness~:
+          A: Half-Action
+          Range: 5 meters
+          Cost: 1 Mana
+          Duration: 1 minute
+          Degree: Minor
+          Tags: Debuff
+          Effect: |
+            Choose a Unit. The first time it deals Damage on its every Turn, roll 1d4 and subtract it from its dealt Damage.
+          Upgrade: Only affects an Epic monster's first turn.
+
+      ~Curse of Pain~:
+          A: 0 Actions
+          Cost: 1 Mana
+          Range: 5 meters
+          Duration: 1 minute
+          Requirement: Level 4
+          Tags: Damage
+          Effect: |
+              Choose a Unit. At the start of each of your Turns, it takes 1d4 Scourge Damage (ignoring Cover).
+
+      ~Psyche Blast~:
+          A: 1 Action
+          Range: 3 meters
+          Cost: 1 Mana
+          HasMixins: true
+          Degree: Major
+          Tags: [Damage, Crowd Control]
+          Effect: |
+              A Unit takes 4d6 Psychic Damage and chooses whether to become Blinded or Silenced.
+              Apply a ~Combo~ to it.
+          Notes: |
+              Cover is applied normally.
+
+    Level 3 - Minor Talent:
+
+      ~Ebon Lance~:
+          A: 0 Actions
+          Cost: 1 Mana
+          Effect: |
+            Your next melee weapon attack deals +1d4 Damage.
+
+            {Evoke}: +1d4 per Evoke Point spent.
+        
+      ~Soul Drain~:
+        A: Half-Action
+        Cost: 1 Mana
+        Range: 5 meters
+        Effect: |
+          Deal 6 True Damage to 2 Units.
+          For each killed, heal for 4 Health or gain +1 Max Health permanently (your choice).
+
+          {Evoke}: Hits 1 extra Unit per Evoke Point spent.
+
+      ~Empower~:
+        A: 0 Actions
+        Cost: 1 Mana
+        Effect: |
+          Your next Spell has its ^Dice Upgraded^ to the next die type.
+
+          {Evoke}: Has ^Dice Upgraded^ one type higher per Evoke Point spent.
+        Upgrade: A die that goes higher than d12 just gets a +1 per extra type.
+        Notes: "{DiceUpgraded}"
+
+      ~Veinlight~:
+        A: 3 Action Points
+        Range: 5 meters to edge
+        Effect: |
+          All Units in a 2x2 meter area take 3d4 Damage of your chosen Element and are Single-Stunned.
+
+          {Evoke}: +1 meter area (all directions).
+
+    Level 5 - Minor Talent:
+
+      ~Curse of Frailty~:
+          A: Half-Action
+          Cost: 1 Mana
+          Tags: Debuff
+          Effect: A Unit you can see takes +50% Damage the next time it takes Damage.
+
+      ~Invoke Kindred~:
+        A: 1 Action
+        Range: 10 meters to each invoked point
+        Cost: 1 Mana
+        Duration: 1 minute
+        Effect: |
+          Invoke 3 _Kindred Beings_, each within 10 meters from you. These are creatures themed and shaped to your chosen Power Source, which will do your bidding before returning to their original world.
+
+          {Evoke}: +1 summon per Evoke Point spent.
+        Monster:
+          Name: Kindred Being
+          Health: 1
+          Description: Has a Half-Action. Takes its Turn at the end of your Turn.
+          Speed: 4 meters
+          Stats: 0/0/0/0/0
+          Abilities:
+              ~Attack~:
+                  A: Half-Action (from it)
+                  Range: 3 meters
+                  Effect: Deal 1d6 Damage of your chosen Element, or use an Item or Default Ability.
+
+    Level 6 - Utility Talent:
+
+      ~Decaying Blight~:
+          A: Channeled
+          Cooldown: 1 hour
+          Range: 10 meters
+          Degree: Lesser
+          Effect: |
+              Channel to spawn a blight that spreads a 1x1 meter space away from a chosen space for each 1 Action channeled.
+              The blight kills small plants, insects and rots wood and rusts metal. It also makes fertile soil infertile, turns textile and paper materials into dust and decays food and poisons water.
+              You can channel a number of times (Actions) equal to your Level.
+              While within the Blight, you have +1 to all non-combat Rolls.
+          Notes: |
+              You can choose to ommit some of the effects of this blight.
+              This Ability is not meant for combat.
+              Be creative with how you use this little Spell!
+
+
+Warfare:
+
+  Utility:
+
+    ~Vault Break~:
+        Degree: Lesser
+        A: 0 Actions
+        Cooldown: 1 real hour
+        Range: 3 meters
+        Font: Warfare
+        Effect: |
+            Slam the ground so hard that it shatters one obstacle that fits within a 3x3x3 meter area.
+        Notes: It is the Quest Master's call if an obstacle can be broken. Most walls can't be broken, except for thinner ones and fences.
+
+    ~Doublesault~:
+        A: 0 Actions
+        Cooldown: Once / Adventure
+        Degree: Major
+        Font: Warfare
+        Effect: |
+            Leap up to 3 meters. If you land on a Unit, Doublesault again (for free)!
+        Notes: |
+            You leap from Unit to Unit until you no longer land on a Unit. If you land on a Unit, you must leap again. You can't leap on the same Unit twice; if you do, you end your leap in the closest space near it.
+            You can use this even while in the air and it cancels out your current fall or acceleration.            
+
+
+  Talents:
+
+    Level 1 - Minor Talent:
+      ~Command - March~:
+        A: 0 Actions
+        Cooldown: Once / Combat
+        Tags: [Utility]
+        Effect: Choose a direction. All Allies (including you) may move up to 3 meters in that direction.
+
+      ~Break Mountains~:
+        A: 1 Action
+        Cost: 1 Mana
+        Font: Warfare
+        Effect: Pick up an object up to 2x2x2 meters in size, and throw it 3d10 meters in any direction. If it hits a Unit, it takes Damage equal to the number of meters left (e.g. similar to Slamming)
+        EffectGreen: Critical Strike - for each max die rolled, deal +1d6 Damage and, if it's an object, it breaks on impact!
+        Upgrade: You can instead pick up an enemy and Slam it a number of meters equal to half the rolled dice.
+
+      ~Whirlwind~:
+          A: 3 Action Points
+          Cost: 1 Mana
+          DisplayName: "{Name}"
+          Degree: Major
+          Font: Warfare
+          Effect: |
+              Roll 2d10 for each Unit {Area}
+              Assign 2 of the rolled d10's to each of those Units, and deal that much Damage Damage to each.
+              ~Click on the Icon to select a preferred effect!~
+          Upgrade: The Ability is Whirlwind if a melee weapon is equipped, or Rain Death if a ranged weapon is equipped.
+          Notes: |
+              Each rolled die ^must^ be assigned to a Unit.
+              The Damage type depends on the weapon currently equipped. Doesn't apply weapon effects (the weapon only matters for the Damage type).
+          Variants:
+              - Name: Whirlwind
+                Area: within 2 meters of you (except you).
+                IconName: Whirlwind
+              - Name: Rain Death
+                Area: in a chosen 4x4 meter area (5 meter range to the edge).
+                IconName: Rain Death
+      
+      ~Takeback~:
+        A: Half-Action
+        Cooldown: Once / Turn
+        Range: Weapon Range
+        Effect: Deal 1d4 Damage to a Unit and Single-Stun it. Then end your Turn.
+        Combo: +1d4 Damage.
+
+    Level 3 - Minor Talent:
+
+        ~Hack and Slash~:
+            A: 0 Actions
+            Cost: 1 Mana
+            DisplayName: "{Name}"
+            Effect: |
+                Your next {Effect}
+                ~Click on the Icon to select a preferred effect!~
+            Notes: |
+                Roll the attack only once.
+                Weapon effects (like Critical Strikes), if necessary, are applied to the main target only.
+            Variants:
+                - Name: Hack and Slash
+                  Effect: melee 2-handed weapon attack also hits all other Units 1 meter from you, but deals -50% Damage to them (deals normal Damage to the main target).
+                  IconName: Hack and Slash
+                - Name: Slice and Dice
+                  Effect: melee 1-handed weapon attack also hits all other Units 1 meter from you.
+                  IconName: Slice and Dice
+                - Name: Lock and Load
+                  Effect: ranged 2-handed weapon attack also hits all other Units 1 meter from the main target, but deals -50% Damage to them (deals normal Damage to the main target).
+                  IconName: Lock and Load
+                - Name: Point and Shoot
+                  Effect: ranged 1-handed weapon attack also hits all other Units 1 meter from the main target.
+                  IconName: Point and Shoot
+
+        ~Bull Rush~:
+            A: Passive
+            Font: Warfare
+            Effect: If you move at least 3 meters in a straight line and then melee Attack a target on the same line, the Attack gains +1 for every 3 meters moved in the straight line.
+            Notes: Works if mounted or if using Abilities that dash or jump (in a straight line), but teleporting interrupts this.
+
+        <Opportunity Attacks>:
+          A: Reaction
+          Cost: 1 Mana
+          Effect: |
+            When an enemy leaves your melee attack range, make a free attack on them with a one-handed melee weapon.
+          Notes: If you don't have the weapon equipped, you automatically freely equip it, attack with it, unequip it and equip what you previously had.
+
+        <MIGHT OVER MAGIC>:
+          _Value: 1
+          A: Depends
+          Cost: 1 Mana
+          HasMixins: true
+          Font: Warfare
+          Effect: |
+            When you get this, choose a Minor Talent that costs 1 Mana from (any Specialization of) Cleric, Mage or Warlock, up to your Level.
+            That Ability becomes a ^physical version of itself^: instead of using magic to cast that spell, you use your body/weapons/tools!
+          Upgrade: |
+            The Damage of that Spell becomes Slash, Smash or Pierce, whichever makes sense.
+          Notes: |
+            E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage). Be creative, come up with a description of how it works!
+            You can change this Ability inbetween Adventures.
+
+    Level 5 - Minor Talent:
+        <MIGHT OVER MAAAGIC!!!>:
+          A: Depends
+          Cost: 1 Mana
+          HasMixins: true
+          Font: Warfare
+          Effect: |
+            When you get this, choose ~two~ Minor Talents that costs 1 Mana from (any Specialization of) Cleric, Mage or Warlock, up to your Level.
+            Those Abilities become ^physical versions of themselves^: instead of using magic to cast that spell, you use your body/weapons/tools!
+          Upgrade: |
+            The Damage of that Spell becomes Slash, Smash or Pierce, whichever makes sense.
+          Notes: |
+            E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage). Be creative, come up with a description of how it works!
+            You can change this Ability inbetween Adventures.
+
+
+        ~Move Mountains~:
+          A: 1 Action
+          Cost: 1 Mana
+          IconName: Break Mountains
+          Font: Warfare
+          HasUpgradeIcon: true
+          Requirement: Requires Break Mountains
+          Replacement: Replaces Break Mountains
+          Effect: Pick up an object up to 2x2x2 meters in size, and throw it ~3d12~ meters in any direction. If it hits a Unit, it takes Damage equal to the number of meters left (e.g. similar to Slamming)
+          EffectGreen: Critical Strike - for each max die rolled, deal +1d6 Damage and, if it's an object, it breaks on impact!
+          Upgrade: You can instead pick up an enemy and Slam it a number of meters equal to half the rolled dice.
+
+        ~Heavenbreaker~:
+          A: 1 Action
+          Cooldown: Once / Adventure
+          Range: 15 meters
+          Effect: |
+            You jump high up above the battlefield and end your Turn.
+            At the start of your next Turn, you plunge into the earth like a comet toward a destintion space within 15 meters.
+            All Units within a zone of 3 meters from your landing point take 3d6 Smash Damage and a crater forms in the zone, 2 meters deep at the extremities of the area.
+    
+        ~Off-Hand Shank~:
+          A: Half-Action
+          Cost: 1 Mana
+          Effect: Make 3 attacks with a one-handed weapon you haven't used this turn that would normally scale with a Stat. These attacks do not add your Stat to the Damage.
+
+        ~Second Wind~:
+          A: 0 Actions
+          Cost: 1 Mana
+          Cooldown: Once / Turn
+          Effect: Take 1d6 Damage. Gain +Half-Action this Turn.
+        
+    Level 6 - Utility Talent:
+
+        ~Breathing Technique~:
+          A: 0 Actions
+          Cooldown: Once / real hour
+          Font: Warfare
+          Effect: You can breathe underwater for up to 1d20 minutes and swim at your normal speed.
+        
+Arcane:
+
+  Utility:
+
+    ~Flash~:
+        A: Reaction (or 0 Actions)
+        Cost: 1 Mana
+        Cooldown: Once / Turn
+        Degree: Minor
+        Requirement: Level 3
+        Effect: Instantly teleport up to 5 meters away, within line of sight.
+        Notes: You take with you all items carried. Does not work if you're Rooted or stuck in place somehow.
+
+    ~Feather Fall~ :
+        A: Reaction or 0 Actions
+        Requirement: Level 4
+        Range: 10 meters
+        Degree: Minor
+        Effect: |
+            Up to 2 Units you choose will start falling gently, down to 3 meters per round.
+            Once the fall finishes, the spell effect ends.
+        Notes: |
+            Arcane Feathers can be bought in most towns.
+            For faster gameplay, you can spend 10 gold when casting the spell, and buy the feather later.
+
+
+  Talents:
+
+    Level 1 - Minor Talent:
+      ~Magic Arrows~:
+          A: Half-Action
+          Range: 5 meters
+          HasMixins: true
+          Degree: Minor
+          Effect: |
+              Shoot 2 arcane arrows. Each does 1d4 Pulse Damage.
+              This turn, each arrow after the first into the same target deals only 1d2 instead.
+          Combo: 2 more arcane arrows shoot from the target into any targets within 5 meters of it. They ignore the same-target penalty.
+          Notes: |
+              When you cast this, decide the targets before rolling the dice. Roll the dice for each target at a time.
 
 
 
+      ~North Star~:
+          A: 3 Action Points
+          Range: 15 meters
+          Cost: 1 Mana
+          Degree: Major
+          Effect: |
+              You conjure a magical star that always shoots North and deals 5d10 Pulse Damage to the first Unit hit.
+          Combo: The star explodes, dealing 50% of the total Damage to all other Units within 2 meters of the hit target.
+          Notes: |
+              You can only shoot the star towards North - without an angle.
+              Ask the DM which way North is (if your character knows that).
+
+    Level 3 - Minor Talent:
+      ~Countermagic~:
+          A: Reaction
+          Cooldown: Once / Round
+          Cost: 1 Mana
+          Effect: |
+              Use when a Unit you can see wants to cast a Spell. That spell becomes cancelled. The caster loses any resources spent on it, Half-Action and can't cast that Spell this Round.
+              Apply a ~Combo~ to that Unit.
+
+
+      ~Magic Arrow Barrage~:
+          A: 1 Action
+          Cost: 1 Mana
+          Range: 10 meters to edge
+          Cooldown: Once / Combat
+          Degree: Major
+          Effect: |
+              Conjure floating arrows in a 3x3 area, up to 10 meters above ground.
+              At any point (for 0 Actions or with a Reaction), you can release these arrows downward. All Enemies hit take 2d6 Pierce Damage.
+              
+          Upgrade: At the start of your every Turn, if the barrage is not yet released, it increases by 1 meter in size in all directions and gains 1d4 Damage when it will be released (up to +3d4 and 9x9).
+          Notes: |
+              E.g. every turn, it goes from 3x3 to 5x5, then 7x7, then 9x9, etc and deals from 2d6 Damage to 2d6 + 1d4, then 2d6 + 2d4, etc.
+              The arrows disappear as soon as they hit ground, or when dismissed (all at once) for free at any point, or after 1 minute of staying in the air.
+
+    Level 6 - Utility Talent:
+      ~Levitate~ :
+          A: 1 Action
+          Cost: 1 Mana
+          Degree: Major
+          Range: 10 meters
+          Effect: |
+              First, roll 2d100. That's how many kilograms you can levitate when you cast this.
+              Levitate one object or Unit you can see and move it as you like as long as it is and remains within 10 meters of you.
+              On each of your Turns, you can spend 1 Action to keep the Object levitated or move it again. Otherwise, it falls slowly and the Spell ends.
+          Upgrade: |
+              A levitated Unit is Slowed perpetually.
+              At Level 8, the amount increases to 5d100.
+          Notes: Lasts until you don't spend 1 Action, or you become at least Single-Stunned.
 
 
 
+Elemental:
+
+  Utility:
+
+  ~Control Elements~:
+      Degree: Lesser
+      HasMixins: true
+      A: 1 Action
+      DisplayName: Control {Element}
+      Range: 5 meters
+      Cooldown: Your Level uses / Adventure
+      Font: Elemental
+      Effect: |
+          {DoWhat}
+      Notes: |
+          {ElementNotes}
+          Apply common sense. The QM has the final word on whether something is possible.
+      Tag: Utility
+      Variants:
+        - Element: Fire
+          DoWhat: |
+            Target a 2x2x2 meter cube containing Fire.
+            Choose any of the following to do with it:
+            🔹 Move it up to 5 meters in any direction
+            🔹 Extinguish it
+            🔹 Lower or increase its intensity or light emission by 50%
+            🔹 Roughly alter its shape and/or color
+          ElementNotes: A Unit that touches the fire takes 2 Damage.
+          IconName: Control Elements
+        - Element: Water
+          DoWhat: |
+            Target a 1 meter cube containing {Element}.
+            Choose any of the following to do with it:
+            🔹 Move it up to 5 meters in any direction
+            🔹 Destroy it
+            🔹 Lower or increase its temperature down to near-freezing or near-boiling
+            🔹 Roughly its shape and/or color
+          IconName: Control Elements
+          ElementNotes: Water is Hard Terrain. A Unit that touches near-boiling or near-freezing water takes 2 Damage.
 
 
+  Talents:
+
+    Level 1 - Minor Talent:
+      ~Element Burst~:
+          A: 1 Action
+          DisplayName: "{Element} Burst"
+          Range: 5 meters
+          Degree: Minor
+          Font: Elemental
+          Effect: |
+              Damage a Unit for 2d6 {Element} Damage.
+              Deals +1d10 Damage if the target had taken {Element} Damage this combat before.
+              ~Click on the Spell Icon to select the preferred Element!~
+          Notes: These are considered different Spells.
+          Variants:
+              - Element: Fire
+                IconName: Fire Burst
+              - Element: Cold
+                IconName: Cold Burst
+              - Element: Shock
+                IconName: Shock Burst
+          Tag: Damage (1)
+
+      ~Burning Breath~:
+          A: Half-Action
+          Cooldown: Once / Turn
+          Range: Near you
+          Degree: Lesser
+          Font: Elemental
+          Effect: |
+              All Units 3x3 meter area take 4 Fire Damage.
+          Combo: If any affected Unit has a Combo, +50% total Damage (to all) and does not trigger the Cooldown.
+          Tag: AoE (Half)
+
+      ~Volt Guard~:    
+          A: Reaction
+          Range: 5 meters
+          Cost: 1 Mana
+          Effect: |
+            Use when a Unit would take Damage (after roll). Negate 50% of the incoming Damage and return it back to the source as Shock Damage.
+            Apply a ~Combo~ to either of them.
+          Upgrade: The returned Damage is a quick lightning that bends around obstacles, ignoring Cover or Line of Sight.
+          Tag: Protection
+
+      ~Rime Shackles~:
+          A: 1 Action
+          Range: 5 meters
+          Cost: 1 Mana
+          HasMixins: true
+          Degree: Major
+          Effect: |
+              Deal Cold Damage to a Unit equal to 1d12 + ^Its Dexterity^.
+              If it's non-Epic and Medium or smaller, Root it.
+          Combo: This either hits one more Unit within 2 meters of it, or also Single-Stuns the target.
+          Tag: CC Hard
+
+    Level 3 - Minor Talent:
+      ~Searing Arrows~:
+        A: 1 Action
+        Cost: 1 Mana
+        Range: 10 meters
+        Degree: Major
+        Font: Elemental
+        Effect: Shoot 3 rays of fire (at one or more Units). Each does 1d10 Fire Damage.
+        Notes: You can roll them one by one, after they deal the daWizard.
+        Tag: Damage (1)
+
+      ~Element Enchantment~:
+          DisplayName: "{Element} Enchantment"
+          A: 1 Action
+          Cost: 1 Mana
+          Range: 3 meters
+          Duration: 24 hours / Depends
+          Requirement: Level 2
+          Font: Elemental
+          Degree: Minor
+          Effect: |
+              Choose a metallic weapon to imbue it with {Element}.
+              That weapon deals +2 Damage (as part of the Attack) and the total weapon Damage becomes {Element} Damage.
+
+              ~Click on the Spell Icon to select the preferred Element!~
+          Upgrade: Lasts until the end of the next (or current) combat, or for up to 24 hours.
+          Notes: Does not stack with other weapon enchantments from Spells. These are considered different Spells.
+          Tag: Buff
+          Variants:
+              - Element: Fire
+                IconName: Fire Enchantment
+              - Element: Cold
+                IconName: Cold Enchantment
+              - Element: Shock
+                IconName: Shock Enchantment
+
+      ~Conduit Flow~:
+          A: 1 Action
+          Cost: 1 Mana
+          Range: 5 meters to first target
+          Degree: Major
+          Effect: |
+              Choose a Worthy Unit other than you. If Enemy, it takes 1d10 Shock Damage. Otherwise, Heal it for 1d8.
+              If there is another Unit within 2 meters of it, repeat Conduit Flow on the new Unit (you choose if multiple).
+          Notes: Each Unit can be affected by Conduit Flow only once per cast. Cover is calculated from Unit to Unit (as if the conduit is jumping from Unit to Unit). The conduit can be repeated on you as long as you're not the first target.
+
+    Level 5 - Minor Talent:
+
+      ~Element Blast~:
+          A: 1 Action
+          DisplayName: "{Element} Blast"
+          Range: 5 meters
+          Replacement: Replaces Element Burst
+          Requirement: Requires Element Burst
+          Font: Elemental
+          Degree: Minor
+          Effect: |
+              Damage a Unit for ~2d8~ {Element} Damage.
+              Deals ~+1d12~ Damage if the target had taken {Element} Damage this combat before.
+              ~Click on the Spell Icon to select the preferred Element!~
+          Notes: These are considered different Spells.
+          Variants:
+              - Element: Fire
+                IconName: Fire Blast
+              - Element: Cold
+                IconName: Cold Blast
+              - Element: Shock
+                IconName: Shock Blast
+          Tag: Damage (1)
+
+      ~Frost Shackles~:
+          A: 1 Action
+          Range: 5 meters
+          Cost: 1 Mana
+          HasMixins: true
+          Requirement: Rime Shackles
+          Replacement: Replaces Shackles
+          Font: Elemental
+          Degree: Major
+          Effect: |
+              Deal Cold Damage to a Unit equal to 2d8 + ^Its Dexterity^. ~It becomes Slowed~.
+          Combo: This either hits one more Unit within 2 meters of it, or also Single-Stuns the target.
+          Tag: CC Hard
+
+
+Chivalry:
+
+  Talents:
+    Level 1 - Minor Talent:
+
+        ~Privilege~:
+          A: Half-Action
+          Cooldown: Once / Unit / Combat
+          Requirement: Only usable in Worthy Combat
+          Tags: [Healing, Combo]
+          Effect: |
+            Heal a Player Character you can see for an amount equal to their Health Regen.
+            They do not Regen Health at the end of the Combat.
+          Combo: They can Regen Health after Combat, but only for 50% of Health Regen.
+
+        ~Lance Heave~:
+            A: Depends on Weapon
+            DisplayName: "{Name}"
+            HasMixins: true
+            DisplayRequirement: Only usable if it hits at least 2 Units
+            Tags: AoE
+            Effect: |
+                Make a {Weapon} ^weapon^ attack {Effect}
+                ~Click on the Icon to select a preferred effect!~
+            Combo: Comboed Units take the original full Damage.
+            Notes: |
+              Can apply weapon effects. If the weapon effect requires a target, applies to one chosen Unit hit.
+              Range increases do increase the length. The Damage must the same for all Units hit. All bonuses to the attack (e.g. Smite, Cursewielder, etc) also split evenly.
+            Variants:
+                - Name: Lance Heave
+                  Effect: that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.
+                  Weapon: 2-handed melee
+                  IconName: Lance Heave
+                - Name: Blade Heave
+                  Effect: that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.
+                  Weapon: 1-handed melee
+                  IconName: Blade Heave
+                - Name: Penetrating Heave
+                  Effect: that hits one more Unit up to 2 meters directly behind the main target.
+                  Weapon: 2-handed ranged
+                  IconName: Penetrating Heave
+                - Name: Piercing Heave
+                  Effect: that hits one more Unit up to 2 meters directly behind the main target.
+                  Weapon: 1-handed ranged
+                  IconName: Piercing Heave

@@ -106,8 +106,8 @@ Starting Abilities:
   ~Bear Necessities~:
     A: Passive
     Effect: |
-      Choose 2 Level 1 - Pet Talents from below to give to your pet.
-      Also, your Level 1 Minor Talents apply to your Pet instead of yourself.
+      Choose 2 Level 1 - Pet Talents from below to give to your pet. At the end of every Adventure, you can change one of them.
+      Also, you have Level 1 Minor Talents that apply to your Pet instead of yourself. These Level 1 Minor Talents are ^mixed^ with your Level 1 Font Minor Talents.
 
 Utility:
 
@@ -186,7 +186,7 @@ Ability Choices:
     Effect: Your pet can walk on walls and ceilings at normal speed.
 
 # Pet should be able to do the equivalent of 1 Mana EXTRA per combat (e.g. other than pet attack)
-Other Abilities Title: Level 1 Pet Talents
+Other Abilities Title: special Pet Talents
 Other Abilities Description: Choose up to 2 Pet Talents to give to your pet. These are permanent and can only be changed by retraining your pet in later levels, via special Talents.
 Other Abilities:
 
@@ -332,38 +332,18 @@ Specs:
           {DiceUpgrade}
           Your pets' attacks don't increase.
           A Unit can only have one Hunter Mark on it at a time.
+
+      ~Tracker~ :
+        _Value: 0.25
+        A: Passive
+        Effect: |
+          You have +2 in Tracking (non-Combat Skill)
+          You always know where North is in non-magical environments.
+          You and your pets are unaffected by Hard Terrain.
           
     Talents:
-      Level 2 - Minor Talent:
 
-        ~Tracker~ :
-          _Value: 0.25
-          A: Passive
-          Effect: |
-            You have +2 in Tracking (non-Combat Skill)
-            You always know where North is in non-magical environments.
-            You and your pets are unaffected by Hard Terrain.
-        
-        ~Infused Shots~:
-          A: Passive
-          DisplayName: "{DisplayName}"
-          Effect: You can change your weapon attacks' Damage Type to {Type}.
-          Variants:
-            - IconName: Fire Shots
-              DisplayName: Fire Shots
-              Type: Fire
-            - IconName: Ice Shots
-              DisplayName: Ice Shots
-              Type: Cold
-            - IconName: Poisoned Shots
-              DisplayName: Poisoned Shots
-              Type: Poison
-
-        <Pet Versatile Training>:
-          A: Special
-          Effect: When you get this Talent and at the end of every Adventure, you can change one of your pet's Pet Talents.
-
-      Level 3 - Keystone Talent:
+      Level 2 - Keystone Talent:
 
         <Bola Shot>:
           _Value: 1.5
@@ -402,54 +382,15 @@ Specs:
           _Value: 1.5
           A: Passive
           Effect: Pet Attack deals 1d6 Damage instead of 1d4.
-        # Talents: Headhunt, Bountyhunt, Pet   
-      
-      Level 4 - Minor Talent:
 
         <Bandage Wounds>:
           _Value: 0.75
           Cooldown: Once / Adventure
           A: 10 minutes
-          Effect: Heal a Unit for 1d4 for each 10 Health it is missing.
-
-        <Pet Versatile Trainings>:
-          A: Special
-          Effect: When you get this Talent and at the end of every Adventure, you can change one Pet Talent of one of your pets.
-
-        ~Lance Heave~:
-            A: Depends on Weapon
-            DisplayName: "{Name}"
-            HasMixins: true
-            DisplayRequirement: Only usable if it hits at least 2 Units
-            Tags: AoE
-            Effect: |
-                Make a {Weapon} ^weapon^ attack {Effect}
-                ~Click on the Icon to select a preferred effect!~
-            Combo: Comboed Units take the original full Damage.
-            Notes: |
-              Can apply weapon effects. If the weapon effect requires a target, applies to one chosen Unit hit.
-              Range increases do increase the length. The Damage must the same for all Units hit. All bonuses to the attack (e.g. Smite, Cursewielder, etc) also split evenly.
-            Variants:
-                - Name: Lance Heave
-                  Effect: that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.
-                  Weapon: 2-handed melee
-                  IconName: Lance Heave
-                - Name: Blade Heave
-                  Effect: that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.
-                  Weapon: 1-handed melee
-                  IconName: Blade Heave
-                - Name: Penetrating Heave
-                  Effect: that hits one more Unit up to 2 meters directly behind the main target.
-                  Weapon: 2-handed ranged
-                  IconName: Penetrating Heave
-                - Name: Piercing Heave
-                  Effect: that hits one more Unit up to 2 meters directly behind the main target.
-                  Weapon: 1-handed ranged
-                  IconName: Piercing Heave
-
-
-
-      Level 5 - Keystone Talent:
+          Effect: Heal a Unit for 1d6 for each 10 Health it is missing.
+        # Talents: Headhunt, Bountyhunt, Pet   
+      
+      Level 4 - Keystone Talent:
       
         <Crosshair Shot>:
             _Value: 2.25
@@ -505,6 +446,8 @@ Specs:
           A: Passive
           Effect: Pet Attack deals 1d6 Damage instead of 1d4.
           Notes: This Talent is also available at an earlier Level, and does ^not^ stack with this.
+
+
 
       Level 6 - Utility Talent:
 
@@ -630,28 +573,8 @@ Specs:
             In that case, your current companion can not go away, either.
     
     Talents:
-      Level 2 - Minor Talent:
 
-        <Pet Versatile Trainings>:
-          A: Special
-          Effect: When you get this Talent and at the end of every Adventure, you can change one Pet Talent of one of your pets.
-
-        ~Infused Bites~:
-          A: Passive
-          DisplayName: "{DisplayName}"
-          Effect: You can change your pet's attacks' Damage Type to {Type}.
-          Variants:
-            - IconName: Acid Bites
-              DisplayName: Acid Bites
-              Type: Acid
-            - IconName: Venom Bites
-              DisplayName: Venom Bites
-              Type: Poison
-            - IconName: Necrotic Bites
-              DisplayName: Necrotic Bites
-              Type: Scourge
-
-      Level 3 - Keystone Talent:
+      Level 2 - Keystone Talent:
 
         <Kindred Spirits>:
           _Value: 5
@@ -667,18 +590,12 @@ Specs:
           Effect: |
             Each of your Animals now has 4 instead of 2 Pet Talents, +100% Health and deals 2d6 Pet Attack Damage instead of 1d6.
 
-      Level 4 - Minor Talent:
-
+      Level 4 - Keystone Talent:
+        
         <Double Training>:
           A: Passive
           Effect: Teach each of your Animal Companions one more Pet Talent.
 
-        <Pet Versatile Training>:
-          A: Special
-          Effect: When you get this Talent and at the end of every Adventure, you can change one of your pet's Pet Talents.
-
-      Level 5 - Keystone Talent:
-        
         <Ravage!>:
           _Value: 2.25
           A: 1 Action
