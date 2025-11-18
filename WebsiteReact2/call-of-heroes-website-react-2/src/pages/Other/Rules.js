@@ -65,14 +65,14 @@ export default function Rules({}) {
     }
     function ColumnsContent() {
         return <>
-            { U.mapEachKeyValue(rules, (columnName, chapters) => (
+            { U.mapObjectToArray(rules, (columnName, chapters) => (
                 <Column>
-                    { U.mapEachKeyValue(chapters, (chapterTitle, sections) => (<>
+                    { U.mapObjectToArray(chapters, (chapterTitle, sections) => (<>
                         <RulesH1 title={chapterTitle}/>
-                        { U.mapEachKeyValue(sections, (sectionName, section) => (
+                        { U.mapObjectToArray(sections, (sectionName, section) => (
                             <>
                                 <RulesH2 title={sectionName}/>
-                                { U.mapEachKeyValue(section, (pointName, pointText) => (
+                                { U.mapObjectToArray(section, (pointName, pointText) => (
                                     <RulesH3 title={pointName}/>
                                 )) }
                             </>

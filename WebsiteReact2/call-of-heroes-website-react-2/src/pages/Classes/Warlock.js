@@ -29,7 +29,7 @@ import ManySpells from '../../components/Spell/ManySpells'
 
 import theClass from '../../databases/Classes/Warlock.json'
 
-import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies, AbilitiesWithDescription, SADescription, ClassFeatsDescription, Equipment, RaceHeader, ClassPage } from '../../components/InsertableTemplates/RaceClassComponents'
+import {  Spec, PHealthAndArmor, Proficiencies, AbilitiesWithDescription, SADescription, ClassFeatsDescription, Equipment, RaceHeader, ClassPage } from '../../components/InsertableTemplates/RaceClassComponents'
 import { SideMenuFromClass } from '../../components/SideMenu/SideMenu'
 import { QGTitle1 } from '../Tools/TitleGenerator'
 

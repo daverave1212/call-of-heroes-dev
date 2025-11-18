@@ -28,7 +28,7 @@ import theRace from '../../databases/Races/Davel.json'
 
 import ManySpells from '../../components/Spell/ManySpells'
 
-import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies, AbilitiesWithDescription, RaceFeatures, RacialFeats, RaceDescription, RaceHeader } from '../../components/InsertableTemplates/RaceClassComponents'
+import {  Spec, PHealthAndArmor, Proficiencies, AbilitiesWithDescription, RaceFeatures, RacialFeats, RaceDescription, RaceHeader } from '../../components/InsertableTemplates/RaceClassComponents'
 
 // TODO: Idea - have all races/classes be a separate page with hero banners
 

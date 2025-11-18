@@ -59,11 +59,6 @@ export default function SectionNames({ onChange }) {
                     onChange(newState)
                 }}/>
             </div>
-
-            <br/>
-            <div className="center-content">
-                <HeroButton style={{maxWidth: '400px'}}>Next</HeroButton>
-            </div>
         </div>
     )
 }

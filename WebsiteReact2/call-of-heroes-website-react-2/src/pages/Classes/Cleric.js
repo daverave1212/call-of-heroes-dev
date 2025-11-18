@@ -27,7 +27,7 @@ import theClass from '../../databases/Classes/Cleric.json'
 
 import ManySpells from '../../components/Spell/ManySpells'
 
-import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies, ClassFeatsDescription, Equipment, RaceHeader, ClassPage } from '../../components/InsertableTemplates/RaceClassComponents'
+import {  Spec, PHealthAndArmor, Proficiencies, ClassFeatsDescription, Equipment, RaceHeader, ClassPage } from '../../components/InsertableTemplates/RaceClassComponents'
 import { SideMenu, SideMenuFromClass } from '../../components/SideMenu/SideMenu'
 import { QGTitle1 } from '../Tools/TitleGenerator'
 

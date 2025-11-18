@@ -18,14 +18,14 @@ import Mage from '../../databases/Classes/Mage.json'
 // import Warrior from '../../databases/Classes/Warrior.json'
 
 import Cleric from '../../databases/ClassesV2/Priest.json'
-import Druid from '../../databases/ClassesV2/Priest.json'
-import Hunter from '../../databases/ClassesV2/Priest.json'
-import Rogue from '../../databases/ClassesV2/Priest.json'
-import Shaman from '../../databases/ClassesV2/Priest.json'
-import Sorcerer from '../../databases/ClassesV2/Priest.json'
-import Warlock from '../../databases/ClassesV2/Priest.json'
-import Warrior from '../../databases/ClassesV2/Priest.json'
-import Wizard from '../../databases/ClassesV2/Priest.json'
+import Druid from '../../databases/ClassesV2/Druid.json'
+import Hunter from '../../databases/ClassesV2/Hunter.json'
+import Rogue from '../../databases/ClassesV2/Rogue.json'
+import Shaman from '../../databases/ClassesV2/Shaman.json'
+import Sorcerer from '../../databases/ClassesV2/Sorcerer.json'
+import Warlock from '../../databases/ClassesV2/Warlock.json'
+import Warrior from '../../databases/ClassesV2/Warrior.json'
+import Wizard from '../../databases/ClassesV2/Wizard.json'
 import Artificer from '../../databases/ClassesV2/Artificer.json'
 import Berserker from '../../databases/ClassesV2/Berserker.json'
 import Knight from '../../databases/ClassesV2/Knight.json'
@@ -46,22 +46,6 @@ export const Races = {
     Human,
     Giant: Orc
 }
-export const Classes = {
-    Cleric,
-    Druid,
-    Hunter,
-    Rogue,
-    Shaman,
-    Sorcerer,
-    Warlock,
-    Warrior,
-    Wizard,
-
-    Mage,   // For fixing old classes
-
-    Artificer,
-    Knight,
-}
 
 export const ClassesBase = {
     Cleric,
@@ -80,4 +64,10 @@ export const ClassesPremium = {
 }
 export const ClassesLegacy = {
     Mage
+}
+
+export const Classes = {
+    ...ClassesBase,
+    ...ClassesPremium,
+    ...ClassesLegacy
 }

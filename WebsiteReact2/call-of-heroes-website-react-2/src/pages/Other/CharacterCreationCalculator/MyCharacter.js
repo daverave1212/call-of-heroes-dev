@@ -431,15 +431,15 @@ export default function MyCharacter() {
             <ManySpells className="margin-top-1" spells={allMyWeapons} areItems={true} shouldIgnoreAlignment={true}/>
 
             
-            <PageH2 className="margin-top-2">Minor Spells (hidden)</PageH2>
+            <PageH2 hasMargin={false} className="margin-top-2 center-text">Lesser Abilities</PageH2>
             <button onClick={() => setAreMinorSpellsHidden(!areMinorSpellsHidden)}>{ areMinorSpellsHidden? 'Show': 'Hide' }</button>
             { areMinorSpellsHidden == false && <ManySpells className="margin-top-1" spells={spellsIgnored} shouldIgnoreAlignment={true}/> }
 
-            <PageH2 className="margin-top-2">Race and Class Abilities</PageH2>
+            <PageH2 hasMargin={false} className="margin-top-2 center-text">Race and Class Abilities</PageH2>
             <ManySpells spells={allDisplayedRaceAndClassSpells} shouldIgnoreAlignment={true} spellsMetadata={spellsMetadata}/>
 
-            <PageH2 className="margin-top-1">Basic Abilities</PageH2>
-            <ManySpells spells={myBasicAbilities} shouldIgnoreAlignment={true} spellsMetadata={spellsMetadata}/>
+            {/* <PageH2 hasMargin={false} className="margin-top-1 center-text">Basic Abilities</PageH2>
+            <ManySpells spells={myBasicAbilities} shouldIgnoreAlignment={true} spellsMetadata={spellsMetadata}/> */}
         </div>
     )
 }

@@ -40,7 +40,7 @@ import { QGTitle1 } from '../../pages/Tools/TitleGenerator'
 import { SideMenuFromClass, SideMenuFromRace } from '../SideMenu/SideMenu'
 import Selector from '../Selector/Selector'
 import { toggleSpellForSelectedSpellNames } from '../../pages/Other/CharacterCreationCalculator/CharacterData'
-import { BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP, HEALTH_REGEN, INITIATIVE, MAX_HEALTH, MOVEMENT_SPEED, normalizeTextWithStats } from '../../services/game-lib/stat-calculations'
+import { BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP, HEALTH_REGEN, INITIATIVE, MAX_HEALTH, MOVEMENT_SPEED, normalizeTextWithStats, STAT_LIMITS_TEXT } from '../../services/game-lib/stat-calculations'
 
 
 export function Proficiencies({ name, theRaceOrClass }) {
@@ -114,6 +114,8 @@ export function RaceHeader({imgStyle, theRace, theClass, hueShift, height=60}) {
                 </div>
                 <br/>
                 <br/>
+                <br/>
+                <br/>
                 { descriptionBefore && <p>{descriptionBefore}</p>}
                 { theRace?.IsShort || theClass?.IsShort? (
                     <TwoColumns>
@@ -128,10 +130,10 @@ export function RaceHeader({imgStyle, theRace, theClass, hueShift, height=60}) {
                     </TwoColumns>
                 ) : (
                     <TwoColumns style={{gap: '2rem' }}>
-                        <Column style={{zIndex: 1}}>
+                        <Column style={{zIndex: 1, flex: 1}}>
                             <RaceDescription description={descriptionLeft ?? description}/>
                         </Column>
-                        <Column className={`flex column`} style={{position: 'relative'}}>
+                        <Column className={`flex column`} style={{position: 'relative', flex: 1}}>
                             { descriptionRightTop && <p>{descriptionRightTop}</p>}
                             <img style={imageStyle} className={`class-image ${imageClass}`} src={imagePath}/>
                             { descriptionRightBottom && <p>{descriptionRightBottom}</p>}
@@ -292,86 +294,44 @@ export function Equipment({ theClass }) {
 
 export function LevelingUp({ theClass, isCharacterCreationPage=false }) {
     const pageMarginTop = isCharacterCreationPage? '0px': 'var(--page-padding)'
+    const everyLevel = theClass['Level Up']['Every Level']
+
     return (
         <div style={{marginTop: pageMarginTop}} id="leveling-up">
-            {/* <PageH2>Leveling Up</PageH2> */}
-            <QGTitle1 text={'Leveling Up'} height={35}/>
+            <PageH2 hasMargin={false} className="center-text">Leveling Up</PageH2>
     
             <TwoColumns type="normal">
                 <Column>
-                    {
-                        theClass['Spellcasting']['Type'] == 'Mana-based'? (
-                            <div>
-                                <TableNormal columns={['Every Level Above 1 You Get...']}>
-                                    <tr>
-                                        <td>
-                                            +{ theClass['Level Up']['Every Level']['Health'] } <Icon name="Health"/>Health
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            +1 <Icon name="Mana"/>Mana
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            +2 <Icon name="HealthRegen"/>Health Regen
-                                        </td>
-                                    </tr>
-                                </TableNormal>
-                
-                                <p style={{whiteSpace: 'pre-wrap'}} className='margined-bottom'>{ rules['LevelUpBonusesDescription (Mana-based)'] }</p>
-                            </div>
-                        ) :
-                        theClass['Spellcasting']['Type'] == 'Special Mana-based' ||
-                        theClass['Spellcasting']['Type'] == 'Hunter' ? (
-                            <div>
-                                <TableNormal columns={['Every Level Above 1 You Get...']}>
-                                    <tr>
-                                        <td>
-                                            +{ theClass['Level Up']['Every Level']['Health'] } <Icon name="Health"/>Health
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            +2 <Icon name="HealthRegen"/>Health Regen
-                                        </td>
-                                    </tr>
-                                </TableNormal>
-                
-                                <p style={{whiteSpace: 'pre-wrap'}} className='margined-bottom'>{ rules['LevelUpBonusesDescription (Special Mana-based)'] }</p>
-                            </div>
-                        ) : 
-                        theClass['Spellcasting']['Type'] == 'Paladin' ? (
-                            <div>
-                                <TableNormal columns={['Every Level Above 1 You Get...']}>
-                                    <tr>
-                                        <td>
-                                            +{ theClass['Level Up']['Every Level']['Health'] } <Icon name="Health"/>Health
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            +2 <Icon name="HealthRegen"/>Health Regen
-                                        </td>
-                                    </tr>
-                                </TableNormal>
-                
-                                <p style={{whiteSpace: 'pre-wrap'}} className='margined-bottom'>{ rules['LevelUpBonusesDescription (Special Mana-based)'] }</p>
-                            </div>
-                        ): (
-                            null
-                        )
-                    }
+                    <TableNormal columns={['Every Level Above 1 You Get...']}>
+                        { Object.keys(everyLevel).map(statName => (
+                            <tr>
+                                <td>
+                                    +{ everyLevel[statName] } <Icon src={U.getStatIconPathByStatName(statName)}/>{statName}
+                                </td>
+                            </tr>
+                        ))}
+                        <tr>
+                            <td>
+                                +1 <Icon name="XP"/>Talent (for your new Level)
+                            </td>
+                        </tr>
+                    </TableNormal>
                 </Column>
                 <Column>
                     <p>
-                        Every Level above Level 1, you get all the bonuses listed - the extra Max Health, the extra Health Regen, etc.<br/>
-                        { isCharacterCreationPage && 'At Level 2, you can pick your Specialization. From Level 3 on, every Level, you get to pick a Talent choice'}
-                        { isCharacterCreationPage != true && (
-                            <span>Remember to pick your Specialization at Level 2, and then from Level 3 on, every Level, you get to pick a Talent choice! Note that when you gain extra Might, you also gain extra Max Health, and the same goes for Dexterity and Charisma with Initiative{ theClass.Class == 'Paladin'? '': <span>, and Intellgience with the number of Known Basic Abilities</span> }.</span>
-                        )}
+                        Every Level above Level 1, you get all the bonuses listed.
+                        
+                        <br/><br/>
+                        The +1 in Any Stat goes up to your Stat Limit:
                         <br/>
+                        {STAT_LIMITS_TEXT}
+                        
+                        { theClass.Specs != null && <>
+                            <br/><br/>
+                            At Level 2, you can pick your Specialization.
+                        </>}
+
+                        <br/><br/>
                         You can relearn all Talents inbetween Adventures.
                     </p>
                 </Column>
@@ -396,14 +356,6 @@ export function SpecialManaDescriptionNormal() {
 
 export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
 
-    const [displayedBasicAbilityObj, setDisplayedBasicAbilityObj] = useState(null)
-
-    const titlesByType = {
-        'Paladin': 'Paladin',
-        'Mana-based': 2,
-        'Special Mana-based': 2
-    }
-
     function SpellcastingType() {
 
 
@@ -419,10 +371,13 @@ export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
 
                 <PageH3>Changing Abilities (Respec)</PageH3>
                 <p>
-                    You can change your character's chosen Utility Abilities and chosen Talents (your build) inbetween Adventures.<br/>
-                    Note that non-talent Abilities that grant Stats can't be changed.<br/>
+                    You can change your character's chosen Talents (your build) inbetween Adventures.<br/>
+                    
                     { isCharacterCreationPage == false && (
-                        "Feats can't generally be changed once picked; they are permenant decisions."
+                        <>
+                            <br/><br/>
+                            Feats can't generally be changed once picked; they are permenant decisions.
+                        </>
                     )}
                 </p>
                 {
@@ -430,79 +385,6 @@ export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
                         <p>{ theClass.Spellcasting.Other }</p>    
                     )
                 }
-            </div>
-        )
-    }
-
-    function ManaBasedSpellcasting() {
-        return (
-            <div>
-                <PageH3>Mana-Based {theClass['Spellcasting'].SpellsOrAbilities} Casting</PageH3>
-                <ManaDescriptionNormal/>
-                <PageH3>Changing {theClass['Spellcasting'].SpellsOrAbilities === 'Spell' ? 'Spells' : 'Abilities'}</PageH3>
-                <p>
-                    You can change your known Basic Abilities and Talents inbetween Adventures.<br/>
-                    { isCharacterCreationPage == false && (
-                        "Feats can't generally be changed once picked; they are permenant decisions."
-                    )}
-                </p>
-                {
-                    isCharacterCreationPage == false && (
-                        <p>{ theClass.Spellcasting.Other }</p>    
-                    )
-                }
-                
-            </div>
-        )
-    }
-    function SpecialManaBasedSpellcasting() {
-        return (
-            <div>
-                <PageH3>Special Mana-Based Spellcasting</PageH3>
-                <p>
-                    As a { theClass.Class }, you have a number of Mana points.
-                    Unlike other Mana-based classes, your Mana instantly regenerates 10 minutes after finishing every combat encounter (if you don't enter another combat meanwhile).
-                    If you want to use Mana inbetween encounters, you spend Mana normally and, as specified, it replenishes 10 minutes after the next combat encounter (so, yes, you <b>must</b> do a combat encounter in order to restore your mana; such is the nature of Warlocks).
-                    <br/><br/>
-                    <PageH3>Changing Spells</PageH3>
-                    <p>
-                        You can change your known Basic Abilities and Talents inbetween Adventures.<br/>
-                        { isCharacterCreationPage == false && ( /* For spacing */
-                            "Feats can't generally be changed once picked; they are permenant decisions."
-                        )}
-                    </p>
-                    {
-                        isCharacterCreationPage == false && ( /* For spacing */
-                            <p>{ theClass.Spellcasting.Other }</p>    
-                        )
-                    }
-                </p>
-            </div>
-        )
-    }
-    function RecommendedBasicSpells() {
-
-        return (
-            <div>
-                <PageH3>Recommended Basic Abilities</PageH3>
-                <TwoColumns>
-                    <Column className='with-margined-children'>
-                        { displayedBasicAbilityObj != null && (
-                            <Spell spell={displayedBasicAbilityObj}/>
-                        ) }
-                    </Column>
-                    <Column>
-                        <p>
-                            This is a list of recommended Basic Abilities (from your Basic Ability Schools mentioned above) for when you are undecided on which Basic Abilities to get, or you simply want a quick character creation.
-                            They are in order of priority, top to bottom. If you don't know what to pick, get these! You can click on them on the left to check out what they do, or check out the Abilities page to see all of them.
-                            Unless your Intelligence is 3, you won't be able to get all of them, but you can pick the first few ones.
-                        </p>
-                        <Separator/>
-                        <p>
-                            { theClass['Spellcasting']['Recommended Abilities Description'] }
-                        </p>
-                    </Column>
-                </TwoColumns>
             </div>
         )
     }
@@ -511,12 +393,13 @@ export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
 
     return (
         <div id={theClass['Spellcasting'].SpellsOrAbilities === 'Spell' ? 'spells-and-mana' : 'abilities-and-mana'}>
-            <QGTitle1 text={title} height={35}/>
+            {/* <QGTitle1 text={title} height={35}/> */}
+            <PageH2 hasMargin={false} className="center-text">{title}</PageH2>
 
             <TwoColumns>
                 <Column>
                     <div className='with-margined-children'>
-                        <PageH3>Basic Abilities</PageH3>
+                        <PageH3>Mana & Talents</PageH3>
                         { theClass.Spellcasting?.Type != null && theClass.Spellcasting?.Mana?.Amount != null && (
                             <SmallStat name="Mana" color="blue">
                                 <Icon name="Mana"/>{ theClass.Spellcasting.Mana.Amount } ({
@@ -543,12 +426,6 @@ export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
                     <SpellcastingType/>
                 </Column>
             </TwoColumns>
-            
-            { isCharacterCreationPage == false && ( <>
-                <br/>
-                <RecommendedBasicSpells/>
-            </>)}
-            
             
         </div>
     )
@@ -578,19 +455,17 @@ export function Spec({ children, name, specObj, hasNoMargins }) {
     )
 }
 
-export function SpecTalents({ spec, selectedSpellNames, onSpellClick, spellsMetadata }) {
-
-    const talentTitles = Object.keys(spec.Talents)
+export function Talents({ talents, selectedSpellNames, onSpellClick, spellsMetadata }) {
+    const talentTitles = Object.keys(talents)
 
     return (
         <div>
-            <QGTitle1 text={'Talents'} height={35}/>
             <p>Every Level, you can pick 1 Talent from that Level's available Talents. There are Minor Talents, Major Talents and Utility Talents.</p>
 
             { talentTitles.map(talentTitle => {
-                const spellsInThisTier = U.spellsFromObject(spec.Talents[talentTitle])
-                return <div key={talentTitle}>
-                    <PageH3>{talentTitle}</PageH3>
+                const spellsInThisTier = U.spellsFromObject(talents[talentTitle])
+                return <div key={talentTitle} className='margin-top-2'>
+                    <PageH2 className="center-text">{talentTitle}</PageH2>
                     <ManySpells spells={spellsInThisTier} selectedSpellNames={selectedSpellNames} onSpellClick={onSpellClick} spellsMetadata={spellsMetadata}/>
                 </div>
             })}
@@ -598,9 +473,7 @@ export function SpecTalents({ spec, selectedSpellNames, onSpellClick, spellsMeta
     )
 }
 
-export function StartingAbilities({ spellsObject, description }) {
-    return AbilitiesWithDescription({ spellsObject, description, title: 'Starting Abilities', autoAlign: true, id: 'starting-abilities' })    
-}
+
 export function SADescription({description}) {
     if (typeof description === 'string' || description instanceof String)
         return (<p style={{marginTop: '-8px'}}>{ U.parseTextWithSymbols(description) }</p>)
@@ -656,7 +529,8 @@ export function AbilitiesWithDescription({ spellsObject, description, title, aut
 
     return (
         <div id={id}>
-            { title != null && <QGTitle1 text={title} height={35}/> }
+            {/* { title != null && <QGTitle1 text={title} height={35}/> } */}
+            { title != null && <PageH2 hasMargin={false} className="center-text">{title}</PageH2> }
 
             <TwoColumns>
                 <Column>
@@ -690,7 +564,7 @@ export function RacePage({ theRace }) {
                 <Proficiencies name={theRace.Race} theRaceOrClass={theRace}/>
 
                 
-                <QGTitle1 text={'Abilities'} height={35}/>
+                <PageH2 hasMargin={false} className="center-text">Abilities</PageH2>
                 <ManySpells spells={theRace['Starting Abilities']} description={theRace['Starting Abilities Description']}/>
                 { theRace['Ability Choices'] != null && (
                     <div>
@@ -720,7 +594,7 @@ export function CCRacePage({ theRace, selectedSpellNames, onSpellClick }) {
 
                 <Proficiencies name={theRace.Race} theRaceOrClass={theRace}/>
 
-                <QGTitle1 text={'Abilities'} height={35}/>
+                <PageH2 hasMargin={false} className="center-text">Abilities</PageH2>
                 <ManySpells
                     spells={theRace['Starting Abilities']}
                     description={theRace['Starting Abilities Description']}
@@ -777,9 +651,14 @@ export function ClassPageV1({ theClass }) {
                         <PageH3 style={{marginTop: 'var(--page-padding)'}}>Druidic</PageH3>
                         <p>{theClass.Druidic}</p>
                     </div>
-                )}            
-                
-                <StartingAbilities spellsObject={theClass['Starting Abilities']} description={theClass['Starting Abilities Description']}/>
+                )}
+                <AbilitiesWithDescription
+                    title="Starting Abilities"
+                    description={theClass['Starting Abilities Description']}
+                    spellsObject={theClass['Starting Abilities']}
+                    autoAlign={true}
+                    id="starting-abilities"
+                />
 
                 <SpellCasting theClass={theClass}/>
 
@@ -812,7 +691,7 @@ export function ClassPageV1({ theClass }) {
                                 )
                             }
 
-                            <SpecTalents spec={spec}/>
+                            <Talents talents={spec.Talent}/>
 
                         </Spec>
                     )
@@ -863,13 +742,29 @@ export function ClassPageV2({
                     </div>
                 )}            
                 
-                <StartingAbilities spellsObject={theClass['Starting Abilities']} description={theClass['Starting Abilities Description']}/>
+                <AbilitiesWithDescription
+                    title="Starting Abilities"
+                    description={theClass['Starting Abilities Description']}
+                    spellsObject={theClass['Starting Abilities']}
+                    autoAlign={true}
+                    id="starting-abilities"
+                />
+
+                { theClass['Ideas'] != null && (
+                    <div>
+                        <PageH2>Ideas</PageH2>
+                        <ManySpells
+                            spells={theClass['Ideas']}
+                            description={'This is for testing purposes only. Ignore this section.'}
+                            selectedSpellNames={selectedSpellNames}
+                        />
+                    </div>
+                )}
 
                 <SpellCasting theClass={theClass} isCharacterCreationPage={true}/>
                 
                 <LevelingUp theClass={theClass} isCharacterCreationPage={true}/>
 
-                <QGTitle1 text={"Starting Talents"} height={45}/>
 
                 { theClass['Other Abilities'] != null && (
                     <div>
@@ -884,24 +779,17 @@ export function ClassPageV2({
                     </div>
                 )}
 
-                { theClass['Ability Choices'] != null && (
-                    <div>
-                        <PageH2>Level 1 - Minor Talent</PageH2>
-                        <ManySpells
-                            spells={theClass['Ability Choices']}
-                            description={theClass['Ability Choices Description']}
-                            selectedSpellNames={selectedSpellNames}
-                            onSpellClick={onSpellClick}
-                            spellsMetadata={spellsMetadata}
-                        />
-                    </div>
-                )}
 
 
-                
+
+                 
+
+                <div className='center-content'>
+                    <QGTitle1 text={'Talents'} height={45}/>
+                </div>
                 { theClass['Utility'] != null && (
                     <div>
-                        <PageH2>Level 1 - Utility Talent</PageH2>
+                        <PageH2 className="center-text">Level 1 - Utility Talent</PageH2>
                         <ManySpells
                             spells={theClass['Utility']}
                             description={theClass['Utility Description']}
@@ -912,21 +800,31 @@ export function ClassPageV2({
                     </div>
                 )}
 
-                { theClass['Ideas'] != null && (
+                { theClass['Ability Choices'] != null && (
                     <div>
-                        <PageH2>Ideas</PageH2>
+                        <PageH2 className="center-text">Level 1 - Minor Talent</PageH2>
                         <ManySpells
-                            spells={theClass['Ideas']}
-                            description={'This is for testing purposes only. Ignore this section.'}
+                            spells={theClass['Ability Choices']}
+                            description={theClass['Ability Choices Description']}
                             selectedSpellNames={selectedSpellNames}
+                            onSpellClick={onSpellClick}
+                            spellsMetadata={spellsMetadata}
                         />
                     </div>
                 )}
+                { theClass.Talents != null && <>
+                    <Talents
+                        talents={theClass.Talents}
+                        selectedSpellNames={selectedSpellNames}
+                        onSpellClick={onSpellClick}
+                        spellsMetadata={spellsMetadata}
+                    />
+                </>}
 
                 <br/><br/>
                 { theClass.Specializations != null &&
                     <div className='center-content'>
-                        <QGTitle1 text={'Specializations'} height={35}/>
+                        <QGTitle1 text={'Specializations'} height={45}/>
                     </div>
                 }
                 { theClass.Specs != null && (<>  
@@ -937,14 +835,7 @@ export function ClassPageV2({
                     </div>
                 </>)}
 
-                { theClass.Talents != null && <>
-                    <SpecTalents
-                        spec={theClass}
-                        selectedSpellNames={selectedSpellNames}
-                        onSpellClick={onSpellClick}
-                        spellsMetadata={spellsMetadata}
-                    />
-                </>}
+
 
 
             </Page>
@@ -966,8 +857,8 @@ export function ClassPageV2({
                         )
                     }
 
-                    <SpecTalents
-                        spec={selectedSpecObj}
+                    <Talents
+                        talents={selectedSpecObj.Talents}
                         selectedSpellNames={selectedSpellNames}
                         onSpellClick={onSpellClick}
                         spellsMetadata={spellsMetadata}
@@ -986,12 +877,10 @@ export function ClassPageV2({
 }
 
 function calculateSpellsObjectAveragePower(obj) {
-    console.log({obj})
     const spells = U.spellsFromObject(obj)
     const powers = spells
         .map(a => parseFloat(a._Value))
         .filter(value => value != null && U.isNumber(value))
-    console.log({powers})
     return parseFloat(U.average(powers).toFixed(2))
 }
 function calculateSpellsObjectTotalPower(obj) {

@@ -176,6 +176,22 @@ export function getItemIconPathByName(name) {
     const iconPath = `/Icons/Items/${iconName}.png`
     return iconPath
 }
+const STAT_ICON_PATHS = {
+    'Max Health': '/Icons/UI/Health.png',
+    'Health': '/Icons/UI/Health.png',
+    'Mana': '/Icons/UI/Mana.png',
+    'Health Regen': '/Icons/UI/HealthRegen.png',
+    'Skill Point': '/Icons/UI/CharacterSetupSub.png',
+    'Stat': '/Icons/UI/Level.png',
+    'Any Stat': '/Icons/UI/Level.png',
+    'Any Stat (up to the Stat Limit)': '/Icons/UI/Level.png',
+}
+export function getStatIconPathByStatName(name) {
+    if (name in STAT_ICON_PATHS) {
+        return STAT_ICON_PATHS[name]
+    }
+    return '/Icons/UI/Elemental.png'
+}
 export function getUniqueSpellID(name) {
     const idName = stringReplaceAllMany(name, [' ', '/', '%'], ['_', '_', ''])
     return idName
@@ -695,6 +711,8 @@ export function mapObject(obj, func) {
     return newObj
 }
 export function addObjects(a, b) {
+    const isNullOrNaN = x => x == null || equalsNaN(x)
+    window.isNullOrNaN = isNullOrNaN
     if (a == null || b == null) {
         console.log({a, b})
         console.error(`addObjects: a or b null! Printed above.`)
@@ -714,7 +732,11 @@ export function addObjects(a, b) {
         } else {
             const aValue = finalObject[bKey]
             const bValue = b[bKey]
-            if (isNumber(aValue) && isNumber(bValue)) {
+            if (isNullOrNaN(aValue) && !isNullOrNaN(bValue)) {
+                finalObject[bKey] = bValue
+            } else if (!isNullOrNaN(aValue) && isNullOrNaN(bValue)) {
+                finalObject[bKey] = aValue
+            } else if (isNumber(aValue) && isNumber(bValue)) {
                 finalObject[bKey] = finalObject[bKey] + bValue
             } else if (Array.isArray(aValue) && Array.isArray(bValue)) {
                 finalObject[bKey] = [...finalObject[bKey], ...b[bKey]]
@@ -775,7 +797,10 @@ export function reverseObject(obj) {
     }
     return newObj
 }
-export function mapEachKeyValue(obj, func) {
+export function objectToKVPArray(obj) {
+    return Object.keys(obj).map(key => ({ key, value: obj[key]}))
+}
+export function mapObjectToArray(obj, func) {
     return Object.keys(obj).map(key => func(key, obj[key]))
 }
 export function groupBy(arr, hashFunc) {
@@ -1264,6 +1289,10 @@ export function stringReplaceAllMany(str, replaceWhats, replaceWiths) {
     }
     return str
 }
+export function equalsNaN(x) {
+    return isNaN(x) && x !== x
+}
+window.equalsNaN = equalsNaN
 export function isObject(obj) {
     return typeof obj === 'object'
 }

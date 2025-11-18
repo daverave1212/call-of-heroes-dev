@@ -17,13 +17,13 @@ function AllRules() {
     }
 
     return <>
-        { U.mapEachKeyValue(rules, (columnName, chapters) => (<>
-            { U.mapEachKeyValue(chapters, (chapterTitle, sections) => (<>
+        { U.mapObjectToArray(rules, (columnName, chapters) => (<>
+            { U.mapObjectToArray(chapters, (chapterTitle, sections) => (<>
                 <QGTitle1 id={U.titleToId(chapterTitle)} text={removeLetterAndDot(chapterTitle)}/>
-                { U.mapEachKeyValue(sections, (sectionName, section) => (
+                { U.mapObjectToArray(sections, (sectionName, section) => (
                     <>
                         <PageH2 id={U.titleToId(sectionName)}>{sectionName}</PageH2>
-                        { U.mapEachKeyValue(section, (pointName, pointText) => (<>
+                        { U.mapObjectToArray(section, (pointName, pointText) => (<>
                             <div className='anchor-fixer' id={U.titleToId(pointName)}><PageH3>{pointName}</PageH3></div>
                             <p>{pointText}</p>
                         </>)) }

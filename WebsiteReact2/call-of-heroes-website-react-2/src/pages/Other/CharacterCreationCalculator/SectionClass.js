@@ -24,6 +24,8 @@ export default function SectionClass({ openPopup }) {
     const [spellNames, setSpellNames] = useSectionClassSpellNames()
     const [spellsMetadata, setSpellsMetadata] = useAllSpellsMetadata()
 
+    console.log({className, classesObj})
+
     const attributes = useConstTotalAttributes()
 
     const classesBaseData = Object.keys(ClassesBase).map(className => ({
@@ -54,8 +56,6 @@ export default function SectionClass({ openPopup }) {
 
     function onClassClick(className) {
         setClassName(className)
-        setSpecName(null)
-        setSpellNames([])
     }
 
     function selectSpell(spell, metadata) {

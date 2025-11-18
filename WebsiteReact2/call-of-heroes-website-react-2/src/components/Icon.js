@@ -1,19 +1,21 @@
 import React from 'react'
 
-export default function Icon({ name, type, style, extension='png' }) {
+export default function Icon({ name, src, type, style, extension='png' }) {
+
 
     const className = 
         type == 'spell' ? 'inline-icon--spell' :
         type == 'small-stat' ? 'inline-icon--small-stat' :
         'inline-icon'
 
-    const completeExtension = extension.startsWith('.') ? completeExtension : ('.' + extension)
-
-    if (name.includes('.') == false) {
+    if (name != null && name.includes('.') == false) {
+        const completeExtension = extension.startsWith('.') ? completeExtension : ('.' + extension)
         name += completeExtension
     }
 
+    const usedSrc = src ?? `/Icons/UI/${name}`
+
     return (
-        <img className={className} src={`/Icons/UI/${name}`} style={style}/>
+        <img className={className} src={usedSrc} style={style}/>
     )
 }

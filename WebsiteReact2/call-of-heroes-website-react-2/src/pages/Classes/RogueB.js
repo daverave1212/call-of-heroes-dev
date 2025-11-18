@@ -29,7 +29,7 @@ import ManySpells from '../../components/Spell/ManySpells'
 
 import theClass from '../../databases/Classes/RogueB.json'
 
-import { SpellCasting, StartingAbilities, ClassFeatures, LevelingUp, Spec, SpecTalents, PHealthAndArmor, Proficiencies, ClassFeatsDescription, Equipment, RaceHeader, } from '../../components/InsertableTemplates/RaceClassComponents'
+import {  Spec, PHealthAndArmor, Proficiencies, ClassFeatsDescription, Equipment, RaceHeader, Talents, } from '../../components/InsertableTemplates/RaceClassComponents'
 import { SideMenuFromClass } from '../../components/SideMenu/SideMenu'
 import { QGTitle1 } from '../Tools/TitleGenerator'
 
@@ -45,8 +45,6 @@ export default function RogueB() {
             <Page>
                 
                 <RaceHeader theClass={theClass}/>
-
-                <StartingAbilities spellsObject={theClass['Starting Abilities']} description={theClass['Starting Abilities Description']}/>
 
                 <SpellCasting theClass={theClass}/>
 
@@ -70,7 +68,7 @@ export default function RogueB() {
                     return (
                         <Spec key={specName} name={specName} specObj={spec}>
 
-                            <SpecTalents spec={spec}/>
+                            <Talents talents={spec.Talents}/>
 
                         </Spec>
                     )
