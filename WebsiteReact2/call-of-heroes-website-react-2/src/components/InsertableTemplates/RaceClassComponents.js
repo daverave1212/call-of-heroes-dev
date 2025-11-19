@@ -22,6 +22,7 @@ import Icon from '../Icon'
 
 import rules from '../../databases/Rules/Rules.json'
 import abilities from '../../databases/Abilities.json'
+import spellFonts from '../../databases/SpellFonts.json'
 import classAndRaceAbilities from '../../databases/ClassAndRaceAbilities.json'
 import ManySpells from '../Spell/ManySpells'
 import TableNormalLevelUpWarlock from '../TableNormal/TableNormalLevelUpWarlock'
@@ -41,6 +42,7 @@ import { SideMenuFromClass, SideMenuFromRace } from '../SideMenu/SideMenu'
 import Selector from '../Selector/Selector'
 import { toggleSpellForSelectedSpellNames } from '../../pages/Other/CharacterCreationCalculator/CharacterData'
 import { BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP, HEALTH_REGEN, INITIATIVE, MAX_HEALTH, MOVEMENT_SPEED, normalizeTextWithStats, STAT_LIMITS_TEXT } from '../../services/game-lib/stat-calculations'
+import { SelectorsByColumns } from '../../pages/Other/Abilities'
 
 
 export function Proficiencies({ name, theRaceOrClass }) {
@@ -713,10 +715,17 @@ export function ClassPageV2({
 
     console.log({onSpellClick})
 
+    window.theClass = theClass
+
     let [innerSelectedSpecName, setInnerSelectedSpecName] = useState(null)
+    let [selectedFontName, setSelectedFontName] = useState(null)
 
     const finalSelectedSpecName = selectedSpecName ?? innerSelectedSpecName
     const selectedSpecObj = finalSelectedSpecName == null? null: theClass.Specs[finalSelectedSpecName]
+
+    const spellFontNames = Object.keys(spellFonts)
+    const spellFontsSelectorData = spellFontNames.map(fontName => ({ name: fontName, src: '' }))
+
 
     function onSpecClick(specName) {
         if (setSelectedSpecName != null) {
@@ -726,6 +735,8 @@ export function ClassPageV2({
         }
         setSelectedSpellNames?.([])
     }
+
+
 
     return (
         <div>            
@@ -750,6 +761,17 @@ export function ClassPageV2({
                     id="starting-abilities"
                 />
 
+                { theClass.Spellcasting?.HasFont && (
+                    <div>
+                        <SelectorsByColumns
+                            selectorData={spellFontsSelectorData}
+                            nColumns={2}
+                            selectedSelectorName={selectedFontName}
+                            setSelectedSelectorName={setSelectedFontName}
+                        />
+                    </div>
+                )}
+
                 { theClass['Ideas'] != null && (
                     <div>
                         <PageH2>Ideas</PageH2>
@@ -761,9 +783,16 @@ export function ClassPageV2({
                     </div>
                 )}
 
+                <LevelingUp theClass={theClass} isCharacterCreationPage={true}/>
+
                 <SpellCasting theClass={theClass} isCharacterCreationPage={true}/>
                 
-                <LevelingUp theClass={theClass} isCharacterCreationPage={true}/>
+                { selectedFontName != null && (
+                    <>
+                        <PageH2 hasMargin={false} className="center-text">{selectedFontName} Font Spells</PageH2>
+                        <ManySpells spells={spellFonts[selectedFontName]}/>
+                    </>
+                )}
 
 
                 { theClass['Other Abilities'] != null && (
@@ -891,99 +920,226 @@ function calculateSpellsObjectTotalPower(obj) {
         .reduce((soFar, v) => soFar + v, 0)
     return parseFloat(startingAbilitiesPower.toFixed(2))
 }
-function calculateAveragePowerPerTalentTier(talentsObject) {
-    return U.mapObject(talentsObject, ({ key, value }) => {
-        return ({
-            key: key,
-            value: calculateSpellsObjectAveragePower(value)
-        })
-    })
-}
-function ClassPowerLevelTable({theClass}) {
 
-    const getsManaPerLevel = theClass.Spellcasting?.Mana?.Per == 'per Adventure'
+
+function getClassManaAtLevel(theClass, level) {
     const baseMana =
         theClass.Spellcasting?.Mana?.Per == 'per Worthy Combat'?
-            5:
-        getsManaPerLevel?
+            theClass.Spellcasting.Mana.Amount * 2.5:
+        theClass.Spellcasting?.Mana?.Amount != null?
             theClass.Spellcasting.Mana.Amount:
         0
+    const manaPerLevel = theClass['Level Up']?.['Every Level']?.Mana ?? 0
+    return baseMana + (level - 1) * manaPerLevel
+}
+function findTalentsCategoryObjectAtLevel(talentsObject, level) {
+    const talentTierName = findTalentsCategoryNameAtLevel(talentsObject, level)
+    if (talentTierName == null) {
+        return null
+    }
+    return talentsObject[talentTierName]
+}
+function findTalentsCategoryNameAtLevel(talentsObject, level) {
+    return Object.keys(talentsObject).find(category => category.includes(level + ''))
+}
+function calculateAveragePowerOnlyForLevelNoMana(theClass, level) { /* -> { [specName]: power, power: power } */
+    if (level == 1) {
+        const startingAbilitiesPower = calculateSpellsObjectTotalPower(theClass['Starting Abilities'])
+        const minorLevel1TalentsPower = theClass['Ability Choices'] == null? 0: calculateSpellsObjectAveragePower(theClass['Ability Choices'])
+        let level1TalentsPower = 0
+        if (theClass.Talents != null) {
+            const level1Keys = Object.keys(theClass.Talents).filter(talentCategory => talentCategory.includes('Level 1'))
+            const level1Powers = level1Keys.map(category => calculateSpellsObjectAveragePower(theClass.Talents[category]))
+            const totalTalentsLevel1Power = level1Powers.reduce((soFar, x) => soFar + x, 0)
+            level1TalentsPower = totalTalentsLevel1Power
+        }
 
-    const startingAbilitiesPower = calculateSpellsObjectTotalPower(theClass['Starting Abilities'])
-    const minorLevel1TalentsPower = theClass['Ability Choices'] == null? 0: calculateSpellsObjectAveragePower(theClass['Ability Choices'])
-    const talentTiersPowers = calculateAveragePowerPerTalentTier(theClass.Talents ?? {})
+        const totalPower = parseFloat((startingAbilitiesPower + minorLevel1TalentsPower + level1TalentsPower).toFixed(2))
+        return { startingAbilitiesPower, minorLevel1TalentsPower, level1TalentsPower, power: totalPower }
+    }
 
-
-    let headers
     if (theClass.Specs == null) {
-        headers = ['', 'Value', 'Mana', 'Total Value So Far']
-    } else {
-        headers = ['', ...Object.keys(theClass.Specs), 'Mana', 'Total Value So Far']
+        const talentTier = findTalentsCategoryObjectAtLevel(theClass.Talents, level)
+        if (talentTier == null) {
+            return 0
+        }
+        const totalPower = calculateSpellsObjectAveragePower(talentTier)
+        return { power: totalPower }
     }
 
-    const nSpecs = theClass.Specs == null? 1: Object.keys(theClass.Specs).length
-    const specsStartingAbilitiesPowersArray = theClass.Specs == null? []: (
-        Object.keys(theClass.Specs)
-            .map(key => calculateSpellsObjectTotalPower(theClass.Specs[key]['Starting Abilities']))
-    )
-
-    function calculateSpecsTableMatrix() {
-        const specNames = Object.keys(theClass.Specs)
-        let specsTalentTiersPowers
-        let allTalentTierNames = Object.keys(U.mergeManyObjects(specNames.map(specName => theClass.Specs[specName].Talents)))
-        if (theClass.Specs != null) {
-            specsTalentTiersPowers = U.mapObject(theClass.Specs, ({ key, value }) => ({
-                key: key,
-                value: calculateAveragePowerPerTalentTier(value.Talents)
-            }))
+    const specNames = Object.keys(theClass.Specs)
+    const specPowersForThisLevel = specNames.map(specName => {
+        const spec = theClass.Specs[specName]
+        const talentTier = findTalentsCategoryObjectAtLevel(spec.Talents, level)
+        if (talentTier == null) {
+            return 0
         }
+        const baseSpecPower = level != 2? 0: calculateSpellsObjectTotalPower(spec['Starting Abilities'])
+        const power = parseFloat((baseSpecPower + calculateSpellsObjectAveragePower(talentTier)).toFixed(2))
+        if (level == 2) {
+            return { baseSpecPower, power }
+        } else {
+            return { power }
+        }
+    })
 
-        const tableMatrix = []
-        let previousRowFinalValue = startingAbilitiesPower + baseMana + minorLevel1TalentsPower + U.average(specsStartingAbilitiesPowersArray)
-        let previousRowMana = baseMana
-        for (let i = 0; i < allTalentTierNames.length; i++) {
-            const tierName = allTalentTierNames[i]
-            const innerCols = specNames.map(specName => specsTalentTiersPowers[specName][tierName])
-            let finalValueCol = U.average(innerCols) + previousRowFinalValue
-            let mana = previousRowMana
-            if (getsManaPerLevel) {
-                if (tierName.includes('Level 1') == false) {
-                    previousRowMana += 1
-                    finalValueCol += 1
-                    mana = previousRowMana
-                }
-            }
+    const specsPowers = specNames.map((specName, i) => ({
+        specName,
+        ...specPowersForThisLevel[i]
+    }))
+
+    const totalPower = parseFloat(U.average(specPowersForThisLevel.map(({power}) => power)).toFixed(2))
+    return {power: totalPower, specs: specsPowers}
+}
+window.calculateAveragePowerOnlyForLevelNoMana = calculateAveragePowerOnlyForLevelNoMana
+function calculateTotalPowerAtLevelNoMana(theClass, level) {
+    const thisLevelPower = calculateAveragePowerOnlyForLevelNoMana(theClass, level).power
+    if (level == 1) {
+        return thisLevelPower
+    }
+    return parseFloat((thisLevelPower + calculateTotalPowerAtLevelNoMana(theClass, level - 1)).toFixed(2))
+}
+
+export function generateClassPowerLevelTable(theClass) {
+    const hasSpecs = theClass.Specs != null
+    const specNames = hasSpecs? Object.keys(theClass.Specs): [theClass.Class]
+
+    const headers = [...specNames, 'Mana', 'Total Value So Far']
+
+    const baseMana = getClassManaAtLevel(theClass, 1)
+    const manaRow = [...specNames.map(_ => baseMana), baseMana, baseMana]
+
+    const { startingAbilitiesPower, minorLevel1TalentsPower, level1TalentsPower, power } = calculateAveragePowerOnlyForLevelNoMana(theClass, 1)
+    const startingAbilitiesRow = [...specNames.map(_ => startingAbilitiesPower), baseMana, startingAbilitiesPower + baseMana]
+    const level1Row = [...specNames.map(_ => (minorLevel1TalentsPower + level1TalentsPower)), baseMana, power + baseMana]
+
+    const levels = [2,3,4,5,6,7,8,9,10].map(level => {
+        const { specs, power } = calculateAveragePowerOnlyForLevelNoMana(theClass, level)
+        const totalManaAtThisLevel = getClassManaAtLevel(theClass, level)
+        const totalPowerByThisLevel = calculateTotalPowerAtLevelNoMana(theClass, level)
+        let thisLevelRow
+        if (hasSpecs) {
+            thisLevelRow = [...specs.map(({power}) => power), totalManaAtThisLevel, U.toFixedFloat(totalPowerByThisLevel + totalManaAtThisLevel, 2)]
+        } else {
+            thisLevelRow = [...specNames.map(_ => power), totalManaAtThisLevel, U.toFixedFloat(totalPowerByThisLevel + totalManaAtThisLevel, 2)]
+        }
+        const key = `Level ${level}`
+        return { key, value: thisLevelRow }
+    })
+
+    const table = [
+        { key: 'Mana', value: manaRow},
+        { key: 'Starting Abilities', value: startingAbilitiesRow },
+        { key: 'Level 1', value: level1Row },
+        ...levels
+    ]
+
+    return {
+        headers,
+        rows: table
+    }
+}
+
+window.generateClassPowerLevelTable = generateClassPowerLevelTable
+
+function ClassPowerLevelTable({theClass}) {
+
+    // const getsManaPerLevel = theClass.Spellcasting?.Mana?.Per == 'per Adventure'
+    // const baseMana =
+    //     theClass.Spellcasting?.Mana?.Per == 'per Worthy Combat'?
+    //         theClass.Spellcasting.Mana.Amount * 2.5:
+    //     getsManaPerLevel?
+    //         theClass.Spellcasting.Mana.Amount:
+    //     0
+
+    // const startingAbilitiesPower = calculateSpellsObjectTotalPower(theClass['Starting Abilities'])
+    // const minorLevel1TalentsPower = theClass['Ability Choices'] == null? 0: calculateSpellsObjectAveragePower(theClass['Ability Choices'])
+    // const talentTiersPowers = calculateAveragePowerPerTalentTier(theClass.Talents ?? {})
+
+
+    // let headers
+    // if (theClass.Specs == null) {
+    //     headers = ['', 'Value', 'Mana', 'Total Value So Far']
+    // } else {
+    //     headers = ['', ...Object.keys(theClass.Specs), 'Mana', 'Total Value So Far']
+    // }
+
+    // const nSpecs = theClass.Specs == null? 1: Object.keys(theClass.Specs).length
+    // const specsStartingAbilitiesPowersArray = theClass.Specs == null? []: (
+    //     Object.keys(theClass.Specs)
+    //         .map(key => calculateSpellsObjectTotalPower(theClass.Specs[key]['Starting Abilities']))
+    // )
+
+    // function calculateSpecsTableMatrix() {
+    //     const specNames = Object.keys(theClass.Specs)
+    //     let specsTalentTiersPowers
+    //     let allTalentTierNames = Object.keys(U.mergeManyObjects(specNames.map(specName => theClass.Specs[specName].Talents)))
+    //     if (theClass.Specs != null) {
+    //         specsTalentTiersPowers = U.mapObject(theClass.Specs, ({ key, value }) => ({
+    //             key: key,
+    //             value: calculateAveragePowerPerTalentTier(value.Talents)
+    //         }))
+    //     }
+
+    //     const tableMatrix = []
+    //     let previousRowFinalValue = startingAbilitiesPower + baseMana + minorLevel1TalentsPower + U.average(specsStartingAbilitiesPowersArray)
+    //     let previousRowMana = baseMana
+    //     for (let i = 0; i < allTalentTierNames.length; i++) {
+    //         const tierName = allTalentTierNames[i]
+    //         const innerCols = specNames.map(specName => specsTalentTiersPowers[specName][tierName])
+    //         let finalValueCol = U.average(innerCols) + previousRowFinalValue
+    //         let mana = previousRowMana
+    //         if (getsManaPerLevel) {
+    //             if (tierName.includes('Level 1') == false) {
+    //                 previousRowMana += 1
+    //                 finalValueCol += 1
+    //                 mana = previousRowMana
+    //             }
+    //         }
             
             
-            const thisRow = [tierName, ...innerCols, mana, finalValueCol]
+    //         const thisRow = [tierName, ...innerCols, mana, finalValueCol]
         
-            tableMatrix.push(thisRow)
+    //         tableMatrix.push(thisRow)
 
-            previousRowFinalValue = finalValueCol
-        }
-        console.log(tableMatrix)
-        return tableMatrix
-    }
+    //         previousRowFinalValue = finalValueCol
+    //     }
+    //     console.log(tableMatrix)
+    //     return tableMatrix
+    // }
 
-    function calculateNormalTalentsTableMatrix() {
-        const rows = []
-        let previousRowPower = startingAbilitiesPower + baseMana + minorLevel1TalentsPower
-        const talentTierNames = Object.keys(talentTiersPowers)
-        for (let i = 0; i < talentTierNames.length; i++) {
-            const tierName = talentTierNames[i]
-            const power = talentTiersPowers[tierName]
-            const mana = getsManaPerLevel? (baseMana + i + 1): baseMana
-            const total = (previousRowPower + power + (getsManaPerLevel? 1: 0))
-            previousRowPower = total
-            const row = [tierName, power, mana, total]
-            rows.push(row)
-        }
-        return rows
-    }
+    // function calculateNormalTalentsTableMatrix() {
+    //     const rows = []
+    //     let previousRowPower = startingAbilitiesPower + baseMana + minorLevel1TalentsPower
+    //     const talentTierNames = Object.keys(talentTiersPowers)
+    //     for (let i = 0; i < talentTierNames.length; i++) {
+    //         const tierName = talentTierNames[i]
+    //         const power = talentTiersPowers[tierName]
+    //         const mana = getsManaPerLevel? (baseMana + i + 1): baseMana
+    //         const total = (previousRowPower + power + (getsManaPerLevel? 1: 0))
+    //         previousRowPower = total
+    //         const row = [tierName, power, mana, total]
+    //         rows.push(row)
+    //     }
+    //     return rows
+    // }
+
+
+    let { headers, rows } = generateClassPowerLevelTable(theClass)
+    
+    headers = ['', ...headers]
+    const dataRows = rows.map(({key, value}) => [key, ...value])
 
 
     return <TableNormal columns={headers}>
-        <tr>
+        
+        { dataRows.map(row => <tr>
+            { row.map(value => (
+                <td>{value}</td>
+            )) }
+        </tr>)}
+
+        {/* <tr>
             <td>Mana</td>
             { U.range(0, nSpecs).map(_ => <td>{baseMana}</td>) }
             <td>{baseMana}</td>
@@ -1011,14 +1167,14 @@ function ClassPowerLevelTable({theClass}) {
                 <td>{startingAbilitiesPower + baseMana + minorLevel1TalentsPower + U.average(specsStartingAbilitiesPowersArray)}</td>
             </tr>
         )}
-        {/* { theClass.Talents != null && Object.keys(talentTiersPowers).map((tierName, i) => (
-            <tr>
-                <td>{tierName}</td>
-                <td>{talentTiersPowers[tierName]}</td>
-                <td>{baseMana == 0? 0: (baseMana + i + 1)}</td>
-                <td>?</td>
-            </tr>
-        ))} */}
+        // {{ theClass.Talents != null && Object.keys(talentTiersPowers).map((tierName, i) => (
+        //     <tr>
+        //         <td>{tierName}</td>
+        //         <td>{talentTiersPowers[tierName]}</td>
+        //         <td>{baseMana == 0? 0: (baseMana + i + 1)}</td>
+        //         <td>?</td>
+        //     </tr>
+        // ))}}
         { theClass.Talents != null && (
             calculateNormalTalentsTableMatrix().map(row => (
                 <tr>
@@ -1033,6 +1189,6 @@ function ClassPowerLevelTable({theClass}) {
                 </tr>
             ))
         )}
-        
+         */}
     </TableNormal>
 }

@@ -1262,6 +1262,9 @@ export function isCharDigit(char) {
 }
 
 // ---------------- Other Small Utilities ----------------
+export function toFixedFloat(number, digits) {
+    return parseFloat(number.toFixed(2))
+}
 export function roundToNearest(number, multipleOf) {
     return Math.round(number / multipleOf) * multipleOf
 }

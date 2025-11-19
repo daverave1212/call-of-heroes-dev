@@ -34,6 +34,7 @@ let rulesDicts = []        // Polulated at runtime ("X": [...])
 
 const filesToConvert = [    // Order matters
     // 'Abilities.yml',
+    'SpellFonts.yml',
     'Animals.yml',
     'Armors.yml',
     'Feats.yml',

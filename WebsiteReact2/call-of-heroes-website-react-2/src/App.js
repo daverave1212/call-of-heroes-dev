@@ -115,6 +115,7 @@ import V2Wickan from './databases/ClassesV2/Wickan.json'
 import V2Wizard from './databases/ClassesV2/Wizard.json'
 import { ClassPage } from './components/InsertableTemplates/RaceClassComponents';
 import RulesAll from './pages/Other/RulesAll';
+import ClassBalance from './pages/Meta/ClassBalance';
 
 function App() {
 
@@ -231,6 +232,7 @@ function App() {
           <Route path="/Tools/HomebrewBookCreator" element = { <HomebrewBookCreator/> }/>
 
           <Route path='/Meta/PatchNotes' element={ <PatchNotes/> }/>
+          <Route path='/Meta/ClassBalance' element={ <ClassBalance/> }/>
           <Route path='/WorkInProgress' element={ <WorkInProgress/> }/>
         </Routes>
 
