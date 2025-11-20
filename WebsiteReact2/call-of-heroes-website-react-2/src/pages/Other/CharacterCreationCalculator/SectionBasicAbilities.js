@@ -2,8 +2,8 @@ import { useLocation } from "react-router-dom";
 import { getPageHashFromLocation, addAbilityOrOpenPopup, useLocalStorageState } from "../../../utils";
 import Abilities from "../Abilities";
 import { TAB_NAMES } from "./CharacterCreationCalculator";
-import { useBasicAbilitiesNames, useConstAvailableAbilitySchools, useConstKnownAbilitiesObj } from "./CharacterData";
 import ManySmallStats from "../../../components/SmallStat/ManySmallStats";
+import { useState } from "react";
 
 
 
@@ -24,9 +24,10 @@ export default function SectionBasicAbilities({ openPopup }) {
         return <div></div>
     }
 
-    let [selectedAbilitiesNames, setSelectedAbiltiesNames] = useBasicAbilitiesNames()
-    const { maxKnownAbilities, nKnownAbilities } = useConstKnownAbilitiesObj()
-    const knownAbilitySchools = useConstAvailableAbilitySchools()
+    // These lines of code are deprecated and no longer a thing
+    let [selectedAbilitiesNames, setSelectedAbiltiesNames] = useState([])
+    const { maxKnownAbilities, nKnownAbilities } = { maxKnownAbilities: 2, nKnownAbilities: 2 }
+    const knownAbilitySchools = 1
     
     const isIncorrect = nKnownAbilities > maxKnownAbilities || nKnownAbilities < 0
     const isNotFinished = nKnownAbilities != maxKnownAbilities

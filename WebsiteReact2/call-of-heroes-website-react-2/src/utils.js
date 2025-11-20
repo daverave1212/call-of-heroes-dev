@@ -12,6 +12,7 @@ import overallData from './databases/OverallData.json'
 import { Races, Classes, ClassesBase, ClassesPremium, ClassesLegacy } from './pages/Other/AllRacesAndClasses'
 import { useEffect, useState } from "react"
 import BasicAbilities from './databases/Abilities.json'
+import SpellFonts from './databases/SpellFonts.json'
 import Feats from './databases/Feats.json'
 import ClassAndRaceAbilities from './databases/ClassAndRaceAbilities.json'
 import { getChoiceAbilitiesObjects, setChoiceAbilitiesObjects } from "./pages/Other/CharacterCreationCalculator/CharacterData"
@@ -102,11 +103,15 @@ export function getAllBasicSpellsAsArray() {
     }
     return CACHED_BASIC_SPELLS_ARRAY
 }
+export function getAllFontSpellsAsArray() {
+    return Object.values(SpellFonts).map(category => spellsFromObject(category)).flat()
+}
 export function getAllSpells() {
+    const allFontSpells = getAllFontSpellsAsArray()
     const allBasicSpells = getAllBasicSpellsAsArray()
     const allFeats = getAllSpellsFromCategoriesObject(Feats)
     const allClassAndRaceAbilities = spellsFromObject(ClassAndRaceAbilities)
-    const allSpells = [...allBasicSpells, ...allFeats, ...allClassAndRaceAbilities]
+    const allSpells = [...allFontSpells, ...allBasicSpells, ...allFeats, ...allClassAndRaceAbilities]
     return allSpells
 }
 let allSpellsCached = null
@@ -193,7 +198,7 @@ export function getStatIconPathByStatName(name) {
     return '/Icons/UI/Elemental.png'
 }
 export function getUniqueSpellID(name) {
-    const idName = stringReplaceAllMany(name, [' ', '/', '%'], ['_', '_', ''])
+    const idName = stringReplaceAllMany(name, [' ', '/', '%', '~', '<'], ['_', '_', '', '', ''])
     return idName
 }
 export function normalizeForEachVariantsToNormalVariants(VariantsForEach) {
@@ -610,8 +615,8 @@ export function getAlMyRaceAndClassSpells({ raceName, className, specName, selec
 
     const myRace = getAllRaces()[raceName]
     const myClass = getAllClasses()[className]
-    const mySpec = myClass == null || specName == null? null: myClass.Specs[specName]
-
+    const mySpec = myClass?.Specs?.[specName]
+    
     const myRaceBaseSpells = myRace == null? []: spellsFromObject(myRace['Starting Abilities'])
     const myRaceFeats = selectedRaceSpellNames.map(name => allSpells[name])
     const myClassBaseSpells = myClass == null? []: spellsFromObject(myClass['Starting Abilities'])
@@ -1793,6 +1798,9 @@ export function getLines(ctx, text, maxWidth) {
 
 export function getOnlyKey(obj) {
     return Object.keys(obj)[0]
+}
+export function getAnyKey(obj) {
+    return getOnlyKey(obj)
 }
 export function getTextWidth(font, text) {
     const canvas = document.createElement('canvas')

@@ -5,7 +5,7 @@ import PageH2 from "../../../components/PageH2/PageH2"
 import TextArea from "../../../components/TextArea/TextArea"
 import Icon from "../../../components/Icon"
 import Input from "../../../components/Input/Input"
-import { getChoiceAbilitiesObjects, useAllSpellsMetadata, useArmors, useBasicAbilitiesNames, useConstAllBasicAbilities, useConstAllMyAbilities, useConstAllRaceAndClassSpells, useConstAllSkillBonuses, useConstAllSkillNames, useConstAutoSkillBonuses, useConstAvailableAbilitySchools, useConstKnownAbilitiesObj, useConstNKnownAbilities, useCurrentHealth, useCurrentMana, useDescription, useGold, useInventory, useLanguages, useLevel, useManualBonuses, useManualCombatExtras, useManualNormalExtras, useManualSkillBonuses, useMaxMana, useQuickNotes, useSectionClassName, useSectionClassSpecName, useSectionClassSpellNames, useSectionNamesState, useSectionRaceName, useSectionRaceSpellNames, useSectionStatsState, useSkills, useWeapons } from "./CharacterData"
+import { getChoiceAbilitiesObjects, useAllSpellsMetadata, useArmors, useConstAllMyAbilities, useConstAllSkillBonuses, useConstAutoSkillBonuses, useConstNKnownAbilities, useCurrentHealth, useCurrentMana, useDescription, useGold, useInventory, useLanguages, useLevel, useManualBonuses, useManualCombatExtras, useManualNormalExtras, useManualSkillBonuses, useMaxMana, useQuickNotes, useSectionClassName, useSectionClassSpecName, useSectionNamesState, useSectionRaceName, useSectionStatsState, useSkills, useWeapons } from "./CharacterData"
 import { StatValue } from "./SectionStats"
 import SmallStat, { SmallStatTypes } from "../../../components/SmallStat/SmallStat"
 import ManySmallStats from "../../../components/SmallStat/ManySmallStats"
@@ -38,7 +38,7 @@ function BigStatValue({ name, value, onClick}) {
 export function useConstBonusesFromSpellsAndItems() {
     let [armorNames] = useArmors()
     const allMyArmors = armorNames.map(name => getAllArmorsByName()[name])
-    const allMyRaceAndClassSpells = useConstAllRaceAndClassSpells()
+    const allMyRaceAndClassSpells = useConstAllMyAbilities()
     const everything = [...allMyArmors, allMyRaceAndClassSpells]
     
     const { bonuses, sources } = getAllStatBonusesYMLAsObjFromSpellsArray(everything)
@@ -64,7 +64,7 @@ export function useConstTotalStats() {
     return addArrays(baseStats, manualBonusesStatsArray, autoBonusesStatsArray)
 }
 export function useConstAllAbilitiesAndItemsExtras() {
-    const allMyRaceAndClassSpells = useConstAllRaceAndClassSpells()
+    const allMyRaceAndClassSpells = useConstAllMyAbilities()
     const [weaponNames] = useWeapons()
     const [armorNames] = useArmors()
 
@@ -74,7 +74,7 @@ export function useConstAllAbilitiesAndItemsExtras() {
     return getExtrasFromSpells([...allMyWeapons, ...allMyArmors, ...allMyRaceAndClassSpells])
 }
 export function useConstManuallyAddedExtrasFromAbilities() {
-    const allMyRaceAndClassSpells = useConstAllRaceAndClassSpells()
+    const allMyRaceAndClassSpells = useConstAllMyAbilities()
     const spellsWithManualExtras = allMyRaceAndClassSpells.filter(s => s['Manual Extras'] != null)
     const manualExtrasArrays = spellsWithManualExtras.map(s => s['Manual Extras'].map(me => ({ extra: me, source: s.Name})))
     const allManualExtras = manualExtrasArrays.flat()
@@ -120,14 +120,11 @@ export default function MyCharacter() {
     
     let totalStats = useConstTotalStats()
 
-
-    const myBasicAbilities = useConstAllBasicAbilities()
     const mySkillBonuses = useConstAllSkillBonuses()
     const autoSkillBonuses = useConstAutoSkillBonuses()
-    // const mySkills = useConstAllSkillNames()
 
 
-    const allMyRaceAndClassSpells = useConstAllRaceAndClassSpells()
+    const allMyRaceAndClassSpells = useConstAllMyAbilities()
     const { bonuses, sources: bonusesSources } = useConstAllBonuses()
     const { extras, combatExtras } = useConstAllAbilitiesAndItemsExtras()
     window.bonuses = bonuses
@@ -301,7 +298,6 @@ export default function MyCharacter() {
     }
     function Spellcasting() {
 
-        const knownAbilitySchools = useConstAvailableAbilitySchools()
         const nKnownAbilities = useConstNKnownAbilities()
 
         return (

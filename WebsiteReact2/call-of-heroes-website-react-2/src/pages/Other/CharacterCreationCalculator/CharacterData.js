@@ -44,7 +44,9 @@ function getNewCharacterTemplate() {
         specName: null,
         classSpellNames: [],
     
+        selectedAbilities: [],
         spellsMetadata: {},
+        selectedFontName: '',
         basicAbilityNames: [],
         featNames: [],
 
@@ -232,9 +234,6 @@ export function useCustomCharacterVariables() {
 export function useSectionRaceName() {
     return useCharacterLocalStorageState('raceName')
 }
-export function useSectionRaceSpellNames() {
-    return useCharacterLocalStorageState('raceSpellNames')
-}
 
 // Class
 export function useSectionClassName() {
@@ -243,11 +242,11 @@ export function useSectionClassName() {
 export function useSectionClassSpecName() {
     return useCharacterLocalStorageState('specName')
 }
-export function useSectionClassSpellNames() {
-    return useCharacterLocalStorageState('classSpellNames')
-}
 
 // Feats and Basic Abilities and Other
+export function useSelectedAbilityNames() {
+    return useCharacterLocalStorageState('selectedAbilities')
+}
 export function useAllSpellsMetadata() {
     return useCharacterLocalStorageState('spellsMetadata')
 }
@@ -257,8 +256,8 @@ export function getAllSpellsMetadata() {
 export function setAllSpellsMetadata(obj) {
     return setLocalStorageJSON('character.spellsMetadata', obj)
 }
-export function useBasicAbilitiesNames() {
-    return useCharacterLocalStorageState('basicAbilityNames')
+export function useSelectedFontName() {
+    return useCharacterLocalStorageState('selectedFontName')
 }
 export function useFeats() {
     return useCharacterLocalStorageState('featNames')
@@ -299,26 +298,6 @@ export function useConstTotalAttributes() {
     const attributes = calculateAllAtributes({raceName, className, level, totalStats, bonuses})
     return attributes
 }
-export function useConstKnownAbilitiesObj() {
-    let [selectedBasicAbilitiesNames] = useBasicAbilitiesNames()
-    const stats = useConstTotalStats()
-    let maxKnownAbilities = 2 + stats[2]
-    if (maxKnownAbilities < 0) {
-        maxKnownAbilities = 0
-    }
-    const nKnownAbilities = selectedBasicAbilitiesNames.length
-    return {
-        maxKnownAbilities, nKnownAbilities
-    }
-}
-export function useConstAvailableAbilitySchools() {
-    let [selectedClassName] = useSectionClassName()
-    if (selectedClassName == null) {
-        return ['Default Moves']
-    }
-    const classSchools = getAllClasses()[selectedClassName].Spellcasting['Basic Ability Lists']
-    return ['Default Moves', ...classSchools]
-}
 export function useConstNKnownAbilities() {
     let [className] = useSectionClassName()
 
@@ -331,48 +310,19 @@ export function useConstNKnownAbilities() {
 
     return calculateNKnownAbilities(className, totalStats, bonuses)
 }
-export function useConstAllRaceAndClassSpells() {
+export function useConstAllMyAbilities() {
+    let [selectedAbilityNames] = useSelectedAbilityNames()
     let [selectedRaceName] = useSectionRaceName()
-    let [selectedRaceSpellNames] = useSectionRaceSpellNames()
     let [selectedClassName] = useSectionClassName()
     let [selectedSpecName] = useSectionClassSpecName()
-    let [selectedClassSpellNames] = useSectionClassSpellNames()
 
-    const allMyRaceAndClassSpells = getAlMyRaceAndClassSpells({
+    const rcSpells = getAlMyRaceAndClassSpells({
         raceName: selectedRaceName,
-        selectedRaceSpellNames,
         className: selectedClassName,
-        specName: selectedSpecName,
-        selectedClassSpellNames
-    }).filter(spell => spell != null)
-
-    return allMyRaceAndClassSpells
-}
-export function useConstAllBasicAbilities() {
-    let [selectedBasicAbilitiesNames] = useBasicAbilitiesNames()
-    return selectedBasicAbilitiesNames.map(spellName => getAllSpellsByName()[spellName])
-}
-export function useConstAllFeats() {
-    let [featNames] = useFeats()
-    const feats = featNames.map(name => getAllSpellsByName()[name])
-    return feats
-}
-export function useConstAllMyAbilities() {
-    const rcSpells = useConstAllRaceAndClassSpells()
-    const basicAbilities = useConstAllBasicAbilities()
-    const feats = useConstAllFeats()
-    return [...rcSpells, ...basicAbilities, ...feats]
-}
-export function useConstAllSkillNames() {
-    let [skillNames] = useSkills()
-    
-    const abilities = useConstAllMyAbilities()
-    const spellsWithSkills = abilities.filter(a => a?.Skills != null)
-    const skillsUnflat = spellsWithSkills.map(a => a.Skills)
-    const skillsFlat = skillsUnflat.flat()
-    const allMySkills = [...skillNames, ...skillsFlat]
-
-    return allMySkills
+        specName: selectedSpecName
+    })
+    const selectedAbilities = selectedAbilityNames.map(name => getAllSpellsByName()[name])
+    return [...rcSpells, ...selectedAbilities].filter(spell => spell != null)
 }
 export function useConstAllSkillBonuses() {
     const abilities = useConstAllMyAbilities()
@@ -416,3 +366,7 @@ export function toggleSpellMaybePopup(spell, spellMetadata, selectedSpellNames, 
         toggleSpellForSelectedSpellNames(spell, spellMetadata, selectedSpellNames, setSelectedAbiltiesNames)
     }
 }
+
+
+
+

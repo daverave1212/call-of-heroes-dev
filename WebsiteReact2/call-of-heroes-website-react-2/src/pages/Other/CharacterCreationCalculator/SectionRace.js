@@ -7,7 +7,7 @@ import { getAllClasses, getAllRaces, splitArrayEvenly, useLocalStorageState } fr
 import { classesRacesObjectToArrays } from "./CharacterCreationCalculator"
 import Selector from "../../../components/Selector/Selector"
 import { SelectorsByColumns } from "../Abilities"
-import { toggleSpellMaybePopup, useSectionRaceName, useSectionRaceSpellNames } from "./CharacterData"
+import { toggleSpellMaybePopup, useSectionRaceName, useSelectedAbilityNames } from "./CharacterData"
 
 
 
@@ -21,7 +21,7 @@ export default function SectionRace({ openPopup }) {
     
 
     const [selectedRaceName, setSelectedRaceName] = useSectionRaceName()
-    const [selectedSpellNames, setSelectedSpellNames] = useSectionRaceSpellNames()
+    const [selectedSpellNames, setSelectedSpellNames] = useSelectedAbilityNames()
 
     const getSelectedRaceName = () => selectedRaceName
     

@@ -22,6 +22,7 @@ Level Up:
 Spellcasting:
   Type: Special Mana-based
   SpellsOrAbilities: Spell
+  HasFont: true
 
   Mana:
     Amount: 2
@@ -55,17 +56,22 @@ Starting Abilities:
     Upgrade: Spells that consume EP do not produce EP.
     Notes: You must spend ^all^ EP when you decide to.
 
-  ~Power Source~: # Ok
+  ~Magic Font~:
+    _Value: 0
     A: Passive
     Effect: |
-      Your powers have an external source. Choose another Class and an Element. You can get Level 1 Talents from that Class.
-      You take -50% Damage from that Element.
-    Upgrade: |
-      You are bound to a Power Source: something vast, unknowable, or unstable. It might be a pact, a curse, a parasite, a god, or a force of nature. You choose what it is, and when the power speaks you listen.
+      You may select a Magic Font to pick Minor Talents from.
+      You get a free Magic Font Minor Talent at Level 1.
     Notes: |
-      The Class and Element you choose must be thematically tied to your power source, but you can theme it however you want! Be creative!
+      All Magic Font Abilities are Minor Talents.
+      You can get more Magic Font Minor Talents as if you're getting normal Minor Talents (e.g. a number of them equal to your Intellgience).
 
 Ability Choices:
+
+    ~Divergence~:
+      A: 0 Actions
+      Effect: |
+        {Evoke}: Your next single-target Ability or Attack targets an extra Unit in range per Evoke Point spend, dealing -50% Damage and Healing to the secondary targets.
 
     ~Hail~:   # Adds AoE (+0.65/EP)
         A: 1 Action
@@ -74,10 +80,8 @@ Ability Choices:
         Degree: Minor
         Tags: [Damage, Multi-Target Damage]
         Effect: |
-            Blast a Unit for 2d8 + ^target's Might^ Damage of your chosen Element.
-
-            {Evoke}: Hits an extra Unit (for 1d8 + ^that Unit's Might^) for each Evoke Point spend.
-        Combo: Generates an extra Evoke Point.
+            Blast a Unit for 2d8 + ^target's Might^ Damage of your chosen Element.          
+        Combo: Targets an extra Unit in range for 1d8 + ^that Unit's Might^.
         Notes: Each extra Unit hit must be different than the others.
 
     ~Wyrd Renewal~: # Adds healing

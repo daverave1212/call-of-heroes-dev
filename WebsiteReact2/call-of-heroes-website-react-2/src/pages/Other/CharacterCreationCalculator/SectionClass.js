@@ -7,7 +7,7 @@ import { addAbilityOrOpenPopup, getAllClasses, getAllSpellsByName, getBaseClasse
 import { classesRacesObjectToArrays } from "./CharacterCreationCalculator"
 import Selector from "../../../components/Selector/Selector"
 import { SelectorsByColumns } from "../Abilities"
-import { toggleSpellMaybePopup, useAllSpellsMetadata, useConstTotalAttributes, useLevel, useSectionClassName, useSectionClassSpecName, useSectionClassSpellNames, useSectionRaceName } from "./CharacterData"
+import { toggleSpellMaybePopup, useAllSpellsMetadata, useConstTotalAttributes, useLevel, useSectionClassName, useSectionClassSpecName, useSectionRaceName, useSelectedAbilityNames, useSelectedFontName } from "./CharacterData"
 import { KNOWN_ABILITIES } from "../../../services/game-lib/stat-calculations"
 import { ClassesBase, ClassesLegacy, ClassesPremium } from "../AllRacesAndClasses"
 import Icon from "../../../components/Icon"
@@ -20,8 +20,7 @@ export default function SectionClass({ openPopup }) {
     const classesObj = getAllClasses()
 
     const [className, setClassName] = useSectionClassName()
-    const [specName, setSpecName] = useSectionClassSpecName()
-    const [spellNames, setSpellNames] = useSectionClassSpellNames()
+    const [spellNames, setSpellNames] = useSelectedAbilityNames()
     const [spellsMetadata, setSpellsMetadata] = useAllSpellsMetadata()
 
     console.log({className, classesObj})
@@ -66,7 +65,7 @@ export default function SectionClass({ openPopup }) {
             
             let foundIssue = null
             
-            const isKeystone = spell.ParentKey.includes('Keystone')
+            const isKeystone = spell.ParentKey?.includes('Keystone')
             if (isKeystone) {
                 const foundKeystoneAtThatLevel = selectedClassSpells.find(s => s.ParentKey == spell.ParentKey)
                 if (foundKeystoneAtThatLevel) {
@@ -123,8 +122,9 @@ export default function SectionClass({ openPopup }) {
                 <ClassPage
                     hasNoMargins={true}
                     theClass={classesObj[className]}
-                    selectedSpecName={specName} setSelectedSpecName={setSpecName}
-                    selectedSpellNames={spellNames} setSelectedSpellNames={setSpellNames}
+                    useSelectedSpecNameHook={useSectionClassSpecName}
+                    useSelectedFontNameHook={useSelectedFontName}
+                    selectedSpellNames={spellNames}
                     onSpellClick={selectSpell}
                     spellsMetadata={spellsMetadata}
                 />

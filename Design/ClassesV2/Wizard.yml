@@ -51,7 +51,7 @@ Spellcasting:
   HasFont: true
 
   Mana:
-    Amount: 3
+    Amount: 4
     Regain: You regain all Mana back inbetween Adventures.
     Per: per Adventure
 
@@ -60,83 +60,29 @@ Spellcasting:
   Known Basic Abilities: 3 + Intelligence (minimum 1)
   BaseKnownSpells: 3
 
+Starting Abilities:
+  
+  ~Spell Book~:
+    _Value: 1.5
+    A: Passive
+    Effect: Replenish 1 Mana after each Worthy Combat.
+  
+  ~Magic Font~:
+    _Value: 0
+    A: Passive
+    Effect: |
+      You may select a Magic Font to pick Minor Talents from.
+      You get a free Magic Font Minor Talent at Level 1.
+    Notes: |
+      All Magic Font Abilities are Minor Talents.
+      You can get more Magic Font Minor Talents as if you're getting normal Minor Talents (e.g. a number of them equal to your Intellgience).
 
-Ability Choices:
-
-    ~Element Burst~:
-        A: 1 Action
-        DisplayName: "{Element} Burst"
-        Range: 5 meters
-        Degree: Minor
-        Effect: |
-            Damage a Unit for 2d6 {Element} Damage.
-            Deals +1d10 Damage if the target had taken {Element} Damage this combat before.
-            ~Click on the Spell Icon to select the preferred Element!~
-        Notes: These are considered different Spells.
-        Variants:
-            - Element: Fire
-              IconName: Fire Burst
-            - Element: Cold
-              IconName: Cold Burst
-            - Element: Shock
-              IconName: Shock Burst
-        Tag: Damage (1)
-
-    ~Magic Arrows~:
-        A: Half-Action
-        Range: 5 meters
-        HasMixins: true
-        Degree: Minor
-        Effect: |
-            Shoot 2 arcane arrows. Each does 1d4 Pulse Damage.
-            This turn, each arrow after the first into the same target deals only 1d2 instead.
-        Combo: 2 more arcane arrows shoot from the target into any targets within 5 meters of it. They ignore the same-target penalty.
-        Notes: |
-            When you cast this, decide the targets before rolling the dice. Roll the dice for each target at a time.
-
-    ~Burning Breath~:
-        A: Half-Action
-        Cooldown: Once / Turn
-        Range: Near you
-        Degree: Lesser
-        Effect: |
-            All Units 3x3 meter area take 4 Fire Damage.
-        Combo: If any affected Unit has a Combo, +50% total Damage (to all) and does not trigger the Cooldown.
-        Tag: AoE (Half)
-
-    ~Volt Guard~:    
-        A: Reaction
-        Range: 5 meters
-        Cost: 1 Mana
-        Effect: |
-          Use when a Unit would take Damage (after roll). Negate 50% of the incoming Damage and return it back to the source as Shock Damage.
-          Apply a ~Combo~ to either of them.
-        Upgrade: The returned Damage is a quick lightning that bends around obstacles, ignoring Cover or Line of Sight.
-        Tag: Protection
-
-    ~Rime Shackles~:
-        A: 1 Action
-        Range: 5 meters
-        Cost: 1 Mana
-        HasMixins: true
-        Degree: Major
-        Effect: |
-            Deal Cold Damage to a Unit equal to 1d12 + ^Its Dexterity^.
-            If it's non-Epic and Medium or smaller, Root it.
-        Combo: This either hits one more Unit within 2 meters of it, or also Single-Stuns the target.
-        Tag: CC Hard
-
-    ~North Star~:
-        A: 3 Action Points
-        Range: 15 meters
-        Cost: 1 Mana
-        Degree: Major
-        Effect: |
-            You conjure a magical star that always shoots North and deals 5d10 Pulse Damage to the first Unit hit.
-        Combo: The star explodes, dealing 50% of the total Damage to all other Units within 2 meters of the hit target.
-        Notes: |
-            You can only shoot the star towards North - without an angle.
-            Ask the DM which way North is (if your character knows that).
+  ~Upcast~:
+    A: 0 Actions
+    Cost: 1 Mana
+    Effect: For the next Spell you cast this Turn, duplicate one of the dice results after you roll them.
+    Upgrade: This is not considered a Spell.
+    Notes: If the Spell hits multiple targets (e.g. Searing Arrows, duplicate the die for one of them). If it gives Shielding, duplicate one of the Shielding dice. For other effects, assume the duplicate die is part of the same Damage/Healing roll and apply any effects needed.
 
 Utility:
 
@@ -216,17 +162,7 @@ Starting Abilities Description:
       You can use this twice per turn or multiple times per turn to dish out a lot of spells in quick succession, in a single turn.
       It is not considered a Spell because some other Wizard abilities affect Spells specifically, so Magic Mastery is unaffacted by them.
 
-Starting Abilities:
-  
-  ~Spell Book~:
-    _Value: 1.5
-    A: Passive
-    Effect: Replenish 1 Mana after each Worthy Combat.
-  
-  ~Magic Expertise~:
-    _Value: 2
-    A: Passive
-    Effect: At Levels 3 through 9, pick ^two^ Talents instead of one.
+
 
 Talents:
   Level 2 - Keystone Talent:

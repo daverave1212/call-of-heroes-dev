@@ -462,8 +462,6 @@ export function Talents({ talents, selectedSpellNames, onSpellClick, spellsMetad
 
     return (
         <div>
-            <p>Every Level, you can pick 1 Talent from that Level's available Talents. There are Minor Talents, Major Talents and Utility Talents.</p>
-
             { talentTitles.map(talentTitle => {
                 const spellsInThisTier = U.spellsFromObject(talents[talentTitle])
                 return <div key={talentTitle} className='margin-top-2'>
@@ -639,75 +637,14 @@ export function CCRacePage({ theRace, selectedSpellNames, onSpellClick }) {
 export function ClassPage(props) {
     return <ClassPageV2 {...props}/>
 }
-export function ClassPageV1({ theClass }) {
-    return (
-        <div>
-            <SideMenuFromClass theClass={theClass}/>
-            
-            <Page>
-                
-                <RaceHeader theClass={theClass}/>
-                
-                { theClass.Druidic && (
-                    <div>
-                        <PageH3 style={{marginTop: 'var(--page-padding)'}}>Druidic</PageH3>
-                        <p>{theClass.Druidic}</p>
-                    </div>
-                )}
-                <AbilitiesWithDescription
-                    title="Starting Abilities"
-                    description={theClass['Starting Abilities Description']}
-                    spellsObject={theClass['Starting Abilities']}
-                    autoAlign={true}
-                    id="starting-abilities"
-                />
-
-                <SpellCasting theClass={theClass}/>
-
-                <Equipment theClass={theClass}/>
-                
-                <LevelingUp theClass={theClass}/>
-
-                <br/><br/>
-                <QGTitle1 text={'Specializations'} height={35}/>
-
-                <p>
-                    When you reach Level 2, you can choose one of the Specializations below.
-                    This decision is permanent, so make the choice that is right for you.
-                </p>
-
-            </Page>
-
-            {
-                Object.keys(theClass['Specs']).map(specName => {
-                    const spec = theClass['Specs'][specName]
-                    return (
-                        <Spec key={specName} name={specName} specObj={spec} onSpellClick={onSpellClick}>
-
-                            {
-                                spec.Abilities != null && (
-                                    <div>
-                                        <PageH3>Choose One...</PageH3>
-                                        <ManySpells spells={U.spellsFromObject(spec.Abilities)} onSpellClick={onSpellClick}/>
-                                    </div>
-                                )
-                            }
-
-                            <Talents talents={spec.Talent}/>
-
-                        </Spec>
-                    )
-                })
-            }
-        </div>
-    )
-}
 export function ClassPageV2({
     theClass,
     hasNoMargins=false,
     hasHeader=true,
-    selectedSpecName, setSelectedSpecName,
-    selectedSpellNames, setSelectedSpellNames,
+    useSelectedSpecNameHook=() => useState(null),
+    selectedSpellNames,
+    useSelectedFontHook=() => useState(null),
+    useSelectedFontSpellNamesHook=() => useState([]),
     onSpellClick,
     hueShift,
     spellsMetadata
@@ -717,23 +654,25 @@ export function ClassPageV2({
 
     window.theClass = theClass
 
-    let [innerSelectedSpecName, setInnerSelectedSpecName] = useState(null)
-    let [selectedFontName, setSelectedFontName] = useState(null)
+    let [selectedSpecName, setSelectedSpecName] = useSelectedSpecNameHook()
+    let [selectedFontName, setSelectedFontName] = useSelectedFontHook()
+    let [selectedFontSpellNames, setSelectedFontSpellNames] = useSelectedFontSpellNamesHook()
 
-    const finalSelectedSpecName = selectedSpecName ?? innerSelectedSpecName
-    const selectedSpecObj = finalSelectedSpecName == null? null: theClass.Specs[finalSelectedSpecName]
+    // const finalSelectedSpecName = selectedSpecName ?? innerSelectedSpecName
+    // const selectedSpecObj = finalSelectedSpecName == null? null: theClass.Specs[finalSelectedSpecName]
+    const selectedSpecObj = theClass.Specs?.[selectedSpecName]
+    const isSelectedSpecFromThisClass = selectedSpecObj != null
 
     const spellFontNames = Object.keys(spellFonts)
-    const spellFontsSelectorData = spellFontNames.map(fontName => ({ name: fontName, src: '' }))
-
+    const spellFontsSelectorData = spellFontNames.map(fontName => ({ name: fontName, src: U.getSpellIconPathByName(U.getAnyKey(spellFonts[fontName])) }))
 
     function onSpecClick(specName) {
-        if (setSelectedSpecName != null) {
-            setSelectedSpecName?.(specName)
-        } else {
-            setInnerSelectedSpecName(specName)
-        }
-        setSelectedSpellNames?.([])
+        setSelectedSpecName(specName)
+        // if (setSelectedSpecName != null) {
+        //     setSelectedSpecName?.(specName)
+        // } else {
+        //     setInnerSelectedSpecName(specName)
+        // }
     }
 
 
@@ -761,8 +700,13 @@ export function ClassPageV2({
                     id="starting-abilities"
                 />
 
+                <LevelingUp theClass={theClass} isCharacterCreationPage={true}/>
+
+                <SpellCasting theClass={theClass} isCharacterCreationPage={true}/>
+
                 { theClass.Spellcasting?.HasFont && (
                     <div>
+                        <PageH2 hasMargin={false} className="center-text">Select Your Font</PageH2>
                         <SelectorsByColumns
                             selectorData={spellFontsSelectorData}
                             nColumns={2}
@@ -771,30 +715,19 @@ export function ClassPageV2({
                         />
                     </div>
                 )}
-
-                { theClass['Ideas'] != null && (
-                    <div>
-                        <PageH2>Ideas</PageH2>
-                        <ManySpells
-                            spells={theClass['Ideas']}
-                            description={'This is for testing purposes only. Ignore this section.'}
-                            selectedSpellNames={selectedSpellNames}
-                        />
-                    </div>
-                )}
-
-                <LevelingUp theClass={theClass} isCharacterCreationPage={true}/>
-
-                <SpellCasting theClass={theClass} isCharacterCreationPage={true}/>
-                
                 { selectedFontName != null && (
                     <>
                         <PageH2 hasMargin={false} className="center-text">{selectedFontName} Font Spells</PageH2>
-                        <ManySpells spells={spellFonts[selectedFontName]}/>
+                        <ManySpells
+                            spells={spellFonts[selectedFontName]}
+                            selectedSpellNames={selectedSpellNames}
+                            onSpellClick={onSpellClick}
+                            spellsMetadata={spellsMetadata}
+                        />
                     </>
                 )}
-
-
+                
+                
                 { theClass['Other Abilities'] != null && (
                     <div>
                         <PageH2>{theClass['Other Abilities Title']}</PageH2>
@@ -808,10 +741,16 @@ export function ClassPageV2({
                     </div>
                 )}
 
-
-
-
-                 
+                {/* { theClass['Ideas'] != null && (
+                    <div>
+                        <PageH2>Ideas</PageH2>
+                        <ManySpells
+                            spells={theClass['Ideas']}
+                            description={'This is for testing purposes only. Ignore this section.'}
+                            selectedSpellNames={selectedSpellNames}
+                        />
+                    </div>
+                )} */}
 
                 <div className='center-content'>
                     <QGTitle1 text={'Talents'} height={45}/>
@@ -859,7 +798,7 @@ export function ClassPageV2({
                 { theClass.Specs != null && (<>  
                     <div className='flex-responsive gap-half'>
                         { Object.keys(theClass['Specs']).map(specName => (
-                            <Selector className="margin-top-1" key={specName} name={specName} onClick={() => onSpecClick(specName)} src={U.getSpecRepresentativeIconFullPath(theClass, specName)} isSelected={finalSelectedSpecName == specName}/>
+                            <Selector className="margin-top-1" key={specName} name={specName} onClick={() => onSpecClick(specName)} src={U.getSpecRepresentativeIconFullPath(theClass, specName)} isSelected={selectedSpecName == specName}/>
                         )) }
                     </div>
                 </>)}
@@ -869,8 +808,8 @@ export function ClassPageV2({
 
             </Page>
 
-            { finalSelectedSpecName != null && (
-                <Spec hasNoMargins={hasNoMargins} key={finalSelectedSpecName} name={finalSelectedSpecName} specObj={selectedSpecObj} onSpellClick={onSpellClick}>
+            { selectedSpecName != null && isSelectedSpecFromThisClass && (
+                <Spec hasNoMargins={hasNoMargins} key={selectedSpecName} name={selectedSpecName} specObj={selectedSpecObj} onSpellClick={onSpellClick}>
 
                     {
                         selectedSpecObj.Abilities != null && (
@@ -1044,87 +983,6 @@ window.generateClassPowerLevelTable = generateClassPowerLevelTable
 
 function ClassPowerLevelTable({theClass}) {
 
-    // const getsManaPerLevel = theClass.Spellcasting?.Mana?.Per == 'per Adventure'
-    // const baseMana =
-    //     theClass.Spellcasting?.Mana?.Per == 'per Worthy Combat'?
-    //         theClass.Spellcasting.Mana.Amount * 2.5:
-    //     getsManaPerLevel?
-    //         theClass.Spellcasting.Mana.Amount:
-    //     0
-
-    // const startingAbilitiesPower = calculateSpellsObjectTotalPower(theClass['Starting Abilities'])
-    // const minorLevel1TalentsPower = theClass['Ability Choices'] == null? 0: calculateSpellsObjectAveragePower(theClass['Ability Choices'])
-    // const talentTiersPowers = calculateAveragePowerPerTalentTier(theClass.Talents ?? {})
-
-
-    // let headers
-    // if (theClass.Specs == null) {
-    //     headers = ['', 'Value', 'Mana', 'Total Value So Far']
-    // } else {
-    //     headers = ['', ...Object.keys(theClass.Specs), 'Mana', 'Total Value So Far']
-    // }
-
-    // const nSpecs = theClass.Specs == null? 1: Object.keys(theClass.Specs).length
-    // const specsStartingAbilitiesPowersArray = theClass.Specs == null? []: (
-    //     Object.keys(theClass.Specs)
-    //         .map(key => calculateSpellsObjectTotalPower(theClass.Specs[key]['Starting Abilities']))
-    // )
-
-    // function calculateSpecsTableMatrix() {
-    //     const specNames = Object.keys(theClass.Specs)
-    //     let specsTalentTiersPowers
-    //     let allTalentTierNames = Object.keys(U.mergeManyObjects(specNames.map(specName => theClass.Specs[specName].Talents)))
-    //     if (theClass.Specs != null) {
-    //         specsTalentTiersPowers = U.mapObject(theClass.Specs, ({ key, value }) => ({
-    //             key: key,
-    //             value: calculateAveragePowerPerTalentTier(value.Talents)
-    //         }))
-    //     }
-
-    //     const tableMatrix = []
-    //     let previousRowFinalValue = startingAbilitiesPower + baseMana + minorLevel1TalentsPower + U.average(specsStartingAbilitiesPowersArray)
-    //     let previousRowMana = baseMana
-    //     for (let i = 0; i < allTalentTierNames.length; i++) {
-    //         const tierName = allTalentTierNames[i]
-    //         const innerCols = specNames.map(specName => specsTalentTiersPowers[specName][tierName])
-    //         let finalValueCol = U.average(innerCols) + previousRowFinalValue
-    //         let mana = previousRowMana
-    //         if (getsManaPerLevel) {
-    //             if (tierName.includes('Level 1') == false) {
-    //                 previousRowMana += 1
-    //                 finalValueCol += 1
-    //                 mana = previousRowMana
-    //             }
-    //         }
-            
-            
-    //         const thisRow = [tierName, ...innerCols, mana, finalValueCol]
-        
-    //         tableMatrix.push(thisRow)
-
-    //         previousRowFinalValue = finalValueCol
-    //     }
-    //     console.log(tableMatrix)
-    //     return tableMatrix
-    // }
-
-    // function calculateNormalTalentsTableMatrix() {
-    //     const rows = []
-    //     let previousRowPower = startingAbilitiesPower + baseMana + minorLevel1TalentsPower
-    //     const talentTierNames = Object.keys(talentTiersPowers)
-    //     for (let i = 0; i < talentTierNames.length; i++) {
-    //         const tierName = talentTierNames[i]
-    //         const power = talentTiersPowers[tierName]
-    //         const mana = getsManaPerLevel? (baseMana + i + 1): baseMana
-    //         const total = (previousRowPower + power + (getsManaPerLevel? 1: 0))
-    //         previousRowPower = total
-    //         const row = [tierName, power, mana, total]
-    //         rows.push(row)
-    //     }
-    //     return rows
-    // }
-
-
     let { headers, rows } = generateClassPowerLevelTable(theClass)
     
     headers = ['', ...headers]
@@ -1139,56 +997,5 @@ function ClassPowerLevelTable({theClass}) {
             )) }
         </tr>)}
 
-        {/* <tr>
-            <td>Mana</td>
-            { U.range(0, nSpecs).map(_ => <td>{baseMana}</td>) }
-            <td>{baseMana}</td>
-            <td>{baseMana}</td>
-        </tr>
-        <tr>
-            <td>Base Class</td>
-            { U.range(0, nSpecs).map(_ => <td>{startingAbilitiesPower}</td>) }
-            <td>{baseMana}</td>
-            <td>{startingAbilitiesPower + baseMana}</td>
-        </tr>
-        { theClass['Ability Choices'] != null && (
-            <tr>
-                <td>Minors Level 1</td>
-                { U.range(0, nSpecs).map(_ => <td>{minorLevel1TalentsPower}</td>) }
-                <td>{baseMana}</td>
-                <td>{startingAbilitiesPower + baseMana + minorLevel1TalentsPower}</td>
-            </tr>
-        ) }
-        { theClass.Specs != null && (
-            <tr>
-                <td>Spec</td>
-                { specsStartingAbilitiesPowersArray.map(power => <td>{ power }</td>) }
-                <td>{baseMana}</td>
-                <td>{startingAbilitiesPower + baseMana + minorLevel1TalentsPower + U.average(specsStartingAbilitiesPowersArray)}</td>
-            </tr>
-        )}
-        // {{ theClass.Talents != null && Object.keys(talentTiersPowers).map((tierName, i) => (
-        //     <tr>
-        //         <td>{tierName}</td>
-        //         <td>{talentTiersPowers[tierName]}</td>
-        //         <td>{baseMana == 0? 0: (baseMana + i + 1)}</td>
-        //         <td>?</td>
-        //     </tr>
-        // ))}}
-        { theClass.Talents != null && (
-            calculateNormalTalentsTableMatrix().map(row => (
-                <tr>
-                    { row.map(col => <td>{col}</td>)}
-                </tr>
-            ))
-        )}
-        { theClass.Specs != null && (
-            calculateSpecsTableMatrix().map(row => (
-                <tr>
-                    { row.map(col => <td>{col}</td>)}
-                </tr>
-            ))
-        )}
-         */}
     </TableNormal>
 }
