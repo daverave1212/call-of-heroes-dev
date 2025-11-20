@@ -100,10 +100,6 @@ export default function Spell({
         return <div>An error occured :(</div>
     }
 
-    if (spell.Name == 'Element Burst') {
-        console.log('k')
-    }
-
     const baseVariantIndex = metadata?.variantIndex ?? 0
 
     const [variantIndex, setVariantIndex] = useState(baseVariantIndex)
@@ -270,10 +266,9 @@ export default function Spell({
     return (
         <div data-selectable={isSelected != null} id={uniqueID} style={style} className={classNames(
             'spell',
-            IsSubspell == true? 'spell--subspell' : 'spell--normal',
-            A == 'Passive' == true? 'spell--passive' : 'spell--active',
-            { 'spell--with-variants': hasVariants === true },
-            // { 'spell__no-border': hasBorder == false }
+            IsSubspell == true? 'subspell' : 'spell--normal',
+            A == 'Passive' == true? 'passive' : 'active',
+            { 'with-variants': hasVariants === true },
         )}>
             { isSelected && <Ribbon>Selected!</Ribbon>}
             { hasBorder != false && <SpellBorder/> } 
@@ -329,7 +324,7 @@ export default function Spell({
                     <div className="spell-red" key="Downside">{ Downside }</div>
                 )}
                 { Upgrade != null && (
-                    <div className='spell-upgrade'>
+                    <div className='spell-upgrade smaller-font'>
                         { Upgrade }
                     </div>
                 ) }
@@ -370,12 +365,12 @@ export default function Spell({
                     </div>
                 )}
                 { Notes != null && (
-                    <div className='spell-notes'>
+                    <div className='spell-notes italic smaller-font'>
                         { Notes }
                     </div>
                 ) }
                 { Alternatives != null && (
-                    <div className='spell-notes'>
+                    <div className='spell-notes italic smaller-font'>
                         Alternatives: { Alternatives }
                     </div>
                 ) }
@@ -425,7 +420,7 @@ export function SpellTopStats({className, tags, keywords}) {
 
     return (
         <>
-            <div className={`spell-top__stats ${className}`}>
+            <div className={`spell-top-stats smaller-font ${className}`}>
                 { (displayedA != null) && (
                     <div>
                         <img src="/Icons/UI/Hand.png" className="inline-icon--spell"/>{ displayedA }
@@ -459,7 +454,7 @@ export function SpellTopStats({className, tags, keywords}) {
                 { XP != null && (<div><img src="/Icons/UI/XP.png" className="inline-icon--spell"/>{ XP }</div>) }
             </div>
             { keywords != null && (
-                <div className='spell-top__stats' style={{paddingTop: 0, gap: '0rem'}}>
+                <div className='spell-top-stats smaller-font' style={{paddingTop: 0, gap: '0rem'}}>
                     { parsedKeywords.map(tag => <div className='tag'>{ tag }</div>) }
                 </div>
             )}
@@ -468,10 +463,10 @@ export function SpellTopStats({className, tags, keywords}) {
 }
 
 export function SpellBorder() {
-    return <div className="spell__border"></div>
+    return <div className="spell-border"></div>
 }
 export function SpellBackground() {
-    return <div className='spell__background'></div>
+    return <div className='spell-background'></div>
 }
 export function SpellTop({
     hasVariants, variantIndex, Variants,
@@ -488,11 +483,13 @@ export function SpellTop({
         return (
             <div className='spell-top'>
                 <div style={{width: '100%'}}>
-                    <div className='spell-top--iconless__title-wrapper'>
-                        <div className='spell-top--iconless__title'>{ Name }</div>
+                    <div className='center-content width-100'>
+                        <div className='spell-top-title-wrapper no-icon'>
+                            <div className='spell-top-title'>{ Name }</div>
+                        </div>
                     </div>
                     <div style={{width: '70%', margin: 'auto'}}>
-                        { showTopStats === true && <SpellTopStats tags={{...obj, A}} keywords={spell.Tags} className="spell-top__stats--no-padding-side"/>}
+                        { showTopStats === true && <SpellTopStats tags={{...obj, A}} keywords={spell.Tags} className="spell-top-stats--no-padding-side"/>}
                     </div>
                 </div>
             </div>
@@ -508,9 +505,9 @@ export function SpellTop({
                 hasUpgradeIcon={spell.HasUpgradeIcon}
             />
 
-            <div className='spell-top__title-side'>
-                <div className='spell-top__title__wrapper'>
-                    <div className='spell-top__title'>{ DisplayName != null? DisplayName : Name }</div>
+            <div className='spell-top-title-side'>
+                <div className='spell-top-title-wrapper'>
+                    <div className='spell-top-title'>{ DisplayName != null? DisplayName : Name }</div>
                 </div>
                 { showTopStats === true && <SpellTopStats keywords={spell.Tags} tags={{...obj, A: A == null? obj.A : A}}/>}
             </div>
@@ -520,8 +517,8 @@ export function SpellTop({
 
 export function SpellIconSpinner({ src, className }) {
     return (
-        <div className='spell-top__icon-wrapper'>
-            <div className='spell-top__variant-spinner'></div>
+        <div className='spell-icon-wrapper'>
+            <div className='variant-spinner'></div>
             <img src={iconPath}/>  
         </div>
     )
@@ -536,9 +533,9 @@ export function SpellTopIconSide({ src, style, className, hasUpgradeIcon, hasSpi
                 </div>
             )}
 
-            <div className='spell-top__icon-wrapper relative'>
+            <div className='spell-icon-wrapper relative'>
                 { hasSpinner === true && (
-                    <div className='spell-top__variant-spinner'></div>
+                    <div className='variant-spinner'></div>
                 )}
                 <img src={src}/>  
                 { hasUpgradeIcon === true && (

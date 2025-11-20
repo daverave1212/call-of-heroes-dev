@@ -57,8 +57,9 @@
             "A": "0 Actions",
             "Cooldown": "Once / Adventure",
             "AlignOnWebsite": "Left",
-            "Effect": "Your next Ability or animal feature is improved based on your and current _domains_.\n\n{Brown('Nature:')} Dice Upgraded to next die type.\n{Brown('Water:')} Heals an ally you can see for 1d8.\n{Brown('Wind:')} No Cooldown. You gain +2 Speed this combat.\n{Brown('Earth:')} +2 Max Health to you or a target (permanently).\n",
+            "Effect": "Your next Ability or animal feature is improved based on your and current _domains_.\n\n{Brown('Nature:')} Dice Upgraded to next die type, twice.\n{Brown('Water:')} Heal an ally you can see for 1d4 and restores 1 Mana to them\n{Brown('Wind:')} Before or after cast, quickly dash up to 10 meters\n{Brown('Earth:')} +2 Max Health to you or one of the Ability's targets\n",
             "EffectGreen": "Usable while Shapeshifted.",
+            "Notes": "{DiceUpgrade}",
             "HasMixins": true,
             "ParentKey": "Starting Abilities"
         }
@@ -145,19 +146,19 @@
         "~Everbloom~": {
             "A": "Half-Action",
             "Range": "5 meters",
-            "Cost": "1 Mana",
+            "Cost": "2 Mana",
             "Degree": "Minor",
-            "Effect": "Heal an alive Unit for 2d4.\n\n{Brown('Water:')} +1d4 Healing.\n{Brown('Wind:')} +1d4 Healing.\n",
+            "Effect": "Heal an alive Unit for 2d10.\n\n{Brown('Water:')} +1d6 Healing\n{Brown('Wind:')} +1d6 Healing.\n",
             "HasMixins": true,
             "ParentKey": "Ability Choices"
         },
-        "~Venin Shot~": {
+        "~Venin Spike~": {
             "A": "1 Action",
-            "Range": "6 meters",
+            "Range": "5 meters",
             "HasMixins": true,
             "Degree": "Minor",
-            "Effect": "A target takes 1d8 + ^Sense^ Poison Damage.\nThe _next time_ it takes damage from a weapon, it takes an extra 1d8 Poison Damage.\n\n{Brown('Nature:')} The extra Damage happens now.\n{Brown('Water:')} 1d10 Damage instead (on both).\n",
-            "Notes": "Body parts count as weapons.",
+            "Effect": "Shoot a venomous spike at target, dealing 1d6 + ^Sense^ Poison Damage.\nThe _next time_ it takes damage from a weapon, shoot another spike at it, which finds its target no matter the range or line of sight.\n\n{Brown('Nature:')} Shoot the extra spike now.\n{Brown('Water:')} 1d8 Damage instead (on both spikes).\n",
+            "Notes": "Body parts count as weapons. The second spike ignores Cover.",
             "ParentKey": "Ability Choices"
         },
         "~Ripstorm~": {
@@ -165,8 +166,15 @@
             "Cost": "1 Mana",
             "Cooldown": "Once / Adventure",
             "Requirement": "Only usable while Shapeshifted",
-            "Effect": "Deal 4d6 Damage to all Worthy Units within 2 meters of you.\nHeal for 1 Health per 5 real Damage done (total).\n\n{Brown('Earth:')} One of the Units hit becomes Crippled.\n{Brown('Wind:')} +1d6 Damage.\n",
+            "Effect": "Deal 3d10 Damage to all Worthy Units within 2 meters of you.\nHeal for 1 Health per 5 real Damage done (total).\n\n{Brown('Earth:')} One of the Units hit becomes Crippled.\n{Brown('Wind:')} +1 range and only hits Enemies\n",
             "HasMixins": true,
+            "ParentKey": "Ability Choices"
+        },
+        "~Biological Study~": {
+            "A": "0 Actions",
+            "Cost": "1 Mana",
+            "Effect": "Choose an enemy. Guess one of its Stats (you choose which).\nIf you were right, your next weapon attack against it deals +1d8 Damage and repeat this.\n",
+            "Notes": "You can't guess the same Stat twice on the same Unit type.\nFor example, if you guess correctly twice, your next 2 real weapon attacks deal extra Damage agains it. If you guess 3 times, your next 3 attacks. And so on.\n",
             "ParentKey": "Ability Choices"
         }
     },
@@ -215,7 +223,7 @@
                 "Cost": "1 Mana",
                 "Duration": "Whole Adventure",
                 "Degree": "Major",
-                "Effect": "Up to 2 allies gain 1d4 Health Regen each.\n\n{Brown('Nature:')} +1 Unit affected.\n{Brown('Water:')} 1d6 instead.\n",
+                "Effect": "Up to 2 Units gain 1d4 Health Regen, each.\n\n{Brown('Nature:')} +1 Unit affected.\n{Brown('Water:')} 1d6 instead.\n",
                 "Combo": "A Comboed target gains +1 Max Health permanently.",
                 "HasMixins": true,
                 "ParentKey": "Level 2 - Minor Talent"
@@ -253,13 +261,21 @@
             }
         },
         "Level 3 - Keystone Talent": {
+            "~Self Preservation~": {
+                "_Value": 1.75,
+                "A": "Passive",
+                "Effect": "Whenever you cast a Spell and you target yourself, it has ^Dice Upgraded^ to the next die type.",
+                "Notes": "This applies even when targeting multiple Units and you're one of them.",
+                "HasMixins": true,
+                "ParentKey": "Level 3 - Keystone Talent"
+            },
             "~Domain Animal Attack~": {
                 "_Value": 2.5,
                 "Requirement": "Only usable while Shapeshifted",
                 "A": "Half-Action",
                 "Damage": "1d6 + Any Stat",
                 "Replacement": "Replaces Animal Attack",
-                "Effect": "{Brown('Nature:')} ~Heal for 10% of the attack's Damage.~\n{Brown('Earth:')} ~Taunt the target.~\n{Brown('Water:')} ~+2 range.~\n{Brown('Wind:')} ~1d8 Damage instead of 1d6.~\n",
+                "Effect": "{Brown('Nature:')} ~Heal for 10% of the attack's Damage (at least 1).~\n{Brown('Earth:')} ~Taunt the target.~\n{Brown('Water:')} ~+2 range.~\n{Brown('Wind:')} ~1d8 Damage instead of 1d6.~\n",
                 "Range": "1 meter",
                 "Stat": "Smash, Slash or Pierce",
                 "EffectGreen": "Critical Strike - if you roll maximum, apply a Combo.",
@@ -267,12 +283,11 @@
                 "ParentKey": "Level 3 - Keystone Talent"
             },
             "<Innervate>": {
-                "_Value": 1.5,
-                "_ValueComment": "(multiplicative)",
+                "_Value": 2.5,
                 "A": "0 Actions",
                 "Range": "6 meters",
                 "Cooldown": "Once / Adventure",
-                "Effect": "Heal another ally for 1d12 Health and it regains 1 Mana or provides 1 more use of an Ability that is on Cooldown.\n",
+                "Effect": "Heal another ally for 4d4 Health, it regains 1 Mana and provides 1 more use of an Ability that is on Cooldown.\n",
                 "Downside": "Can not be cast on Druids.",
                 "ParentKey": "Level 3 - Keystone Talent"
             },
@@ -358,15 +373,14 @@
                 "ParentKey": "Level 5 - Keystone Talent"
             },
             "~Celestine Regrowth~": {
-                "_Value": 1,
+                "_Value": 1.33,
                 "A": "0 Actions",
-                "HasUpgradeIcon": true,
-                "IconName": "Regrowth",
-                "Cooldown": "Once / Combat",
+                "Cooldown": "Once / Adventure",
+                "AlignOnWebsite": "Left",
                 "Replacement": "Replaces Regrowth",
-                "Effect": "Your next Ability or animal feature is improved based on your and current _domains_.\n\n{Brown('Nature:')} Dice Upgraded to next die type.\n{Brown('Water:')} Heals an ally you can see for 1d8.\n{Brown('Wind:')} No Cooldown. You gain +2 Speed this combat.\n{Brown('Earth:')} +2 Max Health to you or a target (permanently).\n",
+                "Effect": "Your next Ability or animal feature is improved based on ~any 3 domains you choose~:\n\n{Brown('Nature:')} Dice Upgraded to next die type, twice.\n{Brown('Water:')} Heal an ally you can see for 1d4 and restores 1 Mana to them\n{Brown('Wind:')} Before or after cast, quickly dash up to 10 meters\n{Brown('Earth:')} +2 Max Health to you or one of the Ability's targets\n",
                 "EffectGreen": "Usable while Shapeshifted.",
-                "Notes": "~The Cooldown is now Once / Combat~.",
+                "Notes": "{DiceUpgrade}",
                 "HasMixins": true,
                 "ParentKey": "Level 5 - Keystone Talent"
             },

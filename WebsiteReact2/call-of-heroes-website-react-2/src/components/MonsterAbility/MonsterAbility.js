@@ -37,7 +37,7 @@ export default function MonsterAbility({ability, isPassive, style}) {
             return <AbilityEffect>{ abilityBody }</AbilityEffect>
         }
 
-        const effectName = U.getAnyPropNameExcept(abilityBody, ['Name', 'Damage', 'Notes', 'A', 'Special', 'Cooldown', 'Requirement', 'Range', 'Duration', 'Effect', 'ParentKey'])
+        const effectName = U.getAnyPropNameExcept(abilityBody, ['Name', 'Damage', 'Notes', 'A', 'Special', 'Cooldown', 'Requirement', 'Range', 'Duration', 'Effect', 'Upgrade', 'Combo', 'ParentKey'])
         
         return (
             <div className='flex column gap-half' style={{paddingTop: '0.5rem'}}>
@@ -60,9 +60,7 @@ export default function MonsterAbility({ability, isPassive, style}) {
                     <div className="monster-ability__effect-desc spell-red" key="Downside">{ Downside }</div>
                 )}
                 { Upgrade != null && (
-                    <div className='monster-ability__effect-desc spell-upgrade'>
-                        { Upgrade }
-                    </div>
+                    <p className='monster-ability-p smaller-font'>{Upgrade}</p>
                 ) }
                 { abilityBody.Notes != null && (
                     <div className='monster-ability__effect-desc' style={{color: 'gray', fontSize: '0.8em', marginTop: '3px'}}>
@@ -82,7 +80,7 @@ export default function MonsterAbility({ability, isPassive, style}) {
         {...{A: '1 Action'}, ...abilityBody}
 
 
-    const topStatsComponent = <SpellTopStats tags={spellTopTags} keywords={abilityBody.Tags} className="spell-top__stats--no-padding-side spell-top__stats--less-padding-top-bottom"/>
+    const topStatsComponent = <SpellTopStats tags={spellTopTags} keywords={abilityBody.Tags} className="spell-top-stats--no-padding-side spell-top-stats--less-padding-top-bottom"/>
 
     return (
         <div className={`monster-ability ${passiveOrActveClass}`} style={style}>

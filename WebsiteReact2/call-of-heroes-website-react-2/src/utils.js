@@ -251,9 +251,9 @@ export function addAbilityOrOpenPopup(spell, spellMetadata, selectedAbilitiesNam
         setSelectedAbiltiesNames([...selectedAbilitiesNames, spell.Name])
     }
 }
-export function splitSpellsArrayInto2Columns(spellsArray, shouldIgnoreAlignment=false) {
+export function splitSpellsArrayInto2Columns(spellsArray, shouldSort=true) {
     const spells = spellsArray.map(spell => ({...spell, Height: estimteSpellHeight(spell)}))
-    const spellsSorted = sortObjectArrayByKey(spells, 'Height').reverse()
+    const spellsSorted = shouldSort? (sortObjectArrayByKey(spells, 'Height').reverse()): spells
 
     if (spellsArray.find(s => s.Name.includes('Overthrow')) != null) {
         console.log({spellsArray, spells, spellsSorted})

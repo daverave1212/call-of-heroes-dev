@@ -6,14 +6,18 @@ import TwoSpells from './TwoSpells'
 import { addAbilityOrOpenPopup, sortObjectArrayByKey, spellsFromObject, splitArrayEvenly, splitSpellsArrayInto2Columns } from '../../utils'
 import { SADescription } from '../InsertableTemplates/RaceClassComponents'
 
-// Returns many TwoColumns, each fitting 2 spells.
-export default function ManySpells({ className, spells, spellStyle, shouldIgnoreAlignment, description, selectedSpellNames, onSpellClick, spellsMetadata={}, areItems=false, buttonText, childrenLeft, childrenRight }) {
+export const SpellSortTypes = {
+    HEIGHT: 'height',
+    LEVEL_REQUIREMENT: 'level requirement'
+}
+
+export default function ManySpells({ className, spells, spellStyle, shouldIgnoreAlignment, description, selectedSpellNames, onSpellClick, spellsMetadata={}, areItems=false, buttonText, childrenLeft, childrenRight, shouldSort=true }) {
 
     spells = Array.isArray(spells) ? spells : spellsFromObject(spells)
     
     const wideSpells = spells.filter(spell => spell.IsWide)
     const nonWideSpells = spells.filter(spell => !spell.IsWide)
-    const [column1Spells, column2Spells] = splitSpellsArrayInto2Columns(nonWideSpells, shouldIgnoreAlignment)
+    const [column1Spells, column2Spells] = splitSpellsArrayInto2Columns(nonWideSpells, shouldSort)
 
     const isSelected = spell => selectedSpellNames != null && spell != null && selectedSpellNames.includes(spell.Name)
     

@@ -22,7 +22,6 @@ Level Up:
 Spellcasting:
   Type: Special Mana-based
   SpellsOrAbilities: Spell
-  HasFont: true
 
   Mana:
     Amount: 2
@@ -34,44 +33,78 @@ Spellcasting:
   Known Basic Abilities: 2 + Intelligence (minimum 1)
   BaseKnownSpells: 2
 
-
-
 Starting Abilities:
 
   ~Affiance Casting~:
     A: Special
     AlignOnWebsite: Left
     Effect: |
-      You have 2 Mana Points that can't increase.
+      You have 2 Mana Points that can't increase except through Warlock Talents.
       Your Mana replenishes inbetween Worthy Combats.
 
   ~Evoke~:     # 2?
     _Value: 2
     A: Passive
     HasMixins: true
+    AlignOnWebsite: Left
     Effect: |
       You start each Worthy Combat with 0 Evoke Points.
       When you roll at least 1 maximum die on any Act, gain 1 Evoke Point.
       Some Spells can consume all Evoke Points to gain an improved effect ^for each Evoke Point spent^.
-    Upgrade: Spells that consume EP do not produce EP.
-    Notes: You must spend ^all^ EP when you decide to.
+      
+      Additionally, you have an extra Minor Talent tier for special Evocations.
+    Notes: You must spend ^all^ EP when you decide to. You can pick one for free Evocation at Level 1, and get more like you would normally get extra Minor Talents.
 
-  ~Magic Font~:
-    _Value: 0
-    A: Passive
-    Effect: |
-      You may select a Magic Font to pick Minor Talents from.
-      You get a free Magic Font Minor Talent at Level 1.
-    Notes: |
-      All Magic Font Abilities are Minor Talents.
-      You can get more Magic Font Minor Talents as if you're getting normal Minor Talents (e.g. a number of them equal to your Intellgience).
+Starting Abilities Description:
+  - Spending Evoke Points: |
+      Note that many of your Spells gain an improved effect when you spend Evoke Points on them, though your Evocations cost 0 Action Points.
+      For example, Diverge and Soul Drain both consume Evoke Points, so you can either spend the Evoke Points on Diverge, then cast Soul Drain to hit multiple targets, hoping to get more Max Health or Healing, or you could cast Soul Drain with Evoke Points to make sure you execute the targets!
 
-Ability Choices:
 
-    ~Divergence~:
+Other Abilities Title: Level 1 - Evocation Minor Talents
+Other Abilities Description: You have access to an extra tier of Minor Talents at Level 1 called Evocation Talents. You get one for free, and can get more as if you're getting regular Minor Talents.
+Other Abilities:
+
+    ~Diverge~:
+      _Value: 0 # Up to 0.75 / EP
       A: 0 Actions
+      Requirement: Requires spending Evoke Points
       Effect: |
         {Evoke}: Your next single-target Ability or Attack targets an extra Unit in range per Evoke Point spend, dealing -50% Damage and Healing to the secondary targets.
+
+    ~Overwhelm~:
+      _Value: 0 # 1 / EP
+      A: 0 Actions
+      Requirement: Requires spending Evoke Points
+      Effect: | 
+        {Evoke}: Your next single-target Ability or Attack Single-Stuns the target per Evoke Point spent.
+    
+    ~Amplify~:
+      _Value: 0 # 0.66 / EP
+      A: 0 Actions
+      Requirement: Requires spending Evoke Points
+      Effect: |
+        {Evoke}: Your next Ability or Attack has its ^Dice Upgraded^ to the next die type per Evoke Point spent.
+      Notes: "{DiceUpgrade}"
+    
+    ~Obliterate~:
+      _Value: 0 # 0.75 / EP
+      A: 0 Actions
+      Requirement: Requires spending Evoke Points
+      Effect: |
+        {Evoke}: Your next single-target attack or Spell deals +1d6 Damage on cast, or +1d4 Healing on cast per Evoke Point spent.
+      Upgrade: These extra dice can not produce more Evoke Points.
+      Notes: If it heals, it does extra Healing. If it deals Damage, it deals extra Damage. If used with Damage over time effects, the extra Damage only happens when you cast the Spell.
+    
+    ~Transpose~:
+      A: 0 Actions
+      Requirement: Requires spending Evoke Points
+      Effect: |
+        {Evoke}: Teleport up to 3 meters away per Evoke Point spent.
+
+
+
+Ability Choices:
 
     ~Hail~:   # Adds AoE (+0.65/EP)
         A: 1 Action
@@ -94,20 +127,20 @@ Ability Choices:
             Roll 1d12 - 5. After you see the result, choose a Worthy Unit.
             If it's negative, deal Scourge Damage to it. Otherwise, heal it.
 
-            {Evoke}: +50% Damage or Healing per Evoke Point spent.
+            {Evoke}: +100% Damage or Healing per Evoke Point spent.
         Combo: +50% Damage or Healing
 
     ~Deathfire Flame~:  # Adds insane Damage (+1/EP)
         A: 1 Action
         Cost: 1 Mana
-        Range: 10 meters
+        Range: Line starting from near you
         Degree: Major
         Tags: Area Damage
         Effect: |
             Shoot a bolt of deathly fire in a 1x10 meter line. All Units it touches take 1d4 + 1d6 + 1d8 Scourge or Fire Damage (your choice).
 
-            {Evoke}: Deals an extra ^higher^ die Damage for each Evoke Point spent.
-        Notes: For 1 Evoke Point, deals +1d10 Damage. For 2 spent, deals +1d10 + 1d12. And so on.
+            {Evoke}: When it hits a wall or the range ends, the bolt continues at an angle you choose for another 1x10 meters. This happens per Evoke Point spent.
+        Notes: The bolt can't hit the same Unit twice. The bolt travels as if you're drawing multiple lines with the same stroke. For example, if you spend 2 Evoke Points, there will be 3 lines.
 
     ~Curse of Pain~:  # Adds DoT (+0.5/EP)
         A: 0 Actions
@@ -117,39 +150,23 @@ Ability Choices:
         Requirement: Level 4
         Tags: Damage
         Effect: |
-            Choose a Unit. At the start of each of your Turns, it takes 1d4 Scourge Damage (ignoring Cover).
-
-            {Evoke}: Has ^Dice Upgraded^ for each Evoke Point spent.
+            Choose a Unit. At the start of each of your Turns, it takes 1d4 Scourge Damage.
+        Combo: 1d6 instead of 1d4.
+        Notes: Ignores Cover.
 
     ~Psyche Blast~: # Adds CC (+1/EP)
-        A: 1 Action
+        A: Half-Action
         Range: 3 meters
-        Cost: 1 Mana
+        Cost: 2 Mana
         HasMixins: true
         Degree: Major
         Tags: [Damage, Crowd Control]
         Effect: |
-            A Unit takes 4d6 Psychic Damage.
+            A Unit takes 5d4 Psychic Damage and becomes Deafened or Dazed (its choice).
             Apply a ~Combo~ to it.
-
-            {Evoke}: Single-Stuns the target for each Evoke Point spent.
+        Combo: Apply two Combos to it.
         Notes: |
             Cover is applied normally. Note that Single-Stuns can stack to become Double-Stunned or Triple-Stunned.
-
-    ~Ebon Lance~: # Adds single-target Damage (+0.65/EP)
-      _Value: 0.75
-      A: 0 Actions
-      Cost: 1 Mana
-      Effect: |
-        Your next {Type} weapon attack deals {Amount} Damage.
-        The Damage Types becomes of your chosen element Type.
-
-        {Evoke}: +1d4 per Evoke Point spent.
-      Variants:
-        - Type: melee
-          Amount: 1d6
-        - Type: ranged
-          Amount: 1d4
 
 Utility:
 
@@ -209,35 +226,29 @@ Talents:
 
   Level 2 - Minor Talent:
     
-    ~Soul Drain~: # Adds AoE farming (+1.25/EP)
+    ~Soul Drain~: # 
       _Value: 0.25
       A: Half-Action
       Cost: 1 Mana
       Range: 5 meters
       Effect: |
-        Deal 6 True Damage to 2 Units.
+        Deal 2d6 True Damage to 2 Units.
         For each killed, heal for 4 Health or gain +1 Max Health permanently (your choice).
 
-        {Evoke}: Hits 1 extra Unit per Evoke Point spent.
-
-    ~Empower~:  # No idea
-      _Value: Combo, irdk
-      A: 0 Actions
-      Cost: 1 Mana
-      Effect: |
-        Your next Spell has its ^Dice Upgraded^ to the next die type.
-
-        {Evoke}: Has ^Dice Upgraded^ one type higher per Evoke Point spent.
-      Upgrade: A die that goes higher than d12 just gets a +1 per extra type.
-      Notes: "{DiceUpgraded}"
-
+        {Evoke}: Executes non-Epic Units at or below 10% of its Max Health per Evoke Point spent.
+      Notes: |
+        For example, if you spend 2 Evoke Points, this executes Units at or below 20% Health. If you spend 3 Evoke Points, this executes Units at or below 30% Health. And so on.
+        Both Units take Damage from the same roll.
+      
     ~Veinlight~:  # Adds opportunity
       A: 3 Action Points
       Range: 5 meters to edge
       Effect: |
-        All Units in a 2x2 meter area take 3d4 Damage of your chosen Element and are Single-Stunned.
+        Choose a 3x3 meter area.
+        All Enemies in the area take 2d6 + 2d8 Damage of your chosen Element.
 
-        {Evoke}: +1 meter area (all directions).
+        {Evoke}: Increase the area by 3 meters in both directions per Evoke Point spent.
+      Notes: For example, for 1 Evoke Point spent the area becomes 6x6 meters. For 2, it becomes 9x9 meters. And so on.
 
     ~Curse of Weakness~:  # Improves debuff
         A: Half-Action
@@ -249,26 +260,40 @@ Talents:
         Effect: |
           Choose a Unit. The first time it deals Damage on its every Turn, roll 1d4 and subtract it from its dealt Damage.
 
-          {Evoke}: Has ^Dice Upgraded^ for each Evoke Point spent.
-        Upgrade: Only affects an Epic monster's first turn.
-
   Level 3 - Keystone Talent:
 
-    ~Aura of Ruin~:
-      _Value: 2.5
-      A: 0 Actions
-      Requirement: Only usable the moment Combat starts
-      Cooldown: Once / Adventure
-      Effect: Reduce the Max Health of all enemies by 10%.
+    ~Evoke Entropy~:
+      _Value: 1.5
+      A: Passive
+      HasMixins: true
+      Replacement: Replaces Evoke
+      Effect: |
+        You start each Worthy Combat with 0 Evoke Points.
+        When you roll at least 1 ~minimum or~ maximum die on any Act, gain 1 Evoke Point.
+        Some Spells can consume all Evoke Points to gain an improved effect ^for each Evoke Point spent^.
+        
+        Additionally, you have an extra Minor Talent tier for special Evocations.
+      Notes: You must spend ^all^ EP when you decide to. You can pick one for free Evocation at Level 1, and get more like you would normally get extra Minor Talents.
 
-    ~Cursemaster~:
-      _Value: 2
+    ~Borrowed Power~:
       A: Passive
       Effect: |
-        When cast, your Curses affect an additional Unit, but you can only cast a Curse once per Turn.
-    
+        You each Adventure with 2 Evoke Points.
+        You age 12 times as rapidly.
+
+    ~Font Magic~:
+      _Value: 0
+      A: Passive
+      Effect: |
+        You may select a Magic Font to pick Minor Talents from.
+        You get a free Magic Font Minor Talent.
+        Gain +1 Intelligence (up to +4).
+      Notes: |
+        All Magic Font Abilities are Minor Talents.
+        You can get more Magic Font Minor Talents as if you're getting normal Minor Talents (e.g. a number of them equal to your Intellgience).
+
     ~Blood Dividend~:
-      _Value: 1.5
+      _Value: 1.75
       A: 0 Action Points
       Range: 5 meters from you to healed Unit
       Cooldown: Once / Turn
@@ -277,12 +302,6 @@ Talents:
         Your next weapon attack or Spell deals -50% Damage, but heals another Unit for the Damage dealt.
         Then it applies a ~Combo~ to one of them.
     
-    ~Borrowed Power~:
-      A: Passive
-      Effect: |
-        You start the first Combat of each Adventure with 1 Evoke Point.
-        You age 12 times as rapidly.
-
   Level 4 - Minor Talent:
 
     ~Curse of Frailty~: # Adds massive Damage
@@ -344,37 +363,23 @@ Talents:
         This turn, all Damage you deal is increased by 50%. Every time you roll maximum on a die, take 5 Psychic Damage.
       Notes: The 50% increase is not applied to the 5 Psychic Damage.
 
-    <Final Word>:
-      _Value: 3
-      A: Passive
-      Effect: When you have exactly 1 Mana, and you cast a Spell that cost 1 Mana, that Spell casts twice (for free).
-      Notes: This is akin to casting the Spell again for 0 Actions without spending Mana (not necessarily on the same target).
-
     <Higher Evoke>:
-      _Value: 2
       A: Passive
-      HasMixins: true
-      IconName: Evoke
-      HasUpgradeIcon: true
-      Replacement: Replaces Evoke
+      Effect: You start each Combat with +1 Evoke Point.
+
+    ~Overloading Evocation~:
+      A: 0 Actions
+      Cooldown: Once / Adventure
+      Requirement: Requies spending Evoke Points
       Effect: |
-        You start each Worthy Combat with ~1 Evoke Point~.
-        When you roll ~maximum on a die in Worthy Combat~, gain 1 Evoke Point.
-        Some Spells can consume all Evoke Points to gain an improved effect ^for each Evoke Point spent^.
-      Upgrade: Spells that consume EP do not produce EP.
-      Notes: You must spend ^all^ EP when you decide to.
-
-    # <Agile Development>:
-    #   _Value: 1.25
-    #   A: Passive
-    #   Effect: A Basic Spell that costs Mana and can't deal Damage costs 0 Actions once per Turn.
-
-    <Invoke Self>:
-      _Value: 0.5
-      A: Passive
-      Effect: Whenever you roll maximum on a die against a Worthy Unit (or for healing), teleport 3 meters.
-      Notes: |
-        You need Line of Sight to the destination point.
+        Cast 2 Evocation Talents you Know, combined, with the same Evoke Points.
+    
+    ~Aura of Ruin~:
+      _Value: 2.5
+      A: 0 Actions
+      Requirement: Only usable the moment Combat starts
+      Cooldown: Once / Adventure
+      Effect: Reduce the Max Health of all enemies by 10%.
 
   Level 6 - Utility Talent:
 
@@ -398,13 +403,19 @@ Talents:
             This Ability is not meant for combat.
             Be creative with how you use this little Spell!
 
-
-
   Level 7 - Keystone Talent:
-    <Placeholder>:
-      Effect: None
 
+    <Final Word>:
+      _Value: 2.5
+      A: Passive
+      Cooldown: Once / Adventure
+      Effect: When you have exactly 1 Mana, and you cast a Spell that cost 1 Mana, that Spell casts twice (for free).
+      Notes: This is akin to casting the Spell again for 0 Actions without spending Mana (not necessarily on the same target).
 
+    <Manafold Power>:
+      _Value: 2.5
+      A: Passive
+      Effect: You have +1 Max Mana for each 3 points of Intelligence.
 
   Level 9 - Keystone Talent:
     <Placeholder>:

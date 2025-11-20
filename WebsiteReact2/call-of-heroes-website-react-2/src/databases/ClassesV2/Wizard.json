@@ -26,7 +26,7 @@
         "SpellsOrAbilities": "Spell",
         "HasFont": true,
         "Mana": {
-            "Amount": 3,
+            "Amount": 4,
             "Regain": "You regain all Mana back inbetween Adventures.",
             "Per": "per Adventure"
         },
@@ -35,82 +35,19 @@
         "Known Basic Abilities": "3 + Intelligence (minimum 1)",
         "BaseKnownSpells": 3
     },
-    "Ability Choices": {
-        "~Element Burst~": {
-            "A": "1 Action",
-            "DisplayName": "{Element} Burst",
-            "Range": "5 meters",
-            "Degree": "Minor",
-            "Effect": "Damage a Unit for 2d6 {Element} Damage.\nDeals +1d10 Damage if the target had taken {Element} Damage this combat before.\n~Click on the Spell Icon to select the preferred Element!~\n",
-            "Notes": "These are considered different Spells.",
-            "Variants": [
-                {
-                    "Element": "Fire",
-                    "IconName": "Fire Burst"
-                },
-                {
-                    "Element": "Cold",
-                    "IconName": "Cold Burst"
-                },
-                {
-                    "Element": "Shock",
-                    "IconName": "Shock Burst"
-                }
-            ],
-            "Tag": "Damage (1)",
-            "HasMixins": true,
-            "ParentKey": "Ability Choices"
+    "Starting Abilities": {
+        "~Spell Book~": {
+            "_Value": 1.5,
+            "A": "Passive",
+            "Effect": "Replenish 1 Mana after each Worthy Combat.",
+            "ParentKey": "Starting Abilities"
         },
-        "~Magic Arrows~": {
-            "A": "Half-Action",
-            "Range": "5 meters",
-            "HasMixins": true,
-            "Degree": "Minor",
-            "Effect": "Shoot 2 arcane arrows. Each does 1d4 Pulse Damage.\nThis turn, each arrow after the first into the same target deals only 1d2 instead.\n",
-            "Combo": "2 more arcane arrows shoot from the target into any targets within 5 meters of it. They ignore the same-target penalty.",
-            "Notes": "When you cast this, decide the targets before rolling the dice. Roll the dice for each target at a time.\n",
-            "ParentKey": "Ability Choices"
-        },
-        "~Burning Breath~": {
-            "A": "Half-Action",
-            "Cooldown": "Once / Turn",
-            "Range": "Near you",
-            "Degree": "Lesser",
-            "Effect": "All Units 3x3 meter area take 4 Fire Damage.\n",
-            "Combo": "If any affected Unit has a Combo, +50% total Damage (to all) and does not trigger the Cooldown.",
-            "Tag": "AoE (Half)",
-            "ParentKey": "Ability Choices"
-        },
-        "~Volt Guard~": {
-            "A": "Reaction",
-            "Range": "5 meters",
-            "Cost": "1 Mana",
-            "Effect": "Use when a Unit would take Damage (after roll). Negate 50% of the incoming Damage and return it back to the source as Shock Damage.\nApply a ~Combo~ to either of them.\n",
-            "Upgrade": "The returned Damage is a quick lightning that bends around obstacles, ignoring Cover or Line of Sight.",
-            "Tag": "Protection",
-            "HasMixins": true,
-            "ParentKey": "Ability Choices"
-        },
-        "~Rime Shackles~": {
-            "A": "1 Action",
-            "Range": "5 meters",
-            "Cost": "1 Mana",
-            "HasMixins": true,
-            "Degree": "Major",
-            "Effect": "Deal Cold Damage to a Unit equal to 1d12 + ^Its Dexterity^.\nIf it's non-Epic and Medium or smaller, Root it.\n",
-            "Combo": "This either hits one more Unit within 2 meters of it, or also Single-Stuns the target.",
-            "Tag": "CC Hard",
-            "ParentKey": "Ability Choices"
-        },
-        "~North Star~": {
-            "A": "3 Action Points",
-            "Range": "15 meters",
-            "Cost": "1 Mana",
-            "Degree": "Major",
-            "Effect": "You conjure a magical star that always shoots North and deals 5d10 Pulse Damage to the first Unit hit.\n",
-            "Combo": "The star explodes, dealing 50% of the total Damage to all other Units within 2 meters of the hit target.",
-            "Notes": "You can only shoot the star towards North - without an angle.\nAsk the DM which way North is (if your character knows that).\n",
-            "ParentKey": "Ability Choices"
+        "~Magic Font~": {
+            "_Value": 0,
+            "A": "Passive",
+            "Effect": "You may select a Magic Font to pick Minor Talents from.\nYou get a free Magic Font Minor Talent at Level 1.\n",
+            "Notes": "All Magic Font Abilities are Minor Talents.\nYou can get more Magic Font Minor Talents as if you're getting normal Minor Talents (e.g. a number of them equal to your Intellgience).\n",
+            "ParentKey": "Starting Abilities"
         }
     },
     "Utility": {
@@ -164,6 +101,16 @@
             "Effect": "Up to 2 Units you choose will start falling gently, down to 3 meters per round.\nOnce the fall finishes, the spell effect ends.\n",
             "Notes": "Arcane Feathers can be bought in most towns.\nFor faster gameplay, you can spend 10 gold when casting the spell, and buy the feather later.\n",
             "ParentKey": "Utility"
+        },
+        "~Flash~": {
+            "A": "0 Actions",
+            "Cost": "1 Mana",
+            "Cooldown": "Once / Turn",
+            "Degree": "Minor",
+            "Requirement": "Level 3",
+            "Effect": "Instantly teleport up to 5 meters away, within line of sight.",
+            "Notes": "Does not work if you're Rooted or stuck in place somehow. You take with you all items carried you want, but not other Units.",
+            "ParentKey": "Utility"
         }
     },
     "Starting Abilities Description": [
@@ -171,33 +118,67 @@
             "Magic Mastery": "Magic Mastery can convert a Spell from a Half-Action to 1 Action.\nYou can use this twice per turn or multiple times per turn to dish out a lot of spells in quick succession, in a single turn.\nIt is not considered a Spell because some other Wizard abilities affect Spells specifically, so Magic Mastery is unaffacted by them.\n"
         }
     ],
-    "Starting Abilities": {
-        "~Spell Book~": {
-            "_Value": 1.5,
-            "A": "Passive",
-            "Effect": "Replenish 1 Mana after each Worthy Combat.",
-            "ParentKey": "Starting Abilities"
-        },
-        "~Magic Expertise~": {
-            "_Value": 2,
-            "A": "Passive",
-            "Effect": "At Levels 3 through 9, pick ^two^ Talents instead of one.",
-            "HasMixins": true,
-            "ParentKey": "Starting Abilities"
-        }
-    },
     "Talents": {
+        "Level 1 - Minor Talent": {
+            "~Inscription~": {
+                "A": "0 Actions",
+                "Cost": "1 Mana",
+                "Duration": "Until end of Adventure",
+                "Effect": "Cast a Spell onto a _scroll_, spending its Cost, Cooldown, Action Points, etc (plus the additional 1 {Mana}Mana for this Ability).\nThe _scroll_ can be used with Half-Action, and is destroyed after being used.\n",
+                "HasMixins": true,
+                "ParentKey": "Level 1 - Minor Talent"
+            },
+            "~Attention~": {
+                "A": "Passive",
+                "Effect": "Get one more Magic Font Talent.",
+                "Notes": "You can have this Talent multiple times, from different Levels.",
+                "ParentKey": "Level 1 - Minor Talent"
+            },
+            "~Animated Weapon~": {
+                "Height": 80,
+                "A": "1 Action",
+                "Cost": "1 Mana",
+                "Range": "3 meters",
+                "Duration": "Depends",
+                "Degree": "Major",
+                "Effect": "Conjure a levitating, self-wielding melee weapon on a space within 3 meters.\nIt has 1 Action which can only be spent Move and attack,\nIt takes its Turn on at the same time as you, but disappears if it doesn't attack an Enemy or Worthy Unit by the end of your Turn.\n",
+                "Monster": {
+                    "Name": "Animated Weapon",
+                    "Speed": "3 meters",
+                    "Health": 1,
+                    "Defense": 5,
+                    "Stats": "0/0/0/0/0",
+                    "Abilities": {
+                        "~Attack~": {
+                            "A": "Half-Action",
+                            "Effect": "Attack an Enemy for 2d8 Damage (Pierce, Slash or Smash).",
+                            "Upgrade": "If the weapon doesn't make an attack on an Enemy or Worthy Unit by the end of your Turn, it is unsummoned.",
+                            "ParentKey": "Abilities"
+                        }
+                    }
+                },
+                "ParentKey": "Level 1 - Minor Talent"
+            },
+            "~Magic Rune~": {
+                "A": "Half-Action",
+                "Cost": "1 Mana",
+                "Effect": "Magically draw a faint 3x3 meter _rune_ onto a flat surface.\nCast a Spell onto the _rune_, spending its Cost, Cooldown, Action Points, etc (plus the additional 1 {Mana}Mana for this Ability).\nWhen an Enemy enters the _rune_, that Spell is automatically cast on that Unit (or centered on that Unit if it's an Area Ability). Then the _rune_ is destroyed.\n",
+                "Notes": "If the Spell has you choose something else, like a secondary target or an effect, you can do so the moment the rune explodes.",
+                "HasMixins": true,
+                "ParentKey": "Level 1 - Minor Talent"
+            }
+        },
         "Level 2 - Keystone Talent": {
             "<Pyromancy>": {
                 "_Value": 1.5,
                 "A": "Passive",
-                "Effect": "After the first time you deal Area Damage to 2 or more Worthy Enemies every Turn, increase all Fire Damage you deal by 1 for the rest of the combat.",
+                "Effect": "Every Turn, after the first time you deal Damage to 2 or more Enemies with the same Ability, increase all Fire Damage you deal by 1 for the rest of the combat.",
                 "ParentKey": "Level 2 - Keystone Talent"
             },
             "<Electromancy>": {
                 "_Value": 1.5,
                 "A": "Passive",
-                "Effect": "After the first time you deal Shock Damage each Turn, increase all Healing and Shock Damage you deal by 1 for the rest of the Combat.\n",
+                "Effect": "After the first time you affect an Ally with a Spell each Turn, increase all Healing and Shock Damage you deal by 1 for the rest of the Combat.\n",
                 "ParentKey": "Level 2 - Keystone Talent"
             },
             "<Arcanism>": {
@@ -210,83 +191,49 @@
             "<Hydromancy>": {
                 "_Value": 1.5,
                 "A": "Passive",
-                "Effect": "Once per Turn, after you apply Crowd Control to a Worthy Enemy, increase all Cold Damage you deal by 2 for the rest of the combat.",
+                "Effect": "Once per Turn, after you apply Crowd Control to an Enemy, increase all Cold Damage you deal by 1 for the rest of the combat.",
                 "Notes": "Hard Terrain does not count as Crowd Control. Slamming counts as Crowd Control.",
                 "ParentKey": "Level 2 - Keystone Talent"
             }
         },
         "Level 3 - Minor Talent": {
-            "~Searing Arrows~": {
-                "A": "1 Action",
+            "~Upcast~": {
+                "A": "0 Actions",
                 "Cost": "1 Mana",
-                "Range": "10 meters",
-                "Degree": "Major",
-                "Effect": "Shoot 3 rays of fire (at one or more Units). Each does 1d10 Fire Damage.",
-                "Notes": "You can roll them one by one, after they deal the daWizard.",
-                "Tag": "Damage (1)",
+                "Effect": "After you cast the next Spell this Turn, choose one of the rolled dice. Increase the result number of that die by 100%.",
+                "Upgrade": "This is not considered a Spell.",
                 "ParentKey": "Level 3 - Minor Talent"
             },
-            "~Countermagic~": {
-                "A": "Reaction",
-                "Cooldown": "Once / Round",
-                "Cost": "1 Mana",
-                "Effect": "Use when a Unit you can see wants to cast a Spell. That spell becomes cancelled. The caster loses any resources spent on it, Half-Action and can't cast that Spell this Round.\nApply a ~Combo~ to that Unit.\n",
-                "HasMixins": true,
-                "ParentKey": "Level 3 - Minor Talent"
-            },
-            "~Conduit Flow~": {
+            "~Grow or Shrink~": {
                 "A": "1 Action",
                 "Cost": "1 Mana",
-                "Range": "5 meters to first target",
-                "Degree": "Major",
-                "Effect": "Choose a Worthy Unit other than you. If Enemy, it takes 1d10 Shock Damage. Otherwise, Heal it for 1d8.\nIf there is another Unit within 2 meters of it, repeat Conduit Flow on the new Unit (you choose if multiple).\n",
-                "Notes": "Each Unit can be affected by Conduit Flow only once per cast. Cover is calculated from Unit to Unit (as if the conduit is jumping from Unit to Unit). The conduit can be repeated on you as long as you're not the first target.",
-                "ParentKey": "Level 3 - Minor Talent"
-            },
-            "~Magic Arrow Barrage~": {
-                "A": "1 Action",
-                "Cost": "1 Mana",
-                "Range": "10 meters to edge",
-                "Cooldown": "Once / Combat",
-                "Degree": "Major",
-                "Effect": "Conjure floating arrows in a 3x3 area, up to 10 meters above ground.\nAt any point (for 0 Actions or with a Reaction), you can release these arrows downward. All Enemies hit take 2d6 Pierce Damage.\n",
-                "Upgrade": "At the start of your every Turn, if the barrage is not yet released, it increases by 1 meter in size in all directions and gains 1d4 Damage when it will be released (up to +3d4 and 9x9).",
-                "Notes": "E.g. every turn, it goes from 3x3 to 5x5, then 7x7, then 9x9, etc and deals from 2d6 Damage to 2d6 + 1d4, then 2d6 + 2d4, etc.\nThe arrows disappear as soon as they hit ground, or when dismissed (all at once) for free at any point, or after 1 minute of staying in the air.\n",
-                "ParentKey": "Level 3 - Minor Talent"
-            },
-            "~Element Enchantment~": {
-                "DisplayName": "{Element} Enchantment",
-                "A": "1 Action",
-                "Cost": "1 Mana",
-                "Range": "3 meters",
-                "Duration": "24 hours / Depends",
-                "Requirement": "Level 2",
+                "Cooldown": "Once / Turn",
                 "Degree": "Minor",
-                "Effect": "Choose a metallic weapon to imbue it with {Element}.\nThat weapon deals +2 Damage (as part of the Attack) and the total weapon Damage becomes {Element} Damage.\n\n~Click on the Spell Icon to select the preferred Element!~\n",
-                "Upgrade": "Lasts until the end of the next (or current) combat, or for up to 24 hours.",
-                "Notes": "Does not stack with other weapon enchantments from Spells. These are considered different Spells.",
-                "Tag": "Buff",
-                "Variants": [
-                    {
-                        "Element": "Fire",
-                        "IconName": "Fire Enchantment"
-                    },
-                    {
-                        "Element": "Cold",
-                        "IconName": "Cold Enchantment"
-                    },
-                    {
-                        "Element": "Shock",
-                        "IconName": "Shock Enchantment"
-                    }
-                ],
+                "Effect": "A Unit or object you can see becomes one Size larger/smaller.\nIt gains or loses 10% Max Health, gains or loses 1 Damage on all offensive Acts, and gains or loses 1 Movement Speed.\nCan stack multiple times.\n",
+                "Notes": "Current Health changes with the Max Health (e.g. for 80/100 Health, if growing, new Health will be 90/110; if shrinking, new Health will be 70/90). When the effect expires, the new Current Health stays as it is, unless it's higher than the new Max Health.\nWhen the effect expires, current Health remains the same if lower, or is cut to maximum if higher.\nA larger Unit becomes 1 meter larger/smaller in both directions.\nIt's number of spaces occupied also changes with this.\n",
+                "ParentKey": "Level 3 - Minor Talent"
+            },
+            "~Attention~": {
+                "A": "Passive",
+                "Effect": "Get one more Magic Font Talent.",
+                "Notes": "You can have this Talent multiple times, from different Levels.",
+                "ParentKey": "Level 3 - Minor Talent"
+            },
+            "~Spectral Hand~": {
+                "A": "0 Actions",
+                "Cost": "1 Mana",
+                "Range": "5 meters",
+                "Duration": "Rest of Adventure",
+                "Degree": "Minor",
+                "Effect": "Conjure a _spectral hand_ in a space you can see.\nYou can control the hand as you move your normal hands. You can spend Half-Action to move it up to 5 meters.\nYou can cast Spells as if they originate from the _spectral hand_ instead of your own, calculating Range and Cover from it instead of you.\n",
+                "Notes": "The hand can't lift objects weighing more than you can lift just with one hand.\nMoving the hand spends Action Points as if you made moved your own hand.\nYou can destroy the _hand_ at will.\n",
                 "HasMixins": true,
                 "ParentKey": "Level 3 - Minor Talent"
             }
         },
         "Level 4 - Keystone Talent": {
             "<Abjuration>": {
-                "_Value": "2 or more",
+                "_Value": 2.25,
                 "A": "Reaction",
                 "Cost": "1 Mana",
                 "Effect": "Use when an ally (or you) would be hit by a missile (before hitting the target).\nFling it from air back to the attacker (with the exact Damage and effects).\n",
@@ -319,44 +266,93 @@
             }
         },
         "Level 5 - Minor Talent": {
-            "~Element Blast~": {
-                "A": "1 Action",
-                "DisplayName": "{Element} Blast",
-                "Range": "5 meters",
-                "Replacement": "Replaces Element Burst",
-                "Requirement": "Requires Element Burst",
-                "Degree": "Minor",
-                "Effect": "Damage a Unit for ~2d8~ {Element} Damage.\nDeals ~+1d12~ Damage if the target had taken {Element} Damage this combat before.\n~Click on the Spell Icon to select the preferred Element!~\n",
-                "Notes": "These are considered different Spells.",
-                "Variants": [
-                    {
-                        "Element": "Fire",
-                        "IconName": "Fire Blast"
-                    },
-                    {
-                        "Element": "Cold",
-                        "IconName": "Cold Blast"
-                    },
-                    {
-                        "Element": "Shock",
-                        "IconName": "Shock Blast"
-                    }
-                ],
-                "Tag": "Damage (1)",
+            "~Amplification~": {
+                "A": "0 Actions",
+                "Cost": "1 Mana",
+                "Duration": "Until end of Adventure",
+                "Effect": "Choose a Unit to aomplify their magic potential.\nIts first  Healing or Spell Damage  every Turn has its ^Dice Upgraded^ to the next die type.\n",
+                "Notes": "{DiceUpgrade}",
                 "HasMixins": true,
                 "ParentKey": "Level 5 - Minor Talent"
             },
-            "~Frost Shackles~": {
-                "A": "1 Action",
-                "Range": "5 meters",
+            "~Invisibility~": {
+                "A": "Reaction or 0 Actions",
                 "Cost": "1 Mana",
                 "HasMixins": true,
-                "Requirement": "Rime Shackles",
-                "Replacement": "Replaces Shackles",
                 "Degree": "Major",
-                "Effect": "Deal Cold Damage to a Unit equal to 2d8 + ^Its Dexterity^. ~It becomes Slowed~.\n",
-                "Combo": "This either hits one more Unit within 2 meters of it, or also Single-Stuns the target.",
-                "Tag": "CC Hard",
+                "Effect": "Use on your Turn, or before a Unit wants to do something.\nChoose a Unit you can see. It becomes invisible for up to 1 minute, or until it does an offensive Act.\n",
+                "Upgrade": "You can spend extra {Mana}Mana to extend the duration of this by that many minutes.",
+                "ParentKey": "Level 5 - Minor Talent"
+            },
+            "~Polymorph~": {
+                "A": "2 Action Points",
+                "Cost": "2 Mana",
+                "Cooldown": "Once / Adventure",
+                "Effect": "Choose a Unit. It becomes shapeshifted into an animal you choose until the end of its next Turn, which has 2 of the Druid Shapeshift animal features (also listed here).\nIt can not do any of its normal attacks or Abilities or use items, and all its Movement works as if it's moving through Hard Terrain.\nIt keeps its Stats, Passives and can do Animal Attack.\n",
+                "Upgrade": "Apply all other rules for Druid's Shapeshift Ability.",
+                "Subspells": {
+                    "~Animal Attack~": {
+                        "Range": "1 meter",
+                        "IsSubspell": true,
+                        "A": "Half-Action",
+                        "Damage": "1d6 + Any Stat (Slash, Smash or Pierce)",
+                        "EffectGreen": "Critical Strike - if you roll maximum, apply a Combo.",
+                        "ParentKey": "Subspells"
+                    }
+                },
+                "HasSpellTableNumbers": true,
+                "SpellTable": [
+                    {
+                        "Name": "Hefty",
+                        "Effect": "When Shapeshifting, gain 3 Shieldings that block 1d4 Damage each. You are Long (2x1 meters) and Ridable."
+                    },
+                    {
+                        "Name": "Clawed",
+                        "Effect": "Your animal features listed here have their Dice Upgraded to the next die type."
+                    },
+                    {
+                        "Name": "Sweep {Action}2 Action Points {Cooldown} Once / Shapeshift",
+                        "Effect": "All Units within 2 meters take 2d4 + Your Highest Stat (any type). If only one Unit is hit, +50% Damage and apply a Combo."
+                    },
+                    {
+                        "Name": "Bash {Action}1 Action Point {Level}Level 2 {Cooldown} Once / Combat",
+                        "Effect": "Single-Stun a Unit and deal 1d4 Smash Damage to it.\n{Combo} and a one Unit 2 meter from you.\n"
+                    },
+                    {
+                        "Name": "Venomous {Level}Level 3",
+                        "Effect": "Animal Attacks deal +1d4 Damage to Units affected by Crowd Control. {Combo} +1d4 Damage."
+                    },
+                    {
+                        "Name": "Fast {Level}Level 4",
+                        "Effect": "You have +3 Movement Speed. You can freely Break Movement."
+                    },
+                    {
+                        "Name": "Sticky {Action}1 Action Point {Range}3 meters {Level}Level 5",
+                        "Effect": "Shoot a sticky substance at a Unit. It takes 1d4 Damage, becomes Double-Slowed and apply a Combo. Usable once per Shapeshift."
+                    },
+                    {
+                        "Name": "Shred {Action}2 Action Points {Level}Level 6",
+                        "Effect": "Attack a Unit for 2d8 + 3 Slash Damage. Deals +1d8 Damage for each level of Stun on it."
+                    },
+                    {
+                        "Name": "Leap {Action}1 Action Point {Level}Level 7",
+                        "Effect": "Leap at a Unit 2-3 meters away. Deal 2d6 Pulse Damage and apply a Combo. {Combo} it becomes Frail."
+                    },
+                    {
+                        "Name": "Fly {Level}Level 8",
+                        "Effect": "You can fly up to your speed. You take -50% Smash Damage."
+                    },
+                    {
+                        "Name": "Large {Level}Level 9",
+                        "Effect": "You have 2 Defense. You are Large (2x2 meters) and Ridable."
+                    }
+                ],
+                "ParentKey": "Level 5 - Minor Talent"
+            },
+            "~Attention~": {
+                "A": "Passive",
+                "Effect": "Get one more Magic Font Talent.",
+                "Notes": "You can have this Talent multiple times, from different Levels.",
                 "ParentKey": "Level 5 - Minor Talent"
             }
         },
@@ -378,6 +374,22 @@
                 "Degree": "Major",
                 "Effect": "You create an illusion that fits at most in a 3x3x3 meter area.\nThe illusion appears real to the eyes, ears and by smell, but physical interaction makes it obvious it's an illusion and objects pass through it normally.\nThe illusion can deal no Damage or Crowd Control, but can provide Cover or block Line of Sight (both from the front, and from behind).\nOn your Turn, you can spend 1 Action to keep and/or move the illusion, otherwise the Spell ends.\n",
                 "Upgrade": "At Level 8, the illusion lasts indefinitely until you cancel it without needing to spend Actions, and it can hold its own simple movement and clockwork-like routines.\nYou can also program this illusion to react on its own in a specific way to specific triggers, but the instructions must be concise - talk with your QM about this.\n",
+                "ParentKey": "Level 6 - Utility Talent"
+            },
+            "~Conjuration~": {
+                "A": "1 Action",
+                "Cost": "1 Mana",
+                "Range": "3 meters",
+                "Degree": "Major",
+                "Effect": "You can conjure an object that is up to 1x1x1 meter in size.\nThe object is solid and glows faintly.\nYou can't conjure mechanical objects.\nThe object disappears after 1 hour (24 hours at Level 8).\n",
+                "ParentKey": "Level 6 - Utility Talent"
+            },
+            "~Transmogrification~": {
+                "A": "10 minutes",
+                "Cost": "1 Mana",
+                "Degree": "Major",
+                "Effect": "Touch 2 objects of the same type (e.g. 2 helmets, or 2 arrows, or 2 melee 1-Handed weapons, etc).\nYou make one of the look like the other.\nThe change is permanent until the object breaks.\n",
+                "Notes": "Upon close inspection of the shape and colors, this is visibly an illusion.",
                 "ParentKey": "Level 6 - Utility Talent"
             }
         },

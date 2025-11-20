@@ -78,14 +78,14 @@ Starting Abilities:       # 1
     Effect: |
       Your next Ability or animal feature is improved based on your and current _domains_.
       
-      {Brown('Nature:')} Dice Upgraded to next die type.
-      {Brown('Water:')} Heals an ally you can see for 1d8.
-      {Brown('Wind:')} No Cooldown. You gain +2 Speed this combat.
-      {Brown('Earth:')} +2 Max Health to you or a target (permanently).
+      {Brown('Nature:')} Dice Upgraded to next die type, twice.
+      {Brown('Water:')} Heal an ally you can see for 1d4 and restores 1 Mana to them
+      {Brown('Wind:')} Before or after cast, quickly dash up to 10 meters
+      {Brown('Earth:')} +2 Max Health to you or one of the Ability's targets
     EffectGreen: Usable while Shapeshifted.
+    Notes: "{DiceUpgrade}"
 
 Ability Choices:
-
 
     ~Shapeshift~:
       A: 0 Actions
@@ -160,26 +160,26 @@ Ability Choices:
     ~Everbloom~:    # Almost 1 Mana worth
         A: Half-Action
         Range: 5 meters
-        Cost: 1 Mana
+        Cost: 2 Mana
         Degree: Minor
         Effect: |
-          Heal an alive Unit for 2d4.
+          Heal an alive Unit for 2d10.
           
-          {Brown('Water:')} +1d4 Healing.
-          {Brown('Wind:')} +1d4 Healing.
+          {Brown('Water:')} +1d6 Healing
+          {Brown('Wind:')} +1d6 Healing.
 
-    ~Venin Shot~:
+    ~Venin Spike~:
         A: 1 Action
-        Range: 6 meters
+        Range: 5 meters
         HasMixins: true
         Degree: Minor
         Effect: |
-            A target takes 1d8 + ^Sense^ Poison Damage.
-            The _next time_ it takes damage from a weapon, it takes an extra 1d8 Poison Damage.
+            Shoot a venomous spike at target, dealing 1d6 + ^Sense^ Poison Damage.
+            The _next time_ it takes damage from a weapon, shoot another spike at it, which finds its target no matter the range or line of sight.
 
-            {Brown('Nature:')} The extra Damage happens now.
-            {Brown('Water:')} 1d10 Damage instead (on both).
-        Notes: Body parts count as weapons.
+            {Brown('Nature:')} Shoot the extra spike now.
+            {Brown('Water:')} 1d8 Damage instead (on both spikes).
+        Notes: Body parts count as weapons. The second spike ignores Cover.
 
     ~Ripstorm~:
         A: 3 Action Points
@@ -187,12 +187,24 @@ Ability Choices:
         Cooldown: Once / Adventure
         Requirement: Only usable while Shapeshifted
         Effect: |
-          Deal 4d6 Damage to all Worthy Units within 2 meters of you.
+          Deal 3d10 Damage to all Worthy Units within 2 meters of you.
           Heal for 1 Health per 5 real Damage done (total).
           
           {Brown('Earth:')} One of the Units hit becomes Crippled.
-          {Brown('Wind:')} +1d6 Damage.
+          {Brown('Wind:')} +1 range and only hits Enemies
     
+    ~Biological Study~:
+      A: 0 Actions
+      Cost: 1 Mana
+      Effect: |
+        Choose an enemy. Guess one of its Stats (you choose which).
+        If you were right, your next weapon attack against it deals +1d8 Damage and repeat this.
+      Notes: |
+        You can't guess the same Stat twice on the same Unit type.
+        For example, if you guess correctly twice, your next 2 real weapon attacks deal extra Damage agains it. If you guess 3 times, your next 3 attacks. And so on.
+
+
+
 
 Utility:
 
@@ -276,7 +288,7 @@ Talents:
         Duration: Whole Adventure
         Degree: Major
         Effect: |
-          Up to 2 allies gain 1d4 Health Regen each.
+          Up to 2 Units gain 1d4 Health Regen, each.
           
           {Brown('Nature:')} +1 Unit affected.
           {Brown('Water:')} 1d6 instead.
@@ -324,6 +336,12 @@ Talents:
 
   Level 3 - Keystone Talent:
 
+    ~Self Preservation~:
+      _Value: 1.75
+      A: Passive
+      Effect: Whenever you cast a Spell and you target yourself, it has ^Dice Upgraded^ to the next die type.
+      Notes: This applies even when targeting multiple Units and you're one of them.
+
     ~Domain Animal Attack~:
       _Value: 2.5
       Requirement: Only usable while Shapeshifted
@@ -331,7 +349,7 @@ Talents:
       Damage: 1d6 + Any Stat
       Replacement: Replaces Animal Attack
       Effect: |
-        {Brown('Nature:')} ~Heal for 10% of the attack's Damage.~
+        {Brown('Nature:')} ~Heal for 10% of the attack's Damage (at least 1).~
         {Brown('Earth:')} ~Taunt the target.~
         {Brown('Water:')} ~+2 range.~
         {Brown('Wind:')} ~1d8 Damage instead of 1d6.~
@@ -340,13 +358,12 @@ Talents:
       EffectGreen: Critical Strike - if you roll maximum, apply a Combo.
 
     <Innervate>:
-      _Value: 1.5
-      _ValueComment: (multiplicative)
+      _Value: 2.5 # (multiplicative)
       A: 0 Actions
       Range: 6 meters
       Cooldown: Once / Adventure
       Effect: |
-        Heal another ally for 1d12 Health and it regains 1 Mana or provides 1 more use of an Ability that is on Cooldown.
+        Heal another ally for 4d4 Health, it regains 1 Mana and provides 1 more use of an Ability that is on Cooldown.
       Downside:
         Can not be cast on Druids.
 
@@ -462,21 +479,20 @@ Talents:
         {Brown('Wind:')} You can cast any Spell while Shapeshifted, and any animal feature while not.
 
     ~Celestine Regrowth~:
-      _Value: 1
+      _Value: 1.33
       A: 0 Actions
-      HasUpgradeIcon: true
-      IconName: Regrowth
-      Cooldown: Once / Combat
+      Cooldown: Once / Adventure
+      AlignOnWebsite: Left
       Replacement: Replaces Regrowth
       Effect: |
-        Your next Ability or animal feature is improved based on your and current _domains_.
+        Your next Ability or animal feature is improved based on ~any 3 domains you choose~:
         
-        {Brown('Nature:')} Dice Upgraded to next die type.
-        {Brown('Water:')} Heals an ally you can see for 1d8.
-        {Brown('Wind:')} No Cooldown. You gain +2 Speed this combat.
-        {Brown('Earth:')} +2 Max Health to you or a target (permanently).
+        {Brown('Nature:')} Dice Upgraded to next die type, twice.
+        {Brown('Water:')} Heal an ally you can see for 1d4 and restores 1 Mana to them
+        {Brown('Wind:')} Before or after cast, quickly dash up to 10 meters
+        {Brown('Earth:')} +2 Max Health to you or one of the Ability's targets
       EffectGreen: Usable while Shapeshifted.
-      Notes: ~The Cooldown is now Once / Combat~.
+      Notes: "{DiceUpgrade}"
     
     <Dazzling Miasma>:
       _Value: 2

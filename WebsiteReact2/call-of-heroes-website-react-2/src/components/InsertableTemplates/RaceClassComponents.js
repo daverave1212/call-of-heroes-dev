@@ -41,7 +41,7 @@ import { QGTitle1 } from '../../pages/Tools/TitleGenerator'
 import { SideMenuFromClass, SideMenuFromRace } from '../SideMenu/SideMenu'
 import Selector from '../Selector/Selector'
 import { toggleSpellForSelectedSpellNames } from '../../pages/Other/CharacterCreationCalculator/CharacterData'
-import { BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP, HEALTH_REGEN, INITIATIVE, MAX_HEALTH, MOVEMENT_SPEED, normalizeTextWithStats, STAT_LIMITS_TEXT } from '../../services/game-lib/stat-calculations'
+import { BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP, HEALTH_REGEN, INITIATIVE, INTELLIGENCE, MAX_HEALTH, MOVEMENT_SPEED, normalizeTextWithStats, STAT_LIMITS_TEXT } from '../../services/game-lib/stat-calculations'
 import { SelectorsByColumns } from '../../pages/Other/Abilities'
 
 
@@ -420,7 +420,7 @@ export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
                         }
                         <SmallStat name="Extra Talents" color="blue" type={SmallStatTypes.VERTICAL}>
                             Each Level, choose a free Talent from that Level.<br/><br/>
-                            However, if your <b>Mind</b> above 0, you can choose a number of <b>extra Minor or Utility Talents</b> equal to your <b>Mind</b>.
+                            However, if your <b>{INTELLIGENCE}</b> is above 0, you can choose a number of <b>extra Minor or Utility Talents</b> equal to your <b>{INTELLIGENCE}</b>.
                         </SmallStat>
                     </div>
                 </Column>
@@ -642,9 +642,8 @@ export function ClassPageV2({
     hasNoMargins=false,
     hasHeader=true,
     useSelectedSpecNameHook=() => useState(null),
+    useSelectedFontHook=() => useState('Fire'),
     selectedSpellNames,
-    useSelectedFontHook=() => useState(null),
-    useSelectedFontSpellNamesHook=() => useState([]),
     onSpellClick,
     hueShift,
     spellsMetadata
@@ -656,10 +655,7 @@ export function ClassPageV2({
 
     let [selectedSpecName, setSelectedSpecName] = useSelectedSpecNameHook()
     let [selectedFontName, setSelectedFontName] = useSelectedFontHook()
-    let [selectedFontSpellNames, setSelectedFontSpellNames] = useSelectedFontSpellNamesHook()
 
-    // const finalSelectedSpecName = selectedSpecName ?? innerSelectedSpecName
-    // const selectedSpecObj = finalSelectedSpecName == null? null: theClass.Specs[finalSelectedSpecName]
     const selectedSpecObj = theClass.Specs?.[selectedSpecName]
     const isSelectedSpecFromThisClass = selectedSpecObj != null
 
@@ -668,11 +664,6 @@ export function ClassPageV2({
 
     function onSpecClick(specName) {
         setSelectedSpecName(specName)
-        // if (setSelectedSpecName != null) {
-        //     setSelectedSpecName?.(specName)
-        // } else {
-        //     setInnerSelectedSpecName(specName)
-        // }
     }
 
 
@@ -713,24 +704,25 @@ export function ClassPageV2({
                             selectedSelectorName={selectedFontName}
                             setSelectedSelectorName={setSelectedFontName}
                         />
+
+                        { selectedFontName != null && (
+                        <>
+                            <PageH2 hasMargin={false} className="center-text">{selectedFontName} Font Spells</PageH2>
+                            <ManySpells
+                                spells={spellFonts[selectedFontName]}
+                                selectedSpellNames={selectedSpellNames}
+                                onSpellClick={onSpellClick}
+                                spellsMetadata={spellsMetadata}
+                            />
+                        </>
+                    )}
                     </div>
-                )}
-                { selectedFontName != null && (
-                    <>
-                        <PageH2 hasMargin={false} className="center-text">{selectedFontName} Font Spells</PageH2>
-                        <ManySpells
-                            spells={spellFonts[selectedFontName]}
-                            selectedSpellNames={selectedSpellNames}
-                            onSpellClick={onSpellClick}
-                            spellsMetadata={spellsMetadata}
-                        />
-                    </>
                 )}
                 
                 
                 { theClass['Other Abilities'] != null && (
                     <div>
-                        <PageH2>{theClass['Other Abilities Title']}</PageH2>
+                        <PageH2 hasMargin={false} className="center-text">{theClass['Other Abilities Title']}</PageH2>
                         <ManySpells
                             spells={theClass['Other Abilities']}
                             description={theClass['Other Abilities Description']}
