@@ -8,7 +8,7 @@ import PageH1 from '../PageH1/PageH1'
 import PageH2 from '../PageH2/PageH2'
 import PageH3 from '../PageH3/PageH3'
 
-import SmallStat, { SmallStatTypes } from '../SmallStat/SmallStat'
+import SmallStat from '../SmallStat/SmallStat'
 import SmallStatList from '../SmallStat/SmallStatList'
 
 import Separator from '../Separator/Separator'
@@ -181,9 +181,9 @@ export function ClassFeatures({ theClass, hueShift }) {
             <TwoColumns>
                 <Column>
                     <div className='with-margined-children'>
-                        { theClass['Language'] && <SmallStat name="Language" type="vertical">{ theClass['Language'] }</SmallStat> }
-                        {/* { theClass.Weapons && <SmallStat name="Weapon Training" type="vertical">{ theClass.Weapons }</SmallStat> } */}
-                        <SmallStat name="Skills" type="vertical">{ theClass['Proficiency Requirements'] }</SmallStat>
+                        { theClass['Language'] && <SmallStat name="Language" className="column">{ theClass['Language'] }</SmallStat> }
+                        {/* { theClass.Weapons && <SmallStat name="Weapon Training" className="column">{ theClass.Weapons }</SmallStat> } */}
+                        <SmallStat name="Skills" className="column">{ theClass['Proficiency Requirements'] }</SmallStat>
                     </div>
                 </Column>
                 <Column>
@@ -201,14 +201,14 @@ export function RaceFeatures({ theRace }) {
             <TwoColumns>
                 <Column>
                     <div className='with-margined-children'>
-                        <SmallStat name="Stat Distribution" type="vertical">{ normalizeTextWithStats(theRace.Creation['Stat Restrictions']) }</SmallStat>
+                        <SmallStat name="Stat Distribution" className="column">{ normalizeTextWithStats(theRace.Creation['Stat Restrictions']) }</SmallStat>
                         <SmallStat name="Max Health"><Icon name="Health" type="small-stat"/>{ theRace.Stats['Base Health'] } + ({BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[MAX_HEALTH]})</SmallStat>
                         <SmallStat name="Health Regen"><Icon name="HealthRegen" type="small-stat"/> { theRace.Stats['Health Regen'] } + ({BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[HEALTH_REGEN]})</SmallStat>
                         <SmallStat name="Movement Speed">4 + {BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[MOVEMENT_SPEED]}</SmallStat>
                         <SmallStat name="Initiative">{BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[INITIATIVE]}</SmallStat>
-                        { theRace.Weapons && <SmallStat name="Weapons" type="vertical">{ theRace.Weapons }</SmallStat> }
-                        { theRace.Training && <SmallStat name="Other Training" type="vertical">{ theRace.Training }</SmallStat> }
-                        { theRace.Language && <SmallStat name="Language" type="vertical">{ theRace.Language }</SmallStat> }
+                        { theRace.Weapons && <SmallStat name="Weapons" className="column">{ theRace.Weapons }</SmallStat> }
+                        { theRace.Training && <SmallStat name="Other Training" className="column">{ theRace.Training }</SmallStat> }
+                        { theRace.Language && <SmallStat name="Language" className="column">{ theRace.Language }</SmallStat> }
                     </div>
                 </Column>
                 <Column>
@@ -236,12 +236,12 @@ export function CCRaceFeatures({ theRace }) {
             <TwoColumns>
                 <Column>
                     <div className='with-margined-children'>
-                        <SmallStat name="Stat Distribution" type="vertical">{ normalizeTextWithStats(theRace.Creation['Stat Restrictions']) }</SmallStat>
+                        <SmallStat name="Stat Distribution" className="column">{ normalizeTextWithStats(theRace.Creation['Stat Restrictions']) }</SmallStat>
                         <SmallStat name="Base Health"><Icon name="Health" type="small-stat"/>{ theRace.Stats['Base Health'] }</SmallStat>
                         <SmallStat name="Base Regen"><Icon name="HealthRegen" type="small-stat"/> { theRace.Stats['Health Regen'] }</SmallStat>
-                        { theRace.Weapons && <SmallStat name="Weapons" type="vertical">{ theRace.Weapons }</SmallStat> }
-                        { theRace.Training && <SmallStat name="Other Training" type="vertical">{ theRace.Training }</SmallStat> }
-                        { theRace.Language && <SmallStat name="Language" type="vertical">{ theRace.Language }</SmallStat> }
+                        { theRace.Weapons && <SmallStat name="Weapons" className="column">{ theRace.Weapons }</SmallStat> }
+                        { theRace.Training && <SmallStat name="Other Training" className="column">{ theRace.Training }</SmallStat> }
+                        { theRace.Language && <SmallStat name="Language" className="column">{ theRace.Language }</SmallStat> }
                     </div>
                 </Column>
                 <Column>
@@ -413,12 +413,12 @@ export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
                             theClass['Spellcasting']['Known Basic Abilities'] != null &&
                             isCharacterCreationPage == false &&
                             (
-                                <SmallStat name="Number of Known Basic Abilities" type="vertical" color="blue">
+                                <SmallStat name="Number of Known Basic Abilities" className="column" color="blue">
                                     { theClass['Spellcasting']['Known Basic Abilities'] }
                                 </SmallStat>
                             )
                         }
-                        <SmallStat name="Extra Talents" color="blue" type={SmallStatTypes.VERTICAL}>
+                        <SmallStat name="Extra Talents" color="blue" className="column">
                             Each Level, choose a free Talent from that Level.<br/><br/>
                             However, if your <b>{INTELLIGENCE}</b> is above 0, you can choose a number of <b>extra Minor or Utility Talents</b> equal to your <b>{INTELLIGENCE}</b>.
                         </SmallStat>
@@ -466,7 +466,7 @@ export function Talents({ talents, selectedSpellNames, onSpellClick, spellsMetad
                 const spellsInThisTier = U.spellsFromObject(talents[talentTitle])
                 return <div key={talentTitle} className='margin-top-2'>
                     <PageH2 className="center-text">{talentTitle}</PageH2>
-                    <ManySpells spells={spellsInThisTier} selectedSpellNames={selectedSpellNames} onSpellClick={onSpellClick} spellsMetadata={spellsMetadata}/>
+                    <ManySpells spells={spellsInThisTier} selectedSpellNames={selectedSpellNames} onSpellClick={onSpellClick} spellsMetadata={spellsMetadata} shouldSort={false}/>
                 </div>
             })}
         </div>

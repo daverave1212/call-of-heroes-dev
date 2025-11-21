@@ -265,7 +265,7 @@ export function splitSpellsArrayInto2Columns(spellsArray, shouldSort=true) {
     const spells = spellsArray.map(spell => ({...spell, Height: estimteSpellHeight(spell)}))
     const spellsSorted = shouldSort? (sortObjectArrayByKey(spells, 'Height').reverse()): spells
 
-    if (spellsArray.find(s => s.Name.includes('Overthrow')) != null) {
+    if (spellsArray.find(s => s.Name.includes('Shapeshift')) != null) {
         console.log({spellsArray, spells, spellsSorted})
     }
 
@@ -279,7 +279,7 @@ export function splitSpellsArrayInto2Columns(spellsArray, shouldSort=true) {
         const columnToUse = column2Spells.height < column1Spells.height? column2Spells: column1Spells
         columnToUse.push(spell)
         columnToUse.height += spell.Height
-        if (spellsArray.find(s => s.Name.includes('Overthrow')) != null) {
+        if (spellsArray.find(s => s.Name.includes('Shapeshift')) != null) {
             console.log([`Added ${spell.Name}`, column1Spells.height, column2Spells.height])
         }
     }
@@ -415,16 +415,16 @@ export function estimteSpellHeight(spell) { // Height as in rem (approximately)
     const topMarginBottom = 2
     let height = topHeight + topMarginBottom
     if (spell.Effect != null) {
-        height += Math.max(1, spell.Effect.length / 50) // Average of 7.5 words per line
+        height += Math.max(1, spell.Effect.length / 55) // Average of 60 characters per line
     }
     if (spell.Upgrade != null) {
-        height += Math.max(1, spell.Upgrade.length / 55) + 1
+        height += Math.max(1, spell.Upgrade.length / 60) + 1
     }
     if (spell.Notes != null) {
-        height += Math.max(1, spell.Notes.length / 60) + 1
+        height += Math.max(1, spell.Notes.length / 65) + 1
     }
     if (spell.EffectGreen != null) {
-        height += Math.max(1, spell.EffectGreen.length / 50) + 1
+        height += Math.max(1, spell.EffectGreen.length / 55) + 1
     }
     if (spell.SingleTable != null) {
         height += Math.max(1, spell.SingleTable.length * 2) + 1
@@ -1049,10 +1049,10 @@ const SYMBOLS = {
     'Stunned': { tag: 'span', text: "A Stunned Unit skips its turn." },
     'Cover': { tag: 'span', text: "If a Unit has Cover from you (e.g. is behind an obstacle), everything you do to it gets -2." },
 
-    'DiceUpgrade': { tag: 'span', text: "Having Dice Upgraded means, for example, d6's become d8's, or d10's become d12's. D12's and d20's don't increase." },
-    'DiceUpgraded': { tag: 'span', text: "Having Dice Upgraded means, for example, d6's become d8's, or d10's become d12's. D12's and d20's don't increase." },
-    'DiceDowngrade': { tag: 'span', text: "Having Dice Downgraded means, for example, d8's become d6's, or d10's become d8's. D4's and d20's don't decrease." },
-    'DiceDowngraded': { tag: 'span', text: "Having Dice Downgraded means, for example, d8's become d6's, or d10's become d8's. D4's and d20's don't decrease." },
+    'DiceUpgrade': { tag: 'span', text: "Having Dice Upgraded means, for example, d6's become d8's, or d10's become d12's. D12's and d20's just gain +1." },
+    'DiceUpgraded': { tag: 'span', text: "Having Dice Upgraded means, for example, d6's become d8's, or d10's become d12's. D12's and d20's just gain +1." },
+    'DiceDowngrade': { tag: 'span', text: "Having Dice Downgraded means, for example, d8's become d6's, or d10's become d8's. D2's and d20's just gain -1." },
+    'DiceDowngraded': { tag: 'span', text: "Having Dice Downgraded means, for example, d8's become d6's, or d10's become d8's. D2's and d20's just gain -1." },
 
     'Chain': { tag: 'span', text: 'Chain', func: () => <span style={{color: 'rgb(120, 80, 225)', fontWeight: 'bold'}}><Icon name="Chain"/>Chain</span> },
     'Evoke': { tag: 'span', text: 'Evoke', func: () => <span style={{color: 'rgb(109, 0, 255)', fontWeight: 'bold'}}><Icon name="Evoke"/>Evoke</span> },

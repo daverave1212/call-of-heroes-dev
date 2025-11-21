@@ -55,22 +55,23 @@ export function PetOrAnimalStats({animal}) {
         throw `Animal ${animal.Name} has no Stats property.`
     }
 
-    const statValueStyle = { textAlign: 'center' }
-    const statNameStyle  = { textAlign: 'center' }
+    const statValueStyle = { textAlign: 'center', width: '100%'}
+    const statNameStyle  = { textAlign: 'center', width: '100%'}
+    const smallStatStyle = { width: 'calc(100% / 2 - 1rem)'}
 
     return <div>
-        <div className='with-margined-children flex-row gap-half align-left'>
-            { animal.Health != null && <SmallStat nameStyle={statNameStyle} valueStyle={statValueStyle} name="Health">{animal.Health}<Icon name="Health" type="small-stat"/></SmallStat> }
-            { animal.Defense != null && <SmallStat nameStyle={statNameStyle} valueStyle={statValueStyle} name="Defense">{animal.Defense}<Icon name="Defense" type="small-stat"/></SmallStat> }
-            { animal.Speed != null && <SmallStat nameStyle={statNameStyle} valueStyle={statValueStyle} name="Speed">{animal.Speed}</SmallStat> }
-            { animal.Initiative != null && (<SmallStat nameStyle={statNameStyle} valueStyle={statValueStyle} name="Initiative">{animal.Initiative}</SmallStat>) }
+        <div className='flex flex-row wrap gap-1 align-left full-width width-100'>
+            { animal.Health != null && <SmallStat style={smallStatStyle} contentStyle={{width: '100%'}} nameStyle={statNameStyle} valueStyle={statValueStyle} name="Health">{animal.Health}<Icon name="Health" type="small-stat"/></SmallStat> }
+            { animal.Defense != null && <SmallStat style={smallStatStyle} contentStyle={{width: '100%'}} nameStyle={statNameStyle} valueStyle={statValueStyle} name="Defense">{animal.Defense}<Icon name="Defense" type="small-stat"/></SmallStat> }
+            { animal.Speed != null && <SmallStat style={smallStatStyle} contentStyle={{width: '100%'}} nameStyle={statNameStyle} valueStyle={statValueStyle} name="Speed">{animal.Speed}</SmallStat> }
+            { animal.Initiative != null && (<SmallStat style={smallStatStyle} contentStyle={{width: '100%'}} nameStyle={statNameStyle} valueStyle={statValueStyle} name="Initiative">{animal.Initiative}</SmallStat>) }
+            { animal.Druid != null && (
+                <SmallStat className="column" name="Druid Extras">{animal.Druid}</SmallStat>
+            ) }
+            <SmallStat style={smallStatStyle} contentStyle={{width: '100%'}} name="Stats">{animal.Stats.split('/').join(' / ')}</SmallStat>
         </div>
 
-        { animal.Druid != null && (
-            <SmallStat type="vertical" name="Druid Extras">{animal.Druid}</SmallStat>
-        ) }
-
-        <SmallStat style={{width: 'auto'}} name="Stats">{animal.Stats.split('/').join(' / ')}</SmallStat>
+        
     </div>
 }
 export function PetOrAnimalAbilities({animal}) {
@@ -120,18 +121,9 @@ export function PetOrAnimalBlock({animal}) {
     )
 }
 
-export function PetOrAnimalLeftOnly({animal}) {
-    return <div className='monster'>
-        <PageH2 style={{marginTop: '0px'}}>{ animal.Name }</PageH2>
-        { animal.Description != null && (<p>{ animal.Description }</p>)}
-        <PetOrAnimalStats animal={animal}/>
-        <PetOrAnimalAbilities animal={animal}/>
-    </div>
-}
-
 export function PetOrAnimalSpell({animal}) {
     return <div className='monster'>
-        <PageH3 style={{marginTop: '0px'}}>{ animal.Name }</PageH3>
+        <PageH3 className="center-text" style={{marginTop: '0px'}}>{ animal.Name }</PageH3>
         { animal.Description != null && (<p>{ animal.Description }</p>)}
         <PetOrAnimalStats animal={animal}/>
         <PetOrAnimalAbilities animal={animal}/>

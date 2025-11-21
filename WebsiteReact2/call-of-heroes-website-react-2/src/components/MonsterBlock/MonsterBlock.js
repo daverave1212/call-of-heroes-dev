@@ -122,14 +122,14 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
                     <TwoColumns className="two-columns--half-padding" type={upperPartTwoColumnsType}>
                         <Column>
                             <div className='with-margined-children'>
-                                <SmallStat type="large" name="Health">{monsterHealth}<Icon name="Health" type="small-stat"/></SmallStat>
-                                { monster.Armor != '0' && monster.Armor != null && (<SmallStat type="large" name="Defense">{monster.Armor}<Icon name="Defense" type="small-stat"/></SmallStat>) }
-                                <SmallStat type="large" name="Speed">{monster.Speed} meters</SmallStat>
-                                {/* <SmallStat type="vertical-large" name="Initiative">{monster.Initiative}</SmallStat> */}
-                                { setback != null && <SmallStat type="vertical-large" name="Setback">{setback}</SmallStat>}
-                                { IsCondensedLeft && <SmallStat color={statOtherColor} type="large" name="XP">{monsterTotalXP}</SmallStat> }
-                                {/* { IsCondensedLeft && monster.Degree != 'Normal' && monster.Degree != null && (<SmallStat color={statOtherColor} type="large" name="Degree">{monster.Degree != null? monster.Degree : 'Normal'}</SmallStat>) } */}
-                                { IsCondensedLeft && monster.Degree != 'Normal' && monster.Degree != null && (<SmallStat color={statOtherColor} type="large" name="Action Points">{monster.Degree != null? monster.Degree : '3'}</SmallStat>) }
+                                <SmallStat className="row large" name="Health">{monsterHealth}<Icon name="Health" type="small-stat"/></SmallStat>
+                                { monster.Armor != '0' && monster.Armor != null && (<SmallStat className="row large" name="Defense">{monster.Armor}<Icon name="Defense" type="small-stat"/></SmallStat>) }
+                                <SmallStat className="row large" name="Speed">{monster.Speed} meters</SmallStat>
+                                {/* <SmallStat className="column large center-text" name="Initiative">{monster.Initiative}</SmallStat> */}
+                                { setback != null && <SmallStat className="column large center-text" name="Setback">{setback}</SmallStat>}
+                                { IsCondensedLeft && <SmallStat color={statOtherColor} className="row large" name="XP">{monsterTotalXP}</SmallStat> }
+                                {/* { IsCondensedLeft && monster.Degree != 'Normal' && monster.Degree != null && (<SmallStat color={statOtherColor} className="row large" name="Degree">{monster.Degree != null? monster.Degree : 'Normal'}</SmallStat>) } */}
+                                { IsCondensedLeft && monster.Degree != 'Normal' && monster.Degree != null && (<SmallStat color={statOtherColor} className="row large" name="Action Points">{monster.Degree != null? monster.Degree : '3'}</SmallStat>) }
 
                             </div>
                         </Column>
@@ -137,9 +137,9 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
                             {
                                 IsCondensedLeft == false && (
                                     <div className='with-margined-children'>
-                                        <SmallStat color={statOtherColor} type="large" name="XP">{monsterTotalXP}</SmallStat>
-                                        {/* { monster.Degree != 'Normal' && monster.Degree != null && (<SmallStat color={statOtherColor} type="large" name="Degree">{monster.Degree != null? monster.Degree : 'Normal'}</SmallStat>) } */}
-                                        { monster.Degree != 'Normal' && monster.Degree != null && (<SmallStat color={statOtherColor} type="large" name="Action Points">{monster.Degree != null? monster.Degree : '3'}</SmallStat>) }
+                                        <SmallStat color={statOtherColor} className="row large" name="XP">{monsterTotalXP}</SmallStat>
+                                        {/* { monster.Degree != 'Normal' && monster.Degree != null && (<SmallStat color={statOtherColor} className="row large" name="Degree">{monster.Degree != null? monster.Degree : 'Normal'}</SmallStat>) } */}
+                                        { monster.Degree != 'Normal' && monster.Degree != null && (<SmallStat color={statOtherColor} className="row large" name="Action Points">{monster.Degree != null? monster.Degree : '3'}</SmallStat>) }
                                         <div className='center-content'>
                                             <button style={{backgroundColor: 'var(--theme-color-1-darkest)', width: '100%'}}><Icon name="Premium" style={{marginTop: '4px'}}/> Scale to different XP</button>
                                         </div>
@@ -153,7 +153,7 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
                     <Separator/>
                     <div style={{display: 'flex', justifyContent: 'space-around', gap: '10px'}}>
                         { monsterStats.map(nameValue => (
-                            <SmallStat style={{width: '19%'}} name={nameValue.name} type="vertical-large">{nameValue.value}</SmallStat>
+                            <SmallStat style={{width: '19%'}} name={nameValue.name} className="column large center-text">{nameValue.value}</SmallStat>
                         )) }
                     </div>
                     <Separator/>

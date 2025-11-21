@@ -7,7 +7,7 @@ import Icon from "../../../components/Icon"
 import Input from "../../../components/Input/Input"
 import { getChoiceAbilitiesObjects, useAllSpellsMetadata, useArmors, useConstAllMyAbilities, useConstAllSkillBonuses, useConstAutoSkillBonuses, useConstNKnownAbilities, useCurrentHealth, useCurrentMana, useDescription, useGold, useInventory, useLanguages, useLevel, useManualBonuses, useManualCombatExtras, useManualNormalExtras, useManualSkillBonuses, useMaxMana, useQuickNotes, useSectionClassName, useSectionClassSpecName, useSectionNamesState, useSectionRaceName, useSectionStatsState, useSkills, useWeapons } from "./CharacterData"
 import { StatValue } from "./SectionStats"
-import SmallStat, { SmallStatTypes } from "../../../components/SmallStat/SmallStat"
+import SmallStat from "../../../components/SmallStat/SmallStat"
 import ManySmallStats from "../../../components/SmallStat/ManySmallStats"
 import { askConfirmation } from "../../../services/MessageDisplayer"
 import Dialog from "../../../components/Dialog/Dialog"
@@ -304,7 +304,7 @@ export default function MyCharacter() {
             <div className="flex-column gap-3q">
                 <HealthBar/>
                 { selectedClassName && hasClassMana(selectedClassName) && (<ManaBar/>) }
-                <SmallStat onClick={() => setStatNameToChange('Known Abilities')} type={SmallStatTypes.VERTICAL} name="Extra Minor & Utility Talents">{attributes[KNOWN_ABILITIES]} {attributes[KNOWN_ABILITIES] == 1? 'Ability': 'Abilities'}</SmallStat>
+                <SmallStat onClick={() => setStatNameToChange('Known Abilities')} className="column" name="Extra Minor & Utility Talents">{attributes[KNOWN_ABILITIES]} {attributes[KNOWN_ABILITIES] == 1? 'Ability': 'Abilities'}</SmallStat>
                 { selectedClassName != null && (
                     <div className="margin-top-half">
                         { selectedClassObj.Spellcasting?.Mana?.Regain != null && (

@@ -137,7 +137,7 @@ export default function SectionStats() {
             <TwoColumns className='margin-top-half'>
                 <Column>
                     <div>
-                        <SmallStat name={name} type="normal-large">
+                        <SmallStat name={name} className="row large">
                             { value }
                             &nbsp;<Icon name={iconName}/>
                         </SmallStat>    

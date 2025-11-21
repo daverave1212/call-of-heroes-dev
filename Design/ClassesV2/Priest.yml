@@ -223,19 +223,25 @@ Talents:
           It becomes surrounded in a divine golden shield.
           This (or next) time it would take Damage, it is completely blocked.
           If used on your Turn, apply a Combo.
-      
 
-    ~Guiding Bolt~:
+    ~Second Light~:
         A: 1 Action
         Cost: 1 Mana
         Range: 10 meters
         HasMixins: true
         Degree: Major
-        Tags: [Damage]
+        Tags: [Damage, Support]
         Effect: |
-            A shining light bursts onto a Unit, dealing 2d8 + ^Sense^ Divine Damage to it.
-            The next time someone would cast a Spell that affects that Unit, the caster can reroll any of the spell's dice, at most one reroll for each die.
-        Notes: This affects AoE effects and healing abilities too.
+            A shining light bursts onto a Unit, dealing 2d8 + ^Sense^ {Type} Damage to it.
+            The next time somoene rolls dice that affect that Unit, the roller can reroll each die of that Act they choose once.
+        Notes: The roller can rereoll them even if it was an area effect or another effect that affected multiple Units.
+        Variants:
+          - Type: Divine
+            Name: Second Light
+            IconName: Guiding Bolt
+          - Type: Scourge
+            Name: Second Shadow
+            IconName: Second Shadow
     
     ~Deafening Silence~:
         A: 1 Action
@@ -255,6 +261,17 @@ Talents:
             You shoot out 10 rays of light.
             Roll 10d4 and assign them to Units within 10 meters as you with.
             Each die heals on odd rolls (1 and 3) and deals Divine Damage on even rolls (2 and 4).
+
+    ~Smite~:
+      _Value: 1 # you gain 1 mana back
+      A: 0 Actions
+      Cooldown: Once / Turn
+      Cost: 1 Mana
+      Tags: [Damage, Finisher]
+      Effect: |
+          After you roll Damage for a melee attack or Spell made in melee range, add 1d6 Divine Damage, and all the Damage Type becomes Divine.
+          If the target has at least 5 Movement Speed, Slow it.
+      Combo: Heal for the extra Damage dealt.
 
   Level 4 - Keystone Talent:
 
@@ -313,15 +330,16 @@ Talents:
       _Value: 2
       A: 0 Actions
       Cost: 2 Mana
+      Range: 5 meters
       Tags: [CC, Damage]
       Effect: |
-        A Unit within 6 meters becomes trapped in a Shadow Realm with you for 2 rounds (this and the next).
+        A Unit becomes trapped in a Shadow Realm with you for 2 rounds (this and the next).
         Your attacks cast Awe on it for free while inside the Shadow Realm.
       Upgrade: |
         Neither of you can interact with the outside world, but can feintly see it.
         Units on the outside can faintly see the two of you, as if you were ghosts.
+        The trapping ends immediately if you Fall.
       Notes: The Shadow Realm is a copy of the normal world, but with no other units.
-      OrderOnWebsite: 3
     
     <Black Hole>:
       _Value: 1.75

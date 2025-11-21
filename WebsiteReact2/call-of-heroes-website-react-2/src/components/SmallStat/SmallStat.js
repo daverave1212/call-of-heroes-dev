@@ -10,14 +10,13 @@ export function getRealColor(color) {
     return color
 }
 
-export const SmallStatTypes = {
-    NORMAL_LARGE: 'normal-large',
-    LARGE: 'large',
-    VERTICAL: 'vertical',
-    VERTICAL_LARGE: 'vertical-large'
-}
-
-export default function SmallStat({ children, name, color, style, contentStyle, nameStyle, valueStyle, type, onClick }) {
+export default function SmallStat({
+    children,
+    name, color, type,
+    style, contentStyle, nameStyle, valueStyle,
+    className, contentClassName,
+    onClick
+}) {
 
     if (style == null) style = {}
     if (nameStyle == null) nameStyle = {}
@@ -26,17 +25,28 @@ export default function SmallStat({ children, name, color, style, contentStyle, 
     const realColor = getRealColor(color)
 
     const smallStatClassesByType =
-        type == 'normal-large' || type == 'large' ? 'small-stat--row small-stat--row--large' :
-        type == 'vertical'? 'small-stat--column' :
-        type == 'vertical-large'? 'small-stat--column small-stat--column--large' :
-        'small-stat--row small-stat--row--normal'
+        type == 'normal-large' || type == 'large' ?
+            'row large'
+        :type == 'vertical'?
+            'column'
+        :type == 'vertical-large'?
+            'column large center-text'
+        :
+            'inline-flex row'
 
+    return (
+        <div className={`small-stat flex ${smallStatClassesByType} ${className}`} style={{...contentStyle, ...{borderColor: realColor}}}>
+            <div style={{...nameStyle, ...{backgroundColor: realColor}}} className={`small-stat__name`}>{ name }</div>
+            <div className="small-stat__value" style={valueStyle}>{ children }</div>
+        </div>
+    )
+    
 
     return (
         <div className='small-stat-container' style={style} onClick={onClick}>
-            <div style={{...contentStyle, ...{borderColor: realColor}}} className={`small-stat ${smallStatClassesByType}`}>
-                <div style={{...nameStyle, ...{backgroundColor: realColor}}} className={`small-stat__name`}>{ name }</div>
-                <div className="small-stat__value" style={valueStyle}>{ children }</div>
+            <div style={{...contentStyle, ...{borderColor: realColor}}} className={`small-stat flex ${smallStatClassesByType}`}>
+                <div style={{...nameStyle, ...{backgroundColor: realColor}}} className={`small-stat__name flex-1`}>{ name }</div>
+                <div className="small-stat__value flex-1" style={valueStyle}>{ children }</div>
             </div>
         </div>
     )

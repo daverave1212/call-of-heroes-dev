@@ -10,50 +10,34 @@
     }
 }
 
-.small-stat-container {
-    display: block;
-    margin-top: 0px;
-}
+
 .small-stat {
     width: auto;
     border: solid 2px;
+    
+    margin: 0px;
+    padding: 0px;
+    /* Does not take parent width and rescales with content size */
 }
 
-
-
-
-
-/* Size */
-.small-stat--row    { flex-direction: row; }
-.small-stat--row--normal {
-    display: inline-flex; /* Does not take parent width and rescales with content size */
-}
-.small-stat--row--large {
+.small-stat.large {
     display: flex;
     width: 100%;
 }
-.small-stat--row--large div {
-    flex: 1;
-    text-align: center;
-}
-
 .small-stat--column {
     display: flex;
     flex-direction: column;
 }
-.small-stat--column--large {
-    width: 100%;
-}
-.small-stat--column--large div {
-    text-align: center;
-}
-
 
 
 
 
 
 /* Contents */
+.small-stat.large div {
+    flex: 1;
+    text-align: center;
+}
 .small-stat div {   /* Affects both __name and __value */
     padding-top: calc(var(--small-stat-padding-v) + 1px);   /* For pixel-perfect alignment */
     padding-bottom: var(--small-stat-padding-v);
@@ -72,6 +56,9 @@
     background-color: white;
     color: var(--dark-color);
     font-size: var(--small-stat-font-size);
+}
+.small-stat > div {
+
 }
 
 
