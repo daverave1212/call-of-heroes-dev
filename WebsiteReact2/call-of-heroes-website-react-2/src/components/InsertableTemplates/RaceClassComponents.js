@@ -713,6 +713,7 @@ export function ClassPageV2({
                                 selectedSpellNames={selectedSpellNames}
                                 onSpellClick={onSpellClick}
                                 spellsMetadata={spellsMetadata}
+                                shouldSort={false}
                             />
                         </>
                     )}
@@ -729,6 +730,7 @@ export function ClassPageV2({
                             selectedSpellNames={selectedSpellNames}
                             onSpellClick={onSpellClick}
                             spellsMetadata={spellsMetadata}
+                            shouldSort={false}
                         />
                     </div>
                 )}

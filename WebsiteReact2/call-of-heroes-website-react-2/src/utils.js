@@ -251,6 +251,16 @@ export function addAbilityOrOpenPopup(spell, spellMetadata, selectedAbilitiesNam
         setSelectedAbiltiesNames([...selectedAbilitiesNames, spell.Name])
     }
 }
+export const SortSpellsBy = {
+    HEIGHT: spellsArray => {
+        const spells = spellsArray.map(spell => ({...spell, Height: estimteSpellHeight(spell)}))    
+        const spellsSorted = sortObjectArrayByKey(spells, 'Height').reverse()
+        return spellsSorted
+    },
+    LEVEL_REQUIREMENT: spellsArray => {
+        const newArray = [...spellsArray]
+    }
+}
 export function splitSpellsArrayInto2Columns(spellsArray, shouldSort=true) {
     const spells = spellsArray.map(spell => ({...spell, Height: estimteSpellHeight(spell)}))
     const spellsSorted = shouldSort? (sortObjectArrayByKey(spells, 'Height').reverse()): spells
