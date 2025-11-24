@@ -77,10 +77,8 @@ Starting Abilities:
     _Value: 0
     A: Special
     Effect: |
-      On the first Round of combat, you can skip your Turn.
-      Then, you can start your Turn whenever you like (even during enemies' turns)!
+      On the first Round of Combat, you can start your Turn whenever you like (even during other Units' turns), and make a free Movement Act.
     Notes: |
-      Be careful: if you don't start your Turn this Round, you lose your Turn!
       If you want to start during an enemy's Turn, you do so when they declare they want to do something or after they finish doing something.
   
   ~Roguish Talents~:
@@ -183,6 +181,7 @@ Specializations:
     - Assassin, a person specialized in taking targets out one-on-one, through whatever means
     - Swashbuckler, an outlaw who is not afraid to engage in direct combat and apply whatever tricks necessary to get the job done
 
+
 Specs:
 
 
@@ -212,28 +211,31 @@ Specs:
       Level 2 - Keystone Talent:
 
         ~Backstabbing Ambush~:
-          _Value: 2.5
+          _Value: 3.25
           AlignOnWebsite: Right
           A: Passive
           HasMixins: true
           Replacement: Replaces Ambush
           Effect: |
             Every ~Turn~, your first weapon attack deals +1d6 Damage ~if there is an ally of yours near the target~.
+          Upgrade: At Level 4, the Damage becomes 1d8.
 
         ~Icebreaker Ambush~:
-          _Value: 2.5
+          _Value: 3.25
           A: Passive
           Replacement: Replaces Ambush
           Effect: |
             Every ~Turn~, your first weapon attack deals +1d10 Damage ~if the target is at full Health~.
+          Upgrade: At Level 4, the Damage becomes 1d12.
 
         ~Thief's Ambush~:
-          _Value: 2.5
+          _Value: 3.25
           A: Passive
           Replacement: Replaces Ambush
           Effect: |
             Every Worthy Combat, your first weapon attack deals ~+2d8~ Damage ~and applies a Combo~.
             ~Gain~ {Gold}~Gold equal to the ambushed amount.~
+          Upgrade: At Level 4, the Damage becomes 2d10.
 
       Level 3 - Keystone Talent:
         <Magic Trickster>:
@@ -241,40 +243,57 @@ Specs:
           A: Passive
           HasMixins: true
           Effect: |
-            You have 2 Mana that replenishes inbetween Adventures.
-            You may pick a number of Minor Talents from Cleric, Warlock or Wizard (up to your Level) equal to your Intellgience (at least 1).
+            You have 2 Mana that replenishes inbetween Adventures and gain access to one `Magic Font$/Other/MagicFonts` of choice.
+            When you get this Talent, you can pick 2 Magic Font Minor Talents to Know, and can get more as you would normally get extra Minor Talents.
 
         <Verge of the Coin>:
           _Value: 2
           A: Passive
           Effect: |
             Whenever YOU would Damage an Enemy leaving it at 10% Health or below, it dies, and you gain Gold equal to its Maximum Health.
-        
+
+        ~Shade Bend~:
+          A: Half-Action
+          Cooldown: Once / Turn
+          Effect: |
+            Choose a shadow you can see.
+            You can manipulate the shape of this shadow and even extend it upward to attack for 1d6 and Deafen the target.
+
       Level 4 - Keystone Talent:
 
         <Hide In Plain Sight>:
-          _Value: 0.5
+          _Value: 1.5
           A: Passive
           Skill Bonuses:
             Hiding: 2
           Effect: |
-            On the first Round of combat, enemies with less than 3 Sense can't see you and you can make a free Movement Act on your first Turn.
-            While you have this Talent, you have +2 in Hiding.
-
+            When Combat starts, you can start on any visible edge of the battlefield.
+            The first time you deal Damage each Combat, you can choose to reroll any of the rolled dice.
+          Notes: You know the ins and outs of battlefields so well that you successfully reposition before anyone else notices.
+            
         <Bounty Appraisal>:
-          _Value: 1
+          _Value: 1.25
           A: Passive
           HasMixins: true
           Effect: |
             When Worthy Combat starts, the Quest Master determines which is the most powerful enemy.
-            When that enemy dies, heal an ally for 1d8 and gain {Gold}Gold equal to 1000% of the amount healed.
+            When that enemy dies, heal an ally for 1d10 and gain {Gold}Gold equal to 1000% of the amount healed.
 
         <Magestep>:
+          _Value: 2
           A: 0 Actions
           Cooldown: Once / real hour
           Effect: |
-            Teleport up to 3 meters away and choose an element from Fire, Cold or Shock.
-            For the rest of the Combat (if in it), all your attacks deal the chosen Damage Type and you take -50% Damage of that Type.
+            Teleport up to 3 meters away.
+            Your next attack applies your Ambush if it didn't already, and all the Damage becomes Fire, Cold or Shock (your choice).
+          Downside: Doesn't work with Thief's Ambush or Sudden Ambush.
+
+        ~Slowing Poison~:
+          _Value: 1.5
+          A: Passive
+          Effect: |
+            Your weapons are coated in a potent poison.
+            Your first weapon attack on each Unit with 50% or less Health deals +1d4 Poison Damage and Slows it.
 
 
       Level 5 - Keystone Talent:
@@ -466,28 +485,31 @@ Specs:
       Level 2 - Keystone Talent:
 
         ~Isolated Ambush~:
-          _Value: 2.5
+          _Value: 3.25
           AlignOnWebsite: Right
           A: Passive
           HasMixins: true
           Replacement: Replaces Ambush
           Effect: |
             Every ~Turn~, your first ~attack or single-target offensive Ability against an isolated Unit~ deals +1d8 Damage.
-          Upgrade: A Unit is _isolated_ if there are no other Units (except you) within 1 meter of it.
+          Upgrade: At Level 4, the Damage becomes 1d10.
+          Notes: A Unit is _isolated_ if there are no other Units (except you) within 1 meter of it.
 
         ~Sudden Ambush~ :
-          _Value: 2.5
+          _Value: 3.25
           A: Passive
           HasMixins: true
           Replacement: Replaces Ambush
           Effect: |
             Every Worthy Combat, your first weapon attack deals ~+3d6~ Damage.
             ~If you end a Turn without having dealt Damage, reset this.~
+          Upgrade: At Level 4, the Damage becomes 3d8.
 
         ~Savage Ambush~:
-          _Value: 2.5
+          _Value: 3.25
           Replacement: Replaces Ambush
           Effect: Every ~Turn~, your first ~attack or single-target offensive Ability against a Unit with 50% or less Health~ deals +1d10 Damage.
+          Upgrade: At Level 4, the Damage becomes 1d10.
 
 
       Level 3 - Keystone Talent:

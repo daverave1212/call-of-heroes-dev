@@ -282,14 +282,14 @@
         "_Value": 2,
         "A": "0 Actions",
         "Cost": "2 Mana",
+        "Range": "5 meters",
         "Tags": [
             "CC",
             "Damage"
         ],
-        "Effect": "A Unit within 6 meters becomes trapped in a Shadow Realm with you for 2 rounds (this and the next).\nYour attacks cast Awe on it for free while inside the Shadow Realm.\n",
-        "Upgrade": "Neither of you can interact with the outside world, but can feintly see it.\nUnits on the outside can faintly see the two of you, as if you were ghosts.\n",
+        "Effect": "A Unit becomes trapped in a Shadow Realm with you for 2 rounds (this and the next).\nYour attacks cast Awe on it for free while inside the Shadow Realm.\n",
+        "Upgrade": "Neither of you can interact with the outside world, but can feintly see it.\nUnits on the outside can faintly see the two of you, as if you were ghosts.\nThe trapping ends immediately if you Fall.\n",
         "Notes": "The Shadow Realm is a copy of the normal world, but with no other units.",
-        "OrderOnWebsite": 3,
         "ParentKey": "Level 5 - Minor Talent"
     },
     "<Circle of Awe>": {
@@ -1227,6 +1227,7 @@
     "~Runeback Form~": {
         "_Value": null,
         "A": "Passive",
+        "Requirement": "Requires Shapeshift",
         "Effect": "Your animal forms become improved by visible tattoos, runes or trinkets adorning your horns, paws or back.\nDepending on your and current _domain_, you gain additional powers when Shapeshifted.\n\n{Brown('Earth:')} When Shapeshifting, gain 1 Shielding that can block 1d6 Damage.\n{Brown('Nature:')} When Shapeshifting, permanently increase your Max Health by 0.5.\n{Brown('Water:')} You do +10% Damage and Healing while Shapeshifted (at least +1).\n{Brown('Wind:')} You can cast any of your Spells while Shapeshifted and have +2 Movement Speed.\n",
         "Notes": "You can't have actual Health in fractions. So, for every second time you get 0.5 Max Health, increase it by 1 instead.",
         "HasMixins": true,
@@ -1407,6 +1408,7 @@
     },
     "~Elderform~": {
         "_Value": 1,
+        "Requirement": "Requires Shapeshift",
         "Effect": "You have extra available features originating from the flora and microbiomes of the outdoors.\n",
         "HasSpellTableNumbers": true,
         "SpellTable": [
@@ -1478,6 +1480,7 @@
         "Degree": "Minor",
         "Effect": "Gain 3 {Orange('Fury')}.\n",
         "Upgrade": "Every time you do Healing or weapon Damage, do +1 for each {Orange('Fury')}, then lose 1 {Orange('Fury')}.",
+        "EffectGreen": "Usable while Shapeshifted.",
         "Notes": "You can't go below 0 Fury.",
         "HasMixins": true,
         "ParentKey": "Level 4 - Minor Talent"
@@ -1508,6 +1511,7 @@
     "<Evershape>": {
         "_Value": 3,
         "A": "Passive",
+        "Requirement": "Requires Shapeshift",
         "HasMixins": true,
         "Effect": "Shapeshifting yourself doesn't cost Mana, but it has a Once / Combat Cooldown.",
         "ParentKey": "Level 7 - Keystone Talent"
@@ -1818,14 +1822,14 @@
         "A": "Passive",
         "HasMixins": true,
         "Effect": "You have an animal pet that can fight alongside you!\nYour pet has the Stats 3, 1, 0, 0, -1 in any order, but they do not affect its Combat capabilities.\nIt has ^8 + 200% of Your Level^ Max Health.\nIt takes its Turn at the same time as you do (and always has the same Initiative as yours).\nOn its turn, it has 1 Action, but it can only attack once per Turn.\n",
-        "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.\nYour pet will not stray more than 30 meters away from you in hostile territory.\n",
+        "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (your pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.\nYour pet will not stray more than 30 meters away from you in hostile territory.\n",
         "Notes": "Your pet can't do Default Moves except Taunt.\nYour pet can make normal non-Combat Rolls using using its own Stats.\nYour pet can't rise from being Fallen while in Combat, even if healed.\nIf your pet ever dies, you can spend 8 hours inbetween Adventures to get a new pet. If you want to change your Pet and abandon your current one, you can do so inbetween Adventures, but the guilt will make you Fumbling for the next 2 Worthy Combat encounters.\n",
         "Subspells": {
             "~Pet Attack~": {
                 "Cooldown": "Once / Turn",
                 "IsSubspell": true,
                 "Range": "1 meter",
-                "Effect": "The pet attacks a target for 1d4 Pierce or Slash Damage (your choice).\n",
+                "Effect": "your pet attacks a target for 1d4 Pierce or Slash Damage (your choice).\n",
                 "ParentKey": "Subspells"
             }
         },
@@ -1835,11 +1839,12 @@
         "Cooldown": "Once / Turn",
         "IsSubspell": true,
         "Range": "1 meter",
-        "Effect": "The pet attacks a target for 1d4 Pierce or Slash Damage (your choice).\n",
+        "Effect": "your pet attacks a target for 1d4 Pierce or Slash Damage (your choice).\n",
         "ParentKey": "Subspells"
     },
     "~Tumble~": {
-        "_Value": 0.5,
+        "_Value": 1.5,
+        "AlignOnWebsite": "Right",
         "A": "Reaction or 0 Actions",
         "Cooldown": "Once / Combat",
         "HasMixins": true,
@@ -1926,9 +1931,8 @@
         "_Value": 1.5,
         "A": "Passive",
         "Range": "5 meters to edge",
-        "Effect": "After you Tumble, choose a 2x2 meter area and throw a net. Each Unit in the area take 1d4 Pulse Damage and is Slowed.",
-        "Combo": "Each Comboed Unit is Double-Slowed instead.",
-        "Notes": "Requires a Ranger Net item, which can be bought for 50 gold (or freely crafted for the same price in materials). Can retrieved after every use.",
+        "Effect": "After you Tumble, choose a 2x2 meter area and throw a net. Each Unit in the area take 1d4 Pulse Damage and is Slowed. If you rolled 4 for any of them, it is Rooted instead.",
+        "Notes": "Requires a Draven Net item, which can be bought for 50 gold (or freely crafted for the same price in materials). Can retrieved after every use.",
         "ParentKey": "Level 3 - Keystone Talent"
     },
     "<Bounty Hunting>": {
@@ -1940,7 +1944,7 @@
         "ParentKey": "Level 3 - Keystone Talent"
     },
     "<Slayer>": {
-        "_Value": 1,
+        "_Value": 1.5,
         "A": "Passive",
         "Effect": "You always know the type of a monster. You gain a different boon when ^you^ defeat a Worthy Enemy of a certain type:\n\n{DarkGreen('Beasts:')} Heal an Ally for 1d4.\n{DarkGreen('Demons:')} Your pet gains +1 Damage this Combat.\n{DarkGreen('Fiends:')} Gain 50 {Gold}Gold.\n{DarkGreen('People:')} Your next attack Cripples the target.\n{DarkGreen('Undead:')} Your pet's next attack Single-Stuns the target.\n",
         "HasMixins": true,
@@ -2215,7 +2219,7 @@
         "_Value": 2.5,
         "A": "Reaction",
         "Effect": "Use when a Unit goes flying against its will on someone else's turn.\nYour pet(s) within 5 meters of its landing place can dash to it (after it lands) and make a total of 2 Pet Attacks on it.\n",
-        "Notes": "Goes flying means is pushed, knocked up, dragged, etc.\nThis uses YOUR Reaction, not your pets'.\nObviously, the pets need line of sight and can't jump through walls, or over large obstacles. Apply common sense.\n",
+        "Notes": "Goes flying means is pushed, knocked up, dragged, etc.\nThis uses YOUR Reaction, not your pets'.\nObviously, your pets need line of sight and can't jump through walls, or over large obstacles. Apply common sense.\n",
         "ParentKey": "Level 5 - Keystone Talent"
     },
     "~Search~": {
@@ -3111,7 +3115,7 @@
         "ParentKey": "Starting Abilities"
     },
     "~Smite~": {
-        "_Value": "1 (you gain 1 mana back)",
+        "_Value": 1,
         "A": "0 Actions",
         "Cooldown": "Once / Turn",
         "Cost": "1 Mana",
@@ -3814,8 +3818,8 @@
     "~Stalking~": {
         "_Value": 0,
         "A": "Special",
-        "Effect": "On the first Round of combat, you can skip your Turn.\nThen, you can start your Turn whenever you like (even during enemies' turns)!\n",
-        "Notes": "Be careful: if you don't start your Turn this Round, you lose your Turn!\nIf you want to start during an enemy's Turn, you do so when they declare they want to do something or after they finish doing something.\n",
+        "Effect": "On the first Round of Combat, you can start your Turn whenever you like (even during other Units' turns), and make a free Movement Act.\n",
+        "Notes": "If you want to start during an enemy's Turn, you do so when they declare they want to do something or after they finish doing something.\n",
         "ParentKey": "Starting Abilities"
     },
     "~Roguish Talents~": {
@@ -3850,12 +3854,13 @@
         "ParentKey": "Utility"
     },
     "~Backstabbing Ambush~": {
-        "_Value": 2.5,
+        "_Value": 3.25,
         "AlignOnWebsite": "Right",
         "A": "Passive",
         "HasMixins": true,
         "Replacement": "Replaces Ambush",
         "Effect": "Every ~Turn~, your first weapon attack deals +1d6 Damage ~if there is an ally of yours near the target~.\n",
+        "Upgrade": "At Level 4, the Damage becomes 1d8.",
         "ParentKey": "Level 2 - Keystone Talent"
     },
     "~Fool's Gold~": {
@@ -3890,26 +3895,26 @@
         "ParentKey": "Ability Choices"
     },
     "<Hide In Plain Sight>": {
-        "_Value": 0.5,
+        "_Value": 1.5,
         "A": "Passive",
         "Skill Bonuses": {
             "Hiding": 2
         },
-        "Effect": "On the first Round of combat, enemies with less than 3 Sense can't see you and you can make a free Movement Act on your first Turn.\nWhile you have this Talent, you have +2 in Hiding.\n",
+        "Effect": "You are able to hide in plain sigt so well tgat you start each Combat undetectable.\nWhile undetectable, you can make a free Movement Act each Turn.\nUndetectabilty ends if you deal more than 10 Damage or after 3 Turns.\n",
         "ParentKey": "Level 4 - Keystone Talent"
     },
     "<Bounty Appraisal>": {
-        "_Value": 1,
+        "_Value": 1.25,
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "When Worthy Combat starts, the Quest Master determines which is the most powerful enemy.\nWhen that enemy dies, heal an ally for 1d8 and gain {Gold}Gold equal to 1000% of the amount healed.\n",
+        "Effect": "When Worthy Combat starts, the Quest Master determines which is the most powerful enemy.\nWhen that enemy dies, heal an ally for 1d10 and gain {Gold}Gold equal to 1000% of the amount healed.\n",
         "ParentKey": "Level 4 - Keystone Talent"
     },
     "<Magic Trickster>": {
         "_Value": 2,
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "You have 2 Mana that replenishes inbetween Adventures.\nYou may pick a number of Minor Talents from Cleric, Warlock or Wizard (up to your Level) equal to your Intellgience (at least 1).\n",
+        "Effect": "You have 2 Mana that replenishes inbetween Adventures and gain access to one `Magic Font$/Other/MagicFonts` of choice.\nWhen you get this Talent, you can pick 2 Magic Font Minor Talents to Know, and can get more as you would normally get extra Minor Talents.\n",
         "ParentKey": "Level 3 - Keystone Talent"
     },
     "<Trap Wires>": {
@@ -4029,11 +4034,12 @@
         "ParentKey": "Level 8 - Keystone Talent"
     },
     "~Sudden Ambush~": {
-        "_Value": 2.5,
+        "_Value": 3.25,
         "A": "Passive",
         "HasMixins": true,
         "Replacement": "Replaces Ambush",
         "Effect": "Every Worthy Combat, your first weapon attack deals ~+3d6~ Damage.\n~If you end a Turn without having dealt Damage, reset this.~\n",
+        "Upgrade": "At Level 4, the Damage becomes 3d8.",
         "ParentKey": "Level 2 - Keystone Talent"
     },
     "<Shadowpass>": {
@@ -6258,7 +6264,7 @@
         "A": "0 Actions",
         "Cost": "1 Mana",
         "Cooldown": "Once / Turn",
-        "Effect": "Choose an enemy. Guess one of its Stats (you choose which).\nIf you were right, your next weapon attack against it deals +1d8 Damage and repeat this.\n",
+        "Effect": "Choose an Enemy type you can see. Guess one of its Stats (you choose which).\nIf you were right, your next real weapon attack or Spell cast against it deals +1d8 Damage and repeat this.\n",
         "Notes": "You can't guess the same Stat twice on the same Unit type.\nFor example, if you guess correctly twice, your next 2 real weapon attacks deal extra Damage agains it. If you guess 3 times, your next 3 attacks. And so on.\n",
         "ParentKey": "Level 1 - Minor Talent"
     },
@@ -6317,11 +6323,6 @@
         ],
         "ParentKey": "Level 5 - Keystone Talent"
     },
-    "<Third Kind>": {
-        "A": "Passive",
-        "Effect": "When Shapeshifting, choose one additional Animal Feature to have.",
-        "ParentKey": "Level 7 - Keystone Talent"
-    },
     "<Call of the Wild>": {
         "_Value": 3,
         "HasMixins": true,
@@ -6345,18 +6346,39 @@
         "Notes": "Both animals must be of the same type.",
         "ParentKey": "Level 7 - Keystone Talent"
     },
+    "<Third Kind>": {
+        "A": "Passive",
+        "Requirement": "Requires Shapeshift",
+        "Effect": "When Shapeshifting, choose one additional Animal Feature to have.",
+        "ParentKey": "Level 7 - Keystone Talent"
+    },
     "~Lick Wounds~": {
         "_Value": 1.25,
         "A": "Half-Action",
         "IsSubspell": true,
         "Cooldown": "Once / Combat",
+        "Tags": "Healing",
         "Effect": "Your pet heals a Unit near it for 1d12.",
         "ParentKey": "Other Abilities"
+    },
+    "~Dodge Roll~": {
+        "_Value": 0.5,
+        "A": "Reaction or 0 Actions",
+        "Cooldown": "Once / Combat",
+        "HasMixins": true,
+        "Effect": "Use when taking Damage (or any time on your Turn).\nRoll 2 meters in any possible direction. Reduce the Damage by 50%.\n",
+        "Upgrade": "^You^ can use this to make your pet Dodge Roll instead.",
+        "ParentKey": "Starting Abilities"
     },
     "~Bear Necessities~": {
         "A": "Passive",
         "Effect": "Choose 2 Level 1 - Pet Talents from below to give to your pet.\nAlso, your Level 1 Minor Talents apply to your Pet instead of yourself.\n",
         "ParentKey": "Starting Abilities"
+    },
+    "~Mind Bond~": {
+        "A": "Passive",
+        "Effect": "At any point, you can tap into your pet's mind and see through its eyes, hear through its ears and smell through its nose.",
+        "ParentKey": "Ability Choices"
     },
     "~Large~": {
         "A": "Passive",
@@ -6389,61 +6411,83 @@
         "ParentKey": "Ability Choices"
     },
     "~Wallwalking~": {
-        "A": "Passive",
+        "A": "0 Actions",
         "IsSubspell": true,
-        "Effect": "Your pet can walk on walls and ceilings at normal speed.",
+        "Effect": "Your pet can walk on walls and ceilings at normal speed.\n",
+        "Upgrade": "At Level 4, ^you^ can also crawl on walls and ceilings at half of your speed by trailing behind your pet.",
         "ParentKey": "Ability Choices"
     },
-    "~Stand Proud~": {
-        "A": "Passive",
-        "IsSubspell": true,
-        "Effect": "If the pet ends its Turn without having dealt Damage, it heals for 1d4.\n",
-        "ParentKey": "Other Abilities"
-    },
     "~Resilient~": {
-        "_Value": 0.75,
+        "_Value": 1.25,
         "A": "Passive",
         "IsSubspell": true,
-        "Effect": "Your pet is Large (2x2 meters) and has +6 Max Health.\n",
+        "Tags": "Tanking",
+        "Effect": "Your pet is Large (2x2 meters) and has +5 Max Health.\n",
         "ParentKey": "Other Abilities"
     },
     "~Grasping Talons~": {
         "A": "Passive",
         "IsSubspell": true,
-        "Effect": "If an enemy starts its Turn next to your pet, it is Taunted by it.\n",
-        "ParentKey": "Other Abilities"
-    },
-    "~Ambushing~": {
-        "_Value": 1.5,
-        "A": "Passive",
-        "IsSubspell": true,
-        "Effect": "Your pet's first regular attack every Combat deals +1d6 Damage.",
-        "ParentKey": "Other Abilities"
-    },
-    "~Breath Attack~": {
-        "A": "Passive",
-        "IsSubspell": true,
-        "Effect": "Choose an element.\nYour pet's attack range becomes 4 meters and deals Damage of the chosen element Type.\n",
-        "ParentKey": "Other Abilities"
-    },
-    "~Antler Charge~": {
-        "A": "Passive",
-        "IsSubspell": true,
-        "Effect": "Your pet has +1 Movement Speed.\nIf the pet moved at least 4 meters in a straight line, then attacked a target in front of it, Slam the target +1d4 Damage away from the pet.\n",
+        "Tags": "Tanking",
+        "Effect": "If an enemy starts its Turn next to your pet, it is Taunted by it.\nIf it moves outside of your pet's melee range, Pet Attack it for free using a Reaction.\n",
         "ParentKey": "Other Abilities"
     },
     "~Spiky~": {
         "_Value": 1.5,
         "A": "Passive",
         "IsSubspell": true,
-        "Effect": "After a Unit makes an Attack on the pet from 1 meter away, the attacker takes 1d4 Pierce Damage.",
+        "Tags": "Tanking",
+        "Effect": "After a Unit makes an Attack on your pet from 1 meter away, the attacker takes 1d4 Pierce Damage.",
+        "ParentKey": "Other Abilities"
+    },
+    "~Stand Proud~": {
+        "A": "Passive",
+        "IsSubspell": true,
+        "Requirement": "Level 4",
+        "Tags": "Tanking",
+        "Effect": "Allies within 1 meter of your pet take -1 Damage from all sources in Worthy Combat.\n",
+        "ParentKey": "Other Abilities"
+    },
+    "~Breath Attack~": {
+        "A": "Passive",
+        "IsSubspell": true,
+        "Tags": "Damage",
+        "Effect": "Choose an element.\nYour pet's attack range becomes 5 meters and deals Damage of the chosen element Type.\nAnother chosen Unit near the target takes 50% of the dealt Damage.\n",
+        "ParentKey": "Other Abilities"
+    },
+    "~Quillshot~": {
+        "A": "1 Action",
+        "IsSubspell": true,
+        "Cooldown": "Once / Combat",
+        "Tags": "Area Damage",
+        "Effect": "All Units within 3 meters are shot with arrow-like quills and take 1d6 + 1d8 Pierce Damage.",
         "ParentKey": "Other Abilities"
     },
     "~Venomous Attacks~": {
         "A": "Passive",
         "IsSubspell": true,
+        "Tags": "Damage",
         "Effect": "Your pet's attacks deal +1d4 extra Poison Damage to targets already affected by Crowd Control.\n",
         "Combo": "+1d4 extra Poison Damage.",
+        "ParentKey": "Other Abilities"
+    },
+    "~Ambushing~": {
+        "_Value": 1.5,
+        "A": "Passive",
+        "IsSubspell": true,
+        "Tags": "Damage",
+        "Requirement": "Level 3",
+        "Effect": "Your pet's first regular attack every Combat deals +1d6 Damage.",
+        "ParentKey": "Other Abilities"
+    },
+    "~Antler Charge~": {
+        "A": "Passive",
+        "IsSubspell": true,
+        "Tags": [
+            "Crowd Control",
+            "Mobility"
+        ],
+        "Effect": "Your pet has +1 Movement Speed.\nIf your pet moved at least 4 meters in a straight line this Turn, then attacked a target in front of it, Slam the target +1d4 Damage away from your pet.\n",
         "ParentKey": "Other Abilities"
     },
     "~Leaping~": {
@@ -6451,6 +6495,7 @@
         "IsSubspell": true,
         "Range": "2-3 meters range",
         "Cooldown": "Once / Combat",
+        "Tags": "Crowd Control",
         "Effect": "Your pet leaps next to a Unit, Blinding it.\n",
         "ParentKey": "Other Abilities"
     },
@@ -6459,6 +6504,7 @@
         "IsSubspell": true,
         "Range": "4 meters",
         "Cooldown": "Once / Combat",
+        "Tags": "Crowd Control",
         "Effect": "Your pet entraps a non-Epic Unit in web, goo or a similar substance, Rooting it.",
         "ParentKey": "Other Abilities"
     },
@@ -6466,20 +6512,49 @@
         "A": "Half-Action",
         "IsSubspell": true,
         "Cooldown": "Once / Combat",
+        "Tags": "Crowd Control",
         "Effect": "Your pet picks up and Slams a Medium or smaller Unit up to 1d8 in any direction.",
-        "ParentKey": "Other Abilities"
-    },
-    "~Quillshot~": {
-        "A": "1 Action",
-        "IsSubspell": true,
-        "Cooldown": "Once / Combat",
-        "Effect": "All Units within 3 meters of the Porcupine are shot with arrow-like quills and take 1d6 + 1d8 Pierce Damage.",
         "ParentKey": "Other Abilities"
     },
     "<Pet Versatile Training>": {
         "A": "Special",
         "Effect": "When you get this Talent and at the end of every Adventure, you can change one of your pet's Pet Talents.",
         "ParentKey": "Level 4 - Minor Talent"
+    },
+    "~Harpoon~": {
+        "A": "Passive",
+        "Effect": "Your first {Type} weapon attack each Combat {Pulls} the target {Where}.",
+        "Variants": [
+            {
+                "Type": "Ranged",
+                "Pulls": "Pulls",
+                "Where": "up to 5 meters toward you"
+            },
+            {
+                "Type": "Melee",
+                "Pulls": "pushes",
+                "Where": "5 meters away from you"
+            }
+        ],
+        "Notes": "The target stops if it collides with something.",
+        "HasMixins": true,
+        "ParentKey": "Level 2 - Minor Talent"
+    },
+    "<Hunting Trap>": {
+        "A": "Half-Action",
+        "Effect": "Deploy a Hunting Trap near you armed in a certain way that it's stronger than usual.\nWhen a Unit steps on it, it takes 2d8 Damage, gets a Combo and ends its Movement.\n",
+        "Upgrade": "Requires a Hunting Trap, which can be bought or crafted for 100 {Gold}Gold.",
+        "ParentKey": "Level 3 - Keystone Talent"
+    },
+    "~Refire Dodge Roll~": {
+        "_Value": 1.25,
+        "A": "Reaction or 0 Actions",
+        "Cooldown": "Twice / Combat",
+        "HasMixins": true,
+        "Effect": "Use when taking Damage (or any time on your Turn).\nRoll 2 meters in any possible direction. Reduce the Damage by 50%. ~Then move the Hunter Mark (if any) to the Damage source Unit.~\n",
+        "Upgrade": "^You^ can use this to make your pet Dodge Roll instead.",
+        "Notes": "~The Cooldown is now also Twice / Combat.~",
+        "ParentKey": "Level 3 - Keystone Talent"
     },
     "<Pet Training 101>": {
         "A": "Passive",
@@ -6779,11 +6854,49 @@
         "Effect": "Remove all your party members' Exhaustion (from any source).\nIf they were Exhausted from lack of sleep, they can resist sleep Exhaustion for 8 more hours.\n",
         "ParentKey": "Level 6 - Utility Talent"
     },
+    "~Radiant Smite~": {
+        "_Value": 0.35,
+        "A": "0 Actions",
+        "Cost": "1 Mana",
+        "Tags": [
+            "Damage",
+            "Finisher"
+        ],
+        "Effect": "Your next weapon attack deals +1d6 Damage and all the Damage becomes Divine.\nIf the target dies, cast Awe.\n",
+        "ParentKey": "Level 1 - Minor Talent"
+    },
     "~Herald of the Moon~": {
         "A": "Passive",
         "Duration": "Rest of the Adventure",
         "Effect": "If the Awe heals the target to Max Health, give them one Shielding that can block 1d4 Damage.\n",
         "ParentKey": "Level 2 - Keystone Talent"
+    },
+    "~Second Light~": {
+        "A": "1 Action",
+        "DisplayName": "{Name}",
+        "Cost": "1 Mana",
+        "Range": "10 meters",
+        "HasMixins": true,
+        "Degree": "Major",
+        "Tags": [
+            "Damage",
+            "Support"
+        ],
+        "Effect": "A shining light bursts onto a Unit, dealing 2d8 + ^Sense^ {Type} Damage to it.\nThe next time somoene rolls dice that affect that Unit, the roller can reroll each die of that Act they choose once.\n",
+        "Notes": "The roller can rereoll them even if it was an area effect or another effect that affected multiple Units.",
+        "Variants": [
+            {
+                "Type": "Divine",
+                "Name": "Second Light",
+                "IconName": "Guiding Bolt"
+            },
+            {
+                "Type": "Scourge",
+                "Name": "Second Shadow",
+                "IconName": "Second Shadow"
+            }
+        ],
+        "ParentKey": "Level 3 - Minor Talent"
     },
     "~Solace Tide~": {
         "A": "Half-Action",
@@ -6830,25 +6943,41 @@
         "ParentKey": "Ability Choices"
     },
     "~Icebreaker Ambush~": {
-        "_Value": 2.5,
+        "_Value": 3.25,
         "A": "Passive",
         "Replacement": "Replaces Ambush",
         "Effect": "Every ~Turn~, your first weapon attack deals +1d10 Damage ~if the target is at full Health~.\n",
+        "Upgrade": "At Level 4, the Damage becomes 1d12.",
         "HasMixins": true,
         "ParentKey": "Level 2 - Keystone Talent"
     },
     "~Thief's Ambush~": {
-        "_Value": 2.5,
+        "_Value": 3.25,
         "A": "Passive",
         "Replacement": "Replaces Ambush",
         "Effect": "Every Worthy Combat, your first weapon attack deals ~+2d8~ Damage ~and applies a Combo~.\n~Gain~ {Gold}~Gold equal to the ambushed amount.~\n",
+        "Upgrade": "At Level 4, the Damage becomes 2d10.",
         "HasMixins": true,
         "ParentKey": "Level 2 - Keystone Talent"
     },
+    "~Shade Bend~": {
+        "A": "Half-Action",
+        "Cooldown": "Once / Turn",
+        "Effect": "Choose a shadow you can see.\nYou can manipulate the shape of this shadow and even extend it upward to attack for 1d6 and Deafen the target.\n",
+        "ParentKey": "Level 3 - Keystone Talent"
+    },
     "<Magestep>": {
+        "_Value": 2,
         "A": "0 Actions",
         "Cooldown": "Once / real hour",
-        "Effect": "Teleport up to 3 meters away and choose an element from Fire, Cold or Shock.\nFor the rest of the Combat (if in it), all your attacks deal the chosen Damage Type and you take -50% Damage of that Type.\n",
+        "Effect": "Teleport up to 3 meters away.\nYour next attack applies your Ambush if it didn't already, and all the Damage becomes Fire, Cold or Shock (your choice).\n",
+        "Downside": "Doesn't work with Thief's Ambush or Sudden Ambush.",
+        "ParentKey": "Level 4 - Keystone Talent"
+    },
+    "~Slowing Poison~": {
+        "_Value": 1.5,
+        "A": "Passive",
+        "Effect": "Your weapons are coated in a potent poison.\nYour first weapon attack on each Unit with 50% or less Health deals +1d4 Poison Damage and Slows it.\n",
         "ParentKey": "Level 4 - Keystone Talent"
     },
     "<Gold Hoard>": {
@@ -6877,9 +7006,10 @@
         "ParentKey": "Level 6 - Utility Talent"
     },
     "~Savage Ambush~": {
-        "_Value": 2.5,
+        "_Value": 3.25,
         "Replacement": "Replaces Ambush",
         "Effect": "Every ~Turn~, your first ~attack or single-target offensive Ability against a Unit with 50% or less Health~ deals +1d10 Damage.",
+        "Upgrade": "At Level 4, the Damage becomes 1d10.",
         "HasMixins": true,
         "ParentKey": "Level 2 - Keystone Talent"
     },
