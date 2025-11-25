@@ -83,7 +83,7 @@ Starting Abilities:
   
   ~Roguish Talents~:
     A: Special
-    Effect: As a Rogue, you don't have Mana. However, from Level 3, all your Talents are Keystone Talents.
+    Effect: As a Rogue, you don't have Mana. However, from Level 2, all your Talents are Keystone Talents.
 
 Utility:
 
@@ -250,14 +250,21 @@ Specs:
           _Value: 2
           A: Passive
           Effect: |
-            Whenever YOU would Damage an Enemy leaving it at 10% Health or below, it dies, and you gain Gold equal to its Maximum Health.
+            Whenever YOU would Damage an Enemy leaving it at 10% Health or below, it dies, and you gain {Gold}Gold equal to its Maximum Health.
 
         ~Shade Bend~:
-          A: Half-Action
-          Cooldown: Once / Turn
+          _Value : 2.5
+          A: 0 Actions
+          Cooldown: Once / Combat
           Effect: |
             Choose a shadow you can see.
             You can manipulate the shape of this shadow and even extend it upward to attack for 1d6 and Deafen the target.
+          Upgrade: This attack is able to trigger Ambush.
+
+        ~Ghost Strike~:
+          A: Passive
+          Effect: When you Ambush, also deal 50% of the Ambush Damage to another Unit within 3 meters of the main target.
+          Notes: Refers, for example, to the extra 1d8, not the entire attack's Damage.
 
       Level 4 - Keystone Talent:
 
@@ -279,21 +286,21 @@ Specs:
             When Worthy Combat starts, the Quest Master determines which is the most powerful enemy.
             When that enemy dies, heal an ally for 1d10 and gain {Gold}Gold equal to 1000% of the amount healed.
 
-        <Magestep>:
-          _Value: 2
-          A: 0 Actions
-          Cooldown: Once / real hour
-          Effect: |
-            Teleport up to 3 meters away.
-            Your next attack applies your Ambush if it didn't already, and all the Damage becomes Fire, Cold or Shock (your choice).
-          Downside: Doesn't work with Thief's Ambush or Sudden Ambush.
-
         ~Slowing Poison~:
           _Value: 1.5
           A: Passive
           Effect: |
             Your weapons are coated in a potent poison.
             Your first weapon attack on each Unit with 50% or less Health deals +1d4 Poison Damage and Slows it.
+
+        <Magestep>:
+          _Value: 1.5
+          A: 0 Actions
+          Cooldown: Once / Adventure
+          Effect: |
+            Teleport up to 3 meters away.
+            Your next attack applies your Ambush if it wouldn't normally, and all the Damage becomes Fire, Cold or Shock (your choice).
+          Downside: Doesn't work with Thief's Ambush or Sudden Ambush. The attack can Ambush even if it's the second time this Turn (or further).
 
 
       Level 5 - Keystone Talent:
@@ -342,9 +349,8 @@ Specs:
               - 4. Upgrade one die of choice
               - 4. +3 Initiative
           Upgrade: A piece of equipment can be improved any number of times, but every extra improvement costs twice as much as its previous improvement.
-        
 
-      Level 6 - Utility Talent:
+      Level 6 - Keystone Talent:
 
         <Gold Hoard>:
           A: Passive
@@ -373,6 +379,12 @@ Specs:
           HasMixins: true
           Effect: When looting a _lootable object_ that _contains Worthy items_, you can spend any amount of gold to also loot an item worth up to twice the spent amount.
           Notes: It is up to the Quest Master what a _lootable object_ is (could be a chest, the corpse of an enemy, etc). Also, it is up to the Quest Master what _Worthy items_ means (could be main quest items, magic items, or just a normal chest).
+
+        <Draw Steel>:
+          A: 0 Actions
+          Cooldown: Once / Adventure
+          Effect: Refresh all your other Cooldowns, Ambushes, and retrigger any _start of Combat_ effects from your Abilities.
+          Notes: Refreshing an Ambush means you can use it again this Turn if you already used it.
 
       Level 7 - Keystone Talent:
 
@@ -527,7 +539,8 @@ Specs:
           A: Passive
           HasMixins: true
           Effect: |
-            Immediately before or after you Shadowpass (your choice), all Units within 1 meter from you become Deafened.
+            Immediately before or after you Shadowpass (your choice), all Units within 1 meter from you become Blinded.
+            Your next attack deals +1d4 Damage.
 
         <Critical Doubledown>:
           _Value: 1.5
@@ -539,12 +552,22 @@ Specs:
           EffectGreen: Critical Strike - If you rolled maximum on at least one die, deal +1 Damage if one-handed (+1d4 if two-handed).
           Upgrade: Note that the additional (green) Critical Strike is also doubled!
 
+        ~Shade Bend~:
+          _Value : 2.5
+          A: 0 Actions
+          Cooldown: Once / Combat
+          Effect: |
+            Choose a shadow you can see.
+            You can manipulate the shape of this shadow and even extend it upward to attack for 1d6 and Deafen the target.
+          Upgrade: This attack is able to trigger Ambush.
+
+
       Level 4 - Keystone Talent:
 
         <One Turn Kill>:
           _Value: 1.35
           A: Passive
-          Effect: Whenever you take a Worthy Enemy from 50% (or more) to 0% Health in one Turn, heal for 1d8 and reset the Cooldown of Shadowpass.
+          Effect: Whenever you take a Worthy Enemy from 50% (or more) to 0% Health in one Turn, heal for 1d8 and reset all your Cooldowns.
 
         <Cutting Verve>:
           _Value: 2
@@ -581,8 +604,18 @@ Specs:
           Cooldown: Once / Adventure
           Effect: |
             Mark a Unit you can see.
-            Whenever YOU deal Damage to it until your next turn, remember the Damage done.
-            At the start of your next turn, the mark bursts and the Unit takes directly 33% of the Damage you dealt to it in this time period.
+            Whenever YOU deal Damage to it until your next Turn, remember the Damage done.
+            At the start of your next Turn, the mark bursts and the Unit takes directly 33% of the Damage you dealt to it in this time period.
+
+        <Shadow Maw>:
+          A: 0 Actions
+          Cooldown: Once / Adventure
+          Effect: |
+            Open a 5x5 meter maw of shadows on the ground.
+            All Units caught take 3d6 Psychic Damage.
+            The shadow maw is completely dark and disorientig - if a Unit starts its Turn in the maw, it must begin by making a Movement Act in a random direction.
+          Upgrade: Single-target attacks have no line of sight from, to and through the maw, and everything else has Cover.
+
 
       Level 6 - Keystone Talent:
 
@@ -607,7 +640,6 @@ Specs:
           Requirement: Only usable until the end of the next Turn after you Shadowpass
           Effect: Immediately Shadowpass back to where you last Shadowpassed from (to the original position from which you Shadowpassed), then become invisible until the start of your next Turn (or for 6 seconds). Also, passively, you can use Shadowpass to teleport an ally instead of yourself.
           Notes: This special Shadowpass doesn't retrigger Shadowlayers, but is improved by any Shadowpass upgrades and effects you have.
-
 
       Level 7 - Keystone Talent:
 

@@ -71,7 +71,7 @@ const NAV_CONFIG = [
     ]},
     { isGrouping: true, children: [
       { name: 'Abilities', children: [
-        { name: 'Basic Abilities',      href: '/Other/Abilities' },
+        { name: 'Magic Fongs',          href: '/Other/MagicFonts' },
         { name: 'Feats',                href: '/Other/Feats' },
         { name: 'Quirks',               href: '/Other/Quirks' },
         { name: 'Ability Sheet Maker',  href: '/Other/AbilitySheets', lock: 'premium' },

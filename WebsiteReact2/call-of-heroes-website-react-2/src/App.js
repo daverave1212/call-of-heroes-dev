@@ -116,6 +116,7 @@ import V2Wizard from './databases/ClassesV2/Wizard.json'
 import { ClassPage } from './components/InsertableTemplates/RaceClassComponents';
 import RulesAll from './pages/Other/RulesAll';
 import ClassBalance from './pages/Meta/ClassBalance';
+import MagicFonts from './pages/Other/MagicFonts';
 
 function App() {
 
@@ -150,6 +151,7 @@ function App() {
           <Route path="/Other/MagicItemGenerator" element={ <MagicItemCreator/> }/>
 
           <Route path="/Other/Abilities" element={ <Abilities/> }/>
+          <Route path="/Other/MagicFonts" element={ <MagicFonts/> }/>
           <Route path="/Other/Feats" element={ <Feats/> }/>
           <Route path="/Other/Proficiencies" element={ <Proficiencies/> }/>
           <Route path="/Other/Armors" element={ <Armors/> }/>

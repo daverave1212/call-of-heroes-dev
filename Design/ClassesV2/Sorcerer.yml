@@ -67,73 +67,8 @@ Starting Abilities:
   
   ~Flux~:
     A: Passive
-    Effect: Choose a Damage Type from the ones listed below. Some of your Spells's Damage deal that Damage Type (written explicitly on those Spells).
-    Notes: 1. Fire, 2. Cold, 3. Shock, 4. Pulse, 5. Poison, 6. Acid, 7. Divine, 8. Scourge.
-
-
-Ability Choices:
-
-    ~Chaos Storm~:
-      A: 1 Action
-      Requirement: Only usable in Worthy Combat
-      Effect: |
-        Roll an Unstable Spark die (and apply its effect if any).
-        Deal that much Damage of that Damage Type to exactly that many Worthy Units you can see.
-      Notes: |
-        Roll for a random Damage type from the following: 1. Pierce, 2. Slash, 3. Pulse, 4. Poison, 5. Acid, 6. Divine, 7. Scourge, 8. Shock, 9. Cold, 10. Fire.
-        Targeting Worthy Units is mandatory, and you count as a Worthy Unit.
-        If your Unstable Spark is higher than 10, you can choose the Damage Type.
-
-    ~Jolt~:
-      A: Half-Action
-      Effect: |
-        Shoot a quick burst of current at a Unit, dealing 1d6 + ^Any Stat^ Damage (of your chosen Flux).
-        Then roll an Unstable Spark die.
-      Downside: |
-        Only usable if your last Unstable Spark die rolled was at least 6.
-
-    ~Gathering the Magic~:
-      A: 0 Actions
-      Cost: 1 Mana
-      Requirement: Only usable in Worthy Combat
-      Effect: |
-        For the rest of the Combat, whenever you roll 3 on the Unstable Spark die, gain +1 Skill Point permanently.
-
-    ~Soulflare~:
-      _Value: 0
-      A: Half-Action
-      Range: 4 meters
-      Cost: 1 Mana
-      Effect: |
-        Deal {Amount} Damage to {ToWhat} (of your chosen Flux).
-
-        ~You have access to all Variants of this Spell (click on the icon to select the preferred effect)!~
-      Variants:
-        - DisplayA: 0 Actions
-          Amount: 1d8
-          ToWhat: 1 Unit
-        - DisplayA: Half-Action
-          Amount: 1d6 + 1d8
-          ToWhat: 2 Units
-        - DisplayA: 1 Action
-          Amount: 1d6 + 1d8 + 1d10
-          ToWhat: 3 Units
-        - DisplayA: 3 Action Points
-          Amount: 1d6 + 1d8 + 1d10 + 1d12
-          ToWhat: 4 Units
-
-    ~Arcane Fire~:
-      A: Half-Action
-      Requirement: Only usable in Worthy Combat
-      Effect: |
-        Your next weapon attack until the end of your next Turn deals extra Damage equal to your Highest Stat.
-        The attack's Damage Type becomes of your chosen Flux Type.
-
-    ~Spellbloodweave~:
-      A: 0 Actions
-      Cost: 1 Mana
-      Effect: Your next attack or offensive Spell deals -50% Damage, but heals an ally you can see for the Damage dealt.
-
+    Effect: Choose a Damage Type from the ones listed below. That becomes your {Color('orange', 'Flux')} Type. Some of your Spells's Damage deal that Damage Type (written explicitly on those Spells).
+    Upgrade: 1. Fire, 2. Cold, 3. Shock, 4. Pulse, 5. Poison, 6. Acid, 7. Divine, 8. Scourge.
 
 
 Utility:
@@ -180,6 +115,72 @@ Utility:
           {Diamond} Control a quill with telekinesis to quickly write with it.
   
 Talents:
+
+  Level 1 - Minor Talent:
+
+
+    ~Chaos Storm~:
+      A: 1 Action
+      Requirement: Only usable in Worthy Combat
+      Effect: |
+        Roll an Unstable Spark die (and apply its effect if any).
+        Deal that much Damage of that Damage Type to exactly that many Worthy Units you can see.
+      Notes: |
+        Roll for a random Damage type from the following: 1. Pierce, 2. Slash, 3. Pulse, 4. Poison, 5. Acid, 6. Divine, 7. Scourge, 8. Shock, 9. Cold, 10. Fire.
+        Targeting Worthy Units is mandatory, and you count as a Worthy Unit.
+        If your Unstable Spark is higher than 10, you can choose the Damage Type.
+
+    ~Jolt~:
+      A: Half-Action
+      Effect: |
+        Shoot a quick burst of current at a Unit, dealing 1d6 + ^Any Stat^ {Color('orange', 'Flux')} Damage.
+        Then roll an Unstable Spark die.
+      Downside: |
+        Only usable if your last Unstable Spark die rolled was at least 6.
+
+    ~Gathering the Magic~:
+      A: 0 Actions
+      Cost: 1 Mana
+      Requirement: Only usable in Worthy Combat
+      Effect: |
+        For the rest of the Combat, whenever you roll 3 on the Unstable Spark die, gain +1 Skill Point permanently.
+
+    ~Soulflare~:
+      _Value: 0
+      A: Half-Action
+      Range: 4 meters
+      Cost: 1 Mana
+      Effect: |
+        Deal {Amount} {Color('orange', 'Flux')} Damage to {ToWhat}.
+
+        ~You have access to all Variants of this Spell (click on the icon to select the preferred effect)!~
+      Variants:
+        - DisplayA: 0 Actions
+          Amount: 1d8
+          ToWhat: 1 Unit
+        - DisplayA: Half-Action
+          Amount: 1d6 + 1d8
+          ToWhat: 2 Units
+        - DisplayA: 1 Action
+          Amount: 1d6 + 1d8 + 1d10
+          ToWhat: 3 Units
+        - DisplayA: 3 Action Points
+          Amount: 1d6 + 1d8 + 1d10 + 1d12
+          ToWhat: 4 Units
+
+    ~Arcane Fire~:
+      A: Half-Action
+      Requirement: Only usable in Worthy Combat
+      Effect: |
+        Your next weapon attack until the end of your next Turn deals extra Damage equal to your last rolled Unstable Spark die and all its Damage dealt becomes {Color('orange', 'Flux')} Damage.
+
+    ~Spellbloodweave~:
+      A: 0 Actions
+      Cost: 1 Mana
+      Effect: |
+        Use after you make an attack or use an offensive Ability. It deals -50% Damage, but instead heals an ally you can see for the final Damage dealt.
+
+
   Level 2 - Keystone Talent:
 
     <Guiled Casting>:
@@ -195,8 +196,8 @@ Talents:
       AlignOnWebsite: Left
       A: Passive
       Effect: |
-        After you cast a Spell or one of its variants, you can't cast that spell or variant again this Combat.
         Your base Unstable Spark also triggers on 9.
+        After you cast a Spell or one of its variants, you can't cast that spell or variant again this Combat.
       Notes: If you cast the 1st version Soulflare, you can still cast its other versions this Combat.
 
     <Viled Casting>:
@@ -213,6 +214,7 @@ Talents:
       AlignOnWebsite: Left
       Effect: |
         A Unit must make a Charisma Roll at least equal to your last rolled Unstable Spark die or be Deafened, Slowed or Dazed (your choice).
+        if it fails, roll an Unstable Spark die.
       Notes: What are you doing, just pick Wild Casting.
 
 
@@ -300,7 +302,8 @@ Talents:
     
     <Tap>:
       A: Passive
-      Effect: "When you roll 4 on the Unstable Spark die, deal 1d4 Damage (of your Flux Type). It gets affected by that effect:"
+      Effect: |
+        When you roll 4 on the Unstable Spark die, deal 1d4 {Color('orange', 'Flux')} Damage. It gets affected by that effect:
       Upgrade: 1. Single-Stun, 2. Blind, 3. Slow, 4. Frail
 
   Level 4 - Minor Talent:
@@ -322,7 +325,7 @@ Talents:
       Replacement: Replaces Soulflare
       Requirement: Requires Soulflare
       Effect: |
-        Deal {Amount} Damage to {ToWhat} (of your chosen Flux).
+        Deal {Amount} {Color('orange', 'Flux')} Damage to {ToWhat}.
 
         ~You have access to all Variants of this Spell (click on the icon to select the preferred effect)!~
       Notes: ~The Damage is higher than the regular Soulflare.~
