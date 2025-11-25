@@ -115,7 +115,7 @@ export default function SectionStats() {
             isCorrect = checkStatRequirements(stats, statRequirementCode)
             if (isCorrect == false) {
                 setStatsCorrectError({
-                    message: `Your stats might not respect your chosen race requirements: ${getRace(selectedRaceName).Creation['Stat Restrictions']}`
+                    message: `Your stats might not respect your chosen race requirements: ${getRace(selectedRaceName)?.Creation?.['Stat Restrictions']}`
                 })
                 return
             }
@@ -171,7 +171,7 @@ export default function SectionStats() {
             <div className="center-content">
                 <QGTitle1 text="Stats" height={60}/>
                 <p>As standard, use the numbers {DEFAULT_STAT_ARRAY} and distribute them as you like among the 5 stats.</p>
-                <p>{ myRace && myRace.Creation['Stat Restrictions'] != null && <span>Pay attention to your races's stat <i>restrictions</i>: {myRace.Creation['Stat Restrictions']}</span> }</p>
+                <p>{ myRace && myRace?.Creation?.['Stat Restrictions'] != null && <span>Pay attention to your races's stat <i>restrictions</i>: {myRace?.Creation?.['Stat Restrictions']}</span> }</p>
             </div>
             <div className="center-content flex" style={{gap: '2rem'}}>
                 <div className="stats-selector">

@@ -70,7 +70,7 @@
         },
         "~Roguish Talents~": {
             "A": "Special",
-            "Effect": "As a Rogue, you don't have Mana. However, from Level 3, all your Talents are Keystone Talents.",
+            "Effect": "As a Rogue, you don't have Mana. However, from Level 2, all your Talents are Keystone Talents.",
             "ParentKey": "Starting Abilities"
         }
     },
@@ -208,13 +208,22 @@
                     "<Verge of the Coin>": {
                         "_Value": 2,
                         "A": "Passive",
-                        "Effect": "Whenever YOU would Damage an Enemy leaving it at 10% Health or below, it dies, and you gain Gold equal to its Maximum Health.\n",
+                        "Effect": "Whenever YOU would Damage an Enemy leaving it at 10% Health or below, it dies, and you gain {Gold}Gold equal to its Maximum Health.\n",
+                        "HasMixins": true,
                         "ParentKey": "Level 3 - Keystone Talent"
                     },
                     "~Shade Bend~": {
-                        "A": "Half-Action",
-                        "Cooldown": "Once / Turn",
+                        "_Value": 2.5,
+                        "A": "0 Actions",
+                        "Cooldown": "Once / Combat",
                         "Effect": "Choose a shadow you can see.\nYou can manipulate the shape of this shadow and even extend it upward to attack for 1d6 and Deafen the target.\n",
+                        "Upgrade": "This attack is able to trigger Ambush.",
+                        "ParentKey": "Level 3 - Keystone Talent"
+                    },
+                    "~Ghost Strike~": {
+                        "A": "Passive",
+                        "Effect": "When you Ambush, also deal 50% of the Ambush Damage to another Unit within 3 meters of the main target.",
+                        "Notes": "Refers, for example, to the extra 1d8, not the entire attack's Damage.",
                         "ParentKey": "Level 3 - Keystone Talent"
                     }
                 },
@@ -225,7 +234,8 @@
                         "Skill Bonuses": {
                             "Hiding": 2
                         },
-                        "Effect": "You are able to hide in plain sigt so well tgat you start each Combat undetectable.\nWhile undetectable, you can make a free Movement Act each Turn.\nUndetectabilty ends if you deal more than 10 Damage or after 3 Turns.\n",
+                        "Effect": "When Combat starts, you can start on any visible edge of the battlefield.\nThe first time you deal Damage each Combat, you can choose to reroll any of the rolled dice.\n",
+                        "Notes": "You know the ins and outs of battlefields so well that you successfully reposition before anyone else notices.",
                         "ParentKey": "Level 4 - Keystone Talent"
                     },
                     "<Bounty Appraisal>": {
@@ -235,18 +245,18 @@
                         "Effect": "When Worthy Combat starts, the Quest Master determines which is the most powerful enemy.\nWhen that enemy dies, heal an ally for 1d10 and gain {Gold}Gold equal to 1000% of the amount healed.\n",
                         "ParentKey": "Level 4 - Keystone Talent"
                     },
-                    "<Magestep>": {
-                        "_Value": 2,
-                        "A": "0 Actions",
-                        "Cooldown": "Once / real hour",
-                        "Effect": "Teleport up to 3 meters away.\nYour next attack applies your Ambush if it didn't already, and all the Damage becomes Fire, Cold or Shock (your choice).\n",
-                        "Downside": "Doesn't work with Thief's Ambush or Sudden Ambush.",
-                        "ParentKey": "Level 4 - Keystone Talent"
-                    },
                     "~Slowing Poison~": {
                         "_Value": 1.5,
                         "A": "Passive",
                         "Effect": "Your weapons are coated in a potent poison.\nYour first weapon attack on each Unit with 50% or less Health deals +1d4 Poison Damage and Slows it.\n",
+                        "ParentKey": "Level 4 - Keystone Talent"
+                    },
+                    "<Magestep>": {
+                        "_Value": 1.5,
+                        "A": "0 Actions",
+                        "Cooldown": "Once / Adventure",
+                        "Effect": "Teleport up to 3 meters away.\nYour next attack applies your Ambush if it wouldn't normally, and all the Damage becomes Fire, Cold or Shock (your choice).\n",
+                        "Downside": "Doesn't work with Thief's Ambush or Sudden Ambush. The attack can Ambush even if it's the second time this Turn (or further).",
                         "ParentKey": "Level 4 - Keystone Talent"
                     }
                 },
@@ -292,7 +302,7 @@
                         "ParentKey": "Level 5 - Keystone Talent"
                     }
                 },
-                "Level 6 - Utility Talent": {
+                "Level 6 - Keystone Talent": {
                     "<Gold Hoard>": {
                         "A": "Passive",
                         "Effect": "You gain various bonuses based on how much gold you are carrying.",
@@ -316,7 +326,7 @@
                                 "-10% Damage taken from all sources"
                             ]
                         },
-                        "ParentKey": "Level 6 - Utility Talent"
+                        "ParentKey": "Level 6 - Keystone Talent"
                     },
                     "<Finders Keepers>": {
                         "A": "Special",
@@ -324,7 +334,15 @@
                         "HasMixins": true,
                         "Effect": "When looting a _lootable object_ that _contains Worthy items_, you can spend any amount of gold to also loot an item worth up to twice the spent amount.",
                         "Notes": "It is up to the Quest Master what a _lootable object_ is (could be a chest, the corpse of an enemy, etc). Also, it is up to the Quest Master what _Worthy items_ means (could be main quest items, magic items, or just a normal chest).",
-                        "ParentKey": "Level 6 - Utility Talent"
+                        "ParentKey": "Level 6 - Keystone Talent"
+                    },
+                    "<Draw Steel>": {
+                        "A": "0 Actions",
+                        "Cooldown": "Once / Adventure",
+                        "Effect": "Refresh all your other Cooldowns, Ambushes, and retrigger any _start of Combat_ effects from your Abilities.",
+                        "Notes": "Refreshing an Ambush means you can use it again this Turn if you already used it.",
+                        "HasMixins": true,
+                        "ParentKey": "Level 6 - Keystone Talent"
                     }
                 },
                 "Level 7 - Keystone Talent": {
@@ -452,7 +470,7 @@
                         "_Value": 2,
                         "A": "Passive",
                         "HasMixins": true,
-                        "Effect": "Immediately before or after you Shadowpass (your choice), all Units within 1 meter from you become Deafened.\n",
+                        "Effect": "Immediately before or after you Shadowpass (your choice), all Units within 1 meter from you become Blinded.\nYour next attack deals +1d4 Damage.\n",
                         "ParentKey": "Level 3 - Keystone Talent"
                     },
                     "<Critical Doubledown>": {
@@ -463,13 +481,21 @@
                         "EffectGreen": "Critical Strike - If you rolled maximum on at least one die, deal +1 Damage if one-handed (+1d4 if two-handed).",
                         "Upgrade": "Note that the additional (green) Critical Strike is also doubled!",
                         "ParentKey": "Level 3 - Keystone Talent"
+                    },
+                    "~Shade Bend~": {
+                        "_Value": 2.5,
+                        "A": "0 Actions",
+                        "Cooldown": "Once / Combat",
+                        "Effect": "Choose a shadow you can see.\nYou can manipulate the shape of this shadow and even extend it upward to attack for 1d6 and Deafen the target.\n",
+                        "Upgrade": "This attack is able to trigger Ambush.",
+                        "ParentKey": "Level 3 - Keystone Talent"
                     }
                 },
                 "Level 4 - Keystone Talent": {
                     "<One Turn Kill>": {
                         "_Value": 1.35,
                         "A": "Passive",
-                        "Effect": "Whenever you take a Worthy Enemy from 50% (or more) to 0% Health in one Turn, heal for 1d8 and reset the Cooldown of Shadowpass.",
+                        "Effect": "Whenever you take a Worthy Enemy from 50% (or more) to 0% Health in one Turn, heal for 1d8 and reset all your Cooldowns.",
                         "ParentKey": "Level 4 - Keystone Talent"
                     },
                     "<Cutting Verve>": {
@@ -508,7 +534,14 @@
                         "_Value": 3,
                         "A": "0 Actions",
                         "Cooldown": "Once / Adventure",
-                        "Effect": "Mark a Unit you can see.\nWhenever YOU deal Damage to it until your next turn, remember the Damage done.\nAt the start of your next turn, the mark bursts and the Unit takes directly 33% of the Damage you dealt to it in this time period.\n",
+                        "Effect": "Mark a Unit you can see.\nWhenever YOU deal Damage to it until your next Turn, remember the Damage done.\nAt the start of your next Turn, the mark bursts and the Unit takes directly 33% of the Damage you dealt to it in this time period.\n",
+                        "ParentKey": "Level 5 - Keystone Talent"
+                    },
+                    "<Shadow Maw>": {
+                        "A": "0 Actions",
+                        "Cooldown": "Once / Adventure",
+                        "Effect": "Open a 5x5 meter maw of shadows on the ground.\nAll Units caught take 3d6 Psychic Damage.\nThe shadow maw is completely dark and disorientig - if a Unit starts its Turn in the maw, it must begin by making a Movement Act in a random direction.\n",
+                        "Upgrade": "Single-target attacks have no line of sight from, to and through the maw, and everything else has Cover.",
                         "ParentKey": "Level 5 - Keystone Talent"
                     }
                 },

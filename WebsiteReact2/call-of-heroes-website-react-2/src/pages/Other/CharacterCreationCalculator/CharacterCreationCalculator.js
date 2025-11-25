@@ -38,18 +38,20 @@ import Dialog from "../../../components/Dialog/Dialog";
 import { STAT_NAMES } from "../../../services/game-lib/stat-calculations";
 import { useIsLoggedIn } from "../../../Auth";
 import LoginRequired from "../../../components/LoginRequired/LoginRequired";
+import SectionMagicFonts from "./SectionMagicFonts";
 
 
 const TAB_LAYOUT_LANDSCAPE = [
     ['My Character'],
     ['Name and Portrait', 'Stats and Level'],
     ['Race', 'Class', 'Feats'],
-    ['Shop', 'Pets and Animals']
+    ['Magic Fonts', 'Shop', 'Pets and Animals']
 ]
 const TAB_LAYOUT_PORTRAIT = [
     ['My Character'],
     ['Name and Portrait', 'Stats and Level'],
     ['Race', 'Class', 'Feats'],
+    ['Magic Fonts'],
     ['Shop', 'Pets and Animals']
 ]
 const TAB_LAYOUT_MOBILE = TAB_LAYOUT_LANDSCAPE.flat().map(tabName => [tabName])
@@ -202,7 +204,9 @@ export default function CharacterCreationCalculator() {
                 <Tabs layout={tabsLayout} activeTabI={activeTabI} setActiveTabI={setActiveTabI} tabComponents={[
                     <MyCharacter/>, <SectionNames onChange={newNamesState => setNames(newNamesState)}/>,
                     <SectionStats/>, <SectionRace openPopup={openPopup}/>, <SectionClass openPopup={openPopup}/>,
-                    <SectionFeats/>, <SectionShop/>,
+                    <SectionFeats/>, 
+                    <SectionMagicFonts openPopup={openPopup}/>,
+                    <SectionShop/>,
                     <div></div>,
                 ]}/>
 

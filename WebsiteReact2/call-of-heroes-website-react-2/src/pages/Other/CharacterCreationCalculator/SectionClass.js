@@ -15,6 +15,60 @@ import Icon from "../../../components/Icon"
 
 const allSpells = getAllSpellsByName()
 
+export function selectSpellWithPopup({spell, metadata, spellNames, setSpellNames, openPopup}) {
+
+    function checkForIssues() {
+        const selectedClassSpells = spellNames.map(name => allSpells[name])
+        const spellsByParentKey = groupBy(selectedClassSpells, spell => spell.ParentKey)
+        
+        let foundIssue = null
+        
+        const isKeystone = spell.ParentKey?.includes('Keystone')
+        if (isKeystone) {
+            const foundKeystoneAtThatLevel = selectedClassSpells.find(s => s.ParentKey == spell.ParentKey)
+            if (foundKeystoneAtThatLevel) {
+                foundIssue = `You already have a ${spell.ParentKey} (${foundKeystoneAtThatLevel.Name}). Are you sure you want to also select this Spell?`
+            }
+        }
+        
+        const isMinorOrUtility = isSpellMinorTalent(spell) || isSpellUtilityTalent(spell)
+        if (isMinorOrUtility) {
+            const knownExtraMinorTalents = attributes[KNOWN_ABILITIES] ?? 0
+            const talentTiers = Object.keys(spellsByParentKey).filter(key => isTalentTierNameMinor(key) || isTalentTierNameUtility(key))
+            const extraPickedMinorsByTier = talentTiers.map(key => spellsByParentKey[key]?.length - 1)
+            const totalExtraPickedMinors = extraPickedMinorsByTier.reduce((soFar, x) => soFar + x, 0)
+            console.log({totalExtraPickedMinors})
+            if (totalExtraPickedMinors > knownExtraMinorTalents) {
+                foundIssue = `You are about to go over the limit (${knownExtraMinorTalents}) of extra known Minor and Utility Talents. Are you sure you want to also select this Spell?`
+            }
+        }
+
+        return foundIssue
+    }
+    
+
+
+    const toggleSpellMaybePopupInternal = () => toggleSpellMaybePopup(spell, metadata, spellNames, setSpellNames, openPopup)
+
+    const willRemove = spellNames.includes(spell.Name)
+    
+    if (willRemove) {
+        toggleSpellMaybePopupInternal()
+        return
+    }
+
+    const foundIssue = checkForIssues()
+    if (foundIssue == null) {
+        toggleSpellMaybePopupInternal()
+        return
+    }
+
+    openPopup({ Message: foundIssue, callback: () => {
+        toggleSpellMaybePopupInternal()
+    }})
+
+}
+
 export default function SectionClass({ openPopup }) {
 
     const classesObj = getAllClasses()
@@ -57,60 +111,6 @@ export default function SectionClass({ openPopup }) {
         setClassName(className)
     }
 
-    function selectSpell(spell, metadata) {
-
-        function checkForIssues() {
-            const selectedClassSpells = spellNames.map(name => allSpells[name])
-            const spellsByParentKey = groupBy(selectedClassSpells, spell => spell.ParentKey)
-            
-            let foundIssue = null
-            
-            const isKeystone = spell.ParentKey?.includes('Keystone')
-            if (isKeystone) {
-                const foundKeystoneAtThatLevel = selectedClassSpells.find(s => s.ParentKey == spell.ParentKey)
-                if (foundKeystoneAtThatLevel) {
-                    foundIssue = `You already have a ${spell.ParentKey} (${foundKeystoneAtThatLevel.Name}). Are you sure you want to also select this Spell?`
-                }
-            }
-            
-            const isMinorOrUtility = isSpellMinorTalent(spell) || isSpellUtilityTalent(spell)
-            if (isMinorOrUtility) {
-                const knownExtraMinorTalents = attributes[KNOWN_ABILITIES] ?? 0
-                const talentTiers = Object.keys(spellsByParentKey).filter(key => isTalentTierNameMinor(key) || isTalentTierNameUtility(key))
-                const extraPickedMinorsByTier = talentTiers.map(key => spellsByParentKey[key]?.length - 1)
-                const totalExtraPickedMinors = extraPickedMinorsByTier.reduce((soFar, x) => soFar + x, 0)
-                console.log({totalExtraPickedMinors})
-                if (totalExtraPickedMinors > knownExtraMinorTalents) {
-                    foundIssue = `You are about to go over the limit (${knownExtraMinorTalents}) of extra known Minor and Utility Talents. Are you sure you want to also select this Spell?`
-                }
-            }
-
-            return foundIssue
-        }
-        
-
-
-        const toggleSpellMaybePopupInternal = () => toggleSpellMaybePopup(spell, metadata, spellNames, setSpellNames, openPopup)
-
-        const willRemove = spellNames.includes(spell.Name)
-        
-        if (willRemove) {
-            toggleSpellMaybePopupInternal()
-            return
-        }
-
-        const foundIssue = checkForIssues()
-        if (foundIssue == null) {
-            toggleSpellMaybePopupInternal()
-            return
-        }
-
-        openPopup({ Message: foundIssue, callback: () => {
-            toggleSpellMaybePopupInternal()
-        }})
-
-    }
-
 
     return (
         <div>
@@ -125,7 +125,13 @@ export default function SectionClass({ openPopup }) {
                     useSelectedSpecNameHook={useSectionClassSpecName}
                     useSelectedFontNameHook={useSelectedFontName}
                     selectedSpellNames={spellNames}
-                    onSpellClick={selectSpell}
+                    onSpellClick={(spell, metadata) => selectSpellWithPopup({
+                        spell,
+                        metadata,
+                        spellNames,
+                        setSpellNames,
+                        openPopup
+                    })}
                     spellsMetadata={spellsMetadata}
                 />
             )}

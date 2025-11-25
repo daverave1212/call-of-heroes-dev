@@ -37,7 +37,7 @@ export default function MonsterAbility({ability, isPassive, style}) {
             return <AbilityEffect>{ abilityBody }</AbilityEffect>
         }
 
-        const effectName = U.getAnyPropNameExcept(abilityBody, ['Name', 'Damage', 'Notes', 'A', 'Special', 'Cooldown', 'Requirement', 'Range', 'Duration', 'Effect', 'Upgrade', 'Combo', 'ParentKey'])
+        const effectName = U.getAnyPropNameExcept(abilityBody, ['Name', 'Damage', 'Notes', 'A', 'Special', 'Cooldown', 'Requirement', 'Range', 'Duration', 'Effect', 'Upgrade', 'Combo', 'ParentKey', 'IsSubspell', 'EffectGreen', 'Downside'])
         
         return (
             <div className='flex column gap-half' style={{paddingTop: '0.5rem'}}>
@@ -54,10 +54,10 @@ export default function MonsterAbility({ability, isPassive, style}) {
                     <div className='monster-ability__effect-desc' key="Combo"><span style={{color: 'var(--blue-color)'}}>Combo: </span>{ Combo }</div>
                 ) }
                 { EffectGreen != null && (
-                    <div className="monster-ability__effect-desc spell-green" key="EffectGreen">{ EffectGreen }</div>
+                    <div className="monster-ability__effect-desc" key="EffectGreen" style={{color: 'var(--green-text)'}}>{ EffectGreen }</div>
                 ) }
                 { Downside != null && (
-                    <div className="monster-ability__effect-desc spell-red" key="Downside">{ Downside }</div>
+                    <div className="monster-ability__effect-desc" key="Downside" style={{color: 'rgb(240, 0, 0)'}}>{ Downside }</div>
                 )}
                 { Upgrade != null && (
                     <p className='monster-ability-p smaller-font'>{Upgrade}</p>

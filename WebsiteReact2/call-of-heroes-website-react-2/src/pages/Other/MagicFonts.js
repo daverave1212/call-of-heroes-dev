@@ -5,9 +5,10 @@ import Page from '../../containers/Page/Page'
 import magicFonts from '../../databases/SpellFonts.json'
 import { spellsFromObject } from '../../utils'
 import { QGTitle1 } from '../Tools/TitleGenerator'
+import { selectSpellWithPopup } from './CharacterCreationCalculator/SectionClass'
 
 
-export default function MagicFonts() {
+export default function MagicFonts({ selectedSpellNames, onSpellClick, spellsMetadata }) {
 
     const magicFontNames = Object.keys(magicFonts)
 
@@ -18,7 +19,13 @@ export default function MagicFonts() {
         { magicFontNames.map(fontName => (
             <>
                 <PageH2>{fontName}</PageH2>
-                <ManySpells spells={spellsFromObject(magicFonts[fontName])} shouldSort={false}/>
+                <ManySpells
+                    spells={spellsFromObject(magicFonts[fontName])}
+                    spellsMetadata={spellsMetadata}
+                    selectedSpellNames={selectedSpellNames}
+                    onSpellClick={onSpellClick}
+                    shouldSort={false}
+                />
             </>
         )) }
 

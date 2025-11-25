@@ -12,6 +12,7 @@ export const MAX_HEALTH = 'Max Health'
 export const HEALTH_REGEN = 'Health Regen'
 export const MOVEMENT_SPEED = 'Movement Speed'
 export const INITIATIVE = 'Initiative'
+export const EXTRA_INITIATIVE_AP = '1st Turn AP'
 export const KNOWN_ABILITIES = 'Known Minor Talents'
 export const MANA = 'Mana'
 export const ATTRIBUTE_NAMES = [MAX_HEALTH, HEALTH_REGEN, MOVEMENT_SPEED, INITIATIVE]
@@ -79,18 +80,23 @@ export function getAttributeBonusesFromLevel(level, classObj) {
         [KNOWN_ABILITIES]: 0
     }
 }
+export function calculateExtraFirstTurnAPByInitiative(initiative) {
+    return Math.floor(initiative / 5)
+}
 export const BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP = {
     [MAX_HEALTH]: `3 × ${MIGHT}`,
-    [MOVEMENT_SPEED]: `1 for each 2 Dexterity points (or -1 for each -1 Dexterity point!)`,
+    [MOVEMENT_SPEED]: `1 for each 2 Dexterity`,
     [HEALTH_REGEN]: `2 × ${SENSE}`,
     [KNOWN_ABILITIES]: `${INTELLIGENCE}`,
-    [INITIATIVE]: `3 × ${CHARISMA}`
+    [INITIATIVE]: `3 × ${CHARISMA}`,
+    [EXTRA_INITIATIVE_AP]: `1 for each 5 Initiative`
 }
 export const ATTRIBUTES_CALCULATIONS_SPANS = {
     [MAX_HEALTH]: () => <span>Your <b>{MAX_HEALTH}</b> = Race Health + {BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[MAX_HEALTH]}</span>,
     [HEALTH_REGEN]: () => <span>Your <b>{HEALTH_REGEN}</b> = Race Health Health + {BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[HEALTH_REGEN]}</span>,
     [MOVEMENT_SPEED]: () => <span>Your <b>{MOVEMENT_SPEED}</b> = 4 + {BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[MOVEMENT_SPEED]}</span>,
     [INITIATIVE]: () => <span>Your <b>{INITIATIVE}</b> = {BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[INITIATIVE]}</span>,
+    [EXTRA_INITIATIVE_AP]: () => <span>Your <b>{EXTRA_INITIATIVE_AP}</b> = {BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[EXTRA_INITIATIVE_AP]}</span>,
     [KNOWN_ABILITIES]: () => <span>Your can have a number of <br/>extra <b>{KNOWN_ABILITIES}</b> = {BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[KNOWN_ABILITIES]}</span>,
 }
 export function AttributeCalculationTextComponent({statName}) {

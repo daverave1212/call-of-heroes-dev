@@ -14,7 +14,7 @@ import Dialog from "../../../components/Dialog/Dialog"
 import ChangeStatDialog from "./ChangeStatDialog"
 import Spoiler from "../../../components/Spoiler/Spoiler"
 import Selector from "../../../components/Selector/Selector"
-import { calculateAllAtributes, calculateBaseMaxManaByLevel, getAllStatBonusesYMLAsObjFromSpellsArray, getStatsArrayFromObject, HEALTH_REGEN, INITIATIVE, KNOWN_ABILITIES, MAX_HEALTH, MOVEMENT_SPEED, STAT_NAMES } from "../../../services/game-lib/stat-calculations"
+import { calculateAllAtributes, calculateBaseMaxManaByLevel, calculateExtraFirstTurnAPByInitiative, EXTRA_INITIATIVE_AP, getAllStatBonusesYMLAsObjFromSpellsArray, getStatsArrayFromObject, HEALTH_REGEN, INITIATIVE, KNOWN_ABILITIES, MAX_HEALTH, MOVEMENT_SPEED, STAT_NAMES } from "../../../services/game-lib/stat-calculations"
 import PageH3 from "../../../components/PageH3/PageH3"
 import CopySpellButton from "../../../components/CopyButton/CopySpellButton"
 import { ResourceBar } from "../../../components/ResourceBar/ResourceBar"
@@ -23,11 +23,33 @@ import PageH1 from "../../../components/PageH1/PageH1"
 
 
 
-function BigStatValue({ name, value, onClick}) {
+function BigStatValue({ name, value, onClick, className, children, style}) {
+    const extraClasses = className?.includes('small')? '': 'large'
     return (
-        <div className="stat-input large pointer">
+        <div className={`stat-input ${extraClasses} pointer ${className}`} style={style}>
             <div onClick={onClick}>{ value }</div>
             <div className="input-name input-name-styled">{ name }</div>
+            { children && (
+                <div style={{zIndex: "var(--z-overlay)"}}>
+                    { children }
+                </div>
+            ) }
+        </div>
+    )
+}
+
+function BigStatDouble({ options, className, style, onClick }) {
+    const [top, bottom] = options
+    return (
+        <div className={`stat-input double pointer flex column ${className}`} style={style} onClick={onClick}>
+            <div className="part">
+                <div>{ top.value }</div>
+                <div className="input-name input-name-styled">{ top.name }</div>
+            </div>
+            <div className="part">
+                <div>{ bottom.value }</div>
+                <div className="input-name input-name-styled">{ bottom.name }</div>
+            </div>
         </div>
     )
 }
@@ -85,7 +107,6 @@ export default function MyCharacter() {
 
     // Local states
     let [statNameToChange, setStatNameToChange] = useState(null)
-    let [skillToChange, setSkillToChange] = useState(null)
 
     let [areMinorSpellsHidden, setAreMinorSpellsHidden] = useState(true)
 
@@ -151,8 +172,11 @@ export default function MyCharacter() {
     const allMyWeapons = weaponNames.map(name => getAllWeaponsByName()[name])
     const allMyArmors = armorNames.map(name => getAllArmorsByName()[name])
     const selectedClassObj = selectedClassName == null? null: getAllClasses()[selectedClassName]
-    const attributes = calculateAllAtributes({raceName: selectedRaceName, className: selectedClassName, level, totalStats, bonuses})
     const maxMana = selectedClassName == null? 1: calculateBaseMaxManaByLevel(level, selectedClassName)
+    const attributes = calculateAllAtributes({raceName: selectedRaceName, className: selectedClassName, level, totalStats, bonuses})
+    const extraAPOnFirstRound = calculateExtraFirstTurnAPByInitiative(attributes[INITIATIVE])
+
+    console.log({attributes})
 
 
     // Functions
@@ -278,7 +302,10 @@ export default function MyCharacter() {
                 </div>
                 <div className="flex" style={{gap: 'var(--stats-gap)'}}>
                     <BigStatValue onClick={() => modifyManualBonus(MOVEMENT_SPEED)} name={MOVEMENT_SPEED} value={attributes[MOVEMENT_SPEED]}/>
-                    <BigStatValue onClick={() => modifyManualBonus(INITIATIVE)} name={INITIATIVE} value={attributes[INITIATIVE]}/>
+                    <BigStatDouble className="relative" onClick={() => modifyManualBonus(INITIATIVE)} options={[
+                        { name: INITIATIVE, value: attributes[INITIATIVE] },
+                        { name: EXTRA_INITIATIVE_AP, value: `+${extraAPOnFirstRound}` },
+                    ]}/>
                 </div>
             </div>
             <div className="wrapper description-wrapper combat-notes-wrapper">

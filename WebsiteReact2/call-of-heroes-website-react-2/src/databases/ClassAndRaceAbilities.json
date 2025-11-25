@@ -2670,7 +2670,7 @@
         "_Value": 0.5,
         "AlignOnWebsite": "Left",
         "A": "Passive",
-        "Effect": "After you cast a Spell or one of its variants, you can't cast that spell or variant again this Combat.\nYour base Unstable Spark also triggers on 9.\n",
+        "Effect": "Your base Unstable Spark also triggers on 9.\nAfter you cast a Spell or one of its variants, you can't cast that spell or variant again this Combat.\n",
         "Notes": "If you cast the 1st version Soulflare, you can still cast its other versions this Combat.",
         "ParentKey": "Level 2 - Keystone Talent"
     },
@@ -2685,7 +2685,7 @@
         "A": "Half-Action",
         "Range": "10 meters",
         "AlignOnWebsite": "Left",
-        "Effect": "A Unit must make a Charisma Roll at least equal to your last rolled Unstable Spark die or be Deafened, Slowed or Dazed (your choice).\n",
+        "Effect": "A Unit must make a Charisma Roll at least equal to your last rolled Unstable Spark die or be Deafened, Slowed or Dazed (your choice).\nif it fails, roll an Unstable Spark die.\n",
         "Notes": "What are you doing, just pick Wild Casting.",
         "ParentKey": "Level 2 - Keystone Talent"
     },
@@ -3824,7 +3824,7 @@
     },
     "~Roguish Talents~": {
         "A": "Special",
-        "Effect": "As a Rogue, you don't have Mana. However, from Level 3, all your Talents are Keystone Talents.",
+        "Effect": "As a Rogue, you don't have Mana. However, from Level 2, all your Talents are Keystone Talents.",
         "ParentKey": "Starting Abilities"
     },
     "~Bells and Whistles~": {
@@ -3881,7 +3881,8 @@
     "<Verge of the Coin>": {
         "_Value": 2,
         "A": "Passive",
-        "Effect": "Whenever YOU would Damage an Enemy leaving it at 10% Health or below, it dies, and you gain Gold equal to its Maximum Health.\n",
+        "Effect": "Whenever YOU would Damage an Enemy leaving it at 10% Health or below, it dies, and you gain {Gold}Gold equal to its Maximum Health.\n",
+        "HasMixins": true,
         "ParentKey": "Level 3 - Keystone Talent"
     },
     "<Pocket Sand>": {
@@ -3900,7 +3901,8 @@
         "Skill Bonuses": {
             "Hiding": 2
         },
-        "Effect": "You are able to hide in plain sigt so well tgat you start each Combat undetectable.\nWhile undetectable, you can make a free Movement Act each Turn.\nUndetectabilty ends if you deal more than 10 Damage or after 3 Turns.\n",
+        "Effect": "When Combat starts, you can start on any visible edge of the battlefield.\nThe first time you deal Damage each Combat, you can choose to reroll any of the rolled dice.\n",
+        "Notes": "You know the ins and outs of battlefields so well that you successfully reposition before anyone else notices.",
         "ParentKey": "Level 4 - Keystone Talent"
     },
     "<Bounty Appraisal>": {
@@ -3988,7 +3990,7 @@
         "HasMixins": true,
         "Effect": "When looting a _lootable object_ that _contains Worthy items_, you can spend any amount of gold to also loot an item worth up to twice the spent amount.",
         "Notes": "It is up to the Quest Master what a _lootable object_ is (could be a chest, the corpse of an enemy, etc). Also, it is up to the Quest Master what _Worthy items_ means (could be main quest items, magic items, or just a normal chest).",
-        "ParentKey": "Level 6 - Utility Talent"
+        "ParentKey": "Level 6 - Keystone Talent"
     },
     "<Minor Golden Ambush>": {
         "_Value": 3,
@@ -4060,7 +4062,7 @@
         "_Value": 2,
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "Immediately before or after you Shadowpass (your choice), all Units within 1 meter from you become Deafened.\n",
+        "Effect": "Immediately before or after you Shadowpass (your choice), all Units within 1 meter from you become Blinded.\nYour next attack deals +1d4 Damage.\n",
         "ParentKey": "Level 3 - Keystone Talent"
     },
     "<Critical Doubledown>": {
@@ -4075,7 +4077,7 @@
     "<One Turn Kill>": {
         "_Value": 1.35,
         "A": "Passive",
-        "Effect": "Whenever you take a Worthy Enemy from 50% (or more) to 0% Health in one Turn, heal for 1d8 and reset the Cooldown of Shadowpass.",
+        "Effect": "Whenever you take a Worthy Enemy from 50% (or more) to 0% Health in one Turn, heal for 1d8 and reset all your Cooldowns.",
         "ParentKey": "Level 4 - Keystone Talent"
     },
     "<Cutting Verve>": {
@@ -4104,7 +4106,7 @@
         "_Value": 3,
         "A": "0 Actions",
         "Cooldown": "Once / Adventure",
-        "Effect": "Mark a Unit you can see.\nWhenever YOU deal Damage to it until your next turn, remember the Damage done.\nAt the start of your next turn, the mark bursts and the Unit takes directly 33% of the Damage you dealt to it in this time period.\n",
+        "Effect": "Mark a Unit you can see.\nWhenever YOU deal Damage to it until your next Turn, remember the Damage done.\nAt the start of your next Turn, the mark bursts and the Unit takes directly 33% of the Damage you dealt to it in this time period.\n",
         "ParentKey": "Level 5 - Keystone Talent"
     },
     "<Planned Assassination>": {
@@ -6669,7 +6671,7 @@
             "Mobility",
             "Crowd Control"
         ],
-        "Effect": "Heal yourself for 1d4, or move 1d4 meters.\nThen deal 1d6 Smash Damage to a Unit, or Slam it 1d6 meters.\n\n{Teal('With Valor:')} No Cooldown\n{Teal('Next:')} Any other Ability\n",
+        "Effect": "Heal yourself for 1d4, or move 1d4 meters.\nThen deal 1d6 Smash Damage to a Unit, or Slam it 1d6 meters.\n\n{Teal('With Valor:')} This does not go on Cooldown\n{Teal('Next:')} Any other Ability\n",
         "Notes": "Use this to start a chain of Abilities With Valor!",
         "HasMixins": true,
         "ParentKey": "Starting Abilities"
@@ -6961,23 +6963,31 @@
         "ParentKey": "Level 2 - Keystone Talent"
     },
     "~Shade Bend~": {
-        "A": "Half-Action",
-        "Cooldown": "Once / Turn",
+        "_Value": 2.5,
+        "A": "0 Actions",
+        "Cooldown": "Once / Combat",
         "Effect": "Choose a shadow you can see.\nYou can manipulate the shape of this shadow and even extend it upward to attack for 1d6 and Deafen the target.\n",
+        "Upgrade": "This attack is able to trigger Ambush.",
         "ParentKey": "Level 3 - Keystone Talent"
     },
-    "<Magestep>": {
-        "_Value": 2,
-        "A": "0 Actions",
-        "Cooldown": "Once / real hour",
-        "Effect": "Teleport up to 3 meters away.\nYour next attack applies your Ambush if it didn't already, and all the Damage becomes Fire, Cold or Shock (your choice).\n",
-        "Downside": "Doesn't work with Thief's Ambush or Sudden Ambush.",
-        "ParentKey": "Level 4 - Keystone Talent"
+    "~Ghost Strike~": {
+        "A": "Passive",
+        "Effect": "When you Ambush, also deal 50% of the Ambush Damage to another Unit within 3 meters of the main target.",
+        "Notes": "Refers, for example, to the extra 1d8, not the entire attack's Damage.",
+        "ParentKey": "Level 3 - Keystone Talent"
     },
     "~Slowing Poison~": {
         "_Value": 1.5,
         "A": "Passive",
         "Effect": "Your weapons are coated in a potent poison.\nYour first weapon attack on each Unit with 50% or less Health deals +1d4 Poison Damage and Slows it.\n",
+        "ParentKey": "Level 4 - Keystone Talent"
+    },
+    "<Magestep>": {
+        "_Value": 1.5,
+        "A": "0 Actions",
+        "Cooldown": "Once / Adventure",
+        "Effect": "Teleport up to 3 meters away.\nYour next attack applies your Ambush if it wouldn't normally, and all the Damage becomes Fire, Cold or Shock (your choice).\n",
+        "Downside": "Doesn't work with Thief's Ambush or Sudden Ambush. The attack can Ambush even if it's the second time this Turn (or further).",
         "ParentKey": "Level 4 - Keystone Talent"
     },
     "<Gold Hoard>": {
@@ -7003,7 +7013,15 @@
                 "-10% Damage taken from all sources"
             ]
         },
-        "ParentKey": "Level 6 - Utility Talent"
+        "ParentKey": "Level 6 - Keystone Talent"
+    },
+    "<Draw Steel>": {
+        "A": "0 Actions",
+        "Cooldown": "Once / Adventure",
+        "Effect": "Refresh all your other Cooldowns, Ambushes, and retrigger any _start of Combat_ effects from your Abilities.",
+        "Notes": "Refreshing an Ambush means you can use it again this Turn if you already used it.",
+        "HasMixins": true,
+        "ParentKey": "Level 6 - Keystone Talent"
     },
     "~Savage Ambush~": {
         "_Value": 3.25,
@@ -7013,39 +7031,65 @@
         "HasMixins": true,
         "ParentKey": "Level 2 - Keystone Talent"
     },
+    "<Shadow Maw>": {
+        "A": "0 Actions",
+        "Cooldown": "Once / Adventure",
+        "Effect": "Open a 5x5 meter maw of shadows on the ground.\nAll Units caught take 3d6 Psychic Damage.\nThe shadow maw is completely dark and disorientig - if a Unit starts its Turn in the maw, it must begin by making a Movement Act in a random direction.\n",
+        "Upgrade": "Single-target attacks have no line of sight from, to and through the maw, and everything else has Cover.",
+        "ParentKey": "Level 5 - Keystone Talent"
+    },
     "~Flux~": {
         "A": "Passive",
-        "Effect": "Choose a Damage Type from the ones listed below. Some of your Spells's Damage deal that Damage Type (written explicitly on those Spells).",
-        "Notes": "1. Fire, 2. Cold, 3. Shock, 4. Pulse, 5. Poison, 6. Acid, 7. Divine, 8. Scourge.",
+        "Effect": "Choose a Damage Type from the ones listed below. That becomes your {Color('orange', 'Flux')} Type. Some of your Spells's Damage deal that Damage Type (written explicitly on those Spells).",
+        "Upgrade": "1. Fire, 2. Cold, 3. Shock, 4. Pulse, 5. Poison, 6. Acid, 7. Divine, 8. Scourge.",
+        "HasMixins": true,
         "ParentKey": "Starting Abilities"
+    },
+    "~Poetic Justice~": {
+        "A": "Reaction",
+        "Cooldown": "Once / real hour",
+        "Requirement": "Requires Level 3",
+        "Effect": "At any point where it's fit, you can call for a _poetic justice moment_, representing a living metaphor, turning a situation around, karma, irony, or coming full circle.\nIn the next 10 real minutes, an event may happen that can be interpreted as _poetic justice_, which could be either good or bad for your team.\nThe Quest Master may fumble one die roll or alter the current situation so that it reflects a _poetic moment_.\n",
+        "Upgrade": "There may be no place for poetic justice at that time, and it's possible nothing happens as the result of this.",
+        "Notes": "They can be events such as being saved by your worst enemy, or a xenophobic person being discriminated against by someone else who is xenophobic. Or perhaps a goblin dies by an arrow to the kn-, I mean shoulder, after he launched an arrow in someone else's shoulder.",
+        "HasMixins": true,
+        "ParentKey": "Utility"
+    },
+    "~Fracture Reality~": {
+        "A": "0 Actions",
+        "Cooldown": "Once / Adventure",
+        "Effect": "Lightly alter reality to change a small detail in a story or environment that does not have large consequences. All other characters believe it didn't change, and it's always been like that.\n",
+        "Upgrade": "This may not be the right time to fracture reality, and it's possible your request does not happen.",
+        "Notes": "They can be _Mandela effect_ events such as changing the color of an object, a character placing something in a different room, you having bought a certain item that you didn't buy. Ask the Quest Master if your request fits!",
+        "ParentKey": "Utility"
     },
     "~Chaos Storm~": {
         "A": "1 Action",
         "Requirement": "Only usable in Worthy Combat",
         "Effect": "Roll an Unstable Spark die (and apply its effect if any).\nDeal that much Damage of that Damage Type to exactly that many Worthy Units you can see.\n",
         "Notes": "Roll for a random Damage type from the following: 1. Pierce, 2. Slash, 3. Pulse, 4. Poison, 5. Acid, 6. Divine, 7. Scourge, 8. Shock, 9. Cold, 10. Fire.\nTargeting Worthy Units is mandatory, and you count as a Worthy Unit.\nIf your Unstable Spark is higher than 10, you can choose the Damage Type.\n",
-        "ParentKey": "Ability Choices"
+        "ParentKey": "Level 1 - Minor Talent"
     },
     "~Jolt~": {
         "A": "Half-Action",
-        "Effect": "Shoot a quick burst of current at a Unit, dealing 1d6 + ^Any Stat^ Damage (of your chosen Flux).\nThen roll an Unstable Spark die.\n",
+        "Effect": "Shoot a quick burst of current at a Unit, dealing 1d6 + ^Any Stat^ {Color('orange', 'Flux')} Damage.\nThen roll an Unstable Spark die.\n",
         "Downside": "Only usable if your last Unstable Spark die rolled was at least 6.\n",
         "HasMixins": true,
-        "ParentKey": "Ability Choices"
+        "ParentKey": "Level 1 - Minor Talent"
     },
     "~Gathering the Magic~": {
         "A": "0 Actions",
         "Cost": "1 Mana",
         "Requirement": "Only usable in Worthy Combat",
         "Effect": "For the rest of the Combat, whenever you roll 3 on the Unstable Spark die, gain +1 Skill Point permanently.\n",
-        "ParentKey": "Ability Choices"
+        "ParentKey": "Level 1 - Minor Talent"
     },
     "~Soulflare~": {
         "_Value": 0,
         "A": "Half-Action",
         "Range": "4 meters",
         "Cost": "1 Mana",
-        "Effect": "Deal {Amount} Damage to {ToWhat} (of your chosen Flux).\n\n~You have access to all Variants of this Spell (click on the icon to select the preferred effect)!~\n",
+        "Effect": "Deal {Amount} {Color('orange', 'Flux')} Damage to {ToWhat}.\n\n~You have access to all Variants of this Spell (click on the icon to select the preferred effect)!~\n",
         "Variants": [
             {
                 "DisplayA": "0 Actions",
@@ -7069,37 +7113,20 @@
             }
         ],
         "HasMixins": true,
-        "ParentKey": "Ability Choices"
+        "ParentKey": "Level 1 - Minor Talent"
     },
     "~Arcane Fire~": {
         "A": "Half-Action",
         "Requirement": "Only usable in Worthy Combat",
-        "Effect": "Your next weapon attack until the end of your next Turn deals extra Damage equal to your Highest Stat.\nThe attack's Damage Type becomes of your chosen Flux Type.\n",
-        "ParentKey": "Ability Choices"
+        "Effect": "Your next weapon attack until the end of your next Turn deals extra Damage equal to your last rolled Unstable Spark die and all its Damage dealt becomes {Color('orange', 'Flux')} Damage.\n",
+        "HasMixins": true,
+        "ParentKey": "Level 1 - Minor Talent"
     },
     "~Spellbloodweave~": {
         "A": "0 Actions",
         "Cost": "1 Mana",
-        "Effect": "Your next attack or offensive Spell deals -50% Damage, but heals an ally you can see for the Damage dealt.",
-        "ParentKey": "Ability Choices"
-    },
-    "~Poetic Justice~": {
-        "A": "Reaction",
-        "Cooldown": "Once / real hour",
-        "Requirement": "Requires Level 3",
-        "Effect": "At any point where it's fit, you can call for a _poetic justice moment_, representing a living metaphor, turning a situation around, karma, irony, or coming full circle.\nIn the next 10 real minutes, an event may happen that can be interpreted as _poetic justice_, which could be either good or bad for your team.\nThe Quest Master may fumble one die roll or alter the current situation so that it reflects a _poetic moment_.\n",
-        "Upgrade": "There may be no place for poetic justice at that time, and it's possible nothing happens as the result of this.",
-        "Notes": "They can be events such as being saved by your worst enemy, or a xenophobic person being discriminated against by someone else who is xenophobic. Or perhaps a goblin dies by an arrow to the kn-, I mean shoulder, after he launched an arrow in someone else's shoulder.",
-        "HasMixins": true,
-        "ParentKey": "Utility"
-    },
-    "~Fracture Reality~": {
-        "A": "0 Actions",
-        "Cooldown": "Once / Adventure",
-        "Effect": "Lightly alter reality to change a small detail in a story or environment that does not have large consequences. All other characters believe it didn't change, and it's always been like that.\n",
-        "Upgrade": "This may not be the right time to fracture reality, and it's possible your request does not happen.",
-        "Notes": "They can be _Mandela effect_ events such as changing the color of an object, a character placing something in a different room, you having bought a certain item that you didn't buy. Ask the Quest Master if your request fits!",
-        "ParentKey": "Utility"
+        "Effect": "Use after you make an attack or use an offensive Ability. It deals -50% Damage, but instead heals an ally you can see for the final Damage dealt.\n",
+        "ParentKey": "Level 1 - Minor Talent"
     },
     "~Throwback~": {
         "A": "Passive",
@@ -7108,8 +7135,9 @@
     },
     "<Tap>": {
         "A": "Passive",
-        "Effect": "When you roll 4 on the Unstable Spark die, deal 1d4 Damage (of your Flux Type). It gets affected by that effect:",
+        "Effect": "When you roll 4 on the Unstable Spark die, deal 1d4 {Color('orange', 'Flux')} Damage. It gets affected by that effect:\n",
         "Upgrade": "1. Single-Stun, 2. Blind, 3. Slow, 4. Frail",
+        "HasMixins": true,
         "ParentKey": "Level 3 - Keystone Talent"
     },
     "~Will You Just Die~": {
@@ -7127,7 +7155,7 @@
         "Cost": "1 Mana",
         "Replacement": "Replaces Soulflare",
         "Requirement": "Requires Soulflare",
-        "Effect": "Deal {Amount} Damage to {ToWhat} (of your chosen Flux).\n\n~You have access to all Variants of this Spell (click on the icon to select the preferred effect)!~\n",
+        "Effect": "Deal {Amount} {Color('orange', 'Flux')} Damage to {ToWhat}.\n\n~You have access to all Variants of this Spell (click on the icon to select the preferred effect)!~\n",
         "Notes": "~The Damage is higher than the regular Soulflare.~",
         "Variants": [
             {
@@ -7465,7 +7493,7 @@
         "Combat Extras": [
             "You can jump 3 meters without requiring a Check"
         ],
-        "Effect": "Your starting Stats distribution is 0, 0, 0, 2 (instead of -1, 0, 1, 2).\nYou have +1 Movement Speed\nYou can jump 3 meters without requiring a Check (e.g. over enemies, gaps, etc).\n",
+        "Effect": "Your starting Stats distribution is 0, 0, 1, 1, 3 (instead of -1, 0, 1, 2, 3).\nYou have +1 Movement Speed\nYou can jump 3 meters without requiring a Check (e.g. over enemies, gaps, etc).\n",
         "Notes": "Jumping still uses Movement.",
         "ParentKey": "Starting Abilities"
     },
@@ -8182,6 +8210,12 @@
     },
     "~Death Forsaken~": {
         "A": "Passive",
+        "Skill Bonuses": {
+            "Survival": 1
+        },
+        "Extras": [
+            "You can hold your breath for 1 hour"
+        ],
         "Effect": "You have a Shielding that can block up to 1d4 Damage. It replenishes at the start of each in-game day.\n\nYou are considered Undead. You can hold your breath for up to 1 hour. You don't need to eat food, but you do need water and sleep.\nYou have +1 in Survival.\n",
         "Downside": "+50% Fire Damage taken.",
         "Notes": "You walk between the living and the dead, a soul stitched back into flesh for reasons unknown. Perhaps you were a warrior, a scholar, or a thief when death claimed you... or perhaps even you cannot even remember who you once were, you poor, weak soul...\n",
@@ -8189,6 +8223,18 @@
     },
     "~Curse of Gray Flesh~": {
         "A": "Passive",
+        "Bonuses": {
+            "Movement Speed": -1,
+            "Initiative": -1,
+            "Might": 1,
+            "Max Health": 2
+        },
+        "Combat Extras": [
+            "Immune to Blind"
+        ],
+        "Skill Bonuses": {
+            "Control Emotions": 1
+        },
         "Effect": "You have -1 Movement Speed and -1 Initiative, but +1 Might and +2 Max Health.\nYou are immune to being Blinded.\nYou have +1 in Control Emotions.\n",
         "Notes": "You are afflicted by a curse of petrification, a gray, stone-like hardening that creeps over your flesh like slow-rolling mist. Perhaps it came from the gaze of a basilisk, the spite of a powerful curse, or a hereditary disease that has haunted your family for generations. The curse spreads on your body. Who knows how long you have until you can no longer move...\n",
         "ParentKey": "Talents"
@@ -8196,6 +8242,13 @@
     "~Stolen Soul~": {
         "A": "0 Actions",
         "Cooldown": "Once / real hour",
+        "Skill Bonuses": {
+            "Empathy": 2,
+            "Memory": -1
+        },
+        "Combat Extras": [
+            "Immune to Silence"
+        ],
         "Effect": "You know the locations of any living Units within 15 meters that are not obstructed by thick materials. One of them of your choice gets a Combo.\n\nPassively, you are immune to being Silenced.\nYou have +2 in Empathy but -1 in Memory.\n",
         "Notes": "You are a husk. Your soul lies someplace else, but it's tethered to your body by a fragile, almost invisible thread. Sensations reach you only as echoes, distant and muted, and the spark of creativity or clarity has dimmed. The voice in your mind is faint, your thoughts feel hollow, and the vision that once guided you seems blurred or absent. Perhaps you know where your soul lingers, or perhaps it is lost beyond reach...",
         "ParentKey": "Talents"
@@ -8203,6 +8256,11 @@
     "~Wendigo~": {
         "A": "0 Actions",
         "Cooldown": "Once / Adventure",
+        "Skill Bonuses": {
+            "Nature": 1,
+            "Tracking": 1,
+            "Control Emotions": -1
+        },
         "Effect": "Force a Unit that is not looking at you to run away from you, freely, at it Movement Speed. It gets a Combo.\n\nPassively, you have +1 in Nature and +1 in Tracking, but -1 in Control Emotions.\n",
         "Notes": "You have become a monster, your body gaunt and bony, skin stretched tight over hunger-wracked bones. This transformation is the mark of deeds too cruel or desperate to forget, a reminder of the inhuman acts that bound you to this cursed form. Perhaps you seek redemption for what you have done, or perhaps you wander, powerless to resist your cravings for raw flesh.",
         "ParentKey": "Talents"
@@ -8210,6 +8268,9 @@
     "~Touched by the Abyss~": {
         "A": "Half-Action",
         "Cooldown": "Once / Adventure",
+        "Skill Bonuses": {
+            "Swimming": 2
+        },
         "Requirement": "Requires being in a natural water source",
         "Effect": "Heal for 1d8.\n\nYou have +2 in Swimming.\n",
         "Notes": "The deep has claimed you. And your flesh no longer belongs to the world of men. Scales ripple across your body like the black tides of forgotten trenches, and writhing tentacles curl on your wretched body. The abyss is constant. Seductive. _Maddening_, tugging you toward horrors that twist both body and soul in ways no mortal was meant to endure.",
@@ -8217,12 +8278,19 @@
     },
     "~From a Different World~": {
         "A": "Passive",
+        "Skill Bonuses": {
+            "Luck": 1,
+            "Understanding People": -2
+        },
         "Effect": "You have access to Level 1 and Utility Sorcerer Talents (you don't get the regular bonuses of the Unstable Spark die, but you can choose your Magical Archetype).\nYou have +1 in Luck, but -2 in Understanding People.\n",
         "Notes": "You came from somewhere else, a place close enough to feel but too far to name. The air here tastes almost the same, the stars are nearly right, yet everything is slightly… off. Memories of it are fragments. The kingdoms were different, but you can't quite name them. People were different, but you're not sure how. How did you get here? Is there a way back? ^Should^ you go back?",
         "ParentKey": "Talents"
     },
     "~Blood Disease~": {
         "A": "Passive",
+        "Bonuses": {
+            "Health Regen": 1
+        },
         "Effect": "Whenever you heal with your Health Regen, flip a coin. On heads, you heal for +50%. On tails, you heal for -50%.\nYou have +1 Health Regen.\nYou are immune to minor diseases.\n",
         "Downside": "Potions and elixirs do not work on you.",
         "Notes": "Your blood flows with an unnatural vitality, coursing more efficiently than it should and bolstering your immune system in ways ordinary medicine cannot. But it aches and twists in ways you do not fully understand, and the price it demands is as hidden as it is inevitable.",
@@ -8230,19 +8298,36 @@
     },
     "~Gazed the Old One~": {
         "A": "Passive",
+        "Skill Bonuses": {
+            "General Knowledge": 1
+        },
         "Effect": "You have access to Level 1 Minor and Utility Warlock Talents (ignoring the Evoke effects).\nYou have bonus Initiative equal to the opposite of your Sense.\nYou have +1 in General Knowledge and the Fear of the Unknown Negative Quirk (Phobia).\n",
         "Notes": "Your eyes have glimpsed what should never be seen, and something ancient now stirs within your mind. The knowledge is intoxicating, the insight uncanny, the quiet of the mind impossible. The Old One watches...",
         "ParentKey": "Talents"
     },
     "~Mark of the Beast~": {
         "A": "Passive",
-        "Effect": "On the 3rd Round of Combat only, you have ^Dice Upgraded^ to the next die type on all physical Damage.\nYou have -1 Sense.\nYou have +1 in Nature, Animal Haldling and Survival.\n",
+        "Bonuses": {
+            "Sense": -1
+        },
+        "Skill Bonuses": {
+            "Nature": 1,
+            "Animal Handling": 1,
+            "Survival": 1
+        },
+        "Effect": "On the 3rd Round of Combat only, you have ^Dice Upgraded^ to the next die type on all physical Damage.\nYou have -1 Sense.\nYou have +1 in Nature, Animal Handling and Survival.\n",
         "Notes": "You have been marked with a visible, ever-bleeding scar. Claws sharpen, senses heighten, and a restless hunger stirs whenever you grow angry or desperate. You feel closer to the wild than to humanity, as if part of you is always prowling, always watching.",
         "HasMixins": true,
         "ParentKey": "Talents"
     },
     "~Pharaoh's Curse~": {
         "A": "Passive",
+        "Skill Bonuses": {
+            "Luck": -2
+        },
+        "Extras": [
+            "Everyone has -2 Luck"
+        ],
         "Effect": "At the start of every Combat, a random enemy becomes afflicted with a curse of locusts, and takes 1d4 Damage at the start of your every Turn.\nEverywhere you go, you bring with you bad weather, pests, and bad luck.\nEveryone within sight or hearing distance has -2 in Luck (including you).\n",
         "Notes": "The moment your fingers brushed the surface of that unearthed relic, or set foot in that forbidden tomb, the curse took root within you. ests swarm at times, crawling across your skin like locusts that no one else can see, and misfortune clings even to those who oppose you. This is the wrath and magic of someone ancient, maybe of a king long dead.",
         "ParentKey": "Talents"
@@ -8274,6 +8359,17 @@
     },
     "~Disfigured~": {
         "A": "Passive",
+        "Bonuses": {
+            "Health Regen": -1,
+            "Max Health": 3
+        },
+        "Combat Extras": [
+            "-50% Acid Damage taken",
+            "Immune to Cripple"
+        ],
+        "Skill Bonuses": {
+            "Convincing": -2
+        },
         "Effect": "You have -1 Health Regen, but +3 Max Health.\nYou take -50% Acid Damage and are immune to being Crippled.\nYou have -2 in Convincing.\n",
         "Notes": "Your body bears shapes that unsettle the eye, fingers that grow at odd angles, sometimes too many, a spine that curves in ways no ordinary body should, or a face that refuses symmetry. Perhaps it is a curse, a mark placed by some malicious force, or perhaps you were simply born this way, a malformed form in a world that prizes normality.",
         "ParentKey": "Talents"
@@ -8380,14 +8476,14 @@
     "~Augmented~": {
         "A": "Passive",
         "Bonuses": {
-            "Max Health": 2,
+            "Max Health": 1,
             "Health Regen": 1,
             "Charisma": -1
         },
         "Combat Extras": [
             "When rolling Event, something good or bad might happen"
         ],
-        "Effect": "You have +2 Max Health and +1 Health Regen, but -1 Charisma.\nWhen rolling an Event (two equal numbers on the 2d6), something slightly good or bad might happen to your body. The higher the roll, the better.\n",
+        "Effect": "You have +1 Max Health and +1 Health Regen, but -1 Charisma.\nWhen rolling an Event (two equal numbers on the 2d6), something slightly good or bad might happen to your body. The higher the roll, the better.\n",
         "ParentKey": "Talents"
     },
     "~Human Vigilence~": {
@@ -8405,7 +8501,7 @@
     },
     "~Apex of Evolution~": {
         "A": "Passive",
-        "Effect": "Your starting Stats distribution is -2, 0, 2, 3 (instead of -1, 0, 1, 2).\n",
+        "Effect": "Your starting Stats distribution is -2, -2, 3, 3, 3 (instead of -1, 0, 1, 2, 3).\n",
         "ParentKey": "Starting Abilities"
     },
     "~Trollskin~": {

@@ -90,9 +90,9 @@ const NAV_CONFIG = [
       { name: 'Update Notes',     href: '/Meta/PatchNotes' },
     ]},
     { name: 'Character Sheets', children: [
-      { name: 'Character Sheet (PDF)', isDownload: true, href: '/Download/Sheet-2023-03-24b.pdf' },
-      { name: 'Character Sheet (PSD)', isDownload: true, href: '/Download/Sheet-2024-06-16.psd' },
-      { name: 'Character Sheet (PNG)', isDownload: true, href: '/Download/Sheet-2024-04-28.png' },
+      { name: 'Character Sheet (PSD)', isDownload: true, href: '/Download/Sheet-2025-10-10.psd' },
+      { name: 'Character Sheet (PNG)', isDownload: true, href: '/Download/Sheet-2025-10-10.png' },
+      { name: 'Character Sheet (PDF)', isDownload: true, href: '/Download/Sheet-2023-03-24b.pdf', isDisabled: true },
     ]},
     { name: 'Content', children: [
       { name: 'Mount Hyhelm (Starter One-Shot)', isDownload: true, href: '', lock: 'premium' },

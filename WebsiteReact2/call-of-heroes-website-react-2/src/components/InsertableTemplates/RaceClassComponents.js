@@ -196,16 +196,22 @@ export function ClassFeatures({ theClass, hueShift }) {
 export function RaceFeatures({ theRace }) {
     return (
         <div id="race-features">
-            <PageH2>Race Features</PageH2>
+            <PageH2 className="center-text" hasMargin={false}>Race Features</PageH2>
 
             <TwoColumns>
                 <Column>
-                    <div className='with-margined-children'>
-                        <SmallStat name="Stat Distribution" className="column">{ normalizeTextWithStats(theRace.Creation['Stat Restrictions']) }</SmallStat>
-                        <SmallStat name="Max Health"><Icon name="Health" type="small-stat"/>{ theRace.Stats['Base Health'] } + ({BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[MAX_HEALTH]})</SmallStat>
-                        <SmallStat name="Health Regen"><Icon name="HealthRegen" type="small-stat"/> { theRace.Stats['Health Regen'] } + ({BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[HEALTH_REGEN]})</SmallStat>
-                        <SmallStat name="Movement Speed">4 + {BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[MOVEMENT_SPEED]}</SmallStat>
-                        <SmallStat name="Initiative">{BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[INITIATIVE]}</SmallStat>
+                    <div className='flex column gap-1'>
+                        { theRace.Creation?.['Stat Restrictions'] != null && <SmallStat name="Stat Distribution" className="column">{ normalizeTextWithStats(theRace.Creation['Stat Restrictions']) }</SmallStat>}
+                        <div>
+                            <SmallStat name="Max Health"><Icon name="Health" type="small-stat"/>{ theRace.Stats['Base Health'] } + ({BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[MAX_HEALTH]})</SmallStat>
+                        </div>
+                        <div>
+                            <SmallStat name="Health Regen"><Icon name="HealthRegen" type="small-stat"/> { theRace.Stats['Health Regen'] } + ({BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[HEALTH_REGEN]})</SmallStat>
+                        </div>
+                        <SmallStat name="Movement Speed" className="column">4, and add {BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[MOVEMENT_SPEED]}</SmallStat>
+                        <div>
+                            <SmallStat name="Initiative">{BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[INITIATIVE]}</SmallStat>
+                        </div>
                         { theRace.Weapons && <SmallStat name="Weapons" className="column">{ theRace.Weapons }</SmallStat> }
                         { theRace.Training && <SmallStat name="Other Training" className="column">{ theRace.Training }</SmallStat> }
                         { theRace.Language && <SmallStat name="Language" className="column">{ theRace.Language }</SmallStat> }
@@ -231,14 +237,18 @@ export function RaceFeatures({ theRace }) {
 export function CCRaceFeatures({ theRace }) {
     return (
         <div id="race-features">
-            <PageH2>Race Features</PageH2>
+            <PageH2 className="center-text" hasMargin={false}>Race Features</PageH2>
 
             <TwoColumns>
                 <Column>
-                    <div className='with-margined-children'>
+                    <div className="flex column gap-1">
                         <SmallStat name="Stat Distribution" className="column">{ normalizeTextWithStats(theRace.Creation['Stat Restrictions']) }</SmallStat>
-                        <SmallStat name="Base Health"><Icon name="Health" type="small-stat"/>{ theRace.Stats['Base Health'] }</SmallStat>
-                        <SmallStat name="Base Regen"><Icon name="HealthRegen" type="small-stat"/> { theRace.Stats['Health Regen'] }</SmallStat>
+                        <div>
+                            <SmallStat name="Base Health" className="inline-flex row"><Icon name="Health" type="small-stat"/>{ theRace.Stats['Base Health'] }</SmallStat>
+                        </div>
+                        <div>
+                            <SmallStat name="Base Regen" className="inline-flex row"><Icon name="HealthRegen" type="small-stat"/> { theRace.Stats['Health Regen'] }</SmallStat>
+                        </div>
                         { theRace.Weapons && <SmallStat name="Weapons" className="column">{ theRace.Weapons }</SmallStat> }
                         { theRace.Training && <SmallStat name="Other Training" className="column">{ theRace.Training }</SmallStat> }
                         { theRace.Language && <SmallStat name="Language" className="column">{ theRace.Language }</SmallStat> }
@@ -264,8 +274,8 @@ export function CCRaceFeatures({ theRace }) {
 
 export function RacialFeats({ theRace }) {
     return (<div>
-        <PageH2>Racial Ability Choice</PageH2>
-        <p>Choose one of the following Abilities and get it permanently.</p>
+        <PageH2 className="center-text" hasMargin={false}>Race Talents</PageH2>
+        <p>Choose 2 of the following Abilities and get them permanently.</p>
         <ManySpells spells={U.spellsFromObject(theRace.Talents)}/>
     </div>)
 }
