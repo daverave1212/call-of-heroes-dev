@@ -9,7 +9,8 @@ import Icon from "../../../components/Icon"
 import { useConstBonusesFromSpellsAndItems, useConstTotalStats } from "./MyCharacter"
 import Input from "../../../components/Input/Input"
 import { useExperience, useLevel, useSectionRaceName, useSectionStatsState } from "./CharacterData"
-import { AttributeCalculationTextComponent, calculateExperienceByLevel, calculateStatsToAttributesObject, checkStatRequirements, DEFAULT_STAT_ARRAY, STAT_ICON_NAME_MAP, STAT_NAMES } from "../../../services/game-lib/stat-calculations"
+import { AttributeCalculationTextComponent, calculateExperienceByLevel, calculateExtraFirstTurnAPByInitiative, calculateStatsToAttributesObject, checkStatRequirements, DEFAULT_STAT_ARRAY, EXTRA_INITIATIVE_AP, INITIATIVE, STAT_ICON_NAME_MAP, STAT_NAMES } from "../../../services/game-lib/stat-calculations"
+import classNames from "classnames"
 
 
 
@@ -137,7 +138,7 @@ export default function SectionStats() {
             <TwoColumns className='margin-top-half'>
                 <Column>
                     <div>
-                        <SmallStat name={name} className="row large">
+                        <SmallStat name={name} className={`row large`}>
                             { value }
                             &nbsp;<Icon name={iconName}/>
                         </SmallStat>    
@@ -170,7 +171,7 @@ export default function SectionStats() {
             </div>
             <div className="center-content">
                 <QGTitle1 text="Stats" height={60}/>
-                <p>As standard, use the numbers {DEFAULT_STAT_ARRAY} and distribute them as you like among the 5 stats.</p>
+                <p>Use the numbers {DEFAULT_STAT_ARRAY.join(', ')} and distribute them as you like among the 5 stats.</p>
                 <p>{ myRace && myRace?.Creation?.['Stat Restrictions'] != null && <span>Pay attention to your races's stat <i>restrictions</i>: {myRace?.Creation?.['Stat Restrictions']}</span> }</p>
             </div>
             <div className="center-content flex" style={{gap: '2rem'}}>

@@ -45,6 +45,7 @@ export const STAT_ICON_NAME_MAP = {
     [MOVEMENT_SPEED]: 'Speed',
     [KNOWN_ABILITIES]: 'Spell',
     [INITIATIVE]: 'Replacement',
+    [EXTRA_INITIATIVE_AP]: 'Hand'
 }
 export const ALL_ATTRIBUTES_0 = {
     [MAX_HEALTH]: 0,
@@ -63,11 +64,13 @@ export function getBaseAttributes(raceObj) {
     }
 }
 export function calculateStatsToAttributesObject(statArray) {
+    const calculatedInitiative = statArray[4] * 3
     return {
         [MAX_HEALTH]: statArray[0] * 3,
         [HEALTH_REGEN]: statArray[3] * 2,
         [MOVEMENT_SPEED]: Math.floor(statArray[1] / 2),
         [INITIATIVE]: statArray[4] * 3,
+        [EXTRA_INITIATIVE_AP]: calculateExtraFirstTurnAPByInitiative(calculatedInitiative),
         [KNOWN_ABILITIES]: statArray[2]
     }
 }
@@ -96,7 +99,7 @@ export const ATTRIBUTES_CALCULATIONS_SPANS = {
     [HEALTH_REGEN]: () => <span>Your <b>{HEALTH_REGEN}</b> = Race Health Health + {BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[HEALTH_REGEN]}</span>,
     [MOVEMENT_SPEED]: () => <span>Your <b>{MOVEMENT_SPEED}</b> = 4 + {BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[MOVEMENT_SPEED]}</span>,
     [INITIATIVE]: () => <span>Your <b>{INITIATIVE}</b> = {BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[INITIATIVE]}</span>,
-    [EXTRA_INITIATIVE_AP]: () => <span>Your <b>{EXTRA_INITIATIVE_AP}</b> = {BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[EXTRA_INITIATIVE_AP]}</span>,
+    [EXTRA_INITIATIVE_AP]: () => <span>On your first Turn every Combat, you have extra Action Points = {BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[EXTRA_INITIATIVE_AP]}</span>,
     [KNOWN_ABILITIES]: () => <span>Your can have a number of <br/>extra <b>{KNOWN_ABILITIES}</b> = {BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[KNOWN_ABILITIES]}</span>,
 }
 export function AttributeCalculationTextComponent({statName}) {

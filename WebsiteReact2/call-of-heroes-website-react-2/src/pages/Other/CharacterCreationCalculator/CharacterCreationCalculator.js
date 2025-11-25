@@ -31,7 +31,7 @@ import SectionFeats from "./SectionFeats";
 import SectionShop from "./SectionShop";
 import SectionRace from "./SectionRace";
 import SectionClass from "./SectionClass";
-import { NO_CHARACTER_ID, getCurrentCharacterFromLocalStorage, newCharacterLS, setCharacterToLocalStorage, setCurrentCharacterId, useChoiceAbiliesObjects, useCurrentCharacterId, useMyCharactersDB, useSectionNamesState } from "./CharacterData";
+import { NO_CHARACTER_ID, clearCurrentCharacter, getCurrentCharacterFromLocalStorage, newCharacterLS, setCharacterToLocalStorage, setCurrentCharacterId, useChoiceAbiliesObjects, useCurrentCharacterId, useMyCharactersDB, useSectionNamesState } from "./CharacterData";
 import { SelectorsByColumns } from "../Abilities";
 import { showSuccessMessage } from "../../../services/MessageDisplayer";
 import Dialog from "../../../components/Dialog/Dialog";
@@ -66,6 +66,7 @@ export function classesRacesObjectToArrays(bigObj) {
 }
 
 function MyCharacters() {
+    let [activeTabI, setActiveTabI, last] = useCCCTabs()
     let [myCharacters, saveCharacters] = useMyCharactersDB('CCC.MyCharacters')
     let [currentCharacterId, setCurrentCharacterId] = useCurrentCharacterId()
 
@@ -89,6 +90,8 @@ function MyCharacters() {
         const newMyCharacters = myCharacters.filter(char => char.id != currentCharacterId)
         saveCharacters(newMyCharacters)
         setCurrentCharacterId(null)
+        clearCurrentCharacter()
+        setActiveTabI(1)    // Name and Portrait
     }
 
     return (

@@ -96,8 +96,11 @@ export function getCurrentCharacterFromLocalStorage() {
 export function setCharacterToLocalStorage(character) {
     const newCharacterTemplate = getNewCharacterTemplate()
     for (const key of Object.keys(newCharacterTemplate)) {
-        setLocalStorageJSON('character.' + key, character[key] == null? newCharacterTemplate[key]: character[key])
+        setLocalStorageJSON('character.' + key, character?.[key] == null? newCharacterTemplate[key]: character[key])
     }
+}
+export function clearCurrentCharacter() {
+    setCharacterToLocalStorage(null)
 }
 let myCharactersFromDBTestCache = []
 export function useMyCharactersDB(locationInCode) {
