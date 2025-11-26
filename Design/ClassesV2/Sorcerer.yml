@@ -46,6 +46,11 @@ Spellcasting:
   Known Basic Abilities: 3 + Intelligence (minimum 1)
   BaseKnownSpells: 3
 
+Starting Abilities Description:
+  - Unstable Spark: |
+      As a Sorcerer (or Sorceress), your bread-and-butter feature is the Unstable Spark die: your aim is to have it trigger as many times as possible, and add as many effects to it as you can! Many of your Abilities will make you roll more Unstable Spark dice, which are used in more ways than just determining what effect happens on that number. You'll see!
+  - Flux: |
+      Whenever you see Flux Type, it just means the element you chose. If you chose Fire, "Flux" means exactly "Fire".
 
 
 Starting Abilities:
@@ -132,6 +137,8 @@ Talents:
 
     ~Jolt~:
       A: Half-Action
+      Range: 5 meters
+      Requirement: Only usable in Worthy Combat
       Effect: |
         Shoot a quick burst of current at a Unit, dealing 1d6 + ^Any Stat^ {Color('orange', 'Flux')} Damage.
         Then roll an Unstable Spark die.
@@ -183,44 +190,9 @@ Talents:
 
   Level 2 - Keystone Talent:
 
-    <Guiled Casting>:
-      _Value: 0.5
-      A: Passive
-      AlignOnWebsite: Left
-      Effect: |
-        When you roll 2 on the Unstable Spark die, after taking the Damage, you deal +1 Damage of a random Damage Type _permanently_ as long as you have this Talent.
-      Notes: 1. Fire, 2. Cold, 3. Shock, 4. Pulse, 5. Poison, 6. Acid, 7. Divine, 8. Scourge.
-
-    <Mild Casting>:
-      _Value: 0.5
-      AlignOnWebsite: Left
-      A: Passive
-      Effect: |
-        Your base Unstable Spark also triggers on 9.
-        After you cast a Spell or one of its variants, you can't cast that spell or variant again this Combat.
-      Notes: If you cast the 1st version Soulflare, you can still cast its other versions this Combat.
-
-    <Viled Casting>:
-      A: Passive
-      AlignOnWebsite: Left
-      Effect: 
-        All non-physical Damage you deal becomes Eldritch Damage.
-        When you roll 2 on the Unstable Spark die, increase all Eldritch Damage you deal for the rest of the combat by 3. Then roll another Unstable Spark die.
-
-    <Sap>:
-      _Value: 1
-      A: Half-Action
-      Range: 10 meters
-      AlignOnWebsite: Left
-      Effect: |
-        A Unit must make a Charisma Roll at least equal to your last rolled Unstable Spark die or be Deafened, Slowed or Dazed (your choice).
-        if it fails, roll an Unstable Spark die.
-      Notes: What are you doing, just pick Wild Casting.
-
 
     <Wild Casting>:
       _Value: 0.5
-      AlignOnWebsite: Right
       A: Passive
       Effect: |
         When you roll the Unstable Spark die, if you roll 1 or 2, roll 1d20 (after taking Damage on 1). The Quest Master freely casts that Spell from the table below.
@@ -271,6 +243,42 @@ Talents:
         - Name: 20. Resurrection
           Effect: 1 to 3 dead or Fallen Units come back to life (without Exhaustion) with 1 to full Health.
 
+
+    <Guiled Casting>:
+      _Value: 0.5
+      A: Passive
+      AlignOnWebsite: Left
+      Effect: |
+        When you roll 2 on the Unstable Spark die, after taking the Damage, you deal +1 Damage of a random Damage Type _permanently_ as long as you have this Talent.
+      Notes: 1. Fire, 2. Cold, 3. Shock, 4. Pulse, 5. Poison, 6. Acid, 7. Divine, 8. Scourge.
+
+    <Mild Casting>:
+      _Value: 0.5
+      AlignOnWebsite: Left
+      A: Passive
+      Effect: |
+        Your base Unstable Spark also triggers on 9.
+        After you cast a Spell or one of its variants, you can't cast that spell or variant again this Combat.
+      Notes: If you cast the 1st version Soulflare, you can still cast its other versions this Combat.
+
+    <Viled Casting>:
+      A: Passive
+      AlignOnWebsite: Left
+      Effect: 
+        All non-physical Damage you deal becomes Eldritch Damage.
+        When you roll 2 on the Unstable Spark die, increase all Eldritch Damage you deal for the rest of the combat by 3. Then roll another Unstable Spark die.
+
+    <Sap>:
+      _Value: 1
+      A: Half-Action
+      Range: 10 meters
+      AlignOnWebsite: Left
+      Effect: |
+        A Unit must make a Charisma Roll at least equal to your last rolled Unstable Spark die or be Deafened, Slowed or Dazed (your choice).
+        If it passes, roll an Unstable Spark die.
+      Notes: What are you doing, just pick Wild Casting.
+
+
   Level 3 - Keystone Talent:
 
     ~Throwback~:
@@ -305,6 +313,19 @@ Talents:
       Effect: |
         When you roll 4 on the Unstable Spark die, deal 1d4 {Color('orange', 'Flux')} Damage. It gets affected by that effect:
       Upgrade: 1. Single-Stun, 2. Blind, 3. Slow, 4. Frail
+
+    ~Font Magic~:
+      _Value: 0
+      A: Passive
+      HasMixins: true
+      Effect: |
+        You may select a `Magic Font$/Other/MagicFonts` to pick Minor Talents from.
+        You get a free Magic Font Minor Talent.
+        Gain +1 Intelligence (up to +4).
+      Notes: |
+        All Magic Font Abilities are Minor Talents.
+        You can get more Magic Font Minor Talents as if you're getting normal Minor Talents (e.g. a number of them equal to your Intellgience).
+
 
   Level 4 - Minor Talent:
 
@@ -358,6 +379,19 @@ Talents:
             You should probably assign the higher number to the target you want to do most Damage to.
             You can declare fewer targets, but then the missing number will deal Damage to no target.
             Cover is applied normally.
+
+    ~Arc Jolt~:
+      A: Half-Action
+      Range: 5 meters
+      Replacement: Replaces Jolt
+      Requirement: Requires Jolt
+      IconName: Jolt
+      HasUpgradeIcon: true
+      Effect: |
+        Shoot a quick burst of current at a Unit, dealing ~1d10~ + ^Any Stat^ {Color('orange', 'Flux')} Damage.
+        Then roll an Unstable Spark die.
+      Downside: |
+        Only usable if your last Unstable Spark die rolled was at least 6.
 
   Level 6 - Utility Talent:
 

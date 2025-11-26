@@ -26,6 +26,14 @@
         "Known Basic Abilities": "3 + Intelligence (minimum 1)",
         "BaseKnownSpells": 3
     },
+    "Starting Abilities Description": [
+        {
+            "Unstable Spark": "As a Sorcerer (or Sorceress), your bread-and-butter feature is the Unstable Spark die: your aim is to have it trigger as many times as possible, and add as many effects to it as you can! Many of your Abilities will make you roll more Unstable Spark dice, which are used in more ways than just determining what effect happens on that number. You'll see!\n"
+        },
+        {
+            "Flux": "Whenever you see Flux Type, it just means the element you chose. If you chose Fire, \"Flux\" means exactly \"Fire\".\n"
+        }
+    ],
     "Starting Abilities": {
         "~Unstable Spark~": {
             "_Value": 1.5,
@@ -99,6 +107,8 @@
             },
             "~Jolt~": {
                 "A": "Half-Action",
+                "Range": "5 meters",
+                "Requirement": "Only usable in Worthy Combat",
                 "Effect": "Shoot a quick burst of current at a Unit, dealing 1d6 + ^Any Stat^ {Color('orange', 'Flux')} Damage.\nThen roll an Unstable Spark die.\n",
                 "Downside": "Only usable if your last Unstable Spark die rolled was at least 6.\n",
                 "HasMixins": true,
@@ -157,41 +167,8 @@
             }
         },
         "Level 2 - Keystone Talent": {
-            "<Guiled Casting>": {
-                "_Value": 0.5,
-                "A": "Passive",
-                "AlignOnWebsite": "Left",
-                "Effect": "When you roll 2 on the Unstable Spark die, after taking the Damage, you deal +1 Damage of a random Damage Type _permanently_ as long as you have this Talent.\n",
-                "Notes": "1. Fire, 2. Cold, 3. Shock, 4. Pulse, 5. Poison, 6. Acid, 7. Divine, 8. Scourge.",
-                "HasMixins": true,
-                "ParentKey": "Level 2 - Keystone Talent"
-            },
-            "<Mild Casting>": {
-                "_Value": 0.5,
-                "AlignOnWebsite": "Left",
-                "A": "Passive",
-                "Effect": "Your base Unstable Spark also triggers on 9.\nAfter you cast a Spell or one of its variants, you can't cast that spell or variant again this Combat.\n",
-                "Notes": "If you cast the 1st version Soulflare, you can still cast its other versions this Combat.",
-                "ParentKey": "Level 2 - Keystone Talent"
-            },
-            "<Viled Casting>": {
-                "A": "Passive",
-                "AlignOnWebsite": "Left",
-                "Effect": "All non-physical Damage you deal becomes Eldritch Damage. When you roll 2 on the Unstable Spark die, increase all Eldritch Damage you deal for the rest of the combat by 3. Then roll another Unstable Spark die.",
-                "ParentKey": "Level 2 - Keystone Talent"
-            },
-            "<Sap>": {
-                "_Value": 1,
-                "A": "Half-Action",
-                "Range": "10 meters",
-                "AlignOnWebsite": "Left",
-                "Effect": "A Unit must make a Charisma Roll at least equal to your last rolled Unstable Spark die or be Deafened, Slowed or Dazed (your choice).\nif it fails, roll an Unstable Spark die.\n",
-                "Notes": "What are you doing, just pick Wild Casting.",
-                "ParentKey": "Level 2 - Keystone Talent"
-            },
             "<Wild Casting>": {
                 "_Value": 0.5,
-                "AlignOnWebsite": "Right",
                 "A": "Passive",
                 "Effect": "When you roll the Unstable Spark die, if you roll 1 or 2, roll 1d20 (after taking Damage on 1). The Quest Master freely casts that Spell from the table below.\nIf you rolled 2 on the Unstable Spark die, the effect is negative for your team. Otherwise, it's positive.\nThe lower Health you are, the more intense the effect (probably).\n",
                 "Notes": "For example, if you roll 1 and the random Spell is Fire Enchantment, it will be cast on an enemy's weapon if possible (respecting the range). If not possible, then it will be cast on a random, non-Player Character's weapon. If not possible, then it will be cast on a Player Character's weapon. If nothing is possible, nothing happens.\nIf an effect can be cancelled or has ongoing effects, you have control of them as if you yourself had cast the Spell.\n",
@@ -278,6 +255,38 @@
                     }
                 ],
                 "ParentKey": "Level 2 - Keystone Talent"
+            },
+            "<Guiled Casting>": {
+                "_Value": 0.5,
+                "A": "Passive",
+                "AlignOnWebsite": "Left",
+                "Effect": "When you roll 2 on the Unstable Spark die, after taking the Damage, you deal +1 Damage of a random Damage Type _permanently_ as long as you have this Talent.\n",
+                "Notes": "1. Fire, 2. Cold, 3. Shock, 4. Pulse, 5. Poison, 6. Acid, 7. Divine, 8. Scourge.",
+                "HasMixins": true,
+                "ParentKey": "Level 2 - Keystone Talent"
+            },
+            "<Mild Casting>": {
+                "_Value": 0.5,
+                "AlignOnWebsite": "Left",
+                "A": "Passive",
+                "Effect": "Your base Unstable Spark also triggers on 9.\nAfter you cast a Spell or one of its variants, you can't cast that spell or variant again this Combat.\n",
+                "Notes": "If you cast the 1st version Soulflare, you can still cast its other versions this Combat.",
+                "ParentKey": "Level 2 - Keystone Talent"
+            },
+            "<Viled Casting>": {
+                "A": "Passive",
+                "AlignOnWebsite": "Left",
+                "Effect": "All non-physical Damage you deal becomes Eldritch Damage. When you roll 2 on the Unstable Spark die, increase all Eldritch Damage you deal for the rest of the combat by 3. Then roll another Unstable Spark die.",
+                "ParentKey": "Level 2 - Keystone Talent"
+            },
+            "<Sap>": {
+                "_Value": 1,
+                "A": "Half-Action",
+                "Range": "10 meters",
+                "AlignOnWebsite": "Left",
+                "Effect": "A Unit must make a Charisma Roll at least equal to your last rolled Unstable Spark die or be Deafened, Slowed or Dazed (your choice).\nIf it passes, roll an Unstable Spark die.\n",
+                "Notes": "What are you doing, just pick Wild Casting.",
+                "ParentKey": "Level 2 - Keystone Talent"
             }
         },
         "Level 3 - Keystone Talent": {
@@ -315,6 +324,14 @@
                 "Effect": "When you roll 4 on the Unstable Spark die, deal 1d4 {Color('orange', 'Flux')} Damage. It gets affected by that effect:\n",
                 "Upgrade": "1. Single-Stun, 2. Blind, 3. Slow, 4. Frail",
                 "HasMixins": true,
+                "ParentKey": "Level 3 - Keystone Talent"
+            },
+            "~Font Magic~": {
+                "_Value": 0,
+                "A": "Passive",
+                "HasMixins": true,
+                "Effect": "You may select a `Magic Font$/Other/MagicFonts` to pick Minor Talents from.\nYou get a free Magic Font Minor Talent.\nGain +1 Intelligence (up to +4).\n",
+                "Notes": "All Magic Font Abilities are Minor Talents.\nYou can get more Magic Font Minor Talents as if you're getting normal Minor Talents (e.g. a number of them equal to your Intellgience).\n",
                 "ParentKey": "Level 3 - Keystone Talent"
             }
         },
@@ -368,6 +385,18 @@
                 "Cost": "1 Mana",
                 "Effect": "Declare up to 4 different targets you can see.\nAssign a different number from #1 to #4 to each.\nRoll a number of d4's equal to your last rolled Unstable Spark die. Each d4 rolled deals that much Pulse Damage to the target with that number.\nEach rolled 1 deals 1 Damage to target number #1, each rolled 2 deals 2 Damage to target number #2, and so on.\n",
                 "Notes": "E.g. if you put #2 on a goblin, and you roll three 2's on the d4's, then that goblin takes 6 Pulse Damage.\nYou should probably assign the higher number to the target you want to do most Damage to.\nYou can declare fewer targets, but then the missing number will deal Damage to no target.\nCover is applied normally.\n",
+                "ParentKey": "Level 4 - Minor Talent"
+            },
+            "~Arc Jolt~": {
+                "A": "Half-Action",
+                "Range": "5 meters",
+                "Replacement": "Replaces Jolt",
+                "Requirement": "Requires Jolt",
+                "IconName": "Jolt",
+                "HasUpgradeIcon": true,
+                "Effect": "Shoot a quick burst of current at a Unit, dealing ~1d10~ + ^Any Stat^ {Color('orange', 'Flux')} Damage.\nThen roll an Unstable Spark die.\n",
+                "Downside": "Only usable if your last Unstable Spark die rolled was at least 6.\n",
+                "HasMixins": true,
                 "ParentKey": "Level 4 - Minor Talent"
             }
         },

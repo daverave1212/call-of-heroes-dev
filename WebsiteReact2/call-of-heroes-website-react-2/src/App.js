@@ -117,6 +117,7 @@ import { ClassPage } from './components/InsertableTemplates/RaceClassComponents'
 import RulesAll from './pages/Other/RulesAll';
 import ClassBalance from './pages/Meta/ClassBalance';
 import MagicFonts from './pages/Other/MagicFonts';
+import DictionaryGenerator from './pages/Tools/DictionaryGenerator';
 
 function App() {
 
@@ -229,6 +230,7 @@ function App() {
           <Route path="/Tools/TreasureGenerator" element={ <TreasureGenerator/> }/>
           <Route path="/Tools/DungeonGenerator" element={ <DungeonGenerator/> }/>
           <Route path="/Tools/RunePuzzle" element={ <RunePuzzle/> }/>
+          <Route path="/Tools/DictionaryGenerator" element={ <DictionaryGenerator/> }/>
           <Route path="/Tools/TitleGenerator" element={ <TitleGenerator/> }/>
           <Route path="/Tools/CharacterCreationCalculator" element = { <CharacterCreationCalculator/> }/>
           <Route path="/Tools/HomebrewBookCreator" element = { <HomebrewBookCreator/> }/>

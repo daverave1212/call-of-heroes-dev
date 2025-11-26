@@ -101,12 +101,13 @@ Starting Abilities:
   ~Actions With Valor~:
     A: Passive
     Effect: |
-      Your Abilities and attacks have bonus effects if made {Teal('With Valor')}.
+      Your Abilities and attacks in Worthy Combat have bonus effects if made {Teal('With Valor')}.
       An Ability triggers its {Teal('Valor')} effect if it was made immediately after another Ability's {Teal('Next')}.
-    Notes: For example, on your first Turn, you use Knockback (Level 1 Minor Talent). It does not trigger the With Valor part, so you Slam a Unit 1d4 meter. It says "Offensive Damage Ability" at "Next", so you use Row Through, which activates its With Valor effect, hitting one more. It says "Healing Ability" at "Next", so you can use Stand Strong, Fellows to heal for 1d4 instead of 1d2. And so on.
+    Upgrade: Valor carries on to the next Turn, but not to the next Combat (you start each Combat without Valor).
+    Notes: For example, on your first Turn, you use Knockback (Level 1 Minor Talent). It does not trigger the With Valor part, so you Slam a Unit 1d4 meter. It says "Offensive Damage Ability" at "Next", so you use Row Through, which activates its With Valor effect, hitting one more. It says "Healing Ability" at "Next", so you can use Stand Strong, Fellows to heal for 1d4 instead of 1d2. And so on. You can't activate With Valor or Next outside Worthy Combat. You start each Worthy Combat without Valor.
 
   ~Challenge of Arms~:
-    _Value: 0.5
+    _Value: 2 # About 0.5 Damage and 0.5 movement per Combat, * 2 = 2-ish
     A: Half-Action
     Cooldown: Once / Combat
     Requirement: Only usable in Worthy Combat
@@ -115,31 +116,25 @@ Starting Abilities:
     Tags: [Damage, Healing, Mobility, Crowd Control]
     Effect: |
       Heal yourself for 1d4, or move 1d4 meters.
-      Then deal 1d6 Smash Damage to a Unit, or Slam it 1d6 meters.
+      Then deal 1d8 Smash Damage to a Unit, or Slam it 1d6 meters.
 
-      {Teal('With Valor:')} This does not go on Cooldown
+      {Teal('With Valor:')} Do it again!
       {Teal('Next:')} Any other Ability
-    Notes: Use this to start a chain of Abilities With Valor!
-
-  ~Paragon of Strength~:
-    _Value: 1
-    A: Passive
-    Effect: Your Stat Limit is 1 higher. You start with +1 in 2 Stats of choice.
-
+    Notes: Use this to start a chain of Abilities With Valor! When you repeat this, choose the effects again and roll dice as normal. Obviously, the repeat does not retrigger another repeat.
 
 Talents:
 
   Level 1 - Minor Talent:
 
     ~Row Through~:
-      _Value: 1
+      _Value: 1.5
       A: Depends on weapon
       Cooldown: Once / Turn
-      Tags: [Damage, Area Damge]
+      Tags: [Damage, Area Damage]
       Effect: |
         Make a weapon attack with +1 Range.
         
-        {Teal('With Valor:')} Hits one more Unit within 2 meters of the main target with -50% Damage.
+        {Teal('With Valor:')} +1d4 Damage and hits one more Unit within 2 meters of the main target with -50% Damage.
         {Teal('Next:')} Healing Ability
 
     ~Stand Strong, Fellows~:
@@ -190,9 +185,9 @@ Talents:
       Cooldown: Once / Turn
       Tags: [Damage, Combo]
       Effect: |
-        Make a weapon attack that deals Damage. The target gains a Combo.
+        Make a weapon attack. The target gains a Combo.
 
-        {Teal('With Valor:')} +2 Damage for each Action Point it costs.
+        {Teal('With Valor:')} +1d4 Damage for each Action Point it costs.
         {Teal('Next:')} Movement Ability
 
     ~Self-Sacrifice~:
@@ -230,33 +225,70 @@ Talents:
       Cooldown: Once / Turn
       Tags: [Crowd Control, Gold Generation]
       Effect: |
-        Single-Stun a Unit. Gain 1d10 {Gold}Gold.
+        Single-Stun a Unit.
 
-        {Teal('With Valor:')} Double-Stun instead, or 4d10 Gold instead.
+        {Teal('With Valor:')} Double-Stun instead and gain 4d10 {Gold}Gold.
         {Teal('Next:')} Healing Ability
 
   Level 3 - Keystone Talent:
 
-    <Fellowship Aura>:
+    ~Creed of the Crown~:  # Improves Movement and Gold Generation
+      _Value: 3
+      A: Special
+      Effect: |
+        You serve the realm above all else. Your sword defends law, order, and your liege's will.
+
+        You are immune to being Slowed, Rooted, and to Hard Terrain.
+        At the end of your Turn, give yourself or an ally a Shielding equal to 50% and gain {Gold}Gold equal to 200% the number of meters you moved this Turn.
+    
+    ~Creed of the Rose~:  # Improves Healing and Shielding
+      _Value: 3
+      A: Special
+      Bonuses:
+        Max Health: 4
+      Effect: |
+        You are the knight of beauty and grace, a protector of the innocent, and a paragon of compassion.
+
+        You get +4 Max Health.
+        All your Healing or Shielding Abilities not done with Valor are automatically made with Valor.
+        If they were already done with Valor, they do +50% Healing or Shielding.
+
+    ~Creed of the Dragon~:  # Improves Damage + Combo (though not specified)
+      _Value: 2.5
+      A: Special
+      Requirement: Requires finding a dragon patron
+      Effect: |
+        You swear your allegiance to an elder dragon you have encountered on your journey.
+        
+        You take -50% Damage from that dragon's element Type.
+        When dealing Damage with an Ability that was cast With Valor, 50% of the main target's Damage is also dealt to all Units within 1 meter of the target (of your dragon's element Type).
+
+    ~Creed of Vengeance~:   # Improves Crowd Control + Buffs
+      A: Special
+      Requirement: Requires having been betrayed this Campaign
       _Value: 2
-      A: Passive
       Effect: |
-        You stand out for allies near you.
-        Enemy ranged attacks against other allies within 1 meter of you have Cover.
-      Notes: Nothing happens if an ally near you already has Cover. If playing on a grid, this does work for allies diagonally.
+        Justice has failed. Your oath was broken, your faith was betrayed, but you swore a new one: to hunt those who wronged you and make the world remember.
 
-    <Banner of Honor>:
-      A: 2.5
-      Cooldown: Once / Adventure
-      Duration: 
+        Whenever you buff an Ally, also apply that buff to yourself.
+        Once per Ability, when applying Crowd Control to a Unit, it takes 1d4 Scourge Damage. Then another Unit within 2 meters of it must pass a Might Roll at least equal to your Highest Stat Roll or also be affected by that Crowd Control and extra Scourge Damage.
+      Notes: The secondary Crowd Control does not retrigger Creed of Vengeance.
+
+    ~Creed of the Sun~:   # Generic improvement
+      _Value: 2
+      A: Half-Action
+      Cooldown: Once / Combat
+      Replacement: Replaces Challenge of Arms
+      Duration: 1 minute
+      Range: 3 meters
+      Tags: [Healing, Movement, Damage, Crowd Control]
       Effect: |
-        Activate and fling a Banner on a space within 5 meters, dealing 1d6 Damage to Units it lands next to.
-        Allies (and you) starting their Turn within 2 meters of the banner start with +Half-Action.
+        ~Heal yourself for 1d8 and move up to 1d4 meters~.
+        Deal ~1d12~ Fire Damage to a Unit ~and Slow it~.
 
-        {Teal('With Valor:')} TBD
-        {Teal('Next:')} TBD
-      Upgrade: The banner counts as a Unit with 10 Health, but can't take Area Damage.
-      Notes: The banner's effect only applies if it's planted into the ground. To be moved, the banner can be picked up with a Half-Action, and thrown again with a Half-Action to reposition and deal the Damage again.
+        {Teal('With Valor:')} Do it again!
+        {Teal('Next:')} Any other Ability
+      Upgrade: You are the dawn that banishes despair. You ride with the light at your back and hope in your hand.
 
 # New: Trigger Combo, Trap, Elemental Damage, Summon
   Level 4 - Minor Talent:
@@ -294,62 +326,29 @@ Talents:
 
   Level 5 - Keystone Talent:
 
-    ~Creed of the Crown~:  # Improves Movement and Gold Generation
-      _Value: 3
-      A: Special
+    <Fellowship Aura>:
+      _Value: 2
+      A: Passive
       Effect: |
-        You serve the realm above all else. Your sword defends law, order, and your liege’s will.
+        You stand out for allies near you.
+        Enemy ranged attacks against other allies within 1 meter of you have Cover.
+      Notes: Nothing happens if an ally near you already has Cover. If playing on a grid, this does work for allies diagonally.
 
-        You are immune to being Slowed, Rooted and to Hard Terrain.
-        At the end of your Turn, give yourself or an ally a Shielding equal to 50% and gain {Gold}Gold equal to 200% the number of meters you moved this Turn.
-    
-    ~Creed of the Rose~:  # Improves Healing and Shielding
-      _Value: 3
-      A: Special
-      Effect: |
-        You are the knight of beauty and grace, a protector of the innocent, and a paragon of compassion.
-
-        You get +4 Max Health.
-        All your Healing or Shielding Abilities not done with Valor are automatically made with Valor.
-        If they were already done with Valor, they do +50% Healing or Shielding.
-
-    ~Creed of the Dragon~:  # Improves Damage + Combo (though not specified)
+    <Banner of Honor>:
       _Value: 2.5
-      A: Special
-      Requirement: Requires finding a dragon patron
-      Effect: |
-        You swear your allegiance to an elder dragon you have encountered on your journey.
-        
-        You take -50% Damage from that dragon's element Type.
-        When dealing Damage with an Ability that was cast With Valor, 50% of the main target's Damage is also dealt to all Units within 1 meter of the target (of your dragon's element Type).
-
-    ~Creed of Vengeance~:   # Improves Crowd Control + Buffs
-      A: Special
-      Requirement: Requires having been betrayed this Campaign
-      _Value: 2
-      Effect: |
-        Justice has failed. Your oath was broken, your faith was betrayed, but you swore a new one: to hunt those who wronged you and make the world remember.
-
-        Whenever you buff an Ally, also apply that buff to yourself.
-        Once per Ability, when applying Crowd Control to a Unit, it takes 1d4 Scourge Damage and another Unit within 2 meters of it must pass a Might Roll at least equal to 9 + Your Highest Stat or also be affected by that Crowd Control.
-      Notes: The secondary Crowd Control does not retrigger Creed of Vengeance.
-
-
-    ~Creed of the Sun~:   # Generic improvement
-      _Value: 2
-      A: Half-Action
-      Cooldown: Once / Combat
-      Replacement: Replaces Challenge of Arms
+      A: 1 Action
+      Cooldown: Once / Adventure
       Duration: 1 minute
-      Range: 3 meters
-      Tags: [Healing, Movement, Damage, Crowd Control]
+      Range: 5 meters
       Effect: |
-        ~Heal yourself for 1d8 and move up to 1d4 meters~.
-        Deal ~1d8~ Fire Damage to a Unit ~and Slow it~.
+        Activate and fling a Banner on a space within 5 meters, dealing 1d8 Damage to Units it lands on or next to.
+        Allies (and you) starting their Turn within 2 meters of the banner start with +Half-Action.
 
-        {Teal('With Valor:')} No Cooldown
-        {Teal('Next:')} Any other Ability
-      Upgrade: You are the dawn that banishes despair. You ride with the light at your back and hope in your hand.
+        {Teal('With Valor:')} +1000% Range and +200% Damage to Enemies
+        {Teal('Next:')} Any non-Damage Ability.
+      Upgrade: The banner counts as a Unit with 10 Health, but can't take Area Damage.
+      Notes: The banner's effect only applies if it's planted into the ground. To be moved, the banner can be picked up with a Half-Action, and thrown again with a Half-Action to reposition and deal the Damage again.
+
 
   Level 6 - Utility Talent:
 

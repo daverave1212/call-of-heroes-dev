@@ -365,6 +365,11 @@ export function SpecialManaDescriptionNormal() {
         If you want to use Mana inbetween encounters, you spend Mana normally and, as specified, it replenishes 10 minutes after the next combat encounter.
     </p>
 }
+export function NoManaDescription() {
+    return <p>
+        Unlike other Classes, you do not use Mana, and can't spend it on Abilities. You rely solely on your own Class Abilities and Talents, which are often stronger than usual and may provide more interesting options.
+    </p>
+}
 
 export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
 
@@ -373,13 +378,18 @@ export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
 
         return (
             <div>
-                <PageH3>{theClass.Spellcasting.Type} Casting</PageH3>
+                <PageH3>{theClass.Spellcasting.Type} Abilities</PageH3>
                 
-                { theClass.Spellcasting.Type == 'Mana-based'? (
-                    <ManaDescriptionNormal/>
+                { theClass.Spellcasting?.Mana != null? (
+                    theClass.Spellcasting.Type == 'Mana-based'? (
+                        <ManaDescriptionNormal/>
+                    ): (
+                        <SpecialManaDescriptionNormal/>
+                    )
                 ): (
-                    <SpecialManaDescriptionNormal/>
-                ) }
+                    <NoManaDescription/>
+                )}
+
 
                 <PageH3>Changing Abilities (Respec)</PageH3>
                 <p>
@@ -411,7 +421,7 @@ export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
             <TwoColumns>
                 <Column>
                     <div className='with-margined-children'>
-                        <PageH3>Mana & Talents</PageH3>
+                        <PageH3>{theClass.Spellcasting?.Mana?.Amount != null? 'Mana & Talents': 'Talents'}</PageH3>
                         { theClass.Spellcasting?.Type != null && theClass.Spellcasting?.Mana?.Amount != null && (
                             <SmallStat name="Mana" color="blue">
                                 <Icon name="Mana"/>{ theClass.Spellcasting.Mana.Amount } ({
@@ -429,7 +439,7 @@ export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
                             )
                         }
                         <SmallStat name="Extra Talents" color="blue" className="column">
-                            Each Level, choose a free Talent from that Level.<br/><br/>
+                            Each Level, choose a free Talent from that Level's options.<br/><br/>
                             However, if your <b>{INTELLIGENCE}</b> is above 0, you can choose a number of <b>extra Minor or Utility Talents</b> equal to your <b>{INTELLIGENCE}</b>.
                         </SmallStat>
                     </div>

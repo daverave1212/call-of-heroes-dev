@@ -67,7 +67,7 @@ const NAV_CONFIG = [
       { name: 'Soulwright', href: "/ClassesV2/Soulwright", lock: 'premium', isDisabled: true },
       { name: 'Swashbuckler', href: "/WorkInProgress", lock: 'premium', isDisabled: true },
       { name: 'Wickan', href: "/WorkInProgress", lock: 'premium', isDisabled: true },
-      { name: 'Witchblade', href: "/ClassesV2/Cursewielder", lock: 'premium' },
+      { name: 'Witchblade', href: "/ClassesV2/Cursewielder", lock: 'premium', isDisabled: true },
     ]},
     { isGrouping: true, children: [
       { name: 'Abilities', children: [
