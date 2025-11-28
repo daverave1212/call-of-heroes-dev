@@ -153,7 +153,7 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
                     <Separator/>
                     <div style={{display: 'flex', justifyContent: 'space-around', gap: '10px'}}>
                         { monsterStats.map(nameValue => (
-                            <SmallStat style={{width: '19%'}} name={nameValue.name} className="column large center-text">{nameValue.value}</SmallStat>
+                            <SmallStat style={{width: '19%'}} key={nameValue.name} name={nameValue.name} className="column large center-text">{nameValue.value}</SmallStat>
                         )) }
                     </div>
                     <Separator/>

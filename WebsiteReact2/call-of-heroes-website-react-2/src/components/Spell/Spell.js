@@ -329,7 +329,7 @@ export default function Spell({
                     </div>
                 ) }
                 { (Subspells != null) && spellsFromObject(Subspells).map(spell => (
-                    <div style={{paddingBottom: 'var(--spell-padding-bottom)'}}>
+                    <div style={{paddingBottom: 'var(--spell-padding-bottom)'}} key={`subspell-${spell.Name}`}>
                         <Spell spell={spell} hasBorder={false}/>
                     </div>
                 ))}
@@ -455,7 +455,7 @@ export function SpellTopStats({className, tags, keywords}) {
             </div>
             { keywords != null && (
                 <div className='spell-top-stats smaller-font' style={{paddingTop: 0, gap: '0rem'}}>
-                    { parsedKeywords.map(tag => <div className='tag'>{ tag }</div>) }
+                    { parsedKeywords.map(tag => <div className='tag' key={tag}>{ tag }</div>) }
                 </div>
             )}
         </>

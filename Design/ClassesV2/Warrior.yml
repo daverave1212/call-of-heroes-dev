@@ -55,17 +55,11 @@ Spellcasting:
 
 Starting Abilities:
 
-
-  ~Charge~:
-    _Value: 1
-    AlignOnWebsite: Left
+  ~Third Wind~:
+    _Value: 2.5
     A: 0 Actions
-    HasMixins: true
-    Range: 2 meters
-    Cooldown: Once / Turn
-    Effect: |
-      Freely dash exactly 2 meters toward a Worthy Enemy, landing on a space near them.
-    Combo: Single-Stun it.
+    Cooldown: Once / Adventure
+    Effect: Gain +1 Action this Turn.
 
   ~War Craft~:
     _Value: 2.75
@@ -143,51 +137,17 @@ Other Abilities:
     Effect: Your first {Color('#ff5900' 'old-fashioned')} weapon attack each Turn deals extra Damage equal to ^Any Stat^, {Color('#ff5900' 'and applies a Combo if the target is a Person')}.
     Upgrade: Old-fashioned weapons are weapons that do not deal extra Damage with any Stat (e.g. Hammer).
 
-Ability Choices:
-
-  ~Command - March~:
-    A: 0 Actions
-    Cooldown: Once / Combat
-    Tags: [Utility]
-    Effect: Choose a direction. All Allies (including you) may move up to 3 meters in that direction.
-
-  ~Break Mountains~:
-    A: 1 Action
-    Cost: 1 Mana
-    Effect: Pick up an object up to 2x2x2 meters in size, and throw it 3d10 meters in any direction. If it hits a Unit, it takes Damage equal to the number of meters left (e.g. similar to Slamming)
-    EffectGreen: Critical Strike - for each max die rolled, deal +1d6 Damage and, if it's an object, it breaks on impact!
-    Upgrade: You can instead pick up an enemy and Slam it a number of meters equal to half the rolled dice.
-
-  ~Whirlwind~:
-      A: 3 Action Points
-      Cost: 1 Mana
-      DisplayName: "{Name}"
-      Degree: Major
-      Effect: |
-          Roll 2d10 for each Unit {Area}
-          Assign 2 of the rolled d10's to each of those Units, and deal that much Damage Damage to each.
-          ~Click on the Icon to select a preferred effect!~
-      Upgrade: The Ability is Whirlwind if a melee weapon is equipped, or Rain Death if a ranged weapon is equipped.
-      Notes: |
-          Each rolled die ^must^ be assigned to a Unit.
-          The Damage type depends on the weapon currently equipped. Doesn't apply weapon effects (the weapon only matters for the Damage type).
-      Variants:
-          - Name: Whirlwind
-            Area: within 2 meters of you (except you).
-            IconName: Whirlwind
-          - Name: Rain Death
-            Area: in a chosen 4x4 meter area (5 meter range to the edge).
-            IconName: Rain Death
-  
-  ~Takeback~:
-    A: Half-Action
-    Cooldown: Once / Turn
-    Range: Weapon Range
-    Effect: Deal 1d4 Damage to a Unit and Single-Stun it. Then end your Turn.
-    Combo: +1d4 Damage.
-
 
 Utility:
+
+  ~Charge~:
+    _Value: 1
+    A: 0 Actions
+    HasMixins: true
+    Range: 2 meters
+    Cooldown: Once / 2 Turns
+    Effect: |
+      Freely dash up to 2 meters toward a Worthy Enemy that's exactly 2 meters away, landing on a space near them.
 
   ~Vault Break~:
       Degree: Lesser
@@ -205,16 +165,6 @@ Utility:
       Effect: |
           Block any non-damaging negative incoming _effect_ on an ally you can see.
       Upgrade: Negative effects in this case means any Crowd Control, Debuff, Curse, mind-altering magic, non-Damaging Poison, etc.
-
-  ~Doublesault~:
-      A: 0 Actions
-      Cooldown: Once / Adventure
-      Degree: Major
-      Effect: |
-          Leap up to 3 meters. If you land on a Unit, Doublesault again (for free)!
-      Notes: |
-          You leap from Unit to Unit until you no longer land on a Unit. If you land on a Unit, you must leap again. You can't leap on the same Unit twice; if you do, you end your leap in the closest space near it.
-          You can use this even while in the air and it cancels out your current fall or acceleration.            
 
   ~Snap Out Of It~:
       A: Half-Action
@@ -277,8 +227,6 @@ Ideas:
 # Talent l5:  2.25   | 2.25      | 2      | 11
 # Talent L7:  2.5    | 2.5       | 2      | 13.5
 
-Specs:
-
 # Talent: more Might Over Magic!
 # Talent: more Weaponmaster!
 
@@ -292,386 +240,282 @@ Specs:
 # Damage + Protection   (Talents 4)
 # Healing + CC Medium
 
-  Fighter:
-    Description: Lorem ipsum.
-    Starting Abilities:
+Talents:
 
-      <Quick Maneuvers>:
-          _Value: 1
-          A: 0 Actions
-          Cooldown: Once / Turn
-          Effect: Immediately after you make a weapon attack, choose one effect to apply.
-          SingleTable:
-            - Freely move up to 2 meters
-            - Taunt a Unit you can see (that can see you)
-            - Slam the target 1 meter (any direction)
-          Notes: Taunted means its next offensive Act has Cover if it's not on you.
+  Level 1 - Minor Talent:
 
-      ~Third Wind~:
-        _Value: 2.5
-        A: 0 Actions
-        Cooldown: Once / Adventure
-        Effect: Gain +1 Action this Turn.
+    ~Command - March~:
+      A: 0 Actions
+      Cooldown: Once / Combat
+      Tags: [Utility]
+      Effect: Choose a direction. All Allies (including you) may move up to 3 meters in that direction.
 
-    Talents:
+    ~Break Mountains~:
+      A: 1 Action
+      Cost: 1 Mana
+      Effect: Pick up an object up to 2x2x2 meters in size, and throw it 3d10 meters in any direction. If it hits a Unit, it takes Damage equal to the number of meters left (e.g. similar to Slamming)
+      EffectGreen: Critical Strike - for each max die rolled, deal +1d6 Damage and, if it's an object, it breaks on impact!
+      Upgrade: You can instead pick up an enemy and Slam it a number of meters equal to half the rolled dice.
 
-      Level 2 - Minor Talent:
-
-        ~Command - Patience~:
-          A: Half-Action
-          Cost: 1 Mana
-          Effect: A Unit you can see gains a number of 1d8 Shieldings equal to the Round Number.
-
-        <Opportunity Attacks>:
-          A: Reaction
-          Cost: 1 Mana
-          Effect: |
-            When an enemy leaves your melee attack range, make a free attack on them with a one-handed melee weapon.
-          Notes: If you don't have the weapon equipped, you automatically freely equip it, attack with it, unequip it and equip what you previously had.
-
-        <MIGHT OVER MAGIC>:
-          _Value: 1
-          A: Depends
-          Cost: 1 Mana
-          HasMixins: true
-          Effect: |
-            When you get this, choose a Minor Talent that costs 1 Mana from (any Specialization of) Cleric, Mage or Warlock, up to your Level.
-            That Ability becomes a ^physical version of itself^: instead of using magic to cast that spell, you use your body/weapons/tools!
-          Upgrade: |
-            The Damage of that Spell becomes Slash, Smash or Pierce, whichever makes sense.
-          Notes: |
-            E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage). Be creative, come up with a description of how it works!
-            You can change this Ability inbetween Adventures.
-
-      Level 3 - Keystone Talent:
-
-        <Glory Run>:
-          _Value: 1   # because movement takes actions now
-          A: Passive
-          Effect: |
-              When Worthy Combat starts, a Glory Point appears directly behind the furthermost Enemy from you.
-              The first time you reach the Glory Point, heal for 1d10.
-          Notes:
-              The Glory Point is just a space/zone.
-        
-        <Overthrow>:
-          Value: 2  # ?
-          A: Passive
-          Effect: When you Slam a Unit into a Wall, it becomes Single-Stunned.
-
-        ~Lead Commander~:
-          Value: 2 # 3-4 uses per Adventure
-          A: Passive
-          Requirement: Can only trigger in Worthy Combat
-          Effect: Whenever you use a Command Ability, give yourself or an affected Unit one Shielding that can block 1d6 Damage.
-        
-        ~Crafts of War~:
-          _Value: 2 # Not as strong as your first because it's harder to do
-          A: Passive
-          IconName: War Craft
-          HasUpgradeIcon: true
-          Effect: Get one more different War Craft.
-      
-      Level 4 - Minor Talent:
-
-        <MIGHT OVER MAAAGIC!!!>:
-          A: Depends
-          Cost: 1 Mana
-          HasMixins: true
-          Effect: |
-            When you get this, choose ~two~ Minor Talents that costs 1 Mana from (any Specialization of) Cleric, Mage or Warlock, up to your Level.
-            Those Abilities become ^physical versions of themselves^: instead of using magic to cast that spell, you use your body/weapons/tools!
-          Upgrade: |
-            The Damage of that Spell becomes Slash, Smash or Pierce, whichever makes sense.
-          Notes: |
-            E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage). Be creative, come up with a description of how it works!
-            You can change this Ability inbetween Adventures.
-
-        ~Command - Focus Fire~:
-          A: 1 Action
-          Cost: 1 Mana
-          Cooldown: Once / Adventure
-          HasMixins: true
-          Effect: Choose a target. Command all Allies (except you) in your party to make a Half-Action Act on the chosen target.
-          Upgrade: Can affect up to 5 Allies. If there are only 2 or less Allies, you also make the Half-Action.
-
-        ~Move Mountains~:
-          A: 1 Action
-          Cost: 1 Mana
-          IconName: Break Mountains
-          HasUpgradeIcon: true
-          Requirement: Requires Break Mountains
-          Replacement: Replaces Break Mountains
-          Effect: Pick up an object up to 2x2x2 meters in size, and throw it ~3d12~ meters in any direction. If it hits a Unit, it takes Damage equal to the number of meters left (e.g. similar to Slamming)
-          EffectGreen: Critical Strike - for each max die rolled, deal +1d6 Damage and, if it's an object, it breaks on impact!
-          Upgrade: You can instead pick up an enemy and Slam it a number of meters equal to half the rolled dice.
-
-        ~Heavenbreaker~:
-          A: 1 Action
-          Cooldown: Once / Adventure
-          Range: 15 meters
-          Effect: |
-            You jump high up above the battlefield and end your Turn.
-            At the start of your next Turn, you plunge into the earth like a comet toward a destintion space within 15 meters.
-            All Units within a zone of 3 meters from your landing point take 3d6 Smash Damage and a crater forms in the zone, 2 meters deep at the extremities of the area.
-    
-
-  Gladiator:
-    Description: Lorem!
-    Starting Abilities:
-
-      ~Deathblow~:
-        A: Passive
-        _Value: 2 # trigger it once per combat, though not at full potential
-        Effect: |
-          If your last 2 offensive Acts both either triggered a Critical Strike or a Combo, your next single target {Type} deals +{Amount}% Damage.
-          ~Click on the Icon to select a preferred effect!~
-        Variants:
-          - Type: one-handed weapon attack
-            Amount: 100
-          - Type: two-handed weapon attack
-            Amount: 50
-        Notes: 
-          This is not considered a Critical Strike.
-          The extra Damage includes bonuses from War Craft and similar Abilities.
-      
-      ~Critical Strike~:
-        A: 0 Actions
+    ~Whirlwind~:
+        A: 3 Action Points
         Cost: 1 Mana
-        Effect: Your next weapon attack triggers its Critical Strike and Combo effect anyway!
-        Notes: Has no effect on weapons without such an effect.
-      
-      # ~Overpower~ :               # Ok
-      #   A: 0 Actions
-      #   Cost: 1 Mana
-      #   Effect: |
-      #     Gain an additional Half-Action this turn.
+        DisplayName: "{Name}"
+        Degree: Major
+        Effect: |
+            Roll 2d10 for each Unit {Area}
+            Assign 2 of the rolled d10's to each of those Units, and deal that much Damage Damage to each.
+            ~Click on the Icon to select a preferred effect!~
+        Upgrade: The Ability is Whirlwind if a melee weapon is equipped, or Rain Death if a ranged weapon is equipped.
+        Notes: |
+            Each rolled die ^must^ be assigned to a Unit.
+            The Damage type depends on the weapon currently equipped. Doesn't apply weapon effects (the weapon only matters for the Damage type).
+        Variants:
+            - Name: Whirlwind
+              Area: within 2 meters of you (except you).
+              IconName: Whirlwind
+            - Name: Rain Death
+              Area: in a chosen 4x4 meter area (5 meter range to the edge).
+              IconName: Rain Death
+    
+    ~Takeback~:
+      A: Half-Action
+      Cooldown: Once / Turn
+      Range: Weapon Range
+      Effect: Deal 1d4 Damage to a Unit and Single-Stun it. Then end your Turn.
+      Combo: +1d4 Damage.
 
-    Talents:
+    <MIGHT OVER MAGIC>:
+      _Value: 1
+      A: Depends
+      Cost: 1 Mana
+      HasMixins: true
+      Effect: |
+        When you get this, choose a Minor Talent that costs 1 Mana from (any Specialization of) Cleric, Mage or Warlock, up to your Level.
+        That Ability becomes a ^physical version of itself^: instead of using magic to cast that spell, you use your body, weapons, or tools!
+      Upgrade: |
+        The Damage of that Spell becomes Slash, Smash or Pierce, whichever makes sense.
+      Notes: |
+        E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage). Be creative, come up with a description of how it works!
+        You can change this Ability inbetween Adventures.
 
-      Level 2 - Minor Talent:
+    ~Command - Patience~:
+      A: Half-Action
+      Cost: 1 Mana
+      Effect: A different Unit you can see gains a number of 1d8 Shieldings equal to the Round Number.
 
-        ~Hack and Slash~:
-            A: 0 Actions
-            Cost: 1 Mana
-            DisplayName: "{Name}"
-            Effect: |
-                Your next {Effect}
-                ~Click on the Icon to select a preferred effect!~
-            Notes: |
-                Roll the attack only once.
-                Weapon effects (like Critical Strikes), if necessary, are applied to the main target only.
-            Variants:
-                - Name: Hack and Slash
-                  Effect: melee 2-handed weapon attack also hits all other Units 1 meter from you, but deals -50% Damage to them (deals normal Damage to the main target).
-                  IconName: Hack and Slash
-                - Name: Slice and Dice
-                  Effect: melee 1-handed weapon attack also hits all other Units 1 meter from you.
-                  IconName: Slice and Dice
-                - Name: Lock and Load
-                  Effect: ranged 2-handed weapon attack also hits all other Units 1 meter from the main target, but deals -50% Damage to them (deals normal Damage to the main target).
-                  IconName: Lock and Load
-                - Name: Point and Shoot
-                  Effect: ranged 1-handed weapon attack also hits all other Units 1 meter from the main target.
-                  IconName: Point and Shoot
+  Level 2 - Keystone Talent:
 
-        ~Bull Rush~:
-            A: Passive
-            Effect: If you move at least 3 meters in a straight line and then melee Attack a target on the same line, the Attack gains +1 for every 3 meters moved in the straight line.
-            Notes: Works if mounted or if using Abilities that dash or jump (in a straight line), but teleporting interrupts this.
+    <Quick Maneuvers>:
+      _Value: 1
+      A: 0 Actions
+      Cooldown: Once / Turn
+      Effect: Immediately after you make a weapon attack, choose one effect to apply.
+      SingleTable:
+        - Freely move up to 2 meters
+        - Taunt a Unit you can see (that can see you)
+        - Slam the target 1 meter (any direction)
+      Notes: Taunted means its next offensive Act has Cover if it's not on you.    
 
-        ~Fame and Fortune~:
-          A: 0 Actions
-          Height: 22
-          Cost: 1 Mana
-          Effect: |
-            The next time you deal Damage, gain {Gold}Gold equal to 300% of the Damage dealt.
+    ~Bull Rush~:
+      _Value: 1
+      A: Passive
+      Effect: If you move at least 3 meters in a straight line and then melee Attack a target on the same line, the Attack gains +1 for every 3 meters moved in the straight line.
+      Notes: Works if mounted or if using Abilities that dash or jump (in a straight line), but teleporting interrupts this.
 
-            You also get Goldborn.
-          Subspells:
-            ~Goldborn~:
-              A: 10 minutes
-              Cost: 300 Gold
-              Cooldown: Once / Adventure
-              IsSubspell: true
-              Effect: You can spend 300 {Gold}Gold to gain +2 Maximum Health, up to +10 total.
-
-      Level 3 - Keystone Talent:
-
-        ~Overunder Blow~:
-          Value: 0.5
-          A: Passive
-          Effect: |
-            Instead of dealing extra Damage with Deathblow, do one of the following.
-
-            Also, passively, you have +1 Intelligence (up to your Level limit).
-          SingleTable:
-            - 1. Heal yourself for that amount
-            - 2. Single-Stun the target (Double-Stun for two-handed weapons)
-            - 3. Freely move that many meters
-
-        ~Weaponmaster~:
-          Value: 1.5
-          A: Passive
-          Effect: If your {Type} weapon can't Critical Strike, it gains the following effect.
-          EffectGreen: Critical Strike - if you rolled maximum on at least one die, deal {Amount} Damage.
-          Variants:
-            - Type: one-handed weapon
-              Amount: "+1"
-            - Type: two-handed weapon
-              Amount: "+1d4"
-
-        <MIGHT OVER MAGIC>:
-          _Value: 1
-          A: Passive
-          HasMixins: true
-          AlignOnWebsite: Right
-          Effect: |
-            Choose a Minor Talent that costs 1 Mana from (any Specialization of) Cleric, Mage or Warlock, up to your Level.
-            You can use it Once / Adventure, without spending Mana.
-            That Ability becomes a ^physical version of itself^: instead of using magic to cast that spell, you use your body/weapons/tools!
-          Upgrade: |
-            The Damage of that spell becomes Slash, Smash or Pierce, whichever makes sense.
-            Come up with a description of how it works! You can change this Ability inbetween Advetures.
-          Notes: |
-            E.g. Scorching Arrows - you shoot 3 arrows with your bow (Pierce Damage).
-            E.g. Frost Nova - you smash the ground with such force that it Damages and Slows units around you (Smash Damage).
-            Be creative!
-
-        ~Strafe and Backpedal~:
-          A: Passive
-          Effect: After you move 2 times on the same Turn, your next weapon attack triggers its Critical Strike regardless.
-
-      Level 4 - Minor Talent:
-
-        ~Off-Hand Shank~:
-          A: Half-Action
-          Cost: 1 Mana
-          Effect: Make 3 attacks with a one-handed weapon you haven't used this turn that would normally scale with a Stat. These attacks do not add your Stat to the Damage.
-
-        ~Second Wind~:
-          A: 0 Actions
-          Cost: 1 Mana
-          Cooldown: Once / Turn
-          Effect: Take 1d6 Damage. Gain +Half-Action this Turn.
-
-      Level 5 - Keystone Talent:
+    ~Colossal Strikes~:
+      _Value: 2 # But the amount of self-damage is pretty intense
+      A: Passive
+      Effect: |
+        Each _consecutive_ {Type} weapon attack or single-target Ability on the same Unit deals {Amount} to both you and the target for each previous consecutive attack you made on that Unit.
+        ~Click on the Icon to select a preferred effect!~
+      Variants:
+        - Type: 1 Action Point
+          Amount: 1d4
+        - Type: 2 Action Point
+          Amount: 2d4
+      Notes: |
+        Consecutive attacks mean that you haven't attacked another target. For example, say you attack a Goblin this Turn. Then you attack it again, and this attack deals +1d4 to you and the Goblin. Next Turn, you attack the Goblin again and deal +2d4 Damage, to you and it. If you now attack a different target, that consecutiveness resets back to baseline (no extra Damage). Even if you attack the Goblin again, you have to repeat the cycle.
+        Moving or using non-single-target Abilities does _not_ break the consecutiveness.
         
-        ~Tug of War~:
-          _Value: 1.5 # Invaluable for the crit chain
-          A: Passive
-          Effect: After you move from place, your next attack deals +1 Damage and is considered a Critical Strike.
+    ~Weaponmaster~:
+      Value: 1.25
+      A: Passive
+      Effect: If your {Type} weapon can't Critical Strike, it gains the following effect.
+      EffectGreen: Critical Strike - if you rolled maximum on at least one die, deal {Amount} Damage.
+      Variants:
+        - Type: one-handed weapon
+          Amount: "+1"
+        - Type: two-handed weapon
+          Amount: "+1d4"
 
-        ~Critical War Craft~:
-          _Value: 1.5 # Invaluable for the crit chain
-          A: Passive
-          Effect: Bonus Damage dealt by your War Craft is considered Critical Strike.
+  Level 2 - Minor Talent:
 
-        <Into the Fray>:    # 2, maybe more
-          _Value: 2.25
-          A: Passive
-          Effect: |
-              When combat starts, determine which side is your Allied Side and which is the Enemy Side of the battlefield. Each side has a direction (Allied Direction and Enemy Direction).
-              If you end your turn more to the Allied Direction than you started, you gain one Shielding that can block 4 Damage until the start of your next turn.
-              If you end your turn more to the Enemy Direction than you started, your first attack next turn deals 1d6 extra Damage.
-                
-        <Ruining Throw>:
-          _Value: 2
-          A: Half-Action
-          Range: 10 meters
-          Cooldown: Once / Combat
-          Effect: |
-              Throw a weapon at a target and attack it (without Throwing penalties and ignoring Cover).
-              Before applying the Damage, the attack destroys all Shielding and Defense on the target and removes all buffs on it.
-              The target can't trigger "on roll", can't gain Shielding and can't benefit from Buffs until they spend an Action to recover.
-          Upgrade: Epic Monsters gain ther Defense back when they spend the Action to recover.
-          Downside: TODO - Make this more interesting. Also it has an _Upgrade_ that makes the weapon return.
-          Notes: |
-              Your weapon lands at the nearest space to the target (and you should probably pick it up with a Half-Action).
-              "On roll" refers to effects like "if it rolls 10 on a d10, the attack deals 1d10 extra Damage".
-              Buffs are all effects that improve the target; even passive effects like auras or passive stats from abilities are negated.
-              You don't need Training in Throwning and this attack counts as a regular melee attack.
+  Level 3 - Keystone Talent:
 
-      Level 6 - Utility Talent:
+    <Glory Run>:
+      _Value: 1.75   # because movement takes actions now, but still it's free healing
+      A: Passive
+      Effect: |
+          When Worthy Combat starts, a Glory Point appears directly behind the furthermost Enemy from you.
+          The first time you reach the Glory Point, heal for 1d10.
+      Notes:
+          The Glory Point is just a space/zone.
+    
+    <Overthrow>:
+      Value: 2  # ?
+      A: Passive
+      Effect: When you Slam a Unit into a Wall, it becomes Single-Stunned.
 
-        ~Breathing Technique~:
-          A: 0 Actions
-          Cooldown: Once / real hour
-          Effect: You can breathe underwater for up to 1d20 minutes and swim at your normal speed.
-        
-        ~Renown~:
-          A: Passive
-          Effect: Due to your deeds and radiating confidence, have an extra 10% discount on buying anything.
+    ~Lead Commander~:
+      Value: 2 # 3-4 uses per Adventure
+      A: Passive
+      Requirement: Can only trigger in Worthy Combat
+      Effect: Whenever you use a Command Ability, give yourself or an affected Unit one Shielding that can block 1d6 Damage.
+    
+    ~Crafts of War~:
+      _Value: 2 # Not as strong as your first because it's harder to do
+      A: Passive
+      IconName: War Craft
+      HasUpgradeIcon: true
+      Effect: Get one more different War Craft.
 
-      Level 7 - Keystone Talent:
-        
-        <Personal Squire>:  # 2+
-          _Value: 3
-          A: Special
-          Effect: |
-            You recruit a squire - a trusted NPC who gains combat powers. However, the capabilities of your squire are random: roll 1d6 to determine the type of your squire, based on the Squires category at Pets and Animals (1. Bold, 2. Sneaky, 3. Clever, 4. Wise). The Race is determined by the QM or by circumstance.
-            On its turn, it can do one Pet Attack, cast one Ability it has, or do the equivalent of a Half-Action (e.g. Dash, Push, etc).
-            You can recruit one squire per Adventure, but only one can follow you in your adventures at a time.
-            At the start of every Adventure (and when you get this Talent), you must spend 1 Mana and train your Squire to permanently increase its Health by 2 or gain one Ability from any other Squire type.
-          Upgrade: If your squire drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your squire's wounds and heal it back to full Health.
-          Notes: Your squire is not a Player Character by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Player Character can). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!
+  Level 4 - Minor Talent:
 
-        <Attack Command>:   # 2+
-          _Value: 2.25
-          A: Reaction or 0 Actions
-          Cooldown: Once / Adventure
-          HasMixins: true
-          Effect: |
-            An ally immediately makes an Act that takes 1 Action (can spend Mana, Cooldowns, etc on it, as if it were on its turn).
-            You can use this at any point, before or after someone does an Act.
-            ^You^ roll all the dice for this Act.
+    <MIGHT OVER MAAAGIC!!!>:
+      A: Depends
+      Cost: 1 Mana
+      HasMixins: true
+      Effect: |
+        When you get this, choose ~two~ Minor Talents that costs 1 Mana from (any Specialization of) Cleric, Mage or Warlock, up to your Level.
+        Those Abilities become ^physical versions of themselves^: instead of using magic to cast that spell, you use your body/weapons/tools!
+      Upgrade: |
+        The Damage of that Spell becomes Slash, Smash or Pierce, whichever makes sense.
+      Notes: |
+        E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage). Be creative, come up with a description of how it works!
+        You can change this Ability inbetween Adventures.
 
-        <MIGHT OVER MAAAGIC!!!>:  # 2
-          _Value: 2
-          A: Passive
-          HasMixins: true
-          Effect: |
-            Choose ^TWO^ Basic Abilities from the Elemental, Nature or Eldritch Schools that cost 1 Mana.
-            You can use each of those Abilities once per Adventure (without spending Mana).
-            See the Level 5 Talent _Might Over Magic_.
+    ~Command - Focus Fire~:
+      A: 1 Action
+      Cost: 1 Mana
+      Cooldown: Once / Adventure
+      HasMixins: true
+      Effect: Choose a target. Command all Allies (except you) in your party to make a Half-Action Act on the chosen target.
+      Upgrade: Can affect up to 5 Allies. If there are only 2 or less Allies, you also make the Half-Action.
 
-      Level 10 - Ultimate Talent:
+    ~Move Mountains~:
+      A: 1 Action
+      Cost: 1 Mana
+      IconName: Break Mountains
+      HasUpgradeIcon: true
+      Requirement: Requires Break Mountains
+      Replacement: Replaces Break Mountains
+      Effect: Pick up an object up to 2x2x2 meters in size, and throw it ~3d12~ meters in any direction. If it hits a Unit, it takes Damage equal to the number of meters left (e.g. similar to Slamming)
+      EffectGreen: Critical Strike - for each max die rolled, deal +1d6 Damage and, if it's an object, it breaks on impact!
+      Upgrade: You can instead pick up an enemy and Slam it a number of meters equal to half the rolled dice.
 
-        <Perfect Strike>:
-          A: 0 Actions
-          Cooldown: Once / Combat
-          Effect: |
-            Your next weapon attack this turn deals +300% Damage. If it kills the target, overkill Damage is dealt to all enemies within 3 meters of the main target.
-            Also, passively, you gain +2 Dexterity and you are immune to monster _weapon effects_ (e.g. critical strikes).
-          HasMixins: true
-          Downside: "{Ultimate}"
-        
-        <Master Tactician>:
-          A: Passive
-          Effect: |
-            Gain +4 Max Health and +1 Damage on all attacks for every 3 sessions the Campaign has progressed.
-            From now on, at the end of every session, gain +4 Max Health and +1 Damage on all attacks.
-            Also, passively, gain +2 Intelligence and you know the Abilities and strategies of all enemies you encounter.
-          HasMixins: true
-          Downside: "{Ultimate}"
+    ~Heavenbreaker~:
+      A: 1 Action
+      Cooldown: Once / Adventure
+      Range: 15 meters
+      Effect: |
+        You jump high up above the battlefield and end your Turn.
+        At the start of your next Turn, you plunge into the earth like a comet toward a destintion space within 15 meters.
+        All Units within a zone of 3 meters from your landing point take 3d6 Smash Damage and a crater forms in the zone, 2 meters deep at the extremities of the area.
 
-        <Greatwielder>:
-          A: Passive
-          Effect: |
-            You can wield 2-Handed weapons, one in each hand.
-            Attacks like this take only a Half-Action and count as 1-Handed weapon attacks but deal -2 Damage.
-            While dual wielding 2-Handed weapons, if any Ability tells you to perform an attack with a 2-Handed and the ability costs 1 Action, it costs only Half-Action.
-            Also, passively, gain +1 Might and +1 Dexterity.
-          Notes: If you already have a Technique Feat, you can remove it to refund the cost.
-          HasMixins: true
-          Downside: "{Ultimate}"
+  Level 5 - Keystone Talent:
 
-# Talents:
-# 	Stances
-# 	Lower health = more Damage
-# 	Permanently increase health by 1 for each enemy killed
-#       Interactions with Flanking
-#       Knock yourself prone to do X
-#       Break any CC and Damage yourself
-#       Whenever you damage yourself...
-#       Stack Trances
+    <Into the Fray>:    # 2, maybe more
+      _Value: 2.25
+      A: Passive
+      Effect: |
+          When combat starts, determine which side is your Allied Side and which is the Enemy Side of the battlefield. Each side has a direction (Allied Direction and Enemy Direction).
+          If you end your turn more to the Allied Direction than you started, you gain one Shielding that can block 4 Damage until the start of your next turn.
+          If you end your turn more to the Enemy Direction than you started, your first attack next turn deals 1d6 extra Damage.
+            
+    <Ruining Throw>:
+      _Value: 2
+      A: Half-Action
+      Range: 10 meters
+      Cooldown: Once / Combat
+      Effect: |
+          Throw a weapon at a target and attack it (without Throwing penalties and ignoring Cover).
+          Before applying the Damage, the attack destroys all Shielding and Defense on the target and removes all buffs on it.
+          The target can't trigger "on roll", can't gain Shielding and can't benefit from Buffs until they spend an Action to recover.
+      Upgrade: Epic Monsters gain ther Defense back when they spend the Action to recover.
+      Downside: TODO - Make this more interesting. Also it has an _Upgrade_ that makes the weapon return.
+      Notes: |
+          Your weapon lands at the nearest space to the target (and you should probably pick it up with a Half-Action).
+          "On roll" refers to effects like "if it rolls 10 on a d10, the attack deals 1d10 extra Damage".
+          Buffs are all effects that improve the target; even passive effects like auras or passive stats from abilities are negated.
+          You don't need Training in Throwning and this attack counts as a regular melee attack.
+
+  Level 6 - Utility Talent:
+
+    ~Breathing Technique~:
+      A: 0 Actions
+      Cooldown: Once / real hour
+      Effect: You can breathe underwater for up to 1d20 minutes and swim at your normal speed.
+    
+  Level 7 - Keystone Talent:
+    
+    <Personal Squire>:  # 2+
+      _Value: 3
+      A: Special
+      Effect: |
+        You recruit a squire - a trusted NPC who gains combat powers. However, the capabilities of your squire are random: roll 1d6 to determine the type of your squire, based on the Squires category at Pets and Animals (1. Bold, 2. Sneaky, 3. Clever, 4. Wise). The Race is determined by the QM or by circumstance.
+        On its turn, it can do one Pet Attack, cast one Ability it has, or do the equivalent of a Half-Action (e.g. Dash, Push, etc).
+        You can recruit one squire per Adventure, but only one can follow you in your adventures at a time.
+        At the start of every Adventure (and when you get this Talent), you must spend 1 Mana and train your Squire to permanently increase its Health by 2 or gain one Ability from any other Squire type.
+      Upgrade: If your squire drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your squire's wounds and heal it back to full Health.
+      Notes: Your squire is not a Player Character by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Player Character can). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!
+
+    <Attack Command>:   # 2+
+      _Value: 2.25
+      A: Reaction or 0 Actions
+      Cooldown: Once / Adventure
+      HasMixins: true
+      Effect: |
+        An ally immediately makes an Act that takes 1 Action (can spend Mana, Cooldowns, etc on it, as if it were on its turn).
+        You can use this at any point, before or after someone does an Act.
+        ^You^ roll all the dice for this Act.
+
+    <MIGHT OVER MAAAGIC!!!>:  # 2
+      _Value: 2
+      A: Passive
+      HasMixins: true
+      Effect: |
+        Choose ^TWO^ Basic Abilities from the Elemental, Nature or Eldritch Schools that cost 1 Mana.
+        You can use each of those Abilities once per Adventure (without spending Mana).
+        See the Level 5 Talent _Might Over Magic_.
+
+  Level 10 - Ultimate Talent:
+
+    <Perfect Strike>:
+      A: 0 Actions
+      Cooldown: Once / Combat
+      Effect: |
+        Your next weapon attack this turn deals +300% Damage. If it kills the target, overkill Damage is dealt to all enemies within 3 meters of the main target.
+        Also, passively, you gain +2 Dexterity and you are immune to monster _weapon effects_ (e.g. critical strikes).
+      HasMixins: true
+      Downside: "{Ultimate}"
+    
+    <Master Tactician>:
+      A: Passive
+      Effect: |
+        Gain +4 Max Health and +1 Damage on all attacks for every 3 sessions the Campaign has progressed.
+        From now on, at the end of every session, gain +4 Max Health and +1 Damage on all attacks.
+        Also, passively, gain +2 Intelligence and you know the Abilities and strategies of all enemies you encounter.
+      HasMixins: true
+      Downside: "{Ultimate}"
+
+    <Greatwielder>:
+      A: Passive
+      Effect: |
+        You can wield 2-Handed weapons, one in each hand.
+        Attacks like this take only a Half-Action and count as 1-Handed weapon attacks but deal -2 Damage.
+        While dual wielding 2-Handed weapons, if any Ability tells you to perform an attack with a 2-Handed and the ability costs 1 Action, it costs only Half-Action.
+        Also, passively, gain +1 Might and +1 Dexterity.
+      Notes: If you already have a Technique Feat, you can remove it to refund the cost.
+      HasMixins: true
+      Downside: "{Ultimate}"

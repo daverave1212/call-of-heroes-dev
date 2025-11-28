@@ -65,13 +65,13 @@ const NAV_CONFIG = [
       { name: 'Necromancer', href: "/WorkInProgress", lock: 'premium', isDisabled: true },
       { name: 'Paladin', href: "/ClassesV2/Paladin", lock: 'premium', isDisabled: true },
       { name: 'Soulwright', href: "/ClassesV2/Soulwright", lock: 'premium', isDisabled: true },
-      { name: 'Swashbuckler', href: "/WorkInProgress", lock: 'premium', isDisabled: true },
+      { name: 'Swashbuckler', href: "/ClassesV2/Swashbuckler", lock: 'premium' },
       { name: 'Wickan', href: "/WorkInProgress", lock: 'premium', isDisabled: true },
       { name: 'Witchblade', href: "/ClassesV2/Cursewielder", lock: 'premium', isDisabled: true },
     ]},
     { isGrouping: true, children: [
       { name: 'Abilities', children: [
-        { name: 'Magic Fongs',          href: '/Other/MagicFonts' },
+        { name: 'Magic Fonts',          href: '/Other/MagicFonts' },
         { name: 'Feats',                href: '/Other/Feats' },
         { name: 'Quirks',               href: '/Other/Quirks' },
         { name: 'Ability Sheet Maker',  href: '/Other/AbilitySheets', lock: 'premium' },
@@ -170,29 +170,28 @@ function MegaDropdown({ currentlyOpenSubnav, isBurgerClicked }) {
     <div className={`mega-dropdown landscape-only`}>
 
       { NAV_CONFIG.filter(config => config.children != null).map(({ name, children }) =>
-          <MegaDropdownMenu title={name}>            
+          <MegaDropdownMenu key={name} title={name}>            
             { children.map(({ name, children, isGrouping }) => (
               
               isGrouping? (
-                <div className='subnav-section'>
+                <div key={name} className='subnav-section'>
                   { children.map(({ name, children }) => (
-
-                    <>
+                    <div key={name}>
                       <h4>{name}</h4>
                       <div className='subnav-title-underline'></div>
                       <div className='flex column'>
-                        { children.map(config => <NavItem config={config} className="subnav-section-item"/>)}
+                        { children.map(config => <NavItem key={config.name} config={config} className="subnav-section-item"/>)}
                       </div>    
-                    </>
+                    </div>
 
                   )) }
                 </div>
               ) : (
-                <div className='subnav-section'>
+                <div key={name} className='subnav-section'>
                   <h4>{name}</h4>
                   <div className='subnav-title-underline'></div>
                   <div className='flex column'>
-                    { children.map(config => <NavItem config={config} className="subnav-section-item"/>)}
+                    { children.map(config => <NavItem key={config.name} config={config} className="subnav-section-item"/>)}
                   </div>
                 </div>
               )
@@ -319,14 +318,14 @@ function NavPortraitNode({ config }) {
 
     if (isGrouping) {
       return <>
-        { children.map(childConfig => <NavPortraitNode config={childConfig}/>)}
+        { children.map(childConfig => <NavPortraitNode key={`p-${childConfig.name}`} config={childConfig}/>)}
       </>
     }
 
     return (
         <Accordion title={name} className="nav-accordion">
           <div className='nav-accordion-content'>
-            { children.map(childConfig => <NavPortraitNode config={childConfig}/>) }
+            { children.map(childConfig => <NavPortraitNode key={`p-${childConfig.name}`} config={childConfig}/>) }
           </div>
         </Accordion>
     )
@@ -348,7 +347,7 @@ export default function Nav() {
 
           <nav className="nav-landscape">
 
-            { NAV_CONFIG.map(config => <NavLandscapeTopItem config={config} onMouseEnter={ () => setCurrentlyOpenSubnav(config.name) } />) }
+            { NAV_CONFIG.map(config => <NavLandscapeTopItem key={config.name} config={config} onMouseEnter={ () => setCurrentlyOpenSubnav(config.name) } />) }
 
             <AccountButtons/>
 
@@ -363,7 +362,7 @@ export default function Nav() {
 
               <AccountButtons/>
 
-              { NAV_CONFIG.map(config => <NavPortraitNode config={config}/>) }
+              { NAV_CONFIG.map(config => <NavPortraitNode key={`p-${config.name}`} config={config}/>) }
 
             </div>
           </DrawerPage>

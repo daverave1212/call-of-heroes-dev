@@ -164,11 +164,11 @@ export function RaceDescription({ description }) {
         .filter(str => str.length > 0)
         .map(str => <p key={str.substring(0, 10)}>{str}</p>)
     // const descriptionComponents = U.insertBetweenAll(descriptionLines, (i) => <Separator key={i}/>)
-    const descriptionComponents = U.insertBetweenAll(descriptionLines, (i) => <br/>)
+    const descriptionComponents = U.insertBetweenAll(descriptionLines, (i) => <br key={i}/>)
     return (
-        <div>
+        <React.Fragment>
             { descriptionComponents }
-        </div>
+        </React.Fragment>
     )
 }
 
@@ -1007,7 +1007,7 @@ function ClassPowerLevelTable({theClass}) {
         
         { dataRows.map(row => <tr>
             { row.map(value => (
-                <td>{value}</td>
+                <td>{`${value}` /* Prevents NaN warning */}</td>
             )) }
         </tr>)}
 
