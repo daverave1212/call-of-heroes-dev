@@ -11,35 +11,9 @@ import Input from "../../../components/Input/Input"
 import { useExperience, useLevel, useSectionRaceName, useSectionStatsState } from "./CharacterData"
 import { AttributeCalculationTextComponent, calculateExperienceByLevel, calculateExtraFirstTurnAPByInitiative, calculateStatsToAttributesObject, checkStatRequirements, DEFAULT_STAT_ARRAY, EXTRA_INITIATIVE_AP, INITIATIVE, STAT_ICON_NAME_MAP, STAT_NAMES } from "../../../services/game-lib/stat-calculations"
 import classNames from "classnames"
+import { BigStatInput } from "../../../components/BigStat/BigStatInput"
 
 
-
-export function StatInput({ name, value, onChange }) {
-
-    function onInputChange(newVal) {
-        if (!isNaN(parseInt(newVal)) && newVal != '') {
-            onChange(newVal)
-        }
-    }
-
-    return (
-        <div className="stat-input">
-            <Input value={value} onChange={onInputChange}/>
-            {/* <input value={temporaryValue} onChange={evt => onInputChange(evt.target.value)}/> */}
-            <div className="input-name input-name-styled">{ name }</div>
-        </div>
-    )
-}
-
-export function StatValue({ name, value, style, className, onClick }) {
-    const hoverStyle = onClick == null? {}: { cursor: 'pointer' }
-    return (
-        <div className={`stat-input ${className}`} style={{...style, ...hoverStyle}}>
-            <div onClick={onClick}>{ value }</div>
-            <div className="input-name input-name-styled">{ name }</div>
-        </div>
-    )
-}
 
 export function ExperienceSlider({max, initialValue, onChange, children}) {
     let [val, setVal] = useState(initialValue)
@@ -93,7 +67,6 @@ export default function SectionStats() {
     const levelError = checkLevel(level)
     
     const attributesFromStats = calculateStatsToAttributesObject(stats)
-    
 
     function checkLevel(level) {
         const levelError = level <= 0? 'Your level should not be lower than 0': Math.floor(level) != level? 'Your level should not be decimal': null
@@ -156,7 +129,7 @@ export default function SectionStats() {
             <div className="center-content">
                 <QGTitle1 text="Level" height={60}/>
                 <p>
-                    <StatInput name="Level" value={level} onChange={val => {
+                    <BigStatInput name="Level" value={level} onChange={val => {
                         setLevel(val)
                     }}/>
                 </p>
@@ -175,9 +148,9 @@ export default function SectionStats() {
                 <p>{ myRace && myRace?.Creation?.['Stat Restrictions'] != null && <span>Pay attention to your races's stat <i>restrictions</i>: {myRace?.Creation?.['Stat Restrictions']}</span> }</p>
             </div>
             <div className="center-content flex" style={{gap: '2rem'}}>
-                <div className="stats-selector">
+                <div className="stats-selector flex row width-100">
                     { DEFAULT_STAT_ARRAY.map((num, i) => (
-                        <StatInput name={STAT_NAMES[i]} value={stats[i]} onChange={val => {
+                        <BigStatInput style={{width: 'unset', height: 'unset', flex: 1}} name={STAT_NAMES[i]} value={stats[i]} onChange={val => {
                             onStatChanged(i, val)
                         }}/>
                     )) }

@@ -14,6 +14,8 @@ import { selectSpellWithPopup } from "./SectionClass";
 
 export default function SectionMagicFonts({ openPopup }) {
 
+    const isCharacterCreationPage = openPopup != null
+
     let { 2: tabName } = useCCCTabs()
 
     if (tabName != 'Magic Fonts') {
@@ -26,7 +28,7 @@ export default function SectionMagicFonts({ openPopup }) {
     
 
     if (!didUnlockThisPage) {
-        return <Page>
+        return <Page hasNoMargins={isCharacterCreationPage}>
             <div className="flex column center-content center-text gap-1 margin-top-4 margin-bottom-4">
                 <h2 className="home-font">Do you have access to Magic Fonts?</h2>
                 <p style={{maxWidth: '70%'}}>You can only view this page if your character has access to magic fonts (e.g. if you're a Wizard, or got a certain Talent or Feat that explicitly allows you to get Magic Fonts).</p>
@@ -37,7 +39,7 @@ export default function SectionMagicFonts({ openPopup }) {
     
 
     return (
-        <Page>
+        <Page hasNoMargins={isCharacterCreationPage}>
             <MagicFonts
                 selectedSpellNames={spellNames}
                 onSpellClick={(spell, metadata) => selectSpellWithPopup({

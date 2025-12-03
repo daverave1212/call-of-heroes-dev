@@ -8,8 +8,8 @@ import { QGTitle1 } from "../../Tools/TitleGenerator";
 import TableNormal from "../../../components/TableNormal/TableNormal";
 import Icon from "../../../components/Icon";
 import HeroButton from "../../../components/HeroButton/HeroButton";
-import { StatValue } from "./SectionStats";
 import { useArmors, useCharacterShoppingCart, useGetSetCart, useGold, useInventory, useWeapons } from "./CharacterData";
+import { BigStatValue } from "../../../components/BigStat/BigStatValue";
 
 export const ShopItemTypes = {
     WEAPON: 'weapon',
@@ -99,7 +99,7 @@ export default function SectionShop() {
             </div>
             
             <div className="center-content">
-                <StatValue name="Your Gold" value={gold} style={{borderColor: 'var(--orange-color)'}}/>
+                <BigStatValue name="Your Gold" value={gold} style={{borderColor: 'var(--orange-color)'}}/>
             </div>
 
             { cart.length == 0? (

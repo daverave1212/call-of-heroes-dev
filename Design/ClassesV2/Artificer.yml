@@ -88,6 +88,8 @@ Starting Abilities:
     _Value: 4
     A: Passive
     HasMixins: true
+    Popup:
+      Message: After you get this Talent, manually add +1 to a Stat of choice. Go to My Character and click on the number you want to add or subtract from.
     Effect: |
       You start with +1 in a Stat of choice (up to +3).
 
@@ -183,6 +185,8 @@ Utility:
 
   ~Bionic Eye~:
     A: 1 hour
+    Popup:
+        Message: Remember to manually change the Stats and numbers from the My Character tab (or tell your Ally to do so).
     Effect: |
       Execute a precision operation to integrate a bionic eye into an Ally (or yourself).
       The subject gets {Brown('-1 Sense')}, but gains +3 Health Regen, can see in the Dark, can record visuals with the eye, and gains +2 in Sight (or a similar Non-Combat Skill).
@@ -196,6 +200,8 @@ Talents:
     ~Embracing Humanity~:
       Value: 1.5
       A: Passive
+      Popup:
+        Message: After you get this Talent, remember to manually add the extra Health Regen and Skill Points from the My Character tab.
       Effect: You have extra Health Regen and Skill Points equal to double your Sense.
       Downside: Unlearning this Talent does remove the Skills and Health Regen added.
 
@@ -219,16 +225,18 @@ Talents:
       _Value: 2
       A: 1 hour
       Cooldown: Once / Adventure
+      Popup:
+        Message: After you get this Talent, remember to manually add the desired numbers from the My Character tab.
       Effect: |
         Use your tools to conduct a scientific experiment on a person (even yourself).
         They get {Brown('-1 Sense')} but get a random upgrade permanently.
         If used on yourself, you gain an extra +1 Health.
       SingleTable:
           - 1. +1 Might and +2 Max Health and veins glow in the dark
-          - 2. +1 Dexterity and +3 Initiative and skin tints to a color
+          - 2. +1 Dexterity and +0.5 Initiative and skin tints to a color
           - 3. +1 Intelligence and +3 Skill Points and eyes change color
           - 4. +4 Health Regen and the inability to feel pain
-          - 5. +1 Health, Health Regen, Movement Speed and Initiative
+          - 5. +1 Health, Health Regen and Movement Speed, and +0.5 Initiative
           - 6. The experiment fails and nothing else happens
       Notes: These changes are kept even if you change this Talent.
 
@@ -236,9 +244,9 @@ Talents:
       _Value: 2.5
       A: 0 Actions
       Cooldown: Once / 2 Turns
-      Effect: Your next attack, if it's with the same metal weapon as the previous attack, deals exactly the same Damage.
+      Effect: Your next attack, if it's with the same metal weapon as the previous attack, deals exactly the same base weapon Damage.
       Notes: |
-        Same Damage as after the attack's final Damage (after all calculations).
+        Same Damage as after the attack's final Damage roll from the base weapon.
         This attack does not trigger Critical Strikes.
         If your last Gun attack dealt 11 Damage, use this and your next Gun attack will deal exactly 11 Damage.
 
@@ -274,6 +282,8 @@ Talents:
       _Value: 1.5
       A: 1 hour
       Cooldown: Once / Adventure
+      Popup:
+        Message: Once the mask is attacked, remember to manually change the Stats and numbers from the My Character tab (or tell your Ally to do so).
       Effect: |
         Spend 150 {Gold}Gold to craft a special _mask_ that can be permanently attached to one's face.
 
@@ -287,6 +297,8 @@ Talents:
       _Value: 3
       A: 1 hour
       Cooldown: Once / Adventure
+      Popup:
+        Message: Remember to manually change the Stats and numbers from the My Character tab.
       Effect: |
         Perform a surgical augmentation to replace one of your biological limbs with a mechanized, gear-driven prosthesis.
         Get {Brown('-1 Sense')} permanently.
@@ -299,6 +311,8 @@ Talents:
       HasMixins: true
       A: 1 hour
       Cooldown: Once / Adventure
+      Popup:
+        Message: Remember to manually change the Stats and numbers from the My Character tab (or tell your Ally to do so).
       Effect: |
         You reforge a set of body armor to provide 1 of the following benefits:
       SingleTable:
@@ -328,6 +342,8 @@ Talents:
         Cooldown: Once / Adventure
         Range: 3 meters to edge
         IsWide: true
+        Popup:
+        Message: Remember to manually change the Stats and numbers from the My Character tab (or tell your Ally to do so).
         Effect: |
           Permanently get {Brown('-1 Sense')} and -1 Health Regen and craft a Golem that does your bidding.
           
@@ -429,6 +445,10 @@ Talents:
     # Stats = 2.5
     <Augmentation>:     # 3.75
       A: Passive
+      Bonuses:
+        Might: 2
+        Dexterity: 2
+        Max Health: 10
       Effect: |
         You augment your body using chemical, mechanical or magical procedures.
         Your Might and Dexterity increase by 2, your Health by 10
@@ -437,9 +457,13 @@ Talents:
 
     <Transfiguration>:
       A: Passive
+      Bonuses:
+        Might: 4
+        Dexterity: 4
+        Defense: 4
       Effect: |
         You replace your body entirely with magical constructs, and transfuse your mind and consciousness into a different part of your new transcendental body, which can be entirely biological or mechanical in nature.
-        Your Might and Dexterity increase by 4, your base Defense is 4, and you are Skilled when doing anything with Might, Dexterity or Intelligence.            
+        Your Might and Dexterity increase by 4, your base Defense is 4, and you are Skilled when doing anything with Might, Dexterity or Intelligence.
         You no longer age and you are immune to all diseases.
       HasMixins: true
       Downside: "{Ultimate}"
@@ -456,7 +480,7 @@ Talents:
       A: Passive
       Effect: |
         You create a perfect clone of yourself, that can be biological or mechanical in nature. It resembles you identically in appearance, Stats, personality, etc.
-        It can cast any Abilities you have access to, but they share a Cooldown. You control both in Combat and they act on the same initiative.
+        It can cast any Abilities you have access to, but they share a Cooldown. You control both in Combat and they act on the same Turn.
         Beware: The clone is intelligent, and while its goals are aligned with yours, it is not guaranteed to always listen to your commands and desires outside of Combat. You decide if its intelligence is natural or artificial, and if your clone is truly sentient or conscious or not.
       HasMixins: true
       Downside: "{Ultimate}"
