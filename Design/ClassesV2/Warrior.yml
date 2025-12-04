@@ -64,15 +64,16 @@ Starting Abilities:
   ~War Craft~:
     _Value: 2.75
     A: Passive
+    IsIgnored: true
     AlignOnWebsite: Left
     Effect: |
       No two heroes fight alike. Choose your War Craft from below!
-      Each War Craft usually gives you a way to deal {Color('#ff5900' '+1d4 extra Damage each Turn')}.
+      Each War Craft may give you a way to deal {Color('#ff5900' 'extra Damage')} with weapon attacks!
     Upgrade: You may change your War Craft inbetween Adventures.
 
 
 Other Abilities Title: War Crafts
-Other Abilities Description: Choose one of the following War Crafts that will change your playstyle! These are not the same as the Level 1 Talents (which are below), and you still get one free War Craft and one free Level 1 Talent.
+Other Abilities Description: Choose one of the following War Crafts that will change your playstyle!
 Other Abilities:
 
   ~Shield Craft~:
@@ -87,7 +88,7 @@ Other Abilities:
 
   ~Heavy Weapon Craft~:
     A: Passive
-    Effect: Your first {Color('#ff5900' 'two-handed')} weapon attack each Turn deals +1d4 Damage {Color('#ff5900' 'if there is an Ally, obstacle or wall directly behind the target')}.
+    Effect: Your first {Color('#ff5900' 'two-handed')} weapon attack each Turn deals +1d4 Damage {Color('#ff5900' 'if there is an Ally, obstacle or wall directly behind your target')}.
 
   ~Throw Craft~:
     A: Passive
@@ -99,7 +100,7 @@ Other Abilities:
 
   ~Unarmed Craft~:
     A: Passive
-    Effect: Your {Color('#ff5900' 'second Punch')} attack each Turn deals +1d6 Damage {Color('#ff5900' "if it's on a different target than the first")}.
+    Effect: Your {Color('#ff5900' 'second Punch')} attack each Turn deals +1d6 Damage {Color('#ff5900' "if it's not on the same target as your first attack")}.
 
   ~Marksman Craft~:
     A: Passive
@@ -107,19 +108,6 @@ Other Abilities:
     Height: 30
     Effect: |
       Your first ~ranged~ weapon attack each Turn deals +1d4 Damage {Color('#ff5900' 'if there is no Unit or obstacle near the target')}.
-      Your Charge becomes Uncharge.
-    Subspells:
-      ~Uncharge~:
-        _Value: 0.25
-        A: 0 Actions
-        HasMixins: true
-        IsSubspell: true
-        Range: 2 meters
-        Replacement: Replaces Charge
-        Cooldown: Once / Turn
-        Effect: |
-          Freely dash exactly 2 meters toward an ~Ally~, landing on the closest space, near them.
-        Combo: If the Ally had a Combo, make a free Movement Action.
       
   ~Dual Shield Craft~:
     A: Passive
@@ -331,9 +319,9 @@ Talents:
         ~Click on the Icon to select a preferred effect!~
       Variants:
         - Type: 1 Action Point
-          Amount: 1d4
+          Amount: +1d4
         - Type: 2 Action Point
-          Amount: 2d4
+          Amount: +2d4
       Notes: |
         Consecutive attacks mean that you haven't attacked another target. For example, say you attack a Goblin this Turn. Then you attack it again, and this attack deals +1d4 to you and the Goblin. Next Turn, you attack the Goblin again and deal +2d4 Damage, to you and it. If you now attack a different target, that consecutiveness resets back to baseline (no extra Damage). Even if you attack the Goblin again, you have to repeat the cycle.
         Moving or using non-single-target Abilities does _not_ break the consecutiveness.
@@ -344,12 +332,10 @@ Talents:
       Effect: If your {Type} weapon can't Critical Strike, it gains the following effect.
       EffectGreen: Critical Strike - if you rolled maximum on at least one die, deal {Amount} Damage.
       Variants:
-        - Type: one-handed weapon
+        - Type: one-handed
           Amount: "+1"
-        - Type: two-handed weapon
+        - Type: two-handed
           Amount: "+1d4"
-
-  Level 2 - Minor Talent:
 
   Level 3 - Keystone Talent:
 
