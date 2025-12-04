@@ -19,6 +19,11 @@ export const MANA = 'Mana'
 export const ATTRIBUTE_NAMES = [MAX_HEALTH, HEALTH_REGEN, MOVEMENT_SPEED, INITIATIVE]
 
 export const STAT_SHORTENED_STRING = {
+    [MIGHT]: 'MIG',
+    [DEXTERITY]: 'DEX',
+    [INTELLIGENCE]: 'INT',
+    [SENSE]: 'SEN',
+    [CHARISMA]: 'RIZ',
     [MAX_HEALTH]: 'HP',
     [HEALTH_REGEN]: 'Regen',
     [MOVEMENT_SPEED]: 'Speed',
@@ -71,7 +76,7 @@ export function getBaseAttributes(raceObj) {
         [INITIATIVE]: 0,
     }
 }
-export function calculateStatsToAttributesObject(statArray) {
+export function calculateStatsToBonusAttributesObject(statArray) {
     return {
         [MAX_HEALTH]: statArray[0] * 3,
         [HEALTH_REGEN]: statArray[3] * 2,
@@ -110,6 +115,15 @@ export const ATTRIBUTES_CALCULATIONS_SPANS = {
     [EXTRA_INITIATIVE_AP]: () => <span>On your first Turn every Combat, you have extra Action Points = {BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[EXTRA_INITIATIVE_AP]}</span>,
     [KNOWN_ABILITIES]: () => <span>Your can have a number of <br/>extra <b>{KNOWN_ABILITIES}</b> = {BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[KNOWN_ABILITIES]}</span>,
     [SKILL_POINTS]: () => <span>Your have <b>{SKILL_POINTS}</b> = {BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[SKILL_POINTS]}</span>,
+}
+export const ATTRIBUTES_EXPLANATIONS = {
+    [MAX_HEALTH]: () => <span>Max Health determines how much you can resist in Combat. Your entire Health regenerates between Adventures.</span>,
+    [HEALTH_REGEN]: () => <span>After every Combat, you automatically heal for an amount equal to your Health Regen. No need for resting!</span>,
+    [MOVEMENT_SPEED]: () => <span>Your Movement Speed determines how many meters you can move at a time when you spend 1 Action Point on it (you have 3 Action Points per Turn in Combat).</span>,
+    [INITIATIVE]: () => <span>On your first Turn in every Combat, you have an <b>extra</b> number of Action Points equal to your Initiative (rounded down). Note that even if your Initiative is a fraction, like 2.5, you only have 2 extra Action Points and ignore the rest of 0.5.</span>,
+    [EXTRA_INITIATIVE_AP]: () => <span></span>,
+    [KNOWN_ABILITIES]: () => <span>Normally, for each Talent tier (e.g. Level 1 Minor Talents), you get 1 free Talent pick! However, you can have a total number of <b>extra Minor Talents or Utility Talents</b> equal to your Intelligence. So, for example, if your Intelligence is 2, you may pick an extra 2 Minor Talents from the Level 1 Minor Talents tier.<br/><i>Note that there are also Keystone Talents, which you can only pick 1 per Talent tier, no matter your Intelligence!</i></span>,
+    [SKILL_POINTS]: () => <span>You can spend each 1 non-Combat Skill Point to get +1 in a certain activity. These can be anything from fishing and swimming, to jumping or even sight, to knowledge about specific subjects or even general knowledge. You can assign more points in a certain non-Combat Skill you have, as long as it's at most equal to your highest Stat.</span>,
 }
 export function AttributeCalculationTextComponent({statName}) {
     const Comp = ATTRIBUTES_CALCULATIONS_SPANS[statName]
@@ -287,7 +301,7 @@ export function calculateAllAtributes({raceName, className, level, totalStats, b
     const classObj = getAllClasses()[className]
     
     const baseAttributes = getBaseAttributes(raceObj)
-    const bonusAttributesFromStats = calculateStatsToAttributesObject(totalStats)
+    const bonusAttributesFromStats = calculateStatsToBonusAttributesObject(totalStats)
     const bonusAttributesFromLevel = getAttributeBonusesFromLevel(level, classObj)
 
     console.log('calculateAllAtributes')

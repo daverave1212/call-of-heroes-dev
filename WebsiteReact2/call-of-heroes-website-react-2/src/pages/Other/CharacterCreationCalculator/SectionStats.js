@@ -2,14 +2,14 @@ import { useEffect, useState } from "react"
 import TwoColumns from "../../../components/TwoColumns/TwoColumns"
 import Column from "../../../components/TwoColumns/Column"
 import SmallStat from "../../../components/SmallStat/SmallStat"
-import { getRace, useLocalStorageState } from "../../../utils"
+import { getNumberPartsString, getRace, useConstIsPortrait, useLocalStorageState } from "../../../utils"
 import Page from "../../../containers/Page/Page"
 import { QGTitle1 } from "../../Tools/TitleGenerator"
 import Icon from "../../../components/Icon"
 import { useConstBonusesFromSpellsAndItems, useConstTotalStats } from "./MyCharacter"
 import Input from "../../../components/Input/Input"
 import { useExperience, useLevel, useSectionRaceName, useSectionStatsState } from "./CharacterData"
-import { AttributeCalculationTextComponent, calculateExperienceByLevel, calculateExtraFirstTurnAPByInitiative, calculateStatsToAttributesObject, checkStatRequirements, DEFAULT_STAT_ARRAY, EXTRA_INITIATIVE_AP, INITIATIVE, STAT_ICON_NAME_MAP, STAT_NAMES } from "../../../services/game-lib/stat-calculations"
+import { AttributeCalculationTextComponent, ATTRIBUTES_EXPLANATIONS, calculateExperienceByLevel, calculateExtraFirstTurnAPByInitiative, calculateStatsToBonusAttributesObject, checkStatRequirements, DEFAULT_STAT_ARRAY, EXTRA_INITIATIVE_AP, INITIATIVE, STAT_ICON_NAME_MAP, STAT_NAMES, STAT_SHORTENED_STRING } from "../../../services/game-lib/stat-calculations"
 import classNames from "classnames"
 import { BigStatInput } from "../../../components/BigStat/BigStatInput"
 
@@ -45,6 +45,8 @@ export function ExperienceSlider({max, initialValue, onChange, children}) {
 }
 
 export default function SectionStats() {
+
+    const isPortrait = useConstIsPortrait()
  
     let [statsCorrectError, setStatsCorrectError] = useState(null)    /* { message: string } */
     let [level, setLevel] = useLevel()
@@ -66,7 +68,7 @@ export default function SectionStats() {
     const ignoreStatRequirements = myRace?.['IgnoreStatRestrictions'] ?? false
     const levelError = checkLevel(level)
     
-    const attributesFromStats = calculateStatsToAttributesObject(stats)
+    const attributesFromStats = calculateStatsToBonusAttributesObject(stats)
 
     function checkLevel(level) {
         const levelError = level <= 0? 'Your level should not be lower than 0': Math.floor(level) != level? 'Your level should not be decimal': null
@@ -118,16 +120,23 @@ export default function SectionStats() {
                     </div>
                 </Column>
                 <Column>
-                    <p style={{marginTop: '5px'}}>{ description }</p>
+                    <p>
+                        { ATTRIBUTES_EXPLANATIONS[name]() }
+                    </p>
                 </Column>
             </TwoColumns>
         )
     }
 
+    function maybeMakeFractionGray(value) {
+        const { left, right } = getNumberPartsString(value, { includeDotOnRight: true })
+        return <span>{left}<span style={{color: '#BBBBBB'}}>{right}</span></span>
+    }
+
     return (
         <Page hasNoMargins={true} className>
             <div className="center-content">
-                <QGTitle1 text="Level" height={60}/>
+                <QGTitle1 text="Level" height={60} className="margin-bottom-2"/>
                 <p>
                     <BigStatInput name="Level" value={level} onChange={val => {
                         setLevel(val)
@@ -150,7 +159,7 @@ export default function SectionStats() {
             <div className="center-content flex" style={{gap: '2rem'}}>
                 <div className="stats-selector flex row width-100">
                     { DEFAULT_STAT_ARRAY.map((num, i) => (
-                        <BigStatInput style={{width: 'unset', height: 'unset', flex: 1}} name={STAT_NAMES[i]} value={stats[i]} onChange={val => {
+                        <BigStatInput style={{width: 'unset', height: 'unset', flex: 1}} name={isPortrait? STAT_SHORTENED_STRING[STAT_NAMES[i]]: STAT_NAMES[i]} value={stats[i]} onChange={val => {
                             onStatChanged(i, val)
                         }}/>
                     )) }
@@ -159,7 +168,7 @@ export default function SectionStats() {
 
                 <div style={{ width: '100%' }}>
                     { Object.keys(attributesFromStats).map(name => (
-                        <StatExplainedDisplay name={name} iconName={STAT_ICON_NAME_MAP[name]} value={attributesFromStats[name]} description={
+                        <StatExplainedDisplay name={name} iconName={STAT_ICON_NAME_MAP[name]} value={maybeMakeFractionGray(attributesFromStats[name])} description={
                             <div>
                                 <AttributeCalculationTextComponent statName={name}/>
                             </div>

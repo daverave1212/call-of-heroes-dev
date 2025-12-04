@@ -1286,7 +1286,7 @@ export function roundToNearest(number, multipleOf) {
 export function generateUniqueId() {
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
 }
-export function getNumberPartsString(number) {
+export function getNumberPartsString(number, { includeDotOnRight=false }) {
     if (number == null) {
         return { left: '', right: '' }
     }
@@ -1294,7 +1294,10 @@ export function getNumberPartsString(number) {
     if (floor == number) {
         return { left: `${number}`, right: '' }
     }
-    const [front, digits] = `${number}`.split('.')
+    let [front, digits] = `${number}`.split('.')
+    if (includeDotOnRight) {
+        digits = '.' + digits
+    }
 
     return { left: front, right: digits}
 }
@@ -1689,6 +1692,12 @@ export default function useConstWindowDimensions() {
     }, []);
 
     return windowDimensions;
+}
+
+export function useConstIsPortrait() {
+    const windowDimensions = useConstWindowDimensions()
+
+    return windowDimensions.height > windowDimensions.width
 }
 
 

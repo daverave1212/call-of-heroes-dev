@@ -107,9 +107,9 @@ function MyCharacters() {
                     }}
                 />
             </div>
-            <div className="flex-row gap-half margin-top-1">
+            <div className="center-content flex-responsive gap-half margin-top-1">
                 <button onClick={newCharacter}>New Character</button>
-                <button style={{ maxWidth: '25%', backgroundColor: 'red' }} onClick={deleteCharacter}>Delete</button>
+                <button style={{ backgroundColor: 'red' }} onClick={deleteCharacter}>Delete</button>
             </div>
         </div>
     )
@@ -194,13 +194,13 @@ export default function CharacterCreationCalculator() {
             {/* <AbilityStatDialog dialogState={dialogState} setDialogState={setDialogState}/> */}
 
             { !isLoggedIn? <LoginRequired/>: (<>
-                <div className="center-content">
+                <div className="center-content padding-top-4 margin-bottom-2">
                     <QGTitle1 text={"My Characters"} height="60"/>
                 </div>
 
                 <MyCharacters/>
 
-                <div className="center-content">
+                <div className="center-content margin-top-4 margin-bottom-2">
                     <QGTitle1 text={"Character"} height="60"/>
                 </div>
 
