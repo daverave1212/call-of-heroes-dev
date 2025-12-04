@@ -193,21 +193,6 @@ export default function SectionStats() {
                         }/>
                     )) }
                     
-                    {/* <StatExplainedDisplay name="Extra Regen" iconName="HealthRegen" attributeName="healthRegen" description={
-                        <div>Your <b>Health Regen</b> = Race Health Regen + 2 × Soul</div>
-                    }/>
-                    <StatExplainedDisplay name="Move Speed" iconName="Speed" attributeName="movementSpeed" description={
-                        <div>Your <b>Movement Speed</b> = 3 + Dexterity (minimum 3)</div>
-                    }/>
-                    <StatExplainedDisplay name="Extra Talents" iconName="Spell" attributeName="knownTalents" description={
-                        <div>Your <b>Number of Extra Talents</b> = Mind</div>
-                    }/>
-                    <StatExplainedDisplay name="Initiative" iconName="Replacement" attributeName="initiative" description={
-                        <div>
-                            Your <b>Initiative</b> = Mind + Soul
-                            <div className="subtext margin-top-half">Initiative represents the order in which players and NPC's take turns.</div>
-                        </div>
-                    }/> */}
                 </div>
                 <div className="center-content" style={{width: '100%'}}>
                     { statsCorrectError != null && (

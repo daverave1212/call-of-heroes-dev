@@ -3,7 +3,7 @@ import { titleToId } from '../../utils'
 import './PageH2.css'
 import React from 'react'
 
-export default function PageH2({ children, title, id, style, className, hasMargin=true }) {
+export default function PageH2({ children, title, id, style, className, hasMargin=false }) {
 
     const classes = (hasMargin? `page-h2 with-margin `: `page-h2 `) + className
 
