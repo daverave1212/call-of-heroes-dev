@@ -1286,6 +1286,38 @@ export function roundToNearest(number, multipleOf) {
 export function generateUniqueId() {
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
 }
+export function getNumberPartsString(number) {
+    if (number == null) {
+        return { left: '', right: '' }
+    }
+    const floor = Math.floor(number)
+    if (floor == number) {
+        return { left: `${number}`, right: '' }
+    }
+    const [front, digits] = `${number}`.split('.')
+
+    return { left: front, right: digits}
+}
+export function getNumberDecimalsString(number) {
+    if (number == null) {
+        return ''
+    }
+    const floor = Math.floor(number)
+    if (floor == number) {
+        return `${number}`
+    }
+    const [front, digits] = `${number}`.split('.')
+
+    return digits
+}
+export function getNumberFirstPartString(number) {
+    if (number == null) {
+        return ''
+    }
+    const [front, digits] = `${number}`.split('.')
+
+    return front
+}
 window.generateUniqueId = generateUniqueId
 export function logAndReturn(obj) {
     console.log(obj)

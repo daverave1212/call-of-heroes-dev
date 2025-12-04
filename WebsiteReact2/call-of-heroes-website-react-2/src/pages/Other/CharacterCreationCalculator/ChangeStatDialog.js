@@ -5,8 +5,8 @@ import { useEffect, useState } from "react"
 import Dialog from "../../../components/Dialog/Dialog"
 import { useArmors, useManualBonuses } from "./CharacterData"
 import PageH2 from "../../../components/PageH2/PageH2"
-import { StatValue } from "./SectionStats"
 import { LabelWithInput } from './SectionNames'
+import { BigStatValue } from '../../../components/BigStat/BigStatValue'
 
 // WIP
 // export function CustomArmorDialog({ isOpen, setIsOpen }) {
@@ -29,7 +29,7 @@ import { LabelWithInput } from './SectionNames'
 //         </Dialog>
 //     )
 // }
-export default function ChangeStatDialog({ defaultInputValue, defaultNumberValue, description, title, close, onDone }) {
+export default function ChangeStatDialog({ defaultInputValue, defaultNumberValue, description, title, close, onDone, increment=1 }) {
 
     
     const [numberValue, setNumberValue] = useState(defaultNumberValue)
@@ -44,10 +44,10 @@ export default function ChangeStatDialog({ defaultInputValue, defaultNumberValue
     }, [defaultNumberValue])
 
     function onMinus() {
-        setNumberValue(numberValue - 1)
+        setNumberValue(numberValue - increment)
     }
     function onPlus() {
-        setNumberValue(numberValue + 1)
+        setNumberValue(numberValue + increment)
     }
     function onSave() {
         onDone({ name: inputValue, value: numberValue})
@@ -80,7 +80,7 @@ export default function ChangeStatDialog({ defaultInputValue, defaultNumberValue
                         <div className="wrapper plus-minus unselectable" onClick={onMinus}>
                             <div>-</div>
                         </div>
-                        <StatValue name={nameUsed} value={numberValue}/>
+                        <BigStatValue name={nameUsed} value={numberValue}/>
                         <div className="wrapper plus-minus unselectable" onClick={onPlus}>
                             <div>+</div>
                         </div>
