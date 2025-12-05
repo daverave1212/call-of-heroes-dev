@@ -1286,20 +1286,21 @@ export function roundToNearest(number, multipleOf) {
 export function generateUniqueId() {
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
 }
-export function getNumberPartsString(number, { includeDotOnRight=false }) {
+export function getNumberPartsString(number, options=({ includeDotOnRight: false })) {
     if (number == null) {
-        return { left: '', right: '' }
+        return { sign: '', left: '', right: '' }
     }
-    const floor = Math.floor(number)
-    if (floor == number) {
-        return { left: `${number}`, right: '' }
+    const maybeSign = number < 0? '-': ''
+    const trunk = Math.trunc(number)
+    if (trunk == number) {
+        return { sign: maybeSign, left: `${Math.abs(number)}`, right: '' }
     }
-    let [front, digits] = `${number}`.split('.')
-    if (includeDotOnRight) {
+    let [front, digits] = `${Math.abs(number)}`.split('.')
+    if (options.includeDotOnRight) {
         digits = '.' + digits
     }
 
-    return { left: front, right: digits}
+    return { sign: maybeSign, left: front, right: digits}
 }
 export function getNumberDecimalsString(number) {
     if (number == null) {

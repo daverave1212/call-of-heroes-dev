@@ -37,17 +37,8 @@ export default function SmallStat({
     return (
         <div className={`small-stat flex ${smallStatClassesByType} ${className}`} style={{...contentStyle, ...{borderColor: realColor}}}>
             <div style={{...nameStyle, ...{backgroundColor: realColor}}} className={`small-stat__name`}>{ name }</div>
-            <div className="small-stat__value" style={valueStyle}>{ children }</div>
+            <div className="small-stat__value center-content-row" style={valueStyle}>{ children }</div>
         </div>
     )
     
-
-    return (
-        <div className='small-stat-container' style={style} onClick={onClick}>
-            <div style={{...contentStyle, ...{borderColor: realColor}}} className={`small-stat flex ${smallStatClassesByType}`}>
-                <div style={{...nameStyle, ...{backgroundColor: realColor}}} className={`small-stat__name flex-1`}>{ name }</div>
-                <div className="small-stat__value flex-1" style={valueStyle}>{ children }</div>
-            </div>
-        </div>
-    )
 }

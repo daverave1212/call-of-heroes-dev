@@ -1,4 +1,4 @@
-import { addArrays, addManyObjects, addObjects, capitalizeFirstLetter, getAllClasses, getAllRaces, isString } from "../../utils"
+import { addArrays, addManyObjects, addObjects, capitalizeFirstLetter, getAllClasses, getAllRaces, isString, mapObject } from "../../utils"
 
 export const STAT_LIMITS_TEXT = "Your Stat limit (and non-combat Skill limit) is 3 and increases by 1 every 3 Levels (it's 3 at Levels 1-3, 4 at Levels 4-6, etc)."
 
@@ -95,6 +95,19 @@ export function getAttributeBonusesFromLevel(level, classObj) {
         [KNOWN_ABILITIES]: 0
     }
 }
+export function getAttributeCalculationsByStats(statArray) {
+    const bonusAttributes = calculateStatsToBonusAttributesObject(statArray)
+    const signs = mapObject(bonusAttributes, ({ key, value }) => ({ key: key, value: value < 0? `-`: '+'}))
+    const numbers = mapObject(bonusAttributes, ({ key, value }) => ({ key, value: Math.abs(value)}))
+
+    return {
+        [MAX_HEALTH]: { left: `Race HP`, middle: signs[HEALTH_REGEN], right: numbers[HEALTH_REGEN] },
+        [HEALTH_REGEN]: { left: `Race Health Regen`, middle: signs[HEALTH_REGEN], right: numbers[HEALTH_REGEN] },
+        [MOVEMENT_SPEED]: { left: `4`, middle: signs[MOVEMENT_SPEED], right: numbers[MOVEMENT_SPEED] },
+        [INITIATIVE]: { left: ``, middle: '', right: bonusAttributes[INITIATIVE] },
+        [KNOWN_ABILITIES]: { left: ``, middle: '', right: bonusAttributes[KNOWN_ABILITIES] },
+    }
+}
 export function calculateExtraFirstTurnAPByInitiative(initiative) {
     return Math.floor(initiative / 5)
 }
@@ -118,12 +131,12 @@ export const ATTRIBUTES_CALCULATIONS_SPANS = {
 }
 export const ATTRIBUTES_EXPLANATIONS = {
     [MAX_HEALTH]: () => <span>Max Health determines how much you can resist in Combat. Your entire Health regenerates between Adventures.</span>,
-    [HEALTH_REGEN]: () => <span>After every Combat, you automatically heal for an amount equal to your Health Regen. No need for resting!</span>,
-    [MOVEMENT_SPEED]: () => <span>Your Movement Speed determines how many meters you can move at a time when you spend 1 Action Point on it (you have 3 Action Points per Turn in Combat).</span>,
-    [INITIATIVE]: () => <span>On your first Turn in every Combat, you have an <b>extra</b> number of Action Points equal to your Initiative (rounded down). Note that even if your Initiative is a fraction, like 2.5, you only have 2 extra Action Points and ignore the rest of 0.5.</span>,
+    [HEALTH_REGEN]: () => <span>After every Combat, you automatically heal equal to your Health Regen. No need for resting!</span>,
+    [MOVEMENT_SPEED]: () => <span>You can spend 1 Action Point to move this many meters (you have 3 Action Points per Turn).</span>,
+    [INITIATIVE]: () => <span>On your first Turn every Combat, you have <b>extra</b> Action Points equal to your Initiative (rounded down).<br/>Note that even if your Initiative is a fraction, like 2.5, you only have 2 extra Action Points and ignore the rest of 0.5.</span>,
     [EXTRA_INITIATIVE_AP]: () => <span></span>,
-    [KNOWN_ABILITIES]: () => <span>Normally, for each Talent tier (e.g. Level 1 Minor Talents), you get 1 free Talent pick! However, you can have a total number of <b>extra Minor Talents or Utility Talents</b> equal to your Intelligence. So, for example, if your Intelligence is 2, you may pick an extra 2 Minor Talents from the Level 1 Minor Talents tier.<br/><i>Note that there are also Keystone Talents, which you can only pick 1 per Talent tier, no matter your Intelligence!</i></span>,
-    [SKILL_POINTS]: () => <span>You can spend each 1 non-Combat Skill Point to get +1 in a certain activity. These can be anything from fishing and swimming, to jumping or even sight, to knowledge about specific subjects or even general knowledge. You can assign more points in a certain non-Combat Skill you have, as long as it's at most equal to your highest Stat.</span>,
+    [KNOWN_ABILITIES]: () => <span>Normally, for each Talent tier (e.g. Level 1 Minor Talents), you get 1 free Talent pick, but you get <b>extra Minor Talents or Utility Talents</b> equal to your Intelligence. For example, if your Intelligence is 2, you get 2 extra Minor Talents from the Level 1 Minor Talents.<br/><i>Note that there are also Keystone Talents, which you can only pick 1 per Talent tier, no matter your Intelligence!</i></span>,
+    [SKILL_POINTS]: () => <span>You can spend each 1 Skill Point to get +1 in a certain activity. These can be anything from fishing and swimming, to jumping or even sight, to knowledge about specific subjects or even general knowledge. You can assign more points in a certain Skill (as long as it's at most equal to your highest Stat).</span>,
 }
 export function AttributeCalculationTextComponent({statName}) {
     const Comp = ATTRIBUTES_CALCULATIONS_SPANS[statName]

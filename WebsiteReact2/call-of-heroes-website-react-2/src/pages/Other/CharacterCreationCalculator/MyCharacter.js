@@ -25,7 +25,14 @@ import { BigStatValue } from "../../../components/BigStat/BigStatValue"
 
 
 
-
+export function maybeMakeFractionGray(value) {
+    const { sign, left, right } = getNumberPartsString(value, { includeDotOnRight: true })
+    const signSpan = `${left}` == '0'? <span style={{color: '#BBBBBB'}}>{sign}</span>: <span>{sign}</span>
+    console.log({ sign, left, right })
+    return <span>
+        {signSpan}{left}<span style={{color: '#BBBBBB', fontSize: '0.75em'}}>{right}</span>
+    </span>
+}
 
 export function useConstBonusesFromSpellsAndItems() {
     let [armorNames] = useArmors()
@@ -147,10 +154,8 @@ export default function MyCharacter() {
     // const extraAPOnFirstRound = calculateExtraFirstTurnAPByInitiative(attributes[INITIATIVE])
     // const extraAPOnFirstRoundString = extraAPOnFirstRound < 0? extraAPOnFirstRound: ('+' + extraAPOnFirstRound)
 
-    
-    const initiativeParts = getNumberPartsString(attributes[INITIATIVE])
-    const initiativeDisplay =
-        <span>{initiativeParts.left}<span style={{color: '#BBBBBB', fontSize: '1.25rem'}}>.{initiativeParts.right}</span></span>
+    console.log({ attributes_INITIATIVE: attributes[INITIATIVE]})
+    const initiativeDisplay = maybeMakeFractionGray(attributes[INITIATIVE])
     console.log({attributes})
 
 
@@ -269,7 +274,7 @@ export default function MyCharacter() {
             )) }
         </div>
     }
-    function BaseStatsAndCombatColumn() {
+    function AttributesAndQuickCombatNotesColumn() {
         return <div className={`flex flex-column column-2-width`} style={{gap: 'var(--stats-gap)'}}>
             <div className="flex-column" style={{gap: 'var(--stats-gap)'}}>    
                 <div className="flex" style={{gap: 'var(--stats-gap)'}}>
@@ -373,7 +378,7 @@ export default function MyCharacter() {
                 </div>
                 <div className="flex flex-row margin-top-1" style={{gap: 'var(--stats-gap)'}}>
                     <StatsColumn/>
-                    <BaseStatsAndCombatColumn/>
+                    <AttributesAndQuickCombatNotesColumn/>
                     <div className="landscape-only">
                         <PortraitAndDescription/>
                     </div>
