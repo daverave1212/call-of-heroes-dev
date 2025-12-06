@@ -1072,7 +1072,8 @@ Spider (Giant):
   Role: Main Enemy
   Variants: Ettercap, Centipede (Giant) - Doesn't have any Web-related abilities, but also casts Crippling Poison when it rolls 1.
 
-# TODO -- left here / ramas aici
+
+
 Bear:
   Type:         Beast
   Degree:       Normal
@@ -1122,6 +1123,29 @@ Pegasus:
   Monster Data: No tactic, mid HP, no gimmick
   Role: Main Enemy
 
+Lion:
+  Type:         Beast
+  Degree:       Normal
+  Experience:   225
+  Stats:        3/5/-1/2/4
+  Health:       65
+  HPCoef:       1
+  Speed:        6
+  Initiative:   2
+  Abilities:
+    - Claws/Bite:
+        A: Half-Action
+        Damage: 1d6
+        Rip: After attacking, this does +1 Damage for the rest of the Combat (stacks indefinitely).
+  Avoids AoE: No
+  Behavior: |
+    Use this as a standard Large animal.
+  Suggested Obstacles:
+    None
+  Monster Data: No tactic, mid HP, no gimmick
+  Role: Main Enemy
+  Variants: Any other similar animal (e.g. giant badger)
+
 Cockatrice:
   Type:         Beast
   Degree:       Epic x2
@@ -1132,17 +1156,28 @@ Cockatrice:
   Speed:        4
   Initiative:   3
   Abilities:
-    - Stone Glare (5m range): |
-        Target makes a 11 Grade Sense Check or it takes 1d8 Damage and is Crippled or Silenced (cockatrice chooses).
-    - Tail Sweep (2m range): |
-        Target and all Units 1 meter from it make a 11 Grade Dexterity Check.
-        On fail, they take 9 Smash Damage and are Fumbling (or 2d4 + 5).
-        On success, they take half of that Damage.
-    - Talons: Make 2 attacks for 1d6 Pierce
+    - Beak:
+        A: Half-Action
+        Damage: 1d10 Pierce
+        Seize: +1d6 Damage if the target has any Crowd Control
+    - Stone Glare:
+        Effect: A chosen Player must choose a target the Cockatrice can see to take 4d6 True Damage and become Blinded.
+    - Tail Sweep:
+        Range: 2 meters
+        Effect: Target and all Units 1 meter from it take 2d8 Smash Damage.
+        Seize: +1d6 Damage to targets with any Crowd Control
+    - Quills:
+        A: Half-Action
+        Range: 5 meters
+        Effect: A Unit takes 1d8 Pierce Damage.
   Passives:
+    - Panic Shriek: |
+        When Combat starts, each Person has a panic attack for 1d4 Turns.
+        While panicking, when a Player Character wants to do soemthing, the Quest Master can say "no, choose something else to do", once per player Turn.
+        Players that can't hear are unaffected.
     - Bloody Shriek: |
         When dropping below 50% HP, Cockatrice shrieks.
-        All Units become a Triple-Stunned level equal to 4 - Their Sense (e.g. if their Sense is 1, they become Triple-Stunned).
+        All Units become a Stunned level equal to 4 - Their Sense (e.g. if their Sense is 1, they become Triple-Stunned).
   Avoids AoE: No
   Behavior: |
     Every turn, the Cockatrice jumps to attack a different target.
