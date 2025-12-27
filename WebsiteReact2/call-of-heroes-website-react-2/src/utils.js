@@ -1007,7 +1007,7 @@ function formFunctionSymbolComponentFunc(symbol, args, shouldReturnString=false)
     return () => <ComponentForSymbolConfig config={funcResult}>{text}</ComponentForSymbolConfig>
 }
 
-const SYMBOLS = {
+export const SYMBOLS = {
     'Template': { tag: 'Icon', props: {}, text: '🔹', func: () => (<span>A Feared Unit can only do <b>one</b> Act on its turn (e.g. move, make one attack, use one Ability, etc).</span>) },
     'Template2': {
         tag: 'Icon',            // Tag to use
@@ -1065,7 +1065,7 @@ const SYMBOLS = {
     'Combo': { tag: 'span', props: { style: {color: 'var(--blue-color)'} }, text: "Combo:" },
 
 }
-const FUNCTION_SYMBOLS = {
+export const FUNCTION_SYMBOLS = {
     'RandomOf': args => ({ tag: 'span', text: randomOf(...args) }),
     'Brown': args => ({ tag: 'span',  props: { style: { color: 'brown' } }, text: args[0] }),
     'Orange': args => ({ tag: 'span', props: { style: { color: '#FF5500' } }, text: args[0] }),
@@ -1080,7 +1080,9 @@ const FUNCTION_SYMBOLS = {
     '~': args => ({ tag: 'span', props: { style: { color: 'var(--blue-color)' } }, text: args[0] }),
 }
 
-
+export function parseWordWithSymbol(word, customSymbols, options = {}) {
+    // TODO
+}
 
 // Returns an array of components, or an array of strings if { shouldReturnStringsOnly: true }
 export function parseTextWithSymbols(text, customSymbols, options = {}) {

@@ -578,8 +578,8 @@
             },
             {
                 "Attack": {
-                    "Damage": 3,
-                    "RAGE": "+3 Damage for each time the Berserker took Damage this Combat"
+                    "Damage": "1d4",
+                    "RAGE": "+1d4 Damage for each time the Berserker took Damage this Combat"
                 }
             },
             {
@@ -611,39 +611,53 @@
         "Degree": "Normal",
         "Experience": 225,
         "Stats": "1/2/5/2/5",
-        "Health": "76 (Half is Shielding)",
+        "Health": 76,
         "HPCoef": 1,
-        "Shielding": "Half is Shielding",
         "Speed": 5,
         "Initiative": 5,
         "Abilities": [
             {
-                "Hollow Touch (5m)": {
-                    "Damage": "7 Scourge (or 2d4 + 2)",
-                    "Anticoagulate": "Target can not cast healing Abilities on its next turn."
+                "Deathfire Flame": {
+                    "Range": "10 meters",
+                    "A": "1 Action",
+                    "Damage": "2d8",
+                    "Attack Through": "If other Units provide Cover for the target, they all take 50% of the Damage."
                 }
             },
             {
-                "Dagger": "1d6 Pierce"
+                "Pain Tether": {
+                    "A": "1 Action",
+                    "Cooldown": "Once / Combat",
+                    "Effect": "Choose a Unit. It always also takes 50% of all Damage the Cult Hierarch takes.\n",
+                    "Notes": "Only one Unit can be Pain Tethered to only one Cult Hierarch."
+                }
             },
             {
-                "Pain Tether (free) (once per combat)": "Choose a target the Cult Hierarch can see.\nUntil the combat is over, that target instanty takes half of all Damage the Cult Hierarch takes.\nOnly one Unit can be Pain Tethered to only one Cult Hierarch.\nConcentration (interrupt it with any CC except Slows and Fumbling).\n"
+                "Counterspell": {
+                    "A": "Reaction",
+                    "Cooldown": "Once / Combat",
+                    "Effect": "On first occasion, when a Unit uses an Ability, it is cancelled and the Action Points are lost (but not the Mana).\n",
+                    "Upgrade": "The Counterspell is visibly prepared in the Unit's hand, ready to cast!"
+                }
             },
             {
-                "Counterspell (free) (once per combat) (Reaction)": "When a Unit casts a spell, it must succeed a 11 Grade Sense Check or the spell is cancelled and the action lost, but not the Mana.\nIf it succeeds, then the spell can't be Counterspelled again (e.g. from another Cult Hierarch).\n"
+                "Dagger": {
+                    "A": "Half-Action",
+                    "Damage": "1d6 Pierce"
+                }
             }
         ],
         "Passives": {
             "Basic Magic": "Can cast small non-combat utility spells like Magic Tricks, Light, etc"
         },
         "Avoids AoE": "Yes",
-        "Behavior": "The goal of a Cult Hierarch in combat is not to kill, but inflict Damage long term for the Players' mission.\nWill cast Inflict Wounds on different targets to stall their progress in the current adventure.\nWhen the combat starts, cast Pain Tether on a Unit. Each Cult Hierarch casts Pain Tether on a different target.\nCast Counterspell on first occasion. Multiple Cult Hierarchs will NOT cast Counterspell at the same time or to try again.\n",
+        "Behavior": "The goal of a Cult Hierarch in combat is not to kill, but inflict Damage long term for the Players' mission.\nWhen the combat starts, cast Pain Tether on a Unit. Each Cult Hierarch casts Pain Tether on a different target.\nCast Counterspell on first occasion. Multiple Cult Hierarchs will NOT cast Counterspell at the same time or to try again.\n",
         "Lore": "None",
         "Suggested Obstacles": "None",
         "Monster Data": "No tactic, mid HP, no gimmick",
         "Role": "Main Enemy",
         "Variants": "None",
-        "Story Ideas": "Cult Hierarchs should be among the first or mid-way through a dungeon-delve or mission, as they inflict Damage that can not be healed.\nPlayers might hear reports of mutilated cows or other animals - no blood, and perfectly removed organs.\nYes, it's a cult.\n",
+        "Story Ideas": "Players might hear reports of mutilated cows or other animals - no blood, and perfectly removed organs.\nYes, it's a cult.\n",
         "Loot": "None"
     },
     "Druid": {
@@ -651,54 +665,45 @@
         "Degree": "Normal",
         "Experience": 250,
         "Stats": "2/2/3/4/2",
-        "Health": "91 (half is Shielding)",
+        "Health": 91,
         "HPCoef": 1,
-        "Shielding": "half is Shielding",
         "Speed": 5,
         "Initiative": 6,
         "Abilities": [
             {
-                "Roots (Human) (10m)": {
-                    "Damage": "7 Pierce (or 2d4 + 2)",
-                    "Root": "The target becomes Rooted or takes an +1d4 Damage (its choice)."
+                "Roots (Human)": {
+                    "Effect": "All Enemies of the Druid within 2 meters take 2d6 Damage and must choose, twice, to become Slowed or take +1d6 Damage."
                 }
             },
             {
-                "Maul (Owlbear)": {
-                    "Damage": "2d6 Smash",
-                    "Critical Stun": "For each 6 rolled, the target becomes Single-Stunned."
+                "Maul (Bear)": {
+                    "A": "Half-Action",
+                    "Damage": "1d8",
+                    "Critical Stun": "If rolled 6 or higher, the target becomes Single-Stunned."
                 }
             },
             {
-                "Tongue Grab (Toad) (4m)": {
-                    "Damage": "3d4 Poison",
-                    "Pull": "Target is pulled next to the toad."
+                "Tongue Grab (Toad)": {
+                    "Range": "5 meters",
+                    "Damage": "4d4 Poison",
+                    "Pull": "Target is Slammed 1d4 meters in any direction."
                 }
             },
             {
-                "Buffet (Eagle)": "Make 2 attacks for 1d4 + 2 Pierce"
+                "Talons (Eagle)": {
+                    "A": "Half-Action",
+                    "Damage": "1d8",
+                    "Fly Away": "After attacking, you can move 3 meters for free."
+                }
             },
             {
-                "Shapeshift (free)": "Every turn, the Druid can transform into either an Owlbear, Giant Toad or Giant Eagle. It uses a different attack or has a different Passive for each form."
+                "Shapeshift (free)": {
+                    "A": "0 Actions",
+                    "Effect": "Every Turn, players (together) decide whether the Druid transforms into a Bear, Toad, Eagle or shifts to its person form.\nThey can't choose the same form as the last.\n"
+                }
             }
         ],
         "Passives": [
-            {
-                "Barkskin (Human)": {
-                    "A": "Reaction",
-                    "Cooldown": "Once / Combat",
-                    "Effect": "Defense becomes 5 until start of its next turn."
-                }
-            },
-            {
-                "Owl Screech (Owlbear)": {
-                    "A": "0 Actions",
-                    "Effect": "All Units that can hear the Owlbear Druid must succeed a 12 Sense Check or be Silenced."
-                }
-            },
-            {
-                "Toxins (Toad)": "Whenever the Toad is Melee attacked, the attacker takes 3 Poison Damage."
-            },
             {
                 "Fly and Evasive (Eagle)": "Flies."
             },
@@ -720,7 +725,7 @@
         "Monster Data": "No tactic, mid HP, no gimmick",
         "Role": "Main Enemy",
         "Variants": "None",
-        "Story Ideas": "An encounter idea is that a druid circle attempts to summon a fey being (a sort of magical forest creature from another dimension).\nTheir intentions are pure, but they don't know they are being tricked into actually summoning a fiend.\nThe players know the true identity of the fey.\nWill they stop the druids peacefully?\n",
+        "Story Ideas": "An encounter idea is that a druid circle attempts to summon a fey being (a magical forest creature from another dimension).\nTheir intentions are pure, but they don't know they are being tricked into actually summoning a fiend.\nThe players know the true identity of the fey.\nWill they stop the druids peacefully?\n",
         "Loot": "None"
     },
     "Dryad": {
@@ -777,28 +782,34 @@
         "Defense": "5 (Innate)",
         "HPCoef": 1,
         "Speed": "4 on land, 6 in water and shallow water",
-        "Initiative": "10 if Warrior, 1 if Mage",
+        "Initiative": 5,
         "Abilities": [
             {
-                "Warrior - Melee Weapon (2m)": {
-                    "Damage": "2d6 + 1",
-                    "Chains": "If rolled at least one 6 or 1, the target must succeed a 11 Might Check or be pulled to a solid object within 3 meters and be Rooted."
+                "Warrior - Melee Weapon": {
+                    "A": "Half-Action",
+                    "Damage": "1d12",
+                    "Chains": "Every 2nd attack Deafens and Dazes the target."
                 }
             },
             {
-                "Warrior - Harpoon (5m)": {
+                "Warrior - Harpoon": {
+                    "Range": "5 meters",
                     "Damage": "8 Pierce",
-                    "Pull": "If rolled at least one 6, the target must succeed a 11 Might Check or be pulled to the Naga and be Slowed."
+                    "Pull": "Target is pulled near the Naga Warrior."
                 }
             },
             {
                 "Mage - Frostbolt (10m)": {
-                    "Damage": "8 Cold (or 1d4 + 5)",
-                    "Slow": "The target is Slowed."
+                    "Damage": "10 Cold (or 4d4)",
+                    "Freezing": "If the target already took Cold Damage this Combat, it becomes Slowed."
                 }
             },
             {
-                "Mage - Enslave Magic (free) (once per combat)": "Gain control of a non-sentient summoned Unit until combat ends. If the creature is sentient, it must succeed a 12 Sense Check or be enslaved. It always takes its turn after the Naga, even if it already had its turn. Effect ends after 1 minute or if this Naga dies."
+                "Mage - Enslave Magic": {
+                    "A": "Half-Action",
+                    "Cooldown": "Once / Combat",
+                    "Effect": "Gain control of a non-Player Character Unit until Combat ends or the Naga Mage dies.\n"
+                }
             }
         ],
         "Passives": [
@@ -806,7 +817,7 @@
                 "Resistances": "Takes -50% Cold Damage."
             },
             {
-                "Mages and Warriors": "A Naga is either a Mage or a Warrior. A Mage can only use [Mage] Abilities. A Warrior can only use [Warrior] Abilities."
+                "Mages and Warriors": "A Naga is either a Mage or a Warrior. A Mage can only use Mage Abilities. A Warrior can only use Warrior Abilities."
             }
         ],
         "Avoids AoE": "No",
@@ -836,16 +847,30 @@
         "Initiative": 9,
         "Abilities": [
             {
-                "Ranged Weapon": "1d12 + 2"
-            },
-            {
-                "Melee Weapon": {
-                    "Damage": "5 (or 1d8)",
-                    "Onset": "+1 Damage for each meter moved towards the target (strafing around the target does not count, it has to be straight movement towards it; diagonals are valid if you play on a grid)."
+                "Ranged Weapon": {
+                    "A": "Half-Action",
+                    "Cooldown": "Twice / Turn",
+                    "Damage": "1d12"
                 }
             },
             {
-                "Back Hooves (free) (usable only before moving)": "A target must succeed a 11 Grade Dexterity Check or it takes 1d8 Smash Damage and is Single-Stunned."
+                "Melee Weapon": {
+                    "Damage": "2d10",
+                    "Double Edge": "The target choose whether to both take +1d10 Damage, or be Single-Stunned."
+                }
+            },
+            {
+                "STAMPEDE": {
+                    "A": "Reaction",
+                    "Cooldown": "Once / Combat",
+                    "Effect": "Use when another player wants to do something.\nImmediately run up to 10 meters to the other side of the battlefield and make a Melee Attack.\n"
+                }
+            },
+            {
+                "Hooves": {
+                    "A": "Half-Action",
+                    "Damage": "1d6 Smash"
+                }
             }
         ],
         "Passives": [
@@ -896,7 +921,7 @@
         ],
         "Passives": [
             {
-                "Necromantic Control": "When in a group with other undead Unit(s), one undead is bond to this necromancer. When this necromancer dies, that undead dies as well."
+                "Necromantic Control": "When in a group with other undead Unit(s), one undead is bound to this necromancer. When this necromancer dies, that undead dies as well."
             }
         ],
         "Avoids AoE": "No",
@@ -921,13 +946,16 @@
         "Experience": 25,
         "Stats": "0/1/0/1/0",
         "Health": 1,
-        "Defense": 7,
+        "Defense": 5,
         "HPCoef": 0.01,
         "Speed": 5,
         "Initiative": "1 if land, 3 if flying",
         "Abilities": [
             {
-                "Bite": "1 True Damage"
+                "Bite": {
+                    "Cooldown": "Once / Turn",
+                    "Damage": "1d4 True"
+                }
             }
         ],
         "Passives": [
@@ -952,14 +980,26 @@
         "Stats": "1/1/0/6/3",
         "Health": 15,
         "HPCoef": 0.7,
-        "Speed": 7,
+        "Speed": 6,
         "Initiative": 6,
         "Abilities": [
             {
-                "Bite (3m)": {
+                "Bite": {
+                    "Cooldown": "Once / Turn",
                     "Damage": "1d4 Pierce",
-                    "Maining": "Target becomes Slowed."
+                    "Hold Down": "The Hound remains attached to the target.\nWhile holding the target, it is Slowed, Deafened, or Dazed.\nAll Hounds must choose the same CC on this Round.\n"
                 }
+            }
+        ],
+        "Passives": [
+            {
+                "Track": "Hounds can track a Unit for up to 5 kilometers. Escaping from Hounds requires a Check at least 15."
+            },
+            {
+                "Detect": "Hounds can detect invisible Units."
+            },
+            {
+                "Minor Attacker": "Can only attack once per Turn."
             }
         ],
         "Avoids AoE": "No",
@@ -982,8 +1022,9 @@
         "Abilities": [
             {
                 "Facehug": {
+                    "Cooldown": "Once / Turn",
                     "Damage": "1d4 Scourge",
-                    "Attach": "Target becomes Blinded until the Camazot is killed. The Camazot remains attached to the target and moves with it."
+                    "Attach": "The Camazot remains attached to the target and it's perpetually Blinded.\n"
                 }
             }
         ],
@@ -992,7 +1033,7 @@
                 "Echolocation": "Can see in the dark and is immune to Blinding."
             },
             {
-                "No Opportunity Attacks": "Can't make other Units Fumbling."
+                "Minor Attacker": "Can only attack once per Turn."
             }
         ],
         "Avoids AoE": "No",
@@ -1010,13 +1051,20 @@
         "Health": 19,
         "HPCoef": 0.9,
         "Speed": 6,
-        "Initiative": 5,
+        "Initiative": 12,
         "Abilities": [
             {
-                "Bite": {
-                    "Damage": "1d6 Pierce",
-                    "Flanker": "If Flanking, target becomes Fumbling."
+                "Pack Bite": {
+                    "Damage": "1d4 Pierce",
+                    "Flanker": "All other Wolves that are in range make a Pack Bite on the same target (without triggering this effect)."
                 }
+            },
+            {
+                "Passives": [
+                    {
+                        "Minor Attacker": "Can only attack once per Turn."
+                    }
+                ]
             }
         ],
         "Avoids AoE": "No",
@@ -1040,7 +1088,9 @@
         "Initiative": 5,
         "Abilities": [
             {
-                "Attack": "Half of its current HP (minimum 1)."
+                "Attack": {
+                    "Damage": "Half of its current HP (minimum 1)."
+                }
             }
         ],
         "Passives": [
@@ -1060,7 +1110,7 @@
     },
     "Crab (Giant)": {
         "Type": "Beast",
-        "Experience": 150,
+        "Experience": 225,
         "Stats": "5/2/-2/1/0",
         "Health": 23,
         "Defense": 6,
@@ -1069,22 +1119,28 @@
         "Initiative": 1,
         "Abilities": [
             {
-                "Pincer": "6 Pierce, Smash or Slash (or 2d4 + 1)"
+                "Pincer": {
+                    "Damage": "1d6 Pierce, Smash or Slash",
+                    "Critical Stun": "If rolled 6, Single-Stun the target."
+                }
             }
         ],
         "Passives": [
             {
-                "Thick Chitin": "Takes -50% Pierce and Slash Damage (after Defense)."
+                "Thick Chitin": "Takes -50% Pierce and Slash Damage."
             },
             {
-                "Cold Resistance": "Takes -50% Cold Damage (after Defense)."
+                "Cold Resistance": "Takes -50% Cold Damage."
             },
             {
-                "Updive": "Crabs might sit under mud or sand. If a Unit is right on top of them, they can use all their movement to get up and directly make them Fumbling."
+                "Tall": "Ignores Hard Terrain and Caltrops or Spikes."
+            },
+            {
+                "Submerged Camouflage": "Spotting a camouflaged Crab requires a Check at least 12."
             }
         ],
         "Avoids AoE": "No",
-        "Behavior": "No other specific behavior, it's just a crab.\nPlayers will have trouble breaking through their shell.\n",
+        "Behavior": "Crabs like to submerge themselves in sand or water and ambush their pray when they least expect it.\nPlayers will have trouble breaking through their shell.\n",
         "Suggested Obstacles": [
             "Corals (Hard Terrain)",
             "Shallow Water (Hard Terrain)",
@@ -1098,22 +1154,22 @@
         "Experience": 150,
         "Stats": "1/5/-2/4/0",
         "Health": 40,
-        "HPCoef": 0.85,
+        "HPCoef": 1,
         "Speed": 6,
         "Initiative": 3,
         "Abilities": [
             {
                 "Bite/Claw": {
-                    "Damage": "6 Pierce or Slash (or 1d6 + 1)"
+                    "Damage": "1d10"
                 }
             }
         ],
         "Passives": [
             {
-                "3rd Round Frenzy": "On the 3rd round of combat, all rats become enraged and gain +1d4 Damage on all attacks and +3 Speed."
+                "3rd Round Frenzy": "On the 3rd round of combat, all rats become enraged and gain +1d6 Damage on all attacks and +3 Speed."
             },
             {
-                "Dark Vision": "Can see in the dark"
+                "Dark Vision": "Can see in the dark."
             },
             {
                 "Immunities": "Immune to Poison, Slows and Fumbling."
@@ -1139,13 +1195,14 @@
         "Abilities": [
             {
                 "Beak Attack": {
-                    "Damage": "1d12 (Slash or Pierce)"
+                    "Damage": "1d6 + 1d8 (Slash or Pierce)",
+                    "Break Defenses": "Ignores Defense, Shieldings and Damage Reductions and immediately break all Shielding on the target."
                 }
             }
         ],
         "Passives": [
             {
-                "Armor Breakers": "Attacks ignore Defense and Shielding and immediately break all Shielding on the target."
+                "Sense Defenses": "Raptors sense Shielding, Defense or other Damage Reductions. They prefer attacking Units with Shielding."
             },
             {
                 "Jumpers": "Can freely jump up to 3 meters high."
@@ -1165,13 +1222,21 @@
         "Health": 61,
         "HPCoef": 0.9,
         "Speed": 6,
-        "Initiative": 7,
+        "Initiative": 6,
         "Abilities": [
             {
                 "Spider Attack": {
                     "Damage": "2d6 (Pierce or Poison)",
-                    "Critical Web/Poison": "If rolled at least one 6, target must pass a Might Check at least 10.\n",
-                    "Notes": "Target can become both Rooted and Crippled (on 5 and 6)."
+                    "EffectGreen": "For each 5, Slow the target.\nFor each 6, Cripple the target.\n"
+                }
+            },
+            {
+                "Cocoon": {
+                    "Range": "3 meters",
+                    "Cooldown": "Half of Party / Round",
+                    "A": "Half-Action",
+                    "Effect": "Wrap a Unit in a cocoon with 10 Health.\nThe Unit must break the coocoon first before moving or doing anything outside.\n",
+                    "Upgrade": "The spiders (together) can only cast Cocoon a number of times per Round equal to half the player's team size."
                 }
             }
         ],
@@ -1198,7 +1263,7 @@
         "Type": "Beast",
         "Degree": "Normal",
         "Experience": 200,
-        "Stats": "5/2/0/2/2",
+        "Stats": "4/2/0/2/2",
         "Health": 65,
         "HPCoef": 1,
         "Speed": 6,
@@ -1245,6 +1310,31 @@
         "Monster Data": "No tactic, mid HP, no gimmick",
         "Role": "Main Enemy"
     },
+    "Lion": {
+        "Type": "Beast",
+        "Degree": "Normal",
+        "Experience": 225,
+        "Stats": "3/5/-1/2/4",
+        "Health": 65,
+        "HPCoef": 1,
+        "Speed": 6,
+        "Initiative": 2,
+        "Abilities": [
+            {
+                "Claws/Bite": {
+                    "A": "Half-Action",
+                    "Damage": "1d6",
+                    "Rip": "After attacking, this does +1 Damage for the rest of the Combat (stacks indefinitely)."
+                }
+            }
+        ],
+        "Avoids AoE": "No",
+        "Behavior": "Use this as a standard Large animal.\n",
+        "Suggested Obstacles": "None",
+        "Monster Data": "No tactic, mid HP, no gimmick",
+        "Role": "Main Enemy",
+        "Variants": "Any other similar animal (e.g. giant badger)"
+    },
     "Cockatrice": {
         "Type": "Beast",
         "Degree": "Epic x2",
@@ -1256,18 +1346,38 @@
         "Initiative": 3,
         "Abilities": [
             {
-                "Stone Glare (5m range)": "Target makes a 11 Grade Sense Check or it takes 1d8 Damage and is Crippled or Silenced (cockatrice chooses).\n"
+                "Beak": {
+                    "A": "Half-Action",
+                    "Damage": "1d10 Pierce",
+                    "Seize": "+1d6 Damage if the target has any Crowd Control"
+                }
             },
             {
-                "Tail Sweep (2m range)": "Target and all Units 1 meter from it make a 11 Grade Dexterity Check.\nOn fail, they take 9 Smash Damage and are Fumbling (or 2d4 + 5).\nOn success, they take half of that Damage.\n"
+                "Stone Glare": {
+                    "Effect": "A chosen Player must choose a target the Cockatrice can see to take 4d6 True Damage and become Blinded."
+                }
             },
             {
-                "Talons": "Make 2 attacks for 1d6 Pierce"
+                "Tail Sweep": {
+                    "Range": "2 meters",
+                    "Effect": "Target and all Units 1 meter from it take 2d8 Smash Damage.",
+                    "Seize": "+1d6 Damage to targets with any Crowd Control"
+                }
+            },
+            {
+                "Quills": {
+                    "A": "Half-Action",
+                    "Range": "5 meters",
+                    "Effect": "A Unit takes 1d8 Pierce Damage."
+                }
             }
         ],
         "Passives": [
             {
-                "Bloody Shriek": "When dropping below 50% HP, Cockatrice shrieks.\nAll Units become a Triple-Stunned level equal to 4 - Their Sense (e.g. if their Sense is 1, they become Triple-Stunned).\n"
+                "Panic Shriek": "When Combat starts, each Person has a panic attack for 1d4 Turns.\nWhile panicking, when a Player Character wants to do soemthing, the Quest Master can say \"no, choose something else to do\", once per player Turn.\nPlayers that can't hear are unaffected.\n"
+            },
+            {
+                "Bloody Shriek": "When dropping below 50% HP, Cockatrice shrieks.\nAll Units become a Stunned level equal to 4 - Their Sense (e.g. if their Sense is 1, they become Triple-Stunned).\n"
             }
         ],
         "Avoids AoE": "No",
