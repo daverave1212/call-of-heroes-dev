@@ -1,6 +1,7 @@
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib'
 
 export function mmToPt(mm) { return mm * 72 / 25.4 }
+window.mmToPt = mmToPt
 export function downloadBytes(bytes, type, name) {
     const blob = new Blob([bytes], { type });
     const url = URL.createObjectURL(blob);
@@ -158,6 +159,7 @@ function getPDFTextLines({font, text, width, fontSize}) {
 
 }
 
+
 export function drawTextBlock(
     page,
     settings
@@ -239,4 +241,10 @@ export async function embedFontFromPath(pdfDoc, path) {
         subset: true
     })
     return font
+}
+
+export async function embedImageFromPath(pdfDoc, path) {
+    const imageBytes = await fetch(path).then(res => res.arrayBuffer())
+    const image = await pdfDoc.embedPng(imageBytes)
+    return image
 }

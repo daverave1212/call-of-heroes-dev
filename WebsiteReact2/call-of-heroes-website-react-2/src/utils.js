@@ -974,8 +974,12 @@ function ComponentForSymbolConfig({ config, children }) {
         default: return <span {...config.props}>{children}</span>
     }
 }
-function formSymbolComponentFunc(allSymbols, symbol, shouldReturnString=false) {
+function formSymbolComponentFunc(allSymbols, symbol, shouldReturnString=false, shouldReturnConfigOnly=false) {
     const config = allSymbols[symbol]
+
+    if (shouldReturnConfigOnly) {
+        return () => config
+    }
 
     if (shouldReturnString) {
         return () => config.text
@@ -989,10 +993,14 @@ function formSymbolComponentFunc(allSymbols, symbol, shouldReturnString=false) {
 
     return () => <ComponentForSymbolConfig config={config}>{text}</ComponentForSymbolConfig>
 }
-function formFunctionSymbolComponentFunc(symbol, args, shouldReturnString=false) {
+function formFunctionSymbolComponentFunc(symbol, args, shouldReturnString=false, shouldReturnConfigOnly=false) {
     const configFunc = FUNCTION_SYMBOLS[symbol]
 
     const funcResult = configFunc(args)
+
+    if (shouldReturnConfigOnly) {
+        return () => funcResult
+    }
 
     if (shouldReturnString) {
         return () => funcResult.text
@@ -1005,6 +1013,9 @@ function formFunctionSymbolComponentFunc(symbol, args, shouldReturnString=false)
     const text = funcResult.text ?? undefined
 
     return () => <ComponentForSymbolConfig config={funcResult}>{text}</ComponentForSymbolConfig>
+}
+export function splitBySpacesKeepingSpaces(text) {
+  return text.match(/ +|[^ ]+/g) ?? [];
 }
 
 export const SYMBOLS = {
@@ -1054,8 +1065,8 @@ export const SYMBOLS = {
     'DiceDowngrade': { tag: 'span', text: "Having Dice Downgraded means, for example, d8's become d6's, or d10's become d8's. D2's and d20's just gain -1." },
     'DiceDowngraded': { tag: 'span', text: "Having Dice Downgraded means, for example, d8's become d6's, or d10's become d8's. D2's and d20's just gain -1." },
 
-    'Chain': { tag: 'span', text: 'Chain', func: () => <span style={{color: 'rgb(120, 80, 225)', fontWeight: 'bold'}}><Icon name="Chain"/>Chain</span> },
-    'Evoke': { tag: 'span', text: 'Evoke', func: () => <span style={{color: 'rgb(109, 0, 255)', fontWeight: 'bold'}}><Icon name="Evoke"/>Evoke</span> },
+    'Chain': { tag: 'span', text: 'Chain', props: { style: { color: '#7850e1' } }, func: () => <span style={{color: '#7850e1', fontWeight: 'bold'}}><Icon name="Chain"/>Chain</span> },
+    'Evoke': { tag: 'span', text: 'Evoke', props: { style: { color: '#6d00ff' } }, func: () => <span style={{color: '#6d00ff', fontWeight: 'bold'}}><Icon name="Evoke"/>Evoke</span> },
     
     'Chainable': { tag: 'span', text: "Chainable means only usable if your previous Act was the one mentioned." },
     'Flank': { tag: 'span', text: "Flanking is when you melee-attack an enemy, and an ally of yours is directly behind the enemy. As an optional rule (ask the QM), flank attacks can deal +1 Damage." },
@@ -1067,7 +1078,7 @@ export const SYMBOLS = {
 }
 export const FUNCTION_SYMBOLS = {
     'RandomOf': args => ({ tag: 'span', text: randomOf(...args) }),
-    'Brown': args => ({ tag: 'span',  props: { style: { color: 'brown' } }, text: args[0] }),
+    'Brown': args => ({ tag: 'span',  props: { style: { color: '#A52A2A' } }, text: args[0] }),
     'Orange': args => ({ tag: 'span', props: { style: { color: '#FF5500' } }, text: args[0] }),
     'Purple': args => ({ tag: 'span', props: { style: { color: '#6f00ffff' } }, text: args[0] }),
     'Green': args => ({ tag: 'span', props: { style: { color: 'var(--green-text)' } }, text: args[0] }),
@@ -1079,9 +1090,23 @@ export const FUNCTION_SYMBOLS = {
     '_': args => ({ tag: 'i', text: args[0] }),
     '~': args => ({ tag: 'span', props: { style: { color: 'var(--blue-color)' } }, text: args[0] }),
 }
+export function normalizeSymbolConfigForPDF(config) {
+    const { tag, props, text } = config
 
-export function parseWordWithSymbol(word, customSymbols, options = {}) {
-    // TODO
+    if (tag == 'img') {
+        return { tag, src: props.src }
+    }
+    if (tag == 'Icon') {
+        return { tag: 'img', src: `/Icons/UI/${props.name}.png` }
+    }
+    if (tag == 'b') {
+        return { tag: 'span', fontSuffix: 'Bold', color: props?.style?.color, text: text }
+    }
+    if (tag == 'i') {
+        return { tag: 'span', fontSuffix: 'Italic', color: props?.style?.color, text: text }
+    }
+    return { tag: 'span', fontSuffix: '', color: props?.style?.color, text }
+
 }
 
 // Returns an array of components, or an array of strings if { shouldReturnStringsOnly: true }
@@ -1091,9 +1116,9 @@ export function parseTextWithSymbols(text, customSymbols, options = {}) {
         throw `Null text given to parseTextWithSymbols. Other params printed above`
     }
 
-    const {isDebug, shouldUseOnlyCustomSymbols, shouldReturnStringsOnly} = options
+    const {isDebug, shouldUseOnlyCustomSymbols, shouldReturnStringsOnly, shouldReturnConfigOnly} = options
 
-    let symbolToInsertion = mapObject(SYMBOLS, ({ key, value }) => ({ key, value: formSymbolComponentFunc(SYMBOLS, key, shouldReturnStringsOnly) }))
+    let symbolToInsertion = mapObject(SYMBOLS, ({ key, value }) => ({ key, value: formSymbolComponentFunc(SYMBOLS, key, shouldReturnStringsOnly, shouldReturnConfigOnly) }))
 
     if (customSymbols != null) {
         const customSymbolsKeys = Object.keys(customSymbols)
@@ -1106,7 +1131,7 @@ export function parseTextWithSymbols(text, customSymbols, options = {}) {
                 symbolToInsertion = {...symbolToInsertion, ...customSymbols}
             }
         } else {
-            const customSymbolToInsertion = mapObject(customSymbols, ({ key, value }) => ({ key, value: formSymbolComponentFunc(customSymbols, key, shouldReturnStringsOnly) }))
+            const customSymbolToInsertion = mapObject(customSymbols, ({ key, value }) => ({ key, value: formSymbolComponentFunc(customSymbols, key, shouldReturnStringsOnly, shouldReturnConfigOnly) }))
             symbolToInsertion = mergeObjects(symbolToInsertion, customSymbolToInsertion)
         }
         
@@ -1192,7 +1217,7 @@ export function parseTextWithSymbols(text, customSymbols, options = {}) {
                         continue
                     }
                     const args = functionStrings
-                    const getSymbolComponent = formFunctionSymbolComponentFunc(functionName, args, shouldReturnStringsOnly)
+                    const getSymbolComponent = formFunctionSymbolComponentFunc(functionName, args, shouldReturnStringsOnly, shouldReturnConfigOnly)
                     const finalComponent = getSymbolComponent()
                     // textParts.push(<span style={{color: 'blue'}}>TEST</span>)
                     textParts.push(finalComponent)
@@ -1205,7 +1230,7 @@ export function parseTextWithSymbols(text, customSymbols, options = {}) {
                 if (char == markupSymbol) {
                     const markupedText = text.substring(symbolStart + 1, i)
                     const args = [markupedText]
-                    const getSymbolComponent = formFunctionSymbolComponentFunc(markupSymbol, args, shouldReturnStringsOnly)
+                    const getSymbolComponent = formFunctionSymbolComponentFunc(markupSymbol, args, shouldReturnStringsOnly, shouldReturnConfigOnly)
                     const finalComponent = getSymbolComponent()
                     textParts.push(finalComponent)    // Push markuped text
                     currentTextPartStart = i + 1
@@ -1228,6 +1253,10 @@ export function parseTextWithSymbols(text, customSymbols, options = {}) {
 
     if (state == 'reading-normal-text') {
         if (currentTextPartStart < text.length) {
+            if (text.substring == null) {
+                console.log(`This is it:`)
+                console.log({text})
+            }
             textParts.push(text.substring(currentTextPartStart, text.length))
         }
     }
@@ -1236,7 +1265,42 @@ export function parseTextWithSymbols(text, customSymbols, options = {}) {
 
 }
 window.parseTextWithSymbols = parseTextWithSymbols
+export function parseTextWithSymbolsForPDF(text, customSymbols=null) {
 
+    function splitToken(token) {
+        if (isString(token)) {
+            return splitBySpacesKeepingSpaces(token)
+        }
+        const text = token.text
+        
+        if (text == null) {
+            return [token]
+        }
+
+        const words = splitBySpacesKeepingSpaces(text)
+        return words.map(str => ({...token, text: str}))
+    }
+
+    const tokenParts = parseTextWithSymbols(text, customSymbols, { shouldReturnConfigOnly: true })
+    const tokensNotFlat = tokenParts.map(token => splitToken(token))
+    return tokensNotFlat.flat().map(token => isString(token)? ({ tag: 'span', text: token }): token)
+}
+window.parseTextWithSymbolsForPDF = parseTextWithSymbolsForPDF
+
+export function hexColorToRgb01(hex) {
+    const clean = hex.replace(/^#/, "");
+
+    if (!/^[0-9a-fA-F]{6}$/.test(clean)) {
+        throw new Error(`Invalid hex color: ${hex}`);
+    }
+
+    const r = parseInt(clean.slice(0, 2), 16) / 255;
+    const g = parseInt(clean.slice(2, 4), 16) / 255;
+    const b = parseInt(clean.slice(4, 6), 16) / 255;
+
+    return [r, g, b];
+}
+window.hexColorToRgb01 = hexColorToRgb01
 export function isFormValueNumeric(value) {
     if (value.length == 0)
         return true
@@ -1355,6 +1419,7 @@ export function isObject(obj) {
 export function isString(obj) {
     return typeof obj === 'string' || obj instanceof String;
 }
+window.isString = isString
 export function isNumber(obj) {
     return ! isNaN(obj)
 }
