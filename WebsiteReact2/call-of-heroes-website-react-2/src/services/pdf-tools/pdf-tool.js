@@ -1,6 +1,6 @@
 import * as PDFLib from 'pdf-lib'
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib'
-import { downloadBytes, drawCropMarks, drawGuides, drawTextBlock, embedFontFromPath, embedImageFromPath, mmToPt } from './pdf-utils';
+import { downloadBytes, drawCropMarks, drawGuides, drawTestSquare, drawTextBlock, embedFontFromPath, embedImageFromPath, mmToPt } from './pdf-utils';
 import fontkit from "@pdf-lib/fontkit";
 import { hexColorToRgb01, normalizeSymbolConfigForPDF, parseTextWithSymbolsForPDF } from '../../utils';
 
@@ -138,8 +138,10 @@ export class XPDF {
         const pdfDataUri = await this.pdfDoc.saveAsBase64({ dataUri: true });
         iframe.src = pdfDataUri;
     }
+    
+    #getPDFNormalizedTokenSettings(token, { fontName, fontSize, imageSize }) {
 
-    #getPDFNormalizedTokenSettings(token, { fontName, fontSize }) {
+        const baseFont = this.availableFonts[fontName]
 
         if (token.tag == 'span') {
             const color = token.color == null? rgb(0, 0, 0): rgb(...hexColorToRgb01(token?.color ?? '#000000'))
@@ -148,21 +150,21 @@ export class XPDF {
             }
             const usedFontName = fontName + (token.fontSuffix ?? '')
             const { font, size } = this.availableFonts[usedFontName]
-            const width = font.widthOfTextAtSize(token.text, fontSize)
+            const width = font.widthOfTextAtSize(token.text, size)
             return {
                 text: token.text,
                 width,
-                font,
                 fontName: usedFontName,
                 color,
-                fontSize
+                fontSize: size
             }
         }
         if (token.tag == 'img') {
+            const { size } = baseFont
             return {
                 src: token.src,
-                width: fontSize,
-                height: fontSize
+                width: size,
+                height: size
             }
         }
     }
@@ -205,21 +207,20 @@ export class XPDF {
         lines.push(currentLine)
         return lines
     }
-    #getPDFTextLinesWithSymbols({text, width, fontName, fontSize}) {
+    #getPDFTextLinesWithSymbols({ text, width, fontName }) {
+        const { size } = this.availableFonts[fontName]
         const paragraphs = text.split('\n').map(str => str.trim())
         const parsedParagraphs = paragraphs.map(p => parseTextWithSymbolsForPDF(p))
         const paragraphsTokens = parsedParagraphs.map(tokens => tokens.map(token => normalizeSymbolConfigForPDF(token)))
-        const paragraphsTokensSettings = paragraphsTokens.map(tokens => tokens.map(token => this.#getPDFNormalizedTokenSettings(token, { fontName, fontSize})))
-        const paragraphLines = paragraphsTokensSettings.map(tokensSettings => this.#getPDFParagraphLines({ tokensSettings, width, fontSize }))
+        const paragraphsTokensSettings = paragraphsTokens.map(tokens => tokens.map(token => this.#getPDFNormalizedTokenSettings(token, { fontName, imageSize: size})))
+        const paragraphLines = paragraphsTokensSettings.map(tokensSettings => this.#getPDFParagraphLines({ tokensSettings, width }))
         const lines = paragraphLines.flat()
-        console.log({
-            paragraphs,
-            parsedParagraphs,
-            paragraphsTokens,
-            paragraphsTokensSettings,
-            paragraphLines,
-            lines
-        })
+        console.log({paragraphs})
+        console.log({parsedParagraphs})
+        console.log({paragraphsTokens})
+        console.log({paragraphsTokensSettings})
+        console.log({paragraphLines})
+        console.log({lines})
         return lines
     }
 
@@ -231,7 +232,6 @@ export class XPDF {
             height, // optional
             text,
             fontName,
-            fontSize,
             lineHeight,
             textAlign = "left"
         } = settings
@@ -242,7 +242,7 @@ export class XPDF {
         }
 
         const maxLines = typeof height === "number" ? Math.max(0, Math.floor(height / lineHeight)) : Infinity;
-        const allLines = this.#getPDFTextLinesWithSymbols({ text, width, fontName, fontSize })
+        const allLines = this.#getPDFTextLinesWithSymbols({ text, width, fontName })
 
         // --- Decide what to draw vs remainder ---
         const linesToDraw = allLines.slice(0, maxLines);
@@ -271,26 +271,32 @@ export class XPDF {
                 const token = tokens[i]
 
                 if (token.text != null) {
-                    this.currentPage.drawText(token.text, {
-                        x: drawX + token.startX,
+                    const { fontName, text, color, startX, fontSize } = token
+                    const { font } = this.availableFonts[fontName]
+                    this.currentPage.drawText(text, {
+                        x: drawX + startX,
                         y: cursorY - fontSize, // pdf-lib uses baseline
                         size: fontSize,
-                        font: token.font,
-                        color: token.color,
+                        font: font,
+                        color: color,
                     });
                 }
                 if (token.src != null) {
-                    let imageObject = this.embeddedImages[token.src]
+                    const { src, width, height, startX } = token
+                    const x = drawX + startX
+                    const y = cursorY - height - height / 4         // To center it on text
+                    let imageObject = this.embeddedImages[src]
                     if (imageObject == null) {
-                        this.embeddedImages[token.src] = await embedImageFromPath(this.pdfDoc, token.src)
-                        imageObject = this.embeddedImages[token.src]
+                        this.embeddedImages[src] = await embedImageFromPath(this.pdfDoc, src)
+                        imageObject = this.embeddedImages[src]
                     }
                     this.currentPage.drawImage(imageObject, {
-                        x: drawX + token.startX,
-                        y: cursorY - fontSize,
-                        width: token.width,
-                        height: token.height
+                        x,
+                        y,
+                        width,
+                        height
                     })
+                    drawTestSquare(this.currentPage, x, y, width, height)
                 }
 
             }
@@ -335,7 +341,7 @@ export async function testPDF(iframe) {
             },
             'TextFontBold': {
                 path: '/fonts/LinuxLibertine/LinLibertine_RB.ttf',
-                size: 10.5
+                size: 17.5
             },
             'HomeFont': {
                 path: '/fonts/RobotoCondensed/RobotoCondensed-Regular.ttf',
@@ -350,7 +356,7 @@ export async function testPDF(iframe) {
 
     await xpdf.drawTextLinesWithSymbols({
         text: `Choose {Gold}yourself.
-        Heal the chosen Unit for 1d8 for each 10 Health it is missing, and all Units within 2 meters of it for half the final amount just Healed.
+        Heal the ^chosen Unit^ for 1d8 for each 10 _Health_ it is missing, and all Units within 2 meters of it for half the final amount just Healed.
 
         {Brown('Water:')} For each 7 Health missing instead.
         {Brown('Earth:')} Choose any Unit instead.`,
@@ -360,49 +366,15 @@ export async function testPDF(iframe) {
         //     Estas espanya.
         // `,
         fontName: 'TextFont',
-        fontSize: 18,
         x: 0,
         y: mmToPt(200),
-        lineHeight: 14,
-        width: mmToPt(60),
-        // height: mmToPt(30)
-    })
-
-    xpdf.attachToIFrame(iframe)
-
-
-
-    return
-    const font = await xpdf.pdfDoc.embedFont(StandardFonts.TimesRoman);
-    const margin = mmToPt(12);
-    const x = xpdf.settings.cropX + margin;
-    const topY = xpdf.settings.cropY + xpdf.settings.cropHeight - margin;
-
-    page.drawText("RPG Class: The Example Knight", {
-        x: 0,
-        y: 0,
-        size: 18,
-        font,
-        color: rgb(0, 0, 0),
-    });
-
-    drawTextBlock(page, {
-        text: `Sample text goes here. This is inside the TRIM box.
-
-
-            Next we’ll add helpers for paragraphs, stat blocks, and image placement with a 300 DPI check based on print size.`,
-        font,
-        fontSize: 18,
-        x: 0,
-        y: topY - mmToPt(10) - 18,
-        color: rgb(0, 0, 0),
         lineHeight: 14,
         width: mmToPt(60),
         height: mmToPt(30)
     })
 
-
     xpdf.attachToIFrame(iframe)
 
+    return
 }
 

@@ -248,3 +248,14 @@ export async function embedImageFromPath(pdfDoc, path) {
     const image = await pdfDoc.embedPng(imageBytes)
     return image
 }
+
+export function drawTestSquare(page, x, y, width, height) {
+    page.drawRectangle({
+      x,
+      y,
+      width,
+      height,
+      borderWidth: 1,
+      borderColor: rgb(1, 0, 0),
+    });
+  }
