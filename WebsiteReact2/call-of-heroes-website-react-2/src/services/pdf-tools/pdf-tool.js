@@ -92,14 +92,19 @@ export class XPDF {
     }
 
     async #loadFonts() {
-        console.log('Registering fontkit...')
         this.pdfDoc.registerFontkit(fontkit);
-        console.log('Done')
+
+        const cachedFonts = {}  // Map<src, font>
+        
         const fontNames = Object.keys(this.settings.fonts)
         this.availableFonts = {}
         for (const fontName of fontNames) {
-            const font = await embedFontFromPath(this.pdfDoc, this.settings.fonts[fontName])
-            this.availableFonts[fontName] = font
+            const { path, size } = this.settings.fonts[fontName]
+            cachedFonts[path] = cachedFonts[path] ?? await embedFontFromPath(this.pdfDoc, path)
+            this.availableFonts[fontName] = {
+                font: cachedFonts[path],
+                size
+            }
         }
     }
 
@@ -142,13 +147,13 @@ export class XPDF {
                 console.log({token, theColor: `${token?.color ?? '#000000'}`})
             }
             const usedFontName = fontName + (token.fontSuffix ?? '')
-            const usedFont = this.availableFonts[usedFontName]
-            const width = usedFont.widthOfTextAtSize(token.text, fontSize)
+            const { font, size } = this.availableFonts[usedFontName]
+            const width = font.widthOfTextAtSize(token.text, fontSize)
             return {
                 text: token.text,
                 width,
-                font: usedFont,
-                fontName: usedFont,
+                font,
+                fontName: usedFontName,
                 color,
                 fontSize
             }
@@ -312,12 +317,32 @@ export async function testPDF(iframe) {
         marginLeft: 18,
         marginRight: 18,
 
+        // fonts: {
+        //     'TextFont': '/fonts/LinuxLibertine/LinLibertine_R.ttf',
+        //     'TextFontItalic': '/fonts/LinuxLibertine/LinLibertine_RI.ttf',
+        //     'TextFontBold': '/fonts/LinuxLibertine/LinLibertine_RB.ttf',
+        //     'HomeFont': '/fonts/RobotoCondensed/RobotoCondensed-Regular.ttf'
+        // }
+
         fonts: {
-            'TextFont': '/fonts/LinuxLibertine/LinLibertine_R.ttf',
-            'TextFontItalic': '/fonts/LinuxLibertine/LinLibertine_RI.ttf',
-            'TextFontBold': '/fonts/LinuxLibertine/LinLibertine_RB.ttf',
-            'HomeFont': '/fonts/RobotoCondensed/RobotoCondensed-Regular.ttf'
+            'TextFont': {
+                path: '/fonts/LinuxLibertine/LinLibertine_R.ttf',
+                size: 10.5
+            },
+            'TextFontItalic': {
+                path: '/fonts/LinuxLibertine/LinLibertine_RI.ttf',
+                size: 10.5
+            },
+            'TextFontBold': {
+                path: '/fonts/LinuxLibertine/LinLibertine_RB.ttf',
+                size: 10.5
+            },
+            'HomeFont': {
+                path: '/fonts/RobotoCondensed/RobotoCondensed-Regular.ttf',
+                size: 10.5
+            },
         }
+
     })
     await xpdf.init()
 
