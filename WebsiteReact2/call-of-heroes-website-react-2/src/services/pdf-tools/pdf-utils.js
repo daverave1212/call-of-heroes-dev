@@ -252,10 +252,211 @@ export async function embedImageFromPath(pdfDoc, path) {
 export function drawTestSquare(page, x, y, width, height) {
     page.drawRectangle({
       x,
-      y,
+      y: y - height,
       width,
       height,
       borderWidth: 1,
       borderColor: rgb(1, 0, 0),
     });
   }
+
+
+
+/** Load an image from URL (src). */
+function loadHtmlImage(src) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.crossOrigin = "anonymous"; // helpful if you host assets properly
+        img.onload = () => resolve(img);
+        img.onerror = msg => {
+            console.error(msg)
+            reject(msg)
+        }
+        img.src = src;
+    });
+}
+export async function drawImageFromSrc({ pdfDoc, page, src, x, y, width, height }) {
+    if (width == null && height == null) {
+        throw new Error("Either width or height must be provided");
+    }
+    
+    const bytes = await fetch(src).then(r => r.arrayBuffer());
+
+    const image = src.toLowerCase().endsWith(".jpg") || src.toLowerCase().endsWith(".jpeg")
+        ? await pdfDoc.embedJpg(bytes)
+        : await pdfDoc.embedPng(bytes);
+    
+    // Original image size (in pixels)
+    const imgW = image.width;
+    const imgH = image.height;
+    const aspect = imgW / imgH;
+
+    let drawW = width;
+    let drawH = height;
+    
+      // Auto-calculate missing dimension
+    if (drawW == null) {
+        drawW = drawH * aspect;
+    } else if (drawH == null) {
+        drawH = drawW / aspect;
+    }
+    
+    page.drawImage(image, {
+        x,
+        y: y - drawH, // top-down
+        width: drawW,
+        height: drawH,
+    });
+    
+    return { width: drawW, height: drawH };
+}
+async function rasterizeScaledImageToCanvas(src, scale = 1) {
+    const img = await loadHtmlImage(src);
+  
+    const sw = Math.max(1, Math.round(img.naturalWidth * scale));
+    const sh = Math.max(1, Math.round(img.naturalHeight * scale));
+  
+    const canvas = document.createElement("canvas");
+    canvas.width = sw;
+    canvas.height = sh;
+  
+    const ctx = canvas.getContext("2d");
+    ctx.imageSmoothingEnabled = true; // smoother upscale/downscale
+    ctx.drawImage(img, 0, 0, sw, sh);
+  
+    return { canvas, sw, sh };
+  }
+  
+async function cropCanvasToPngBytes(canvas, sx, sy, sw, sh) {
+    const out = document.createElement("canvas");
+    out.width = Math.max(1, Math.floor(sw));
+    out.height = Math.max(1, Math.floor(sh));
+  
+    const ctx = out.getContext("2d");
+    ctx.imageSmoothingEnabled = false;
+    ctx.drawImage(canvas, sx, sy, sw, sh, 0, 0, out.width, out.height);
+  
+    const blob = await new Promise((resolve) => out.toBlob(resolve, "image/png"));
+    const buf = await blob.arrayBuffer();
+    return new Uint8Array(buf);
+}
+
+/** Crop a region from an HTMLImageElement and return PNG bytes (Uint8Array). */
+async function cropToPngBytes(img, sx, sy, sw, sh) {
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.max(1, Math.floor(sw));
+    canvas.height = Math.max(1, Math.floor(sh));
+    const ctx = canvas.getContext("2d");
+
+    ctx.imageSmoothingEnabled = false;
+    ctx.drawImage(img, sx, sy, sw, sh, 0, 0, canvas.width, canvas.height);
+
+    const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+    const buf = await blob.arrayBuffer();
+    return new Uint8Array(buf);
+}
+
+/** Draw image using TOP-DOWN y anchor (x,y is top-left). */
+function drawImageTopDown(page, image, x, yTop, width, height) {
+    page.drawImage(image, {
+        x,
+        y: yTop - height, // convert to PDF bottom-left anchor
+        width,
+        height,
+    });
+}
+
+async function sliceBorderImage({ src, borderThickness, scale = 1 }) {
+    const { canvas, sw, sh } = await rasterizeScaledImageToCanvas(src, scale);
+  
+    const t = Math.round(borderThickness * scale); // thickness in *scaled pixels*
+  
+    if (t <= 0) throw new Error("borderThickness must be > 0");
+    if (t * 2 > sw || t * 2 > sh) {
+      throw new Error(
+        `Border thickness too large after scaling. ` +
+        `scaledImage=${sw}x${sh}, thickness=${t}`
+      );
+    }
+  
+    // corners
+    const tl = await cropCanvasToPngBytes(canvas, 0, 0, t, t);
+    const tr = await cropCanvasToPngBytes(canvas, sw - t, 0, t, t);
+    const bl = await cropCanvasToPngBytes(canvas, 0, sh - t, t, t);
+    const br = await cropCanvasToPngBytes(canvas, sw - t, sh - t, t, t);
+  
+    // edge samples from the center of each edge (t x t)
+    const topX = Math.floor((sw - t) / 2);
+    const leftY = Math.floor((sh - t) / 2);
+  
+    const top = await cropCanvasToPngBytes(canvas, topX, 0, t, t);
+    const bottom = await cropCanvasToPngBytes(canvas, topX, sh - t, t, t);
+    const left = await cropCanvasToPngBytes(canvas, 0, leftY, t, t);
+    const right = await cropCanvasToPngBytes(canvas, sw - t, leftY, t, t);
+  
+    return { tl, tr, bl, br, top, bottom, left, right, thicknessPxScaled: t };
+}
+
+export async function drawImageBorder9Slice({
+    pdfDoc,
+    page,
+    src,
+    x,
+    y,
+    width,
+    height,
+    borderThickness,
+    scale = 1,
+    drawThickness = 7, // pt
+  }) {
+    if (typeof drawThickness !== "number" || drawThickness <= 0) {
+      throw new Error("drawThickness (pt) must be a positive number");
+    }
+  
+    // Slice based on: scale the base image first, then take thickness*scale px slices
+    const slices = await sliceBorderImage({ src, borderThickness, scale });
+  
+    // Embed slices
+    const tl = await pdfDoc.embedPng(slices.tl);
+    const tr = await pdfDoc.embedPng(slices.tr);
+    const bl = await pdfDoc.embedPng(slices.bl);
+    const br = await pdfDoc.embedPng(slices.br);
+  
+    const top = await pdfDoc.embedPng(slices.top);
+    const bottom = await pdfDoc.embedPng(slices.bottom);
+    const left = await pdfDoc.embedPng(slices.left);
+    const right = await pdfDoc.embedPng(slices.right);
+  
+    // The drawn border thickness on the PDF (pt)
+    const t = drawThickness;
+  
+    if (width < 2 * t || height < 2 * t) {
+      throw new Error(
+        `Border rect too small for drawThickness. Need width/height >= 2*drawThickness. ` +
+        `width=${width}, height=${height}, drawThickness=${t}`
+      );
+    }
+  
+    const innerW = width - 2 * t;
+    const innerH = height - 2 * t;
+  
+    // top-down coordinates:
+    // outer rect top = y
+    // outer rect bottom = y - height
+    const bottomCornerTopY = y - height + t; // top Y of bottom corners/edge strip
+    const verticalEdgesTopY = y - t;         // top Y of left/right edge strip
+  
+    // Corners (each t x t)
+    drawImageTopDown(page, tl, x, y, t, t);
+    drawImageTopDown(page, tr, x + width - t, y, t, t);
+    drawImageTopDown(page, bl, x, bottomCornerTopY, t, t);
+    drawImageTopDown(page, br, x + width - t, bottomCornerTopY, t, t);
+  
+    // Edges (stretched)
+    drawImageTopDown(page, top, x + t, y, innerW, t);
+    drawImageTopDown(page, bottom, x + t, bottomCornerTopY, innerW, t);
+    drawImageTopDown(page, left, x, verticalEdgesTopY, t, innerH);
+    drawImageTopDown(page, right, x + width - t, verticalEdgesTopY, t, innerH);
+  
+    return { drawThicknessPt: t, innerW, innerH, sampledThicknessPx: slices.thicknessPxScaled };
+}

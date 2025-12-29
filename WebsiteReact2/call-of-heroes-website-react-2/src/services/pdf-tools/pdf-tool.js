@@ -1,6 +1,6 @@
 import * as PDFLib from 'pdf-lib'
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib'
-import { downloadBytes, drawCropMarks, drawGuides, drawTestSquare, drawTextBlock, embedFontFromPath, embedImageFromPath, mmToPt } from './pdf-utils';
+import { downloadBytes, drawCropMarks, drawGuides, drawImageBorder9Slice, drawImageFromSrc, drawTestSquare, drawTextBlock, embedFontFromPath, embedImageFromPath, mmToPt } from './pdf-utils';
 import fontkit from "@pdf-lib/fontkit";
 import { hexColorToRgb01, normalizeSymbolConfigForPDF, parseTextWithSymbolsForPDF } from '../../utils';
 
@@ -248,6 +248,10 @@ export class XPDF {
         const linesToDraw = allLines.slice(0, maxLines);
         const remainingLines = allLines.slice(maxLines);
 
+        if (this.settings.isDebug) {
+            drawTestSquare(this.currentPage, x, y, width, height)
+        }
+
         // --- Draw lines ---
         let cursorY = y;
         for (const tokens of linesToDraw) {
@@ -296,7 +300,10 @@ export class XPDF {
                         width,
                         height
                     })
-                    drawTestSquare(this.currentPage, x, y, width, height)
+                    
+                    if (this.settings.isDebug) {
+                        drawTestSquare(this.currentPage, x, y, width, height)
+                    }
                 }
 
             }
@@ -360,18 +367,35 @@ export async function testPDF(iframe) {
 
         {Brown('Water:')} For each 7 Health missing instead.
         {Brown('Earth:')} Choose any Unit instead.`,
-        // text: `
-        //     Lorem ^ipsum dol^ or sit {Evoke} amet et _pluribus quae mucho dolor_ sit hic est.
-
-        //     Estas espanya.
-        // `,
         fontName: 'TextFont',
-        x: 0,
-        y: mmToPt(200),
+        x: mmToPt(20),
+        y: mmToPt(260),
         lineHeight: 14,
         width: mmToPt(60),
         height: mmToPt(30)
     })
+
+    await drawImageBorder9Slice({
+        pdfDoc: xpdf.pdfDoc,
+        page: xpdf.currentPage,
+        src: '/Other/spell-borders--backup-4.png',
+        x: mmToPt(18),
+        y: mmToPt(264),
+        width: mmToPt(64),
+        height: mmToPt(50),
+        borderThickness: 20,
+        scale: 1,
+        drawThickness: 7
+    })
+
+    // await drawImageFromSrc({
+    //     pdfDoc: xpdf.pdfDoc,
+    //     page: xpdf.currentPage,
+    //     src: '/Classes/Artificer.png',
+    //     x: 0,
+    //     y: mmToPt(303),
+    //     width: mmToPt(100)
+    // })
 
     xpdf.attachToIFrame(iframe)
 
