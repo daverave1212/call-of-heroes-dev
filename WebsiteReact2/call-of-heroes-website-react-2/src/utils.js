@@ -1090,8 +1090,10 @@ export const FUNCTION_SYMBOLS = {
     '_': args => ({ tag: 'i', text: args[0] }),
     '~': args => ({ tag: 'span', props: { style: { color: 'var(--blue-color)' } }, text: args[0] }),
 }
-export function normalizeSymbolConfigForPDF(config) {
+export function normalizeSymbolConfigForPDF(config, defaultColorHex=null) {
     const { tag, props, text } = config
+
+    const colorUsed =  props?.style?.color ?? defaultColorHex ?? '#000000'
 
     if (tag == 'img') {
         return { tag, src: props.src }
@@ -1100,12 +1102,12 @@ export function normalizeSymbolConfigForPDF(config) {
         return { tag: 'img', src: `/Icons/UI/${props.name}.png` }
     }
     if (tag == 'b') {
-        return { tag: 'span', fontSuffix: 'Bold', color: props?.style?.color, text: text }
+        return { tag: 'span', fontSuffix: 'Bold', color: colorUsed, text: text }
     }
     if (tag == 'i') {
-        return { tag: 'span', fontSuffix: 'Italic', color: props?.style?.color, text: text }
+        return { tag: 'span', fontSuffix: 'Italic', color: colorUsed, text: text }
     }
-    return { tag: 'span', fontSuffix: '', color: props?.style?.color, text }
+    return { tag: 'span', fontSuffix: '', color: colorUsed, text }
 
 }
 
