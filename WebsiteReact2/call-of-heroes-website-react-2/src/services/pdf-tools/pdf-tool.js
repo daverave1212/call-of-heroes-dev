@@ -1,6 +1,6 @@
 import * as PDFLib from 'pdf-lib'
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib'
-import { downloadBytes, drawCropMarks, drawGuides, drawImageBorder9Slice, drawImageFromSrc, drawTestSquare, drawTextBlock, embedFontFromPath, embedImageFromPath, mmToPt } from './pdf-utils';
+import { downloadBytes, drawCropMarks, drawGuides, drawImageBorder9Slice, drawImageFromSrc, drawTable, drawTestSquare, drawTextBlock, embedFontFromPath, embedImageFromPath, mmToPt } from './pdf-utils';
 import fontkit from "@pdf-lib/fontkit";
 import { hexColorToRgb01, normalizeSymbolConfigForPDF, parseTextWithSymbolsForPDF } from '../../utils';
 
@@ -139,12 +139,12 @@ export class XPDF {
         iframe.src = pdfDataUri;
     }
     
-    #getPDFNormalizedTokenSettings(token, { fontName, fontSize, imageSize }) {
+    #getPDFNormalizedTokenSettings(token, { fontName }) {
 
         const baseFont = this.availableFonts[fontName]
 
         if (token.tag == 'span') {
-            const color = token.color == null? rgb(0, 0, 0): rgb(...hexColorToRgb01(token?.color ?? '#000000'))
+            const color = rgb(...hexColorToRgb01(token?.color ?? '#000000'))
             if (token.text == 'Evoke') {
                 console.log({token, theColor: `${token?.color ?? '#000000'}`})
             }
@@ -207,11 +207,11 @@ export class XPDF {
         lines.push(currentLine)
         return lines
     }
-    #getPDFTextLinesWithSymbols({ text, width, fontName }) {
+    getPDFTextLinesWithSymbols({ text, width, fontName, colorHex }) {
         const { size } = this.availableFonts[fontName]
         const paragraphs = text.split('\n').map(str => str.trim())
         const parsedParagraphs = paragraphs.map(p => parseTextWithSymbolsForPDF(p))
-        const paragraphsTokens = parsedParagraphs.map(tokens => tokens.map(token => normalizeSymbolConfigForPDF(token)))
+        const paragraphsTokens = parsedParagraphs.map(tokens => tokens.map(token => normalizeSymbolConfigForPDF(token, colorHex)))
         const paragraphsTokensSettings = paragraphsTokens.map(tokens => tokens.map(token => this.#getPDFNormalizedTokenSettings(token, { fontName, imageSize: size})))
         const paragraphLines = paragraphsTokensSettings.map(tokensSettings => this.#getPDFParagraphLines({ tokensSettings, width }))
         const lines = paragraphLines.flat()
@@ -233,7 +233,8 @@ export class XPDF {
             text,
             fontName,
             lineHeight,
-            textAlign = "left"
+            textAlign = "left",
+            color='#FF0000'
         } = settings
 
         if (!text) {
@@ -241,15 +242,18 @@ export class XPDF {
             throw `Null text given to drawTextBlock. Settings printed above.`
         }
 
+        console.log(`Drawing textLinesWithSymbols settings:`)
+        console.log({settings})
+
         const maxLines = typeof height === "number" ? Math.max(0, Math.floor(height / lineHeight)) : Infinity;
-        const allLines = this.#getPDFTextLinesWithSymbols({ text, width, fontName })
+        const allLines = this.getPDFTextLinesWithSymbols({ text, width, fontName, colorHex: color })
 
         // --- Decide what to draw vs remainder ---
         const linesToDraw = allLines.slice(0, maxLines);
         const remainingLines = allLines.slice(maxLines);
 
         if (this.settings.isDebug) {
-            drawTestSquare(this.currentPage, x, y, width, height)
+            drawTestSquare(this.currentPage, x, y, width, height ?? (linesToDraw.length * lineHeight))
         }
 
         // --- Draw lines ---
@@ -302,7 +306,7 @@ export class XPDF {
                     })
                     
                     if (this.settings.isDebug) {
-                        drawTestSquare(this.currentPage, x, y, width, height)
+                        drawTestSquare(this.currentPage, x, y, width, height ?? (linesToDraw.length * lineHeight))
                     }
                 }
 
@@ -320,7 +324,7 @@ export class XPDF {
 
 export async function testPDF(iframe) {
     const xpdf = new XPDF({
-        isDebug: true,
+        // isDebug: true,
 
         pageWidth: 210,
         pageHeight: 297,
@@ -361,19 +365,20 @@ export async function testPDF(iframe) {
 
     const page = xpdf.newPage()
 
-    await xpdf.drawTextLinesWithSymbols({
-        text: `Choose {Gold}yourself.
-        Heal the ^chosen Unit^ for 1d8 for each 10 _Health_ it is missing, and all Units within 2 meters of it for half the final amount just Healed.
+    // await xpdf.drawTextLinesWithSymbols({
+    //     text: `Choose {Gold}yourself.
+    //     Heal the ^chosen Unit^ for 1d8 for each 10 _Health_ it is missing, and all Units within 2 meters of it for half the final amount just Healed.
 
-        {Brown('Water:')} For each 7 Health missing instead.
-        {Brown('Earth:')} Choose any Unit instead.`,
-        fontName: 'TextFont',
-        x: mmToPt(20),
-        y: mmToPt(260),
-        lineHeight: 14,
-        width: mmToPt(60),
-        height: mmToPt(30)
-    })
+    //     {Brown('Water:')} For each 7 Health missing instead.
+    //     {Brown('Earth:')} Choose any Unit instead.`,
+    //     fontName: 'TextFont',
+    //     x: mmToPt(20),
+    //     y: mmToPt(260),
+    //     lineHeight: 14,
+    //     width: mmToPt(60),
+    //     height: mmToPt(30),
+    //     color: '#000000'
+    // })
 
     await drawImageBorder9Slice({
         pdfDoc: xpdf.pdfDoc,
@@ -388,14 +393,53 @@ export async function testPDF(iframe) {
         drawThickness: 7
     })
 
-    // await drawImageFromSrc({
-    //     pdfDoc: xpdf.pdfDoc,
-    //     page: xpdf.currentPage,
-    //     src: '/Classes/Artificer.png',
-    //     x: 0,
-    //     y: mmToPt(303),
-    //     width: mmToPt(100)
-    // })
+    await drawImageFromSrc({
+        pdfDoc: xpdf.pdfDoc,
+        page: xpdf.currentPage,
+        src: '/Classes/Artificer.png',
+        x: mmToPt(183),
+        y: mmToPt(303),
+        width: mmToPt(100)
+    })
+
+    await drawTable({
+        page: xpdf.currentPage,
+        x: mmToPt(18),
+        y: mmToPt(150),
+        width: mmToPt(100),
+        height: mmToPt(150),
+
+        headerColor: '#BB55DD',
+        headerTextColor: '#F0F7F3',
+        headerBorderRadius: 2,
+
+        rowEvenColor: '#FCFCFC',
+        rowEvenTextColor: '#000000',
+        rowOddColor: '#FAFAFA',
+        rowOddTextColor: '#000000',
+
+        rowBorderRadius: 2,
+
+        spaceBetweenRows: 2,
+        
+
+        fontName: 'TextFont',
+        lineHeight: 11,
+
+        getTextHeightFunc: async ({ text, width, fontName, lineHeight }) => {
+            const lines = await xpdf.getPDFTextLinesWithSymbols({ text, width, fontName })
+            return lines.length * lineHeight
+        },
+        drawTextBlockFunc: async (settings) => await xpdf.drawTextLinesWithSymbols(settings),
+
+        cellAlign: 'center',
+        data: [
+            { name: 'Davie', age: '28' },
+            { name: 'This here line is definitely taller than the normal height of the row', age: '28' },
+            { name: 'Alexandra', age: '25' }
+        ]
+
+    })
 
     xpdf.attachToIFrame(iframe)
 

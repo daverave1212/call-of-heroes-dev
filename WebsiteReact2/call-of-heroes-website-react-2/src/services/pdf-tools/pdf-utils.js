@@ -1,6 +1,11 @@
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib'
+import { hexColorToRgb01 } from '../../utils';
 
 export function mmToPt(mm) { return mm * 72 / 25.4 }
+export function colorHexToPDFRGB(str) {
+    const rgbArray = hexColorToRgb01(str)
+    return rgb(...rgbArray)
+}
 window.mmToPt = mmToPt
 export function downloadBytes(bytes, type, name) {
     const blob = new Blob([bytes], { type });
@@ -459,4 +464,270 @@ export async function drawImageBorder9Slice({
     drawImageTopDown(page, right, x + width - t, verticalEdgesTopY, t, innerH);
   
     return { drawThicknessPt: t, innerW, innerH, sampledThicknessPx: slices.thicknessPxScaled };
+}
+
+export function drawRoundedRectTopDown(page, {
+    x,
+    yTop,
+    width,
+    height,
+    radius = 0,
+    fillColor = rgb(1, 1, 1),
+}) {
+    const r = Math.max(0, Math.min(radius, width / 2, height / 2));
+    const y = yTop - height; // convert to bottom-left anchored Y
+  
+    if (r === 0) {
+      page.drawRectangle({ x, y, width, height, color: fillColor });
+      return;
+    }
+  
+    // Center rectangles (the "cross" that covers everything except the rounded cutouts)
+    // Horizontal bar
+    page.drawRectangle({
+      x: x + r,
+      y,
+      width: width - 2 * r,
+      height,
+      color: fillColor,
+    });
+  
+    // Vertical bar
+    page.drawRectangle({
+      x,
+      y: y + r,
+      width,
+      height: height - 2 * r,
+      color: fillColor,
+    });
+  
+    // Four corner circles (they complete the rounded corners)
+    // drawEllipse takes center coords
+    const drawCornerCircle = (cx, cy) => {
+      page.drawEllipse({
+        x: cx,
+        y: cy,
+        xScale: r,
+        yScale: r,
+        color: fillColor,
+      });
+    };
+  
+    // bottom-left
+    drawCornerCircle(x + r, y + r);
+    // bottom-right
+    drawCornerCircle(x + width - r, y + r);
+    // top-left
+    drawCornerCircle(x + r, y + height - r);
+    // top-right
+    drawCornerCircle(x + width - r, y + height - r);
+}
+
+/**
+ * Draw a table (top-down y) with equal-width columns.
+ *
+ * REQUIRED params:
+ * - page
+ * - lineHeight
+ *
+ * @param {Object} p
+ * @param {PDFPage} p.page
+ * @param {number} p.x
+ * @param {number} p.y               // TOP of the table
+ * @param {number} p.width
+ * @param {number} p.height
+ * @param {Array<Object>} p.data
+ * @param {*} p.headerColor          // pdf-lib rgb(...)
+ * @param {*} p.rowEvenColor
+ * @param {*} p.rowOddColor
+ * @param {string} p.fontName
+ * @param {number} p.lineHeight      // pt
+ * @param {Function} p.getTextHeightFunc
+ * @param {Function} p.drawTextBlockFunc   // async
+ *
+ * Optional:
+ * @param {number} [p.padding=6]     // pt
+ * @param {*} [p.textColor=rgb(0,0,0)]
+ * @param {'left'|'center'|'right'} [p.headerAlign='center']
+ * @param {'left'|'center'|'right'} [p.cellAlign='left']
+ * @param {number} [p.borderWidth=0] // pt
+ * @param {*} [p.borderColor=rgb(0,0,0)]
+ *
+ * @returns {Promise<{ rowsDrawn: number, heightDrawn: number }>}
+ */
+export async function drawTable(p) {
+    const {
+      page,
+      x, y, width, height,
+      data,
+      headerColor,
+      rowEvenColor,
+      rowOddColor,
+      fontName,
+      lineHeight,
+      getTextHeightFunc,
+      drawTextBlockFunc,
+  
+      padding = 6,
+      headerAlign = "center",
+      cellAlign = "left",
+      borderWidth = 0,
+      borderColor = rgb(0, 0, 0),
+  
+      headerBorderRadius = 0,
+      rowBorderRadius = 0,
+  
+      spaceBetweenRows = 0,
+  
+      headerTextColor = '#FFFFFF',
+      rowEvenTextColor = '#000000',
+      rowOddTextColor = '#000000',
+    } = p;
+  
+    if (!page) throw new Error("drawTable: missing `page`");
+    if (!Array.isArray(data) || data.length === 0) return { rowsDrawn: 0, heightDrawn: 0 };
+    if (typeof lineHeight !== "number") throw new Error("drawTable: missing `lineHeight`");
+    if (typeof getTextHeightFunc !== "function") throw new Error("drawTable: missing `getTextHeightFunc`");
+    if (typeof drawTextBlockFunc !== "function") throw new Error("drawTable: missing `drawTextBlockFunc`");
+  
+    const columns = Object.keys(data[0]);
+    const colCount = columns.length;
+    if (colCount === 0) return { rowsDrawn: 0, heightDrawn: 0 };
+  
+    const colWidth = width / colCount;
+    const cellInnerWidth = Math.max(0, colWidth - padding * 2);
+  
+    // Top-down rectangle helper (supports optional rounded corners)
+    const drawRectTopDown = (rx, ryTop, rw, rh, fillColor, radius) => {
+      const r = Math.max(0, radius || 0);
+  
+      page.drawRectangle({
+        x: rx,
+        y: ryTop - rh,
+        width: rw,
+        height: rh,
+        color: fillColor,
+        borderWidth,
+        borderColor,
+        ...(r > 0 ? { borderRadius: r } : {}),
+      });
+    };
+  
+    // Measure a row’s height based on max cell text height (async)
+    const measureRowHeight = async (values) => {
+      let maxTextH = 0;
+  
+      for (const v of values) {
+        const h = await getTextHeightFunc({
+          text: String(v ?? ""),
+          width: cellInnerWidth,
+          fontName,
+          lineHeight,
+        });
+        if (h > maxTextH) maxTextH = h;
+      }
+  
+      const base = Math.max(lineHeight, maxTextH);
+      return base + padding * 2;
+    };
+  
+    let cursorY = y; // top of next row
+    let usedH = 0;
+    let rowsDrawn = 0;
+  
+    // --- Header row ---
+    const headerValues = columns;
+    const headerH = await measureRowHeight(headerValues);
+  
+    if (headerH > height) return { rowsDrawn: 0, heightDrawn: 0 };
+  
+    drawRoundedRectTopDown(page, {
+        x,
+        yTop: cursorY,
+        width,
+        height: headerH,
+        radius: headerBorderRadius,
+        fillColor: colorHexToPDFRGB(headerColor),
+    });
+    // (x, cursorY, width, headerH, colorHexToPDFRGB(headerColor), headerBorderRadius);
+  
+    for (let c = 0; c < colCount; c++) {
+      const cellX = x + c * colWidth;
+      const textX = cellX + padding;
+      const textY = cursorY - padding;
+  
+      await drawTextBlockFunc({
+        text: String(headerValues[c]),
+        x: textX,
+        y: textY,
+        width: cellInnerWidth,
+        fontName,
+        lineHeight,
+        textAlign: headerAlign,
+        color: headerTextColor,
+      });
+    }
+  
+    cursorY -= headerH;
+    usedH += headerH;
+  
+    // Space between header and first row (if any rows will be drawn)
+    if (data.length > 0) {
+      if (usedH + spaceBetweenRows > height) return { rowsDrawn: 0, heightDrawn: usedH };
+      cursorY -= spaceBetweenRows;
+      usedH += spaceBetweenRows;
+    }
+  
+    // --- Data rows ---
+    for (let r = 0; r < data.length; r++) {
+      const rowObj = data[r];
+      const rowValues = columns.map((k) => rowObj?.[k] ?? "");
+  
+      const rowH = await measureRowHeight(rowValues);
+  
+      if (usedH + rowH > height) break;
+  
+      const isEven = (r % 2 === 0);
+      const bg = isEven ? colorHexToPDFRGB(rowEvenColor) : colorHexToPDFRGB(rowOddColor);
+      const tc = isEven ? rowEvenTextColor : rowOddTextColor;
+  
+      drawRoundedRectTopDown(page, {
+        x,
+        yTop: cursorY,
+        width,
+        height: rowH,
+        radius: rowBorderRadius,
+        fillColor: bg,
+      });
+  
+      for (let c = 0; c < colCount; c++) {
+        const cellX = x + c * colWidth;
+        const textX = cellX + padding;
+        const textY = cursorY - padding;
+  
+        await drawTextBlockFunc({
+          text: String(rowValues[c]),
+          x: textX,
+          y: textY,
+          width: cellInnerWidth,
+          fontName,
+          lineHeight,
+          textAlign: cellAlign,
+          color: tc,
+        });
+      }
+  
+      cursorY -= rowH;
+      usedH += rowH;
+      rowsDrawn++;
+  
+      // Space between rows (only if another row might follow)
+      if (r < data.length - 1) {
+        if (usedH + spaceBetweenRows > height) break;
+        cursorY -= spaceBetweenRows;
+        usedH += spaceBetweenRows;
+      }
+    }
+  
+    return { rowsDrawn, heightDrawn: usedH };
 }
