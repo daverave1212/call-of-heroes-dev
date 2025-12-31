@@ -5,17 +5,12 @@
     --a4-height: 297mm;
     
     --bleed: 3mm;
-    --pdf-page-with-bleed-width: calc(var(--a4-width) + 2 * var(--bleed));
-    --pdf-page-with-bleed-height: calc(var(--a4-height) + 2 * var(--bleed));
-
+    
     --pdf-margin-top: 18mm;
     --pdf-margin-bottom: 22mm;
     --pdf-margin-left: 18mm;
     --pdf-margin-right: 18mm;
     
-    --pdf-column-width: calc(var(--a4-width) - var(--pdf-margin-left) - var(--pdf-margin-right));
-    --pdf-column-gap: 9mm;
-
     --pdf-h1-size: 32pt;
     --pdf-h2-size: 19pt;
     --pdf-h3-size: 14pt;
@@ -23,21 +18,65 @@
     --pdf-p-line-height: 14pt;
     --pdf-p-spacing: 5pt;
     --pdf-caption-size: 11pt;
+    
+    --pdf-column-gap: 9mm;
+    
+    --pdf-column-width: calc(var(--a4-width) - var(--pdf-margin-left) - var(--pdf-margin-right));
+    
+    --pdf-page-width: calc(var(--a4-width) + 2 * var(--bleed));
+    --pdf-page-height: calc(var(--a4-height) + 2 * var(--bleed));
 }
+
+@media print {
+
+    @page {
+        size: var(--pdf-page-width) var(--pdf-page-height);
+        margin: 0;
+    }
+
+    body * {
+        visibility: hidden !important;
+    }
+    #Window-Content {
+        padding-top: 0;
+    }
+    #PDF, #PDF * {
+        visibility: visible !important;
+    }
+    #PDF {
+        position: static;
+        left: 0;
+        top: 0;
+    }
+    .pdf-page {
+        break-after: page;
+        page-break-after: always;
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+    .pdf-page:last-child {
+        break-after: auto;
+        page-break-after: auto;
+    }
+}
+
 
 #PDF {
 
 }
 
-.pdf-page-with-bleed {
-    width: var(--pdf-page-with-bleed-width);
-    height: var(--pdf-page-with-bleed-height);
+.pdf-page {
+    width: var(--pdf-page-width);
+    height: var(--pdf-page-height);
     padding: var(--bleed);
+    overflow: hidden;
 
     background-color: white;
     outline: solid 1px black;   /* Outline does not affect margins or sizes */
+
+    position: relative;           /* Required to work with printing properly */
 }
-.pdf-page {
+.pdf-trim-box {
     width: var(--a4-width);
     height: var(--a4-height);
     padding-top: var(--pdf-margin-top);

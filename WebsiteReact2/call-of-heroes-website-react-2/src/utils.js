@@ -128,6 +128,15 @@ export function getAllSpellsByName() {
     }
     return allSpellsCached
 }
+export function getSpellByName(name) {
+    if (name == null) {
+        throw `Null spell given by name to getSpellByName.`
+    }
+    if (name.startsWith('~')) {
+        name = name.substring(1, name.length - 1)
+    }
+    return getAllSpellsByName()[name]
+}
 let allSkillsCached = null
 export function getAllSkillsByName() {
     if (allSkillsCached != null) {
@@ -1588,7 +1597,6 @@ export function customMarkdownToJSON(markdownText) {
     const xmlNode = body.childNodes[0]
     return Array.from(xmlNode.childNodes)
 }
-
 const customMappings = {
     '@@$#': () => ({ end: '@@$#', tag: 'span', attributes: 'style="color: red;"'}),
     "<p>^^^": () => ({ end: '</p>', tag: 'div', attributes: 'style="margin-top: 5rem"'}),
@@ -1598,8 +1606,6 @@ const customMappings = {
         `src="${params[0]}" style="${params[2] != 'right'? '': 'position: absolute; right: 12px;'} ${params[1] == 'null'? '': 'width: ' + params[1]};"`,
     ignoreContent: true })
 }
-
-
 export function parseCustomMarkdownStringToString(string) {
     function findMappingItStartsWith(i) {
         for (const key of Object.keys(customMappings)) {
@@ -1666,6 +1672,11 @@ export function getDOMNodeAttributes(node) {
         .from(node.attribute)
         .reduce((soFar, nvp) => ({ ...soFar, [nvp.name]: nvp.value }), {})
 }
+export function printToPDF() {
+    window.print()
+}
+
+
 
 // ---------------- React Small Utilities ----------------
 export const styleMargined = { marginBottom: 'var(--element-padding)' }    // Use this as style={styleMargined}
