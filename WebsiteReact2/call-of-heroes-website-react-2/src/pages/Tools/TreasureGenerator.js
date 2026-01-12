@@ -310,11 +310,11 @@ export default function TreasureGenerator() {
                     display: 'flex',
                     justifyContent: 'space-around'
                 }}>
-                    <button style={buttonStyle} className='button-standard' onClick={() => go(randomInt(50, 150))}>Cheap</button>
-                    <button style={buttonStyle} className='button-standard' onClick={() => go(randomInt(150, 500))}>Medium</button>
-                    <button style={buttonStyle} className='button-standard' onClick={() => go(randomInt(500, 1250))}>Rich</button>
-                    <button style={buttonStyle} className='button-standard' onClick={() => goScrollOnly(250)}>Scroll (Cheap)</button>
-                    <button style={buttonStyle} className='button-standard' onClick={() => goScrollOnly(550)}>Scroll (Expensive)</button>
+                    <button style={buttonStyle} onClick={() => go(randomInt(50, 150))}>Cheap</button>
+                    <button style={buttonStyle} onClick={() => go(randomInt(150, 500))}>Medium</button>
+                    <button style={buttonStyle} onClick={() => go(randomInt(500, 1250))}>Rich</button>
+                    <button style={buttonStyle} onClick={() => goScrollOnly(250)}>Scroll (Cheap)</button>
+                    <button style={buttonStyle} onClick={() => goScrollOnly(550)}>Scroll (Expensive)</button>
                 </div>
                 <br/><br/><br/>
                 <div style={{

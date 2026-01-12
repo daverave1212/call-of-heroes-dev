@@ -141,7 +141,7 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
                                         {/* { monster.Degree != 'Normal' && monster.Degree != null && (<SmallStat color={statOtherColor} className="row large" name="Degree">{monster.Degree != null? monster.Degree : 'Normal'}</SmallStat>) } */}
                                         { monster.Degree != 'Normal' && monster.Degree != null && (<SmallStat color={statOtherColor} className="row large" name="Action Points">{monster.Degree != null? monster.Degree : '3'}</SmallStat>) }
                                         <div className='center-content'>
-                                            <button style={{backgroundColor: 'var(--theme-color-1-darkest)', width: '100%'}}><Icon name="Premium" style={{marginTop: '4px'}}/> Scale to different XP</button>
+                                            <button style={{backgroundColor: 'var(--theme-color-1-darker)', width: '100%'}}><Icon name="Premium" style={{marginTop: '4px'}}/> Scale to different XP</button>
                                         </div>
                                     </div>
                                 )

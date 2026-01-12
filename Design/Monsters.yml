@@ -17,6 +17,9 @@ Template:
     - Attack:
         Damage: d12
         EffectName: miau
+    - Quick Attack:
+        Cooldown: Once / Turn
+        Damage: 1d4
   Passives:
     - Claw: miau
   Avoids AoE: No
@@ -42,8 +45,9 @@ Bannerman:
   HPCoef:       0.9
   Speed:        4
   Initiative:   9
-  Abilities: None
-
+  Abilities:
+    - Taunt:
+        Effect: Taunt a Unit you can see. Its next attack has Cover if it's not on this Unit.
   Passives:
     - Inspiration: All allies that can hear/see the Bannerman do +1 Damage with all attacks.
   Avoids AoE: Yes
@@ -66,8 +70,13 @@ Goblin:
   Speed:        6
   Initiative:   10 Melee / 13 Ranged
   Abilities:
-    - Ranged: 1 + number of Goblins
-    - Melee: 1 + number of Goblins
+    - Ranged:
+        Damage: 1 + number of Goblins
+    - Melee:
+        Damage: 1 + number of Goblins
+    - Bite:
+        A: Half-Action
+        Damage: 1d4 Pierce
   Passives:
     - Strength in Numbers: |
         Every Goblin attack deals +1 Damage for each Worthy Goblin in their squad.
@@ -104,8 +113,14 @@ Acolyte:
   Speed:        5
   Initiative:   1
   Abilities:
-    - Healing Light: Heal a non-Acolyte Unit for 8. All Units around it become Blinded.
-    - Flame Bolt (6m): 1d6 + 1
+    - Blinding Heal:
+        Effect: Heal a non-Acolyte Unit for 8. All Units around it become Blinded.
+    - Flame Bolt:
+        Range: 6 meters
+        Damage: 1d6 + 1
+    - Weapon:
+        Cooldown: Once / Turn
+        Damage: 1d4
   Passives:
     - Holy Spells: Acolytes can also cast other small utility spells, like making light or purifying water.
   Avoids AoE: Yes
@@ -131,7 +146,9 @@ Cultist:
         Damage: 1d4 Scourge
         Decaying: |
             Target takes +2 Scourge Damage for the rest of combat (after the attack). Stacks infinitely.
-    - Dagger: 1d4 Pierce (when melee)
+    - Dagger:
+        Cooldown: Once / Turn
+        Damage: 1d4
   Avoids AoE: Yes
   Behavior: |
     Stay at range and shoot Eldritch Blast.
@@ -170,10 +187,13 @@ Kobold:
         Damage: 1d6
         Pin Down: 1d10 instead if the target is near a wall or obstacle.
     - Ranged Weapon:
-        Damage: 1d6
+        Damage: 1d8
     - Opportunity Attack:
         A: Reaction
         Effect: When a Unit exist the melee range of a Kobold, attack it with the weapon.
+    - Quick Attack:
+        Cooldown: Once / Turn
+        Damage: 1d4
   Passives:
     - Sidestep: The first time a Kobold would be affected by a negative thing in Combat, if it makes sense, it completely dodges and avoids it it (unless it's a mind spell, or is unavoidable like Heat Metal; apply common sense; if in doubt, assume it's unavoidable).
     - Darkvision: Can see in the dark.
@@ -323,7 +343,7 @@ Ogre:
   Speed:        4
   Initiative:   5
   Abilities:
-    - Attack:
+    - Slamming Attack:
         Range: 2 meters
         Cooldown: Once / Turn
         Damage: 1d12 Smash
@@ -337,7 +357,7 @@ Ogre:
         Notes: This can hurl allies of Ogres as well (doesn't count as Slamming).
     - Stomp:
         Cooldown: Once / Turn
-        Effect: All Units within 2 meters take 5 Smash Damage and become Slowed.
+        Effect: All Units within 2 meters take 5 Smash Damage and become Slowed. One of them (players choose) gets a Combo.
   Passives:
     - Thick Skin: The Ogre takes -50% when hit from behind.
   Avoids AoE: No
@@ -417,8 +437,7 @@ Guard:
         A: Half-Action
         Damage: 1d6
         Advanced Flank: +1d4 Damage if flanking. Guards can flank with obstacles and walls.
-        Combo: Slow the target.
-    
+        Combo: Daze the target.
     - Volley of Arrows:
         A: 1 Action / Guard
         Range: 5 meters to edge
@@ -458,12 +477,12 @@ Hobgoblin:
   Abilities:
     - Attack:
         Damage: 2d8
-    - Bite:
-        A: Half-Action
-        Damage: 1d4
     - Copy Spell:
         Cooldown: Once / Combat
         Effect: The Hobgoblin uses an Ability a Player Character has used this Combat (with that Character's exact stats).
+    - Bite:
+        A: Half-Action
+        Damage: 1d4
   Passives:
     - Bold in Numbers: Has +1 Defense for each other alive ally on its team.
   Avoids AoE: Yes
@@ -493,7 +512,7 @@ Berserker:
     - Attack:
         Damage: 1d4
         RAGE: +1d4 Damage for each time the Berserker took Damage this Combat
-    - Improvised Attack:
+    - Quick Attack:
         A: Half-Action
         Damage: 1d4
   Passives:
@@ -631,18 +650,23 @@ Dryad:
   Initiative:   5
   Abilities:
     - Plant Attack:
-        Damage: 8 (or 2d4 + 3)
+        Range: 3 meters (from the plant)
+        Damage: 10 (or 4d4)
         Plant Reach: |
-          Instead of the Dryad attacking, she makes a nearby (15 meters) plant attack.
-          A plant attack has 3 meters range from the plant.
-          E.g. a tree slams with its branches, a bush shoots thorns, etc
-    - Sleep Spores (free) (5m range to edge): |
-        Choose a 2x2 meter area.
-        It becomes Difficult Terrain.
-        Any Unit ending their turn in Spores must succeed a 11 Sense Check or it falls Asleep and its initiative becomes 0.
-        The Dryad casts Sleep Spores every turn before Plant Attack.
+          Instead of the Dryad attacking, she makes a nearby plant attack.
+        Notes: E.g. a tree slams with its branches, a bush shoots thorns, etc
+    - Thorn Spike:
+        A: Half-Action
+        Range: 5 meters
+        Damage: 1d8 Pierce
+    - Sleep Spores:
+        Cooldown: Once / Turn
+        Range: 5 meters
+        Effect: |
+          Choose a 3x3 meter area. It becomes Hard Terrain.
+          Any enemy of the Dryad ending their turn in Spores must roll a Sense Check at least 11 or it falls Asleep and its initiative becomes 0.
   Passives:
-    - Treesposition: Instead of moving normally, the Drayd can touch a tree and teleport near another tree within 10 meters (if not Silenced).
+    - Treesposition: Instead of moving normally, the Dryad can touch a tree and teleport near another tree within 10 meters (if not Silenced).
     - Vulnerabilities: Takes +50% Acid Damage.
     - Immunities: Immune to Poison Damage and Sleep.
     - Tree Bound (Non-Combat): Every Dryad is permanently bound to a tree. If that tree dies, the Dryad dies. Dryads keep their home tree secret and can't wander more than a few kilometers away without dying.
@@ -790,8 +814,9 @@ Necromancer:
   Speed:        5
   Initiative:   12
   Abilities:
-    - Eldritch Bolt (5m):
-        Damage: 1d4 Damage + target's Might (Scourge)
+    - Eldritch Bolt:
+        Range: 5 meters
+        Damage: 1d4 Damage + target's Might Scourge
   Passives:
     - Necromantic Control: When in a group with other undead Unit(s), one undead is bound to this necromancer. When this necromancer dies, that undead dies as well.
   Avoids AoE: No
@@ -821,7 +846,7 @@ Bug (Giant):
   Health:       1
   Defense:      5
   HPCoef:       0.01
-  Speed:        5
+  Speed:        4
   Initiative:   1 if land, 3 if flying
   Abilities:
     - Bite:
@@ -865,7 +890,6 @@ Hound:
   Passives:
     - Track: Hounds can track a Unit for up to 5 kilometers. Escaping from Hounds requires a Check at least 15.
     - Detect: Hounds can detect invisible Units.
-    - Minor Attacker: Can only attack once per Turn.
   Avoids AoE: No
   Behavior: |
     Try to reach the back line and chase them to death.
@@ -891,10 +915,9 @@ Camazot:
         Cooldown: Once / Turn
         Damage: 1d4 Scourge
         Attach: |
-          The Camazot remains attached to the target and it's perpetually Blinded.
+          The Camazot remains attached to the target, making it perpetually Blinded.
   Passives:
     - Echolocation: Can see in the dark and is immune to Blinding.
-    - Minor Attacker: Can only attack once per Turn.
   Avoids AoE: No
   Behavior: |
     Each Camazot attacks a different target and chases them to death.
@@ -915,10 +938,9 @@ Wolf:
   Initiative:   12
   Abilities:
     - Pack Bite:
+        Cooldown: Once / Turn
         Damage: 1d4 Pierce
         Flanker: All other Wolves that are in range make a Pack Bite on the same target (without triggering this effect).
-    - Passives:
-        - Minor Attacker: Can only attack once per Turn.
   Avoids AoE: No
   Behavior: |
     Not afraid to run straight through the front line to reach the back line.
@@ -965,6 +987,11 @@ Crab (Giant):
   Speed:        5
   Initiative:   1
   Abilities:
+    - Grab:
+        Cooldown: Once / Combat
+        Yoink: |
+          The crab grabs a target with its claw.
+          The target is Single-Stunned, Rooted to the Crab until it dies, and takes 1d6 Damage at the end of the Crab's Turns.
     - Pincer:
         Damage: 1d6 Pierce, Smash or Slash
         Critical Stun: If rolled 6, Single-Stun the target.
@@ -996,8 +1023,11 @@ Rat (Giant):
   Abilities:
     - Bite/Claw:
         Damage: 1d10
+    - Quick Attack:
+        Cooldown: Once / Turn
+        Damage: 1d4
   Passives:
-    - 3rd Round Frenzy: On the 3rd round of combat, all rats become enraged and gain +1d6 Damage on all attacks and +3 Speed.
+    - 3rd Round Frenzy: On the 3rd round of combat, all rats become enraged and gain +1d6 Damage on all attacks.
     - Dark Vision: Can see in the dark.
     - Immunities: Immune to Poison, Slows and Fumbling.
   Avoids AoE: No
@@ -1021,8 +1051,12 @@ Raptor:
   Abilities:
     - Beak Attack:
         Damage: 1d6 + 1d8 (Slash or Pierce)
-        Break Defenses: Ignores Defense, Shieldings and Damage Reductions and immediately break all Shielding on the target.
+        Break Defenses: Ignores Defense and Damage Reductions and breaks all Shieldings on the target (before Damage).
+    - Quick Attack:
+        Cooldown: Once / Turn
+        Damage: 1d6
   Passives:
+    - Lightweight Jump: After a Raptor is hit with a melee attack, it jumps 3 meters away from the attacker.
     - Sense Defenses: Raptors sense Shielding, Defense or other Damage Reductions. They prefer attacking Units with Shielding.
     - Jumpers: Can freely jump up to 3 meters high.
   Avoids AoE: No
@@ -1056,6 +1090,9 @@ Spider (Giant):
           Wrap a Unit in a cocoon with 10 Health.
           The Unit must break the coocoon first before moving or doing anything outside.
         Upgrade: The spiders (together) can only cast Cocoon a number of times per Round equal to half the player's team size.
+    - Quick Attack:
+        Cooldown: Once / Turn
+        Damage: 1d6
   Passives:
     - Spider Climb: Can freely walk on walls and on web, and ignores Hard Terrain.
     - Immunities: Immune to Poison.
@@ -1084,7 +1121,11 @@ Bear:
   Speed:        6
   Initiative:   2
   Abilities:
-    - Attack: 1d8 + 2 (Smash, Slash or Pierce)
+    - Attack:
+        Damage: 3d6 (Smash, Slash or Pierce)
+    - Quick Attack:
+        Cooldown: Once / Turn
+        Damage: 1d6
   Avoids AoE: No
   Behavior: |
     Use this as a standard Large animal.
@@ -1104,9 +1145,14 @@ Pegasus:
   Speed:        6
   Initiative:   4
   Abilities:
-    - Glittering Breath (2m to edge): |
-        Target a 3x3 meter area and attack all Units there for 2d6 - 1.
-        For each 1 or 6, Units that took Damage must succeed a 11 Sense Check or fall Asleep.
+    - Glittering Breath:
+        Effect: |
+          Target a 3x3 meter area and attack all Units there for 2d6.
+          If they have an even number of Mana points, they fall Asleep and their Initiative becomes 0.
+        Notes: 0 is an even number.
+    - Quick Attack:
+        Cooldown: Once / Turn
+        Damage: 1d6
   Passives:
     - Antimagic: Takes -50% Damage from Spells of any kind.
     - Flying: Can fly.
@@ -1148,12 +1194,12 @@ Lion:
 
 Cockatrice:
   Type:         Beast
-  Degree:       Epic x2
+  Degree:       5
   Experience:   550 (225 x2)
   Stats:        3/4/0/4/3
   Health:       180
   HPCoef:       1
-  Speed:        4
+  Speed:        6
   Initiative:   3
   Abilities:
     - Beak:
@@ -1161,7 +1207,7 @@ Cockatrice:
         Damage: 1d10 Pierce
         Seize: +1d6 Damage if the target has any Crowd Control
     - Stone Glare:
-        Effect: A chosen Player must choose a target the Cockatrice can see to take 4d6 True Damage and become Blinded.
+        Effect: Players must choose a Player Character the Cockatrice can see to take 4d6 True Damage and become Blinded.
     - Tail Sweep:
         Range: 2 meters
         Effect: Target and all Units 1 meter from it take 2d8 Smash Damage.
@@ -1191,21 +1237,28 @@ Cockatrice:
   Role: Main Enemy
   Variants: None
 
-Boar (Dire):
+Bull:
   Type:         Beast
   Experience:   225
   Stats:        5/1/-2/2/0
   Health:       54
   Defense:      4
   HPCoef:       1
-  Speed:        6
+  Speed:        7
   Initiative:   3
   Abilities:
-    - Tusks:
-        Damage: 7 (Pierce) (or 2d4 + 2)
-        Charge Attack: |
-          If Boar moved at least 4 meters straight and then attacked, the target makes a 12 Grade Might Check.
-          If it fails, it takes 1d4 Pierce Damage and is pushed 2 meters in any direction (boar chooses).
+    - CHAAARGE:
+        Effect: Move up to the Speed toward the Marked target. Passing through an obstacle or Unit pushes them aside and the Bull gains +1d4 Damage on its next attack on the Marked targt.
+    - Rushing Horns:
+        Damage: 3d6
+        Slam: Slam the target 1d8 meters in a direction it chooses.
+    - Quick Attack:
+        Cooldown: Once / Turn
+        Damage: 1d6
+  Passives:
+    - Red Target: |
+        On Combat start, Mark the weakest Player Character (or back-most). The bull will try to charge to them.
+        A Unit can spend a Half-Action to move the Mark from themself to a different Player Character.
   Avoids AoE: No
   Behavior: |
     Charges in a straight line and attacks with tusks.
@@ -1215,9 +1268,11 @@ Boar (Dire):
     - Pits
   Monster Data: No tactic, mid HP, no gimmick
   Role: Main Enemy
-  Variants: Rhinoceros
+  Variants: Rhinoceros, Boar (Giant)
 
-Stalacmantle:
+
+TODO
+Umbral Manta:
   Type:         Beast
   Degree:       Normal
   Experience:   250
@@ -1231,11 +1286,11 @@ Stalacmantle:
     - Envelop:
         Damage: 8 Pierce (or 3d4)
         Facehug: |
-            If it did Damage, the Stalacmantle remains attached to the target until the end of the target's turn (therefore, the target is in Darkness - has Cover; see Darkray's Passive Ability).
-            If the Unit underneath moves, the Stalacmantle makes a Dexterity Check. If it succeeds, it moves with the target until the end of its turn (unless it teleports).
+            Umbral Manta remains attached to the target until the end of the target's Turn (therefore, the target is in Darkness - has Cover; see Darkray's Passive Ability).
+        Notes: It moves with the target, unless it teleports or the Manta dies.
   Passives:
-    - Magic Absorption: Absorbs (cancels) the first Spell targeting it (the Actions used for it are lost) (apply common sense - Focus Fling is not absorbed).
     - Artificial Darkness: Emmits a beam of Magical Darkness right underneath it (provides Cover).
+    - Magic Absorption: Absorbs the first Ability targeting it, healing instead of taking the Damage. Other effects have no effect on the Manta for that Ability.
     - Flying: Flies.
     - Camouflage (Non-Combat): Indistinguishable from a stalagmite or stalactite.
   Avoids AoE: No
@@ -1249,7 +1304,7 @@ Stalacmantle:
     - Rubble (Difficult Terrain)
   Monster Data: Anti-caster
   Role: Main Enemy
-  Variants: None
+  Variants: Facehugger, Mantle
   Story Ideas: Have a swarm of Darkmantles directly at the entrance to a cave. Players won't expect it!
 
 Rust Roach:

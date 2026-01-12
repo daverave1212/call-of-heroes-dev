@@ -118,7 +118,7 @@ export default function DungeonGenerator() {
     return (
         <Page title="Dungeon">
             <div className='centered-content'>
-                <button className='button-standard' onClick={() => {
+                <button onClick={() => {
                     const sequenceOfEncouters = generateDungeon(randomInt(3, 6))
                     setState({ sequenceOfEncouters })
                 }}>Generate</button>

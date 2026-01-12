@@ -2,7 +2,7 @@
 
 import './ResourceBar.css'
 
-export function ResourceBar({ name, maxValue, value, setValue, color1='var(--dark-color)', color2='rgb(15, 137, 189)' }) {
+export function ResourceBar({ name, maxValue, value, setValue, color1='var(--theme-color-1-darker)', color2='rgb(15, 137, 189)' }) {
     function onIncrease() {
         const newValue = value + 1
         if (newValue > maxValue + 5) {

@@ -4,7 +4,7 @@ import React from 'react'
 
 export function getRealColor(color) {
     switch (color) {
-        case null, undefined: return 'var(--dark-color)';
+        case null, undefined: return 'var(--theme-color-1-darker)';
         case 'blue': return 'var(--dark-blue)';
     }
     return color
@@ -37,7 +37,7 @@ export default function SmallStat({
     return (
         <div className={`small-stat flex ${smallStatClassesByType} ${className}`} style={{...contentStyle, ...{borderColor: realColor}}}>
             <div style={{...nameStyle, ...{backgroundColor: realColor}}} className={`small-stat__name`}>{ name }</div>
-            <div className="small-stat__value center-content-row" style={valueStyle}>{ children }</div>
+            <div className="small-stat__value" style={valueStyle}>{ children }</div>
         </div>
     )
     

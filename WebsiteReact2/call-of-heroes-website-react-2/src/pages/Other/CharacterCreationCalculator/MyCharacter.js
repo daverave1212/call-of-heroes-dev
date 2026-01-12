@@ -259,7 +259,7 @@ export default function MyCharacter() {
             </div>
             {/* <PageH3>Level {level} { selectedRaceName } { selectedClassName } { selectedSpecName != null && `(${selectedSpecName})`}</PageH3> */}
             {/* <h1 className="center-text full-width">{ names.characterName }</h1> */}
-            <h2 className="center-text full-width margin-top-0" style={{fontFamily: 'HomeFont', color: 'var(--dark-color)'}}>Level {level} { selectedRaceName } { selectedClassName } { selectedSpecName != null && `(${selectedSpecName})`}</h2>
+            <h2 className="center-text full-width margin-top-0" style={{fontFamily: 'HomeFont', color: 'var(--theme-color-1-darker)'}}>Level {level} { selectedRaceName } { selectedClassName } { selectedSpecName != null && `(${selectedSpecName})`}</h2>
         </div>
     }
     function StatsColumn() {
