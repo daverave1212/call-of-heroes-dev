@@ -23,6 +23,9 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
         isPreview = false
     }
 
+    const abilities = monster.Abilities.filter(a => U.getOnlyValue(a)?.IsUltimate != true)
+    const ultimateAbility = monster?.Abilities?.find(a => U.getOnlyValue(a)?.IsUltimate)
+
     const monsterStats   = getMonsterStatsAsObject(monster.Stats)
     const statOtherColor = 'rgb(55, 10, 85)'
 
@@ -166,23 +169,26 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
             <TwoColumns type='lefty'>
                 <Column>
                     <div>
-                        { (monster.Abilities == null || monster.Abilities == 'None') ? (
+                        { (abilities == null || abilities == 'None') ? (
                             <div></div>
-                        ) : (monster.Abilities.length >= 2) ? (
+                        ) : (abilities.length >= 2) ? (
                             <div>
                                 <TwoColumns className="two-columns--quarter-padding">
                                     <Column>
-                                        <MonsterAbility ability={monster.Abilities[0]} key={0} style={maybeElderStyle}/>
-                                        { monster.Abilities.length >= 3 && (<MonsterAbility ability={monster.Abilities[2]} key={2} style={maybeElderStyle}/>) }
+                                        <MonsterAbility ability={abilities[0]} key={0} style={maybeElderStyle}/>
+                                        { abilities.length >= 3 && (<MonsterAbility ability={abilities[2]} key={2} style={maybeElderStyle}/>) }
+                                        { abilities.length >= 5 && (<MonsterAbility ability={abilities[4]} key={4} style={maybeElderStyle}/>) }
                                     </Column>
                                     <Column>
-                                        <MonsterAbility ability={monster.Abilities[1]} key={1} style={maybeElderStyle}/>
-                                        { monster.Abilities.length >= 4 && (<MonsterAbility ability={monster.Abilities[3]} key={3} style={maybeElderStyle}/>) }
+                                        <MonsterAbility ability={abilities[1]} key={1} style={maybeElderStyle}/>
+                                        { abilities.length >= 4 && (<MonsterAbility ability={abilities[3]} key={3} style={maybeElderStyle}/>) }
+                                        { abilities.length >= 6 && (<MonsterAbility ability={abilities[5]} key={5} style={maybeElderStyle}/>) }
                                     </Column>
                                 </TwoColumns>
+                                { ultimateAbility != null && (<MonsterAbility className={"breathing-glow"} ability={ultimateAbility} key={'ultimate'} style={maybeElderStyle}/>) }
                             </div>
                         ) : (
-                            monster.Abilities.map((ability, i) => (
+                            abilities.map((ability, i) => (
                                 <MonsterAbility ability={ability} key={i} style={maybeElderStyle}/>
                             ))
                         )}

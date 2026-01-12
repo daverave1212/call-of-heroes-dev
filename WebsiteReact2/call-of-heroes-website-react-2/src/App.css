@@ -534,3 +534,25 @@ input[type="range"]::-moz-range-thumb {
   /* text-shadow: #000000 1px 0 10px, #000000 1px 0 10px; */
 }
 
+.breathing-glow {
+  --color-1: rgba(168, 92, 255, 0);
+  --color-2: rgba(168, 92, 255, 1);
+
+  /* the glow */
+  box-shadow: 0 0 0px var(--color-1);
+  animation: glow-breathe 2.2s ease-in-out infinite;
+}
+@keyframes glow-breathe {
+  0%, 100% {
+    box-shadow:
+      0 0 12px var(--color-1);
+      /* 0 0 18px rgba(0, 200, 255, 0.10); */
+    transform: scale(1);
+  }
+  50% {
+    box-shadow:
+      0 0 18px var(--color-2);
+      /* 0 0 36px rgba(0, 200, 255, 0.25),
+      0 0 60px rgba(0, 200, 255, 0.12); */
+  }
+}

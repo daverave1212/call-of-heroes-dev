@@ -10,7 +10,7 @@ import Icon from '../Icon'
 
 
 // A monster ability is formatted like "- Ranged: 1d6 + 20 Slash"
-export default function MonsterAbility({ability, isPassive, style}) {
+export default function MonsterAbility({ability, isPassive, style, className}) {
     let name
     let abilityBody
     if (ability.Name != null) {
@@ -37,10 +37,10 @@ export default function MonsterAbility({ability, isPassive, style}) {
             return <AbilityEffect>{ abilityBody }</AbilityEffect>
         }
 
-        const effectName = U.getAnyPropNameExcept(abilityBody, ['Name', 'Damage', 'Notes', 'A', 'Special', 'Cooldown', 'Requirement', 'Range', 'Duration', 'Effect', 'Upgrade', 'Combo', 'ParentKey', 'IsSubspell', 'EffectGreen', 'Downside'])
+        const effectName = U.getAnyPropNameExcept(abilityBody, ['Name', 'Damage', 'Notes', 'A', 'Special', 'Cooldown', 'Requirement', 'Range', 'Duration', 'Effect', 'Upgrade', 'Combo', 'ParentKey', 'IsSubspell', 'EffectGreen', 'Downside', 'IsUltimate'])
         
         return (
-            <div className='flex column gap-half' style={{paddingTop: '0.5rem'}}>
+            <div className={`flex column gap-half`} style={{paddingTop: '0.5rem'}}>
                 { abilityBody.Damage && (
                     <p><Icon name="Damage" style={{marginTop: '2px'}}/> <span className='monster-ability_effect-desc'>{ abilityBody.Damage } Damage</span></p>
                 ) }
@@ -83,7 +83,7 @@ export default function MonsterAbility({ability, isPassive, style}) {
     const topStatsComponent = <SpellTopStats tags={spellTopTags} keywords={abilityBody.Tags} className="spell-top-stats--no-padding-side spell-top-stats--less-padding-top-bottom"/>
 
     return (
-        <div className={`monster-ability ${passiveOrActveClass}`} style={style}>
+        <div className={`monster-ability ${passiveOrActveClass} ${className}`} style={style}>
             <div className={`monster-ability__banner`}></div>
             <div className='monster-ability__body'>
                 <h4 style={style}>{ name }</h4>

@@ -1934,6 +1934,9 @@ export function getOnlyKey(obj) {
 export function getAnyKey(obj) {
     return getOnlyKey(obj)
 }
+export function getOnlyValue(obj) {
+    return obj[getOnlyKey(obj)]
+}
 export function getTextWidth(font, text) {
     const canvas = document.createElement('canvas')
     const ctx = canvas.getContext('2d')

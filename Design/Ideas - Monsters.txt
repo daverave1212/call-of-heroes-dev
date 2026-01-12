@@ -76,35 +76,6 @@ Combat duration: 4 rounds
 3 Damage AP / combat: (1 + 1 AP) * 3 = 6 AP
 4 Damage AP / combat: (1 + 1.5 AP) * 4 = 10 AP
 
-function singleDamageAPToAPPerCombat(ap) {
-  return (1 + (ap - 1) / 2) * ap
-}
-
-function multipleDamageAPToAPPerCombat(ap) {
-  let total = 0
-  for (let i = 1; i <= ap; i++) {
-    total += 1 + (i - 1) / 2
-  }
-  return total
-}
-
-function getNormalHealthPerAPAndXP(xp) {
-  return Math.floor(MonsterCalculations.Calculations.XPToHPTable[xp] / 2)
-}
-
-function getEpicMonsterHPRatio(xp, nActionPoints) {
-  const damageActionPoints = nActionPoints - 1
-  const accurateAPPerCombatIfSpreadBetweenMultipleUnits = multipleDamageAPToAPPerCombat(ap)
-  const apPerCombatIfItWereJust1Unit = singleDamageAPToAPPerCombat(ap)
-  const hpRatio = accurateAPPerCombatIfSpreadBetweenMultipleUnits / apPerCombatIfItWereJust1Unit
-}
-
-
-
-
-
-
-
 
 
 
@@ -229,7 +200,7 @@ Monsters:
 
   o Zahhak - See the pictures saved in the storycaster clone at monsters.
     The ones with blood and muscle.
-  - Sandman (spirit that steals sleep)
+  
   o Pixie
   o Woodcrawler - infects a person, literally steals their skin and leaves the rest of their body 'intact'
     Behaves like a Skinwalker, but on the inside it is just tendrils.
@@ -247,22 +218,22 @@ Monsters:
   o Enderman (corrupted humans who lost their humanity but gained time-travel powers)
   o Medusa
   o Insectman
-  - Creature that deforms reality and matter (literally) and it stays like that - twisted and merged
   o Vodyanoy
   o Nezhit (plague bringer, idk get creative)
   o Sprite (something shapeless that just flashes in and out of existance)
-  o Wendigo
   o Abao A Qu (shapeless, large camouflage-y, psychic)
   o Djinni
   o Rakshasa (play with different types of animal heads for them)
-  o Intelligence Flayer (a very advanced civilization, very wise but evil because of some Reaper reason)
+  o Intelligence Flayer (Reaper) (a very advanced civilization, very wise but evil because of some Reaper reason)
   o Nightwalker
   o Wendigo
   o Lamia
   o Drider
   o Beholder
   o Namtar (naga-sleep paralysis-like, nightwalker-like demon, literal god of death in some mythology)
+  - Creature that deforms reality and matter (literally) and it stays like that - twisted and merged
   - Troglodyte
+  - Sandman (spirit that steals sleep)
   
 # Beasts #
   o Speculative zoology animals!
