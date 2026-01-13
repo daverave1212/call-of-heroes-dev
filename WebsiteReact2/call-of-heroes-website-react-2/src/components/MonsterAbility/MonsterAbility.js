@@ -7,10 +7,13 @@ import * as U from '../../utils'
 
 import { SpellTopStats } from '../Spell/Spell'
 import Icon from '../Icon'
+import MonsterCalculations from '../../databases/MonsterCalculations.json'
+
+
 
 
 // A monster ability is formatted like "- Ranged: 1d6 + 20 Slash"
-export default function MonsterAbility({ability, isPassive, style, className}) {
+export default function MonsterAbility({monster, ability, isPassive, style, className}) {
     let name
     let abilityBody
     if (ability.Name != null) {
@@ -28,6 +31,58 @@ export default function MonsterAbility({ability, isPassive, style, className}) {
         Downside
     } = abilityBody
 
+    const nActionPoints = 
+        abilityBody.A == null || abilityBody.A == '1 Action'?
+            2:
+        abilityBody.A == 'Half-Action'?
+            1:
+        abilityBody.A == '0 Actions'?
+            0:
+        1
+
+
+    const isEpic = U.isMonsterEpic(monster)
+    const monsterUsableAP = isEpic? monster.Degree - 1: 2   // E.g. AP without moving
+    const howManyMonstersIsItWorth = monsterUsableAP / 2    // E.g. 2 AP = 1, 4 AP = 2, etc
+    const monsterTotalXP = U.getMonsterTotalXP(monster)
+    const baseMonsterXP = monsterTotalXP / howManyMonstersIsItWorth // E.g. 250 with degree 5 -> 125
+    const fixedMonsterXP = U.roundDownTo(baseMonsterXP, 25)
+
+    const damagePer2AP = MonsterCalculations.Calculations.XPToDamageTable[fixedMonsterXP]
+    const damagePer1AP = U.roundDownTo(damagePer2AP / 2, 0.5)
+
+    const abilityDamageBase =
+        nActionPoints == 2? damagePer2AP:
+        nActionPoints == 1? damagePer1AP:
+        nActionPoints == 0? damagePer1AP:
+        damagePer1AP
+
+    console.log(name)
+    console.log({
+        isEpic,
+        nActionPoints,
+        monsterUsableAP,
+        howManyMonstersIsItWorth,
+        monsterTotalXP,
+        baseMonsterXP,
+        fixedMonsterXP,
+        damagePer1AP,
+        damagePer2AP,
+        abilityDamageBase
+    })
+    
+    const CUSTOM_MONSTER_SYMBOLS = {
+        'DamageAuto': { tag: 'span', text: U.numberToDiceEquivalent(abilityDamageBase) },
+        'Damage1': { tag: 'span', text: U.numberToDiceEquivalent(damagePer1AP) },
+        'Damage2': { tag: 'span', text: U.numberToDiceEquivalent(damagePer2AP) },
+        'DamageAoEAuto': { tag: 'span', text: U.numberToDiceEquivalent(U.roundToNearest(abilityDamageBase * 0.7, 0.5)) },
+        'DamageAoE1': { tag: 'span', text: U.numberToDiceEquivalent(U.roundToNearest(damagePer1AP * 0.7, 0.5)) },
+        'DamageAoE2': { tag: 'span', text: U.numberToDiceEquivalent(U.roundToNearest(damagePer2AP * 0.7, 0.5)) },
+    }
+
+
+
+
     function AbilityEffect({children}) {
         return (<p className='monster-ability-p'>{ children }</p>)
     }
@@ -39,16 +94,20 @@ export default function MonsterAbility({ability, isPassive, style, className}) {
 
         const effectName = U.getAnyPropNameExcept(abilityBody, ['Name', 'Damage', 'Notes', 'A', 'Special', 'Cooldown', 'Requirement', 'Range', 'Duration', 'Effect', 'Upgrade', 'Combo', 'ParentKey', 'IsSubspell', 'EffectGreen', 'Downside', 'IsUltimate'])
         
+        const Effect = abilityBody.Effect == null? null: U.parseTextWithSymbols(abilityBody.Effect, CUSTOM_MONSTER_SYMBOLS)
+        const Damage = abilityBody.Damage == null? null: U.parseTextWithSymbols(abilityBody.Damage, CUSTOM_MONSTER_SYMBOLS)
+        const specialEffect = effectName == null? null: U.parseTextWithSymbols(abilityBody[effectName], CUSTOM_MONSTER_SYMBOLS)        
+
         return (
             <div className={`flex column gap-half`} style={{paddingTop: '0.5rem'}}>
                 { abilityBody.Damage && (
-                    <p><Icon name="Damage" style={{marginTop: '2px'}}/> <span className='monster-ability_effect-desc'>{ abilityBody.Damage } Damage</span></p>
+                    <p><Icon name="Damage" style={{marginTop: '2px'}}/> <span className='monster-ability_effect-desc'>{ Damage }</span></p>
                 ) }
                 { abilityBody.Effect && (
-                    <AbilityEffect>{ abilityBody.Effect }</AbilityEffect>
+                    <AbilityEffect>{ Effect }</AbilityEffect>
                 ) }
                 { effectName != null && <p style={{marginTop: '3px'}}>
-                    <span className='monster-ability__effect-name'>{effectName}</span>: <span className='monster-ability__effect-desc'>{abilityBody[effectName]}</span>
+                    <span className='monster-ability__effect-name'>{effectName}</span>: <span className='monster-ability__effect-desc'>{specialEffect}</span>
                 </p>}
                 { Combo != null && (
                     <div className='monster-ability__effect-desc' key="Combo"><span style={{color: 'var(--blue-color)'}}>Combo: </span>{ Combo }</div>

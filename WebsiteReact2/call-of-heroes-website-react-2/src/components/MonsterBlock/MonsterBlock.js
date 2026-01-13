@@ -35,8 +35,9 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
     const setback = calculateMonsterSetback(monster.Initiative)
     const hpPenaltyPer1DefenseCoef = MonsterCalculations.Calculations.HPPenaltyPercentPer1Defense / 100
     const hpPenaltyCoefDueToDefense = U.isNumber(monster.Defense)? (1 - hpPenaltyPer1DefenseCoef * monster.Defense): 1
-    const isEpic = monster.Degree?.includes?.('Epic') || U.isNumber(monster.Degree)
-    const [monsterTotalXP] = U.splitByNumbers(monster.Experience ?? '0')
+    const isEpic = U.isMonsterEpic(monster)
+    console.log({isEpic})
+    const monsterTotalXP = U.getMonsterTotalXP(monster)
 
     const monsterSubtitle = monster.Type +
         (monster.Role != null? `, ${monster.Role}`: '')
@@ -175,28 +176,28 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
                             <div>
                                 <TwoColumns className="two-columns--quarter-padding">
                                     <Column>
-                                        <MonsterAbility ability={abilities[0]} key={0} style={maybeElderStyle}/>
-                                        { abilities.length >= 3 && (<MonsterAbility ability={abilities[2]} key={2} style={maybeElderStyle}/>) }
-                                        { abilities.length >= 5 && (<MonsterAbility ability={abilities[4]} key={4} style={maybeElderStyle}/>) }
+                                        <MonsterAbility monster={monster} ability={abilities[0]} key={0} style={maybeElderStyle}/>
+                                        { abilities.length >= 3 && (<MonsterAbility monster={monster} ability={abilities[2]} key={2} style={maybeElderStyle}/>) }
+                                        { abilities.length >= 5 && (<MonsterAbility monster={monster} ability={abilities[4]} key={4} style={maybeElderStyle}/>) }
                                     </Column>
                                     <Column>
-                                        <MonsterAbility ability={abilities[1]} key={1} style={maybeElderStyle}/>
-                                        { abilities.length >= 4 && (<MonsterAbility ability={abilities[3]} key={3} style={maybeElderStyle}/>) }
-                                        { abilities.length >= 6 && (<MonsterAbility ability={abilities[5]} key={5} style={maybeElderStyle}/>) }
+                                        <MonsterAbility monster={monster} ability={abilities[1]} key={1} style={maybeElderStyle}/>
+                                        { abilities.length >= 4 && (<MonsterAbility monster={monster} ability={abilities[3]} key={3} style={maybeElderStyle}/>) }
+                                        { abilities.length >= 6 && (<MonsterAbility monster={monster} ability={abilities[5]} key={5} style={maybeElderStyle}/>) }
                                     </Column>
                                 </TwoColumns>
-                                { ultimateAbility != null && (<MonsterAbility className={"breathing-glow"} ability={ultimateAbility} key={'ultimate'} style={maybeElderStyle}/>) }
+                                { ultimateAbility != null && (<MonsterAbility monster={monster} className={"breathing-glow"} ability={ultimateAbility} key={'ultimate'} style={maybeElderStyle}/>) }
                             </div>
                         ) : (
                             abilities.map((ability, i) => (
-                                <MonsterAbility ability={ability} key={i} style={maybeElderStyle}/>
+                                <MonsterAbility monster={monster} ability={ability} key={i} style={maybeElderStyle}/>
                             ))
                         )}
                     </div>
 
                     <div>
                         { monster.Passives != null && monster.Passives.map((ability, i) => (
-                            <MonsterAbility ability={ability} key={i} isPassive={true} style={maybeElderStyle}/>
+                            <MonsterAbility monster={monster} ability={ability} key={i} isPassive={true} style={maybeElderStyle}/>
                         )) }
                     </div>
                 </Column>

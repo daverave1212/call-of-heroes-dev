@@ -338,12 +338,65 @@ export function isSpellKeystoneTalent(spell) {
 
 
 // --------------- Questguard Utilities --------------
+export function isMonsterEpic(monster) {
+    if (monster == null) {
+        return false
+    }
+    return monster.Degree?.includes?.('Epic') || isNumber(monster.Degree)
+}
+export function getMonsterTotalXP(monster) {
+    const [monsterTotalXP] = splitByNumbers(monster?.Experience ?? '0')
+    return monsterTotalXP
+}
 export function monsterXPDnDToQG(dndXP) {
   const newXP = 0.365 * dndXP + 100
   return Math.floor(newXP / 25) * 25;
 }
 export function dndDCToQGDC(dc) {
     return Math.floor(parseInt(dc) * 0.7)
+}
+const NUMBER_TO_DICE = {
+    1.5:  '1d4 - 1',
+    2.5:  '1d4',
+    3.5:  '1d6',
+    4.5:  '1d8',
+    5:    '2d4',
+    5.5:  '1d10',
+    6.5:  '1d12',
+    7:    '2d6',
+    7.5:  '3d4',
+    8:    '1d6 + 1d8',
+    8.5:  '1d6 + 1d8',
+    9:    '1d8 + 1d10',
+    9.5:  '1d8 + 1d10',
+    10:   '4d4',
+    10.5: '3d6',
+    11:   '2d10',
+    11.5: '2d10',
+    12:   '5d4',
+    12.5: '5d4',
+    13:   '2d12',
+    13.5: '3d8',
+    14:   '4d6',
+    15:   '6d4',
+    16.5: '3d10',
+    17.5: '5d6',
+    18:   '4d8',
+    19.5: '3d12',
+    22:   '4d10',
+}
+export function numberToDiceEquivalent(number) {
+    if (!isNumber(number) || number == null) {
+        console.log({number})
+        throw `Number given to numberToDiceEquivalent is not a number: ${number}`
+    }
+    if (number in NUMBER_TO_DICE) {
+        return NUMBER_TO_DICE[number]
+    }
+    if (Number.isInteger(number)) {
+        return number
+    }
+    return Math.floor(number)
 }
 
 
@@ -1359,6 +1412,10 @@ export function toFixedFloat(number, digits) {
 }
 export function roundToNearest(number, multipleOf) {
     return Math.round(number / multipleOf) * multipleOf
+}
+export function roundDownTo(num, step) {
+    if (step <= 0) throw new Error("step must be > 0");
+    return Math.floor(num / step) * step;
 }
 export function generateUniqueId() {
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
