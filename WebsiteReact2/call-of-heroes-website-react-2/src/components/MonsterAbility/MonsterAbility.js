@@ -73,8 +73,15 @@ export default function MonsterAbility({monster, ability, isPassive, style, clas
     
     const CUSTOM_MONSTER_SYMBOLS = {
         'DamageAuto': { tag: 'span', text: U.numberToDiceEquivalent(abilityDamageBase) },
+        'Damage-1': { tag: 'span', text: U.numberToDiceEquivalent(abilityDamageBase - 1) },
+        'Damage-2': { tag: 'span', text: U.numberToDiceEquivalent(abilityDamageBase - 2) },
+        'Damage-3': { tag: 'span', text: U.numberToDiceEquivalent(abilityDamageBase - 3) },
+        'Damage+1': { tag: 'span', text: U.numberToDiceEquivalent(abilityDamageBase + 1) },
+        'Damage+2': { tag: 'span', text: U.numberToDiceEquivalent(abilityDamageBase + 2) },
+        'Damage+3': { tag: 'span', text: U.numberToDiceEquivalent(abilityDamageBase + 3) },
         'Damage1': { tag: 'span', text: U.numberToDiceEquivalent(damagePer1AP) },
         'Damage2': { tag: 'span', text: U.numberToDiceEquivalent(damagePer2AP) },
+        'DamageLess': { tag: 'span', text: U.numberToDiceEquivalent(U.roundToNearest(abilityDamageBase * 0.7, 0.5)) },
         'DamageAoEAuto': { tag: 'span', text: U.numberToDiceEquivalent(U.roundToNearest(abilityDamageBase * 0.7, 0.5)) },
         'DamageAoE1': { tag: 'span', text: U.numberToDiceEquivalent(U.roundToNearest(damagePer1AP * 0.7, 0.5)) },
         'DamageAoE2': { tag: 'span', text: U.numberToDiceEquivalent(U.roundToNearest(damagePer2AP * 0.7, 0.5)) },

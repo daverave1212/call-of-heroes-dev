@@ -18,6 +18,7 @@ Template:
         Damage: d12
         EffectName: miau
     - Quick Attack:
+        A: Half-Action
         Cooldown: Once / Turn
         Damage: 1d4
     - Quick:
@@ -196,6 +197,7 @@ Kobold:
         A: Reaction
         Effect: When a Unit exist the melee range of a Kobold, attack it with the weapon.
     - Quick Attack:
+        A: Half-Action
         Cooldown: Once / Turn
         Damage: 1d4
   Passives:
@@ -1028,6 +1030,7 @@ Rat (Giant):
     - Bite/Claw:
         Damage: 1d10
     - Quick Attack:
+        A: Half-Action
         Cooldown: Once / Turn
         Damage: 1d4
   Passives:
@@ -1057,6 +1060,7 @@ Raptor:
         Damage: 1d6 + 1d8 (Slash or Pierce)
         Break Defenses: Ignores Defense and Damage Reductions and breaks all Shieldings on the target (before Damage).
     - Quick Attack:
+        A: Half-Action
         Cooldown: Once / Turn
         Damage: 1d6
   Passives:
@@ -1095,6 +1099,7 @@ Spider (Giant):
           The Unit must break the coocoon first before moving or doing anything outside.
         Upgrade: The spiders (together) can only cast Cocoon a number of times per Round equal to half the player's team size.
     - Quick Attack:
+        A: Half-Action
         Cooldown: Once / Turn
         Damage: 1d6
   Passives:
@@ -1128,6 +1133,7 @@ Bear:
     - Attack:
         Damage: 3d6 (Smash, Slash or Pierce)
     - Quick Attack:
+        A: Half-Action
         Cooldown: Once / Turn
         Damage: 1d6
   Avoids AoE: No
@@ -1155,6 +1161,7 @@ Pegasus:
           If they have an even number of Mana points, they fall Asleep and their Initiative becomes 0.
         Notes: 0 is an even number.
     - Quick Attack:
+        A: Half-Action
         Cooldown: Once / Turn
         Damage: 1d6
   Passives:
@@ -1257,6 +1264,7 @@ Bull:
         Damage: 3d6
         Slam: Slam the target 1d8 meters in a direction it chooses.
     - Quick Attack:
+        A: Half-Action
         Cooldown: Once / Turn
         Damage: 1d6
   Passives:
@@ -1292,6 +1300,7 @@ Umbral Manta:
             Umbral Manta remains attached to the target until the end of the target's Turn (therefore, the target is in Darkness - has Cover; see Darkray's Passive Ability).
         Notes: It moves with the target, unless it teleports or the Manta dies.
     - Quick Attack:
+        A: Half-Action
         Cooldown: Once / Turn
         Damage: 1d4 Pierce
   Passives:
@@ -1462,7 +1471,7 @@ Hippogriff:
         Effect: All feathers quickly fly back to the Hippogriff. Each deals {Damage1} Slash/Pierce Damage to all Units it passes through.
   Passives:
     - Immunities: Immune to being Stunned.
-    - Flyby Prone: When it enters the vecinity (1m) of a person, is Slowed.
+    - Flyby: When it enters the adjacency of an enemy, it is Slowed.
     - Flying: Can fly.
   Avoids AoE: No
   Behavior: |
@@ -1498,23 +1507,36 @@ Antheir:
   Initiative:   2
   Abilities:
     - Red Attack (Soldier):
-        Damage: 3d4 Smash
-        Ram: If rolled at least one 4, target is either Rooted, or it takes an extra 1d4 Damage (its choice).
-    - Blue Attack (5m) (Mage):
-        Damage: 7 Acid (or 1d8 + 2)
-        Bile: All Units within 2 meters of target take half of the Damage taken by the main target.
-    - Yellow Attack (2m) (Worker): |
-        Attack all Units within 2 meters of the Antheir for 1d6 + 3.
-        All Units hit become Fumbling.
+        Damage: "{Damage-1} Smash"
+        Ram: Target chooses to take +50% Damage or be Rooted.
+    - Blue Attack (Mage):
+        Range: 5 meters
+        Damage: "{DamageLess} Acid"
+        Bile: Also Damages all Units within 2 meters of the target for that amount.
+    - Yellow Attack (2m) (Worker):
+        Range: 2 meters
+        Damage: "{Damage-3} Smash"
+        Frailing: Target chooses to take +50% Damage or be Frailed
+    - Quick Attack:
+        A: Half-Action
+        Cooldown: Once / Turn
+        Damage: 1d6
   Passives:
-    - Chitinous Shell: |
-        Can only take up to 10 Damage at a time (from an attack, a missile, etc; multi-hit spells count as multiple times, such as Magic Missiles).
-        Exception: Psychic and Scourge Damage.
+    - Chitinous Shell:
+        Effect: |
+          Can only take up to 10 Damage at a time (from a Damage instance).
+          Exception: Psychic and Scourge Damage.
+        CustomPower: 4
+        CustomXP: 200
     - Different Roles: |
         Antheirs have different colors, and thus different roles.
         Assign a different color to each Antheir from Red, Blue and Yellow (randomly or by choice).
         It can only use that type of Action.
-    - Spider Climb: Can walk on walls.
+    - Wall Climb:    
+        Effect: Can walk on walls.
+        CustomPower: 1
+        CustomXP: 0
+
   Avoids AoE: No
   Behavior: |
     Red Antheirs, Soldiers, rush into battle and fight to death!
@@ -1551,16 +1573,39 @@ Dragon Whelp:
   Health:       135
   HPCoef:       1.05
   Speed:        6
-  Initiative:   2
+  Initiative:   6
   Abilities:
-    - Breath (Fire) (5m): Attack the target and all Units 2 meters from it for 8 Fire Damage (or 2d6 + 1).
-    - Breath (Cold): Attack all targets in a 6x1 meter line for 8 Cold Damage (or 2d6 + 1).
-    - Breath (Shock) (5m):
-        Damage: 8 Shock (or 2d6 + 1)
-        Chain Lightning: Hits the main target, another target within 3 meters of the main target and another target within 3 meters of the secondary target (against Defense).
+    - Breath (Azure):
+        Range: 5 meters
+        Damage: "{DamageAuto} Shock"
+        Chain Lightning: Also Damages one more Unit within 2 meters of the target.
+    - Breath (Bronze):
+        A: Half-Action
+        Range: 10 meters
+        Damage: "{Damage1} Psychic"
+        Frailing: Target chooses to take +100% Damage or become Frail.
+    - Breath (Red):
+        Range: 10 meters
+        Damage: "{Damage-1} Fire"
+        Splash: Also Damages all Units within 2 meters of the target.
+    - Breath (Emerald):
+        Range: 10 meters
+        Damage: "{Damage-1} Acid or Poison"
+        Pierce: All Damages all Units up to 3 meters behind the target.
+    - Necrotic Bite (Black):
+        Range: 3 meters
+        Damage: "{Damage+3} Scourge"
+        Death: Units downed by this attack die permanently and can't be revived.
+    - Bite:
+        Cooldown: Once / Turn
+        Damage: 1d8
   Passives:
-    - Elemental: A Dragon Whelp has one element (Fire, Cold, Shock, etc). Its Breath attack depends on its type. If your preferred element isn't here, just change one of the Breath attacks to match your element.
-    - Elemental Resistance: Takes -50% Damage from its elemental type.
+    - Knowledge Consumer (Azure): All enemies of the Dragon Whelp are perpetually Deafened in Combat.
+    - Foresight (Bronze): Always dodges attacks that deal less than 10 Damage.
+    - Chaos Storm (Red): All Units in Combat deal +50% Damage.
+    - Toxic Nest (Emerald): At the end of the Round, all other Units take Poison Damage equal to twice the Round number.
+    - Instill Fear (Black): All other Units start the Combat Double-Stunned.
+    - Elemental Resistance: Takes -50% Damage from the same Damage type(s) as its main attack.
   Avoids AoE: No
   Behavior: |
     Keeps a distance and attacks while it's flying.
@@ -1573,7 +1618,6 @@ Dragon Whelp:
     - Strong Wind
   Monster Data: No tactic, mid HP, no gimmick
   Role: Main Enemy
-  Variants: Fairy Dragon Whelp (its element is Pulse and takes -50% Fire, Cold, Shock and Pulse Damage).
 
 Tyrannosaurus:
   Type:         Beast

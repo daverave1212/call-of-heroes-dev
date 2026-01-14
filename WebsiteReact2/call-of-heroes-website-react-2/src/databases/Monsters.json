@@ -21,6 +21,7 @@
             },
             {
                 "Quick Attack": {
+                    "A": "Half-Action",
                     "Cooldown": "Once / Turn",
                     "Damage": "1d4"
                 }
@@ -232,6 +233,7 @@
             },
             {
                 "Quick Attack": {
+                    "A": "Half-Action",
                     "Cooldown": "Once / Turn",
                     "Damage": "1d4"
                 }
@@ -1222,6 +1224,7 @@
             },
             {
                 "Quick Attack": {
+                    "A": "Half-Action",
                     "Cooldown": "Once / Turn",
                     "Damage": "1d4"
                 }
@@ -1264,6 +1267,7 @@
             },
             {
                 "Quick Attack": {
+                    "A": "Half-Action",
                     "Cooldown": "Once / Turn",
                     "Damage": "1d6"
                 }
@@ -1313,6 +1317,7 @@
             },
             {
                 "Quick Attack": {
+                    "A": "Half-Action",
                     "Cooldown": "Once / Turn",
                     "Damage": "1d6"
                 }
@@ -1354,6 +1359,7 @@
             },
             {
                 "Quick Attack": {
+                    "A": "Half-Action",
                     "Cooldown": "Once / Turn",
                     "Damage": "1d6"
                 }
@@ -1384,6 +1390,7 @@
             },
             {
                 "Quick Attack": {
+                    "A": "Half-Action",
                     "Cooldown": "Once / Turn",
                     "Damage": "1d6"
                 }
@@ -1510,6 +1517,7 @@
             },
             {
                 "Quick Attack": {
+                    "A": "Half-Action",
                     "Cooldown": "Once / Turn",
                     "Damage": "1d6"
                 }
@@ -1550,6 +1558,7 @@
             },
             {
                 "Quick Attack": {
+                    "A": "Half-Action",
                     "Cooldown": "Once / Turn",
                     "Damage": "1d4 Pierce"
                 }
@@ -1771,7 +1780,7 @@
                 "Immunities": "Immune to being Stunned."
             },
             {
-                "Flyby Prone": "When it enters the vecinity (1m) of a person, is Slowed."
+                "Flyby": "When it enters the adjacency of an enemy, it is Slowed."
             },
             {
                 "Flying": "Can fly."
@@ -1803,29 +1812,49 @@
         "Abilities": [
             {
                 "Red Attack (Soldier)": {
-                    "Damage": "3d4 Smash",
-                    "Ram": "If rolled at least one 4, target is either Rooted, or it takes an extra 1d4 Damage (its choice)."
+                    "Damage": "{Damage-1} Smash",
+                    "Ram": "Target chooses to take +50% Damage or be Rooted."
                 }
             },
             {
-                "Blue Attack (5m) (Mage)": {
-                    "Damage": "7 Acid (or 1d8 + 2)",
-                    "Bile": "All Units within 2 meters of target take half of the Damage taken by the main target."
+                "Blue Attack (Mage)": {
+                    "Range": "5 meters",
+                    "Damage": "{DamageLess} Acid",
+                    "Bile": "Also Damages all Units within 2 meters of the target for that amount."
                 }
             },
             {
-                "Yellow Attack (2m) (Worker)": "Attack all Units within 2 meters of the Antheir for 1d6 + 3.\nAll Units hit become Fumbling.\n"
+                "Yellow Attack (2m) (Worker)": {
+                    "Range": "2 meters",
+                    "Damage": "{Damage-3} Smash",
+                    "Frailing": "Target chooses to take +50% Damage or be Frailed"
+                }
+            },
+            {
+                "Quick Attack": {
+                    "A": "Half-Action",
+                    "Cooldown": "Once / Turn",
+                    "Damage": "1d6"
+                }
             }
         ],
         "Passives": [
             {
-                "Chitinous Shell": "Can only take up to 10 Damage at a time (from an attack, a missile, etc; multi-hit spells count as multiple times, such as Magic Missiles).\nException: Psychic and Scourge Damage.\n"
+                "Chitinous Shell": {
+                    "Effect": "Can only take up to 10 Damage at a time (from a Damage instance).\nException: Psychic and Scourge Damage.\n",
+                    "CustomPower": 4,
+                    "CustomXP": 200
+                }
             },
             {
                 "Different Roles": "Antheirs have different colors, and thus different roles.\nAssign a different color to each Antheir from Red, Blue and Yellow (randomly or by choice).\nIt can only use that type of Action.\n"
             },
             {
-                "Spider Climb": "Can walk on walls."
+                "Wall Climb": {
+                    "Effect": "Can walk on walls.",
+                    "CustomPower": 1,
+                    "CustomXP": 0
+                }
             }
         ],
         "Avoids AoE": "No",
@@ -1856,27 +1885,69 @@
         "Health": 135,
         "HPCoef": 1.05,
         "Speed": 6,
-        "Initiative": 2,
+        "Initiative": 6,
         "Abilities": [
             {
-                "Breath (Fire) (5m)": "Attack the target and all Units 2 meters from it for 8 Fire Damage (or 2d6 + 1)."
+                "Breath (Azure)": {
+                    "Range": "5 meters",
+                    "Damage": "{DamageAuto} Shock",
+                    "Chain Lightning": "Also Damages one more Unit within 2 meters of the target."
+                }
             },
             {
-                "Breath (Cold)": "Attack all targets in a 6x1 meter line for 8 Cold Damage (or 2d6 + 1)."
+                "Breath (Bronze)": {
+                    "A": "Half-Action",
+                    "Range": "10 meters",
+                    "Damage": "{Damage1} Psychic",
+                    "Frailing": "Target chooses to take +100% Damage or become Frail."
+                }
             },
             {
-                "Breath (Shock) (5m)": {
-                    "Damage": "8 Shock (or 2d6 + 1)",
-                    "Chain Lightning": "Hits the main target, another target within 3 meters of the main target and another target within 3 meters of the secondary target (against Defense)."
+                "Breath (Red)": {
+                    "Range": "10 meters",
+                    "Damage": "{Damage-1} Fire",
+                    "Splash": "Also Damages all Units within 2 meters of the target."
+                }
+            },
+            {
+                "Breath (Emerald)": {
+                    "Range": "10 meters",
+                    "Damage": "{Damage-1} Acid",
+                    "Pierce": "All Damages all Units up to 3 meters behind the target."
+                }
+            },
+            {
+                "Necrotic Bite (Black)": {
+                    "Range": "3 meters",
+                    "Damage": "{Damage+3} Scourge",
+                    "Death": "Units downed by this attack die permanently and can't be revived."
+                }
+            },
+            {
+                "Bite": {
+                    "Cooldown": "Once / Turn",
+                    "Damage": "1d8"
                 }
             }
         ],
         "Passives": [
             {
-                "Elemental": "A Dragon Whelp has one element (Fire, Cold, Shock, etc). Its Breath attack depends on its type. If your preferred element isn't here, just change one of the Breath attacks to match your element."
+                "Chaos Storm (Red)": "All Units in Combat deal +50% Damage."
             },
             {
-                "Elemental Resistance": "Takes -50% Damage from its elemental type."
+                "Knowledge Consumer (Azure)": "All enemies of the Dragon Whelp are perpetually Deafened in Combat."
+            },
+            {
+                "Foresight (Bronze)": "Always dodges attacks that deal less than 10 Damage."
+            },
+            {
+                "Toxic Nest (Emerald)": "At the end of the Round, all other Units take Poison Damage equal to twice the Round number."
+            },
+            {
+                "Instill Fear (Black)": "All other Units start the Combat Double-Stunned."
+            },
+            {
+                "Elemental Resistance": "Takes -50% Damage from the same Damage type as its main attack."
             }
         ],
         "Avoids AoE": "No",
@@ -1888,8 +1959,7 @@
             "Strong Wind"
         ],
         "Monster Data": "No tactic, mid HP, no gimmick",
-        "Role": "Main Enemy",
-        "Variants": "Fairy Dragon Whelp (its element is Pulse and takes -50% Fire, Cold, Shock and Pulse Damage)."
+        "Role": "Main Enemy"
     },
     "Tyrannosaurus": {
         "Type": "Beast",
