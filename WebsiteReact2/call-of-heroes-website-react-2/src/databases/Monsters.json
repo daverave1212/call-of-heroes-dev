@@ -27,6 +27,9 @@
                 }
             },
             {
+                "Quick Attack": "Auto"
+            },
+            {
                 "Quick": {
                     "A": "0 Actions",
                     "Cooldown": "Once / Turn",
@@ -391,7 +394,7 @@
                 "Free Movement": {
                     "A": "0 Actions",
                     "Cooldown": "Once / Combat",
-                    "Effect": "On its first Turn in Combat, the Dancer can make a free Movement Act."
+                    "Effect": "On its first Turn in Combat, the Dancer can make a free Move Act."
                 }
             }
         ],
@@ -502,7 +505,7 @@
         ],
         "Passives": [
             {
-                "Blood Rush": "As soon as the Skinwalker drops to/below 50% HP, it can make a free Movement Act and a free Bite (even during other Units' turns).\nThen, the other Unit can continue its Turn.\n"
+                "Blood Rush": "As soon as the Skinwalker drops to/below 50% HP, it can make a free Move Act and a free Bite (even during other Units' turns).\nThen, the other Unit can continue its Turn.\n"
             },
             {
                 "Shapeshift & Mimickry": "While at least 10 meters away from an observer, the Skinwalker can shapeshift into any animal or person they have seen, and can mimick any voice or sound.\nThe closer you get to a Skinwalker, the more apparent it seems that the transformation is disfigured and uncanny.\n"
@@ -1732,7 +1735,7 @@
                 "Quick Mover": {
                     "A": "0 Actions",
                     "Cooldown": "Once / Turn",
-                    "Effect": "Move up to its Speed. Counts as a Movement Act."
+                    "Effect": "Move up to its Speed. Counts as a Move Act."
                 }
             },
             {
@@ -1912,7 +1915,7 @@
             {
                 "Breath (Emerald)": {
                     "Range": "10 meters",
-                    "Damage": "{Damage-1} Acid",
+                    "Damage": "{Damage-1} Acid or Poison",
                     "Pierce": "All Damages all Units up to 3 meters behind the target."
                 }
             },
@@ -1932,13 +1935,13 @@
         ],
         "Passives": [
             {
-                "Chaos Storm (Red)": "All Units in Combat deal +50% Damage."
-            },
-            {
                 "Knowledge Consumer (Azure)": "All enemies of the Dragon Whelp are perpetually Deafened in Combat."
             },
             {
                 "Foresight (Bronze)": "Always dodges attacks that deal less than 10 Damage."
+            },
+            {
+                "Chaos Storm (Red)": "All Units in Combat deal +50% Damage."
             },
             {
                 "Toxic Nest (Emerald)": "At the end of the Round, all other Units take Poison Damage equal to twice the Round number."
@@ -1947,7 +1950,7 @@
                 "Instill Fear (Black)": "All other Units start the Combat Double-Stunned."
             },
             {
-                "Elemental Resistance": "Takes -50% Damage from the same Damage type as its main attack."
+                "Elemental Resistance": "Takes -50% Damage from the same Damage type(s) as its main attack."
             }
         ],
         "Avoids AoE": "No",
@@ -1963,34 +1966,54 @@
     },
     "Tyrannosaurus": {
         "Type": "Beast",
-        "Degree": "Epic x2",
+        "Degree": 5,
         "Experience": "800 (400 x2)",
         "Stats": "6/2/0/2/5",
         "HPCoef": 1,
-        "Speed": 4,
-        "Initiative": 9,
+        "Speed": 7,
+        "Initiative": 5,
         "Abilities": [
             {
-                "Ripping Bite (2m)": {
-                    "Damage": "3d6 + 1 Pierce",
-                    "Bite Off": "If this attack did at least 10 Damage, the Tyrannosaurus permanently bites off an arm of a leg (of target's choice). The target gets a Missing Arm or Missing Leg Feat.",
+                "Ripping Bite": {
+                    "IsUltimate": true,
+                    "Cooldown": "Once / Turn",
+                    "Range": "2 meters",
+                    "Damage": "Auto",
+                    "Bite Off": "Target chooses to have an arm or leg permanently ripped off, or take +100% Damage. If target reaches 0 Health, rips a leg or arm anyway.",
                     "Upgrade": "Can only be used on the first Turn every Round.",
-                    "Notes": "Can't leave a target with less than 1 arm and 1 leg."
+                    "Notes": "Can't leave a target with less than 1 arm and 1 leg. The target gets a Missing Arm or Missing Leg Feat."
                 }
             },
             {
-                "Slam (1m to edge)": "Damage all Units in a 3x3 area for 2d8.\nIf any of them is Large or larger, it becomes Single-Stunned.\n"
-            }
-        ],
-        "Heroics": [
-            {
-                "Terrifying Roar (Round 2)": "Roar - all Units that can hear it must roll a Sense Check at least 11 or become Feared and Silenced."
+                "Leaping Stomp": {
+                    "Cooldown": "Once / Turn",
+                    "A": "Half-Action",
+                    "Stomp": "Jump up to 4 meters away, then deal {DamageAoE} Damage to Units within 1 meter."
+                }
             },
             {
-                "Tyrant King (Round 4)": "The Tyrannosaurus is enraged, and can now repeat Abilities (e.g. use Ripping Bite on both turns)."
+                "Tail Sweep": {
+                    "Range": "4 meters",
+                    "A": "Reaction",
+                    "Damage": "Auto",
+                    "Slam": "Use when attacked from behind. Slam the attacker 1d8 meters away from you."
+                }
             }
         ],
-        "Passive": null,
+        "Passives": [
+            {
+                "Round 2": {
+                    "IsHeroic": true,
+                    "Roar": "All Units that can hear you immediately run away (freely) up to their Speed."
+                }
+            },
+            {
+                "Round 4": {
+                    "IsHeroic": true,
+                    "Tyrant Rage": "Become enraged! Your Abilities have no Cooldown."
+                }
+            }
+        ],
         "Avoids AoE": "No",
         "Behavior": "None",
         "Lore": "None",
@@ -2013,10 +2036,17 @@
         "Abilities": [
             {
                 "Beak/Claws": {
-                    "Damage": "Make 5 attacks for 1d4 Pierce or Slash (of choice)",
-                    "Defense Break": "Every rolled 4 or 1 puts one Stunful token on the target. At 3 Stunful tokens, the target must succeed a Grade 11 Might Check or be Triple-Stunned (then remove the tokens)."
+                    "A": "Half-Action",
+                    "Damage": "Make 3 attacks for {DamageThird} Pierce or Slash."
                 }
-            }
+            },
+            {
+                "Sky Claim": {
+                    "A": "Reaction",
+                    "Sky Dive": "Use when a Unit moves in a position with no other Unit within 2 meters of it. Quickly fly near that enemy and attack it with the Beak/Claws attack."
+                }
+            },
+            null
         ],
         "Passives": [
             {
@@ -2038,7 +2068,7 @@
     },
     "Behemoth": {
         "Type": "Beast",
-        "Degree": "Epic x9",
+        "Degree": 9,
         "Experience": "999 (111 x9)",
         "Stats": "9/3/0/3/3",
         "Health": 999,
@@ -2047,7 +2077,7 @@
         "Initiative": 9,
         "Abilities": [
             {
-                "Claws/Bite/Tail": "4 Damage (Slash/Pierce/Smash).\nBreaks all Large or smaller obstacles within 1 meter of the target.\n"
+                "Claws/Bite/Tail": "{DamageTimes(0.5)} Damage (Slash/Pierce/Smash).\nBreaks all Large or smaller obstacles within 1 meter of the target.\n"
             },
             {
                 "Roar": "All enemies that can hear the Behemoth take 3 Psychic Damage that ignores Defense."

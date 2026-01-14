@@ -30,9 +30,10 @@
     --z-icon-side: calc(var(--z-content) + 4);
     --z-variant-spinner: calc(var(--z-content) + 5);
     --z-icon: calc(var(--z-content) + 6);
-    --z-secondary-icon: calc(var(--z-content) + 7);
-    --z-variant-counter: calc(var(--z-content) + 8);
-    --z-click-overlay: calc(var(--z-content) + 9);
+    --z-icon-tint-overlay: calc(var(--z-content) + 7);
+    --z-secondary-icon: calc(var(--z-content) + 8);
+    --z-variant-counter: calc(var(--z-content) + 9);
+    --z-click-overlay: calc(var(--z-content) + 10);
 }
 @media (max-width: 1366px) {
     :root {
@@ -136,13 +137,6 @@
     position: relative;
     z-index: var(--z-icon);
 }
-.spell-top__icon-side > img {
-    width: calc(var(--spell-icon-size));
-    padding: 1px;
-    position: relative;
-    z-index: var(--z-icon);
-    border: solid black 1px;
-}
 .spell-icon-wrapper {
     width: var(--spell-icon-size);
     height: var(--spell-icon-size);
@@ -159,6 +153,33 @@
 .spell-icon-wrapper .secondary-icon-wrapper,
 .spell-icon-wrapper .secondary-icon-wrapper img {
     width: calc(var(--spell-icon-size) / 3);
+}
+.spell-img-wrapper {
+    position: relative;
+}
+.tinted-icon-wrapper {
+  --tint-rgb: 0 200 255;
+  --tint-alpha: 1;
+  --blend-mode: color;
+}
+.tinted-icon-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgb(var(--tint-rgb) / var(--tint-alpha));
+  mix-blend-mode: var(--blend-mode);
+  pointer-events: none;
+
+  z-index: var(--z-icon-tint-overlay);
+
+  top: 1px;
+  left: 1px;
+  width:  calc(var(--spell-icon-size) - 8px);   /* Not sure why 8px, needs research */
+  height: calc(var(--spell-icon-size) - 8px);   /* Not sure why 8px, needs research */
+  padding: 1px;
+}
+.passive .tinted-icon-wrapper::after {
+    border-radius: 25%;
 }
 .variant-spinner {
     position: absolute;

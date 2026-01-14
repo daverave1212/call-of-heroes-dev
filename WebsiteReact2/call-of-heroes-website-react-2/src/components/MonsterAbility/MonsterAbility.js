@@ -5,14 +5,11 @@ import { useState } from 'react'
 
 import * as U from '../../utils'
 
-import { SpellTopStats } from '../Spell/Spell'
+import { SpellTopStats, VALID_SPELL_TOP_STATS } from '../Spell/Spell'
 import Icon from '../Icon'
 import MonsterCalculations from '../../databases/MonsterCalculations.json'
+import classNames from 'classnames'
 
-
-
-
-// A monster ability is formatted like "- Ranged: 1d6 + 20 Slash"
 export default function MonsterAbility({monster, ability, isPassive, style, className}) {
     let name
     let abilityBody
@@ -28,13 +25,17 @@ export default function MonsterAbility({monster, ability, isPassive, style, clas
         Combo,
         EffectGreen,
         Upgrade,
-        Downside
+        Downside,
+        IsHeroic,
+        IsUltimate
     } = abilityBody
 
     const nActionPoints = 
         abilityBody.A == null || abilityBody.A == '1 Action'?
             2:
         abilityBody.A == 'Half-Action'?
+            1:
+        abilityBody.A == 'Reaction'?
             1:
         abilityBody.A == '0 Actions'?
             0:
@@ -59,6 +60,7 @@ export default function MonsterAbility({monster, ability, isPassive, style, clas
 
     console.log(name)
     console.log({
+        ability,
         isEpic,
         nActionPoints,
         monsterUsableAP,
@@ -71,21 +73,56 @@ export default function MonsterAbility({monster, ability, isPassive, style, clas
         abilityDamageBase
     })
     
-    const CUSTOM_MONSTER_SYMBOLS = {
-        'DamageAuto': { tag: 'span', text: U.numberToDiceEquivalent(abilityDamageBase) },
-        'Damage-1': { tag: 'span', text: U.numberToDiceEquivalent(abilityDamageBase - 1) },
-        'Damage-2': { tag: 'span', text: U.numberToDiceEquivalent(abilityDamageBase - 2) },
-        'Damage-3': { tag: 'span', text: U.numberToDiceEquivalent(abilityDamageBase - 3) },
-        'Damage+1': { tag: 'span', text: U.numberToDiceEquivalent(abilityDamageBase + 1) },
-        'Damage+2': { tag: 'span', text: U.numberToDiceEquivalent(abilityDamageBase + 2) },
-        'Damage+3': { tag: 'span', text: U.numberToDiceEquivalent(abilityDamageBase + 3) },
-        'Damage1': { tag: 'span', text: U.numberToDiceEquivalent(damagePer1AP) },
-        'Damage2': { tag: 'span', text: U.numberToDiceEquivalent(damagePer2AP) },
-        'DamageLess': { tag: 'span', text: U.numberToDiceEquivalent(U.roundToNearest(abilityDamageBase * 0.7, 0.5)) },
-        'DamageAoEAuto': { tag: 'span', text: U.numberToDiceEquivalent(U.roundToNearest(abilityDamageBase * 0.7, 0.5)) },
-        'DamageAoE1': { tag: 'span', text: U.numberToDiceEquivalent(U.roundToNearest(damagePer1AP * 0.7, 0.5)) },
-        'DamageAoE2': { tag: 'span', text: U.numberToDiceEquivalent(U.roundToNearest(damagePer2AP * 0.7, 0.5)) },
+    function getQuickAttackDamage() {
+        return U.matchRange(baseMonsterXP, [
+            { range: [-9999, 0], value: '1d4' },
+            { range: [0, 25], value: '1' },
+            { range: [25, 75], value: '2' },
+            { range: [75, 175], value: '1d4' },
+            { range: [175, 300], value: '1d6' },
+            { range: [300, 99999], value: '1d8' },
+        ], '1d4')
     }
+    const CUSTOM_MONSTER_SYMBOLS = {
+        'Auto': { tag: 'span',          text: 'Error', func: () => U.numberToDiceEquivalent(abilityDamageBase) },
+        'DamageAuto': { tag: 'span',    text: 'Error', func: () => U.numberToDiceEquivalent(abilityDamageBase) },
+        'Damage-1': { tag: 'span',      text: 'Error', func: () => U.numberToDiceEquivalent(abilityDamageBase - 1) },
+        'Damage-2': { tag: 'span',      text: 'Error', func: () => U.numberToDiceEquivalent(abilityDamageBase - 2) },
+        'Damage-3': { tag: 'span',      text: 'Error', func: () => U.numberToDiceEquivalent(abilityDamageBase - 3) },
+        'Damage+1': { tag: 'span',      text: 'Error', func: () => U.numberToDiceEquivalent(abilityDamageBase + 1) },
+        'Damage+2': { tag: 'span',      text: 'Error', func: () => U.numberToDiceEquivalent(abilityDamageBase + 2) },
+        'Damage+3': { tag: 'span',      text: 'Error', func: () => U.numberToDiceEquivalent(abilityDamageBase + 3) },
+        'Damage1': { tag: 'span',       text: 'Error', func: () => U.numberToDiceEquivalent(damagePer1AP) },
+        'Damage2': { tag: 'span',       text: 'Error', func: () => U.numberToDiceEquivalent(damagePer2AP) },
+        'DamageLess': { tag: 'span',    text: 'Error', func: () => U.numberToDiceEquivalent(U.roundToNearest(abilityDamageBase * 0.7, 0.5)) },
+        'DamageAoE': { tag: 'span',     text: 'Error', func: () => U.numberToDiceEquivalent(U.roundToNearest(abilityDamageBase * 0.7, 0.5)) },
+        'DamageAoEAuto': { tag: 'span', text: 'Error', func: () => U.numberToDiceEquivalent(U.roundToNearest(abilityDamageBase * 0.7, 0.5)) },
+        'DamageAoE1': { tag: 'span',    text: 'Error', func: () => U.numberToDiceEquivalent(U.roundToNearest(damagePer1AP * 0.7, 0.5)) },
+        'DamageAoE2': { tag: 'span',    text: 'Error', func: () => U.numberToDiceEquivalent(U.roundToNearest(damagePer2AP * 0.7, 0.5)) },
+        'DamageHalf': { tag: 'span',    text: 'Error', func: () => U.numberToDiceEquivalent(U.roundToNearest(abilityDamageBase * 0.5, 0.5)) },
+        'Damage-50%': { tag: 'span',    text: 'Error', func: () => U.numberToDiceEquivalent(U.roundToNearest(abilityDamageBase * 0.5, 0.5)) },
+        'Damage+50%': { tag: 'span',    text: 'Error', func: () => U.numberToDiceEquivalent(U.roundToNearest(abilityDamageBase * 1.5, 0.5)) },
+        'DamageDouble': { tag: 'span',  text: 'Error', func: () => U.numberToDiceEquivalent(U.roundToNearest(abilityDamageBase * 2, 0.5)) },
+        'DamageThird': { tag: 'span',   text: 'Error', func: () => U.numberToDiceEquivalent(U.roundToNearest(abilityDamageBase * 0.35, 0.5)) },
+        'DamageQuick': { tag: 'span',   text: 'Error', func: () => getQuickAttackDamage() },
+    }
+    const CUSTOM_MONSTER_FUNCTION_SYMBOLS = {
+        'DamageTimes': args => ({ tag: 'span', text: U.roundToNearest(abilityDamageBase * parseFloat(args[0]), 0.5) })
+    }
+    function isDamageValueAuto(damageValue) {
+        if (!U.isString(damageValue)) {
+            return damageValue
+        }
+        const possibleSymbols = Object.keys(CUSTOM_MONSTER_SYMBOLS)
+        const isAuto = possibleSymbols.some(symbol => damageValue.startsWith(symbol))
+        return isAuto
+    }
+    function parseDamgeValueAuto(damageValue) { // Assuming it's valid
+        const words = damageValue.split(' ')
+        const newWords = words.map(word => (word in CUSTOM_MONSTER_SYMBOLS)? CUSTOM_MONSTER_SYMBOLS[word].func(): word)
+        return newWords.join(' ')
+    }
+
 
 
 
@@ -95,18 +132,27 @@ export default function MonsterAbility({monster, ability, isPassive, style, clas
     }
 
     function getAbilityBodyDiv() {
+        if (abilityBody == 'QuickAuto' || (abilityBody == 'Auto' && name == 'Quick Attack')) {
+            const diceDamage = getQuickAttackDamage()
+            return <p><Icon name="Damage" style={{marginTop: '2px'}}/> <span className='monster-ability_effect-desc'>{ diceDamage }</span></p>
+        }
         if (U.isString(abilityBody)) {
-            return <AbilityEffect>{ abilityBody }</AbilityEffect>
+            return <AbilityEffect>{ U.parseTextWithSymbols(abilityBody, CUSTOM_MONSTER_SYMBOLS, CUSTOM_MONSTER_FUNCTION_SYMBOLS) }</AbilityEffect>
         }
 
-        const effectName = U.getAnyPropNameExcept(abilityBody, ['Name', 'Damage', 'Notes', 'A', 'Special', 'Cooldown', 'Requirement', 'Range', 'Duration', 'Effect', 'Upgrade', 'Combo', 'ParentKey', 'IsSubspell', 'EffectGreen', 'Downside', 'IsUltimate'])
+        const effectName = U.getAnyPropNameExcept(abilityBody, ['Name', 'Damage', 'Notes', 'A', 'Special', 'Cooldown', 'Requirement', 'Range', 'Duration', 'Effect', 'Upgrade', 'Combo', 'ParentKey', 'IsSubspell', 'EffectGreen', 'Downside', 'IsUltimate', 'IsHeroic'])
         
-        const Effect = abilityBody.Effect == null? null: U.parseTextWithSymbols(abilityBody.Effect, CUSTOM_MONSTER_SYMBOLS)
-        const Damage = abilityBody.Damage == null? null: U.parseTextWithSymbols(abilityBody.Damage, CUSTOM_MONSTER_SYMBOLS)
-        const specialEffect = effectName == null? null: U.parseTextWithSymbols(abilityBody[effectName], CUSTOM_MONSTER_SYMBOLS)        
+        const Effect = abilityBody.Effect == null? null: U.parseTextWithSymbols(abilityBody.Effect, CUSTOM_MONSTER_SYMBOLS, CUSTOM_MONSTER_FUNCTION_SYMBOLS)
+        const Damage =
+            abilityBody.Damage == null?
+                null:
+            isDamageValueAuto(abilityBody.Damage)?
+                U.parseTextWithSymbols(parseDamgeValueAuto(abilityBody.Damage), CUSTOM_MONSTER_SYMBOLS, CUSTOM_MONSTER_FUNCTION_SYMBOLS):
+            U.parseTextWithSymbols(abilityBody.Damage, CUSTOM_MONSTER_SYMBOLS, CUSTOM_MONSTER_FUNCTION_SYMBOLS)
+        const specialEffect = effectName == null? null: U.parseTextWithSymbols(abilityBody[effectName], CUSTOM_MONSTER_SYMBOLS, CUSTOM_MONSTER_FUNCTION_SYMBOLS)
 
         return (
-            <div className={`flex column gap-half`} style={{paddingTop: '0.5rem'}}>
+            <div className={`flex column gap-half`} style={{paddingTop: '0.25rem'}}>
                 { abilityBody.Damage && (
                     <p><Icon name="Damage" style={{marginTop: '2px'}}/> <span className='monster-ability_effect-desc'>{ Damage }</span></p>
                 ) }
@@ -144,16 +190,30 @@ export default function MonsterAbility({monster, ability, isPassive, style, clas
         isPassive === true?
             abilityBody:
         {...{A: '1 Action'}, ...abilityBody}
+    const validSpellTopTags = U.filterObject(spellTopTags, ({ key, value }) => VALID_SPELL_TOP_STATS.includes(key))
+    const hasTopTags = Object.keys(validSpellTopTags).length > 0
 
+    console.log({
+        spellTopTags,
+        validSpellTopTags,
+        hasTopTags
+    })
 
-    const topStatsComponent = <SpellTopStats tags={spellTopTags} keywords={abilityBody.Tags} className="spell-top-stats--no-padding-side spell-top-stats--less-padding-top-bottom"/>
+    const topStatsComponent = <SpellTopStats tags={validSpellTopTags} keywords={abilityBody.Tags} className="spell-top-stats--no-padding-side spell-top-stats--less-padding-top-bottom"/>
+
+    const glowColor = IsHeroic? 'rgba(168, 92, 255, 1)': IsUltimate? 'rgba(255, 128, 64, 1)': null
+    const glowClass = IsUltimate || IsHeroic? 'breathing-glow': ''
 
     return (
-        <div className={`monster-ability ${passiveOrActveClass} ${className}`} style={style}>
+        <div className={`monster-ability ${passiveOrActveClass} ${glowClass} ${className}`} style={{
+            '--color-1': 'rgba(255, 255, 255, 0)',
+            '--color-2': glowColor,
+            ...style
+        }}>
             <div className={`monster-ability__banner`}></div>
             <div className='monster-ability__body'>
                 <h4 style={style}>{ name }</h4>
-                { topStatsComponent }
+                { hasTopTags && topStatsComponent }
                 { getAbilityBodyDiv() }
             </div>
         </div>

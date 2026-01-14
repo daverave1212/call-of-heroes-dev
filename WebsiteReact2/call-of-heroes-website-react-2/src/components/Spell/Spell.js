@@ -198,7 +198,7 @@ export default function Spell({
         const currentVariant = Variants[variantIndex]
         const variantMixinsCorrectlyFormatted = mapObject(currentVariant, ({key, value}) => ({
             key: key,
-            value: () => (<span>{value}</span>)
+            value: { tag: 'span', text: value }
         }))
         extraMixins = variantMixinsCorrectlyFormatted
         if (currentVariant.IconName != null) iconPath = getSpellIconPathByName(currentVariant.IconName)
@@ -397,7 +397,12 @@ export default function Spell({
 
 
 
-
+export const VALID_SPELL_TOP_STATS = [
+    'A', 'DisplayA', 'Cost',
+    'Range', 'Cooldown', 'Duration',
+    'Requirement', 'DisplayRequirement', 'Replacement',
+    'Hands', 'Stat', 'Special', 'Price', 'XP'
+]
 
 export function SpellTopStats({className, tags, keywords}) {
     const {A, DisplayA, Cost, Range, Cooldown, Duration, Requirement, DisplayRequirement, Replacement, Hands, Stat, Special, Price, XP} = tags
@@ -537,7 +542,9 @@ export function SpellTopIconSide({ src, style, className, hasUpgradeIcon, hasSpi
                 { hasSpinner === true && (
                     <div className='variant-spinner'></div>
                 )}
-                <img src={src}/>  
+                <div className='spell-img-wrapper tinted-icon-wrapper'>
+                    <img className='spell-icon' src={src}/>  
+                </div>
                 { hasUpgradeIcon === true && (
                     <div className='secondary-icon-wrapper absolute'>
                         <img src="/Icons/Spells/!UpgradeIcon.png"/>

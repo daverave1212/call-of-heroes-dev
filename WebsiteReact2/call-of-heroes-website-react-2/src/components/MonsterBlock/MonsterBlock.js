@@ -24,7 +24,7 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
     }
 
     const abilities = monster.Abilities.filter(a => U.getOnlyValue(a)?.IsUltimate != true)
-    const ultimateAbility = monster?.Abilities?.find(a => U.getOnlyValue(a)?.IsUltimate)
+    const ultimateAbilities = monster?.Abilities?.filter(a => U.getOnlyValue(a)?.IsUltimate)
 
     const monsterStats   = getMonsterStatsAsObject(monster.Stats)
     const statOtherColor = 'rgb(55, 10, 85)'
@@ -186,7 +186,9 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
                                         { abilities.length >= 6 && (<MonsterAbility monster={monster} ability={abilities[5]} key={5} style={maybeElderStyle}/>) }
                                     </Column>
                                 </TwoColumns>
-                                { ultimateAbility != null && (<MonsterAbility monster={monster} className={"breathing-glow"} ability={ultimateAbility} key={'ultimate'} style={maybeElderStyle}/>) }
+                                { ultimateAbilities.map((ability, i) => (
+                                    <MonsterAbility monster={monster} ability={ability} key={'u-' + i} style={maybeElderStyle}/>
+                                )) }
                             </div>
                         ) : (
                             abilities.map((ability, i) => (

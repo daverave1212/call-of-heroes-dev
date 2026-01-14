@@ -713,6 +713,68 @@ export function hasClassMana(className) {
 
 
 // ---------------- Array Utilities ----------------
+export function isArrayOfObjects(arr) {
+    if (!Array.isArray(arr)) {
+        return false
+    }
+    if (arr.length == 0) {
+        return false
+    }
+    if (isObject(arr[0])) {
+        return true
+    }
+    return false
+}
+export function isArrayOfFunctions(arr) {
+    if (!Array.isArray(arr)) {
+        return false
+    }
+    if (arr.length == 0) {
+        return false
+    }
+    if (isFunction(arr[0])) {
+        return true
+    }
+    return false
+}
+export function isObjectOfObjects(obj) {
+    if (!isObject(obj)) {
+        return false
+    }
+    return isObject(getOnlyValue(obj))
+}
+export function isObjectOfFunctions(obj) {
+    if (!isObject(obj)) {
+        return false
+    }
+    return isFunction(getOnlyValue(obj))
+}
+export function popFind(arr, func) {
+    const index = arr.findIndex(func)
+    if (index == -1) {
+        return null
+    }
+    const elem = arr[index]
+    arr.splice(index, 1)
+    return elem
+}
+export function matchRange(num, items, fallback = null) {
+  let best = null;
+
+  for (const item of items) {
+    const [min, max] = item.range;
+
+    // inclusive match
+    if (num >= min && num <= max) {
+      // pick the one with the smallest upper bound
+      if (!best || max < best.range[1]) {
+        best = item;
+      }
+    }
+  }
+
+  return best ? best.value : fallback;
+}
 
 // Puts it at the end if it has no keyName property.
 export function sortObjectArrayByKey(array, keyName) {
@@ -1055,8 +1117,9 @@ function formSymbolComponentFunc(allSymbols, symbol, shouldReturnString=false, s
 
     return () => <ComponentForSymbolConfig config={config}>{text}</ComponentForSymbolConfig>
 }
-function formFunctionSymbolComponentFunc(symbol, args, shouldReturnString=false, shouldReturnConfigOnly=false) {
-    const configFunc = FUNCTION_SYMBOLS[symbol]
+function formFunctionSymbolComponentFunc(symbol, args, customSymbols, shouldReturnString=false, shouldReturnConfigOnly=false) {
+    const allSymbols = customSymbols == null? FUNCTION_SYMBOLS: {...FUNCTION_SYMBOLS, ...customSymbols}
+    const configFunc = allSymbols[symbol]
 
     const funcResult = configFunc(args)
 
@@ -1174,7 +1237,17 @@ export function normalizeSymbolConfigForPDF(config, defaultColorHex=null) {
 }
 
 // Returns an array of components, or an array of strings if { shouldReturnStringsOnly: true }
-export function parseTextWithSymbols(text, customSymbols, options = {}) {
+// export function parseTextWithSymbols(text, customSymbols, options = {}) {
+export function parseTextWithSymbols(...argsOriginal) {
+    const args = [...argsOriginal]
+    const text = popFind(args, arg => isString(arg))
+    const customSymbols = popFind(args, arg => isObjectOfObjects(arg))
+    const customFunctionSymbols = popFind(args, arg => isObjectOfFunctions(arg))
+    const options = popFind(args, arg => isObject(arg)) ?? {}
+
+    console.log('%c HERE HERE HEREEEEE', 'green')
+    console.log({args, text, customSymbols, customFunctionSymbols, options})
+
     if (text == null) {
         console.log({customSymbols, options})
         throw `Null text given to parseTextWithSymbols. Other params printed above`
@@ -1205,7 +1278,6 @@ export function parseTextWithSymbols(text, customSymbols, options = {}) {
         console.log({symbolToInsertion})
     }
 
-
     const MARKUP_DELIMITERS = ['^', '_', '~']
 
     let currentTextPartStart = 0
@@ -1219,7 +1291,8 @@ export function parseTextWithSymbols(text, customSymbols, options = {}) {
     let isReadingFunctionString = false
     let functionStringStart = 0
     let functionStrings = []
-    let stringSymbol
+    let stringQuoteChar = null
+    let didJustStartReadingFuncParams = false
     for (let i = 0; i < text.length; i++) {
         const char = text[i]
         switch (state) {
@@ -1261,40 +1334,60 @@ export function parseTextWithSymbols(text, customSymbols, options = {}) {
                 } else if (char == '(') {
                     functionName = text.substring(symbolStart + 1, i)
                     isReadingFunctionString = false
+                    didJustStartReadingFuncParams = true
                     functionStrings = []
                     state = 'reading-function'
                 }
                 break
             case 'reading-function':
+                if (didJustStartReadingFuncParams && isStringOnlySpaces(char)) {    // As long as it starts with just spaces, do nothing
+                    continue
+                }
+                didJustStartReadingFuncParams = false
                 if (char == '"' || char == "'") {
-                    if (isReadingFunctionString == false) {
-                        stringSymbol = char
+                    if (isReadingFunctionString == false) {                         // Open quotes
+                        stringQuoteChar = char
                         functionStringStart = i + 1
                         isReadingFunctionString = true
-                    } else if (isReadingFunctionString && char == stringSymbol) {
+                    } else if (isReadingFunctionString && char == stringQuoteChar) {   // Close quotes
                         const str = text.substring(functionStringStart, i)
                         functionStrings.push(str)
                         isReadingFunctionString = false
+                        stringQuoteChar = null
                     }
                 } else if (char == ')') {
                     if (isReadingFunctionString) {
-                        continue
+                        if (stringQuoteChar != null) {  // Is inside a quoted string
+                            continue
+                        } else {
+                            const str = text.substring(functionStringStart, i)
+                            functionStrings.push(str)
+                            isReadingFunctionString = false
+                        }
                     }
                     const args = functionStrings
-                    const getSymbolComponent = formFunctionSymbolComponentFunc(functionName, args, shouldReturnStringsOnly, shouldReturnConfigOnly)
+                    console.log({functionName, args})
+                    const getSymbolComponent = formFunctionSymbolComponentFunc(functionName, args, customFunctionSymbols, shouldReturnStringsOnly, shouldReturnConfigOnly)
                     const finalComponent = getSymbolComponent()
-                    // textParts.push(<span style={{color: 'blue'}}>TEST</span>)
                     textParts.push(finalComponent)
                 } else if (char == '}') {
                     currentTextPartStart = i + 1
                     state = 'reading-normal-text'
+                } else if (!isReadingFunctionString && stringQuoteChar == null && !isStringOnlySpaces(char)) {
+                    console.log(`This one is definitely not only spaces: ${char}`)
+                    functionStringStart = i + 1
+                    isReadingFunctionString = true
+                } else if (isReadingFunctionString && stringQuoteChar == null && isStringOnlySpaces(char)) {
+                    const str = text.substring(functionStringStart, i)
+                    functionStrings.push(str)
+                    isReadingFunctionString = false
                 }
                 break
             case 'reading-markup':
                 if (char == markupSymbol) {
                     const markupedText = text.substring(symbolStart + 1, i)
                     const args = [markupedText]
-                    const getSymbolComponent = formFunctionSymbolComponentFunc(markupSymbol, args, shouldReturnStringsOnly, shouldReturnConfigOnly)
+                    const getSymbolComponent = formFunctionSymbolComponentFunc(markupSymbol, args, customFunctionSymbols, shouldReturnStringsOnly, shouldReturnConfigOnly)
                     const finalComponent = getSymbolComponent()
                     textParts.push(finalComponent)    // Push markuped text
                     currentTextPartStart = i + 1
@@ -1407,6 +1500,9 @@ export function isCharDigit(char) {
 }
 
 // ---------------- Other Small Utilities ----------------
+export function startsWithAny(str, anyOf) {
+    return anyOf.some(option => str.startsWith(option))
+}
 export function toFixedFloat(number, digits) {
     return parseFloat(number.toFixed(2))
 }
@@ -1482,8 +1578,13 @@ export function equalsNaN(x) {
 }
 window.equalsNaN = equalsNaN
 export function isObject(obj) {
-    return typeof obj === 'object'
+    return typeof obj === 'object' && !Array.isArray(obj)
 }
+window.isObject = isObject
+export function isFunction(obj) {
+    return typeof obj === 'function'
+}
+window.isFunction = isFunction
 export function isString(obj) {
     return typeof obj === 'string' || obj instanceof String;
 }
@@ -1495,6 +1596,9 @@ export function isStringNumeric(str) {
     if (typeof str != "string") return false // we only process strings!  
     return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
            !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
+}
+export function isStringOnlySpaces(str) {
+    return /^ *$/.test(str)
 }
 export function getPageHashFromLocation(location) {       // Use 'const location = useLocation()' in a component to get location (from 'react-router-dom')
     const decodedHash = decodeURIComponent(location.hash)
@@ -1544,7 +1648,11 @@ export function randomInt(low, high){
     return Math.floor(Math.random() * (high - low + 1) + low);
 }
 export function randomOf(...args){
-    return args[randomInt(0, args.length - 1)];
+    if (args.length == 0) {
+        return null
+    }
+    const arr = args.length == 1 && Array.isArray(args[0])? args[0]: args
+    return arr[randomInt(0, arr.length - 1)];
 }
 export function shuffle(array_a){
     var iRandomize;

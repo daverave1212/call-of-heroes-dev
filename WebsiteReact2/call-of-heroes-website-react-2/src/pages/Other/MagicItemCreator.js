@@ -765,7 +765,7 @@ function parseItemText(text, thisText='{This}') {
         
 
         
-        'Stat': { text: () => randomOf(STAT_NAMES)},
+        'Stat': { text: () => randomOf(...STAT_NAMES)},
         'Attribute': { text: () => randomOf('Max Health', 'Health Regen', 'Skill Point', 'Initiative')},
         'Skill': { text: () => randomOf(...$SKILLS)},
         'WeaponType': { text: () => randomOf('1-Handed Melee', '2-Handed Melee', '1-Handed Ranged', '2-Handed Ranged')},
