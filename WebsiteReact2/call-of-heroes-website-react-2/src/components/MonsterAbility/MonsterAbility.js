@@ -10,7 +10,7 @@ import Icon from '../Icon'
 import MonsterCalculations from '../../databases/MonsterCalculations.json'
 import classNames from 'classnames'
 
-export default function MonsterAbility({monster, ability, isPassive, style, className}) {
+export default function MonsterAbility({monster, monsterXP, ability, isPassive, style, className}) {
     let name
     let abilityBody
     if (ability.Name != null) {
@@ -43,9 +43,10 @@ export default function MonsterAbility({monster, ability, isPassive, style, clas
 
 
     const isEpic = U.isMonsterEpic(monster)
+    const monsterTotalXP = monsterXP ?? U.getMonsterTotalXP(monster)
+
     const monsterUsableAP = isEpic? monster.Degree - 1: 2   // E.g. AP without moving
     const howManyMonstersIsItWorth = monsterUsableAP / 2    // E.g. 2 AP = 1, 4 AP = 2, etc
-    const monsterTotalXP = U.getMonsterTotalXP(monster)
     const baseMonsterXP = monsterTotalXP / howManyMonstersIsItWorth // E.g. 250 with degree 5 -> 125
     const fixedMonsterXP = U.roundDownTo(baseMonsterXP, 25)
 
@@ -63,7 +64,6 @@ export default function MonsterAbility({monster, ability, isPassive, style, clas
         ability,
         isEpic,
         nActionPoints,
-        monsterUsableAP,
         howManyMonstersIsItWorth,
         monsterTotalXP,
         baseMonsterXP,

@@ -348,6 +348,44 @@ export function getMonsterTotalXP(monster) {
     const [monsterTotalXP] = splitByNumbers(monster?.Experience ?? '0')
     return monsterTotalXP
 }
+export function calculateHowManyMonstersThisEpicIsWorth(monster) {
+    if (!isMonsterEpic(monster)) {
+        return 1
+    }
+    const monsterUsableAP = monster.Degree - 1
+    return monsterUsableAP / 2
+}
+// text: "250 (125 x2)" -> 2
+export function extractXPMultiplierFromText(text) {
+    const indexOfX = text.indexOf('x')
+    if (indexOfX == null)
+        return null
+    const multiplierDigit = text[indexOfX + 1]
+    return parseInt(multiplierDigit)
+}
+// text: "250 (125 x2)" -> 250;     250 -> 250
+export function extractBaseXPFromText(text) {
+    if (Number.isInteger(text))
+        return text
+    let xpSoFar = ''
+    let i = 0
+    while (i < text.length && isCharDigit(text[i])) {
+        xpSoFar += text[i]
+        i += 1
+    }
+    return parseInt(xpSoFar)
+}
+export function extractDefenseFromMonsterArmor(text) {
+    if (Number.isInteger(text))
+        return text
+    let defenseSoFar = ''
+    let i = 0
+    while (i < text.length && isCharDigit(text[i])) {
+        defenseSoFar += text[i]
+        i += 1
+    }
+    return parseInt(defenseSoFar)
+}
 export function monsterXPDnDToQG(dndXP) {
   const newXP = 0.365 * dndXP + 100
   return Math.floor(newXP / 25) * 25;
@@ -538,37 +576,6 @@ export function splitByNumbers(str) {
     .map(part => (isNaN(part) ? part : Number(part))); // convert numbers
 }
 window.splitByNumbers = splitByNumbers
-// text: "250 (125 x2)" -> 2
-export function extractXPMultiplierFromText(text) {
-    const indexOfX = text.indexOf('x')
-    if (indexOfX == null)
-        return null
-    const multiplierDigit = text[indexOfX + 1]
-    return parseInt(multiplierDigit)
-}
-// text: "250 (125 x2)" -> 250;     250 -> 250
-export function extractBaseXPFromText(text) {
-    if (Number.isInteger(text))
-        return text
-    let xpSoFar = ''
-    let i = 0
-    while (i < text.length && isCharDigit(text[i])) {
-        xpSoFar += text[i]
-        i += 1
-    }
-    return parseInt(xpSoFar)
-}
-export function extractDefenseFromMonsterArmor(text) {
-    if (Number.isInteger(text))
-        return text
-    let defenseSoFar = ''
-    let i = 0
-    while (i < text.length && isCharDigit(text[i])) {
-        defenseSoFar += text[i]
-        i += 1
-    }
-    return parseInt(defenseSoFar)
-}
 export const $LESSER_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Lesser').map(spell => spell.Name)
 export const $MINOR_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Minor').map(spell => spell.Name)
 export const $MAJOR_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Major').map(spell => spell.Name)

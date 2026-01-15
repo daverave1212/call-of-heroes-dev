@@ -13,6 +13,7 @@ import PageH1 from '../PageH1/PageH1.js'
 import { getMonsterStatsAsObject } from '../../services/game-lib/stat-calculations.js'
 import PageH3 from '../PageH3/PageH3.js'
 import PageH2 from '../PageH2/PageH2.js'
+import { useState } from 'react'
 
 export default function MonsterBlock({monsterName, monster, isPreview}) {
 
@@ -22,6 +23,10 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
     if (isPreview !== true) {
         isPreview = false
     }
+
+    const monsterTotalXPOriginal = U.getMonsterTotalXP(monster)
+    const [monsterTotalXP, setMonsterTotalXP] = useState(monsterTotalXPOriginal)
+    const didModifyXP = monsterTotalXP != monsterTotalXPOriginal
 
     const abilities = monster.Abilities.filter(a => U.getOnlyValue(a)?.IsUltimate != true)
     const ultimateAbilities = monster?.Abilities?.filter(a => U.getOnlyValue(a)?.IsUltimate)
@@ -36,35 +41,30 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
     const hpPenaltyPer1DefenseCoef = MonsterCalculations.Calculations.HPPenaltyPercentPer1Defense / 100
     const hpPenaltyCoefDueToDefense = U.isNumber(monster.Defense)? (1 - hpPenaltyPer1DefenseCoef * monster.Defense): 1
     const isEpic = U.isMonsterEpic(monster)
-    console.log({isEpic})
-    const monsterTotalXP = U.getMonsterTotalXP(monster)
+    const howManyMonstersIsItWorth = isEpic? U.calculateHowManyMonstersThisEpicIsWorth(monster): 1
+    const baseXPForOneMonster = roundToNearest25(monsterTotalXP / howManyMonstersIsItWorth)
 
-    const monsterSubtitle = monster.Type +
-        (monster.Role != null? `, ${monster.Role}`: '')
+    
+    
+    const monsterSubtitle = monster.Type + (monster.Role != null? `, ${monster.Role}`: '')
 
     let monsterHealth = monster.Health
-    console.log({isEpic})
     if (monster.HPCoef != null) {
         if (isEpic) {
-            // monsterHealth = getEpicMonsterBaseHP(monster.Experience, monster.Degree)
-            const baseHealthForThatXP = MonsterCalculations.Calculations.XPToHPTable[monsterTotalXP]
+            const baseHealthForThatXP = MonsterCalculations.Calculations.XPToHPTable[baseXPForOneMonster]
             const epicHPCoef = MonsterCalculations.Calculations.EpicHPMultiplierByActionPoints[monster.Degree]
             monsterHealth = Math.floor(baseHealthForThatXP * epicHPCoef * monster.HPCoef)
+            console.log({monsterTotalXP, baseHealthForThatXP, epicHPCoef, monsterHealth})
         } else {
-            // const maybeEpicMultiplier = isEpic == false? 1 : U.extractXPMultiplierFromText(monster.Experience)
-            // const monsterXPToSearch = isEpic == false? monsterXPBase : monsterXPBase / maybeEpicMultiplier
-            const monsterXPBase = U.extractBaseXPFromText(monster.Experience)
-            const monsterXPToSearch = monsterXPBase
-            const baseHPForThisXP = MonsterCalculations.Calculations.XPToHPTable['' + monsterXPToSearch]
+            const baseHPForThisXP = MonsterCalculations.Calculations.XPToHPTable['' + monsterTotalXP]
             if (baseHPForThisXP == null) { 
-                throw `Could not find XP ${monsterXPToSearch} in calculations table`
+                throw `Could not find XP ${monsterTotalXP} in calculations table`
             }
             const hpCoefMultiplier = parseFloat(monster.HPCoef)
-            console.log({monsterXPBase, baseHPForThisXP, hpCoefMultiplier, hpPenaltyPer1DefenseCoef})
             
             monsterHealth = Math.floor(baseHPForThisXP * hpCoefMultiplier * hpPenaltyCoefDueToDefense)  // * maybeEpicMultiplier
         }
-        if (monsterHealth > 30) {
+        if (monsterHealth > 30 && !didModifyXP) {
             monsterHealth = U.roundToNearest(monsterHealth, 5)
         }
         if (monsterHealth <= 0)
@@ -73,6 +73,18 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
 
     const maybeElderStyle = monsterName != 'Elder'? {}: { fontFamily: 'UnknownFont'}
 
+
+    function scaleUp() {
+        console.log('Upscaling')
+        setMonsterTotalXP(roundToNearest25(monsterTotalXP + 25 * howManyMonstersIsItWorth))
+    }
+    function scaleDown() {
+        if (monsterTotalXP <= 0) {
+            return
+        }
+        console.log('DOwnscaling')
+        setMonsterTotalXP(roundToNearest25(monsterTotalXP - 25 * howManyMonstersIsItWorth))
+    }
 
 
     function MonsterLore() {
@@ -141,11 +153,12 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
                             {
                                 IsCondensedLeft == false && (
                                     <div className='with-margined-children'>
-                                        <SmallStat color={statOtherColor} className="row large" name="XP">{monsterTotalXP}</SmallStat>
+                                        <SmallStat color={statOtherColor} className="row large" name="XP">{monsterTotalXP}{isEpic && ` (${baseXPForOneMonster} x${howManyMonstersIsItWorth})`}</SmallStat>
                                         {/* { monster.Degree != 'Normal' && monster.Degree != null && (<SmallStat color={statOtherColor} className="row large" name="Degree">{monster.Degree != null? monster.Degree : 'Normal'}</SmallStat>) } */}
                                         { monster.Degree != 'Normal' && monster.Degree != null && (<SmallStat color={statOtherColor} className="row large" name="Action Points">{monster.Degree != null? monster.Degree : '3'}</SmallStat>) }
-                                        <div className='center-content'>
-                                            <button style={{backgroundColor: 'var(--theme-color-1-darker)', width: '100%'}}><Icon name="Premium" style={{marginTop: '4px'}}/> Scale to different XP</button>
+                                        <div className='flex row' style={{gap: '5%'}}>
+                                            <button style={{backgroundColor: 'var(--theme-color-1-darker)', width: '50%'}} onClick={scaleDown}><Icon name="Premium" style={{marginTop: '4px'}}/> Downscale</button>
+                                            <button style={{backgroundColor: 'var(--theme-color-1-darker)', width: '45%'}} onClick={scaleUp}><Icon name="Premium" style={{marginTop: '4px'}}/> Upscale</button>
                                         </div>
                                     </div>
                                 )
@@ -176,30 +189,30 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
                             <div>
                                 <TwoColumns className="two-columns--quarter-padding">
                                     <Column>
-                                        <MonsterAbility monster={monster} ability={abilities[0]} key={0} style={maybeElderStyle}/>
-                                        { abilities.length >= 3 && (<MonsterAbility monster={monster} ability={abilities[2]} key={2} style={maybeElderStyle}/>) }
-                                        { abilities.length >= 5 && (<MonsterAbility monster={monster} ability={abilities[4]} key={4} style={maybeElderStyle}/>) }
+                                        <MonsterAbility monster={monster} monsterXP={monsterTotalXP} ability={abilities[0]} key={0} style={maybeElderStyle}/>
+                                        { abilities.length >= 3 && (<MonsterAbility monster={monster} monsterXP={monsterTotalXP} ability={abilities[2]} key={2} style={maybeElderStyle}/>) }
+                                        { abilities.length >= 5 && (<MonsterAbility monster={monster} monsterXP={monsterTotalXP} ability={abilities[4]} key={4} style={maybeElderStyle}/>) }
                                     </Column>
                                     <Column>
-                                        <MonsterAbility monster={monster} ability={abilities[1]} key={1} style={maybeElderStyle}/>
-                                        { abilities.length >= 4 && (<MonsterAbility monster={monster} ability={abilities[3]} key={3} style={maybeElderStyle}/>) }
-                                        { abilities.length >= 6 && (<MonsterAbility monster={monster} ability={abilities[5]} key={5} style={maybeElderStyle}/>) }
+                                        <MonsterAbility monster={monster} monsterXP={monsterTotalXP} ability={abilities[1]} key={1} style={maybeElderStyle}/>
+                                        { abilities.length >= 4 && (<MonsterAbility monster={monster} monsterXP={monsterTotalXP} ability={abilities[3]} key={3} style={maybeElderStyle}/>) }
+                                        { abilities.length >= 6 && (<MonsterAbility monster={monster} monsterXP={monsterTotalXP} ability={abilities[5]} key={5} style={maybeElderStyle}/>) }
                                     </Column>
                                 </TwoColumns>
                                 { ultimateAbilities.map((ability, i) => (
-                                    <MonsterAbility monster={monster} ability={ability} key={'u-' + i} style={maybeElderStyle}/>
+                                    <MonsterAbility monster={monster} monsterXP={monsterTotalXP} ability={ability} key={'u-' + i} style={maybeElderStyle}/>
                                 )) }
                             </div>
                         ) : (
                             abilities.map((ability, i) => (
-                                <MonsterAbility monster={monster} ability={ability} key={i} style={maybeElderStyle}/>
+                                <MonsterAbility monster={monster} monsterXP={monsterTotalXP} ability={ability} key={i} style={maybeElderStyle}/>
                             ))
                         )}
                     </div>
 
                     <div>
                         { monster.Passives != null && monster.Passives.map((ability, i) => (
-                            <MonsterAbility monster={monster} ability={ability} key={i} isPassive={true} style={maybeElderStyle}/>
+                            <MonsterAbility monster={monster} monsterXP={monsterTotalXP} ability={ability} key={i} isPassive={true} style={maybeElderStyle}/>
                         )) }
                     </div>
                 </Column>
