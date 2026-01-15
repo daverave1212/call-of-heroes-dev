@@ -172,7 +172,7 @@ export default function Spell({
         getSpellIconPathByName(Name)
     const uniqueID = getUniqueSpellID(Name)
     
-    const subspell = SubspellName != null? findBasicSpellByName(subspell): null
+    const subspell = SubspellName != null? findBasicSpellByName(SubspellName): null
 
     const hasButton = onClick != null
     const finalButtonText =
@@ -194,8 +194,10 @@ export default function Spell({
     if (hasVariants === true && VariantsForEach != null) {
         Variants = normalizeForEachVariantsToNormalVariants(VariantsForEach)
     }
-    if (hasVariants === true && Variants != null) {
+    if (hasVariants === true && Variants != null && Variants.length > 0) {
+        console.log(`At spell: ${Name}`)
         const currentVariant = Variants[variantIndex]
+        console.log({currentVariant})
         const variantMixinsCorrectlyFormatted = mapObject(currentVariant, ({key, value}) => ({
             key: key,
             value: { tag: 'span', text: value }
@@ -542,7 +544,7 @@ export function SpellTopIconSide({ src, style, className, hasUpgradeIcon, hasSpi
                 { hasSpinner === true && (
                     <div className='variant-spinner'></div>
                 )}
-                <div className='spell-img-wrapper tinted-icon-wrapper'>
+                <div className='spell-img-wrapper' /* tinted-icon-wrapper */>
                     <img className='spell-icon' src={src}/>  
                 </div>
                 { hasUpgradeIcon === true && (

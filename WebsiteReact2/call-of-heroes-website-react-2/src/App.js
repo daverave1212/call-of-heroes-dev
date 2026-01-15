@@ -119,6 +119,7 @@ import ClassBalance from './pages/Meta/ClassBalance';
 import MagicFonts from './pages/Other/MagicFonts';
 import DictionaryGenerator from './pages/Tools/DictionaryGenerator';
 import BookCreator from './pages/BookCreator/BookCreator';
+import MerchantGenerator from './pages/Tools/MerchantGenerator';
 
 function App() {
 
@@ -236,6 +237,7 @@ function App() {
           <Route path="/Tools/CharacterCreationCalculator" element = { <CharacterCreationCalculator/> }/>
           <Route path="/Tools/HomebrewBookCreator" element = { <HomebrewBookCreator/> }/>
           <Route path="/Tools/BookCreator" element = { <BookCreator/> }/>
+          <Route path="/Tools/MerchantGenerator" element = { <MerchantGenerator/> }/>
 
           <Route path='/Meta/PatchNotes' element={ <PatchNotes/> }/>
           <Route path='/Meta/ClassBalance' element={ <ClassBalance/> }/>

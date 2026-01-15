@@ -1252,9 +1252,6 @@ export function parseTextWithSymbols(...argsOriginal) {
     const customFunctionSymbols = popFind(args, arg => isObjectOfFunctions(arg))
     const options = popFind(args, arg => isObject(arg)) ?? {}
 
-    console.log('%c HERE HERE HEREEEEE', 'green')
-    console.log({args, text, customSymbols, customFunctionSymbols, options})
-
     if (text == null) {
         console.log({customSymbols, options})
         throw `Null text given to parseTextWithSymbols. Other params printed above`
@@ -1326,18 +1323,24 @@ export function parseTextWithSymbols(...argsOriginal) {
             case 'reading-symbol':
                 if (char == '}') {
                     const symbol = text.substring(symbolStart + 1, i)
+                    currentTextPartStart = i + 1
+                    state = 'reading-normal-text'
+
                     if (symbolToInsertion[symbol] == null) {
-                        throw `ERROR: Symbol {${symbol}} not found for parsing: "${text}"`
+                        textParts.push('ERROR')
+                        console.log(`ERROR: Symbol {${symbol}} not found for parsing: "${text}"`)
+                        continue
                     }
                     if (typeof(symbolToInsertion[symbol]) != 'function') {
+                        textParts.push('ERROR')
                         console.log(symbolToInsertion[symbol])
-                        throw `ERROR: Symbol ${symbol} not a function. Value above: "${text}"`
+                        console.log(`ERROR: Symbol ${symbol} not a function. Value above: "${text}"`)
+                        continue
                     }
+
                     const getComponentFromSymbol = symbolToInsertion[symbol]
                     const finalComponent = getComponentFromSymbol()
                     textParts.push(finalComponent)    // Push current symbol
-                    currentTextPartStart = i + 1
-                    state = 'reading-normal-text'
                 } else if (char == '(') {
                     functionName = text.substring(symbolStart + 1, i)
                     isReadingFunctionString = false
@@ -1381,7 +1384,6 @@ export function parseTextWithSymbols(...argsOriginal) {
                     currentTextPartStart = i + 1
                     state = 'reading-normal-text'
                 } else if (!isReadingFunctionString && stringQuoteChar == null && !isStringOnlySpaces(char)) {
-                    console.log(`This one is definitely not only spaces: ${char}`)
                     functionStringStart = i + 1
                     isReadingFunctionString = true
                 } else if (isReadingFunctionString && stringQuoteChar == null && isStringOnlySpaces(char)) {
@@ -1522,6 +1524,10 @@ export function roundDownTo(num, step) {
 }
 export function generateUniqueId() {
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
+}
+export function getNumberFromString(str) {
+    const match = str.match(/-?\d+(\.\d+)?/);
+    return match ? Number(match[0]) : null;
 }
 export function getNumberPartsString(number, options=({ includeDotOnRight: false })) {
     if (number == null) {

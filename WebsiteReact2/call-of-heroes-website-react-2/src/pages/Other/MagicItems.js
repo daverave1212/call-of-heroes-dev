@@ -9,6 +9,7 @@ import PageH1 from '../../components/PageH1/PageH1'
 import items from '../../databases/Other/MagicItems.json'
 import ManyBoxes from '../../components/Spell/ManyBoxes'
 import Page from '../../containers/Page/Page'
+import ManySpells from '../../components/Spell/ManySpells'
 
 export default function MagicItems() {
 
@@ -25,7 +26,7 @@ export default function MagicItems() {
                     { items[categoryName].Description != null && (
                         <p>{ items[categoryName].Description }</p>
                     ) }
-                    <ManyBoxes type='item' objects={ U.spellsFromObject(items[categoryName].Items) }/>
+                    <ManySpells areItems={true} spells={ U.spellsFromObject(items[categoryName].Items) }/>
                 </Page>
             )) }
 
