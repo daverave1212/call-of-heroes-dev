@@ -1,10 +1,10 @@
 import { useState } from "react";
 import HeroButton from "../../../components/HeroButton/HeroButton";
-import { IconWithSpinner } from "../../../components/Spell/Spell";
 import { getUserState, useAuth } from "../../../Auth";
 import { useLocalStorageState } from "../../../utils";
 import { useSectionNamesState } from "./CharacterData";
 import Input from "../../../components/Input/Input";
+import { IconSpinner } from "../../../components/Other/IconSpinner";
 
 export function LabelWithInput({ labelText, value='d', onChange }) {
 
@@ -45,7 +45,7 @@ export default function SectionNames({ onChange }) {
         <div className="padding-top-4 flex-column align-center with-margined-children">
             <div className="center-content">
                 <div className="ccc-image-holder" onClick={onClickOnPortrait}>
-                    <IconWithSpinner className="pointer" src={namesState.src}/>
+                    <IconSpinner className="pointer" src={namesState.src}/>
                 </div>
             </div>
             <div className="center-content">

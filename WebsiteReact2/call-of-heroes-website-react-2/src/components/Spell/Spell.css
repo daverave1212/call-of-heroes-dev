@@ -9,12 +9,14 @@
     --spell-padding-small: 6px;
     --spell-margin-bottom: calc(var(--element-padding) / 2);
     --spell-padding-bottom: calc(var(--spell-padding) * 1.5);
-
+    --spell-top-stats-padding: calc(var(--spell-padding) - 2px); /* For pixel perfect alignment of the text */
+    
     --spell-border-z: 20;
 
     --spell-banner-height: 0px;
 
 
+    --spell-title-width: 94.25%;
     --spell-title-top-padding: calc(var(--spell-padding) + var(--spell-padding-small));
     --spell-passive-title-top-padding: calc(var(--spell-title-top-padding) * 1.35);
     --spell-icon-size: 72px;
@@ -109,10 +111,9 @@
 
 
 /* Actual spell box */
-.spell__box {
+.spell .content {
     height: 100%;
     position: relative;
-    margin: auto;
     padding-top: calc(var(--spell-banner-height) + var(--spell-padding-small));
     padding-left: var(--spell-padding-small);
     padding-right: var(--spell-padding-small);
@@ -126,18 +127,19 @@
     flex-direction: row;
     min-height: calc(var(--spell-icon-size) + 2 * var(--spell-padding));
 }
-.spell-top__icon-side {
+.spell-top .left {
     position: relative;
     padding: var(--spell-padding);
     padding-right: 0px;
     z-index: var(--z-icon-side);
 }
-.spell-top__icon-side img {
+.spell-top .left img {
     width: 100%;
     position: relative;
     z-index: var(--z-icon);
 }
 .spell-icon-wrapper {
+    z-index: var(--z-icon);
     width: var(--spell-icon-size);
     height: var(--spell-icon-size);
     padding: 1px;
@@ -156,6 +158,7 @@
 }
 .spell-img-wrapper {
     position: relative;
+    z-index: var(--z-icon);
 }
 .tinted-icon-wrapper {
   --tint-rgb: 0 200 255;
@@ -174,8 +177,8 @@
 
   top: 1px;
   left: 1px;
-  width:  calc(var(--spell-icon-size) - 8px);   /* Not sure why 8px, needs research */
-  height: calc(var(--spell-icon-size) - 8px);   /* Not sure why 8px, needs research */
+  width:  calc(var(--spell-icon-size) - 8px);   /* Not sure why 8px, needs mathing */
+  height: calc(var(--spell-icon-size) - 8px);   /* Not sure why 8px, needs mathing */
   padding: 1px;
 }
 .passive .tinted-icon-wrapper::after {
@@ -210,7 +213,7 @@
     }
 }
 
-.no-spell-spinner {
+.non-spell-spinner {
     position: absolute;
     z-index: var(--z-variant-spinner);
 
@@ -226,16 +229,16 @@
     animation-iteration-count: infinite;
     animation-timing-function: linear;
 }
-.no-spell-icon {
+.non-spell-icon {
     z-index: var(--z-icon);
     position: absolute;
 }
 
-.passive .spell-top__icon-side img {
+.passive .spell-top .left img {
     border-radius: 25%;
     padding: 1px;
 }
-.active .spell-top__icon-side img {
+.active .spell-top .left img {
     border-radius: 0px;
     padding: 1px;
 }
@@ -260,10 +263,10 @@
 
 
 
-.spell.with-variants .spell-top__icon-side img {
+.spell.with-variants .spell-top .left img {
     padding: 1px;
 }
-.spell-top__variant-counter {
+.variant-counter {
     font-family: var(--font-home);
     opacity: 0;
     background-color: white;
@@ -278,7 +281,7 @@
 
     z-index: var(--z-variant-counter);
 }
-.spell-top__variant-counter:hover {
+.variant-counter:hover {
     user-select: none;
     opacity: 0.5;
 
@@ -297,11 +300,7 @@
 
 
 
-
-.spell-top-title-side {
-    flex: 1;
-}
-.spell-top-title {
+.spell .title {
     border: solid black 1px;
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
@@ -324,7 +323,7 @@
 }
 
 .spell-top-stats {
-    padding: calc(var(--spell-padding) - 2px); /* For pixel perfect alignment of the text */
+    padding: var(--spell-top-stats-padding);
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -347,13 +346,13 @@
 
     margin-right: 9px;
 }
-.spell-top-title-wrapper.no-icon {
+.spell .title-wrapper.no-icon {
     margin: auto;
     width: 85%;
     border-left: solid black 2px;
 }
-.spell-top-title-wrapper {
-    width: 94.25%;
+.spell .title-wrapper {
+    width: var(--spell-title-width);
     
     margin-top: var(--spell-title-top-padding);
     
@@ -362,7 +361,7 @@
     z-index: var(--z-title);
     padding: 1px;
 }
-.spell.passive .spell-top-title-wrapper {
+.spell.passive .title-wrapper {
     margin-top: var(--spell-passive-title-top-padding);
 }
 
@@ -468,7 +467,7 @@
 }
 
 /* -- Title -- */
-.subspell .spell-top-title {
+.subspell .title {
     padding: calc(var(--spell-padding) / 4);
 }
 
@@ -494,7 +493,7 @@
     width: calc(var(--subspell-size-multiplier) * var(--spell-icon-size));
     height: calc(var(--subspell-size-multiplier) * var(--spell-icon-size));
 }
-.subspell .spell-top__icon-side img {
+.subspell .spell-top .left img {
     width: calc(var(--subspell-size-multiplier) * var(--spell-icon-size) - 4px);
     height: calc(var(--subspell-size-multiplier) * var(--spell-icon-size) - 4px);
 }

@@ -3,7 +3,7 @@ import './Spell.css'
 import PageH2 from './../PageH2/PageH2'
 import Separator from './../Separator/Separator'
 import React, { useEffect, useRef, useState } from 'react'
-import { parseTextWithSymbols, stringReplaceAllMany, getSpellIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll, getVariantsForEachCollection, normalizeForEachVariantsToNormalVariants, createKey, spellsFromObject, randomInt, assertCorrectSpellFormat, findBasicSpellByName, allEqual, getItemIconPathByName } from '../../utils'
+import { parseTextWithSymbols, stringReplaceAllMany, getSpellIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll, getVariantsForEachCollection, normalizeForEachVariantsToNormalVariants, createKey, spellsFromObject, randomInt, assertCorrectSpellFormat, findBasicSpellByName, allEqual, getItemIconPathByName, removeTildes, isString, getDoubleTableTable, getDoubleTableNumberedTable, filterObject, getSpellValidTopStatsObject } from '../../utils'
 import TableNormal from '../TableNormal/TableNormal'
 import html2canvas from 'html2canvas'
 import CopySpellButton from '../CopyButton/CopySpellButton'
@@ -97,7 +97,7 @@ export default function Spell({
 }) {
 
     if (spell == null) {
-        return <div>An error occured :(</div>
+        return <div>ERROR: null spell given to component Spell.</div>
     }
 
     const baseVariantIndex = metadata?.variantIndex ?? 0
@@ -149,17 +149,12 @@ export default function Spell({
         Effect = stringReplaceAllMany(Effect, Object.keys(ACTION_POINTS_MAPPING), Object.keys(ACTION_POINTS_MAPPING).map(key => ACTION_POINTS_MAPPING[key]))
     }
 
-    if (spell['Display Name'] != null) DisplayName = spell['Display Name']
-    let hasVariants = Variants != null || VariantsForEach != null
+    const hasVariants = Variants != null || VariantsForEach != null
     
-    if (Name == null || (typeof Name) != 'string') {
-        Name = 'Default'
-    }
-    if (Upgrades != null) {
-        Upgrade = Upgrades
-    }
-
-    if (Name.startsWith('~')) Name = Name.substring(1, Name.length - 1)
+    Name = isString(Name)? Name: 'Default'
+    Name = removeTildes(Name)
+    DisplayName = spell['Display Name'] ?? DisplayName
+    Upgrade = Upgrades ?? Upgrade
 
 
     let iconPath =
@@ -170,42 +165,26 @@ export default function Spell({
         isItem == true?
             getItemIconPathByName(Name):    
         getSpellIconPathByName(Name)
+    
     const uniqueID = getUniqueSpellID(Name)
-    
     const subspell = SubspellName != null? findBasicSpellByName(SubspellName): null
-
     const hasButton = onClick != null
-    const finalButtonText =
-        buttonText != null?
-            buttonText
-        :isSelected != null?
-            (isSelected? 'Unselect': 'Select')
-        :
-            'Go'
+    const finalButtonText = buttonText ?? (isSelected? 'Unselect': 'Select')
+    const hasEffectsOrMore = !allEqual([Effect, EffectGreen, Downside, Upgrade, Notes, Alternatives], null)
     
-    function onButtonClick() {
-        if (onClick != null) {
-            onClick(spell, { variantIndex })
-        }
-    }
-
-
     let extraMixins = {}
     if (hasVariants === true && VariantsForEach != null) {
         Variants = normalizeForEachVariantsToNormalVariants(VariantsForEach)
     }
     if (hasVariants === true && Variants != null && Variants.length > 0) {
-        console.log(`At spell: ${Name}`)
         const currentVariant = Variants[variantIndex]
-        console.log({currentVariant})
         const variantMixinsCorrectlyFormatted = mapObject(currentVariant, ({key, value}) => ({
             key: key,
             value: { tag: 'span', text: value }
         }))
         extraMixins = variantMixinsCorrectlyFormatted
-        if (currentVariant.IconName != null) iconPath = getSpellIconPathByName(currentVariant.IconName)
-        if (currentVariant.DisplayA != null) A = currentVariant.DisplayA
-        if (currentVariant.Requirement != null) Requirement = currentVariant.Requirement
+        iconPath = currentVariant.IconName == null? iconPath: getSpellIconPathByName(currentVariant.IconName)
+        A = currentVariant.DisplayA ?? A
     }
 
 
@@ -224,33 +203,16 @@ export default function Spell({
         }
     }
 
-    let tableHeaders = null
-    const newTableValuePairs = []
-    if (DoubleTableNumbered != null) {
-        tableHeaders = DoubleTableNumbered.Headers
-        const values = DoubleTableNumbered.Values
-        for (let i = 0; i < values.length; i++) {
-            if (i % 2 == 1) {
-                newTableValuePairs.push({
-                    value1: `${i}. ${values[i-1]}`,
-                    value2: `${i+1}. ${values[i]}`
-                })
-            }
-        }
-    }
-    if (DoubleTable != null) {
-        tableHeaders = DoubleTable.Headers
-        const values = DoubleTable.Values
-        for (let i = 0; i < values.length; i++) {
-            if (i % 2 == 1) {
-                newTableValuePairs.push({
-                    value1: values[i-1],
-                    value2: values[i]
-                })
-            }
-        }
-    }
+    const [tableHeaders, newTableValuePairs] =
+        DoubleTable != null?
+            getDoubleTableTable(DoubleTable):
+        DoubleTableNumbered != null?
+            getDoubleTableNumberedTable(DoubleTableNumbered):
+        [null, null]
 
+    function onButtonClick() {
+        onClick?.(spell, { variantIndex })
+    }
 
     function onIconClick() {
         if (hasVariants !== true)
@@ -273,26 +235,26 @@ export default function Spell({
             { 'with-variants': hasVariants === true },
         )}>
             { isSelected && <Ribbon>Selected!</Ribbon>}
-            { hasBorder != false && <SpellBorder/> } 
-            <SpellBackground/>
-            <div className='spell__box'> {/* This has CSS to be perfectly in the bounds of the borders and banner */}
-                { spell != null && (
-                    <SpellTop
-                        hasVariants={hasVariants} variantIndex={variantIndex} Variants={Variants}
-                        onIconClick={onIconClick} iconPath={iconPath} hasIcon={hasIcon}
-                        DisplayName={DisplayName} Name={Name} showTopStats={showTopStats}
-                        A={A} spell={spell}
-                    />
-                )}
+            { hasBorder && <div className='spell-border'></div> } 
+            <div className='spell-background'></div>
+
+            <div className='content'> {/* This has CSS to be perfectly in the bounds of the borders and banner */}
+                <SpellTop
+                    hasVariants={hasVariants} variantIndex={variantIndex} Variants={Variants}
+                    onIconClick={onIconClick} iconPath={iconPath} hasIcon={hasIcon}
+                    DisplayName={DisplayName} Name={Name} showTopStats={showTopStats}
+                    A={A} spell={spell}
+                />
                 
                 <Separator hasNoMarginTop={true}/>
-                { Damage == null? null : (
-                    <div key="Damage" className='spell-description' style={{
-                        paddingBottom: allEqual([Effect, EffectGreen, Downside, Upgrade, Notes, Alternatives], null)?   // Extra padding bottom if there is nothing after damage
-                            'var(--spell-padding-bottom)':
-                            'calc(var(--spell-padding-bottom) / 2)'
-                    }}><Icon name="Damage"/>{ Damage }</div>
-                )}
+
+                { Damage && (<>
+                    <div key="Damage" className='spell-description'>
+                        <Icon name="Damage"/>{ Damage }
+                    </div>
+                    { hasEffectsOrMore && <div style={{paddingBottom: 'var(--spell-padding-bottom)'}}></div> }
+                    { !hasEffectsOrMore && <div style={{paddingBottom: 'calc(var(--spell-padding-bottom) / 2)'}}></div> }
+                </>)}
                 { PreEffectGreen != null && (
                     <div className="spell-green" key="PreEffectGreen">{ PreEffectGreen }</div>
                 ) }
@@ -407,7 +369,10 @@ export const VALID_SPELL_TOP_STATS = [
 ]
 
 export function SpellTopStats({className, tags, keywords}) {
-    const {A, DisplayA, Cost, Range, Cooldown, Duration, Requirement, DisplayRequirement, Replacement, Hands, Stat, Special, Price, XP} = tags
+    const {A, DisplayA, Cost, Range, Cooldown, Duration, Requirement, DisplayRequirement, Replacement, Hands, Stat, Special, Price, XP, Name} = tags
+    const validSpellTopTags = getSpellValidTopStatsObject(tags)
+    const nTopStats = Object.keys(validSpellTopTags).length
+
     let displayedA = DisplayA != null? DisplayA : A != null? A : null
 
     if (getIsActionPointsSystem()) {
@@ -425,8 +390,17 @@ export function SpellTopStats({className, tags, keywords}) {
             keywords.replaceAll(', ', ',').split(',')
         :[keywords]
 
+    if (Name == 'Pot of Boiling') {
+        console.log(`Here tis:`)
+        console.log({validSpellTopTags, nTopStats})
+    }
+
+    function KeywordTags() {
+        return <>{ parsedKeywords.map(tag => <div className='tag smaller-font' key={tag}>{ tag }</div>) }</>
+    }
+
     return (
-        <>
+        <div className='relative'>
             <div className={`spell-top-stats smaller-font ${className}`}>
                 { (displayedA != null) && (
                     <div>
@@ -460,21 +434,15 @@ export function SpellTopStats({className, tags, keywords}) {
                 { Price != null && (<div><img src="/Icons/UI/Gold.png" className="inline-icon--spell-downer"/>{ Price }</div>) }
                 { XP != null && (<div><img src="/Icons/UI/XP.png" className="inline-icon--spell"/>{ XP }</div>) }
             </div>
-            { keywords != null && (
-                <div className='spell-top-stats smaller-font' style={{paddingTop: 0, gap: '0rem'}}>
-                    { parsedKeywords.map(tag => <div className='tag' key={tag}>{ tag }</div>) }
+            { keywords &&
+                <div className='spell-top-stats' style={{paddingTop: 0, marginTop: '-3px', gap: '0rem'}}>
+                    <KeywordTags/>
                 </div>
-            )}
-        </>
+            }
+        </div>
     )
 }
 
-export function SpellBorder() {
-    return <div className="spell-border"></div>
-}
-export function SpellBackground() {
-    return <div className='spell-background'></div>
-}
 export function SpellTop({
     hasVariants, variantIndex, Variants,
     onIconClick, iconPath, hasIcon,
@@ -489,10 +457,10 @@ export function SpellTop({
     if (hasIcon === false) {
         return (
             <div className='spell-top'>
-                <div style={{width: '100%'}}>
+                <div className='width-100'>
                     <div className='center-content width-100'>
-                        <div className='spell-top-title-wrapper no-icon'>
-                            <div className='spell-top-title'>{ Name }</div>
+                        <div className='title-wrapper no-icon'>
+                            <div className='title'>{ Name }</div>
                         </div>
                     </div>
                     <div style={{width: '70%', margin: 'auto'}}>
@@ -502,9 +470,39 @@ export function SpellTop({
             </div>
         )
     }
+
+    function SpellTopLeft() {
+        const maxVariantIndex = hasVariants? Variants.length: null
+        return (
+            <div className={`left`}>
+                    
+                { hasVariants === true && (
+                    <div className='variant-counter' onClick={onIconClick}>
+                        {variantIndex + 1}/{maxVariantIndex}
+                    </div>
+                )}
+
+                <div className='spell-icon-wrapper relative'>
+                    { hasVariants === true && (
+                        <div className='variant-spinner'></div>
+                    )}
+                    <div className='spell-img-wrapper' /* tinted-icon-wrapper */>
+                        <img src={iconPath}/>  
+                    </div>
+                    { spell.HasUpgradeIcon === true && (
+                        <div className='secondary-icon-wrapper absolute'>
+                            <img src="/Icons/Spells/!UpgradeIcon.png"/>
+                        </div>
+                    )}
+                </div>
+
+            </div>
+        )
+    }
+
     return (
         <div className='spell-top'>
-            <SpellTopIconSide
+            <SpellTopLeft
                 src={iconPath}
                 onIconClick={onIconClick}
                 hasSpinner={hasVariants} hasVariants={hasVariants}
@@ -512,9 +510,9 @@ export function SpellTop({
                 hasUpgradeIcon={spell.HasUpgradeIcon}
             />
 
-            <div className='spell-top-title-side'>
-                <div className='spell-top-title-wrapper'>
-                    <div className='spell-top-title'>{ DisplayName != null? DisplayName : Name }</div>
+            <div className='flex-1'>
+                <div className='title-wrapper'>
+                    <div className='title'>{ DisplayName != null? DisplayName : Name }</div>
                 </div>
                 { showTopStats === true && <SpellTopStats keywords={spell.Tags} tags={{...obj, A: A == null? obj.A : A}}/>}
             </div>
@@ -522,47 +520,3 @@ export function SpellTop({
     )
 }
 
-export function SpellIconSpinner({ src, className }) {
-    return (
-        <div className='spell-icon-wrapper'>
-            <div className='variant-spinner'></div>
-            <img src={iconPath}/>  
-        </div>
-    )
-}
-export function SpellTopIconSide({ src, style, className, hasUpgradeIcon, hasSpinner, hasVariants, variantIndex, maxVariantIndex, onIconClick }) {
-    return (
-        <div className={`spell-top__icon-side ${className}`} style={style}>
-                
-            { hasVariants === true && (
-                <div className='spell-top__variant-counter' onClick={onIconClick}>
-                    {variantIndex + 1}/{maxVariantIndex}
-                </div>
-            )}
-
-            <div className='spell-icon-wrapper relative'>
-                { hasSpinner === true && (
-                    <div className='variant-spinner'></div>
-                )}
-                <div className='spell-img-wrapper' /* tinted-icon-wrapper */>
-                    <img className='spell-icon' src={src}/>  
-                </div>
-                { hasUpgradeIcon === true && (
-                    <div className='secondary-icon-wrapper absolute'>
-                        <img src="/Icons/Spells/!UpgradeIcon.png"/>
-                    </div>
-                )}
-            </div>
-
-        </div>
-    )
-}
-
-export function IconWithSpinner({ src, className }) {
-    return (
-        <div className={className} style={{position: 'relative'}}>
-            <img className='no-spell-icon' src={src}/>
-            <div className='no-spell-spinner'></div>
-        </div>
-    )
-}

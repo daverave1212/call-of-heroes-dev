@@ -190,7 +190,7 @@ export default function MonsterAbility({monster, monsterXP, ability, isPassive, 
         isPassive === true?
             abilityBody:
         {...{A: '1 Action'}, ...abilityBody}
-    const validSpellTopTags = U.filterObject(spellTopTags, ({ key, value }) => VALID_SPELL_TOP_STATS.includes(key))
+    const validSpellTopTags = U.getSpellValidTopStatsObject(spellTopTags)
     const hasTopTags = Object.keys(validSpellTopTags).length > 0
 
     console.log({

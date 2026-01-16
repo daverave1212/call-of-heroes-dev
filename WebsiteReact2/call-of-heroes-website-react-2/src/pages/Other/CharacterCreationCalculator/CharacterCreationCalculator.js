@@ -7,7 +7,7 @@ import Column from "../../../components/TwoColumns/Column";
 import Spoiler from "../../../components/Spoiler/Spoiler";
 
 import './CharacterCreationCalculator.css'
-import { IconWithSpinner, SpellTopIconSide } from "../../../components/Spell/Spell";
+import { SpellTopIconSide } from "../../../components/Spell/Spell";
 import { CoolButton } from "../../../components/CoolButton/CoolButton";
 import HeroButton from "../../../components/HeroButton/HeroButton";
 import useConstWindowDimensions, { generateUniqueId, getAllClasses, getAllRaces, getClassRepresentativeIconName, getSpellIconPathByName, splitArrayEvenly, uncapitalizeFirstLetter, useLocalStorageState } from "../../../utils";

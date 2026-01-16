@@ -5,7 +5,7 @@ import Separator from './../Separator/Separator'
 import React, { useEffect, useState } from 'react'
 import Icon from '../Icon'
 import { insertBetweenAll, ifOk, stringReplaceAllMany, mapObject, parseTextWithSymbols, getUniqueSpellID, normalizeForEachVariantsToNormalVariants, spellsFromObject, findBasicSpellByName, getSpellIconPathByName, getItemIconPathByName, allEqual } from '../../utils'
-import Spell, { SpellBackground, SpellBorder, SpellTop } from './Spell'
+import Spell, { SpellTop } from './Spell'
 import html2canvas from 'html2canvas'
 import CopySpellButton from '../CopyButton/CopySpellButton'
 import classNames from 'classnames'
@@ -109,9 +109,9 @@ export default function Item({ item, style, hasIcon, hasCopyButton=true, showTop
 
     return (
         <div id={uniqueID} className={classNames('spell', {'spell--with-variants': hasVariants === true})}>
-            <SpellBorder/>
-            <SpellBackground/>
-            <div className='spell__box'> {/* This has CSS to be perfectly in the bounds of the borders and banner */}
+            <div className="spell-border"></div>
+            <div className='spell-background'></div>
+            <div className='content'> {/* This has CSS to be perfectly in the bounds of the borders and banner */}
                 
                 <SpellTop
                     hasVariants={hasVariants} Variants={Variants} variantIndex={variantIndex}

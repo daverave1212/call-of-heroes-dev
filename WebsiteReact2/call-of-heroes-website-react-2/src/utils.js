@@ -8,6 +8,7 @@ import weapons from './databases/Weapons.json'
 import armors from './databases/Armors.json'
 import skills from './databases/Proficiencies.json'
 import abilities from './databases/Abilities.json'
+import magicItems from './databases/Other/MagicItems.json'
 import overallData from './databases/OverallData.json'
 import { Races, Classes, ClassesBase, ClassesPremium, ClassesLegacy } from './pages/Other/AllRacesAndClasses'
 import { useEffect, useState } from "react"
@@ -17,9 +18,12 @@ import Feats from './databases/Feats.json'
 import ClassAndRaceAbilities from './databases/ClassAndRaceAbilities.json'
 import { getChoiceAbilitiesObjects, setChoiceAbilitiesObjects } from "./pages/Other/CharacterCreationCalculator/CharacterData"
 import { STAT_LIMITS_TEXT, STAT_SYMBOLS } from "./services/game-lib/stat-calculations"
+import { VALID_SPELL_TOP_STATS } from "./components/Spell/Spell"
 
 // ---------------- Spells Utilities ----------------
-
+export function getSpellValidTopStatsObject(spell) {
+    return filterObject(spell, ({ key, value }) => VALID_SPELL_TOP_STATS.includes(key) && value != null)
+}
 export function findBasicSpellByName(basicAbilityName) {
     for (let categoryName of Object.keys(abilities)) {
         const category = abilities[categoryName]
@@ -179,13 +183,35 @@ export function getAllArmorsByName() {
     }
     return allArmorsCached
 }
+let magicItemsCached = null
+export function getAllMagicItemsByName() {
+    if (magicItemsCached != null) {
+        return magicItemsCached
+    }
+    magicItemsCached = {}
+
+    for (const category of Object.keys(magicItems)) {
+        if (category == 'TODO') {
+            continue
+        }
+        const itemsHere = magicItems[category].Items
+        magicItemsCached = {...magicItemsCached, ...itemsHere}
+    }
+    return magicItemsCached
+}
 
 export function getSpellIconPathByName(name) {
+    if (name == null) {
+        return null
+    }
     const iconName = getUniqueSpellID(name)
     const iconPath = `/Icons/Spells/${iconName}.png`
     return iconPath
 }
 export function getItemIconPathByName(name) {
+    if (name == null) {
+        return null
+    }
     const iconName = getUniqueSpellID(name)
     const iconPath = `/Icons/Items/${iconName}.png`
     return iconPath
@@ -688,7 +714,6 @@ export function getSpecRepresentativeIconFullPath(classObj, specName) {
     const spellName = removeTildes(firstSpellName)
     return getSpellIconPathByName(spellName)
 }
-
 export function getAlMyRaceAndClassSpells({ raceName, className, specName, selectedClassSpellNames=[], selectedRaceSpellNames=[] }) {
     const allSpells = getAllSpellsByName()
 
@@ -716,6 +741,34 @@ export function hasClassMana(className) {
     const classObj = getAllClasses()[className]
     const hasMana = classObj.Spellcasting.Type.toLowerCase().includes('mana')
     return hasMana
+}
+export function getDoubleTableNumberedTable(DoubleTableNumbered) {
+    const tableHeaders = DoubleTableNumbered.Headers
+    const newTableValuePairs = []
+    const values = DoubleTableNumbered.Values
+    for (let i = 0; i < values.length; i++) {
+        if (i % 2 == 1) {
+            newTableValuePairs.push({
+                value1: `${i}. ${values[i-1]}`,
+                value2: `${i+1}. ${values[i]}`
+            })
+        }
+    }
+    return [tableHeaders, newTableValuePairs]
+}
+export function getDoubleTableTable(DoubleTable) {
+    const tableHeaders = DoubleTable.Headers
+    const newTableValuePairs = []
+    const values = DoubleTable.Values
+    for (let i = 0; i < values.length; i++) {
+        if (i % 2 == 1) {
+            newTableValuePairs.push({
+                value1: values[i-1],
+                value2: values[i]
+            })
+        }
+    }
+    return [tableHeaders, newTableValuePairs]
 }
 
 
@@ -1599,7 +1652,7 @@ export function isFunction(obj) {
 }
 window.isFunction = isFunction
 export function isString(obj) {
-    return typeof obj === 'string' || obj instanceof String;
+    return obj != null && typeof obj === 'string' || obj instanceof String;
 }
 window.isString = isString
 export function isNumber(obj) {
