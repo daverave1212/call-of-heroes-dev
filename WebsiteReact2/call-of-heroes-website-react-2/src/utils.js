@@ -1906,7 +1906,88 @@ export function getDOMNodeAttributes(node) {
 export function printToPDF() {
     window.print()
 }
+export function getISOWeekNumber(date = new Date()) {
+  const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
 
+  // 0=Sun..6=Sat -> convert so Mon=0..Sun=6
+  const dayNum = (d.getUTCDay() + 6) % 7;
+
+  // move to Thursday of this week
+  d.setUTCDate(d.getUTCDate() - dayNum + 3);
+
+  // Jan 4 is always in week 1
+  const jan4 = new Date(Date.UTC(d.getUTCFullYear(), 0, 4));
+
+  const diffDays = (d - jan4) / 86400000;
+  return 1 + Math.floor(diffDays / 7);
+}
+export const MONDAY = 1
+export const TUESDAY = 2
+export const WEDNESDAY = 3
+export const THURSDAY = 4
+export const FRIDAY = 5
+export const SATURDAY = 6
+export const SUNDAY = 7
+export function getDaysSinceLast(dayOfTheWeek) {
+  const date = new Date()
+  const today = date.getDay();      // 0=Sun..6=Sat
+  return (today - dayOfTheWeek + 7) % 7;
+}
+export class SeededRNG {
+  constructor(seedStr) {
+    this._seedGen = this._xmur3(String(seedStr));
+    this._rand = this._mulberry32(this._seedGen());
+  }
+
+  // float in [0, 1)
+  next() {
+    return this._rand();
+  }
+
+  // int in [min, max] (inclusive)
+  int(min, max) {
+    if (!Number.isFinite(min) || !Number.isFinite(max)) {
+      throw new Error("min and max must be finite numbers");
+    }
+    if (max < min) [min, max] = [max, min];
+    return Math.floor(this.next() * (max - min + 1)) + min;
+  }
+
+  // chancePercent: <=0 => false, >=100 => true
+  percentChance(chancePercent) {
+    if (!Number.isFinite(chancePercent)) {
+      throw new Error("chancePercent must be a finite number");
+    }
+    if (chancePercent <= 0) return false;
+    if (chancePercent >= 100) return true;
+
+    return this.next() < chancePercent / 100;
+  }
+
+  // ---- internals ----
+  _xmur3(str) {
+    let h = 1779033703 ^ str.length;
+    for (let i = 0; i < str.length; i++) {
+      h = Math.imul(h ^ str.charCodeAt(i), 3432918353);
+      h = (h << 13) | (h >>> 19);
+    }
+    return () => {
+      h = Math.imul(h ^ (h >>> 16), 2246822507);
+      h = Math.imul(h ^ (h >>> 13), 3266489909);
+      h ^= h >>> 16;
+      return h >>> 0;
+    };
+  }
+
+  _mulberry32(seed) {
+    return () => {
+      let t = (seed += 0x6d2b79f5);
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+}
 
 
 // ---------------- React Small Utilities ----------------
@@ -2335,3 +2416,9 @@ export function filterArrayBySearch(arr, getElemBio, searchText) {
     })
 }
 window.filterArrayBySearch = filterArrayBySearch
+
+
+
+
+
+

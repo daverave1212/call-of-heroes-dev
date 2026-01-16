@@ -2,7 +2,7 @@ import { useState } from "react";
 import PageH1 from "../../components/PageH1/PageH1";
 import Page from "../../containers/Page/Page";
 import { QGTitle1 } from "./TitleGenerator";
-import { filterObject, getAllMagicItemsByName, getNumberFromString, mapObject, percentChance, spellsFromObject } from "../../utils";
+import { filterObject, getAllMagicItemsByName, getDaysSinceLast, getISOWeekNumber, getNumberFromString, isNumber, mapObject, percentChance, SeededRNG, spellsFromObject, WEDNESDAY } from "../../utils";
 import TwoColumns from "../../components/TwoColumns/TwoColumns";
 import Column from "../../components/TwoColumns/Column";
 import { PriceTable } from "../Other/Prices";
@@ -41,13 +41,14 @@ const PRODUCT_DIVERSITY_TO_CHANCE_FOR_ITEM = {
     4: 100,
     5: 100
 }
-const PRODUCT_DIVERSITY_TO_NORMAL_ITEM_BUDGET = {
+const PRODUCT_DIVERSITY_TO_NORMAL_ITEM_MAX_PRICE = {
     1: 250,
     2: 500,
     3: 1000,
     4: 99999,
     5: 999999
 }
+const getItemPrice = item => item?.Price ?? item
 
 const magicItemsArray = spellsFromObject(getAllMagicItemsByName())
 
@@ -69,20 +70,29 @@ export default function MerchantGenerator({}) {
 
         return { productDiversity, merchant, type, name}
     }
-    function getNormalItemsIHaveByCategory(merchant, productDiversity) {
+    function getNormalItemsIHaveByCategory(merchant, productDiversity, rng) {
         const possibleCategoriesWithItems = filterObject(prices, ({ key, value }) => (merchant.itemCategories.includes(key)))
         const chanceToHaveItem = PRODUCT_DIVERSITY_TO_CHANCE_FOR_ITEM[productDiversity]
+        const maxPrice = PRODUCT_DIVERSITY_TO_NORMAL_ITEM_MAX_PRICE[productDiversity]
         const allNormalItemsIHaveByCategory = mapObject(possibleCategoriesWithItems, ({ key, value }) => ({ key, value:
-            filterObject(value, () => percentChance(chanceToHaveItem))
+            filterObject(value, ({ key, value }) => rng.percentChance(chanceToHaveItem) && getItemPrice(value) < maxPrice)
         }))
         console.log({possibleCategoriesWithItems, chanceToHaveItem, allNormalItemsIHaveByCategory})
         return allNormalItemsIHaveByCategory
     }
+    function getRNGSeed(name) {
+        const now = new Date()
+        const year = now.getFullYear()
+        const month = now.getMonth() + 1
+        const weekNumber = getISOWeekNumber()
+        return name + year + month + weekNumber
+    }
 
     const { merchant, type, name, productDiversity } = getMerchantFromCode(merchantCode)
-    console.log({ merchant, type, name, productDiversity })
-    const allNormalItemsIHaveByCategory = merchant == null? null: getNormalItemsIHaveByCategory(merchant, productDiversity)
+    const rng = new SeededRNG(getRNGSeed(name))
+    const allNormalItemsIHaveByCategory = merchant == null? null: getNormalItemsIHaveByCategory(merchant, productDiversity, rng)
     
+    const daysSinceLastWednesday = getDaysSinceLast(WEDNESDAY)
     
 
 
