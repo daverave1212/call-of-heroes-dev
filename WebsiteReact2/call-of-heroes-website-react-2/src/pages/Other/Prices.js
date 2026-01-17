@@ -56,22 +56,21 @@ function Tr({name, effect, price}) {
         </tr>
     )
 }
-
-export function PriceTable({categoryName, itemsObject}) {
-    itemsObject = itemsObject ?? prices[categoryName]
-    if (itemsObject == null) {
-        console.log({itemsObject})
-        console.log(`NOT FOUND: item category ${categoryName}. itemsObject printed.`)
-        return (<p></p>)
+export const getItemPrice = item => item?.Price ?? item
+export function normalizeItemsObject(items) {
+    return U.mapObject(items, ({ key, value }) => ({ key, value: (
+        value.Price != null? value: { Price: value }
+    )}))
+}
+export function PriceTable({title, items}) {    
+    if (items == null) {
+        return (<p>ERROR: No items given to PriceTable.</p>)
     }
+
     return (
-        <TableNormal type="info-reverse" columns={[categoryName, 'Price']} tableWrapperClass='table-normal-wrapper--non-alternating'>
-            { Object.keys(itemsObject).map(name => (
-                typeof itemsObject[name] != 'object' ? (
-                    <Tr name={name} price={itemsObject[name]} key={name}/>
-                ) : (
-                    <Tr name={name} price={itemsObject[name].Price} effect={itemsObject[name].Effect} key={name}/>
-                )
+        <TableNormal type="info-reverse" columns={[title, 'Price']} tableWrapperClass='table-normal-wrapper--non-alternating'>
+            { items.map(({ Name, Price, Effect }) => (
+                <Tr name={Name} price={Price} effect={Effect} key={Name}/>
             )) }
         </TableNormal>
     )
@@ -79,29 +78,35 @@ export function PriceTable({categoryName, itemsObject}) {
 
 export default function Prices({ hasNoMargins, onClick, shouldPlayAnimationOnClick=false }) {
 
+    const allItems = Object.values(U.getAllPricesByName())
+
+    function CategoryPriceTable({ categoryName }) {
+        return <PriceTable title={categoryName} items={allItems.filter(item => item.Category == categoryName)}/>
+    }
+
     return (
         <Page title="Prices" hasNoMargins={hasNoMargins}>
             <TwoColumns>
                 <Column>
-                    <PriceTable categoryName="Weapons and Equipment"/>
-                    <PriceTable categoryName="Crafting"/>
-                    <PriceTable categoryName="Magic and Religion"/>
-                    <PriceTable categoryName="Potions and Poisons"/>
-                    <PriceTable categoryName="Instruments"/>
-                    <PriceTable categoryName="Mounts"/>
-                    <PriceTable categoryName="Exotic Mounts"/>
-                    <PriceTable categoryName="Boats"/>
-                    <PriceTable categoryName="Magic Items"/>
+                    <CategoryPriceTable categoryName="Weapons and Equipment"/>
+                    <CategoryPriceTable categoryName="Crafting"/>
+                    <CategoryPriceTable categoryName="Magic and Religion"/>
+                    <CategoryPriceTable categoryName="Potions and Poisons"/>
+                    <CategoryPriceTable categoryName="Instruments"/>
+                    <CategoryPriceTable categoryName="Mounts"/>
+                    <CategoryPriceTable categoryName="Exotic Mounts"/>
+                    <CategoryPriceTable categoryName="Boats"/>
+                    <CategoryPriceTable categoryName="Magic Items"/>
                 </Column>
                 <Column>
-                    <PriceTable categoryName="Adventuring Gear"/>
-                    <PriceTable categoryName="General Goods"/>
-                    <PriceTable categoryName="Services"/>
-                    <PriceTable categoryName="Metals (Per 100grams)"/>
-                    <PriceTable categoryName="Tools"/>
-                    <PriceTable categoryName="Other Items"/>
-                    <PriceTable categoryName="Vehicles"/>
-                    <PriceTable categoryName="Houses"/>
+                    <CategoryPriceTable categoryName="Adventuring Gear"/>
+                    <CategoryPriceTable categoryName="General Goods"/>
+                    <CategoryPriceTable categoryName="Services"/>
+                    <CategoryPriceTable categoryName="Metals (Per 100grams)"/>
+                    <CategoryPriceTable categoryName="Tools"/>
+                    <CategoryPriceTable categoryName="Other Items"/>
+                    <CategoryPriceTable categoryName="Vehicles"/>
+                    <CategoryPriceTable categoryName="Houses"/>
                 </Column>
             </TwoColumns>
         </Page>

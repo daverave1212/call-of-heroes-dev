@@ -2,10 +2,10 @@ import { useState } from "react";
 import PageH1 from "../../components/PageH1/PageH1";
 import Page from "../../containers/Page/Page";
 import { QGTitle1 } from "./TitleGenerator";
-import { filterObject, getAllMagicItemsByName, getDaysSinceLast, getISOWeekNumber, getNumberFromString, isNumber, mapObject, percentChance, SeededRNG, spellsFromObject, WEDNESDAY } from "../../utils";
+import { filterObject, flattenObjectOnce, getAllMagicItemsByName, getAllPricesByName, getDaysSinceLast, getISOWeekNumber, getNumberFromString, groupBy, isNumber, mapObject, mapObjectToArray, percentChance, SeededRNG, spellsFromObject, WEDNESDAY } from "../../utils";
 import TwoColumns from "../../components/TwoColumns/TwoColumns";
 import Column from "../../components/TwoColumns/Column";
-import { PriceTable } from "../Other/Prices";
+import { getItemPrice, PriceTable } from "../Other/Prices";
 import prices from './../../databases/Prices.json'
 
 const MERCHANT_TYPE_LETTER_MAP = {
@@ -48,8 +48,7 @@ const PRODUCT_DIVERSITY_TO_NORMAL_ITEM_MAX_PRICE = {
     4: 99999,
     5: 999999
 }
-const getItemPrice = item => item?.Price ?? item
-
+const ITEM_OUT_OF_STOCK_CHANCE_PER_DAY = 0  // 3%
 const magicItemsArray = spellsFromObject(getAllMagicItemsByName())
 
 export default function MerchantGenerator({}) {
@@ -70,15 +69,18 @@ export default function MerchantGenerator({}) {
 
         return { productDiversity, merchant, type, name}
     }
-    function getNormalItemsIHaveByCategory(merchant, productDiversity, rng) {
-        const possibleCategoriesWithItems = filterObject(prices, ({ key, value }) => (merchant.itemCategories.includes(key)))
+    function getNormalItemsICanHaveAsArray(merchant) {
+        const allNormalItemsArray = Object.values(getAllPricesByName())
+        const possibleItems = allNormalItemsArray.filter(item => merchant.itemCategories.includes(item.Category))
+        return possibleItems
+    }
+    function getNormalItemsIHaveAsArray(merchant, productDiversity, rng) {
+        const possibleItems = getNormalItemsICanHaveAsArray(merchant)
         const chanceToHaveItem = PRODUCT_DIVERSITY_TO_CHANCE_FOR_ITEM[productDiversity]
         const maxPrice = PRODUCT_DIVERSITY_TO_NORMAL_ITEM_MAX_PRICE[productDiversity]
-        const allNormalItemsIHaveByCategory = mapObject(possibleCategoriesWithItems, ({ key, value }) => ({ key, value:
-            filterObject(value, ({ key, value }) => rng.percentChance(chanceToHaveItem) && getItemPrice(value) < maxPrice)
-        }))
-        console.log({possibleCategoriesWithItems, chanceToHaveItem, allNormalItemsIHaveByCategory})
-        return allNormalItemsIHaveByCategory
+
+        const allNormalItemsIHave = possibleItems.filter(item => rng.percentChance(chanceToHaveItem) && getItemPrice(item) <= maxPrice)
+        return allNormalItemsIHave
     }
     function getRNGSeed(name) {
         const now = new Date()
@@ -87,19 +89,32 @@ export default function MerchantGenerator({}) {
         const weekNumber = getISOWeekNumber()
         return name + year + month + weekNumber
     }
-
-    const { merchant, type, name, productDiversity } = getMerchantFromCode(merchantCode)
-    const rng = new SeededRNG(getRNGSeed(name))
-    const allNormalItemsIHaveByCategory = merchant == null? null: getNormalItemsIHaveByCategory(merchant, productDiversity, rng)
-    
-    const daysSinceLastWednesday = getDaysSinceLast(WEDNESDAY)
-    
-
-
-
-    function seeMerchant() {
-
+    function makeItemsOutOfStock(itemsArray, daysSinceLastWednesday, rng) {
+        for (let i = 1; i <= daysSinceLastWednesday; i++) {
+            itemsArray = itemsArray.filter(() => rng.percentChance(100 - ITEM_OUT_OF_STOCK_CHANCE_PER_DAY))
+        }
+        return itemsArray
     }
+
+    function getShop() {
+        const { merchant, type, name, productDiversity } = getMerchantFromCode(merchantCode)
+        
+        if (merchant == null) {
+            return {}
+        }
+        
+        const rng = new SeededRNG(getRNGSeed(name))
+        const daysSinceLastWednesday = getDaysSinceLast(WEDNESDAY)
+        const allNormalItemsIHave = getNormalItemsIHaveAsArray(merchant, productDiversity, rng)
+        const itemsAvailableFinal = makeItemsOutOfStock(allNormalItemsIHave, daysSinceLastWednesday, rng)
+        const itemsAvailableByCategory = groupBy(itemsAvailableFinal, obj => obj.Category)
+        return itemsAvailableByCategory
+    }
+    function seeMerchant() {}
+
+    const allMyItemsByCategory = getShop()
+    
+    
 
     return <Page>
         <div className="center-content gap-1">
@@ -110,8 +125,8 @@ export default function MerchantGenerator({}) {
 
         <TwoColumns>
             <Column>
-                { merchant && Object.keys(allNormalItemsIHaveByCategory).map(categoryName => (
-                    <PriceTable categoryName={categoryName} itemsObject={allNormalItemsIHaveByCategory[categoryName]}/>
+                { allMyItemsByCategory && Object.keys(allMyItemsByCategory).map(categoryName => (
+                    <PriceTable categoryName={categoryName} itemsArray={allMyItemsByCategory[categoryName]}/>
                 )) }
             </Column>
             <Column>

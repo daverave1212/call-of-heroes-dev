@@ -8,6 +8,7 @@ import weapons from './databases/Weapons.json'
 import armors from './databases/Armors.json'
 import skills from './databases/Proficiencies.json'
 import abilities from './databases/Abilities.json'
+import prices from './databases/Prices.json'
 import magicItems from './databases/Other/MagicItems.json'
 import overallData from './databases/OverallData.json'
 import { Races, Classes, ClassesBase, ClassesPremium, ClassesLegacy } from './pages/Other/AllRacesAndClasses'
@@ -198,6 +199,36 @@ export function getAllMagicItemsByName() {
         magicItemsCached = {...magicItemsCached, ...itemsHere}
     }
     return magicItemsCached
+}
+export const normalizeItemPrice = (name, value) => isObject(value)? {...value, Name: name}: { Name: name, Price: value }
+export const normalizeItemPricesInCategory = (category) => mapObject(category, ({key, value}) => ({key, value: normalizeItemPrice() }))
+let pricesCached = null
+export function getAllPricesByName() {
+    if (pricesCached != null) {
+        return pricesCached
+    }
+    pricesCached = {}
+    for (const [categoryName, category] of Object.entries(prices)) {
+        if (categoryName == 'TODO') {
+            continue
+        }
+        for (const [itemName, itemOrPrice] of Object.entries(category)) {
+            pricesCached[itemName] =
+                isObject(itemOrPrice)?
+                    {
+                        Name: itemName,
+                        Category: categoryName,
+                        ...itemOrPrice,
+                    }
+                :
+                    {
+                        Name: itemName,
+                        Category: categoryName,
+                        Price: itemOrPrice
+                    }
+        }
+    }
+    return pricesCached
 }
 
 export function getSpellIconPathByName(name) {
@@ -972,6 +1003,20 @@ export function mergeManyObjects(objects) {
     }
     return soFar
 }
+export function flattenObjectOnce(obj, parentKey = "parentKey") {
+
+    let newObj = {}
+    for (const [categoryName, categoryObject] of Object.entries(obj)) {
+        const newCategoryObject = mapObject(categoryObject, ({ key, value }) => ({ key, value: {...value, [parentKey]: categoryName}}))
+        newObj = {...newObj, ...newCategoryObject}
+    }
+
+    return newObj
+
+
+  const out = {};
+}
+window.flattenObjectOnce = flattenObjectOnce
 export function addManyObjects(arr) {
     if (arr.length == 0) {
         return {}
@@ -1003,17 +1048,17 @@ export function mapObjectToArray(obj, func) {
     return Object.keys(obj).map(key => func(key, obj[key]))
 }
 export function groupBy(arr, hashFunc) {
-    const hashKeyArrayElemValuePairs = {}
+    const hashKey_ArrayValue_Pairs = {}
     for (const elem of arr) {
         const elemHash = hashFunc(elem)
         if (elemHash == null)
             continue
-        if (hashKeyArrayElemValuePairs[elemHash] == null) {
-            hashKeyArrayElemValuePairs[elemHash] = []
+        if (hashKey_ArrayValue_Pairs[elemHash] == null) {
+            hashKey_ArrayValue_Pairs[elemHash] = []
         }
-        hashKeyArrayElemValuePairs[elemHash].push(elem)
+        hashKey_ArrayValue_Pairs[elemHash].push(elem)
     }
-    return hashKeyArrayElemValuePairs
+    return hashKey_ArrayValue_Pairs
 }
 export function addArrays(a, b, c=null) {
     const newArr = [...a]
@@ -1644,7 +1689,7 @@ export function equalsNaN(x) {
 }
 window.equalsNaN = equalsNaN
 export function isObject(obj) {
-    return typeof obj === 'object' && !Array.isArray(obj)
+    return typeof obj === 'object' && !Array.isArray(obj) && !isString(obj)
 }
 window.isObject = isObject
 export function isFunction(obj) {
