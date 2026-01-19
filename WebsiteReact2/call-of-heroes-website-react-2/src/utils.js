@@ -20,8 +20,74 @@ import ClassAndRaceAbilities from './databases/ClassAndRaceAbilities.json'
 import { getChoiceAbilitiesObjects, setChoiceAbilitiesObjects } from "./pages/Other/CharacterCreationCalculator/CharacterData"
 import { STAT_LIMITS_TEXT, STAT_SYMBOLS } from "./services/game-lib/stat-calculations"
 import { VALID_SPELL_TOP_STATS } from "./components/Spell/Spell"
+import QuestGuardConfig from './QuestGuardConfig.json'
 
 // ---------------- Spells Utilities ----------------
+const SPELL_PROPS_TO_PARSE = [
+    'DisplayName',
+    'Effect', 'EffectGreen', 'Downside', 'Upgrade', 'Combo', 'Notes'
+]
+export function parseAndNormalizeSpell(spell, options={
+    isItem: false,
+    variantIndex: 0
+}) {
+
+    const { isItem=false, variantIndex=0 } = options
+    const spellModified = {...spell}
+    
+    // Normalize Name
+    spellModified.Name = getNormalizedSpellName(spell)
+    console.log({spell})
+    console.log(`Parsing and normalizing spell: ${spellModified.Name}`)
+    spellModified.IconPath = getSpellOrItemIconPath(spell, isItem)
+
+    // Fix Effect
+    if (QuestGuardConfig.isActionPointsMappingEnabled && spell.Effect != null) {
+        spellModified.Effect = stringReplaceAllMany(spell.Effect, Object.keys(QuestGuardConfig.actionPointsMapping), Object.keys(QuestGuardConfig.actionPointsMapping).map(key => QuestGuardConfig.actionPointsMapping[key]))
+    }
+
+    // Setup variants
+    let extraMixins = {}
+    if (spell.VariantsForEach != null) {
+        spellModified.Variants = normalizeForEachVariantsToNormalVariants(spell.VariantsForEach)
+    }
+    if (spellModified.Variants != null && spellModified.Variants.length > 0) {
+        const currentVariant = spellModified.Variants[variantIndex]
+        extraMixins = mapObject(currentVariant, ({key, value}) => ({
+            key: key,
+            value: { tag: 'span', text: value }
+        }))
+        spellModified.IconPath = currentVariant.IconName == null? spellModified.IconPath: getSpellIconPathByName(currentVariant.IconName)
+        spellModified.A = currentVariant.DisplayA ?? spell.A
+    }
+
+    // Parse all mixins, including variants
+    if (spell.HasMixins === true || hasSpellVariants(spell)) {
+        for (const propName of SPELL_PROPS_TO_PARSE) {
+            if (spell[propName] != null) {
+                try {
+                    spellModified[propName] = parseTextWithSymbols(spell[propName], extraMixins)
+                } catch (e) {
+                    console.log({spell, options})
+                    throw `Error in Spell ${spellModified.Name} at prop ${propName} parsing text: ${spell[propName]}. Spell printed above. Error: ${e}`
+                }
+            }
+        }
+    }
+
+    spellModified.IsAlreadyParsed = true
+    return spellModified
+}
+export function normalizeForEachVariantsToNormalVariants(VariantsForEach) {
+    let allVariants = []
+    for (let variant of VariantsForEach) {
+        const [mixinName, collectionName] = variant.ForEach.split(':')
+        const collection = getVariantsForEachCollection(collectionName)
+        const subvariants = collection.map(str => ({...variant, [mixinName]: str}))
+        allVariants = [...allVariants, ...subvariants]
+    }
+    return allVariants
+}
 export function getSpellValidTopStatsObject(spell) {
     return filterObject(spell, ({ key, value }) => VALID_SPELL_TOP_STATS.includes(key) && value != null)
 }
@@ -200,6 +266,16 @@ export function getAllMagicItemsByName() {
     }
     return magicItemsCached
 }
+let magicItemsArrayCached = null
+export function getAllMagicItemsAsArray() {
+    if (magicItemsArrayCached != null) {
+        return magicItemsArrayCached
+    }
+    magicItemsArrayCached = objectToArray(getAllMagicItemsByName(), "Name")
+    return magicItemsArrayCached
+}
+window.getAllMagicItemsByName = getAllMagicItemsByName
+window.getAllMagicItemsAsArray = getAllMagicItemsAsArray
 export const normalizeItemPrice = (name, value) => isObject(value)? {...value, Name: name}: { Name: name, Price: value }
 export const normalizeItemPricesInCategory = (category) => mapObject(category, ({key, value}) => ({key, value: normalizeItemPrice() }))
 let pricesCached = null
@@ -230,7 +306,10 @@ export function getAllPricesByName() {
     }
     return pricesCached
 }
-
+export function getNormalizedSpellName(spell) {
+    const name = removeTildes(isString(spell.Name)? spell.Name: 'Default')
+    return name
+}
 export function getSpellIconPathByName(name) {
     if (name == null) {
         return null
@@ -245,6 +324,19 @@ export function getItemIconPathByName(name) {
     }
     const iconName = getUniqueSpellID(name)
     const iconPath = `/Icons/Items/${iconName}.png`
+    return iconPath
+}
+export function getSpellOrItemIconPath(spellOrItem, isItem=false) {
+    const { CustomIconPath, IconName } = spellOrItem
+    const Name = getNormalizedSpellName(spellOrItem)
+    const iconPath =
+        CustomIconPath != null?
+            CustomIconPath:
+        IconName != null?
+            getSpellIconPathByName(IconName):
+        isItem == true?
+            getItemIconPathByName(Name):    
+        getSpellIconPathByName(Name)
     return iconPath
 }
 const STAT_ICON_PATHS = {
@@ -266,16 +358,6 @@ export function getStatIconPathByStatName(name) {
 export function getUniqueSpellID(name) {
     const idName = stringReplaceAllMany(name, [' ', '/', '%', '~', '<'], ['_', '_', '', '', ''])
     return idName
-}
-export function normalizeForEachVariantsToNormalVariants(VariantsForEach) {
-    let allVariants = []
-    for (let variant of VariantsForEach) {
-        const [mixinName, collectionName] = variant.ForEach.split(':')
-        const collection = getVariantsForEachCollection(collectionName)
-        const subvariants = collection.map(str => ({...variant, [mixinName]: str}))
-        allVariants = [...allVariants, ...subvariants]
-    }
-    return allVariants
 }
 export function getAlternativesAsArray(text) {
     if (text == null) {
@@ -390,7 +472,9 @@ export function isSpellUtilityTalent(spell) {
 export function isSpellKeystoneTalent(spell) {
     return isTalentTierNameKeystone(spell.ParentKey)
 }
-
+export function hasSpellVariants(spell) {
+    return spell?.Variants != null || spell?.VariantsForEach != null
+}
 
 
 
@@ -931,6 +1015,10 @@ export function mapKeysToObject(keys, func) {
     return obj
 }
 export function mapObject(obj, func) {
+    if (obj == null) {
+        console.log({func})
+        throw `Null obj given to mapObject with func printed above.`
+    }
     const keys = Object.keys(obj)
     let newObj = {}
     for (const oldKey of keys) {
@@ -1046,6 +1134,9 @@ export function objectToKVPArray(obj) {
 }
 export function mapObjectToArray(obj, func) {
     return Object.keys(obj).map(key => func(key, obj[key]))
+}
+export function objectToArray(obj, parentKey="parentKey") {
+    return Object.entries(obj).map(([key, value]) => ({...value, [parentKey]: key}))
 }
 export function groupBy(arr, hashFunc) {
     const hashKey_ArrayValue_Pairs = {}
@@ -1342,7 +1433,6 @@ export function normalizeSymbolConfigForPDF(config, defaultColorHex=null) {
 }
 
 // Returns an array of components, or an array of strings if { shouldReturnStringsOnly: true }
-// export function parseTextWithSymbols(text, customSymbols, options = {}) {
 export function parseTextWithSymbols(...argsOriginal) {
     const args = [...argsOriginal]
     const text = popFind(args, arg => isString(arg))
@@ -1355,7 +1445,12 @@ export function parseTextWithSymbols(...argsOriginal) {
         throw `Null text given to parseTextWithSymbols. Other params printed above`
     }
 
-    const {isDebug, shouldUseOnlyCustomSymbols, shouldReturnStringsOnly, shouldReturnConfigOnly} = options
+    const {
+        isDebug,
+        shouldUseOnlyCustomSymbols,
+        shouldReturnStringsOnly,
+        shouldReturnConfigOnly
+    } = options
 
     let symbolToInsertion = mapObject(SYMBOLS, ({ key, value }) => ({ key, value: formSymbolComponentFunc(SYMBOLS, key, shouldReturnStringsOnly, shouldReturnConfigOnly) }))
 
@@ -1561,6 +1656,19 @@ export function hexColorToRgb01(hex) {
     const r = parseInt(clean.slice(0, 2), 16) / 255;
     const g = parseInt(clean.slice(2, 4), 16) / 255;
     const b = parseInt(clean.slice(4, 6), 16) / 255;
+
+    return [r, g, b];
+}
+export function hexColorToRgbVector(hex) {
+    const clean = hex.replace(/^#/, "");
+
+    if (!/^[0-9a-fA-F]{6}$/.test(clean)) {
+        throw new Error(`Invalid hex color: ${hex}`);
+    }
+
+    const r = parseInt(clean.slice(0, 2), 16);
+    const g = parseInt(clean.slice(2, 4), 16);
+    const b = parseInt(clean.slice(4, 6), 16);
 
     return [r, g, b];
 }

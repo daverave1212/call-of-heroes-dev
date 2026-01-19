@@ -119,7 +119,9 @@ const NAV_CONFIG = [
       { name: 'Magic Items',              href: '/Other/MagicItems', lock: 'premium' },
     ]},
     { name: 'Tools', children: [
+      { name: 'Merchant Generator',             href: '/Tools/MerchantGenerator', lock: 'premium' },
       { name: 'Treasure Generator',             href: '/Tools/TreasureGenerator', lock: 'premium' },
+      { name: 'Magic Item Generator',           href: '/Tools/MagicItemGenerator', lock: 'premium' },
       { name: 'Custom Ability Creator',         href: '/Tools/CustomAbilityCreator', lock: 'premium' },
       { name: 'Custom Monster Creator',         href: '/Tools/CustomMonsterCreator', lock: 'premium' },
       { name: 'Rune Puzzle Maker',              href: '/Tools/RunePuzzle', lock: 'premium' },
@@ -368,21 +370,4 @@ export default function Nav() {
           </DrawerPage>
       </div>
     )
-
-
-
-
-
-
-    // function ActionPointsCheck() {
-    //   return (
-    //     <div>
-    //       <input type="checkbox" checked={getIsActionPointsSystem()} onChange={() => {
-    //         const newValue = !getIsActionPointsSystem()
-    //         console.log({newValue})
-    //         setIsActionPointsSystem(newValue)
-    //       }}/><label>Action Points?</label>
-    //     </div>
-    //   )
-    // }
   }

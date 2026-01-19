@@ -3,24 +3,18 @@ import './Spell.css'
 import PageH2 from './../PageH2/PageH2'
 import Separator from './../Separator/Separator'
 import React, { useEffect, useRef, useState } from 'react'
-import { parseTextWithSymbols, stringReplaceAllMany, getSpellIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll, getVariantsForEachCollection, normalizeForEachVariantsToNormalVariants, createKey, spellsFromObject, randomInt, assertCorrectSpellFormat, findBasicSpellByName, allEqual, getItemIconPathByName, removeTildes, isString, getDoubleTableTable, getDoubleTableNumberedTable, filterObject, getSpellValidTopStatsObject } from '../../utils'
+import { parseTextWithSymbols, stringReplaceAllMany, getSpellIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll, getVariantsForEachCollection, normalizeForEachVariantsToNormalVariants, createKey, spellsFromObject, randomInt, assertCorrectSpellFormat, findBasicSpellByName, allEqual, getItemIconPathByName, removeTildes, isString, getDoubleTableTable, getDoubleTableNumberedTable, filterObject, getSpellValidTopStatsObject, hasSpellVariants, getNormalizedSpellName, getSpellOrItemIconPath, parseAndNormalizeSpell, hexColorToRgbVector } from '../../utils'
 import TableNormal from '../TableNormal/TableNormal'
 import html2canvas from 'html2canvas'
 import CopySpellButton from '../CopyButton/CopySpellButton'
 import classNames from 'classnames'
 import { PetOrAnimalSpell } from '../../pages/Other/PetOrAnimal'
-import { getIsActionPointsSystem } from '../../global-state/GlobalState'
 import HeroButton from '../HeroButton/HeroButton'
 import Ribbon from '../Ribbon/Ribbon'
 import CoolButton from '../CoolButton/CoolButton'
 import Icon from '../Icon'
 import EffectTable from '../TableNormal/EffectTable'
-
-const ACTION_POINTS_MAPPING = {
-    '1 Action': '2 Action Points',
-    'Half-Action': '1 Action Point',
-    '0 Actions': '0 Action Points'
-}
+import QuestGuardConfig from '../../QuestGuardConfig.json'
 
 /*
     Spell Example
@@ -90,6 +84,7 @@ export default function Spell({
     showTopStats=true,
     
     isSelected=false,
+    canChangeVariant=true,
     onClick,
     buttonText,
     
@@ -100,7 +95,7 @@ export default function Spell({
         return <div>ERROR: null spell given to component Spell.</div>
     }
 
-    const baseVariantIndex = metadata?.variantIndex ?? 0
+    const baseVariantIndex = metadata?.variantIndex ?? spell.DefaultVariantIndex ?? 0
 
     const [variantIndex, setVariantIndex] = useState(baseVariantIndex)
     const [thiefRolledGoldAmount, setThiefRolledGoldAmount] = useState('Click here to roll 1000d100!')
@@ -108,33 +103,21 @@ export default function Spell({
     assertCorrectSpellFormat(spell)
 
     let {
-        Name,
-        DisplayName,
-
         CustomIconPath,
         IconName,
         IsSubspell,
         
-        A,
-        Upgrades,
-        Upgrade,
         Damage,
         
         HasMixins,
         
         PreEffectGreen,
-        Effect,
-        EffectGreen,
-        Combo,
         Description,
         Alternatives,
-        Notes,
-        Downside,
         
         DoubleTableNumbered,
         DoubleTable,
         SingleTable,
-        Variants,
         VariantsForEach,
         Monster,
         Subspells,
@@ -145,63 +128,57 @@ export default function Spell({
         Tags
     } = spell
 
-    if (getIsActionPointsSystem() && Effect != null) {
-        Effect = stringReplaceAllMany(Effect, Object.keys(ACTION_POINTS_MAPPING), Object.keys(ACTION_POINTS_MAPPING).map(key => ACTION_POINTS_MAPPING[key]))
-    }
-
-    const hasVariants = Variants != null || VariantsForEach != null
+    // let iconPath = getSpellOrItemIconPath(spell, isItem)
     
-    Name = isString(Name)? Name: 'Default'
-    Name = removeTildes(Name)
-    DisplayName = spell['Display Name'] ?? DisplayName
-    Upgrade = Upgrades ?? Upgrade
-
-
-    let iconPath =
-        CustomIconPath != null?
-            CustomIconPath:
-        IconName != null?
-            getSpellIconPathByName(IconName):
-        isItem == true?
-            getItemIconPathByName(Name):    
-        getSpellIconPathByName(Name)
     
+    // let extraMixins = {}
+    // if (VariantsForEach != null) {
+    //     Variants = normalizeForEachVariantsToNormalVariants(VariantsForEach)
+    // }
+    // if (Variants != null && Variants.length > 0) {
+    //     const currentVariant = Variants[variantIndex]
+    //     const variantMixinsCorrectlyFormatted = mapObject(currentVariant, ({key, value}) => ({
+    //         key: key,
+    //         value: { tag: 'span', text: value }
+    //     }))
+    //     extraMixins = variantMixinsCorrectlyFormatted
+    //     iconPath = currentVariant.IconName == null? iconPath: getSpellIconPathByName(currentVariant.IconName)
+    //     A = currentVariant.DisplayA ?? A
+    // }
+
+
+    // if (HasMixins === true || hasVariants === true) {
+    //     try {
+    //         if (Effect != null) Effect = parseTextWithSymbols(Effect, extraMixins)
+    //         if (EffectGreen != null) EffectGreen = parseTextWithSymbols(EffectGreen, extraMixins)
+    //         if (DisplayName != null) DisplayName = parseTextWithSymbols(DisplayName, extraMixins)
+    //         if (Downside != null) Downside = parseTextWithSymbols(Downside, extraMixins)
+    //         if (Upgrade != null) Upgrade = parseTextWithSymbols(Upgrade, extraMixins)
+    //         if (Combo != null) Combo = parseTextWithSymbols(Combo, extraMixins)
+    //         if (Notes != null) Notes = parseTextWithSymbols(Notes, extraMixins)
+    //     } catch (e) {
+    //         console.log({spell})
+    //         throw `Error in Spell ${Name} parsing text: ${e}. Spell printed above.`
+    //     }
+    // }
+
+    let {
+        Name, DisplayName, A, IconPath,
+        Effect, EffectGreen, Downside, Upgrade, Combo, Notes,
+        Variants
+    } = spell.IsAlreadyParsed? spell: parseAndNormalizeSpell(spell, {
+        isItem,
+        variantIndex
+    })
+
+    
+
+    const hasVariants = hasSpellVariants(spell)
     const uniqueID = getUniqueSpellID(Name)
     const subspell = SubspellName != null? findBasicSpellByName(SubspellName): null
     const hasButton = onClick != null
     const finalButtonText = buttonText ?? (isSelected? 'Unselect': 'Select')
     const hasEffectsOrMore = !allEqual([Effect, EffectGreen, Downside, Upgrade, Notes, Alternatives], null)
-    
-    let extraMixins = {}
-    if (hasVariants === true && VariantsForEach != null) {
-        Variants = normalizeForEachVariantsToNormalVariants(VariantsForEach)
-    }
-    if (hasVariants === true && Variants != null && Variants.length > 0) {
-        const currentVariant = Variants[variantIndex]
-        const variantMixinsCorrectlyFormatted = mapObject(currentVariant, ({key, value}) => ({
-            key: key,
-            value: { tag: 'span', text: value }
-        }))
-        extraMixins = variantMixinsCorrectlyFormatted
-        iconPath = currentVariant.IconName == null? iconPath: getSpellIconPathByName(currentVariant.IconName)
-        A = currentVariant.DisplayA ?? A
-    }
-
-
-    if (HasMixins === true || hasVariants === true) {
-        try {
-            if (Effect != null) Effect = parseTextWithSymbols(Effect, extraMixins)
-            if (EffectGreen != null) EffectGreen = parseTextWithSymbols(EffectGreen, extraMixins)
-            if (DisplayName != null) DisplayName = parseTextWithSymbols(DisplayName, extraMixins)
-            if (Downside != null) Downside = parseTextWithSymbols(Downside, extraMixins)
-            if (Upgrade != null) Upgrade = parseTextWithSymbols(Upgrade, extraMixins)
-            if (Combo != null) Combo = parseTextWithSymbols(Combo, extraMixins)
-            if (Notes != null) Notes = parseTextWithSymbols(Notes, extraMixins)
-        } catch (e) {
-            console.log({spell})
-            throw `Error in Spell ${Name} parsing text: ${e}. Spell printed above.`
-        }
-    }
 
     const [tableHeaders, newTableValuePairs] =
         DoubleTable != null?
@@ -240,8 +217,8 @@ export default function Spell({
 
             <div className='content'> {/* This has CSS to be perfectly in the bounds of the borders and banner */}
                 <SpellTop
-                    hasVariants={hasVariants} variantIndex={variantIndex} Variants={Variants}
-                    onIconClick={onIconClick} iconPath={iconPath} hasIcon={hasIcon}
+                    hasVariants={hasVariants && canChangeVariant} variantIndex={variantIndex} Variants={Variants}
+                    onIconClick={onIconClick} iconPath={IconPath} hasIcon={hasIcon}
                     DisplayName={DisplayName} Name={Name} showTopStats={showTopStats}
                     A={A} spell={spell}
                 />
@@ -368,6 +345,22 @@ export const VALID_SPELL_TOP_STATS = [
     'Hands', 'Stat', 'Special', 'Price', 'XP'
 ]
 
+export function getSpellTags(spell) {
+    const keywords = spell?.Tags ?? spell?.Tag
+    if (keywords == null) {
+        return []
+    }
+    if (Array.isArray(keywords)) {
+        return keywords
+    }
+    if (!isString(keywords)) {
+        console.log({spell})
+        console.error(`Error getting tag for spell printed above.`)
+        return ['Error']
+    }
+    return keywords.replaceAll(', ', ',').split(',')
+    
+}
 export function SpellTopStats({className, tags, keywords}) {
     const {A, DisplayA, Cost, Range, Cooldown, Duration, Requirement, DisplayRequirement, Replacement, Hands, Stat, Special, Price, XP, Name} = tags
     const validSpellTopTags = getSpellValidTopStatsObject(tags)
@@ -375,20 +368,13 @@ export function SpellTopStats({className, tags, keywords}) {
 
     let displayedA = DisplayA != null? DisplayA : A != null? A : null
 
-    if (getIsActionPointsSystem()) {
-        if (displayedA in ACTION_POINTS_MAPPING) {
-            displayedA = ACTION_POINTS_MAPPING[displayedA]
+    if (QuestGuardConfig.isActionPointsMappingEnabled) {
+        if (displayedA in QuestGuardConfig.actionPointsMapping) {
+            displayedA = QuestGuardConfig.actionPointsMapping[displayedA]
         }
     }
 
-    const parsedKeywords =
-        keywords == null?
-            []
-        :Array.isArray(keywords)?
-            keywords
-        :keywords.includes(',')?
-            keywords.replaceAll(', ', ',').split(',')
-        :[keywords]
+    const parsedKeywords = getSpellTags({ Tags: keywords })
 
     if (Name == 'Pot of Boiling') {
         console.log(`Here tis:`)
@@ -473,6 +459,8 @@ export function SpellTop({
 
     function SpellTopLeft() {
         const maxVariantIndex = hasVariants? Variants.length: null
+        const tintColors = spell.TintColor == null? []: hexColorToRgbVector(spell.TintColor)
+
         return (
             <div className={`left`}>
                     
@@ -486,7 +474,7 @@ export function SpellTop({
                     { hasVariants === true && (
                         <div className='variant-spinner'></div>
                     )}
-                    <div className='spell-img-wrapper' /* tinted-icon-wrapper */>
+                    <div className={`spell-img-wrapper ${spell.TintColor == null? '': 'tinted-icon-wrapper'}`} style={{'--tint-rgb': tintColors.join(' ')}}>
                         <img src={iconPath}/>  
                     </div>
                     { spell.HasUpgradeIcon === true && (

@@ -48,7 +48,7 @@ export default function Item({ item, style, hasIcon, hasCopyButton=true, showTop
         VariantsForEach,
         SubspellName
     } = item
-    let DisplayName = item['Display Name'] != null? item['Display Name'] : Name
+    let DisplayName = item.DisplayName ?? Name
 
     let hasVariants = Variants != null || VariantsForEach != null
 

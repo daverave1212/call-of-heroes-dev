@@ -151,7 +151,6 @@ function App() {
           <Route path="/Other/CustomAbilityCreator" element={ <CustomAbility/> }/>
           <Route path="/Other/CustomMonsterCreator" element={ <CustomMonster/> }/>
           <Route path="/Other/MagicItems" element={ <MagicItems/> }/>
-          <Route path="/Other/MagicItemGenerator" element={ <MagicItemCreator/> }/>
 
           <Route path="/Other/Abilities" element={ <Abilities/> }/>
           <Route path="/Other/MagicFonts" element={ <MagicFonts/> }/>
@@ -229,6 +228,7 @@ function App() {
           <Route path='ClassesV2/Wickan' element={<ClassPage theClass={V2Wickan}/>}/>
           <Route path='ClassesV2/Wizard' element={<ClassPage theClass={V2Wizard}/>}/>
 
+          <Route path="/Tools/MagicItemGenerator" element={ <MagicItemCreator/> }/>
           <Route path="/Tools/TreasureGenerator" element={ <TreasureGenerator/> }/>
           <Route path="/Tools/DungeonGenerator" element={ <DungeonGenerator/> }/>
           <Route path="/Tools/RunePuzzle" element={ <RunePuzzle/> }/>

@@ -62,7 +62,7 @@ export function normalizeItemsObject(items) {
         value.Price != null? value: { Price: value }
     )}))
 }
-export function PriceTable({title, items}) {    
+export function PriceTable({title, items, hasDescriptions=true}) {    
     if (items == null) {
         return (<p>ERROR: No items given to PriceTable.</p>)
     }
@@ -70,7 +70,7 @@ export function PriceTable({title, items}) {
     return (
         <TableNormal type="info-reverse" columns={[title, 'Price']} tableWrapperClass='table-normal-wrapper--non-alternating'>
             { items.map(({ Name, Price, Effect }) => (
-                <Tr name={Name} price={Price} effect={Effect} key={Name}/>
+                <Tr name={Name} price={Price} effect={hasDescriptions? Effect: null} key={Name}/>
             )) }
         </TableNormal>
     )

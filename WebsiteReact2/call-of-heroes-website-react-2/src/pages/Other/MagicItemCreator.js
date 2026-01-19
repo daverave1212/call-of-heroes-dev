@@ -1,4 +1,4 @@
-import { $SKILLS, capitalizeFirstLetter, filterObject, getAlternativesAsArray, includesAll, includesAny, joinObjectValues, last, mapKeysToObject, mapObject, mergeObjectsContainingArrays, onlyUniqueFilter, parseTextWithSymbols, percentChance, randomInt, randomOf, randomOfArrayWeighted, shuffle, spellsFromObject, stringReplaceAllMany } from "../../utils";
+import { $SKILLS, capitalizeFirstLetter, filterObject, getAlternativesAsArray, getItemIconPathByName, includesAll, includesAny, joinObjectValues, last, mapKeysToObject, mapObject, mergeObjectsContainingArrays, onlyUniqueFilter, parseTextWithSymbols, percentChance, randomInt, randomOf, randomOfArrayWeighted, shuffle, spellsFromObject, stringReplaceAllMany } from "../../utils";
 import MagicItemProperties from '../../databases/Other/MagicItemProperties.json'
 import Weapons from '../../databases/Weapons.json'
 import Armors from '../../databases/Armors.json'
@@ -1114,6 +1114,138 @@ function tryNameItem(item) {
     return randomName
 }
 
+function getItemTintColor(name) {
+    name = name.toLowerCase()
+
+    const colorsByKeywords = {
+        "#E0FFFF": [
+            "air",
+            "fly",
+            "flier",
+            "sky",
+            "falcon",
+            "cloud",
+            "wind",
+            "gust",
+            "cyclon",
+            "hurricane",
+            "storm",
+            "quartz",
+            "crystal",
+            "glass",
+            "marble",
+            "cotton",
+            "dream",
+            "weave",
+            "selenite",
+            "celestite",
+            "angelite"
+        ],
+        "#40E0D0": ["fae", "shock", "electric", "static", "lightning", "turquoise"],
+        "#48D1CC": ["necromancer", "wraith", "echo", "diemond"],
+        "#66CDAA": ["spect", "spirit", "soul", "mithril"],
+        "#6495ED": ["ice", "frost", "froz", "rime", "aquamarine"],
+        "#1E90FF": ["moon", "rune", "moonstone", "moonfire"],
+        "#4169E1": ["water", "river", "tide"],
+        "#0000FF": ["azure", "sapphire", "star sapphire"],
+        "#2ec4ff": ["magic", "arcane", "spell", "evoca", "wrath"],
+
+        "#2E8B57": ["thorn"],
+        "#7CFC00": [
+            "acid",
+            "mercurio",
+            "toxic",
+            "septic",
+            "ooze",
+            "slime",
+            "viper",
+            "nox",
+            "poison",
+            "peridot"
+        ],
+        "#00FF7F": [
+            "spring",
+            "nature",
+            "green",
+            "verdant",
+            "ivy",
+            "vine",
+            "malachite",
+            "aventurine",
+            "chrysoprase",
+            "chrysoberyl"
+        ],
+        "#00e700ff": ["emerald"],
+        "#2eff8c": ["jade"],
+
+        "#ffea73": ["star", "starlight"],
+
+        "#F0E68C": ["divine", "holy", "celest", "opal", "pearl"],
+        "#FFD700": [
+            "sun",
+            "retribu",
+            "dawn",
+            "daybreak",
+            "gold",
+            "sunstone",
+            "sunheart"
+        ],
+        "#FF8C00": ["autumn", "fall", "fiend", "topaz", "mystic topaz"],
+        "#FFA500": [
+            "fire",
+            "flame",
+            "burn",
+            "blaze",
+            "scorch",
+            "ember",
+            "sear",
+            "smoulder",
+            "warm",
+            "heat",
+            "amber",
+            "carnelian",
+            "citrine"
+        ],
+        "#A0522D": ["bark", "earth"],
+        "#D2B48C": ["wood", "sand", "desert", "dust", "bone", "skin"],
+        "#914d29": ["hide", "leather", "pelt"],
+        "#CE8946": ["bronze"],
+        "#B87333": ["copper"],
+        "#B5A642": ["brass"],
+
+        "#750851": ["velvet", "silk"],
+        "#ff2e9d": ["rose", "petal", "flower", "candy"],
+        "#DA70D6": ["elusive", "amethyst", "iolite"],
+        "#9932CC": ["royal", "alexandrite"],
+        "#800080": ["necro", "death", "unhol", "eldritch", "mortal"],
+
+        "#eb634b": ["fang", "claw", "jaw", "maw"],
+        "#DC143C": ["vampir", "crimson", "garnet", "bloodstone", "star ruby"],
+        "#FF0000": ["demon", "devil", "red", "ruby", "spinel"],
+        "#B22222": ["crimson"],
+
+        "#808080": ["tomb", "stone", "rock", "labradorite", "kyanite", "zircon"],
+        "#B0C4DE": ["steel", "plate", "platinum"],
+        "#BC8F8F": ["iron", "ash", "lead"],
+        "#290200": ["onyx", "black", "obsidian", "black diamond", "voidstone"],
+
+        "#FFFFFF": ["stoic", "snow", "white", "silver", "ivory", "diamond"],
+
+        "#7bff00": ["fluorite"],
+        "#8a2be2": ["aether"],
+        "#1a0b2e": ["void", "moonfire"]
+    }
+
+
+    const possibleColorsObj = filterObject(colorsByKeywords, ({key, value}) => value.some(element => name.includes(element)))
+    const possibleColors = Object.keys(possibleColorsObj)
+    if (possibleColors.length == 0) {
+        return null
+    }
+    const chosenColor = randomOf(...possibleColors)
+    return chosenColor
+}
+
 
 function getBaselineItemByType(xp, itemType) {
     if (itemType.includes('Shield')) {
@@ -1121,7 +1253,8 @@ function getBaselineItemByType(xp, itemType) {
             Name: randomOf(...SHIELD_NAMES),
             Price: (xp <= 75? randomInt(10, 30): randomInt(30, 70)) * 10,
             Type: itemType,
-            Notes: 'This is a shield.'
+            Notes: 'This is a shield.',
+            ItemType: 'Shield'
         }
     }
     if (itemType.includes('Armor')) {
@@ -1141,7 +1274,9 @@ function getBaselineItemByType(xp, itemType) {
             Name: name,
             Price: getArmorBasePriceByBodyPart(bodyPart),
             Type: itemType,
-            Notes: `This is a ${armorType} armor piece for the ${realBodyPart}.`
+            Notes: `This is a ${armorType} armor piece for the ${realBodyPart}.`,
+            ItemType: bodyPart,
+            ArmorType: name,
         }
     }
 
@@ -1161,8 +1296,21 @@ function getBaselineItemByType(xp, itemType) {
         Stat: templateWeapon.Stat,
         Range: range,
         Damage: templateWeapon.Damage,
-        Notes: `This weapon is a ${templateWeapon.Name}`
+        Notes: `This weapon is a ${templateWeapon.Name}`,
+        ItemType: templateWeapon.Name,
+        Type: itemType,
+        WeaponType: templateWeapon.Name
     }
+}
+
+function getItemIconName(item) {
+    if (item.Type.includes('Shield')) {
+        return randomOf('Shield', 'Shield of Arrows', 'Shield of Reflection', 'Shield of Snakes', 'Tower Shield')
+    }
+    if (item.Type.includes('Armor')) {
+        return randomOf(...ARMOR_TO_NAME[item.ArmorType])
+    }
+    return item.WeaponType
 }
 
 function createItem(xp, itemType) {
@@ -1350,9 +1498,92 @@ function createItem(xp, itemType) {
     baselineItem.XP = xp
     baselineItem.HasMixins = true
     baselineItem.Price = Math.floor(baselineItem.Price * (1 + xp / 100))
-    console.log({baselineItem})
+
+    // Add icon
+    const iconName = getItemIconName(baselineItem)
+    baselineItem.CustomIconPath = getItemIconPathByName(iconName)
+
+    // Add tint color
+    const tintColor = getItemTintColor(baselineItem.Name)
+    if (tintColor != null) {
+        baselineItem.TintColor = tintColor
+    }
     
     return baselineItem
+}
+
+const ARMOR_TO_NAME = {
+    'Plate': ['Plate Armor', 'Mithril Armor', 'Adamantite Armor', 'Breastplate_of_Blades', 'Chain Mail'],
+    'Breastplate': ['Plate Armor', 'Mithril Armor', 'Adamantite Armor', 'Breastplate_of_Blades', 'Chain Mail'],
+    'Scale': ['Plate Armor', 'Mithril Armor', 'Adamantite Armor', 'Breastplate_of_Blades', 'Chain Mail'],
+    'Lorica': ['Plate Armor', 'Mithril Armor', 'Adamantite Armor', 'Breastplate_of_Blades', 'Chain Mail'],
+    
+    
+    'Mail': ['Chain Mail'],
+    'Hauberk': ['Chain Mail', 'Cuirass', 'Leather Armor', 'Splint Armor', 'Hide Armor', 'Padded Armor'],
+    'Cuirass': ['Cuirass'],
+    'Chainmail': ['Chain Mail'],
+    'Gambeson': ['Chain Mail', 'Cuirass', 'Leather Armor', 'Splint Armor', 'Hide Armor', 'Padded Armor'],
+    'Tabard': ['Splint Armor'],
+    'Toga': ['Common Clothes', 'Unarmored'],
+    'Robe': ['Robes', 'Everdress'],
+    'Robes': ['Robes', 'Everdress'],
+    'Rainment': ['Robes', 'Everdress', 'Hood of Health'],
+
+    'Gloves': ['Gloves of Climbing', 'Gloves of Extra Skill', 'Gloves of Greater Spell', 'Gloves of Health', 'Bracer of the Phantom'],
+    'Gauntlets': ['Gloves of Weapon Training', 'Bracer of the Phantom'],
+    'Bracer': ['Gloves of Health', 'Bracer of the Phantom'],
+    'Bracelet': ['Ring of the Coin', 'Ring of the Spies', 'Bracer of the Phantom'],
+    'Vambrace': ['Ring of the Coin', 'Ring of the Spies', 'Bracer of the Phantom'],
+    'Sleeve': ['Gloves of Greater Spell', 'Gloves of Health', 'Bracer of the Phantom'],
+
+    'Boots': ['Boots of Extra Skill', 'Boots of Health', 'Boots of Greater Spell', 'Boots of Grounding', 'Boots of Initiative', 'Boots of Jumping', 'Boots of Minor Health', 'Boots of Speed', 'Boots of TIrelessness', 'Boots of Tremor Sense'],
+    'Greaves': ['Boots of Greater Spell', 'Boots of Grounding',  'Boots of Speed'],
+    'Moccasins': ['Boots of Jumping'],
+    'Cuisses': ['Boots of Greater Spell', 'Boots of Grounding',  'Boots of Speed'],
+    'Caligae': ['Boots of Extra Skill', 'Boots of Health', 'Boots of Greater Spell', 'Boots of Grounding', 'Boots of Initiative', 'Boots of Jumping', 'Boots of Minor Health', 'Boots of Speed', 'Boots of TIrelessness', 'Boots of Tremor Sense'],
+    'Sandals': ['Boots of Jumping'],
+    'Shins': ['Boots of Extra Skill', 'Boots of Health', 'Boots of Greater Spell', 'Boots of Grounding', 'Boots of Initiative', 'Boots of Jumping', 'Boots of Minor Health', 'Boots of Speed', 'Boots of TIrelessness', 'Boots of Tremor Sense'],
+    'Slippers': ['Boots of Jumping'],
+
+    'Sabatons': ['Leggings of Freedom'],
+    'Trousers': ['Leggings of Freedom'],
+    'Legwear': ['Leggings of Freedom'],
+    'Tassets': ['Leggings of Freedom'],
+
+    'Helmet': ['Helmet White', 'Helmet Black'],
+    'Helm': ['Helmet White', 'Helmet Black'],
+    'Hat': ['Cap of Minor Health', 'Hat of Spell'],
+    // 'Bascinet': 'head heavy',
+    // 'Armet': 'head heavy',
+    // 'Morion': 'head heavy',
+    // 'Galea': 'head heavy',
+    'Headwear': ['Cap of Minor Health', 'Hat of Spell', 'Helmet White', 'Helmet Black'],
+    'Hood': ['Hood of Health'],
+    'Cowl': ['Hood of Health'],
+    'Gown': ['Hood of Health'],
+    'Coif': ['Helmet White', 'Helmet Black'],
+    'Bonnet': ['Hood of Health'],
+    // 'Capuchon': 'head light',
+    // 'Beret': 'head light',
+    // 'Tricone': 'head light',
+    'Chaperon': ['Cap of Minor Health'],
+    'Circlet': ['Headband of Mind Speak', 'Ring of Good Omen'],
+    
+    'Belt': ['Strap of Returning', 'Scarf of Minor Spell', 'Belt of Reflex'],
+    'Ceinture': ['Strap of Returning', 'Scarf of Minor Spell', 'Belt of Reflex'],
+    'Girdle': ['Strap of Returning', 'Scarf of Minor Spell', 'Belt of Reflex'],
+    'Sash': ['Strap of Returning', 'Scarf of Minor Spell', 'Belt of Reflex'],
+
+    'Ring': ['Band of SUstenance', 'Ring of Health', 'Ring of Recovery', 'Ring of Spell', 'RIng of Spell Storage', 'Ring of Strange Escape', 'Ring of the Coin', 'Ring of the Eldritch Thing', 'Ring of the Phoenix', 'RIng of the Spies'],
+    'Band': ['Band of SUstenance', 'Ring of Health', 'Ring of Recovery', 'Ring of Spell', 'RIng of Spell Storage', 'Ring of Strange Escape', 'Ring of the Coin', 'Ring of the Eldritch Thing', 'Ring of the Phoenix', 'RIng of the Spies'],
+    
+    // 'Cassoc': 'upper body and legs light',
+    // 'Alb': 'upper body and legs light',
+
+    'Cape': ['Cape of Balance', 'Cape of Extra Skill', 'Cape of Spell'],
+    'Cloak': ['Cape of Balance', 'Cape of Extra Skill', 'Cape of Spell'],
+    'Mantle': ['Cape of Balance', 'Cape of Extra Skill', 'Cape of Spell'],
 }
 
 const ARMOR_TO_BODY_PART = {
@@ -1360,6 +1591,7 @@ const ARMOR_TO_BODY_PART = {
     'Breastplate': 'upper body heavy',
     'Scale': 'upper body heavy',
     'Lorica': 'upper body heavy',
+
     'Mail': 'upper body medium',
     'Hauberk': 'upper body medium',
     'Cuirass': 'upper body medium',
@@ -1367,6 +1599,8 @@ const ARMOR_TO_BODY_PART = {
     'Gambeson': 'upper body medium',
     'Tabard': 'upper body light',
     'Toga': 'upper body light',
+    'Robe': 'upper body light',
+    'Robes': 'upper body light',
 
     'Gloves': 'hands heavy',
     'Gauntlets': 'hands heavy',
@@ -1377,15 +1611,15 @@ const ARMOR_TO_BODY_PART = {
 
     'Boots': 'feet',
     'Greaves': 'feet',
-    // 'Calcei': 'feet',
     'Moccasins': 'feet',
-    // 'Oscreae': 'feet',
     'Cuisses': 'feet',
-    // 'Chausses': 'feet',
     'Caligae': 'feet',
     'Sandals': 'feet',
     'Shins': 'feet',
     'Slippers': 'feet',
+    // 'Calcei': 'feet',
+    // 'Oscreae': 'feet',
+    // 'Chausses': 'feet',
 
     'Sabatons': 'legs',
     'Trousers': 'legs',
@@ -1425,6 +1659,10 @@ const ARMOR_TO_BODY_PART = {
     'Cowl': 'upper body and legs light',
     'Rainment': 'upper body and legs light',
     'Gown': 'upper body and legs light',
+
+    'Cape': 'back',
+    'Cloak': 'back',
+    'Mantle': 'back',
 }
 function getArmorBasePriceByBodyPart(bodyPart) {
     const heavinessModifier =
@@ -1473,7 +1711,7 @@ export default function MagicItemCreator() {
         <HeroButton onClick={() => setItem(createAnItem())}>Another</HeroButton>
         <br/>
         <TwoColumns>
-            <Column><Spell spell={item} hasIcon={false}/></Column>
+            <Column><Spell spell={item}/></Column>
             <Column></Column>
         </TwoColumns>
     </Page>

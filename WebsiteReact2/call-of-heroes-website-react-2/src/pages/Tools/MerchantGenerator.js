@@ -2,11 +2,12 @@ import { useState } from "react";
 import PageH1 from "../../components/PageH1/PageH1";
 import Page from "../../containers/Page/Page";
 import { QGTitle1 } from "./TitleGenerator";
-import { filterObject, flattenObjectOnce, getAllMagicItemsByName, getAllPricesByName, getDaysSinceLast, getISOWeekNumber, getNumberFromString, groupBy, isNumber, mapObject, mapObjectToArray, percentChance, SeededRNG, spellsFromObject, WEDNESDAY } from "../../utils";
+import { filterObject, flattenObjectOnce, getAllMagicItemsAsArray, getAllMagicItemsByName, getAllPricesByName, getDaysSinceLast, getISOWeekNumber, getNumberFromString, groupBy, hasSpellVariants, isNumber, mapObject, mapObjectToArray, parseAndNormalizeSpell, percentChance, randomInt, SeededRNG, spellsFromObject, WEDNESDAY } from "../../utils";
 import TwoColumns from "../../components/TwoColumns/TwoColumns";
 import Column from "../../components/TwoColumns/Column";
 import { getItemPrice, PriceTable } from "../Other/Prices";
 import prices from './../../databases/Prices.json'
+import Spell, { getSpellTags } from "../../components/Spell/Spell";
 
 const MERCHANT_TYPE_LETTER_MAP = {
     'b': 'Blacksmith',
@@ -27,11 +28,15 @@ const MERCHANT_TYPES = {
             'Trinket', 'Clothes', 'Jewelry', 'Potion', 'Scroll', 'Consumable', 'Poison', 'Toy'
         ]
     },
-    'Church': {
-        itemCategories: ['Magic and Religion'],
+    'Religion': {
+        itemCategories: ['Magic and Religion', 'Mounts'],
         tags: [
-            'Church'
+            'Church', 'Scribe', 'Religion'
         ]
+    },
+    'Nature': {
+        itemCategories: ['General Goods', 'Potions and Poisons', 'Vehicles', 'Mounts', 'Exotic Mounts', 'Trinket', 'Nature'],
+
     }
 }
 const PRODUCT_DIVERSITY_TO_CHANCE_FOR_ITEM = {
@@ -41,6 +46,13 @@ const PRODUCT_DIVERSITY_TO_CHANCE_FOR_ITEM = {
     4: 100,
     5: 100
 }
+const PRODUCT_DIVERSITY_TO_CHANCE_FOR_MAGIC_ITEM = {
+    1: 5,
+    2: 10,
+    3: 15,
+    4: 20,
+    5: 25
+}
 const PRODUCT_DIVERSITY_TO_NORMAL_ITEM_MAX_PRICE = {
     1: 250,
     2: 500,
@@ -49,7 +61,6 @@ const PRODUCT_DIVERSITY_TO_NORMAL_ITEM_MAX_PRICE = {
     5: 999999
 }
 const ITEM_OUT_OF_STOCK_CHANCE_PER_DAY = 0  // 3%
-const magicItemsArray = spellsFromObject(getAllMagicItemsByName())
 
 export default function MerchantGenerator({}) {
 
@@ -82,6 +93,20 @@ export default function MerchantGenerator({}) {
         const allNormalItemsIHave = possibleItems.filter(item => rng.percentChance(chanceToHaveItem) && getItemPrice(item) <= maxPrice)
         return allNormalItemsIHave
     }
+    function getMagicItemsIHaveAsArray(merchant, productDiversity, rng) {
+        const hasAnyOfMyTags = item => getSpellTags(item).some(tag => merchant.tags.includes(tag))
+        const possibleItems = getAllMagicItemsAsArray().filter(item => hasAnyOfMyTags(item))
+        const chanceToHaveItem = PRODUCT_DIVERSITY_TO_CHANCE_FOR_MAGIC_ITEM[productDiversity]
+        const maxPrice = PRODUCT_DIVERSITY_TO_NORMAL_ITEM_MAX_PRICE[productDiversity]
+        const allMagicItemsIHave = possibleItems.filter(item => rng.percentChance(chanceToHaveItem) && getItemPrice(item) <= maxPrice)
+        const magicItemsParsed = allMagicItemsIHave.map(item => parseAndNormalizeSpell(item, { isItem: true }))
+        for (const item of magicItemsParsed) {
+            if (item.Variants != null) {
+                item.DefaultVariantIndex = randomInt(0, item.Variants.length - 1)
+            }
+        }
+        return magicItemsParsed
+    }
     function getRNGSeed(name) {
         const now = new Date()
         const year = now.getFullYear()
@@ -100,19 +125,24 @@ export default function MerchantGenerator({}) {
         const { merchant, type, name, productDiversity } = getMerchantFromCode(merchantCode)
         
         if (merchant == null) {
-            return {}
+            return [[], []]
         }
         
         const rng = new SeededRNG(getRNGSeed(name))
         const daysSinceLastWednesday = getDaysSinceLast(WEDNESDAY)
+        
         const allNormalItemsIHave = getNormalItemsIHaveAsArray(merchant, productDiversity, rng)
-        const itemsAvailableFinal = makeItemsOutOfStock(allNormalItemsIHave, daysSinceLastWednesday, rng)
-        const itemsAvailableByCategory = groupBy(itemsAvailableFinal, obj => obj.Category)
-        return itemsAvailableByCategory
+        const allNormalItemsAfterSales = makeItemsOutOfStock(allNormalItemsIHave, daysSinceLastWednesday, rng)
+        const allMagicItemsIHave = getMagicItemsIHaveAsArray(merchant, productDiversity, rng)
+
+        return [allNormalItemsAfterSales, allMagicItemsIHave]
     }
     function seeMerchant() {}
 
-    const allMyItemsByCategory = getShop()
+
+    const [normalItems, magicItems] = getShop()
+    console.log({magicItems})
+    const normalItemsByCategory = groupBy(normalItems, obj => obj.Category)
     
     
 
@@ -123,14 +153,17 @@ export default function MerchantGenerator({}) {
             <button onClick={seeMerchant}>See Merchant</button>
         </div>
 
-        <TwoColumns>
+        <TwoColumns className='margin-top-2'>
             <Column>
-                { allMyItemsByCategory && Object.keys(allMyItemsByCategory).map(categoryName => (
-                    <PriceTable categoryName={categoryName} itemsArray={allMyItemsByCategory[categoryName]}/>
+                { normalItemsByCategory && Object.entries(normalItemsByCategory).map(([categoryName, items]) => (
+                    <PriceTable title={categoryName} items={items}/>
                 )) }
+                { magicItems.length > 0 && (
+                    <PriceTable title={"Magic Items"} items={magicItems} hasDescriptions={false}/>
+                )}
             </Column>
             <Column>
-            
+                { magicItems.map(item => <Spell spell={item} isItem={true} canChangeVariant={false}/>) }
             </Column>
         </TwoColumns>
     </Page>
