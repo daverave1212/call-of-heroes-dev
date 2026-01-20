@@ -285,12 +285,12 @@
             "XP": 35,
             "Item Type": "Armor",
             "Group": "Stats",
-            "Effect": "+1 Defense against arrows, bolts, bullets and darts."
+            "Effect": "-1 Damage taken from arrows, bolts, bullets and darts."
         },
         {
             "XP": 35,
             "Item Type": "Armor",
-            "Group": "Passive",
+            "Group": "Stats",
             "Effect": "+1 Initiative if Ambushing"
         },
         {
@@ -321,13 +321,13 @@
             "XP": 75,
             "Item Type": "Armor",
             "Group": "Stats",
-            "Effect": "+1 Defense"
+            "Effect": "-1 Damage taken"
         },
         {
             "XP": 75,
             "Item Type": "Armor",
             "Group": "Stats",
-            "Effect": "+1 Defense against melee physical attacks."
+            "Effect": "-1 Damage taken from {RandomOf('melee physical' 'ranged physical' 'single-target magic' 'area')} attacks."
         },
         {
             "XP": 75,
@@ -339,7 +339,7 @@
             "XP": 75,
             "Item Type": "Armor",
             "Group": "Stats",
-            "Effect": "+1 Defense against {RandomOf('ranged' 'melee')} attacks, and, if you take 3 or less Damage from it, reflect 1d6 {DamageType} Damage back to the attacker."
+            "Effect": "-1 Damage taken from {RandomOf('ranged' 'melee')} attacks, and, if you take 3 or less Damage from it, reflect 1d6 {DamageType} Damage back to the attacker."
         },
         {
             "XP": 75,
@@ -351,13 +351,13 @@
             "XP": 100,
             "Item Type": "Armor",
             "Group": "Stats",
-            "Effect": "+2 {Stat}."
+            "Effect": "+2 {Stat}"
         },
         {
             "XP": 100,
             "Item Type": "Armor",
             "Group": "Stats",
-            "Effect": "+Health Regen equal to the number of non-Combat Skills you know."
+            "Effect": "+Health Regen equal to 200% of your Initiative."
         },
         {
             "XP": 150,
@@ -664,25 +664,25 @@
             "XP": 175,
             "Item Type": "Armor",
             "Group": "Passive",
-            "Effect": "{This} emanates a sense of impending doom, and whenever you are melee attacked, the attacker becomes Feared."
+            "Effect": "{This} emanates a sense of impending doom, and whenever you are melee attacked, the attacker becomes Single-Stunned."
         },
         {
             "XP": 200,
             "Item Type": "Armor",
             "Group": "Passive",
-            "Effect": "You have Defense equal to your Might, but your attacks beyond 3 meters range have Cover and you have -1 Movement Speed."
+            "Effect": "If you would take Damage equal to or less than {RandomOf('3' 'your Might' 'your Dexterity' 'your Intelligence' 'your Sense' 'your Charisma')}, you take 0 Damage. However, your attacks and Abilities beyond 3 meters range have Cover and you have {RandomOf('-1 Movement Speed' '-1 Initiative' '-3 Health Regen' '-6 Health')}."
         },
         {
             "XP": 250,
             "Item Type": "Armor",
             "Group": "Passive",
-            "Effect": "Your {Stat} is 5 and can't change through any means."
+            "Effect": "Your {Stat} is 5 and can't change through any means while {This} is equipped."
         },
         {
             "XP": 50,
             "Item Type": "Weapon",
             "Group": "Passive",
-            "Effect": "If you rolled {RandomOf('minimum' 'maximum')} on at least one die, the target becomes {RandomOf('Rooted' 'Blinded' 'Silenced' 'Feared')}."
+            "Effect": "If you rolled {RandomOf('1' 'maximum')} on at least one die, the target becomes {RandomOf('Slowed' 'Blinded' 'Deafened' 'Dazed', 'Single-Stunned')}."
         },
         {
             "XP": 25,
@@ -694,7 +694,7 @@
             "XP": 50,
             "Item Type": "Weapon",
             "Group": "Passive",
-            "Effect": "The first attack with {This} every Combat makes the target {RandomOf('Slowed' 'Rooted' 'Feared' 'Silenced' 'Blinded')}."
+            "Effect": "The first attack with {This} every Combat makes the target {RandomOf('Slowed' 'Slowed' 'Single-Stunned' 'Deafened' 'Blinded')}."
         },
         {
             "XP": 25,
@@ -712,7 +712,7 @@
             "XP": 50,
             "Item Type": "Weapon",
             "Group": "Passive",
-            "OnKill": "gain a Shielding that can block 1d6 Damage for 1 minute"
+            "OnKill": "gain a Shielding that can block 1d6 Damage for up to 1 minute"
         },
         {
             "XP": 50,
@@ -772,7 +772,7 @@
             "XP": 75,
             "Item Type": "Weapon",
             "Group": "Passive",
-            "OnAttack": "your next Spell this Turn deals +1d8 {DamageType} Damage."
+            "OnAttack": "your next {RandomOf('Spell' 'non-Spell Ability' 'attack with a different weapon' 'attack with this weapon')} this Turn deals +1d8 {DamageType} Damage."
         },
         {
             "XP": 75,
@@ -826,7 +826,7 @@
             "XP": 150,
             "Item Type": "Weapon",
             "Group": "Passive",
-            "OnAttack": "the next time it takes Damage the attack {AttackHasOneManaEffect}."
+            "OnAttack": "the next time it takes Damage the attack {AttackHas1ManaEffect}."
         },
         {
             "XP": 150,

@@ -229,8 +229,7 @@ export default function Spell({
                     <div key="Damage" className='spell-description'>
                         <Icon name="Damage"/>{ Damage }
                     </div>
-                    { hasEffectsOrMore && <div style={{paddingBottom: 'var(--spell-padding-bottom)'}}></div> }
-                    { !hasEffectsOrMore && <div style={{paddingBottom: 'calc(var(--spell-padding-bottom) / 2)'}}></div> }
+                    { !hasEffectsOrMore && <div style={{paddingBottom: 'calc(var(--spell-padding-bottom) / 4)'}}></div> }
                 </>)}
                 { PreEffectGreen != null && (
                     <div className="spell-green" key="PreEffectGreen">{ PreEffectGreen }</div>

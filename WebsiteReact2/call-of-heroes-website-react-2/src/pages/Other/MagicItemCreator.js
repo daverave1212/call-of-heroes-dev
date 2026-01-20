@@ -1,4 +1,4 @@
-import { $SKILLS, capitalizeFirstLetter, filterObject, getAlternativesAsArray, getItemIconPathByName, includesAll, includesAny, joinObjectValues, last, mapKeysToObject, mapObject, mergeObjectsContainingArrays, onlyUniqueFilter, parseTextWithSymbols, percentChance, randomInt, randomOf, randomOfArrayWeighted, shuffle, spellsFromObject, stringReplaceAllMany } from "../../utils";
+import { $SKILLS, capitalizeFirstLetter, filterObject, getAlternativesAsArray, getItemIconPathByName, includesAll, includesAny, joinObjectValues, last, mapKeysToObject, mapObject, matchRange, mergeObjectsContainingArrays, onlyUniqueFilter, parseTextWithSymbols, percentChance, randomInt, randomOf, randomOfArrayWeighted, roundToNearest, shuffle, spellsFromObject, stringReplaceAllMany } from "../../utils";
 import MagicItemProperties from '../../databases/Other/MagicItemProperties.json'
 import Weapons from '../../databases/Weapons.json'
 import Armors from '../../databases/Armors.json'
@@ -10,7 +10,7 @@ import { useState } from "react";
 import HeroButton from "../../components/HeroButton/HeroButton";
 import Spell from '../../components/Spell/Spell'
 import { isString } from "markdown-it/lib/common/utils";
-import { STAT_NAMES } from "../../services/game-lib/stat-calculations";
+import { checkStatRequirements, STAT_NAMES } from "../../services/game-lib/stat-calculations";
 const ALL_WEAPONS_ARRAY = [
     ...spellsFromObject(Weapons['One-Handed Melee']).map(item => ({...item, type: 'One-Handed Melee'})),
     ...spellsFromObject(Weapons['Two-Handed Melee']).map(item => ({...item, type: 'Two-Handed Melee'})),
@@ -752,8 +752,7 @@ function parseItemText(text, thisText='{This}') {
             `in the 3rd Round of Combat`,
             `at or below 20% Health`,
             'at full Health',
-            `while outnumbered`,
-            `against ${getSymbolText('MonsterType')}s`
+            `while outnumbered`
         )},
         
         'WhileRare': { text: () => randomOf(
@@ -769,7 +768,7 @@ function parseItemText(text, thisText='{This}') {
         'Attribute': { text: () => randomOf('Max Health', 'Health Regen', 'Skill Point', 'Initiative')},
         'Skill': { text: () => randomOf(...$SKILLS)},
         'WeaponType': { text: () => randomOf('1-Handed Melee', '2-Handed Melee', '1-Handed Ranged', '2-Handed Ranged')},
-        'CrowdControl': { text: () => randomOf('Slowed', 'Fumbling', 'Rooted', 'Blinded', 'Crippled', 'Silenced', 'Stunned', 'Feared', 'Dazed')},
+        'CrowdControl': { text: () => randomOf('Slowed', 'Dazed', 'Rooted', 'Blinded', 'Crippled', 'Silenced', 'Stunned', 'Deafened')},
         'SpellSchool': { text: () => randomOf('Bloodshed', 'Warfare', 'Elemental', 'Arcane', 'Mysticism', 'Nature', 'Divine', 'Eldritch')},
         'MonsterType': { text: () => randomOf('Person', 'Beast', 'Undead', 'Demon', 'Fiend', 'Celestian', 'Giant', 'Fey', 'Monster', 'Insect', 'Elemental', 'Dragon', 'Construct')},
         'Language': { text: () => randomOf('Elvish', 'Dwarvish', 'Orcish', 'Dragonspeak', 'Whispertone', "Thieves' Cant", 'Ancian', 'Gian', 'Goblan')},
@@ -793,10 +792,10 @@ function tryNameItem(item) {
     }
 
     const MAX_NAME_LENGTH = 30
-    function maybeGetAnyKeyordByConditions(text, matchConditions) {
-        const allAffixesClumped = Object.keys(matchConditions)
+    function maybeGetAnyKeyordByConditions(text, affixesConditions) {
+        const allAffixesClumped = Object.keys(affixesConditions)
         const allMaybeAffixesClumped = allAffixesClumped
-            .map(key => ({ key, result: matchConditions[key](text.toLowerCase()) }))
+            .map(key => ({ key, result: affixesConditions[key](text.toLowerCase()) }))
         const possibleAffixesClumped = allMaybeAffixesClumped.filter(({result}) => result)
         
         if (possibleAffixesClumped.length == 0) {
@@ -1010,13 +1009,10 @@ function tryNameItem(item) {
 
     const itemNameShortened = last(item.Name.split(' '))
     const itemName = itemNameShortened
-    const aPrefix = maybeGetAnyKeyordByConditions(item._AllText.toLowerCase(), prefixConditions, [null])
-    const aMidfix = maybeGetAnyKeyordByConditions(item._AllText.toLowerCase(), midfixConditions, [null])
-    const aSuffix = maybeGetAnyKeyordByConditions(item._AllText.toLowerCase(), suffixConditions, [null])
+    const aPrefix = maybeGetAnyKeyordByConditions(item._AllText.toLowerCase(), prefixConditions)
+    const aMidfix = maybeGetAnyKeyordByConditions(item._AllText.toLowerCase(), midfixConditions)
+    const aSuffix = maybeGetAnyKeyordByConditions(item._AllGoodText.toLowerCase(), suffixConditions)
     const fullNameSoFar = `${aPrefix} ${aMidfix} ${itemName} of ${aSuffix}`
-
-    let finalMid
-    let hasAlreadyUsedOf = false
 
     const affixesWithTypes = [['prefix', aPrefix], ['midfix', aMidfix], ['suffix', aSuffix]]
         .filter(([type, affix]) => affix != null)
@@ -1026,7 +1022,7 @@ function tryNameItem(item) {
         usedAffixes = affixesWithTypes
     } else if (fullNameSoFar.length < MAX_NAME_LENGTH) {
         usedAffixes = affixesWithTypes
-    } else if (affixesWithTypes.length == 3) {
+    } else if (affixesWithTypes.length == 3) {              // If has 3 affixes, pick 2 at random
         const shuffledAffixes = shuffle(affixesWithTypes)
         if (percentChance(90)) {
             usedAffixes = shuffledAffixes.slice(0, 2)
@@ -1113,9 +1109,8 @@ function tryNameItem(item) {
     
     return randomName
 }
-
-function getItemTintColor(name) {
-    name = name.toLowerCase()
+function getItemTintColor(text) {
+    text = text.toLowerCase()
 
     const colorsByKeywords = {
         "#E0FFFF": [
@@ -1139,16 +1134,42 @@ function getItemTintColor(name) {
             "weave",
             "selenite",
             "celestite",
-            "angelite"
+            "angelite",
+            "floats",
+            "flying",
+            "pegasus",
+            "hippogriff",
+            "thunderbird",
+            "stormcrow",
+            "giant eagle",
+            "giant falcon",
+            "giant owl",
+            "dodge"
         ],
         "#40E0D0": ["fae", "shock", "electric", "static", "lightning", "turquoise"],
-        "#48D1CC": ["necromancer", "wraith", "echo", "diemond"],
-        "#66CDAA": ["spect", "spirit", "soul", "mithril"],
-        "#6495ED": ["ice", "frost", "froz", "rime", "aquamarine"],
+        "#48D1CC": [
+            "necromancer",
+            "wraith",
+            "echo",
+            "diemond",
+            "undead",
+            "zombie",
+            "raise",
+            "skeleton"
+        ],
+        "#66CDAA": ["spect", "spirit", "soul", "mithril", "spectral", "ghostly"],
+        "#6495ED": ["ice", "frost", "froz", "rime", "aquamarine", "walk on water"],
         "#1E90FF": ["moon", "rune", "moonstone", "moonfire"],
-        "#4169E1": ["water", "river", "tide"],
+        "#4169E1": ["water", "river", "tide", "swim", "erosion"],
         "#0000FF": ["azure", "sapphire", "star sapphire"],
-        "#2ec4ff": ["magic", "arcane", "spell", "evoca", "wrath"],
+        "#2ec4ff": [
+            "magic",
+            "arcane",
+            "spell",
+            "evoca",
+            "wrath",
+            "transformed into any other weapon"
+        ],
 
         "#2E8B57": ["thorn"],
         "#7CFC00": [
@@ -1161,7 +1182,12 @@ function getItemTintColor(name) {
             "viper",
             "nox",
             "poison",
-            "peridot"
+            "peridot",
+            "potion",
+            "mercury",
+            "sulfur",
+            "ammonia",
+            "oxygen"
         ],
         "#00FF7F": [
             "spring",
@@ -1173,7 +1199,13 @@ function getItemTintColor(name) {
             "malachite",
             "aventurine",
             "chrysoprase",
-            "chrysoberyl"
+            "chrysoberyl",
+            "green leaves",
+            "verdant leaves",
+            "monster",
+            "beast",
+            "spider",
+            "insect"
         ],
         "#00e700ff": ["emerald"],
         "#2eff8c": ["jade"],
@@ -1190,7 +1222,16 @@ function getItemTintColor(name) {
             "sunstone",
             "sunheart"
         ],
-        "#FF8C00": ["autumn", "fall", "fiend", "topaz", "mystic topaz"],
+        "#FF8C00": [
+            "autumn",
+            "fall",
+            "fiend",
+            "topaz",
+            "mystic topaz",
+            "orange leaves",
+            "red leaves",
+            "burnished leaves"
+        ],
         "#FFA500": [
             "fire",
             "flame",
@@ -1204,10 +1245,27 @@ function getItemTintColor(name) {
             "heat",
             "amber",
             "carnelian",
-            "citrine"
+            "citrine",
+            "dragon",
+            "whelp",
+            "dragon whelp"
         ],
-        "#A0522D": ["bark", "earth"],
-        "#D2B48C": ["wood", "sand", "desert", "dust", "bone", "skin"],
+        "#A0522D": ["bark", "earth", "might", "bear"],
+        "#D2B48C": [
+            "wood",
+            "sand",
+            "desert",
+            "dust",
+            "bone",
+            "skin",
+            "ground mount",
+            "horse",
+            "unicorn",
+            "pony",
+            "zebra",
+            "stag",
+            "elk"
+        ],
         "#914d29": ["hide", "leather", "pelt"],
         "#CE8946": ["bronze"],
         "#B87333": ["copper"],
@@ -1217,14 +1275,14 @@ function getItemTintColor(name) {
         "#ff2e9d": ["rose", "petal", "flower", "candy"],
         "#DA70D6": ["elusive", "amethyst", "iolite"],
         "#9932CC": ["royal", "alexandrite"],
-        "#800080": ["necro", "death", "unhol", "eldritch", "mortal"],
+        "#800080": ["necro", "death", "unhol", "eldritch", "mortal", "can't be healed"],
 
-        "#eb634b": ["fang", "claw", "jaw", "maw"],
-        "#DC143C": ["vampir", "crimson", "garnet", "bloodstone", "star ruby"],
+        "#eb634b": ["fang", "claw", "jaw", "maw", "second attack"],
+        "#DC143C": ["vampir", "crimson", "garnet", "bloodstone", "star ruby", "heal for all the damage dealt"],
         "#FF0000": ["demon", "devil", "red", "ruby", "spinel"],
         "#B22222": ["crimson"],
 
-        "#808080": ["tomb", "stone", "rock", "labradorite", "kyanite", "zircon"],
+        "#808080": ["tomb", "stone", "rock", "labradorite", "kyanite", "zircon", "obstacle", "wolf", "hound"],
         "#B0C4DE": ["steel", "plate", "platinum"],
         "#BC8F8F": ["iron", "ash", "lead"],
         "#290200": ["onyx", "black", "obsidian", "black diamond", "voidstone"],
@@ -1237,7 +1295,8 @@ function getItemTintColor(name) {
     }
 
 
-    const possibleColorsObj = filterObject(colorsByKeywords, ({key, value}) => value.some(element => name.includes(element)))
+
+    const possibleColorsObj = filterObject(colorsByKeywords, ({key, value}) => value.some(element => text.includes(element)))
     const possibleColors = Object.keys(possibleColorsObj)
     if (possibleColors.length == 0) {
         return null
@@ -1245,8 +1304,34 @@ function getItemTintColor(name) {
     const chosenColor = randomOf(...possibleColors)
     return chosenColor
 }
-
-
+function getItemIconName(item) {
+    if (item.Type.includes('Shield')) {
+        return randomOf('Shield', 'Shield of Arrows', 'Shield of Reflection', 'Shield of Snakes', 'Tower Shield')
+    }
+    if (item.Type.includes('Armor')) {
+        return randomOf(...ARMOR_TO_NAME[item.ArmorType])
+    }
+    return item.WeaponType
+}
+function getItemPrice(item) {
+    const basePrice = item.Price
+    const addedPrice = matchRange(item.XP, [
+        { range: [-9999, 0], value: randomInt(100, 150) },
+        { range: [0, 50], value: randomInt(250, 375) },
+        { range: [50, 100], value: item.XP * randomInt(4, 5) },
+        { range: [100, 175], value: item.XP * randomInt(5, 6) },
+        { range: [175, 9999], value: item.XP * randomInt(6, 7) },
+    ])
+    return basePrice + addedPrice
+}
+function getWeaponPropsFromType(itemType) {
+    const possibleRanges = ['Melee', 'Ranged']
+    const possibleHands = ['One-Handed', 'Two-Handed']
+    return {
+        range: possibleRanges.find(range => itemType.includes(range)),
+        hands: possibleHands.find(hands => itemType.includes(hands)),
+    }
+}
 function getBaselineItemByType(xp, itemType) {
     if (itemType.includes('Shield')) {
         return {
@@ -1254,34 +1339,39 @@ function getBaselineItemByType(xp, itemType) {
             Price: (xp <= 75? randomInt(10, 30): randomInt(30, 70)) * 10,
             Type: itemType,
             Notes: 'This is a shield.',
+            Requirement: `Requires ${randomInt(2, 3)} Might`,
             ItemType: 'Shield'
         }
     }
     if (itemType.includes('Armor')) {
         const name = randomOf(...Object.keys(ARMOR_TO_BODY_PART))
         const bodyPart = ARMOR_TO_BODY_PART[name]
-        const armorType =
+        const heaviness =
             bodyPart.includes('heavy')?
                 'heavy '
             :bodyPart.includes('medium')?
                 'medium '
             :bodyPart.includes('light')?
                 'light '
+            :bodyPart.includes('ring')?
+                'ring'
             :
                 'medium';
         const realBodyPart = bodyPart.replace(' heavy', '').replace(' medium', '').replace(' light', '')
+        const armorPieceDescr = heaviness != 'ring'? `${heaviness} armor piece for the ${realBodyPart}`: 'ring'
         return {
             Name: name,
             Price: getArmorBasePriceByBodyPart(bodyPart),
             Type: itemType,
-            Notes: `This is a ${armorType} armor piece for the ${realBodyPart}.`,
+            Notes: `This is a ${armorPieceDescr}`,
+            Requirement: heaviness == 'medium'? 'Requires 1 Might': heaviness == 'heavy'? `Requires ${randomInt(2, 3)} Might`: null,
             ItemType: bodyPart,
             ArmorType: name,
         }
     }
 
     const range = itemType.includes('Ranged')? `3-${randomInt(1, 2) * 5} meters`: '1 meter'
-    const templateWeapon = randomOf(...ALL_WEAPONS_ARRAY.filter(wep => wep.type == itemType.replace(' Weapon', '')))
+    const templateWeapon = randomOf(...ALL_WEAPONS_ARRAY.filter(wep => wep.type == itemType.replace(' Weapon', '') && wep.Name != 'Punch'))
 
     const weaponNames = [
         templateWeapon.Name,
@@ -1303,19 +1393,22 @@ function getBaselineItemByType(xp, itemType) {
     }
 }
 
-function getItemIconName(item) {
-    if (item.Type.includes('Shield')) {
-        return randomOf('Shield', 'Shield of Arrows', 'Shield of Reflection', 'Shield of Snakes', 'Tower Shield')
-    }
-    if (item.Type.includes('Armor')) {
-        return randomOf(...ARMOR_TO_NAME[item.ArmorType])
-    }
-    return item.WeaponType
-}
 
-function createItem(xp, itemType) {
+// xp: int, itemType: string (e.g. "One-Handed Ranged Weapon", "Two-Handed Weapon", "Melee Weapon", "Weapon")
+export function createMagicItem(xp, itemType) {
 
-    // itemType is always a full type like "One-Handed Ranged Weapon"
+    if (itemType != 'Armor' && itemType != 'Shield') {
+        let { hands, range } = getWeaponPropsFromType(itemType)
+        if (range == null) {
+            range = randomOf('Melee', 'Ranged')
+        }
+        if (hands == null) {
+            hands = randomOf('One-Handed', 'Two-Handed')
+        }
+        itemType = hands + ' ' + range + ' Weapon'
+    }
+
+    // Now itemType is always a full type like "One-Handed Ranged Weapon"
     // e.'Item Type' contains any of those tags
     let possibleEffects = MagicItemProperties.Effects
         possibleEffects = possibleEffects.filter(e => e['Item Type'] == 'Any' || includesAll(itemType, e['Item Type'].split(' ')))
@@ -1335,6 +1428,45 @@ function createItem(xp, itemType) {
         'Quirk': []
     }
 
+    function maybeAddSkills() {
+        const availableSkills = shuffle([...$SKILLS])
+
+        if (percentChance(75)) {
+            return false
+        }
+        baselineItem['Skill Bonuses'] = {
+            [availableSkills.pop()]: randomOf(1, 1, 1, 1, 2, 2, 2, 2, 3)
+        }
+        xpLeft -= 5
+        if (percentChance(66)) {
+            baselineItem['Skill Bonuses'][availableSkills.pop()] = randomOf(1, 1, 1, 1, 2, 2, 2, 2, 3)
+            xpLeft -= 5
+        }
+
+        if (percentChance(40)) {
+            baselineItem['Skill Bonuses'][availableSkills.pop()] = randomOf(-2, -3)
+            xpLeft += 5
+        }
+        
+        if (addedEffectsByGroup['Property'].length > 0) {
+            addedEffectsByGroup['Property'].push({ Effect: '' })
+        }
+        for (const [skillName, bonus] of Object.entries(baselineItem['Skill Bonuses'])) {
+            if (bonus > 0) {
+                addedEffectsByGroup['Property'].push({
+                    XP: 5,
+                    Group: 'Property',
+                    Effect: `+${bonus} in ${skillName}`
+                })
+            } else {
+                addedEffectsByGroup['Curse'].push({
+                    XP: 5,
+                    Group: 'Curse',
+                    Effect: `${bonus} in ${skillName}`
+                })
+            }
+        }
+    }
     function maybeAddEffect(possibleEffects, groupName, chance, extraFilterCondition=e=>true) {
         const alreadyHasEffect = e => isString(e)? addedEffectsByGroup[groupName].includes(e): addedEffectsByGroup[groupName].some(addedE => addedE.Effect == e.Effect)
         let availableEffects = possibleEffects.filter(e => e.Group == groupName)
@@ -1366,6 +1498,35 @@ function createItem(xp, itemType) {
         }
         return false
     }
+    function addMorePropertiesToFillForXP() {
+        let nFails = 0
+        while (xpLeft > 0) {
+            let didAddSomething = true
+
+            const addPropertyChance =
+                addedEffectsByGroup['Property'].length > 0?
+                    10
+                :25
+            
+            const didAddProperty = maybeAddEffect(possibleEffects, 'Property', addPropertyChance, e => e.XP > 0)
+            if (!didAddProperty) {
+                const didAddStats = maybeAddEffect(possibleEffects, 'Stats', 50, e => e.XP > 0)
+                if (!didAddStats) {
+                    const didAddPassive = maybeAddEffect(possibleEffects, 'Passive', 100, e => e.XP > 0)
+                    if (!didAddPassive) {
+                        didAddSomething = false
+                    }
+                }
+            }
+
+            if (!didAddSomething) {
+                nFails += 1
+                if (nFails >= 5) {
+                    break
+                }
+            }
+        }
+    }
 
     maybeAddEffect(possibleEffects, 'Curse', 25)
     maybeAddEffect(possibleEffects, 'Minor', 25)
@@ -1373,43 +1534,23 @@ function createItem(xp, itemType) {
     maybeAddEffect(possibleEffects, 'Active', 25)
     maybeAddEffect(possibleEffects, 'Quirk', 75)
 
-    let nFails = 0
-    while (xpLeft > 0) {
-        let didAddSomething = true
+    addMorePropertiesToFillForXP()
 
-        const addPropertyChance =
-            addedEffectsByGroup['Property'].length > 0?
-                10
-            :25
-        
-        const didAddProperty = maybeAddEffect(possibleEffects, 'Property', addPropertyChance, e => e.XP > 0)
-        if (!didAddProperty) {
-            const didAddStats = maybeAddEffect(possibleEffects, 'Stats', 50, e => e.XP > 0)
-            if (!didAddStats) {
-                const didAddPassive = maybeAddEffect(possibleEffects, 'Passive', 100, e => e.XP > 0)
-                if (!didAddPassive) {
-                    didAddSomething = false
-                }
-            }
-        }
-
-        if (!didAddSomething) {
-            nFails += 1
-            if (nFails >= 5) {
-                break
-            }
-        }
+    if (itemType.includes('Armor')) {
+        maybeAddSkills()
     }
 
-    const EFFECT_KEYS = ['Effect', 'OnKill', 'OnAttack']
-    const EFFECT_FORMAT = {
-        'Effect': arr => arr.join('\n'),
-        'OnKill': arr => arr.length == 0? '': 'When you defeat a Worthy Enemy, ' + arr.join(' and '),
-        'OnAttack': arr => arr.length == 0? '': 'When you attack a Worthy Enemy, ' + arr.join(' and '),
+
+    // These are all possible effects of a magic item property from the YAML
+    const POSSIBLE_EFFECT_KEYS = ['Effect', 'OnKill', 'OnAttack']
+    const POSSIBLE_EFFECTS_FORMATTING = {
+        'Effect': effects => effects.join('\n'),
+        'OnKill': effects => effects.length == 0? '': 'When you defeat a Worthy Enemy, ' + effects.join(' and '),
+        'OnAttack': effects => effects.length == 0? '': 'When you attack a Worthy Enemy, ' + effects.join(' and '),
     }
     const parseEffect = (e, thisReplacement) => {
         const newE = {...e}
-        for (const key of EFFECT_KEYS) {
+        for (const key of POSSIBLE_EFFECT_KEYS) {
             newE[key] = e[key] == null? null: parseItemText(e[key], thisReplacement)
         }
         return newE
@@ -1418,21 +1559,23 @@ function createItem(xp, itemType) {
         key,
         value: value.map(e => parseEffect(e))
     }))
-
-    const getEffectText = e => EFFECT_KEYS.map(key => e[key]).filter(s => s != null).join('\n')
+    
+    const getEffectText = e => POSSIBLE_EFFECT_KEYS.map(key => e[key]).filter(s => s != null).join('\n')
     const preparsedEffectsByGroupFiltered = filterObject(preparsedEffectsByGroup, ({ key, value }) => value.length > 0)
     const preparsedTextByGroups = mapObject(preparsedEffectsByGroupFiltered, ({ key, value }) => ({
         key,
         value: value.map(e => getEffectText(e)).join('\n')
     }))
 
+    
     /* ---------- Naming ---------- */
     baselineItem._AllText = joinObjectValues(preparsedTextByGroups, '\n')
+    baselineItem._AllGoodText = Object.values(filterObject(preparsedEffectsByGroup, ([key, value]) => key != 'Curse')).join('\n')
     baselineItem.Name = tryNameItem(baselineItem)
-
+    
     /* ---------- Reparse ---------- */
     const reparsedTextByGroups = mapObject(preparsedTextByGroups, ({key, value}) => ({key, value: parseItemText(value, baselineItem.Name)}))
-
+    
     function compileAndReparseActivesToText(arr) {
         if (arr == null || arr.length == 0) {
             return null
@@ -1450,8 +1593,8 @@ function createItem(xp, itemType) {
         const parsedPassives = passives.map(e => parseEffect(e, baselineItem.Name))
 
         // ['OnKill', 'OnAttack', ..] -> { OnKill: [text1, text2], OnAttack: .. }
-        const passivesByType = mapKeysToObject(EFFECT_KEYS, key => parsedPassives.filter(e => e[key] != null).map(e => e[key]))
-        const eachTypeFinalText = mapObject(passivesByType, ({key, value: arr}) => ({key, value: EFFECT_FORMAT[key](arr)}))
+        const passivesByType = mapKeysToObject(POSSIBLE_EFFECT_KEYS, key => parsedPassives.filter(e => e[key] != null).map(e => e[key]))
+        const eachTypeFinalText = mapObject(passivesByType, ({key, value: arr}) => ({key, value: POSSIBLE_EFFECTS_FORMATTING[key](arr)}))
         return Object.keys(eachTypeFinalText)
             .filter(key => eachTypeFinalText[key].length > 0)
             .map(key => eachTypeFinalText[key])
@@ -1462,9 +1605,6 @@ function createItem(xp, itemType) {
 
 
     const color = (col, text) => text == null? null: `{Color('${col}' '${text}')}`
-    if (addedEffectsByGroup['Active'].length > 0) {
-        console.log('GOT HERE')
-    }
     let validEffects
     if (itemType == 'Armor' || itemType == 'Shield') {
         validEffects = [
@@ -1489,7 +1629,7 @@ function createItem(xp, itemType) {
     validEffects = validEffects.filter(s => s != null)
     const finalEffect = validEffects.length == 0? null: validEffects.join('\n\n')
 
- 
+    console.log({addedEffectsByGroup, preparsedEffectsByGroup, preparsedEffectsByGroupFiltered, preparsedTextByGroups, reparsedTextByGroups, validEffects, finalEffect})
 
     baselineItem.Effect = finalEffect
     baselineItem.Downside = reparsedTextByGroups['Curse']
@@ -1497,14 +1637,14 @@ function createItem(xp, itemType) {
 
     baselineItem.XP = xp
     baselineItem.HasMixins = true
-    baselineItem.Price = Math.floor(baselineItem.Price * (1 + xp / 100))
+    baselineItem.Price = getItemPrice(baselineItem)
 
     // Add icon
     const iconName = getItemIconName(baselineItem)
     baselineItem.CustomIconPath = getItemIconPathByName(iconName)
 
     // Add tint color
-    const tintColor = getItemTintColor(baselineItem.Name)
+    const tintColor = getItemTintColor(baselineItem._AllText)
     if (tintColor != null) {
         baselineItem.TintColor = tintColor
     }
@@ -1575,8 +1715,8 @@ const ARMOR_TO_NAME = {
     'Girdle': ['Strap of Returning', 'Scarf of Minor Spell', 'Belt of Reflex'],
     'Sash': ['Strap of Returning', 'Scarf of Minor Spell', 'Belt of Reflex'],
 
-    'Ring': ['Band of SUstenance', 'Ring of Health', 'Ring of Recovery', 'Ring of Spell', 'RIng of Spell Storage', 'Ring of Strange Escape', 'Ring of the Coin', 'Ring of the Eldritch Thing', 'Ring of the Phoenix', 'RIng of the Spies'],
-    'Band': ['Band of SUstenance', 'Ring of Health', 'Ring of Recovery', 'Ring of Spell', 'RIng of Spell Storage', 'Ring of Strange Escape', 'Ring of the Coin', 'Ring of the Eldritch Thing', 'Ring of the Phoenix', 'RIng of the Spies'],
+    'Ring': ['Band of Sustenance', 'Ring of Health', 'Ring of Recovery', 'Ring of Spell', 'RIng of Spell Storage', 'Ring of Strange Escape', 'Ring of the Coin', 'Ring of the Eldritch Thing', 'Ring of the Phoenix', 'RIng of the Spies'],
+    'Band': ['Band of Sustenance', 'Ring of Health', 'Ring of Recovery', 'Ring of Spell', 'RIng of Spell Storage', 'Ring of Strange Escape', 'Ring of the Coin', 'Ring of the Eldritch Thing', 'Ring of the Phoenix', 'RIng of the Spies'],
     
     // 'Cassoc': 'upper body and legs light',
     // 'Alb': 'upper body and legs light',
@@ -1669,24 +1809,26 @@ function getArmorBasePriceByBodyPart(bodyPart) {
         bodyPart.includes('light')?
             1
         :bodyPart.includes('medium')?
-            2
+            1.25
         :bodyPart.includes('heavy')?
-            3
+            1.5
         :
-            2
+            1.25
     const baseBodyPart = bodyPart.replace(' light', '').replace(' medium', '').replace(' heavy', '')
     const bodyPartBasePriceMap = {
         'upper body': 150,
-        'legs': 120,
-        'upper body and legs': 280,
+        'legs': 150,
+        'upper body and legs': 150,
         'one hand': 50,
-        'hands': 100,
+        'hands': 125,
         'feet': 170,
-        'belt': 80,
-        'ring': 150
+        'belt': 100,
+        'ring': 150,
+        'head': 150,
+        'back': 150
     }
     const baseBodyPartPrice = bodyPartBasePriceMap[baseBodyPart]
-    return baseBodyPartPrice * heavinessModifier
+    return roundToNearest(baseBodyPartPrice * heavinessModifier, 5)
 }
 const SHIELD_NAMES = [
     'Shield', 'Buckler', 'Kite', 'Barrier', 'Barricade', 'Bulwark', 'Aegis', 'Scutum', 'Aspis', 'Pavise', 'Adarga', 'Dhal', 'Targe', 'Hoplon', 'Rampart', 'Safeguard', 'Protector', 'Redoubt', 'Greatshield', 'Thureos', 'Clipeus', 'Door', 'Gate'
@@ -1700,7 +1842,7 @@ export default function MagicItemCreator() {
         if (itemCategory == 'Weapon') {
             itemCategory = randomOf('One-Handed', 'Two-Handed') + ' ' + randomOf('Melee', 'Ranged') + ' Weapon'
         }
-        return createItem(randomInt(1, 10) * 25, itemCategory)
+        return createMagicItem(randomInt(1, 10) * 25, itemCategory)
     }
     const [item, setItem] = useState(createAnItem())
 

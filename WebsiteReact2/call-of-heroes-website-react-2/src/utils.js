@@ -37,8 +37,6 @@ export function parseAndNormalizeSpell(spell, options={
     
     // Normalize Name
     spellModified.Name = getNormalizedSpellName(spell)
-    console.log({spell})
-    console.log(`Parsing and normalizing spell: ${spellModified.Name}`)
     spellModified.IconPath = getSpellOrItemIconPath(spell, isItem)
 
     // Fix Effect
@@ -721,7 +719,40 @@ export const $LESSER_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => s
 export const $MINOR_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Minor').map(spell => spell.Name)
 export const $MAJOR_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Major').map(spell => spell.Name)
 export const $GRAMD_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Grand').map(spell => spell.Name)
-export const $SKILLS = Object.keys(skills).map(name => removeTildes(name))
+export const $SKILLS = [
+  "Acrobatics",
+  "Animals",
+  "Arcane",
+  "Athletics",
+  "Biology",
+  "Cooking",
+  "Crafting",
+  "Sociology",
+  "Deception",
+  "Dungeons",
+  "Knowledge",
+  "Hearing",
+  "History",
+  "Intimidation",
+  "Investigation",
+  "Linguistics",
+  "Luck",
+  "Mechanisms",
+  "Memory",
+  "Monstrology",
+  "Nature",
+  "Occultism",
+  "Persuasion",
+  "Psychology",
+  "Religion",
+  "Using Rope",
+  "Hand Sleight",
+  "Sight",
+  "Smelling",
+  "Stealth",
+  "Survival"
+]
+
 export function getVariantsForEachCollection(collectionName) {
     switch (collectionName) {
         case '$OneHandedWeapons': return [...Object.keys(weapons['One-Handed Melee']), ...Object.keys(weapons['One-Handed Ranged'])].filter(weapon => weapon != 'Punch')
@@ -948,7 +979,7 @@ export function matchRange(num, items, fallback = null) {
     }
   }
 
-  return best ? best.value : fallback;
+  return best?.value ?? fallback
 }
 
 // Puts it at the end if it has no keyName property.
@@ -1023,8 +1054,21 @@ export function mapObject(obj, func) {
     let newObj = {}
     for (const oldKey of keys) {
         const oldValue = obj[oldKey]
-        const { key, value } = func({key: oldKey, value: oldValue})
-        newObj = {...newObj, [key]: value }
+        const funcParam = [oldKey, oldValue]    // For both object and array destructuring
+              funcParam.key = oldKey
+              funcParam.value = oldValue
+        
+        const newKVP = func(funcParam)
+        
+        let newKey, newValue
+        if (Array.isArray(newKVP)) {
+            newKey = newKVP[0]
+            newValue = newKVP[1]
+        } else {
+            newKey = newKVP.key
+            newValue = newKVP.value
+        }
+        newObj = {...newObj, [newKey]: newValue }
     }
     return newObj
 }
@@ -1067,7 +1111,12 @@ export function addObjects(a, b) {
     return finalObject
 }
 export function filterObject(obj, func) {
-    const newKeys = Object.keys(obj).filter(key => func({ key, value: obj[key] }))
+    const newKeys = Object.entries(obj).filter(([key, value]) => {
+        const funcParam = [key, value]
+              funcParam.key = key
+              funcParam.value = value
+        return func(funcParam)
+    }).map(([key, value]) => key)
     const newObj = {}
     for (const key of newKeys) {
         newObj[key] = obj[key]
@@ -1569,7 +1618,6 @@ export function parseTextWithSymbols(...argsOriginal) {
                         }
                     }
                     const args = functionStrings
-                    console.log({functionName, args})
                     const getSymbolComponent = formFunctionSymbolComponentFunc(functionName, args, customFunctionSymbols, shouldReturnStringsOnly, shouldReturnConfigOnly)
                     const finalComponent = getSymbolComponent()
                     textParts.push(finalComponent)
@@ -2098,12 +2146,31 @@ export class SeededRNG {
   }
 
   // int in [min, max] (inclusive)
-  int(min, max) {
+  randomInt(min, max) {
     if (!Number.isFinite(min) || !Number.isFinite(max)) {
       throw new Error("min and max must be finite numbers");
     }
     if (max < min) [min, max] = [max, min];
     return Math.floor(this.next() * (max - min + 1)) + min;
+  }
+
+  randomOf(...args) {
+    if (args.length == 0) {
+        return null
+    }
+    const arr = args.length == 1 && Array.isArray(args[0])? args[0]: args
+    return arr[this.randomInt(0, arr.length - 1)];
+  }
+
+  shuffle(array_a){
+    var iRandomize;
+    for(iRandomize = 0; iRandomize < array_a.length; iRandomize++){
+        var randomizeArrayIndex = this.randomInt(0, array_a.length - 1);
+        var auxRandomize = array_a[iRandomize];
+        array_a[iRandomize] = array_a[randomizeArrayIndex];
+        array_a[randomizeArrayIndex] = auxRandomize;
+    }
+    return array_a
   }
 
   // chancePercent: <=0 => false, >=100 => true
