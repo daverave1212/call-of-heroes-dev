@@ -192,7 +192,7 @@ export default function MerchantGenerator({}) {
             const itemType = rng.randomOf(...merchant.uniqueMagicItemTypes)
             const xpValue = getAnXPValue()
             if (rng.percentChance(75)) {
-                return createMagicItem(xpValue, itemType)
+                return createMagicItem(xpValue, itemType, rng)
             }
             return null
         }).filter(item => item != null)
@@ -216,9 +216,11 @@ export default function MerchantGenerator({}) {
     function getShop() {
         const { merchant, type, name, productDiversity } = getMerchantFromCode(merchantCode)
         
-        if (merchant == null) {
+        if (merchant == null || productDiversity < 1 || productDiversity > 5 || merchantCode.length < 3) {
             return [[], [], []]
         }
+
+        console.log({ merchant, type, name, productDiversity })
         
         const rng = new SeededRNG(getRNGSeed(name))
         const daysSinceLastWednesday = getDaysSinceLast(WEDNESDAY)
@@ -228,6 +230,7 @@ export default function MerchantGenerator({}) {
         const allMagicItemsIHave = getMagicItemsIHaveAsArray(merchant, productDiversity, rng)
         const allArtefactsIHave = getUniqueArtefactsIHaveAsArray(merchant, productDiversity, rng)
 
+        console.log({allArtefactsIHave})
         return [allNormalItemsAfterSales, allMagicItemsIHave, allArtefactsIHave]
     }
     function seeMerchant() {}

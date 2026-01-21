@@ -183,6 +183,34 @@ export function getAllSpells() {
     const allSpells = [...allFontSpells, ...allBasicSpells, ...allFeats, ...allClassAndRaceAbilities]
     return allSpells
 }
+function autoAssignScrollPower(spell) {
+    const actionPoints = getActionPointsByA(spell.A)
+    const costNormalized = spell.Cost ?? '0 Mana'
+    if (costNormalized.includes('Mana') == false) {
+        console.log({spell})
+        console.error(`Failed to assign ScrollPower Auto to spell with Cost without Mana printed above`)
+        return
+    }
+    const manaCost = getNumberFromString(costNormalized)
+    
+    let spellLevel = spell.ParentKey ?? 'Level 0'
+    if (spellLevel == 'Utility') {
+        spellLevel = 'Level 1'
+    } else if (spellLevel.includes('Level') == false) { // Fonts and other
+        spellLevel = 'Level 1'
+    }
+    const spellTrueLevel = getNumberFromString(spellLevel)
+    if (spellTrueLevel == null) {
+        console.log({spell})
+        console.error(`Failed to assign ScrollPower Auto to spell, ParentKey contains no number, spell printed above`)
+        return
+    }
+    const extraPowerByLevel = spellTrueLevel <= 3? 0: spellTrueLevel <= 5? 1: 2
+    spell.ScrollPower = Math.max(actionPoints - 1 + manaCost + extraPowerByLevel, 0)
+}
+export function isSpellFontSpell(spell) {
+    return ['Fire', 'Lightning', 'Frost', 'Arcane'].includes(spell?.ParentKey ?? 'ahsjkdhaskjhd')
+}
 let allSpellsCached = null
 export function getAllSpellsByName() {
     const allSpells = getAllSpells()
@@ -191,12 +219,20 @@ export function getAllSpellsByName() {
     }
     allSpellsCached = {}
     for (const spell of allSpells) {
+        if (spell.ScrollPower != null) {
+            if (spell.ScrollPower == 'Auto') {
+                autoAssignScrollPower(spell)
+            }
+        } else if (isSpellFontSpell(spell)) {
+            autoAssignScrollPower(spell)
+        }
         if (allSpellsCached[spell.Name] == null) {
             allSpellsCached[spell.Name] = spell
         }
     }
     return allSpellsCached
 }
+window.getAllSpellsByName = getAllSpellsByName
 export function getSpellByName(name) {
     if (name == null) {
         throw `Null spell given by name to getSpellByName.`
@@ -260,6 +296,9 @@ export function getAllMagicItemsByName() {
             continue
         }
         const itemsHere = magicItems[category].Items
+        for (const item of Object.values(itemsHere)) {
+            item.Category = category
+        }
         magicItemsCached = {...magicItemsCached, ...itemsHere}
     }
     return magicItemsCached
@@ -482,6 +521,20 @@ export function isMonsterEpic(monster) {
         return false
     }
     return monster.Degree?.includes?.('Epic') || isNumber(monster.Degree)
+}
+export function getActionPointsByA(A, options={
+    '3 Action Points': 3,
+    '1 Action': 2,
+    'Half-Action': 1,
+    '0 Actions': 0,
+    'Reaction': 0,
+    'Passive': 0,
+    [null]: 2
+}) {
+    if (!(A in options)) {
+        return 2
+    }
+    return options[A]
 }
 export function getMonsterTotalXP(monster) {
     const [monsterTotalXP] = splitByNumbers(monster?.Experience ?? '0')
@@ -719,10 +772,79 @@ export const $LESSER_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => s
 export const $MINOR_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Minor').map(spell => spell.Name)
 export const $MAJOR_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Major').map(spell => spell.Name)
 export const $GRAMD_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Grand').map(spell => spell.Name)
+
+export const SKILL_GROUP_BY_ELEMENT = {
+    'Fire': ['Physical', 'Magic', 'Dungeons'],
+    'Cold': ['Magic', 'Knowledge'],
+    'Shock': ['Magic', 'Knowledge', 'Nature'],
+    'Pulse': ['Magic', 'Physical', 'Dungeons'],
+    'Scourge': ['Magic', 'Social', 'Dungeons'],
+    'Divine': ['Knowledge', 'Social'],
+    'Poison': ['Nature', 'Physical'],
+    'Acid': ['Nature', 'Physical']
+}
+export const SKILLS_BY_GROUP = {
+    'Physical': [
+        'Acrobatics',
+        'Athletics',
+        'Intimidation',
+        'Using Rope',
+        'Hearing', 'Seeing', 'Sight', 'Smelling'
+    ],
+    'Nature': [
+        'Handling Animals',
+        'Biology',
+        'Crafting',
+        'Hearing', 'Seeing', 'Sight', 'Smelling',
+        'Luck',
+        'Monstrology',
+        'Nature',
+        'Using Rope',
+        'Survival'
+    ],
+    'Magic': [
+        'the Arcane',
+        'History',
+        'Memory',
+        'Occultism',
+        'Linguistics'
+    ],
+    'Trade': [
+        'Cooking',
+        'Crafting',
+        'Luck',
+        'Mechanisms',
+        'Using Rope'
+    ],
+    'Knowledge': [
+        'Sociology',
+        'General Knowledge',
+        'History',
+        'Investigation',
+        'Memory',
+        'Religion',
+        'Linguistics'
+    ],
+    'Social': [
+        'Sociology',
+        'Deception',
+        'Investigation',
+        'Persuasion',
+        'Psychology',
+        'Linguistics'
+    ],
+    'Dungeons': [
+        'Dungeoneering',
+        'Investigation',
+        'Monstrology',
+        'Occultism',
+        'Stealth'
+    ],
+}
 export const $SKILLS = [
   "Acrobatics",
   "Animals",
-  "Arcane",
+  "the Arcane",
   "Athletics",
   "Biology",
   "Cooking",
@@ -746,7 +868,7 @@ export const $SKILLS = [
   "Psychology",
   "Religion",
   "Using Rope",
-  "Hand Sleight",
+  "Sleight of Hand",
   "Sight",
   "Smelling",
   "Stealth",
@@ -1763,6 +1885,7 @@ export function isCharDigit(char) {
 }
 
 // ---------------- Other Small Utilities ----------------
+console.green = str => console.log(`%c${str}`, `color: green; font-style: bold`)
 export function startsWithAny(str, anyOf) {
     return anyOf.some(option => str.startsWith(option))
 }
@@ -2184,6 +2307,26 @@ export class SeededRNG {
     return this.next() < chancePercent / 100;
   }
 
+  randomOfArrayWeighted(items, _weights) {
+    if (items.length == 1) {
+        return items[0]
+    }
+
+    let i;
+    let weights = [..._weights]
+
+    for (i = 1; i < weights.length; i++)
+        weights[i] += weights[i - 1];
+    
+    let random = this.next() * weights[weights.length - 1];
+    
+    for (i = 0; i < weights.length; i++)
+        if (weights[i] > random)
+            break;
+    
+    return items[i];
+  }
+
   // ---- internals ----
   _xmur3(str) {
     let h = 1779033703 ^ str.length;
@@ -2547,7 +2690,7 @@ export function includesAll(str, strings) {
     }
     return true
 }
-export function includesAny(str, strings) {
+export function includesAny(str, strings, excludesAny) {
     for (const included of strings) {
         if (str.includes(included)) {
             return included
@@ -2555,6 +2698,36 @@ export function includesAny(str, strings) {
     }
     return false
 }
+export function includesAnyWithExceptions(text, strings, excludesAny) {
+    for (const string of strings) {
+        const exclusions = excludesAny[string]
+        if (includesStrWithExceptions(text, string, exclusions)) {
+            return true
+        }
+    }
+    return false
+}
+export function includesStrWithExceptions(text, str, largerWords = []) {
+  if (!str) return false;
+
+  let t = String(text);
+  const s = String(str);
+
+  // If text doesn't contain str at all -> false
+  if (!t.includes(s)) return false;
+
+  // Remove every larger word that contains str (others don't matter)
+  for (const lw of largerWords) {
+    const word = String(lw);
+    if (word && word.includes(s)) {
+      t = t.split(word).join("");
+    }
+  }
+
+  // If str still exists somewhere -> true
+  return t.includes(s);
+}
+
 window.includesAll = includesAll
 window.includesAny = includesAny
 export function containsNumber(str) {

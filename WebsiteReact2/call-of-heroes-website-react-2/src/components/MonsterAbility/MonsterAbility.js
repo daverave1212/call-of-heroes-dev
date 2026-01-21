@@ -30,16 +30,15 @@ export default function MonsterAbility({monster, monsterXP, ability, isPassive, 
         IsUltimate
     } = abilityBody
 
-    const nActionPoints = 
-        abilityBody.A == null || abilityBody.A == '1 Action'?
-            2:
-        abilityBody.A == 'Half-Action'?
-            1:
-        abilityBody.A == 'Reaction'?
-            1:
-        abilityBody.A == '0 Actions'?
-            0:
-        1
+    const nActionPoints = U.getActionPointsByA(abilityBody.A, {
+        '3 Action Points': 3,
+        '1 Action': 2,
+        'Half-Action': 1,
+        '0 Actions': 0,
+        'Reaction': 1,
+        'Passive': 0,
+        [null]: 2
+    })
 
 
     const isEpic = U.isMonsterEpic(monster)

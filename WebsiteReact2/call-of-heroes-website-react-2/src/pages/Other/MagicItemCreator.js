@@ -1,4 +1,4 @@
-import { $SKILLS, capitalizeFirstLetter, filterObject, getAlternativesAsArray, getItemIconPathByName, includesAll, includesAny, joinObjectValues, last, mapKeysToObject, mapObject, matchRange, mergeObjectsContainingArrays, onlyUniqueFilter, parseTextWithSymbols, percentChance, randomInt, randomOf, randomOfArrayWeighted, roundToNearest, shuffle, spellsFromObject, stringReplaceAllMany } from "../../utils";
+import { $SKILLS, capitalizeFirstLetter, filterObject, generateUniqueId, getAlternativesAsArray, getItemIconPathByName, includesAll, includesAny, includesAnyWithExceptions, joinObjectValues, last, mapKeysToObject, mapObject, matchRange, mergeObjectsContainingArrays, onlyUniqueFilter, parseTextWithSymbols, percentChance, randomInt, randomOf, randomOfArrayWeighted, roundToNearest, SeededRNG, shuffle, SKILL_GROUP_BY_ELEMENT, SKILLS_BY_GROUP, spellsFromObject, stringReplaceAllMany } from "../../utils";
 import MagicItemProperties from '../../databases/Other/MagicItemProperties.json'
 import Weapons from '../../databases/Weapons.json'
 import Armors from '../../databases/Armors.json'
@@ -11,6 +11,9 @@ import HeroButton from "../../components/HeroButton/HeroButton";
 import Spell from '../../components/Spell/Spell'
 import { isString } from "markdown-it/lib/common/utils";
 import { checkStatRequirements, STAT_NAMES } from "../../services/game-lib/stat-calculations";
+
+const standardRNG = { randomInt, percentChance, randomOf, randomOfArrayWeighted, shuffle }
+
 const ALL_WEAPONS_ARRAY = [
     ...spellsFromObject(Weapons['One-Handed Melee']).map(item => ({...item, type: 'One-Handed Melee'})),
     ...spellsFromObject(Weapons['Two-Handed Melee']).map(item => ({...item, type: 'Two-Handed Melee'})),
@@ -18,64 +21,71 @@ const ALL_WEAPONS_ARRAY = [
     ...spellsFromObject(Weapons['Two-Handed Ranged']).map(item => ({...item, type: 'Two-Handed Ranged'}))
 ]
 
-function parseItemText(text, thisText='{This}') {
-    const randomElement = () => randomOf('Slash', 'Pierce', 'Smash', 'Pulse', 'Fire', 'Cold', 'Shock', 'Poison', 'Acid', 'Divine', 'Scourge')
+function parseItemText({ text, thisText='{This}', rng=standardRNG, item={} }) {
+    const randomElement = () => {
+        if (item.ElementBias != null && rng.percentChance(85)) {
+            return item.ElementBias
+        }
+        const element = rng.randomOf('Slash', 'Pierce', 'Smash', 'Pulse', 'Fire', 'Cold', 'Shock', 'Poison', 'Acid', 'Divine', 'Scourge')
+        item.ElementBias = element
+        return element
+    }
     const preferredElement = randomElement()
-    const whenSynonym = () => randomOf('the moment when', 'when', 'when', 'the moment', 'the instant')
-    const sound = () => randomOf('murmur', 'hum', 'sound', 'rumble', 'strum', 'trill', 'song', 'rustle', 'thrum', 'whir', 'pulse', 'echo')
+    const whenSynonym = () => rng.randomOf('the moment when', 'when', 'when', 'the moment', 'the instant')
+    const sound = () => rng.randomOf('murmur', 'hum', 'sound', 'rumble', 'strum', 'trill', 'song', 'rustle', 'thrum', 'whir', 'pulse', 'echo')
     const an = str => (str.startsWith('o') || str.startsWith('a') || str.startsWith('e') || str.startsWith('u') || str.startsWith('i'))? `an ${str}`: `a ${str}`
 
     let customSymbols
     let getSymbolText = symbol => customSymbols[symbol].text()
     // This is not raw! It needs another processing, which is done below
     customSymbols = {
-        'When': { text: () => randomOf(
+        'When': { text: () => rng.randomOf(
             'when struck', 'when hit', 'upon impact', 'when touched',
-            'when not looked at' + randomOf('', ' closely'),
+            'when not looked at' + rng.randomOf('', ' closely'),
             'the more it is used',
             'when left unattended',
             'when picked up', 'the moment it is picked up',
             'when moved', 'when in motion',
-            `${whenSynonym()} ${randomOf('one tries to pick it up', 'one picks it up', 'one grasps it')}`,
-            'when not paid attention to' + randomOf('', ' closely'),
-            'when paid attention to' + randomOf('', ' closely'),
-            `${whenSynonym()} ${randomOf('one', 'someone')} ${randomOf('pays attention', 'tries to pay attention')}${randomOf('', ' closely')}`,
+            `${whenSynonym()} ${rng.randomOf('one tries to pick it up', 'one picks it up', 'one grasps it')}`,
+            'when not paid attention to' + rng.randomOf('', ' closely'),
+            'when paid attention to' + rng.randomOf('', ' closely'),
+            `${whenSynonym()} ${rng.randomOf('one', 'someone')} ${rng.randomOf('pays attention', 'tries to pay attention')}${rng.randomOf('', ' closely')}`,
             `${whenSynonym()} one turns their attention to it`,
             `only when unobserved`,
             
-            `${randomOf('at certain hours', 'at random times', 'randomly', 'at random')} ${randomOf('at', 'during the', 'in the')} ${randomOf('day', 'night', 'twilight', 'morning', 'evening', 'sundown', 'dusk')}`,
-            `when${randomOf('placed', '')} in ${randomOf('strong', 'direct ', '')}${randomOf('sunlight', 'daylight', 'moonlight', 'dim light', 'shadow')}`,
-            `under the open ${randomOf('night ', 'day ', '', '')}sky`,
-            `in the presence of ${randomOf('fire', 'flames', 'heat', 'the scorching sun', 'the cold moon', 'freezing cold', 'frost', 'ice', 'water', 'acid', 'poisoned air', 'poisonous creatures', 'lightning', 'electricity')}`,
-            `in the presence of ${randomOf('wild beasts', 'dragons', 'humanoids', 'people with ill intent', 'people deemed trustworthy', 'aberrations', 'fiends', 'monsters', 'people\'s voices' + randomOf('', '', ' breaking the silence', 'breaking the stillness'))}`,
+            `${rng.randomOf('at certain hours', 'at random times', 'randomly', 'at random')} ${rng.randomOf('at', 'during the', 'in the')} ${rng.randomOf('day', 'night', 'twilight', 'morning', 'evening', 'sundown', 'dusk')}`,
+            `when${rng.randomOf('placed', '')} in ${rng.randomOf('strong', 'direct ', '')}${rng.randomOf('sunlight', 'daylight', 'moonlight', 'dim light', 'shadow')}`,
+            `under the open ${rng.randomOf('night ', 'day ', '', '')}sky`,
+            `in the presence of ${rng.randomOf('fire', 'flames', 'heat', 'the scorching sun', 'the cold moon', 'freezing cold', 'frost', 'ice', 'water', 'acid', 'poisoned air', 'poisonous creatures', 'lightning', 'electricity')}`,
+            `in the presence of ${rng.randomOf('wild beasts', 'dragons', 'humanoids', 'people with ill intent', 'people deemed trustworthy', 'aberrations', 'fiends', 'monsters', 'people\'s voices' + rng.randomOf('', '', ' breaking the silence', 'breaking the stillness'))}`,
             'in the silence',
         )},
         'As': { text: () => 
-            `${randomOf(`when`, 'when', 'as', 'as', 'in the time when')} the ${randomOf('night sky', 'day sky', 'weather', 'time of the year')} ${randomOf('changes', 'changes', 'varies', 'evolves', 'fluctuates', 'adjusts', 'settles')}`
+            `${rng.randomOf(`when`, 'when', 'as', 'as', 'in the time when')} the ${rng.randomOf('night sky', 'day sky', 'weather', 'time of the year')} ${rng.randomOf('changes', 'changes', 'varies', 'evolves', 'fluctuates', 'adjusts', 'settles')}`
         },
-        'Sometimes': { text: () => randomOf(
+        'Sometimes': { text: () => rng.randomOf(
             'sometimes', 'ocassionally', 'randomly',
             'in alternating breaths',
             'in a rhythmic pattern',
             'at odd intervals'
         )},
-        'InCondition': { text: () => randomOf(
+        'InCondition': { text: () => rng.randomOf(
             'when looked at', 'when not looked at', 'when looked at with the peripheral vision',
-            `${randomOf('at certain hours', 'at random times', 'randomly', 'at random')} ${randomOf('at', 'during the', 'in the')} ${randomOf('day', 'night', 'twilight', 'morning', 'evening', 'sundown', 'dusk')}`,
-            `${randomOf(`when ${randomOf(' placed in', '')}`, 'under', 'in')} ${randomOf('strong ', 'direct ', '')}${randomOf('sunlight', 'daylight', 'moonlight', 'dim light', 'shadow')}`,
-            `under the open ${randomOf('night ', 'day ', '', '')}sky`,
-            `in the presence of ${randomOf('fire', 'flames', 'heat', 'the scorching sun', 'the cold moon', 'freezing cold', 'frost', 'ice', 'water', 'acid', 'poisoned air', 'poisonous creatures', 'lightning', 'electricity')}`,
-            `in the presence of ${randomOf('wild beasts', 'dragons', 'humanoids', 'people with ill intent', 'people deemed trustworthy', 'aberrations', 'fiends', 'monsters')}`,            
+            `${rng.randomOf('at certain hours', 'at random times', 'randomly', 'at random')} ${rng.randomOf('at', 'during the', 'in the')} ${rng.randomOf('day', 'night', 'twilight', 'morning', 'evening', 'sundown', 'dusk')}`,
+            `${rng.randomOf(`when ${rng.randomOf(' placed in', '')}`, 'under', 'in')} ${rng.randomOf('strong ', 'direct ', '')}${rng.randomOf('sunlight', 'daylight', 'moonlight', 'dim light', 'shadow')}`,
+            `under the open ${rng.randomOf('night ', 'day ', '', '')}sky`,
+            `in the presence of ${rng.randomOf('fire', 'flames', 'heat', 'the scorching sun', 'the cold moon', 'freezing cold', 'frost', 'ice', 'water', 'acid', 'poisoned air', 'poisonous creatures', 'lightning', 'electricity')}`,
+            `in the presence of ${rng.randomOf('wild beasts', 'dragons', 'humanoids', 'people with ill intent', 'people deemed trustworthy', 'aberrations', 'fiends', 'monsters')}`,            
         )},
         
-        'Size': { text: () => randomOf(
+        'Size': { text: () => rng.randomOf(
             'small', 'tiny', 'little',
             'large', 'great', 'vast'
         )},
-        'But': { text: () => randomOf(
+        'But': { text: () => rng.randomOf(
             'but', 'yet', 'though'
         )},
-        'AdjectiveForMovement': { text: () => randomOf(
+        'AdjectiveForMovement': { text: () => rng.randomOf(
             'rapid', 'quick', 'sudden',
             'slow', 'calm', 'gentle',
             'soft', 'smooth', 'delicate',
@@ -84,7 +94,7 @@ function parseItemText(text, thisText='{This}') {
             'endless', 'faint', 'delicate', 'hazy', 'mild',
             'clear', 'distinct', 'noticeable',
         ) },
-        'AdverbForMovementNoSpace': { text: () => randomOf(
+        'AdverbForMovementNoSpace': { text: () => rng.randomOf(
             ' raplidly', ' quickly', ' suddenly',
             ' slowly', ' calmly', ' gently', ' softly', 'smoothly',
             ' heavily', ' easily', ' weightlessly',
@@ -92,12 +102,12 @@ function parseItemText(text, thisText='{This}') {
             ' endlessly', ' faintly', ' delicately',
             '', '', '', '', '', ''
         ) },
-        'AdverbForAnythingNoSpace': { text: () => randomOf(
+        'AdverbForAnythingNoSpace': { text: () => rng.randomOf(
             ' even more so', ' more and more',
             ' subtly', ' very much',
             '', '', '', '', '', ''
         ) },
-        'InDirection': { text: () => randomOf(
+        'InDirection': { text: () => rng.randomOf(
             'skyward', 'downward', 'upward', 'in midair',
             'into mist', 'into nothingness',
             'into the air',
@@ -107,42 +117,42 @@ function parseItemText(text, thisText='{This}') {
             'into a whisper',
             'in random directions'
         )},
-        'APeriod': { text: () => randomOf(
+        'APeriod': { text: () => rng.randomOf(
             'a while', 'a period', 'a brief period', 'short bursts', 'a time',
             'only a heartbeat',
         )},
-        'SeemsTo': { text: () => randomOf(
+        'SeemsTo': { text: () => rng.randomOf(
             'appears to', 'seems to', 'looks to',
         )},
-        'SeemsToBe': { text: () => randomOf(
+        'SeemsToBe': { text: () => rng.randomOf(
             'is', 'appears', 'seems', 'looks', 'seems to be', 'appears to be', 
         )},
-        'Seeming': { text: () => randomOf(
+        'Seeming': { text: () => rng.randomOf(
             'being', 'appearing', 'seeming', 'looking', 'seeming to be', 'appearing to be', 
         )},
-        'MadeOf': { text: () => randomOf(
+        'MadeOf': { text: () => rng.randomOf(
             'made of', 'woven from', 'created of', 'of', 'fashioned from', 'formed of', 'hewn from', 'forged of',
             'shaped from', 'wrought in', 'carven of', 'crafted of', 'crafted from', 'born of', 'drawn from',
             'spun of', 'raised from'
         )},
-        'Glows': { text: () => randomOf(
+        'Glows': { text: () => rng.randomOf(
             'glows', 'scintilates', 'sparkles', 'lightens up', 'tints', 'glimmers'
         )},
-        'Glow': { text: () => randomOf(
+        'Glow': { text: () => rng.randomOf(
             'glow', 'sparkle', 'light', 'tint', 'glimmer',
             'mote of light'
         )},
-        'Sound': { text: () => randomOf('murmur', 'hum', 'sound', 'rumble', 'strum', 'trill', 'song', 'rustle', 'thrum', 'whir', 'pulse', 'echo')},
-        'Fading': { text: () => randomOf(
+        'Sound': { text: () => rng.randomOf('murmur', 'hum', 'sound', 'rumble', 'strum', 'trill', 'song', 'rustle', 'thrum', 'whir', 'pulse', 'echo')},
+        'Fading': { text: () => rng.randomOf(
             'fading', 'rising', 'soaring', 'ascending', 'drifting',
             'evaporating', 'scattering', 'expanding', 'drifting away',
             'dispersing', 'disappearing'
         )},
-        'Changes': { text: () => randomOf(
+        'Changes': { text: () => rng.randomOf(
             'shifts', 'transforms', 'changes patterns',
             'drifts', 'swells and fades'
         )},
-        'Moving': { text: () => randomOf(
+        'Moving': { text: () => rng.randomOf(
             'shifting', 'transforming', 'changing patterns',
             'drifting', 'flowing',
             'shifting and flowing',
@@ -155,36 +165,36 @@ function parseItemText(text, thisText='{This}') {
             'coiling around like a serpent',
             'sways'
         )},
-        'ChangedPosition': { text: () => randomOf(
+        'ChangedPosition': { text: () => rng.randomOf(
             'shifted', 'moved from place', 'displaced',
             'placed at a different angle', 'moved',
             'turned', 'lying at a new angle',
-            randomOf('put', 'laid') + ' in a different place',
+            rng.randomOf('put', 'laid') + ' in a different place',
         )},
-        'IncreasesOrDecreases': { text: () => randomOf(
+        'IncreasesOrDecreases': { text: () => rng.randomOf(
             'increases', 'amplifies', 'intensifies', 'strenghtens', 'raises',
             'reduces', 'decreases', 'stops', 'wanes', 'falls off', 'weakens', 'fades',
         )},
-        'Increases': { text: () => randomOf(
+        'Increases': { text: () => rng.randomOf(
             'increases', 'amplifies', 'intensifies', 'strenghtens', 'raises', 'blooms',
         )},
-        'Decreases': { text: () => randomOf(
+        'Decreases': { text: () => rng.randomOf(
             'reduces', 'decreases', 'stops', 'wanes', 'falls off', 'weakens', 'fades',
         )},
-        'Flow': { text: () => randomOf(
+        'Flow': { text: () => rng.randomOf(
             'curls', 'rises', 'flows', 'cascades', 'ebbs', 'ebbs and flows', 'streams', 'swirls', 'trickles', 'ripples', 'coils', 'oscillates',
         )},
-        'Flows': { text: () => randomOf(
+        'Flows': { text: () => rng.randomOf(
             'curls', 'rises', 'flows', 'cascades', 'ebbs', 'ebbs and flows', 'streams', 'swirls', 'trickles', 'ripples', 'coils', 'oscillates',
         )},
-        'Hums': { text: () => randomOf(
+        'Hums': { text: () => rng.randomOf(
             'hums', 'resonates', 'rumbles', 'strums', 'trills', 'song-whispers',
             'rustles', 'thrums', 'whirrs'
         )},
         'AdjectiveForSound': { text: () => (() => {
-            const farAway = randomOf('distant', 'far', 'just out of reach', 'far away', 'nearby', 'distant', 'faint', 'unseen', 'phantom')
+            const farAway = rng.randomOf('distant', 'far', 'just out of reach', 'far away', 'nearby', 'distant', 'faint', 'unseen', 'phantom')
             const an = str => str.startsWith('o') || str.startsWith('a') || str.startsWith('e') || str.startsWith('u') || str.startsWith('i')? `an ${str}`: `a ${str}`
-            const butMetaphor = () => randomOf(
+            const butMetaphor = () => rng.randomOf(
                 `like a note struck on ${an(farAway)} string.`,
                 `like the ${farAway} toll of a bell rolling across unseen hills`,
                 `a pressure like ${an(farAway)} thunder, ${getSymbolText('Moving')} as if carried on a phantom storm`,
@@ -199,7 +209,7 @@ function parseItemText(text, thisText='{This}') {
                 'making the air remains charged, trembling with a silence that feels alive',
                 `${getSymbolText('Moving')} as though ${getSymbolText('Glow')} itself has grown liquid`,
             )
-            const adjectiveMetaphor = () => randomOf(
+            const adjectiveMetaphor = () => rng.randomOf(
                 'not heard with the ears but felt in the chest',
                 `more sensation than sound`,
                 `too soft to understand but impossible to ignore`,
@@ -208,11 +218,11 @@ function parseItemText(text, thisText='{This}') {
                 `that seems to come from behind the listener, even when they are alone`,
                 `felt more as awe than heard with the ears`,
             )
-            randomOf(
+            return rng.randomOf(
                 `${an(sound())} ${adjectiveMetaphor}, ${butMetaphor}.`
             )
         })() },
-        'DescriptionForArmorVisualsHoly': { text: () => randomOf(
+        'DescriptionForArmorVisualsHoly': { text: () => rng.randomOf(
             "The surface gleams pale and smooth, like stone worn by centuries of prayerful touch. Its brightness is not dazzling, but steady, as though it has remembered light for ages.",
             "Its color is the soft hue of ivory, streaked faintly with lines like scripture etched by unseen hands. The markings seem too ancient to be human.",
             "The armor carries a faint warmth, not of fire but of breath, like the lingering presence of someone who has just whispered a blessing.",
@@ -253,7 +263,7 @@ function parseItemText(text, thisText='{This}') {
             "It bears faint impressions like fingerprints, but each is too perfect, too symmetrical, as though left by something not human.",
             "The armor seems carved from serenity itself, each curve and line deliberate, free of excess, carrying only what is necessary to endure."
         )},
-        'DescriptionForArmorVisualsDark': { text: () => randomOf(
+        'DescriptionForArmorVisualsDark': { text: () => rng.randomOf(
             "Its surface is blackened and rough, as though it had been burned in a fire that never ended. Small cracks glow faintly with a dull crimson, like the embers of something still smoldering beneath the charred shell.",
             "The armor appears slick, its texture akin to wet stone, yet when touched it is dry and unpleasantly sticky, as though it rejects the warmth of living hands.",
             "Faint etchings cover its body — jagged, twisting marks that seem carved by no human tool. At times, the grooves appear to writhe, shifting like serpents across its surface.",
@@ -294,7 +304,7 @@ function parseItemText(text, thisText='{This}') {
             "It appears scarred, its surface slashed again and again by deep gashes. Yet the gashes remain raw, as if still fresh, never sealing or scabbing over.",
             "The armor is covered in a powdery residue, dark gray like ash, which clings faintly to the skin of any who touch it. No matter how often it is brushed away, it always returns."
         )},
-        'DescriptionForArmorVisualsGeneric': { text: () => randomOf(
+        'DescriptionForArmorVisualsGeneric': { text: () => rng.randomOf(
             "Its surface is covered in overlapping layers, not quite scales and not quite plates, each ridge flowing into the next as though the armor had grown that way rather than being forged. In certain lights, faint striations ripple across the surface, like muscle beneath skin.",
             "The armor bears the color of scorched earth — deep browns and muted blacks blended unevenly. Its texture is gritty and rough, with patches smoother than others, as though it had weathered storms of sand and ash for a hundred years.",
             "The piece seems carved from a single block of stone, veins of lighter gray threading through the darker mass. Despite its mineral look, it flexes slightly when pressed, creaking like distant rock under pressure.",
@@ -316,7 +326,7 @@ function parseItemText(text, thisText='{This}') {
             "The surface looks brittle and fractured, covered in fine cracks like dried clay. Yet the cracks seem frozen in place, not spreading, as though whatever broke it had long ago been halted in time.",
             "The armor bears a smoothness like riverstone, each curve worn down to subtle edges. Its color is a muted slate, with darker streaks threading through it like veins of water frozen into stone."
         )},
-        'DescriptionForVisualsGeneric': { text: () => randomOf(
+        'DescriptionForVisualsGeneric': { text: () => rng.randomOf(
             "The {This}'s surface is marbled with veins of pale gray and deep crimson, as if quarried from some ancient stone rather than forged.",
             "The texture is uneven and rough to the touch, like bark torn from a withered tree, yet it holds together seamlessly.",
             "It bears a mottled pattern of dull greens and browns, resembling aged bronze that has weathered centuries of corrosion.",
@@ -439,7 +449,7 @@ function parseItemText(text, thisText='{This}') {
             "The surface appears porous, tiny holes across its body like fossilized coral.",
             "The {This}'s look is plain and subdued, no embellishment, only raw substance shaped crudely."
         )},
-        'DescriptionForHolyItem': { text: () => randomOf(
+        'DescriptionForHolyItem': { text: () => rng.randomOf(
             `It ${getSymbolText('Glows')} softly with ${an(getSymbolText('Glow'))} that seems to pulse in time with the heart of the world. Those who hold it feel warmth deep in the chest, a quiet insistence that they are seen, watched over by something older and wiser than memory itself. Yet the light is not comforting in a simple way; it whispers of choices and paths yet untaken, leaving the mind both calmed and uneasy.`,
             `The {This} ${getSymbolText('Hums')}${getSymbolText('AdverbForMovementNoSpace')}, a resonance that cannot be heard but felt, like the vibration of faith itself. Eyes are drawn to it involuntarily, and when looked away, one swears they can still see its glow at the edge of vision. It carries a sense of judgment, not harsh, but impartial, as if measuring the worth of intentions unseen.`,
             `Its surface ${getSymbolText('Glows')}, ${getSymbolText('Moving')}, seeming almost alive, like sunlight rippling over water, yet each reflection reveals a different shape to every observer. The closer one studies it, the more it seems to reveal hidden truths about the self, offering both insight and a gentle, unnerving challenge to the mind.`,
@@ -471,7 +481,7 @@ function parseItemText(text, thisText='{This}') {
             `It glimmers${getSymbolText('AdverbForMovementNoSpace')}, not enough to illuminate, yet enough to reveal the presence of hidden corners and overlooked paths. Those nearby feel a quiet insistence to notice, reflect, and act with care, aware that unseen forces may be observing.`,
             `Its glow is soft and persistent, like the echo of a hymn in an empty hall, stirring thought and conscience alike. Handling it evokes both humility and purpose, a sense that small acts resonate far beyond their immediate effect`,
         )},
-        'DescriptionForDarkItem': { text: () => randomOf(
+        'DescriptionForDarkItem': { text: () => rng.randomOf(
             `It ${getSymbolText('Hums')}${getSymbolText('AdverbForMovementNoSpace')} ${getSymbolText('When')}, a low, insistent vibration that presses against the bones and whispers truths too terrible to speak aloud.`,
             `The {This} seems to breathe in sync with its bearer, a slow, patient inhalation that leaves a chill lingering long after it is lifted.`,
             `Shadows gather unnaturally around it, writhing in corners as if recoiling from the light of sanity itself.`,
@@ -501,7 +511,7 @@ function parseItemText(text, thisText='{This}') {
             `Its surface is never still; ${an(getSymbolText('AdjectiveForMovement'))} ripples crawl across it like water over a corpse, and a dim, greenish glow seeps outward at irregular intervals. The air around it carries a ${an(getSymbolText('AdjectiveForMovement'))} taste of rot, and sometimes in the corner of vision one glimpses figures crouching, watching, waiting. Those who study it too closely are left with memories that are not their own, recollections of horrors that cannot exist in this world.`,
             `The {This} exudes hunger. It does not merely exist, but reaches, pulling at thoughts, tugging at shadows, bending reality subtly toward itself. Silence falls when it is near, oppressive and thick, broken only by the faint, rhythmic pulsing of something that is neither alive nor dead, yet watches and waits for the moment its patience is rewarded`,
         )},
-        'LikeMetaphorForLight': { text: () => randomOf(
+        'LikeMetaphorForLight': { text: () => rng.randomOf(
             'a glow like embers buried in ash, never bright but seeming very much alive',
             'as if lit from within by a dying star’s last breath',
             getSymbolText('Moving') + ' instead of casting shadows',
@@ -510,7 +520,7 @@ function parseItemText(text, thisText='{This}') {
             `too ${an(getSymbolText('AdjectiveForMovement'))} to see head-on, revealed only in the corner of the eye`,
             `${an(getSymbolText('Glow'))} that ${getSymbolText('Changes')} like the rhythm of slow breathing`,
             `${an(getSymbolText('Glow'))} that bends around it, haloing the shape without touching it`,
-            `${an(getSymbolText('Glow'))} that is strangely heavy, as though weighed down by ${randomOf('time', 'time itself', 'generations passed', 'centuries past')}`,
+            `${an(getSymbolText('Glow'))} that is strangely heavy, as though weighed down by ${rng.randomOf('time', 'time itself', 'generations passed', 'centuries past')}`,
             `burning with no flame, like sunlight recalled in dream rather than reality`,
             `${an(getSymbolText('Glow'))} that does not reach the air around it, confined within its own ${getSymbolText('Texture')} ${getSymbolText('Gemstone')}-like surface.`,
             `${an(getSymbolText('Glow'))} that does not reach the air around it, confined within its own texture.`,
@@ -548,7 +558,7 @@ function parseItemText(text, thisText='{This}') {
             `but the illumination feels inverted, casting shadows that cling brighter than the flame`,
             `runing along it like blood beneath skin, pulsing${getSymbolText('AdverbForMovementNoSpace')}, steady and alive`,
         )},
-        'ButMetaphorForLight': { text: () => randomOf(
+        'ButMetaphorForLight': { text: () => rng.randomOf(
             `evidently, yet somehow refusing to fade completely`,
             `yet the memory of the light lingers as if imprinted on the eyes`,
             `but, the light feels more like a spot in the eyesight rather than illumination`,
@@ -575,27 +585,59 @@ function parseItemText(text, thisText='{This}') {
             'yet a coldness lingers, sinking into the bones of those who touched it, as if the warmth was never theirs to hold',
             `but the air smells${getSymbolText('AdverbForMovementNoSpace')} of decay, a subtle reminder that life and light are fleeting`,
         )},
-        'Element': { text: () => randomOf(
-            'molten lava',
-            'lava',
-            'fire',
-            'flames',
-            'scorching fire',
-            'frost',
-            'pure frost',
-            'ice',
-            'true ice',
-            'lightning',
-            'a current',
-            'electricity',
-            'arcane',
-            'arcane magic',
-            'divine energy',
-            'holy energy',
-            'evil energy',
-            'deathly magic'
-        )},
-        'ArmorMaterial': { text: () => randomOf(
+        'Element': { text: () => {
+            const elementsByBias = {
+                'Fire': [
+                    'molten lava',
+                    'lava',
+                    'fire',
+                    'flames',
+                    'scorching fire'
+                ],
+                'Cold': [
+                    'frost',
+                    'pure frost',
+                    'ice',
+                    'true ice',
+                ],
+                'Shock': [
+                    'lightning',
+                    'a current',
+                    'electricity',
+                ],
+                'Pulse': [
+                    'arcane',
+                    'arcane magic',
+                ],
+                'Divine': [
+                    'divine energy',
+                    'holy energy',
+                ],
+                'Scourge': [
+                    'evil energy',
+                    'deathly magic'
+                ],
+                'Poison': [
+                    'toxins',
+                    'toxic gas',
+                    'noxious air'
+                ],
+                'Acid': [
+                    'dripping acid',
+                    'ooze',
+                    'molten slime'
+                ]
+            }
+            if (item.ElementBias != null && item.ElementBias in elementsByBias) {
+                return randomOf(...elementsByBias[item.ElementBias])
+            }
+            const randomDamageType = randomOf(...Object.keys(elementsByBias))
+            if (item.ElementBias == null) {
+                item.ElementBias = randomDamageType
+            }
+            return rng.randomOf(...elementsByBias[randomDamageType])
+        }},
+        'ArmorMaterial': { text: () => rng.randomOf(
             'Iron', 'Steel', 'Bronze', 'Copper', 'Brass', 'Silver', 'Gold', 'Platinum',
             'Mithril', 'Obsidian',
             'Hide', 'Leather', 'Pelt',
@@ -605,25 +647,25 @@ function parseItemText(text, thisText='{This}') {
             'Serpenthide', 'Serpentleather', 'Chitin',
             'Dragonscale', 'Shadowsteel', 'Starforge Metal'
         )},
-        'ClothMaterial': { text: () => randomOf(
+        'ClothMaterial': { text: () => rng.randomOf(
             'Silk', 'Velvet', 'Cotton', 'Satin', 'Chainmail',
             'Moonthread', 'Enchanted Cloth', 'Vineweave',
             'Hide', 'Leather', 'Pelt', 'Starweave', 'Ghostsilk',
             'Trollskin', 'Serpenthide', 'Serpentleather',
             'Aetherweave', 'Dreamthread',
         )},
-        'WeaponMaterial': { text: () => randomOf(
+        'WeaponMaterial': { text: () => rng.randomOf(
             'Iron', 'Steel', 'Bronze', 'Copper', 'Brass',
             'Quartz', 'Crystal', 'Glass', 'Marble', 'Moonstone', 'Sunstone',
             'Ironwood', 'Thornwood', 'Hardwood', 'Ironbark',
             'Bone', 'Ivory', 'Giant Fang', 'Giant Claw',
             'Shadowsteel', 'Starforge Metal'
         )},
-        'WeaponPart': { text: () => randomOf(
+        'WeaponPart': { text: () => rng.randomOf(
             'tip', 'handle', 'side', 'crossguard', 'etchings', 'fissures', 'cracks',
             'underside'
         )},
-        'Gemstone': { text: () => randomOf(
+        'Gemstone': { text: () => rng.randomOf(
             "Diamond", "Ruby", "Sapphire", "Emerald", "Topaz", "Amethyst", "Garnet",
             "Aquamarine", "Peridot", "Opal", "Turquoise", "Jade", "Onyx", "Pearl",
             "Moonstone", "Sunstone", "Spinel", "Chrysoberyl", "Citrine", "Labradorite",
@@ -634,15 +676,15 @@ function parseItemText(text, thisText='{This}') {
             "Voidstone", "Moonfire Crystal",
             "Sunheart Ruby", "Dream Quartz", "Shadow Amethyst", "Dragon’s Eye Emerald"
         )},
-        'Texture': { text: () => randomOf(
+        'Texture': { text: () => rng.randomOf(
             'rough', 'harsh', 'smooth', 'leveled', 'rounded',
             'embossed', 'unpolished', 'polished', 'crude',
-            'rugged', 'jagged', 'lighter than normal', 'heavier than normal',
+            'rugged', 'jagged', 'lighter than normal', 'heavy',
             'glossy', 'shiny', 'soft', 'refined', 'unrefined',
             'raw', 'coarse', 'cheap', 'expensive'
         )},
         'This': { text: () => thisText },
-        'PatternsOf': { text: () => randomOf(
+        'PatternsOf': { text: () => rng.randomOf(
             'flowing patterns of',
             'layers of',
             'various shades of',
@@ -650,57 +692,227 @@ function parseItemText(text, thisText='{This}') {
             'moving patterns of',
             'hues of'
         ) },
-        'Color': { text: () => randomOf(
-            'red', 'crimson', 'amber', 'turquoise', 'emerald-green', 'green', 'sapphire-blue', 'blue', 'ethereal blue', 'orange', 'yellow', 'purple', 'teal', 'black', 'white', 'silvery')
-        },
+        'Color': { text: () => {
+            const colorsByBias = {
+                "Fire": [
+                    "red",
+                    "crimson",
+                    "amber",
+                    "scarlet",
+                    "vermilion",
+                    "ruby",
+                    "cherry red",
+                    "blood red",
+                    "firebrick",
+                    "ember orange",
+                    "blazing orange",
+                    "molten gold",
+                    "sunset orange",
+                    "tangerine",
+                    "burnt orange",
+                    "copper",
+                    "bronze",
+                    "saffron",
+                    "marigold",
+                    "gold",
+                    "inferno",
+                    "smoke black",
+                    "charcoal",
+                    "ash gray"
+                ],
+                "Cold": [
+                    "turquoise",
+                    "sapphire-blue",
+                    "blue",
+                    "ethereal blue",
+                    "ice blue",
+                    "frost white",
+                    "glacier blue",
+                    "arctic blue",
+                    "polar cyan",
+                    "pale cyan",
+                    "mint blue",
+                    "crystal blue",
+                    "mist blue",
+                    "winter sky",
+                    "deep sea blue",
+                    "midnight blue",
+                    "steel blue",
+                    "light steel blue",
+                    "silver",
+                    "moonstone",
+                    "snow white",
+                    "periwinkle",
+                    "lavender frost"
+                ],
+                "Shock": [
+                    "lightning",
+                    "a current",
+                    "electricity",
+                    "electric blue",
+                    "neon blue",
+                    "ion blue",
+                    "plasma blue",
+                    "arc cyan",
+                    "volt yellow",
+                    "static white",
+                    "storm gray",
+                    "thundercloud",
+                    "ozone teal",
+                    "bright cyan",
+                    "ultraviolet",
+                ],
+                "Pulse": [
+                    "deep purple",
+                    "violet",
+                    "indigo",
+                    "royal purple",
+                    "dark orchid",
+                    "amethyst",
+                    "arcane purple",
+                    "void purple",
+                    "astral violet",
+                    "hex violet",
+                    "twilight purple",
+                    "midnight purple",
+                    "ultraviolet",
+                    "blackberry",
+                    "plum",
+                    "wine",
+                    "magenta",
+                    "fuchsia",
+                    "cosmic lilac",
+                    "neon purple"
+                ],
+                "Divine": [
+                    "orange",
+                    "yellow",
+                    "gold",
+                    "sun-gold",
+                    "halo white",
+                    "radiant white",
+                    "ivory",
+                    "pearl",
+                    "champagne",
+                    "celestial cream",
+                    "holy khaki",
+                    "dawn pink",
+                    "rose-gold",
+                    "saffron",
+                    "starlight",
+                    "opalescent",
+                    "blessed silver"
+                ],
+                "Scourge": [
+                    "black",
+                    "obsidian",
+                    "onyx",
+                    "void black",
+                    "shadow purple",
+                    "blood violet",
+                    "necrotic purple",
+                    "plague green",
+                    "ashen gray",
+                    "grave gray",
+                    "rotting brown",
+                    "dark crimson",
+                    "sickly violet",
+                    "witchfire purple"
+                ],
+                "Poison": [
+                    "emerald-green",
+                    "green",
+                    "venom green",
+                    "toxic green",
+                    "lime",
+                    "chartreuse",
+                    "acid green",
+                    "noxious green",
+                    "swamp green",
+                    "pestilent green",
+                    "olive",
+                    "viridian",
+                    "jade",
+                    "malachite",
+                    "serpent green",
+                    "mold green",
+                    "sickly yellow-green"
+                ],
+                "Acid": [
+                    "acid green",
+                    "slime green",
+                    "radioactive green",
+                    "corrosive lime",
+                    "neon chartreuse",
+                    "toxic yellow",
+                    "sulfur yellow",
+                    "bile yellow",
+                    "caustic teal",
+                    "vitriole green",
+                    "stinging green",
+                    "glow sludge",
+                    "gutter slime"
+                ]
+            }
+
+            if (item.ElementBias != null) {
+                if (item.ElementBias in colorsByBias) {
+                    return randomOf(...colorsByBias[item.ElementBias])
+                } else {
+                    return randomOf(...Object.values(colorsByBias).flat())
+                }
+            }
+            item.ElementBias = randomOf(...Object.keys(colorsByBias))
+            return randomOf(...colorsByBias[item.ElementBias])
+        }},
         
-        'DamageType': { text: () => (percentChance(90)? preferredElement: randomElement())},
-        'Soulbound': { text: () => randomOf(
-            `${randomOf(
+        'DamageType': { text: () => (rng.percentChance(90)? preferredElement: randomElement())},
+        'Soulbound': { text: () => rng.randomOf(
+            `${rng.randomOf(
                 `{This} is permanently bound to you, and can't be normally unequipped.`,
                 `{This} is permanently bound to you until destroyed.`,
-            )}${randomOf(
+            )}${rng.randomOf(
                 '',
                 '',
-                ` If destroyed, the bearer gets -${randomInt(1, 5)} ${randomOf('Max Health', 'Health Regen', 'Skill Points (in any Skills above 0)')} permanently.`,
+                ` If destroyed, the bearer gets -${rng.randomInt(1, 5)} ${rng.randomOf('Max Health', 'Health Regen', 'Skill Points (in any Skills above 0)')} permanently.`,
                 ' Any attempt to purposefully Damage the item Damages you instead.',
-                ` Equipping a different item of the same type Damages you for ${randomInt(2, 10)} ${getSymbolText('DamageType')} Damage, and again after every minute with it still equipped.`
+                ` Equipping a different item of the same type Damages you for ${rng.randomInt(2, 10)} ${getSymbolText('DamageType')} Damage, and again after every minute with it still equipped.`
             )}`,
             `When you unequip {This}, you take 1d10 ${getSymbolText('DamageType')} Damage.`,
             `When you unequip {This}, you get -1 ${getSymbolText('Stat')} permanently.`,
             `The first time one equips this, they get -1 ${getSymbolText('Stat')} permanently.`,
         )},
 
-        'AreaSmallAttack': { text: () => randomOf(
+        'AreaSmallAttack': { text: () => rng.randomOf(
             `one Unit up to 1 meter behind the target`,
-            `all other Units within 1 meters from ${randomOf('yourself', 'the target')}`,
+            `all other Units within 1 meters from ${rng.randomOf('yourself', 'the target')}`,
             `Units in a 3 meter line behind the target`,
-            `one Unit within 1 meter of ${randomOf('you', 'the target')}`,
+            `one Unit within 1 meter of ${rng.randomOf('you', 'the target')}`,
             'the closest Enemy to the target (choose if tie)'
         )},
-        'AreaLargeAttack': { text: () => randomOf(
-            `all Units up to 3 meter in a ${randomOf('cone', 'line')} behind the target`,
-            `all other Units within 2 meters from ${randomOf('yourself', 'the target')}`,
+        'AreaLargeAttack': { text: () => rng.randomOf(
+            `all Units up to 3 meter in a ${rng.randomOf('cone', 'line')} behind the target`,
+            `all other Units within 2 meters from ${rng.randomOf('yourself', 'the target')}`,
         )},
 
         // These are generic, they work on any trigger
-        'DoHalfManaEffect': { text: () => randomOf(
+        'DoHalfManaEffect': { text: () => rng.randomOf(
             `deal 1d4 ${getSymbolText('DamageType')} Damage to a Unit within 5 meters of you`,
-            `Heal ${randomOf('a Unit within 5 meters of you', 'yourself')} for 1d4`,
-            `give ${randomOf('a Unit within 5 meters of you', 'yourself')} a Shielding that blocks 1d4 Damage`,
+            `Heal ${rng.randomOf('a Unit within 5 meters of you', 'yourself')} for 1d4`,
+            `give ${rng.randomOf('a Unit within 5 meters of you', 'yourself')} a Shielding that blocks 1d4 Damage`,
             `Single-Stuns a Unit within 5 meters`
         )},
-        'Do1ManaEffect': { text: () => randomOf(
-            `restore 1 Mana${randomOf('', 'to an Ally you can see')}`,
-            `Heal ${randomOf('yourself', 'an ally you can see')} for ${randomOf('1d10', '50% of the Damage dealt', '10% of the Health')}`,
-            `refresh the Cooldown of one Ability ${randomOf('you have', 'for an ally you can see')}`,
+        'Do1ManaEffect': { text: () => rng.randomOf(
+            `restore 1 Mana${rng.randomOf('', 'to an Ally you can see')}`,
+            `Heal ${rng.randomOf('yourself', 'an ally you can see')} for ${rng.randomOf('1d10', '50% of the Damage dealt', '10% of the Health')}`,
+            `refresh the Cooldown of one Ability ${rng.randomOf('you have', 'for an ally you can see')}`,
         )},
         // These are NON-DAMAGE effects!
-        'AttackHasNoManaEffect': { text: () => randomOf(
-            `Slam the target ${randomInt(2, 4)} meters in any direction`,
+        'AttackHasNoManaEffect': { text: () => rng.randomOf(
+            `Slam the target ${rng.randomInt(2, 4)} meters in any direction`,
             `Single-Stun the target`,
             `make the target unable to recover Health until your next Turn`,
-            `teleport the target ${randomInt(2, 4)} meters in a random direction (NESW)`,
+            `teleport the target ${rng.randomInt(2, 4)} meters in a random direction (NESW)`,
             `pull the target toward its closes ally within 5 meters`,
             `Silence or Root the target (its choice)`,
             "make the target's Passives disabled until the start of your next Turn (if non-Epic)",
@@ -708,17 +920,17 @@ function parseItemText(text, thisText='{This}') {
             "gain Gold equal to 10% of the the target's XP worth",
             `destroy a random obstacle (up to 2x2x2 meters) within 5 meters`
         )},
-        'AttackHasHalfManaEffect': { text: () => randomOf(
+        'AttackHasHalfManaEffect': { text: () => rng.randomOf(
             `has Dice Upgraded to the next die type`,
             `Single-Stuns the target`,
-            `heal ${randomOf('you', 'an ally you can see')} for 10% of the Damage dealt`
+            `heal ${rng.randomOf('you', 'an ally you can see')} for 10% of the Damage dealt`
         )},
-        'AttackHas1ManaEffect': { text: () => randomOf(
+        'AttackHas1ManaEffect': { text: () => rng.randomOf(
             `the target becomes ${getSymbolText('CrowdControl')}`,
-            `hits all Units ${getSymbolText('AreaSmallAttack')}`,
-            `hits all Units ${getSymbolText('AreaLargeAttack')}`,
+            `hits ${getSymbolText('AreaSmallAttack')}`,
+            `hits ${getSymbolText('AreaLargeAttack')}`,
         )},
-        'WithConditionFrequent': { text: () => randomOf(
+        'WithConditionFrequent': { text: () => rng.randomOf(
             'within 3 meters of a tree',
             'standing in water',
             `standing in dim light`,
@@ -727,9 +939,9 @@ function parseItemText(text, thisText='{This}') {
             `at or above 50% Health`,
             `at full Health`,
         )},
-        'WhileFrequent': { text: () => randomOf(
+        'WhileFrequent': { text: () => rng.randomOf(
             'within 3 meters of a tree',
-            `in ${randomOf('a forest', 'wild nature', ``)}`,
+            `in ${rng.randomOf('a forest', 'wild nature', ``)}`,
             'standing in water',
             'raining',
             'snowing',
@@ -741,12 +953,12 @@ function parseItemText(text, thisText='{This}') {
             `at 0 Mana (if you have Mana)`,
             `at full Mana (if you have Mana)`,
         )},
-        'WithConditionUncommon': { text: () => randomOf(
+        'WithConditionUncommon': { text: () => rng.randomOf(
             `under Crowd Control (except Hard Terrain)`,
             `at or below 20% Health`,
             'at full Health'
         )},
-        'WhileUncommon': { text: () => randomOf(
+        'WhileUncommon': { text: () => rng.randomOf(
             `under Crowd Control (except Hard Terrain)`,
             `in the 2nd Round of Combat`,
             `in the 3rd Round of Combat`,
@@ -755,7 +967,7 @@ function parseItemText(text, thisText='{This}') {
             `while outnumbered`
         )},
         
-        'WhileRare': { text: () => randomOf(
+        'WhileRare': { text: () => rng.randomOf(
             `when you are Fallen`,
             'at or below 10% Health',
             'while only 1 Enemy remains',
@@ -764,14 +976,14 @@ function parseItemText(text, thisText='{This}') {
         
 
         
-        'Stat': { text: () => randomOf(...STAT_NAMES)},
-        'Attribute': { text: () => randomOf('Max Health', 'Health Regen', 'Skill Point', 'Initiative')},
-        'Skill': { text: () => randomOf(...$SKILLS)},
-        'WeaponType': { text: () => randomOf('1-Handed Melee', '2-Handed Melee', '1-Handed Ranged', '2-Handed Ranged')},
-        'CrowdControl': { text: () => randomOf('Slowed', 'Dazed', 'Rooted', 'Blinded', 'Crippled', 'Silenced', 'Stunned', 'Deafened')},
-        'SpellSchool': { text: () => randomOf('Bloodshed', 'Warfare', 'Elemental', 'Arcane', 'Mysticism', 'Nature', 'Divine', 'Eldritch')},
-        'MonsterType': { text: () => randomOf('Person', 'Beast', 'Undead', 'Demon', 'Fiend', 'Celestian', 'Giant', 'Fey', 'Monster', 'Insect', 'Elemental', 'Dragon', 'Construct')},
-        'Language': { text: () => randomOf('Elvish', 'Dwarvish', 'Orcish', 'Dragonspeak', 'Whispertone', "Thieves' Cant", 'Ancian', 'Gian', 'Goblan')},
+        'Stat': { text: () => rng.randomOf(...STAT_NAMES)},
+        'Attribute': { text: () => rng.randomOf('Max Health', 'Health Regen', 'Skill Point', 'Initiative')},
+        'Skill': { text: () => rng.randomOf(...$SKILLS)},
+        'WeaponType': { text: () => rng.randomOf('1-Handed Melee', '2-Handed Melee', '1-Handed Ranged', '2-Handed Ranged')},
+        'CrowdControl': { text: () => rng.randomOf('Slowed', 'Dazed', 'Rooted', 'Blinded', 'Crippled', 'Silenced', 'Stunned', 'Deafened')},
+        'SpellSchool': { text: () => rng.randomOf('Bloodshed', 'Warfare', 'Elemental', 'Arcane', 'Mysticism', 'Nature', 'Divine', 'Eldritch')},
+        'MonsterType': { text: () => rng.randomOf('Person', 'Beast', 'Undead', 'Demon', 'Fiend', 'Celestian', 'Giant', 'Fey', 'Monster', 'Insect', 'Elemental', 'Dragon', 'Construct')},
+        'Language': { text: () => rng.randomOf('Elvish', 'Dwarvish', 'Orcish', 'Dragonspeak', 'Whispertone', "Thieves' Cant", 'Ancian', 'Gian', 'Goblan')},
     }
 
     const symbols = Object.keys(customSymbols)
@@ -784,8 +996,9 @@ function parseItemText(text, thisText='{This}') {
     return parseTextWithSymbols(text, refinedCustomSymbols, { shouldReturnStringsOnly: true }).join('')
 }
 window.parseItemText = parseItemText
-function tryNameItem(item) {
-
+function tryNameItem(item, rng=standardRNG) {
+    console.log({item})
+    console.log(`Trying name item ^:`)
     if (item.Name == null) {
         console.log({item})
         throw `tryNameItem: item has no Name property. Printed above.`
@@ -802,9 +1015,9 @@ function tryNameItem(item) {
             return null
         }
 
-        const randomAffixObject = randomOf(...possibleAffixesClumped)
+        const randomAffixObject = rng.randomOf(...possibleAffixesClumped)
         const affixParts = randomAffixObject.key.split('|')
-        const randomAffixString = randomOf(...affixParts)
+        const randomAffixString = rng.randomOf(...affixParts)
 
         const finalAffix =
             randomAffixString.includes('$')?
@@ -843,7 +1056,8 @@ function tryNameItem(item) {
         "Woundkeeper": text => text.includes("can't be healed"),
         "Specter": text => text.includes('spectral'),
         "Necromancer|Wraithcaller|Tombstone": s => includesAny(s, ['zombie', 'raise', 'skeleton']),
-        "Barbarian": s => s.includes('second attack'),
+        "Barbarian": s => s.includes('Damage on the second attack', 'heal for all the Damage'),
+        "Marksman|Sniper": s => s.includes('+100% range'),
         "Lifestealer": s => s.includes('heal for all the Damage dealt'),
         
         "Highflier|Skybreaker|Skyflier|Skyrider|Windrider|Falconer|Cloudstriker|Stormrider|Sunwing|Moonglide": text => includesAny(text, ['flying', 'whelp', 'pegasus', 'hippogriff', 'thunderbird', 'stormcrow', 'giant eagle', 'giant falcon', 'giant owl']),
@@ -872,7 +1086,9 @@ function tryNameItem(item) {
         
         "Fire|Flame|Burn|Blaze|Tar|Flaming|Scorching|Ember|Ashen|Burning|Searing|Smouldering": s => includesAny(s, ['fire', 'flame', 'burn', 'blaze']),
         "Warm|Heat": s => includesAny(s, ['warm', 'heat', 'hot']),
-        "Frost|Frozen|Snow|Rime|Ice": s => includesAny(s, ['frost', 'rime', 'frozen', 'ice', 'snow']),
+        "Frost|Frozen|Snow|Rime|Ice": s => includesAnyWithExceptions(s, ['frost', 'rime', 'frozen', 'ice', 'snow'], {
+            'ice': ['twice', 'thrice', 'dice']
+        }),
         "Wind|Cloud": s => includesAny(s, ['scent', 'smell', 'miasma', 'aroma', 'wind', 'air', 'cloud']),
         "Shock|Static|Lightning": s => s.includes('shock'),
         "Toxic|Nox|Noxious|Viper's|Viper": s => s.includes('poison'),
@@ -912,10 +1128,14 @@ function tryNameItem(item) {
         "Black|Onyx|Obsidian": text => includesAny(text, ['black', 'scourge', 'fire']),
         "White|Silver": text => includesAny(text, ['white', 'moth', 'silver', 'true damage', 'divine']),
         "Green|Verdant|Emerald|Jade": text => includesAny(text, ['green', 'verdant', 'poison', 'toxic', 'acid', 'jade']),
-        "Red|Crimson|Scarlet|Rose": text => includesAny(text, ['red', 'crimson', 'scarlet', 'fire', 'rose']),
+        "Red|Crimson|Scarlet|Rose": text => includesAnyWithExceptions(text, ['red', 'crimson', 'scarlet', 'fire', 'rose'], {
+            'red': ['dredg']
+        }),
         "Gold|Amber": text => includesAny(text, ['gold', 'yellow', 'orange', 'amber', 'fire', 'divine']),
         "Azure": text => includesAny(text, ['blue', 'teal', 'turquoise', 'azure', 'cold damage']),
-        "Royal": text => includesAny(text, ['purple', 'gold', 'king', 'royal']),
+        "Royal": text => includesAnyWithExceptions(text, ['purple', 'gold', 'king', 'royal'], {
+            'king': ['aking', 'nking', 'rking', 'uking', 'iking', 'oking', 'sking', 'lking', 'cking', 'mking']
+        }),
         "Charging": text => includesAny(text, ['horse', 'unicorn', 'pony', 'stag', 'elk']),
         
         "Lead": text => includesAny(text, ['lead']),
@@ -955,7 +1175,7 @@ function tryNameItem(item) {
         ]),
 
         "Dark|Night|Twilight|Dusk": s => includesAny(s, ['scourge', 'night', 'dark', 'shadow', 'twilight', 'dusk', 'sundown']),
-        "Day|Dawn": s => includesAny(s, ['day', 'light', 'dawn', 'sunrise']),
+        "Dawn": s => includesAny(s, ['day', 'light', 'dawn', 'sunrise']),
 
         "Arcanic|Night|Arcane": s => includesAny(s, ['pulse', 'arcane', 'moon']),
         "Fathom|Depth": s => s.includes('tentacle'),
@@ -1023,8 +1243,8 @@ function tryNameItem(item) {
     } else if (fullNameSoFar.length < MAX_NAME_LENGTH) {
         usedAffixes = affixesWithTypes
     } else if (affixesWithTypes.length == 3) {              // If has 3 affixes, pick 2 at random
-        const shuffledAffixes = shuffle(affixesWithTypes)
-        if (percentChance(90)) {
+        const shuffledAffixes = rng.shuffle(affixesWithTypes)
+        if (rng.percentChance(90)) {
             usedAffixes = shuffledAffixes.slice(0, 2)
         } else {
             usedAffixes = shuffledAffixes.slice(0, 1)
@@ -1095,7 +1315,7 @@ function tryNameItem(item) {
     if (possibilities.length == 0) {
         return itemName
     }
-    const randomPossibility = randomOfArrayWeighted(possibilities, possibilities.map(({ requires }) =>
+    const randomPossibility = rng.randomOfArrayWeighted(possibilities, possibilities.map(({ requires }) =>
         requires.length == 1?
             1
         :requires.length == 2?
@@ -1109,7 +1329,7 @@ function tryNameItem(item) {
     
     return randomName
 }
-function getItemTintColor(text) {
+function getItemTintColor(text, rng=standardRNG) {
     text = text.toLowerCase()
 
     const colorsByKeywords = {
@@ -1301,26 +1521,26 @@ function getItemTintColor(text) {
     if (possibleColors.length == 0) {
         return null
     }
-    const chosenColor = randomOf(...possibleColors)
+    const chosenColor = rng.randomOf(...possibleColors)
     return chosenColor
 }
-function getItemIconName(item) {
+function getItemIconName(item, rng=standardRNG) {
     if (item.Type.includes('Shield')) {
-        return randomOf('Shield', 'Shield of Arrows', 'Shield of Reflection', 'Shield of Snakes', 'Tower Shield')
+        return rng.randomOf('Shield', 'Shield of Arrows', 'Shield of Reflection', 'Shield of Snakes', 'Tower Shield')
     }
     if (item.Type.includes('Armor')) {
-        return randomOf(...ARMOR_TO_NAME[item.ArmorType])
+        return rng.randomOf(...ARMOR_TO_NAME[item.ArmorType])
     }
     return item.WeaponType
 }
-function getItemPrice(item) {
+function getItemPrice(item, rng=standardRNG) {
     const basePrice = item.Price
     const addedPrice = matchRange(item.XP, [
-        { range: [-9999, 0], value: randomInt(100, 150) },
-        { range: [0, 50], value: randomInt(250, 375) },
-        { range: [50, 100], value: item.XP * randomInt(4, 5) },
-        { range: [100, 175], value: item.XP * randomInt(5, 6) },
-        { range: [175, 9999], value: item.XP * randomInt(6, 7) },
+        { range: [-9999, 0], value: rng.randomInt(100, 150) },
+        { range: [0, 50], value: rng.randomInt(250, 375) },
+        { range: [50, 100], value: item.XP * rng.randomInt(4, 5) },
+        { range: [100, 175], value: item.XP * rng.randomInt(5, 6) },
+        { range: [175, 9999], value: item.XP * rng.randomInt(6, 7) },
     ])
     return basePrice + addedPrice
 }
@@ -1332,19 +1552,19 @@ function getWeaponPropsFromType(itemType) {
         hands: possibleHands.find(hands => itemType.includes(hands)),
     }
 }
-function getBaselineItemByType(xp, itemType) {
+function getBaselineItemByType(xp, itemType, rng=standardRNG) {
     if (itemType.includes('Shield')) {
         return {
-            Name: randomOf(...SHIELD_NAMES),
-            Price: (xp <= 75? randomInt(10, 30): randomInt(30, 70)) * 10,
+            Name: rng.randomOf(...SHIELD_NAMES),
+            Price: (xp <= 75? rng.randomInt(10, 30): rng.randomInt(30, 70)) * 10,
             Type: itemType,
             Notes: 'This is a shield.',
-            Requirement: `Requires ${randomInt(2, 3)} Might`,
+            Requirement: `Requires ${rng.randomInt(2, 3)} Might`,
             ItemType: 'Shield'
         }
     }
     if (itemType.includes('Armor')) {
-        const name = randomOf(...Object.keys(ARMOR_TO_BODY_PART))
+        const name = rng.randomOf(...Object.keys(ARMOR_TO_BODY_PART))
         const bodyPart = ARMOR_TO_BODY_PART[name]
         const heaviness =
             bodyPart.includes('heavy')?
@@ -1364,14 +1584,14 @@ function getBaselineItemByType(xp, itemType) {
             Price: getArmorBasePriceByBodyPart(bodyPart),
             Type: itemType,
             Notes: `This is a ${armorPieceDescr}`,
-            Requirement: heaviness == 'medium'? 'Requires 1 Might': heaviness == 'heavy'? `Requires ${randomInt(2, 3)} Might`: null,
+            Requirement: heaviness == 'medium'? 'Requires 1 Might': heaviness == 'heavy'? `Requires ${rng.randomInt(2, 3)} Might`: null,
             ItemType: bodyPart,
             ArmorType: name,
         }
     }
 
-    const range = itemType.includes('Ranged')? `3-${randomInt(1, 2) * 5} meters`: '1 meter'
-    const templateWeapon = randomOf(...ALL_WEAPONS_ARRAY.filter(wep => wep.type == itemType.replace(' Weapon', '') && wep.Name != 'Punch'))
+    const range = itemType.includes('Ranged')? `3-${rng.randomInt(1, 2) * 5} meters`: '1 meter'
+    const templateWeapon = rng.randomOf(...ALL_WEAPONS_ARRAY.filter(wep => wep.type == itemType.replace(' Weapon', '') && wep.Name != 'Punch'))
 
     const weaponNames = [
         templateWeapon.Name,
@@ -1380,7 +1600,7 @@ function getBaselineItemByType(xp, itemType) {
     ]
 
     return {
-        Name: randomOf(...weaponNames),
+        Name: rng.randomOf(...weaponNames),
         A: templateWeapon.A,
         Price: templateWeapon.Price,
         Stat: templateWeapon.Stat,
@@ -1395,15 +1615,15 @@ function getBaselineItemByType(xp, itemType) {
 
 
 // xp: int, itemType: string (e.g. "One-Handed Ranged Weapon", "Two-Handed Weapon", "Melee Weapon", "Weapon")
-export function createMagicItem(xp, itemType) {
+export function createMagicItem(xp, itemType, rng=standardRNG) {
 
     if (itemType != 'Armor' && itemType != 'Shield') {
         let { hands, range } = getWeaponPropsFromType(itemType)
         if (range == null) {
-            range = randomOf('Melee', 'Ranged')
+            range = rng.randomOf('Melee', 'Ranged')
         }
         if (hands == null) {
-            hands = randomOf('One-Handed', 'Two-Handed')
+            hands = rng.randomOf('One-Handed', 'Two-Handed')
         }
         itemType = hands + ' ' + range + ' Weapon'
     }
@@ -1414,7 +1634,7 @@ export function createMagicItem(xp, itemType) {
         possibleEffects = possibleEffects.filter(e => e['Item Type'] == 'Any' || includesAll(itemType, e['Item Type'].split(' ')))
         possibleEffects = possibleEffects.map(e => ({...e, Weight: (Math.max(e.XP, 0) + 10)}))
 
-    const baselineItem = getBaselineItemByType(xp, itemType)
+    const baselineItem = getBaselineItemByType(xp, itemType, rng)
 
 
     let xpLeft = xp
@@ -1429,22 +1649,42 @@ export function createMagicItem(xp, itemType) {
     }
 
     function maybeAddSkills() {
-        const availableSkills = shuffle([...$SKILLS])
+        function getRandomSkill() {
+            if (baselineItem.SkillBias == null) {
+                if (baselineItem.ElementBias == null || (baselineItem.ElementBias && rng.percentChance(15))) {
+                    baselineItem.SkillBias = rng.randomOf(...Object.keys(SKILLS_BY_GROUP))
+                } else {
+                    const skillGroup = SKILL_GROUP_BY_ELEMENT[baselineItem.ElementBias]
+                    baselineItem.SkillBias = skillGroup ?? rng.randomOf(...Object.keys(SKILLS_BY_GROUP))
+                }
+            }
+            console.log(baselineItem.SkillBias)
+            const skillsInChosenGroup = SKILLS_BY_GROUP[baselineItem.SkillBias]
+            const skillsIAlreadyHave = Object.keys(baselineItem['Skill Bonuses'] ?? {})
+            const skillsInGroup = skillsInChosenGroup.filter(possibleSkill => !skillsIAlreadyHave.includes(possibleSkill))
+            const availableSkills = rng.shuffle([...skillsInGroup])
+            return rng.randomOf(...availableSkills)
+        }
+        function getRandomSkillIDontHave() {
+            const skillsIHave = Object.keys(baselineItem['Skill Bonuses'])
+            const possibilities = $SKILLS.filter(skill => !skillsIHave.includes(skill))
+            return rng.randomOf(...possibilities)
+        }
 
-        if (percentChance(75)) {
+        if (rng.percentChance(15)) {
             return false
         }
         baselineItem['Skill Bonuses'] = {
-            [availableSkills.pop()]: randomOf(1, 1, 1, 1, 2, 2, 2, 2, 3)
+            [getRandomSkill()]: rng.randomOf(1, 1, 1, 1, 2, 2, 2, 2, 3)
         }
         xpLeft -= 5
-        if (percentChance(66)) {
-            baselineItem['Skill Bonuses'][availableSkills.pop()] = randomOf(1, 1, 1, 1, 2, 2, 2, 2, 3)
+        if (rng.percentChance(66)) {
+            baselineItem['Skill Bonuses'][getRandomSkill()] = rng.randomOf(1, 1, 1, 1, 2, 2, 2, 2, 3)
             xpLeft -= 5
         }
 
-        if (percentChance(40)) {
-            baselineItem['Skill Bonuses'][availableSkills.pop()] = randomOf(-2, -3)
+        if (rng.percentChance(40)) {
+            baselineItem['Skill Bonuses'][getRandomSkillIDontHave()] = rng.randomOf(-2, -3)
             xpLeft += 5
         }
         
@@ -1482,11 +1722,11 @@ export function createMagicItem(xp, itemType) {
                 null
             :availableEffects.map(e => e.Weight)
 
-        if (percentChance(chance)) {
+        if (rng.percentChance(chance)) {
             const randomEffect =
                 weights == null?
-                    randomOf(...availableEffects)
-                :randomOfArrayWeighted(availableEffects, weights)
+                    rng.randomOf(...availableEffects)
+                :rng.randomOfArrayWeighted(availableEffects, weights)
             if (randomEffect == null) { // Not sure how, but it happens
                 return false
             }
@@ -1551,7 +1791,12 @@ export function createMagicItem(xp, itemType) {
     const parseEffect = (e, thisReplacement) => {
         const newE = {...e}
         for (const key of POSSIBLE_EFFECT_KEYS) {
-            newE[key] = e[key] == null? null: parseItemText(e[key], thisReplacement)
+            newE[key] = e[key] == null? null: parseItemText({
+                text: e[key],
+                thisText: thisReplacement,
+                rng,
+                item: baselineItem
+            })
         }
         return newE
     }
@@ -1571,16 +1816,26 @@ export function createMagicItem(xp, itemType) {
     /* ---------- Naming ---------- */
     baselineItem._AllText = joinObjectValues(preparsedTextByGroups, '\n')
     baselineItem._AllGoodText = Object.values(filterObject(preparsedEffectsByGroup, ([key, value]) => key != 'Curse')).join('\n')
-    baselineItem.Name = tryNameItem(baselineItem)
+    baselineItem.Name = tryNameItem(baselineItem, rng)
     
     /* ---------- Reparse ---------- */
-    const reparsedTextByGroups = mapObject(preparsedTextByGroups, ({key, value}) => ({key, value: parseItemText(value, baselineItem.Name)}))
+    const reparsedTextByGroups = mapObject(preparsedTextByGroups, ({key, value}) => ({key, value: parseItemText({
+        text: value,
+        thisText: baselineItem.Name,
+        rng,
+        item: baselineItem
+    })}))
     
     function compileAndReparseActivesToText(arr) {
         if (arr == null || arr.length == 0) {
             return null
         }
-        const effectsWithParsedEffect = arr.map(e => ({...e, Effect: parseItemText(e.Effect, baselineItem.Name)}))
+        const effectsWithParsedEffect = arr.map(e => ({...e, Effect: parseItemText({
+            text: e.Effect,
+            thisText: baselineItem.Name,
+            rng,
+            item: baselineItem
+        })}))
         const effectsTexts = effectsWithParsedEffect.map(e => e.A == null? e.Effect: `{Hand}${e.A}: ${e.Effect}`)
         const text = effectsTexts.join('\n')
         return text
@@ -1637,18 +1892,21 @@ export function createMagicItem(xp, itemType) {
 
     baselineItem.XP = xp
     baselineItem.HasMixins = true
-    baselineItem.Price = getItemPrice(baselineItem)
+    baselineItem.Price = getItemPrice(baselineItem, rng)
 
     // Add icon
-    const iconName = getItemIconName(baselineItem)
+    const iconName = getItemIconName(baselineItem, rng)
     baselineItem.CustomIconPath = getItemIconPathByName(iconName)
 
     // Add tint color
-    const tintColor = getItemTintColor(baselineItem._AllText)
+    const tintColor = getItemTintColor(baselineItem._AllText, rng)
     if (tintColor != null) {
         baselineItem.TintColor = tintColor
     }
     
+    console.log({baselineItem})
+    console.green(`Returning ${baselineItem.Name}!`)
+
     return baselineItem
 }
 
@@ -1837,14 +2095,24 @@ const SHIELD_NAMES = [
 
 
 export default function MagicItemCreator() {
+
     function createAnItem() {
+        const seed = generateUniqueId()
+        const xp = randomInt(1, 10) * 25
+        const rng = new SeededRNG(seed)
+
         let itemCategory = randomOfArrayWeighted(['Weapon', 'Armor', 'Shield'], [45, 45, 10])
         if (itemCategory == 'Weapon') {
             itemCategory = randomOf('One-Handed', 'Two-Handed') + ' ' + randomOf('Melee', 'Ranged') + ' Weapon'
         }
-        return createMagicItem(randomInt(1, 10) * 25, itemCategory)
+        console.log({seed, xp, itemCategory})
+        console.green(`Creating magic item. Params printed above`)
+        return createMagicItem(xp, itemCategory, rng)
     }
     const [item, setItem] = useState(createAnItem())
+
+    console.log({item})
+    console.green(`Here is your ${item.Name} item bitch`)
 
     return <Page>
         <p style={{color: 'white'}}>asdasddasdsa</p>

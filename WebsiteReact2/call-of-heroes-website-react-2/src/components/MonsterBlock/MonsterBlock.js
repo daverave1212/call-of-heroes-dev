@@ -322,17 +322,3 @@ function roundDownTo25(n) {
 function roundToNearest25(n) {
   return Math.round(n / 25) * 25;
 }
-
-function getEpicMonsterBaseHP(xp, actionPoints) {
-    const damageActionPoints = actionPoints - 1
-    const howManyUnitsTheEpicMonsterIsWorth = damageActionPoints / 2
-    const howMuch1UnitWouldBeWorthInXP = roundToNearest25(xp / howManyUnitsTheEpicMonsterIsWorth)
-    
-    const normalUnitHPPerAP = getNormalHealthPerAP(howMuch1UnitWouldBeWorthInXP)
-    const normalTotalUnitHP = damageActionPoints * normalUnitHPPerAP
-    
-    const epicMonsterHealthRatio = getEpicMonsterHPRatio(actionPoints)
-    return normalTotalUnitHP * epicMonsterHealthRatio
-
-}
-window.getEpicMonsterBaseHP = getEpicMonsterBaseHP
