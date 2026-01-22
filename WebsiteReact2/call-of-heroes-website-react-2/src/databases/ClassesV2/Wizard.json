@@ -98,6 +98,7 @@
             "Requirement": "Level 4",
             "Range": "10 meters",
             "Degree": "Minor",
+            "ScrollPower": "Auto",
             "Effect": "Up to 2 Units you choose will start falling gently, down to 3 meters per round.\nOnce the fall finishes, the spell effect ends.\n",
             "Notes": "Arcane Feathers can be bought in most towns.\nFor faster gameplay, you can spend 10 gold when casting the spell, and buy the feather later.\n",
             "ParentKey": "Utility"
@@ -108,6 +109,7 @@
             "Cooldown": "Once / Turn",
             "Degree": "Minor",
             "Requirement": "Level 3",
+            "ScrollPower": 2,
             "Effect": "Instantly teleport up to 5 meters away, within line of sight.",
             "Notes": "Does not work if you're Rooted or stuck in place somehow. You take with you all items carried you want, but not other Units.",
             "ParentKey": "Utility"
@@ -124,6 +126,7 @@
                 "A": "0 Actions",
                 "Cost": "1 Mana",
                 "Duration": "Until end of Adventure",
+                "ScrollPower": 2,
                 "Effect": "Cast a Spell onto a _scroll_, spending its Cost, Cooldown, Action Points, etc (plus the additional 1 {Mana}Mana for this Ability).\nThe _scroll_ can be used with Half-Action, and is destroyed after being used.\n",
                 "HasMixins": true,
                 "ParentKey": "Level 1 - Minor Talent"
@@ -141,6 +144,7 @@
                 "Range": "3 meters",
                 "Duration": "Depends",
                 "Degree": "Major",
+                "ScrollPower": "Auto",
                 "Effect": "Conjure a levitating, self-wielding melee weapon on a space within 3 meters.\nIt has 1 Action which can only be spent Move and attack,\nIt takes its Turn on at the same time as you, but disappears if it doesn't attack an Enemy or Worthy Unit by the end of your Turn.\n",
                 "Monster": {
                     "Name": "Animated Weapon",
@@ -162,6 +166,7 @@
             "~Magic Rune~": {
                 "A": "Half-Action",
                 "Cost": "1 Mana",
+                "ScrollPower": "Auto",
                 "Effect": "Magically draw a faint 3x3 meter _rune_ onto a flat surface.\nCast a Spell onto the _rune_, spending its Cost, Cooldown, Action Points, etc (plus the additional 1 {Mana}Mana for this Ability).\nWhen an Enemy enters the _rune_, that Spell is automatically cast on that Unit (or centered on that Unit if it's an Area Ability). Then the _rune_ is destroyed.\n",
                 "Notes": "If the Spell has you choose something else, like a secondary target or an effect, you can do so the moment the rune explodes.",
                 "HasMixins": true,
@@ -200,6 +205,7 @@
             "~Upcast~": {
                 "A": "0 Actions",
                 "Cost": "1 Mana",
+                "ScrollPower": "Auto",
                 "Effect": "After you cast the next Spell this Turn, choose one of the rolled dice. Increase the result number of that die by 100%.",
                 "Upgrade": "This is not considered a Spell.",
                 "ParentKey": "Level 3 - Minor Talent"
@@ -208,6 +214,7 @@
                 "A": "1 Action",
                 "Cost": "1 Mana",
                 "Cooldown": "Once / Turn",
+                "ScrollPower": "Auto",
                 "Degree": "Minor",
                 "Effect": "A Unit or object you can see becomes one Size larger/smaller.\nIt gains or loses 10% Max Health, gains or loses 1 Damage on all offensive Acts, and gains or loses 1 Movement Speed.\nCan stack multiple times.\n",
                 "Notes": "Current Health changes with the Max Health (e.g. for 80/100 Health, if growing, new Health will be 90/110; if shrinking, new Health will be 70/90). When the effect expires, the new Current Health stays as it is, unless it's higher than the new Max Health.\nWhen the effect expires, current Health remains the same if lower, or is cut to maximum if higher.\nA larger Unit becomes 1 meter larger/smaller in both directions.\nIt's number of spaces occupied also changes with this.\n",
@@ -224,6 +231,7 @@
                 "Cost": "1 Mana",
                 "Range": "5 meters",
                 "Duration": "Rest of Adventure",
+                "ScrollPower": 2,
                 "Degree": "Minor",
                 "Effect": "Conjure a _spectral hand_ in a space you can see.\nYou can control the hand as you move your normal hands. You can spend Half-Action to move it up to 5 meters.\nYou can cast Spells as if they originate from the _spectral hand_ instead of your own, calculating Range and Cover from it instead of you.\n",
                 "Notes": "The hand can't lift objects weighing more than you can lift just with one hand.\nMoving the hand spends Action Points as if you made moved your own hand.\nYou can destroy the _hand_ at will.\n",
@@ -270,8 +278,9 @@
                 "A": "0 Actions",
                 "Cost": "1 Mana",
                 "Duration": "Until end of Adventure",
-                "Effect": "Choose a Unit to aomplify their magic potential.\nIts first  Healing or Spell Damage  every Turn has its ^Dice Upgraded^ to the next die type.\n",
-                "Notes": "{DiceUpgrade}",
+                "ScrollPower": 2,
+                "Effect": "Choose a Unit to amplify their magic potential.\nTheir first Healing or Spell Damage every Turn has its ^Dice Upgraded^ to the next die type.\n",
+                "Notes": "Doesn't stack with itself multiple times. \"{DiceUpgrade}\"",
                 "HasMixins": true,
                 "ParentKey": "Level 5 - Minor Talent"
             },
@@ -279,14 +288,16 @@
                 "A": "Reaction or 0 Actions",
                 "Cost": "1 Mana",
                 "HasMixins": true,
+                "ScrollPower": 3,
                 "Degree": "Major",
                 "Effect": "Use on your Turn, or before a Unit wants to do something.\nChoose a Unit you can see. It becomes invisible for up to 1 minute, or until it does an offensive Act.\n",
                 "Upgrade": "You can spend extra {Mana}Mana to extend the duration of this by that many minutes.",
                 "ParentKey": "Level 5 - Minor Talent"
             },
             "~Polymorph~": {
-                "A": "2 Action Points",
+                "A": "1 Action",
                 "Cost": "2 Mana",
+                "ScrollPower": "Auto",
                 "Cooldown": "Once / Adventure",
                 "Effect": "Choose a Unit. It becomes shapeshifted into an animal you choose until the end of its next Turn, which has 2 of the Druid Shapeshift animal features (also listed here).\nIt can not do any of its normal attacks or Abilities or use items, and all its Movement works as if it's moving through Hard Terrain.\nIt keeps its Stats, Passives and can do Animal Attack.\n",
                 "Upgrade": "Apply all other rules for Druid's Shapeshift Ability.",
@@ -362,6 +373,7 @@
                 "Cost": "1 Mana",
                 "Degree": "Major",
                 "Range": "10 meters",
+                "ScrollPower": "Auto",
                 "Effect": "First, roll 2d100. That's how many kilograms you can levitate when you cast this.\nLevitate one object or Unit you can see and move it as you like as long as it is and remains within 10 meters of you.\nOn each of your Turns, you can spend 1 Action to keep the Object levitated or move it again. Otherwise, it falls slowly and the Spell ends.\n",
                 "Upgrade": "A levitated Unit is Slowed perpetually.\nAt Level 8, the amount increases to 5d100.\n",
                 "Notes": "Lasts until you don't spend 1 Action, or you become at least Single-Stunned.",
@@ -372,6 +384,7 @@
                 "Cost": "1 Mana",
                 "Range": "10 meters",
                 "Degree": "Major",
+                "ScrollPower": "Auto",
                 "Effect": "You create an illusion that fits at most in a 3x3x3 meter area.\nThe illusion appears real to the eyes, ears and by smell, but physical interaction makes it obvious it's an illusion and objects pass through it normally.\nThe illusion can deal no Damage or Crowd Control, but can provide Cover or block Line of Sight (both from the front, and from behind).\nOn your Turn, you can spend 1 Action to keep and/or move the illusion, otherwise the Spell ends.\n",
                 "Upgrade": "At Level 8, the illusion lasts indefinitely until you cancel it without needing to spend Actions, and it can hold its own simple movement and clockwork-like routines.\nYou can also program this illusion to react on its own in a specific way to specific triggers, but the instructions must be concise - talk with your QM about this.\n",
                 "ParentKey": "Level 6 - Utility Talent"
@@ -380,6 +393,7 @@
                 "A": "1 Action",
                 "Cost": "1 Mana",
                 "Range": "3 meters",
+                "ScrollPower": "Auto",
                 "Degree": "Major",
                 "Effect": "You can conjure an object that is up to 1x1x1 meter in size.\nThe object is solid and glows faintly.\nYou can't conjure mechanical objects.\nThe object disappears after 1 hour (24 hours at Level 8).\n",
                 "ParentKey": "Level 6 - Utility Talent"
@@ -388,6 +402,7 @@
                 "A": "10 minutes",
                 "Cost": "1 Mana",
                 "Degree": "Major",
+                "ScrollPower": 1,
                 "Effect": "Touch 2 objects of the same type (e.g. 2 helmets, or 2 arrows, or 2 melee 1-Handed weapons, etc).\nYou make one of the look like the other.\nThe change is permanent until the object breaks.\n",
                 "Notes": "Upon close inspection of the shape and colors, this is visibly an illusion.",
                 "ParentKey": "Level 6 - Utility Talent"
@@ -411,6 +426,7 @@
             "<Evocation>": {
                 "_Value": 3,
                 "A": "Half-Action",
+                "ScrollPower": "Auto",
                 "Cooldown": "Once / Adventure",
                 "Duration": "1 minute",
                 "HasMixins": true,
@@ -431,6 +447,7 @@
                 "A": "Half-Action",
                 "Cooldown": "Once / Adventure",
                 "Duration": "Until the start of your next turn",
+                "ScrollPower": 6,
                 "Effect": "Choose a 5x5x5 meter cube.\nThat area become frozen in time - Units skip their turns and can't be daWizardd or affected by anything.\nAny object that touches the area becomes frozen, too (and, if it is a missile, resumes its trajectory when the area ends).\n",
                 "ParentKey": "Level 9 - Keystone Talent"
             }

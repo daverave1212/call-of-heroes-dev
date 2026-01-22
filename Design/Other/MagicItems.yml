@@ -159,6 +159,20 @@ Common:
       Effect: A small-sized vial of super glue.
       Tags: [Consumable, Magic, Alchemy, Engineer]
 
+    Basic Wand of Spell:
+      Price: 125
+      Cooldown: Once / real hour
+      A: Half-Action
+      Effect: Cast {SpellName} for free.
+      DisplayName: Wand of {SpellName}
+      SubspellName: "{SpellName}"
+      MiniIconType: Spell
+      MiniIconName: "{SpellName}"
+      TintColor: "#7777FF"
+      VariantsForEach:
+        - ForEach: SpellName:$SpellsWithPower0
+      Tags: [Magic, Engineer]
+
 
 Uncommon:  # 100
   Description: |
@@ -178,11 +192,11 @@ Uncommon:  # 100
       Tags: [Consumable, Magic, Alchemy]
     Potion of Healing:
       Price: 100
-      Effect: Restores 2d6 Health when drank.
+      Effect: Restores 2d6 Health.
       Tags: [Consumable, Magic, Alchemy]
     Potion of Mana:
       Price: 130
-      Effect: Restores 1 Mana when drank.
+      Effect: Restores 1 Mana.
       Tags: [Consumable, Magic, Alchemy]
     Elemental Oil:
       Price: 75
@@ -389,15 +403,30 @@ Uncommon:  # 100
         - ForEach: Skill:$Skills
       Tags: [Jewelry]
 
-    Lesser Wand of Spell:
+    Lesser Scroll:
       Price: 100
+      A: Half-Action
+      Effect: Cast {SpellName}.
+      DisplayName: Scroll of {SpellName}
+      MiniIconType: Spell
+      MiniIconName: "{SpellName}"
+      SubspellName: "{SpellName}"
+      TintColor: "#55FF44"
+      VariantsForEach:
+        - ForEach: SpellName:$SpellsWithPower1
+      Tags: [Magic, Scribe, Scroll]
+
+    Lesser Wand of Spell:
+      Price: 250
       Cooldown: Once / Combat
       A: Half-Action
       Effect: Cast {SpellName} for free.
       DisplayName: Wand of {SpellName}
+      MiniIconType: Spell
+      MiniIconName: "{SpellName}"
       SubspellName: "{SpellName}"
       VariantsForEach:
-        - ForEach: SpellName:$LesserSpells
+        - ForEach: SpellName:$SpellsWithPower1
       Tags: [Magic, Engineer]
 
 
@@ -507,16 +536,32 @@ Rare:  # 300-500
           Name: Reinforcement Rune
       Tags: [Magic]
 
+    Minor Scroll:
+      Price: 175
+      A: Half-Action
+      Effect: Cast {SpellName}.
+      DisplayName: Scroll of {SpellName}
+      MiniIconType: Spell
+      MiniIconName: "{SpellName}"
+      SubspellName: "{SpellName}"
+      IconName: Lesser Scroll
+      TintColor: "#5555FF"
+      VariantsForEach:
+        - ForEach: SpellName:$SpellsWithPower2
+      Tags: [Magic, Scribe, Scroll]
+
     Minor Wand of Spell:
-      Price: 100
+      Price: 300
       Cooldown: Once / Adventure
       A: Half-Action
       Effect: Cast {SpellName} for free.
       DisplayName: Wand of {SpellName}
+      MiniIconType: Spell
+      MiniIconName: "{SpellName}"
       SubspellName: "{SpellName}"
       VariantsForEach:
-        - ForEach: SpellName:$MinorSpells
-      Tags: [Magic]
+        - ForEach: SpellName:$SpellsWithPower2
+      Tags: [Magic, Engineer]
 
     Cape of Element:
       Price: 425
@@ -806,16 +851,33 @@ Rare:  # 300-500
           Effect: The next shot makes the target +50% Damage from Fire, Shock and Cold until the start of your next turn.
 
     # -------- Rare Equipment Items ---------
+
+    Major Scroll:
+      Price: 275
+      A: Half-Action
+      Effect: Cast {SpellName}.
+      DisplayName: Scroll of {SpellName}
+      MiniIconType: Spell
+      MiniIconName: "{SpellName}"
+      SubspellName: "{SpellName}"
+      IconName: Lesser Scroll
+      TintColor: "#5555FF"
+      VariantsForEach:
+        - ForEach: SpellName:$SpellsWithPower3
+      Tags: [Magic, Scribe, Scroll]
+
     Major Wand of Spell:
-      Price: 400
+      Price: 625
       Cooldown: Once / Adventure
       A: Half-Action
       Effect: Cast {SpellName} for free.
       DisplayName: Wand of {SpellName}
+      MiniIconType: Spell
+      MiniIconName: "{SpellName}"
       SubspellName: "{SpellName}"
       VariantsForEach:
-        - ForEach: SpellName:$MajorSpells
-      Tags: [Magic]
+        - ForEach: SpellName:$SpellsWithPower3
+      Tags: [Magic, Engineer]
 
     Boots of Speed:
       Price: 700
@@ -992,16 +1054,32 @@ Epic:
     Flying Broom:
       Effect: None
 
-    Grand Wand of Spell:
+    Grand Scroll:
       Price: 400
+      A: Half-Action
+      Effect: Cast {SpellName}.
+      DisplayName: Scroll of {SpellName}
+      MiniIconType: Spell
+      MiniIconName: "{SpellName}"
+      SubspellName: "{SpellName}"
+      IconName: Lesser Scroll
+      TintColor: "#FF55FF"
+      VariantsForEach:
+        - ForEach: SpellName:$SpellsWithPower4
+      Tags: [Magic, Scribe, Scroll]
+
+    Grand Wand of Spell:
+      Price: 900
       Cooldown: Once / Adventure
       A: Half-Action
       Effect: Cast {SpellName} for free.
       DisplayName: Wand of {SpellName}
+      MiniIconType: Spell
+      MiniIconName: "{SpellName}"
       SubspellName: "{SpellName}"
-      Tags: [Magic]
       VariantsForEach:
-        - ForEach: SpellName:$GrandSpells
+        - ForEach: SpellName:$SpellsWithPower4+
+      Tags: [Magic, Engineer]
 
     Headband of Stat:
       Price: 100

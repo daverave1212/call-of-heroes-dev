@@ -20,8 +20,8 @@ const MERCHANT_TYPE_LETTER_MAP = {
     'l': 'Library',
     'n': 'Nature',
     'r': 'Religion',
-    's': 'Shady Dealer',
     't': 'General Goods',
+    'u': 'Underground Market',
     
 }
 const MERCHANT_TYPES = {
@@ -66,6 +66,24 @@ const MERCHANT_TYPES = {
     'Library': {
         itemCategories: ['Other Items'],
         tags: ['Scribe'],
+        getExtraItems(productDiversity, rng) {
+            const minScrollPower = 1
+            const maxScrollPower = Math.min(productDiversity + 1, 4)
+            const scrollPowerToName = {
+                1: 'Lesser Scroll',
+                2: 'Minor Scroll',
+                3: 'Major Scroll',
+                4: 'Grand Scroll',
+            }
+            const getRandomScrollPower = () => rng.randomInt(minScrollPower, maxScrollPower)
+            const getRandomScrollName = () => scrollPowerToName[getRandomScrollPower()]
+            const getScroll = () => getAllMagicItemsByName()[getRandomScrollName()]
+
+            const nMinScrolls = Math.floor(Math.max(0.7 * productDiversity, 1))
+            const nMaxScrolls = Math.max(productDiversity * 2, nMinScrolls + 1)
+            const nScrolls = rng.randomInt(nMinScrolls, nMaxScrolls)
+            return range(0, nScrolls).map(() => getScroll())
+        },
         uniqueMagicItemTypes: [],
         specificItems: ['Bell', 'Lamp', 'Paper (1 sheet)', 'Mirror (steel)', 'Candle']
     },
@@ -85,7 +103,7 @@ const MERCHANT_TYPES = {
         uniqueMagicItemTypes: ['Armor', 'Shield'],
         specificItems: ['Torch', 'Backpack', 'Bedroll', 'First Aid Kit', 'Flask', 'Hunting Trap', 'Tent (2 people)', 'Food for 1 Day', 'Basket', 'Blanket', 'Bottle (1 liter)', 'Chest', 'Oil (500ml)', 'Soap']
     },
-    'Shady Dealer': {
+    'Underground Market': {
         itemCategories: ['Potions and Poisons', 'Vehicles', 'Mounts', 'Exotic Mounts'],
         specificItems: ['Torch', 'Backpack', 'Ball Bearings', 'Bedroll', 'Bell', 'Block and Tackle', 'Caltrops (set)', 'Chain', 'Grappling Hook', 'Ladder', 'Manacles', 'Paint Pellet', 'Rope', 'Tent', 'Mirror', 'Chalk', 'Pouch', 'Sack', 'Hunting Trap', 'Rope (10 meters)', 'Lock and Key', 'Common Clothes (low-class)', 'Language Course'],
         tags: ['Shady'],
@@ -164,11 +182,17 @@ export default function MerchantGenerator({}) {
         const possibleItems = getAllMagicItemsAsArray().filter(item => hasAnyOfMyTags(item)).filter(item => getItemPrice(item) <= maxPrice)
         const possibleItemsShuffled = rng.shuffle(possibleItems)
         const nItems = getProductDiversityToNMagicItems(productDiversity, rng) * (merchant.magicItemChanceMultiplier ?? 1)
-        const allMagicItemsIHave = possibleItemsShuffled.slice(0, nItems)
+        let allMagicItemsIHave = possibleItemsShuffled.slice(0, nItems)
+        const extraItems = merchant.getExtraItems?.(productDiversity, rng)
+        if (extraItems != null) {
+            allMagicItemsIHave = [...allMagicItemsIHave, ...extraItems]
+        }
         const magicItemsParsed = allMagicItemsIHave.map(item => parseAndNormalizeSpell(item, { isItem: true }))
         for (const item of magicItemsParsed) {
             if (item.Variants != null) {
                 item.DefaultVariantIndex = rng.randomInt(0, item.Variants.length - 1)
+            } else if (item.VariantsForEach != null) {
+                item.DefaultVariantIndex = rng.randomInt(0, getNVariantsForVariantsForEachSpell(item) - 1)
             }
         }
         console.log({
@@ -227,7 +251,7 @@ export default function MerchantGenerator({}) {
         
         const allNormalItemsIHave = getNormalItemsIHaveAsArray(merchant, productDiversity, rng)
         const allNormalItemsAfterSales = makeItemsOutOfStock(allNormalItemsIHave, daysSinceLastWednesday, rng)
-        const allMagicItemsIHave = getMagicItemsIHaveAsArray(merchant, productDiversity, rng)
+        let allMagicItemsIHave = getMagicItemsIHaveAsArray(merchant, productDiversity, rng)
         const allArtefactsIHave = getUniqueArtefactsIHaveAsArray(merchant, productDiversity, rng)
 
         console.log({allArtefactsIHave})

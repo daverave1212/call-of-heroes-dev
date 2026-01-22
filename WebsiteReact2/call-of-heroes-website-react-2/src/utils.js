@@ -24,8 +24,13 @@ import QuestGuardConfig from './QuestGuardConfig.json'
 
 // ---------------- Spells Utilities ----------------
 const SPELL_PROPS_TO_PARSE = [
-    'DisplayName',
     'Effect', 'EffectGreen', 'Downside', 'Upgrade', 'Combo', 'Notes'
+]
+const SPELL_PROPS_TO_PARSE_AS_TEXT = [
+    'DisplayName',
+    'SubspellName',
+    'CustomMiniIconPath',
+    'MiniIconName'
 ]
 export function parseAndNormalizeSpell(spell, options={
     isItem: false,
@@ -44,11 +49,12 @@ export function parseAndNormalizeSpell(spell, options={
         spellModified.Effect = stringReplaceAllMany(spell.Effect, Object.keys(QuestGuardConfig.actionPointsMapping), Object.keys(QuestGuardConfig.actionPointsMapping).map(key => QuestGuardConfig.actionPointsMapping[key]))
     }
 
-    // Setup variants
+    // Normalize variants
     let extraMixins = {}
     if (spell.VariantsForEach != null) {
         spellModified.Variants = normalizeForEachVariantsToNormalVariants(spell.VariantsForEach)
     }
+    // Set spell props based on the current variant
     if (spellModified.Variants != null && spellModified.Variants.length > 0) {
         const currentVariant = spellModified.Variants[variantIndex]
         extraMixins = mapObject(currentVariant, ({key, value}) => ({
@@ -57,18 +63,35 @@ export function parseAndNormalizeSpell(spell, options={
         }))
         spellModified.IconPath = currentVariant.IconName == null? spellModified.IconPath: getSpellIconPathByName(currentVariant.IconName)
         spellModified.A = currentVariant.DisplayA ?? spell.A
+        spellModified.SubspellName = currentVariant.SubspellName ?? spellModified.SubspellName
     }
 
     // Parse all mixins, including variants
     if (spell.HasMixins === true || hasSpellVariants(spell)) {
         for (const propName of SPELL_PROPS_TO_PARSE) {
-            if (spell[propName] != null) {
-                try {
-                    spellModified[propName] = parseTextWithSymbols(spell[propName], extraMixins)
-                } catch (e) {
-                    console.log({spell, options})
-                    throw `Error in Spell ${spellModified.Name} at prop ${propName} parsing text: ${spell[propName]}. Spell printed above. Error: ${e}`
-                }
+            if (spell[propName] == null) {
+                continue
+            }
+            try {
+                spellModified[propName] = parseTextWithSymbols(spell[propName], extraMixins)
+            } catch (e) {
+                console.log({spell, options})
+                throw `Error in Spell ${spellModified.Name} at prop ${propName} parsing text: ${spell[propName]}. Spell printed above. Error: ${e}`
+            }
+        }
+        for (const propName of SPELL_PROPS_TO_PARSE_AS_TEXT) {
+            if (spell[propName] == null) {
+                continue
+            }
+            if (propName == 'MiniIconName') {
+                console.green('Found a MIniIconName!!!')
+                console.log({spell, extraMixins, propName, options, newProp: parseTextWithSymbols(spell[propName], extraMixins, { shouldReturnStringsOnly: true})?.join('')})
+            }
+            try {
+                spellModified[propName] = parseTextWithSymbols(spell[propName], extraMixins, { shouldReturnStringsOnly: true})?.join('')
+            } catch (e) {
+                console.log({spell, options})
+                throw `Error in Spell ${spellModified.Name} at prop as text ${propName} parsing text: ${spell[propName]}. Spell printed above. Error: ${e}`
             }
         }
     }
@@ -82,7 +105,7 @@ export function normalizeForEachVariantsToNormalVariants(VariantsForEach) {
         const [mixinName, collectionName] = variant.ForEach.split(':')
         const collection = getVariantsForEachCollection(collectionName)
         const subvariants = collection.map(str => ({...variant, [mixinName]: str}))
-        allVariants = [...allVariants, ...subvariants]
+        allVariants = [...allVariants, ...subvariants]  // TODO: This is incorrect!! If a spell will have multiple elements for VariantsForEach, it will not work properly!
     }
     return allVariants
 }
@@ -175,14 +198,23 @@ export function getAllBasicSpellsAsArray() {
 export function getAllFontSpellsAsArray() {
     return Object.values(SpellFonts).map(category => spellsFromObject(category)).flat()
 }
-export function getAllSpells() {
+let allSpellsArrayCached = null
+export function getAllSpellsAsArray() {
+    if (allSpellsArrayCached != null) {
+        return allSpellsArrayCached
+    }
+    allSpellsArrayCached = []
     const allFontSpells = getAllFontSpellsAsArray()
     const allBasicSpells = getAllBasicSpellsAsArray()
     const allFeats = getAllSpellsFromCategoriesObject(Feats)
     const allClassAndRaceAbilities = spellsFromObject(ClassAndRaceAbilities)
-    const allSpells = [...allFontSpells, ...allBasicSpells, ...allFeats, ...allClassAndRaceAbilities]
-    return allSpells
+    allSpellsArrayCached = [...allFontSpells, ...allBasicSpells, ...allFeats, ...allClassAndRaceAbilities]
+    for (const spell of allSpellsArrayCached) {
+        maybeAssignScrollPower(spell)
+    }
+    return allSpellsArrayCached
 }
+window.getAllSpellsAsArray = getAllSpellsAsArray
 function autoAssignScrollPower(spell) {
     const actionPoints = getActionPointsByA(spell.A)
     const costNormalized = spell.Cost ?? '0 Mana'
@@ -211,21 +243,22 @@ function autoAssignScrollPower(spell) {
 export function isSpellFontSpell(spell) {
     return ['Fire', 'Lightning', 'Frost', 'Arcane'].includes(spell?.ParentKey ?? 'ahsjkdhaskjhd')
 }
+window.isSpellFontSpell = isSpellFontSpell
+function maybeAssignScrollPower(spell) {
+    if (spell.ScrollPower != null) {
+        if (spell.ScrollPower == 'Auto') {
+            autoAssignScrollPower(spell)
+        }
+    }
+}
 let allSpellsCached = null
 export function getAllSpellsByName() {
-    const allSpells = getAllSpells()
+    const allSpells = getAllSpellsAsArray()
     if (allSpellsCached != null) {
         return allSpellsCached
     }
     allSpellsCached = {}
     for (const spell of allSpells) {
-        if (spell.ScrollPower != null) {
-            if (spell.ScrollPower == 'Auto') {
-                autoAssignScrollPower(spell)
-            }
-        } else if (isSpellFontSpell(spell)) {
-            autoAssignScrollPower(spell)
-        }
         if (allSpellsCached[spell.Name] == null) {
             allSpellsCached[spell.Name] = spell
         }
@@ -255,6 +288,17 @@ export function getAllSkillsByName() {
     return allSkillsCached
 }
 window.getAllSkillsByName = getAllSkillsByName
+let scrollAbilitiesByPower = null
+export function getAllScrollSpellNamesByPower() {
+    if (scrollAbilitiesByPower != null) {
+        return scrollAbilitiesByPower
+    }
+    const spellsThatCanBeScrolls = getAllSpellsAsArray().filter(s => s.ScrollPower != null)
+    scrollAbilitiesByPower = groupBy(spellsThatCanBeScrolls, s => s.ScrollPower)
+    scrollAbilitiesByPower = mapObject(scrollAbilitiesByPower, ([scrollPower, spellsArr]) => ([scrollPower, spellsArr.map(spell => spell.Name)]))
+    return scrollAbilitiesByPower
+}
+window.getAllScrollSpellNamesByPower = getAllScrollSpellNamesByPower
 let allWeaponsCached = null
 function objectsWithNameFromCategoriesObjToObject(categoriesObj, exceptionCategoryNames=[]) {
     const toObj = {}
@@ -296,8 +340,9 @@ export function getAllMagicItemsByName() {
             continue
         }
         const itemsHere = magicItems[category].Items
-        for (const item of Object.values(itemsHere)) {
+        for (const [itemName, item] of Object.entries(itemsHere)) {
             item.Category = category
+            item.Name = itemName
         }
         magicItemsCached = {...magicItemsCached, ...itemsHere}
     }
@@ -369,8 +414,9 @@ export function getSpellOrItemIconPath(spellOrItem, isItem=false) {
     const iconPath =
         CustomIconPath != null?
             CustomIconPath:
-        IconName != null?
-            getSpellIconPathByName(IconName):
+        IconName != null? (
+            isItem? getItemIconPathByName(IconName): getSpellIconPathByName(IconName)
+        ):
         isItem == true?
             getItemIconPathByName(Name):    
         getSpellIconPathByName(Name)
@@ -772,7 +818,6 @@ export const $LESSER_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => s
 export const $MINOR_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Minor').map(spell => spell.Name)
 export const $MAJOR_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Major').map(spell => spell.Name)
 export const $GRAMD_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Grand').map(spell => spell.Name)
-
 export const SKILL_GROUP_BY_ELEMENT = {
     'Fire': ['Physical', 'Magic', 'Dungeons'],
     'Cold': ['Magic', 'Knowledge'],
@@ -875,11 +920,27 @@ export const $SKILLS = [
   "Survival"
 ]
 
+export function getNVariantsForVariantsForEachSpell(spell) {
+    const variantClause = spell?.VariantsForEach?.[0]
+    if (variantClause == null) {
+        return 0
+    }
+    const [forElem, inCollection] = variantClause?.trim()?.split(':')
+    const elemsInCollection = getVariantsForEachCollection(inCollection)
+    return elemsInCollection?.length ?? 0
+}
 export function getVariantsForEachCollection(collectionName) {
     switch (collectionName) {
         case '$OneHandedWeapons': return [...Object.keys(weapons['One-Handed Melee']), ...Object.keys(weapons['One-Handed Ranged'])].filter(weapon => weapon != 'Punch')
         case '$TwoHandedWeapons': return [...Object.keys(weapons['Two-Handed Melee']), ...Object.keys(weapons['Two-Handed Ranged'])]
         case '$Skills': return $SKILLS.map(name => name.slice(name.lastIndexOf(' ') + 1))
+
+        case '$SpellsWithPower0': return getAllScrollSpellNamesByPower()[0]
+        case '$SpellsWithPower1': return getAllScrollSpellNamesByPower()[1]
+        case '$SpellsWithPower2': return getAllScrollSpellNamesByPower()[2]
+        case '$SpellsWithPower3': return getAllScrollSpellNamesByPower()[3]
+        case '$SpellsWithPower4': return getAllScrollSpellNamesByPower()[4]
+        case '$SpellsWithPower4+': return [...getAllScrollSpellNamesByPower()[4], ...getAllScrollSpellNamesByPower()[5], ...getAllScrollSpellNamesByPower()[6]]
         
         // Half-Action, 0 Mana             Once / Combat
         case '$LesserSpells': return $LESSER_SPELLS_NAMES

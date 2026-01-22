@@ -139,6 +139,7 @@ Utility:
       Requirement: Level 4
       Range: 10 meters
       Degree: Minor
+      ScrollPower: Auto
       Effect: |
           Up to 2 Units you choose will start falling gently, down to 3 meters per round.
           Once the fall finishes, the spell effect ends.
@@ -152,6 +153,7 @@ Utility:
       Cooldown: Once / Turn
       Degree: Minor
       Requirement: Level 3
+      ScrollPower: 2
       Effect: Instantly teleport up to 5 meters away, within line of sight.
       Notes: Does not work if you're Rooted or stuck in place somehow. You take with you all items carried you want, but not other Units.
 
@@ -170,6 +172,7 @@ Talents:
       A: 0 Actions
       Cost: 1 Mana
       Duration: Until end of Adventure
+      ScrollPower: 2
       Effect: |
         Cast a Spell onto a _scroll_, spending its Cost, Cooldown, Action Points, etc (plus the additional 1 {Mana}Mana for this Ability).
         The _scroll_ can be used with Half-Action, and is destroyed after being used.
@@ -186,6 +189,7 @@ Talents:
         Range: 3 meters
         Duration: Depends
         Degree: Major
+        ScrollPower: Auto
         Effect: |
             Conjure a levitating, self-wielding melee weapon on a space within 3 meters.
             It has 1 Action which can only be spent Move and attack,
@@ -205,6 +209,7 @@ Talents:
     ~Magic Rune~:
       A: Half-Action
       Cost: 1 Mana
+      ScrollPower: Auto
       Effect: |
         Magically draw a faint 3x3 meter _rune_ onto a flat surface.
         Cast a Spell onto the _rune_, spending its Cost, Cooldown, Action Points, etc (plus the additional 1 {Mana}Mana for this Ability).
@@ -244,6 +249,7 @@ Talents:
     ~Upcast~:
       A: 0 Actions
       Cost: 1 Mana
+      ScrollPower: Auto
       Effect: After you cast the next Spell this Turn, choose one of the rolled dice. Increase the result number of that die by 100%.
       Upgrade: This is not considered a Spell.
 
@@ -251,6 +257,7 @@ Talents:
         A: 1 Action
         Cost: 1 Mana
         Cooldown: Once / Turn
+        ScrollPower: Auto
         Degree: Minor
         Effect: |
             A Unit or object you can see becomes one Size larger/smaller.
@@ -272,6 +279,7 @@ Talents:
         Cost: 1 Mana
         Range: 5 meters
         Duration: Rest of Adventure
+        ScrollPower: 2
         Degree: Minor
         Effect: |
             Conjure a _spectral hand_ in a space you can see.
@@ -336,15 +344,17 @@ Talents:
       A: 0 Actions
       Cost: 1 Mana
       Duration: Until end of Adventure
+      ScrollPower: 2
       Effect: |
-        Choose a Unit to aomplify their magic potential.
-        Its first  Healing or Spell Damage  every Turn has its ^Dice Upgraded^ to the next die type.
-      Notes: "{DiceUpgrade}"
+        Choose a Unit to amplify their magic potential.
+        Their first Healing or Spell Damage every Turn has its ^Dice Upgraded^ to the next die type.
+      Notes: Doesn't stack with itself multiple times. "{DiceUpgrade}"
 
     ~Invisibility~:
         A: Reaction or 0 Actions
         Cost: 1 Mana
         HasMixins: true
+        ScrollPower: 3
         Degree: Major
         Effect: |
             Use on your Turn, or before a Unit wants to do something.
@@ -352,8 +362,9 @@ Talents:
         Upgrade: You can spend extra {Mana}Mana to extend the duration of this by that many minutes.
     
     ~Polymorph~:
-        A: 2 Action Points
+        A: 1 Action
         Cost: 2 Mana
+        ScrollPower: Auto
         Cooldown: Once / Adventure
         Effect: |
           Choose a Unit. It becomes shapeshifted into an animal you choose until the end of its next Turn, which has 2 of the Druid Shapeshift animal features (also listed here).
@@ -415,6 +426,7 @@ Talents:
         Cost: 1 Mana
         Degree: Major
         Range: 10 meters
+        ScrollPower: Auto
         Effect: |
             First, roll 2d100. That's how many kilograms you can levitate when you cast this.
             Levitate one object or Unit you can see and move it as you like as long as it is and remains within 10 meters of you.
@@ -429,6 +441,7 @@ Talents:
         Cost: 1 Mana
         Range: 10 meters
         Degree: Major
+        ScrollPower: Auto
         Effect: |
             You create an illusion that fits at most in a 3x3x3 meter area.
             The illusion appears real to the eyes, ears and by smell, but physical interaction makes it obvious it's an illusion and objects pass through it normally.
@@ -442,6 +455,7 @@ Talents:
         A: 1 Action
         Cost: 1 Mana
         Range: 3 meters
+        ScrollPower: Auto
         Degree: Major
         Effect: |
             You can conjure an object that is up to 1x1x1 meter in size.
@@ -453,6 +467,7 @@ Talents:
         A: 10 minutes
         Cost: 1 Mana
         Degree: Major
+        ScrollPower: 1
         Effect: |
             Touch 2 objects of the same type (e.g. 2 helmets, or 2 arrows, or 2 melee 1-Handed weapons, etc).
             You make one of the look like the other.
@@ -480,6 +495,7 @@ Talents:
     <Evocation>:
       _Value: 3
       A: Half-Action
+      ScrollPower: Auto
       Cooldown: Once / Adventure
       Duration: 1 minute
       HasMixins: true
@@ -503,6 +519,7 @@ Talents:
       A: Half-Action
       Cooldown: Once / Adventure
       Duration: Until the start of your next turn
+      ScrollPower: 6
       Effect: |
         Choose a 5x5x5 meter cube.
         That area become frozen in time - Units skip their turns and can't be daWizardd or affected by anything.

@@ -3,7 +3,7 @@ import './Spell.css'
 import PageH2 from './../PageH2/PageH2'
 import Separator from './../Separator/Separator'
 import React, { useEffect, useRef, useState } from 'react'
-import { parseTextWithSymbols, stringReplaceAllMany, getSpellIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll, getVariantsForEachCollection, normalizeForEachVariantsToNormalVariants, createKey, spellsFromObject, randomInt, assertCorrectSpellFormat, findBasicSpellByName, allEqual, getItemIconPathByName, removeTildes, isString, getDoubleTableTable, getDoubleTableNumberedTable, filterObject, getSpellValidTopStatsObject, hasSpellVariants, getNormalizedSpellName, getSpellOrItemIconPath, parseAndNormalizeSpell, hexColorToRgbVector } from '../../utils'
+import { parseTextWithSymbols, stringReplaceAllMany, getSpellIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll, getVariantsForEachCollection, normalizeForEachVariantsToNormalVariants, createKey, spellsFromObject, randomInt, assertCorrectSpellFormat, findBasicSpellByName, allEqual, getItemIconPathByName, removeTildes, isString, getDoubleTableTable, getDoubleTableNumberedTable, filterObject, getSpellValidTopStatsObject, hasSpellVariants, getNormalizedSpellName, getSpellOrItemIconPath, parseAndNormalizeSpell, hexColorToRgbVector, getSpellByName } from '../../utils'
 import TableNormal from '../TableNormal/TableNormal'
 import html2canvas from 'html2canvas'
 import CopySpellButton from '../CopyButton/CopySpellButton'
@@ -82,6 +82,7 @@ export default function Spell({
     hasBorder=true,
     hasCopyButton=true,
     showTopStats=true,
+    showTop=true,
     
     isSelected=false,
     canChangeVariant=true,
@@ -121,61 +122,28 @@ export default function Spell({
         VariantsForEach,
         Monster,
         Subspells,
-        SubspellName,
         RollThiefGold,
         HasSpellTableNumbers,
         SpellTable,
         Tags
     } = spell
 
-    // let iconPath = getSpellOrItemIconPath(spell, isItem)
-    
-    
-    // let extraMixins = {}
-    // if (VariantsForEach != null) {
-    //     Variants = normalizeForEachVariantsToNormalVariants(VariantsForEach)
-    // }
-    // if (Variants != null && Variants.length > 0) {
-    //     const currentVariant = Variants[variantIndex]
-    //     const variantMixinsCorrectlyFormatted = mapObject(currentVariant, ({key, value}) => ({
-    //         key: key,
-    //         value: { tag: 'span', text: value }
-    //     }))
-    //     extraMixins = variantMixinsCorrectlyFormatted
-    //     iconPath = currentVariant.IconName == null? iconPath: getSpellIconPathByName(currentVariant.IconName)
-    //     A = currentVariant.DisplayA ?? A
-    // }
-
-
-    // if (HasMixins === true || hasVariants === true) {
-    //     try {
-    //         if (Effect != null) Effect = parseTextWithSymbols(Effect, extraMixins)
-    //         if (EffectGreen != null) EffectGreen = parseTextWithSymbols(EffectGreen, extraMixins)
-    //         if (DisplayName != null) DisplayName = parseTextWithSymbols(DisplayName, extraMixins)
-    //         if (Downside != null) Downside = parseTextWithSymbols(Downside, extraMixins)
-    //         if (Upgrade != null) Upgrade = parseTextWithSymbols(Upgrade, extraMixins)
-    //         if (Combo != null) Combo = parseTextWithSymbols(Combo, extraMixins)
-    //         if (Notes != null) Notes = parseTextWithSymbols(Notes, extraMixins)
-    //     } catch (e) {
-    //         console.log({spell})
-    //         throw `Error in Spell ${Name} parsing text: ${e}. Spell printed above.`
-    //     }
-    // }
+    const parsedSpell = spell.IsAlreadyParsed? spell: parseAndNormalizeSpell(spell, {
+        isItem,
+        variantIndex
+    })
 
     let {
         Name, DisplayName, A, IconPath,
         Effect, EffectGreen, Downside, Upgrade, Combo, Notes,
-        Variants
-    } = spell.IsAlreadyParsed? spell: parseAndNormalizeSpell(spell, {
-        isItem,
-        variantIndex
-    })
+        Variants, SubspellName
+    } = parsedSpell
 
     
 
     const hasVariants = hasSpellVariants(spell)
     const uniqueID = getUniqueSpellID(Name)
-    const subspell = SubspellName != null? findBasicSpellByName(SubspellName): null
+    const subspell = SubspellName != null? getSpellByName(SubspellName): null
     const hasButton = onClick != null
     const finalButtonText = buttonText ?? (isSelected? 'Unselect': 'Select')
     const hasEffectsOrMore = !allEqual([Effect, EffectGreen, Downside, Upgrade, Notes, Alternatives], null)
@@ -216,14 +184,16 @@ export default function Spell({
             <div className='spell-background'></div>
 
             <div className='content'> {/* This has CSS to be perfectly in the bounds of the borders and banner */}
-                <SpellTop
-                    hasVariants={hasVariants && canChangeVariant} variantIndex={variantIndex} Variants={Variants}
-                    onIconClick={onIconClick} iconPath={IconPath} hasIcon={hasIcon}
-                    DisplayName={DisplayName} Name={Name} showTopStats={showTopStats}
-                    A={A} spell={spell}
-                />
-                
-                <Separator hasNoMarginTop={true}/>
+                { showTop != false && (<>
+                    <SpellTop
+                        hasVariants={hasVariants && canChangeVariant} variantIndex={variantIndex} Variants={Variants}
+                        onIconClick={onIconClick} iconPath={IconPath} hasIcon={hasIcon}
+                        DisplayName={DisplayName} Name={Name} showTopStats={showTopStats}
+                        A={A} spell={parsedSpell}
+                    />
+                    { showTopStats != false && <Separator hasNoMarginTop={true}/> }
+                </>) }
+                { showTopStats == false && <div style={{marginTop: '-1rem'}}></div>}
 
                 { Damage && (<>
                     <div key="Damage" className='spell-description'>
@@ -268,9 +238,9 @@ export default function Spell({
                         { Upgrade }
                     </div>
                 ) }
-                { (Subspells != null) && spellsFromObject(Subspells).map(spell => (
-                    <div style={{paddingBottom: 'var(--spell-padding-bottom)'}} key={`subspell-${spell.Name}`}>
-                        <Spell spell={spell} hasBorder={false}/>
+                { (Subspells != null) && spellsFromObject(Subspells).map(s => (
+                    <div style={{paddingBottom: 'var(--spell-padding-bottom)'}} key={`subspell-${s.Name}`}>
+                        <Spell spell={s} hasBorder={false}/>
                     </div>
                 ))}
                 { (SpellTable != null && (
@@ -329,7 +299,7 @@ export default function Spell({
                         <div style={{height: '1rem'}}></div>
                     </div>
                 )}
-                { subspell != null && <Spell spell={subspell} hasCopyButton={false} showTopStats={false}/>}
+                { subspell != null && <Spell spell={{...subspell, IsSubspell: true}} hasCopyButton={false} hasBorder={false} showTopStats={false}/>}
             </div>
         </div>
     )
@@ -374,11 +344,6 @@ export function SpellTopStats({className, tags, keywords}) {
     }
 
     const parsedKeywords = getSpellTags({ Tags: keywords })
-
-    if (Name == 'Pot of Boiling') {
-        console.log(`Here tis:`)
-        console.log({validSpellTopTags, nTopStats})
-    }
 
     function KeywordTags() {
         return <>{ parsedKeywords.map(tag => <div className='tag smaller-font' key={tag}>{ tag }</div>) }</>
@@ -481,6 +446,21 @@ export function SpellTop({
                             <img src="/Icons/Spells/!UpgradeIcon.png"/>
                         </div>
                     )}
+                    { spell.MiniIconName != null && (
+                        <div className='secondary-icon-wrapper absolute' style={{borderTop: 'solid black 1px', borderLeft: 'solid black 1px'}}>
+                            <img src={
+                                spell.MiniIconType == 'Item'?
+                                    getItemIconPathByName(spell.MiniIconName)
+                                :
+                                    getSpellIconPathByName(spell.MiniIconName)
+                            }/>
+                        </div>
+                    ) }
+                    { spell.CustomMiniIconPath != null && (
+                        <div className='secondary-icon-wrapper absolute' style={{borderTop: 'solid black 1px', borderLeft: 'solid black 1px'}}>
+                            <img src={spell.CustomMiniIconPath}/>
+                        </div>
+                    ) }
                 </div>
 
             </div>

@@ -310,6 +310,15 @@ async function processFiles() {
         //     rulesDicts = getFormatSectionsObjectDict(dictContent);
         // }
 
+        if (fileName.includes('Fonts')) {
+            for (const [category, spellsObj] of Object.entries(dictContent)) {
+                for (const [spellName, spell] of Object.entries(spellsObj)) {
+                    spell.ScrollPower = 'Auto'
+                    spell.ParentKey = category
+                }
+            }
+        }
+
 
         if ('Class' in dictContent) {
             classes.push(dictContent.Class)
