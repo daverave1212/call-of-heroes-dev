@@ -1,4 +1,4 @@
-import { $SKILLS, capitalizeFirstLetter, filterObject, generateUniqueId, getAlternativesAsArray, getItemIconPathByName, includesAll, includesAny, includesAnyWithExceptions, joinObjectValues, last, mapKeysToObject, mapObject, matchRange, mergeObjectsContainingArrays, onlyUniqueFilter, parseTextWithSymbols, percentChance, randomInt, randomOf, randomOfArrayWeighted, roundToNearest, SeededRNG, shuffle, SKILL_GROUP_BY_ELEMENT, SKILLS_BY_GROUP, spellsFromObject, stringReplaceAllMany } from "../../utils";
+import { $SKILLS, capitalizeFirstLetter, filterObject, generateUniqueId, getAlternativesAsArray, getAnExistingKeyOf, getItemIconPathByName, includesAll, includesAny, includesAnyWithExceptions, isNumber, isStringNumeric, joinObjectValues, last, mapKeysToObject, mapObject, matchRange, mergeObjectsContainingArrays, onlyUniqueFilter, parseTextWithSymbols, percentChance, randomInt, randomOf, randomOfArrayWeighted, range, roundToNearest, SeededRNG, shuffle, SKILL_GROUP_BY_ELEMENT, SKILLS_BY_GROUP, spellsFromObject, stringReplaceAllMany } from "../../utils";
 import MagicItemProperties from '../../databases/Other/MagicItemProperties.json'
 import Weapons from '../../databases/Weapons.json'
 import Armors from '../../databases/Armors.json'
@@ -22,6 +22,9 @@ const ALL_WEAPONS_ARRAY = [
 ]
 
 function parseItemText({ text, thisText='{This}', rng=standardRNG, item={} }) {
+    if (isNumber(text)) {
+        return text
+    }
     const randomElement = () => {
         if (item.ElementBias != null && rng.percentChance(85)) {
             return item.ElementBias
@@ -1526,13 +1529,17 @@ function getItemTintColor(text, rng=standardRNG) {
 }
 function getItemIconName(item, rng=standardRNG) {
     if (item.Type.includes('Shield')) {
-        return rng.randomOf('Shield', 'Shield of Arrows', 'Shield of Reflection', 'Shield of Snakes', 'Tower Shield')
+        return `Shield/${randomInt(1, 50)}`
     }
     if (item.Type.includes('Armor')) {
         return rng.randomOf(...ARMOR_TO_NAME[item.ArmorType])
     }
+    if (item.WeaponType in BASE_WEAPON_TO_NAME) {
+        return rng.randomOf(...(BASE_WEAPON_TO_NAME[item.WeaponType]))
+    }
     return item.WeaponType
 }
+window.getItemIconName = getItemIconName
 function getItemPrice(item, rng=standardRNG) {
     const basePrice = item.Price
     const addedPrice = matchRange(item.XP, [
@@ -1554,7 +1561,7 @@ function getWeaponPropsFromType(itemType) {
 }
 function getBaselineItemByType(xp, itemType, rng=standardRNG) {
     if (itemType.includes('Shield')) {
-        return {
+        const item = {
             Name: rng.randomOf(...SHIELD_NAMES),
             Price: (xp <= 75? rng.randomInt(10, 30): rng.randomInt(30, 70)) * 10,
             Type: itemType,
@@ -1562,6 +1569,8 @@ function getBaselineItemByType(xp, itemType, rng=standardRNG) {
             Requirement: `Requires ${rng.randomInt(2, 3)} Might`,
             ItemType: 'Shield'
         }
+        item.EffectGreen = `-50% ${parseItemText({ text: `{DamageType}`, item, rng})} Damage taken`
+        return item
     }
     if (itemType.includes('Armor')) {
         const name = rng.randomOf(...Object.keys(ARMOR_TO_BODY_PART))
@@ -1609,7 +1618,8 @@ function getBaselineItemByType(xp, itemType, rng=standardRNG) {
         Notes: `This weapon is a ${templateWeapon.Name}`,
         ItemType: templateWeapon.Name,
         Type: itemType,
-        WeaponType: templateWeapon.Name
+        WeaponType: templateWeapon.Name,
+        EffectGreen: templateWeapon.EffectGreen
     }
 }
 
@@ -1645,7 +1655,8 @@ export function createMagicItem(xp, itemType, rng=standardRNG) {
         'Passive': [],
         'Property': [],
         'Active': [],
-        'Quirk': []
+        'Quirk': [],
+        'Bonus Damage': []
     }
 
     function maybeAddSkills() {
@@ -1769,6 +1780,9 @@ export function createMagicItem(xp, itemType, rng=standardRNG) {
     }
 
     maybeAddEffect(possibleEffects, 'Curse', 25)
+    if (itemType.includes('Weapon')) {
+        maybeAddEffect(possibleEffects, 'Bonus Damage', 99)
+    }
     maybeAddEffect(possibleEffects, 'Minor', 25)
     maybeAddEffect(possibleEffects, 'Property', 15)
     maybeAddEffect(possibleEffects, 'Active', 25)
@@ -1782,15 +1796,17 @@ export function createMagicItem(xp, itemType, rng=standardRNG) {
 
 
     // These are all possible effects of a magic item property from the YAML
-    const POSSIBLE_EFFECT_KEYS = ['Effect', 'OnKill', 'OnAttack']
-    const POSSIBLE_EFFECTS_FORMATTING = {
+    
+    const POSSIBLE_EFFECT_TEXTS_FORMATTING = {
         'Effect': effects => effects.join('\n'),
         'OnKill': effects => effects.length == 0? '': 'When you defeat a Worthy Enemy, ' + effects.join(' and '),
         'OnAttack': effects => effects.length == 0? '': 'When you attack a Worthy Enemy, ' + effects.join(' and '),
+        'Bonus Damage': effects => effects.length == 0? '': (' + ' + effects.join(' + '))
     }
-    const parseEffect = (e, thisReplacement) => {
+    const POSSIBLE_EFFECT_PROPS = Object.keys(POSSIBLE_EFFECT_TEXTS_FORMATTING)
+    const parseAllPropsOfEffectObj = (e, thisReplacement) => {
         const newE = {...e}
-        for (const key of POSSIBLE_EFFECT_KEYS) {
+        for (const key of POSSIBLE_EFFECT_PROPS) {
             newE[key] = e[key] == null? null: parseItemText({
                 text: e[key],
                 thisText: thisReplacement,
@@ -1802,14 +1818,14 @@ export function createMagicItem(xp, itemType, rng=standardRNG) {
     }
     const preparsedEffectsByGroup = mapObject(addedEffectsByGroup, ({ key, value }) => ({
         key,
-        value: value.map(e => parseEffect(e))
+        value: value.map(e => parseAllPropsOfEffectObj(e))
     }))
     
-    const getEffectText = e => POSSIBLE_EFFECT_KEYS.map(key => e[key]).filter(s => s != null).join('\n')
+    const getEffectText = e => Object.keys(POSSIBLE_EFFECT_TEXTS_FORMATTING).map(key => e[key]).filter(s => s != null).join('\n')
     const preparsedEffectsByGroupFiltered = filterObject(preparsedEffectsByGroup, ({ key, value }) => value.length > 0)
-    const preparsedTextByGroups = mapObject(preparsedEffectsByGroupFiltered, ({ key, value }) => ({
-        key,
-        value: value.map(e => getEffectText(e)).join('\n')
+    const preparsedTextByGroups = mapObject(preparsedEffectsByGroupFiltered, ([groupName, effectObjects]) => ({
+        key: groupName,
+        value: effectObjects.map(e => getEffectText(e)).join('\n')
     }))
 
     
@@ -1836,26 +1852,35 @@ export function createMagicItem(xp, itemType, rng=standardRNG) {
             rng,
             item: baselineItem
         })}))
-        const effectsTexts = effectsWithParsedEffect.map(e => e.A == null? e.Effect: `{Hand}${e.A}: ${e.Effect}`)
-        const text = effectsTexts.join('\n')
-        return text
+        return effectsWithParsedEffect
+            .map(e => e.A == null? e.Effect: `{Hand}${e.A}: ${e.Effect}`)
+            .join('\n')
     }
 
     function compileAndReparsePassivesToText(passives) {
         if (passives == null || passives.length == 0) {
             return null
         }
-        const parsedPassives = passives.map(e => parseEffect(e, baselineItem.Name))
+        const parsedPassives = passives.map(e => parseAllPropsOfEffectObj(e, baselineItem.Name))
 
         // ['OnKill', 'OnAttack', ..] -> { OnKill: [text1, text2], OnAttack: .. }
-        const passivesByType = mapKeysToObject(POSSIBLE_EFFECT_KEYS, key => parsedPassives.filter(e => e[key] != null).map(e => e[key]))
-        const eachTypeFinalText = mapObject(passivesByType, ({key, value: arr}) => ({key, value: POSSIBLE_EFFECTS_FORMATTING[key](arr)}))
+        const passivesByType = mapKeysToObject(Object.keys(POSSIBLE_EFFECT_TEXTS_FORMATTING), key => parsedPassives.filter(e => e[key] != null).map(e => e[key]))
+        const eachTypeFinalText = mapObject(passivesByType, ({key, value: arr}) => ({key, value: POSSIBLE_EFFECT_TEXTS_FORMATTING[key](arr)}))
         return Object.keys(eachTypeFinalText)
             .filter(key => eachTypeFinalText[key].length > 0)
             .map(key => eachTypeFinalText[key])
             .sort((a, b) => a.length - b.length)
             .join('\n')
-
+    }
+    function compileAndReparseBonusDamagesToText(addedEffectsBonusDamage) {
+        if (addedEffectsBonusDamage == null || addedEffectsBonusDamage.length == 0) {
+            return null
+        }
+        return addedEffectsBonusDamage
+            .map(e => e?.['Bonus Damage'])
+            .filter(text => text != null)
+            .map(text => parseItemText({ text, thisText: baselineItem.Name, rng, item: baselineItem }))
+            .join('\n')
     }
 
 
@@ -1886,6 +1911,16 @@ export function createMagicItem(xp, itemType, rng=standardRNG) {
 
     console.log({addedEffectsByGroup, preparsedEffectsByGroup, preparsedEffectsByGroupFiltered, preparsedTextByGroups, reparsedTextByGroups, validEffects, finalEffect})
 
+    if (baselineItem.Damage != null) {
+        const extraDamageText = compileAndReparseBonusDamagesToText(addedEffectsByGroup['Bonus Damage'])
+        if (extraDamageText == null || extraDamageText.length == 0) {
+            // Do nothing    
+        } else if (isStringNumeric(extraDamageText)) {
+            baselineItem.Damage = baselineItem.Damage + ' + ' + extraDamageText
+        } else {
+            baselineItem.Damage = extraDamageText + ' + ' + baselineItem.Damage
+        }
+    }
     baselineItem.Effect = finalEffect
     baselineItem.Downside = reparsedTextByGroups['Curse']
     baselineItem.Upgrade = reparsedTextByGroups['Quirk']
@@ -1910,32 +1945,64 @@ export function createMagicItem(xp, itemType, rng=standardRNG) {
     return baselineItem
 }
 
+// If a key doesn't exist, just uses the default weapon
+const BASE_WEAPON_TO_NAME = {
+    'Hand Hammer': range(1, 20).map(i => `Hammer/${i}`),
+    'Dagger': range(1, 56).map(i => `Dagger/${i}`),
+    'Club': range(1, 11).map(i => `Club/${i}`),
+    'Shortsword': range(1, 61).map(i => `Sword/${i}`),
+    'Hand Axe': range(1, 51).map(i => `Axe/${i}`),
+    'Spear': range(1, 51).map(i => `Spear/${i}`),
+    'Mace': range(1, 15).map(i => `Mace/${i}`),
+    
+    'Warhammer': range(1, 20).map(i => `Hammer/${i}`),
+    'Greatsword': range(1, 61).map(i => `Sword/${i}`),
+    'Longsword': range(1, 61).map(i => `Sword/${i}`),
+    'Ultra Greatsword': range(1, 61).map(i => `Sword/${i}`),
+    'Heavy Mace': range(1, 15).map(i => `Mace/${i}`),
+    'Pike': range(1, 51).map(i => `Spear/${i}`),
+    'Battle Axe': range(1, 51).map(i => `Axe/${i}`),
+    'Greatclub': range(1, 11).map(i => `Club/${i}`),
+    
+    'Light Crossbow': range(1, 26).map(i => `Crossbow/${i}`),
+    'Heavy Crossbow': range(1, 26).map(i => `Crossbow/${i}`),
+    'Bow': range(1, 26).map(i => `Bow/${i}`),
+}
+
 const ARMOR_TO_NAME = {
-    'Plate': ['Plate Armor', 'Mithril Armor', 'Adamantite Armor', 'Breastplate_of_Blades', 'Chain Mail'],
-    'Breastplate': ['Plate Armor', 'Mithril Armor', 'Adamantite Armor', 'Breastplate_of_Blades', 'Chain Mail'],
-    'Scale': ['Plate Armor', 'Mithril Armor', 'Adamantite Armor', 'Breastplate_of_Blades', 'Chain Mail'],
-    'Lorica': ['Plate Armor', 'Mithril Armor', 'Adamantite Armor', 'Breastplate_of_Blades', 'Chain Mail'],
+    'Plate': range(1, 22).map(i => `HeavyArmor/${i}`),
+    'Breastplate': range(1, 22).map(i => `HeavyArmor/${i}`),
+    'Scale': range(1, 22).map(i => `HeavyArmor/${i}`),
+    'Lorica': range(1, 22).map(i => `HeavyArmor/${i}`),
+    // 'Plate': ['Plate Armor', 'Mithril Armor', 'Adamantite Armor', 'Breastplate_of_Blades', 'Chain Mail'],
+    // 'Breastplate': ['Plate Armor', 'Mithril Armor', 'Adamantite Armor', 'Breastplate_of_Blades', 'Chain Mail'],
+    // 'Scale': ['Plate Armor', 'Mithril Armor', 'Adamantite Armor', 'Breastplate_of_Blades', 'Chain Mail'],
+    // 'Lorica': ['Plate Armor', 'Mithril Armor', 'Adamantite Armor', 'Breastplate_of_Blades', 'Chain Mail'],
     
-    
-    'Mail': ['Chain Mail'],
-    'Hauberk': ['Chain Mail', 'Cuirass', 'Leather Armor', 'Splint Armor', 'Hide Armor', 'Padded Armor'],
-    'Cuirass': ['Cuirass'],
-    'Chainmail': ['Chain Mail'],
-    'Gambeson': ['Chain Mail', 'Cuirass', 'Leather Armor', 'Splint Armor', 'Hide Armor', 'Padded Armor'],
+    'Mail': ['MediumArmor/4', 'MediumArmor/5', 'MediumArmor/16'],
+    'Hauberk': ['MediumArmor/16', 'Heavy/12'],
+    'Cuirass': ['HeavyArmor/14', 'HeavyArmor/16', 'LightArmor/16', 'MediumArmor/7', 'MediumArmor/11'],
+    'Chainmail': [4, 6, 8, 12].map(i => `HeavyArmor/${i}`),
+    'Gambeson': [2, 6, 14].map(i => `MediumArmor/${i}`),
+    // 'Mail': ['Chain Mail'],
+    // 'Hauberk': ['Chain Mail', 'Cuirass', 'Leather Armor', 'Splint Armor', 'Hide Armor', 'Padded Armor'],
+    // 'Cuirass': ['Cuirass'],
+    // 'Chainmail': ['Chain Mail'],
+    // 'Gambeson': ['Chain Mail', 'Cuirass', 'Leather Armor', 'Splint Armor', 'Hide Armor', 'Padded Armor'],
     'Tabard': ['Splint Armor'],
     'Toga': ['Common Clothes', 'Unarmored'],
-    'Robe': ['Robes', 'Everdress'],
-    'Robes': ['Robes', 'Everdress'],
-    'Rainment': ['Robes', 'Everdress', 'Hood of Health'],
+    'Robe': range(1, 19).map(i => `Robe/${i}`),
+    'Robes': range(1, 19).map(i => `Robe/${i}`),
+    'Rainment': range(1, 19).map(i => `Robe/${i}`),
 
-    'Gloves': ['Gloves of Climbing', 'Gloves of Extra Skill', 'Gloves of Greater Spell', 'Gloves of Health', 'Bracer of the Phantom'],
+    'Gloves': [...(range(1, 6).map(i => `GlovesExtra/${i}`)),'Gloves of Climbing', 'Gloves of Extra Skill', 'Gloves of Greater Spell', 'Gloves of Health', 'Bracer of the Phantom'],
     'Gauntlets': ['Gloves of Weapon Training', 'Bracer of the Phantom'],
     'Bracer': ['Gloves of Health', 'Bracer of the Phantom'],
     'Bracelet': ['Ring of the Coin', 'Ring of the Spies', 'Bracer of the Phantom'],
     'Vambrace': ['Ring of the Coin', 'Ring of the Spies', 'Bracer of the Phantom'],
     'Sleeve': ['Gloves of Greater Spell', 'Gloves of Health', 'Bracer of the Phantom'],
 
-    'Boots': ['Boots of Extra Skill', 'Boots of Health', 'Boots of Greater Spell', 'Boots of Grounding', 'Boots of Initiative', 'Boots of Jumping', 'Boots of Minor Health', 'Boots of Speed', 'Boots of TIrelessness', 'Boots of Tremor Sense'],
+    'Boots': ['Boots of Extra Skill', 'Boots of Health', 'Boots of Greater Spell', 'Boots of Grounding', 'Boots of Initiative', 'Boots of Jumping', 'Boots of Minor Health', 'Boots of Speed', 'Boots of TIrelessness', 'Boots of Tremor Sense', ...([1,2].map(i => `BootsExtra/${i}`))],
     'Greaves': ['Boots of Greater Spell', 'Boots of Grounding',  'Boots of Speed'],
     'Moccasins': ['Boots of Jumping'],
     'Cuisses': ['Boots of Greater Spell', 'Boots of Grounding',  'Boots of Speed'],
@@ -1949,23 +2016,23 @@ const ARMOR_TO_NAME = {
     'Legwear': ['Leggings of Freedom'],
     'Tassets': ['Leggings of Freedom'],
 
-    'Helmet': ['Helmet White', 'Helmet Black'],
-    'Helm': ['Helmet White', 'Helmet Black'],
-    'Hat': ['Cap of Minor Health', 'Hat of Spell'],
+    'Helmet': range(1, 37).map(i => `Helmet/${i}`),
+    'Helm': range(1, 37).map(i => `Helmet/${i}`),
+    'Hat': range(1, 10).map(i => `Hat/${i}`),
     // 'Bascinet': 'head heavy',
     // 'Armet': 'head heavy',
     // 'Morion': 'head heavy',
     // 'Galea': 'head heavy',
-    'Headwear': ['Cap of Minor Health', 'Hat of Spell', 'Helmet White', 'Helmet Black'],
-    'Hood': ['Hood of Health'],
-    'Cowl': ['Hood of Health'],
-    'Gown': ['Hood of Health'],
-    'Coif': ['Helmet White', 'Helmet Black'],
+    'Headwear': range(1, 10).map(i => `Hat/${i}`),
+    'Hood': range(1, 9).map(i => `Hood/${i}`),
+    'Cowl': range(1, 9).map(i => `Cowl/${i}`),
+    'Gown': range(1, 9).map(i => `Hood/${i}`),
+    'Coif': [2, 4, 18].map(i => `Helmet/${i}`),
     'Bonnet': ['Hood of Health'],
     // 'Capuchon': 'head light',
     // 'Beret': 'head light',
     // 'Tricone': 'head light',
-    'Chaperon': ['Cap of Minor Health'],
+    'Chaperon': range(1, 9).map(i => `Hood/${i}`),
     'Circlet': ['Headband of Mind Speak', 'Ring of Good Omen'],
     
     'Belt': ['Strap of Returning', 'Scarf of Minor Spell', 'Belt of Reflex'],

@@ -439,7 +439,7 @@ export function getStatIconPathByStatName(name) {
     return '/Icons/UI/Elemental.png'
 }
 export function getUniqueSpellID(name) {
-    const idName = stringReplaceAllMany(name, [' ', '/', '%', '~', '<'], ['_', '_', '', '', ''])
+    const idName = stringReplaceAllMany(name, [' ', '%', '~', '<'], ['_', '', '', ''])
     return idName
 }
 export function getAlternativesAsArray(text) {
@@ -1227,6 +1227,17 @@ export function mapKeysToObject(keys, func) {
         obj[key] = func(key)
     }
     return obj
+}
+export function getAnExistingKeyOf(obj, keys) {
+    for (const key of keys) {
+        if (key in obj) {
+            return key
+        }
+    }
+    return null
+}
+export function getExistingKeysFrom(obj, keys) {
+    return Object.keys(obj).filter(key => keys.includes(key))
 }
 export function mapObject(obj, func) {
     if (obj == null) {
@@ -2413,6 +2424,8 @@ export class SeededRNG {
   }
 }
 
+const DEFAULT_RNG = new SeededRNG(generateUniqueId())
+window.DEFAULT_RNG = DEFAULT_RNG
 
 // ---------------- React Small Utilities ----------------
 export const styleMargined = { marginBottom: 'var(--element-padding)' }    // Use this as style={styleMargined}

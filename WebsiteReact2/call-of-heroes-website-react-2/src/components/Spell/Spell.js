@@ -108,8 +108,6 @@ export default function Spell({
         IconName,
         IsSubspell,
         
-        Damage,
-        
         HasMixins,
         
         PreEffectGreen,
@@ -136,7 +134,8 @@ export default function Spell({
     let {
         Name, DisplayName, A, IconPath,
         Effect, EffectGreen, Downside, Upgrade, Combo, Notes,
-        Variants, SubspellName
+        Variants, SubspellName,
+        Damage
     } = parsedSpell
 
     
