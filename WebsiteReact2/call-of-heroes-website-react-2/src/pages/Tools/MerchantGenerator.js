@@ -2,7 +2,7 @@ import { useState } from "react";
 import PageH1 from "../../components/PageH1/PageH1";
 import Page from "../../containers/Page/Page";
 import { QGTitle1 } from "./TitleGenerator";
-import { filterObject, flattenObjectOnce, getAllMagicItemsAsArray, getAllMagicItemsByName, getAllPricesByName, getDaysSinceLast, getISOWeekNumber, getNumberFromString, groupBy, hasSpellVariants, isNumber, mapObject, mapObjectToArray, parseAndNormalizeSpell, percentChance, randomInt, randomOf, range, roundToNearest, SeededRNG, shuffle, spellsFromObject, WEDNESDAY } from "../../utils";
+import { filterObject, flattenObjectOnce, getAllMagicItemsAsArray, getAllMagicItemsByName, getAllPricesByName, getDaysSinceLast, getISOWeekNumber, getNumberFromString, getSpellNVariants, groupBy, hasSpellVariants, isNumber, mapObject, mapObjectToArray, parseAndNormalizeSpell, percentChance, randomInt, randomOf, range, roundToNearest, SeededRNG, shuffle, spellsFromObject, WEDNESDAY } from "../../utils";
 import TwoColumns from "../../components/TwoColumns/TwoColumns";
 import Column from "../../components/TwoColumns/Column";
 import { getItemPrice, PriceTable } from "../Other/Prices";
@@ -77,7 +77,7 @@ const MERCHANT_TYPES = {
             }
             const getRandomScrollPower = () => rng.randomInt(minScrollPower, maxScrollPower)
             const getRandomScrollName = () => scrollPowerToName[getRandomScrollPower()]
-            const getScroll = () => getAllMagicItemsByName()[getRandomScrollName()]
+            const getScroll = () => ({...getAllMagicItemsByName()[getRandomScrollName()]})
 
             const nMinScrolls = Math.floor(Math.max(0.7 * productDiversity, 1))
             const nMaxScrolls = Math.max(productDiversity * 2, nMinScrolls + 1)
@@ -187,22 +187,19 @@ export default function MerchantGenerator({}) {
         if (extraItems != null) {
             allMagicItemsIHave = [...allMagicItemsIHave, ...extraItems]
         }
-        const magicItemsParsed = allMagicItemsIHave.map(item => parseAndNormalizeSpell(item, { isItem: true }))
-        for (const item of magicItemsParsed) {
-            if (item.Variants != null) {
-                item.DefaultVariantIndex = rng.randomInt(0, item.Variants.length - 1)
-            } else if (item.VariantsForEach != null) {
-                item.DefaultVariantIndex = rng.randomInt(0, getNVariantsForVariantsForEachSpell(item) - 1)
+
+        for (const item of allMagicItemsIHave) {
+            const nVariants = getSpellNVariants(item)
+            if (nVariants == null) {
+                continue
             }
+            item.DefaultVariantIndex = nVariants? randomInt(0, nVariants - 1): null
+            const thisParsedItem = parseAndNormalizeSpell(item, { isItem: true, variantIndex: item.DefaultVariantIndex })
+            item.Name = thisParsedItem.Name
+            item.DisplayName = thisParsedItem.DisplayName
         }
-        console.log({
-            hasAnyOfMyTags,
-            possibleItems,
-            maxPrice,
-            allMagicItemsIHave,
-            magicItemsParsed,
-        })
-        return magicItemsParsed
+
+        return allMagicItemsIHave
     }
     function getUniqueArtefactsIHaveAsArray(merchant, productDiversity, rng) {
         if (merchant.uniqueMagicItemTypes == null || merchant.uniqueMagicItemTypes.length == 0) {

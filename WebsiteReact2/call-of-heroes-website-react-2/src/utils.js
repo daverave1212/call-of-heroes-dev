@@ -51,9 +51,7 @@ export function parseAndNormalizeSpell(spell, options={
 
     // Normalize variants
     let extraMixins = {}
-    if (spell.VariantsForEach != null) {
-        spellModified.Variants = normalizeForEachVariantsToNormalVariants(spell.VariantsForEach)
-    }
+    maybeNormalizeSpellForEachVariants(spellModified)
     // Set spell props based on the current variant
     if (spellModified.Variants != null && spellModified.Variants.length > 0) {
         const currentVariant = spellModified.Variants[variantIndex]
@@ -99,15 +97,19 @@ export function parseAndNormalizeSpell(spell, options={
     spellModified.IsAlreadyParsed = true
     return spellModified
 }
-export function normalizeForEachVariantsToNormalVariants(VariantsForEach) {
-    let allVariants = []
-    for (let variant of VariantsForEach) {
+// Takes ForEachVariants and normalizes it into the .Variants property
+export function maybeNormalizeSpellForEachVariants(spell) {
+    if (spell.VariantsForEach == null) {
+        return
+    }
+    spell.Variants = []
+    for (let variant of spell.VariantsForEach) {
         const [mixinName, collectionName] = variant.ForEach.split(':')
         const collection = getVariantsForEachCollection(collectionName)
         const subvariants = collection.map(str => ({...variant, [mixinName]: str}))
-        allVariants = [...allVariants, ...subvariants]  // TODO: This is incorrect!! If a spell will have multiple elements for VariantsForEach, it will not work properly!
+        spell.Variants = [...spell.Variants, ...subvariants]  // TODO: This is incorrect!! If a spell will have multiple elements for VariantsForEach, it will not work properly!
     }
-    return allVariants
+    delete spell.VariantsForEach
 }
 export function getSpellValidTopStatsObject(spell) {
     return filterObject(spell, ({ key, value }) => VALID_SPELL_TOP_STATS.includes(key) && value != null)
@@ -343,6 +345,7 @@ export function getAllMagicItemsByName() {
         for (const [itemName, item] of Object.entries(itemsHere)) {
             item.Category = category
             item.Name = itemName
+            maybeNormalizeSpellForEachVariants(item)
         }
         magicItemsCached = {...magicItemsCached, ...itemsHere}
     }
@@ -624,6 +627,25 @@ export function extractDefenseFromMonsterArmor(text) {
     }
     return parseInt(defenseSoFar)
 }
+export function extractDieType(str) {
+  // Regex breakdown:
+  // [dD]  : Matches the letter d (case-insensitive)
+  // \d+   : Matches one or more digits (the die faces)
+  const diceRegex = /([dD]\d+)/;
+  
+  const match = str.match(diceRegex);
+
+  // If a match is found, return the first group; otherwise, return null
+  return match ? match[0].toLowerCase() : null;
+}
+export function extractDiceParts(str) {
+    if (str.toLowerCase().includes('d') == false) {
+        return []
+    }
+    const parts = str.toLowerCase().split('d')
+    parts[1] = 'd' + parts[1]
+    return parts
+}
 export function monsterXPDnDToQG(dndXP) {
   const newXP = 0.365 * dndXP + 100
   return Math.floor(newXP / 25) * 25;
@@ -813,6 +835,68 @@ export function splitByNumbers(str) {
     .filter(part => part !== '') // remove empty strings
     .map(part => (isNaN(part) ? part : Number(part))); // convert numbers
 }
+export function splitByAnyInclusive(text, splitters) {
+  // 1. Escape special regex characters and join with | (OR)
+  const pattern = splitters
+    .map(s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+    .join('|');
+
+  // 2. Wrap in parentheses to "capture" the delimiters in the result
+  const regex = new RegExp(`(${pattern})`);
+
+  // 3. Filter out empty strings if the split happens at the start/end
+  return text.split(regex).filter(part => part !== "");
+}
+export function damageTextToTokens(text) {
+    const delimiters = [' + ', ' - ']
+    const words = splitByAnyInclusive(text, delimiters)
+    const isDelimiter = str => delimiters.includes(str)
+    const tokens = words.map(str => ({
+        word: str,
+        type: isStringNumeric(str)? 'number': isDelimiter(str)? 'delimiter': isDice(str)? 'dice': 'other'
+    }))
+    return tokens
+}
+export function addBonusToDamageText(text, bonus) {
+    const type = isNumber(bonus) || isStringNumeric(bonus)? 'number': isDice(bonus)? 'dice': 'other'
+    const tokens = damageTextToTokens(text)
+    const findLastNonOther = () => tokens.findLast(({ word, type }) => type != 'other' && type != 'delimiter')
+
+    if (type == 'dice') {
+        const [nDice, diceType] = extractDiceParts(bonus)
+        let didAdd = false
+        for (let i = 0; i < tokens.length; i++) {
+            const token = tokens[i]
+            if (token.type != 'dice') {
+                continue
+            }
+            const [thisNDice, thisDiceType] = extractDiceParts(token.word)
+            if (thisDiceType == diceType) {
+                const newNDice = thisNDice + nDice
+                tokens[i].word = `${newNDice}d${diceType}`
+                didAdd = true
+                break
+            }
+        }
+        if (!didAdd) {
+            const lastNonOther = findLastNonOther()
+            lastNonOther.word += ` + ${bonus} `
+        }
+    }
+
+    if (type == 'number') {
+        const number = parseFloat(bonus)
+        const firstNumberI = tokens.findIndex(token => isStringNumeric(token.word))
+        if (firstNumberI != -1) {
+            tokens[firstNumberI].word = parseFloat(tokens[firstNumberI].word) + number
+        } else {
+            const lastNonOther = findLastNonOther()
+            lastNonOther.word += ` ${getNumberWithPlusMinus(number)} `
+        }
+    }
+
+    return tokens.map(token => token.word).join(' ')
+}
 window.splitByNumbers = splitByNumbers
 export const $LESSER_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Lesser').map(spell => spell.Name)
 export const $MINOR_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Minor').map(spell => spell.Name)
@@ -920,6 +1004,15 @@ export const $SKILLS = [
   "Survival"
 ]
 
+export function getSpellNVariants(spell) {
+    if (spell.Variants != null) {
+        return spell.Variants.length
+    }
+    if (spell.VariantsForEach != null) {
+        return getNVariantsForVariantsForEachSpell(spell)
+    }
+    return null
+}
 export function getNVariantsForVariantsForEachSpell(spell) {
     const variantClause = spell?.VariantsForEach?.[0]
     if (variantClause == null) {
@@ -1180,6 +1273,34 @@ export function sortObjectArrayByKey(array, keyName) {
 }
 export function sortSpellsArrayByOrderOnWebsite(array) {
     return sortObjectArrayByKey(array, 'OrderOnWebsite')
+}
+export function sortByHash(array, getHashFunc, reverse=false) {
+  return array
+    .map((item, i) => ({ item, hash: getHashFunc(item), i }))
+    .sort((a, b) => {
+      // Primary sort: hash
+      if (a.hash < b.hash) return reverse? 1: -1;
+      if (a.hash > b.hash) return reverse? -1: 1;
+
+      // Tie-breaker: original order (stable)
+      return a.i - b.i;
+    })
+    .map(x => x.item);
+}
+export function removeDuplicates(arr, getHashFunc) {
+  const seen = new Set();
+  const out = [];
+
+  for (const item of arr) {
+    const key = getHashFunc ? getHashFunc(item) : item;
+
+    if (!seen.has(key)) {
+      seen.add(key);
+      out.push(item);
+    }
+  }
+
+  return out;
 }
 
 export function insertBetweenAll(array, insertWhat) {
@@ -1973,6 +2094,15 @@ export function roundDownTo(num, step) {
 }
 export function generateUniqueId() {
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
+}
+export function getNumberWithPlusMinus(num) {
+    if (isStringNumeric(num)) {
+        num = parseFloat(num)
+    }
+    if (num < 0) {
+        return `- ${Math.abs(num)}`
+    }
+    return `+ ${num}`
 }
 export function getNumberFromString(str) {
     const match = str.match(/-?\d+(\.\d+)?/);

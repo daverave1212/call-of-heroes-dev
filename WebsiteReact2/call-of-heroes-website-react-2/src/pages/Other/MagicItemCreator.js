@@ -1,4 +1,4 @@
-import { $SKILLS, capitalizeFirstLetter, filterObject, generateUniqueId, getAlternativesAsArray, getAnExistingKeyOf, getItemIconPathByName, includesAll, includesAny, includesAnyWithExceptions, isNumber, isStringNumeric, joinObjectValues, last, mapKeysToObject, mapObject, matchRange, mergeObjectsContainingArrays, onlyUniqueFilter, parseTextWithSymbols, percentChance, randomInt, randomOf, randomOfArrayWeighted, range, roundToNearest, SeededRNG, shuffle, SKILL_GROUP_BY_ELEMENT, SKILLS_BY_GROUP, spellsFromObject, stringReplaceAllMany } from "../../utils";
+import { $SKILLS, addBonusToDamageText, capitalizeFirstLetter, filterObject, generateUniqueId, getAlternativesAsArray, getAnExistingKeyOf, getItemIconPathByName, includesAll, includesAny, includesAnyWithExceptions, isNumber, isStringNumeric, joinObjectValues, last, mapKeysToObject, mapObject, matchRange, mergeObjectsContainingArrays, onlyUniqueFilter, parseTextWithSymbols, percentChance, randomInt, randomOf, randomOfArrayWeighted, range, removeDuplicates, roundToNearest, SeededRNG, shuffle, SKILL_GROUP_BY_ELEMENT, SKILLS_BY_GROUP, sortByHash, spellsFromObject, stringReplaceAllMany } from "../../utils";
 import MagicItemProperties from '../../databases/Other/MagicItemProperties.json'
 import Weapons from '../../databases/Weapons.json'
 import Armors from '../../databases/Armors.json'
@@ -26,7 +26,7 @@ function parseItemText({ text, thisText='{This}', rng=standardRNG, item={} }) {
         return text
     }
     const randomElement = () => {
-        if (item.ElementBias != null && rng.percentChance(85)) {
+        if (item.ElementBias != null && rng.percentChance(85) && !item.ItemType?.includes('Shield')) {
             return item.ElementBias
         }
         const element = rng.randomOf('Slash', 'Pierce', 'Smash', 'Pulse', 'Fire', 'Cold', 'Shock', 'Poison', 'Acid', 'Divine', 'Scourge')
@@ -916,7 +916,7 @@ function parseItemText({ text, thisText='{This}', rng=standardRNG, item={} }) {
             `Single-Stun the target`,
             `make the target unable to recover Health until your next Turn`,
             `teleport the target ${rng.randomInt(2, 4)} meters in a random direction (NESW)`,
-            `pull the target toward its closes ally within 5 meters`,
+            `pull the target toward its closest ally within 5 meters`,
             `Silence or Root the target (its choice)`,
             "make the target's Passives disabled until the start of your next Turn (if non-Epic)",
             "make the target's ^monster weapon effects^ disabled until the start of your next Turn (if non-Epic)",
@@ -933,15 +933,6 @@ function parseItemText({ text, thisText='{This}', rng=standardRNG, item={} }) {
             `hits ${getSymbolText('AreaSmallAttack')}`,
             `hits ${getSymbolText('AreaLargeAttack')}`,
         )},
-        'WithConditionFrequent': { text: () => rng.randomOf(
-            'within 3 meters of a tree',
-            'standing in water',
-            `standing in dim light`,
-            `standing in darkness`,
-            `at or below 50% Health`,
-            `at or above 50% Health`,
-            `at full Health`,
-        )},
         'WhileFrequent': { text: () => rng.randomOf(
             'within 3 meters of a tree',
             `in ${rng.randomOf('a forest', 'wild nature', ``)}`,
@@ -956,25 +947,41 @@ function parseItemText({ text, thisText='{This}', rng=standardRNG, item={} }) {
             `at 0 Mana (if you have Mana)`,
             `at full Mana (if you have Mana)`,
         )},
-        'WithConditionUncommon': { text: () => rng.randomOf(
-            `under Crowd Control (except Hard Terrain)`,
-            `at or below 20% Health`,
-            'at full Health'
-        )},
         'WhileUncommon': { text: () => rng.randomOf(
-            `under Crowd Control (except Hard Terrain)`,
-            `in the 2nd Round of Combat`,
-            `in the 3rd Round of Combat`,
-            `at or below 20% Health`,
-            'at full Health',
-            `while outnumbered`
+            `you are under Crowd Control (except Hard Terrain)`,
+            `you are at or below 20% Health`,
+            'you are at 100% Health',
+            `outnumbered`
         )},
-        
         'WhileRare': { text: () => rng.randomOf(
             `when you are Fallen`,
             'at or below 10% Health',
             'while only 1 Enemy remains',
             'during eclipses'
+        )},
+
+        'IfUncommon': { text: () => rng.randomOf(
+            `under Crowd Control (except Hard Terrain)`,
+            `at or below 20% Health`,
+            'at full Health'
+        )},
+
+        'WhenUncommon': { text: () => rng.randomOf(
+            'in the 1st Round of Combat',
+            `in the 2nd Round of Combat`,
+            `in the 3rd Round of Combat`,
+            `on your first Turn of the Adventure`
+        )},
+
+        'WhileOrWhenUncommon': { text: () => rng.randomOf(
+            `you are under Crowd Control (except Hard Terrain)`,
+            `you are at or below 20% Health`,
+            'you are at 100% Health',
+            `outnumbered`,
+            'in the 1st Round of Combat',
+            `in the 2nd Round of Combat`,
+            `in the 3rd Round of Combat`,
+            `on your first Turn of the Adventure`
         )},
         
 
@@ -1129,13 +1136,15 @@ function tryNameItem(item, rng=standardRNG) {
         "Runic|Rune": s => includesAny(s, ['rune', 'runic', 'etch', 'carved', 'symbols']),
 
         "Black|Onyx|Obsidian": text => includesAny(text, ['black', 'scourge', 'fire']),
-        "White|Silver": text => includesAny(text, ['white', 'moth', 'silver', 'true damage', 'divine']),
+        "White|Silver": text => includesAny(text, ['white', 'moth', 'silver', 'true damage']),
         "Green|Verdant|Emerald|Jade": text => includesAny(text, ['green', 'verdant', 'poison', 'toxic', 'acid', 'jade']),
         "Red|Crimson|Scarlet|Rose": text => includesAnyWithExceptions(text, ['red', 'crimson', 'scarlet', 'fire', 'rose'], {
             'red': ['dredg']
         }),
         "Gold|Amber": text => includesAny(text, ['gold', 'yellow', 'orange', 'amber', 'fire', 'divine']),
-        "Azure": text => includesAny(text, ['blue', 'teal', 'turquoise', 'azure', 'cold damage']),
+        "Azure": text => includesAnyWithExceptions(text, ['blue', 'teal', 'turquoise', 'azure', 'cold damage'], {
+            'teal': ['stealth']
+        }),
         "Royal": text => includesAnyWithExceptions(text, ['purple', 'gold', 'king', 'royal'], {
             'king': ['aking', 'nking', 'rking', 'uking', 'iking', 'oking', 'sking', 'lking', 'cking', 'mking']
         }),
@@ -1178,7 +1187,7 @@ function tryNameItem(item, rng=standardRNG) {
         ]),
 
         "Dark|Night|Twilight|Dusk": s => includesAny(s, ['scourge', 'night', 'dark', 'shadow', 'twilight', 'dusk', 'sundown']),
-        "Dawn": s => includesAny(s, ['day', 'light', 'dawn', 'sunrise']),
+        "Dawn": s => includesAnyWithExceptions(s, ['day', 'dawn', 'sunrise'], {}),
 
         "Arcanic|Night|Arcane": s => includesAny(s, ['pulse', 'arcane', 'moon']),
         "Fathom|Depth": s => s.includes('tentacle'),
@@ -1619,7 +1628,8 @@ function getBaselineItemByType(xp, itemType, rng=standardRNG) {
         ItemType: templateWeapon.Name,
         Type: itemType,
         WeaponType: templateWeapon.Name,
-        EffectGreen: templateWeapon.EffectGreen
+        EffectGreen: templateWeapon.EffectGreen,
+        EffectOriginal: templateWeapon.Effect
     }
 }
 
@@ -1685,17 +1695,30 @@ export function createMagicItem(xp, itemType, rng=standardRNG) {
         if (rng.percentChance(15)) {
             return false
         }
-        baselineItem['Skill Bonuses'] = {
-            [getRandomSkill()]: rng.randomOf(1, 1, 1, 1, 2, 2, 2, 2, 3)
+        function addSkillBonus() {
+            const skillName = getRandomSkill()
+            const maxSkillNumber =
+                baselineItem.XP <= 50?
+                    rng.randomOf(1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, rng.randomInt(1, 4))
+                :baselineItem.XP <= 100?
+                    rng.randomOf(1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, rng.randomInt(1, 5))
+                :
+                    rng.randomOf(2, 2, 2, 2, 3, 3, 3, 3, rng.randomInt(1, 6))
+            const skillBonus = rng.randomInt(1, maxSkillNumber)
+            if (baselineItem['Skill Bonuses'] == null) {
+                baselineItem['Skill Bonuses'] = {}
+            }
+            baselineItem['Skill Bonuses'][skillName] = skillBonus
+            xpLeft -= skillBonus * 5
         }
-        xpLeft -= 5
-        if (rng.percentChance(66)) {
-            baselineItem['Skill Bonuses'][getRandomSkill()] = rng.randomOf(1, 1, 1, 1, 2, 2, 2, 2, 3)
-            xpLeft -= 5
+
+        addSkillBonus()
+        if (rng.percentChance(55)) {
+            addSkillBonus()
         }
 
         if (rng.percentChance(40)) {
-            baselineItem['Skill Bonuses'][getRandomSkillIDontHave()] = rng.randomOf(-2, -3)
+            baselineItem['Skill Bonuses'][getRandomSkillIDontHave()] = rng.randomOf(-1, -2, -2, -2, -2, -2, -2, -2, -2, rng.randomInt(-1, -7))
             xpLeft += 5
         }
         
@@ -1818,15 +1841,21 @@ export function createMagicItem(xp, itemType, rng=standardRNG) {
     }
     const preparsedEffectsByGroup = mapObject(addedEffectsByGroup, ({ key, value }) => ({
         key,
-        value: value.map(e => parseAllPropsOfEffectObj(e))
+        value: value.map(e => parseAllPropsOfEffectObj(e, '{This}'))
     }))
     
     const getEffectText = e => Object.keys(POSSIBLE_EFFECT_TEXTS_FORMATTING).map(key => e[key]).filter(s => s != null).join('\n')
     const preparsedEffectsByGroupFiltered = filterObject(preparsedEffectsByGroup, ({ key, value }) => value.length > 0)
-    const preparsedTextByGroups = mapObject(preparsedEffectsByGroupFiltered, ([groupName, effectObjects]) => ({
-        key: groupName,
-        value: effectObjects.map(e => getEffectText(e)).join('\n')
-    }))
+    const preparsedTextByGroups = mapObject(preparsedEffectsByGroupFiltered, ([groupName, effectObjects]) => {
+        const effectTexts = effectObjects.map(e => getEffectText(e))
+        const effectTextsNoDups = removeDuplicates(effectTexts) // For when it has multiple Damage resistances
+        const effectTextsSorted = sortByHash(effectTextsNoDups, str => str.length)
+        const finalText = effectTextsSorted.join('\n')
+        return {
+            key: groupName,
+            value: finalText
+        }
+    })
 
     
     /* ---------- Naming ---------- */
@@ -1872,10 +1901,15 @@ export function createMagicItem(xp, itemType, rng=standardRNG) {
             .sort((a, b) => a.length - b.length)
             .join('\n')
     }
-    function compileAndReparseBonusDamagesToText(addedEffectsBonusDamage) {
+    function addWeaponBonusDamages(addedEffectsBonusDamage) {
         if (addedEffectsBonusDamage == null || addedEffectsBonusDamage.length == 0) {
             return null
         }
+        for (const effect of addedEffectsBonusDamage.filter(e => e['Bonus Damage'] != null)) {
+// todo
+        }
+    }
+    function compileAndReparseBonusDamagesToText(addedEffectsBonusDamage) {
         return addedEffectsBonusDamage
             .map(e => e?.['Bonus Damage'])
             .filter(text => text != null)
@@ -1907,7 +1941,11 @@ export function createMagicItem(xp, itemType, rng=standardRNG) {
         console.log({validEffects})
     }
     validEffects = validEffects.filter(s => s != null)
-    const finalEffect = validEffects.length == 0? null: validEffects.join('\n\n')
+    const finalEffect =
+        validEffects.length == 0?
+            null
+        :
+            validEffects.join('\n\n') + (baselineItem.EffectOriginal != null? `\n${baselineItem.EffectOriginal}`: '')
 
     console.log({addedEffectsByGroup, preparsedEffectsByGroup, preparsedEffectsByGroupFiltered, preparsedTextByGroups, reparsedTextByGroups, validEffects, finalEffect})
 

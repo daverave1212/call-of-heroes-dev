@@ -69,8 +69,8 @@ export function PriceTable({title, items, hasDescriptions=true}) {
 
     return (
         <TableNormal type="info-reverse" columns={[title, 'Price']} tableWrapperClass='table-normal-wrapper--non-alternating'>
-            { items.map(({ Name, Price, Effect }) => (
-                <Tr name={Name} price={Price} effect={hasDescriptions? Effect: null} key={Name}/>
+            { items.map(({ Name, Price, Effect, DisplayName }) => (
+                <Tr name={DisplayName ?? Name} price={Price} effect={hasDescriptions? Effect: null} key={DisplayName ?? Name}/>
             )) }
         </TableNormal>
     )

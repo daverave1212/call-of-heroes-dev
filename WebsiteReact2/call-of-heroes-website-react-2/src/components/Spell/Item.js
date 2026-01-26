@@ -4,7 +4,7 @@ import PageH2 from './../PageH2/PageH2'
 import Separator from './../Separator/Separator'
 import React, { useEffect, useState } from 'react'
 import Icon from '../Icon'
-import { insertBetweenAll, ifOk, stringReplaceAllMany, mapObject, parseTextWithSymbols, getUniqueSpellID, normalizeForEachVariantsToNormalVariants, spellsFromObject, findBasicSpellByName, getSpellIconPathByName, getItemIconPathByName, allEqual } from '../../utils'
+import { insertBetweenAll, ifOk, stringReplaceAllMany, mapObject, parseTextWithSymbols, getUniqueSpellID, spellsFromObject, findBasicSpellByName, getSpellIconPathByName, getItemIconPathByName, allEqual } from '../../utils'
 import Spell, { SpellTop } from './Spell'
 import html2canvas from 'html2canvas'
 import CopySpellButton from '../CopyButton/CopySpellButton'
@@ -66,7 +66,7 @@ export default function Item({ item, style, hasIcon, hasCopyButton=true, showTop
 
     let extraMixins = {}
     if (hasVariants === true && VariantsForEach != null) {
-        Variants = normalizeForEachVariantsToNormalVariants(VariantsForEach)
+        Variants = normalizeSpellForEachVariants(VariantsForEach)
     }
     if (hasVariants === true) {
         const currentVariant = Variants[variantIndex]
