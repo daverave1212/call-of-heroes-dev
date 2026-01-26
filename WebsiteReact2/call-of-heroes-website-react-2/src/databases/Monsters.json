@@ -2071,33 +2071,60 @@
         "Degree": 9,
         "Experience": "999 (111 x9)",
         "Stats": "9/3/0/3/3",
-        "Health": 999,
+        "Health": 333,
         "Defense": 0,
         "Speed": 1,
         "Initiative": 9,
         "Abilities": [
             {
-                "Claws/Bite/Tail": "{DamageTimes(0.5)} Damage (Slash/Pierce/Smash).\nBreaks all Large or smaller obstacles within 1 meter of the target.\n"
+                "Claws/Bite/Tail": {
+                    "A": "Half-Action",
+                    "Damage": "Auto"
+                }
             },
             {
-                "Roar": "All enemies that can hear the Behemoth take 3 Psychic Damage that ignores Defense."
+                "Roar": {
+                    "A": "1 Action",
+                    "Effect": "Enemies of the Behemoth take {DamageAoEAuto} Psychic Damage and must distribute Slowed, Dazed, Deafened, Single-Stunned and Crippled as they like amongh themselves."
+                }
             },
             {
-                "Throw Boulder (5m)": "7 Damage (Smash). Target must succeed a Grade 12 Might Check or be Single-Stunned. This takes 2 turns."
+                "Throw Boulder": {
+                    "A": "1 Action",
+                    "Range": "5 meters",
+                    "Damage": "Auto",
+                    "Break": "If the target is wearing a Shield or Heavy armor, shatter one of them. This also breaks any Cover in the way."
+                }
             },
             {
-                "Destroy (Last) (10m)": "Leap towards the (an) enemy that took the least Damage this round. They must succeed a Grade 12 Might Check, or take 2d6 Damage and be Triple-Stunned."
+                "Quake": {
+                    "A": "Half-Action",
+                    "Range": "4 meters",
+                    "Effect": "Jump in the air. All Units near where you land are knocked up 2 meters. They spend their next Turn in the air and are essentially Rooted."
+                }
             }
         ],
         "Passives": [
             {
-                "Nine Hide Layers": "All Damage received is rounded down to a multiple of 9 (e.g. 13 becomes 9, 7 becomes 0, 47 becomes 45)."
+                "Nine Hide Layers": "All Damage received is rounded up to a multiple of 9 (e.g. 13 becomes 9, 7 becomes 0, 47 becomes 45)."
             },
             {
-                "Ground Smashing": "At 66% Health, the Behemoth immediately (or as soon as possible) stomps the ground. All Units around must make a Grade 12 Might Check or be flung 6 meters up in the air and take 5 Damage (otherwise just 3 meters and no Damage).\nFrom then on, Throw Boulder no longer takes 2 turns.\n"
+                "Round 2": {
+                    "IsHeroic": true,
+                    "Dig": "Immediately dig the earth 2 meters around you, creating a 2-meter deep crater. Units above may take Fall Damage."
+                }
             },
             {
-                "Berserking": "At 33% Health, the Behemoth goes berserking. All Damage it deals AND takes is doubled.\n"
+                "Round 3": {
+                    "IsHeroic": true,
+                    "Underground Volcano": "Spawn a volcanic rupture near each Player Character. At the end of Round, each rupture deals {DamageAoEAuto} Fire Damage to Units 1 meter around it, and grows in size (1 meter in both directions)."
+                }
+            },
+            {
+                "Round 4+": {
+                    "IsHeroic": true,
+                    "Self-Destruct": "Take 99 True Damage."
+                }
             }
         ],
         "Avoids AoE": "No",
@@ -2113,48 +2140,6 @@
         "Story Ideas": "None",
         "Loot": "None"
     },
-    "Chromatic Dragon": {
-        "Type": "Dragon",
-        "Degree": "Epic x3",
-        "Experience": "1050 (350 x3)",
-        "Stats": "7/1/3/3/5",
-        "Health": 334,
-        "Defense": 5,
-        "HPCoef": 1,
-        "Speed": 3,
-        "Initiative": 3,
-        "Abilities": [
-            {
-                "Fire Ball (10m to edge)": "Deals 9 Damage in a 4x4 area (or 3d4 + 1). The area stays lit with dragon fire. Spawns an elemental (20, attacks for 1d6 (3m))."
-            },
-            {
-                "Bite (2m)": "10 (or 2d6 + 3)"
-            },
-            {
-                "Fiery Flight": "Fly up to 6 meters, knocking everyone away and dealing 8 Damage. Leaves dragon fire on the ground."
-            },
-            {
-                "Flame Away (3m)": "Target must succeed a Might Check or be pushed indefinitely. Takes 1 Pulse Damage for each 1 meter pushed."
-            },
-            {
-                "Land Mines": "Spawn 3 land mines near players that explode for 1d8 + 2 Damage when hit by fire. Will not spawn mines directly in fire. When mines explode, they summon a small Fire Elemental (20 Health, attacks for 1d6 (3m))."
-            }
-        ],
-        "Passives": [
-            {
-                "Chromatic": "At the end of its every turn, it must change its element to one of Fire, Poison, Physical, Cold Shock. It only takes 50% Damage from that type."
-            }
-        ],
-        "Avoids AoE": "No",
-        "Behavior": "None",
-        "Lore": "None",
-        "Suggested Obstacles": "None",
-        "Monster Data": "No tactic, mid HP, no gimmick",
-        "Role": "Main Enemy",
-        "Variants": "None",
-        "Story Ideas": "None",
-        "Loot": "None"
-    },
     "Twigling": {
         "Type": "Plant, Monster",
         "Experience": 50,
@@ -2164,12 +2149,26 @@
         "Initiative": 1,
         "Abilities": [
             {
-                "Attack (2m range)": "1d4 (Smash or Pierce)"
+                "Attack": {
+                    "Range": "2 meters",
+                    "Damage": "Auto",
+                    "Duration": "1 minute",
+                    "Poison Ivy": "Target becomes Single-Ivy-Poisoned. For each Ivy-Poisoned, it takes +1 Damage from all sources and has -1 Movement Speed."
+                }
             }
         ],
         "Passives": [
             {
-                "Same Roots": "All Twigs share the same HP pool.\nFor example, if you have 5 Twig Blights, they have a total of 50 HP.\nEach time one of them takes Damage, deal Damage to that total HP pool.\nTwigs won't die alone. When the total HP pool reaches 0, all Twigs die instantly.\n"
+                "Same Roots": {
+                    "Effect": "All Twigs share the same HP pool. Twigs won't die alone. When the total HP pool reaches 0, all Twigs die instantly.",
+                    "Notes": "For example, if you have 4 Twig Blights, they have a total of 60 HP. Each time one of them takes Damage, deal Damage to that total HP pool."
+                }
+            },
+            {
+                "Weaknesses": "+50% Fire Damage Taken"
+            },
+            {
+                "Camouflage": "Indistinguishable from a regular bush or small tree (requires Check at least 15)"
             }
         ],
         "Avoids AoE": "No",
@@ -2190,27 +2189,29 @@
         "Stats": "1/2/0/3/0",
         "Health": 1,
         "Defense": 0,
-        "HPCoef": 0.85,
+        "HPCoef": 0.8,
         "Speed": 5,
         "Initiative": "Other",
         "Abilities": [
             {
-                "Melee Weapon": {
-                    "Damage": "1d10 (Pierce, Slash or Smash)"
+                "Melee Attack": {
+                    "Damage": "{Damage-1}"
                 }
             },
             {
                 "Throw Feces": {
+                    "A": "Half-Action",
+                    "Cooldown": "Once / Turn",
                     "Range": "5 meters",
-                    "Damage": "1d6 Poison",
-                    "Effect": "Target becomes Fumbling and covered in feces until cleaned. When all Player Characters are covered in feces, a new extra monster appears (e.g. Wild Fungus, Bat Swarm, Rat, Camazot, Troglodyte, etc).",
-                    "Special": "Poison"
+                    "Special": "Poison",
+                    "Damage": "Auto",
+                    "Effect": "Target is covered in feces until cleaned with 1 Action Point. When all Player Characters are covered in feces, a new extra monster appears (e.g. Wild Fungus, Bat Swarm, Rat, Camazot, Troglodyte, etc). Then all Player Characters become clean again."
                 }
             }
         ],
         "Passives": [
             {
-                "Move With Them": "Troglodytes have no base Initiative. One Troglodyte moves after a player finishes their turn (if it hasn't already). All remaining Troglodytes take their turn at the end of the Round."
+                "Move With Them": "Troglodytes have no base Setback. One Troglodyte moves after a player finishes their Turn (if it hasn't already). All remaining Troglodytes take their Turn at the end of the Round."
             },
             {
                 "Radioactive": "At the end of every Round, all non-Troglodyte Units take Damage equal to that Round number."
@@ -2244,18 +2245,22 @@
         "Initiative": 0,
         "Abilities": [
             {
-                "Shoot Spore Spike (15m)": "The target rolls 1d4. Wild Fungus makes that many attacks.\nEach attack deals 1d4 Scourge Damage.\n"
+                "Spore Attack": {
+                    "Range": "15 meters",
+                    "Effect": "Roll {Damage-2}. Players choose a target. It takes that many 1d4's as Poison Damage.",
+                    "Notes": "Apply Cover normally from the Fungus to the target."
+                }
             }
         ],
         "Passives": [
             {
-                "Death Spores": "On death, shoots one Spore Spike at the closest Unit."
+                "Death Spores": "On death, Units within 3 meters of it are Blinded."
             },
             {
-                "Vulnerabilities": "Takes +50% Damage from Fire."
+                "Vulnerabilities": "+50% Fire Damage taken"
             },
             {
-                "Immunities": "Immune to Poison and Scourge Damage."
+                "Immunities": "Immune to Poison and Scourge Damage, and to being Blinded and Dazed."
             }
         ],
         "Avoids AoE": "No",
@@ -2280,15 +2285,26 @@
         "Initiative": 5,
         "Abilities": [
             {
-                "Claws": {
-                    "Damage": "2d4 + 2 Pierce",
-                    "Grab": "If rolled at least one 4 or 1, the target makes a Grade 11 Might or Dexterity Check (its choice).\nOn fail, the Harpy lifts the target, then flies with it with all remaining movement and drops it.\n"
+                "Claws Attack": {
+                    "A": "1 Action",
+                    "Damage": "{DamageTimes(0.65)}",
+                    "Grab": "If the Harpy has 50% or more Health, it grabs the target.\nRoll 1d8 to determine a direction (North, North-East, East, etc).\nThe Harpy flies with the target up to 4 meters in that direction, then can drop it.\nThe target can choose to take {DamageTimes(0.5)} Damage to reroll the direction roll, as many times as they like.\n"
+                }
+            },
+            {
+                "Quick Attack": "Auto"
+            },
+            {
+                "Charming Song": {
+                    "A": "Half-Action",
+                    "Cooldown": "Once / Turn",
+                    "Effect": "A Unit must roll at least 10 on a Sense Check, or immediately run up to their Speed (freely) toward the Harpy (does not consume their Action Point)."
                 }
             }
         ],
         "Passives": [
             {
-                "Charming Song": "When the combat with Harpies starts, each player must succeed a 10 Sense Check or its Initiative is 0 this combat and become Fumbling (for 1 turn)."
+                "Charming Song": "When the combat with Harpies starts, each player must succeed a 10 Sense Check or its Initiative is 0 this Combat."
             },
             {
                 "Mimick Song (Non-Combat)": "Harpies can mimick any song they have heard. Their voices can even reproduce sounds of instruments."
@@ -2315,24 +2331,33 @@
         "Initiative": 8,
         "Abilities": [
             {
-                "Tongue Grab (3m)": {
-                    "Damage": "7 Poison (or 3d4 - 1)",
-                    "Drag and Stick": "Target must succeed a 12 Dexterity Check or the Mimic drags itself to it and sticks to it with its tongue.\nIf the Check fails, the Mimic can make a free Bite attack on the target.\nThe tongue remains attached to the target like glue.\n"
+                "Tongue Grab": {
+                    "Range": "3 meters",
+                    "Damage": "Auto",
+                    "Drag and Stick": "The Mimic drags itself to the target and can choose to remain stuck to it like glue.\n",
+                    "Notes": "A Unit can unstick the Mimic with a Half-Action."
                 }
             },
             {
-                "Bite": "8 Pierce (or 2d6 + 1)"
+                "Bite Attack": {
+                    "A": "Half-Action",
+                    "Cooldown": "Once / Turn",
+                    "Damage": "{DamageQuick}"
+                }
             }
         ],
         "Passives": [
             {
-                "Mimic Ambush": "If someone approaches within 2 meters of the Mimic before combat, the combat starts and the Mimic gets Ambush Initiative."
+                "Digestive Treasure": "Each time the Mimic takes Damage, the treasure inside decreases by 10 {Gold}Gold in value."
             },
             {
-                "Sticky": "Anything that touches the Mimic (weapons, objects, body parts), the owner must succeed a 10 Might Check remain stuck to the Mimic like glue.\nSomeone can use 0.5 Actions to try to unstick a single object or body part.\nThe Mimic can freely unstick itself from something (but will usually not do so unless they absolutely have to).\n(Obviously, if your leg is stuck to the Mimic, you can't move; if your hand is stuck, you can't attack with it; and so on; use common sense)\n"
+                "Sticky": "Anything that touches the Mimic (weapons, objects, body parts) remains stuck to the Mimic like glue.\nSomeone can use 1 Action Point to unstick a single object or body part.\nThe Mimic can freely unstick itself from something (but will usually not do so unless they absolutely have to).\nObviously, if your leg is stuck to the Mimic, you can't move; if your hand is stuck, you can't attack with it; and so on; use common sense.\n"
             },
             {
-                "Camouflage": "When sitting still, it is indistinguishable from a regular chest, sofa, painting, etc."
+                "Camouflage": "Indistinguishable from a regular chest, door, map, painting, etc (requires Check at least 15)."
+            },
+            {
+                "Camouflaging Larva": "Mimic larvae can camouflage as a coin, key, or treasure. They will wait for the perfect time to grow and ambush their victim!"
             }
         ],
         "Avoids AoE": "No",
@@ -2407,7 +2432,7 @@
                 "Immunities": "Immune to Pierce, Poison and Acid Damage."
             },
             {
-                "Camouflage (Non-Combat)": "Indistinguishable from a wet rock, puddle of oil, etc"
+                "Camouflage": "Indistinguishable from a wet rock, puddle of oil, etc (requires Check at least 15)"
             }
         ],
         "Avoids AoE": "No",
@@ -3878,7 +3903,7 @@
                 "Immunities": "Immune to all Damage except True and Divine Damage."
             },
             {
-                "Shadowy": "Indistinguishable from a regular shadow. Can freely walk on or attach to any surface, but can't jump. Light does not affect it. They occupy a space on the battlefield as normal."
+                "Shadowy Camouflage": "Hardly distinguishable from a regular shadow (requires Check at least 10). Can freely walk on or attach to any surface, but can't jump. Light does not affect it. They occupy a space on the battlefield as normal."
             }
         ],
         "Avoids AoE": "Yes",

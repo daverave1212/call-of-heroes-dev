@@ -222,7 +222,7 @@ function parseItemText({ text, thisText='{This}', rng=standardRNG, item={} }) {
                 `felt more as awe than heard with the ears`,
             )
             return rng.randomOf(
-                `${an(sound())} ${adjectiveMetaphor}, ${butMetaphor}.`
+                `${an(sound())} ${adjectiveMetaphor()}, ${butMetaphor()}.`
             )
         })() },
         'DescriptionForArmorVisualsHoly': { text: () => rng.randomOf(
@@ -1007,8 +1007,6 @@ function parseItemText({ text, thisText='{This}', rng=standardRNG, item={} }) {
 }
 window.parseItemText = parseItemText
 function tryNameItem(item, rng=standardRNG) {
-    console.log({item})
-    console.log(`Trying name item ^:`)
     if (item.Name == null) {
         console.log({item})
         throw `tryNameItem: item has no Name property. Printed above.`
@@ -1634,354 +1632,6 @@ function getBaselineItemByType(xp, itemType, rng=standardRNG) {
 }
 
 
-// xp: int, itemType: string (e.g. "One-Handed Ranged Weapon", "Two-Handed Weapon", "Melee Weapon", "Weapon")
-export function createMagicItem(xp, itemType, rng=standardRNG) {
-
-    if (itemType != 'Armor' && itemType != 'Shield') {
-        let { hands, range } = getWeaponPropsFromType(itemType)
-        if (range == null) {
-            range = rng.randomOf('Melee', 'Ranged')
-        }
-        if (hands == null) {
-            hands = rng.randomOf('One-Handed', 'Two-Handed')
-        }
-        itemType = hands + ' ' + range + ' Weapon'
-    }
-
-    // Now itemType is always a full type like "One-Handed Ranged Weapon"
-    // e.'Item Type' contains any of those tags
-    let possibleEffects = MagicItemProperties.Effects
-        possibleEffects = possibleEffects.filter(e => e['Item Type'] == 'Any' || includesAll(itemType, e['Item Type'].split(' ')))
-        possibleEffects = possibleEffects.map(e => ({...e, Weight: (Math.max(e.XP, 0) + 10)}))
-
-    const baselineItem = getBaselineItemByType(xp, itemType, rng)
-
-
-    let xpLeft = xp
-    let addedEffectsByGroup = {
-        'Minor': [],
-        'Curse': [],
-        'Stats': [],
-        'Passive': [],
-        'Property': [],
-        'Active': [],
-        'Quirk': [],
-        'Bonus Damage': []
-    }
-
-    function maybeAddSkills() {
-        function getRandomSkill() {
-            if (baselineItem.SkillBias == null) {
-                if (baselineItem.ElementBias == null || (baselineItem.ElementBias && rng.percentChance(15))) {
-                    baselineItem.SkillBias = rng.randomOf(...Object.keys(SKILLS_BY_GROUP))
-                } else {
-                    const skillGroup = SKILL_GROUP_BY_ELEMENT[baselineItem.ElementBias]
-                    baselineItem.SkillBias = skillGroup ?? rng.randomOf(...Object.keys(SKILLS_BY_GROUP))
-                }
-            }
-            console.log(baselineItem.SkillBias)
-            const skillsInChosenGroup = SKILLS_BY_GROUP[baselineItem.SkillBias]
-            const skillsIAlreadyHave = Object.keys(baselineItem['Skill Bonuses'] ?? {})
-            const skillsInGroup = skillsInChosenGroup.filter(possibleSkill => !skillsIAlreadyHave.includes(possibleSkill))
-            const availableSkills = rng.shuffle([...skillsInGroup])
-            return rng.randomOf(...availableSkills)
-        }
-        function getRandomSkillIDontHave() {
-            const skillsIHave = Object.keys(baselineItem['Skill Bonuses'])
-            const possibilities = $SKILLS.filter(skill => !skillsIHave.includes(skill))
-            return rng.randomOf(...possibilities)
-        }
-
-        if (rng.percentChance(15)) {
-            return false
-        }
-        function addSkillBonus() {
-            const skillName = getRandomSkill()
-            const maxSkillNumber =
-                baselineItem.XP <= 50?
-                    rng.randomOf(1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, rng.randomInt(1, 4))
-                :baselineItem.XP <= 100?
-                    rng.randomOf(1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, rng.randomInt(1, 5))
-                :
-                    rng.randomOf(2, 2, 2, 2, 3, 3, 3, 3, rng.randomInt(1, 6))
-            const skillBonus = rng.randomInt(1, maxSkillNumber)
-            if (baselineItem['Skill Bonuses'] == null) {
-                baselineItem['Skill Bonuses'] = {}
-            }
-            baselineItem['Skill Bonuses'][skillName] = skillBonus
-            xpLeft -= skillBonus * 5
-        }
-
-        addSkillBonus()
-        if (rng.percentChance(55)) {
-            addSkillBonus()
-        }
-
-        if (rng.percentChance(40)) {
-            baselineItem['Skill Bonuses'][getRandomSkillIDontHave()] = rng.randomOf(-1, -2, -2, -2, -2, -2, -2, -2, -2, rng.randomInt(-1, -7))
-            xpLeft += 5
-        }
-        
-        if (addedEffectsByGroup['Property'].length > 0) {
-            addedEffectsByGroup['Property'].push({ Effect: '' })
-        }
-        for (const [skillName, bonus] of Object.entries(baselineItem['Skill Bonuses'])) {
-            if (bonus > 0) {
-                addedEffectsByGroup['Property'].push({
-                    XP: 5,
-                    Group: 'Property',
-                    Effect: `+${bonus} in ${skillName}`
-                })
-            } else {
-                addedEffectsByGroup['Curse'].push({
-                    XP: 5,
-                    Group: 'Curse',
-                    Effect: `${bonus} in ${skillName}`
-                })
-            }
-        }
-    }
-    function maybeAddEffect(possibleEffects, groupName, chance, extraFilterCondition=e=>true) {
-        const alreadyHasEffect = e => isString(e)? addedEffectsByGroup[groupName].includes(e): addedEffectsByGroup[groupName].some(addedE => addedE.Effect == e.Effect)
-        let availableEffects = possibleEffects.filter(e => e.Group == groupName)
-            availableEffects = availableEffects.filter(e => e.XP <= xpLeft)
-            availableEffects = availableEffects.filter(e => !alreadyHasEffect(e))
-            availableEffects = availableEffects.filter(e => extraFilterCondition(e))
-        if (availableEffects.length == 0) {
-            return false
-        }
-
-        const weights =
-            availableEffects[0].Weight == null?
-                null
-            :availableEffects.map(e => e.Weight)
-
-        if (rng.percentChance(chance)) {
-            const randomEffect =
-                weights == null?
-                    rng.randomOf(...availableEffects)
-                :rng.randomOfArrayWeighted(availableEffects, weights)
-            if (randomEffect == null) { // Not sure how, but it happens
-                return false
-            }
-            addedEffectsByGroup[groupName].push(randomEffect)
-            if (randomEffect.XP != null) {
-                xpLeft -= randomEffect.XP
-            }
-            return true
-        }
-        return false
-    }
-    function addMorePropertiesToFillForXP() {
-        let nFails = 0
-        while (xpLeft > 0) {
-            let didAddSomething = true
-
-            const addPropertyChance =
-                addedEffectsByGroup['Property'].length > 0?
-                    10
-                :25
-            
-            const didAddProperty = maybeAddEffect(possibleEffects, 'Property', addPropertyChance, e => e.XP > 0)
-            if (!didAddProperty) {
-                const didAddStats = maybeAddEffect(possibleEffects, 'Stats', 50, e => e.XP > 0)
-                if (!didAddStats) {
-                    const didAddPassive = maybeAddEffect(possibleEffects, 'Passive', 100, e => e.XP > 0)
-                    if (!didAddPassive) {
-                        didAddSomething = false
-                    }
-                }
-            }
-
-            if (!didAddSomething) {
-                nFails += 1
-                if (nFails >= 5) {
-                    break
-                }
-            }
-        }
-    }
-
-    maybeAddEffect(possibleEffects, 'Curse', 25)
-    if (itemType.includes('Weapon')) {
-        maybeAddEffect(possibleEffects, 'Bonus Damage', 99)
-    }
-    maybeAddEffect(possibleEffects, 'Minor', 25)
-    maybeAddEffect(possibleEffects, 'Property', 15)
-    maybeAddEffect(possibleEffects, 'Active', 25)
-    maybeAddEffect(possibleEffects, 'Quirk', 75)
-
-    addMorePropertiesToFillForXP()
-
-    if (itemType.includes('Armor')) {
-        maybeAddSkills()
-    }
-
-
-    // These are all possible effects of a magic item property from the YAML
-    
-    const POSSIBLE_EFFECT_TEXTS_FORMATTING = {
-        'Effect': effects => effects.join('\n'),
-        'OnKill': effects => effects.length == 0? '': 'When you defeat a Worthy Enemy, ' + effects.join(' and '),
-        'OnAttack': effects => effects.length == 0? '': 'When you attack a Worthy Enemy, ' + effects.join(' and '),
-        'Bonus Damage': effects => effects.length == 0? '': (' + ' + effects.join(' + '))
-    }
-    const POSSIBLE_EFFECT_PROPS = Object.keys(POSSIBLE_EFFECT_TEXTS_FORMATTING)
-    const parseAllPropsOfEffectObj = (e, thisReplacement) => {
-        const newE = {...e}
-        for (const key of POSSIBLE_EFFECT_PROPS) {
-            newE[key] = e[key] == null? null: parseItemText({
-                text: e[key],
-                thisText: thisReplacement,
-                rng,
-                item: baselineItem
-            })
-        }
-        return newE
-    }
-    const preparsedEffectsByGroup = mapObject(addedEffectsByGroup, ({ key, value }) => ({
-        key,
-        value: value.map(e => parseAllPropsOfEffectObj(e, '{This}'))
-    }))
-    
-    const getEffectText = e => Object.keys(POSSIBLE_EFFECT_TEXTS_FORMATTING).map(key => e[key]).filter(s => s != null).join('\n')
-    const preparsedEffectsByGroupFiltered = filterObject(preparsedEffectsByGroup, ({ key, value }) => value.length > 0)
-    const preparsedTextByGroups = mapObject(preparsedEffectsByGroupFiltered, ([groupName, effectObjects]) => {
-        const effectTexts = effectObjects.map(e => getEffectText(e))
-        const effectTextsNoDups = removeDuplicates(effectTexts) // For when it has multiple Damage resistances
-        const effectTextsSorted = sortByHash(effectTextsNoDups, str => str.length)
-        const finalText = effectTextsSorted.join('\n')
-        return {
-            key: groupName,
-            value: finalText
-        }
-    })
-
-    
-    /* ---------- Naming ---------- */
-    baselineItem._AllText = joinObjectValues(preparsedTextByGroups, '\n')
-    baselineItem._AllGoodText = Object.values(filterObject(preparsedEffectsByGroup, ([key, value]) => key != 'Curse')).join('\n')
-    baselineItem.Name = tryNameItem(baselineItem, rng)
-    
-    /* ---------- Reparse ---------- */
-    const reparsedTextByGroups = mapObject(preparsedTextByGroups, ({key, value}) => ({key, value: parseItemText({
-        text: value,
-        thisText: baselineItem.Name,
-        rng,
-        item: baselineItem
-    })}))
-    
-    function compileAndReparseActivesToText(arr) {
-        if (arr == null || arr.length == 0) {
-            return null
-        }
-        const effectsWithParsedEffect = arr.map(e => ({...e, Effect: parseItemText({
-            text: e.Effect,
-            thisText: baselineItem.Name,
-            rng,
-            item: baselineItem
-        })}))
-        return effectsWithParsedEffect
-            .map(e => e.A == null? e.Effect: `{Hand}${e.A}: ${e.Effect}`)
-            .join('\n')
-    }
-
-    function compileAndReparsePassivesToText(passives) {
-        if (passives == null || passives.length == 0) {
-            return null
-        }
-        const parsedPassives = passives.map(e => parseAllPropsOfEffectObj(e, baselineItem.Name))
-
-        // ['OnKill', 'OnAttack', ..] -> { OnKill: [text1, text2], OnAttack: .. }
-        const passivesByType = mapKeysToObject(Object.keys(POSSIBLE_EFFECT_TEXTS_FORMATTING), key => parsedPassives.filter(e => e[key] != null).map(e => e[key]))
-        const eachTypeFinalText = mapObject(passivesByType, ({key, value: arr}) => ({key, value: POSSIBLE_EFFECT_TEXTS_FORMATTING[key](arr)}))
-        return Object.keys(eachTypeFinalText)
-            .filter(key => eachTypeFinalText[key].length > 0)
-            .map(key => eachTypeFinalText[key])
-            .sort((a, b) => a.length - b.length)
-            .join('\n')
-    }
-    function addWeaponBonusDamages(addedEffectsBonusDamage) {
-        if (addedEffectsBonusDamage == null || addedEffectsBonusDamage.length == 0) {
-            return null
-        }
-        for (const effect of addedEffectsBonusDamage.filter(e => e['Bonus Damage'] != null)) {
-// todo
-        }
-    }
-    function compileAndReparseBonusDamagesToText(addedEffectsBonusDamage) {
-        return addedEffectsBonusDamage
-            .map(e => e?.['Bonus Damage'])
-            .filter(text => text != null)
-            .map(text => parseItemText({ text, thisText: baselineItem.Name, rng, item: baselineItem }))
-            .join('\n')
-    }
-
-
-    const color = (col, text) => text == null? null: `{Color('${col}' '${text}')}`
-    let validEffects
-    if (itemType == 'Armor' || itemType == 'Shield') {
-        validEffects = [
-            color('var(--green-text)', reparsedTextByGroups['Stats']),
-            color('var(--green-text)', reparsedTextByGroups['Property']),
-            reparsedTextByGroups['Passive'],
-            compileAndReparseActivesToText(addedEffectsByGroup['Active']),
-            color('var(--blue-color)', reparsedTextByGroups['Minor']),
-        ]
-    } else {
-        validEffects = [
-            color('var(--green-text)', reparsedTextByGroups['Property']),
-            compileAndReparsePassivesToText(addedEffectsByGroup['Passive']),
-            compileAndReparseActivesToText(addedEffectsByGroup['Active']),
-            color('var(--green-text)', reparsedTextByGroups['Stats']),
-            color('var(--blue-color)', reparsedTextByGroups['Minor']),
-        ]
-    }
-    if (validEffects?.length == 0) {
-        console.log({validEffects})
-    }
-    validEffects = validEffects.filter(s => s != null)
-    const finalEffect =
-        validEffects.length == 0?
-            null
-        :
-            validEffects.join('\n\n') + (baselineItem.EffectOriginal != null? `\n${baselineItem.EffectOriginal}`: '')
-
-    console.log({addedEffectsByGroup, preparsedEffectsByGroup, preparsedEffectsByGroupFiltered, preparsedTextByGroups, reparsedTextByGroups, validEffects, finalEffect})
-
-    if (baselineItem.Damage != null) {
-        const extraDamageText = compileAndReparseBonusDamagesToText(addedEffectsByGroup['Bonus Damage'])
-        if (extraDamageText == null || extraDamageText.length == 0) {
-            // Do nothing    
-        } else if (isStringNumeric(extraDamageText)) {
-            baselineItem.Damage = baselineItem.Damage + ' + ' + extraDamageText
-        } else {
-            baselineItem.Damage = extraDamageText + ' + ' + baselineItem.Damage
-        }
-    }
-    baselineItem.Effect = finalEffect
-    baselineItem.Downside = reparsedTextByGroups['Curse']
-    baselineItem.Upgrade = reparsedTextByGroups['Quirk']
-
-    baselineItem.XP = xp
-    baselineItem.HasMixins = true
-    baselineItem.Price = getItemPrice(baselineItem, rng)
-
-    // Add icon
-    const iconName = getItemIconName(baselineItem, rng)
-    baselineItem.CustomIconPath = getItemIconPathByName(iconName)
-
-    // Add tint color
-    const tintColor = getItemTintColor(baselineItem._AllText, rng)
-    if (tintColor != null) {
-        baselineItem.TintColor = tintColor
-    }
-    
-    console.log({baselineItem})
-    console.green(`Returning ${baselineItem.Name}!`)
-
-    return baselineItem
-}
 
 // If a key doesn't exist, just uses the default weapon
 const BASE_WEAPON_TO_NAME = {
@@ -2197,6 +1847,339 @@ const SHIELD_NAMES = [
     'Shield', 'Buckler', 'Kite', 'Barrier', 'Barricade', 'Bulwark', 'Aegis', 'Scutum', 'Aspis', 'Pavise', 'Adarga', 'Dhal', 'Targe', 'Hoplon', 'Rampart', 'Safeguard', 'Protector', 'Redoubt', 'Greatshield', 'Thureos', 'Clipeus', 'Door', 'Gate'
 ]
 
+// xp: int, itemType: string (e.g. "One-Handed Ranged Weapon", "Two-Handed Weapon", "Melee Weapon", "Weapon")
+export function createMagicItem(xp, itemType, rng=standardRNG) {
+
+    if (itemType != 'Armor' && itemType != 'Shield') {
+        let { hands, range } = getWeaponPropsFromType(itemType)
+        if (range == null) {
+            range = rng.randomOf('Melee', 'Ranged')
+        }
+        if (hands == null) {
+            hands = rng.randomOf('One-Handed', 'Two-Handed')
+        }
+        itemType = hands + ' ' + range + ' Weapon'
+    }
+
+    // Now itemType is always a full type like "One-Handed Ranged Weapon"
+    // e.'Item Type' contains any of those tags
+    let possibleEffects = MagicItemProperties.Effects
+        possibleEffects = possibleEffects.filter(e => e['Item Type'] == 'Any' || includesAll(itemType, e['Item Type'].split(' ')))
+        possibleEffects = possibleEffects.map(e => ({...e, Weight: (Math.max(e.XP, 0) + 10)}))
+
+    const baselineItem = getBaselineItemByType(xp, itemType, rng)
+
+
+    let xpLeft = xp
+    let addedEffectsByGroup = {
+        'Minor': [],
+        'Curse': [],
+        'Stats': [],
+        'Passive': [],
+        'Property': [],
+        'Active': [],
+        'Quirk': [],
+        'Bonus Damage': []
+    }
+
+    function maybeAddSkills() {
+        function getRandomSkill() {
+            if (baselineItem.SkillBias == null) {
+                if (baselineItem.ElementBias == null || (baselineItem.ElementBias && rng.percentChance(15))) {
+                    baselineItem.SkillBias = rng.randomOf(...Object.keys(SKILLS_BY_GROUP))
+                } else {
+                    const skillGroup = SKILL_GROUP_BY_ELEMENT[baselineItem.ElementBias]
+                    baselineItem.SkillBias = skillGroup ?? rng.randomOf(...Object.keys(SKILLS_BY_GROUP))
+                }
+            }
+            const skillsInChosenGroup = SKILLS_BY_GROUP[baselineItem.SkillBias]
+            const skillsIAlreadyHave = Object.keys(baselineItem['Skill Bonuses'] ?? {})
+            const skillsInGroup = skillsInChosenGroup.filter(possibleSkill => !skillsIAlreadyHave.includes(possibleSkill))
+            const availableSkills = rng.shuffle([...skillsInGroup])
+            return rng.randomOf(...availableSkills)
+        }
+        function getRandomSkillIDontHave() {
+            const skillsIHave = Object.keys(baselineItem['Skill Bonuses'])
+            const possibilities = $SKILLS.filter(skill => !skillsIHave.includes(skill))
+            return rng.randomOf(...possibilities)
+        }
+
+        if (rng.percentChance(15)) {
+            return false
+        }
+        function addSkillBonus() {
+            const skillName = getRandomSkill()
+            const maxSkillNumber =
+                baselineItem.XP <= 50?
+                    rng.randomOf(1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, rng.randomInt(1, 4))
+                :baselineItem.XP <= 100?
+                    rng.randomOf(1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, rng.randomInt(1, 5))
+                :
+                    rng.randomOf(2, 2, 2, 2, 3, 3, 3, 3, rng.randomInt(1, 6))
+            const skillBonus = rng.randomInt(1, maxSkillNumber)
+            if (baselineItem['Skill Bonuses'] == null) {
+                baselineItem['Skill Bonuses'] = {}
+            }
+            baselineItem['Skill Bonuses'][skillName] = skillBonus
+            xpLeft -= skillBonus * 5
+        }
+
+        addSkillBonus()
+        if (rng.percentChance(55)) {
+            addSkillBonus()
+        }
+
+        if (rng.percentChance(40)) {
+            baselineItem['Skill Bonuses'][getRandomSkillIDontHave()] = rng.randomOf(-1, -2, -2, -2, -2, -2, -2, -2, -2, rng.randomInt(-1, -7))
+            xpLeft += 5
+        }
+        
+        if (addedEffectsByGroup['Property'].length > 0) {
+            addedEffectsByGroup['Property'].push({ Effect: '' })
+        }
+        for (const [skillName, bonus] of Object.entries(baselineItem['Skill Bonuses'])) {
+            if (bonus > 0) {
+                addedEffectsByGroup['Property'].push({
+                    XP: 5,
+                    Group: 'Property',
+                    Effect: `+${bonus} in ${skillName}`
+                })
+            } else {
+                addedEffectsByGroup['Curse'].push({
+                    XP: 5,
+                    Group: 'Curse',
+                    Effect: `${bonus} in ${skillName}`
+                })
+            }
+        }
+    }
+    function maybeAddEffect(possibleEffects, groupName, chance, extraFilterCondition=e=>true) {
+        const alreadyHasEffect = e => isString(e)? addedEffectsByGroup[groupName].includes(e): addedEffectsByGroup[groupName].some(addedE => addedE.Effect == e.Effect)
+        let availableEffects = possibleEffects.filter(e => e.Group == groupName)
+            availableEffects = availableEffects.filter(e => e.XP <= xpLeft)
+            availableEffects = availableEffects.filter(e => !alreadyHasEffect(e))
+            availableEffects = availableEffects.filter(e => extraFilterCondition(e))
+        if (availableEffects.length == 0) {
+            return false
+        }
+
+        const weights =
+            availableEffects[0].Weight == null?
+                null
+            :availableEffects.map(e => e.Weight)
+
+        if (rng.percentChance(chance)) {
+            const randomEffect =
+                weights == null?
+                    rng.randomOf(...availableEffects)
+                :rng.randomOfArrayWeighted(availableEffects, weights)
+            if (randomEffect == null) { // Not sure how, but it happens
+                return false
+            }
+            addedEffectsByGroup[groupName].push(randomEffect)
+            if (randomEffect.XP != null) {
+                xpLeft -= randomEffect.XP
+            }
+            return true
+        }
+        return false
+    }
+    function addMorePropertiesToFillForXP() {
+        let nFails = 0
+        while (xpLeft > 0) {
+            let didAddSomething = true
+
+            const addPropertyChance =
+                addedEffectsByGroup['Property'].length > 0?
+                    10
+                :25
+            
+            const didAddProperty = maybeAddEffect(possibleEffects, 'Property', addPropertyChance, e => e.XP > 0)
+            if (!didAddProperty) {
+                const didAddStats = maybeAddEffect(possibleEffects, 'Stats', 50, e => e.XP > 0)
+                if (!didAddStats) {
+                    const didAddPassive = maybeAddEffect(possibleEffects, 'Passive', 100, e => e.XP > 0)
+                    if (!didAddPassive) {
+                        didAddSomething = false
+                    }
+                }
+            }
+
+            if (!didAddSomething) {
+                nFails += 1
+                if (nFails >= 5) {
+                    break
+                }
+            }
+        }
+    }
+
+    maybeAddEffect(possibleEffects, 'Curse', 25)
+    if (itemType.includes('Weapon')) {
+        maybeAddEffect(possibleEffects, 'Bonus Damage', 99)
+    }
+    maybeAddEffect(possibleEffects, 'Minor', 25)
+    maybeAddEffect(possibleEffects, 'Property', 15)
+    maybeAddEffect(possibleEffects, 'Active', 25)
+    maybeAddEffect(possibleEffects, 'Quirk', 75)
+
+    addMorePropertiesToFillForXP()
+
+    if (itemType.includes('Armor')) {
+        maybeAddSkills()
+    }
+
+
+    // These are all possible effects of a magic item property from the YAML
+    
+    const POSSIBLE_EFFECT_TEXTS_FORMATTING = {
+        'Effect': effects => effects.join('\n'),
+        'OnKill': effects => effects.length == 0? '': 'When you defeat a Worthy Enemy, ' + effects.join(' and '),
+        'OnAttack': effects => effects.length == 0? '': 'When you attack a Worthy Enemy, ' + effects.join(' and '),
+        'Bonus Damage': effects => effects.length == 0? '': (' + ' + effects.join(' + '))
+    }
+    const POSSIBLE_EFFECT_PROPS = Object.keys(POSSIBLE_EFFECT_TEXTS_FORMATTING)
+    const parseAllPropsOfEffectObj = (e, thisReplacement) => {
+        const newE = {...e}
+        for (const key of POSSIBLE_EFFECT_PROPS) {
+            newE[key] = e[key] == null? null: parseItemText({
+                text: e[key],
+                thisText: thisReplacement,
+                rng,
+                item: baselineItem
+            })
+        }
+        return newE
+    }
+    const preparsedEffectsByGroup = mapObject(addedEffectsByGroup, ({ key, value }) => ({
+        key,
+        value: value.map(e => parseAllPropsOfEffectObj(e, '{This}'))
+    }))
+    
+    const getEffectText = e => Object.keys(POSSIBLE_EFFECT_TEXTS_FORMATTING).map(key => e[key]).filter(s => s != null).join('\n')
+    const preparsedEffectsByGroupFiltered = filterObject(preparsedEffectsByGroup, ({ key, value }) => value.length > 0)
+    const preparsedTextByGroups = mapObject(preparsedEffectsByGroupFiltered, ([groupName, effectObjects]) => {
+        const effectTexts = effectObjects.map(e => getEffectText(e)).filter(text => text != null && text.length > 0)
+        const effectTextsNoDups = removeDuplicates(effectTexts) // For when it has multiple Damage resistances
+        const effectTextsSorted = sortByHash(effectTextsNoDups, str => str.length)
+        const finalText = effectTextsSorted.join('\n')
+        return {
+            key: groupName,
+            value: finalText
+        }
+    })
+
+    
+    /* ---------- Naming ---------- */
+    baselineItem._AllText = joinObjectValues(preparsedTextByGroups, '\n')
+    baselineItem._AllGoodText = Object.values(filterObject(preparsedEffectsByGroup, ([key, value]) => key != 'Curse')).join('\n')
+    baselineItem.Name = tryNameItem(baselineItem, rng)
+    
+    /* ---------- Reparse ---------- */
+    const reparsedTextByGroups = mapObject(preparsedTextByGroups, ({key, value}) => ({key, value: parseItemText({
+        text: value,
+        thisText: baselineItem.Name,
+        rng,
+        item: baselineItem
+    })}))
+    
+    function compileAndReparseActivesToText(arr) {
+        if (arr == null || arr.length == 0) {
+            return null
+        }
+        const effectsWithParsedEffect = arr.map(e => ({...e, Effect: parseItemText({
+            text: e.Effect,
+            thisText: baselineItem.Name,
+            rng,
+            item: baselineItem
+        })}))
+        return effectsWithParsedEffect
+            .map(e => e.A == null? e.Effect: `{Hand}${e.A}: ${e.Effect}`)
+            .join('\n')
+    }
+
+    function compileAndReparsePassivesToText(passives) {
+        if (passives == null || passives.length == 0) {
+            return null
+        }
+        const parsedPassives = passives.map(e => parseAllPropsOfEffectObj(e, baselineItem.Name))
+
+        // ['OnKill', 'OnAttack', ..] -> { OnKill: [text1, text2], OnAttack: .. }
+        const passivesByType = mapKeysToObject(Object.keys(POSSIBLE_EFFECT_TEXTS_FORMATTING), key => parsedPassives.filter(e => e[key] != null).map(e => e[key]))
+        const eachTypeFinalText = mapObject(passivesByType, ({key, value: arr}) => ({key, value: POSSIBLE_EFFECT_TEXTS_FORMATTING[key](arr)}))
+        return Object.keys(eachTypeFinalText)
+            .filter(key => eachTypeFinalText[key].length > 0)
+            .map(key => eachTypeFinalText[key])
+            .sort((a, b) => a.length - b.length)
+            .join('\n')
+    }
+    function addWeaponBonusDamages(addedEffectsBonusDamage) {
+        if (addedEffectsBonusDamage == null || addedEffectsBonusDamage.length == 0 || baselineItem.Damage == null) {
+            return
+        }
+        const validBDEffects = addedEffectsBonusDamage.filter(e => e['Bonus Damage'] != null)
+        for (const effect of validBDEffects) {
+            baselineItem.Damage = addBonusToDamageText(baselineItem.Damage, effect['Bonus Damage'])
+        }
+    }
+
+
+
+    const color = (col, text) => text == null? null: `{Color('${col}' '${text}')}`
+    let validEffects
+    if (itemType == 'Armor' || itemType == 'Shield') {
+        validEffects = [
+            color('var(--green-text)', reparsedTextByGroups['Stats']),
+            color('var(--green-text)', reparsedTextByGroups['Property']),
+            reparsedTextByGroups['Passive'],
+            compileAndReparseActivesToText(addedEffectsByGroup['Active']),
+            color('var(--blue-color)', reparsedTextByGroups['Minor']),
+        ]
+    } else {
+        validEffects = [
+            color('var(--green-text)', reparsedTextByGroups['Property']),
+            compileAndReparsePassivesToText(addedEffectsByGroup['Passive']),
+            compileAndReparseActivesToText(addedEffectsByGroup['Active']),
+            color('var(--green-text)', reparsedTextByGroups['Stats']),
+            color('var(--blue-color)', reparsedTextByGroups['Minor']),
+        ]
+    }
+    const _validEffects = validEffects
+    validEffects = validEffects.filter(s => s != null && s.length > 0)
+    const finalEffect =
+        validEffects.length == 0?
+            null
+        :
+            validEffects.join('\n\n') + (baselineItem.EffectOriginal != null? `\n${baselineItem.EffectOriginal}`: '')
+
+    console.log({addedEffectsByGroup, preparsedEffectsByGroup, preparsedEffectsByGroupFiltered, preparsedTextByGroups, reparsedTextByGroups, validEffects, finalEffect})
+
+    if (baselineItem.Damage != null) {
+        addWeaponBonusDamages(addedEffectsByGroup['Bonus Damage'])
+    }
+    baselineItem.Effect = finalEffect
+    baselineItem.Downside = reparsedTextByGroups['Curse']
+    baselineItem.Upgrade = reparsedTextByGroups['Quirk']
+
+    baselineItem.XP = xp
+    baselineItem.HasMixins = true
+    baselineItem.Price = getItemPrice(baselineItem, rng)
+
+    // Add icon
+    const iconName = getItemIconName(baselineItem, rng)
+    baselineItem.CustomIconPath = getItemIconPathByName(iconName)
+
+    // Add tint color
+    const tintColor = getItemTintColor(baselineItem._AllText, rng)
+    if (tintColor != null) {
+        baselineItem.TintColor = tintColor
+    }
+    
+    console.log({baselineItem})
+    console.green(`Returning ${baselineItem.Name}!`)
+
+    return baselineItem
+}
 
 
 export default function MagicItemCreator() {
@@ -2210,14 +2193,9 @@ export default function MagicItemCreator() {
         if (itemCategory == 'Weapon') {
             itemCategory = randomOf('One-Handed', 'Two-Handed') + ' ' + randomOf('Melee', 'Ranged') + ' Weapon'
         }
-        console.log({seed, xp, itemCategory})
-        console.green(`Creating magic item. Params printed above`)
         return createMagicItem(xp, itemCategory, rng)
     }
     const [item, setItem] = useState(createAnItem())
-
-    console.log({item})
-    console.green(`Here is your ${item.Name} item bitch`)
 
     return <Page>
         <p style={{color: 'white'}}>asdasddasdsa</p>

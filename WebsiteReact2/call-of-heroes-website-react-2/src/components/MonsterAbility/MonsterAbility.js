@@ -106,7 +106,7 @@ export default function MonsterAbility({monster, monsterXP, ability, isPassive, 
         'DamageQuick': { tag: 'span',   text: 'Error', func: () => getQuickAttackDamage() },
     }
     const CUSTOM_MONSTER_FUNCTION_SYMBOLS = {
-        'DamageTimes': args => ({ tag: 'span', text: U.roundToNearest(abilityDamageBase * parseFloat(args[0]), 0.5) })
+        'DamageTimes': args => ({ tag: 'span', text: U.numberToDiceEquivalent(U.roundToNearest(abilityDamageBase * parseFloat(args[0]), 0.5)) })
     }
     function isDamageValueAuto(damageValue) {
         if (!U.isString(damageValue)) {

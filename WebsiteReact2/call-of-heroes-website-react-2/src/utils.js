@@ -646,6 +646,7 @@ export function extractDiceParts(str) {
     parts[1] = 'd' + parts[1]
     return parts
 }
+window.extractDiceParts = extractDiceParts
 export function monsterXPDnDToQG(dndXP) {
   const newXP = 0.365 * dndXP + 100
   return Math.floor(newXP / 25) * 25;
@@ -861,6 +862,7 @@ export function addBonusToDamageText(text, bonus) {
     const type = isNumber(bonus) || isStringNumeric(bonus)? 'number': isDice(bonus)? 'dice': 'other'
     const tokens = damageTextToTokens(text)
     const findLastNonOther = () => tokens.findLast(({ word, type }) => type != 'other' && type != 'delimiter')
+    const findLastDice = () => tokens.findLast(({ word, type }) => type == 'dice')
 
     if (type == 'dice') {
         const [nDice, diceType] = extractDiceParts(bonus)
@@ -872,15 +874,20 @@ export function addBonusToDamageText(text, bonus) {
             }
             const [thisNDice, thisDiceType] = extractDiceParts(token.word)
             if (thisDiceType == diceType) {
-                const newNDice = thisNDice + nDice
-                tokens[i].word = `${newNDice}d${diceType}`
+                const newNDice = parseFloat(thisNDice) + parseFloat(nDice)
+                tokens[i].word = `${newNDice}${diceType}`
                 didAdd = true
                 break
             }
         }
         if (!didAdd) {
-            const lastNonOther = findLastNonOther()
-            lastNonOther.word += ` + ${bonus} `
+            const lastDice = findLastDice()
+            if (lastDice != null) {
+                lastDice.word += ` + ${bonus} `
+            } else {
+                const lastNonOther = findLastNonOther()
+                lastNonOther.word += ` + ${bonus} `
+            }
         }
     }
 
@@ -897,6 +904,7 @@ export function addBonusToDamageText(text, bonus) {
 
     return tokens.map(token => token.word).join(' ')
 }
+window.addBonusToDamageText = addBonusToDamageText
 window.splitByNumbers = splitByNumbers
 export const $LESSER_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Lesser').map(spell => spell.Name)
 export const $MINOR_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Minor').map(spell => spell.Name)
