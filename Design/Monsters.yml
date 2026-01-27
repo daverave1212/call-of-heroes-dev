@@ -1709,7 +1709,6 @@ Griphon:
     If the players chase her, the Griphon will realize she is being chased and will lead the players straight into other dangers or even to her nest, where she will fight them on her own ground, with her partner Griphon.
   Loot: A Griphon head might prove a valuable trophy to be sold to collectors (50g). 1d4 of its feathers can also be collected as special feathers, worth 25g each.
 
-# TODO: Continue from here. The DamageTimes sort of works.
 Behemoth:
   Type:         Beast
   Degree:       9
@@ -1978,47 +1977,6 @@ Mimic:
     However, the backpack/one of the skeletons is also a Mimic in disguise.
     Add layers upon layers of disguise!
   Loot: Whatever non-digestible items the Mimic has eaten
-
-# TODO: here
-Gibberer:
-  Type:         Monster
-  Degree:       Normal
-  Experience:   300
-  Stats:        1/1/1/1/5
-  Health:       110
-  HPCoef:       0.97
-  Speed:        4
-  Initiative:   3
-  Abilities:
-    - Dark Whispers: |
-        All Units within 3 meters of the Gibbering Mouther must succeed a 11 Sense Check or take 10 Psychic Damage and Gibbering Mouther chooses one of these commands (separately for each) that the Unit must respect on its next turn:
-        - Move Away: use all movement to move in a straight line in whatever direction they choose (they stop at obstacles; can still move aftewards if they have movement left)
-        - Drop Weapon: drop their current weapon (or one of them); must use a Half-Action to pick it up again
-        - Silence: becomes Silenced
-  Passives:
-    - Only Eyes: Can not hear, but can see in all directions. Can see in darkness (even magical darkness).
-  Avoids AoE: No
-  Behavior: |
-    Moves between as many enemies as possible. Doesn't care for Fumbling.
-    Use a different Dark Whispers effect every time.
-  Lore: |
-    A Gibbering Mouther is an aberration creature that resembles an amorphous mass of flesh with eyes and mouths everywhere.
-    It has no ears, so it can not hear; it does, however, have eyes on all sides of its body.
-  Suggested Obstacles:
-    - Pits and Crevices
-    - Spiky Bones (Caltrops)
-    - Cursed Obelisks
-    - Magical Darkness
-  Monster Data: Influencer
-  Role: Support
-  Variants: None
-  Story Ideas: |
-    Encounter idea: The inhabitants of a mansion seem to be going insane.
-    If there, the players can sometimes hear knocks and strange sounds coming from under the floor.
-    Of course, under no circumstance are the players allowed to go into the cellar by the mansion inhabitants.
-    If the players go into their cellar, they will find a dungeon with a Gibbering Mouther and a mad scientist living there.
-    How will they sneak in?
-  Loot: None
 
 Ooze:
   Type:         Monster, Elemental, Other
@@ -3377,6 +3335,49 @@ Bubak:
   Role: Main Enemy
   Variants: Fiddlesticks, Scarecrow
 
+Nytrav:
+  Type:         Fiend, Beast
+  Degree:       Normal
+  Experience:   150
+  Stats:        1/1/1/1/5
+  Health:       110
+  HPCoef:       1.1
+  Speed:        6
+  Initiative:   3
+  Abilities:
+    - Beak Attack:
+        A: Half-Action
+        Damage: "{Damage+1}"
+    - CAWWWW:
+        A: 1 Action
+        Effect: Players choose a Player Character. It takes {DamageAoEAuto} Psychic Damage and must roll a Sense Check at least 10 or gain a random Phobia negative Quirk.
+  Passives:
+    - Monster Inside: |
+        The Nytrav may host another Nytrav inside it. When a Nytrav inside another Nytrav takes its turn, it briefly exits through its hosts mouth, attacks, then goes back in.
+        Each Nytrav may have another Nytrav inside it, even if already inside another Nytrav. They may take Damage from area effects, but may get Cover from being inside.
+        The Nytrav inside emerges free when the host dies.
+    - Hidden Apetite: |
+        When a Nytrav dies, it may regurgitate a live (or dead) creature it ate that is Large or smaller.
+    - Flier: Flies.
+    - Camouflage: Somewhat indistinguishable from a giant raven (requires Check at least 8)
+  Avoids AoE: No
+  Behavior: |
+    None
+  Lore: |
+    None
+  Suggested Obstacles:
+    - Pits and Crevices
+    - Spiky Bones (Caltrops)
+    - Cursed Obelisks
+    - Magical Darkness
+  Monster Data: Influencer
+  Role: Support
+  Variants: None
+  Story Ideas: |
+    None
+  Loot: None
+
+# TODO: Got here
 Singularity:
   Type:         Fiend, Celestian
   Degree:       Epic x2
