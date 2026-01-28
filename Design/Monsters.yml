@@ -3377,10 +3377,9 @@ Nytrav:
     None
   Loot: None
 
-# TODO: Got here
 Singularity:
-  Type:         Fiend, Celestian
-  Degree:       Epic x2
+  Type:         Fiend, Celestian, Other
+  Degree:       5
   Experience:   1000 (500 x2)
   Stats:        0/0/5/5/0
   Health:       375
@@ -3388,17 +3387,20 @@ Singularity:
   Speed:        3
   Initiative:   0
   Abilities:
-    - Distort Area (10m): |
-        Distort matter in a 3x3 meter area. All Units there take 13 Damage (or 1d8 + 9).
-        All non-Unit matter remains distorted, even floating in the air.
+    - Distort Area:
+        Range: 10 meters to edge
+        Effect: |
+          Distort matter in a 3x3 meter area. All Units there take {DamageAoEAuto} Damage.
+          All non-Unit matter remains distorted, even floating in the air.
     - Gravitate: |
         Each Unit within 15 meters takes Pulse Damage equal to its distance to the Singularity, then is pulled 3 up to meters towards it.
   Passives:
-    - Time Distorsion: Every Unit takes its turns twice, including the Singularity (so it takes 4 turns total). You should make sure Players understand the danger that's coming.
+    - Time Distorsion: Every Unit takes its turns twice, including the Singularity. _Make sure Players understand the danger that's coming._
     - Warp Effect: At the start of every Unit's turn (except the Singularity), it chooses whether to be instantly Rooted, Crippled, Silenced or Triple-Stunned. It can't choose the same thing again until it has chosen each once (then repeat).
     - MC-like Levitation: Things put in the air remain floating in the air until moved.
     - Flyer and Teleporter: Flies. Can teleport instead of moving.
-    - Weaknesses: Takes 50% more Psychic Damage.
+    - Resistances: -50% Fire and Cold Damage taken
+    - Weaknesses: +50% Psychic and Pulse Damage taken
   Avoids AoE: No
   Behavior: |
     A Singularity is a strange, sentient phenomenon whose only purpose is to destroy, for unknown reasons.
@@ -3416,33 +3418,40 @@ Singularity:
 
 Seraph:
   Type:         Celestian
-  Degree:       Epic x3
+  Degree:       7
   Experience:   1000 (333 x3)
-  Stats:        0/0/5/5/5
+  Stats:        4/2/2/5/5
   Health:       315
-  Speed:        4
-  Initiative:   3
+  HPCoef:       0.85
+  Speed:        7
+  Initiative:   8
   Abilities:
-    - Dazzling Wave: |
-        Create a 20x1x2 meter wall of light that can move 3 meters at the start of Seraph's every turn.
-        Enemies passing through it must make a Might Check or take 9 direct Divine Damage and are Single-Stunned and Slowed (or half) until their next turn.
-        They do not provide cover and can be jumped.
-    - Rays: |
-        Players choose 2 targets for this attack (not necessraily knowing what will happen).
-        The 2 Units must succeed 11 Grade a Sense check or be Slowed and Blinded and take 7 Divine Damage (or half).
-        They must choose the next 2 targets. Only one can be the same.
+    - Dazzling Wave:
+        Effect: |
+          Create a long, tall wall of light from one end of the battlefield to another.
+          Enemies touching it take {DamageAoEAuto} Divine Damage and are Single-Stunned.
+        Notes: The wall is transparent, like a window, and does not provide Cover.
+    - Rays:
+        Effect: |
+          The first time this is used, Players choose 2 targets.
+          If opposing, they take {DamageAoEAuto} Fire Damage and are Blinded. Otherwise, Heal them for {Damage1} and they gain +1 Action Point next (or current) Turn.
+          The 2 targets each choose one of the next targets for the upcoming Rays.
     - Lightspawns: |
         Summon 1d4 flying orbs near the Seraph each that will target a different enemy.
-        Orbs have only 1 Health, 2 Defense, and have 3 meters speed.
-        Each orb chases one player. Upon collision, it explodes and damages it for 12 Damage.
+        Orbs have 1 Health and have 3 meters Speed.
+        Each orb chases one Player Character. Upon collision, it explodes and damages it for {DamageAoEAuto} Damage.
     - Feather Barrage: |
         Attack all Units in a 4x4 area for 2d6 Pierce Damage.
         Forms a "[" of caltrops on the ground, towards the Seraph.
+    - Sword Attack:
+        A: Half-Action
+        Damage: "{DamageTimes(1.25)}"
+        Blade of Remembrance: Target _remembers_ one of their used Abilities of choice.
   Passives:
-    - Futility: After someone makes an attack with a weapon or uses an Ability, it can't be used anymore for the rest of the combat. Weapons vanish into thin air and Abilities are forgotten. Improvised Attack counts as 3 separate Abilities (Small, Medium and Large).
+    - Oblivion: After someone makes an attack with a weapon or uses an Ability, it can't be used anymore for the rest of the combat. Weapons vanish into thin air and Abilities are _forgotten_. Default Moves don't count.
     - Resistances: Takes -50% Divine Damage.
     - Vulnerabilities: Takes +50% Scourge Damage.
-  Avoids AoE: No
+  Avoids AoE: Yes
   Behavior: None
   Lore: None
   Suggested Obstacles:

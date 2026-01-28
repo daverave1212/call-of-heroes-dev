@@ -106,7 +106,17 @@ export default function MonsterAbility({monster, monsterXP, ability, isPassive, 
         'DamageQuick': { tag: 'span',   text: 'Error', func: () => getQuickAttackDamage() },
     }
     const CUSTOM_MONSTER_FUNCTION_SYMBOLS = {
-        'DamageTimes': args => ({ tag: 'span', text: U.numberToDiceEquivalent(U.roundToNearest(abilityDamageBase * parseFloat(args[0]), 0.5)) })
+        'DamageTimes': args => {
+            const multiplier = parseFloat(args[0])
+            const dmgRaw = abilityDamageBase * multiplier
+            const dmgRounded = U.roundToNearest(dmgRaw, 0.5)
+            const dmgAsDice = U.numberToDiceEquivalent(dmgRounded)
+            console.log({args: args[0], multiplier, dmgRaw, dmgRounded, dmgAsDice})
+            return {
+                tag: 'span',
+                text: dmgAsDice
+            }
+        }
     }
     function isDamageValueAuto(damageValue) {
         if (!U.isString(damageValue)) {
@@ -191,12 +201,6 @@ export default function MonsterAbility({monster, monsterXP, ability, isPassive, 
         {...{A: '1 Action'}, ...abilityBody}
     const validSpellTopTags = U.getSpellValidTopStatsObject(spellTopTags)
     const hasTopTags = Object.keys(validSpellTopTags).length > 0
-
-    console.log({
-        spellTopTags,
-        validSpellTopTags,
-        hasTopTags
-    })
 
     const topStatsComponent = <SpellTopStats tags={validSpellTopTags} keywords={abilityBody.Tags} className="spell-top-stats--no-padding-side spell-top-stats--less-padding-top-bottom"/>
 

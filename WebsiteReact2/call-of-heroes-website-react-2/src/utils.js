@@ -1782,6 +1782,8 @@ export const FUNCTION_SYMBOLS = {
     '^': args => ({ tag: 'b', text: args[0] }),
     '_': args => ({ tag: 'i', text: args[0] }),
     '~': args => ({ tag: 'span', props: { style: { color: 'var(--blue-color)' } }, text: args[0] }),
+
+    'TEST': args => ({ tag: 'b', text: args[0] }),
 }
 export function normalizeSymbolConfigForPDF(config, defaultColorHex=null) {
     const { tag, props, text } = config
@@ -1948,7 +1950,7 @@ export function parseTextWithSymbols(...argsOriginal) {
                     currentTextPartStart = i + 1
                     state = 'reading-normal-text'
                 } else if (!isReadingFunctionString && stringQuoteChar == null && !isStringOnlySpaces(char)) {
-                    functionStringStart = i + 1
+                    functionStringStart = i
                     isReadingFunctionString = true
                 } else if (isReadingFunctionString && stringQuoteChar == null && isStringOnlySpaces(char)) {
                     const str = text.substring(functionStringStart, i)

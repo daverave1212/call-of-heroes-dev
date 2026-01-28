@@ -53,8 +53,16 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
         if (isEpic) {
             const baseHealthForThatXP = MonsterCalculations.Calculations.XPToHPTable[baseXPForOneMonster]
             const epicHPCoef = MonsterCalculations.Calculations.EpicHPMultiplierByActionPoints[monster.Degree]
-            monsterHealth = Math.floor(baseHealthForThatXP * epicHPCoef * monster.HPCoef)
-            console.log({monsterTotalXP, baseHealthForThatXP, epicHPCoef, monsterHealth})
+            monsterHealth = Math.floor(howManyMonstersIsItWorth * baseHealthForThatXP * epicHPCoef * monster.HPCoef)
+            console.log({
+                isEpic,
+                howManyMonstersIsItWorth,
+                baseXPForOneMonster,
+                monsterTotalXP,
+                baseHealthForThatXP,
+                epicHPCoef,
+                monsterHealth
+            })
         } else {
             const baseHPForThisXP = MonsterCalculations.Calculations.XPToHPTable['' + monsterTotalXP]
             if (baseHPForThisXP == null) { 

@@ -2370,40 +2370,6 @@
         "Story Ideas": "Imagine this: a Mimic camouflages into a horse inside a dungeon.\nPlayers can see skeletons and a backpack right near the horse.\nThe horse is obviously a mimic waiting for its prey.\nHowever, the backpack/one of the skeletons is also a Mimic in disguise.\nAdd layers upon layers of disguise!\n",
         "Loot": "Whatever non-digestible items the Mimic has eaten"
     },
-    "Gibberer": {
-        "Type": "Monster",
-        "Degree": "Normal",
-        "Experience": 300,
-        "Stats": "1/1/1/1/5",
-        "Health": 110,
-        "HPCoef": 0.97,
-        "Speed": 4,
-        "Initiative": 3,
-        "Abilities": [
-            {
-                "Dark Whispers": "All Units within 3 meters of the Gibbering Mouther must succeed a 11 Sense Check or take 10 Psychic Damage and Gibbering Mouther chooses one of these commands (separately for each) that the Unit must respect on its next turn:\n- Move Away: use all movement to move in a straight line in whatever direction they choose (they stop at obstacles; can still move aftewards if they have movement left)\n- Drop Weapon: drop their current weapon (or one of them); must use a Half-Action to pick it up again\n- Silence: becomes Silenced\n"
-            }
-        ],
-        "Passives": [
-            {
-                "Only Eyes": "Can not hear, but can see in all directions. Can see in darkness (even magical darkness)."
-            }
-        ],
-        "Avoids AoE": "No",
-        "Behavior": "Moves between as many enemies as possible. Doesn't care for Fumbling.\nUse a different Dark Whispers effect every time.\n",
-        "Lore": "A Gibbering Mouther is an aberration creature that resembles an amorphous mass of flesh with eyes and mouths everywhere.\nIt has no ears, so it can not hear; it does, however, have eyes on all sides of its body.\n",
-        "Suggested Obstacles": [
-            "Pits and Crevices",
-            "Spiky Bones (Caltrops)",
-            "Cursed Obelisks",
-            "Magical Darkness"
-        ],
-        "Monster Data": "Influencer",
-        "Role": "Support",
-        "Variants": "None",
-        "Story Ideas": "Encounter idea: The inhabitants of a mansion seem to be going insane.\nIf there, the players can sometimes hear knocks and strange sounds coming from under the floor.\nOf course, under no circumstance are the players allowed to go into the cellar by the mansion inhabitants.\nIf the players go into their cellar, they will find a dungeon with a Gibbering Mouther and a mad scientist living there.\nHow will they sneak in?\n",
-        "Loot": "None"
-    },
     "Ooze": {
         "Type": "Monster, Elemental, Other",
         "Degree": "Normal",
@@ -3959,9 +3925,61 @@
         "Role": "Main Enemy",
         "Variants": "Fiddlesticks, Scarecrow"
     },
+    "Nytrav": {
+        "Type": "Fiend, Beast",
+        "Degree": "Normal",
+        "Experience": 150,
+        "Stats": "1/1/1/1/5",
+        "Health": 110,
+        "HPCoef": 1.1,
+        "Speed": 6,
+        "Initiative": 3,
+        "Abilities": [
+            {
+                "Beak Attack": {
+                    "A": "Half-Action",
+                    "Damage": "{Damage+1}"
+                }
+            },
+            {
+                "CAWWWW": {
+                    "A": "1 Action",
+                    "Effect": "Players choose a Player Character. It takes {DamageAoEAuto} Psychic Damage and must roll a Sense Check at least 10 or gain a random Phobia negative Quirk."
+                }
+            }
+        ],
+        "Passives": [
+            {
+                "Monster Inside": "The Nytrav may host another Nytrav inside it. When a Nytrav inside another Nytrav takes its turn, it briefly exits through its hosts mouth, attacks, then goes back in.\nEach Nytrav may have another Nytrav inside it, even if already inside another Nytrav. They may take Damage from area effects, but may get Cover from being inside.\nThe Nytrav inside emerges free when the host dies.\n"
+            },
+            {
+                "Hidden Apetite": "When a Nytrav dies, it may regurgitate a live (or dead) creature it ate that is Large or smaller.\n"
+            },
+            {
+                "Flier": "Flies."
+            },
+            {
+                "Camouflage": "Somewhat indistinguishable from a giant raven (requires Check at least 8)"
+            }
+        ],
+        "Avoids AoE": "No",
+        "Behavior": "None\n",
+        "Lore": "None\n",
+        "Suggested Obstacles": [
+            "Pits and Crevices",
+            "Spiky Bones (Caltrops)",
+            "Cursed Obelisks",
+            "Magical Darkness"
+        ],
+        "Monster Data": "Influencer",
+        "Role": "Support",
+        "Variants": "None",
+        "Story Ideas": "None\n",
+        "Loot": "None"
+    },
     "Singularity": {
-        "Type": "Fiend, Celestian",
-        "Degree": "Epic x2",
+        "Type": "Fiend, Celestian, Other",
+        "Degree": 5,
         "Experience": "1000 (500 x2)",
         "Stats": "0/0/5/5/0",
         "Health": 375,
@@ -3970,7 +3988,10 @@
         "Initiative": 0,
         "Abilities": [
             {
-                "Distort Area (10m)": "Distort matter in a 3x3 meter area. All Units there take 13 Damage (or 1d8 + 9).\nAll non-Unit matter remains distorted, even floating in the air.\n"
+                "Distort Area": {
+                    "Range": "10 meters to edge",
+                    "Effect": "Distort matter in a 3x3 meter area. All Units there take {DamageAoEAuto} Damage.\nAll non-Unit matter remains distorted, even floating in the air.\n"
+                }
             },
             {
                 "Gravitate": "Each Unit within 15 meters takes Pulse Damage equal to its distance to the Singularity, then is pulled 3 up to meters towards it.\n"
@@ -3978,7 +3999,7 @@
         ],
         "Passives": [
             {
-                "Time Distorsion": "Every Unit takes its turns twice, including the Singularity (so it takes 4 turns total). You should make sure Players understand the danger that's coming."
+                "Time Distorsion": "Every Unit takes its turns twice, including the Singularity. _Make sure Players understand the danger that's coming._"
             },
             {
                 "Warp Effect": "At the start of every Unit's turn (except the Singularity), it chooses whether to be instantly Rooted, Crippled, Silenced or Triple-Stunned. It can't choose the same thing again until it has chosen each once (then repeat)."
@@ -3990,7 +4011,10 @@
                 "Flyer and Teleporter": "Flies. Can teleport instead of moving."
             },
             {
-                "Weaknesses": "Takes 50% more Psychic Damage."
+                "Resistances": "-50% Fire and Cold Damage taken"
+            },
+            {
+                "Weaknesses": "+50% Psychic and Pulse Damage taken"
             }
         ],
         "Avoids AoE": "No",
@@ -4009,29 +4033,42 @@
     },
     "Seraph": {
         "Type": "Celestian",
-        "Degree": "Epic x3",
+        "Degree": 7,
         "Experience": "1000 (333 x3)",
-        "Stats": "0/0/5/5/5",
+        "Stats": "4/2/2/5/5",
         "Health": 315,
-        "Speed": 4,
+        "HPCoef": 0.85,
+        "Speed": 7,
         "Initiative": 3,
         "Abilities": [
             {
-                "Dazzling Wave": "Create a 20x1x2 meter wall of light that can move 3 meters at the start of Seraph's every turn.\nEnemies passing through it must make a Might Check or take 9 direct Divine Damage and are Single-Stunned and Slowed (or half) until their next turn.\nThey do not provide cover and can be jumped.\n"
+                "Dazzling Wave": {
+                    "Effect": "Create a long, tall wall of light from one end of the battlefield to another.\nEnemies touching it take {DamageAoEAuto} Divine Damage and are Single-Stunned.\n",
+                    "Notes": "The wall is transparent, like a window, and does not provide Cover."
+                }
             },
             {
-                "Rays": "Players choose 2 targets for this attack (not necessraily knowing what will happen).\nThe 2 Units must succeed 11 Grade a Sense check or be Slowed and Blinded and take 7 Divine Damage (or half).\nThey must choose the next 2 targets. Only one can be the same.\n"
+                "Rays": {
+                    "Effect": "The first time this is used, Players choose 2 targets.\nIf opposing, they take {DamageAoEAuto} Fire Damage and are Blinded. Otherwise, Heal them for {Damage1} and they gain +1 Action Point next (or current) Turn.\nThe 2 targets each choose one of the next targets for the upcoming Rays.\n"
+                }
             },
             {
-                "Lightspawns": "Summon 1d4 flying orbs near the Seraph each that will target a different enemy.\nOrbs have only 1 Health, 2 Defense, and have 3 meters speed.\nEach orb chases one player. Upon collision, it explodes and damages it for 12 Damage.\n"
+                "Lightspawns": "Summon 1d4 flying orbs near the Seraph each that will target a different enemy.\nOrbs have 1 Health and have 3 meters Speed.\nEach orb chases one Player Character. Upon collision, it explodes and damages it for {DamageAoEAuto} Damage.\n"
             },
             {
                 "Feather Barrage": "Attack all Units in a 4x4 area for 2d6 Pierce Damage.\nForms a \"[\" of caltrops on the ground, towards the Seraph.\n"
+            },
+            {
+                "Sword Attack": {
+                    "A": "Half-Action",
+                    "Damage": "{DamageTimes(1.25)}",
+                    "Blade of Remembrance": "Target _remembers_ one of their used Abilities of choice."
+                }
             }
         ],
         "Passives": [
             {
-                "Futility": "After someone makes an attack with a weapon or uses an Ability, it can't be used anymore for the rest of the combat. Weapons vanish into thin air and Abilities are forgotten. Improvised Attack counts as 3 separate Abilities (Small, Medium and Large)."
+                "Oblivion": "After someone makes an attack with a weapon or uses an Ability, it can't be used anymore for the rest of the combat. Weapons vanish into thin air and Abilities are _forgotten_. Default Moves don't count."
             },
             {
                 "Resistances": "Takes -50% Divine Damage."
@@ -4040,7 +4077,7 @@
                 "Vulnerabilities": "Takes +50% Scourge Damage."
             }
         ],
-        "Avoids AoE": "No",
+        "Avoids AoE": "Yes",
         "Behavior": "None",
         "Lore": "None",
         "Suggested Obstacles": "None",
