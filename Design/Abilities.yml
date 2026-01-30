@@ -162,13 +162,22 @@ Default Moves:
     ~Improvised Attack~:
         HasMixins: true
         A: Half-Action
-        Range: 3-5 meters
+        DisplayA: "{DisplayA}"
+        Range: "{Range}"
         Effect: |
-            Attack with or throw an object for 1d4 + ^Dexterity^ (Slash, Smash or Pierce Damage, depending on the object).
-        Upgrade: For larger objects, you can combine 2 attacks into one for 1d12 + ^Might^ Damage.
+            Attack with an object or body part for {Value} (Slash, Smash or Pierce Damage, depending on the object).
         Notes: |
-            You can attack with a body part if within 1 meter. Considered weapon Attacks.
-            For monsters, this takes 1 Action and deals only 1d4 Damage.
+            Body parts are considered weapons.
+            Monsters' Improvised Attacks take a Half-Action and deal 1d4 Damage.
+        Variants:
+            - Range: 1 meter
+              Value: 1d4 + Might
+              DisplayA: Half-Action
+            - Range: 2-5 meters
+              Value: 2 + Dexterity
+              DisplayA: Half-Action
+            - Range: 1 meters
+              Value: 1d12 + Might
 
     ~Intimidating Mock~:
         A: 1 Action

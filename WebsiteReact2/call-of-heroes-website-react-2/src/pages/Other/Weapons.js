@@ -17,7 +17,7 @@ import { QGTitle1 } from '../Tools/TitleGenerator'
 
 const weaponsSideMenuSections = {
     'Weapons & Runes': [
-        'Runes',
+        // 'Runes',
         'One-Handed Melee',
         'Two-Handed Melee',
         'One-Handed Ranged',
@@ -45,7 +45,7 @@ export default function Weapons({ hasNoMargins, onClick, buttonText }) {
                 { name: 'Two-Handed Melee', src: '/Icons/Items/Ultra_Greatsword.png'},
                 { name: 'One-Handed Ranged', src: '/Icons/Items/Handgun.png'},
                 { name: 'Two-Handed Ranged', src: '/Icons/Items/Heavy_Crossbow.png'},
-                { name: 'Weapon Runes', src: '/Icons/Items/Traditional_Rune.png'},
+                // { name: 'Weapon Runes', src: '/Icons/Items/Traditional_Rune.png'},
             ]}/>
 
             { selectedCategory != null && (
