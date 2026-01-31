@@ -1663,6 +1663,9 @@ function ComponentForSymbolConfig({ config, children }) {
         case 'span': return <span {...config.props}>{children}</span>
         case 'Icon': return <Icon {...config.props}/>
         case 'Link': return <Link {...config.props}>{children}</Link>
+        case 'a':
+            console.log({config, children})
+            return <a {...config.prop}>{children}</a>
         default: return <span {...config.props}>{children}</span>
     }
 }
@@ -1770,6 +1773,7 @@ export const SYMBOLS = {
 
 }
 export const FUNCTION_SYMBOLS = {
+    'Link': args => ({ tag: 'Link',  props: { style: { color: '#8f0a7dff' }, to: args[1] }, text: args[0] }),
     'RandomOf': args => ({ tag: 'span', text: randomOf(...args) }),
     'Brown': args => ({ tag: 'span',  props: { style: { color: '#A52A2A' } }, text: args[0] }),
     'Orange': args => ({ tag: 'span', props: { style: { color: '#FF5500' } }, text: args[0] }),
