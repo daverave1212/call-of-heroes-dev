@@ -1200,7 +1200,21 @@ export function getDoubleTableTable(DoubleTable) {
     }
     return [tableHeaders, newTableValuePairs]
 }
-
+export const MANA_BASED_SPELLCASTING = 'Mana-based'
+export const SPECIAL_MANA_BASED_SPELLCASTING = 'Special Mana-based'
+export const NO_MANA_SPELLCASTING = 'Non-Mana'
+export function getClassMana(classObj) {
+    if (classObj?.Spellcasting?.Type == null) {
+        console.log({classObj, Spellcasting: classObj?.Spellcasting})
+        console.error(`getClassMana received null something. Printed above.`)
+        return 0
+    }
+    const mana = classObj?.Spellcasting?.Mana
+    if (isNumber(mana)) {
+        return mana
+    }
+    return mana?.Amount ?? 0
+}
 
 // ---------------- Array Utilities ----------------
 export function isArrayOfObjects(arr) {
@@ -1820,7 +1834,8 @@ export function parseTextWithSymbols(...argsOriginal) {
 
     if (text == null) {
         console.log({customSymbols, options})
-        throw `Null text given to parseTextWithSymbols. Other params printed above`
+        console.error(`Null text given to parseTextWithSymbols. Other params printed above`)
+        return ['Oops! An error has occured.']
     }
 
     const {

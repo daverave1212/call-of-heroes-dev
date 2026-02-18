@@ -20,6 +20,97 @@ const specificFiles = process.argv.slice(1)
 let abilities = {}
 let classRaceAbilities = {} 
 
+
+let _nErrorsFound = 0
+console.red = msg => console.log("\x1b[31m", '🔴 ' + msg, '\x1b[0m')
+function accessObjectProp(obj, propPath) {
+    const propsQueue = propPath.split('.')
+    propsQueue.reverse()
+    let currentObj = obj
+    while (propsQueue.length > 0) {
+        const thisProp = propsQueue.pop()
+        currentObj = currentObj[thisProp]
+        if (currentObj == null) {
+            return null
+        }
+    }
+    return currentObj
+
+}
+function assertObjectHas(name, obj, propNames, warnPropNames=[], recordErrorFound=true) {
+    for (const prop of propNames) {
+        const orOptions = prop.split(' || ')
+        const hasAnyOfThem = orOptions.some(optionProp => accessObjectProp(obj, optionProp) != null)
+        if (!hasAnyOfThem && recordErrorFound) {
+            _nErrorsFound++
+            console.red(`Object ${name} does not have propery: ${prop}`)
+        }
+    }
+    for (const prop of warnPropNames) {
+        const value = accessObjectProp(obj, prop)
+        if (value == null) {
+            console.warn(`Object ${name} does not have propery: ${prop}`)
+        }
+    }
+}
+function validateRace(race) {
+    if (race == null) {
+        _nErrorsFound++
+        console.red(`Null race given to validate!`)
+    }
+    assertObjectHas(race.Race, race, [
+        'Race',
+        'Description || DescriptionLeft || DescriptionRightTop',
+        'Creation',
+        'Creation.Stat Restrictions',
+        'Stats',
+        'Stats.Base Health',
+        'Stats.Health Regen',
+        'Stats.Movement',
+        'Stats.Lifespan',
+        'Stats.Size',
+        'Language',
+        'Languages',
+        'Starting Abilities',
+        'Starting Abilities Description',
+        'Talents',
+    ])
+}
+function validateClass(cls) {
+    if (cls == null) {
+        _nErrorsFound++
+        console.red(`Null class given to validate!`)
+    }
+    assertObjectHas(cls.Class, cls, [
+        'Class',
+        'Description',
+        'Quick Note',
+        'Difficulty',
+        'Level Up',
+        'Level Up.Every Level',
+        'Level Up.Every Level.Max Health',
+        // 'Level Up.Every Level.Health Regen', // Optional, for Berserker
+        'Level Up.Every Level.Skill Point',
+        'Level Up.Every Level.Any Stat (up to the Stat Limit)',
+        'Spellcasting',
+        'Spellcasting.Type',
+        'Spellcasting.SpellsOrAbilities',
+        'Spellcasting.Change',
+        'Starting Abilities',
+        'Starting Abilities Description',
+        'Utility',
+    ])
+}
+function validateFeat(feat) {
+    if (feat == null) {
+        console.red(`Null feat!`)
+        _nErrorsFound++
+    }
+    assertObjectHas(feat?.Name, [
+        'Cost'
+    ])
+}
+
 function readYAMLFromFile(fileName) {
     const fileContents = fs.readFileSync(fileName, 'utf8');
     const data = parse(fileContents);
@@ -64,16 +155,16 @@ const filesToConvert = [    // Order matters
     'Rules/COHExplained.yml',
     'Rules/GMGuidelines.yml',
 
-    'Classes/Cleric.yml',
-    'Classes/Druid.yml',
-    'Classes/Hunter.yml',
-    'Classes/Mage.yml',
-    'Classes/Paladin.yml',
-    'Classes/Rogue.yml',
-    'Classes/RogueB.yml',
-    'Classes/Shaman.yml',
-    'Classes/Warlock.yml',
-    'Classes/Warrior.yml',
+    // 'Classes/Cleric.yml',
+    // 'Classes/Druid.yml',
+    // 'Classes/Hunter.yml',
+    // 'Classes/Mage.yml',
+    // 'Classes/Paladin.yml',
+    // 'Classes/Rogue.yml',
+    // 'Classes/RogueB.yml',
+    // 'Classes/Shaman.yml',
+    // 'Classes/Warlock.yml',
+    // 'Classes/Warrior.yml',
 
     'ClassesV2/Artificer.yml',
     'ClassesV2/Berserker.yml',
@@ -275,7 +366,7 @@ async function processFiles() {
         try {
             fileContent = fs.readFileSync(filePath, 'utf-8');
         } catch (err) {
-            console.error(`ERROR: Failed to read file ${fileName}`);
+            console.red(`ERROR: Failed to read file ${fileName}`);
             throw err;
         }
 
@@ -283,7 +374,7 @@ async function processFiles() {
         try {
             dictContent = parse(fileContent);
         } catch (err) {
-            console.error(`ERROR: Failed to load YAML from file ${fileName}`);
+            console.red(`ERROR: Failed to load YAML from file ${fileName}`);
             throw err;
         }
 
@@ -321,6 +412,7 @@ async function processFiles() {
 
 
         if ('Class' in dictContent) {
+            validateClass(dictContent)
             classes.push(dictContent.Class)
             recordAbilitiesFrom(dictContent, abilities);
             normalizeInheritAbilities(dictContent);
@@ -328,6 +420,7 @@ async function processFiles() {
         }
 
         if ('Race' in dictContent) {
+            validateRace(dictContent)
             races.push(dictContent.Race)
             recordAbilitiesFrom(dictContent, abilities);
             normalizeInheritAbilities(dictContent);
@@ -344,7 +437,7 @@ async function processFiles() {
             fs.mkdirSync(path.dirname(outputPath), { recursive: true });
             fs.writeFileSync(outputPath, jsonString, 'utf-8');
         } catch (err) {
-            console.error(`ERROR: Failed to write JSON to ${outputPath}`);
+            console.red(`ERROR: Failed to write JSON to ${outputPath}`);
             throw err;
         }
     }
@@ -383,7 +476,7 @@ async function processFiles() {
             //     'utf-8'
             // );
         } catch (err) {
-            console.error('ERROR: Failed to write summary JSON files:', err);
+            console.red('ERROR: Failed to write summary JSON files:', err);
             throw err;
         }
     }
@@ -391,3 +484,9 @@ async function processFiles() {
 
 
 processFiles()
+
+if (_nErrorsFound > 0) {
+    console.log(`🔴 Found ${_nErrorsFound} errors!`)
+} else {
+    console.log(`✅ No errors found`)
+}

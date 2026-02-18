@@ -4,7 +4,7 @@ import { useEffect } from "react"
 import { getUserState, useAuth } from "../../../Auth"
 import { showError } from "../../../services/MessageDisplayer"
 import { useConstAllBonuses, useConstBonusesFromSpellsAndItems, useConstTotalStats } from "./MyCharacter"
-import { calculateAllAtributes, calculateNKnownAbilities, DEFAULT_CHARACTER_BONUSES, DEFAULT_STAT_ARRAY, STAT_NAMES } from "../../../services/game-lib/stat-calculations"
+import { calculateAllAtributes, DEFAULT_CHARACTER_BONUSES, DEFAULT_STAT_ARRAY, STAT_NAMES } from "../../../services/game-lib/stat-calculations"
 import { Names } from "../../../services/NameGenerator/name-generator"
 
 export const NO_CHARACTER_ID = 'none'
@@ -300,18 +300,6 @@ export function useConstTotalAttributes() {
     const { bonuses } = useConstAllBonuses()
     const attributes = calculateAllAtributes({raceName, className, level, totalStats, bonuses})
     return attributes
-}
-export function useConstNKnownAbilities() {
-    let [className] = useSectionClassName()
-
-    if (className == null) {
-        return 0
-    }
-    
-    const totalStats = useConstTotalStats()
-    const { bonuses } = useConstAllBonuses()
-
-    return calculateNKnownAbilities(className, totalStats, bonuses)
 }
 export function useConstAllMyAbilities() {
     let [selectedAbilityNames] = useSelectedAbilityNames()

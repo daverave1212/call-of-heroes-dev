@@ -52,7 +52,6 @@ export const ClassesBase = {
     Druid,
     Hunter,
     Rogue,
-    Shaman,
     Sorcerer,
     Warlock,
     Warrior,
@@ -61,6 +60,7 @@ export const ClassesBase = {
 export const ClassesPremium = {
     Artificer,
     Knight,
+    Swashbuckler,
 }
 export const ClassesLegacy = {
     Mage

@@ -1,4 +1,4 @@
-import { addArrays, addManyObjects, addObjects, capitalizeFirstLetter, getAllClasses, getAllRaces, isString, mapObject } from "../../utils"
+import { addArrays, addManyObjects, addObjects, capitalizeFirstLetter, getAllClasses, getAllRaces, isString, MANA_BASED_SPELLCASTING, mapObject, SPECIAL_MANA_BASED_SPELLCASTING } from "../../utils"
 
 export const STAT_LIMITS_TEXT = "Your Stat limit (and non-combat Skill limit) is 3 and increases by 1 every 3 Levels (it's 3 at Levels 1-3, 4 at Levels 4-6, etc)."
 
@@ -189,7 +189,7 @@ export const STAT_ALTERNATIVES_MAP = {
     'Move Speed': MOVEMENT_SPEED,
     
     'Known Abilities': KNOWN_ABILITIES,
-    'Known Basic Abilities': KNOWN_ABILITIES,
+    'Known Basic Abilities': KNOWN_ABILITIES,   // Old, backwards compatibility
     'Known Minor Talents': KNOWN_ABILITIES,
     'Minor Talents': KNOWN_ABILITIES,
 
@@ -292,13 +292,17 @@ export function checkStatRequirements(stats, requirementStringCode) {
     const result = eval(requirementStringCode)
     return result
 }
-export function calculateBaseMaxManaByLevel(level, className) {
+export function calculateBaseMaxManaByLevel(level=1, className) {
     const selectedClass = getAllClasses()[className]
+    if (selectedClass == null) {
+        console.error(`calculateBaseMaxManaByLevel: class named ${className} not found`)
+        return 0
+    }
     const { Spellcasting } = selectedClass
-    if (Spellcasting.Type == 'Mana-based') {
+    if (Spellcasting?.Type == MANA_BASED_SPELLCASTING) {
         return Spellcasting.Mana.Amount + (level - 1)
     }
-    if (Spellcasting.Type == 'Special Mana-based') {
+    if (Spellcasting?.Type == SPECIAL_MANA_BASED_SPELLCASTING) {
         return Spellcasting.Mana.Amount + Math.floor((level / 3))        
     }
     return 0
@@ -343,15 +347,4 @@ export function calculateAllAtributes({raceName, className, level, totalStats, b
     //         bonusesFromStat[INITIATIVE]
     //         + (bonuses[INITIATIVE] ?? 0)
     // }
-}
-
-export function calculateNKnownAbilities(className, totalStats, bonuses) {
-    const theClass = getAllClasses()[className]
-    const bonusKnownAbilities =
-        bonuses == null?
-            0:
-        bonuses['Known Abilities'] == null?
-            0:
-        parseInt(bonuses['Known Abilities'])
-    return Math.max(1, theClass.Spellcasting.BaseKnownSpells + totalStats[2] + bonusKnownAbilities)
 }

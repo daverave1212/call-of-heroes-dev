@@ -79,8 +79,6 @@ export default function SectionClass({ openPopup }) {
 
     console.log({className, classesObj})
 
-    const attributes = useConstTotalAttributes()
-
     const classesBaseData = Object.keys(ClassesBase).map(className => ({
         name: className,
         displayName: className,
@@ -102,7 +100,7 @@ export default function SectionClass({ openPopup }) {
 
 
 
-    const selectorData = [...classesBaseData, ...classesPremiumData, ...classesLegacyData]
+    const selectorData = [...classesBaseData, ...classesPremiumData]
     function getSelectedClassName() {
         return className
     }

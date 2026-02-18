@@ -5,7 +5,7 @@ import PageH2 from "../../../components/PageH2/PageH2"
 import TextArea from "../../../components/TextArea/TextArea"
 import Icon from "../../../components/Icon"
 import Input from "../../../components/Input/Input"
-import { getChoiceAbilitiesObjects, useAllSpellsMetadata, useArmors, useConstAllMyAbilities, useConstAllSkillBonuses, useConstAutoSkillBonuses, useConstNKnownAbilities, useCurrentHealth, useCurrentMana, useDescription, useGold, useInventory, useLanguages, useLevel, useManualBonuses, useManualCombatExtras, useManualNormalExtras, useManualSkillBonuses, useMaxMana, useQuickNotes, useSectionClassName, useSectionClassSpecName, useSectionNamesState, useSectionRaceName, useSectionStatsState, useSkills, useWeapons } from "./CharacterData"
+import { getChoiceAbilitiesObjects, useAllSpellsMetadata, useArmors, useConstAllMyAbilities, useConstAllSkillBonuses, useConstAutoSkillBonuses, useCurrentHealth, useCurrentMana, useDescription, useGold, useInventory, useLanguages, useLevel, useManualBonuses, useManualCombatExtras, useManualNormalExtras, useManualSkillBonuses, useMaxMana, useQuickNotes, useSectionClassName, useSectionClassSpecName, useSectionNamesState, useSectionRaceName, useSectionStatsState, useSkills, useWeapons } from "./CharacterData"
 import SmallStat from "../../../components/SmallStat/SmallStat"
 import ManySmallStats from "../../../components/SmallStat/ManySmallStats"
 import { askConfirmation } from "../../../services/MessageDisplayer"
@@ -307,8 +307,6 @@ export default function MyCharacter() {
         </div>
     }
     function Spellcasting() {
-
-        const nKnownAbilities = useConstNKnownAbilities()
 
         return (
             <div className="flex-column gap-3q">

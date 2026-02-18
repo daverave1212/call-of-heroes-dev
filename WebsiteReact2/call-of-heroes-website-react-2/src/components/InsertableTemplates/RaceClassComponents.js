@@ -43,6 +43,7 @@ import Selector from '../Selector/Selector'
 import { toggleSpellForSelectedSpellNames } from '../../pages/Other/CharacterCreationCalculator/CharacterData'
 import { BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP, HEALTH_REGEN, INITIATIVE, INTELLIGENCE, MAX_HEALTH, MOVEMENT_SPEED, normalizeTextWithStats, STAT_LIMITS_TEXT } from '../../services/game-lib/stat-calculations'
 import { SelectorsByColumns } from '../../pages/Other/Abilities'
+import ErrorPage from '../ErrorPage/ErrorPage'
 
 
 export function Proficiencies({ name, theRaceOrClass }) {
@@ -88,7 +89,7 @@ export function RaceHeader({imgStyle, theRace, theClass, hueShift, height=60}) {
     const theRaceOrClass = theRace ?? theClass
     const name = theRaceOrClass.Race ?? theRaceOrClass.Class
     const layoutType = theRaceOrClass.LayoutType ?? 'A'
-    const imageStyle = imgStyle ?? theRaceOrClass.ImageStyle
+    const imageStyle = imgStyle ?? theRaceOrClass?.ImageStyle
 
     console.log({theRaceOrClass})
 
@@ -242,7 +243,7 @@ export function CCRaceFeatures({ theRace }) {
             <TwoColumns>
                 <Column>
                     <div className="flex column gap-1">
-                        <SmallStat name="Stat Distribution" className="column">{ normalizeTextWithStats(theRace.Creation['Stat Restrictions']) }</SmallStat>
+                        <SmallStat name="Stat Distribution" className="column">{ normalizeTextWithStats(theRace?.Creation?.['Stat Restrictions']) }</SmallStat>
                         <div>
                             <SmallStat name="Base Health" className="inline-flex row"><Icon name="Health" type="small-stat"/>{ theRace.Stats['Base Health'] }</SmallStat>
                         </div>
@@ -429,15 +430,6 @@ export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
                                 })
                             </SmallStat>
                         )}
-                        {
-                            theClass['Spellcasting']['Known Basic Abilities'] != null &&
-                            isCharacterCreationPage == false &&
-                            (
-                                <SmallStat name="Number of Known Basic Abilities" className="column" color="blue">
-                                    { theClass['Spellcasting']['Known Basic Abilities'] }
-                                </SmallStat>
-                            )
-                        }
                         <SmallStat name="Extra Talents" color="blue" className="column">
                             Each Level, choose a free Talent from that Level's options.<br/><br/>
                             However, if your <b>{INTELLIGENCE}</b> is above 0, you can choose a number of <b>extra Minor or Utility Talents</b> equal to your <b>{INTELLIGENCE}</b>.
@@ -571,6 +563,11 @@ export function AbilitiesWithDescription({ spellsObject, description, title, aut
 
 
 export function RacePage({ theRace }) {
+
+    if (theRace == null) {
+        return <ErrorPage/>
+    }
+
     return (
         <div>
 
@@ -666,8 +663,13 @@ export function ClassPageV2({
     selectedSpellNames,
     onSpellClick,
     hueShift,
-    spellsMetadata
+    spellsMetadata,
+    isCharacterCreationPage=true
 }) {
+
+    if (theClass == null) {
+        return <ErrorPage/>
+    }
 
     console.log({onSpellClick})
 
@@ -711,9 +713,9 @@ export function ClassPageV2({
                     id="starting-abilities"
                 />
 
-                <LevelingUp theClass={theClass} isCharacterCreationPage={true}/>
+                <LevelingUp theClass={theClass} isCharacterCreationPage={isCharacterCreationPage}/>
 
-                <SpellCasting theClass={theClass} isCharacterCreationPage={true}/>
+                <SpellCasting theClass={theClass} isCharacterCreationPage={isCharacterCreationPage}/>
 
                 { theClass.Spellcasting?.HasFont && (
                     <div>
@@ -879,9 +881,7 @@ function getClassManaAtLevel(theClass, level) {
     const baseMana =
         theClass.Spellcasting?.Mana?.Per == 'per Worthy Combat'?
             theClass.Spellcasting.Mana.Amount * 2.5:
-        theClass.Spellcasting?.Mana?.Amount != null?
-            theClass.Spellcasting.Mana.Amount:
-        0
+        (theClass.Spellcasting?.Mana?.Amount ?? 0)
     const manaPerLevel = theClass['Level Up']?.['Every Level']?.Mana ?? 0
     return baseMana + (level - 1) * manaPerLevel
 }

@@ -22,24 +22,9 @@ import CharacterCreationCalculator from './pages/Other/CharacterCreationCalculat
 import TransitionGuide from './pages/Other/TransitionGuide'
 import Monsters from './pages/Other/Monsters'
 
-import Rule from './pages/Other/Rule';
-
 import Levels from './pages/Lore/Levels';
 import SpellSchoolDescriptions from './pages/Lore/SpellSchoolDescriptions';
 import Languages from './pages/Lore/Languages';
-
-import PageH1 from './components/PageH1/PageH1'
-import PageH2 from './components/PageH2/PageH2'
-
-import Cleric from './pages/Classes/Cleric'
-import Druid from './pages/Classes/Druid'
-import Hunter from './pages/Classes/Hunter'
-import Mage from './pages/Classes/Mage'
-import Paladin from './pages/Classes/Paladin'
-import Rogue from './pages/Classes/Rogue'
-import Shaman from './pages/Classes/Shaman'
-import Warlock from './pages/Classes/Warlock'
-import Warrior from './pages/Classes/Warrior'
 
 import Bertle from './pages/Races/Bertle'
 import Davel from './pages/Races/Davel'
@@ -87,7 +72,6 @@ import CustomAbility from './pages/Other/CustomAbility';
 import MagicItems from './pages/Other/MagicItems';
 import PatchNotes from './pages/Meta/PatchNotes';
 import CustomMonster from './pages/Other/CustomMonster';
-import RogueB from './pages/Classes/RogueB';
 import TitleGenerator from './pages/Tools/TitleGenerator';
 import MagicItemCreator from './pages/Other/MagicItemCreator';
 import { AppStateContext } from './global-state/GlobalState';
@@ -197,36 +181,24 @@ function App() {
           <Route path="/Races/Human" element= { <Human/> }/>
           <Route path="/Races/Orc" element= { <Orc/> }/>
 
-          <Route path="/Classes/Cleric" element={ <Cleric/> }/>
-          <Route path="/Classes/Druid" element={ <Druid/> }/>
-          <Route path="/Classes/Hunter" element={ <Hunter/> }/>
-          <Route path="/Classes/Mage" element={ <Mage/> }/>
-          <Route path="/Classes/Paladin" element={ <Paladin/> }/>
-          <Route path="/Classes/Rogue" element={ <Rogue/> }/>
-          <Route path="/Classes/Shaman" element={ <Shaman/> }/>
-          <Route path="/Classes/Warlock" element={ <Warlock/> }/>
-          <Route path="/Classes/Warrior" element={ <Warrior/> }/>
-          <Route path="/Classes/RogueB" element={ <RogueB/> }/>
-
-
-          <Route path='ClassesV2/Artificer' element={<ClassPage theClass={V2Artificer}/>}/>
-          <Route path='ClassesV2/Berserker' element={<ClassPage theClass={V2Berserker}/>}/>
-          <Route path='ClassesV2/Cursewielder' element={<ClassPage theClass={V2Cursewielder}/>}/>
-          <Route path='ClassesV2/Druid' element={<ClassPage theClass={V2Druid}/>}/>
-          <Route path='ClassesV2/Hunter' element={<ClassPage theClass={V2Hunter}/>}/>
-          <Route path='ClassesV2/Knight' element={<ClassPage theClass={V2Knight}/>}/>
-          <Route path='ClassesV2/Mystic' element={<ClassPage theClass={V2Mystic}/>}/>
-          <Route path='ClassesV2/Paladin' element={<ClassPage theClass={V2Paladin}/>}/>
-          <Route path='ClassesV2/Priest' element={<ClassPage theClass={V2Priest}/>}/>
-          <Route path='ClassesV2/Rogue' element={<ClassPage theClass={V2Rogue}/>}/>
-          <Route path='ClassesV2/Shaman' element={<ClassPage theClass={V2Shaman}/>}/>
-          <Route path='ClassesV2/Sorcerer' element={<ClassPage theClass={V2Sorcerer}/>}/>
-          <Route path='ClassesV2/Soulwright' element={<ClassPage theClass={V2Soulwright}/>}/>
-          <Route path='ClassesV2/Swashbuckler' element={<ClassPage theClass={V2Swashbuckler}/>}/>
-          <Route path='ClassesV2/Warlock' element={<ClassPage theClass={V2Warlock}/>}/>
-          <Route path='ClassesV2/Warrior' element={<ClassPage theClass={V2Warrior}/>}/>
-          <Route path='ClassesV2/Wickan' element={<ClassPage theClass={V2Wickan}/>}/>
-          <Route path='ClassesV2/Wizard' element={<ClassPage theClass={V2Wizard}/>}/>
+          <Route path='ClassesV2/Artificer' element={<ClassPage isCharacterCreationPage={false} theClass={V2Artificer}/>}/>
+          <Route path='ClassesV2/Berserker' element={<ClassPage isCharacterCreationPage={false} theClass={V2Berserker}/>}/>
+          <Route path='ClassesV2/Cursewielder' element={<ClassPage isCharacterCreationPage={false} theClass={V2Cursewielder}/>}/>
+          <Route path='ClassesV2/Druid' element={<ClassPage isCharacterCreationPage={false} theClass={V2Druid}/>}/>
+          <Route path='ClassesV2/Hunter' element={<ClassPage isCharacterCreationPage={false} theClass={V2Hunter}/>}/>
+          <Route path='ClassesV2/Knight' element={<ClassPage isCharacterCreationPage={false} theClass={V2Knight}/>}/>
+          <Route path='ClassesV2/Mystic' element={<ClassPage isCharacterCreationPage={false} theClass={V2Mystic}/>}/>
+          <Route path='ClassesV2/Paladin' element={<ClassPage isCharacterCreationPage={false} theClass={V2Paladin}/>}/>
+          <Route path='ClassesV2/Priest' element={<ClassPage isCharacterCreationPage={false} theClass={V2Priest}/>}/>
+          <Route path='ClassesV2/Rogue' element={<ClassPage isCharacterCreationPage={false} theClass={V2Rogue}/>}/>
+          <Route path='ClassesV2/Shaman' element={<ClassPage isCharacterCreationPage={false} theClass={V2Shaman}/>}/>
+          <Route path='ClassesV2/Sorcerer' element={<ClassPage isCharacterCreationPage={false} theClass={V2Sorcerer}/>}/>
+          <Route path='ClassesV2/Soulwright' element={<ClassPage isCharacterCreationPage={false} theClass={V2Soulwright}/>}/>
+          <Route path='ClassesV2/Swashbuckler' element={<ClassPage isCharacterCreationPage={false} theClass={V2Swashbuckler}/>}/>
+          <Route path='ClassesV2/Warlock' element={<ClassPage isCharacterCreationPage={false} theClass={V2Warlock}/>}/>
+          <Route path='ClassesV2/Warrior' element={<ClassPage isCharacterCreationPage={false} theClass={V2Warrior}/>}/>
+          <Route path='ClassesV2/Wickan' element={<ClassPage isCharacterCreationPage={false} theClass={V2Wickan}/>}/>
+          <Route path='ClassesV2/Wizard' element={<ClassPage isCharacterCreationPage={false} theClass={V2Wizard}/>}/>
 
           <Route path="/Tools/MagicItemGenerator" element={ <MagicItemCreator/> }/>
           <Route path="/Tools/TreasureGenerator" element={ <TreasureGenerator/> }/>
@@ -258,14 +230,18 @@ function App() {
           <MemoedWindowContent/>
         </AppStateContext.Provider>
         
-        <footer className='footer'>
-          <div className='flex-row' style={{gap: '15px'}}>
+        <footer className='footer padding-top-2 padding-bottom-2'>
+          <div className='flex-row gap-1'>
             <img src="/LandingPage/LinkLogoReddit.png"/>
             <img src="/LandingPage/LinkLogoDiscord.png"/>
             <img src="/LandingPage/LinkLogoX.png"/>
             <img src="/LandingPage/LinkLogoYouTube.png"/>
           </div>
-          <p style={{color: 'gray', fontFamily: 'HomeFont', textAlign: 'center'}}>Dave Doublee | Griffincraft <span style={{color: 'orange'}}>@2024</span></p>
+          <div style={{color: 'gray', fontFamily: 'HomeFont', textAlign: 'center'}}>Dave Doublee | Griffincraft <span style={{color: 'orange'}}>@2024</span></div>
+          <div className='pointer highlight' style={{color: 'gray', fontFamily: 'HomeFont', textAlign: 'center'}} onClick={() => {
+            localStorage.clear()
+            window.location.href = '/'
+          }}>Something crashed? Click here!</div>
         </footer>
     </div>
 
