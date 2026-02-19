@@ -94,7 +94,7 @@
         "Popup": {
             "Message": "Remember to manually change the Stats and numbers from the My Character tab (or tell your Ally to do so)."
         },
-        "Effect": "Execute a precision operation to integrate a bionic eye into an Ally (or yourself).\nThe subject gets {Brown('-1 Sense')}, but gains +3 Health Regen, can see in the Dark, can record visuals with the eye, and gains +2 in Sight (or a similar Non-Combat Skill).\n",
+        "Effect": "Execute a precision operation to integrate a bionic eye into an Ally (or yourself).\nThe subject gets {Brown('-1 Sense')}, but gains +3 Health Regen, have no penalty for attacking in the dark, can record visuals with the eye, and gains +2 in Sight (or a similar Non-Combat Skill).\n",
         "Upgrade": "This +2 in Sight can go higher than the Stat Limit.",
         "Notes": "{StatLimit}. Only one operation can be conducted per eye.",
         "HasMixins": true,
@@ -6162,10 +6162,10 @@
             "Movement Speed": 1
         },
         "Combat Extras": [
-            "You can jump 3 meters without requiring a Check"
+            "3 meters minimum jumping distance"
         ],
-        "Effect": "Your starting Stats distribution is 0, 0, 1, 1, 3 (instead of -1, 0, 1, 2, 3).\nYou have +1 Movement Speed\nYou can jump 3 meters without requiring a Check (e.g. over enemies, gaps, etc).\n",
-        "Notes": "Jumping still uses Movement.",
+        "Effect": "Your starting Stats are 0, 0, 1, 1, 3 (instead of -1, 0, 1, 2, 3).\nYou have +1 Movement Speed.\nYour minimum jumping distance is 3 meters.\n",
+        "Notes": "As part of your normal Movement, you can freely jump a number of meters equal to your Dexterity, without needing a Check.",
         "ParentKey": "Starting Abilities"
     },
     "~Tall Paws (or Hooves)~": {
@@ -6180,10 +6180,10 @@
         "ParentKey": "Talents"
     },
     "~Carnivore~": {
-        "A": "Passive",
-        "Effect": "Once inbetween Worthy Combats, you can eat a piece of meat to restore 1 Health.\n",
+        "A": "1 minute",
+        "Effect": "Eat a piece of meat to Heal yourself for 1d4. Each time you do, get -1 Charisma until the end of the next Combat.\n",
         "Downside": "You can not eat grains and can only lightly eat vegetables.\nExclusive with Herbivore.\n",
-        "Notes": "If you do, you take 1d4 Damage.",
+        "Notes": "If your Charisma becomes -6, get -1 Dexterity instead.",
         "ParentKey": "Talents"
     },
     "~Herbivore~": {
@@ -6203,9 +6203,10 @@
     "~Thick Shell~": {
         "A": "Passive",
         "Combat Extras": [
-            "-50% Slash Damage taken from behind while unarmored."
+            "-50% Slash Damage"
         ],
-        "Effect": "While unarmored, you take -50% Slash Damage when hit from behind instead of having +1 Movement Speed.",
+        "Effect": "While unarmored, you take -50% Slash Damage instead of having +1 Movement Speed.",
+        "Notes": "Slash Damage reduction does not stack with Shields (e.g. Heater Shield).",
         "ParentKey": "Talents"
     },
     "~Horns~": {
@@ -6281,23 +6282,25 @@
         "A": "Passive",
         "HasMixins": true,
         "Skill Bonuses": {
-            "Running": 1,
+            "Acrobatics": 1,
             "Stealth": 1
         },
         "Combat Extras": [
-            "You can use Dexterity instead of Intelligence or Sense for weapons and Abilities"
+            "Switch any Stat on Abilities/weapons to Dexterity"
         ],
-        "Effect": "In Abilities or weapons that use Intelligence or Sense, you can use your Dexterity instead.\nYou have +1 in Running and +1 in Stealth.\n",
+        "Effect": "In weapons or Abilities, you can switch any one Stat written on it to ^Dexterity^.\nYou have +1 in Running and +1 in Stealth.\n",
         "Notes": "E.g. Chilling Shout becomes 12 + ^Dexterity^ instead of 12 + ^Sense^. Phase Orb becomes 2d6 + ^Dexterity + Dexterity^ instead of 2d6 + ^Intelligence + Sense^.",
         "ParentKey": "Talents"
     },
     "~All Eyes and Noses~": {
-        "AlignOnWebsite": "Right",
-        "A": "Reaction",
-        "Cooldown": "1 hour",
+        "A": "0 Actions",
         "IsNonCombat": true,
-        "Effect": "Whenever you fail a Charisma Check, you can spend 2 Health to reroll it.",
-        "Notes": "You always know if you failed a Charisma Check.",
+        "Skill Bonuses": {
+            "Pleading": 1
+        },
+        "Cooldown": "Once / real hour",
+        "Effect": "Make a Unit freely move 1d4 meters toward you, if able.\nYou have +1 in Pleading.\n",
+        "Notes": "Does not use that Unit's Action Point or Movement.",
         "ParentKey": "Talents"
     },
     "~Clacker Claw~": {
@@ -6309,7 +6312,7 @@
     },
     "~Eleff Nose~": {
         "A": "Passive",
-        "Effect": "Once per Turn, you can use a Potion with 0 Actions.\nYou have +1 in Sleight of Hand and +1 in Smelling.\n",
+        "Effect": "Once per Turn, you can use a Potion or Scroll with 0 Actions.\nYou have +1 in Sleight of Hand and +1 in Smelling.\n",
         "ParentKey": "Talents"
     },
     "~Alignment~": {
@@ -6506,10 +6509,29 @@
         "ParentKey": "Talents"
     },
     "~Rúndottir~": {
-        "A": "Passive",
-        "Effect": "You can inscribe one extra Rune onto weapons.\nYou can inscribe one Elemental, Intelligence or Sense Rune onto gloves. All Spells gain the Rune's effect when cast wearing these gloves, if possible.\nIf it makes sense, you can also inscribe other more powerful Runes (Magic Items) onto gloves.\n",
-        "Upgrade": "Only one Rune can be inscribed onto gloves.",
+        "A": "10 minutes",
+        "Cooldown": "Once / Adventure",
+        "Effect": "Inscribe one of the Runes below onto a weapon, without actually needing to have that Rune.\nAlternatively, you can inscribe a _second_ Rune (whether a physcal Rune or from the ones below).\n",
         "Notes": "Some dwarven communities rely on runes for protection, enchantment and utility. Many of their buildings are laid out on key coordinates representing numbers or conceprs with strong meanings, and their clothes are often woven in the shape of constelations for good fortune and increased control over magic.",
+        "SpellTable": [
+            {
+                "Name": "Elemental Rune",
+                "Effect": "Choose Fire, Cold or Shock. The attacker can freely change the Damage Type of the weapon to that element."
+            },
+            {
+                "Name": "Spirit Rune",
+                "Effect": "Change any one Stat written on it to ^Intelligence^, ^Sense^, or ^Charisma^."
+            },
+            {
+                "Name": "Lodestone",
+                "Effect": "+2 Damage if the weapon scales with no Stat"
+            },
+            {
+                "Name": "Wind Rune",
+                "Effect": "Remove all Stat requirements for the weapon."
+            }
+        ],
+        "HasMixins": true,
         "ParentKey": "Talents"
     },
     "~Irontouched~": {
@@ -6725,7 +6747,7 @@
         "Combat Extras": [
             "You can see 5 meters in the dark"
         ],
-        "Effect": "The first time you attack with a weapon each Adventure, deal +1d6 Damage.\nYou can see in the dark up to 5 meters away.\n",
+        "Effect": "The first time you attack with a weapon each Adventure, deal +1d6 Damage.\nYou have no penalty for attacking in the dark.\n",
         "Notes": "Your skin carries a greenish hue that seems to reflect your restless nature. . Your teeth are sharp and uneven, made for biting into life as much as food. It's hard for you to sit still, ideas come in bursts, and random naps are key to a healthy way of living.",
         "ParentKey": "Talents"
     },

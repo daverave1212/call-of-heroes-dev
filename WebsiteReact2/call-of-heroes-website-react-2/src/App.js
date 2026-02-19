@@ -104,6 +104,7 @@ import MagicFonts from './pages/Other/MagicFonts';
 import DictionaryGenerator from './pages/Tools/DictionaryGenerator';
 import BookCreator from './pages/BookCreator/BookCreator';
 import MerchantGenerator from './pages/Tools/MerchantGenerator';
+import Debug from './pages/Meta/Debug';
 
 function App() {
 
@@ -214,6 +215,8 @@ function App() {
           <Route path='/Meta/PatchNotes' element={ <PatchNotes/> }/>
           <Route path='/Meta/ClassBalance' element={ <ClassBalance/> }/>
           <Route path='/WorkInProgress' element={ <WorkInProgress/> }/>
+          
+          <Route path='/Debug' element={ <Debug/> }/>
         </Routes>
 
       </div>
