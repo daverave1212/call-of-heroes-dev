@@ -27,10 +27,20 @@ import { BigStatValue } from "../../../components/BigStat/BigStatValue"
 
 export function maybeMakeFractionGray(value) {
     const { sign, left, right } = getNumberPartsString(value, { includeDotOnRight: true })
-    const signSpan = `${left}` == '0'? <span style={{color: '#BBBBBB'}}>{sign}</span>: <span>{sign}</span>
-    console.log({ sign, left, right })
+    if (sign == '-') {
+        const bigValue = Math.floor(value)
+        const smallValue = value
+        return <span>
+            {bigValue}<span style={{color: '#BBBBBB', fontSize: '0.55em'}}>({smallValue})</span>
+        </span>
+    }
+    const signSpan =
+        `${left}` == '0'?
+            <span style={{color: '#BBBBBB'}}>{sign}</span>
+        :
+            <span>{sign}</span>
     return <span>
-        {signSpan}{left}<span style={{color: '#BBBBBB', fontSize: '0.75em'}}>{right}</span>
+        {signSpan}{left}<span style={{color: '#BBBBBB', fontSize: '0.55em'}}>{right}</span>
     </span>
 }
 

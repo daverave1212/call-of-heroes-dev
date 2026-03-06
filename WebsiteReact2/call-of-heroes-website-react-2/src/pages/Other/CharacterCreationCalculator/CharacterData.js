@@ -316,11 +316,13 @@ export function useConstAllMyAbilities() {
     return [...rcSpells, ...selectedAbilities].filter(spell => spell != null)
 }
 export function useConstAllSkillBonuses() {
+    console.log("HERE WE ARE BOYOS")
     const abilities = useConstAllMyAbilities()
     const [manualSkillBonuses, _] = useManualSkillBonuses()
     const spellsWithSkillObjects = abilities.filter(a => a?.['Skill Bonuses'] != null && !Array.isArray(a?.['Skill Bonuses']))
     const allSpellSkillsObject = addManyObjects(spellsWithSkillObjects.map(s => s['Skill Bonuses']))
     const allSkillsObject = addObjects(allSpellSkillsObject, manualSkillBonuses)
+    console.log({abilities, spellsWithSkillObjects, allSpellSkillsObject, allSkillsObject})
     return allSkillsObject
 }
 export function useConstAutoSkillBonuses() {

@@ -2153,6 +2153,7 @@ export function getNumberPartsString(number, options=({ includeDotOnRight: false
 
     return { sign: maybeSign, left: front, right: digits}
 }
+window.getNumberPartsString = getNumberPartsString
 export function getNumberDecimalsString(number) {
     if (number == null) {
         return ''
