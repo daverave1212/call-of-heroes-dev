@@ -113,7 +113,7 @@ export function calculateExtraFirstTurnAPByInitiative(initiative) {
 }
 export const BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP = {
     [MAX_HEALTH]: `3 × ${MIGHT}`,
-    [MOVEMENT_SPEED]: `1 for each 2 Dexterity`,
+    [MOVEMENT_SPEED]: `0.5 for each Dexterity`,
     [HEALTH_REGEN]: `2 × ${SENSE}`,
     [KNOWN_ABILITIES]: `${INTELLIGENCE}`,
     [SKILL_POINTS]: `${INTELLIGENCE}`,

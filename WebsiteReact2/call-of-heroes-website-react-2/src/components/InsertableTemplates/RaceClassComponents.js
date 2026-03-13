@@ -202,7 +202,7 @@ export function RaceFeatures({ theRace }) {
             <TwoColumns>
                 <Column>
                     <div className='flex column gap-1'>
-                        { theRace.Creation?.['Stat Restrictions'] != null && <SmallStat name="Stat Distribution" className="column">{ normalizeTextWithStats(theRace.Creation['Stat Restrictions']) }</SmallStat>}
+                        <SmallStat name="Stat Distribution" className="column">{ normalizeTextWithStats(theRace?.Creation?.['Stat Restrictions']) }</SmallStat>
                         <div>
                             <SmallStat name="Max Health"><Icon name="Health" type="small-stat"/>{ theRace.Stats['Base Health'] } + ({BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[MAX_HEALTH]})</SmallStat>
                         </div>
@@ -245,10 +245,14 @@ export function CCRaceFeatures({ theRace }) {
                     <div className="flex column gap-1">
                         <SmallStat name="Stat Distribution" className="column">{ normalizeTextWithStats(theRace?.Creation?.['Stat Restrictions']) }</SmallStat>
                         <div>
-                            <SmallStat name="Base Health" className="inline-flex row"><Icon name="Health" type="small-stat"/>{ theRace.Stats['Base Health'] }</SmallStat>
+                            <SmallStat name="Max Health"><Icon name="Health" type="small-stat"/>{ theRace.Stats['Base Health'] } + ({BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[MAX_HEALTH]})</SmallStat>
                         </div>
                         <div>
-                            <SmallStat name="Base Regen" className="inline-flex row"><Icon name="HealthRegen" type="small-stat"/> { theRace.Stats['Health Regen'] }</SmallStat>
+                            <SmallStat name="Health Regen"><Icon name="HealthRegen" type="small-stat"/> { theRace.Stats['Health Regen'] } + ({BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[HEALTH_REGEN]})</SmallStat>
+                        </div>
+                        <SmallStat name="Movement Speed" className="column">4, and add {BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[MOVEMENT_SPEED]}</SmallStat>
+                        <div>
+                            <SmallStat name="Initiative">{BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[INITIATIVE]}</SmallStat>
                         </div>
                         { theRace.Weapons && <SmallStat name="Weapons" className="column">{ theRace.Weapons }</SmallStat> }
                         { theRace.Training && <SmallStat name="Other Training" className="column">{ theRace.Training }</SmallStat> }
