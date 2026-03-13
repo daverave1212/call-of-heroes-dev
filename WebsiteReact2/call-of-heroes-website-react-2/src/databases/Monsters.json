@@ -130,6 +130,54 @@
         "Role": "Main Enemy",
         "Variants": "None"
     },
+    "Pirate Scoundrel": {
+        "Type": "Person",
+        "Experience": 75,
+        "Stats": "1/2/-1/1/3",
+        "HPCoef": 1,
+        "Speed": 4,
+        "Initiative": "9 Melee / 5 Ranged",
+        "Abilities": [
+            {
+                "Handgun": {
+                    "Range": "3-5 meters",
+                    "Damage": "{Damage-1}",
+                    "Combo": "Target chooses to take +1d4 Damage or become Deafened.",
+                    "Notes": "This activates Rum."
+                }
+            },
+            {
+                "Melee": {
+                    "Damage": "Auto",
+                    "Effect": "Applies a Combo.",
+                    "Combo": "Target chooses to take +1d4 Damage or become Single-Stunned."
+                }
+            }
+        ],
+        "Passives": [
+            {
+                "Avast": "When Damaged, can freely make a Move Act."
+            },
+            {
+                "Rum!": "At the end of each Round, players choose if all pirates together drink rum. If they do, they heal for 8 Health but no longer deal Damage on 1 (then 2, then 3, etc)."
+            }
+        ],
+        "Avoids AoE": "No",
+        "Lore": "Yahaharghh\n",
+        "Behavior": "Attack random targets.\n",
+        "Pair": "Pair with Bandits.\nFor an intense battle, pair with an Ogre.\n",
+        "Suggested Obstacles": [
+            "Tripwires",
+            "Hunting Traps",
+            "Barricades",
+            "Pits",
+            "Caltrops",
+            "Explosive Barrels"
+        ],
+        "Monster Data": "Kill us FAST",
+        "Role": "Main Enemy",
+        "Variants": "None"
+    },
     "Acolyte": {
         "Type": "Person, Person",
         "Experience": 100,
@@ -326,36 +374,36 @@
         "Story Ideas": "The morlocs might have migrated closer to civilization because their original habitat was taken over by resource-greedy humans or a dangerous monster.\n"
     },
     "Bandit": {
-        "Type": "Person, Person",
+        "Type": "Person",
         "Experience": 125,
         "Stats": "2/2/0/2/2",
         "Health": 35,
-        "HPCoef": 1,
+        "HPCoef": 0.8,
         "Speed": 5,
         "Initiative": 6,
         "Abilities": [
             {
                 "Ranged Attack": {
-                    "Damage": "1d8"
+                    "Damage": "{Damage-1}"
                 }
             },
             {
                 "Kick": {
                     "A": "Half-Action",
                     "Cooldown": "Once / Turn",
-                    "Effect": "Slam a Unit 1d4 meters. If you rolled 4, it also becomes Dazed."
+                    "Effect": "Slam a Unit {DamageAuto} meters (target chooses direction). Steal 10 Gold from them."
                 }
             },
             {
                 "Quick Attack": {
                     "A": "Half-Action",
-                    "Damage": "1d6"
+                    "Damage": "{DamageAuto}"
                 }
             }
         ],
         "Passives": [
             {
-                "Ambush": "The first weapon attack each Bandit Makes deals +1d6 Damage, and steals Gold equal to the total Damage dealt."
+                "Ambush": "The first weapon attack each Bandit Makes deals +{DamageAoE} Damage, and steals Gold equal to the total Damage dealt."
             }
         ],
         "Avoids AoE": "Maybe",
@@ -492,7 +540,7 @@
                 "Claw": {
                     "A": "Half-Action",
                     "Damage": "1d8",
-                    "Inflict Fear": "If rolled 8, the target gets a Phobia Negative Quirk."
+                    "Inflict Fear": "If rolled 8, the target chooses to either be Clawed again or get a Phobia Negative Quirk."
                 }
             },
             {

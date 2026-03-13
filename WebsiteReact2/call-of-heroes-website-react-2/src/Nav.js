@@ -86,7 +86,6 @@ const NAV_CONFIG = [
       { name: 'Shop & Prices',    href: '/Other/Prices' },
       { name: 'Obstacles',        href: '/Other/Obstacles' },
       { name: 'Pets and Animals', href: '/Other/PetsAndAnimals' },
-      { name: 'Languages',        href: '/Other/Languages' },
       { name: 'Update Notes',     href: '/Meta/PatchNotes' },
     ]},
     { name: 'Character Sheets', children: [

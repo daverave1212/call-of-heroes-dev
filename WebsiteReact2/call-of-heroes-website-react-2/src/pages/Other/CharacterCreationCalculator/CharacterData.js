@@ -62,6 +62,8 @@ function getNewCharacterTemplate() {
         gold: 1000,
         shopCart: [],
 
+        hasAccessToFonts: false,
+
         variables: {}
     }
 }
@@ -288,6 +290,9 @@ export function useCurrentMana() {
 }
 export function useCurrentHealth() {
     return useCharacterLocalStorageState('currentHealth')
+}
+export function useHasAccessToFonts() {
+    return useCharacterLocalStorageState('hasAccessToFonts')
 }
 
 

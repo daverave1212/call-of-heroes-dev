@@ -591,7 +591,7 @@ export function RacePage({ theRace }) {
                 )}
 
                 <PageH2>Race Feats</PageH2>
-                <p>Choose one Race Feat from below. Your choice is permanent!</p>
+                <p>Choose 2 Race Talents from below. Your choice is permanent!</p>
                 <ManySpells spells={U.spellsFromObject(theRace.Talents)}/>
 
             </Page>
@@ -635,7 +635,7 @@ export function CCRacePage({ theRace, selectedSpellNames, onSpellClick }) {
                 )}
 
                 <PageH2>Race Feats</PageH2>
-                <p>Choose one Race Feat from below. Your choice is permanent!</p>
+                <p>Choose 2 Race Talents from below. Your choice is permanent!</p>
                 {/* <ManySpells
                     spells={U.spellsFromObject(theRace.Talents)}
                     onSpellsSelected={spellsSelected => onFeatsSelected(spellsSelected)}
@@ -852,7 +852,7 @@ export function ClassPageV2({
             )}
 
             <Page>
-                { (
+                { U.isLocalhost() && (
                     <ClassPowerLevelTable theClass={theClass}/>
                 )}
             </Page>

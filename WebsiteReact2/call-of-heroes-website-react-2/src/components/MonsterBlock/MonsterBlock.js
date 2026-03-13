@@ -262,7 +262,6 @@ function calculateMonsterSetback(initiative) {
     }
     window.getSetbackFromInitiativeNumber = getSetbackFromInitiativeNumber
 
-
     if (initiative == null) {
         return 99
     }
