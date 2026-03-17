@@ -1,4 +1,4 @@
-import { addArrays, addManyObjects, addObjects, capitalizeFirstLetter, getAllClasses, getAllRaces, isString, MANA_BASED_SPELLCASTING, mapObject, SPECIAL_MANA_BASED_SPELLCASTING } from "../../utils"
+import { addArrays, addManyObjects, addObjects, capitalizeFirstLetter, getAllClasses, getAllRaces, isNumber, isString, MANA_BASED_SPELLCASTING, mapObject, SPECIAL_MANA_BASED_SPELLCASTING } from "../../utils"
 
 export const STAT_LIMITS_TEXT = "Your Stat limit (and non-combat Skill limit) is 3 and increases by 1 every 3 Levels (it's 3 at Levels 1-3, 4 at Levels 4-6, etc)."
 
@@ -323,28 +323,32 @@ export function calculateAllAtributes({raceName, className, level, totalStats, b
 
     console.log('calculateAllAtributes')
     
-    const finalObject = addManyObjects([baseAttributes, bonusAttributesFromStats, bonusAttributesFromLevel, bonuses])
+    const attributes = addManyObjects([baseAttributes, bonusAttributesFromStats, bonusAttributesFromLevel, bonuses])
+
+    applyMultipliersToAttributes({ attributes, bonuses })
     
-    console.log({ finalObject, bonuses, totalStats, baseAttributes, bonusAttributesFromStats, bonusAttributesFromLevel})
+    console.log({ attributes, bonuses, totalStats, baseAttributes, bonusAttributesFromStats, bonusAttributesFromLevel})
 
-    return finalObject
+    return attributes
+}
 
-    // return {
-    //     [MAX_HEALTH]:
-    //         raceObj.Stats['Base Health']
-    //         + bonusesFromStat[MAX_HEALTH]
-    //         + (level - 1) * classObj['Level Up']['Every Level'].Health
-    //         + (bonuses[MAX_HEALTH] ?? bonuses['Health'] ?? 0),
-    //     [HEALTH_REGEN]:
-    //         raceObj.Stats[HEALTH_REGEN]
-    //         + bonusesFromStat[HEALTH_REGEN]
-    //         + (level - 1) * 2
-    //         + (bonuses[HEALTH_REGEN] ?? 0),
-    //     [MOVEMENT_SPEED]:
-    //         bonusesFromStat[MOVEMENT_SPEED]
-    //         + (bonuses[MOVEMENT_SPEED] ?? bonuses['Movement'] ?? 0),
-    //     [INITIATIVE]:
-    //         bonusesFromStat[INITIATIVE]
-    //         + (bonuses[INITIATIVE] ?? 0)
-    // }
+function applyMultipliersToAttributes({ attributes, bonuses }) {
+    if (attributes == null || bonuses == null) {
+        console.error(`POSSIBLE ERROR: applyMultipliersToAttributes got null parameters ${attributes} ${bonuses}`)
+        return
+    }
+    for (const [key, value] of Object.entries(attributes)) {
+        const multiplierKey = key + ' Multiplier'
+        const multiplier = bonuses[multiplierKey]
+
+        if (multiplier == null) {
+            continue
+        }
+        if (!isNumber(value) || !isNumber(multiplier)) {
+            console.error(`POSSIBLE ERROR: applyMultipliersToAttributes got null value or multiplier at key ${key} with value ${value} and multiplier ${multiplier}`)
+            continue
+        }
+
+        attributes[key] = attributes[key] * multiplier
+    }
 }

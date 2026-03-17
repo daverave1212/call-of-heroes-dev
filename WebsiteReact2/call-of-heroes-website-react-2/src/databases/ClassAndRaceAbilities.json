@@ -79,7 +79,8 @@
     "~Toolbelt~": {
         "A": "Passive",
         "Effect": "You possess compact Toolbelt engineered to provide immediate access to one of each Adventuring Gear piece costing at most 100 {Gold}Gold (except food).",
-        "Upgrade": "If one tool is used once, it replenishes between Adventures.",
+        "Upgrade": "To pull out another tool, you must first put the previous tool back.",
+        "Notes": "If you lose the pulled item, you can get another copy next Adventure.",
         "HasMixins": true,
         "ParentKey": "Utility"
     },
@@ -267,7 +268,7 @@
     },
     "~Attack~": {
         "A": "Half-Action",
-        "Effect": "Attack an Enemy for 2d8 Damage (Pierce, Slash or Smash).",
+        "Effect": "Move up to its Speed (or not), then Attack an Enemy for 2d8 Damage (Pierce, Slash or Smash).",
         "Upgrade": "If the weapon doesn't make an attack on an Enemy or Worthy Unit by the end of your Turn, it is unsummoned.",
         "ParentKey": "Abilities"
     },
@@ -4774,12 +4775,12 @@
         "Variants": [
             {
                 "Name": "Hack and Slash",
-                "Effect": "melee 2-handed weapon attack also hits all other Units 1 meter from you, but deals -50% Damage to them (deals normal Damage to the main target).",
+                "Effect": "melee 2-handed weapon attack also hits all other Units within weapon range, but deals -50% Damage to them (deals normal Damage to the main target).",
                 "IconName": "Hack and Slash"
             },
             {
                 "Name": "Slice and Dice",
-                "Effect": "melee 1-handed weapon attack also hits all other Units 1 meter from you.",
+                "Effect": "melee 1-handed weapon attack also hits all other Units within weapon range.",
                 "IconName": "Slice and Dice"
             },
             {
@@ -5876,7 +5877,7 @@
     },
     "~Attention~": {
         "A": "Passive",
-        "Effect": "Get one more Magic Font Talent.",
+        "Effect": "Get one more Magic Font Spell.",
         "Notes": "You can have this Talent multiple times, from different Levels.",
         "ParentKey": "Level 5 - Minor Talent"
     },
@@ -5888,7 +5889,7 @@
         "Duration": "Depends",
         "Degree": "Major",
         "ScrollPower": "Auto",
-        "Effect": "Conjure a levitating, self-wielding melee weapon on a space within 3 meters.\nIt has 1 Action which can only be spent Move and attack,\nIt takes its Turn on at the same time as you, but disappears if it doesn't attack an Enemy or Worthy Unit by the end of your Turn.\n",
+        "Effect": "Conjure a levitating, self-wielding melee weapon on a space within 3 meters.\nIt has 1 Action Point that can only be spent for Move and Attack,\nIt takes its Turn on at the same time as you, but disappears if it doesn't attack an Enemy or Worthy Unit by the end of your Turn.\n",
         "Monster": {
             "Name": "Animated Weapon",
             "Speed": "3 meters",
@@ -5898,7 +5899,7 @@
             "Abilities": {
                 "~Attack~": {
                     "A": "Half-Action",
-                    "Effect": "Attack an Enemy for 2d8 Damage (Pierce, Slash or Smash).",
+                    "Effect": "Move up to its Speed (or not), then Attack an Enemy for 2d8 Damage (Pierce, Slash or Smash).",
                     "Upgrade": "If the weapon doesn't make an attack on an Enemy or Worthy Unit by the end of your Turn, it is unsummoned.",
                     "ParentKey": "Abilities"
                 }
@@ -7201,11 +7202,17 @@
             "Persuasion": -1,
             "Intimidation": 1
         },
-        "Combat Extras": "+50% Fire Damage taken",
-        "Popup": {
-            "Message": "After you get this Talent, manually reduce your Max Health by double what your Health Regen is. Remember to also do it on Level Ups!"
+        "Bonuses": {
+            "Max Health Multiplier": 0.5,
+            "Health Regen Multiplier": 2
         },
-        "Effect": "Your Max Health is reduced by twice your Health Regen, but you regain full Health after each Combat.\nYou have -1 Persuasion and +1 Intimidation.\n",
+        "Combat Extras": [
+            "+50% Fire Damage taken"
+        ],
+        "Popup": {
+            "Message": "After you get this Talent, manually reduce your Max Health and increase your Health Regen."
+        },
+        "Effect": "Your Max Health is always 50% of what it should be, but your Health Regen is doubled.\nYou have -1 Persuasion and +1 Intimidation.\n",
         "Upgrade": "Your skin is akin to a troll's skin - rough and prone to blisters or acne, but regenerates much quicker than normal.",
         "Downside": "+50% Fire Damage taken",
         "ParentKey": "Talents"
