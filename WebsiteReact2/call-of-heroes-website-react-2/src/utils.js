@@ -1774,6 +1774,7 @@ export const SYMBOLS = {
     'DiceUpgraded': { tag: 'span', text: "Having Dice Upgraded means, for example, d6's become d8's, or d10's become d12's. D12's and d20's just gain +1." },
     'DiceDowngrade': { tag: 'span', text: "Having Dice Downgraded means, for example, d8's become d6's, or d10's become d8's. D2's and d20's just gain -1." },
     'DiceDowngraded': { tag: 'span', text: "Having Dice Downgraded means, for example, d8's become d6's, or d10's become d8's. D2's and d20's just gain -1." },
+    'LikeNormalTalents': { tag: 'span', text: "like you would normally get extra Class Talents (e.g. with the extra Known Talents from Intelligence, if above 0)"},
 
     'Chain': { tag: 'span', text: 'Chain', props: { style: { color: '#7850e1' } }, func: () => <span style={{color: '#7850e1', fontWeight: 'bold'}}><Icon name="Chain"/>Chain</span> },
     'Evoke': { tag: 'span', text: 'Evoke', props: { style: { color: '#6d00ff' } }, func: () => <span style={{color: '#6d00ff', fontWeight: 'bold'}}><Icon name="Evoke"/>Evoke</span> },

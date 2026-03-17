@@ -48,8 +48,7 @@ export function useConstBonusesFromSpellsAndItems() {
     let [armorNames] = useArmors()
     const allMyArmors = armorNames.map(name => getAllArmorsByName()[name])
     const allMyRaceAndClassSpells = useConstAllMyAbilities()
-    const everything = [...allMyArmors, allMyRaceAndClassSpells]
-    
+    const everything = [...allMyArmors, ...allMyRaceAndClassSpells]
     const { bonuses, sources } = getAllStatBonusesYMLAsObjFromSpellsArray(everything)
     console.log({allMyArmors, allMyRaceAndClassSpells, bonuses, sources})
 

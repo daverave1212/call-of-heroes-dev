@@ -1,586 +1,489 @@
-# Idea: Dragonborn wings
-
 Standard Feats:
-            
-    ~Novice Magic~:
-        DisplayName: "Novice {Type}"
-        A: Passive
-        Cost: -1 in a Stat of choice
-        Effect: |
-            You can also pick Level 1 Minor and Utility Talents from the {Class} Class (instead of picking from yours).
-        Notes: You pick them as if they were available from your Class. E.g. with extra Minor Talents (from the Intelligence Stat) or the 1 free pick for Level 1.
-        Variants:
-            - Type: Holy Magic
-              Class: Cleric
-            - Type: Nature Magic
-              Class: Cleric
-            - Type: Survivalism
-              Class: Hunter
-            - Type: Elementalism
-              Class: Mage
-            - Type: Faith Magic
-              Class: Paladin
-            - Type: Knifework
-              Class: Rogue
-            - Type: Mysticism Magic
-              Class: Shaman
-            - Type: Shadow Magic
-              Class: Warlock
-            - Type: Tactics
-              Class: Warrior
 
-    ~Adept Magic~:
-        DisplayName: "Adept {Type}"
-        A: Passive
-        Cost: -1 in a Stat of choice
-        Requirement: Novice {Type}
-        Effect: |
-            Pick a specialization from the {Class} Class.
-            You can also pick Minor and Utility Talents from that specialization (instead of picking from yours, at the respective Levels).
-        Notes: You pick them as if they were available from your Class. E.g. with extra Minor Talents (from the Intelligence Stat) or the 1 free pick for that Level.
-        Variants:
-            - Type: Holy Magic
-              Class: Cleric
-            - Type: Nature Magic
-              Class: Cleric
-            - Type: Survivalism
-              Class: Hunter
-            - Type: Elementalism
-              Class: Mage
-            - Type: Faith Magic
-              Class: Paladin
-            - Type: Knifework
-              Class: Rogue
-            - Type: Mysticism Magic
-              Class: Shaman
-            - Type: Shadow Magic
-              Class: Warlock
-            - Type: Tactics
-              Class: Warrior
+  ~Adaptation~:
+    A: Passive
+    Cost: '-2 Health'
+    Effect: Gain one more Racial Ability.
+    Upgrade: You can get this Feat multiple times.
+    Name: ~Adaptation~
+    ParentKey: Standard Feats
 
-    ~Confident Attacks~:
-        Cost: -0.5 Initiative
-        Effect: |
-            You ignore weapon stat requirements and you can replace one of the Stats from the weapon Damage or text with Intelligence, Sense or Charisma.
-        Notes: For example, you can wield a Dagger even if your Dexterity is 0, and its Damage can become 1d4 + Sense.
+  ~Novice Magic~:
+    DisplayName: Novice {Type}
+    A: Passive
+    Cost: '-1 in any Stat'
+    Effect: You can also pick Level 1 Talents from {Class} (instead of picking from yours).
+    Notes: You pick them as if they were available from your Class. E.g. with extra Class Talents (from the Intelligence Stat) or the 1 free pick for Level 1.
+    Variants:
+      - Type: Holy Magic
+        Class: Cleric
+        IconName: Minds Abolition
+      - Type: Nature Magic
+        Class: Druid
+        IconName: Druidcraft
+      - Type: Knifework
+        Class: Rogue
+        IconName: Lockpicking
+      - Type: Chaos Magic
+        Class: Sorcerer, ignoring Unstable Spark effects
+        IconName: Chaos Storm
+      - Type: Strange Magic
+        Class: Warlock, ignoring Evoke effects
+        IconName: Wyrd Renewal
+      - Type: Tactics
+        Class: Warrior
+        IconName: Vault Break
+      - Type: Arcana
+        Class: Wizard
+        IconName: Learn Scrolls
+      - Type: Tinkering
+        Class: Artificer
+        IconName: Create Elixir
+      - Type: Fencing
+        Class: Swashbuckler
+        IconName: Deflect
+      - Type: Pyrocasting
+        Class: the Fire Spell Font
+        IconName: Fire Ball
+      - Type: Cryocasting
+        Class: the Frost Spell Font
+        IconName: Frostfall
+      - Type: Electrocasting
+        Class: the Lightning Spell Font
+        IconName: Lightning Chord
+      - Type: Arcanacasting
+        Class: the Arcane Spell Font
+        IconName: Magic Arrows
+    Name: ~Novice Magic~
+    HasMixins: true
+    ParentKey: Standard Feats
 
-    # ~Point Blanking~:
-    #     A: Passive
-    #     Effect: Your melee Attacks with ranged weapons don't have a penalty for shooting in melee range and, when an enemy becomes Fumbling from you, you can use your Reaction to make an Attack with a ranged weapon on them.
-    
-    ~Darkvision~:
-        A: Passive
-        Cost: -0.5 Initiative
-        Effect: |
-            You have no penalty for attacking in the dark.
-    
-    ~Adaptation~:
-        A: Passive
-        Cost: -2 Health
-        Requirement: Not pickable for Orcs
-        Effect: Gain one more Racial Ability.
-        Upgrade: You can get this Feat multiple times.
+  ~Multiclass~:
+    A: Passive
+    DisplayName: '{ThisClass} Multiclass'
+    Effect: You gain starting Abilities of the {ThisClass} Class{Other}. You can pick Talents from {ThisClass} as if they were your own.
+    Upgrade: You still only gain 1 Class Talent per Level! This means, for example, that for the Level 2 Talents you can still pick only one, either from your original Class or from {ThisClass}. You do ^not^ get both!
+    Variants:
+      - ThisClass: Cleric
+        Cost: '-3 total in any Stats'
+        Other: ''
+        IconName: Awe
+      - ThisClass: Druid
+        Cost: '-2 total in any Stats'
+        Other: ''
+        IconName: Domain
+      - ThisClass: Hunter
+        Cost: '-9 total in any Stats and -1 Health Regen'
+        Other: . At Level 2, you can pick a Specialization and get all starting Abilities from it
+        IconName: Animal Companion
+      - ThisClass: Rogue
+        Cost: '-5 total in any Stats and -1 Health Regen'
+        Other: . At Level 2, you can pick a Specialization and get all starting Abilities from it
+        IconName: Ambush
+      - ThisClass: Sorcerer
+        Cost: '-2 total in any Stats'
+        Other: ''
+        IconName: Flux
+      - ThisClass: Warlock
+        Cost: '-2 total in any Stats and -1 Health'
+        Other: ', except Affiance Casting'
+        IconName: Evoke
+      - ThisClass: Warrior
+        Cost: '-7 total in any Stats and -2 Health'
+        Other: ''
+        IconName: War Craft
+      - ThisClass: Wizard
+        Cost: '-2 total in any Stats'
+        Other: ''
+        IconName: Spell Book
+      - ThisClass: Artificer
+        Cost: '-2 total in any Stats'
+        Other: ', but Better Faster Stronger only applies to Artificer Talents and you do not get the extra starting Stat'
+        IconName: Spell Book
+      - ThisClass: Knight
+        Cost: '-2 total in any Stats and -2 Health'
+        Other: ''
+        IconName: Challenge of Arms
+      - ThisClass: Swashbuckler
+        Cost: '-4 total in any Stats and -2 Health'
+        Other: ''
+        IconName: Bravado
+    Name: ~Multiclass~
+    HasMixins: true
+    ParentKey: Standard Feats
 
-        
+  ~Multirace~:
+    A: Passive
+    Cost: '-1 in any Stat'
+    Effect: Choose another Race. Get 1 Racial Talent from that Race. You can now also forego any of your own Race's Talents to instead pick from that chosen Race.
+    Name: ~Multirace~
+    ParentKey: Standard Feats
+
+  ~Confident Attacks~:
+    Cost: '-0.5 Initiative'
+    Effect: You ignore weapon stat requirements and you can replace one of the Stats from the weapon Damage or text with Intelligence, Sense or Charisma.
+    Notes: For example, you can wield a Dagger even if your Dexterity is 0, and its Damage can become 1d4 + Sense.
+    Name: ~Confident Attacks~
+    ParentKey: Standard Feats
+
+  ~Darkvision~:
+    A: Passive
+    Cost: '-0.5 Initiative'
+    Effect: You have no penalty for attacking in the dark.
+    Name: ~Darkvision~
+    ParentKey: Standard Feats
+
+
+
 Technique Feats:
 
-    ~Opposite Magic~:
-        A: Passive
-        Effect: |
-            Choose 2 non-physical Damage Types (A and B). 
-            All your A Damage becomes B Damage instead.
+  ~Opposite Magic~:
+    A: Passive
+    Effect: |
+        Choose 2 non-physical Damage Types (A and B). All your A Damage becomes B Damage instead.
+    Name: ~Opposite Magic~
+    ParentKey: Technique Feats
 
-    ~Dual Wielding~:
-        A: Passive
-        Requirement: Only applies while wielding a different weapon in each hand
-        Effect: |
-            After you make a weapon attack, you can move 1 meter.
-
-    ~Old-Fashioned Armsman~:
-        A: Passive
-        Cost: -1 in a Stat of choice
-        Requirement: 2 Might or 2 Dexterity
-        Effect: |
-            Your attacks with Weapons that originally have no Stat requirement deal +1 Damage.
-
-    ~Double Greatwielding~:
-        A: Passive
-        Cost: -1 in a Stat of choice
-        Requirement: Trained in 2-Handed melee weapons and at least 2 Might
-        Effect: |
-            You can dual wield 2-Handed melee weapons, one in each hand.
-            If you make weapon attacks like this, each attack takes only Half-Action and does -5 Damage.
-            When dual wielding them, if any Ability tells you to perform an attack with a 2-Handed and the ability costs 1 Action, it costs only Half-Action.
-        Notes: |
-            Alternatively, you can wield a Shield in one hand and a 2-Handed melee weapon in the other.
-            You need Training in Shields to do this.
-
-    ~Highlander Technique~:
-        A: Passive
-        Cost: -1 in a Stat of choice
-        Requirement: Trained in 1-Handed and 2-Handed melee weapons
-        Effect: |
-            You can wield 1-Handed melee weapons with both hands.
-            If you do, your 2-Handed weapon attacks with 1-Handed melee weapons take 1 Action and deal an extra +2d6 Damage.
-
-    ~Improviser~:
-        A: Passive
-        Cost: -1 in a Stat of choice
-        Effect: |
-            When you make an Improvised Attack, if you're attacking with an object you found in that environment and the object can break, it breaks, and the Damage becomes 1d8 + Might if melee, or 1d6 + Dexterity if ranged.
-            Additionally, you can pick up objects with 0 Actions.
-        Notes: The object must weigh at least 500 grams.
-
-    ~Tower Shield Training~:
-        A: Passive
-        Cost: -1 in 2 Stats of choice
-        Requirement: Trained in Shields, at least 2 Might
-        Effect: |
-            You can wield a Tower Shield.
-            A Tower Shield gives you a +1 Defense bonus, but reduces your Movement Speed by 2.
-        Notes: Check the Weapons list for the stats of a Tower Shield. Check the Shop to see the price of a Tower Shield.
-
-    ~Shield Dual-Wielding~:
-        A: Passive
-        Cost: -1 Movement Speed
-        Requirements: Trained in Shields, at least 2 Might
-        Effect: |
-            You can wield a Shield in each hand. If you do, you gain an extra +1 Defense, in addition to what the Shield normally gives.
-            Attacks with a normal Shield now deal 1d6 + ^Might^ Damage (and the Shield counts as a weapon you're Trained in).
-        Upgrade: |
-            If you have Tower Shield Training, you can dual-wield Tower Shields (or a normal Shield and a Tower Shield).
-            Each Shield gives you its boon, aside from the +1 Defense of this Feat (e.g. Shield + Tower Shield = 50% Pierce Resistance, +1 Defense from the Tower Shield, +1 Defense from this Feat).
+  ~Dual Wielding~:
+    A: Passive
+    Requirement: Only applies while wielding a different weapon in each hand
+    Effect: After you make a weapon attack, you can move 1 meter.
     
-    ~Throwing Expert~:
-        A: Passive
-        Cost: -1 in a Stat of choice
-        Effect: You can throw melee weapons at up to 5 meters range and with their own damage and effects. Thrown 1-Handed Weapons have a -2 Penalty and 2-Handed Weapons a -4 Penalty.
+    Name: ~Dual Wielding~
+    ParentKey: Technique Feats
+
+  ~Old-Fashioned Armsman~:
+    A: Passive
+    Cost: '-1 in a Stat of choice'
+    Requirement: 2 Might or 2 Dexterity
+    Effect: Your attacks with Weapons that originally have no Stat requirement deal +1 Damage.
+    
+    Name: ~Old-Fashioned Armsman~
+    ParentKey: Technique Feats
+
+  ~Double Greatwielding~:
+    A: Passive
+    Cost: '-1 in a Stat of choice'
+    Requirement: Trained in 2-Handed melee weapons and at least 2 Might
+    Effect: |
+        You can dual wield 2-Handed melee weapons, one in each hand.
+        If you make weapon attacks like this, each attack takes only Half-Action and does -5 Damage.
+        When dual wielding them, if any Ability tells you to perform an attack with a 2-Handed and the ability costs 1 Action, it costs only Half-Action.
+    Notes: Alternatively, you can wield a Shield in one hand and a 2-Handed melee weapon in the other.
+    Name: ~Double Greatwielding~
+    ParentKey: Technique Feats
+
+  ~Highlander Technique~:
+    A: Passive
+    Cost: '-1 in a Stat of choice'
+    Requirement: Trained in 1-Handed and 2-Handed melee weapons
+    Effect: |
+        You can wield 1-Handed melee weapons with both hands.
+        If you do, your 2-Handed weapon attacks with 1-Handed melee weapons take 1 Action and deal an extra +2d6 Damage.
+    Name: ~Highlander Technique~
+    ParentKey: Technique Feats
+
+  ~Improviser~:
+    A: Passive
+    Cost: '-1 in a Stat of choice'
+    Effect: |
+        When you make an Improvised Attack, if you're attacking with an object you found in that environment and the object can break, it breaks, and the Damage becomes 1d8 + Might if melee, or 1d6 + Dexterity if ranged.
+        Additionally, you can pick up objects with 0 Actions.
+    Notes: The object must weigh at least 500 grams.
+    Name: ~Improviser~
+    ParentKey: Technique Feats
+
+  ~Tower Shield Training~:
+    A: Passive
+    Cost: '-1 in 2 Stats of choice'
+    Requirement: Trained in Shields, at least 2 Might
+    Effect: You can wield a Tower Shield. A Tower Shield gives you a +1 Defense bonus, but reduces your Movement Speed by 1.
+    Notes: Check the Weapons list for the stats of a Tower Shield. Check the Shop to see the price of a Tower Shield.
+    Name: ~Tower Shield Training~
+    ParentKey: Technique Feats
+
+  ~Shield Dual-Wielding~:
+    A: Passive
+    Cost: '-1 Movement Speed'
+    Requirements: At least 2 Might
+    Effect: |
+        You can wield a Shield in each hand. If you do, you gain an extra +1 Defense, in addition to what the Shield normally gives.
+        Attacks with a normal Shield now deal 1d6 + ^Might^ Damage (and the Shield counts as a weapon you're Trained in).
+    Upgrade: |
+        If you have Tower Shield Training, you can dual-wield Tower Shields (or a normal Shield and a Tower Shield).
+        Each Shield gives you its boon, aside from the +1 Defense of this Feat (e.g. Shield + Tower Shield = 50% Pierce Resistance, +1 Defense from the Tower Shield, +1 Defense from this Feat).
+    Name: ~Shield Dual-Wielding~
+    HasMixins: true
+    ParentKey: Technique Feats
+
+  ~Throwing Expert~:
+    A: Passive
+    Cost: '-1 in a Stat of choice'
+    Effect: You can throw melee weapons at up to 5 meters range and with their own damage and effects. Thrown 1-Handed Weapons have a -2 Penalty and 2-Handed Weapons a -4 Penalty.
+    Name: ~Throwing Expert~
+    ParentKey: Technique Feats
+
+
+
 
 Afflictions:
 
-    ~Blindness~:
-        A: Passive
-        Cost: -Sight
-        Effect: |
-            You are blind in your eyes, but can understand your surroundings using your other senses.
-            You fail all Checks for seeing (or related).
-            You are immune to being Blinded and take -50% Psychic Damage.
+  ~Blindness~:
+    A: Passive
+    Cost: '-Sight'
+    Effect: |
+        You are blind in your eyes, but can understand your surroundings using your other senses.
+        You fail all Checks for seeing (or related).
+        You are immune to being Blinded and take -50% Psychic Damage.
     
-    ~Deafness~:
-        A: Passive
-        Cost: -Hearing
-        Effect: |
-            You are deaf in your ears, but can read lips and sense the rest of your surroundings using your other senses.
-            You fail all Checks for hearing (or related).
-            You are immune to being Silenced and take -50% Psychic Damage.
+    Name: ~Blindness~
+    ParentKey: Afflictions
 
-    ~Missing Arm~:
-        A: Passive
-        Cost: -1 Dexterity (and -1 Arm or Hand)
-        Effect: |
-            You are missing an arm or a hand, but make up in accuracy with the other one.
-            You can't use 2-Handed weapons and Shields.
-            Every turn, your first Act that deals Damage ignores Cover.
-    
-    ~Missing Leg~:
-        A: Passive
-        Cost: -1 Movement (and -1 Leg or Foot)
-        Effect: |
-            You are missing a leg or a foot, but make up in body movement.
-            You are immune to being Double-Stunned and take -50% Pulse Damage.
+  ~Deafness~:
+    A: Passive
+    Cost: '-Hearing'
+    Effect: |
+        You are deaf in your ears, but can read lips and sense the rest of your surroundings using your other senses.
+        You fail all Checks for hearing (or related).
+        You are immune to being Silenced and take -50% Psychic Damage.
+    Name: ~Deafness~
+    ParentKey: Afflictions
 
-    ~Chronic Sickness~:
-        A: Passive
-        Cost: -1 Might
-        Effect: |
-            You gain +1 Sense if it's below 3.
+  ~Missing Arm~:
+    A: Passive
+    Cost: '-1 Dexterity (and -1 Arm or Hand)'
+    Effect: |
+        You are missing an arm or a hand, but make up in accuracy with the other one.
+        You can't use 2-Handed weapons and Shields.
+        Every turn, your first Act that deals Damage ignores Cover.
+    Name: ~Missing Arm~
+    ParentKey: Afflictions
 
-    ~Vampirism~:
-        A: Passive
-        Requirement: Special
-        Cost: All your Health Regen
-        Effect: |
-            Your Health Regen is always 0. Whenever a Worthy Enemy dies in combat, heal for 10% of its Max Health.
-        Downside: The only way to get this Feat is to have it inflicted upon you by a vampire or curse.
-        Upgrade: Drinking person blood every Adventure (or refusing to) might have unknown effects. The curse progresses...
+  ~Missing Leg~:
+    A: Passive
+    Cost: '-1 Movement (and -1 Leg or Foot)'
+    Effect: |
+        You are missing a leg or a foot, but make up in body movement.
+        You are immune to being Double-Stunned and take -50% Pulse Damage.
+    Name: ~Missing Leg~
+    ParentKey: Afflictions
+
+  ~Chronic Sickness~:
+    A: Passive
+    Cost: '-1 Might'
+    Effect: You gain +1 Sense if it's below 3.
+    Name: ~Chronic Sickness~
+    ParentKey: Afflictions
+
+  ~Vampirism~:
+    A: Passive
+    Requirement: Special
+    Cost: All your Health Regen
+    Effect: Your Health Regen is always 0. Whenever a Worthy Enemy dies in combat, heal for 10% of its Max Health.
+    Downside: The only way to get this Feat is to have it inflicted upon you by a vampire or curse.
+    Upgrade: Drinking person blood every Adventure (or refusing to) might have unknown effects. The curse progresses...
+    Name: ~Vampirism~
+    ParentKey: Afflictions
+
+
+
 
 Class Feats:
 
-    ~Complications~:
-        A: Passive
-        Cost: -1 Health
-        Requirement: Artificer
-        Effect: |
-            When you perform a surgery, gene editing, or a similar procedure, roll 1d10.
-            On 1, the subject gets a Negative Quirk.
-            On 10, the subject gets a Positive Quirk.
+  ~Complications~:
+    A: Passive
+    Cost: '-1 Health'
+    Requirement: Artificer
+    Effect: |
+        When you perform a surgery, gene editing, or a similar procedure, roll 1d10.
+        On 1, the subject gets a Negative Quirk.
+        On 10, the subject gets a Positive Quirk.
+    Name: ~Complications~
+    ParentKey: Class Feats
 
-    ~Overload Magic~:
-        A: Passive
-        Cost: -1 Health
-        Requirement: Sorcerer, Shaman, Wizard
-        Effect: |
-            You can go up to -2 in debt with your Mana.
-            You start next Adventure with less Mana, to repay your debt.
-        Downside: Requires a Campaign of multiple Adventures.
+  ~Overload Magic~:
+    A: Passive
+    Cost: '-1 Health'
+    Requirement: Mage, Sorcerer, Shaman
+    Effect: |
+        You can go up to -2 in debt with your Mana.
+        You start next Adventure with less Mana, to repay your debt.
+    Downside: Requires a Campaign of multiple Adventures.
+    Name: ~Overload Magic~
+    ParentKey: Class Feats
 
-    <Battle Enmity>:
-        _Value: 0.75
-        Cost: -1 Max Health
-        A: Passive
-        Requirement: Cleric
-        Effect: |
-            While not in combat, Awe does +100% Healing.
-            Awe can no longer trigger while in Combat.
+  <Battle Enmity>:
+    _Value: 0.75
+    Cost: '-1 Max Health'
+    A: Passive
+    Requirement: Cleric
+    Effect: |
+        While not in combat, Awe does +100% Healing.
+        Awe can no longer trigger while in Combat.
+    Name: <Battle Enmity>
+    ParentKey: Class Feats
 
-    ~Renounce~:
-        Cost: Your companion
-        _Value: 0
-        A: Passive
-        Requirement: Soulwright Cleric
-        Effect: You renounce your companion, and effectively disable them. Your Max Health increases by 4 and any Soulwright Cleric boons and Talents your companion had (or would have in the future) are transferred to you.
+  ~Renounce~:
+    Cost: Your companion
+    _Value: 0
+    A: Passive
+    Requirement: Soulwright
+    Effect: You renounce your companion, and effectively disable them. Your Max Health increases by 4 and any Soulwright Cleric boons and Talents your companion had (or would have in the future) are transferred to you.
+    Name: ~Renounce~
+    ParentKey: Class Feats
 
-    <Desperate Plead>:
-        A: 0 Actions
-        Cost: -1 Max Health
-        Cooldown: Once / Combat
-        Requirement: Cleric or Paladin
-        Effect: |
-            Permanently lose 2 Max Health.
-            Regain 1 Mana.
+  <Desperate Plead>:
+    A: 0 Actions
+    Cost: '-1 Max Health'
+    Cooldown: Once / Combat
+    Requirement: Cleric or Paladin
+    Effect: Permanently lose 2 Max Health. Regain 1 Mana.
+    Name: <Desperate Plead>
+    ParentKey: Class Feats
 
-    # <Old Ritual>:
-    #     _Value: 1.5
-    #     A: 10 minutes
-    #     Cooldown: Once / Adventure
-    #     Cost: You lose access to Shapeshift
-    #     Requirement: Druid
-    #     Effect: Conduct a special old ritual for 10 minutes in a safe space, uninhabited by regular folk. Regain 1 Mana.
-    #     Upgrade: If you have this Feat, you can no longer use Shapeshift, whether you used it or not.
-    #     Notes: Your Mana can't exceed your Max Mana.
+  ~Wildcasting Form~:
+    A: Passive
+    Requirement: Druid, Level 4
+    Cost: '-1 in any Stat'
+    Effect: |
+        When you Shapeshift, transform into a combination of 3 ^random^ animal features instead of choosing, ignoring the Level requirements.
+        Roll 3d12 and reroll any duplicates to determine your form.
+    Name: ~Wildcasting Form~
+    HasMixins: true
+    ParentKey: Class Feats
+  <Lycanthropy>:
+    _Value: 2.5
+    A: Passive
+    Cooldown: Special
+    HasMixins: true
+    Duration: 2 turns
+    Cost: '-1 Sense'
+    Requirement: Druid, Level 4
+    Effect: |
+        Once per _twilight_ (18:00 to 6:00), you can use Shapeshift to transform into a Lycanthrope until the end of your next turn (see the Lycanthrope form under Pets and Animals).
+        While a Lycanthrope, you can't willingly shift to another form, and you must Animal Attack with all of your Actions, otherwise you take 5 Damage for each Half-Action spent elsehow.
+    Upgrade: |
+        Every Worthy _midnight_, if this is not on Cooldown, roll 1d20. If you roll 20, you automatically transform into a Lycanthrope. This rule can be overridden by the QM.Notes: While a Lycanthrope, you have 8 meters Movement Speed, one extra Half-Action per turn (including this), can Break your Movement and Pet Attack heals you for half of the Damage done.
+        Additionally, you have a base speed of 8 meters, and can use Ominous Howl, which Fears all Units that can hear you for a Half-Action, once per Adventure.
+    Name: <Lycanthropy>
+    ParentKey: Class Feats
 
-    ~Wildcasting Form~:
-        A: Passive
-        Requirement: Druid, Level 4
-        Cost: -1 in any Stat
-        Effect: |
-            When you Shapeshift, transform into a combination of 3 ^random^ animal features instead of choosing, ignoring the Level requirements.
-            Roll 3d12 and reroll any duplicates to determine your form.
+  <Lone Wolf>:
+    A: Passive
+    Cost: Animal Companion
+    Requirement: Hunter
+    Effect: |
+        You gain +2 Max Health / Level, +2 Health Regen, and +1 to any Stat (this can exceed the maximum value allowed by your Level).
+        Additionally, you have 2 Mana, which regenerates inbetween Adventures.
+    Notes: You no longer have access to the Animal Companion.
+    Name: <Lone Wolf>
+    ParentKey: Class Feats
 
-    <Lycanthropy>:  # 2.5?
-        _Value: 2.5
-        A: Passive
-        Cooldown: Special
-        HasMixins: true
-        Duration: 2 turns
-        Cost: -1 Sense
-        Requirement: Druid, Level 4
-        Effect: |
-            Once per _twilight_ (18:00 to 6:00), you can use Shapeshift to transform into a Lycanthrope until the end of your next turn (see the Lycanthrope form under Pets and Animals).
-            While a Lycanthrope, you can't willingly shift to another form, and you must Animal Attack with all of your Actions, otherwise you take 5 Damage for each Half-Action spent elsehow.
-        Upgrade: Every Worthy _midnight_, if this is not on Cooldown, roll 1d20. If you roll 20, you automatically transform into a Lycanthrope. This rule can be overridden by the QM.
-        Notes: |
-            While a Lycanthrope, you have 8 meters Movement Speed, one extra Half-Action per turn (including this), can Break your Movement and Pet Attack heals you for half of the Damage done.
-            Additionally, you have a base speed of 8 meters, and can use Ominous Howl, which Fears all Units that can hear you for a Half-Action, once per Adventure.
+  <Traditionalist>:
+    A: Passive
+    Cost: All Known Basic Abilities
+    Requirement: Hunter
+    Effect: |
+        Gain a Level 3 Draven Talent and Parry from the Level 3 Watcher Talents.
+        You no longer Know any Basic Abilities.
+    Name: <Traditionalist>
+    ParentKey: Class Feats
 
-    <Lone Wolf>:
-        A: Passive
-        Cost: Animal Companion
-        Requirement: Hunter
-        Effect: |
-            You gain +2 Max Health / Level, +2 Health Regen, and +1 to any Stat (this can exceed the maximum value allowed by your Level).
-            Additionally, you have 2 Mana, which regenerates inbetween Adventures.
-        Notes: You no longer have access to the Animal Companion.
+  <Lich Ritual>:
+    _Value: 2
+    HasMixins: true
+    Cost: '-4 Max Health'
+    Requirement: Cleric, Mage or Warlock and Level 5
+    A: Special
+    Effect: |
+        You spend 24 hours in a special place of power (this could be a temple or given to you by your QM).
+        After it's finished, you become a Lich, and you are considered Undead.
+        Apply the following:
+        {Diamond} You can no longer cast Basic Abilities that don't cost Mana, but gain 2 extra Max Mana (or 1 if you're a Warlock). Passive Spells that don't cost Mana still apply.
+        {Diamond} You are Undead, thus immune to Fear and being put to Sleep
+        {Diamond} You no longer need to eat, drink or sleep.
+        {Diamond} You gain access to the Elemental and Eldritch Basic Ability Lists if you don't have them already
+        You also gain the Phylactery, Dismorphment and Death Pact Abilities.
+    Upgrade: |
+        At Level 6, the range of all your Spells is doubled.
+        At Level 7, your Initiative increases by 1.
+        At Level 8, all your Checks increase by 1.
+        At Level 9, your Defense increases by 1.
+        At Level 10, your Max Health increases by 5.
+    Name: <Lich Ritual>
+    ParentKey: Class Feats
 
-    <Traditionalist>:
-        A: Passive
-        Cost: All Known Basic Abilities
-        Requirement: Hunter
-        Effect: |
-            Gain a Level 3 Draven Talent and Parry from the Level 3 Watcher Talents.
-            You no longer Know any Basic Abilities.
+  ~Phylactery~:
+    IsSubspell: true
+    A: Special
+    Effect: |
+        When you become a Lich, you place your soul inside a Phylactery - a special object, dear to you.
+        When you would reach 0 Health, instead of going Fallen, you can instantly teleport your body inside the Phylactery.
+        A spellcaster can channel when resting inbetween Adventures to resummon you near the Phylactery with full Health, Spells, etc.
+        If the Phylactery is destroyed, you must wait 1 year to make another one.
+    Name: ~Phylactery~
+    ParentKey: Class Feats
 
-    <Lich Ritual>:
-        _Value: 2
-        HasMixins: true
-        Cost: -4 Max Health
-        Requirement: Cleric, Warlock, or Wizard and Level 5
-        A: Special
-        Effect: |
-            You spend 24 hours in a special place of power (this could be a temple or given to you by your QM).
-            After it's finished, you become a Lich, and you are considered Undead.
-            Apply the following:
-            {Diamond} You can no longer cast Basic Abilities that don't cost Mana, but gain 2 extra Max Mana (or 1 if you're a Warlock). Passive Spells that don't cost Mana still apply.
-            {Diamond} You are Undead, thus immune to Fear and being put to Sleep
-            {Diamond} You no longer need to eat, drink or sleep.
-            {Diamond} You gain access to the Elemental and Eldritch Basic Ability Lists if you don't have them already
-            You also gain the Phylactery, Dismorphment and Death Pact Abilities.
-        Upgrade: |
-            At Level 6, the range of all your Spells is doubled.
-            At Level 7, your Initiative increases by 1.
-            At Level 8, all your Checks increase by 1.
-            At Level 9, your Defense increases by 1.
-            At Level 10, your Max Health increases by 5.
+  ~Dismorphment~:
+    IsSubspell: true
+    A: Reaction or 0 Actions
+    Cooldown: Once / Combat
+    Effect: |
+        When a Unit declares an attack or Spell on you, you can instantly teleport up to 3 meters away.
+        That Unit can keep their action or change it.
+        You can also instantly teleport using 0 Actions on your turn.
+    Notes: Remember that at Level 6, the range of this becomes 6 as per the description of Cleric Lich Ritual.
+    Name: ~Dismorphment~
+    ParentKey: Class Feats
 
-    ~Phylactery~:
-        IsSubspell: true
-        A: Special
-        Effect: |
-            When you become a Lich, you place your soul inside a Phylactery - a special object, dear to you.
-            When you would reach 0 Health, instead of going Fallen, you can instantly teleport your body inside the Phylactery.
-            A spellcaster can channel when resting inbetween Adventures to resummon you near the Phylactery with full Health, Spells, etc.
-            If the Phylactery is destroyed, you must wait 1 year to make another one.
-            
-    ~Dismorphment~:
-        IsSubspell: true
-        A: Reaction or 0 Actions
-        Cooldown: Once / Combat
-        Effect: |
-            When a Unit declares an attack or Spell on you, you can instantly teleport up to 3 meters away.
-            That Unit can keep their action or change it.
-            You can also instantly teleport using 0 Actions on your turn.
-        Notes: Remember that at Level 6, the range of this becomes 6 as per the description of Cleric Lich Ritual.
-        
-    ~Death Pact~:
-        IsSubspell: true
-        A: Half-Action
-        Effect: |
-            Choose an ally (or yourself).
-            They lose 5 Health. You gain 1 Mana this turn only.
+  ~Death Pact~:
+    IsSubspell: true
+    A: Half-Action
+    Effect: |
+        Choose an ally (or yourself).
+        They lose 5 Health. You gain 1 Mana this turn only.
+    Name: ~Death Pact~
+    ParentKey: Class Feats
 
-    ~Killswitch Ambush~:
-        A: Special
-        Cost: -2 Health
-        Requirement: Rogue, Level 2
-        Effect: |
-            Change your Specialization's Ambush to a different Ambush from another Specialization.
-        Upgrade: You can change it inbetween Adventures.
-        Notes: |
-            For example, if you are a Thief and you don't like Backstabbing Ambush, switch it to Sudden Ambush from Assassin.
-            If a Talent further replaces Ambush, you can't change it unless you change the Talent inbetween Aventures.
-
-    <What Is A Spellbook>:
-        A: Passive
-        Cost: -1 Health
-        Requirement: Wizard Mage
-        Effect: |
-            Your Minor and Level 2 Talents no longer matter.
-            At the start of each Adventure and end of every Combat, roll 1d4. You instead know all Basic Abilities that correspond to what you rolled, within your Level.
-        SingleTable:
-            - 1. Pyromancy & Minor Fire Talents
-            - 2. Electromancy & Minor Shock Talents
-            - 3. Hydromancy & Minor Water Talents
-            - 4. Arcanism & Minor Arcane Talents
-
-    <Faithful Scripture>:
-        Cost: -1 Health
-        A: 0 Actions
-        Requirement: Paladin. Only usable in Worthy combat.
-        Duration: 8 hours
-        Cooldown: Once / Combat
-        Effect: |
-            Choose an Ability you can currently cast with Faith Casting to store for later.
-            You can use it once any time until the end of the Adventure, but you can't use it otherwise until the end of the Adventure.
-
-    <Deity From Beyond>:
-        Cost: -2 Health
-        A: Passive
-        Requirement: Paladin Order of the Tome
-        HasMixins: true
-        Effect: Choose a different Basic Ability School which will have its Spell's ^Dice Upgraded^ to the next die type (and it will no longer be the Divine Ability School).
-
-    ~Experienced War Craft~:
-        A: Passive
-        Effect: Choose one more War Craft!
-
-Multiclass Feats:   # Should be about 1.5 Mana worth (so 0.5 because of the 1 Max Mana Cost)
-
-    ~MC - Cleric~:
-        A: Passive
-        Cost: -1 in each Stat
-        Effect: |
-            You gain the Awe and Blessing Abilities from the Cleric Class. Pick a specialization, and you can also pick Minor and Utility Talents from the base Class and that specialization.
-
-    ~MC - Druid~:
-        A: Passive
-        Cost: -1 in a Stat of choice, -2 Health Regen
-        Effect: |
-            You gain the Shapeshift and Druidcraft Abilities from the Druid and access to the Nature Ability List.
-            Instead of a Talent from your original Class, you can pick a Druid Specialization.
-
-    ~MC - Hunter~:
-        A: Passive
-        Cost: -2 Max Mana, -6 Max Health
-        Effect: |
-            You gain the Animal Companion from the Hunter Class and access to either the Nature or the Warfare Ability List.
-
-    ~MC - Mage~:
-        A: Passive
-        Cost: -1 in 3 Stats of choice
-        Effect: |
-            You gain the Magic Mastery and Learn Scrolls Abilities from the Mage and access to the Elemental and Arcane Ability Lists.
-            Instead of a Talent from your original Class, you can pick a Mage Specialization.
-
-    ~MC - Paladin~:
-        A: Passive
-        Cost: -3 and -1, each in a different Stat of choice
-        Effect: |
-            You gain the Divine Insight and Holy Grace Abilities from the Paladin, and access to the Divine and Warfare Ability Lists.
-            Instead of a Talent from your original Class, you can pick a Paladin Specialization.
-
-    ~MC - Rogue~:
-        A: Passive
-        Cost: -1 in 2 Stats of choice
-        Effect: |
-            You gain the Ambush and Hide Abilities from the Rogue, and access to the Bloodshed and Warfare Ability Lists.
-            Instead of a Talent from your original Class, you can pick a Rogue Specialization.
-
-    ~MC - Shaman~:
-        A: Passive
-        Cost: -1 in 2 Stats of choice
-        Effect: |
-            You gain the Echoes and Intelligence Link Abilities from the Shaman Class, and access to either the Bloodshed, Nature or Mysticism Ability List.
-            Instead of a Talent from your original Class, you can pick a Shaman Specialization.
-
-    ~MC - Warlock~:
-        A: Passive
-        Cost: -1 in 3 Stats of choice, -1 Max Mana
-        Effect: |
-            You gain access to one Basic Ability List of choice (through the Power Source Warlock Ability).
-            You also gain access to all starting Abilities from one Warlock Specialization.
-
-    ~MC - Warrior~:
-        A: Passive
-        Cost: -1 in 3 Stats of choice
-        Effect: |
-            You gain the Advanced Flank and Charge Abilities and access to the Bloodshed and Warfare Ability Lists.
-            Instead of a Talent from your original Class, you can pick a Shaman Specialization.
-
-Multirace Feats:
-
-    ~MR - Bertle~:
-        A: Passive
-        Cost: -1 Max Health, -1 Max Health per Level
-        Effect: You gain all Bertle starting Abilities.
-        Notes: You are now also considered a Bertle.
-
-    ~MR - Davel~:
-        A: Passive
-        Cost: -2 in a Stat of choice
-        Effect: |
-            You gain all Davel starting Abilities.
-        Notes: You are now also considered a Davel.
-
-    ~MR - Dragonsworn~:
-        A: Passive
-        Cost: -1 in 2 Stats of choice
-        Effect: |
-            You gain all Dragonsworn starting Abilities and one breath shape Ability.
-        Notes: You are now also considered a Dwarf.
-
-    ~MR - Dwarf~:
-        A: Passive
-        Cost: -1 Max Health, -1 in a Stat of choice
-        Effect: |
-            Gain a racial Dwarf Talent.
-        Notes: You are now also considered a Dwarf.
-
-    ~MR - Elf~:
-        A: Passive
-        Cost: -1 Max Health, -1 in a Stat of choice
-        Effect: |
-            Gain a racial Elf Talent.
-        Notes: You are now also considered an Elf.
-
-    ~MR - Gnome~:
-        A: Passive
-        Cost: -1 Movement Speed, -2 Max Health and -1 Health Regen
-        Effect: |
-            You gain all Gnome starting Abilities. Congratulations!
+  <What Is A Spellbook>:
+    A: Passive
+    Cost: '-1 Health'
+    Requirement: Wizard
+    Effect: |
+        Your Level 2 Talents (_mancy_) and Font Spells no longer matter.
+        At the start of each Adventure and end of every Combat, roll 1d4. You instead know all Font Spells and _mancy_ that correspond to what you rolled, within your Level.
+    SingleTable:
+      - 1. Pyromancy & Fire Font
+      - 2. Electromancy & Lightning Font
+      - 3. Hydromancy & Frost Font
+      - 4. Arcanism & Arcane Font
+    Name: <What Is A Spellbook>
+    ParentKey: Class Feats
     
-    ~MR - Human~:
-        A: Passive
-        Cost: -1 Max Health, -1 in a Stat of choice
-        Effect: |
-            Gain a racial Human Talent.
-        Notes: You are now also considered a Human.
+  <Faithful Scripture>:
+    Cost: '-1 Health'
+    A: 0 Actions
+    Requirement: Paladin. Only usable in Worthy combat.
+    Duration: 8 hours
+    Cooldown: Once / Combat
+    Effect: |
+        Choose an Ability you can currently cast with Faith Casting to store for later.
+        You can use it once any time until the end of the Adventure, but you can't use it otherwise until the end of the Adventure.
+    Name: <Faithful Scripture>
+    ParentKey: Class Feats
 
-    ~MR - Orc~:
-        A: Passive
-        Cost: -1 Max Health
-        Effect: |
-            Gain a racial Orc Talent.
-        Upgrade: Note that each Orc Talent costs -1 in a Stat of choice.
-        Notes: You are now also considered a Orc.
+  <Deity From Beyond>:
+    Cost: '-2 Health'
+    A: Passive
+    Requirement: Paladin Order of the Tome
+    HasMixins: true
+    Effect: Choose a different Basic Ability School which will have its Spell's ^Dice Upgraded^ to the next die type (and it will no longer be the Divine Ability School).
+    Name: <Deity From Beyond>
+    ParentKey: Class Feats
 
-# Familiar Feats:
-
-#     ~Familiar - Check Warp~:               # 0.5
-#       A: Special
-#       Effect: |
-#         Whenever you (or the Familiar) force(s) a Unit roll a Resist Check, you can freely change which Stat is used for that roll.
-#         Whenever you (or the Familiar) make(s) a Resist Check, you can freely swap the Stat to Intelligence.
-
-#     ~Familiar - Element Lash~:             # 0.5
-#       A: 1 Action
-#       Range: 3 meters (from your Familiar)
-#       Cooldown: Once / Adventure
-#       Effect: |
-#         The closest enemy (you choose if tie) to the familiar makes a Dexterity Check.
-#         If it fails, it takes 4d4 + your highest Stat (of your Familiar Element), or half of that if it succeeds.
-
-#     ~Familiar - Health Funnel~ :           # 0
-#       A: 0 Actions
-#       Effect: |
-#         Deal 6 Damage to your Familiar, and you gain 4 Health.
-#         Or..
-#         Deal 4 Damage to yourself, and your Familiar gains 6 Health.
-
-#     ~Familiar - Meat Shield~ :             # 0.a lot
-#       A: Reaction
-#       Cooldown: Once / Adventure
-#       Effect: |
-#         Passively, your pet gains 7 extra Max Health and its size becomes Large.
-#         When you are attacked, before the attack roll, you can activate this to make your pet dash to your position and the attack will be redirected to your pet.
-#         To dash, your pet must be within 6 meters of you.
-
-#     ~Familiar - Seduce~ :                  # 0.5-ish
-#       A: 0 Actions
-#       Cost: 1 Mana
-#       Range: 6 meters (from your Familiar)
-#       Cooldown: Once / Adventure
-#       Effect: A Unit must succeed a Sense Check (against your Spell Grade) or be Charmed by the familiar.
-
-#     ~Familiar - Soul Attack~ :             # 0.25
-#       A: 1 Action
-#       Cost: 1 Mana
-#       Range: 1 meter (from your Familiar)
-#       Effect: |
-#         Your familiar attacks a Unit's soul and briefly disappears.
-#         It appears back near you at the start of your next-next turn and deals 3d10 Dark Damage but ignores half of the target's Defense.
-#       Notes: This is considered an attack.
-
-#     ~Familiar - Camouflage Master~ :
-#       A: Passive
-#       Requirement: Level 4
-#       Effect: You and your familiar have +3 in Dexterity rolls for Stealth.
-      
-      
-#     ~Familiar - Chain Devour Magic~ :      # 1
-#       A: 0 Actions
-#       Range: 12 meters
-#       Cooldown: Once / Adventure
-#       Effect: |
-#         Cast one of these two effects:
-#         1. Cure a crowd control, debuff, curse or poison on an ally.
-#         2. A Unit must succeed an Intelligence Check or be Silenced.
-#         If the target fails, you may use Chain Devour Magic again this turn.
-#       Notes: This can happen again and again until a target passes or you use the cure effect.
-#       Requirement: Requires Level 4.
-      
-#     ~Familiar - Sentience~ :               # 0.5
-#       A: Passive
-#       Effect: |
-#         Your familiar can speak and communicate in all languages you know.
-#         Your Spell Grade also increases by 1 and your Max Health by 3.
-#       Requirement: Requires Level 4.
+  ~Experienced War Craft~:
+    A: Passive
+    Cost: '-2 Max Health'
+    Effect: Choose one more War Craft! You can't apply the War Craft bonus Damage twice at the same time.
+    Name: ~Experienced War Craft~
+    ParentKey: Class Feats

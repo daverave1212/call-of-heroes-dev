@@ -135,7 +135,7 @@ export const ATTRIBUTES_EXPLANATIONS = {
     [MOVEMENT_SPEED]: () => <span>You can spend 1 Action Point to move this many meters (you have 3 Action Points per Turn).</span>,
     [INITIATIVE]: () => <span>On your first Turn every Combat, you have <b>extra</b> Action Points equal to your Initiative (rounded down).<br/>Note that even if your Initiative is a fraction, like 2.5, you only have 2 extra Action Points and ignore the rest of 0.5.</span>,
     [EXTRA_INITIATIVE_AP]: () => <span></span>,
-    [KNOWN_ABILITIES]: () => <span>Normally, for each Talent tier (e.g. Level 1 Minor Talents), you get 1 free Talent pick, but you get <b>extra Minor Talents or Utility Talents</b> equal to your Intelligence. For example, if your Intelligence is 2, you get 2 extra Minor Talents from the Level 1 Minor Talents.<br/><i>Note that there are also Keystone Talents, which you can only pick 1 per Talent tier, no matter your Intelligence!</i></span>,
+    [KNOWN_ABILITIES]: () => <span>Normally, for each Class Talent tier (e.g. Level 1 Class Talents), you get 1 free Talent pick, but you get <b>extra Class Talents</b> equal to your Intelligence. For example, if your Intelligence is 2, you get 2 extra Class Talents from the Level 1 Class Talents.</span>,
     [SKILL_POINTS]: () => <span>You can spend each 1 Skill Point to get +1 in a certain activity. These can be anything from fishing and swimming, to jumping or even sight, to knowledge about specific subjects or even general knowledge. You can assign more points in a certain Skill (as long as it's at most equal to your highest Stat).</span>,
 }
 export function AttributeCalculationTextComponent({statName}) {
@@ -192,6 +192,7 @@ export const STAT_ALTERNATIVES_MAP = {
     'Known Basic Abilities': KNOWN_ABILITIES,   // Old, backwards compatibility
     'Known Minor Talents': KNOWN_ABILITIES,
     'Minor Talents': KNOWN_ABILITIES,
+    'Class Talents': KNOWN_ABILITIES,
 
     'Initiative': INITIATIVE
 }
@@ -240,13 +241,19 @@ export function getStatsArrayFromObject(obj) {
 
 
 export function getAllStatBonusesYMLAsObjFromSpellsArray(spellsArray) {
+    console.log(`🔰🔰 aright! ok!`)
+    console.log({spellsArray})
     let bonuses = {}
     let sources = []
     for (const spell of spellsArray) {
+        if (spell.Name == 'Trollskin') {
+            console.log(`🔰🔰 Here we go!!!!`)
+        }
         if (spell.Bonuses == null) {
             continue
         }
         const statNames = Object.keys(spell.Bonuses)
+        console.log({statNames})
         for (const statName of statNames) {
             if (bonuses[statName] == null) {
                 bonuses[statName] = 0
@@ -349,6 +356,6 @@ function applyMultipliersToAttributes({ attributes, bonuses }) {
             continue
         }
 
-        attributes[key] = attributes[key] * multiplier
+        attributes[key] = Math.floor(attributes[key] * multiplier)
     }
 }

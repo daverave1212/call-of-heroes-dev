@@ -22,14 +22,18 @@ export function selectSpellWithPopup({spell, metadata, spellNames, setSpellNames
         const spellsByParentKey = groupBy(selectedClassSpells, spell => spell.ParentKey)
         
         let foundIssue = null
-        
-        const isKeystone = spell.ParentKey?.includes('Keystone')
-        if (isKeystone) {
-            const foundKeystoneAtThatLevel = selectedClassSpells.find(s => s.ParentKey == spell.ParentKey)
-            if (foundKeystoneAtThatLevel) {
-                foundIssue = `You already have a ${spell.ParentKey} (${foundKeystoneAtThatLevel.Name}). Are you sure you want to also select this Spell?`
+
+        function checkIfKeystone() {
+            const isKeystone = spell.ParentKey?.includes('Keystone')
+            if (isKeystone) {
+                const foundKeystoneAtThatLevel = selectedClassSpells.find(s => s.ParentKey == spell.ParentKey)
+                if (foundKeystoneAtThatLevel) {
+                    foundIssue = `You already have a ${spell.ParentKey} (${foundKeystoneAtThatLevel.Name}). Are you sure you want to also select this Spell?`
+                }
             }
         }
+        
+        // checkIfKeystone()
         
         const isMinorOrUtility = isSpellMinorTalent(spell) || isSpellUtilityTalent(spell)
         if (isMinorOrUtility) {

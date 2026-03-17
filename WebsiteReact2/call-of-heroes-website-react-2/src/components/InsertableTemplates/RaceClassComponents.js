@@ -436,7 +436,7 @@ export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
                         )}
                         <SmallStat name="Extra Talents" color="blue" className="column">
                             Each Level, choose a free Talent from that Level's options.<br/><br/>
-                            However, if your <b>{INTELLIGENCE}</b> is above 0, you can choose a number of <b>extra Minor or Utility Talents</b> equal to your <b>{INTELLIGENCE}</b>.
+                            However, if your <b>{INTELLIGENCE}</b> is above 0, you can choose a number of <b>extra Class Talents</b> equal to your <b>{INTELLIGENCE}</b>, from any available tier.
                         </SmallStat>
                     </div>
                 </Column>
@@ -790,7 +790,7 @@ export function ClassPageV2({
 
                 { theClass['Ability Choices'] != null && (
                     <div>
-                        <PageH2 className="center-text">Level 1 - Minor Talent</PageH2>
+                        <PageH2 className="center-text">Level 1 Class Talents</PageH2>
                         <ManySpells
                             spells={theClass['Ability Choices']}
                             description={theClass['Ability Choices Description']}

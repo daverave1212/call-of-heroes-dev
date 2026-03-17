@@ -168,6 +168,19 @@ export default function Spell({
         setVariantIndex(nextVariantIndex)
     }
 
+    function onIconRightClick() {
+        if (hasVariants !== true)
+            return
+        if (isSelected == true) {
+            return
+        }
+        let nextVariantIndex = variantIndex - 1
+        if (nextVariantIndex < 0) {
+            nextVariantIndex =  Variants.length - 1
+        }
+        setVariantIndex(nextVariantIndex)
+    }
+
     return (
         <div data-selectable={isSelected != null} id={uniqueID} style={style} className={classNames(
             'spell',
@@ -183,7 +196,7 @@ export default function Spell({
                 { showTop != false && (<>
                     <SpellTop
                         hasVariants={hasVariants && canChangeVariant} variantIndex={variantIndex} Variants={Variants}
-                        onIconClick={onIconClick} iconPath={IconPath} hasIcon={hasIcon}
+                        onIconClick={onIconClick} onIconRightClick={onIconRightClick} iconPath={IconPath} hasIcon={hasIcon}
                         DisplayName={DisplayName} Name={Name} showTopStats={showTopStats}
                         A={A} spell={parsedSpell}
                     />
@@ -391,7 +404,7 @@ export function SpellTopStats({className, tags, keywords}) {
 
 export function SpellTop({
     hasVariants, variantIndex, Variants,
-    onIconClick, iconPath, hasIcon,
+    onIconClick, onIconRightClick, iconPath, hasIcon,
     DisplayName, Name, showTopStats=true,
     A, item, spell
 }) {
@@ -425,7 +438,11 @@ export function SpellTop({
             <div className={`left`}>
                     
                 { hasVariants === true && (
-                    <div className='variant-counter' onClick={onIconClick}>
+                    <div className='variant-counter' onClick={onIconClick} onContextMenu={evt => {
+                        evt.preventDefault()
+                        evt.stopPropagation()
+                        onIconRightClick?.()
+                    }}>
                         {variantIndex + 1}/{maxVariantIndex}
                     </div>
                 )}
