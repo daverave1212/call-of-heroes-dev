@@ -1782,7 +1782,10 @@ export const SYMBOLS = {
     'Chainable': { tag: 'span', text: "Chainable means only usable if your previous Act was the one mentioned." },
     'Flank': { tag: 'span', text: "Flanking is when you melee-attack an enemy, and an ally of yours is directly behind the enemy. As an optional rule (ask the QM), flank attacks can deal +1 Damage." },
     'FoolsGold': { tag: 'span', text: "Fool's Gold is an imaginary currency that can be converted to real Gold by spending 1 hour in a town or city. Fool's Gold lasts until converted to real Gold." },
-    'Ultimate': { tag: 'span', text: "This is your Ultimate Class Ability and, after getting this Talent, you can no longer change your Talents inbetween Adventures." },
+    'Heroic': { tag: 'span', text: "This is your Heroic Class Ability and, after getting this Talent, you can no longer change your Talents inbetween Adventures." },
+    'CoreTalent':     { tag: 'span', text: "This is a Core Talent, which significantly improves your character. You can only have one Core Talent." },
+    'KeystoneTalent': { tag: 'span', text: "This is a Keystone Talent, which significantly changes how you play your character. You can only have one Core Talent." },
+    'UltimateTalent': { tag: 'span', text: "This is an Ultimate Talent, which significantly changes how you play your character. You can only have one Core Talent." },
 
     'Combo': { tag: 'span', props: { style: {color: 'var(--blue-color)'} }, text: "Combo:" },
 
@@ -2109,6 +2112,10 @@ export function isCharDigit(char) {
 
 // ---------------- Other Small Utilities ----------------
 console.green = str => console.log(`%c${str}`, `color: green; font-style: bold`)
+export function printTimestamp(str) {
+    const date = new Date()
+    console.log(`${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.${date.getMilliseconds()} ${str}`)
+}
 export function startsWithAny(str, anyOf) {
     return anyOf.some(option => str.startsWith(option))
 }
@@ -2721,13 +2728,28 @@ export function loadCtxSettings(ctx, key) {
     }
 }
 export function loadImageAsync(src) {
-    return new Promise((resolve, reject) => {
-        const img = new Image()
-        img.onload = () => resolve(img)
-        img.onerror = reject
-        img.src = src
-    });
-  }
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+
+    img.onload = async () => {
+      try {
+        if (img.decode) {
+          await img.decode();
+        }
+      } catch (e) {
+        // ignore decode errors
+      }
+
+      resolve(img);
+    };
+
+    img.onerror = () => {
+      reject(new Error(`Failed to load image: ${src}`));
+    };
+
+    img.src = src;
+  });
+}
 export function drawImageOnCanvasAsync(canvas, pathOrImage, x, y, width, height, alpha) {
     const ctx = canvas.getContext('2d')
     let image

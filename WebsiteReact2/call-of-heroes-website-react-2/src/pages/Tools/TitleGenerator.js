@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import Page from "../../containers/Page/Page";
-import { drawImageOnCanvasAsync, getImageRelativeWidthAtHeight, loadImageAsync, useLocalStorageState } from "../../utils";
+import { drawImageOnCanvasAsync, getImageRelativeWidthAtHeight, loadImageAsync, printTimestamp, useLocalStorageState } from "../../utils";
 import './TitleGenerator.css'
 import Input from "../../components/Input/Input";
+import atlasConfig from './letters-atlas.json'
+
+const LETTERS_ATLAS_SRC = '/FontLetters/letters-atlas.webp'
 
 const LETTERS = 'abcdefghijklmnopqrstuvwxyz'
 const GET_SPACE_WIDTH = function(sizeMultiplier=1) { return 200 * sizeMultiplier }
@@ -191,32 +194,126 @@ export function QGTitle1({ id, text, className, style, hueShift, height=60 }) {
 }
 
 
+const loadingLetterImagePromise = {}
 const letterImage = {}
 
+let waitImagesLoadedPromise = null
+let atlasImagePromise = null
+
+function getAtlasImageAsync() {
+    if (!atlasImagePromise) {
+        atlasImagePromise = loadImageAsync(LETTERS_ATLAS_SRC)
+    }
+    return atlasImagePromise
+}
+function getLetterImageAsync(letter) {                  // An async function
+    if (letterImage[letter] != null) {                  
+        return Promise.resolve(letterImage[letter])     // If loaded, simply return it as a promise
+    }
+    if (loadingLetterImagePromise[letter] != null) {    // If it'e being loaded, return the promise
+        return loadingLetterImagePromise[letter]
+    }
+
+    // The image is neither loaded nor being loaded
+    loadingLetterImagePromise[letter] = loadImageAsync(LETTER_SRC_MAPPING[letter]).then(img => {
+        letterImage[letter] = img
+        delete loadingLetterImagePromise[letter]
+        return img
+    }).catch(e => {
+        console.error(`Failed to load image for letter ${letter} from src="${LETTER_SRC_MAPPING[letter]}". Exception: ${e}`)
+        throw e
+    })
+
+    return getLetterImageAsync(letter)
+}
+async function canvasToImage(canvas) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+
+    img.onload = async () => {
+      try {
+        if (img.decode) {
+          await img.decode();
+        }
+      } catch (e) {
+        // ignore decode errors
+      }
+
+      resolve(img);
+    };
+
+    img.onerror = () => {
+      reject(new Error("Failed to create cropped glyph image from canvas"));
+    };
+
+    img.src = canvas.toDataURL("image/png");
+  });
+}
 export async function drawQGTextOnCanvas(canvas, text, sizeMultiplier=1) {
 
-    async function maybePreloadLetterImages() {
-        async function maybePreloadLetterImage(letter) {
-            if (letterImage[letter] == null) {
-                try {
-                    letterImage[letter] = await loadImageAsync(LETTER_SRC_MAPPING[letter])
-                } catch (e) {
-                    console.error(`Failed to load image for letter ${letter} from src="${LETTER_SRC_MAPPING[letter]}". Exception:`)
-                    throw e
+    async function waitImagesLoaded() {
+        if (waitImagesLoadedPromise) {
+            return waitImagesLoadedPromise
+        }
+        waitImagesLoadedPromise = (async () => {
+            const atlas = await getAtlasImageAsync()
+            const letterConfigEntries = Object.entries(atlasConfig)
+            await Promise.all(letterConfigEntries.map(async ([letter, glyph]) => {
+                if (letterImage[letter]) {
+                    return
                 }
-            }
-            const thisLetterImage = letterImage[letter]
-            
-            if (isNaN(thisLetterImage.naturalWidth)) {
-                throw `Letter ${letter} image naturalWidth is NaN`
-            }
-        }
+                const canvas = document.createElement("canvas");
+                canvas.width = glyph.width;
+                canvas.height = glyph.height;
 
-        const allLetters = LETTERS.split('')
-        for (const letter of allLetters) {
-            await maybePreloadLetterImage(letter)
-        }
+                const ctx = canvas.getContext("2d");
+                if (!ctx) {
+                    throw new Error(`Could not get 2D context for letter "${letter}"`);
+                }
+
+                ctx.drawImage(
+                    atlas,
+                    glyph.x,
+                    glyph.y,
+                    glyph.width,
+                    glyph.height,
+                    0,
+                    0,
+                    glyph.width,
+                    glyph.height
+                );
+
+                letterImage[letter] = await canvasToImage(canvas);
+
+            }))
+        })()
     }
+    async function waitImagesLoaded_OLD() {
+        await Promise.all(LETTERS.split('').map(letter => getLetterImageAsync(letter)))
+    }
+    // async function maybePreloadLetterImages() {
+    //     async function maybePreloadLetterImage(letter) {
+    //         if (letterImage[letter] == null) {
+    //             try {
+    //                 letterImage[letter] = await loadImageAsync(LETTER_SRC_MAPPING[letter])
+    //             } catch (e) {
+    //                 console.error(`Failed to load image for letter ${letter} from src="${LETTER_SRC_MAPPING[letter]}". Exception:`)
+    //                 throw e
+    //             }
+    //         }
+    //         const thisLetterImage = letterImage[letter]
+            
+    //         if (isNaN(thisLetterImage.naturalWidth)) {
+    //             throw `Letter ${letter} image naturalWidth is NaN`
+    //         }
+    //     }
+
+    //     const allLetters = LETTERS.split('')
+    //     await Promise.all(allLetters.map(letter => maybePreloadLetterImage(letter)))
+    //     // for (const letter of allLetters) {
+    //     //     await maybePreloadLetterImage(letter)
+    //     // }
+    // }
     function getTextWidth(text) {
         let widthSoFar = 0
         for (let i = 0; i < text.length; i++) {
@@ -233,7 +330,7 @@ export async function drawQGTextOnCanvas(canvas, text, sizeMultiplier=1) {
                 const extraWidth = (isCapital? getImageRelativeWidthAtHeight(img, letterHeight) : (img.naturalWidth * sizeMultiplier))
                 widthSoFar += extraWidth
             } catch (e) {
-                console.error(`An error occurect for getTextWidth("${text}") at i=${i} letter=${letter}; isCapital=${isCapital} letterHeight=${letterHeight}`)
+                console.error(`An error occured for getTextWidth("${text}") at i=${i} letter=${letter}; isCapital=${isCapital} letterHeight=${letterHeight}`)
                 throw e
             }
 
@@ -270,7 +367,10 @@ export async function drawQGTextOnCanvas(canvas, text, sizeMultiplier=1) {
         return drawX
     }
 
-    await maybePreloadLetterImages()
+    if (text == 'Cleric') printTimestamp(`Starting to draw text: ${text}`)
+    // await maybePreloadLetterImages()
+    await waitImagesLoaded()
+    if (text == 'Cleric') printTimestamp(`Finished preloading letters`)
 
     canvas.width = getTextWidth(text)
     canvas.height = GET_TALL_LETTER_HEIGHT(sizeMultiplier)
@@ -280,6 +380,7 @@ export async function drawQGTextOnCanvas(canvas, text, sizeMultiplier=1) {
     for (let i = 0; i < text.length; i++) {
         drawX = drawCharAt(i, drawX)
     }
+    if (text == 'Cleric') printTimestamp(`Finished drawing letters`)
 
     
 }
