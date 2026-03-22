@@ -277,10 +277,13 @@ function maybeAddHasMixins(subobj) {
     if (subobj == null) {
         return
     }
-    if (subobj.Effect == null) {
-        return
+    if (stringHasAnyOfChars(subobj.Effect || '', '{^_~')) {
+        subobj.HasMixins = true
     }
-    if (stringHasAnyOfChars(subobj.Effect, '{^_~')) {
+    if (stringHasAnyOfChars(subobj.Upgrade || '', '{^_~')) {
+        subobj.HasMixins = true
+    }
+    if (stringHasAnyOfChars(subobj.Notes || '', '{^_~')) {
         subobj.HasMixins = true
     }
 }

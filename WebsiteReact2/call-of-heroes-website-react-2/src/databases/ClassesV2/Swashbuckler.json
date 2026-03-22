@@ -86,7 +86,7 @@
         }
     },
     "Talents": {
-        "Level 1 - Minor Talent": {
+        "Level 1 Class Talent": {
             "~Hack and Slash~": {
                 "A": "0 Actions",
                 "Cost": "1 Mana",
@@ -116,7 +116,7 @@
                     }
                 ],
                 "HasMixins": true,
-                "ParentKey": "Level 1 - Minor Talent"
+                "ParentKey": "Level 1 Class Talent"
             },
             "~Fame and Fortune~": {
                 "A": "0 Actions",
@@ -135,14 +135,14 @@
                     }
                 },
                 "HasMixins": true,
-                "ParentKey": "Level 1 - Minor Talent"
+                "ParentKey": "Level 1 Class Talent"
             },
             "<Deflect>": {
                 "A": "Reaction",
                 "Cost": "1 Mana",
                 "Effect": "Reduce the Damage of a weapon attack you receive by 100%.",
                 "Notes": "Works for ranged weapons. Melee body parts are considered weapons.",
-                "ParentKey": "Level 1 - Minor Talent"
+                "ParentKey": "Level 1 Class Talent"
             }
         },
         "Level 2 Class Talent": {
@@ -180,7 +180,13 @@
         "Level 3 Class Talent": {
             "~Strafe and Backpedal~": {
                 "A": "Passive",
+                "Tags": [
+                    "Keystone Talent (Level 3)",
+                    "Crit"
+                ],
+                "Upgrade": "{KeystoneTalent}",
                 "Effect": "After you move 2 times on the same Turn, your next weapon attack triggers its Critical Strike regardless.",
+                "HasMixins": true,
                 "ParentKey": "Level 3 Class Talent"
             },
             "<Duel To Death>": {
@@ -188,6 +194,12 @@
                 "A": "0 Actions",
                 "Cooldown": "Once / Adventure",
                 "Requirement": "Only usable on Units with 50% or more Health",
+                "Tags": [
+                    "Keystone Talent (Level 3)",
+                    "Ultimate",
+                    "Farming"
+                ],
+                "Upgrade": "{KeystoneTalent}",
                 "Effect": "Challenge a non-Epic Worthy Enemy to a duel to the death!\nThe two of you take Turns one after another until one of you reaches 0 Health.\nNeither of you can move away from eachother until the duel is over.\nIf you win, roll on the table to permanently improve your Hero!\n",
                 "DoubleTable": {
                     "Values": [
@@ -200,35 +212,47 @@
                     ]
                 },
                 "Notes": "First, you continue your Turn; then the Enemy has its turn. After the duel is over, resume Turn order, as if you just finished your Turn. All of these Turns happen on the same Round, as if in a vaccuum (e.g. Round number does not increase for some effects' purposes).",
+                "HasMixins": true,
                 "ParentKey": "Level 3 Class Talent"
             },
             "<10 Percent Luck>": {
                 "_Value": 2,
                 "A": "Passive",
-                "Effect": "Once per attack or Ability, when you roll a 1 for a Damage or Healing die, you can reroll that die.",
+                "Tags": [
+                    "Keystone Talent (Level 3)"
+                ],
+                "Upgrade": "{KeystoneTalent}",
+                "Effect": "Once per attack or Ability, when you roll a 1, you can reroll that die.",
+                "HasMixins": true,
                 "ParentKey": "Level 3 Class Talent"
             },
             "<Dashing Beauty>": {
                 "A": "Passive",
+                "Tags": [
+                    "Keystone Talent (Level 3)",
+                    "Damage"
+                ],
+                "Upgrade": "{KeystoneTalent}",
                 "Effect": "Your first attack every Turn deals extra Damage equal to 50% of how many meters you moved this Round.",
+                "HasMixins": true,
                 "ParentKey": "Level 3 Class Talent"
             }
         },
-        "Level 4 - Minor Talent": {
+        "Level 4 Class Talent": {
             "~Off-Hand Shank~": {
                 "A": "Half-Action",
                 "Cooldown": "Once / Turn",
                 "Cost": "1 Mana",
                 "Effect": "Make 3 attacks with a one-handed weapon you haven't used this Turn that would normally scale with a Stat. These attacks do not add any Stat to the Damage.",
                 "Notes": "You may apply Sharp End, Bravado or similar effects to individual attacks.",
-                "ParentKey": "Level 4 - Minor Talent"
+                "ParentKey": "Level 4 Class Talent"
             },
             "~Second Wind~": {
                 "A": "0 Actions",
                 "Cost": "1 Mana",
                 "Cooldown": "Once / Turn",
                 "Effect": "Take 1d6 Damage. Gain +Half-Action this Turn.",
-                "ParentKey": "Level 4 - Minor Talent"
+                "ParentKey": "Level 4 Class Talent"
             }
         },
         "Level 5 Class Talent": {
@@ -236,15 +260,28 @@
                 "_Value": 3,
                 "A": "1 Action",
                 "Cooldown": "Once / Adventure",
+                "Tags": [
+                    "Keystone Talent (Level 5)",
+                    "Damage",
+                    "Ultimate"
+                ],
+                "Upgrade": "{KeystoneTalent}",
                 "Requirement": "Only usable on the 3rd Round of Combat",
                 "Effect": "Make 6 attacks with a one-handed ranged weapon.\nFurther High Noon attacks on the same Unit (after the first) deal 50% less Damage.\n",
+                "HasMixins": true,
                 "ParentKey": "Level 5 Class Talent"
             },
             "<Exude Damage>": {
                 "_Value": 2.25,
                 "A": "Passive",
+                "Tags": [
+                    "Keystone Talent (Level 5)",
+                    "Area Damage"
+                ],
+                "Upgrade": "{KeystoneTalent}",
                 "Effect": "Your first melee attack every Turn deals Damage equal to your Movement Speed to all other Units within 1 meter of the main target.",
                 "Notes": "Excluding the main target and yourself.",
+                "HasMixins": true,
                 "ParentKey": "Level 5 Class Talent"
             }
         },
@@ -276,17 +313,23 @@
             "<Minor Icebreaker Ambush>": {
                 "_Value": 3,
                 "A": "Passive",
+                "Tags": [
+                    "Keystone Talent (Level 7)",
+                    "Gold"
+                ],
+                "Upgrade": "{KeystoneTalent}",
                 "Effect": "When you Ambush a Unit that has full Health, the attack deals +1d6 Damage.\n",
+                "HasMixins": true,
                 "ParentKey": "Level 7 Class Talent"
             }
         },
-        "Level 8 - Minor Talent": {
+        "Level 8 Class Talent": {
             "<Swashbuckle>": {
                 "_Value": 2.25,
                 "A": "Passive",
                 "Effect": "Gain +3 Movement Speed.",
                 "EffectGreen": "When you get this, gain +1 in a Stat of choice, up to +5.",
-                "ParentKey": "Level 8 - Minor Talent"
+                "ParentKey": "Level 8 Class Talent"
             }
         },
         "Level 9 Class Talent": {
@@ -306,12 +349,12 @@
                 "ParentKey": "Level 9 Class Talent"
             }
         },
-        "Level 10 - Ultimate Talent": {
+        "Level 10 Class Talent": {
             "One Man Show": {
                 "A": "Passive",
                 "Effect": "While outnumbered, you start your Turns with an extra Half-Action for each extra Worthy Enemy outnumbering you.\n\nAlso, passively, you gain +1 Charisma and +1 Damage on every Damage instance you deal.\n",
                 "HasMixins": true,
-                "Downside": "{Ultimate}"
+                "Downside": "{Heroic}"
             },
             "Acrobatix Bellatrix": {
                 "A": "Passive",

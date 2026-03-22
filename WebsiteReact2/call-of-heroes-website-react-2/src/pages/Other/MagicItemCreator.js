@@ -1,4 +1,4 @@
-import { $SKILLS, addBonusToDamageText, capitalizeFirstLetter, filterObject, generateUniqueId, getAlternativesAsArray, getAnExistingKeyOf, getItemIconPathByName, includesAll, includesAny, includesAnyWithExceptions, isNumber, isStringNumeric, joinObjectValues, last, mapKeysToObject, mapObject, matchRange, mergeObjectsContainingArrays, onlyUniqueFilter, parseTextWithSymbols, percentChance, randomInt, randomOf, randomOfArrayWeighted, range, removeDuplicates, roundToNearest, SeededRNG, shuffle, SKILL_GROUP_BY_ELEMENT, SKILLS_BY_GROUP, sortByHash, spellsFromObject, stringReplaceAllMany } from "../../utils";
+import { $SKILLS, addBonusToDamageText, capitalizeFirstLetter, filterObject, generateUniqueId, getAlternativesAsArray, getAnExistingKeyOf, getItemIconPathByName, includesAll, includesAny, includesAnyWithExceptions, isNumber, isStringNumeric, joinObjectValues, last, mapKeysToObject, mapObject, mapObjectToArray, matchRange, mergeObjectsContainingArrays, objectToArray, onlyUniqueFilter, parseTextWithSymbols, percentChance, randomInt, randomOf, randomOfArrayWeighted, range, removeDuplicates, roundToNearest, SeededRNG, shuffle, SKILL_GROUP_BY_ELEMENT, SKILLS_BY_GROUP, sortByHash, spellsFromObject, stringReplaceAllMany } from "../../utils";
 import MagicItemProperties from '../../databases/Other/MagicItemProperties.json'
 import Weapons from '../../databases/Weapons.json'
 import Armors from '../../databases/Armors.json'
@@ -1547,16 +1547,44 @@ function getItemIconName(item, rng=standardRNG) {
     return item.WeaponType
 }
 window.getItemIconName = getItemIconName
-function getItemPrice(item, rng=standardRNG) {
+function getItemPrice(item, addedEffectsByGroup, rng=standardRNG) {
+
+    /*
+        50      ...     x5
+        75      ...     x6
+        100     ...     x7
+        150     ...     x8
+        200     ...     x9
+        250     ...     x10
+    */
+
+    const allEffects = Object.values(addedEffectsByGroup).flat()
+    
+    function getEffectPrice({ XP }) {
+        const multiplier =
+            XP <= 50?   7
+            :XP <= 75?  8
+            :XP <= 100?  9
+            :XP <= 150?  10
+            :XP <= 200?  11
+            :12
+        return (XP || 1) * multiplier
+    }
+
+    const allEffectsPrice = allEffects.map(effect => getEffectPrice(effect))
+    const totalExtraPrice = allEffectsPrice.reduce((soFar, number) => soFar + number, 0)
     const basePrice = item.Price
-    const addedPrice = matchRange(item.XP, [
-        { range: [-9999, 0], value: rng.randomInt(100, 150) },
-        { range: [0, 50], value: rng.randomInt(250, 375) },
-        { range: [50, 100], value: item.XP * rng.randomInt(4, 5) },
-        { range: [100, 175], value: item.XP * rng.randomInt(5, 6) },
-        { range: [175, 9999], value: item.XP * rng.randomInt(6, 7) },
-    ])
-    return basePrice + addedPrice
+
+    console.log({allEffects, allEffectsPrice})
+    return basePrice + totalExtraPrice
+    // const addedPrice = matchRange(item.XP, [
+    //     { range: [-9999, 0], value: rng.randomInt(100, 150) },
+    //     { range: [0, 50], value: rng.randomInt(250, 375) },
+    //     { range: [50, 100], value: item.XP * rng.randomInt(4, 5) },
+    //     { range: [100, 175], value: item.XP * rng.randomInt(5, 6) },
+    //     { range: [175, 9999], value: item.XP * rng.randomInt(6, 7) },
+    // ])
+    // return basePrice + addedPrice
 }
 function getWeaponPropsFromType(itemType) {
     const possibleRanges = ['Melee', 'Ranged']
@@ -2163,7 +2191,7 @@ export function createMagicItem(xp, itemType, rng=standardRNG) {
 
     baselineItem.XP = xp
     baselineItem.HasMixins = true
-    baselineItem.Price = getItemPrice(baselineItem, rng)
+    baselineItem.Price = getItemPrice(baselineItem, addedEffectsByGroup, rng)
 
     // Add icon
     const iconName = getItemIconName(baselineItem, rng)

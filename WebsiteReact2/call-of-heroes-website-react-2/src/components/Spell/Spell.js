@@ -101,8 +101,16 @@ export function SpellTopStats({className, tags, keywords}) {
 
     const parsedKeywords = getSpellTags({ Tags: keywords })
 
+    function KeywordTag({ children }) {
+        let style = {}
+        if (children?.includes?.('Keystone')) {
+            style = { backgroundColor: 'var(--orange-color)' }
+        }
+        return <div className='tag smaller-font' style={style} key={children}>{ children }</div>
+    }
+
     function KeywordTags() {
-        return <>{ parsedKeywords.map(tag => <div className='tag smaller-font' key={tag}>{ tag }</div>) }</>
+        return <>{ parsedKeywords.map(tag => <KeywordTag>{tag}</KeywordTag>) }</>
     }
 
     return (
@@ -159,6 +167,8 @@ export function SpellTop({
         return <div style={{color: 'red'}}>Error</div>
     }
 
+
+
     const obj = item != null? item: spell
     if (hasIcon === false) {
         return (
@@ -180,7 +190,21 @@ export function SpellTop({
     function SpellTopLeft() {
         const maxVariantIndex = hasVariants? Variants.length: null
         const tintColors = spell.TintColor == null? []: hexColorToRgbVector(spell.TintColor)
-
+        const parsedKeywords = getSpellTags({ Tags: spell.Tags })
+        const talentType =
+            parsedKeywords.some(tag => tag.includes('Keystone'))?
+                'Keystone'
+            :
+                'Minor'
+        const glowColor =
+            talentType == 'Keystone'?
+                'var(--orange-color)'
+            :
+                ''
+        const glowStyle = talentType == 'Minor'? {}: {
+            '--color-1': 'rgba(255 255 255 0)',
+            '--color-2': glowColor
+        }
         return (
             <div className={`left`}>
                     
@@ -194,7 +218,9 @@ export function SpellTop({
                     </div>
                 )}
 
-                <div className='spell-icon-wrapper relative'>
+                <div style={glowStyle} className={classNames('spell-icon-wrapper relative', {
+                    'breathing-glow': talentType != 'Minor'
+                })}>
                     { hasVariants === true && (
                         <div className='variant-spinner'></div>
                     )}
@@ -368,6 +394,8 @@ export default function Spell({
         setVariantIndex(nextVariantIndex)
     }
 
+
+
     return (
         <div data-selectable={isSelected != null} id={uniqueID} style={style} className={classNames(
             'spell',
@@ -435,7 +463,7 @@ export default function Spell({
                     </div>
                 ) }
                 { EffectOrange != null && (
-                    <div className='spell-upgrade smaller-font' style={{color: '#FF5A00'}}>
+                    <div className='spell-upgrade smaller-font' style={{color: 'var(--orange-color)'}}>
                         { EffectOrange }
                     </div>
                 ) }

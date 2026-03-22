@@ -60,9 +60,13 @@ Starting Abilities:
     A: Passive
     HasMixins: true
     Effect: |
-      At the start of your every Turn in a Worthy Combat, roll 1d10.
-      If you roll 1, you take 1d6 True Damage.
-      If you roll 10, your next Spell this Turn has +50% Damage.
+      At the start of your every Turn in a Worthy Combat, roll 1d10. Apply any effects you have.
+      Other Talents will add extra effects to your Unstable Spark die.
+      
+      {Spark(1)} you take 1d6 True Damage.
+      {Spark(10)} your next Spell this Turn has +50% Damage.
+    Upgrade: The Color('orange' 'orange d10') icon on a Sorcerer Ability means that effect triggers when you roll that number on the Unstable Spark die.
+    Downside: You can not have multiple Talents that overlap effects for the same number (e.g. Wild Casting and Guiled Casting).
 
   ~Overcharge~:
     A: 0 Actions
@@ -72,7 +76,7 @@ Starting Abilities:
   
   ~Flux~:
     A: Passive
-    Effect: Choose a Damage Type from the ones listed below. That becomes your {Color('orange', 'Flux')} Type. Some of your Spells's Damage deal that Damage Type (written explicitly on those Spells).
+    Effect: Choose a Damage Type from the ones listed below. That becomes your {Color('orange' 'Flux')} Type. Some of your Spells's Damage deal that Damage Type (written explicitly on those Spells).
     Upgrade: 1. Fire, 2. Cold, 3. Shock, 4. Pulse, 5. Poison, 6. Acid, 7. Divine, 8. Scourge.
 
 
@@ -144,7 +148,7 @@ Talents:
       Range: 5 meters
       Requirement: Only usable in Worthy Combat
       Effect: |
-        Shoot a quick burst of current at a Unit, dealing 1d6 + ^Any Stat^ {Color('orange', 'Flux')} Damage.
+        Shoot a quick burst of current at a Unit, dealing 1d6 + ^Any Stat^ {Color('orange' 'Flux')} Damage.
         Then roll an Unstable Spark die.
       Downside: |
         Only usable if your last Unstable Spark die rolled was at least 6.
@@ -154,7 +158,7 @@ Talents:
       Cost: 1 Mana
       Requirement: Only usable in Worthy Combat
       Effect: |
-        For the rest of the Combat, whenever you roll 3 on the Unstable Spark die, gain +1 Skill Point permanently.
+        For the {Color('orange' 'Flux')} rest of the Combat, whenever you roll 3 on the Unstable Spark die, gain +1 Skill Point permanently.
 
     ~Soulflare~:
       _Value: 0
@@ -163,7 +167,7 @@ Talents:
       ScrollPower: 2
       Cost: 1 Mana
       Effect: |
-        Deal {Amount} {Color('orange', 'Flux')} Damage to {ToWhat}.
+        Deal {Amount} {Color('orange' 'Flux')} Damage to {ToWhat}.
 
         ~You have access to all Variants of this Spell (click on the icon to select the preferred effect)!~
       Variants:
@@ -184,7 +188,7 @@ Talents:
       A: Half-Action
       Requirement: Only usable in Worthy Combat
       Effect: |
-        Your next weapon attack until the end of your next Turn deals extra Damage equal to your last rolled Unstable Spark die and all its Damage dealt becomes {Color('orange', 'Flux')} Damage.
+        Your next weapon attack until the end of your next Turn deals extra Damage equal to your last rolled Unstable Spark die and all its Damage dealt becomes {Color('orange' 'Flux')} Damage.
 
     ~Spellbloodweave~:
       A: 0 Actions
@@ -196,12 +200,11 @@ Talents:
 
   Level 2 Class Talent:
 
-
     <Wild Casting>:
       _Value: 0.5
       A: Passive
       Effect: |
-        When you roll the Unstable Spark die, if you roll 1 or 2, roll 1d20 (after taking Damage on 1). The Quest Master freely casts that Spell from the table below.
+        {Spark('2 or 3')} roll 1d20. You automatically that Spell from the table below, but the Quest Master determines the targets and strength.
         If you rolled 2 on the Unstable Spark die, the effect is negative for your team. Otherwise, it's positive.
         The lower Health you are, the more intense the effect (probably).
       Notes: |
@@ -255,7 +258,7 @@ Talents:
       A: Passive
       AlignOnWebsite: Left
       Effect: |
-        When you roll 2 on the Unstable Spark die, after taking the Damage, you deal +1 Damage of a random Damage Type _permanently_ as long as you have this Talent.
+        {Spark(2)} after taking the Damage, you deal +1 Damage of a random Damage Type _permanently_ as long as you have this Talent.
       Notes: 1. Fire, 2. Cold, 3. Shock, 4. Pulse, 5. Poison, 6. Acid, 7. Divine, 8. Scourge.
 
     <Mild Casting>:
@@ -263,16 +266,16 @@ Talents:
       AlignOnWebsite: Left
       A: Passive
       Effect: |
-        Your base Unstable Spark also triggers on 9.
-        After you cast a Spell or one of its variants, you can't cast that spell or variant again this Combat.
+        {Spark(9)} trigger the base Unstable Spark effect for 10.
       Notes: If you cast the 1st version Soulflare, you can still cast its other versions this Combat.
+      Downside: After you cast a Spell or one of its variants, you can't cast that spell or variant again this Combat.
 
     <Viled Casting>:
       A: Passive
       AlignOnWebsite: Left
-      Effect: 
-        All non-physical Damage you deal becomes Eldritch Damage.
-        When you roll 2 on the Unstable Spark die, increase all Eldritch Damage you deal for the rest of the combat by 3. Then roll another Unstable Spark die.
+      Effect: |
+        You can make any Damage Type you do be Scourge Damage.
+        {Spark(2)} increase all Scourge Damage you deal for the rest of the combat by 3. Then roll another Unstable Spark die.
 
     <Sap>:
       _Value: 1
@@ -301,7 +304,8 @@ Talents:
     <Arcano Mantissa>:
       _Value: 1.5 # No fucking idea lol
       A: Passive
-      Effect: When you roll 4 on the Unstable Spark die, gain 0.5 Max Health and 0.25 Max Mana.
+      Effect: |
+        {Spark(4)} gain 0.5 Max Health and 0.25 Max Mana.
       Notes: Mana and Health can't be expended or Damaged in fractions, but if you manage to get this 2 times, you essentially get +1 Health permanently (or 1 Mana permanently if you trigger this 4 times).
 
     <Honorificabilitudinitatibus>:
@@ -313,11 +317,12 @@ Talents:
           Your Unstable Spark die becomes 1d12 instead of 1d10, and triggers on 11 and 12 instead of 10.
         Notes: |
           I don't know. You're a Sorcerer, figure it out.
+          Mild Casting still works on 9.
     
     <Tap>:
       A: Passive
       Effect: |
-        When you roll 4 on the Unstable Spark die, deal 1d4 {Color('orange', 'Flux')} Damage. It gets affected by that effect:
+        {Spark(4)} deal 1d4 {Color('orange' 'Flux')} Damage. It gets affected by that effect:
       Upgrade: 1. Single-Stun, 2. Blind, 3. Slow, 4. Frail
 
     ~Font Magic~:
@@ -326,8 +331,7 @@ Talents:
       HasMixins: true
       Effect: |
         You may select a `Magic Font$/Other/MagicFonts` to pick Spells from.
-        You get a free Magic Font Spell.
-        Gain +1 Intelligence (up to +4).
+        You get 2 free Magic Font Spells.
       Notes: |
         You can get more Magic Font Spells as if you're getting extra Class Talents (e.g. a number of them equal to your Intellgience).
 
@@ -351,7 +355,7 @@ Talents:
       Replacement: Replaces Soulflare
       Requirement: Requires Soulflare
       Effect: |
-        Deal {Amount} {Color('orange', 'Flux')} Damage to {ToWhat}.
+        Deal {Amount} {Color('orange' 'Flux')} Damage to {ToWhat}.
 
         ~You have access to all Variants of this Spell (click on the icon to select the preferred effect)!~
       Notes: ~The Damage is higher than the regular Soulflare.~
@@ -394,7 +398,7 @@ Talents:
       IconName: Jolt
       HasUpgradeIcon: true
       Effect: |
-        Shoot a quick burst of current at a Unit, dealing ~1d10~ + ^Any Stat^ {Color('orange', 'Flux')} Damage.
+        Shoot a quick burst of current at a Unit, dealing ~1d10~ + ^Any Stat^ {Color('orange' 'Flux')} Damage.
         Then roll an Unstable Spark die.
       Downside: |
         Only usable if your last Unstable Spark die rolled was at least 6.
@@ -436,12 +440,13 @@ Talents:
       _Value: 2.5
       A: Passive
       Effect: |
-        When you roll 8 or 9 on the Unstable Spark die, gain 1 Mana.
+        {Spark('8 or 9')} gain 1 Mana.
     
     <Zap>:
       _Value: 2.5
       A: Passive
-      Effect: When you roll 6, 7 or 8 on the Unstable Spark die, immediately Zap the closest Unit to you for ^your Intelligence^ Shock Damage.
+      Effect: |
+        {Spark('6, 7 or 8')} immediately Zap the closest Unit to you for ^your Intelligence^ Shock Damage.
 
   Level 9 Class Talent:
 

@@ -56,7 +56,7 @@
         },
         "~Bear Necessities~": {
             "A": "Passive",
-            "Effect": "Choose 2 Level 1 - Pet Talents from below to give to your pet.\nAlso, your Level 1 Minor Talents apply to your Pet instead of yourself.\n",
+            "Effect": "Choose 2 Level 1 - Pet Talents from below to give to your pet.\nAlso, your Level 1 Class Talents apply to your Pet instead of yourself.\n",
             "ParentKey": "Starting Abilities"
         }
     },
@@ -141,6 +141,7 @@
             "IsSubspell": true,
             "Effect": "Your pet can walk on walls and ceilings at normal speed.\n",
             "Upgrade": "At Level 4, ^you^ can also crawl on walls and ceilings at half of your speed by trailing behind your pet.",
+            "HasMixins": true,
             "ParentKey": "Ability Choices"
         }
     },
@@ -291,12 +292,12 @@
                 }
             },
             "Talents": {
-                "Level 2 - Minor Talent": {
+                "Level 2 Class Talent": {
                     "~Tracker~": {
                         "_Value": 0.25,
                         "A": "Passive",
                         "Effect": "You have +2 in Tracking (non-Combat Skill)\nYou always know where North is in non-magical environments.\nYou and your pets are unaffected by Hard Terrain.\n",
-                        "ParentKey": "Level 2 - Minor Talent"
+                        "ParentKey": "Level 2 Class Talent"
                     },
                     "~Infused Shots~": {
                         "A": "Passive",
@@ -320,12 +321,12 @@
                             }
                         ],
                         "HasMixins": true,
-                        "ParentKey": "Level 2 - Minor Talent"
+                        "ParentKey": "Level 2 Class Talent"
                     },
                     "<Pet Versatile Training>": {
                         "A": "Special",
                         "Effect": "When you get this Talent and at the end of every Adventure, you can change one of your pet's Pet Talents.",
-                        "ParentKey": "Level 2 - Minor Talent"
+                        "ParentKey": "Level 2 Class Talent"
                     },
                     "~Harpoon~": {
                         "A": "Passive",
@@ -344,7 +345,7 @@
                         ],
                         "Notes": "The target stops if it collides with something.",
                         "HasMixins": true,
-                        "ParentKey": "Level 2 - Minor Talent"
+                        "ParentKey": "Level 2 Class Talent"
                     }
                 },
                 "Level 3 Class Talent": {
@@ -353,6 +354,7 @@
                         "ScrollPower": 2,
                         "Effect": "Deploy a Hunting Trap near you armed in a certain way that it's stronger than usual.\nWhen a Unit steps on it, it takes 2d8 Damage, gets a Combo and ends its Movement.\n",
                         "Upgrade": "Requires a Hunting Trap, which can be bought or crafted for 100 {Gold}Gold.",
+                        "HasMixins": true,
                         "ParentKey": "Level 3 Class Talent"
                     },
                     "~Refire Dodge Roll~": {
@@ -392,18 +394,18 @@
                         "ParentKey": "Level 3 Class Talent"
                     }
                 },
-                "Level 4 - Minor Talent": {
+                "Level 4 Class Talent": {
                     "<Bandage Wounds>": {
                         "_Value": 0.75,
                         "Cooldown": "Once / Adventure",
                         "A": "10 minutes",
                         "Effect": "Heal a Unit for 1d4 for each 10 Health it is missing.",
-                        "ParentKey": "Level 4 - Minor Talent"
+                        "ParentKey": "Level 4 Class Talent"
                     },
                     "<Pet Versatile Trainings>": {
                         "A": "Special",
                         "Effect": "When you get this Talent and at the end of every Adventure, you can change one Pet Talent of one of your pets.",
-                        "ParentKey": "Level 4 - Minor Talent"
+                        "ParentKey": "Level 4 Class Talent"
                     },
                     "~Lance Heave~": {
                         "A": "Depends on Weapon",
@@ -440,7 +442,7 @@
                                 "IconName": "Piercing Heave"
                             }
                         ],
-                        "ParentKey": "Level 4 - Minor Talent"
+                        "ParentKey": "Level 4 Class Talent"
                     }
                 },
                 "Level 5 Class Talent": {
@@ -449,9 +451,16 @@
                         "A": "1 Action",
                         "Range": "16 meters",
                         "Cooldown": "Once / Adventure",
+                        "Tags": [
+                            "Keystone Talent (Level 5)",
+                            "Damage",
+                            "Ultimate"
+                        ],
+                        "Upgrade": "{KeystoneTalent}",
                         "ScrollPower": 3,
                         "Effect": "Make an attack on a target.\nFor each meter to the target, the attack deals 1d6 Pierce Damage, up to 8 meters.\nFor each meter to the target over 8 meters, deal -1d6 Damage.\n",
                         "Notes": "At exactly 8 meters range, the attack deals 8d6 Damage. At 7 and 9 meters, it deals 7d6. At 6 and 10 meters, 6d6. And so on.",
+                        "HasMixins": true,
                         "ParentKey": "Level 5 Class Talent"
                     },
                     "~Tag-Team Mark~": {
@@ -461,6 +470,12 @@
                         "Duration": "1 hour",
                         "HasMixins": true,
                         "Replacement": "Replaces Hunter Mark",
+                        "Tags": [
+                            "Keystone Talent (Level 5)",
+                            "Hunter Mark",
+                            "Pet"
+                        ],
+                        "Upgrade": "{KeystoneTalent}",
                         "Effect": "Choose and mark a target you can see. ~Your Pet immediately dashes to the target and performs a Pet Attack if it's within 6 meters of the target.~\nYour own ~and your pet's~ single target attacks and Abilities against the marked target have their ^Dice Upgraded^ to the next die type.\n",
                         "Notes": "{DiceUpgrade}\nA Unit can only have one Hunter Mark on it at a time.\nYour Pet lands on the closest space near the target.\n",
                         "ParentKey": "Level 5 Class Talent"
@@ -472,6 +487,12 @@
                         "Duration": "1 hour",
                         "HasMixins": true,
                         "Replacement": "Replaces Hunter Mark",
+                        "Tags": [
+                            "Keystone Talent (Level 5)",
+                            "Hunter Mark",
+                            "Crowd Control"
+                        ],
+                        "Upgrade": "{KeystoneTalent}",
                         "Effect": "Choose and mark a target you can see. ~If it's a non-Epic Unit, it is perpetually Single-Stunned while Marked.~\nYour own single target attacks and Abilities against the marked target have their ^Dice Upgraded^ to the next die type.\n",
                         "Notes": "{DiceUpgrade}\n{Feared}\nA Unit can only have one Hunter Mark on it at a time.\nYour Pet lands on the closest space near the target.\n",
                         "ParentKey": "Level 5 Class Talent"
@@ -487,6 +508,7 @@
                         "A": "Passive",
                         "Effect": "Pet Attack deals 1d6 Damage instead of 1d4.",
                         "Notes": "This Talent is also available at an earlier Level, and does ^not^ stack with this.",
+                        "HasMixins": true,
                         "ParentKey": "Level 5 Class Talent"
                     }
                 },
@@ -511,6 +533,12 @@
                         "Range": "10 meters",
                         "Cooldown": "Once / Adventure",
                         "ScrollPower": 3,
+                        "Tags": [
+                            "Keystone Talent (Level 7)",
+                            "Area Damage",
+                            "Crowd Control (Hard)"
+                        ],
+                        "Upgrade": "{KeystoneTalent}",
                         "HasMixins": true,
                         "Effect": "Shoot a thundering shot towards an obstacle or wall. A quaking wave travels horizontally towards in both directions of the wall up to 10 meters in each direction.\nAll Units within 2 meters of that wall must succeed a Might Check at least equal to your Sense Check or be Triple-Stunned and take 3d4 Shock Damage.\nThey take half of the Damage and are Single-Stun even if they pass.\n",
                         "Notes": "The floor and ceiling are not considered walls. The wave does not travel through them. This is considered a Spell. Ignores Cover.",
@@ -520,6 +548,11 @@
                         "_Value": 2.5,
                         "A": "Passive",
                         "HasMixins": true,
+                        "Tags": [
+                            "Keystone Talent (Level 7)",
+                            "Hunter Mark"
+                        ],
+                        "Upgrade": "{KeystoneTalent}",
                         "Effect": "Hunter Mark makes your ^Dice^ further ^Upgraded^ to the next die type.",
                         "Notes": "E.g. from d6 to d10.",
                         "ParentKey": "Level 7 Class Talent"
@@ -529,20 +562,26 @@
                         "A": "0 Actions",
                         "Cooldown": "Once / Adventure",
                         "Duration": "12 seconds",
+                        "Tags": [
+                            "Keystone Talent (Level 7)",
+                            "Healing",
+                            "Utility"
+                        ],
+                        "Upgrade": "{KeystoneTalent}",
                         "ScrollPower": 3,
                         "HasMixins": true,
                         "Effect": "You and your pet become ^invisible^. While a Unit is _leafwalking_, it heals for 1d4 whenever it does an Act. Lasts until the end of your next turn (or for 12 seconds if not in combat).",
                         "ParentKey": "Level 7 Class Talent"
                     }
                 },
-                "Level 8 - Minor Talent": {
+                "Level 8 Class Talent": {
                     "<Stat Bonuses 5>": {
                         "Effect": "Gain +1 in two Stats of choice, up to +5.",
-                        "ParentKey": "Level 8 - Minor Talent"
+                        "ParentKey": "Level 8 Class Talent"
                     },
                     "<Stat Bonuses 4 Extra>": {
                         "Effect": "Gain +1 in three Stats of choice, up to +4.",
-                        "ParentKey": "Level 8 - Minor Talent"
+                        "ParentKey": "Level 8 Class Talent"
                     }
                 },
                 "Level 9 Class Talent": {
@@ -550,30 +589,41 @@
                         "_Value": 4,
                         "A": "Passive",
                         "HasMixins": true,
+                        "Tags": [
+                            "Keystone Talent (Level 9)",
+                            "Area Damage"
+                        ],
+                        "Upgrade": "{KeystoneTalent}",
                         "Effect": "When making a single-target attack on a Unit, your attack hits another target, depending on the weapon range:\n{Diamond} If ranged, the attack hits the first Unit directly behind the main target within 3 meters of it, on a line, for 50% of the base Damage of the attack.\n{Diamond} If melee, the attack hits one Unit of choice within 2 meters of the target, for 50% of the base Damage of the attack.\n",
                         "ParentKey": "Level 9 Class Talent"
                     },
                     "<Marked for Criticals>": {
                         "A": "Passive",
+                        "Tags": [
+                            "Keystone Talent (Level 9)",
+                            "Damage"
+                        ],
+                        "Upgrade": "{KeystoneTalent}",
                         "Effect": "After you use Hunter Mark (or an upgrade) on a target, it takes maximum Damage from the next dice roll.\n",
                         "Notes": "For example, after you Hunter Mark a Unit, if you attack it for 2d8 Damage, you don't roll; it just takes 16 Damage. Applies to bonuses like Dice Upgrades, Smites, etc.",
+                        "HasMixins": true,
                         "ParentKey": "Level 9 Class Talent"
                     }
                 },
-                "Level 10 - Ultimate Talent": {
+                "Level 10 Class Talent": {
                     "<Eye of the Hawk>": {
                         "A": "Passive",
                         "Effect": "All enemies in a Worthy Combat are automatically _Marked_, and your range increases by 500% and your ^Dice^ are further ^Upgraded^ to the ^next^ die type against _Marked_ Units. After manually casting Hunter Mark, your first attack deals 50% more Damage against that Unit.\nYou automatically pass all Hard Dexterity Checks (that require at least 15) and your Sense and Dexterity increase by an extra 2.\n",
                         "HasMixins": true,
-                        "Downside": "{Ultimate}",
-                        "ParentKey": "Level 10 - Ultimate Talent"
+                        "Downside": "{Heroic}",
+                        "ParentKey": "Level 10 Class Talent"
                     },
                     "<Eye of the Raptor>": {
                         "A": "Passive",
                         "Effect": "Your attacks deal maximum Damage to Units that are not _Marked_ if they are within 3 meters of you or your Pet.\nYou automatically pass all Hard Sense Checks (that require at least 15) and you gain +3 Sense.\n",
                         "HasMixins": true,
-                        "Downside": "{Ultimate}",
-                        "ParentKey": "Level 10 - Ultimate Talent"
+                        "Downside": "{Heroic}",
+                        "ParentKey": "Level 10 Class Talent"
                     }
                 }
             }
@@ -597,11 +647,11 @@
                 }
             },
             "Talents": {
-                "Level 2 - Minor Talent": {
+                "Level 2 Class Talent": {
                     "<Pet Versatile Trainings>": {
                         "A": "Special",
                         "Effect": "When you get this Talent and at the end of every Adventure, you can change one Pet Talent of one of your pets.",
-                        "ParentKey": "Level 2 - Minor Talent"
+                        "ParentKey": "Level 2 Class Talent"
                     },
                     "~Infused Bites~": {
                         "A": "Passive",
@@ -625,7 +675,7 @@
                             }
                         ],
                         "HasMixins": true,
-                        "ParentKey": "Level 2 - Minor Talent"
+                        "ParentKey": "Level 2 Class Talent"
                     }
                 },
                 "Level 3 Class Talent": {
@@ -643,16 +693,16 @@
                         "ParentKey": "Level 3 Class Talent"
                     }
                 },
-                "Level 4 - Minor Talent": {
+                "Level 4 Class Talent": {
                     "<Double Training>": {
                         "A": "Passive",
                         "Effect": "Teach each of your Animal Companions one more Pet Talent.",
-                        "ParentKey": "Level 4 - Minor Talent"
+                        "ParentKey": "Level 4 Class Talent"
                     },
                     "<Pet Versatile Training>": {
                         "A": "Special",
                         "Effect": "When you get this Talent and at the end of every Adventure, you can change one of your pet's Pet Talents.",
-                        "ParentKey": "Level 4 - Minor Talent"
+                        "ParentKey": "Level 4 Class Talent"
                     }
                 },
                 "Level 5 Class Talent": {
@@ -718,22 +768,22 @@
                         "ParentKey": "Level 7 Class Talent"
                     }
                 },
-                "Level 10 - Ultimate Talent": {
+                "Level 10 Class Talent": {
                     "<Shapeshifting Pet>": {
                         "A": "0 Actions",
                         "Cooldown": "Once / Turn",
                         "Effect": "Turn one of your pets into a different animal type from the `Pets and Animals page$/Other/PetsAndAnimals`. If it's enhanced by a Talent, it keeps all enhancements (e.g. from Large Double).\nPassively, your Pets gain +3 in all Stats, +10 Health, +2 Movement Speed and +1d4 Damage on all attacks.\n",
                         "Upgrade": "If you have the Wild Single Talent, you can turn a pet into a combination of 2 Animals.",
                         "HasMixins": true,
-                        "Downside": "{Ultimate}",
-                        "ParentKey": "Level 10 - Ultimate Talent"
+                        "Downside": "{Heroic}",
+                        "ParentKey": "Level 10 Class Talent"
                     },
                     "<Cryptid Tamer>": {
                         "A": "Passive",
                         "Effect": "One of your Animal Companions becomes a Beast, Dragon or Insect from the `Monsters page$/Other/Monsters` worth less than 500 XP. It doesn't have a regular Pet Attack, but it has exactly the Abilities and attacks, but only 50% of its Max Health. It obeys the rest of your Animal Companion rules as normal.\nPassively, your Pets automatically pass all Very Hard Sense Checks (requiring at least 20).\n",
                         "HasMixins": true,
-                        "Downside": "{Ultimate}",
-                        "ParentKey": "Level 10 - Ultimate Talent"
+                        "Downside": "{Heroic}",
+                        "ParentKey": "Level 10 Class Talent"
                     }
                 }
             }

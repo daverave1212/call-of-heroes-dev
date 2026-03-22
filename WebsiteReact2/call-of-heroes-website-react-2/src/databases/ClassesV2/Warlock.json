@@ -26,7 +26,7 @@
         "~Affiance Casting~": {
             "A": "Special",
             "AlignOnWebsite": "Left",
-            "Effect": "You have 2 Mana Points that can't increase except through Warlock Talents.\nYour Mana replenishes after each Worthy Combat.\n",
+            "Effect": "Your Max Mana is 2, i never increases, and can't increase except through Warlock Talents.\nYour Mana replenishes after each Worthy Combat.\n",
             "ParentKey": "Starting Abilities"
         },
         "~Evoke~": {
@@ -34,8 +34,8 @@
             "A": "Passive",
             "HasMixins": true,
             "AlignOnWebsite": "Left",
-            "Effect": "You start each Worthy Combat with 0 Evoke Points.\nWhen you roll at least 1 maximum die on any Act, gain 1 Evoke Point.\nSome Spells can consume all Evoke Points to gain an improved effect ^for each Evoke Point spent^.\n\nAdditionally, you have an extra Minor Talent tier for special Evocations.\n",
-            "Notes": "You must spend ^all^ EP when you decide to. You can pick one for free Evocation at Level 1, and get more like you would normally get extra Minor Talents.",
+            "Effect": "You start each Worthy Combat with 0 Evoke Points.\nWhen you roll at least 1 maximum die on any Act, gain 1 Evoke Point.\nSome Spells can consume all Evoke Points to gain an improved effect ^for each Evoke Point spent^.\n\nAdditionally, you have an extra special Talent tier for Evocations.\n",
+            "Notes": "You must spend ^all^ EP when you decide to. You can pick one for free Evocation at Level 1, and get more {LikeNormalTalents}.",
             "ParentKey": "Starting Abilities"
         }
     },
@@ -47,14 +47,14 @@
             "Affiance Casting": "Don't forget to spend Mana every Combat! You can't keep Mana from Combat to Combat, so spend it all!\nIf you want to spend Mana before a Combat, you will remain with that much Mana in the next Combat.\n"
         }
     ],
-    "Other Abilities Title": "Level 1 - Evocation Minor Talents",
-    "Other Abilities Description": "You have access to an extra tier of Minor Talents at Level 1 called Evocation Talents. You get one for free, and can get more as if you're getting regular Minor Talents.",
+    "Other Abilities Title": "Level 1 Evocation Talents",
+    "Other Abilities Description": "You have access to an extra tier of Talents at Level 1 called Evocation Talents. You get one for free, and can get more as if you're getting regular Talents.",
     "Other Abilities": {
         "~Diverge~": {
             "_Value": 0,
             "A": "0 Actions",
             "Requirement": "Requires spending Evoke Points",
-            "Effect": "{Evoke}: Your next single-target Ability or Attack targets an extra Unit in range per Evoke Point spend, dealing -50% Damage and Healing to the secondary targets.\n",
+            "Effect": "{Evoke}: Your next single-target Ability or Attack targets an extra Unit in range per Evoke Point spent, dealing -50% Damage and Healing to the secondary targets.\n",
             "HasMixins": true,
             "ParentKey": "Other Abilities"
         },
@@ -62,7 +62,8 @@
             "_Value": 0,
             "A": "0 Actions",
             "Requirement": "Requires spending Evoke Points",
-            "Effect": "{Evoke}: Your next single-target Ability or Attack Single-Stuns the target per Evoke Point spent.\n",
+            "Effect": "{Evoke}: Your next Ability or Attack Single-Stuns one of the Units hit. For each extra Evoke Point spent, Single-Stun it again.\n",
+            "Notes": "Alternatively, you can Single-Stun one extra Unit that was hit, if your Act hit multiple Units. When increasing the Stun Degree inflicted with an Evoke Point, only increase it for one of the hit Units.",
             "HasMixins": true,
             "ParentKey": "Other Abilities"
         },
@@ -217,7 +218,7 @@
         }
     },
     "Talents": {
-        "Level 2 - Minor Talent": {
+        "Level 2 Class Talent": {
             "~Soul Drain~": {
                 "_Value": 0.25,
                 "A": "Half-Action",
@@ -227,7 +228,7 @@
                 "Effect": "Deal 2d6 True Damage to 2 Units.\nFor each killed, heal for 4 Health or gain +1 Max Health permanently (your choice).\n\n{Evoke}: Executes non-Epic Units at or below 10% of its Max Health per Evoke Point spent.\n",
                 "Notes": "For example, if you spend 2 Evoke Points, this executes Units at or below 20% Health. If you spend 3 Evoke Points, this executes Units at or below 30% Health. And so on.\nBoth Units take Damage from the same roll.\n",
                 "HasMixins": true,
-                "ParentKey": "Level 2 - Minor Talent"
+                "ParentKey": "Level 2 Class Talent"
             },
             "~Veinlight~": {
                 "A": "3 Action Points",
@@ -236,7 +237,7 @@
                 "Effect": "Choose a 3x3 meter area.\nAll Enemies in the area take 2d6 + 2d8 Damage of your chosen Element.\n\n{Evoke}: Increase the area by 3 meters in both directions per Evoke Point spent.\n",
                 "Notes": "For example, for 1 Evoke Point spent the area becomes 6x6 meters. For 2, it becomes 9x9 meters. And so on.",
                 "HasMixins": true,
-                "ParentKey": "Level 2 - Minor Talent"
+                "ParentKey": "Level 2 Class Talent"
             },
             "~Curse of Weakness~": {
                 "A": "Half-Action",
@@ -247,7 +248,7 @@
                 "Degree": "Minor",
                 "Tags": "Debuff",
                 "Effect": "Choose a Unit. The first time it deals Damage on its every Turn, roll 1d4 and subtract it from its dealt Damage.\n",
-                "ParentKey": "Level 2 - Minor Talent"
+                "ParentKey": "Level 2 Class Talent"
             }
         },
         "Level 3 Class Talent": {
@@ -256,27 +257,48 @@
                 "A": "Passive",
                 "HasMixins": true,
                 "Replacement": "Replaces Evoke",
-                "Effect": "You start each Worthy Combat with 0 Evoke Points.\nWhen you roll at least 1 ~minimum or~ maximum die on any Act, gain 1 Evoke Point.\nSome Spells can consume all Evoke Points to gain an improved effect ^for each Evoke Point spent^.\n\nAdditionally, you have an extra Minor Talent tier for special Evocations.\n",
-                "Notes": "You must spend ^all^ EP when you decide to. You can pick one for free Evocation at Level 1, and get more like you would normally get extra Minor Talents.",
+                "Tags": [
+                    "Keystone Talent (Level 3)",
+                    "Evoke"
+                ],
+                "Upgrade": "{KeystoneTalent}",
+                "Effect": "You start each Worthy Combat with 0 Evoke Points.\nWhen you roll at least 1 ~minimum or~ maximum die on any Act, gain 1 Evoke Point.\nSome Spells can consume all Evoke Points to gain an improved effect ^for each Evoke Point spent^.\n\nAdditionally, you have an extra Talent tier for special Evocations.\n",
+                "Notes": "You must spend ^all^ EP when you decide to. You can pick one for free Evocation at Level 1, and get more {LikeNormalTalents}.",
                 "ParentKey": "Level 3 Class Talent"
             },
             "~Borrowed Power~": {
                 "A": "Passive",
+                "Tags": [
+                    "Keystone Talent (Level 3)",
+                    "Evoke"
+                ],
+                "Upgrade": "{KeystoneTalent}",
                 "Effect": "You each Adventure with 2 Evoke Points.\nYou age 12 times as rapidly.\n",
+                "HasMixins": true,
                 "ParentKey": "Level 3 Class Talent"
             },
             "~Font Magic~": {
                 "_Value": 0,
                 "A": "Passive",
                 "HasMixins": true,
-                "Effect": "You may select a `Magic Font$/Other/MagicFonts` to pick Minor Talents from.\nYou get a free Magic Font Minor Talent.\nGain +1 Intelligence (up to +4).\n",
-                "Notes": "All Magic Font Abilities are Minor Talents.\nYou can get more Magic Font Minor Talents as if you're getting normal Minor Talents (e.g. a number of them equal to your Intellgience).\n",
+                "Tags": [
+                    "Keystone Talent (Level 3)",
+                    "Font"
+                ],
+                "Upgrade": "{KeystoneTalent}",
+                "Effect": "You may select a `Magic Font$/Other/MagicFonts` to pick Spells from.\nYou get 2 free Magic Font Spells.\n",
+                "Notes": "All Magic Font Spells act like Class Talents. You can get more Magic Font Spells {LikeNormalTalents}.\n",
                 "ParentKey": "Level 3 Class Talent"
             },
             "~Blood Dividend~": {
                 "_Value": 1.75,
                 "A": "0 Action Points",
                 "Range": "5 meters from you to healed Unit",
+                "Tags": [
+                    "Keystone Talent (Level 3)",
+                    "Healing"
+                ],
+                "Upgrade": "{KeystoneTalent}",
                 "Cooldown": "Once / Turn",
                 "Requirement": "Only usable in Worthy Combat",
                 "Effect": "Your next weapon attack or Spell deals -50% Damage, but heals another Unit for the Damage dealt.\nThen it applies a ~Combo~ to one of them.\n",
@@ -284,7 +306,7 @@
                 "ParentKey": "Level 3 Class Talent"
             }
         },
-        "Level 4 - Minor Talent": {
+        "Level 4 Class Talent": {
             "~Curse of Frailty~": {
                 "_Value": "Baseline, 0, but can go up to 1 if used correctly",
                 "A": "Half-Action",
@@ -292,7 +314,7 @@
                 "Tags": "Debuff",
                 "Effect": "A Unit you can see takes +50% Damage the next time it takes Damage from an ally.\n\n{Evoke}: +50% extra Damage per Evoke Point spent.\n",
                 "HasMixins": true,
-                "ParentKey": "Level 4 - Minor Talent"
+                "ParentKey": "Level 4 Class Talent"
             },
             "~Hail Torrent~": {
                 "A": "1 Action",
@@ -311,7 +333,7 @@
                 "Effect": "Blast a Unit for ~2d10~ + ^target's Might^ Damage of your chosen Element.\n\n{Evoke}: Hits an extra Unit (for ~1d10~ + ^that Unit's Might^) for each Evoke Point spend.\n",
                 "Combo": "Generates an extra Evoke Point.",
                 "Notes": "Each extra Unit hit must be different than the others.",
-                "ParentKey": "Level 4 - Minor Talent"
+                "ParentKey": "Level 4 Class Talent"
             },
             "~Invoke Kindred~": {
                 "A": "1 Action",
@@ -337,7 +359,7 @@
                     }
                 },
                 "HasMixins": true,
-                "ParentKey": "Level 4 - Minor Talent"
+                "ParentKey": "Level 4 Class Talent"
             }
         },
         "Level 5 Class Talent": {
@@ -346,29 +368,54 @@
                 "A": "0 Actions",
                 "Cooldown": "Once / Adventure",
                 "ScrollPower": 4,
+                "Tags": [
+                    "Keystone Talent (Level 5)",
+                    "Ultimate",
+                    "Steroid"
+                ],
+                "Upgrade": "{KeystoneTalent}",
                 "Effect": "This turn, all Damage you deal is increased by 50%. Every time you deal 10 or more Damage in one instance, take 5 Psychic Damage.\n",
                 "Notes": "The 50% increase is not applied to the 5 Psychic Damage.",
+                "HasMixins": true,
                 "ParentKey": "Level 5 Class Talent"
             },
             "<Higher Evoke>": {
                 "A": "Passive",
+                "Tags": [
+                    "Keystone Talent (Level 5)",
+                    "Evoke"
+                ],
+                "Upgrade": "{KeystoneTalent}",
                 "Effect": "You start each Combat with +1 Evoke Point.",
+                "HasMixins": true,
                 "ParentKey": "Level 5 Class Talent"
             },
             "~Overloading Evocation~": {
                 "A": "0 Actions",
                 "Cooldown": "Once / Adventure",
+                "Tags": [
+                    "Keystone Talent (Level 5)",
+                    "Evoke"
+                ],
+                "Upgrade": "{KeystoneTalent}",
                 "Requirement": "Requies spending Evoke Points",
-                "Effect": "Cast 2 Evocation Talents you Know, combined, with the same Evoke Points.\n",
+                "Effect": "Cast 2 Evocation Talents you Know, combined, with the same Evoke Points applied to both.\n",
+                "HasMixins": true,
                 "ParentKey": "Level 5 Class Talent"
             },
             "~Aura of Ruin~": {
                 "_Value": 2.5,
                 "A": "0 Actions",
                 "ScrollPower": 3,
+                "Tags": [
+                    "Keystone Talent (Level 5)",
+                    "Evoke"
+                ],
+                "Upgrade": "{KeystoneTalent}",
                 "Requirement": "Only usable the moment Combat starts",
                 "Cooldown": "Once / Adventure",
                 "Effect": "Reduce the Max Health of all enemies by 10%.",
+                "HasMixins": true,
                 "ParentKey": "Level 5 Class Talent"
             }
         },
@@ -396,14 +443,26 @@
                 "_Value": 2.5,
                 "A": "Passive",
                 "Cooldown": "Once / Adventure",
+                "Tags": [
+                    "Keystone Talent (Level 7)",
+                    "Ultimate"
+                ],
+                "Upgrade": "{KeystoneTalent}",
                 "Effect": "When you have exactly 1 Mana, and you cast a Spell that cost 1 Mana, that Spell casts twice (for free).",
                 "Notes": "This is akin to casting the Spell again for 0 Actions without spending Mana (not necessarily on the same target).",
+                "HasMixins": true,
                 "ParentKey": "Level 7 Class Talent"
             },
             "<Manafold Power>": {
                 "_Value": 2.5,
                 "A": "Passive",
-                "Effect": "You have +1 Max Mana for each 3 points of Intelligence.",
+                "Tags": [
+                    "Keystone Talent (Level 7)",
+                    "Mana"
+                ],
+                "Upgrade": "{KeystoneTalent}",
+                "Effect": "You have +1 Max Mana.",
+                "HasMixins": true,
                 "ParentKey": "Level 7 Class Talent"
             }
         },
@@ -413,21 +472,21 @@
                 "ParentKey": "Level 9 Class Talent"
             }
         },
-        "Level 10 - Ultimate Talent": {
+        "Level 10 Class Talent": {
             "<Invoke Old God>": {
                 "A": "1 Action",
                 "Cooldown": "Once / Lifetime",
                 "HasMixins": true,
                 "Effect": "You bring forth into the mortal realm a manifestation of your source of power - an old god from the `Pets and Animals page$/Other/PetsAndAnimals`.\nYou do not control it - it has its own Turn in combat with a Setback of 1d4 and possesses its own will. What will you compromise to forcefully drag an unknowable entity into the mortal plane?\nAlso, passively, you gain +2 Intelligence and Sense, and you automatically pass all Impossible Intelligence Checks (requiring at least 25).\n",
-                "Downside": "{Ultimate}",
-                "ParentKey": "Level 10 - Ultimate Talent"
+                "Downside": "{Heroic}",
+                "ParentKey": "Level 10 Class Talent"
             },
             "<The Dark Ritual>": {
                 "A": "Half-Action",
                 "Effect": "Spend any amount of Mana. Your next Spell has +50% Damage, Healing, area diameter and range for each Mana spent.\nAfter that, restore all your Mana.\n",
                 "HasMixins": true,
-                "Downside": "{Ultimate}",
-                "ParentKey": "Level 10 - Ultimate Talent"
+                "Downside": "{Heroic}",
+                "ParentKey": "Level 10 Class Talent"
             }
         }
     }

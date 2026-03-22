@@ -45,8 +45,9 @@
         "~Magic Font~": {
             "_Value": 0,
             "A": "Passive",
-            "Effect": "You may select a Magic Font to pick Minor Talents from.\nYou get a free Magic Font Minor Talent at Level 1.\n",
-            "Notes": "All Magic Font Abilities are Minor Talents.\nYou can get more Magic Font Minor Talents as if you're getting normal Minor Talents (e.g. a number of them equal to your Intellgience).\n",
+            "Effect": "You may select a Magic Font to pick Spells from and 1 free Spell from that font.\n",
+            "Notes": "Magic Font Spells like Class Talents.\nYou can get more Magic Font Spells {LikeNormalTalents}.\n",
+            "HasMixins": true,
             "ParentKey": "Starting Abilities"
         }
     },
@@ -121,7 +122,7 @@
         }
     ],
     "Talents": {
-        "Level 1 - Minor Talent": {
+        "Level 1 Class Talent": {
             "~Inscription~": {
                 "A": "0 Actions",
                 "Cost": "1 Mana",
@@ -129,13 +130,13 @@
                 "ScrollPower": 2,
                 "Effect": "Cast a Spell onto a _scroll_, spending its Cost, Cooldown, Action Points, etc (plus the additional 1 {Mana}Mana for this Ability).\nThe _scroll_ can be used with 1 Action Point, and is destroyed after being used.\n",
                 "HasMixins": true,
-                "ParentKey": "Level 1 - Minor Talent"
+                "ParentKey": "Level 1 Class Talent"
             },
             "~Attention~": {
                 "A": "Passive",
                 "Effect": "Get one more Magic Font Spell.",
                 "Notes": "You can have this Talent multiple times, from different Levels.",
-                "ParentKey": "Level 1 - Minor Talent"
+                "ParentKey": "Level 1 Class Talent"
             },
             "~Animated Weapon~": {
                 "Height": 80,
@@ -161,7 +162,7 @@
                         }
                     }
                 },
-                "ParentKey": "Level 1 - Minor Talent"
+                "ParentKey": "Level 1 Class Talent"
             },
             "~Magic Rune~": {
                 "A": "Half-Action",
@@ -170,7 +171,7 @@
                 "Effect": "Magically draw a faint 3x3 meter _rune_ onto a flat surface.\nCast a Spell onto the _rune_, spending its Cost, Cooldown, Action Points, etc (plus the additional 1 {Mana}Mana for this Ability).\nWhen an Enemy enters the _rune_, that Spell is automatically cast on that Unit (or centered on that Unit if it's an Area Ability). Then the _rune_ is destroyed.\n",
                 "Notes": "If the Spell has you choose something else, like a secondary target or an effect, you can do so the moment the rune explodes.",
                 "HasMixins": true,
-                "ParentKey": "Level 1 - Minor Talent"
+                "ParentKey": "Level 1 Class Talent"
             }
         },
         "Level 2 Class Talent": {
@@ -202,14 +203,14 @@
                 "ParentKey": "Level 2 Class Talent"
             }
         },
-        "Level 3 - Minor Talent": {
+        "Level 3 Class Talent": {
             "~Upcast~": {
                 "A": "0 Actions",
                 "Cost": "1 Mana",
                 "ScrollPower": "Auto",
                 "Effect": "After you cast the next Spell this Turn, choose one of the rolled dice. Increase the result number of that die by 100%.",
                 "Upgrade": "This is not considered a Spell.",
-                "ParentKey": "Level 3 - Minor Talent"
+                "ParentKey": "Level 3 Class Talent"
             },
             "~Grow or Shrink~": {
                 "A": "1 Action",
@@ -219,13 +220,13 @@
                 "Degree": "Minor",
                 "Effect": "A Unit or object you can see becomes one Size larger/smaller.\nIt gains or loses 10% Max Health, gains or loses 1 Damage on all offensive Acts, and gains or loses 1 Movement Speed.\nCan stack multiple times.\n",
                 "Notes": "Current Health changes with the Max Health (e.g. for 80/100 Health, if growing, new Health will be 90/110; if shrinking, new Health will be 70/90). When the effect expires, the new Current Health stays as it is, unless it's higher than the new Max Health.\nWhen the effect expires, current Health remains the same if lower, or is cut to maximum if higher.\nA larger Unit becomes 1 meter larger/smaller in both directions.\nIt's number of spaces occupied also changes with this.\n",
-                "ParentKey": "Level 3 - Minor Talent"
+                "ParentKey": "Level 3 Class Talent"
             },
             "~Attention~": {
                 "A": "Passive",
                 "Effect": "Get one more Magic Font Spell.",
                 "Notes": "You can have this Talent multiple times, from different Levels.",
-                "ParentKey": "Level 3 - Minor Talent"
+                "ParentKey": "Level 3 Class Talent"
             },
             "~Spectral Hand~": {
                 "A": "0 Actions",
@@ -237,7 +238,7 @@
                 "Effect": "Conjure a _spectral hand_ in a space you can see.\nYou can control the hand as you move your normal hands. You can spend Half-Action to move it up to 5 meters.\nYou can cast Spells as if they originate from the _spectral hand_ instead of your own, calculating Range and Cover from it instead of you.\n",
                 "Notes": "The hand can't lift objects weighing more than you can lift just with one hand.\nMoving the hand spends Action Points as if you made moved your own hand.\nYou can destroy the _hand_ at will.\n",
                 "HasMixins": true,
-                "ParentKey": "Level 3 - Minor Talent"
+                "ParentKey": "Level 3 Class Talent"
             }
         },
         "Level 4 Class Talent": {
@@ -274,7 +275,7 @@
                 "ParentKey": "Level 4 Class Talent"
             }
         },
-        "Level 5 - Minor Talent": {
+        "Level 5 Class Talent": {
             "~Amplification~": {
                 "A": "0 Actions",
                 "Cost": "1 Mana",
@@ -283,7 +284,7 @@
                 "Effect": "Choose a Unit to amplify their magic potential.\nTheir first Healing or Spell Damage every Turn has its ^Dice Upgraded^ to the next die type.\n",
                 "Notes": "Doesn't stack with itself multiple times. \"{DiceUpgrade}\"",
                 "HasMixins": true,
-                "ParentKey": "Level 5 - Minor Talent"
+                "ParentKey": "Level 5 Class Talent"
             },
             "~Invisibility~": {
                 "A": "Reaction or 0 Actions",
@@ -293,7 +294,7 @@
                 "Degree": "Major",
                 "Effect": "Use on your Turn, or before a Unit wants to do something.\nChoose a Unit you can see. It becomes invisible for up to 1 minute, or until it does an offensive Act.\n",
                 "Upgrade": "You can spend extra {Mana}Mana to extend the duration of this by that many minutes.",
-                "ParentKey": "Level 5 - Minor Talent"
+                "ParentKey": "Level 5 Class Talent"
             },
             "~Polymorph~": {
                 "A": "1 Action",
@@ -359,13 +360,13 @@
                         "Effect": "You have 2 Defense. You are Large (2x2 meters) and Ridable."
                     }
                 ],
-                "ParentKey": "Level 5 - Minor Talent"
+                "ParentKey": "Level 5 Class Talent"
             },
             "~Attention~": {
                 "A": "Passive",
                 "Effect": "Get one more Magic Font Spell.",
                 "Notes": "You can have this Talent multiple times, from different Levels.",
-                "ParentKey": "Level 5 - Minor Talent"
+                "ParentKey": "Level 5 Class Talent"
             }
         },
         "Level 6 - Utility Talent": {
@@ -453,13 +454,13 @@
                 "ParentKey": "Level 9 Class Talent"
             }
         },
-        "Level 10 - Ultimate Talent": {
+        "Level 10 Class Talent": {
             "<Hermeticism>": {
                 "A": "Passive",
                 "Effect": "You know all Basic Spells and they all cost 1 less Mana to cast. If they cost 0 Mana, they instead restore 1 Mana if used in Combat.\nYou may create your own _homebrew_ Spells as per the rules of _QM Resources, Homebrewing Abilities_.\nYou can use Restricted Abilities even if restricted in your current adventures.\n",
                 "HasMixins": true,
-                "Downside": "{Ultimate}",
-                "ParentKey": "Level 10 - Ultimate Talent"
+                "Downside": "{Heroic}",
+                "ParentKey": "Level 10 Class Talent"
             },
             "<Highmancy>": {
                 "A": "Passive",
@@ -467,8 +468,8 @@
                 "Upgrade": "All your other Spells become themed to the same element, but keep their original Damage Type. For example, if you chose fire, Frost Nova will now burst in cold, blue flames instead of ice.",
                 "Notes": "For example, when you hit multiple Units with an Ability, you increase your Fire Damage by +3 instead of +1, or you gain +6 Cold Damage from Hydromancy when you Crowd Control an Enemy. For Eldritchianism, your Spells have their ^Dice Upgraded^ 3 times.",
                 "HasMixins": true,
-                "Downside": "{Ultimate}",
-                "ParentKey": "Level 10 - Ultimate Talent"
+                "Downside": "{Heroic}",
+                "ParentKey": "Level 10 Class Talent"
             }
         }
     }

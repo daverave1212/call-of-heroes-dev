@@ -1478,7 +1478,6 @@ export function mergeManyObjects(objects) {
     return soFar
 }
 export function flattenObjectOnce(obj, parentKey = "parentKey") {
-
     let newObj = {}
     for (const [categoryName, categoryObject] of Object.entries(obj)) {
         const newCategoryObject = mapObject(categoryObject, ({ key, value }) => ({ key, value: {...value, [parentKey]: categoryName}}))
@@ -1486,9 +1485,6 @@ export function flattenObjectOnce(obj, parentKey = "parentKey") {
     }
 
     return newObj
-
-
-  const out = {};
 }
 window.flattenObjectOnce = flattenObjectOnce
 export function addManyObjects(arr) {
@@ -1524,6 +1520,7 @@ export function mapObjectToArray(obj, func) {
 export function objectToArray(obj, parentKey="parentKey") {
     return Object.entries(obj).map(([key, value]) => ({...value, [parentKey]: key}))
 }
+window.objectToArray = objectToArray
 export function groupBy(arr, hashFunc) {
     const hashKey_ArrayValue_Pairs = {}
     for (const elem of arr) {
@@ -1783,9 +1780,8 @@ export const SYMBOLS = {
     'Flank': { tag: 'span', text: "Flanking is when you melee-attack an enemy, and an ally of yours is directly behind the enemy. As an optional rule (ask the QM), flank attacks can deal +1 Damage." },
     'FoolsGold': { tag: 'span', text: "Fool's Gold is an imaginary currency that can be converted to real Gold by spending 1 hour in a town or city. Fool's Gold lasts until converted to real Gold." },
     'Heroic': { tag: 'span', text: "This is your Heroic Class Ability and, after getting this Talent, you can no longer change your Talents inbetween Adventures." },
-    'CoreTalent':     { tag: 'span', text: "This is a Core Talent, which significantly improves your character. You can only have one Core Talent." },
-    'KeystoneTalent': { tag: 'span', text: "This is a Keystone Talent, which significantly changes how you play your character. You can only have one Core Talent." },
-    'UltimateTalent': { tag: 'span', text: "This is an Ultimate Talent, which significantly changes how you play your character. You can only have one Core Talent." },
+    'CoreTalent':     { tag: 'span', props: { style: { color: 'var(--orange-color)'} }, text: "This is a Core Talent. You can only have one Core Talent from this Level.", func: () => <span style={{color: 'var(--dark-red-color)'}}>This is a <b>Core Talent</b>. You can only have one <b>Core Talent</b> from this Level..</span> },
+    'KeystoneTalent': { tag: 'span', props: { style: { color: 'var(--dark-red-color)'} }, text: "This is a Keystone Talent. You can only have one Keystone Talent from this Level..", func: () => <span style={{color: 'var(--orange-color)'}}>This is a <b>Keystone Talent</b>. You can only have one <b>Keystone Talent</b> from this Level..</span> },
 
     'Combo': { tag: 'span', props: { style: {color: 'var(--blue-color)'} }, text: "Combo:" },
 
@@ -1800,6 +1796,8 @@ export const FUNCTION_SYMBOLS = {
     'DarkGreen': args => ({ tag: 'span', props: { style: { color: '#00a71cff' } }, text: args[0] }),
     'Teal': args => ({ tag: 'span', props: { style: { color: '#0097ab' } }, text: args[0] }),
     'Color': args => ({ tag: 'span', props: { style: { color: args[0] } }, text: args[1] }),
+
+    'Spark': args => ({ tag: 'span', text: `On ${args[0]}:`, props: { style: { color: 'var(--orange-color)' } }, func: () => <span style={{color: 'var(--orange-color)', fontWeight: 'bold'}}><Icon name="D10"/>{args[0]}:</span> }),
     
     '^': args => ({ tag: 'b', text: args[0] }),
     '_': args => ({ tag: 'i', text: args[0] }),
