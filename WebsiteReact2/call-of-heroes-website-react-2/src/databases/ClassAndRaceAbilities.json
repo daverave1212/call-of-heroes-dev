@@ -123,7 +123,7 @@
             "Elixir of Strength: +1d4 Damage with first weapon attack each Turn",
             "Elixir of Speed: +2 Movement Speed"
         ],
-        "Notes": "Effects last 10 minutes from consumption",
+        "Notes": "Effects last 10 minutes from consumption. If the user does not have Mana, they gain the Mana anyway.",
         "ParentKey": "Level 1 Class Talents"
     },
     "~Gene Editing~": {
@@ -280,7 +280,7 @@
     "~Land Vehicle~": {
         "A": "1 hour",
         "Effect": "Spend 2000 {Gold}Gold to engineer a multi-passenger transport vehicle. Maximum operational velocity is 100 km/h, consuming 50 {Gold} worth of fuel per hour, but it is impractical for combat.\nDue to mechanical complexity, the vehicle requires 1 minute of calibration in order to start moving from being stationary.\n",
-        "Upgrade": "At level 9, it can fly.",
+        "Upgrade": "Upon impact, the vehicle stops and Slams Units hit 1d8 to 3d8 meters in a direction they choose, depending on the vehicle's current velocity.\nAt level 9, it can fly.\n",
         "HasMixins": true,
         "ParentKey": "Level 6 - Utility Talent"
     },
@@ -4689,7 +4689,12 @@
         "A": "0 Actions",
         "Cost": "1 Mana",
         "Cooldown": "Once / Adventure",
+        "Tags": [
+            "Keystone Talent (Level 9)"
+        ],
+        "Upgrade": "{KeystoneTalent}",
         "Effect": "Instantly return to how and where you were at the start of the turn, with that same Movement, Actions, Health, Shielding, Buffs and Cooldowns (not Mana, though).\nAlternatively, if you're out of combat, you can turn back time for all the world up to 10 minutes, exactly how it was, but retaining all your information from the future. Allies don't retain the information.\n",
+        "HasMixins": true,
         "ParentKey": "Level 9 Class Talent"
     },
     "<Double Spark Triple Quark>": {
@@ -6212,7 +6217,7 @@
         "_Value": 0,
         "A": "Passive",
         "Effect": "You may select a Magic Font to pick Spells from and 1 free Spell from that font.\n",
-        "Notes": "Magic Font Spells like Class Talents.\nYou can get more Magic Font Spells {LikeNormalTalents}.\n",
+        "Notes": "Magic Font Spells like Class Talents.\nYou can get more Magic Font Spells {LikeNormalTalents}.\nYou can change your chosen Magic Font (and Font Spells) inbetween Adventures.\n",
         "HasMixins": true,
         "ParentKey": "Starting Abilities"
     },
@@ -6348,23 +6353,26 @@
         "_Value": 2.25,
         "A": "Reaction",
         "Cost": "1 Mana",
+        "Tags": [
+            "Keystone Talent (Level 4)",
+            "Protection"
+        ],
+        "Upgrade": "{KeystoneTalent}",
         "Effect": "Use when an ally (or you) would be hit by a missile (before hitting the target).\nFling it from air back to the attacker (with the exact Damage and effects).\n",
+        "HasMixins": true,
         "ParentKey": "Level 4 Class Talent"
     },
     "<Animation>": {
         "_Value": 2.5,
         "A": "Passive",
+        "Tags": [
+            "Keystone Talent (Level 4)",
+            "Summon"
+        ],
+        "Upgrade": "{KeystoneTalent}",
         "Effect": "Whenever you spend Mana on a Spell that doesn't deal Damage, you can pick a Large or Medium object within 6 meters and bring it to life.\nIt has 3 Speed, can fly and can attack for 1d4 Smash, Slash or Pierce Damage.\nLasts 1 minute or until it takes Damage (after which it returns to its inanimate form).\n",
         "Notes": "Alternatively, it can use Sprint, Push or Taunt once.",
-        "ParentKey": "Level 4 Class Talent"
-    },
-    "<Illusionism>": {
-        "_Value": 2,
-        "A": "Passive",
-        "Duration": "1 minute",
-        "Effect": "After you use Magic Mastery, choose an ally.\nCreate a clone of them on a space within 2 meters of them, and teleport the ally 2 meters in any direction (as to create a diversion).\nThe clone has the same Health and other stats, but takes 300% of the Damage it takes.\nThe clone can pretend to do anything the ally can do. If it attacks with a weapon or Spell, it can do at most 1 Psychic Damage per attack Act.\n",
-        "Upgrade": "An enemy can't tell which Unit is real and which is the clone until the clone does something relevant and the Unit has at least 3 Intelligence.",
-        "Notes": "E.g. the clone could cast Magic Missiles, but only one missile will deal 1 Damage (you can choose which, and apply Cover, Defense and other penalties normally - e.g. 1 Damage with Cover becomes 0 Damage). Alternatively, for example, it could attack twice with a one-handed weapon for 1 Damage each.\n",
+        "HasMixins": true,
         "ParentKey": "Level 4 Class Talent"
     },
     "<Spellcraft>": {
@@ -6372,6 +6380,10 @@
         "A": "0 Actions",
         "Cooldown": "Once / Combat",
         "AlignOnWebsite": "Right",
+        "Tags": [
+            "Keystone Talent (Level 4)"
+        ],
+        "Upgrade": "{KeystoneTalent}",
         "HasMixins": true,
         "Effect": "When you cast a spell, you can apply this any of the following effects to it:\n{Diamond} For every 2 dice in its Damage, roll 1 more\n{Diamond} Increase it or decrease its Area by 50% (if AoE)\n{Diamond} Change its Damage type to any type\n{Diamond} Increase its Stunning by 1 tier\n{Diamond} Double its range\nYou can spend 1 {Mana}Mana to cast this ignoring its Cooldown.\n",
         "ParentKey": "Level 4 Class Talent"
@@ -6503,14 +6515,25 @@
     },
     "<Grand Wizardry>": {
         "_Value": 2.5,
+        "Tags": [
+            "Keystone Talent (Level 7)",
+            "Mana"
+        ],
+        "Upgrade": "{KeystoneTalent}",
         "A": "Passive",
         "Effect": "Spells that cost 3 or more Mana cost 1 less for you.\nBasic Spells that cost Mana and have a Cooldown have no Cooldown for you.\n",
+        "HasMixins": true,
         "ParentKey": "Level 7 Class Talent"
     },
     "<Destruction>": {
         "_Value": 4,
         "A": "Passive",
         "HasMixins": true,
+        "Tags": [
+            "Keystone Talent (Level 7)",
+            "Damage"
+        ],
+        "Upgrade": "{KeystoneTalent}",
         "Effect": "Whenever you deal Damage with a Spell that cost Mana, zap a Unit within 4 meters for ^your Intelligence^ Shock Damage.\n",
         "Notes": "This is optional.",
         "ParentKey": "Level 7 Class Talent"
@@ -6521,6 +6544,12 @@
         "ScrollPower": "Auto",
         "Cooldown": "Once / Adventure",
         "Duration": "1 minute",
+        "Tags": [
+            "Keystone Talent (Level 7)",
+            "Ultimate",
+            "Steroid"
+        ],
+        "Upgrade": "{KeystoneTalent}",
         "HasMixins": true,
         "Effect": "Take the form of an _evoker_ - a being made of pure energy.\nWhile in the _evoker_ form, all Damage you deal from all sources becomes Pulse Damage, and all your spells that cost 2 or more Mana now cost 1 less.\nYou can breathe underwater and fly at normal Speed.\n",
         "Notes": "You can't end your turn inside an obstacle, and you can't move through walls, ceilings and floors.",
@@ -6530,8 +6559,14 @@
         "A": "Half-Action",
         "Cooldown": "Once / Adventure",
         "Duration": "Until the start of your next turn",
+        "Tags": [
+            "Keystone Talent (Level 9)",
+            "Crowd Control (Hard)"
+        ],
+        "Upgrade": "{KeystoneTalent}",
         "ScrollPower": 6,
-        "Effect": "Choose a 5x5x5 meter cube.\nThat area become frozen in time - Units skip their turns and can't be daWizardd or affected by anything.\nAny object that touches the area becomes frozen, too (and, if it is a missile, resumes its trajectory when the area ends).\n",
+        "Effect": "Choose a 5x5x5 meter cube.\nThat area become frozen in time - Units skip their turns and can't be Damaged or affected by anything.\nAny object that touches the area becomes frozen, too (and, if it is a missile, resumes its trajectory when the area ends).\n",
+        "HasMixins": true,
         "ParentKey": "Level 9 Class Talent"
     },
     "<Hermeticism>": {
@@ -6880,7 +6915,7 @@
     "~Uldran Ancestry~": {
         "A": "12 hours",
         "Cooldown": "Once / Adventure",
-        "Effect": "You can spend 12 hours sleeping to recover 1d8 Health or get -50% Cold Damage taken until \n\nAlso, you can choose to hibernate for 48 hours to cure all your minor diseases and poisons.\n",
+        "Effect": "You can spend 12 hours sleeping to recover 1d8 Health or get -50% Cold Damage taken until the end of next Combat.\n\nAlso, you can choose to hibernate for 48 hours to cure all your minor diseases and poisons.\n",
         "Upgrade": "Loud noises and movement still wake you up as they normally would.",
         "Notes": "The nordic dwarves have made hibernation a core skill to surviving the harsh winters of the mountains.",
         "ParentKey": "Talents"

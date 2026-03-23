@@ -75,6 +75,7 @@ Starting Abilities:
     Notes: |
       Magic Font Spells like Class Talents.
       You can get more Magic Font Spells {LikeNormalTalents}.
+      You can change your chosen Magic Font (and Font Spells) inbetween Adventures.
 
 Utility:
 
@@ -295,6 +296,8 @@ Talents:
       _Value: 2.25  # 2 or more
       A: Reaction
       Cost: 1 Mana
+      Tags: [Keystone Talent (Level 4), Protection]
+      Upgrade: "{KeystoneTalent}"
       Effect: |
         Use when an ally (or you) would be hit by a missile (before hitting the target).
         Fling it from air back to the attacker (with the exact Damage and effects).
@@ -302,30 +305,34 @@ Talents:
     <Animation>:
       _Value: 2.5
       A: Passive
+      Tags: [Keystone Talent (Level 4), Summon]
+      Upgrade: "{KeystoneTalent}"
       Effect: |
         Whenever you spend Mana on a Spell that doesn't deal Damage, you can pick a Large or Medium object within 6 meters and bring it to life.
         It has 3 Speed, can fly and can attack for 1d4 Smash, Slash or Pierce Damage.
         Lasts 1 minute or until it takes Damage (after which it returns to its inanimate form).
       Notes: Alternatively, it can use Sprint, Push or Taunt once.
 
-    <Illusionism>:
-      _Value: 2
-      A: Passive
-      Duration: 1 minute
-      Effect: |
-        After you use Magic Mastery, choose an ally.
-        Create a clone of them on a space within 2 meters of them, and teleport the ally 2 meters in any direction (as to create a diversion).
-        The clone has the same Health and other stats, but takes 300% of the Damage it takes.
-        The clone can pretend to do anything the ally can do. If it attacks with a weapon or Spell, it can do at most 1 Psychic Damage per attack Act.
-      Upgrade: An enemy can't tell which Unit is real and which is the clone until the clone does something relevant and the Unit has at least 3 Intelligence.
-      Notes: |
-        E.g. the clone could cast Magic Missiles, but only one missile will deal 1 Damage (you can choose which, and apply Cover, Defense and other penalties normally - e.g. 1 Damage with Cover becomes 0 Damage). Alternatively, for example, it could attack twice with a one-handed weapon for 1 Damage each.
+    # <Illusionism>:
+    #   _Value: 2
+    #   A: Passive
+    #   Duration: 1 minute
+    #   Effect: |
+    #     After you use Magic Mastery, choose an ally.
+    #     Create a clone of them on a space within 2 meters of them, and teleport the ally 2 meters in any direction (as to create a diversion).
+    #     The clone has the same Health and other stats, but takes 300% of the Damage it takes.
+    #     The clone can pretend to do anything the ally can do. If it attacks with a weapon or Spell, it can do at most 1 Psychic Damage per attack Act.
+    #   Upgrade: An enemy can't tell which Unit is real and which is the clone until the clone does something relevant and the Unit has at least 3 Intelligence.
+    #   Notes: |
+    #     E.g. the clone could cast Magic Missiles, but only one missile will deal 1 Damage (you can choose which, and apply Cover, Defense and other penalties normally - e.g. 1 Damage with Cover becomes 0 Damage). Alternatively, for example, it could attack twice with a one-handed weapon for 1 Damage each.
 
     <Spellcraft>:
       _Value: 2.5
       A: 0 Actions
       Cooldown: Once / Combat
       AlignOnWebsite: Right
+      Tags: [Keystone Talent (Level 4)]
+      Upgrade: "{KeystoneTalent}"
       HasMixins: true
       Effect: |
         When you cast a spell, you can apply this any of the following effects to it:
@@ -477,6 +484,8 @@ Talents:
 
     <Grand Wizardry>:
       _Value: 2.5
+      Tags: [Keystone Talent (Level 7), Mana]
+      Upgrade: "{KeystoneTalent}"
       A: Passive
       Effect: |
         Spells that cost 3 or more Mana cost 1 less for you.
@@ -486,6 +495,8 @@ Talents:
       _Value: 4
       A: Passive
       HasMixins: true
+      Tags: [Keystone Talent (Level 7), Damage]
+      Upgrade: "{KeystoneTalent}"
       Effect: |
         Whenever you deal Damage with a Spell that cost Mana, zap a Unit within 4 meters for ^your Intelligence^ Shock Damage.
       Notes: This is optional.
@@ -496,6 +507,8 @@ Talents:
       ScrollPower: Auto
       Cooldown: Once / Adventure
       Duration: 1 minute
+      Tags: [Keystone Talent (Level 7), Ultimate, Steroid]
+      Upgrade: "{KeystoneTalent}"
       HasMixins: true
       Effect: |
         Take the form of an _evoker_ - a being made of pure energy.
@@ -509,6 +522,8 @@ Talents:
       A: 0 Actions
       Cost: 1 Mana
       Cooldown: Once / Adventure
+      Tags: [Keystone Talent (Level 9)]
+      Upgrade: "{KeystoneTalent}"
       Effect: |
         Instantly return to how and where you were at the start of the turn, with that same Movement, Actions, Health, Shielding, Buffs and Cooldowns (not Mana, though).
         Alternatively, if you're out of combat, you can turn back time for all the world up to 10 minutes, exactly how it was, but retaining all your information from the future. Allies don't retain the information.
@@ -517,10 +532,12 @@ Talents:
       A: Half-Action
       Cooldown: Once / Adventure
       Duration: Until the start of your next turn
+      Tags: [Keystone Talent (Level 9), Crowd Control (Hard)]
+      Upgrade: "{KeystoneTalent}"
       ScrollPower: 6
       Effect: |
         Choose a 5x5x5 meter cube.
-        That area become frozen in time - Units skip their turns and can't be daWizardd or affected by anything.
+        That area become frozen in time - Units skip their turns and can't be Damaged or affected by anything.
         Any object that touches the area becomes frozen, too (and, if it is a missile, resumes its trajectory when the area ends).
 
   Level 10 Class Talent:
