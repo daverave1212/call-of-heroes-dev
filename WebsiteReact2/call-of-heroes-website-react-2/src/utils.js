@@ -18,9 +18,11 @@ import SpellFonts from './databases/SpellFonts.json'
 import Feats from './databases/Feats.json'
 import ClassAndRaceAbilities from './databases/ClassAndRaceAbilities.json'
 import { getChoiceAbilitiesObjects, setChoiceAbilitiesObjects } from "./pages/Other/CharacterCreationCalculator/CharacterData"
-import { STAT_LIMITS_TEXT, STAT_SYMBOLS } from "./services/game-lib/stat-calculations"
+import { MAIN_STAT_ALTERNATIVES_MAP, STAT_LIMITS_TEXT, STAT_SYMBOLS } from "./services/game-lib/stat-calculations"
 import { VALID_SPELL_TOP_STATS } from "./components/Spell/Spell"
 import QuestGuardConfig from './QuestGuardConfig.json'
+
+import STATIC_SYMBOLS from './parse-text-symbols-static.json'
 
 // ---------------- Spells Utilities ----------------
 const SPELL_PROPS_TO_PARSE = [
@@ -1738,6 +1740,7 @@ export const SYMBOLS = {
 
     'StatLimit': { tag: 'span', text: STAT_LIMITS_TEXT },
     ...STAT_SYMBOLS,
+    ...STATIC_SYMBOLS,
 
     'Hr': { tag: 'img', props: {src: '/separator.png', class: 'spell-separator' } },
     'Separator': { tag: 'img', props: {src: '/separator.png', class: 'separator'} },
@@ -1757,34 +1760,15 @@ export const SYMBOLS = {
     'Gold': { tag: 'Icon', props: { name: "Gold" } },
     'Blood': { tag: 'Icon', props: { name: "Blood" } },
     
-    'Feared': { tag: 'span', text: "A Feared Unit can only do one Act on its turn (e.g. move, make one attack, use one Ability, etc)." },
-    'Crippled': { tag: 'span', text: "A Crippled Unit deals -100% Damage." },
-    'Silenced': { tag: 'span', text: "A Silenced Unit can't use Abilities." },
-    'Fumbling': { tag: 'span', text: "A Fumbling Unit's next Act is completely negated (Movement, attack, spell, or anything that requires Actions)." },
-    'Blinded': { tag: 'span', text: "A Blinded Unit has -4 to all rolls." },
-    'Slowed': { tag: 'span', text: "A Slowed Unit has -2 Movement Speed." },
-    'Rooted': { tag: 'span', text: "A Rooted Unit has can't move from its space (but it can attack, cast Spells, etc)." },
-    'Stunned': { tag: 'span', text: "A Stunned Unit skips its turn." },
-    'Cover': { tag: 'span', text: "If a Unit has Cover from you (e.g. is behind an obstacle), everything you do to it gets -2." },
-
-    'DiceUpgrade': { tag: 'span', text: "Having Dice Upgraded means, for example, d6's become d8's, or d10's become d12's. D12's and d20's just gain +1." },
-    'DiceUpgraded': { tag: 'span', text: "Having Dice Upgraded means, for example, d6's become d8's, or d10's become d12's. D12's and d20's just gain +1." },
-    'DiceDowngrade': { tag: 'span', text: "Having Dice Downgraded means, for example, d8's become d6's, or d10's become d8's. D2's and d20's just gain -1." },
-    'DiceDowngraded': { tag: 'span', text: "Having Dice Downgraded means, for example, d8's become d6's, or d10's become d8's. D2's and d20's just gain -1." },
-    'LikeNormalTalents': { tag: 'span', text: "like you would normally get extra Class Talents (e.g. with the extra Known Talents from Intelligence, if above 0)"},
 
     'Chain': { tag: 'span', text: 'Chain', props: { style: { color: '#7850e1' } }, func: () => <span style={{color: '#7850e1', fontWeight: 'bold'}}><Icon name="Chain"/>Chain</span> },
     'Evoke': { tag: 'span', text: 'Evoke', props: { style: { color: '#6d00ff' } }, func: () => <span style={{color: '#6d00ff', fontWeight: 'bold'}}><Icon name="Evoke"/>Evoke</span> },
     
-    'Chainable': { tag: 'span', text: "Chainable means only usable if your previous Act was the one mentioned." },
-    'Flank': { tag: 'span', text: "Flanking is when you melee-attack an enemy, and an ally of yours is directly behind the enemy. As an optional rule (ask the QM), flank attacks can deal +1 Damage." },
-    'FoolsGold': { tag: 'span', text: "Fool's Gold is an imaginary currency that can be converted to real Gold by spending 1 hour in a town or city. Fool's Gold lasts until converted to real Gold." },
-    'Heroic': { tag: 'span', text: "This is your Heroic Class Ability and, after getting this Talent, you can no longer change your Talents inbetween Adventures." },
+    
     'CoreTalent':     { tag: 'span', props: { style: { color: 'var(--orange-color)'} }, text: "This is a Core Talent. You can only have one Core Talent from this Level.", func: () => <span style={{color: 'var(--dark-red-color)'}}>This is a <b>Core Talent</b>. You can only have one <b>Core Talent</b> from this Level..</span> },
     'KeystoneTalent': { tag: 'span', props: { style: { color: 'var(--dark-red-color)'} }, text: "This is a Keystone Talent. You can only have one Keystone Talent from this Level..", func: () => <span style={{color: 'var(--orange-color)'}}>This is a <b>Keystone Talent</b>. You can only have one <b>Keystone Talent</b> from this Level..</span> },
 
     'Combo': { tag: 'span', props: { style: {color: 'var(--blue-color)'} }, text: "Combo:" },
-
 }
 export const FUNCTION_SYMBOLS = {
     'Link': args => ({ tag: 'Link',  props: { style: { color: '#8f0a7dff' }, to: args[1] }, text: args[0] }),

@@ -19,7 +19,6 @@ import Armors from './pages/Other/Armors'
 import Weapons from './pages/Other/Weapons'
 import Abilities from './pages/Other/Abilities'
 import CharacterCreationCalculator from './pages/Other/CharacterCreationCalculator/CharacterCreationCalculator'
-import TransitionGuide from './pages/Other/TransitionGuide'
 import Monsters from './pages/Other/Monsters'
 
 import Levels from './pages/Lore/Levels';
@@ -45,7 +44,6 @@ import Obstacles from './pages/Other/Obstacles';
 import PetsAndAnimals from './pages/Other/PetsAndAnimals';
 import PetOrAnimal from './pages/Other/PetOrAnimal';
 import Feats from './pages/Other/Feats';
-import HowToPlayForNewPlayers from './pages/Other/HowToPlayForNewPlayers';
 import Rules from './pages/Other/Rules';
 import AttackModifiers from './pages/Other/AttackModifiers';
 import CrowdControl from './pages/Other/CrowdControl';
@@ -63,7 +61,6 @@ import AbilitySheets from './pages/Other/AbilitySheets';
 import GMGuidelines from './pages/Other/GMGuidelines';
 import AbilitySheetsPrint from './pages/Other/AbilitySheetsPrint';
 import Learn from './pages/Other/RulesExplained/Learn';
-import CharacterCreation from './pages/Other/RulesExplained/RulesSectionPages.js/CharacterCreation';
 import Questguard from './pages/Other/RulesExplained/RulesSectionPages.js/Questguard';
 import PlayingTheGame from './pages/Other/RulesExplained/RulesSectionPages.js/PlayingTheGame';
 import CoreRulesInDepth from './pages/Other/RulesExplained/RulesSectionPages.js/CoreRulesInDepth';
@@ -143,9 +140,6 @@ function App() {
           <Route path="/Other/Proficiencies" element={ <Proficiencies/> }/>
           <Route path="/Other/Armors" element={ <Armors/> }/>
           <Route path="/Other/Weapons" element={ <Weapons/> }/>
-          <Route path="/Other/HowToPlayForNewPlayers" element={ <HowToPlayForNewPlayers/> }/>
-          <Route path="/Other/RulesExplained/RulesSectionPages/CharacterCreation" element={ <CharacterCreation/> }/>
-          <Route path="/Other/TransitionGuide" element={ <TransitionGuide/> }/>
           <Route path="/Other/Prices" element={ <Prices/> }/>
           <Route path="/Other/Obstacles" element={ <Obstacles/> }/>
           <Route path="/Other/PetsAndAnimals" element={ <PetsAndAnimals/> }/>
@@ -159,7 +153,6 @@ function App() {
           <Route path="/Other/Rules" element={ <Rules/> }/>
           <Route path="/Other/RulesAll" element={ <RulesAll/> }/>
           <Route path="/Other/RulesExplained/RulesSectionPages/Questguard" element={ <Questguard/> }/>
-          <Route path="/Other/RulesExplained/RulesSectionPages/CharacterCreation" element={ <CharacterCreation/> }/>
           <Route path="/Other/RulesExplained/RulesSectionPages/PlayingTheGame" element={ <PlayingTheGame/> }/>
           <Route path="/Other/RulesExplained/RulesSectionPages/CoreRulesInDepth" element={ <CoreRulesInDepth/> }/>
           <Route path="/Other/RulesExplained/RulesSectionPages/GameMasterGuidelines" element={ <GameMasterGuidelines/> }/>

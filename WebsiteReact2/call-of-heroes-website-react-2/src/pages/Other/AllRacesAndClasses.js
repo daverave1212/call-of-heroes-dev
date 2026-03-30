@@ -10,7 +10,7 @@ import Orc from '../../databases/Races/Orc.json'
 // import Cleric from '../../databases/Classes/Cleric.json'
 // import Druid from '../../databases/Classes/Druid.json'
 // import Hunter from '../../databases/Classes/Hunter.json'
-import Mage from '../../databases/Classes/Mage.json'
+// import Mage from '../../databases/Classes/Mage.json'
 // import Paladin from '../../databases/Classes/Paladin.json'
 // import Rogue from '../../databases/Classes/Rogue.json'
 // import Shaman from '../../databases/Classes/Shaman.json'
@@ -63,7 +63,6 @@ export const ClassesPremium = {
     Swashbuckler,
 }
 export const ClassesLegacy = {
-    Mage
 }
 
 export const Classes = {

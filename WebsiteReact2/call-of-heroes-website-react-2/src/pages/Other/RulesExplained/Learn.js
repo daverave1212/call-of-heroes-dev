@@ -139,7 +139,7 @@ export default function() {
                 CHeroLogo={<HeroSlidePageTitle title="For New Players"/>}
                 imgSrc="/LandingPage/Learn3.png"
                 buttonName="Tutorial"
-                linkTo="/Other/TransitionGuide">
+                linkTo="/404">
                 Learn about tabletop roleplaying games and the very basics. Recommended if you are completely new to the genre, and have never played Questguard, Dungeons & Dragons or other similar social games.
             </HeroSlidePage>
 
@@ -153,38 +153,6 @@ export default function() {
                 linkTo="/Other/Rules">
                 Click here for the complete in-depth character creation, rules, clarifications and interactions. Everthing about Questguard inside a neatly tied table of contents.
             </HeroSlidePage>
-            {/* <div style={{position: 'relative'}}>
-                <BreadcrumbSideMenu nBullets={4} highlightNumber={0}/>
-                <Section isDownload={true} imgSrc="/LandingPage/Learn2.png" logoImgSrc="/LandingPage/TransitionGuideLogo.png" buttonName="Transition Guide" linkTo="/Download/Transition_Guide_2024-05-01.pdf">
-                    If you're familiar with Dungeons and Dragons or Pathfinder, check out this transition guide. It explains the differences and how to transition smoothly to Questguard.
-                </Section>
-                <LandingPageSeparator type="8"/>
-            </div> */}
-
-            {/* <div style={{position: 'relative'}}>
-                <BreadcrumbSideMenu nBullets={4} highlightNumber={1}/>
-                <Section isReverse={true} isDownload={true} logoImgSrc="/LandingPage/CharacterCreationLogo.png" imgSrc="/LandingPage/Learn4.png" buttonName="Creation Guide" linkTo="/Download/Character_Creation_Guide_2024-05-01.pdf">
-                    Learn how to create a Character and fill in the Character Sheet in QuestGuard. Be sure to share it over on our Discord community when you're done!
-                </Section>
-                <LandingPageSeparator type="8"/>
-            </div> */}
-
-            {/* <div style={{position: 'relative'}}>
-                <BreadcrumbSideMenu nBullets={4} highlightNumber={2}/>
-                <Section title="For New Players" imgSrc="/LandingPage/Learn3.png" buttonName="Tutorial" linkTo="/Other/TransitionGuide">
-                    Learn about tabletop roleplaying games and the very basics. Recommended if you are completely new to the genre, and have never played Questguard, Dungeons & Dragons or other similar social games.
-                </Section>
-                <LandingPageSeparator type="8"/>
-            </div>
-
-            <div style={{position: 'relative'}}>
-                <BreadcrumbSideMenu nBullets={4} highlightNumber={3}/>
-                <Section isReverse={true} title="Rules Glossary" imgSrc="/LandingPage/Learn.png" buttonName="View Rules" linkTo="/Other/Rules">
-                    Click here for the complete in-depth character creation, rules, clarifications and interactions. Everthing about Questguard inside a neatly tied table of contents.
-                </Section>
-                <LandingPageSeparator type="8"/>
-            </div> */}
-
        </div>
     )
 }

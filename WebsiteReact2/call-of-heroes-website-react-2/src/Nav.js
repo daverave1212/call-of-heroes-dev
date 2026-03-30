@@ -20,7 +20,7 @@ const DISCORD_URL = 'https://discord.gg/' + '27aqSEDyE3'
 
 const NAV_CONFIG = [
   { name: 'Play With Us!', href: DISCORD_URL, isExternal: true },
-  { name: 'Create Character', href: '/Tools/CharacterCreationCalculator' },
+  { name: 'Create Hero', href: '/Tools/CharacterCreationCalculator' },
   { name: 'Game', children: [
     { name: 'Races', children: [
       { name: 'Bertle',       href: '/Races/Bertle' },

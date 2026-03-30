@@ -1,9 +1,18 @@
 
 import fs from 'fs'
-import { parse, stringify } from 'yaml'
+import * as yaml from 'yaml'
 import path from 'path'
 
+import STATIC_SYMBOLS from './parse-text-symbols-static.json' with { type: 'json' }
+import * as STATS_STATIC from './stats-constants.mjs'
 
+const { STAT_SYMBOLS } = STATS_STATIC
+
+const ALL_STATIC_SYMBOLS = {
+    ...STATIC_SYMBOLS,
+    ...STAT_SYMBOLS
+}
+console.log({ALL_STATIC_SYMBOLS, STAT_SYMBOLS, STATIC_SYMBOLS})
 // Use this script to convert all ./Design/ files to their JSON variant in WebsiteReact/call-of-heroes-react-static/src/databases
 // NOTE 1: This does NOT remove the < and ~ symbols from the spell names!
 // NOTE 2: This DOES YES fix the "Inherit" spells
@@ -113,7 +122,7 @@ function validateFeat(feat) {
 
 function readYAMLFromFile(fileName) {
     const fileContents = fs.readFileSync(fileName, 'utf8');
-    const data = parse(fileContents);
+    const data = yaml.parse(fileContents);
     return data
 }
 
@@ -147,24 +156,8 @@ const filesToConvert = [    // Order matters
 
     'Rules/Rules.yml',
     'Rules/Inventory.yml',
-    'Rules/AreasOfEffect.yml',
-    'Rules/AttackModifiers.yml',
-    'Rules/CharacterCreation/CharacterCreation.yml',
-    'Rules/CharacterCreation/CharacterCreationQuick.yml',
     'Rules/COHFor5e.yml',
-    'Rules/COHExplained.yml',
     'Rules/GMGuidelines.yml',
-
-    // 'Classes/Cleric.yml',
-    // 'Classes/Druid.yml',
-    // 'Classes/Hunter.yml',
-    // 'Classes/Mage.yml',
-    // 'Classes/Paladin.yml',
-    // 'Classes/Rogue.yml',
-    // 'Classes/RogueB.yml',
-    // 'Classes/Shaman.yml',
-    // 'Classes/Warlock.yml',
-    // 'Classes/Warrior.yml',
 
     'ClassesV2/Artificer.yml',
     'ClassesV2/Berserker.yml',
@@ -313,48 +306,31 @@ function recordAbilitiesFrom(fromDict, toDict, parentKey=null) {
     }
 }
         
-
-function getFormatSectionsObjectList(dictContentList) {
-    const sectionObjectList = dictContentList;
-    const newChildren = [];
-
-    for (const child of sectionObjectList) {
-        const onlyKey = Object.keys(child)[0];
-        const value = child[onlyKey];
-
-        const newChild = {
-            title: onlyKey,
-            value: typeof value === 'string'
-                ? value
-                : getFormatSectionsObjectList(value)
-        };
-
-        newChildren.push(newChild);
+function readAndNormalizeYamlToJson(filePath) {
+    let fileContent
+    try {
+        fileContent = fs.readFileSync(filePath, 'utf-8');
+    } catch (err) {
+        console.red(`ERROR: Failed to read file ${filePath}`);
+        throw err;
     }
 
-    return newChildren;
-}
-
-
-function getFormatSectionsObjectDict(dictContentList) {
-    function getRecursiveSection(sectionObjectContent) {
-        if (typeof sectionObjectContent === 'string') {
-            return sectionObjectContent;
-        } else if (typeof sectionObjectContent[0] === 'string') {
-            return sectionObjectContent;
-        } else {
-            const newObject = {};
-            for (const child of sectionObjectContent) {
-                const onlyKeyOfChild = Object.keys(child)[0];
-                newObject[onlyKeyOfChild] = getRecursiveSection(child[onlyKeyOfChild]);
-            }
-            return newObject;
-        }
+    for (const [symbol, value] of Object.entries(ALL_STATIC_SYMBOLS)) {
+        const symbolToReplace = `{${symbol}}`
+        fileContent = fileContent.replaceAll(symbolToReplace, value.text)
     }
 
-    return getRecursiveSection(dictContentList);
+    let dictContent = {};
+    try {
+        dictContent = yaml.parse(fileContent);
+    } catch (err) {
+        console.red(`ERROR: Failed to load YAML from file ${filePath}`);
+        throw err;
+    }
+
+
+    return dictContent
 }
-    
 
 async function processFiles() {
     for (const fileName of filesToConvert) {
@@ -363,46 +339,15 @@ async function processFiles() {
         }
 
         console.log(`Parsing ${fileName}...`);
+
         const filePath = path.join(yamlRootFolder, fileName);
-        let fileContent = '';
-
-        try {
-            fileContent = fs.readFileSync(filePath, 'utf-8');
-        } catch (err) {
-            console.red(`ERROR: Failed to read file ${fileName}`);
-            throw err;
-        }
-
-        let dictContent = {};
-        try {
-            dictContent = parse(fileContent);
-        } catch (err) {
-            console.red(`ERROR: Failed to load YAML from file ${fileName}`);
-            throw err;
-        }
-
-        // if (fileName === 'Abilities.yml') {
-        //     addNameToSpellsRecursively(dictContent);
-        //     recordAbilitiesFrom(dictContent, abilities);
-        //     normalizeInheritAbilities(dictContent);
-        // }
-        // if (fileName === 'Backgrounds.yml' || fileName === 'Proficiencies.yml') {
-        //     recordAbilitiesFrom(dictContent, abilities);
-        //     normalizeInheritAbilities(dictContent);
-        // }
-        // if (fileName === 'Backgrounds.yml') {
-        //     backgrounds = Object.keys(dictContent);
-        // }
+        const dictContent = readAndNormalizeYamlToJson(filePath)
 
         if (fileName.includes('Feats.yml')) {
             addNameToSpellsRecursively(dictContent);
             recordAbilitiesFrom(dictContent, abilities);
         }
 
-        // if (fileName.includes('Rules.yml')) {
-        //     rulesLists = getFormatSectionsObjectList(dictContent);
-        //     rulesDicts = getFormatSectionsObjectDict(dictContent);
-        // }
 
         if (fileName.includes('Fonts')) {
             for (const [category, spellsObj] of Object.entries(dictContent)) {
