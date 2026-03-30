@@ -15,7 +15,7 @@ import Icon from "../../../components/Icon"
 
 const allSpells = getAllSpellsByName()
 
-export function selectSpellWithPopup({spell, metadata, spellNames, setSpellNames, openPopup}) {
+export function selectSpellWithPopup({spell, metadata, spellNames, setSpellNames, openPopup, attributes={}}) {  // WARNING: attributes is never given
 
     function checkForIssues() {
         const selectedClassSpells = spellNames.map(name => allSpells[name])
@@ -35,17 +35,17 @@ export function selectSpellWithPopup({spell, metadata, spellNames, setSpellNames
         
         // checkIfKeystone()
         
-        const isMinorOrUtility = isSpellMinorTalent(spell) || isSpellUtilityTalent(spell)
-        if (isMinorOrUtility) {
-            const knownExtraMinorTalents = attributes[KNOWN_ABILITIES] ?? 0
-            const talentTiers = Object.keys(spellsByParentKey).filter(key => isTalentTierNameMinor(key) || isTalentTierNameUtility(key))
-            const extraPickedMinorsByTier = talentTiers.map(key => spellsByParentKey[key]?.length - 1)
-            const totalExtraPickedMinors = extraPickedMinorsByTier.reduce((soFar, x) => soFar + x, 0)
-            console.log({totalExtraPickedMinors})
-            if (totalExtraPickedMinors > knownExtraMinorTalents) {
-                foundIssue = `You are about to go over the limit (${knownExtraMinorTalents}) of extra known Minor and Utility Talents. Are you sure you want to also select this Spell?`
-            }
-        }
+        // const isMinorOrUtility = isSpellMinorTalent(spell) || isSpellUtilityTalent(spell)
+        // if (isMinorOrUtility) {
+        //     const knownExtraMinorTalents = attributes[KNOWN_ABILITIES] ?? 0
+        //     const talentTiers = Object.keys(spellsByParentKey).filter(key => isTalentTierNameMinor(key) || isTalentTierNameUtility(key))
+        //     const extraPickedMinorsByTier = talentTiers.map(key => spellsByParentKey[key]?.length - 1)
+        //     const totalExtraPickedMinors = extraPickedMinorsByTier.reduce((soFar, x) => soFar + x, 0)
+        //     console.log({knownExtraMinorTalents, talentTiers, extraPickedMinorsByTier, totalExtraPickedMinors})
+        //     if (totalExtraPickedMinors > knownExtraMinorTalents) {
+        //         foundIssue = `You are about to go over the limit (${knownExtraMinorTalents}) of extra known Minor and Utility Talents. Are you sure you want to also select this Spell?`
+        //     }
+        // }
 
         return foundIssue
     }

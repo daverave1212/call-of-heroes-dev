@@ -3,11 +3,11 @@ import PageH2 from "../../../components/PageH2/PageH2"
 import TwoColumns from "../../../components/TwoColumns/TwoColumns"
 import Column from "../../../components/TwoColumns/Column"
 import { ClassPageV2, CCRacePage } from "../../../components/InsertableTemplates/RaceClassComponents"
-import { getAllClasses, getAllRaces, splitArrayEvenly, useLocalStorageState } from "../../../utils"
+import { getAllClasses, getAllRaces, getAllSpellsByName, splitArrayEvenly, useLocalStorageState } from "../../../utils"
 import { classesRacesObjectToArrays } from "./CharacterCreationCalculator"
 import Selector from "../../../components/Selector/Selector"
 import { SelectorsByColumns } from "../Abilities"
-import { toggleSpellMaybePopup, useSectionRaceName, useSelectedAbilityNames } from "./CharacterData"
+import { getSelectedAbilityNames, toggleSpellMaybePopup, useSectionRaceName, useSelectedAbilityNames } from "./CharacterData"
 
 
 
@@ -30,9 +30,18 @@ export default function SectionRace({ openPopup }) {
     window.selectedRaceName = selectedRaceName
 
     function onRaceSelectorClick(raceName) {
+        const mySpells = getSelectedAbilityNames().map(name => getAllSpellsByName()[name])
+        const spellIsFromMyRace = s => s?.Origin?.includes(selectedRaceName)
+        const hasTalentsFromThisRace = mySpells.some(spellIsFromMyRace)
+        console.log({ mySpells, hasTalentsFromThisRace })
+        if (hasTalentsFromThisRace) {
+            const wantsToResetRaceTalents = confirm("You are changing your Race! Reset the selected Race Talents?")
+            if (wantsToResetRaceTalents) {
+                const mySpellsNoRaceTalents = mySpells.filter(s => !spellIsFromMyRace(s))
+                setSelectedSpellNames(mySpellsNoRaceTalents.map(s => s.Name))
+            }
+        }
         setSelectedRaceName(raceName)
-        setSelectedSpellNames([])
-        console.log({raceName})
     }
 
     function selectSpell(spell, metadata) {

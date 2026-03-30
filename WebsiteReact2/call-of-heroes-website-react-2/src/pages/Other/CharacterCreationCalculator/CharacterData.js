@@ -213,6 +213,12 @@ export function useSectionStatsState() {
 export function useLevel() {
     return useCharacterLocalStorageState('level')
 }
+export function getLevel() {
+    return getLocalStorageJSON('character.level')
+}
+export function setLevel(obj) {
+    return setLocalStorageJSON('character.level', obj)
+}
 export function useExperience() {
     return useCharacterLocalStorageState('experience')
 }
@@ -239,10 +245,22 @@ export function useCustomCharacterVariables() {
 export function useSectionRaceName() {
     return useCharacterLocalStorageState('raceName')
 }
+export function getSectionRaceName() {
+    return getLocalStorageJSON('character.raceName')
+}
+export function setSectionRaceName(obj) {
+    return setLocalStorageJSON('character.raceName', obj)
+}
 
 // Class
 export function useSectionClassName() {
     return useCharacterLocalStorageState('className')
+}
+export function getSectionClassName() {
+    return getLocalStorageJSON('character.className')
+}
+export function setSectionClassName(obj) {
+    return setLocalStorageJSON('character.className', obj)
 }
 export function useSectionClassSpecName() {
     return useCharacterLocalStorageState('specName')
@@ -252,6 +270,13 @@ export function useSectionClassSpecName() {
 export function useSelectedAbilityNames() {
     return useCharacterLocalStorageState('selectedAbilities')
 }
+export function getSelectedAbilityNames() {
+    return getLocalStorageJSON('character.selectedAbilities')
+}
+export function setSelectedAbilityNames(obj) {
+    return setLocalStorageJSON('character.selectedAbilities', obj)
+}
+
 export function useAllSpellsMetadata() {
     return useCharacterLocalStorageState('spellsMetadata')
 }
@@ -280,8 +305,21 @@ export function useGetSetCart() {
 export function useWeapons() {
     return useCharacterLocalStorageState('weaponNames', [])
 }
+export function getWeapons() {
+    return getLocalStorageJSON('character.weaponNames')
+}
+export function setWeapons(obj) {
+    return setLocalStorageJSON('character.weaponNames', obj)
+}
+
 export function useArmors() {
     return useCharacterLocalStorageState('armorNames', [])
+}
+export function getArmors() {
+    return getLocalStorageJSON('character.armorNames')
+}
+export function setArmors(obj) {
+    return setLocalStorageJSON('character.armorNames', obj)
 }
 
 // Tracking

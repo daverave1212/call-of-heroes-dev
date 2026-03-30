@@ -288,7 +288,7 @@ function maybeAddHasMixins(subobj) {
     }
 }
 
-function recordAbilitiesFrom(fromDict, toDict, parentKey=null) {
+function recordAbilitiesFrom(fromDict, toDict, parentKey=null, origin='Unknown') {
     for (const key of Object.keys(fromDict)) {
         const subobj = fromDict[key];
 
@@ -302,6 +302,7 @@ function recordAbilitiesFrom(fromDict, toDict, parentKey=null) {
             }
             maybeAddHasMixins(subobj)
             subobj.ParentKey = parentKey
+            subobj.Origin = origin
             toDict[key] = subobj;
         }
 
@@ -309,7 +310,7 @@ function recordAbilitiesFrom(fromDict, toDict, parentKey=null) {
             continue;
         }
 
-        recordAbilitiesFrom(subobj, toDict, key);
+        recordAbilitiesFrom(subobj, toDict, key, origin);
     }
 }
         
@@ -396,7 +397,7 @@ async function processFiles() {
 
         if (fileName.includes('Feats.yml')) {
             addNameToSpellsRecursively(dictContent);
-            recordAbilitiesFrom(dictContent, abilities);
+            recordAbilitiesFrom(dictContent, abilities, null, 'Feats');
         }
 
         // if (fileName.includes('Rules.yml')) {
@@ -417,17 +418,17 @@ async function processFiles() {
         if ('Class' in dictContent) {
             validateClass(dictContent)
             classes.push(dictContent.Class)
-            recordAbilitiesFrom(dictContent, abilities);
+            recordAbilitiesFrom(dictContent, abilities, null, `Class/${dictContent.Class}`);
             normalizeInheritAbilities(dictContent);
-            recordAbilitiesFrom(dictContent, classRaceAbilities);
+            recordAbilitiesFrom(dictContent, classRaceAbilities, null, `Class/${dictContent.Class}`);
         }
 
         if ('Race' in dictContent) {
             validateRace(dictContent)
             races.push(dictContent.Race)
-            recordAbilitiesFrom(dictContent, abilities);
+            recordAbilitiesFrom(dictContent, abilities, null, `Race/${dictContent.Race}`);
             normalizeInheritAbilities(dictContent);
-            recordAbilitiesFrom(dictContent, classRaceAbilities);
+            recordAbilitiesFrom(dictContent, classRaceAbilities, null, `Race/${dictContent.Race}`);
         }
 
         const fileNameNoExt = path.parse(fileName).name;

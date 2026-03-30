@@ -5,7 +5,6 @@ import Page from '../../containers/Page/Page'
 import magicFonts from '../../databases/SpellFonts.json'
 import { spellsFromObject } from '../../utils'
 import { QGTitle1 } from '../Tools/TitleGenerator'
-import { selectSpellWithPopup } from './CharacterCreationCalculator/SectionClass'
 
 
 export default function MagicFonts({ selectedSpellNames, onSpellClick, spellsMetadata }) {

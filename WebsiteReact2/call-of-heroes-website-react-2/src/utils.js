@@ -62,6 +62,7 @@ export function parseAndNormalizeSpell(spell, options={
         spellModified.IconPath = currentVariant.IconName == null? spellModified.IconPath: getSpellIconPathByName(currentVariant.IconName)
         spellModified.A = currentVariant.DisplayA ?? spell.A
         spellModified.SubspellName = currentVariant.SubspellName ?? spellModified.SubspellName
+        spellModified.Cost = currentVariant.Cost ?? spellModified.Cost
     }
 
     // Parse all mixins, including variants
