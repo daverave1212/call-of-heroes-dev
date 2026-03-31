@@ -71,6 +71,9 @@ export function useConstTotalStats() {
     const autoBonusesStatsArray = getStatsArrayFromObject(bonuses)
     return addArrays(baseStats, manualBonusesStatsArray, autoBonusesStatsArray)
 }
+export function getTotalStats() {
+    
+}
 export function useConstAllAbilitiesAndItemsExtras() {
     const allMyRaceAndClassSpells = useConstAllMyAbilities()
     const [weaponNames] = useWeapons()

@@ -208,10 +208,10 @@ export function calculateBaseMaxManaByLevel(level=1, className) {
     }
     const { Spellcasting } = selectedClass
     if (Spellcasting?.Type == MANA_BASED_SPELLCASTING) {
-        return Spellcasting.Mana.Amount + (level - 1)
+        return (Spellcasting?.Mana?.Amount || 0) + (level - 1)
     }
     if (Spellcasting?.Type == SPECIAL_MANA_BASED_SPELLCASTING) {
-        return Spellcasting.Mana.Amount + Math.floor((level / 3))        
+        return (Spellcasting?.Mana?.Amount || 0) + Math.floor((level / 3))        
     }
     return 0
 }
