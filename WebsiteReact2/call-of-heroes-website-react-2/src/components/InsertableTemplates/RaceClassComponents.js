@@ -11,7 +11,7 @@ import PageH3 from '../PageH3/PageH3'
 import SmallStat from '../SmallStat/SmallStat'
 import SmallStatList from '../SmallStat/SmallStatList'
 
-import Separator from '../Separator/Separator'
+import Separator, { SeparatorLarge } from '../Separator/Separator'
 import TableNormal from '../TableNormal/TableNormal'
 import TableNormalLevelUp from '../TableNormal/TableNormalLevelUp'
 import TwoColumns from '../TwoColumns/TwoColumns'

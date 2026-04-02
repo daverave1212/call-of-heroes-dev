@@ -33,17 +33,6 @@ const NAV_CONFIG = [
       { name: 'Dragon',       href: '/Races/Dragonborn', lock: 'premium' },
       { name: 'Hollow',       href: '/Races/Hollow', lock: 'premium' },
     ]},
-    // { name: 'Classes', children: [
-    //   { name: 'Cleric',       href: '/Classes/Cleric' },
-    //   { name: 'Druid',        href: '/Classes/Druid' },
-    //   { name: 'Hunter',       href: '/Classes/Hunter' },
-    //   { name: 'Mage',         href: '/Classes/Mage' },
-    //   { name: 'Paladin',      href: '/Classes/Paladin' },
-    //   { name: 'Rogue',        href: '/Classes/Rogue' },
-    //   { name: 'Shaman',       href: '/Classes/Shaman', lock: 'premium' },
-    //   { name: 'Warlock',      href: '/Classes/Warlock' },
-    //   { name: 'Warrior',      href: '/Classes/Warrior' },
-    // ]},
     { name: 'Classes (Base)', children: [
       { name: 'Cleric', href: "/ClassesV2/Priest" },
       { name: 'Druid', href: "/ClassesV2/Druid" },
@@ -100,22 +89,22 @@ const NAV_CONFIG = [
   ]},
   { name: 'Learn To Play', children: [
     { name: 'Learn To Play', children: [
-      { name: 'Transition Guide (from D&D)',  href: '/Download/Transition_Guide_2025-11-10.pdf', isDownload: true },
-      { name: 'Rules',                        href: '/Other/Rules' },
-      { name: 'Character Creation Guide',     href: '/WorkInProgress' },
-      { name: 'New Player Guide',             href: '/WorkInProgress' },
+      { name: 'Transition Guide (from D&D)',    href: '/Download/Transition_Guide_2025-11-10.pdf', isDownload: true },
+      { name: 'Rules',                          href: '/Other/Rules' },
+      { name: 'Character Creation Guide',       href: '/WorkInProgress' },
+      { name: 'New Player Guide',               href: '/WorkInProgress' },
     ]}
   ]},
   { name: 'Game Mastering', children: [
     { name: 'Guides', children: [
-      { name: 'GM Guidelines',                href: '/Other/GMGuidelines' },
-      { name: 'Game Master Basics',           href: '/WorkInProgress' },
-      { name: 'How To Be a Good GM',          href: '/WorkInProgress', lock: 'premium' },
+      { name: 'GM Guidelines',                  href: '/Other/GMGuidelines' },
+      { name: 'Game Master Basics',             href: '/WorkInProgress' },
+      { name: 'How To Be a Good GM',            href: '/WorkInProgress', lock: 'premium' },
     ]},
     { name: 'QM Content', children: [
-      { name: 'Monsters',                 href: '/Other/Monsters' },
-      { name: 'Encounters',               href: '/Other/Encounters' },
-      { name: 'Magic Items',              href: '/Other/MagicItems', lock: 'premium' },
+      { name: 'Monsters',                       href: '/Other/Monsters' },
+      { name: 'Encounters',                     href: '/Other/Encounters' },
+      { name: 'Magic Items',                    href: '/Other/MagicItems', lock: 'premium' },
     ]},
     { name: 'Tools', children: [
       { name: 'Merchant Generator',             href: '/Tools/MerchantGenerator', lock: 'premium' },

@@ -4,7 +4,7 @@ import React from 'react'
 
 export function getRealColor(color) {
     switch (color) {
-        case null, undefined: return 'var(--theme-color-1-darker)';
+        case null, undefined: return 'var(--theme-color-darker)';
         case 'blue': return 'var(--dark-blue)';
     }
     return color

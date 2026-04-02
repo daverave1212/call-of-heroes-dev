@@ -17,7 +17,7 @@ export default function ManySmallStats({ name, texts, color, topDown, style }) {
         'small-stat--row'
 
     color =
-        color == null?      'var(--theme-color-1-darker)' :
+        color == null?      'var(--theme-color-darker)' :
         color == 'blue'?    'var(--dark-blue)':
         color
 

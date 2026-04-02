@@ -165,8 +165,8 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
                                         {/* { monster.Degree != 'Normal' && monster.Degree != null && (<SmallStat color={statOtherColor} className="row large" name="Degree">{monster.Degree != null? monster.Degree : 'Normal'}</SmallStat>) } */}
                                         { monster.Degree != 'Normal' && monster.Degree != null && (<SmallStat color={statOtherColor} className="row large" name="Action Points">{monster.Degree != null? monster.Degree : '3'}</SmallStat>) }
                                         <div className='flex row' style={{gap: '5%'}}>
-                                            <button style={{backgroundColor: 'var(--theme-color-1-darker)', width: '50%'}} onClick={scaleDown}><Icon name="Premium" style={{marginTop: '4px'}}/> Downscale</button>
-                                            <button style={{backgroundColor: 'var(--theme-color-1-darker)', width: '45%'}} onClick={scaleUp}><Icon name="Premium" style={{marginTop: '4px'}}/> Upscale</button>
+                                            <button style={{backgroundColor: 'var(--theme-color-darker)', width: '50%'}} onClick={scaleDown}><Icon name="Premium" style={{marginTop: '4px'}}/> Downscale</button>
+                                            <button style={{backgroundColor: 'var(--theme-color-darker)', width: '45%'}} onClick={scaleUp}><Icon name="Premium" style={{marginTop: '4px'}}/> Upscale</button>
                                         </div>
                                     </div>
                                 )

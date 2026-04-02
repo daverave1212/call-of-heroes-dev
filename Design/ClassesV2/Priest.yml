@@ -59,6 +59,10 @@ Starting Abilities:
       You can bless yourself.
     AlignOnWebsite: Right
 
+
+
+
+
 Utility:
         
     ~Guidance~ :
@@ -108,6 +112,49 @@ Utility:
             Choose a Unit you can see. You have +1d2 to {Charisma} Rolls against it.
         Notes: The target can't tell it was affected unless it knows about this type of magic.
 
+
+
+Ideas:
+    ~Massive Heal~:
+      Effect: Heal everyone for 1d4.
+
+    ~Holy Fire~:
+        DisplayName: "{Name}"
+        A: 3 Action Points
+        Cost: 1 Mana
+        Range: 5 meters
+        HasMixins: true
+        Tags: [Damage]
+        ScrollPower: 1
+        Effect: |
+            Deal 1d10 {Type} Damage to a Unit, 4 times.
+            {ExtraEffect}
+
+            ~Click on the icon to select the preferred effect!~
+        Variants:
+          - Name: Vampiric Fire
+            Type: Scourge or Fire
+            ExtraEffect: For each time it did 8 or more Damage, cast Awe on yourself.
+            IconName: Profane Cold
+          - Name: Holy Fire
+            Type: Divine
+            IconName: Holy Fire
+            ExtraEffect: For each time it did 8 or more Damage, cast Awe on a different ally.
+
+
+# Remade Utility
+
+    <Compel>:
+      A: 0 Actions
+      Cost: 1 Mana
+      Tags: [CC, Combo, Tanking]
+      Cooldown: Once / Turn
+      ScrollPower: 0
+      Effect: |
+        You can cast Awe on a Unit you can see, Taunt it, Daze it, Apply a ~Combo~ to it, and/or gain +1d2 to Charisma Checks against it.
+      Notes: All these effects are optional. The target might not be able to tell it was affected by a mind spell, unless it knows about this type of magic.
+
+
 Talents:
 
   Level 1 Class Talent:
@@ -124,7 +171,7 @@ Talents:
             Deal 1d12 + ^Your {Sense} or {Intelligence}^ {Type} Damage to a Unit.
             For the rest of the combat, whenever it would take {Type} Damage, it takes {Damage} more (stacks indefinitely).
 
-            ~Click on the icon to selecte the preferred effect!~
+            ~Click on the icon to select the preferred effect!~
         Variants:
           - Name: Shadow
             Type: Scourge
@@ -163,7 +210,8 @@ Talents:
       Cooldown: Once / Turn
       ScrollPower: 0
       Effect: |
-        Cast Awe on a Unit you can see. Taunt it. Daze it. Apply a ~Combo~.
+        You can cast Awe on a Unit you can see, Taunt it, Daze it, Apply a ~Combo~ to it, and/or gain +1d2 to Charisma Checks on it.
+      Notes: All these effects are optional. The target might not be able to tell it was affected by a mind spell, unless it knows about this type of magic.
     
     ~Warding Incense~:
       A: Reaction
@@ -286,7 +334,7 @@ Talents:
         ScrollPower: Auto
         Effect: |
             You shoot out 10 rays of light.
-            Roll 10d4 and assign them to Units within 10 meters as you with.
+            Roll 10d4 and assign them to Units within 10 meters as you wish.
             Each die heals on odd rolls (1 and 3) and deals Divine Damage on even rolls (2 and 4).
 
   Level 4 Class Talent:
