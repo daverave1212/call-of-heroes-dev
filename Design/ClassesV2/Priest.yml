@@ -60,89 +60,46 @@ Starting Abilities:
     AlignOnWebsite: Right
 
 
+Ideas:
+    ~Massive Heal~:
+      Effect: Heal everyone for 1d4.
+    
+    ~Pain of the Flesh~:
+      A: 1 Action
+      Cooldown: Once / Turn
+      Requirement: Only usable in Worthy Combat
+      Effect: |
+        Take True Damage equal to 10% of your Maximum Health.
+        Heal 2 allies you can see for that amount.
+
 
 
 
 Utility:
         
-    ~Guidance~ :
-        A: Reaction
-        Range: 10 meters
-        Requirement: Can't be used in Combat
-        Cooldown: 1 real hour
-        ScrollPower: 0
-        Tags: [Utility]
-        Effect: When an ally makes a Check, it can use your modifiers (including being Skilled in that Skill) instead of its own.
-
-    ~Saving Throw~:
-        A: 0 Actions or Reaction
-        Cooldown: 1 hour
-        Range: 7 meters
+    ~Elation~ :
+        Tags: [Utility, Buff]
+        A: Half-Action
+        Cost: 1 Mana
         Degree: Minor
-        Tags: [Protection, Other]
-        ScrollPower: 1
+        ScrollPower: 2
         Effect: |
-            Use when the Turn of an Enemy starts (or on your Turn).
-            Instantly pull another ally to your nearest empty space.
-        Notes: |
-            The ally goes flying.
-            You need line of sight to the targets. The allies fly to you ignoring obstacles and ground traps (goes around obstacles), unless the ally needs to swerve more than 2 meters in any direction.
+          Up to 2 Heroes you can see gain Health Regen equal to your {Intelligence} and can use your modifiers for Checks instead of its own (including non-Combat Skills).
 
-    ~Mending~:
-        A: 1 Action
-        Degree: Lesser
-        Tags: [Utility]
-        ScrollPower: 0
-        Effect: |
-            Touch a slightly broken piece of material that is still in one piece.
-            You can repair the Damage done to it.
-            Mending can repair a piece of Armor or Weapon for 1 Defense or Damage, but no more.
-        Notes: |
-            For example, repair a hole through a chain shirt or textile material, the crack in a piece of glass, etc.
-
-    ~Compel~:
-        A: 0 Actions
-        Range: 5 meters
-        Degree: Minor
-        Duration: Lasts until they can't see/hear you
-        Cooldown: 1 real hour
-        Tags: Roleplaying
-        ScrollPower: 1
-        Effect: |
-            Choose a Unit you can see. You have +1d2 to {Charisma} Rolls against it.
-        Notes: The target can't tell it was affected unless it knows about this type of magic.
-
-
-
-Ideas:
-    ~Massive Heal~:
-      Effect: Heal everyone for 1d4.
-
-    ~Holy Fire~:
-        DisplayName: "{Name}"
-        A: 3 Action Points
+    ~Solace Wave~:
+        A: Half-Action
         Cost: 1 Mana
         Range: 5 meters
-        HasMixins: true
-        Tags: [Damage]
+        Degree: Minor
+        Tags: [Healing, Combo]
         ScrollPower: 1
         Effect: |
-            Deal 1d10 {Type} Damage to a Unit, 4 times.
-            {ExtraEffect}
-
-            ~Click on the icon to select the preferred effect!~
-        Variants:
-          - Name: Vampiric Fire
-            Type: Scourge or Fire
-            ExtraEffect: For each time it did 8 or more Damage, cast Awe on yourself.
-            IconName: Profane Cold
-          - Name: Holy Fire
-            Type: Divine
-            IconName: Holy Fire
-            ExtraEffect: For each time it did 8 or more Damage, cast Awe on a different ally.
-
-
-# Remade Utility
+            Heal an ally (or yourself) for 1d8 Health.
+            If they have 50% or more Health before the heal, double the result!
+        Upgrade: Alternatively, repair a slightly broken object or piece of Armor or Weapon for 1 Defense or Damage.
+        Combo: Cast Awe.
+        Notes: |
+            For example, repair a hole through a chain shirt or textile material, the crack in a piece of glass, etc.
 
     <Compel>:
       A: 0 Actions
@@ -151,13 +108,38 @@ Ideas:
       Cooldown: Once / Turn
       ScrollPower: 0
       Effect: |
-        You can cast Awe on a Unit you can see, Taunt it, Daze it, Apply a ~Combo~ to it, and/or gain +1d2 to Charisma Checks against it.
+        You can cast Awe on a Unit you can see, Taunt it, Daze it, Apply a ~Combo~ to it, and/or reroll 1 die of Charisma Checks against it.
       Notes: All these effects are optional. The target might not be able to tell it was affected by a mind spell, unless it knows about this type of magic.
 
+    ~See No Evil~:
+      A: 1 Action
+      Cost: 1 Mana
+      DisplayName: "{Name}"
+      Tags: [Damage, Crowd Control, Situational]
+      Effect: |
+        Up to 1d6 {Type} that can see and hear you take 1d8 {DamageType} Damage, are Dazed and pushed 3 meters away from you.
 
-Talents:
+        ~Click on the Icon to select which variant you want to have have!~
+      Variants:
+        - Name: See No Evil
+          IconName: See No Evil
+          Type: unholy Units
+          ExtraEffect: One of them in particular takes +100% of the Damage.
+          DamageType: Divine
+        - Name: Doomsaying
+          IconName: Doomsaying
+          Type: Fiends and Celestials
+          ExtraEffect: If only 1 Unit is hit, it takes +200% of the Damage.
+          DamageType: Scourge
 
-  Level 1 Class Talent:
+
+
+
+# Remade Utility
+
+
+Other Abilities Title: Level 1 General Talents
+Other Abilities:
 
     ~Mind's Thing~:
         DisplayName: "Mind's {Name}"
@@ -182,55 +164,84 @@ Talents:
             Damage: 1
             IconName: Minds Abolition
 
-    ~Solace Wave~:
-        A: Half-Action
-        Cost: 1 Mana
-        Range: 5 meters
-        Degree: Minor
-        Tags: [Healing, Combo]
-        ScrollPower: 1
-        Effect: |
-            Heal an ally (or yourself) for 1d8 Health.
-            If they have 50% or more Health before the heal, double the result!
-        Combo: Cast Awe.
-
-    ~Elation~:
-        A: 0 Actions
-        Cost: 1 Mana
-        Degree: Minor
-        Tags: [Buff]
-        ScrollPower: 1
-        Effect: |
-          Up to 2 Heroes you can see gain Health Regen equal to your {Intelligence}.
-
-    <Weakness of the Soul>:
-      A: 0 Actions
-      Cost: 1 Mana
-      Tags: [CC, Combo, Tanking]
-      Cooldown: Once / Turn
-      ScrollPower: 0
-      Effect: |
-        You can cast Awe on a Unit you can see, Taunt it, Daze it, Apply a ~Combo~ to it, and/or gain +1d2 to Charisma Checks on it.
-      Notes: All these effects are optional. The target might not be able to tell it was affected by a mind spell, unless it knows about this type of magic.
-    
-    ~Warding Incense~:
-      A: Reaction
-      Cost: 1 Mana
-      Tags: [Protection, Combo]
-      Effect: |
-        Use when an ally would take Damage.
-        Roll 1d6 and subtract that much from the attack.
-        Then give them the rolled die as one Shielding and apply a ~Combo~ on them.
-    
     ~Radiant Smite~:
-      _Value: 0.35   # Pretty good ability
       A: 0 Actions
       Cost: 1 Mana
       Tags: [Damage, Finisher]
-      ScrollPower: 1
+      ScrollPower: Auto
       Effect: |
-          Your next weapon attack deals +1d6 Damage and all the Damage becomes Divine.
-          If the target dies, cast Awe.
+          Add +1d6 Damage to a weapon attack or single-target Ability. It's Damage Type becomes Divine.
+          If the target dies, don't spend the {Mana}Mana.
+
+    ~Healing Light~:
+      A: 1 Action
+      Cost: 1 Mana
+      Range: 3 meters
+      Effect: |
+        Heal a Unit for 2d6 + your {Charisma}, and all other Units within 1 meter of it for -50% of that amount.
+      Upgrade: If there were no other Units, remove all Crowd Control and Debuffs from the target.
+
+    ~Saving Throw~:
+        A: 0 Actions or Reaction
+        Range: 7 meters
+        Cost: 1 Mana
+        Degree: Minor
+        Tags: [Protection, Other]
+        ScrollPower: Auto
+        Effect: |
+            Use when an ally would take Damage (or on your Turn).
+            Instantly pull another ally to your nearest empty space, then subtract 1d6 from the attack and give them the rolled die as one Shielding.
+        Notes: |
+            The ally goes flying.
+            You need line of sight to the targets. The allies fly to you ignoring obstacles and ground traps (goes around obstacles), unless the ally needs to swerve more than 2 meters in any direction.
+            If done on your Turn, the Shielding applies but there's no Damage to subtract from.
+
+Talents:
+
+  Level 1 Class Talent:
+
+    ~Holy Fire~:
+        DisplayName: "{Name}"
+        A: 3 Action Points
+        Cost: 1 Mana
+        Range: 5 meters
+        HasMixins: true
+        Tags: [Damage]
+        ScrollPower: 1
+        Effect: |
+            Deal 1d10 {Type} Damage to a Unit, 4 times.
+            {ExtraEffect}
+
+            ~Click on the icon to select the preferred effect!~
+        Variants:
+          - Name: Holy Fire
+            Type: Divine or Fire
+            IconName: Holy Fire
+            ExtraEffect: For each time it did 8 or more Damage, cast Awe on a different ally.
+          - Name: Vampiric Fire
+            Type: Scourge or Fire
+            ExtraEffect: For each time it did 8 or more Damage, cast Awe on yourself.
+            IconName: Vampiric Fire
+
+    ~Taketh Away Sight~:
+      A: 1 Action
+      Cost: 1 Mana
+      Effect: |
+        Heal or deal 2d12 True Damage to a Unit you can see. It's next attack can't be ranged.
+
+    ~Benediction~:
+      A: Half-Action
+      Cost: 1 Mana
+      Cooldown: Once / Turn
+      Tags: [Buff, Combo]
+      Effect: |
+        Cast Awe on a Unit and apply a Combo to it. Its next single-target attack or Ability deals +50% Damage.
+
+    ~Vows of Zealotry~:
+      A: Passive
+      Effect: While wearing Heavy Armor, Awe has ^Dice Upgraded^ to the next die type when cast on yourself, and your first melee attack each Combat Blinds the target.
+      Upgrade: Mercy is a gift for the innocent. For the rest of us, there is no vow - it's a lifestyle, heartfelt and righteous.
+
 
   Level 2 Class Talent:
 
@@ -374,6 +385,13 @@ Talents:
 
 
   Level 5 Class Talent:
+
+    ~Ritual of Wonder~:
+      A: 3 Action Points
+      Cost: 3 Mana
+      Effect: |
+        Heal a Unit you can see for 6d6 and increase its Maximum Health by 1 permanently.
+
 
     ~Solace Tide~:
         A: Half-Action

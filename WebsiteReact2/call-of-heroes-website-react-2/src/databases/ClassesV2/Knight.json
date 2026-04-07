@@ -31,6 +31,11 @@
             "HasMixins": true,
             "ParentKey": "Ideas",
             "Origin": "Class/Knight"
+        },
+        "~Free From Corruption~": {
+            "Effect": "If you cast this 3 times this Combat, choose an ally and remove one of their Negative Quirks.",
+            "ParentKey": "Ideas",
+            "Origin": "Class/Knight"
         }
     },
     "Utility": {
@@ -66,8 +71,9 @@
         },
         "~Trusted Steed~": {
             "A": "Passive",
-            "Effect": "You have a steed that increases ^your^ non-Combat movement speed 50%.\nWhen dismounting, your steed runs away and disappears into the surroundings.\nOnce per real hour, you can whistle for your steed and it will appear running toward you and you automatically mount it.\n",
-            "Notes": "The steed can be any animal that fits the story. The steed does not participate in Combat.",
+            "Effect": "You have a steed that increases ^your^ non-Combat movement speed 50%.\nIn Combat, your first Damaging Ability you use dismounts you.\nWhen dismounting, your steed runs away and disappears into the surroundings.\nOnce per real hour, you can whistle for your steed and it will appear running toward you and you automatically mount it.\n",
+            "Upgrade": "At Level 3, your Steed can climb steep hills and jump up to 5 meters. At Level 6, it can walk on water. At Level 9, it can fly.",
+            "Notes": "The steed can be any animal that fits the story.",
             "HasMixins": true,
             "ParentKey": "Utility",
             "Origin": "Class/Knight"
@@ -142,7 +148,7 @@
                 "Effect": "Make a Move Act with +2 Movement Speed.\n~You have access to all Variants of this Ability (click on the icon to select the preferred effect)!~\n\n{Teal('With Valor:')} {Effect}\n{Teal('Next:')} Crowd Control Ability\n",
                 "Variants": [
                     {
-                        "Effect": "All Units you pass near take 1d4 Damage (requires a mount)."
+                        "Effect": "All Units you pass near take 1d4 Damage (requires a Trusted Steed)."
                     },
                     {
                         "Effect": "Gain one Shielding that can block 1d4 Damage."
@@ -259,12 +265,13 @@
                 "Origin": "Class/Knight"
             },
             "~Creed of the Dragon~": {
-                "_Value": 2.5,
+                "_Value": 2.75,
                 "A": "Special",
                 "Requirement": "Requires finding a dragon patron",
                 "Tags": [
                     "Keystone Talent (Level 3)",
-                    "Area Damage"
+                    "Area Damage",
+                    "Defense"
                 ],
                 "Upgrade": "{KeystoneTalent}",
                 "Effect": "You swear your allegiance to an elder dragon you have encountered on your journey.\n\nYou take -50% Damage from that dragon's element Type.\nWhen dealing Damage with an Ability that was cast With Valor, 50% of the main target's Damage is also dealt to all Units within 1 meter of the target (of your dragon's element Type).\n",
@@ -274,7 +281,7 @@
             },
             "~Creed of Vengeance~": {
                 "A": "Special",
-                "Requirement": "Requires having been betrayed this Campaign",
+                "Requirement": "Requires having been betrayed this Campaign, or having broken an oath",
                 "Tags": [
                     "Keystone Talent (Level 3)",
                     "Support",
@@ -282,7 +289,7 @@
                 ],
                 "Upgrade": "{KeystoneTalent}",
                 "_Value": 2,
-                "Effect": "Justice has failed. Your oath was broken, your faith was betrayed, but you swore a new one: to hunt those who wronged you and make the world remember.\n\nWhenever you buff an Ally, also apply that buff to yourself.\nOnce per Ability, when applying Crowd Control to a Unit, it takes 1d4 Scourge Damage. Then another Unit within 2 meters of it must pass a Might Roll at least equal to your Highest Stat Roll or also be affected by that Crowd Control and extra Scourge Damage.\n",
+                "Effect": "Justice has failed. Your oath was broken, your faith was betrayed, but you swore a new one: to hunt those who wronged you and make the world remember. You will bring justice, to the world and to yourself.\n\nWhenever you buff an Ally, also apply that buff to yourself.\nOnce per Ability, when applying Crowd Control to a Unit, it takes 1d4 Scourge Damage. Then another Unit within 2 meters of it must pass a Might Roll at least equal to your Highest Stat Roll or also be affected by that Crowd Control and extra Scourge Damage.\n",
                 "Notes": "The secondary Crowd Control does not retrigger Creed of Vengeance.",
                 "HasMixins": true,
                 "ParentKey": "Level 3 Class Talent",

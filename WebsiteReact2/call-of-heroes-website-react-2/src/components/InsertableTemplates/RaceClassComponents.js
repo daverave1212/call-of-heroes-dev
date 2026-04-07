@@ -480,10 +480,17 @@ export function Talents({ talents, selectedSpellNames, onSpellClick, spellsMetad
         <div>
             { talentTitles.map(talentTitle => {
                 const spellsInThisTier = U.spellsFromObject(talents[talentTitle])
-                return <div key={talentTitle} className='margin-top-2'>
-                    <PageH2 className="center-text">{talentTitle}</PageH2>
-                    <ManySpells spells={spellsInThisTier} selectedSpellNames={selectedSpellNames} onSpellClick={onSpellClick} spellsMetadata={spellsMetadata} shouldSort={false}/>
-                </div>
+                return <>
+                    { talentTitle?.includes('Level 2') &&
+                        <div className='center-content'>
+                            <QGTitle1 text={'Level Up Talents'} height={45}/>
+                        </div>
+                    }
+                    <div key={talentTitle} className='margin-top-2'>
+                        <PageH2 className="center-text">{talentTitle}</PageH2>
+                        <ManySpells spells={spellsInThisTier} selectedSpellNames={selectedSpellNames} onSpellClick={onSpellClick} spellsMetadata={spellsMetadata} shouldSort={false}/>
+                    </div>
+                </>
             })}
         </div>
     )
@@ -745,7 +752,17 @@ export function ClassPageV2({
                     )}
                     </div>
                 )}
-                
+
+                { theClass['Ideas'] != null && U.isLocalhost() && (
+                    <div>
+                        <PageH2>Ideas</PageH2>
+                        <ManySpells
+                            spells={theClass['Ideas']}
+                            description={'This is for testing purposes only. Ignore this section.'}
+                            selectedSpellNames={selectedSpellNames}
+                        />
+                    </div>
+                )}
                 
                 { theClass['Other Abilities'] != null && (
                     <div>
@@ -761,20 +778,8 @@ export function ClassPageV2({
                     </div>
                 )}
 
-                {/* { theClass['Ideas'] != null && (
-                    <div>
-                        <PageH2>Ideas</PageH2>
-                        <ManySpells
-                            spells={theClass['Ideas']}
-                            description={'This is for testing purposes only. Ignore this section.'}
-                            selectedSpellNames={selectedSpellNames}
-                        />
-                    </div>
-                )} */}
 
-                <div className='center-content'>
-                    <QGTitle1 text={'Talents'} height={45}/>
-                </div>
+
                 { theClass['Utility'] != null && (
                     <div>
                         <PageH2 className="center-text">Level 1 - Utility Talent</PageH2>
