@@ -33,9 +33,10 @@ Spellcasting:
 #
 #       Extra Effects
 # Combo, Buff (Regen), Shielding, Gold Generation
-#
+# Quirk, Combo, Summon
 #
 # NOTE: Provocation (L1 CC) can go into Templar Retribution (L2 CC)
+# Note: "Use a gem or something to keep track of your last used Ability on your paper sheet"
 #
 #       Needs:
 #   Spells, Pet (peasant), You make keep your mount in combat
@@ -52,6 +53,71 @@ Spellcasting:
 
 Ideas:
 
+  ~Liberation~:
+      A: Half-Action
+      Cooldown: Once / Turn
+      Degree: Minor
+      Range: 3 meters
+      Effect: |
+          Heal a Unit for 1d4.
+          
+          {Teal('With Valor:')} 1d6 Healing instead, and remove all Crowd Control from it.
+          {Teal('Next:')} Damage Ability
+      Upgrade: |
+          At Level 5, also removes all non-magical debuffs and poisons.
+          At Level 8, also removes all curses and normal negative magical effects.
+
+  ~Platinum Storm~:
+      A: 1 Action
+      ScrollPower: Auto
+      Range: Depends on weapon
+      Effect: |
+        Use a Magic Wand to deal 2d4 + 2d6 Damage on a 1x1 meter space, of the Wand's Type.
+
+        {Teal('With Valor:')} The area becomes 3x3 meters instead.
+        {Teal('Next:')} Crowd Control
+  
+  ~Charging Stallion~:
+      A: 1 Action
+      ScrollPower: Auto
+      Requirement: Only usable in Worthy Combat
+      Effect: |
+        Charge in a straight line to any location on the battlefield.
+        All Units you pass through _shuffle_ their positions.
+
+        {Teal('With Valor:')} And are Slowed and get a Combo.
+        {Teal('Next:')} Healing
+      Notes: |
+        Units you hit swap their positions between them _randomly_ (as chosen by the Quest Master). For example, the first Unit hit might swap positions with the last Unit hit.
+        Optionally, you can use this to exit the battlefield and the Combat.
+      
+  ~Cowards!~:
+      A: Half-Action
+      Tags: [Crowd Control, Protection]
+      Effect: |
+        Taunt all enemies within 2 meters of you.
+
+        {Teal('With Valor:')} Gain 1 Shielding, which can block 1 Damage for each Unit Taunted.
+        {Teal('Next:')} Movement
+
+        Passively, you have Rebuke.
+      Subspells:
+        ~Rebuke~:
+          A: Reaction
+          Range: Depends on weapon
+          Tags: [Damage, Crowd Control]
+          Requirement: Requires having some Shielding
+          Effect: |
+            Use when targeted by an attack.
+            Use a ^weapon^ to deal Damage to the attacker equal to your total Shieldings value.
+            Afterwards, if you took no Damage from the attack, also Single-Stun the attacker.
+
+
+Other Ideas:
+  
+  ~Dark Knight Creed~:
+    Effect: TODO
+
   ~Liberating Judgement~:
     A: Half-Action
     Range: 3 meters
@@ -61,23 +127,26 @@ Ideas:
       Deal 2d4 Damage to a Unit (you choose the Damage Type).
       
       {Teal('With Valor:')} Then move a number of meters equal to the lower of the dice.
-      {Teal('Next:')} Damaging Act
+      {Teal('Next:')} Damage Ability
   
   ~Free From Corruption~:
     Effect: If you cast this 3 times this Combat, choose an ally and remove one of their Negative Quirks.
 
+
+
+
 Utility:
 
-  ~Liberation~:
-      A: Reaction or 0 Actions
-      Requirement: Level 3
-      Cooldown: Once / Adventure
-      Degree: Minor
-      Effect: |
-          Instantly remove all Crowd Control from another ally you can see.
-      Upgrade: |
-          At Level 5, also removes all non-magical debuffs and poisons.
-          At Level 8, also removes all curses and normal negative magical effects.
+  ~Outpost~:
+    A: 1 hour
+    Cooldown: Once / Adventure
+    Degree: Minor
+    Effect: |
+      Choose either a First Aid Tent or an Outpost Tower to build from scratch.
+      Once per Adventure, the tent can heal everyone inside for 1 Health.
+      While within 50km of the Tower, your party can't be ambushed, has +2 in Sight, and halves the travel time of your party.
+    Upgrade: For smaller-scope adventures, the Quest Master can reduce the distance of the Tower to 10km.
+    Notes: Try to build towers within 100km of eachother, and in places you may want to visit multiple times. Construct a network of such towers!
 
   ~Nominate Squire~:
     A: Special
@@ -104,12 +173,10 @@ Utility:
   ~Trusted Steed~:
     A: Passive
     Effect: |
-      You have a steed that increases ^your^ non-Combat movement speed 50%.
-      In Combat, your first Damaging Ability you use dismounts you.
-      When dismounting, your steed runs away and disappears into the surroundings.
-      Once per real hour, you can whistle for your steed and it will appear running toward you and you automatically mount it.
+      You have a steed that increases your Movement Speed by 50%.
+      In Combat, your first Damaging Ability you use dismounts you, but deals +1d4 Damage or Slams the target 1d4 meters away.
     Upgrade: At Level 3, your Steed can climb steep hills and jump up to 5 meters. At Level 6, it can walk on water. At Level 9, it can fly.
-    Notes: The steed can be any animal that fits the story.
+    Notes: The steed can be any animal that fits the story. When dismounting, your steed runs away and disappears into the surroundings. Once per real hour, you can whistle for your steed and it will appear running toward you and you automatically mount it.
 
 Starting Abilities Description: Playing a Knight can be challenging. If you truly can't chain together some of your Abilities, don't worry about it too much. It's all about planning in advance!
 Starting Abilities:
@@ -160,7 +227,7 @@ Talents:
       Requirement: Only usable in Worthy Comabt
       Tags: [Healing]
       Effect: |
-        Heal all Units within 1 meter of you for 1d2.
+        Heal all other Units within 1 meter of you for 1d2.
 
         {Teal('With Valor:')} 1d4 Healing instead
         {Teal('Next:')} Movement Ability
@@ -211,14 +278,14 @@ Talents:
       A: Half-Action
       Cooldown: Once / Turn
       Requirement: Only usable in Worthy Combat
-      Tags: [Healing, Buff]
+      Tags: [Healing, Buff, Health Transfer]
       Range: 5 meters
       Effect: |
         Take 2d6 True Damage. Heal a different ally for 200% of the rolled amount.
 
         {Teal('With Valor:')} They gain +1 Health Regen for the rest of the Adventure.
         {Teal('Next:')} Crowd Control Ability
-      Notes: Can not be used on other Knights.
+      Notes: Can not be used on other Knights or characters with a Health Transfer Ability.
 
     ~Blockade~:
       _Value: 1

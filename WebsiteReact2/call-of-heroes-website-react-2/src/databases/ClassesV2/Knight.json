@@ -19,6 +19,69 @@
         "Other": "All Warrior-specific Abilities are not considered Spells (unless stated otherwise)."
     },
     "Ideas": {
+        "~Liberation~": {
+            "A": "Half-Action",
+            "Cooldown": "Once / Turn",
+            "Degree": "Minor",
+            "Range": "3 meters",
+            "Effect": "Heal a Unit for 1d4.\n\n{Teal('With Valor:')} 1d6 Healing instead, and remove all Crowd Control from it.\n{Teal('Next:')} Damage Ability\n",
+            "Upgrade": "At Level 5, also removes all non-magical debuffs and poisons.\nAt Level 8, also removes all curses and normal negative magical effects.\n",
+            "HasMixins": true,
+            "ParentKey": "Ideas",
+            "Origin": "Class/Knight"
+        },
+        "~Platinum Storm~": {
+            "A": "1 Action",
+            "ScrollPower": "Auto",
+            "Range": "Depends on weapon",
+            "Effect": "Use a Magic Wand to deal 2d4 + 2d6 Damage on a 1x1 meter space, of the Wand's Type.\n\n{Teal('With Valor:')} The area becomes 3x3 meters instead.\n{Teal('Next:')} Crowd Control\n",
+            "HasMixins": true,
+            "ParentKey": "Ideas",
+            "Origin": "Class/Knight"
+        },
+        "~Charging Stallion~": {
+            "A": "1 Action",
+            "ScrollPower": "Auto",
+            "Requirement": "Only usable in Worthy Combat",
+            "Effect": "Charge in a straight line to any location on the battlefield.\nAll Units you pass through _shuffle_ their positions.\n\n{Teal('With Valor:')} And are Slowed and get a Combo.\n{Teal('Next:')} Healing\n",
+            "Notes": "Units you hit swap their positions between them _randomly_ (as chosen by the Quest Master). For example, the first Unit hit might swap positions with the last Unit hit.\nOptionally, you can use this to exit the battlefield and the Combat.\n",
+            "HasMixins": true,
+            "ParentKey": "Ideas",
+            "Origin": "Class/Knight"
+        },
+        "~Cowards!~": {
+            "A": "Half-Action",
+            "Tags": [
+                "Crowd Control",
+                "Protection"
+            ],
+            "Effect": "Taunt all enemies within 2 meters of you.\n\n{Teal('With Valor:')} Gain 1 Shielding, which can block 1 Damage for each Unit Taunted.\n{Teal('Next:')} Movement\n\nPassively, you have Rebuke.\n",
+            "Subspells": {
+                "~Rebuke~": {
+                    "A": "Reaction",
+                    "Range": "Depends on weapon",
+                    "Tags": [
+                        "Damage",
+                        "Crowd Control"
+                    ],
+                    "Requirement": "Requires having some Shielding",
+                    "Effect": "Use when targeted by an attack.\nUse a ^weapon^ to deal Damage to the attacker equal to your total Shieldings value.\nAfterwards, if you took no Damage from the attack, also Single-Stun the attacker.\n",
+                    "HasMixins": true,
+                    "ParentKey": "Subspells",
+                    "Origin": "Class/Knight"
+                }
+            },
+            "HasMixins": true,
+            "ParentKey": "Ideas",
+            "Origin": "Class/Knight"
+        }
+    },
+    "Other Ideas": {
+        "~Dark Knight Creed~": {
+            "Effect": "TODO",
+            "ParentKey": "Other Ideas",
+            "Origin": "Class/Knight"
+        },
         "~Liberating Judgement~": {
             "A": "Half-Action",
             "Range": "3 meters",
@@ -27,25 +90,25 @@
                 "Damage",
                 "Mobility"
             ],
-            "Effect": "Deal 2d4 Damage to a Unit (you choose the Damage Type).\n\n{Teal('With Valor:')} Then move a number of meters equal to the lower of the dice.\n{Teal('Next:')} Damaging Act\n",
+            "Effect": "Deal 2d4 Damage to a Unit (you choose the Damage Type).\n\n{Teal('With Valor:')} Then move a number of meters equal to the lower of the dice.\n{Teal('Next:')} Damage Ability\n",
             "HasMixins": true,
-            "ParentKey": "Ideas",
+            "ParentKey": "Other Ideas",
             "Origin": "Class/Knight"
         },
         "~Free From Corruption~": {
             "Effect": "If you cast this 3 times this Combat, choose an ally and remove one of their Negative Quirks.",
-            "ParentKey": "Ideas",
+            "ParentKey": "Other Ideas",
             "Origin": "Class/Knight"
         }
     },
     "Utility": {
-        "~Liberation~": {
-            "A": "Reaction or 0 Actions",
-            "Requirement": "Level 3",
+        "~Outpost~": {
+            "A": "1 hour",
             "Cooldown": "Once / Adventure",
             "Degree": "Minor",
-            "Effect": "Instantly remove all Crowd Control from another ally you can see.\n",
-            "Upgrade": "At Level 5, also removes all non-magical debuffs and poisons.\nAt Level 8, also removes all curses and normal negative magical effects.\n",
+            "Effect": "Choose either a First Aid Tent or an Outpost Tower to build from scratch.\nOnce per Adventure, the tent can heal everyone inside for 1 Health.\nWhile within 50km of the Tower, your party can't be ambushed, has +2 in Sight, and halves the travel time of your party.\n",
+            "Upgrade": "For smaller-scope adventures, the Quest Master can reduce the distance of the Tower to 10km.",
+            "Notes": "Try to build towers within 100km of eachother, and in places you may want to visit multiple times. Construct a network of such towers!",
             "ParentKey": "Utility",
             "Origin": "Class/Knight"
         },
@@ -71,10 +134,9 @@
         },
         "~Trusted Steed~": {
             "A": "Passive",
-            "Effect": "You have a steed that increases ^your^ non-Combat movement speed 50%.\nIn Combat, your first Damaging Ability you use dismounts you.\nWhen dismounting, your steed runs away and disappears into the surroundings.\nOnce per real hour, you can whistle for your steed and it will appear running toward you and you automatically mount it.\n",
+            "Effect": "You have a steed that increases your Movement Speed by 50%.\nIn Combat, your first Damaging Ability you use dismounts you, but deals +1d4 Damage or Slams the target 1d4 meters away.\n",
             "Upgrade": "At Level 3, your Steed can climb steep hills and jump up to 5 meters. At Level 6, it can walk on water. At Level 9, it can fly.",
-            "Notes": "The steed can be any animal that fits the story.",
-            "HasMixins": true,
+            "Notes": "The steed can be any animal that fits the story. When dismounting, your steed runs away and disappears into the surroundings. Once per real hour, you can whistle for your steed and it will appear running toward you and you automatically mount it.",
             "ParentKey": "Utility",
             "Origin": "Class/Knight"
         }
@@ -133,7 +195,7 @@
                 "Tags": [
                     "Healing"
                 ],
-                "Effect": "Heal all Units within 1 meter of you for 1d2.\n\n{Teal('With Valor:')} 1d4 Healing instead\n{Teal('Next:')} Movement Ability\n",
+                "Effect": "Heal all other Units within 1 meter of you for 1d2.\n\n{Teal('With Valor:')} 1d4 Healing instead\n{Teal('Next:')} Movement Ability\n",
                 "HasMixins": true,
                 "ParentKey": "Level 1 Class Talent",
                 "Origin": "Class/Knight"
@@ -193,11 +255,12 @@
                 "Requirement": "Only usable in Worthy Combat",
                 "Tags": [
                     "Healing",
-                    "Buff"
+                    "Buff",
+                    "Health Transfer"
                 ],
                 "Range": "5 meters",
                 "Effect": "Take 2d6 True Damage. Heal a different ally for 200% of the rolled amount.\n\n{Teal('With Valor:')} They gain +1 Health Regen for the rest of the Adventure.\n{Teal('Next:')} Crowd Control Ability\n",
-                "Notes": "Can not be used on other Knights.",
+                "Notes": "Can not be used on other Knights or characters with a Health Transfer Ability.",
                 "HasMixins": true,
                 "ParentKey": "Level 2 Class Talent",
                 "Origin": "Class/Knight"
