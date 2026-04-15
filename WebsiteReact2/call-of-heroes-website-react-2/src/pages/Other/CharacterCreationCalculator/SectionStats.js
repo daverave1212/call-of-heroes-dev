@@ -50,6 +50,12 @@ export default function SectionStats() {
         const statsCopy = [...stats].sort()
         const statArray = exactStats != null? exactStats: DEFAULT_STAT_ARRAY
         const baseStatsCopy = [...statArray].sort()
+
+        if (statArray?.length != DEFAULT_STAT_ARRAY.length) {
+            console.log({exactStats, statArray, stats, DEFAULT_STAT_ARRAY})
+            console.error(`Given exactStats length is not the same as DEFAULT_STAT_ARRAY! Printed above.`)
+        }
+
         let isCorrect = !(statsCopy.filter((stat, i) => baseStatsCopy[i] != stat).length > 0)
         
         if (!isCorrect) {

@@ -52,65 +52,8 @@ Spellcasting:
 
 
 Ideas:
-
-  ~Liberation~:
-      A: Half-Action
-      Cooldown: Once / Turn
-      Degree: Minor
-      Range: 3 meters
-      Effect: |
-          Heal a Unit for 1d4.
-          
-          {Teal('With Valor:')} 1d6 Healing instead, and remove all Crowd Control from it.
-          {Teal('Next:')} Damage Ability
-      Upgrade: |
-          At Level 5, also removes all non-magical debuffs and poisons.
-          At Level 8, also removes all curses and normal negative magical effects.
-
-  ~Platinum Storm~:
-      A: 1 Action
-      ScrollPower: Auto
-      Range: Depends on weapon
-      Effect: |
-        Use a Magic Wand to deal 2d4 + 2d6 Damage on a 1x1 meter space, of the Wand's Type.
-
-        {Teal('With Valor:')} The area becomes 3x3 meters instead.
-        {Teal('Next:')} Crowd Control
-  
-  ~Charging Stallion~:
-      A: 1 Action
-      ScrollPower: Auto
-      Requirement: Only usable in Worthy Combat
-      Effect: |
-        Charge in a straight line to any location on the battlefield.
-        All Units you pass through _shuffle_ their positions.
-
-        {Teal('With Valor:')} And are Slowed and get a Combo.
-        {Teal('Next:')} Healing
-      Notes: |
-        Units you hit swap their positions between them _randomly_ (as chosen by the Quest Master). For example, the first Unit hit might swap positions with the last Unit hit.
-        Optionally, you can use this to exit the battlefield and the Combat.
-      
-  ~Cowards!~:
-      A: Half-Action
-      Tags: [Crowd Control, Protection]
-      Effect: |
-        Taunt all enemies within 2 meters of you.
-
-        {Teal('With Valor:')} Gain 1 Shielding, which can block 1 Damage for each Unit Taunted.
-        {Teal('Next:')} Movement
-
-        Passively, you have Rebuke.
-      Subspells:
-        ~Rebuke~:
-          A: Reaction
-          Range: Depends on weapon
-          Tags: [Damage, Crowd Control]
-          Requirement: Requires having some Shielding
-          Effect: |
-            Use when targeted by an attack.
-            Use a ^weapon^ to deal Damage to the attacker equal to your total Shieldings value.
-            Afterwards, if you took no Damage from the attack, also Single-Stun the attacker.
+  ~None~:
+    Effect: None
 
 
 Other Ideas:
@@ -207,7 +150,7 @@ Starting Abilities:
 
 Talents:
 
-  Level 1 Class Talent:
+  Level 1 First Class Talent:
 
     ~Row Through~:
       _Value: 1.5
@@ -259,8 +202,9 @@ Talents:
         {Teal('With Valor:')} If toward you, Taunt it. If away from you, Daze it.
         {Teal('Next:')} Other Offensive Damage Ability
 
+
 # Extra keywords: Buff
-  Level 2 Class Talent:
+  Level 1 Second Class Talent:
 
     ~Lance Unbound~:
       _Value: 2
@@ -273,19 +217,21 @@ Talents:
         {Teal('With Valor:')} +1d4 Damage for each Action Point it costs.
         {Teal('Next:')} Movement Ability
 
-    ~Self-Sacrifice~:
-      _Value: 1
-      A: Half-Action
-      Cooldown: Once / Turn
-      Requirement: Only usable in Worthy Combat
-      Tags: [Healing, Buff, Health Transfer]
-      Range: 5 meters
-      Effect: |
-        Take 2d6 True Damage. Heal a different ally for 200% of the rolled amount.
-
-        {Teal('With Valor:')} They gain +1 Health Regen for the rest of the Adventure.
-        {Teal('Next:')} Crowd Control Ability
-      Notes: Can not be used on other Knights or characters with a Health Transfer Ability.
+    ~Liberation~:
+        A: Half-Action
+        Cooldown: Once / Turn
+        Degree: Minor
+        Range: 3 meters
+        Requirement: Only usable in Worthy Combat
+        Tags: [Healing, Support]
+        Effect: |
+            Heal a Unit for 1d4.
+            
+            {Teal('With Valor:')} 1d6 Healing instead, and remove all Crowd Control from it.
+            {Teal('Next:')} Crowd Control Ability
+        Upgrade: |
+            At Level 5, also removes all non-magical debuffs and poisons.
+            At Level 8, also removes all curses and normal negative magical effects.
 
     ~Blockade~:
       _Value: 1
@@ -313,13 +259,79 @@ Talents:
         {Teal('With Valor:')} Double-Stun instead and gain 4d10 {Gold}Gold.
         {Teal('Next:')} Healing Ability
 
+  Level 2 Second Class Talent:
+
+    ~Platinum Storm~:
+        A: 1 Action
+        ScrollPower: Auto
+        Range: Depends on weapon
+        Tags: [Damage, Area Damage]
+        Effect: |
+          Use a Magic Wand to deal 2d4 + 2d6 Damage on a 1x1 meter space, of the Wand's Type.
+
+          {Teal('With Valor:')} The area becomes 3x3 meters instead.
+          {Teal('Next:')} Crowd Control
+
+    ~Cowards!~:
+        A: Half-Action
+        Tags: [Crowd Control, Protection]
+        Effect: |
+          Taunt all enemies within 2 meters of you.
+
+          {Teal('With Valor:')} Gain 1 Shielding, which can block 1 Damage for each Unit Taunted.
+          {Teal('Next:')} Movement
+
+          Passively, you have Rebuke.
+        Subspells:
+          ~Rebuke~:
+            A: Reaction
+            Range: Depends on weapon
+            Tags: [Damage, Crowd Control]
+            Requirement: Requires having some Shielding
+            Effect: |
+              Use when targeted by an attack.
+              Use a ^weapon^ to deal Damage to the attacker equal to your total Shieldings value.
+              Afterwards, if you took no Damage from the attack, also Single-Stun the attacker.
+
+    ~Self-Sacrifice~:
+      _Value: 1
+      A: Half-Action
+      Cooldown: Once / Turn
+      Requirement: Only usable in Worthy Combat
+      Tags: [Healing, Buff, Health Transfer]
+      Range: 5 meters
+      Effect: |
+        Take 2d6 True Damage. Heal a different ally for 200% of the rolled amount.
+
+        {Teal('With Valor:')} They gain +1 Health Regen for the rest of the Adventure.
+        {Teal('Next:')} Damage Ability
+      Notes: Can not be used on other Knights or characters with a Health Transfer Ability.
+
+    ~Charging Stallion~:
+        A: 1 Action
+        ScrollPower: Auto
+        Requirement: Only usable in Worthy Combat
+        Tags: [Movement, Other]
+        Effect: |
+          Charge in a straight line to any location on the battlefield.
+          All Units you pass through _shuffle_ their positions.
+
+          {Teal('With Valor:')} And are Slowed and get a Combo.
+          {Teal('Next:')} Healing
+        Notes: |
+          Units you hit swap their positions between them _randomly_ (as chosen by the Quest Master). For example, the first Unit hit might swap positions with the last Unit hit.
+          Optionally, you can use this to exit the battlefield and the Combat.
+          Shuffling positions does not count as Crowd Control.
+        
+
+
+
   Level 3 Class Talent:
 
     ~Creed of the Crown~:  # Improves Movement and Gold Generation
       _Value: 3
       A: Special
-      Tags: [Keystone Talent (Level 3), Defense, Gold]
-      Upgrade: "{KeystoneTalent}"
+      Tags: [Defense, Gold]
       Effect: |
         You serve the realm above all else. Your sword defends law, order, and your liege's will.
 
@@ -331,8 +343,7 @@ Talents:
       A: Special
       Bonuses:
         Max Health: 4
-      Tags: [Keystone Talent (Level 3), Defense, Healing, Protection]
-      Upgrade: "{KeystoneTalent}"
+      Tags: [Defense, Healing, Protection]
       Effect: |
         You are the knight of beauty and grace, a protector of the innocent, and a paragon of compassion.
 
@@ -344,8 +355,7 @@ Talents:
       _Value: 2.75
       A: Special
       Requirement: Requires finding a dragon patron
-      Tags: [Keystone Talent (Level 3), Area Damage, Defense]
-      Upgrade: "{KeystoneTalent}"
+      Tags: [Area Damage, Defense]
       Effect: |
         You swear your allegiance to an elder dragon you have encountered on your journey.
         
@@ -355,8 +365,7 @@ Talents:
     ~Creed of Vengeance~:   # Improves Crowd Control + Buffs
       A: Special
       Requirement: Requires having been betrayed this Campaign, or having broken an oath
-      Tags: [Keystone Talent (Level 3), Support, Crowd Control (Hard)]
-      Upgrade: "{KeystoneTalent}"
+      Tags: [Support, Crowd Control (Hard)]
       _Value: 2
       Effect: |
         Justice has failed. Your oath was broken, your faith was betrayed, but you swore a new one: to hunt those who wronged you and make the world remember. You will bring justice, to the world and to yourself.
@@ -370,7 +379,7 @@ Talents:
       A: Half-Action
       Cooldown: Once / Combat
       Replacement: Replaces Challenge of Arms
-      Tags: [Keystone Talent (Level 3), Upgrade]
+      Tags: [Upgrade]
       Duration: 1 minute
       Range: 3 meters
       Effect: |
@@ -382,7 +391,6 @@ Talents:
       Upgrade: |
         You are the dawn that banishes despair. You ride with the light at your back and hope in your hand.
 
-        {KeystoneTalent}
 
 # New: Trigger Combo, Trap, Elemental Damage, Summon
   Level 4 Class Talent:
@@ -423,8 +431,7 @@ Talents:
     <Fellowship Aura>:
       _Value: 2
       A: Passive
-      Tags: [Keystone Talent (Level 5), Protection]
-      Upgrade: "{KeystoneTalent}"
+      Tags: [Protection]
       Effect: |
         You stand out for allies near you.
         Enemy ranged attacks against other allies within 1 meter of you have Cover.
@@ -435,7 +442,7 @@ Talents:
       A: 1 Action
       Cooldown: Once / Adventure
       Duration: 1 minute
-      Tags: [Keystone Talent (Level 5), Damage, Actions]
+      Tags: [Damage, Actions]
       Range: 5 meters
       Effect: |
         Activate and fling a Banner on a space within 5 meters, dealing 1d8 Damage to Units it lands on or next to.
@@ -446,7 +453,6 @@ Talents:
       Upgrade: |
         The banner counts as a Unit with 10 Health, but can't take Area Damage.
 
-        {KeystoneTalent}
       Notes: The banner's effect only applies if it's planted into the ground. To be moved, the banner can be picked up with a Half-Action, and thrown again with a Half-Action to reposition and deal the Damage again.
 
 
@@ -467,8 +473,7 @@ Talents:
       A: Passive
       Requirement: Requires Black Clothes
       HasMixins: true
-      Tags: [Keystone Talent (Level 7), Defense, Damage]
-      Upgrade: "{KeystoneTalent}"
+      Tags: [Defense, Damage]
       Effect: |
         Single-Stuns have no effect on your. Double-Stuns and Triple-Stuns only reduce your Actions by 1 and 2 (respectively).
         While there are no allies within 4 meters of you, all your weapon attacks and self healing have their ^Dice Upgraded^ to the next dice type.
@@ -480,8 +485,7 @@ Talents:
       _Value: 2
       A: Passive
       Requirement: Heavy Armor or Shield
-      Tags: [Keystone Talent (Level 7), Defense]
-      Upgrade: "{KeystoneTalent}"
+      Tags: [Defense]
       Effect: |
         If you're wearing Heavy Armor or a Shield, you have +1 Defense and +5 Max Health.
 
@@ -490,8 +494,7 @@ Talents:
       _Value: 2+
       HasMixins: true
       Requirement: White Clothes
-      Tags: [Keystone Talent (Level 7)]
-      Upgrade: "{KeystoneTalent}"
+      Tags: [Other]
       Effect: |
         While at or above 35 Health and wearing white clothes, all your Abilities have their ^Dice Upgraded^ to the next die type.
       Notes: |

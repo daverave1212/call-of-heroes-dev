@@ -149,7 +149,7 @@ export function SpellTopStats({className, tags, keywords}) {
                 { XP != null && (<div><img src="/Icons/UI/XP.png" className="inline-icon--spell"/>{ XP }</div>) }
             </div>
             { keywords &&
-                <div className='spell-top-stats' style={{paddingTop: 0, marginTop: '-3px', gap: '0rem'}}>
+                <div className='spell-top-stats' style={{paddingTop: 0, marginTop: '-3px', gap: '0rem', gap: '0.25rem'}}>
                     <KeywordTags/>
                 </div>
             }

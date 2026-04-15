@@ -149,11 +149,19 @@ Utility:
 
   ~Snap Out Of It~:
       A: Half-Action
-      Requirement: Level 4
       ScrollPower: Auto
       Cost: 1 Mana
+      Cooldown: Once / Turn
+      Requirement: Only usable in Worthy Combat
       Effect: Attack a different Unit with a 1-handed weapon. It Heals them instead of dealing Damage to them.
       Notes: Any extra Damage effects on it heal as well (e.g. War Craft, Criticl Strikes, etc). Apply any weapon effects if they happen. The attack might still do Damage to other collateral Units (if applies, e.g. Cleaver to you).
+  
+  ~Command - March~:
+    A: 0 Actions
+    Cooldown: Once / Combat
+    Tags: [Utility]
+    ScrollPower: Auto
+    Effect: Choose a direction. All Allies (including you) may move up to 3 meters in that direction.
 
 
 
@@ -224,14 +232,7 @@ Ideas:
 
 Talents:
 
-  Level 1 Class Talent:
-
-    ~Command - March~:
-      A: 0 Actions
-      Cooldown: Once / Combat
-      Tags: [Utility]
-      ScrollPower: Auto
-      Effect: Choose a direction. All Allies (including you) may move up to 3 meters in that direction.
+  Level 1 First Class Talent:
 
     ~Break Mountains~:
       A: 1 Action
@@ -240,6 +241,36 @@ Talents:
       Effect: Pick up an object up to 2x2x2 meters in size, and throw it 3d10 meters in any direction. If it hits a Unit, it takes Damage equal to the number of meters left (e.g. similar to Slamming)
       EffectGreen: Critical Strike - for each max die rolled, deal +1d6 Damage and, if it's an object, it breaks on impact!
       Upgrade: You can instead pick up an enemy and Slam it a number of meters equal to half the rolled dice.
+
+    ~Takeback~:
+      A: Half-Action
+      Cooldown: Once / 2 Turns
+      Range: Weapon Range
+      ScrollPower: Auto
+      Effect: Deal 1d4 Damage to a Unit and Single-Stun it. Then end your Turn.
+      Combo: +1d4 Damage.
+
+    ~Command - Patience~:
+      A: Half-Action
+      Cost: 1 Mana
+      ScrollPower: Auto
+      Effect: A different Unit you can see gains a number of 1d8 Shieldings equal to the Round Number.
+
+  Level 1 Second Class Talent:
+
+    <MIGHT OVER MAGIC>:
+      _Value: 1
+      A: Depends
+      Cost: 1 Mana
+      HasMixins: true
+      Effect: |
+        When you get this, choose a Class Talent that costs 1 Mana from (any Specialization of) Cleric, Mage or Warlock, up to your Level.
+        That Ability becomes a ^physical version of itself^: instead of using magic to cast that spell, you use your body, weapons, or tools!
+      Upgrade: |
+        The Damage of that Spell becomes Slash, Smash or Pierce, whichever makes sense.
+      Notes: |
+        E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage). Be creative, come up with a description of how it works!
+        You can change this Ability inbetween Adventures.
 
     ~Whirlwind~:
         A: 3 Action Points
@@ -262,34 +293,6 @@ Talents:
             - Name: Rain Death
               Area: in a chosen 4x4 meter area (5 meter range to the edge).
               IconName: Rain Death
-    
-    ~Takeback~:
-      A: Half-Action
-      Cooldown: Once / 2 Turns
-      Range: Weapon Range
-      ScrollPower: Auto
-      Effect: Deal 1d4 Damage to a Unit and Single-Stun it. Then end your Turn.
-      Combo: +1d4 Damage.
-
-    <MIGHT OVER MAGIC>:
-      _Value: 1
-      A: Depends
-      Cost: 1 Mana
-      HasMixins: true
-      Effect: |
-        When you get this, choose a Class Talent that costs 1 Mana from (any Specialization of) Cleric, Mage or Warlock, up to your Level.
-        That Ability becomes a ^physical version of itself^: instead of using magic to cast that spell, you use your body, weapons, or tools!
-      Upgrade: |
-        The Damage of that Spell becomes Slash, Smash or Pierce, whichever makes sense.
-      Notes: |
-        E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage). Be creative, come up with a description of how it works!
-        You can change this Ability inbetween Adventures.
-
-    ~Command - Patience~:
-      A: Half-Action
-      Cost: 1 Mana
-      ScrollPower: Auto
-      Effect: A different Unit you can see gains a number of 1d8 Shieldings equal to the Round Number.
 
   Level 2 Class Talent:
 
@@ -341,8 +344,7 @@ Talents:
     <Glory Run>:
       _Value: 1.75   # because movement takes actions now, but still it's free healing
       A: Passive
-      Tags: [Keystone Talent (Level 3), Defense]
-      Upgrade: "{KeystoneTalent}"
+      Tags: [Defense]
       Effect: |
           When Worthy Combat starts, a Glory Point appears directly behind the furthermost Enemy from you.
           The first time you reach the Glory Point, heal for 1d10.
@@ -352,16 +354,14 @@ Talents:
     <Overthrow>:
       Value: 2  # ?
       A: Passive
-      Tags: [Keystone Talent (Level 3), Crowd Control (Hard)]
-      Upgrade: "{KeystoneTalent}"
+      Tags: [Crowd Control (Hard)]
       Effect: When you Slam a Unit into a Wall, it becomes Single-Stunned.
 
     ~Lead Commander~:
       Value: 2 # 3-4 uses per Adventure
       A: Passive
       Requirement: Can only trigger in Worthy Combat
-      Tags: [Keystone Talent (Level 3), Protection]
-      Upgrade: "{KeystoneTalent}"
+      Tags: [Protection]
       Effect: Whenever you use a Command Ability, give yourself or an affected Unit one Shielding that can block 1d6 Damage.
     
     ~Crafts of War~:
@@ -423,8 +423,7 @@ Talents:
     <Into the Fray>:    # 2, maybe more
       _Value: 2.25
       A: Passive
-      Tags: [Keystone Talent (Level 5), Control]
-      Upgrade: "{KeystoneTalent}"
+      Tags: [Control]
       Effect: |
           When combat starts, determine which side is your Allied Side and which is the Enemy Side of the battlefield. Each side has a direction (Allied Direction and Enemy Direction).
           If you end your turn more to the Allied Direction than you started, you gain one Shielding that can block 4 Damage until the start of your next turn.
@@ -435,7 +434,7 @@ Talents:
       A: Half-Action
       Range: 10 meters
       Cooldown: Once / Combat
-      Tags: [Keystone Talent (Level 5), Control]
+      Tags: [Control]
       Upgrade: |
         Epic Monsters gain ther Defense back when they spend the Action to recover.
 
@@ -464,7 +463,7 @@ Talents:
     <Personal Squire>:  # 2+
       _Value: 3
       A: Special
-      Tags: [Keystone Talent (Level 7), Summon]
+      Tags: [Summon]
       Effect: |
         You recruit a squire - a trusted NPC who gains combat powers. However, the capabilities of your squire are random: roll 1d6 to determine the type of your squire, based on the Squires category at Pets and Animals (1. Bold, 2. Sneaky, 3. Clever, 4. Wise). The Race is determined by the QM or by circumstance.
         On its turn, it can do one Pet Attack, cast one Ability it has, or do the equivalent of a Half-Action (e.g. Dash, Push, etc).
@@ -480,8 +479,7 @@ Talents:
       _Value: 2.25
       A: Reaction or 0 Actions
       Cooldown: Once / Adventure
-      Tags: [Keystone Talent (Level 7), Actions]
-      Upgrade: "{KeystoneTalent}"
+      Tags: [Actions]
       HasMixins: true
       Effect: |
         An ally immediately makes an Act that takes 1 Action (can spend Mana, Cooldowns, etc on it, as if it were on its turn).
@@ -493,7 +491,6 @@ Talents:
       A: Passive
       HasMixins: true
       Tags: [Keystone Talent (Level 7)]
-      Upgrade: "{KeystoneTalent}"
       Effect: |
         Choose ^TWO^ Basic Abilities from the Elemental, Nature or Eldritch Schools that cost 1 Mana.
         You can use each of those Abilities once per Adventure (without spending Mana).

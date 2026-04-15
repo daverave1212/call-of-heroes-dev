@@ -15,4 +15,3 @@ node generate-jsons-from-yaml.mjs
 
 echo.
 echo Done.
-pause
