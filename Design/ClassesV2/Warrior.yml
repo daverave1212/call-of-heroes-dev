@@ -120,6 +120,8 @@ Other Abilities:
 
 Utility:
 
+
+
   ~Vault Break~:
       Degree: Lesser
       A: 0 Actions
@@ -149,14 +151,21 @@ Utility:
       Requirement: Only usable in Worthy Combat
       Effect: Attack a different Unit with a 1-handed weapon. It Heals them instead of dealing Damage to them.
       Notes: Any extra Damage effects on it heal as well (e.g. War Craft, Criticl Strikes, etc). Apply any weapon effects if they happen. The attack might still do Damage to other collateral Units (if applies, e.g. Cleaver to you).
-  
-  ~Command - March~:
-    A: 0 Actions
-    Cooldown: Once / Combat
-    Tags: [Movement, Support]
-    ScrollPower: Auto
-    Effect: Choose a direction. All Allies (including you) may move up to 3 meters in that direction.
 
+  <MIGHT OVER MAGIC>:
+    _Value: 0
+    A: Depends
+    Cost: 1 Mana
+    HasMixins: true
+    Tags: [Other]
+    Effect: |
+      When you get this, choose a Font Spell that costs 1 Mana from any Magic Font, up to your Level.
+      That Ability becomes a ^physical version of itself^: instead of using magic to cast that Spell, you use your body, weapons, or tools! Be creative with how it works!
+    Upgrade: |
+      The Damage of that Spell becomes Slash, Smash or Pierce, whichever makes sense.
+    Notes: |
+      E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage). Be creative, come up with a description of how it works!
+      You can change this Ability inbetween Adventures.
 
 
 Starting Abilities Description:
@@ -228,14 +237,20 @@ Talents:
 
   Level 1 First Class Talent:
 
-    ~Charge~:
-      _Value: 1
-      A: 0 Actions
-      Range: 2 meters
-      Cooldown: Once / 2 Turns
-      Tags: [Movement]
-      Effect: |
-        Freely dash up to 2 meters toward a Worthy Enemy that's exactly 2 meters away, landing on a space near them.
+    # ~Charge~:
+    #   _Value: 1
+    #   A: 0 Actions
+    #   Range: 2 meters
+    #   Cooldown: Once / 2 Turns
+    #   Tags: [Movement]
+    #   Effect: |
+    #     Freely dash up to 2 meters toward a Worthy Enemy that's exactly 2 meters away, landing on a space near them.
+
+    ~Flurry of Blades~:
+      A: Depends
+      Cost: 1 Mana
+      Effect: Make an attack with a weapon. If it triggers the War Craft, the War Craft Damage and also deal it to all Enemies within 2 meters of the main target.
+      Upgrade: For Dual Shield Craft, instead doubles the Shielding and also gives it to all Allies within 2 meters of you.
 
     ~Break Mountains~:
       A: 1 Action
@@ -246,48 +261,47 @@ Talents:
       EffectGreen: Critical Strike - for each max die rolled, deal +1d6 Damage and, if it's an object, it breaks on impact!
       Upgrade: You can instead pick up an enemy and Slam it a number of meters equal to half the rolled dice.
 
-    ~Takeback~:
-      A: Half-Action
-      Cooldown: Once / 2 Turns
-      Range: Weapon Range
-      Tags: [Crowd Control (Hard)]
-      ScrollPower: Auto
-      Effect: Deal 1d4 Damage to a Unit and Single-Stun it. Then end your Turn.
-      Combo: +1d4 Damage.
+    # ~Takeback~:
+    #   A: Half-Action
+    #   Cooldown: Once / 2 Turns
+    #   Range: Weapon Range
+    #   Tags: [Crowd Control (Hard)]
+    #   ScrollPower: Auto
+    #   Effect: Deal 1d4 Damage to a Unit and Single-Stun it. Then end your Turn.
+    #   Combo: +1d4 Damage.
 
     ~Command - Patience~:
       A: Half-Action
       Cost: 1 Mana
+      Cooldown: Once / Turn
       ScrollPower: Auto
       Tags: [Protection]
       Effect: A different Unit you can see gains a number of 1d8 Shieldings equal to the Round Number.
 
-
+    ~Raise and Roil~:
+      A: Half-Action
+      Cost: 1 Mana
+      Cooldown: Once / Combat
+      Effect: |
+        Single-Stun all Units you have hit with your War Craft this Combat.
+      Combo: A Comboed Unit affected is also Slowed.
 
   Level 1 Second Class Talent:
 
-    <MIGHT OVER MAGIC>:
-      _Value: 0
-      A: Depends
-      Cost: 1 Mana
-      HasMixins: true
-      Tags: [Other]
-      Effect: |
-        When you get this, choose a Font Spell that costs 1 Mana from any Magic Font, up to your Level.
-        That Ability becomes a ^physical version of itself^: instead of using magic to cast that Spell, you use your body, weapons, or tools! Be creative with how it works!
-      Upgrade: |
-        The Damage of that Spell becomes Slash, Smash or Pierce, whichever makes sense.
-      Notes: |
-        E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage). Be creative, come up with a description of how it works!
-        You can change this Ability inbetween Adventures.
+    ~Command - Charge~:
+      A: 0 Actions
+      Cooldown: Once / Combat
+      Tags: [Movement, Support]
+      ScrollPower: Auto
+      Effect: Choose a direction. You and all Allies may move up to 3 meters in that direction.
 
     ~Rending Edge~:
         _Value: 0
         A: Depends
         Cooldown: Once / Turn
         Effect: |
-          Make a weapon attack. It deals -1d4 Damage, but applies a Bleed effect on the target.
-          While Bleeding, it takes 1 Damage at the end of your Turns.
+          Make a weapon attack. It deals -50% Damage, but applies a Bleed effect on the target.
+          While Bleeding, it takes 1 (or 1d4 for 2-handed weapons) Damage at the end of your Turns.
         Upgrade: Bleeding can stack.
         Notes: Remember which enemies have how much Bleed.
 
@@ -318,7 +332,7 @@ Talents:
     ~Command - Resist~:
         A: Reaction
         Effect: |
-          Use when an ally would take Damage.
+          Use when another Ally would take Damage.
           They don't take the Damage now. They take it at the end of their Turn.
         Notes: You can use dice and put them on their Hero Sheet to track that they will take the Damage later.
 
@@ -347,6 +361,7 @@ Talents:
       Effect: |
         Each _consecutive_ {Type} weapon attack or single-target Ability on the same Unit deals {Amount} to both you and the target for each previous consecutive attack you made on that Unit.
         ~Click on the Icon to select which variant you want to have have!~
+      Combo: Any of your attacks consume the Combo to not Damage you!
       Variants:
         - Type: 1 Action Point
           Amount: +1d4
@@ -363,9 +378,9 @@ Talents:
       EffectGreen: Critical Strike - if you rolled maximum on at least one die, deal {Amount} Damage.
       Variants:
         - Type: one-handed
-          Amount: "+1"
-        - Type: two-handed
           Amount: "+1d4"
+        - Type: two-handed
+          Amount: "+2d4"
 
   Level 3 Class Talent:
 

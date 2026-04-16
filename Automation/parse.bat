@@ -11,7 +11,7 @@ if exist "%~dp0stats-constants.mjs" del /F /Q "%~dp0stats-constants.mjs"
 rename "%~dp0stats-constants.js" "stats-constants.mjs"
 
 echo Running script...
-node generate-jsons-from-yaml.mjs
+node generate-jsons-from-yaml.mjs %*
 
 echo.
 echo Done.

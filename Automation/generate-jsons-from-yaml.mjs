@@ -12,7 +12,6 @@ const ALL_STATIC_SYMBOLS = {
     ...STATIC_SYMBOLS,
     ...STAT_SYMBOLS
 }
-console.log({ALL_STATIC_SYMBOLS, STAT_SYMBOLS, STATIC_SYMBOLS})
 // Use this script to convert all ./Design/ files to their JSON variant in WebsiteReact/call-of-heroes-react-static/src/databases
 // NOTE 1: This does NOT remove the < and ~ symbols from the spell names!
 // NOTE 2: This DOES YES fix the "Inherit" spells
@@ -22,9 +21,7 @@ console.log({ALL_STATIC_SYMBOLS, STAT_SYMBOLS, STATIC_SYMBOLS})
 const yamlRootFolder = '../Design'
 const jsonRootFolder = '../WebsiteReact2/call-of-heroes-website-react-2/src/databases'
 
-const shouldGenerateSpecificFiles = process.argv.length > 2
-console.log({shouldGenerateSpecificFiles, argv: process.argv})
-const specificFiles = process.argv.slice(1)
+const shouldGenerateAll = process.argv.includes('--all') || process.argv.includes('-a')
 
 let abilities = {}
 let classRaceAbilities = {} 
@@ -333,15 +330,29 @@ function readAndNormalizeYamlToJson(filePath) {
     return dictContent
 }
 
+
+
 async function processFiles() {
+    const filesLastUpdated = JSON.parse(fs.readFileSync('files-last-updated.json', 'utf-8'));
+    let nFilesSkipped = 0
+
     for (const fileName of filesToConvert) {
-        if (shouldGenerateSpecificFiles && !specificFiles.includes(fileName)) {
-            continue;
+        const filePath = path.join(yamlRootFolder, fileName);
+        const lastUpdated = fs.statSync(filePath).mtime.toString()
+
+        if (filesLastUpdated[fileName] == null) {
+            filesLastUpdated[fileName] = {}
+        }
+
+        // console.log(`  modified: ${lastUpdated} type "${typeof lastUpdated}", updated: ${filesLastUpdated[fileName].lastUpdated}`)
+        if (!shouldGenerateAll && filesLastUpdated[fileName].lastUpdated == lastUpdated) {
+            nFilesSkipped++
+            continue
+        } else {
+            filesLastUpdated[fileName].lastUpdated = lastUpdated
         }
 
         console.log(`Parsing ${fileName}...`);
-
-        const filePath = path.join(yamlRootFolder, fileName);
         const dictContent = readAndNormalizeYamlToJson(filePath)
 
         if (fileName.includes('Feats.yml')) {
@@ -391,44 +402,44 @@ async function processFiles() {
         }
     }
 
-    
+    const overallData = {
+        Races: races,
+        Classes: classes,
+        Backgrounds: backgrounds
+    };
 
-    if (!shouldGenerateSpecificFiles) {
-        const overallData = {
-            Races: races,
-            Classes: classes,
-            Backgrounds: backgrounds
-        };
+    try {
+        fs.writeFileSync(
+            path.join(jsonRootFolder, 'OverallData.json'),
+            JSON.stringify(overallData, null, 4),
+            'utf-8'
+        );
 
-        try {
-            fs.writeFileSync(
-                path.join(jsonRootFolder, 'OverallData.json'),
-                JSON.stringify(overallData, null, 4),
-                'utf-8'
-            );
+        fs.writeFileSync(
+            path.join(jsonRootFolder, 'ClassAndRaceAbilities.json'),
+            JSON.stringify(classRaceAbilities, null, 4),
+            'utf-8'
+        );
 
-            fs.writeFileSync(
-                path.join(jsonRootFolder, 'ClassAndRaceAbilities.json'),
-                JSON.stringify(classRaceAbilities, null, 4),
-                'utf-8'
-            );
+        // fs.writeFileSync(
+        //     path.join(jsonRootFolder, 'RulesLists.json'),
+        //     JSON.stringify(rulesLists, null, 4),
+        //     'utf-8'
+        // );
 
-            // fs.writeFileSync(
-            //     path.join(jsonRootFolder, 'RulesLists.json'),
-            //     JSON.stringify(rulesLists, null, 4),
-            //     'utf-8'
-            // );
-
-            // fs.writeFileSync(
-            //     path.join(jsonRootFolder, 'RulesDicts.json'),
-            //     JSON.stringify(rulesDicts, null, 4),
-            //     'utf-8'
-            // );
-        } catch (err) {
-            console.red('ERROR: Failed to write summary JSON files:', err);
-            throw err;
-        }
+        // fs.writeFileSync(
+        //     path.join(jsonRootFolder, 'RulesDicts.json'),
+        //     JSON.stringify(rulesDicts, null, 4),
+        //     'utf-8'
+        // );
+    } catch (err) {
+        console.red('ERROR: Failed to write summary JSON files:', err);
+        throw err;
     }
+
+    fs.writeFileSync('files-last-updated.json', JSON.stringify(filesLastUpdated))
+
+    console.log(`Skipped ${nFilesSkipped} files. Run with --all to not skip.`)
 }
 
 
