@@ -169,7 +169,6 @@ export default function CharacterCreationCalculator() {
     const [activeTabI, setActiveTabI, last] = useCCCTabs()
     const [names, setNames] = useSectionNamesState()
     const windowDimensions = useConstWindowDimensions()
-    const isLoggedIn = useIsLoggedIn('CharacterCreationCalculator')
     
     let [dialogState, setDialogState] = useState(null)
 
@@ -193,7 +192,7 @@ export default function CharacterCreationCalculator() {
             <SpellPopup dialogState={dialogState} setDialogState={setDialogState}/>
             {/* <AbilityStatDialog dialogState={dialogState} setDialogState={setDialogState}/> */}
 
-            { !isLoggedIn? <LoginRequired/>: (<>
+            <LoginRequired location="CharacterCreationCalculator">
                 <div className="center-content padding-top-4 margin-bottom-2">
                     <QGTitle1 text={"My Characters"} height="60"/>
                 </div>
@@ -214,11 +213,7 @@ export default function CharacterCreationCalculator() {
                 ]}/>
 
                 <SaveCharacterButton/>
-            </>)}
-
-            
-            
-
+            </LoginRequired>
         </Page>
     )
 

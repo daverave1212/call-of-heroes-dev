@@ -209,7 +209,10 @@ export default function MyCharacter() {
             defaultNumberValue: null,
             title: "New Quick Combat Reference",
             description: `Add new quick combat reference tidbit.`,
-            onDone: ({ name, value }) => setManualCombatExtras(withToggledElement(manualCombatExtras, name))
+            onDone: ({ name, value }) => {
+                const newManualCombatExtras = withToggledElement(manualCombatExtras, name).filter(text => text != null && text?.trim()?.length != 0)
+                setManualCombatExtras(newManualCombatExtras)
+            }
         })
     }
     function modifyManualBonus(attributeName, increment=1) {

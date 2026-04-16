@@ -50,7 +50,7 @@ export function calculateStatsToBonusAttributesObject(statArray) {
 }
 export function getAttributeBonusesFromLevel(level, classObj) {
     return {
-        [MAX_HEALTH]: (level - 1) * classObj['Level Up']['Every Level'].Health,
+        [MAX_HEALTH]: (level - 1) * classObj['Level Up']['Every Level'][MAX_HEALTH],
         [HEALTH_REGEN]: (level - 1) * 2,
         [MOVEMENT_SPEED]: 0,
         [INITIATIVE]: 0,

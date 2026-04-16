@@ -28,6 +28,8 @@ export async function existsMyDocInCollection(collectionName) {
     return firebaseDatabase.existsDocument(collectionName, userState.id)
 }
 window.getMyDocInCollection = getMyDocInCollection
+window.setMyDocInCollection = setMyDocInCollection
+window.existsMyDocInCollection = existsMyDocInCollection
 
 
 // ------------- Character API -------------

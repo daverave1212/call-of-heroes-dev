@@ -40,4 +40,24 @@ export async function existsDocument(collectionName, documentId) {
       console.error("Error getting document:", error);
       return false; // Handle errors as needed
     }
+}
+
+export async function getAllDocuments(collectionName) {
+  try {
+    const collectionRef = collection(db, collectionName)
+    const querySnapshot = await getDocs(collectionRef)
+    const documents = []
+    querySnapshot.forEach((doc) => {
+      console.log(doc.id, ' => ', doc.data()) // doc.data() is never undefined for query doc snapshots
+      documents.push({
+        id: doc.id,
+        ...doc.data()
+      })
+    })
+    return documents
+  } catch (e) {
+    console.error("Error getting documents: ", e)
+    return []
   }
+}
+

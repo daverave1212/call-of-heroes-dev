@@ -205,6 +205,7 @@ function App() {
           <Route path="/Tools/BookCreator" element = { <BookCreator/> }/>
           <Route path="/Tools/MerchantGenerator" element = { <MerchantGenerator/> }/>
 
+          <Route path='/Meta/Admin' element={ <PatchNotes/> }/>
           <Route path='/Meta/PatchNotes' element={ <PatchNotes/> }/>
           <Route path='/Meta/ClassBalance' element={ <ClassBalance/> }/>
           <Route path='/WorkInProgress' element={ <WorkInProgress/> }/>
