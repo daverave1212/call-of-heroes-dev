@@ -74,6 +74,11 @@ Other Abilities:
     Effect: Use after you are melee attacked. Deal 1d4 Smash Damage with your {Color('#ff5900' 'shield')} to the attacker.
     Combo: And Single-Stun it.
 
+  ~Old-Fashioned Craft~:
+    A: Passive
+    Effect: Your first {Color('#ff5900' 'old-fashioned')} weapon attack each Turn deals extra Damage equal to ^Any Stat^, {Color('#ff5900' 'and applies a Combo if the target is a Person')}.
+    Upgrade: Old-fashioned weapons are weapons that do not deal extra Damage with any Stat (e.g. Hammer).
+
   ~Dualwield Craft~:
     A: Passive
     Effect: Your {Color('#ff5900' 'second one-handed')} attack with a real weapon each Turn deals +1d4 Damage {Color('#ff5900' 'if it is with a different weapon than the first attack')}.
@@ -97,7 +102,6 @@ Other Abilities:
   ~Marksman Craft~:
     A: Passive
     Replacement: Replaces Charge
-    Height: 30
     Effect: |
       Your first ~ranged~ weapon attack each Turn deals +1d4 Damage {Color('#ff5900' 'if there is no Unit or obstacle near the target')}.
       
@@ -112,10 +116,6 @@ Other Abilities:
     Effect: |
       Your first {Color('#ff5900' 'Improvised Attack')} each Turn deals +1d6 Damage {Color('#ff5900' 'if you have never used that object as a weapon')}.
   
-  ~Old-Fashioned Craft~:
-    A: Passive
-    Effect: Your first {Color('#ff5900' 'old-fashioned')} weapon attack each Turn deals extra Damage equal to ^Any Stat^, {Color('#ff5900' 'and applies a Combo if the target is a Person')}.
-    Upgrade: Old-fashioned weapons are weapons that do not deal extra Damage with any Stat (e.g. Hammer).
 
 
 Utility:
@@ -135,12 +135,19 @@ Utility:
 
   ~Sound Mind~:
       A: Reaction
-      Cooldown: Once / Adventure
       HasMixins: true
       Tags: [Protection]
       Effect: |
+          Take 2d4 Damage.
           Block any non-damaging negative incoming _effect_ on an ally you can see.
       Upgrade: Negative effects in this case means any Crowd Control, Debuff, Curse, mind-altering magic, non-Damaging Poison, etc.
+
+  ~Command - Resist~:
+      A: Reaction
+      Effect: |
+        Use when another Ally would take Damage.
+        They don't take the Damage now. They take it at the end of their Turn.
+      Notes: You can use dice and put them on their Hero Sheet to track that they will take the Damage later.
 
   ~Snap Out Of It~:
       A: Half-Action
@@ -151,22 +158,6 @@ Utility:
       Requirement: Only usable in Worthy Combat
       Effect: Attack a different Unit with a 1-handed weapon. It Heals them instead of dealing Damage to them.
       Notes: Any extra Damage effects on it heal as well (e.g. War Craft, Criticl Strikes, etc). Apply any weapon effects if they happen. The attack might still do Damage to other collateral Units (if applies, e.g. Cleaver to you).
-
-  <MIGHT OVER MAGIC>:
-    _Value: 0
-    A: Depends
-    Cost: 1 Mana
-    HasMixins: true
-    Tags: [Other]
-    Effect: |
-      When you get this, choose a Font Spell that costs 1 Mana from any Magic Font, up to your Level.
-      That Ability becomes a ^physical version of itself^: instead of using magic to cast that Spell, you use your body, weapons, or tools! Be creative with how it works!
-    Upgrade: |
-      The Damage of that Spell becomes Slash, Smash or Pierce, whichever makes sense.
-    Notes: |
-      E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage). Be creative, come up with a description of how it works!
-      You can change this Ability inbetween Adventures.
-
 
 Starting Abilities Description:
   - War Craft: |
@@ -237,47 +228,6 @@ Talents:
 
   Level 1 First Class Talent:
 
-    # ~Charge~:
-    #   _Value: 1
-    #   A: 0 Actions
-    #   Range: 2 meters
-    #   Cooldown: Once / 2 Turns
-    #   Tags: [Movement]
-    #   Effect: |
-    #     Freely dash up to 2 meters toward a Worthy Enemy that's exactly 2 meters away, landing on a space near them.
-
-    ~Flurry of Blades~:
-      A: Depends
-      Cost: 1 Mana
-      Effect: Make an attack with a weapon. If it triggers the War Craft, the War Craft Damage and also deal it to all Enemies within 2 meters of the main target.
-      Upgrade: For Dual Shield Craft, instead doubles the Shielding and also gives it to all Allies within 2 meters of you.
-
-    ~Break Mountains~:
-      A: 1 Action
-      Cost: 1 Mana
-      ScrollPower: Auto
-      Tags: [Damage, Ranged]
-      Effect: Pick up an object up to 2x2x2 meters in size, and throw it 3d10 meters in any direction. If it hits a Unit, it takes Damage equal to the number of meters left (e.g. similar to Slamming)
-      EffectGreen: Critical Strike - for each max die rolled, deal +1d6 Damage and, if it's an object, it breaks on impact!
-      Upgrade: You can instead pick up an enemy and Slam it a number of meters equal to half the rolled dice.
-
-    # ~Takeback~:
-    #   A: Half-Action
-    #   Cooldown: Once / 2 Turns
-    #   Range: Weapon Range
-    #   Tags: [Crowd Control (Hard)]
-    #   ScrollPower: Auto
-    #   Effect: Deal 1d4 Damage to a Unit and Single-Stun it. Then end your Turn.
-    #   Combo: +1d4 Damage.
-
-    ~Command - Patience~:
-      A: Half-Action
-      Cost: 1 Mana
-      Cooldown: Once / Turn
-      ScrollPower: Auto
-      Tags: [Protection]
-      Effect: A different Unit you can see gains a number of 1d8 Shieldings equal to the Round Number.
-
     ~Raise and Roil~:
       A: Half-Action
       Cost: 1 Mana
@@ -285,8 +235,6 @@ Talents:
       Effect: |
         Single-Stun all Units you have hit with your War Craft this Combat.
       Combo: A Comboed Unit affected is also Slowed.
-
-  Level 1 Second Class Talent:
 
     ~Command - Charge~:
       A: 0 Actions
@@ -298,12 +246,17 @@ Talents:
     ~Rending Edge~:
         _Value: 0
         A: Depends
-        Cooldown: Once / Turn
+        Requirement: Only works if target can bleed
         Effect: |
-          Make a weapon attack. It deals -50% Damage, but applies a Bleed effect on the target.
-          While Bleeding, it takes 1 (or 1d4 for 2-handed weapons) Damage at the end of your Turns.
+          Make a {Type} weapon attack. It deals -50% Damage, but applies a Bleed effect on the target.
+          While Bleeding, it takes {Amount} True Damage at the end of your Turns.
         Upgrade: Bleeding can stack.
         Notes: Remember which enemies have how much Bleed.
+        Variants:
+          - Type: one-handed
+            Amount: 1
+          - Type: two-handed
+            Amount: 1d4
 
     ~Whirlwind~:
         _Value: 0
@@ -328,13 +281,66 @@ Talents:
             - Name: Rain Death
               Area: in a chosen 4x4 meter area (5 meter range to the edge).
               IconName: Rain Death
-    
-    ~Command - Resist~:
-        A: Reaction
-        Effect: |
-          Use when another Ally would take Damage.
-          They don't take the Damage now. They take it at the end of their Turn.
-        Notes: You can use dice and put them on their Hero Sheet to track that they will take the Damage later.
+
+  Level 1 Second Class Talent:
+
+    # ~Charge~:
+    #   _Value: 1
+    #   A: 0 Actions
+    #   Range: 2 meters
+    #   Cooldown: Once / 2 Turns
+    #   Tags: [Movement]
+    #   Effect: |
+    #     Freely dash up to 2 meters toward a Worthy Enemy that's exactly 2 meters away, landing on a space near them.
+
+    ~Break Mountains~:
+      A: 1 Action
+      Cost: 1 Mana
+      ScrollPower: Auto
+      Tags: [Damage, Ranged]
+      Effect: Pick up an object up to 2x2x2 meters in size, and throw it 3d10 meters in any direction. If it hits a Unit, it takes Damage equal to the number of meters left (e.g. similar to Slamming)
+      EffectGreen: Critical Strike - for each max die rolled, deal +1d6 Damage and, if it's an object, it breaks on impact!
+      Upgrade: You can instead pick up an enemy and Slam it a number of meters equal to half the rolled dice.
+
+    <MIGHT OVER MAGIC>:
+      _Value: 0
+      A: Depends
+      Cost: 1 Mana
+      HasMixins: true
+      Tags: [Other]
+      Effect: |
+        When you get this, choose a Font Spell that costs 1 Mana from any Magic Font, up to your Level.
+        That Ability becomes a ^physical version of itself^: instead of using magic to cast that Spell, you use your body, weapons, or tools! Be creative with how it works!
+      Upgrade: |
+        The Damage of that Spell becomes Slash, Smash or Pierce, whichever makes sense.
+      Notes: |
+        E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage). Be creative, come up with a description of how it works!
+        You can change this Ability inbetween Adventures.
+
+    ~Flurry of Blades~:
+      A: Depends
+      Cost: 1 Mana
+      Effect: Make an attack with a weapon. If it triggers War Craft, increase the War Craft Damage by 100% and also deal it to all other Enemies within 2 meters of the main target.
+      Upgrade: For Dual Shield Craft, instead doubles the Shielding and also gives it to all other Allies within 2 meters of you.
+
+    # ~Takeback~:
+    #   A: Half-Action
+    #   Cooldown: Once / 2 Turns
+    #   Range: Weapon Range
+    #   Tags: [Crowd Control (Hard)]
+    #   ScrollPower: Auto
+    #   Effect: Deal 1d4 Damage to a Unit and Single-Stun it. Then end your Turn.
+    #   Combo: +1d4 Damage.
+
+    ~Command - Patience~:
+      A: Half-Action
+      Cost: 1 Mana
+      Cooldown: Once / Turn
+      ScrollPower: Auto
+      Tags: [Protection]
+      Effect: A different Unit you can see gains a number of 1d8 Shieldings equal to the Round Number.
+
+
 
   Level 2 Class Talent:
 

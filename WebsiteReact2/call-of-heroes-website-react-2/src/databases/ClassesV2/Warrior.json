@@ -68,6 +68,14 @@
             "ParentKey": "Other Abilities",
             "Origin": "Class/Warrior"
         },
+        "~Old-Fashioned Craft~": {
+            "A": "Passive",
+            "Effect": "Your first {Color('#ff5900' 'old-fashioned')} weapon attack each Turn deals extra Damage equal to ^Any Stat^, {Color('#ff5900' 'and applies a Combo if the target is a Person')}.",
+            "Upgrade": "Old-fashioned weapons are weapons that do not deal extra Damage with any Stat (e.g. Hammer).",
+            "HasMixins": true,
+            "ParentKey": "Other Abilities",
+            "Origin": "Class/Warrior"
+        },
         "~Dualwield Craft~": {
             "A": "Passive",
             "Effect": "Your {Color('#ff5900' 'second one-handed')} attack with a real weapon each Turn deals +1d4 Damage {Color('#ff5900' 'if it is with a different weapon than the first attack')}.",
@@ -100,7 +108,6 @@
         "~Marksman Craft~": {
             "A": "Passive",
             "Replacement": "Replaces Charge",
-            "Height": 30,
             "Effect": "Your first ~ranged~ weapon attack each Turn deals +1d4 Damage {Color('#ff5900' 'if there is no Unit or obstacle near the target')}.\n",
             "HasMixins": true,
             "ParentKey": "Other Abilities",
@@ -116,14 +123,6 @@
         "~Improvisation Craft~": {
             "A": "Passive",
             "Effect": "Your first {Color('#ff5900' 'Improvised Attack')} each Turn deals +1d6 Damage {Color('#ff5900' 'if you have never used that object as a weapon')}.\n",
-            "HasMixins": true,
-            "ParentKey": "Other Abilities",
-            "Origin": "Class/Warrior"
-        },
-        "~Old-Fashioned Craft~": {
-            "A": "Passive",
-            "Effect": "Your first {Color('#ff5900' 'old-fashioned')} weapon attack each Turn deals extra Damage equal to ^Any Stat^, {Color('#ff5900' 'and applies a Combo if the target is a Person')}.",
-            "Upgrade": "Old-fashioned weapons are weapons that do not deal extra Damage with any Stat (e.g. Hammer).",
             "HasMixins": true,
             "ParentKey": "Other Abilities",
             "Origin": "Class/Warrior"
@@ -146,13 +145,19 @@
         },
         "~Sound Mind~": {
             "A": "Reaction",
-            "Cooldown": "Once / Adventure",
             "HasMixins": true,
             "Tags": [
                 "Protection"
             ],
-            "Effect": "Block any non-damaging negative incoming _effect_ on an ally you can see.\n",
+            "Effect": "Take 2d4 Damage.\nBlock any non-damaging negative incoming _effect_ on an ally you can see.\n",
             "Upgrade": "Negative effects in this case means any Crowd Control, Debuff, Curse, mind-altering magic, non-Damaging Poison, etc.",
+            "ParentKey": "Utility",
+            "Origin": "Class/Warrior"
+        },
+        "~Command - Resist~": {
+            "A": "Reaction",
+            "Effect": "Use when another Ally would take Damage.\nThey don't take the Damage now. They take it at the end of their Turn.\n",
+            "Notes": "You can use dice and put them on their Hero Sheet to track that they will take the Damage later.",
             "ParentKey": "Utility",
             "Origin": "Class/Warrior"
         },
@@ -167,20 +172,6 @@
             "Requirement": "Only usable in Worthy Combat",
             "Effect": "Attack a different Unit with a 1-handed weapon. It Heals them instead of dealing Damage to them.",
             "Notes": "Any extra Damage effects on it heal as well (e.g. War Craft, Criticl Strikes, etc). Apply any weapon effects if they happen. The attack might still do Damage to other collateral Units (if applies, e.g. Cleaver to you).",
-            "ParentKey": "Utility",
-            "Origin": "Class/Warrior"
-        },
-        "<MIGHT OVER MAGIC>": {
-            "_Value": 0,
-            "A": "Depends",
-            "Cost": "1 Mana",
-            "HasMixins": true,
-            "Tags": [
-                "Other"
-            ],
-            "Effect": "When you get this, choose a Font Spell that costs 1 Mana from any Magic Font, up to your Level.\nThat Ability becomes a ^physical version of itself^: instead of using magic to cast that Spell, you use your body, weapons, or tools! Be creative with how it works!\n",
-            "Upgrade": "The Damage of that Spell becomes Slash, Smash or Pierce, whichever makes sense.\n",
-            "Notes": "E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage). Be creative, come up with a description of how it works!\nYou can change this Ability inbetween Adventures.\n",
             "ParentKey": "Utility",
             "Origin": "Class/Warrior"
         }
@@ -231,40 +222,6 @@
     },
     "Talents": {
         "Level 1 First Class Talent": {
-            "~Flurry of Blades~": {
-                "A": "Depends",
-                "Cost": "1 Mana",
-                "Effect": "Make an attack with a weapon. If it triggers the War Craft, the War Craft Damage and also deal it to all Enemies within 2 meters of the main target.",
-                "Upgrade": "For Dual Shield Craft, instead doubles the Shielding and also gives it to all Allies within 2 meters of you.",
-                "ParentKey": "Level 1 First Class Talent",
-                "Origin": "Class/Warrior"
-            },
-            "~Break Mountains~": {
-                "A": "1 Action",
-                "Cost": "1 Mana",
-                "ScrollPower": "Auto",
-                "Tags": [
-                    "Damage",
-                    "Ranged"
-                ],
-                "Effect": "Pick up an object up to 2x2x2 meters in size, and throw it 3d10 meters in any direction. If it hits a Unit, it takes Damage equal to the number of meters left (e.g. similar to Slamming)",
-                "EffectGreen": "Critical Strike - for each max die rolled, deal +1d6 Damage and, if it's an object, it breaks on impact!",
-                "Upgrade": "You can instead pick up an enemy and Slam it a number of meters equal to half the rolled dice.",
-                "ParentKey": "Level 1 First Class Talent",
-                "Origin": "Class/Warrior"
-            },
-            "~Command - Patience~": {
-                "A": "Half-Action",
-                "Cost": "1 Mana",
-                "Cooldown": "Once / Turn",
-                "ScrollPower": "Auto",
-                "Tags": [
-                    "Protection"
-                ],
-                "Effect": "A different Unit you can see gains a number of 1d8 Shieldings equal to the Round Number.",
-                "ParentKey": "Level 1 First Class Talent",
-                "Origin": "Class/Warrior"
-            },
             "~Raise and Roil~": {
                 "A": "Half-Action",
                 "Cost": "1 Mana",
@@ -273,9 +230,7 @@
                 "Combo": "A Comboed Unit affected is also Slowed.",
                 "ParentKey": "Level 1 First Class Talent",
                 "Origin": "Class/Warrior"
-            }
-        },
-        "Level 1 Second Class Talent": {
+            },
             "~Command - Charge~": {
                 "A": "0 Actions",
                 "Cooldown": "Once / Combat",
@@ -285,17 +240,28 @@
                 ],
                 "ScrollPower": "Auto",
                 "Effect": "Choose a direction. You and all Allies may move up to 3 meters in that direction.",
-                "ParentKey": "Level 1 Second Class Talent",
+                "ParentKey": "Level 1 First Class Talent",
                 "Origin": "Class/Warrior"
             },
             "~Rending Edge~": {
                 "_Value": 0,
                 "A": "Depends",
-                "Cooldown": "Once / Turn",
-                "Effect": "Make a weapon attack. It deals -50% Damage, but applies a Bleed effect on the target.\nWhile Bleeding, it takes 1 (or 1d4 for 2-handed weapons) Damage at the end of your Turns.\n",
+                "Requirement": "Only works if target can bleed",
+                "Effect": "Make a {Type} weapon attack. It deals -50% Damage, but applies a Bleed effect on the target.\nWhile Bleeding, it takes {Amount} True Damage at the end of your Turns.\n",
                 "Upgrade": "Bleeding can stack.",
                 "Notes": "Remember which enemies have how much Bleed.",
-                "ParentKey": "Level 1 Second Class Talent",
+                "Variants": [
+                    {
+                        "Type": "one-handed",
+                        "Amount": 1
+                    },
+                    {
+                        "Type": "two-handed",
+                        "Amount": "1d4"
+                    }
+                ],
+                "HasMixins": true,
+                "ParentKey": "Level 1 First Class Talent",
                 "Origin": "Class/Warrior"
             },
             "~Whirlwind~": {
@@ -325,13 +291,56 @@
                     }
                 ],
                 "HasMixins": true,
+                "ParentKey": "Level 1 First Class Talent",
+                "Origin": "Class/Warrior"
+            }
+        },
+        "Level 1 Second Class Talent": {
+            "~Break Mountains~": {
+                "A": "1 Action",
+                "Cost": "1 Mana",
+                "ScrollPower": "Auto",
+                "Tags": [
+                    "Damage",
+                    "Ranged"
+                ],
+                "Effect": "Pick up an object up to 2x2x2 meters in size, and throw it 3d10 meters in any direction. If it hits a Unit, it takes Damage equal to the number of meters left (e.g. similar to Slamming)",
+                "EffectGreen": "Critical Strike - for each max die rolled, deal +1d6 Damage and, if it's an object, it breaks on impact!",
+                "Upgrade": "You can instead pick up an enemy and Slam it a number of meters equal to half the rolled dice.",
                 "ParentKey": "Level 1 Second Class Talent",
                 "Origin": "Class/Warrior"
             },
-            "~Command - Resist~": {
-                "A": "Reaction",
-                "Effect": "Use when another Ally would take Damage.\nThey don't take the Damage now. They take it at the end of their Turn.\n",
-                "Notes": "You can use dice and put them on their Hero Sheet to track that they will take the Damage later.",
+            "<MIGHT OVER MAGIC>": {
+                "_Value": 0,
+                "A": "Depends",
+                "Cost": "1 Mana",
+                "HasMixins": true,
+                "Tags": [
+                    "Other"
+                ],
+                "Effect": "When you get this, choose a Font Spell that costs 1 Mana from any Magic Font, up to your Level.\nThat Ability becomes a ^physical version of itself^: instead of using magic to cast that Spell, you use your body, weapons, or tools! Be creative with how it works!\n",
+                "Upgrade": "The Damage of that Spell becomes Slash, Smash or Pierce, whichever makes sense.\n",
+                "Notes": "E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage). Be creative, come up with a description of how it works!\nYou can change this Ability inbetween Adventures.\n",
+                "ParentKey": "Level 1 Second Class Talent",
+                "Origin": "Class/Warrior"
+            },
+            "~Flurry of Blades~": {
+                "A": "Depends",
+                "Cost": "1 Mana",
+                "Effect": "Make an attack with a weapon. If it triggers War Craft, increase the War Craft Damage by 100% and also deal it to all other Enemies within 2 meters of the main target.",
+                "Upgrade": "For Dual Shield Craft, instead doubles the Shielding and also gives it to all other Allies within 2 meters of you.",
+                "ParentKey": "Level 1 Second Class Talent",
+                "Origin": "Class/Warrior"
+            },
+            "~Command - Patience~": {
+                "A": "Half-Action",
+                "Cost": "1 Mana",
+                "Cooldown": "Once / Turn",
+                "ScrollPower": "Auto",
+                "Tags": [
+                    "Protection"
+                ],
+                "Effect": "A different Unit you can see gains a number of 1d8 Shieldings equal to the Round Number.",
                 "ParentKey": "Level 1 Second Class Talent",
                 "Origin": "Class/Warrior"
             }

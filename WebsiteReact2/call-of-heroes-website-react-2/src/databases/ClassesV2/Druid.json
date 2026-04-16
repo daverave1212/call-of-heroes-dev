@@ -115,10 +115,26 @@
             "Upgrade": "At Level 6, this can be a flying animal.\n",
             "ParentKey": "Utility",
             "Origin": "Class/Druid"
+        },
+        "~Speak With Animals~": {
+            "A": "1 minute",
+            "Cooldown": "Once / real hour",
+            "Effect": "Choose a willing, non-hostile animal. Communicate an idea or question to it. It responds in a way only you understand.",
+            "Notes": "Keep in mind that animals generally have low intelligence, and they are not expected to 'speak' back to you through language.",
+            "ParentKey": "Utility",
+            "Origin": "Class/Druid"
+        },
+        "~Speak With Plants~": {
+            "A": "1 minute",
+            "Cooldown": "Once / real hour",
+            "Effect": "Choose a willing, large plant. Communicate an idea or question to it. It responds in a way only you understand.",
+            "Notes": "Keep in mind that plants do not communicate like people and don't have a sense of sight or hearing. Rather, they can record their surroundings through fine details in their leaves or roots, and may know more about what has affected them physically in one way or another.",
+            "ParentKey": "Utility",
+            "Origin": "Class/Druid"
         }
     },
     "Talents": {
-        "Level 1 Class Talent": {
+        "Level 1 Druidic Talent": {
             "~Shapeshift~": {
                 "A": "0 Actions",
                 "Cost": "1 Mana",
@@ -186,15 +202,63 @@
                         "Effect": "You have 2 Defense. You are Large (2x2 meters) and Ridable."
                     }
                 ],
-                "ParentKey": "Level 1 Class Talent",
+                "ParentKey": "Level 1 Druidic Talent",
                 "Origin": "Class/Druid"
             },
+            "~Worldshaping~": {
+                "A": "0 Actions",
+                "Cost": "1 Mana",
+                "Effect": "You understand the surroundings and slightly alter the landscape in a 1 kilometer area around you so you feel like in a different environment.\nThe area becomes the chosen _domain environment_ for you only instead of its real _domain environment_.\n",
+                "HasMixins": true,
+                "ParentKey": "Level 1 Druidic Talent",
+                "Origin": "Class/Druid"
+            },
+            "~Friend of the Forest~": {
+                "A": "Half-Action",
+                "Cost": "1 Mana",
+                "Effect": "You summon a Small familar specific to your or current domain, which can take any form, be it an animal, a pixie, or some other creature.\nIt does your bidding and takes its Turn at the same time as you, and it is unsummoned if it dies. It has 2 Action Points per Turn, which it can only use to Move and do its Abilities.\n",
+                "Monster": {
+                    "Name": "Friend of the Domain",
+                    "Speed": "4 meters (flying)",
+                    "Health": 1,
+                    "Defense": 5,
+                    "Stats": "-2/2/0/0/0",
+                    "Abilities": {
+                        "~Attack~": {
+                            "A": "Half-Action",
+                            "Range": "1 meter",
+                            "Cooldown": "Once / Turn",
+                            "Damage": "1d4 (Pulse)",
+                            "Effect": "Alternatively, use a non-weapon consumable item like a Scroll, Potion, or Caltrops.",
+                            "ParentKey": "Abilities",
+                            "Origin": "Class/Druid"
+                        }
+                    }
+                },
+                "ParentKey": "Level 1 Druidic Talent",
+                "Origin": "Class/Druid"
+            },
+            "~Biological Study~": {
+                "A": "0 Actions",
+                "Cost": "1 Mana",
+                "Cooldown": "Once / Turn",
+                "ScrollPower": "Auto",
+                "Effect": "Choose an Enemy type you can see. Guess one of its Stats (you choose which).\nIf you were right, your next real weapon attack or Spell cast against it deals +1d8 Damage and repeat this.\n",
+                "Notes": "You can't guess the same Stat twice on the same Unit type.\nFor example, if you guess correctly twice, your next 2 real weapon attacks deal extra Damage agains it. If you guess 3 times, your next 3 attacks. And so on.\n",
+                "ParentKey": "Level 1 Druidic Talent",
+                "Origin": "Class/Druid"
+            }
+        },
+        "Level 1 Class Talent": {
             "~Thornskin~": {
                 "A": "0 Actions",
                 "Cost": "1 Mana",
                 "Duration": "1 minute",
                 "ScrollPower": 1,
                 "Degree": "Minor",
+                "Tags": [
+                    "Buff"
+                ],
                 "Effect": "Choose a Unit you can see.\nWhenever it is melee attacked, the attacker takes 1d4 Pierce Damage.\n\n{Brown('Earth:')} 3 Damage instead of 1d4.\n{Brown('Nature:')} Apply a Combo to it.\n",
                 "EffectGreen": "Usable while Shapeshifted.",
                 "Notes": "A Unit can only be effected by one Thornskin effect at a time.",
@@ -208,6 +272,9 @@
                 "Cost": "2 Mana",
                 "Degree": "Minor",
                 "ScrollPower": "Auto",
+                "Tags": [
+                    "Healing"
+                ],
                 "Effect": "Heal an alive Unit for 2d10.\n\n{Brown('Water:')} +1d6 Healing\n{Brown('Wind:')} +1d6 Healing.\n",
                 "HasMixins": true,
                 "ParentKey": "Level 1 Class Talent",
@@ -219,6 +286,9 @@
                 "HasMixins": true,
                 "Degree": "Minor",
                 "ScrollPower": "Auto",
+                "Tags": [
+                    "Damage"
+                ],
                 "Effect": "Shoot a venomous spike at target, dealing 1d6 + ^Sense^ Poison Damage.\nThe _next time_ it takes damage from a weapon, shoot another spike at it, which finds its target no matter the range or line of sight.\n\n{Brown('Nature:')} Shoot the extra spike now.\n{Brown('Water:')} 1d8 Damage instead (on both spikes).\n",
                 "Notes": "Body parts count as weapons. The second spike ignores Cover.",
                 "ParentKey": "Level 1 Class Talent",
@@ -229,19 +299,31 @@
                 "Cost": "1 Mana",
                 "Cooldown": "Once / Adventure",
                 "Requirement": "Only usable while Shapeshifted",
+                "Tags": [
+                    "Damage",
+                    "Area Damage",
+                    "Crowd Control (Hard)"
+                ],
                 "Effect": "Deal 3d10 Damage to all Worthy Units within 2 meters of you.\nHeal for 1 Health per 5 real Damage done (total).\n\n{Brown('Earth:')} One of the Units hit becomes Crippled.\n{Brown('Wind:')} +1 range and only hits Enemies\n",
                 "HasMixins": true,
                 "ParentKey": "Level 1 Class Talent",
                 "Origin": "Class/Druid"
-            },
-            "~Biological Study~": {
-                "A": "0 Actions",
+            }
+        },
+        "Level 1 Second Class Talent": {
+            "~Winds of Redolence~": {
+                "_Value": 0,
+                "A": "Half-Action",
                 "Cost": "1 Mana",
-                "Cooldown": "Once / Turn",
+                "Range": "2 meters (to edge)",
                 "ScrollPower": "Auto",
-                "Effect": "Choose an Enemy type you can see. Guess one of its Stats (you choose which).\nIf you were right, your next real weapon attack or Spell cast against it deals +1d8 Damage and repeat this.\n",
-                "Notes": "You can't guess the same Stat twice on the same Unit type.\nFor example, if you guess correctly twice, your next 2 real weapon attacks deal extra Damage agains it. If you guess 3 times, your next 3 attacks. And so on.\n",
-                "ParentKey": "Level 1 Class Talent",
+                "Tags": [
+                    "Healing",
+                    "Combo"
+                ],
+                "Effect": "Choose a 3x3 meter area. Heal all Units there for 1d6.\n\n{Brown('Earth:')} Area becomes 5x5.\n{Brown('Wind:')} Only affects allies, and applies a Combo to all Units in the zone.\n",
+                "HasMixins": true,
+                "ParentKey": "Level 1 Second Class Talent",
                 "Origin": "Class/Druid"
             }
         },

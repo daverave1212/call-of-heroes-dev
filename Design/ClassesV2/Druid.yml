@@ -107,7 +107,7 @@ Utility:
         A: Half-Action
         Range: 5 meters
         ScrollPower: Auto
-        Cooldown: {Sense} uses / Adventure
+        Cooldown: "{Sense} uses / Adventure"
         Degree: Lesser
         Effect: |
             You can control gusts of wind in a 6x6x6 area and do one of the following for 1 Action:
@@ -145,29 +145,33 @@ Utility:
         Upgrade: |
             At Level 6, this can be a flying animal.
 
-    # ~Speak With Animals~:
-    #     A: 1 Action
-    #     Cooldown: Once / real hour
-    #     Effect: Choose a willing, non-hostile animal. Communicate an idea or question to it. It responds in a way only you understand.
-    #     Notes: Keep in mind that animals generally have low {Intelligence}, and they are not expected to 'speak' back to you through language.
+    ~Speak With Animals~:
+        A: 1 minute
+        Cooldown: Once / real hour
+        Effect: Choose a willing, non-hostile animal. Communicate an idea or question to it. It responds in a way only you understand.
+        Notes: Keep in mind that animals generally have low intelligence, and they are not expected to 'speak' back to you through language.
 
-    # ~Speak With Plants~:
-    #     A: 1 Action
-    #     Cooldown: Once / real hour
-    #     Effect: Choose a willing, large plant. Communicate an idea or question to it. It responds in a way only you understand.
-    #     Notes: Keep in mind that plants generally have low {Intelligence}, and they are not expected to 'speak' back to you through language.
+    ~Speak With Plants~:
+        A: 1 minute
+        Cooldown: Once / real hour
+        Effect: Choose a willing, large plant. Communicate an idea or question to it. It responds in a way only you understand.
+        Notes: Keep in mind that plants do not communicate like people and don't have a sense of sight or hearing. Rather, they can record their surroundings through fine details in their leaves or roots, and may know more about what has affected them physically in one way or another.
 
 
-# Mana:         1                      | 1
-# Base:         1.25                   | 2.25
-# Minor Talent  0.5                    | 2.75
-# Talents L2    0.5                    | 3.25 + 1 Mana
-# Talents L3    1.25                   | 4.5 + 2 Mana  = 6.5 Mana
+# Mana:         1                       | 1
+# Base:         1.25                    | 2.25
+# Minor Talent  0.5                     | 2.75
+# Talents L2    0.5                     | 3.25 + 1 Mana
+# Talents L3    1.25                    | 4.5 + 2 Mana  = 6.5 Mana
+
+# Earth   Nature    Water     Wind      | Level 1
+# Earth   Water     Nature    Wind      | Level 1
+# Earth   Nature    Water     Wind      | Level 2
 
 Talents:
 
-  Level 1 Class Talent:
-
+  Level 1 Druidic Talent:
+    
     ~Shapeshift~:
       A: 0 Actions
       Cost: 1 Mana
@@ -224,6 +228,47 @@ Talents:
 
         - Name: Large {Level}Level 9
           Effect: You have 2 Defense. You are Large (2x2 meters) and Ridable.
+    
+    ~Worldshaping~:
+      A: 0 Actions
+      Cost: 1 Mana
+      Effect: |
+        You understand the surroundings and slightly alter the landscape in a 1 kilometer area around you so you feel like in a different environment.
+        The area becomes the chosen _domain environment_ for you only instead of its real _domain environment_.
+
+    ~Friend of the Forest~:
+      A: Half-Action
+      Cost: 1 Mana
+      Effect: |
+        You summon a Small familar specific to your or current domain, which can take any form, be it an animal, a pixie, or some other creature.
+        It does your bidding and takes its Turn at the same time as you, and it is unsummoned if it dies. It has 2 Action Points per Turn, which it can only use to Move and do its Abilities.
+      Monster:
+        Name: Friend of the Domain
+        Speed: 4 meters (flying)
+        Health: 1
+        Defense: 5
+        Stats: -2/2/0/0/0
+        Abilities:
+          ~Attack~:
+            A: Half-Action
+            Range: 1 meter
+            Cooldown: Once / Turn
+            Damage: 1d4 (Pulse)
+            Effect: Alternatively, use a non-weapon consumable item like a Scroll, Potion, or Caltrops.
+
+    ~Biological Study~:
+      A: 0 Actions
+      Cost: 1 Mana
+      Cooldown: Once / Turn
+      ScrollPower: Auto
+      Effect: |
+        Choose an Enemy type you can see. Guess one of its Stats (you choose which).
+        If you were right, your next real weapon attack or Spell cast against it deals +1d8 Damage and repeat this.
+      Notes: |
+        You can't guess the same Stat twice on the same Unit type.
+        For example, if you guess correctly twice, your next 2 real weapon attacks deal extra Damage agains it. If you guess 3 times, your next 3 attacks. And so on.
+
+  Level 1 Class Talent:
 
     ~Thornskin~:
         A: 0 Actions
@@ -231,6 +276,7 @@ Talents:
         Duration: 1 minute
         ScrollPower: 1
         Degree: Minor
+        Tags: [Buff, Combo]
         Effect: |
             Choose a Unit you can see.
             Whenever it is melee attacked, the attacker takes 1d4 Pierce Damage.
@@ -246,6 +292,7 @@ Talents:
         Cost: 2 Mana
         Degree: Minor
         ScrollPower: Auto
+        Tags: [Healing]
         Effect: |
           Heal an alive Unit for 2d10.
           
@@ -258,6 +305,7 @@ Talents:
         HasMixins: true
         Degree: Minor
         ScrollPower: Auto
+        Tags: [Damage]
         Effect: |
             Shoot a venomous spike at target, dealing 1d6 + ^{Sense}^ Poison Damage.
             The _next time_ it takes damage from a weapon, shoot another spike at it, which finds its target no matter the range or line of sight.
@@ -271,28 +319,28 @@ Talents:
         Cost: 1 Mana
         Cooldown: Once / Adventure
         Requirement: Only usable while Shapeshifted
+        Tags: [Damage, Area Damage, Crowd Control (Hard)]
         Effect: |
           Deal 3d10 Damage to all Worthy Units within 2 meters of you.
           Heal for 1 Health per 5 real Damage done (total).
           
           {Brown('Earth:')} One of the Units hit becomes Crippled.
           {Brown('Wind:')} +1 range and only hits Enemies
-    
-    ~Biological Study~:
-      A: 0 Actions
+
+  Level 1 Second Class Talent:
+
+    ~Winds of Redolence~:
+      _Value: 0
+      A: Half-Action
       Cost: 1 Mana
-      Cooldown: Once / Turn
+      Range: 2 meters (to edge)
       ScrollPower: Auto
+      Tags: [Healing, Combo]
       Effect: |
-        Choose an Enemy type you can see. Guess one of its Stats (you choose which).
-        If you were right, your next real weapon attack or Spell cast against it deals +1d8 Damage and repeat this.
-      Notes: |
-        You can't guess the same Stat twice on the same Unit type.
-        For example, if you guess correctly twice, your next 2 real weapon attacks deal extra Damage agains it. If you guess 3 times, your next 3 attacks. And so on.
+        Choose a 3x3 meter area. Heal all Units there for 1d6.
 
-
-
-  Level 2 Class Talent:
+        {Brown('Earth:')} Area becomes 5x5.
+        {Brown('Wind:')} Only affects allies, and applies a Combo to all Units in the zone.
 
     ~Wild Heart~:
         A: 0 Actions
@@ -303,9 +351,48 @@ Talents:
         Effect: |
           Up to 2 Units gain 1d4 Health Regen, each.
           
-          {Brown('Nature:')} +1 Unit affected.
-          {Brown('Water:')} 1d6 instead.
+          {Brown('Nature:')} 1d6 instead.
+          {Brown('Wind:')} +1 Unit affected.
         Combo: A Comboed target gains +1 Max Health permanently.
+
+    ~Thermal Pressure~:
+      A: Half-Action
+      Cooldown: Once / Turn
+      Effect: |
+          Water bursts from the ground at a space you can see, splashing all Units in a 3 meter with lava.
+          Units hit take 1d8 Fire Damage.
+
+          {Brown('Earth:')} All Units hit are also Slammed 1 meter away from the geyser and does not Damage Allies.
+          {Brown('Water:')} Does not go on Cooldown and the lava is water instead.
+    
+    # Nature & Water
+    ~Vipervines~:
+      A: Half-Action
+      Tags: [Crowd Control, Control]
+      Cooldown: Twice / Turn
+      Effect: |
+        TODO
+
+        {Brown('Nature:')} Each vine attack also deals 1d4 Poison Damage.
+        {Brown('Water:')} Pull range is 5 meters.
+      Upgrade: Vines have 1 Health.
+
+
+        
+
+
+  Level 2 Class Talent:
+
+    ~Mephitic Spores~:
+      A: Half-Action
+      Cost: 2 Mana
+      Range: 3 meters (to edge)
+      Effect: |
+        Choose a 4x4 meter area. All Units caught take 2d6 Poison Damage.
+        If none dies, deal another 2d6 Poison Damage.
+
+        {Brown('Nature:')}: If still none die, deal another 2d6 Poison Damage.
+        {Brown('Water:')} Zone increases to 6x6. Also has ~Combo:~ each Comboed Unit hit becomes Dazed.
 
     ~Wind Chaser~:
         _Value: 0.75
