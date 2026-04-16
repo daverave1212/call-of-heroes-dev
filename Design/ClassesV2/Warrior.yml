@@ -120,21 +120,13 @@ Other Abilities:
 
 Utility:
 
-  ~Charge~:
-    _Value: 1
-    A: 0 Actions
-    HasMixins: true
-    Range: 2 meters
-    Cooldown: Once / 2 Turns
-    Effect: |
-      Freely dash up to 2 meters toward a Worthy Enemy that's exactly 2 meters away, landing on a space near them.
-
   ~Vault Break~:
       Degree: Lesser
       A: 0 Actions
       Cooldown: 1 real hour
       ScrollPower: Auto
       Range: 3 meters
+      Tags: [Control]
       Effect: |
           Slam the ground so hard that it shatters one obstacle that fits within a 3x3x3 meter area.
       Notes: It is the Quest Master's call if an obstacle can be broken. Most walls can't be broken, except for thinner ones and fences.
@@ -143,6 +135,7 @@ Utility:
       A: Reaction
       Cooldown: Once / Adventure
       HasMixins: true
+      Tags: [Protection]
       Effect: |
           Block any non-damaging negative incoming _effect_ on an ally you can see.
       Upgrade: Negative effects in this case means any Crowd Control, Debuff, Curse, mind-altering magic, non-Damaging Poison, etc.
@@ -152,6 +145,7 @@ Utility:
       ScrollPower: Auto
       Cost: 1 Mana
       Cooldown: Once / Turn
+      Tags: [Healing]
       Requirement: Only usable in Worthy Combat
       Effect: Attack a different Unit with a 1-handed weapon. It Heals them instead of dealing Damage to them.
       Notes: Any extra Damage effects on it heal as well (e.g. War Craft, Criticl Strikes, etc). Apply any weapon effects if they happen. The attack might still do Damage to other collateral Units (if applies, e.g. Cleaver to you).
@@ -159,7 +153,7 @@ Utility:
   ~Command - March~:
     A: 0 Actions
     Cooldown: Once / Combat
-    Tags: [Utility]
+    Tags: [Movement, Support]
     ScrollPower: Auto
     Effect: Choose a direction. All Allies (including you) may move up to 3 meters in that direction.
 
@@ -234,10 +228,20 @@ Talents:
 
   Level 1 First Class Talent:
 
+    ~Charge~:
+      _Value: 1
+      A: 0 Actions
+      Range: 2 meters
+      Cooldown: Once / 2 Turns
+      Tags: [Movement]
+      Effect: |
+        Freely dash up to 2 meters toward a Worthy Enemy that's exactly 2 meters away, landing on a space near them.
+
     ~Break Mountains~:
       A: 1 Action
       Cost: 1 Mana
       ScrollPower: Auto
+      Tags: [Damage, Ranged]
       Effect: Pick up an object up to 2x2x2 meters in size, and throw it 3d10 meters in any direction. If it hits a Unit, it takes Damage equal to the number of meters left (e.g. similar to Slamming)
       EffectGreen: Critical Strike - for each max die rolled, deal +1d6 Damage and, if it's an object, it breaks on impact!
       Upgrade: You can instead pick up an enemy and Slam it a number of meters equal to half the rolled dice.
@@ -246,6 +250,7 @@ Talents:
       A: Half-Action
       Cooldown: Once / 2 Turns
       Range: Weapon Range
+      Tags: [Crowd Control (Hard)]
       ScrollPower: Auto
       Effect: Deal 1d4 Damage to a Unit and Single-Stun it. Then end your Turn.
       Combo: +1d4 Damage.
@@ -254,29 +259,45 @@ Talents:
       A: Half-Action
       Cost: 1 Mana
       ScrollPower: Auto
+      Tags: [Protection]
       Effect: A different Unit you can see gains a number of 1d8 Shieldings equal to the Round Number.
+
+
 
   Level 1 Second Class Talent:
 
     <MIGHT OVER MAGIC>:
-      _Value: 1
+      _Value: 0
       A: Depends
       Cost: 1 Mana
       HasMixins: true
+      Tags: [Other]
       Effect: |
-        When you get this, choose a Class Talent that costs 1 Mana from (any Specialization of) Cleric, Mage or Warlock, up to your Level.
-        That Ability becomes a ^physical version of itself^: instead of using magic to cast that spell, you use your body, weapons, or tools!
+        When you get this, choose a Font Spell that costs 1 Mana from any Magic Font, up to your Level.
+        That Ability becomes a ^physical version of itself^: instead of using magic to cast that Spell, you use your body, weapons, or tools! Be creative with how it works!
       Upgrade: |
         The Damage of that Spell becomes Slash, Smash or Pierce, whichever makes sense.
       Notes: |
         E.g. Scorching Rays - you shoot 3 arrows with your bow (Pierce Damage). Be creative, come up with a description of how it works!
         You can change this Ability inbetween Adventures.
 
+    ~Rending Edge~:
+        _Value: 0
+        A: Depends
+        Cooldown: Once / Turn
+        Effect: |
+          Make a weapon attack. It deals -1d4 Damage, but applies a Bleed effect on the target.
+          While Bleeding, it takes 1 Damage at the end of your Turns.
+        Upgrade: Bleeding can stack.
+        Notes: Remember which enemies have how much Bleed.
+
     ~Whirlwind~:
+        _Value: 0
         A: 3 Action Points
         Cost: 1 Mana
         DisplayName: "{Name}"
         ScrollPower: Auto
+        Tags: [Damage, Area Damage]
         Degree: Major
         Effect: |
             Roll 2d10 for each Unit {Area}
@@ -293,6 +314,13 @@ Talents:
             - Name: Rain Death
               Area: in a chosen 4x4 meter area (5 meter range to the edge).
               IconName: Rain Death
+    
+    ~Command - Resist~:
+        A: Reaction
+        Effect: |
+          Use when an ally would take Damage.
+          They don't take the Damage now. They take it at the end of their Turn.
+        Notes: You can use dice and put them on their Hero Sheet to track that they will take the Damage later.
 
   Level 2 Class Talent:
 
