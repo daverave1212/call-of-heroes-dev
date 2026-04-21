@@ -43,6 +43,14 @@
             "Effect": "Choose a tree and root all units near it.",
             "ParentKey": "Ideas",
             "Origin": "Class/Druid"
+        },
+        "~Worldshaping~": {
+            "A": "0 Actions",
+            "Cost": "1 Mana",
+            "Effect": "You understand the surroundings and slightly alter the landscape in a 1 kilometer area around you so you feel like in a different environment.\nThe area becomes the chosen _domain environment_ for you only instead of its real _domain environment_.\n",
+            "HasMixins": true,
+            "ParentKey": "Ideas",
+            "Origin": "Class/Druid"
         }
     },
     "Starting Abilities": {
@@ -63,7 +71,7 @@
             "A": "0 Actions",
             "Cooldown": "Once / Adventure",
             "AlignOnWebsite": "Left",
-            "Effect": "Your next Ability or animal feature is improved based on your and current _domains_.\n\n{Brown('Nature:')} Dice Upgraded to next die type, twice.\n{Brown('Water:')} Heal an ally you can see for 1d4 and restores 1 Mana to them\n{Brown('Wind:')} Before or after cast, quickly dash up to 10 meters\n{Brown('Earth:')} +2 Max Health to you or one of the Ability's targets\n",
+            "Effect": "Your next Ability or animal feature is improved based on your and current _domains_.\n\n{Brown('Nature:')} Dice Upgraded to next die type, twice.\n{Brown('Water:')} Heal an ally you can see for 1d4 and restores 1 Mana to them\n{Brown('Wind:')} Before or after cast, quickly dash up to 10 meters\n{Brown('Earth:')} +1 Max Health to you or one of the Ability's targets\n",
             "EffectGreen": "Usable while Shapeshifted.",
             "Notes": "Having Dice Upgraded means, for example, d6's become d8's, or d10's become d12's. D12's and d20's just gain +1.",
             "HasMixins": true,
@@ -121,6 +129,7 @@
             "Cooldown": "Once / real hour",
             "Effect": "Choose a willing, non-hostile animal. Communicate an idea or question to it. It responds in a way only you understand.",
             "Notes": "Keep in mind that animals generally have low intelligence, and they are not expected to 'speak' back to you through language.",
+            "EffectGreen": "Usable while Shapeshifted.",
             "ParentKey": "Utility",
             "Origin": "Class/Druid"
         },
@@ -129,6 +138,7 @@
             "Cooldown": "Once / real hour",
             "Effect": "Choose a willing, large plant. Communicate an idea or question to it. It responds in a way only you understand.",
             "Notes": "Keep in mind that plants do not communicate like people and don't have a sense of sight or hearing. Rather, they can record their surroundings through fine details in their leaves or roots, and may know more about what has affected them physically in one way or another.",
+            "EffectGreen": "Usable while Shapeshifted.",
             "ParentKey": "Utility",
             "Origin": "Class/Druid"
         }
@@ -205,10 +215,14 @@
                 "ParentKey": "Level 1 Druidic Talent",
                 "Origin": "Class/Druid"
             },
-            "~Worldshaping~": {
-                "A": "0 Actions",
-                "Cost": "1 Mana",
-                "Effect": "You understand the surroundings and slightly alter the landscape in a 1 kilometer area around you so you feel like in a different environment.\nThe area becomes the chosen _domain environment_ for you only instead of its real _domain environment_.\n",
+            "~Nativity~": {
+                "A": "Passive",
+                "Tags": [
+                    "Mana"
+                ],
+                "Requirement": "Can't activate in combat.",
+                "Effect": "At the midpoint of each _session_, regain up to 1 Mana.",
+                "Notes": "Refers to the game sessions.",
                 "HasMixins": true,
                 "ParentKey": "Level 1 Druidic Talent",
                 "Origin": "Class/Druid"
@@ -257,7 +271,8 @@
                 "ScrollPower": 1,
                 "Degree": "Minor",
                 "Tags": [
-                    "Buff"
+                    "Buff",
+                    "Combo"
                 ],
                 "Effect": "Choose a Unit you can see.\nWhenever it is melee attacked, the attacker takes 1d4 Pierce Damage.\n\n{Brown('Earth:')} 3 Damage instead of 1d4.\n{Brown('Nature:')} Apply a Combo to it.\n",
                 "EffectGreen": "Usable while Shapeshifted.",
@@ -289,8 +304,22 @@
                 "Tags": [
                     "Damage"
                 ],
-                "Effect": "Shoot a venomous spike at target, dealing 1d6 + ^Sense^ Poison Damage.\nThe _next time_ it takes damage from a weapon, shoot another spike at it, which finds its target no matter the range or line of sight.\n\n{Brown('Nature:')} Shoot the extra spike now.\n{Brown('Water:')} 1d8 Damage instead (on both spikes).\n",
-                "Notes": "Body parts count as weapons. The second spike ignores Cover.",
+                "Effect": "Shoot a venomous spike at target, dealing {Amount} + ^Sense^ Poison Damage.\nAfter the _next time_ it takes weapon Damage, shoot another spike at it for {Amount2}, which finds its target no matter the range or line of sight.\n~You have both variants of this Ability.~\n\n{Brown('Nature:')} Shoot the extra spike now instead\n{Brown('Water:')} {Improvement} Damage (on both spikes).\n",
+                "Notes": "Body parts count as weapons. The second spike does not ignore Cover. The spike shoots immediately after dealing the weapon Damage.",
+                "Variants": [
+                    {
+                        "DisplayA": "2 Action Points",
+                        "Amount": "1d6",
+                        "Amount2": "1d6",
+                        "Improvement": "1d8 instead of 1d6"
+                    },
+                    {
+                        "Display": "3 Action Points",
+                        "Amount": "2d8",
+                        "Amount2": "1d8",
+                        "Improvement": "d10's instead of d8's"
+                    }
+                ],
                 "ParentKey": "Level 1 Class Talent",
                 "Origin": "Class/Druid"
             },
@@ -325,17 +354,54 @@
                 "HasMixins": true,
                 "ParentKey": "Level 1 Second Class Talent",
                 "Origin": "Class/Druid"
-            }
-        },
-        "Level 2 Class Talent": {
+            },
             "~Wild Heart~": {
                 "A": "0 Actions",
                 "Cost": "1 Mana",
                 "ScrollPower": "Auto",
                 "Duration": "Whole Adventure",
                 "Degree": "Major",
-                "Effect": "Up to 2 Units gain 1d4 Health Regen, each.\n\n{Brown('Nature:')} +1 Unit affected.\n{Brown('Water:')} 1d6 instead.\n",
+                "Effect": "Up to 2 Units gain 1d4 Health Regen, each.\n\n{Brown('Nature:')} 1d6 instead.\n{Brown('Wind:')} +1 Unit affected.\n",
+                "EffectGreen": "Usable while Shapeshifted.",
                 "Combo": "A Comboed target gains +1 Max Health permanently.",
+                "Notes": "Note that a Unit can't have or apply Combo outside Worthy Combat.",
+                "HasMixins": true,
+                "ParentKey": "Level 1 Second Class Talent",
+                "Origin": "Class/Druid"
+            },
+            "~Thermal Pressure~": {
+                "A": "Half-Action",
+                "Cooldown": "Once / Turn",
+                "Tags": [
+                    "Damage",
+                    "Area Damage",
+                    "Control"
+                ],
+                "Effect": "Water bursts from the ground at a space you can see, splashing all Units in a 3 meter with lava.\nUnits hit take 1d8 Fire Damage.\n\n{Brown('Earth:')} All Units hit are also Slammed 1 meter away from the geyser and does not Damage Allies.\n{Brown('Water:')} Does not go on Cooldown and the lava is water instead.\n",
+                "HasMixins": true,
+                "ParentKey": "Level 1 Second Class Talent",
+                "Origin": "Class/Druid"
+            },
+            "~Viperlash~": {
+                "A": "1 Action",
+                "Tags": [
+                    "Crowd Control",
+                    "Control"
+                ],
+                "Cost": "1 Mana",
+                "Effect": "Choose a Unit.\nIf it took Poison Damage this Combat, deal 3d10 more Poison Damage, which ignores Poison Resistance.\nOtherwise, deal 1d10 Damage and Daze, Deafen and Slow it.\n\n{Brown('Nature:')} Deals +1d10 extra Damage.\n{Brown('Water:')} Heal yourself for 1d6. If the target dies, gain 1 Action Point back.\n",
+                "EffectGreen": "Usable while Shapeshifted.",
+                "HasMixins": true,
+                "ParentKey": "Level 1 Second Class Talent",
+                "Origin": "Class/Druid"
+            }
+        },
+        "Level 2 Class Talent": {
+            "~Mephitic Spores~": {
+                "A": "Half-Action",
+                "Cost": "2 Mana",
+                "Range": "3 meters (to edge)",
+                "Effect": "Choose a 4x4 meter area. All Units caught take 2d6 Poison Damage.\nIf none dies, deal another 2d6 Poison Damage.\n\n{Brown('Nature:')} If still none die, deal another 2d6 Poison Damage.\n{Brown('Water:')} Zone increases to 6x6. Also has ~Combo:~ each Comboed Unit hit becomes Dazed.\n",
                 "HasMixins": true,
                 "ParentKey": "Level 2 Class Talent",
                 "Origin": "Class/Druid"
@@ -373,6 +439,7 @@
                 "Degree": "Major",
                 "Cooldown": "Once / Combat",
                 "Effect": "Send out a 4x1 meter wave forward. Each Unit* hit takes 2d8 Cold Damage.\nThe first Unit hit is Slowed.\n\n{Brown('Water:')} Allies hit are Healed for 1d6 instead of taking Damge.\n{Brown('Wind:')} 6x2 meter wave instead.\n",
+                "EffectGreen": "Usable while Shapeshifted.",
                 "Notes": "If in a Water environment/domain, Allies are Healed and Enemies are Damaged. Otherwise, all Units hit are Damaged.",
                 "ParentKey": "Level 2 Class Talent",
                 "Origin": "Class/Druid"
@@ -382,12 +449,8 @@
             "~Self Preservation~": {
                 "_Value": 1.75,
                 "A": "Passive",
-                "Tags": [
-                    "Keystone Talent (Level 3)"
-                ],
                 "Effect": "Whenever you cast a Spell and you target yourself, it has ^Dice Upgraded^ to the next die type.",
                 "Notes": "This applies even when targeting multiple Units and you're one of them. Having Dice Upgraded means, for example, d6's become d8's, or d10's become d12's. D12's and d20's just gain +1.",
-                "Downside": "Exclusive with other Level 3 Talents.",
                 "HasMixins": true,
                 "ParentKey": "Level 3 Class Talent",
                 "Origin": "Class/Druid"
@@ -405,7 +468,6 @@
                 "Range": "1 meter",
                 "Stat": "Smash, Slash or Pierce",
                 "EffectGreen": "Critical Strike - if you roll maximum, apply a Combo.",
-                "Downside": "Exclusive with other Level 3 Talents.",
                 "HasMixins": true,
                 "ParentKey": "Level 3 Class Talent",
                 "Origin": "Class/Druid"
@@ -422,7 +484,6 @@
                 ],
                 "ScrollPower": 3,
                 "Effect": "Heal another ally for 1d8 Health. It regains 1 Mana or provides 1 more use of an Ability that is on Cooldown.\nCan not be cast on Druids.\n",
-                "Downside": "Exclusive with other Level 3 Talents.",
                 "ParentKey": "Level 3 Class Talent",
                 "Origin": "Class/Druid"
             },
@@ -449,7 +510,6 @@
                         "Effect": "Your Animal Attack has 5 meters range and deals Fire, Cold, Shock or Poison Damage."
                     }
                 ],
-                "Downside": "Exclusive with other Level 3 Talents.",
                 "ParentKey": "Level 3 Class Talent",
                 "Origin": "Class/Druid"
             }
@@ -569,17 +629,6 @@
                     }
                 ],
                 "Notes": "Double-Slow is like Slow, but it takes +2 Action Points to Move instead!",
-                "ParentKey": "Level 5 Class Talent",
-                "Origin": "Class/Druid"
-            },
-            "~Nativity~": {
-                "A": "Passive",
-                "Tags": [
-                    "Mana"
-                ],
-                "Requirement": "Can't activate in combat.",
-                "Effect": "Every ~real hour~, regain up to {Mana}0.5 Mana.",
-                "HasMixins": true,
                 "ParentKey": "Level 5 Class Talent",
                 "Origin": "Class/Druid"
             },

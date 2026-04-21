@@ -58,6 +58,14 @@ Ideas:
   ~Tree Snare~:
     Effect: Choose a tree and root all units near it.
 
+  ~Worldshaping~:
+    A: 0 Actions
+    Cost: 1 Mana
+    Effect: |
+      You understand the surroundings and slightly alter the landscape in a 1 kilometer area around you so you feel like in a different environment.
+      The area becomes the chosen _domain environment_ for you only instead of its real _domain environment_.
+
+
 Starting Abilities:       # 1
 
   ~Domain~:
@@ -84,7 +92,7 @@ Starting Abilities:       # 1
       {Brown('Nature:')} Dice Upgraded to next die type, twice.
       {Brown('Water:')} Heal an ally you can see for 1d4 and restores 1 Mana to them
       {Brown('Wind:')} Before or after cast, quickly dash up to 10 meters
-      {Brown('Earth:')} +2 Max Health to you or one of the Ability's targets
+      {Brown('Earth:')} +1 Max Health to you or one of the Ability's targets
     EffectGreen: Usable while Shapeshifted.
     Notes: "{DiceUpgrade}"
 
@@ -150,12 +158,14 @@ Utility:
         Cooldown: Once / real hour
         Effect: Choose a willing, non-hostile animal. Communicate an idea or question to it. It responds in a way only you understand.
         Notes: Keep in mind that animals generally have low intelligence, and they are not expected to 'speak' back to you through language.
+        EffectGreen: Usable while Shapeshifted.
 
     ~Speak With Plants~:
         A: 1 minute
         Cooldown: Once / real hour
         Effect: Choose a willing, large plant. Communicate an idea or question to it. It responds in a way only you understand.
         Notes: Keep in mind that plants do not communicate like people and don't have a sense of sight or hearing. Rather, they can record their surroundings through fine details in their leaves or roots, and may know more about what has affected them physically in one way or another.
+        EffectGreen: Usable while Shapeshifted.
 
 
 # Mana:         1                       | 1
@@ -229,12 +239,12 @@ Talents:
         - Name: Large {Level}Level 9
           Effect: You have 2 Defense. You are Large (2x2 meters) and Ridable.
     
-    ~Worldshaping~:
-      A: 0 Actions
-      Cost: 1 Mana
-      Effect: |
-        You understand the surroundings and slightly alter the landscape in a 1 kilometer area around you so you feel like in a different environment.
-        The area becomes the chosen _domain environment_ for you only instead of its real _domain environment_.
+    ~Nativity~:
+      A: Passive
+      Tags: [Mana]
+      Requirement: Can't activate in combat.
+      Effect: At the midpoint of each _session_, regain up to 1 Mana.
+      Notes: Refers to the game sessions.
 
     ~Friend of the Forest~:
       A: Half-Action
@@ -307,12 +317,23 @@ Talents:
         ScrollPower: Auto
         Tags: [Damage]
         Effect: |
-            Shoot a venomous spike at target, dealing 1d6 + ^{Sense}^ Poison Damage.
-            The _next time_ it takes damage from a weapon, shoot another spike at it, which finds its target no matter the range or line of sight.
+            Shoot a venomous spike at target, dealing {Amount} + ^{Sense}^ Poison Damage.
+            After the _next time_ it takes weapon Damage, shoot another spike at it for {Amount2}, which finds its target no matter the range or line of sight.
+            ~You have both variants of this Ability.~
 
-            {Brown('Nature:')} Shoot the extra spike now.
-            {Brown('Water:')} 1d8 Damage instead (on both spikes).
-        Notes: Body parts count as weapons. The second spike ignores Cover.
+            {Brown('Nature:')} Shoot the extra spike now instead
+            {Brown('Water:')} {Improvement} Damage (on both spikes).
+
+        Notes: Body parts count as weapons. The second spike does not ignore Cover. The spike shoots immediately after dealing the weapon Damage.
+        Variants:
+          - DisplayA: 2 Action Points
+            Amount: "1d6"
+            Amount2: "1d6"
+            Improvement: "1d8 instead of 1d6"
+          - Display: 3 Action Points
+            Amount: "2d8"
+            Amount2: "1d8"
+            Improvement: "d10's instead of d8's"
 
     ~Ripstorm~:
         A: 3 Action Points
@@ -353,11 +374,14 @@ Talents:
           
           {Brown('Nature:')} 1d6 instead.
           {Brown('Wind:')} +1 Unit affected.
+        EffectGreen: Usable while Shapeshifted.
         Combo: A Comboed target gains +1 Max Health permanently.
+        Notes: Note that a Unit can't have or apply Combo outside Worthy Combat.
 
     ~Thermal Pressure~:
       A: Half-Action
       Cooldown: Once / Turn
+      Tags: [Damage, Area Damage, Control]
       Effect: |
           Water bursts from the ground at a space you can see, splashing all Units in a 3 meter with lava.
           Units hit take 1d8 Fire Damage.
@@ -366,19 +390,18 @@ Talents:
           {Brown('Water:')} Does not go on Cooldown and the lava is water instead.
     
     # Nature & Water
-    ~Vipervines~:
-      A: Half-Action
+    ~Viperlash~:
+      A: 1 Action
       Tags: [Crowd Control, Control]
-      Cooldown: Twice / Turn
+      Cost: 1 Mana
       Effect: |
-        TODO
+        Choose a Unit.
+        If it took Poison Damage this Combat, deal 3d10 more Poison Damage, which ignores Poison Resistance.
+        Otherwise, deal 1d10 Damage and Daze, Deafen and Slow it.
 
-        {Brown('Nature:')} Each vine attack also deals 1d4 Poison Damage.
-        {Brown('Water:')} Pull range is 5 meters.
-      Upgrade: Vines have 1 Health.
-
-
-        
+        {Brown('Nature:')} Deals +1d10 extra Damage.
+        {Brown('Water:')} Heal yourself for 1d6. If the target dies, gain 1 Action Point back.
+      EffectGreen: Usable while Shapeshifted.
 
 
   Level 2 Class Talent:
@@ -391,7 +414,7 @@ Talents:
         Choose a 4x4 meter area. All Units caught take 2d6 Poison Damage.
         If none dies, deal another 2d6 Poison Damage.
 
-        {Brown('Nature:')}: If still none die, deal another 2d6 Poison Damage.
+        {Brown('Nature:')} If still none die, deal another 2d6 Poison Damage.
         {Brown('Water:')} Zone increases to 6x6. Also has ~Combo:~ each Comboed Unit hit becomes Dazed.
 
     ~Wind Chaser~:
@@ -434,6 +457,7 @@ Talents:
 
             {Brown('Water:')} Allies hit are Healed for 1d6 instead of taking Damge.
             {Brown('Wind:')} 6x2 meter wave instead.
+        EffectGreen: Usable while Shapeshifted.
         Notes: If in a Water environment/domain, Allies are Healed and Enemies are Damaged. Otherwise, all Units hit are Damaged.
 
 
@@ -442,10 +466,8 @@ Talents:
     ~Self Preservation~:
       _Value: 1.75
       A: Passive
-      Tags: [Keystone Talent (Level 3)]
       Effect: Whenever you cast a Spell and you target yourself, it has ^Dice Upgraded^ to the next die type.
       Notes: This applies even when targeting multiple Units and you're one of them. {DiceUpgrade}
-      Downside: Exclusive with other Level 3 Talents.
 
     ~Domain Animal Attack~:
       _Value: 2.5
@@ -462,7 +484,6 @@ Talents:
       Range: 1 meter
       Stat: Smash, Slash or Pierce
       EffectGreen: Critical Strike - if you roll maximum, apply a Combo.
-      Downside: Exclusive with other Level 3 Talents.
 
     <Innervate>:
       _Value: 2 # (multiplicative)
@@ -474,7 +495,6 @@ Talents:
       Effect: |
         Heal another ally for 1d8 Health. It regains 1 Mana or provides 1 more use of an Ability that is on Cooldown.
         Can not be cast on Druids.
-      Downside: Exclusive with other Level 3 Talents.
 
     ~Elderform~:
       _Value: 1
@@ -491,7 +511,6 @@ Talents:
           Effect: At the end of the Adventure, the Quest Master gives you an additional positive Quirk.
         - Name: Inner Flame
           Effect: Your Animal Attack has 5 meters range and deals Fire, Cold, Shock or Poison Damage.
-      Downside: Exclusive with other Level 3 Talents.
 
   Level 4 Class Talent:
 
@@ -595,13 +614,6 @@ Talents:
         - Name: Large {Level}Level 9
           Effect: You have 1 Defense. You are Large (2x2 meters) and Ridable.
       Notes: Double-Slow is like Slow, but it takes +2 Action Points to Move instead!
-
-
-    ~Nativity~:
-      A: Passive
-      Tags: [Mana]
-      Requirement: Can't activate in combat.
-      Effect: Every ~real hour~, regain up to {Mana}0.5 Mana.
 
     ~Runeback Form~:
       _Value: 
