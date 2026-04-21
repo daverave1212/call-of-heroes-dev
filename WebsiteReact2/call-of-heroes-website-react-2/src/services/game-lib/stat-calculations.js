@@ -1,4 +1,4 @@
-import { addArrays, addManyObjects, addObjects, capitalizeFirstLetter, getAllClasses, getAllRaces, isNumber, isString, MANA_BASED_SPELLCASTING, mapObject, SPECIAL_MANA_BASED_SPELLCASTING } from "../../utils"
+import { addArrays, addManyObjects, addObjects, calculateString, capitalizeFirstLetter, getAllClasses, getAllRaces, isNumber, isString, MANA_BASED_SPELLCASTING, mapObject, SPECIAL_MANA_BASED_SPELLCASTING, stringReplaceAllMany } from "../../utils"
 import {
     STAT_LIMITS_TEXT,
     MIGHT,
@@ -105,6 +105,20 @@ export function AttributeCalculationTextComponent({statName}) {
 
 
 
+// Special Calculations
+export function getSpecialBonusesByName(name, { totalStats, attributes }) {
+    const specialCalculations = {
+        'Trollskin': {
+            'Max Health': getStatValueByName(MIGHT, totalStats) * 3 * -1,
+            'Health Regen': getStatValueByName(MIGHT, totalStats) * 2
+        }
+    }
+    console.log({ location: 'getSpecialBonusesByName', totalStats, attributes, specialCalculations, return: specialCalculations[name] })
+    return specialCalculations[name]
+}
+
+
+
 
 
 
@@ -112,23 +126,45 @@ export function AttributeCalculationTextComponent({statName}) {
 
 // Utils for Stats
 export function getStatValueByName(name, statsArrOrObj) {
-    name = STAT_ALTERNATIVES_MAP[name]
-    if (Array.isArray(statsArrOrObj)) {
-        return statsArrOrObj[STAT_NAMES.indexOf(name)]
+    const fixedName = STAT_ALTERNATIVES_MAP[name]
+    if (fixedName == null) {
+        console.error(`Could not find stat named ${name} in alternatives.`)
+        return 0
     }
-    return statsArrOrObj[name]
+    if (Array.isArray(statsArrOrObj)) {
+        const index = STAT_NAMES.indexOf(fixedName)
+        if (index == -1) {
+            console.error(`Could not find index for stat named ${fixedName} in STAT_NAMES ${STAT_NAMES}.`)
+            return 0
+        }
+        return statsArrOrObj[index]
+    }
+    return statsArrOrObj[fixedName]
 }
-export function normalizeStatsObject(obj) {
+window.getStatValueByName = getStatValueByName
+export function normalizeStatsObject(obj) { // Replaces each alternative key with its base
     const newObj = {}
     for (const key of Object.keys(obj)) {
-        const normalKey = STAT_ALTERNATIVES_MAP[key]
-        newObj[normalKey] = obj[key]
+        if (key in STAT_ALTERNATIVES_MAP) {
+            const normalKey = STAT_ALTERNATIVES_MAP[key]
+            newObj[normalKey] = obj[key]
+        } else {
+            newObj[key] = obj[key]
+        }
     }
     return newObj
 }
-export function normalizeTextWithStats(str) {
+export function normalizeTextWithStats(str) {   // Replaces each alternative str with its base
+    if (str == null) {
+        console.error(`Null str given to normalizeTextWithStats. Returning "0".`)
+        return "0"
+    }
+    if (isNumber(str)) {
+        return str + ''
+    }
     for (const key of Object.keys(STAT_ALTERNATIVES_MAP)) {
-        str = str.replaceAll(key, STAT_ALTERNATIVES_MAP[key])
+        const newStr = str.replaceAll(key, STAT_ALTERNATIVES_MAP[key])
+        str = newStr
     }
     return str
 }
@@ -146,10 +182,9 @@ export function getAllStatBonusesYMLAsObjFromSpellsArray(spellsArray) {
     console.log({spellsArray})
     let bonuses = {}
     let sources = []
+
+    // Get bonuses
     for (const spell of spellsArray) {
-        if (spell.Name == 'Trollskin') {
-            console.log(`🔰🔰 Here we go!!!!`)
-        }
         if (spell.Bonuses == null) {
             continue
         }
@@ -213,33 +248,67 @@ export function calculateBaseMaxManaByLevel(level=1, className) {
     if (Spellcasting?.Type == SPECIAL_MANA_BASED_SPELLCASTING) {
         return (Spellcasting?.Mana?.Amount || 0) + Math.floor((level / 3))        
     }
-    return 0
+    return null
 }
 export function calculateExperienceByLevel(level) {
     return level * 100
 }
-export function calculateAllAtributes({raceName, className, level, totalStats, bonuses}) {
+export function calculateAllAtributes({raceName, className, level, totalStats, bonuses, specialBonusNames}) {
     if (raceName == null || className == null || level == null || totalStats == null) {
         return {...ALL_ATTRIBUTES_0}
     }
     const raceObj = getAllRaces()[raceName]
     const classObj = getAllClasses()[className]
+    const totalStatsArray = totalStats
     
     const baseAttributes = getBaseAttributes(raceObj)
-    const bonusAttributesFromStats = calculateStatsToBonusAttributesObject(totalStats)
+    const bonusAttributesFromStats = calculateStatsToBonusAttributesObject(totalStatsArray)
     const bonusAttributesFromLevel = getAttributeBonusesFromLevel(level, classObj)
-
-    console.log('calculateAllAtributes')
-    
     const attributes = addManyObjects([baseAttributes, bonusAttributesFromStats, bonusAttributesFromLevel, bonuses])
+    
+    let attributesWithSpecialBonuses = attributes
+    let extraCalculatedBonuses
+    if (specialBonusNames != null) {
+        extraCalculatedBonuses = getCalculatedSpecialBonuses({ totalStats: totalStatsArray, specialBonusNames, attributes })
+        attributesWithSpecialBonuses = addManyObjects([attributes, extraCalculatedBonuses])
+    }
 
     applyMultipliersToAttributes({ attributes, bonuses })
     
-    console.log({ attributes, bonuses, totalStats, baseAttributes, bonusAttributesFromStats, bonusAttributesFromLevel})
+    console.log('calculateAllAtributes')    
+    console.log({ attributes, attributesWithSpecialBonuses, bonuses, totalStats, baseAttributes, bonusAttributesFromStats, bonusAttributesFromLevel, specialBonusNames, extraCalculatedBonuses})
 
-    return attributes
+    return attributesWithSpecialBonuses
 }
 
+function getCalculatedSpecialBonuses({ totalStats, specialBonusNames, attributes }) {
+    if (specialBonusNames == null || specialBonusNames?.length == 0) {
+        return {}
+    }
+
+    // ['Trollskin', 'Dwarfenhalmen']
+    const namesToBonusesObjs = specialBonusNames.map(name => getSpecialBonusesByName(name, { totalStats, attributes }))
+    const addedBonuses = addManyObjects(namesToBonusesObjs)
+    console.log({namesToBonusesObjs, addedBonuses})
+    return addedBonuses
+
+
+
+    const calculationsCopy = {...calculations} // { Strength: "Strength * 4 + 1" }
+    const normalizedCalculations = normalizeStatsObject(calculationsCopy) // { Might: "Strength * 4 + 1" }
+    const attributesAndStats = { ...totalStats, ...attributes }
+    const parsedCalculations = {}
+    for (const [statName, statCalculation] of Object.entries(normalizedCalculations)) {
+        // [Max Health, Strength * 2 + 6]
+        const normalizedCalculation = normalizeTextWithStats(statCalculation)    // Might * 2 + 6
+        const replacedCalculationsAandS = stringReplaceAllMany(normalizedCalculation, attributesAndStats)
+        const calculated = calculateString(replacedCalculationsAandS)
+        parsedCalculations[statName] = calculated
+    }
+
+    return parsedCalculations
+}
+window.getCalculatedExtraBonuses = getCalculatedSpecialBonuses
 function applyMultipliersToAttributes({ attributes, bonuses }) {
     if (attributes == null || bonuses == null) {
         console.error(`POSSIBLE ERROR: applyMultipliersToAttributes got null parameters ${attributes} ${bonuses}`)

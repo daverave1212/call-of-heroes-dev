@@ -104,7 +104,6 @@ function validateClass(cls) {
         'Spellcasting.Change',
         'Starting Abilities',
         'Starting Abilities Description',
-        'Utility',
     ])
 }
 function validateFeat(feat) {

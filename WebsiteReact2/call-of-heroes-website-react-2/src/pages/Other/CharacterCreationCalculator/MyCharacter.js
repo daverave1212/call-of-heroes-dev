@@ -5,7 +5,7 @@ import PageH2 from "../../../components/PageH2/PageH2"
 import TextArea from "../../../components/TextArea/TextArea"
 import Icon from "../../../components/Icon"
 import Input from "../../../components/Input/Input"
-import { getChoiceAbilitiesObjects, useAllSpellsMetadata, useArmors, useConstAllMyAbilities, useConstAllSkillBonuses, useConstAutoSkillBonuses, useCurrentHealth, useCurrentMana, useDescription, useGold, useInventory, useLanguages, useLevel, useManualBonuses, useManualCombatExtras, useManualNormalExtras, useManualSkillBonuses, useMaxMana, useQuickNotes, useSectionClassName, useSectionClassSpecName, useSectionNamesState, useSectionRaceName, useSectionStatsState, useSkills, useWeapons } from "./CharacterData"
+import { getChoiceAbilitiesObjects, useAllSpellsMetadata, useArmors, useConstAllMyAbilities, useConstAllSkillBonuses, useConstAllSpecialBonusesNames, useConstAutoSkillBonuses, useCurrentHealth, useCurrentMana, useDescription, useGold, useInventory, useLanguages, useLevel, useManualBonuses, useManualCombatExtras, useManualNormalExtras, useManualSkillBonuses, useMaxMana, useQuickNotes, useSectionClassName, useSectionClassSpecName, useSectionNamesState, useSectionRaceName, useSectionStatsState, useSkills, useWeapons } from "./CharacterData"
 import SmallStat from "../../../components/SmallStat/SmallStat"
 import ManySmallStats from "../../../components/SmallStat/ManySmallStats"
 import { askConfirmation } from "../../../services/MessageDisplayer"
@@ -50,7 +50,7 @@ export function useConstBonusesFromSpellsAndItems() {
     const allMyRaceAndClassSpells = useConstAllMyAbilities()
     const everything = [...allMyArmors, ...allMyRaceAndClassSpells]
     const { bonuses, sources } = getAllStatBonusesYMLAsObjFromSpellsArray(everything)
-    console.log({allMyArmors, allMyRaceAndClassSpells, bonuses, sources})
+    console.log({location: 'useConstBonusesFromSpellsAndItems', allMyArmors, allMyRaceAndClassSpells, everything, bonuses, sources})
 
     return { bonuses, sources }
 }
@@ -70,9 +70,6 @@ export function useConstTotalStats() {
     const manualBonusesStatsArray = getStatsArrayFromObject(manualBonuses)
     const autoBonusesStatsArray = getStatsArrayFromObject(bonuses)
     return addArrays(baseStats, manualBonusesStatsArray, autoBonusesStatsArray)
-}
-export function getTotalStats() {
-    
 }
 export function useConstAllAbilitiesAndItemsExtras() {
     const allMyRaceAndClassSpells = useConstAllMyAbilities()
@@ -129,6 +126,7 @@ export default function MyCharacter() {
     let [currentHealth, setCurrentHealth] = useCurrentHealth()
     
     let totalStats = useConstTotalStats()
+    let specialBonusNames = useConstAllSpecialBonusesNames()
 
     const mySkillBonuses = useConstAllSkillBonuses()
     const autoSkillBonuses = useConstAutoSkillBonuses()
@@ -162,11 +160,10 @@ export default function MyCharacter() {
     const allMyArmors = armorNames.map(name => getAllArmorsByName()[name])
     const selectedClassObj = selectedClassName == null? null: getAllClasses()[selectedClassName]
     const maxMana = selectedClassName == null? 1: calculateBaseMaxManaByLevel(level, selectedClassName)
-    const attributes = calculateAllAtributes({raceName: selectedRaceName, className: selectedClassName, level, totalStats, bonuses})
+    const attributes = calculateAllAtributes({ raceName: selectedRaceName, className: selectedClassName, level, totalStats, bonuses, specialBonusNames })
     // const extraAPOnFirstRound = calculateExtraFirstTurnAPByInitiative(attributes[INITIATIVE])
     // const extraAPOnFirstRoundString = extraAPOnFirstRound < 0? extraAPOnFirstRound: ('+' + extraAPOnFirstRound)
 
-    console.log({ attributes_INITIATIVE: attributes[INITIATIVE]})
     const initiativeDisplay = maybeMakeFractionGray(attributes[INITIATIVE])
     console.log({attributes})
 
@@ -340,6 +337,9 @@ export default function MyCharacter() {
     }
 
     function ManaBar() {
+        if (maxMana == null || currentMana == null) {
+            return <></>
+        }
         return <div className="small-stat-container wrapper">
             <ResourceBar name="Mana" maxValue={maxMana} value={currentMana} setValue={setCurrentMana}/>
         </div>
