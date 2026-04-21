@@ -1415,17 +1415,19 @@ export function mapObject(obj, func) {
 export function addObjects(a, b) {
     const isNullOrNaN = x => x == null || equalsNaN(x)
     window.isNullOrNaN = isNullOrNaN
-    if (a == null || b == null) {
-        console.log({a, b})
-        console.error(`addObjects: a or b null! Printed above.`)
-        return a ?? b ?? {}
-    }
+
     if (a == null && b != null) {
         return b;
     }
     if (a != null && b == null) {
         return a;
     }
+    if (a == null && b == null) {
+        console.log({a, b})
+        console.error(`addObjects: a and b null! Printed above.`)
+        return a ?? b ?? {}
+    }
+
     const bKeys = Object.keys(b)
     let finalObject = {...a}
     for (const bKey of bKeys) {
@@ -1442,6 +1444,10 @@ export function addObjects(a, b) {
                 finalObject[bKey] = finalObject[bKey] + bValue
             } else if (Array.isArray(aValue) && Array.isArray(bValue)) {
                 finalObject[bKey] = [...finalObject[bKey], ...b[bKey]]
+            } else if (isString(aValue) && isString(bValue)) {
+                finalObject[bKey] += b[bKey]
+            } else if (isObject(aValue) && isObject(bValue)) {
+                finalObject[bKey] = addObjects(aValue[bKey], bValue[bKey])
             } else {
                 console.log({a, b})
                 throw `For addObject at key ${bKey} could not match types from a with b.`
@@ -2102,6 +2108,58 @@ export function printTimestamp(str) {
 export function startsWithAny(str, anyOf) {
     return anyOf.some(option => str.startsWith(option))
 }
+export function calculateString(str) {
+  // 1. Clean and Tokenize
+  const tokens = str.replace(/\s+/g, '').match(/\d+\.?\d*|[\+\-\*\/\(\)]/g);
+  
+  const ops = {
+    '+': 1, '-': 1,
+    '*': 2, '/': 2
+  };
+
+  const outputQueue = [];
+  const opStack = [];
+
+  // 2. Shunting-Yard Algorithm
+  tokens.forEach(token => {
+    if (parseFloat(token)) {
+      outputQueue.push(parseFloat(token));
+    } else if (token in ops) {
+      while (opStack.length && ops[opStack[opStack.length - 1]] >= ops[token]) {
+        outputQueue.push(opStack.pop());
+      }
+      opStack.push(token);
+    } else if (token === '(') {
+      opStack.push(token);
+    } else if (token === ')') {
+      while (opStack[opStack.length - 1] !== '(') {
+        outputQueue.push(opStack.pop());
+      }
+      opStack.pop();
+    }
+  });
+
+  while (opStack.length) outputQueue.push(opStack.pop());
+
+  // 3. RPN Evaluation
+  const evalStack = [];
+  outputQueue.forEach(token => {
+    if (typeof token === 'number') {
+      evalStack.push(token);
+    } else {
+      const b = evalStack.pop();
+      const a = evalStack.pop();
+      switch (token) {
+        case '+': evalStack.push(a + b); break;
+        case '-': evalStack.push(a - b); break;
+        case '*': evalStack.push(a * b); break;
+        case '/': evalStack.push(a / b); break;
+      }
+    }
+  });
+
+  return evalStack[0];
+}
 export function toFixedFloat(number, digits) {
     return parseFloat(number.toFixed(2))
 }
@@ -2181,8 +2239,13 @@ export function stringReplaceAllMany(str, replaceWhats, replaceWiths) {
         console.log({str, replaceWhats, replaceWiths})
         throw `stringReplaceAllMany: str parameter is not a string. Params printed above`
     }
+    if (replaceWiths == null && !Array.isArray(replaceWhats)) {
+        const kvpObject = replaceWhats
+        replaceWhats = Object.keys(kvpObject)
+        replaceWiths = Object.values(kvpObject)
+    }
     for (let i = 0; i < replaceWhats.length; i++) {
-        str = str.split(replaceWhats[i]).join(replaceWiths[i])
+        str = str.split(replaceWhats[i]).join(replaceWiths[i] + '')
     }
     return str
 }

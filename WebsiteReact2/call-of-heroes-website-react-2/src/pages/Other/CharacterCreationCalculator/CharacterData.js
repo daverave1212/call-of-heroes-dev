@@ -341,7 +341,8 @@ export function useConstTotalAttributes() {
     const [level] = useLevel()
     const totalStats = useConstTotalStats()
     const { bonuses } = useConstAllBonuses()
-    const attributes = calculateAllAtributes({raceName, className, level, totalStats, bonuses})
+    const specialBonusNames = useConstAllSpecialBonusesNames()
+    const attributes = calculateAllAtributes({raceName, className, level, totalStats, bonuses, specialBonusNames})
     return attributes
 }
 export function useConstAllMyAbilities() {
@@ -373,6 +374,12 @@ export function useConstAutoSkillBonuses() {
     const spellsWithSkillObjects = abilities.filter(a => a?.['Skill Bonuses'] != null && !Array.isArray(a?.['Skill Bonuses']))
     const allSpellSkillsObject = addManyObjects(spellsWithSkillObjects.map(s => s['Skill Bonuses']))
     return allSpellSkillsObject
+}
+export function useConstAllSpecialBonusesNames() {
+    const abilities = useConstAllMyAbilities()
+    const specialBonusNames = abilities.map(a => a?.['Special Bonuses']).filter(sb => sb != null)
+    console.log({specialBonusNames, abilities})
+    return specialBonusNames
 }
 
 
