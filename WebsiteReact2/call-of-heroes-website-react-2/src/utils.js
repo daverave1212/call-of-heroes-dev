@@ -46,11 +46,6 @@ export function parseAndNormalizeSpell(spell, options={
     spellModified.Name = getNormalizedSpellName(spell)
     spellModified.IconPath = getSpellOrItemIconPath(spell, isItem)
 
-    // Fix Effect
-    if (QuestGuardConfig.isActionPointsMappingEnabled && spell.Effect != null) {
-        spellModified.Effect = stringReplaceAllMany(spell.Effect, Object.keys(QuestGuardConfig.actionPointsMapping), Object.keys(QuestGuardConfig.actionPointsMapping).map(key => QuestGuardConfig.actionPointsMapping[key]))
-    }
-
     // Normalize variants
     let extraMixins = {}
     maybeNormalizeSpellForEachVariants(spellModified)
@@ -1046,15 +1041,15 @@ export function getVariantsForEachCollection(collectionName) {
         case '$SpellsWithPower4': return getAllScrollSpellNamesByPower()[4]
         case '$SpellsWithPower4+': return [...getAllScrollSpellNamesByPower()[4], ...getAllScrollSpellNamesByPower()[5], ...getAllScrollSpellNamesByPower()[6]]
         
-        // Half-Action, 0 Mana             Once / Combat
+        // 1 AP, 0 Mana             Once / Combat
         case '$LesserSpells': return $LESSER_SPELLS_NAMES
         
-        // 1 Action, 0 Mana                 Once / Adventure
+        // 2 AP, 0 Mana                 Once / Adventure
         // Half-Action, 1 Mana
         case '$MinorSpells': return $MINOR_SPELLS_NAMES
 
-        // 1 Action, 1 Mana                 Once / Adventure
-        // Half-Action, 2 Mana
+        // 2 AP, 1 Mana                 Once / Adventure
+        // 1 AP, 2 Mana
         case '$MajorSpells': return $MAJOR_SPELLS_NAMES
 
         // >>

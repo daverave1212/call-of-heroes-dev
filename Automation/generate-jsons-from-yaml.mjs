@@ -12,6 +12,11 @@ const ALL_STATIC_SYMBOLS = {
     ...STATIC_SYMBOLS,
     ...STAT_SYMBOLS
 }
+const ACTION_POINTS_MAPPING = {
+    '1 Action!1 Action Point': "2 Action Points",    // Replace 1 Action but not 1 Action Point
+    "Half-Action": "1 Action Point",
+    "0 Actions": "0 Action Points"
+}
 // Use this script to convert all ./Design/ files to their JSON variant in WebsiteReact/call-of-heroes-react-static/src/databases
 // NOTE 1: This does NOT remove the < and ~ symbols from the spell names!
 // NOTE 2: This DOES YES fix the "Inherit" spells
@@ -22,6 +27,7 @@ const yamlRootFolder = '../Design'
 const jsonRootFolder = '../WebsiteReact2/call-of-heroes-website-react-2/src/databases'
 
 const shouldGenerateAll = process.argv.includes('--all') || process.argv.includes('-a')
+const isActionPointsMappingEnabled = true
 
 let abilities = {}
 let classRaceAbilities = {} 
@@ -115,7 +121,32 @@ function validateFeat(feat) {
         'Cost'
     ])
 }
+function replaceAllWithExceptions({ text, substring, exceptions, replaceWith }) {
+  // 1. Escape special characters in strings to prevent regex errors
+  const escapeRegExp = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
+  // 2. Sort exceptions by length (longest first) 
+  // This ensures "1 Action Point" is matched before "1 Action"
+  const sortedExceptions = [...exceptions].sort((a, b) => b.length - a.length);
+  
+  // 3. Create a pattern: (Exception1|Exception2|Target)
+  const patternString = [
+    ...sortedExceptions.map(escapeRegExp), 
+    escapeRegExp(substring)
+  ].join('|');
+
+  const regex = new RegExp(patternString, 'g');
+
+  // 4. Use the replacer function
+  return text.replace(regex, (match) => {
+    // If the match is exactly the substring (and not one of the exceptions), replace it
+    if (match === substring) {
+      return replaceWith;
+    }
+    // Otherwise, it was an exception, so return it as-is
+    return match;
+  });
+}
 function readYAMLFromFile(fileName) {
     const fileContents = fs.readFileSync(fileName, 'utf8');
     const data = yaml.parse(fileContents);
@@ -193,6 +224,10 @@ function stringHasAnyOfChars(str, chars) {
         chars = chars.split('')
     }
     for (let i = 0; i < str.length; i++) {
+        if (str?.charAt == null) {
+            console.error(`str.charAt not found: str printed below`)
+            console.log(str)
+        }
         const char = str.charAt(i)
         if (chars.includes(char)) {
             return true
@@ -217,7 +252,6 @@ function addNameToSpellsRecursively(dictToSearch) {
     }
   }
 }
-
 
 function normalizeInheritAbilities(dictToSearch) {
 
@@ -275,6 +309,15 @@ function maybeAddHasMixins(subobj) {
     if (stringHasAnyOfChars(subobj.Notes || '', '{^_~')) {
         subobj.HasMixins = true
     }
+    if (stringHasAnyOfChars(subobj.EffectGreen || '', '{^_~')) {
+        subobj.HasMixins = true
+    }
+    if (stringHasAnyOfChars(subobj.Downside || '', '{^_~')) {
+        subobj.HasMixins = true
+    }
+    if (stringHasAnyOfChars(subobj.Combo || '', '{^_~')) {
+        subobj.HasMixins = true
+    }
 }
 
 function recordAbilitiesFrom(fromDict, toDict, parentKey=null, origin='Unknown') {
@@ -302,7 +345,26 @@ function recordAbilitiesFrom(fromDict, toDict, parentKey=null, origin='Unknown')
         recordAbilitiesFrom(subobj, toDict, key, origin);
     }
 }
-        
+
+function normalizeFileText(text) {
+    for (const [symbol, value] of Object.entries(ALL_STATIC_SYMBOLS)) {
+        const symbolToReplace = `{${symbol}}`
+        text = text.replaceAll(symbolToReplace, value.text)
+    }
+
+    if (!isActionPointsMappingEnabled) {
+        return text
+    }
+
+    for (const [key, replaceWith] of Object.entries(ACTION_POINTS_MAPPING)) {
+        const [substring, exceptionsRaw] = key.split('!')
+        const exceptions = exceptionsRaw == null? []: (exceptionsRaw.split(','))
+        text = replaceAllWithExceptions({text, substring, exceptions, replaceWith})
+    }
+
+    return text
+}
+
 function readAndNormalizeYamlToJson(filePath) {
     let fileContent
     try {
@@ -312,10 +374,7 @@ function readAndNormalizeYamlToJson(filePath) {
         throw err;
     }
 
-    for (const [symbol, value] of Object.entries(ALL_STATIC_SYMBOLS)) {
-        const symbolToReplace = `{${symbol}}`
-        fileContent = fileContent.replaceAll(symbolToReplace, value.text)
-    }
+    fileContent = normalizeFileText(fileContent)
 
     let dictContent = {};
     try {

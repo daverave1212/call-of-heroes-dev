@@ -93,12 +93,6 @@ export function SpellTopStats({className, tags, keywords}) {
 
     let displayedA = DisplayA != null? DisplayA : A != null? A : null
 
-    if (QuestGuardConfig.isActionPointsMappingEnabled) {
-        if (displayedA in QuestGuardConfig.actionPointsMapping) {
-            displayedA = QuestGuardConfig.actionPointsMapping[displayedA]
-        }
-    }
-
     const parsedKeywords = getSpellTags({ Tags: keywords })
 
     function KeywordTag({ children }) {

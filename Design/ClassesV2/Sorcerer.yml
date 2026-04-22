@@ -53,10 +53,6 @@ Starting Abilities Description:
       Whenever you see Flux Type, it just means the element you chose. If you chose Fire, "Flux" means exactly "Fire".
 
 
-Ideas:
-    ~Superposition~:
-      Effect: Teleport to a random space.
-
 Starting Abilities:
 
   ~Unstable Spark~:
@@ -70,7 +66,7 @@ Starting Abilities:
       {Spark(1)} you take 1d6 True Damage.
       {Spark(10)} your next Spell this Turn has +50% Damage.
     Upgrade: The Color('orange' 'orange d10') icon on a Sorcerer Ability means that effect triggers when you roll that number on the Unstable Spark die.
-    Downside: You can not have multiple Talents that overlap effects for the same number (e.g. Wild Casting and Guiled Casting).
+    Notes: You can have multiple Talents that overlap effects for the same number (e.g. Wild Casting and Guiled Casting).
 
   ~Overcharge~:
     A: 0 Actions
@@ -93,10 +89,11 @@ Utility:
     Cooldown: Once / real hour
     ScrollPower: 2
     Requirement: Requires Level 3
+    Tags: [Other]
     Effect: |
       At any point where it's fit, you can call for a _poetic justice moment_, representing a living metaphor, turning a situation around, karma, irony, or coming full circle.
-      In the next 10 real minutes, an event may happen that can be interpreted as _poetic justice_, which could be either good or bad for your team.
-      The Quest Master may fumble one die roll or alter the current situation so that it reflects a _poetic moment_.
+      Declare an event you would like to happen that can be interpreted as _poetic justice_, which could be either good or bad for your team.
+      Soon, the Quest Master may fumble one die roll or alter the current situation so that it reflects a _poetic moment_, in a way similar to your desire.
     Upgrade: There may be no place for poetic justice at that time, and it's possible nothing happens as the result of this.
     Notes: They can be events such as being saved by your worst enemy, or a xenophobic person being discriminated against by someone else who is xenophobic. Or perhaps a goblin dies by an arrow to the kn-, I mean shoulder, after he launched an arrow in someone else's shoulder.
 
@@ -104,20 +101,20 @@ Utility:
     A: 0 Actions
     Cooldown: Once / Adventure
     ScrollPower: 2
+    Tags: [Other]
     Effect: |
       Lightly alter reality to change a small detail in a story or environment that does not have large consequences. All other characters believe it didn't change, and it's always been like that.
-    Upgrade: This may not be the right time to fracture reality, and it's possible your request does not happen.
+    Upgrade: This may not be the right time to fracture reality, and it's possible your request does not happen. If so, reset this Ability's Cooldown.
     Notes: They can be _Mandela effect_ events such as changing the color of an object, a character placing something in a different room, you having bought a certain item that you didn't buy. Ask the Quest Master if your request fits!
 
-  ~Flash~:
-      A: Reaction (or 0 Actions)
-      Cost: 1 Mana
-      Cooldown: Once / Turn
-      ScrollPower: 1
-      Degree: Minor
-      Requirement: Level 3
-      Effect: Instantly teleport up to 5 meters away, within line of sight.
-      Notes: You take with you all items carried. Does not work if you're Rooted or stuck in place somehow.
+  ~Superposition~:
+    A: Reaction or 0 Actions
+    Cost: 1 Mana
+    Tags: [Mobility, Other]
+    Effect: |
+      Use on your Turn, or when a Unit wants to attack you.
+      Teleport yourself (or a non-Epic Unit you can see) in a _random direction_ a number of meters equal to your last rolled Unstable Spark die.
+    Notes: Roll 1d8 to determine the direction. 1. North, 2. North-East, 3. East, etc. You take with you all items carried. Does not work if you're Rooted or stuck in place somehow.
 
   ~Magic Tricks~:
       A: 1 Action
@@ -126,6 +123,7 @@ Utility:
       ScrollPower: 0
       Degree: Lesser
       AlignOnWebsite: Right
+      Tags: [Roleplaying]
       Effect: |
           Choose one of these effects to cast:
           {Diamond} Create harmless sensory effects, sparks or non-damaging heat or cold.
@@ -133,16 +131,52 @@ Utility:
           {Diamond} Instantly clean or soil objects.
           {Diamond} Control a quill with telekinesis to quickly write with it.
   
+
 Talents:
 
   Level 1 Class Talent:
 
+    ~Chronohype~:
+      A: Reaction or 0 Actions
+      Cost: 1 Mana
+      Tags: [Improvement]
+      Effect: |
+        Use after someone rolls dice for an Act.
+        Start a timer for a number of seconds equal to your last rolled Unstable Spark die.
+        You have that many seconds to reroll ^all the dice together^ until you are satisfied with the result.
+        Then take the final result.
+
+    ~Timeslip~:
+      A: 0 Actions
+      Cost: 1 Mana
+      Cooldown: Once / Adventure
+      Duration: Until next Combat
+      Tags: [Buff]
+      Effect: |
+        Increase the Initiative of 2 Units you can see by 1.
+        apply a ~Combo~ to each of them.
+    
+    ~Plot Armor~:
+      A: 0 Actions
+      Cost: 1 Plot Point
+      Tags: [Protection]
+      Effect: |
+        {Text} Shielding that can block Damage equal to your last rolled Unstable Spark die.
+        Then roll an Unstable Spark die.
+        ~You have access to both variants of this Ability.~
+      Duration: Until broken or next Adventure
+      Variants:
+        - DisplayA: 0 Actions
+          Text: Gain a
+        - DisplayA: 1 Action Point
+          Text: Give a Unit you can see a
 
     ~Chaos Storm~:
       A: 1 Action
       Requirement: Only usable in Worthy Combat
+      Tags: [Damage, Area Damage]
       Effect: |
-        Roll an Unstable Spark die (and apply its effect if any).
+        Roll an Unstable Spark die.
         Deal that much Damage of that Damage Type to exactly that many Worthy Units you can see.
       Notes: |
         Roll for a random Damage type from the following: 1. Pierce, 2. Slash, 3. Pulse, 4. Poison, 5. Acid, 6. Divine, 7. Scourge, 8. Shock, 9. Cold, 10. Fire.
@@ -151,11 +185,13 @@ Talents:
 
     ~Jolt~:
       A: Half-Action
-      Range: 5 meters
+      Range: 10 meters
       Requirement: Only usable in Worthy Combat
+      Tags: [Damage]
       Effect: |
         Shoot a quick burst of current at a Unit, dealing 1d6 + ^Any Stat^ {Color('orange' 'Flux')} Damage.
         Then roll an Unstable Spark die.
+      Combo: Roll another Unstable Spark die.
       Downside: |
         Only usable if your last Unstable Spark die rolled was at least 6.
 
@@ -163,6 +199,7 @@ Talents:
       A: 0 Actions
       Cost: 1 Mana
       Requirement: Only usable in Worthy Combat
+      Tags: [Farming]
       Effect: |
         For the rest of the Combat, whenever you roll 3 on the Unstable Spark die, gain +1 Skill Point permanently.
 
@@ -172,6 +209,7 @@ Talents:
       Range: 4 meters
       ScrollPower: 2
       Cost: 1 Mana
+      Tags: [Damage, Area Damage]
       Effect: |
         Deal {Amount} {Color('orange' 'Flux')} Damage to {ToWhat}.
 
@@ -179,27 +217,29 @@ Talents:
       Variants:
         - DisplayA: 0 Actions
           Amount: 1d8
-          ToWhat: 1 Unit
+          ToWhat: 1 Worthy Unit
         - DisplayA: Half-Action
           Amount: 1d6 + 1d8
-          ToWhat: 2 Units
+          ToWhat: 2 Worthy Units
         - DisplayA: 1 Action
           Amount: 1d6 + 1d8 + 1d10
-          ToWhat: 3 Units
+          ToWhat: 3 Worthy Units
         - DisplayA: 3 Action Points
           Amount: 1d6 + 1d8 + 1d10 + 1d12
-          ToWhat: 4 Units
+          ToWhat: 4 Worthy Units
 
     ~Arcane Fire~:
       A: Half-Action
       Requirement: Only usable in Worthy Combat
+      Tags: [Weapon, Damage]
       Effect: |
-        Your next weapon attack until the end of your next Turn deals extra Damage equal to your last rolled Unstable Spark die and all its Damage dealt becomes {Color('orange' 'Flux')} Damage.
+        Your next weapon attack until the end of your next Turn applies a ~Combo~ and deals extra Damage equal to your last rolled Unstable Spark die and all its Damage dealt becomes {Color('orange' 'Flux')} Damage.
 
     ~Spellbloodweave~:
       A: 0 Actions
       Cost: 1 Mana
       ScrollPower: 1
+      Tags: [Healing]
       Effect: |
         Use after you make an attack or use an offensive Ability. It deals -50% Damage, but instead heals an ally you can see for the final Damage dealt.
 

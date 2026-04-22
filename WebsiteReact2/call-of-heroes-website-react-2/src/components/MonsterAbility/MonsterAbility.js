@@ -32,6 +32,8 @@ export default function MonsterAbility({monster, monsterXP, ability, isPassive, 
 
     const nActionPoints = U.getActionPointsByA(abilityBody.A, {
         '3 Action Points': 3,
+        '2 Action Points': 2,
+        '1 Action Point': 1,
         '1 Action': 2,
         'Half-Action': 1,
         '0 Actions': 0,

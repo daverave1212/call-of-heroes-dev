@@ -34,13 +34,6 @@
             "Flux": "Whenever you see Flux Type, it just means the element you chose. If you chose Fire, \"Flux\" means exactly \"Fire\".\n"
         }
     ],
-    "Ideas": {
-        "~Superposition~": {
-            "Effect": "Teleport to a random space.",
-            "ParentKey": "Ideas",
-            "Origin": "Class/Sorcerer"
-        }
-    },
     "Starting Abilities": {
         "~Unstable Spark~": {
             "_Value": 1.5,
@@ -48,12 +41,12 @@
             "HasMixins": true,
             "Effect": "At the start of your every Turn in a Worthy Combat, roll 1d10. Apply any effects you have.\nOther Talents will add extra effects to your Unstable Spark die.\n\n{Spark(1)} you take 1d6 True Damage.\n{Spark(10)} your next Spell this Turn has +50% Damage.\n",
             "Upgrade": "The Color('orange' 'orange d10') icon on a Sorcerer Ability means that effect triggers when you roll that number on the Unstable Spark die.",
-            "Downside": "You can not have multiple Talents that overlap effects for the same number (e.g. Wild Casting and Guiled Casting).",
+            "Notes": "You can have multiple Talents that overlap effects for the same number (e.g. Wild Casting and Guiled Casting).",
             "ParentKey": "Starting Abilities",
             "Origin": "Class/Sorcerer"
         },
         "~Overcharge~": {
-            "A": "0 Actions",
+            "A": "0 Action Points",
             "Cooldown": "Once / Turn",
             "Requirement": "Only usable in Worthy Combat",
             "Effect": "Roll an Unstable Spark die.",
@@ -75,7 +68,10 @@
             "Cooldown": "Once / real hour",
             "ScrollPower": 2,
             "Requirement": "Requires Level 3",
-            "Effect": "At any point where it's fit, you can call for a _poetic justice moment_, representing a living metaphor, turning a situation around, karma, irony, or coming full circle.\nIn the next 10 real minutes, an event may happen that can be interpreted as _poetic justice_, which could be either good or bad for your team.\nThe Quest Master may fumble one die roll or alter the current situation so that it reflects a _poetic moment_.\n",
+            "Tags": [
+                "Other"
+            ],
+            "Effect": "At any point where it's fit, you can call for a _poetic justice moment_, representing a living metaphor, turning a situation around, karma, irony, or coming full circle.\nDeclare an event you would like to happen that can be interpreted as _poetic justice_, which could be either good or bad for your team.\nSoon, the Quest Master may fumble one die roll or alter the current situation so that it reflects a _poetic moment_, in a way similar to your desire.\n",
             "Upgrade": "There may be no place for poetic justice at that time, and it's possible nothing happens as the result of this.",
             "Notes": "They can be events such as being saved by your worst enemy, or a xenophobic person being discriminated against by someone else who is xenophobic. Or perhaps a goblin dies by an arrow to the kn-, I mean shoulder, after he launched an arrow in someone else's shoulder.",
             "HasMixins": true,
@@ -83,35 +79,42 @@
             "Origin": "Class/Sorcerer"
         },
         "~Fracture Reality~": {
-            "A": "0 Actions",
+            "A": "0 Action Points",
             "Cooldown": "Once / Adventure",
             "ScrollPower": 2,
+            "Tags": [
+                "Other"
+            ],
             "Effect": "Lightly alter reality to change a small detail in a story or environment that does not have large consequences. All other characters believe it didn't change, and it's always been like that.\n",
-            "Upgrade": "This may not be the right time to fracture reality, and it's possible your request does not happen.",
+            "Upgrade": "This may not be the right time to fracture reality, and it's possible your request does not happen. If so, reset this Ability's Cooldown.",
             "Notes": "They can be _Mandela effect_ events such as changing the color of an object, a character placing something in a different room, you having bought a certain item that you didn't buy. Ask the Quest Master if your request fits!",
             "HasMixins": true,
             "ParentKey": "Utility",
             "Origin": "Class/Sorcerer"
         },
-        "~Flash~": {
-            "A": "Reaction (or 0 Actions)",
+        "~Superposition~": {
+            "A": "Reaction or 0 Action Points",
             "Cost": "1 Mana",
-            "Cooldown": "Once / Turn",
-            "ScrollPower": 1,
-            "Degree": "Minor",
-            "Requirement": "Level 3",
-            "Effect": "Instantly teleport up to 5 meters away, within line of sight.",
-            "Notes": "You take with you all items carried. Does not work if you're Rooted or stuck in place somehow.",
+            "Tags": [
+                "Mobility",
+                "Other"
+            ],
+            "Effect": "Use on your Turn, or when a Unit wants to attack you.\nTeleport yourself (or a non-Epic Unit you can see) in a _random direction_ a number of meters equal to your last rolled Unstable Spark die.\n",
+            "Notes": "Roll 1d8 to determine the direction. 1. North, 2. North-East, 3. East, etc. You take with you all items carried. Does not work if you're Rooted or stuck in place somehow.",
+            "HasMixins": true,
             "ParentKey": "Utility",
             "Origin": "Class/Sorcerer"
         },
         "~Magic Tricks~": {
-            "A": "1 Action",
+            "A": "2 Action Points",
             "Range": "3 meters",
             "HasMixins": true,
             "ScrollPower": 0,
             "Degree": "Lesser",
             "AlignOnWebsite": "Right",
+            "Tags": [
+                "Roleplaying"
+            ],
             "Effect": "Choose one of these effects to cast:\n{Diamond} Create harmless sensory effects, sparks or non-damaging heat or cold.\n{Diamond} Channel to create simple, small, harmless illusions in your hand or within 3 meters.\n{Diamond} Instantly clean or soil objects.\n{Diamond} Control a quill with telekinesis to quickly write with it.\n",
             "ParentKey": "Utility",
             "Origin": "Class/Sorcerer"
@@ -119,59 +122,120 @@
     },
     "Talents": {
         "Level 1 Class Talent": {
+            "~Chronohype~": {
+                "A": "Reaction or 0 Action Points",
+                "Cost": "1 Mana",
+                "Tags": [
+                    "Improvement"
+                ],
+                "Effect": "Use after someone rolls dice for an Act.\nStart a timer for a number of seconds equal to your last rolled Unstable Spark die.\nYou have that many seconds to reroll ^all the dice together^ until you are satisfied with the result.\nThen take the final result.\n",
+                "HasMixins": true,
+                "ParentKey": "Level 1 Class Talent",
+                "Origin": "Class/Sorcerer"
+            },
+            "~Timeslip~": {
+                "A": "0 Action Points",
+                "Cost": "1 Mana",
+                "Cooldown": "Once / Adventure",
+                "Duration": "Until next Combat",
+                "Tags": [
+                    "Buff"
+                ],
+                "Effect": "Increase the Initiative of 2 Units you can see by 1.\napply a ~Combo~ to each of them.\n",
+                "HasMixins": true,
+                "ParentKey": "Level 1 Class Talent",
+                "Origin": "Class/Sorcerer"
+            },
+            "~Plot Armor~": {
+                "A": "0 Action Points",
+                "Cost": "1 Plot Point",
+                "Tags": [
+                    "Protection"
+                ],
+                "Effect": "{Text} Shielding that can block Damage equal to your last rolled Unstable Spark die.\nThen roll an Unstable Spark die.\n~You have access to both variants of this Ability.~\n",
+                "Duration": "Until broken or next Adventure",
+                "Variants": [
+                    {
+                        "DisplayA": "0 Action Points",
+                        "Text": "Gain a"
+                    },
+                    {
+                        "DisplayA": "1 Action Point",
+                        "Text": "Give a Unit you can see a"
+                    }
+                ],
+                "HasMixins": true,
+                "ParentKey": "Level 1 Class Talent",
+                "Origin": "Class/Sorcerer"
+            },
             "~Chaos Storm~": {
-                "A": "1 Action",
+                "A": "2 Action Points",
                 "Requirement": "Only usable in Worthy Combat",
-                "Effect": "Roll an Unstable Spark die (and apply its effect if any).\nDeal that much Damage of that Damage Type to exactly that many Worthy Units you can see.\n",
+                "Tags": [
+                    "Damage",
+                    "Area Damage"
+                ],
+                "Effect": "Roll an Unstable Spark die.\nDeal that much Damage of that Damage Type to exactly that many Worthy Units you can see.\n",
                 "Notes": "Roll for a random Damage type from the following: 1. Pierce, 2. Slash, 3. Pulse, 4. Poison, 5. Acid, 6. Divine, 7. Scourge, 8. Shock, 9. Cold, 10. Fire.\nTargeting Worthy Units is mandatory, and you count as a Worthy Unit.\nIf your Unstable Spark is higher than 10, you can choose the Damage Type.\n",
                 "ParentKey": "Level 1 Class Talent",
                 "Origin": "Class/Sorcerer"
             },
             "~Jolt~": {
-                "A": "Half-Action",
-                "Range": "5 meters",
+                "A": "1 Action Point",
+                "Range": "10 meters",
                 "Requirement": "Only usable in Worthy Combat",
+                "Tags": [
+                    "Damage"
+                ],
                 "Effect": "Shoot a quick burst of current at a Unit, dealing 1d6 + ^Any Stat^ {Color('orange' 'Flux')} Damage.\nThen roll an Unstable Spark die.\n",
+                "Combo": "Roll another Unstable Spark die.",
                 "Downside": "Only usable if your last Unstable Spark die rolled was at least 6.\n",
                 "HasMixins": true,
                 "ParentKey": "Level 1 Class Talent",
                 "Origin": "Class/Sorcerer"
             },
             "~Gathering the Magic~": {
-                "A": "0 Actions",
+                "A": "0 Action Points",
                 "Cost": "1 Mana",
                 "Requirement": "Only usable in Worthy Combat",
+                "Tags": [
+                    "Farming"
+                ],
                 "Effect": "For the rest of the Combat, whenever you roll 3 on the Unstable Spark die, gain +1 Skill Point permanently.\n",
                 "ParentKey": "Level 1 Class Talent",
                 "Origin": "Class/Sorcerer"
             },
             "~Soulflare~": {
                 "_Value": 0,
-                "A": "Half-Action",
+                "A": "1 Action Point",
                 "Range": "4 meters",
                 "ScrollPower": 2,
                 "Cost": "1 Mana",
+                "Tags": [
+                    "Damage",
+                    "Area Damage"
+                ],
                 "Effect": "Deal {Amount} {Color('orange' 'Flux')} Damage to {ToWhat}.\n\n~You have access to all Variants of this Spell (click on the icon to select the preferred effect)!~\n",
                 "Variants": [
                     {
-                        "DisplayA": "0 Actions",
+                        "DisplayA": "0 Action Points",
                         "Amount": "1d8",
-                        "ToWhat": "1 Unit"
+                        "ToWhat": "1 Worthy Unit"
                     },
                     {
-                        "DisplayA": "Half-Action",
+                        "DisplayA": "1 Action Point",
                         "Amount": "1d6 + 1d8",
-                        "ToWhat": "2 Units"
+                        "ToWhat": "2 Worthy Units"
                     },
                     {
-                        "DisplayA": "1 Action",
+                        "DisplayA": "2 Action Points",
                         "Amount": "1d6 + 1d8 + 1d10",
-                        "ToWhat": "3 Units"
+                        "ToWhat": "3 Worthy Units"
                     },
                     {
                         "DisplayA": "3 Action Points",
                         "Amount": "1d6 + 1d8 + 1d10 + 1d12",
-                        "ToWhat": "4 Units"
+                        "ToWhat": "4 Worthy Units"
                     }
                 ],
                 "HasMixins": true,
@@ -179,17 +243,24 @@
                 "Origin": "Class/Sorcerer"
             },
             "~Arcane Fire~": {
-                "A": "Half-Action",
+                "A": "1 Action Point",
                 "Requirement": "Only usable in Worthy Combat",
-                "Effect": "Your next weapon attack until the end of your next Turn deals extra Damage equal to your last rolled Unstable Spark die and all its Damage dealt becomes {Color('orange' 'Flux')} Damage.\n",
+                "Tags": [
+                    "Weapon",
+                    "Damage"
+                ],
+                "Effect": "Your next weapon attack until the end of your next Turn applies a ~Combo~ and deals extra Damage equal to your last rolled Unstable Spark die and all its Damage dealt becomes {Color('orange' 'Flux')} Damage.\n",
                 "HasMixins": true,
                 "ParentKey": "Level 1 Class Talent",
                 "Origin": "Class/Sorcerer"
             },
             "~Spellbloodweave~": {
-                "A": "0 Actions",
+                "A": "0 Action Points",
                 "Cost": "1 Mana",
                 "ScrollPower": 1,
+                "Tags": [
+                    "Healing"
+                ],
                 "Effect": "Use after you make an attack or use an offensive Ability. It deals -50% Damage, but instead heals an ally you can see for the final Damage dealt.\n",
                 "ParentKey": "Level 1 Class Talent",
                 "Origin": "Class/Sorcerer"
@@ -318,7 +389,7 @@
             },
             "<Sap>": {
                 "_Value": 1,
-                "A": "Half-Action",
+                "A": "1 Action Point",
                 "Range": "10 meters",
                 "AlignOnWebsite": "Left",
                 "Effect": "A Unit must make a Charisma Roll at least equal to your last rolled Unstable Spark die or be Deafened, Slowed or Dazed (your choice).\nIf it passes, roll an Unstable Spark die.\n",
@@ -391,7 +462,7 @@
                 "Origin": "Class/Sorcerer"
             },
             "~Spiritflare~": {
-                "A": "Half-Action",
+                "A": "1 Action Point",
                 "Range": "4 meters",
                 "IconName": "Soulflare",
                 "HasUpgradeIcon": true,
@@ -402,17 +473,17 @@
                 "Notes": "~The Damage is higher than the regular Soulflare.~",
                 "Variants": [
                     {
-                        "DisplayA": "0 Actions",
+                        "DisplayA": "0 Action Points",
                         "Amount": "1d10",
                         "ToWhat": "1 Unit"
                     },
                     {
-                        "DisplayA": "Half-Action",
+                        "DisplayA": "1 Action Point",
                         "Amount": "1d8 + 1d10",
                         "ToWhat": "2 Units"
                     },
                     {
-                        "DisplayA": "1 Action",
+                        "DisplayA": "2 Action Points",
                         "Amount": "1d8 + 1d10 + 1d12",
                         "ToWhat": "3 Units"
                     },
@@ -429,7 +500,7 @@
             "<Star Burst>": {
                 "_Value": 1.35,
                 "AlignOnWebsite": "Right",
-                "A": "1 Action",
+                "A": "2 Action Points",
                 "Cost": "1 Mana",
                 "Effect": "Declare up to 4 different targets you can see.\nAssign a different number from #1 to #4 to each.\nRoll a number of d4's equal to your last rolled Unstable Spark die. Each d4 rolled deals that much Pulse Damage to the target with that number.\nEach rolled 1 deals 1 Damage to target number #1, each rolled 2 deals 2 Damage to target number #2, and so on.\n",
                 "Notes": "E.g. if you put #2 on a goblin, and you roll three 2's on the d4's, then that goblin takes 6 Pulse Damage.\nYou should probably assign the higher number to the target you want to do most Damage to.\nYou can declare fewer targets, but then the missing number will deal Damage to no target.\nCover is applied normally.\n",
@@ -437,7 +508,7 @@
                 "Origin": "Class/Sorcerer"
             },
             "~Arc Jolt~": {
-                "A": "Half-Action",
+                "A": "1 Action Point",
                 "Range": "5 meters",
                 "ScrollPower": 2,
                 "Replacement": "Replaces Jolt",
@@ -453,7 +524,7 @@
         },
         "Level 6 - Utility Talent": {
             "~Reverse Gravity~": {
-                "A": "1 Action",
+                "A": "2 Action Points",
                 "Cost": "3 Mana",
                 "Range": "10 meters to edge",
                 "ScrollPower": "Auto",
@@ -496,7 +567,7 @@
         },
         "Level 9 Class Talent": {
             "<Chronomancy>": {
-                "A": "0 Actions",
+                "A": "0 Action Points",
                 "Cost": "1 Mana",
                 "Cooldown": "Once / Adventure",
                 "ScrollPower": 4,
