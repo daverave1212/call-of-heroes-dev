@@ -66,13 +66,14 @@ Starting Abilities:
       {Spark(1)} you take 1d6 True Damage.
       {Spark(10)} your next Spell this Turn has +50% Damage.
     Upgrade: The Color('orange' 'orange d10') icon on a Sorcerer Ability means that effect triggers when you roll that number on the Unstable Spark die.
-    Notes: You can have multiple Talents that overlap effects for the same number (e.g. Wild Casting and Guiled Casting).
+    Notes: The triggered {Spark(numbers)} may or may not overlap.
 
   ~Overcharge~:
-    A: 0 Actions
-    Cooldown: Once / Turn
-    Requirement: Only usable in Worthy Combat
-    Effect: Roll an Unstable Spark die.
+    _Value: 0
+    A: 1 minute
+    Cost: 1 Mana
+    Effect: Permanently learn one Level 1 Sorcerer Talent.
+    Notes: You may use this as many times as you want, until you learn all Level 1 Sorcerer Talents (works for both Utility or Class Talents). The Mana spent is restored inbetween Adventures as usual. You can't replace the permanently learned Spell inbetween Adventures... and why would you, anyway?
   
   ~Flux~:
     A: Passive
@@ -136,40 +137,17 @@ Talents:
 
   Level 1 Class Talent:
 
-    ~Chronohype~:
-      A: Reaction or 0 Actions
-      Cost: 1 Mana
-      Tags: [Improvement]
-      Effect: |
-        Use after someone rolls dice for an Act.
-        Start a timer for a number of seconds equal to your last rolled Unstable Spark die.
-        You have that many seconds to reroll ^all the dice together^ until you are satisfied with the result.
-        Then take the final result.
 
-    ~Timeslip~:
-      A: 0 Actions
-      Cost: 1 Mana
-      Cooldown: Once / Adventure
-      Duration: Until next Combat
-      Tags: [Buff]
+    ~Jolt~:
+      A: Half-Action
+      Range: 10 meters
+      Tags: [Damage]
       Effect: |
-        Increase the Initiative of 2 Units you can see by 1.
-        apply a ~Combo~ to each of them.
-    
-    ~Plot Armor~:
-      A: 0 Actions
-      Cost: 1 Plot Point
-      Tags: [Protection]
-      Effect: |
-        {Text} Shielding that can block Damage equal to your last rolled Unstable Spark die.
-        Then roll an Unstable Spark die.
-        ~You have access to both variants of this Ability.~
-      Duration: Until broken or next Adventure
-      Variants:
-        - DisplayA: 0 Actions
-          Text: Gain a
-        - DisplayA: 1 Action Point
-          Text: Give a Unit you can see a
+        Shoot a quick burst of current at a Unit, dealing 1d6 + ^Any Stat^ {Color('orange' 'Flux')} Damage.
+        Then roll an Unstable Spark die if in Worthy Combat.
+      Combo: Then roll an Unstable Spark die if in Worthy Combat.
+      Downside: |
+        Only usable if your last Unstable Spark die rolled was at least 6.
 
     ~Chaos Storm~:
       A: 1 Action
@@ -183,25 +161,47 @@ Talents:
         Targeting Worthy Units is mandatory, and you count as a Worthy Unit.
         If your Unstable Spark is higher than 10, you can choose the Damage Type.
 
-    ~Jolt~:
+    ~Arcane Fire~:
       A: Half-Action
-      Range: 10 meters
       Requirement: Only usable in Worthy Combat
-      Tags: [Damage]
+      Tags: [Weapon, Damage]
       Effect: |
-        Shoot a quick burst of current at a Unit, dealing 1d6 + ^Any Stat^ {Color('orange' 'Flux')} Damage.
-        Then roll an Unstable Spark die.
-      Combo: Roll another Unstable Spark die.
-      Downside: |
-        Only usable if your last Unstable Spark die rolled was at least 6.
+        Your next weapon attack until the end of your next Turn applies a ~Combo~ and deals extra Damage equal to your last rolled Unstable Spark die and all its Damage dealt becomes {Color('orange' 'Flux')} Damage.
 
-    ~Gathering the Magic~:
-      A: 0 Actions
-      Cost: 1 Mana
-      Requirement: Only usable in Worthy Combat
-      Tags: [Farming]
+    ~Lightning Striking Twice~:
+      A: 1 Action
+      Cooldown: Once / Combat
+      Tags: [Crowd Control, Damage, Combo]
       Effect: |
-        For the rest of the Combat, whenever you roll 3 on the Unstable Spark die, gain +1 Skill Point permanently.
+        Blast a Unit you can see for {Amount} {Color('orange' 'Flux')} Damage and {Choose} Deafened, Slowed, or Blinded.
+
+        Then do it again.
+      Combo: Then do it again.
+      Variants:
+        - Choose: it must choose to be
+          DisplayA: 1 Action
+          Amount: 1d10
+        - Choose: it becomes (you choose)
+          DisplayA: 3 Action Points
+          Amount: 2d6
+      Notes: When doing it again, you can choose the same Unit or a different one. The efect can happen again and again if each hit Unit has a ~Combo~.
+
+    ~Plot Armor~:
+      A: 0 Actions
+      Cost: 1 Plot Point
+      Tags: [Protection]
+      Effect: |
+        {Text} Shielding that can block Damage equal to your last rolled Unstable Spark die.
+        Then roll an Unstable Spark die.
+        
+        ~You have access to both variants of this Ability.~
+      Duration: Until broken or next Adventure
+      Variants:
+        - DisplayA: 0 Actions
+          Text: Gain a
+        - DisplayA: 1 Action Point
+          Text: Give a Unit you can see a
+      Notes: Your party gains a Plot Point when rolling evens on a Check.
 
     ~Soulflare~:
       _Value: 0
@@ -228,38 +228,46 @@ Talents:
           Amount: 1d6 + 1d8 + 1d10 + 1d12
           ToWhat: 4 Worthy Units
 
-    ~Arcane Fire~:
-      A: Half-Action
-      Requirement: Only usable in Worthy Combat
-      Tags: [Weapon, Damage]
+
+    ~Chronohype~:
+      A: Reaction or 0 Actions
+      Cost: 1 Mana
+      Tags: [Improvement]
       Effect: |
-        Your next weapon attack until the end of your next Turn applies a ~Combo~ and deals extra Damage equal to your last rolled Unstable Spark die and all its Damage dealt becomes {Color('orange' 'Flux')} Damage.
+        Use after someone rolls dice for an Act.
+        Start a timer for a number of seconds equal to your last rolled Unstable Spark die.
+        You have that many seconds to reroll ^all the dice together^ until you are satisfied with the result.
+        Then take the final result.
+
+    ~Timeslip~:
+      A: 0 Actions
+      Cost: 1 Mana
+      Cooldown: Once / Adventure
+      Duration: Until next Combat
+      Tags: [Buff]
+      Effect: |
+        Increase the Initiative of 2 Units you can see by 1.
+        apply a ~Combo~ to each of them.
+    
 
     ~Spellbloodweave~:
       A: 0 Actions
       Cost: 1 Mana
       ScrollPower: 1
-      Tags: [Healing]
+      Tags: [Heal]
       Effect: |
         Use after you make an attack or use an offensive Ability. It deals -50% Damage, but instead heals an ally you can see for the final Damage dealt.
 
-    ~Lightning Striking Twice~:
-      A: 1 Action
+    ~Gathering the Magic~:
+      A: 0 Actions
+      Cost: 1 Mana
       Cooldown: Once / Combat
-      Tags: [Crowd Control, Damage, Combo]
+      Requirement: Only usable in Worthy Combat
+      Tags: [Farming]
       Effect: |
-        Blast a Unit you can see for {Amount} {Color('orange' 'Flux')} Damage and {Choose} Deafened, Slowed, or Blinded.
+        For the rest of the Combat, gain:
+        {Spark(2)} gain +1 Skill Point permanently.
 
-        Then do it again.
-      Combo: Then do it again.
-      Variants:
-        - Choose: it must choose to be
-          DisplayA: 1 Action
-          Amount: 1d10
-        - Choose: it becomes (you choose)
-          DisplayA: 3 Action Points
-          Amount: 2d6
-      Notes: When doing it again, you can choose the same Unit or a different one. The efect can happen again and again if each hit Unit has a ~Combo~.
 
 
   Level 2 Class Talent:

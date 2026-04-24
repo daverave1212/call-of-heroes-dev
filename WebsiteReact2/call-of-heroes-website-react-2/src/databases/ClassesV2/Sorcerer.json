@@ -41,15 +41,16 @@
             "HasMixins": true,
             "Effect": "At the start of your every Turn in a Worthy Combat, roll 1d10. Apply any effects you have.\nOther Talents will add extra effects to your Unstable Spark die.\n\n{Spark(1)} you take 1d6 True Damage.\n{Spark(10)} your next Spell this Turn has +50% Damage.\n",
             "Upgrade": "The Color('orange' 'orange d10') icon on a Sorcerer Ability means that effect triggers when you roll that number on the Unstable Spark die.",
-            "Notes": "You can have multiple Talents that overlap effects for the same number (e.g. Wild Casting and Guiled Casting).",
+            "Notes": "The triggered {Spark(numbers)} may or may not overlap.",
             "ParentKey": "Starting Abilities",
             "Origin": "Class/Sorcerer"
         },
         "~Overcharge~": {
-            "A": "0 Action Points",
-            "Cooldown": "Once / Turn",
-            "Requirement": "Only usable in Worthy Combat",
-            "Effect": "Roll an Unstable Spark die.",
+            "_Value": 0,
+            "A": "1 minute",
+            "Cost": "1 Mana",
+            "Effect": "Permanently learn one Level 1 Sorcerer Talent.",
+            "Notes": "You may use this as many times as you want, until you learn all Level 1 Sorcerer Talents (works for both Utility or Class Talents). The Mana spent is restored inbetween Adventures as usual. You can't replace the permanently learned Spell inbetween Adventures... and why would you, anyway?",
             "ParentKey": "Starting Abilities",
             "Origin": "Class/Sorcerer"
         },
@@ -122,48 +123,15 @@
     },
     "Talents": {
         "Level 1 Class Talent": {
-            "~Chronohype~": {
-                "A": "Reaction or 0 Action Points",
-                "Cost": "1 Mana",
+            "~Jolt~": {
+                "A": "1 Action Point",
+                "Range": "10 meters",
                 "Tags": [
-                    "Improvement"
+                    "Damage"
                 ],
-                "Effect": "Use after someone rolls dice for an Act.\nStart a timer for a number of seconds equal to your last rolled Unstable Spark die.\nYou have that many seconds to reroll ^all the dice together^ until you are satisfied with the result.\nThen take the final result.\n",
-                "HasMixins": true,
-                "ParentKey": "Level 1 Class Talent",
-                "Origin": "Class/Sorcerer"
-            },
-            "~Timeslip~": {
-                "A": "0 Action Points",
-                "Cost": "1 Mana",
-                "Cooldown": "Once / Adventure",
-                "Duration": "Until next Combat",
-                "Tags": [
-                    "Buff"
-                ],
-                "Effect": "Increase the Initiative of 2 Units you can see by 1.\napply a ~Combo~ to each of them.\n",
-                "HasMixins": true,
-                "ParentKey": "Level 1 Class Talent",
-                "Origin": "Class/Sorcerer"
-            },
-            "~Plot Armor~": {
-                "A": "0 Action Points",
-                "Cost": "1 Plot Point",
-                "Tags": [
-                    "Protection"
-                ],
-                "Effect": "{Text} Shielding that can block Damage equal to your last rolled Unstable Spark die.\nThen roll an Unstable Spark die.\n~You have access to both variants of this Ability.~\n",
-                "Duration": "Until broken or next Adventure",
-                "Variants": [
-                    {
-                        "DisplayA": "0 Action Points",
-                        "Text": "Gain a"
-                    },
-                    {
-                        "DisplayA": "1 Action Point",
-                        "Text": "Give a Unit you can see a"
-                    }
-                ],
+                "Effect": "Shoot a quick burst of current at a Unit, dealing 1d6 + ^Any Stat^ {Color('orange' 'Flux')} Damage.\nThen roll an Unstable Spark die if in Worthy Combat.\n",
+                "Combo": "Then roll an Unstable Spark die if in Worthy Combat.",
+                "Downside": "Only usable if your last Unstable Spark die rolled was at least 6.\n",
                 "HasMixins": true,
                 "ParentKey": "Level 1 Class Talent",
                 "Origin": "Class/Sorcerer"
@@ -180,28 +148,65 @@
                 "ParentKey": "Level 1 Class Talent",
                 "Origin": "Class/Sorcerer"
             },
-            "~Jolt~": {
+            "~Arcane Fire~": {
                 "A": "1 Action Point",
-                "Range": "10 meters",
                 "Requirement": "Only usable in Worthy Combat",
                 "Tags": [
+                    "Weapon",
                     "Damage"
                 ],
-                "Effect": "Shoot a quick burst of current at a Unit, dealing 1d6 + ^Any Stat^ {Color('orange' 'Flux')} Damage.\nThen roll an Unstable Spark die.\n",
-                "Combo": "Roll another Unstable Spark die.",
-                "Downside": "Only usable if your last Unstable Spark die rolled was at least 6.\n",
+                "Effect": "Your next weapon attack until the end of your next Turn applies a ~Combo~ and deals extra Damage equal to your last rolled Unstable Spark die and all its Damage dealt becomes {Color('orange' 'Flux')} Damage.\n",
                 "HasMixins": true,
                 "ParentKey": "Level 1 Class Talent",
                 "Origin": "Class/Sorcerer"
             },
-            "~Gathering the Magic~": {
-                "A": "0 Action Points",
-                "Cost": "1 Mana",
-                "Requirement": "Only usable in Worthy Combat",
+            "~Lightning Striking Twice~": {
+                "A": "2 Action Points",
+                "Cooldown": "Once / Combat",
                 "Tags": [
-                    "Farming"
+                    "Crowd Control",
+                    "Damage",
+                    "Combo"
                 ],
-                "Effect": "For the rest of the Combat, whenever you roll 3 on the Unstable Spark die, gain +1 Skill Point permanently.\n",
+                "Effect": "Blast a Unit you can see for {Amount} {Color('orange' 'Flux')} Damage and {Choose} Deafened, Slowed, or Blinded.\n\nThen do it again.\n",
+                "Combo": "Then do it again.",
+                "Variants": [
+                    {
+                        "Choose": "it must choose to be",
+                        "DisplayA": "2 Action Points",
+                        "Amount": "1d10"
+                    },
+                    {
+                        "Choose": "it becomes (you choose)",
+                        "DisplayA": "3 Action Points",
+                        "Amount": "2d6"
+                    }
+                ],
+                "Notes": "When doing it again, you can choose the same Unit or a different one. The efect can happen again and again if each hit Unit has a ~Combo~.",
+                "HasMixins": true,
+                "ParentKey": "Level 1 Class Talent",
+                "Origin": "Class/Sorcerer"
+            },
+            "~Plot Armor~": {
+                "A": "0 Action Points",
+                "Cost": "1 Plot Point",
+                "Tags": [
+                    "Protection"
+                ],
+                "Effect": "{Text} Shielding that can block Damage equal to your last rolled Unstable Spark die.\nThen roll an Unstable Spark die.\n\n~You have access to both variants of this Ability.~\n",
+                "Duration": "Until broken or next Adventure",
+                "Variants": [
+                    {
+                        "DisplayA": "0 Action Points",
+                        "Text": "Gain a"
+                    },
+                    {
+                        "DisplayA": "1 Action Point",
+                        "Text": "Give a Unit you can see a"
+                    }
+                ],
+                "Notes": "Your party gains a Plot Point when rolling evens on a Check.",
+                "HasMixins": true,
                 "ParentKey": "Level 1 Class Talent",
                 "Origin": "Class/Sorcerer"
             },
@@ -242,14 +247,26 @@
                 "ParentKey": "Level 1 Class Talent",
                 "Origin": "Class/Sorcerer"
             },
-            "~Arcane Fire~": {
-                "A": "1 Action Point",
-                "Requirement": "Only usable in Worthy Combat",
+            "~Chronohype~": {
+                "A": "Reaction or 0 Action Points",
+                "Cost": "1 Mana",
                 "Tags": [
-                    "Weapon",
-                    "Damage"
+                    "Improvement"
                 ],
-                "Effect": "Your next weapon attack until the end of your next Turn applies a ~Combo~ and deals extra Damage equal to your last rolled Unstable Spark die and all its Damage dealt becomes {Color('orange' 'Flux')} Damage.\n",
+                "Effect": "Use after someone rolls dice for an Act.\nStart a timer for a number of seconds equal to your last rolled Unstable Spark die.\nYou have that many seconds to reroll ^all the dice together^ until you are satisfied with the result.\nThen take the final result.\n",
+                "HasMixins": true,
+                "ParentKey": "Level 1 Class Talent",
+                "Origin": "Class/Sorcerer"
+            },
+            "~Timeslip~": {
+                "A": "0 Action Points",
+                "Cost": "1 Mana",
+                "Cooldown": "Once / Adventure",
+                "Duration": "Until next Combat",
+                "Tags": [
+                    "Buff"
+                ],
+                "Effect": "Increase the Initiative of 2 Units you can see by 1.\napply a ~Combo~ to each of them.\n",
                 "HasMixins": true,
                 "ParentKey": "Level 1 Class Talent",
                 "Origin": "Class/Sorcerer"
@@ -259,35 +276,21 @@
                 "Cost": "1 Mana",
                 "ScrollPower": 1,
                 "Tags": [
-                    "Healing"
+                    "Heal"
                 ],
                 "Effect": "Use after you make an attack or use an offensive Ability. It deals -50% Damage, but instead heals an ally you can see for the final Damage dealt.\n",
                 "ParentKey": "Level 1 Class Talent",
                 "Origin": "Class/Sorcerer"
             },
-            "~Lightning Striking Twice~": {
-                "A": "2 Action Points",
+            "~Gathering the Magic~": {
+                "A": "0 Action Points",
+                "Cost": "1 Mana",
                 "Cooldown": "Once / Combat",
+                "Requirement": "Only usable in Worthy Combat",
                 "Tags": [
-                    "Crowd Control",
-                    "Damage",
-                    "Combo"
+                    "Farming"
                 ],
-                "Effect": "Blast a Unit you can see for {Amount} {Color('orange' 'Flux')} Damage and {Choose} Deafened, Slowed, or Blinded.\n\nThen do it again.\n",
-                "Combo": "Then do it again.",
-                "Variants": [
-                    {
-                        "Choose": "it must choose to be",
-                        "DisplayA": "2 Action Points",
-                        "Amount": "1d10"
-                    },
-                    {
-                        "Choose": "it becomes (you choose)",
-                        "DisplayA": "3 Action Points",
-                        "Amount": "2d6"
-                    }
-                ],
-                "Notes": "When doing it again, you can choose the same Unit or a different one. The efect can happen again and again if each hit Unit has a ~Combo~.",
+                "Effect": "For the rest of the Combat, gain:\n{Spark(2)} gain +1 Skill Point permanently.\n",
                 "HasMixins": true,
                 "ParentKey": "Level 1 Class Talent",
                 "Origin": "Class/Sorcerer"

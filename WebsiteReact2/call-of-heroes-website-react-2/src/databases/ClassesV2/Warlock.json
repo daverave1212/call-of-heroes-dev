@@ -35,8 +35,16 @@
             "A": "Passive",
             "HasMixins": true,
             "AlignOnWebsite": "Left",
-            "Effect": "You start each Worthy Combat with 0 Evoke Points.\nWhen you roll at least 1 maximum die on any Act, gain 1 Evoke Point.\nSome Spells can consume all Evoke Points to gain an improved effect ^for each Evoke Point spent^.\n\nAdditionally, you have an extra special Talent tier for Evocations.\n",
+            "Effect": "You start each Worthy Combat with 0 Evoke Points.\nWhen you roll at least 1 maximum die on any Act, gain 1 Evoke Point.\nSome Spells can consume all Evoke Points to gain an improved effect ^for each Evoke Point spent^.\n\nYou may pick 2 Evocations.\n",
             "Notes": "You must spend ^all^ EP when you decide to. You can pick one for free Evocation at Level 1, and get more like you would normally get extra Class Talents (e.g. with the extra Known Talents from Intelligence, if above 0).",
+            "ParentKey": "Starting Abilities",
+            "Origin": "Class/Warlock"
+        },
+        "~Flux~": {
+            "A": "Passive",
+            "Effect": "Choose a Damage Type from the ones listed below. That becomes your {Color('magenta' 'Flux')} Type. Some of your Spells's Damage deal that Damage Type (written explicitly on those Spells).",
+            "Upgrade": "1. Fire, 2. Cold, 3. Shock, 4. Pulse, 5. Poison, 6. Acid, 7. Divine, 8. Scourge.\nYou can change your Flux inbetween Adventures.\n",
+            "HasMixins": true,
             "ParentKey": "Starting Abilities",
             "Origin": "Class/Warlock"
         }
@@ -63,6 +71,9 @@
             "_Value": 0,
             "A": "0 Action Points",
             "Requirement": "Requires spending Evoke Points",
+            "Tags": [
+                "Area"
+            ],
             "Effect": "{Evoke}: Your next single-target Ability or Attack targets an extra Unit in range per Evoke Point spent, dealing -50% Damage and Healing to the secondary targets.\n",
             "HasMixins": true,
             "ParentKey": "Other Abilities",
@@ -72,6 +83,9 @@
             "_Value": 0,
             "A": "0 Action Points",
             "Requirement": "Requires spending Evoke Points",
+            "Tags": [
+                "Crowd Control"
+            ],
             "Effect": "{Evoke}: Your next Ability or Attack Single-Stuns one of the Units hit. For each extra Evoke Point spent, Single-Stun it again.\n",
             "Notes": "Alternatively, you can Single-Stun one extra Unit that was hit, if your Act hit multiple Units. When increasing the Stun Degree inflicted with an Evoke Point, only increase it for one of the hit Units.",
             "HasMixins": true,
@@ -82,6 +96,9 @@
             "_Value": 0,
             "A": "0 Action Points",
             "Requirement": "Requires spending Evoke Points",
+            "Tags": [
+                "Amplification"
+            ],
             "Effect": "{Evoke}: Your next Ability or Attack has its ^Dice Upgraded^ to the next die type per Evoke Point spent.\n",
             "Notes": "Having Dice Upgraded means, for example, d6's become d8's, or d10's become d12's. D12's and d20's just gain +1.",
             "HasMixins": true,
@@ -92,6 +109,10 @@
             "_Value": 0,
             "A": "0 Action Points",
             "Requirement": "Requires spending Evoke Points",
+            "Tags": [
+                "Damage",
+                "Heal"
+            ],
             "Effect": "{Evoke}: Your next single-target attack or Spell deals +1d6 Damage on cast, or +1d4 Healing on cast per Evoke Point spent.\n",
             "Upgrade": "These extra dice can not produce more Evoke Points.",
             "Notes": "If it heals, it does extra Healing. If it deals Damage, it deals extra Damage. If used with Damage over time effects, the extra Damage only happens when you cast the Spell.",
@@ -101,130 +122,61 @@
         },
         "~Transpose~": {
             "A": "0 Action Points",
+            "Tags": [
+                "Mobility"
+            ],
             "Requirement": "Requires spending Evoke Points",
-            "Effect": "{Evoke}: Teleport up to 3 meters away per Evoke Point spent.\n",
+            "Effect": "{Evoke}: Teleport up to 4 meters away per Evoke Point spent.\n",
             "HasMixins": true,
             "ParentKey": "Other Abilities",
             "Origin": "Class/Warlock"
         }
     },
-    "Ability Choices": {
-        "~Hail~": {
-            "A": "2 Action Points",
-            "Range": "4 meters",
-            "ScrollPower": "Auto",
+    "Utility": {
+        "~Curse of the Mind~": {
+            "A": "1 Action Point",
+            "Range": "3 meters",
+            "Cost": "2 Mana",
             "HasMixins": true,
-            "Degree": "Minor",
+            "ScrollPower": "Auto",
+            "Duration": "Minor curse lasts until end of Adventure",
+            "Degree": "Major",
             "Tags": [
                 "Damage",
-                "Multi-Target Damage"
+                "Crowd Control"
             ],
-            "Effect": "Blast a Unit for 2d8 + ^target's Might^ Damage of your chosen Element.          \n",
-            "Combo": "Targets an extra Unit in range for 1d8 + ^that Unit's Might^.",
-            "Notes": "Each extra Unit hit must be different than the others.",
-            "ParentKey": "Ability Choices",
+            "Effect": "A Unit is afflicted by minor curse effects (e.g. is clumsy, stumbles, get pimples, etc), getting -2 on all Checks.\nThen, you can deal 5d4 Psychic Damage to it and becomes Deafened or Dazed (its choice).\nApply a ~Combo~ to it.\n",
+            "Notes": "Be creative with the effects of the minor curse effects!\n",
+            "ParentKey": "Utility",
             "Origin": "Class/Warlock"
         },
-        "~Wyrd Renewal~": {
+        "~Wyrd Suture~": {
             "A": "1 Action Point",
             "Range": "5 meters",
             "Degree": "Lesser",
             "ScrollPower": "Auto",
             "Requirement": "Only usable in Worthy Combat",
             "Tags": [
-                "Healing",
+                "Heal",
                 "Damage"
             ],
             "Effect": "Roll 1d12 - 5. After you see the result, choose a Worthy Unit.\nIf it's negative, deal Scourge Damage to it. Otherwise, heal it.\n\n{Evoke}: +100% Damage or Healing per Evoke Point spent.\n",
             "Combo": "+50% Damage or Healing",
             "HasMixins": true,
-            "ParentKey": "Ability Choices",
+            "ParentKey": "Utility",
             "Origin": "Class/Warlock"
         },
-        "~Deathfire Wave~": {
-            "A": "2 Action Points",
-            "Cost": "1 Mana",
-            "Range": "Line starting from near you",
-            "Degree": "Major",
-            "ScrollPower": "Auto",
-            "Tags": "Area Damage",
-            "Effect": "Shoot a bolt of deathly fire in a 1x10 meter line. All Units it touches take 1d4 + 1d6 + 1d8 Scourge or Fire Damage (your choice).\n\n{Evoke}: When it hits a wall or the range ends, the bolt continues at an angle you choose for another 1x10 meters. This happens per Evoke Point spent.\n",
-            "Notes": "The bolt can't hit the same Unit twice. The bolt travels as if you're drawing multiple lines with the same stroke. For example, if you spend 2 Evoke Points, there will be 3 lines.",
-            "HasMixins": true,
-            "ParentKey": "Ability Choices",
-            "Origin": "Class/Warlock"
-        },
-        "~Curse of Pain~": {
-            "A": "0 Action Points",
-            "Cost": "1 Mana",
-            "Range": "5 meters",
-            "Duration": "1 minute",
-            "ScrollPower": "Auto",
-            "Requirement": "Level 4",
-            "Tags": "Damage",
-            "Effect": "Choose a Unit. At the start of each of your Turns, it takes 1d4 Scourge Damage.\n",
-            "Combo": "1d6 instead of 1d4.",
-            "Notes": "Ignores Cover.",
-            "ParentKey": "Ability Choices",
-            "Origin": "Class/Warlock"
-        },
-        "~Psyche Blast~": {
+        "~Orbs of Umbra~": {
             "A": "1 Action Point",
-            "Range": "3 meters",
-            "Cost": "2 Mana",
-            "HasMixins": true,
-            "ScrollPower": "Auto",
-            "Degree": "Major",
-            "Tags": [
-                "Damage",
-                "Crowd Control"
-            ],
-            "Effect": "A Unit takes 5d4 Psychic Damage and becomes Deafened or Dazed (its choice).\nApply a ~Combo~ to it.\n",
-            "Combo": "Apply two Combos to it.",
-            "Notes": "Cover is applied normally. Note that Single-Stuns can stack to become Double-Stunned or Triple-Stunned.\n",
-            "ParentKey": "Ability Choices",
-            "Origin": "Class/Warlock"
-        }
-    },
-    "Utility": {
-        "~Disenchantment~": {
-            "HasMixins": true,
-            "A": "0 Action Points",
-            "Duration": "Until end of Adventure",
-            "ScrollPower": "Auto",
-            "Cooldown": "1 real hour",
-            "Requirement": "Level 3",
-            "Degree": "Lesser",
-            "Tags": "Roleplaying",
-            "Effect": "A person you can see must pass a Sense Roll against your Sense Roll or have -2 to non-combat Rolls and be afflicted by minor curse effects (e.g. is clumsy, stumbles, get pimples, etc).\n",
-            "Notes": "Be creative with the effects of the minor curse effects!\n",
-            "ParentKey": "Utility",
-            "Origin": "Class/Warlock"
-        },
-        "~Compel~": {
-            "A": "0 Action Points",
-            "Range": "5 meters",
-            "Degree": "Minor",
-            "Duration": "Lasts until they can't see/hear you",
-            "Cooldown": "1 real hour",
-            "Tags": "Roleplaying",
-            "Effect": "Choose a Unit you can see. You have +1d2 to Sense Rolls against it.\n",
-            "Notes": "The target can't tell it was affected unless it knows about this type of magic.",
-            "ParentKey": "Utility",
-            "Origin": "Class/Warlock"
-        },
-        "~Oculus~": {
-            "A": "0 Action Points",
-            "Range": "5 meters",
-            "Duration": "Until end of next Adventure",
-            "Cooldown": "Once / Adventure",
-            "Degree": "Lesser",
-            "ScrollPower": 1,
+            "Cost": "1 Mana",
             "Tags": [
                 "Roleplaying",
-                "Utility"
+                "Damage",
+                "Heal"
             ],
-            "Effect": "You conjure a magical eye that records everything it sees. It can be a Tuner Eye or Recording Eye.\nAt will, a Tuner Eye allows you to see what it sees, live, in your mind.\nA Recording Eye records everything it sees. You can retrieve it to see everything recorded in it.\n",
+            "Effect": "Summon 1d6 orbs shaped to your {Color('magenta' 'Flux')}, which either orbit you or stay in place where you put them.\nWhenever you hit a Unit within 3 meters (with anything else), 1 Umbrablaze may fly into it to deal 1d6 Damage or Healing to it.\n\nAt will, you can tap into any of your orbs to see what it is seeing, live, in your mind.\nA Recording Eye records everything it sees. You can retrieve it to see everything recorded in it.\n",
+            "Notes": "The orbs may fit inside your palm, or may be larger. They are visible, but you can freely decide how they are textured.",
+            "HasMixins": true,
             "ParentKey": "Utility",
             "Origin": "Class/Warlock"
         },
@@ -241,6 +193,51 @@
         }
     },
     "Talents": {
+        "Level 1 Class Talent": {
+            "~Hail~": {
+                "A": "2 Action Points",
+                "Range": "4 meters",
+                "ScrollPower": "Auto",
+                "HasMixins": true,
+                "Degree": "Minor",
+                "Tags": [
+                    "Damage",
+                    "Area Damage"
+                ],
+                "Effect": "Blast a Unit for 2d8 + ^target's Might^ {Color('magenta' 'Flux')} Damage.\n",
+                "Combo": "Damages an extra Unit in range with -50% of the original Damage.",
+                "Notes": "Each extra Unit hit must be different than the others.",
+                "ParentKey": "Level 1 Class Talent",
+                "Origin": "Class/Warlock"
+            },
+            "~Deathfire Wave~": {
+                "A": "2 Action Points",
+                "Cost": "1 Mana",
+                "Range": "Line starting from near you",
+                "Degree": "Major",
+                "ScrollPower": "Auto",
+                "Tags": "Area Damage",
+                "Effect": "Shoot a bolt of deathly fire in a 1x10 meter line. All Units it touches take 1d4 + 1d6 + 1d8 Scourge or Fire Damage (your choice).\n\n{Evoke}: When it hits a wall or the range ends, the bolt continues at an angle you choose for another 1x10 meters. This happens per Evoke Point spent.\n",
+                "Notes": "The bolt can't hit the same Unit twice. The bolt travels as if you're drawing multiple lines with the same stroke. For example, if you spend 2 Evoke Points, there will be 3 lines.",
+                "HasMixins": true,
+                "ParentKey": "Level 1 Class Talent",
+                "Origin": "Class/Warlock"
+            },
+            "~Curse of Pain~": {
+                "A": "0 Action Points",
+                "Cost": "1 Mana",
+                "Range": "5 meters",
+                "Duration": "1 minute",
+                "ScrollPower": "Auto",
+                "Requirement": "Level 4",
+                "Tags": "Damage",
+                "Effect": "Choose a Unit. At the start of each of your Turns, it takes 1d4 Scourge Damage.\n",
+                "Combo": "1d6 instead of 1d4.",
+                "Notes": "Ignores Cover.",
+                "ParentKey": "Level 1 Class Talent",
+                "Origin": "Class/Warlock"
+            }
+        },
         "Level 2 Class Talent": {
             "~Soul Drain~": {
                 "_Value": 0.25,
@@ -248,6 +245,11 @@
                 "Cost": "1 Mana",
                 "Range": "5 meters",
                 "ScrollPower": 2,
+                "Tags": [
+                    "Area Damage",
+                    "Farming",
+                    "Self-Heal"
+                ],
                 "Effect": "Deal 2d6 True Damage to 2 Units.\nFor each killed, heal for 4 Health or gain +1 Max Health permanently (your choice).\n\n{Evoke}: Executes non-Epic Units at or below 10% of its Max Health per Evoke Point spent.\n",
                 "Notes": "For example, if you spend 2 Evoke Points, this executes Units at or below 20% Health. If you spend 3 Evoke Points, this executes Units at or below 30% Health. And so on.\nBoth Units take Damage from the same roll.\n",
                 "HasMixins": true,
@@ -258,7 +260,10 @@
                 "A": "3 Action Points",
                 "Range": "5 meters to edge",
                 "ScrollPower": "Auto",
-                "Effect": "Choose a 3x3 meter area.\nAll Enemies in the area take 2d6 + 2d8 Damage of your chosen Element.\n\n{Evoke}: Increase the area by 3 meters in both directions per Evoke Point spent.\n",
+                "Tags": [
+                    "Area Damage"
+                ],
+                "Effect": "Choose a 3x3 meter area.\nAll Enemies in the area take 2d6 + 2d8 {Color('magenta' 'Flux')} Damage.\n\n{Evoke}: Increase the area by 3 meters in both directions per Evoke Point spent.\n",
                 "Notes": "For example, for 1 Evoke Point spent the area becomes 6x6 meters. For 2, it becomes 9x9 meters. And so on.",
                 "HasMixins": true,
                 "ParentKey": "Level 2 Class Talent",
@@ -271,8 +276,21 @@
                 "Duration": "1 minute",
                 "ScrollPower": "Auto",
                 "Degree": "Minor",
-                "Tags": "Debuff",
+                "Tags": [
+                    "Debuff"
+                ],
                 "Effect": "Choose a Unit. The first time it deals Damage on its every Turn, roll 1d4 and subtract it from its dealt Damage.\n",
+                "ParentKey": "Level 2 Class Talent",
+                "Origin": "Class/Warlock"
+            },
+            "~Curse of Lethargy~": {
+                "A": "2 Action Points",
+                "Range": "5 meters",
+                "Cooldown": "Once / Combat",
+                "Tags": [
+                    "Crowd Control"
+                ],
+                "Effect": "Choose a Unit. At the start of each of its Turns, it is Slowed.",
                 "ParentKey": "Level 2 Class Talent",
                 "Origin": "Class/Warlock"
             }
@@ -283,6 +301,8 @@
                 "A": "Passive",
                 "HasMixins": true,
                 "Replacement": "Replaces Evoke",
+                "IconName": "Evoke",
+                "HasUpgradeIcon": true,
                 "Tags": [
                     "Evoke"
                 ],
@@ -317,7 +337,7 @@
                 "A": "0 Action Points",
                 "Range": "5 meters from you to healed Unit",
                 "Tags": [
-                    "Healing"
+                    "Heal"
                 ],
                 "Cooldown": "Once / Turn",
                 "Requirement": "Only usable in Worthy Combat",
@@ -352,7 +372,7 @@
                     "Damage",
                     "Multi-Target Damage"
                 ],
-                "Effect": "Blast a Unit for ~2d10~ + ^target's Might^ Damage of your chosen Element.\n\n{Evoke}: Hits an extra Unit (for ~1d10~ + ^that Unit's Might^) for each Evoke Point spend.\n",
+                "Effect": "Blast a Unit for ~2d10~ + ^target's Might^ {Color('magenta' 'Flux')} Damage.\n\n{Evoke}: Hits an extra Unit (for ~1d10~ + ^that Unit's Might^) for each Evoke Point spend.\n",
                 "Combo": "Generates an extra Evoke Point.",
                 "Notes": "Each extra Unit hit must be different than the others.",
                 "ParentKey": "Level 4 Class Talent",
@@ -365,7 +385,7 @@
                 "Duration": "1 minute",
                 "ScrollPower": "Auto",
                 "Height": 30,
-                "Effect": "Invoke 3 _Kindred Beings_, each within 10 meters from you. These are creatures themed and shaped to your chosen Power Source, which will do your bidding before returning to their original world.\n\n{Evoke}: +1 summon per Evoke Point spent.\n",
+                "Effect": "Invoke 3 _Kindred Beings_, each within 10 meters from you. These are creatures themed and shaped to your {Color('magenta' 'Flux')}, which will do your bidding before returning to their original world.\n\n{Evoke}: +1 summon per Evoke Point spent.\n",
                 "Monster": {
                     "Name": "Kindred Being",
                     "Health": 1,
@@ -376,7 +396,8 @@
                         "~Attack~": {
                             "A": "1 Action Point (from it)",
                             "Range": "3 meters",
-                            "Effect": "Deal 1d6 Damage of your chosen Element, or use an Item or Default Ability.",
+                            "Effect": "Deal 1d6 {Color('magenta' 'Flux')} Damage, or use an Item or Default Ability.",
+                            "HasMixins": true,
                             "ParentKey": "Abilities",
                             "Origin": "Class/Warlock"
                         }
@@ -500,7 +521,7 @@
             },
             "<The Dark Ritual>": {
                 "A": "1 Action Point",
-                "Effect": "Spend any amount of Mana. Your next Spell has +50% Damage, Healing, area diameter and range for each Mana spent.\nAfter that, restore all your Mana.\n",
+                "Effect": "Spend any amount of Mana. Your next Spell has +50% Damage, Heal, area diameter and range for each Mana spent.\nAfter that, restore all your Mana.\n",
                 "HasMixins": true,
                 "Downside": "This is your Heroic Class Ability and, after getting this Talent, you can no longer change your Talents inbetween Adventures.",
                 "ParentKey": "Level 10 Class Talent",
