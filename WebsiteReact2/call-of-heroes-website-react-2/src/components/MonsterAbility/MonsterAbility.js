@@ -177,7 +177,7 @@ export default function MonsterAbility({monster, monsterXP, ability, isPassive, 
                     <div className='monster-ability__effect-desc' key="Combo"><span style={{color: 'var(--blue-color)'}}>Combo: </span>{ Combo }</div>
                 ) }
                 { EffectGreen != null && (
-                    <div className="monster-ability__effect-desc" key="EffectGreen" style={{color: 'var(--green-text)'}}>{ EffectGreen }</div>
+                    <div className="monster-ability__effect-desc" key="EffectGreen" style={{color: 'var(--green-color)'}}>{ EffectGreen }</div>
                 ) }
                 { Downside != null && (
                     <div className="monster-ability__effect-desc" key="Downside" style={{color: 'rgb(240, 0, 0)'}}>{ Downside }</div>

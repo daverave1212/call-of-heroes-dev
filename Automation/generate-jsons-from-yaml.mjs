@@ -219,6 +219,15 @@ const filesToConvert = [    // Order matters
 function isSpellName(dictKey) {
     return typeof dictKey === 'string' && (dictKey.startsWith('~') || dictKey.startsWith('<'));
 }
+function looksLikeSpell(key, value) {
+    if (isSpellName(key)) {
+        return true
+    }
+    if (value == null) {
+        return false
+    }
+    return value.Effect != null
+}
 function stringHasAnyOfChars(str, chars) {
     if (Array.isArray(chars) == false) {
         chars = chars.split('')
@@ -320,6 +329,7 @@ function maybeAddHasMixins(subobj) {
     }
 }
 
+// Records if toDict isn't null (give it null so it just adds mixins)
 function recordAbilitiesFrom(fromDict, toDict, parentKey=null, origin='Unknown') {
     for (const key of Object.keys(fromDict)) {
         const subobj = fromDict[key];
@@ -328,14 +338,16 @@ function recordAbilitiesFrom(fromDict, toDict, parentKey=null, origin='Unknown')
             continue;
         }
 
-        if (isSpellName(key)) {
+        if (looksLikeSpell(key, subobj)) {
             if (typeof subobj === 'string' && subobj.trim().toLowerCase().startsWith('inherit')) {
                 continue;
             }
             maybeAddHasMixins(subobj)
             subobj.ParentKey = parentKey
             subobj.Origin = origin
-            toDict[key] = subobj;
+            if (toDict != null) {
+                toDict[key] = subobj;
+            }
         }
 
         if (typeof subobj !== 'object' || Array.isArray(subobj)) {
@@ -427,6 +439,9 @@ async function processFiles() {
                 }
             }
         }
+        if (fileName.includes('Weapon') || fileName.includes('Armor')) {
+            recordAbilitiesFrom(dictContent, {}, null, fileName)
+        }
 
 
         if ('Class' in dictContent) {
@@ -444,6 +459,7 @@ async function processFiles() {
             normalizeInheritAbilities(dictContent);
             recordAbilitiesFrom(dictContent, classRaceAbilities, null, `Race/${dictContent.Race}`);
         }
+
 
         const fileNameNoExt = path.parse(fileName).name;
         const fileDir = path.dirname(fileName);

@@ -44,15 +44,15 @@ Utility:
     A: 0 Actions
     Cooldown: Once / real hour
     Effect: |
-      You automatically find a chandelier, rope, banner, or hanging sign even if the room shouldn't logically have one.
-      Swing on it to reposition up to 4 meters away.
+      You automatically find a chandelier, rope, vine, or something similar to swing on, even if the room shouldn't logically have one.
+      Reposition up to 4 meters away.
 
   ~Wink~:
     A: 0 Actions
     Tags: Roleplaying
     Cooldown: Once / real hour
     Effect: |
-      Play a _blackcheck_ after you failed a {Charisma} Check that you had a chance at succeeding.
+      Use after you failed a {Charisma} Check (that you could have passed) to play _Blackcheck_ with the Quest Master.
       The Quest Master tells you the required number to pass.
       Starting from your rolled Check result, you may roll 1d6 again and again, one after another, to try to get exactly the required number to succeed. If you go above that number, you fail.
 
@@ -67,8 +67,8 @@ Utility:
     A: 0 Actions
     Cooldown: Once / real hour
     Effect: |
-      Use when in a town or hub to add 1d4 to an {Intelligence} Check, to bring a reason as to why you know extra information about a particular domain because you encountered that subject, person or thing before on your adventures.
-      Come up with a story on why you are already familiar with that subject.
+      Use when in a town or hub to add 1d4 to an {Intelligence} Check, to bring up a reason as to why you know extra details about it. It can be about a particular subject you've encountered before, a person you know there, etc.
+    Upgrade: Come up with a story on why you are already familiar with that subject matter!
 
 Starting Abilities Description: Try to land Critical Strikes one after another! And make sure you use weapons that allow for Critical Strikes.
 Starting Abilities:
@@ -77,23 +77,21 @@ Starting Abilities:
     A: Passive
     _Value: 2.25 # trigger it once per combat, though not at full potential
     Effect: |
-      If your last 2 offensive Acts both either triggered a Critical Strike or a Combo, your next {Type} deals +{Amount}% Damage.
-      ~Click on the Icon to select which variant you want to have have!~
+      If your last 2 offensive Acts both either triggered a {Color('var(--green-color)' 'Critical Strike')} or a ~Combo~, your next {Type} deals +{Amount}% Damage.
+      
+      {Variants}
     Variants:
       - Type: one-handed weapon attack
         Amount: 100
       - Type: two-handed weapon attack
         Amount: 50
-    Notes: 
-      This is not considered a Critical Strike.
-      The extra Damage includes bonuses from War Craft and similar Abilities.
 
   ~Sharp End~:
     _Value: -0.5
     A: 0 Actions
     Cost: 1 Mana
-    Effect: Your next weapon attack deals +1d4 Damage and triggers its Critical Strike and Combo effect anyway!
-    Upgrde: If it can not Critical Strike, it also deals +1d4 Damage and counts as a Critical Strike anyway.
+    Effect: Your next offensive attack or Ability deals +1d4 Damage and triggers its {Color('var(--green-color)' 'Critical Strike')} and ~Combo~ effect anyway!
+    Upgrade: If it can not {Color('var(--green-color)' 'Critically Strike')}, it also deals +1d4 Damage and counts as a {Color('var(--green-color)' 'Critical Strike')} anyway.
 
 Talents:
 
@@ -103,12 +101,12 @@ Talents:
         A: 0 Actions
         Cost: 1 Mana
         DisplayName: "{Name}"
+        Tags: [Area Damage]
         Effect: |
             Your next {Effect}
             ~Click on the Icon to select which variant you want to have have!~
         Notes: |
-            Roll the attack only once.
-            Weapon effects (like Critical Strikes), if necessary, are applied to the main target only.
+            Roll the attack only once. Weapon effects (like Critical Strikes), if necessary, are applied to the main target only.
         Variants:
             - Name: Hack and Slash
               Effect: melee 2-handed weapon attack also hits all other Units within weapon range, but deals -50% Damage to them (deals normal Damage to the main target).
@@ -123,27 +121,27 @@ Talents:
               Effect: ranged 1-handed weapon attack also hits all other Units 1 meter from the main target.
               IconName: Point and Shoot
 
-    ~Fame and Fortune~:
-      A: 0 Actions
-      Height: 22
-      Cost: 1 Mana
-      Effect: |
-        The next time you deal Damage, gain {Gold}Gold equal to 300% of the Damage dealt.
-
-        You also get Goldborn.
-      Subspells:
-        ~Goldborn~:
-          A: 10 minutes
-          Cost: 300 Gold
-          Cooldown: Once / Adventure
-          IsSubspell: true
-          Effect: You can spend 300 {Gold}Gold to gain +2 Maximum Health, up to +10 total.
-
     <Deflect>:
       A: Reaction
       Cost: 1 Mana
-      Effect: Reduce the Damage of a weapon attack you receive by 100%.
+      Effect: Reduce the Damage of a weapon attack you or a Unit near you receives by 100%.
+      Tags: [Defense]
       Notes: Works for ranged weapons. Melee body parts are considered weapons.
+
+    ~Fame Time~:
+      A: 1 Action
+      Cost: 1 Mana
+      Requirement: Only usable in Worthy Combat
+      Tags: [Gold]
+      Effect: |
+        For the rest of the Combat, gain 25 {Gold} whenever you use an Action Point.
+
+    ~Circle Round~:
+      A: 0 Actions
+      Effect: Your next attack deals +1d6 Damage.
+      Downside: Only usable immediately after a Bravado attack.
+
+
 
   Level 2 Class Talent:
 
@@ -152,10 +150,10 @@ Talents:
       A: Reaction
       Range: 5 meters
       Effect: |
-        Use when a Unit within 6 meters (or yourself) becomes affected by Crowd Control.
+        Use when a Unit within 5 meters (or yourself) becomes affected by Crowd Control.
         Slam it 1d8 meters in any direction.
       Notes: |
-        Requires a Whiplash item, which can be bought for 50 gold (or freely crafted for the same price in materials).
+        Requires a Whiplash item, which can be bought for 50 {Gold}Gold (or freely crafted for the same price in materials).
 
     ~Overunder Blow~:
       Value: 0.5
@@ -181,6 +179,11 @@ Talents:
         {Diamond} 3. Deafen
         {Diamond} 4. Daze
       Upgrade: If they were both with a 2-handed weapon, the Crowd Control applied is doubled (Double-Slowed, Double-Blind, etc)!
+
+    <10 Percent Luck>:
+      _Value: 2
+      A: Passive
+      Effect: Once per attack or Ability, when you roll a 1, you can reroll that die.
 
   Level 3 Class Talent:
 
@@ -209,12 +212,6 @@ Talents:
           - 5. +1 Movement Speed
           - 6. +20% Gold from what you're carrying
       Notes: First, you continue your Turn; then the Enemy has its turn. After the duel is over, resume Turn order, as if you just finished your Turn. All of these Turns happen on the same Round, as if in a vaccuum (e.g. Round number does not increase for some effects' purposes).
-
-    <10 Percent Luck>:
-      _Value: 2
-      A: Passive
-      Tags: [Keystone Talent (Level 3)]
-      Effect: Once per attack or Ability, when you roll a 1, you can reroll that die.
 
     <Dashing Beauty>:
       A: Passive
@@ -255,27 +252,36 @@ Talents:
       Effect: Your first melee attack every Turn deals Damage equal to your Movement Speed to all other Units within 1 meter of the main target.
       Notes: Excluding the main target and yourself.
 
+    ~Sharp and Pointy End~:
+      _Value: 1.5   # Because it replaces the original one and it's much better
+      A: 0 Actions
+      Cost: 1 Mana
+      Replacement: Sharp End
+      IconName: Sharp End
+      HasUpgradeIcon: true
+      Effect: |
+        ~Use after you landed an offensive attack or Ability.~
+        ~Add~ +1d4 Damage and trigger its {Color('var(--green-color)' 'Critical Strike')} and ~Combo~ effect anyway!
+      Upgrade: If it can not {Color('var(--green-color)' 'Critically Strike')}, it also deals +1d4 Damage and counts as a {Color('var(--green-color)' 'Critical Strike')} anyway.
+
+    ~Switcheroo~:
+      A: Passive
+      Effect: |
+        After you deal at least 10 Damage with a {Type1} attack, your next {Type2} attack this Turn deals +1d4 Damage.
+
+        ~Both Variants can trigger one after another.~
+      Variants:
+        - Type1: melee
+          Type2: ranged
+        - Type1: ranged
+          Type2: melee
+
+
   Level 6 - Utility Talent:
 
     ~Renown~:
       A: Passive
       Effect: Due to your deeds and radiating confidence, have an extra 10% discount on buying anything.
-
-  Level 7 Class Talent:
-
-    <Critical Ambush>:
-      A: Passive
-      Effect: Your Ambushes deal +50% Damage instead of the regular bonus Damage.
-
-    <Minor Sudden Ambush>:
-      A: Passive
-      HasMixins: true
-      Effect: |
-        Every Worthy Combat, your first weapon attack deals 1d6 + 1d8 extra Damage.
-
-    <Minor Savage Ambush>: Inherit
-
-    <Minor Icebreaker Ambush>: Inherit
 
   Level 8 Class Talent:
 
@@ -286,8 +292,6 @@ Talents:
       EffectGreen: When you get this, gain +1 in a Stat of choice, up to +5.
 
   Level 9 Class Talent:
-
-    <Finale>: Inherit
 
     <Momentum Dance>:     # 3
       A: 0 Actions

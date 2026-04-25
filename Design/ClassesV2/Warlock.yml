@@ -226,13 +226,14 @@ Talents:
 
     ~Hail~:   # Adds AoE (+0.65/EP)
         A: 1 Action
-        Range: 4 meters
+        Range: 5 meters
         ScrollPower: Auto
         HasMixins: true
         Degree: Minor
         Tags: [Damage, Area Damage]
         Effect: |
-            Blast a Unit for 2d8 + ^target's {Might}^ {Color('magenta' 'Flux')} Damage.
+            Choose a target and a Stat.
+            Blast it for 2d8 + ^its Stat^ {Color('magenta' 'Flux')} Damage.
         Combo: Damages an extra Unit in range with -50% of the original Damage.
         Notes: Each extra Unit hit must be different than the others.
 
@@ -262,6 +263,18 @@ Talents:
         Combo: 1d6 instead of 1d4.
         Notes: Ignores Cover.
 
+    ~Witherwave~:
+      A: 0 Actions
+      Cost: 1 Mana
+      Effect: |
+        Your next {Type} weapon attack deals +50% Damage and applies a ~Combo~.
+
+        {Variants}
+      Variants:
+        - Cost: 1 Mana
+          Type: one-handed
+        - Cost: 2 Mana
+          Type: two-handed
 
 
   Level 2 Class Talent:
@@ -373,7 +386,7 @@ Talents:
 
     ~Hail Torrent~:   # Adds AoE (+0.65/EP)
         A: 1 Action
-        Range: 4 meters
+        Range: 5 meters
         HasMixins: true
         ScrollPower: Auto
         Degree: Minor

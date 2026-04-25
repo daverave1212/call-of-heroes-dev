@@ -236,7 +236,7 @@ export default function MyCharacter() {
     const ArmorExtras = () => <>{ allMyArmors.map(item => <CombatItem item={item} type="armor"/>) }</>
     const CombatExtras = () => <>{ combatExtras.map(text => <div className="extra"><Icon name="Damage"/>{ text }</div>) }</>
     const BonusesWithSources = () => <>{
-        bonusesSources.map(source => <div className="extra" style={{color: 'var(--green-text)'}}>
+        bonusesSources.map(source => <div className="extra" style={{color: 'var(--green-color)'}}>
             { source.bonus >= 0? <span>+</span>: ''}
             { source.bonus } { source.statName }
             &nbsp;({ source.source })

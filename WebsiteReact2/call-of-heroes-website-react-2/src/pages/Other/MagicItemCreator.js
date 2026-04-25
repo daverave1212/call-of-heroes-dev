@@ -2157,18 +2157,18 @@ export function createMagicItem(xp, itemType, rng=standardRNG) {
     let validEffects
     if (itemType == 'Armor' || itemType == 'Shield') {
         validEffects = [
-            color('var(--green-text)', reparsedTextByGroups['Stats']),
-            color('var(--green-text)', reparsedTextByGroups['Property']),
+            color('var(--green-color)', reparsedTextByGroups['Stats']),
+            color('var(--green-color)', reparsedTextByGroups['Property']),
             reparsedTextByGroups['Passive'],
             compileAndReparseActivesToText(addedEffectsByGroup['Active']),
             color('var(--blue-color)', reparsedTextByGroups['Minor']),
         ]
     } else {
         validEffects = [
-            color('var(--green-text)', reparsedTextByGroups['Property']),
+            color('var(--green-color)', reparsedTextByGroups['Property']),
             compileAndReparsePassivesToText(addedEffectsByGroup['Passive']),
             compileAndReparseActivesToText(addedEffectsByGroup['Active']),
-            color('var(--green-text)', reparsedTextByGroups['Stats']),
+            color('var(--green-color)', reparsedTextByGroups['Stats']),
             color('var(--blue-color)', reparsedTextByGroups['Minor']),
         ]
     }

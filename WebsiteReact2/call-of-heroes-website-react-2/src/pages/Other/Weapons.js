@@ -52,7 +52,7 @@ export default function Weapons({ hasNoMargins, onClick, buttonText }) {
                 <div>
                     <PageH1>{selectedCategory}</PageH1>
                     <p>{ Descriptions[selectedCategory] }</p>
-                    <ManySpells areItems={true} onSpellClick={onClick} buttonText={buttonText} spells={ U.spellsFromObject(weapons[selectedCategory]) }/>
+                    <ManySpells areItems={true} shouldSort={false} shouldAlignByHeight={false} onSpellClick={onClick} buttonText={buttonText} spells={ U.spellsFromObject(weapons[selectedCategory]) }/>
                 </div>
             )}
 

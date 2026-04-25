@@ -11,13 +11,13 @@ export const SpellSortTypes = {
     LEVEL_REQUIREMENT: 'level requirement'
 }
 
-export default function ManySpells({ className, spells, spellStyle, shouldIgnoreAlignment, description, selectedSpellNames, onSpellClick, spellsMetadata={}, areItems=false, buttonText, childrenLeft, childrenRight, shouldSort=true }) {
+export default function ManySpells({ className, spells, spellStyle, description, selectedSpellNames, onSpellClick, spellsMetadata={}, areItems=false, buttonText, childrenLeft, childrenRight, shouldSort=true, shouldAlignByHeight=true }) {
 
     spells = Array.isArray(spells) ? spells : spellsFromObject(spells)
     
     const wideSpells = spells.filter(spell => spell.IsWide)
     const nonWideSpells = spells.filter(spell => !spell.IsWide)
-    const [column1Spells, column2Spells] = splitSpellsArrayInto2Columns(nonWideSpells, shouldSort)
+    const [column1Spells, column2Spells] = shouldAlignByHeight? splitSpellsArrayInto2Columns(nonWideSpells, shouldSort): splitArrayEvenly(nonWideSpells)
 
     const isSelected = spell => selectedSpellNames != null && spell != null && selectedSpellNames.includes(spell.Name)
     

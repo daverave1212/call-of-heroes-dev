@@ -32,7 +32,7 @@
         "~Coming Down Swinging~": {
             "A": "0 Action Points",
             "Cooldown": "Once / real hour",
-            "Effect": "You automatically find a chandelier, rope, banner, or hanging sign even if the room shouldn't logically have one.\nSwing on it to reposition up to 4 meters away.\n",
+            "Effect": "You automatically find a chandelier, rope, vine, or something similar to swing on, even if the room shouldn't logically have one.\nReposition up to 4 meters away.\n",
             "ParentKey": "Utility",
             "Origin": "Class/Swashbuckler"
         },
@@ -40,7 +40,7 @@
             "A": "0 Action Points",
             "Tags": "Roleplaying",
             "Cooldown": "Once / real hour",
-            "Effect": "Play a _blackcheck_ after you failed a Charisma Check that you had a chance at succeeding.\nThe Quest Master tells you the required number to pass.\nStarting from your rolled Check result, you may roll 1d6 again and again, one after another, to try to get exactly the required number to succeed. If you go above that number, you fail.\n",
+            "Effect": "Use after you failed a Charisma Check (that you could have passed) to play _Blackcheck_ with the Quest Master.\nThe Quest Master tells you the required number to pass.\nStarting from your rolled Check result, you may roll 1d6 again and again, one after another, to try to get exactly the required number to succeed. If you go above that number, you fail.\n",
             "HasMixins": true,
             "ParentKey": "Utility",
             "Origin": "Class/Swashbuckler"
@@ -55,7 +55,8 @@
         "~I Know This Guy~": {
             "A": "0 Action Points",
             "Cooldown": "Once / real hour",
-            "Effect": "Use when in a town or hub to add 1d4 to an Intelligence Check, to bring a reason as to why you know extra information about a particular domain because you encountered that subject, person or thing before on your adventures.\nCome up with a story on why you are already familiar with that subject.\n",
+            "Effect": "Use when in a town or hub to add 1d4 to an Intelligence Check, to bring up a reason as to why you know extra details about it. It can be about a particular subject you've encountered before, a person you know there, etc.\n",
+            "Upgrade": "Come up with a story on why you are already familiar with that subject matter!",
             "ParentKey": "Utility",
             "Origin": "Class/Swashbuckler"
         }
@@ -65,7 +66,7 @@
         "~Bravado~": {
             "A": "Passive",
             "_Value": 2.25,
-            "Effect": "If your last 2 offensive Acts both either triggered a Critical Strike or a Combo, your next {Type} deals +{Amount}% Damage.\n~Click on the Icon to select which variant you want to have have!~\n",
+            "Effect": "If your last 2 offensive Acts both either triggered a {Color('var(--green-color)' 'Critical Strike')} or a ~Combo~, your next {Type} deals +{Amount}% Damage.\n\n{Variants}\n",
             "Variants": [
                 {
                     "Type": "one-handed weapon attack",
@@ -76,7 +77,6 @@
                     "Amount": 50
                 }
             ],
-            "Notes": "This is not considered a Critical Strike. The extra Damage includes bonuses from War Craft and similar Abilities.",
             "HasMixins": true,
             "ParentKey": "Starting Abilities",
             "Origin": "Class/Swashbuckler"
@@ -85,8 +85,9 @@
             "_Value": -0.5,
             "A": "0 Action Points",
             "Cost": "1 Mana",
-            "Effect": "Your next weapon attack deals +1d4 Damage and triggers its Critical Strike and Combo effect anyway!",
-            "Upgrde": "If it can not Critical Strike, it also deals +1d4 Damage and counts as a Critical Strike anyway.",
+            "Effect": "Your next offensive attack or Ability deals +1d4 Damage and triggers its {Color('var(--green-color)' 'Critical Strike')} and ~Combo~ effect anyway!",
+            "Upgrade": "If it can not {Color('var(--green-color)' 'Critically Strike')}, it also deals +1d4 Damage and counts as a {Color('var(--green-color)' 'Critical Strike')} anyway.",
+            "HasMixins": true,
             "ParentKey": "Starting Abilities",
             "Origin": "Class/Swashbuckler"
         }
@@ -97,8 +98,11 @@
                 "A": "0 Action Points",
                 "Cost": "1 Mana",
                 "DisplayName": "{Name}",
+                "Tags": [
+                    "Area Damage"
+                ],
                 "Effect": "Your next {Effect}\n~Click on the Icon to select which variant you want to have have!~\n",
-                "Notes": "Roll the attack only once.\nWeapon effects (like Critical Strikes), if necessary, are applied to the main target only.\n",
+                "Notes": "Roll the attack only once. Weapon effects (like Critical Strikes), if necessary, are applied to the main target only.\n",
                 "Variants": [
                     {
                         "Name": "Hack and Slash",
@@ -125,32 +129,33 @@
                 "ParentKey": "Level 1 Class Talent",
                 "Origin": "Class/Swashbuckler"
             },
-            "~Fame and Fortune~": {
-                "A": "0 Action Points",
-                "Height": 22,
+            "<Deflect>": {
+                "A": "Reaction",
                 "Cost": "1 Mana",
-                "Effect": "The next time you deal Damage, gain {Gold}Gold equal to 300% of the Damage dealt.\n\nYou also get Goldborn.\n",
-                "Subspells": {
-                    "~Goldborn~": {
-                        "A": "10 minutes",
-                        "Cost": "300 Gold",
-                        "Cooldown": "Once / Adventure",
-                        "IsSubspell": true,
-                        "Effect": "You can spend 300 {Gold}Gold to gain +2 Maximum Health, up to +10 total.",
-                        "HasMixins": true,
-                        "ParentKey": "Subspells",
-                        "Origin": "Class/Swashbuckler"
-                    }
-                },
+                "Effect": "Reduce the Damage of a weapon attack you or a Unit near you receives by 100%.",
+                "Tags": [
+                    "Defense"
+                ],
+                "Notes": "Works for ranged weapons. Melee body parts are considered weapons.",
+                "ParentKey": "Level 1 Class Talent",
+                "Origin": "Class/Swashbuckler"
+            },
+            "~Fame Time~": {
+                "A": "2 Action Points",
+                "Cost": "1 Mana",
+                "Requirement": "Only usable in Worthy Combat",
+                "Tags": [
+                    "Gold"
+                ],
+                "Effect": "For the rest of the Combat, gain 25 {Gold} whenever you use an Action Point.\n",
                 "HasMixins": true,
                 "ParentKey": "Level 1 Class Talent",
                 "Origin": "Class/Swashbuckler"
             },
-            "<Deflect>": {
-                "A": "Reaction",
-                "Cost": "1 Mana",
-                "Effect": "Reduce the Damage of a weapon attack you receive by 100%.",
-                "Notes": "Works for ranged weapons. Melee body parts are considered weapons.",
+            "~Circle Round~": {
+                "A": "0 Action Points",
+                "Effect": "Your next attack deals +1d6 Damage.",
+                "Downside": "Only usable immediately after a Bravado attack.",
                 "ParentKey": "Level 1 Class Talent",
                 "Origin": "Class/Swashbuckler"
             }
@@ -160,8 +165,9 @@
                 "_Value": 2.25,
                 "A": "Reaction",
                 "Range": "5 meters",
-                "Effect": "Use when a Unit within 6 meters (or yourself) becomes affected by Crowd Control.\nSlam it 1d8 meters in any direction.\n",
-                "Notes": "Requires a Whiplash item, which can be bought for 50 gold (or freely crafted for the same price in materials).\n",
+                "Effect": "Use when a Unit within 5 meters (or yourself) becomes affected by Crowd Control.\nSlam it 1d8 meters in any direction.\n",
+                "Notes": "Requires a Whiplash item, which can be bought for 50 {Gold}Gold (or freely crafted for the same price in materials).\n",
+                "HasMixins": true,
                 "ParentKey": "Level 2 Class Talent",
                 "Origin": "Class/Swashbuckler"
             },
@@ -186,6 +192,13 @@
                 "HasMixins": true,
                 "Effect": "After landing 2 non-Critical Strikes in a row on a Unit, inflict a random Crowd Control from the following options. Then the Unit becomes immune to ^At Me!^ for the rest of the Combat.\n{Diamond} 1. Slow\n{Diamond} 2. Blind\n{Diamond} 3. Deafen\n{Diamond} 4. Daze\n",
                 "Upgrade": "If they were both with a 2-handed weapon, the Crowd Control applied is doubled (Double-Slowed, Double-Blind, etc)!",
+                "ParentKey": "Level 2 Class Talent",
+                "Origin": "Class/Swashbuckler"
+            },
+            "<10 Percent Luck>": {
+                "_Value": 2,
+                "A": "Passive",
+                "Effect": "Once per attack or Ability, when you roll a 1, you can reroll that die.",
                 "ParentKey": "Level 2 Class Talent",
                 "Origin": "Class/Swashbuckler"
             }
@@ -221,16 +234,6 @@
                     ]
                 },
                 "Notes": "First, you continue your Turn; then the Enemy has its turn. After the duel is over, resume Turn order, as if you just finished your Turn. All of these Turns happen on the same Round, as if in a vaccuum (e.g. Round number does not increase for some effects' purposes).",
-                "ParentKey": "Level 3 Class Talent",
-                "Origin": "Class/Swashbuckler"
-            },
-            "<10 Percent Luck>": {
-                "_Value": 2,
-                "A": "Passive",
-                "Tags": [
-                    "Keystone Talent (Level 3)"
-                ],
-                "Effect": "Once per attack or Ability, when you roll a 1, you can reroll that die.",
                 "ParentKey": "Level 3 Class Talent",
                 "Origin": "Class/Swashbuckler"
             },
@@ -287,6 +290,36 @@
                 "Notes": "Excluding the main target and yourself.",
                 "ParentKey": "Level 5 Class Talent",
                 "Origin": "Class/Swashbuckler"
+            },
+            "~Sharp and Pointy End~": {
+                "_Value": 1.5,
+                "A": "0 Action Points",
+                "Cost": "1 Mana",
+                "Replacement": "Sharp End",
+                "IconName": "Sharp End",
+                "HasUpgradeIcon": true,
+                "Effect": "~Use after you landed an offensive attack or Ability.~\n~Add~ +1d4 Damage and trigger its {Color('var(--green-color)' 'Critical Strike')} and ~Combo~ effect anyway!\n",
+                "Upgrade": "If it can not {Color('var(--green-color)' 'Critically Strike')}, it also deals +1d4 Damage and counts as a {Color('var(--green-color)' 'Critical Strike')} anyway.",
+                "HasMixins": true,
+                "ParentKey": "Level 5 Class Talent",
+                "Origin": "Class/Swashbuckler"
+            },
+            "~Switcheroo~": {
+                "A": "Passive",
+                "Effect": "After you deal at least 10 Damage with a {Type1} attack, your next {Type2} attack this Turn deals +1d4 Damage.\n\n~Both Variants can trigger one after another.~\n",
+                "Variants": [
+                    {
+                        "Type1": "melee",
+                        "Type2": "ranged"
+                    },
+                    {
+                        "Type1": "ranged",
+                        "Type2": "melee"
+                    }
+                ],
+                "HasMixins": true,
+                "ParentKey": "Level 5 Class Talent",
+                "Origin": "Class/Swashbuckler"
             }
         },
         "Level 6 - Utility Talent": {
@@ -294,40 +327,6 @@
                 "A": "Passive",
                 "Effect": "Due to your deeds and radiating confidence, have an extra 10% discount on buying anything.",
                 "ParentKey": "Level 6 - Utility Talent",
-                "Origin": "Class/Swashbuckler"
-            }
-        },
-        "Level 7 Class Talent": {
-            "<Critical Ambush>": {
-                "A": "Passive",
-                "Effect": "Your Ambushes deal +50% Damage instead of the regular bonus Damage.",
-                "ParentKey": "Level 7 Class Talent",
-                "Origin": "Class/Swashbuckler"
-            },
-            "<Minor Sudden Ambush>": {
-                "A": "Passive",
-                "HasMixins": true,
-                "Effect": "Every Worthy Combat, your first weapon attack deals 1d6 + 1d8 extra Damage.\n",
-                "ParentKey": "Level 7 Class Talent",
-                "Origin": "Class/Swashbuckler"
-            },
-            "<Minor Savage Ambush>": {
-                "_Value": 3,
-                "A": "Passive",
-                "Effect": "When you Ambush, if the target also has 50% or less Health (before your attack's Damage), the attack deals +1d6 Damage.\n",
-                "ParentKey": "Level 7 Class Talent",
-                "Origin": "Class/Swashbuckler"
-            },
-            "<Minor Icebreaker Ambush>": {
-                "_Value": 3,
-                "A": "Passive",
-                "Tags": [
-                    "Gold"
-                ],
-                "Upgrade": "{KeystoneTalent}",
-                "Effect": "When you Ambush a Unit that has full Health, the attack deals +1d6 Damage.\n",
-                "HasMixins": true,
-                "ParentKey": "Level 7 Class Talent",
                 "Origin": "Class/Swashbuckler"
             }
         },
@@ -342,15 +341,6 @@
             }
         },
         "Level 9 Class Talent": {
-            "<Finale>": {
-                "_Value": 3,
-                "A": "0 Action Points",
-                "Cooldown": "Once / Adventure",
-                "Range": "3 meters",
-                "Effect": "For each attack, Ability and application of Ambush you made this turn, deal 1d10 Damage that ignores all Shielding and Damage Reductions.\n",
-                "ParentKey": "Level 9 Class Talent",
-                "Origin": "Class/Swashbuckler"
-            },
             "<Momentum Dance>": {
                 "A": "0 Action Points",
                 "Cooldown": "Once / Adventure",
@@ -365,11 +355,15 @@
                 "A": "Passive",
                 "Effect": "While outnumbered, you start your Turns with an extra 1 Action Point for each extra Worthy Enemy outnumbering you.\n\nAlso, passively, you gain +1 Charisma and +1 Damage on every Damage instance you deal.\n",
                 "HasMixins": true,
-                "Downside": "This is your Heroic Class Ability and, after getting this Talent, you can no longer change your Talents inbetween Adventures."
+                "Downside": "This is your Heroic Class Ability and, after getting this Talent, you can no longer change your Talents inbetween Adventures.",
+                "ParentKey": "Level 10 Class Talent",
+                "Origin": "Class/Swashbuckler"
             },
             "Acrobatix Bellatrix": {
                 "A": "Passive",
-                "Effect": "Gain +15 Movement Speed and your first attack every turn gains +1 Damage for every meter moved.\n\nYou automatically pass all Hard Dexterity Checks (that require at least 15). Go be like an arrow in the wind!\n"
+                "Effect": "Gain +15 Movement Speed and your first attack every turn gains +1 Damage for every meter moved.\n\nYou automatically pass all Hard Dexterity Checks (that require at least 15). Go be like an arrow in the wind!\n",
+                "ParentKey": "Level 10 Class Talent",
+                "Origin": "Class/Swashbuckler"
             }
         }
     }

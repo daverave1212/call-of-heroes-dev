@@ -497,10 +497,6 @@ export function splitSpellsArrayInto2Columns(spellsArray, shouldSort=true) {
     const spells = spellsArray.map(spell => ({...spell, Height: estimteSpellHeight(spell)}))
     const spellsSorted = shouldSort? (sortObjectArrayByKey(spells, 'Height').reverse()): spells
 
-    if (spellsArray.find(s => s.Name.includes('Shapeshift')) != null) {
-        console.log({spellsArray, spells, spellsSorted})
-    }
-
     let column1Spells = []
     let column2Spells = []
     
@@ -1563,7 +1559,8 @@ export function allEqual(arr, val) {
     const allEqualElems = arr.filter(elem => elem == val)
     return arr.length == allEqualElems.length
 }
-export function splitArrayEvenly(arr, nArrays) {
+export function splitArrayEvenly(arr, nArrays=2) {
+    console.log({arr, nArrays})
     const arrays = new Array(nArrays)
     for (let i = 0; i < nArrays; i++) {
         arrays[i] = []
@@ -1762,15 +1759,18 @@ export const SYMBOLS = {
     'Gold': { tag: 'Icon', props: { name: "Gold" } },
     'Blood': { tag: 'Icon', props: { name: "Blood" } },
     
-
     'Chain': { tag: 'span', text: 'Chain', props: { style: { color: '#7850e1' } }, func: () => <span style={{color: '#7850e1', fontWeight: 'bold'}}><Icon name="Chain"/>Chain</span> },
     'Evoke': { tag: 'span', text: 'Evoke', props: { style: { color: '#6d00ff' } }, func: () => <span style={{color: '#6d00ff', fontWeight: 'bold'}}><Icon name="Evoke"/>Evoke</span> },
-    
     
     'CoreTalent':     { tag: 'span', props: { style: { color: 'var(--orange-color)'} }, text: "This is a Core Talent. You can only have one Core Talent from this Level.", func: () => <span style={{color: 'var(--dark-red-color)'}}>This is a <b>Core Talent</b>. You can only have one <b>Core Talent</b> from this Level..</span> },
     'KeystoneTalent': { tag: 'span', props: { style: { color: 'var(--dark-red-color)'} }, text: "This is a Keystone Talent. You can only have one Keystone Talent from this Level..", func: () => <span style={{color: 'var(--orange-color)'}}>This is a <b>Keystone Talent</b>. You can only have one <b>Keystone Talent</b> from this Level..</span> },
 
+    'YouHaveAccess': { tag: 'span', props: { style: {color: 'var(--blue-color)'} }, text: "You may have all Variants of this Ability." },
+    'Variants': { tag: 'span', props: { style: {color: 'var(--blue-color)'} }, text: "You may have all Variants of this Ability." },
+    'AllVariants': { tag: 'span', props: { style: {color: 'var(--blue-color)'} }, text: "You may have all Variants of this Ability." },
+    
     'Combo': { tag: 'span', props: { style: {color: 'var(--blue-color)'} }, text: "Combo:" },
+    'CriticalStrike': { tag: 'span', props: { style: {color: 'var(--green-color)'} }, text: "Critical Strike:" },
 }
 export const FUNCTION_SYMBOLS = {
     'Link': args => ({ tag: 'Link',  props: { style: { color: '#8f0a7dff' }, to: args[1] }, text: args[0] }),
@@ -1778,7 +1778,7 @@ export const FUNCTION_SYMBOLS = {
     'Brown': args => ({ tag: 'span',  props: { style: { color: '#A52A2A' } }, text: args[0] }),
     'Orange': args => ({ tag: 'span', props: { style: { color: '#FF5500' } }, text: args[0] }),
     'Purple': args => ({ tag: 'span', props: { style: { color: '#6f00ffff' } }, text: args[0] }),
-    'Green': args => ({ tag: 'span', props: { style: { color: 'var(--green-text)' } }, text: args[0] }),
+    'Green': args => ({ tag: 'span', props: { style: { color: 'var(--green-color)' } }, text: args[0] }),
     'DarkGreen': args => ({ tag: 'span', props: { style: { color: '#00a71cff' } }, text: args[0] }),
     'Teal': args => ({ tag: 'span', props: { style: { color: '#0097ab' } }, text: args[0] }),
     'Color': args => ({ tag: 'span', props: { style: { color: args[0] } }, text: args[1] }),
