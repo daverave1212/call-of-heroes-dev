@@ -1106,6 +1106,9 @@ export function getAllRaces() {
 export function getRace(raceName) {
     return Races[raceName]
 }
+export function getClass(className) {
+    return Classes[className]
+}
 export function getAllLanguages() {
     return {
         'Common': '',
@@ -3024,6 +3027,9 @@ export function includesStrWithExceptions(text, str, largerWords = []) {
 
   // If str still exists somewhere -> true
   return t.includes(s);
+}
+export function includesOrViceversa(text, subtext) {
+    return text.includes(subtext) || subtext.includes(text)
 }
 
 window.includesAll = includesAll

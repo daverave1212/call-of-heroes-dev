@@ -116,6 +116,24 @@ export function getSpecialBonusesByName(name, { totalStats, attributes }) {
     console.log({ location: 'getSpecialBonusesByName', totalStats, attributes, specialCalculations, return: specialCalculations[name] })
     return specialCalculations[name]
 }
+export function getStatLimitByLevel(level) {
+    if (level <= 2) {
+        return 2
+    }
+    if (level <= 4) {
+        return 3
+    }
+    if (level <= 6) {
+        return 4
+    }
+    if (level <= 8) {
+        return 5
+    }
+    return 6
+}
+export function getSkillLimitByLevel(level) {
+    return getStatLimitByLevel(level)
+}
 
 
 

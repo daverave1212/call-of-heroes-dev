@@ -37,6 +37,19 @@ Spellcasting:
     TODO
 
 
+Ideas:
+  ~Circling Prey~:
+    Tags: [Area Control]
+    Effect: IDK
+  
+  ~Loan Shark~:
+    Effect: TODO
+  
+  ~FIRE THE CANONS~:
+    Effect: TODO
+
+  ~Eat An Orange~:
+    Effect: LOL
 
 Utility:
 
@@ -104,7 +117,8 @@ Talents:
         Tags: [Area Damage]
         Effect: |
             Your next {Effect}
-            ~Click on the Icon to select which variant you want to have have!~
+            
+            {Variants}
         Notes: |
             Roll the attack only once. Weapon effects (like Critical Strikes), if necessary, are applied to the main target only.
         Variants:
@@ -136,24 +150,14 @@ Talents:
       Effect: |
         For the rest of the Combat, gain 25 {Gold} whenever you use an Action Point.
 
-    ~Circle Round~:
+    ~All or Nothing~:
       A: 0 Actions
-      Effect: Your next attack deals +1d6 Damage.
-      Downside: Only usable immediately after a Bravado attack.
-
+      Requirement: Only usable in Worthy Combat
+      Effect: |
+        Add 1d6 to an attack's Damage. If the total is _odd_, the attack misses, but you Heal for 1.
 
 
   Level 2 Class Talent:
-
-    <Swing Thing>:              # 2 uses = 2 Charges
-      _Value: 2.25
-      A: Reaction
-      Range: 5 meters
-      Effect: |
-        Use when a Unit within 5 meters (or yourself) becomes affected by Crowd Control.
-        Slam it 1d8 meters in any direction.
-      Notes: |
-        Requires a Whiplash item, which can be bought for 50 {Gold}Gold (or freely crafted for the same price in materials).
 
     ~Overunder Blow~:
       Value: 0.5
@@ -167,6 +171,8 @@ Talents:
         - 1. Heal yourself for that amount
         - 2. Single-Stun the target (Double-Stun for two-handed weapons)
         - 3. Freely move that many meters
+        - 4. Push the target that many meters
+      Notes: Pushing only works on non-Epic Units.
 
     <At Me!>:
       _Value: 1.5 # But seems inconsistent, so I really don't know
@@ -182,8 +188,23 @@ Talents:
 
     <10 Percent Luck>:
       _Value: 2
-      A: Passive
-      Effect: Once per attack or Ability, when you roll a 1, you can reroll that die.
+      A: 0 Actions (or Reaction)
+      Cooldown: Once / Turn
+      Effect: Reroll one die you just rolled.
+
+    ~Came To Collect~:
+      A: Half-Action
+      Cooldown: Once / 2 Turns
+      Effect: |
+        Use a ranged weapon to shoot a Worthy Unit for 1d4 Damage.
+        Then, if it died, choose a permanent upgrade for this Ability from below.
+      SingleTable:
+        - 1. Dice Upgraded to the next die type
+        - 2. Cooldown improved*
+        - 3. Gain Gold equal to 1000% of the rolled Damage
+        - 4. Restores 1 Health on use
+      Notes: |
+        Cooldown improved follows the following pattern, starting from the base Cooldown: Once / 2 Turns, Once / Turn, Twice / Turn, Thrice / Turn, etc.
 
   Level 3 Class Talent:
 
@@ -217,7 +238,7 @@ Talents:
       A: Passive
       Tags: [Damage]
       Effect: Your first attack every Turn deals extra Damage equal to 50% of how many meters you moved this Round.
-  
+
   Level 4 Class Talent:
 
     ~Off-Hand Shank~:
@@ -225,13 +246,29 @@ Talents:
       Cooldown: Once / Turn
       Cost: 1 Mana
       Effect: Make 3 attacks with a one-handed weapon you haven't used this Turn that would normally scale with a Stat. These attacks do not add any Stat to the Damage.
-      Notes: You may apply Sharp End, Bravado or similar effects to individual attacks.
+      Upgrade: You may apply Sharp End, Bravado, or similar effects to individual attacks.
 
     ~Second Wind~:
       A: 0 Actions
       Cost: 1 Mana
       Cooldown: Once / Turn
       Effect: Take 1d6 Damage. Gain +Half-Action this Turn.
+
+    ~Circle Round~:
+      A: 0 Actions
+      Effect: Your next attack deals +1d6 Damage.
+      Downside: Only usable immediately after a Bravado attack.
+    
+    <Swing Thing>:              # 2 uses = 2 Charges
+      _Value: 2.25
+      A: Reaction
+      Range: 5 meters
+      Effect: |
+        Use when a Unit within 5 meters (or yourself) becomes affected by Crowd Control.
+        Slam it 1d8 meters in any direction.
+      Notes: |
+        Requires a Whiplash item, which can be bought for 50 {Gold}Gold (or freely crafted for the same price in materials).
+
 
   Level 5 Class Talent:
 

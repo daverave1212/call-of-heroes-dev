@@ -2,14 +2,14 @@ import { useEffect, useState } from "react"
 import TwoColumns from "../../../components/TwoColumns/TwoColumns"
 import Column from "../../../components/TwoColumns/Column"
 import SmallStat from "../../../components/SmallStat/SmallStat"
-import { getNumberPartsString, getRace, useConstIsPortrait, useLocalStorageState } from "../../../utils"
+import { getClass, getNumberPartsString, getRace, getStatIconPathByStatName, includesOrViceversa, useConstIsPortrait, useLocalStorageState } from "../../../utils"
 import Page from "../../../containers/Page/Page"
 import { QGTitle1 } from "../../Tools/TitleGenerator"
 import Icon from "../../../components/Icon"
 import { maybeMakeFractionGray, useConstBonusesFromSpellsAndItems, useConstTotalStats } from "./MyCharacter"
 import Input from "../../../components/Input/Input"
-import { useExperience, useLevel, useSectionRaceName, useSectionStatsState } from "./CharacterData"
-import { AttributeCalculationTextComponent, ATTRIBUTES_EXPLANATIONS, calculateExperienceByLevel, calculateExtraFirstTurnAPByInitiative, calculateStatsToBonusAttributesObject, checkStatRequirements, DEFAULT_STAT_ARRAY, EXTRA_INITIATIVE_AP, getAttributeCalculationsByStats, INITIATIVE, STAT_ICON_NAME_MAP, STAT_NAMES, STAT_SHORTENED_STRING } from "../../../services/game-lib/stat-calculations"
+import { useExperience, useLevel, useSectionClassName, useSectionRaceName, useSectionStatsState } from "./CharacterData"
+import { AttributeCalculationTextComponent, ATTRIBUTES_EXPLANATIONS, calculateExperienceByLevel, calculateExtraFirstTurnAPByInitiative, calculateStatsToBonusAttributesObject, checkStatRequirements, DEFAULT_STAT_ARRAY, EXTRA_INITIATIVE_AP, getAttributeCalculationsByStats, getSkillLimitByLevel, getStatLimitByLevel, HEALTH_REGEN, INITIATIVE, MANA, MAX_HEALTH, SKILL_POINT, STAT_ICON_NAME_MAP, STAT_NAMES, STAT_SHORTENED_STRING } from "../../../services/game-lib/stat-calculations"
 import classNames from "classnames"
 import { BigStatInput } from "../../../components/BigStat/BigStatInput"
 import { ExperienceSlider } from "../../../components/Other/ExperienceSlider"
@@ -20,11 +20,14 @@ export default function SectionStats() {
     const isPortrait = useConstIsPortrait()
  
     let [statsCorrectError, setStatsCorrectError] = useState(null)    /* { message: string } */
+    let [shouldShowLevelUpEffect, setShouldShowLevelUpEffect] = useState(false)
+
     let [level, setLevel] = useLevel()
     let [stats, setStats] = useSectionStatsState()
     let totalStats = useConstTotalStats()
     let { bonuses } = useConstBonusesFromSpellsAndItems()
     let [selectedRaceName] = useSectionRaceName()
+    let [selectedClassName] = useSectionClassName()
     let [experience, setExperience] = useExperience()
 
     useEffect(() => {
@@ -34,14 +37,20 @@ export default function SectionStats() {
     console.log({bonuses})
 
     const myRace = getRace(selectedRaceName)
+    const myClass = getClass(selectedClassName)
     const exactStats = myRace?.['Custom Stat Array']
     const statRequirementCode = myRace?.['Stat Requirements']
     const ignoreStatRequirements = myRace?.['IgnoreStatRestrictions'] ?? false
     const levelError = checkLevel(level)
+    const isLevelUpBlocked = selectedClassName == null || selectedRaceName == null
     
     const attributesFromStats = calculateStatsToBonusAttributesObject(stats)
     const attributeCalculationsByStats = getAttributeCalculationsByStats(stats)
 
+    function levelUp() {
+        setLevel(parseInt(level) + 1)
+        setShouldShowLevelUpEffect(true)
+    }
     function checkLevel(level) {
         const levelError = level <= 0? 'Your level should not be lower than 0': Math.floor(level) != level? 'Your level should not be decimal': null
         return levelError
@@ -110,23 +119,67 @@ export default function SectionStats() {
         )
     }
 
+    function LevelUpTable() {
+        const everyLevel = {
+            ...myClass?.['Level Up']?.['Every Level'],
+        }
+        if (myClass.Specs != null && level == 2) {
+            everyLevel['Specialization'] = `Pick a Specialization!`
+        }
+        everyLevel[`Talent`] = 1   // Comes after Spec
+
+        const subtextByThing = {
+            [MAX_HEALTH]: 'Automatically added!',
+            [HEALTH_REGEN]: 'Automatically added!',
+            [MANA]: 'Automatically added!',
+            [SKILL_POINT]: `Up to +${getSkillLimitByLevel(level)}.`,
+            'Any Stat': `Your Stat Limit is ${getStatLimitByLevel(level)}.`,
+            'Talent': `Choose 1 Talent from the available Level ${level} Talents.`
+        }
+        function maybePlus(thing) {
+            if (thing.includes('Specialization')) {
+                return ''
+            }
+            return '+'
+        }
+
+        return <div style={{width: '30%'}}>
+            { Object.keys(everyLevel).map((statName, i) => {
+                const bgColor = i % 2 == 1? 'var(--table-even-color)': 'var(--table-odd-color)' // It's reversed because CSS starts with 1
+                const text = everyLevel[statName]
+                const subtextName = Object.keys(subtextByThing).find(subtext => includesOrViceversa(statName, subtext))
+
+                return <div className="center-content margin-top-1 shadowed padding-half will-fade-in gap-0" style={{backgroundColor: bgColor, '--time': (i * 0.2) + 's'}}>
+                    <span>{maybePlus(statName)}{ text } <Icon src={getStatIconPathByStatName(statName)}/>{statName}</span>
+                    { subtextName != null && (
+                        <span className="italic center-text" style={{fontSize: '0.9em', color: 'gray'}}>{subtextByThing[subtextName]}</span>
+                    )}
+                </div>
+            }) }
+        </div>
+    }
+
     return (
         <Page hasNoMargins={true} className>
             <div className="center-content">
                 <QGTitle1 text="Level" height={60} className="margin-bottom-2"/>
-                <p>
-                    <BigStatInput name="Level" value={level} onChange={val => {
-                        setLevel(val)
-                    }}/>
-                </p>
-                <div className="flex-column center-content" style={{width: '100%'}}>
-                    <ExperienceSlider max={calculateExperienceByLevel(level)} initialValue={experience} onChange={val => setExperience(val)}>
-                        asdadas
-                    </ExperienceSlider>
+                <div className="center-content gap-1 width-100">
+                    <div>
+                        <BigStatInput name="Level" value={level} onChange={val => {
+                            setLevel(val)
+                        }}/>
+                    </div>
+                    <div className="center-content">
+                        <button disabled={isLevelUpBlocked} style={{width: 'var(--stat-selector-size)'}} onClick={levelUp}>Level Up</button>
+                    </div>
+                    <div className="flex-column center-content" style={{width: '100%'}}>
+                        <ExperienceSlider max={calculateExperienceByLevel(level)} initialValue={experience} onChange={val => setExperience(val)}></ExperienceSlider>
+                    </div>
+                    { levelError && !ignoreStatRequirements && (
+                        <div className="warning-toaster">{ levelError }</div>
+                    ) }
+                    { shouldShowLevelUpEffect && <LevelUpTable/> }
                 </div>
-                { levelError && !ignoreStatRequirements && (
-                    <div className="warning-toaster">{ levelError }</div>
-                ) }
             </div>
             <div className="center-content">
                 <QGTitle1 text="Stats" height={60}/>

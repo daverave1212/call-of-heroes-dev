@@ -456,10 +456,17 @@ button {
 
   transition: background-color 0.1s linear;
 }
+button:disabled {
+  background-color: gray;
+}
 
 button:hover {
   cursor: pointer;
   background-color: var(--orange-color);
+}
+button:disabled:hover {
+  cursor: default;
+  background-color: gray;
 }
 @media (max-width: 1080px) {
   button {
@@ -593,3 +600,26 @@ input[type="range"]::-moz-range-thumb {
   }
 }
 
+
+
+
+
+
+
+.will-fade-in {
+  --time: 0.5s;
+  opacity: 0;
+  animation: ChildFadeIn 1s ease forwards;
+  animation-delay: var(--time);
+}
+
+@keyframes ChildFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
