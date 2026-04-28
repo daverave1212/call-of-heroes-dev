@@ -782,7 +782,7 @@ export function ClassPageV2({
 
                 { theClass['Utility'] != null && (
                     <div>
-                        <PageH2 className="center-text">Level 1 - Utility Talent</PageH2>
+                        <PageH2 className="center-text">Level 1 Utility Talent</PageH2>
                         <ManySpells
                             spells={theClass['Utility']}
                             description={theClass['Utility Description']}
@@ -869,6 +869,13 @@ export function ClassPageV2({
     )
 }
 
+function getLevel1TalentTierNamesToEvaluate(theClass) {
+    const names = [
+        'Starting Abilities',
+        ...Object.keys(theClass).filter(key => U.includesAny(key.toLowerCase(), ['level 1', 'utility', 'starting abilities', 'class talent', 'general talent']))
+    ]
+
+}
 function calculateSpellsObjectAveragePower(obj) {
     const spells = U.spellsFromObject(obj)
     const powers = spells
@@ -884,8 +891,6 @@ function calculateSpellsObjectTotalPower(obj) {
         .reduce((soFar, v) => soFar + v, 0)
     return parseFloat(startingAbilitiesPower.toFixed(2))
 }
-
-
 function getClassManaAtLevel(theClass, level) {
     const baseMana =
         theClass.Spellcasting?.Mana?.Per == 'per Worthy Combat'?
@@ -908,6 +913,8 @@ function calculateAveragePowerOnlyForLevelNoMana(theClass, level) { /* -> { [spe
     if (level == 1) {
         const startingAbilitiesPower = calculateSpellsObjectTotalPower(theClass['Starting Abilities'])
         const minorLevel1TalentsPower = theClass['Ability Choices'] == null? 0: calculateSpellsObjectAveragePower(theClass['Ability Choices'])
+        const utilityPower = theClass['Utility'] == null? 0: calculateSpellsObjectAveragePower(theClass['Utility'])
+        const otherAbilities = theClass['Other Abilities'] == null? 0: calculateSpellsObjectAveragePower(theClass['Other Abilities'])
         let level1TalentsPower = 0
         if (theClass.Talents != null) {
             const level1Keys = Object.keys(theClass.Talents).filter(talentCategory => talentCategory.includes('Level 1'))
@@ -916,8 +923,8 @@ function calculateAveragePowerOnlyForLevelNoMana(theClass, level) { /* -> { [spe
             level1TalentsPower = totalTalentsLevel1Power
         }
 
-        const totalPower = parseFloat((startingAbilitiesPower + minorLevel1TalentsPower + level1TalentsPower).toFixed(2))
-        return { startingAbilitiesPower, minorLevel1TalentsPower, level1TalentsPower, power: totalPower }
+        const totalPower = parseFloat((startingAbilitiesPower + utilityPower + otherAbilities + minorLevel1TalentsPower + level1TalentsPower).toFixed(2))
+        return { startingAbilitiesPower, utilityPower, minorLevel1TalentsPower, otherAbilities, level1TalentsPower, power: totalPower }
     }
 
     if (theClass.Specs == null) {

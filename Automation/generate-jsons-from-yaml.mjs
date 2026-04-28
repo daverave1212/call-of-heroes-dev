@@ -73,8 +73,6 @@ function validateRace(race) {
     assertObjectHas(race.Race, race, [
         'Race',
         'Description || DescriptionLeft || DescriptionRightTop',
-        'Creation',
-        'Creation.Stat Restrictions',
         'Stats',
         'Stats.Base Health',
         'Stats.Health Regen',

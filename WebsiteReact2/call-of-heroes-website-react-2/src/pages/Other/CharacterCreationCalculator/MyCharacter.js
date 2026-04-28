@@ -304,7 +304,7 @@ export default function MyCharacter() {
                 </div>
             </div>
             <div className="wrapper description-wrapper combat-notes-wrapper">
-                <TextArea className="wrapped-child" initialValue={quickNotes} onChange={text => setQuickNotes(text)}/>
+                <TextArea className="wrapped-child" initialValue={quickNotes} onChange={text => setQuickNotes(text)} placeholder={"Other useful notes..."}/>
             </div>
         </div>
     }
@@ -314,7 +314,7 @@ export default function MyCharacter() {
                 <img className="wrapped-child cover" src={names.src}/>
             </div>
             <div className="wrapper description-wrapper">
-                <TextArea className="wrapped-child" initialValue={description} onChange={text => setDescription(text)}/>
+                <TextArea className="wrapped-child" initialValue={description} onChange={text => setDescription(text)} placeholder={"Hero description and backstory..."}/>
             </div>
         </div>
     }
@@ -421,7 +421,7 @@ export default function MyCharacter() {
 
                 <div className="flex-direction-responsive margin-top-1 gap-3q">
                     <div className="inventory-wrapper wrapper relative flex-2">
-                        <TextArea className={`inventory`} initialValue={inventory} reactsToInitialValue={true} onChange={(newVal) => setInventory(newVal)}/>
+                        <TextArea className={`inventory`} initialValue={inventory} reactsToInitialValue={true} placeholder={"Inventory items, separated by commas or new lines..."} onChange={(newVal) => setInventory(newVal)}/>
                         <div className="gold-wrapper wrapper">
                             <Input className="gold" value={gold} setSet={func => setInputGold = func} onChange={newVal => {
                                 const newValFloat = parseFloat(newVal)

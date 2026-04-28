@@ -56,7 +56,7 @@ export default function SectionStats() {
         return levelError
     }
     function checkStandardStats(stats) {
-        const statsCopy = [...stats].sort()
+        const statsCopy = [...stats].slice(0, DEFAULT_STAT_ARRAY.length).sort()
         const statArray = exactStats != null? exactStats: DEFAULT_STAT_ARRAY
         const baseStatsCopy = [...statArray].sort()
 
@@ -66,10 +66,12 @@ export default function SectionStats() {
         }
 
         let isCorrect = !(statsCopy.filter((stat, i) => baseStatsCopy[i] != stat).length > 0)
+
+        console.log({isCorrect, statsCopy, baseStatsCopy})
         
         if (!isCorrect) {
             setStatsCorrectError({
-                message: `Your stats might not respect the ${statArray.join(', ')} numbers, in any order.`
+                message: `Your Stats might not respect the ${statArray.join(', ')} numbers, in any order.`
             })
             return
         }
@@ -78,7 +80,7 @@ export default function SectionStats() {
             isCorrect = checkStatRequirements(stats, statRequirementCode)
             if (isCorrect == false) {
                 setStatsCorrectError({
-                    message: `Your stats might not respect your chosen race requirements: ${getRace(selectedRaceName)?.Creation?.['Stat Restrictions']}`
+                    message: `Your Stats might not respect your chosen race requirements: ${getRace(selectedRaceName)?.Creation?.['Stat Restrictions']}`
                 })
                 return
             }
@@ -134,7 +136,7 @@ export default function SectionStats() {
             [MANA]: 'Automatically added!',
             [SKILL_POINT]: `Up to +${getSkillLimitByLevel(level)}.`,
             'Any Stat': `Your Stat Limit is ${getStatLimitByLevel(level)}.`,
-            'Talent': `Choose 1 Talent from the available Level ${level} Talents.`
+            'Talent': `Choose 1 Talent from the available Level ${level} Class Talents (from ${selectedClassName}).`
         }
         function maybePlus(thing) {
             if (thing.includes('Specialization')) {
@@ -183,7 +185,7 @@ export default function SectionStats() {
             </div>
             <div className="center-content">
                 <QGTitle1 text="Stats" height={60}/>
-                <p>Use the numbers {DEFAULT_STAT_ARRAY.join(', ')} and distribute them as you like among the 5 stats.</p>
+                <p>Use the numbers {DEFAULT_STAT_ARRAY.join(', ')} and distribute them as you like among the {DEFAULT_STAT_ARRAY.length} stats.</p>
                 <p>{ myRace && myRace?.Creation?.['Stat Restrictions'] != null && <span>Pay attention to your races's stat <i>restrictions</i>: {myRace?.Creation?.['Stat Restrictions']}</span> }</p>
             </div>
             <div className="center-content flex" style={{gap: '2rem'}}>

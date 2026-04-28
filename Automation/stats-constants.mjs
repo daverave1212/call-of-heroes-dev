@@ -1,17 +1,18 @@
 
-export const STAT_LIMITS_TEXT = "Your Stat limit (and non-combat Skill limit) is 3 and increases by 1 every 3 Levels (it's 3 at Levels 1-3, 4 at Levels 4-6, etc)."
+export const STAT_LIMITS_TEXT = "Your Stat limit (and non-combat Skill limit) is 2 and increases by 1 every 2 Levels (it's 2 at Levels 1-2, 3 at Levels 3-4, 4 at Levels 5-6, etc)."
 
 export const MIGHT = 'Might'
-export const DEXTERITY = 'Dexterity'
-export const INTELLIGENCE = 'Intelligence'
-export const SENSE = 'Sense'
-export const CHARISMA = 'Charisma'
+export const DEXTERITY = 'Instinct'
+export const INTELLIGENCE = 'Focus'
+export const SENSE = 'Presence'
+export const CHARISMA = 'Presence'
 
 export const MAX_HEALTH = 'Max Health'
 export const HEALTH_REGEN = 'Health Regen'
 export const MOVEMENT_SPEED = 'Movement Speed'
 export const INITIATIVE = 'Initiative'
 export const EXTRA_INITIATIVE_AP = '1st Turn AP'
+export const SKILL_POINT = 'Skill Point'
 export const KNOWN_ABILITIES = 'Known Minor Talents'
 export const SKILL_POINTS = 'Skill Points (non-Combat)'
 export const MANA = 'Mana'
@@ -19,17 +20,17 @@ export const ATTRIBUTE_NAMES = [MAX_HEALTH, HEALTH_REGEN, MOVEMENT_SPEED, INITIA
 
 export const STAT_SHORTENED_STRING = {
     [MIGHT]: 'MIG',
-    [DEXTERITY]: 'DEX',
-    [INTELLIGENCE]: 'INT',
-    [SENSE]: 'SEN',
-    [CHARISMA]: 'RIZ',
+    [DEXTERITY]: 'INS',
+    [INTELLIGENCE]: 'FOC',
+    [SENSE]: 'PRE',
+    [CHARISMA]: 'PRE',
     [MAX_HEALTH]: 'HP',
     [HEALTH_REGEN]: 'Regen',
     [MOVEMENT_SPEED]: 'Speed',
 }
 
-export const STAT_NAMES = [MIGHT, DEXTERITY, INTELLIGENCE, SENSE, CHARISMA]
-export const DEFAULT_STAT_ARRAY = [-1, 0, 1, 2, 3]
+export const STAT_NAMES = [MIGHT, DEXTERITY, INTELLIGENCE, SENSE /*, CHARISMA */]
+export const DEFAULT_STAT_ARRAY = [-1, 0, 1, 2/*, 3*/]
 export const DEFAULT_CHARACTER_BONUSES = {
     [MIGHT]: 0,
     [DEXTERITY]: 0,
@@ -68,11 +69,11 @@ export const ALL_ATTRIBUTES_0 = {
 
 export const BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP = {
     [MAX_HEALTH]: `3 × ${MIGHT}`,
-    [MOVEMENT_SPEED]: `0.5 for each Dexterity`,
-    [HEALTH_REGEN]: `2 × ${SENSE}`,
+    [MOVEMENT_SPEED]: `0.5 for each ${DEXTERITY}`,
+    [HEALTH_REGEN]: `2 × ${CHARISMA}`,
     [KNOWN_ABILITIES]: `${INTELLIGENCE}`,
     [SKILL_POINTS]: `${INTELLIGENCE}`,
-    [INITIATIVE]: `0.5 for each Charisma`,
+    [INITIATIVE]: `0.5 for each ${INTELLIGENCE}`,
     [EXTRA_INITIATIVE_AP]: `1 for each 5 Initiative`
 }
 
@@ -84,6 +85,7 @@ export const MAIN_STAT_ALTERNATIVES_MAP = {
     
     'Dexterity': DEXTERITY,
     'Heart': DEXTERITY,
+    'Instinct': DEXTERITY,
     
     'Intelligence': INTELLIGENCE,
     'Mind': INTELLIGENCE,
