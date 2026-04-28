@@ -473,25 +473,31 @@ export function Spec({ children, name, specObj, hasNoMargins }) {
     )
 }
 
-export function Talents({ talents, selectedSpellNames, onSpellClick, spellsMetadata }) {
+export function TalentTier({ title, talents, selectedSpellNames, onSpellClick, spellsMetadata }) {
+    const spellsInThisTier = U.spellsFromObject(talents)
+    console.log({spellsInThisTier})
+    return <div className='margin-top-2'>
+        <PageH2 className="center-text">{title}</PageH2>
+        <ManySpells spells={spellsInThisTier} selectedSpellNames={selectedSpellNames} onSpellClick={onSpellClick} spellsMetadata={spellsMetadata} shouldSort={false}/>
+    </div>
+        {/* { talentTitle?.includes('Level 2') &&
+            <div className='center-content'>
+                <QGTitle1 text={'Level Up Talents'} height={45}/>
+            </div>
+        } */}
+        
+}
+
+export function Talents({ talents, selectedSpellNames, onSpellClick, spellsMetadata, condition=()=>true }) {
     const talentTitles = Object.keys(talents)
+    console.log({talentTitles, talents})
 
     return (
         <div>
-            { talentTitles.map(talentTitle => {
-                const spellsInThisTier = U.spellsFromObject(talents[talentTitle])
-                return <>
-                    { talentTitle?.includes('Level 2') &&
-                        <div className='center-content'>
-                            <QGTitle1 text={'Level Up Talents'} height={45}/>
-                        </div>
-                    }
-                    <div key={talentTitle} className='margin-top-2'>
-                        <PageH2 className="center-text">{talentTitle}</PageH2>
-                        <ManySpells spells={spellsInThisTier} selectedSpellNames={selectedSpellNames} onSpellClick={onSpellClick} spellsMetadata={spellsMetadata} shouldSort={false}/>
-                    </div>
+            { talentTitles.filter(title => condition(title)).map(title => <>
+                    <TalentTier title={title} talents={talents[title]} selectedSpellNames={selectedSpellNames} onSpellClick={onSpellClick} spellsMetadata={spellsMetadata}/>                    
                 </>
-            })}
+            )}
         </div>
     )
 }
@@ -724,8 +730,6 @@ export function ClassPageV2({
                     id="starting-abilities"
                 />
 
-                <LevelingUp theClass={theClass} isCharacterCreationPage={isCharacterCreationPage}/>
-
                 <SpellCasting theClass={theClass} isCharacterCreationPage={isCharacterCreationPage}/>
 
                 { theClass.Spellcasting?.HasFont && (
@@ -763,22 +767,6 @@ export function ClassPageV2({
                         />
                     </div>
                 )}
-                
-                { theClass['Other Abilities'] != null && (
-                    <div>
-                        <PageH2 hasMargin={false} className="center-text">{theClass['Other Abilities Title']}</PageH2>
-                        <ManySpells
-                            spells={theClass['Other Abilities']}
-                            description={theClass['Other Abilities Description']}
-                            selectedSpellNames={selectedSpellNames}
-                            onSpellClick={onSpellClick}
-                            spellsMetadata={spellsMetadata}
-                            shouldSort={false}
-                        />
-                    </div>
-                )}
-
-
 
                 { theClass['Utility'] != null && (
                     <div>
@@ -789,6 +777,20 @@ export function ClassPageV2({
                             selectedSpellNames={selectedSpellNames}
                             onSpellClick={onSpellClick}
                             spellsMetadata={spellsMetadata}
+                        />
+                    </div>
+                )}
+
+                { theClass['Other Abilities'] != null && (
+                    <div>
+                        <PageH2 hasMargin={false} className="center-text">{theClass['Other Abilities Title']}</PageH2>
+                        <ManySpells
+                            spells={theClass['Other Abilities']}
+                            description={theClass['Other Abilities Description']}
+                            selectedSpellNames={selectedSpellNames}
+                            onSpellClick={onSpellClick}
+                            spellsMetadata={spellsMetadata}
+                            shouldSort={false}
                         />
                     </div>
                 )}
@@ -808,6 +810,15 @@ export function ClassPageV2({
                 { theClass.Talents != null && <>
                     <Talents
                         talents={theClass.Talents}
+                        condition={title => U.getNumberFromString(title) < 2 || U.getNumberFromString(title) == null}
+                        selectedSpellNames={selectedSpellNames}
+                        onSpellClick={onSpellClick}
+                        spellsMetadata={spellsMetadata}
+                    />
+                    <LevelingUp theClass={theClass} isCharacterCreationPage={isCharacterCreationPage}/>
+                    <Talents
+                        talents={theClass.Talents}
+                        condition={title => U.getNumberFromString(title) >= 2}
                         selectedSpellNames={selectedSpellNames}
                         onSpellClick={onSpellClick}
                         spellsMetadata={spellsMetadata}
@@ -815,11 +826,12 @@ export function ClassPageV2({
                 </>}
 
                 <br/><br/>
-                { theClass.Specializations != null &&
+                { theClass.Specializations != null && <>
+                    <LevelingUp theClass={theClass} isCharacterCreationPage={isCharacterCreationPage}/>
                     <div className='center-content'>
                         <QGTitle1 text={'Specializations'} height={45}/>
                     </div>
-                }
+                </>}
                 { theClass.Specs != null && (<>  
                     <div className='flex-responsive gap-half'>
                         { Object.keys(theClass['Specs']).map(specName => (
