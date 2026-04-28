@@ -211,7 +211,9 @@ const filesToConvert = [    // Order matters
     'Races/Gnome.yml',
     'Races/Hollow.yml',
     'Races/Human.yml',
-    'Races/Orc.yml'
+    'Races/Orc.yml',
+
+    'Book/QuestGuard Book.yml'
 ]
 
 function isSpellName(dictKey) {
@@ -442,7 +444,7 @@ async function processFiles() {
         }
 
 
-        if ('Class' in dictContent) {
+        if (filePath.includes('Classes')) {
             validateClass(dictContent)
             classes.push(dictContent.Class)
             recordAbilitiesFrom(dictContent, abilities, null, `Class/${dictContent.Class}`);
@@ -450,7 +452,7 @@ async function processFiles() {
             recordAbilitiesFrom(dictContent, classRaceAbilities, null, `Class/${dictContent.Class}`);
         }
 
-        if ('Race' in dictContent) {
+        if (filePath.includes('Races')) {
             validateRace(dictContent)
             races.push(dictContent.Race)
             recordAbilitiesFrom(dictContent, abilities, null, `Race/${dictContent.Race}`);

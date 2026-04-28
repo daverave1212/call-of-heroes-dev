@@ -3,6 +3,7 @@ import Column from '../../components/TwoColumns/Column'
 import TwoColumns from '../../components/TwoColumns/TwoColumns'
 import { testPDF } from '../../services/pdf-tools/pdf-tool'
 import { getSpellByName, printToPDF } from '../../utils'
+import './PDFUnitsOverriding.css'
 import './BookCreator.css'
 
 export default function() {

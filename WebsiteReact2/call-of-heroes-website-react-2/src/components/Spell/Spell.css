@@ -1,12 +1,11 @@
-:root {
+.spell {
     --spell-border-width: 16px;
     --spell-true-border-width: 6px;
 
-    --spell-font-size: var(--p-size);
-    --spell-title-font-size: calc(var(--spell-font-size) * 1.1);
-    
-    --spell-padding: 16px;
-    --spell-padding-small: 6px;
+    --spell-padding: var(--p-size);
+
+    --spell-title-font-size: calc(var(--spell-padding) * 1.1);
+    --spell-padding-small: calc(var(--spell-padding) * 0.4);
     --spell-margin-bottom: calc(var(--element-padding) / 2);
     --spell-padding-bottom: calc(var(--spell-padding) * 1.5);
     --spell-top-stats-padding: calc(var(--spell-padding) - 2px); /* For pixel perfect alignment of the text */
@@ -19,11 +18,9 @@
     --spell-title-width: 94.25%;
     --spell-title-top-padding: calc(var(--spell-padding) + var(--spell-padding-small));
     --spell-passive-title-top-padding: calc(var(--spell-title-top-padding) * 1.35);
-    --spell-icon-size: 72px;
+    --spell-icon-size: calc(var(--p-size) * 4.5);
 
     --subspell-size-multiplier: 0.75;
-    
-    --spell-notes-color: #999999;
 
     --z-background: calc(var(--z-content) - 10);
     --z-under-border: calc(var(--z-content));
@@ -39,14 +36,13 @@
     --z-click-overlay: calc(var(--z-content) + 95);
 }
 @media (max-width: 1366px) {
-    :root {
+    .spell {
         --spell-padding: 12px;
         --spell-padding-small: 6px;
-        --spell-icon-size: 78px;
     }
 }
 @media (orientation: portrait), (max-width: 900px)  {
-    :root {
+    .spell {
         --spell-icon-size: 15vw;
 
         --spell-padding: 3.5vw;
@@ -56,8 +52,7 @@
     }
 }
 @media (max-width: 300px) {
-    :root {
-        --spell-font-size: calc(0.8 * var(--p-size));
+    .spell {
         --spell-title-top-padding: calc(var(--spell-padding) + 1px);
     }
 }
@@ -69,12 +64,6 @@
     margin-bottom: var(--spell-margin-bottom);
 
     white-space: pre-line; /* Uses \n instead of <br> for new lines */
-
-    /* -webkit-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.41); 
-    box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.41); */
-    /* border-radius: 1rem; */
-
-    /* border: solid 1px black; */
 }
 
 .spell a {
@@ -113,7 +102,7 @@
     height: 100%;
     z-index: var(--z-background);
     background-color: rgb(255, 255, 255);
-    border-radius: 1rem;
+    border-radius: calc(var(--p-size) * 1);
     
 }
 
@@ -329,7 +318,7 @@
 
     font-weight: bold;
     font-size: var(--spell-title-font-size);
-    letter-spacing: 0.075rem;
+    letter-spacing: calc(var(--p-size) * 0.075);
     font-family: TextFont;
     text-align: center;
     white-space: nowrap;
@@ -386,13 +375,13 @@
     margin-bottom: 0px;
 }
 .spell-separator {
-    margin-top: 0.25rem;
+    margin-top: calc(var(--p-size) * 0.25);
     width: calc(100% + var(--spell-padding) * 2 + 12px);
     margin-left: calc(-1 * var(--spell-padding) - 6px);
 }
 .spell-description, .spell-green, .spell-red, .spell-combo {
     font-family: var(--font-text);
-    font-size: var(--spell-font-size);
+    font-size: var(--p-size);
     padding: var(--spell-padding);
     padding-top: calc(var(--spell-padding-small) * 1.5);
     padding-bottom: var(--spell-padding-bottom);
@@ -413,7 +402,7 @@
     padding-top: var(--spell-padding-small);
     padding-bottom: var(--spell-padding-bottom);
 
-    color: var(--spell-notes-color);
+    color: var(--gray-color);
 }
 
 /* Spell Container */
@@ -470,7 +459,7 @@
     -webkit-box-shadow: none;
 }
 .subspell * {
-    font-size: calc(var(--spell-font-size) * 0.9);
+    font-size: calc(var(--p-size) * 0.9);
 }
 /* -- Border -- */
 .subspell .spell-border {
@@ -495,7 +484,7 @@
 .subspell .spell-green,
 .subspell .spell-red,
 .subspell .spell-combo {
-    font-size: calc(var(--spell-font-size) * 0.9);
+    font-size: calc(var(--p-size) * 0.9);
     padding-bottom: calc(var(--spell-padding-bottom) / 2);
 }
 
