@@ -2913,13 +2913,28 @@ export function getAnyKey(obj) {
 export function getOnlyValue(obj) {
     return obj[getOnlyKey(obj)]
 }
+export function getOnlyEntry(obj) {
+    const key = getOnlyKey(obj)
+    const value = obj[key]
+    return [key, value]
+}
+export function getValueByPath(obj, path) {
+  if (!obj || !path) return undefined;
+
+  return path.split('.').reduce((accumulator, key) => {
+    // If the accumulator is null/undefined, we stop trying to access keys
+    return (accumulator && typeof accumulator === 'object') 
+      ? accumulator[key] 
+      : undefined;
+  }, obj);
+}
+window.getValueByPath = getValueByPath
 export function getTextWidth(font, text) {
     const canvas = document.createElement('canvas')
     const ctx = canvas.getContext('2d')
     ctx.font = font
     const width = ctx.measureText(text).width
     return width
-    
 }
 export function arrayUnion(a, b) {
     const fullArray = [...a]

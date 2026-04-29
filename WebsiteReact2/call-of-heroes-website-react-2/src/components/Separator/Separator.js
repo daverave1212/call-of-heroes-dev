@@ -2,7 +2,7 @@ import React from 'react'
 import './Separator.css'
 
 export default function Separator({ hasNoMarginTop, style }) {
-    const extraStyle = hasNoMarginTop == true? { marginTop: "-8px" } : {}
+    const extraStyle = hasNoMarginTop == true? { marginTop: "var(--separator-offset-top)" } : {}
     if (style == null) style = {}
     style = {...style, ...extraStyle}
     return (
@@ -11,7 +11,7 @@ export default function Separator({ hasNoMarginTop, style }) {
 }
 
 export function SeparatorLarge({ hasNoMarginTop, style }) {
-    const extraStyle = hasNoMarginTop == true? { marginTop: "-8px" } : {}
+    const extraStyle = hasNoMarginTop == true? { marginTop: "var(--separator-offset-top)" } : {}
     if (style == null) style = {}
     style = {...style, ...extraStyle}
     return (
