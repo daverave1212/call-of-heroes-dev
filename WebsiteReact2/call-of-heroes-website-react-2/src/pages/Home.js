@@ -5,7 +5,7 @@ import Icon from '../components/Icon'
 import LandingPageSeparator from '../components/LandingPageSeparator/LandingPageSeparator'
 import PromoPopup from '../components/PromoPopup/PromoPopup'
 
-import './index.css'
+import './Home.css'
 import FeaturingAsidePopup from '../components/AsidePopup/FeaturingAsidePopup'
 import { CoolButton } from '../components/CoolButton/CoolButton'
 import HeroButton from '../components/HeroButton/HeroButton'

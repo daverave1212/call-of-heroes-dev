@@ -14,7 +14,7 @@ import './layout-classes.css'
 import './nav.css'
 import './components/SmallStat/InlineIcon.css'
 
-import Index from './pages/index'
+import Home from './pages/Home'
 import Armors from './pages/Other/Armors'
 import Weapons from './pages/Other/Weapons'
 import Abilities from './pages/Other/Abilities'
@@ -124,7 +124,7 @@ function App() {
           {/* Here will be rendered the page: */}
         <Routes>
           <Route path="/" element={(
-            isURLHackedForGitHub == false? <Index/> : null  // Prevent loading a page for no reason if path is hacky
+            isURLHackedForGitHub == false? <Home/> : null  // Prevent loading a page for no reason if path is hacky
           )}/>
           <Route path="/Other/GMGuidelines" element={ <GMGuidelines/> }/>
           <Route path="/Other/Encounters" element={ <Encounters/> }/>
