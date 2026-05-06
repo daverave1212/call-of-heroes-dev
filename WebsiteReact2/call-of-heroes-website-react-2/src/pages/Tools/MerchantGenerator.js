@@ -193,7 +193,7 @@ export default function MerchantGenerator({}) {
             if (nVariants == null) {
                 continue
             }
-            item.DefaultVariantIndex = nVariants? randomInt(0, nVariants - 1): null
+            item.DefaultVariantIndex = nVariants? rng.randomInt(0, nVariants - 1): null
             const thisParsedItem = parseAndNormalizeSpell(item, { isItem: true, variantIndex: item.DefaultVariantIndex })
             item.Name = thisParsedItem.Name
             item.DisplayName = thisParsedItem.DisplayName
