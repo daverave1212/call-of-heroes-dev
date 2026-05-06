@@ -1,5 +1,4 @@
 import { getOnlyEntry, getSpellByName, getValueByPath, isObject, isString, printToPDF } from '../../utils'
-import PageH2 from "../../components/PageH2/PageH2"
 import PageH3 from "../../components/PageH3/PageH3"
 import { QGTitle1 } from "../Tools/TitleGenerator"
 import { Children, isValidElement } from 'react'
@@ -9,6 +8,8 @@ import './BookCreator.css'
 
 import Book from '../../databases/Book/QuestGuard Book.json'
 import Icon from '../../components/Icon'
+import ListItem from '../../components/ListItem/ListItem'
+import PageH2PDF from '../../components/PageH2/PageH2PDF'
 
 
 // You can have Column directly, or other children. It auto detects if it should be columnized.
@@ -46,7 +47,7 @@ export function H1({ children }) {
 
 const H_MAPPINGS = {
     1: H1,
-    2: PageH2,
+    2: PageH2PDF,
     3: PageH3,
     4: ({children}) => <h4>{children}</h4>
 }
@@ -92,16 +93,19 @@ export function Section({ path, title=null, content=null }) {
     if (Array.isArray(content)) {
         function Li({content}) {
             if (isString(content)) {
-                return <li dangerouslySetInnerHTML={{__html: content}}></li>
+                return <ListItem><span dangerouslySetInnerHTML={{__html: content}}></span></ListItem>
             }
             if (isObject(content)) {
                 const [key, value] = getOnlyEntry(content)
-                return <li><bold>{key}:</bold> <span dangerouslySetInnerHTML={{__html: value}}></span></li>
+                return <ListItem><b>{key}:</b> <span dangerouslySetInnerHTML={{__html: value}}></span></ListItem>
             }
         }
         return <>
             <Header path={path}>{title}</Header>
-            <ul>
+            <ul className='flex column gap-half' style={{
+                paddingInlineStart: '0pt',
+                paddingLeft: `calc(var(--p-size) * 0.5)`
+            }}>
                 { content.map(item => <Li content={item}/>) }
             </ul>
         </>

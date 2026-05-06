@@ -57,22 +57,25 @@ export default function() {
                 </Column>
             </PDFPage>
 
+            <PDFPage>
+
+
+            </PDFPage>
+
 
             <PDFPage>
                 <Column>
-                
+                    <Section path="Introduction.What You Need"/>
                 </Column>
                 <Column>
-                    <Section path="Introduction.What You Need"/>
+                    
                 </Column>
             </PDFPage>
             
             <div className='pdf-page'>
                 <div className='pdf-trim-box'>
                     <TwoColumns>
-                        <Column>
-                            <PageH2>What We Want</PageH2>
-                            
+                        <Column>                            
                         </Column>
                         <Column></Column>
                     </TwoColumns>

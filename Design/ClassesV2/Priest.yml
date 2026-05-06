@@ -185,9 +185,15 @@ Other Abilities:
       Cost: 1 Mana
       Tags: [Damage, Finisher]
       ScrollPower: Auto
+      DisplayName: "{IconName}"
       Effect: |
-          Add +1d6 Damage to a weapon attack or single-target Ability. It's Damage Type becomes Divine.
-          If the target dies, don't spend the {Mana}Mana.
+          Add 1d6 Damage to a weapon attack or single-target Ability. It's Damage Type becomes {Type}.
+          If the target dies, regain 1 {Mana}Mana.
+      Variants:
+        - Type: Divine
+          IconName: Radiant Smite
+        - Type: Scourge
+          IconName: Tenebrous Smite
 
     ~Healing Light~:
       A: 1 Action
@@ -294,18 +300,6 @@ Talents:
         They do not Regen Health at the end of the Combat.
       Combo: -50% Healing, but the target can Regen Health at the end of the Combat, as normal.
 
-    <Golden Shield>:
-      A: 0 Actions or Reaction
-      Cost: 1 Mana
-      Duration: Up to 1 hour
-      Degree: Minor
-      Tags: [Protection, Combo]
-      Effect: |
-          Use before a Unit you can see would take Damage (before the roll), or on your Turn.
-          It becomes surrounded in a divine golden shield.
-          This (or next) time it would take Damage, it is completely blocked.
-          If used on your Turn, apply a ~Combo~.
-
     ~Second Light~:
         A: 1 Action
         DisplayName: "{Name}"
@@ -348,6 +342,11 @@ Talents:
             Roll 10d4 and assign them to Units within 10 meters as you wish.
             Each die heals on odd rolls (1 and 3) and deals Divine Damage on even rolls (2 and 4).
 
+    ~Fundamentals~:
+        A: Passive
+        Effect: |
+          Pick one more Level 1 or Level 2 Talent.
+
   Level 5 Class Talent:
 
     ~Let There Be Light~:
@@ -365,23 +364,19 @@ Talents:
         While standing in environmental shadows, your damaging Awe has its ^Dice Upgraded^ to the next die type and your attacks ignore Cover.
       Notes: "{DiceUpgrade}. It is up to the Quest Master what is considered shadow."
 
-
     ~Assistance of Merit~:
       A: Passive
       Range: 5 meters
       Tags: [Reaction, CC]
       Effect: Whenever you use a Reaction, cast Awe or Single-Stun a Unit.
 
-    <Circle of Awe>:
-      _Value: 1.75
-      A: 1 Action
-      Cooldown: Once / Adventure
-      Tags: [AoE, AoE Heal]
-      Range: 6 meters to edge
-      Effect: |
-        Declare a 4x4 meter area. Cast Awe on all Units inside the area.
-        After casting Awe 4 other times, reset the Cooldown of this Ability (except Awes from this Ability).
-      OrderOnWebsite: 1
+    ~The Holy Spring~:
+      _Value: 2
+      A: Passive
+      Bonuses:
+        Max Mana: 2
+        Mana: 2
+      Effect: Gain +2 Max Mana.
 
   Level 6 - Utility Talent:
 
@@ -413,27 +408,73 @@ Talents:
 
   Level 7 Class Talent:
 
-    ~Ritual of Wonder~:
-      A: 3 Action Points
-      Cost: 3 Mana
+    <Circle of Awe>:
+      _Value: 1.75
+      A: 1 Action
+      Cooldown: Once / Adventure
+      Tags: [AoE, AoE Heal]
+      Range: 6 meters to edge
       Effect: |
-        Heal a Unit you can see for 6d6 and increase its Maximum Health by 1 permanently.
+        Declare a 4x4 meter area. Cast Awe on all Units inside the area.
+        After casting Awe 4 other times, reset the Cooldown of this Ability (except Awes from this Ability).
+      OrderOnWebsite: 1
 
+    # ~Mind's Thing Upgraded~:
+    #     _Value: 
+    #     DisplayName: "Mind's {Name}"
+    #     A: 1 Action
+    #     Range: 3 meters
+    #     Degree: Minor
+    #     HasMixins: true
+    #     Tags: [Damage]
+    #     ScrollPower: 1
+    #     Requirement: Requires Mind's Shadow/Abolition
+    #     Replacement: Requires Mind's Shadow/Abolition
+    #     HasUpgradeIcon: true
+    #     Effect: |
+    #         Deal 1d12 + ^Your {Sense} or {Intelligence}^ {Type} Damage to a Unit.
+    #         For the rest of the combat ~you deal~ +{Damage} {Type} Damage (stacks indefinitely).
 
-    ~Solace Tide~:
-        A: Half-Action
-        Cost: 1 Mana
-        Range: 5 meters
-        Degree: Minor
-        IconName: Solace Wave
-        HasUpgradeIcon: true
-        Replacement: Replaces Solace Wave
-        Requirement: Requires Solace Wave
-        Tags: [Heal, Combo]
-        Effect: |
-            Heal an ally (or yourself) for ~1d10~ Health.
-            If they have 50% or more Health before the heal, double the result!
-        Combo: Cast Awe ~twice~.
+    #         ~Click on the icon to select the preferred effect!~
+    #     Variants:
+    #       - Name: Darkness
+    #         Type: Scourge
+    #         Damage: 2
+    #         IconName: Minds Shadow
+    #       - Name: Light
+    #         Type: Divine
+    #         Damage: 1
+    #         IconName: Minds Abolition
+    
+    # ~Revendication~:
+    #   _Value: 0
+    #   A: 0 Actions or Reaction
+    #   Cost: 1 Mana
+    #   Effect: |
+    #     Use when using an Ability or when triggering a weapon effect.
+    #     Increase any _number_ in it's description by 1 for that Act only.
+    #   Notes: Only numbers displayed with digits can increase (e.g. ^1^ can increase to 2, ^9^ can increase to 10, but ^one^ can not be increased).
+
+    # ~Ritual of Wonder~:
+    #   A: 3 Action Points
+    #   Cost: 3 Mana
+    #   Effect: |
+    #     Heal a Unit you can see for 6d6 and increase its Maximum Health by 1 permanently.
+
+    # ~Solace Tide~:
+    #     A: Half-Action
+    #     Cost: 1 Mana
+    #     Range: 5 meters
+    #     Degree: Minor
+    #     IconName: Solace Wave
+    #     HasUpgradeIcon: true
+    #     Replacement: Replaces Solace Wave
+    #     Requirement: Requires Solace Wave
+    #     Tags: [Heal, Combo]
+    #     Effect: |
+    #         Heal an ally (or yourself) for ~1d10~ Health.
+    #         If they have 50% or more Health before the heal, double the result!
+    #     Combo: Cast Awe ~twice~.
 
     <Shadow Realm>:             # 2? Good Damage, 0 actions, no Check requred...
       _Value: 2
@@ -469,6 +510,14 @@ Talents:
 
   Level 8 Class Talent:
 
+    ~God In Hand~:
+      A: 0 Actions
+      Cooldown: Once / Adventure
+      Effect: |
+        Your next Ability or Attack costs 1 less Action Point.
+        After doing a total of 50 Damage or 20 Healing in Worthy Combat, reset the Cooldown of this Ability.
+      Notes: The dealt Damage and Healing carries over from Combat to Combat, but resets to 0 after casting this Ability, and starts at 0 each Adventure.
+
     ~People's Awe~:
       A: Passive
       Tags: [Awe]
@@ -484,6 +533,16 @@ Talents:
       Effect: |
         Triple-Stun a Unit and Single-Stun another willing ally (not you). Then cast Awe on each.
         These Units' Passive Abilities are disabled while affected.
+    
+  Level 9 Class Talent:
+
+    ~Arbiter of Balance~:
+      _Value: 3.5 # 3.5 damage/heal per cast, 3 casts per Combat = 10.5 Damage / Combat = 21 = 4-ish mana
+      A: Passive
+      Effect: |
+        After you cast a light-themed Ability, your next shadow-themed Ability _balances the scales_ and automatically casts Awe (_and viceversa_).
+      Downside: If you fail to _balance the scales_, you take 1d4 Psychic Damage and become Deafened for your next Ability.
+      Notes: Alternate between dark-themed and light-themed Abiliities, with anything inbetween, to prevent impairment and Damage. You may attack, move, and cast non-themed Abilities between light and dark-themed Abilities without being impaired.
 
     <Healing Doubledown>:
       _Value: 3
@@ -502,21 +561,6 @@ Talents:
       Effect: |
         Whenever you cast a 0 Actions Class Ability or Talent, another ally gains 1 Mana.
         Also, you don't need to eat or drink to live - you only need exposure to light.
-    
-  Level 9 Class Talent:
-
-    <Stat Bonus 5>:
-      IsIgnored: true
-      Manual Extras:
-        - +1 in a Stat of choice (up to +5)
-      Effect: Gain +1 in a Stat of choice, up to +5.
-    
-    <Mana Bonus>:
-      IsIgnored: true
-      Bonuses:
-        - Known Abilities: 1
-        - Mana: 1
-      Effect: Gain +1 Max Mana and +1 Known Ability.
 
   Level 10 Class Talent:
 
