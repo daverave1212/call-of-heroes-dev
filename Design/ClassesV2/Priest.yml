@@ -32,7 +32,7 @@ Spellcasting:
   
   
   Recommended Abilities Description: |
-    They provide a good range of utility with Light, healing and supporting with Cure Wounds, Cure Affliction and Saving Throw, and some good damage with Dancing Weapon, Guiding Bolt (single-target) and Radiant Smite (area).
+    TODO
 
 Starting Abilities Description: Awe triggers automatically, so it should be a good way to heal or deal some extra Damage. Tyy to Damage low-health enemies with it. Blessed allies also have an adantage in roleplaying situations, so use Blessing early on every Adventure!
 Starting Abilities:
@@ -73,7 +73,11 @@ Ideas:
         Take True Damage equal to 10% of your Maximum Health.
         Heal 2 allies you can see for that amount.
 
-
+    ~Herald of the Moon~:
+      A: Passive
+      Duration: Rest of the Adventure
+      Effect: |
+        If the Awe heals the target to Max Health (which was not previously Max Health), give them one Shielding that can block 1d4 Damage.
 
 
 Utility:
@@ -139,8 +143,10 @@ Utility:
 # Remade Utility
 
 
-Other Abilities Title: Level 1 General Talents
-Other Abilities:
+
+Talents:
+
+  Level 1 Class Talent:
 
     ~Mind's Thing~:
         DisplayName: "Mind's {Name}"
@@ -165,7 +171,7 @@ Other Abilities:
             Damage: 1
             IconName: Minds Abolition
 
-    ~Saving Throw~:
+    ~Homecoming~:
         A: 0 Actions or Reaction
         Range: 7 meters
         Cost: 1 Mana
@@ -174,7 +180,7 @@ Other Abilities:
         ScrollPower: Auto
         Effect: |
             Use when an ally would take Damage (or on your Turn).
-            Instantly pull another ally to your nearest empty space, then subtract 1d6 from the attack and give them the rolled die as one Shielding.
+            Instantly pull it to you, then subtract 1d6 from the attack and give them the rolled die as one Shielding.
         Notes: |
             The ally goes flying.
             You need line of sight to the targets. The allies fly to you ignoring obstacles and ground traps (goes around obstacles), unless the ally needs to swerve more than 2 meters in any direction.
@@ -199,12 +205,24 @@ Other Abilities:
       A: 1 Action
       Cost: 1 Mana
       Range: 3 meters
+      Tags: Healing
       Effect: |
-        Heal a Unit for 2d6 + your {Charisma}, and all other Units within 1 meter of it for -50% of that amount.
+        Heal a Unit for 2d6 + your {Charisma}, and all other Units within 1 meter of it that can hear and see you for -50% of that amount.
       Upgrade: If there were no other Units, remove all Crowd Control and Debuffs from the target.
 
-
-Talents:
+    ~Ruinshard~:
+      A: Half-Action
+      Range: 5 meters
+      Effect: |
+        Blast a Unit for 1d8 {Type} Damage.
+        Deals + ^your^ {Sense} Damage if it can't see or hear you.
+      Variants:
+        - DisplayName: Ruinshard
+          Type: Scourge
+          Cooldown: Twice / Turn
+        - DisplayName: Sunshard
+          Type: Divine
+          Cooldown: Once / Turn
 
   Level 2 Class Talent:
 
@@ -233,14 +251,18 @@ Talents:
 
     ~Vows of Zealotry~:
       A: Passive
+      Tags: [Crowd Control, Special]
       Effect: While wearing Heavy Armor, Awe has ^Dice Upgraded^ to the next die type when cast on yourself, and your first melee attack each Combat Blinds the target.
       Upgrade: Mercy is a gift for the innocent. For the rest of us, there is no vow - it's a lifestyle, heartfelt and righteous.
 
     ~Taketh Away Sight~:
       A: 1 Action
       Cost: 1 Mana
+      Tags: [Crowd Control, Damage]
       Effect: |
-        Heal or deal 2d12 True Damage to a Unit you can see. It's next attack can't be ranged.
+        Heal or deal 2d12 True Damage to a Unit you can see. For 1 Turn, it can't see you and has a Line of Sight of 1 meter.
+      Upgrade: For Epic Units, only limits their next offensive act to 1 meter Line of Sight.
+
 
     ~Benediction~:
       A: Half-Action
@@ -276,16 +298,18 @@ Talents:
       Cooldown: Once / Adventure
       HasMixins: true
       Tags: [Power Surge]
+      Requirement: Only usable in Worthy Combat
       Effect: |
         You take on a shadowy or illuminated appearance for the rest of the combat. Choose one:
-        {Diamond} Awe deals Scourge Damage. After you cast Awe, all your future Awe's deal +1 Damage. You can't heal (with anything).
-        {Diamond} After you heal someone, all your future heals heal for +1.
-
+        {Diamond} After you use a Healing Ability, increase all your Healing by +1.
+        {Diamond} Your cast Spells don't need line of sight. Awe deals Scourge Damage. After you cast Awe, all your future Awe's deal +1 Damage. You can't heal (with anything).
+    
     ~Herald of the Moon~:
       A: Passive
-      Duration: Rest of the Adventure
       Effect: |
-        If the Awe heals the target to Max Health (which was not previously Max Health), give them one Shielding that can block 1d4 Damage.
+        After doing a total of 20 Healing with Spells or 50 Damage in Worthy Combat, regain 1 Mana.
+      Notes: The dealt Damage and Healing carries over from Combat to Combat, but resets to 0 after casting this Ability, and starts at 0 each Adventure.
+
 
   Level 4 Class Talent:
 
@@ -321,8 +345,8 @@ Talents:
             Name: Second Shadow
             IconName: Second Shadow
     
-    ~Deafening Silence~:
-        A: 1 Action
+    ~Taketh Away Hearing~:
+        A: Half-Action
         Cost: 2 Mana
         Degree: Grand
         Tags: [Damage, CC]
@@ -345,7 +369,7 @@ Talents:
     ~Fundamentals~:
         A: Passive
         Effect: |
-          Pick one more Level 1 or Level 2 Talent.
+          Pick one more Level 1 or Level 2 Class or Utility Talent.
 
   Level 5 Class Talent:
 
@@ -419,47 +443,47 @@ Talents:
         After casting Awe 4 other times, reset the Cooldown of this Ability (except Awes from this Ability).
       OrderOnWebsite: 1
 
-    # ~Mind's Thing Upgraded~:
-    #     _Value: 
-    #     DisplayName: "Mind's {Name}"
-    #     A: 1 Action
-    #     Range: 3 meters
-    #     Degree: Minor
-    #     HasMixins: true
-    #     Tags: [Damage]
-    #     ScrollPower: 1
-    #     Requirement: Requires Mind's Shadow/Abolition
-    #     Replacement: Requires Mind's Shadow/Abolition
-    #     HasUpgradeIcon: true
-    #     Effect: |
-    #         Deal 1d12 + ^Your {Sense} or {Intelligence}^ {Type} Damage to a Unit.
-    #         For the rest of the combat ~you deal~ +{Damage} {Type} Damage (stacks indefinitely).
+    ~Mind's Thing Upgraded~:
+        _Value: 
+        DisplayName: "Mind's {Name}"
+        A: 1 Action
+        Range: 3 meters
+        Degree: Minor
+        HasMixins: true
+        Tags: [Damage]
+        ScrollPower: 1
+        Requirement: Requires Mind's Shadow/Abolition
+        Replacement: Requires Mind's Shadow/Abolition
+        HasUpgradeIcon: true
+        Effect: |
+            Deal 1d12 + ^Your {Sense} or {Intelligence}^ {Type} Damage to a Unit.
+            For the rest of the combat ~you deal~ +{Damage} {Type} Damage (stacks indefinitely).
 
-    #         ~Click on the icon to select the preferred effect!~
-    #     Variants:
-    #       - Name: Darkness
-    #         Type: Scourge
-    #         Damage: 2
-    #         IconName: Minds Shadow
-    #       - Name: Light
-    #         Type: Divine
-    #         Damage: 1
-    #         IconName: Minds Abolition
+            ~Click on the icon to select the preferred effect!~
+        Variants:
+          - Name: Darkness
+            Type: Scourge
+            Damage: 2
+            IconName: Minds Shadow
+          - Name: Light
+            Type: Divine
+            Damage: 1
+            IconName: Minds Abolition
     
-    # ~Revendication~:
-    #   _Value: 0
-    #   A: 0 Actions or Reaction
-    #   Cost: 1 Mana
-    #   Effect: |
-    #     Use when using an Ability or when triggering a weapon effect.
-    #     Increase any _number_ in it's description by 1 for that Act only.
-    #   Notes: Only numbers displayed with digits can increase (e.g. ^1^ can increase to 2, ^9^ can increase to 10, but ^one^ can not be increased).
+    ~Revendication~:
+      _Value: 0
+      A: 0 Actions or Reaction
+      Cost: 1 Mana
+      Effect: |
+        Use when using an Ability or when triggering a weapon effect.
+        Increase any _number_ in it's description by 1 for that Act only.
+      Notes: Only numbers displayed with digits can increase (e.g. ^1^ can increase to 2, ^9^ can increase to 10, but ^one^ can not be increased).
 
-    # ~Ritual of Wonder~:
-    #   A: 3 Action Points
-    #   Cost: 3 Mana
-    #   Effect: |
-    #     Heal a Unit you can see for 6d6 and increase its Maximum Health by 1 permanently.
+    ~Ritual of Wonder~:
+      A: 3 Action Points
+      Cost: 3 Mana
+      Effect: |
+        Heal a Unit you can see for 6d6 and increase its Maximum Health by 1 permanently.
 
     # ~Solace Tide~:
     #     A: Half-Action
@@ -537,7 +561,7 @@ Talents:
   Level 9 Class Talent:
 
     ~Arbiter of Balance~:
-      _Value: 3.5 # 3.5 damage/heal per cast, 3 casts per Combat = 10.5 Damage / Combat = 21 = 4-ish mana
+      _Value: 3.5 # 3.5 Damage/heal per cast, 3 casts per Combat = 10.5 Damage / Combat = 21 = 4-ish mana
       A: Passive
       Effect: |
         After you cast a light-themed Ability, your next shadow-themed Ability _balances the scales_ and automatically casts Awe (_and viceversa_).
@@ -551,7 +575,7 @@ Talents:
       ScrollPower: 4
       Requirement: Only usable in Combat
       Tags: [Heal]
-      Effect: Until the end of your next turn, double all healing you and your party does.
+      Effect: Until the end of your next Turn, double all healing you and your party does.
       Notes: Doesn't stack with other healing multiplication effects.
 
     <Inedianism>:
