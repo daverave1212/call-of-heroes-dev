@@ -3810,6 +3810,13 @@
         "ParentKey": "Ideas",
         "Origin": "Class/Cleric"
     },
+    "~Herald of the Moon~": {
+        "A": "Passive",
+        "Effect": "After doing a total of 20 Healing with Spells or 50 Damage in Worthy Combat, regain 1 Mana.\n",
+        "Notes": "The dealt Damage and Healing carries over from Combat to Combat, but resets to 0 after casting this Ability, and starts at 0 each Adventure.",
+        "ParentKey": "Level 3 Class Talent",
+        "Origin": "Class/Cleric"
+    },
     "~Elation~": {
         "A": "0 Action Points",
         "Cost": "1 Mana",
@@ -3920,7 +3927,7 @@
         "ScrollPower": "Auto",
         "Effect": "Use when an ally would take Damage (or on your Turn).\nInstantly pull it to you, then subtract 1d6 from the attack and give them the rolled die as one Shielding.\n",
         "Notes": "The ally goes flying.\nYou need line of sight to the targets. The allies fly to you ignoring obstacles and ground traps (goes around obstacles), unless the ally needs to swerve more than 2 meters in any direction.\nIf done on your Turn, the Shielding applies but there's no Damage to subtract from.\n",
-        "ParentKey": "Other Abilities",
+        "ParentKey": "Level 1 Class Talent",
         "Origin": "Class/Cleric"
     },
     "~Radiant Smite~": {
@@ -3944,7 +3951,7 @@
             }
         ],
         "HasMixins": true,
-        "ParentKey": "Other Abilities",
+        "ParentKey": "Level 1 Class Talent",
         "Origin": "Class/Cleric"
     },
     "~Healing Light~": {
@@ -3952,9 +3959,29 @@
         "Cost": "1 Mana",
         "Range": "3 meters",
         "Tags": "Healing",
-        "Effect": "Heal a Unit for 2d6 + your Presence, and all other Units within 1 meter of it for -50% of that amount.\n",
+        "Effect": "Heal a Unit for 2d6 + your Presence, and all other Units within 1 meter of it that can hear and see you for -50% of that amount.\n",
         "Upgrade": "If there were no other Units, remove all Crowd Control and Debuffs from the target.",
-        "ParentKey": "Other Abilities",
+        "ParentKey": "Level 1 Class Talent",
+        "Origin": "Class/Cleric"
+    },
+    "~Ruinshard~": {
+        "A": "1 Action Point",
+        "Range": "5 meters",
+        "Effect": "Blast a Unit for 1d8 {Type} Damage.\nDeals + ^your^ Presence Damage if it can't see or hear you.\n",
+        "Variants": [
+            {
+                "DisplayName": "Ruinshard",
+                "Type": "Scourge",
+                "Cooldown": "Twice / Turn"
+            },
+            {
+                "DisplayName": "Sunshard",
+                "Type": "Divine",
+                "Cooldown": "Once / Turn"
+            }
+        ],
+        "HasMixins": true,
+        "ParentKey": "Level 1 Class Talent",
         "Origin": "Class/Cleric"
     },
     "~Holy Fire~": {
@@ -3987,6 +4014,10 @@
     },
     "~Vows of Zealotry~": {
         "A": "Passive",
+        "Tags": [
+            "Crowd Control",
+            "Special"
+        ],
         "Effect": "While wearing Heavy Armor, Awe has ^Dice Upgraded^ to the next die type when cast on yourself, and your first melee attack each Combat Blinds the target.",
         "Upgrade": "Mercy is a gift for the innocent. For the rest of us, there is no vow - it's a lifestyle, heartfelt and righteous.",
         "HasMixins": true,
@@ -3996,7 +4027,12 @@
     "~Taketh Away Sight~": {
         "A": "2 Action Points",
         "Cost": "1 Mana",
-        "Effect": "Heal or deal 2d12 True Damage to a Unit you can see. It's next attack can't be ranged.\n",
+        "Tags": [
+            "Crowd Control",
+            "Damage"
+        ],
+        "Effect": "Heal or deal 2d12 True Damage to a Unit you can see. For 1 Turn, it can't see you and has a Line of Sight of 1 meter.\n",
+        "Upgrade": "For Epic Units, only limits their next offensive act to 1 meter Line of Sight.",
         "ParentKey": "Level 2 Class Talent",
         "Origin": "Class/Cleric"
     },
@@ -4042,14 +4078,8 @@
         "Tags": [
             "Power Surge"
         ],
-        "Effect": "You take on a shadowy or illuminated appearance for the rest of the combat. Choose one:\n{Diamond} Awe deals Scourge Damage. After you cast Awe, all your future Awe's deal +1 Damage. You can't heal (with anything).\n{Diamond} After you heal someone, all your future heals heal for +1.\n",
-        "ParentKey": "Level 3 Class Talent",
-        "Origin": "Class/Cleric"
-    },
-    "~Herald of the Moon~": {
-        "A": "Passive",
-        "Duration": "Rest of the Adventure",
-        "Effect": "If the Awe heals the target to Max Health (which was not previously Max Health), give them one Shielding that can block 1d4 Damage.\n",
+        "Requirement": "Only usable in Worthy Combat",
+        "Effect": "You take on a shadowy or illuminated appearance for the rest of the combat. Choose one:\n{Diamond} After you use a Healing Ability, increase all your Healing by +1.\n{Diamond} Your cast Spells don't need line of sight. Awe deals Scourge Damage. After you cast Awe, all your future Awe's deal +1 Damage. You can't heal (with anything).\n",
         "ParentKey": "Level 3 Class Talent",
         "Origin": "Class/Cleric"
     },
@@ -4095,8 +4125,8 @@
         "ParentKey": "Level 4 Class Talent",
         "Origin": "Class/Cleric"
     },
-    "~Deafening Silence~": {
-        "A": "2 Action Points",
+    "~Taketh Away Hearing~": {
+        "A": "1 Action Point",
         "Cost": "2 Mana",
         "Degree": "Grand",
         "Tags": [
@@ -4247,25 +4277,6 @@
         "ParentKey": "Level 7 Class Talent",
         "Origin": "Class/Cleric"
     },
-    "~Solace Tide~": {
-        "A": "1 Action Point",
-        "Cost": "1 Mana",
-        "Range": "5 meters",
-        "Degree": "Minor",
-        "IconName": "Solace Wave",
-        "HasUpgradeIcon": true,
-        "Replacement": "Replaces Solace Wave",
-        "Requirement": "Requires Solace Wave",
-        "Tags": [
-            "Heal",
-            "Combo"
-        ],
-        "Effect": "Heal an ally (or yourself) for ~1d10~ Health.\nIf they have 50% or more Health before the heal, double the result!\n",
-        "Combo": "Cast Awe ~twice~.",
-        "HasMixins": true,
-        "ParentKey": "Level 7 Class Talent",
-        "Origin": "Class/Cleric"
-    },
     "<Shadow Realm>": {
         "_Value": 2,
         "A": "0 Action Points",
@@ -4348,7 +4359,7 @@
         "Tags": [
             "Heal"
         ],
-        "Effect": "Until the end of your next turn, double all healing you and your party does.",
+        "Effect": "Until the end of your next Turn, double all healing you and your party does.",
         "Notes": "Doesn't stack with other healing multiplication effects.",
         "ParentKey": "Level 9 Class Talent",
         "Origin": "Class/Cleric"

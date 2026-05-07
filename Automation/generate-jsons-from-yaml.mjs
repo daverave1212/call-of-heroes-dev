@@ -145,11 +145,6 @@ function replaceAllWithExceptions({ text, substring, exceptions, replaceWith }) 
     return match;
   });
 }
-function readYAMLFromFile(fileName) {
-    const fileContents = fs.readFileSync(fileName, 'utf8');
-    const data = yaml.parse(fileContents);
-    return data
-}
 
 const classes = []         // Polulated at runtime (Array<string>)
 const races = []           // Polulated at runtime (Array<string>)
