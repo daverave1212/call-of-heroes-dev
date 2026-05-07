@@ -2,7 +2,7 @@
 import './Spell.css'
 import Separator from './../Separator/Separator'
 import { useEffect, useRef, useState } from 'react'
-import { parseTextWithSymbols, stringReplaceAllMany, getSpellIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll, getVariantsForEachCollection, createKey, spellsFromObject, randomInt, assertCorrectSpellFormat, findBasicSpellByName, allEqual, getItemIconPathByName, removeTildes, isString, getDoubleTableTable, getDoubleTableNumberedTable, filterObject, getSpellValidTopStatsObject, hasSpellVariants, getNormalizedSpellName, getSpellOrItemIconPath, parseAndNormalizeSpell, hexColorToRgbVector, getSpellByName } from '../../utils'
+import { parseTextWithSymbols, stringReplaceAllMany, getSpellIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll, getVariantsForEachCollection, createKey, spellsFromObject, randomInt, assertCorrectSpellFormat, findBasicSpellByName, allEqual, getItemIconPathByName, removeTildes, isString, getDoubleTableTable, getDoubleTableNumberedTable, filterObject, getSpellValidTopStatsObject, hasSpellVariants, getNormalizedSpellName, getSpellOrItemIconPath, parseAndNormalizeSpell, hexColorToRgbVector, getSpellByName, SYMBOLS } from '../../utils'
 import TableNormal from '../TableNormal/TableNormal'
 import html2canvas from 'html2canvas'
 import CopySpellButton from '../CopyButton/CopySpellButton'
@@ -339,7 +339,8 @@ export default function Spell({
         Name, DisplayName, A, IconPath,
         Effect, EffectGreen, EffectOrange, Downside, Upgrade, Combo, Notes,
         Variants, SubspellName,
-        Damage
+        Damage,
+        List
     } = parsedSpell
 
     
@@ -425,6 +426,13 @@ export default function Spell({
                 { Effect != null && (
                     <div className='spell-description'>
                         { Effect }
+                        { List != null && (
+                            List.map(li => (
+                                <div style={{marginTop: 'var(--spell-padding-small)'}}>
+                                    {SYMBOLS.Diamond.func()} {li}
+                                </div>
+                            ))
+                        ) }
                     </div>
                 )}
                 { Combo != null && (

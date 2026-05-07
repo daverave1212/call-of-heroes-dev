@@ -50,7 +50,7 @@ export function parseAndNormalizeSpell(spell, options={
     let extraMixins = {}
     maybeNormalizeSpellForEachVariants(spellModified)
     // Set spell props based on the current variant
-    if (spellModified.Variants != null && spellModified.Variants.length > 0) {
+    if (spellModified?.Variants?.length > 0) {
         const currentVariant = spellModified.Variants[variantIndex]
         extraMixins = mapObject(currentVariant, ({key, value}) => ({
             key: key,
@@ -89,6 +89,14 @@ export function parseAndNormalizeSpell(spell, options={
                 console.log({spell, options})
                 throw `Error in Spell ${spellModified.Name} at prop as text ${propName} parsing text: ${spell[propName]}. Spell printed above. Error: ${e}`
             }
+        }
+        if (spellModified?.List?.length > 0) {
+            const newList = []
+            for (const li of spellModified.List) {
+                const parsedLi = parseTextWithSymbols(li, extraMixins)
+                newList.push(parsedLi)
+            }
+            spellModified.List = newList
         }
     }
 
@@ -1749,7 +1757,7 @@ export const SYMBOLS = {
 
     'Damage': { tag: 'Icon', props: { name: 'Damage' } },
     'Mana': { tag: 'Icon', props: { name: 'Mana' } },
-    'Diamond': { tag: 'span', text: '🔹', props: { fontSize: '0.8em' }, func: () => <Icon name="BulletPoint3"/> },
+    'Diamond': { tag: 'span', text: '🔹', props: { fontSize: '0.8em' }, func: () => <Icon name="BulletPoint3" style={{marginTop: `calc(0.09 * var(--inline-icon-size))`, marginRight: 0}}/> },
     'Pets and Animals': { tag: 'Link', props: { to: "/Other/PetsAndAnimals" }, text: 'Pets and Animals' },
     'Offensive Abilities': { tag: 'span', text: "Offensive means that it deals Damage or applies hard Crowd Control (anything better than Slow and creating Hard Terrain)." },
     'Action': { tag: 'Icon', props: { name: "Hand" } },

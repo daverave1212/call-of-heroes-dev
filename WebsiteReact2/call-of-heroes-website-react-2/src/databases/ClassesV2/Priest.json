@@ -46,7 +46,8 @@
             "Cooldown": "Once / Adventure",
             "Tags": [
                 "Utility",
-                "Debuff",
+                "Crowd Control",
+                "Buff",
                 "Awe"
             ],
             "Effect": "Cast Awe on 2 Units and they become Blessed.\nBlessed Allies have +1 to all non-Combat Rolls for the rest of the Adventure. Blessed Enemies become Slowed.\n",
@@ -113,7 +114,7 @@
             "Origin": "Class/Cleric"
         },
         "<Compel>": {
-            "A": "0 Action Points",
+            "A": "0 Action Points or Reaction",
             "Cost": "1 Mana",
             "Tags": [
                 "CC",
@@ -174,16 +175,16 @@
                 "Effect": "Deal 1d12 + ^Your Presence or Focus^ {Type} Damage to a Unit.\nFor the rest of the combat, whenever it would take {Type} Damage, it takes {Damage} more (stacks indefinitely).\n\n~Click on the icon to select the preferred effect!~\n",
                 "Variants": [
                     {
-                        "Name": "Shadow",
-                        "Type": "Scourge",
-                        "Damage": 2,
-                        "IconName": "Minds Shadow"
-                    },
-                    {
                         "Name": "Abolition",
                         "Type": "Divine",
                         "Damage": 1,
                         "IconName": "Minds Abolition"
+                    },
+                    {
+                        "Name": "Shadow",
+                        "Type": "Scourge",
+                        "Damage": 2,
+                        "IconName": "Minds Shadow"
                     }
                 ],
                 "ParentKey": "Level 1 Class Talent",
@@ -214,6 +215,7 @@
                 "ScrollPower": "Auto",
                 "DisplayName": "{IconName}",
                 "Effect": "Add 1d6 Damage to a weapon attack or single-target Ability. It's Damage Type becomes {Type}.\nIf the target dies, regain 1 {Mana}Mana.\n",
+                "Combo": "1d8 Damage instead.",
                 "Variants": [
                     {
                         "Type": "Divine",
@@ -234,24 +236,28 @@
                 "Range": "3 meters",
                 "Tags": "Healing",
                 "Effect": "Heal a Unit for 2d6 + your Presence, and all other Units within 1 meter of it that can hear and see you for -50% of that amount.\n",
+                "Combo": "Within 3 meters instead.",
                 "Upgrade": "If there were no other Units, remove all Crowd Control and Debuffs from the target.",
                 "ParentKey": "Level 1 Class Talent",
                 "Origin": "Class/Cleric"
             },
-            "~Ruinshard~": {
+            "~Sunshard~": {
                 "A": "1 Action Point",
                 "Range": "5 meters",
-                "Effect": "Blast a Unit for 1d8 {Type} Damage.\nDeals + ^your^ Presence Damage if it can't see or hear you.\n",
+                "DisplayName": "{Name}",
+                "Effect": "Blast a Unit for 1d8 {Type} Damage.\nIf it can't see or hear you, deals extra Damage equal to ^your^ Instinct.\n",
                 "Variants": [
                     {
-                        "DisplayName": "Ruinshard",
-                        "Type": "Scourge",
-                        "Cooldown": "Twice / Turn"
+                        "Name": "Sunshard",
+                        "Type": "Divine",
+                        "Cooldown": "Once / Turn",
+                        "IconName": "Sunshard"
                     },
                     {
-                        "DisplayName": "Sunshard",
-                        "Type": "Divine",
-                        "Cooldown": "Once / Turn"
+                        "Name": "Ruinshard",
+                        "Type": "Scourge",
+                        "Cooldown": "Twice / Turn",
+                        "IconName": "Ruinshard"
                     }
                 ],
                 "HasMixins": true,
@@ -271,6 +277,7 @@
                 ],
                 "ScrollPower": 1,
                 "Effect": "Deal 1d10 {Type} Damage to a Unit, 4 times.\n{ExtraEffect}\n\n~Click on the icon to select the preferred effect!~\n",
+                "Notes": "You can target different or the same Unit(s).",
                 "Variants": [
                     {
                         "Name": "Holy Fire",
@@ -307,7 +314,7 @@
                     "Crowd Control",
                     "Damage"
                 ],
-                "Effect": "Heal or deal 2d12 True Damage to a Unit you can see. For 1 Turn, it can't see you and has a Line of Sight of 1 meter.\n",
+                "Effect": "Heal or deal 2d12 True Damage to a Unit you can see. It is Blinded and, for 1 Turn, can't see you and can't make ranged Acts.\n",
                 "Upgrade": "For Epic Units, only limits their next offensive act to 1 meter Line of Sight.",
                 "ParentKey": "Level 2 Class Talent",
                 "Origin": "Class/Cleric"
@@ -357,7 +364,11 @@
                     "Power Surge"
                 ],
                 "Requirement": "Only usable in Worthy Combat",
-                "Effect": "You take on a shadowy or illuminated appearance for the rest of the combat. Choose one:\n{Diamond} After you use a Healing Ability, increase all your Healing by +1.\n{Diamond} Your cast Spells don't need line of sight. Awe deals Scourge Damage. After you cast Awe, all your future Awe's deal +1 Damage. You can't heal (with anything).\n",
+                "Effect": "You take on a shadowy or illuminated appearance for the rest of the combat. Choose one:\n",
+                "List": [
+                    "^Aspect of Light:^ After you use a Healing Ability, increase all your Healing by +1.",
+                    "^Aspect of Shadow:^ Your cast Spells don't need line of sight. Awe deals Scourge Damage. After you cast Awe, all your future Awe's deal +1 Damage. You can't heal (with anything)."
+                ],
                 "ParentKey": "Level 3 Class Talent",
                 "Origin": "Class/Cleric"
             },
@@ -370,6 +381,12 @@
             }
         },
         "Level 4 Class Talent": {
+            "~Death Beckons Me~": {
+                "A": "Reaction",
+                "Effect": "Use when an Ally would take Damage (before calculations).\nThe ally only takes half, and you Damage yourself for the other half.\nThen cast Awe, but it can't target you or that Ally.\n",
+                "ParentKey": "Level 4 Class Talent",
+                "Origin": "Class/Cleric"
+            },
             "~Privilege~": {
                 "A": "1 Action Point",
                 "Cooldown": "Once / Unit / Combat",
@@ -528,6 +545,20 @@
             }
         },
         "Level 7 Class Talent": {
+            "~Burning Thy Flesh~": {
+                "A": "Passive",
+                "Effect": "For each 5 self-inflicted Damage you take, cast Awe twice, but it can't target Clerics.\n",
+                "ParentKey": "Level 7 Class Talent",
+                "Origin": "Class/Cleric"
+            },
+            "~Sanctification~": {
+                "A": "1 Action Point",
+                "Cost": "1 Mana",
+                "Effect": "Cast Awe twice on all Units currently affected by your Buffs and Debuffs or Crowd Controls.",
+                "Notes": "Includes Shieldings.",
+                "ParentKey": "Level 7 Class Talent",
+                "Origin": "Class/Cleric"
+            },
             "<Circle of Awe>": {
                 "_Value": 1.75,
                 "A": "2 Action Points",
@@ -559,16 +590,16 @@
                 "Effect": "Deal 1d12 + ^Your Presence or Focus^ {Type} Damage to a Unit.\nFor the rest of the combat ~you deal~ +{Damage} {Type} Damage (stacks indefinitely).\n\n~Click on the icon to select the preferred effect!~\n",
                 "Variants": [
                     {
-                        "Name": "Darkness",
-                        "Type": "Scourge",
-                        "Damage": 2,
-                        "IconName": "Minds Shadow"
-                    },
-                    {
                         "Name": "Light",
                         "Type": "Divine",
                         "Damage": 1,
                         "IconName": "Minds Abolition"
+                    },
+                    {
+                        "Name": "Darkness",
+                        "Type": "Scourge",
+                        "Damage": 2,
+                        "IconName": "Minds Shadow"
                     }
                 ],
                 "ParentKey": "Level 7 Class Talent",
@@ -616,8 +647,8 @@
                 "Tags": [
                     "AoE CC"
                 ],
-                "Cost": "1 Mana",
-                "Effect": "Choose a point as the center of a Black Hole.\nAt the end of each Round, Slam* all Units within 6 meters of the Black Hole towards the center.\nWhen one comes within 1 meter of the center, cast Awe on it and it becomes Slowed.\n",
+                "Cooldown": "Once / Adventure",
+                "Effect": "Choose a point as the center of a Black Hole which blocks light within 6 meters, and limits Units' line of sight to its event horizon.\nAt the end of each Round, Slam* all Units within 6 meters of the Black Hole towards the center.\nWhen one comes within 1 meter of the center, cast Awe on it and it becomes Slowed.\n",
                 "Upgrade": "Only Units that meet in the center take Damage from the Slam. Each takes Damage equal to their own distance thrown (if they slam into eachother).",
                 "Notes": "If Units are Slammed into other things, they take Damage as normal.",
                 "OrderOnWebsite": 2,
@@ -626,6 +657,21 @@
             }
         },
         "Level 8 Class Talent": {
+            "~Aweful Prophecy~": {
+                "A": "0 Action Points",
+                "Cost": "1 Mana",
+                "Effect": "Mark a Unit for _prophecy_.\nAt the start of your next Turn, repeat all Awe cast on it until then.\n",
+                "HasMixins": true,
+                "ParentKey": "Level 8 Class Talent",
+                "Origin": "Class/Cleric"
+            },
+            "~One Hand Giveth~": {
+                "_Value": 2.25,
+                "A": "Reaction",
+                "Effect": "Your Abilities that inflict Blind or Deafen deal -50% Damage to allies.\nAfter an Ally recovers from being Blinded by you, their next Act deals 150% extra Damage.\nAfter an Ally recovers from being Deafened by you, their next Ability costs -3 Action Points to cast.\n",
+                "ParentKey": "Level 8 Class Talent",
+                "Origin": "Class/Cleric"
+            },
             "~God In Hand~": {
                 "A": "0 Action Points",
                 "Cooldown": "Once / Adventure",
@@ -658,6 +704,18 @@
             }
         },
         "Level 9 Class Talent": {
+            "~The Other Side~": {
+                "_Value": 8,
+                "A": "Passive",
+                "Effect": "You start each Combat with +1 Mana.\nAlso, at the start of each Combat, flip a coin:\n",
+                "List": [
+                    "^Heads:^ you can only cast the _light_ versions of your Spells, and, whenever you cast one, gain +1 Divine Damage or Healing this Combat.",
+                    "^Tails:^ you can only cast the _shadow_ versions of your Spells, and, whenever you cast one, move 2 meters and gain +1 Scourge Damage this Combat."
+                ],
+                "HasMixins": true,
+                "ParentKey": "Level 9 Class Talent",
+                "Origin": "Class/Cleric"
+            },
             "~Arbiter of Balance~": {
                 "_Value": 3.5,
                 "A": "Passive",

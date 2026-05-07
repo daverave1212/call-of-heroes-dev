@@ -51,7 +51,7 @@ Starting Abilities:
     _Value: 0.25
     A: Half-Action
     Cooldown: Once / Adventure
-    Tags: [Utility, Debuff, Awe]
+    Tags: [Utility, Crowd Control, Buff, Awe]
     Effect: |
       Cast Awe on 2 Units and they become Blessed.
       Blessed Allies have +1 to all non-Combat Rolls for the rest of the Adventure. Blessed Enemies become Slowed.
@@ -107,7 +107,7 @@ Utility:
             For example, repair a hole through a chain shirt or textile material, the crack in a piece of glass, etc.
 
     <Compel>:
-      A: 0 Actions
+      A: 0 Actions or Reaction
       Cost: 1 Mana
       Tags: [CC, Combo, Tanking]
       Cooldown: Once / Turn
@@ -162,14 +162,14 @@ Talents:
 
             ~Click on the icon to select the preferred effect!~
         Variants:
-          - Name: Shadow
-            Type: Scourge
-            Damage: 2
-            IconName: Minds Shadow
           - Name: Abolition
             Type: Divine
             Damage: 1
             IconName: Minds Abolition
+          - Name: Shadow
+            Type: Scourge
+            Damage: 2
+            IconName: Minds Shadow
 
     ~Homecoming~:
         A: 0 Actions or Reaction
@@ -195,6 +195,7 @@ Talents:
       Effect: |
           Add 1d6 Damage to a weapon attack or single-target Ability. It's Damage Type becomes {Type}.
           If the target dies, regain 1 {Mana}Mana.
+      Combo: 1d8 Damage instead.
       Variants:
         - Type: Divine
           IconName: Radiant Smite
@@ -208,21 +209,25 @@ Talents:
       Tags: Healing
       Effect: |
         Heal a Unit for 2d6 + your {Charisma}, and all other Units within 1 meter of it that can hear and see you for -50% of that amount.
+      Combo: Within 3 meters instead.
       Upgrade: If there were no other Units, remove all Crowd Control and Debuffs from the target.
 
-    ~Ruinshard~:
+    ~Sunshard~:
       A: Half-Action
       Range: 5 meters
+      DisplayName: "{Name}"
       Effect: |
         Blast a Unit for 1d8 {Type} Damage.
-        Deals + ^your^ {Sense} Damage if it can't see or hear you.
+        If it can't see or hear you, deals extra Damage equal to ^your^ {Dexterity}.
       Variants:
-        - DisplayName: Ruinshard
-          Type: Scourge
-          Cooldown: Twice / Turn
-        - DisplayName: Sunshard
+        - Name: Sunshard
           Type: Divine
           Cooldown: Once / Turn
+          IconName: Sunshard
+        - Name: Ruinshard
+          Type: Scourge
+          Cooldown: Twice / Turn
+          IconName: Ruinshard
 
   Level 2 Class Talent:
 
@@ -239,6 +244,7 @@ Talents:
             {ExtraEffect}
 
             ~Click on the icon to select the preferred effect!~
+        Notes: You can target different or the same Unit(s).
         Variants:
           - Name: Holy Fire
             Type: Divine or Fire
@@ -260,7 +266,7 @@ Talents:
       Cost: 1 Mana
       Tags: [Crowd Control, Damage]
       Effect: |
-        Heal or deal 2d12 True Damage to a Unit you can see. For 1 Turn, it can't see you and has a Line of Sight of 1 meter.
+        Heal or deal 2d12 True Damage to a Unit you can see. It is Blinded and, for 1 Turn, can't see you and can't make ranged Acts.
       Upgrade: For Epic Units, only limits their next offensive act to 1 meter Line of Sight.
 
 
@@ -301,8 +307,9 @@ Talents:
       Requirement: Only usable in Worthy Combat
       Effect: |
         You take on a shadowy or illuminated appearance for the rest of the combat. Choose one:
-        {Diamond} After you use a Healing Ability, increase all your Healing by +1.
-        {Diamond} Your cast Spells don't need line of sight. Awe deals Scourge Damage. After you cast Awe, all your future Awe's deal +1 Damage. You can't heal (with anything).
+      List:
+        - ^Aspect of Light:^ After you use a Healing Ability, increase all your Healing by +1.
+        - ^Aspect of Shadow:^ Your cast Spells don't need line of sight. Awe deals Scourge Damage. After you cast Awe, all your future Awe's deal +1 Damage. You can't heal (with anything).
     
     ~Herald of the Moon~:
       A: Passive
@@ -312,6 +319,13 @@ Talents:
 
 
   Level 4 Class Talent:
+
+    ~Death Beckons Me~:
+      A: Reaction
+      Effect: |
+        Use when an Ally would take Damage (before calculations).
+        The ally only takes half, and you Damage yourself for the other half.
+        Then cast Awe, but it can't target you or that Ally.
 
     ~Privilege~:
       A: Half-Action
@@ -432,6 +446,17 @@ Talents:
 
   Level 7 Class Talent:
 
+    ~Burning Thy Flesh~:
+      A: Passive
+      Effect: |
+        For each 5 self-inflicted Damage you take, cast Awe twice, but it can't target Clerics.
+
+    ~Sanctification~:
+      A: Half-Action
+      Cost: 1 Mana
+      Effect: Cast Awe twice on all Units currently affected by your Buffs and Debuffs or Crowd Controls.
+      Notes: Includes Shieldings.
+
     <Circle of Awe>:
       _Value: 1.75
       A: 1 Action
@@ -461,14 +486,14 @@ Talents:
 
             ~Click on the icon to select the preferred effect!~
         Variants:
-          - Name: Darkness
-            Type: Scourge
-            Damage: 2
-            IconName: Minds Shadow
           - Name: Light
             Type: Divine
             Damage: 1
             IconName: Minds Abolition
+          - Name: Darkness
+            Type: Scourge
+            Damage: 2
+            IconName: Minds Shadow
     
     ~Revendication~:
       _Value: 0
@@ -523,9 +548,9 @@ Talents:
       Duration: 1 minute
       ScrollPower: 2
       Tags: [AoE CC]
-      Cost: 1 Mana
+      Cooldown: Once / Adventure
       Effect: |
-        Choose a point as the center of a Black Hole.
+        Choose a point as the center of a Black Hole which blocks light within 6 meters, and limits Units' line of sight to its event horizon.
         At the end of each Round, Slam* all Units within 6 meters of the Black Hole towards the center.
         When one comes within 1 meter of the center, cast Awe on it and it becomes Slowed.
       Upgrade: Only Units that meet in the center take Damage from the Slam. Each takes Damage equal to their own distance thrown (if they slam into eachother).
@@ -533,6 +558,21 @@ Talents:
       OrderOnWebsite: 2
 
   Level 8 Class Talent:
+
+    ~Aweful Prophecy~:
+      A: 0 Actions
+      Cost: 1 Mana
+      Effect: |
+        Mark a Unit for _prophecy_.
+        At the start of your next Turn, repeat all Awe cast on it until then.
+
+    ~One Hand Giveth~:
+      _Value: 2.25 # This is super wildcard
+      A: Reaction
+      Effect: |
+        Your Abilities that inflict Blind or Deafen deal -50% Damage to allies.
+        After an Ally recovers from being Blinded by you, their next Act deals 150% extra Damage.
+        After an Ally recovers from being Deafened by you, their next Ability costs -3 Action Points to cast.
 
     ~God In Hand~:
       A: 0 Actions
@@ -559,6 +599,16 @@ Talents:
         These Units' Passive Abilities are disabled while affected.
     
   Level 9 Class Talent:
+
+    ~The Other Side~:
+      _Value: 8
+      A: Passive
+      Effect: |
+        You start each Combat with +1 Mana.
+        Also, at the start of each Combat, flip a coin:
+      List:
+        - ^Heads:^ you can only cast the _light_ versions of your Spells, and, whenever you cast one, gain +1 Divine Damage or Healing this Combat.
+        - ^Tails:^ you can only cast the _shadow_ versions of your Spells, and, whenever you cast one, move 2 meters and gain +1 Scourge Damage this Combat.
 
     ~Arbiter of Balance~:
       _Value: 3.5 # 3.5 Damage/heal per cast, 3 casts per Combat = 10.5 Damage / Combat = 21 = 4-ish mana

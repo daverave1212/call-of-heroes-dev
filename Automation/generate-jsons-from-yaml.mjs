@@ -304,23 +304,24 @@ function maybeAddHasMixins(subobj) {
     if (subobj == null) {
         return
     }
-    if (stringHasAnyOfChars(subobj.Effect || '', '{^_~')) {
-        subobj.HasMixins = true
+    const propsToCheck = ['Effect', 'Upgrade', 'Notes', 'EffectGreen', 'Downside', 'Combo']
+    for (const propName of propsToCheck) {
+        const propValue = subobj[propName]
+        if (propValue == null) {
+            continue
+        }
+        if (stringHasAnyOfChars(propValue || '', '{^_~')) {
+            subobj.HasMixins = true
+            return
+        }
     }
-    if (stringHasAnyOfChars(subobj.Upgrade || '', '{^_~')) {
-        subobj.HasMixins = true
-    }
-    if (stringHasAnyOfChars(subobj.Notes || '', '{^_~')) {
-        subobj.HasMixins = true
-    }
-    if (stringHasAnyOfChars(subobj.EffectGreen || '', '{^_~')) {
-        subobj.HasMixins = true
-    }
-    if (stringHasAnyOfChars(subobj.Downside || '', '{^_~')) {
-        subobj.HasMixins = true
-    }
-    if (stringHasAnyOfChars(subobj.Combo || '', '{^_~')) {
-        subobj.HasMixins = true
+    if (subobj.List?.length > 0) {
+        for (const li of subobj.List) {
+            if (stringHasAnyOfChars(li || '', '{^_~')) {
+                subobj.HasMixins = true
+                return
+            }
+        }
     }
 }
 
