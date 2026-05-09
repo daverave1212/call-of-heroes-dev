@@ -31,7 +31,7 @@
             "AlignOnWebsite": "Left",
             "A": "Passive",
             "HasMixins": true,
-            "Effect": "You have an animal pet that can fight alongside you!\nYour pet has the Stats 3, 1, 0, 0, -1 in any order, but they do not affect its Combat capabilities.\nIt has ^8 + 200% of Your Level^ Max Health.\nYour pet acts on your Turn. It has 2 Action Points, but it can only attack once per Turn.\n",
+            "Effect": "You have an animal pet that can fight alongside you!\nYour pet has the Stats 3, 1, 0, 0, -1 in any order, but they do not affect its Combat capabilities.\nIt has Max Health equal to ^8 + 200% of Your Level^.\nYour pet acts on your Turn. It has 2 Action Points, but it can only attack once per Turn.\n",
             "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (your pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.\nYour pet will not stray more than 30 meters away from you in hostile territory.\n",
             "Notes": "Your pet can't do Default Moves except Taunt.\nYour pet can make normal non-Combat Rolls using using its own Stats.\nYour pet can't rise from being Fallen while in Combat, even if healed.\nIf your pet ever dies, you can spend 8 hours inbetween Adventures to get a new pet. If you want to change your Pet and abandon your current one, you can do so inbetween Adventures, but the guilt will make you Fumbling for the next 2 Worthy Combat encounters.\n",
             "Subspells": {
@@ -70,6 +70,7 @@
             "A": "Passive",
             "IsSubspell": true,
             "Effect": "At any point, you can tap into your pet's mind and see through its eyes, hear through its ears and smell through its nose.",
+            "Upgrade": "As a Lone Wolf, you can use this to tap into any animal's mind you can see.",
             "ParentKey": "Utility",
             "Origin": "Class/Hunter"
         },
@@ -98,6 +99,7 @@
             "A": "Passive",
             "IsSubspell": true,
             "Effect": "Your pet can fly at its normal Movement Speed.",
+            "Downside": "Not applicable for Lone Wolves.",
             "ParentKey": "Utility",
             "Origin": "Class/Hunter"
         },
@@ -109,9 +111,10 @@
             "Origin": "Class/Hunter"
         },
         "~Wallwalking~": {
-            "A": "0 Action Points",
+            "A": "Passive",
             "IsSubspell": true,
             "Effect": "Your pet can walk on walls and ceilings at normal speed.\n",
+            "Downside": "As a Lone Wolf, requires Level 4.",
             "Upgrade": "At Level 4, ^you^ can also crawl on walls and ceilings at half of your speed by trailing behind your pet.",
             "HasMixins": true,
             "ParentKey": "Utility",
@@ -143,7 +146,7 @@
             "A": "Passive",
             "IsSubspell": true,
             "Tags": "Tanking",
-            "Effect": "Your pet is Large (2x2 meters) and has +5 Max Health.\n",
+            "Effect": "Your pet has +5 Max Health.\n",
             "ParentKey": "Other Abilities",
             "Origin": "Class/Hunter"
         },
@@ -151,7 +154,7 @@
             "A": "Passive",
             "IsSubspell": true,
             "Tags": "Tanking",
-            "Effect": "If an enemy starts its Turn next to your pet, it is Taunted by it.\nIf it moves outside of your pet's melee range, Pet Attack it for free using a Reaction.\n",
+            "Effect": "If an enemy starts its Turn next to your pet, it is Taunted by it.\nIf it moves outside of your pet's melee range, it Pet Attacks it for free using a Reaction.\n",
             "ParentKey": "Other Abilities",
             "Origin": "Class/Hunter"
         },
@@ -169,7 +172,7 @@
             "IsSubspell": true,
             "Requirement": "Level 4",
             "Tags": "Tanking",
-            "Effect": "Allies within 1 meter of your pet take -1 Damage from all sources in Worthy Combat.\n",
+            "Effect": "Other allies within 1 meter of your pet take -1 Damage from all sources in Worthy Combat.\n",
             "ParentKey": "Other Abilities",
             "Origin": "Class/Hunter"
         },
@@ -297,11 +300,28 @@
             },
             "Talents": {
                 "Level 2 Class Talent": {
+                    "<Lone Wolf>": {
+                        "A": "Passive",
+                        "Requirement": "Hunter",
+                        "Effect": "You renounce your Animal Companion, but gain Health and Health Regen equal to its Health.\nAll your pet's Talents and Abilities apply to you instead, and your first attack each Turn deals extra Damage equal to your Pet's attack.\nChoose one more Pet Talent for yourself.\n",
+                        "Notes": "You no longer have access to the Animal Companion.",
+                        "Name": "<Lone Wolf>",
+                        "ParentKey": "Level 2 Class Talent",
+                        "Origin": "Class/Hunter"
+                    },
+                    "~Team of Two~": {
+                        "A": "Passive",
+                        "Effect": "Your Pet gains +5 Skill Points it can use for its own non-Combat Skills (that make sense for an animal to have).\nIt may start Combat from anywhere within 5 meters of you, within line of sight.\n",
+                        "ParentKey": "Level 2 Class Talent",
+                        "Origin": "Class/Hunter"
+                    }
+                },
+                "Level 3 Class Talent": {
                     "~Tracker~": {
                         "_Value": 0.25,
                         "A": "Passive",
                         "Effect": "You have +2 in Tracking (non-Combat Skill)\nYou always know where North is in non-magical environments.\nYou and your pets are unaffected by Hard Terrain.\n",
-                        "ParentKey": "Level 2 Class Talent",
+                        "ParentKey": "Level 3 Class Talent",
                         "Origin": "Class/Hunter"
                     },
                     "~Infused Shots~": {
@@ -326,13 +346,13 @@
                             }
                         ],
                         "HasMixins": true,
-                        "ParentKey": "Level 2 Class Talent",
+                        "ParentKey": "Level 3 Class Talent",
                         "Origin": "Class/Hunter"
                     },
                     "<Pet Versatile Training>": {
                         "A": "Special",
                         "Effect": "When you get this Talent and at the end of every Adventure, you can change one of your pet's Pet Talents.",
-                        "ParentKey": "Level 2 Class Talent",
+                        "ParentKey": "Level 3 Class Talent",
                         "Origin": "Class/Hunter"
                     },
                     "~Harpoon~": {
@@ -352,29 +372,43 @@
                         ],
                         "Notes": "The target stops if it collides with something.",
                         "HasMixins": true,
-                        "ParentKey": "Level 2 Class Talent",
+                        "ParentKey": "Level 3 Class Talent",
                         "Origin": "Class/Hunter"
                     }
                 },
-                "Level 3 Class Talent": {
+                "Level 4 Class Talent": {
+                    "<Fetch!>": {
+                        "_Value": 0,
+                        "A": "2 Action Points (from Pet)",
+                        "Cooldown": "Once / Combat",
+                        "Effect": "Refresh the Cooldown of one of your Pet's Abilities.",
+                        "Upgrade": "For Lone Wolves, this costs 1 Action Point.",
+                        "ParentKey": "Level 4 Class Talent",
+                        "Origin": "Class/Hunter"
+                    },
                     "<Hunting Trap>": {
+                        "_Value": 2,
                         "A": "1 Action Point",
                         "ScrollPower": 2,
-                        "Effect": "Deploy a Hunting Trap near you armed in a certain way that it's stronger than usual.\nWhen a Unit steps on it, it takes 2d8 Damage, gets a Combo and ends its Movement.\n",
+                        "Effect": "Deploy a Hunting Trap near you armed in a certain way that it's stronger than usual.\nWhen a Unit steps on it, it takes 1d10 Damage, gets a Combo and ends its Movement.\n",
                         "Upgrade": "Requires a Hunting Trap, which can be bought or crafted for 100 {Gold}Gold.",
+                        "Notes": "Also ends dashes, pushes, and Slams (Slams don't do collision Damage).",
                         "HasMixins": true,
-                        "ParentKey": "Level 3 Class Talent",
+                        "ParentKey": "Level 4 Class Talent",
                         "Origin": "Class/Hunter"
                     },
                     "~Refire Dodge Roll~": {
                         "_Value": 1.25,
                         "A": "Reaction or 0 Action Points",
                         "Cooldown": "Twice / Combat",
+                        "Replacement": "Replaces Dodge Roll",
+                        "HasUpgradeIcon": true,
+                        "IconName": "Dodge Roll",
                         "HasMixins": true,
                         "Effect": "Use when taking Damage (or any time on your Turn).\nRoll 2 meters in any possible direction. Reduce the Damage by 50%. ~Then move the Hunter Mark (if any) to the Damage source Unit.~\n",
                         "Upgrade": "^You^ can use this to make your pet Dodge Roll instead.",
                         "Notes": "~The Cooldown is now also Twice / Combat.~",
-                        "ParentKey": "Level 3 Class Talent",
+                        "ParentKey": "Level 4 Class Talent",
                         "Origin": "Class/Hunter"
                     },
                     "<Bounty Hunting>": {
@@ -383,150 +417,36 @@
                         "HasMixins": true,
                         "Effect": "When your ^Marked^ target dies, you gain 1d100 {Gold}Gold and heal an ally within 6 meters for 1d8.",
                         "Notes": "Flavor-wise, you collect a trophy of your kill. The next time you are in a town, you redeem the Gold from selling the trophy.",
-                        "ParentKey": "Level 3 Class Talent",
-                        "Origin": "Class/Hunter"
-                    },
-                    "<Slayer>": {
-                        "_Value": 1.5,
-                        "A": "Passive",
-                        "Effect": "You always know the type of a monster. You gain a different boon when ^you^ defeat a Worthy Enemy of a certain type:\n\n{DarkGreen('Beasts:')} Heal an Ally for 1d4.\n{DarkGreen('Demons:')} Your pet gains +1 Damage this Combat.\n{DarkGreen('Fiends:')} Gain 50 {Gold}Gold.\n{DarkGreen('People:')} Your next attack Cripples the target.\n{DarkGreen('Undead:')} Your pet's next attack Single-Stuns the target.\n",
-                        "HasMixins": true,
-                        "ParentKey": "Level 3 Class Talent",
-                        "Origin": "Class/Hunter"
-                    },
-                    "<Pet Training 101>": {
-                        "A": "Passive",
-                        "Effect": "Choose one more Pet Talent.\nWhile you have this Talent, your pet also has that Pet Talent.\n",
-                        "ParentKey": "Level 3 Class Talent",
-                        "Origin": "Class/Hunter"
-                    },
-                    "<Fang and Claw>": {
-                        "_Value": 1.5,
-                        "A": "Passive",
-                        "Effect": "Pet Attack deals 1d6 Damage instead of 1d4.",
-                        "ParentKey": "Level 3 Class Talent",
-                        "Origin": "Class/Hunter"
-                    }
-                },
-                "Level 4 Class Talent": {
-                    "<Bandage Wounds>": {
-                        "_Value": 0.75,
-                        "Cooldown": "Once / Adventure",
-                        "A": "10 minutes",
-                        "Effect": "Heal a Unit for 1d4 for each 10 Health it is missing.",
-                        "ParentKey": "Level 4 Class Talent",
-                        "Origin": "Class/Hunter"
-                    },
-                    "<Pet Versatile Trainings>": {
-                        "A": "Special",
-                        "Effect": "When you get this Talent and at the end of every Adventure, you can change one Pet Talent of one of your pets.",
-                        "ParentKey": "Level 4 Class Talent",
-                        "Origin": "Class/Hunter"
-                    },
-                    "~Lance Heave~": {
-                        "A": "Depends on Weapon",
-                        "DisplayName": "{Name}",
-                        "HasMixins": true,
-                        "DisplayRequirement": "Only usable if it hits at least 2 Units",
-                        "Tags": "AoE",
-                        "Effect": "Make a {Weapon} ^weapon^ attack {Effect}\n~Click on the Icon to select which variant you want to have have!~\n",
-                        "Combo": "Comboed Units take the original full Damage.",
-                        "Notes": "Can apply weapon effects. If the weapon effect requires a target, applies to one chosen Unit hit.\nRange increases do increase the length. The Damage must the same for all Units hit. All bonuses to the attack (e.g. Smite, Cursewielder, etc) also split evenly.\n",
-                        "Variants": [
-                            {
-                                "Name": "Lance Heave",
-                                "Effect": "that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.",
-                                "Weapon": "2-handed melee",
-                                "IconName": "Lance Heave"
-                            },
-                            {
-                                "Name": "Blade Heave",
-                                "Effect": "that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units.",
-                                "Weapon": "1-handed melee",
-                                "IconName": "Blade Heave"
-                            },
-                            {
-                                "Name": "Penetrating Heave",
-                                "Effect": "that hits one more Unit up to 2 meters directly behind the main target.",
-                                "Weapon": "2-handed ranged",
-                                "IconName": "Penetrating Heave"
-                            },
-                            {
-                                "Name": "Piercing Heave",
-                                "Effect": "that hits one more Unit up to 2 meters directly behind the main target.",
-                                "Weapon": "1-handed ranged",
-                                "IconName": "Piercing Heave"
-                            }
-                        ],
                         "ParentKey": "Level 4 Class Talent",
                         "Origin": "Class/Hunter"
                     }
                 },
                 "Level 5 Class Talent": {
-                    "<Crosshair Shot>": {
-                        "_Value": 2.25,
-                        "A": "2 Action Points",
-                        "Range": "16 meters",
+                    "<Slayer>": {
+                        "_Value": 1.5,
+                        "A": "Passive",
+                        "Effect": "You always know the type of a monster. You gain a different boon when ^you^ defeat a Worthy Enemy of a certain type:\n\n{DarkGreen('Beasts:')} Heal an Ally for 1d4.\n{DarkGreen('Demons:')} Your pet gains +1 Damage this Combat.\n{DarkGreen('Fiends:')} Gain 50 {Gold}Gold.\n{DarkGreen('People:')} Your next attack Cripples the target.\n{DarkGreen('Undead:')} Your pet's next attack Single-Stuns the target.\n",
+                        "HasMixins": true,
+                        "ParentKey": "Level 5 Class Talent",
+                        "Origin": "Class/Hunter"
+                    },
+                    "<Bandage Wounds>": {
+                        "_Value": 1.25,
                         "Cooldown": "Once / Adventure",
-                        "Tags": [
-                            "Damage",
-                            "Ultimate"
-                        ],
-                        "Upgrade": "{KeystoneTalent}",
-                        "ScrollPower": 3,
-                        "Effect": "Make an attack on a target.\nFor each meter to the target, the attack deals 1d6 Pierce Damage, up to 8 meters.\nFor each meter to the target over 8 meters, deal -1d6 Damage.\n",
-                        "Notes": "At exactly 8 meters range, the attack deals 8d6 Damage. At 7 and 9 meters, it deals 7d6. At 6 and 10 meters, 6d6. And so on.",
-                        "HasMixins": true,
+                        "A": "1 Action Point",
+                        "Effect": "Heal a Unit for 1d6 for each 10 Health it is missing.",
                         "ParentKey": "Level 5 Class Talent",
                         "Origin": "Class/Hunter"
                     },
-                    "~Tag-Team Mark~": {
-                        "_Value": 2.5,
-                        "A": "0 Action Points",
-                        "Cooldown": "Once / Combat",
-                        "Duration": "1 hour",
-                        "HasMixins": true,
-                        "Replacement": "Replaces Hunter Mark",
-                        "Tags": [
-                            "Hunter Mark",
-                            "Pet"
-                        ],
-                        "Upgrade": "{KeystoneTalent}",
-                        "Effect": "Choose and mark a target you can see. ~Your Pet immediately dashes to the target and performs a Pet Attack if it's within 6 meters of the target.~\nYour own ~and your pet's~ single target attacks and Abilities against the marked target have their ^Dice Upgraded^ to the next die type.\n",
-                        "Notes": "Having Dice Upgraded means, for example, d6's become d8's, or d10's become d12's. D12's and d20's just gain +1.\nA Unit can only have one Hunter Mark on it at a time.\nYour Pet lands on the closest space near the target.\n",
+                    "<Pet Versatile Trainings>": {
+                        "A": "Special",
+                        "Effect": "When you get this Talent and at the end of every Adventure, you can change one Pet Talent of one of your pets.",
                         "ParentKey": "Level 5 Class Talent",
                         "Origin": "Class/Hunter"
                     },
-                    "~Chaser Mark~": {
-                        "_Value": 2.5,
-                        "A": "0 Action Points",
-                        "Cooldown": "Once / Combat",
-                        "Duration": "1 hour",
-                        "HasMixins": true,
-                        "Replacement": "Replaces Hunter Mark",
-                        "Tags": [
-                            "Hunter Mark",
-                            "Crowd Control"
-                        ],
-                        "Upgrade": "{KeystoneTalent}",
-                        "Effect": "Choose and mark a target you can see. ~If it's a non-Epic Unit, it is perpetually Single-Stunned while Marked.~\nYour own single target attacks and Abilities against the marked target have their ^Dice Upgraded^ to the next die type.\n",
-                        "Notes": "Having Dice Upgraded means, for example, d6's become d8's, or d10's become d12's. D12's and d20's just gain +1.\nA Feared Unit can only do one Act on its turn (e.g. move, make one attack, use one Ability, etc).\nA Unit can only have one Hunter Mark on it at a time.\nYour Pet lands on the closest space near the target.\n",
-                        "ParentKey": "Level 5 Class Talent",
-                        "Origin": "Class/Hunter"
-                    },
-                    "<Pet Training 102>": {
+                    "<Pet Training 101>": {
                         "A": "Passive",
                         "Effect": "Choose one more Pet Talent.\nWhile you have this Talent, your pet also has that Pet Talent.\n",
-                        "ParentKey": "Level 5 Class Talent",
-                        "Origin": "Class/Hunter"
-                    },
-                    "<Fang and Claw>": {
-                        "_Value": 1.5,
-                        "Requirement": "You can only have Fang and Claw once",
-                        "A": "Passive",
-                        "Effect": "Pet Attack deals 1d6 Damage instead of 1d4.",
-                        "Notes": "This Talent is also available at an earlier Level, and does ^not^ stack with this.",
-                        "HasMixins": true,
                         "ParentKey": "Level 5 Class Talent",
                         "Origin": "Class/Hunter"
                     }
@@ -548,6 +468,79 @@
                     }
                 },
                 "Level 7 Class Talent": {
+                    "<Crosshair Shot>": {
+                        "_Value": 2.25,
+                        "A": "3 Action Points",
+                        "Range": "16 meters",
+                        "Cooldown": "Once / Adventure",
+                        "Tags": [
+                            "Damage",
+                            "Ultimate"
+                        ],
+                        "Upgrade": "{KeystoneTalent}",
+                        "ScrollPower": 3,
+                        "Effect": "Dash 3 meters, then shoot a special shot at a Unit that ignores and destroys environmental Cover if it's breakable.\nIt deals 8d8 Damage at exactly 8 meters range:\n",
+                        "List": [
+                            "For each meter to the target, it deals 1d8 Pierce Damage, up to 8 meters.",
+                            "For each meter to the target over 8 meters, it deals -1d8 Damage."
+                        ],
+                        "Notes": "At exactly 8 meters range, the attack deals 8d6 Damage. At 7 and 9 meters, it deals 7d6. At 6 and 10 meters, 6d6. And so on.",
+                        "HasMixins": true,
+                        "ParentKey": "Level 7 Class Talent",
+                        "Origin": "Class/Hunter"
+                    },
+                    "~Tag-Team Mark~": {
+                        "_Value": 2.5,
+                        "A": "0 Action Points",
+                        "Cooldown": "Once / Combat",
+                        "Duration": "1 hour",
+                        "HasMixins": true,
+                        "Replacement": "Replaces Hunter Mark",
+                        "Tags": [
+                            "Hunter Mark",
+                            "Pet"
+                        ],
+                        "Upgrade": "{KeystoneTalent}",
+                        "Effect": "Choose and mark a target you can see. ~Your Pet immediately dashes to the target and performs a Pet Attack if it's within 6 meters of the target.~\nYour own ~and your pet's~ single target attacks and Abilities against the marked target have their ^Dice Upgraded^ to the next die type.\n",
+                        "Notes": "Having Dice Upgraded means, for example, d6's become d8's, or d10's become d12's. D12's and d20's just gain +1.\nA Unit can only have one Hunter Mark on it at a time.\nYour Pet lands on the closest space near the target.\n",
+                        "ParentKey": "Level 7 Class Talent",
+                        "Origin": "Class/Hunter"
+                    },
+                    "~Chaser Mark~": {
+                        "_Value": 2.5,
+                        "A": "0 Action Points",
+                        "Cooldown": "Once / Combat",
+                        "Duration": "1 hour",
+                        "HasMixins": true,
+                        "Replacement": "Replaces Hunter Mark",
+                        "Tags": [
+                            "Hunter Mark",
+                            "Crowd Control"
+                        ],
+                        "Upgrade": "{KeystoneTalent}",
+                        "Effect": "Choose and mark a target you can see. ~If it's a non-Epic Unit, it is perpetually Single-Stunned while Marked.~\nYour own single target attacks and Abilities against the marked target have their ^Dice Upgraded^ to the next die type.\n",
+                        "Notes": "Having Dice Upgraded means, for example, d6's become d8's, or d10's become d12's. D12's and d20's just gain +1.\nA Feared Unit can only do one Act on its turn (e.g. move, make one attack, use one Ability, etc).\nA Unit can only have one Hunter Mark on it at a time.\nYour Pet lands on the closest space near the target.\n",
+                        "ParentKey": "Level 7 Class Talent",
+                        "Origin": "Class/Hunter"
+                    },
+                    "<Pet Training 102>": {
+                        "A": "Passive",
+                        "Effect": "Choose one more Pet Talent.\nWhile you have this Talent, your pet also has that Pet Talent.\n",
+                        "ParentKey": "Level 7 Class Talent",
+                        "Origin": "Class/Hunter"
+                    },
+                    "<Fang and Claw>": {
+                        "_Value": 1.5,
+                        "Requirement": "You can only have Fang and Claw once",
+                        "A": "Passive",
+                        "Effect": "Pet Attack deals 1d6 Damage instead of 1d4.",
+                        "Notes": "This Talent is also available at an earlier Level, and does ^not^ stack with this.",
+                        "HasMixins": true,
+                        "ParentKey": "Level 7 Class Talent",
+                        "Origin": "Class/Hunter"
+                    }
+                },
+                "Level 8 Class Talent": {
                     "<Tremor Wave>": {
                         "_Value": 2.75,
                         "A": "1 Action Point",
@@ -562,7 +555,7 @@
                         "HasMixins": true,
                         "Effect": "Shoot a thundering shot towards an obstacle or wall. A quaking wave travels horizontally towards in both directions of the wall up to 10 meters in each direction.\nAll Units within 2 meters of that wall must succeed a Might Check at least equal to your Presence Check or be Triple-Stunned and take 3d4 Shock Damage.\nThey take half of the Damage and are Single-Stun even if they pass.\n",
                         "Notes": "The floor and ceiling are not considered walls. The wave does not travel through them. This is considered a Spell. Ignores Cover.",
-                        "ParentKey": "Level 7 Class Talent",
+                        "ParentKey": "Level 8 Class Talent",
                         "Origin": "Class/Hunter"
                     },
                     "<Improved Hunter Mark>": {
@@ -575,7 +568,7 @@
                         "Upgrade": "{KeystoneTalent}",
                         "Effect": "Hunter Mark makes your ^Dice^ further ^Upgraded^ to the next die type.",
                         "Notes": "E.g. from d6 to d10.",
-                        "ParentKey": "Level 7 Class Talent",
+                        "ParentKey": "Level 8 Class Talent",
                         "Origin": "Class/Hunter"
                     },
                     "<Leafwalk>": {
@@ -591,23 +584,52 @@
                         "ScrollPower": 3,
                         "HasMixins": true,
                         "Effect": "You and your pet become ^invisible^. While a Unit is _leafwalking_, it heals for 1d4 whenever it does an Act. Lasts until the end of your next turn (or for 12 seconds if not in combat).",
-                        "ParentKey": "Level 7 Class Talent",
-                        "Origin": "Class/Hunter"
-                    }
-                },
-                "Level 8 Class Talent": {
-                    "<Stat Bonuses 5>": {
-                        "Effect": "Gain +1 in two Stats of choice, up to +5.",
                         "ParentKey": "Level 8 Class Talent",
                         "Origin": "Class/Hunter"
                     },
-                    "<Stat Bonuses 4 Extra>": {
-                        "Effect": "Gain +1 in three Stats of choice, up to +4.",
+                    "<Fang and Claw>": {
+                        "_Value": 1.5,
+                        "A": "Passive",
+                        "Effect": "Pet Attack deals 1d6 Damage instead of 1d4.",
                         "ParentKey": "Level 8 Class Talent",
                         "Origin": "Class/Hunter"
                     }
                 },
                 "Level 9 Class Talent": {
+                    "<Friendly Mark>": {
+                        "A": "Passive",
+                        "Effect": "When you ^Mark^ an ally, they have their ^Dice Upgraded^ to the next die type until the end of their Turn.\nThen, reapply the Mark to an Enemy.\n",
+                        "HasMixins": true,
+                        "ParentKey": "Level 9 Class Talent",
+                        "Origin": "Class/Hunter"
+                    },
+                    "<Chase!>": {
+                        "_Value": 1.35,
+                        "A": "Passive",
+                        "Effect": "Your Pet's attacks and Abilities have their ^Dice^ further ^Upgraded^ to the next die type against ^Marked^ Units.",
+                        "Downside": "Lone Wolves can not gain this Talent.",
+                        "HasMixins": true,
+                        "ParentKey": "Level 9 Class Talent",
+                        "Origin": "Class/Hunter"
+                    },
+                    "<Eagle Eye Bloodbath>": {
+                        "_Value": 0,
+                        "A": "0 Action Points",
+                        "Cooldown": "Once / Adventure",
+                        "Effect": "ALL Worthy Units become ^Marked^ until the start of your next Turn.\nALL Units can benefit from attacking ^Marked^ Units.\n",
+                        "HasMixins": true,
+                        "ParentKey": "Level 9 Class Talent",
+                        "Origin": "Class/Hunter"
+                    },
+                    "<That One In Particular>": {
+                        "_Value": 2.25,
+                        "A": "Passive",
+                        "Effect": "When Combat starts, a _random_ Enemy becomes automatically ^Marked^.",
+                        "Notes": "The Quest Master chooses the 'random' target.",
+                        "HasMixins": true,
+                        "ParentKey": "Level 9 Class Talent",
+                        "Origin": "Class/Hunter"
+                    },
                     "<Pierce and Cleave>": {
                         "_Value": 4,
                         "A": "Passive",
@@ -615,8 +637,13 @@
                         "Tags": [
                             "Area Damage"
                         ],
-                        "Upgrade": "{KeystoneTalent}",
-                        "Effect": "When making a single-target attack on a Unit, your attack hits another target, depending on the weapon range:\n{Diamond} If ranged, the attack hits the first Unit directly behind the main target within 3 meters of it, on a line, for 50% of the base Damage of the attack.\n{Diamond} If melee, the attack hits one Unit of choice within 2 meters of the target, for 50% of the base Damage of the attack.\n",
+                        "Effect": "When making a single-target attack on a Unit, your attack hits another Unit, depending on the weapon range:\n",
+                        "List": [
+                            "If ranged, the attack hits the first Unit behind the main target within 3 meters of it, on a line, for 50% of the base Damage of the attack.",
+                            "If melee, the attack hits one Unit of choice within 2 meters of the target, for 50% of the base Damage of the attack."
+                        ],
+                        "Upgrade": "For Ranged attacks, the Unit behind the main target can be at most at a 45 degree angle.",
+                        "Notes": "For ranged, you choose the target if multiple Units are tied in distance. It",
                         "ParentKey": "Level 9 Class Talent",
                         "Origin": "Class/Hunter"
                     },
@@ -625,8 +652,7 @@
                         "Tags": [
                             "Damage"
                         ],
-                        "Upgrade": "{KeystoneTalent}",
-                        "Effect": "After you use Hunter Mark (or an upgrade) on a target, it takes maximum Damage from the next dice roll.\n",
+                        "Effect": "After you apply ^Marked^ to a Unit, it takes maximum Damage from the next dice roll.\n",
                         "Notes": "For example, after you Hunter Mark a Unit, if you attack it for 2d8 Damage, you don't roll; it just takes 16 Damage. Applies to bonuses like Dice Upgrades, Smites, etc.",
                         "HasMixins": true,
                         "ParentKey": "Level 9 Class Talent",
