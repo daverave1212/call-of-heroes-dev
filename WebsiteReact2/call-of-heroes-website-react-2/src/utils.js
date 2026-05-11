@@ -2208,6 +2208,12 @@ export function getNumberPartsString(number, options=({ includeDotOnRight: false
 
     return { sign: maybeSign, left: front, right: digits}
 }
+export function maybeWithPlus(number) {
+    if (number > 0) {
+        return `+${number}`
+    }
+    return `${number}`
+}
 window.getNumberPartsString = getNumberPartsString
 export function getNumberDecimalsString(number) {
     if (number == null) {
@@ -2851,12 +2857,20 @@ export function clearRect(canvas, x, y, width, height) {
     const ctx = canvas.getContext('2d')
     ctx.clearRect(x, y, width, height)
 }
-export function drawText({canvas, font, x, y, text, textAlign='center', color, strokeColor, strokeSize, rotation}) {
+export function drawText({canvas, font, fontSize, x, y, text, textAlign='center', color, strokeColor, strokeSize, rotation}) {
     const ctx = canvas.getContext('2d')
     ctx.save()
     if (color != null) {
         ctx.fillStyle = color
     }
+    if (fontSize != null) {
+        if (fontSize?.includes?.('px')) {
+            font = `${fontSize} ${font}`
+        } else {
+            font = `${fontSize}px ${font}`
+        }
+    }
+    console.log(`Drawing text with font: "${font}"`)
     ctx.textAlign = textAlign
     ctx.font = font
     if (strokeColor != null) {
@@ -2875,7 +2889,14 @@ export function drawText({canvas, font, x, y, text, textAlign='center', color, s
     ctx.restore()
 }
 
-export function drawTextLines({canvas, font, x, y, width, text, lineHeight, textAlign='center', color, isCenteredY=true, strokeColor, strokeSize}) {
+export function drawTextLines({canvas, font, fontSize, x, y, width, text, lineHeight, textAlign='center', color, isCenteredY=true, strokeColor, strokeSize}) {
+    if (fontSize != null) {
+        if (fontSize?.includes?.('px')) {
+            font = `${fontSize} ${font}`
+        } else {
+            font = `${fontSize}px ${font}`
+        }
+    }
     const ctx = canvas.getContext('2d')
     saveCtxSettings(ctx, 'drawTextLines')
     ctx.font = font
@@ -2894,21 +2915,36 @@ export function drawTextLines({canvas, font, x, y, width, text, lineHeight, text
 }
 
 export function getLines(ctx, text, maxWidth) {
-    var words = text.split(" ");
-    var lines = [];
-    var currentLine = words[0];
+    // Split text into manual line blocks first
+    const paragraphs = text.split(/\n|<br\s*\/?>/i);
 
-    for (var i = 1; i < words.length; i++) {
-        var word = words[i];
-        var width = ctx.measureText(currentLine + " " + word).width;
-        if (width < maxWidth) {
-            currentLine += " " + word;
-        } else {
-            lines.push(currentLine);
-            currentLine = word;
+    const lines = [];
+
+    for (const paragraph of paragraphs) {
+        const words = paragraph.split(" ");
+
+        let currentLine = words[0] || "";
+
+        for (let i = 1; i < words.length; i++) {
+            const word = words[i];
+
+            const width = ctx.measureText(currentLine + " " + word).width;
+
+            if (width < maxWidth) {
+                currentLine += " " + word;
+            } else {
+                lines.push(currentLine);
+                currentLine = word;
+            }
         }
+
+        lines.push(currentLine);
+
+        // Add an empty line after manual breaks
+        // (optional — remove if you don't want spacing)
+        // lines.push("");
     }
-    lines.push(currentLine);
+
     return lines;
 }
 

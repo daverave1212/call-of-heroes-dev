@@ -25,7 +25,7 @@ const effectTextStyle = {
     marginBottom: '0px'
 }
 
-function Tr({name, effect, price}) {
+function Tr({name, effect, price, shouldPlayAnimationOnClick, onClick}) {
 
     let [isPlayingAnimation, setIsPlayingAnimation] = useState(false)
     let [floaterX, setFloaterX] = useState(0)
@@ -62,7 +62,7 @@ export function normalizeItemsObject(items) {
         value.Price != null? value: { Price: value }
     )}))
 }
-export function PriceTable({title, items, hasDescriptions=true}) {    
+export function PriceTable({title, items, hasDescriptions=true, shouldPlayAnimationOnClick, onClick}) {    
     if (items == null) {
         return (<p>ERROR: No items given to PriceTable.</p>)
     }
@@ -70,7 +70,7 @@ export function PriceTable({title, items, hasDescriptions=true}) {
     return (
         <TableNormal type="info-reverse" columns={[title, 'Price']} tableWrapperClass='table-normal-wrapper--non-alternating'>
             { items.map(({ Name, Price, Effect, DisplayName }) => (
-                <Tr name={DisplayName ?? Name} price={Price} effect={hasDescriptions? Effect: null} key={DisplayName ?? Name}/>
+                <Tr onClick={onClick} name={DisplayName ?? Name} price={Price} effect={hasDescriptions? Effect: null} key={DisplayName ?? Name} shouldPlayAnimationOnClick={shouldPlayAnimationOnClick}/>
             )) }
         </TableNormal>
     )
@@ -81,7 +81,7 @@ export default function Prices({ hasNoMargins, onClick, shouldPlayAnimationOnCli
     const allItems = Object.values(U.getAllPricesByName())
 
     function CategoryPriceTable({ categoryName }) {
-        return <PriceTable title={categoryName} items={allItems.filter(item => item.Category == categoryName)}/>
+        return <PriceTable onClick={onClick} title={categoryName} items={allItems.filter(item => item.Category == categoryName)}/>
     }
 
     return (

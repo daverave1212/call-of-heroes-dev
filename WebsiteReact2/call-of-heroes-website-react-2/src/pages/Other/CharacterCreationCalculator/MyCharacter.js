@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
-import { getAllClasses, getAlMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getExtrasFromSpells, isString, spellsFromObject, useLocalStorageState, hasClassMana, getAllWeaponsByName, getAllArmorsByName, addObjects, getSpellReplacementName, reverseObject, addManyObjects, getSpellIconPathByName, addArrays, withToggledElement, getNumberDecimalsString, getNumberPartsString } from "../../../utils"
+import { getAllClasses, getAlMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getExtrasFromSpells, isString, spellsFromObject, useLocalStorageState, hasClassMana, getAllWeaponsByName, getAllArmorsByName, addObjects, getSpellReplacementName, reverseObject, addManyObjects, getSpellIconPathByName, addArrays, withToggledElement, getNumberDecimalsString, getNumberPartsString, filterObject, maybeWithPlus, mapObject } from "../../../utils"
 import ManySpells from "../../../components/Spell/ManySpells"
 import PageH2 from "../../../components/PageH2/PageH2"
 import TextArea from "../../../components/TextArea/TextArea"
 import Icon from "../../../components/Icon"
 import Input from "../../../components/Input/Input"
-import { getChoiceAbilitiesObjects, useAllSpellsMetadata, useArmors, useConstAllMyAbilities, useConstAllSkillBonuses, useConstAllSpecialBonusesNames, useConstAutoSkillBonuses, useCurrentHealth, useCurrentMana, useDescription, useGold, useInventory, useLanguages, useLevel, useManualBonuses, useManualCombatExtras, useManualNormalExtras, useManualSkillBonuses, useMaxMana, useQuickNotes, useSectionClassName, useSectionClassSpecName, useSectionNamesState, useSectionRaceName, useSectionStatsState, useSkills, useWeapons } from "./CharacterData"
+import { getChoiceAbilitiesObjects, getCurrentCharacterFromLocalStorage, useAllSpellsMetadata, useArmors, useConstAllMyAbilities, useConstAllSkillBonuses, useConstAllSpecialBonusesNames, useConstAutoSkillBonuses, useCurrentHealth, useCurrentMana, useDescription, useGold, useInventory, useLanguages, useLevel, useManualBonuses, useManualCombatExtras, useManualNormalExtras, useManualSkillBonuses, useMaxMana, useQuickNotes, useSectionClassName, useSectionClassSpecName, useSectionNamesState, useSectionRaceName, useSectionStatsState, useSkills, useWeapons } from "./CharacterData"
 import SmallStat from "../../../components/SmallStat/SmallStat"
 import ManySmallStats from "../../../components/SmallStat/ManySmallStats"
 import { askConfirmation } from "../../../services/MessageDisplayer"
@@ -20,6 +20,7 @@ import { ResourceBar } from "../../../components/ResourceBar/ResourceBar"
 import { QGTitle1 } from "../../Tools/TitleGenerator"
 import PageH1 from "../../../components/PageH1/PageH1"
 import { BigStatValue } from "../../../components/BigStat/BigStatValue"
+import { printCharacterOnCanvas } from "./CharacterSheetPrinter"
 
 
 
@@ -130,7 +131,8 @@ export default function MyCharacter() {
 
     const mySkillBonuses = useConstAllSkillBonuses()
     const autoSkillBonuses = useConstAutoSkillBonuses()
-
+    const myValidSkillBonuses = filterObject(mySkillBonuses, ([key, value]) => manualSkillBonuses[key] != 0 || (key in autoSkillBonuses))
+    const myValidSkillBonusesStrings = mapObject(myValidSkillBonuses, ([key, value]) => [key, maybeWithPlus(value)])
 
     const allMyRaceAndClassSpells = useConstAllMyAbilities()
     const { bonuses, sources: bonusesSources } = useConstAllBonuses()
@@ -169,6 +171,30 @@ export default function MyCharacter() {
 
 
     // Functions
+    async function printCharacter() {
+        const canvasDiv = document.querySelector('#Print-Character-Box')
+        const canvas = document.createElement('canvas')
+        canvas.style = `width: 100%`
+        canvasDiv.appendChild(canvas)
+        const character = getCurrentCharacterFromLocalStorage()
+     
+        const allCombatBonuses = [
+            ...extras,
+            allMyArmors.map(item => `${item.Name}: ${item.EffectGreen}`),
+            ...combatExtras
+        ]
+        
+        await printCharacterOnCanvas({ canvas, character: {
+            ...character,
+            totalStats,
+            attributes,
+            maxMana,
+            allCombatBonuses,
+            skillBonuses: myValidSkillBonusesStrings,
+            languages: [character.languages, ...manualNormalExtras],
+            spellsIgnored
+        } })
+    }
     function addSkill() {
         setStatDialogOptions({
             defaultInputValue: '',
@@ -178,7 +204,8 @@ export default function MyCharacter() {
             onDone: ({ name, value }) => setManualSkillBonuses({
                 ...manualSkillBonuses,
                 [name]: value
-            })
+            }),
+            skillBonuses: Object.entries(myValidSkillBonusesStrings).map(([key, value]) => `${value} ${key}`)
         })
     }
     function changeSkill(name) {
@@ -252,14 +279,7 @@ export default function MyCharacter() {
         </div>
     }
     const Skills = () => <>{
-        Object.keys(mySkillBonuses)
-            .filter(skillName => {
-                if (manualSkillBonuses[skillName] == 0 && !(skillName in autoSkillBonuses)) {
-                    return false
-                }
-                return true
-            })
-            .map(skillName => <SkillBonus name={skillName} value={mySkillBonuses[skillName] > 0? '+' + mySkillBonuses[skillName]: mySkillBonuses[skillName]}/>)
+        Object.entries(myValidSkillBonusesStrings).map(([key, value]) => <SkillBonus name={key} value={value}/>)
     }</>
     const Languages = () => <>{ languages.map(text => <div className="extra"><Icon name="Specializations"/>You speak { text }</div>) }</>
 
@@ -367,7 +387,7 @@ export default function MyCharacter() {
                 <div>
                     <Icon name={type == 'armor'? 'Defense': 'Damage'}/> {item.Name}
                 </div>
-                <div style={{marginTop: '0.25rem', fontWeight: 'normal', fontSize: '0.8em', color: 'rgb(0, 180, 0)'}}>{item.CCCDisplayEffect}</div>
+                <div style={{marginTop: '0.25rem', fontWeight: 'normal', fontSize: '0.8em', color: 'rgb(0, 180, 0)'}}>{item.ShortNotes}</div>
             </div>
         )
     }
@@ -459,6 +479,10 @@ export default function MyCharacter() {
 
             {/* <PageH2 hasMargin={false} className="margin-top-1 center-text">Basic Abilities</PageH2>
             <ManySpells spells={myBasicAbilities} shouldIgnoreAlignment={true} spellsMetadata={spellsMetadata}/> */}
+
+            <div id="Print-Character-Box" className="center-content">
+                <button onClick={printCharacter}>Print</button>
+            </div>
         </div>
     )
 }
