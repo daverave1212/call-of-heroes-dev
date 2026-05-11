@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getAllClasses, getAlMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getExtrasFromSpells, isString, spellsFromObject, useLocalStorageState, hasClassMana, getAllWeaponsByName, getAllArmorsByName, addObjects, getSpellReplacementName, reverseObject, addManyObjects, getSpellIconPathByName, addArrays, withToggledElement, getNumberDecimalsString, getNumberPartsString, filterObject, maybeWithPlus, mapObject } from "../../../utils"
+import { getAllClasses, getAlMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getExtrasFromSpells, isString, spellsFromObject, useLocalStorageState, hasClassMana, getAllWeaponsByName, getAllArmorsByName, addObjects, getSpellReplacementName, reverseObject, addManyObjects, getSpellIconPathByName, addArrays, withToggledElement, getNumberDecimalsString, getNumberPartsString, filterObject, maybeWithPlus, mapObject, isNumber } from "../../../utils"
 import ManySpells from "../../../components/Spell/ManySpells"
 import PageH2 from "../../../components/PageH2/PageH2"
 import TextArea from "../../../components/TextArea/TextArea"
@@ -139,6 +139,7 @@ export default function MyCharacter() {
     const { extras, combatExtras } = useConstAllAbilitiesAndItemsExtras()
     window.bonuses = bonuses
 
+
     // Computed values
     const spellsNotIgnored = allMyRaceAndClassSpells.filter(spell => spell.IsIgnored != true)
     const spellsIgnored = allMyRaceAndClassSpells.filter(spell => spell.IsIgnored == true);
@@ -201,10 +202,15 @@ export default function MyCharacter() {
             defaultNumberValue: 0,
             title: "New Skill",
             description: `Add new Non-Combat Skill.`,
-            onDone: ({ name, value }) => setManualSkillBonuses({
-                ...manualSkillBonuses,
-                [name]: value
-            }),
+            onDone: ({ name, value }) => {
+                const newManualSkillBonuses = {...manualSkillBonuses, [name]: value}
+                for (const [key, value] of Object.entries(newManualSkillBonuses)) {
+                    if (key == null || key?.length == 0 || value == null || value == 0 || !isNumber(value)) {
+                        delete newManualSkillBonuses[key]
+                    }
+                }
+                setManualSkillBonuses(newManualSkillBonuses)
+            },
             skillBonuses: Object.entries(myValidSkillBonusesStrings).map(([key, value]) => `${value} ${key}`)
         })
     }

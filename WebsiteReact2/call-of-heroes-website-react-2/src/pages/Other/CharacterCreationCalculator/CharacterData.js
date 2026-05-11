@@ -357,6 +357,7 @@ export function useConstAllMyAbilities() {
         specName: selectedSpecName
     })
     const selectedAbilities = selectedAbilityNames.map(name => getAllSpellsByName()[name])
+    console.log({selectedAbilities, selectedAbilityNames})
     return [...rcSpells, ...selectedAbilities].filter(spell => spell != null)
 }
 export function useConstAllSkillBonuses() {

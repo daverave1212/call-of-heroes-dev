@@ -19,7 +19,7 @@ export function selectSpellWithPopup({spell, metadata, spellNames, setSpellNames
 
     function checkForIssues() {
         const selectedClassSpells = spellNames.map(name => allSpells[name])
-        const spellsByParentKey = groupBy(selectedClassSpells, spell => spell.ParentKey)
+        // const spellsByParentKey = groupBy(selectedClassSpells, spell => spell.ParentKey)
         
         let foundIssue = null
 
