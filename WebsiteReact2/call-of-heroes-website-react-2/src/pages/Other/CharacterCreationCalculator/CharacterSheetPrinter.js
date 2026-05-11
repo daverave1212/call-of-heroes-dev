@@ -61,7 +61,7 @@ const COORDINATES = {
 
     mana: { x: MANA_LEFT, y: MANA_TOP },
 
-    spellNotes: { x: IMAGE_LEFT, y: 2694 },
+    spellNotes: { x: IMAGE_LEFT, y: 2712 },
 }
 
 export async function printCharacterOnCanvas({ character: hero, canvas }) {
@@ -95,6 +95,7 @@ export async function printCharacterOnCanvas({ character: hero, canvas }) {
         drawText({
             text: maxMana,
             ...COORDINATES.mana, ...options,
+            fontSize: 68,
         })
 
         for (let i = 0; i < DEFAULT_STAT_ARRAY.length; i++) {
