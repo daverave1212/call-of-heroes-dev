@@ -191,7 +191,7 @@ export default function MyCharacter() {
             maxMana,
             allCombatBonuses,
             skillBonuses: myValidSkillBonusesStrings,
-            languages: [character.languages, ...manualNormalExtras],
+            languages: [...character.languages, ...manualNormalExtras],
             spellsIgnored
         } })
     }

@@ -78,8 +78,8 @@ const NAV_CONFIG = [
       { name: 'Update Notes',     href: '/Meta/PatchNotes' },
     ]},
     { name: 'Character Sheets', children: [
-      { name: 'Character Sheet (PSD)', isDownload: true, href: '/Download/Sheet-2025-10-10.psd' },
-      { name: 'Character Sheet (PNG)', isDownload: true, href: '/Download/Sheet-2025-10-10.png' },
+      { name: 'Character Sheet (PSD)', isDownload: true, href: '/Download/Sheet-2026-05-16.psd' },
+      { name: 'Character Sheet (PNG)', isDownload: true, href: '/Download/Sheet-2026-05-16.png' },
       { name: 'Character Sheet (PDF)', isDownload: true, href: '/Download/Sheet-2023-03-24b.pdf', isDisabled: true },
     ]},
     { name: 'Content', children: [
