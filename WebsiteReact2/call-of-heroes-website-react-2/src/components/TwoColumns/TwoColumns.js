@@ -4,7 +4,7 @@ import React from 'react'
 
 export default function TwoColumns(props) {
 
-    const { children, type, style, className } = props
+    const { children, type, style, className, id } = props
 
     const typeClass =
         type == 'lefty'?
@@ -16,7 +16,7 @@ export default function TwoColumns(props) {
     const extraClasses = className != null? className : ''
 
     return (
-        <div className={`two-columns ${typeClass} ${extraClasses}`} style={style}>
+        <div id={id} className={`two-columns ${typeClass} ${extraClasses}`} style={style}>
             { children }
         </div>
     )

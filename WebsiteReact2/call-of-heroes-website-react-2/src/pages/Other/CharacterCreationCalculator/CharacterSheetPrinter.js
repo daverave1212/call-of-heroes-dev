@@ -1,5 +1,6 @@
+import html2canvas from "html2canvas"
 import { CHARISMA, DEFAULT_STAT_ARRAY, DEXTERITY, HEALTH_REGEN, INITIATIVE, INTELLIGENCE, MAX_HEALTH, MIGHT, MOVEMENT_SPEED } from "../../../services/game-lib/stats-constants"
-import { drawImageOnCanvasAsync, drawText, drawTextLines, mapObject, mapObjectToArray } from "../../../utils"
+import { drawImageOnCanvasAsync, drawImageWithAlphaMask, drawText, drawTextLines, getImageRelativeHeightAtWidth, loadImageAsync, mapObject, mapObjectToArray } from "../../../utils"
 
 const CHARACTER_SHEET_SRC = '/Download/Sheet-2026-05-16.png'
 const WIDTH = 2480
@@ -10,22 +11,30 @@ const STATS_GAP = 368
 const ATTR_LEFT = 720
 const ATTR_GAP = 1224 - 712
 
-const IMAGE_LEFT = 1596
-const IMAGE_TOP = 550
+const IMAGE_LEFT = 1548
+const IMAGE_TOP = 533
+// const IMAGE_LEFT = 1596
+// const IMAGE_TOP = 550
 const IMAGE_WIDTH = 712
-const IMAGE_HEIGHT = 712
+// const IMAGE_HEIGHT = 712
+
+const DESCRIPTION_LEFT = IMAGE_LEFT + 24
+const DESCRIPTION_WIDTH = IMAGE_WIDTH - 12
 
 const COMBAT_NOTES_LEFT = 574
 const COMBAT_NOTES_TOP = 1477
 const COMBAT_NOTES_WIDTH = 820
 
-const OTHER_LEFT = 318
+const OTHER_LEFT = 310
 const OTHER_TOP = 2548
-const OTHER_GAP = 446
+const OTHER_GAP = 448
+const OTHER_WIDTH = 380
 
 const INVENTORY_WIDTH = 1208
 const MANA_LEFT = IMAGE_LEFT + IMAGE_WIDTH / 2
 const MANA_TOP = 2624
+
+const GAP_BETWEEN_LINES = 34
 
 const COORDINATES = {
     name: { x: WIDTH / 2, y: 188 },
@@ -49,7 +58,7 @@ const COORDINATES = {
 
     combatNotes: { x: COMBAT_NOTES_LEFT, y: COMBAT_NOTES_TOP },
 
-    description: { x: IMAGE_LEFT, y: COMBAT_NOTES_TOP },
+    description: { x: DESCRIPTION_LEFT, y: COMBAT_NOTES_TOP },
 
     other: { x: OTHER_LEFT, y: OTHER_TOP },
 
@@ -61,7 +70,7 @@ const COORDINATES = {
 
     mana: { x: MANA_LEFT, y: MANA_TOP },
 
-    spellNotes: { x: IMAGE_LEFT, y: 2712 },
+    spellNotes: { x: DESCRIPTION_LEFT, y: 2712 },
 }
 
 export async function printCharacterOnCanvas({ character: hero, canvas }) {
@@ -73,7 +82,17 @@ export async function printCharacterOnCanvas({ character: hero, canvas }) {
     canvas.width = 2480
     canvas.height = 3508
     await drawImageOnCanvasAsync(canvas, CHARACTER_SHEET_SRC, 0, 0, canvas.width, canvas.height)
-    await drawImageOnCanvasAsync(canvas, hero.names.src, COORDINATES.image.x, COORDINATES.image.y, IMAGE_WIDTH, IMAGE_HEIGHT)
+
+    console.log('Loading images')
+    const imageMask = await loadImageAsync('/Other/MyCharacterImageMask.png')
+    const imageMaskWidth = imageMask.naturalWidth - 8
+    const imageMaskHeight = imageMask.naturalHeight - 8
+    const heroImage = await loadImageAsync(hero.names.src)
+    const heroImageWidth = imageMask.naturalWidth
+    const heroImageHeight = getImageRelativeHeightAtWidth(heroImage, imageMask.naturalWidth)
+    drawImageWithAlphaMask(canvas, heroImage, imageMask, COORDINATES.image.x, COORDINATES.image.y, imageMaskWidth, imageMaskHeight, heroImageWidth, heroImageHeight)
+    // await drawImageOnCanvasAsync(canvas, heroImage, COORDINATES.image.x, COORDINATES.image.y, imageMask.naturalWidth, imageMask.naturalHeight, imageMask)
+    // await drawImageOnCanvasAsync(canvas, heroImage, COORDINATES.image.x, COORDINATES.image.y, IMAGE_WIDTH, IMAGE_HEIGHT, imageMask)
 
     // Big Numbers and names
     {
@@ -117,6 +136,34 @@ export async function printCharacterOnCanvas({ character: hero, canvas }) {
         }
     }
 
+    // Weapons
+    let weaponDrawY = COORDINATES.combatNotes.y
+    {
+        const weaponDivs = Array.from(document.querySelectorAll(`#My-Weapons .spell.is-item`))
+        const { x, y } = COORDINATES.combatNotes
+        for (const div of weaponDivs) {
+            try {
+                const weaponCanvas = await html2canvas(div)
+                const drawHeight = getImageRelativeHeightAtWidth(weaponCanvas, COMBAT_NOTES_WIDTH)
+                await drawImageOnCanvasAsync(
+                    canvas,
+                    weaponCanvas,
+                    x, weaponDrawY,
+                    COMBAT_NOTES_WIDTH,
+                    drawHeight
+                )
+                weaponDrawY += drawHeight
+            } catch (e) {
+                throw e
+            }
+        }
+
+        console.log({weaponDivs, nWeapons: weaponDivs.length, weaponDrawY})
+    }
+
+    
+
+
 
     // Small Text
     {
@@ -130,7 +177,7 @@ export async function printCharacterOnCanvas({ character: hero, canvas }) {
         }
         drawTextLines({
             text: hero.description,
-            width: IMAGE_WIDTH,
+            width: DESCRIPTION_WIDTH,
             ...COORDINATES.description,
             ...options
         })
@@ -141,20 +188,36 @@ export async function printCharacterOnCanvas({ character: hero, canvas }) {
             ...options
         })
 
-        const combatBonusesText = hero.allCombatBonuses?.join('\n')
-        drawTextLines({
-            text: combatBonusesText,
-            width: COMBAT_NOTES_WIDTH,
-            ...COORDINATES.combatNotes,
-            ...options
-        })
+        if (hero.allCombatBonuses != null) {
+            const combatBonusesText = hero.allCombatBonuses?.join('\n')
+            const weaponsYDiff = weaponDrawY - COMBAT_NOTES_TOP
+            const extraPixelsNeeded = weaponsYDiff % GAP_BETWEEN_LINES
+            drawTextLines({
+                text: combatBonusesText,
+                width: COMBAT_NOTES_WIDTH,
+                x: COORDINATES.combatNotes.x,
+                y: weaponDrawY + extraPixelsNeeded + GAP_BETWEEN_LINES - 3,
+                ...options
+            })
+        }
+
+        if (hero.extras != null) {
+            const extrasText = hero.extras?.join('\n')
+            drawTextLines({
+                text: extrasText,
+                width: OTHER_WIDTH,
+                ...COORDINATES.other,
+                ...options,
+                textAlign: 'center',
+            })
+        }
 
         if (hero.skillBonuses != null) {
             const skillBonuses = mapObjectToArray(hero.skillBonuses, (key, value) => `${value} ${key}`).join('\n')
             console.log({skillBonuses, hero})
             drawTextLines({
                 text: skillBonuses,
-                width: 900,
+                width: OTHER_WIDTH,
                 ...COORDINATES.skills,
                 ...options,
                 textAlign: 'center',

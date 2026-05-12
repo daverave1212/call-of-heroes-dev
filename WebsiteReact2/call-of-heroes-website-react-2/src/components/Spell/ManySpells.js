@@ -5,13 +5,18 @@ import Spell from './Spell'
 import TwoSpells from './TwoSpells'
 import { addAbilityOrOpenPopup, sortObjectArrayByKey, spellsFromObject, splitArrayEvenly, splitSpellsArrayInto2Columns } from '../../utils'
 import { SADescription } from '../InsertableTemplates/RaceClassComponents'
+import CopySpellButton from '../CopyButton/CopySpellButton'
 
 export const SpellSortTypes = {
     HEIGHT: 'height',
     LEVEL_REQUIREMENT: 'level requirement'
 }
 
-export default function ManySpells({ className, spells, spellStyle, description, selectedSpellNames, onSpellClick, spellsMetadata={}, areItems=false, buttonText, childrenLeft, childrenRight, shouldSort=true, shouldAlignByHeight=true }) {
+export default function ManySpells({ id, className, spells, spellStyle, description, selectedSpellNames, onSpellClick, spellsMetadata={}, areItems=false, buttonText, childrenLeft, childrenRight, shouldSort=true, shouldAlignByHeight=true, hasCopyButton=false }) {
+
+    if (hasCopyButton && id == null) {
+        console.error(`ManySpells has copy button but id is ${id}`)
+    }
 
     spells = Array.isArray(spells) ? spells : spellsFromObject(spells)
     
@@ -61,7 +66,7 @@ export default function ManySpells({ className, spells, spellStyle, description,
     }
     
     if (wideSpells?.length > 0) {
-        return <>
+        return <div id={id}>
             { wideSpells.map(spell => <Spell
                 isItem={areItems} 
                 key={spell.Name} spell={spell} style={spellStyle}
@@ -70,10 +75,14 @@ export default function ManySpells({ className, spells, spellStyle, description,
                 metadata={spellsMetadata[spell.Name] ?? null}
             />) }
             <SpellColumns/>
-        </>
+            { hasCopyButton && <CopySpellButton elementId={id}/>}
+        </div>
     }
 
-    return <SpellColumns/>
+    return <div id={id}>
+        <SpellColumns/>
+        { hasCopyButton && <CopySpellButton elementId={id}/>}
+    </div>
 
 
 }

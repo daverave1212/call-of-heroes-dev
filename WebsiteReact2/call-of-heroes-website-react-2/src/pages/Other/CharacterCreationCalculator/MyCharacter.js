@@ -141,12 +141,12 @@ export default function MyCharacter() {
 
 
     // Computed values
+    const allDisplayedRaceAndClassSpells = []
     const spellsNotIgnored = allMyRaceAndClassSpells.filter(spell => spell.IsIgnored != true)
     const spellsIgnored = allMyRaceAndClassSpells.filter(spell => spell.IsIgnored == true);
     const spellNamesBeingReplaced = spellsNotIgnored
         .filter(spell => spell.Replacement != null)
         .map(spell => getSpellReplacementName(spell))
-    const allDisplayedRaceAndClassSpells = []
     for (const spell of spellsNotIgnored) {
         if (spellNamesBeingReplaced.includes(spell.Name)) {     // Add the replacement on the same position
             const replacementSpell = spellsNotIgnored.find(replacer => replacer?.Replacement?.includes(spell.Name))
@@ -159,7 +159,9 @@ export default function MyCharacter() {
     }
 
 
-    const allMyWeapons = weaponNames.map(name => getAllWeaponsByName()[name])
+    const allMyWeapons = weaponNames
+        .map(name => ({...getAllWeaponsByName()[name]}))
+        .map(w => ({...w, IsSubspell: true, Alternatives: null }))   // Makes weapons smaller
     const allMyArmors = armorNames.map(name => getAllArmorsByName()[name])
     const selectedClassObj = selectedClassName == null? null: getAllClasses()[selectedClassName]
     const maxMana = selectedClassName == null? 1: calculateBaseMaxManaByLevel(level, selectedClassName)
@@ -180,7 +182,6 @@ export default function MyCharacter() {
         const character = getCurrentCharacterFromLocalStorage()
      
         const allCombatBonuses = [
-            ...extras,
             allMyArmors.map(item => `${item.Name}: ${item.EffectGreen}`),
             ...combatExtras
         ]
@@ -191,6 +192,7 @@ export default function MyCharacter() {
             attributes,
             maxMana,
             allCombatBonuses,
+            extras,
             skillBonuses: myValidSkillBonusesStrings,
             languages: [...character.languages, ...manualNormalExtras],
             spellsIgnored
@@ -473,7 +475,9 @@ export default function MyCharacter() {
                 <CopySpellButton elementId="My-Character-Upper-Part" shouldAddBorder={false}/>
             </div>
 
-            <ManySpells className="margin-top-1" spells={allMyWeapons} areItems={true} shouldIgnoreAlignment={true}/>
+            <div id="My-Weapons">
+                <ManySpells className="margin-top-1" spells={allMyWeapons} areItems={true} shouldIgnoreAlignment={true}/>
+            </div>
 
             
             <PageH2 hasMargin={false} className="margin-top-2 center-text">Lesser Abilities</PageH2>
@@ -481,7 +485,10 @@ export default function MyCharacter() {
             { areMinorSpellsHidden == false && <ManySpells className="margin-top-1" spells={spellsIgnored} shouldIgnoreAlignment={true}/> }
 
             <PageH2 hasMargin={false} className="margin-top-2 center-text">Race and Class Abilities</PageH2>
-            <ManySpells spells={allDisplayedRaceAndClassSpells} shouldIgnoreAlignment={true} spellsMetadata={spellsMetadata}/>
+            <div id="All-My-Spells">
+                <ManySpells spells={allDisplayedRaceAndClassSpells} shouldIgnoreAlignment={true} spellsMetadata={spellsMetadata}/>
+                <CopySpellButton elementId={"All-My-Spells"}/>
+            </div>
 
             {/* <PageH2 hasMargin={false} className="margin-top-1 center-text">Basic Abilities</PageH2>
             <ManySpells spells={myBasicAbilities} shouldIgnoreAlignment={true} spellsMetadata={spellsMetadata}/> */}

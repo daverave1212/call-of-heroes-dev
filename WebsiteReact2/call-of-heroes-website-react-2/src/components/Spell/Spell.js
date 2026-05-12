@@ -396,7 +396,10 @@ export default function Spell({
             'spell',
             IsSubspell == true? 'subspell' : 'spell--normal',
             A == 'Passive' == true? 'passive' : 'active',
-            { 'with-variants': hasVariants === true },
+            {
+                'with-variants': hasVariants === true,
+                'is-item': isItem === true
+            },
         )}>
             { isSelected && <Ribbon>Selected!</Ribbon>}
             { hasBorder && <div className='spell-border'></div> } 
@@ -418,7 +421,6 @@ export default function Spell({
                     <div key="Damage" className='spell-description'>
                         <Icon name="Damage"/>{ Damage }
                     </div>
-                    { !hasEffectsOrMore && <div style={{paddingBottom: 'calc(var(--spell-padding-bottom) / 4)'}}></div> }
                 </>)}
                 { PreEffectGreen != null && (
                     <div className="spell-green" key="PreEffectGreen">{ PreEffectGreen }</div>
@@ -530,6 +532,7 @@ export default function Spell({
                         <div style={{height: '1rem'}}></div>
                     </div>
                 )}
+                <div style={{paddingBottom: 'calc(var(--spell-padding-bottom) / 4)'}}></div>
                 { subspell != null && <Spell spell={{...subspell, IsSubspell: true}} hasCopyButton={false} hasBorder={false} showTopStats={false}/>}
             </div>
         </div>

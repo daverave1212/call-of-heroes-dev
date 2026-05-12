@@ -515,8 +515,8 @@ export function splitSpellsArrayInto2Columns(spellsArray, shouldSort=true) {
         const columnToUse = column2Spells.height < column1Spells.height? column2Spells: column1Spells
         columnToUse.push(spell)
         columnToUse.height += spell.Height
+        console.log([`Added ${spell.Name}`, column1Spells.height, column2Spells.height])
         if (spellsArray.find(s => s.Name.includes('Shapeshift')) != null) {
-            console.log([`Added ${spell.Name}`, column1Spells.height, column2Spells.height])
         }
     }
 
@@ -768,6 +768,7 @@ export function dndMonsterToQGText(text) {
 window.dndMonsterToQGText = dndMonsterToQGText
 
 export function estimteSpellHeight(spell) { // Height as in rem (approximately)
+    const CHARS_PER_LINE = spell.IsSubspell? 60: 55
     if (spell.Height != null) {
         return spell.Height
     }
@@ -778,16 +779,16 @@ export function estimteSpellHeight(spell) { // Height as in rem (approximately)
     const topMarginBottom = 2
     let height = topHeight + topMarginBottom
     if (spell.Effect != null) {
-        height += Math.max(1, spell.Effect.length / 55) // Average of 60 characters per line
+        height += Math.max(1, spell.Effect.length / CHARS_PER_LINE) // Average of 60 characters per line
     }
     if (spell.Upgrade != null) {
-        height += Math.max(1, spell.Upgrade.length / 60) + 1
+        height += Math.max(1, spell.Upgrade.length / (CHARS_PER_LINE * 1.1)) + 1
     }
     if (spell.Notes != null) {
-        height += Math.max(1, spell.Notes.length / 65) + 1
+        height += Math.max(1, spell.Notes.length / CHARS_PER_LINE * 1.15) + 1
     }
     if (spell.EffectGreen != null) {
-        height += Math.max(1, spell.EffectGreen.length / 55) + 1
+        height += Math.max(1, spell.EffectGreen.length / CHARS_PER_LINE) + 1
     }
     if (spell.SingleTable != null) {
         height += Math.max(1, spell.SingleTable.length * 2) + 1
@@ -2808,7 +2809,30 @@ export function loadImageAsync(src) {
     img.src = src;
   });
 }
-export function drawImageOnCanvasAsync(canvas, pathOrImage, x, y, width, height, alpha) {
+export function drawImageWithAlphaMask(canvas, image, mask, x, y, width, height, drawW, drawH) {
+    const ctx = canvas.getContext('2d')
+    const temp = document.createElement("canvas");
+    temp.width = width;
+    temp.height = height;
+
+    const tctx = temp.getContext("2d");
+
+    // 1. Draw the real image
+    tctx.drawImage(image, 0, 0, drawW, drawH);
+
+    // 2. Keep only pixels where the mask has opacity
+    tctx.globalCompositeOperation = "destination-in";
+
+    // 3. Draw mask over it; only its alpha matters
+    tctx.drawImage(mask, 0, 0, width, height);
+
+    // Reset just in case
+    tctx.globalCompositeOperation = "source-over";
+
+    // 4. Draw the masked result onto the real canvas
+    ctx.drawImage(temp, x, y);
+}
+export function drawImageOnCanvasAsync(canvas, pathOrImage, x, y, width, height, alpha, mask) {
     const ctx = canvas.getContext('2d')
     let image
     if (typeof pathOrImage === 'string' || pathOrImage instanceof String) {
@@ -2817,29 +2841,51 @@ export function drawImageOnCanvasAsync(canvas, pathOrImage, x, y, width, height,
     } else {
         image = pathOrImage
     }
-    return new Promise((res, rej) => {
-        image.onload = function() {
-            saveCtxSettings(ctx)
-            if (alpha != null) {
-                ctx.globalAlpha = alpha
+    function onImageLoad(res, rej) {
+        saveCtxSettings(ctx)
+        if (alpha != null) {
+            ctx.globalAlpha = alpha
+        }
+        if (width == null && height == null) {
+            if (mask != null) {
+                throw `width and/or height are required for drawImageOnCanvasAsync with a mask.`
             }
+            ctx.drawImage(image, x, y)
+        } else {
             if (width == null && height != null) {
-                ctx.drawImage(image, x, y, getImageRelativeWidthAtHeight(image, height), height)
+                width = getImageRelativeWidthAtHeight(image, height)
             } else if (width != null && height == null) {
-                ctx.drawImage(image, x, y, width)
-            } else if (width != null && height != null) {
+                height = getImageRelativeHeightAtWidth(image, width)
+            }
+            if (mask == null) {
                 ctx.drawImage(image, x, y, width, height)
             } else {
-                ctx.drawImage(image, x, y)
+                drawImageWithAlphaMask(canvas, image, mask, x, y, width, height)
             }
-            loadCtxSettings(ctx)
-            res()
         }
+        loadCtxSettings(ctx)
+        res()
+    }
+    if (image instanceof HTMLCanvasElement) {
+        return new Promise((res, rej) => onImageLoad(res, rej))
+    }
+    return new Promise((res, rej) => {
+        image.onload = () => onImageLoad(res, rej)
     })
 }
 export function getImageRelativeWidthAtHeight(image, atHeight) {
+    if (image instanceof HTMLCanvasElement) {
+        const aspectRatio = image.width / image.height
+        return atHeight * aspectRatio    
+    }
     const aspectRatio = image.naturalWidth / image.naturalHeight
     return atHeight * aspectRatio
+}
+export function getImageRelativeHeightAtWidth(image, atWidth) {
+    if (image instanceof HTMLCanvasElement) {
+        return image.height * (atWidth / image.width)
+    }
+    return image.naturalHeight * (atWidth / image.naturalWidth)
 }
 export function fillCanvasColor(canvas, color) {
     const ctx = canvas.getContext('2d')

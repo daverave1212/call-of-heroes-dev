@@ -17,6 +17,8 @@ export default function CopySpellButton({elementId, shouldAddBorder}) {
 
     if (shouldAddBorder == null) shouldAddBorder = false
 
+    const [displayedIcon, setDisplayedIcon] = useState('copy')
+
     function copyBlobToClipboard(blob, callback) {
         navigator.clipboard.write([new ClipboardItem({'image/png': blob})]).then(() => {
             callback()
@@ -48,7 +50,6 @@ export default function CopySpellButton({elementId, shouldAddBorder}) {
         })
     }
 
-    const [displayedIcon, setDisplayedIcon] = useState('copy')
 
     return (
         <div onClick={onCopyClick} style={{position: 'relative'}}>
