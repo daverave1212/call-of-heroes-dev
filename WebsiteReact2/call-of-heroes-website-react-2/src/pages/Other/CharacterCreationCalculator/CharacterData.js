@@ -357,17 +357,16 @@ export function useConstAllMyAbilities() {
         specName: selectedSpecName
     })
     const selectedAbilities = selectedAbilityNames.map(name => getAllSpellsByName()[name])
-    console.log({selectedAbilities, selectedAbilityNames})
+    // console.log({selectedAbilities, selectedAbilityNames})
     return [...rcSpells, ...selectedAbilities].filter(spell => spell != null)
 }
 export function useConstAllSkillBonuses() {
-    console.log("HERE WE ARE BOYOS")
     const abilities = useConstAllMyAbilities()
     const [manualSkillBonuses, _] = useManualSkillBonuses()
     const spellsWithSkillObjects = abilities.filter(a => a?.['Skill Bonuses'] != null && !Array.isArray(a?.['Skill Bonuses']))
     const allSpellSkillsObject = addManyObjects(spellsWithSkillObjects.map(s => s['Skill Bonuses']))
     const allSkillsObject = addObjects(allSpellSkillsObject, manualSkillBonuses)
-    console.log({abilities, spellsWithSkillObjects, allSpellSkillsObject, allSkillsObject})
+    // console.log({abilities, spellsWithSkillObjects, allSpellSkillsObject, allSkillsObject})
     return allSkillsObject
 }
 export function useConstAutoSkillBonuses() {
@@ -379,7 +378,7 @@ export function useConstAutoSkillBonuses() {
 export function useConstAllSpecialBonusesNames() {
     const abilities = useConstAllMyAbilities()
     const specialBonusNames = abilities.map(a => a?.['Special Bonuses']).filter(sb => sb != null)
-    console.log({specialBonusNames, abilities})
+    // console.log({specialBonusNames, abilities})
     return specialBonusNames
 }
 

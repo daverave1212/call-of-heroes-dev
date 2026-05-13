@@ -31,25 +31,31 @@ import { BigStatValue } from '../../../components/BigStat/BigStatValue'
 // }
 export default function ChangeStatDialog({ defaultInputValue, defaultNumberValue, description, title, close, onDone, increment=1 }) {
 
-    
+    console.log({ defaultInputValue, defaultNumberValue, description, title, close, onDone, increment })
+
     const [numberValue, setNumberValue] = useState(defaultNumberValue)
     const [inputValue, setInputValue] = useState(defaultInputValue)
+
+    console.log({ defaultInputValue, defaultNumberValue, description, title, close, onDone, increment, numberValue, inputValue })
     
     const nameUsed = defaultInputValue ?? defaultNumberValue ?? 'Unknown'
     const usedTitle = title ?? 'Add'
     const descriptionUsed = description ?? `Add extra points to this that are not autocalculated (e.g. from magic items, level up, etc)`
 
     useEffect(() => {
+        console.green(`CHANGED defaultNumberValue: now at ${defaultNumberValue}`)
         setNumberValue(defaultNumberValue)
     }, [defaultNumberValue])
 
     function onMinus() {
+        console.warn(`ON MINUS TRIGGERED!!!!!`)
         setNumberValue(numberValue - increment)
     }
     function onPlus() {
         setNumberValue(numberValue + increment)
     }
     function onSave() {
+        console.log(`✅ Saving value as ${numberValue}`)
         onDone({ name: inputValue, value: numberValue})
         close()
     }

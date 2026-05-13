@@ -1932,7 +1932,7 @@
         "A": "Passive",
         "HasMixins": true,
         "Effect": "You have an animal pet that can fight alongside you!\nYour pet has the Stats 3, 1, 0, 0, -1 in any order, but they do not affect its Combat capabilities.\nIt has Max Health equal to ^8 + 200% of Your Level^.\nYour pet acts on your Turn. It has 2 Action Points, but it can only attack once per Turn.\n",
-        "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (your pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.\nYour pet will not stray more than 30 meters away from you in hostile territory.\n",
+        "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It's Health Regen is equal to half of its Max Health.\nYour pet will not stray more than 30 meters away from you in hostile territory.\n",
         "Notes": "Your pet can't do Default Moves except Taunt.\nYour pet can make normal non-Combat Rolls using using its own Stats.\nYour pet can't rise from being Fallen while in Combat, even if healed.\nIf your pet ever dies, you can spend 8 hours inbetween Adventures to get a new pet. If you want to change your Pet and abandon your current one, you can do so inbetween Adventures, but the guilt will make you Fumbling for the next 2 Worthy Combat encounters.\n",
         "Subspells": {
             "~Pet Attack~": {
@@ -1951,7 +1951,8 @@
         "Cooldown": "Once / Turn",
         "IsSubspell": true,
         "Range": "1 meter",
-        "Effect": "Your pet attacks a target for 1d4 Pierce or Slash Damage (your choice).\n",
+        "Effect": "Your pet attacks a target for ~2d4~ Pierce or Slash Damage (your choice).\n",
+        "HasMixins": true,
         "ParentKey": "Subspells",
         "Origin": "Class/Hunter"
     },
@@ -1970,6 +1971,13 @@
         "IsIgnored": true,
         "Effect": "Choose 2 Pet Talents and 2 Utility Talents from below to give to your pet.\n",
         "Upgrade": "They all apply to your Pet instead of yourself.",
+        "ParentKey": "Starting Abilities",
+        "Origin": "Class/Hunter"
+    },
+    "~Bite~": {
+        "A": "1 Action Point (from you)",
+        "Cooldown": "Once / Turn",
+        "Effect": "Each of your pets makes a Pet Attack for free.",
         "ParentKey": "Starting Abilities",
         "Origin": "Class/Hunter"
     },
@@ -2254,6 +2262,7 @@
     },
     "<Pet Versatile Training>": {
         "A": "Special",
+        "IsIgnored": true,
         "Effect": "When you get this Talent and at the end of every Adventure, you can change one of your pet's Pet Talents.",
         "ParentKey": "Level 4 Class Talent",
         "Origin": "Class/Hunter"
@@ -2339,6 +2348,7 @@
     },
     "<Pet Versatile Trainings>": {
         "A": "Special",
+        "IsIgnored": true,
         "Effect": "When you get this Talent and at the end of every Adventure, you can change one Pet Talent of one of your pets.",
         "ParentKey": "Level 2 Class Talent",
         "Origin": "Class/Hunter"
@@ -2563,16 +2573,26 @@
     },
     "~Prowl Around~": {
         "A": "Passive",
+        "IsIgnored": true,
         "_Value": 0.5,
-        "Effect": "You have +2 to all non-Combat Presence Rolls.\n",
+        "Skill Bonuses": {
+            "Hearing": 2,
+            "Sight": 2,
+            "Smell": 2
+        },
+        "Effect": "You have +2 in Hearing, Seeing, and Smelling.\n",
         "Notes": "This is because of your Animal Companions roaming about.",
         "ParentKey": "Starting Abilities",
         "Origin": "Class/Hunter"
     },
     "~Stablemaster~": {
         "_Value": 1,
+        "IsIgnored": true,
+        "Combat Extras": [
+            "You have up to 3 pets"
+        ],
         "A": "Passive",
-        "Effect": "You have 3 different Animal Companion pets, but only one can adventure with you at a time.\nEach of your Animal Companions has 2 Pet Talents, and you can distribute your Minor Level 1 Talents among your pets as you like.\n\nWhile not with you, your other Animal Companions hang out on their own in the wilderness, but no more than 5 kilometers away from you.\nYou can send your current companion off, then spend 30 minutes to call for another one to come join you.\n",
+        "Effect": "You have 3 different Animal Companion pets, but only one can adventure with you at a time.\nEach of your Animal Companions has 2 Utility Talents and 2 Level 1 Pet Talents.\n\nWhile not with you, your other Animal Companions hang out on their own in the wilderness, but no more than 5 kilometers away from you.\nYou can send your current companion off, then spend 30 minutes to call for another one to come join you.\n",
         "Notes": "The advantage is you can use several animal Abilities that have longer Cooldowns; these are usually stronger.\nIt is possible that the animal you're calling can't come to your aid if you're indoors, flying or the trail you're on is too difficult. In that case, you will have to return outside or on a safe trail (QM's decision).\nIn that case, your current companion can not go away, either.\n",
         "ParentKey": "Starting Abilities",
         "Origin": "Class/Hunter"
@@ -2605,15 +2625,37 @@
     "<Kindred Spirits>": {
         "_Value": 5,
         "A": "Passive",
+        "IsIgnored": true,
+        "Combat Extras": [
+            "2 pets fight with you"
+        ],
         "Effect": "One more of your Animal Companions accompanies you while adventuring.\nThis Animal Companion obeys the same rules as the regular one (takes its Turns, requires Healing between combats, etc).\n",
         "Notes": "You're instantly kicked from the group if your pets don't have names.",
         "ParentKey": "Level 3 Class Talent",
         "Origin": "Class/Hunter"
     },
-    "<Singular Apex>": {
-        "_Value": 5,
+    "~Apex Companions~": {
+        "_Value": 10,
+        "AlignOnWebsite": "Left",
         "A": "Passive",
-        "Effect": "Each of your Animals now has 4 instead of 2 Pet Talents, +100% Health and deals 2d6 Pet Attack Damage instead of 1d6.\n",
+        "HasMixins": true,
+        "Replacement": "Replaces Animal Companion",
+        "HasUpgradeIcon": true,
+        "IconName": "Animal Companion",
+        "Effect": "You have an animal pet that can fight alongside you!\nYour pet has the Stats ~5, 2, 0, 0, -1~ in any order, but they do not affect its Combat capabilities.\nIt has Max Health equal to ~16 + 400% of Your Level~.\nYour pet acts on your Turn. It has 2 Action Points, but it can only attack once per Turn.\n~It has 4 Level 1 Pet Talents.~\n",
+        "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It's Health Regen is equal to half of its Max Health.\nYour pet will not stray more than 30 meters away from you in hostile territory.\n",
+        "Notes": "Your pet can't do Default Moves except Taunt.\nYour pet can make normal non-Combat Rolls using using its own Stats.\nYour pet can't rise from being Fallen while in Combat, even if healed.\nIf your pet ever dies, you can spend 8 hours inbetween Adventures to get a new pet. If you want to change your Pet and abandon your current one, you can do so inbetween Adventures, but the guilt will make you Fumbling for the next 2 Worthy Combat encounters.\n",
+        "Subspells": {
+            "~Pet Attack~": {
+                "Cooldown": "Once / Turn",
+                "IsSubspell": true,
+                "Range": "1 meter",
+                "Effect": "Your pet attacks a target for ~2d4~ Pierce or Slash Damage (your choice).\n",
+                "HasMixins": true,
+                "ParentKey": "Subspells",
+                "Origin": "Class/Hunter"
+            }
+        },
         "ParentKey": "Level 3 Class Talent",
         "Origin": "Class/Hunter"
     },
@@ -3182,7 +3224,11 @@
     },
     "~Affiance Casting~": {
         "A": "Special",
+        "IsIgnored": true,
         "AlignOnWebsite": "Left",
+        "Combat Extras": [
+            "Max Mana is 2 and replenishes after Combats"
+        ],
         "Effect": "Your Max Mana is 2. It never increases and can't increase except through Warlock Talents.\nYour Mana replenishes after each Worthy Combat.\n",
         "ParentKey": "Starting Abilities",
         "Origin": "Class/Warlock"
@@ -5393,6 +5439,10 @@
     },
     "~Flux~": {
         "A": "Passive",
+        "IsIgnored": true,
+        "Combat Extras": [
+            "You have a Flux Damage Type"
+        ],
         "Effect": "Choose a Damage Type from the ones listed below. That becomes your {Color('magenta' 'Flux')} Type. Some of your Spells's Damage deal that Damage Type (written explicitly on those Spells).",
         "Upgrade": "1. Fire, 2. Cold, 3. Shock, 4. Pulse, 5. Poison, 6. Acid, 7. Divine, 8. Scourge.\nYou can change your Flux inbetween Adventures.\n",
         "HasMixins": true,
@@ -5798,10 +5848,14 @@
     },
     "~Font Magic~": {
         "_Value": 0,
+        "IsIgnored": true,
         "A": "Passive",
         "HasMixins": true,
         "Tags": [
             "Font"
+        ],
+        "Combat Extras": [
+            "You have 2 Magic Font Spells"
         ],
         "Effect": "You may select a `Magic Font$/Other/MagicFonts` to pick Spells from.\nYou get 2 free Magic Font Spells.\n",
         "Notes": "All Magic Font Spells act like Class Talents. You can get more Magic Font Spells like you would normally get extra Class Talents (e.g. with the extra Known Talents from Intelligence, if above 0).\n",
@@ -8582,9 +8636,10 @@
     },
     "~Primordial Dragon~": {
         "A": "Special",
+        "IsIgnored": true,
         "Combat Extras": [
             "You are Large (2x2 meters)",
-            "Your armor needs to be fitted"
+            "Wear belts as bracers and bracers as rings"
         ],
         "Bonuses": {
             "Focus": 1,
@@ -8999,6 +9054,10 @@
     },
     "~Burden of Passing~": {
         "A": "Passive",
+        "IsIgnored": true,
+        "Extras": [
+            "You are 1 Level higher"
+        ],
         "Effect": "Your starting Stats are -2, -1, 0, 1.\nYour are always 1 Level higher than what you're supposed to be.\n",
         "Upgrade": "With your extra Level, you do gain Level Up bonuses for it, as normal.",
         "Notes": "e.g. if playing with Experience, even if you have gained enough Experience to be Level 3, you are Level 4, but still require Experience for Level 3 to 4 to Level up - and so on. If playing with milestone Levels, you are simply always always 1 Level higher than what you're supposed to be. Maximum Level is 10.",
@@ -9007,6 +9066,10 @@
     },
     "~Burning By Silver~": {
         "A": "Passive",
+        "IsIgnored": true,
+        "Combat Extras": [
+            "+50% silver Damage taken"
+        ],
         "Effect": "You are a cursed individual. Your race can be any of the available ones for cosmetic purposes, but your curse makes your race's abilities inert, and only have what the Hollow race provides.\nYou take +50% Damage when hit by silver weapons.\n",
         "ParentKey": "Starting Abilities",
         "Origin": "Race/Hollow"
@@ -9205,7 +9268,7 @@
             "Understanding People": -2
         },
         "Combat Extras": [
-            "You have a Druid Talent"
+            "You have a Sorcerer Talent"
         ],
         "Effect": "You know have a Level 1 Sorcerer Talent. If it triggers or rolls an Unstable Spark die, it has only the base Unstable Spark effect. You can change it inbetween Adventures.\nYou have +1 in Luck, but -2 in Understanding People.\n",
         "Notes": "You came from somewhere else, a place close enough to feel but too far to name. The air here tastes almost the same, the stars are nearly right, yet everything is slightly… off. Memories of it are fragments. The kingdoms were different, but you can't quite name them. People were different, but you're not sure how. How did you get here? Is there a way back? ^Should^ you go back?",

@@ -113,7 +113,7 @@ export function getSpecialBonusesByName(name, { totalStats, attributes }) {
             'Health Regen': getStatValueByName(MIGHT, totalStats) * 2
         }
     }
-    console.log({ location: 'getSpecialBonusesByName', totalStats, attributes, specialCalculations, return: specialCalculations[name] })
+    // console.log({ location: 'getSpecialBonusesByName', totalStats, attributes, specialCalculations, return: specialCalculations[name] })
     return specialCalculations[name]
 }
 export function getStatLimitByLevel(level) {
@@ -196,8 +196,6 @@ export function getStatsArrayFromObject(obj) {
 
 
 export function getAllStatBonusesYMLAsObjFromSpellsArray(spellsArray) {
-    console.log(`🔰🔰 aright! ok!`)
-    console.log({spellsArray})
     let bonuses = {}
     let sources = []
 
@@ -207,7 +205,6 @@ export function getAllStatBonusesYMLAsObjFromSpellsArray(spellsArray) {
             continue
         }
         const statNames = Object.keys(spell.Bonuses)
-        console.log({statNames})
         for (const statName of statNames) {
             if (bonuses[statName] == null) {
                 bonuses[statName] = 0
@@ -264,7 +261,7 @@ export function calculateBaseMaxManaByLevel(level=1, className) {
         return (Spellcasting?.Mana?.Amount || 0) + (level - 1)
     }
     if (Spellcasting?.Type == SPECIAL_MANA_BASED_SPELLCASTING) {
-        return (Spellcasting?.Mana?.Amount || 0) + Math.floor((level / 3))        
+        return (Spellcasting?.Mana?.Amount || 0)
     }
     return null
 }
@@ -293,8 +290,8 @@ export function calculateAllAtributes({raceName, className, level, totalStats, b
 
     applyMultipliersToAttributes({ attributes, bonuses })
     
-    console.log('calculateAllAtributes')    
-    console.log({ attributes, attributesWithSpecialBonuses, bonuses, totalStats, baseAttributes, bonusAttributesFromStats, bonusAttributesFromLevel, specialBonusNames, extraCalculatedBonuses})
+    // console.log('calculateAllAtributes')    
+    // console.log({ attributes, attributesWithSpecialBonuses, bonuses, totalStats, baseAttributes, bonusAttributesFromStats, bonusAttributesFromLevel, specialBonusNames, extraCalculatedBonuses})
 
     return attributesWithSpecialBonuses
 }
@@ -307,7 +304,7 @@ function getCalculatedSpecialBonuses({ totalStats, specialBonusNames, attributes
     // ['Trollskin', 'Dwarfenhalmen']
     const namesToBonusesObjs = specialBonusNames.map(name => getSpecialBonusesByName(name, { totalStats, attributes }))
     const addedBonuses = addManyObjects(namesToBonusesObjs)
-    console.log({namesToBonusesObjs, addedBonuses})
+    // console.log({namesToBonusesObjs, addedBonuses})
     return addedBonuses
 
 

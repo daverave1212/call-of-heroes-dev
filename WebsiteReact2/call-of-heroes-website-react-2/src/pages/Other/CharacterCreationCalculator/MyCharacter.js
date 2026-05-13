@@ -51,7 +51,7 @@ export function useConstBonusesFromSpellsAndItems() {
     const allMyRaceAndClassSpells = useConstAllMyAbilities()
     const everything = [...allMyArmors, ...allMyRaceAndClassSpells]
     const { bonuses, sources } = getAllStatBonusesYMLAsObjFromSpellsArray(everything)
-    console.log({location: 'useConstBonusesFromSpellsAndItems', allMyArmors, allMyRaceAndClassSpells, everything, bonuses, sources})
+    // console.log({location: 'useConstBonusesFromSpellsAndItems', allMyArmors, allMyRaceAndClassSpells, everything, bonuses, sources})
 
     return { bonuses, sources }
 }
@@ -59,8 +59,8 @@ export function useConstAllBonuses() {
     const { bonuses, sources } = useConstBonusesFromSpellsAndItems()
     const [manualBonuses] = useManualBonuses()
     const allBonuses = addManyObjects([bonuses, manualBonuses])
-    console.log(`Adding the following`)
-    console.log({ bonuses, manualBonuses, allBonuses})
+    // console.log(`Adding the following`)
+    // console.log({ bonuses, manualBonuses, allBonuses})
     return { bonuses: allBonuses, sources: sources }
 }
 export function useConstTotalStats() {
@@ -161,7 +161,7 @@ export default function MyCharacter() {
 
     const allMyWeapons = weaponNames
         .map(name => ({...getAllWeaponsByName()[name]}))
-        .map(w => ({...w, IsSubspell: true, Alternatives: null }))   // Makes weapons smaller
+        .map(w => ({...w, IsSubspell: true, Alternatives: null, Notes: null }))   // Makes weapons smaller
     const allMyArmors = armorNames.map(name => getAllArmorsByName()[name])
     const selectedClassObj = selectedClassName == null? null: getAllClasses()[selectedClassName]
     const maxMana = selectedClassName == null? 1: calculateBaseMaxManaByLevel(level, selectedClassName)
@@ -170,7 +170,7 @@ export default function MyCharacter() {
     // const extraAPOnFirstRoundString = extraAPOnFirstRound < 0? extraAPOnFirstRound: ('+' + extraAPOnFirstRound)
 
     const initiativeDisplay = maybeMakeFractionGray(attributes[INITIATIVE])
-    console.log({attributes})
+    // console.log({attributes})
 
 
     // Functions
@@ -248,10 +248,11 @@ export default function MyCharacter() {
         })
     }
     function modifyManualBonus(attributeName, increment=1) {
+        console.green(`Clicked on ${attributeName} which is currently at total ${manualBonuses[attributeName]}`)
         setStatDialogOptions({
             defaultInputValue: null,
-            defaultNumberValue: bonuses[attributeName] ?? 0,
-            increment: increment,
+            defaultNumberValue: manualBonuses[attributeName] ?? 0,
+            increment,
             title: "Add Extra to " + attributeName,
             onDone: (({ name, value }) => {
                 const newManualBonuses = {
@@ -453,10 +454,10 @@ export default function MyCharacter() {
                         <div className="gold-wrapper wrapper">
                             <Input className="gold" value={gold} setSet={func => setInputGold = func} onChange={newVal => {
                                 const newValFloat = parseFloat(newVal)
-                                console.log({newValFloat})
+                                // console.log({newValFloat})
                                 if (isNaN(newValFloat) || (isString(newValFloat) && newValFloat.length == 0)) {
                                     setGold(gold)
-                                    console.log(`Resetting gold input to ${gold}`)
+                                    // console.log(`Resetting gold input to ${gold}`)
                                     setInputGold(gold)   // Reset to what it was
                                 } else {
                                     setGold(newValFloat)

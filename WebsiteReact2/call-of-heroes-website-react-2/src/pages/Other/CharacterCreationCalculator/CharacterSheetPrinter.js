@@ -15,7 +15,7 @@ const IMAGE_LEFT = 1548
 const IMAGE_TOP = 533
 // const IMAGE_LEFT = 1596
 // const IMAGE_TOP = 550
-const IMAGE_WIDTH = 712
+const IMAGE_WIDTH = 764
 // const IMAGE_HEIGHT = 712
 
 const DESCRIPTION_LEFT = IMAGE_LEFT + 24
@@ -137,7 +137,7 @@ export async function printCharacterOnCanvas({ character: hero, canvas }) {
     }
 
     // Weapons
-    let weaponDrawY = COORDINATES.combatNotes.y
+    let weaponDrawY = COORDINATES.combatNotes.y - GAP_BETWEEN_LINES
     {
         const weaponDivs = Array.from(document.querySelectorAll(`#My-Weapons .spell.is-item`))
         const { x, y } = COORDINATES.combatNotes
@@ -191,7 +191,7 @@ export async function printCharacterOnCanvas({ character: hero, canvas }) {
         if (hero.allCombatBonuses != null) {
             const combatBonusesText = hero.allCombatBonuses?.join('\n')
             const weaponsYDiff = weaponDrawY - COMBAT_NOTES_TOP
-            const extraPixelsNeeded = weaponsYDiff % GAP_BETWEEN_LINES
+            const extraPixelsNeeded = GAP_BETWEEN_LINES - (weaponsYDiff % GAP_BETWEEN_LINES)
             drawTextLines({
                 text: combatBonusesText,
                 width: COMBAT_NOTES_WIDTH,

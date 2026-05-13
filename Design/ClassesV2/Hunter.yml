@@ -60,7 +60,7 @@ Starting Abilities:
       It has Max Health equal to ^8 + 200% of Your Level^.
       Your pet acts on your Turn. It has 2 Action Points, but it can only attack once per Turn.
     Upgrade: |
-      If your pet drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (your pet owner) can spend 30 minutes to tend to your pet's wounds and heal it back to full Health.
+      If your pet drops to 0 Health, it becomes Fallen, like a player. It's Health Regen is equal to half of its Max Health.
       Your pet will not stray more than 30 meters away from you in hostile territory.
     Notes: |
       Your pet can't do Default Moves except Taunt.
@@ -91,6 +91,11 @@ Starting Abilities:
     Effect: |
       Choose 2 Pet Talents and 2 Utility Talents from below to give to your pet.
     Upgrade: They all apply to your Pet instead of yourself.
+
+  ~Bite~:
+    A: 1 Action Point (from you)
+    Cooldown: Once / Turn
+    Effect: Each of your pets makes a Pet Attack for free.
 
 Utility:
   ~Mind Bond~:
@@ -433,6 +438,7 @@ Specs:
 
         <Pet Versatile Training>:
           A: Special
+          IsIgnored: true
           Effect: When you get this Talent and at the end of every Adventure, you can change one of your pet's Pet Talents.
 
         ~Harpoon~:
@@ -509,6 +515,7 @@ Specs:
 
         <Pet Versatile Trainings>:
           A: Special
+          IsIgnored: true
           Effect: When you get this Talent and at the end of every Adventure, you can change one Pet Talent of one of your pets.
 
         <Pet Training 101>:
@@ -736,17 +743,25 @@ Specs:
 
         ~Prowl Around~:
           A: Passive
+          IsIgnored: true
           _Value: 0.5
+          Skill Bonuses:
+            Hearing: 2
+            Sight: 2
+            Smell: 2
           Effect: |
-            You have +2 to all non-Combat {Sense} Rolls.
+            You have +2 in Hearing, Seeing, and Smelling.
           Notes: This is because of your Animal Companions roaming about.
         
         ~Stablemaster~:
           _Value: 1
+          IsIgnored: true
+          Combat Extras:
+            - You have up to 3 pets
           A: Passive
           Effect: |
             You have 3 different Animal Companion pets, but only one can adventure with you at a time.
-            Each of your Animal Companions has 2 Pet Talents, and you can distribute your Minor Level 1 Talents among your pets as you like.
+            Each of your Animal Companions has 2 Utility Talents and 2 Level 1 Pet Talents.
 
             While not with you, your other Animal Companions hang out on their own in the wilderness, but no more than 5 kilometers away from you.
             You can send your current companion off, then spend 30 minutes to call for another one to come join you.
@@ -760,6 +775,7 @@ Specs:
 
         <Pet Versatile Trainings>:
           A: Special
+          IsIgnored: true
           Effect: When you get this Talent and at the end of every Adventure, you can change one Pet Talent of one of your pets.
 
         ~Infused Bites~:
@@ -782,16 +798,53 @@ Specs:
         <Kindred Spirits>:
           _Value: 5
           A: Passive
+          IsIgnored: true
+          Combat Extras:
+            - 2 pets fight with you
           Effect: |
             One more of your Animal Companions accompanies you while adventuring.
             This Animal Companion obeys the same rules as the regular one (takes its Turns, requires Healing between combats, etc).
           Notes: You're instantly kicked from the group if your pets don't have names.
 
-        <Singular Apex>:
-          _Value: 5
+        ~Apex Companions~: 
+          _Value: 10
+          AlignOnWebsite: Left
           A: Passive
+          HasMixins: true
+          Replacement: Replaces Animal Companion
+          HasUpgradeIcon: true
+          IconName: Animal Companion
           Effect: |
-            Each of your Animals now has 4 instead of 2 Pet Talents, +100% Health and deals 2d6 Pet Attack Damage instead of 1d6.
+            You have an animal pet that can fight alongside you!
+            Your pet has the Stats ~5, 2, 0, 0, -1~ in any order, but they do not affect its Combat capabilities.
+            It has Max Health equal to ~16 + 400% of Your Level~.
+            Your pet acts on your Turn. It has 2 Action Points, but it can only attack once per Turn.
+            ~It has 4 Level 1 Pet Talents.~
+          Upgrade: |
+            If your pet drops to 0 Health, it becomes Fallen, like a player. It's Health Regen is equal to half of its Max Health.
+            Your pet will not stray more than 30 meters away from you in hostile territory.
+          Notes: |
+            Your pet can't do Default Moves except Taunt.
+            Your pet can make normal non-Combat Rolls using using its own Stats.
+            Your pet can't rise from being Fallen while in Combat, even if healed.
+            If your pet ever dies, you can spend 8 hours inbetween Adventures to get a new pet. If you want to change your Pet and abandon your current one, you can do so inbetween Adventures, but the guilt will make you Fumbling for the next 2 Worthy Combat encounters.
+          Subspells:      
+            ~Pet Attack~:
+                Cooldown: Once / Turn
+                IsSubspell: true
+                Range: 1 meter
+                Effect: |
+                    Your pet attacks a target for ~2d4~ Pierce or Slash Damage (your choice).
+        
+
+        # <Singular Apex>:
+        #   _Value: 5
+        #   A: Passive
+        #   IsIgnored: true
+        #   Combat Extras:
+        #     - Your pet is twice as strong
+        #   Effect: |
+        #     Each of your Animals now has 4 instead of 2 Level 1 Pet Talents, +100% Health and deals 2d4 Pet Attack Damage instead of 1d4.
 
       Level 4 Class Talent:
 
@@ -801,6 +854,7 @@ Specs:
 
         <Pet Versatile Training>:
           A: Special
+          IsIgnored: true
           Effect: When you get this Talent and at the end of every Adventure, you can change one of your pet's Pet Talents.
 
       Level 5 Class Talent:
