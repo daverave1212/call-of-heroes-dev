@@ -1285,6 +1285,12 @@ export function matchRange(num, items, fallback = null) {
 
   return best?.value ?? fallback
 }
+export function sum(array) {
+    if (array == null || !Array.isArray(array)) {
+        return 0
+    }
+    return array.reduce((soFar, x) => soFar + x, 0)
+}
 
 // Puts it at the end if it has no keyName property.
 export function sortObjectArrayByKey(array, keyName) {

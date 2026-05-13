@@ -36,6 +36,7 @@ export function getBaseAttributes(raceObj) {
         [HEALTH_REGEN]: raceObj.Stats[HEALTH_REGEN],
         [KNOWN_ABILITIES]: 0,
         [INITIATIVE]: 0,
+        [SKILL_POINTS]: 2
     }
 }
 export function calculateStatsToBonusAttributesObject(statArray) {
@@ -45,7 +46,7 @@ export function calculateStatsToBonusAttributesObject(statArray) {
         [MOVEMENT_SPEED]: Math.floor(statArray[1] / 2),
         [INITIATIVE]: statArray[2] * 0.5,
         [KNOWN_ABILITIES]: statArray[2],
-        [SKILL_POINTS]: statArray[2]
+        [SKILL_POINTS]: statArray[1] + statArray[2]
     }
 }
 export function getAttributeBonusesFromLevel(level, classObj) {
@@ -54,7 +55,8 @@ export function getAttributeBonusesFromLevel(level, classObj) {
         [HEALTH_REGEN]: (level - 1) * 2,
         [MOVEMENT_SPEED]: 0,
         [INITIATIVE]: 0,
-        [KNOWN_ABILITIES]: 0
+        [KNOWN_ABILITIES]: 0,
+        [SKILL_POINTS]: level - 1
     }
 }
 export function getAttributeCalculationsByStats(statArray) {
@@ -68,10 +70,16 @@ export function getAttributeCalculationsByStats(statArray) {
         [MOVEMENT_SPEED]: { left: `4`, middle: signs[MOVEMENT_SPEED], right: numbers[MOVEMENT_SPEED] },
         [INITIATIVE]: { left: ``, middle: '', right: bonusAttributes[INITIATIVE] },
         [KNOWN_ABILITIES]: { left: ``, middle: '', right: bonusAttributes[KNOWN_ABILITIES] },
+        [SKILL_POINTS]: { left: `2`, middle: `+`, right: statArray[1] + statArray[2] }
     }
 }
 export function calculateExtraFirstTurnAPByInitiative(initiative) {
     return Math.floor(initiative / 5)
+}
+export function getSkillPointsByStatsAndLevel({totalStats, level}) {
+    const dex = getStatValueByName(DEXTERITY, totalStats)
+    const int = getStatValueByName(INTELLIGENCE, totalStats)
+    return 2 + dex + int + level - 1
 }
 
 export const ATTRIBUTES_CALCULATIONS_SPANS = {
@@ -306,22 +314,6 @@ function getCalculatedSpecialBonuses({ totalStats, specialBonusNames, attributes
     const addedBonuses = addManyObjects(namesToBonusesObjs)
     // console.log({namesToBonusesObjs, addedBonuses})
     return addedBonuses
-
-
-
-    const calculationsCopy = {...calculations} // { Strength: "Strength * 4 + 1" }
-    const normalizedCalculations = normalizeStatsObject(calculationsCopy) // { Might: "Strength * 4 + 1" }
-    const attributesAndStats = { ...totalStats, ...attributes }
-    const parsedCalculations = {}
-    for (const [statName, statCalculation] of Object.entries(normalizedCalculations)) {
-        // [Max Health, Strength * 2 + 6]
-        const normalizedCalculation = normalizeTextWithStats(statCalculation)    // Might * 2 + 6
-        const replacedCalculationsAandS = stringReplaceAllMany(normalizedCalculation, attributesAndStats)
-        const calculated = calculateString(replacedCalculationsAandS)
-        parsedCalculations[statName] = calculated
-    }
-
-    return parsedCalculations
 }
 window.getCalculatedExtraBonuses = getCalculatedSpecialBonuses
 function applyMultipliersToAttributes({ attributes, bonuses }) {
