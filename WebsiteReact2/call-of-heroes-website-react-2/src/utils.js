@@ -23,6 +23,7 @@ import { VALID_SPELL_TOP_STATS } from "./components/Spell/Spell"
 import QuestGuardConfig from './QuestGuardConfig.json'
 
 import STATIC_SYMBOLS from './parse-text-symbols-static.json'
+import { SpellSortTypes } from "./components/Spell/ManySpells"
 
 // ---------------- Spells Utilities ----------------
 const SPELL_PROPS_TO_PARSE = [
@@ -501,9 +502,26 @@ export const SortSpellsBy = {
         const newArray = [...spellsArray]
     }
 }
-export function splitSpellsArrayInto2Columns(spellsArray, shouldSort=true) {
+const SORT_CRITERIA_SORT_FUNCS = {
+    [SpellSortTypes.HEIGHT]: spells => sortObjectArrayByKey(spells, 'Height').reverse(),
+    [SpellSortTypes.ACTION_POINTS]: spells => sortByHash(spells, spell =>
+        spell.Height + (
+            spell.A == 'Special'?
+                3000:
+            spell.A == 'Passive'?
+                2000:
+            1000
+        )
+    ).reverse()
+}
+export function splitSpellsArrayInto2Columns(spellsArray, shouldSort=true, sortCriteria) {
+    if (shouldSort && sortCriteria == null) {
+        sortCriteria = SpellSortTypes.HEIGHT
+    }
+
     const spells = spellsArray.map(spell => ({...spell, Height: estimteSpellHeight(spell)}))
-    const spellsSorted = shouldSort? (sortObjectArrayByKey(spells, 'Height').reverse()): spells
+    const spellsSorted = shouldSort? SORT_CRITERIA_SORT_FUNCS[sortCriteria](spells): spells
+    // const spellsSorted = shouldSort? (sortObjectArrayByKey(spells, 'Height').reverse()): spells
 
     let column1Spells = []
     let column2Spells = []

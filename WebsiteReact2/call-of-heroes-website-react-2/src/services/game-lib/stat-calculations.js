@@ -65,7 +65,7 @@ export function getAttributeCalculationsByStats(statArray) {
     const numbers = mapObject(bonusAttributes, ({ key, value }) => ({ key, value: Math.abs(value)}))
 
     return {
-        [MAX_HEALTH]: { left: `Race HP`, middle: signs[HEALTH_REGEN], right: numbers[HEALTH_REGEN] },
+        [MAX_HEALTH]: { left: `Race HP`, middle: signs[MAX_HEALTH], right: numbers[MAX_HEALTH] },
         [HEALTH_REGEN]: { left: `Race Health Regen`, middle: signs[HEALTH_REGEN], right: numbers[HEALTH_REGEN] },
         [MOVEMENT_SPEED]: { left: `4`, middle: signs[MOVEMENT_SPEED], right: numbers[MOVEMENT_SPEED] },
         [INITIATIVE]: { left: ``, middle: '', right: bonusAttributes[INITIATIVE] },

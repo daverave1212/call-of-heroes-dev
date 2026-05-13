@@ -9,20 +9,28 @@ import CopySpellButton from '../CopyButton/CopySpellButton'
 
 export const SpellSortTypes = {
     HEIGHT: 'height',
-    LEVEL_REQUIREMENT: 'level requirement'
+    LEVEL_REQUIREMENT: 'level requirement',
+    ACTION_POINTS: 'action points'
 }
 
-export default function ManySpells({ id, className, spells, spellStyle, description, selectedSpellNames, onSpellClick, spellsMetadata={}, areItems=false, buttonText, childrenLeft, childrenRight, shouldSort=true, shouldAlignByHeight=true, hasCopyButton=false }) {
+export default function ManySpells({ id, className, spells, spellStyle, description, selectedSpellNames, onSpellClick, spellsMetadata={}, areItems=false, buttonText, childrenLeft, childrenRight, shouldSort=true, shouldAlignByHeight=true, hasCopyButton=false, sortCriteria=null }) {
 
     if (hasCopyButton && id == null) {
         console.error(`ManySpells has copy button but id is ${id}`)
+    }
+
+    if (sortCriteria != null) {
+        if (shouldSort == false) {
+            console.warn(`Invalid Parameters Warning: ManySpells with spells printed above got shouldSort false, but a sortCriteria=${sortCriteria}.`)
+        }
+        shouldSort = true
     }
 
     spells = Array.isArray(spells) ? spells : spellsFromObject(spells)
     
     const wideSpells = spells.filter(spell => spell.IsWide)
     const nonWideSpells = spells.filter(spell => !spell.IsWide)
-    const [column1Spells, column2Spells] = shouldAlignByHeight? splitSpellsArrayInto2Columns(nonWideSpells, shouldSort): splitArrayEvenly(nonWideSpells)
+    const [column1Spells, column2Spells] = shouldAlignByHeight? splitSpellsArrayInto2Columns(nonWideSpells, shouldSort, sortCriteria): splitArrayEvenly(nonWideSpells)
 
     const isSelected = spell => selectedSpellNames != null && spell != null && selectedSpellNames.includes(spell.Name)
     

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import { getAllClasses, getAlMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getExtrasFromSpells, isString, spellsFromObject, useLocalStorageState, hasClassMana, getAllWeaponsByName, getAllArmorsByName, addObjects, getSpellReplacementName, reverseObject, addManyObjects, getSpellIconPathByName, addArrays, withToggledElement, getNumberDecimalsString, getNumberPartsString, filterObject, maybeWithPlus, mapObject, isNumber, sum } from "../../../utils"
-import ManySpells from "../../../components/Spell/ManySpells"
+import { getAllClasses, getAlMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getExtrasFromSpells, isString, spellsFromObject, useLocalStorageState, hasClassMana, getAllWeaponsByName, getAllArmorsByName, addObjects, getSpellReplacementName, reverseObject, addManyObjects, getSpellIconPathByName, addArrays, withToggledElement, getNumberDecimalsString, getNumberPartsString, filterObject, maybeWithPlus, mapObject, isNumber, sum, SortSpellsBy } from "../../../utils"
+import ManySpells, { SpellSortTypes } from "../../../components/Spell/ManySpells"
 import PageH2 from "../../../components/PageH2/PageH2"
 import TextArea from "../../../components/TextArea/TextArea"
 import Icon from "../../../components/Icon"
@@ -489,7 +489,7 @@ export default function MyCharacter() {
 
             <PageH2 hasMargin={false} className="margin-top-2 center-text">Race and Class Abilities</PageH2>
             <div id="All-My-Spells">
-                <ManySpells spells={allDisplayedRaceAndClassSpells} shouldIgnoreAlignment={true} spellsMetadata={spellsMetadata}/>
+                <ManySpells spells={allDisplayedRaceAndClassSpells} shouldIgnoreAlignment={true} spellsMetadata={spellsMetadata} sortCriteria={SpellSortTypes.ACTION_POINTS}/>
                 <CopySpellButton elementId={"All-My-Spells"}/>
             </div>
 
