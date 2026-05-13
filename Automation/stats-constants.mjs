@@ -14,7 +14,7 @@ export const INITIATIVE = 'Initiative'
 export const EXTRA_INITIATIVE_AP = '1st Turn AP'
 export const SKILL_POINT = 'Skill Point'
 export const KNOWN_ABILITIES = 'Known Minor Talents'
-export const SKILL_POINTS = 'Skill Points (non-Combat)'
+export const SKILL_POINTS = 'Skill Points'
 export const MANA = 'Mana'
 export const ATTRIBUTE_NAMES = [MAX_HEALTH, HEALTH_REGEN, MOVEMENT_SPEED, INITIATIVE]
 

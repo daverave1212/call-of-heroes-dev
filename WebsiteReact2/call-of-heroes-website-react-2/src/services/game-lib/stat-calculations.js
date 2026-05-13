@@ -119,6 +119,10 @@ export function getSpecialBonusesByName(name, { totalStats, attributes }) {
         'Trollskin': {
             'Max Health': getStatValueByName(MIGHT, totalStats) * 3 * -1,
             'Health Regen': getStatValueByName(MIGHT, totalStats) * 2
+        },
+        'Embracing Humanity': {
+            [HEALTH_REGEN]: getStatValueByName(CHARISMA, totalStats) * 2,
+            [SKILL_POINTS]: getStatValueByName(CHARISMA, totalStats) * 2,
         }
     }
     // console.log({ location: 'getSpecialBonusesByName', totalStats, attributes, specialCalculations, return: specialCalculations[name] })
