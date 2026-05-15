@@ -194,6 +194,7 @@ export default function MyCharacter() {
             attributes,
             maxMana,
             allCombatBonuses,
+            manualCombatExtras,
             extras,
             skillBonuses: myValidSkillBonusesStrings,
             languages: [...character.languages, ...manualNormalExtras],
@@ -490,7 +491,6 @@ export default function MyCharacter() {
             <PageH2 hasMargin={false} className="margin-top-2 center-text">Race and Class Abilities</PageH2>
             <div id="All-My-Spells">
                 <ManySpells spells={allDisplayedRaceAndClassSpells} shouldIgnoreAlignment={true} spellsMetadata={spellsMetadata} sortCriteria={SpellSortTypes.ACTION_POINTS}/>
-                <CopySpellButton elementId={"All-My-Spells"}/>
             </div>
 
             {/* <PageH2 hasMargin={false} className="margin-top-1 center-text">Basic Abilities</PageH2>
@@ -498,6 +498,9 @@ export default function MyCharacter() {
 
             <div id="Print-Character-Box" className="center-content">
                 <button onClick={printCharacter}>Print</button>
+                <div className="absolute" style={{right: '10vw'}}>
+                    <CopySpellButton elementId={"All-My-Spells"}/>
+                </div>
             </div>
         </div>
     )

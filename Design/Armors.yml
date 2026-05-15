@@ -17,6 +17,34 @@
 # EffectGreen: First round of combat you take halved damage.
 # EffectGreen: Initiative
 
+
+
+
+# Types of Effects:
+
+# Light: |
+#   +0.5 Initiative
+#   +1 Talent
+#   +0.5 Movement
+#   Can move through enemies
+
+# Medium: |
+#   +4 Max Health
+#   +2 Health Regen
+#   Each Turn, you can move 1 meter for free.
+#   Cuirass
+
+# Heavy: |
+#   +6 Max Health
+#   +3 Health Regen
+#   Bonus Range/ignore cover if you haven't moved last turn
+#   If you end Turn with unspent AP, gain 2 Shiedings
+
+# Other: |
+#   When Slammed, you and your collider take no Damage. You take no Falling Damage. You are immune to being Pushed.
+
+
+
 Shields:
     Heater Shield:
       EffectGreen: -50% Slash Damage taken
@@ -63,85 +91,157 @@ Light:
 
     Unarmored:
       Bonuses:
-        Movement Speed: 1
-      EffectGreen: +1 Movement Speed
+        Movement Speed: 0.5
+      EffectGreen: +0.5 Movement Speed
       Notes: |
         No armor or very little clothing, such as a bare chest or lightly clothed body. You rely on your reflexes more than on armor.
  
     Robes:
-      Price: 200
-      Bonuses:
-        Initiative: 0.5
+      Price: 450
       EffectGreen: |
-        +0.5 Initiative
+        You have 1 extra Level 1 Utility or Class Talent.
       Notes: Robes vary in purpose and design. They can symbolize a wizard's robes, a priest's apparel or a noble's dress. 
 
     Leather Armor:
       Price: 230
       Bonuses:
-        Health Regen: 2
+        Initiative: 0.5
       EffectGreen: |
-        +2 Health Regen
-      Notes: |
-        Breaking your Movement means you can move, attack, and then continue to move.
+        +0.5 Initiative
+      Notes: The breastplate and shoulder protectors of this armor are made of leather that has been stiffened by being boiled in oil.
 
-        The breastplate and shoulder protectors of this armor are made of leather that has been stiffened by being boiled in oil.
+    Hide Armor:
+      Price: 175
+      Bonuses:
+        Max Health: 2
+      Combat Extras:
+        - Can move through Enemies
+      EffectGreen: |
+        +2 Max Health
+        You can move through spaces of Enemies.
+      Notes: Hide armor is crafted from multiple layers of toughened skins, typically harvested from thick-hided creatures like cattle, bears, or similar animals. Unlike a stiff breastplate, the hides are naturally articulated and allow for softer brushing against the various battlefield combatants.
 
 Medium:
 
-    Padded Armor:
-      Price: 250
-      EffectGreen: |
-        Reduce incoming Smash, Pulse, Cold and falling Damage by 50%
-      Notes: |
-        Padded Armor consists of quilted layers of cloth and batting. Its thickness is great for absorbing heavy blunt hits... and for when you fall off a cliff. It can happen to the best of us.
-        Alternatives: Hide Armor (resistance to Cold Damage instead of Pulse).
-
     Cuirass:
       Price: 300
+      Requirement: Requies 1 {Might}
       EffectGreen: |
         You heal for 10% of all melee Damage you deal (rounded down) in a Worthy Combat.
       Notes:
         A Cuirass consists of a light chestpiece made of leather and metal, with a tasset cover for the upper legs. This is an armor type favored by gladiators, barbarians and other hand-to-hand fighters who are not afraid of blood, be it theirs or their enemies'. The thrill of battle and spill of blood invigorates the wearer.
 
-    Chain Mail:
-      Price: 350
-      EffectGreen: You take -50% Slash Damage and you are immune to being Slowed and Fumbling.
-      Notes: Made of interlocking metal rings, Chain Mail includes a layer of quilted fabric worn underneath the mail to prevent chafing and to cushion the impact of blows.
+    Ring Mail:
+      Price: 325
+      Requirement: Requies 1 {Might}
+      Bonuses:
+        Health Regen: 2
+      EffectGreen:
+        +2 Health Regen
+      Notes: Unlike standard chainmail, which features a complex weave of interlocking rings, ring mail is a simpler form of flexible armor consisting of metal rings sewn or riveted directly onto a heavy garment made of leather or quilted fabric.
 
-    Splint Armor:
+
+    Lorica:
       Price: 450
+      Requirement: Requies 1 {Might}
+      DisplayName: "{Name}"
+      Combat Extras:
+        - -50% Lorica Damage taken
+      EffectGreen: |
+        -50% {DamageType} Damage taken
+      Notes: |
+        A lorica consists of horizontal iron strips fastened together by internal leather straps. The construction style differs from lorica to lorica, resembling chain mail, smallplate or shortscale. These suits are engineered to offer a high degree of protection against both blunt force and piercing weapons while remaining flexible enough for the wearer to move effectively in formation.
+      Variants:
+        - Name: Lorica Segmentata
+          DamageType: Slash
+        - Name: Lorica Hamata
+          DamageType: Pierce
+        - Name: Lorica Squamata
+          DamageType: Smash
+
+    Padded Armor:
+      Price: 325
+      Requirement: Requies 1 {Might}
+      Combat Extras:
+        - -50% Slam, Pulse, Cold, Fall Damage taken
+        - Immune to being pushed
+      EffectGreen: |
+        -50% taken Slam collision, Pulse, Cold and falling Damage by 50%.
+        You are immune to being Pushed.
+      Upgrade: The Slam Damage Reduction applies to the collision Units as well!
+      Notes: |
+        Padded Armor consists of quilted layers of cloth and batting. Its thickness is great for absorbing heavy blunt hits... and for when you fall off a cliff. It happens to the best of us.
+        Alternatives: Hide Armor (resistance to Cold Damage instead of Pulse).
+
+    Half-Plate:
+      Price: 450
+      Requirement: Requires 1 {Might}
+      EffectGreen: +4 Max Health
       Bonuses:
         Max Health: 4
-      EffectGreen: +4 Max Health
       Notes: |
-        If you unquip this armor, you lose 4 Health and Max Health (down to 1).
+        Half-plate is a suit of armor that covers the most vital parts of the body, while leaving the lower limbs largely unprotected to favor mobility and reduced weight. It is constructed from large, shaped steel plates that are heat-treated for hardness and joined together by internal leather straps and sliding rivets.
+    
+    Splint Armor:
+      Price: 450
+      Requirement: Requires 1 {Might}
+      EffectGreen: |
+        +2 Max Health
+        +1 Health Regen
+      Notes: This armor is made of narrow vertical strips of metal riveted to a backing of leather that is worn over cloth padding. Flexible Chain Mail protects the joints, providing great overall protection.
 
-        This armor is made of narrow vertical strips of metal riveted to a backing of leather that is worn over cloth padding. Flexible Chain Mail protects the joints and allows soldiers to hold their ground more efficiently.
-  
 
 Heavy:
 
-    Scale Mail:
-      Price: 600
-      Requirement: 2 or more {Might}
+    Chain Mail:
+      Price: 450
+      Requirement: Requies 2 {Might}
       Bonuses:
-        Initiative: -1
-        Movement Speed: -1
-      EffectGreen: Reduce all Damage you receive by 1.
-      Downside: -1 Movement Speed and -1 Initiative
-      Notes: This armor consists of a coat and leggings (and perhaps a separate skirt) of leather covered with overlapping pieces of metal, much like the scales of a fish.
+        Max Health: 4
+        Health Regen: 3
+      Downside: -1 Movement Speed
+      EffectGreen:
+        +4 Max Health
+        +2 Health Regen
+      Notes: Made of interlocking metal rings, Chain Mail includes a layer of quilted fabric worn underneath the heavy mail to prevent chafing and to cushion the impact of blows, making wounds received this way not only lighter, but also much faster to heal.
+
+    Bastion Plate:
+      Price: 700
+      Requirement: Requires 2 {Might}
+      EffectGreen: |
+        +1 Health Regen
+        If you didn't move from place last Turn, you gain +2 meters Range and your first attack this Turn ignores Cover. The Range bonus stacks!
+      Upgrade: The Range bonus is lost and resets after moving from place.
+      
+    Brigandine:
+      Price: 350
+      Requirement: Requires 2 {Might}
+      EffectGreen: |
+        You can move 1 meter for free each Turn.
+      Downside: -0.5 Initiative
+      Notes: A heavy brigandine is a piece of body armor consisting of many small steel plates riveted to a heavy leather fabric, allowing for enhanced mobility, but requiring more torque in order to get going.
 
     Plate Armor:
       Price: 800
       Requirement: 3 or more {Might}
-      EffectGreen: Reduce all Damage you receive by 2.
+      EffectGreen: +8 Max Health
       Bonuses:
-        Initiative: -2
+        Max Health: 8
+        Health Regen: -1
+        Movement Speed: -0.5
       Downside: |
-        -2 Initiative
-        Your Attacks beyond 3 meters range have Cover.
+        -1 Health Regen
+        -0.5 Movement Speed
       Notes: Plate consists of shaped, interlocking metal plates to cover the entire body. A suit of plate includes gauntlets, heavy leather boots, a visored helmet, and thick layers of padding underneath the armor. Buckles and straps distribute the weight over the body. However, the weight of the armor makes it difficult to hold still and aim at range.
+
+    Scale Mail:
+      Price: 600
+      Requirement: 2 or more {Might} and Worthy Combat
+      Duration: Until your next Turn
+      EffectGreen: If you end your Turn with unspend Action Points, gain 2 1d4 Shieldings.
+      Notes: This armor consists of a coat and leggings (and perhaps a separate skirt) of leather covered with overlapping pieces of metal, much like the scales of a fish.
+
+    # Health Regen
 
 # Special Magic Armors:
 

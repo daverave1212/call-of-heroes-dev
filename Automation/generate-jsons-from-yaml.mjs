@@ -65,6 +65,16 @@ function assertObjectHas(name, obj, propNames, warnPropNames=[], recordErrorFoun
         }
     }
 }
+function assertObjectHasNot(name, obj, propNames, recordErrorFound=true) {
+    for (const prop of propNames) {
+        const orOptions = prop.split(' || ')
+        const hasAnyOfThem = orOptions.some(optionProp => accessObjectProp(obj, optionProp) != null)
+        if (hasAnyOfThem && recordErrorFound) {
+            _nErrorsFound++
+            console.red(`Object ${name} has misspelled propery: ${prop}`)
+        }
+    }
+}
 function validateRace(race) {
     if (race == null) {
         _nErrorsFound++
@@ -338,6 +348,27 @@ function recordAbilitiesFrom(fromDict, toDict, parentKey=null, origin='Unknown')
             if (typeof subobj === 'string' && subobj.trim().toLowerCase().startsWith('inherit')) {
                 continue;
             }
+            assertObjectHasNot(key, subobj, [
+                'Effect Green',
+                'Effect Orange',
+                'Effect Red',
+                'DownSide',
+                'Note',
+                'Upgrades',
+                'Effect Green',
+                'Double Table',
+                'Single Table',
+                'Spell Table',
+                'Display Name',
+                'Icon Name',
+                'Icon Path',
+                'Subspell Name',
+                'Variant',
+                'Has Mixins',
+                'Is Subspell',
+                'Is Ignored',
+                'Tag'
+            ])
             maybeAddHasMixins(subobj)
             subobj.ParentKey = parentKey
             subobj.Origin = origin

@@ -189,7 +189,7 @@ export async function printCharacterOnCanvas({ character: hero, canvas }) {
         })
 
         if (hero.allCombatBonuses != null) {
-            const combatBonusesText = hero.allCombatBonuses?.join('\n')
+            const combatBonusesText = [...(hero.allCombatBonuses || []), ...(hero.manualCombatExtras || [])].join('\n')
             const weaponsYDiff = weaponDrawY - COMBAT_NOTES_TOP
             const extraPixelsNeeded = GAP_BETWEEN_LINES - (weaponsYDiff % GAP_BETWEEN_LINES)
             drawTextLines({
