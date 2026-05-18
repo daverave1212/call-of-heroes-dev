@@ -150,6 +150,15 @@ Utility:
     Downside: As a Lone Wolf, requires Level 4.
     Upgrade: At Level 4, ^you^ can also crawl on walls and ceilings at half of your speed by trailing behind your pet.
 
+  ~Amphibious~:
+    A: Passive
+    IsSubspell: true
+    IsIgnored: true
+    Combat Extras:
+      - Your pet can swim and hold its breath
+    Effect: Your pet can swim at normal speed and hold its breath for up to 1 hour.
+    Upgrade: At Level 4, ^you^ can also swim at normal speed and hold your breath for twice as long by trailing behind your pet.
+
   ~Purr~:
     A: 1 Action Point (from Pet)
     IsSubspell: true
@@ -164,6 +173,30 @@ Utility:
     IsSubspell: true
     Effect: Your pet tries to briefly mimick a sound. It makes a {Sense} or {Intelligence} Roll to determine its accuracy.
     Notes: The sound can have no combat effects. It may try to immitate voice but the more complex the speech, the harder the Roll will be.
+
+  ~Pack Mule~:
+    A: Passive
+    IsSubspell: true
+    IsIgnored: true
+    Extras:
+      - Your pet can carry items on its back
+    Effect: Your pet can carry items equal to 200% of its {Might}.
+
+  ~Tremor Sense~:
+    A: 0 Actions
+    Cooldown: Once / real hour
+    IsSubspell: true
+    Effect: |
+      Your pet detects the locations of all Units within 15 meters.
+    Upgrade: Also, passively, it is immune to being Blind.
+    Notes: Does not detect Units that don't touch the ground.
+
+  ~Messenger~:
+    A: Depends
+    IsSubspell: true
+    Effect: Your pet leaves for a destination you've been to before at double the regular travel speed, then returns, finding its way to you wherever you are.
+    Upgrade: It will most likely return unharmed.
+
 
 # Utility:
 
@@ -301,13 +334,14 @@ Other Abilities:
     Effect: |
       Your pet leaps next to a Unit, Blinding it.
   
-  ~Entrap~:
+  ~Sticky Trap~:
     A: Half-Action
     IsSubspell: true
     Range: 3 meters
-    Cooldown: Once / Combat
+    Cooldown: Once / real hour
     Tags: Crowd Control
-    Effect: Your pet entraps a non-Epic Unit in web, goo or a similar substance, Rooting it.
+    Effect: Your pet deploys a trap made of web, goo or a similar substance. When a Unit steps on it, it becomes Rooted.
+    Notes: Can be deployed directly underneath a Unit to trigger instantly!
   
   ~Grab and Throw~:
     A: Half-Action
@@ -412,6 +446,8 @@ Specs:
             Deploy a special poison trap near you.
             When a Unit steps on it, the 5x5 meter area around it becomes filled with _noxious cloud_.
             Whenever a Unit makes an Act while inside the _noxious cloud_, it takes 1d4 Poison Damage.
+          Upgrade: Requires a Hunting Trap, which can be bought or crafted for 100 {Gold}Gold.
+          Notes: Can be deployed directly underneath a Unit to trigger instantly!
 
         ~Tracker~ :
           _Value: 0.25
@@ -533,7 +569,9 @@ Specs:
             Choose any `Magic Font$/Other/MagicFonts` Spell.
             Spend 1 Action Point plus the Spell's Action Point cost, an Ally may spend the Mana Cost, and respecting its Cooldown, cast it on a _trap_, which you can deploy on the ground near you.
             The trap triggers on the Unit that steps on it.
-          Upgrade: The total cost can't exceed 3 Action Points, and not usable with Reaction Spells.
+          Upgrade: |
+            The total cost can't exceed 3 Action Points, and not usable with Reaction Spells.          
+            Requires a Hunting Trap, which can be bought or crafted for 100 {Gold}Gold.
           Notes: Single-target Spells may benefit from ^Marked^. Area effects are cast wherever you want as long as the target is within the area. The trap is treated as the origin of the Spell.
 
       Level 6 - Utility Talent:
@@ -545,12 +583,12 @@ Specs:
             Effect: |
                 Touch a piece of of a Large or larger piece of wood. Teleport near a similar piece of wood within 6 meters.
 
-        ~Tree Stride~:
-            A: Passive
-            Effect: |
-                While within 30 meters of trees, you have +1 Movement Speed.
-                You can climb trees without making Rolls, using your normal Movement.
-                You can use as many meters of your Movement as you like to jump that distance from one tree to another.
+        ~Mine Field~:
+          A: Passive
+          IsIgnored: true
+          Combat Extras:
+            - 15 meters range on traps
+          Effect: You and your pet's traps have a deploy range of 15 meters range (require Line of Sight).
 
       Level 7 Class Talent:
       
@@ -661,7 +699,9 @@ Specs:
           A: Passive
           Effect: Pet Attack deals 1d6 Damage instead of 1d4.
 
-        
+        <Stepmark>:
+          A: Passive
+          Effect: When a Unit steps on one of your traps on its Turn, it becomes ^Marked^ until the end of your next Turn.
 
       Level 9 Class Talent:
 
@@ -710,6 +750,10 @@ Specs:
           Effect: |
             After you apply ^Marked^ to a Unit, it takes maximum Damage from the next dice roll.
           Notes: For example, after you Hunter Mark a Unit, if you attack it for 2d8 Damage, you don't roll; it just takes 16 Damage. Applies to bonuses like Dice Upgrades, Smites, etc.
+
+        ~Cupcake Shot~:
+          A: Passive
+          Effect: After a Unit steps on one of your traps, it becomes Frail.
 
       Level 10 Class Talent:
 
