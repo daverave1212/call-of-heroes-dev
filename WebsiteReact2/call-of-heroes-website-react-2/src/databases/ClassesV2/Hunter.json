@@ -202,6 +202,13 @@
             "Upgrade": "It will most likely return unharmed.",
             "ParentKey": "Utility",
             "Origin": "Class/Hunter"
+        },
+        "~Living Hive~": {
+            "A": "Passive",
+            "Effect": "Instead of being one creature, your pet is a _swarm_ of small creatures that act as one Unit.\nOnce per Turn, it can rejoin or split into 2 different Units with half of its Health each.\nThey together still have 2 Action Points per Turn, in total.\n",
+            "HasMixins": true,
+            "ParentKey": "Utility",
+            "Origin": "Class/Hunter"
         }
     },
     "Other Abilities Title": "Level 1 Pet Talents",
@@ -238,7 +245,7 @@
             "IsSubspell": true,
             "Requirement": "Level 4",
             "Tags": "Tanking",
-            "Effect": "Other allies within 1 meter of your pet take -1 Damage from all sources in Worthy Combat.\n",
+            "Effect": "Other allies within 1 meter of your pet have Cover from Ranged attacks.\n",
             "ParentKey": "Other Abilities",
             "Origin": "Class/Hunter"
         },
@@ -274,7 +281,7 @@
             "IsSubspell": true,
             "Tags": "Damage",
             "Requirement": "Level 3",
-            "Effect": "Your pet's first regular attack every Combat deals +1d6 Damage.",
+            "Effect": "Your pet's Pet Attack attack every Combat deals +1d6 Damage.",
             "ParentKey": "Other Abilities",
             "Origin": "Class/Hunter"
         },
@@ -325,7 +332,15 @@
             "IsSubspell": true,
             "Cooldown": "Once / Combat",
             "Tags": "Healing",
-            "Effect": "Your pet heals a Unit near it for 1d12.",
+            "Effect": "Your pet heals a Unit near it for 1d8.",
+            "ParentKey": "Other Abilities",
+            "Origin": "Class/Hunter"
+        },
+        "~Self-Cleaning~": {
+            "A": "2 Action Points",
+            "IsSubspell": true,
+            "Requirement": "Only usable in Worthy Combat.",
+            "Effect": "Heal for 1d6.\n",
             "ParentKey": "Other Abilities",
             "Origin": "Class/Hunter"
         }
@@ -388,6 +403,50 @@
                     }
                 },
                 "Level 3 Class Talent": {
+                    "<Fetch!>": {
+                        "_Value": 0,
+                        "A": "2 Action Points (from Pet)",
+                        "Cooldown": "Once / Combat",
+                        "Effect": "Refresh the Cooldown of one of your Pet's Abilities.",
+                        "Upgrade": "For Lone Wolves, this costs 1 Action Point.",
+                        "ParentKey": "Level 3 Class Talent",
+                        "Origin": "Class/Hunter"
+                    },
+                    "<Hunting Trap>": {
+                        "_Value": 2,
+                        "A": "1 Action Point",
+                        "ScrollPower": 2,
+                        "Effect": "Deploy a Hunting Trap near you armed in a certain way that it's stronger than usual.\nWhen a Unit steps on it, it takes 1d10 Damage, gets a Combo and ends its Movement.\n",
+                        "Upgrade": "Requires a Hunting Trap, which can be bought or crafted for 100 {Gold}Gold.",
+                        "Notes": "Also ends dashes, pushes, and Slams (Slams don't do collision Damage).",
+                        "HasMixins": true,
+                        "ParentKey": "Level 3 Class Talent",
+                        "Origin": "Class/Hunter"
+                    },
+                    "~Refire Dodge Roll~": {
+                        "_Value": 1.25,
+                        "A": "Reaction or 0 Action Points",
+                        "Cooldown": "Twice / Combat",
+                        "Replacement": "Replaces Dodge Roll",
+                        "HasUpgradeIcon": true,
+                        "IconName": "Dodge Roll",
+                        "HasMixins": true,
+                        "Effect": "Use when taking Damage (or any time on your Turn).\nRoll 2 meters in any possible direction. Reduce the Damage by 50%. ~Then move the Hunter Mark (if any) to the Damage source Unit (if any).~\n",
+                        "Upgrade": "^You^ can use this to make your pet Dodge Roll instead.",
+                        "Notes": "~The Cooldown is now also Twice / Combat.~",
+                        "ParentKey": "Level 3 Class Talent",
+                        "Origin": "Class/Hunter"
+                    },
+                    "<Bounty Hunting>": {
+                        "_Value": 1.5,
+                        "A": "Passive",
+                        "HasMixins": true,
+                        "Effect": "When ^you^ kill your ^Marked^ target, gain 1d100 {Gold}Gold and heal an ally within 6 meters for 1d6.\nIf it's the 1st or 2nd Round, move the ^Mark^ to another Unit.\n",
+                        "ParentKey": "Level 3 Class Talent",
+                        "Origin": "Class/Hunter"
+                    }
+                },
+                "Level 4 Class Talent": {
                     "<Poison Trap>": {
                         "_Value": 0,
                         "A": "1 Action Point",
@@ -395,14 +454,14 @@
                         "Upgrade": "Requires a Hunting Trap, which can be bought or crafted for 100 {Gold}Gold.",
                         "Notes": "Can be deployed directly underneath a Unit to trigger instantly!",
                         "HasMixins": true,
-                        "ParentKey": "Level 3 Class Talent",
+                        "ParentKey": "Level 4 Class Talent",
                         "Origin": "Class/Hunter"
                     },
                     "~Tracker~": {
                         "_Value": 0.25,
                         "A": "Passive",
                         "Effect": "You have +2 in Tracking (non-Combat Skill)\nYou always know where North is in non-magical environments.\nYou and your pets are unaffected by Hard Terrain.\n",
-                        "ParentKey": "Level 3 Class Talent",
+                        "ParentKey": "Level 4 Class Talent",
                         "Origin": "Class/Hunter"
                     },
                     "~Infused Shots~": {
@@ -427,14 +486,14 @@
                             }
                         ],
                         "HasMixins": true,
-                        "ParentKey": "Level 3 Class Talent",
+                        "ParentKey": "Level 4 Class Talent",
                         "Origin": "Class/Hunter"
                     },
                     "<Pet Versatile Training>": {
                         "A": "Special",
                         "IsIgnored": true,
                         "Effect": "When you get this Talent and at the end of every Adventure, you can change one of your pet's Pet Talents.",
-                        "ParentKey": "Level 3 Class Talent",
+                        "ParentKey": "Level 4 Class Talent",
                         "Origin": "Class/Hunter"
                     },
                     "~Harpoon~": {
@@ -454,50 +513,6 @@
                         ],
                         "Notes": "The target stops if it collides with something.",
                         "HasMixins": true,
-                        "ParentKey": "Level 3 Class Talent",
-                        "Origin": "Class/Hunter"
-                    }
-                },
-                "Level 4 Class Talent": {
-                    "<Fetch!>": {
-                        "_Value": 0,
-                        "A": "2 Action Points (from Pet)",
-                        "Cooldown": "Once / Combat",
-                        "Effect": "Refresh the Cooldown of one of your Pet's Abilities.",
-                        "Upgrade": "For Lone Wolves, this costs 1 Action Point.",
-                        "ParentKey": "Level 4 Class Talent",
-                        "Origin": "Class/Hunter"
-                    },
-                    "<Hunting Trap>": {
-                        "_Value": 2,
-                        "A": "1 Action Point",
-                        "ScrollPower": 2,
-                        "Effect": "Deploy a Hunting Trap near you armed in a certain way that it's stronger than usual.\nWhen a Unit steps on it, it takes 1d10 Damage, gets a Combo and ends its Movement.\n",
-                        "Upgrade": "Requires a Hunting Trap, which can be bought or crafted for 100 {Gold}Gold.",
-                        "Notes": "Also ends dashes, pushes, and Slams (Slams don't do collision Damage).",
-                        "HasMixins": true,
-                        "ParentKey": "Level 4 Class Talent",
-                        "Origin": "Class/Hunter"
-                    },
-                    "~Refire Dodge Roll~": {
-                        "_Value": 1.25,
-                        "A": "Reaction or 0 Action Points",
-                        "Cooldown": "Twice / Combat",
-                        "Replacement": "Replaces Dodge Roll",
-                        "HasUpgradeIcon": true,
-                        "IconName": "Dodge Roll",
-                        "HasMixins": true,
-                        "Effect": "Use when taking Damage (or any time on your Turn).\nRoll 2 meters in any possible direction. Reduce the Damage by 50%. ~Then move the Hunter Mark (if any) to the Damage source Unit (if any).~\n",
-                        "Upgrade": "^You^ can use this to make your pet Dodge Roll instead.",
-                        "Notes": "~The Cooldown is now also Twice / Combat.~",
-                        "ParentKey": "Level 4 Class Talent",
-                        "Origin": "Class/Hunter"
-                    },
-                    "<Bounty Hunting>": {
-                        "_Value": 1.5,
-                        "A": "Passive",
-                        "HasMixins": true,
-                        "Effect": "When ^you^ kill your ^Marked^ target, gain 1d100 {Gold}Gold and heal an ally within 6 meters for 1d6.\nIf it's the 1st or 2nd Round, move the ^Mark^ to another Unit.\n",
                         "ParentKey": "Level 4 Class Talent",
                         "Origin": "Class/Hunter"
                     }
@@ -553,12 +568,6 @@
                         "ParentKey": "Level 6 - Utility Talent",
                         "Origin": "Class/Hunter"
                     },
-                    "~Tree Stride~": {
-                        "A": "Passive",
-                        "Effect": "While within 30 meters of trees, you have +1 Movement Speed.\nYou can climb trees without making Rolls, using your normal Movement.\nYou can use as many meters of your Movement as you like to jump that distance from one tree to another.\n",
-                        "ParentKey": "Level 6 - Utility Talent",
-                        "Origin": "Class/Hunter"
-                    },
                     "~Mine Field~": {
                         "A": "Passive",
                         "IsIgnored": true,
@@ -580,7 +589,6 @@
                             "Damage",
                             "Ultimate"
                         ],
-                        "Upgrade": "{KeystoneTalent}",
                         "ScrollPower": 3,
                         "Effect": "Dash up to 2 meters, then shoot a special shot at a Unit that ignores and destroys environmental Cover if it's breakable.\nIt deals 8d8 Damage at exactly 8 meters range:\n",
                         "List": [
@@ -588,7 +596,6 @@
                             "For each meter to the target over 8 meters, it deals -1d8 Damage."
                         ],
                         "Notes": "At exactly 8 meters range, the attack deals 8d6 Damage. At 7 and 9 meters, it deals 7d6. At 6 and 10 meters, 6d6. And so on.",
-                        "HasMixins": true,
                         "ParentKey": "Level 7 Class Talent",
                         "Origin": "Class/Hunter"
                     },
@@ -603,7 +610,6 @@
                             "Hunter Mark",
                             "Pet"
                         ],
-                        "Upgrade": "{KeystoneTalent}",
                         "Effect": "Choose and mark a target you can see. ~Your Pet immediately dashes to the target and performs a Pet Attack if it's within 6 meters of the target.~\nYour own ~and your pet's~ single target attacks and Abilities against the marked target have their ^Dice Upgraded^ to the next die type.\n",
                         "Notes": "Having Dice Upgraded means, for example, d6's become d8's, or d10's become d12's. D12's and d20's just gain +1.\nA Unit can only have one Hunter Mark on it at a time.\nYour Pet lands on the closest space near the target.\n",
                         "ParentKey": "Level 7 Class Talent",
@@ -620,7 +626,6 @@
                             "Hunter Mark",
                             "Crowd Control"
                         ],
-                        "Upgrade": "{KeystoneTalent}",
                         "Effect": "Choose and mark a target you can see. ~If it's a non-Epic Unit, it is perpetually Single-Stunned while Marked.~\nYour own single target attacks and Abilities against the marked target have their ^Dice Upgraded^ to the next die type.\n",
                         "Notes": "Having Dice Upgraded means, for example, d6's become d8's, or d10's become d12's. D12's and d20's just gain +1.\nA Feared Unit can only do one Act on its turn (e.g. move, make one attack, use one Ability, etc).\nA Unit can only have one Hunter Mark on it at a time.\nYour Pet lands on the closest space near the target.\n",
                         "ParentKey": "Level 7 Class Talent",
@@ -654,7 +659,6 @@
                             "Area Damage",
                             "Crowd Control (Hard)"
                         ],
-                        "Upgrade": "{KeystoneTalent}",
                         "HasMixins": true,
                         "Effect": "Shoot a thundering shot towards an obstacle or wall. A quaking wave travels horizontally towards in both directions of the wall up to 10 meters in each direction.\nAll Units within 2 meters of that wall must succeed a Might Check at least equal to your Presence Check or be Triple-Stunned and take 3d4 Shock Damage.\nThey take half of the Damage and are Single-Stun even if they pass.\n",
                         "Notes": "The floor and ceiling are not considered walls. The wave does not travel through them. This is considered a Spell. Ignores Cover.",
@@ -668,7 +672,6 @@
                         "Tags": [
                             "Hunter Mark"
                         ],
-                        "Upgrade": "{KeystoneTalent}",
                         "Effect": "Hunter Mark makes your ^Dice^ further ^Upgraded^ to the next die type.",
                         "Notes": "E.g. from d6 to d10.",
                         "ParentKey": "Level 8 Class Talent",
@@ -683,7 +686,6 @@
                             "Heal",
                             "Utility"
                         ],
-                        "Upgrade": "{KeystoneTalent}",
                         "ScrollPower": 3,
                         "HasMixins": true,
                         "Effect": "You and your pet become ^invisible^. While a Unit is _leafwalking_, it heals for 1d4 whenever it does an Act. Lasts until the end of your next turn (or for 12 seconds if not in combat).",
@@ -827,6 +829,20 @@
             },
             "Talents": {
                 "Level 2 Class Talent": {
+                    "~Bite and Slash~": {
+                        "A": "0 Action Points",
+                        "Cooldown": "Once / Turn",
+                        "Effect": "Refresh the Cooldown of one of your pet's Pet Attack.",
+                        "ParentKey": "Level 2 Class Talent",
+                        "Origin": "Class/Hunter"
+                    },
+                    "~Tear!~": {
+                        "A": "1 Action Point",
+                        "Effect": "One of your pets gains 2 Action Points this Turn.",
+                        "Notes": "Does not refresh Cooldowns.",
+                        "ParentKey": "Level 2 Class Talent",
+                        "Origin": "Class/Hunter"
+                    },
                     "<Pet Versatile Trainings>": {
                         "A": "Special",
                         "IsIgnored": true,
@@ -861,6 +877,31 @@
                     }
                 },
                 "Level 3 Class Talent": {
+                    "~Apex Companion~": {
+                        "_Value": 5,
+                        "AlignOnWebsite": "Left",
+                        "A": "Passive",
+                        "HasMixins": true,
+                        "Replacement": "Replaces Animal Companion",
+                        "HasUpgradeIcon": true,
+                        "IconName": "Animal Companion",
+                        "Effect": "You have an animal pet that can fight alongside you!\nYour pet has the Stats ~5, 2, 0, 0, -1~ in any order, but they do not affect its Combat capabilities.\nIt has Max Health equal to ~16 + 400% of Your Level~.\nYour pet acts on your Turn. It has ~3 Action Points~, but it can only attack once per Turn.\n~It has 4 Level 1 Pet Talents and gains +2 Pet Talents whenever it would gain one.~\n",
+                        "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It's Health Regen is equal to half of its Max Health.\nYour pet will not stray more than 30 meters away from you in hostile territory.\n",
+                        "Notes": "Your pet can't do Default Moves except Taunt.\nYour pet can make normal non-Combat Rolls using using its own Stats.\nYour pet can't rise from being Fallen while in Combat, even if healed.\nIf your pet ever dies, you can spend 8 hours inbetween Adventures to get a new pet. If you want to change your Pet and abandon your current one, you can do so inbetween Adventures, but the guilt will make you Fumbling for the next 2 Worthy Combat encounters.\n",
+                        "Subspells": {
+                            "~Pet Attack~": {
+                                "Cooldown": "Twice / Turn",
+                                "IsSubspell": true,
+                                "Range": "1 meter",
+                                "Effect": "Your pet attacks a target for 1d4 Pierce or Slash Damage (your choice).\n\n~The Cooldown is now Twice / Turn.~\n",
+                                "HasMixins": true,
+                                "ParentKey": "Subspells",
+                                "Origin": "Class/Hunter"
+                            }
+                        },
+                        "ParentKey": "Level 3 Class Talent",
+                        "Origin": "Class/Hunter"
+                    },
                     "<Kindred Spirits>": {
                         "_Value": 5,
                         "A": "Passive",
@@ -873,43 +914,62 @@
                         "ParentKey": "Level 3 Class Talent",
                         "Origin": "Class/Hunter"
                     },
-                    "~Apex Companions~": {
-                        "_Value": 10,
-                        "AlignOnWebsite": "Left",
-                        "A": "Passive",
-                        "HasMixins": true,
-                        "Replacement": "Replaces Animal Companion",
-                        "HasUpgradeIcon": true,
-                        "IconName": "Animal Companion",
-                        "Effect": "You have an animal pet that can fight alongside you!\nYour pet has the Stats ~5, 2, 0, 0, -1~ in any order, but they do not affect its Combat capabilities.\nIt has Max Health equal to ~16 + 400% of Your Level~.\nYour pet acts on your Turn. It has 2 Action Points, but it can only attack once per Turn.\n~It has 4 Level 1 Pet Talents.~\n",
-                        "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It's Health Regen is equal to half of its Max Health.\nYour pet will not stray more than 30 meters away from you in hostile territory.\n",
-                        "Notes": "Your pet can't do Default Moves except Taunt.\nYour pet can make normal non-Combat Rolls using using its own Stats.\nYour pet can't rise from being Fallen while in Combat, even if healed.\nIf your pet ever dies, you can spend 8 hours inbetween Adventures to get a new pet. If you want to change your Pet and abandon your current one, you can do so inbetween Adventures, but the guilt will make you Fumbling for the next 2 Worthy Combat encounters.\n",
-                        "Subspells": {
-                            "~Pet Attack~": {
-                                "Cooldown": "Once / Turn",
-                                "IsSubspell": true,
-                                "Range": "1 meter",
-                                "Effect": "Your pet attacks a target for ~2d4~ Pierce or Slash Damage (your choice).\n",
-                                "HasMixins": true,
-                                "ParentKey": "Subspells",
-                                "Origin": "Class/Hunter"
-                            }
-                        },
+                    "~Go!~": {
+                        "_Value": 4,
+                        "A": "0 Action Points",
+                        "Cooldown": "Once / Turn",
+                        "Effect": "Your current pet exits Combat. Summon one of your other pets who joins Combat on any space within 5 meters of you.\nEach of your pets has +1 Level 1 Pet Talent.\n",
                         "ParentKey": "Level 3 Class Talent",
                         "Origin": "Class/Hunter"
                     }
                 },
                 "Level 4 Class Talent": {
-                    "<Double Training>": {
-                        "A": "Passive",
-                        "Effect": "Teach each of your Animal Companions one more Pet Talent.",
+                    "~Rescue Mission~": {
+                        "A": "1 Action Point",
+                        "Cooldown": "Once / 2 Turns",
+                        "IsSubspell": true,
+                        "Range": "3 meters",
+                        "Effect": "Pick up an ally within 3 meters, then move with them up to your speed and drop them near your landing space.",
                         "ParentKey": "Level 4 Class Talent",
                         "Origin": "Class/Hunter"
                     },
-                    "<Pet Versatile Training>": {
-                        "A": "Special",
-                        "IsIgnored": true,
-                        "Effect": "When you get this Talent and at the end of every Adventure, you can change one of your pet's Pet Talents.",
+                    "<Double Training>": {
+                        "A": "Passive",
+                        "IsSubspell": true,
+                        "Effect": "Your pet gains one more Level 1 Pet Talent.",
+                        "ParentKey": "Level 4 Class Talent",
+                        "Origin": "Class/Hunter"
+                    },
+                    "~Killing Machine~": {
+                        "A": "Passive",
+                        "IsSubspell": true,
+                        "Effect": "When your pet kills a Worthy Enemy, it gins +1 Max Health permanently.\n",
+                        "ParentKey": "Level 4 Class Talent",
+                        "Origin": "Class/Hunter"
+                    },
+                    "~Scavenge~": {
+                        "A": "2 Action Points (from pet)",
+                        "IsSubspell": true,
+                        "Cooldown": "Once / real hour",
+                        "Requirement": "Only usable in Worthy Combat",
+                        "Effect": "Your pet goes scavenging and comes back 1 real hour later with 1d20 {Gold}Gold.",
+                        "HasMixins": true,
+                        "ParentKey": "Level 4 Class Talent",
+                        "Origin": "Class/Hunter"
+                    },
+                    "~Quickfooted~": {
+                        "A": "Passive",
+                        "IsSubspell": true,
+                        "Effect": "Your pet has +1 Initiative and no Pet Attack Cooldown on its first Turn each Combat.",
+                        "ParentKey": "Level 4 Class Talent",
+                        "Origin": "Class/Hunter"
+                    },
+                    "~Lacerate~": {
+                        "A": "2 Action Points (from pet)",
+                        "IsSubspell": true,
+                        "Cooldown": "Once / Turn",
+                        "Effect": "Attack a Unit for 1d8 Damage and apply a ~Combo~.",
+                        "HasMixins": true,
                         "ParentKey": "Level 4 Class Talent",
                         "Origin": "Class/Hunter"
                     }
@@ -917,10 +977,9 @@
                 "Level 5 Class Talent": {
                     "<Ravage!>": {
                         "_Value": 2.25,
-                        "A": "2 Action Points",
+                        "A": "2 Action Points (from you)",
                         "Cooldown": "Once / Adventure",
-                        "Effect": "One pet makes a melee Attack for 5d6 Slash Damage.\nIf the target is at or below 50% Health, deal 2d6 extra Damage and the target halves all healing it receives for the rest of the encounter.\n",
-                        "Notes": "This takes 2 Action Points from YOU, not your pet.",
+                        "Effect": "One pet makes a melee Attack for 5d6 Slash Damage.\nIf the target is at or below 50% Health, deal 2d6 extra Damage.\nOtherwise, it becomes Frail.\n",
                         "ParentKey": "Level 5 Class Talent",
                         "Origin": "Class/Hunter"
                     },
@@ -932,11 +991,11 @@
                         "ParentKey": "Level 5 Class Talent",
                         "Origin": "Class/Hunter"
                     },
-                    "<Fang and Claw>": {
-                        "_Value": 3,
-                        "Requirement": "You can only have Fang and Claw once",
-                        "A": "Passive",
-                        "Effect": "Pet Attack deals 1d6 Damage instead of 1d4.",
+                    "<Second Winds>": {
+                        "_Value": 2.25,
+                        "A": "0 Action Points",
+                        "Cooldown": "Once / Adventure",
+                        "Effect": "Instantly heal yourself and all your pets for 3d6.",
                         "ParentKey": "Level 5 Class Talent",
                         "Origin": "Class/Hunter"
                     }
@@ -957,31 +1016,137 @@
                         "Effect": "You and all your pets (if any) become camouflaged and turn effectively invisible and causing no sound, undetectable by the naked eye.\nWhile camouflaged, your Movement is halved.\nYou appear, however, in mirrors, reflections and in recordings (as well as your sounds).\n",
                         "ParentKey": "Level 6 - Utility Talent",
                         "Origin": "Class/Hunter"
+                    },
+                    "~Sentience~": {
+                        "A": "Passive",
+                        "IsSubspell": true,
+                        "Effect": "One of your pets becomes sentient as if it were a person with 0 or more Intelligence. It can speak, reason, and think like a person.",
+                        "Downside": "Once given, the gift of sentience can't be unlearned or taken away.",
+                        "ParentKey": "Level 6 - Utility Talent",
+                        "Origin": "Class/Hunter"
                     }
                 },
                 "Level 7 Class Talent": {
+                    "<Fang and Claw>": {
+                        "_Value": 3,
+                        "IsSubspell": true,
+                        "A": "Passive",
+                        "Effect": "Pet Attack deals 1d6 Damage instead of 1d4.",
+                        "ParentKey": "Level 7 Class Talent",
+                        "Origin": "Class/Hunter"
+                    },
+                    "<Vampiric>": {
+                        "A": "Passive",
+                        "IsSubspell": true,
+                        "Effect": "Pet Attack heals your pet for 100% of its Damage dealt.",
+                        "ParentKey": "Level 7 Class Talent",
+                        "Origin": "Class/Hunter"
+                    },
+                    "~Final Blow~": {
+                        "A": "2 Action Points (from pet)",
+                        "Range": "3 meters",
+                        "IsSubspell": true,
+                        "Effect": "Dash onto a target and deal 3d4 Pierce or Smash Damage.\nThen become Stunned until the end of the Combat.\n",
+                        "ParentKey": "Level 7 Class Talent",
+                        "Origin": "Class/Hunter"
+                    },
+                    "~Ferocious~": {
+                        "A": "Passive",
+                        "IsSubspell": true,
+                        "Effect": "Your pet's Abilities (except Pet Attack) have their ^Dice Upgraded^ to the next die type.",
+                        "Notes": "Having Dice Upgraded means, for example, d6's become d8's, or d10's become d12's. D12's and d20's just gain +1.",
+                        "HasMixins": true,
+                        "ParentKey": "Level 7 Class Talent",
+                        "Origin": "Class/Hunter"
+                    },
+                    "~Swallow~": {
+                        "A": "1 Action Point (from pet)",
+                        "Cooldown": "Once / Combat",
+                        "IsSubspell": true,
+                        "Range": "2 meters",
+                        "Effect": "Swallow a non-Epic Unit at most as large as the pet.\nWhile swallowed, it is Blinded.\nAt the start of your next Turn, spit it out near you.\n",
+                        "ParentKey": "Level 7 Class Talent",
+                        "Origin": "Class/Hunter"
+                    },
+                    "~Pack Tactics~": {
+                        "A": "Reaction (from pet)",
+                        "IsSubspell": true,
+                        "Effect": "When the Hunter or another pet attacks a Unit, make a Pet Attack on it if in Range.",
+                        "ParentKey": "Level 7 Class Talent",
+                        "Origin": "Class/Hunter"
+                    }
+                },
+                "Level 8 Class Talent": {
+                    "~Teamwork 101~": {
+                        "_Value": 4,
+                        "A": "Passive",
+                        "Effect": "Each Turn, alternating your attacks with your pet's attacks in sequence on the same target makes the attacks have their ^Dice Upgraded^ to the next die type\n",
+                        "Notes": "\"Having Dice Upgraded means, for example, d6's become d8's, or d10's become d12's. D12's and d20's just gain +1.\"\nA first attack each Turn can not benefit from the Dice Upgrade.\nFor example, if you start your Turn with Pet Attack with your wolf, and then you hit the target with a sword, the sword attack will have Dice Upgraded. Then if your Spider attacks the same target, it also has Dice Upgraded.\n",
+                        "HasMixins": true,
+                        "ParentKey": "Level 8 Class Talent",
+                        "Origin": "Class/Hunter"
+                    },
+                    "~Shared Love~": {
+                        "A": "Passive",
+                        "Effect": "When one of your pet receives Healing above its Max Health, the extra Healing is transferred to another ally in your party.\n",
+                        "ParentKey": "Level 8 Class Talent",
+                        "Origin": "Class/Hunter"
+                    },
+                    "~Consume and Adapt~": {
+                        "A": "10 minutes",
+                        "Cooldown": "Once / end of battle",
+                        "Effect": "One of your pets consumes the corpse of a non-humanoid Unit.\nIt permanently learns one of its Abilities (except its standard attack) and can use it with at least* a Once / Combat Cooldown.\n",
+                        "Notes": "The Cooldown is overridden if longer than Once / Combat (e.g. Once / Adventure).",
+                        "ParentKey": "Level 8 Class Talent",
+                        "Origin": "Class/Hunter"
+                    },
                     "<Coordinated Bite>": {
                         "_Value": 3,
                         "A": "0 Action Points",
                         "Cooldown": "Once / Adventure",
                         "Effect": "One enemy near each of your pets (and/or summons) becomes Single-Stunned, Blinded and Deafened.\n",
-                        "ParentKey": "Level 7 Class Talent",
+                        "ParentKey": "Level 8 Class Talent",
                         "Origin": "Class/Hunter"
                     },
                     "<Call To Action>": {
                         "_Value": 2,
+                        "Duration": "1 minute",
                         "A": "1 Action Point",
                         "Cooldown": "Once / Adventure",
                         "Effect": "Call to one more of your animal companions! It appears from the wilderness and fights for up to 1 minute as if it were a normal Animal Companion.\n",
-                        "ParentKey": "Level 7 Class Talent",
+                        "ParentKey": "Level 8 Class Talent",
+                        "Origin": "Class/Hunter"
+                    }
+                },
+                "Level 9 Class Talent": {
+                    "~ENORMOUS~": {
+                        "A": "Passive",
+                        "IsSubspell": true,
+                        "Effect": "Your pet is Huge (3x3) and its Maximum Health increases by 100%.\n",
+                        "ParentKey": "Level 9 Class Talent",
                         "Origin": "Class/Hunter"
                     },
-                    "<Second Winds>": {
-                        "_Value": 2.25,
-                        "A": "0 Action Points",
-                        "Cooldown": "Once / Adventure",
-                        "Effect": "Instantly heal yourself and all your pets for 3d6.",
-                        "ParentKey": "Level 7 Class Talent",
+                    "~Brood~": {
+                        "A": "1 Action Point (from pet)",
+                        "Cooldown": "Once / Turn",
+                        "IsSubspell": true,
+                        "Duration": "Lasts until end of Combat",
+                        "Effect": "Spawn a temporary Small copy of your pet, with all of its Abilities. It has 50% of its Health, -1 Action Points, and deals -50% Damage.\n",
+                        "ParentKey": "Level 9 Class Talent",
+                        "Origin": "Class/Hunter"
+                    },
+                    "~Symbiosis~": {
+                        "A": "Passive",
+                        "IsSubspell": true,
+                        "Effect": "Your pet is a symbiote that can attach itself to one of its allies. While attached, the pet can withgo all of its Action Points to give the ally +1 Action Point this Turn and a 1d6 Shielding.",
+                        "ParentKey": "Level 9 Class Talent",
+                        "Origin": "Class/Hunter"
+                    },
+                    "~Hovering Entity~": {
+                        "A": "Passive",
+                        "IsSubspell": true,
+                        "Effect": "If not in Combat, your pet is hovers or prowls the battlefield untargetable, and it can take Turns with unlimited Range on its attacks and Abilities.",
+                        "ParentKey": "Level 9 Class Talent",
                         "Origin": "Class/Hunter"
                     }
                 },
@@ -989,7 +1154,7 @@
                     "<Shapeshifting Pet>": {
                         "A": "0 Action Points",
                         "Cooldown": "Once / Turn",
-                        "Effect": "Turn one of your pets into a different animal type from the `Pets and Animals page$/Other/PetsAndAnimals`. If it's enhanced by a Talent, it keeps all enhancements (e.g. from Large Double).\nPassively, your Pets gain +3 in all Stats, +10 Health, +2 Movement Speed and +1d4 Damage on all attacks.\n",
+                        "Effect": "Transform one of your pets into another form of your liking, possibly replacing any Talents it has with any other.\nPassively, your Pets gain +3 in all Stats, +10 Health, +2 Movement Speed and +1d4 Damage on all attacks.\n",
                         "Upgrade": "If you have the Wild Single Talent, you can turn a pet into a combination of 2 Animals.",
                         "HasMixins": true,
                         "Downside": "This is your Heroic Class Ability and, after getting this Talent, you can no longer change your Talents inbetween Adventures.",
@@ -998,7 +1163,7 @@
                     },
                     "<Cryptid Tamer>": {
                         "A": "Passive",
-                        "Effect": "One of your Animal Companions becomes a Beast, Dragon or Insect from the `Monsters page$/Other/Monsters` worth less than 500 XP. It doesn't have a regular Pet Attack, but it has exactly the Abilities and attacks, but only 50% of its Max Health. It obeys the rest of your Animal Companion rules as normal.\nPassively, your Pets automatically pass all Very Hard Presence Checks (requiring at least 20).\n",
+                        "Effect": "One of your Animal Companions becomes a Beast, Dragon or Insect from the `Monsters page$/Other/Monsters` worth less than 1000 XP. It doesn't have a regular Pet Attack, but it has exactly the Abilities and attacks, but only 50% of its Max Health. It obeys the rest of your Animal Companion rules as normal.\nPassively, your Pets automatically pass all Very Hard Presence Checks (requiring at least 20).\n",
                         "HasMixins": true,
                         "Downside": "This is your Heroic Class Ability and, after getting this Talent, you can no longer change your Talents inbetween Adventures.",
                         "ParentKey": "Level 10 Class Talent",
