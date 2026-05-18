@@ -43,7 +43,7 @@ export function calculateStatsToBonusAttributesObject(statArray) {
     return {
         [MAX_HEALTH]: statArray[0] * 3,
         [HEALTH_REGEN]: statArray[3] * 2,
-        [MOVEMENT_SPEED]: Math.floor(statArray[1] / 2),
+        [MOVEMENT_SPEED]: statArray[1] / 2,
         [INITIATIVE]: statArray[2] * 0.5,
         [KNOWN_ABILITIES]: statArray[2],
         [SKILL_POINTS]: statArray[1] + statArray[2]

@@ -171,6 +171,7 @@ export default function MyCharacter() {
     // const extraAPOnFirstRoundString = extraAPOnFirstRound < 0? extraAPOnFirstRound: ('+' + extraAPOnFirstRound)
 
     const initiativeDisplay = maybeMakeFractionGray(attributes[INITIATIVE])
+    const movementDisplay = maybeMakeFractionGray(attributes[MOVEMENT_SPEED])
     const usedSkillPoints = sum(Object.values(manualSkillBonuses))
     // console.log({attributes})
 
@@ -327,10 +328,10 @@ export default function MyCharacter() {
                 </div>
                 <div className="flex" style={{gap: 'var(--stats-gap)'}}>
                     <div className="portrait-only">
-                        <BigStatValue onClick={() => modifyManualBonus(MOVEMENT_SPEED)} name={STAT_SHORTENED_STRING[MOVEMENT_SPEED]} value={attributes[MOVEMENT_SPEED]}/>
+                        <BigStatValue onClick={() => modifyManualBonus(MOVEMENT_SPEED, 0.5)} name={STAT_SHORTENED_STRING[MOVEMENT_SPEED]} value={movementDisplay}/>
                     </div>
                     <div className="landscape-only">
-                        <BigStatValue onClick={() => modifyManualBonus(MOVEMENT_SPEED)} name={MOVEMENT_SPEED} value={attributes[MOVEMENT_SPEED]}/>
+                        <BigStatValue onClick={() => modifyManualBonus(MOVEMENT_SPEED, 0.5)} name={MOVEMENT_SPEED} value={movementDisplay}/>
                     </div>
                     <BigStatValue onClick={() => modifyManualBonus(INITIATIVE, 0.5)} name={INITIATIVE} value={initiativeDisplay}/>
                 </div>
