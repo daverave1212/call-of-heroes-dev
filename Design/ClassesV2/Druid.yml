@@ -65,6 +65,22 @@ Ideas:
       You understand the surroundings and slightly alter the landscape in a 1 kilometer area around you so you feel like in a different environment.
       The area becomes the chosen _domain environment_ for you only instead of its real _domain environment_.
 
+  # Hmm not sure I want this...
+  ~Domains of Plenty~:
+    Effect: You have 2 _domains_ instead of 1. Both apply.
+
+  ~FURY~:
+      A: Half-Action
+      Cost: 1 Mana
+      Cooldown: 1 turn
+      Duration: 1 minute
+      ScrollPower: Auto
+      Degree: Minor
+      Effect: |
+          Gain 3 {Orange('Fury')}.
+      Upgrade: Every time you do Healing or weapon Damage, do +1 for each {Orange('Fury')}, then lose 1 {Orange('Fury')}.
+      EffectGreen: Usable while Shapeshifted.
+      Notes: You can't go below 0 Fury.
 
 Starting Abilities:       # 1
 
@@ -175,8 +191,9 @@ Utility:
 # Talents L3    1.25                    | 4.5 + 2 Mana  = 6.5 Mana
 
 # Earth   Nature    Water     Wind      | Level 1
-# Earth   Water     Nature    Wind      | Level 1
-# Earth   Nature    Water     Wind      | Level 2
+# Earth   Water     Nature    Wind      | Level 2
+# Earth   Nature    Wind      Water     | Level 3
+# Earth   Nature    Water     Wind      | Level 5
 
 Talents:
 
@@ -349,7 +366,7 @@ Talents:
           {Brown('Earth:')} One of the Units hit becomes Crippled.
           {Brown('Wind:')} +1 range and only hits Enemies
 
-  Level 2 Second Class Talent:
+  Level 2 Class Talent:
 
     ~Winds of Redolence~:
       _Value: 0
@@ -370,6 +387,7 @@ Talents:
         ScrollPower: Auto
         Duration: Whole Adventure
         Degree: Major
+        Tags: [Buff, Permanent]
         Effect: |
           Up to 2 Units gain 1d4 Health Regen, each.
           
@@ -404,6 +422,12 @@ Talents:
         {Brown('Water:')} Heal yourself for 1d6. If the target dies, gain 1 Action Point back.
       EffectGreen: Usable while Shapeshifted.
 
+    ~Fundamentals~:
+        A: Passive
+        IsIgnored: true
+        Effect: |
+          Pick one more Level 1 Class or Utility Talent.
+
 
   Level 3 Class Talent:
 
@@ -411,6 +435,7 @@ Talents:
       A: Half-Action
       Cost: 2 Mana
       Range: 3 meters (to edge)
+      Tags: [Area Damage]
       Effect: |
         Choose a 4x4 meter area. All Units caught take 2d6 Poison Damage.
         If none dies, deal another 2d6 Poison Damage.
@@ -421,9 +446,10 @@ Talents:
     ~Wind Chaser~:
         _Value: 0.75
         A: 0 Actions
-        Cooldown: Once / Combat
+        Cooldown: Once / 2 Turns
         ScrollPower: 0
         Degree: Lesser
+        Tags: [Damage]
         Effect: |
             Your next targeted attack or Spell curves around obstacles, ignoring Cover and dealing +1 Damage.
             
@@ -434,9 +460,11 @@ Talents:
     ~Earth Shield~:
         A: 0 Actions
         Cost: 1 Mana
+        Cooldown: Once / Turn
         Duration: Until end of Adventure
         ScrollPower: 1
         Degree: Minor
+        Tags: [Protection]
         Effect: |
             A Unit you can see gains 2 Shieldings that block 1d4 Damage each.
             
@@ -451,6 +479,7 @@ Talents:
         HasMixins: true
         ScrollPower: Auto
         Degree: Major
+        Tags: [Area Damage, Healing]
         Cooldown: Once / Combat
         Effect: |
             Send out a 4x1 meter wave forward. Each Unit* hit takes 2d8 Cold Damage.
@@ -460,6 +489,12 @@ Talents:
             {Brown('Wind:')} 6x2 meter wave instead.
         EffectGreen: Usable while Shapeshifted.
         Notes: If in a Water environment/domain, Allies are Healed and Enemies are Damaged. Otherwise, all Units hit are Damaged.
+
+    ~Fundamentals~:
+        A: Passive
+        IsIgnored: true
+        Effect: |
+          Pick one more Level 1 or Level 2 Class or Utility Talent.
 
 
   Level 4 Class Talent:
@@ -570,23 +605,11 @@ Talents:
         {Brown('Water:')} For each 7 Health missing instead.
         {Brown('Earth:')} Choose any Unit instead.
 
-    ~FURY~:
-        A: Half-Action
-        Cost: 1 Mana
-        Cooldown: 1 turn
-        Duration: 1 minute
-        ScrollPower: Auto
-        Degree: Minor
-        Effect: |
-            Gain 3 {Orange('Fury')}.
-        Upgrade: Every time you do Healing or weapon Damage, do +1 for each {Orange('Fury')}, then lose 1 {Orange('Fury')}.
-        EffectGreen: Usable while Shapeshifted.
-        Notes: You can't go below 0 Fury.
-
     ~Fundamentals~:
         A: Passive
+        IsIgnored: true
         Effect: |
-          Pick one more Level 1 or Level 2 Class or Utility Talent.
+          Pick one more Level 1, Level 2 or Level 3 Class or Utility Talent.
 
   Level 6 - Utility Talent:
 
