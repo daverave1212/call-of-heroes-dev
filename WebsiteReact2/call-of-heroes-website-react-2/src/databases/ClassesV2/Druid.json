@@ -39,6 +39,56 @@
         }
     ],
     "Ideas": {
+        "~Elderform~": {
+            "_Value": 1,
+            "Requirement": "Requires Shapeshift",
+            "Effect": "You have extra available features originating from the flora and microbiomes of the outdoors.\n",
+            "HasSpellTableNumbers": true,
+            "SpellTable": [
+                {
+                    "Name": "Photosynthesis",
+                    "Effect": "You regenerate 1d4 Health at the end of every Turn of Worthy Combat."
+                },
+                {
+                    "Name": "Brambles",
+                    "Effect": "After you are attacked from 1 meter away, deal 1d4 Damage back to the attacker."
+                },
+                {
+                    "Name": "Petals",
+                    "Effect": "At the end of the Adventure, the Quest Master gives you an additional positive Quirk."
+                },
+                {
+                    "Name": "Inner Flame",
+                    "Effect": "Your Animal Attack has 5 meters range and deals Fire, Cold, Shock or Poison Damage."
+                }
+            ],
+            "ParentKey": "Ideas",
+            "Origin": "Class/Druid"
+        },
+        "~Self Preservation~": {
+            "_Value": 1.75,
+            "A": "Passive",
+            "Effect": "Whenever you cast a Spell and you target yourself, it has ^Dice Upgraded^ to the next die type.",
+            "Notes": "This applies even when targeting multiple Units and you're one of them. Having Dice Upgraded means, for example, d6's become d8's, or d10's become d12's. D12's and d20's just gain +1.",
+            "HasMixins": true,
+            "ParentKey": "Ideas",
+            "Origin": "Class/Druid"
+        },
+        "<Innervate>": {
+            "_Value": 2,
+            "A": "0 Action Points",
+            "Range": "5 meters",
+            "Cooldown": "Once / Adventure",
+            "Tags": [
+                "Mana",
+                "Support",
+                "Heal"
+            ],
+            "ScrollPower": 3,
+            "Effect": "Heal another ally for 1d8 Health. It regains 1 Mana or provides 1 more use of an Ability that is on Cooldown.\nCan not be cast on Druids.\n",
+            "ParentKey": "Ideas",
+            "Origin": "Class/Druid"
+        },
         "~Tree Snare~": {
             "Effect": "Choose a tree and root all units near it.",
             "ParentKey": "Ideas",
@@ -48,6 +98,27 @@
             "A": "0 Action Points",
             "Cost": "1 Mana",
             "Effect": "You understand the surroundings and slightly alter the landscape in a 1 kilometer area around you so you feel like in a different environment.\nThe area becomes the chosen _domain environment_ for you only instead of its real _domain environment_.\n",
+            "HasMixins": true,
+            "ParentKey": "Ideas",
+            "Origin": "Class/Druid"
+        },
+        "~Domains of Plenty~": {
+            "Effect": "You have 2 _domains_ instead of 1. Both apply.",
+            "HasMixins": true,
+            "ParentKey": "Ideas",
+            "Origin": "Class/Druid"
+        },
+        "~FURY~": {
+            "A": "1 Action Point",
+            "Cost": "1 Mana",
+            "Cooldown": "1 turn",
+            "Duration": "1 minute",
+            "ScrollPower": "Auto",
+            "Degree": "Minor",
+            "Effect": "Gain 3 {Orange('Fury')}.\n",
+            "Upgrade": "Every time you do Healing or weapon Damage, do +1 for each {Orange('Fury')}, then lose 1 {Orange('Fury')}.",
+            "EffectGreen": "Usable while Shapeshifted.",
+            "Notes": "You can't go below 0 Fury.",
             "HasMixins": true,
             "ParentKey": "Ideas",
             "Origin": "Class/Druid"
@@ -341,7 +412,7 @@
                 "Origin": "Class/Druid"
             }
         },
-        "Level 2 Second Class Talent": {
+        "Level 2 Class Talent": {
             "~Winds of Redolence~": {
                 "_Value": 0,
                 "A": "1 Action Point",
@@ -354,7 +425,7 @@
                 ],
                 "Effect": "Choose a 3x3 meter area. Heal all Units there for 1d6.\n\n{Brown('Earth:')} Area becomes 5x5.\n{Brown('Wind:')} Only affects allies, and applies a ~Combo~ to all Units in the zone.\n",
                 "HasMixins": true,
-                "ParentKey": "Level 2 Second Class Talent",
+                "ParentKey": "Level 2 Class Talent",
                 "Origin": "Class/Druid"
             },
             "~Wild Heart~": {
@@ -363,12 +434,16 @@
                 "ScrollPower": "Auto",
                 "Duration": "Whole Adventure",
                 "Degree": "Major",
+                "Tags": [
+                    "Buff",
+                    "Permanent"
+                ],
                 "Effect": "Up to 2 Units gain 1d4 Health Regen, each.\n\n{Brown('Nature:')} 1d6 instead.\n{Brown('Wind:')} +1 Unit affected.\n",
                 "EffectGreen": "Usable while Shapeshifted.",
                 "Combo": "A Comboed target gains +1 Max Health permanently.",
                 "Notes": "Note that a Unit can't have or apply Combo outside Worthy Combat.",
                 "HasMixins": true,
-                "ParentKey": "Level 2 Second Class Talent",
+                "ParentKey": "Level 2 Class Talent",
                 "Origin": "Class/Druid"
             },
             "~Thermal Pressure~": {
@@ -381,7 +456,7 @@
                 ],
                 "Effect": "Water bursts from the ground at a space you can see, splashing all Units in a 3 meter with lava.\nUnits hit take 1d8 Fire Damage.\n\n{Brown('Earth:')} All Units hit are also Slammed 1 meter away from the geyser and does not Damage Allies.\n{Brown('Water:')} Does not go on Cooldown and the lava is water instead.\n",
                 "HasMixins": true,
-                "ParentKey": "Level 2 Second Class Talent",
+                "ParentKey": "Level 2 Class Talent",
                 "Origin": "Class/Druid"
             },
             "~Viperlash~": {
@@ -394,7 +469,15 @@
                 "Effect": "Choose a Unit.\nIf it took Poison Damage this Combat, deal 3d10 more Poison Damage, which ignores Poison Resistance.\nOtherwise, deal 1d10 Damage and Daze, Deafen and Slow it.\n\n{Brown('Nature:')} Deals +1d10 extra Damage.\n{Brown('Water:')} Heal yourself for 1d6. If the target dies, gain 1 Action Point back.\n",
                 "EffectGreen": "Usable while Shapeshifted.",
                 "HasMixins": true,
-                "ParentKey": "Level 2 Second Class Talent",
+                "ParentKey": "Level 2 Class Talent",
+                "Origin": "Class/Druid"
+            },
+            "~Fundamentals I~": {
+                "A": "Passive",
+                "IsIgnored": true,
+                "IconName": "Fundamentals",
+                "Effect": "Pick one more Level 1 Class or Utility Talent.\n",
+                "ParentKey": "Level 2 Class Talent",
                 "Origin": "Class/Druid"
             }
         },
@@ -403,6 +486,9 @@
                 "A": "1 Action Point",
                 "Cost": "2 Mana",
                 "Range": "3 meters (to edge)",
+                "Tags": [
+                    "Area Damage"
+                ],
                 "Effect": "Choose a 4x4 meter area. All Units caught take 2d6 Poison Damage.\nIf none dies, deal another 2d6 Poison Damage.\n\n{Brown('Nature:')} If still none die, deal another 2d6 Poison Damage.\n{Brown('Water:')} Zone increases to 6x6. Also has ~Combo:~ each Comboed Unit hit becomes Dazed.\n",
                 "HasMixins": true,
                 "ParentKey": "Level 3 Class Talent",
@@ -411,9 +497,12 @@
             "~Wind Chaser~": {
                 "_Value": 0.75,
                 "A": "0 Action Points",
-                "Cooldown": "Once / Combat",
+                "Cooldown": "Once / 2 Turns",
                 "ScrollPower": 0,
                 "Degree": "Lesser",
+                "Tags": [
+                    "Damage"
+                ],
                 "Effect": "Your next targeted attack or Spell curves around obstacles, ignoring Cover and dealing +1 Damage.\n\n{Brown('Wind:')} +1d4 Damage instead.\n{Brown('Earth:')} And Slows it.\n",
                 "Notes": "You still need Line of Sight to the target.",
                 "HasMixins": true,
@@ -423,9 +512,13 @@
             "~Earth Shield~": {
                 "A": "0 Action Points",
                 "Cost": "1 Mana",
+                "Cooldown": "Once / Turn",
                 "Duration": "Until end of Adventure",
                 "ScrollPower": 1,
                 "Degree": "Minor",
+                "Tags": [
+                    "Protection"
+                ],
                 "Effect": "A Unit you can see gains 2 Shieldings that block 1d4 Damage each.\n\n{Brown('Earth:')} 1d6 instead.\n{Brown('Nature:')} 3 Shieldings instead.\n",
                 "EffectGreen": "Usable while Shapeshifted.",
                 "Notes": "Lasts for 24 hours or until you rolled the d4 3 times. Does not stack multiple times with itself.",
@@ -439,20 +532,55 @@
                 "HasMixins": true,
                 "ScrollPower": "Auto",
                 "Degree": "Major",
+                "Tags": [
+                    "Area Damage",
+                    "Healing"
+                ],
                 "Cooldown": "Once / Combat",
                 "Effect": "Send out a 4x1 meter wave forward. Each Unit* hit takes 2d8 Cold Damage.\nThe first Unit hit is Slowed.\n\n{Brown('Water:')} Allies hit are Healed for 1d6 instead of taking Damge.\n{Brown('Wind:')} 6x2 meter wave instead.\n",
                 "EffectGreen": "Usable while Shapeshifted.",
                 "Notes": "If in a Water environment/domain, Allies are Healed and Enemies are Damaged. Otherwise, all Units hit are Damaged.",
                 "ParentKey": "Level 3 Class Talent",
                 "Origin": "Class/Druid"
+            },
+            "~Fundamentals II~": {
+                "A": "Passive",
+                "IsIgnored": true,
+                "IconName": "Fundamentals",
+                "Effect": "Pick one more Level 1 or Level 2 Class or Utility Talent.\n",
+                "ParentKey": "Level 3 Class Talent",
+                "Origin": "Class/Druid"
             }
         },
         "Level 4 Class Talent": {
-            "~Self Preservation~": {
-                "_Value": 1.75,
+            "~Celestine Regrowth~": {
+                "_Value": 1.33,
+                "A": "0 Action Points",
+                "Cooldown": "Once / Adventure",
+                "AlignOnWebsite": "Left",
+                "Replacement": "Replaces Regrowth",
+                "Tags": [
+                    "Upgrade"
+                ],
+                "Effect": "Your next Ability or animal feature is improved based on ~any 3 domains you choose~:\n\n{Brown('Nature:')} Dice Upgraded to next die type, twice.\n{Brown('Water:')} Heal an ally you can see for 1d4 and restores 1 Mana to them\n{Brown('Wind:')} Before or after cast, quickly dash up to 10 meters\n{Brown('Earth:')} +2 Max Health to you or one of the Ability's targets\n",
+                "EffectGreen": "Usable while Shapeshifted.",
+                "Notes": "Having Dice Upgraded means, for example, d6's become d8's, or d10's become d12's. D12's and d20's just gain +1.",
+                "HasMixins": true,
+                "ParentKey": "Level 4 Class Talent",
+                "Origin": "Class/Druid"
+            },
+            "~Prime Nativity~": {
+                "_Value": 2,
                 "A": "Passive",
-                "Effect": "Whenever you cast a Spell and you target yourself, it has ^Dice Upgraded^ to the next die type.",
-                "Notes": "This applies even when targeting multiple Units and you're one of them. Having Dice Upgraded means, for example, d6's become d8's, or d10's become d12's. D12's and d20's just gain +1.",
+                "Tags": [
+                    "Mana"
+                ],
+                "IconName": "Nativity",
+                "Requirement": "Requires Nativity",
+                "Replacement": "Replaces Nativity",
+                "HasUpgradeIcon": true,
+                "Effect": "At the ~first third~ and ~second third~ marks of each _session_, regain up to 1 Mana.",
+                "Notes": "Refers to the game sessions.",
                 "HasMixins": true,
                 "ParentKey": "Level 4 Class Talent",
                 "Origin": "Class/Druid"
@@ -474,44 +602,11 @@
                 "ParentKey": "Level 4 Class Talent",
                 "Origin": "Class/Druid"
             },
-            "<Innervate>": {
-                "_Value": 2,
+            "~Worldshaping~": {
                 "A": "0 Action Points",
-                "Range": "5 meters",
-                "Cooldown": "Once / Adventure",
-                "Tags": [
-                    "Mana",
-                    "Support",
-                    "Heal"
-                ],
-                "ScrollPower": 3,
-                "Effect": "Heal another ally for 1d8 Health. It regains 1 Mana or provides 1 more use of an Ability that is on Cooldown.\nCan not be cast on Druids.\n",
-                "ParentKey": "Level 4 Class Talent",
-                "Origin": "Class/Druid"
-            },
-            "~Elderform~": {
-                "_Value": 1,
-                "Requirement": "Requires Shapeshift",
-                "Effect": "You have extra available features originating from the flora and microbiomes of the outdoors.\n",
-                "HasSpellTableNumbers": true,
-                "SpellTable": [
-                    {
-                        "Name": "Photosynthesis",
-                        "Effect": "You regenerate 1d4 Health at the end of every Turn of Worthy Combat."
-                    },
-                    {
-                        "Name": "Brambles",
-                        "Effect": "After you are attacked from 1 meter away, deal 1d4 Damage back to the attacker."
-                    },
-                    {
-                        "Name": "Petals",
-                        "Effect": "At the end of the Adventure, the Quest Master gives you an additional positive Quirk."
-                    },
-                    {
-                        "Name": "Inner Flame",
-                        "Effect": "Your Animal Attack has 5 meters range and deals Fire, Cold, Shock or Poison Damage."
-                    }
-                ],
+                "Cost": "1 Mana",
+                "Effect": "You understand the surroundings and slightly alter the landscape in a 1 kilometer area around you so you feel like in a different environment.\nThe area becomes the chosen _domain environment_ for you only instead of its real _domain environment_.\n",
+                "HasMixins": true,
                 "ParentKey": "Level 4 Class Talent",
                 "Origin": "Class/Druid"
             }
@@ -565,24 +660,11 @@
                 "ParentKey": "Level 5 Class Talent",
                 "Origin": "Class/Druid"
             },
-            "~FURY~": {
-                "A": "1 Action Point",
-                "Cost": "1 Mana",
-                "Cooldown": "1 turn",
-                "Duration": "1 minute",
-                "ScrollPower": "Auto",
-                "Degree": "Minor",
-                "Effect": "Gain 3 {Orange('Fury')}.\n",
-                "Upgrade": "Every time you do Healing or weapon Damage, do +1 for each {Orange('Fury')}, then lose 1 {Orange('Fury')}.",
-                "EffectGreen": "Usable while Shapeshifted.",
-                "Notes": "You can't go below 0 Fury.",
-                "HasMixins": true,
-                "ParentKey": "Level 5 Class Talent",
-                "Origin": "Class/Druid"
-            },
-            "~Fundamentals~": {
+            "~Fundamentals III~": {
                 "A": "Passive",
-                "Effect": "Pick one more Level 1 or Level 2 Class or Utility Talent.\n",
+                "IsIgnored": true,
+                "IconName": "Fundamentals",
+                "Effect": "Pick one more Level 1, Level 2 or Level 3 Class or Utility Talent.\n",
                 "ParentKey": "Level 5 Class Talent",
                 "Origin": "Class/Druid"
             }
@@ -627,6 +709,92 @@
             }
         },
         "Level 7 Class Talent": {
+            "~Thornskin II~": {
+                "A": "0 Action Points",
+                "IconName": "Thornskin",
+                "HasUpgradeIcon": true,
+                "Cost": "1 Mana",
+                "Duration": "1 minute",
+                "ScrollPower": 1,
+                "Degree": "Minor",
+                "Tags": [
+                    "Buff",
+                    "Combo"
+                ],
+                "Effect": "Choose a Unit you can see.\nWhenever it is melee attacked, the attacker takes ~1d6~ Pierce Damage.\n\n{Brown('Earth:')} ~4~ Damage instead of 1d6.\n{Brown('Nature:')} apply ~2 Combos~ to it.\n{Brown('Water:')} target can cast Everbloom I once for free, at 50% efficiency.\n{Brown('Wind:')} works at any Range (ignoring Cover).\n",
+                "EffectGreen": "Usable while Shapeshifted.",
+                "Notes": "A Unit can only be effected by one Thornskin effect at a time. Having Dice Upgraded means, for example, d6's become d8's, or d10's become d12's. D12's and d20's just gain +1.",
+                "HasMixins": true,
+                "ParentKey": "Level 7 Class Talent",
+                "Origin": "Class/Druid"
+            },
+            "~Everbloom II~": {
+                "IconName": "Everbloom",
+                "HasUpgradeIcon": true,
+                "A": "1 Action Point",
+                "Range": "5 meters",
+                "Cost": "2 Mana",
+                "Degree": "Minor",
+                "ScrollPower": "Auto",
+                "Tags": [
+                    "Heal"
+                ],
+                "Effect": "Heal an alive Unit for 2d10.\n\n{Brown('Earth:')} Target can cast Venin Spike I once for 1 Action Point.\n{Brown('Nature:')} Excess Healing goes to another ally in range.\n{Brown('Water:')} ~+1d8~ Healing.\n{Brown('Wind:')} ~+1d8~ Healing.\n",
+                "EffectGreen": "Usable while ~Shapeshifted~.",
+                "HasMixins": true,
+                "ParentKey": "Level 7 Class Talent",
+                "Origin": "Class/Druid"
+            },
+            "~Venin Spike II~": {
+                "A": "2 Action Points",
+                "IconName": "Venin Spike",
+                "HasUpgradeIcon": true,
+                "Range": "5 meters",
+                "HasMixins": true,
+                "Degree": "Minor",
+                "ScrollPower": "Auto",
+                "Tags": [
+                    "Damage"
+                ],
+                "Effect": "Shoot a venomous spike at a Unit, dealing {Amount} + ^Presence^ Poison Damage.\nAfter the _next time_ it takes weapon Damage, shoot another spike at it for {Amount2}, which finds its target no matter the range or line of sight.\n\n{Variants}\n\n{Brown('Earth:')} \n{Brown('Nature:')} Shoot the extra spike now instead\n{Brown('Water:')} {Improvement} Damage (on both spikes).\n{Brown('Wind:')} The triggerer of the second spike can cast Ripstorm I once this Combat, without spending the Mana\n",
+                "EffectGreen": "Usable while Shapeshifted.",
+                "Notes": "Body parts count as weapons. The second spike does not ignore Cover. The spike shoots immediately after dealing the weapon Damage.",
+                "Variants": [
+                    {
+                        "DisplayA": "2 Action Points",
+                        "Amount": "1d8",
+                        "Amount2": "1d8",
+                        "Improvement": "1d10 instead of 1d8"
+                    },
+                    {
+                        "Display": "3 Action Points",
+                        "Amount": "2d10",
+                        "Amount2": "1d10",
+                        "Improvement": "d12's instead of d10's"
+                    }
+                ],
+                "ParentKey": "Level 7 Class Talent",
+                "Origin": "Class/Druid"
+            },
+            "~Ripstorm II~": {
+                "A": "3 Action Points",
+                "IconName": "Ripstorm",
+                "HasUpgradeIcon": true,
+                "Cost": "1 Mana",
+                "Cooldown": "Once / Adventure",
+                "Tags": [
+                    "Damage",
+                    "Area Damage",
+                    "Crowd Control (Hard)"
+                ],
+                "Effect": "Deal ~3d12~ Damage to all Worthy Units within 2 meters of you.\nHeal for 1 Health per 5 real Damage done (total).\n\n{Brown('Earth:')} One of the Units hit becomes Crippled.\n{Brown('Nature:')} Then gain Thornskin I.\n{Brown('Water:')} Only hits enemies.\n{Brown('Wind:')} +1 range and only hits Enemies.\n",
+                "EffectGreen": "Usable while Shapeshifted ~(or not)~.",
+                "HasMixins": true,
+                "ParentKey": "Level 7 Class Talent",
+                "Origin": "Class/Druid"
+            }
+        },
+        "Level 8 Class Talent": {
             "~Child of the Feral~": {
                 "Tags": [
                     "Shapeshift"
@@ -676,7 +844,7 @@
                     }
                 ],
                 "Notes": "Double-Slow is like Slow, but it takes +2 Action Points to Move instead!",
-                "ParentKey": "Level 7 Class Talent",
+                "ParentKey": "Level 8 Class Talent",
                 "Origin": "Class/Druid"
             },
             "~Runeback Form~": {
@@ -689,23 +857,7 @@
                 "Effect": "Your animal forms become improved by visible tattoos, runes or trinkets adorning your horns, paws or back.\nDepending on your and current _domain_, you gain additional powers when Shapeshifted.\n\n{Brown('Earth:')} When Shapeshifting, gain 1 Shielding that can block 1d6 Damage.\n{Brown('Nature:')} When Shapeshifting, permanently increase your Max Health by 0.5.\n{Brown('Water:')} You do +10% Damage and Healing while Shapeshifted (at least +1).\n{Brown('Wind:')} You can cast any of your Spells while Shapeshifted and have +2 Movement Speed.\n",
                 "Notes": "You can't have actual Health in fractions. So, for every second time you get 0.5 Max Health, increase it by 1 instead.",
                 "HasMixins": true,
-                "ParentKey": "Level 7 Class Talent",
-                "Origin": "Class/Druid"
-            },
-            "~Celestine Regrowth~": {
-                "_Value": 1.33,
-                "A": "0 Action Points",
-                "Cooldown": "Once / Adventure",
-                "AlignOnWebsite": "Left",
-                "Replacement": "Replaces Regrowth",
-                "Tags": [
-                    "Upgrade"
-                ],
-                "Effect": "Your next Ability or animal feature is improved based on ~any 3 domains you choose~:\n\n{Brown('Nature:')} Dice Upgraded to next die type, twice.\n{Brown('Water:')} Heal an ally you can see for 1d4 and restores 1 Mana to them\n{Brown('Wind:')} Before or after cast, quickly dash up to 10 meters\n{Brown('Earth:')} +2 Max Health to you or one of the Ability's targets\n",
-                "EffectGreen": "Usable while Shapeshifted.",
-                "Notes": "Having Dice Upgraded means, for example, d6's become d8's, or d10's become d12's. D12's and d20's just gain +1.",
-                "HasMixins": true,
-                "ParentKey": "Level 7 Class Talent",
+                "ParentKey": "Level 8 Class Talent",
                 "Origin": "Class/Druid"
             },
             "<Dazzling Miasma>": {
@@ -719,11 +871,11 @@
                 "ScrollPower": 2,
                 "Effect": "Shoot a tainted gust of spores in a 10x1 meter line.\nIt hits the first 2 Units it travels and:\n\n{Brown('Earth:')} Double-Stun them.\n{Brown('Nature:')} Deal 4d6 Poison Damage to them.\n{Brown('Water:')} Heal them for for 4d6.\n{Brown('Wind:')} Give them 4 Shieldings that can block 1d6 Damage each.\n",
                 "HasMixins": true,
-                "ParentKey": "Level 7 Class Talent",
+                "ParentKey": "Level 8 Class Talent",
                 "Origin": "Class/Druid"
             }
         },
-        "Level 8 Class Talent": {
+        "Level 9 Class Talent": {
             "<Call of the Wild>": {
                 "_Value": 3,
                 "HasMixins": true,
@@ -750,7 +902,7 @@
                     }
                 },
                 "Notes": "Both animals must be of the same type.",
-                "ParentKey": "Level 8 Class Talent",
+                "ParentKey": "Level 9 Class Talent",
                 "Origin": "Class/Druid"
             },
             "<Third Kind>": {
@@ -760,7 +912,7 @@
                     "Shapeshift"
                 ],
                 "Effect": "When Shapeshifting, choose one additional Animal Feature to have.",
-                "ParentKey": "Level 8 Class Talent",
+                "ParentKey": "Level 9 Class Talent",
                 "Origin": "Class/Druid"
             },
             "<Evershape>": {
@@ -769,18 +921,6 @@
                 "Requirement": "Requires Shapeshift",
                 "HasMixins": true,
                 "Effect": "Shapeshifting yourself doesn't cost Mana, but it has a Once / Combat Cooldown.",
-                "ParentKey": "Level 8 Class Talent",
-                "Origin": "Class/Druid"
-            }
-        },
-        "Level 9 Class Talent": {
-            "<Land Bonus>": {
-                "IsIgnored": true,
-                "Manual Extras": [
-                    "+1 Domain Ability",
-                    "+1 Level 3 Talent from this Spec"
-                ],
-                "Effect": "Gain one more Level 3 Talent or one more Domain.",
                 "ParentKey": "Level 9 Class Talent",
                 "Origin": "Class/Druid"
             }
