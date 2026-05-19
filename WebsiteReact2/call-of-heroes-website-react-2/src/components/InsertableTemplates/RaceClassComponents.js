@@ -315,7 +315,10 @@ export function LevelingUp({ theClass, isCharacterCreationPage=false }) {
 
     return (
         <div style={{marginTop: pageMarginTop}} id="leveling-up">
-            <PageH2 hasMargin={false} className="center-text">Leveling Up</PageH2>
+            <div className='center-content width-100 padding-bottom-4'>
+                <QGTitle1 text={"Leveling Up"}/>
+            </div>
+            {/* <PageH2 hasMargin={false} className="center-text">Leveling Up</PageH2> */}
     
             <TwoColumns type="normal">
                 <Column>

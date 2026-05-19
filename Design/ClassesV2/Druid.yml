@@ -55,6 +55,168 @@ Starting Abilities Description:
 
 Ideas:
 
+  ~Worldshaping~:
+      A: 0 Actions
+      Cooldown: Once / Adventure
+      Effect: |
+        You understand the surroundings and slightly alter the landscape in a 1 kilometer area around you so you feel like in a different environment.
+        The area becomes the chosen _domain environment_ for you only instead of its real _domain environment_.
+
+
+  ~Fog Cloud~:
+      A: 0 Actions
+      Cost: 1 Mana
+      Range: 5 meters to edge
+      ScrollPower: 1
+      Effect: |
+          A 5x5x5 meter cube becomes covered in fog for 1 minute.
+      Upgrade: All Attacks done from, through or to Units inside Fog have Cover (-50%).
+      Notes: Fog can be dissipated by wind. You can choose the color of the fog. The fog does not go through walls, but does bend around corners (e.g. up to 360 degrees around wall extremities).
+
+
+  <Call of the Wild>:
+    _Value: 3 # Lmao no idea
+    HasMixins: true
+    A: 1 Action
+    Cooldown: Once / Adventure
+    Tags: [Summon, Ultimate]
+    Effect: |
+      Call upon 2 animals, both of which are specific to your or the current _domain_.
+      They appear on the edge of the battlefield, from the wilderness, and they fight for you for up to 1 minute.
+      Each has 1 Action with which they can Move and Attack, normally. You can control them on your Turn.
+    Monster:
+      Name: Wild Animal
+      Health: 15
+      Speed: 4 meters
+      Stats: 0/0/0/0/0
+      Abilities:
+          ~Attack~:
+              A: Half-Action (from it)
+              Range: 3 meters
+              Damage: 1d6 Damage
+    Notes: Both animals must be of the same type.
+
+  <Third Kind>:
+    A: Passive
+    Requirement: Requires Shapeshift
+    Tags: [Shapeshift]
+    Effect: When Shapeshifting, choose one additional Animal Feature to have.
+
+  <Evershape>:
+    _Value: 2
+    A: Passive
+    Requirement: Requires Shapeshift
+    HasMixins: true
+    Effect: Shapeshifting yourself doesn't cost Mana, but it has a Once / Combat Cooldown.
+
+
+  ~Child of the Feral~:
+    Tags: [Shapeshift]
+    A: Passive
+    Effect: |
+      When you get this Talent, choose a Shapeshift animal feature from below, up to your Level.
+      You have that feature when not Shapeshifted.
+    SpellTable:
+      - Name: Clawed
+        Effect: Your animal features and weapon attacks have their Dice Upgraded to the next die type.
+      - Name: Sweep {Action}2 Action Points {Cooldown} Once / Combat
+        Effect: All Units within 2 meters take 2d4 + Your Highest Stat (any type). If only one Unit is hit, +50% Damage and apply a ~Combo~.
+      - Name: Bash {Action}1 Action Point {Level}Level 2 {Cooldown} Once / Combat
+        Effect: |
+          Single-Stun a Unit and deal 1d4 Smash Damage to it.
+          {Combo} and a one Unit 2 meter from you.
+      - Name: Venomous {Level}Level 3
+        Effect: Your attacks and single-target Spells deal +1d4 Damage to Units affected by Crowd Control. {Combo} +1d4 Damage.
+      - Name: Fast {Level}Level 4
+        Effect: You have +2 Movement Speed.
+      - Name: Sticky {Action}1 Action Point {Range}3 meters {Level}Level 5 {Cooldown} Once / Combat
+        Effect: Shoot a sticky substance at a Unit. It takes 1d4 Damage, becomes Double-Slowed and apply a ~Combo~.
+      - Name: Shred {Action}2 Action Points {Level}Level 6
+        Effect: Attack a Unit for 2d8 + 3 Slash Damage. Deals +1d8 Damage for each level of Stun on it.
+      - Name: Leap {Action}1 Action Point {Level}Level 7
+        Effect: "Leap at a Unit 2-3 meters away. Deal 2d6 Pulse Damage and apply a ~Combo~. {Combo} it becomes Frail."
+      - Name: Fly {Level}Level 8
+        Effect: You can fly at half of your normal Movement Speed. You take -50% Smash Damage.
+      - Name: Large {Level}Level 9
+        Effect: You have 1 Defense. You are Large (2x2 meters) and Ridable.
+    Notes: Double-Slow is like Slow, but it takes +2 Action Points to Move instead!
+
+  ~Runeback Form~:
+    _Value: 
+    A: Passive
+    Tags: [Shapeshift]
+    Requirement: Requires Shapeshift
+    Effect: |
+      Your animal forms become improved by visible tattoos, runes or trinkets adorning your horns, paws or back.
+      Depending on your and current _domain_, you gain additional powers when Shapeshifted.
+
+      {Brown('Earth:')} When Shapeshifting, gain 1 Shielding that can block 1d6 Damage.
+      {Brown('Nature:')} When Shapeshifting, permanently increase your Max Health by 0.5.
+      {Brown('Water:')} You do +10% Damage and Healing while Shapeshifted (at least +1).
+      {Brown('Wind:')} You can cast any of your Spells while Shapeshifted and have +2 Movement Speed.
+    Notes: You can't have actual Health in fractions. So, for every second time you get 0.5 Max Health, increase it by 1 instead.
+    
+  
+  <Dazzling Miasma>:
+    _Value: 2
+    A: 1 Action
+    Cooldown: Once / Adventure
+    Range: Line starts near you
+    Tags: [Ultimate]
+    ScrollPower: 2
+    Effect: |
+      Shoot a tainted gust of spores in a 10x1 meter line.
+      It hits the first 2 Units it travels and:
+
+      {Brown('Earth:')} Double-Stun them.
+      {Brown('Nature:')} Deal 4d6 Poison Damage to them.
+      {Brown('Water:')} Heal them for for 4d6.
+      {Brown('Wind:')} Give them 4 Shieldings that can block 1d6 Damage each.
+  
+
+
+    # If you hit one Unit, it takes 7d6 Poison Damage.
+
+
+
+  ~Camouflage~:
+    A: 0 Actions
+    Cooldown: Once / Adventure
+    ScrollPower: 2
+    Effect: |
+      You and all your pets (if any) become camouflaged and turn effectively invisible and causing no sound, undetectable by the naked eye.
+      While camouflaged, your Movement is halved.
+      You appear, however, in mirrors, reflections and in recordings (as well as your sounds).
+
+  ~Water Breathing~:
+      A: 1 Action
+      Duration: (Your Level) hours
+      Cost: 1 Mana
+      Degree: Minor
+      ScrollPower: 2
+      Effect: |
+          Up to 2 allies you can see (can include yourself) can now breathe under water.
+
+  ~Tree Stride~:
+      A: Passive
+      Effect: |
+          While within 30 meters of trees, you have +1 Movement Speed.
+          You can climb trees without making Rolls, using your normal Movement.
+          You can use as many meters of your Movement as you like to jump that distance from one tree to another.
+
+
+  ~Biological Study~:
+    A: 0 Actions
+    Cost: 1 Mana
+    Cooldown: Once / Turn
+    ScrollPower: Auto
+    Effect: |
+      Choose an Enemy type you can see. Guess one of its Stats (you choose which).
+      If you were right, your next real weapon attack or Spell cast against it deals +1d8 Damage and repeat this.
+    Notes: |
+      You can't guess the same Stat twice on the same Unit type.
+      For example, if you guess correctly twice, your next 2 real weapon attacks deal extra Damage agains it. If you guess 3 times, your next 3 attacks. And so on.
+
   ~Elderform~:
     _Value: 1
     Requirement: Requires Shapeshift
@@ -77,26 +239,9 @@ Ideas:
     Effect: Whenever you cast a Spell and you target yourself, it has ^Dice Upgraded^ to the next die type.
     Notes: This applies even when targeting multiple Units and you're one of them. {DiceUpgrade}
 
-  <Innervate>:
-    _Value: 2 # (multiplicative)
-    A: 0 Actions
-    Range: 5 meters
-    Cooldown: Once / Adventure
-    Tags: [Mana, Support, Heal]
-    ScrollPower: 3
-    Effect: |
-      Heal another ally for 1d8 Health. It regains 1 Mana or provides 1 more use of an Ability that is on Cooldown.
-      Can not be cast on Druids.
 
   ~Tree Snare~:
     Effect: Choose a tree and root all units near it.
-
-  ~Worldshaping~:
-    A: 0 Actions
-    Cost: 1 Mana
-    Effect: |
-      You understand the surroundings and slightly alter the landscape in a 1 kilometer area around you so you feel like in a different environment.
-      The area becomes the chosen _domain environment_ for you only instead of its real _domain environment_.
 
   # Hmm not sure I want this...
   ~Domains of Plenty~:
@@ -144,6 +289,12 @@ Starting Abilities:       # 1
       {Brown('Earth:')} +1 Max Health to you or one of the Ability's targets
     EffectGreen: Usable while Shapeshifted.
     Notes: "{DiceUpgrade}"
+  
+  ~Spell Ranks~:
+    A: Passive
+    Effect: |
+      Some of your Talents at higher Levels have higher _ranks_ for lower-Level ones, which are direct upgrades. You do ^not^ need to have the original lower-_rank_ Talent to get the higher-_rank_ one.
+    Upgrade: Once you pick a higher _rank_ for a Talent, change the lower _rank_ Talent to a different one.
 
 Utility:
 
@@ -179,15 +330,6 @@ Utility:
             Multiple Winds don't stack into eachother.
             Heavy Wind also clears Fog, Smoke, etc in the area.
 
-    ~Fog Cloud~:
-        A: 0 Actions
-        Cost: 1 Mana
-        Range: 5 meters to edge
-        ScrollPower: 1
-        Effect: |
-            A 5x5x5 meter cube becomes covered in fog for 1 minute.
-        Upgrade: All Attacks done from, through or to Units inside Fog have Cover (-50%).
-        Notes: Fog can be dissipated by wind. You can choose the color of the fog. The fog does not go through walls, but does bend around corners (e.g. up to 360 degrees around wall extremities).
 
     ~Wild Steed~ :
         A: 5 minutes
@@ -216,6 +358,21 @@ Utility:
         Notes: Keep in mind that plants do not communicate like people and don't have a sense of sight or hearing. Rather, they can record their surroundings through fine details in their leaves or roots, and may know more about what has affected them physically in one way or another.
         EffectGreen: Usable while Shapeshifted.
 
+    ~Fairy Magic~ :
+        A: Half-Action
+        IconName: Fairy Fire
+        Range: 10 meters to edge
+        Duration: 10 minutes
+        Cooldown: Once / real hour
+        ScrollPower: Auto
+        Degree: Minor
+        Effect: |
+            Choose a 5x5x5 meter area.
+            All Units, traps, invisible objects, magical items and hidden paths in that area become outlined in a glow, even if invisible.
+        Upgrade: Their glow is even visible through walls, but the denser the walls, the less they appear to glow.
+        Notes: |
+            A 1-meter thick concrete wall completely blocks the glow.
+
 
 # Mana:         1                       | 1
 # Base:         1.25                    | 2.25
@@ -223,10 +380,10 @@ Utility:
 # Talents L2    0.5                     | 3.25 + 1 Mana
 # Talents L3    1.25                    | 4.5 + 2 Mana  = 6.5 Mana
 
-# Earth   Nature    Water     Wind      | Level 1
-# Earth   Water     Nature    Wind      | Level 2
-# Earth   Nature    Wind      Water     | Level 3
-# Earth   Nature    Water     Wind      | Level 5
+# Earth   Nature    Water     Wind      | Level 1 1st
+# Earth   Water     Nature    Wind      | Level 1 2nd
+# Earth   Nature    Water     Wind      | Level 2
+# Earth   Nature    Wind      Water     | Level 4
 
 Talents:
 
@@ -272,10 +429,10 @@ Talents:
           Effect: Animal Attacks deal +1d4 Damage to Units affected by Crowd Control. {Combo} +1d4 Damage.
 
         - Name: Fast {Level}Level 4
-          Effect: You have +3 Movement Speed. You can freely Break Movement.
+          Effect: You have +3 Movement Speed.
               
-        - Name: Sticky {Action}1 Action Point {Range}3 meters {Level}Level 5
-          Effect: Shoot a sticky substance at a Unit. It takes 1d4 Damage, becomes special Double-Slowed and apply a ~Combo~. Usable once per Shapeshift.
+        - Name: Sticky {Action}1 Action Point {Range}3 meters {Level}Level 5 {Cooldown} Once / Shapeshift
+          Effect: Shoot a sticky substance at a Unit. It takes 1d4 Damage, becomes special Double-Slowed and apply a ~Combo~.
         
         - Name: Shred {Action}2 Action Points {Level}Level 6
           Effect: Attack a Unit for 2d8 + 3 Slash Damage. Deals +1d8 Damage for each level of Stun on it.
@@ -316,22 +473,11 @@ Talents:
             Damage: 1d4 (Pulse)
             Effect: Alternatively, use a non-weapon consumable item like a Scroll, Potion, or Caltrops.
 
-    ~Biological Study~:
-      A: 0 Actions
-      Cost: 1 Mana
-      Cooldown: Once / Turn
-      ScrollPower: Auto
-      Effect: |
-        Choose an Enemy type you can see. Guess one of its Stats (you choose which).
-        If you were right, your next real weapon attack or Spell cast against it deals +1d8 Damage and repeat this.
-      Notes: |
-        You can't guess the same Stat twice on the same Unit type.
-        For example, if you guess correctly twice, your next 2 real weapon attacks deal extra Damage agains it. If you guess 3 times, your next 3 attacks. And so on.
 
-  Level 1 Class Talent:
+  Level 1 First Class Talent:
 
     ~Thornskin~:
-        A: 0 Actions
+        A: Half-Action
         Cost: 1 Mana
         Duration: 1 minute
         ScrollPower: 1
@@ -346,8 +492,8 @@ Talents:
         EffectGreen: Usable while Shapeshifted.
         Notes: A Unit can only be effected by one Thornskin effect at a time.
 
-    ~Everbloom~:    # Almost 1 Mana worth
-        A: Half-Action
+    ~Everbloom~:
+        A: 1 Action
         Range: 5 meters
         Cost: 2 Mana
         Degree: Minor
@@ -389,17 +535,17 @@ Talents:
     ~Ripstorm~:
         A: 3 Action Points
         Cost: 1 Mana
-        Cooldown: Once / Adventure
+        Cooldown: Once / Combat
         Requirement: Only usable while Shapeshifted
         Tags: [Damage, Area Damage, Crowd Control (Hard)]
         Effect: |
           Deal 3d10 Damage to all Worthy Units within 2 meters of you.
           Heal for 1 Health per 5 real Damage done (total).
           
-          {Brown('Earth:')} One of the Units hit becomes Crippled.
+          {Brown('Earth:')} One of the Units hit becomes Blinded.
           {Brown('Wind:')} +1 range and only hits Enemies
 
-  Level 2 Class Talent:
+  Level 1 Second Class Talent:
 
     ~Winds of Redolence~:
       _Value: 0
@@ -415,10 +561,11 @@ Talents:
         {Brown('Wind:')} Only affects allies, and applies a ~Combo~ to all Units in the zone.
 
     ~Wild Heart~:
-        A: 0 Actions
+        A: Half-Action
         Cost: 1 Mana
         ScrollPower: Auto
         Duration: Whole Adventure
+        Cooldown: Once / Turn
         Degree: Major
         Tags: [Buff, Permanent]
         Effect: |
@@ -446,24 +593,17 @@ Talents:
       A: 1 Action
       Tags: [Crowd Control, Control]
       Cost: 1 Mana
+      Range: 5 meters
       Effect: |
         Choose a Unit.
-        If it took Poison Damage this Combat, deal 3d10 more Poison Damage, which ignores Poison Resistance.
+        If it took Poison Damage this Combat, deal 3d10 Poison Damage, which ignores Poison Resistance.
         Otherwise, deal 1d10 Damage and Daze, Deafen and Slow it.
 
         {Brown('Nature:')} Deals +1d10 extra Damage.
         {Brown('Water:')} Heal yourself for 1d6. If the target dies, gain 1 Action Point back.
       EffectGreen: Usable while Shapeshifted.
 
-    ~Fundamentals I~:
-        A: Passive
-        IsIgnored: true
-        IconName: Fundamentals
-        Effect: |
-          Pick one more Level 1 Class or Utility Talent.
-
-
-  Level 3 Class Talent:
+  Level 2 Class Talent:
 
     ~Mephitic Spores~:
       A: Half-Action
@@ -524,19 +664,97 @@ Talents:
         EffectGreen: Usable while Shapeshifted.
         Notes: If in a Water environment/domain, Allies are Healed and Enemies are Damaged. Otherwise, all Units hit are Damaged.
 
-    ~Fundamentals II~:
+    ~Fundamentals I~:
         A: Passive
         IsIgnored: true
         IconName: Fundamentals
         Effect: |
-          Pick one more Level 1 or Level 2 Class or Utility Talent.
+          Pick one more Level 1 Class or Utility Talent.
+
+  Level 3 Class Talent:
+
+    ~Shapeshift II~:
+      A: 0 Actions
+      IconName: Shapeshift
+      HasUpgradeIcon: true
+      Cost: 1 Mana
+      HasMixins: true
+      ScrollPower: 2
+      Duration: Until cancelled (0 AP) or you Fall
+      Height: 40
+      Effect: |
+        Transform into a medium-sized animal or a mystical beast resembling one you've encountered this Campaign. It has 2 features of choice from below (up to your Level, ~and the requirement is reduced by 1 Level~).
+        While Shapeshifted, you can Animal Attack for Half-Action.
+      Subspells:
+        ~Animal Attack~:
+          Range: 1 meter
+          IsSubspell: true
+          A: Half-Action
+          Damage: 1d6 + Any Stat (Slash, Smash or Pierce)
+          EffectGreen: Critical Strike - if you roll maximum, apply a ~Combo~.
+      Notes: |
+        Your animal's Stats are ~4/2/1/0~ spread as you like (for Rolls only).
+        You can only cast _some_ Abilities while Shapeshifted.
+        You choose what items you keep on you when Shapeshifting, and those items are 'merged' into your new form.
+        While Shapeshifted, you can speak, but your voice is slightly altered to match your shape (e.g. guttural for lions, high pitched for birds, etc).
+      HasSpellTableNumbers: true
+      SpellTable:
+        - Name: Hefty
+          Effect: When Shapeshifting, gain 3 Shieldings that block 1d4 Damage each. You are Long (2x1 meters) and Ridable.
+
+        - Name: ~Photosynthesis~
+          Effect: You regenerate 1d4 Health at the end of every Turn of Worthy Combat.
+
+        - Name: Clawed
+          Effect: Your animal features listed here have their Dice Upgraded to the next die type.
+        
+        - Name: Sweep {Action}2 Action Points {Cooldown} Once / Shapeshift
+          Effect: All Units within 2 meters take 2d4 + Your Highest Stat (any type). If only one Unit is hit, +50% Damage and apply a ~Combo~.
+
+        - Name: Bash {Action}1 Action Point {Cooldown} Once / Combat
+          Effect: |
+            Single-Stun a Unit and deal 1d4 Smash Damage to it.
+            {Combo} and a one Unit 2 meter from you.
+
+        - Name: Venomous {Level}Level 2
+          Effect: Animal Attacks deal +1d4 Damage to Units affected by Crowd Control. {Combo} +1d4 Damage.
+
+        - Name: Fast {Level}Level 3
+          Effect: You have +3 Movement Speed.
+
+        - Name: ~Brambles~ {Level}Level 3
+          Effect: After you are attacked from 1 meter away, deal 1d4 Damage back to the attacker.
+
+        - Name: ~Petals~ {Level}Level 4
+          Effect: At the end of the Adventure, the Quest Master gives you an additional positive Quirk.
+              
+        - Name: Sticky {Action}1 Action Point {Range}3 meters {Level}Level 4 {Cooldown} Once / Shapeshift
+          Effect: Shoot a sticky substance at a Unit. It takes 1d4 Damage, becomes special Double-Slowed and apply a ~Combo~.
+        
+        - Name: Shred {Action}2 Action Points {Level}Level 5
+          Effect: Attack a Unit for 2d8 + 3 Slash Damage. Deals +1d8 Damage for each level of Stun on it.
+
+        - Name: ~Inner Flame~ {Level}Level 5
+          Effect: Your Animal Attack has +1 Damage, 5 meters range, and deals Fire, Cold, Shock or Poison Damage.
+
+        - Name: Leap {Action}1 Action Point {Level}Level 6
+          Effect: "Leap at a Unit 2-3 meters away. Deal 2d6 Pulse Damage and apply a ~Combo~. {Combo} it becomes Frail."
+
+        - Name: Fly {Level}Level 7
+          Effect: You can fly up to your speed. You take -50% Smash Damage.
+        
+        - Name: Large {Level}Level 8
+          Effect: You have 2 Defense. You are Large (2x2 meters) and Ridable.
+
+        - Name: Rip {Action}3 Action Points {Level}Level 9 {Cooldown} Once / Shapeshift
+          Effect: Attack a Unit for 7d6 Slash Damage. If it dies, heal for 50% of the Damage done.
 
 
-  Level 4 Class Talent:
-
-    ~Celestine Regrowth~:
+    ~Regrowth II~:
       _Value: 1.33
       A: 0 Actions
+      IconName: Regrowth
+      HasUpgradeIcon: true
       Cooldown: Once / Adventure
       AlignOnWebsite: Left
       Replacement: Replaces Regrowth
@@ -551,7 +769,7 @@ Talents:
       EffectGreen: Usable while Shapeshifted.
       Notes: "{DiceUpgrade}"
     
-    ~Prime Nativity~:
+    ~Nativity II~:
       _Value: 2
       A: Passive
       Tags: [Mana]
@@ -562,32 +780,34 @@ Talents:
       Effect: At the ~first third~ and ~second third~ marks of each _session_, regain up to 1 Mana.
       Notes: Refers to the game sessions.
 
-    ~Domain Animal Attack~:
-      _Value: 2.5
-      Tags: [Shapeshift]
-      Requirement: Only usable while Shapeshifted
-      A: Half-Action
-      Damage: 1d6 + Any Stat
-      Replacement: Replaces Animal Attack
-      Effect: |
-        {Brown('Nature:')} ~Heal for 10% of the attack's Damage (at least 1).~
-        {Brown('Earth:')} ~Taunt the target.~
-        {Brown('Water:')} ~+2 range.~
-        {Brown('Wind:')} ~1d8 Damage instead of 1d6.~
-      Range: 1 meter
-      Stat: Smash, Slash or Pierce
-      EffectGreen: Critical Strike - if you roll maximum, apply a ~Combo~.
+    # ~Domain Animal Attack~:
+    #   _Value: 2.5
+    #   Tags: [Shapeshift]
+    #   Requirement: Only usable while Shapeshifted
+    #   A: Half-Action
+    #   Damage: 1d6 + Any Stat
+    #   Replacement: Replaces Animal Attack
+    #   Effect: |
+    #     {Brown('Nature:')} ~Heal for 10% of the attack's Damage (at least 1).~
+    #     {Brown('Earth:')} ~Taunt the target.~
+    #     {Brown('Water:')} ~+2 range.~
+    #     {Brown('Wind:')} ~1d8 Damage instead of 1d6.~
+    #   Range: 1 meter
+    #   Stat: Smash, Slash or Pierce
+    #   EffectGreen: Critical Strike - if you roll maximum, apply a ~Combo~.
 
-    ~Worldshaping~:
+    <Innervate>:
+      _Value: 2 # (multiplicative)
       A: 0 Actions
-      Cost: 1 Mana
+      Range: 5 meters
+      Cooldown: Once / Adventure
+      Tags: [Mana, Support, Heal]
+      ScrollPower: 3
       Effect: |
-        You understand the surroundings and slightly alter the landscape in a 1 kilometer area around you so you feel like in a different environment.
-        The area becomes the chosen _domain environment_ for you only instead of its real _domain environment_.
+        Heal another ally for 1d8 Health. It regains 1 Mana or provides 1 more use of an Ability that is on Cooldown.
+        Can not be cast on Druids.
 
-
-
-  Level 5 Class Talent:
+  Level 4 Class Talent:
 
     ~Cutting Winds~:
       A: 1 Action
@@ -597,10 +817,10 @@ Talents:
       ScrollPower: Auto
       Degree: Major
       Effect: |
-          A Unit takes 2d6 + ^Your {Dexterity}^ Slash Damage.
+          A Unit takes 2d8 + ^Your {Dexterity}^ Slash Damage.
 
-          {Brown('Wind:')} Push it 3 meters (any direction).
-          {Brown('Water:')} +1d6 Damage
+          {Brown('Wind:')} Slam it 1d6 meters (any direction).
+          {Brown('Nature:')} +1d8 Damage
       EffectGreen: Usable while Shapeshifted.
       Notes: Cover is applied normally.
 
@@ -610,10 +830,10 @@ Talents:
       ScrollPower: Auto
       Cooldown: Once / Adventure
       Effect: |
-        All Enemies within 4 meters of you take 2d6 Pierce Damage and become Double-Slowed.
+        All Enemies within 4 meters of you take 2d8 Pierce Damage and become Double-Lagged.
 
-        {Brown('Nature:')} 6 meters instead.
-        {Brown('Earth:')} 2d8 Damage instead.
+        {Brown('Earth:')} 2d12 Damage instead.
+        {Brown('Water:')} 6 meters instead.
       EffectGreen: Usable while Shapeshifted.
 
     ~Lightning Storm~:
@@ -625,78 +845,203 @@ Talents:
         Cooldown: Once / Combat
         Degree: Major
         Effect: |
-            Choose a 4x4x4 meter cube.
-            All units inside take 3d4 Shock Damage now. If a unit carries anything made of metal or is wet, it takes 100% more Damage.
+            Choose a 5x5x5 meter cube.
+            All units inside take 3d6 Shock Damage now. If a unit carries anything made of metal or is wet, it takes 100% more Damage.
 
-            {Brown('Wind:')} 4d4 Damage instead.
-            {Brown('Nature:')} The Damage triggers again at the start of your next Turn in the same area.
+            {Brown('Water:')} The Damage triggers again at the start of your next Turn in the same area.
+            {Brown('Wind:')} 4d6 Damage instead.
 
     <Brineborne Lullaby>:
       _Value: 2
       A: 1 Action
       Cost: 2 Mana
       ScrollPower: Auto
-      Cooldown: Once / Adventure
+      Cooldown: Once / Combat
+      Requirement: Only usable in Worthy Combat
       Effect: |
         Choose yourself.
-        Heal the chosen Unit for 1d8 for each 10 Health it is missing, and all Units within 2 meters of it for half the final amount just Healed.
+        Heal the chosen Unit for 1d8 for each 7 Health it is missing, and all Units within 2 meters of it for half the final amount just Healed.
 
-        {Brown('Water:')} For each 7 Health missing instead.
         {Brown('Earth:')} Choose any Unit instead.
+        {Brown('Nature:')} For each 5 Health missing instead.
+
+    ~Fundamentals II~:
+        A: Passive
+        IsIgnored: true
+        IconName: Fundamentals
+        Effect: |
+          Pick one more Level 1 or Level 2 Class or Utility Talent.
+
+
+
+
+  Level 5 Class Talent:
+
+    ~Thornskin II~:
+        A: Half-Action
+        IconName: Thornskin
+        HasUpgradeIcon: true
+        Cost: 1 Mana
+        Duration: 1 minute
+        ScrollPower: 1
+        Degree: Minor
+        Tags: [Buff, Combo]
+        Effect: |
+            Choose a Unit you can see.
+            Whenever it is melee attacked, the attacker takes ~3~ Pierce Damage.
+            
+            {Brown('Earth:')} ~1d6~ Damage instead of 3.
+            {Brown('Nature:')} apply a ~Combo~ to it.
+            {Brown('Wind:')} works at any Range (ignoring Cover).
+        EffectGreen: Usable while Shapeshifted.
+        Notes: A Unit can only be effected by one Thornskin effect at a time.
+
+    ~Everbloom II~:
+        IconName: Everbloom
+        HasUpgradeIcon: true
+        A: 1 Action
+        Range: 5 meters
+        Cost: 2 Mana
+        Degree: Minor
+        ScrollPower: Auto
+        Tags: [Heal]
+        Effect: |
+          Heal an alive Unit for 2d10.
+          
+          {Brown('Nature:')} Regain 1 Action Point.
+          {Brown('Water:')} ~+4~ Healing.
+          {Brown('Wind:')} ~+4~ Healing.
+        EffectGreen: Usable while ~Shapeshifted~.
+
+    ~Venin Spike II~:
+        A: 1 Action
+        IconName: Venin Spike
+        HasUpgradeIcon: true
+        Range: 5 meters
+        HasMixins: true
+        Degree: Minor
+        ScrollPower: Auto
+        Tags: [Damage]
+        Effect: |
+            Shoot a venomous spike at a Unit, dealing {Amount} + ^{Sense}^ Poison Damage.
+            After the _next time_ it takes weapon Damage, shoot another spike at it for {Amount2}, which finds its target no matter the range or line of sight.
+            
+            {Variants}
+
+            {Brown('Earth:')} Then immediately dash up to 1d6 meters.
+            {Brown('Nature:')} Shoot the extra spike now instead, ~ignoring Cover.~
+            {Brown('Water:')} {Improvement} Damage (on both spikes).
+        EffectGreen: Usable while Shapeshifted.
+        Notes: Body parts count as weapons. The second spike does not ignore Cover. The spike shoots immediately after dealing the weapon Damage.
+        Variants:
+          - DisplayA: 2 Action Points
+            Amount: "1d6"
+            Amount2: "1d6"
+            Improvement: "1d10 instead of 1d8"
+          - Display: 3 Action Points
+            Amount: "2d8"
+            Amount2: "1d8"
+            Improvement: "d10's instead of d8's"
+
+    ~Ripstorm II~:
+        A: 3 Action Points
+        IconName: Ripstorm
+        HasUpgradeIcon: true
+        Cost: 1 Mana
+        Cooldown: Once / Combat
+        Tags: [Damage, Area Damage, Crowd Control (Hard)]
+        Effect: |
+          Deal 3d10 Damage to all Worthy Units within 2 meters of you.
+          Heal for 1 Health per 5 real Damage done (total).
+          
+          {Brown('Earth:')} One of the Units hit becomes ~Crippled~.
+          {Brown('Water:')} Leap up to 3 meters away first.
+          {Brown('Wind:')} ~+2~ range and only hits Enemies.
+        EffectGreen: Usable while Shapeshifted ~(or not)~.
+
+
+  
+  Level 6 Class Talent:
+
+    ~Winds of Redolence II~:
+      IconName: Winds of Redolence
+      HasUpgradeIcon: true
+      _Value: 0
+      A: Half-Action
+      Cost: 1 Mana
+      Range: 2 meters (to edge)
+      ScrollPower: Auto
+      Tags: [Heal, Combo]
+      Effect: |
+        Choose a ~4x4~ meter area. Heal all Units there for ~1d8~.
+
+        {Brown('Earth:')} Area becomes ~6x6~.
+        {Brown('Water:')} For each 10 Healing done, gain 1 Action Point this Turn.
+        {Brown('Wind:')} Only affects allies, and applies a ~Combo~ to all Units in the zone.
+
+    ~Wild Heart II~:
+        IconName: Wild Heart
+        HasUpgradeIcon: true
+        A: Half-Action
+        Cost: 1 Mana
+        ScrollPower: Auto
+        Cooldown: Once / Turn
+        Duration: Whole Adventure
+        Degree: Major
+        Tags: [Buff, Permanent]
+        Effect: |
+          Up to 2 Units gain ~1d6~ Health Regen, each.
+          
+          {Brown('Earth:')} Single-Stun all Units around them.
+          {Brown('Nature:')} ~1d8~ instead.
+          {Brown('Wind:')} ~1d4 Units affected (minimum 2)~.
+        EffectGreen: Usable while Shapeshifted.
+        Combo: A Comboed target gains +1 Max Health permanently.
+        Notes: Note that a Unit can't have or apply Combo outside Worthy Combat.
+
+    ~Thermal Pressure II~:
+      IconName: Thermal Pressure
+      HasUpgradeIcon: true
+      A: Half-Action
+      Cooldown: Once / Turn
+      Tags: [Damage, Area Damage, Control]
+      Effect: |
+          Water bursts from the ground at a space you can see, splashing all Units in a 3 meter with lava.
+          Units hit take ~1d10~ Fire Damage.
+
+          {Brown('Earth:')} Once per Turn, you can cast this for 0 Action Points.
+          {Brown('Nature:')} All Units hit are also Slammed ~2~ meters away from the geyser and does not Damage Allies.
+          {Brown('Water:')} Does not go on Cooldown and the lava is water instead.
+    
+    # Nature & Water
+    ~Viperlash II~:
+      A: 1 Action
+      IconName: Winds of Redolence
+      Range: 5 meters
+      HasUpgradeIcon: true
+      Tags: [Crowd Control, Control]
+      Cost: 1 Mana
+      Effect: |
+        Choose a Unit.
+        If it took Poison Damage this Combat, deal ~3d12~ Poison Damage, which ignores Poison Resistance.
+        Otherwise, deal ~2d6~ Damage and Daze, Deafen and Slow it.
+
+        {Brown('Nature:')} Deals ~+1d12~ extra Damage.
+        {Brown('Water:')} Heal yourself for ~1d8~. If the target dies, gain 1 Action Point back.
+        {Brown('Wind:')} Unlimited Range and targets 2 Units instead.
+      EffectGreen: Usable while Shapeshifted.
 
     ~Fundamentals III~:
         A: Passive
         IsIgnored: true
         IconName: Fundamentals
         Effect: |
-          Pick one more Level 1, Level 2 or Level 3 Class or Utility Talent.
-
-  Level 6 - Utility Talent:
-
-    ~Fairy Fire~ :
-        A: Half-Action
-        Range: 10 meters to edge
-        Duration: 10 minutes
-        Cooldown: Once / real hour
-        ScrollPower: Auto
-        Degree: Minor
-        Effect: |
-            Choose a 5x5x5 meter area.
-            All Units, traps, invisible objects, magical items and hidden paths in that area become outlined in a glow, even if invisible.
-        Upgrade: Their glow is even visible through walls, but the denser the walls, the less they appear to glow.
-        Notes: |
-            A 1-meter thick concrete wall completely blocks the glow.
-
-    ~Camouflage~:
-      A: 0 Actions
-      Cooldown: Once / Adventure
-      ScrollPower: 2
-      Effect: |
-        You and all your pets (if any) become camouflaged and turn effectively invisible and causing no sound, undetectable by the naked eye.
-        While camouflaged, your Movement is halved.
-        You appear, however, in mirrors, reflections and in recordings (as well as your sounds).
-
-
-    ~Water Breathing~:
-        A: 1 Action
-        Duration: (Your Level) hours
-        Cost: 1 Mana
-        Degree: Minor
-        ScrollPower: 2
-        Effect: |
-            Up to 2 allies you can see (can include yourself) can now breathe under water.
-
-    ~Tree Stride~:
-        A: Passive
-        Effect: |
-            While within 30 meters of trees, you have +1 Movement Speed.
-            You can climb trees without making Rolls, using your normal Movement.
-            You can use as many meters of your Movement as you like to jump that distance from one tree to another.
+          Pick one more Level 5 Class Talent.
 
   Level 7 Class Talent:
 
-    ~Thornskin II~:
-        A: 0 Actions
+    ~Thornskin III~:
+        A: Half-Action
         IconName: Thornskin
         HasUpgradeIcon: true
         Cost: 1 Mana
@@ -715,7 +1060,7 @@ Talents:
         EffectGreen: Usable while Shapeshifted.
         Notes: A Unit can only be effected by one Thornskin effect at a time. {DiceUpgrade}
 
-    ~Everbloom II~:    # Almost 1 Mana worth
+    ~Everbloom III~:    # Almost 1 Mana worth
         IconName: Everbloom
         HasUpgradeIcon: true
         A: Half-Action
@@ -733,7 +1078,7 @@ Talents:
           {Brown('Wind:')} ~+1d8~ Healing.
         EffectGreen: Usable while ~Shapeshifted~.
 
-    ~Venin Spike II~:
+    ~Venin Spike III~:
         A: 1 Action
         IconName: Venin Spike
         HasUpgradeIcon: true
@@ -764,7 +1109,7 @@ Talents:
             Amount2: "1d10"
             Improvement: "d12's instead of d10's"
 
-    ~Ripstorm II~:
+    ~Ripstorm III~:
         A: 3 Action Points
         IconName: Ripstorm
         HasUpgradeIcon: true
@@ -777,117 +1122,165 @@ Talents:
           
           {Brown('Earth:')} One of the Units hit becomes Crippled.
           {Brown('Nature:')} Then gain Thornskin I.
-          {Brown('Water:')} Only hits enemies.
+          {Brown('Water:')} Leap up to 3 meters away first.
           {Brown('Wind:')} +1 range and only hits Enemies.
         EffectGreen: Usable while Shapeshifted ~(or not)~.
 
+    ~Fundamentals IV~:
+        A: Passive
+        IsIgnored: true
+        IconName: Fundamentals
+        Effect: |
+          Pick one more Level 6 Class Talent.
 
   Level 8 Class Talent:
 
-    ~Child of the Feral~:
-      Tags: [Shapeshift]
-      A: Passive
+    ~Mephitic Spores II~:
+      A: Half-Action
+      Cost: 2 Mana
+      Range: 3 meters (to edge)
+      Tags: [Area Damage]
       Effect: |
-        When you get this Talent, choose a Shapeshift animal feature from below, up to your Level.
-        You have that feature when not Shapeshifted.
-      SpellTable:
-        - Name: Clawed
-          Effect: Your animal features and weapon attacks have their Dice Upgraded to the next die type.
-        - Name: Sweep {Action}2 Action Points {Cooldown} Once / Combat
-          Effect: All Units within 2 meters take 2d4 + Your Highest Stat (any type). If only one Unit is hit, +50% Damage and apply a ~Combo~.
-        - Name: Bash {Action}1 Action Point {Level}Level 2 {Cooldown} Once / Combat
-          Effect: |
-            Single-Stun a Unit and deal 1d4 Smash Damage to it.
-            {Combo} and a one Unit 2 meter from you.
-        - Name: Venomous {Level}Level 3
-          Effect: Your attacks and single-target Spells deal +1d4 Damage to Units affected by Crowd Control. {Combo} +1d4 Damage.
-        - Name: Fast {Level}Level 4
-          Effect: You have +2 Movement Speed.
-        - Name: Sticky {Action}1 Action Point {Range}3 meters {Level}Level 5 {Cooldown} Once / Combat
-          Effect: Shoot a sticky substance at a Unit. It takes 1d4 Damage, becomes Double-Slowed and apply a ~Combo~.
-        - Name: Shred {Action}2 Action Points {Level}Level 6
-          Effect: Attack a Unit for 2d8 + 3 Slash Damage. Deals +1d8 Damage for each level of Stun on it.
-        - Name: Leap {Action}1 Action Point {Level}Level 7
-          Effect: "Leap at a Unit 2-3 meters away. Deal 2d6 Pulse Damage and apply a ~Combo~. {Combo} it becomes Frail."
-        - Name: Fly {Level}Level 8
-          Effect: You can fly at half of your normal Movement Speed. You take -50% Smash Damage.
-        - Name: Large {Level}Level 9
-          Effect: You have 1 Defense. You are Large (2x2 meters) and Ridable.
-      Notes: Double-Slow is like Slow, but it takes +2 Action Points to Move instead!
+        Choose a 4x4 meter area. All Units caught take ~2d10~ Poison Damage.
+        If none dies, deal another ~2d10~ Poison Damage.
 
-    ~Runeback Form~:
-      _Value: 
-      A: Passive
-      Tags: [Shapeshift]
-      Requirement: Requires Shapeshift
-      Effect: |
-        Your animal forms become improved by visible tattoos, runes or trinkets adorning your horns, paws or back.
-        Depending on your and current _domain_, you gain additional powers when Shapeshifted.
+        {Brown('Earth:')} If any died, after casting this, cast Mephitic Spores I for free.
+        {Brown('Nature:')} If still none die, deal another ~2d10~ Poison Damage.
+        {Brown('Water:')} Zone increases to 6x6. Also has ~Combo:~ each Comboed Unit hit becomes ~Single-Stunned~.
 
-        {Brown('Earth:')} When Shapeshifting, gain 1 Shielding that can block 1d6 Damage.
-        {Brown('Nature:')} When Shapeshifting, permanently increase your Max Health by 0.5.
-        {Brown('Water:')} You do +10% Damage and Healing while Shapeshifted (at least +1).
-        {Brown('Wind:')} You can cast any of your Spells while Shapeshifted and have +2 Movement Speed.
-      Notes: You can't have actual Health in fractions. So, for every second time you get 0.5 Max Health, increase it by 1 instead.
-      
-    
-    <Dazzling Miasma>:
-      _Value: 2
-      A: 1 Action
-      Cooldown: Once / Adventure
-      Range: Line starts near you
-      Tags: [Ultimate]
-      ScrollPower: 2
-      Effect: |
-        Shoot a tainted gust of spores in a 10x1 meter line.
-        It hits the first 2 Units it travels and:
+    ~Wind Chaser II~:
+        _Value: 0.75
+        A: 0 Actions
+        Cooldown: Once / 2 Turns
+        ScrollPower: 0
+        Degree: Lesser
+        Tags: [Damage]
+        Effect: |
+            Your next targeted attack or Spell curves around obstacles, ignoring Cover and dealing ~+1d6~ Damage.
+            
+            {Brown('Earth:')} And Lags it.
+            {Brown('Water:')} After the attack, cast Wind Chaser I for free, ignoring Cooldown.
+            {Brown('Wind:')} ~+1d10~ Damage instead.
+        Notes: You still need Line of Sight to the target.
 
-        {Brown('Earth:')} Double-Stun them.
-        {Brown('Nature:')} Deal 4d6 Poison Damage to them.
-        {Brown('Water:')} Heal them for for 4d6.
-        {Brown('Wind:')} Give them 4 Shieldings that can block 1d6 Damage each.
-    
+    ~Earth Shield II~:
+        A: 0 Actions
+        Cost: 1 Mana
+        Cooldown: Once / Turn
+        Duration: Until end of Adventure
+        ScrollPower: 1
+        Degree: Minor
+        Tags: [Protection]
+        Effect: |
+            A Unit you can see gains 2 Shieldings that block ~1d6~ Damage each.
+            
+            {Brown('Earth:')} ~1d10~ instead.
+            {Brown('Nature:')} ~1d6~ Shieldings instead (minimum 3).
+            {Brown('Wind:')} When these Shieldings are destroyed, cast Earth Shield I for free.
+        EffectGreen: Usable while Shapeshifted.
+        Notes: Does not stack multiple times with itself.
 
+    ~Nami II~:
+        A: 1 Action
+        Cost: 1 Mana
+        HasMixins: true
+        ScrollPower: Auto
+        Degree: Major
+        Tags: [Area Damage, Healing]
+        Cooldown: Once / Combat
+        Effect: |
+            Send out a ~8x2~ meter wave forward. Each Unit* hit takes ~2d12~ Cold Damage.
+            The first Unit hit is Slowed.
 
-      # If you hit one Unit, it takes 7d6 Poison Damage.
+            {Brown('Water:')} Allies hit are Healed for ~1d10~ instead of taking Damge.
+            {Brown('Wind:')} ~16x4~ meter wave instead.
+            {Brown('Nature:')} Cast another Nami I from the end point of the Nami II, at least at a 45 degree angle difference.
+        EffectGreen: Usable while Shapeshifted.
+        Notes: If in a Water environment/domain, Allies are Healed and Enemies are Damaged. Otherwise, all Units hit are Damaged.
 
+    ~Fundamentals V~:
+        A: Passive
+        IsIgnored: true
+        IconName: Fundamentals
+        Effect: |
+          Pick one more Level 6 or Level 7 Class Talent.
 
   Level 9 Class Talent:
 
-    <Call of the Wild>:
-      _Value: 3 # Lmao no idea
-      HasMixins: true
+    ~Cutting Winds II~:
       A: 1 Action
-      Cooldown: Once / Adventure
-      Tags: [Summon, Ultimate]
+      Cost: 1 Mana
+      Range: 5 meters
+      Cooldown: Once / Combat
+      ScrollPower: Auto
+      Degree: Major
       Effect: |
-        Call upon 2 animals, both of which are specific to your or the current _domain_.
-        They appear on the edge of the battlefield, from the wilderness, and they fight for you for up to 1 minute.
-        Each has 1 Action with which they can Move and Attack, normally. You can control them on your Turn.
-      Monster:
-        Name: Wild Animal
-        Health: 15
-        Speed: 4 meters
-        Stats: 0/0/0/0/0
-        Abilities:
-            ~Attack~:
-                A: Half-Action (from it)
-                Range: 3 meters
-                Damage: 1d6 Damage
-      Notes: Both animals must be of the same type.
+          A Unit takes ~2d10~ + ^Your {Dexterity}^ Slash Damage.
 
-    <Third Kind>:
-      A: Passive
-      Requirement: Requires Shapeshift
-      Tags: [Shapeshift]
-      Effect: When Shapeshifting, choose one additional Animal Feature to have.
+          {Brown('Earth:')} Then cast Lightning Storm I centered on the target for 0 Action Point and 1 Mana.
+          {Brown('Wind:')} Slam it ~1d10~ meters (any direction).
+          {Brown('Nature:')} ~+1d10~ Damage
+          {Brown('Water:')} Then cast Brineborne Lullaby for 0 Action Point and 2 Mana.
+          
+          Earth: LS
+          Water: BBL
+      EffectGreen: Usable while Shapeshifted.
+      Notes: Cover is applied normally.
 
-    <Evershape>:
-      _Value: 2
-      A: Passive
-      Requirement: Requires Shapeshift
+    ~Roots II~:
+      A: 1 Action
+      Cost: 1 Mana
+      ScrollPower: Auto
+      Cooldown: Once / Adventure
+      Effect: |
+        All Enemies within 4 meters of you take ~2d10~ Pierce Damage and become Double-Lagged.
+
+        {Brown('Earth:')} ~4d6~ Damage instead.
+        {Brown('Nature:')} Then cast Lightning Storm I for 1 Action Point and 0 Mana, centered on you (and you are immune to the Damage).
+        {Brown('Water:')} 6 meters instead.
+        {Brown('Wind:')} Then cast Brineborne Lullaby I for 2 Action Points and 0 Mana.
+      EffectGreen: Usable while Shapeshifted.
+
+    ~Lightning Storm II~:
+      A: Half-Action
+      Range: 5 meters to edge
+      Cost: 1 Mana
       HasMixins: true
-      Effect: Shapeshifting yourself doesn't cost Mana, but it has a Once / Combat Cooldown.
+      ScrollPower: Auto
+      Cooldown: Once / Combat
+      Degree: Major
+      Effect: |
+        Choose a 5x5x5 meter cube.
+        All units inside take ~3d8~ Shock Damage now. If a unit carries anything made of metal or is wet, it takes 100% more Damage.
+
+        {Brown('Earth:')} Next Turn, you can cast Cutting Winds I for 0 Action Point and 1 Mana.
+        {Brown('Nature:')} Next Turn, you can cast Roots for 0 Action Points and 1 Mana.
+        {Brown('Water:')} The Damage triggers again at the start of your next Turn in the same area.
+        {Brown('Wind:')} ~4d8~ Damage instead.
+
+    <Brineborne Lullaby II>:
+      _Value: 2
+      A: 1 Action
+      Cost: 2 Mana
+      ScrollPower: Auto
+      Cooldown: Once / Combat
+      Requirement: Only usable in Worthy Combat
+      Effect: |
+        Choose yourself.
+        Heal the chosen Unit for 1d8 for each 7 Health it is missing, and all Units within 2 meters of it for half the final amount just Healed.
+
+        {Brown('Earth:')} Choose any Unit instead.
+        {Brown('Nature:')} For each 5 Health missing instead.
+        {Brown('Water:')} Next Turn, you can cast Cutting Winds I for 1 Action Point and 0 Mana.
+        {Brown('Wind:')} The target can cast Roots I for 1 Action Point and 0 Mana on their next Turn.
+
+    ~Fundamentals V~:
+        A: Passive
+        IsIgnored: true
+        IconName: Fundamentals
+        Effect: |
+          Pick one more Level 6, Level 7, or Level 8 Class Talent.
+
 
 
   Level 10 Class Talent:
@@ -914,9 +1307,9 @@ Talents:
       A: Passive
       Requirement: Requires Shapeshift
       Effect: |
-        Once per Adventure, you can transform into a Beast, Fey, Monster, Plant or Dragon you have previously interacted with that is worth at most 1000 XP using Wild Shape.
+        Once per Adventure, you can transform into a Beast, Fey, Monster, Plant or Dragon you have previously interacted with that is worth at most 1000 XP using Shapeshift.
         If it's an Epic Monster, you can use that many of its Abilities on your turn instead of doing your regular Action.
-        Also, passively, + {Might} and {Intelligence} increase by 1.
+        Also, passively, your {Dexterity} and {Intelligence} increase by 3.
       HasMixins: true
       Downside: "{Heroic}"
 
