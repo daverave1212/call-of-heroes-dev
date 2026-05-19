@@ -189,6 +189,15 @@
                     "Notes": "Lore-wise, as a Thief, you prepare and build up momentum in combat. When you reach a town, you put your preparations in motion and gain the gold. Feel free to them\n",
                     "ParentKey": "Starting Abilities",
                     "Origin": "Class/Rogue"
+                },
+                "~Ambush Upgrade~": {
+                    "A": "Passive",
+                    "IsIgnored": true,
+                    "IconName": "Ambush",
+                    "HasUpgradeIcon": true,
+                    "Effect": "Immediately pick a Level 2 Talent, which upgrades and replaces your starting Ambush.",
+                    "ParentKey": "Starting Abilities",
+                    "Origin": "Class/Rogue"
                 }
             },
             "Talents": {
@@ -243,7 +252,7 @@
                             "Ambush"
                         ],
                         "Upgrade": "{KeystoneTalent}",
-                        "Effect": "You have 2 Mana that replenishes inbetween Adventures and gain access to one `Magic Font$/Other/MagicFonts` of choice.\nWhen you get this Talent, you can pick 2 Magic Font Spells to Know, and can get more as you would normally get extra Class Talents.\n",
+                        "Effect": "You have 2 Mana that replenishes inbetween Adventures and gain access to one `Magic Font$/Other/MagicFonts` of choice.\nWhen you get this Talent, you can pick 2 Magic Font Spells to Know.\n",
                         "Notes": "You can change all these choices inbetween Adventures.",
                         "ParentKey": "Level 3 Class Talent",
                         "Origin": "Class/Rogue"
@@ -255,7 +264,7 @@
                             "Ambush"
                         ],
                         "Upgrade": "{KeystoneTalent}",
-                        "Effect": "Whenever YOU would Damage an Enemy leaving it at 10% Health or below, it dies, and you gain {Gold}Gold equal to its Maximum Health.\n",
+                        "Effect": "Whenever YOU would Damage a Worthy Enemy leaving it at 10% or less Health, it dies, and you gain {Gold}Gold equal to its Maximum Health.\n",
                         "HasMixins": true,
                         "ParentKey": "Level 3 Class Talent",
                         "Origin": "Class/Rogue"
@@ -263,13 +272,13 @@
                     "~Shade Bend~": {
                         "_Value": 2.5,
                         "A": "0 Action Points",
-                        "Cooldown": "Once / Combat",
+                        "Cooldown": "Once / real hour",
                         "ScrollPower": "Auto",
                         "Tags": [
                             "Ambush"
                         ],
                         "Upgrade": "{KeystoneTalent}",
-                        "Effect": "Choose a shadow you can see.\nYou can manipulate the shape of this shadow and even extend it upward to attack for 1d6 and Deafen the target.\n",
+                        "Effect": "Choose a shadow you can see.\nYou can extend it upward to attack for 1d6 and Deafen the target, or you can manipulate and control the shape of this shadow for up to 1 minute.\n",
                         "Notes": "This attack is able to trigger Ambush.",
                         "HasMixins": true,
                         "ParentKey": "Level 3 Class Talent",
@@ -316,11 +325,11 @@
                         "Origin": "Class/Rogue"
                     },
                     "<Magestep>": {
-                        "_Value": 1.5,
+                        "_Value": 3,
                         "A": "0 Action Points",
-                        "Cooldown": "Once / Adventure",
+                        "Cooldown": "Once / real hour",
                         "Effect": "Teleport up to 3 meters away.\nYour next attack applies your Ambush if it wouldn't normally, and all the Damage becomes Fire, Cold or Shock (your choice).\n",
-                        "Downside": "Doesn't work with Thief's Ambush or Sudden Ambush. The attack can Ambush even if it's the second time this Turn (or further).",
+                        "Downside": "Ambush can only trigger Once / Turn.",
                         "ParentKey": "Level 4 Class Talent",
                         "Origin": "Class/Rogue"
                     }
@@ -333,8 +342,8 @@
                         "Tags": [
                             "Crowd Control"
                         ],
-                        "Upgrade": "{KeystoneTalent}",
-                        "Effect": "When combat starts, deploy a number of Trap Wires equal to ^your Focus or Presence^, anywhere on the battlefield.\nA Trap Wire is thin and up to 3 meters long, and must be deployed between 2 obstacles.\nUnits with less than 3 Presence can't see the Trap Wires.\nIf a Unit touches a Trap Wire, it takes 1d10 Shock damage and becomes Dazed.\n",
+                        "Effect": "When combat starts, deploy a number of Trap Wires equal to ^your Focus or Presence^, anywhere on the battlefield.\nA Trap Wire is thin and up to 3 meters long, and must be deployed between 2 obstacles.\nIf a Unit touches a Trap Wire, it takes 1d10 Shock damage and becomes Dazed.\n",
+                        "Upgrade": "Units with less than 3 Presence can't see the Trap Wires.",
                         "Notes": "Each end of the wire must be attached to something solid and static.\nYou can make use of walls, obstacles, etc.\nRequires a Special Tripwire Set item, which can be bought for 100 gold (or freely crafted for the same price in materials).\n",
                         "ParentKey": "Level 5 Class Talent",
                         "Origin": "Class/Rogue"
@@ -347,7 +356,7 @@
                             "Area Damage"
                         ],
                         "Upgrade": "{KeystoneTalent}",
-                        "Effect": "Throw 8 shurikens: one towards each direction (north, north-east, east, south, etc).\nEach shuriken travels 4 meters, deals 2d6 Slash Damage to all Units it passes through, then stops in place.\nAt the end of your next turn, each shuriken returns to you, dealing 2d6 Slash Damage again to all Units it passes through.\n",
+                        "Effect": "Throw 8 shurikens: one towards each direction (north, north-east, east, etc).\nEach shuriken travels 4 meters, deals 2d6 Slash Damage to all Units it passes through, then stops in place.\nAt the end of your next turn, each shuriken returns to you, dealing 2d6 Slash Damage again to all Units it passes through.\n",
                         "Notes": "Requires 8 Special Shuriken items, which can be bought for a total of 120 gold (or freely crafted for the same price in materials). If you're playing on a Grid, take semi-hitting into account for blades that don't travel squares exactly in the 8 directions. Cover applies normally to each blade.",
                         "HasMixins": true,
                         "ParentKey": "Level 5 Class Talent",
@@ -385,6 +394,7 @@
                 "Level 6 Class Talent": {
                     "<Gold Hoard>": {
                         "A": "Passive",
+                        "Height": 45,
                         "Effect": "You gain various bonuses based on how much gold you are carrying.",
                         "DoubleTable": {
                             "Headers": [
@@ -542,6 +552,15 @@
                     "Upgrade": "You can use this as a Reaction when an enemy wants to attack you (before dealing the Damage). If it can't do the attack anymore, it must choose something else to do.",
                     "ParentKey": "Starting Abilities",
                     "Origin": "Class/Rogue"
+                },
+                "~Ambush Upgrade~": {
+                    "A": "Passive",
+                    "IsIgnored": true,
+                    "IconName": "Ambush",
+                    "HasUpgradeIcon": true,
+                    "Effect": "Immediately pick a Level 2 Talent, which upgrades and replaces your starting Ambush.",
+                    "ParentKey": "Starting Abilities",
+                    "Origin": "Class/Rogue"
                 }
             },
             "Talents": {
@@ -658,7 +677,7 @@
                             "Area Damage"
                         ],
                         "Upgrade": "{KeystoneTalent}",
-                        "Effect": "Throw 8 shurikens: one towards each direction (north, north-east, east, south, etc).\nEach shuriken travels 4 meters, deals 2d6 Slash Damage to all Units it passes through, then stops in place.\nAt the end of your next turn, each shuriken returns to you, dealing 2d6 Slash Damage again to all Units it passes through.\n",
+                        "Effect": "Throw 8 shurikens: one towards each direction (north, north-east, east, etc).\nEach shuriken travels 4 meters, deals 2d6 Slash Damage to all Units it passes through, then stops in place.\nAt the end of your next turn, each shuriken returns to you, dealing 2d6 Slash Damage again to all Units it passes through.\n",
                         "Notes": "Requires 8 Special Shuriken items, which can be bought for a total of 120 gold (or freely crafted for the same price in materials). If you're playing on a Grid, take semi-hitting into account for blades that don't travel squares exactly in the 8 directions. Cover applies normally to each blade.",
                         "HasMixins": true,
                         "ParentKey": "Level 5 Class Talent",

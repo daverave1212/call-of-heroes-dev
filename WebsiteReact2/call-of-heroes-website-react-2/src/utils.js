@@ -1782,6 +1782,8 @@ export const SYMBOLS = {
 
     'Damage': { tag: 'Icon', props: { name: 'Damage' } },
     'Mana': { tag: 'Icon', props: { name: 'Mana' } },
+    'Experience': { tag: 'Icon', props: { name: 'XP' } },
+    'XP': { tag: 'Icon', props: { name: 'XP' } },
     'Diamond': { tag: 'span', text: '🔹', props: { fontSize: '0.8em' }, func: () => <Icon name="BulletPoint3" style={{marginTop: `calc(0.09 * var(--inline-icon-size))`, marginRight: 0}}/> },
     'Pets and Animals': { tag: 'Link', props: { to: "/Other/PetsAndAnimals" }, text: 'Pets and Animals' },
     'Offensive Abilities': { tag: 'span', text: "Offensive means that it deals Damage or applies hard Crowd Control (anything better than Slow and creating Hard Terrain)." },

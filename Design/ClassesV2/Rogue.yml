@@ -231,6 +231,13 @@ Specs:
         Notes: |
           Lore-wise, as a Thief, you prepare and build up momentum in combat. When you reach a town, you put your preparations in motion and gain the gold. Feel free to them
 
+      ~Ambush Upgrade~:
+        A: Passive
+        IsIgnored: true
+        IconName: Ambush
+        HasUpgradeIcon: true
+        Effect: Immediately pick a Level 2 Talent, which upgrades and replaces your starting Ambush.
+
     Talents:
       Level 2 Class Talent:
 
@@ -273,7 +280,7 @@ Specs:
           Upgrade: "{KeystoneTalent}"
           Effect: |
             You have 2 Mana that replenishes inbetween Adventures and gain access to one `Magic Font$/Other/MagicFonts` of choice.
-            When you get this Talent, you can pick 2 Magic Font Spells to Know, and can get more as you would normally get extra Class Talents.
+            When you get this Talent, you can pick 2 Magic Font Spells to Know.
           Notes: You can change all these choices inbetween Adventures.
 
         <Verge of the Coin>:
@@ -282,18 +289,18 @@ Specs:
           Tags: [Ambush]
           Upgrade: "{KeystoneTalent}"
           Effect: |
-            Whenever YOU would Damage an Enemy leaving it at 10% Health or below, it dies, and you gain {Gold}Gold equal to its Maximum Health.
+            Whenever YOU would Damage a Worthy Enemy leaving it at 10% or less Health, it dies, and you gain {Gold}Gold equal to its Maximum Health.
 
         ~Shade Bend~:
           _Value : 2.5
           A: 0 Actions
-          Cooldown: Once / Combat
+          Cooldown: Once / real hour
           ScrollPower: Auto
           Tags: [Ambush]
           Upgrade: "{KeystoneTalent}"
           Effect: |
             Choose a shadow you can see.
-            You can manipulate the shape of this shadow and even extend it upward to attack for 1d6 and Deafen the target.
+            You can extend it upward to attack for 1d6 and Deafen the target, or you can manipulate and control the shape of this shadow for up to 1 minute.
           Notes: This attack is able to trigger Ambush.
 
         ~Ghost Strike~:
@@ -331,13 +338,13 @@ Specs:
             Your first weapon attack on each Unit with 50% or less Health deals +1d4 Poison Damage and Slows it.
 
         <Magestep>:
-          _Value: 1.5
+          _Value: 3
           A: 0 Actions
-          Cooldown: Once / Adventure
+          Cooldown: Once / real hour
           Effect: |
             Teleport up to 3 meters away.
             Your next attack applies your Ambush if it wouldn't normally, and all the Damage becomes Fire, Cold or Shock (your choice).
-          Downside: Doesn't work with Thief's Ambush or Sudden Ambush. The attack can Ambush even if it's the second time this Turn (or further).
+          Downside: Ambush can only trigger Once / Turn.
 
 
       Level 5 Class Talent:
@@ -347,12 +354,11 @@ Specs:
           A: Passive
           HasMixins: true
           Tags: [Crowd Control]
-          Upgrade: "{KeystoneTalent}"
           Effect: |
             When combat starts, deploy a number of Trap Wires equal to ^your {Intelligence} or {Charisma}^, anywhere on the battlefield.
             A Trap Wire is thin and up to 3 meters long, and must be deployed between 2 obstacles.
-            Units with less than 3 {Sense} can't see the Trap Wires.
             If a Unit touches a Trap Wire, it takes 1d10 Shock damage and becomes Dazed.
+          Upgrade: Units with less than 2 {Sense} can't see the Trap Wires.
           Notes: |
             Each end of the wire must be attached to something solid and static.
             You can make use of walls, obstacles, etc.
@@ -365,7 +371,7 @@ Specs:
           Tags: [Area Damage]
           Upgrade: "{KeystoneTalent}"
           Effect: |
-            Throw 8 shurikens: one towards each direction (north, north-east, east, south, etc).
+            Throw 8 shurikens: one towards each direction (north, north-east, east, etc).
             Each shuriken travels 4 meters, deals 2d6 Slash Damage to all Units it passes through, then stops in place.
             At the end of your next turn, each shuriken returns to you, dealing 2d6 Slash Damage again to all Units it passes through.
           Notes: Requires 8 Special Shuriken items, which can be bought for a total of 120 gold (or freely crafted for the same price in materials). If you're playing on a Grid, take semi-hitting into account for blades that don't travel squares exactly in the 8 directions. Cover applies normally to each blade.
@@ -395,11 +401,18 @@ Specs:
 
             {KeystoneTalent}
 
+        ~Highway Robbery~:
+          A: Passive
+          Effect: At the start of each Combat, choose a monster. All Units with the same get -1 Setback. You gain +0.5 Initiative this Combat for each (up to +3).
+
       Level 6 Class Talent:
 
         <Gold Hoard>:
           A: Passive
-          Effect: You gain various bonuses based on how much gold you are carrying.
+          Height: 45
+          Effect: |
+            You gain various bonuses based on how much gold you are carrying.
+            You gain 1000% inventory capacity.
           DoubleTable:
             Headers:
               - Gold
@@ -487,7 +500,55 @@ Specs:
           Effect: This turn, whenever you do an Act, flick a throwable and deal 2 Pierce Damage to a Unit.
           Notes: Can flick needles, small knives, shuriken, etc. Sharp Toss, when cast and when thrown, is not considered an Act.
 
+        ~King of Beggars~:
+          A: Passive
+          Effect: |
+            You are accompanied by 2 _bodyguards_, take their Turn immediately after you finish yours and automatically rush to attack Units you attacked this Turn.
+            Each has 2 Action Points which they can use for at most 1 attack per Turn.
+            You can equip them with any items, but their baseline Damage is only affected by extra Item effects and bonuses.
+            If any of them dies, you get new ones when visiting a town or city.
+          Upgrade: Whenever one of them survives Combat, it gains +1d4 Max Health permanently.
+          Monster:
+            Name: Bodyguard
+            Speed: 5 meters
+            Health: 15
+            Stats: 2/2/2/2
+            Abiliities:
+              ~Weapon Attack~:
+                A: Half-Action
+                Cooldown: Once / Turn
+                Damage: 1d4 (of the weapon type)
+                Effect: Can benefit from any of the equipped weapon's extra Damage, effects, and Abilities.
+          
         #  Talent: Traps, tripwires, thief's tools
+
+      Level 9 Class Talent:
+
+        ~Everything Has A Price~:
+          A: 0 Actions
+          Cooldown: Once / Turn
+          Effect: "... in {Gold}. Namely:"
+          DoubleTable:
+            Headers:
+              - Something
+              - Price
+            Values:
+              - 1 Action Point
+              - 150
+              - 1 Mana
+              - 125
+              - Refresh a Cooldown
+              - 200
+              - Heal 1d20
+              - 200
+              - Repeat a Stunt
+              - 250
+        
+        ~Produce Contraband~:
+          A: Passive
+          Effect: |
+            At the start of each Adventure, you produce a random Magic Item worth somewhere between 25 and 400 {Experience}Experience.
+
 
       Level 10 Class Talent:
 
@@ -502,7 +563,7 @@ Specs:
         Value Town:
           A: Passive
           Effect: |
-            When you get this Talent, gain 2500d100 Gold, +20 Initiative, and +2 {Charisma}.
+            When you get this Talent, gain 2500d100 Gold, +2 Initiative, and +2 {Charisma}.
             You automatically pass all Hard {Charisma} Checks (that require at least 15).
           RollThiefGold: true
           HasMixins: true
@@ -546,6 +607,14 @@ Specs:
         Effect: |
           Choose a point covered in shadow up to 6 meters away and teleport to it.
         Upgrade: You can use this as a Reaction when an enemy wants to attack you (before dealing the Damage). If it can't do the attack anymore, it must choose something else to do.
+
+      ~Ambush Upgrade~:
+        A: Passive
+        IsIgnored: true
+        IconName: Ambush
+        HasUpgradeIcon: true
+        Effect: Immediately pick a Level 2 Talent, which upgrades and replaces your starting Ambush.
+
 
     Talents:
 
