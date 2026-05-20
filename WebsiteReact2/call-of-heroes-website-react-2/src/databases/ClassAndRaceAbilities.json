@@ -5656,10 +5656,24 @@
         "ParentKey": "Level 4 Class Talent",
         "Origin": "Class/Rogue"
     },
-    "~Slowing Poison~": {
+    "~Poison Craft~": {
         "_Value": 1.5,
-        "A": "Passive",
-        "Effect": "Your weapons are coated in a potent poison.\nYour first weapon attack on each Unit with 50% or less Health deals +1d4 Poison Damage and Slows it.\n",
+        "IconName": "Slowing Poison",
+        "A": "5 minutes",
+        "Duration": "Rest of the Adventure",
+        "Cooldown": "Once / Adventure",
+        "Effect": "You coat each of your weapons in a potent poison.\nChoose an effect for each.\n",
+        "SingleTable": {
+            "Headers": [
+                "Effect"
+            ],
+            "Values": [
+                "+1d4 Damage against Units with 25% or less Health",
+                "+1d6 Damage against Units at 100% Health",
+                "First attack with the weapon each Combat Slows the target",
+                "Weapon's Damage Type becomes Poison, Acid, or Scourge"
+            ]
+        },
         "ParentKey": "Level 4 Class Talent",
         "Origin": "Class/Rogue"
     },
@@ -5672,35 +5686,9 @@
         "ParentKey": "Level 4 Class Talent",
         "Origin": "Class/Rogue"
     },
-    "<Trap Wires>": {
-        "_Value": 1.5,
-        "A": "Passive",
-        "HasMixins": true,
-        "Tags": [
-            "Crowd Control"
-        ],
-        "Effect": "When combat starts, deploy a number of Trap Wires equal to ^your Focus or Presence^, anywhere on the battlefield.\nA Trap Wire is thin and up to 3 meters long, and must be deployed between 2 obstacles.\nIf a Unit touches a Trap Wire, it takes 1d10 Shock damage and becomes Dazed.\n",
-        "Upgrade": "Units with less than 3 Presence can't see the Trap Wires.",
-        "Notes": "Each end of the wire must be attached to something solid and static.\nYou can make use of walls, obstacles, etc.\nRequires a Special Tripwire Set item, which can be bought for 100 gold (or freely crafted for the same price in materials).\n",
-        "ParentKey": "Level 5 Class Talent",
-        "Origin": "Class/Rogue"
-    },
-    "<Blade Tempest>": {
-        "_Value": 1.75,
-        "A": "2 Action Points",
-        "Cooldown": "Once / Adventure",
-        "Tags": [
-            "Area Damage"
-        ],
-        "Upgrade": "{KeystoneTalent}",
-        "Effect": "Throw 8 shurikens: one towards each direction (north, north-east, east, etc).\nEach shuriken travels 4 meters, deals 2d6 Slash Damage to all Units it passes through, then stops in place.\nAt the end of your next turn, each shuriken returns to you, dealing 2d6 Slash Damage again to all Units it passes through.\n",
-        "Notes": "Requires 8 Special Shuriken items, which can be bought for a total of 120 gold (or freely crafted for the same price in materials). If you're playing on a Grid, take semi-hitting into account for blades that don't travel squares exactly in the 8 directions. Cover applies normally to each blade.",
-        "HasMixins": true,
-        "ParentKey": "Level 5 Class Talent",
-        "Origin": "Class/Rogue"
-    },
     "<Moneycraft>": {
         "_Value": 1.5,
+        "Height": 25,
         "A": "1 hour",
         "HasMixins": true,
         "Tags": [
@@ -5723,14 +5711,47 @@
                 "4. +3 Initiative"
             ]
         },
-        "Upgrade": "A piece of equipment can be improved any number of times, but every extra improvement costs twice as much as its previous improvement.\n\n{KeystoneTalent}\n",
+        "Upgrade": "A piece of equipment can be improved any number of times, but every extra improvement costs twice as much as its previous improvement.\n",
+        "ParentKey": "Level 5 Class Talent",
+        "Origin": "Class/Rogue"
+    },
+    "<Trap Wires>": {
+        "_Value": 1.5,
+        "A": "Passive",
+        "HasMixins": true,
+        "Tags": [
+            "Crowd Control"
+        ],
+        "Effect": "When combat starts, deploy a number of Trap Wires equal to ^your Focus or Presence^, anywhere on the battlefield.\nA Trap Wire is thin and up to 3 meters long, and must be deployed between 2 obstacles.\nIf a Unit touches a Trap Wire, it takes 1d10 Shock damage and becomes Dazed.\n",
+        "Upgrade": "Units with less than 2 Presence can't see the Trap Wires.",
+        "Notes": "Each end of the wire must be attached to something solid and static.\nYou can make use of walls, obstacles, etc.\nRequires a Special Tripwire Set item, which can be bought for 100 gold (or freely crafted for the same price in materials).\n",
+        "ParentKey": "Level 5 Class Talent",
+        "Origin": "Class/Rogue"
+    },
+    "<Blade Tempest>": {
+        "_Value": 1.75,
+        "A": "2 Action Points",
+        "Cooldown": "Once / Adventure",
+        "Tags": [
+            "Area Damage"
+        ],
+        "Upgrade": "{KeystoneTalent}",
+        "Effect": "Throw 8 shurikens: one towards each direction (north, north-east, east, etc).\nEach shuriken travels 4 meters, deals 2d6 Slash Damage to all Units it passes through, then stops in place.\nAt the end of your next turn, each shuriken returns to you, dealing 2d6 Slash Damage again to all Units it passes through.\n",
+        "Notes": "Requires 8 Special Shuriken items, which can be bought for a total of 120 gold (or freely crafted for the same price in materials). If you're playing on a Grid, take semi-hitting into account for blades that don't travel squares exactly in the 8 directions. Cover applies normally to each blade.",
+        "HasMixins": true,
+        "ParentKey": "Level 5 Class Talent",
+        "Origin": "Class/Rogue"
+    },
+    "~Highway Robbery~": {
+        "A": "Passive",
+        "Effect": "At the start of each Combat, choose a monster. All Units with the same name get +1 Setback. You gain +0.5 Initiative this Combat for each (up to +3).",
         "ParentKey": "Level 5 Class Talent",
         "Origin": "Class/Rogue"
     },
     "<Gold Hoard>": {
         "A": "Passive",
         "Height": 45,
-        "Effect": "You gain various bonuses based on how much gold you are carrying.",
+        "Effect": "You gain various bonuses based on how much gold you are carrying.\nYou gain 1000% inventory capacity.\n",
         "DoubleTable": {
             "Headers": [
                 "Gold",
@@ -5813,12 +5834,36 @@
         "ParentKey": "Level 7 Class Talent",
         "Origin": "Class/Rogue"
     },
-    "<Spellkill>": {
-        "_Value": 4.5,
+    "~King of Beggars~": {
         "A": "Passive",
-        "Requirement": "Requires Magic Trickster",
-        "Effect": "After you Ambush, your next 1-Mana Spell this Turn costs no Mana.\n",
+        "Effect": "You are accompanied by 2 _bodyguards_, take their Turn immediately after you finish yours and automatically rush to attack Units you attacked this Turn.\nEach has 2 Action Points which they can use for at most 1 attack per Turn.\nYou can equip them with any items, but their baseline Damage is only affected by extra Item effects and bonuses.\nIf any of them dies, you get new ones when visiting a town or city.\n",
+        "Upgrade": "Whenever one of them survives Combat, it gains +1d4 Max Health permanently.",
+        "Monster": {
+            "Name": "Bodyguard",
+            "Speed": "5 meters",
+            "Health": 15,
+            "Stats": "2/2/2/2",
+            "Abiliities": {
+                "~Weapon Attack~": {
+                    "A": "1 Action Point",
+                    "Cooldown": "Once / Turn",
+                    "Damage": "1d4 (of the weapon type)",
+                    "Effect": "Can benefit from any of the equipped weapon's effects, magical or artisanal enhancements, Runes, and Abilities.",
+                    "ParentKey": "Abiliities",
+                    "Origin": "Class/Rogue"
+                }
+            }
+        },
+        "HasMixins": true,
         "ParentKey": "Level 8 Class Talent",
+        "Origin": "Class/Rogue"
+    },
+    "~Weapon Attack~": {
+        "A": "1 Action Point",
+        "Cooldown": "Once / Turn",
+        "Damage": "1d4 (of the weapon type)",
+        "Effect": "Can benefit from any of the equipped weapon's effects, magical or artisanal enhancements, Runes, and Abilities.",
+        "ParentKey": "Abiliities",
         "Origin": "Class/Rogue"
     },
     "<Sharp Toss>": {
@@ -5827,9 +5872,83 @@
         "Range": "5 meter",
         "ScrollPower": "Auto",
         "Cooldown": "Once every 2 turns",
-        "Effect": "This turn, whenever you do an Act, flick a throwable and deal 2 Pierce Damage to a Unit.",
-        "Notes": "Can flick needles, small knives, shuriken, etc. Sharp Toss, when cast and when thrown, is not considered an Act.",
+        "Effect": "This turn, whenever you do an Act, flick a throwable and deal 1d4 Pierce Damage to a Unit.",
+        "Notes": "Can flick needles, small knives, shuriken, etc. When thrown, is not considered an Act, and the cast itself does not trigger a flick.",
         "ParentKey": "Level 8 Class Talent",
+        "Origin": "Class/Rogue"
+    },
+    "~What Sorcery~": {
+        "_Value": 4,
+        "Bonuses": {
+            "Mana": 2,
+            "Max Mana": 2
+        },
+        "A": "Passive",
+        "Effect": "Your non-Rogue Abilities can trigger your chosen Ambush. If they hit multiple Units, each may take Ambush Damage if it matches the conditions.\nYou gain +2 Max Mana.\n",
+        "ParentKey": "Level 8 Class Talent",
+        "Origin": "Class/Rogue"
+    },
+    "~Everything Has A Price~": {
+        "A": "0 Action Points",
+        "Cooldown": "Once / Turn",
+        "Effect": "... in {Gold}Gold. Namely:",
+        "DoubleTable": {
+            "Headers": [
+                "Something",
+                "Price"
+            ],
+            "Values": [
+                "1 Mana",
+                "150",
+                "1 Action Point",
+                "200",
+                "Refresh a Cooldown",
+                "200",
+                "Heal 1d20",
+                "200",
+                "Repeat a Stunt",
+                "250"
+            ]
+        },
+        "Upgrade": "You may apply any of these to an ally instead of yourself, but the price is increased by 50%.",
+        "HasMixins": true,
+        "ParentKey": "Level 9 Class Talent",
+        "Origin": "Class/Rogue"
+    },
+    "~Larceny~": {
+        "A": "1 Action Point",
+        "Cooldown": "Once / Worthy Combat",
+        "Range": "1 meter",
+        "Effect": "Make a Instinct Check against a Worthy Unit's Instinct Check. If you succeed, permanently steal a random Stat or Attribute from it:\n",
+        "DoubleTable": {
+            "Values": [
+                "1. 1 Might",
+                "2. 1 Instinct",
+                "3. 1 Focus",
+                "4. 1 Presence",
+                "5. 2 Max Health",
+                "6. 1 Health Regen",
+                "7. 0.5 Movement Speed",
+                "8. 0.5 Initiative"
+            ]
+        },
+        "Notes": "Stealing Health Regen from a Unit that doesn't have Health Regen reduces its Max Health by twice that amount instead. If stealing Initiative from a monster, its Setback increases by 1 instead.",
+        "ParentKey": "Level 9 Class Talent",
+        "Origin": "Class/Rogue"
+    },
+    "~Produce Contraband~": {
+        "A": "Passive",
+        "Effect": "At the start of each Adventure, you produce a random Magic Item worth somewhere between 25 and 400 {Experience}Experience.\n",
+        "Notes": "The Quest Master determines what item you get and its {XP}Experience worth, which may be entirely random or based on the current situation or other factors.",
+        "HasMixins": true,
+        "ParentKey": "Level 9 Class Talent",
+        "Origin": "Class/Rogue"
+    },
+    "<Spellkill>": {
+        "_Value": 4.5,
+        "A": "Passive",
+        "Effect": "After you Ambush, your next Spell this Turn costs -1 Mana.\n",
+        "ParentKey": "Level 9 Class Talent",
         "Origin": "Class/Rogue"
     },
     "1000 Cuts": {
@@ -5842,7 +5961,7 @@
     },
     "Value Town": {
         "A": "Passive",
-        "Effect": "When you get this Talent, gain 2500d100 Gold, +20 Initiative, and +2 Presence.\nYou automatically pass all Hard Presence Checks (that require at least 15).\n",
+        "Effect": "When you get this Talent, gain 2500d100 Gold, +2 Initiative, and +2 Presence.\nYou automatically pass all Hard Presence Checks (that require at least 15).\n",
         "RollThiefGold": true,
         "HasMixins": true,
         "Downside": "This is your Heroic Class Ability and, after getting this Talent, you can no longer change your Talents inbetween Adventures.",

@@ -444,18 +444,8 @@ export default function Spell({
                     <div className="spell-green" key="EffectGreen">{ EffectGreen }</div>
                 ) }
                 { RollThiefGold != null && (
-                    <div className='spell-description'>
-                        <button style={{
-                            fontFamily: 'HomeFont',
-                            fontSize: 'var(--p-size)',
-                            background: 'none',
-                            cursor: 'pointer',
-                            border: 'solid var(--hero-text-color) 3px',
-                            borderRadius: '1em',
-                            padding: '0.5em',
-                            paddingLeft: '1em',
-                            paddingRight: '1em',
-                        }} onClick={() => setThiefRolledGoldAmount(Math.floor((randomInt(1000, 100000) + randomInt(2500, 100000) + randomInt(2500, 100000)) / 3))}>{thiefRolledGoldAmount}</button>
+                    <div className='spell-description center-content'>
+                        <button onClick={() => setThiefRolledGoldAmount(Math.floor((randomInt(1000, 100000) + randomInt(2500, 100000) + randomInt(2500, 100000)) / 3))}>{thiefRolledGoldAmount}</button>
                     </div>
                 )}
                 { Downside != null && (
@@ -495,7 +485,7 @@ export default function Spell({
                 ) }
                 { SingleTable != null && (
                     <TableNormal hasBorder={false}>
-                        { SingleTable.map(str => (
+                        { (Array.isArray(SingleTable)? SingleTable: SingleTable.Values).map(str => (
                             <tr key={str}>
                                 <td style={{textAlign: 'left', paddingLeft: '0.75rem'}}>{str}</td>
                             </tr>

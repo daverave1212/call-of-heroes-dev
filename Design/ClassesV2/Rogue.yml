@@ -330,12 +330,23 @@ Specs:
             When Worthy Combat starts, the Quest Master determines which is the most powerful enemy.
             When that enemy dies, heal an ally for 1d10 and gain {Gold}Gold equal to 1000% of the amount healed.
 
-        ~Slowing Poison~:
+        ~Poison Craft~:
           _Value: 1.5
-          A: Passive
+          IconName: Slowing Poison
+          A: 5 minutes
+          Duration: Rest of the Adventure
+          Cooldown: Once / Adventure
           Effect: |
-            Your weapons are coated in a potent poison.
-            Your first weapon attack on each Unit with 50% or less Health deals +1d4 Poison Damage and Slows it.
+            You coat each of your weapons in a potent poison.
+            Choose an effect for each.
+          SingleTable:
+            Headers:
+              - Effect
+            Values:
+              - +1d4 Damage against Units with 25% or less Health
+              - +1d6 Damage against Units at 100% Health
+              - First attack with the weapon each Combat Slows the target
+              - Weapon's Damage Type becomes Poison, Acid, or Scourge
 
         <Magestep>:
           _Value: 3
@@ -348,7 +359,31 @@ Specs:
 
 
       Level 5 Class Talent:
-        
+
+        <Moneycraft>:
+          _Value: 1.5
+          Height: 25
+          A: 1 hour
+          HasMixins: true
+          Tags: [Gold]
+          Effect: |
+            Spend 400 {Gold}Gold to permanently improve a piece of equipment. Depending on its type (armor or weapon), roll on the table below to determine the effect you get.
+          DoubleTable:
+            Headers:
+              - Weapon
+              - Equipment
+            Values:
+              - 1. +1 Damage (+2 if 2-Handed)
+              - 1. +2 Maximum Health
+              - 2. +1 Range
+              - 2. +1 Movement Speed
+              - 3. +1 Rune Slot
+              - 3. +1 Health Regen
+              - 4. Upgrade one die of choice
+              - 4. +3 Initiative
+          Upgrade: |
+            A piece of equipment can be improved any number of times, but every extra improvement costs twice as much as its previous improvement.
+
         <Trap Wires>:
           _Value: 1.5
           A: Passive
@@ -376,34 +411,10 @@ Specs:
             At the end of your next turn, each shuriken returns to you, dealing 2d6 Slash Damage again to all Units it passes through.
           Notes: Requires 8 Special Shuriken items, which can be bought for a total of 120 gold (or freely crafted for the same price in materials). If you're playing on a Grid, take semi-hitting into account for blades that don't travel squares exactly in the 8 directions. Cover applies normally to each blade.
 
-        <Moneycraft>:
-          _Value: 1.5
-          A: 1 hour
-          HasMixins: true
-          Tags: [Gold]
-          Effect: |
-            Spend 400 {Gold}Gold to permanently improve a piece of equipment. Depending on its type (armor or weapon), roll on the table below to determine the effect you get.
-          DoubleTable:
-            Headers:
-              - Weapon
-              - Equipment
-            Values:
-              - 1. +1 Damage (+2 if 2-Handed)
-              - 1. +2 Maximum Health
-              - 2. +1 Range
-              - 2. +1 Movement Speed
-              - 3. +1 Rune Slot
-              - 3. +1 Health Regen
-              - 4. Upgrade one die of choice
-              - 4. +3 Initiative
-          Upgrade: |
-            A piece of equipment can be improved any number of times, but every extra improvement costs twice as much as its previous improvement.
-
-            {KeystoneTalent}
 
         ~Highway Robbery~:
           A: Passive
-          Effect: At the start of each Combat, choose a monster. All Units with the same get -1 Setback. You gain +0.5 Initiative this Combat for each (up to +3).
+          Effect: At the start of each Combat, choose a monster. All Units with the same name get +1 Setback. You gain +0.5 Initiative this Combat for each (up to +3).
 
       Level 6 Class Talent:
 
@@ -484,22 +495,6 @@ Specs:
 
       Level 8 Class Talent:
 
-        <Spellkill>:
-          _Value: 4.5
-          A: Passive
-          Requirement: Requires Magic Trickster
-          Effect: |
-            After you Ambush, your next 1-Mana Spell this Turn costs no Mana.
-
-        <Sharp Toss>:
-          _Value: 6
-          A: 0 Actions
-          Range: 5 meter
-          ScrollPower: Auto
-          Cooldown: Once every 2 turns
-          Effect: This turn, whenever you do an Act, flick a throwable and deal 2 Pierce Damage to a Unit.
-          Notes: Can flick needles, small knives, shuriken, etc. Sharp Toss, when cast and when thrown, is not considered an Act.
-
         ~King of Beggars~:
           A: Passive
           Effect: |
@@ -518,8 +513,26 @@ Specs:
                 A: Half-Action
                 Cooldown: Once / Turn
                 Damage: 1d4 (of the weapon type)
-                Effect: Can benefit from any of the equipped weapon's extra Damage, effects, and Abilities.
+                Effect: Can benefit from any of the equipped weapon's effects, magical or artisanal enhancements, Runes, and Abilities.
           
+        <Sharp Toss>:
+          _Value: 6
+          A: 0 Actions
+          Range: 5 meter
+          ScrollPower: Auto
+          Cooldown: Once every 2 turns
+          Effect: This turn, whenever you do an Act, flick a throwable and deal 1d4 Pierce Damage to a Unit.
+          Notes: Can flick needles, small knives, shuriken, etc. When thrown, is not considered an Act, and the cast itself does not trigger a flick.
+
+        ~What Sorcery~:
+          _Value: 4 # 2 Mana default + 2 more from crazy AoE-ing
+          Bonuses:
+            Mana: 2
+            Max Mana: 2
+          A: Passive
+          Effect: |
+            Your non-Rogue Abilities can trigger your chosen Ambush. If they hit multiple Units, each may take Ambush Damage if it matches the conditions.
+            You gain +2 Max Mana.
         #  Talent: Traps, tripwires, thief's tools
 
       Level 9 Class Talent:
@@ -527,28 +540,54 @@ Specs:
         ~Everything Has A Price~:
           A: 0 Actions
           Cooldown: Once / Turn
-          Effect: "... in {Gold}. Namely:"
+          Effect: "... in {Gold}Gold. Namely:"
           DoubleTable:
             Headers:
               - Something
               - Price
             Values:
-              - 1 Action Point
-              - 150
               - 1 Mana
-              - 125
+              - "150"
+              - 1 Action Point
+              - "200"
               - Refresh a Cooldown
-              - 200
+              - "200"
               - Heal 1d20
-              - 200
+              - "200"
               - Repeat a Stunt
-              - 250
+              - "250"
+          Upgrade: You may apply any of these to an ally instead of yourself, but the price is increased by 50%.
+
+        ~Larceny~:
+          A: Half-Action
+          Cooldown: Once / Worthy Combat
+          Range: 1 meter
+          Effect: |
+            Make a {Dexterity} Check against a Worthy Unit's {Dexterity} Check. If you succeed, permanently steal a random Stat or Attribute from it:
+          DoubleTable:
+            Values:
+              - 1. 1 {Might}
+              - 2. 1 {Dexterity}
+              - 3. 1 {Intelligence}
+              - 4. 1 {Charisma}
+              - 5. 2 Max Health
+              - 6. 1 Health Regen
+              - 7. 0.5 Movement Speed
+              - 8. 0.5 Initiative
+          Notes: Stealing Health Regen from a Unit that doesn't have Health Regen reduces its Max Health by twice that amount instead. If stealing Initiative from a monster, its Setback increases by 1 instead.
         
         ~Produce Contraband~:
           A: Passive
           Effect: |
             At the start of each Adventure, you produce a random Magic Item worth somewhere between 25 and 400 {Experience}Experience.
+          Notes: The Quest Master determines what item you get and its {XP}Experience worth, which may be entirely random or based on the current situation or other factors.
 
+
+        <Spellkill>:
+          _Value: 4.5
+          A: Passive
+          Effect: |
+            After you Ambush, your next Spell this Turn costs -1 Mana.
 
       Level 10 Class Talent:
 
