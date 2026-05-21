@@ -606,6 +606,10 @@ export function getActionPointsByA(A, options={
     return options[A]
 }
 export function getMonsterTotalXP(monster) {
+    if (monster == null) {
+        console.error(`WARNING: null monster given to getMonsterTotalXP!`)
+        return 100
+    }
     const [monsterTotalXP] = splitByNumbers(monster?.Experience ?? '0')
     return monsterTotalXP
 }
@@ -2316,6 +2320,9 @@ export function isStringOnlySpaces(str) {
     return /^ *$/.test(str)
 }
 export function getPageHashFromLocation(location) {       // Use 'const location = useLocation()' in a component to get location (from 'react-router-dom')
+    if (location == null) {
+        return ''
+    }
     const decodedHash = decodeURIComponent(location.hash)
     if (decodedHash == null || decodedHash.length == 0)
         return ''

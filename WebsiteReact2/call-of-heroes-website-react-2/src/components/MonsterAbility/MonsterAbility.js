@@ -145,7 +145,7 @@ export default function MonsterAbility({monster, monsterXP, ability, isPassive, 
     function getAbilityBodyDiv() {
         if (abilityBody == 'QuickAuto' || (abilityBody == 'Auto' && name == 'Quick Attack')) {
             const diceDamage = getQuickAttackDamage()
-            return <p><Icon name="Damage" style={{marginTop: '2px'}}/> <span className='monster-ability_effect-desc'>{ diceDamage }</span></p>
+            return <p><Icon name="Damage" style={{marginTop: '2px'}}/> <span className='monster-ability__effect-desc'>{ diceDamage }</span></p>
         }
         if (U.isString(abilityBody)) {
             return <AbilityEffect>{ U.parseTextWithSymbols(abilityBody, CUSTOM_MONSTER_SYMBOLS, CUSTOM_MONSTER_FUNCTION_SYMBOLS) }</AbilityEffect>
@@ -165,7 +165,7 @@ export default function MonsterAbility({monster, monsterXP, ability, isPassive, 
         return (
             <div className={`flex column gap-half`} style={{paddingTop: '0.25rem'}}>
                 { abilityBody.Damage && (
-                    <p><Icon name="Damage" style={{marginTop: '2px'}}/> <span className='monster-ability_effect-desc'>{ Damage }</span></p>
+                    <p><Icon name="Damage" style={{marginTop: '2px'}}/> <span className='monster-ability__effect-desc'>{ Damage }</span></p>
                 ) }
                 { abilityBody.Effect && (
                     <AbilityEffect>{ Effect }</AbilityEffect>

@@ -19,6 +19,14 @@ export default function() {
 
   const [featureToDisplay, setFeatureToDisplay] = useState(null)
 
+  function BoldPurple({ children }) {
+    return <span style={{fontWeight: 'bold', color: 'var(--theme-color-darker)'}}>{children}</span>
+  }
+  function Feature({ children, name }) {
+    const featureName = name ?? children
+    return <b className="advantages-feature" onClick={() => setFeatureToDisplay(featureName)}>{children}</b>
+  }
+
   return (
     <div>
 
@@ -43,8 +51,9 @@ export default function() {
         <div className='hero-content'>
           <img className='hero-logo-img' src='/LandingPage/QuestGuardLogo.png'/>
           <p className='home-text-style' style={{textAlign: 'center'}}>
-            QuestGuard is a tactical RPG that plays like a fighting game.<br/>
-            Speedrun boss fights, stack combos, and break the game in an RPG build for today's generation.
+            A TTRPG alternative that plays like a tactical video game:<br/>
+            <BoldPurple>Fast</BoldPurple>, <BoldPurple>quirky</BoldPurple>, and surprisingly easy (<BoldPurple>to break the game</BoldPurple>)!
+            {/* Speedrun boss fights, stack combos, and break the game in an RPG build for today's generation. */}
           </p>
           
           <HeroButton href="#Home-Advantages">
@@ -68,24 +77,25 @@ export default function() {
             width: '60%'
           }}/>
           <p className='home-text-style'>
-            QuestGuard plays like a tactical video game: clean, deep and dangerously fun!
+            Here's what to look out for:
           </p>
           <ul className='index-advantages-ul-large'>
-            <li><Icon name="BulletPoint3"/>Gamified for GM's (<b className="advantages-feature" onClick={() => setFeatureToDisplay('Adventures')}>Adventures</b>, <b className="advantages-feature" onClick={() => setFeatureToDisplay('Worthiness')}>Worthiness</b>)</li>
+            <li><Icon name="BulletPoint3"/>Gamification begins: <Feature>Farming</Feature>, <Feature>Worthiness</Feature>!</li>
+            <li><Icon name="BulletPoint3"/>No <Feature name="Adventures">resting</Feature>, no roll-to-hit, no <Feature>Saves</Feature>, no <Feature>Mana</Feature> levels</li>
             <li><Icon name="BulletPoint3"/>Game-breaking builds (<b className="advantages-feature" onClick={() => setFeatureToDisplay('Abilities')}>Abilities</b>, <b className="advantages-feature" onClick={() => setFeatureToDisplay('Talents')}>Talents</b>, <b className="advantages-feature" onClick={() => setFeatureToDisplay('Respec')}>Respec</b>)</li>
-            <li><Icon name="BulletPoint3"/><b className="advantages-feature" onClick={() => setFeatureToDisplay('Farming')}>Farming</b> and <b className="advantages-feature" onClick={() => setFeatureToDisplay('Player Quirks')}>Player Quirks</b></li>
+            <li><Icon name="BulletPoint3"/>Personal growth with <Feature name="Player Quirks">Quirks</Feature> and <Feature>Plot Points</Feature></li>
             <li><Icon name="BulletPoint3"/>Clarity, feedback, community, online updates</li>
             <li><Icon name="BulletPoint3"/>Optimized for online play and accessibility</li>
           </ul>
           <ul className='index-advantages-ul-small'>
-            <li><Icon name="BulletPoint3"/>RPG for this generation</li>
-            <li><Icon name="BulletPoint3"/>Gamified for GM's</li>
-            <li><Icon name="BulletPoint3"/>Rebuild easily, fight fast</li>
-            <li><Icon name="BulletPoint3"/>Farm mobs and gain Quirks</li>
+            <li><Icon name="BulletPoint3"/>Gamification: Farming and Worthiness</li>
+            <li><Icon name="BulletPoint3"/>No rests, no roll-to-hit, no saves... </li>
+            <li><Icon name="BulletPoint3"/>Rebuild easily, break the game</li>
+            <li><Icon name="BulletPoint3"/>Gain Quirks and Plot Points</li>
             <li><Icon name="BulletPoint3"/>Clarity, feedback, open community</li>
           </ul>
           <HeroButton>
-            <Link to="/Other/Learn">Learn To Play!</Link>
+            <Link to="/Other/Learn#Transition-Guide">Learn To Play!</Link>
           </HeroButton>
         </div>
 
