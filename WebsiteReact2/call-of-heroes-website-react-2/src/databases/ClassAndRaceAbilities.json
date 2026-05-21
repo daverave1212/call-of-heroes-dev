@@ -5413,6 +5413,21 @@
         "ParentKey": "Level 10 Class Talent",
         "Origin": "Class/Cleric"
     },
+    "~Hamorrhage~": {
+        "A": "0 Action Points",
+        "Effect": "This Turn, you deal -100% Damage.\nHowever, all Damage you would have done is instead applied to the enemy as a delayed _wound_.\nThe next time it takes Damage, it also takes all the _wound_ Damage.\n",
+        "HasMixins": true,
+        "ParentKey": "Ideas",
+        "Origin": "Class/Rogue"
+    },
+    "~Dust of Appearance~": {
+        "A": "1 Action Point",
+        "Cooldown": "Once / Combat",
+        "Effect": "Mark a Unit with _dust of appearance_.\nOther allies deal +10% Damage with all attacks against the marked Unit.\n",
+        "HasMixins": true,
+        "ParentKey": "Ideas",
+        "Origin": "Class/Rogue"
+    },
     "~Hidden in Plain Sight~": {
         "Effect": "In the first round of every combat, enemies can't target you with attacks or Abilities.",
         "ParentKey": "Ideas",
@@ -5509,16 +5524,6 @@
         "ParentKey": "Ability Choices",
         "Origin": "Class/Rogue"
     },
-    "~Gladiator Grandeur~": {
-        "A": "1 Action Point",
-        "Cooldown": "Once / Combat",
-        "Degree": "Minor",
-        "Effect": "Push a Worthy Enemy 1 meter in any direction. Gain {Gold}Gold equal to the enemy's Experience Worth.\n",
-        "Upgrade": "Epic Monsters award {Gold}Gold equal to their Experience Worth / Epic Grade.",
-        "HasMixins": true,
-        "ParentKey": "Other Abilities",
-        "Origin": "Class/Rogue"
-    },
     "~Creeping Ambush~": {
         "A": "Passive",
         "Effect": "Insted of dealing Damage to the same target with Ambush, you can deal it to another Unit you can see.",
@@ -5531,6 +5536,23 @@
             "Lockpicking": 3
         },
         "Effect": "While you have this Talent you have +3 in Lockpicking, may attempt each Lockpicking Roll again if you fail, and rolling Events on Lockpicking does nothing.\n",
+        "ParentKey": "Other Abilities",
+        "Origin": "Class/Rogue"
+    },
+    "~Gladiator Grandeur~": {
+        "A": "1 Action Point",
+        "Cooldown": "Once / Combat",
+        "Degree": "Minor",
+        "Effect": "Push a Worthy Enemy 1 meter in any direction. Gain {Gold}Gold equal to the enemy's Experience Worth.\n",
+        "Upgrade": "Epic Monsters award {Gold}Gold equal to their Experience Worth / Epic Grade.",
+        "HasMixins": true,
+        "ParentKey": "Other Abilities",
+        "Origin": "Class/Rogue"
+    },
+    "~Hemorrhage~": {
+        "A": "0 Action Points",
+        "Effect": "Use after dealing Damage. Deal -100% Damage. However, all Damage you would have done instead becomes a delayed _wound_ on the target.\nThe next time it takes Damage, it takes extra Damage equal to the _wound_.\n",
+        "HasMixins": true,
         "ParentKey": "Other Abilities",
         "Origin": "Class/Rogue"
     },
@@ -5668,8 +5690,8 @@
                 "Effect"
             ],
             "Values": [
-                "+1d4 Damage against Units with 25% or less Health",
-                "+1d6 Damage against Units at 100% Health",
+                "+1 Damage against Units with 25% or less Health",
+                "+1d4 Damage against Units at 100% Health",
                 "First attack with the weapon each Combat Slows the target",
                 "Weapon's Damage Type becomes Poison, Acid, or Scourge"
             ]
@@ -6042,13 +6064,6 @@
         "ParentKey": "Level 3 Class Talent",
         "Origin": "Class/Rogue"
     },
-    "<One Turn Kill>": {
-        "_Value": 1.35,
-        "A": "Passive",
-        "Effect": "Whenever you take a Worthy Enemy from 50% (or more) to 0% Health in one Turn, heal for 1d8 and reset all your Cooldowns.",
-        "ParentKey": "Level 4 Class Talent",
-        "Origin": "Class/Rogue"
-    },
     "<Cutting Verve>": {
         "_Value": 2,
         "HasMixins": true,
@@ -6065,12 +6080,18 @@
         "ParentKey": "Level 4 Class Talent",
         "Origin": "Class/Rogue"
     },
+    "<Displacemental Ambush>": {
+        "A": "Passive",
+        "Effect": "After you Ambush, Slam the target 1d4 meters for each time you moved from place this Turn.\n",
+        "ParentKey": "Level 4 Class Talent",
+        "Origin": "Class/Rogue"
+    },
     "<Take-Out Shadowpass>": {
         "A": "0 Action Points or Reaction",
         "HasMixins": true,
         "Cooldown": "1 hour",
-        "Effect": "Choose a point covered in shadow up to 6 meters away and teleport to it.\n~Your next attack within 1 minute makes the attack's target roll a Might Check against the Damage done. If it fails, it becomes put to Sleep for 1 minute.~\n",
-        "Upgrade": "You can use this as a Reaction when an enemy wants to attack you (before dealing the Damage). If it can't do the attack anymore, it must choose something else to do.\n~Epic monsters are instead Triple-Stunned for 1 Turn.~\n",
+        "Effect": "Choose a point covered in shadow up to 6 meters away and teleport to it.\n~Your next attack within 1 minute makes the target roll a Might Check against the Damage done. If it fails, it becomes put to Sleep for 1 minute.~\n",
+        "Upgrade": "You can decide to do 0 Damage, and the Check difficulty becomes 5 + ^your Focus^\nYou can use this as a Reaction when an enemy wants to attack you (before dealing the Damage). If it can't do the attack anymore, it must choose something else to do.\n~Epic monsters are instead Double-Stunned for 1 Turn.~\n",
         "ParentKey": "Level 5 Class Talent",
         "Origin": "Class/Rogue"
     },
@@ -6080,15 +6101,6 @@
         "Effect": "Open a 5x5 meter maw of shadows on the ground.\nAll Units caught take 3d6 Psychic Damage.\nThe shadow maw is completely dark and disorientig - if a Unit starts its Turn in the maw, it must begin by making a Move Act in a random direction.\n",
         "Upgrade": "Single-target attacks have no line of sight from, to and through the maw, and everything else has Cover.",
         "ParentKey": "Level 5 Class Talent",
-        "Origin": "Class/Rogue"
-    },
-    "<Planned Assassination>": {
-        "_Value": 2,
-        "A": "Special",
-        "Cooldown": "Once / Adventure",
-        "Requirement": "Only usable out of Combat",
-        "Effect": "Name a specific Epic Unit, or a non-Epic Unit type.\nNext Combat, your Ambushes deal +100% Damage against the named Unit or Unit Type.\n",
-        "ParentKey": "Level 6 Class Talent",
         "Origin": "Class/Rogue"
     },
     "<Blade Verge>": {
@@ -6108,10 +6120,56 @@
         "ParentKey": "Level 6 Class Talent",
         "Origin": "Class/Rogue"
     },
+    "<One Turn Kill>": {
+        "_Value": 1.35,
+        "A": "Passive",
+        "Effect": "Whenever you take a Worthy Enemy from 50% (or more) to 0% Health in one Turn, heal for 1d8 and reset all your Cooldowns (including Ambush).",
+        "ParentKey": "Level 6 Class Talent",
+        "Origin": "Class/Rogue"
+    },
+    "~Stalking Prey~": {
+        "_Value": 0,
+        "IconName": "Stalking",
+        "Replacement": "Replaces Stalking",
+        "HasUpgradeIcon": true,
+        "A": "Special",
+        "Effect": "~In~ Combat, you can start your Turn whenever you like (even during other Units' turns), and make a free Move Act ~every Turn~.\n~You take -50% Damage from all sources if you haven't taken Damage this Round.~\n",
+        "Upgrade": "You do count as a Hero Turn toward monsters' Setback, and so perhaps more monsters will take their Turn after you.",
+        "Notes": "If you interrupted an Ally's Turn, monsters may take their Turn immediately after you if their Setback is enough. Then the Ally can resume their Turn.\nIf you want to start during an enemy's Turn, you do so when they declare they want to do something or after they finish doing something.\n",
+        "HasMixins": true,
+        "ParentKey": "Level 6 Class Talent",
+        "Origin": "Class/Rogue"
+    },
     "<Ambushing Shadowpass>": {
         "A": "Passive",
         "Effect": "After you Shadowpass, your first Damaging Attack or Spell that turn deals +1d6 Damage.",
         "ParentKey": "Level 7 Class Talent",
+        "Origin": "Class/Rogue"
+    },
+    "~No Blinking~": {
+        "_Value": 2,
+        "A": "Passive",
+        "Effect": "Whenever you would kill a Unit from 90% or more Health in the same Turn, your next attack deals extra Damage equal to 50% of the recently killed Unit's Max Health.",
+        "ParentKey": "Level 8 Class Talent",
+        "Origin": "Class/Rogue"
+    },
+    "<Planned Assassination>": {
+        "_Value": 3,
+        "A": "Special",
+        "Cooldown": "Once / Adventure",
+        "Requirement": "Only usable out of Combat",
+        "Effect": "Name a Unit.\nNext Combat, your Ambushes deal +150% Damage against Units with that name.\n",
+        "Notes": "A Unit counts as having the same name if it's base name is the same (works against higher-Level versions of the same Enemy).",
+        "ParentKey": "Level 8 Class Talent",
+        "Origin": "Class/Rogue"
+    },
+    "~Garrote~": {
+        "A": "0 Action Points",
+        "Cooldown": "1 hour",
+        "Requirement": "Only usable in first Round of Combat",
+        "Effect": "Freely Shadowpass behind any Unit on the battlefield and Triple-Stun it.\n",
+        "Upgrade": "When used outside Combat, you can Shadowpass behind a Unit within 15 meters.",
+        "ParentKey": "Level 8 Class Talent",
         "Origin": "Class/Rogue"
     },
     "<Finale>": {
@@ -6131,10 +6189,25 @@
         "ParentKey": "Level 9 Class Talent",
         "Origin": "Class/Rogue"
     },
+    "<Sanguinity>": {
+        "_Value": 4.5,
+        "A": "Passive",
+        "Effect": "All Healing and Shielding you do increases by 100%. When Healing a Unit that's not at 100% Health already, your next Ambush deals extra Damage equal to the overheal amount.",
+        "Notes": "If the target was at 46/50 Health, and you heal for 15, your next Ambush deals +11 Damage.",
+        "ParentKey": "Level 9 Class Talent",
+        "Origin": "Class/Rogue"
+    },
+    "~Fan of Blades~": {
+        "A": "Passive",
+        "Effect": "Whenever you Ambush, deal the extra Ambush Damage to all Enemies within 2 meters of the main target.",
+        "ParentKey": "Level 9 Class Talent",
+        "Origin": "Class/Rogue"
+    },
     "Death": {
         "A": "2 Action Points",
-        "Cooldown": "1 hour",
-        "Effect": "Roll a Instinct or Might Check at least equal to a person's Might Check to deal 95d10 Damage to them. If they die, gain +2 Skill Points.\nAlso, passively, you gain +2 Instinct.\n",
+        "Cooldown": "Once / Adventure",
+        "Range": "2 meters",
+        "Effect": "Deal 95d10 Damage to a Unit. If they die, gain +2 Skill Points.\nAlso, passively, you gain +3 Instinct.\n",
         "HasMixins": true,
         "Downside": "This is your Heroic Class Ability and, after getting this Talent, you can no longer change your Talents inbetween Adventures.",
         "ParentKey": "Level 10 Class Talent",

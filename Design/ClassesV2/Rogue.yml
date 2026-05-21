@@ -43,6 +43,21 @@ Spellcasting:
 
 Ideas:
 
+  ~Hamorrhage~:
+    A: 0 Actions
+    Effect: |
+      This Turn, you deal -100% Damage.
+      However, all Damage you would have done is instead applied to the enemy as a delayed _wound_.
+      The next time it takes Damage, it also takes all the _wound_ Damage.
+  
+  ~Dust of Appearance~:
+    A: Half-Action
+    Cooldown: Once / Combat
+    Effect: |
+      Mark a Unit with _dust of appearance_.
+      Other allies deal +10% Damage with all attacks against the marked Unit.
+
+
   ~Hidden in Plain Sight~:
     Effect: In the first round of every combat, enemies can't target you with attacks or Abilities.
 
@@ -162,13 +177,6 @@ Other Abilities:
             You leap from Unit to Unit until you no longer land on a Unit. If you land on a Unit, you must leap again. You can't leap on the same Unit twice; if you do, you end your leap in the closest space near it.
             You can use this even while in the air and it cancels out your current fall or acceleration.            
 
-    ~Gladiator Grandeur~:
-        A: Half-Action
-        Cooldown: Once / Combat
-        Degree: Minor
-        Effect: |
-            Push a Worthy Enemy 1 meter in any direction. Gain {Gold}Gold equal to the enemy's Experience Worth.
-        Upgrade: Epic Monsters award {Gold}Gold equal to their Experience Worth / Epic Grade.
 
     ~Creeping Ambush~:
       A: Passive
@@ -180,6 +188,20 @@ Other Abilities:
         Lockpicking: 3
       Effect: |
         While you have this Talent you have +3 in Lockpicking, may attempt each Lockpicking Roll again if you fail, and rolling Events on Lockpicking does nothing.
+
+    ~Gladiator Grandeur~:
+        A: Half-Action
+        Cooldown: Once / Combat
+        Degree: Minor
+        Effect: |
+            Push a Worthy Enemy 1 meter in any direction. Gain {Gold}Gold equal to the enemy's Experience Worth.
+        Upgrade: Epic Monsters award {Gold}Gold equal to their Experience Worth / Epic Grade.
+
+    ~Hemorrhage~:
+      A: 0 Actions
+      Effect: |
+        Use after dealing Damage. Deal -100% Damage. However, all Damage you would have done instead becomes a delayed _wound_ on the target.
+        The next time it takes Damage, it takes extra Damage equal to the _wound_.
 
 
 # One ambush = 1
@@ -343,8 +365,8 @@ Specs:
             Headers:
               - Effect
             Values:
-              - +1d4 Damage against Units with 25% or less Health
-              - +1d6 Damage against Units at 100% Health
+              - +1 Damage against Units with 25% or less Health
+              - +1d4 Damage against Units at 100% Health
               - First attack with the weapon each Combat Slows the target
               - Weapon's Damage Type becomes Poison, Acid, or Scourge
 
@@ -727,11 +749,6 @@ Specs:
 
       Level 4 Class Talent:
 
-        <One Turn Kill>:
-          _Value: 1.35
-          A: Passive
-          Effect: Whenever you take a Worthy Enemy from 50% (or more) to 0% Health in one Turn, heal for 1d8 and reset all your Cooldowns.
-
         <Cutting Verve>:
           _Value: 2
           HasMixins: true
@@ -746,6 +763,13 @@ Specs:
           Effect: |
             When Ambushing a Unit, if there is no other Unit near it (except you), the target becomes Dazed.
 
+        <Displacemental Ambush>:
+          A: Passive
+          Effect: |
+            After you Ambush, Slam the target 1d4 meters for each time you moved from place this Turn.
+
+        ~Poison Craft~: Inherit
+
       Level 5 Class Talent:
 
         <Take-Out Shadowpass>:
@@ -754,10 +778,11 @@ Specs:
           Cooldown: 1 hour
           Effect: |
             Choose a point covered in shadow up to 6 meters away and teleport to it.
-            ~Your next attack within 1 minute makes the attack's target roll a {Might} Check against the Damage done. If it fails, it becomes put to Sleep for 1 minute.~
+            ~Your next attack within 1 minute makes the target roll a {Might} Check against the Damage done. If it fails, it becomes put to Sleep for 1 minute.~
           Upgrade: |
+            You can decide to do 0 Damage, and the Check difficulty becomes 5 + ^your {Intelligence}^
             You can use this as a Reaction when an enemy wants to attack you (before dealing the Damage). If it can't do the attack anymore, it must choose something else to do.
-            ~Epic monsters are instead Triple-Stunned for 1 Turn.~
+            ~Epic monsters are instead Double-Stunned for 1 Turn.~
       
         <Blade Tempest>: Inherit
 
@@ -782,15 +807,6 @@ Specs:
 
       Level 6 Class Talent:
 
-        <Planned Assassination>:
-          _Value: 2
-          A: Special
-          Cooldown: Once / Adventure
-          Requirement: Only usable out of Combat
-          Effect: |
-            Name a specific Epic Unit, or a non-Epic Unit type.
-            Next Combat, your Ambushes deal +100% Damage against the named Unit or Unit Type.
-
         <Blade Verge>:
           _Value: 2
           A: Passive
@@ -803,6 +819,26 @@ Specs:
           Requirement: Only usable until the end of the next Turn after you Shadowpass
           Effect: Immediately Shadowpass back to where you last Shadowpassed from (to the original position from which you Shadowpassed), then become invisible until the start of your next Turn (or for 6 seconds). Also, passively, you can use Shadowpass to teleport an ally instead of yourself.
           Notes: This special Shadowpass doesn't retrigger Shadowlayers, but is improved by any Shadowpass upgrades and effects you have.
+
+        <One Turn Kill>:
+          _Value: 1.35
+          A: Passive
+          Effect: Whenever you take a Worthy Enemy from 50% (or more) to 0% Health in one Turn, heal for 1d8 and reset all your Cooldowns (including Ambush).
+
+        ~Stalking Prey~:       # Ok
+          _Value: 0
+          IconName: Stalking
+          Replacement: Replaces Stalking
+          HasUpgradeIcon: true
+          A: Special
+          Effect: |
+            ~In~ Combat, you can start your Turn whenever you like (even during other Units' turns), and make a free Move Act ~every Turn~.
+            ~You take -50% Damage from all sources if you haven't taken Damage this Round.~
+          Upgrade: You do count as a Hero Turn toward monsters' Setback, and so perhaps more monsters will take their Turn after you.
+          Notes: |
+            If you interrupted an Ally's Turn, monsters may take their Turn immediately after you if their Setback is enough. Then the Ally can resume their Turn.
+            If you want to start during an enemy's Turn, you do so when they declare they want to do something or after they finish doing something.
+        
 
       Level 7 Class Talent:
 
@@ -828,7 +864,30 @@ Specs:
       Level 8 Class Talent:
 
         <Sharp Toss>: Inherit
-        
+
+        ~No Blinking~:
+          _Value: 2
+          A: Passive
+          Effect: Whenever you would kill a Unit from 90% or more Health in the same Turn, your next attack deals extra Damage equal to 50% of the recently killed Unit's Max Health.
+
+        <Planned Assassination>:
+          _Value: 3
+          A: Special
+          Cooldown: Once / Adventure
+          Requirement: Only usable out of Combat
+          Effect: |
+            Name a Unit.
+            Next Combat, your Ambushes deal +150% Damage against Units with that name.
+          Notes: A Unit counts as having the same name if it's base name is the same (works against higher-Level versions of the same Enemy).
+
+        ~Garrote~:
+          A: 0 Action Points
+          Cooldown: 1 hour
+          Requirement: Only usable in first Round of Combat
+          Effect: |
+            Freely Shadowpass behind any Unit on the battlefield and Triple-Stun it.
+          Upgrade: When used outside Combat, you can Shadowpass behind a Unit within 15 meters.
+
       Level 9 Class Talent:
 
         <Finale>:
@@ -847,6 +906,16 @@ Specs:
             Whenever you Ambush a Worthy Enemy, roll a {Dexterity} Check at least equal to ^target's total Stats sum^ to increase the Ambush dice Damage by 50%.
             If you fail, your next Check this Adventure increases by 50%.
   
+        <Sanguinity>:
+          _Value: 4.5
+          A: Passive
+          Effect: All Healing and Shielding you do increases by 100%. When Healing a Unit that's not at 100% Health already, your next Ambush deals extra Damage equal to the overheal amount.
+          Notes: If the target was at 46/50 Health, and you heal for 15, your next Ambush deals +11 Damage.
+
+        ~Fan of Blades~:
+          A: Passive
+          Effect: Whenever you Ambush, deal the extra Ambush Damage to all Enemies within 2 meters of the main target.
+
       Level 10 Class Talent:
       
         "1000 Cuts":
@@ -859,10 +928,11 @@ Specs:
 
         Death:
           A: 1 Action
-          Cooldown: 1 hour
+          Cooldown: Once / Adventure
+          Range: 2 meters
           Effect: |
-            Roll a {Dexterity} or {Might} Check at least equal to a person's {Might} Check to deal 95d10 Damage to them. If they die, gain +2 Skill Points.
-            Also, passively, you gain +2 {Dexterity}.
+            Deal 95d10 Damage to a Unit. If they die, gain +2 Skill Points.
+            Also, passively, you gain +3 {Dexterity}.
           HasMixins: true
           Downside: "{Heroic}"
 
