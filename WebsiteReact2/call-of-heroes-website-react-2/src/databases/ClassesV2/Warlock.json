@@ -35,12 +35,12 @@
             "Origin": "Class/Warlock"
         },
         "~Evoke~": {
-            "_Value": 2,
+            "_Value": 3,
             "A": "Passive",
             "HasMixins": true,
             "AlignOnWebsite": "Left",
             "Effect": "You start each Worthy Combat with 0 Evoke Points.\nWhen you roll at least 1 maximum die on any Act, gain 1 Evoke Point.\nSome Spells can consume all Evoke Points to gain an improved effect ^for each Evoke Point spent^.\n\nYou may pick 2 Evocations.\n",
-            "Notes": "You must spend ^all^ EP when you decide to. You can pick one for free Evocation at Level 1, and get more like you would normally get extra Class Talents (e.g. with the extra Known Talents from Intelligence, if above 0).",
+            "Notes": "You must spend ^all^ EP when you decide to. You can change your Evocations inbetween Adventures.",
             "ParentKey": "Starting Abilities",
             "Origin": "Class/Warlock"
         },
@@ -82,7 +82,7 @@
             "Tags": [
                 "Area"
             ],
-            "Effect": "{Evoke}: Your next single-target Ability or Attack targets an extra Unit in range per Evoke Point spent, dealing -50% Damage and Healing to the secondary targets.\n",
+            "Effect": "{Evoke}: Your next Act that targets Unit(s) targets an extra Unit in range per Evoke Point spent, but deals -50% Damage (or Healing if it heals) to the secondary targets.\n",
             "HasMixins": true,
             "ParentKey": "Other Abilities",
             "Origin": "Class/Warlock"
@@ -92,10 +92,10 @@
             "A": "0 Action Points",
             "Requirement": "Requires spending Evoke Points",
             "Tags": [
-                "Crowd Control"
+                "Status Effect"
             ],
-            "Effect": "{Evoke}: Your next Ability or Attack Single-Stuns one of the Units hit. For each extra Evoke Point spent, Single-Stun it again.\n",
-            "Notes": "Alternatively, you can Single-Stun one extra Unit that was hit, if your Act hit multiple Units. When increasing the Stun Degree inflicted with an Evoke Point, only increase it for one of the hit Units.",
+            "Effect": "{Evoke}: Your next offensive Act also Single-Stuns one of the Units hit, for each extra Evoke Point spent\n",
+            "Notes": "You can Single-Stun the same Unit, or a different Unit hit. When increasing the Stun Degree inflicted with an Evoke Point, only increase it for one of the hit Units.",
             "HasMixins": true,
             "ParentKey": "Other Abilities",
             "Origin": "Class/Warlock"
@@ -121,7 +121,7 @@
                 "Damage",
                 "Heal"
             ],
-            "Effect": "{Evoke}: Your next single-target attack or Spell deals +1d6 Damage on cast, or +1d4 Healing on cast per Evoke Point spent.\n",
+            "Effect": "{Evoke}: Your next Act that targets Unit(s) deals +1d6 Damage on cast, or +1d4 Healing to the target on cast, per Evoke Point spent.\n",
             "Upgrade": "These extra dice can not produce more Evoke Points.",
             "Notes": "If it heals, it does extra Healing. If it deals Damage, it deals extra Damage. If used with Damage over time effects, the extra Damage only happens when you cast the Spell.",
             "HasMixins": true,
@@ -141,19 +141,55 @@
         }
     },
     "Utility": {
+        "~Summon Familiar~": {
+            "A": "Special",
+            "Height": 35,
+            "Effect": "You have a familiar, shaped directly by your source of Warlock powers and {Color('magenta' 'Flux')} (it can be a small demon, an animal, etc).\nThe familiar follows you, has a personality, and casts Eerie Bolt automatically if it has _Energy_.\nWhile with you in Combat, it can't take Damage unless purposefully targeted.\n",
+            "Upgrade": "It has a number of Skill Points equal to your Level.\nIt may or may not follow your commands, depending on your relationship.\nIf it dies, you can spend 10 minutes to resummon it.\n",
+            "Subspells": {
+                "~Energize Familiar~": {
+                    "A": "1 Action Point",
+                    "Cost": "1 Mana",
+                    "Effect": "Give your familiar 1d6 _Energy_.",
+                    "HasMixins": true,
+                    "ParentKey": "Subspells",
+                    "Origin": "Class/Warlock"
+                }
+            },
+            "Monster": {
+                "Name": "Familiar",
+                "Stats": "0/1/0/1",
+                "Health": 5,
+                "Speed": 5,
+                "Abilities": {
+                    "Eerie Bolt": {
+                        "A": "1 Energy",
+                        "Range": "3 meters",
+                        "Damage": "1d6 (or Healing)",
+                        "Effect": "Cast automatically and for free when the Warlock attacks or heals a Unit within 3 meters.\n",
+                        "ParentKey": "Abilities",
+                        "Origin": "Class/Warlock"
+                    }
+                }
+            },
+            "HasMixins": true,
+            "ParentKey": "Utility",
+            "Origin": "Class/Warlock"
+        },
         "~Curse of the Mind~": {
-            "A": "1 Action Point",
+            "A": "2 Action Points",
             "Range": "3 meters",
-            "Cost": "2 Mana",
+            "Cost": "1 Mana",
             "HasMixins": true,
             "ScrollPower": "Auto",
             "Duration": "Minor curse lasts until end of Adventure",
             "Degree": "Major",
             "Tags": [
                 "Damage",
-                "Crowd Control"
+                "Status Effect"
             ],
-            "Effect": "A Unit is afflicted by minor curse effects (e.g. is clumsy, stumbles, get pimples, etc), getting -2 on all Checks.\nThen, you can deal 5d4 Psychic Damage to it and becomes Deafened or Dazed (its choice).\nApply a ~Combo~ to it.\n",
+            "Effect": "Choose a Unit. Deal 6d4 Psychic Damage to it and it becomes Single-Stunned.\nApply a ~Combo~ to it.\n",
+            "Upgrade": "Alternatively, affect it bywith minor curse effects (e.g. is clumsy, stumbles, get pimples, etc), getting -2 on all Checks.",
             "Notes": "Be creative with the effects of the minor curse effects!\n",
             "ParentKey": "Utility",
             "Origin": "Class/Warlock"
@@ -174,16 +210,19 @@
             "ParentKey": "Utility",
             "Origin": "Class/Warlock"
         },
-        "~Orbs of Umbra~": {
+        "~Oculus~": {
             "A": "1 Action Point",
-            "Cost": "1 Mana",
+            "Range": "5 meters",
+            "Duration": "Until end of next Adventure",
+            "Cooldown": "Once / Adventure",
+            "Degree": "Lesser",
+            "ScrollPower": 1,
             "Tags": [
                 "Roleplaying",
-                "Damage",
-                "Heal"
+                "Utility"
             ],
-            "Effect": "Summon 1d6 orbs shaped to your {Color('magenta' 'Flux')}, which either orbit you or stay in place where you put them.\nWhenever you hit a Unit within 3 meters (with anything else), 1 Umbrablaze may fly into it to deal 1d6 Damage or Healing to it.\n\nAt will, you can tap into any of your orbs to see what it is seeing, live, in your mind.\nA Recording Eye records everything it sees. You can retrieve it to see everything recorded in it.\n",
-            "Notes": "The orbs may fit inside your palm, or may be larger. They are visible, but you can freely decide how they are textured.",
+            "Effect": "You conjure a magical eye that stays in place and records everything it sees. You can physically retrieve it to see everything it recorded, as if looking through a crystal ball.\n\nYou can program it to respond to a certain trigger to cause it to explode, dealing 2d6 {Color('magenta' 'Flux')} to all Units within 1 meter of it.\n",
+            "Notes": "The eye may fit inside your palm, or may be slightly larger. It is visible, but you can freely decide how how it is textured.",
             "HasMixins": true,
             "ParentKey": "Utility",
             "Origin": "Class/Warlock"
@@ -237,8 +276,10 @@
                 "Range": "5 meters",
                 "Duration": "1 minute",
                 "ScrollPower": "Auto",
-                "Requirement": "Level 4",
-                "Tags": "Damage",
+                "Tags": [
+                    "Damage",
+                    "Curse"
+                ],
                 "Effect": "Choose a Unit. At the start of each of your Turns, it takes 1d4 Scourge Damage.\n",
                 "Combo": "1d6 instead of 1d4.",
                 "Notes": "Ignores Cover.",
@@ -248,6 +289,10 @@
             "~Witherwave~": {
                 "A": "0 Action Points",
                 "Cost": "1 Mana",
+                "Tags": [
+                    "Damage",
+                    "Weapon"
+                ],
                 "Effect": "Your next {Type} weapon attack deals +50% Damage and applies a ~Combo~.\n\n{Variants}\n",
                 "Variants": [
                     {
@@ -314,14 +359,108 @@
                 "Range": "5 meters",
                 "Cooldown": "Once / Combat",
                 "Tags": [
-                    "Crowd Control"
+                    "Status Effect"
                 ],
                 "Effect": "Choose a Unit. At the start of each of its Turns, it is Slowed.",
+                "ParentKey": "Level 2 Class Talent",
+                "Origin": "Class/Warlock"
+            },
+            "~Fundamentals I~": {
+                "A": "Passive",
+                "Effect": "Pick one more Level 1 Class or Utility Talent.\n",
                 "ParentKey": "Level 2 Class Talent",
                 "Origin": "Class/Warlock"
             }
         },
         "Level 3 Class Talent": {
+            "~Life Sap~": {
+                "A": "Passive",
+                "_Value": 0.25,
+                "Effect": "You can cast Abilties that cost {Mana}Mana by spending 2d6 {Health}Health per 1 {Mana}Mana instead.",
+                "Upgrade": "If you would go Down this way, you still cast the Spell, and go Down immediately after.",
+                "HasMixins": true,
+                "ParentKey": "Level 3 Class Talent",
+                "Origin": "Class/Warlock"
+            },
+            "~Obfuscation of Energy~": {
+                "_Value": 0.25,
+                "A": "0 Action Points",
+                "Effect": "Spend 2 Evoke Points to gain 1 {Mana}Mana, or viceversa.",
+                "HasMixins": true,
+                "ParentKey": "Level 3 Class Talent",
+                "Origin": "Class/Warlock"
+            },
+            "~Mind Over Matter~": {
+                "_Value": 0.25,
+                "A": "Passive",
+                "Effect": "You can choose how many Evoke Points you want to spend when spending them.",
+                "ParentKey": "Level 3 Class Talent",
+                "Origin": "Class/Warlock"
+            },
+            "~Consumption~": {
+                "_Value": 2,
+                "A": "0 Action Points",
+                "Effect": "Consume one of your known Abilities until the end of the Adventure to gain 1 Evoke Point.\nYou can't cast it until the end of the Adventure.\n",
+                "ParentKey": "Level 3 Class Talent",
+                "Origin": "Class/Warlock"
+            },
+            "~Inward Invocation~": {
+                "A": "Reaction",
+                "_Value": 1.5,
+                "Effect": "Use when ^you^ take minimum or maximum Damage from a dice attack. Gain 1 Evoke Point.",
+                "HasMixins": true,
+                "ParentKey": "Level 3 Class Talent",
+                "Origin": "Class/Warlock"
+            },
+            "~Congregation of Power~": {
+                "_Value": 3.25,
+                "A": "Passive",
+                "Effect": "Your Spells gain +1 Damage (or Healing) for each Evoke Point you have.",
+                "Upgrade": "Note that Evocations and other Abilities spend the Evoke Points immediately when cast (e.g. Diverge followed by Hail won't benefit from the extra Damage). However, Abilities that themselves consume Evoke Points do benefit from the extra Damage when cast with Evoke Points, like Deathfire Wave or Soul Drain.",
+                "ParentKey": "Level 3 Class Talent",
+                "Origin": "Class/Warlock"
+            },
+            "~Reabsorption~": {
+                "_Value": 3,
+                "A": "Passive",
+                "Effect": "After you use an Ability empowered by at least 2 Evoke Points (from Evocations or itself), gain 1 Evoke Point.",
+                "ParentKey": "Level 3 Class Talent",
+                "Origin": "Class/Warlock"
+            },
+            "~As Fate Willt~": {
+                "_Value": 3,
+                "A": "0 Action Points",
+                "Cost": "1 Evoke Point",
+                "Effect": "Gain 2 Evoke Points, then cast a random Evocation spending all your Evoke Points.",
+                "SingleTable": [
+                    "1. Diverge",
+                    "2. Overwhelm",
+                    "3. Amplify",
+                    "4. Obliterate",
+                    "5. Transpose"
+                ],
+                "Notes": "You can roll 1d6 and reroll if you roll 6.",
+                "ParentKey": "Level 3 Class Talent",
+                "Origin": "Class/Warlock"
+            },
+            "~Expert in Evocations~": {
+                "_Value": 1,
+                "A": "Passive",
+                "IsIgnored": true,
+                "Combat Extras": [
+                    "You know all base Evocations"
+                ],
+                "Effect": "You always know all base Warlock Evocations.",
+                "ParentKey": "Level 3 Class Talent",
+                "Origin": "Class/Warlock"
+            },
+            "~Master of Curses~": {
+                "_Value": 2.25,
+                "A": "Passive",
+                "Effect": "Your Curses that are empowered by at least 1 Evoke Point cast as if empowered by +1 Evoke Point.",
+                "ParentKey": "Level 3 Class Talent",
+                "Origin": "Class/Warlock"
+            },
             "~Evoke Entropy~": {
                 "_Value": 1.5,
                 "A": "Passive",
@@ -355,10 +494,10 @@
                     "Font"
                 ],
                 "Combat Extras": [
-                    "You have 2 Magic Font Spells"
+                    "You have extra Magic Font Spells"
                 ],
-                "Effect": "You may select a `Magic Font$/Other/MagicFonts` to pick Spells from.\nYou get 2 free Magic Font Spells.\n",
-                "Notes": "All Magic Font Spells act like Class Talents. You can get more Magic Font Spells like you would normally get extra Class Talents (e.g. with the extra Known Talents from Intelligence, if above 0).\n",
+                "Effect": "You may select a `Magic Font$/Other/MagicFonts` to pick Spells from.\nYou get a number of them equal to your Focus.\n",
+                "Notes": "All Magic Font Spells act like Class Talents. Notes: You can change your Font and Spells inbetween Adventures.\n",
                 "ParentKey": "Level 3 Class Talent",
                 "Origin": "Class/Warlock"
             },
@@ -379,11 +518,33 @@
         },
         "Level 4 Class Talent": {
             "~Curse of Frailty~": {
-                "_Value": "Baseline, 0, but can go up to 1 if used correctly",
+                "_Value": 0.5,
                 "A": "1 Action Point",
                 "Cost": "1 Mana",
                 "Tags": "Debuff",
-                "Effect": "A Unit you can see takes +50% Damage the next time it takes Damage from an ally.\n\n{Evoke}: +50% extra Damage per Evoke Point spent.\n",
+                "Effect": "A Unit you can see becomes special-Frail: it takes +50% Damage the next time it takes Damage from an ally.\n\n{Evoke}: +50% extra Damage per Evoke Point spent.\n",
+                "HasMixins": true,
+                "ParentKey": "Level 4 Class Talent",
+                "Origin": "Class/Warlock"
+            },
+            "~Curse of the Plague~": {
+                "A": "3 Action Points",
+                "Cooldown": "Once / Combat",
+                "Duration": "Lasts until end of Combat",
+                "Effect": "Choose a Unit and roll 5d6 to see its _death threshold_.\nWhen it gets to that amount or less Health, you can use a free Reaction to kill it.\nThen the curse spreads with the same _death threshold_ to all Units within 2 meters of it.\n",
+                "Upgrade": "Wherever the plague goes, it kills small plants, insects, and rots wood and rusts metal. It also makes fertile soil infertile, turns textile and paper materials into dust, and decays food and poisons water.",
+                "Notes": "The death threshold can stack from multiple Curses of the Plague! Ask the Quest Master whether a Unit should die from the curse.",
+                "HasMixins": true,
+                "ParentKey": "Level 4 Class Talent",
+                "Origin": "Class/Warlock"
+            },
+            "~Gateway~": {
+                "A": "2 Action Points",
+                "Cooldown": "Once / Adventure",
+                "Range": "5 meters to first gate",
+                "Duration": "Lasts until end of Combat, or 10 real minutes",
+                "Effect": "Open a _gateway_, and another paired one in a location you can see.\nUnits and projectiles can go through a gateway and appear through the other.\n\nYou can cast this with 0 Action Points and no Cooldown by spending 1 {Mana}Mana.\n",
+                "Upgrade": "The gateway does not have a direction - projectiles going one way come out the same way. Units have Line of Sight through the gates, and their Range counts as if the two gates are connected (obviously).",
                 "HasMixins": true,
                 "ParentKey": "Level 4 Class Talent",
                 "Origin": "Class/Warlock"
@@ -436,12 +597,6 @@
                 "HasMixins": true,
                 "ParentKey": "Level 4 Class Talent",
                 "Origin": "Class/Warlock"
-            },
-            "~Fundamentals~": {
-                "A": "Passive",
-                "Effect": "Pick one more Level 1 or Level 2 Class or Utility Talent.\n",
-                "ParentKey": "Level 4 Class Talent",
-                "Origin": "Class/Warlock"
             }
         },
         "Level 5 Class Talent": {
@@ -460,6 +615,7 @@
                 "Origin": "Class/Warlock"
             },
             "<Higher Evoke>": {
+                "_Value": 2.25,
                 "A": "Passive",
                 "Tags": [
                     "Evoke"
@@ -469,6 +625,7 @@
                 "Origin": "Class/Warlock"
             },
             "~Overloading Evocation~": {
+                "Value": 1.75,
                 "A": "0 Action Points",
                 "Cooldown": "Once / Adventure",
                 "Tags": [
@@ -515,6 +672,54 @@
             }
         },
         "Level 7 Class Talent": {
+            "~Contract of Hunger~": {
+                "_Value": 1.75,
+                "A": "Passive",
+                "Effect": "At the start of each Combat, get a random _Contract_. While active, you gain a buff. When broken, you suffer a punishment and the _Contract_ ends this Combat.\n\n{Purple(Payout)}: Gain 1 Evoke Point each Turn\n{Red(Punishment)}: Become Exhausted\n",
+                "SingleTable": [
+                    "1. You shall choose a Warlock Ability and cast it every Turn!",
+                    "2. You shall always target the alive Unit ^you^ have Damaged the most (choose if tied)!",
+                    "3. You shall never end your Turn without having spent Mana or Evoke Points!"
+                ],
+                "Notes": "You always know which Unit you have Damaged the most.",
+                "HasMixins": true,
+                "ParentKey": "Level 7 Class Talent",
+                "Origin": "Class/Warlock"
+            },
+            "~Contract of Obsidian~": {
+                "_Value": 1.75,
+                "A": "Passive",
+                "Effect": "At the start of each Combat, get a random _Contract_. While active, you gain a buff. When broken, you suffer a punishment and the _Contract_ ends this Combat.\n\n{Purple(Payout)}: You have doubled Range and gain double the Evoke Points from Evoke.\n{Red(Punishment)}: Become Exhausted\n",
+                "SingleTable": [
+                    "1. You shall never use Movement!",
+                    "2. You shall never roll minimum on on all dice per Act!",
+                    "3. You shall always end Turns at least 5 meters away from where you started!"
+                ],
+                "HasMixins": true,
+                "ParentKey": "Level 7 Class Talent",
+                "Origin": "Class/Warlock"
+            },
+            "~Contract of Sacrifice~": {
+                "_Value": 2,
+                "A": "Passive",
+                "Effect": "At the start of each Combat, get a random _Contract_. While active, you gain a buff. When broken, you suffer a punishment and the _Contract_ ends this Combat.\n\n{Purple(Payout)}: You start with +1 Mana and +1 Evoke Point.\n{Red(Punishment)}: Take 2d8 Damage.\n",
+                "SingleTable": [
+                    "1. You shall take at least 3d8 Damage this Combat!",
+                    "2. You shall never target a Unit you've already targeted with an attack or Ability this Combat!",
+                    "3. You shall never use the same attack or Ability a second time this Combat!"
+                ],
+                "HasMixins": true,
+                "ParentKey": "Level 7 Class Talent",
+                "Origin": "Class/Warlock"
+            }
+        },
+        "Level 8 Class Talent": {
+            "~More Contracts~": {
+                "A": "Passive",
+                "Effect": "You may select as many Level 7 Talents as you like. All apply.",
+                "ParentKey": "Level 8 Class Talent",
+                "Origin": "Class/Warlock"
+            },
             "<Final Word>": {
                 "_Value": 2.5,
                 "A": "Passive",
@@ -524,7 +729,7 @@
                 ],
                 "Effect": "When you have exactly 1 Mana, and you cast a Spell that cost 1 Mana, that Spell casts twice (for free).",
                 "Notes": "This is akin to casting the Spell again for 0 Action Points without spending Mana (not necessarily on the same target).",
-                "ParentKey": "Level 7 Class Talent",
+                "ParentKey": "Level 8 Class Talent",
                 "Origin": "Class/Warlock"
             },
             "<Manafold Power>": {
@@ -534,7 +739,14 @@
                     "Mana"
                 ],
                 "Effect": "You have +1 Max Mana.",
-                "ParentKey": "Level 7 Class Talent",
+                "ParentKey": "Level 8 Class Talent",
+                "Origin": "Class/Warlock"
+            },
+            "~Improved Evocations~": {
+                "_Value": 3,
+                "A": "Passive",
+                "Effect": "You can always cast 2 Evocations simultaneously, using the same Evoke Points.",
+                "ParentKey": "Level 8 Class Talent",
                 "Origin": "Class/Warlock"
             }
         },

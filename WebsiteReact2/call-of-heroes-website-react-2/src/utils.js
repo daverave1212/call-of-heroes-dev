@@ -1820,6 +1820,8 @@ export const FUNCTION_SYMBOLS = {
     'Brown': args => ({ tag: 'span',  props: { style: { color: '#A52A2A' } }, text: args[0] }),
     'Orange': args => ({ tag: 'span', props: { style: { color: '#FF5500' } }, text: args[0] }),
     'Purple': args => ({ tag: 'span', props: { style: { color: '#6f00ffff' } }, text: args[0] }),
+    'Red': args => ({ tag: 'span', props: { style: { color: 'red' } }, text: args[0] }),
+    
     'Green': args => ({ tag: 'span', props: { style: { color: 'var(--green-color)' } }, text: args[0] }),
     'DarkGreen': args => ({ tag: 'span', props: { style: { color: '#00a71cff' } }, text: args[0] }),
     'Teal': args => ({ tag: 'span', props: { style: { color: '#0097ab' } }, text: args[0] }),

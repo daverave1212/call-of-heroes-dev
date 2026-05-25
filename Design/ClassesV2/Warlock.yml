@@ -43,8 +43,8 @@ Starting Abilities:
       Your Max Mana is 2. It never increases and can't increase except through Warlock Talents.
       Your Mana replenishes after each Worthy Combat.
 
-  ~Evoke~:     # 2?
-    _Value: 2
+  ~Evoke~:     # 1 EP = 0.65 (roughly)
+    _Value: 3
     A: Passive
     HasMixins: true
     AlignOnWebsite: Left
@@ -54,7 +54,7 @@ Starting Abilities:
       Some Spells can consume all Evoke Points to gain an improved effect ^for each Evoke Point spent^.
       
       You may pick 2 Evocations.
-    Notes: You must spend ^all^ EP when you decide to. You can pick one for free Evocation at Level 1, and get more {LikeNormalTalents}.
+    Notes: You must spend ^all^ EP when you decide to. You can change your Evocations inbetween Adventures.
 
   ~Flux~:
     A: Passive
@@ -89,7 +89,7 @@ Other Abilities:
       Requirement: Requires spending Evoke Points
       Tags: [Area]
       Effect: |
-        {Evoke}: Your next Act that targets Unit(s) targets an extra Unit in range per Evoke Point spent, but dealing -50% Damage (or Healing if it heals) to the secondary targets.
+        {Evoke}: Your next Act that targets Unit(s) targets an extra Unit in range per Evoke Point spent, but deals -50% Damage (or Healing if it heals) to the secondary targets.
 
     ~Overwhelm~:
       _Value: 0 # 1 / EP
@@ -128,6 +128,39 @@ Other Abilities:
 
 
 Utility:
+
+
+    ~Summon Familiar~:
+      A: Special
+      Height: 35
+      Effect: |
+        You have a familiar, shaped directly by your source of Warlock powers and {Color('magenta' 'Flux')} (it can be a small demon, an animal, etc).
+        The familiar follows you, has a personality, and casts Eerie Bolt automatically if it has _Energy_.
+        While with you in Combat, it can't take Damage unless purposefully targeted.
+      Upgrade: |
+        It has a number of Skill Points equal to your Level.
+        It may or may not follow your commands, depending on your relationship.
+        If it dies, you can spend 10 minutes to resummon it.
+      Subspells:
+        ~Energize Familiar~:
+          A: Half-Action
+          Cost: 1 Mana
+          Effect: Give your familiar 1d6 _Energy_.
+      Monster:
+        Name: Familiar
+        Stats: 0/1/0/1
+        Health: 5
+        Speed: 5
+        Abilities:
+          Eerie Bolt:
+            A: 1 Energy
+            Range: 3 meters
+            Damage: 1d6 (or Healing)
+            Effect: |
+              Cast automatically and for free when the Warlock attacks or heals a Unit within 3 meters.
+      
+      
+
 
     # ~Disenchantment~ :
     #     HasMixins: true
@@ -185,28 +218,30 @@ Utility:
     #     Notes: The target can't tell it was affected unless it knows about this type of magic.
 
 
-    ~Orbs of Umbra~:
-      A: Half-Action
-      Cost: 1 Mana
-      Tags: [Roleplaying, Damage, Heal]
-      Effect: |
-        Summon 1d6 orbs shaped to your {Color('magenta' 'Flux')}, which either orbit you or stay in place where you put them.
-        Whenever you hit a Unit within 3 meters (with anything else), 1 Umbrablaze may fly into it to deal 1d6 Damage or Healing to it.
+    # ~Orbs of Umbra~:
+    #   A: 1 Action
+    #   Cost: 1 Mana
+    #   Tags: [Roleplaying, Damage, Heal]
+    #   Effect: |
+    #     Summon 1d6 orbs shaped to your {Color('magenta' 'Flux')}, which either orbit you or stay in place where you put them.
+    #     Whenever you hit a Unit within 3 meters (with anything else), 1 Umbrablaze may fly into it to deal 1d6 Damage or Healing to it.
+    #   Upgrade: |
+    #     An Umbrablaze records everything it sees. You can retrieve it to see everything recorded in it.
+    #   Notes: The orbs may fit inside your palm, or may be larger. They are visible, but you can freely decide how they are textured.
 
-        At will, you can tap into any of your orbs to see what it is seeing, live, in your mind.
-        A Recording Eye records everything it sees. You can retrieve it to see everything recorded in it.
-      Notes: The orbs may fit inside your palm, or may be larger. They are visible, but you can freely decide how they are textured.
+    ~Oculus~:
+        A: Half-Action
+        Range: 5 meters
+        Duration: Until end of next Adventure
+        Cooldown: Once / Adventure
+        Degree: Lesser
+        ScrollPower: 1
+        Tags: [Roleplaying, Utility]
+        Effect: |
+            You conjure a magical eye that stays in place and records everything it sees. You can physically retrieve it to see everything it recorded, as if looking through a crystal ball.
 
-    # ~Oculus~:
-    #     A: 0 Actions
-    #     Range: 5 meters
-    #     Duration: Until end of next Adventure
-    #     Cooldown: Once / Adventure
-    #     Degree: Lesser
-    #     ScrollPower: 1
-    #     Tags: [Roleplaying, Utility]
-    #     Effect: |
-    #         You conjure a magical eye that records everything it sees. It can be a Tuner Eye or Recording Eye.
+            You can program it to respond to a certain trigger to cause it to explode, dealing 2d6 {Color('magenta' 'Flux')} to all Units within 1 meter of it.
+        Notes: The eye may fit inside your palm, or may be slightly larger. It is visible, but you can freely decide how how it is textured.
             
 
     ~Thaumaturgy~:
@@ -262,8 +297,7 @@ Talents:
         Range: 5 meters
         Duration: 1 minute
         ScrollPower: Auto
-        Requirement: Level 4
-        Tags: Damage
+        Tags: [Damage, Curse]
         Effect: |
             Choose a Unit. At the start of each of your Turns, it takes 1d4 Scourge Damage.
         Combo: 1d6 instead of 1d4.
@@ -272,6 +306,7 @@ Talents:
     ~Witherwave~:
       A: 0 Actions
       Cost: 1 Mana
+      Tags: [Damage, Weapon]
       Effect: |
         Your next {Type} weapon attack deals +50% Damage and applies a ~Combo~.
 
@@ -281,7 +316,6 @@ Talents:
           Type: one-handed
         - Cost: 2 Mana
           Type: two-handed
-
 
   Level 2 Class Talent:
     
@@ -331,7 +365,78 @@ Talents:
       Tags: [Status Effect]
       Effect: Choose a Unit. At the start of each of its Turns, it is Slowed.
 
+    ~Fundamentals I~:
+        A: Passive
+        Effect: |
+          Pick one more Level 1 Class or Utility Talent.
+
+
   Level 3 Class Talent:
+        
+    ~Life Sap~:
+      A: Passive
+      _Value: 0.25
+      Effect: You can cast Abilties that cost {Mana}Mana by spending 2d6 {Health}Health per 1 {Mana}Mana instead.
+      Upgrade: If you would go Down this way, you still cast the Spell, and go Down immediately after.
+
+    ~Obfuscation of Energy~:
+      _Value: 0.25
+      A: 0 Action Points
+      Effect: Spend 2 Evoke Points to gain 1 {Mana}Mana, or viceversa.
+
+    ~Mind Over Matter~:
+      _Value: 0.25
+      A: Passive
+      Effect: You can choose how many Evoke Points you want to spend when spending them.
+
+    ~Consumption~:
+      _Value: 2
+      A: 0 Actions
+      Effect: |
+        Consume one of your known Abilities until the end of the Adventure to gain 1 Evoke Point.
+        You can't cast it until the end of the Adventure.
+        
+    ~Inward Invocation~:
+      A: Reaction
+      _Value: 1.5
+      Effect: Use when ^you^ take minimum or maximum Damage from a dice attack. Gain 1 Evoke Point.
+
+    ~Congregation of Power~:
+      _Value: 3.25
+      A: Passive
+      Effect: Your Spells gain +1 Damage (or Healing) for each Evoke Point you have.
+      Upgrade: Note that Evocations and other Abilities spend the Evoke Points immediately when cast (e.g. Diverge followed by Hail won't benefit from the extra Damage). However, Abilities that themselves consume Evoke Points do benefit from the extra Damage when cast with Evoke Points, like Deathfire Wave or Soul Drain.
+
+    ~Reabsorption~:
+      _Value: 3
+      A: Passive
+      Effect: After you use an Ability empowered by at least 2 Evoke Points (from Evocations or itself), gain 1 Evoke Point.
+
+    ~As Fate Willt~:
+      _Value: 3
+      A: 0 Actions
+      Cost: 1 Evoke Point
+      Effect: Gain 2 Evoke Points, then cast a random Evocation spending all your Evoke Points.
+      SingleTable:
+        - 1. Diverge
+        - 2. Overwhelm
+        - 3. Amplify
+        - 4. Obliterate
+        - 5. Transpose
+      Notes: You can roll 1d6 and reroll if you roll 6.
+
+    ~Expert in Evocations~:
+      _Value: 1
+      A: Passive
+      IsIgnored: true
+      Combat Extras:
+        - You know all base Evocations
+      Effect: You always know all base Warlock Evocations.
+
+    ~Master of Curses~:
+      _Value: 2.25
+      A: Passive
+      Effect: Your Curses that are empowered by at least 1 Evoke Point cast as if empowered by +1 Evoke Point.
 
     ~Evoke Entropy~:
       _Value: 1.5
@@ -363,12 +468,12 @@ Talents:
       HasMixins: true
       Tags: [Font]
       Combat Extras:
-        - You have 2 Magic Font Spells
+        - You have extra Magic Font Spells
       Effect: |
         You may select a `Magic Font$/Other/MagicFonts` to pick Spells from.
-        You get 2 free Magic Font Spells.
+        You get a number of them equal to your {Intelligence}.
       Notes: |
-        All Magic Font Spells act like Class Talents. You can get more Magic Font Spells {LikeNormalTalents}.
+        All Magic Font Spells act like Class Talents. Notes: You can change your Font and Spells inbetween Adventures.
 
     ~Blood Dividend~:
       _Value: 1.75
@@ -384,14 +489,37 @@ Talents:
   Level 4 Class Talent:
 
     ~Curse of Frailty~: # Adds massive Damage
-        _Value: Baseline, 0, but can go up to 1 if used correctly
+        _Value: 0.5 # Baseline, 0, but can go up to 1 if used correctly
         A: Half-Action
         Cost: 1 Mana
         Tags: Debuff
         Effect: |
-          A Unit you can see takes +50% Damage the next time it takes Damage from an ally.
+          A Unit you can see becomes special-Frail: it takes +50% Damage the next time it takes Damage from an ally.
 
           {Evoke}: +50% extra Damage per Evoke Point spent.
+
+    ~Curse of the Plague~:
+      A: 3 Action Points
+      Cooldown: Once / Combat
+      Duration: Lasts until end of Combat
+      Effect: |
+        Choose a Unit and roll 5d6 to see its _death threshold_.
+        When it gets to that amount or less Health, you can use a free Reaction to kill it.
+        Then the curse spreads with the same _death threshold_ to all Units within 2 meters of it.
+      Upgrade: Wherever the plague goes, it kills small plants, insects, and rots wood and rusts metal. It also makes fertile soil infertile, turns textile and paper materials into dust, and decays food and poisons water.
+      Notes: The death threshold can stack from multiple Curses of the Plague! Ask the Quest Master whether a Unit should die from the curse.
+    
+    ~Gateway~:
+      A: 1 Action
+      Cooldown: Once / Adventure
+      Range: 5 meters to first gate
+      Duration: Lasts until end of Combat, or 10 real minutes
+      Effect: |
+        Open a _gateway_, and another paired one in a location you can see.
+        Units and projectiles can go through a gateway and appear through the other.
+
+        You can cast this with 0 Action Points and no Cooldown by spending 1 {Mana}Mana.
+      Upgrade: The gateway does not have a direction - projectiles going one way come out the same way. Units have Line of Sight through the gates, and their Range counts as if the two gates are connected (obviously).
 
     ~Hail Torrent~:   # Adds AoE (+0.65/EP)
         A: 1 Action
@@ -434,12 +562,6 @@ Talents:
                 Range: 3 meters
                 Effect: Deal 1d6 {Color('magenta' 'Flux')} Damage, or use an Item or Default Ability.
 
-    ~Fundamentals~:
-        A: Passive
-        Effect: |
-          Pick one more Level 1 or Level 2 Class or Utility Talent.
-
-
   Level 5 Class Talent:
 
     <Blood Pact>:       # 2? Can be strong but not _that_ strong
@@ -453,11 +575,13 @@ Talents:
       Notes: The 50% increase is not applied to the 5 Psychic Damage.
 
     <Higher Evoke>:
+      _Value: 2.25
       A: Passive
       Tags: [Evoke]
       Effect: You start each Combat with +1 Evoke Point.
 
     ~Overloading Evocation~:
+      Value: 1.75
       A: 0 Actions
       Cooldown: Once / Adventure
       Tags: [Evoke]
@@ -497,8 +621,54 @@ Talents:
             You can choose to ommit some of the effects of this blight.
             This Ability is not meant for combat.
             Be creative with how you use this little Spell!
-
+  
   Level 7 Class Talent:
+
+    ~Contract of Hunger~:
+      _Value: 1.75
+      A: Passive
+      Effect: |
+        At the start of each Combat, get a random _Contract_. While active, you gain a buff. When broken, you suffer a punishment and the _Contract_ ends this Combat.
+
+        {Purple(Payout)}: Gain 1 Evoke Point each Turn
+        {Red(Punishment)}: Become Exhausted
+      SingleTable:
+        - 1. You shall choose a Warlock Ability and cast it every Turn!
+        - 2. You shall always target the alive Unit ^you^ have Damaged the most (choose if tied)!
+        - 3. You shall never end your Turn without having spent Mana or Evoke Points!
+      Notes: You always know which Unit you have Damaged the most.
+
+    ~Contract of Obsidian~:
+      _Value: 1.75
+      A: Passive
+      Effect: |
+        At the start of each Combat, get a random _Contract_. While active, you gain a buff. When broken, you suffer a punishment and the _Contract_ ends this Combat.
+
+        {Purple(Payout)}: You have doubled Range and gain double the Evoke Points from Evoke.
+        {Red(Punishment)}: Become Exhausted
+      SingleTable:
+        - 1. You shall never use Movement!
+        - 2. You shall never roll minimum on on all dice per Act!
+        - 3. You shall always end Turns at least 5 meters away from where you started!
+
+    ~Contract of Sacrifice~:
+      _Value: 2
+      A: Passive
+      Effect: |
+        At the start of each Combat, get a random _Contract_. While active, you gain a buff. When broken, you suffer a punishment and the _Contract_ ends this Combat.
+
+        {Purple(Payout)}: You start with +1 Mana and +1 Evoke Point.
+        {Red(Punishment)}: Take 2d8 Damage.
+      SingleTable:
+        - 1. You shall take at least 3d8 Damage this Combat!
+        - 2. You shall never target a Unit you've already targeted with an attack or Ability this Combat!
+        - 3. You shall never use the same attack or Ability a second time this Combat!
+
+  Level 8 Class Talent:
+
+    ~More Contracts~:
+      A: Passive
+      Effect: You may select as many Level 7 Talents as you like. All apply.
 
     <Final Word>:
       _Value: 2.5
@@ -513,6 +683,11 @@ Talents:
       A: Passive
       Tags: [Mana]
       Effect: You have +1 Max Mana.
+    
+    ~Improved Evocations~:
+      _Value: 3
+      A: Passive
+      Effect: You can always cast 2 Evocations simultaneously, using the same Evoke Points.
 
   Level 9 Class Talent:
     <Placeholder>:

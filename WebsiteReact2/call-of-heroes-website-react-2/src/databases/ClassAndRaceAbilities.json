@@ -11,7 +11,7 @@
             "Can create or dismantle items for Gold"
         ],
         "Effect": "Spending {Gold}Gold for its components, design and assemble a mechanized apparatus capable of performing simple, repetitive operations such as illumination, sound emission, olfactory diffusion, or the projection of pigment to form crude symbols or imagery.\nYou can create any normal weapon, armor, non-food general good or adventuring gear item piece by spending its {Gold}Gold cost.\nYou can _dismantle_ any good into {Gold}Gold equal to its selling worth.\n",
-        "Notes": "You can't use them to deal Damage, crowd control or heal. Typically, items sell at 25% of their base cost, and magic items at 50% of their base cost. Feel free to be creative with what you can do - the tools might do other small artificer tasks as well. Ask your QM! The spent {Gold}Gold for this is used as resource for obtaining or transmuting materials.",
+        "Notes": "You can't use them to deal Damage, Status Effects or heal. Typically, items sell at 25% of their base cost, and magic items at 50% of their base cost. Feel free to be creative with what you can do - the tools might do other small artificer tasks as well. Ask your QM! The spent {Gold}Gold for this is used as resource for obtaining or transmuting materials.",
         "HasMixins": true,
         "ParentKey": "Starting Abilities",
         "Origin": "Class/Artificer"
@@ -573,7 +573,7 @@
             "Protection"
         ],
         "Effect": "Take 2d4 Damage.\nBlock any non-damaging negative incoming _effect_ on another ally you can see.\n",
-        "Upgrade": "Negative effects in this case means any Crowd Control, Debuff, Curse, mind-altering magic, non-Damaging Poison, etc.",
+        "Upgrade": "Negative effects in this case means any Status Effect, Debuff, Curse, mind-altering magic, non-Damaging Poison, etc.",
         "ParentKey": "Utility",
         "Origin": "Class/Warrior"
     },
@@ -590,13 +590,12 @@
         "A": "1 Action Point",
         "ScrollPower": "Auto",
         "Cost": "1 Mana",
-        "Cooldown": "Once / Turn",
         "Tags": [
             "Heal"
         ],
         "Requirement": "Only usable in Worthy Combat",
-        "Effect": "Attack a different Unit with a 1-handed weapon. It Heals them instead of dealing Damage to them.",
-        "Notes": "Any extra Damage effects on it heal as well (e.g. War Craft, Criticl Strikes, etc). Apply any weapon effects if they happen. The attack might still do Damage to other collateral Units (if applies, e.g. Cleaver to you).",
+        "Effect": "Attack a different Unit with a 1-handed weapon. Any of its Damage becomes Healing instead.",
+        "Notes": "Any extra Damage effects on it heal as well (e.g. War Craft, Criticl Strikes, etc). Apply any weapon effects if they happen. The attack might still do Healing to other collateral Units (if applies, e.g. Cleaver, Smite, etc).",
         "ParentKey": "Utility",
         "Origin": "Class/Warrior"
     },
@@ -722,7 +721,7 @@
         "Cooldown": "Once / Turn",
         "HasMixins": true,
         "Requirement": "Only usable in Worthy Combat",
-        "Effect": "Take 1d6 Damage.\nUntil the ^end^ of your next Turn, all Damage you do to yourself becomes Healing instead and you are immune to Crowd Control.\nWhen Battle Trance ends, heal for 2d6.\n",
+        "Effect": "Take 1d6 Damage.\nUntil the ^end^ of your next Turn, all Damage you do to yourself becomes Healing instead and you are immune to Status Effects.\nWhen Battle Trance ends, heal for 2d6.\n",
         "ParentKey": "Level 3 Class Talent",
         "Origin": "Class/Warrior"
     },
@@ -840,7 +839,7 @@
         "A": "0 Action Points",
         "Cooldown": "Once / Adventure",
         "Duration": "1 Minute",
-        "Effect": "You grow to the size of a giant and become Large.\nYou gain Shielding equal to 50% of your missing Health.\nYour normal Melee attacks hit all Units within 1 meter of the target for the same Damage, without the Stat modifier (e.g. you don't add + Might or Instinct to the secondary targets).\nYou are immune to being Crowd Control and Hard Terrain.\n",
+        "Effect": "You grow to the size of a giant and become Large.\nYou gain Shielding equal to 50% of your missing Health.\nYour normal Melee attacks hit all Units within 1 meter of the target for the same Damage, without the Stat modifier (e.g. you don't add + Might or Instinct to the secondary targets).\nYou are immune to being Status Effects and Hard Terrain.\n",
         "ParentKey": "Level 7 Class Talent",
         "Origin": "Class/Warrior"
     },
@@ -1003,8 +1002,10 @@
         "Range": "5 meters",
         "Duration": "1 minute",
         "ScrollPower": "Auto",
-        "Requirement": "Level 4",
-        "Tags": "Damage",
+        "Tags": [
+            "Damage",
+            "Curse"
+        ],
         "Effect": "Choose a Unit. At the start of each of your Turns, it takes 1d4 Scourge Damage.\n",
         "Combo": "1d6 instead of 1d4.",
         "Notes": "Ignores Cover.",
@@ -1019,7 +1020,7 @@
         "Degree": "Major",
         "Tags": [
             "Damage",
-            "Crowd Control"
+            "Status Effect"
         ],
         "Effect": "A Unit takes 4d6 Psychic Damage and chooses whether to become Blinded or Silenced.\nApply a ~Combo~ to it.\n",
         "Notes": "Cover is applied normally.\n",
@@ -1052,18 +1053,21 @@
         "Origin": "Class/Soulwright"
     },
     "~Oculus~": {
-        "A": "0 Action Points",
+        "A": "1 Action Point",
         "Range": "5 meters",
         "Duration": "Until end of next Adventure",
         "Cooldown": "Once / Adventure",
         "Degree": "Lesser",
+        "ScrollPower": 1,
         "Tags": [
             "Roleplaying",
             "Utility"
         ],
-        "Effect": "You conjure a magical eye that records everything it sees. It can be a Tuner Eye or Recording Eye.\nAt will, a Tuner Eye allows you to see what it sees, live, in your mind.\nA Recording Eye records everything it sees. You can retrieve it to see everything recorded in it.\n",
+        "Effect": "You conjure a magical eye that stays in place and records everything it sees. You can physically retrieve it to see everything it recorded, as if looking through a crystal ball.\n\nYou can program it to respond to a certain trigger to cause it to explode, dealing 2d6 {Color('magenta' 'Flux')} to all Units within 1 meter of it.\n",
+        "Notes": "The eye may fit inside your palm, or may be slightly larger. It is visible, but you can freely decide how how it is textured.",
+        "HasMixins": true,
         "ParentKey": "Utility",
-        "Origin": "Class/Mystic"
+        "Origin": "Class/Warlock"
     },
     "~Thaumaturgy~": {
         "HasMixins": true,
@@ -1287,7 +1291,7 @@
             },
             {
                 "Name": "Venomous {Level}Level 3",
-                "Effect": "Your attacks and single-target Spells deal +1d4 Damage to Units affected by Crowd Control. {Combo} +1d4 Damage."
+                "Effect": "Your attacks and single-target Spells deal +1d4 Damage to Units affected by a Status Effect. {Combo} +1d4 Damage."
             },
             {
                 "Name": "Fast {Level}Level 4",
@@ -1560,7 +1564,7 @@
             },
             {
                 "Name": "Venomous {Level}Level 3",
-                "Effect": "Animal Attacks deal +1d4 Damage to Units affected by Crowd Control. {Combo} +1d4 Damage."
+                "Effect": "Animal Attacks deal +1d4 Damage to Units affected by a Status Effect. {Combo} +1d4 Damage."
             },
             {
                 "Name": "Fast {Level}Level 4",
@@ -1751,12 +1755,12 @@
     "~Viperlash~": {
         "A": "2 Action Points",
         "Tags": [
-            "Crowd Control",
+            "Status Effect",
             "Control"
         ],
         "Cost": "1 Mana",
         "Range": "5 meters",
-        "Effect": "Choose a Unit.\nIf it took Poison Damage this Combat, deal 3d10 Poison Damage, which ignores Poison Resistance.\nOtherwise, deal 1d10 Damage and Daze, Deafen and Slow it.\n\n{Brown('Nature:')} Deals +1d10 extra Damage.\n{Brown('Water:')} Heal yourself for 1d6. If the target dies, gain 1 Action Point back.\n",
+        "Effect": "Choose a Unit.\nIf it took Poison Damage this Combat, deal 3d10 Poison Damage, which ignores Poison Resistance.\nOtherwise, deal 1d10 Damage and Daze and Slow it.\n\n{Brown('Nature:')} Deals +1d10 extra Damage.\n{Brown('Water:')} Heal yourself for 1d6. If the target dies, gain 1 Action Point back.\n",
         "EffectGreen": "Usable while Shapeshifted.",
         "HasMixins": true,
         "ParentKey": "Level 1 Second Class Talent",
@@ -1825,11 +1829,9 @@
     },
     "~Fundamentals I~": {
         "A": "Passive",
-        "IsIgnored": true,
-        "IconName": "Fundamentals",
         "Effect": "Pick one more Level 1 Class or Utility Talent.\n",
         "ParentKey": "Level 2 Class Talent",
-        "Origin": "Class/Druid"
+        "Origin": "Class/Warlock"
     },
     "~Shapeshift II~": {
         "A": "0 Action Points",
@@ -1878,7 +1880,7 @@
             },
             {
                 "Name": "Venomous {Level}Level 2",
-                "Effect": "Animal Attacks deal +1d4 Damage to Units affected by Crowd Control. {Combo} +1d4 Damage."
+                "Effect": "Animal Attacks deal +1d4 Damage to Units affected by a Status Effect. {Combo} +1d4 Damage."
             },
             {
                 "Name": "Fast {Level}Level 3",
@@ -2106,7 +2108,7 @@
         "Tags": [
             "Damage",
             "Area Damage",
-            "Crowd Control (Hard)"
+            "Status Effect (Hard)"
         ],
         "Effect": "Deal 3d10 Damage to all Worthy Units within 2 meters of you.\nHeal for 1 Health per 5 real Damage done (total).\n\n{Brown('Earth:')} One of the Units hit becomes ~Crippled~.\n{Brown('Water:')} Leap up to 3 meters away first.\n{Brown('Wind:')} ~+2~ range and only hits Enemies.\n",
         "EffectGreen": "Usable while Shapeshifted ~(or not)~.",
@@ -2173,11 +2175,11 @@
         "Range": "5 meters",
         "HasUpgradeIcon": true,
         "Tags": [
-            "Crowd Control",
+            "Status Effect",
             "Control"
         ],
         "Cost": "1 Mana",
-        "Effect": "Choose a Unit.\nIf it took Poison Damage this Combat, deal ~3d12~ Poison Damage, which ignores Poison Resistance.\nOtherwise, deal ~2d6~ Damage and Daze, Deafen and Slow it.\n\n{Brown('Nature:')} Deals ~+1d12~ extra Damage.\n{Brown('Water:')} Heal yourself for ~1d8~. If the target dies, gain 1 Action Point back.\n{Brown('Wind:')} Unlimited Range and targets 2 Units instead.\n",
+        "Effect": "Choose a Unit.\nIf it took Poison Damage this Combat, deal ~3d12~ Poison Damage, which ignores Poison Resistance.\nOtherwise, deal ~2d6~ Damage and Daze and Slow it.\n\n{Brown('Nature:')} Deals ~+1d12~ extra Damage.\n{Brown('Water:')} Heal yourself for ~1d8~. If the target dies, gain 1 Action Point back.\n{Brown('Wind:')} Unlimited Range and targets 2 Units instead.\n",
         "EffectGreen": "Usable while Shapeshifted.",
         "HasMixins": true,
         "ParentKey": "Level 6 Class Talent",
@@ -2267,7 +2269,7 @@
         "Tags": [
             "Damage",
             "Area Damage",
-            "Crowd Control (Hard)"
+            "Status Effect (Hard)"
         ],
         "Effect": "Deal ~3d12~ Damage to all Worthy Units within 2 meters of you.\nHeal for 1 Health per 5 real Damage done (total).\n\n{Brown('Earth:')} One of the Units hit becomes Crippled.\n{Brown('Nature:')} Then gain Thornskin I.\n{Brown('Water:')} Leap up to 3 meters away first.\n{Brown('Wind:')} +1 range and only hits Enemies.\n",
         "EffectGreen": "Usable while Shapeshifted ~(or not)~.",
@@ -2584,7 +2586,7 @@
         "IsSubspell": true,
         "Cooldown": "Once / real hour",
         "Range": "1 meter",
-        "Effect": "Your pet removes all combat-affecting Debuffs and Crowd Control on a Unit.\nAlso cure any non-chronic and non-terminal illness or disease on the Unit.\n",
+        "Effect": "Your pet removes all combat-affecting Debuffs and Status Effects on a Unit.\nAlso cure any non-chronic and non-terminal illness or disease on the Unit.\n",
         "ParentKey": "Utility",
         "Origin": "Class/Hunter"
     },
@@ -2688,7 +2690,7 @@
         "A": "Passive",
         "IsSubspell": true,
         "Tags": "Damage",
-        "Effect": "Your pet's attacks deal +1d4 extra Poison Damage to targets already affected by Crowd Control.\n",
+        "Effect": "Your pet's attacks deal +1d4 extra Poison Damage to targets already affected by a Status Effect.\n",
         "Combo": "+1d4 extra Poison Damage.",
         "ParentKey": "Other Abilities",
         "Origin": "Class/Hunter"
@@ -2707,7 +2709,7 @@
         "A": "Passive",
         "IsSubspell": true,
         "Tags": [
-            "Crowd Control",
+            "Status Effect",
             "Mobility"
         ],
         "Effect": "Your pet has +1 Movement Speed.\nIf your pet moved at least 4 meters in a straight line this Turn, then attacked a target in front of it, Slam the target +1d4 Damage away from your pet.\n",
@@ -2719,7 +2721,7 @@
         "IsSubspell": true,
         "Range": "2-3 meters range",
         "Cooldown": "Once / Combat",
-        "Tags": "Crowd Control",
+        "Tags": "Status Effect",
         "Effect": "Your pet leaps next to a Unit, Blinding it.\n",
         "ParentKey": "Other Abilities",
         "Origin": "Class/Hunter"
@@ -2729,7 +2731,7 @@
         "IsSubspell": true,
         "Range": "3 meters",
         "Cooldown": "Once / real hour",
-        "Tags": "Crowd Control",
+        "Tags": "Status Effect",
         "Effect": "Your pet deploys a trap made of web, goo or a similar substance. When a Unit steps on it, it becomes Rooted.",
         "Notes": "Can be deployed directly underneath a Unit to trigger instantly!",
         "ParentKey": "Other Abilities",
@@ -2739,7 +2741,7 @@
         "A": "1 Action Point",
         "IsSubspell": true,
         "Cooldown": "Once / Combat",
-        "Tags": "Crowd Control",
+        "Tags": "Status Effect",
         "Effect": "Your pet picks up and Slams a Medium or smaller Unit up to 1d8 in any direction.",
         "ParentKey": "Other Abilities",
         "Origin": "Class/Hunter"
@@ -3006,7 +3008,7 @@
         "Replacement": "Replaces Hunter Mark",
         "Tags": [
             "Hunter Mark",
-            "Crowd Control"
+            "Status Effect"
         ],
         "Effect": "Choose and mark a target you can see. ~If it's a non-Epic Unit, it is perpetually Single-Stunned while Marked.~\nYour own single target attacks and Abilities against the marked target have their ^Dice Upgraded^ to the next die type.\n",
         "Notes": "Having Dice Upgraded means, for example, d6's become d8's, or d10's become d12's. D12's and d20's just gain +1.\nA Feared Unit can only do one Act on its turn (e.g. move, make one attack, use one Ability, etc).\nA Unit can only have one Hunter Mark on it at a time.\nYour Pet lands on the closest space near the target.\n",
@@ -3035,7 +3037,7 @@
         "ScrollPower": 3,
         "Tags": [
             "Area Damage",
-            "Crowd Control (Hard)"
+            "Status Effect (Hard)"
         ],
         "HasMixins": true,
         "Effect": "Shoot a thundering shot towards an obstacle or wall. A quaking wave travels horizontally towards in both directions of the wall up to 10 meters in each direction.\nAll Units within 2 meters of that wall must succeed a Might Check at least equal to your Presence Check or be Triple-Stunned and take 3d4 Shock Damage.\nThey take half of the Damage and are Single-Stun even if they pass.\n",
@@ -3580,7 +3582,7 @@
             "Damage",
             "Heal",
             "Mobility",
-            "Crowd Control"
+            "Status Effect"
         ],
         "Effect": "Heal yourself for 1d4, or move 1d4 meters.\nThen deal 1d8 Smash Damage to a Unit, or Slam it 1d6 meters.\n\n{Teal('With Valor:')} Do it again!\n{Teal('Next:')} Any other Ability\n",
         "Notes": "Use this to start a chain of Abilities With Valor! When you repeat this, choose the effects again and roll dice as normal. Obviously, the repeat does not retrigger another repeat.",
@@ -3621,7 +3623,7 @@
         "Tags": [
             "Movement"
         ],
-        "Effect": "Make a Move Act with +2 Movement Speed.\n\n{Variants}\n\n{Teal('With Valor:')} {Effect}\n{Teal('Next:')} Crowd Control Ability\n",
+        "Effect": "Make a Move Act with +2 Movement Speed.\n\n{Variants}\n\n{Teal('With Valor:')} {Effect}\n{Teal('Next:')} Status Effect Ability\n",
         "Variants": [
             {
                 "Effect": "All Units you pass near take 1d4 Damage (requires a Trusted Steed)."
@@ -3638,7 +3640,7 @@
         "_Value": 1,
         "A": "1 Action Point",
         "Tags": [
-            "Crowd Control"
+            "Status Effect"
         ],
         "Cooldown": "Once / Turn",
         "Range": "4 meters",
@@ -3665,7 +3667,7 @@
         "Cost": "1 Mana",
         "Requirement": "Level 3",
         "Degree": "Minor",
-        "Effect": "Instantly remove all Crowd Control from another ally you can see.\n",
+        "Effect": "Instantly remove all Status Effects from another ally you can see.\n",
         "Upgrade": "At Level 5, also removes all non-magical debuffs and poisons.\nAt Level 8, also removes all curses and normal negative magical effects.\n",
         "ParentKey": "Utility",
         "Origin": "Class/Paladin"
@@ -3690,7 +3692,7 @@
         "Range": "3 meters",
         "Cooldown": "Once / Turn",
         "Tags": [
-            "Crowd Control",
+            "Status Effect",
             "Gold Generation"
         ],
         "Effect": "Single-Stun a Unit.\n\n{Teal('With Valor:')} Double-Stun instead and gain 4d10 {Gold}Gold.\n{Teal('Next:')} Healing Ability\n",
@@ -3706,7 +3708,7 @@
             "Damage",
             "Area Damage"
         ],
-        "Effect": "Use a weapon to deal 2d4 + 2d6 Damage on a 1x1 meter space, of the weapon's Damage Type.\n\n{Teal('With Valor:')} The area becomes 3x3 meters instead.\n{Teal('Next:')} Crowd Control\n",
+        "Effect": "Use a weapon to deal 2d4 + 2d6 Damage on a 1x1 meter space, of the weapon's Damage Type.\n\n{Teal('With Valor:')} The area becomes 3x3 meters instead.\n{Teal('Next:')} Status Effect\n",
         "HasMixins": true,
         "ParentKey": "Level 3 Class Talent",
         "Origin": "Class/Knight"
@@ -3714,7 +3716,7 @@
     "~Cowards!~": {
         "A": "1 Action Point",
         "Tags": [
-            "Crowd Control",
+            "Status Effect",
             "Protection"
         ],
         "Effect": "Taunt all enemies within 2 meters of you.\n\n{Teal('With Valor:')} Gain 1 Shielding, which can block 1 Damage for each Unit Taunted.\n{Teal('Next:')} Movement\n\nPassively, you have Rebuke.\n",
@@ -3724,7 +3726,7 @@
                 "Range": "Depends on weapon",
                 "Tags": [
                     "Damage",
-                    "Crowd Control"
+                    "Status Effect"
                 ],
                 "Requirement": "Requires having some Shielding",
                 "Effect": "Use when targeted by an attack.\nUse a ^weapon^ to deal Damage to the attacker equal to your total Shieldings value.\nAfterwards, if you took no Damage from the attack, also Single-Stun the attacker.\n",
@@ -3742,7 +3744,7 @@
         "Range": "Depends on weapon",
         "Tags": [
             "Damage",
-            "Crowd Control"
+            "Status Effect"
         ],
         "Requirement": "Requires having some Shielding",
         "Effect": "Use when targeted by an attack.\nUse a ^weapon^ to deal Damage to the attacker equal to your total Shieldings value.\nAfterwards, if you took no Damage from the attack, also Single-Stun the attacker.\n",
@@ -3776,7 +3778,7 @@
             "Other"
         ],
         "Effect": "Charge in a straight line to any location on the battlefield.\nAll Units you pass through _shuffle_ their positions.\n\n{Teal('With Valor:')} And are Slowed and get a Combo.\n{Teal('Next:')} Healing\n",
-        "Notes": "Units you hit swap their positions between them _randomly_ (as chosen by the Quest Master). For example, the first Unit hit might swap positions with the last Unit hit.\nOptionally, you can use this to exit the battlefield and the Combat.\nShuffling positions does not count as Crowd Control.\n",
+        "Notes": "Units you hit swap their positions between them _randomly_ (as chosen by the Quest Master). For example, the first Unit hit might swap positions with the last Unit hit.\nOptionally, you can use this to exit the battlefield and the Combat.\nShuffling positions does not count as a Status Effect.\n",
         "HasMixins": true,
         "ParentKey": "Level 3 Class Talent",
         "Origin": "Class/Knight"
@@ -3825,11 +3827,11 @@
         "Requirement": "Requires having been betrayed this Campaign, or having broken an oath",
         "Tags": [
             "Support",
-            "Crowd Control (Hard)"
+            "Status Effect (Hard)"
         ],
         "_Value": 2,
-        "Effect": "Justice has failed. Your oath was broken, your faith was betrayed, but you swore a new one: to hunt those who wronged you and make the world remember. You will bring justice, to the world and to yourself.\n\nWhenever you buff an Ally, also apply that buff to yourself.\nOnce per Ability, when applying Crowd Control to a Unit, it takes 1d4 Scourge Damage. Then another Unit within 2 meters of it must pass a Might Roll at least equal to your Highest Stat Roll or also be affected by that Crowd Control and extra Scourge Damage.\n",
-        "Notes": "The secondary Crowd Control does not retrigger Creed of Vengeance.",
+        "Effect": "Justice has failed. Your oath was broken, your faith was betrayed, but you swore a new one: to hunt those who wronged you and make the world remember. You will bring justice, to the world and to yourself.\n\nWhenever you buff an Ally, also apply that buff to yourself.\nOnce per Ability, when applying a Status Effect to a Unit, it takes 1d4 Scourge Damage. Then another Unit within 2 meters of it must pass a Might Roll at least equal to your Highest Stat Roll or also be affected by that Status Effect and extra Scourge Damage.\n",
+        "Notes": "The secondary Status Effect does not retrigger Creed of Vengeance.",
         "ParentKey": "Level 4 Class Talent",
         "Origin": "Class/Knight"
     },
@@ -4042,17 +4044,6 @@
         "Cooldown": "Once / Combat",
         "Effect": "Use when an enemy Unit uses an Ability. It must use a different Ability.",
         "Notes": "If it has only one Ability or attack, you can't use Control Crowds (the QM will let you know).",
-        "ParentKey": "Level 3 Class Talent",
-        "Origin": "Class/Mystic"
-    },
-    "<Soul Drain>": {
-        "_Value": 0.5,
-        "AlignOnWebsite": "Right",
-        "A": "1 Action Point",
-        "Cost": "1 Mana",
-        "Range": "15 meters",
-        "Effect": "Deal 8 Scourge Damage to a Unit.\nIf it dies and it was Worthy, you get the Mana back and heal you or an ally for half of the Damage done.\n",
-        "Upgrade": "Also, passively, you always know if a Unit would die from this (the QM will answer yes or no).",
         "ParentKey": "Level 3 Class Talent",
         "Origin": "Class/Mystic"
     },
@@ -4321,7 +4312,7 @@
         "A": "1 Action Point",
         "Cost": "1 Mana",
         "Range": "3 meters",
-        "Tags": "CC",
+        "Tags": "Status Effect",
         "Effect": "Double-Stun a Unit.",
         "Combo": "Triple-Stun it instead.",
         "ParentKey": "Level 3 Class Talent",
@@ -4458,7 +4449,7 @@
         "Degree": "Major",
         "Tags": [
             "AoE Damage",
-            "AoE Crowd Control"
+            "AoE Status Effect"
         ],
         "Effect": "All Units in a 4x4 meter area take 2d4 Divine Damage and are Blinded.\n\nIf only one Unit is hit by the area, it instead takes 5d4 Divine Damage and is Crippled.\n",
         "Notes": "Cover is calculated from the center of the area.",
@@ -4476,7 +4467,7 @@
     "~Eye for Revolution~": {
         "_Value": 3,
         "A": "Passive",
-        "Effect": "Your melee attacks deal +25% Damage for each Crowd Control they have (Double-Stun counts as 2 and Triple-Stun counts as 3). The Damage of those attacks becoms Fire.",
+        "Effect": "Your melee attacks deal +25% Damage for each Status Effects they have (Double-Stun counts as 2 and Triple-Stun counts as 3). The Damage of those attacks becoms Fire.",
         "Combo": "+25% Damage.",
         "ParentKey": "Level 5 Class Talent",
         "Origin": "Class/Paladin"
@@ -4492,7 +4483,7 @@
         "A": "Reaction",
         "Cooldown": "1 Real Hour",
         "_Value": 6,
-        "Effect": "When a Unit becomes Crowd Controlled, all Enemies within 3 meters of it must pass a Instinct Check against your Instinct Check, or also be affected by that Crowd Control.\n",
+        "Effect": "When a Unit becomes affected by a Status Effect, all Enemies within 3 meters of it must pass a Instinct Check against your Instinct Check, or also be affected by that Status Effect.\n",
         "Downside": "Units affected by Retribution gain +2 to the Check.",
         "ParentKey": "Level 5 Class Talent",
         "Origin": "Class/Paladin"
@@ -4697,7 +4688,7 @@
         "Cooldown": "Once / Adventure",
         "Tags": [
             "Utility",
-            "Crowd Control",
+            "Status Effect",
             "Buff",
             "Awe"
         ],
@@ -4759,7 +4750,7 @@
         "A": "0 Action Points or Reaction",
         "Cost": "1 Mana",
         "Tags": [
-            "CC",
+            "Status Effect",
             "Combo",
             "Tanking"
         ],
@@ -4777,7 +4768,7 @@
         "DisplayName": "{Name}",
         "Tags": [
             "Damage",
-            "Crowd Control",
+            "Status Effect",
             "Situational"
         ],
         "Effect": "Up to 1d6 {Type} that can see and hear you take 1d8 {DamageType} Damage, are Dazed and pushed 3 meters away from you.\n\n~Click on the Icon to select which variant you want to have have!~\n",
@@ -4875,7 +4866,7 @@
         "Tags": "Healing",
         "Effect": "Heal a Unit for 2d6 + your Presence, and all other Units within 1 meter of it that can hear and see you for -50% of that amount.\n",
         "Combo": "Within 3 meters instead.",
-        "Upgrade": "If there were no other Units, remove all Crowd Control and Debuffs from the target.",
+        "Upgrade": "If there were no other Units, remove all Status Effects and Debuffs from the target.",
         "ParentKey": "Level 1 Class Talent",
         "Origin": "Class/Cleric"
     },
@@ -4934,7 +4925,7 @@
     "~Vows of Zealotry~": {
         "A": "Passive",
         "Tags": [
-            "Crowd Control",
+            "Status Effect",
             "Special"
         ],
         "Effect": "While wearing Heavy Armor, Awe has ^Dice Upgraded^ to the next die type when cast on yourself, and your first melee attack each Combat Blinds the target.",
@@ -4947,7 +4938,7 @@
         "A": "2 Action Points",
         "Cost": "1 Mana",
         "Tags": [
-            "Crowd Control",
+            "Status Effect",
             "Damage"
         ],
         "Effect": "Heal or deal 2d12 True Damage to a Unit you can see. It is Blinded and, for 1 Turn, can't see you and can't make ranged Acts.\n",
@@ -5060,10 +5051,10 @@
         "Degree": "Grand",
         "Tags": [
             "Damage",
-            "CC"
+            "Status Effect"
         ],
         "ScrollPower": "Auto",
-        "Effect": "A Unit you can see takes 3d8 Psychic Damage and is Deafened.\n",
+        "Effect": "A Unit you can see takes 3d8 Psychic Damage and is Silenced if it's a non-Epic monster (Deafened otherwise).\n",
         "Notes": "Cover is applied normally.",
         "ParentKey": "Level 4 Class Talent",
         "Origin": "Class/Cleric"
@@ -5116,7 +5107,7 @@
         "Range": "5 meters",
         "Tags": [
             "Reaction",
-            "CC"
+            "Status Effect"
         ],
         "Effect": "Whenever you use a Reaction, cast Awe or Single-Stun a Unit.",
         "ParentKey": "Level 5 Class Talent",
@@ -5156,7 +5147,7 @@
         "DisplayName": "{Name}",
         "Tags": [
             "Utility",
-            "Crowd Control",
+            "Status Effect",
             "Buff",
             "Awe"
         ],
@@ -5191,7 +5182,7 @@
     "~Sanctification~": {
         "A": "1 Action Point",
         "Cost": "1 Mana",
-        "Effect": "Cast Awe twice on all Units currently affected by your Buffs and Debuffs or Crowd Controls.",
+        "Effect": "Cast Awe twice on all Units currently affected by your Buffs and Debuffs or Status Effects.",
         "Notes": "Includes Shieldings.",
         "ParentKey": "Level 7 Class Talent",
         "Origin": "Class/Cleric"
@@ -5265,7 +5256,7 @@
         "Cost": "2 Mana",
         "Range": "5 meters",
         "Tags": [
-            "CC",
+            "Status Effect",
             "Damage"
         ],
         "ScrollPower": 2,
@@ -5282,7 +5273,7 @@
         "Duration": "1 minute",
         "ScrollPower": 2,
         "Tags": [
-            "AoE CC"
+            "AoE Status Effect"
         ],
         "Cooldown": "Once / Adventure",
         "Effect": "Choose a point as the center of a Black Hole which blocks light within 6 meters, and limits Units' line of sight to its event horizon.\nAt the end of each Round, Slam* all Units within 6 meters of the Black Hole towards the center.\nWhen one comes within 1 meter of the center, cast Awe on it and it becomes Slowed.\n",
@@ -5303,7 +5294,7 @@
     "~One Hand Giveth~": {
         "_Value": 2.25,
         "A": "Reaction",
-        "Effect": "Your Abilities that inflict Blind or Deafen deal -50% Damage to allies.\nAfter an Ally recovers from being Blinded by you, their next Act deals 150% extra Damage.\nAfter an Ally recovers from being Deafened by you, their next Ability costs -3 Action Points to cast.\n",
+        "Effect": "Your Abilities that inflict Blind, Silence, or Deafen deal -50% Damage to allies.\nAfter an Ally recovers from being Blinded by you, their next Act deals 150% extra Damage.\nAfter an Ally recovers from being Deafened or Silenced by you, their next Ability costs -3 Action Points to cast.\n",
         "ParentKey": "Level 8 Class Talent",
         "Origin": "Class/Cleric"
     },
@@ -5331,7 +5322,7 @@
         "Range": "5 meters",
         "ScrollPower": "Auto",
         "Tags": [
-            "Crowd Control (Hard)"
+            "Status Effect (Hard)"
         ],
         "Effect": "Triple-Stun a Unit and Single-Stun another willing ally (not you). Then cast Awe on each.\nThese Units' Passive Abilities are disabled while affected.\n",
         "ParentKey": "Level 8 Class Talent",
@@ -5642,7 +5633,7 @@
         "_Value": 2.5,
         "A": "0 Action Points",
         "Cooldown": "Once / Combat",
-        "Effect": "Choose a shadow you can see.\nYou can manipulate the shape of this shadow and even extend it upward to attack for 1d6 and Deafen the target.\n",
+        "Effect": "Choose a shadow you can see.\nYou can manipulate the shape of this shadow and even extend it upward to attack for 1d6 and Daze the target.\n",
         "Upgrade": "This attack is able to trigger Ambush.",
         "ParentKey": "Level 3 Class Talent",
         "Origin": "Class/Rogue"
@@ -5742,7 +5733,7 @@
         "A": "Passive",
         "HasMixins": true,
         "Tags": [
-            "Crowd Control"
+            "Status Effect"
         ],
         "Effect": "When combat starts, deploy a number of Trap Wires equal to ^your Focus or Presence^, anywhere on the battlefield.\nA Trap Wire is thin and up to 3 meters long, and must be deployed between 2 obstacles.\nIf a Unit touches a Trap Wire, it takes 1d10 Shock damage and becomes Dazed.\n",
         "Upgrade": "Units with less than 2 Presence can't see the Trap Wires.",
@@ -6221,6 +6212,11 @@
         "ParentKey": "Level 10 Class Talent",
         "Origin": "Class/Rogue"
     },
+    "~Better Echo~": {
+        "Effect": "The first spell you cast each combat repeats next round at half effect.",
+        "ParentKey": "Ideas",
+        "Origin": "Class/Shaman"
+    },
     "~Farsight or Foresight~": {
         "Effect": "You can see the future, like what a Unit will do and its result. Roll anticipatory dice for it or something.",
         "ParentKey": "Ideas",
@@ -6260,7 +6256,7 @@
         "Requirement": "Level 3",
         "Range": "5 meters",
         "HasMixins": true,
-        "Effect": "Dispell all ongoing _non-chronic_ magical effects on a Unit (any magical Crowd Control, magical buffs and debuffs, etc).",
+        "Effect": "Dispell all ongoing _non-chronic_ magical effects on a Unit (any magical Status Effects, magical buffs and debuffs, etc).",
         "Notes": "Chronic effects are ones that last days, months or are permanent, such as curses, vampirism, etc.",
         "ParentKey": "Utility",
         "Origin": "Class/Shaman"
@@ -6272,7 +6268,7 @@
         "Duration": "10 minutes",
         "Degree": "Minor",
         "Effect": "Declare a 4x4x4 meter area.\nAll Units in that area become outlined in a colored glow (you choose the color). They can't benefit from Cover, turn invisible and their Surprise bonus/minus is cancelled.\n",
-        "Notes": "The Units glow even through walls, but the denser the walls, the less they appear to glow.\nA 1-meter (thickness) of concrete wall completely blocks the glow.\nThis is not considered Crowd Control.\n",
+        "Notes": "The Units glow even through walls, but the denser the walls, the less they appear to glow.\nA 1-meter (thickness) of concrete wall completely blocks the glow.\nThis is not considered a Status Effect.\n",
         "ParentKey": "Utility",
         "Origin": "Class/Shaman"
     },
@@ -6294,7 +6290,7 @@
         "HasMixins": true,
         "A": "0 Action Points",
         "Cooldown": "Once / Adventure",
-        "Effect": "You become a bodyless soul for up to 8 hours and enter a willing ally.\nWhile inside the ally's body, you can communicate with them mentally, and only they can see you.\nYou can slightly peek outside of their body, and move your arms, upper body and head as if you were a ghost originating from that ally's body.\n{Diamond} You can't move yourself, but you always move with that ally.\n{Diamond} You can't do any physical actions (because you are a ghost and can't touch anything or anyone).\n{Diamond} You can cast spells normally. \n{Diamond} You follow your own Initiative in combat.\n{Diamond} You can't take Damage or Crowd Control from external sources, but you feel every body sensation that ally feels.\nYou can freely exit their body and revert back to your physical self using 0 Action Points.\n",
+        "Effect": "You become a bodyless soul for up to 8 hours and enter a willing ally.\nWhile inside the ally's body, you can communicate with them mentally, and only they can see you.\nYou can slightly peek outside of their body, and move your arms, upper body and head as if you were a ghost originating from that ally's body.\n{Diamond} You can't move yourself, but you always move with that ally.\n{Diamond} You can't do any physical actions (because you are a ghost and can't touch anything or anyone).\n{Diamond} You can cast spells normally. \n{Diamond} You follow your own Initiative in combat.\n{Diamond} You can't take Status Effects from external sources, but you feel every body sensation that ally feels.\nYou can freely exit their body and revert back to your physical self using 0 Action Points.\n",
         "ParentKey": "Level 3 Class Talent",
         "Origin": "Class/Shaman"
     },
@@ -6304,7 +6300,7 @@
         "Cooldown": "Once / Adventure",
         "Range": "6 meters",
         "Effect": "Make a Presence Check against another non-Epic Unit's Presence Check. If you succeed, it falls Asleep for 2 turns.\nAlternatively, you can use Dream Walk on an already sleeping target to alter their dreams to your liking.\n",
-        "Notes": "A Sleeping Unit wakes up if it takes Damage or other Crowd Control.",
+        "Notes": "A Sleeping Unit wakes up if it takes Damage or other Status Effects.",
         "ParentKey": "Level 3 Class Talent",
         "Origin": "Class/Shaman"
     },
@@ -6523,11 +6519,11 @@
         "A": "2 Action Points",
         "Cooldown": "Once / Combat",
         "Tags": [
-            "Crowd Control",
+            "Status Effect",
             "Damage",
             "Combo"
         ],
-        "Effect": "Blast a Unit you can see for {Amount} {Color('orange' 'Flux')} Damage and {Choose} Deafened, Slowed, or Blinded.\n\nThen do it again.\n",
+        "Effect": "Blast a Unit you can see for {Amount} {Color('orange' 'Flux')} Damage and {Choose} Silenced (if non-Epic), Lagged, or Blinded.\n\nThen do it again.\n",
         "Combo": "Then do it again.",
         "Variants": [
             {
@@ -6662,7 +6658,7 @@
         "SpellTable": [
             {
                 "Name": "1. Fake Sound",
-                "Effect": "A sound is magically created at a point (it can Deafen some Units)."
+                "Effect": "A sound is magically created at a point (it may Silence or Deafen some Units)."
             },
             {
                 "Name": "2. Quicksand",
@@ -6730,7 +6726,7 @@
             },
             {
                 "Name": "18. Lightning Strikes Again",
-                "Effect": "1 to 3 Units get any Crowd Control."
+                "Effect": "1 to 3 Units get any Status Effect."
             },
             {
                 "Name": "19. Nervous System Jolt",
@@ -6779,7 +6775,7 @@
         "A": "1 Action Point",
         "Range": "10 meters",
         "AlignOnWebsite": "Left",
-        "Effect": "A Unit must make a Presence Roll at least equal to your last rolled Unstable Spark die or be Deafened, Slowed or Dazed (your choice).\nIf it passes, roll an Unstable Spark die.\n",
+        "Effect": "A Unit must make a Presence Roll at least equal to your last rolled Unstable Spark die or be Lagged or Dazed (your choice).\nIf it passes, roll an Unstable Spark die.\n",
         "Notes": "What are you doing, just pick Wild Casting.",
         "ParentKey": "Level 2 Class Talent",
         "Origin": "Class/Sorcerer"
@@ -6836,10 +6832,10 @@
             "Font"
         ],
         "Combat Extras": [
-            "You have 2 Magic Font Spells"
+            "You have extra Magic Font Spells"
         ],
-        "Effect": "You may select a `Magic Font$/Other/MagicFonts` to pick Spells from.\nYou get 2 free Magic Font Spells.\n",
-        "Notes": "All Magic Font Spells act like Class Talents. You can get more Magic Font Spells like you would normally get extra Class Talents (e.g. with the extra Known Talents from Intelligence, if above 0).\n",
+        "Effect": "You may select a `Magic Font$/Other/MagicFonts` to pick Spells from.\nYou get a number of them equal to your Focus.\n",
+        "Notes": "All Magic Font Spells act like Class Talents. Notes: You can change your Font and Spells inbetween Adventures.\n",
         "ParentKey": "Level 3 Class Talent",
         "Origin": "Class/Warlock"
     },
@@ -7009,7 +7005,7 @@
         "Cost": "1 Mana",
         "Range": "5 meters",
         "Tags": [
-            "CC",
+            "Status Effect",
             "Combo"
         ],
         "Effect": "Cast Awe on a Unit. It becomes Slowed and Blinded. Apply a ~Combo~.",
@@ -7182,7 +7178,7 @@
         "Range": "5 meters",
         "Duration": "1 minute",
         "Cooldown": "Once / Adventure",
-        "Effect": "Make a Check with any Stat against a Unit's Presence Check.\nIf you pass, it can't cast healing Spells, do Crowd Control or apply On-Roll Effects for 1 minute.\n",
+        "Effect": "Make a Check with any Stat against a Unit's Presence Check.\nIf you pass, it can't cast healing Spells, do Status Effects or apply On-Roll Effects for 1 minute.\n",
         "Notes": "Against Epic Monsters, it only last for 2 turns.",
         "ParentKey": "Level 5 Class Talent",
         "Origin": "Class/Soulwright"
@@ -7517,8 +7513,8 @@
         "_Value": 1.5,
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "After landing 2 non-Critical Strikes in a row on a Unit, inflict a random Crowd Control from the following options. Then the Unit becomes immune to ^At Me!^ for the rest of the Combat.\n{Diamond} 1. Slow\n{Diamond} 2. Blind\n{Diamond} 3. Deafen\n{Diamond} 4. Daze\n",
-        "Upgrade": "If they were both with a 2-handed weapon, the Crowd Control applied is doubled (Double-Slowed, Double-Blind, etc)!",
+        "Effect": "After landing 2 non-Critical Strikes in a row on a Unit, inflict a random Status Effect from the following options. Then the Unit becomes immune to ^At Me!^ for the rest of the Combat.\n{Diamond} 1. Slow\n{Diamond} 2. Blind\n{Diamond} 3. Daze\n{Diamond} 4. Single-Stun\n",
+        "Upgrade": "If they were both with a 2-handed weapon, the Status Effect applied is doubled (Double-Slowed, Double-Blind, etc)!",
         "ParentKey": "Level 2 Class Talent",
         "Origin": "Class/Swashbuckler"
     },
@@ -7614,7 +7610,7 @@
         "_Value": 2.25,
         "A": "Reaction",
         "Range": "5 meters",
-        "Effect": "Use when a Unit within 5 meters (or yourself) becomes affected by Crowd Control.\nSlam it 1d8 meters in any direction.\n",
+        "Effect": "Use when a Unit within 5 meters (or yourself) becomes affected by a Status Effect.\nSlam it 1d8 meters in any direction.\n",
         "Notes": "Requires a Whiplash item, which can be bought for 50 {Gold}Gold (or freely crafted for the same price in materials).\n",
         "HasMixins": true,
         "ParentKey": "Level 4 Class Talent",
@@ -7711,12 +7707,12 @@
         "Origin": "Class/Swashbuckler"
     },
     "~Evoke~": {
-        "_Value": 2,
+        "_Value": 3,
         "A": "Passive",
         "HasMixins": true,
         "AlignOnWebsite": "Left",
         "Effect": "You start each Worthy Combat with 0 Evoke Points.\nWhen you roll at least 1 maximum die on any Act, gain 1 Evoke Point.\nSome Spells can consume all Evoke Points to gain an improved effect ^for each Evoke Point spent^.\n\nYou may pick 2 Evocations.\n",
-        "Notes": "You must spend ^all^ EP when you decide to. You can pick one for free Evocation at Level 1, and get more like you would normally get extra Class Talents (e.g. with the extra Known Talents from Intelligence, if above 0).",
+        "Notes": "You must spend ^all^ EP when you decide to. You can change your Evocations inbetween Adventures.",
         "ParentKey": "Starting Abilities",
         "Origin": "Class/Warlock"
     },
@@ -7732,7 +7728,7 @@
         "Tags": [
             "Area"
         ],
-        "Effect": "{Evoke}: Your next single-target Ability or Attack targets an extra Unit in range per Evoke Point spent, dealing -50% Damage and Healing to the secondary targets.\n",
+        "Effect": "{Evoke}: Your next Act that targets Unit(s) targets an extra Unit in range per Evoke Point spent, but deals -50% Damage (or Healing if it heals) to the secondary targets.\n",
         "HasMixins": true,
         "ParentKey": "Other Abilities",
         "Origin": "Class/Warlock"
@@ -7742,10 +7738,10 @@
         "A": "0 Action Points",
         "Requirement": "Requires spending Evoke Points",
         "Tags": [
-            "Crowd Control"
+            "Status Effect"
         ],
-        "Effect": "{Evoke}: Your next Ability or Attack Single-Stuns one of the Units hit. For each extra Evoke Point spent, Single-Stun it again.\n",
-        "Notes": "Alternatively, you can Single-Stun one extra Unit that was hit, if your Act hit multiple Units. When increasing the Stun Degree inflicted with an Evoke Point, only increase it for one of the hit Units.",
+        "Effect": "{Evoke}: Your next offensive Act also Single-Stuns one of the Units hit, for each extra Evoke Point spent\n",
+        "Notes": "You can Single-Stun the same Unit, or a different Unit hit. When increasing the Stun Degree inflicted with an Evoke Point, only increase it for one of the hit Units.",
         "HasMixins": true,
         "ParentKey": "Other Abilities",
         "Origin": "Class/Warlock"
@@ -7771,7 +7767,7 @@
             "Damage",
             "Heal"
         ],
-        "Effect": "{Evoke}: Your next single-target attack or Spell deals +1d6 Damage on cast, or +1d4 Healing on cast per Evoke Point spent.\n",
+        "Effect": "{Evoke}: Your next Act that targets Unit(s) deals +1d6 Damage on cast, or +1d4 Healing to the target on cast, per Evoke Point spent.\n",
         "Upgrade": "These extra dice can not produce more Evoke Points.",
         "Notes": "If it heals, it does extra Healing. If it deals Damage, it deals extra Damage. If used with Damage over time effects, the extra Damage only happens when you cast the Spell.",
         "HasMixins": true,
@@ -7789,19 +7785,71 @@
         "ParentKey": "Other Abilities",
         "Origin": "Class/Warlock"
     },
-    "~Curse of the Mind~": {
+    "~Summon Familiar~": {
+        "A": "Special",
+        "Height": 35,
+        "Effect": "You have a familiar, shaped directly by your source of Warlock powers and {Color('magenta' 'Flux')} (it can be a small demon, an animal, etc).\nThe familiar follows you, has a personality, and casts Eerie Bolt automatically if it has _Energy_.\nWhile with you in Combat, it can't take Damage unless purposefully targeted.\n",
+        "Upgrade": "It has a number of Skill Points equal to your Level.\nIt may or may not follow your commands, depending on your relationship.\nIf it dies, you can spend 10 minutes to resummon it.\n",
+        "Subspells": {
+            "~Energize Familiar~": {
+                "A": "1 Action Point",
+                "Cost": "1 Mana",
+                "Effect": "Give your familiar 1d6 _Energy_.",
+                "HasMixins": true,
+                "ParentKey": "Subspells",
+                "Origin": "Class/Warlock"
+            }
+        },
+        "Monster": {
+            "Name": "Familiar",
+            "Stats": "0/1/0/1",
+            "Health": 5,
+            "Speed": 5,
+            "Abilities": {
+                "Eerie Bolt": {
+                    "A": "1 Energy",
+                    "Range": "3 meters",
+                    "Damage": "1d6 (or Healing)",
+                    "Effect": "Cast automatically and for free when the Warlock attacks or heals a Unit within 3 meters.\n",
+                    "ParentKey": "Abilities",
+                    "Origin": "Class/Warlock"
+                }
+            }
+        },
+        "HasMixins": true,
+        "ParentKey": "Utility",
+        "Origin": "Class/Warlock"
+    },
+    "~Energize Familiar~": {
         "A": "1 Action Point",
+        "Cost": "1 Mana",
+        "Effect": "Give your familiar 1d6 _Energy_.",
+        "HasMixins": true,
+        "ParentKey": "Subspells",
+        "Origin": "Class/Warlock"
+    },
+    "Eerie Bolt": {
+        "A": "1 Energy",
         "Range": "3 meters",
-        "Cost": "2 Mana",
+        "Damage": "1d6 (or Healing)",
+        "Effect": "Cast automatically and for free when the Warlock attacks or heals a Unit within 3 meters.\n",
+        "ParentKey": "Abilities",
+        "Origin": "Class/Warlock"
+    },
+    "~Curse of the Mind~": {
+        "A": "2 Action Points",
+        "Range": "3 meters",
+        "Cost": "1 Mana",
         "HasMixins": true,
         "ScrollPower": "Auto",
         "Duration": "Minor curse lasts until end of Adventure",
         "Degree": "Major",
         "Tags": [
             "Damage",
-            "Crowd Control"
+            "Status Effect"
         ],
-        "Effect": "A Unit is afflicted by minor curse effects (e.g. is clumsy, stumbles, get pimples, etc), getting -2 on all Checks.\nThen, you can deal 5d4 Psychic Damage to it and becomes Deafened or Dazed (its choice).\nApply a ~Combo~ to it.\n",
+        "Effect": "Choose a Unit. Deal 6d4 Psychic Damage to it and it becomes Single-Stunned.\nApply a ~Combo~ to it.\n",
+        "Upgrade": "Alternatively, affect it bywith minor curse effects (e.g. is clumsy, stumbles, get pimples, etc), getting -2 on all Checks.",
         "Notes": "Be creative with the effects of the minor curse effects!\n",
         "ParentKey": "Utility",
         "Origin": "Class/Warlock"
@@ -7822,20 +7870,6 @@
         "ParentKey": "Utility",
         "Origin": "Class/Warlock"
     },
-    "~Orbs of Umbra~": {
-        "A": "1 Action Point",
-        "Cost": "1 Mana",
-        "Tags": [
-            "Roleplaying",
-            "Damage",
-            "Heal"
-        ],
-        "Effect": "Summon 1d6 orbs shaped to your {Color('magenta' 'Flux')}, which either orbit you or stay in place where you put them.\nWhenever you hit a Unit within 3 meters (with anything else), 1 Umbrablaze may fly into it to deal 1d6 Damage or Healing to it.\n\nAt will, you can tap into any of your orbs to see what it is seeing, live, in your mind.\nA Recording Eye records everything it sees. You can retrieve it to see everything recorded in it.\n",
-        "Notes": "The orbs may fit inside your palm, or may be larger. They are visible, but you can freely decide how they are textured.",
-        "HasMixins": true,
-        "ParentKey": "Utility",
-        "Origin": "Class/Warlock"
-    },
     "~Deathfire Wave~": {
         "A": "2 Action Points",
         "Cost": "1 Mana",
@@ -7852,6 +7886,10 @@
     "~Witherwave~": {
         "A": "0 Action Points",
         "Cost": "1 Mana",
+        "Tags": [
+            "Damage",
+            "Weapon"
+        ],
         "Effect": "Your next {Type} weapon attack deals +50% Damage and applies a ~Combo~.\n\n{Variants}\n",
         "Variants": [
             {
@@ -7902,10 +7940,98 @@
         "Range": "5 meters",
         "Cooldown": "Once / Combat",
         "Tags": [
-            "Crowd Control"
+            "Status Effect"
         ],
         "Effect": "Choose a Unit. At the start of each of its Turns, it is Slowed.",
         "ParentKey": "Level 2 Class Talent",
+        "Origin": "Class/Warlock"
+    },
+    "~Life Sap~": {
+        "A": "Passive",
+        "_Value": 0.25,
+        "Effect": "You can cast Abilties that cost {Mana}Mana by spending 2d6 {Health}Health per 1 {Mana}Mana instead.",
+        "Upgrade": "If you would go Down this way, you still cast the Spell, and go Down immediately after.",
+        "HasMixins": true,
+        "ParentKey": "Level 3 Class Talent",
+        "Origin": "Class/Warlock"
+    },
+    "~Obfuscation of Energy~": {
+        "_Value": 0.25,
+        "A": "0 Action Points",
+        "Effect": "Spend 2 Evoke Points to gain 1 {Mana}Mana, or viceversa.",
+        "HasMixins": true,
+        "ParentKey": "Level 3 Class Talent",
+        "Origin": "Class/Warlock"
+    },
+    "~Mind Over Matter~": {
+        "_Value": 0.25,
+        "A": "Passive",
+        "Effect": "You can choose how many Evoke Points you want to spend when spending them.",
+        "ParentKey": "Level 3 Class Talent",
+        "Origin": "Class/Warlock"
+    },
+    "~Consumption~": {
+        "_Value": 2,
+        "A": "0 Action Points",
+        "Effect": "Consume one of your known Abilities until the end of the Adventure to gain 1 Evoke Point.\nYou can't cast it until the end of the Adventure.\n",
+        "ParentKey": "Level 3 Class Talent",
+        "Origin": "Class/Warlock"
+    },
+    "~Inward Invocation~": {
+        "A": "Reaction",
+        "_Value": 1.5,
+        "Effect": "Use when ^you^ take minimum or maximum Damage from a dice attack. Gain 1 Evoke Point.",
+        "HasMixins": true,
+        "ParentKey": "Level 3 Class Talent",
+        "Origin": "Class/Warlock"
+    },
+    "~Congregation of Power~": {
+        "_Value": 3.25,
+        "A": "Passive",
+        "Effect": "Your Spells gain +1 Damage (or Healing) for each Evoke Point you have.",
+        "Upgrade": "Note that Evocations and other Abilities spend the Evoke Points immediately when cast (e.g. Diverge followed by Hail won't benefit from the extra Damage). However, Abilities that themselves consume Evoke Points do benefit from the extra Damage when cast with Evoke Points, like Deathfire Wave or Soul Drain.",
+        "ParentKey": "Level 3 Class Talent",
+        "Origin": "Class/Warlock"
+    },
+    "~Reabsorption~": {
+        "_Value": 3,
+        "A": "Passive",
+        "Effect": "After you use an Ability empowered by at least 2 Evoke Points (from Evocations or itself), gain 1 Evoke Point.",
+        "ParentKey": "Level 3 Class Talent",
+        "Origin": "Class/Warlock"
+    },
+    "~As Fate Willt~": {
+        "_Value": 3,
+        "A": "0 Action Points",
+        "Cost": "1 Evoke Point",
+        "Effect": "Gain 2 Evoke Points, then cast a random Evocation spending all your Evoke Points.",
+        "SingleTable": [
+            "1. Diverge",
+            "2. Overwhelm",
+            "3. Amplify",
+            "4. Obliterate",
+            "5. Transpose"
+        ],
+        "Notes": "You can roll 1d6 and reroll if you roll 6.",
+        "ParentKey": "Level 3 Class Talent",
+        "Origin": "Class/Warlock"
+    },
+    "~Expert in Evocations~": {
+        "_Value": 1,
+        "A": "Passive",
+        "IsIgnored": true,
+        "Combat Extras": [
+            "You know all base Evocations"
+        ],
+        "Effect": "You always know all base Warlock Evocations.",
+        "ParentKey": "Level 3 Class Talent",
+        "Origin": "Class/Warlock"
+    },
+    "~Master of Curses~": {
+        "_Value": 2.25,
+        "A": "Passive",
+        "Effect": "Your Curses that are empowered by at least 1 Evoke Point cast as if empowered by +1 Evoke Point.",
+        "ParentKey": "Level 3 Class Talent",
         "Origin": "Class/Warlock"
     },
     "~Evoke Entropy~": {
@@ -7947,11 +8073,33 @@
         "Origin": "Class/Warlock"
     },
     "~Curse of Frailty~": {
-        "_Value": "Baseline, 0, but can go up to 1 if used correctly",
+        "_Value": 0.5,
         "A": "1 Action Point",
         "Cost": "1 Mana",
         "Tags": "Debuff",
-        "Effect": "A Unit you can see takes +50% Damage the next time it takes Damage from an ally.\n\n{Evoke}: +50% extra Damage per Evoke Point spent.\n",
+        "Effect": "A Unit you can see becomes special-Frail: it takes +50% Damage the next time it takes Damage from an ally.\n\n{Evoke}: +50% extra Damage per Evoke Point spent.\n",
+        "HasMixins": true,
+        "ParentKey": "Level 4 Class Talent",
+        "Origin": "Class/Warlock"
+    },
+    "~Curse of the Plague~": {
+        "A": "3 Action Points",
+        "Cooldown": "Once / Combat",
+        "Duration": "Lasts until end of Combat",
+        "Effect": "Choose a Unit and roll 5d6 to see its _death threshold_.\nWhen it gets to that amount or less Health, you can use a free Reaction to kill it.\nThen the curse spreads with the same _death threshold_ to all Units within 2 meters of it.\n",
+        "Upgrade": "Wherever the plague goes, it kills small plants, insects, and rots wood and rusts metal. It also makes fertile soil infertile, turns textile and paper materials into dust, and decays food and poisons water.",
+        "Notes": "The death threshold can stack from multiple Curses of the Plague! Ask the Quest Master whether a Unit should die from the curse.",
+        "HasMixins": true,
+        "ParentKey": "Level 4 Class Talent",
+        "Origin": "Class/Warlock"
+    },
+    "~Gateway~": {
+        "A": "2 Action Points",
+        "Cooldown": "Once / Adventure",
+        "Range": "5 meters to first gate",
+        "Duration": "Lasts until end of Combat, or 10 real minutes",
+        "Effect": "Open a _gateway_, and another paired one in a location you can see.\nUnits and projectiles can go through a gateway and appear through the other.\n\nYou can cast this with 0 Action Points and no Cooldown by spending 1 {Mana}Mana.\n",
+        "Upgrade": "The gateway does not have a direction - projectiles going one way come out the same way. Units have Line of Sight through the gates, and their Range counts as if the two gates are connected (obviously).",
         "HasMixins": true,
         "ParentKey": "Level 4 Class Talent",
         "Origin": "Class/Warlock"
@@ -8020,6 +8168,7 @@
         "Origin": "Class/Warlock"
     },
     "<Higher Evoke>": {
+        "_Value": 2.25,
         "A": "Passive",
         "Tags": [
             "Evoke"
@@ -8029,6 +8178,7 @@
         "Origin": "Class/Warlock"
     },
     "~Overloading Evocation~": {
+        "Value": 1.75,
         "A": "0 Action Points",
         "Cooldown": "Once / Adventure",
         "Tags": [
@@ -8071,6 +8221,52 @@
         "ParentKey": "Level 6 - Utility Talent",
         "Origin": "Class/Warlock"
     },
+    "~Contract of Hunger~": {
+        "_Value": 1.75,
+        "A": "Passive",
+        "Effect": "At the start of each Combat, get a random _Contract_. While active, you gain a buff. When broken, you suffer a punishment and the _Contract_ ends this Combat.\n\n{Purple(Payout)}: Gain 1 Evoke Point each Turn\n{Red(Punishment)}: Become Exhausted\n",
+        "SingleTable": [
+            "1. You shall choose a Warlock Ability and cast it every Turn!",
+            "2. You shall always target the alive Unit ^you^ have Damaged the most (choose if tied)!",
+            "3. You shall never end your Turn without having spent Mana or Evoke Points!"
+        ],
+        "Notes": "You always know which Unit you have Damaged the most.",
+        "HasMixins": true,
+        "ParentKey": "Level 7 Class Talent",
+        "Origin": "Class/Warlock"
+    },
+    "~Contract of Obsidian~": {
+        "_Value": 1.75,
+        "A": "Passive",
+        "Effect": "At the start of each Combat, get a random _Contract_. While active, you gain a buff. When broken, you suffer a punishment and the _Contract_ ends this Combat.\n\n{Purple(Payout)}: You have doubled Range and gain double the Evoke Points from Evoke.\n{Red(Punishment)}: Become Exhausted\n",
+        "SingleTable": [
+            "1. You shall never use Movement!",
+            "2. You shall never roll minimum on on all dice per Act!",
+            "3. You shall always end Turns at least 5 meters away from where you started!"
+        ],
+        "HasMixins": true,
+        "ParentKey": "Level 7 Class Talent",
+        "Origin": "Class/Warlock"
+    },
+    "~Contract of Sacrifice~": {
+        "_Value": 2,
+        "A": "Passive",
+        "Effect": "At the start of each Combat, get a random _Contract_. While active, you gain a buff. When broken, you suffer a punishment and the _Contract_ ends this Combat.\n\n{Purple(Payout)}: You start with +1 Mana and +1 Evoke Point.\n{Red(Punishment)}: Take 2d8 Damage.\n",
+        "SingleTable": [
+            "1. You shall take at least 3d8 Damage this Combat!",
+            "2. You shall never target a Unit you've already targeted with an attack or Ability this Combat!",
+            "3. You shall never use the same attack or Ability a second time this Combat!"
+        ],
+        "HasMixins": true,
+        "ParentKey": "Level 7 Class Talent",
+        "Origin": "Class/Warlock"
+    },
+    "~More Contracts~": {
+        "A": "Passive",
+        "Effect": "You may select as many Level 7 Talents as you like. All apply.",
+        "ParentKey": "Level 8 Class Talent",
+        "Origin": "Class/Warlock"
+    },
     "<Final Word>": {
         "_Value": 2.5,
         "A": "Passive",
@@ -8080,7 +8276,7 @@
         ],
         "Effect": "When you have exactly 1 Mana, and you cast a Spell that cost 1 Mana, that Spell casts twice (for free).",
         "Notes": "This is akin to casting the Spell again for 0 Action Points without spending Mana (not necessarily on the same target).",
-        "ParentKey": "Level 7 Class Talent",
+        "ParentKey": "Level 8 Class Talent",
         "Origin": "Class/Warlock"
     },
     "<Manafold Power>": {
@@ -8090,7 +8286,14 @@
             "Mana"
         ],
         "Effect": "You have +1 Max Mana.",
-        "ParentKey": "Level 7 Class Talent",
+        "ParentKey": "Level 8 Class Talent",
+        "Origin": "Class/Warlock"
+    },
+    "~Improved Evocations~": {
+        "_Value": 3,
+        "A": "Passive",
+        "Effect": "You can always cast 2 Evocations simultaneously, using the same Evoke Points.",
+        "ParentKey": "Level 8 Class Talent",
         "Origin": "Class/Warlock"
     },
     "<Placeholder>": {
@@ -8327,7 +8530,7 @@
         "Value": 2,
         "A": "Passive",
         "Tags": [
-            "Crowd Control (Hard)"
+            "Status Effect (Hard)"
         ],
         "Effect": "When you Slam a Unit into a Wall, it becomes Single-Stunned.",
         "ParentKey": "Level 4 Class Talent",
@@ -8549,7 +8752,7 @@
         "Degree": "Major",
         "Tags": [
             "Damage",
-            "Crowd Control"
+            "Status Effect"
         ],
         "Effect": "A Unit takes 3d6 Psychic Damage and:\n\n{Orange('Solar Stance')}: it becomes Blinded or Silenced (your choice).\n\n{Purple('Lunar Stance')}: An ally within 3 meters is healed for 50% of the Damage dealt.\n",
         "ParentKey": "Level 2 Class Talent",
@@ -8756,7 +8959,7 @@
         "Cost": "Any amount of Health",
         "HasMixins": true,
         "Effect": "Declare a square area with a diameter equal to ^twice the Health spent^.\nAll Units in that area must succeed a Presence Check agasint _twice the Health spent_ or instantly make an attack or offensive Ability of its choice, at full strength, on its closest ally.\n",
-        "Notes": "Monsters can use any of their Abilities that do Damage or Crowd Control, and target them however they want if they are Area Abilities, as long as it hits its closest ally.",
+        "Notes": "Monsters can use any of their Abilities that do Status Effects, and target them however they want if they are Area Abilities, as long as it hits its closest ally.",
         "ParentKey": "Level 5 Class Talent",
         "Origin": "Class/Wickan"
     },
@@ -8822,7 +9025,7 @@
     },
     "~Stunning~": {
         "A": "Passive",
-        "Effect": "Solar or Lunar - max die = heal or CC",
+        "Effect": "Solar or Lunar - max die = heal or Status Effect",
         "ParentKey": "Level 7 Class Talent",
         "Origin": "Class/Wickan"
     },
@@ -9064,8 +9267,8 @@
     "<Hydromancy>": {
         "_Value": 1.5,
         "A": "Passive",
-        "Effect": "Once per Turn, after you apply Crowd Control to an Enemy, increase all Cold Damage you deal by 1 for the rest of the combat.",
-        "Notes": "Hard Terrain does not count as Crowd Control. Slamming counts as Crowd Control.",
+        "Effect": "Once per Turn, after you apply a Status Effect to an Enemy, increase all Cold Damage you deal by 1 for the rest of the combat.",
+        "Notes": "Hard Terrain does not count as a Status Effect. Slamming counts as a Status Effect.",
         "ParentKey": "Level 2 Class Talent",
         "Origin": "Class/Wizard"
     },
@@ -9174,7 +9377,7 @@
             },
             {
                 "Name": "Venomous {Level}Level 3",
-                "Effect": "Animal Attacks deal +1d4 Damage to Units affected by Crowd Control. {Combo} +1d4 Damage."
+                "Effect": "Animal Attacks deal +1d4 Damage to Units affected by a Status Effect. {Combo} +1d4 Damage."
             },
             {
                 "Name": "Fast {Level}Level 4",
@@ -9222,7 +9425,7 @@
         "Range": "10 meters",
         "Degree": "Major",
         "ScrollPower": "Auto",
-        "Effect": "You create an illusion that fits at most in a 3x3x3 meter area.\nThe illusion appears real to the eyes, ears and by smell, but physical interaction makes it obvious it's an illusion and objects pass through it normally.\nThe illusion can deal no Damage or Crowd Control, but can provide Cover or block Line of Sight (both from the front, and from behind).\nOn your Turn, you can spend 2 Action Points to keep and/or move the illusion, otherwise the Spell ends.\n",
+        "Effect": "You create an illusion that fits at most in a 3x3x3 meter area.\nThe illusion appears real to the eyes, ears and by smell, but physical interaction makes it obvious it's an illusion and objects pass through it normally.\nThe illusion can deal no Status Effects, but can provide Cover or block Line of Sight (both from the front, and from behind).\nOn your Turn, you can spend 2 Action Points to keep and/or move the illusion, otherwise the Spell ends.\n",
         "Upgrade": "At Level 8, the illusion lasts indefinitely until you cancel it without needing to spend Actions, and it can hold its own simple movement and clockwork-like routines.\nYou can also program this illusion to react on its own in a specific way to specific triggers, but the instructions must be concise - talk with your QM about this.\n",
         "ParentKey": "Level 6 - Utility Talent",
         "Origin": "Class/Wizard"
@@ -9290,7 +9493,7 @@
         "Cooldown": "Once / Adventure",
         "Duration": "Until the start of your next turn",
         "Tags": [
-            "Crowd Control (Hard)"
+            "Status Effect (Hard)"
         ],
         "ScrollPower": 6,
         "Effect": "Choose a 5x5x5 meter cube.\nThat area become frozen in time - Units skip their turns and can't be Damaged or affected by anything.\nAny object that touches the area becomes frozen, too (and, if it is a missile, resumes its trajectory when the area ends).\n",
@@ -9309,7 +9512,7 @@
         "A": "Passive",
         "Effect": "Your chosen Level 3 Talent triggers 3 times when it happens. When using Magic Mastery on a Spell with the same element as your Level 3 Talent, it no longer gets its ^Dice Downgraded^.\n",
         "Upgrade": "All your other Spells become themed to the same element, but keep their original Damage Type. For example, if you chose fire, Frost Nova will now burst in cold, blue flames instead of ice.",
-        "Notes": "For example, when you hit multiple Units with an Ability, you increase your Fire Damage by +3 instead of +1, or you gain +6 Cold Damage from Hydromancy when you Crowd Control an Enemy. For Eldritchianism, your Spells have their ^Dice Upgraded^ 3 times.",
+        "Notes": "For example, when you hit multiple Units with an Ability, you increase your Fire Damage by +3 instead of +1, or you gain +6 Cold Damage from Hydromancy when you Status Effect an Enemy. For Eldritchianism, your Spells have their ^Dice Upgraded^ 3 times.",
         "HasMixins": true,
         "Downside": "This is your Heroic Class Ability and, after getting this Talent, you can no longer change your Talents inbetween Adventures.",
         "ParentKey": "Level 10 Class Talent",
@@ -9966,7 +10169,7 @@
             "Presence": 1
         },
         "Effect": "The first time you would take Damage from a physical source each Adventure, you dodge the Damage and negate it (if it's dodge-able).\nYou get +1 Presence (up to your Level's Stat limit) and -1 Known Talent.\n",
-        "Upgrade": "You may dodge any Damage from a physical source that would make sense. You dodge the Damage, but if the attack had any other effects like Crowd Control, it is still applied.",
+        "Upgrade": "You may dodge any Damage from a physical source that would make sense. You dodge the Damage, but if the attack had any other effects like Status Effects, it is still applied.",
         "Notes": "You have traits from the wild Kobolds, a race of feral Bertle-like folks with animal features, albeit much more agressive and less intelligent.\nChoose which animal's visual features you would like to have!\n",
         "ParentKey": "Talents",
         "Origin": "Race/Littlefolk"
