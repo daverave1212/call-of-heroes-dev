@@ -89,16 +89,16 @@ Other Abilities:
       Requirement: Requires spending Evoke Points
       Tags: [Area]
       Effect: |
-        {Evoke}: Your next single-target Ability or Attack targets an extra Unit in range per Evoke Point spent, dealing -50% Damage and Healing to the secondary targets.
+        {Evoke}: Your next Act that targets Unit(s) targets an extra Unit in range per Evoke Point spent, but dealing -50% Damage (or Healing if it heals) to the secondary targets.
 
     ~Overwhelm~:
       _Value: 0 # 1 / EP
       A: 0 Actions
       Requirement: Requires spending Evoke Points
-      Tags: [Crowd Control]
+      Tags: [Status Effect]
       Effect: | 
-        {Evoke}: Your next Ability or Attack Single-Stuns one of the Units hit. For each extra Evoke Point spent, Single-Stun it again.
-      Notes: Alternatively, you can Single-Stun one extra Unit that was hit, if your Act hit multiple Units. When increasing the Stun Degree inflicted with an Evoke Point, only increase it for one of the hit Units.
+        {Evoke}: Your next offensive Act also Single-Stuns one of the Units hit, for each extra Evoke Point spent
+      Notes: You can Single-Stun the same Unit, or a different Unit hit. When increasing the Stun Degree inflicted with an Evoke Point, only increase it for one of the hit Units.
     
     ~Amplify~:
       _Value: 0 # 0.66 / EP
@@ -115,7 +115,7 @@ Other Abilities:
       Requirement: Requires spending Evoke Points
       Tags: [Damage, Heal]
       Effect: |
-        {Evoke}: Your next single-target attack or Spell deals +1d6 Damage on cast, or +1d4 Healing on cast per Evoke Point spent.
+        {Evoke}: Your next Act that targets Unit(s) deals +1d6 Damage on cast, or +1d4 Healing to the target on cast, per Evoke Point spent.
       Upgrade: These extra dice can not produce more Evoke Points.
       Notes: If it heals, it does extra Healing. If it deals Damage, it deals extra Damage. If used with Damage over time effects, the extra Damage only happens when you cast the Spell.
     
@@ -144,18 +144,18 @@ Utility:
     #         Be creative with the effects of the minor curse effects!
 
     ~Curse of the Mind~: # Adds CC (+1/EP)
-        A: Half-Action
+        A: 1 Action
         Range: 3 meters
-        Cost: 2 Mana
+        Cost: 1 Mana
         HasMixins: true
         ScrollPower: Auto
         Duration: Minor curse lasts until end of Adventure
         Degree: Major
-        Tags: [Damage, Crowd Control]
+        Tags: [Damage, Status Effect]
         Effect: |
-            A Unit is afflicted by minor curse effects (e.g. is clumsy, stumbles, get pimples, etc), getting -2 on all Checks.
-            Then, you can deal 5d4 Psychic Damage to it and becomes Deafened or Dazed (its choice).
+            Choose a Unit. Deal 6d4 Psychic Damage to it and it becomes Single-Stunned.
             Apply a ~Combo~ to it.
+        Upgrade: Alternatively, affect it bywith minor curse effects (e.g. is clumsy, stumbles, get pimples, etc), getting -2 on all Checks.
         Notes: |
             Be creative with the effects of the minor curse effects!
 
@@ -328,7 +328,7 @@ Talents:
       A: 1 Action
       Range: 5 meters
       Cooldown: Once / Combat
-      Tags: [Crowd Control]
+      Tags: [Status Effect]
       Effect: Choose a Unit. At the start of each of its Turns, it is Slowed.
 
   Level 3 Class Talent:
