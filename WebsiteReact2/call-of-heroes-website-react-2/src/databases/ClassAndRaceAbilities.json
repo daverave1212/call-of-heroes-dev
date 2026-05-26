@@ -1829,6 +1829,7 @@
     },
     "~Fundamentals I~": {
         "A": "Passive",
+        "IconName": "Fundamentals",
         "Effect": "Pick one more Level 1 Class or Utility Talent.\n",
         "ParentKey": "Level 2 Class Talent",
         "Origin": "Class/Warlock"
@@ -7718,7 +7719,7 @@
     },
     "~Transfusion~": {
         "Effect": "Give all your Mana to an ally.",
-        "ParentKey": "Idea",
+        "ParentKey": "Ideas",
         "Origin": "Class/Warlock"
     },
     "~Diverge~": {
@@ -7788,18 +7789,9 @@
     "~Summon Familiar~": {
         "A": "Special",
         "Height": 35,
-        "Effect": "You have a familiar, shaped directly by your source of Warlock powers and {Color('magenta' 'Flux')} (it can be a small demon, an animal, etc).\nThe familiar follows you, has a personality, and casts Eerie Bolt automatically if it has _Energy_.\nWhile with you in Combat, it can't take Damage unless purposefully targeted.\n",
-        "Upgrade": "It has a number of Skill Points equal to your Level.\nIt may or may not follow your commands, depending on your relationship.\nIf it dies, you can spend 10 minutes to resummon it.\n",
-        "Subspells": {
-            "~Energize Familiar~": {
-                "A": "1 Action Point",
-                "Cost": "1 Mana",
-                "Effect": "Give your familiar 1d6 _Energy_.",
-                "HasMixins": true,
-                "ParentKey": "Subspells",
-                "Origin": "Class/Warlock"
-            }
-        },
+        "Effect": "You have a familiar, shaped directly by your {Color('magenta' 'Flux')} (a small demon, a spirit, etc).\nThe familiar follows you, has its own personality, and casts ^Eerie Bolt^ automatically if you have Evoke Points.\nWhile with you in Combat, it can't take Damage unless purposefully targeted.\n",
+        "Upgrade": "It has a number of Skill Points equal to your Level.\nIt may or may not follow your commands, depending on your relationship.\nIf it dies or runs away, you can spend 10 minutes to resummon it.\n",
+        "Notes": "Work with your Quest Master to determine your familiar's look and personality. You may need to work to convince it to do things for you.\nThe familiar doesn't obey normal Combat rules, and doesn't use Movement or Action Points.\n",
         "Monster": {
             "Name": "Familiar",
             "Stats": "0/1/0/1",
@@ -7807,10 +7799,10 @@
             "Speed": 5,
             "Abilities": {
                 "Eerie Bolt": {
-                    "A": "1 Energy",
+                    "Cost": "1 Evoke Point",
                     "Range": "3 meters",
-                    "Damage": "1d6 (or Healing)",
-                    "Effect": "Cast automatically and for free when the Warlock attacks or heals a Unit within 3 meters.\n",
+                    "Damage": "1d6 Flux Damage (or Healing)",
+                    "Effect": "Cast automatically and for free, on the same target, after the Warlock targets a Unit within 3 meters.\nCan generate an Evoke Point!\n",
                     "ParentKey": "Abilities",
                     "Origin": "Class/Warlock"
                 }
@@ -7820,19 +7812,11 @@
         "ParentKey": "Utility",
         "Origin": "Class/Warlock"
     },
-    "~Energize Familiar~": {
-        "A": "1 Action Point",
-        "Cost": "1 Mana",
-        "Effect": "Give your familiar 1d6 _Energy_.",
-        "HasMixins": true,
-        "ParentKey": "Subspells",
-        "Origin": "Class/Warlock"
-    },
     "Eerie Bolt": {
-        "A": "1 Energy",
+        "Cost": "1 Evoke Point",
         "Range": "3 meters",
-        "Damage": "1d6 (or Healing)",
-        "Effect": "Cast automatically and for free when the Warlock attacks or heals a Unit within 3 meters.\n",
+        "Damage": "1d6 Flux Damage (or Healing)",
+        "Effect": "Cast automatically and for free, on the same target, after the Warlock targets a Unit within 3 meters.\nCan generate an Evoke Point!\n",
         "ParentKey": "Abilities",
         "Origin": "Class/Warlock"
     },
@@ -7864,7 +7848,7 @@
             "Heal",
             "Damage"
         ],
-        "Effect": "Roll 1d12 - 5. After you see the result, choose a Worthy Unit.\nIf it's negative, deal Scourge Damage to it. Otherwise, heal it.\n\n{Evoke}: +100% Damage or Healing per Evoke Point spent.\n",
+        "Effect": "Roll 1d12 - 4. Then choose a Unit.\nIf it's negative, deal Scourge Damage to it. Otherwise, Heal it.\n\n{Evoke}: +100% Damage or Healing per Evoke Point spent.\n",
         "Combo": "+50% Damage or Healing",
         "HasMixins": true,
         "ParentKey": "Utility",
@@ -7956,172 +7940,19 @@
         "Origin": "Class/Warlock"
     },
     "~Obfuscation of Energy~": {
-        "_Value": 0.25,
-        "A": "0 Action Points",
-        "Effect": "Spend 2 Evoke Points to gain 1 {Mana}Mana, or viceversa.",
+        "_Value": 0,
+        "A": "1 Action Point",
+        "Effect": "{Evoke}: Gain 0.5 {Mana}Mana per Evoke Point spent.\n",
         "HasMixins": true,
         "ParentKey": "Level 3 Class Talent",
         "Origin": "Class/Warlock"
     },
     "~Mind Over Matter~": {
-        "_Value": 0.25,
+        "_Value": 0.75,
         "A": "Passive",
-        "Effect": "You can choose how many Evoke Points you want to spend when spending them.",
-        "ParentKey": "Level 3 Class Talent",
-        "Origin": "Class/Warlock"
-    },
-    "~Consumption~": {
-        "_Value": 2,
-        "A": "0 Action Points",
-        "Effect": "Consume one of your known Abilities until the end of the Adventure to gain 1 Evoke Point.\nYou can't cast it until the end of the Adventure.\n",
-        "ParentKey": "Level 3 Class Talent",
-        "Origin": "Class/Warlock"
-    },
-    "~Inward Invocation~": {
-        "A": "Reaction",
-        "_Value": 1.5,
-        "Effect": "Use when ^you^ take minimum or maximum Damage from a dice attack. Gain 1 Evoke Point.",
+        "Effect": "You can choose how many Evoke Points you want to spend when spending them.\nAt any time, you can spend 1 {Mana}Mana to gain 2 Evoke Points.\n",
         "HasMixins": true,
         "ParentKey": "Level 3 Class Talent",
-        "Origin": "Class/Warlock"
-    },
-    "~Congregation of Power~": {
-        "_Value": 3.25,
-        "A": "Passive",
-        "Effect": "Your Spells gain +1 Damage (or Healing) for each Evoke Point you have.",
-        "Upgrade": "Note that Evocations and other Abilities spend the Evoke Points immediately when cast (e.g. Diverge followed by Hail won't benefit from the extra Damage). However, Abilities that themselves consume Evoke Points do benefit from the extra Damage when cast with Evoke Points, like Deathfire Wave or Soul Drain.",
-        "ParentKey": "Level 3 Class Talent",
-        "Origin": "Class/Warlock"
-    },
-    "~Reabsorption~": {
-        "_Value": 3,
-        "A": "Passive",
-        "Effect": "After you use an Ability empowered by at least 2 Evoke Points (from Evocations or itself), gain 1 Evoke Point.",
-        "ParentKey": "Level 3 Class Talent",
-        "Origin": "Class/Warlock"
-    },
-    "~As Fate Willt~": {
-        "_Value": 3,
-        "A": "0 Action Points",
-        "Cost": "1 Evoke Point",
-        "Effect": "Gain 2 Evoke Points, then cast a random Evocation spending all your Evoke Points.",
-        "SingleTable": [
-            "1. Diverge",
-            "2. Overwhelm",
-            "3. Amplify",
-            "4. Obliterate",
-            "5. Transpose"
-        ],
-        "Notes": "You can roll 1d6 and reroll if you roll 6.",
-        "ParentKey": "Level 3 Class Talent",
-        "Origin": "Class/Warlock"
-    },
-    "~Expert in Evocations~": {
-        "_Value": 1,
-        "A": "Passive",
-        "IsIgnored": true,
-        "Combat Extras": [
-            "You know all base Evocations"
-        ],
-        "Effect": "You always know all base Warlock Evocations.",
-        "ParentKey": "Level 3 Class Talent",
-        "Origin": "Class/Warlock"
-    },
-    "~Master of Curses~": {
-        "_Value": 2.25,
-        "A": "Passive",
-        "Effect": "Your Curses that are empowered by at least 1 Evoke Point cast as if empowered by +1 Evoke Point.",
-        "ParentKey": "Level 3 Class Talent",
-        "Origin": "Class/Warlock"
-    },
-    "~Evoke Entropy~": {
-        "_Value": 1.5,
-        "A": "Passive",
-        "HasMixins": true,
-        "Replacement": "Replaces Evoke",
-        "IconName": "Evoke",
-        "HasUpgradeIcon": true,
-        "Tags": [
-            "Evoke"
-        ],
-        "Effect": "You start each Worthy Combat with 0 Evoke Points.\nWhen you roll at least 1 ~minimum or~ maximum die on any Act, gain 1 Evoke Point.\nSome Spells can consume all Evoke Points to gain an improved effect ^for each Evoke Point spent^.\n\nAdditionally, you have an extra Talent tier for special Evocations.\n",
-        "Notes": "You must spend ^all^ EP when you decide to. You can pick one for free Evocation at Level 1, and get more like you would normally get extra Class Talents (e.g. with the extra Known Talents from Intelligence, if above 0).",
-        "ParentKey": "Level 3 Class Talent",
-        "Origin": "Class/Warlock"
-    },
-    "~Borrowed Power~": {
-        "A": "Passive",
-        "Tags": [
-            "Evoke"
-        ],
-        "Effect": "You each Adventure with 2 Evoke Points.\nYou age 12 times as rapidly.\n",
-        "ParentKey": "Level 3 Class Talent",
-        "Origin": "Class/Warlock"
-    },
-    "~Blood Dividend~": {
-        "_Value": 1.75,
-        "A": "0 Action Points",
-        "Range": "5 meters from you to healed Unit",
-        "Tags": [
-            "Heal"
-        ],
-        "Cooldown": "Once / Turn",
-        "Requirement": "Only usable in Worthy Combat",
-        "Effect": "Your next weapon attack or Spell deals -50% Damage, but heals another Unit for the Damage dealt.\nThen it applies a ~Combo~ to one of them.\n",
-        "HasMixins": true,
-        "ParentKey": "Level 3 Class Talent",
-        "Origin": "Class/Warlock"
-    },
-    "~Curse of Frailty~": {
-        "_Value": 0.5,
-        "A": "1 Action Point",
-        "Cost": "1 Mana",
-        "Tags": "Debuff",
-        "Effect": "A Unit you can see becomes special-Frail: it takes +50% Damage the next time it takes Damage from an ally.\n\n{Evoke}: +50% extra Damage per Evoke Point spent.\n",
-        "HasMixins": true,
-        "ParentKey": "Level 4 Class Talent",
-        "Origin": "Class/Warlock"
-    },
-    "~Curse of the Plague~": {
-        "A": "3 Action Points",
-        "Cooldown": "Once / Combat",
-        "Duration": "Lasts until end of Combat",
-        "Effect": "Choose a Unit and roll 5d6 to see its _death threshold_.\nWhen it gets to that amount or less Health, you can use a free Reaction to kill it.\nThen the curse spreads with the same _death threshold_ to all Units within 2 meters of it.\n",
-        "Upgrade": "Wherever the plague goes, it kills small plants, insects, and rots wood and rusts metal. It also makes fertile soil infertile, turns textile and paper materials into dust, and decays food and poisons water.",
-        "Notes": "The death threshold can stack from multiple Curses of the Plague! Ask the Quest Master whether a Unit should die from the curse.",
-        "HasMixins": true,
-        "ParentKey": "Level 4 Class Talent",
-        "Origin": "Class/Warlock"
-    },
-    "~Gateway~": {
-        "A": "2 Action Points",
-        "Cooldown": "Once / Adventure",
-        "Range": "5 meters to first gate",
-        "Duration": "Lasts until end of Combat, or 10 real minutes",
-        "Effect": "Open a _gateway_, and another paired one in a location you can see.\nUnits and projectiles can go through a gateway and appear through the other.\n\nYou can cast this with 0 Action Points and no Cooldown by spending 1 {Mana}Mana.\n",
-        "Upgrade": "The gateway does not have a direction - projectiles going one way come out the same way. Units have Line of Sight through the gates, and their Range counts as if the two gates are connected (obviously).",
-        "HasMixins": true,
-        "ParentKey": "Level 4 Class Talent",
-        "Origin": "Class/Warlock"
-    },
-    "~Hail Torrent~": {
-        "A": "2 Action Points",
-        "Range": "5 meters",
-        "HasMixins": true,
-        "ScrollPower": "Auto",
-        "Degree": "Minor",
-        "IconName": "Hail",
-        "HasUpgradeIcon": true,
-        "Replacement": "Replaces Hail",
-        "Requirement": "Requires Hail",
-        "Tags": [
-            "Damage",
-            "Multi-Target Damage"
-        ],
-        "Effect": "Blast a Unit for ~2d10~ + ^target's Might^ {Color('magenta' 'Flux')} Damage.\n\n{Evoke}: Hits an extra Unit (for ~1d10~ + ^that Unit's Might^) for each Evoke Point spend.\n",
-        "Combo": "Generates an extra Evoke Point.",
-        "Notes": "Each extra Unit hit must be different than the others.",
-        "ParentKey": "Level 4 Class Talent",
         "Origin": "Class/Warlock"
     },
     "~Invoke Kindred~": {
@@ -8131,7 +7962,7 @@
         "Duration": "1 minute",
         "ScrollPower": "Auto",
         "Height": 30,
-        "Effect": "Invoke 3 _Kindred Beings_, each within 10 meters from you. These are creatures themed and shaped to your {Color('magenta' 'Flux')}, which will do your bidding before returning to their original world.\n\n{Evoke}: +1 summon per Evoke Point spent.\n",
+        "Effect": "Invoke 3 _Kindred Beings_, each within 10 meters of you. These are creatures themed and shaped to your {Color('magenta' 'Flux')}, which will do your bidding before returning to their original world.\n\n{Evoke}: +1 summon per Evoke Point spent.\n",
         "Monster": {
             "Name": "Kindred Being",
             "Health": 1,
@@ -8153,6 +7984,59 @@
         "ParentKey": "Level 4 Class Talent",
         "Origin": "Class/Warlock"
     },
+    "~Curse of Frailty~": {
+        "_Value": 0.5,
+        "A": "1 Action Point",
+        "Cost": "1 Mana",
+        "Tags": "Debuff",
+        "Effect": "A Unit you can see becomes special-Frail: it takes +50% Damage the next time it takes Damage from an ally.\n\n{Evoke}: +50% extra Damage per Evoke Point spent.\n",
+        "HasMixins": true,
+        "ParentKey": "Level 4 Class Talent",
+        "Origin": "Class/Warlock"
+    },
+    "~Gateway~": {
+        "A": "2 Action Points",
+        "Cooldown": "Once / Adventure",
+        "Range": "5 meters to first gate",
+        "Duration": "Lasts until end of Combat, or 10 real minutes",
+        "Effect": "Open a _gateway_, and another paired one in a location you can see.\nUnits and projectiles can go through a gateway and appear through the other.\n\nYou can cast this with 0 Action Points and no Cooldown by spending 1 {Mana}Mana.\n",
+        "Upgrade": "The gateway does not have a direction - projectiles going one way come out the same way. Units have Line of Sight through the gates, and their Range counts as if the two gates are connected (obviously).",
+        "HasMixins": true,
+        "ParentKey": "Level 4 Class Talent",
+        "Origin": "Class/Warlock"
+    },
+    "~Curse of the Plague~": {
+        "A": "3 Action Points",
+        "Cooldown": "Once / Combat",
+        "Duration": "Lasts until end of Combat",
+        "Effect": "Choose a Unit and roll 5d6 to see its _death threshold_.\nWhen it gets to that amount or less Health, you can use a free Reaction to kill it.\nThen the curse spreads with the same _death threshold_ to all Units within 2 meters of it.\n",
+        "Upgrade": "Wherever the plague goes, it kills small plants, insects, and rots wood and rusts metal. It also makes fertile soil infertile, turns textile and paper materials into dust, and decays food and poisons water.",
+        "Notes": "The death threshold can stack from multiple Curses of the Plague! Ask the Quest Master whether a Unit should die from the curse.",
+        "HasMixins": true,
+        "ParentKey": "Level 4 Class Talent",
+        "Origin": "Class/Warlock"
+    },
+    "~Torrent~": {
+        "A": "1 Action Point",
+        "Range": "10 meters",
+        "Cooldown": "Once / Turn",
+        "Effect": "Choose a Unit. Deal 1d4 {Color('magenta' 'Flux')} Damage or apply a ~Combo~ to it.\n\nThen do it again for each Evoke Point you have.\n",
+        "HasMixins": true,
+        "ParentKey": "Level 4 Class Talent",
+        "Origin": "Class/Warlock"
+    },
+    "~Overloading Evocation~": {
+        "_Value": 0,
+        "A": "0 Action Points",
+        "Cost": "1 Mana",
+        "Tags": [
+            "Evoke"
+        ],
+        "Requirement": "Requies spending Evoke Points",
+        "Effect": "Cast 2 Evocation Talents you Know, combined, with the same Evoke Points applied to both.\n",
+        "ParentKey": "Level 4 Class Talent",
+        "Origin": "Class/Warlock"
+    },
     "<Blood Pact>": {
         "_Value": 2,
         "A": "0 Action Points",
@@ -8162,9 +8046,8 @@
             "Ultimate",
             "Steroid"
         ],
-        "Effect": "This turn, all Damage you deal is increased by 50%. Every time you deal 10 or more Damage in one instance, take 5 Psychic Damage.\n",
-        "Notes": "The 50% increase is not applied to the 5 Psychic Damage.",
-        "ParentKey": "Level 5 Class Talent",
+        "Effect": "This turn, you deal +50% Damage to other Units. Every time you deal 10 or more Damage in one instance, take 5 Psychic Damage.\n",
+        "ParentKey": "Level 5 - Class Talent",
         "Origin": "Class/Warlock"
     },
     "<Higher Evoke>": {
@@ -8174,19 +8057,30 @@
             "Evoke"
         ],
         "Effect": "You start each Combat with +1 Evoke Point.",
-        "ParentKey": "Level 5 Class Talent",
+        "ParentKey": "Level 5 - Class Talent",
         "Origin": "Class/Warlock"
     },
-    "~Overloading Evocation~": {
-        "Value": 1.75,
+    "~As Fate Willt~": {
+        "_Value": 3,
         "A": "0 Action Points",
-        "Cooldown": "Once / Adventure",
-        "Tags": [
-            "Evoke"
+        "Cost": "1 Evoke Point",
+        "Effect": "Gain 2 Evoke Points, then cast a random Evocation spending all your Evoke Points.",
+        "SingleTable": [
+            "1. Diverge",
+            "2. Overwhelm",
+            "3. Amplify",
+            "4. Obliterate",
+            "5. Transpose"
         ],
-        "Requirement": "Requies spending Evoke Points",
-        "Effect": "Cast 2 Evocation Talents you Know, combined, with the same Evoke Points applied to both.\n",
-        "ParentKey": "Level 5 Class Talent",
+        "Notes": "You can roll 1d6 and reroll on 6.",
+        "ParentKey": "Level 5 - Class Talent",
+        "Origin": "Class/Warlock"
+    },
+    "~Master of Curses~": {
+        "_Value": 2.25,
+        "A": "Passive",
+        "Effect": "Your Curses that are empowered by at least 1 Evoke Point cast as if empowered by +1 Evoke Point.",
+        "ParentKey": "Level 5 - Class Talent",
         "Origin": "Class/Warlock"
     },
     "~Aura of Ruin~": {
@@ -8199,26 +8093,62 @@
         "Requirement": "Only usable the moment Combat starts",
         "Cooldown": "Once / Adventure",
         "Effect": "Reduce the Max Health of all enemies by 10%.",
-        "ParentKey": "Level 5 Class Talent",
+        "ParentKey": "Level 5 - Class Talent",
         "Origin": "Class/Warlock"
     },
-    "~Translation~": {
+    "~Evoke Entropy~": {
+        "_Value": 1.5,
         "A": "Passive",
-        "Degree": "Lesser",
-        "ScrollPower": 3,
-        "Effect": "You can understand any spoken or written language that's either Common (Dwarvish, Elvish) or Wild (spoken by \"wild\", tribal socities, such as Orcish, Goblan, Sylvan, etc).",
-        "ParentKey": "Level 6 - Utility Talent",
+        "HasMixins": true,
+        "Replacement": "Replaces Evoke",
+        "IconName": "Evoke",
+        "HasUpgradeIcon": true,
+        "Tags": [
+            "Evoke"
+        ],
+        "Effect": "You start each Worthy Combat with 0 Evoke Points.\nWhen you roll at least 1 ~minimum or~ maximum die on any Act, gain 1 Evoke Point.\nSome Spells can consume all Evoke Points to gain an improved effect ^for each Evoke Point spent^.\n\nAdditionally, you have an extra Talent tier for special Evocations.\n",
+        "Notes": "You must spend ^all^ EP when you decide to. You can pick one for free Evocation at Level 1, and get more like you would normally get extra Class Talents (e.g. with the extra Known Talents from Intelligence, if above 0).",
+        "ParentKey": "Level 6 Class Talent",
         "Origin": "Class/Warlock"
     },
-    "~Decaying Blight~": {
-        "A": "Channeled",
-        "Cooldown": "1 hour",
-        "Range": "10 meters",
-        "ScrollPower": 2,
-        "Degree": "Lesser",
-        "Effect": "Channel to spawn a blight that spreads a 1x1 meter space away from a chosen space for each 2 Action Points channeled.\nThe blight kills small plants, insects and rots wood and rusts metal. It also makes fertile soil infertile, turns textile and paper materials into dust and decays food and poisons water.\nYou can channel a number of times (Actions) equal to your Level.\nWhile within the Blight, you have +1 to all non-combat Rolls.\n",
-        "Notes": "You can choose to ommit some of the effects of this blight.\nThis Ability is not meant for combat.\nBe creative with how you use this little Spell!\n",
-        "ParentKey": "Level 6 - Utility Talent",
+    "~Consumption~": {
+        "_Value": 2,
+        "A": "0 Action Points",
+        "Cooldown": "Once / Turn",
+        "Effect": "Consume one of your known Abilities until the end of the Adventure to gain 1 Evoke Point.\nYou can't cast it until the end of the Adventure.\n",
+        "ParentKey": "Level 6 Class Talent",
+        "Origin": "Class/Warlock"
+    },
+    "~Inward Invocation~": {
+        "A": "Reaction",
+        "_Value": 1.5,
+        "Effect": "Use when ^you^ take minimum or maximum Damage from a dice attack. Gain 1 Evoke Point.",
+        "HasMixins": true,
+        "ParentKey": "Level 6 Class Talent",
+        "Origin": "Class/Warlock"
+    },
+    "~Borrowed Power~": {
+        "A": "Passive",
+        "_Value": 1.5,
+        "Tags": [
+            "Evoke"
+        ],
+        "Effect": "You each Adventure with 2 Evoke Points.\nYou age 12 times as rapidly.\n",
+        "ParentKey": "Level 6 Class Talent",
+        "Origin": "Class/Warlock"
+    },
+    "~Blood Dividend~": {
+        "_Value": 1.75,
+        "A": "0 Action Points",
+        "Range": "5 meters from you to healed Unit",
+        "Tags": [
+            "Heal"
+        ],
+        "Cooldown": "Once / Turn",
+        "Requirement": "Only usable in Worthy Combat",
+        "Effect": "Your next weapon attack or Spell deals -50% Damage, but heals another Unit for the Damage dealt.\nThen it applies a ~Combo~ to one of them.\n",
+        "HasMixins": true,
+        "ParentKey": "Level 6 Class Talent",
         "Origin": "Class/Warlock"
     },
     "~Contract of Hunger~": {
@@ -8261,10 +8191,57 @@
         "ParentKey": "Level 7 Class Talent",
         "Origin": "Class/Warlock"
     },
+    "~Tome of Evocations~": {
+        "_Value": 1,
+        "A": "Passive",
+        "IsIgnored": true,
+        "Combat Extras": [
+            "You know all base Evocations"
+        ],
+        "Effect": "You have a special Tome that contains all Evocations and Warlock Talents that have an {Evoke} effect. While carrying the Tome, you know all of them.",
+        "Notes": "Requires spending 1 day and 100 {Gold}Gold to write the Tome, as dictated to you by a higher power.",
+        "HasMixins": true,
+        "ParentKey": "Level 7 Class Talent",
+        "Origin": "Class/Warlock"
+    },
+    "~Congregation of Power~": {
+        "_Value": 3.25,
+        "A": "Passive",
+        "Effect": "Your Spells gain +1 Damage (or Healing) for each Evoke Point you have.",
+        "Upgrade": "Note that Evocations and other Abilities spend the Evoke Points immediately when cast (e.g. Diverge followed by Hail won't benefit from the extra Damage). However, Abilities that themselves consume Evoke Points do benefit from the extra Damage when cast with Evoke Points, like Deathfire Wave or Soul Drain.",
+        "ParentKey": "Level 8 Class Talent",
+        "Origin": "Class/Warlock"
+    },
+    "~Reabsorption~": {
+        "_Value": 3,
+        "A": "Passive",
+        "Effect": "After you use an Ability empowered by at least 2 Evoke Points (from Evocations or itself), gain 1 Evoke Point.",
+        "ParentKey": "Level 8 Class Talent",
+        "Origin": "Class/Warlock"
+    },
+    "~Forebearer's Magic~": {
+        "_Value": 2,
+        "A": "Passive",
+        "Effect": "You start each Adventure 2 extra {Mana}Mana that doesn't regenerate or disappear after Combats.",
+        "HasMixins": true,
+        "ParentKey": "Level 8 Class Talent",
+        "Origin": "Class/Warlock"
+    },
+    "~Hemomancy~": {
+        "_Value": 2.5,
+        "A": "Passive",
+        "Effect": "Whenever you take Damage on your Turn, gain 1 Evoke Point.",
+        "ParentKey": "Level 8 Class Talent",
+        "Origin": "Class/Warlock"
+    },
     "~More Contracts~": {
         "A": "Passive",
+        "IsIgnored": true,
+        "Extras": [
+            "You may have any number of Contracts"
+        ],
         "Effect": "You may select as many Level 7 Talents as you like. All apply.",
-        "ParentKey": "Level 8 Class Talent",
+        "ParentKey": "Level 9 Class Talent",
         "Origin": "Class/Warlock"
     },
     "<Final Word>": {
@@ -8276,7 +8253,7 @@
         ],
         "Effect": "When you have exactly 1 Mana, and you cast a Spell that cost 1 Mana, that Spell casts twice (for free).",
         "Notes": "This is akin to casting the Spell again for 0 Action Points without spending Mana (not necessarily on the same target).",
-        "ParentKey": "Level 8 Class Talent",
+        "ParentKey": "Level 9 Class Talent",
         "Origin": "Class/Warlock"
     },
     "<Manafold Power>": {
@@ -8285,19 +8262,30 @@
         "Tags": [
             "Mana"
         ],
+        "IsIgnored": true,
+        "Combat Extras": [
+            "+1 Max Mana"
+        ],
+        "Bonuses": {
+            "Mana": 1,
+            "Max Mana": 1
+        },
         "Effect": "You have +1 Max Mana.",
-        "ParentKey": "Level 8 Class Talent",
+        "ParentKey": "Level 9 Class Talent",
         "Origin": "Class/Warlock"
     },
     "~Improved Evocations~": {
         "_Value": 3,
         "A": "Passive",
         "Effect": "You can always cast 2 Evocations simultaneously, using the same Evoke Points.",
-        "ParentKey": "Level 8 Class Talent",
+        "ParentKey": "Level 9 Class Talent",
         "Origin": "Class/Warlock"
     },
-    "<Placeholder>": {
-        "Effect": "None",
+    "~Finger of Obliteration~": {
+        "_Value": 2,
+        "A": "3 Action Points",
+        "Cost": "3 Mana",
+        "Effect": "Deal 12d12 Flux Damage to a Unit you can see.\nIf it dies, regain 1 Mana and its corpse disintegrates.\n",
         "ParentKey": "Level 9 Class Talent",
         "Origin": "Class/Warlock"
     },

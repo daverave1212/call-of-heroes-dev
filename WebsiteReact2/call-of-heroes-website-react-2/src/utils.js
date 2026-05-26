@@ -1786,6 +1786,8 @@ export const SYMBOLS = {
 
     'Damage': { tag: 'Icon', props: { name: 'Damage' } },
     'Mana': { tag: 'Icon', props: { name: 'Mana' } },
+    'Health': { tag: 'Icon', props: { name: 'Health' } },
+    'HP': { tag: 'Icon', props: { name: 'Health' } },
     'Experience': { tag: 'Icon', props: { name: 'XP' } },
     'XP': { tag: 'Icon', props: { name: 'XP' } },
     'Diamond': { tag: 'span', text: '🔹', props: { fontSize: '0.8em' }, func: () => <Icon name="BulletPoint3" style={{marginTop: `calc(0.09 * var(--inline-icon-size))`, marginRight: 0}}/> },
