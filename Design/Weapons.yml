@@ -63,7 +63,7 @@ One-Handed Melee:   # 3.5 Damage + 0.75 Effect = 6.25 + 3 Stat = 9.25
       Range: 1 meter
       Damage: 1d8 - 1 + {Might}
       Effect: |
-        {CriticalStrike} if you roll minimum on d8, Single-Stun the target.
+        {CriticalStrike} if you roll 1 on d8, Single-Stun the target.
       Alternatives: Katar, Dead Fish, Bat
       MagicAlternatives: Branch, Rootclub, Femur, Antler, Carrot, Skillet, Idol
 
@@ -76,7 +76,7 @@ One-Handed Melee:   # 3.5 Damage + 0.75 Effect = 6.25 + 3 Stat = 9.25
       Range: 1 meter
       Damage: 1d4 + {Dexterity}
       Effect: |
-        {CriticalStrike} if you roll 3 or more, add another 1d6 Damage.
+        {CriticalStrike} if you roll 3 or more on d4, add another 1d6 Damage.
       Alternatives: Kunai, Kris, Sai, Tanto, Pugio, Rondel
       MagicAlternatives: Dirk, Shard, Stiletto
 
@@ -149,7 +149,7 @@ One-Handed Melee:   # 3.5 Damage + 0.75 Effect = 6.25 + 3 Stat = 9.25
       Range: 1 meter
       Damage: 2d4 - 1 + {Intelligence}
       Effect: |
-        {CriticalStrike} If you rolled all equals on the d4's, and wield no other weapon or shield, apply a ~Combo~, then make a free Move Act.
+        {CriticalStrike} If you roll all equals on d4's, and wield no other weapon or shield, apply a ~Combo~, then make a free Move Act.
       Alternatives: Foil, Epee, Smallsword
       MagicAlternatives: Espada, Estoc, Fencer, Needle
 
@@ -157,10 +157,11 @@ One-Handed Melee:   # 3.5 Damage + 0.75 Effect = 6.25 + 3 Stat = 9.25
       Price: 170
       Stat: Slash
       A: Half-Action
+      HasMixins: true
       Range: 1 meter
       Special: You are more appreciated if you pronounce it as 'Skimitar'
       Damage: 1d6 + {Charisma}
-      EffectGreen: Your next ranged weapon attack applies a ~Combo~.
+      EffectGreen: Your next ranged weapon attack will apply a ~Combo~ after dealing Damage.
       Alternatives: Machete, Seax, Cutlass, Saber    
 
     Shortsword:
@@ -170,7 +171,7 @@ One-Handed Melee:   # 3.5 Damage + 0.75 Effect = 6.25 + 3 Stat = 9.25
       A: Half-Action
       Range: 1 meter
       Damage: 1d6 + {Might} or {Dexterity}
-      EffectGreen: If you roll less than 3 on d6, it counts as a 3.
+      EffectGreen: If you roll less than 3 per die of this weapon, it counts as a 3.
       Alternatives: Falchion, Sabre, Scimitar, Arming Sword, Sabre, Shamshir
       MagicAlternatives: Edge, Gladius, Sidearm, Spathion, Blade, Steel, Soulblade
     
@@ -183,8 +184,6 @@ One-Handed Melee:   # 3.5 Damage + 0.75 Effect = 6.25 + 3 Stat = 9.25
       Alternatives: Nunchaku, Kama, Falcata, Shotel
       Notes: The price is for a battle sickle. A normal peasant's sickle would be half the price, dealing 1 less damage.
       MagicAlternatives: Hook, Reaphook, Reaper, Hookblade, Harvester, Jawbone, Thornhook, Sica
-
-
 
     Spear:
       Price: 110
@@ -217,20 +216,24 @@ Two-Handed Melee: # 10 + 3 from stat
       A: 1 Action
       Range: 1 meter
       Damage: 2d10 + {Might}
-      Combo: Heal for the lower die rolled for each Combo on the target.
+      Combo: Heal for the lowest die rolled for each ~Combo~ on the target (consumes all ~Comboes~).
       Effect: |
         {CriticalStrike} for each 10 rolled, apply a ~Combo~.
+      Upgrade: "{Replacement}{A}1 Action Point: Also apply a ~Combo~."
       MagicAlternatives: Tabar, Labrys, Reaver, Greataxe, Carver
 
     # Tier 0
-    Greatclub:  # 3% chance
+    Greatclub:
       Price: 40
       Stat: Smash
       A: 1 Action
       Range: 1 meter
-      Damage: 4d4 + {Might}
+      Requirement: 2 {Might}
+      Damage: 2d8 + {Might}
       Combo: Double-Stun the target.
+      Upgrade: "{Replacement}{A}1 Action Point: +1d8 Damage."
       MagicAlternatives: Log, Totem, Trunk, Bonecrusher, Skullbreaker, Column, Tree, Greathorn, Boulder, Giantbone, Chandelier, Statue, Anvil, Millstone, Cauldron, Greatrod, Greatstaff, Sausage, Keg, Breaker
+
     # Tier 2
     Greatsword:   # 12.1 + {Might}
       Price: 280
@@ -239,9 +242,10 @@ Two-Handed Melee: # 10 + 3 from stat
       Range: 1 meter
       Requirement: 2 {Might}
       Damage: 3d6 + {Might}
-      EffectGreen: Add all 6's rolled together. They hit another Unit within 2 meters of the target for that amount.
+      EffectGreen: All 6's rolled, together, hit another Unit within 2 meters of the target for that amount.
       Alternatives: Claymore, Zweihander, Naginata, Broadsword, Bastard Sword
       MagicAlternatives: Edge, Blade
+      Upgrade: "{Replacement}{A}1 Action Point: +1d6 Damage."
       Notes: Hitting another Unit with the d6's is optional.
 
     Halberd:
@@ -250,7 +254,8 @@ Two-Handed Melee: # 10 + 3 from stat
       A: 1 Action
       Range: 1 meter
       Damage: 2d10 - 1 + {Might}
-      EffectGreen: Has +1d6 Damage against Large or larger enemies.
+      EffectGreen: +{Charisma} Damage against Large or larger enemies.
+      Upgrade: "{Replacement}{A}1 Action Point: +1d6 Damage."
       Alternatives: Garden Rake, Glaive, Gleaves, Bardiche, Voulge
       MagicAlternatives: Poleaxe, Fauchard, Earthsplitter, Warbrand, Fauchard, Woldo
 
@@ -260,9 +265,10 @@ Two-Handed Melee: # 10 + 3 from stat
       Requirement: 1 {Might}
       A: 1 Action
       Range: 1 meter
-      Damage: 2d4 + 6 + {Might}
+      Damage: 3d4 + 200% of {Might}
       Effect: |
-        {CriticalStrike} for each rolled 4, Slam the target 1 meters in any direction.
+        {CriticalStrike} for each rolled maximum on dice, Slam the target 1 meter in any direction.
+      Upgrade: "{Replacement}{A}1 Action Point: +1d4 Damage."
       MagicAlternatives: Maul
 
     Katana:
@@ -270,20 +276,22 @@ Two-Handed Melee: # 10 + 3 from stat
       Stat: Slash
       A: 1 Action
       Range: 1 meter
-      Requirement: 1 {Dexterity}
-      Damage: 1d4 + 1d6 + 1d8 + {Intelligence}
+      Requirement: 1 {Dexterity} and 1 {Intelligence}
+      Damage: 1d6 + 1d8 + {Dexterity} + {Intelligence}
       Effect: |
         {CriticalStrike} if you roll maximum on d6, the Attack gains +1d10 Damage.
+      Upgrade: "{Replacement}{A}1 Action Point: Do another separate quick slash for 1d6 Damage."
       Alternatives: Wakizashi, Longsword, Claymore, Zweihander, Naginata, Broadsword, Bastard Sword, Blade, Edge
 
     Longsword:
       Price: 190
       Stat: Slash
       A: 1 Action
-      Requirement: 1 {Might} or 1 {Intelligence}
-      Damage: 1d12 + 4 + {Might} or {Intelligence}
+      Requirement: 1 {Might} and 1 {Intelligence}
+      Damage: 1d12 + 1 + {Might} + {Intelligence}
       Effect: |
         {CriticalStrike} if you roll at least 11 on d12, add Damage equal to 10% of the target's current Health!
+      Upgrade: "{Replacement}{A}1 Action Point: You may reroll one of the attack's dice."
       Alternatives: Flamberge
       MagicAlternatives: Longue
 
@@ -294,6 +302,7 @@ Two-Handed Melee: # 10 + 3 from stat
       Range: 1 meter
       Damage: 1d8 + 5 + {Might}
       EffectGreen: Deals +1d6 Damage against Units wearing a shield or heavy armor (or both).
+      Upgrade: "{Replacement}{A}1 Action Point: Do a separate quick strike for 1d8 Damage."
       Alternatives: Mattock
       MagicAlternatives: Bec-de-Fer
 
@@ -302,9 +311,11 @@ Two-Handed Melee: # 10 + 3 from stat
       Stat: Pierce
       A: 1 Action
       Range: 2 meter
-      Damage: 1d12 + 3 + {Intelligence} or {Dexterity}
+      Requirement: 1 {Dexterity}
+      Damage: 1d12 + 6
       EffectGreen: 2 meters range.
-      Alternatives: Partisa, Ranseur
+      Upgrade: "{Replacement}{A}1 Action Point: +{Dexterity} or {Might} Damage."
+      Alternatives: Partisan, Ranseur
       MagicAlternatives: Spontoon
 
     Quarterstaff:
@@ -313,9 +324,10 @@ Two-Handed Melee: # 10 + 3 from stat
       A: 1 Action
       Range: 1 meter
       Requirement: 1 {Dexterity}
-      Damage: 1d8 + 6 + {Sense}
+      Damage: 1d8 + 6 + {Charisma}
       Effect: |
-        {CriticalStrike} If you roll 8, the next attack on you deals -50% Damage (if you're still wieleding this weapon).
+        {CriticalStrike} If you roll maximum on d8, the next attack on you deals -50% Damage (if you're still wieleding this weapon).
+      Upgrade: "{Replacement}{A}1 Action Point: +1d8 Damage."
       Notes: A Quarterstaff is a wooden weapon masterfully crafted for physical combat, with correct weight and density and properly balanced; it's not a mage's walking stick!
       MagicAlternatives: Shillelagh, Jo, Bo, Pole, Battlestaff, Warstaff
 
@@ -324,25 +336,26 @@ Two-Handed Melee: # 10 + 3 from stat
       Stat: Slash
       A: 1 Action
       Range: 1 meter
-      Damage: 2d8 + {Might} + {Dexterity}
-      EffectGreen: You can use 1 Action to just deal 8 Damage to all Units around you (against their Defense).
+      Damage: 2d8 + {Charisma} + ({Dexterity} or {Might})
+      Upgrade: "{Replacement}{A}1 Action Point: +1d8 Damage."
+      EffectGreen: You can use 1 Action to deal 8 Damage to all Units around you.
       Notes: The price is for a battle scythe. A normal peasant's scythe would be half the price and can't use the special effect.
       MagicAlternatives: Crescent
 
     Trident:
       Price: 200
       Stat: Pierce
-      Requirement: 2 {Might} or 2 {Dexterity}
       A: 1 Action
       Range: 1 meter
-      Damage: 3d4 + 3 + {Might} or {Dexterity}
-      EffectGreen: If you attack from at least 3 meters away from where you started your turn, the attack gains +3 Damage.
+      Damage: 3d4 + {Might} + {Charisma}
+      EffectGreen: If you attack from at least 3 meters away from where you started your turn, the attack gains +{Dexterity} Damage.
       Alternatives: Lance, Pitchfork, Spathaspear, Harpoon
+
     # Tier 3
     Ultra Greatsword:
       Price: 700
       Stat: Slash
-      Requirement: 3 {Might}
+      Requirement: 2 {Might}
       A: 3 Action Points
       Range: 1 meter
       Damage: 2d20  # 20.5
@@ -358,7 +371,8 @@ Two-Handed Melee: # 10 + 3 from stat
       Requirement: 1 {Might}
       Damage: 2d8 + 1 + {Might}
       Effect: |
-        {CriticalStrike} if you rolled at least one 8, Single-Stun the target.
+        {CriticalStrike} if you rolled maximum on any d8, Single-Stun the target.
+      Upgrade: "{Replacement}{A}1 Action Point: +1d8 Damage."
       Notes: Doesn't do extra Damage if target's Defense would be less than 0.
       MagicAlternatives: Maul, Mallet, Martel, Malleus, Sledgehammer, Sledge
 
@@ -397,11 +411,13 @@ Two-Handed Ranged:  # 8.5 + 3 from Stat
     Bow:            
       Price: 170
       Range: 3-10 meters
+      Requirement: 2 {Dexterity}
       Stat: Pierce
       A: 1 Action
       Damage: 2d8 + {Dexterity}
       Effect: |
-        {CriticalStrike} deal +1d8 extra Damage and applies a ~Combo~ if you roll 8.
+        {CriticalStrike} if you roll 8, +1d8 Damage and apply a ~Combo~.
+      Upgrade: "{Replacement}{A}1 Action Point: Shoot another quick arrow for 1d8 Damage."
       MagicAlternatives: Recurve, String, Yumi, Longbow, Greatbow, Longshot
 
     Heavy Crossbow:
@@ -411,6 +427,8 @@ Two-Handed Ranged:  # 8.5 + 3 from Stat
       A: 1 Action
       Damage: 2d6 + {Dexterity} or {Intelligence}
       Combo: +50% Damage.
+      Upgrade: "{Replacement}{A}1 Action Point: +1d6 Damage."
+      Requirement: 1 {Might}, 1 {Dexterity}, and 1 {Intelligence}
       Alternative: Musket, Arbalest
       MagicAlternatives: Cragshot, Boltcaster, Greatbolt
 
@@ -435,6 +453,7 @@ Two-Handed Ranged:  # 8.5 + 3 from Stat
       Stat: Pierce
       A: 1 Action
       Damage: 1d12 + 1 + {Might}
+      Upgrade: "{Replacement}{A}1 Action Point: Also hits a Unit 1 meter behind the target for -50% Damage."
       Notes: This weapon is baseline made for throwing.
       MagicAlternatives: Piercer
     
@@ -507,3 +526,65 @@ One-Handed Ranged:  # 2.5 + 3 from stat
       Alternatives: Slingshot, Slingstaff, Slingbow, Throwrock
       MagicAlternatives: Pellet
       Notes: The Sling attack counting carries on from Turn to Turn, but not from Combat to Combat.
+
+
+Wands:
+
+    Elemental Wand:
+      Price: 400
+      Requirement: 2 {Focus}
+      Cooldown: One Wand attack / Turn
+      Stat: Fire or Cold
+      Range: 2-5 meters
+      A: Half-Action
+      Damage: 1d4 + {Intelligence}
+      Effect: |
+        1d6 instead of 1d4 if you already dealt Damage of this Type to the target this Turn.
+
+    Divine Censer:
+      Price: 350
+      Stat: Divine
+      Range: 1-3 meters
+      A: Half-Action
+      Cooldown: One Censer attack / Turn
+      Requirement: 1 {Intelligence} and 1 {Charisma}
+      Damage: 1d8
+      Effect: |
+        {CriticalStrike} if you roll 8, Blind the target.
+
+    Arcane Symbol:
+      Price: 450
+      Range: 2-4 meters
+      A: Half-Action
+      Cooldown: One Symbol attack / Turn
+      Requirement: 2 {Intelligence}
+      Damage: 1d6 - 1 + {Intelligence}
+      Stat: Pulse
+      Effect: |
+        {CriticalStrike} if you roll 1 or 2, Slam the target that many meters in any direction.
+      Alternatives: Focus, Wand
+
+    Scourge Idol:
+      Price: 444
+      Range: 1-5 meters
+      A: Half-Action
+      Cooldown: One Idol attack / Turn
+      Requirement: 2 {Intelligence} or 2 {Charisma}
+      Damage: 1d8 - 2 + {Intelligence} or {Charisma}
+      Stat: Scourge
+      Effect: |
+        {CriticalStrike} If you roll 6-8, apply a ~Combo~.
+      Alternatives: Chime, Fetish
+
+    Staff of Nature:
+      Price: 400
+      Requirement: 2 {Intelligence}
+      Damage: 1d12 + {Intelligence}
+      Stat: Shock or Poison
+      Range: 2-5 meters
+      A: 1 Action
+      Effect: |
+        {CriticalStrike} if you roll 12, Daze the target.
+        {CriticalStrike} if you roll 1, apply a ~Combo~.
+      Alternatives: Branch, Totem, Rod
+

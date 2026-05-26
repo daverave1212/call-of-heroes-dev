@@ -231,7 +231,7 @@ function looksLikeSpell(key, value) {
     if (value == null) {
         return false
     }
-    return value.Effect != null
+    return value.Effect != null || value.A != null || value.Price != null || value.EffectGreen != null
 }
 function stringHasAnyOfChars(str, chars) {
     if (Array.isArray(chars) == false) {
@@ -322,21 +322,22 @@ function maybeAddHasMixins(subobj) {
         }
         if (stringHasAnyOfChars(propValue || '', '{^_~')) {
             subobj.HasMixins = true
-            return
+            return true
         }
     }
     if (subobj.List?.length > 0) {
         for (const li of subobj.List) {
             if (stringHasAnyOfChars(li || '', '{^_~')) {
                 subobj.HasMixins = true
-                return
+                return true
             }
         }
     }
+    return false
 }
 
 // Records if toDict isn't null (give it null so it just adds mixins)
-function recordAbilitiesFrom(fromDict, toDict, parentKey=null, origin='Unknown') {
+function recordAbilitiesFrom(fromDict, toDict, parentKey=null, origin='Unknown', debugKey=null) {
     for (const key of Object.keys(fromDict)) {
         const subobj = fromDict[key];
 
@@ -369,7 +370,10 @@ function recordAbilitiesFrom(fromDict, toDict, parentKey=null, origin='Unknown')
                 'Is Ignored',
                 'Tag'
             ])
-            maybeAddHasMixins(subobj)
+            const didAddHasMixins = maybeAddHasMixins(subobj)
+            if (debugKey != null) {
+                console.log(`⚙ For object ${key}, HasMixins: ${didAddHasMixins}`)
+            }
             subobj.ParentKey = parentKey
             subobj.Origin = origin
             if (toDict != null) {
@@ -381,7 +385,7 @@ function recordAbilitiesFrom(fromDict, toDict, parentKey=null, origin='Unknown')
             continue;
         }
 
-        recordAbilitiesFrom(subobj, toDict, key, origin);
+        recordAbilitiesFrom(subobj, toDict, key, origin, debugKey);
     }
 }
 
@@ -450,7 +454,13 @@ async function processFiles() {
         }
 
         console.log(`Parsing ${fileName}...`);
-        const dictContent = readAndNormalizeYamlToJson(filePath)
+        let dictContent
+        try {
+            dictContent = readAndNormalizeYamlToJson(filePath)
+        } catch (e) {
+            _nErrorsFound++
+            throw e
+        }
 
         if (fileName.includes('Feats.yml')) {
             addNameToSpellsRecursively(dictContent);
@@ -467,7 +477,7 @@ async function processFiles() {
             }
         }
         if (fileName.includes('Weapon') || fileName.includes('Armor')) {
-            recordAbilitiesFrom(dictContent, {}, null, fileName)
+            recordAbilitiesFrom(dictContent, {}, null, fileName, /*'Weapons'*/null)
         }
 
 

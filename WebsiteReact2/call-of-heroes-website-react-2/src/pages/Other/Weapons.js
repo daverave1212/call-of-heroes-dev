@@ -45,6 +45,7 @@ export default function Weapons({ hasNoMargins, onClick, buttonText }) {
                 { name: 'Two-Handed Melee', src: '/Icons/Items/Ultra_Greatsword.png'},
                 { name: 'One-Handed Ranged', src: '/Icons/Items/Handgun.png'},
                 { name: 'Two-Handed Ranged', src: '/Icons/Items/Heavy_Crossbow.png'},
+                { name: 'Wands', src: '/Icons/Items/Elemental_Wand.png'},
                 // { name: 'Weapon Runes', src: '/Icons/Items/Traditional_Rune.png'},
             ]}/>
 
