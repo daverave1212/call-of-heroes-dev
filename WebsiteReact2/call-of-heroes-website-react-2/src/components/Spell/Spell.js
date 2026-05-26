@@ -474,7 +474,7 @@ export default function Spell({
                     })}/>
                 )) }
                 { (DoubleTable != null || DoubleTableNumbered != null) && (
-                    <TableNormal columns={tableHeaders} hasBorder={false}>
+                    <TableNormal columns={tableHeaders} hasBorder={false} type={DoubleTable?.IsRighty? 'info': null}>
                         { newTableValuePairs.map(pair => (
                             <tr key={createKey([pair.value1, pair.value2])}>
                                 <td>{ pair.value1 }</td>
