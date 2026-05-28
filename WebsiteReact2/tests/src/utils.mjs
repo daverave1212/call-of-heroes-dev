@@ -1,3 +1,5 @@
+import { newPage } from "./browser.mjs";
+
 export function wait(time) {
    return new Promise(function(resolve) { 
        setTimeout(resolve, time)
@@ -34,7 +36,7 @@ export function testPage(pageName, func) {
         })
         beforeEach(async () => {
             consoleErrors = []
-            await page.goto(config.domain + pageName)
+            await page.goto(config.domain + pageName, { waitUntil: 'load' })
         })
 
         afterEach(async () => {
@@ -45,8 +47,29 @@ export function testPage(pageName, func) {
             await page.close()
         })
 
-        func()
+        func(page)
 
     })
 
+}
+
+export function withPage(func) {
+    let page
+    let consoleErrors = []
+
+    beforeAll(async () => {
+        page = await newPage(({ error, isCrash }) => {
+            consoleErrors.push({ error, isCrash })
+        })
+    })
+    beforeEach(async () => {
+        consoleErrors = []
+    })
+    afterEach(async () => {
+        expect(consoleErrors.length).toEqual(0)
+    })
+    afterAll(async () => {
+        await page.close()
+    })
+    func(page)
 }
