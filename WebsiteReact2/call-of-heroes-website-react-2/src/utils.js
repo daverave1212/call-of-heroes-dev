@@ -607,7 +607,7 @@ export function getActionPointsByA(A, options={
 }
 export function getMonsterTotalXP(monster) {
     if (monster == null) {
-        console.error(`WARNING: null monster given to getMonsterTotalXP!`)
+        console.warn(`WARNING: null monster given to getMonsterTotalXP!`)
         return 100
     }
     const [monsterTotalXP] = splitByNumbers(monster?.Experience ?? '0')

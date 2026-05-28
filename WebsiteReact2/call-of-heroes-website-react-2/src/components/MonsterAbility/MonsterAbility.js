@@ -60,19 +60,19 @@ export default function MonsterAbility({monster, monsterXP, ability, isPassive, 
         nActionPoints == 0? damagePer1AP:
         damagePer1AP
 
-    console.log(name)
-    console.log({
-        ability,
-        isEpic,
-        nActionPoints,
-        howManyMonstersIsItWorth,
-        monsterTotalXP,
-        baseMonsterXP,
-        fixedMonsterXP,
-        damagePer1AP,
-        damagePer2AP,
-        abilityDamageBase
-    })
+    // console.log(name)
+    // console.log({
+    //     ability,
+    //     isEpic,
+    //     nActionPoints,
+    //     howManyMonstersIsItWorth,
+    //     monsterTotalXP,
+    //     baseMonsterXP,
+    //     fixedMonsterXP,
+    //     damagePer1AP,
+    //     damagePer2AP,
+    //     abilityDamageBase
+    // })
     
     function getQuickAttackDamage() {
         return U.matchRange(baseMonsterXP, [
