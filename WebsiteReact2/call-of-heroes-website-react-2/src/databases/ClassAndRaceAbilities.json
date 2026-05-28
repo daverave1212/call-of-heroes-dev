@@ -71,7 +71,7 @@
         "Origin": "Class/Artificer"
     },
     "<Grenade>": {
-        "_Value": 0,
+        "_Value": 0.5,
         "HasMixins": true,
         "A": "5 minutes",
         "Range": "6 meters to edge",
@@ -512,7 +512,6 @@
     },
     "~Marksman Craft~": {
         "A": "Passive",
-        "Replacement": "Replaces Charge",
         "Effect": "Your first ~ranged~ weapon attack each Turn deals +1d4 Damage {Color('#ff5900' 'if there is no Unit or obstacle near the target')}.\n",
         "HasMixins": true,
         "ParentKey": "Other Abilities",
@@ -3720,7 +3719,7 @@
             "Status Effect",
             "Protection"
         ],
-        "Effect": "Taunt all enemies within 2 meters of you.\n\n{Teal('With Valor:')} Gain 1 Shielding, which can block 1 Damage for each Unit Taunted.\n{Teal('Next:')} Movement\n\nPassively, you have Rebuke.\n",
+        "Effect": "Taunt all enemies within 3 meters of you.\n\n{Teal('With Valor:')} Gain a Shielding, which can block Damage equal to 200% the number of Units Taunted.\n{Teal('Next:')} Movement\n\nPassively, you have Rebuke.\n",
         "Subspells": {
             "~Rebuke~": {
                 "A": "Reaction",
@@ -4553,15 +4552,21 @@
     "<Personal Squire>": {
         "_Value": 3,
         "A": "Special",
-        "Tags": [
-            "Summon"
-        ],
-        "Effect": "You recruit a squire - a trusted NPC who gains combat powers. However, the capabilities of your squire are random: roll 1d6 to determine the type of your squire, based on the Squires category at Pets and Animals (1. Bold, 2. Sneaky, 3. Clever, 4. Wise). The Race is determined by the QM or by circumstance.\nOn its turn, it can do one Pet Attack, cast one Ability it has, or do the equivalent of a 1 Action Point (e.g. Dash, Push, etc).\nYou can recruit one squire per Adventure, but only one can follow you in your adventures at a time.\nAt the start of every Adventure (and when you get this Talent), you must spend 1 Mana and train your Squire to permanently increase its Health by 2 or gain one Ability from any other Squire type.\n",
-        "Upgrade": "If your squire drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your squire's wounds and heal it back to full Health.\n\n{KeystoneTalent}\n",
+        "AlignOnWebsite": "Left",
+        "Effect": "You recruit a trusted beginner adventurer NPC as a squire. It's one of the 4 possible squire types from the `Pets and Animals page$/Other/PetsAndAnimals`: Bold, Sneaky, Clever or Wise, whichever makes fits better story-wise (or random).\nYou can recruit one squire per Adventure, but only one can follow you in your adventures at a time.\n",
+        "Upgrade": "If your squire drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your squire's wounds and heal it back to full Health.",
         "Notes": "Your squire is not a Hero by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Hero can). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!",
-        "HasMixins": true,
-        "ParentKey": "Level 8 Class Talent",
-        "Origin": "Class/Warrior"
+        "Subspells": {
+            "~Squire Attack~": {
+                "A": "2 Action Points (from the squire)",
+                "IsSubspell": true,
+                "Effect": "Deal 1d6 Damage of the weapon's type, or do the equivalent of a 1 Action Point (e.g. Sprint, Push, etc).\n",
+                "ParentKey": "Subspells",
+                "Origin": "Class/Paladin"
+            }
+        },
+        "ParentKey": "Level 7 Class Talent",
+        "Origin": "Class/Paladin"
     },
     "~Squire Attack~": {
         "A": "2 Action Points (from the squire)",
@@ -4831,7 +4836,7 @@
         ],
         "ScrollPower": "Auto",
         "Effect": "Use when an ally would take Damage (or on your Turn).\nInstantly pull it to you, then subtract 1d6 from the attack and give them the rolled die as one Shielding.\n",
-        "Notes": "The ally goes flying.\nYou need line of sight to the targets. The allies fly to you ignoring obstacles and ground traps (goes around obstacles), unless the ally needs to swerve more than 2 meters in any direction.\nIf done on your Turn, the Shielding applies but there's no Damage to subtract from.\n",
+        "Notes": "The ally goes flying.\nYou need line of sight to the target. The allies fly to you ignoring obstacles and ground traps (goes around obstacles), unless the ally needs to swerve more than 2 meters in any direction.\nIf done on your Turn, the Shielding applies but there's no Damage to subtract from.\n",
         "ParentKey": "Level 1 Class Talent",
         "Origin": "Class/Cleric"
     },
@@ -7593,12 +7598,14 @@
         "Origin": "Class/Swashbuckler"
     },
     "~Second Wind~": {
+        "_Value": 1.5,
+        "IconName": "Third Wind",
         "A": "0 Action Points",
         "Cost": "1 Mana",
-        "Cooldown": "Once / Turn",
-        "Effect": "Take 1d6 Damage. Gain +1 Action Point this Turn.",
-        "ParentKey": "Level 4 Class Talent",
-        "Origin": "Class/Swashbuckler"
+        "ScrollPower": "Auto",
+        "Effect": "Gain +1 Action Point this Turn.",
+        "ParentKey": "Starting Abilities",
+        "Origin": "Class/Warrior"
     },
     "~Circle Round~": {
         "A": "0 Action Points",
@@ -8307,15 +8314,6 @@
         "ParentKey": "Level 10 Class Talent",
         "Origin": "Class/Warlock"
     },
-    "~Third Wind~": {
-        "_Value": 2.5,
-        "A": "0 Action Points",
-        "ScrollPower": 2,
-        "Cooldown": "Once / Adventure",
-        "Effect": "Gain +2 Action Points this Turn.",
-        "ParentKey": "Starting Abilities",
-        "Origin": "Class/Warrior"
-    },
     "~Command - Resist~": {
         "A": "Reaction",
         "Effect": "Use when another Ally would take Damage.\nThey don't take the Damage now. They take it at the end of their Turn.\n",
@@ -8323,8 +8321,49 @@
         "ParentKey": "Utility",
         "Origin": "Class/Warrior"
     },
-    "~Raise and Roil~": {
+    "<Gravetaker>": {
+        "A": "4 Action Points",
+        "Range": "2 meters",
+        "Cooldown": "Once / Combat",
+        "Effect": "Grab a Unit and SLAAAMM it into the ground 1d6 meters + 1d6 meters for each Action Point you spent this Combat (including this Ability's Action Points).\n",
+        "ParentKey": "Ideas",
+        "Origin": "Class/Warrior"
+    },
+    "<Intercept>": {
+        "_Value": 0.5,
         "A": "1 Action Point",
+        "Range": "3 meters",
+        "Effect": "Dash toward a Unit.\nSlam it away from you a number of meters equal to how many meters you just dashed.\n",
+        "ParentKey": "Ideas",
+        "Origin": "Class/Warrior"
+    },
+    "<Opportunity Attack>": {
+        "_Value": 1.25,
+        "A": "Reaction",
+        "Effect": "Use when an enemy within 1 meter moves away from you or makes a Ranged attack.\nAttack it with a one-handed weapon.\n",
+        "Upgrade": "You can quickly equip a one-handed weapon and attack with it.",
+        "ParentKey": "Ideas",
+        "Origin": "Class/Warrior"
+    },
+    "<Expert Maneuvers>": {
+        "_Value": 2.5,
+        "IconName": "Quick Maneuvers",
+        "Replacement": "Replaces Quick Maneuvers",
+        "Requirement": "Requires Quick Maneuvers",
+        "HasUpgradeIcon": true,
+        "A": "0 Action Points",
+        "Effect": "Immediately after you make a weapon attack, choose one effect to apply.",
+        "SingleTable": [
+            "Freely move up to 1d4 meters",
+            "Taunt up to 1d4 Units you can see",
+            "Slam the target 1d4 meter (any direction)"
+        ],
+        "Notes": "Taunted means its next offensive Act has Cover if it's not on you.",
+        "ParentKey": "Ideas",
+        "Origin": "Class/Warrior"
+    },
+    "~Raise and Roil~": {
+        "A": "0 Action Points",
         "Cost": "1 Mana",
         "Cooldown": "Once / Combat",
         "Effect": "Single-Stun all Enemies you have hit with your War Craft this Combat.\n",
@@ -8376,7 +8415,7 @@
             "Area Damage"
         ],
         "Degree": "Major",
-        "Effect": "Roll 2d10 for each Unit {Area}\nAssign 2 of the rolled d10's to each of those Units, and deal that much Damage Damage to each.\n~Click on the Icon to select which variant you want to have have!~\n",
+        "Effect": "Roll 2d10 for each Unit {Area}\nAssign 2 of the rolled d10's to each of those Units, and deal that much Damage Damage to each.\n{Variants}\n",
         "Upgrade": "The Ability is Whirlwind if a melee weapon is equipped, or Rain Death if a ranged weapon is equipped.",
         "Notes": "Each rolled die ^must^ be assigned to a Unit.\nThe Damage type depends on the weapon currently equipped. Doesn't apply weapon effects (the weapon only matters for the Damage type).\n",
         "Variants": [
@@ -8396,16 +8435,17 @@
         "Origin": "Class/Warrior"
     },
     "~Break Mountains~": {
-        "A": "2 Action Points",
-        "Cost": "1 Mana",
+        "A": "3 Action Points",
         "ScrollPower": "Auto",
         "Tags": [
             "Damage",
             "Ranged"
         ],
-        "Effect": "Pick up an object up to 2x2x2 meters in size, and throw it 3d10 meters in any direction. If it hits a Unit, it takes Damage equal to the number of meters left (e.g. similar to Slamming)",
-        "EffectGreen": "Critical Strike - for each max die rolled, deal +1d6 Damage and, if it's an object, it breaks on impact!",
+        "Range": "3-35 meters",
+        "Effect": "Pick up an object 1x1x1 to 2x2x2 meters in size, and Slam it 6d6 meters in any direction.\n{CriticalStrike} for each max die rolled, deal +1d6 Damage and, if it's an object, it breaks on impact!\n",
         "Upgrade": "You can instead pick up an enemy and Slam it a number of meters equal to half the rolled dice.",
+        "Notes": "When something Slammed it hits a Unit, they both takes Damage equal to the number of meters left.",
+        "HasMixins": true,
         "ParentKey": "Level 2 Class Talent",
         "Origin": "Class/Warrior"
     },
@@ -8424,22 +8464,20 @@
         "Origin": "Class/Warrior"
     },
     "~Flurry of Blades~": {
-        "A": "Depends",
-        "Cost": "1 Mana",
-        "Effect": "Make an attack with a weapon. If it triggers War Craft, increase the War Craft Damage by 100% and also deal it to all other Enemies within 2 meters of the main target.",
-        "Upgrade": "For Dual Shield Craft, instead doubles the Shielding and also gives it to all other Allies within 2 meters of you.",
+        "A": "1 Action Point",
+        "Effect": "The next time War Craft triggers, increase that War Craft Damage by +100% and also deal that War Craft Damage to all other Enemies within 2 meters of the main target.\n",
+        "Upgrade": "For Dual Shield Craft, instead increase the Shielding by +100% and also gives it to all other Allies within 2 meters of you.",
         "ParentKey": "Level 2 Class Talent",
         "Origin": "Class/Warrior"
     },
     "~Command - Patience~": {
         "A": "1 Action Point",
-        "Cost": "1 Mana",
         "Cooldown": "Once / Turn",
         "ScrollPower": "Auto",
         "Tags": [
             "Protection"
         ],
-        "Effect": "A different Unit you can see gains a number of 1d8 Shieldings equal to the Round Number.",
+        "Effect": "Count the Round number. A Unit you can see gains that many Shieldings that can block 3 Damage each.",
         "ParentKey": "Level 2 Class Talent",
         "Origin": "Class/Warrior"
     },
@@ -8505,7 +8543,7 @@
         "Origin": "Class/Warrior"
     },
     "<Glory Run>": {
-        "_Value": 1.75,
+        "_Value": 1.25,
         "A": "Passive",
         "Tags": [
             "Defense"
@@ -8619,12 +8657,12 @@
     "<Attack Command>": {
         "_Value": 2.25,
         "A": "Reaction or 0 Action Points",
-        "Cooldown": "Once / Adventure",
+        "Cost": "2 Mana",
         "Tags": [
             "Actions"
         ],
         "HasMixins": true,
-        "Effect": "An ally immediately makes an Act that takes 2 Action Points (can spend Mana, Cooldowns, etc on it, as if it were on its turn).\nYou can use this at any point, before or after someone does an Act.\n^You^ roll all the dice for this Act.\n",
+        "Effect": "An ally immediately makes an Act that takes 2 Action Points (can spend Mana, Cooldowns, etc on it, as if it were on its Turn).\nYou can use this at any point, before or after someone does an Act.\n^You^ roll all the dice for this Act.\n",
         "ParentKey": "Level 8 Class Talent",
         "Origin": "Class/Warrior"
     },

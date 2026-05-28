@@ -46,12 +46,13 @@ Spellcasting:
 
 Starting Abilities:
 
-  ~Third Wind~:
-    _Value: 2.5
+  ~Second Wind~:
+    _Value: 1.5 # About 0.5 per cast, but it scales very well with Mana
+    IconName: Third Wind
     A: 0 Actions
-    ScrollPower: 2
-    Cooldown: Once / Adventure
-    Effect: Gain +1 Action this Turn.
+    Cost: 1 Mana
+    ScrollPower: Auto
+    Effect: Gain +Half-Action this Turn.
 
   ~War Craft~:
     _Value: 2.75
@@ -101,7 +102,6 @@ Other Abilities:
 
   ~Marksman Craft~:
     A: Passive
-    Replacement: Replaces Charge
     Effect: |
       Your first ~ranged~ weapon attack each Turn deals +1d4 Damage {Color('#ff5900' 'if there is no Unit or obstacle near the target')}.
       
@@ -179,6 +179,81 @@ Specializations:
 
 Ideas:
 
+  <Gravetaker>:
+    _Value: 3
+    A: 4 Action Points  # 0 on 7 AP spent
+    Range: 2 meters
+    Cooldown: Once / Combat
+    Effect: |
+      Grab a Unit and SLAAAMM it into the ground 1d6 meters + 1d6 meters for each Action Point you spent this Combat (including this Ability's Action Points).
+
+  ~Chainwaver~:
+    _Value: 0.5 # Seems quite weak
+    A: Half-Action
+    Cooldown: Special
+    Effect: |
+      Slam a Unit 1d8 meters toward another Unit that isn't near it.
+    Downside: At the end of the Turn you used this, it goes on Cooldown until the next Combat.
+    Notes: |
+      You can use this as many times as you want, but all uses must be on the same Turn.
+      You can Slam yourself! Or another Unit into you.
+
+  ~Chainwaver~:
+    A: Half-Action
+    Cooldown: Once / Turn
+    Effect: |
+      Choose a Unit within 1d4 meters.
+      Slam it that many meters toward a Worthy Unit.
+
+      Your future Chainwavers this Adventure have the ^Dice Upgraded^ to the next die type (up to d12).
+    Notes: First Chainwaver each Adventure rolls 1d4, the second rolls 1d6, third 1d8, etc.
+
+  ~Division and Conquest~:
+    _Value: 0.5 # It's alright
+    A: Depends
+    Cooldown: Once / Combat
+    Effect: |
+      Choose a Unit within your {Type} ^weapon^'s Range and spend all your remaining Action Points.
+      For each spent, Damage them for {Amount} (weapon's Damage Type) and inflict a random Status Effect from below:
+    Upgrade: |
+      1. Lagged, 2.Deafened, 3. Dazed, 4.Single-Stunned, 5. Slowed, 6. Blinded, 7. Crippled, 8. Silenced, 9. Rooted, 10. Frailed.
+    Variants:
+      - Type: ranged
+        Amount: 1d4
+      - Type: melee
+        Amount: 1d6
+    Notes: Epic Units can't be Silenced or Rooted, and instead become Deafened or Lagged respectively.
+
+  <Intercept>:
+    _Value: 0.5
+    A: Half-Action
+    Range: 3 meters
+    Effect: |
+      Dash toward a Unit.
+      Slam it away from you a number of meters equal to how many meters you just dashed.
+
+  <Opportunity Attack>:
+    _Value: 1.25
+    A: Reaction
+    Effect: |
+      Use when an enemy within 1 meter moves away from you or makes a Ranged attack.
+      Attack it with a one-handed weapon.
+    Upgrade: You can quickly equip a one-handed weapon and attack with it.
+
+  <Expert Maneuvers>:
+    _Value: 2.5
+    IconName: Quick Maneuvers
+    Replacement: Replaces Quick Maneuvers
+    Requirement: Requires Quick Maneuvers
+    HasUpgradeIcon: true
+    A: 0 Actions
+    Effect: Immediately after you make a weapon attack, choose one effect to apply.
+    SingleTable:
+      - Freely move up to 1d4 meters
+      - Taunt up to 1d4 Units you can see
+      - Slam the target 1d4 meter (any direction)
+    Notes: Taunted means its next offensive Act has Cover if it's not on you.
+
   ~Strength and Honor~:
     A: Passive
     Effect: |
@@ -228,7 +303,7 @@ Talents:
   Level 1 Class Talent:
 
     ~Raise and Roil~:
-      A: Half-Action
+      A: 0 Actions
       Cost: 1 Mana
       Cooldown: Once / Combat
       Effect: |
@@ -268,7 +343,7 @@ Talents:
         Effect: |
             Roll 2d10 for each Unit {Area}
             Assign 2 of the rolled d10's to each of those Units, and deal that much Damage Damage to each.
-            ~Click on the Icon to select which variant you want to have have!~
+            {Variants}
         Upgrade: The Ability is Whirlwind if a melee weapon is equipped, or Rain Death if a ranged weapon is equipped.
         Notes: |
             Each rolled die ^must^ be assigned to a Unit.
@@ -293,13 +368,15 @@ Talents:
     #     Freely dash up to 2 meters toward a Worthy Enemy that's exactly 2 meters away, landing on a space near them.
 
     ~Break Mountains~:
-      A: 1 Action
-      Cost: 1 Mana
+      A: 3 Action Points
       ScrollPower: Auto
       Tags: [Damage, Ranged]
-      Effect: Pick up an object up to 2x2x2 meters in size, and throw it 3d10 meters in any direction. If it hits a Unit, it takes Damage equal to the number of meters left (e.g. similar to Slamming)
-      EffectGreen: Critical Strike - for each max die rolled, deal +1d6 Damage and, if it's an object, it breaks on impact!
+      Range: 3-35 meters
+      Effect: |
+        Pick up an object 1x1x1 to 2x2x2 meters in size, and Slam it 6d6 meters in any direction.
+        {CriticalStrike} for each max die rolled, deal +1d6 Damage and, if it's an object, it breaks on impact!
       Upgrade: You can instead pick up an enemy and Slam it a number of meters equal to half the rolled dice.
+      Notes: When something Slammed it hits a Unit, they both takes Damage equal to the number of meters left.
 
     <MIGHT OVER MAGIC>:
       _Value: 0
@@ -317,10 +394,10 @@ Talents:
         You can change this Ability inbetween Adventures.
 
     ~Flurry of Blades~:
-      A: Depends
-      Cost: 1 Mana
-      Effect: Make an attack with a weapon. If it triggers War Craft, increase the War Craft Damage by 100% and also deal it to all other Enemies within 2 meters of the main target.
-      Upgrade: For Dual Shield Craft, instead doubles the Shielding and also gives it to all other Allies within 2 meters of you.
+      A: Half-Action
+      Effect: |
+        The next time War Craft triggers, increase that War Craft Damage by +100% and also deal that War Craft Damage to all other Enemies within 2 meters of the main target.
+      Upgrade: For Dual Shield Craft, instead increase the Shielding by +100% and also gives it to all other Allies within 2 meters of you.
 
     # ~Takeback~:
     #   A: Half-Action
@@ -333,11 +410,10 @@ Talents:
 
     ~Command - Patience~:
       A: Half-Action
-      Cost: 1 Mana
       Cooldown: Once / Turn
       ScrollPower: Auto
       Tags: [Protection]
-      Effect: A different Unit you can see gains a number of 1d8 Shieldings equal to the Round Number.
+      Effect: Count the Round number. A Unit you can see gains that many Shieldings that can block 3 Damage each.
 
 
 
@@ -390,7 +466,7 @@ Talents:
   Level 4 Class Talent:
 
     <Glory Run>:
-      _Value: 1.75   # because movement takes actions now, but still it's free healing
+      _Value: 1.25
       A: Passive
       Tags: [Defense]
       Effect: |
@@ -515,29 +591,29 @@ Talents:
 
   Level 8 Class Talent:
     
-    <Personal Squire>:  # 2+
-      _Value: 3
-      A: Special
-      Tags: [Summon]
-      Effect: |
-        You recruit a squire - a trusted NPC who gains combat powers. However, the capabilities of your squire are random: roll 1d6 to determine the type of your squire, based on the Squires category at Pets and Animals (1. Bold, 2. Sneaky, 3. Clever, 4. Wise). The Race is determined by the QM or by circumstance.
-        On its turn, it can do one Pet Attack, cast one Ability it has, or do the equivalent of a Half-Action (e.g. Dash, Push, etc).
-        You can recruit one squire per Adventure, but only one can follow you in your adventures at a time.
-        At the start of every Adventure (and when you get this Talent), you must spend 1 Mana and train your Squire to permanently increase its Health by 2 or gain one Ability from any other Squire type.
-      Upgrade: |
-        If your squire drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your squire's wounds and heal it back to full Health.
+    # <Personal Squire>:  # 2+
+    #   _Value: 3
+    #   A: Special
+    #   Tags: [Summon]
+    #   Effect: |
+    #     You recruit a squire - a trusted NPC who gains combat powers. However, the capabilities of your squire are random: roll 1d6 to determine the type of your squire, based on the Squires category at Pets and Animals (1. Bold, 2. Sneaky, 3. Clever, 4. Wise). The Race is determined by the QM or by circumstance.
+    #     On its turn, it can do one Pet Attack, cast one Ability it has, or do the equivalent of a Half-Action (e.g. Dash, Push, etc).
+    #     You can recruit one squire per Adventure, but only one can follow you in your adventures at a time.
+    #     At the start of every Adventure (and when you get this Talent), you must spend 1 Mana and train your Squire to permanently increase its Health by 2 or gain one Ability from any other Squire type.
+    #   Upgrade: |
+    #     If your squire drops to 0 Health, it becomes Fallen, like a player. It has no Health Regen, but at any point outside of combat, you (the pet owner) can spend 30 minutes to tend to your squire's wounds and heal it back to full Health.
 
-        {KeystoneTalent}
-      Notes: Your squire is not a Hero by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Hero can). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!
+    #     {KeystoneTalent}
+    #   Notes: Your squire is not a Hero by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Hero can). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!
 
     <Attack Command>:   # 2+
       _Value: 2.25
       A: Reaction or 0 Actions
-      Cooldown: Once / Adventure
+      Cost: 2 Mana
       Tags: [Actions]
       HasMixins: true
       Effect: |
-        An ally immediately makes an Act that takes 1 Action (can spend Mana, Cooldowns, etc on it, as if it were on its turn).
+        An ally immediately makes an Act that takes 1 Action (can spend Mana, Cooldowns, etc on it, as if it were on its Turn).
         You can use this at any point, before or after someone does an Act.
         ^You^ roll all the dice for this Act.
 
