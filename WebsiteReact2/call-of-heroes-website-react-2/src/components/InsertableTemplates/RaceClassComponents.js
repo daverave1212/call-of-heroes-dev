@@ -202,7 +202,9 @@ export function RaceFeatures({ theRace }) {
             <TwoColumns>
                 <Column>
                     <div className='flex column gap-1'>
-                        <SmallStat name="Stat Distribution" className="column">{ normalizeTextWithStats(theRace?.Creation?.['Stat Restrictions']) }</SmallStat>
+                        { theRace?.Creation?.['Stat Restrictions'] && (
+                            <SmallStat name="Stat Distribution" className="column">{ normalizeTextWithStats(theRace.Creation['Stat Restrictions']) }</SmallStat>
+                        ) }
                         <div>
                             <SmallStat name="Max Health"><Icon name="Health" type="small-stat"/>{ theRace.Stats['Base Health'] } + ({BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[MAX_HEALTH]})</SmallStat>
                         </div>

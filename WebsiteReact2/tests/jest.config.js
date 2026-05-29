@@ -1,5 +1,6 @@
 export default {
   testEnvironment: "node",
   testTimeout: 10000,
-  verbose: true
+  verbose: true,
+  setupFilesAfterEnv: ['jest-expect-message']
 };

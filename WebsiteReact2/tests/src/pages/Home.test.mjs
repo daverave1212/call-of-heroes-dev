@@ -6,6 +6,6 @@ import config from "../config.mjs";
 
 describe('Test', () => {
     test('Placeholder', async () => {
-        expect(true).toBe('true')
+        expect(true).toBe(true)
     })
 })

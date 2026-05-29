@@ -1,4 +1,5 @@
 import { newPage } from "./browser.mjs";
+import config from "./config.mjs";
 
 export function wait(time) {
    return new Promise(function(resolve) { 
@@ -30,8 +31,8 @@ export function testPage(pageName, func) {
     
         
         beforeAll(async () => {
-            page = await newPage(({ error, isCrash }) => {
-                consoleErrors.push({ error, isCrash })
+            page = await newPage(({ message, type, isCrash }) => {
+                consoleErrors.push({ message, isCrash })
             })
         })
         beforeEach(async () => {
@@ -53,23 +54,27 @@ export function testPage(pageName, func) {
 
 }
 
-export function withPage(func) {
-    let page
+export async function withPage(pageName, func) {
     let consoleErrors = []
+    const page = await newPage(err => {
+        const { message, type, isCrash } = err
+        consoleErrors.push(err)
+    })
 
-    beforeAll(async () => {
-        page = await newPage(({ error, isCrash }) => {
-            consoleErrors.push({ error, isCrash })
-        })
+    const fullUrl =
+        !pageName.includes(config.domain)?
+            (config.domain + pageName).trim()
+        :
+            pageName.trim()
+
+    // console.log(`Going to "${fullUrl}"`)
+    await page.goto(fullUrl, { waitUntil: 'load' })
+    await wait(500)
+    await func(page, consoleErrors)
+    await page.close()
+}
+export function testWithPage(pageName, func) {
+    test(pageName, async () => {
+        await withPage(pageName, func)
     })
-    beforeEach(async () => {
-        consoleErrors = []
-    })
-    afterEach(async () => {
-        expect(consoleErrors.length).toEqual(0)
-    })
-    afterAll(async () => {
-        await page.close()
-    })
-    func(page)
 }
