@@ -1829,11 +1829,10 @@
     },
     "~Fundamentals I~": {
         "A": "Passive",
-        "IsIgnored": true,
         "IconName": "Fundamentals",
         "Effect": "Pick one more Level 1 Class or Utility Talent.\n",
-        "ParentKey": "Level 3 Class Talent",
-        "Origin": "Class/Wizard"
+        "ParentKey": "Level 2 Class Talent",
+        "Origin": "Class/Warlock"
     },
     "~Shapeshift II~": {
         "A": "0 Action Points",
@@ -6480,6 +6479,7 @@
         "A": "2 Action Points",
         "Range": "3 meters",
         "HasMixins": true,
+        "Tags": "Utility",
         "Degree": "Lesser",
         "AlignOnWebsite": "Right",
         "Effect": "Choose one of these effects to cast:\n{Diamond} Create harmless sensory effects, sparks or non-damaging heat or cold.\n{Diamond} Channel to create simple, small, harmless illusions in your hand or within 3 meters.\n{Diamond} Instantly clean or soil objects.\n{Diamond} Control a quill with telekinesis to quickly write with it.\n",
@@ -6959,9 +6959,10 @@
         "Cost": "1 Mana",
         "Cooldown": "Once / Adventure",
         "Tags": [
-            "Keystone Talent (Level 9)"
+            "Action Points",
+            "Utility"
         ],
-        "Effect": "Instantly return to how and where you were at the start of the turn, with that same Movement, Actions, Health, Shielding, Buffs and Cooldowns (not Mana, though).\nAlternatively, if you're out of combat, you can turn back time for all the world up to 10 minutes, exactly how it was, but retaining all your information from the future. Allies don't retain the information.\n",
+        "Effect": "Instantly return to how and where you were at the start of the Turn, with that same Movement, Actions, Health, Shielding, Buffs and Cooldowns (not Mana, though).\nAlternatively, if you're out of combat, you can turn back time for all the world up to 10 minutes, exactly how it was, but retaining all your information from the future. Allies don't retain the information.\n",
         "ParentKey": "Level 9 Class Talent",
         "Origin": "Class/Wizard"
     },
@@ -9169,6 +9170,11 @@
         "Cost": "1 Mana",
         "Cooldown": "Once / Turn",
         "ScrollPower": "Auto",
+        "Tags": [
+            "Buff",
+            "Debuff",
+            "Utility"
+        ],
         "Degree": "Minor",
         "Effect": "A Unit or object you can see becomes one Size larger/smaller.\nIt gains or loses 10% Max Health, gains or loses 1 Damage on all offensive Acts, and gains or loses 1 Movement Speed.\nCan stack multiple times.\n",
         "Notes": "Current Health changes with the Max Health (e.g. for 80/100 Health, if growing, new Health will be 90/110; if shrinking, new Health will be 70/90). When the effect expires, the new Current Health stays as it is, unless it's higher than the new Max Health.\nWhen the effect expires, current Health remains the same if lower, or is cut to maximum if higher.\nA larger Unit becomes 1 meter larger/smaller in both directions.\nIt's number of spaces occupied also changes with this.\n",
@@ -9235,28 +9241,12 @@
         "ParentKey": "Ideas",
         "Origin": "Class/Wizard"
     },
-    "~Horolostasis~": {
-        "_Value": 3,
-        "A": "1 Action Point",
-        "Cooldown": "Once / Adventure",
-        "Effect": "You stop time for a few seconds.\nIf in Combat, end your Turn and immediately take an extra Turn.\n",
-        "Upgrade": "You essentially stop time for 6 seconds. During that time, only you can move, and everything around you is stil.",
-        "Notes": "Objects or people frozen in time can be moved only if you touch them, but are stiff otherwise.",
-        "ParentKey": "Ideas",
-        "Origin": "Class/Wizard"
-    },
-    "~Anachronism~": {
-        "_Value": 1,
-        "A": "0 Action Points",
-        "Cost": "1 Mana",
-        "Effect": "Use after you roll dice.\nYou have exactly 15 seconds to reroll all dice until you're happy with the result. If you end with dice in hand, nothing happens.\n",
-        "ParentKey": "Ideas",
-        "Origin": "Class/Wizard"
-    },
     "~Spell Book~": {
         "_Value": 1.5,
         "A": "Passive",
-        "Effect": "Replenish 1 Mana after each Worthy Combat.",
+        "Effect": "After each Worthy Combat, if you have 50% or less {Mana}Mana, replenish 1 {Mana}Mana.",
+        "Upgrade": "You have a special Spell Book which you draw your power from. The effect applies while carrying the book.\nIf you ever lose it, you can spend 1 day and 100 {Gold}Gold to recreate it.\n",
+        "HasMixins": true,
         "ParentKey": "Starting Abilities",
         "Origin": "Class/Wizard"
     },
@@ -9268,12 +9258,19 @@
         ],
         "A": "Passive",
         "Effect": "You may select a Magic Font to pick Spells from. You can pick a number of Font Spells equal to your Focus.\n",
-        "Notes": "You can get more Magic Font Spells like you would normally get extra Class Talents (e.g. with the extra Known Talents from Intelligence, if above 0).\nYou can change your chosen Magic Font (and Font Spells) inbetween Adventures.\n",
+        "Notes": "You can change your chosen Magic Font (and Font Spells) inbetween Adventures.\n",
+        "ParentKey": "Starting Abilities",
+        "Origin": "Class/Wizard"
+    },
+    "~Comprehension~": {
+        "A": "Passive",
+        "Effect": "When you unlock a Talent tier, you may forgo getting a Talent from that tier to instead pick an extra Talent from a lower-Level tier or an extra Magic Font Spell.",
         "ParentKey": "Starting Abilities",
         "Origin": "Class/Wizard"
     },
     "~Learn Scrolls~": {
         "A": "1 minute",
+        "Tags": "Spells",
         "Effect": "If you have a Scroll that contains a Basic Ability (e.g. from Arcane, Nature, etc), you can destroy it to Know it permanently, without needing to learn it inbetween Adventures.\n",
         "Notes": "You can not learn Class Abilities from Scrolls. Of course, you still need to spend Mana and respect the Cooldown of said Ability.",
         "AlignOnWebsite": "Left",
@@ -9283,13 +9280,13 @@
     "~Control Elements~": {
         "Degree": "Lesser",
         "HasMixins": true,
+        "Tags": "Utility",
         "A": "2 Action Points",
         "DisplayName": "Control {Element}",
         "Range": "5 meters",
         "Cooldown": "Your Level uses / Adventure",
         "Effect": "{DoWhat}\n",
         "Notes": "{ElementNotes}\nApply common sense. The QM has the final word on whether something is possible.\n",
-        "Tags": "Utility",
         "Variants": [
             {
                 "Element": "Fire",
@@ -9312,17 +9309,20 @@
         "Requirement": "Level 4",
         "Range": "10 meters",
         "Degree": "Minor",
+        "Tags": "Utility",
         "ScrollPower": "Auto",
         "Effect": "Up to 2 Units you choose will start falling gently, down to 3 meters per round.\nOnce the fall finishes, the spell effect ends.\n",
         "Notes": "Arcane Feathers can be bought in most towns.\nFor faster gameplay, you can spend 10 gold when casting the spell, and buy the feather later.\n",
         "ParentKey": "Utility",
         "Origin": "Class/Wizard"
     },
-    "~Flash~": {
+    "~Teleportation~": {
         "A": "0 Action Points",
         "Cost": "1 Mana",
         "Cooldown": "Once / Turn",
+        "IconName": "Flash",
         "Degree": "Minor",
+        "Tags": "Mobility",
         "Requirement": "Level 3",
         "ScrollPower": 2,
         "Effect": "Instantly teleport up to 5 meters away, within line of sight.",
@@ -9334,6 +9334,7 @@
         "A": "1 hour",
         "Cooldown": "Once / Lifetime",
         "Requirement": "Level 6",
+        "Tags": "Other",
         "Effect": "Tapping into the arcane knowledge and the materials in the ground beneath, spend 1000 {Gold}Gold to conjure a permanent stone tower up to 40 meters tall and 12 meters across, decorated as you like. The insides are currently empty, but while you have this Ability, you may spend 1 minute to teleport any non-alive item you can hold to any location in your tower.\nWhile you have this Ability, if within 100 kilometers of the tower, you can channel for 1 hour to teleport your party to it.\n",
         "HasMixins": true,
         "ParentKey": "Utility",
@@ -9343,21 +9344,11 @@
         "A": "0 Action Points",
         "Cost": "1 Mana",
         "Duration": "Until end of Adventure",
+        "Tags": "Spells",
         "ScrollPower": 2,
         "Effect": "Cast a Spell onto a _scroll_, spending its Cost, Cooldown, Action Points, etc (plus the additional 1 {Mana}Mana for this Ability).\nThe _scroll_ can be used with 1 Action Point, and is destroyed after being used.\n",
         "HasMixins": true,
         "ParentKey": "Level 1 Class Talent",
-        "Origin": "Class/Wizard"
-    },
-    "~Attention~": {
-        "A": "Passive",
-        "IsIgnored": true,
-        "Combat Extras": [
-            "+1 Font Spell (Attention)"
-        ],
-        "Effect": "Get one more Magic Font Spell.",
-        "Notes": "You can have this Talent multiple times, from different Levels.",
-        "ParentKey": "Level 5 Class Talent",
         "Origin": "Class/Wizard"
     },
     "~Animated Weapon~": {
@@ -9367,8 +9358,12 @@
         "Range": "3 meters",
         "Duration": "Depends",
         "Degree": "Major",
+        "Tags": [
+            "Summon",
+            "Damage"
+        ],
         "ScrollPower": "Auto",
-        "Effect": "Conjure a levitating, self-wielding melee weapon on a space within 3 meters.\nIt has 1 Action Point that can only be spent for Move and Attack,\nIt takes its Turn on at the same time as you, but disappears if it doesn't attack an Enemy or Worthy Unit by the end of your Turn.\n",
+        "Effect": "Summon a levitating, self-wielding melee weapon on a space within 3 meters.\nIt has 1 Action Point that can only be spent for Move and Attack,\nIt takes its Turn on at the same time as you, but disappears if it doesn't attack an Enemy or Worthy Unit by the end of your Turn.\n",
         "Monster": {
             "Name": "Animated Weapon",
             "Speed": "3 meters",
@@ -9392,15 +9387,28 @@
         "A": "1 Action Point",
         "Cost": "1 Mana",
         "ScrollPower": "Auto",
+        "Tags": [
+            "Trap"
+        ],
         "Effect": "Magically draw a faint 3x3 meter _rune_ onto a flat surface.\nCast a Spell onto the _rune_, spending its Cost, Cooldown, Action Points, etc (plus the additional 1 {Mana}Mana for this Ability).\nWhen an Enemy enters the _rune_, that Spell is automatically cast on that Unit (or centered on that Unit if it's an Area Ability). Then the _rune_ is destroyed.\n",
         "Notes": "If the Spell has you choose something else, like a secondary target or an effect, you can do so the moment the rune explodes.",
         "HasMixins": true,
         "ParentKey": "Level 1 Class Talent",
         "Origin": "Class/Wizard"
     },
+    "~Expansionism~": {
+        "A": "Passive",
+        "Effect": "Gain access to one more Magic Font to pick Spells from.",
+        "ParentKey": "Level 1 Class Talent",
+        "Origin": "Class/Wizard"
+    },
     "<Pyromancy>": {
         "_Value": 1.5,
         "A": "Passive",
+        "Requirement": "Only works in Worthy Combat",
+        "Tags": [
+            "Scaling"
+        ],
         "Effect": "Every Turn, after the first time you deal Damage to 2 or more Enemies with the same Ability, increase all Fire Damage you deal by 1 for the rest of the combat.",
         "ParentKey": "Level 2 Class Talent",
         "Origin": "Class/Wizard"
@@ -9408,6 +9416,10 @@
     "<Electromancy>": {
         "_Value": 1.5,
         "A": "Passive",
+        "Requirement": "Only works in Worthy Combat",
+        "Tags": [
+            "Scaling"
+        ],
         "Effect": "After the first time you affect an Ally with a Spell each Turn, increase all Healing and Shock Damage you deal by 1 for the rest of the Combat.\n",
         "ParentKey": "Level 2 Class Talent",
         "Origin": "Class/Wizard"
@@ -9416,7 +9428,10 @@
         "_Value": 2,
         "A": "Passive",
         "Requirement": "Only works in Worthy Combat",
-        "Effect": "Your dice can't roll less than 0 (see below).\nAfter every 5 rolled dice, increase that number by 1 this Combat.\n",
+        "Tags": [
+            "Scaling"
+        ],
+        "Effect": "Your and your summons' dice can't roll less than 0 (see below).\nAfter every 5 rolled dice, increase that number by 1 this Combat.\n",
         "Notes": "If a die rolled less than that number, set the die's result to that number. The number of rolled dice carry on to the next Turn. This number can even exceed a die's highest number. If that happens, no longer roll the die and just take the number and does not count as a die roll.",
         "ParentKey": "Level 2 Class Talent",
         "Origin": "Class/Wizard"
@@ -9424,22 +9439,22 @@
     "<Hydromancy>": {
         "_Value": 1.5,
         "A": "Passive",
+        "Requirement": "Only works in Worthy Combat",
+        "Tags": [
+            "Scaling"
+        ],
         "Effect": "Once per Turn, after you apply a Status Effect to an Enemy, increase all Cold Damage you deal by 1 for the rest of the combat.",
         "Notes": "Hard Terrain does not count as a Status Effect. Slamming counts as a Status Effect.",
         "ParentKey": "Level 2 Class Talent",
         "Origin": "Class/Wizard"
     },
-    "~Upcast~": {
-        "A": "0 Action Points",
-        "Cost": "1 Mana",
-        "ScrollPower": "Auto",
-        "Effect": "After you cast the next Spell this Turn, choose one of the rolled dice. Increase the result number of that die by 100%.",
-        "Upgrade": "This is not considered a Spell.",
-        "ParentKey": "Level 3 Class Talent",
-        "Origin": "Class/Wizard"
-    },
     "~Book Is Alive!~": {
         "A": "Passive",
+        "Tags": [
+            "Summon",
+            "Utility"
+        ],
+        "Height": 19,
         "Effect": "Your spell book is animated and alive, and levitates around you!\nIt has only 1 Action Point on its Turn that it can only use to move and on its own Abilities.\nYou can cast Spells as if they originate from the _spectral hand_ instead of your own, calculating Range and Cover from it instead of you.You can cast Spells as if they originate from the _spectral hand_ instead of your own, calculating Range and Cover from it instead of you.\n",
         "Upgrade": "The book may participate in Combat but won't be Damaged unless purposefully targeted.",
         "Notes": "\"Alive\" is a strange term... no one is quite sure whether it is simply animated, sentient, or conscious... but if it looks like a book and acts like a book, then it's probably a book.\nThe book can do Checks with its own or your own Stats and bonuses.\n",
@@ -9481,75 +9496,116 @@
         "ParentKey": "Abilities",
         "Origin": "Class/Wizard"
     },
+    "~Upcast~": {
+        "A": "0 Action Points",
+        "Cost": "1 Mana",
+        "ScrollPower": "Auto",
+        "Tags": [
+            "Spells"
+        ],
+        "Effect": "After you cast the next Spell this Turn, choose one of the rolled dice. Increase the result number of that die by 100%.",
+        "Upgrade": "This is not considered a Spell.",
+        "ParentKey": "Level 3 Class Talent",
+        "Origin": "Class/Wizard"
+    },
+    "~Warding~": {
+        "A": "1 Action Point",
+        "Cost": "1 Mana",
+        "IconName": "Flame Ward",
+        "Tags": [
+            "Protection",
+            "Mass Damage"
+        ],
+        "Effect": "Choose a non-physical Damage Type. A Unit you can see becomes surrounded in an aura of that Type.\nThe next time they take Damage of that Type, they take -100% Damage, and that Damage is dealt to all Units within 1 meter of it.\n",
+        "ParentKey": "Level 3 Class Talent",
+        "Origin": "Class/Wizard"
+    },
+    "~Immensity of Knowledge~": {
+        "A": "Passive",
+        "Effect": "You can access Magic Font Spells 2 Levels earlier than the required Level.\n",
+        "ParentKey": "Level 3 Class Talent",
+        "Origin": "Class/Wizard"
+    },
+    "~Elemental Enchantment~": {
+        "A": "2 Action Points",
+        "Cost": "1 Mana",
+        "Range": "3 meters",
+        "Duration": "One Combat",
+        "Degree": "Minor",
+        "Tags": [
+            "Buff"
+        ],
+        "Effect": "Choose a metallic weapon to imbue it with {Element}.\nIt {Effect} and the total Damage becomes {Element} Damage.\n",
+        "Upgrade": "Lasts until the end of the next (or current) combat, or the end of the Adventure.",
+        "Notes": "Does not stack with other temporary weapon enchantments from Spells.",
+        "Variants": [
+            {
+                "Name": "Fire",
+                "Element": "Fire",
+                "IconName": "Fire Enchantment",
+                "Effect": "deals +1 Damage (or +1d4 for 2-handed weapons)"
+            },
+            {
+                "Name": "Frost",
+                "Element": "Cold",
+                "IconName": "Frost Enchantment",
+                "Effect": "Slows the target of attacks with it"
+            },
+            {
+                "Name": "Electric",
+                "Element": "Shock",
+                "IconName": "Electric Enchantment",
+                "Effect": "also deals 1d2 Shock Damage (or 1d6 for 2-handed weapons) to a different Unit within 3 meters of the target"
+            }
+        ],
+        "HasMixins": true,
+        "ParentKey": "Level 4 Class Talent",
+        "Origin": "Class/Wizard"
+    },
     "<Abjuration>": {
-        "_Value": 2.25,
+        "_Value": 2.5,
         "A": "Reaction",
         "Cost": "1 Mana",
         "Tags": [
             "Protection"
         ],
-        "Effect": "Use when an ally (or you) would be hit by a missile (before hitting the target).\nFling it from air back to the attacker (with the exact Damage and effects).\n",
-        "ParentKey": "Level 4 Class Talent",
-        "Origin": "Class/Wizard"
-    },
-    "<Animation>": {
-        "_Value": 2.5,
-        "A": "Passive",
-        "Tags": [
-            "Summon"
-        ],
-        "Effect": "Whenever you spend Mana on a Spell that doesn't deal Damage, you can pick a Medium or Large object within 6 meters and bring it to life.\nIt has 3 Speed, can fly and can attack for 1d4 Smash, Slash or Pierce Damage.\nLasts 1 minute or until it takes Damage (after which it returns to its inanimate form).\n",
-        "Notes": "Alternatively, it can use Sprint, Push or Taunt once.",
-        "ParentKey": "Level 4 Class Talent",
-        "Origin": "Class/Wizard"
-    },
-    "~Mage Fundamentals II~": {
-        "A": "Passive",
-        "IsIgnored": true,
-        "IconName": "Fundamentals",
-        "Effect": "Pick one more Level 1 or 3 Class or Utility Talent.\n",
+        "Effect": "Use on a physical missile that is flying (e.g. an arrow, a canonball, etc).\nQuickly decelerate it so it falls to the ground.\n",
+        "Notes": "Does not work if the missile is a Unit.",
         "ParentKey": "Level 4 Class Talent",
         "Origin": "Class/Wizard"
     },
     "<Spellcraft>": {
-        "_Value": 1.5,
-        "A": "0 Action Points",
-        "Cooldown": "Once / Combat",
+        "_Value": 0,
+        "A": "0 Action Points (or Reaction)",
+        "Cost": "1 Mana",
         "AlignOnWebsite": "Right",
         "Tags": [
-            "Keystone Talent (Level 4)"
+            "Spells"
         ],
         "HasMixins": true,
-        "Effect": "When you cast a spell, you can apply this any of the following effects to it:\n{Diamond} For every 2 dice in its Damage, roll 1 more\n{Diamond} Increase or decrease its Area by 50% (if any)\n{Diamond} Change its Damage Type to any Type\n{Diamond} Double its Status Effect output\n{Diamond} Double its range\n",
+        "Effect": "When you or another Unit you can see casts a Spell, you can apply this any of the following effects to it:\n{Diamond} Double its range\n{Diamond} Change its Damage Type to any Type\n{Diamond} Increase or decrease its Area by 50% (if any)\n{Diamond} Change its Status Effect to another base* Status Effect\n",
+        "Notes": "Base Status Effects are Single-Status Effects listed in the Rules (e.g. not Double-Stun, Polymorph, etc).",
         "ParentKey": "Level 4 Class Talent",
         "Origin": "Class/Wizard"
     },
-    "~Amplification~": {
+    "~Anachronism~": {
+        "_Value": 1,
         "A": "0 Action Points",
         "Cost": "1 Mana",
-        "Duration": "Until end of Adventure",
-        "ScrollPower": 2,
-        "Effect": "Choose a Unit to amplify their magic potential.\nTheir first Healing or Spell Damage every Turn has its ^Dice Upgraded^ to the next die type.\n",
-        "Notes": "Doesn't stack with itself multiple times. \"Having Dice Upgraded means, for example, d6's become d8's, or d10's become d12's. D12's and d20's just gain +1.\"",
-        "HasMixins": true,
-        "ParentKey": "Level 5 Class Talent",
-        "Origin": "Class/Wizard"
-    },
-    "~Invisibility~": {
-        "A": "Reaction or 0 Action Points",
-        "Cost": "1 Mana",
-        "HasMixins": true,
-        "ScrollPower": 3,
-        "Degree": "Major",
-        "Effect": "Use on your Turn, or before a Unit wants to do something.\nChoose a Unit you can see. It becomes invisible for up to 1 minute, or until it does an offensive Act.\n",
-        "Upgrade": "You can spend extra {Mana}Mana to extend the duration of this by that many minutes.",
-        "ParentKey": "Level 5 Class Talent",
+        "Effect": "Use after you roll dice.\nYou have exactly 15 seconds to reroll all dice until you're happy with the result. If you end with dice in hand, nothing happens.\n",
+        "ParentKey": "Level 4 Class Talent",
         "Origin": "Class/Wizard"
     },
     "~Polymorph~": {
         "A": "Special",
         "Cost": "Special",
         "ScrollPower": "Auto",
+        "Height": 30,
+        "Tags": [
+            "Buff",
+            "Debuff",
+            "Status Effect"
+        ],
         "Effect": "Choose a Unit and spend any number of Action Points and Mana (at least 1 of each).\nYou shapeshift it into an animal shape you choose.\nIt has a number of features equal to the Mana spent, and lasts until it has spent a number of Action Points equal to the Action Points spent.\nIt can do everything it normally can, but the features block certain actions.\n",
         "Upgrade": "Apply all other rules for Druid's Shapeshift Ability.",
         "Subspells": {
@@ -9617,11 +9673,53 @@
         "ParentKey": "Subspells",
         "Origin": "Class/Wizard"
     },
+    "<Animation>": {
+        "_Value": 2.5,
+        "A": "Passive",
+        "Tags": [
+            "Summon"
+        ],
+        "Effect": "Whenever you spend Mana on a Spell that doesn't deal Damage, you can pick a Medium or Large object within 6 meters and bring it to life.\nIt has 3 Speed, can fly and can attack for 1d4 Smash, Slash or Pierce Damage.\nLasts 1 minute or until it takes Damage (after which it returns to its inanimate form).\n",
+        "Notes": "Alternatively, it can use Sprint, Push or Taunt once.",
+        "ParentKey": "Level 5 Class Talent",
+        "Origin": "Class/Wizard"
+    },
+    "~Invisibility~": {
+        "A": "Reaction or 0 Action Points",
+        "Cost": "1 Mana",
+        "HasMixins": true,
+        "ScrollPower": 3,
+        "Degree": "Major",
+        "Tags": [
+            "Protection",
+            "Utility"
+        ],
+        "Effect": "Use on your Turn, or before a Unit wants to do something.\nChoose a Unit you can see. It becomes invisible for up to 1 minute, or until it does an offensive Act.\n",
+        "Upgrade": "You can spend extra {Mana}Mana to extend the duration of this by that many minutes.",
+        "ParentKey": "Level 5 Class Talent",
+        "Origin": "Class/Wizard"
+    },
+    "<Contraspell>": {
+        "A": "Reaction",
+        "Cost": "1 Mana",
+        "Tags": [
+            "Protection",
+            "Status Effect"
+        ],
+        "Effect": "Use when a Unit you can see wants to cast a Spell.\nIt doesn't, and loses the Action Points and Mana they would have spent on it.\n",
+        "Notes": "The Spell does not go on Cooldown, since it wasn't really cast.",
+        "ParentKey": "Level 5 Class Talent",
+        "Origin": "Class/Wizard"
+    },
     "~Levitate~": {
         "A": "2 Action Points",
         "Cost": "1 Mana",
         "Degree": "Major",
         "Range": "10 meters",
+        "Tags": [
+            "Control",
+            "Utility"
+        ],
         "ScrollPower": "Auto",
         "Effect": "First, roll 2d100. That's how many kilograms you can levitate when you cast this.\nLevitate one object or Unit you can see and move it as you like as long as it is and remains within 10 meters of you.\nOn each of your Turns, you can spend 2 Action Points to keep the Object levitated or move it again. Otherwise, it falls slowly and the Spell ends.\n",
         "Upgrade": "A levitated Unit is Slowed perpetually.\nAt Level 8, the amount increases to 5d100.\n",
@@ -9635,6 +9733,9 @@
         "Range": "10 meters",
         "Degree": "Major",
         "ScrollPower": "Auto",
+        "Tags": [
+            "Utility"
+        ],
         "Effect": "You create an illusion that fits at most in a 3x3x3 meter area.\nThe illusion appears real to the eyes, ears and by smell, but physical interaction makes it obvious it's an illusion and objects pass through it normally.\nThe illusion can deal no Status Effects, but can provide Cover or block Line of Sight (both from the front, and from behind).\nOn your Turn, you can spend 2 Action Points to keep and/or move the illusion, otherwise the Spell ends.\n",
         "Upgrade": "At Level 8, the illusion lasts indefinitely until you cancel it without needing to spend Actions, and it can hold its own simple movement and clockwork-like routines.\nYou can also program this illusion to react on its own in a specific way to specific triggers, but the instructions must be concise - talk with your QM about this.\n",
         "ParentKey": "Level 6 - Utility Talent",
@@ -9645,6 +9746,9 @@
         "Cost": "1 Mana",
         "Range": "3 meters",
         "ScrollPower": "Auto",
+        "Tags": [
+            "Utility"
+        ],
         "Degree": "Major",
         "Effect": "You can conjure an object that is up to 1x1x1 meter in size.\nThe object is solid and glows faintly.\nYou can't conjure mechanical objects.\nThe object disappears after 1 hour (24 hours at Level 8).\n",
         "ParentKey": "Level 6 - Utility Talent",
@@ -9654,6 +9758,9 @@
         "A": "10 minutes",
         "Cost": "1 Mana",
         "Degree": "Major",
+        "Tags": [
+            "Utility"
+        ],
         "ScrollPower": 1,
         "Effect": "Touch 2 objects of the same type (e.g. 2 helmets, or 2 arrows, or 2 melee 1-Handed weapons, etc).\nYou make one of the look like the other.\nThe change is permanent until the object breaks.\n",
         "Notes": "Upon close inspection of the shape and colors, this is visibly an illusion.",
@@ -9666,7 +9773,7 @@
             "Mana"
         ],
         "A": "Passive",
-        "Effect": "Spells that cost 3 or more Mana cost 1 less for you.\nBasic Spells that cost Mana and have a Cooldown have no Cooldown for you.\n",
+        "Effect": "Spells that cost 3 or more Mana cost 1 less for you.\n",
         "ParentKey": "Level 7 Class Talent",
         "Origin": "Class/Wizard"
     },
@@ -9674,15 +9781,17 @@
         "_Value": 4,
         "A": "Passive",
         "HasMixins": true,
+        "Range": "4 meters",
         "Tags": [
             "Damage"
         ],
-        "Effect": "Whenever you deal Damage with a Spell that cost Mana, zap a Unit within 4 meters for ^your Focus^ Shock Damage.\n",
-        "Notes": "This is optional.",
+        "Effect": "Whenever you deal Damage with a Spell that cost Mana, zap a Unit for ^your Focus^ Damage of your primary Magic Font's Type.\n",
+        "Notes": "This is optional. Arcane Font deals Pulse Damage.",
         "ParentKey": "Level 7 Class Talent",
         "Origin": "Class/Wizard"
     },
-    "<Evocation>": {
+    "<Archonism>": {
+        "IconName": "Evocation",
         "_Value": 3,
         "A": "1 Action Point",
         "ScrollPower": "Auto",
@@ -9693,9 +9802,65 @@
             "Steroid"
         ],
         "HasMixins": true,
-        "Effect": "Take the form of an _evoker_ - a being made of pure energy.\nWhile in the _evoker_ form, all Damage you deal from all sources becomes Pulse Damage, and all your spells that cost 2 or more Mana now cost 1 less.\nYou can breathe underwater and fly at normal Speed.\n",
+        "Effect": "Take the form of an _archon_ being made of pure energy.\nWhile in the _archon_ form, all Damage you deal from all sources becomes Pulse Damage, and all your spells that cost 2 or more Mana now cost 1 less.\nYou can breathe underwater and fly at normal Speed.\n",
         "Notes": "You can't end your turn inside an obstacle, and you can't move through walls, ceilings and floors.",
         "ParentKey": "Level 7 Class Talent",
+        "Origin": "Class/Wizard"
+    },
+    "~Amplification~": {
+        "_Value": 1,
+        "A": "1 Action Point",
+        "Cost": "2 Mana",
+        "Duration": "Until end of Adventure",
+        "Tags": [
+            "Buff"
+        ],
+        "ScrollPower": "Auto",
+        "Effect": "Choose a Unit to amplify their magic potential.\nTheir first Healing or Spell Damage every Turn has its ^Dice Upgraded^ to the next die type.\n",
+        "Notes": "Doesn't stack with itself multiple times. \"Having Dice Upgraded means, for example, d6's become d8's, or d10's become d12's. D12's and d20's just gain +1.\"",
+        "HasMixins": true,
+        "ParentKey": "Level 7 Class Talent",
+        "Origin": "Class/Wizard"
+    },
+    "~Horolostasis~": {
+        "_Value": 3,
+        "A": "1 Action Point",
+        "Cooldown": "Once / Adventure",
+        "Effect": "You stop time for a few seconds.\nIf in Combat, end your Turn and immediately take an extra Turn.\n",
+        "Upgrade": "You essentially stop time for 6 seconds. During that time, only you can move, and everything around you is stil.",
+        "Notes": "Objects or people frozen in time can be moved only if you touch them, but are stiff otherwise.",
+        "ParentKey": "Level 8 Class Talent",
+        "Origin": "Class/Wizard"
+    },
+    "~Anomality~": {
+        "A": "Special",
+        "Cost": "Special",
+        "Range": "10 meters (possibly to edge)",
+        "Effect": "Spend any amount of Action Points and Mana to cast a custom Spell that takes effect immediately.\nChoose if your Spell deals Damage or Heals.\nThe table below shows the ^average^ Damage or Healing it will do if it's a single-target Spell, but it is your job to transform those numbers into dice with bonuses.\nYou can make the Spell target a 3x3 area, and reduce its Damage (or Heal) by 50%.\nFor each Mana spent, the Spell may gain one of the following bonuses:\n",
+        "List": [
+            "Add 4.5 Damage (or Healing).",
+            "Increase the diameter by 100%.",
+            "Add any Hard* Status Effect if single-target",
+            "Add any non-Hard* Status Effect if it's area"
+        ],
+        "Notes": "The average of 1d4 is 2.5, the average of 1d6 is 3.5, etc.\nHard Status Effects are Stun, Frail, Cripple, Root or Silence.\nSlamming 3 meters away from a point you choose is a non-Hard Status Effect.\n",
+        "DoubleTable": {
+            "IsRighty": true,
+            "Headers": [
+                "Action Points",
+                "Damage (Heal)"
+            ],
+            "Values": [
+                "1",
+                "6 (4.5)",
+                "2",
+                "13 (8)",
+                "3",
+                "20.5 (11)"
+            ]
+        },
+        "HasMixins": true,
+        "ParentKey": "Level 8 Class Talent",
         "Origin": "Class/Wizard"
     },
     "<Graviturgy>": {
@@ -9710,9 +9875,19 @@
         "ParentKey": "Level 9 Class Talent",
         "Origin": "Class/Wizard"
     },
+    "~Aetherism~": {
+        "A": "Passive",
+        "Bonuses": {
+            "Max Mana Multiplier": 1.5
+        },
+        "Effect": "Your Max Mana increases by 50%.",
+        "ParentKey": "Level 9 Class Talent",
+        "Origin": "Class/Wizard"
+    },
     "<Hermeticism>": {
         "A": "Passive",
-        "Effect": "You know all Basic Spells and they all cost 1 less Mana to cast. If they cost 0 Mana, they instead restore 1 Mana if used in Combat.\nYou may create your own _homebrew_ Spells as per the rules of _QM Resources, Homebrewing Abilities_.\nYou can use Restricted Abilities even if restricted in your current adventures.\n",
+        "Tags": "Heroic",
+        "Effect": "You know all Font Spells and they all cost 1 less Mana to cast. If they cost 0 Mana, they instead restore 1 Mana if used in Combat.\nYou may create your own _homebrew_ Spells as per the rules of _QM Resources, Homebrewing Abilities_.\nYou can use Restricted Abilities even if restricted in your current adventures.\nYou have +4 Focus.\n",
         "HasMixins": true,
         "Downside": "This is your Heroic Class Ability and, after getting this Talent, you can no longer change your Talents inbetween Adventures.",
         "ParentKey": "Level 10 Class Talent",
@@ -9720,7 +9895,8 @@
     },
     "<Highmancy>": {
         "A": "Passive",
-        "Effect": "Your chosen Level 3 Talent triggers 3 times when it happens. When using Magic Mastery on a Spell with the same element as your Level 3 Talent, it no longer gets its ^Dice Downgraded^.\n",
+        "Tags": "Heroic",
+        "Effect": "Your chosen Mancy Talent triggers 3 times when it happens.\nWhenever you deal 20 or more Damage with a Spell, regain 1 Mana for each 20 Damage just dealt.\nYou have +2 Focus and +2 Instinct.\n",
         "Upgrade": "All your other Spells become themed to the same element, but keep their original Damage Type. For example, if you chose fire, Frost Nova will now burst in cold, blue flames instead of ice.",
         "Notes": "For example, when you hit multiple Units with an Ability, you increase your Fire Damage by +3 instead of +1, or you gain +6 Cold Damage from Hydromancy when you Status Effect an Enemy. For Eldritchianism, your Spells have their ^Dice Upgraded^ 3 times.",
         "HasMixins": true,
@@ -10289,7 +10465,7 @@
         "Combaat Extras": [
             "You have +1 Druid Talent"
         ],
-        "Effect": "You have access to Level 1 Minor and Utility Druid Talents, up to your Level, no matter what Class you are.",
+        "Effect": "You know a Level 1 Druid Utility or Class Talent.\nYou can change it inbetween Adventures.\n",
         "ParentKey": "Talents",
         "Origin": "Race/Elf"
     },

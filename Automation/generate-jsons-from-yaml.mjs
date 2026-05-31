@@ -473,6 +473,7 @@ async function processFiles() {
                 for (const [spellName, spell] of Object.entries(spellsObj)) {
                     spell.ScrollPower = 'Auto'
                     spell.ParentKey = category
+                    spell.HasMixins = true
                 }
             }
         }

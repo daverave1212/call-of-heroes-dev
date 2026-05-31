@@ -9,8 +9,8 @@ Fire:
     Effect: |
         Deal 1d10 Fire Damage to a Unit.
         If it had already taken Fire Damage this Combat, its hit by another 1d10 Fire Damage.
-    Upgrade: The extra Damage counts separately for Pyromancy.
-    EffectGreen: Critical Strike - for each 10 rolled, apply a ~Combo~.
+        
+        {CriticalStrike} for each 10 rolled, apply a ~Combo~.
 
   ~Burning Breath~:
       A: 0 Actions
@@ -35,41 +35,23 @@ Fire:
     Notes: You can roll them one by one, after they deal the Damage.
     Tag: Damage (1)
   
-  ~Fire Enchantment~:
-      A: 1 Action
-      Cost: 1 Mana
-      Range: 3 meters
-      Duration: One Combat
-      Requirement: Level 3
-      Degree: Minor
-      Tags: [Buff]
-      Effect: |
-          Choose a metallic weapon to imbue it with Fire.
-          That weapon deals +1 Damage (or +1d4 for 2-handed weapons) and the total Damage becomes Fire Damage.
-      Upgrade: Lasts until the end of the next (or current) combat, or the end of the Adventure.
-      Notes: Does not stack with other weapon enchantments from Spells.
-
   ~Cinder Storm~:
       A: Half-Action
       Range: Exactly 2 meters
       Cost: 2 Mana
+      Cooldown: Once / Turn
       Requirement: Level 4
       Tags: [Mass Damage, Area Status Effect]
       Effect: |
-        All Units exactly 2 meters away from you take 2d4 Fire Damage and become Dazed or Blinded (your choice).
+        Each Unit in a 5x5 meter area centered on you take 2d4 Fire Damage. Units exactly on the outer edge of the area are also Dazed or Blinded (your choice).
   
-  ~Blazetrail~:
-      A: 0 Actions
-      Requirement: Level 5
-      Duration: 1 minute
-      Cost: 1 Mana
-      Degree: Minor
-      Tags: [Buff]
-      Effect: |
-          A Unit you can see gains propulsion by fire. It gains +3 Movement Speed and whenever it comes near a Unit, that Unit takes 1d4 Fire Damage.
-      Upgrade: The Damage also happens the moment you cast this Spell, around the target Unit.
-      Notes: |
-        The Damage can only happen once per Turn per Unit. The Damage source is you (for amplification effects).
+  ~Scorching Heat~:
+    A: Half-Action
+    Cost: 2 Mana
+    Range: 3 meters
+    Requirement: Level 5
+    Effect: |
+      A Unit you can see takes 3d4 Fire Damage, then becomes Frail.
 
   ~Fire Ball~:
       A: 3 Action Points
@@ -82,14 +64,18 @@ Fire:
           All Units in 6x6x6 meter area take 6d8 Fire Damage.
       Notes: Cover is calculated from the center of the area.
 
-  ~Flame Ward~:
-    A: Half-Action
-    Cost: 1 Mana
-    Requirement: Level 7
-    Tags: [Protection]
-    Effect: |
-      An ally you can see becomes surrounded in a fiery aura.
-      The next time they take Fire Damage, they take -100% Fire Damage, and that Damage is dealt to all Units within 1 meter of it.
+  ~Blazetrail~:
+      A: 0 Actions
+      Requirement: Level 7
+      Duration: 1 minute
+      Cost: 1 Mana
+      Degree: Minor
+      Tags: [Buff]
+      Effect: |
+          A Unit you can see gains propulsion by fire. It gains +3 Movement Speed and whenever it comes near a Unit, that Unit takes 1d4 Fire Damage.
+      Upgrade: The Damage also happens the moment you cast this Spell, around the target Unit.
+      Notes: |
+        The Damage can only happen once per Turn per Unit. The Damage source is you (for amplification effects).
 
   ~Ignition~:
       A: 1 Action
@@ -102,6 +88,32 @@ Fire:
           Ignite a Unit you can see. At the end of each of your Turns, it takes 8 Fire Damage.
           Its ignition ends if the Unit is Damaged by Cold, Shock or Acid or is splashed with water.
 
+  ~Cauterize~:
+    A: Half-Action
+    Cost: 2 Mana
+    Requirement: Level 9
+    Effect: |
+      Choose a Unit you can see. Deal 3d6 Fire Damage to it.
+      At the start of its Turn, Heal it for 5d6.
+    Combo: You can repeat this next Turn, without spending the Mana.
+
+  ~Meteor~:
+    A: 2 Action Points
+    Cost: 5 Mana
+    Range: 10 meters (to edge)
+    Duration: 1 minute
+    Requirement: Level 10
+    Effect: |
+      Conjure a 5x5x5 meter _meteor_ that falls from the sky onto an area, dealing 10d4 Fire Damage on impact.
+      At the start of your next Turns, the _meteor_ keeps rolling away from you up to 3 meters and dealing 5d4 Fire Damage to Units hit again.
+      The zone underneath the meteor is Hard Terrain.
+  
+  ~Armaggeddon~:
+    A: 3 Action Points
+    Cost: 9 Mana
+    Requirement: Level 11
+    Effect: |
+      Rain death of fire upon the entire battlefield. ALL Units on the battlefield take 21d6 Fire Damage.
 
 Lightning:
 
@@ -115,6 +127,8 @@ Lightning:
         Effect: |
             Create a lightning chord between you an a Unit.
             At the end of your every turn, deal 1d6 Shock Damage to it.
+
+            {CriticalStrike} if you roll 6, apply a ~Combo~.
         Upgrade: The chord is broken if you end your Turn more than 5 meters away from it.
         Notes: |
           A Unit can only be affected by one Lightning Chord at a time.
@@ -162,6 +176,7 @@ Lightning:
         Cost: 1 Mana
         Requirement: Level 4
         Tags: [Protection]
+        HasMixins: true
         Effect: |
           Use when a Unit would take Damage (after roll). Negate 50% of the incoming Damage and return it back to the source as Shock Damage.
           Apply a ~Combo~ to either of them.
@@ -199,6 +214,7 @@ Frost:
       A: Half-Action
       Range: 10 meters
       Tags: [Damage, Combo]
+      HasMixins: true
       Effect: Throw an icicle at Unit, dealing 2 + ^Any Stat^ Cold Damage.
       Combo: Shoot another icicle into them for -50% Damage!
     
@@ -372,3 +388,14 @@ Arcane:
     Tags: [Control, Damage]
     Effect: |
       Choose a Unit. It takes 4d4 Shock Damage and teleport it up to 6 meters away.
+  
+  ~Mirror Clone~:
+    A: 1 Action
+    Cost: 2 Mana
+    Duration: 1 hour
+    Requirement: Level 8
+    Tags: [Other]
+    Effect: |
+      Summon a magical clone of an Allied Hero, with its current Health, Mana, Cooldowns, etc at this time.
+      You control it, it takes Turns like the Hero, but takes 500% Damage, deals only 10% Damage (at lest 1 per instance), and can't inflict Status Effects.
+    Notes: The clone counts as a Hero, and respects all Hero rules (e.g. monster Setback).

@@ -5,24 +5,6 @@ Ideas:
     ~Dragon Becoming~:
       Effect: Become a dragon!
 
-    ~Horolostasis~:
-      _Value: 3
-      A: Half-Action
-      Cooldown: Once / Adventure
-      Effect: |
-        You stop time for a few seconds.
-        If in Combat, end your Turn and immediately take an extra Turn.
-      Upgrade: You essentially stop time for 6 seconds. During that time, only you can move, and everything around you is stil.
-      Notes: Objects or people frozen in time can be moved only if you touch them, but are stiff otherwise.
-
-    ~Anachronism~:
-      _Value:   1 # It's really good in roleplaying
-      A: 0 Actions
-      Cost: 1 Mana
-      Effect: |
-        Use after you roll dice.
-        You have exactly 15 seconds to reroll all dice until you're happy with the result. If you end with dice in hand, nothing happens.
-
 Class: Wizard
 Description: |
   You step inside the magic circle, and an incantation of fire, frost, and lightning begins. The figure with robes and glowing eyes moves around, raw energy emanating from their palms. A book lays open on the floor, pages flipping themselves and shifting through bright violet runes. The circle is abruptly broken, and the magic stops, as you notice the Wizard caressing his beard, eyes all on you. Did the spell fail? Could this be a mistake? An error in the code of arcane? Wizards work in mysterious ways...
@@ -71,7 +53,10 @@ Starting Abilities:
   ~Spell Book~:
     _Value: 1.5
     A: Passive
-    Effect: Replenish 1 Mana after each Worthy Combat.
+    Effect: After each Worthy Combat, if you have 50% or less {Mana}Mana, replenish 1 {Mana}Mana.
+    Upgrade: |
+      You have a special Spell Book which you draw your power from. The effect applies while carrying the book.
+      If you ever lose it, you can spend 1 day and 100 {Gold}Gold to recreate it.
   
   ~Magic Font~:
     _Value: 0
@@ -82,13 +67,17 @@ Starting Abilities:
     Effect: |
       You may select a Magic Font to pick Spells from. You can pick a number of Font Spells equal to your {Intelligence}.
     Notes: |
-      You can get more Magic Font Spells {LikeNormalTalents}.
       You can change your chosen Magic Font (and Font Spells) inbetween Adventures.
+
+  ~Comprehension~:
+    A: Passive
+    Effect: When you unlock a Talent tier, you may forgo getting a Talent from that tier to instead pick an extra Talent from a lower-Level tier or an extra Magic Font Spell.
 
 Utility:
 
   ~Learn Scrolls~:    # 0
     A: 1 minute
+    Tags: Spells
     Effect: |
       If you have a Scroll that contains a Basic Ability (e.g. from Arcane, Nature, etc), you can destroy it to Know it permanently, without needing to learn it inbetween Adventures.
     Notes: You can not learn Class Abilities from Scrolls. Of course, you still need to spend Mana and respect the Cooldown of said Ability.
@@ -97,6 +86,7 @@ Utility:
   ~Control Elements~:
       Degree: Lesser
       HasMixins: true
+      Tags: Utility
       A: 1 Action
       DisplayName: Control {Element}
       Range: 5 meters
@@ -106,7 +96,6 @@ Utility:
       Notes: |
           {ElementNotes}
           Apply common sense. The QM has the final word on whether something is possible.
-      Tags: Utility
       Variants:
         - Element: Fire
           DoWhat: |
@@ -133,6 +122,7 @@ Utility:
       A: 1 Action
       Range: 3 meters
       HasMixins: true
+      Tags: Utility
       Degree: Lesser
       AlignOnWebsite: Right
       Effect: |
@@ -147,6 +137,7 @@ Utility:
       Requirement: Level 4
       Range: 10 meters
       Degree: Minor
+      Tags: Utility
       ScrollPower: Auto
       Effect: |
           Up to 2 Units you choose will start falling gently, down to 3 meters per round.
@@ -155,11 +146,13 @@ Utility:
           Arcane Feathers can be bought in most towns.
           For faster gameplay, you can spend 10 gold when casting the spell, and buy the feather later.
 
-  ~Flash~:
+  ~Teleportation~:
       A: 0 Actions
       Cost: 1 Mana
       Cooldown: Once / Turn
+      IconName: Flash
       Degree: Minor
+      Tags: Mobility
       Requirement: Level 3
       ScrollPower: 2
       Effect: Instantly teleport up to 5 meters away, within line of sight.
@@ -169,6 +162,7 @@ Utility:
       A: 1 hour
       Cooldown: Once / Lifetime
       Requirement: Level 6
+      Tags: Other
       Effect: |
         Tapping into the arcane knowledge and the materials in the ground beneath, spend 1000 {Gold}Gold to conjure a permanent stone tower up to 40 meters tall and 12 meters across, decorated as you like. The insides are currently empty, but while you have this Ability, you may spend 1 minute to teleport any non-alive item you can hold to any location in your tower.
         While you have this Ability, if within 100 kilometers of the tower, you can channel for 1 hour to teleport your party to it.
@@ -186,18 +180,11 @@ Talents:
       A: 0 Actions
       Cost: 1 Mana
       Duration: Until end of Adventure
+      Tags: Spells
       ScrollPower: 2
       Effect: |
         Cast a Spell onto a _scroll_, spending its Cost, Cooldown, Action Points, etc (plus the additional 1 {Mana}Mana for this Ability).
         The _scroll_ can be used with 1 Action Point, and is destroyed after being used.
-    
-    ~Attention~:
-      A: Passive
-      IsIgnored: true
-      Combat Extras:
-        - +1 Font Spell (Attention)
-      Effect: Get one more Magic Font Spell.
-      Notes: You can have this Talent multiple times, from different Levels.
 
     ~Animated Weapon~:
         Height: 40
@@ -206,9 +193,10 @@ Talents:
         Range: 3 meters
         Duration: Depends
         Degree: Major
+        Tags: [Summon, Damage]
         ScrollPower: Auto
         Effect: |
-            Conjure a levitating, self-wielding melee weapon on a space within 3 meters.
+            Summon a levitating, self-wielding melee weapon on a space within 3 meters.
             It has 1 Action Point that can only be spent for Move and Attack,
             It takes its Turn on at the same time as you, but disappears if it doesn't attack an Enemy or Worthy Unit by the end of your Turn.
         Monster:
@@ -227,23 +215,31 @@ Talents:
       A: Half-Action
       Cost: 1 Mana
       ScrollPower: Auto
+      Tags: [Trap]
       Effect: |
         Magically draw a faint 3x3 meter _rune_ onto a flat surface.
         Cast a Spell onto the _rune_, spending its Cost, Cooldown, Action Points, etc (plus the additional 1 {Mana}Mana for this Ability).
         When an Enemy enters the _rune_, that Spell is automatically cast on that Unit (or centered on that Unit if it's an Area Ability). Then the _rune_ is destroyed.
       Notes: If the Spell has you choose something else, like a secondary target or an effect, you can do so the moment the rune explodes.
 
+    ~Expansionism~:
+      A: Passive
+      Effect: Gain access to one more Magic Font to pick Spells from.
 
   Level 2 Class Talent:
 
     <Pyromancy>:
       _Value: 1.5
       A: Passive
+      Requirement: Only works in Worthy Combat
+      Tags: [Scaling]
       Effect: Every Turn, after the first time you deal Damage to 2 or more Enemies with the same Ability, increase all Fire Damage you deal by 1 for the rest of the combat.
 
     <Electromancy>:
       _Value: 1.5
       A: Passive
+      Requirement: Only works in Worthy Combat
+      Tags: [Scaling]
       Effect: |
         After the first time you affect an Ally with a Spell each Turn, increase all Healing and Shock Damage you deal by 1 for the rest of the Combat.
 
@@ -251,52 +247,26 @@ Talents:
       _Value: 2
       A: Passive
       Requirement: Only works in Worthy Combat
+      Tags: [Scaling]
       Effect: |
-        Your dice can't roll less than 0 (see below).
+        Your and your summons' dice can't roll less than 0 (see below).
         After every 5 rolled dice, increase that number by 1 this Combat.
       Notes: If a die rolled less than that number, set the die's result to that number. The number of rolled dice carry on to the next Turn. This number can even exceed a die's highest number. If that happens, no longer roll the die and just take the number and does not count as a die roll.
 
     <Hydromancy>:
       _Value: 1.5
       A: Passive
+      Requirement: Only works in Worthy Combat
+      Tags: [Scaling]
       Effect: Once per Turn, after you apply a Status Effect to an Enemy, increase all Cold Damage you deal by 1 for the rest of the combat.
       Notes: Hard Terrain does not count as a Status Effect. Slamming counts as a Status Effect.
 
   Level 3 Class Talent:
 
-    ~Upcast~:
-      A: 0 Actions
-      Cost: 1 Mana
-      ScrollPower: Auto
-      Effect: After you cast the next Spell this Turn, choose one of the rolled dice. Increase the result number of that die by 100%.
-      Upgrade: This is not considered a Spell.
-
-    ~Grow or Shrink~:
-        A: 1 Action
-        Cost: 1 Mana
-        Cooldown: Once / Turn
-        ScrollPower: Auto
-        Degree: Minor
-        Effect: |
-            A Unit or object you can see becomes one Size larger/smaller.
-            It gains or loses 10% Max Health, gains or loses 1 Damage on all offensive Acts, and gains or loses 1 Movement Speed.
-            Can stack multiple times.
-        Notes: |
-            Current Health changes with the Max Health (e.g. for 80/100 Health, if growing, new Health will be 90/110; if shrinking, new Health will be 70/90). When the effect expires, the new Current Health stays as it is, unless it's higher than the new Max Health.
-            When the effect expires, current Health remains the same if lower, or is cut to maximum if higher.
-            A larger Unit becomes 1 meter larger/smaller in both directions.
-            It's number of spaces occupied also changes with this.
-
-    ~Attention~:
-      A: Passive
-      IsIgnored: true
-      Combat Extras:
-        - +1 Font Spell (Attention)
-      Effect: Get one more Magic Font Spell.
-      Notes: You can have this Talent multiple times, from different Levels.
-
     ~Book Is Alive!~:
       A: Passive
+      Tags: [Summon, Utility]
+      Height: 19
       Effect: |
         Your spell book is animated and alive, and levitates around you!
         It has only 1 Action Point on its Turn that it can only use to move and on its own Abilities.
@@ -319,112 +289,114 @@ Talents:
             A: Half-Action
             Effect: Grab, drop, or manipulate an object.
 
-    # ~Spectral Hand~:
-    #     A: 0 Actions
-    #     Cost: 1 Mana
-    #     Range: 5 meters
-    #     Duration: Rest of Adventure
-    #     ScrollPower: 2
-    #     Degree: Minor
-    #     Effect: |
-    #         Conjure a _spectral hand_ in a space you can see.
-    #         You can control the hand as you move your normal hands. You can spend Half-Action to move it up to 5 meters.
-    #         You can cast Spells as if they originate from the _spectral hand_ instead of your own, calculating Range and Cover from it instead of you.
-    #     Notes: |
-    #         The hand can't lift objects weighing more than you can lift just with one hand.
-    #         Moving the hand spends Action Points as if you made moved your own hand.
-    #         You can destroy the _hand_ at will.
+    ~Upcast~:
+      A: 0 Actions
+      Cost: 1 Mana
+      ScrollPower: Auto
+      Tags: [Spells]
+      Effect: After you cast the next Spell this Turn, choose one of the rolled dice. Increase the result number of that die by 100%.
+      Upgrade: This is not considered a Spell.
 
-    ~Fundamentals I~:
-        A: Passive
-        IsIgnored: true
-        IconName: Fundamentals
+    ~Grow or Shrink~:
+        A: 1 Action
+        Cost: 1 Mana
+        Cooldown: Once / Turn
+        ScrollPower: Auto
+        Tags: [Buff, Debuff, Utility]
+        Degree: Minor
         Effect: |
-          Pick one more Level 1 Class or Utility Talent.
+            A Unit or object you can see becomes one Size larger/smaller.
+            It gains or loses 10% Max Health, gains or loses 1 Damage on all offensive Acts, and gains or loses 1 Movement Speed.
+            Can stack multiple times.
+        Notes: |
+            Current Health changes with the Max Health (e.g. for 80/100 Health, if growing, new Health will be 90/110; if shrinking, new Health will be 70/90). When the effect expires, the new Current Health stays as it is, unless it's higher than the new Max Health.
+            When the effect expires, current Health remains the same if lower, or is cut to maximum if higher.
+            A larger Unit becomes 1 meter larger/smaller in both directions.
+            It's number of spaces occupied also changes with this.
+
+    ~Warding~:
+      A: Half-Action
+      Cost: 1 Mana
+      IconName: Flame Ward
+      Tags: [Protection, Mass Damage]
+      Effect: |
+        Choose a non-physical Damage Type. A Unit you can see becomes surrounded in an aura of that Type.
+        The next time they take Damage of that Type, they take -100% Damage, and that Damage is dealt to all Units within 1 meter of it.
+
+    ~Immensity of Knowledge~:
+      A: Passive
+      Effect: |
+        You can access Magic Font Spells 2 Levels earlier than the required Level.
 
   Level 4 Class Talent:
   
+    ~Elemental Enchantment~:
+        A: 1 Action
+        Cost: 1 Mana
+        Range: 3 meters
+        Duration: One Combat
+        Degree: Minor
+        Tags: [Buff]
+        Effect: |
+            Choose a metallic weapon to imbue it with {Element}.
+            It {Effect} and the total Damage becomes {Element} Damage.
+        Upgrade: Lasts until the end of the next (or current) combat, or the end of the Adventure.
+        Notes: Does not stack with other temporary weapon enchantments from Spells.
+        Variants:
+          - Name: Fire
+            Element: Fire
+            IconName: Fire Enchantment
+            Effect: deals +1 Damage (or +1d4 for 2-handed weapons)
+          - Name: Frost
+            Element: Cold
+            IconName: Frost Enchantment
+            Effect: Slows the target of attacks with it
+          - Name: Electric
+            Element: Shock
+            IconName: Electric Enchantment
+            Effect: also deals 1d2 Shock Damage (or 1d6 for 2-handed weapons) to a different Unit within 3 meters of the target
+
     <Abjuration>:
-      _Value: 2.25  # 2 or more
+      _Value: 2.5  # 0.5 to 1 per cast
       A: Reaction
       Cost: 1 Mana
       Tags: [Protection]
       Effect: |
-        Use when an ally (or you) would be hit by a missile (before hitting the target).
-        Fling it from air back to the attacker (with the exact Damage and effects).
+        Use on a physical missile that is flying (e.g. an arrow, a canonball, etc).
+        Quickly decelerate it so it falls to the ground.
+      Notes: Does not work if the missile is a Unit.
     
-    <Animation>:
-      _Value: 2.5
-      A: Passive
-      Tags: [Summon]
-      Effect: |
-        Whenever you spend Mana on a Spell that doesn't deal Damage, you can pick a Medium or Large object within 6 meters and bring it to life.
-        It has 3 Speed, can fly and can attack for 1d4 Smash, Slash or Pierce Damage.
-        Lasts 1 minute or until it takes Damage (after which it returns to its inanimate form).
-      Notes: Alternatively, it can use Sprint, Push or Taunt once.
-
-    ~Mage Fundamentals II~:
-        A: Passive
-        IsIgnored: true
-        IconName: Fundamentals
-        Effect: |
-          Pick one more Level 1 or 3 Class or Utility Talent.
-
-    # <Illusionism>:
-    #   _Value: 2
-    #   A: Passive
-    #   Duration: 1 minute
-    #   Effect: |
-    #     After you use Magic Mastery, choose an ally.
-    #     Create a clone of them on a space within 2 meters of them, and teleport the ally 2 meters in any direction (as to create a diversion).
-    #     The clone has the same Health and other stats, but takes 300% of the Damage it takes.
-    #     The clone can pretend to do anything the ally can do. If it attacks with a weapon or Spell, it can do at most 1 Psychic Damage per attack Act.
-    #   Upgrade: An enemy can't tell which Unit is real and which is the clone until the clone does something relevant and the Unit has at least 3 {Intelligence}.
-    #   Notes: |
-    #     E.g. the clone could cast Magic Missiles, but only one missile will deal 1 Damage (you can choose which, and apply Cover, Defense and other penalties normally - e.g. 1 Damage with Cover becomes 0 Damage). Alternatively, for example, it could attack twice with a one-handed weapon for 1 Damage each.
-
     <Spellcraft>:
-      _Value: 1.5
-      A: 0 Actions
-      Cooldown: Once / Combat
+      _Value: 0
+      A: 0 Actions (or Reaction)
+      Cost: 1 Mana
       AlignOnWebsite: Right
-      Tags: [Keystone Talent (Level 4)]
+      Tags: [Spells]
       HasMixins: true
       Effect: |
-        When you cast a spell, you can apply this any of the following effects to it:
-        {Diamond} For every 2 dice in its Damage, roll 1 more
-        {Diamond} Increase or decrease its Area by 50% (if any)
-        {Diamond} Change its Damage Type to any Type
-        {Diamond} Double its Status Effect output
+        When you or another Unit you can see casts a Spell, you can apply this any of the following effects to it:
         {Diamond} Double its range
+        {Diamond} Change its Damage Type to any Type
+        {Diamond} Increase or decrease its Area by 50% (if any)
+        {Diamond} Change its Status Effect to another base* Status Effect
+      Notes: Base Status Effects are Single-Status Effects listed in the Rules (e.g. not Double-Stun, Polymorph, etc).
+
+    ~Anachronism~:
+      _Value:   1 # It's really good in roleplaying
+      A: 0 Actions
+      Cost: 1 Mana
+      Effect: |
+        Use after you roll dice.
+        You have exactly 15 seconds to reroll all dice until you're happy with the result. If you end with dice in hand, nothing happens.
 
   Level 5 Class Talent:
 
-    ~Amplification~:
-      A: 0 Actions
-      Cost: 1 Mana
-      Duration: Until end of Adventure
-      ScrollPower: 2
-      Effect: |
-        Choose a Unit to amplify their magic potential.
-        Their first Healing or Spell Damage every Turn has its ^Dice Upgraded^ to the next die type.
-      Notes: Doesn't stack with itself multiple times. "{DiceUpgrade}"
-
-    ~Invisibility~:
-        A: Reaction or 0 Actions
-        Cost: 1 Mana
-        HasMixins: true
-        ScrollPower: 3
-        Degree: Major
-        Effect: |
-            Use on your Turn, or before a Unit wants to do something.
-            Choose a Unit you can see. It becomes invisible for up to 1 minute, or until it does an offensive Act.
-        Upgrade: You can spend extra {Mana}Mana to extend the duration of this by that many minutes.
-    
     ~Polymorph~:
         A: Special
         Cost: Special
         ScrollPower: Auto
+        Height: 30
+        Tags: [Buff, Debuff, Status Effect]
         Effect: |
           Choose a Unit and spend any number of Action Points and Mana (at least 1 of each).
           You shapeshift it into an animal shape you choose.
@@ -467,15 +439,36 @@ Talents:
           - Name: Emerging
             Effect: Can fly, swim, and does not need to breathe.
 
-
-    ~Attention~:
+    <Animation>:
+      _Value: 2.5
       A: Passive
-      IsIgnored: true
-      Combat Extras:
-        - +1 Font Spell (Attention)
-      Effect: Get one more Magic Font Spell.
-      Notes: You can have this Talent multiple times, from different Levels.
-  
+      Tags: [Summon]
+      Effect: |
+        Whenever you spend Mana on a Spell that doesn't deal Damage, you can pick a Medium or Large object within 6 meters and bring it to life.
+        It has 3 Speed, can fly and can attack for 1d4 Smash, Slash or Pierce Damage.
+        Lasts 1 minute or until it takes Damage (after which it returns to its inanimate form).
+      Notes: Alternatively, it can use Sprint, Push or Taunt once.
+
+    ~Invisibility~:
+        A: Reaction or 0 Actions
+        Cost: 1 Mana
+        HasMixins: true
+        ScrollPower: 3
+        Degree: Major
+        Tags: [Protection, Utility]
+        Effect: |
+            Use on your Turn, or before a Unit wants to do something.
+            Choose a Unit you can see. It becomes invisible for up to 1 minute, or until it does an offensive Act.
+        Upgrade: You can spend extra {Mana}Mana to extend the duration of this by that many minutes.
+    
+    <Contraspell>:
+      A: Reaction
+      Cost: 1 Mana
+      Tags: [Protection, Status Effect]
+      Effect: |
+        Use when a Unit you can see wants to cast a Spell.
+        It doesn't, and loses the Action Points and Mana they would have spent on it.
+      Notes: The Spell does not go on Cooldown, since it wasn't really cast.
 
   Level 6 - Utility Talent:
 
@@ -484,6 +477,7 @@ Talents:
         Cost: 1 Mana
         Degree: Major
         Range: 10 meters
+        Tags: [Control, Utility]
         ScrollPower: Auto
         Effect: |
             First, roll 2d100. That's how many kilograms you can levitate when you cast this.
@@ -500,6 +494,7 @@ Talents:
         Range: 10 meters
         Degree: Major
         ScrollPower: Auto
+        Tags: [Utility]
         Effect: |
             You create an illusion that fits at most in a 3x3x3 meter area.
             The illusion appears real to the eyes, ears and by smell, but physical interaction makes it obvious it's an illusion and objects pass through it normally.
@@ -514,6 +509,7 @@ Talents:
         Cost: 1 Mana
         Range: 3 meters
         ScrollPower: Auto
+        Tags: [Utility]
         Degree: Major
         Effect: |
             You can conjure an object that is up to 1x1x1 meter in size.
@@ -525,6 +521,7 @@ Talents:
         A: 10 minutes
         Cost: 1 Mana
         Degree: Major
+        Tags: [Utility]
         ScrollPower: 1
         Effect: |
             Touch 2 objects of the same type (e.g. 2 helmets, or 2 arrows, or 2 melee 1-Handed weapons, etc).
@@ -541,18 +538,19 @@ Talents:
       A: Passive
       Effect: |
         Spells that cost 3 or more Mana cost 1 less for you.
-        Basic Spells that cost Mana and have a Cooldown have no Cooldown for you.
     
     <Destruction>:
       _Value: 4
       A: Passive
       HasMixins: true
+      Range: 4 meters
       Tags: [Damage]
       Effect: |
-        Whenever you deal Damage with a Spell that cost Mana, zap a Unit within 4 meters for ^your {Intelligence}^ Shock Damage.
-      Notes: This is optional.
+        Whenever you deal Damage with a Spell that cost Mana, zap a Unit for ^your {Intelligence}^ Damage of your primary Magic Font's Type.
+      Notes: This is optional. Arcane Font deals Pulse Damage.
 
-    <Evocation>:
+    <Archonism>:
+      IconName: Evocation
       _Value: 3
       A: Half-Action
       ScrollPower: Auto
@@ -561,10 +559,67 @@ Talents:
       Tags: [Ultimate, Steroid]
       HasMixins: true
       Effect: |
-        Take the form of an _evoker_ - a being made of pure energy.
-        While in the _evoker_ form, all Damage you deal from all sources becomes Pulse Damage, and all your spells that cost 2 or more Mana now cost 1 less.
+        Take the form of an _archon_ being made of pure energy.
+        While in the _archon_ form, all Damage you deal from all sources becomes Pulse Damage, and all your spells that cost 2 or more Mana now cost 1 less.
         You can breathe underwater and fly at normal Speed.
       Notes: You can't end your turn inside an obstacle, and you can't move through walls, ceilings and floors.
+
+    ~Amplification~:
+      _Value: 1
+      A: Half-Action
+      Cost: 2 Mana
+      Duration: Until end of Adventure
+      Tags: [Buff]
+      ScrollPower: Auto
+      Effect: |
+        Choose a Unit to amplify their magic potential.
+        Their first Healing or Spell Damage every Turn has its ^Dice Upgraded^ to the next die type.
+      Notes: Doesn't stack with itself multiple times. "{DiceUpgrade}"
+
+  Level 8 Class Talent:
+
+    ~Horolostasis~:
+      _Value: 3
+      A: Half-Action
+      Cooldown: Once / Adventure
+      Effect: |
+        You stop time for a few seconds.
+        If in Combat, end your Turn and immediately take an extra Turn.
+      Upgrade: You essentially stop time for 6 seconds. During that time, only you can move, and everything around you is stil.
+      Notes: Objects or people frozen in time can be moved only if you touch them, but are stiff otherwise.
+
+    ~Anomality~:
+      A: Special
+      Cost: Special
+      Range: 10 meters (possibly to edge)
+      Effect: |
+        Spend any amount of Action Points and Mana to cast a custom Spell that takes effect immediately.
+        Choose if your Spell deals Damage or Heals.
+        The table below shows the ^average^ Damage or Healing it will do if it's a single-target Spell, but it is your job to transform those numbers into dice with bonuses.
+        You can make the Spell target a 3x3 area, and reduce its Damage (or Heal) by 50%.
+        For each Mana spent, the Spell may gain one of the following bonuses:
+      List:
+        - Add 4.5 Damage (or Healing).
+        - Increase the diameter by 100%.
+        - Add any Hard* Status Effect if single-target
+        - Add any non-Hard* Status Effect if it's area
+      Notes: |
+        The average of 1d4 is 2.5, the average of 1d6 is 3.5, etc.
+        Hard Status Effects are Stun, Frail, Cripple, Root or Silence.
+        Slamming 3 meters away from a point you choose is a non-Hard Status Effect.
+      DoubleTable:
+        IsRighty: true
+        Headers:
+          - Action Points
+          - Damage (Heal)
+        Values:
+          - "1"
+          - 6 (4.5)
+          - "2"
+          - 13 (8)
+          - "3"
+          - 20.5 (11)
+
 
   Level 9 Class Talent:
 
@@ -572,9 +627,9 @@ Talents:
       A: 0 Actions
       Cost: 1 Mana
       Cooldown: Once / Adventure
-      Tags: [Keystone Talent (Level 9)]
+      Tags: [Action Points, Utility]
       Effect: |
-        Instantly return to how and where you were at the start of the turn, with that same Movement, Actions, Health, Shielding, Buffs and Cooldowns (not Mana, though).
+        Instantly return to how and where you were at the start of the Turn, with that same Movement, Actions, Health, Shielding, Buffs and Cooldowns (not Mana, though).
         Alternatively, if you're out of combat, you can turn back time for all the world up to 10 minutes, exactly how it was, but retaining all your information from the future. Allies don't retain the information.
 
     <Graviturgy>:
@@ -588,21 +643,32 @@ Talents:
         That area become frozen in time - Units skip their turns and can't be Damaged or affected by anything.
         Any object that touches the area becomes frozen, too (and, if it is a missile, resumes its trajectory when the area ends).
 
+    ~Aetherism~:
+      A: Passive
+      Bonuses:
+        Max Mana Multiplier: 1.5
+      Effect: Your Max Mana increases by 50%.
+
   Level 10 Class Talent:
 
     <Hermeticism>:
       A: Passive
+      Tags: Heroic
       Effect: |
-        You know all Basic Spells and they all cost 1 less Mana to cast. If they cost 0 Mana, they instead restore 1 Mana if used in Combat.
+        You know all Font Spells and they all cost 1 less Mana to cast. If they cost 0 Mana, they instead restore 1 Mana if used in Combat.
         You may create your own _homebrew_ Spells as per the rules of _QM Resources, Homebrewing Abilities_.
         You can use Restricted Abilities even if restricted in your current adventures.
+        You have +4 {Intelligence}.
       HasMixins: true
       Downside: "{Heroic}"
 
     <Highmancy>:
       A: Passive
+      Tags: Heroic
       Effect: |
-        Your chosen Level 3 Talent triggers 3 times when it happens. When using Magic Mastery on a Spell with the same element as your Level 3 Talent, it no longer gets its ^Dice Downgraded^.
+        Your chosen Mancy Talent triggers 3 times when it happens.
+        Whenever you deal 20 or more Damage with a Spell, regain 1 Mana for each 20 Damage just dealt.
+        You have +2 {Intelligence} and +2 {Dexterity}.
       Upgrade: All your other Spells become themed to the same element, but keep their original Damage Type. For example, if you chose fire, Frost Nova will now burst in cold, blue flames instead of ice.
       Notes: For example, when you hit multiple Units with an Ability, you increase your Fire Damage by +3 instead of +1, or you gain +6 Cold Damage from Hydromancy when you Status Effect an Enemy. For Eldritchianism, your Spells have their ^Dice Upgraded^ 3 times.
       HasMixins: true
