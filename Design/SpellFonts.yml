@@ -43,7 +43,7 @@ Fire:
       Requirement: Level 4
       Tags: [Mass Damage, Area Status Effect]
       Effect: |
-        Each Unit in a 5x5 meter area centered on you take 2d4 Fire Damage. Units exactly on the outer edge of the area are also Dazed or Blinded (your choice).
+        Each Unit in a 5x5 meter area centered on you takes 2d4 Fire Damage. Units exactly on the outer edge of the area are also Dazed or Blinded (your choice).
   
   ~Scorching Heat~:
     A: Half-Action
@@ -215,9 +215,10 @@ Frost:
       Range: 10 meters
       Tags: [Damage, Combo]
       HasMixins: true
-      Effect: Throw an icicle at Unit, dealing 2 + ^Any Stat^ Cold Damage.
-      Combo: Shoot another icicle into them for -50% Damage!
-    
+      Effect: |
+        Throw an icicle at Unit, dealing Cold Damage equal to 1d4 + its Setback (or Initiative).
+        Deals +50% Damage if the target is under any Status Effect.
+  
     ~Rime Shackles~:
         A: Half-Action
         Range: 5 meters
@@ -227,61 +228,77 @@ Frost:
         Tags: [Damage, Status Effect, Combo]
         Effect: |
             Deal Cold Damage to a Unit equal to 1d6 + ^Its {Dexterity}^.
-            Slow it by cold. apply a ~Combo~ to it.
+            Slow it and apply a ~Combo~ to it.
         Combo: Double-Slow it instead!
-        Tag: Status Effect Hard
-
-    ~Deep Freeze~:
-      A: 3 Action
-      Requirement: Level 2
-      Tags: [Situational, Damage, Status Effect]
-      Effect: |
-        Choose a Unit you can see that has taken Cold Damage this Combat.
-        It takes 4d6 Cold Damage and is Single-Stunned.
-    
-    ~Frost Enchantment~:
-      A: 1 Action
-      Cost: 1 Mana
-      Range: 3 meters
-      Duration: One Combat
-      Requirement: Level 3
-      Degree: Minor
-      Tags: [Buff]
-      Effect: |
-          Choose a weapon to imbue with Frost. All its dealt Damage becomes Cold Damage.
-          Each attack with it reduces the taget's Movement Speed on its next Movement by 2.
-      Upgrade: Lasts until the end of the next (or current) combat, or the end of the Adventure.
-      Notes: Does not stack with other weapon enchantments from Spells.
+        Tag: Status Effect
 
     ~Snowstorm~:
       A: Half-Action
       Cooldown: Once / Turn
-      Requirement: Level 4
+      Requirement: Level 2
       Range: 5 meters to edge
       Tags: [Control, Mass Status Effect]
       Effect: |
         Choose a 4x4 meter area and a direction.
-        Each Unit caught is Slammed 1d6 meters in that direction, and the Slam impact Damage (if any) is Cold. If it was already affected by a Status Effect, it is Single-Stunned instead, and takes the 1d6 as Cold Damage directly.
-
+        Each Enemy caught already effected by any Status Effect takes 1d4 Cold Damage.
+        Then each Unit is ~Cold-~Slammed 1d6 meters in that direction.
+      Upgrade: ~Cold-~Slam impact Damage is Cold.
 
     ~Frostfall~:
         A: Half-Action
         Cost: 2 Mana
         Range: 10 meters
         Degree: Major
-        Requirement: Level 5
+        Requirement: Level 3
         Tags: [Mass Damage, Status Effect (Hard), Flexible]
         Effect: |
             Choose a Unit. It takes 1d10 Cold Damage, and each Unit within 2 meters of it takes Cold Damage equal to 200% of the rolled amount.
-            If there were no Units within 2 meters of it, the target is Triple-Stunned instead.
+            If there were no Units within 2 meters of it, the target is Double-Stunned instead.
         Upgrade: When Stunning a flying target, it remains stuck in the air (levitating) for up to 6 seconds.
+
+    ~Hypothermia~:
+      A: 2 Action Points
+      Cost: 1 Mana
+      Range: 5 meters
+      Requirement: Level 2
+      Effect: |
+        Deal 1d10 Cold Damage to a Unit. Deal +1d10 for each Status Effect it was affected with this Combat.
+      Notes: While you have this Ability, keep track of what Status Effects you affected certain Units with.
+
+    ~Deep Freeze~:
+      A: 3 Action Points
+      Tags: [Situational, Damage, Status Effect]
+      Requirement: Level 5
+      Effect: |
+        A Unit takes 4d6 Cold Damage and is Single-Stunned.
+      Downside: Only usable on Units that have taken Cold Damage this Combat.
+    
+    ~Creeping Cold~:
+      A: 1 Action
+      Cost: 1 Mana
+      Cooldown: Once / Turn
+      Range: 1 meter to line start
+      Requirement: Level 6
+      Effect: |
+        Shoot a 3x6 gale line of frost. All Units caught gain +1 Setback (or +0.5 Initiative), then take Cold Damage equal to their Setback (or Initiative).
+
+    ~Armor of Hrim~:
+      A: Half-Action
+      Cost: 2 Mana
+      Duration: 1 minute
+      Requirement: Level 7 and only works in Worthy Combat
+      Effect: |
+        A Unit you can see gains a _hrim_ armor that keeps growing.
+        Now and at the end of its Turns, it gains 1 Shielding that can block 1d4 Damage.
+        At the start of any other Unit's (or Unit group's) Turn, increase any still existing _hrim_ Shieldings' values on it by 1d4.
+      Notes: For example, if you cast Armor of Hrim on a Unit, it gains 1d4 Shielding. Then, if another ally starts their Turn, increase that _hrim_ Shielding by 1d4. Note that you increase the Shielding's ^value^, not just add another Shielding!
 
     ~Iceberg Drop~:
         A: 3 Action Points
         Cost: 3 Mana
         Range: 6 meters (to the edge)
         Degree: Grand
-        Requirement: Level 6
+        Requirement: Level 8
         Tags: [Control, Mass Damage]
         Effect: |
             Choose a 6x6x6 meter area.
@@ -289,16 +306,41 @@ Frost:
             All Units hit are pushed to the closest available edge of the area and take 6d6 Cold or Smash Damage.
             The iceberg remains in the area until it melts.
 
+    # ~Glacial Step~:
+    #   A: Passive
+    #   Requirement: Level 9
+    #   Effect: |
+    #     Whenever you cast a Frost Spell, create ice under the Unit or area affected, which acts as Hard Terrain.
+        
+    #     You can spend 1 Action Point to touch an icy area and teleport to another one you can see within 5 meters.
+
     ~Crystalize~:
       A: Reaction
       Cost: 2 Mana
       Cooldown: Once / Combat
-      Requirement: Level 7
       Tags: [Protection]
+      Requirement: Level 9
       Effect: |
         Use when a Unit would take Damage.
         Give it 2 Shieldings that can block 1d20 Damage each, and Double-Stun it.
 
+    ~Absolute Zero~:
+      A: Reaction
+      Cost: 3 Mana
+      Requirement: Level 10
+      Effect: |
+        Use when a Unit starts its Turn. It takes 4d4 Cold Damage and is _1d6_-Stunned.
+      Notes: Single-Stun it 1d6 times.
+
+    ~Whiteout~:
+      A: Half-Action
+      Cost: 7 Mana
+      Cooldown: Once / Combat
+      Requirement: Level 11
+      Effect: |
+        Conjure a fog of tiny ice specks in a 1x1x1 kilometer area, which keeps getting colder.
+        At the start of ^each^ Turn, all Units in the area take 1 Damage and that Unit becomes Slowed.
+        You can spend a Half-Action at the start of each of your Turns to maintain the effect.
 
 Arcane:
 
