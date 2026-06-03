@@ -131,7 +131,7 @@
             "A": "1 Action Point",
             "Cost": "2 Mana",
             "Requirement": "Level 9",
-            "Effect": "Choose a Unit you can see. Deal 3d6 Fire Damage to it.\nAt the start of its Turn, Heal it for 5d6.\n",
+            "Effect": "Choose a Unit you can see. Deal 4d6 Fire Damage to it.\nAt the start of its Turn, Heal it for 6d6.\n",
             "Combo": "You can repeat this next Turn, without spending the Mana.",
             "ScrollPower": "Auto",
             "ParentKey": "Fire",
@@ -148,6 +148,8 @@
             "ScrollPower": "Auto",
             "ParentKey": "Fire",
             "HasMixins": true,
+            "Notes": "Moving 1 meter through Hard Terrain takes 2 meters of Movement.",
+            "_alreadyHasStatusEffectDescriptions": true,
             "Origin": "SpellFonts.yml"
         },
         "~Armaggeddon~": {
@@ -548,7 +550,7 @@
             "Origin": "SpellFonts.yml"
         },
         "~North Star~": {
-            "A": "3 Action Points",
+            "A": "2 Action Points",
             "Range": "15 meters",
             "Cost": "2 Mana",
             "Degree": "Major",
@@ -558,36 +560,48 @@
                 "Combo"
             ],
             "Effect": "You conjure a magical star that always shoots North and deals 9d4 Pulse Damage to the first Unit hit.\n",
-            "Combo": "The star explodes, dealing 50% of the total Damage to all other Units within 2 meters of the hit target.",
+            "Combo": "The star explodes, dealing -50% of the Damage to all other Units within 2 meters of the hit target.",
             "Notes": "You can only shoot the star towards North - without an angle.\nAsk the DM which way North is (if your Hero knows that).\n",
             "ScrollPower": "Auto",
             "ParentKey": "Arcane",
             "HasMixins": true,
             "Origin": "SpellFonts.yml"
         },
-        "~Magic Ward~": {
+        "~Arcane Barrier~": {
             "A": "1 Action Point",
             "Cooldown": "Once / 2 Turns",
+            "Cost": "1 Mana",
+            "IconName": "Magic Ward",
             "Duration": "Until end of Combat",
             "Requirement": "Level 2, only usable in Worthy Combat",
             "Tags": [
                 "Protection"
             ],
-            "Effect": "Give an ally you can see one Shielding that can block 1d6 Damage.\n",
+            "Effect": "Give an ally you can see one Shielding that can block 1d6 Damage.\n\nCosts 0 {Mana}Mana if you spent {Mana}Mana since last Turn.\n",
             "ScrollPower": "Auto",
             "ParentKey": "Arcane",
             "HasMixins": true,
             "Origin": "SpellFonts.yml"
         },
-        "~Longblade~": {
-            "A": "0 Action Points",
-            "Cooldown": "1 real hour",
-            "Duration": "1 minute",
+        "~Power Focus~": {
+            "A": "1 Action Point",
             "Requirement": "Level 3",
-            "Tags": [
-                "Buff"
-            ],
-            "Effect": "Magically extend the weapon of a willing ally you can see (or yourself) to up to 3 meters.\nIts Attacks with that weapon can have up to 3 meters range.\n",
+            "Cost": "2 Mana",
+            "Effect": "Apply a ~Power-Combo~ to a Unit and Deafen it.\nThe Act that triggers the ~Power-Combo~ rolls 1 extra die, and the triggerer regains 1 {Mana}Mana.\n",
+            "ScrollPower": "Auto",
+            "ParentKey": "Arcane",
+            "HasMixins": true,
+            "Notes": "A Deafened Unit's next Ability costs +1 Action Point.",
+            "_alreadyHasStatusEffectDescriptions": true,
+            "Origin": "SpellFonts.yml"
+        },
+        "~Drain Mana~": {
+            "A": "2 Action Points",
+            "Cost": "1 Mana",
+            "Range": "5 meters",
+            "Cooldown": "Once / Turn",
+            "Requirement": "Level 4",
+            "Effect": "Deal 3d6 Pulse Damage to a Worthy Unit.\n\nEither you recover 2 {Mana}Mana, or destroy 1 {Mana}Mana or put one of its Abilities on Cooldown until at least it's 2nd next Turn.\n",
             "ScrollPower": "Auto",
             "ParentKey": "Arcane",
             "HasMixins": true,
@@ -598,7 +612,7 @@
             "Cost": "1 Mana",
             "Range": "10 meters to edge",
             "Cooldown": "Once / Combat",
-            "Requirement": "Level 4",
+            "Requirement": "Level 5",
             "Tags": [
                 "Mass Damage"
             ],
@@ -614,10 +628,10 @@
         "~Arcane Prison~": {
             "A": "2 Action Points",
             "Cost": "1 Mana",
-            "Requirement": "Level 5",
+            "Requirement": "Level 6",
             "Cooldown": "Once / Combat",
             "Tags": [
-                "Status Effect"
+                "Mass Status Effect"
             ],
             "Effect": "Each Unit within 2 meters of you takes 2d4 Pulse Damage and becomes Dazed and Slowed.\n",
             "ScrollPower": "Auto",
@@ -631,7 +645,7 @@
             "A": "3 Action Points",
             "Cost": "4 Mana",
             "Range": "5 meters",
-            "Requirement": "Level 6",
+            "Requirement": "Level 7",
             "Tags": [
                 "Damage"
             ],
@@ -644,7 +658,7 @@
         "~Afterflash~": {
             "A": "1 Action Point",
             "Cost": "2 Mana",
-            "Requirement": "Level 7",
+            "Requirement": "Level 8",
             "Tags": [
                 "Control",
                 "Damage"
@@ -659,12 +673,34 @@
             "A": "2 Action Points",
             "Cost": "2 Mana",
             "Duration": "1 hour",
-            "Requirement": "Level 8",
+            "Cooldown": "Once / Combat",
+            "Requirement": "Level 9",
             "Tags": [
                 "Other"
             ],
             "Effect": "Summon a magical clone of an Allied Hero, with its current Health, Mana, Cooldowns, etc at this time.\nYou control it, it takes Turns like the Hero, but takes 500% Damage, deals only 10% Damage (at lest 1 per instance), and can't inflict Status Effects.\n",
             "Notes": "The clone counts as a Hero, and respects all Hero rules (e.g. monster Setback).",
+            "ScrollPower": "Auto",
+            "ParentKey": "Arcane",
+            "HasMixins": true,
+            "Origin": "SpellFonts.yml"
+        },
+        "~Obliteration Pulsar~": {
+            "A": "3 Action Points",
+            "Cost": "6 Mana",
+            "Range": "5 meters to line start",
+            "Requirement": "Level 10",
+            "Effect": "Blast all Units in a 3x10 meter line with a stream of raw magic power, dealing 1d8 Pulse Damage for each {Mana}Mana you spent this Combat (including this Spell's).\nThen replenish 3 {Mana}Mana.\n",
+            "ScrollPower": "Auto",
+            "ParentKey": "Arcane",
+            "HasMixins": true,
+            "Origin": "SpellFonts.yml"
+        },
+        "~Second Shock~": {
+            "A": "3 Action Points",
+            "Cooldown": "Once / Adventure",
+            "Requirement": "Level 11",
+            "Effect": "Recast the last Spell you cast, without spending the Mana.\n",
             "ScrollPower": "Auto",
             "ParentKey": "Arcane",
             "HasMixins": true,
