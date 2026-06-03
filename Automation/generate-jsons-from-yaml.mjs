@@ -1,10 +1,34 @@
 
+
+// Use this script to convert all ./Design/ files to their JSON variant in WebsiteReact/call-of-heroes-react-static/src/databases
+// NOTE 1: This does NOT remove the < and ~ symbols from the spell names!
+// NOTE 2: This DOES YES fix the "Inherit" spells
+// NOTE 3: This DOES YES add the Name property to all Spells (or at least it should)
+
+
 import fs from 'fs'
 import * as yaml from 'yaml'
 import path from 'path'
 
 import STATIC_SYMBOLS from './parse-text-symbols-static.json' with { type: 'json' }
 import * as STATS_STATIC from './stats-constants.mjs'
+
+const STATUS_EFFECTS = [
+    'Lag',
+    'Deafen',
+    'Daze',
+    'Stun',
+    'Single-Stun',
+    'Double-Stun',
+    'Triple-Stun',
+    'Slow',
+    'Frail',
+    'Blind',
+    'Cripple',
+    'Silence',
+    'Root',
+    'Exhaust',
+]
 
 const { STAT_SYMBOLS } = STATS_STATIC
 
@@ -17,11 +41,6 @@ const ACTION_POINTS_MAPPING = {
     "Half-Action": "1 Action Point",
     "0 Actions": "0 Action Points"
 }
-// Use this script to convert all ./Design/ files to their JSON variant in WebsiteReact/call-of-heroes-react-static/src/databases
-// NOTE 1: This does NOT remove the < and ~ symbols from the spell names!
-// NOTE 2: This DOES YES fix the "Inherit" spells
-// NOTE 3: This DOES YES add the Name property to all Spells (or at least it should)
-
 
 const yamlRootFolder = '../Design'
 const jsonRootFolder = '../WebsiteReact2/call-of-heroes-website-react-2/src/databases'
@@ -35,6 +54,7 @@ let classRaceAbilities = {}
 
 let _nErrorsFound = 0
 console.red = msg => console.log("\x1b[31m", '🔴 ' + msg, '\x1b[0m')
+
 function accessObjectProp(obj, propPath) {
     const propsQueue = propPath.split('.')
     propsQueue.reverse()
@@ -310,30 +330,57 @@ function normalizeInheritAbilities(dictToSearch) {
     }
 }
 
+function maybeAddStatusEffectDescriptions(subobj) {
+    if (subobj == null || subobj?._alreadyHasStatusEffectDescriptions) {
+        return
+    }
+
+    // if (subobj?.Effect?.includes('Cast Awe on a Unit and apply')) {
+    //     console.log(`🧕Got here, adding here:`)
+    //     console.log({statusEffectsItHas})
+    //     console.log({allStatusEffectsText})
+    // }
+
+    const propsToCheck = ['Effect', 'Upgrade', 'Notes', 'EffectGreen', 'Downside', 'Combo']
+    const totalPropsText = propsToCheck.map(prop => subobj[prop]?.toString() ?? '')?.join('\n') ?? ''
+    const statusEffectsItHas = STATUS_EFFECTS.filter(se => totalPropsText.includes(se))
+    const allStatusEffectsText = statusEffectsItHas.map(se => STATIC_SYMBOLS[se]?.text).join('\n')
+    if (allStatusEffectsText == null || allStatusEffectsText.trim().length == 0) {
+        return
+    }
+    if (subobj.Notes == null) {
+        subobj.Notes = allStatusEffectsText
+    } else {
+        subobj.Notes += '\n' + allStatusEffectsText
+    }
+    subobj._alreadyHasStatusEffectDescriptions = true
+}
 function maybeAddHasMixins(subobj) {
     if (subobj == null) {
         return
     }
+    let didAddHasMixins = false
     const propsToCheck = ['Effect', 'Upgrade', 'Notes', 'EffectGreen', 'Downside', 'Combo']
     for (const propName of propsToCheck) {
         const propValue = subobj[propName]
-        if (propValue == null) {
+        if (propValue == null || typeof(propValue) !== 'string') {
             continue
         }
+        
         if (stringHasAnyOfChars(propValue || '', '{^_~')) {
             subobj.HasMixins = true
-            return true
+            didAddHasMixins = true
         }
     }
     if (subobj.List?.length > 0) {
         for (const li of subobj.List) {
             if (stringHasAnyOfChars(li || '', '{^_~')) {
                 subobj.HasMixins = true
-                return true
+                didAddHasMixins = true
             }
         }
     }
-    return false
+    return didAddHasMixins
 }
 
 // Records if toDict isn't null (give it null so it just adds mixins)
@@ -370,6 +417,7 @@ function recordAbilitiesFrom(fromDict, toDict, parentKey=null, origin='Unknown',
                 'Is Ignored',
                 'Tag'
             ])
+            maybeAddStatusEffectDescriptions(subobj)
             const didAddHasMixins = maybeAddHasMixins(subobj)
             if (debugKey != null) {
                 console.log(`⚙ For object ${key}, HasMixins: ${didAddHasMixins}`)

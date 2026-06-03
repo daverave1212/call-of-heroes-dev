@@ -153,14 +153,13 @@
             "A": "1 Action Point",
             "Range": "5 meters",
             "Duration": "1 minute",
-            "Cooldown": "Once / Turn",
             "Degree": "Minor",
             "Tags": [
                 "Damage Over Time"
             ],
-            "Effect": "Create a lightning chord between you an a Unit.\nAt the end of your every turn, deal 1d6 Shock Damage to it.\n\n{CriticalStrike} if you roll 6, apply a ~Combo~.\n",
+            "Effect": "Create a lightning chord between you an a Unit.\nAt the end of your every Turn, if in range, deal 1d6 Shock Damage to it. Otherwise, the chord breaks.\n\n{CriticalStrike} if you roll 6, apply a ~Combo~.\n",
             "Upgrade": "The chord is broken if you end your Turn more than 5 meters away from it.",
-            "Notes": "A Unit can only be affected by one Lightning Chord at a time.\nYou can have multiple Units chorded at a time.\n",
+            "Notes": "A Unit can only be affected by one of your Lightning Chords at a time.\nYou can have multiple Units chorded at a time.\n",
             "Tag": "RoI",
             "ScrollPower": "Auto",
             "ParentKey": "Lightning",
@@ -177,77 +176,147 @@
             "ParentKey": "Lightning",
             "HasMixins": true
         },
-        "~Conduit Flow~": {
-            "A": "2 Action Points",
-            "Cost": "1 Mana",
-            "Range": "5 meters to first target",
-            "Requirement": "Level 2",
-            "Degree": "Major",
-            "Tags": [
-                "Mass Damage",
-                "Mass Healing"
-            ],
-            "Effect": "Choose a Worthy Unit other than you. If Enemy, it takes 1d10 Shock Damage. Otherwise, Heal it for 1d8.\nIf there is another Unit within 2 meters of it, repeat Conduit Flow on the new Unit (you choose if multiple).\n",
-            "Notes": "Each Unit can be affected by Conduit Flow only once per cast. Cover is calculated from Unit to Unit (as if the conduit is jumping from Unit to Unit). The conduit can be repeated on you as long as you're not the first target.",
-            "ScrollPower": "Auto",
-            "ParentKey": "Lightning",
-            "HasMixins": true
-        },
-        "~Electric Enchantment~": {
+        "~Electromagnetism~": {
             "A": "1 Action Point",
             "Cost": "1 Mana",
-            "Range": "3 meters",
-            "Duration": "One Combat",
-            "Requirement": "Level 3",
-            "Degree": "Minor",
+            "Requirement": "Level 2",
             "Tags": [
-                "Buff"
+                "Control",
+                "Heal",
+                "Flexible"
             ],
-            "Effect": "Choose a metallic weapon to imbue it with electricity.\nWhenever it attacks, also deal 1d6 Shock Damage to a different Unit within 3 meters of it.\n",
-            "Upgrade": "Lasts until the end of the next (or current) combat, or the end of the Adventure.",
-            "Notes": "Does not stack with other weapon enchantments from Spells. If targeting an Ally's weapon, this does count towards Wizard's Electromancy.",
+            "Effect": "~Shock-~Slam a Unit 1d8 meters in any direction.\n",
+            "Upgrade": "~Shock-~Slam impact Damage is Shock for enemies, and the impact Heals allies instead of dealing Damage.",
+            "Notes": "If both impact Units are allies, it heals them both.",
             "ScrollPower": "Auto",
             "ParentKey": "Lightning",
             "HasMixins": true
-        },
-        "~Volt Guard~": {
-            "A": "Reaction",
-            "Range": "5 meters",
-            "Cost": "1 Mana",
-            "Requirement": "Level 4",
-            "Tags": [
-                "Protection"
-            ],
-            "HasMixins": true,
-            "Effect": "Use when a Unit would take Damage (after roll). Negate 50% of the incoming Damage and return it back to the source as Shock Damage.\nApply a ~Combo~ to either of them.\n",
-            "Upgrade": "The returned Damage is a quick lightning that bends around obstacles, ignoring Cover or Line of Sight.",
-            "Tag": "Protection",
-            "ScrollPower": "Auto",
-            "ParentKey": "Lightning"
         },
         "~Chain Thunder~": {
             "A": "2 Action Points",
             "Range": "5 meters",
-            "Requirement": "Level 5",
+            "Requirement": "Level 3",
             "Degree": "Grand",
             "Tags": [
                 "Mass Damage"
             ],
-            "Effect": "Strike an Enemy with Lightning for 2d10 Shock Damage.\nThe lightning extends and strikes the closest _new_ Unit within 3 meters, dealing half of the previous damage.\nThis keeps on extending and striking new Units until it deals 0 Damage or there are no more Units to strike.\n",
-            "Notes": "This lightning can't strike the same Unit twice per cast (so it only hits _new_ Units that it hasn't hit).\nIf there's a tie for the closest Unit, you choose which Unit it hits.\n",
+            "Effect": "Strike a Unit for 3d6 Shock Damage.\nThe then lightning jumps to the closest _new_ Unit again and again, dealing 1 less d6 Damage each time, until no more dice are left.\n",
+            "Upgrade": "For the new Damage, you can remove one of the d6's from the previous result, or reroll the Damage with 1 less d6.",
+            "Combo": "4d6 instead",
+            "Notes": "This lightning can't strike the same Unit twice per cast (so it only hits ^new^ Units that it hasn't hit). The jumping stops if there are no new Units to jump to.\nIf there's a tie for the closest Unit, you choose which Unit it hits.\n",
+            "ScrollPower": "Auto",
+            "ParentKey": "Lightning",
+            "HasMixins": true
+        },
+        "~Ion Coil~": {
+            "A": "1 Action Point",
+            "Cost": "1 Mana",
+            "Duration": "1 minute",
+            "Requirement": "Level 4",
+            "Tags": [
+                "Damage",
+                "Flexible"
+            ],
+            "Effect": "Surround a Unit you can see in an electrical coil.\nWhenever ^you^ Damage a Unit, the coil zaps the closest Unit within 2 meters of it for 1d4 Shock Damage.\n",
+            "ScrollPower": "Auto",
+            "ParentKey": "Lightning",
+            "HasMixins": true
+        },
+        "~Conduit Vortex~": {
+            "A": "2 Action Points",
+            "Cost": "2 Mana",
+            "Range": "5 meters",
+            "Cooldown": "Once / Combat",
+            "Requirement": "Level 5",
+            "Degree": "Major",
+            "Tags": [
+                "Damage",
+                "Mass Heal"
+            ],
+            "Effect": "Blast a Unit for 4d6 Shock Damage. For each die, Heal a Unit within 2 meters of it for 1 of the dice rolled, one die per Unit.\n\nAll dice that don't have a Unit to Heal go back into the main target, Damaging it again!\n",
+            "Notes": "Each die ^must^ go into a Unit if available, and can only go back into the main target if there are no other Units to go into.",
+            "ScrollPower": "Auto",
+            "ParentKey": "Lightning",
+            "HasMixins": true
+        },
+        "~Overload~": {
+            "A": "2 Action Points",
+            "Cost": "4 Mana",
+            "Requirement": "Level 6",
+            "Tags": [
+                "Finisher",
+                "Damage"
+            ],
+            "Effect": "Obliterate a Unit with a lightning that deals 1d12 Shock Damage for each Combo, Shielding, and  _active_ lighting or Shock Spell on either of you.\n",
+            "Notes": "Effects like Lighting Chord cast on that target affect ^both^ of you, so it counts as 2 instances of an active lightning Spell.",
+            "ScrollPower": "Auto",
+            "ParentKey": "Lightning",
+            "HasMixins": true
+        },
+        "~Ball Lightning~": {
+            "A": "3 Action Points",
+            "Cost": "3 Mana",
+            "Range": "3 meters",
+            "Duration": "3 minutes",
+            "Tags": [
+                "Mass Damage"
+            ],
+            "Requirement": "Level 7",
+            "Effect": "Conjure a ball lightning on an empty space, which zaps a Unit within 3 meters for 3d10 Shock Damage whenever it moves from place.\nYou are immune to the ball lighting's Damage.\n",
             "ScrollPower": "Auto",
             "ParentKey": "Lightning",
             "HasMixins": true
         },
         "~Elating Jolt~": {
             "A": "0 Action Points",
-            "Requirement": "Level 6",
+            "Requirement": "Level 8",
             "Cost": "1 Mana",
             "Cooldown": "Once / Turn",
             "Tags": [
-                "Support"
+                "Support",
+                "Healing",
+                "Status Effect"
             ],
-            "Effect": "Choose a Unit you can see.\nIf your last cast Spell was shock-themed (e.g. from the Lightning Font), they regain 1 Mana and get a Shielding that can block 1d8 Damage.\nOtherwise it takes 1d6 Shock Damage and is Deafened.\n",
+            "Effect": "Choose a Unit you can see.\nIf your last cast Spell was shock-themed (e.g. from the Lightning Font), Heal them for 1d8 and they regain 1 Mana.\nOtherwise it takes 1d6 Shock Damage and is Deafened.\n",
+            "ScrollPower": "Auto",
+            "ParentKey": "Lightning",
+            "HasMixins": true
+        },
+        "~Current~": {
+            "A": "2 Action Points",
+            "Range": "10 meters",
+            "Requirement": "Level 9",
+            "Tags": [
+                "Mobility"
+            ],
+            "Effect": "You transform into a lightning current and bolt to a destination.\nEach Unit you pass through takes 2d4 Damage.\n",
+            "Upgrade": "You can not bolt through if your body would touch a metallic obstacle or water.",
+            "ScrollPower": "Auto",
+            "ParentKey": "Lightning",
+            "HasMixins": true
+        },
+        "~Electronova~": {
+            "A": "3 Action Points",
+            "Cost": "6 Mana",
+            "Requirement": "Level 10",
+            "Tags": [
+                "Mass Damage",
+                "Flexible"
+            ],
+            "Effect": "All other Units within 5 meters of you take 10d6 Shock Damage, except for 0* Units you choose, which are instead Healed for 50% of that amount.\n\nWhenever you cast this, increase the number of Units you can choose as exceptions by 1.\n",
+            "ScrollPower": "Auto",
+            "ParentKey": "Lightning",
+            "HasMixins": true
+        },
+        "~Curse of the Thunder God~": {
+            "A": "3 Action Points",
+            "Cost": "5 Mana",
+            "Duration": "24 in-game hours",
+            "Requirement": "Level 11",
+            "Tags": [
+                "Damage Over Time"
+            ],
+            "Effect": "Choose a Unit you can see and curse it to be struck by lightning every Turn (or 6 seconds) for 6d4 Shock Damage for up to 24 hours.\n",
             "ScrollPower": "Auto",
             "ParentKey": "Lightning",
             "HasMixins": true
@@ -385,7 +454,7 @@
                 "Protection"
             ],
             "Requirement": "Level 9",
-            "Effect": "Use when a Unit would take Damage.\nGive it 2 Shieldings that can block 1d20 Damage each, and Double-Stun it.\n",
+            "Effect": "Use when a Unit would take Damage.\nGive it 3 Shieldings that can block 1d20 Damage each, and Double-Stun it.\n",
             "ScrollPower": "Auto",
             "ParentKey": "Frost",
             "HasMixins": true

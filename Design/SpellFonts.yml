@@ -115,23 +115,36 @@ Fire:
     Effect: |
       Rain death of fire upon the entire battlefield. ALL Units on the battlefield take 21d6 Fire Damage.
 
+# Extra to add: Buff
+# Extra: Volt Guard (removed)
+    # ~Volt Guard~:    
+    #     A: Reaction
+    #     Range: 5 meters
+    #     Cost: 1 Mana
+    #     Requirement: Level 5
+    #     Tags: [Protection]
+    #     HasMixins: true
+    #     Effect: |
+    #       Use when a Unit would take Damage (after roll). Negate 50% of the incoming Damage and return it back to the source as Shock Damage.
+    #       Apply a ~Combo~ to either of them.
+    #     Upgrade: The returned Damage is a quick lightning that bends around obstacles, ignoring Cover or Line of Sight.
+    #     Tag: Protection
 Lightning:
 
     ~Lightning Chord~:
         A: Half-Action
         Range: 5 meters
         Duration: 1 minute
-        Cooldown: Once / Turn
         Degree: Minor
         Tags: [Damage Over Time]
         Effect: |
             Create a lightning chord between you an a Unit.
-            At the end of your every turn, deal 1d6 Shock Damage to it.
+            At the end of your every Turn, if in range, deal 1d6 Shock Damage to it. Otherwise, the chord breaks.
 
             {CriticalStrike} if you roll 6, apply a ~Combo~.
         Upgrade: The chord is broken if you end your Turn more than 5 meters away from it.
         Notes: |
-          A Unit can only be affected by one Lightning Chord at a time.
+          A Unit can only be affected by one of your Lightning Chords at a time.
           You can have multiple Units chorded at a time.
         Tag: RoI
 
@@ -143,70 +156,114 @@ Lightning:
         An Ally you can see (or you) becomes surrounded in an electric aura.
         They gain 1d6 Shielding. When it breaks, deal that much Shock Damage to all Units within 1 meter of the Ally.
 
-
-    ~Conduit Flow~:
-        A: 1 Action
-        Cost: 1 Mana
-        Range: 5 meters to first target
-        Requirement: Level 2
-        Degree: Major
-        Tags: [Mass Damage, Mass Healing]
-        Effect: |
-            Choose a Worthy Unit other than you. If Enemy, it takes 1d10 Shock Damage. Otherwise, Heal it for 1d8.
-            If there is another Unit within 2 meters of it, repeat Conduit Flow on the new Unit (you choose if multiple).
-        Notes: Each Unit can be affected by Conduit Flow only once per cast. Cover is calculated from Unit to Unit (as if the conduit is jumping from Unit to Unit). The conduit can be repeated on you as long as you're not the first target.
-
-    ~Electric Enchantment~:
-        A: Half-Action
-        Cost: 1 Mana
-        Range: 3 meters
-        Duration: One Combat
-        Requirement: Level 3
-        Degree: Minor
-        Tags: [Buff]
-        Effect: |
-            Choose a metallic weapon to imbue it with electricity.
-            Whenever it attacks, also deal 1d6 Shock Damage to a different Unit within 3 meters of it.
-        Upgrade: Lasts until the end of the next (or current) combat, or the end of the Adventure.
-        Notes: Does not stack with other weapon enchantments from Spells. If targeting an Ally's weapon, this does count towards Wizard's Electromancy.
-
-    ~Volt Guard~:    
-        A: Reaction
-        Range: 5 meters
-        Cost: 1 Mana
-        Requirement: Level 4
-        Tags: [Protection]
-        HasMixins: true
-        Effect: |
-          Use when a Unit would take Damage (after roll). Negate 50% of the incoming Damage and return it back to the source as Shock Damage.
-          Apply a ~Combo~ to either of them.
-        Upgrade: The returned Damage is a quick lightning that bends around obstacles, ignoring Cover or Line of Sight.
-        Tag: Protection
+    ~Electromagnetism~:
+      A: Half-Action
+      Cost: 1 Mana
+      Requirement: Level 2
+      Tags: [Control, Heal, Flexible]
+      Effect: |
+        ~Shock-~Slam a Unit 1d8 meters in any direction.
+      Upgrade: ~Shock-~Slam impact Damage is Shock for enemies, and the impact Heals allies instead of dealing Damage.
+      Notes: If both impact Units are allies, it heals them both.
 
     ~Chain Thunder~:
         A: 1 Action
         Range: 5 meters
-        Requirement: Level 5
+        Requirement: Level 3
         Degree: Grand
         Tags: [Mass Damage]
         Effect: |
-          Strike an Enemy with Lightning for 2d10 Shock Damage.
-          The lightning extends and strikes the closest _new_ Unit within 3 meters, dealing half of the previous damage.
-          This keeps on extending and striking new Units until it deals 0 Damage or there are no more Units to strike.
+          Strike a Unit for 3d6 Shock Damage.
+          The then lightning jumps to the closest _new_ Unit again and again, dealing 1 less d6 Damage each time, until no more dice are left.
+        Upgrade: For the new Damage, you can remove one of the d6's from the previous result, or reroll the Damage with 1 less d6.
+        Combo: 4d6 instead
         Notes: |
-          This lightning can't strike the same Unit twice per cast (so it only hits _new_ Units that it hasn't hit).
+          This lightning can't strike the same Unit twice per cast (so it only hits ^new^ Units that it hasn't hit). The jumping stops if there are no new Units to jump to.
           If there's a tie for the closest Unit, you choose which Unit it hits.
+
+    ~Ion Coil~:
+      A: Half-Action
+      Cost: 1 Mana
+      Duration: 1 minute
+      Requirement: Level 4
+      Tags: [Damage, Flexible]
+      Effect: |
+        Surround a Unit you can see in an electrical coil.
+        Whenever ^you^ Damage a Unit, the coil zaps the closest Unit within 2 meters of it for 1d4 Shock Damage.
+
+    ~Conduit Vortex~:
+        A: 1 Action
+        Cost: 2 Mana
+        Range: 5 meters
+        Cooldown: Once / Combat
+        Requirement: Level 5
+        Degree: Major
+        Tags: [Damage, Mass Heal]
+        Effect: |
+            Blast a Unit for 4d6 Shock Damage. For each die, Heal a Unit within 2 meters of it for 1 of the dice rolled, one die per Unit.
+        
+            All dice that don't have a Unit to Heal go back into the main target, Damaging it again!
+        Notes: Each die ^must^ go into a Unit if available, and can only go back into the main target if there are no other Units to go into.
+
+    ~Overload~:
+      A: 1 Action
+      Cost: 4 Mana
+      Requirement: Level 6
+      Tags: [Finisher, Damage]
+      Effect: |
+        Obliterate a Unit with a lightning that deals 1d12 Shock Damage for each Combo, Shielding, and  _active_ lighting or Shock Spell on either of you.
+      Notes: Effects like Lighting Chord cast on that target affect ^both^ of you, so it counts as 2 instances of an active lightning Spell.
+
+    ~Ball Lightning~:
+      A: 3 Action Points
+      Cost: 3 Mana
+      Range: 3 meters
+      Duration: 3 minutes
+      Tags: [Mass Damage]
+      Requirement: Level 7
+      Effect: |
+        Conjure a ball lightning on an empty space, which zaps a Unit within 3 meters for 3d10 Shock Damage whenever it moves from place.
+        You are immune to the ball lighting's Damage.
 
     ~Elating Jolt~:
         A: 0 Actions
-        Requirement: Level 6
+        Requirement: Level 8
         Cost: 1 Mana
         Cooldown: Once / Turn
-        Tags: [Support]
+        Tags: [Support, Healing, Status Effect]
         Effect: |
             Choose a Unit you can see.
-            If your last cast Spell was shock-themed (e.g. from the Lightning Font), they regain 1 Mana and get a Shielding that can block 1d8 Damage.
+            If your last cast Spell was shock-themed (e.g. from the Lightning Font), Heal them for 1d8 and they regain 1 Mana.
             Otherwise it takes 1d6 Shock Damage and is Deafened.
+
+    ~Current~:
+      A: 1 Action
+      Range: 10 meters
+      Requirement: Level 9
+      Tags: [Mobility]
+      Effect: |
+        You transform into a lightning current and bolt to a destination.
+        Each Unit you pass through takes 2d4 Damage.
+      Upgrade: You can not bolt through if your body would touch a metallic obstacle or water.
+
+    ~Electronova~:
+      A: 3 Action Points
+      Cost: 6 Mana
+      Requirement: Level 10
+      Tags: [Mass Damage, Flexible]
+      Effect: |
+        All other Units within 5 meters of you take 10d6 Shock Damage, except for 0* Units you choose, which are instead Healed for 50% of that amount.
+
+        Whenever you cast this, increase the number of Units you can choose as exceptions by 1.
+
+    ~Curse of the Thunder God~:
+      A: 3 Action Points
+      Cost: 5 Mana
+      Duration: 24 in-game hours
+      Requirement: Level 11
+      Tags: [Damage Over Time]
+      Effect: |
+        Choose a Unit you can see and curse it to be struck by lightning every Turn (or 6 seconds) for 6d4 Shock Damage for up to 24 hours.
 
 Frost:
 
@@ -322,7 +379,7 @@ Frost:
       Requirement: Level 9
       Effect: |
         Use when a Unit would take Damage.
-        Give it 2 Shieldings that can block 1d20 Damage each, and Double-Stun it.
+        Give it 3 Shieldings that can block 1d20 Damage each, and Double-Stun it.
 
     ~Absolute Zero~:
       A: Reaction
