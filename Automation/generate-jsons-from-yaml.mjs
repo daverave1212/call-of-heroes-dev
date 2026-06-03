@@ -28,6 +28,7 @@ const STATUS_EFFECTS = [
     'Silence',
     'Root',
     'Exhaust',
+    'Hard Terrain',
 ]
 
 const { STAT_SYMBOLS } = STATS_STATIC
@@ -524,6 +525,7 @@ async function processFiles() {
                     spell.HasMixins = true
                 }
             }
+            recordAbilitiesFrom(dictContent, {}, null, fileName, null)
         }
         if (fileName.includes('Weapon') || fileName.includes('Armor')) {
             recordAbilitiesFrom(dictContent, {}, null, fileName, /*'Weapons'*/null)
