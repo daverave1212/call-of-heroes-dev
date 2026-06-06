@@ -84,7 +84,7 @@ export function SpellMonsterStats({animal}) {
             { animal.Defense != null && <SmallStat style={smallStatStyle} contentStyle={{width: '100%'}} nameStyle={statNameStyle} valueStyle={statValueStyle} name="Defense">{animal.Defense}<Icon name="Defense" type="small-stat"/></SmallStat> }
             { animal.Speed != null && <SmallStat style={smallStatStyle} contentStyle={{width: '100%'}} nameStyle={statNameStyle} valueStyle={statValueStyle} name="Speed">{animal.Speed}</SmallStat> }
         </div>
-        <SmallStat type="vertical" style={smallStatStyle} contentStyle={{width: '100%'}} nameStyle={statNameStyle} valueStyle={statValueStyle} name="Stats">{animal.Stats.split('/').join(' / ')}</SmallStat>
+        { animal.Stats != null && <SmallStat type="vertical" style={smallStatStyle} contentStyle={{width: '100%'}} nameStyle={statNameStyle} valueStyle={statValueStyle} name="Stats">{animal.Stats.split('/').join(' / ')}</SmallStat> }
     </div>
 }
 export function PetOrAnimalAbilities({animal}) {

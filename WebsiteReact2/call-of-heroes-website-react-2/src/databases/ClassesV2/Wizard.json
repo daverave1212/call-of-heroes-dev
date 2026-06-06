@@ -295,7 +295,7 @@
                     "Utility"
                 ],
                 "Height": 60,
-                "Effect": "Your spell book is animated and alive, and levitates around you!\nIt has only 1 Action Point on its Turn that it can only use to move and on its own Abilities.\nYou can cast Spells as if they originate from the _spectral hand_ instead of your own, calculating Range and Cover from it instead of you.You can cast Spells as if they originate from the _spectral hand_ instead of your own, calculating Range and Cover from it instead of you.\n",
+                "Effect": "Your spell book is animated and alive, and levitates around you!\nIt has only 1 Action Point on its Turn that it can only use to move and on its own Abilities.\nYou can cast Spells as if they originate from the book, calculating Range and Cover from it instead of you.\n",
                 "Upgrade": "The book may participate in Combat but won't be Damaged unless purposefully targeted.",
                 "Notes": "\"Alive\" is a strange term... no one is quite sure whether it is simply animated, sentient, or conscious... but if it looks like a book and acts like a book, then it's probably a book.\nThe book can do Checks with its own or your own Stats and bonuses.\n",
                 "Monster": {
@@ -306,20 +306,19 @@
                     "Abilities": {
                         "~Turn Invisible~": {
                             "A": "0 Action Points",
-                            "Cooldown": "Once / real hour",
                             "Effect": "The book turns invisible for as long as its master holds their breath.",
                             "ParentKey": "Abilities",
                             "Origin": "Class/Wizard"
                         },
                         "~Grab~": {
                             "A": "1 Action Point",
-                            "Effect": "Grab, drop, or manipulate an object.",
+                            "Effect": "Grab, drop, or manipulate an object.\nIf holding one, it can use a non-Wizard Scroll or Potion.\n",
+                            "Notes": "Can hold up to 1 object at a tine.",
                             "ParentKey": "Abilities",
                             "Origin": "Class/Wizard"
                         }
                     }
                 },
-                "HasMixins": true,
                 "ParentKey": "Level 3 Class Talent",
                 "Origin": "Class/Wizard"
             },
@@ -335,10 +334,11 @@
                 "ParentKey": "Level 3 Class Talent",
                 "Origin": "Class/Wizard"
             },
-            "~Grow or Shrink~": {
+            "~Volumency~": {
                 "A": "2 Action Points",
                 "Cost": "1 Mana",
                 "Cooldown": "Once / Turn",
+                "IconName": "Grow or Shrink",
                 "ScrollPower": "Auto",
                 "Tags": [
                     "Buff",
@@ -346,8 +346,9 @@
                     "Utility"
                 ],
                 "Degree": "Minor",
-                "Effect": "A Unit or object you can see becomes one Size larger/smaller.\nIt gains or loses 10% Max Health, gains or loses 1 Damage on all offensive Acts, and gains or loses 1 Movement Speed.\nCan stack multiple times.\n",
+                "Effect": "A Unit or object you can see becomes one Size ^larger^/_smaller_.\nIt ^gains^/_loses_ 10% Max Health, ^gains^/_loses_ 1 Damage on all offensive Acts, and ^gains^/_loses_ 1 Movement Speed.\nCan stack multiple times on Non-Epic Units.\n",
                 "Notes": "Current Health changes with the Max Health (e.g. for 80/100 Health, if growing, new Health will be 90/110; if shrinking, new Health will be 70/90). When the effect expires, the new Current Health stays as it is, unless it's higher than the new Max Health.\nWhen the effect expires, current Health remains the same if lower, or is cut to maximum if higher.\nA larger Unit becomes 1 meter larger/smaller in both directions.\nIt's number of spaces occupied also changes with this.\n",
+                "HasMixins": true,
                 "ParentKey": "Level 3 Class Talent",
                 "Origin": "Class/Wizard"
             },
@@ -467,10 +468,9 @@
                     "~Heavy Animal Attack~": {
                         "Range": "1 meter",
                         "IconName": "Animal Attack",
-                        "HasUpgradeIcon": true,
                         "IsSubspell": true,
                         "A": "1 Action Point",
-                        "Damage": "1d10 + Any Stat (Slash, Smash or Pierce)",
+                        "Damage": "1d10 + Any Stat (Slash, Smash, or Pierce)",
                         "EffectGreen": "Critical Strike - if you roll maximum, apply a ~Combo~.",
                         "HasMixins": true,
                         "ParentKey": "Subspells",

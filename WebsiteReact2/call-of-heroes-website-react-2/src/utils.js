@@ -1832,14 +1832,18 @@ export const FUNCTION_SYMBOLS = {
     'Orange': args => ({ tag: 'span', props: { style: { color: '#FF5500' } }, text: args[0] }),
     'Purple': args => ({ tag: 'span', props: { style: { color: '#6f00ffff' } }, text: args[0] }),
     'Red': args => ({ tag: 'span', props: { style: { color: 'red' } }, text: args[0] }),
-    
     'Green': args => ({ tag: 'span', props: { style: { color: 'var(--green-color)' } }, text: args[0] }),
     'DarkGreen': args => ({ tag: 'span', props: { style: { color: '#00a71cff' } }, text: args[0] }),
     'Teal': args => ({ tag: 'span', props: { style: { color: '#0097ab' } }, text: args[0] }),
+
     'Color': args => ({ tag: 'span', props: { style: { color: args[0] } }, text: args[1] }),
 
     'Spark': args => ({ tag: 'span', text: `On ${args[0]}:`, props: { style: { color: 'var(--orange-color)' } }, func: () => <span style={{color: 'var(--orange-color)', fontWeight: 'bold'}}><Icon name="D10"/>{args[0]}:</span> }),
+
     
+    'Large': args => ({ tag: 'span', text: args[0], props: { style: { fontSize: '1.1em' }} }),
+    'Small': args => ({ tag: 'span', text: args[0], props: { style: { fontSize: '0.9em' }} }),
+
     '^': args => ({ tag: 'b', text: args[0] }),
     '_': args => ({ tag: 'i', text: args[0] }),
     '~': args => ({ tag: 'span', props: { style: { color: 'var(--blue-color)' } }, text: args[0] }),
