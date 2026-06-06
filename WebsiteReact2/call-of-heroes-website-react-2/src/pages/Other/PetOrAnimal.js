@@ -68,10 +68,23 @@ export function PetOrAnimalStats({animal}) {
             { animal.Druid != null && (
                 <SmallStat className="column" name="Druid Extras">{animal.Druid}</SmallStat>
             ) }
-            <SmallStat style={smallStatStyle} contentStyle={{width: '100%'}} name="Stats">{animal.Stats.split('/').join(' / ')}</SmallStat>
-        </div>
+            <SmallStat style={smallStatStyle} contentStyle={{width: '100%'}} nameStyle={statNameStyle} valueStyle={statValueStyle} name="Stats">{animal.Stats.split('/').join(' / ')}</SmallStat>
+        </div>       
+    </div>
+}
+export function SpellMonsterStats({animal}) {
 
-        
+    const statValueStyle = { textAlign: 'center', width: '100%'}
+    const statNameStyle  = { textAlign: 'center', width: '100%'}
+    const smallStatStyle = { flex: 1 }
+
+    return <div className='flex column gap-half'>
+        <div className='flex row nowrap gap-half width-100'>
+            { animal.Health != null && <SmallStat style={smallStatStyle} contentStyle={{width: '100%'}} nameStyle={statNameStyle} valueStyle={statValueStyle} name="Health">{animal.Health}<Icon name="Health" type="small-stat"/></SmallStat> }
+            { animal.Defense != null && <SmallStat style={smallStatStyle} contentStyle={{width: '100%'}} nameStyle={statNameStyle} valueStyle={statValueStyle} name="Defense">{animal.Defense}<Icon name="Defense" type="small-stat"/></SmallStat> }
+            { animal.Speed != null && <SmallStat style={smallStatStyle} contentStyle={{width: '100%'}} nameStyle={statNameStyle} valueStyle={statValueStyle} name="Speed">{animal.Speed}</SmallStat> }
+        </div>
+        <SmallStat type="vertical" style={smallStatStyle} contentStyle={{width: '100%'}} nameStyle={statNameStyle} valueStyle={statValueStyle} name="Stats">{animal.Stats.split('/').join(' / ')}</SmallStat>
     </div>
 }
 export function PetOrAnimalAbilities({animal}) {
@@ -125,7 +138,8 @@ export function PetOrAnimalSpell({animal}) {
     return <div className='monster'>
         <PageH3 className="center-text" style={{marginTop: '0px'}}>{ animal.Name }</PageH3>
         { animal.Description != null && (<p>{ animal.Description }</p>)}
-        <PetOrAnimalStats animal={animal}/>
+        {/* <PetOrAnimalStats animal={animal}/> */}
+        <SpellMonsterStats animal={animal}/>
         <PetOrAnimalAbilities animal={animal}/>
     </div>
 }

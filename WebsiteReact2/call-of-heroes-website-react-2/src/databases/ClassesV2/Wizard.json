@@ -81,19 +81,19 @@
             "A": "2 Action Points",
             "DisplayName": "Control {Element}",
             "Range": "5 meters",
-            "Cooldown": "Your Level uses / Adventure",
+            "Cooldown": "Once / real hour",
             "Effect": "{DoWhat}\n",
             "Notes": "{ElementNotes}\nApply common sense. The QM has the final word on whether something is possible.\n",
             "Variants": [
                 {
                     "Element": "Fire",
-                    "DoWhat": "Target a 2x2x2 meter cube containing Fire.\nChoose any of the following to do with it:\n🔹 Move it up to 5 meters in any direction\n🔹 Extinguish it\n🔹 Lower or increase its intensity or light emission by 50%\n🔹 Roughly alter its shape and/or color\n",
+                    "DoWhat": "Target a 2x2x2 meter cube containing Fire.\nChoose any of the following to do with it:\n{Diamond} Move it up to 5 meters in any direction\n{Diamond} Extinguish it\n{Diamond} Lower or increase its intensity or light emission by 50%\n{Diamond} Roughly alter its shape and/or color\n",
                     "ElementNotes": "A Unit that touches the fire takes 2 Damage.",
                     "IconName": "Control Elements"
                 },
                 {
                     "Element": "Water",
-                    "DoWhat": "Target a 1 meter cube containing Water.\nChoose any of the following to do with it:\n🔹 Move it up to 5 meters in any direction\n🔹 Destroy it\n🔹 Lower or increase its temperature down to near-freezing or near-boiling\n🔹 Roughly its shape and/or color\n",
+                    "DoWhat": "Target a 1 meter cube containing Water.\nChoose any of the following to do with it:\n{Diamond} Move it up to 5 meters in any direction\n{Diamond} Destroy it\n{Diamond} Lower or increase its temperature down to near-freezing or near-boiling\n{Diamond} Roughly its shape and/or color\n",
                     "IconName": "Control Elements",
                     "ElementNotes": "Water is Hard Terrain. A Unit that touches near-boiling or near-freezing water takes 2 Damage."
                 }
@@ -149,8 +149,9 @@
             "ParentKey": "Utility",
             "Origin": "Class/Wizard"
         },
-        "~Longblade~": {
+        "~Extension~": {
             "A": "0 Action Points",
+            "IconName": "Longblade",
             "Cooldown": "1 real hour",
             "Duration": "1 minute",
             "Tags": [
@@ -276,8 +277,7 @@
                     "Scaling"
                 ],
                 "Effect": "Once per Turn, after you apply a Status Effect to an Enemy, increase all Cold Damage you deal by 1 for the rest of the combat.",
-                "Notes": "This extra Damage is applied as normal extra Damage, before any other calculations. Hard Terrain does not count as a Status Effect. Slamming counts as a Status Effect.\nMoving 1 meter through Hard Terrain takes 2 meters of Movement.",
-                "_alreadyHasStatusEffectDescriptions": true,
+                "Notes": "This extra Damage is applied as normal extra Damage, before any other calculations. Slamming counts as a Status Effect.",
                 "ParentKey": "Level 2 Class Talent",
                 "Origin": "Class/Wizard"
             }
@@ -289,7 +289,7 @@
                     "Summon",
                     "Utility"
                 ],
-                "Height": 19,
+                "Height": 35,
                 "Effect": "Your spell book is animated and alive, and levitates around you!\nIt has only 1 Action Point on its Turn that it can only use to move and on its own Abilities.\nYou can cast Spells as if they originate from the _spectral hand_ instead of your own, calculating Range and Cover from it instead of you.You can cast Spells as if they originate from the _spectral hand_ instead of your own, calculating Range and Cover from it instead of you.\n",
                 "Upgrade": "The book may participate in Combat but won't be Damaged unless purposefully targeted.",
                 "Notes": "\"Alive\" is a strange term... no one is quite sure whether it is simply animated, sentient, or conscious... but if it looks like a book and acts like a book, then it's probably a book.\nThe book can do Checks with its own or your own Stats and bonuses.\n",
@@ -346,6 +346,12 @@
                 "ParentKey": "Level 3 Class Talent",
                 "Origin": "Class/Wizard"
             },
+            "~Immensity of Knowledge~": {
+                "A": "Passive",
+                "Effect": "You can access Magic Font Spells 2 Levels earlier than the required Level.\n",
+                "ParentKey": "Level 3 Class Talent",
+                "Origin": "Class/Wizard"
+            },
             "~Warding~": {
                 "A": "1 Action Point",
                 "Cost": "1 Mana",
@@ -355,12 +361,6 @@
                     "Mass Damage"
                 ],
                 "Effect": "Choose a non-physical Damage Type. A Unit you can see becomes surrounded in an aura of that Type.\nThe next time they take Damage of that Type, they take -100% Damage, and that Damage is dealt to all Units within 1 meter of it.\n",
-                "ParentKey": "Level 3 Class Talent",
-                "Origin": "Class/Wizard"
-            },
-            "~Immensity of Knowledge~": {
-                "A": "Passive",
-                "Effect": "You can access Magic Font Spells 2 Levels earlier than the required Level.\n",
                 "ParentKey": "Level 3 Class Talent",
                 "Origin": "Class/Wizard"
             }
@@ -414,6 +414,13 @@
                 "ParentKey": "Level 4 Class Talent",
                 "Origin": "Class/Wizard"
             },
+            "~Fusionism~": {
+                "_Value": 1.5,
+                "A": "Passive",
+                "Effect": "When you cast a Font Spell, you may change its Damage to Fire, Cold, Shock, or Pulse, and treat it as belonging to another Font.\n",
+                "ParentKey": "Level 4 Class Talent",
+                "Origin": "Class/Wizard"
+            },
             "<Spellcraft>": {
                 "_Value": 0,
                 "A": "0 Action Points (or Reaction)",
@@ -433,7 +440,7 @@
                 "_Value": 1,
                 "A": "0 Action Points",
                 "Cost": "1 Mana",
-                "Effect": "Use after you roll dice.\nYou have exactly 15 seconds to reroll all dice until you're happy with the result. If you end with dice in hand, nothing happens.\n",
+                "Effect": "Use after you roll dice.\nYou have exactly 15 seconds to reroll all dice until you're happy with the result. If you end with dice in hand when the timer expires, they count as 0.\n",
                 "ParentKey": "Level 4 Class Talent",
                 "Origin": "Class/Wizard"
             }
@@ -604,29 +611,6 @@
             }
         },
         "Level 7 Class Talent": {
-            "<Grand Wizardry>": {
-                "_Value": 2.5,
-                "Tags": [
-                    "Mana"
-                ],
-                "A": "Passive",
-                "Effect": "Spells that cost 3 or more Mana cost 1 less for you.\n",
-                "ParentKey": "Level 7 Class Talent",
-                "Origin": "Class/Wizard"
-            },
-            "<Destruction>": {
-                "_Value": 4,
-                "A": "Passive",
-                "HasMixins": true,
-                "Range": "4 meters",
-                "Tags": [
-                    "Damage"
-                ],
-                "Effect": "Whenever you deal Damage with a Spell that cost Mana, zap a Unit for ^your Focus^ Damage of your primary Magic Font's Type.\n",
-                "Notes": "This is optional. Arcane Font deals Pulse Damage.",
-                "ParentKey": "Level 7 Class Talent",
-                "Origin": "Class/Wizard"
-            },
             "<Archonism>": {
                 "IconName": "Evocation",
                 "_Value": 3,
@@ -658,17 +642,28 @@
                 "HasMixins": true,
                 "ParentKey": "Level 7 Class Talent",
                 "Origin": "Class/Wizard"
-            }
-        },
-        "Level 8 Class Talent": {
-            "~Horolostasis~": {
-                "_Value": 3,
-                "A": "1 Action Point",
+            },
+            "<Graviturgy>": {
+                "A": "2 Action Points",
+                "Cost": "2 Mana",
                 "Cooldown": "Once / Adventure",
-                "Effect": "You stop time for a few seconds.\nIf in Combat, end your Turn and immediately take an extra Turn.\n",
-                "Upgrade": "You essentially stop time for 6 seconds. During that time, only you can move, and everything around you is stil.",
-                "Notes": "Objects or people frozen in time can be moved only if you touch them, but are stiff otherwise.",
-                "ParentKey": "Level 8 Class Talent",
+                "Duration": "Until the start of your next Turn",
+                "Tags": [
+                    "Status Effect (Hard)"
+                ],
+                "ScrollPower": 6,
+                "Effect": "Choose a 5x5x5 meter cube.\nThat area become frozen in time. Units skip their Turns and can't be Damaged or affected by anything.\nAny object that touches the area becomes frozen, too.\nMissile, Spells, attacks, and other things in motion resume their trajectory or movement when the effect ends.\n",
+                "ParentKey": "Level 7 Class Talent",
+                "Origin": "Class/Wizard"
+            },
+            "~Duplication~": {
+                "_Value": 4,
+                "A": "0 Action Points",
+                "Cost": "1 Mana",
+                "Cooldown": "Once / Turn",
+                "Effect": "When you cast a Spell that costs 1 {Mana}Mana or less, cast it again immediately, but it deals -50% Damage, Shielding, and Healing.\n",
+                "HasMixins": true,
+                "ParentKey": "Level 7 Class Talent",
                 "Origin": "Class/Wizard"
             },
             "~Anomality~": {
@@ -700,12 +695,120 @@
                 },
                 "_alreadyHasStatusEffectDescriptions": true,
                 "HasMixins": true,
+                "ParentKey": "Level 7 Class Talent",
+                "Origin": "Class/Wizard"
+            },
+            "~Horolostasis~": {
+                "_Value": 3,
+                "A": "1 Action Point",
+                "Cooldown": "Once / Adventure",
+                "Effect": "You stop time for a few seconds.\nIf in Combat, end your Turn and immediately take an extra Turn.\n",
+                "Upgrade": "You essentially stop time for 6 seconds. During that time, only you can move, and everything around you is stil.",
+                "Notes": "Objects or people frozen in time can be moved only if you touch them, but are stiff otherwise.",
+                "ParentKey": "Level 7 Class Talent",
+                "Origin": "Class/Wizard"
+            }
+        },
+        "Level 8 Class Talent": {
+            "<High Pyromancy>": {
+                "_Value": 2,
+                "A": "Passive",
+                "IconName": "Pyromancy",
+                "HasUpgradeIcon": true,
+                "Requirement": "Requires Pyromancy and Worthy Combat",
+                "Replacement": "Replaces Pyromancy",
+                "Tags": [
+                    "Scaling"
+                ],
+                "Effect": "~After~ you deal Damage to 2 or more Enemies with the same Ability, increase all Fire Damage you deal by 1 for the rest of the combat.",
+                "Notes": "This extra Damage is applied as normal extra Damage, before any other calculations.",
+                "HasMixins": true,
+                "ParentKey": "Level 8 Class Talent",
+                "Origin": "Class/Wizard"
+            },
+            "<High Electromancy>": {
+                "_Value": 2,
+                "A": "Passive",
+                "IconName": "Electromancy",
+                "HasUpgradeIcon": true,
+                "Requirement": "Requires Electromancy and Worthy Combat",
+                "Replacement": "Replaces Electromancy",
+                "Tags": [
+                    "Scaling"
+                ],
+                "Effect": "~After~ you affect an Ally with a Spell, increase all Healing, Shieldings, and Shock Damage you do by 1 for the rest of the Combat.\n",
+                "Notes": "This extra Damage is applied as normal extra Damage, before any other calculations.",
+                "HasMixins": true,
+                "ParentKey": "Level 8 Class Talent",
+                "Origin": "Class/Wizard"
+            },
+            "<High Arcanism>": {
+                "_Value": 2.5,
+                "A": "Passive",
+                "IconName": "Arcanism",
+                "HasUpgradeIcon": true,
+                "Requirement": "Requires Arcanism and Worthy Combat",
+                "Replacement": "Replaces Arcanism",
+                "Tags": [
+                    "Scaling"
+                ],
+                "Effect": "Your and your summons' dice can't roll less than ~1~ (see below).\nAfter every ~4~ rolled dice, increase that number by 1 this Combat.\n",
+                "Notes": "If a die rolled less than that number, set the die's result to that number. The number of rolled dice carry on to the next Turn. This number can even exceed a die's highest number. If that happens, no longer roll the die and just take the number and does not count as a die roll.",
+                "HasMixins": true,
+                "ParentKey": "Level 8 Class Talent",
+                "Origin": "Class/Wizard"
+            },
+            "<High Hydromancy>": {
+                "_Value": 2,
+                "A": "Passive",
+                "IconName": "Pyromancy",
+                "HasUpgradeIcon": true,
+                "Requirement": "Requires Hydromancy and Worthy Combat",
+                "Replacement": "Replaces Hydromancy",
+                "Tags": [
+                    "Scaling"
+                ],
+                "Effect": "After you apply a Status Effect to an Enemy, increase all Cold Damage you deal by 1 for the rest of the Combat.",
+                "Notes": "This extra Damage is applied as normal extra Damage, before any other calculations. Slamming counts as a Status Effect.",
                 "ParentKey": "Level 8 Class Talent",
                 "Origin": "Class/Wizard"
             }
         },
         "Level 9 Class Talent": {
+            "<Destruction>": {
+                "_Value": 10,
+                "A": "Passive",
+                "HasMixins": true,
+                "Range": "4 meters",
+                "Tags": [
+                    "Damage"
+                ],
+                "Effect": "Whenever you deal Damage with a Spell that cost Mana, zap a Unit for ^your Focus^ Damage of your primary Magic Font's Type.\n",
+                "Notes": "This is optional. Arcane Font deals Pulse Damage.",
+                "ParentKey": "Level 9 Class Talent",
+                "Origin": "Class/Wizard"
+            },
+            "<Grand Wizardry>": {
+                "_Value": 2.5,
+                "Tags": [
+                    "Mana"
+                ],
+                "A": "Passive",
+                "Effect": "Spells that cost 3 or more Mana cost 1 less for you.\n",
+                "ParentKey": "Level 9 Class Talent",
+                "Origin": "Class/Wizard"
+            },
+            "~Spellmastery~": {
+                "_Value": 2,
+                "A": "0 Action Points",
+                "Cooldown": "Once / Turn",
+                "Effect": "Your next Spell costs -1 {A}Action Point (minimum 0 {A}Action Points), but it has ^Dice Downgraded^ to the previous die type.\n",
+                "HasMixins": true,
+                "ParentKey": "Level 9 Class Talent",
+                "Origin": "Class/Wizard"
+            },
             "<Chronomancy>": {
+                "_Value": 3.5,
                 "A": "0 Action Points",
                 "Cost": "1 Mana",
                 "Cooldown": "Once / Adventure",
@@ -714,27 +817,6 @@
                     "Utility"
                 ],
                 "Effect": "Instantly return to how and where you were at the start of the Turn, with that same Movement, Actions, Health, Shielding, Buffs and Cooldowns (not Mana, though).\nAlternatively, if you're out of combat, you can turn back time for all the world up to 10 minutes, exactly how it was, but retaining all your information from the future. Allies don't retain the information.\n",
-                "ParentKey": "Level 9 Class Talent",
-                "Origin": "Class/Wizard"
-            },
-            "<Graviturgy>": {
-                "A": "1 Action Point",
-                "Cooldown": "Once / Adventure",
-                "Duration": "Until the start of your next turn",
-                "Tags": [
-                    "Status Effect (Hard)"
-                ],
-                "ScrollPower": 6,
-                "Effect": "Choose a 5x5x5 meter cube.\nThat area become frozen in time - Units skip their turns and can't be Damaged or affected by anything.\nAny object that touches the area becomes frozen, too (and, if it is a missile, resumes its trajectory when the area ends).\n",
-                "ParentKey": "Level 9 Class Talent",
-                "Origin": "Class/Wizard"
-            },
-            "~Aetherism~": {
-                "A": "Passive",
-                "Bonuses": {
-                    "Max Mana Multiplier": 1.5
-                },
-                "Effect": "Your Max Mana increases by 50%.",
                 "ParentKey": "Level 9 Class Talent",
                 "Origin": "Class/Wizard"
             }

@@ -90,7 +90,7 @@ Utility:
       A: 1 Action
       DisplayName: Control {Element}
       Range: 5 meters
-      Cooldown: Your Level uses / Adventure
+      Cooldown: Once / real hour
       Effect: |
           {DoWhat}
       Notes: |
@@ -101,20 +101,20 @@ Utility:
           DoWhat: |
             Target a 2x2x2 meter cube containing Fire.
             Choose any of the following to do with it:
-            🔹 Move it up to 5 meters in any direction
-            🔹 Extinguish it
-            🔹 Lower or increase its intensity or light emission by 50%
-            🔹 Roughly alter its shape and/or color
+            {Diamond} Move it up to 5 meters in any direction
+            {Diamond} Extinguish it
+            {Diamond} Lower or increase its intensity or light emission by 50%
+            {Diamond} Roughly alter its shape and/or color
           ElementNotes: A Unit that touches the fire takes 2 Damage.
           IconName: Control Elements
         - Element: Water
           DoWhat: |
             Target a 1 meter cube containing Water.
             Choose any of the following to do with it:
-            🔹 Move it up to 5 meters in any direction
-            🔹 Destroy it
-            🔹 Lower or increase its temperature down to near-freezing or near-boiling
-            🔹 Roughly its shape and/or color
+            {Diamond} Move it up to 5 meters in any direction
+            {Diamond} Destroy it
+            {Diamond} Lower or increase its temperature down to near-freezing or near-boiling
+            {Diamond} Roughly its shape and/or color
           IconName: Control Elements
           ElementNotes: Water is Hard Terrain. A Unit that touches near-boiling or near-freezing water takes 2 Damage.
 
@@ -167,8 +167,9 @@ Utility:
         Tapping into the arcane knowledge and the materials in the ground beneath, spend 1000 {Gold}Gold to conjure a permanent stone tower up to 40 meters tall and 12 meters across, decorated as you like. The insides are currently empty, but while you have this Ability, you may spend 1 minute to teleport any non-alive item you can hold to any location in your tower.
         While you have this Ability, if within 100 kilometers of the tower, you can channel for 1 hour to teleport your party to it.
 
-  ~Longblade~:
+  ~Extension~:
       A: 0 Actions
+      IconName: Longblade
       Cooldown: 1 real hour
       Duration: 1 minute
       Tags: [Buff]
@@ -271,14 +272,14 @@ Talents:
       Requirement: Only works in Worthy Combat
       Tags: [Scaling]
       Effect: Once per Turn, after you apply a Status Effect to an Enemy, increase all Cold Damage you deal by 1 for the rest of the combat.
-      Notes: This extra Damage is applied as normal extra Damage, before any other calculations. Hard Terrain does not count as a Status Effect. Slamming counts as a Status Effect.
+      Notes: This extra Damage is applied as normal extra Damage, before any other calculations. Slamming counts as a Status Effect.
 
   Level 3 Class Talent:
 
     ~Book Is Alive!~:
       A: Passive
       Tags: [Summon, Utility]
-      Height: 19
+      Height: 35
       Effect: |
         Your spell book is animated and alive, and levitates around you!
         It has only 1 Action Point on its Turn that it can only use to move and on its own Abilities.
@@ -326,6 +327,11 @@ Talents:
             A larger Unit becomes 1 meter larger/smaller in both directions.
             It's number of spaces occupied also changes with this.
 
+    ~Immensity of Knowledge~:
+      A: Passive
+      Effect: |
+        You can access Magic Font Spells 2 Levels earlier than the required Level.
+
     ~Warding~:
       A: Half-Action
       Cost: 1 Mana
@@ -334,11 +340,6 @@ Talents:
       Effect: |
         Choose a non-physical Damage Type. A Unit you can see becomes surrounded in an aura of that Type.
         The next time they take Damage of that Type, they take -100% Damage, and that Damage is dealt to all Units within 1 meter of it.
-
-    ~Immensity of Knowledge~:
-      A: Passive
-      Effect: |
-        You can access Magic Font Spells 2 Levels earlier than the required Level.
 
   Level 4 Class Talent:
   
@@ -377,6 +378,12 @@ Talents:
         Use on a physical missile that is flying (e.g. an arrow, a canonball, etc).
         Quickly decelerate it so it falls to the ground.
       Notes: Does not work if the missile is a Unit.
+
+    ~Fusionism~:
+      _Value: 1.5 # Very hard to evaluate
+      A: Passive
+      Effect: |
+        When you cast a Font Spell, you may change its Damage to Fire, Cold, Shock, or Pulse, and treat it as belonging to another Font.
     
     <Spellcraft>:
       _Value: 0
@@ -399,7 +406,7 @@ Talents:
       Cost: 1 Mana
       Effect: |
         Use after you roll dice.
-        You have exactly 15 seconds to reroll all dice until you're happy with the result. If you end with dice in hand, nothing happens.
+        You have exactly 15 seconds to reroll all dice until you're happy with the result. If you end with dice in hand when the timer expires, they count as 0.
 
   Level 5 Class Talent:
 
@@ -543,24 +550,7 @@ Talents:
 
 
   Level 7 Class Talent:
-
-    <Grand Wizardry>:
-      _Value: 2.5
-      Tags: [Mana]
-      A: Passive
-      Effect: |
-        Spells that cost 3 or more Mana cost 1 less for you.
     
-    <Destruction>:
-      _Value: 4
-      A: Passive
-      HasMixins: true
-      Range: 4 meters
-      Tags: [Damage]
-      Effect: |
-        Whenever you deal Damage with a Spell that cost Mana, zap a Unit for ^your {Intelligence}^ Damage of your primary Magic Font's Type.
-      Notes: This is optional. Arcane Font deals Pulse Damage.
-
     <Archonism>:
       IconName: Evocation
       _Value: 3
@@ -588,17 +578,26 @@ Talents:
         Their first Healing or Spell Damage every Turn has its ^Dice Upgraded^ to the next die type.
       Notes: Doesn't stack with itself multiple times. "{DiceUpgrade}"
 
-  Level 8 Class Talent:
-
-    ~Horolostasis~:
-      _Value: 3
-      A: Half-Action
+    <Graviturgy>:
+      A: 1 Action
+      Cost: 2 Mana
       Cooldown: Once / Adventure
+      Duration: Until the start of your next Turn
+      Tags: [Status Effect (Hard)]
+      ScrollPower: 6
       Effect: |
-        You stop time for a few seconds.
-        If in Combat, end your Turn and immediately take an extra Turn.
-      Upgrade: You essentially stop time for 6 seconds. During that time, only you can move, and everything around you is stil.
-      Notes: Objects or people frozen in time can be moved only if you touch them, but are stiff otherwise.
+        Choose a 5x5x5 meter cube.
+        That area become frozen in time. Units skip their Turns and can't be Damaged or affected by anything.
+        Any object that touches the area becomes frozen, too.
+        Missile, Spells, attacks, and other things in motion resume their trajectory or movement when the effect ends.
+
+    ~Duplication~:
+      _Value: 4
+      A: 0 Actions
+      Cost: 1 Mana
+      Cooldown: Once / Turn
+      Effect: |
+        When you cast a Spell that costs 1 {Mana}Mana or less, cast it again immediately, but it deals -50% Damage, Shielding, and Healing.
 
     ~Anomality~:
       A: Special
@@ -632,10 +631,94 @@ Talents:
           - "3"
           - 20.5 (11)
 
+    ~Horolostasis~:
+      _Value: 3
+      A: Half-Action
+      Cooldown: Once / Adventure
+      Effect: |
+        You stop time for a few seconds.
+        If in Combat, end your Turn and immediately take an extra Turn.
+      Upgrade: You essentially stop time for 6 seconds. During that time, only you can move, and everything around you is stil.
+      Notes: Objects or people frozen in time can be moved only if you touch them, but are stiff otherwise.
+
+  Level 8 Class Talent:
+
+    <High Pyromancy>:
+      _Value: 2
+      A: Passive
+      IconName: Pyromancy
+      HasUpgradeIcon: true
+      Requirement: Requires Pyromancy and Worthy Combat
+      Replacement: Replaces Pyromancy
+      Tags: [Scaling]
+      Effect: ~After~ you deal Damage to 2 or more Enemies with the same Ability, increase all Fire Damage you deal by 1 for the rest of the combat.
+      Notes: This extra Damage is applied as normal extra Damage, before any other calculations.
+
+    <High Electromancy>:
+      _Value: 2
+      A: Passive
+      IconName: Electromancy
+      HasUpgradeIcon: true
+      Requirement: Requires Electromancy and Worthy Combat
+      Replacement: Replaces Electromancy
+      Tags: [Scaling]
+      Effect: |
+        ~After~ you affect an Ally with a Spell, increase all Healing, Shieldings, and Shock Damage you do by 1 for the rest of the Combat.
+      Notes: This extra Damage is applied as normal extra Damage, before any other calculations.
+
+    <High Arcanism>:
+      _Value: 2.5
+      A: Passive
+      IconName: Arcanism
+      HasUpgradeIcon: true
+      Requirement: Requires Arcanism and Worthy Combat
+      Replacement: Replaces Arcanism
+      Tags: [Scaling]
+      Effect: |
+        Your and your summons' dice can't roll less than ~1~ (see below).
+        After every ~4~ rolled dice, increase that number by 1 this Combat.
+      Notes: If a die rolled less than that number, set the die's result to that number. The number of rolled dice carry on to the next Turn. This number can even exceed a die's highest number. If that happens, no longer roll the die and just take the number and does not count as a die roll.
+
+    <High Hydromancy>:
+      _Value: 2
+      A: Passive
+      IconName: Pyromancy
+      HasUpgradeIcon: true
+      Requirement: Requires Hydromancy and Worthy Combat
+      Replacement: Replaces Hydromancy
+      Tags: [Scaling]
+      Effect: After you apply a Status Effect to an Enemy, increase all Cold Damage you deal by 1 for the rest of the Combat.
+      Notes: This extra Damage is applied as normal extra Damage, before any other calculations. Slamming counts as a Status Effect.
+
 
   Level 9 Class Talent:
 
+    <Destruction>:
+      _Value: 10
+      A: Passive
+      HasMixins: true
+      Range: 4 meters
+      Tags: [Damage]
+      Effect: |
+        Whenever you deal Damage with a Spell that cost Mana, zap a Unit for ^your {Intelligence}^ Damage of your primary Magic Font's Type.
+      Notes: This is optional. Arcane Font deals Pulse Damage.
+
+    <Grand Wizardry>:
+      _Value: 2.5
+      Tags: [Mana]
+      A: Passive
+      Effect: |
+        Spells that cost 3 or more Mana cost 1 less for you.
+
+    ~Spellmastery~:
+      _Value: 2 # 
+      A: 0 Actions
+      Cooldown: Once / Turn
+      Effect: |
+        Your next Spell costs -1 {A}Action Point (minimum 0 {A}Action Points), but it has ^Dice Downgraded^ to the previous die type.
+
     <Chronomancy>:  # ~3 or more
+      _Value: 3.5
       A: 0 Actions
       Cost: 1 Mana
       Cooldown: Once / Adventure
@@ -643,23 +726,6 @@ Talents:
       Effect: |
         Instantly return to how and where you were at the start of the Turn, with that same Movement, Actions, Health, Shielding, Buffs and Cooldowns (not Mana, though).
         Alternatively, if you're out of combat, you can turn back time for all the world up to 10 minutes, exactly how it was, but retaining all your information from the future. Allies don't retain the information.
-
-    <Graviturgy>:
-      A: Half-Action
-      Cooldown: Once / Adventure
-      Duration: Until the start of your next turn
-      Tags: [Status Effect (Hard)]
-      ScrollPower: 6
-      Effect: |
-        Choose a 5x5x5 meter cube.
-        That area become frozen in time - Units skip their turns and can't be Damaged or affected by anything.
-        Any object that touches the area becomes frozen, too (and, if it is a missile, resumes its trajectory when the area ends).
-
-    ~Aetherism~:
-      A: Passive
-      Bonuses:
-        Max Mana Multiplier: 1.5
-      Effect: Your Max Mana increases by 50%.
 
   Level 10 Class Talent:
 
