@@ -303,11 +303,10 @@
         "Origin": "Class/Artificer"
     },
     "~Attack~": {
-        "A": "1 Action Point",
-        "Effect": "Move up to its Speed (or not), then Attack an Enemy for 2d8 Damage (Pierce, Slash or Smash).",
-        "Upgrade": "If the weapon doesn't make an attack on an Enemy or Worthy Unit by the end of your Turn, it is unsummoned.",
+        "A": "2 Action Points (from Draugr)",
+        "Effect": "Make a melee attack for 1d4 Scourge Damage.",
         "ParentKey": "Abilities",
-        "Origin": "Class/Wizard"
+        "Origin": "Class/Wickan"
     },
     "~Effect~": {
         "A": "Passive",
@@ -7091,7 +7090,7 @@
             "Action Points",
             "Utility"
         ],
-        "Effect": "Instantly return to how and where you were at the start of the Turn, with that same Movement, Actions, Health, Shielding, Buffs and Cooldowns (not Mana, though).\nAlternatively, if you're out of combat, you can turn back time for all the world up to 10 minutes, exactly how it was, but retaining all your information from the future. Allies don't retain the information.\n",
+        "Effect": "Instantly return to how and where you were at the start of the Turn, with that same Movement, Actions, Health, Shielding, Buffs, and other Cooldowns (not Mana, though).\nAlternatively, if you're out of Combat, you can turn back time for all the world up to 10 minutes, exactly how it was, but retaining all your information from the future. Allies don't retain the information.\n",
         "ParentKey": "Level 9 Class Talent",
         "Origin": "Class/Wizard"
     },
@@ -9540,19 +9539,37 @@
             "Name": "Animated Weapon",
             "Speed": "3 meters",
             "Health": 1,
-            "Defense": 5,
             "Stats": "0/0/0/0/0",
             "Abilities": {
-                "~Attack~": {
+                "~Move and Attack~": {
                     "A": "1 Action Point",
                     "Effect": "Move up to its Speed (or not), then Attack an Enemy for 2d8 Damage (Pierce, Slash or Smash).",
                     "Upgrade": "If the weapon doesn't make an attack on an Enemy or Worthy Unit by the end of your Turn, it is unsummoned.",
+                    "ParentKey": "Abilities",
+                    "Origin": "Class/Wizard"
+                },
+                "~High Defense~": {
+                    "A": "Passive",
+                    "Effect": "Takes -5 Damage from all sources.",
                     "ParentKey": "Abilities",
                     "Origin": "Class/Wizard"
                 }
             }
         },
         "ParentKey": "Level 1 Class Talent",
+        "Origin": "Class/Wizard"
+    },
+    "~Move and Attack~": {
+        "A": "1 Action Point",
+        "Effect": "Move up to its Speed (or not), then Attack an Enemy for 2d8 Damage (Pierce, Slash or Smash).",
+        "Upgrade": "If the weapon doesn't make an attack on an Enemy or Worthy Unit by the end of your Turn, it is unsummoned.",
+        "ParentKey": "Abilities",
+        "Origin": "Class/Wizard"
+    },
+    "~High Defense~": {
+        "A": "Passive",
+        "Effect": "Takes -5 Damage from all sources.",
+        "ParentKey": "Abilities",
         "Origin": "Class/Wizard"
     },
     "~Magic Rune~": {
@@ -9628,7 +9645,7 @@
             "Summon",
             "Utility"
         ],
-        "Height": 35,
+        "Height": 60,
         "Effect": "Your spell book is animated and alive, and levitates around you!\nIt has only 1 Action Point on its Turn that it can only use to move and on its own Abilities.\nYou can cast Spells as if they originate from the _spectral hand_ instead of your own, calculating Range and Cover from it instead of you.You can cast Spells as if they originate from the _spectral hand_ instead of your own, calculating Range and Cover from it instead of you.\n",
         "Upgrade": "The book may participate in Combat but won't be Damaged unless purposefully targeted.",
         "Notes": "\"Alive\" is a strange term... no one is quite sure whether it is simply animated, sentient, or conscious... but if it looks like a book and acts like a book, then it's probably a book.\nThe book can do Checks with its own or your own Stats and bonuses.\n",
@@ -9951,6 +9968,38 @@
         "ParentKey": "Level 6 - Utility Talent",
         "Origin": "Class/Wizard"
     },
+    "~Anomality~": {
+        "A": "Special",
+        "Cost": "Special",
+        "Range": "10 meters (possibly to edge)",
+        "Effect": "Spend any amount of Action Points and Mana to cast a custom Spell that takes effect immediately.\nChoose if your Spell deals Damage or Heals.\nThe table below shows the ^average^ Damage or Healing it will do if it's a single-target Spell, but it is your job to transform those numbers into dice with bonuses.\nYou can make the Spell target a 3x3 area, and reduce its Damage (or Heal) by 50%.\nFor each Mana spent, the Spell may gain one of the following bonuses:\n",
+        "List": [
+            "Add 4.5 Damage (or Healing).",
+            "Increase the diameter by 100%.",
+            "Add any Hard* Status Effect if single-target",
+            "Add any non-Hard* Status Effect if it's area"
+        ],
+        "Notes": "The average of 1d4 is 2.5, the average of 1d6 is 3.5, etc.\nHard Status Effects are Stun, Frail, Cripple, Root or Silence.\nSlamming 3 meters away from a point you choose is a non-Hard Status Effect.\n\nA Single-Stunned Unit has -1 Action Point on its (next) Turn.\nA Frail Unit takes +50% Damage the next time it does.\nA Blind Unit's next Damage/Heal Act deals -100% Damage/Healing.\nA Silenced Unit can't use Abilities.\nA Rooted Unit can't use Movement.",
+        "DoubleTable": {
+            "IsRighty": true,
+            "Headers": [
+                "Action Points",
+                "Damage (Heal)"
+            ],
+            "Values": [
+                "1",
+                "6 (4.5)",
+                "2",
+                "13 (8)",
+                "3",
+                "20.5 (11)"
+            ]
+        },
+        "_alreadyHasStatusEffectDescriptions": true,
+        "HasMixins": true,
+        "ParentKey": "Level 7 Class Talent",
+        "Origin": "Class/Wizard"
+    },
     "<Archonism>": {
         "IconName": "Evocation",
         "_Value": 3,
@@ -10002,38 +10051,6 @@
         "Cost": "1 Mana",
         "Cooldown": "Once / Turn",
         "Effect": "When you cast a Spell that costs 1 {Mana}Mana or less, cast it again immediately, but it deals -50% Damage, Shielding, and Healing.\n",
-        "HasMixins": true,
-        "ParentKey": "Level 7 Class Talent",
-        "Origin": "Class/Wizard"
-    },
-    "~Anomality~": {
-        "A": "Special",
-        "Cost": "Special",
-        "Range": "10 meters (possibly to edge)",
-        "Effect": "Spend any amount of Action Points and Mana to cast a custom Spell that takes effect immediately.\nChoose if your Spell deals Damage or Heals.\nThe table below shows the ^average^ Damage or Healing it will do if it's a single-target Spell, but it is your job to transform those numbers into dice with bonuses.\nYou can make the Spell target a 3x3 area, and reduce its Damage (or Heal) by 50%.\nFor each Mana spent, the Spell may gain one of the following bonuses:\n",
-        "List": [
-            "Add 4.5 Damage (or Healing).",
-            "Increase the diameter by 100%.",
-            "Add any Hard* Status Effect if single-target",
-            "Add any non-Hard* Status Effect if it's area"
-        ],
-        "Notes": "The average of 1d4 is 2.5, the average of 1d6 is 3.5, etc.\nHard Status Effects are Stun, Frail, Cripple, Root or Silence.\nSlamming 3 meters away from a point you choose is a non-Hard Status Effect.\n\nA Single-Stunned Unit has -1 Action Point on its (next) Turn.\nA Frail Unit takes +50% Damage the next time it does.\nA Blind Unit's next Damage/Heal Act deals -100% Damage/Healing.\nA Silenced Unit can't use Abilities.\nA Rooted Unit can't use Movement.",
-        "DoubleTable": {
-            "IsRighty": true,
-            "Headers": [
-                "Action Points",
-                "Damage (Heal)"
-            ],
-            "Values": [
-                "1",
-                "6 (4.5)",
-                "2",
-                "13 (8)",
-                "3",
-                "20.5 (11)"
-            ]
-        },
-        "_alreadyHasStatusEffectDescriptions": true,
         "HasMixins": true,
         "ParentKey": "Level 7 Class Talent",
         "Origin": "Class/Wizard"
@@ -10099,15 +10116,16 @@
     "<High Hydromancy>": {
         "_Value": 2,
         "A": "Passive",
-        "IconName": "Pyromancy",
+        "IconName": "Hydromancy",
         "HasUpgradeIcon": true,
         "Requirement": "Requires Hydromancy and Worthy Combat",
         "Replacement": "Replaces Hydromancy",
         "Tags": [
             "Scaling"
         ],
-        "Effect": "After you apply a Status Effect to an Enemy, increase all Cold Damage you deal by 1 for the rest of the Combat.",
+        "Effect": "~After~ you apply a Status Effect to an Enemy, increase all Cold Damage you deal by 1 for the rest of the Combat.",
         "Notes": "This extra Damage is applied as normal extra Damage, before any other calculations. Slamming counts as a Status Effect.",
+        "HasMixins": true,
         "ParentKey": "Level 8 Class Talent",
         "Origin": "Class/Wizard"
     },
@@ -10124,6 +10142,15 @@
         "ParentKey": "Level 9 Class Talent",
         "Origin": "Class/Wizard"
     },
+    "~Spellmastery~": {
+        "_Value": 2,
+        "A": "0 Action Points",
+        "Cooldown": "Once / Turn",
+        "Effect": "Your next Spell costs -1 {A}Action Point (minimum 0 {A}Action Points), but it has ^Dice Downgraded^ to the previous die type.\n",
+        "HasMixins": true,
+        "ParentKey": "Level 9 Class Talent",
+        "Origin": "Class/Wizard"
+    },
     "<Grand Wizardry>": {
         "_Value": 2.5,
         "Tags": [
@@ -10131,15 +10158,6 @@
         ],
         "A": "Passive",
         "Effect": "Spells that cost 3 or more Mana cost 1 less for you.\n",
-        "ParentKey": "Level 9 Class Talent",
-        "Origin": "Class/Wizard"
-    },
-    "~Spellmastery~": {
-        "_Value": 2,
-        "A": "0 Action Points",
-        "Cooldown": "Once / Turn",
-        "Effect": "Your next Spell costs -1 {A}Action Point (minimum 0 {A}Action Points), but it has ^Dice Downgraded^ to the previous die type.\n",
-        "HasMixins": true,
         "ParentKey": "Level 9 Class Talent",
         "Origin": "Class/Wizard"
     },

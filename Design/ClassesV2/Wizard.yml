@@ -214,13 +214,15 @@ Talents:
             Name: Animated Weapon
             Speed: 3 meters
             Health: 1
-            Defense: 5
             Stats: 0/0/0/0/0
             Abilities:
-                ~Attack~:
+                ~Move and Attack~:
                     A: Half-Action
                     Effect: Move up to its Speed (or not), then Attack an Enemy for 2d8 Damage (Pierce, Slash or Smash).
                     Upgrade: If the weapon doesn't make an attack on an Enemy or Worthy Unit by the end of your Turn, it is unsummoned.
+                ~High Defense~:
+                  A: Passive
+                  Effect: Takes -5 Damage from all sources.
 
     ~Magic Rune~:
       A: Half-Action
@@ -279,7 +281,7 @@ Talents:
     ~Book Is Alive!~:
       A: Passive
       Tags: [Summon, Utility]
-      Height: 35
+      Height: 60
       Effect: |
         Your spell book is animated and alive, and levitates around you!
         It has only 1 Action Point on its Turn that it can only use to move and on its own Abilities.
@@ -426,10 +428,9 @@ Talents:
           ~Heavy Animal Attack~:
             Range: 1 meter
             IconName: Animal Attack
-            HasUpgradeIcon: true
             IsSubspell: true
             A: Half-Action
-            Damage: 1d10 + Any Stat (Slash, Smash or Pierce)
+            Damage: 1d10 + Any Stat (Slash, Smash, or Pierce)
             EffectGreen: Critical Strike - if you roll maximum, apply a ~Combo~.
         Notes: Stuns and other similar hard Status Effects count as losing Action Points for this effect.
         HasSpellTableNumbers: true
@@ -550,7 +551,40 @@ Talents:
 
 
   Level 7 Class Talent:
-    
+
+    ~Anomality~:
+      A: Special
+      Cost: Special
+      Range: 10 meters (possibly to edge)
+      Effect: |
+        Spend any amount of Action Points and Mana to cast a custom Spell that takes effect immediately.
+        Choose if your Spell deals Damage or Heals.
+        The table below shows the ^average^ Damage or Healing it will do if it's a single-target Spell, but it is your job to transform those numbers into dice with bonuses.
+        You can make the Spell target a 3x3 area, and reduce its Damage (or Heal) by 50%.
+        For each Mana spent, the Spell may gain one of the following bonuses:
+      List:
+        - Add 4.5 Damage (or Healing).
+        - Increase the diameter by 100%.
+        - Add any Hard* Status Effect if single-target
+        - Add any non-Hard* Status Effect if it's area
+      Notes: |
+        The average of 1d4 is 2.5, the average of 1d6 is 3.5, etc.
+        Hard Status Effects are Stun, Frail, Cripple, Root or Silence.
+        Slamming 3 meters away from a point you choose is a non-Hard Status Effect.
+      DoubleTable:
+        IsRighty: true
+        Headers:
+          - Action Points
+          - Damage (Heal)
+        Values:
+          - "1"
+          - 6 (4.5)
+          - "2"
+          - 13 (8)
+          - "3"
+          - 20.5 (11)
+
+
     <Archonism>:
       IconName: Evocation
       _Value: 3
@@ -598,38 +632,6 @@ Talents:
       Cooldown: Once / Turn
       Effect: |
         When you cast a Spell that costs 1 {Mana}Mana or less, cast it again immediately, but it deals -50% Damage, Shielding, and Healing.
-
-    ~Anomality~:
-      A: Special
-      Cost: Special
-      Range: 10 meters (possibly to edge)
-      Effect: |
-        Spend any amount of Action Points and Mana to cast a custom Spell that takes effect immediately.
-        Choose if your Spell deals Damage or Heals.
-        The table below shows the ^average^ Damage or Healing it will do if it's a single-target Spell, but it is your job to transform those numbers into dice with bonuses.
-        You can make the Spell target a 3x3 area, and reduce its Damage (or Heal) by 50%.
-        For each Mana spent, the Spell may gain one of the following bonuses:
-      List:
-        - Add 4.5 Damage (or Healing).
-        - Increase the diameter by 100%.
-        - Add any Hard* Status Effect if single-target
-        - Add any non-Hard* Status Effect if it's area
-      Notes: |
-        The average of 1d4 is 2.5, the average of 1d6 is 3.5, etc.
-        Hard Status Effects are Stun, Frail, Cripple, Root or Silence.
-        Slamming 3 meters away from a point you choose is a non-Hard Status Effect.
-      DoubleTable:
-        IsRighty: true
-        Headers:
-          - Action Points
-          - Damage (Heal)
-        Values:
-          - "1"
-          - 6 (4.5)
-          - "2"
-          - 13 (8)
-          - "3"
-          - 20.5 (11)
 
     ~Horolostasis~:
       _Value: 3
@@ -682,16 +684,26 @@ Talents:
     <High Hydromancy>:
       _Value: 2
       A: Passive
-      IconName: Pyromancy
+      IconName: Hydromancy
       HasUpgradeIcon: true
       Requirement: Requires Hydromancy and Worthy Combat
       Replacement: Replaces Hydromancy
       Tags: [Scaling]
-      Effect: After you apply a Status Effect to an Enemy, increase all Cold Damage you deal by 1 for the rest of the Combat.
+      Effect: ~After~ you apply a Status Effect to an Enemy, increase all Cold Damage you deal by 1 for the rest of the Combat.
       Notes: This extra Damage is applied as normal extra Damage, before any other calculations. Slamming counts as a Status Effect.
 
 
   Level 9 Class Talent:
+
+    <Chronomancy>:  # ~3 or more
+      _Value: 3.5
+      A: 0 Actions
+      Cost: 1 Mana
+      Cooldown: Once / Adventure
+      Tags: [Action Points, Utility]
+      Effect: |
+        Instantly return to how and where you were at the start of the Turn, with that same Movement, Actions, Health, Shielding, Buffs, and other Cooldowns (not Mana, though).
+        Alternatively, if you're out of Combat, you can turn back time for all the world up to 10 minutes, exactly how it was, but retaining all your information from the future. Allies don't retain the information.
 
     <Destruction>:
       _Value: 10
@@ -703,13 +715,6 @@ Talents:
         Whenever you deal Damage with a Spell that cost Mana, zap a Unit for ^your {Intelligence}^ Damage of your primary Magic Font's Type.
       Notes: This is optional. Arcane Font deals Pulse Damage.
 
-    <Grand Wizardry>:
-      _Value: 2.5
-      Tags: [Mana]
-      A: Passive
-      Effect: |
-        Spells that cost 3 or more Mana cost 1 less for you.
-
     ~Spellmastery~:
       _Value: 2 # 
       A: 0 Actions
@@ -717,15 +722,15 @@ Talents:
       Effect: |
         Your next Spell costs -1 {A}Action Point (minimum 0 {A}Action Points), but it has ^Dice Downgraded^ to the previous die type.
 
-    <Chronomancy>:  # ~3 or more
-      _Value: 3.5
-      A: 0 Actions
-      Cost: 1 Mana
-      Cooldown: Once / Adventure
-      Tags: [Action Points, Utility]
+
+    <Grand Wizardry>:
+      _Value: 2.5
+      Tags: [Mana]
+      A: Passive
       Effect: |
-        Instantly return to how and where you were at the start of the Turn, with that same Movement, Actions, Health, Shielding, Buffs and Cooldowns (not Mana, though).
-        Alternatively, if you're out of combat, you can turn back time for all the world up to 10 minutes, exactly how it was, but retaining all your information from the future. Allies don't retain the information.
+        Spells that cost 3 or more Mana cost 1 less for you.
+
+
 
   Level 10 Class Talent:
 
