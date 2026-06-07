@@ -151,7 +151,20 @@ export default function MonsterAbility({monster, monsterXP, ability, isPassive, 
             return <AbilityEffect>{ U.parseTextWithSymbols(abilityBody, CUSTOM_MONSTER_SYMBOLS, CUSTOM_MONSTER_FUNCTION_SYMBOLS) }</AbilityEffect>
         }
 
-        const effectName = U.getAnyPropNameExcept(abilityBody, ['Name', 'Damage', 'Notes', 'A', 'Special', 'Cooldown', 'Requirement', 'Range', 'Duration', 'Effect', 'Upgrade', 'Combo', 'ParentKey', 'IsSubspell', 'EffectGreen', 'Downside', 'IsUltimate', 'IsHeroic', 'Origin', 'HasMixins'])
+        const effectName = U.getAnyPropNameExcept(abilityBody, [
+            'Name',
+            'A',
+            'Damage',
+            'Special',
+            'Cooldown', 'Requirement', 'Range', 'Duration',
+            'Notes', 'Effect', 'Upgrade', 'Combo',
+            'EffectGreen', 'Downside',
+            'IsUltimate', 'IsHeroic',
+            
+            // Other
+            'ParentKey', 'IsSubspell', 'Origin', 'HasMixins',
+            '_alreadyHasStatusEffectDescriptions'
+        ])
         
         const Effect = abilityBody.Effect == null? null: U.parseTextWithSymbols(abilityBody.Effect, CUSTOM_MONSTER_SYMBOLS, CUSTOM_MONSTER_FUNCTION_SYMBOLS)
         const Damage =

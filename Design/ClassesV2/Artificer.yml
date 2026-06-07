@@ -248,19 +248,19 @@ Talents:
         They get {Brown('-1 {Sense}')} but get a random upgrade permanently.
         If used on yourself, you gain an extra +1 Health.
       SingleTable:
-          - 1. +1 {Might} and +2 Max Health and veins glow in the dark
-          - 2. +1 {Dexterity} and +0.5 Initiative and skin tints to a color
-          - 3. +1 {Intelligence} and +3 Skill Points and eyes change color
-          - 4. +4 Health Regen and the inability to feel pain
-          - 5. +1 Health, Health Regen and Movement Speed, and +0.5 Initiative
-          - 6. The experiment fails and nothing else happens
-      Notes: These changes are kept even if you change this Talent.
+          - 1. The experiment fails and nothing else happens
+          - 2. +1 {Might} and +2 Max Health and veins glow in the dark
+          - 3. +1 {Dexterity} and +0.5 Initiative and skin tints to a color
+          - 4. +1 {Intelligence} and +3 Skill Points and eyes change color
+          - 5. +4 Health Regen and the inability to feel pain
+          - 6. +1 Health, Health Regen and Movement Speed, and +0.5 Initiative
+      Notes: These changes are kept even if you change this Talent. The values do ^not^ exceed the Stat Limit. {StatLimit}
 
     ~Mechanical Precision~:
       _Value: 2.5
       A: 0 Actions
       Cooldown: Once / 2 Turns
-      Effect: Your next attack, if it's with the same metal weapon as the previous attack, deals exactly the same base weapon Damage.
+      Effect: Your next attack, if it's with the same metal weapon as the previous attack, deals exactly the same base weapon Damage (and you do not roll those dice).
       Notes: |
         Same Damage as after the attack's final Damage roll from the base weapon.
         This attack does not trigger Critical Strikes.
@@ -269,15 +269,14 @@ Talents:
 
   Level 3 Class Talent:
 
-    ~Spell Scroll~:
-      _Value: 2
+    ~Spell Cartridge~:
+      _Value: 3
       A: 1 minute
-      Cooldown: Once / Adventure
       Effect: |
-        You create a special _scroll_.
-        An Ally (or you) casts a Spell on your _scroll_, which absorbs the spell before it takes effect.
-        The _scroll_ can be used with Half-Action, and is destroyed after being used.
-      Notes: You can only have one Spell Scroll created at a time.
+        Spend 2d6 {Health}Health to create a special _Spell Cartridge_.
+        An Ally (or you) can cast a non-Healing Spell on the _Cartridge_, which absorbs it.
+        The _Cartridge_ can be fired from a weapon with Half-Action (the Range becomes that weapon's Range), and then is destroyed.
+      Notes: Spells that can Heal can't be cast on Cartridges.
 
     <Reforge Weapon> :         # Bit stronger than average
       _Value: 1.25
@@ -318,6 +317,17 @@ Talents:
 
   Level 4 Class Talent:
 
+    ~Reactor Beam~:
+      _Value: 0
+      A: Depends
+      HasMixins: true
+      Effect: |
+        Passively, you may select a `Magic Font$/Other/MagicFonts` to cast Spells from.
+        
+        Steal 1 or more {Mana}Mana from an Ally within 3 meters.
+        Using that {Mana}Mana, cast any Spell from your Font up to your Level (spending {A}Action Points as normal).
+      Notes: You can change your Font inbetween Adventures.
+      
     ~Biological Study~:
       A: 0 Actions
       ScrollPower: Auto
@@ -389,22 +399,21 @@ Talents:
           Name: Golem
           Speed: 3 meters
           Stats: 2/0/0/0
-          Health: 12 - 200% of Your {Sense}
+          Health: 15 + absolute {Sense}
           Abilities:
             ~Attack~:
               A: Half-Action
               Damage: 1d6 Smash
-              EffectGreen: |
-                Critical Strike (Clay) - if you rolled 6, Single-Stun the target.
-                Critical Strike (Flesh) - if you rolled 6, +1d6 Damage.
-                Critical Strike (Metal) - if you rolled 6, deal the Damage to one more Unit near the target.
+              Effect: |
+                {Brown('Clay')} {CriticalStrike}: if you rolled 6, Single-Stun the target.
+                {Brown('Flesh')} {CriticalStrike}: if you rolled 6, +1d6 Damage.
+                {Brown('Metal')} {CriticalStrike}: if you rolled 6, deal the Damage to all Units near the target.
             ~Effect~:
               A: Passive
               Effect: |
-                Brown('Clay:') Enemies ending their Turn near the Clay Golem are Slowed.
-                Brown('Flesh:') Instead of attacking, pull a Unit up to 5 meters away next to the Golem (Once / Combat).
-                Brown('Metal:') Allies within 1 meter of the Metal Golem have Cover from Ranged attacks.
-              Notes: The Flesh Golem can use a hook to pull an enemy to the closest space near the Golem (requires clear path).
+                {Brown('Clay:')} Enemies ending their Turn near the Clay Golem are Slowed.
+                {Brown('Flesh:')} Instead of attacking, Slam a Unit 1d6 meters towards the Golem (5 meters range).
+                {Brown('Metal:')} Allies within 1 meter of the Metal Golem have Cover from Ranged attacks.
 
     ~Body Augmentation~:
       _Value: 3

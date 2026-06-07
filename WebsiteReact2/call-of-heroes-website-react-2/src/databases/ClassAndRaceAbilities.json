@@ -131,7 +131,7 @@
         "ScrollPower": 1,
         "HasMixins": true,
         "Effect": "Deploy a simple autoturret on a space within 3 meters. It has a 3-meter range.\nAt the end of your Turn, each autoturret automatically attacks the closest enemy to it within range for 1d4 Pierce Damage.\n",
-        "Upgrade": "Each autoturret has 1 Health and costs 50 {Gold}Gold to craft, but can be freely repaired after Combat and carried in the pocket.\nYou can only have 3 autoturrets deployed at a time.\n",
+        "Upgrade": "Each autoturret has 1 Health and costs 50 {Gold}Gold to craft, but can be freely redeployed within 3 meters, repaired after Combat, and carried in the pocket.\nCan be picked up by a utility drone and fire while grabbed by it!\nYou can only have 3 autoturrets deployed at a time.\n",
         "ParentKey": "Level 1 Class Talent",
         "Origin": "Class/Artificer"
     },
@@ -289,6 +289,16 @@
         "ParentKey": "Level 4 Class Talent",
         "Origin": "Class/Artificer"
     },
+    "~Mine Field~": {
+        "A": "Passive",
+        "IsIgnored": true,
+        "Combat Extras": [
+            "15 meters range on traps"
+        ],
+        "Effect": "You and your pet's traps have a deploy range of 15 meters range (require Line of Sight).",
+        "ParentKey": "Level 6 - Utility Talent",
+        "Origin": "Class/Hunter"
+    },
     "<Create Golem>": {
         "_Value": 3.75,
         "A": "10 Action",
@@ -302,22 +312,24 @@
             "Name": "Golem",
             "Speed": "3 meters",
             "Stats": "2/0/0/0",
-            "Health": "12 - 200% of Your Presence",
+            "Health": "15 + absolute Presence",
             "Abilities": {
                 "~Attack~": {
                     "A": "1 Action Point",
                     "Damage": "1d6 Smash",
-                    "EffectGreen": "Critical Strike (Clay) - if you rolled 6, Single-Stun the target.\nCritical Strike (Flesh) - if you rolled 6, +1d6 Damage.\nCritical Strike (Metal) - if you rolled 6, deal the Damage to one more Unit near the target.\n",
+                    "Effect": "{CriticalStrike} (Clay): if you rolled 6, Single-Stun the target.\n{CriticalStrike} (Flesh): if you rolled 6, +1d6 Damage.\n{CriticalStrike} (Metal): if you rolled 6, deal the Damage to all Units near the target.\n",
                     "Notes": "A Single-Stunned Unit has -1 Action Point on its (next) Turn.\nA Single-Stunned Unit has -1 Action Point on its (next) Turn.",
                     "_alreadyHasStatusEffectDescriptions": true,
+                    "HasMixins": true,
                     "ParentKey": "Abilities",
                     "Origin": "Class/Artificer"
                 },
                 "~Effect~": {
                     "A": "Passive",
-                    "Effect": "Brown('Clay:') Enemies ending their Turn near the Clay Golem are Slowed.\nBrown('Flesh:') Instead of attacking, pull a Unit up to 5 meters away next to the Golem (Once / Combat).\nBrown('Metal:') Allies within 1 meter of the Metal Golem have Cover from Ranged attacks.\n",
-                    "Notes": "The Flesh Golem can use a hook to pull an enemy to the closest space near the Golem (requires clear path).\nA Slowed Unit has -50% Movement Speed until its next Movement.",
+                    "Effect": "{Brown('Clay:')} Enemies ending their Turn near the Clay Golem are Slowed.\n{Brown('Flesh:')} Instead of attacking, Slam a Unit 1d6 meters towards the Golem (5 meters range).\n{Brown('Metal:')} Allies within 1 meter of the Metal Golem have Cover from Ranged attacks.\n",
+                    "Notes": "A Slowed Unit has -50% Movement Speed until its next Movement.",
                     "_alreadyHasStatusEffectDescriptions": true,
+                    "HasMixins": true,
                     "ParentKey": "Abilities",
                     "Origin": "Class/Artificer"
                 }
@@ -335,9 +347,10 @@
     },
     "~Effect~": {
         "A": "Passive",
-        "Effect": "Brown('Clay:') Enemies ending their Turn near the Clay Golem are Slowed.\nBrown('Flesh:') Instead of attacking, pull a Unit up to 5 meters away next to the Golem (Once / Combat).\nBrown('Metal:') Allies within 1 meter of the Metal Golem have Cover from Ranged attacks.\n",
-        "Notes": "The Flesh Golem can use a hook to pull an enemy to the closest space near the Golem (requires clear path).\nA Slowed Unit has -50% Movement Speed until its next Movement.",
+        "Effect": "{Brown('Clay:')} Enemies ending their Turn near the Clay Golem are Slowed.\n{Brown('Flesh:')} Instead of attacking, Slam a Unit 1d6 meters towards the Golem (5 meters range).\n{Brown('Metal:')} Allies within 1 meter of the Metal Golem have Cover from Ranged attacks.\n",
+        "Notes": "A Slowed Unit has -50% Movement Speed until its next Movement.",
         "_alreadyHasStatusEffectDescriptions": true,
+        "HasMixins": true,
         "ParentKey": "Abilities",
         "Origin": "Class/Artificer"
     },
@@ -3059,16 +3072,6 @@
         "A": "0 Action Points",
         "Cooldown": "Once / real hour",
         "Effect": "Touch a piece of of a Large or larger piece of wood. Teleport near a similar piece of wood within 6 meters.\n",
-        "ParentKey": "Level 6 - Utility Talent",
-        "Origin": "Class/Hunter"
-    },
-    "~Mine Field~": {
-        "A": "Passive",
-        "IsIgnored": true,
-        "Combat Extras": [
-            "15 meters range on traps"
-        ],
-        "Effect": "You and your pet's traps have a deploy range of 15 meters range (require Line of Sight).",
         "ParentKey": "Level 6 - Utility Talent",
         "Origin": "Class/Hunter"
     },

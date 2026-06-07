@@ -80,9 +80,9 @@ export function SpellMonsterStats({animal}) {
 
     return <div className='flex column gap-half'>
         <div className='flex row nowrap gap-half width-100'>
-            { animal.Health != null && <SmallStat style={smallStatStyle} contentStyle={{width: '100%'}} nameStyle={statNameStyle} valueStyle={statValueStyle} name="Health">{animal.Health}<Icon name="Health" type="small-stat"/></SmallStat> }
-            { animal.Defense != null && <SmallStat style={smallStatStyle} contentStyle={{width: '100%'}} nameStyle={statNameStyle} valueStyle={statValueStyle} name="Defense">{animal.Defense}<Icon name="Defense" type="small-stat"/></SmallStat> }
-            { animal.Speed != null && <SmallStat style={smallStatStyle} contentStyle={{width: '100%'}} nameStyle={statNameStyle} valueStyle={statValueStyle} name="Speed">{animal.Speed}</SmallStat> }
+            { animal.Health != null && <SmallStat type="vertical" style={smallStatStyle} contentStyle={{width: '100%'}} nameStyle={statNameStyle} valueStyle={statValueStyle} name="Health">{animal.Health}<Icon name="Health" type="small-stat"/></SmallStat> }
+            { animal.Defense != null && <SmallStat type="vertical" style={smallStatStyle} contentStyle={{width: '100%'}} nameStyle={statNameStyle} valueStyle={statValueStyle} name="Defense">{animal.Defense}<Icon name="Defense" type="small-stat"/></SmallStat> }
+            { animal.Speed != null && <SmallStat type="vertical" style={smallStatStyle} contentStyle={{width: '100%'}} nameStyle={statNameStyle} valueStyle={statValueStyle} name="Speed">{animal.Speed}</SmallStat> }
         </div>
         { animal.Stats != null && <SmallStat type="vertical" style={smallStatStyle} contentStyle={{width: '100%'}} nameStyle={statNameStyle} valueStyle={statValueStyle} name="Stats">{animal.Stats.split('/').join(' / ')}</SmallStat> }
     </div>
