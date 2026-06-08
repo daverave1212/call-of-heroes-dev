@@ -33,8 +33,10 @@ function maybeSmokeTestPageFromMenuItem(menuItem) {
 
     const pageUrl = config.domain + menuItem.href
     testWithPage(pageUrl, async (page, errors) => {
+        console.log(`RUNNING: ${pageUrl}`)
         expectPageExists(page, errors)
         expectPageHasNoErrors(page, errors)
+        console.log(`✅ PASSED: ${pageUrl}`)
     })
 }
 function expectPageExists(page, errors, isReverse=false) {

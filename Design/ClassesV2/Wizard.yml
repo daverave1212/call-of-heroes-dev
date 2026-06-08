@@ -71,7 +71,10 @@ Starting Abilities:
 
   ~Comprehension~:
     A: Passive
-    Effect: When you unlock a Talent tier, you may forgo getting a Talent from that tier to instead pick an extra Talent from a lower-Level tier or an extra Magic Font Spell.
+    Effect: |
+      When you unlock a Talent tier, you may forgo getting a Talent from that tier to instead pick an extra Talent from a lower-Level tier or an extra Magic Font Spell.
+    
+      Additionally, you may forgo a getting a Magic Font Spell to instead pick an extra Talent that costs Mana (within your Level).
 
 Utility:
 
@@ -91,6 +94,7 @@ Utility:
       DisplayName: Control {Element}
       Range: 5 meters
       Cooldown: Once / real hour
+      HasMixins: true
       Effect: |
           {DoWhat}
       Notes: |
@@ -503,13 +507,15 @@ Talents:
         Tags: [Control, Utility]
         ScrollPower: Auto
         Effect: |
-            First, roll 2d100. That's how many kilograms you can levitate when you cast this.
+            First, roll 2d100 (_or 4d100*_). That's how many kilograms (_or *pounds_) you can levitate when you cast this.
             Levitate one object or Unit you can see and move it as you like as long as it is and remains within 10 meters of you.
             On each of your Turns, you can spend 1 Action to keep the Object levitated or move it again. Otherwise, it falls slowly and the Spell ends.
         Upgrade: |
-            A levitated Unit is Slowed perpetually.
-            At Level 8, the amount increases to 5d100.
-        Notes: Lasts until you don't spend 1 Action, or you become at least Single-Stunned.
+            A levitated Unit is perpetually Slowed.
+            At Level 9, you can levitate +100% the amount.
+        Notes: |
+          Lasts until you don't spend 1 Action, or you become at least Single-Stunned.
+          2d100 is in kilograms and 4d100 is in pounds.
 
     ~Major Illusion~:
         A: 1 Action

@@ -104,6 +104,8 @@ Starting Abilities:
     Upgrade: |
       _Optimization through augmentation:_ the governing axiom of all Artificers. Every enhancement demands equivalence; every ascension a sacrifice. How much of your humanity will you surrender in pursuit of God?
       Many Artificer Talents are conversions of your {Sense} into long-term, structural refinements, some of which can be gained over and over.
+    Notes: |
+      Some Artificer Talents may use your ^absolute^ {Sense}. Your absolute {Sense} is simply equal to your {Sense} without the ^minus^ sign, if any. E.g. the absolute of -3 {Sense} is 3. The absolute of 3 {Sense} is also 3.
 
 
 
@@ -178,23 +180,22 @@ Talents:
         Alternatively, you create the grenade and give it to an ally to use (throwable with 1 Action).
         You can only have 3 grenades created at a time. You can destroy a grenae to create another one of a different type.
 
+    ~Bionic Eye~:
+      A: 1 hour
+      Popup:
+          Message: Remember to manually change the Stats and numbers from the My Character tab (or tell your Ally to do so).
+      Effect: |
+        Execute a precision operation to integrate a bionic eye into an Ally (or yourself).
+        The subject gets {Brown('-1 {Sense}')}, but gains +3 Health Regen, has no penalty for attacking in the dark, can record visuals with the eye, and gains +2 in Sight (or a similar Non-Combat Skill).
+      Upgrade: This +2 in Sight can go higher than the Skill Limit.
+      Notes: "{StatLimit}. Only one operation can be conducted per eye."
+
     ~Mobility Device~:
       _Value: 0.5
       A: 1 hour
       Effect: |
         Spend 200 {Gold}Gold to design a gyroscopically balanced locomotor platform, functioning similarly to a hoverboard or twin-wheel vehicle that gives the rider +1 Movement Speed.
       Upgrade: You can only have one mobility device created at any point.
-
-    ~Force Field~:
-      _Value: 0.75
-      A: Reaction
-      Cooldown: Once / Combat
-      Range: 5 meters to any part of the field
-      Duration: 1 minute
-      Effect: |
-        Immediately raise a thin, 3-meter wide force field.
-        Any missile passing through the force field get -50% Damage.
-      Upgrade: Units can't pass through the field, but it can be deliberately destroyed with a Half-Action.
 
     ~Autoturret~:
       _Value: 0
@@ -216,10 +217,9 @@ Talents:
     ~Embracing Humanity~:
       Value: 1.5
       A: Passive
-      Popup:
-        Message: After you get this Talent, remember to manually add the extra Health Regen and Skill Points from the My Character tab.
-      Effect: You have extra Health Regen and Skill Points equal to double your {Sense}.
-      Downside: Unlearning this Talent does remove the Skills and Health Regen added.
+      IsIgnored: true
+      Special Bonuses: Embracing Humanity
+      Effect: You have extra Health Regen and Skill Points equal to double your {Sense} (as long as you have this Talent).
 
     ~Create Elixir~:
       _Value: 2
@@ -304,15 +304,16 @@ Talents:
 
         Once attached, the wearer permanently get {Brown('-1 {Sense}')}, +8 Max Health, +2 Range on all Abilities and attacks, they are immune to being Blinded.
 
-    ~Bionic Eye~:
-      A: 1 hour
-      Popup:
-          Message: Remember to manually change the Stats and numbers from the My Character tab (or tell your Ally to do so).
+    ~Force Field~:
+      _Value: 0.75
+      A: Reaction
+      Cooldown: Once / Combat
+      Range: 5 meters to any part of the field
+      Duration: 1 minute
       Effect: |
-        Execute a precision operation to integrate a bionic eye into an Ally (or yourself).
-        The subject gets {Brown('-1 {Sense}')}, but gains +3 Health Regen, has no penalty for attacking in the dark, can record visuals with the eye, and gains +2 in Sight (or a similar Non-Combat Skill).
-      Upgrade: This +2 in Sight can go higher than the Skill Limit.
-      Notes: "{StatLimit}. Only one operation can be conducted per eye."
+        Immediately raise a thin, 3-meter wide force field.
+        Any missile passing through the force field get -50% Damage.
+      Upgrade: Units can't pass through the field, but it can be deliberately destroyed with a Half-Action.
 
 
   Level 4 Class Talent:
@@ -337,9 +338,9 @@ Talents:
         If you were right, your next real weapon attack or Spell cast against it deals extra Damage equal to your _absolute_ {Sense}.
         If you were wrong, lose Health equal to your _absolute_ {Sense}.
       Notes: |
-        Your absolute {Sense} is simply equal to your {Sense} if positive. Otherwise, remove the ^minus^ sign.
         You can't guess the same Stat twice on the same Unit type, ever.
         For example, if you guess correctly twice, your next 2 attacks or Spells deal extra Damage against it.
+        Don't cheat by looking at the monsters! The Quest Master may ban this Talent for players they suspect are cheating or have too much previous knowledge.
 
     <Reforge Armor> :         # Bit stronger than average
       _Value: 2.5
@@ -429,6 +430,14 @@ Talents:
       Notes: |
         With 2 arms and 2 legs, you can have +2 {Might} and {Dexterity} over the limit.
         {StatLimit}
+    
+    ~Aesthetic Surgery~:
+      A: 1 hour
+      Effect: |
+        Perform an aesthetic operation upon a willing Unit.
+        The patient gets {Brown('-2 Health Regen')}, but {Brown('+1 {Sense}')} and a random Positive Quirk permanently, and you can alter one of their physical traits, such as hair or eye shape or color, shape of the nose, lips or ears, removal of body fat, moles, or skin impurities, etc.
+      Upgrade: The total extra {Sense} from this can only go up to 1 above the Stat Limit, irrespective of the number of aesthetic operations.
+      Notes: The Quest Master determines the Quirk the patient gets. You can perform this surgery on yourself.
 
   Level 6 - Utility Talent:
 
@@ -483,7 +492,7 @@ Talents:
     <Alchemy>:
       A: Passive
       Requirement: Requires Create Elixir and {Sense} > 0
-      Effect: You can use Create Elixir a number of ^extra^ times per Adventure equal to your {Sense}.
+      Effect: You can use Create Elixir a number of times per Adventure equal to your {Sense}.
     
     <Adrenaline Steroid>:
       A: 0 Actions
@@ -494,12 +503,26 @@ Talents:
         You get +100% healing on you (from any source) and all your offensive attacks and Abilities consume a Combo to increase their Damage by 100%.
       Notes: Does not work for after-Combat Health Regen.
 
-    <Inscription>:
-      A: Passive
-      Requirement: Requires Create Scroll and {Sense} > 0
-      Effect: You can use Create Scroll a number of times per Adventure equal to your {Sense}.
+    ~Spell Cartridge 2.0~:
+      IconName: Spell Cartridge
+      HasUpgradeIcon: true
+      _Value: 3
+      A: 0 Actions
+      Requirement: Requires Spell Cartridge
+      Replacement: Replaces Spell Cartridge
+      Effect: |
+        Spend ~1d6~ {Health}Health to create a special _Spell Cartridge_.
+        An Ally (or you) can cast a non-Healing Spell on the _Cartridge_, which absorbs it.
+        ~Any Spell you cast on the Cartridge yourself costs 0 Action Points.~
+        The _Cartridge_ can be fired from a weapon with Half-Action (the Range becomes that weapon's Range), and then is destroyed.
+      Notes: Spells that can Heal can't be cast on Cartridges.
 
   Level 8 Class Talent:
+
+    ~Overclock~:
+      A: Half-Action
+      Cooldown: Once / Turn
+      Effect: All your _summons_ immediately gain 1 Action Point to use now.
 
     ~Auxiliary Nervous System~:
       _Value: 1
@@ -537,7 +560,18 @@ Talents:
         Max Health: 10
       Effect: |
         You augment your body using chemical, mechanical or magical procedures.
-        Your {Might} and {Dexterity} increase by 2, your Health by 10
+        You get {Brown('-1 {Sense}')} and 4 Negative Quirks, but +2 {Might}, +2 {Dexterity}, and +10 {Health}Health.
+      Downside: After learning this Talent, you can never unlearn it.
+    
+    ~Research Breakthrough~:
+      A: 0 Actions
+      Cooldown: Once / Adventure
+      Effect: |
+        Permanently increase all numbers of an Ability you know by 50%.
+      Upgrade: You can only do this for each Ability twice.
+      Notes: |
+        This also increases the Cost, Action cost, Cooldown, etc. Round down. After using this on the same Ability twice, the total increase is +100% (not +50%, then +50% of +50%)!
+        Note that some Abilities that conduct surgeries will increase their values ^when^ you conduct the surgery. Does not apply to operations already completed.
 
   Level 10 Class Talent:
 
@@ -570,44 +604,3 @@ Talents:
         Beware: The clone is intelligent, and while its goals are aligned with yours, it is not guaranteed to always listen to your commands and desires outside of Combat. You decide if its intelligence is natural or artificial, and if your clone is truly sentient or conscious or not.
       HasMixins: true
       Downside: "{Heroic}"
-
-
-    # <Crystal Artificer>:     # 2?
-    #     AlignOnWebsite: Left
-    #     A: Passive
-    #     Effect: |
-    #         You become a Crystal Artificer.
-    #         All your spells that deal Fire, Cold or Pulse Damage now deal a special type of Damage, Crystal Damage.
-    #         You also get the following Crystal Abilities.
-    #     Notes: Almost no Unit has resistance or immunity specifically to Crystal Damage.
-
-    # ~Crystal Bolt~:
-    #     IsSubspell: true
-    #     AlignOnWebsite: Left
-    #     A: 1 Action
-    #     Range: Exactly 6 meters
-    #     Effect: |
-    #         Attack a Unit exactly 6 meters away for 4d4 Crystal Damage.
-    #         The target and all Units within 1 meter of it also take 4 Crystal Damage afterwards.
-        
-    # ~Diamondize~:
-    #     IsSubspell: true
-    #     AlignOnWebsite: Left
-    #     A: Reaction
-    #     Cooldown: Long Range
-    #     Effect: |
-    #         Use when you would take Damage.
-    #         Prevent the Damage and become invulnerable and Triple-Stunned until the start of your next turn.
-    #     Notes: While invulnerable, you can not take Damage and are immune to Status Effects.
-
-    # ~Cutting Field~:
-    #     IsSubspell: true
-    #     AlignOnWebsite: Left
-    #     A: 1 Action
-    #     Cost: 1 Mana
-    #     Cooldown: 1 use / Combat
-    #     Effect: |
-    #         All units in a 90 degree, 6 meter long cone take 4d4 Crystal Damage.
-    #         Create spikes on all empty spaces (1x1 meter size each space).
-    #         Whenever a Unit steps on a spike space, it takes 1d4 Crystal Damage and shatters the spikes there.
-

@@ -54,6 +54,7 @@
             },
             "Effect": "You start with +1 in a Stat of choice (up to +2).\n\nYou may pick an extra number of Artificer Talents equal to your Focus.\n",
             "Upgrade": "_Optimization through augmentation:_ the governing axiom of all Artificers. Every enhancement demands equivalence; every ascension a sacrifice. How much of your humanity will you surrender in pursuit of God?\nMany Artificer Talents are conversions of your Presence into long-term, structural refinements, some of which can be gained over and over.\n",
+            "Notes": "Some Artificer Talents may use your ^absolute^ Presence. Your absolute Presence is simply equal to your Presence without the ^minus^ sign, if any. E.g. the absolute of -3 Presence is 3. The absolute of 3 Presence is also 3.\n",
             "ParentKey": "Starting Abilities",
             "Origin": "Class/Artificer"
         }
@@ -127,23 +128,24 @@
                 "ParentKey": "Level 1 Class Talent",
                 "Origin": "Class/Artificer"
             },
+            "~Bionic Eye~": {
+                "A": "1 hour",
+                "Popup": {
+                    "Message": "Remember to manually change the Stats and numbers from the My Character tab (or tell your Ally to do so)."
+                },
+                "Effect": "Execute a precision operation to integrate a bionic eye into an Ally (or yourself).\nThe subject gets {Brown('-1 Presence')}, but gains +3 Health Regen, has no penalty for attacking in the dark, can record visuals with the eye, and gains +2 in Sight (or a similar Non-Combat Skill).\n",
+                "Upgrade": "This +2 in Sight can go higher than the Skill Limit.",
+                "Notes": "{StatLimit}. Only one operation can be conducted per eye.",
+                "HasMixins": true,
+                "ParentKey": "Level 1 Class Talent",
+                "Origin": "Class/Artificer"
+            },
             "~Mobility Device~": {
                 "_Value": 0.5,
                 "A": "1 hour",
                 "Effect": "Spend 200 {Gold}Gold to design a gyroscopically balanced locomotor platform, functioning similarly to a hoverboard or twin-wheel vehicle that gives the rider +1 Movement Speed.\n",
                 "Upgrade": "You can only have one mobility device created at any point.",
                 "HasMixins": true,
-                "ParentKey": "Level 1 Class Talent",
-                "Origin": "Class/Artificer"
-            },
-            "~Force Field~": {
-                "_Value": 0.75,
-                "A": "Reaction",
-                "Cooldown": "Once / Combat",
-                "Range": "5 meters to any part of the field",
-                "Duration": "1 minute",
-                "Effect": "Immediately raise a thin, 3-meter wide force field.\nAny missile passing through the force field get -50% Damage.\n",
-                "Upgrade": "Units can't pass through the field, but it can be deliberately destroyed with a 1 Action Point.",
                 "ParentKey": "Level 1 Class Talent",
                 "Origin": "Class/Artificer"
             },
@@ -163,11 +165,9 @@
             "~Embracing Humanity~": {
                 "Value": 1.5,
                 "A": "Passive",
-                "Popup": {
-                    "Message": "After you get this Talent, remember to manually add the extra Health Regen and Skill Points from the My Character tab."
-                },
-                "Effect": "You have extra Health Regen and Skill Points equal to double your Presence.",
-                "Downside": "Unlearning this Talent does remove the Skills and Health Regen added.",
+                "IsIgnored": true,
+                "Special Bonuses": "Embracing Humanity",
+                "Effect": "You have extra Health Regen and Skill Points equal to double your Presence (as long as you have this Talent).",
                 "ParentKey": "Level 2 Class Talent",
                 "Origin": "Class/Artificer"
             },
@@ -197,14 +197,14 @@
                 },
                 "Effect": "Use your tools to conduct a scientific experiment on a person (even yourself).\nThey get {Brown('-1 Presence')} but get a random upgrade permanently.\nIf used on yourself, you gain an extra +1 Health.\n",
                 "SingleTable": [
-                    "1. +1 Might and +2 Max Health and veins glow in the dark",
-                    "2. +1 Instinct and +0.5 Initiative and skin tints to a color",
-                    "3. +1 Focus and +3 Skill Points and eyes change color",
-                    "4. +4 Health Regen and the inability to feel pain",
-                    "5. +1 Health, Health Regen and Movement Speed, and +0.5 Initiative",
-                    "6. The experiment fails and nothing else happens"
+                    "1. The experiment fails and nothing else happens",
+                    "2. +1 Might and +2 Max Health and veins glow in the dark",
+                    "3. +1 Instinct and +0.5 Initiative and skin tints to a color",
+                    "4. +1 Focus and +3 Skill Points and eyes change color",
+                    "5. +4 Health Regen and the inability to feel pain",
+                    "6. +1 Health, Health Regen and Movement Speed, and +0.5 Initiative"
                 ],
-                "Notes": "These changes are kept even if you change this Talent.",
+                "Notes": "These changes are kept even if you change this Talent. The values do ^not^ exceed the Stat Limit. {StatLimit}",
                 "HasMixins": true,
                 "ParentKey": "Level 2 Class Talent",
                 "Origin": "Class/Artificer"
@@ -213,19 +213,18 @@
                 "_Value": 2.5,
                 "A": "0 Action Points",
                 "Cooldown": "Once / 2 Turns",
-                "Effect": "Your next attack, if it's with the same metal weapon as the previous attack, deals exactly the same base weapon Damage.",
+                "Effect": "Your next attack, if it's with the same metal weapon as the previous attack, deals exactly the same base weapon Damage (and you do not roll those dice).",
                 "Notes": "Same Damage as after the attack's final Damage roll from the base weapon.\nThis attack does not trigger Critical Strikes.\nIf your last Gun attack dealt 11 Damage, use this and your next Gun attack will deal exactly 11 Damage.\n",
                 "ParentKey": "Level 2 Class Talent",
                 "Origin": "Class/Artificer"
             }
         },
         "Level 3 Class Talent": {
-            "~Spell Scroll~": {
-                "_Value": 2,
+            "~Spell Cartridge~": {
+                "_Value": 3,
                 "A": "1 minute",
-                "Cooldown": "Once / Adventure",
-                "Effect": "You create a special _scroll_.\nAn Ally (or you) casts a Spell on your _scroll_, which absorbs the spell before it takes effect.\nThe _scroll_ can be used with 1 Action Point, and is destroyed after being used.\n",
-                "Notes": "You can only have one Spell Scroll created at a time.",
+                "Effect": "Spend 2d6 {Health}Health to create a special _Spell Cartridge_.\nAn Ally (or you) can cast a non-Healing Spell on the _Cartridge_, which absorbs it.\nThe _Cartridge_ can be fired from a weapon with 1 Action Point (the Range becomes that weapon's Range), and then is destroyed.\n",
+                "Notes": "Spells that can Heal can't be cast on Cartridges.",
                 "HasMixins": true,
                 "ParentKey": "Level 3 Class Talent",
                 "Origin": "Class/Artificer"
@@ -261,26 +260,34 @@
                 "ParentKey": "Level 3 Class Talent",
                 "Origin": "Class/Artificer"
             },
-            "~Bionic Eye~": {
-                "A": "1 hour",
-                "Popup": {
-                    "Message": "Remember to manually change the Stats and numbers from the My Character tab (or tell your Ally to do so)."
-                },
-                "Effect": "Execute a precision operation to integrate a bionic eye into an Ally (or yourself).\nThe subject gets {Brown('-1 Presence')}, but gains +3 Health Regen, has no penalty for attacking in the dark, can record visuals with the eye, and gains +2 in Sight (or a similar Non-Combat Skill).\n",
-                "Upgrade": "This +2 in Sight can go higher than the Skill Limit.",
-                "Notes": "{StatLimit}. Only one operation can be conducted per eye.",
-                "HasMixins": true,
+            "~Force Field~": {
+                "_Value": 0.75,
+                "A": "Reaction",
+                "Cooldown": "Once / Combat",
+                "Range": "5 meters to any part of the field",
+                "Duration": "1 minute",
+                "Effect": "Immediately raise a thin, 3-meter wide force field.\nAny missile passing through the force field get -50% Damage.\n",
+                "Upgrade": "Units can't pass through the field, but it can be deliberately destroyed with a 1 Action Point.",
                 "ParentKey": "Level 3 Class Talent",
                 "Origin": "Class/Artificer"
             }
         },
         "Level 4 Class Talent": {
+            "~Reactor Beam~": {
+                "_Value": 0,
+                "A": "Depends",
+                "HasMixins": true,
+                "Effect": "Passively, you may select a `Magic Font$/Other/MagicFonts` to cast Spells from.\n\nSteal 1 or more {Mana}Mana from an Ally within 3 meters.\nUsing that {Mana}Mana, cast any Spell from your Font up to your Level (spending {A}Action Points as normal).\n",
+                "Notes": "You can change your Font inbetween Adventures.",
+                "ParentKey": "Level 4 Class Talent",
+                "Origin": "Class/Artificer"
+            },
             "~Biological Study~": {
                 "A": "0 Action Points",
                 "ScrollPower": "Auto",
                 "Cooldown": "Twice / Turn",
                 "Effect": "Choose an Enemy type you can see. Guess one of its Stats (you choose which).\nIf you were right, your next real weapon attack or Spell cast against it deals extra Damage equal to your _absolute_ Presence.\nIf you were wrong, lose Health equal to your _absolute_ Presence.\n",
-                "Notes": "Your absolute Presence is simply equal to your Presence if positive. Otherwise, remove the ^minus^ sign.\nYou can't guess the same Stat twice on the same Unit type, ever.\nFor example, if you guess correctly twice, your next 2 attacks or Spells deal extra Damage against it.\n",
+                "Notes": "You can't guess the same Stat twice on the same Unit type, ever.\nFor example, if you guess correctly twice, your next 2 attacks or Spells deal extra Damage against it.\nDon't cheat by looking at the monsters! The Quest Master may ban this Talent for players they suspect are cheating or have too much previous knowledge.\n",
                 "HasMixins": true,
                 "ParentKey": "Level 4 Class Talent",
                 "Origin": "Class/Artificer"
@@ -347,7 +354,7 @@
                         "~Attack~": {
                             "A": "1 Action Point",
                             "Damage": "1d6 Smash",
-                            "Effect": "{CriticalStrike} (Clay): if you rolled 6, Single-Stun the target.\n{CriticalStrike} (Flesh): if you rolled 6, +1d6 Damage.\n{CriticalStrike} (Metal): if you rolled 6, deal the Damage to all Units near the target.\n",
+                            "Effect": "{Brown('Clay')} {CriticalStrike}: if you rolled 6, Single-Stun the target.\n{Brown('Flesh')} {CriticalStrike}: if you rolled 6, +1d6 Damage.\n{Brown('Metal')} {CriticalStrike}: if you rolled 6, deal the Damage to all Units near the target.\n",
                             "Notes": "A Single-Stunned Unit has -1 Action Point on its (next) Turn.\nA Single-Stunned Unit has -1 Action Point on its (next) Turn.",
                             "_alreadyHasStatusEffectDescriptions": true,
                             "HasMixins": true,
@@ -378,6 +385,15 @@
                 },
                 "Effect": "Perform a surgical augmentation to replace one of your biological limbs with a mechanized, gear-driven prosthesis.\nGet {Brown('-1 Presence')} permanently.\nGain +2 Health and +1 in Might (if arm) or +1 Instinct (if leg).\nThe total extra Might or Instinct can exceed your Stat Limit by up to 1 per limb replaced.\n",
                 "Notes": "With 2 arms and 2 legs, you can have +2 Might and Instinct over the limit.\n{StatLimit}\n",
+                "HasMixins": true,
+                "ParentKey": "Level 5 Class Talent",
+                "Origin": "Class/Artificer"
+            },
+            "~Aesthetic Surgery~": {
+                "A": "1 hour",
+                "Effect": "Perform an aesthetic operation upon a willing Unit.\nThe patient gets {Brown('-2 Health Regen')}, but {Brown('+1 Presence')} and a random Positive Quirk permanently, and you can alter one of their physical traits, such as hair or eye shape or color, shape of the nose, lips or ears, removal of body fat, moles, or skin impurities, etc.\n",
+                "Upgrade": "The total extra Presence from this can only go up to 1 above the Stat Limit, irrespective of the number of aesthetic operations.",
+                "Notes": "The Quest Master determines the Quirk the patient gets. You can perform this surgery on yourself.",
                 "HasMixins": true,
                 "ParentKey": "Level 5 Class Talent",
                 "Origin": "Class/Artificer"
@@ -433,8 +449,7 @@
             "<Alchemy>": {
                 "A": "Passive",
                 "Requirement": "Requires Create Elixir and Presence > 0",
-                "Effect": "You can use Create Elixir a number of ^extra^ times per Adventure equal to your Presence.",
-                "HasMixins": true,
+                "Effect": "You can use Create Elixir a number of times per Adventure equal to your Presence.",
                 "ParentKey": "Level 7 Class Talent",
                 "Origin": "Class/Artificer"
             },
@@ -447,15 +462,29 @@
                 "ParentKey": "Level 7 Class Talent",
                 "Origin": "Class/Artificer"
             },
-            "<Inscription>": {
-                "A": "Passive",
-                "Requirement": "Requires Create Scroll and Presence > 0",
-                "Effect": "You can use Create Scroll a number of times per Adventure equal to your Presence.",
+            "~Spell Cartridge 2.0~": {
+                "IconName": "Spell Cartridge",
+                "HasUpgradeIcon": true,
+                "_Value": 3,
+                "A": "0 Action Points",
+                "Requirement": "Requires Spell Cartridge",
+                "Replacement": "Replaces Spell Cartridge",
+                "Effect": "Spend ~1d6~ {Health}Health to create a special _Spell Cartridge_.\nAn Ally (or you) can cast a non-Healing Spell on the _Cartridge_, which absorbs it.\n~Any Spell you cast on the Cartridge yourself costs 0 Action Points.~\nThe _Cartridge_ can be fired from a weapon with 1 Action Point (the Range becomes that weapon's Range), and then is destroyed.\n",
+                "Notes": "Spells that can Heal can't be cast on Cartridges.",
+                "HasMixins": true,
                 "ParentKey": "Level 7 Class Talent",
                 "Origin": "Class/Artificer"
             }
         },
         "Level 8 Class Talent": {
+            "~Overclock~": {
+                "A": "1 Action Point",
+                "Cooldown": "Once / Turn",
+                "Effect": "All your _summons_ immediately gain 1 Action Point to use now.",
+                "HasMixins": true,
+                "ParentKey": "Level 8 Class Talent",
+                "Origin": "Class/Artificer"
+            },
             "~Auxiliary Nervous System~": {
                 "_Value": 1,
                 "A": "4 hours",

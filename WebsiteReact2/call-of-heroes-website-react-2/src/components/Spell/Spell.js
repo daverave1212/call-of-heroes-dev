@@ -2,7 +2,7 @@
 import './Spell.css'
 import Separator from './../Separator/Separator'
 import { useEffect, useRef, useState } from 'react'
-import { parseTextWithSymbols, stringReplaceAllMany, getSpellIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll, getVariantsForEachCollection, createKey, spellsFromObject, randomInt, assertCorrectSpellFormat, findBasicSpellByName, allEqual, getItemIconPathByName, removeTildes, isString, getDoubleTableTable, getDoubleTableNumberedTable, filterObject, getSpellValidTopStatsObject, hasSpellVariants, getNormalizedSpellName, getSpellOrItemIconPath, parseAndNormalizeSpell, hexColorToRgbVector, getSpellByName, SYMBOLS } from '../../utils'
+import { parseTextWithSymbols, stringReplaceAllMany, getSpellIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll, getVariantsForEachCollection, createKey, spellsFromObject, randomInt, assertCorrectSpellFormat, findBasicSpellByName, allEqual, getItemIconPathByName, removeTildes, isString, getDoubleTableTable, getDoubleTableNumberedTable, filterObject, getSpellValidTopStatsObject, hasSpellVariants, getNormalizedSpellName, getSpellOrItemIconPath, parseAndNormalizeSpell, hexColorToRgbVector, getSpellByName, SYMBOLS, isNumber } from '../../utils'
 import TableNormal from '../TableNormal/TableNormal'
 import html2canvas from 'html2canvas'
 import CopySpellButton from '../CopyButton/CopySpellButton'
@@ -16,50 +16,8 @@ import QuestGuardConfig from '../../QuestGuardConfig.json'
 
 
 /*
-    Spell Example
-
-<Spirit Animal>:
-    _Value: 1.5
-    IsIgnored: false    # For being displayed on CCC
-    HasMixins: true
-    
-    Bonuses:
-        Might: 3
-        Max Health Percent: 20
-    
-    Skills:
-        - Skilled in Stealth
-
-    Choice Bonuses:
-        - Type: stat
-        - Type: reminder
-          DialogText: Don't forget to look at the animals page!
-          ReminderText: I looked at the animals page.
-
-    A: Passive
-    Effect: |
-        A _spirit animal_ assists you and gives you a boon, depending on its type.
-        You can change which spirit animal assists you while not in Combat.
-    Upgrade: The spirit animal is intangible, invulnerable and invisible to most people. You can use it to scout, but can't walk through solid surfaces. You can see through its eyes, but is bound to you and won't go more than 15 meters away from you. It does not participate in combat.
-    Notes: An Act counts as ranged if it's not made with a melee weapon, and the range is at least 3 meters
-    DoubleTable:
-        Headers:
-            - Animal Spirit
-            - Boon
-        Values:
-            - Bear
-            - You are immune to Slows and Fumbling
-            - Wolf
-            - +1 Movement Speed
-            - Owl
-            - +3 Range on all ranged Acts
-            - Eagle
-            - +5 Initiative
-    SingleTable:
-        - Bear
-        - Fox
-        - Ferret
-        - Narwhal
+    Spell Example:
+TODO
 */
 
 
@@ -91,7 +49,20 @@ export function SpellTopStats({className, tags, keywords}) {
     const validSpellTopTags = getSpellValidTopStatsObject(tags)
     const nTopStats = Object.keys(validSpellTopTags).length
 
-    let displayedA = DisplayA != null? DisplayA : A != null? A : null
+    function getDisplayA() {
+        const usedA =
+            DisplayA != null?
+                DisplayA
+            :A != null?
+                A
+            :null
+        if (isNumber(usedA)) {
+            return `${usedA} Action Points`
+        }
+        return usedA
+    }
+
+    let displayedA = getDisplayA()
 
     const parsedKeywords = getSpellTags({ Tags: keywords })
 

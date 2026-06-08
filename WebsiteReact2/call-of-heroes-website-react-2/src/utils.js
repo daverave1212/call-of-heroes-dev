@@ -226,10 +226,10 @@ export function getAllSpellsAsArray() {
 window.getAllSpellsAsArray = getAllSpellsAsArray
 function autoAssignScrollPower(spell) {
     const actionPoints = getActionPointsByA(spell.A)
-    const costNormalized = spell.Cost ?? '0 Mana'
-    if (costNormalized.includes('Mana') == false) {
+    const costNormalized = spell.Cost == null? '0 Mana': spell.Cost == 'Depends' || spell.Cost == 'Special'? '0 Mana': spell.Cost
+    if (!costNormalized.includes('Mana')) {
         console.log({spell})
-        console.error(`Failed to assign ScrollPower Auto to spell with Cost without Mana printed above`)
+        console.error(`Failed to assign ScrollPower Auto to spell ${spell.Name} with Cost ${spell.Cost} without Mana printed above`)
         return
     }
     const manaCost = getNumberFromString(costNormalized)
@@ -1221,8 +1221,8 @@ export function getDoubleTableTable(DoubleTable) {
     for (let i = 0; i < values.length; i++) {
         if (i % 2 == 1) {
             newTableValuePairs.push({
-                value1: values[i-1],
-                value2: values[i]
+                value1: values[i-1] + '',
+                value2: values[i] + ''
             })
         }
     }
