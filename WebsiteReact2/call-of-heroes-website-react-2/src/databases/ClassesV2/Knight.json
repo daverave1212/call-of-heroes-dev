@@ -18,9 +18,141 @@
         "Change": "You can change your known Spells and Talents inbetween Adventures.",
         "Other": "All Warrior-specific Abilities are not considered Spells (unless stated otherwise)."
     },
+    "Meta": {
+        "New Design": "From Previous",
+        "Guidelines": [
+            {
+                "Ability _Value": "0.5 - 1"
+            },
+            {
+                "Froms With Value": {
+                    "Weapon Attack": "Easy",
+                    "Casting a Spell": "Easy-Medium",
+                    "Area Damage": "Medium",
+                    "Critical Strike/Combo": "Medium",
+                    "Killing Blow": "Medium",
+                    "High Ground Attack": "Medium",
+                    "Movement": "Easy-Medium",
+                    "Applying Status Effect": "Hard",
+                    "Healing / Being Healed": "Easy-Medium",
+                    "Gaining Shielding": "Medium",
+                    "Taking 0 Damage": "Hard"
+                }
+            }
+        ],
+        "Core Knight set (in \"Sequence\" order)": {
+            "Protection (easy power)": "Movement (low effect)",
+            "AoE (hard power)": "Heal (hard effect)",
+            "Movement (medium power)": "Status (medium effect)",
+            "Heal (easy power)": "Damage (low effect)",
+            "Status (hard power)": "Protection (hard effect)",
+            "Damage (medium power)": "AoE (medium effect)"
+        }
+    },
+    "Other Abilities Title": "Level 1 Ideas",
+    "Other Abilities Description": "Choose up to 2",
+    "Other Abilities": {
+        "~Row Through~": {
+            "_Value": 1.5,
+            "A": "Depends on weapon",
+            "Cooldown": "Once / Turn",
+            "Tags": [
+                "Damage",
+                "Mass Damage (Valor)"
+            ],
+            "Effect": "Make a weapon attack with +1 Range.\n\n{Teal('After Status Effect:')} +1d4 Damage and hits one more Unit within 2 meters of the main target with -50% Damage.\n",
+            "HasMixins": true,
+            "ParentKey": "Other Abilities",
+            "Origin": "Class/Knight"
+        },
+        "~Blockade~": {
+            "A": "Reaction",
+            "Tags": [
+                "Protection",
+                "Movement (Valor)"
+            ],
+            "Effect": "Use when another Unit within 2 meters would take Damage.\nGain a 1d4 Shielding and you take the incoming Damage instead of that Unit.\n\n{Teal('After Targeted Damage:')} The Range is 5 meters and you dash next to them.\n",
+            "Notes": "You dash to the closest space next to that Unit, ignoring obstacles. Requires Line of Sight, and dashing requires a clear path.",
+            "Tips": "In certain situations, you might also want to do this when an Enemy would take Damage, so you can dash closer to them!\n",
+            "HasMixins": true,
+            "ParentKey": "Other Abilities",
+            "Origin": "Class/Knight"
+        },
+        "~Platinum Storm~": {
+            "A": "2 Action Points",
+            "ScrollPower": "Auto",
+            "Range": "Depends on weapon",
+            "Tags": [
+                "Mass Damage",
+                "Heal (Valor)"
+            ],
+            "Effect": "Use a weapon to deal 2d4 + 2d6 Damage on a 3x3 meter area, of the weapon's Damage Type.\n\n{Teal('After Protection:')} Does not Damage Allies, but Heals an ally caught for one of the rolled dice.\n",
+            "Notes": "Each healing d4 must be target a different Ally.",
+            "HasMixins": true,
+            "ParentKey": "Other Abilities",
+            "Origin": "Class/Knight"
+        },
+        "~Champion's Gallop~": {
+            "_Value": 1,
+            "A": "1 Action Point",
+            "Cooldown": "Once / Turn",
+            "Tags": [
+                "Movement",
+                "Status Effect (Valor)"
+            ],
+            "Effect": "Make a Move Act with +{MS} Movement Speed that can pass through Enemies.\n\n{Variants}\n\n{Teal('After Mass Damage:')} {Effect}\n",
+            "Variants": [
+                {
+                    "Effect": "All Units you pass through are Slammed 2 meters to the side (requires a Trusted Steed).",
+                    "MS": "2"
+                },
+                {
+                    "Effect": "All Units you pass through are Slowed.",
+                    "MS": "1"
+                }
+            ],
+            "HasMixins": true,
+            "ParentKey": "Other Abilities",
+            "Origin": "Class/Knight"
+        },
+        "~Stand Strong, Fellows~": {
+            "_Value": 1,
+            "A": "1 Action Point",
+            "Cooldown": "Once / Turn",
+            "Requirement": "Only usable in Worthy Comabt",
+            "Tags": [
+                "Heal"
+            ],
+            "Effect": "Heal all other Allies within 1 meter of you for 1d2.\n\n{Teal('After Movement:')} All Units within 2 meters, and Enemies take Psychic Damage instead.\n",
+            "HasMixins": true,
+            "ParentKey": "Other Abilities",
+            "Origin": "Class/Knight"
+        },
+        "~Provocation~": {
+            "_Value": 1,
+            "A": "1 Action Point",
+            "Tags": [
+                "Status Effect",
+                "Protection (Valor)"
+            ],
+            "Cooldown": "Once / Turn",
+            "Range": "4 meters",
+            "Effect": "Slam a Unit 3 meters toward you, or 3 meters away from you.\n\n{Teal('After Healing or being Healed*')} Daze it, then gain a 1d6 Shielding.\n",
+            "Upgrade": "The {Teal('Valor*')} extra effect may trigger even if you were affected by a Heal on someone else's Turn.",
+            "HasMixins": true,
+            "ParentKey": "Other Abilities",
+            "Origin": "Class/Knight"
+        }
+    },
     "Ideas": {
         "~Formation~": {
             "Effect": "Your party gains various bonuses depending on your formation!",
+            "ParentKey": "Ideas",
+            "Origin": "Class/Knight"
+        },
+        "~Advance!~": {
+            "A": "Passive",
+            "Effect": "After making a weapon attack, you can make a free Movement Act for 1 meter.\n",
             "ParentKey": "Ideas",
             "Origin": "Class/Knight"
         }
@@ -94,7 +226,7 @@
     "Starting Abilities": {
         "~Actions With Valor~": {
             "A": "Passive",
-            "Effect": "Your Abilities and attacks in Worthy Combat have bonus effects if made {Teal('With Valor')}.\nAn Ability triggers its {Teal('Valor')} effect if it was made immediately after another Ability's {Teal('Next')}.\n",
+            "Effect": "Your Abilities and attacks in Worthy Combat have bonus effects if made immediately {Teal('after')} another type of Act.\n",
             "Upgrade": "Valor carries on to the next Turn, but not to the next Combat (you start each Combat without Valor).",
             "Notes": "For example, on your first Turn, you use Knockback (Level 1 Class Talent). It does not trigger the With Valor part, so you Slam a Unit 1d4 meter. It says \"Offensive Damage Ability\" at \"Next\", so you use Row Through, which activates its With Valor effect, hitting one more. It says \"Healing Ability\" at \"Next\", so you can use Stand Strong, Fellows to heal for 1d4 instead of 1d2. And so on. You can't activate With Valor or Next outside Worthy Combat. You start each Worthy Combat without Valor.",
             "HasMixins": true,
@@ -131,7 +263,7 @@
                     "Damage",
                     "Mass Damage"
                 ],
-                "Effect": "Make a weapon attack with +1 Range.\n\n{Teal('With Valor:')} +1d4 Damage and hits one more Unit within 2 meters of the main target with -50% Damage.\n{Teal('Next:')} Healing Ability\n",
+                "Effect": "Make a weapon attack with +1 Range.\n\n{Teal('After Movement:')} +1d4 Damage and hits one more Unit within 2 meters of the main target with -50% Damage.\n",
                 "HasMixins": true,
                 "ParentKey": "Level 1 Class Talent",
                 "Origin": "Class/Knight"
@@ -177,7 +309,7 @@
                 ],
                 "Cooldown": "Once / Turn",
                 "Range": "4 meters",
-                "Effect": "Slam a Unit 3 meters toward you, or 3 meters away from you.\n\n{Teal('With Valor:')} If toward you, Taunt it. If away from you, Daze it.\n{Teal('Next:')} Other Offensive Damage Ability\n",
+                "Effect": "Slam a Unit 3 meters toward you, or 3 meters away from you.\n\n{Teal('After Healing or being Healed')} If toward you, Taunt it. If away from you, Daze it.\n",
                 "HasMixins": true,
                 "ParentKey": "Level 1 Class Talent",
                 "Origin": "Class/Knight"
