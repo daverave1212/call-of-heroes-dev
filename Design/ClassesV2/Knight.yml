@@ -47,16 +47,45 @@ Meta:
         Taking 0 Damage: Hard
 
   Core Knight set (in "Sequence" order):
+    Damage (medium power): AoE (medium effect)
     Protection (easy power): Movement (low effect)
     AoE (hard power): Heal (hard effect)
     Movement (medium power): Status (medium effect)
     Heal (easy power): Damage (low effect)
     Status (hard power): Protection (hard effect)
-    Damage (medium power): AoE (medium effect)
   
+  
+  Level 2 & 3 Knight set (in "Sequence" order):
+    Heal (easy power): AoE (medium effect)
+    AoE (hard power): Damage (easy effect)
+    Damage (medium power): Heal (hard effect)
+    
+    Movement (medium power): Protection (hard effect)
+    Status (hard power): Movement (easy effect)
+    Protection (hard power): Status (medium effect)
+    
+    
 
-Other Abilities Title: Level 1 Ideas
-Other Abilities Description: Choose up to 2
+    Extras To Add:
+      - Gold
+      - Control
+      - Buff
+      - Farming
+      - Combo
+      - Debuff
+      - RoI
+      - Trap
+      - Pet
+      - Quirk (?)
+
+
+# +2: Same empowers as Level 1...
+# +3: Heal also deals Protection and viceversa
+
+# 29 +4
+
+Other Abilities Title: Level 1 Core Knight Talents
+Other Abilities Description: Choose 2 of the following Talent options.
 Other Abilities:
 
     ~Row Through~:
@@ -65,21 +94,27 @@ Other Abilities:
       Cooldown: Once / Turn
       Tags: [Damage, Mass Damage (Valor)]
       Effect: |
-        Make a weapon attack with +1 Range.
+        Make a weapon attack with +1 Damage per {A}Action Point spent.
         
-        {Teal('After Status Effect:')} +1d4 Damage and hits one more Unit within 2 meters of the main target with -50% Damage.
+        {Teal('After Status Effect:')} Hits one more Unit within 2 meters of the main target with -50% Damage.
 
-    ~Blockade~:
-      A: Reaction
+    ~Cowards!~:
+      A: Half-Action
+      Cooldown: Once / Turn
+      Range: 2 meters
       Tags: [Protection, Movement (Valor)]
       Effect: |
-        Use when another Unit within 2 meters would take Damage.
-        Gain a 1d4 Shielding and you take the incoming Damage instead of that Unit.
+        Choose a Worthy Unit within 2 meters.
+        Give them and yourself a _shared_ 1d6 Shielding.
 
-        {Teal('After Targeted Damage:')} The Range is 5 meters and you dash next to them.
-      Notes: You dash to the closest space next to that Unit, ignoring obstacles. Requires Line of Sight, and dashing requires a clear path.
+        {Teal('After Targeted Damage:')} The Range is 5 meters and you dash in front of it.
+      Upgrade: The _shared_ Shielding is automatically consumed when _either_ of you takes Damage.
+      Notes: |
+        This shared Shielding has priority over other Shieldings in reducing Damage.
+        In ^front^ of the Unit means on the closest space in front of where they are facing.
+        You dash ignoring obstacles. Requires Line of Sight, and dashing requires a mostly ^clear^ path (meaning of ^clear^ up to the Quest Master).
       Tips: |
-        In certain situations, you might also want to do this when an Enemy would take Damage, so you can dash closer to them!
+        In certain situations, you might want to target an Enemy, so you can dash closer to them!
 
     ~Platinum Storm~:
       A: 1 Action
@@ -108,18 +143,20 @@ Other Abilities:
           MS: '2'
         - Effect: All Units you pass through are Slowed.
           MS: '1'
-      
-    ~Stand Strong, Fellows~:
-      _Value: 1
-      A: Half-Action
-      Cooldown: Once / Turn
-      Requirement: Only usable in Worthy Comabt
-      Tags: [Heal]
-      Effect: |
-        Heal all other Allies within 1 meter of you for 1d2.
 
-        {Teal('After Movement:')} All Units within 2 meters, and Enemies take Psychic Damage instead.
-
+    ~Blade of Liberation~:
+        A: 1 Action
+        Cooldown: Once / Turn
+        IconName: Liberation
+        Degree: Minor
+        Range: 3 meters
+        Requirement: Only usable in Worthy Combat
+        Tags: [Heal, Damage (Valor)]
+        Effect: |
+            Heal a Unit for 1d8 and remove a Status Effect from them.
+            
+            {Teal('After Movement:')} Then deal 200% of that die as ^weapon^ Damage to a Unit within 3 meters of you.
+        
     ~Provocation~:
       _Value: 1
       A: Half-Action
@@ -160,21 +197,48 @@ Other Abilities:
 
 
 Ideas:
+
+  # ------ Other unusual effects ------
+
   ~Formation~:
     Effect: Your party gains various bonuses depending on your formation!
 
+  ~Free From Corruption~:
+    Effect: If you cast this 3 times this Combat, choose an ally and remove one of their Negative Quirks.
+
+  
+
+
+  # ------ Valor flexibility / hybridization ------
 
   ~Advance!~:
     A: Passive
     Effect: |
       After making a weapon attack, you can make a free Movement Act for 1 meter.
 
+  ~Delayed Valor~:
+    Effect: You can store an After trigger and use it later.
 
+  # ------ Strong Effects ------
 
-Other Ideas:
-  
-  ~Dark Knight Creed~:
-    Effect: TODO
+  ~Double Valor~:
+    Effect: Double a valor trigger.
+
+  # ------ Normal options ------
+
+  ~Self-Sacrifice~:
+    _Value: 1
+    A: Half-Action
+    Cooldown: Once / Turn
+    Requirement: Only usable in Worthy Combat
+    Tags: [Heal, Buff, Health Transfer]
+    Range: 5 meters
+    Effect: |
+      Take 2d6 True Damage. Heal a different ally for 200% of the rolled amount.
+
+      {Teal('With Valor:')} They gain +1 Health Regen for the rest of the Adventure.
+      {Teal('Next:')} Damage Ability
+    Notes: Can not be used on other Knights or characters with a Health Transfer Ability.
 
   ~Liberating Judgement~:
     A: Half-Action
@@ -186,12 +250,14 @@ Other Ideas:
       
       {Teal('With Valor:')} Then move a number of meters equal to the lower of the dice.
       {Teal('Next:')} Damage Ability
+
+  # ------ Flavor ------
+
+  ~Dark Knight Creed~:
+    Effect: TODO
+
   
-  ~Free From Corruption~:
-    Effect: If you cast this 3 times this Combat, choose an ally and remove one of their Negative Quirks.
-
-
-
+  
 
 Utility:
 
@@ -242,199 +308,144 @@ Starting Abilities:
   ~Actions With Valor~:
     A: Passive
     Effect: |
-      Your Abilities and attacks in Worthy Combat have bonus effects if made immediately {Teal('after')} another type of Act.
-    Upgrade: Valor carries on to the next Turn, but not to the next Combat (you start each Combat without Valor).
-    Notes: For example, on your first Turn, you use Knockback (Level 1 Class Talent). It does not trigger the With Valor part, so you Slam a Unit 1d4 meter. It says "Offensive Damage Ability" at "Next", so you use Row Through, which activates its With Valor effect, hitting one more. It says "Healing Ability" at "Next", so you can use Stand Strong, Fellows to heal for 1d4 instead of 1d2. And so on. You can't activate With Valor or Next outside Worthy Combat. You start each Worthy Combat without Valor.
+      Your Abilities and attacks in Worthy Combat may trigger extra effects if made immediately {Teal('After')} an Act that did a certain type of _thing_.
+    Upgrade: |
+      The previous Act can be from your previous Turn, but from before Combat.
+      _Protection_ means giving Shielding, absorbing Damage, etc.
+      Slamming or Pushing count as _Status Effects_.
+    Notes: You can take a look at the ^tags^ of an Ability to see what kind of effects it can do. The {Teal('After')} effect can only trigger if the previous Act actually did that type of ^thing^. For example, "{Teal('After')} Mass Damage" can only trigger if the previous Act did Damage to more than 1 Unit. Apply common sense, and the Quest Master has the final say for whether an {Teal('After')} can trigger.
 
   ~Challenge of Arms~:
-    _Value: 2 # About 0.5 Damage and 0.5 movement per Combat, * 2 = 2-ish
+    _Value: 3 # About 1 in total.
     A: Half-Action
     Cooldown: Once / Combat
     Requirement: Only usable in Worthy Combat
     Duration: 1 minute
     Range: 3 meters
-    Tags: [Damage, Heal, Mobility, Status Effect]
+    Tags: [Damage, Heal, Mobility, Status Effect, Protection,]
     Effect: |
-      Heal yourself for 1d4, or move 1d4 meters.
-      Then deal 1d8 Smash Damage to a Unit, or Slam it 1d6 meters.
-
-      {Teal('With Valor:')} Do it again!
-      {Teal('Next:')} Any other Ability
+      Roll 1d8.
+      Gain that as a Shielding, or Heal yourself for 50% of that.
+      Deal that as Smash Damage to a Unit, 50% of that to Units within 3 meters of you.
+      Slam yourself for that, or another Unit in any diretion for 50% of that.
     Notes: Use this to start a chain of Abilities With Valor! When you repeat this, choose the effects again and roll dice as normal. Obviously, the repeat does not retrigger another repeat.
+
+  ~Chivalric Privilege~:
+    A: Passive
+    IsIgnored: true
+    Effect: |
+      Pick 2 Talents from the Level 1 Core Knight set.
 
 Talents:
 
-  Level 1 Class Talent:
+  Level 2 Class Talent:
 
-    ~Row Through~:
-      _Value: 1.5
-      A: Depends on weapon
+    ~Charging Stallion~:
+        A: 1 Action
+        ScrollPower: Auto
+        Requirement: Only usable in Worthy Combat
+        Tags: [Movement, Control, Protection (Valor)]
+        Effect: |
+          Charge in a straight line to any location on the battlefield.
+          All Units you pass through _shuffle_ their positions.
+
+          {Teal('After Targeted Damage:')} Give yourself or a Unit you passed through 2 Shiedings, each equal to how many Units you passed through.
+        Upgrade: Each Shielding can go into a different Unit.
+        Notes: |
+          Units you hit swap their positions between them _randomly_ (as chosen by the Quest Master). For example, the first Unit hit might swap positions with the last Unit hit.
+          Optionally, you can use this to exit the battlefield and the Combat.
+          Shuffling positions does not count as a Status Effect.
+
+    ~Templar Retribution~:
+      A: Half-Action
+      Range: 5 meters
       Cooldown: Once / Turn
-      Tags: [Damage, Mass Damage]
+      Tags: [Status Effect, Gold, Movement (Valor)]
+      Requirement: Only usable in Worthy Combat
       Effect: |
-        Make a weapon attack with +1 Range.
-        
-        {Teal('After Movement:')} +1d4 Damage and hits one more Unit within 2 meters of the main target with -50% Damage.
+        Blind a Unit and gain 1 {Gold}Gold.
+        Then permanently increase the {Gold}Gold gained from this by 1d4.
+
+        {Teal('After Movement:')} Dash to the Unit, Slam it in any direction for the 1d4 rolled, and further increase the {Gold}Gold generated by 1d4.
+
+    ~Blockade~:
+      A: Reaction
+      Tags: [Protection, Movement (Valor)]
+      Effect: |
+        Use when another Unit within 2 meters would take Damage.
+        Reduce it by 1d4 and you take the incoming Damage instead of that Unit.
+
+        {Teal('After Status Effect:')} After blocking the Damage with the d4, Slam the attacker the same number of meters away from you.
+      
+    ~Font Knight~:
+      _Value: 0.5
+      A: Passive
+      HasMixins: true
+      Effect: |
+        You may select a `Magic Font$/Other/MagicFonts` to cast Spells from. You have all Spells from that Font up to your Level.
+
+        Whenever you would trigger an {Teal('After')} Valor effect, you can cancel that extra effect to gain 0.5 {Mana}Mana.
+      Notes: |
+        The unspent {Mana}Mana lass until the end of Combat. The {Mana}Mana can only be gained and spent in Worthy Combat.
+        You can change your Font and Spells inbetween Adventures.
+
+  Level 3 Class Talent:
 
     ~Stand Strong, Fellows~:
       _Value: 1
       A: Half-Action
       Cooldown: Once / Turn
       Requirement: Only usable in Worthy Comabt
-      Tags: [Heal]
+      Range: 2 meters
+      Tags: [Heal, Mass Damage (Valor)]
       Effect: |
-        Heal all other Units within 1 meter of you for 1d2.
+        Heal either yourself, or all other Allies within 2 meters for 1d2.
 
-        {Teal('With Valor:')} 1d4 Healing instead
-        {Teal('Next:')} Movement Ability
+        {Teal('After Protection:')} Also Damages Enemies within 2 meters for 1d4 Psychic Damage.
 
-    ~Champion's Gallop~:
-      _Value: 1
-      A: Half-Action
-      Cooldown: Once / Turn
-      Tags: [Movement]
+    ~Ruin Lineage~:
+      A: 1 Action
       Effect: |
-        Make a Move Act with +2 Movement Speed.
-        
-        {Variants}
+        The _strongest_ Enemy takes 3d6 Scourge or Pulse Damage, and the next strongest Enemy takes 50% of that.
 
-        {Teal('With Valor:')} {Effect}
-        {Teal('Next:')} Status Effect Ability
-      Variants:
-        - Effect: All Units you pass near take 1d4 Damage (requires a Trusted Steed).
-        - Effect: Gain one Shielding that can block 1d4 Damage.
-      
-    ~Provocation~:
-      _Value: 1
-      A: Half-Action
-      Tags: [Status Effect]
-      Cooldown: Once / Turn
-      Range: 4 meters
-      Effect: |
-        Slam a Unit 3 meters toward you, or 3 meters away from you.
-        
-        {Teal('After Healing or being Healed')} If toward you, Taunt it. If away from you, Daze it.
-
-
-# Extra keywords: Buff
-  Level 2 Class Talent:
+        {Teal('After Heal:')} Choose another Unit on the battlefield to take 50% of that.
+      Notes: |
+        Will only affect alive Units. ^Strongest^ is up to the Quest Master.
+        For each target, you can choose the Damage Type.
 
     ~Lance Unbound~:
-      _Value: 2
-      A: Depends on weapon
+      A: Depends
       Cooldown: Once / Turn
-      Tags: [Damage, Combo]
+      Tags: [Damage, Combo, Heal (Valor)]
       Effect: |
-        Make a weapon attack. The target gains a Combo.
+        Make a melee weapon attack that applies a ~Combo~ and has +1 Range for each {A}Action Point spent.
 
-        {Teal('With Valor:')} +1d4 Damage for each Action Point it costs.
-        {Teal('Next:')} Movement Ability
+        {Teal('After Mass Damage:')} Heal an Ally for 1 for each {A}Action Point spent.
 
-    ~Liberation~:
-        A: Half-Action
-        Cooldown: Once / Turn
-        Degree: Minor
-        Range: 3 meters
-        Requirement: Only usable in Worthy Combat
-        Tags: [Heal, Support]
-        Effect: |
-            Heal a Unit for 1d4.
-            
-            {Teal('With Valor:')} 1d6 Healing instead, and remove all Status Effects from it.
-            {Teal('Next:')} Status Effect Ability
-        Upgrade: |
-            At Level 5, also removes all non-magical debuffs and poisons.
-            At Level 8, also removes all curses and normal negative magical effects.
-
-    ~Blockade~:
-      _Value: 1
-      A: Reaction
-      Range: 3 meters to that ally
-      HasMixins: true
-      Tags: [Movement, Shielding]
+    ~CATAPULT!~:
+      A: 1 hour
       Effect: |
-        When another Unit would take Damage, dash to the closest space to that ally.
-        You take the ^exact Damage^ instead of the Unit.
+        Spend 300 {Gold}Gold to craft a special Large catapult that you can take with you on your adventures!
+        
+        Instead of triggering your {Teal('After')} valor effects, you can activate your catapult to give it 1 {A}Action Point.
+      Upgrade: |
+        Anyone can push the Catapult by simply moving from behind it, without penalties.
+        You can spend 1 hour to spend any amount of {Gold}Gold to Heal the Catapult for 50% of that.
+        You can only have 1 Catapult at a time.
+      Notes: |
+        The Catapult occupies a 2x2 meter area. The Catapult can use 1 {A}Action Point to move on its own.
+        The Catapult can't make Checks, and has 2/-2/0/2 in Stats, if it ever needs them.
+      Monster:
+        Name: Catapult
+        Speed: 4 meters
+        Health: 15
+        Abiliities:
+          ~HURL!~:
+            A: Half-Action
+            Damage: 1d6 Smash (3x3 area)
+            Range: 5 meters to edge
+            Sieger: Deals +100% Damage against Constructs and buildings!
 
-        {Teal('With Valor:')} Block 1d4 of that Damage.
-        {Teal('Next:')} Offensive Damage Ability
-      Upgrade: This Damage can only be mitigated by Shielding.
-      Notes: Requires a clear direct path.
-
-    ~Templar Retribution~:
-      A: Half-Action
-      Range: 3 meters
-      Cooldown: Once / Turn
-      Tags: [Status Effect, Gold Generation]
-      Effect: |
-        Single-Stun a Unit.
-
-        {Teal('With Valor:')} Double-Stun instead and gain 4d10 {Gold}Gold.
-        {Teal('Next:')} Healing Ability
-
-  Level 3 Class Talent:
-
-    ~Platinum Storm~:
-        A: 1 Action
-        ScrollPower: Auto
-        Range: Depends on weapon
-        Tags: [Damage, Mass Damage]
-        Effect: |
-          Use a weapon to deal 2d4 + 2d6 Damage on a 1x1 meter space, of the weapon's Damage Type.
-
-          {Teal('With Valor:')} The area becomes 3x3 meters instead.
-          {Teal('Next:')} Status Effect
-
-    ~Cowards!~:
-        A: Half-Action
-        Tags: [Status Effect, Protection]
-        Effect: |
-          Taunt all enemies within 3 meters of you.
-
-          {Teal('With Valor:')} Gain a Shielding, which can block Damage equal to 200% the number of Units Taunted.
-          {Teal('Next:')} Movement
-
-          Passively, you have Rebuke.
-        Subspells:
-          ~Rebuke~:
-            A: Reaction
-            Range: Depends on weapon
-            Tags: [Damage, Status Effect]
-            Requirement: Requires having some Shielding
-            Effect: |
-              Use when targeted by an attack.
-              Use a ^weapon^ to deal Damage to the attacker equal to your total Shieldings value.
-              Afterwards, if you took no Damage from the attack, also Single-Stun the attacker.
-
-    ~Self-Sacrifice~:
-      _Value: 1
-      A: Half-Action
-      Cooldown: Once / Turn
-      Requirement: Only usable in Worthy Combat
-      Tags: [Heal, Buff, Health Transfer]
-      Range: 5 meters
-      Effect: |
-        Take 2d6 True Damage. Heal a different ally for 200% of the rolled amount.
-
-        {Teal('With Valor:')} They gain +1 Health Regen for the rest of the Adventure.
-        {Teal('Next:')} Damage Ability
-      Notes: Can not be used on other Knights or characters with a Health Transfer Ability.
-
-    ~Charging Stallion~:
-        A: 1 Action
-        ScrollPower: Auto
-        Requirement: Only usable in Worthy Combat
-        Tags: [Movement, Other]
-        Effect: |
-          Charge in a straight line to any location on the battlefield.
-          All Units you pass through _shuffle_ their positions.
-
-          {Teal('With Valor:')} And are Slowed and get a Combo.
-          {Teal('Next:')} Healing
-        Notes: |
-          Units you hit swap their positions between them _randomly_ (as chosen by the Quest Master). For example, the first Unit hit might swap positions with the last Unit hit.
-          Optionally, you can use this to exit the battlefield and the Combat.
-          Shuffling positions does not count as a Status Effect.
 
   Level 4 Class Talent:
 
@@ -515,28 +526,6 @@ Talents:
         {Teal('With Valor:')} Also heals an Ally you can see
         {Teal('Next:')} TBD
     
-    ~CATAPULT!~:
-      A: 1 hour
-      Effect: |
-        Craft a special catapult that you can take with you on your adventures.
-        It can't move on its own, but once per Round, it can be activated with a Half-Action to be pushed 4 meters, or shoot a 3x3 area within 10 meters. All Units hit take 2d6 Smash Damage.
-
-    ~Affray Through~:
-      A: Depends on weapon
-      Cooldown: Once / Turn
-      HasUpgradeIcon: true
-      IconName: Row Through
-      Requirement: Requires Row Through
-      Replacement: Replaces Row Through
-      Tags: [Damage, Area Damge]
-      Effect: |
-        Make a weapon attack with +1 Range.
-        
-        {Teal('With Valor:')} Hits one more Unit within 2 meters of the main target.
-        {Teal('Next:')} Healing Ability
-      Notes: ~This upgrade no longer does reduced Damage to the secondary target.~
-
-
   Level 6 - Utility Talent:
 
     ~Get Up, Stand Up~:
