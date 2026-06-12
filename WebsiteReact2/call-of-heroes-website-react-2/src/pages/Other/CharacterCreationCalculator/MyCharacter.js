@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getAllClasses, getAlMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getExtrasFromSpells, isString, spellsFromObject, useLocalStorageState, hasClassMana, getAllWeaponsByName, getAllArmorsByName, addObjects, getSpellReplacementName, reverseObject, addManyObjects, getSpellIconPathByName, addArrays, withToggledElement, getNumberDecimalsString, getNumberPartsString, filterObject, maybeWithPlus, mapObject, isNumber, sum, SortSpellsBy } from "../../../utils"
+import { getAllClasses, getAlMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getExtrasFromSpells, isString, spellsFromObject, useLocalStorageState, hasClassMana, getAllWeaponsByName, getAllArmorsByName, addObjects, getSpellReplacementName, reverseObject, addManyObjects, getSpellIconPathByName, addArrays, withToggledElement, getNumberDecimalsString, getNumberPartsString, filterObject, maybeWithPlus, mapObject, isNumber, sum, SortSpellsBy, copyToClipboardAsync } from "../../../utils"
 import ManySpells, { SpellSortTypes } from "../../../components/Spell/ManySpells"
 import PageH2 from "../../../components/PageH2/PageH2"
 import TextArea from "../../../components/TextArea/TextArea"
@@ -176,6 +176,16 @@ export default function MyCharacter() {
     // console.log({attributes})
 
 
+    async function exportCharacter() {
+        const char = getCurrentCharacterFromLocalStorage()
+        const charJSON = JSON.stringify(char)
+        const isSuccess = await copyToClipboardAsync(charJSON)
+        if (isSuccess) {
+            alert('Character copied to clipboard! Use the Import From Clipboard button to import it!')
+        } else {
+            alert('Failed to export character. Try using a different browser :(')
+        }
+    }
     // Functions
     async function printCharacter() {
         const canvasDiv = document.querySelector('#Print-Character-Box')
@@ -498,7 +508,10 @@ export default function MyCharacter() {
             <ManySpells spells={myBasicAbilities} shouldIgnoreAlignment={true} spellsMetadata={spellsMetadata}/> */}
 
             <div id="Print-Character-Box" className="center-content">
-                <button onClick={printCharacter}>Print</button>
+                <div className="flex gap-1">
+                    <button onClick={printCharacter}>Print</button>
+                    <button onClick={exportCharacter}>Export</button>
+                </div>
                 <div className="absolute" style={{right: '10vw'}}>
                     <CopySpellButton elementId={"All-My-Spells"}/>
                 </div>

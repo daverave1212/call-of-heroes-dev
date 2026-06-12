@@ -383,9 +383,26 @@ export function NoManaDescription() {
 
 export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
 
-    function SpellcastingType() {
+    const hasMana = U.hasClassMana(theClass.Class)
+    const hasSpellcastingType = theClass.Spellcasting?.Type != null
+    const title = 'Ability Notes' + (hasMana? ' & Mana': '')
 
-
+    function RespecBlock() {
+        return <>
+            <PageH3>Changing Abilities (Respec)</PageH3>
+            <p>
+                You can change your character's chosen Talents (your build) inbetween Adventures.<br/>
+                
+                { isCharacterCreationPage == false && (
+                    <>
+                        <br/>
+                        Feats can't generally be changed once picked; they are permenant decisions.
+                    </>
+                )}
+            </p>
+        </>
+    }
+    function SpellcastingTypeBlock() {
         return (
             <div>
                 <PageH3>{theClass.Spellcasting.Type} Abilities</PageH3>
@@ -400,18 +417,6 @@ export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
                     <NoManaDescription/>
                 )}
 
-
-                <PageH3>Changing Abilities (Respec)</PageH3>
-                <p>
-                    You can change your character's chosen Talents (your build) inbetween Adventures.<br/>
-                    
-                    { isCharacterCreationPage == false && (
-                        <>
-                            <br/><br/>
-                            Feats can't generally be changed once picked; they are permenant decisions.
-                        </>
-                    )}
-                </p>
                 {
                     isCharacterCreationPage == false && (
                         <p>{ theClass.Spellcasting.Other }</p>    
@@ -420,8 +425,19 @@ export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
             </div>
         )
     }
+    function ManaBlock() {
+        if (!hasMana) {
+            console.error(`ERROR: Class ${theClass.Class} has no Mana but rendered ManaBlock!?`)
+        }
+        return <div className='column gap-half'>
+            <PageH3>Mana</PageH3>
+            <SmallStat name="Mana" color="blue">
+                <Icon name="Mana"/>{ U.getClassMana(theClass) } ({theClass.Spellcasting.Mana.Per ?? ''})
+            </SmallStat>
+        </div>
+    }
 
-    const title = (theClass['Spellcasting'].SpellsOrAbilities === 'Spell' ? 'Spells' : 'Abilities') + ' and Mana'
+
 
     return (
         <div id={theClass['Spellcasting'].SpellsOrAbilities === 'Spell' ? 'spells-and-mana' : 'abilities-and-mana'}>
@@ -430,23 +446,13 @@ export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
 
             <TwoColumns>
                 <Column>
-                    <div className='with-margined-children'>
-                        <PageH3>{theClass.Spellcasting?.Mana?.Amount != null? 'Mana & Talents': 'Talents'}</PageH3>
-                        { theClass.Spellcasting?.Type != null && theClass.Spellcasting?.Mana?.Amount != null && (
-                            <SmallStat name="Mana" color="blue">
-                                <Icon name="Mana"/>{ theClass.Spellcasting.Mana.Amount } ({
-                                    theClass.Spellcasting.Mana.Per ?? ''
-                                })
-                            </SmallStat>
-                        )}
-                        <SmallStat name="Extra Talents" color="blue" className="column">
-                            Each Level, choose a free Talent from that Level's options.<br/><br/>
-                            However, if your <b>{INTELLIGENCE}</b> is above 0, you can choose a number of <b>extra Class Talents</b> equal to your <b>{INTELLIGENCE}</b>, from any available tier.
-                        </SmallStat>
+                    <div className='flex column gap-1'>
+                        { hasMana && <ManaBlock/> }
+                        <RespecBlock/>
                     </div>
                 </Column>
                 <Column>
-                    <SpellcastingType/>
+                    <SpellcastingTypeBlock/>
                 </Column>
             </TwoColumns>
             

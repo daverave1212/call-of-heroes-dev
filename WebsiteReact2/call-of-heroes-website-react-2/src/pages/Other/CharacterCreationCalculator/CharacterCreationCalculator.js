@@ -10,7 +10,7 @@ import './CharacterCreationCalculator.css'
 import { SpellTopIconSide } from "../../../components/Spell/Spell";
 import { CoolButton } from "../../../components/CoolButton/CoolButton";
 import HeroButton from "../../../components/HeroButton/HeroButton";
-import useConstWindowDimensions, { generateUniqueId, getAllClasses, getAllRaces, getClassRepresentativeIconName, getSpellIconPathByName, splitArrayEvenly, uncapitalizeFirstLetter, useLocalStorageState } from "../../../utils";
+import useConstWindowDimensions, { generateUniqueId, getAllClasses, getAllRaces, getClassRepresentativeIconName, getSpellIconPathByName, isStringJSON, normalizeStringJSON, pasteFromClipboardAsync, splitArrayEvenly, uncapitalizeFirstLetter, useLocalStorageState } from "../../../utils";
 import Selector from "../../../components/Selector/Selector";
 import ManySpells from "../../../components/Spell/ManySpells";
 
@@ -31,7 +31,7 @@ import SectionFeats from "./SectionFeats";
 import SectionShop from "./SectionShop";
 import SectionRace from "./SectionRace";
 import SectionClass from "./SectionClass";
-import { NO_CHARACTER_ID, clearCurrentCharacter, getCurrentCharacterFromLocalStorage, newCharacterLS, setCharacterToLocalStorage, setCurrentCharacterId, useChoiceAbiliesObjects, useCurrentCharacterId, useMyCharactersDB, useSectionNamesState } from "./CharacterData";
+import { NO_CHARACTER_ID, clearCurrentCharacter, getCurrentCharacterFromLocalStorage, newCharacterLS, normalizeCharacter, setCharacterToLocalStorage, setCurrentCharacterId, useChoiceAbiliesObjects, useCurrentCharacterId, useMyCharactersDB, useSectionNamesState } from "./CharacterData";
 import { SelectorsByColumns } from "../Abilities";
 import { showSuccessMessage } from "../../../services/MessageDisplayer";
 import Dialog from "../../../components/Dialog/Dialog";
@@ -77,6 +77,17 @@ function MyCharacters() {
 
     const selectedSelectorName = myCharacters.find(char => char.id == currentCharacterId)?.names.characterName
 
+    async function importCharacter() {
+        const charJSON = normalizeStringJSON(await pasteFromClipboardAsync())
+        console.green(`Trying to load hero: ${charJSON}`)
+        if (!isStringJSON(charJSON)) {
+            alert('Failed to load Hero from clipboard: not a valid JSON.')
+        }
+        const char = JSON.parse(charJSON)
+        const charNormalized = normalizeCharacter(char)
+        setCharacterToLocalStorage(charNormalized)
+        saveCharacters([...myCharacters, getCurrentCharacterFromLocalStorage()])
+    }
     function newCharacter() {
         newCharacterLS()
         saveCharacters([...myCharacters, getCurrentCharacterFromLocalStorage()])
@@ -109,6 +120,9 @@ function MyCharacters() {
             </div>
             <div className="center-content flex-responsive gap-half margin-top-1">
                 <button onClick={newCharacter}>New Character</button>
+                <button onClick={importCharacter}>Import From Clipboard</button>
+            </div>
+            <div className="center-content margin-top-half">
                 <button style={{ backgroundColor: 'red' }} onClick={deleteCharacter}>Delete</button>
             </div>
         </div>

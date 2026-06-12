@@ -1197,8 +1197,9 @@ export function getAlMyRaceAndClassSpells({ raceName, className, specName, selec
 }
 export function hasClassMana(className) {
     const classObj = getAllClasses()[className]
-    const hasMana = classObj.Spellcasting.Type.toLowerCase().includes('mana')
-    return hasMana
+    const hasMana = classObj?.Spellcasting?.Type?.toLowerCase()?.includes?.('mana') == true
+    const hasManaAmount = classObj.Spellcasting?.Mana?.Amount != null
+    return hasMana && hasManaAmount
 }
 export function getDoubleTableNumberedTable(DoubleTableNumbered) {
     const tableHeaders = DoubleTableNumbered.Headers
@@ -1231,7 +1232,11 @@ export function getDoubleTableTable(DoubleTable) {
 export const MANA_BASED_SPELLCASTING = 'Mana-based'
 export const SPECIAL_MANA_BASED_SPELLCASTING = 'Special Mana-based'
 export const NO_MANA_SPELLCASTING = 'Non-Mana'
-export function getClassMana(classObj) {
+export function getClassMana(classObjOrName) {
+    let classObj = classObjOrName
+    if (isString(classObjOrName)) {
+        classObj = getAllClasses()[className]
+    }
     if (classObj?.Spellcasting?.Type == null) {
         console.log({classObj, Spellcasting: classObj?.Spellcasting})
         console.error(`getClassMana received null something. Printed above.`)
@@ -2159,6 +2164,24 @@ export function printTimestamp(str) {
     const date = new Date()
     console.log(`${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.${date.getMilliseconds()} ${str}`)
 }
+export async function copyToClipboardAsync(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true
+  } catch (err) {
+    console.error('Failed to copy: ', err);
+    return false
+  }
+}
+export async function pasteFromClipboardAsync() {
+  try {
+    const text = await navigator.clipboard.readText();
+    return text
+  } catch (err) {
+    console.error('Failed to read clipboard contents: ', err);
+    return null
+  }
+}
 export function startsWithAny(str, anyOf) {
     return anyOf.some(option => str.startsWith(option))
 }
@@ -2326,8 +2349,9 @@ export function isString(obj) {
 }
 window.isString = isString
 export function isNumber(obj) {
-    return ! isNaN(obj)
+    return !isNaN(obj) && obj != null
 }
+window.isNumber = isNumber
 export function isStringNumeric(str) {
     if (typeof str != "string") return false // we only process strings!  
     return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
@@ -2336,6 +2360,21 @@ export function isStringNumeric(str) {
 export function isStringOnlySpaces(str) {
     return /^ *$/.test(str)
 }
+export function isStringJSON(str) {
+    if (str == null) {
+        return false
+    }
+    try {
+        JSON.parse(str);
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
+export function normalizeStringJSON(str) {
+    return str.replaceAll('\\n', ' ')
+}
+window.normalizeStringJSON = normalizeStringJSON
 export function getPageHashFromLocation(location) {       // Use 'const location = useLocation()' in a component to get location (from 'react-router-dom')
     if (location == null) {
         return ''
