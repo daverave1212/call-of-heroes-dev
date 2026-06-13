@@ -18,6 +18,7 @@ const MERCHANT_TYPE_LETTER_MAP = {
     'g': 'General Goods',
     'j': 'Jewelcrafter',
     'l': 'Library',
+    'm': 'Magic',
     'n': 'Nature',
     'r': 'Religion',
     't': 'General Goods',
@@ -66,26 +67,29 @@ const MERCHANT_TYPES = {
     'Library': {
         itemCategories: ['Other Items'],
         tags: ['Scribe'],
-        getExtraItems(productDiversity, rng) {
-            const minScrollPower = 1
-            const maxScrollPower = Math.min(productDiversity + 1, 4)
-            const scrollPowerToName = {
-                1: 'Lesser Scroll',
-                2: 'Minor Scroll',
-                3: 'Major Scroll',
-                4: 'Grand Scroll',
-            }
-            const getRandomScrollPower = () => rng.randomInt(minScrollPower, maxScrollPower)
-            const getRandomScrollName = () => scrollPowerToName[getRandomScrollPower()]
-            const getScroll = () => ({...getAllMagicItemsByName()[getRandomScrollName()]})
-
-            const nMinScrolls = Math.floor(Math.max(0.7 * productDiversity, 1))
-            const nMaxScrolls = Math.max(productDiversity * 2, nMinScrolls + 1)
-            const nScrolls = rng.randomInt(nMinScrolls, nMaxScrolls)
-            return range(0, nScrolls).map(() => getScroll())
-        },
+        getExtraItems: (productDiversity, rng) => getExtraScrolls(productDiversity, rng, 4),
         uniqueMagicItemTypes: [],
         specificItems: ['Bell', 'Lamp', 'Paper (1 sheet)', 'Mirror (steel)', 'Candle']
+    },
+    'Magic': {
+        itemCategories: [],
+        tags: ['Magic', 'Alchemy', 'Consumable', 'Trinket'],
+        getExtraItems: (productDiversity, rng) => getExtraScrolls(productDiversity, rng, 4),
+        specificItems: [
+            'Staff', 'Rapier',
+            'Elemental Wand', 'Arcane Symbol', 'Scourge Idol',
+            'Robes', 'Bastion Plate',
+            'Mirror', 'Book (blank) (100p)', 'Candle',
+            'Ink (100ml)', 'Quill',
+            'Chalk', 'Soap', 'Vial (100ml)',
+            'Common Clothes (fine)',
+            'Language Course',
+            'Copper', 'Silver',
+            'Dust of Appearance',
+            'Acid (vial, 100ml)'
+        ],
+        magicItemChanceMultiplier: 2,
+        uniqueMagicItemTypes: ['Weapon']
     },
     'Religion': {
         itemCategories: ['Magic and Religion', 'Mounts'],
@@ -101,11 +105,11 @@ const MERCHANT_TYPES = {
             'Nature', 'Consumable', 'Poison'
         ],
         uniqueMagicItemTypes: ['Armor', 'Shield'],
-        specificItems: ['Torch', 'Backpack', 'Bedroll', 'First Aid Kit', 'Flask', 'Hunting Trap', 'Tent (2 people)', 'Food for 1 Day', 'Basket', 'Blanket', 'Bottle (1 liter)', 'Chest', 'Oil (500ml)', 'Soap']
+        specificItems: ['Torch', 'Backpack', 'Bedroll', 'First Aid Kit', 'Flask', 'Hunting Trap', 'Tent (2 people)', 'Food for 1 Day', 'Basket', 'Blanket', 'Bottle (1 liter)', 'Chest', 'Oil (500ml)', 'Soap', 'Regular Poison Darts (full supply)', 'Staff of Nature']
     },
     'Underground Market': {
         itemCategories: ['Potions and Poisons', 'Vehicles', 'Mounts', 'Exotic Mounts'],
-        specificItems: ['Torch', 'Backpack', 'Ball Bearings', 'Bedroll', 'Bell', 'Block and Tackle', 'Caltrops (set)', 'Chain', 'Grappling Hook', 'Ladder', 'Manacles', 'Paint Pellet', 'Rope', 'Tent', 'Mirror', 'Chalk', 'Pouch', 'Sack', 'Hunting Trap', 'Rope (10 meters)', 'Lock and Key', 'Common Clothes (low-class)', 'Language Course'],
+        specificItems: ['Torch', 'Backpack', 'Ball Bearings', 'Bedroll', 'Bell', 'Block and Tackle', 'Caltrops (set)', 'Chain', 'Grappling Hook', 'Ladder', 'Manacles', 'Paint Pellet', 'Rope', 'Tent', 'Mirror', 'Chalk', 'Pouch', 'Sack', 'Hunting Trap', 'Rope (10 meters)', 'Lock and Key', 'Common Clothes (low-class)', 'Language Course', 'Regular Poison Darts (full supply)'],
         tags: ['Shady'],
         uniqueMagicItemTypes: ['One-Handed Weapon']
     }
@@ -117,7 +121,24 @@ const PRODUCT_DIVERSITY_TO_CHANCE_FOR_ITEM = {
     4: 100,
     5: 100
 }
+function getExtraScrolls(productDiversity, rng, maxScrollPower=4) {
+    const minScrollPower = 1
+    maxScrollPower = Math.min(productDiversity + 1, maxScrollPower)
+    const scrollPowerToName = {
+        1: 'Lesser Scroll',
+        2: 'Minor Scroll',
+        3: 'Major Scroll',
+        4: 'Grand Scroll',
+    }
+    const getRandomScrollPower = () => rng.randomInt(minScrollPower, maxScrollPower)
+    const getRandomScrollName = () => scrollPowerToName[getRandomScrollPower()]
+    const getScroll = () => ({...getAllMagicItemsByName()[getRandomScrollName()]})
 
+    const nMinScrolls = Math.floor(Math.max(0.7 * productDiversity, 1))
+    const nMaxScrolls = Math.max(productDiversity * 2, nMinScrolls + 1)
+    const nScrolls = rng.randomInt(nMinScrolls, nMaxScrolls)
+    return range(0, nScrolls).map(() => getScroll())
+}
 function getProductDiversityToNMagicItems(productDiversity, rng) {
     const PRODUCT_DIVERSITY_TO_N_MAGIC_ITEMS = {
         1: rng.randomOf(0, 1),
@@ -194,6 +215,10 @@ export default function MerchantGenerator({}) {
                 continue
             }
             item.DefaultVariantIndex = nVariants? rng.randomInt(0, nVariants - 1): null
+            if (item.Name?.includes('Spectral')) {
+                console.log(`👩‍🦳👩‍🦳👩‍🦳👩‍🦳HERE IT IS`)
+                console.log({nVariants, item})
+            }
             const thisParsedItem = parseAndNormalizeSpell(item, { isItem: true, variantIndex: item.DefaultVariantIndex })
             item.Name = thisParsedItem.Name
             item.DisplayName = thisParsedItem.DisplayName

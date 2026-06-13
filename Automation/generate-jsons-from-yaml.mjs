@@ -51,6 +51,8 @@ const isActionPointsMappingEnabled = true
 
 let abilities = {}
 let classRaceAbilities = {} 
+let weapons = {}
+let armors = {}
 
 
 let _nErrorsFound = 0
@@ -191,9 +193,9 @@ const filesToConvert = [    // Order matters
     'Feats.yml',
     'Monsters.yml',
     'MonsterCalculations.yml',
-    'Prices.yml',
     'Proficiencies.yml',
     'Weapons.yml',
+    'Prices.yml',   // Must be after Weapons
     'Obstacles.yml',
     
     'Other/MagicItems.yml',
@@ -527,8 +529,26 @@ async function processFiles() {
             }
             recordAbilitiesFrom(dictContent, {}, null, fileName, null)
         }
-        if (fileName.includes('Weapon') || fileName.includes('Armor')) {
-            recordAbilitiesFrom(dictContent, {}, null, fileName, /*'Weapons'*/null)
+        if (fileName.includes('Armor')) {
+            recordAbilitiesFrom(dictContent, armors, null, fileName, null)
+        }
+        if (fileName.includes('Weapon')) {
+            recordAbilitiesFrom(dictContent, weapons, null, fileName, null)
+        }
+        if (fileName.includes('Prices')) {
+            const weaponPricesKvp = Object.entries(weapons).map(([key, value]) => (
+                [key, value.Price]
+            )).filter(([key, price]) => price != null)
+            const weaponPrices = Object.fromEntries(weaponPricesKvp)
+            const armorPricesKvp = Object.entries(armors).map(([key, value]) => (
+                [key, value.Price]
+            )).filter(([key, price]) => price != null)
+            const armorPrices = Object.fromEntries(armorPricesKvp)
+            dictContent['Weapons and Equipment'] = {
+                ...dictContent['Weapons and Equipment'],
+                ...weaponPrices,
+                ...armorPrices
+            }
         }
 
 

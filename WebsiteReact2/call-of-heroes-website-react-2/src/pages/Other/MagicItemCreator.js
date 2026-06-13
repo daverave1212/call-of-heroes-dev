@@ -1575,7 +1575,7 @@ function getItemPrice(item, addedEffectsByGroup, rng=standardRNG) {
     const totalExtraPrice = allEffectsPrice.reduce((soFar, number) => soFar + number, 0)
     const basePrice = item.Price
 
-    console.log({allEffects, allEffectsPrice})
+    // console.log({allEffects, allEffectsPrice})
     return basePrice + totalExtraPrice
     // const addedPrice = matchRange(item.XP, [
     //     { range: [-9999, 0], value: rng.randomInt(100, 150) },
@@ -2180,7 +2180,7 @@ export function createMagicItem(xp, itemType, rng=standardRNG) {
         :
             validEffects.join('\n\n') + (baselineItem.EffectOriginal != null? `\n${baselineItem.EffectOriginal}`: '')
 
-    console.log({addedEffectsByGroup, preparsedEffectsByGroup, preparsedEffectsByGroupFiltered, preparsedTextByGroups, reparsedTextByGroups, validEffects, finalEffect})
+    // console.log({addedEffectsByGroup, preparsedEffectsByGroup, preparsedEffectsByGroupFiltered, preparsedTextByGroups, reparsedTextByGroups, validEffects, finalEffect})
 
     if (baselineItem.Damage != null) {
         addWeaponBonusDamages(addedEffectsByGroup['Bonus Damage'])
@@ -2203,8 +2203,8 @@ export function createMagicItem(xp, itemType, rng=standardRNG) {
         baselineItem.TintColor = tintColor
     }
     
-    console.log({baselineItem})
-    console.green(`Returning ${baselineItem.Name}!`)
+    // console.log({baselineItem})
+    // console.green(`Returning ${baselineItem.Name}!`)
 
     return baselineItem
 }

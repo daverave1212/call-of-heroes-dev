@@ -40,6 +40,12 @@ export function parseAndNormalizeSpell(spell, options={
     variantIndex: 0
 }) {
 
+    if (spell.Name?.includes('Spectral')) {
+        console.log(`🕵️‍♀️🕵️‍♀️ We definitely here`)
+    } else {
+        console.log(`🤶 IT WAS NOT THE SAME SPELL`)
+    }
+
     const { isItem=false, variantIndex=0 } = options
     const spellModified = {...spell}
     
@@ -53,6 +59,10 @@ export function parseAndNormalizeSpell(spell, options={
     // Set spell props based on the current variant
     if (spellModified?.Variants?.length > 0) {
         const currentVariant = spellModified.Variants[variantIndex]
+        if (currentVariant == null) {
+            console.error(`ERROR: currentVariant is null. Printing below:`)
+            console.log({spell, options, spellModified, variantIndex})
+        }
         extraMixins = mapObject(currentVariant, ({key, value}) => ({
             key: key,
             value: { tag: 'span', text: value }
@@ -81,8 +91,8 @@ export function parseAndNormalizeSpell(spell, options={
                 continue
             }
             if (propName == 'MiniIconName') {
-                console.green('Found a MIniIconName!!!')
-                console.log({spell, extraMixins, propName, options, newProp: parseTextWithSymbols(spell[propName], extraMixins, { shouldReturnStringsOnly: true})?.join('')})
+                // console.green('Found a MIniIconName!!!')
+                // console.log({spell, extraMixins, propName, options, newProp: parseTextWithSymbols(spell[propName], extraMixins, { shouldReturnStringsOnly: true})?.join('')})
             }
             try {
                 spellModified[propName] = parseTextWithSymbols(spell[propName], extraMixins, { shouldReturnStringsOnly: true})?.join('')
