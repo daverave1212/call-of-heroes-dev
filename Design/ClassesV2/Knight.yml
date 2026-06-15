@@ -46,6 +46,7 @@ Meta:
         Gaining Shielding: Medium
         Taking 0 Damage: Hard
 
+  # Prev is -1 (+5), goes into +2
   Core Knight set (in "Sequence" order):
     Damage (medium power): AoE (medium effect)
     Protection (easy power): Movement (low effect)
@@ -53,15 +54,20 @@ Meta:
     Movement (medium power): Status (medium effect)
     Heal (easy power): Damage (low effect)
     Status (hard power): Protection (hard effect)
-  
-  
-  Level 2 & 3 Knight set (in "Sequence" order):
-    Heal (easy power): AoE (medium effect)
-    AoE (hard power): Damage (easy effect)
-    Damage (medium power): Heal (hard effect)
-    Movement (medium power): Protection (hard effect)
-    Status (hard power): Movement (easy effect)
-    Protection (hard power): Status (medium effect)
+
+  # Prev is -3, goes into +4
+  Alternative Level 2 & 3 Knight Set (in Sequence):
+    Damage: Movement (effect should be Strong)
+    AoE: Status (effect should be Weak)
+    Heal: Protection (effect should be )
+
+  ALTERNATIVE Level 2 & 3 Knight set (in "Sequence" order):
+    Heal: AoE (medium effect)                           # Prev is -4 (+2), goes into +4
+    AoE: Damage (easy effect)                           # Prev is -4 (+2), goes into +4
+    Damage: Heal (hard effect)                          # Prev is -4 (+2), goes into +4
+    Status: Movement (easy effect)                      # Prev is -4 (+2), goes into +4
+    Movement: Protection (hard effect)                  # Prev is -4 (+2), goes into +4
+    Protection (hard power): Status (medium effect)     # Prev is -4 (+2), goes into +4
   
   Level 4 Creed (NOT in sequence):
     Creed of the Dragon: AoE + Farming
@@ -71,10 +77,69 @@ Meta:
     Creed of Vengeance: Damage + You can move through obstacles
     Creed of Steel: Protection + accumulate Damage from shieldings
   
-  Then:
+  Level 5+ -- Goes Into:
     That means: each of these goes into a +2 and +4 effect
     Also: +5 is not valid since they loop around
     Available effects: +1 and +3
+  Level 5+ -- Prev:
+    That means:
+      Heal: -1 and -3
+      Movement: -1 and -3
+      AoE: -1 and -4
+      Damage: -1 and -4
+      Status: -1 and -2
+      Protection: -1 and -2
+    Also: -5 is not a good idea
+    So then:
+      Heal: -2 and -4
+      Movement: -2 and -4
+      AoE: -2 and -3
+      Damage: -2 and -3
+      Status: -3 and -4
+      Protection: -3 and -4
+
+  Level X Knight set (in "Sequence" order):
+    Option A: 
+      Heal (-4): goes into +3 or +1
+      Movement (-4): goes into +3 or +1
+      AoE (-3): goes into +1
+      Damage (-3): goes into +1
+      Status (-3): goes into +1
+      Protection (-4): goes into +3 or +1
+    Option B: 
+      Heal (-2): goes into +3 or +1
+      Movement (-2): goes into +3 or +1
+      AoE (-2): goes into +3 or +1
+      Damage (-3): goes into +1
+      Status (-3): goes into +1
+      Protection (-3): goes into +1
+    Option C:
+      Heal (-2): +3
+      Movement (-4): +3
+      AoE (2): +3
+      Damage (-2): +3
+      Status (-4): +3
+      Protection (-4): +3
+    Option D:
+      Heal (-2 and -4): goes into itself
+      Movement (-2 and -4): goes into itself
+      AoE:-(2 and -3): goes into itself
+      Damage (-2 and -3): goes into itself
+      Status (-3 and -4): goes into itself
+      Protection (-3 and -4): goes into itself
+  
+
+  Things I can give per higher Level Talent tier:
+    - More standard Abilities
+    - More standard Abilities
+    - Standard Abilities with 2 "After" effects rather than 1
+    - Ultimate
+    - Passive tricks (hybridization)
+    - Passive reinforcement effects
+    - Upgrade for lower-Level Talents.
+
+  
+
 
   Extras To Add:
       - If you've killed such an enemy Type before..
@@ -99,62 +164,6 @@ Ideas:
 
   ~Free From Corruption~:
     Effect: If you cast this 3 times this Combat, choose an ally and remove one of their Negative Quirks.
-
-
-
-  ~Creed of the Crown~:
-    A: Passive
-    Cooldown: Once / Turn
-    Tags: [Movement, Gold]
-    Effect: |
-      Your first moving* Act each Turn has its distance increased by 50%.
-      At the end of each Turn, gain {Gold}Gold equal to 100% the number of meters you moved this Turn.
-      You are immune to being Slowed, Rooted, and to Hard Terrain.
-    Upgrade: You serve the realm above all else. Your sword defends law, order, and your liege's will.
-    Notes: Moving* bonus accounts for Pushing or Slamming, too!
-
-  ~Creed of the Rose~:
-    A: Passive
-    Tags: [Healing]
-    Effect: |
-      All your Abilities that can Heal do the {Teal(After)} effect regardless of the previous Act.
-      If they don't have an {Teal(After)} effect at all, they have their ^Dice Upgraded^ to the next die type.
-    Upgrade: You are the knight of beauty and grace, a protector of the innocent, and a paragon of compassion.
-    Notes: Healing Abilities that have an {Teal(After)} effect that doesn't Heal ^do^trigger their {Teal(After)} effect anyway.
-
-  ~Creed of the Dragon~:
-    A: Passive
-    Requirement: Requires finding a dragon patron
-    Tags: [Mass Damage, Defense]
-    Effect: |
-      You take -50% Damage from that dragon's element Type.
-      All your Abilities' Ranges, areas, and distances increase by 2 meters, become of the dragon's element Type, and you deal +1d4 Mass Damage*.
-    Upgrade: You swear your allegiance to an elder dragon you have encountered on your journey.
-    Notes: If an effect or Ability manages to deal Mass Damage, it deals +1d4 to all affected Units.
-
-  ~Creed of Vengeance~:   # Improves Status Effect + Buffs
-    A: Special
-    Requirement: Requires having been betrayed this Campaign, or having broken an oath
-    Tags: [Damage, Initiative, Farming, Mobility]
-    Effect: |
-      You gain 2 Hatred Positive Quirks of choice.
-      For each die rolled with Targeted Damage, gain 0.01 Initiative and 0.04 Damage on a chosen Ability permanently.
-      After killing a Unit, you can move through obstacles* and enemy Units until the end of your Turn.
-    Upgrade: |
-      Justice has failed. Your oath was broken, your faith was betrayed, but you swore a new one: to hunt those who wronged you and make the world remember. You will bring justice, to the world and to yourself.
-    Notes: Obstacles* are not walls and ceilings.
-
-  ~Creed of the Sun~:   # Generic improvement
-    A: Passive
-    Tags: [Upgrade]
-    Bonuses:
-      Max Health: 4
-    Effect: |
-      You have +4 Max Health.
-      Whenever you inflict a non-Slam Status Effect, you can also Slam that Unit 1d6 meters away from you.
-      Whenever you Slam a Unit, they must choose to be Blinded, Lagged, or Frailed.
-    Upgrade: |
-      You are the dawn that banishes despair. You ride with the light at your back and hope in your hand.
 
 
   # ------ Valor flexibility / hybridization ------
@@ -186,6 +195,9 @@ Ideas:
 
   ~Honorable Duel~:
     Effect: Each Combat, choose an Enemy. You deal +10% Damage against eachother.
+
+  ~Courageous Duel~:
+    Effect: Choose a Unit. You and it can only target* eachother.
 
   # ------ Normal options ------
 
@@ -455,7 +467,7 @@ Talents:
       Tags: [Protection, Movement (Valor)]
       Effect: |
         Use when another Unit within 2 meters would take Damage.
-        Reduce it by 1d4 and you take the incoming Damage instead of that Unit.
+        Gain a 1d4 Shielding and take the incoming Damage instead of that Unit.
 
         {Teal('After Status Effect:')} After blocking the Damage with the d4, Slam the attacker the same number of meters away from you.
       
@@ -530,70 +542,74 @@ Talents:
         {Teal('After Mass Damage:')} Heal an Ally for 1 for each {A}Action Point spent.
 
   Level 4 Class Talent:
-
-    ~Creed of the Crown~:  # Improves Movement and Gold Generation
-      _Value: 3
-      A: Special
-      Tags: [Defense, Gold]
+    ~Creed of the Crown~:
+      A: Passive
+      Cooldown: Once / Turn
+      Tags: [Movement, Gold]
       Effect: |
-        You serve the realm above all else. Your sword defends law, order, and your liege's will.
-
+        Your first moving* Act each Turn has its distance increased by 50%.
+        At the end of each Turn, gain {Gold}Gold equal to 100% the number of meters you moved this Turn.
         You are immune to being Slowed, Rooted, and to Hard Terrain.
-        At the end of your Turn, give yourself or an ally a Shielding equal to 50% and gain {Gold}Gold equal to 200% the number of meters you moved this Turn.
-    
-    ~Creed of the Rose~:  # Improves Healing and Shielding
-      _Value: 3
-      A: Special
-      Bonuses:
-        Max Health: 4
-      Tags: [Defense, Heal, Protection]
+      Upgrade: You serve the realm above all else. Your sword defends law, order, and your liege's will.
+      Notes: Moving* bonus accounts for Pushing or Slamming, too!
+
+    ~Creed of the Rose~:
+      A: Passive
+      Tags: [Healing]
       Effect: |
-        You are the knight of beauty and grace, a protector of the innocent, and a paragon of compassion.
+        All your Abilities that can Heal do the {Teal(After)} effect regardless of the previous Act.
+        Your Abilities that can Heal that don't have an {Teal(After)} effect at all have their ^Dice Upgraded^ to the next die type.
+      Upgrade: You are the knight of beauty and grace, a protector of the innocent, and a paragon of compassion.
+      Notes: Healing Abilities that have an {Teal(After)} effect that doesn't Heal ^do^ trigger their {Teal(After)} effect anyway.
 
-        You get +4 Max Health.
-        All your Healing or Shielding Abilities not done with Valor are automatically made with Valor.
-        If they were already done with Valor, they do +50% Healing or Shielding.
-
-    ~Creed of the Dragon~:  # Improves Damage + Combo (though not specified) + Resistance
-      _Value: 2.75
-      A: Special
+    ~Creed of the Dragon~:
+      A: Passive
       Requirement: Requires finding a dragon patron
       Tags: [Mass Damage, Defense]
       Effect: |
-        You swear your allegiance to an elder dragon you have encountered on your journey.
-        
         You take -50% Damage from that dragon's element Type.
-        When dealing Damage with an Ability that was cast With Valor, 50% of the main target's Damage is also dealt to all Units within 1 meter of the target (of your dragon's element Type).
+        All your Abilities' Ranges, areas, and distances increase by 2 meters, become of the dragon's element Type, and you deal +1d4 Mass Damage*.
+      Upgrade: You swear your allegiance to an elder dragon you have encountered on your journey.
+      Notes: If an effect or Ability manages to deal Mass Damage, it deals +1d4 to all affected Units.
 
     ~Creed of Vengeance~:   # Improves Status Effect + Buffs
       A: Special
       Requirement: Requires having been betrayed this Campaign, or having broken an oath
-      Tags: [Support, Status Effect (Hard)]
-      _Value: 2
+      Tags: [Damage, Initiative, Farming, Mobility]
       Effect: |
+        You gain 2 Hatred Positive Quirks of choice.
+        For each die rolled with Targeted Damage, gain 0.01 Initiative and 0.05 Damage or Healing on a chosen Ability permanently.
+        After killing a Unit, you can move through obstacles* and enemy Units until the end of your Turn.
+      Upgrade: |
         Justice has failed. Your oath was broken, your faith was betrayed, but you swore a new one: to hunt those who wronged you and make the world remember. You will bring justice, to the world and to yourself.
+      Notes: Obstacles* are not walls and ceilings.
 
-        Whenever you buff an Ally, also apply that buff to yourself.
-        Once per Ability, when applying a Status Effect to a Unit, it takes 1d4 Scourge Damage. Then another Unit within 2 meters of it must pass a {Might} Roll at least equal to your Highest Stat Roll or also be affected by that Status Effect and extra Scourge Damage.
-      Notes: The secondary Status Effect does not retrigger Creed of Vengeance.
-
-    ~Creed of the Sun~:   # Generic improvement
-      _Value: 2
-      A: Half-Action
-      Cooldown: Once / Combat
-      Replacement: Replaces Challenge of Arms
+    ~Creed of the Sun~:
+      A: Passive
       Tags: [Upgrade]
-      Duration: 1 minute
-      Range: 3 meters
+      Bonuses:
+        Max Health: 4
       Effect: |
-        ~Heal yourself for 1d8 and move up to 1d4 meters~.
-        Deal ~1d12~ Fire Damage to a Unit ~and Slow it~.
-
-        {Teal('With Valor:')} Do it again!
-        {Teal('Next:')} Any other Ability
+        You have +4 Max Health.
+        Whenever you inflict a non-Slam Status Effect, you can also Slam that Unit 1d6 meters away from you.
+        Whenever you Slam a Unit, they must choose to be Blinded, Lagged, or Frailed.
       Upgrade: |
         You are the dawn that banishes despair. You ride with the light at your back and hope in your hand.
 
+    ~Creed of Steel~:
+      A: Passive
+      Effect: |
+        You can wear 2 Shields at the time, both on the same hand.
+        Whenever you block some Damage with a Shielding, save the blocked amount as _Steel Points_, or give 50% of the blocked amount as a Shielding to an Ally you can see.
+        _Steel Points_ may last until the end of the Adventure.
+      Subspells:
+        ~Rebuke~:
+          A: Half-Action
+          Range: 2 meters
+          Tags: [Damage]
+          Effect: |
+            {Teal('After Protection:')} Consume all _Steel Points_ to deal that much Damage of your Shield's Damage Type.
+          Notes: If your Shield has multiple Damage Type reductions, you can choose. If it has no Damage Type reducion, it's Smash Damage.
 
 # New: Trigger Combo, Trap, Elemental Damage, Summon
   Level 5 Class Talent:
@@ -617,6 +633,12 @@ Talents:
         Effect: |
             Remove all your party members' Exhaustion (from any source).
             If they were Exhausted from lack of sleep, they can resist sleep Exhaustion for 8 more hours.
+
+    ~Renown~:
+      A: Passive
+      Effect: |
+        Each Adventure, the first time you enter each Worthy* friendly hub you didn't start in, gain 100 {Gold} and you have +1 to {Charisma} Checks.
+      Notes: A friendly hub is a town or city where there are other non-player characters. It's considered Worthy if you didn't enter it specifically to only gain the 100 {Gold}Gold.
 
   Level 7 Class Talent:
 
