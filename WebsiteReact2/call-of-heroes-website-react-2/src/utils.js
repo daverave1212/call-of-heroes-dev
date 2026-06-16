@@ -40,12 +40,6 @@ export function parseAndNormalizeSpell(spell, options={
     variantIndex: 0
 }) {
 
-    if (spell.Name?.includes('Spectral')) {
-        console.log(`🕵️‍♀️🕵️‍♀️ We definitely here`)
-    } else {
-        console.log(`🤶 IT WAS NOT THE SAME SPELL`)
-    }
-
     const { isItem=false, variantIndex=0 } = options
     const spellModified = {...spell}
     
@@ -1576,6 +1570,15 @@ export function objectToArray(obj, parentKey="parentKey") {
     return Object.entries(obj).map(([key, value]) => ({...value, [parentKey]: key}))
 }
 window.objectToArray = objectToArray
+
+/*  Passives:                   Passives:
+        Basic Magic: ...    ->      - Basic Magic: ...
+        Resistances: ...            - Resistances: ...
+
+*/
+export function objectToObjectArray(obj) {
+    Object.entries(obj).map(([key, value]) => ({ [key]: value }))
+}
 export function groupBy(arr, hashFunc) {
     const hashKey_ArrayValue_Pairs = {}
     for (const elem of arr) {

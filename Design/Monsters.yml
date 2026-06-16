@@ -219,52 +219,6 @@ Cultist:
     She needs the help of the Players.
     But to do so, the Players must infiltrate the Cult or help her find out more about their leader.
     They will need to kill the local leader; thus, a friendship might be made with the ex-Cultist.
-
-Kobold:
-  Type:         Person, Beast
-  Experience:   100
-  Stats:        -2/4/0/1/0
-  Health:       20
-  HPCoef:       0.65
-  Speed:        6
-  Initiative:   9
-  Abilities:
-    - Melee Weapon:
-        Damage: 1d6
-        Pin Down: 1d10 instead if the target is near a wall or obstacle.
-    - Ranged Weapon:
-        Damage: 1d8
-    - Opportunity Attack:
-        A: Reaction
-        Effect: When a Unit exist the melee range of a Kobold, attack it with the weapon.
-    - Quick Attack:
-        A: Half-Action
-        Cooldown: Once / Turn
-        Damage: 1d4
-  Passives:
-    - Sidestep: The first time a Kobold would be affected by a negative thing in Combat, if it makes sense, it completely dodges and avoids it it (unless it's a mind spell, or is unavoidable like Heat Metal; apply common sense; if in doubt, assume it's unavoidable).
-    - Darkvision: Can see in the dark.
-    - Trap Knowledge: Can automatically avoid traps laid by them and have +5 to detecting traps.
-  Avoids AoE: Yes
-  Lore: |
-    Kobolds are annoying rascals that always dodge the first attack on them.
-    They are feral animal-like creatures that can be found in all corners of the world.
-  Behavior: |
-    Kobolds run away after they finish attacking if they can.
-    Kobolds prefer to ambush adventurers and fight in the dark.
-  Pair: |
-    Pair with Bannermen, Camazots.
-    For stronger encounters, Kobolds might ride on Rust Roaches.
-  Suggested Obstacles:
-    - Tripwires
-    - Pits
-    - Drop Traps (dropping logs, rocks, etc)
-    - Pressure Plates
-    - Poison Vases
-    - Oil Spills, Rocks
-  Monster Data: First hit always misses
-  Role: Main Enemy
-  Variants: None
   
 Morloc:
   Type:         Person
@@ -1227,17 +1181,20 @@ Lion:
   Experience:   225
   Stats:        3/5/-1/2/4
   Health:       65
-  HPCoef:       1
-  Speed:        6
+  HPCoef:       0.9
+  Speed:        4
   Initiative:   2
   Abilities:
     - Claws/Bite:
         A: Half-Action
         Damage: 1d6
-        Rip: After attacking, this does +1 Damage for the rest of the Combat (stacks indefinitely).
+        Rip: After attacking, the target takes +1 Damage for the rest of the Combat (stacks indefinitely).
+  Passives:
+    - Tearing Bites: If an attack did at least 8 Damage, the target must choose to be Rooted or further take +1 Damage this Comabt.
+    - L Movers: Lions move in the shape of an L, like Chess Knights.
   Avoids AoE: No
   Behavior: |
-    Use this as a standard Large animal.
+    None
   Suggested Obstacles:
     None
   Monster Data: No tactic, mid HP, no gimmick
@@ -1865,7 +1822,7 @@ Troglodyte:
   Stats:        1/2/0/3/0
   Health:       1
   Defense:      0
-  HPCoef:       0.80
+  HPCoef:       0.7
   Speed:        5
   Initiative:   Other
   Abilities:
@@ -1877,23 +1834,33 @@ Troglodyte:
         Range: 5 meters
         Special: Poison
         Damage: Auto
-        Effect: Target is covered in feces until cleaned with 1 Action Point. When all Heroes are covered in feces, a new extra monster appears (e.g. Wild Fungus, Bat Swarm, Rat, Camazot, Troglodyte, etc). Then all Heroes become clean again.
+        Effect: |
+          Target is covered in feces until cleaned with 1 Action Point.
+          
+          When all Heroes are covered in feces, a new extra monster appears (e.g. Wild Fungus, Bat Swarm, Rat, Camazot, Troglodyte, etc). Then all Heroes become clean again.
   Passives:
     - Move With Them: Troglodytes have no base Setback. One Troglodyte moves after a player finishes their Turn (if it hasn't already). All remaining Troglodytes take their Turn at the end of the Round.
-    - Radioactive: At the end of every Round, all non-Troglodyte Units take Damage equal to that Round number.
+    - Sidestep: |
+        The first time a Troglodyte would be affected by a negative effect, if it makes sense, it completely dodges and avoids it.
+    
+        Unless it's a mind spell, or is unavoidable like Heat Metal; apply common sense.
     - Immunities: Immune to Poison Damage and being Blinded.
   Avoids AoE: No
   Behavior: None
   Lore: People will often feel ill from an unknown cause as they approach a Troglodyte lair due to the radiation emanated and toxic fumes of their bodily substances.
-  Suggested Obstacles:
-    - Poison Vase
-    - Toxic Fog
-    - Pits, Traps
-    - Caltrops
   Monster Data: No tactic, mid HP, no gimmick
   Role: Main Enemy
   Variants: None
-  Story Ideas: None
+  Story Ideas: |
+    Pair with Bannermen, Camazots.
+    For stronger encounters, Troglodytes might ride on Centipedes.
+  Suggested Obstacles:
+    - Tripwires
+    - Pits
+    - Drop Traps (dropping logs, rocks, etc)
+    - Pressure Plates
+    - Poison Vases
+    - Oil Spills, Rocks
   Loot: None
 
 

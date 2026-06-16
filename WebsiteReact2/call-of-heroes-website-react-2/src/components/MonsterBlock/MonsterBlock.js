@@ -30,6 +30,7 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
 
     const abilities = monster.Abilities.filter(a => U.getOnlyValue(a)?.IsUltimate != true)
     const ultimateAbilities = monster?.Abilities?.filter(a => U.getOnlyValue(a)?.IsUltimate)
+    const passives = monster.Passives == null? null: U.isObject(monster.Passives)? U.objectToObjectArray(monster.Passives): monster.Passives
 
     const monsterStats   = getMonsterStatsAsObject(monster.Stats)
     const statOtherColor = 'rgb(55, 10, 85)'
@@ -219,7 +220,7 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
                     </div>
 
                     <div>
-                        { monster.Passives != null && monster.Passives.map((ability, i) => (
+                        { passives && passives.map((ability, i) => (
                             <MonsterAbility monster={monster} monsterXP={monsterTotalXP} ability={ability} key={i} isPassive={true} style={maybeElderStyle}/>
                         )) }
                     </div>

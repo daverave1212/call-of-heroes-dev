@@ -2202,6 +2202,8 @@ export function createMagicItem(xp, itemType, rng=standardRNG) {
     if (tintColor != null) {
         baselineItem.TintColor = tintColor
     }
+
+    baselineItem.HasExportButton = true
     
     // console.log({baselineItem})
     // console.green(`Returning ${baselineItem.Name}!`)

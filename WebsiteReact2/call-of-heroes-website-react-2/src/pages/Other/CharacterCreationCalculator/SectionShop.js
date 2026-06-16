@@ -86,8 +86,8 @@ export default function SectionShop() {
         const newInventory = inventory.endsWith('\n')? inventory + cartItemsText: (inventory + '\n' + cartItemsText)
         setInventory(newInventory.trim())
         setGold(gold - totalPrice)
-        setWeaponNames(cartWeaponNames)
-        setArmorNames(cartArmorNames)
+        setWeaponNames([...weaponNames, ...cartWeaponNames])
+        setArmorNames([...armorNames, ...cartArmorNames])
         clearCart()
     }
 

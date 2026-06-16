@@ -2,7 +2,7 @@
 import './Spell.css'
 import Separator from './../Separator/Separator'
 import { useEffect, useRef, useState } from 'react'
-import { parseTextWithSymbols, stringReplaceAllMany, getSpellIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll, getVariantsForEachCollection, createKey, spellsFromObject, randomInt, assertCorrectSpellFormat, findBasicSpellByName, allEqual, getItemIconPathByName, removeTildes, isString, getDoubleTableTable, getDoubleTableNumberedTable, filterObject, getSpellValidTopStatsObject, hasSpellVariants, getNormalizedSpellName, getSpellOrItemIconPath, parseAndNormalizeSpell, hexColorToRgbVector, getSpellByName, SYMBOLS, isNumber } from '../../utils'
+import { parseTextWithSymbols, stringReplaceAllMany, getSpellIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll, getVariantsForEachCollection, createKey, spellsFromObject, randomInt, assertCorrectSpellFormat, findBasicSpellByName, allEqual, getItemIconPathByName, removeTildes, isString, getDoubleTableTable, getDoubleTableNumberedTable, filterObject, getSpellValidTopStatsObject, hasSpellVariants, getNormalizedSpellName, getSpellOrItemIconPath, parseAndNormalizeSpell, hexColorToRgbVector, getSpellByName, SYMBOLS, isNumber, copyToClipboardAsync } from '../../utils'
 import TableNormal from '../TableNormal/TableNormal'
 import html2canvas from 'html2canvas'
 import CopySpellButton from '../CopyButton/CopySpellButton'
@@ -271,10 +271,19 @@ export default function Spell({
         return <div>ERROR: null spell given to component Spell.</div>
     }
 
+    if (metadata == null) {
+        metadata = spell.metadata
+    }
     const baseVariantIndex = metadata?.variantIndex ?? spell.DefaultVariantIndex ?? 0
 
     const [variantIndex, setVariantIndex] = useState(baseVariantIndex)
     const [thiefRolledGoldAmount, setThiefRolledGoldAmount] = useState('Click here to roll 1000d100!')
+    const [exportButtonState, setExportButtonState] = useState({
+        style: {
+            backgroundColor: null
+        },
+        text: 'Export to Clipboard'
+    })
 
     assertCorrectSpellFormat(spell)
 
@@ -298,7 +307,8 @@ export default function Spell({
         RollThiefGold,
         HasSpellTableNumbers,
         SpellTable,
-        Tags
+        Tags,
+        HasExportButton
     } = spell
 
     const parsedSpell = spell.IsAlreadyParsed? spell: parseAndNormalizeSpell(spell, {
@@ -358,6 +368,35 @@ export default function Spell({
             nextVariantIndex =  Variants.length - 1
         }
         setVariantIndex(nextVariantIndex)
+    }
+    async function exportToClipboard() {
+        try {
+            const spellToExport = { ...spell, metadata }    // Encapsulate the metadata within the spell, if any
+            const spellJSON = JSON.stringify(spellToExport)
+            await copyToClipboardAsync(spellJSON)
+            setExportButtonState({
+                style: {
+                    backgroundColor: 'green'
+                },
+                text: '✔ Copied to Clipboard'
+            })
+        } catch (e) {
+            console.error(e)
+            setExportButtonState({
+                style: {
+                    backgroundColor: 'red'
+                },
+                text: 'Error'
+            })
+        }
+        setTimeout(() => {
+            setExportButtonState({
+                style: {
+                    backgroundColor: null
+                },
+                text: 'Copy to Clipboard'
+            })  
+        }, 3500)
     }
 
 
@@ -478,6 +517,17 @@ export default function Spell({
                         Alternatives: { Alternatives }
                     </div>
                 ) }
+                { HasExportButton === true && <div className='center-content'>
+                    <button
+                        onClick={exportToClipboard}
+                        style={{
+                            ...exportButtonState.style,
+                            maxWidth: '50%'
+                        }}
+                    >
+                        {exportButtonState.text}
+                    </button>
+                </div> }
                 { hasCopyButton === true && <CopySpellButton elementId={uniqueID} shouldAddBorder={true}/> }
                 { hasButton && (
                     <div>

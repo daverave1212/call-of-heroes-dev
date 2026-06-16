@@ -58,6 +58,7 @@ function getNewCharacterTemplate() {
         inventory: '',
         weaponNames: [],
         armorNames: [],
+        magicItems: [], // Objects array
         
         gold: 1000,
         shopCart: [],
@@ -322,6 +323,16 @@ export function setArmors(obj) {
     return setLocalStorageJSON('character.armorNames', obj)
 }
 
+export function useMagicItems() {
+    return useCharacterLocalStorageState('magicItems', [])
+}
+export function getMagicItems() {
+    return getLocalStorageJSON('character.magicItems')
+}
+export function setMagicItems(arr) {
+    return setLocalStorageJSON('character.magicItems', arr)
+}
+
 // Tracking
 export function useCurrentMana() {
     return useCharacterLocalStorageState('currentMana')
@@ -361,11 +372,18 @@ export function useConstAllMyAbilities() {
     return [...rcSpells, ...selectedAbilities].filter(spell => spell != null)
 }
 export function useConstAllSkillBonuses() {
+    const [_magicItems] = useMagicItems()
+    const magicItems = _magicItems ?? []
     const abilities = useConstAllMyAbilities()
     const [manualSkillBonuses, _] = useManualSkillBonuses()
+    
     const spellsWithSkillObjects = abilities.filter(a => a?.['Skill Bonuses'] != null && !Array.isArray(a?.['Skill Bonuses']))
+    const itemsWithSkillBonuses = magicItems.filter(a => a?.['Skill Bonuses'] != null && !Array.isArray(a?.['Skill Bonuses']))
+    
     const allSpellSkillsObject = addManyObjects(spellsWithSkillObjects.map(s => s['Skill Bonuses']))
-    const allSkillsObject = addObjects(allSpellSkillsObject, manualSkillBonuses)
+    const allItemsSkillsObject = addManyObjects(itemsWithSkillBonuses.map(i => i['Skill Bonuses']))
+    
+    const allSkillsObject = addManyObjects([allSpellSkillsObject, manualSkillBonuses, allItemsSkillsObject])
     // console.log({abilities, spellsWithSkillObjects, allSpellSkillsObject, allSkillsObject})
     return allSkillsObject
 }

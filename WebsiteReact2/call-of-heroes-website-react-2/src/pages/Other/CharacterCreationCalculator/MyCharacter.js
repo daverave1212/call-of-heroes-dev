@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
-import { getAllClasses, getAlMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getExtrasFromSpells, isString, spellsFromObject, useLocalStorageState, hasClassMana, getAllWeaponsByName, getAllArmorsByName, addObjects, getSpellReplacementName, reverseObject, addManyObjects, getSpellIconPathByName, addArrays, withToggledElement, getNumberDecimalsString, getNumberPartsString, filterObject, maybeWithPlus, mapObject, isNumber, sum, SortSpellsBy, copyToClipboardAsync } from "../../../utils"
+import { getAllClasses, getAlMyRaceAndClassSpells, getAllRaces, getAllSpellsByName, getExtrasFromSpells, isString, spellsFromObject, useLocalStorageState, hasClassMana, getAllWeaponsByName, getAllArmorsByName, addObjects, getSpellReplacementName, reverseObject, addManyObjects, getSpellIconPathByName, addArrays, withToggledElement, getNumberDecimalsString, getNumberPartsString, filterObject, maybeWithPlus, mapObject, isNumber, sum, SortSpellsBy, copyToClipboardAsync, pasteFromClipboardAsync, normalizeStringJSON, isStringJSON } from "../../../utils"
 import ManySpells, { SpellSortTypes } from "../../../components/Spell/ManySpells"
 import PageH2 from "../../../components/PageH2/PageH2"
 import TextArea from "../../../components/TextArea/TextArea"
 import Icon from "../../../components/Icon"
 import Input from "../../../components/Input/Input"
-import { getChoiceAbilitiesObjects, getCurrentCharacterFromLocalStorage, useAllSpellsMetadata, useArmors, useConstAllMyAbilities, useConstAllSkillBonuses, useConstAllSpecialBonusesNames, useConstAutoSkillBonuses, useCurrentHealth, useCurrentMana, useDescription, useGold, useInventory, useLanguages, useLevel, useManualBonuses, useManualCombatExtras, useManualNormalExtras, useManualSkillBonuses, useMaxMana, useQuickNotes, useSectionClassName, useSectionClassSpecName, useSectionNamesState, useSectionRaceName, useSectionStatsState, useSkills, useWeapons } from "./CharacterData"
+import { getChoiceAbilitiesObjects, getCurrentCharacterFromLocalStorage, useAllSpellsMetadata, useArmors, useConstAllMyAbilities, useConstAllSkillBonuses, useConstAllSpecialBonusesNames, useConstAutoSkillBonuses, useCurrentHealth, useCurrentMana, useDescription, useGold, useInventory, useLanguages, useLevel, useMagicItems, useManualBonuses, useManualCombatExtras, useManualNormalExtras, useManualSkillBonuses, useMaxMana, useQuickNotes, useSectionClassName, useSectionClassSpecName, useSectionNamesState, useSectionRaceName, useSectionStatsState, useSkills, useWeapons } from "./CharacterData"
 import SmallStat from "../../../components/SmallStat/SmallStat"
 import ManySmallStats from "../../../components/SmallStat/ManySmallStats"
 import { askConfirmation } from "../../../services/MessageDisplayer"
@@ -118,6 +118,7 @@ export default function MyCharacter() {
     let [inventory, setInventory] = useInventory()
     let [weaponNames] = useWeapons()
     let [armorNames, setArmorNames] = useArmors()
+    let [magicItems, setMagicItems] = useMagicItems()
     let [gold, setGold] = useGold()
     
     // let [selectedSkillNames] = useSkills()
@@ -167,8 +168,10 @@ export default function MyCharacter() {
     const selectedClassObj = selectedClassName == null? null: getAllClasses()[selectedClassName]
     const maxMana = selectedClassName == null? 1: calculateBaseMaxManaByLevel(level, selectedClassName)
     const attributes = calculateAllAtributes({ raceName: selectedRaceName, className: selectedClassName, level, totalStats, bonuses, specialBonusNames })
-    // const extraAPOnFirstRound = calculateExtraFirstTurnAPByInitiative(attributes[INITIATIVE])
-    // const extraAPOnFirstRoundString = extraAPOnFirstRound < 0? extraAPOnFirstRound: ('+' + extraAPOnFirstRound)
+
+    if (allMyArmors?.length == 0) {
+        attributes[MOVEMENT_SPEED] += 0.5
+    }
 
     const initiativeDisplay = maybeMakeFractionGray(attributes[INITIATIVE])
     const movementDisplay = maybeMakeFractionGray(attributes[MOVEMENT_SPEED])
@@ -176,6 +179,17 @@ export default function MyCharacter() {
     // console.log({attributes})
 
 
+    async function importItem() {
+        const itemJSON = normalizeStringJSON(await pasteFromClipboardAsync())
+        console.green(`Trying to load item: ${itemJSON}`)
+
+        if (!isStringJSON(itemJSON)) {
+            alert('Failed to load item from clipboard: not a valid JSON.')
+        }
+
+        const item = JSON.parse(itemJSON)
+        setMagicItems([...magicItems, item])
+    }
     async function exportCharacter() {
         const char = getCurrentCharacterFromLocalStorage()
         const charJSON = JSON.stringify(char)
@@ -492,6 +506,12 @@ export default function MyCharacter() {
 
             <div id="My-Weapons">
                 <ManySpells className="margin-top-1" spells={allMyWeapons} areItems={true} shouldIgnoreAlignment={true}/>
+            </div>
+            <div id="My-Magic-Items">
+                <ManySpells className="margin-top-1" spells={magicItems} areItems={true} shouldIgnoreAlignment={true}/>
+            </div>
+            <div className="flex row gap-1 center-content">
+                <button onClick={importItem}>Import Item from Clipboard</button>
             </div>
 
             
