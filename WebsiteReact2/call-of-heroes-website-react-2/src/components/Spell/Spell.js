@@ -258,10 +258,11 @@ export default function Spell({
     hasCopyButton=true,
     showTopStats=true,
     showTop=true,
-    
+
     isSelected=false,
     canChangeVariant=true,
     onClick,
+    onXClick,
     buttonText,
     
     metadata
@@ -414,6 +415,10 @@ export default function Spell({
             { isSelected && <Ribbon>Selected!</Ribbon>}
             { hasBorder && <div className='spell-border'></div> } 
             <div className='spell-background'></div>
+
+            { onXClick && <div className='x-button' onClick={() => onXClick(spell)}>
+                ×
+            </div> }
 
             <div className='content'> {/* This has CSS to be perfectly in the bounds of the borders and banner */}
                 { showTop != false && (<>

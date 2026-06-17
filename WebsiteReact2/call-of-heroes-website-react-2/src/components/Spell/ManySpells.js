@@ -13,7 +13,7 @@ export const SpellSortTypes = {
     ACTION_POINTS: 'action points'
 }
 
-export default function ManySpells({ id, className, spells, spellStyle, description, selectedSpellNames, onSpellClick, spellsMetadata={}, areItems=false, buttonText, childrenLeft, childrenRight, shouldSort=true, shouldAlignByHeight=true, hasCopyButton=false, sortCriteria=null }) {
+export default function ManySpells({ id, className, spells, spellStyle, description, selectedSpellNames, onSpellClick, spellsMetadata={}, areItems=false, buttonText, childrenLeft, childrenRight, shouldSort=true, shouldAlignByHeight=true, hasCopyButton=false, sortCriteria=null, onXClick=null }) {
 
     if (hasCopyButton && id == null) {
         console.error(`ManySpells has copy button but id is ${id}`)
@@ -50,6 +50,7 @@ export default function ManySpells({ id, className, spells, spellStyle, descript
                             onClick={onSpellClick} buttonText={buttonText}
                             isSelected={isSelected(spell)}
                             metadata={spellsMetadata[spell.Name] ?? null}
+                            onXClick={onXClick}
                         />
                     }
                 })}
@@ -81,6 +82,7 @@ export default function ManySpells({ id, className, spells, spellStyle, descript
                 onClick={onSpellClick} buttonText={buttonText}
                 isSelected={isSelected(spell)}
                 metadata={spellsMetadata[spell.Name] ?? null}
+                onXClick={onXClick}
             />) }
             <SpellColumns/>
             { hasCopyButton && <CopySpellButton elementId={id}/>}

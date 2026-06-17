@@ -5,7 +5,7 @@ import PageH2 from "../../../components/PageH2/PageH2"
 import TextArea from "../../../components/TextArea/TextArea"
 import Icon from "../../../components/Icon"
 import Input from "../../../components/Input/Input"
-import { getChoiceAbilitiesObjects, getCurrentCharacterFromLocalStorage, useAllSpellsMetadata, useArmors, useConstAllMyAbilities, useConstAllSkillBonuses, useConstAllSpecialBonusesNames, useConstAutoSkillBonuses, useCurrentHealth, useCurrentMana, useDescription, useGold, useInventory, useLanguages, useLevel, useMagicItems, useManualBonuses, useManualCombatExtras, useManualNormalExtras, useManualSkillBonuses, useMaxMana, useQuickNotes, useSectionClassName, useSectionClassSpecName, useSectionNamesState, useSectionRaceName, useSectionStatsState, useSkills, useWeapons } from "./CharacterData"
+import { getChoiceAbilitiesObjects, getCurrentCharacterFromLocalStorage, setWeapons, useAllSpellsMetadata, useArmors, useConstAllMyAbilities, useConstAllSkillBonuses, useConstAllSpecialBonusesNames, useConstAutoSkillBonuses, useCurrentHealth, useCurrentMana, useDescription, useGold, useInventory, useLanguages, useLevel, useMagicItems, useManualBonuses, useManualCombatExtras, useManualNormalExtras, useManualSkillBonuses, useMaxMana, useQuickNotes, useSectionClassName, useSectionClassSpecName, useSectionNamesState, useSectionRaceName, useSectionStatsState, useSkills, useWeapons } from "./CharacterData"
 import SmallStat from "../../../components/SmallStat/SmallStat"
 import ManySmallStats from "../../../components/SmallStat/ManySmallStats"
 import { askConfirmation } from "../../../services/MessageDisplayer"
@@ -116,7 +116,7 @@ export default function MyCharacter() {
     let [description, setDescription] = useDescription()
     let [quickNotes, setQuickNotes] = useQuickNotes()
     let [inventory, setInventory] = useInventory()
-    let [weaponNames] = useWeapons()
+    let [weaponNames, setWeaponNames] = useWeapons()
     let [armorNames, setArmorNames] = useArmors()
     let [magicItems, setMagicItems] = useMagicItems()
     let [gold, setGold] = useGold()
@@ -245,14 +245,21 @@ export default function MyCharacter() {
         })
     }
     function changeSkill(name) {
-        setStatDialogOptions({
+        const isBonusFromOtherSource = !(name in manualSkillBonuses)
+        if (isBonusFromOtherSource) {
+            manualSkillBonuses[name] = 0
+        }
+
+        const dialogOptions = {
             defaultInputValue: null,
             defaultNumberValue: manualSkillBonuses[name],
             onDone: ({ value }) => setManualSkillBonuses({
                 ...manualSkillBonuses,
                 [name]: value
             })
-        })
+        }
+        console.log({dialogOptions})
+        setStatDialogOptions(dialogOptions)
     }
     function addNormalExtra() {
         setStatDialogOptions({
@@ -505,10 +512,18 @@ export default function MyCharacter() {
             </div>
 
             <div id="My-Weapons">
-                <ManySpells className="margin-top-1" spells={allMyWeapons} areItems={true} shouldIgnoreAlignment={true}/>
+                <ManySpells className="margin-top-1" spells={allMyWeapons} areItems={true} shouldIgnoreAlignment={true} onXClick={(item) => {
+                    if (confirm(`Are you sure you want to remove ${item.Name}?`)) {
+                        setWeaponNames(weaponNames.filter(wn => wn != item.Name))
+                    }
+                }}/>
             </div>
             <div id="My-Magic-Items">
-                <ManySpells className="margin-top-1" spells={magicItems} areItems={true} shouldIgnoreAlignment={true}/>
+                <ManySpells className="margin-top-1" spells={magicItems} areItems={true} shouldIgnoreAlignment={true} onXClick={(item) => {
+                    if (confirm(`Are you sure you want to remove ${item.Name}?`)) {
+                        setMagicItems(magicItems.filter(mi => mi.Name != item.Name))
+                    }
+                }}/>
             </div>
             <div className="flex row gap-1 center-content">
                 <button onClick={importItem}>Import Item from Clipboard</button>
