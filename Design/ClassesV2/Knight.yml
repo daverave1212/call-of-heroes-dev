@@ -564,7 +564,7 @@ Talents:
   Level 5 Class Talent:
 
     ~Inevitable Cataclysm~:
-      Value: 5.5  # 3 Damage + 2.5 AoE
+      Value: 5.5  # Best case scenario: 3 Damage + 2.5 AoE
       A: 3 Action Points
       Cooldown: Once / Adventure
       Requirement: Can't be used on the first Round
@@ -572,15 +572,61 @@ Talents:
       Effect: |
         You declare war on your enemy, and wait for the perfect moment to obliterate them.
 
-        Choose a Unit you can see. At the start of your next Turn, you jump to them and strike them with your weapon for 5d12 Damage of your weapon's type. The impact ripples to Units within 5 meters, and each Unit caught takes 1 die less of the result per meter away from the main target. The Quest Master chooses which die to drop per meter.
+        Choose a Unit you can see. At the start of your next Turn, you jump to them and strike them with your weapon for 5d10 Damage of your weapon's type. The impact ripples to Units within 2 meters, and each Unit caught takes 1 die less of the result per meter away from the main target. The Quest Master chooses which die to drop per meter.
 
-        {Teal('After Targeted Damage:')} 
-        {Teal('After Heal:')} 
+        {Teal('After Targeted Damage:')} Ripples to Units within up to 5 meters, and Allies hit take -50% Damage.
+        {Teal('After Heal:')} Damage increases to 5d12
 
       Notes: If the main target took 7, 8, 9, 10, and 11 Damage on the dice, then Units 1 meter away may take 8, 9, 10, and 11 if the Quest Master decides to drop the lowest die. Units 2 meters away take 8, 9, and 10 if the Quest Master decides to drop the highest die. And so on.
 
+    <Peasant! I Choose You!>:
+      _Value: 3.5
+      A: 10 minutes or more (depends)
+      Cost: 2d10 Health
+      AlignOnWebsite: Left
+      Effect: |
+        You recruit a trusted beginner adventurer non-player character as a follower. It starts out with one _improvement_ from below, whichever makes sense for that person, or random. It has -1, 0, 0, 1 distributed among the Stats.
+        It acts on your Turn and has 2 {A}Action Points per Turn. At the end of every Worthy Combat, if the follower dealt and took Damage, it gains 1 XP, which it can spend to buy _improvements_ it chooses.
+        Only one can follow you in your journeys at a time.
+      Upgrade: Followers obey Hero rules for death and being Fallen. However, followers have no Health Regen, and instead replenish 50% of their Max Health at the end of each of your Adventures.
+      Notes: Your follower can get the same improvement multiple times, unless it's unique. It is not a Hero by any means and does not behave like one (it can't use Weapons, Armor, Feats, Abilities, etc like a Hero). It is limited to what its stat block and Abilities say it can do. You can, however, give it orders, customize its looks (hair style, clothes, etc) and it will obey your commands within reason. You are the leader it looks up to. Lead proudly and fairly!
+      HasSpellTableNumbers: true
+      SpellTable:
+        - Name: Healthy {XP}1
+          Effect: +2 {Health}Health
+        - Name: Speedy {XP}2
+          Effect: +1 Movement Speed
+        - Name: Rangey {XP}2
+          Effect: +1 Range on all attacks and Abilities
+        - Name: Tanky {XP}2
+          Effect: Gain a 1d4 Shielding at the start of each Combat.
+        - Name: Bashy (Unique) {XP}2
+          Effect: '{CriticalStrike} if it rolled 6, Single-Stun the target.'
+        - Name: Slashy {XP}2
+          Effect: '{CriticalStrike} if it rolled 6, +1 Damage.'
+        - Name: Flanky {XP}2
+          Effect: Flank attacks deal +1 Damage.
+        - Name: Sneaky (Unique) {XP}2
+          Effect: Follower can't be targeted on the first Round.
+        - Name: Witchy {XP}2
+          Effect: When you get this, choose a Damage Type. Can freely change attack Damage to that type.
+        - Name: Lighty {A}1 Action Point {Cooldown}Once / Adventure (Unique) {XP}3
+          Effect: Blind a Unit within 2 meters.
+        - Name: Healy {A}1 Action Point {Cooldown}Once / Adventure {XP}3
+          Effect: Heal a Unit within 2 meters for 1d6.
+      Monster:
+        Name: Follower
+        Health: 200% of your Level
+        Speed: 4 meters
+        Abilities:
+          Attack:
+            A: 1 Action Point
+            Cooldown: Once / Turn
+            Damage: 1d6 (of weapon type)
+            Weaponize: Can be equipped with any magic weapon and benefit from its magic passive effects (e.g. not Critical Strikes). Damage does not increase.
+
     ~Knight's Corral~:
-      _Value: 5.5 # 3 Slam + 2.5 Heal
+      _Value: 5.5 # Best case scenario: 3 Slam + 2.5 Heal
       A: 0 Actions
       Range: 3 meters
       Cooldown: Once / Adventure
@@ -588,14 +634,14 @@ Talents:
       Effect: |
         You make your surrounding area impossible to tresspass, except for your challenger of choice.
 
-        Choose a Worthy Enemy. All other Units within 4 meters of either of you are Slammed 5d4 meters away from between you. Until the start of your next Turn, no other Units can willingly come within 3 meters of either of you, and for the rest of the Combat, you both Heal for 200% of the Round number at the start of each Worthy Round.
+        Choose a Worthy Enemy. All other Units within 4 meters of either of you are Pushed 3d4 meters away from between you. Until the start of your next Turn, no other Units can willingly come within 3 meters of either of you, and for the rest of the Combat, you both Heal for 100% of the Round number at the start of each Worthy Round.
 
-        {Teal('After Mass Damage:')} 
-        {Teal('After Targeted Damage:')} 
+        {Teal('After Mass Damage:')} +1d4 and +100% Healing you two receive from this.
+        {Teal('After Targeted Damage:')} +1d4 and Pushing becomes Slamming instead.
       Notes: Units can't willingly enter the zone. If a Unit somehow gets in, they can't willingly move closer to either of them.
 
     ~Liege's Banner~:
-      _Value: 4  # 1.25 AoE + 1 Heal per throw + 2.5 Protection (-2.25 potentially for an enemy)
+      _Value: 4  # Best case scenario: 1.25 AoE + 1 Heal per throw + 2.5 Protection (-2.25 potentially for an enemy)
       A: Half-Action
       IconName: Banner of Honor
       Requirement: Can't be used on the first Round
@@ -605,12 +651,13 @@ Talents:
       Effect: |
         You detach your banner, and raise it above the battlefield, ready to throw it.
 
-        Throw your special banner onto a place on the battlefield, dealing 3d6 Pierce Damage to Units within 1 meter of its landing point and Healing the thrower for 1d8. The banner has 15 Max Health and absorbs all Damage the Knight's allies take.
+        Throw your special banner onto a place on the battlefield, dealing 2d6 Pierce Damage to Units in a 2x2 meter area around its point and Healing the thrower for 1d4. The banner has 10 Max Health and absorbs all Damage the Knight's allies take.
 
-        {Teal('After Heal:')} 
-        {Teal('After Mass Damage:')} 
-      Upgrade: Anyone can use 1 {A}Action Point to pick up the banner and throw it again!
+        {Teal('After Heal:')} Damage becomes 3d6 and area increases to 3x3.
+        {Teal('After Mass Damage:')} The banner's Health becomes 15 and Heal increases to 1d8.
+      Upgrade: Anyone can use 1 {A}Action Point to pick up the banner and throw it again, with the first throw's {Teal('After Valor')} effects!
       Notes: You must spend 50 {Gold}Gold to craft the special banner, and you must draw a picture of what it looks like.
+
 
   Level 6 - Utility Talent:
 
@@ -666,15 +713,15 @@ Talents:
       Cooldown: Once / Adventure
       Tags: [Ultimate, Heal, Movement, Protection]
       Effect: |
-        You prepare to decimate the meak and using their life force as fuel for your conquest.
+        You prepare to decimate the meek and using their life force as fuel for your conquest.
 
-        Your next attack charges you up to 5 meters towards the target, and heals you for all the Damage done. If it leaves the non-Epic Unit with 25% or less Health, further deals extra Damage equal to its current Health and the Damage type becomes True.
+        Your next attack propels you up to 5 meters towards the target, and heals you for 50% Damage done. If it leaves the non-Epic Unit with 25% or less Health, further deals extra Damage equal to its current Health and the Damage type becomes True.
 
-        {Teal('After Protection:')} 
-        {Teal('After Status Effect:')} 
+        {Teal('Status Effect:')} 100% Healing instead of 50%.
+        {Teal('After Protection:')} 50% Health execution instead of 25%.
 
     ~Damsel's Deliverance~:
-      _Value: 3.75 # +2.75 Damage + 0.5 Slam push + 0.5 Your movement
+      _Value: 7 # +4 Damage + 0.5 Slam push + 0.5 Your movement + 2 Slam Damage
       A: 1
       Requirement: Can't be used on the first Round
       Cooldown: Once / Adventure
@@ -683,14 +730,14 @@ Talents:
       Effect: |
         You lock eyes with a target, and prepare to take them into oblivion.
 
-        Charge towards the target, grab them, and dash with it away from your original position until you hit a non-Unit obstacle. On impact, it takes 9d6 Smash Damage.
+        Charge towards the target, grab them, and dash with it away from your original position until you hit a non-Unit obstacle. On impact, it takes 7d6 Smash Damage.
 
-        {Teal('After Movement:')} 
-        {Teal('After Protection:')} 
+        {Teal('After Movement:')} +3d6 Damage
+        {Teal('After Protection:')} Can now also collide with Units, and the impact Damage may work akin to Slamming a Unit into another.
       Notes: You grab the Unit and you both go flying, until you smash it into the first obstacle it collides with. If you reach 15 meters of uninterrupted dashing, you smash them into the ground and stop, dealing the Damage then and there.
 
     ~Divide and Conquer~:
-      _Value: 4.5 # +1 Damage + 1.5 Slam + 2 Shieldings
+      _Value: 6 # +1 Damage + 1.5 Slam + 2 Shieldings + 1 
       A: 2
       Requirement: Can't be used on the first Round
       Tags: [Ultimate, Mass Damage, Protection, Status Effect]
@@ -700,8 +747,8 @@ Talents:
 
         ALL Units in front of you take 4d8 Damage of your weapon's type and are Slammed back 1d8 meters. Each Unit behind you gains a 1d8 Shielding.
 
-        {Teal('After Status Effect:')} 
-        {Teal('After Movement:')} 
+        {Teal('After Status Effect:')} Units in the front also become Blinded.
+        {Teal('After Movement:')} Units in the back may make a free Movement on their next Turn.
 
     <Knight in Black>:
       A: Passive
