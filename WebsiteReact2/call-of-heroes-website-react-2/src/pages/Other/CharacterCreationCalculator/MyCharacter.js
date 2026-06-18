@@ -249,17 +249,14 @@ export default function MyCharacter() {
         if (isBonusFromOtherSource) {
             manualSkillBonuses[name] = 0
         }
-
-        const dialogOptions = {
+        setStatDialogOptions({
             defaultInputValue: null,
             defaultNumberValue: manualSkillBonuses[name],
             onDone: ({ value }) => setManualSkillBonuses({
                 ...manualSkillBonuses,
                 [name]: value
             })
-        }
-        console.log({dialogOptions})
-        setStatDialogOptions(dialogOptions)
+        })
     }
     function addNormalExtra() {
         setStatDialogOptions({

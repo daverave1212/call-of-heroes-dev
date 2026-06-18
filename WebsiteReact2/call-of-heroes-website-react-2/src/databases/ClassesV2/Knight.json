@@ -64,7 +64,7 @@
             "Creed of Vengeance": "Damage + You can move through obstacles",
             "Creed of Steel": "Protection + accumulate Damage from shieldings"
         },
-        "Level 5+ (in Sequence)": {
+        "Level 5+ (in Sequence)?": {
             "AoE": "goes into Protection",
             "Damage": "goes into Status",
             "Heal": "goes into Movement",
@@ -72,8 +72,33 @@
             "Status": "goes into Heal",
             "Protection": "goes into Damage"
         },
-        "Level 5+": [
-            "Whate other combos? probabily Prev is +1, next is +3? Does that work?"
+        "Level 5+ Ultimate Possibilities (any 3 of) (Sequence from first)": [
+            "AoE / Protection / Movement / Status",
+            "Damage / Status / Protection / Movement",
+            "Heal / Movement / Status / Protection",
+            "Movement / AoE / Heal / Damage",
+            "Status / Heal / Damage / AoE",
+            "Protection / Damage / AoE / Heal"
+        ],
+        "Level 5 Ultimates (Sequence from first)": [
+            {
+                "Big Slash": "AoE / Protection / ... / Status"
+            },
+            {
+                "Sett": "Damage / Status / ... / Movement"
+            },
+            {
+                "100% LS": "Heal / Movement / ... / Protection"
+            },
+            {
+                "RoI": "Movement / AoE / ... / Damage"
+            },
+            {
+                "Xin Zhao": "Status / Heal / ... / AoE"
+            },
+            {
+                "Banner": "Protection / ... / AoE / Heal"
+            }
         ],
         "Things I can give per higher Level Talent tier": [
             "More standard Abilities",
@@ -582,12 +607,112 @@
                 "Origin": "Class/Knight"
             }
         },
+        "Ideases": {
+            "AoE": "goes into Protection Deal more damage the more units it hits (line) In a cross Damage all Units until the target Slash ALL units in front of you on the battlefield Banner",
+            "Damage": "goes into Status Bolt that hits the first target hit",
+            "Heal": "goes into Movement Sacrifice Your next attack has 100% Lifesteal and dashes you.",
+            "Movement": "goes into AoE Drag a Unit with you You can split your movement",
+            "Status": "goes into Heal Slam all Units around you and a target, creating a clear path.",
+            "Protection": "goes into Damage Take and do -50% Damage until ally dies. Your next attack deals +200% Damage."
+        },
         "Level 5 Class Talent": {
-            "~No Matter What~": {
-                "_Value": 3,
-                "A": "Passive",
-                "Requirement": "Only applies in Worthy Combat",
-                "Effect": "At the end of your every Turn, heal for an amount equal to the Round Number.\n\n{Teal('With Valor:')} Also heals an Ally you can see\n{Teal('Next:')} TBD\n",
+            "~Divide and Conquer~": {
+                "_Value": 4.5,
+                "A": 2,
+                "Requirement": "Can't be used on the first Round",
+                "Tags": [
+                    "Ultimate",
+                    "Mass Damage",
+                    "Protection",
+                    "Status Effect"
+                ],
+                "Cooldown": "Once / Adventure",
+                "Effect": "You stomp your weapons into the ground and divide the battlefield.\n\n{Teal('After Heal:')} ALL Units in front of you take 4d8 Damage of your weapon's type and are Slammed back 1d8 meters. Each Unit behind you gains a 1d8 Shielding.\n",
+                "HasMixins": true,
+                "ParentKey": "Level 5 Class Talent",
+                "Origin": "Class/Knight"
+            },
+            "~Damsel's Deliverance~": {
+                "_Value": 3.75,
+                "A": 1,
+                "Requirement": "Can't be used on the first Round",
+                "Cooldown": "Once / Adventure",
+                "Tags": [
+                    "Ultimate",
+                    "Damage",
+                    "Movement",
+                    "Status Effect"
+                ],
+                "Range": "2 meters",
+                "Effect": "You lock eyes with a target, and prepare to take them into oblivion.\n\n{Teal('After Mass Damage:')} Charge towards the target, grab them, and dash with it away from your original position until you hit a non-Unit obstacle. On impact, it takes 9d6 Smash Damage.\n",
+                "Notes": "You grab the Unit and you both go flying, until you smash it into the first obstacle it collides with. If you reach 15 meters of uninterrupted dashing, you smash them into the ground and stop, dealing the Damage then and there.",
+                "HasMixins": true,
+                "ParentKey": "Level 5 Class Talent",
+                "Origin": "Class/Knight"
+            },
+            "~Sovereign Execution~": {
+                "_Value": 4.5,
+                "A": "0 Action Points",
+                "Requirement": "Can't be used on the first Round",
+                "Cooldown": "Once / Adventure",
+                "Tags": [
+                    "Ultimate",
+                    "Movement",
+                    "Heal",
+                    "Protection"
+                ],
+                "Effect": "You prepare to decimate the meak and using their life force as fuel for your conquest.\n\n{Teal('After Targeted Damage:')} Your next attack charges you up to 5 meters towards the target, and heals you for all the Damage done. If it leaves the non-Epic Unit with 25% or less Health, further deals extra Damage equal to its current Health and the Damage type becomes True.\n",
+                "HasMixins": true,
+                "ParentKey": "Level 5 Class Talent",
+                "Origin": "Class/Knight"
+            },
+            "~Inevitable Cataclysm~": {
+                "Value": 5.5,
+                "A": "3 Action Points",
+                "Cooldown": "Once / Adventure",
+                "Requirement": "Can't be used on the first Round",
+                "Tags": [
+                    "Ultimate",
+                    "Movement",
+                    "Damage",
+                    "Mass Damage"
+                ],
+                "Effect": "You declare war on your enemy, and wait for the perfect moment to obliterate them.\n\n{Teal('After Protection:')} Choose a Unit you can see. At the start of your next Turn, you jump to them and strike them with your weapon for 5d12 Damage of your weapon's type. The impact ripples to Units within 5 meters, and each Unit caught takes 1 die less of the result per meter away from the main target. The Quest Master chooses which die to drop per meter.\n",
+                "Notes": "If the main target took 7, 8, 9, 10, and 11 Damage on the dice, then Units 1 meter away may take 8, 9, 10, and 11 if the Quest Master decides to drop the lowest die. Units 2 meters away take 8, 9, and 10 if the Quest Master decides to drop the highest die. And so on.",
+                "HasMixins": true,
+                "ParentKey": "Level 5 Class Talent",
+                "Origin": "Class/Knight"
+            },
+            "~Knight's Corral~": {
+                "_Value": 5.5,
+                "A": "0 Action Points",
+                "Range": "3 meters",
+                "Cooldown": "Once / Adventure",
+                "Tags": [
+                    "Ultimate",
+                    "Mass Damage",
+                    "Status Effect",
+                    "Heal"
+                ],
+                "Effect": "You make your surrounding area impossible to tresspass, except for your challenger of choice.\n\n{Teal('After Movement:')} Choose a Worthy Enemy. All other Units within 4 meters of either of you are Slammed 5d4 meters away from between you. Until the start of your next Turn, no other Units can willingly come within 3 meters of either of you, and for the rest of the Combat, you both Heal for 200% of the Round number at the start of each Worthy Round.\n",
+                "HasMixins": true,
+                "ParentKey": "Level 5 Class Talent",
+                "Origin": "Class/Knight"
+            },
+            "~Banner of Honor~": {
+                "_Value": 4,
+                "A": "1 Action Point",
+                "Requirement": "Can't be used on the first Round",
+                "Range": "3-10 meters",
+                "Tags": [
+                    "Ultimate",
+                    "Mass Damage",
+                    "Protection",
+                    "Heal"
+                ],
+                "Effect": "You detach your banner, and raise it above the battlefield, ready to throw it.\n\n{Teal('After Status Effect:')} Throw your special banner onto a place on the battlefield, dealing 3d6 Pierce Damage to Units within 1 meter of its landing point and Healing the thrower for 1d8. The banner has 15 Max Health and absorbs all Damage the Knight's allies take.\n",
+                "Upgrade": "Anyone can use 1 {A}Action Point to pick up the banner and throw it again!",
+                "Notes": "You must spend 50 {Gold}Gold to craft the special banner, and you must draw a picture of what it looks like.",
                 "HasMixins": true,
                 "ParentKey": "Level 5 Class Talent",
                 "Origin": "Class/Knight"
@@ -614,6 +739,15 @@
             }
         },
         "Level 7 Class Talent": {
+            "~No Matter What~": {
+                "_Value": 3,
+                "A": "Passive",
+                "Requirement": "Only applies in Worthy Combat",
+                "Effect": "At the end of your every Turn, heal for an amount equal to the Round Number.\n\n{Teal('With Valor:')} Also heals an Ally you can see\n{Teal('Next:')} TBD\n",
+                "HasMixins": true,
+                "ParentKey": "Level 7 Class Talent",
+                "Origin": "Class/Knight"
+            },
             "<Fellowship Aura>": {
                 "_Value": 2,
                 "A": "Passive",
@@ -622,23 +756,6 @@
                 ],
                 "Effect": "You stand out for allies near you.\nEnemy ranged attacks against other allies within 1 meter of you have Cover.\n",
                 "Notes": "Nothing happens if an ally near you already has Cover. If playing on a grid, this does work for allies diagonally.",
-                "ParentKey": "Level 7 Class Talent",
-                "Origin": "Class/Knight"
-            },
-            "<Banner of Honor>": {
-                "_Value": 2.5,
-                "A": "2 Action Points",
-                "Cooldown": "Once / Adventure",
-                "Duration": "1 minute",
-                "Tags": [
-                    "Damage",
-                    "Actions"
-                ],
-                "Range": "5 meters",
-                "Effect": "Activate and fling a Banner on a space within 5 meters, dealing 1d8 Damage to Units it lands on or next to.\nAllies (and you) starting their Turn within 2 meters of the banner start with +1 Action Point.\n\n{Teal('With Valor:')} +1000% Range and +200% Damage to Enemies\n{Teal('Next:')} Any non-Damage Ability.\n",
-                "Upgrade": "The banner counts as a Unit with 10 Health, but can't take Mass Damage.\n",
-                "Notes": "The banner's effect only applies if it's planted into the ground. To be moved, the banner can be picked up with a 1 Action Point, and thrown again with a 1 Action Point to reposition and deal the Damage again.",
-                "HasMixins": true,
                 "ParentKey": "Level 7 Class Talent",
                 "Origin": "Class/Knight"
             }
