@@ -28,9 +28,7 @@ Spellcasting:
 
 Meta:
 
-  New Design: "From Previous"
   Guidelines:
-    - Ability _Value: 0.5 - 1
     - Froms With Value:
         Weapon Attack: Easy
         Casting a Spell: Easy-Medium
@@ -84,10 +82,10 @@ Meta:
     Protection: goes into Damage
   
   # Prev is +3, goes into +5 / +1 / +3
-  # NOTE: Level 5 has Prev is +3, goes into +5 and +3!
+  # NOTE: Level 5 has Prev is -3 (+3) and +1, goes into +5 and +3!
   Level 5+ Ultimate Possibilities (any 3 of) (Sequence from first):
     - AoE / Protection / Movement / Status
-    - Damage / Status / Protection / Movement
+    - Damage / Status / Protection / Movement 
     - Heal / Movement / Status / Protection
 
     - Movement / AoE / Heal / Damage
@@ -102,6 +100,11 @@ Meta:
     - RoI: Movement / AoE / ... / Damage  # Next Turn, jump to a Unit and deal massive damages
     - Xin Zhao: Status / Heal / ... / AoE
     - Banner: Protection / ... / AoE / Heal
+
+  Choices for prev are:
+    - Status + Movement
+    - Movement + Protection
+    - Protection + Status
 
 
   Things I can give per higher Level Talent tier:
@@ -136,10 +139,6 @@ Ideas:
 
   ~Formation~:
     Effect: Your party gains various bonuses depending on your formation!
-
-  ~Free From Corruption~:
-    Effect: If you cast this 3 times this Combat, choose an ally and remove one of their Negative Quirks.
-
 
   # ------ Valor flexibility / hybridization ------
 
@@ -212,6 +211,85 @@ Ideas:
 # +3: Heal also deals Protection and viceversa
 
 # 29 +4
+
+
+
+Utility:
+
+  ~Outpost~:
+    A: 1 hour
+    Cooldown: Once / Adventure
+    Degree: Minor
+    Effect: |
+      Choose either a First Aid Tent or an Outpost Tower to build from scratch.
+      Once per Adventure, the tent can heal everyone inside for 1 Health.
+      While within 50km of the Tower, your party can't be ambushed, has +2 in Sight, and halves the travel time of your party.
+    Upgrade: For smaller-scope adventures, the Quest Master can reduce the distance of the Tower to 10km.
+    Notes: Try to build towers within 100km of eachother, and in places you may want to visit multiple times. Construct a network of such towers!
+
+  ~Nominate Squire~:
+    A: Special
+    Popup:
+      Message: Remember to manually change the Stats and numbers from the My Character tab (and tell your Ally to do so).
+    Effect: |
+      Nominate a Hero from your party to become your _squire_ - your trusted companion and helper in your quest.
+      
+      Your squire gets -2 Max Health, but you get +3 Max Health.
+      Whenever one of you would get a Quirk, you can choose to deny it, and be given a different Quirk that fits the situation.
+    Upgrade: |
+      Your squire has doubled inventory capacity and you can instantly swap items from eachother with 0 Actions (if near eachother).
+      They also have +2 in War Machines.
+
+  ~Vows~:
+    A: 10 minutes
+    Cooldown: Depends
+    Requirement: Only usable in Campaigns with multiple sessions
+    Effect: |
+      Vow on achieving a goal that would take at least 1 full Adventure.
+      Upon reaching your goal, you get a number of Positive Quirks equal to the number of sessions it took.
+    Upgrade: You can only have one vow at a time. Abandoning a vow gives you a Negative Quirk.
+
+  ~Trusted Steed~:
+    A: Passive
+    Effect: |
+      You have a steed that increases your Movement Speed by 50%.
+      In Combat, your first Damaging Act dismounts you, but deals +1d4 Damage or Slams the target 1d4 meters away (if Targeted).
+    Upgrade: At Level 3, your Steed can climb steep hills and jump up to 5 meters. At Level 6, it can walk on water. At Level 9, it can fly.
+    Notes: The steed can be any animal that fits the story. When dismounting, your steed runs away and disappears into the surroundings. Once per real hour, you can whistle for your steed and it will appear running toward you and you automatically mount it.
+
+Starting Abilities Description: Playing a Knight can be challenging. If you truly can't chain together some of your Abilities, don't worry about it too much. It's all about planning in advance!
+Starting Abilities:
+
+  ~Actions With Valor~:
+    A: Passive
+    Effect: |
+      Your Abilities and attacks in Worthy Combat may trigger extra effects if made immediately {Teal('After')} an Act that did a certain type of _thing_.
+    Upgrade: |
+      The previous Act can be from your previous Turn, but from before Combat.
+      _Protection_ means giving Shielding, absorbing Damage, etc.
+      Slamming or Pushing count as _Status Effects_.
+    Notes: You can take a look at the ^tags^ of an Ability to see what kind of effects it can do. The {Teal('After')} effect can only trigger if the previous Act actually did that type of ^thing^. For example, "{Teal('After')} Mass Damage" can only trigger if the previous Act did Damage to more than 1 Unit. Apply common sense, and the Quest Master has the final say for whether an {Teal('After')} can trigger.
+
+  ~Challenge of Arms~:
+    _Value: 3 # About 1 in total.
+    A: Half-Action
+    Cooldown: Once / Combat
+    Requirement: Only usable in Worthy Combat
+    Duration: 1 minute
+    Range: 3 meters
+    Tags: [Damage, Heal, Mobility, Status Effect, Protection,]
+    Effect: |
+      Roll 1d8.
+      Gain that as a Shielding, or Heal yourself for 50% of that.
+      Deal that as Smash Damage to a Unit, 50% of that to Units within 3 meters of you.
+      Slam yourself for that, or another Unit in any diretion for 50% of that.
+    Notes: Use this to start a chain of Abilities With Valor! When you repeat this, choose the effects again and roll dice as normal. Obviously, the repeat does not retrigger another repeat.
+
+  ~Chivalric Privilege~:
+    A: Passive
+    IsIgnored: true
+    Effect: |
+      Pick 2 Talents from the Level 1 Core Knight set.
 
 Other Abilities Title: Level 1 Core Knight Talents
 Other Abilities Description: Choose 2 of the following Talent options.
@@ -299,111 +377,6 @@ Other Abilities:
       Upgrade: The {Teal('Valor*')} extra effect may trigger even if you were affected by a Heal on someone else's Turn.
 
 
-
-#       Combo Pieces:
-# 1.  Damage -> Healing  -> Movement -> Status Effect          (Slam/Daze)
-# 2.  Damage -> Movement |  Healing ->  Status Effect          (Stun/Double-Stun)
-# 3.  Damage -> Status Effect -> Movement -> Healing
-#
-#       Extra Effects
-# Combo, Buff (Regen), Shielding, Gold Generation
-# Quirk, Combo, Summon
-#
-# NOTE: Provocation (L1 Status Effect) can go into Templar Retribution (L2 Status Effect)
-# Note: "Use a gem or something to keep track of your last used Ability on your paper sheet"
-#
-#       Needs:
-#   Spells, Pet (peasant), You make keep your mount in combat
-#
-#   Level 3:
-# Damage: ranged spell
-# Status Effect
-#
-#
-#
-
-
-
-
-
-  
-
-Utility:
-
-  ~Outpost~:
-    A: 1 hour
-    Cooldown: Once / Adventure
-    Degree: Minor
-    Effect: |
-      Choose either a First Aid Tent or an Outpost Tower to build from scratch.
-      Once per Adventure, the tent can heal everyone inside for 1 Health.
-      While within 50km of the Tower, your party can't be ambushed, has +2 in Sight, and halves the travel time of your party.
-    Upgrade: For smaller-scope adventures, the Quest Master can reduce the distance of the Tower to 10km.
-    Notes: Try to build towers within 100km of eachother, and in places you may want to visit multiple times. Construct a network of such towers!
-
-  ~Nominate Squire~:
-    A: Special
-    Popup:
-      Message: Remember to manually change the Stats and numbers from the My Character tab (and tell your Ally to do so).
-    Effect: |
-      Nominate a Hero from your party to become your _squire_ - your trusted companion and helper in your quest.
-      
-      Your squire gets -2 Max Health, but you get +3 Max Health.
-      Whenever one of you would get a Quirk, you can choose to deny it, and be given a different Quirk that fits the situation.
-    Upgrade: |
-      Your squire has doubled inventory capacity and you can instantly swap items from eachother with 0 Actions (if near eachother).
-      They also have +2 in War Machines.
-
-  ~Vows~:
-    A: 10 minutes
-    Cooldown: Depends
-    Requirement: Only usable in Campaigns with multiple sessions
-    Effect: |
-      Vow on achieving a goal that would take at least 1 full Adventure.
-      Upon reaching your goal, you get a number of Positive Quirks equal to the number of sessions it took.
-    Upgrade: You can only have one vow at a time. Abandoning a vow gives you a Negative Quirk.
-
-  ~Trusted Steed~:
-    A: Passive
-    Effect: |
-      You have a steed that increases your Movement Speed by 50%.
-      In Combat, your first Damaging Ability you use dismounts you, but deals +1d4 Damage or Slams the target 1d4 meters away.
-    Upgrade: At Level 3, your Steed can climb steep hills and jump up to 5 meters. At Level 6, it can walk on water. At Level 9, it can fly.
-    Notes: The steed can be any animal that fits the story. When dismounting, your steed runs away and disappears into the surroundings. Once per real hour, you can whistle for your steed and it will appear running toward you and you automatically mount it.
-
-Starting Abilities Description: Playing a Knight can be challenging. If you truly can't chain together some of your Abilities, don't worry about it too much. It's all about planning in advance!
-Starting Abilities:
-
-  ~Actions With Valor~:
-    A: Passive
-    Effect: |
-      Your Abilities and attacks in Worthy Combat may trigger extra effects if made immediately {Teal('After')} an Act that did a certain type of _thing_.
-    Upgrade: |
-      The previous Act can be from your previous Turn, but from before Combat.
-      _Protection_ means giving Shielding, absorbing Damage, etc.
-      Slamming or Pushing count as _Status Effects_.
-    Notes: You can take a look at the ^tags^ of an Ability to see what kind of effects it can do. The {Teal('After')} effect can only trigger if the previous Act actually did that type of ^thing^. For example, "{Teal('After')} Mass Damage" can only trigger if the previous Act did Damage to more than 1 Unit. Apply common sense, and the Quest Master has the final say for whether an {Teal('After')} can trigger.
-
-  ~Challenge of Arms~:
-    _Value: 3 # About 1 in total.
-    A: Half-Action
-    Cooldown: Once / Combat
-    Requirement: Only usable in Worthy Combat
-    Duration: 1 minute
-    Range: 3 meters
-    Tags: [Damage, Heal, Mobility, Status Effect, Protection,]
-    Effect: |
-      Roll 1d8.
-      Gain that as a Shielding, or Heal yourself for 50% of that.
-      Deal that as Smash Damage to a Unit, 50% of that to Units within 3 meters of you.
-      Slam yourself for that, or another Unit in any diretion for 50% of that.
-    Notes: Use this to start a chain of Abilities With Valor! When you repeat this, choose the effects again and roll dice as normal. Obviously, the repeat does not retrigger another repeat.
-
-  ~Chivalric Privilege~:
-    A: Passive
-    IsIgnored: true
-    Effect: |
-      Pick 2 Talents from the Level 1 Core Knight set.
 
 Talents:
 
@@ -587,64 +560,8 @@ Talents:
           Notes: If your Shield has multiple Damage Type reductions, you can choose. If it has no Damage Type reducion, it's Smash Damage.
 
 # New: Trigger Combo, Trap, Elemental Damage, Summon
-  Ideases:
-      AoE: goes into Protection
-        Deal more damage the more units it hits (line)
-        In a cross
-        Damage all Units until the target
-        Slash ALL units in front of you on the battlefield
-        Banner
-      Damage: goes into Status
-        Bolt that hits the first target hit
-      Heal: goes into Movement
-        Sacrifice
-        Your next attack has 100% Lifesteal and dashes you.
-
-      Movement: goes into AoE
-        Drag a Unit with you 
-        You can split your movement
-      Status: goes into Heal
-        Slam all Units around you and a target, creating a clear path.
-      Protection: goes into Damage
-        Take and do -50% Damage until ally dies.
-        Your next attack deals +200% Damage.
 
   Level 5 Class Talent:
-
-    ~Divide and Conquer~:
-      _Value: 4.5 # +1 Damage + 1.5 Slam + 2 Shieldings
-      A: 2
-      Requirement: Can't be used on the first Round
-      Tags: [Ultimate, Mass Damage, Protection, Status Effect]
-      Cooldown: Once / Adventure
-      Effect: |
-        You stomp your weapons into the ground and divide the battlefield.
-
-        {Teal('After Heal:')} ALL Units in front of you take 4d8 Damage of your weapon's type and are Slammed back 1d8 meters. Each Unit behind you gains a 1d8 Shielding.
-
-    ~Damsel's Deliverance~:
-      _Value: 3.75 # +2.75 Damage + 0.5 Slam push + 0.5 Your movement
-      A: 1
-      Requirement: Can't be used on the first Round
-      Cooldown: Once / Adventure
-      Tags: [Ultimate, Damage, Movement, Status Effect]
-      Range: 2 meters
-      Effect: |
-        You lock eyes with a target, and prepare to take them into oblivion.
-
-        {Teal('After Mass Damage:')} Charge towards the target, grab them, and dash with it away from your original position until you hit a non-Unit obstacle. On impact, it takes 9d6 Smash Damage.
-      Notes: You grab the Unit and you both go flying, until you smash it into the first obstacle it collides with. If you reach 15 meters of uninterrupted dashing, you smash them into the ground and stop, dealing the Damage then and there.
-
-    ~Sovereign Execution~:
-      _Value: 4.5 # 1 Execution + 2.5 Heal + 1 Shielding
-      A: 0 Actions
-      Requirement: Can't be used on the first Round
-      Cooldown: Once / Adventure
-      Tags: [Ultimate, Movement, Heal, Protection]
-      Effect: |
-        You prepare to decimate the meak and using their life force as fuel for your conquest.
-
-        {Teal('After Targeted Damage:')} Your next attack charges you up to 5 meters towards the target, and heals you for all the Damage done. If it leaves the non-Epic Unit with 25% or less Health, further deals extra Damage equal to its current Health and the Damage type becomes True.
 
     ~Inevitable Cataclysm~:
       Value: 5.5  # 3 Damage + 2.5 AoE
@@ -655,7 +572,11 @@ Talents:
       Effect: |
         You declare war on your enemy, and wait for the perfect moment to obliterate them.
 
-        {Teal('After Protection:')} Choose a Unit you can see. At the start of your next Turn, you jump to them and strike them with your weapon for 5d12 Damage of your weapon's type. The impact ripples to Units within 5 meters, and each Unit caught takes 1 die less of the result per meter away from the main target. The Quest Master chooses which die to drop per meter.
+        Choose a Unit you can see. At the start of your next Turn, you jump to them and strike them with your weapon for 5d12 Damage of your weapon's type. The impact ripples to Units within 5 meters, and each Unit caught takes 1 die less of the result per meter away from the main target. The Quest Master chooses which die to drop per meter.
+
+        {Teal('After Targeted Damage:')} 
+        {Teal('After Heal:')} 
+
       Notes: If the main target took 7, 8, 9, 10, and 11 Damage on the dice, then Units 1 meter away may take 8, 9, 10, and 11 if the Quest Master decides to drop the lowest die. Units 2 meters away take 8, 9, and 10 if the Quest Master decides to drop the highest die. And so on.
 
     ~Knight's Corral~:
@@ -663,23 +584,31 @@ Talents:
       A: 0 Actions
       Range: 3 meters
       Cooldown: Once / Adventure
-      Tags: [Ultimate, Mass Damage, Status Effect, Heal]
+      Tags: [Ultimate, Status Effect, Mass Damage, Heal]
       Effect: |
         You make your surrounding area impossible to tresspass, except for your challenger of choice.
 
-        {Teal('After Movement:')} Choose a Worthy Enemy. All other Units within 4 meters of either of you are Slammed 5d4 meters away from between you. Until the start of your next Turn, no other Units can willingly come within 3 meters of either of you, and for the rest of the Combat, you both Heal for 200% of the Round number at the start of each Worthy Round.
-    
-    ~Banner of Honor~:
+        Choose a Worthy Enemy. All other Units within 4 meters of either of you are Slammed 5d4 meters away from between you. Until the start of your next Turn, no other Units can willingly come within 3 meters of either of you, and for the rest of the Combat, you both Heal for 200% of the Round number at the start of each Worthy Round.
+
+        {Teal('After Mass Damage:')} 
+        {Teal('After Targeted Damage:')} 
+      Notes: Units can't willingly enter the zone. If a Unit somehow gets in, they can't willingly move closer to either of them.
+
+    ~Liege's Banner~:
       _Value: 4  # 1.25 AoE + 1 Heal per throw + 2.5 Protection (-2.25 potentially for an enemy)
       A: Half-Action
+      IconName: Banner of Honor
       Requirement: Can't be used on the first Round
       Range: 3-10 meters
-      Tags: [Ultimate, Mass Damage, Protection, Heal]
+      Tags: [Ultimate, Protection, Mass Damage, Heal]
       Cooldown: Once / Adventure
       Effect: |
         You detach your banner, and raise it above the battlefield, ready to throw it.
 
-        {Teal('After Status Effect:')} Throw your special banner onto a place on the battlefield, dealing 3d6 Pierce Damage to Units within 1 meter of its landing point and Healing the thrower for 1d8. The banner has 15 Max Health and absorbs all Damage the Knight's allies take.
+        Throw your special banner onto a place on the battlefield, dealing 3d6 Pierce Damage to Units within 1 meter of its landing point and Healing the thrower for 1d8. The banner has 15 Max Health and absorbs all Damage the Knight's allies take.
+
+        {Teal('After Heal:')} 
+        {Teal('After Mass Damage:')} 
       Upgrade: Anyone can use 1 {A}Action Point to pick up the banner and throw it again!
       Notes: You must spend 50 {Gold}Gold to craft the special banner, and you must draw a picture of what it looks like.
 
@@ -700,16 +629,6 @@ Talents:
       Notes: A friendly hub is a town or city where there are other non-player characters. It's considered Worthy if you didn't enter it specifically to only gain the 100 {Gold}Gold.
 
   Level 7 Class Talent:
-
-    ~No Matter What~:
-      _Value: 3
-      A: Passive
-      Requirement: Only applies in Worthy Combat
-      Effect: |
-        At the end of your every Turn, heal for an amount equal to the Round Number.
-
-        {Teal('With Valor:')} Also heals an Ally you can see
-        {Teal('Next:')} TBD
     
     <Fellowship Aura>:
       _Value: 2
@@ -719,6 +638,7 @@ Talents:
         You stand out for allies near you.
         Enemy ranged attacks against other allies within 1 meter of you have Cover.
       Notes: Nothing happens if an ally near you already has Cover. If playing on a grid, this does work for allies diagonally.
+
 
     # <Banner of Honor>:
     #   _Value: 2.5
@@ -738,6 +658,50 @@ Talents:
     #   Notes: The banner's effect only applies if it's planted into the ground. To be moved, the banner can be picked up with a Half-Action, and thrown again with a Half-Action to reposition and deal the Damage again.
 
   Level 8 Class Talent:
+
+    ~Sovereign Execution~:
+      _Value: 4.5 # 1 Execution + 2.5 Heal + 1 Shielding
+      A: 0 Actions
+      Requirement: Can't be used on the first Round
+      Cooldown: Once / Adventure
+      Tags: [Ultimate, Heal, Movement, Protection]
+      Effect: |
+        You prepare to decimate the meak and using their life force as fuel for your conquest.
+
+        Your next attack charges you up to 5 meters towards the target, and heals you for all the Damage done. If it leaves the non-Epic Unit with 25% or less Health, further deals extra Damage equal to its current Health and the Damage type becomes True.
+
+        {Teal('After Protection:')} 
+        {Teal('After Status Effect:')} 
+
+    ~Damsel's Deliverance~:
+      _Value: 3.75 # +2.75 Damage + 0.5 Slam push + 0.5 Your movement
+      A: 1
+      Requirement: Can't be used on the first Round
+      Cooldown: Once / Adventure
+      Tags: [Ultimate, Damage, Movement, Status Effect]
+      Range: 2 meters
+      Effect: |
+        You lock eyes with a target, and prepare to take them into oblivion.
+
+        Charge towards the target, grab them, and dash with it away from your original position until you hit a non-Unit obstacle. On impact, it takes 9d6 Smash Damage.
+
+        {Teal('After Movement:')} 
+        {Teal('After Protection:')} 
+      Notes: You grab the Unit and you both go flying, until you smash it into the first obstacle it collides with. If you reach 15 meters of uninterrupted dashing, you smash them into the ground and stop, dealing the Damage then and there.
+
+    ~Divide and Conquer~:
+      _Value: 4.5 # +1 Damage + 1.5 Slam + 2 Shieldings
+      A: 2
+      Requirement: Can't be used on the first Round
+      Tags: [Ultimate, Mass Damage, Protection, Status Effect]
+      Cooldown: Once / Adventure
+      Effect: |
+        You stomp your weapons into the ground and divide the battlefield.
+
+        ALL Units in front of you take 4d8 Damage of your weapon's type and are Slammed back 1d8 meters. Each Unit behind you gains a 1d8 Shielding.
+
+        {Teal('After Status Effect:')} 
+        {Teal('After Movement:')} 
 
     <Knight in Black>:
       A: Passive
