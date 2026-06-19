@@ -36,6 +36,14 @@
                 }
             }
         ],
+        "The 6 Act Types": [
+            "Damage",
+            "Protection",
+            "AoE (Mass Damage)",
+            "Movement",
+            "Heal",
+            "Status Effect"
+        ],
         "Core Knight set (in \"Sequence\" order)": {
             "Damage (medium power)": "AoE (medium effect)",
             "Protection (easy power)": "Movement (low effect)",
@@ -203,11 +211,6 @@
             ],
             "Effect": "Deal 2d4 Damage to a Unit (you choose the Damage Type).\n\n{Teal('With Valor:')} Then move a number of meters equal to the lower of the dice.\n{Teal('Next:')} Damage Ability\n",
             "HasMixins": true,
-            "ParentKey": "Ideas",
-            "Origin": "Class/Knight"
-        },
-        "~Dark Knight Creed~": {
-            "Effect": "TODO",
             "ParentKey": "Ideas",
             "Origin": "Class/Knight"
         }
@@ -615,14 +618,14 @@
                     "Damage",
                     "Mass Damage"
                 ],
-                "Effect": "You declare war on your enemy, and wait for the perfect moment to obliterate them.\n\nChoose a Unit you can see. At the start of your next Turn, you jump to them and strike them with your weapon for 5d12 Damage of your weapon's type. The impact ripples to Units within 5 meters, and each Unit caught takes 1 die less of the result per meter away from the main target. The Quest Master chooses which die to drop per meter.\n\n{Teal('After Targeted Damage:')} \n{Teal('After Heal:')} \n",
+                "Effect": "You declare war on your enemy, and wait for the perfect moment to obliterate them.\n\nChoose a Unit you can see. At the start of your next Turn, you jump to them and strike them with your weapon for 5d10 Damage of your weapon's type. The impact ripples to Units within 2 meters, and each Unit caught takes 1 die less of the result per meter away from the main target. The Quest Master chooses which die to drop per meter.\n\n{Teal('After Targeted Damage:')} Ripples to Units within up to 5 meters, and Allies hit take -50% Damage.\n{Teal('After Heal:')} Damage increases to 5d12\n",
                 "Notes": "If the main target took 7, 8, 9, 10, and 11 Damage on the dice, then Units 1 meter away may take 8, 9, 10, and 11 if the Quest Master decides to drop the lowest die. Units 2 meters away take 8, 9, and 10 if the Quest Master decides to drop the highest die. And so on.",
                 "HasMixins": true,
                 "ParentKey": "Level 5 Class Talent",
                 "Origin": "Class/Knight"
             },
             "<Peasant! I Choose You!>": {
-                "_Value": 3,
+                "_Value": 3.5,
                 "A": "10 minutes or more (depends)",
                 "Cost": "2d10 Health",
                 "AlignOnWebsite": "Left",
@@ -706,7 +709,7 @@
                     "Mass Damage",
                     "Heal"
                 ],
-                "Effect": "You make your surrounding area impossible to tresspass, except for your challenger of choice.\n\nChoose a Worthy Enemy. All other Units within 4 meters of either of you are Slammed 5d4 meters away from between you. Until the start of your next Turn, no other Units can willingly come within 3 meters of either of you, and for the rest of the Combat, you both Heal for 200% of the Round number at the start of each Worthy Round.\n\n{Teal('After Mass Damage:')} \n{Teal('After Targeted Damage:')} \n",
+                "Effect": "You make your surrounding area impossible to tresspass, except for your challenger of choice.\n\nChoose a Worthy Enemy. All other Units within 4 meters of either of you are Pushed 3d4 meters away from between you. Until the start of your next Turn, no other Units can willingly come within 3 meters of either of you, and for the rest of the Combat, you both Heal for 100% of the Round number at the start of each Worthy Round.\n\n{Teal('After Mass Damage:')} +1d4 and +100% Healing you two receive from this.\n{Teal('After Targeted Damage:')} +1d4 and Pushing becomes Slamming instead.\n",
                 "Notes": "Units can't willingly enter the zone. If a Unit somehow gets in, they can't willingly move closer to either of them.",
                 "HasMixins": true,
                 "ParentKey": "Level 5 Class Talent",
@@ -725,8 +728,8 @@
                     "Heal"
                 ],
                 "Cooldown": "Once / Adventure",
-                "Effect": "You detach your banner, and raise it above the battlefield, ready to throw it.\n\nThrow your special banner onto a place on the battlefield, dealing 3d6 Pierce Damage to Units within 1 meter of its landing point and Healing the thrower for 1d8. The banner has 15 Max Health and absorbs all Damage the Knight's allies take.\n\n{Teal('After Heal:')} \n{Teal('After Mass Damage:')} \n",
-                "Upgrade": "Anyone can use 1 {A}Action Point to pick up the banner and throw it again!",
+                "Effect": "You detach your banner, and raise it above the battlefield, ready to throw it.\n\nThrow your special banner onto a place on the battlefield, dealing 2d6 Pierce Damage to Units in a 2x2 meter area around its point and Healing the thrower for 1d4. The banner has 10 Max Health and absorbs all Damage the Knight's allies take.\n\n{Teal('After Heal:')} Damage becomes 3d6 and area increases to 3x3.\n{Teal('After Mass Damage:')} The banner's Health becomes 15 and Heal increases to 1d8.\n",
+                "Upgrade": "Anyone can use 1 {A}Action Point to pick up the banner and throw it again, with the first throw's {Teal('After Valor')} effects!",
                 "Notes": "You must spend 50 {Gold}Gold to craft the special banner, and you must draw a picture of what it looks like.",
                 "HasMixins": true,
                 "ParentKey": "Level 5 Class Talent",
@@ -734,6 +737,53 @@
             }
         },
         "Level 6 - Utility Talent": {
+            "~Knightsville~": {
+                "A": "It's complicated",
+                "Effect": "You claim an open and available piece of land as your own.\nFor 100 {Gold}Gold, you can recruit a person as a villager to come live on your property and work on the various projects there. The village houses up to 3 people at first.\nEach villager may have its own preferences for work types.\n\nEach town project starts at 0 _work_ done. Every real hour, each villager can accomplish 1d4 to 1d10 _work_, based on personality and preferences.\n\nYour village's Unhappiness starts at 25, but increases by 1d6 whenever a new villager joins the town.\nAt the end of each Adventure, produces 1d4 {Gold}Gold for you, and rolls 1d100 for happiness. If it rolls below the Unhappiness level, they may leave, get sick, die, steal {Gold}Gold, etc.\n",
+                "Notes": "The Quest Master decides whether your villagers work during downtime or not. You need to come to town to collect the {Gold}Gold, but your villagers will follow your work commands even if you're not there. The Unhappiness reduction happens when the building is constructed, and is permanent until destroyed.",
+                "HasSpellTableNumbers": true,
+                "SpellTable": [
+                    {
+                        "Name": "House {Hammer}30 Work",
+                        "Effect": "+2 Population Cap, -1d4 Unhappiness"
+                    },
+                    {
+                        "Name": "Wall {Hammer}25 Work",
+                        "Effect": "-1d8 Unhappiness"
+                    },
+                    {
+                        "Name": "Cultural Building {Hammer}45 Work",
+                        "Effect": "-2d8 Unhappiness"
+                    },
+                    {
+                        "Name": "Church {Hammer}40 Work",
+                        "Effect": "-1d10 Unhappiness. Once / Adventure, can Heal people inside for 1d6."
+                    },
+                    {
+                        "Name": "Town Hall {Hammer}65 Work",
+                        "Effect": "Villagers have their ^Dice Upgraded^ for all work they do."
+                    },
+                    {
+                        "Name": "Market {Hammer}45 Work",
+                        "Effect": "The {Gold}Gold generated by Villagers has its ^Dice Upgraded^ to the next die type."
+                    },
+                    {
+                        "Name": "Farm {Hammer}45 Work",
+                        "Effect": "-1d4 Unhappiness. Each Farm further produces 10 {Gold}Gold per Adventure, but requires a villager to"
+                    },
+                    {
+                        "Name": "Guild Workshop {Hammer}45 Work",
+                        "Effect": "-1d4 Unhappiness. Each Shop has a type (blacksmith, library, bowyer, leatherworker, etc). At the end of each Adventure, each shop produces a magic item worth 1d100 {XP}Experience (or multiple of the same type, all together, produce an item worth that many d100 in {XP}Experience). Magic items from Guilds are sold at 20% of their value."
+                    },
+                    {
+                        "Name": "Military Camp {Hammer}45 Work",
+                        "Effect": "+1d4 Unhappiness. Each military camp may send one villager to fight with you until death. Their Health may range from 5 to 15, Damage from 1d2 to 1d8, etc based on your workshops and number of Military Camps."
+                    }
+                ],
+                "HasMixins": true,
+                "ParentKey": "Level 6 - Utility Talent",
+                "Origin": "Class/Knight"
+            },
             "~Get Up, Stand Up~": {
                 "A": "0 Action Points",
                 "Cooldown": "Once / Adventure",
@@ -754,14 +804,53 @@
             }
         },
         "Level 7 Class Talent": {
-            "<Fellowship Aura>": {
+            "~Obsession and Compulsion~": {
+                "_Value": 2,
+                "A": "Passive",
+                "Effect": "At the end of every Combat, if all your used {Teal(After)} Abilities triggered their {Teal(After)} effect, gain a Plot Point, +2 Max Health, and a random Positive Quirk.\n",
+                "HasMixins": true,
+                "ParentKey": "Level 7 Class Talent",
+                "Origin": "Class/Knight"
+            },
+            "~Black Knight~": {
+                "A": "Passive",
+                "Bonuses": {
+                    "Movement Speed": 1
+                },
+                "Effect": "While wearing all black and at 50% or more Health, you can't take more than 10 Damage at a time.\nYou have +1 Movement Speed.\n",
+                "ParentKey": "Level 7 Class Talent",
+                "Origin": "Class/Knight"
+            },
+            "~White Knighthood~": {
+                "A": "Passive",
+                "Bonuses": {
+                    "Initiative": 1
+                },
+                "Effect": "While wearing all white and at 90% or more Health, your Abilities trigger their {Teal(After)} effect anyway.\nYou have +1 Initiative.\n",
+                "HasMixins": true,
+                "ParentKey": "Level 7 Class Talent",
+                "Origin": "Class/Knight"
+            },
+            "<Man of Steel>": {
                 "_Value": 2,
                 "A": "Passive",
                 "Tags": [
                     "Protection"
                 ],
-                "Effect": "You stand out for allies near you.\nEnemy ranged attacks against other allies within 1 meter of you have Cover.\n",
+                "Bonuses": {
+                    "Max Health": 6
+                },
+                "Effect": "While wearing Heavy Armor or a Tower Shield, Enemy ranged attacks against other allies within 1 meter of you have Cover.\nYou have +6 Max Health.\n",
                 "Notes": "Nothing happens if an ally near you already has Cover. If playing on a grid, this does work for allies diagonally.",
+                "ParentKey": "Level 7 Class Talent",
+                "Origin": "Class/Knight"
+            },
+            "~Echoes of Heritage~": {
+                "_Value": 3,
+                "A": "0 Action Points",
+                "Cooldown": "Once / Adventure",
+                "Effect": "Your next {Teal(After)} effect triggers 2 extra times.\n",
+                "HasMixins": true,
                 "ParentKey": "Level 7 Class Talent",
                 "Origin": "Class/Knight"
             }
@@ -778,13 +867,13 @@
                     "Movement",
                     "Protection"
                 ],
-                "Effect": "You prepare to decimate the meak and using their life force as fuel for your conquest.\n\nYour next attack charges you up to 5 meters towards the target, and heals you for all the Damage done. If it leaves the non-Epic Unit with 25% or less Health, further deals extra Damage equal to its current Health and the Damage type becomes True.\n\n{Teal('After Protection:')} \n{Teal('After Status Effect:')} \n",
+                "Effect": "You prepare to decimate the meek and using their life force as fuel for your conquest.\n\nYour next attack propels you up to 5 meters towards the target, and heals you for 50% Damage done. If it leaves the non-Epic Unit with 25% or less Health, further deals extra Damage equal to its current Health and the Damage type becomes True.\n\n{Teal('Status Effect:')} 100% Healing instead of 50%.\n{Teal('After Protection:')} 50% Health execution instead of 25%.\n",
                 "HasMixins": true,
                 "ParentKey": "Level 8 Class Talent",
                 "Origin": "Class/Knight"
             },
             "~Damsel's Deliverance~": {
-                "_Value": 3.75,
+                "_Value": 7,
                 "A": 1,
                 "Requirement": "Can't be used on the first Round",
                 "Cooldown": "Once / Adventure",
@@ -795,14 +884,14 @@
                     "Status Effect"
                 ],
                 "Range": "2 meters",
-                "Effect": "You lock eyes with a target, and prepare to take them into oblivion.\n\nCharge towards the target, grab them, and dash with it away from your original position until you hit a non-Unit obstacle. On impact, it takes 9d6 Smash Damage.\n\n{Teal('After Movement:')} \n{Teal('After Protection:')} \n",
+                "Effect": "You lock eyes with a target, and prepare to take them into oblivion.\n\nCharge towards the target, grab them, and dash with it away from your original position until you hit a non-Unit obstacle. On impact, it takes 7d6 Smash Damage.\n\n{Teal('After Movement:')} +3d6 Damage\n{Teal('After Protection:')} Can now also collide with Units, and the impact Damage may work akin to Slamming a Unit into another.\n",
                 "Notes": "You grab the Unit and you both go flying, until you smash it into the first obstacle it collides with. If you reach 15 meters of uninterrupted dashing, you smash them into the ground and stop, dealing the Damage then and there.",
                 "HasMixins": true,
                 "ParentKey": "Level 8 Class Talent",
                 "Origin": "Class/Knight"
             },
             "~Divide and Conquer~": {
-                "_Value": 4.5,
+                "_Value": 6,
                 "A": 2,
                 "Requirement": "Can't be used on the first Round",
                 "Tags": [
@@ -812,47 +901,159 @@
                     "Status Effect"
                 ],
                 "Cooldown": "Once / Adventure",
-                "Effect": "You stomp your weapons into the ground and divide the battlefield.\n\nALL Units in front of you take 4d8 Damage of your weapon's type and are Slammed back 1d8 meters. Each Unit behind you gains a 1d8 Shielding.\n\n{Teal('After Status Effect:')} \n{Teal('After Movement:')} \n",
-                "HasMixins": true,
-                "ParentKey": "Level 8 Class Talent",
-                "Origin": "Class/Knight"
-            },
-            "<Knight in Black>": {
-                "A": "Passive",
-                "Requirement": "Requires Black Clothes",
-                "HasMixins": true,
-                "Tags": [
-                    "Defense",
-                    "Damage"
-                ],
-                "Effect": "Single-Stuns have no effect on your. Double-Stuns and Triple-Stuns only reduce your Actions by 1 and 2 (respectively).\nWhile there are no allies within 4 meters of you, all your weapon attacks and self healing have their ^Dice Upgraded^ to the next dice type.\n",
-                "Notes": "Having Dice Upgraded means, for example, d6's become d8's, or d10's become d12's. D12's and d20's just gain +1..\nWhile _alone_, your healing Abilities have their Dice Upgraded when healing yourself.\n\nA Single-Stunned Unit has -1 Action Point on its (next) Turn.\nA Single-Stunned Unit has -1 Action Point on its (next) Turn.\nA Double-Stunned Unit has -2 Action Point on its (next) Turn.\nA Double-Stunned Unit has -3 Action Point on its (next) Turn.",
+                "Effect": "You stomp your weapons into the ground and divide the battlefield.\n\nALL Units in front of you take 4d8 Damage of your weapon's type and are Slammed back 1d8 meters. Each Unit behind you gains a 1d8 Shielding.\n\n{Teal('After Status Effect:')} Units in the front also become Blinded.\n{Teal('After Movement:')} Units in the back may make a free Movement on their next Turn.\n",
+                "Notes": "A Blind Unit's next Damage/Heal Act deals -50% Damage/Healing.",
                 "_alreadyHasStatusEffectDescriptions": true,
-                "ParentKey": "Level 8 Class Talent",
-                "Origin": "Class/Knight"
-            },
-            "<Man of Steel>": {
-                "_Value": 2,
-                "A": "Passive",
-                "Requirement": "Heavy Armor or Shield",
-                "Tags": [
-                    "Defense"
-                ],
-                "Effect": "If you're wearing Heavy Armor or a Shield, you have +1 Defense and +5 Max Health.\n",
-                "ParentKey": "Level 8 Class Talent",
-                "Origin": "Class/Knight"
-            },
-            "<White Knighthood>": {
-                "A": "Passive",
-                "_Value": "2+",
                 "HasMixins": true,
-                "Requirement": "White Clothes",
-                "Tags": [
-                    "Other"
-                ],
-                "Effect": "While at or above 35 Health and wearing white clothes, all your Abilities have their ^Dice Upgraded^ to the next die type.\n",
-                "Notes": "Having Dice Upgraded means, for example, d6's become d8's, or d10's become d12's. D12's and d20's just gain +1.\n",
                 "ParentKey": "Level 8 Class Talent",
+                "Origin": "Class/Knight"
+            },
+            "~Master Falconer~": {
+                "_Value": 3,
+                "A": "Passive",
+                "Bonuses": {
+                    "Scouting": 3
+                },
+                "Effect": "You have a trusted falcon or a similar animal that scouts around and aids you in Combat.\nWhenever you trigger an {Teal(After)} effect, the falcon dashes down and deals 1d4 Pierce Damage to the target, or give an affected ally a 1d6 Shielding, which disappears if the falcon moves away from the ally.\n\nYou have +3 in Scouting.\n",
+                "HasMixins": true,
+                "ParentKey": "Level 8 Class Talent",
+                "Origin": "Class/Knight"
+            }
+        },
+        "Level 9 Class Talent": {
+            "~Shatter Through~": {
+                "_Value": 1.5,
+                "A": "Depends on weapon",
+                "Cooldown": "Once / Turn",
+                "IconName": "Row Through",
+                "HasUpgradeIcon": true,
+                "Tags": [
+                    "Damage",
+                    "Mass Damage (Valor)"
+                ],
+                "Effect": "Make a weapon attack with ~+1d4~ Damage per {A}Action Point spent.\n\n{Teal('After Status Effect:')} Hits ~2 more Units~ within 2 meters of the main target with -50% Damage.\n",
+                "HasMixins": true,
+                "ParentKey": "Level 9 Class Talent",
+                "Origin": "Class/Knight"
+            },
+            "~Infidels!~": {
+                "A": "1 Action Point",
+                "Cooldown": "Once / Turn",
+                "Range": "2 meters",
+                "IconName": "Cowards!",
+                "HasUpgradeIcon": true,
+                "Tags": [
+                    "Protection",
+                    "Movement (Valor)"
+                ],
+                "Effect": "Choose a Worthy Unit within 2 meters.\nGive them ~or~ yourself a ~1d10~ Shielding.\n\n{Teal('After Targeted Damage:')} The Range is ~10 meters~ and you dash in front of it.\n",
+                "Upgrade": "There is no _shared_ on this Ability anymore.",
+                "Notes": "In ^front^ of the Unit means on the closest space in front of where they are facing.\nYou dash ignoring obstacles. Requires Line of Sight, and dashing requires a mostly ^clear^ path (meaning of ^clear^ up to the Quest Master).\n",
+                "Tips": "In certain situations, you might want to target an Enemy, so you can dash closer to them!\n",
+                "HasMixins": true,
+                "ParentKey": "Level 9 Class Talent",
+                "Origin": "Class/Knight"
+            },
+            "~Silver Storm~": {
+                "A": "2 Action Points",
+                "ScrollPower": "Auto",
+                "Range": "Depends on weapon",
+                "IconName": "Platinum Storm",
+                "HasUpgradeIcon": true,
+                "Tags": [
+                    "Mass Damage",
+                    "Heal (Valor)"
+                ],
+                "Effect": "Use a weapon to deal ~2d8 + 2d10~ Damage on a ~4x4~ meter area, of the weapon's Damage Type.\n\n{Teal('After Protection:')} Does not Damage Allies, but Heals an ally caught for one of the rolled dice.\n",
+                "Notes": "Each healing die must be target a different Ally.",
+                "HasMixins": true,
+                "ParentKey": "Level 9 Class Talent",
+                "Origin": "Class/Knight"
+            },
+            "~Make Way For The King~": {
+                "_Value": 1,
+                "A": "1 Action Point",
+                "IconName": "Champion's Gallop",
+                "HasUpgradeIcon": true,
+                "Cooldown": "Once / Turn",
+                "Tags": [
+                    "Movement",
+                    "Status Effect (Valor)"
+                ],
+                "Effect": "Make an ~even better~ Move Act with +{MS} Movement Speed that can pass through Enemies.\n\n{Variants}\n\n{Teal('After Mass Damage:')} {Effect}\n",
+                "Variants": [
+                    {
+                        "Effect": "All Units you pass through are Slammed 1d8 meters to the side (requires a Trusted Steed).",
+                        "MS": "5"
+                    },
+                    {
+                        "Effect": "All Units you pass through are Slowed.",
+                        "MS": "3"
+                    }
+                ],
+                "HasMixins": true,
+                "ParentKey": "Level 9 Class Talent",
+                "Origin": "Class/Knight"
+            },
+            "~Blade of Condoleances~": {
+                "A": "2 Action Points",
+                "Cooldown": "Once / Turn",
+                "IconName": "Liberation",
+                "HasUpgradeIcon": true,
+                "Degree": "Minor",
+                "Range": "3 meters",
+                "Requirement": "Only usable in Worthy Combat",
+                "Tags": [
+                    "Heal",
+                    "Damage (Valor)"
+                ],
+                "Effect": "Heal a Unit for ~1d12~ and remove ~all~ Status Effects from them.\n\n{Teal('After Movement:')} Then deal ~300%~ of that die as ^weapon^ Damage to a Unit within 3 meters of you.\n",
+                "HasMixins": true,
+                "ParentKey": "Level 9 Class Talent",
+                "Origin": "Class/Knight"
+            },
+            "~Indignation~": {
+                "_Value": 1,
+                "A": "1 Action Point",
+                "IconName": "Provocation",
+                "HasUpgradeIcon": true,
+                "Tags": [
+                    "Status Effect",
+                    "Protection (Valor)"
+                ],
+                "Cooldown": "Once / Turn",
+                "Range": "10 meters",
+                "Effect": "Slam a Unit ~1d8~ meters towards you, or ~1d8~ meters away from you.\n\n{Teal('After Healing or being Healed*')} ~Single-Stun~ it instead of Slamming, then gain a ~1d8~ Shielding.\n",
+                "Upgrade": "The {Teal('Valor*')} extra effect may trigger even if you were affected by a Heal on someone else's Turn.",
+                "Notes": "A Single-Stunned Unit has -1 Action Point on its (next) Turn.\nA Single-Stunned Unit has -1 Action Point on its (next) Turn.",
+                "_alreadyHasStatusEffectDescriptions": true,
+                "HasMixins": true,
+                "ParentKey": "Level 9 Class Talent",
+                "Origin": "Class/Knight"
+            }
+        },
+        "Level 10 Ultimate Talent": {
+            "~The Crown~": {
+                "A": "Passive",
+                "Downside": "This is your Heroic Class Ability and, after getting this Talent, you can no longer change your Talents inbetween Adventures.",
+                "Effect": "You become the king, emperor, or hierarch of a certain area or city.\nIn combat, you may be accompanied by up to 2 loyal Knight Heroes, who start at Level 3, and can Level Up like normal Heroes through the {XP}Experience system.\n\nAlso, your Max Health becomes 100 and can not change by any means, and you gain +2 in 2 Stats of your choice. You automatically pass all Hard Presence Checks while within your territory.\n",
+                "HasMixins": true,
+                "ParentKey": "Level 10 Ultimate Talent",
+                "Origin": "Class/Knight"
+            },
+            "~The Last Knight~": {
+                "A": "Passive",
+                "Downside": "This is your Heroic Class Ability and, after getting this Talent, you can no longer change your Talents inbetween Adventures.",
+                "Effect": "As long as your other Hero party members are alive, your Health can not be reduced below 1.\nYou have all Level 9 Talents, and all numbers on your chosen Creed are tripled (except costs and the values of dice).\n\nAlso, you have +1 in all Stats.\n",
+                "Notes": "E.g. 1d6 will increase to 3d6, not 3d18.",
+                "ParentKey": "Level 10 Ultimate Talent",
+                "Origin": "Class/Knight"
+            },
+            "~Legend of the Realm~": {
+                "A": "Passive",
+                "Effect": "All your {Teal(After)} effects trigger 1 extra time, and your first {Teal(After)} effect each Turn triggers its {Teal(After)} effect anyway.\nOnce / Adventure, you gain an item from any shop of the realm without paying for it, and all your food, housing, etc are taken care of for free.\nYou can rest for 30 minutes at a friendly place to immediately end the Adventure for yourself and start a new one.\n\nAlso, you have +4 Presence.\n",
+                "HasMixins": true,
+                "ParentKey": "Level 10 Ultimate Talent",
                 "Origin": "Class/Knight"
             }
         }

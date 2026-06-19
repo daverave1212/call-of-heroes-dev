@@ -1817,6 +1817,7 @@ export const SYMBOLS = {
     'Replacement': { tag: 'Icon', props: { name: 'Replacement' } },
     'Arrow': { tag: 'Icon', props: { name: 'Replacement' } },
     'BlueArrow': { tag: 'Icon', props: { name: 'Replacement' } },
+    'Hammer': { tag: 'Icon', props: { name: 'CharacterSetup' } },
     'Diamond': { tag: 'span', text: '🔹', props: { fontSize: '0.8em' }, func: () => <Icon name="BulletPoint3" style={{marginTop: `calc(0.09 * var(--inline-icon-size))`, marginRight: 0}}/> },
     'Pets and Animals': { tag: 'Link', props: { to: "/Other/PetsAndAnimals" }, text: 'Pets and Animals' },
     'Offensive Abilities': { tag: 'span', text: "Offensive means that it deals Damage or applies hard Status Effect (anything better than Slow and creating Hard Terrain)." },
