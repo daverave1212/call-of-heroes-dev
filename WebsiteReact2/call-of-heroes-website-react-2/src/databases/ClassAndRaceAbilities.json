@@ -7262,12 +7262,12 @@
         "Effect": "Your next weapon attack until the end of your next Turn applies a ~Combo~ and deals extra Damage equal to your last rolled Unstable Spark die and all its Damage dealt becomes {Color('orange' 'Flux')} Damage.\n",
         "Variants": [
             {
-                "DisplayA": "1 Action Point",
-                "Cost": null
-            },
-            {
                 "DisplayA": "0 Action Points",
                 "Cost": "1 Mana"
+            },
+            {
+                "DisplayA": "1 Action Point",
+                "Cost": null
             }
         ],
         "HasMixins": true,
@@ -7278,20 +7278,48 @@
         "A": 2,
         "Range": "10 meters",
         "Effect": "Shoot a lance in a direction that Damages the first Unit it hits for 2d8 {Orange(Flux)} Damage.\n{CriticalStrike} if you roll an 8, apply a ~Combo~.\n\nYou can take the roll as an Unstable Spark die roll. If it's out of bounds, nothing happens (_or the world breaks, who knows!?_)\n",
-        "Notes": "What breaking the world means is up to the Quest Master.",
+        "Notes": "The lance will not hit the target if there's Cover between you and it, and will instead hit the cover.\nWhat breaking the world means is up to the Quest Master. \n",
         "HasMixins": true,
         "ParentKey": "Level 1 Class Talent",
         "Origin": "Class/Sorcerer"
     },
-    "~Chaos Storm~": {
-        "A": "2 Action Points",
-        "Requirement": "Only usable in Worthy Combat",
+    "<Sap>": {
+        "_Value": 1,
+        "A": "1 Action Point",
+        "Cost": "1 Mana",
+        "Range": "10 meters",
         "Tags": [
-            "Damage",
-            "Mass Damage"
+            "Status Effect"
         ],
-        "Effect": "Roll an Unstable Spark die.\nDeal that much Damage of that Damage Type to exactly that many Worthy Units you can see.\n",
-        "Notes": "Roll for a random Damage type from the following: 1. Pierce, 2. Slash, 3. Pulse, 4. Poison, 5. Acid, 6. Divine, 7. Scourge, 8. Shock, 9. Cold, 10. Fire.\nTargeting Worthy Units is mandatory, and you count as a Worthy Unit.\nIf your Unstable Spark is higher than 10, you can choose the Damage Type.\n",
+        "AlignOnWebsite": "Left",
+        "Effect": "A Unit must make a Presence Roll at least equal to your last rolled Unstable Spark die or Stun-Stunned.\nThen roll an Unstable Spark die.\n",
+        "Notes": "What are you doing, just pick Wild Casting.\nA Single-Stunned Unit has -1 Action Point on its (next) Turn.",
+        "_alreadyHasStatusEffectDescriptions": true,
+        "ParentKey": "Level 1 Class Talent",
+        "Origin": "Class/Sorcerer"
+    },
+    "~Spellbloodweave~": {
+        "A": "0 Action Points",
+        "Cost": "1 Mana",
+        "ScrollPower": 1,
+        "Tags": [
+            "Heal"
+        ],
+        "Requirement": "Level 2",
+        "Effect": "Use after you make an attack or use an offensive Ability. It deals -50% Damage, but instead heals an ally you can see for the final Damage dealt.\n",
+        "ParentKey": "Level 1 Class Talent",
+        "Origin": "Class/Sorcerer"
+    },
+    "~Gathering the Magic~": {
+        "A": "0 Action Points",
+        "Cost": "1 Mana",
+        "Cooldown": "Once / Combat",
+        "Requirement": "Level 2, Only usable in Worthy Combat",
+        "Tags": [
+            "Farming"
+        ],
+        "Effect": "For the rest of the Combat, gain:\n{Spark(3)} gain +1 Skill Point permanently.\n",
+        "HasMixins": true,
         "ParentKey": "Level 1 Class Talent",
         "Origin": "Class/Sorcerer"
     },
@@ -7304,6 +7332,7 @@
             "Damage",
             "Combo"
         ],
+        "Requirement": "Level 4",
         "Effect": "Blast a Unit you can see for {Amount} {Color('orange' 'Flux')} Damage and {Choose} Deafened, Lagged, or Dazed.\n\nThen do it again.\n",
         "Combo": "Then do it again.",
         "Variants": [
@@ -7330,7 +7359,8 @@
         "Tags": [
             "Protection"
         ],
-        "Effect": "{Text} Shielding that can block Damage equal to your last rolled Unstable Spark die.\nThen roll an Unstable Spark die.\n\n{Variants}\n",
+        "Requirement": "Level 4",
+        "Effect": "{Text} Shielding that can block Damage equal to your last rolled Unstable Spark die.\nThen roll an Unstable Spark die.\n",
         "Duration": "Until broken or next Adventure",
         "Variants": [
             {
@@ -7347,12 +7377,34 @@
         "ParentKey": "Level 1 Class Talent",
         "Origin": "Class/Sorcerer"
     },
+    "~Cascadence~": {
+        "A": "0 Action Points",
+        "Cooldown": "Once / Unstable Spark roll",
+        "Requirement": "Level 4",
+        "Effect": "Choose an ally you can see. Your next Unstable Spark die rolled applies to them instead of you.\n",
+        "ParentKey": "Level 1 Class Talent",
+        "Origin": "Class/Sorcerer"
+    },
+    "~Chaos Storm~": {
+        "A": "0 Action Points",
+        "Cost": "3 Mana",
+        "Requirement": "Level 6, Only usable in Worthy Combat",
+        "Tags": [
+            "Damage",
+            "Mass Damage"
+        ],
+        "Effect": "Roll an Unstable Spark die.\nDeal that much Damage of that Damage Type to exactly that many Worthy Units you can see.\n",
+        "Notes": "Roll for a random Damage type from the following: 1. Pierce, 2. Slash, 3. Pulse, 4. Poison, 5. Acid, 6. Divine, 7. Scourge, 8. Shock, 9. Cold, 10. Fire.\nTargeting Worthy Units is mandatory, and you count as a Worthy Unit.\nIf your Unstable Spark is higher than 10, you can choose the Damage Type.\n",
+        "ParentKey": "Level 1 Class Talent",
+        "Origin": "Class/Sorcerer"
+    },
     "~Chronohype~": {
         "A": "Reaction or 0 Action Points",
         "Cost": "1 Mana",
         "Tags": [
             "Improvement"
         ],
+        "Requirement": "Level 6",
         "Effect": "Use after someone rolls dice for an Act.\nStart a timer for a number of seconds equal to your last rolled Unstable Spark die.\nYou have that many seconds to reroll ^all the dice together^ until you are satisfied with the result.\nThen take the final result.\n",
         "HasMixins": true,
         "ParentKey": "Level 1 Class Talent",
@@ -7363,6 +7415,7 @@
         "Cost": "1 Mana",
         "Cooldown": "Once / Adventure",
         "Duration": "Until next Combat",
+        "Requirement": "Level 8",
         "Tags": [
             "Buff"
         ],
@@ -7371,50 +7424,12 @@
         "ParentKey": "Level 1 Class Talent",
         "Origin": "Class/Sorcerer"
     },
-    "~Spellbloodweave~": {
-        "A": "0 Action Points",
-        "Cost": "1 Mana",
-        "ScrollPower": 1,
-        "Tags": [
-            "Heal"
-        ],
-        "Effect": "Use after you make an attack or use an offensive Ability. It deals -50% Damage, but instead heals an ally you can see for the final Damage dealt.\n",
-        "ParentKey": "Level 1 Class Talent",
-        "Origin": "Class/Sorcerer"
-    },
-    "~Gathering the Magic~": {
-        "A": "0 Action Points",
-        "Cost": "1 Mana",
-        "Cooldown": "Once / Combat",
-        "Requirement": "Only usable in Worthy Combat",
-        "Tags": [
-            "Farming"
-        ],
-        "Effect": "For the rest of the Combat, gain:\n{Spark(3)} gain +1 Skill Point permanently.\n",
-        "HasMixins": true,
-        "ParentKey": "Level 1 Class Talent",
-        "Origin": "Class/Sorcerer"
-    },
-    "<Sap>": {
-        "_Value": 1,
-        "A": "1 Action Point",
-        "Range": "10 meters",
-        "Cooldown": "Once / Turn",
-        "Tags": [
-            "Status Effect"
-        ],
-        "AlignOnWebsite": "Left",
-        "Effect": "A Unit must make a Presence Roll at least equal to your last rolled Unstable Spark die or be Lagged or Dazed (your choice).\nThen roll an Unstable Spark die.\n",
-        "Notes": "What are you doing, just pick Wild Casting.\nA Lagged Unit's next Movement costs +1 Action Point.\n",
-        "_alreadyHasStatusEffectDescriptions": true,
-        "ParentKey": "Level 1 Class Talent",
-        "Origin": "Class/Sorcerer"
-    },
     "~Soulforce Tap~": {
         "A": "0 Action Points (or Reaction)",
         "Cooldown": "Once / Round",
         "HasMixins": true,
         "Cost": "1 Mana",
+        "Requirement": "Level 8",
         "Effect": "Reroll an Unstable Spark die, or you can choose to roll it again after you did its effect.\n",
         "ParentKey": "Level 1 Class Talent",
         "Origin": "Class/Sorcerer"
@@ -7422,17 +7437,11 @@
     "~Throwback~": {
         "A": "Passive",
         "IsIgnored": true,
+        "Requirement": "Level 8",
         "Extras": [
             "+1 Race Talent"
         ],
         "Effect": "Get one more Race Talent.",
-        "ParentKey": "Level 1 Class Talent",
-        "Origin": "Class/Sorcerer"
-    },
-    "~Cascadence~": {
-        "A": "0 Action Points",
-        "Cooldown": "Once / Unstable Spark roll",
-        "Effect": "Choose an ally you can see. Your next Unstable Spark die rolled applies to them instead of you.\n",
         "ParentKey": "Level 1 Class Talent",
         "Origin": "Class/Sorcerer"
     },
@@ -7622,7 +7631,7 @@
         "HasMixins": true,
         "Replacement": "Replaces number 10 of Unstable Spark",
         "Effect": "Your Unstable Spark die becomes 1d12 instead of 1d10.\n{Spark(\"11 or 12\")} Your next Spell this Turn has +50% Damage.\n{Spark(10)} No effect.\n",
-        "Notes": "I don't know. You're a Sorcerer, figure it out.\nMild Casting still works on 9.\n",
+        "Notes": "If other Talents refer to the number 10 on the Unstable Spark die, treat that as a 12.\nYou're a Sorcerer, I'm sure you'll figure it out.\n",
         "ParentKey": "Level 3 Class Talent",
         "Origin": "Class/Sorcerer"
     },
@@ -7659,62 +7668,67 @@
         "ParentKey": "Level 3 Class Talent",
         "Origin": "Class/Sorcerer"
     },
-    "~Will You Just Die~": {
-        "A": "Reaction",
-        "Cost": "1 Mana",
-        "Effect": "Use when you drop to or below 0 Health.\nYou can go into debt with Health, down to 50% of your Max Health.\n",
-        "Upgrade": "At the end of the Combat, if you are at or below 0 Health, you become Fallen and unconscious, and you keep your Health Debt until you are healed to 1 or more Health. Heal to recover Health debt!",
-        "ParentKey": "Level 4 Class Talent",
-        "Origin": "Class/Sorcerer"
-    },
-    "~Spiritflare~": {
-        "A": "1 Action Point",
-        "Range": "5 meters",
-        "IconName": "Soulflare",
-        "HasUpgradeIcon": true,
-        "Cost": "1 Mana",
-        "Replacement": "Replaces Soulflare",
-        "Requirement": "Requires Soulflare",
-        "Effect": "Deal {Amount} {Color('orange' 'Flux')} Damage to {ToWhat}.\n\n{Variants}\n",
-        "Notes": "~The Damage is higher than the regular Soulflare.~",
-        "Variants": [
-            {
-                "DisplayA": "0 Action Points",
-                "Amount": "1d10",
-                "ToWhat": "1 Unit"
-            },
-            {
-                "DisplayA": "1 Action Point",
-                "Amount": "1d8 + 1d10",
-                "ToWhat": "2 Units"
-            },
-            {
-                "DisplayA": "2 Action Points",
-                "Amount": "1d8 + 1d10 + 1d12",
-                "ToWhat": "3 Units"
-            },
-            {
-                "DisplayA": "3 Action Points",
-                "Amount": "1d8 + 1d10 + 1d12 + 1d14",
-                "ToWhat": "4 Units"
-            }
-        ],
+    "~Event-Horizon Ego Death~": {
+        "A": "Passive",
+        "Effect": "{Spark(5)} store 1d8 _Undying Points_.\n\nWhen you would drop to 0 Health, you immediately spend all _Undying Points_ heal back to that much {Health}Health without Exhaustion.\n",
+        "Upgrade": "These _Undying Points_ are kept until spent, even inbetween Adventures.",
+        "Notes": "An Exhausted* Unit has -1 Action Point for each tier of Exhaustion. At Triple-Exhausted, the Unit dies.",
+        "_alreadyHasStatusEffectDescriptions": true,
         "HasMixins": true,
         "ParentKey": "Level 4 Class Talent",
         "Origin": "Class/Sorcerer"
     },
-    "~Arc Jolt~": {
-        "A": "1 Action Point",
-        "Range": "5 meters",
-        "ScrollPower": 2,
-        "Replacement": "Replaces Jolt",
-        "Requirement": "Requires Jolt",
-        "IconName": "Jolt",
-        "HasUpgradeIcon": true,
-        "Effect": "Shoot a quick burst of current at a Unit, dealing ~1d10~ + ^Any Stat^ {Color('orange' 'Flux')} Damage.\nThen roll an Unstable Spark die.\n",
-        "Downside": "Only usable if your last Unstable Spark die rolled was at least 6.\n",
+    "~Recoherence~": {
+        "A": "Passive",
+        "Effect": "{Spark(5)} this can count as a {Orange(4)} or {Orange(3)} (you choose which).\n",
         "HasMixins": true,
         "ParentKey": "Level 4 Class Talent",
+        "Origin": "Class/Sorcerer"
+    },
+    "~Adrenaline Drift~": {
+        "A": "Passive",
+        "Effect": "{Spark(5)} roll 1d8 to determine a direction (North, North-East, East, etc).\nHeal another Worthy Unit roughly in that direction for 1d8.\nIf there is none, Heal yourself.\n",
+        "HasMixins": true,
+        "ParentKey": "Level 4 Class Talent",
+        "Origin": "Class/Sorcerer"
+    },
+    "~Manifest Abundance~": {
+        "A": "Passive",
+        "Effect": "{Spark(5)} for the rest of the Combat, gain {Gold}Gold equal to all dice you roll.\n",
+        "HasMixins": true,
+        "ParentKey": "Level 4 Class Talent",
+        "Origin": "Class/Sorcerer"
+    },
+    "~Arcane Feedback~": {
+        "A": "Passive",
+        "Effect": "{Spark(6)} your next Ability casts again, but with -90% Spellpower.\n",
+        "Upgrade": "The Damage, Healing, etc of that Ability can't be less than 1.",
+        "HasMixins": true,
+        "ParentKey": "Level 5 Class Talent",
+        "Origin": "Class/Sorcerer"
+    },
+    "~Plasmify~": {
+        "A": "Passive",
+        "Effect": "{Spark(6)} roll another Unstable Spark die.\nGive an Ally a Shielding that can block that much Damage.\n",
+        "Notes": "You can target yourself.",
+        "HasMixins": true,
+        "ParentKey": "Level 5 Class Talent",
+        "Origin": "Class/Sorcerer"
+    },
+    "~Entropy Reversal~": {
+        "A": "Passive",
+        "Effect": "{Spark(6)} gain 1 Plot Point, and your next Ability gains +1d2 Spellpower.\n",
+        "HasMixins": true,
+        "ParentKey": "Level 5 Class Talent",
+        "Origin": "Class/Sorcerer"
+    },
+    "~Wave Collapse~": {
+        "A": "Passive",
+        "Range": "5 meters",
+        "Effect": "{Spark(6)} Slam a Unit 1d6 meters towards a wall.\n",
+        "Notes": "You can Slam yourself. Ceilings and floors do not count as walls.",
+        "HasMixins": true,
+        "ParentKey": "Level 5 Class Talent",
         "Origin": "Class/Sorcerer"
     },
     "~Reverse Gravity~": {
@@ -7723,7 +7737,7 @@
         "Range": "10 meters to edge",
         "ScrollPower": "Auto",
         "Degree": "Grand",
-        "Effect": "Declare an area with a diameter in meters (in all directions) equal to your Level.\nThe gravity becomes reversed in that area and all Units instantly fall upwards. Units can make a Instinct Check to grab onto an object to not be lifted.\nUnits suffer fall Damage if they fall onto a ceiling.\nWhen the effect ends, all Units fall at half velocity (and take half of the fall Damage). The same happens to a Unit if it exits the area.\nLasts for up to 1 minute. You can cancel this effect at will.\n",
+        "Effect": "Declare an area with a diameter in meters (in all directions) equal to your last rolled Unstable Spark die (whenever it was).\nThe gravity becomes reversed in that area and all Units instantly fall upwards. Units can make a Instinct Check to grab onto an object to not be lifted.\nUnits suffer fall Damage if they fall onto a ceiling.\nWhen the effect ends, all Units fall at half velocity (and take half of the fall Damage). The same happens to a Unit if it exits the area.\nLasts for up to 1 minute. You can cancel this effect at will.\n",
         "Notes": "Fall Damage is 1d6 for every 2 meters fallen (e.g. 1d6 for 2 and 3 meters, 2d6 for 4 and 5 meters, etc).\n",
         "ParentKey": "Level 6 - Utility Talent",
         "Origin": "Class/Sorcerer"
@@ -7733,46 +7747,111 @@
         "Cost": "2 mana",
         "Degree": "Major",
         "ScrollPower": 3,
-        "Range": "Up to Focus * 100 kilometers",
-        "Effect": "You can spend 10 minutes in a place to Bind to it.\nWhen you use this Ability, channel for 10 minutes to teleport up to 1d6 Allies (and yourself) within 10 meters of you to the bound place.\nYou can only have 1 bound place at a time.\n",
-        "EffectRed": "You can teleport more Allies than the rolled die, but the teleportation will have strange side effects or consequences.",
+        "Range": "Depends",
+        "Effect": "You can spend 10 minutes in a place to Bind to it.\nWhen you use this Ability, channel for 10 minutes to teleport a number of allies you can see up to your last rolled Unstable Spark die (whenever it was) to that place.\nYou can only have 1 bound place at a time.\n",
+        "EffectRed": "Actually, you _can_ teleport more Allies than that, but the teleportation will have strange side effects or consequences...",
         "Notes": "You can remove the binding of a place at will, from any distance.",
         "ParentKey": "Level 6 - Utility Talent",
         "Origin": "Class/Sorcerer"
     },
-    "<Great Sorcery>": {
+    "~Synchronicity Convection~": {
+        "A": "Passive",
+        "Effect": "Whenever ^you^ generate a Plot Point for your team, you generate 2 instead.",
+        "HasMixins": true,
+        "ParentKey": "Level 6 - Utility Talent",
+        "Origin": "Class/Sorcerer"
+    },
+    "~Mind Visualization~": {
+        "A": "Passive",
+        "Effect": "{Spark(3)} gain a Positive Quirk.\n",
+        "HasMixins": true,
+        "ParentKey": "Level 6 - Utility Talent",
+        "Origin": "Class/Sorcerer"
+    },
+    "<Chakra>": {
         "_Value": 2.5,
         "A": "Passive",
-        "Effect": "{Spark('8 or 9')} gain 1 Mana.\n",
+        "IconName": "Great Sorcery",
+        "Effect": "{Spark('7')} gain 1 Mana.\n{Spark(8)} replenish 1 Mana of ally you can see.\n",
         "HasMixins": true,
         "ParentKey": "Level 7 Class Talent",
         "Origin": "Class/Sorcerer"
     },
-    "<Zap>": {
+    "<Floccinaucinihilipilification>": {
         "_Value": 2.5,
         "A": "Passive",
-        "Effect": "{Spark('6, 7 or 8')} immediately Zap the closest Unit to you for ^your Focus^ Shock Damage.\n",
+        "Effect": "{Spark('7, 8')} immediately Zap the closest Unit to you for ^your Focus^ {Orange(Flux)} Damage.\n",
         "HasMixins": true,
         "ParentKey": "Level 7 Class Talent",
         "Origin": "Class/Sorcerer"
-    },
-    "<Chronomancy>": {
-        "_Value": 3.5,
-        "A": "0 Action Points",
-        "Cost": "1 Mana",
-        "Cooldown": "Once / Adventure",
-        "Tags": [
-            "Action Points",
-            "Utility"
-        ],
-        "Effect": "Instantly return to how and where you were at the start of the Turn, with that same Movement, Actions, Health, Shielding, Buffs, and other Cooldowns (not Mana, though).\nAlternatively, if you're out of Combat, you can turn back time for all the world up to 10 minutes, exactly how it was, but retaining all your information from the future. Allies don't retain the information.\n",
-        "ParentKey": "Level 9 Class Talent",
-        "Origin": "Class/Wizard"
     },
     "<Double Spark Triple Quark>": {
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "Whenever you would roll an Unstable Spark die, roll 2 instead of one. Apply effects for both.\n",
+        "Effect": "{Spark('7, 8')} roll 2 more Unstable Spark dice.\n",
+        "ParentKey": "Level 7 Class Talent",
+        "Origin": "Class/Sorcerer"
+    },
+    "~Retrograde Alignment~": {
+        "A": "Passive",
+        "Effect": "{Spark('8')} freely cast the last Enemy Ability or attack against you.\n",
+        "HasMixins": true,
+        "ParentKey": "Level 7 Class Talent",
+        "Origin": "Class/Sorcerer"
+    },
+    "~Karmic Decay~": {
+        "A": "Passive",
+        "Effect": "When you trigger the maximum effect of Unstable Spark (e.g. 10), that Spell gains +100% Damage instead, but the _next_ next Spell you cast deals -50% Damage.\n",
+        "HasMixins": true,
+        "ParentKey": "Level 8 Class Talent",
+        "Origin": "Class/Sorcerer"
+    },
+    "~Defenestration Vortex~": {
+        "A": "0 Action Points",
+        "Cooldown": "Once / Adventure",
+        "Duration": "1 minute",
+        "Effect": "All your Unstable Spark dice are doubled. If they exceed 10, the overflow over 10 counts as another rolled Unstable Spark die.\n",
+        "Notes": "For example, if you roll 8, that becomes 16. Then 16 becomes 2 separate dice, 10 and 6.",
+        "ParentKey": "Level 8 Class Talent",
+        "Origin": "Class/Sorcerer"
+    },
+    "<Chronomancism>": {
+        "IconName": "Chronomancy",
+        "A": "0 Action Points",
+        "Cost": "1 Mana",
+        "Cooldown": "Once / Adventure",
+        "ScrollPower": 4,
+        "Effect": "Instantly return to how and where you were at the start of your turn (or your previous turn if it's not currently your turn), with that same Movement, Actions, Health, Shielding, Buffs and Cooldowns (not Mana, though).\nAlternatively, if you're out of combat, you can turn back time for all the world up to 10 minutes, exactly how it was, but retaining all your information from the future. Allies don't retain the information.\n",
+        "ParentKey": "Level 8 Class Talent",
+        "Origin": "Class/Sorcerer"
+    },
+    "~Obviate~": {
+        "A": "Passive",
+        "Effect": "{Spark(9)} the next projectile an enemy fires vanishes into thin air.\n",
+        "HasMixins": true,
+        "ParentKey": "Level 9 Class Talent",
+        "Origin": "Class/Sorcerer"
+    },
+    "~Time Singularity~": {
+        "A": "Passive",
+        "Effect": "{Spark(9)} gain +1 {A}Action Point.\n",
+        "HasMixins": true,
+        "ParentKey": "Level 9 Class Talent",
+        "Origin": "Class/Sorcerer"
+    },
+    "~Butterfly Effect~": {
+        "A": "0 Action Points",
+        "Cooldown": "Once / Adventure",
+        "Cost": "2 Mana",
+        "Effect": "Immediately end your Turn and take another one.\nYou skip your next Turn.\n",
+        "ParentKey": "Level 9 Class Talent",
+        "Origin": "Class/Sorcerer"
+    },
+    "~Arcane Anomaly~": {
+        "A": "Passive",
+        "Duration": "1 minute",
+        "Effect": "{Spark(9)} summon a 3x3 meter Arcane Anomaly anywhere you choose on the battlefield.\n\nAt the end of your Turn, all Arcane Anomalies deal 1d6 Psychic Damage to Units inside them.\n_Units inside anomalies may be prompted to choose different actions by the Quest Master..._\n",
+        "HasMixins": true,
         "ParentKey": "Level 9 Class Talent",
         "Origin": "Class/Sorcerer"
     },
@@ -8178,6 +8257,11 @@
     },
     "~Eat An Orange~": {
         "Effect": "LOL",
+        "ParentKey": "Ideas",
+        "Origin": "Class/Swashbuckler"
+    },
+    "~Combo Machine~": {
+        "Effect": "Whenever a combo is triggered, the target takes....",
         "ParentKey": "Ideas",
         "Origin": "Class/Swashbuckler"
     },
@@ -10815,6 +10899,19 @@
         "Notes": "This extra Damage is applied as normal extra Damage, before any other calculations. Slamming counts as a Status Effect.",
         "HasMixins": true,
         "ParentKey": "Level 8 Class Talent",
+        "Origin": "Class/Wizard"
+    },
+    "<Chronomancy>": {
+        "_Value": 3.5,
+        "A": "0 Action Points",
+        "Cost": "1 Mana",
+        "Cooldown": "Once / Adventure",
+        "Tags": [
+            "Action Points",
+            "Utility"
+        ],
+        "Effect": "Instantly return to how and where you were at the start of the Turn, with that same Movement, Actions, Health, Shielding, Buffs, and other Cooldowns (not Mana, though).\nAlternatively, if you're out of Combat, you can turn back time for all the world up to 10 minutes, exactly how it was, but retaining all your information from the future. Allies don't retain the information.\n",
+        "ParentKey": "Level 9 Class Talent",
         "Origin": "Class/Wizard"
     },
     "<Destruction>": {

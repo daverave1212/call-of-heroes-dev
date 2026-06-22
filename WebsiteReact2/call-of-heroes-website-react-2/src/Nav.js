@@ -23,7 +23,8 @@ const NAV_CONFIG = NavConfig.config
 NAV_CONFIG[0].href = DISCORD_URL
 
 const LOCK_TO_ICON_MAP = {
-    'premium': 'Premium.svg'
+    'premium': 'Premium.svg',
+    'upcoming': 'Upcoming.png'
 }
 
 

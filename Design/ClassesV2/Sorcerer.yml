@@ -37,6 +37,8 @@ __Ideas:
     Level 8: Other stuff
     Level 9: 9
 
+  Names:
+    - Defenestration Vortex
 
 
 Ideas:
@@ -264,11 +266,24 @@ Talents:
         The lance will not hit the target if there's Cover between you and it, and will instead hit the cover.
         What breaking the world means is up to the Quest Master. 
 
+    <Sap>:
+      _Value: 1
+      A: Half-Action
+      Cost: 1 Mana
+      Range: 10 meters
+      Tags: [Status Effect]
+      AlignOnWebsite: Left
+      Effect: |
+        A Unit must make a {Charisma} Roll at least equal to your last rolled Unstable Spark die or Stun-Stunned.
+        Then roll an Unstable Spark die.
+      Notes: What are you doing, just pick Wild Casting.
+
     ~Spellbloodweave~:
       A: 0 Actions
       Cost: 1 Mana
       ScrollPower: 1
       Tags: [Heal]
+      Requirement: Level 2
       Effect: |
         Use after you make an attack or use an offensive Ability. It deals -50% Damage, but instead heals an ally you can see for the final Damage dealt.
 
@@ -276,7 +291,7 @@ Talents:
       A: 0 Actions
       Cost: 1 Mana
       Cooldown: Once / Combat
-      Requirement: Only usable in Worthy Combat
+      Requirement: Level 2, Only usable in Worthy Combat
       Tags: [Farming]
       Effect: |
         For the rest of the Combat, gain:
@@ -287,7 +302,7 @@ Talents:
       Cooldown: Once / Turn
       Cost: 2 Mana
       Tags: [Status Effect, Damage, Combo]
-      Requirement: Level 3
+      Requirement: Level 4
       Effect: |
         Blast a Unit you can see for {Amount} {Color('orange' 'Flux')} Damage and {Choose} Deafened, Lagged, or Dazed.
 
@@ -306,12 +321,10 @@ Talents:
       A: 0 Actions
       Cost: 1 Plot Point
       Tags: [Protection]
-      Requirement: Level 3
+      Requirement: Level 4
       Effect: |
         {Text} Shielding that can block Damage equal to your last rolled Unstable Spark die.
         Then roll an Unstable Spark die.
-        
-        {Variants}
       Duration: Until broken or next Adventure
       Variants:
         - DisplayA: 0 Actions
@@ -320,9 +333,17 @@ Talents:
           Text: Give a Unit you can see a
       Notes: Your party gains a Plot Point when rolling evens on a Check.
 
+    ~Cascadence~:
+      A: 0 Actions
+      Cooldown: Once / Unstable Spark roll
+      Requirement: Level 4
+      Effect: |
+        Choose an ally you can see. Your next Unstable Spark die rolled applies to them instead of you.
+
     ~Chaos Storm~:
-      A: 1 Action
-      Requirement: Only usable in Worthy Combat
+      A: 0 Actions
+      Cost: 3 Mana
+      Requirement: Level 6, Only usable in Worthy Combat
       Tags: [Damage, Mass Damage]
       Effect: |
         Roll an Unstable Spark die.
@@ -336,6 +357,7 @@ Talents:
       A: Reaction or 0 Actions
       Cost: 1 Mana
       Tags: [Improvement]
+      Requirement: Level 6
       Effect: |
         Use after someone rolls dice for an Act.
         Start a timer for a number of seconds equal to your last rolled Unstable Spark die.
@@ -347,45 +369,29 @@ Talents:
       Cost: 1 Mana
       Cooldown: Once / Adventure
       Duration: Until next Combat
+      Requirement: Level 8
       Tags: [Buff]
       Effect: |
         Increase the Initiative of 2 Units you can see by 1.
         Apply a ~Combo~ to each of them.
-    
-    <Sap>:
-      _Value: 1
-      A: Half-Action
-      Cost: 1 Mana
-      Range: 10 meters
-      Cooldown: Once / Turn
-      Tags: [Status Effect]
-      AlignOnWebsite: Left
-      Effect: |
-        A Unit must make a {Charisma} Roll at least equal to your last rolled Unstable Spark die or Stun-Stunned.
-        Then roll an Unstable Spark die.
-      Notes: What are you doing, just pick Wild Casting.
 
     ~Soulforce Tap~:
       A: 0 Actions (or Reaction)
       Cooldown: Once / Round
       HasMixins: true
       Cost: 1 Mana
+      Requirement: Level 8
       Effect: |
         Reroll an Unstable Spark die, or you can choose to roll it again after you did its effect.
 
     ~Throwback~:
       A: Passive
       IsIgnored: true
+      Requirement: Level 8
       Extras:
         - +1 Race Talent
       Effect: Get one more Race Talent.
 
-    ~Cascadence~:
-      A: 0 Actions
-      Cooldown: Once / Unstable Spark roll
-      Effect: |
-        Choose an ally you can see. Your next Unstable Spark die rolled applies to them instead of you.
-      
 
   Level 2 Class Talent:
 
@@ -515,8 +521,8 @@ Talents:
           {Spark("11 or 12")} Your next Spell this Turn has +50% Damage.
           {Spark(10)} No effect.
         Notes: |
-          I don't know. You're a Sorcerer, figure it out.
-          Mild Casting still works on 9.
+          If other Talents refer to the number 10 on the Unstable Spark die, treat that as a 12.
+          You're a Sorcerer, I'm sure you'll figure it out.
     
     <Tap>:
       A: Passive
@@ -546,54 +552,60 @@ Talents:
 
   Level 4 Class Talent:
 
-    ~Will You Just Die~:
-      A: Reaction
-      Cost: 1 Mana
+    ~Event-Horizon Ego Death~:
+      A: Passive
       Effect: |
-        Use when you drop to or below 0 Health.
-        You can go into debt with Health, down to 50% of your Max Health.
-      Upgrade: At the end of the Combat, if you are at or below 0 Health, you become Fallen and unconscious, and you keep your Health Debt until you are healed to 1 or more Health. Heal to recover Health debt!
+        {Spark(5)} store 1d8 _Undying Points_.
 
-    ~Spiritflare~:
-      A: Half-Action
+        When you would drop to 0 Health, you immediately spend all _Undying Points_ heal back to that much {Health}Health without Exhaustion.
+      Upgrade: These _Undying Points_ are kept until spent, even inbetween Adventures.        
+
+    ~Recoherence~:
+      A: Passive
+      Effect: |
+        {Spark(5)} this can count as a {Orange(4)} or {Orange(3)} (you choose which).
+
+    ~Adrenaline Drift~:
+      A: Passive
+      Effect: |
+        {Spark(5)} roll 1d8 to determine a direction (North, North-East, East, etc).
+        Heal another Worthy Unit roughly in that direction for 1d6.
+        If there is none, Heal yourself.
+
+    ~Manifest Abundance~:
+      A: Passive
+      Effect: |
+        {Spark(5)} for the rest of the Combat, gain {Gold}Gold equal to all dice you roll.
+
+
+
+  Level 5 Class Talent:
+    
+    ~Arcane Feedback~:
+      A: Passive
+      Effect: |
+        {Spark(6)} your next Ability casts again, but with -90% Spellpower.
+      Upgrade: The Damage, Healing, etc of that Ability can't be less than 1.
+
+    ~Plasmify~:
+      A: Passive
+      Effect: |
+        {Spark(6)} roll another Unstable Spark die.
+        Give an Ally a Shielding that can block that much Damage.
+      Notes: You can target yourself.
+
+    ~Entropy Reversal~:
+      A: Passive
+      Effect: |
+        {Spark(6)} gain 1 Plot Point, and your next Ability gains +1d2 Spellpower.
+
+    ~Wave Collapse~:
+      A: Passive
       Range: 5 meters
-      IconName: Soulflare
-      HasUpgradeIcon: true
-      Cost: 1 Mana
-      Replacement: Replaces Soulflare
-      Requirement: Requires Soulflare
       Effect: |
-        Deal {Amount} {Color('orange' 'Flux')} Damage to {ToWhat}.
+        {Spark(6)} Slam a Unit 1d6 meters towards a wall.
+      Notes: You can Slam yourself. Ceilings and floors do not count as walls.
 
-        {Variants}
-      Notes: ~The Damage is higher than the regular Soulflare.~
-      Variants:
-        - DisplayA: 0 Actions
-          Amount: 1d10
-          ToWhat: 1 Unit
-        - DisplayA: Half-Action
-          Amount: 1d8 + 1d10
-          ToWhat: 2 Units
-        - DisplayA: 1 Action
-          Amount: 1d8 + 1d10 + 1d12
-          ToWhat: 3 Units
-        - DisplayA: 3 Action Points
-          Amount: 1d8 + 1d10 + 1d12 + 1d14
-          ToWhat: 4 Units
-
-    ~Arc Jolt~:
-      A: Half-Action
-      Range: 5 meters
-      ScrollPower: 2
-      Replacement: Replaces Jolt
-      Requirement: Requires Jolt
-      IconName: Jolt
-      HasUpgradeIcon: true
-      Effect: |
-        Shoot a quick burst of current at a Unit, dealing ~1d10~ + ^Any Stat^ {Color('orange' 'Flux')} Damage.
-        Then roll an Unstable Spark die.
-      Downside: |
-        Only usable if your last Unstable Spark die rolled was at least 6.
 
   Level 6 - Utility Talent:
 
@@ -604,7 +616,7 @@ Talents:
         ScrollPower: Auto
         Degree: Grand
         Effect: |
-            Declare an area with a diameter in meters (in all directions) equal to your Level.
+            Declare an area with a diameter in meters (in all directions) equal to your last rolled Unstable Spark die (whenever it was).
             The gravity becomes reversed in that area and all Units instantly fall upwards. Units can make a {Dexterity} Check to grab onto an object to not be lifted.
             Units suffer fall Damage if they fall onto a ceiling.
             When the effect ends, all Units fall at half velocity (and take half of the fall Damage). The same happens to a Unit if it exits the area.
@@ -617,32 +629,69 @@ Talents:
         Cost: 2 mana
         Degree: Major
         ScrollPower: 3
-        Range: Up to {Intelligence} * 100 kilometers
+        Range: Depends
         Effect: |
             You can spend 10 minutes in a place to Bind to it.
-            When you use this Ability, channel for 10 minutes to teleport up to 1d6 Allies (and yourself) within 10 meters of you to the bound place.
+            When you use this Ability, channel for 10 minutes to teleport a number of allies you can see up to your last rolled Unstable Spark die (whenever it was) to that place.
             You can only have 1 bound place at a time.
-        EffectRed: You can teleport more Allies than the rolled die, but the teleportation will have strange side effects or consequences.
+        EffectRed: Actually, you _can_ teleport more Allies than that, but the teleportation will have strange side effects or consequences...
         Notes: You can remove the binding of a place at will, from any distance.
 
+    ~Synchronicity Convection~:
+      A: Passive
+      Effect: Whenever ^you^ generate a Plot Point for your team, you generate 2 instead.
+
+    ~Mind Visualization~:
+      A: Passive
+      Effect: |
+        {Spark(3)} gain a Positive Quirk.
 
   Level 7 Class Talent:
 
-    <Great Sorcery>:
+    <Chakra>:
       _Value: 2.5
       A: Passive
+      IconName: Great Sorcery
       Effect: |
-        {Spark('8 or 9')} gain 1 Mana.
+        {Spark('7')} gain 1 Mana.
+        {Spark(8)} replenish 1 Mana of ally you can see.
     
-    <Zap>:
+    <Floccinaucinihilipilification>:
       _Value: 2.5
       A: Passive
       Effect: |
-        {Spark('6, 7 or 8')} immediately Zap the closest Unit to you for ^your {Intelligence}^ Shock Damage.
+        {Spark('7, 8')} immediately Zap the closest Unit to you for ^your {Intelligence}^ {Orange(Flux)} Damage.
 
-  Level 9 Class Talent:
+    <Double Spark Triple Quark>:
+      A: Passive
+      HasMixins: true
+      Effect: |
+        {Spark('7, 8')} roll 2 more Unstable Spark dice.
 
-    <Chronomancy>:  # ~3 or more
+    ~Retrograde Alignment~:
+      A: Passive
+      Effect: |
+        {Spark('8')} freely cast the last Enemy Ability or attack against you.
+    
+
+
+  Level 8 Class Talent:
+    
+    ~Karmic Decay~:
+      A: Passive
+      Effect: |
+        When you trigger the maximum effect of Unstable Spark (e.g. 10), that Spell gains +100% Damage instead, but the _next_ next Spell you cast deals -50% Damage.
+
+    ~Defenestration Vortex~:
+      A: 0 Actions
+      Cooldown: Once / Adventure
+      Duration: 1 minute
+      Effect: |
+        All your Unstable Spark dice are doubled. If they exceed 10, the overflow over 10 counts as another rolled Unstable Spark die.
+      Notes: For example, if you roll 8, that becomes 16. Then 16 becomes 2 separate dice, 10 and 6.
+
+    <Chronomancism>:  # ~3 or more
+      IconName: Chronomancy
       A: 0 Actions
       Cost: 1 Mana
       Cooldown: Once / Adventure
@@ -650,12 +699,36 @@ Talents:
       Effect: |
         Instantly return to how and where you were at the start of your turn (or your previous turn if it's not currently your turn), with that same Movement, Actions, Health, Shielding, Buffs and Cooldowns (not Mana, though).
         Alternatively, if you're out of combat, you can turn back time for all the world up to 10 minutes, exactly how it was, but retaining all your information from the future. Allies don't retain the information.
-  
-    <Double Spark Triple Quark>:
+
+  Level 9 Class Talent:
+
+    ~Obviate~:
       A: Passive
-      HasMixins: true
       Effect: |
-        Whenever you would roll an Unstable Spark die, roll 2 instead of one. Apply effects for both.
+        {Spark(9)} the next projectile an enemy fires vanishes into thin air.
+    
+    ~Time Singularity~:
+      A: Passive
+      Effect: |
+        {Spark(9)} gain +1 {A}Action Point.
+
+    ~Butterfly Effect~:
+      A: 0 Actions
+      Cooldown: Once / Adventure
+      Cost: 2 Mana
+      Effect: |
+        Immediately end your Turn and take another one.
+        You skip your next Turn.
+
+    ~Arcane Anomaly~:
+      A: Passive
+      Duration: 1 minute
+      Effect: |
+        {Spark(9)} summon a 3x3 meter Arcane Anomaly anywhere you choose on the battlefield, which may change the shape and terrain of the area affected.
+        
+        Units standing in them are Deafened.
+        At the end of your Turn, all Arcane Anomalies deal 1d6 Psychic Damage to Units inside them.
+        _Units inside anomalies may be prompted to choose different actions by the Quest Master..._
 
   Level 10 Class Talent:
     <Grand Sorcery>:
