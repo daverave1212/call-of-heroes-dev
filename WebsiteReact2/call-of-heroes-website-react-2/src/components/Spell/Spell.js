@@ -87,10 +87,16 @@ export function SpellTopStats({className, tags, keywords}) {
                     </div>
                 ) }
                 { Cost != null && (
-                    <div>
-                        <img src="/Icons/UI/Mana.png" className="inline-icon--spell"/>
-                        { Cost }
-                    </div>
+                    Cost.includes('Health')?
+                        (<div>
+                            <img src="/Icons/UI/Health.png" className="inline-icon--spell"/>
+                            { Cost }
+                        </div>)
+                    :
+                        (<div>
+                            <img src="/Icons/UI/Mana.png" className="inline-icon--spell"/>
+                            { Cost }
+                        </div>)
                 ) }
                 { Hands != null && (<div><img src="/Icons/UI/Hand.png" className="inline-icon--spell"/>{ Hands }</div>) }
                 { Range != null && (<div><img src="/Icons/UI/Range.png" className="inline-icon--spell"/>{ Range }</div>) }

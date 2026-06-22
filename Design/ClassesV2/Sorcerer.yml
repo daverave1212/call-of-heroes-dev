@@ -24,10 +24,69 @@ Weapons: You are Trained in a Weapon Category of choice (e.g. 1-Handed Melee, 2-
 # Idea: Chronomancy - gain some chronomancy spells, like Slow (which limits Epics to 1 turn too)
 
 
+__Ideas:
+
+  Levels Talents US Numbers:
+    Level 1: 1, 10
+    Level 2: 2, 3
+    Level 3: 4
+    Level 4: 5
+    Level 5: 6
+    Level 6: Utility
+    Level 7: 7, 8
+    Level 8: Other stuff
+    Level 9: 9
+
+
+
 Ideas:
+
+  # Abilities
 
   ~OSR Spell~:
     Effect: Roll an US die. The effect increases based on your roll with a table.
+
+  ~Spell Roulette~:
+    Effect: |
+      Roll 3 USD and cast a spell that combined value something something....
+
+  <Star Burst>:
+      _Value: 1.35
+      AlignOnWebsite: Right
+      A: 1
+      Cost: 2 Mana
+      Effect: |
+          Declare up to 4 different targets you can see. Assign a different number from #1 to #4 to each.
+          Roll a number of d4's equal to your last rolled Unstable Spark die. Each d4 rolled deals that much {Orange(Flux)} Damage to the target with that number.
+      Notes: |
+          E.g. if you put #2 on a goblin, and you roll three 2's on the d4's, then that goblin takes 6 Damage.
+          You should probably assign the higher number to the target you want to do most Damage to.
+
+
+
+  # Playstile Talents
+
+  ~Spark Farmer~:
+    Effect: |
+      Whenever you roll an US die...
+      Essentially you want to roll as many US dice as possible.
+
+  ~High Roller~:
+    Effect: |
+      Build it for high rolls on the USD.
+
+  ~Low Roller~:
+    Effect: |
+      Build it for low rolls on the USD.
+
+  # Quite mild effects
+
+  ~Paradox~:
+    A: 0 Action Points (or Reaction)
+    Effect: |
+      Use after rolling an Unstable Spark die.
+      Treat the result as 11 - ^the rolled number^.
+    Notes: If your roll is outside your Unstable Spark die numbers, the world might break! What breaking the world means is up to the Quest Master.
 
 Level Up:
   Every Level: 
@@ -155,60 +214,6 @@ Talents:
       Downside: |
         Only usable if your last Unstable Spark die rolled was at least 6.
 
-    ~Chaos Storm~:
-      A: 1 Action
-      Requirement: Only usable in Worthy Combat
-      Tags: [Damage, Mass Damage]
-      Effect: |
-        Roll an Unstable Spark die.
-        Deal that much Damage of that Damage Type to exactly that many Worthy Units you can see.
-      Notes: |
-        Roll for a random Damage type from the following: 1. Pierce, 2. Slash, 3. Pulse, 4. Poison, 5. Acid, 6. Divine, 7. Scourge, 8. Shock, 9. Cold, 10. Fire.
-        Targeting Worthy Units is mandatory, and you count as a Worthy Unit.
-        If your Unstable Spark is higher than 10, you can choose the Damage Type.
-
-    ~Arcane Fire~:
-      A: Half-Action
-      Requirement: Only usable in Worthy Combat
-      Tags: [Weapon, Damage]
-      Effect: |
-        Your next weapon attack until the end of your next Turn applies a ~Combo~ and deals extra Damage equal to your last rolled Unstable Spark die and all its Damage dealt becomes {Color('orange' 'Flux')} Damage.
-
-    ~Lightning Striking Twice~:
-      A: 1 Action
-      Cooldown: Once / Combat
-      Tags: [Status Effect, Damage, Combo]
-      Effect: |
-        Blast a Unit you can see for {Amount} {Color('orange' 'Flux')} Damage and {Choose} Silenced (if non-Epic), Lagged, or Blinded.
-
-        Then do it again.
-      Combo: Then do it again.
-      Variants:
-        - Choose: it must choose to be
-          DisplayA: 1 Action
-          Amount: 1d10
-        - Choose: it becomes (you choose)
-          DisplayA: 3 Action Points
-          Amount: 2d6
-      Notes: When doing it again, you can choose the same Unit or a different one. The efect can happen again and again if each hit Unit has a ~Combo~.
-
-    ~Plot Armor~:
-      A: 0 Actions
-      Cost: 1 Plot Point
-      Tags: [Protection]
-      Effect: |
-        {Text} Shielding that can block Damage equal to your last rolled Unstable Spark die.
-        Then roll an Unstable Spark die.
-        
-        {Variants}
-      Duration: Until broken or next Adventure
-      Variants:
-        - DisplayA: 0 Actions
-          Text: Gain a
-        - DisplayA: 1 Action Point
-          Text: Give a Unit you can see a
-      Notes: Your party gains a Plot Point when rolling evens on a Check.
-
     ~Soulflare~:
       _Value: 0
       A: Half-Action
@@ -234,6 +239,98 @@ Talents:
           Amount: 1d6 + 1d8 + 1d10 + 1d12
           ToWhat: 4 Worthy Units
 
+    ~Arcane Fire~:
+      A: Half-Action
+      Requirement: Only usable in Worthy Combat
+      Tags: [Weapon, Damage]
+      Effect: |
+        Your next weapon attack until the end of your next Turn applies a ~Combo~ and deals extra Damage equal to your last rolled Unstable Spark die and all its Damage dealt becomes {Color('orange' 'Flux')} Damage.
+      Variants:
+        - DisplayA: 0 Actions
+          Cost: 1 Mana
+        - DisplayA: Half-Action
+          Cost: null
+
+
+    ~Arc Lance~:
+      A: 2
+      Range: 10 meters
+      Effect: |
+        Shoot a lance in a direction that Damages the first Unit it hits for 2d8 {Orange(Flux)} Damage.
+        {CriticalStrike} if you roll an 8, apply a ~Combo~.
+        
+        You can take the roll as an Unstable Spark die roll. If it's out of bounds, nothing happens (_or the world breaks, who knows!?_)
+      Notes: |
+        The lance will not hit the target if there's Cover between you and it, and will instead hit the cover.
+        What breaking the world means is up to the Quest Master. 
+
+    ~Spellbloodweave~:
+      A: 0 Actions
+      Cost: 1 Mana
+      ScrollPower: 1
+      Tags: [Heal]
+      Effect: |
+        Use after you make an attack or use an offensive Ability. It deals -50% Damage, but instead heals an ally you can see for the final Damage dealt.
+
+    ~Gathering the Magic~:
+      A: 0 Actions
+      Cost: 1 Mana
+      Cooldown: Once / Combat
+      Requirement: Only usable in Worthy Combat
+      Tags: [Farming]
+      Effect: |
+        For the rest of the Combat, gain:
+        {Spark(3)} gain +1 Skill Point permanently.
+
+    ~Lightning Striking Twice~:
+      A: Half-Action
+      Cooldown: Once / Turn
+      Cost: 2 Mana
+      Tags: [Status Effect, Damage, Combo]
+      Requirement: Level 3
+      Effect: |
+        Blast a Unit you can see for {Amount} {Color('orange' 'Flux')} Damage and {Choose} Deafened, Lagged, or Dazed.
+
+        Then do it again.
+      Combo: Then do it again.
+      Variants:
+        - Choose: it must choose to be
+          DisplayA: Half-Action
+          Amount: 1d10
+        - Choose: it becomes (you choose)
+          DisplayA: 1 Action
+          Amount: 2d6
+      Notes: When doing it again, you can choose the same Unit or a different one. The efect can happen again and again if each hit Unit has a ~Combo~.
+
+    ~Plot Armor~:
+      A: 0 Actions
+      Cost: 1 Plot Point
+      Tags: [Protection]
+      Requirement: Level 3
+      Effect: |
+        {Text} Shielding that can block Damage equal to your last rolled Unstable Spark die.
+        Then roll an Unstable Spark die.
+        
+        {Variants}
+      Duration: Until broken or next Adventure
+      Variants:
+        - DisplayA: 0 Actions
+          Text: Gain a
+        - DisplayA: 1 Action Point
+          Text: Give a Unit you can see a
+      Notes: Your party gains a Plot Point when rolling evens on a Check.
+
+    ~Chaos Storm~:
+      A: 1 Action
+      Requirement: Only usable in Worthy Combat
+      Tags: [Damage, Mass Damage]
+      Effect: |
+        Roll an Unstable Spark die.
+        Deal that much Damage of that Damage Type to exactly that many Worthy Units you can see.
+      Notes: |
+        Roll for a random Damage type from the following: 1. Pierce, 2. Slash, 3. Pulse, 4. Poison, 5. Acid, 6. Divine, 7. Scourge, 8. Shock, 9. Cold, 10. Fire.
+        Targeting Worthy Units is mandatory, and you count as a Worthy Unit.
+        If your Unstable Spark is higher than 10, you can choose the Damage Type.
 
     ~Chronohype~:
       A: Reaction or 0 Actions
@@ -253,28 +350,42 @@ Talents:
       Tags: [Buff]
       Effect: |
         Increase the Initiative of 2 Units you can see by 1.
-        apply a ~Combo~ to each of them.
+        Apply a ~Combo~ to each of them.
     
-
-    ~Spellbloodweave~:
-      A: 0 Actions
+    <Sap>:
+      _Value: 1
+      A: Half-Action
       Cost: 1 Mana
-      ScrollPower: 1
-      Tags: [Heal]
+      Range: 10 meters
+      Cooldown: Once / Turn
+      Tags: [Status Effect]
+      AlignOnWebsite: Left
       Effect: |
-        Use after you make an attack or use an offensive Ability. It deals -50% Damage, but instead heals an ally you can see for the final Damage dealt.
+        A Unit must make a {Charisma} Roll at least equal to your last rolled Unstable Spark die or Stun-Stunned.
+        Then roll an Unstable Spark die.
+      Notes: What are you doing, just pick Wild Casting.
 
-    ~Gathering the Magic~:
-      A: 0 Actions
+    ~Soulforce Tap~:
+      A: 0 Actions (or Reaction)
+      Cooldown: Once / Round
+      HasMixins: true
       Cost: 1 Mana
-      Cooldown: Once / Combat
-      Requirement: Only usable in Worthy Combat
-      Tags: [Farming]
       Effect: |
-        For the rest of the Combat, gain:
-        {Spark(2)} gain +1 Skill Point permanently.
+        Reroll an Unstable Spark die, or you can choose to roll it again after you did its effect.
 
+    ~Throwback~:
+      A: Passive
+      IsIgnored: true
+      Extras:
+        - +1 Race Talent
+      Effect: Get one more Race Talent.
 
+    ~Cascadence~:
+      A: 0 Actions
+      Cooldown: Once / Unstable Spark roll
+      Effect: |
+        Choose an ally you can see. Your next Unstable Spark die rolled applies to them instead of you.
+      
 
   Level 2 Class Talent:
 
@@ -289,10 +400,10 @@ Talents:
         For example, if you roll 1 and the random Spell is Fire Enchantment, it will be cast on an enemy's weapon if possible (respecting the range). If not possible, then it will be cast on a random, non-Hero's weapon. If not possible, then it will be cast on a Hero's weapon. If nothing is possible, nothing happens.
         If an effect can be cancelled or has ongoing effects, you have control of them as if you yourself had cast the Spell.
       SpellTable:
-        - Name: 1. Fake Sound
-          Effect: A sound is magically created at a point (it may Silence or Deafen some Units).
+        - Name: 1. Wilder Casting
+          Effect: Roll 2 more times on this table.
         - Name: 2. Quicksand
-          Effect: A 3x3 to 9x9 area becomes Hard Terrain.
+          Effect: A 3x3 to 9x9 area becomes covered in a hazard respective to your {Orange(Flux)} (e.g. ice, fire, toxic gas, etc).
         - Name: 3. Conjure Steed
           Effect: A random animal is conjured as a mount for 1 to 5 Units.
         - Name: 4. Force Wall
@@ -315,69 +426,76 @@ Talents:
           Effect: 1 to 5 objects or items are flung around. If any hits a Unit, deals 1d6 Damage.
         - Name: 13. Thunder Clap
           Effect: All Units within 2 to 6 meters of you take 1d6 to 3d6 Damage (any type).
-        - Name: 14. Wilder Casting
-          Effect: Roll 2 more times on this table.
+        - Name: 14. Lightning Strikes Again
+          Effect: 1 to 3 Units get any Status Effect.
         - Name: 15. Reverse Gravity
           Effect: The gravity in a 3x3x3 to 9x9x9 area is reversed.
         - Name: 16. Banish
           Effect: 1 to 3 Units are banished to another plane for 1 Turn. When they come back, they immediately take 1 Turn.
         - Name: 17. Unknowable Health
           Effect: A Unit is healed for 5 to 55 Health.
-        - Name: 18. Lightning Strikes Again
-          Effect: 1 to 3 Units get any Status Effect.
+        - Name: 18. Summon Elementals
+          Effect: 1 to 5 angry {Color('orange' 'Flux')} Elementals worth 50 to 150 {XP}XP are summoned at points on the battlefield. They are agressive towards everyone.
         - Name: 19. Nervous System Jolt
           Effect: One Unit permanently gains +1 in a Stat, or +1 to +3 Max Health, Regen or Mana.
         - Name: 20. Resurrection
           Effect: 1 to 3 dead or Fallen Units come back to life (without Exhaustion) with 1 to full Health.
 
+    <Viled Casting>:
+      A: Passive
+      Effect: |
+        You are afflicted by the vile, and your person form becomes ever more corrupted with the passage of time.
 
+        {Spark(2)} you become permanently mutated by the corruption at the number equal to your ^next^ rolled {Orange('Unstable Spark')} die.
+        _(You know the result of it!)_
+      Upgrade: Roll your next Unstable Spark die now. Next time you would roll one, don't, and apply this die.
+      Notes: Your Max Health can't decrease below 1. The Quest Master determines which Talent you learn with Arcane Cyst. The inversal/reversal of Involution may be up to the Quest Master's interpretation for certain mutations.
+      HasSpellTableNumbers: true
+      SpellTable:
+        - Name: Bone Restructuring
+          Effect: Gain +1 in a random Stat and -1 in a random Stat.
+        - Name: Skin Reconstruction
+          Effect: Take -50% Damage of a random Type, but +50% Damage of a random Type.
+        - Name: Burning Blood
+          Effect: Gain +1 {Mana}Max Mana, but -1d10 {Health}Max Health
+        - Name: Chitinous Growths
+          Effect: Gain +5 Max Health, but -3 Health Regen.
+        - Name: Arcane Cyst
+          Effect: Learn a random Talent from a random Class, but choose to unlearn a different one you had.
+        - Name: Fate Threading
+          Effect: Gain a Plot Point, but the Quest Master also gains one.
+        - Name: Psychotic Magical Thought
+          Effect: Roll twice on the Wild Casting Talent's table. The first is positive, the second is negative for your team.
+        - Name: Extended Limbs
+          Effect: Gain +1 melee Range, but -1 ranged Range.
+        - Name: Unknowable Knowledge
+          Effect: Gain +2 in a random Skill, but -2 in a random Skill.
+        - Name: Cartilage Alteration
+          Effect: Become immune to a random type of Crowd Control, but another type of Crowd Control is doubled whenever you receive it.
+        - Name: Organ Growth
+          Effect: |
+            Roll 2 more times: gain only the positive mutation of the first roll, and only the negative one of the second roll.
+        - Name: Involution
+          Effect: |
+            Roll again, but the positive and negative effects are reversed.
+      
     <Guiled Casting>:
       _Value: 0.5
       A: Passive
-      AlignOnWebsite: Left
       Effect: |
-        {Spark(2)} after taking the Damage, you deal +1 Damage of a random Damage Type _permanently_ as long as you have this Talent.
+        {Spark(1)} you deal +1 Damage of a random Damage Type _permanently_ as long as you have this Talent.
       Notes: 1. Fire, 2. Cold, 3. Shock, 4. Pulse, 5. Poison, 6. Acid, 7. Divine, 8. Scourge.
 
     <Mild Casting>:
       _Value: 0.5
-      AlignOnWebsite: Left
       A: Passive
       Effect: |
         {Spark(9)} trigger the base Unstable Spark effect for 10.
       Notes: If you cast the 1st version Soulflare, you can still cast its other versions this Combat.
       Downside: After you cast a Spell or one of its variants, you can't cast that spell or variant again this Combat.
 
-    <Viled Casting>:
-      A: Passive
-      AlignOnWebsite: Left
-      Effect: |
-        You can make any Damage Type you do be Scourge Damage.
-        {Spark(2)} increase all Scourge Damage you deal for the rest of the combat by 3. Then roll another Unstable Spark die.
-
-    <Sap>:
-      _Value: 1
-      A: Half-Action
-      Range: 10 meters
-      AlignOnWebsite: Left
-      Effect: |
-        A Unit must make a {Charisma} Roll at least equal to your last rolled Unstable Spark die or be Lagged or Dazed (your choice).
-        If it passes, roll an Unstable Spark die.
-      Notes: What are you doing, just pick Wild Casting.
-
 
   Level 3 Class Talent:
-
-    ~Throwback~:
-      A: Passive
-      Effect: Get one more Level 2 Class Talent or Race Talent.
-
-    <Second Try>:   # 2.5 + Basic Abilities 0.5
-      _Value: 0.75
-      A: Reaction
-      Cooldown: Once / Combat
-      HasMixins: true
-      Effect: Use after you roll an Unstable Spark die. You may cancel the roll. Then roll 2 more.
 
     <Arcano Mantissa>:
       _Value: 1.5 # No fucking idea lol
@@ -402,19 +520,29 @@ Talents:
     
     <Tap>:
       A: Passive
+      Range: 4 meters
       Effect: |
-        {Spark(4)} deal 1d4 {Color('orange' 'Flux')} Damage. It gets affected by that effect:
+        {Spark(4)} deal 1d4 {Color('orange' 'Flux')} Damage. The target gets affected by that effect:
       Upgrade: 1. Single-Stun, 2. Blind, 3. Slow, 4. Frail
 
-    ~Font Magic~:
+    ~Font Sorcerer~:
       _Value: 0
       A: Passive
+      IconName: Font Magic
       HasMixins: true
       Effect: |
-        You may select a `Magic Font$/Other/MagicFonts` to pick Spells from.
-        You get a number of them equal to your {Intelligence}.
+        {Spark(4)} permanently learn a Spell from the `Magic Font$/Other/MagicFonts` respective to your {Orange(Flux)} (up to your Level).
+      DoubleTable:
+        Values:
+          - Fire, Divine
+          - Fire
+          - Cold, Acid
+          - Frost
+          - Shock, Poison
+          - Lightning
+          - Pulse, Scourge
+          - Arcane
       Notes: You can change your Font and Spells inbetween Adventures.
-
 
   Level 4 Class Talent:
 
@@ -452,22 +580,6 @@ Talents:
         - DisplayA: 3 Action Points
           Amount: 1d8 + 1d10 + 1d12 + 1d14
           ToWhat: 4 Units
-
-    <Star Burst>:
-        _Value: 1.35
-        AlignOnWebsite: Right
-        A: 1 Action
-        Cost: 1 Mana
-        Effect: |
-            Declare up to 4 different targets you can see.
-            Assign a different number from #1 to #4 to each.
-            Roll a number of d4's equal to your last rolled Unstable Spark die. Each d4 rolled deals that much Pulse Damage to the target with that number.
-            Each rolled 1 deals 1 Damage to target number #1, each rolled 2 deals 2 Damage to target number #2, and so on.
-        Notes: |
-            E.g. if you put #2 on a goblin, and you roll three 2's on the d4's, then that goblin takes 6 Pulse Damage.
-            You should probably assign the higher number to the target you want to do most Damage to.
-            You can declare fewer targets, but then the missing number will deal Damage to no target.
-            Cover is applied normally.
 
     ~Arc Jolt~:
       A: Half-Action
