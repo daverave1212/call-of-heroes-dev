@@ -11,6 +11,7 @@ import HeroButton from "../../components/HeroButton/HeroButton";
 import Spell from '../../components/Spell/Spell'
 import { isString } from "markdown-it/lib/common/utils";
 import { checkStatRequirements, STAT_NAMES } from "../../services/game-lib/stat-calculations";
+import ManySpells from "../../components/Spell/ManySpells";
 
 const standardRNG = { randomInt, percentChance, randomOf, randomOfArrayWeighted, shuffle }
 
@@ -1608,8 +1609,10 @@ function getBaselineItemByType(xp, itemType, rng=standardRNG) {
         return item
     }
     if (itemType.includes('Armor')) {
-        const name = rng.randomOf(...Object.keys(ARMOR_TO_BODY_PART))
+        let name = rng.randomOf(...Object.keys(ARMOR_TO_BODY_PART))
         const bodyPart = ARMOR_TO_BODY_PART[name]
+        const isRing = bodyPart.includes('ring')
+        const isNecklace = bodyPart.includes('neck')
         const heaviness =
             bodyPart.includes('heavy')?
                 'heavy '
@@ -1617,18 +1620,27 @@ function getBaselineItemByType(xp, itemType, rng=standardRNG) {
                 'medium '
             :bodyPart.includes('light')?
                 'light '
-            :bodyPart.includes('ring')?
+            :isRing?
                 'ring'
+            :isNecklace?
+                'necklace'
             :
                 'medium';
         const realBodyPart = bodyPart.replace(' heavy', '').replace(' medium', '').replace(' light', '')
-        const armorPieceDescr = heaviness != 'ring'? `${heaviness} armor piece for the ${realBodyPart}`: 'ring'
+        const armorPieceDescr = !isRing && !isNecklace? `${heaviness} armor piece for the ${realBodyPart}`: isRing? 'ring': isNecklace? 'necklace': 'unknown'
         return {
             Name: name,
             Price: getArmorBasePriceByBodyPart(bodyPart),
             Type: itemType,
             Notes: `This is a ${armorPieceDescr}`,
-            Requirement: heaviness == 'medium'? 'Requires 1 Might': heaviness == 'heavy'? `Requires ${rng.randomInt(2, 3)} Might`: null,
+            Requirement:
+                heaviness == 'medium'?
+                    'Requires 1 Might'
+                :heaviness == 'heavy'?
+                    `Requires ${rng.randomInt(2, 3)} Might`
+                :isRing || isNecklace?
+                    (percentChance(25)? `Requires ${rng.randomOf(1, 1, 1, 2)} ${randomOf('Focus', 'Focus', 'Presence')}`: null)
+                : null,
             ItemType: bodyPart,
             ArmorType: name,
         }
@@ -1756,9 +1768,17 @@ const ARMOR_TO_NAME = {
     'Girdle': ['Strap of Returning', 'Scarf of Minor Spell', 'Belt of Reflex'],
     'Sash': ['Strap of Returning', 'Scarf of Minor Spell', 'Belt of Reflex'],
 
-    'Ring': ['Band of Sustenance', 'Ring of Health', 'Ring of Recovery', 'Ring of Spell', 'RIng of Spell Storage', 'Ring of Strange Escape', 'Ring of the Coin', 'Ring of the Eldritch Thing', 'Ring of the Phoenix', 'RIng of the Spies'],
-    'Band': ['Band of Sustenance', 'Ring of Health', 'Ring of Recovery', 'Ring of Spell', 'RIng of Spell Storage', 'Ring of Strange Escape', 'Ring of the Coin', 'Ring of the Eldritch Thing', 'Ring of the Phoenix', 'RIng of the Spies'],
+    'Ring': ['Band of Sustenance', 'Ring of Health', 'Ring of Recovery', 'Ring of Spell', 'Ring of Spell Storage', 'Ring of Strange Escape', 'Ring of the Coin', 'Ring of the Eldritch Thing', 'Ring of the Phoenix', 'Ring of the Spies'],
+    'Band': ['Band of Sustenance', 'Ring of Health', 'Ring of Recovery', 'Ring of Spell', 'Ring of Spell Storage', 'Ring of Strange Escape', 'Ring of the Coin', 'Ring of the Eldritch Thing', 'Ring of the Phoenix', 'Ring of the Spies'],
     
+    'Necklace': [...range(1, 9).map(i => `Neck/${i}`), 'Amulet_of_Hope', 'Item_of_Extra_Skill', 'Item_of_Skill', 'Steel_Silk_Rope'],
+    'Pendant': [...range(1, 9).map(i => `Neck/${i}`), 'Amulet_of_Hope', 'Item_of_Extra_Skill', 'Item_of_Skill', 'Steel_Silk_Rope'],
+    'Chain': [...range(1, 9).map(i => `Neck/${i}`), 'Amulet_of_Hope', 'Item_of_Extra_Skill', 'Item_of_Skill', 'Steel_Silk_Rope'],
+    'Choker': [...range(1, 9).map(i => `Neck/${i}`), 'Amulet_of_Hope', 'Item_of_Extra_Skill', 'Item_of_Skill', 'Steel_Silk_Rope'],
+    'Strand': [...range(1, 9).map(i => `Neck/${i}`), 'Amulet_of_Hope', 'Item_of_Extra_Skill', 'Item_of_Skill', 'Steel_Silk_Rope'],
+    'Locket': [...range(1, 9).map(i => `Neck/${i}`), 'Amulet_of_Hope', 'Item_of_Extra_Skill', 'Item_of_Skill', 'Steel_Silk_Rope'],
+
+
     // 'Cassoc': 'upper body and legs light',
     // 'Alb': 'upper body and legs light',
 
@@ -1832,6 +1852,13 @@ const ARMOR_TO_BODY_PART = {
 
     'Ring': 'ring',
     'Band': 'ring',
+
+    'Necklace': 'necklace',
+    'Pendant': 'necklace',
+    'Chain': 'necklace',
+    'Choker': 'necklace',
+    'Strand': 'necklace',
+    'Locket': 'necklace',
     
     'Robe': 'upper body and legs light',
     'Robes': 'upper body and legs light',
@@ -1859,14 +1886,15 @@ function getArmorBasePriceByBodyPart(bodyPart) {
     const bodyPartBasePriceMap = {
         'upper body': 150,
         'legs': 150,
-        'upper body and legs': 150,
+        'upper body and legs': 200,
         'one hand': 50,
         'hands': 125,
         'feet': 170,
         'belt': 100,
-        'ring': 150,
+        'ring': 125,
+        'necklace': 150,
         'head': 150,
-        'back': 150
+        'back': 125
     }
     const baseBodyPartPrice = bodyPartBasePriceMap[baseBodyPart]
     return roundToNearest(baseBodyPartPrice * heavinessModifier, 5)
@@ -1878,16 +1906,20 @@ const SHIELD_NAMES = [
 // xp: int, itemType: string (e.g. "One-Handed Ranged Weapon", "Two-Handed Weapon", "Melee Weapon", "Weapon")
 export function createMagicItem(xp, itemType, rng=standardRNG) {
 
-    if (itemType != 'Armor' && itemType != 'Shield') {
-        let { hands, range } = getWeaponPropsFromType(itemType)
-        if (range == null) {
-            range = rng.randomOf('Melee', 'Ranged')
+    function setupItemType() {
+        if (itemType != 'Armor' && itemType != 'Shield') {
+            let { hands, range } = getWeaponPropsFromType(itemType)
+            if (range == null) {
+                range = rng.randomOf('Melee', 'Ranged')
+            }
+            if (hands == null) {
+                hands = rng.randomOf('One-Handed', 'Two-Handed')
+            }
+            itemType = hands + ' ' + range + ' Weapon'
         }
-        if (hands == null) {
-            hands = rng.randomOf('One-Handed', 'Two-Handed')
-        }
-        itemType = hands + ' ' + range + ' Weapon'
     }
+
+    setupItemType()
 
     // Now itemType is always a full type like "One-Handed Ranged Weapon"
     // e.'Item Type' contains any of those tags
@@ -1938,7 +1970,9 @@ export function createMagicItem(xp, itemType, rng=standardRNG) {
         function addSkillBonus() {
             const skillName = getRandomSkill()
             const maxSkillNumber =
-                baselineItem.XP <= 50?
+                baselineItem.XP <= 25?
+                    rng.randomOf(1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2)
+                :baselineItem.XP <= 50?
                     rng.randomOf(1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, rng.randomInt(1, 4))
                 :baselineItem.XP <= 100?
                     rng.randomOf(1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, rng.randomInt(1, 5))
@@ -2042,7 +2076,7 @@ export function createMagicItem(xp, itemType, rng=standardRNG) {
         }
     }
 
-    maybeAddEffect(possibleEffects, 'Curse', 25)
+    maybeAddEffect(possibleEffects, 'Curse', 20)
     if (itemType.includes('Weapon')) {
         maybeAddEffect(possibleEffects, 'Bonus Damage', 99)
     }
@@ -2125,7 +2159,6 @@ export function createMagicItem(xp, itemType, rng=standardRNG) {
             .map(e => e.A == null? e.Effect: `{Hand}${e.A}: ${e.Effect}`)
             .join('\n')
     }
-
     function compileAndReparsePassivesToText(passives) {
         if (passives == null || passives.length == 0) {
             return null
@@ -2172,7 +2205,6 @@ export function createMagicItem(xp, itemType, rng=standardRNG) {
             color('var(--blue-color)', reparsedTextByGroups['Minor']),
         ]
     }
-    const _validEffects = validEffects
     validEffects = validEffects.filter(s => s != null && s.length > 0)
     const finalEffect =
         validEffects.length == 0?
@@ -2214,9 +2246,9 @@ export function createMagicItem(xp, itemType, rng=standardRNG) {
 
 export default function MagicItemCreator() {
 
-    function createAnItem() {
+    function createAnItem(xp) {
         const seed = generateUniqueId()
-        const xp = randomInt(1, 10) * 25
+        xp = xp ?? randomInt(1, 10) * 25
         const rng = new SeededRNG(seed)
 
         let itemCategory = randomOfArrayWeighted(['Weapon', 'Armor', 'Shield'], [45, 45, 10])
@@ -2225,17 +2257,39 @@ export default function MagicItemCreator() {
         }
         return createMagicItem(xp, itemCategory, rng)
     }
+
+    function createItems() {
+        const seed = generateUniqueId()
+        const rng = new SeededRNG(seed)
+        
+        const createdItems = []
+        createdItems.push(createAnItem(10))
+        createdItems.push(createAnItem(15))
+        createdItems.push(createAnItem(25))
+        createdItems.push(createAnItem(25))
+        createdItems.push(createAnItem(25))
+
+        for (let i = 3; i <= 10; i++) {
+            const xp = i * 25 + (randomInt(-1, 1) * 25)
+            createdItems.push(createAnItem(xp))
+        }
+
+        return createdItems
+    }
+
     const [item, setItem] = useState(createAnItem())
+    const [items, setItems] = useState(createItems())
 
     return <Page>
         <p style={{color: 'white'}}>asdasddasdsa</p>
         <br/>
         <br/>
-        <HeroButton onClick={() => setItem(createAnItem())}>Another</HeroButton>
+        <HeroButton onClick={() => setItems(createItems())}>Another</HeroButton>
         <br/>
-        <TwoColumns>
+        <ManySpells spells={items} shouldSort={false}/>
+        {/* <TwoColumns>
             <Column><Spell spell={item}/></Column>
             <Column></Column>
-        </TwoColumns>
+        </TwoColumns> */}
     </Page>
 }

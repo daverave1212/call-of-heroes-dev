@@ -537,7 +537,7 @@ export function splitSpellsArrayInto2Columns(spellsArray, shouldSort=true, sortC
         const columnToUse = column2Spells.height < column1Spells.height? column2Spells: column1Spells
         columnToUse.push(spell)
         columnToUse.height += spell.Height
-        console.log([`Added ${spell.Name}`, column1Spells.height, column2Spells.height])
+        // console.log([`Added ${spell.Name}`, column1Spells.height, column2Spells.height])
         if (spellsArray.find(s => s.Name.includes('Shapeshift')) != null) {
         }
     }

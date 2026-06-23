@@ -7687,7 +7687,7 @@
     },
     "~Adrenaline Drift~": {
         "A": "Passive",
-        "Effect": "{Spark(5)} roll 1d8 to determine a direction (North, North-East, East, etc).\nHeal another Worthy Unit roughly in that direction for 1d8.\nIf there is none, Heal yourself.\n",
+        "Effect": "{Spark(5)} roll 1d8 to determine a direction (North, North-East, East, etc).\nHeal another Worthy Unit roughly in that direction for 1d6.\nIf there is none, Heal yourself.\n",
         "HasMixins": true,
         "ParentKey": "Level 4 Class Talent",
         "Origin": "Class/Sorcerer"
@@ -7695,6 +7695,14 @@
     "~Manifest Abundance~": {
         "A": "Passive",
         "Effect": "{Spark(5)} for the rest of the Combat, gain {Gold}Gold equal to all dice you roll.\n",
+        "HasMixins": true,
+        "ParentKey": "Level 4 Class Talent",
+        "Origin": "Class/Sorcerer"
+    },
+    "~Vibe~": {
+        "A": "Passive",
+        "Effect": "{Spark(5)} you can spend 1 {Mana}Mana to deal 1d12 {Orange(Flux)} Damage to the closest Enemy to you and apply a ~Combo~.\n",
+        "Notes": "Cover is applied normally.",
         "HasMixins": true,
         "ParentKey": "Level 4 Class Talent",
         "Origin": "Class/Sorcerer"
@@ -7768,21 +7776,39 @@
         "ParentKey": "Level 6 - Utility Talent",
         "Origin": "Class/Sorcerer"
     },
-    "<Chakra>": {
+    "<Chakra!>": {
         "_Value": 2.5,
         "A": "Passive",
         "IconName": "Great Sorcery",
-        "Effect": "{Spark('7')} gain 1 Mana.\n{Spark(8)} replenish 1 Mana of ally you can see.\n",
+        "Effect": "{Spark(7)} gain 1 Mana.\n{Spark(8)} replenish 1 Mana of ally you can see.\n",
         "HasMixins": true,
         "ParentKey": "Level 7 Class Talent",
         "Origin": "Class/Sorcerer"
     },
-    "<Floccinaucinihilipilification>": {
+    "<Nihil Charge>": {
         "_Value": 2.5,
         "A": "Passive",
-        "Effect": "{Spark('7, 8')} immediately Zap the closest Unit to you for ^your Focus^ {Orange(Flux)} Damage.\n",
+        "Effect": "{Spark('7, 8')} Store a 1d4 _Nihil Charges_.\n",
+        "Subspells": {
+            "~Floccinaucinihilipilification~": {
+                "A": "1 Action Point",
+                "Range": "3 meters",
+                "Effect": "Consume all _Nihil Charges_ to zap all Units within 3 meters for that much {Orange(Flux)} Damage.",
+                "HasMixins": true,
+                "ParentKey": "Subspells",
+                "Origin": "Class/Sorcerer"
+            }
+        },
         "HasMixins": true,
         "ParentKey": "Level 7 Class Talent",
+        "Origin": "Class/Sorcerer"
+    },
+    "~Floccinaucinihilipilification~": {
+        "A": "1 Action Point",
+        "Range": "3 meters",
+        "Effect": "Consume all _Nihil Charges_ to zap all Units within 3 meters for that much {Orange(Flux)} Damage.",
+        "HasMixins": true,
+        "ParentKey": "Subspells",
         "Origin": "Class/Sorcerer"
     },
     "<Double Spark Triple Quark>": {
@@ -7825,6 +7851,14 @@
         "ParentKey": "Level 8 Class Talent",
         "Origin": "Class/Sorcerer"
     },
+    "~Lagcore~": {
+        "A": "Passive",
+        "Effect": "At the start of every Combat, you can alter the way the Enemies are positioned relative to you: you can place them anywhere on the battlefield as long as they are at the same distance from you.\nRoughly 25% of the Enemies start combat Lagged.\n",
+        "Notes": "A Lagged Unit's next Movement costs +1 Action Point.",
+        "_alreadyHasStatusEffectDescriptions": true,
+        "ParentKey": "Level 8 Class Talent",
+        "Origin": "Class/Sorcerer"
+    },
     "~Obviate~": {
         "A": "Passive",
         "Effect": "{Spark(9)} the next projectile an enemy fires vanishes into thin air.\n",
@@ -7850,7 +7884,9 @@
     "~Arcane Anomaly~": {
         "A": "Passive",
         "Duration": "1 minute",
-        "Effect": "{Spark(9)} summon a 3x3 meter Arcane Anomaly anywhere you choose on the battlefield.\n\nAt the end of your Turn, all Arcane Anomalies deal 1d6 Psychic Damage to Units inside them.\n_Units inside anomalies may be prompted to choose different actions by the Quest Master..._\n",
+        "Effect": "{Spark(9)} summon a 3x3 meter Arcane Anomaly anywhere you choose on the battlefield, which may change the shape and terrain of the area affected.\n\nUnits standing in them are Deafened.\nAt the end of your Turn, all Arcane Anomalies deal 1d6 Psychic Damage to Units inside them.\n_Units inside anomalies may be prompted to choose different actions by the Quest Master..._\n",
+        "Notes": "A Deafened Unit's next Ability costs +1 Action Point.",
+        "_alreadyHasStatusEffectDescriptions": true,
         "HasMixins": true,
         "ParentKey": "Level 9 Class Talent",
         "Origin": "Class/Sorcerer"
