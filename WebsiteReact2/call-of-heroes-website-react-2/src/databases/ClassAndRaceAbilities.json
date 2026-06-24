@@ -8282,8 +8282,11 @@
         "Origin": "Class/Outlaw"
     },
     "~Loan Shark~": {
-        "Effect": "TODO",
-        "ParentKey": "Ideas",
+        "A": "1 minute",
+        "Cooldown": "Twice / Adventure",
+        "Effect": "Loan a non-playable character anywhere between 100 and 500 {Gold}.\nAfter a set amount of time, you get it back with 1d100 interest.\nIf the interest is 9% or less, you get nothing back.\n",
+        "HasMixins": true,
+        "ParentKey": "Level 6 - Utility Talent",
         "Origin": "Class/Outlaw"
     },
     "~FIRE THE CANONS~": {
@@ -8308,7 +8311,7 @@
         "ParentKey": "Utility",
         "Origin": "Class/Outlaw"
     },
-    "~Wink~": {
+    "~Blackcheck~": {
         "A": "0 Action Points",
         "Tags": "Roleplaying",
         "Cooldown": "Once / real hour",
@@ -8333,17 +8336,17 @@
         "ParentKey": "Utility",
         "Origin": "Class/Outlaw"
     },
-    "~Bravado~": {
+    "~Blood in the Water~": {
         "A": "Passive",
         "_Value": 2.25,
-        "Effect": "If your last 2 offensive Acts both either triggered a {Color('var(--green-color)' 'Critical Strike')} or a ~Combo~, your next {Type} deals +{Amount}% Damage.\n\n{Variants}\n",
+        "Effect": "If your last 2 offensive Acts both either triggered a {Color('var(--green-color)' 'Critical Strike')} or a ~Combo~, your next targeted {Type} {A}Action Point Act deals +{Amount}% Damage.\n\n{Variants}\n",
         "Variants": [
             {
-                "Type": "one-handed weapon attack",
+                "Type": 1,
                 "Amount": 100
             },
             {
-                "Type": "two-handed weapon attack",
+                "Type": 2,
                 "Amount": 50
             }
         ],
@@ -8408,20 +8411,22 @@
         "ParentKey": "Level 1 Class Talent",
         "Origin": "Class/Outlaw"
     },
-    "~Fame Time~": {
+    "~Payday~": {
         "A": "2 Action Points",
+        "IconName": "Fame Time",
         "Cost": "1 Mana",
         "Requirement": "Only usable in Worthy Combat",
         "Tags": [
             "Gold"
         ],
-        "Effect": "For the rest of the Combat, gain 25 {Gold} whenever you use an Action Point.\n",
+        "Effect": "For the rest of the Combat, gain 25 {Gold}Gold whenever you use an Action Point.\n",
         "HasMixins": true,
         "ParentKey": "Level 1 Class Talent",
         "Origin": "Class/Outlaw"
     },
     "~All or Nothing~": {
         "A": "0 Action Points",
+        "Cooldown": "Once / Attack",
         "Requirement": "Only usable in Worthy Combat",
         "Effect": "Add 1d6 to an attack's Damage. If the total is _odd_, the attack misses, but you Heal for 1.\n",
         "HasMixins": true,
@@ -8434,7 +8439,7 @@
             "Intelligence": 1
         },
         "A": "Passive",
-        "Effect": "You have +1 Focus (up to your Stat Limit).\nInstead of dealing extra Damage with Bravado, do one of the following:\n",
+        "Effect": "You have +1 Focus (up to your Stat Limit).\nInstead of dealing extra Damage with Blood in the Water, do one of the following:\n",
         "SingleTable": [
             "1. Heal yourself for that amount",
             "2. Single-Stun the target (Double-Stun for two-handed weapons)",
@@ -8449,9 +8454,15 @@
         "_Value": 1.5,
         "A": "Passive",
         "HasMixins": true,
-        "Effect": "After landing 2 non-Critical Strikes in a row on a Unit, inflict a random Status Effect from the following options. Then the Unit becomes immune to ^At Me!^ for the rest of the Combat.\n{Diamond} 1. Slow\n{Diamond} 2. Blind\n{Diamond} 3. Daze\n{Diamond} 4. Single-Stun\n",
+        "Effect": "After landing 2 non-Critical Strikes in a row on a Unit, inflict a random Status Effect from the following options. Then the Unit becomes immune to ^At Me!^ for the rest of the Combat.\n",
+        "List": [
+            "1. Slow",
+            "2. Blind",
+            "3. Daze",
+            "4. Single-Stun"
+        ],
         "Upgrade": "If they were both with a 2-handed weapon, the Status Effect applied is doubled (Double-Slowed, Double-Blind, etc)!",
-        "Notes": "\nA Single-Stunned Unit has -1 Action Point on its (next) Turn.\nA Single-Stunned Unit has -1 Action Point on its (next) Turn.\nA Slowed Unit has -50% Movement Speed until its next Movement.\nA Blind Unit's next Damage/Heal Act deals -50% Damage/Healing.",
+        "Notes": "A Slowed Unit has -50% Movement Speed until its next Movement.\nA Blind Unit's next Damage/Heal Act deals -50% Damage/Healing.",
         "_alreadyHasStatusEffectDescriptions": true,
         "ParentKey": "Level 2 Class Talent",
         "Origin": "Class/Outlaw"
@@ -8460,7 +8471,7 @@
         "_Value": 2,
         "A": "0 Action Points (or Reaction)",
         "Cooldown": "Once / Turn",
-        "Effect": "Reroll one die you just rolled.",
+        "Effect": "Reroll one die you just rolled. If it rolls 1, the attack misses.",
         "ParentKey": "Level 2 Class Talent",
         "Origin": "Class/Outlaw"
     },
@@ -8474,6 +8485,7 @@
             "3. Gain Gold equal to 1000% of the rolled Damage",
             "4. Restores 1 Health on use"
         ],
+        "Upgrade": "You can use this for Abilities that specify one-handed weapons.",
         "Notes": "Cooldown improved follows the following pattern, starting from the base Cooldown: Once / 2 Turns, Once / Turn, Twice / Turn, Thrice / Turn, etc.\n",
         "ParentKey": "Level 2 Class Talent",
         "Origin": "Class/Outlaw"
@@ -8503,7 +8515,7 @@
                 "2. +0.5 Initiative",
                 "3. +2 Maximum Health",
                 "4. +1 Health Regen",
-                "5. +1 Movement Speed",
+                "5. +0.5 Movement Speed",
                 "6. +20% Gold from what you're carrying"
             ]
         },
@@ -8511,12 +8523,20 @@
         "ParentKey": "Level 3 Class Talent",
         "Origin": "Class/Outlaw"
     },
-    "<Dashing Beauty>": {
-        "A": "Passive",
+    "<Hit-and-Run>": {
+        "IconName": "Dashing Beauty",
+        "A": "0 Action Points",
+        "Cooldown": "Once / Turn",
         "Tags": [
             "Damage"
         ],
-        "Effect": "Your first attack every Turn deals extra Damage equal to 50% of how many meters you moved this Round.",
+        "Effect": "Your next attack deals extra Damage equal to 50% of how many meters you moved this Round.",
+        "ParentKey": "Level 3 Class Talent",
+        "Origin": "Class/Outlaw"
+    },
+    "~Drunken Bluff~": {
+        "A": "Passive",
+        "Effect": "After you roll an attack this Combat, you can make it miss on purpose.\n\nWhenever you miss or do 0 Damage with an attack, your next one deals +1d8 Damage this Combat.\n",
         "ParentKey": "Level 3 Class Talent",
         "Origin": "Class/Outlaw"
     },
@@ -8525,7 +8545,8 @@
         "Cooldown": "Once / Turn",
         "Cost": "1 Mana",
         "Effect": "Make 3 attacks with a one-handed weapon you haven't used this Turn that would normally scale with a Stat. These attacks do not add any Stat to the Damage.",
-        "Upgrade": "You may apply Sharp End, Bravado, or similar effects to individual attacks.",
+        "Upgrade": "You may apply Sharp End, Blood in the Water, or similar effects to individual attacks.\n",
+        "Notes": "If the weapon jams or breaks, it does so after you finish the attacks.",
         "ParentKey": "Level 4 Class Talent",
         "Origin": "Class/Outlaw"
     },
@@ -8541,8 +8562,8 @@
     },
     "~Circle Round~": {
         "A": "0 Action Points",
-        "Effect": "Your next attack deals +1d6 Damage.",
-        "Downside": "Only usable immediately after a Bravado attack.",
+        "Effect": "Slam the target 1d6 meters away from you. Then, if the space is not blocked, you can dash behind it.",
+        "Downside": "Only usable immediately after a Blood in the Water attack.",
         "ParentKey": "Level 4 Class Talent",
         "Origin": "Class/Outlaw"
     },
@@ -8556,6 +8577,13 @@
         "ParentKey": "Level 4 Class Talent",
         "Origin": "Class/Outlaw"
     },
+    "<Momentum Dance>": {
+        "A": "0 Action Points",
+        "Cost": "1 Mana",
+        "Effect": "Gain 1 Shielding equal to your 400% of your Initiative.\n",
+        "ParentKey": "Level 4 Class Talent",
+        "Origin": "Class/Outlaw"
+    },
     "<High Noon>": {
         "_Value": 3,
         "A": "2 Action Points",
@@ -8565,7 +8593,8 @@
             "Ultimate"
         ],
         "Requirement": "Only usable on the 3rd Round of Combat",
-        "Effect": "Make 6 attacks with a one-handed ranged weapon.\nFurther High Noon attacks on the same Unit (after the first) deal 50% less Damage.\n",
+        "Effect": "Make 6 attacks with a one-handed ranged weapon, which miss if they roll 1 on any of dice.\nFurther High Noon attacks on the same Unit (after the first) deal -50% Damage.\n",
+        "Notes": "Each attack may miss individually, not all at the same time.",
         "ParentKey": "Level 5 Class Talent",
         "Origin": "Class/Outlaw"
     },
@@ -8575,7 +8604,7 @@
         "Tags": [
             "Mass Damage"
         ],
-        "Effect": "Your first melee attack every Turn deals Damage equal to your Movement Speed to all other Units within 1 meter of the main target.",
+        "Effect": "Your first offensive melee Act every Turn deals Damage equal to your Movement Speed to all other Units within 2 meters of the main target.",
         "Notes": "Excluding the main target and yourself.",
         "ParentKey": "Level 5 Class Talent",
         "Origin": "Class/Outlaw"
@@ -8584,7 +8613,7 @@
         "_Value": 1.5,
         "A": "0 Action Points",
         "Cost": "1 Mana",
-        "Replacement": "Sharp End",
+        "Replacement": "Replaces Sharp End",
         "IconName": "Sharp End",
         "HasUpgradeIcon": true,
         "Effect": "~Use after you landed an offensive attack or Ability.~\n~Add~ +1d4 Damage and trigger its {Color('var(--green-color)' 'Critical Strike')} and ~Combo~ effect anyway!\n",
@@ -8610,19 +8639,48 @@
         "ParentKey": "Level 5 Class Talent",
         "Origin": "Class/Outlaw"
     },
-    "<Swashbuckle>": {
-        "_Value": 2.25,
-        "A": "Passive",
-        "Effect": "Gain +3 Movement Speed.",
-        "EffectGreen": "When you get this, gain +1 in a Stat of choice, up to +5.",
+    "~Weighted Coin~": {
+        "A": "0 Action Points (or Reaction)",
+        "Cost": "1 Mana",
+        "Effect": "Use after a die is rolled.\nIncrease or decrease it by 1.\n",
+        "ParentKey": "Level 7 Class Talent",
+        "Origin": "Class/Outlaw"
+    },
+    "~Eye for an Eye~": {
+        "A": "Reaction",
+        "Effect": "Use after you take 0 Damage or an attack against you misses.\nYou can immediately attack the attacker, if within range, with a 1 {A}Action Point attack.\n",
+        "HasMixins": true,
         "ParentKey": "Level 8 Class Talent",
         "Origin": "Class/Outlaw"
     },
-    "<Momentum Dance>": {
-        "A": "0 Action Points",
-        "Cooldown": "Once / Adventure",
-        "Duration": "1 minute",
-        "Effect": "Gain Shielding equal to your 400% of your Initiative.\n",
+    "~Perfect Setup~": {
+        "A": "Passive",
+        "Effect": "Whenever you trigger a ~Combo~, you can deal 1d6 Damage to the target, or Heal another Unit you can see for 1d6.\n",
+        "HasMixins": true,
+        "ParentKey": "Level 8 Class Talent",
+        "Origin": "Class/Outlaw"
+    },
+    "~Gallows Shock~": {
+        "A": "Passive",
+        "Effect": "Your attacks that trigger both a {Green('Critical Strike')} and a ~Combo~ Double-Stun the target.\n",
+        "Notes": "A Single-Stunned Unit has -1 Action Point on its (next) Turn.\nA Double-Stunned Unit has -2 Action Point on its (next) Turn.",
+        "_alreadyHasStatusEffectDescriptions": true,
+        "HasMixins": true,
+        "ParentKey": "Level 8 Class Talent",
+        "Origin": "Class/Outlaw"
+    },
+    "~Smoke and Mirrors~": {
+        "A": "Passive",
+        "Effect": "You automatically dodge all* direct Damage instances that roll 1 on any of the dice against you.\n",
+        "Upgrade": "Monsters must make the die roll against you instead of taking the average.",
+        "Notes": "If it makes sense to dodge it, you can dodge it. You can't dodge Damage over time, stepping on obstacles, etc.",
+        "ParentKey": "Level 9 Class Talent",
+        "Origin": "Class/Outlaw"
+    },
+    "~Abstain~": {
+        "A": "Passive",
+        "Effect": "After you roll a Blood in the Water attack, you can force it to not gain extra Damage, and you gain +1 {A}Action Point.\n",
+        "HasMixins": true,
         "ParentKey": "Level 9 Class Talent",
         "Origin": "Class/Outlaw"
     },
