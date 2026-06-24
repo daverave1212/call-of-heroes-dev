@@ -89,7 +89,7 @@ import V2Rogue from './databases/ClassesV2/Rogue.json'
 import V2Shaman from './databases/ClassesV2/Shaman.json'
 import V2Sorcerer from './databases/ClassesV2/Sorcerer.json'
 import V2Soulwright from './databases/ClassesV2/Soulwright.json'
-import V2Swashbuckler from './databases/ClassesV2/Swashbuckler.json'
+import V2Outlaw from './databases/ClassesV2/Swashbuckler.json'
 import V2Warlock from './databases/ClassesV2/Warlock.json'
 import V2Warrior from './databases/ClassesV2/Warrior.json'
 import V2Wickan from './databases/ClassesV2/Wickan.json'
@@ -188,7 +188,7 @@ function App() {
           <Route path='ClassesV2/Shaman' element={<ClassPage isCharacterCreationPage={false} theClass={V2Shaman}/>}/>
           <Route path='ClassesV2/Sorcerer' element={<ClassPage isCharacterCreationPage={false} theClass={V2Sorcerer}/>}/>
           <Route path='ClassesV2/Soulwright' element={<ClassPage isCharacterCreationPage={false} theClass={V2Soulwright}/>}/>
-          <Route path='ClassesV2/Swashbuckler' element={<ClassPage isCharacterCreationPage={false} theClass={V2Swashbuckler}/>}/>
+          <Route path='ClassesV2/Swashbuckler' element={<ClassPage isCharacterCreationPage={false} theClass={V2Outlaw}/>}/>
           <Route path='ClassesV2/Warlock' element={<ClassPage isCharacterCreationPage={false} theClass={V2Warlock}/>}/>
           <Route path='ClassesV2/Warrior' element={<ClassPage isCharacterCreationPage={false} theClass={V2Warrior}/>}/>
           <Route path='ClassesV2/Wickan' element={<ClassPage isCharacterCreationPage={false} theClass={V2Wickan}/>}/>

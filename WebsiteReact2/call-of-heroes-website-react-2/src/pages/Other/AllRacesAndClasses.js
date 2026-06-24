@@ -32,7 +32,7 @@ import Knight from '../../databases/ClassesV2/Knight.json'
 import Mystic from '../../databases/ClassesV2/Mystic.json'
 import Paladin from '../../databases/ClassesV2/Paladin.json'
 import Soulwright from '../../databases/ClassesV2/Soulwright.json'
-import Swashbuckler from '../../databases/ClassesV2/Swashbuckler.json'
+import Outlaw from '../../databases/ClassesV2/Swashbuckler.json'
 import Wickan from '../../databases/ClassesV2/Wickan.json'
 import Cursewielder from '../../databases/ClassesV2/Cursewielder.json'
 
@@ -60,7 +60,7 @@ export const ClassesPremium = {
     Artificer,
     Knight,
     Sorcerer,
-    Swashbuckler,
+    Outlaw,
 }
 export const ClassesLegacy = {
 }
