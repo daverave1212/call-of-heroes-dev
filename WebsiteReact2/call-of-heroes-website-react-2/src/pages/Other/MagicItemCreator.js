@@ -1565,16 +1565,20 @@ function getItemPrice(item, addedEffectsByGroup, rng=standardRNG) {
         const multiplier =
             XP <= 50?   7
             :XP <= 75?  8
-            :XP <= 100?  9
-            :XP <= 150?  10
-            :XP <= 200?  11
-            :12
+            :XP <= 100?  11
+            :XP <= 150?  16
+            :XP <= 200?  19
+            :25
         return (XP || 1) * multiplier
     }
 
     const allEffectsPrice = allEffects.map(effect => getEffectPrice(effect))
     const totalExtraPrice = allEffectsPrice.reduce((soFar, number) => soFar + number, 0)
-    const basePrice = item.Price
+    let basePrice = item.Price
+
+    if (item.Type.includes('Shield')) {
+        basePrice = Math.floor(2.25 * basePrice)
+    }
 
     // console.log({allEffects, allEffectsPrice})
     return basePrice + totalExtraPrice
