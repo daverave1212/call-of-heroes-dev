@@ -59,32 +59,34 @@
         }
     },
     "Utility": {
-        "~Coming Down Swinging~": {
+        "~180 to Hell~": {
             "A": "0 Action Points",
             "Cooldown": "Once / real hour",
-            "Effect": "You automatically find a chandelier, rope, vine, or something similar to swing on, even if the room shouldn't logically have one.\nReposition up to 4 meters away.\n",
+            "Range": "3 meters",
+            "Effect": "Choose an Enemy within 3 meters.\nYou quickly dash to the diametrically opposite space, on its other side, at the same distance.\n",
+            "Notes": "For example, if you're 3 meters to the South of a Unit, you move so that you become 3 meters to the North of it. Your starting space, the Enemy, and your landing space must be on the same line. Requires a clear path, but you can circle 'round the back.",
             "ParentKey": "Utility",
             "Origin": "Class/Outlaw"
         },
-        "~Blackcheck~": {
+        "~Raise~": {
             "A": "0 Action Points",
-            "Tags": "Roleplaying",
-            "Cooldown": "Once / real hour",
-            "Effect": "Use after you failed a Presence Check (that you could have passed) to play _Blackcheck_ with the Quest Master.\nThe Quest Master tells you the required number to pass.\nStarting from your rolled Check result, you may roll 1d6 again and again, one after another, to try to get exactly the required number to succeed. If you go above that number, you fail.\n",
+            "Cooldown": "Once / attack",
+            "Effect": "Use immediately before rolling a Blood in the Water attack.\nIf the attack deals Damage equal to or above its _average_, gain {Gold}Gold equal to 200% of the rolled amount.\nOtherwise, the attack misses.\n",
             "HasMixins": true,
             "ParentKey": "Utility",
             "Origin": "Class/Outlaw"
         },
-        "~Daring Leap of Logic~": {
-            "A": "Passive",
-            "Effect": "The first time you want to perform a Stunt every Adventure, it has +50% effect (in addition to other bonuses), but only if it's really awesome.\nYou must commit to the first idea if the Stunt is approved by the Quest Master, even if it's not that awesome.\n",
-            "Notes": "Its awesomeness depends on the Quest Master.\nA Single-Stunned Unit has -1 Action Point on its (next) Turn.",
-            "_alreadyHasStatusEffectDescriptions": true,
+        "~What Have We Here~": {
+            "A": "1 minute",
+            "Cooldown": "Once / Adventure",
+            "Effect": "You can spend 1 minute to fast talk a non-playable character to try to bamboozle their morality.\nMake a Presence Check against their Presence Check.\nIf you succeed, _steal_ a random Quirk it has. Otherwise, they notice you're trying to bamboozle them.\n",
+            "HasMixins": true,
             "ParentKey": "Utility",
             "Origin": "Class/Outlaw"
         },
-        "~I Know This Guy~": {
+        "~I Know A Guy~": {
             "A": "0 Action Points",
+            "IconName": "I Know This Guy",
             "Cooldown": "Once / real hour",
             "Effect": "Use when in a town or hub to add 1d4 to an Focus Check, to bring up a reason as to why you know extra details about it. It can be about a particular subject you've encountered before, a person you know there, etc.\n",
             "Upgrade": "Come up with a story on why you are already familiar with that subject matter!",
@@ -134,7 +136,7 @@
                     "Mass Damage"
                 ],
                 "Effect": "Your next {Effect}\n\n{Variants}\n",
-                "Notes": "Roll the attack only once. Weapon effects (like Critical Strikes), if necessary, are applied to the main target only.\n",
+                "Notes": "Roll the attack only once. Weapon effects (like Critical Strikes), if necessary, are applied to the main target only.\nThis may benefit from Blood in the Water.\n",
                 "Variants": [
                     {
                         "Name": "Hack and Slash",
@@ -234,7 +236,7 @@
                 "_Value": 2,
                 "A": "0 Action Points (or Reaction)",
                 "Cooldown": "Once / Turn",
-                "Effect": "Reroll one die you just rolled. If it rolls 1, the attack misses.",
+                "Effect": "Reroll one non-Check die you just rolled. If it rolls 1, the Act misses.",
                 "ParentKey": "Level 2 Class Talent",
                 "Origin": "Class/Outlaw"
             },
@@ -268,7 +270,7 @@
                 "Tags": [
                     "Crit"
                 ],
-                "Effect": "After you move 2 times on the same Turn, your next weapon attack triggers its Critical Strike regardless.",
+                "Effect": "After you move from place 2 times on the same Round, your next weapon attack triggers its Critical Strike regardless, but misses if you roll 1 on at least one die.",
                 "ParentKey": "Level 3 Class Talent",
                 "Origin": "Class/Outlaw"
             },
@@ -296,7 +298,7 @@
                 "ParentKey": "Level 3 Class Talent",
                 "Origin": "Class/Outlaw"
             },
-            "<Hit-and-Run>": {
+            "<Dry Gulch>": {
                 "IconName": "Dashing Beauty",
                 "A": "0 Action Points",
                 "Cooldown": "Once / Turn",
@@ -312,6 +314,13 @@
                 "Effect": "After you roll an attack this Combat, you can make it miss on purpose.\n\nWhenever you miss or do 0 Damage with an attack, your next one deals +1d8 Damage this Combat.\n",
                 "ParentKey": "Level 3 Class Talent",
                 "Origin": "Class/Outlaw"
+            },
+            "~Steady Hands~": {
+                "A": "Passive",
+                "Effect": "Your multi-dice attacks that miss if they roll 1 on any of the dice now miss if they roll 1 on ~at least two~ of the dice.\n",
+                "HasMixins": true,
+                "ParentKey": "Level 3 Class Talent",
+                "Origin": "Class/Outlaw"
             }
         },
         "Level 4 Class Talent": {
@@ -319,7 +328,7 @@
                 "A": "1 Action Point",
                 "Cooldown": "Once / Turn",
                 "Cost": "1 Mana",
-                "Effect": "Make 3 attacks with a one-handed weapon you haven't used this Turn that would normally scale with a Stat. These attacks do not add any Stat to the Damage.",
+                "Effect": "Make 3 attacks with a one-handed weapon you haven't used this Turn that would normally scale with a Stat. These attacks do not add any Stat to the Damage, and miss if they roll 1 on any of the dice.",
                 "Upgrade": "You may apply Sharp End, Blood in the Water, or similar effects to individual attacks.\n",
                 "Notes": "If the weapon jams or breaks, it does so after you finish the attacks.",
                 "ParentKey": "Level 4 Class Talent",
@@ -329,7 +338,9 @@
                 "A": "0 Action Points",
                 "Cost": "1 Mana",
                 "Cooldown": "Once / Turn",
-                "Effect": "Take 1d6 Damage. Gain +1 Action Point this Turn.",
+                "Effect": "Gain +1 Action Point and a ~Combo~. This Turn, all your Acts miss if they roll 1 on any of the dice.",
+                "Downside": "Only usable as your first Act on a Turn.",
+                "HasMixins": true,
                 "ParentKey": "Level 4 Class Talent",
                 "Origin": "Class/Outlaw"
             },
@@ -368,7 +379,7 @@
                     "Ultimate"
                 ],
                 "Requirement": "Only usable on the 3rd Round of Combat",
-                "Effect": "Make 6 attacks with a one-handed ranged weapon, which miss if they roll 1 on any of dice.\nFurther High Noon attacks on the same Unit (after the first) deal -50% Damage.\n",
+                "Effect": "Make 6 attacks with a one-handed ranged weapon, which miss if they roll 1 on any of the dice.\nFurther High Noon attacks on the same Unit (after the first) deal -50% Damage.\n",
                 "Notes": "Each attack may miss individually, not all at the same time.",
                 "ParentKey": "Level 5 Class Talent",
                 "Origin": "Class/Outlaw"
@@ -415,11 +426,12 @@
                 "Origin": "Class/Outlaw"
             }
         },
-        "Level 6 - Utility Talent": {
-            "~Renown~": {
+        "Level 6 Utility Talent": {
+            "~Been There Done That~": {
                 "A": "Passive",
-                "Effect": "Due to your deeds and radiating confidence, have an extra 10% discount on buying anything.",
-                "ParentKey": "Level 6 - Utility Talent",
+                "Effect": "Once per Adventure, you can introduce an _actually fact_ without spending a Plot Point.\n",
+                "HasMixins": true,
+                "ParentKey": "Level 6 Utility Talent",
                 "Origin": "Class/Outlaw"
             },
             "~Loan Shark~": {
@@ -427,7 +439,25 @@
                 "Cooldown": "Twice / Adventure",
                 "Effect": "Loan a non-playable character anywhere between 100 and 500 {Gold}.\nAfter a set amount of time, you get it back with 1d100 interest.\nIf the interest is 9% or less, you get nothing back.\n",
                 "HasMixins": true,
-                "ParentKey": "Level 6 - Utility Talent",
+                "ParentKey": "Level 6 Utility Talent",
+                "Origin": "Class/Outlaw"
+            },
+            "~Fold~": {
+                "A": "0 Action Points",
+                "Cooldown": "Once / real hour",
+                "Effect": "Use after you learn the result of a _random_ choice determined by the Quest Master. You can force the Quest Master to draw a different result.\n",
+                "Notes": "For example, when you would get random loot, a random shop or upgrade, a random encounter, etc you can use this Ability to get a different one.",
+                "HasMixins": true,
+                "ParentKey": "Level 6 Utility Talent",
+                "Origin": "Class/Outlaw"
+            },
+            "~Blackcheck~": {
+                "A": "0 Action Points",
+                "Tags": "Roleplaying",
+                "Cooldown": "Once / real hour",
+                "Effect": "Use after you failed a Presence Check (that you could have passed) to play _Blackcheck_ with the Quest Master.\nThe Quest Master tells you the required number to pass.\nStarting from your rolled Check result, you may roll 1d6 again and again, one after another, to try to get exactly the required number to succeed. If you go above that number, you fail.\n",
+                "HasMixins": true,
+                "ParentKey": "Level 6 Utility Talent",
                 "Origin": "Class/Outlaw"
             }
         },
@@ -436,6 +466,41 @@
                 "A": "0 Action Points (or Reaction)",
                 "Cost": "1 Mana",
                 "Effect": "Use after a die is rolled.\nIncrease or decrease it by 1.\n",
+                "ParentKey": "Level 7 Class Talent",
+                "Origin": "Class/Outlaw"
+            },
+            "~Ace in the Sleeve~": {
+                "A": "0 Action Points",
+                "Cost": "2 Mana",
+                "Cooldown": "Once / Turn",
+                "Effect": "Make a melee weapon attack that misses.\nThe target becomes Dazed, Lagged, and Deafened, lasting until they do those Acts.\n",
+                "Notes": "Normally, Status Effects last at most 1 Turn. For example, if you Deafen a Unit, the Deafen lasts until they use an Ability.\nA Lagged Unit's next Movement costs +1 Action Point.\nA Deafened Unit's next Ability costs +1 Action Point.\n",
+                "_alreadyHasStatusEffectDescriptions": true,
+                "ParentKey": "Level 7 Class Talent",
+                "Origin": "Class/Outlaw"
+            },
+            "~Hit-and-Run~": {
+                "A": "0 Action Points",
+                "Cost": "1 Mana",
+                "Effect": "Immediately dash to where you began your Turn.\n",
+                "ParentKey": "Level 7 Class Talent",
+                "Origin": "Class/Outlaw"
+            },
+            "~Hold It Partner~": {
+                "A": "0 Action Points",
+                "Cost": "3 Mana",
+                "Cooldown": "Once / Adventure",
+                "Effect": "Choose an ally.\nThis Turn, whenever you land a {Green('Critical Strike')}, ~Combo~, Blood in the Water attack, or miss an attack against a Unit, that Ally can also make a 1 {A}Action Point Act against that Unit.\n",
+                "HasMixins": true,
+                "ParentKey": "Level 7 Class Talent",
+                "Origin": "Class/Outlaw"
+            },
+            "~Keelhaul~": {
+                "A": "0 Action Points",
+                "Cooldown": "Once / Turn",
+                "Effect": "Make a free Movement Act, then you become Lagged.\n",
+                "Notes": "A Lagged Unit's next Movement costs +1 Action Point.",
+                "_alreadyHasStatusEffectDescriptions": true,
                 "ParentKey": "Level 7 Class Talent",
                 "Origin": "Class/Outlaw"
             }
@@ -463,10 +528,26 @@
                 "HasMixins": true,
                 "ParentKey": "Level 8 Class Talent",
                 "Origin": "Class/Outlaw"
+            },
+            "~Abstain~": {
+                "_Value": 2.75,
+                "A": "Passive",
+                "Effect": "After you roll a Blood in the Water attack, you can force it to not gain extra Damage, and you gain +1 {A}Action Point.\n",
+                "HasMixins": true,
+                "ParentKey": "Level 8 Class Talent",
+                "Origin": "Class/Outlaw"
+            },
+            "~Wanted Poster~": {
+                "A": "Passive",
+                "Effect": "At the start of each Combat, one random Enemy becomes _Wanted_. The first attack against a _Wanted_ enemy triggers its {Green(Critical Strike)}, if any.\nWhen it die, you have 50% change to gain {Gold}Gold equal to its Max Health.\n",
+                "HasMixins": true,
+                "ParentKey": "Level 8 Class Talent",
+                "Origin": "Class/Outlaw"
             }
         },
         "Level 9 Class Talent": {
             "~Smoke and Mirrors~": {
+                "_Value": 3.75,
                 "A": "Passive",
                 "Effect": "You automatically dodge all* direct Damage instances that roll 1 on any of the dice against you.\n",
                 "Upgrade": "Monsters must make the die roll against you instead of taking the average.",
@@ -474,9 +555,42 @@
                 "ParentKey": "Level 9 Class Talent",
                 "Origin": "Class/Outlaw"
             },
-            "~Abstain~": {
+            "~Sharks in the Water~": {
                 "A": "Passive",
-                "Effect": "After you roll a Blood in the Water attack, you can force it to not gain extra Damage, and you gain +1 {A}Action Point.\n",
+                "_Value": 3.75,
+                "Replacement": "Replaces Blood in the Water",
+                "Effect": "If your last 2 offensive Acts both either triggered a {Color('var(--green-color)' 'Critical Strike')} or a ~Combo~, your next targeted {Type} {A}Action Point Act deals +{Amount}% Damage.\n\n{Variants}\n",
+                "Variants": [
+                    {
+                        "Type": 1,
+                        "Amount": 200
+                    },
+                    {
+                        "Type": 2,
+                        "Amount": 100
+                    }
+                ],
+                "HasMixins": true,
+                "ParentKey": "Level 9 Class Talent",
+                "Origin": "Class/Outlaw"
+            },
+            "~Devil's Bargain~": {
+                "A": "Passive",
+                "Effect": "After you spend {Mana}Mana, roll 1d10.\nIf you roll 4 or more, replenish 1 {Mana}Mana. Otherwise, the Act misses.\n",
+                "HasMixins": true,
+                "ParentKey": "Level 9 Class Talent",
+                "Origin": "Class/Outlaw"
+            },
+            "~Play Both Sides~": {
+                "A": "Passive",
+                "Effect": "You can start Combats on the enemy side of the battlefield.\nIf you do, you gain an extra free Turn. All Damage you deal to your Hero party members on this free Turn is also dealt to an enemy of choice, and vice-versa.\n",
+                "ParentKey": "Level 9 Class Talent",
+                "Origin": "Class/Outlaw"
+            },
+            "~Omertà~": {
+                "A": "Passive",
+                "Effect": "Your regular* weapon attacks that don't trigger a {Green(Critical Strike)}, ~Combo~, or Blood in the Water always miss. The others always deal +1d12 Damage.\n",
+                "Upgrade": "Regular attacks refer to standard attacks not done through Abilities and not empowered by Abilities.",
                 "HasMixins": true,
                 "ParentKey": "Level 9 Class Talent",
                 "Origin": "Class/Outlaw"
@@ -485,7 +599,7 @@
         "Level 10 Class Talent": {
             "One Man Show": {
                 "A": "Passive",
-                "Effect": "While outnumbered, you start your Turns with an extra 1 Action Point for each extra Worthy Enemy outnumbering you.\n\nAlso, passively, you gain +1 Presence and +1 Damage on every Damage instance you deal.\n",
+                "Effect": "While outnumbered, you start your Turns with an extra {A}Action Point for each extra Worthy Enemy outnumbering your party.\n\nAlso, passively, you gain +1 Presence and +1 Damage on every Damage instance you deal.\n",
                 "HasMixins": true,
                 "Downside": "This is your Heroic Class Ability and, after getting this Talent, you can no longer change your Talents inbetween Adventures.",
                 "ParentKey": "Level 10 Class Talent",

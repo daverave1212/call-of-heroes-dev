@@ -1799,9 +1799,20 @@ export const SYMBOLS = {
     ...STAT_SYMBOLS,
     ...STATIC_SYMBOLS,
 
+    // Formatting
     'Hr': { tag: 'img', props: {src: '/separator.png', class: 'spell-separator' } },
     'Separator': { tag: 'img', props: {src: '/separator.png', class: 'separator'} },
 
+    // Keywords
+    'Combo': { tag: 'span', props: { style: {color: 'var(--blue-color)'} }, text: "Combo:" },
+    'CriticalStrike': { tag: 'span', props: { style: {color: 'var(--green-color)'} }, text: "Critical Strike:" },
+    'Chain': { tag: 'span', text: 'Chain', props: { style: { color: '#7850e1' } }, func: () => <span style={{color: '#7850e1', fontWeight: 'bold'}}><Icon name="Chain"/>Chain</span> },
+    'Evoke': { tag: 'span', text: 'Evoke', props: { style: { color: '#6d00ff' } }, func: () => <span style={{color: '#6d00ff', fontWeight: 'bold'}}><Icon name="Evoke"/>Evoke</span> },
+    'AP': { tag: 'span', text: '1 Action Point', func: () => <span><Icon name="Hand"/>Action Points</span> },
+    '1AP': { tag: 'span', text: '1 Action Point', func: () => <span>1 <Icon name="Hand"/>Action Point</span> },
+    '2AP': { tag: 'span', text: '2 Action Points', func: () => <span>2 <Icon name="Hand"/>Action Points</span> },
+
+    // Icons
     'Damage': { tag: 'Icon', props: { name: 'Damage' } },
     'Mana': { tag: 'Icon', props: { name: 'Mana' } },
     'Health': { tag: 'Icon', props: { name: 'Health' } },
@@ -1818,9 +1829,6 @@ export const SYMBOLS = {
     'Arrow': { tag: 'Icon', props: { name: 'Replacement' } },
     'BlueArrow': { tag: 'Icon', props: { name: 'Replacement' } },
     'Hammer': { tag: 'Icon', props: { name: 'CharacterSetup' } },
-    'Diamond': { tag: 'span', text: '🔹', props: { fontSize: '0.8em' }, func: () => <Icon name="BulletPoint3" style={{marginTop: `calc(0.09 * var(--inline-icon-size))`, marginRight: 0}}/> },
-    'Pets and Animals': { tag: 'Link', props: { to: "/Other/PetsAndAnimals" }, text: 'Pets and Animals' },
-    'Offensive Abilities': { tag: 'span', text: "Offensive means that it deals Damage or applies hard Status Effect (anything better than Slow and creating Hard Terrain)." },
     'Action': { tag: 'Icon', props: { name: "Hand" } },
     'Hand': { tag: 'Icon', props: { name: "Hand" } },
     'Range': { tag: 'Icon', props: { name: "Range" } },
@@ -1831,29 +1839,38 @@ export const SYMBOLS = {
     'Gold': { tag: 'Icon', props: { name: "Gold" } },
     'Blood': { tag: 'Icon', props: { name: "Blood" } },
     
-    'Chain': { tag: 'span', text: 'Chain', props: { style: { color: '#7850e1' } }, func: () => <span style={{color: '#7850e1', fontWeight: 'bold'}}><Icon name="Chain"/>Chain</span> },
-    'Evoke': { tag: 'span', text: 'Evoke', props: { style: { color: '#6d00ff' } }, func: () => <span style={{color: '#6d00ff', fontWeight: 'bold'}}><Icon name="Evoke"/>Evoke</span> },
+    // Other
+    'Diamond': { tag: 'span', text: '🔹', props: { fontSize: '0.8em' }, func: () => <Icon name="BulletPoint3" style={{marginTop: `calc(0.09 * var(--inline-icon-size))`, marginRight: 0}}/> },
+    'Pets and Animals': { tag: 'Link', props: { to: "/Other/PetsAndAnimals" }, text: 'Pets and Animals' },
     
+    // Phrases
+    'Offensive Abilities': { tag: 'span', text: "Offensive means that it deals Damage or applies hard Status Effect (anything better than Slow and creating Hard Terrain)." },
     'CoreTalent':     { tag: 'span', props: { style: { color: 'var(--orange-color)'} }, text: "This is a Core Talent. You can only have one Core Talent from this Level.", func: () => <span style={{color: 'var(--dark-red-color)'}}>This is a <b>Core Talent</b>. You can only have one <b>Core Talent</b> from this Level..</span> },
     'KeystoneTalent': { tag: 'span', props: { style: { color: 'var(--dark-red-color)'} }, text: "This is a Keystone Talent. You can only have one Keystone Talent from this Level..", func: () => <span style={{color: 'var(--orange-color)'}}>This is a <b>Keystone Talent</b>. You can only have one <b>Keystone Talent</b> from this Level..</span> },
-
     'YouHaveAccess': { tag: 'span', props: { style: {color: 'var(--blue-color)'} }, text: "You may have all Variants of this Ability." },
     'Variants': { tag: 'span', props: { style: {color: 'var(--blue-color)'} }, text: "You may have all Variants of this Ability." },
     'AllVariants': { tag: 'span', props: { style: {color: 'var(--blue-color)'} }, text: "You may have all Variants of this Ability." },
-    
-    'Combo': { tag: 'span', props: { style: {color: 'var(--blue-color)'} }, text: "Combo:" },
-    'CriticalStrike': { tag: 'span', props: { style: {color: 'var(--green-color)'} }, text: "Critical Strike:" },
 }
+const symbolSpanWithColor = (color, args) => ({ tag: 'span',  props: { style: { color: color } }, text: args.join(' ') })
 export const FUNCTION_SYMBOLS = {
     'Link': args => ({ tag: 'Link',  props: { style: { color: '#8f0a7dff' }, to: args[1] }, text: args[0] }),
     'RandomOf': args => ({ tag: 'span', text: randomOf(...args) }),
-    'Brown': args => ({ tag: 'span',  props: { style: { color: '#A52A2A' } }, text: args[0] }),
-    'Orange': args => ({ tag: 'span', props: { style: { color: '#FF5500' } }, text: args[0] }),
-    'Purple': args => ({ tag: 'span', props: { style: { color: '#6f00ffff' } }, text: args[0] }),
-    'Red': args => ({ tag: 'span', props: { style: { color: 'red' } }, text: args[0] }),
-    'Green': args => ({ tag: 'span', props: { style: { color: 'var(--green-color)' } }, text: args[0] }),
-    'DarkGreen': args => ({ tag: 'span', props: { style: { color: '#00a71cff' } }, text: args[0] }),
-    'Teal': args => ({ tag: 'span', props: { style: { color: '#0097ab' } }, text: args[0] }),
+    
+    'Brown': args => symbolSpanWithColor('#A52A2A', args),
+    'Orange': args => symbolSpanWithColor('#FF5500', args),
+    'Purple': args => symbolSpanWithColor('#6f00ffff', args),
+    'Red': args => symbolSpanWithColor('red', args),
+    'Green': args => symbolSpanWithColor('var(--green-color)', args),
+    'DarkGreen': args => symbolSpanWithColor('#00a71cff', args),
+    'Teal': args => symbolSpanWithColor('#0097ab', args),
+
+    // 'Brown': args => ({ tag: 'span',  props: { style: { color: '#A52A2A' } }, text: args[0] }),
+    // 'Orange': args => ({ tag: 'span', props: { style: { color: '#FF5500' } }, text: args[0] }),
+    // 'Purple': args => ({ tag: 'span', props: { style: { color: '#6f00ffff' } }, text: args[0] }),
+    // 'Red': args => ({ tag: 'span', props: { style: { color: 'red' } }, text: args[0] }),
+    // 'Green': args => ({ tag: 'span', props: { style: { color: 'var(--green-color)' } }, text: args[0] }),
+    // 'DarkGreen': args => ({ tag: 'span', props: { style: { color: '#00a71cff' } }, text: args[0] }),
+    // 'Teal': args => ({ tag: 'span', props: { style: { color: '#0097ab' } }, text: args[0] }),
 
     'Color': args => ({ tag: 'span', props: { style: { color: args[0] } }, text: args[1] }),
 

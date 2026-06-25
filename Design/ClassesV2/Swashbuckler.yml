@@ -56,31 +56,41 @@ Ideas:
 
 Utility:
 
-  ~Coming Down Swinging~:
+  ~180 to Hell~:
     A: 0 Actions
     Cooldown: Once / real hour
+    Range: 3 meters
     Effect: |
-      You automatically find a chandelier, rope, vine, or something similar to swing on, even if the room shouldn't logically have one.
-      Reposition up to 4 meters away.
+      Choose an Enemy within 3 meters.
+      You quickly dash to the diametrically opposite space, on its other side, at the same distance.
+    Notes: For example, if you're 3 meters to the South of a Unit, you move so that you become 3 meters to the North of it. Your starting space, the Enemy, and your landing space must be on the same line. Requires a clear path, but you can circle 'round the back.
 
-  ~Blackcheck~:
+  ~Raise~:
     A: 0 Actions
-    Tags: Roleplaying
-    Cooldown: Once / real hour
+    Cooldown: Once / attack
     Effect: |
-      Use after you failed a {Charisma} Check (that you could have passed) to play _Blackcheck_ with the Quest Master.
-      The Quest Master tells you the required number to pass.
-      Starting from your rolled Check result, you may roll 1d6 again and again, one after another, to try to get exactly the required number to succeed. If you go above that number, you fail.
+      Use immediately before rolling a Blood in the Water attack.
+      If the attack deals Damage equal to or above its _average_, gain {Gold}Gold equal to 200% of the rolled amount.
+      Otherwise, the attack misses.
 
-  ~Daring Leap of Logic~:
-    A: Passive
+  # ~Daring Leap of Logic~:
+  #   A: Passive
+  #   Effect: |
+  #     The first time you want to perform a Stunt every Adventure, it has +50% effect (in addition to other bonuses), but only if it's really awesome.
+  #     You must commit to the first idea if the Stunt is approved by the Quest Master, even if it's not that awesome.
+  #   Notes: Its awesomeness depends on the Quest Master.
+
+  ~What Have We Here~:
+    A: 1 minute
+    Cooldown: Once / Adventure
     Effect: |
-      The first time you want to perform a Stunt every Adventure, it has +50% effect (in addition to other bonuses), but only if it's really awesome.
-      You must commit to the first idea if the Stunt is approved by the Quest Master, even if it's not that awesome.
-    Notes: Its awesomeness depends on the Quest Master.
+      You can spend 1 minute to fast talk a non-playable character to try to bamboozle their morality.
+      Make a {Presence} Check against their {Presence} Check.
+      If you succeed, _steal_ a random Quirk it has. Otherwise, they notice you're trying to bamboozle them.
 
-  ~I Know This Guy~:
+  ~I Know A Guy~:
     A: 0 Actions
+    IconName: I Know This Guy
     Cooldown: Once / real hour
     Effect: |
       Use when in a town or hub to add 1d4 to an {Intelligence} Check, to bring up a reason as to why you know extra details about it. It can be about a particular subject you've encountered before, a person you know there, etc.
@@ -125,6 +135,7 @@ Talents:
             {Variants}
         Notes: |
             Roll the attack only once. Weapon effects (like Critical Strikes), if necessary, are applied to the main target only.
+            This may benefit from Blood in the Water.
         Variants:
             - Name: Hack and Slash
               Effect: melee 2-handed weapon attack also hits all other Units within weapon range, but deals -50% Damage to them (deals normal Damage to the main target).
@@ -197,7 +208,7 @@ Talents:
       _Value: 2
       A: 0 Actions (or Reaction)
       Cooldown: Once / Turn
-      Effect: Reroll one die you just rolled. If it rolls 1, the attack misses.
+      Effect: Reroll one non-Check die you just rolled. If it rolls 1, the Act misses.
 
     ~Came To Collect~:
       A: Half-Action
@@ -226,7 +237,7 @@ Talents:
     ~Strafe and Backpedal~:
       A: Passive
       Tags: [Crit]
-      Effect: After you move 2 times on the same Turn, your next weapon attack triggers its Critical Strike regardless.
+      Effect: After you move from place 2 times on the same Round, your next weapon attack triggers its Critical Strike regardless, but misses if you roll 1 on at least one die.
 
     <Duel To Death>:
       _Value: 2.25
@@ -249,7 +260,7 @@ Talents:
           - 6. +20% Gold from what you're carrying
       Notes: First, you continue your Turn; then the Enemy has its turn. After the duel is over, resume Turn order, as if you just finished your Turn. All of these Turns happen on the same Round, as if in a vaccuum (e.g. Round number does not increase for some effects' purposes).
 
-    <Hit-and-Run>:
+    <Dry Gulch>:
       IconName: Dashing Beauty
       A: 0 Actions
       Cooldown: Once / Turn
@@ -263,13 +274,18 @@ Talents:
 
         Whenever you miss or do 0 Damage with an attack, your next one deals +1d8 Damage this Combat.
 
+    ~Steady Hands~:
+      A: Passive
+      Effect: |
+        Your multi-dice attacks that miss if they roll 1 on any of the dice now miss if they roll 1 on ~at least two~ of the dice.
+
   Level 4 Class Talent:
 
     ~Off-Hand Shank~:
       A: Half-Action
       Cooldown: Once / Turn
       Cost: 1 Mana
-      Effect: Make 3 attacks with a one-handed weapon you haven't used this Turn that would normally scale with a Stat. These attacks do not add any Stat to the Damage.
+      Effect: Make 3 attacks with a one-handed weapon you haven't used this Turn that would normally scale with a Stat. These attacks do not add any Stat to the Damage, and miss if they roll 1 on any of the dice.
       Upgrade: |
         You may apply Sharp End, Blood in the Water, or similar effects to individual attacks.
       Notes: If the weapon jams or breaks, it does so after you finish the attacks.
@@ -278,7 +294,8 @@ Talents:
       A: 0 Actions
       Cost: 1 Mana
       Cooldown: Once / Turn
-      Effect: Take 1d6 Damage. Gain +Half-Action this Turn.
+      Effect: Gain +Half-Action and a ~Combo~. This Turn, all your Acts miss if they roll 1 on any of the dice.
+      Downside: Only usable as your first Act on a Turn.
 
     ~Circle Round~:
       A: 0 Actions
@@ -310,7 +327,7 @@ Talents:
       Tags: [Damage, Ultimate]
       Requirement: Only usable on the 3rd Round of Combat
       Effect: |
-        Make 6 attacks with a one-handed ranged weapon, which miss if they roll 1 on any of dice.
+        Make 6 attacks with a one-handed ranged weapon, which miss if they roll 1 on any of the dice.
         Further High Noon attacks on the same Unit (after the first) deal -50% Damage.
       Notes: Each attack may miss individually, not all at the same time.
 
@@ -346,11 +363,12 @@ Talents:
           Type2: melee
 
 
-  Level 6 - Utility Talent:
+  Level 6 Utility Talent:
 
-    ~Renown~:
+    ~Been There Done That~:
       A: Passive
-      Effect: Due to your deeds and radiating confidence, have an extra 10% discount on buying anything.
+      Effect: |
+        Once per Adventure, you can introduce an _actually fact_ without spending a Plot Point.
 
     ~Loan Shark~:
       A: 1 minute
@@ -360,6 +378,22 @@ Talents:
         After a set amount of time, you get it back with 1d100 interest.
         If the interest is 9% or less, you get nothing back.
 
+    ~Fold~:
+      A: 0 Actions
+      Cooldown: Once / real hour
+      Effect: |
+        Use after you learn the result of a _random_ choice determined by the Quest Master. You can force the Quest Master to draw a different result.
+      Notes: For example, when you would get random loot, a random shop or upgrade, a random encounter, etc you can use this Ability to get a different one.
+
+    ~Blackcheck~:
+      A: 0 Actions
+      Tags: Roleplaying
+      Cooldown: Once / real hour
+      Effect: |
+        Use after you failed a {Charisma} Check (that you could have passed) to play _Blackcheck_ with the Quest Master.
+        The Quest Master tells you the required number to pass.
+        Starting from your rolled Check result, you may roll 1d6 again and again, one after another, to try to get exactly the required number to succeed. If you go above that number, you fail.
+
   Level 7 Class Talent:
 
     ~Weighted Coin~:
@@ -368,6 +402,35 @@ Talents:
       Effect: |
         Use after a die is rolled.
         Increase or decrease it by 1.
+    
+    ~Ace in the Sleeve~:
+      A: 0 Actions
+      Cost: 2 Mana
+      Cooldown: Once / Turn
+      Effect: |
+        Make a melee weapon attack that misses.
+        The target becomes Dazed, Lagged, and Deafened, lasting until they do those Acts.
+      Notes: Normally, Status Effects last at most 1 Turn. For example, if you Deafen a Unit, the Deafen lasts until they use an Ability.
+
+    ~Hit-and-Run~:
+      A: 0 Actions
+      Cost: 1 Mana
+      Effect: |
+        Immediately dash to where you began your Turn.
+
+    ~Hold It Partner~:
+      A: 0 Actions
+      Cost: 3 Mana
+      Cooldown: Once / Adventure
+      Effect: |
+        Choose an ally.
+        This Turn, whenever you land a {Green('Critical Strike')}, ~Combo~, Blood in the Water attack, or miss an attack against a Unit, that Ally can also make a 1 {A}Action Point Act against that Unit.
+
+    ~Keelhaul~:
+      A: 0 Actions
+      Cooldown: Once / Turn
+      Effect: |
+        Make a free Movement Act, then you become Lagged.
 
   Level 8 Class Talent:
 
@@ -387,33 +450,67 @@ Talents:
       Effect: |
         Your attacks that trigger both a {Green('Critical Strike')} and a ~Combo~ Double-Stun the target.
 
-    # <Swashbuckle>:
-    #   _Value: 2.25
-    #   A: Passive
-    #   Effect: Gain +3 Movement Speed.
-    #   EffectGreen: When you get this, gain +1 in a Stat of choice, up to +5.
+    ~Abstain~:
+      _Value: 2.75
+      A: Passive
+      Effect: |
+        After you roll a Blood in the Water attack, you can force it to not gain extra Damage, and you gain +1 {A}Action Point.
+
+    ~Wanted Poster~:
+      A: Passive
+      Effect: |
+        At the start of each Combat, one random Enemy becomes _Wanted_. The first attack against a _Wanted_ enemy triggers its {Green(Critical Strike)}, if any.
+        When it die, you have 50% change to gain {Gold}Gold equal to its Max Health.
+
 
   Level 9 Class Talent:
 
     ~Smoke and Mirrors~:
+      _Value: 3.75   # On average a 7th of all Damage, which is a 7th of your max HP + Regen = ~12 HP
       A: Passive
       Effect: |
         You automatically dodge all* direct Damage instances that roll 1 on any of the dice against you.
       Upgrade: Monsters must make the die roll against you instead of taking the average.
       Notes: If it makes sense to dodge it, you can dodge it. You can't dodge Damage over time, stepping on obstacles, etc.
 
-    ~Abstain~:
+    ~Sharks in the Water~:
+      A: Passive
+      _Value: 3.75 # trigger it once per combat, though not at full potential
+      Replacement: Replaces Blood in the Water
+      Effect: |
+        If your last 2 offensive Acts both either triggered a {Color('var(--green-color)' 'Critical Strike')} or a ~Combo~, your next targeted {Type} {A}Action Point Act deals +{Amount}% Damage.
+        
+        {Variants}
+      Variants:
+        - Type: 1
+          Amount: 200
+        - Type: 2
+          Amount: 100
+    
+    ~Devil's Bargain~:
       A: Passive
       Effect: |
-        After you roll a Blood in the Water attack, you can force it to not gain extra Damage, and you gain +1 {A}Action Point.
+        After you spend {Mana}Mana, roll 1d10.
+        If you roll 4 or more, replenish 1 {Mana}Mana. Otherwise, the Act misses.
 
+    ~Play Both Sides~:
+      A: Passive
+      Effect: |
+        You can start Combats on the enemy side of the battlefield.
+        If you do, you gain an extra free Turn. All Damage you deal to your Hero party members on this free Turn is also dealt to an enemy of choice, and vice-versa.
+
+    ~Omertà~:
+      A: Passive
+      Effect: |
+        Your regular* weapon attacks that don't trigger a {Green(Critical Strike)}, ~Combo~, or Blood in the Water always miss. The others always deal +1d12 Damage.
+      Upgrade: Regular attacks refer to standard attacks not done through Abilities and not empowered by Abilities.
 
   Level 10 Class Talent:
 
     One Man Show:
       A: Passive
       Effect: |
-        While outnumbered, you start your Turns with an extra Half-Action for each extra Worthy Enemy outnumbering you.
+        While outnumbered, you start your Turns with an extra {A}Action Point for each extra Worthy Enemy outnumbering your party.
 
         Also, passively, you gain +1 {Charisma} and +1 Damage on every Damage instance you deal.
       HasMixins: true
