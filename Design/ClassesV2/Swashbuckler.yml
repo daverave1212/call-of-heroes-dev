@@ -36,6 +36,8 @@ Spellcasting:
   Recommended Abilities Description: |
     TODO
 
+Other Ideas:
+  - Explain in the book how Blood in the Water works, and that misses do not interrupt your chain of attacks! You can stil miss and it's all ok!
 
 Ideas:
   ~Circling Prey~:
@@ -103,7 +105,7 @@ Starting Abilities:
     A: Passive
     _Value: 2.25 # trigger it once per combat, though not at full potential
     Effect: |
-      If your last 2 offensive Acts both either triggered a {Color('var(--green-color)' 'Critical Strike')} or a ~Combo~, your next targeted {Type} {A}Action Point Act deals +{Amount}% Damage.
+      If your last 2 Acts that did Damage both either triggered a {Color('var(--green-color)' 'Critical Strike')} or a ~Combo~, your next targeted {Type} {A}Action Point Act deals +{Amount}% Damage.
       
       {Variants}
     Variants:
@@ -111,13 +113,14 @@ Starting Abilities:
         Amount: 100
       - Type: 2
         Amount: 50
+    Notes: Note that misses do not break your chains of critting attacks, since only Acts that did Damage count towards this! For example, if you crit an attack, then miss, then crit another attack, then your next attack ^will^ benefit from Blood in the Water!
 
   ~Sharp End~:
     _Value: 0.5
     A: 0 Actions
     Cost: 1 Mana
     Cooldown: Once / 2 Turns
-    Effect: Your next offensive attack or Ability deals +1d4 Damage and triggers its {Color('var(--green-color)' 'Critical Strike')} and ~Combo~ effect anyway!
+    Effect: Your next offensive attack or Ability deals +1d4 Damage and triggers its {Color('var(--green-color)' 'Critical Strike')} and ~Combo~ effect anyway, but misses if you roll 1 on any of the dice!
     Upgrade: If it can not {Color('var(--green-color)' 'Critically Strike')}, it further deals an extra +1d4 Damage and counts as a {Color('var(--green-color)' 'Critical Strike')} anyway.
 
 Talents:
@@ -168,7 +171,7 @@ Talents:
 
     ~All or Nothing~:
       A: 0 Actions
-      Cooldown: Once / Attack
+      Cooldown: Once / Turn
       Requirement: Only usable in Worthy Combat
       Effect: |
         Add 1d6 to an attack's Damage. If the total is _odd_, the attack misses, but you Heal for 1.
@@ -434,21 +437,16 @@ Talents:
 
   Level 8 Class Talent:
 
-    ~Eye for an Eye~:
-      A: Reaction
+    ~Wanted Poster~:
+      A: Passive
       Effect: |
-        Use after you take 0 Damage or an attack against you misses.
-        You can immediately attack the attacker, if within range, with a 1 {A}Action Point attack.
-    
+        At the start of each Combat, one random Enemy becomes _Wanted_. The first attack against a _Wanted_ enemy triggers its {Green(Critical Strike)}, if any.
+        When it die, you have 50% change to gain {Gold}Gold equal to its Max Health.
+
     ~Perfect Setup~:
       A: Passive
       Effect: |
         Whenever you trigger a ~Combo~, you can deal 1d6 Damage to the target, or Heal another Unit you can see for 1d6.
-
-    ~Gallows Shock~:
-      A: Passive
-      Effect: |
-        Your attacks that trigger both a {Green('Critical Strike')} and a ~Combo~ Double-Stun the target.
 
     ~Abstain~:
       _Value: 2.75
@@ -456,11 +454,16 @@ Talents:
       Effect: |
         After you roll a Blood in the Water attack, you can force it to not gain extra Damage, and you gain +1 {A}Action Point.
 
-    ~Wanted Poster~:
+    ~Gallows Shock~:
       A: Passive
       Effect: |
-        At the start of each Combat, one random Enemy becomes _Wanted_. The first attack against a _Wanted_ enemy triggers its {Green(Critical Strike)}, if any.
-        When it die, you have 50% change to gain {Gold}Gold equal to its Max Health.
+        Your attacks that trigger both a {Green('Critical Strike')} and a ~Combo~ Double-Stun the target.
+
+    ~Eye for an Eye~:
+      A: Reaction
+      Effect: |
+        Use after you take 0 Damage or an attack against you misses.
+        You can immediately attack the attacker, if within range, with a 1 {A}Action Point attack.
 
 
   Level 9 Class Talent:
@@ -493,21 +496,22 @@ Talents:
         After you spend {Mana}Mana, roll 1d10.
         If you roll 4 or more, replenish 1 {Mana}Mana. Otherwise, the Act misses.
 
-    ~Play Both Sides~:
-      A: Passive
-      Effect: |
-        You can start Combats on the enemy side of the battlefield.
-        If you do, you gain an extra free Turn. All Damage you deal to your Hero party members on this free Turn is also dealt to an enemy of choice, and vice-versa.
-
     ~Omertà~:
       A: Passive
       Effect: |
         Your regular* weapon attacks that don't trigger a {Green(Critical Strike)}, ~Combo~, or Blood in the Water always miss. The others always deal +1d12 Damage.
       Upgrade: Regular attacks refer to standard attacks not done through Abilities and not empowered by Abilities.
 
+
+    ~Play Both Sides~:
+      A: Passive
+      Effect: |
+        You can start Combats on the enemy side of the battlefield.
+        If you do, you gain an extra free Turn. All Damage you deal to your Hero party members on this free Turn is also dealt to an enemy of choice, and vice-versa.
+
   Level 10 Class Talent:
 
-    One Man Show:
+    ~One Man Standoff~:
       A: Passive
       Effect: |
         While outnumbered, you start your Turns with an extra {A}Action Point for each extra Worthy Enemy outnumbering your party.
@@ -516,13 +520,23 @@ Talents:
       HasMixins: true
       Downside: "{Heroic}"
 
-    Acrobatix Bellatrix:
+    ~Phantom Flagman~:
       A: Passive
       Effect: |
-        Gain +15 Movement Speed and your first attack every turn gains +1 Damage for every meter moved.
+        Gain +10 Movement Speed, and your first attack every turn gains +1 Damage for every meter moved.
+        Your attacks can't miss
 
         You automatically pass all Hard {Dexterity} Checks (that require at least 15). Go be like an arrow in the wind!
     
+    ~Scourge of the Salt~:
+      A: Passive
+      Effect: |
+        Your attacks always {Green(Critically Strike)} and trigger the ~Combo~ effect, regardess of the roll.
+        Your Blood in the Water attacks heal you for 50% of the Damage dealt, but miss if you roll 1 on any of the dice.
+
+        Also, passively, you gain +2 {Dexterity}.
+    
+
 
 
 #PageEnd#
