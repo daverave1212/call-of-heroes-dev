@@ -2,7 +2,7 @@
 import './Spell.css'
 import Separator from './../Separator/Separator'
 import { useEffect, useRef, useState } from 'react'
-import { parseTextWithSymbols, stringReplaceAllMany, getSpellIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll, getVariantsForEachCollection, createKey, spellsFromObject, randomInt, assertCorrectSpellFormat, findBasicSpellByName, allEqual, getItemIconPathByName, removeTildes, isString, getDoubleTableTable, getDoubleTableNumberedTable, filterObject, getSpellValidTopStatsObject, hasSpellVariants, getNormalizedSpellName, getSpellOrItemIconPath, parseAndNormalizeSpell, hexColorToRgbVector, getSpellByName, SYMBOLS, isNumber, copyToClipboardAsync } from '../../utils'
+import { parseTextWithSymbols, stringReplaceAllMany, getSpellIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll, getVariantsForEachCollection, createKey, spellsFromObject, randomInt, assertCorrectSpellFormat, findBasicSpellByName, allEqual, getItemIconPathByName, removeTildes, isString, getDoubleTableTable, getDoubleTableNumberedTable, filterObject, getSpellValidTopStatsObject, hasSpellVariants, getNormalizedSpellName, getSpellOrItemIconPath, parseAndNormalizeSpell, hexColorToRgbVector, getSpellByName, SYMBOLS, isNumber, copyToClipboardAsync, getAllSpellsByName, getAllWeaponsByName, getAllItemsByName } from '../../utils'
 import TableNormal from '../TableNormal/TableNormal'
 import html2canvas from 'html2canvas'
 import CopySpellButton from '../CopyButton/CopySpellButton'
@@ -254,7 +254,10 @@ If onClick != null:
     It will have onClick
 */
 
-export default function Spell({ 
+export default function Spell({
+    spellName,
+    itemName,
+
     spell,
     style,
     
@@ -275,7 +278,17 @@ export default function Spell({
 }) {
 
     if (spell == null) {
-        return <div>ERROR: null spell given to component Spell.</div>
+        if (spellName != null) {
+            spell = getAllSpellsByName()[spellName]
+        } else if (itemName != null) {
+            spell = getAllItemsByName()[itemName]
+        } else {
+            return <div>ERROR: null spell given to component Spell.</div>
+        }
+    }
+
+    if (spell == null) {
+        return <div>ERROR: spell is null! Gave spellName as {spellName} and itemName as {itemName}</div>
     }
 
     if (metadata == null) {

@@ -19,7 +19,7 @@
 # Grand -- >>>>
 
 # ToDo:
-# Make some good spells that Artificer - Spellcraft can benefit from (e.g. Status Effect, small area, short range, even amount of dice)
+# Make some good spells that Artificer - Spellcraft can benefit from (e.g. Control Effect, small area, short range, even amount of dice)
 # Make some good spells against specific enemies (giants, undead, elementals)
 
     # Elemental
@@ -48,7 +48,7 @@
 
     # Faith
 # DoT: Whenever you are attacked
-# Wave that jumps 3 times, Damage or heal each time
+# Wave that jumps 3 times, Damage or Heal each time
 # Schizophrenic Suggestion (the target's traits become accentuated); if used in combat, enemy makes an attack on himself
 # Dispel (and make sure monster abilities are dispellable)
 # Storm Spear
@@ -105,7 +105,7 @@
 
 
     # To consider
-# - Give them situational Status Effect - each spell school deals with different scenarios
+# - Give them situational Control Effect - each spell school deals with different scenarios
 
     # Damage types to give
 # Direct
@@ -131,9 +131,9 @@
 # [ ] Damage (Save or Half)
 # [ ] Return on Investment
 # [ ] Stats
-# [ ] Low Status Effect
-# [ ] Medium Status Effect
-# [ ] Hard Status Effect
+# [ ] Low Control Effect
+# [ ] Medium Control Effect
+# [ ] Hard Control Effect
 # [ ] Healing
 # [ ] Tranking/Protection (Shielding)
 # [ ] Buff
@@ -219,7 +219,7 @@ Default Moves:
         Range: 1 meter
         Effect: |
             Pass a {Might} Check against a Unit's {Dexterity} or {Might} Check (its choice) to either make it Rooted and Blinded, or mount it until the end of its Turn.
-        Notes: Like all Status Effects, being grappled lasts 1 turn. The target becomes not-grappled if the grappler exits its adjacency.
+        Notes: Like all Control Effects, being grappled lasts 1 turn. The target becomes not-grappled if the grappler exits its adjacency.
 
     # ~Wait~:
     #     A: 0 Actions
@@ -241,7 +241,7 @@ Default Moves:
 #   Alternative to attacking
 #   Conditioanl/optional bonus/alteration to attacking
 #   Mobility
-#   Status Effects
+#   Control Effects
 #   Protection
 #   Healing
 #   Elemental Damage
@@ -267,9 +267,9 @@ Bloodshed:
 # [x] Damage (AoE)          (Advanced)
 # [ ] Return on Investment
 # [ ] Stats
-# [ ] Low Status Effect
-# [ ] Medium Status Effect
-# [x] Hard Status Effect
+# [ ] Low Control Effect
+# [ ] Medium Control Effect
+# [x] Hard Control Effect
 # [x] Healing
 # [ ] Tranking/Protection (Shielding)
 # [ ] Buff
@@ -279,37 +279,12 @@ Bloodshed:
 # [ ] Anti-Heal
 # [ ] Summon
 
-
-    ~Hack and Slash~:
-        A: 0 Actions
-        Cost: 1 Mana
-        DisplayName: "{Name}"
-        Effect: |
-            Your next {Effect}
-            ~Click on the Icon to select which variant you want to have have!~
-        Notes: |
-            Roll the attack only once.
-            Weapon effects (like Critical Strikes), if necessary, are applied to the main target only.
-        Variants:
-            - Name: Hack and Slash
-              Effect: melee 2-handed weapon attack also hits all other Units 1 meter from you, but deals -50% Damage to them (deals normal Damage to the main target).
-              IconName: Hack and Slash
-            - Name: Slice and Dice
-              Effect: melee 1-handed weapon attack also hits all other Units 1 meter from you.
-              IconName: Slice and Dice
-            - Name: Lock and Load
-              Effect: ranged 2-handed weapon attack also hits all other Units 1 meter from the main target, but deals -50% Damage to them (deals normal Damage to the main target).
-              IconName: Lock and Load
-            - Name: Point and Shoot
-              Effect: ranged 1-handed weapon attack also hits all other Units 1 meter from the main target.
-              IconName: Point and Shoot
-
     ~Recuperate~:
         A: 0 Actions
         Cost: 1 Mana
         Degree: Minor
         Effect: |
-            Heal yourself for 1d10. If you're affected by any Status Effect, remove them instead of Healing.
+            Heal yourself for 1d10. If you're affected by any Control Effect, remove them instead of Healing.
 
     ~Painful Puncture~:
         A: Half-Action
@@ -402,8 +377,8 @@ Bloodshed:
         A: Half-Action
         Requirement: Level 5
         Cost: 1 Mana
-        Effect: Attack a different Unit with a 1-handed weapon. It heals instead of dealing Damage.
-        Notes: Any extra Damage effects on it heal as well (e.g. Smite, Cursewielder, etc).
+        Effect: Attack a different Unit with a One-Handed weapon. It heals instead of dealing Damage.
+        Notes: Any extra Damage effects on it Heal as well (e.g. Smite, Cursewielder, etc).
 
     ~All Veins Burning~:
         A: 1 Action
@@ -424,9 +399,9 @@ Warfare:
 # [x] Damage (Save or Half)
 # [ ] Return on Investment
 # [ ] Stats
-# [x] Low Status Effect
-# [ ] Medium Status Effect
-# [x] Hard Status Effect
+# [x] Low Control Effect
+# [ ] Medium Control Effect
+# [x] Hard Control Effect
 # [x] Healing
 # [x] Tranking/Protection (Shielding)
 # [x] Buff
@@ -438,43 +413,11 @@ Warfare:
 
     # Advanced Spells
 
-    ~Lance Heave~:
-        A: 1 Action
-        DisplayName: "{Name}"
-        HasMixins: true
-        DisplayRequirement: Only usable if it hits at least 2 Units
-        Effect: |
-            Make a {Weapon} ^weapon^ attack {Effect}
-            ~Click on the Icon to select which variant you want to have have!~
-        Upgrade: Can apply weapon effects. If the weapon effect requires a target, applies to one chosen Unit hit.
-        Notes: Range increases do increase the length. The Damage must the same for all Units hit. All bonuses to the attack (e.g. Smite, Cursewielder, etc) also split evenly.
-        Variants:
-            - Name: Lance Heave
-              DisplayA: 1 Action
-              Effect: that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units, ignores Defense, and they all become Slowed.
-              Weapon: 2-handed melee
-              IconName: Lance Heave
-            - Name: Blade Heave
-              DisplayA: Half-Action
-              Effect: that hits all Units in a 3-meter long line. The Damage is evenly split among all hit Units, ignores Defense, and they all become Slowed.
-              Weapon: 1-handed melee
-              IconName: Blade Heave
-            - Name: Penetrating Heave
-              DisplayA: 1 Action
-              Effect: that hits one more Unit up to 2 meters directly behind the main target.
-              Weapon: 2-handed ranged
-              IconName: Penetrating Heave
-            - Name: Piercing Heave
-              DisplayA: Half-Action
-              Effect: that hits one more Unit up to 2 meters directly behind the main target.
-              Weapon: 1-handed ranged
-              IconName: Piercing Heave
-
     ~Glory Shout~:          # Slightly strong for the cost, but it's distributed weirdly so ok
         A: 0 Actions
         Cost: 1 Mana
         Degree: Minor
-        Effect: Roll 1d4. Either heal all allies that can hear you (and yourself), or Damage all Worthy Enemies that can hear you for that amount (as Psychic Damage).
+        Effect: Roll 1d4. Either Heal all allies that can hear you (and yourself), or Damage all Worthy Enemies that can hear you for that amount (as Psychic Damage).
 
     ~Chilling Shout~: Inherit
 
@@ -642,7 +585,7 @@ Warfare:
     #     Effect: |
     #         Make a special melee attack that deals 1d6 + 2 Pulse Damage.
     #         After the attack, your turn ends immediately.
-    #     Notes: This counts as a weapon Attack (1-Handed or 2-Handed, depending on your weapon).
+    #     Notes: This counts as a weapon Attack (One-Handed or Two-Handed, depending on your weapon).
         
 
 
@@ -655,9 +598,9 @@ Elemental:
 # [x] Damage (AoE)          (Advanced)  [Save, Save, Direct]
 # [ ] Return on Investment
 # [ ] Stats
-# [x] Low Status Effect
-# [x] Medium Status Effect
-# [x] Hard Status Effect
+# [x] Low Control Effect
+# [x] Medium Control Effect
+# [x] Hard Control Effect
 # [ ] Healing
 # [x] Tranking/Protection
 # [x] Buff
@@ -710,7 +653,7 @@ Elemental:
         Effect: |
             Deal Cold Damage to a Unit equal to 2d6 + ^Its {Dexterity}^.
             If it's Medium or smaller, Root it.
-        Tag: Status Effect Hard
+        Tag: Control Effect Hard
 
     ~Volt Guard~:    
         A: Reaction
@@ -727,7 +670,7 @@ Elemental:
         Range: 10 meters
         Requirement: Level 2
         Degree: Minor
-        Effect: Shoot an ice shard toward a Unit, dealing 2d8 Cold or Pierce Damage (your choice). It becomes Slowed.
+        Effect: Shoot an ice shard towards a Unit, dealing 2d8 Cold or Pierce Damage (your choice). It becomes Slowed.
         Tag: Damage (Half)
 
     ~Element Enchantment~:
@@ -767,7 +710,7 @@ Elemental:
             - If it's a weapon, the wearer takes 1d10 Damage. If you rolled higher than its {Might}, it becomes Crippled.
         Notes: |
             Ignores Cover.
-        Tag: Status Effect Hard
+        Tag: Control Effect Hard
 
     ~Conduit Flow~:
         A: 1 Action
@@ -960,7 +903,7 @@ Elemental:
         Effect: |
             The target rolls a {Dexterity} Check.
             If it fails, it takes 3d8 + 9 Cold Damage, or half otherwise.
-            The target automatically fails if it's affected by any Status Effect (except Hard Terrain).
+            The target automatically fails if it's affected by any Control Effect (except Hard Terrain).
         Tag: AoE (1)
 
     ~Ignition~:
@@ -1058,9 +1001,9 @@ Arcane:
 # [x] Damage (Save or Half)
 # [ ] Return on Investment
 # [ ] Stats
-# [ ] Low Status Effect
-# [x] Medium Status Effect                         [Save (Antimagic Rune), Save AoE (Slow)]
-# [ ] Hard Status Effect
+# [ ] Low Control Effect
+# [x] Medium Control Effect                         [Save (Antimagic Rune), Save AoE (Slow)]
+# [ ] Hard Control Effect
 # [ ] Healing
 # [x] Tranking/Protection (Shielding)
 # [x] Buff
@@ -1106,7 +1049,7 @@ Arcane:
         AlignOnWebsite: Right
         Range: 5 meters
         HasMixins: true
-        Effect: Dispell all ongoing _non-chronic_ magical effects on a Unit (any magical Status Effects, magical buffs and debuffs, etc).
+        Effect: Dispell all ongoing _non-chronic_ magical effects on a Unit (any magical Control Effects, magical buffs and debuffs, etc).
         Notes: Chronic effects are ones that last days, months or are permanent, such as curses, vampirism, etc.
 
     # ~Conjure Consumable~:
@@ -1259,7 +1202,7 @@ Arcane:
         Effect: |
             You create an illusion that fits at most in a 2x2x2 meter cube.
             The illusion appears real to the eyes, ears and by smell, but physical interaction makes it obvious it's an illusion and objects pass through it normally.
-            The illusion can deal no Status Effects, but can provide Cover or block Line of Sight (both from the front, and from behind).
+            The illusion can deal no Control Effects, but can provide Cover or block Line of Sight (both from the front, and from behind).
             On your turn, you can and must spend 1 Action to keep and/or move the illusion, otherwise it is dispelled.
             You can only have 1 illusion active at a time.
         Upgrade: |
@@ -1363,7 +1306,7 @@ Arcane:
         Notes: |
             Cover is applied normally.
             A Unit can willingly fail the Check. For enemies, aside from Health and Defense, apply rules for Shapeshift. Allies can apply normal rules for Shapeshift (e.g. gain extra Health from the animal).
-            If used on an Enemy, this is considered a Status Effect.
+            If used on an Enemy, this is considered a Control Effect.
     
     # ~Distort Vision~:
     #     A: 1 Action
@@ -1374,7 +1317,7 @@ Arcane:
     #         This incantation distorts the visual space in an area with a diameter equal to your Level.
     #         Make an {Intelligence} Check for this.
     #         While keeping the distorsion, you must maintain concentration and line of sight.
-    #         You lose concentration if you take Damage or become affected by a Status Effect.
+    #         You lose concentration if you take Damage or become affected by a Control Effect.
     #     Upgrade: At Level 5, you can use 1 Action to slowly move the area up to 3 meters.
     #     Notes: |
     #         If you Skilled in a Skill that would fit, you can add that to the Check.
@@ -1396,7 +1339,7 @@ Arcane:
             {Diamond} They can only make one Attack on their next turn
             {Diamond} They can't make Reactions
             {Diamond} They can't be invisible
-            {Diamond} They can't inflict Status Effects
+            {Diamond} They can't inflict Control Effects
             Lasts until the start of your next turn.
         Notes: |
             Ignores Cover for the {Intelligence} Check.
@@ -1486,7 +1429,7 @@ Arcane:
         Requirement: Level 7
         Degree: Major
         Effect: |
-            Touch 2 objects of the same type (e.g. 2 helmets, or 2 arrows, or 2 melee 1-Handed weapons, etc).
+            Touch 2 objects of the same type (e.g. 2 helmets, or 2 arrows, or 2 melee One-Handed weapons, etc).
             You make one of the look like the other.
             The change is permanent until the object breaks.
         Notes: Upon close inspection of the shape and colors, this is visibly an illusion.
@@ -1581,9 +1524,9 @@ Nature:
 # [x] Damage (AoE)          (Advanced)  [Defense (Lightning Storm)]
 # [ ] Return on Investment
 # [x] Stats                             [Wild {Dexterity}]
-# [x] Low Status Effect                            [Push (Cutting Winds)]
-# [x] Medium Status Effect                         [Fumbling (Quaking Wave)]
-# [x] Hard Status Effect
+# [x] Low Control Effect                            [Push (Cutting Winds)]
+# [x] Medium Control Effect                         [Fumbling (Quaking Wave)]
+# [x] Hard Control Effect
 # [x] Healing
 # [x] Tranking/Protection (Shielding)   [Earth Shield, Thorn Quills]
 # [x] Buff
@@ -1632,7 +1575,7 @@ Nature:
         Range: 3 meters
         Degree: Lesser
         Effect: |
-            Remove all combat-affecting Debuffs and Status Effects on a Unit.
+            Remove all combat-affecting Debuffs and Control Effects on a Unit.
             Also cure any non-chronic and non-terminal illness or disease on the Unit.
         Upgrade: Alternatively, clean up to 2 rations or liters of water of microbes, mild poison or impurities.
         Notes: |
@@ -1764,7 +1707,7 @@ Nature:
         Notes: |
             The Units glow even through walls, but the denser the walls, the less they appear to glow.
             A 1-meter thick concrete wall completely blocks the glow.
-            This is not considered a Status Effect.
+            This is not considered a Control Effect.
 
     ~Draw Moisture~:
         A: 1 Action
@@ -1789,7 +1732,7 @@ Nature:
     #         {Diamond} Has armor made of organic material (leather, hide, hemp, etc)
     #         {Diamond} Is standing directly on vegetation
     #         {Diamond} It's night and the target is outdoors
-    #         It takes Damage (directly, ignoring Defense) and must succeed a {Sense} Check or suffer a Status Effect effect based on its number of matched criteria:
+    #         It takes Damage (directly, ignoring Defense) and must succeed a {Sense} Check or suffer a Control Effect effect based on its number of matched criteria:
     #         {Diamond} 1: 1d6 Damage, Rooted
     #         {Diamond} 2: 2d6 Damage, Rooted and Crippled
     #         {Diamond} 3: 3d6 Damage, Triple-Stunned
@@ -1939,9 +1882,9 @@ Nature:
 # [x] Damage (AoE)          (Advanced)  [Arrow Barrage]
 # [x] Return on Investment              [Arrow Barrage]
 # [ ] Stats
-# [x] Low Status Effect                            [Fog, Cloud of Rot]
-# [x] Medium Status Effect                         [Root (Web)]
-# [x] Hard Status Effect                           [Stun (Polymorph)]
+# [x] Low Control Effect                            [Fog, Cloud of Rot]
+# [x] Medium Control Effect                         [Root (Web)]
+# [x] Hard Control Effect                           [Stun (Polymorph)]
 # [ ] Healing
 # [x] Tranking/Protection (Shielding)   [Blur, Force Wall]
 # [x] Buff                              [Longblade]
@@ -1986,9 +1929,9 @@ Mysticism:
 # [ ] Damage (AoE)          (Advanced)
 # [ ] Return on Investment
 # [ ] Stats
-# [ ] Low Status Effect
-# [x] Medium Status Effect                         [Cripple/Silence ({Intelligence} Blast), Other (Confusion)]
-# [ ] Hard Status Effect
+# [ ] Low Control Effect
+# [x] Medium Control Effect                         [Cripple/Silence ({Intelligence} Blast), Other (Confusion)]
+# [ ] Hard Control Effect
 # [x] Healing
 # [ ] Tranking/Protection (Shielding)
 # [x] Buff                              [Checks (Guidance)]
@@ -2048,7 +1991,7 @@ Mysticism:
             Effect: |
                 You setup an invisible 6x6x6 meter area.
                 If an unknown Unit or Enemy enters the cube, you are immediately alerted and woken up.
-                While inside the area, ^YOU^ cannot be Surprised.
+                While inside the area, ^you^ cannot be Surprised.
 
         ~Speak With Animals~:
             A: 1 Action
@@ -2243,7 +2186,7 @@ Mysticism:
             Requirement: Level 4
             Effect: |
                 Shoot a comet at a Unit that changes in power the longer it travels.
-                It deals 1d6 Pulse Damage for every meter it travels, but the longer it travels, the weaker the Status Effect is.
+                It deals 1d6 Pulse Damage for every meter it travels, but the longer it travels, the weaker the Control Effect is.
                 {Diamond} 1 or 2 meters: Target becomes Triple-Stunned
                 {Diamond} 3 or 4 meters: Target becomes Fumbling
                 {Diamond} 5 or 6 meters: Target becomes Rooted
@@ -2305,9 +2248,9 @@ Eldritch:
 # [ ] Damage (AoE)          (Advanced)
 # [ ] Return on Investment
 # [ ] Stats
-# [ ] Low Status Effect
-# [ ] Medium Status Effect
-# [ ] Hard Status Effect
+# [ ] Low Control Effect
+# [ ] Medium Control Effect
+# [ ] Hard Control Effect
 # [ ] Healing
 # [ ] Tranking/Protection (Shielding)
 # [ ] Buff
@@ -2423,7 +2366,7 @@ Eldritch:
         Degree: Lesser
         Effect: |
             Roll 1d10 - 5. After you see the result, choose a Unit.
-            If it's negative, deal Scourge Damage to it. Otherwise, heal it.
+            If it's negative, deal Scourge Damage to it. Otherwise, Heal it.
         Upgrade: Only usable in Worthy Combat.
 
     # Advanced Spells
@@ -2565,9 +2508,9 @@ Divine:
 # [x] Damage (AoE)          (Advanced)  [Radiant Smite]
 # [x] Return on Investment              [Elation]
 # [x] Stats                             [Elation]
-# [ ] Low Status Effect
-# [x] Medium Status Effect                         [Blind AoE (Blinding Smite)]
-# [ ] Hard Status Effect
+# [ ] Low Control Effect
+# [x] Medium Control Effect                         [Blind AoE (Blinding Smite)]
+# [ ] Hard Control Effect
 # [x] Healing                           [1/1 (Cure Wounds), non-combat (Restful Soothing), 0.5/2 Rise]
 # [x] Tranking/Protection (Shielding)
 # [ ] Buff
@@ -2597,7 +2540,7 @@ Divine:
         Degree: Minor
         Effect: |
             Heal an ally (or yourself) for 1d8 Health.
-            If they have 50% or more Health before the heal, double the dice's result.
+            If they have 50% or more Health before the Heal, double the dice's result.
 
     ~Smite~:            # It's weaker because Clerics and Paladins
         A: 0 Actions
@@ -2624,7 +2567,7 @@ Divine:
         Requirement: Level 2
         Degree: Minor
         Effect: |
-            Instantly remove all Status Effects from another ally you can see.
+            Instantly remove all Control Effects from another ally you can see.
         Upgrade: |
             At Level 5, also removes all non-magical debuffs and poisons.
             At Level 8, also removes all curses and normal negative magical effects.
@@ -2642,7 +2585,7 @@ Divine:
         Cost: 1 Mana
         Requirement: Level 2
         Degree: Major
-        Effect: Roll a number of d8's for each Hero in your party (except yourself). Assign each rolled d8 to one Hero, and heal them for their assigned die.
+        Effect: Roll a number of d8's for each Hero in your party (except yourself). Assign each rolled d8 to one Hero, and Heal them for their assigned die.
         Notes: You must be staying in place to channel this and you must have the required Mana by the end of the 1 hour.
 
 
@@ -2670,7 +2613,7 @@ Divine:
         Effect: |
             A shining light bursts onto a Unit, dealing 2d8 + ^{Sense}^ Divine Damage to it.
             The next time someone would cast a Spell that affects that Unit, the caster can reroll any of the spell's dice, at most one reroll for each die.
-        Notes: This affects AoE effects and healing abilities too.
+        Notes: This affects AoE effects and Healing abilities too.
 
     ~Elation~:
         A: 0 Actions
@@ -2783,7 +2726,7 @@ Divine:
     # ~Cleansing Smite~:
     #     A: 0 Actions
     #     Cost: 2 Mana
-    #     Effect: After you land a melee wepaon attack that did Damage, deal 1d10 Divine Damage to the target and heal yourself for the same amount.
+    #     Effect: After you land a melee wepaon attack that did Damage, deal 1d10 Divine Damage to the target and Heal yourself for the same amount.
 
 
 

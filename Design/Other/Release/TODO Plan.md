@@ -67,9 +67,23 @@ I feel like maybe I can lean into the fact that I'm just one guy and use that to
 ## H. Legal
 I need to take care of all the legal things regarding the project.
 I own a SRL business in Romania, Bucharest, because in my day job I am a freelance software development contractor.
-  - Find out if everything I want to do is legal in my country
-  - Find a way to issue invoices for all purchases, especially for purchases from users in many different countries. If I handle purchases myself with Stripe, I need to see the legality of all this, VAT, etc in Romania. I have no idea how to make automatically generated invoices or even if it's possible. I also need to consider that I have no idea how Kickstarter will give me the money once the campaign is complete -- do I write an invoice to Kickstarter, or do I write invoices to each individual backer? This is very important since Romania is horrible on the laws for this and I need to be very careful that it's correct. I can ask my accountants too, but I need to know what to ask.
+
+### 1. Is my plan legal in Romania?
+### 2. Do I handle purchases myself with Stripe? Or do I use a platform?
+### 3. How do I issue invoices to multiple automated purchases?
+  - Do I write invoices manually per buyer?
+  - Does Kickstarter work as a proxy?
+### 4. VAT (TVA): how does it work in Romania?
+### 5. Do I need a cookies popup on my site? If yes, what does it entail?
+### 6. ESBN
+### 7. How do products work in Romania? Do I need to register them officially?
+  - What about digital products?
+  - Do I have obligations like always keeping the website up?
+### 8. Terms of Service: What are they and do I need them?
+
   - Find if I need to have things like a Cookies warning on the website, and see if I need a legal paper or something for it, or it's just that I need it on the website.
   - Find out how an ESBN works.
   - FInd out how digital purchases works. Do I need to register my products somewhere legally? Or can I just sell them like I want?
   - Find out whatever else I need legally that I haven't mentioned.
+  - Terms of Service
+  - Privacy Policy

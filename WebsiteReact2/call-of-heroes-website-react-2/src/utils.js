@@ -19,7 +19,7 @@ import Feats from './databases/Feats.json'
 import ClassAndRaceAbilities from './databases/ClassAndRaceAbilities.json'
 import { getChoiceAbilitiesObjects, setChoiceAbilitiesObjects } from "./pages/Other/CharacterCreationCalculator/CharacterData"
 import { MAIN_STAT_ALTERNATIVES_MAP, STAT_LIMITS_TEXT, STAT_SYMBOLS } from "./services/game-lib/stat-calculations"
-import { VALID_SPELL_TOP_STATS } from "./components/Spell/Spell"
+import Spell, { VALID_SPELL_TOP_STATS } from "./components/Spell/Spell"
 import QuestGuardConfig from './QuestGuardConfig.json'
 
 import STATIC_SYMBOLS from './parse-text-symbols-static.json'
@@ -61,6 +61,16 @@ export function parseAndNormalizeSpell(spell, options={
             key: key,
             value: { tag: 'span', text: value }
         }))
+        if (spell.VariantStyle != null) {
+            for (const [key, value] of Object.entries(extraMixins)) {
+                if (!(key in spell.VariantStyle)) {
+                    continue
+                }
+                const thisStyle = spell.VariantStyle[key]
+                extraMixins[key] = {...value, props: { style: thisStyle }}
+                console.log({extraMixins})
+            }
+        }
         spellModified.IconPath = currentVariant.IconName == null? spellModified.IconPath: getSpellIconPathByName(currentVariant.IconName)
         spellModified.A = currentVariant.DisplayA ?? spell.A
         spellModified.SubspellName = currentVariant.SubspellName ?? spellModified.SubspellName
@@ -341,6 +351,14 @@ export function getAllArmorsByName() {
     }
     return allArmorsCached
 }
+let allItemsCached = null
+export function getAllItemsByName() {
+    if (allItemsCached == null) {
+        allItemsCached = {...getAllWeaponsByName(), ...getAllArmorsByName()}
+    }
+    return allItemsCached
+}
+window.getAllItemsByName = getAllItemsByName
 let magicItemsCached = null
 export function getAllMagicItemsByName() {
     if (magicItemsCached != null) {
@@ -1425,6 +1443,10 @@ export function getAnExistingKeyOf(obj, keys) {
 export function getExistingKeysFrom(obj, keys) {
     return Object.keys(obj).filter(key => keys.includes(key))
 }
+export function keepOnly(obj, key) {
+    const keys = isString(key)? [key]: key
+    return Object.fromEntries(keys.map(k => [k, obj[k]]))
+}
 export function mapObject(obj, func) {
     if (obj == null) {
         console.log({func})
@@ -1735,7 +1757,9 @@ function ComponentForSymbolConfig({ config, children }) {
         case 'Link': return <Link {...config.props}>{children}</Link>
         case 'a':
             console.log({config, children})
-            return <a {...config.prop}>{children}</a>
+            return <a {...config.props}>{children}</a>
+        case 'Spell':
+            return <Spell {...config.props}/>
         default: return <span {...config.props}>{children}</span>
     }
 }
@@ -1821,8 +1845,8 @@ export const SYMBOLS = {
     'XP': { tag: 'Icon', props: { name: 'XP' } },
     'A': { tag: 'Icon', props: { name: 'Hand' } },
     'Action': { tag: 'Icon', props: { name: 'Hand' } },
-    'ActionPoint': { tag: 'Icon', props: { name: 'Hand' } },
-    'ActionPoints': { tag: 'Icon', props: { name: 'Hand' } },
+    'ActionPoint': { tag: 'span', text: 'Action Point' },   // These exist to ignore the auto-mixin of the hand icon
+    'ActionPoints': { tag: 'span', text: 'Action Points' },
     'AP': { tag: 'Icon', props: { name: 'Hand' } },
     'Hand': { tag: 'Icon', props: { name: 'Hand' } },
     'Replacement': { tag: 'Icon', props: { name: 'Replacement' } },
@@ -1844,7 +1868,7 @@ export const SYMBOLS = {
     'Pets and Animals': { tag: 'Link', props: { to: "/Other/PetsAndAnimals" }, text: 'Pets and Animals' },
     
     // Phrases
-    'Offensive Abilities': { tag: 'span', text: "Offensive means that it deals Damage or applies hard Status Effect (anything better than Slow and creating Hard Terrain)." },
+    'Offensive Abilities': { tag: 'span', text: "Offensive means that it deals Damage or applies hard Control Effect (anything better than Slow and creating Hard Terrain)." },
     'CoreTalent':     { tag: 'span', props: { style: { color: 'var(--orange-color)'} }, text: "This is a Core Talent. You can only have one Core Talent from this Level.", func: () => <span style={{color: 'var(--dark-red-color)'}}>This is a <b>Core Talent</b>. You can only have one <b>Core Talent</b> from this Level..</span> },
     'KeystoneTalent': { tag: 'span', props: { style: { color: 'var(--dark-red-color)'} }, text: "This is a Keystone Talent. You can only have one Keystone Talent from this Level..", func: () => <span style={{color: 'var(--orange-color)'}}>This is a <b>Keystone Talent</b>. You can only have one <b>Keystone Talent</b> from this Level..</span> },
     'YouHaveAccess': { tag: 'span', props: { style: {color: 'var(--blue-color)'} }, text: "You may have all Variants of this Ability." },
@@ -1853,6 +1877,9 @@ export const SYMBOLS = {
 }
 const symbolSpanWithColor = (color, args) => ({ tag: 'span',  props: { style: { color: color } }, text: args.join(' ') })
 export const FUNCTION_SYMBOLS = {
+    'Spell': args => ({ tag: 'Spell',  props: { spellName: args.join(' ') }, text: args.join(' ') }),
+    'Item': args => ({ tag: 'Spell',  props: { itemName: args.join(' ') }, text: args.join(' ') }),
+
     'Link': args => ({ tag: 'Link',  props: { style: { color: '#8f0a7dff' }, to: args[1] }, text: args[0] }),
     'RandomOf': args => ({ tag: 'span', text: randomOf(...args) }),
     
@@ -2191,6 +2218,13 @@ export function isCharDigit(char) {
 
 // ---------------- Other Small Utilities ----------------
 console.green = str => console.log(`%c${str}`, `color: green; font-style: bold`)
+export function dom(htmlString) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(htmlString.trim(), 'text/html');
+  
+  // doc.body.firstElementChild retrieves the top-level element with all its children
+  return doc.body.firstElementChild;
+}
 export function printTimestamp(str) {
     const date = new Date()
     console.log(`${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.${date.getMilliseconds()} ${str}`)

@@ -1,12 +1,12 @@
 Class: Knight
 Description: |
   Behold, a knight clad in armor, commanding the king's army with unvavering determination, his presence inspiring the rallied masses trailing in his wake while striking fear into the hearts of the enemy ranks! A heavy blow of his lance shatters the enemy's defence line, clearing a path for victory. Radiating with divine energy of righteousness and bearing the standard of his allegiance, the Knight fearlessly presses forward, to victory!
-  Knights are the knights, the crusaders and the vigilantes who bear divine magic through conviction and purpose, perhaps aided by their god, rather than mastery over the arcane. They are able to both heal, resist damage and fell enemies with holy retribution.
+  Knights are the knights, the crusaders and the vigilantes who bear divine magic through conviction and purpose, perhaps aided by their god, rather than mastery over the arcane. They are able to both Heal, resist damage and fell enemies with holy retribution.
   Be it by the sword, by the shield or by the book, Knights join (or form) an order or community of like-minded individuals, and follow their calling into battle - to attack, to protect, to serve for a greater future.
 
-Quick Note: Knights are the knights, the crusaders and the vigilantes who bear divine magic through conviction and purpose, perhaps aided by their god, rather than mastery over the arcane. They are able to both heal, resist damage and fell enemies with holy retribution.
+Quick Note: Knights are the knights, the crusaders and the vigilantes who bear divine magic through conviction and purpose, perhaps aided by their god, rather than mastery over the arcane. They are able to both Heal, resist damage and fell enemies with holy retribution.
 
-Weapons: You are Trained in 2 Weapon Categories of choice (e.g. 1-Handed Melee, 2-Handed Ranged, Shields, etc).
+Weapons: You are Trained in 2 Weapon Categories of choice (e.g. One-Handed Melee, Two-Handed Ranged, Shields, etc).
 
 Difficulty: Hard
 
@@ -38,7 +38,7 @@ Meta:
         High Ground Attack: Medium
 
         Movement: Easy-Medium   # -Medium because Movement costs 1 AP
-        Applying Status Effect: Hard
+        Applying Control Effect: Hard
         
         Healing / Being Healed: Easy-Medium
         Gaining Shielding: Medium
@@ -50,7 +50,7 @@ Meta:
     - AoE (Mass Damage)
     - Movement
     - Heal
-    - Status Effect
+    - Control Effect
 
   # Prev is -1 (+5), goes into +2
   Core Knight set (in "Sequence" order):
@@ -213,7 +213,7 @@ Utility:
     Degree: Minor
     Effect: |
       Choose either a First Aid Tent or an Outpost Tower to build from scratch.
-      Once per Adventure, the tent can heal everyone inside for 1 Health.
+      Once per Adventure, the tent can Heal everyone inside for 1 Health.
       While within 50km of the Tower, your party can't be ambushed, has +2 in Sight, and halves the travel time of your party.
     Upgrade: For smaller-scope adventures, the Quest Master can reduce the distance of the Tower to 10km.
     Notes: Try to build towers within 100km of eachother, and in places you may want to visit multiple times. Construct a network of such towers!
@@ -246,7 +246,7 @@ Utility:
       You have a steed that increases your Movement Speed by 50%.
       In Combat, your first Damaging Act dismounts you, but deals +1d4 Damage or Slams the target 1d4 meters away (if Targeted).
     Upgrade: At Level 3, your Steed can climb steep hills and jump up to 5 meters. At Level 6, it can walk on water. At Level 9, it can fly.
-    Notes: The steed can be any animal that fits the story. When dismounting, your steed runs away and disappears into the surroundings. Once per real hour, you can whistle for your steed and it will appear running toward you and you automatically mount it.
+    Notes: The steed can be any animal that fits the story. When dismounting, your steed runs away and disappears into the surroundings. Once per real hour, you can whistle for your steed and it will appear running towards you and you automatically mount it.
 
 Starting Abilities Description: Playing a Knight can be challenging. If you truly can't chain together some of your Abilities, don't worry about it too much. It's all about planning in advance!
 Starting Abilities:
@@ -258,7 +258,7 @@ Starting Abilities:
     Upgrade: |
       The previous Act can be from your previous Turn, but from before Combat.
       _Protection_ means giving Shielding, absorbing Damage, etc.
-      Slamming or Pushing count as _Status Effects_.
+      Slamming or Pushing count as _Control Effects_.
     Notes: You can take a look at the ^tags^ of an Ability to see what kind of effects it can do. The {Teal('After')} effect can only trigger if the previous Act actually did that type of ^thing^. For example, "{Teal('After')} Mass Damage" can only trigger if the previous Act did Damage to more than 1 Unit. Apply common sense, and the Quest Master has the final say for whether an {Teal('After')} can trigger.
 
   ~Challenge of Arms~:
@@ -268,7 +268,7 @@ Starting Abilities:
     Requirement: Only usable in Worthy Combat
     Duration: 1 minute
     Range: 3 meters
-    Tags: [Damage, Heal, Mobility, Status Effect, Protection,]
+    Tags: [Damage, Heal, Mobility, Control Effect, Protection,]
     Effect: |
       Roll 1d8.
       Gain that as a Shielding, or Heal yourself for 50% of that.
@@ -294,7 +294,7 @@ Other Abilities:
       Effect: |
         Make a weapon attack with +1 Damage per {A}Action Point spent.
         
-        {Teal('After Status Effect:')} Hits one more Unit within 2 meters of the main target with -50% Damage.
+        {Teal('After Control Effect:')} Hits one more Unit within 2 meters of the main target with -50% Damage.
 
     ~Cowards!~:
       A: Half-Action
@@ -323,23 +323,23 @@ Other Abilities:
         Use a weapon to deal 2d4 + 2d6 Damage on a 3x3 meter area, of the weapon's Damage Type.
 
         {Teal('After Protection:')} Does not Damage Allies, but Heals an ally caught for one of the rolled dice.
-      Notes: Each healing d4 must be target a different Ally.
+      Notes: Each Healing d4 must be target a different Ally.
 
     ~Champion's Gallop~:
       _Value: 1
       A: Half-Action
       Cooldown: Once / Turn
-      Tags: [Movement, Status Effect (Valor)]
+      Tags: [Movement, Control Effect (Valor)]
       Effect: |
         Make a Move Act with +{MS} Movement Speed that can pass through Enemies.
         
         {Variants}
 
-        {Teal('After Mass Damage:')} {Effect}
+        {Teal('After Mass Damage:')} {Eff}
       Variants:
-        - Effect: All Units you pass through are Slammed 2 meters to the side (requires a Trusted Steed).
+        - Eff: All Units you pass through are Slammed 2 meters to the side (requires a Trusted Steed).
           MS: '2'
-        - Effect: All Units you pass through are Slowed.
+        - Eff: All Units you pass through are Slowed.
           MS: '1'
 
     ~Blade of Liberation~:
@@ -351,14 +351,14 @@ Other Abilities:
         Requirement: Only usable in Worthy Combat
         Tags: [Heal, Damage (Valor)]
         Effect: |
-            Heal a Unit for 1d8 and remove a Status Effect from them.
+            Heal a Unit for 1d8 and remove a Control Effect from them.
             
             {Teal('After Movement:')} Then deal 200% of that die as ^weapon^ Damage to a Unit within 3 meters of you.
         
     ~Provocation~:
       _Value: 1
       A: Half-Action
-      Tags: [Status Effect, Protection (Valor)]
+      Tags: [Control Effect, Protection (Valor)]
       Cooldown: Once / Turn
       Range: 4 meters
       Effect: |
@@ -382,18 +382,18 @@ Talents:
           Charge in a straight line to any location on the battlefield.
           All Units you pass through _shuffle_ their positions.
 
-          {Teal('After Status Effect:')} Give yourself or a Unit you passed through 2 Shiedings, each equal to how many Units you passed through.
+          {Teal('After Control Effect:')} Give yourself or a Unit you passed through 2 Shiedings, each equal to how many Units you passed through.
         Upgrade: Each Shielding can go into a different Unit.
         Notes: |
           Units you hit swap their positions between them _randomly_ (as chosen by the Quest Master). For example, the first Unit hit might swap positions with the last Unit hit.
           Optionally, you can use this to exit the battlefield and the Combat.
-          Shuffling positions does not count as a Status Effect.
+          Shuffling positions does not count as a Control Effect.
 
     ~Templar Retribution~:
       A: Half-Action
       Range: 5 meters
       Cooldown: Once / Turn
-      Tags: [Status Effect, Gold, Movement (Valor)]
+      Tags: [Control Effect, Gold, Movement (Valor)]
       Requirement: Only usable in Worthy Combat
       Effect: |
         Blind a Unit and gain 1 {Gold}Gold.
@@ -417,7 +417,7 @@ Talents:
       Effect: |
         You may select a `Magic Font$/Other/MagicFonts` to cast Spells from. You have all Spells from that Font up to your Level.
 
-        Whenever you would trigger an {Teal('After')} Valor effect, you can cancel that extra effect to gain 0.5 {Mana}Mana.
+        Whenever you would trigger an {Teal('After')} effect, you can skip it to gain 0.5 {Mana}Mana.
       Notes: |
         The unspent {Mana}Mana lass until the end of Combat. The {Mana}Mana can only be gained and spent in Worthy Combat.
         You can change your Font and Spells inbetween Adventures.
@@ -511,7 +511,7 @@ Talents:
       Upgrade: You swear your allegiance to an elder dragon you have encountered on your journey.
       Notes: If an effect or Ability manages to deal Mass Damage, it deals +1d4 to all affected Units.
 
-    ~Creed of Vengeance~:   # Improves Status Effect + Buffs
+    ~Creed of Vengeance~:   # Improves Control Effect + Buffs
       A: Special
       Requirement: Requires having been betrayed this Campaign, or having broken an oath
       Tags: [Damage, Initiative, Farming, Mobility]
@@ -530,7 +530,7 @@ Talents:
         Max Health: 4
       Effect: |
         You have +4 Max Health.
-        Whenever you inflict a non-Slam Status Effect, you can also Slam that Unit 1d6 meters away from you.
+        Whenever you inflict a non-Slam Control Effect, you can also Slam that Unit 1d6 meters away from you.
         Whenever you Slam a Unit, they must choose to be Blinded, Lagged, or Frailed.
       Upgrade: |
         You are the dawn that banishes despair. You ride with the light at your back and hope in your hand.
@@ -621,7 +621,7 @@ Talents:
       A: 0 Actions
       Range: 3 meters
       Cooldown: Once / Adventure
-      Tags: [Ultimate, Status Effect, Mass Damage, Heal]
+      Tags: [Ultimate, Control Effect, Mass Damage, Heal]
       Effect: |
         You make your surrounding area impossible to tresspass, except for your challenger of choice.
 
@@ -717,7 +717,7 @@ Talents:
       Effect: |
         At the end of every Combat, if all your used {Teal(After)} Abilities triggered their {Teal(After)} effect, gain a Plot Point, +2 Max Health, and a random Positive Quirk.
 
-    ~Knight_in_Black~:
+    ~Knight in Black~:
       A: Passive
       Bonuses:
         Movement Speed: 1
@@ -764,7 +764,7 @@ Talents:
 
         Your next attack propels you up to 5 meters towards the target, and heals you for 50% Damage done. If it leaves the non-Epic Unit with 25% or less Health, further deals extra Damage equal to its current Health and the Damage type becomes True.
 
-        {Teal('Status Effect:')} 100% Healing instead of 50%.
+        {Teal('Control Effect:')} 100% Healing instead of 50%.
         {Teal('After Protection:')} 50% Health execution instead of 25%.
 
     ~Damsel's Deliverance~:
@@ -772,7 +772,7 @@ Talents:
       A: 1
       Requirement: Can't be used on the first Round
       Cooldown: Once / Adventure
-      Tags: [Ultimate, Damage, Movement, Status Effect]
+      Tags: [Ultimate, Damage, Movement, Control Effect]
       Range: 2 meters
       Effect: |
         You lock eyes with a target, and prepare to take them into oblivion.
@@ -787,14 +787,14 @@ Talents:
       _Value: 6 # +1 Damage + 1.5 Slam + 2 Shieldings + 1 
       A: 2
       Requirement: Can't be used on the first Round
-      Tags: [Ultimate, Mass Damage, Protection, Status Effect]
+      Tags: [Ultimate, Mass Damage, Protection, Control Effect]
       Cooldown: Once / Adventure
       Effect: |
         You stomp your weapons into the ground and divide the battlefield.
 
         ALL Units in front of you take 4d8 Damage of your weapon's type and are Slammed back 1d8 meters. Each Unit behind you gains a 1d8 Shielding.
 
-        {Teal('After Status Effect:')} Units in the front also become Blinded.
+        {Teal('After Control Effect:')} Units in the front also become Blinded.
         {Teal('After Movement:')} Units in the back may make a free Movement on their next Turn.
 
     ~Master Falconer~:
@@ -821,7 +821,7 @@ Talents:
       Effect: |
         Make a weapon attack with ~+1d4~ Damage per {A}Action Point spent.
         
-        {Teal('After Status Effect:')} Hits ~2 more Units~ within 2 meters of the main target with -50% Damage.
+        {Teal('After Control Effect:')} Hits ~2 more Units~ within 2 meters of the main target with -50% Damage.
 
     ~Infidels!~:
       A: Half-Action
@@ -853,7 +853,7 @@ Talents:
         Use a weapon to deal ~2d8 + 2d10~ Damage on a ~4x4~ meter area, of the weapon's Damage Type.
 
         {Teal('After Protection:')} Does not Damage Allies, but Heals an ally caught for one of the rolled dice.
-      Notes: Each healing die must be target a different Ally.
+      Notes: Each Healing die must be target a different Ally.
 
     ~Make Way For The King~:
       _Value: 1
@@ -861,17 +861,17 @@ Talents:
       IconName: Champion's Gallop
       HasUpgradeIcon: true
       Cooldown: Once / Turn
-      Tags: [Movement, Status Effect (Valor)]
+      Tags: [Movement, Control Effect (Valor)]
       Effect: |
         Make an ~even better~ Move Act with +{MS} Movement Speed that can pass through Enemies.
         
         {Variants}
 
-        {Teal('After Mass Damage:')} {Effect}
+        {Teal('After Mass Damage:')} {Eff}
       Variants:
-        - Effect: All Units you pass through are Slammed 1d8 meters to the side (requires a Trusted Steed).
+        - Eff: All Units you pass through are Slammed 1d8 meters to the side (requires a Trusted Steed).
           MS: '5'
-        - Effect: All Units you pass through are Slowed.
+        - Eff: All Units you pass through are Slowed.
           MS: '3'
 
     ~Blade of Condoleances~:
@@ -884,7 +884,7 @@ Talents:
         Requirement: Only usable in Worthy Combat
         Tags: [Heal, Damage (Valor)]
         Effect: |
-            Heal a Unit for ~1d12~ and remove ~all~ Status Effects from them.
+            Heal a Unit for ~1d12~ and remove ~all~ Control Effects from them.
             
             {Teal('After Movement:')} Then deal ~300%~ of that die as ^weapon^ Damage to a Unit within 3 meters of you.
         
@@ -893,7 +893,7 @@ Talents:
       A: Half-Action
       IconName: Provocation
       HasUpgradeIcon: true
-      Tags: [Status Effect, Protection (Valor)]
+      Tags: [Control Effect, Protection (Valor)]
       Cooldown: Once / Turn
       Range: 10 meters
       Effect: |

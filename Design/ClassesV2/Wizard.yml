@@ -15,7 +15,7 @@ Quick Note: |
 
 Difficulty: Easy
  
-Weapons: You are Trained in a Weapon Category of choice (e.g. 1-Handed Melee, 2-Handed Ranged, etc).
+Weapons: You are Trained in a Weapon Category of choice (e.g. One-Handed Melee, Two-Handed Ranged, etc).
 
 
 
@@ -276,8 +276,8 @@ Talents:
       A: Passive
       Requirement: Only works in Worthy Combat
       Tags: [Scaling]
-      Effect: Once per Turn, after you apply a Status Effect to an Enemy, increase all Cold Damage you deal by 1 for the rest of the combat.
-      Notes: This extra Damage is applied as normal extra Damage, before any other calculations. Slamming counts as a Status Effect.
+      Effect: Once per Turn, after you apply a Control Effect to an Enemy, increase all Cold Damage you deal by 1 for the rest of the combat.
+      Notes: This extra Damage is applied as normal extra Damage, before any other calculations. Slamming counts as a Control Effect.
 
   Level 3 Class Talent:
 
@@ -360,22 +360,22 @@ Talents:
         Tags: [Buff]
         Effect: |
             Choose a metallic weapon to imbue it with {Element}.
-            It {Effect} and the total Damage becomes {Element} Damage.
+            It {Eff} and the total Damage becomes {Element} Damage.
         Upgrade: Lasts until the end of the next (or current) combat, or the end of the Adventure.
         Notes: Does not stack with other temporary weapon enchantments from Spells.
         Variants:
           - Name: Fire
             Element: Fire
             IconName: Fire Enchantment
-            Effect: deals +1 Damage (or +1d4 for 2-handed weapons)
+            Eff: deals +1 Damage (or +1d4 for Two-Handed weapons)
           - Name: Frost
             Element: Cold
             IconName: Frost Enchantment
-            Effect: Slows the target of attacks with it
+            Eff: Slows the target of attacks with it
           - Name: Electric
             Element: Shock
             IconName: Electric Enchantment
-            Effect: also deals 1d2 Shock Damage (or 1d6 for 2-handed weapons) to a different Unit within 3 meters of the target
+            Eff: also deals 1d2 Shock Damage (or 1d6 for Two-Handed weapons) to a different Unit within 3 meters of the target
 
     <Abjuration>:
       _Value: 2.5  # 0.5 to 1 per cast
@@ -405,8 +405,8 @@ Talents:
         {Diamond} Double its range
         {Diamond} Change its Damage Type to any Type
         {Diamond} Increase or decrease its Area by 50% (if any)
-        {Diamond} Change its Status Effect to another base* Status Effect
-      Notes: Base Status Effects are Single-Status Effects listed in the Rules (e.g. not Double-Stun, Polymorph, etc).
+        {Diamond} Change its Control Effect to another base* Control Effect
+      Notes: Base Control Effects are Single-Control Effects listed in the Rules (e.g. not Double-Stun, Polymorph, etc).
 
     ~Anachronism~:
       _Value:   1 # It's really good in roleplaying
@@ -423,7 +423,7 @@ Talents:
         Cost: Special
         ScrollPower: Auto
         Height: 30
-        Tags: [Buff, Debuff, Status Effect]
+        Tags: [Buff, Debuff, Control Effect]
         Effect: |
           Choose a Unit and spend any number of Action Points and Mana (at least 1 of each).
           You shapeshift it into an animal shape you choose.
@@ -438,7 +438,7 @@ Talents:
             A: Half-Action
             Damage: 1d10 + Any Stat (Slash, Smash, or Pierce)
             EffectGreen: Critical Strike - if you roll maximum, apply a ~Combo~.
-        Notes: Stuns and other similar hard Status Effects count as losing Action Points for this effect.
+        Notes: Stuns and other similar hard Control Effects count as losing Action Points for this effect.
         HasSpellTableNumbers: true
         SpellTable:
           - Name: Pedestrian
@@ -490,7 +490,7 @@ Talents:
     <Contraspell>:
       A: Reaction
       Cost: 1 Mana
-      Tags: [Protection, Status Effect]
+      Tags: [Protection, Control Effect]
       Effect: |
         Use when a Unit you can see wants to cast a Spell.
         It doesn't, and loses the Action Points and Mana they would have spent on it.
@@ -526,7 +526,7 @@ Talents:
         Effect: |
             You create an illusion that fits at most in a 3x3x3 meter area.
             The illusion appears real to the eyes, ears and by smell, but physical interaction makes it obvious it's an illusion and objects pass through it normally.
-            The illusion can deal no Status Effects, but can provide Cover or block Line of Sight (both from the front, and from behind).
+            The illusion can deal no Control Effects, but can provide Cover or block Line of Sight (both from the front, and from behind).
             On your Turn, you can spend 1 Action to keep and/or move the illusion, otherwise the Spell ends.
         Upgrade: |
             At Level 8, the illusion lasts indefinitely until you cancel it without needing to spend Actions, and it can hold its own simple movement and clockwork-like routines.
@@ -552,7 +552,7 @@ Talents:
         Tags: [Utility]
         ScrollPower: 1
         Effect: |
-            Touch 2 objects of the same type (e.g. 2 helmets, or 2 arrows, or 2 melee 1-Handed weapons, etc).
+            Touch 2 objects of the same type (e.g. 2 helmets, or 2 arrows, or 2 melee One-Handed weapons, etc).
             You make one of the look like the other.
             The change is permanent until the object breaks.
         Notes: Upon close inspection of the shape and colors, this is visibly an illusion.
@@ -573,12 +573,12 @@ Talents:
       List:
         - Add 4.5 Damage (or Healing).
         - Increase the diameter by 100%.
-        - Add any Hard* Status Effect if single-target
-        - Add any non-Hard* Status Effect if it's area
+        - Add any Hard* Control Effect if single-target
+        - Add any non-Hard* Control Effect if it's area
       Notes: |
         The average of 1d4 is 2.5, the average of 1d6 is 3.5, etc.
-        Hard Status Effects are Stun, Frail, Cripple, Root or Silence.
-        Slamming 3 meters away from a point you choose is a non-Hard Status Effect.
+        Hard Control Effects are Stun, Frail, Cripple, Root or Silence.
+        Slamming 3 meters away from a point you choose is a non-Hard Control Effect.
       DoubleTable:
         IsRighty: true
         Headers:
@@ -625,7 +625,7 @@ Talents:
       Cost: 2 Mana
       Cooldown: Once / Adventure
       Duration: Until the start of your next Turn
-      Tags: [Status Effect (Hard)]
+      Tags: [Control Effect (Hard)]
       ScrollPower: 6
       Effect: |
         Choose a 5x5x5 meter cube.
@@ -697,8 +697,8 @@ Talents:
       Requirement: Requires Hydromancy and Worthy Combat
       Replacement: Replaces Hydromancy
       Tags: [Scaling]
-      Effect: ~After~ you apply a Status Effect to an Enemy, increase all Cold Damage you deal by 1 for the rest of the Combat.
-      Notes: This extra Damage is applied as normal extra Damage, before any other calculations. Slamming counts as a Status Effect.
+      Effect: ~After~ you apply a Control Effect to an Enemy, increase all Cold Damage you deal by 1 for the rest of the Combat.
+      Notes: This extra Damage is applied as normal extra Damage, before any other calculations. Slamming counts as a Control Effect.
 
 
   Level 9 Class Talent:
@@ -761,7 +761,7 @@ Talents:
         Whenever you deal 20 or more Damage with a Spell, regain 1 Mana for each 20 Damage just dealt.
         You have +2 {Intelligence} and +2 {Dexterity}.
       Upgrade: All your other Spells become themed to the same element, but keep their original Damage Type. For example, if you chose fire, Frost Nova will now burst in cold, blue flames instead of ice.
-      Notes: For example, when you hit multiple Units with an Ability, you increase your Fire Damage by +3 instead of +1, or you gain +6 Cold Damage from Hydromancy when you Status Effect an Enemy. For Eldritchianism, your Spells have their ^Dice Upgraded^ 3 times.
+      Notes: For example, when you hit multiple Units with an Ability, you increase your Fire Damage by +3 instead of +1, or you gain +6 Cold Damage from Hydromancy when you Control Effect an Enemy. For Eldritchianism, your Spells have their ^Dice Upgraded^ 3 times.
       HasMixins: true
       Downside: "{Heroic}"
 

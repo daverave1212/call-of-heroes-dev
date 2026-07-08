@@ -169,7 +169,12 @@ export function QGTitle1__({ text, className, style, hueShift, height=60 }) {
 
     return <canvas ref={canvasRef} className={`qg-title1 ${className}`}/>
 }
-export function QGTitle1({ id, text, className, style, hueShift, height=60 }) {
+export function QGTitle1({ id, text, className, style, hueShift, height=60, children }) {
+    
+    if (text == null && children != null) {
+        text = children
+    }
+    
     const [newStyle, setNewStyle] = useState({
         // height: height + 'px',
         filter: (hueShift == null? null: `hue-rotate(${hueShift}deg)`),

@@ -17,7 +17,6 @@ const STATUS_EFFECTS = [
     'Lag',
     'Deafen',
     'Daze',
-    'Stun',
     'Single-Stun',
     'Double-Stun',
     'Triple-Stun',
@@ -30,6 +29,20 @@ const STATUS_EFFECTS = [
     'Exhaust',
     'Hard Terrain',
 ]
+const REPLACEMENTS = {
+    'Action Point': {
+        replaceWith: '{A}Action Point',
+        exceptions: [`}Action Point`]
+    },
+    'Gold': {
+        replaceWith: '{Gold}Gold',
+        exceptions: [`}Gold`]
+    },
+    'Mana': {
+        replaceWith: '{Mana}Mana',
+        exceptions: [`}Mana`]
+    },
+}
 
 const { STAT_SYMBOLS } = STATS_STATIC
 
@@ -333,6 +346,49 @@ function normalizeInheritAbilities(dictToSearch) {
     }
 }
 
+function replaceOnly(text, substring, exceptions, replacement) {
+  // Escape special regex characters in the substring to prevent syntax errors
+  const escapedSub = substring.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+
+  // Process each exception to isolate the part that comes *after* the substring
+  const lookaheads = exceptions
+    .filter(exp => exp.startsWith(substring))
+    .map(exp => {
+      const remainder = exp.slice(substring.length);
+      // Escape special characters in the trailing exception text
+      return remainder.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+    });
+
+  // If there are valid lookahead exceptions, join them with an OR (|) operator
+  const lookaheadPattern = lookaheads.length > 0 ? `(?!${lookaheads.join('|')})` : '';
+
+  // Create the final global regex: substring + negative lookahead
+  const regex = new RegExp(`${escapedSub}${lookaheadPattern}`, 'g');
+
+  // Perform the replacement
+    if (text.replace == null) {
+        console.log(`TEXT`)
+        console.log(text, substring, exceptions, replacement)
+    }
+  return text.replace(regex, replacement);
+}
+
+function maybeMakeSomeWordsMixins(subobj) {
+    if (subobj == null || subobj?._alreadyHasSomeWordsMixins) {
+        return
+    }
+    const propsToCheck = ['Effect', 'Upgrade', 'Notes', 'EffectGreen', 'Downside', 'Combo']
+    for (const prop of propsToCheck) {
+        if (!(prop in subobj)) {
+            continue
+        }
+        for (const [substr, value] of Object.entries(REPLACEMENTS)) {
+            const { replaceWith, exceptions } = value
+            subobj[prop] = replaceOnly(subobj[prop], substr, exceptions, replaceWith)
+        }
+    }
+    subobj._alreadyHasSomeWordsMixins = true
+}
 function maybeAddStatusEffectDescriptions(subobj) {
     if (subobj == null || subobj?._alreadyHasStatusEffectDescriptions) {
         return
@@ -420,6 +476,7 @@ function recordAbilitiesFrom(fromDict, toDict, parentKey=null, origin='Unknown',
                 'Is Ignored',
                 'Tag'
             ])
+            maybeMakeSomeWordsMixins(subobj)
             maybeAddStatusEffectDescriptions(subobj)
             const didAddHasMixins = maybeAddHasMixins(subobj)
             if (debugKey != null) {

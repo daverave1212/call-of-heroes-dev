@@ -14,7 +14,7 @@ export default function CrowdControl() {
     const crowdControlNames = Object.keys(crowdControl)
 
     return (
-        <Page title="Status Effect">
+        <Page title="Control Effect">
             { crowdControlNames.map(name => (
                 <div>
                     <PageH3>{name}</PageH3>

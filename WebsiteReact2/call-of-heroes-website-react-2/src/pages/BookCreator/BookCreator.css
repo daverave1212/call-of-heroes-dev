@@ -1,32 +1,37 @@
 
 
 :root {
-    --a4-width: 210mm;
-    --a4-height: 297mm;
-    
+    --page-width: 215.9mm;
+    --page-height: 279.4mm;
+
     --bleed: 3mm;
-    
-    --pdf-margin-top: 18mm;
+
+    /* Margins */
+    --pdf-margin-top: 16mm;
     --pdf-margin-bottom: 22mm;
     --pdf-margin-left: 18mm;
     --pdf-margin-right: 18mm;
-    
+
+    /* Typography */
     --pdf-h1-size: 32pt;
     --pdf-h2-size: 19pt;
-    --pdf-h2-pdf-size: 22pt;
+    --pdf-h2-pdf-size: 21pt;    /* Between Grim Hollow and Draw Steel */
     --pdf-h3-size: 14pt;
+    --pdf-h3-pdf-size: 18pt;    /* Similar to Grim Hollow */
     --pdf-h4-size: 12pt;
     --pdf-p-size: 10.5pt;
     --pdf-p-line-height: 14pt;
     --pdf-p-spacing: 5pt;
     --pdf-caption-size: 11pt;
-    
-    --pdf-column-gap: 9mm;
-    
-    --pdf-column-width: calc(var(--a4-width) - var(--pdf-margin-left) - var(--pdf-margin-right));
-    
-    --pdf-page-width: calc(var(--a4-width) + 2 * var(--bleed));
-    --pdf-page-height: calc(var(--a4-height) + 2 * var(--bleed));
+    --pdf-page-number-size: 9pt;
+
+    --pdf-page-number-bottom: 12mm;
+    --pdf-column-gap: 6mm;  /* More similar to Daggerheart/Vaesen/Grim Hollow */
+
+    --pdf-column-width: calc(var(--page-width) - var(--pdf-margin-left) - var(--pdf-margin-right));
+
+    --pdf-page-width: calc(var(--page-width) + 2 * var(--bleed));
+    --pdf-page-height: calc(var(--page-height) + 2 * var(--bleed));
 }
 
 @media print {
@@ -76,20 +81,78 @@
 
     position: relative;           /* Required to work with printing properly */
     
-    background-image: url('BackgroundTexture.jpg');
-    background-size: cover;
+    /* Best so far: A D(requires lightening) F */
+    /* background-image: url('Paper\ Texture\ A.png'); */
+    
 }
+.pdf-page > .pdf-background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    z-index: -99999;
+}
+#PDF .pdf-page:nth-child(odd) > .pdf-background-image {
+    background-image: url('Paper\ Texture\ A.png');
+    opacity: 0.5;
+}
+#PDF .pdf-page:nth-child(even) > .pdf-background-image {
+    background-image: url('Paper\ Texture\ A.png');
+}
+
+.pdf-page-border-top {
+    position: absolute;
+    z-index: -88888;
+    width: 15%;
+    background-size: cover;
+    background-image: url('Page\ Border\ Top\ Left.png');
+    aspect-ratio: 1/1;
+}
+#PDF .pdf-page:nth-child(odd) .pdf-page-border-top {
+    background-image: url('Page\ Border\ Top\ Left.png');
+    top: 3mm;
+    left: 3mm;
+}
+#PDF .pdf-page:nth-child(even) .pdf-page-border-top {
+    background-image: url('Page\ Border\ Top\ Right.png');
+    top: 3mm;
+    right: 3mm;
+}
+
+
 .pdf-trim-box {
-    width: var(--a4-width);
-    height: var(--a4-height);
+    position: relative;
+    width: var(--page-width);
+    height: var(--page-height);
     padding-top: var(--pdf-margin-top);
     padding-bottom: var(--pdf-margin-bottom);
     padding-left: var(--pdf-margin-left);
     padding-right: var(--pdf-margin-right);
+    overflow: hidden;
+
+    z-index: var(--z-content);
 
     outline: solid 1px #FF000044;   /* Outline does not affect margins or sizes */
 }
 
 .pdf-big-title > * {
     max-width: 100%;
+}
+
+
+.pdf-page-number {
+    position: absolute;
+    width: 100%;
+    bottom: var(--pdf-page-number-bottom);
+    font-size: var(--pdf-page-number-size);
+    text-align: center;
+}
+.pdf-page-number img {
+    --this-width: 50%;
+    position: absolute;
+    width: var(--this-width);
+    left: calc((100% - var(--this-width)) / 2);
+    top: calc(var(--pdf-page-number-size) * -1.2);
 }

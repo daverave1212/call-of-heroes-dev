@@ -949,7 +949,7 @@ function parseItemText({ text, thisText='{This}', rng=standardRNG, item={} }) {
             `at full Mana (if you have Mana)`,
         )},
         'WhileUncommon': { text: () => rng.randomOf(
-            `you are under Status Effect (except Hard Terrain)`,
+            `you are under Control Effect (except Hard Terrain)`,
             `you are at or below 20% Health`,
             'you are at 100% Health',
             `outnumbered`
@@ -962,7 +962,7 @@ function parseItemText({ text, thisText='{This}', rng=standardRNG, item={} }) {
         )},
 
         'IfUncommon': { text: () => rng.randomOf(
-            `under Status Effect (except Hard Terrain)`,
+            `under Control Effect (except Hard Terrain)`,
             `at or below 20% Health`,
             'at full Health'
         )},
@@ -975,7 +975,7 @@ function parseItemText({ text, thisText='{This}', rng=standardRNG, item={} }) {
         )},
 
         'WhileOrWhenUncommon': { text: () => rng.randomOf(
-            `you are under Status Effect (except Hard Terrain)`,
+            `you are under Control Effect (except Hard Terrain)`,
             `you are at or below 20% Health`,
             'you are at 100% Health',
             `outnumbered`,
