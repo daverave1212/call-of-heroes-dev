@@ -226,7 +226,7 @@ export function Section({ sectionContent }) {
                 return <ListItem><Icon name="BulletPoint3"/><b>{key}:</b> <span dangerouslySetInnerHTML={{__html: value}}></span></ListItem>
             }
         }
-        return <>
+        return <div className='pdf-section'>
             { title && <Header level={level}>{title}</Header> }
             <ul className='flex column gap-half' style={{
                 paddingInlineStart: '0pt',
@@ -234,7 +234,7 @@ export function Section({ sectionContent }) {
             }}>
                 { content.map(item => <Li content={item}/>) }
             </ul>
-        </>
+        </div>
     }
 
     if (format == ContentFormats.GRAPHICS) {
@@ -245,7 +245,7 @@ export function Section({ sectionContent }) {
             console.log({content})
             console.green(`Indeed the content text for title "${title}" was not a string!`)
         }
-        return <div data-type="TEXT">
+        return <div className='pdf-section' data-type="TEXT">
             { title != null && <Header level={level}>{title}</Header> }
             { content != null && <RenderText>{content}</RenderText>}
         </div>
