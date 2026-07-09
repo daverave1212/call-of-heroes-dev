@@ -1727,7 +1727,7 @@ export function enspanDamageCalculations(text) {
                     currentPhraseWords.push(word)
                 } else {
                     phrases.push(
-                        (<span className='monster-ability__damage'>{currentPhraseWords.join(' ')}</span>)
+                        (<span className='monster-ability__damage text-font'>{currentPhraseWords.join(' ')}</span>)
                     )
                     currentPhraseWords = [word]
                     state = 'in-normal'
@@ -1740,7 +1740,7 @@ export function enspanDamageCalculations(text) {
             phrases.push(currentPhraseWords.join(' '))
         } else {
             phrases.push(
-                (<span className='monster-ability__damage'>{currentPhraseWords.join(' ')}</span>)
+                (<span className='monster-ability__damage text-font'>{currentPhraseWords.join(' ')}</span>)
             )
         }
     }

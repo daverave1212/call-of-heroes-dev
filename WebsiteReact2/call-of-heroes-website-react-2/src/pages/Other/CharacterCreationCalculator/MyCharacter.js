@@ -310,7 +310,7 @@ export default function MyCharacter() {
             &nbsp;({ source.source })
         </div>) }</>
     const SkillBonus = ({name, value}) => {
-        return <div className="skill-bonus pointer" onClick={() => changeSkill(name)}>
+        return <div className="skill-bonus text-font pointer" onClick={() => changeSkill(name)}>
             <div className="left">
                 <Icon name="CharacterSetupSub"/> {name}
             </div>

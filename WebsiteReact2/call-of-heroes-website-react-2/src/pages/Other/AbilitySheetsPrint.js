@@ -104,7 +104,7 @@ export default function AbilitySheetsPrint() {
             
             <div className='centered-content margined-bottom'>
                 <div style={{ width: '300px', margin: 'auto', display: 'block' }}>
-                    <select className='margined-bottom' id='Spell-Choices' onChange={evt => { setCurrentlyTypedSpell(evt.target.value); console.log(evt.target.value) }}>
+                    <select className='margined-bottom text-font' id='Spell-Choices' onChange={evt => { setCurrentlyTypedSpell(evt.target.value); console.log(evt.target.value) }}>
                         { allAvailableSpellNames.map(name => (<option value={name} key={name}>{ name }</option>)) }
                     </select>
                     <button onClick={queueSpell} style={{ margin: 'auto', display: 'block' }}>Add</button>
@@ -112,7 +112,7 @@ export default function AbilitySheetsPrint() {
             </div>
 
             <div className='centered-content margined-bottom'>
-                <select multiple id="Added-Spells" onChange={(evt) => { setSelectedSpellIndex(evt.target.selectedIndex) }}>
+                <select multiple className='text-font' id="Added-Spells" onChange={(evt) => { setSelectedSpellIndex(evt.target.selectedIndex) }}>
                     { spellsAdded.map(name => <option key={name} value={name}>{ name }</option>) }
                 </select>
             </div>

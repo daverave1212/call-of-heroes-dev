@@ -139,13 +139,13 @@ export default function MonsterAbility({monster, monsterXP, ability, isPassive, 
 
 
     function AbilityEffect({children}) {
-        return (<p className='monster-ability-p'>{ children }</p>)
+        return (<p className='monster-ability-p text-font'>{ children }</p>)
     }
 
     function getAbilityBodyDiv() {
         if (abilityBody == 'QuickAuto' || (abilityBody == 'Auto' && name == 'Quick Attack')) {
             const diceDamage = getQuickAttackDamage()
-            return <p><Icon name="Damage" style={{marginTop: '2px'}}/> <span className='monster-ability__effect-desc'>{ diceDamage }</span></p>
+            return <p><Icon name="Damage" style={{marginTop: '2px'}}/> <span className='monster-ability__effect-desc text-font'>{ diceDamage }</span></p>
         }
         if (U.isString(abilityBody)) {
             return <AbilityEffect>{ U.parseTextWithSymbols(abilityBody, CUSTOM_MONSTER_SYMBOLS, CUSTOM_MONSTER_FUNCTION_SYMBOLS) }</AbilityEffect>
@@ -178,28 +178,28 @@ export default function MonsterAbility({monster, monsterXP, ability, isPassive, 
         return (
             <div className={`flex column gap-half`} style={{paddingTop: '0.25rem'}}>
                 { abilityBody.Damage && (
-                    <p><Icon name="Damage" style={{marginTop: '2px'}}/> <span className='monster-ability__effect-desc'>{ Damage }</span></p>
+                    <p><Icon name="Damage" style={{marginTop: '2px'}}/> <span className='monster-ability__effect-desc text-font'>{ Damage }</span></p>
                 ) }
                 { abilityBody.Effect && (
                     <AbilityEffect>{ Effect }</AbilityEffect>
                 ) }
                 { effectName != null && <p style={{marginTop: '3px'}}>
-                    <span className='monster-ability__effect-name'>{effectName}</span>: <span className='monster-ability__effect-desc'>{specialEffect}</span>
+                    <span className='monster-ability__effect-name text-font'>{effectName}</span>: <span className='monster-ability__effect-desc text-font'>{specialEffect}</span>
                 </p>}
                 { Combo != null && (
-                    <div className='monster-ability__effect-desc' key="Combo"><span style={{color: 'var(--blue-color)'}}>Combo: </span>{ Combo }</div>
+                    <div className='monster-ability__effect-desc text-font' key="Combo"><span style={{color: 'var(--blue-color)'}}>Combo: </span>{ Combo }</div>
                 ) }
                 { EffectGreen != null && (
-                    <div className="monster-ability__effect-desc" key="EffectGreen" style={{color: 'var(--green-color)'}}>{ EffectGreen }</div>
+                    <div className="monster-ability__effect-desc text-font" key="EffectGreen" style={{color: 'var(--green-color)'}}>{ EffectGreen }</div>
                 ) }
                 { Downside != null && (
-                    <div className="monster-ability__effect-desc" key="Downside" style={{color: 'rgb(240, 0, 0)'}}>{ Downside }</div>
+                    <div className="monster-ability__effect-desc text-font" key="Downside" style={{color: 'rgb(240, 0, 0)'}}>{ Downside }</div>
                 )}
                 { Upgrade != null && (
-                    <p className='monster-ability-p smaller-font'>{Upgrade}</p>
+                    <p className='monster-ability-p smaller-font text-font'>{Upgrade}</p>
                 ) }
                 { abilityBody.Notes != null && (
-                    <div className='monster-ability__effect-desc' style={{color: 'gray', fontSize: '0.8em', marginTop: '3px'}}>
+                    <div className='monster-ability__effect-desc text-font' style={{color: 'gray', fontSize: '0.8em', marginTop: '3px'}}>
                         { abilityBody.Notes }
                     </div>
                 ) }

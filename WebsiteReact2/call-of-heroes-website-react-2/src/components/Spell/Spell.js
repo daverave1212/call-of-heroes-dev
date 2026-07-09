@@ -80,7 +80,7 @@ export function SpellTopStats({className, tags, keywords}) {
 
     return (
         <div className='relative'>
-            <div className={`spell-top-stats smaller-font ${className}`}>
+            <div className={`spell-top-stats text-font smaller-font ${className}`}>
                 { (displayedA != null) && (
                     <div>
                         <img src="/Icons/UI/Hand.png" className="inline-icon--spell"/>{ displayedA }
@@ -147,7 +147,7 @@ export function SpellTop({
                 <div className='width-100'>
                     <div className='center-content width-100'>
                         <div className='title-wrapper no-icon'>
-                            <div className='title'>{ Name }</div>
+                            <div className='title text-font'>{ Name }</div>
                         </div>
                     </div>
                     <div style={{width: '70%', margin: 'auto'}}>
@@ -236,7 +236,7 @@ export function SpellTop({
 
             <div className='flex-1'>
                 <div className='title-wrapper'>
-                    <div className='title'>{ DisplayName != null? DisplayName : Name }</div>
+                    <div className='title text-font'>{ DisplayName != null? DisplayName : Name }</div>
                 </div>
                 { showTopStats === true && <SpellTopStats keywords={spell.Tags} tags={{...obj, A: A == null? obj.A : A}}/>}
             </div>
@@ -424,6 +424,7 @@ export default function Spell({
     return (
         <div data-selectable={isSelected != null} id={uniqueID} style={style} className={classNames(
             'spell',
+            'text-font',
             IsSubspell == true? 'subspell' : 'spell--normal',
             A == 'Passive' == true? 'passive' : 'active',
             {

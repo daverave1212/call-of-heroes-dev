@@ -36,7 +36,7 @@ export default function SmallStat({
 
     return (
         <div className={`small-stat flex ${smallStatClassesByType} ${className}`} style={{...contentStyle, ...{borderColor: realColor}}}>
-            <div style={{...nameStyle, ...{backgroundColor: realColor}}} className={`small-stat__name`}>{ name }</div>
+            <div style={{...nameStyle, ...{backgroundColor: realColor}}} className={`small-stat__name text-font`}>{ name }</div>
             <div className="small-stat__value" style={valueStyle}>{ children }</div>
         </div>
     )
