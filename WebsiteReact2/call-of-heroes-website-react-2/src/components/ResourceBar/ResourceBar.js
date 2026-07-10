@@ -36,7 +36,7 @@ export function ResourceBar({ name, maxValue, value, setValue, color1='var(--the
 
     return (
         <div className="small-stat small-stat--column" style={{borderColor: 'white'}}>
-            <div style={{backgroundColor: color1, borderRadius: '3px'}} className="small-stat__name">{labelText}</div>
+            <div style={{backgroundColor: color1, borderRadius: '3px'}} className="small-stat__name text-font">{labelText}</div>
             <div className="small-stat__value flex-row gap-quarter" style={smallStatValueStyle}>
                 <button style={buttonStyle} onClick={onDecrease}>-</button>
                 <div className="resource-bar flex-grow">

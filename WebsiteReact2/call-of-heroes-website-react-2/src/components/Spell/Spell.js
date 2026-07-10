@@ -2,7 +2,7 @@
 import './Spell.css'
 import Separator from './../Separator/Separator'
 import { useEffect, useRef, useState } from 'react'
-import { parseTextWithSymbols, stringReplaceAllMany, getSpellIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll, getVariantsForEachCollection, createKey, spellsFromObject, randomInt, assertCorrectSpellFormat, findBasicSpellByName, allEqual, getItemIconPathByName, removeTildes, isString, getDoubleTableTable, getDoubleTableNumberedTable, filterObject, getSpellValidTopStatsObject, hasSpellVariants, getNormalizedSpellName, getSpellOrItemIconPath, parseAndNormalizeSpell, hexColorToRgbVector, getSpellByName, SYMBOLS, isNumber, copyToClipboardAsync, getAllSpellsByName, getAllWeaponsByName, getAllItemsByName } from '../../utils'
+import { parseTextWithSymbols, stringReplaceAllMany, getSpellIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll, getVariantsForEachCollection, createKey, spellsFromObject, randomInt, assertCorrectSpellFormat, findBasicSpellByName, allEqual, getItemIconPathByName, removeTildes, isString, getDoubleTableTable, getDoubleTableNumberedTable, filterObject, getSpellValidTopStatsObject, hasSpellVariants, getNormalizedSpellName, getSpellOrItemIconPath, parseAndNormalizeSpell, hexColorToRgbVector, getSpellByName, SYMBOLS, isNumber, copyToClipboardAsync, getAllSpellsByName, getAllWeaponsByName, getAllItemsByName, sortObjectArrayByKeyInOrder, mapObjectToArray } from '../../utils'
 import TableNormal from '../TableNormal/TableNormal'
 import html2canvas from 'html2canvas'
 import CopySpellButton from '../CopyButton/CopySpellButton'
@@ -27,6 +27,14 @@ export const VALID_SPELL_TOP_STATS = [
     'Requirement', 'DisplayRequirement', 'Replacement',
     'Hands', 'Stat', 'Special', 'Price', 'XP'
 ]
+export const VALID_SPELL_EFFECTS = [
+    'Damage', 'PreEffectGreen',
+    'Effect', 'Combo', 'Downside',
+    'Upgrade', 'EffectOrange',
+    'Notes', 'Alternatives',
+    'SingleTable', 'DoubleTable', 
+    'Subspells', 'Monster'
+]
 
 export function getSpellTags(spell) {
     const keywords = spell?.Tags ?? spell?.Tag
@@ -44,6 +52,68 @@ export function getSpellTags(spell) {
     return keywords.replaceAll(', ', ',').split(',')
     
 }
+export function getSpellTopStats(spell) {
+    const stats = filterObject(spell, ([key, value]) => VALID_SPELL_TOP_STATS.includes(key))
+    if (stats.DisplayA != null) {
+        delete stats.A
+    }
+    if (stats.DisplayRequirement != null) {
+        delete stats.Requirement
+    }
+    return stats
+}
+window.getSpellTopStats = getSpellTopStats
+function getSpellTopStatIconAndSpan(name, value) {
+    const STANDARD_ICONS = [
+        'Duration',
+        'Hands', 'Range', 'Stat',
+        'Special', 'Cooldown',
+        'Replacement', 'XP',
+    ]
+    let iconPath = ''
+    if (STANDARD_ICONS.includes(name)) {
+        iconPath = `/Icons/UI/${name}.png`
+    } else if (name == 'Requirement' || name == 'DisplayRequirement') {
+        iconPath = `/Icons/UI/Level.png`
+    } else if (name == 'Price') {
+        iconPath = '/Icons/UI/Gold.png'
+    } else if (name == 'A' || name == 'DisplayA') {
+        iconPath = '/Icons/UI/Hand.png'
+    } else if (name == 'Cost') {
+        if (value?.includes('Health')) {
+            iconPath = '/Icons/UI/Blood.png'
+        } else {
+            iconPath = '/Icons/UI/Mana.png'
+        }
+    }
+
+    const STANDARD_VALUES = [
+        'Cost', 'Hands', 'Stat', 'Special', 'Range', 'Cooldown',
+        'Duration', 'Price', 'XP'
+    ]
+    let text = value
+    if (STANDARD_VALUES.includes(value)) {
+        text = <span>{value}</span>
+    } else if (name == 'Requirement' || name == 'DisplayRequirement') {
+        text = <span style={{color: '#FF5A00'}}>{value}</span>
+    } else if (name == 'Replacement') {
+        text = <span style={{color: 'var(--blue-color)'}}>{value}</span>
+    }
+
+    return {name, iconPath, span: text}
+}
+export function getSpellEffectsObjs(spell) {
+    // const effectsObj = TODO
+}
+window.getSpellTopStatIconAndSpan = getSpellTopStatIconAndSpan
+export function getSpellTopStatsIconsAndSpans(spell) {
+    const stats = getSpellTopStats(spell)
+    const statsArray = Object.entries(stats).map(([key, value]) => getSpellTopStatIconAndSpan(key, value))
+    const statsArraySorted = sortObjectArrayByKeyInOrder(statsArray, 'name', VALID_SPELL_TOP_STATS) // VALID_SPELL_TOP_STATS is the correct order
+    console.log({spell, stats, statsArray, statsArraySorted})
+    return statsArraySorted
+}
+window.getSpellTopStatsIconsAndSpans = getSpellTopStatsIconsAndSpans
 export function SpellTopStats({className, tags, keywords}) {
     const {A, DisplayA, Cost, Range, Cooldown, Duration, Requirement, DisplayRequirement, Replacement, Hands, Stat, Special, Price, XP, Name} = tags
     const validSpellTopTags = getSpellValidTopStatsObject(tags)
@@ -62,7 +132,7 @@ export function SpellTopStats({className, tags, keywords}) {
         return usedA
     }
 
-    let displayedA = getDisplayA()
+    let displayedA = DisplayA
 
     const parsedKeywords = getSpellTags({ Tags: keywords })
 

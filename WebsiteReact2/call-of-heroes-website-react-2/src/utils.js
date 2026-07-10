@@ -24,6 +24,7 @@ import QuestGuardConfig from './QuestGuardConfig.json'
 
 import STATIC_SYMBOLS from './parse-text-symbols-static.json'
 import { SpellSortTypes } from "./components/Spell/ManySpells"
+import SpellPDF from "./components/Spell/SpellPDF"
 
 // ---------------- Spells Utilities ----------------
 const SPELL_PROPS_TO_PARSE = [
@@ -94,10 +95,6 @@ export function parseAndNormalizeSpell(spell, options={
             if (spell[propName] == null) {
                 continue
             }
-            if (propName == 'MiniIconName') {
-                // console.green('Found a MIniIconName!!!')
-                // console.log({spell, extraMixins, propName, options, newProp: parseTextWithSymbols(spell[propName], extraMixins, { shouldReturnStringsOnly: true})?.join('')})
-            }
             try {
                 spellModified[propName] = parseTextWithSymbols(spell[propName], extraMixins, { shouldReturnStringsOnly: true})?.join('')
             } catch (e) {
@@ -114,6 +111,16 @@ export function parseAndNormalizeSpell(spell, options={
             spellModified.List = newList
         }
     }
+
+    if (spellModified.DisplayName == null) {
+        spellModified.DisplayName = spellModified.Name
+    }
+
+    let usedA = spellModified.DisplayA ?? spellModified.A
+    if (isNumber(usedA)) {
+        usedA = usedA == 1? '1 Action Point': `${usedA} Action Points`
+    }
+    spellModified.DisplayA = usedA
 
     spellModified.IsAlreadyParsed = true
     return spellModified
@@ -1341,6 +1348,23 @@ export function sum(array) {
     return array.reduce((soFar, x) => soFar + x, 0)
 }
 
+
+export function sortObjectArrayByKeyInOrder(array, property, orderArray) {
+  // Create a map for O(1) index lookups
+  const orderMap = new Map(orderArray.map((value, index) => [value, index]));
+
+  // Return a new sorted array to avoid mutating the original one
+  return [...array].sort((a, b) => {
+    const valA = a[property];
+    const valB = b[property];
+
+    // Get the index from the map, default to Infinity if not found (moves it to the end)
+    const indexA = orderMap.has(valA) ? orderMap.get(valA) : Infinity;
+    const indexB = orderMap.has(valB) ? orderMap.get(valB) : Infinity;
+
+    return indexA - indexB;
+  });
+}
 // Puts it at the end if it has no keyName property.
 export function sortObjectArrayByKey(array, keyName) {
     if (Array.isArray(array) == false) {
@@ -1760,7 +1784,11 @@ function ComponentForSymbolConfig({ config, children }) {
             return <a {...config.props}>{children}</a>
         case 'Spell':
             return <Spell {...config.props}/>
-        default: return <span {...config.props}>{children}</span>
+        case 'SpellPDF':
+            return <SpellPDF {...config.props}/>
+        default:
+            console.error(`ERROR: No implementation for tag "${config.tag}" given to ComponentForSymbolConfig. Add implementation in utils.ComponentForSymbolConfig. Rendering text.`)
+            return <span {...config.props}>{children}</span>
     }
 }
 function formSymbolComponentFunc(allSymbols, symbol, shouldReturnString=false, shouldReturnConfigOnly=false) {
@@ -1891,14 +1919,6 @@ export const FUNCTION_SYMBOLS = {
     'DarkGreen': args => symbolSpanWithColor('#00a71cff', args),
     'Teal': args => symbolSpanWithColor('#0097ab', args),
 
-    // 'Brown': args => ({ tag: 'span',  props: { style: { color: '#A52A2A' } }, text: args[0] }),
-    // 'Orange': args => ({ tag: 'span', props: { style: { color: '#FF5500' } }, text: args[0] }),
-    // 'Purple': args => ({ tag: 'span', props: { style: { color: '#6f00ffff' } }, text: args[0] }),
-    // 'Red': args => ({ tag: 'span', props: { style: { color: 'red' } }, text: args[0] }),
-    // 'Green': args => ({ tag: 'span', props: { style: { color: 'var(--green-color)' } }, text: args[0] }),
-    // 'DarkGreen': args => ({ tag: 'span', props: { style: { color: '#00a71cff' } }, text: args[0] }),
-    // 'Teal': args => ({ tag: 'span', props: { style: { color: '#0097ab' } }, text: args[0] }),
-
     'Color': args => ({ tag: 'span', props: { style: { color: args[0] } }, text: args[1] }),
 
     'Spark': args => ({ tag: 'span', text: `On ${args[0]}:`, props: { style: { color: 'var(--orange-color)' } }, func: () => <span style={{color: 'var(--orange-color)', fontWeight: 'bold'}}><Icon name="D10"/>{args[0]}:</span> }),
@@ -1912,6 +1932,10 @@ export const FUNCTION_SYMBOLS = {
     '~': args => ({ tag: 'span', props: { style: { color: 'var(--blue-color)' } }, text: args[0] }),
 
     'TEST': args => ({ tag: 'b', text: args[0] }),
+}
+export const PDF_FUNCTION_SYMBOLS = {
+    'Spell': args => ({ tag: 'SpellPDF',  props: { spellName: args.join(' ') }, text: args.join(' ') }),
+    'Item': args => ({ tag: 'SpellPDF',  props: { itemName: args.join(' ') }, text: args.join(' ') }),
 }
 export function normalizeSymbolConfigForPDF(config, defaultColorHex=null) {
     const { tag, props, text } = config

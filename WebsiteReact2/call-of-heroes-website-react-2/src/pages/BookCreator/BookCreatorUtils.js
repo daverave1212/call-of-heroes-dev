@@ -1,4 +1,4 @@
-import { dom, getOnlyEntry, getSpellByName, getValueByPath, isObject, isString, last, parseTextWithSymbols, printToPDF } from '../../utils'
+import { dom, getOnlyEntry, getSpellByName, getValueByPath, isObject, isString, last, parseTextWithSymbols, PDF_FUNCTION_SYMBOLS, printToPDF } from '../../utils'
 import PageH3 from "../../components/PageH3/PageH3"
 import { QGTitle1 } from "../Tools/TitleGenerator"
 import { Children, isValidElement } from 'react'
@@ -185,7 +185,7 @@ export function RenderText({ children }) {
     if (children == null) {
         return <></>
     }
-    let parsedTextParts = parseTextWithSymbols(children)
+    let parsedTextParts = parseTextWithSymbols(children, PDF_FUNCTION_SYMBOLS)  // To have custom rendered Spells as SpellPDF
     parsedTextParts = parsedTextParts.map(part => isString(part)? <span dangerouslySetInnerHTML={{__html: part}}/>: part)
     return <p>
         {parsedTextParts}
@@ -241,10 +241,6 @@ export function Section({ sectionContent }) {
         return <></>
     }
     if (format == ContentFormats.TEXT) {
-        if (!isString(content)) {
-            console.log({content})
-            console.green(`Indeed the content text for title "${title}" was not a string!`)
-        }
         return <div className='pdf-section' data-type="TEXT">
             { title != null && <Header level={level}>{title}</Header> }
             { content != null && <RenderText>{content}</RenderText>}
