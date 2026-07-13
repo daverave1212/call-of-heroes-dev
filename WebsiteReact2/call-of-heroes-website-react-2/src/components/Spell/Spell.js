@@ -2,7 +2,7 @@
 import './Spell.css'
 import Separator from './../Separator/Separator'
 import { useEffect, useRef, useState } from 'react'
-import { parseTextWithSymbols, stringReplaceAllMany, getSpellIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll, getVariantsForEachCollection, createKey, spellsFromObject, randomInt, assertCorrectSpellFormat, findBasicSpellByName, allEqual, getItemIconPathByName, removeTildes, isString, getDoubleTableTable, getDoubleTableNumberedTable, filterObject, getSpellValidTopStatsObject, hasSpellVariants, getNormalizedSpellName, getSpellOrItemIconPath, parseAndNormalizeSpell, hexColorToRgbVector, getSpellByName, SYMBOLS, isNumber, copyToClipboardAsync, getAllSpellsByName, getAllWeaponsByName, getAllItemsByName, sortObjectArrayByKeyInOrder, mapObjectToArray } from '../../utils'
+import { parseTextWithSymbols, stringReplaceAllMany, getSpellIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll, getVariantsForEachCollection, createKey, spellsFromObject, randomInt, assertCorrectSpellFormat, findBasicSpellByName, allEqual, getItemIconPathByName, removeTildes, isString, getDoubleTableTable, getDoubleTableNumberedTable, filterObject, getSpellValidTopStatsObject, hasSpellVariants, getNormalizedSpellName, getSpellOrItemIconPath, parseAndNormalizeSpell, hexColorToRgbVector, getSpellByName, SYMBOLS, isNumber, copyToClipboardAsync, getAllSpellsByName, getAllWeaponsByName, getAllItemsByName, sortObjectArrayByKeyInOrder, mapObjectToArray, keepOnly } from '../../utils'
 import TableNormal from '../TableNormal/TableNormal'
 import html2canvas from 'html2canvas'
 import CopySpellButton from '../CopyButton/CopySpellButton'
@@ -31,10 +31,48 @@ export const VALID_SPELL_EFFECTS = [
     'Damage', 'PreEffectGreen',
     'Effect', 'Combo', 'Downside',
     'Upgrade', 'EffectOrange',
-    'Notes', 'Alternatives',
-    'SingleTable', 'DoubleTable', 
-    'Subspells', 'Monster'
+    'Notes', 'Alternatives'
 ]
+export function RenderEffect({ name, key, value }) {
+    name = name ?? key
+
+    switch (name) {
+        case 'Damage':
+            return <div key="Damage" className='spell-description'>
+                <Icon name="Damage"/>{ value }
+            </div>
+        case 'PreEffectGreen':
+            return <div className="spell-description spell-green" key="PreEffectGreen">{ PreEffectGreen }</div>
+        case 'Effect':
+            return <div className='spell-description'>
+                { value }
+            </div>
+        case 'List':
+            return <div className='spell-description'>
+                { value.map(li => (
+                    <div style={{marginTop: 'var(--spell-padding-small)'}}>
+                        {SYMBOLS.Diamond.func()} {li}
+                    </div>
+                )) }
+            </div>
+        case 'Combo':
+            return <div className='spell-description spell-combo' key="Combo"><span style={{color: 'var(--blue-color)'}}>Combo: </span>{ value }</div>
+        case 'EffectGreen':
+            return <div className="spell-green" key="EffectGreen">{ value }</div>
+        case 'Downside':
+            return <div className="spell-red" key="Downside">{ value }</div>
+        case 'Upgrade':
+            return <div className='spell-upgrade smaller-font'>{ value }</div>
+        case 'EffectOrange':
+            return <div className='spell-upgrade smaller-font' style={{color: 'var(--orange-color)'}}>{ value }</div>
+        case 'Notes':
+            return <div className='spell-notes italic smaller-font'>{ value }</div>
+        case 'Alternatives':
+            return <div className='spell-notes italic smaller-font'>Alternatives: { value }</div>
+        default:
+            return <div>Unknown effect {name} with value: {value}</div>
+    }
+}
 
 export function getSpellTags(spell) {
     const keywords = spell?.Tags ?? spell?.Tag
@@ -100,10 +138,13 @@ function getSpellTopStatIconAndSpan(name, value) {
         text = <span style={{color: 'var(--blue-color)'}}>{value}</span>
     }
 
-    return {name, iconPath, span: text}
+    return {name, iconPath, span: text, text: value}
 }
 export function getSpellEffectsObjs(spell) {
-    // const effectsObj = TODO
+    const effectsObj = keepOnly(spell, VALID_SPELL_EFFECTS)
+    const effectsArr = Object.entries(effectsObj).map(([key, value]) => ({ key, value }))
+    const effectsSorted = sortObjectArrayByKeyInOrder(effectsArr, 'key', VALID_SPELL_EFFECTS)
+    return effectsSorted.filter(e => e.value != null)
 }
 window.getSpellTopStatIconAndSpan = getSpellTopStatIconAndSpan
 export function getSpellTopStatsIconsAndSpans(spell) {
@@ -522,124 +563,117 @@ export default function Spell({
                 </>) }
                 { showTopStats == false && <div style={{marginTop: '-1rem'}}></div>}
 
-                { Damage && (<>
-                    <div key="Damage" className='spell-description'>
-                        <Icon name="Damage"/>{ Damage }
-                    </div>
-                </>)}
-                { PreEffectGreen != null && (
-                    <div className="spell-green" key="PreEffectGreen">{ PreEffectGreen }</div>
-                ) }
-                { Effect != null && (
-                    <div className='spell-description'>
-                        { Effect }
-                        { List != null && (
-                            List.map(li => (
-                                <div style={{marginTop: 'var(--spell-padding-small)'}}>
-                                    {SYMBOLS.Diamond.func()} {li}
-                                </div>
-                            ))
-                        ) }
-                    </div>
-                )}
-                { Combo != null && (
-                    <div className='spell-combo' key="Combo"><span style={{color: 'var(--blue-color)'}}>Combo: </span>{ Combo }</div>
-                ) }
-                { EffectGreen != null && (
-                    <div className="spell-green" key="EffectGreen">{ EffectGreen }</div>
-                ) }
-                { RollThiefGold != null && (
-                    <div className='spell-description center-content'>
-                        <button onClick={() => setThiefRolledGoldAmount(Math.floor((randomInt(1000, 100000) + randomInt(2500, 100000) + randomInt(2500, 100000)) / 3))}>{thiefRolledGoldAmount}</button>
-                    </div>
-                )}
-                { Downside != null && (
-                    <div className="spell-red" key="Downside">{ Downside }</div>
-                )}
-                { Upgrade != null && (
-                    <div className='spell-upgrade smaller-font'>
-                        { Upgrade }
-                    </div>
-                ) }
-                { EffectOrange != null && (
-                    <div className='spell-upgrade smaller-font' style={{color: 'var(--orange-color)'}}>
-                        { EffectOrange }
-                    </div>
-                ) }
-                { (Subspells != null) && spellsFromObject(Subspells).map(s => (
-                    <div style={{paddingBottom: 'var(--spell-padding-bottom)'}} key={`subspell-${s.Name}`}>
-                        <Spell spell={s} hasBorder={false}/>
-                    </div>
-                ))}
-                { (SpellTable != null && (
-                    <EffectTable nameEffectPairs={SpellTable.map((nameEffectPair, i) => {
-                        const { Name, Effect } = nameEffectPair
-                        const finalName = HasSpellTableNumbers? (i + 1) + '. ' + Name: Name
-                        return ({ name: parseTextWithSymbols(finalName), effect: parseTextWithSymbols(Effect)})
-                    })}/>
-                )) }
-                { (DoubleTable != null || DoubleTableNumbered != null) && (
-                    <TableNormal columns={tableHeaders} hasBorder={false} type={DoubleTable?.IsRighty? 'info': null}>
-                        { newTableValuePairs.map(pair => (
-                            <tr key={createKey([pair.value1, pair.value2])}>
-                                <td>{ pair.value1 }</td>
-                                <td>{ pair.value2 }</td>
-                            </tr>
-                        )) }
-                    </TableNormal>
-                ) }
-                { SingleTable != null && (
-                    <TableNormal hasBorder={false}>
-                        { (Array.isArray(SingleTable)? SingleTable: SingleTable.Values).map(str => (
-                            <tr key={str}>
-                                <td style={{textAlign: 'left', paddingLeft: '0.75rem'}}>{str}</td>
-                            </tr>
-                        )) }
-                    </TableNormal>
-                )}
-                { (Monster != null) && (
-                    <div style={{padding: 'var(--spell-padding)', paddingTop: '0px'}}>
-                        <PetOrAnimalSpell animal={Monster}/>
-                    </div>
-                )}
-                { Notes != null && (
-                    <div className='spell-notes italic smaller-font'>
-                        { Notes }
-                    </div>
-                ) }
-                { Alternatives != null && (
-                    <div className='spell-notes italic smaller-font'>
-                        Alternatives: { Alternatives }
-                    </div>
-                ) }
-                { HasExportButton === true && <div className='center-content'>
-                    <button
-                        onClick={exportToClipboard}
-                        style={{
-                            ...exportButtonState.style,
-                            maxWidth: '50%'
-                        }}
-                    >
-                        {exportButtonState.text}
-                    </button>
-                </div> }
-                { hasCopyButton === true && <CopySpellButton elementId={uniqueID} shouldAddBorder={true}/> }
-                { hasButton && (
-                    <div>
-                        <div className='center-content' onClick={onButtonClick}>
-                            <button style={{
-                                fontSize: '17px',
-                                width: 'max(30%, 130px)',
-                                height: '2.5rem'
-                            }}>
-                                { finalButtonText }
-                            </button>
+                <div className='spell-effects-box flex column gap-1'>
+                    { Damage && (<>
+                        <div key="Damage" className='spell-description'>
+                            <Icon name="Damage"/>{ Damage }
                         </div>
-                        <div style={{height: '1rem'}}></div>
-                    </div>
-                )}
-                <div style={{paddingBottom: 'calc(var(--spell-padding-bottom) / 4)'}}></div>
-                { subspell != null && <Spell spell={{...subspell, IsSubspell: true}} hasCopyButton={false} hasBorder={false} showTopStats={false}/>}
+                    </>)}
+                    { PreEffectGreen != null && (
+                        <div className="spell-green" key="PreEffectGreen">{ PreEffectGreen }</div>
+                    ) }
+                    { Effect != null && (
+                        <div className='spell-description'>
+                            { Effect }
+                            { List != null && (
+                                List.map(li => (
+                                    <div style={{marginTop: 'var(--spell-padding-small)'}}>
+                                        {SYMBOLS.Diamond.func()} {li}
+                                    </div>
+                                ))
+                            ) }
+                        </div>
+                    )}
+                    { Combo != null && (
+                        <div className='spell-combo' key="Combo"><span style={{color: 'var(--blue-color)'}}>Combo: </span>{ Combo }</div>
+                    ) }
+                    { EffectGreen != null && (
+                        <div className="spell-green" key="EffectGreen">{ EffectGreen }</div>
+                    ) }
+                    { RollThiefGold != null && (
+                        <div className='spell-description center-content'>
+                            <button onClick={() => setThiefRolledGoldAmount(Math.floor((randomInt(1000, 100000) + randomInt(2500, 100000) + randomInt(2500, 100000)) / 3))}>{thiefRolledGoldAmount}</button>
+                        </div>
+                    )}
+                    { Downside != null && (
+                        <div className="spell-red" key="Downside">{ Downside }</div>
+                    )}
+                    { Upgrade != null && (
+                        <div className='spell-upgrade smaller-font'>{ Upgrade }</div>
+                    ) }
+                    { EffectOrange != null && (
+                        <div className='spell-upgrade smaller-font' style={{color: 'var(--orange-color)'}}>{ EffectOrange }</div>
+                    ) }
+                    { (Subspells != null) && spellsFromObject(Subspells).map(s => (
+                        <div style={{paddingBottom: 'var(--spell-padding-bottom)'}} key={`subspell-${s.Name}`}>
+                            <Spell spell={s} hasBorder={false}/>
+                        </div>
+                    ))}
+                    { (SpellTable != null && (
+                        <EffectTable nameEffectPairs={SpellTable.map((nameEffectPair, i) => {
+                            const { Name, Effect } = nameEffectPair
+                            const finalName = HasSpellTableNumbers? (i + 1) + '. ' + Name: Name
+                            return ({ name: parseTextWithSymbols(finalName), effect: parseTextWithSymbols(Effect)})
+                        })}/>
+                    )) }
+                    { (DoubleTable != null || DoubleTableNumbered != null) && (
+                        <TableNormal columns={tableHeaders} hasBorder={false} type={DoubleTable?.IsRighty? 'info': null}>
+                            { newTableValuePairs.map(pair => (
+                                <tr key={createKey([pair.value1, pair.value2])}>
+                                    <td>{ pair.value1 }</td>
+                                    <td>{ pair.value2 }</td>
+                                </tr>
+                            )) }
+                        </TableNormal>
+                    ) }
+                    { SingleTable != null && (
+                        <TableNormal hasBorder={false}>
+                            { (Array.isArray(SingleTable)? SingleTable: SingleTable.Values).map(str => (
+                                <tr key={str}>
+                                    <td style={{textAlign: 'left', paddingLeft: '0.75rem'}}>{str}</td>
+                                </tr>
+                            )) }
+                        </TableNormal>
+                    )}
+                    { (Monster != null) && (
+                        <div style={{padding: 'var(--spell-padding)', paddingTop: '0px'}}>
+                            <PetOrAnimalSpell animal={Monster}/>
+                        </div>
+                    )}
+                    { Notes != null && (
+                        <div className='spell-notes italic smaller-font'>{ Notes }</div>
+                    ) }
+                    { Alternatives != null && (
+                        <div className='spell-notes italic smaller-font'>Alternatives: { Alternatives }</div>
+                    ) }
+                    { HasExportButton === true && <div className='center-content'>
+                        <button
+                            onClick={exportToClipboard}
+                            style={{
+                                ...exportButtonState.style,
+                                maxWidth: '50%'
+                            }}
+                        >
+                            {exportButtonState.text}
+                        </button>
+                    </div> }
+                    { hasCopyButton === true && <CopySpellButton elementId={uniqueID} shouldAddBorder={true}/> }
+                    { hasButton && (
+                        <div>
+                            <div className='center-content' onClick={onButtonClick}>
+                                <button style={{
+                                    fontSize: '17px',
+                                    width: 'max(30%, 130px)',
+                                    height: '2.5rem'
+                                }}>
+                                    { finalButtonText }
+                                </button>
+                            </div>
+                            <div style={{height: '1rem'}}></div>
+                        </div>
+                    )}
+                    { subspell != null && <Spell spell={{...subspell, IsSubspell: true}} hasCopyButton={false} hasBorder={false} showTopStats={false}/>}
+                </div>
             </div>
         </div>
     )

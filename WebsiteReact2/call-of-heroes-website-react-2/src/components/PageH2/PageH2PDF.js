@@ -16,7 +16,7 @@ export default function PageH2PDF({ children, title, id, style, className }) {
     return (
         <div className={`page-h2-pdf relative ${className}`} id={id} style={style}>
             <img className='page-h2-graphic' src="/H2.png"/>
-            <h2 className='pdf-title-font'>{ children }</h2>
+            <h2 className='title-font'>{ children }</h2>
             {/* <div className="page-h2--underline"></div> */}
         </div>
     )

@@ -16,7 +16,7 @@ export default function PageH3PDF({ children, title, id, style, className }) {
     return (
         <div className={`page-h3-pdf relative ${className}`} id={id} style={style}>
             {/* <img className='page-h2-graphic' src="/H2.png"/> */}
-            <h3 className='pdf-title-font'>{ children }</h3>
+            <h3 className='title-font'>{ children }</h3>
             {/* <div className="page-h2--underline"></div> */}
         </div>
     )

@@ -13,7 +13,7 @@ import Ribbon from '../Ribbon/Ribbon'
 import Icon from '../Icon'
 import EffectTable from '../TableNormal/EffectTable'
 import QuestGuardConfig from '../../QuestGuardConfig.json'
-import { getSpellTags, getSpellTopStatsIconsAndSpans, SpellTop, SpellTopStats, VALID_SPELL_TOP_STATS } from './Spell'
+import { getSpellEffectsObjs, getSpellTags, getSpellTopStatsIconsAndSpans, RenderEffect, SpellTop, SpellTopStats, VALID_SPELL_TOP_STATS } from './Spell'
 import PageH3 from '../PageH3/PageH3'
 
 /*
@@ -26,7 +26,7 @@ If onClick != null:
 */
 
 
-function TempHr() {
+function TempHrA() {
     const style = {
         width: '100%',
         height: '0.5pt',
@@ -34,21 +34,43 @@ function TempHr() {
     }
     return <div style={style}/>
 }
+function TempHrB() {
+    const style = {
+        width: '100%',
+        height: '0.1pt',
+        backgroundColor: 'rgba(150, 0, 200, 0.1)'
+    }
+    return <div style={style}/>
+}
+
+function TempHr() {
+    const style = {
+        width: '90%'
+    }
+    return <img style={style} src="/Separator A.png"/>
+}
 function SpellPDFTopStats({ spell }) {
     const statsArray = getSpellTopStatsIconsAndSpans(spell)
     return <>
-        { statsArray.map(({ name, iconPath, span }) => (
-            <span>
-                <img src={iconPath} className='inline-icon'/>{span}
-            </span>
-        )) }
+        { statsArray.map(({ name, iconPath, span, text }) => {
+            const width =
+                (text?.length ?? 0) <= 15?
+                    '45%'
+                :
+                    '90%'
+            return (
+                <div style={{width}} data-text-length={text.length}>
+                    <img src={iconPath} className='inline-icon'/>{span}
+                </div>
+            )
+        }) }
     </>
 }
 function SpellPDFTags({ spell }) {
-    const tags = getSpellTags(spell)
+    const tags = getSpellTags(spell).map(tag => tag.split(' ').join('\n'))
     const tagsText = tags.join(', ')
     return <>
-        { tags.map(tag => <div className='pdfs-tag'>{tag}</div>) }
+        { tags.map(tag => <div className='pdfs-tag caps title-font' style={{lineHeight: '1.2em'}}>{tag}</div>) }
     </>
 }
 export default function SpellPDF({
@@ -142,24 +164,33 @@ export default function SpellPDF({
             getDoubleTableNumberedTable(DoubleTableNumbered):
         [null, null]
 
-
+    const effects = getSpellEffectsObjs(parsedSpell)
+    const effectsLower = effects.filter(e => !['Damage', 'Effect'].includes(e.key))
+    if (Name == 'Taketh Away Sight') {
+        console.green('Taketh Away Sight')
+    }
+    console.log({effects, effectsLower})
 
     return <div className='pdfs margin-top-1'>
         <div className='pdfs-top flex row gap-1'>
-            <div style={{flex: 1}}>
+            <div style={{flex: 2}}>
                 <div className='pdfs-icon-box'>
                     <img className='pdfs-icon' src={IconPath}/>
                 </div>
             </div>
             <div style={{flex: 8}}>
                 <div className='right'>
-                    <h4 className='pdf-title-font'>{DisplayName}</h4>
+                    <h4 className='name'>{DisplayName}</h4>
+                    <div className='margin-top-half'/>
                     <TempHr/>
                     <div>
-                        <div className='flex column margin-top-half'>
+                        <div className='flex row column-gap-1 row-gap-half flex-wrap' style={{marginTop: '-1mm'}}>
                             <SpellPDFTopStats spell={parsedSpell}/>
                         </div>
                         {/* <div className='absolute top-0 right-0 flex column gap-quarter'>
+                            <SpellPDFTags spell={parsedSpell}/>
+                        </div> */}
+                        {/* <div className='margin-top-1 flex row gap-1'>
                             <SpellPDFTags spell={parsedSpell}/>
                         </div> */}
                     </div>
@@ -169,10 +200,24 @@ export default function SpellPDF({
         {/* <div className='flex row gap-quarter margin-top-half'>
             <SpellPDFTags spell={parsedSpell}/>
         </div> */}
-        <div className='margin-top-3q'>
-            <p>{Effect}</p>
+        <div className='flex row margin-top-1 gap-1 padding-bottom-3q'>
+            <div style={{flex: 2}}>
+                <div className='flex column gap-quarter'>
+                    <SpellPDFTags spell={parsedSpell}/>
+                </div>
+            </div>
+            <div style={{flex: 8}}>
+                {parsedSpell.Damage && <RenderEffect name="Damage" value={parsedSpell.Damage}/>}
+                {parsedSpell.Effect && <RenderEffect name="Effect" value={parsedSpell.Effect}/>}
+            </div>
         </div>
         
+        <div className='flex column margin-top-3q gap-1'>
+            { effectsLower.map((e, i) => <>
+                { i != 0 && <TempHrB/> }
+                <RenderEffect name={e.key} value={e.value}/>
+            </>) }
+        </div>
 
     </div>
 
