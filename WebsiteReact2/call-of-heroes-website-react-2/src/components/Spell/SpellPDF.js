@@ -166,57 +166,58 @@ export default function SpellPDF({
 
     const effects = getSpellEffectsObjs(parsedSpell)
     const effectsLower = effects.filter(e => !['Damage', 'Effect'].includes(e.key))
-    if (Name == 'Taketh Away Sight') {
-        console.green('Taketh Away Sight')
-    }
-    console.log({effects, effectsLower})
 
-    return <div className='pdfs margin-top-1'>
-        <div className='pdfs-top flex row gap-1'>
-            <div style={{flex: 2}}>
-                <div className='pdfs-icon-box'>
-                    <img className='pdfs-icon' src={IconPath}/>
+    return <div className='pdfs margin-top-1 relative flex row gap-0'>
+        <div className="relative" style={{width: '10mm'}}>
+            <img className='absolute top-0 left-0' style={{width: '55mm'}} src="/Book/Card Corner Top Left Light.png"/>
+        </div>
+        <div style={{paddingTop: '3.5mm'}}>
+            <div className='pdfs-top flex row gap-1'>
+                <div style={{flex: 2}}>
+                    <div className='pdfs-icon-box'>
+                        <img className='pdfs-icon' src={IconPath}/>
+                    </div>
                 </div>
-            </div>
-            <div style={{flex: 8}}>
-                <div className='right'>
-                    <h4 className='name'>{DisplayName}</h4>
-                    <div className='margin-top-half'/>
-                    <TempHr/>
-                    <div>
-                        <div className='flex row column-gap-1 row-gap-half flex-wrap' style={{marginTop: '-1mm'}}>
-                            <SpellPDFTopStats spell={parsedSpell}/>
+                <div style={{flex: 8}}>
+                    <div className='right'>
+                        <h4 className='name'>{DisplayName}</h4>
+                        <div className='margin-top-half'/>
+                        <TempHr/>
+                        <div>
+                            <div className='flex row column-gap-1 row-gap-half flex-wrap' style={{marginTop: '-1mm'}}>
+                                <SpellPDFTopStats spell={parsedSpell}/>
+                            </div>
+                            {/* <div className='absolute top-0 right-0 flex column gap-quarter'>
+                                <SpellPDFTags spell={parsedSpell}/>
+                            </div> */}
+                            {/* <div className='margin-top-1 flex row gap-1'>
+                                <SpellPDFTags spell={parsedSpell}/>
+                            </div> */}
                         </div>
-                        {/* <div className='absolute top-0 right-0 flex column gap-quarter'>
-                            <SpellPDFTags spell={parsedSpell}/>
-                        </div> */}
-                        {/* <div className='margin-top-1 flex row gap-1'>
-                            <SpellPDFTags spell={parsedSpell}/>
-                        </div> */}
                     </div>
                 </div>
             </div>
-        </div>
-        {/* <div className='flex row gap-quarter margin-top-half'>
-            <SpellPDFTags spell={parsedSpell}/>
-        </div> */}
-        <div className='flex row margin-top-1 gap-1 padding-bottom-3q'>
-            <div style={{flex: 2}}>
-                <div className='flex column gap-quarter'>
-                    <SpellPDFTags spell={parsedSpell}/>
+            {/* <div className='flex row gap-quarter margin-top-half'>
+                <SpellPDFTags spell={parsedSpell}/>
+            </div> */}
+            <div className='flex row margin-top-1 gap-1 padding-bottom-3q'>
+                <div style={{flex: 2}}>
+                    <div className='flex column gap-quarter'>
+                        <SpellPDFTags spell={parsedSpell}/>
+                    </div>
+                </div>
+                <div style={{flex: 8}}>
+                    {parsedSpell.Damage && <RenderEffect name="Damage" value={parsedSpell.Damage}/>}
+                    {parsedSpell.Effect && <RenderEffect name="Effect" value={parsedSpell.Effect}/>}
                 </div>
             </div>
-            <div style={{flex: 8}}>
-                {parsedSpell.Damage && <RenderEffect name="Damage" value={parsedSpell.Damage}/>}
-                {parsedSpell.Effect && <RenderEffect name="Effect" value={parsedSpell.Effect}/>}
+            
+            <div className='flex column margin-top-3q gap-1'>
+                { effectsLower.map((e, i) => <>
+                    { i != 0 && <TempHrB/> }
+                    <RenderEffect name={e.key} value={e.value}/>
+                </>) }
             </div>
-        </div>
-        
-        <div className='flex column margin-top-3q gap-1'>
-            { effectsLower.map((e, i) => <>
-                { i != 0 && <TempHrB/> }
-                <RenderEffect name={e.key} value={e.value}/>
-            </>) }
         </div>
 
     </div>

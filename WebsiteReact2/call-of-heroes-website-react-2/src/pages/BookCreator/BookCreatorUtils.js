@@ -178,7 +178,7 @@ export function H1({ children }) {
 export function Aside({children, title}) {
     return <div style={{ backgroundColor: 'rgba(255, 200, 100, 0.1)'}}>
         <h4 dangerouslySetInnerHTML={{ __html: title }}></h4>
-        <RenderText>{children}</RenderText>
+        <RenderContent>{children}</RenderContent>
     </div>
 }
 export function RenderText({ children }) {
@@ -190,6 +190,38 @@ export function RenderText({ children }) {
     return <p>
         {parsedTextParts}
     </p>
+}
+export function RenderContent({ children, content }) {
+    content = content ?? children
+    function Li({content}) {
+        if (isString(content)) {
+            return <ListItem style={{fontSize: 'var(--p-size)'}}>
+                {/* <Icon name="BulletPoint3"/> */}
+                <span dangerouslySetInnerHTML={{__html: content}}></span>
+            </ListItem>
+        }
+        if (isObject(content)) {
+            const [key, value] = getOnlyEntry(content)
+            return <ListItem>
+                {/* <Icon name="BulletPoint3"/> */}
+                <b>{key}:</b> <span dangerouslySetInnerHTML={{__html: value}}></span>
+            </ListItem>
+        }
+    }
+
+    if (Array.isArray(content)) {
+        return <ul className='flex column gap-half padding-left-2' style={{}}>
+            { content.map(item => <Li content={item}/>) }
+        </ul>
+    }
+
+    if (isObject(content)) {
+        console.log({content})
+        console.error(`ERROR: Rendering RenderContent for children Object. Printed above. Objects should not be rendered like this.`)
+        return <div style={{color: 'red'}}>ERROR: Rendering RenderContent for children Object. Printed above. Objects should not be rendered like this.</div>
+    }
+
+    return <RenderText>{children}</RenderText>
 }
 
 const H_MAPPINGS = {
@@ -213,27 +245,7 @@ export function Section({ sectionContent }) {
         }
         return <div style={{ backgroundColor: 'rgba(255, 200, 100, 0.1)'}}>
             { title && <h4 dangerouslySetInnerHTML={{ __html: title }}></h4> }
-            <RenderText>{content}</RenderText>
-        </div>
-    }
-    function List() {
-        function Li({content}) {
-            if (isString(content)) {
-                return <ListItem><Icon name="BulletPoint3"/><span dangerouslySetInnerHTML={{__html: content}}></span></ListItem>
-            }
-            if (isObject(content)) {
-                const [key, value] = getOnlyEntry(content)
-                return <ListItem><Icon name="BulletPoint3"/><b>{key}:</b> <span dangerouslySetInnerHTML={{__html: value}}></span></ListItem>
-            }
-        }
-        return <div className='pdf-section'>
-            { title && <Header level={level}>{title}</Header> }
-            <ul className='flex column gap-half' style={{
-                paddingInlineStart: '0pt',
-                paddingLeft: `calc(var(--p-size) * 0.5)`
-            }}>
-                { content.map(item => <Li content={item}/>) }
-            </ul>
+            <RenderContent>{content}</RenderContent>
         </div>
     }
 
@@ -243,14 +255,11 @@ export function Section({ sectionContent }) {
     if (format == ContentFormats.TEXT) {
         return <div className='pdf-section' data-type="TEXT">
             { title != null && <Header level={level}>{title}</Header> }
-            { content != null && <RenderText>{content}</RenderText>}
+            { content != null && <RenderContent>{content}</RenderContent>}
         </div>
     }
     if (format == ContentFormats.ASIDE) {
         return <Aside/>
-    }
-    if (Array.isArray(content)) {
-        return <List/>
     }
 
     if (isObject(content)) {
