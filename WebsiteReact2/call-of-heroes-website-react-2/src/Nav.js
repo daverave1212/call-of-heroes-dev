@@ -9,7 +9,7 @@ import './nav.css'
 
 import { useState } from 'react';
 
-import * as auth from './Auth'
+import * as auth from './services/auth/Auth'
 import Icon from './components/Icon';
 import DrawerPage from './components/DrawerPage/DrawerPage';
 import Accordion from './components/Accordion/Accordion';

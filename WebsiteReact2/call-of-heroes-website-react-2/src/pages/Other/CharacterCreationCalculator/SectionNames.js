@@ -1,6 +1,6 @@
 import { useState } from "react";
 import HeroButton from "../../../components/HeroButton/HeroButton";
-import { getUserState, useAuth } from "../../../Auth";
+import { getUserState, useAuth } from "../../../services/auth/Auth";
 import { useLocalStorageState } from "../../../utils";
 import { useSectionNamesState } from "./CharacterData";
 import Input from "../../../components/Input/Input";

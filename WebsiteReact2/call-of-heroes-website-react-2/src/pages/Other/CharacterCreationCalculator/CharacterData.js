@@ -1,7 +1,7 @@
 import { addManyObjects, addObjects, areArraysEqual, generateUniqueId, getAlMyRaceAndClassSpells, getAllClasses, getAllSkillsByName, getAllSpellsByName, getLocalStorageJSON, setLocalStorageJSON, useLocalStorageState } from "../../../utils"
-import * as Database from '../../../Database'
+import * as Database from '../../../services/online-database/Database'
 import { useEffect } from "react"
-import { getUserState, useAuth } from "../../../Auth"
+import { getUserState, useAuth } from "../../../services/auth/Auth"
 import { showError } from "../../../services/MessageDisplayer"
 import { useConstAllBonuses, useConstBonusesFromSpellsAndItems, useConstTotalStats } from "./MyCharacter"
 import { calculateAllAtributes, DEFAULT_CHARACTER_BONUSES, DEFAULT_STAT_ARRAY, STAT_NAMES } from "../../../services/game-lib/stat-calculations"

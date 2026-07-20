@@ -1902,6 +1902,9 @@ export const SYMBOLS = {
     'YouHaveAccess': { tag: 'span', props: { style: {color: 'var(--blue-color)'} }, text: "You may have all Variants of this Ability." },
     'Variants': { tag: 'span', props: { style: {color: 'var(--blue-color)'} }, text: "You may have all Variants of this Ability." },
     'AllVariants': { tag: 'span', props: { style: {color: 'var(--blue-color)'} }, text: "You may have all Variants of this Ability." },
+    
+    // Debug
+    'TODO': { tag: 'span', props: { style: {color: 'red'} }, text: "TODO" },    
 }
 const symbolSpanWithColor = (color, args) => ({ tag: 'span',  props: { style: { color: color } }, text: args.join(' ') })
 export const FUNCTION_SYMBOLS = {
@@ -2459,6 +2462,57 @@ export function isStringJSON(str) {
     } catch (e) {
         return false;
     }
+}
+export function isStringYAML(str) {
+  if (typeof str !== 'string') return false;
+  
+  const trimmed = str.trim();
+  if (!trimmed) return false;
+
+  // 1. If it parses as JSON, treat it as JSON, not YAML
+  try {
+    JSON.parse(trimmed);
+    return false; 
+  } catch (e) {
+    // Failed JSON parse means it could be YAML
+  }
+
+  // 2. Check for explicit YAML document markers
+  if (trimmed.startsWith('---')) return true;
+
+  // 3. Break into lines to analyze structural markers
+  const lines = trimmed.split('\n');
+  
+  // Regex to match a valid YAML key-value pair: 
+  // - Starts with optional spaces or a list dash
+  // - Followed by an unquoted/quoted key name
+  // - MUST have a colon followed by a space, newline, or value
+  const yamlKeyPattern = /^\s*(-?\s*)?[a-zA-Z0-9_\-\.\/]+:\s*.*$/;
+  
+  // Regex to match a YAML block list item: e.g., "  - apple"
+  const yamlListPattern = /^\s*-\s+.+$/;
+
+  let validIndicators = 0;
+  let lineCount = 0;
+
+  for (let line of lines) {
+    const lineTrim = line.trim();
+    
+    // Ignore empty lines and comments
+    if (!lineTrim || lineTrim.startsWith('#')) continue;
+    
+    lineCount++;
+
+    if (yamlKeyPattern.test(line) || yamlListPattern.test(line)) {
+      validIndicators++;
+    }
+
+    // Optimization: If we find a few valid lines early on, we can confidently return true
+    if (validIndicators >= 2) return true;
+  }
+
+  // If it's a tiny 1-line string, require at least one valid key-value match
+  return lineCount > 0 && validIndicators > 0;
 }
 export function normalizeStringJSON(str) {
     return str.replaceAll('\\n', ' ')

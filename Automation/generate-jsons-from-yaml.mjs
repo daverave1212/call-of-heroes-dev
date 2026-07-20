@@ -498,10 +498,14 @@ function recordAbilitiesFrom(fromDict, toDict, parentKey=null, origin='Unknown',
 }
 
 function normalizeFileText(text) {
-    for (const [symbol, value] of Object.entries(ALL_STATIC_SYMBOLS)) {
-        const symbolToReplace = `{${symbol}}`
-        text = text.replaceAll(symbolToReplace, value.text)
-    }
+    let lastText = text
+    do {
+        lastText = text
+        for (const [symbol, value] of Object.entries(ALL_STATIC_SYMBOLS)) {
+            const symbolToReplace = `{${symbol}}`
+            text = text.replaceAll(symbolToReplace, value.text)
+        }
+    } while (lastText != text)
 
     if (!isActionPointsMappingEnabled) {
         return text

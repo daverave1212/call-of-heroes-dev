@@ -75,7 +75,7 @@ export default function() {
 function TransitionGuidePages() {
 
     // const transitionGuideYAML = keepOnly(Book, 'For D&D Players')
-    const transitionGuideYAML = { 'For DnD Players': Book['For D&D Players'] }
+    const transitionGuideYAML = keepOnly(Book, 'Transition Guide')
     const pages = organizePDFByPages(transitionGuideYAML)
     console.log({pages})
 

@@ -36,7 +36,7 @@ import { SelectorsByColumns } from "../Abilities";
 import { showSuccessMessage } from "../../../services/MessageDisplayer";
 import Dialog from "../../../components/Dialog/Dialog";
 import { STAT_NAMES } from "../../../services/game-lib/stat-calculations";
-import { useIsLoggedIn } from "../../../Auth";
+import { useIsLoggedIn } from "../../../services/auth/Auth";
 import LoginRequired from "../../../components/LoginRequired/LoginRequired";
 import SectionMagicFonts from "./SectionMagicFonts";
 

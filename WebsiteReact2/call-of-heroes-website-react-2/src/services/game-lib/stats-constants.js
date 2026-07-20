@@ -77,6 +77,13 @@ export const BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP = {
     [EXTRA_INITIATIVE_AP]: `1 for each 5 Initiative`
 }
 
+export const STAT_DESCRIPTIONS = {
+    [MIGHT]: `physical strength, pain tolerance, show of dominance, and confidence`,
+    [DEXTERITY]: `running speed, agility, reflexes, and connection to your primal side`,
+    [INTELLIGENCE]: `knowledge, talent for magic, resilience of mind, and concentration`,
+    [SENSE]: `charisma, attunement to the surrounding world, and attention to detail`
+}
+
 // No need to update these
 export const MAIN_STAT_ALTERNATIVES_MAP = {
     'Might': MIGHT,
@@ -158,4 +165,9 @@ function mapObject(obj, func) {
     return newObj
 }
 
-export const STAT_SYMBOLS = mapObject(MAIN_STAT_ALTERNATIVES_MAP, ([key, value]) => ([key, { tag: 'span', text: value }]))
+
+const mainStatsAlterantivesSymbols = mapObject(MAIN_STAT_ALTERNATIVES_MAP, ([key, value]) => ([key, { tag: 'span', text: value }]))
+const statDesriptionsSymbols = mapObject(STAT_DESCRIPTIONS, ([key, value]) => ([`${key}Description`, { tag: 'span', text: value }]))
+const attributeCalculationSymbols =  mapObject(BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP, ([key, value]) => ([`${key.split(' ').join('')}Calculation`, { tag: 'span', text: value }]))
+
+export const STAT_SYMBOLS = {...mainStatsAlterantivesSymbols, ...statDesriptionsSymbols, ...attributeCalculationSymbols}
