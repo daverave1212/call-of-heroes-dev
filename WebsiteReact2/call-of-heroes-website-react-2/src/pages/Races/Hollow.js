@@ -24,7 +24,7 @@ import Icon from '../../components/Icon'
 import Page from '../../containers/Page/Page'
 
 import { SideMenuFromRace } from '../../components/SideMenu/SideMenu'
-import theRace from '../../databases/Races/Hollow.json'
+import theRace from '../../databases/Core/Races/Hollow.json'
 
 import ManySpells from '../../components/Spell/ManySpells'
 
