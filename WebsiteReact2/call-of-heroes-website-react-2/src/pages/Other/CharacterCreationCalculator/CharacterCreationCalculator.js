@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Races, Classes } from '../AllRacesAndClasses'
+import { Races, Classes } from '../../../services/content-providers/AllRacesAndClasses'
 import SmallStat from "../../../components/SmallStat/SmallStat";
 import Page from "../../../containers/Page/Page";
 import TwoColumns from "../../../components/TwoColumns/TwoColumns";

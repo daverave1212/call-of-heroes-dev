@@ -212,8 +212,60 @@ export function readAndNormalizeYamlToJson(filePath) {
 
     addNameToSpellsRecursively(dictContent)
 
-
     return dictContent
+}
+export function readJson(filePath) {
+    let fileContent
+    let obj
+    try {
+        fileContent = fs.readFileSync(filePath, 'utf-8')
+        obj = JSON.parse(fileContent)
+    } catch (err) {
+        console.red(`ERROR: Failed to read file ${filePath}`);
+        throw err;
+    }
+    return obj
+}
+export function readAllJsonsSync(dirPath) {
+  // 1. Resolve to an absolute path for safety
+  const absolutePath = path.resolve(dirPath);
+
+  // 2. Read all items inside the directory
+  const files = fs.readdirSync(absolutePath);
+
+  console.log(`Reading JSONS at ${dirPath}. Found files: ${files}`)
+
+  // 3. Filter for .json extension and parse each file
+  const jsonObjects = files
+    .filter(file => path.extname(file).toLowerCase() === '.json')
+    .map(file => {
+      const filePath = path.join(absolutePath, file);
+      const fileContent = fs.readFileSync(filePath, 'utf-8');
+      
+      return JSON.parse(fileContent);
+    });
+
+  return jsonObjects;
+}
+export function writeJSONSync(obj, path) {
+    const json = isString(obj)? obj: JSON.stringify(obj)
+    fs.writeFileSync(path, json, 'utf-8');
+}
+
+export function getTodayString() {
+    const today = new Date().toISOString().split('T')[0]
+    return today
+}
+export function getTimestamp() {
+    const now = new Date();
+
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+    const hour = String(now.getHours()).padStart(2, "0");
+    const minute = String(now.getMinutes()).padStart(2, "0");
+
+    return `${year}-${month}-${day}-${hour}${minute}`;
 }
 
 // Find all abilities in obj and call func recursively
@@ -285,6 +337,15 @@ export function getObjectValueByFuzzyKey(obj, key) {
         }
     }
     return null
+}
+export function objectEntriesByFuzzyKey(obj, key) {
+    const foundEntries = []
+    for (const realKey of Object.keys(obj)) {
+        if (key.includes(realKey)) {
+            foundEntries.push([realKey, obj[realKey]])
+        }
+    }
+    return foundEntries
 }
 export function isObject(obj) {
     return typeof obj === 'object' && !Array.isArray(obj) && !isString(obj)
@@ -382,3 +443,27 @@ export function validateFeat(feat) {
     ])
 }
 
+// ----------- OTHER -------------
+export function findAllYAMLFiles(folderName) {
+  const results = [];
+
+  function scanDirectory(dir) {
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+
+    for (const entry of entries) {
+      const fullPath = path.join(dir, entry.name);
+
+      if (entry.isDirectory()) {
+        scanDirectory(fullPath); // Recurse into subfolders
+      } else if (entry.isFile()) {
+        const ext = path.extname(entry.name).toLowerCase();
+        if (ext === '.yaml' || ext === '.yml') {
+          results.push(fullPath);
+        }
+      }
+    }
+  }
+
+  scanDirectory(folderName);
+  return results;
+}

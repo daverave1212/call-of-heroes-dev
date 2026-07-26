@@ -37,15 +37,21 @@ import Outlaw from '../../databases/Core/Classes/Swashbuckler.json'
 import Wickan from '../../databases/ClassesV2/Wickan.json'
 import Cursewielder from '../../databases/ClassesV2/Cursewielder.json'
 
-export const Races = {
+export const RacesBase = {
     Bertle,
     Dwarf,
-    Dragon: Dragonborn,
     Elf,
     Gnome,
-    Hollow,
     Human,
-    Giant: Orc
+}
+export const RacesPremium = {
+    Dragon: Dragonborn,
+    Hollow,
+    Giant: Orc,
+}
+export const Races = {
+    ...RacesBase,
+    ...RacesPremium
 }
 
 export const ClassesBase = {

@@ -9,7 +9,7 @@ import Selector from "../../../components/Selector/Selector"
 import { SelectorsByColumns } from "../Abilities"
 import { toggleSpellMaybePopup, useAllSpellsMetadata, useConstTotalAttributes, useLevel, useSectionClassName, useSectionClassSpecName, useSectionRaceName, useSelectedAbilityNames, useSelectedFontName } from "./CharacterData"
 import { KNOWN_ABILITIES } from "../../../services/game-lib/stat-calculations"
-import { ClassesBase, ClassesLegacy, ClassesPremium } from "../AllRacesAndClasses"
+import { ClassesBase, ClassesLegacy, ClassesPremium } from "../../../services/content-providers/AllRacesAndClasses"
 import Icon from "../../../components/Icon"
 
 

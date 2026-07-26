@@ -12,9 +12,9 @@ import path from 'path'
 
 import STATIC_SYMBOLS from './parse-text-symbols-static.json' with { type: 'json' }
 import * as STATS_STATIC from './stats-constants.mjs'
-import { accessObjectProp, addError, addNameToSpellsRecursively, assertAbilityHasCorrectProps, assertObjectHas, assertObjectHasNot, forEachFoundAbility, getNErrorsFound, getObjectValueByFuzzyKey, isSpellName, looksLikeSpell, readAndNormalizeYamlToJson, replaceAllWithExceptions, REPLACEMENTS, replaceOnly, STATUS_EFFECTS, stringHasAnyOfChars, validateClass, validateRace } from './automation-utils.mjs'
+import { accessObjectProp, addError, addNameToSpellsRecursively, assertAbilityHasCorrectProps, assertObjectHas, assertObjectHasNot, findAllYAMLFiles, forEachFoundAbility, getNErrorsFound, getObjectValueByFuzzyKey, isSpellName, looksLikeSpell, objectEntriesByFuzzyKey, readAndNormalizeYamlToJson, replaceAllWithExceptions, REPLACEMENTS, replaceOnly, STATUS_EFFECTS, stringHasAnyOfChars, validateClass, validateRace } from './automation-utils.mjs'
 
-
+import SETS from './sets.json' with { type: 'json' }
 
 
 
@@ -24,74 +24,89 @@ const jsonRootFolder = '../WebsiteReact2/call-of-heroes-website-react-2/src/data
 const shouldGenerateAll = process.argv.includes('--all') || process.argv.includes('-a')
 
 
+// Polulated at runtime
 const allAbilitiesFound = {}
 const classRaceAbilities = {} 
 const weapons = {}
 const armors = {}
-const classes = []         // Polulated at runtime (Array<string>)
-const races = []           // Polulated at runtime (Array<string>)
+const classes = []           // Polulated at runtime (Array<string>)
+const races = []             // Polulated at runtime (Array<string>)
 const backgrounds = []       // Polulated at runtime
 
-const filesToConvert = [    // Order matters
+// Will be modified just below, for sets
+let filesToConvert = [    // Order matters
     // 'Abilities.yml',
-    'SpellFonts.yml',
-    'Animals.yml',
-    'Armors.yml',
-    'Feats.yml',
-    'Monsters.yml',
-    'MonsterCalculations.yml',
-    'Proficiencies.yml',
-    'Weapons.yml',
-    'Prices.yml',   // Must be after Weapons
-    'Obstacles.yml',
+    // 'SpellFonts.yml',
+    // 'Animals.yml',
+    // 'Armors.yml',
+    // 'Feats.yml',
+    // 'Monsters.yml',
+    // 'MonsterCalculations.yml',
+    // 'Proficiencies.yml',
+    // 'Weapons.yml',
+    // 'Prices.yml',   // Must be after Weapons
+    // 'Obstacles.yml',
     
-    'Other/MagicItems.yml',
-    'Other/MagicItemProperties.yml',
-    'Other/SpellSchoolDescriptions.yml',
-    'Other/Languages.yml',
-    'Other/Levels.yml',
-    'Other/Encounters.yml',
-    'Other/PatchNotes.yml',
-    'Other/Quirks.yml',
+    // 'Other/MagicItems.yml',
+    // 'Other/MagicItemProperties.yml',
+    // 'Other/SpellSchoolDescriptions.yml',
+    // 'Other/Languages.yml',
+    // 'Other/Levels.yml',
+    // 'Other/Encounters.yml',
+    // 'Other/PatchNotes.yml',
+    // 'Other/Quirks.yml',
 
-    'Rules/Rules.yml',
-    'Rules/Inventory.yml',
-    'Rules/COHFor5e.yml',
-    'Rules/GMGuidelines.yml',
+    // 'Rules/Rules.yml',
+    // 'Rules/Inventory.yml',
+    // 'Rules/COHFor5e.yml',
+    // 'Rules/GMGuidelines.yml',
 
-    'ClassesV2/Berserker.yml',
-    'ClassesV2/Cursewielder.yml',
-    'ClassesV2/Druid.yml',
-    'ClassesV2/Hunter.yml',
-    'ClassesV2/Mystic.yml',
-    'ClassesV2/Paladin.yml',
-    'ClassesV2/Priest.yml',
-    'ClassesV2/Rogue.yml',
-    'ClassesV2/Shaman.yml',
-    'ClassesV2/Soulwright.yml',
-    'ClassesV2/Warlock.yml',
-    'ClassesV2/Warrior.yml',
-    'ClassesV2/Wickan.yml',
-    'ClassesV2/Wizard.yml',
+    // 'ClassesV2/Berserker.yml',
+    // 'ClassesV2/Cursewielder.yml',
+    // 'ClassesV2/Druid.yml',
+    // 'ClassesV2/Hunter.yml',
+    // 'ClassesV2/Mystic.yml',
+    // 'ClassesV2/Paladin.yml',
+    // 'ClassesV2/Priest.yml',
+    // 'ClassesV2/Rogue.yml',
+    // 'ClassesV2/Shaman.yml',
+    // 'ClassesV2/Soulwright.yml',
+    // 'ClassesV2/Warlock.yml',
+    // 'ClassesV2/Warrior.yml',
+    // 'ClassesV2/Wickan.yml',
+    // 'ClassesV2/Wizard.yml',
 
-    'Core/Classes/Artificer.yml',
-    'Core/Classes/Knight.yml',
-    'Core/Classes/Sorcerer.yml',
-    'Core/Classes/Swashbuckler.yml',
+    // 'Core/Classes/Artificer.yml',
+    // 'Core/Classes/Knight.yml',
+    // 'Core/Classes/Sorcerer.yml',
+    // 'Core/Classes/Swashbuckler.yml',
 
-    'Races/Bertle.yml',
-    'Races/Dwarf.yml',
-    'Races/Elf.yml',
-    'Races/Gnome.yml',
-    'Races/Human.yml',
+    // 'Races/Bertle.yml',
+    // 'Races/Dwarf.yml',
+    // 'Races/Elf.yml',
+    // 'Races/Gnome.yml',
+    // 'Races/Human.yml',
     
-    'Core/Races/Davel.yml',
-    'Core/Races/Dragonborn.yml',
-    'Core/Races/Hollow.yml',
-    'Core/Races/Orc.yml',
+    // 'Core/Races/Davel.yml',
+    // 'Core/Races/Dragonborn.yml',
+    // 'Core/Races/Hollow.yml',
+    // 'Core/Races/Orc.yml',
 
-    'Book/QuestGuard Book.yml'
+    // 'Book/QuestGuard Book.yml'
 ]
+
+// Get files to convert
+for (const [setId, config] of Object.entries(SETS)) {
+    const { name, fileNames} = config
+    
+    filesToConvert = [...filesToConvert, ...fileNames.map(fp => ({
+        setName: name,
+        relativePath: path.join(yamlRootFolder, fp),
+        filePath: fp,
+        ...config
+    }))]
+
+}
 
 function normalizeInheritAbilities(dictToSearch) {
 
@@ -216,45 +231,118 @@ function findAndRecordAllAbilities(fromDict, toDict, parentKey=null, origin='Unk
     })
 }
 
+
+
+
+
 const PROCESS_STRATEGIES = {
     'Feats': obj => {
         findAndRecordAllAbilities(obj, allAbilitiesFound, null, 'Feats');
     },
     'Font': obj => {
-        for (const [category, spellsObj] of Object.entries(obj)) {
-            for (const [spellName, spell] of Object.entries(spellsObj)) {
-                spell.ScrollPower = 'Auto'
-                spell.ParentKey = category
-                spell.HasMixins = true
-            }
+        forEachFoundAbility(obj, (name, spell) => {
+            spell.ScrollPower = 'Auto'
+            spell.HasMixins = true
+        })
+    },
+    'Armor': (obj, { fileName }) => {
+        findAndRecordAllAbilities(obj, armors, null, fileName, null)
+    },
+    'Weapon': (obj, { fileName }) => {
+        findAndRecordAllAbilities(obj, weapons, null, fileName, null)
+    },
+    'Prices': obj => {
+        const weaponPricesKvp = Object.entries(weapons).map(([key, value]) => (
+            [key, value.Price]
+        )).filter(([key, price]) => price != null)
+        const weaponPrices = Object.fromEntries(weaponPricesKvp)
+        const armorPricesKvp = Object.entries(armors).map(([key, value]) => (
+            [key, value.Price]
+        )).filter(([key, price]) => price != null)
+        const armorPrices = Object.fromEntries(armorPricesKvp)
+        obj['Weapons and Equipment'] = {
+            ...obj['Weapons and Equipment'],
+            ...weaponPrices,
+            ...armorPrices
         }
+    },
+
+    'Class': (obj, { fileName }) => {
+        validateClass(obj)
+        classes.push(obj.Class)
+        findAndRecordAllAbilities(obj, classRaceAbilities, null, `Class/${obj.Class}`);
+    },
+    'Race': (obj, { fileName }) => {
+        validateRace(obj)
+        races.push(obj.Race)
+        findAndRecordAllAbilities(obj, classRaceAbilities, null, `Race/${obj.Race}`);
     }
 }
+
+
+
+function defaultOutputStrategy(obj, { fileConfig, config, fileName, fileNameNoExt, jsonString, fileDir }) {
+    const outputPath = path.join(jsonRootFolder, fileDir, `${fileNameNoExt}.json`);
+
+    try {
+        fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+        fs.writeFileSync(outputPath, jsonString, 'utf-8');
+    } catch (err) {
+        console.red(`ERROR: Failed to write JSON to ${outputPath}`);
+        throw err;
+    }
+}
+const OUTPUT_STRATEGIES = {
+
+    'default': defaultOutputStrategy,
+
+    'premium': (obj, params) => {
+        defaultOutputStrategy(obj, params)  // Write as is to the normal forlder (TODO: strip it)
+
+        const { jsonString, fileDir, fileNameNoExt } = params
+        const premiumOutputPath = path.join('GeneratedPremiumFiles', fileDir, `${fileNameNoExt}.json`)
+        console.log(`  Writing to: ${premiumOutputPath}`)
+        try {
+            fs.mkdirSync(path.dirname(premiumOutputPath), { recursive: true });
+            fs.writeFileSync(premiumOutputPath, jsonString, 'utf-8');
+        } catch (err) {
+            console.red(`ERROR: Failed to write JSON to ${premiumOutputPath}`);
+            throw err;
+        }
+    }
+
+}
+
+
+
 
 async function processFiles() {
     const filesLastUpdated = JSON.parse(fs.readFileSync('files-last-updated.json', 'utf-8'));
     let nFilesSkipped = 0
 
-    for (const fileName of filesToConvert) {
-        const filePath = path.join(yamlRootFolder, fileName);
-        const lastUpdated = fs.statSync(filePath).mtime.toString()
+    for (const fileConfig of filesToConvert) {
+        const { setId, setName, filePath, relativePath } = fileConfig
+        const fileName = filePath
+        
+        // const lastUpdated = fs.statSync(relativePath).mtime.toString()
+        // if (filesLastUpdated[fileName] == null) {
+        //     filesLastUpdated[fileName] = {}
+        // }
 
-        if (filesLastUpdated[fileName] == null) {
-            filesLastUpdated[fileName] = {}
-        }
+        // // console.log(`  modified: ${lastUpdated} type "${typeof lastUpdated}", updated: ${filesLastUpdated[fileName].lastUpdated}`)
+        // if (!shouldGenerateAll && filesLastUpdated[fileName].lastUpdated == lastUpdated) {
+        //     nFilesSkipped++
+        //     continue
+        // } else {
+        //     filesLastUpdated[fileName].lastUpdated = lastUpdated
+        // }
 
-        // console.log(`  modified: ${lastUpdated} type "${typeof lastUpdated}", updated: ${filesLastUpdated[fileName].lastUpdated}`)
-        if (!shouldGenerateAll && filesLastUpdated[fileName].lastUpdated == lastUpdated) {
-            nFilesSkipped++
-            continue
-        } else {
-            filesLastUpdated[fileName].lastUpdated = lastUpdated
-        }
 
+        // Read from file
         console.log(`Parsing ${fileName}...`);
         let dictContent
         try {
-            dictContent = readAndNormalizeYamlToJson(filePath)
+            dictContent = readAndNormalizeYamlToJson(relativePath)
         } catch (e) {
             addError()
             throw e
@@ -273,61 +361,23 @@ async function processFiles() {
         })
         normalizeInheritAbilities(dictContent)
 
-        const processStrategyFunc = getObjectValueByFuzzyKey(PROCESS_STRATEGIES, fileName)
-        processStrategyFunc?.(dictContent)
 
-        if (fileName.includes('Armor')) {
-            findAndRecordAllAbilities(dictContent, armors, null, fileName, null)
+        // Apply the strategy
+        const processStrategyFuncs = objectEntriesByFuzzyKey(PROCESS_STRATEGIES, fileName)
+        for (const [fuzzyKey, func] of processStrategyFuncs) {
+            func?.(dictContent, { fileName, fuzzyKey })
         }
-        if (fileName.includes('Weapon')) {
-            findAndRecordAllAbilities(dictContent, weapons, null, fileName, null)
-        }
-        if (fileName.includes('Prices')) {
-            const weaponPricesKvp = Object.entries(weapons).map(([key, value]) => (
-                [key, value.Price]
-            )).filter(([key, price]) => price != null)
-            const weaponPrices = Object.fromEntries(weaponPricesKvp)
-            const armorPricesKvp = Object.entries(armors).map(([key, value]) => (
-                [key, value.Price]
-            )).filter(([key, price]) => price != null)
-            const armorPrices = Object.fromEntries(armorPricesKvp)
-            dictContent['Weapons and Equipment'] = {
-                ...dictContent['Weapons and Equipment'],
-                ...weaponPrices,
-                ...armorPrices
-            }
-        }
+        
 
-
-        if (filePath.includes('Classes')) {
-            validateClass(dictContent)
-            classes.push(dictContent.Class)
-            findAndRecordAllAbilities(dictContent, allAbilitiesFound, null, `Class/${dictContent.Class}`);
-            normalizeInheritAbilities(dictContent);
-            findAndRecordAllAbilities(dictContent, classRaceAbilities, null, `Class/${dictContent.Class}`);
-        }
-
-        if (filePath.includes('Races')) {
-            validateRace(dictContent)
-            races.push(dictContent.Race)
-            findAndRecordAllAbilities(dictContent, allAbilitiesFound, null, `Race/${dictContent.Race}`);
-            normalizeInheritAbilities(dictContent);
-            findAndRecordAllAbilities(dictContent, classRaceAbilities, null, `Race/${dictContent.Race}`);
-        }
-
-
+        // Output
+        const jsonString = JSON.stringify(dictContent, null, 4);
         const fileNameNoExt = path.parse(fileName).name;
         const fileDir = path.dirname(fileName);
-        const outputPath = path.join(jsonRootFolder, fileDir, `${fileNameNoExt}.json`);
 
-        const jsonString = JSON.stringify(dictContent, null, 4);
-
-        try {
-            fs.mkdirSync(path.dirname(outputPath), { recursive: true });
-            fs.writeFileSync(outputPath, jsonString, 'utf-8');
-        } catch (err) {
-            console.red(`ERROR: Failed to write JSON to ${outputPath}`);
-            throw err;
+        if (fileConfig.isPremium) {
+            OUTPUT_STRATEGIES.premium(dictContent, { config: fileConfig, fileName, fileNameNoExt, jsonString, fileDir })
+        } else {
+            OUTPUT_STRATEGIES.default(dictContent, { config: fileConfig, fileName, fileNameNoExt, jsonString, fileDir })
         }
     }
 

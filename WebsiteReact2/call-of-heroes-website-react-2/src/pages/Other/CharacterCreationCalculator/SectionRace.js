@@ -3,17 +3,18 @@ import PageH2 from "../../../components/PageH2/PageH2"
 import TwoColumns from "../../../components/TwoColumns/TwoColumns"
 import Column from "../../../components/TwoColumns/Column"
 import { ClassPageV2, CCRacePage } from "../../../components/InsertableTemplates/RaceClassComponents"
-import { getAllClasses, getAllRaces, getAllSpellsByName, splitArrayEvenly, useLocalStorageState } from "../../../utils"
+import { getAllSpellsByName, splitArrayEvenly, useLocalStorageState } from "../../../utils"
 import { classesRacesObjectToArrays } from "./CharacterCreationCalculator"
 import Selector from "../../../components/Selector/Selector"
 import { SelectorsByColumns } from "../Abilities"
 import { getSelectedAbilityNames, toggleSpellMaybePopup, useSectionRaceName, useSelectedAbilityNames } from "./CharacterData"
+import { getAllRaceNames } from "../../../services/content-providers/race-provider"
 
 
 
 export default function SectionRace({ openPopup }) {
 
-    const RACES_OBJ = getAllRaces()
+    const RACES_OBJ = getAllRaceNames()
     const selectorData = Object.keys(RACES_OBJ).map(raceName => ({
         name: raceName,
         src: `/Icons/Races/${raceName}.png`
@@ -25,10 +26,6 @@ export default function SectionRace({ openPopup }) {
 
     const getSelectedRaceName = () => selectedRaceName
     
-    window.getAllRaces = getAllRaces
-    window.getSelectedRaceName = getSelectedRaceName
-    window.selectedRaceName = selectedRaceName
-
     function onRaceSelectorClick(raceName) {
         const mySpells = getSelectedAbilityNames().map(name => getAllSpellsByName()[name])
         const spellIsFromMyRace = s => s?.Origin?.includes(selectedRaceName)

@@ -7,7 +7,7 @@ import { getFirestore } from "firebase-admin/firestore";
 // Whenever I need to use this script, I must download a new admin JSON from firebase
 const serviceAccount = JSON.parse(
   await readFile(
-    new URL("../firebase-admin.json", import.meta.url),
+    new URL("./firebase-admin.json", import.meta.url),
     "utf8"
   )
 );

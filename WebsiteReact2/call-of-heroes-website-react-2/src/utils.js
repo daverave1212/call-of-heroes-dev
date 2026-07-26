@@ -11,7 +11,7 @@ import abilities from './databases/Abilities.json'
 import prices from './databases/Prices.json'
 import magicItems from './databases/Other/MagicItems.json'
 import overallData from './databases/OverallData.json'
-import { Races, Classes, ClassesBase, ClassesPremium, ClassesLegacy } from './pages/Other/AllRacesAndClasses'
+import { Races, Classes, ClassesBase, ClassesPremium, ClassesLegacy } from './services/content-providers/AllRacesAndClasses'
 import { useEffect, useState } from "react"
 import BasicAbilities from './databases/Abilities.json'
 import SpellFonts from './databases/SpellFonts.json'

@@ -2,7 +2,7 @@ import { generateClassPowerLevelTable } from "../../components/InsertableTemplat
 import TableNormal from "../../components/TableNormal/TableNormal";
 import Page from "../../containers/Page/Page";
 import { last } from "../../utils";
-import { ClassesBase, ClassesPremium } from "../Other/AllRacesAndClasses";
+import { ClassesBase, ClassesPremium } from "../../services/content-providers/AllRacesAndClasses";
 
 
 export default function ClassBalance() {
