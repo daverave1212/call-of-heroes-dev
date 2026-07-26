@@ -614,6 +614,25 @@ export function hasSpellVariants(spell) {
 
 
 // --------------- Questguard Utilities --------------
+let setsConfig = null
+export async function getSetsConfigAsync() {
+    if (setsConfig != null) {
+        return setsConfig
+    }
+    const res = await fetch('/sets-config.json')
+    const cfg = await res.json()
+    setsConfig = cfg
+    return setsConfig
+}
+export async function getSetLiveVersionAsync(setName) {
+    return (await getSetsConfigAsync()).versions[setName]
+}
+export function getPremiumSets() {
+    return ['core']
+}
+export function isSetPremium(setName) {
+    return getPremiumSets().includes(setName)
+}
 export function isMonsterEpic(monster) {
     if (monster == null) {
         return false
@@ -1204,7 +1223,7 @@ export function getSpecRepresentativeIconFullPath(classObj, specName) {
 export function getAlMyRaceAndClassSpells({ raceName, className, specName, selectedClassSpellNames=[], selectedRaceSpellNames=[] }) {
     const allSpells = getAllSpellsByName()
 
-    const myRace = getAllRaces()[raceName]
+    const myRace = getRace(raceName)
     const myClass = getAllClasses()[className]
     const mySpec = myClass?.Specs?.[specName]
     
@@ -2251,6 +2270,12 @@ export function dom(htmlString) {
   
   // doc.body.firstElementChild retrieves the top-level element with all its children
   return doc.body.firstElementChild;
+}
+export function isNewer(newerDate, olderDate) { // Compares date a with dateB
+    if (newerDate != null && olderDate == null) {
+        return true
+    }
+    return newerDate > olderDate;
 }
 export function printTimestamp(str) {
     const date = new Date()

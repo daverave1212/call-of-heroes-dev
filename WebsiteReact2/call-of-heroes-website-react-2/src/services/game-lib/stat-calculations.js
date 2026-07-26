@@ -1,4 +1,4 @@
-import { addArrays, addManyObjects, addObjects, calculateString, capitalizeFirstLetter, getAllClasses, getAllRaces, isNumber, isString, MANA_BASED_SPELLCASTING, mapObject, SPECIAL_MANA_BASED_SPELLCASTING, stringReplaceAllMany } from "../../utils"
+import { addArrays, addManyObjects, addObjects, calculateString, capitalizeFirstLetter, getAllClasses, getAllRaces, getRace, isNumber, isString, MANA_BASED_SPELLCASTING, mapObject, SPECIAL_MANA_BASED_SPELLCASTING, stringReplaceAllMany } from "../../utils"
 import {
     STAT_LIMITS_TEXT,
     MIGHT,
@@ -284,7 +284,7 @@ export function calculateAllAtributes({raceName, className, level, totalStats, b
     if (raceName == null || className == null || level == null || totalStats == null) {
         return {...ALL_ATTRIBUTES_0}
     }
-    const raceObj = getAllRaces()[raceName]
+    const raceObj = getRace(raceName)
     const classObj = getAllClasses()[className]
     const totalStatsArray = totalStats
     

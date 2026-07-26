@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import * as firebaseAuth from "../Firebase/FirebaseAuth";
 import { useState } from "react";
 import { getLocalStorageJSON, setLocalStorageJSON, useLocalStorageState } from "../../utils";
-import { existsMyDocInCollection, setMyDocInCollection } from "../online-database/Database";
+import { existsMyDocInCollection, getMyDocInCollection, setMyDocInCollection } from "../online-database/Database";
 import defaultPublicUserDataMap from './default-public-user-data-map.json'
 
-let userData = null
+let userSets = null
 export const getUserState = () => getLocalStorageJSON('currentUserData')
+
 window.getUserState = getUserState
+window._getUserSets = () => userSets
 
 const authChangedListeners = {}
 
@@ -50,33 +52,10 @@ export function useAuth(uniqueLocationID) {
     return { user: userData }
 }
 
-// export function useAuth(uniqueLocationID) {
-//     const [userData, setUserData] = useState(getUserState())
-
-//     onUserStateChanged(uniqueLocationID + '-auth', newUserData => {
-//         setUserData(newUserData)
-//     })
-
-//     return { user: userData }
-// }
-
 export function useIsLoggedIn(uniqueLocationID) {
     const { user } = useAuth(uniqueLocationID)
     return user != null
 }
-
-// const timersForCheckAuth = {}
-// export function useIsLoggedIn(uniqueLocationID) {
-//     const [innerUserData, setInnerUserData] = useState(getUserState())
-//     if (timersForCheckAuth == null) {
-//         timersForCheckAuth[uniqueLocationID] = setInterval(() => {
-//             if (getUserState() != innerUserData) {
-//                 setInnerUserData(getUserState())
-//             }
-//         }, 500)
-//     }
-//     return innerUserData != null
-// }
 
 export async function login() {
     console.log(`  Auth.login`)
@@ -101,3 +80,32 @@ export function isLoggedIn() {
 export function onUserStateChanged(funcId, func) {
     authChangedListeners[funcId] = func
 }
+
+
+export async function getMyOwnedSetsAsync() {
+    if (!isLoggedIn()) {
+        console.warn(`WARNING: Can not getMyOwnedSets when not logged in. Returning []`)
+        return []
+    }
+
+    if (userSets != null) {
+        return userSets
+    }
+
+    const existsPrivateUserData = await existsMyDocInCollection('private-user-data')
+    if (!existsPrivateUserData) {
+        console.warn(`Currently logged user does not have a private-user-data.`)
+        return []
+    }
+
+    const myPrivateData = await getMyDocInCollection('private-user-data')
+    const mySets = myPrivateData?.ownedProducts ?? []
+
+    return mySets
+}
+export async function doIOwnSet(setName) {
+    const ownedSets = await getMyOwnedSetsAsync()
+    return ownedSets.includes(setName)
+}
+
+window.getMyOwnedSetsAsync = getMyOwnedSetsAsync

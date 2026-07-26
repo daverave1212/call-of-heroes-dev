@@ -13,6 +13,7 @@ import { AttributeCalculationTextComponent, ATTRIBUTES_EXPLANATIONS, calculateEx
 import classNames from "classnames"
 import { BigStatInput } from "../../../components/BigStat/BigStatInput"
 import { ExperienceSlider } from "../../../components/Other/ExperienceSlider"
+import { getRaceLocal } from "../../../services/content-providers/race-provider"
 
 
 export default function SectionStats() {
@@ -80,7 +81,7 @@ export default function SectionStats() {
             isCorrect = checkStatRequirements(stats, statRequirementCode)
             if (isCorrect == false) {
                 setStatsCorrectError({
-                    message: `Your Stats might not respect your chosen race requirements: ${getRace(selectedRaceName)?.Creation?.['Stat Restrictions']}`
+                    message: `Your Stats might not respect your chosen race requirements: ${getRaceLocal(selectedRaceName)?.Creation?.['Stat Restrictions']}`
                 })
                 return
             }
