@@ -5,6 +5,7 @@ import path from 'path'
 
 import STATIC_SYMBOLS from './parse-text-symbols-static.json' with { type: 'json' }
 import * as STATS_STATIC from './stats-constants.mjs'
+import SETS from './sets-config.json' with { type: 'json' }
 const { STAT_SYMBOLS } = STATS_STATIC
 
 
@@ -136,6 +137,10 @@ export function stringHasAnyOfChars(str, chars) {
     }
     return false
 }
+export function capitalizeFirstLetter(str) {
+  if (!str) return ""; // Handle empty string or null
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
 
 // ----------- QUESTGUARD UTILS ------------
 export function isSpellName(dictKey) {
@@ -248,10 +253,34 @@ export function readAllJsonsSync(dirPath) {
   return jsonObjects;
 }
 export function writeJSONSync(obj, path) {
-    const json = isString(obj)? obj: JSON.stringify(obj)
+    const json = isString(obj)? obj: JSON.stringify(obj, null, 4)
     fs.writeFileSync(path, json, 'utf-8');
 }
-
+// export const FEATURES = {
+//     Races: 'races',
+//     Classes: 'classes',
+//     Feats: 'feats',
+//     Fonts: 'fonts',
+//     Items: 'items',
+//     Prices: 'prices'
+// }
+// export function getFileFeatureType(setName, relativePath) {
+//     const parts = relativePath.split(/[/\\]/).filter(Boolean);
+//     const maybeSetName = parts.splice(0, 1).toLowerCase()
+//     if (maybeSetName == setName.toLowerCase()) {
+//         if (parts.length <= 1) {            // Core/Something.yml -- no type
+//             return null
+//         }
+//         const featureName = parts[0]
+//         return featureName.toLowerCase()    // Core/Races/x... returns "races"
+//     } else {
+//         if (parts.length <= 1) {            // Something.yml -- no type
+//             return null
+//         }
+//         const featureName = parts[0]
+//         return featureName.toLowerCase()    // Races/x... returns "races"
+//     }
+// }
 export function getTodayString() {
     const today = new Date().toISOString().split('T')[0]
     return today
@@ -467,3 +496,6 @@ export function findAllYAMLFiles(folderName) {
   scanDirectory(folderName);
   return results;
 }
+
+
+// ------------- SETS ------------

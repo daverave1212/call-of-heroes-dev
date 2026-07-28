@@ -4,7 +4,7 @@ import { getAllLanguages, getRace, splitArrayEvenly, useLocalStorageState } from
 import { QGTitle1 } from "../../Tools/TitleGenerator";
 import { useConstTotalStats } from "./MyCharacter";
 import { useLanguages, useSectionRaceName } from "./CharacterData";
-import { getRaceLocal } from "../../../services/content-providers/race-provider";
+import { getRaceLocal } from "../../../services/content-providers/RaceProvider";
 
 
 function LanguageSelector({ language, isSelected, onClick }) {

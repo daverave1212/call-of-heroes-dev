@@ -28,30 +28,9 @@ import theRace from '../../databases/Races/Elf.json'
 
 import ManySpells from '../../components/Spell/ManySpells'
 
-import {  Spec, PHealthAndArmor, Proficiencies, AbilitiesWithDescription, RaceFeatures, RacialFeats, RaceDescription, RaceHeader } from '../../components/InsertableTemplates/RaceClassComponents'
+import {  Spec, PHealthAndArmor, Proficiencies, AbilitiesWithDescription, RaceFeatures, RacialFeats, RaceDescription, RaceHeader, RacePage } from '../../components/InsertableTemplates/RaceClassComponents'
 
 export default function Race() {
 
-    return (
-        <div>
-
-            <SideMenuFromRace theRace={theRace}/>
-            <Page>
-
-                <RaceHeader theRace={theRace}/>
-
-                <RaceFeatures theRace={theRace}/>
-
-                <Proficiencies name={theRace.Race} theRaceOrClass={theRace}/>
-
-                <AbilitiesWithDescription id="abilities" spellsObject={theRace['Starting Abilities']} title='Abilities' description={theRace['Starting Abilities Description']}/>
-
-                <RacialFeats theRace={theRace}/>
-
-            </Page>
-
-            
-
-        </div>
-        )
+    return <RacePage raceName="Elf"/>
 }

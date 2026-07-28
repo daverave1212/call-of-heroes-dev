@@ -13,7 +13,7 @@ import { AttributeCalculationTextComponent, ATTRIBUTES_EXPLANATIONS, calculateEx
 import classNames from "classnames"
 import { BigStatInput } from "../../../components/BigStat/BigStatInput"
 import { ExperienceSlider } from "../../../components/Other/ExperienceSlider"
-import { getRaceLocal } from "../../../services/content-providers/race-provider"
+import { getRaceLocal } from "../../../services/content-providers/RaceProvider"
 
 
 export default function SectionStats() {

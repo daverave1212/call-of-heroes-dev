@@ -44,6 +44,8 @@ import { toggleSpellForSelectedSpellNames } from '../../pages/Other/CharacterCre
 import { BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP, HEALTH_REGEN, INITIATIVE, INTELLIGENCE, MAX_HEALTH, MOVEMENT_SPEED, normalizeTextWithStats, STAT_LIMITS_TEXT } from '../../services/game-lib/stat-calculations'
 import { SelectorsByColumns } from '../../pages/Other/Abilities'
 import ErrorPage from '../ErrorPage/ErrorPage'
+import SetRequiredBanner from '../SetRequiredBanner/SetRequiredBanner'
+import { getRaceAsync, getRaceLocal } from '../../services/content-providers/RaceProvider'
 
 
 export function Proficiencies({ name, theRaceOrClass }) {
@@ -590,7 +592,16 @@ export function AbilitiesWithDescription({ spellsObject, description, title, aut
 }
 
 
-export function RacePage({ theRace }) {
+export function RacePage({ raceName }) {
+
+    const [theRace, setTheRace] = useState(getRaceLocal(raceName))
+
+    useEffect(() => {
+        (async () => {
+            const fullRace = await getRaceAsync(raceName)
+            setTheRace(fullRace)
+        })()
+    }, [])
 
     if (theRace == null) {
         return <ErrorPage/>
@@ -712,9 +723,13 @@ export function ClassPageV2({
     const spellFontNames = Object.keys(spellFonts)
     const spellFontsSelectorData = spellFontNames.map(fontName => ({ name: fontName, src: U.getSpellIconPathByName(U.getAnyKey(spellFonts[fontName])) }))
 
+    const shouldHaveLocalhostPowerTable = theClass.Talents != null || theClass.Specs != null
+
     function onSpecClick(specName) {
         setSelectedSpecName(specName)
     }
+
+    const shouldDisplaySetRequired = theClass.Specs == null && theClass.Talents == null
 
 
 
@@ -851,7 +866,7 @@ export function ClassPageV2({
                     </div>
                 </>)}
 
-
+                { shouldDisplaySetRequired && <SetRequiredBanner setName={theClass.Set ?? 'basic'}/> }
 
 
             </Page>
@@ -884,7 +899,7 @@ export function ClassPageV2({
             )}
 
             <Page>
-                { U.isLocalhost() && (
+                { U.isLocalhost() && shouldHaveLocalhostPowerTable && (
                     <ClassPowerLevelTable theClass={theClass}/>
                 )}
             </Page>

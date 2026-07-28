@@ -37,6 +37,6 @@ import {  Spec, PHealthAndArmor, Proficiencies, AbilitiesWithDescription, RaceFe
 export default function Race() {
 
     return (
-        <RacePage theRace={theRace}/>
+        <RacePage raceName="Bertle"/>
     )
 }

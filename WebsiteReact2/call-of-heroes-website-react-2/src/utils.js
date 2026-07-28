@@ -627,11 +627,18 @@ export async function getSetsConfigAsync() {
 export async function getSetLiveVersionAsync(setName) {
     return (await getSetsConfigAsync()).versions[setName]
 }
-export function getPremiumSets() {
-    return ['core']
+export async function getPremiumSetsAsync() {
+    const sets = await getSetsConfigAsync()
+    return Object.entries(sets).filter(([key, value]) => value.isPremium).map(([key]) => key)
 }
-export function isSetPremium(setName) {
-    return getPremiumSets().includes(setName)
+export async function isSetPremiumAsync(setName) {
+    return (await getPremiumSetsAsync()).includes(setName)
+}
+export async function isSetFreeAsync(setName) {
+    return !(await isSetPremiumAsync(setName))
+}
+export function getSetFeatureId(setName, featureName) {
+    return setName + '-' + featureName
 }
 export function isMonsterEpic(monster) {
     if (monster == null) {

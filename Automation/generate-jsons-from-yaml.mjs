@@ -12,10 +12,32 @@ import path from 'path'
 
 import STATIC_SYMBOLS from './parse-text-symbols-static.json' with { type: 'json' }
 import * as STATS_STATIC from './stats-constants.mjs'
-import { accessObjectProp, addError, addNameToSpellsRecursively, assertAbilityHasCorrectProps, assertObjectHas, assertObjectHasNot, findAllYAMLFiles, forEachFoundAbility, getNErrorsFound, getObjectValueByFuzzyKey, isSpellName, looksLikeSpell, objectEntriesByFuzzyKey, readAndNormalizeYamlToJson, replaceAllWithExceptions, REPLACEMENTS, replaceOnly, STATUS_EFFECTS, stringHasAnyOfChars, validateClass, validateRace } from './automation-utils.mjs'
+import { accessObjectProp, addError, addNameToSpellsRecursively, assertAbilityHasCorrectProps, assertObjectHas, assertObjectHasNot, findAllYAMLFiles, forEachFoundAbility, getFileFeatureType, getNErrorsFound, getObjectValueByFuzzyKey, isSpellName, looksLikeSpell, objectEntriesByFuzzyKey, readAndNormalizeYamlToJson, replaceAllWithExceptions, REPLACEMENTS, replaceOnly, STATUS_EFFECTS, stringHasAnyOfChars, validateClass, validateRace } from './automation-utils.mjs'
 
-import SETS from './sets.json' with { type: 'json' }
+import SETS from './sets-config.json' with { type: 'json' }
 
+const PREMIUM_KEYS_TO_STRIP = [
+    'Other Abilities',
+    'Utility',
+    'Talents',
+    'Specs',
+]
+
+function stripPremiumContentOfFeatures(obj, { config, fileName, fileNameNoExt, fileDir }) {
+    const newObj = {...obj}
+
+    function stripNormal() {
+        for (const key of PREMIUM_KEYS_TO_STRIP) {
+            delete newObj[key]
+        }
+    }
+
+    if (fileDir.includes('Races') || fileDir.includes('Classes')) {
+        stripNormal()
+    }
+
+    return newObj
+}
 
 
 const yamlRootFolder = '../Design'
@@ -34,66 +56,7 @@ const races = []             // Polulated at runtime (Array<string>)
 const backgrounds = []       // Polulated at runtime
 
 // Will be modified just below, for sets
-let filesToConvert = [    // Order matters
-    // 'Abilities.yml',
-    // 'SpellFonts.yml',
-    // 'Animals.yml',
-    // 'Armors.yml',
-    // 'Feats.yml',
-    // 'Monsters.yml',
-    // 'MonsterCalculations.yml',
-    // 'Proficiencies.yml',
-    // 'Weapons.yml',
-    // 'Prices.yml',   // Must be after Weapons
-    // 'Obstacles.yml',
-    
-    // 'Other/MagicItems.yml',
-    // 'Other/MagicItemProperties.yml',
-    // 'Other/SpellSchoolDescriptions.yml',
-    // 'Other/Languages.yml',
-    // 'Other/Levels.yml',
-    // 'Other/Encounters.yml',
-    // 'Other/PatchNotes.yml',
-    // 'Other/Quirks.yml',
-
-    // 'Rules/Rules.yml',
-    // 'Rules/Inventory.yml',
-    // 'Rules/COHFor5e.yml',
-    // 'Rules/GMGuidelines.yml',
-
-    // 'ClassesV2/Berserker.yml',
-    // 'ClassesV2/Cursewielder.yml',
-    // 'ClassesV2/Druid.yml',
-    // 'ClassesV2/Hunter.yml',
-    // 'ClassesV2/Mystic.yml',
-    // 'ClassesV2/Paladin.yml',
-    // 'ClassesV2/Priest.yml',
-    // 'ClassesV2/Rogue.yml',
-    // 'ClassesV2/Shaman.yml',
-    // 'ClassesV2/Soulwright.yml',
-    // 'ClassesV2/Warlock.yml',
-    // 'ClassesV2/Warrior.yml',
-    // 'ClassesV2/Wickan.yml',
-    // 'ClassesV2/Wizard.yml',
-
-    // 'Core/Classes/Artificer.yml',
-    // 'Core/Classes/Knight.yml',
-    // 'Core/Classes/Sorcerer.yml',
-    // 'Core/Classes/Swashbuckler.yml',
-
-    // 'Races/Bertle.yml',
-    // 'Races/Dwarf.yml',
-    // 'Races/Elf.yml',
-    // 'Races/Gnome.yml',
-    // 'Races/Human.yml',
-    
-    // 'Core/Races/Davel.yml',
-    // 'Core/Races/Dragonborn.yml',
-    // 'Core/Races/Hollow.yml',
-    // 'Core/Races/Orc.yml',
-
-    // 'Book/QuestGuard Book.yml'
-]
+let filesToConvert = []
 
 // Get files to convert
 for (const [setId, config] of Object.entries(SETS)) {
@@ -281,7 +244,8 @@ const PROCESS_STRATEGIES = {
 
 
 
-function defaultOutputStrategy(obj, { fileConfig, config, fileName, fileNameNoExt, jsonString, fileDir }) {
+function defaultOutputStrategy(obj, { fileConfig, config, fileName, fileNameNoExt, fileDir }) {
+    const jsonString = JSON.stringify(obj, null, 4);
     const outputPath = path.join(jsonRootFolder, fileDir, `${fileNameNoExt}.json`);
 
     try {
@@ -297,9 +261,12 @@ const OUTPUT_STRATEGIES = {
     'default': defaultOutputStrategy,
 
     'premium': (obj, params) => {
-        defaultOutputStrategy(obj, params)  // Write as is to the normal forlder (TODO: strip it)
-
-        const { jsonString, fileDir, fileNameNoExt } = params
+        const { config, fileName, fileNameNoExt, fileDir } = params
+        const strippedObj = stripPremiumContentOfFeatures(obj, params)
+        defaultOutputStrategy(strippedObj, params)  // Write as is to the normal folder (TODO: strip it)
+        
+        const jsonString = JSON.stringify(obj, null, 4);
+        
         const premiumOutputPath = path.join('GeneratedPremiumFiles', fileDir, `${fileNameNoExt}.json`)
         console.log(`  Writing to: ${premiumOutputPath}`)
         try {
@@ -324,20 +291,6 @@ async function processFiles() {
         const { setId, setName, filePath, relativePath } = fileConfig
         const fileName = filePath
         
-        // const lastUpdated = fs.statSync(relativePath).mtime.toString()
-        // if (filesLastUpdated[fileName] == null) {
-        //     filesLastUpdated[fileName] = {}
-        // }
-
-        // // console.log(`  modified: ${lastUpdated} type "${typeof lastUpdated}", updated: ${filesLastUpdated[fileName].lastUpdated}`)
-        // if (!shouldGenerateAll && filesLastUpdated[fileName].lastUpdated == lastUpdated) {
-        //     nFilesSkipped++
-        //     continue
-        // } else {
-        //     filesLastUpdated[fileName].lastUpdated = lastUpdated
-        // }
-
-
         // Read from file
         console.log(`Parsing ${fileName}...`);
         let dictContent
@@ -370,14 +323,13 @@ async function processFiles() {
         
 
         // Output
-        const jsonString = JSON.stringify(dictContent, null, 4);
         const fileNameNoExt = path.parse(fileName).name;
         const fileDir = path.dirname(fileName);
 
         if (fileConfig.isPremium) {
-            OUTPUT_STRATEGIES.premium(dictContent, { config: fileConfig, fileName, fileNameNoExt, jsonString, fileDir })
+            OUTPUT_STRATEGIES.premium(dictContent, { config: fileConfig, fileName, fileNameNoExt, fileDir })
         } else {
-            OUTPUT_STRATEGIES.default(dictContent, { config: fileConfig, fileName, fileNameNoExt, jsonString, fileDir })
+            OUTPUT_STRATEGIES.default(dictContent, { config: fileConfig, fileName, fileNameNoExt, fileDir })
         }
     }
 

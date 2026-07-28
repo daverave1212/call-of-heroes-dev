@@ -8,7 +8,7 @@ import { classesRacesObjectToArrays } from "./CharacterCreationCalculator"
 import Selector from "../../../components/Selector/Selector"
 import { SelectorsByColumns } from "../Abilities"
 import { getSelectedAbilityNames, toggleSpellMaybePopup, useSectionRaceName, useSelectedAbilityNames } from "./CharacterData"
-import { getAllRaceNames, raceExists } from "../../../services/content-providers/race-provider"
+import { getAllRaceNames, raceExists } from "../../../services/content-providers/RaceProvider"
 
 
 

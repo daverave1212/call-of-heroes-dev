@@ -14,18 +14,27 @@ export async function clearCache() {
     await db.clear("keyValue");
 }
 
+
+// Aside from the IndexedDB cache, we also make a local cache, to save even more read time
+const _localCache = {}
+
 const cache = {
     async setAsync(key, value) {
         const db = await dbPromise;
         await db.put("keyValue", value, key);
+        _localCache[key] = value
     },
     async getAsync(key) {
+        if (_localCache[key]) {
+            return _localCache[key]
+        }
         const db = await dbPromise;
         return await db.get("keyValue", key);
     },
     async deleteAsync(key) {
         const db = await dbPromise;
         await db.delete("keyValue", key);
+        delete _localCache[key]
     },
     async existsAsync(key) {
         const db = await dbPromise;

@@ -107,5 +107,8 @@ export async function doIOwnSet(setName) {
     const ownedSets = await getMyOwnedSetsAsync()
     return ownedSets.includes(setName)
 }
+export async function isSetUnavailableAsync(setName) {
+    return !(await doIOwnSet(setName))
+}
 
 window.getMyOwnedSetsAsync = getMyOwnedSetsAsync

@@ -2,13 +2,14 @@
 
 import { getTimestamp, getTodayString, readAllJsonsSync, readJson, writeJSONSync } from './automation-utils.mjs';
 import { setDocument } from './Firebase/firebase.mjs';
-import SETS from './sets.json' with { type: 'json' }
+import SETS from './sets-config.json' with { type: 'json' }
 import FOLDER_STRUCTURE from './private-folder-structure.json' with { type: 'json' }
 import path from 'path'
 
-
-const SETS_ROOT = './GeneratedPremiumFiles'
 const args = process.argv.slice(2);
+
+const SETS_ROOT = './'
+const GENERATED_FILES_ROOT = './GeneratedPremiumFiles'
 
 if (args.length == 0 || args[0] == 'help') {
     console.log(`
@@ -20,7 +21,7 @@ if (args.length == 0 || args[0] == 'help') {
     - Classes
 
     The setsConfig with versions is NOT uploaded to Firebase.
-    Baseline, the config is generated in GeneratedPremiumFiles. That's its main place.
+    Baseline, the config is generated right here, in this base folder. That's its main place.
     
     Then, it is generated inside both the repo/public, and websiteRepo folders.
     It will be accessed as a static file as /setsConfig on the website.
@@ -33,31 +34,34 @@ const DEFAULT_SETS_CONFIG = {
     versions: Object.fromEntries(Object.keys(SETS).map(setId => ([setId, today])))
 }
 function makeConfig() {
-    let setsConfig = null
     const setsConfigPath = path.join(SETS_ROOT, 'sets-config.json')
     const repoSetsConfigPath = path.join(FOLDER_STRUCTURE.repoPath, 'public', 'sets-config.json')
     const websiteRepoSetsConfigPath = path.join(FOLDER_STRUCTURE.websiteRepoPath, 'sets-config.json')
-    
-    try {
-        setsConfig = readJson(setsConfigPath)
-    } catch (e) {
-        console.warn(`No sets-config found at ${SETS_ROOT}. Making one...`)
-        setsConfig = DEFAULT_SETS_CONFIG
-    }
 
+    for (const [setId, setCfg] of Object.entries(SETS)) {
+        if (setCfg.version == null) {
+            SETS[setId].version = today
+        }
+    }
     
     for (const setId of args) {
-        setsConfig.versions[setId] = today
+        const setCfg = SETS[setId]
+        
+        if (!setCfg.isPremium) {
+            continue
+        }
+
+        SETS[setId].version = today
     }
 
-    writeJSONSync(setsConfig, setsConfigPath)
-    writeJSONSync(setsConfig, repoSetsConfigPath)
-    writeJSONSync(setsConfig, websiteRepoSetsConfigPath)
+    writeJSONSync(SETS, setsConfigPath)
+    writeJSONSync(SETS, repoSetsConfigPath)
+    writeJSONSync(SETS, websiteRepoSetsConfigPath)
 }
 
 async function updateSetAsync(setId) {
     const set = SETS[setId]
-    const setPath = path.join(SETS_ROOT, set.name)
+    const setPath = path.join(GENERATED_FILES_ROOT, set.name)
 
     if (!set.isPremium) {
         console.warn(`⚠ Set ${set.name} is not premium. Skipping.`)

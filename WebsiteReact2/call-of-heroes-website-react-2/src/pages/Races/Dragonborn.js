@@ -32,30 +32,5 @@ import {  Spec, PHealthAndArmor, Proficiencies, AbilitiesWithDescription, RaceFe
 
 export default function Race() {
 
-    return <RacePage theRace={theRace}/>
-
-    return (
-        <div>
-
-            <SideMenuFromRace theRace={theRace}/>
-            <Page>
-
-                <RaceHeader theRace={theRace}/>
-
-                <RaceFeatures theRace={theRace}/>
-
-                <Proficiencies name={theRace.Race} theRaceOrClass={theRace}/>
-
-                <AbilitiesWithDescription id="abilities" spellsObject={theRace['Starting Abilities']} title='Abilities' description={theRace['Starting Abilities Description']}/>
-
-                <AbilitiesWithDescription spellsObject={theRace['Ability Choices']} title='Ability Choice' description={theRace['Ability Choices Description']}/>
-
-                <RacialFeats theRace={theRace}/>
-
-            </Page>
-
-            
-
-        </div>
-        )
+    return <RacePage raceName="Dragon"/>
 }
