@@ -10,7 +10,7 @@ import './CharacterCreationCalculator.css'
 import { SpellTopIconSide } from "../../../components/Spell/Spell";
 import { CoolButton } from "../../../components/CoolButton/CoolButton";
 import HeroButton from "../../../components/HeroButton/HeroButton";
-import useConstWindowDimensions, { generateUniqueId, getAllClasses, getAllRaces, getClassRepresentativeIconName, getSpellIconPathByName, isStringJSON, normalizeStringJSON, pasteFromClipboardAsync, splitArrayEvenly, uncapitalizeFirstLetter, useLocalStorageState } from "../../../utils";
+import useConstWindowDimensions, { generateUniqueId, getAllClasses, getClassRepresentativeIconName, getSpellIconPathByName, isStringJSON, normalizeStringJSON, pasteFromClipboardAsync, splitArrayEvenly, uncapitalizeFirstLetter, useLocalStorageState } from "../../../utils";
 import Selector from "../../../components/Selector/Selector";
 import ManySpells from "../../../components/Spell/ManySpells";
 
@@ -18,7 +18,6 @@ import overallData from '../../../databases/OverallData.json'
 import { connectFirestoreEmulator } from "firebase/firestore";
 import PageH2 from "../../../components/PageH2/PageH2";
 import Tabs from "../../../components/Tabs/Tabs";
-import { ClassPageV2, CCRacePage, ClassPage, RacePage } from "../../../components/InsertableTemplates/RaceClassComponents";
 import { QGTitle1 } from "../../Tools/TitleGenerator";
 import Icon from "../../../components/Icon";
 import SectionNames from "./SectionNames";

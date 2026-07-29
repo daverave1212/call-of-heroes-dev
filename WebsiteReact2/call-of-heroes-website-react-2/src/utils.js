@@ -176,7 +176,10 @@ function getErrorSpellObject(message) {
     ]
 */
 export function spellsFromObject(obj) /* : Array */ {
-    if (obj == null) return getErrorSpellObject('Null obj given to spellsFromObject')
+    if (obj == null) {
+        console.error(`Null obj given to spellsFromObject!`)
+        return []
+    }
 
     const spellsArray = []
     for (const key of Object.keys(obj)) {
@@ -1185,9 +1188,6 @@ export function getPremiumClasses() {
 }
 export function getLegacyClasses() {
     return ClassesLegacy
-}
-export function getAllRaces() {
-    return Races
 }
 export function getRace(raceName) {
     return Races[raceName]

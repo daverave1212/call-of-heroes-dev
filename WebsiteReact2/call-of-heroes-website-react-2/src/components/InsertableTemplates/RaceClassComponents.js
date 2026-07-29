@@ -46,6 +46,7 @@ import { SelectorsByColumns } from '../../pages/Other/Abilities'
 import ErrorPage from '../ErrorPage/ErrorPage'
 import SetRequiredBanner from '../SetRequiredBanner/SetRequiredBanner'
 import { getRaceAsync, getRaceLocal } from '../../services/content-providers/RaceProvider'
+import { FEATURES, useFeatureItem } from '../../services/content-providers/ContentProvider'
 
 
 export function Proficiencies({ name, theRaceOrClass }) {
@@ -594,14 +595,7 @@ export function AbilitiesWithDescription({ spellsObject, description, title, aut
 
 export function RacePage({ raceName }) {
 
-    const [theRace, setTheRace] = useState(getRaceLocal(raceName))
-
-    useEffect(() => {
-        (async () => {
-            const fullRace = await getRaceAsync(raceName)
-            setTheRace(fullRace)
-        })()
-    }, [])
+    const theRace = useFeatureItem(FEATURES.Races, raceName)
 
     if (theRace == null) {
         return <ErrorPage/>
@@ -629,9 +623,15 @@ export function RacePage({ raceName }) {
                     </div>
                 )}
 
-                <PageH2>Race Feats</PageH2>
-                <p>Choose 2 Race Talents from below. Your choice is permanent!</p>
-                <ManySpells spells={U.spellsFromObject(theRace.Talents)}/>
+                { theRace.Talents? (<>
+                    <PageH2>Race Feats</PageH2>
+                    <p>Choose 2 Race Talents from below. Your choice is permanent!</p>
+                    <ManySpells spells={U.spellsFromObject(theRace.Talents)}/>
+                </>): (
+                    <SetRequiredBanner setName={theRace.Set}/>
+                ) }
+
+                
 
             </Page>
 
@@ -640,7 +640,9 @@ export function RacePage({ raceName }) {
         </div>
     )
 }
-export function CCRacePage({ theRace, selectedSpellNames, onSpellClick }) {
+export function CCRacePage({ raceName, selectedSpellNames, onSpellClick }) {
+
+    const theRace = useFeatureItem(FEATURES.Races, raceName)
 
     return (
         <div>
@@ -659,11 +661,6 @@ export function CCRacePage({ theRace, selectedSpellNames, onSpellClick }) {
                 { theRace['Ability Choices'] != null && (
                     <div>
                         <PageH2>Ability Choice</PageH2>
-                        {/* <ManySpells
-                            spells={theRace['Ability Choices']}
-                            description={theRace['Ability Choices Description']}
-                            onSpellsSelected={spellsSelected => onAbilityChoicesSelected(spellsSelected)}
-                        /> */}
                         <ManySpells
                             spells={theRace['Ability Choices']}
                             description={theRace['Ability Choices Description']}
@@ -673,17 +670,17 @@ export function CCRacePage({ theRace, selectedSpellNames, onSpellClick }) {
                     </div>
                 )}
 
-                <PageH2>Race Feats</PageH2>
-                <p>Choose 2 Race Talents from below. Your choice is permanent!</p>
-                {/* <ManySpells
-                    spells={U.spellsFromObject(theRace.Talents)}
-                    onSpellsSelected={spellsSelected => onFeatsSelected(spellsSelected)}
-                /> */}
-                <ManySpells
-                    spells={U.spellsFromObject(theRace.Talents)}
-                    selectedSpellNames={selectedSpellNames}
-                    onSpellClick={onSpellClick}
-                />
+                { theRace.Talents? (<>
+                    <PageH2>Race Feats</PageH2>
+                    <p>Choose 2 Race Talents from below. Your choice is permanent!</p>
+                    <ManySpells
+                        spells={U.spellsFromObject(theRace.Talents)}
+                        selectedSpellNames={selectedSpellNames}
+                        onSpellClick={onSpellClick}
+                    />
+                </>): (
+                    <SetRequiredBanner setName={theRace.Set}/>
+                ) }
 
             </Page>
         </div>

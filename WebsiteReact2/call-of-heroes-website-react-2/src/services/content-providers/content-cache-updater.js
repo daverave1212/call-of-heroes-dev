@@ -2,7 +2,7 @@ import cache from '../data-caching/cache'
 
 import OverallData from '../../databases/OverallData.json'
 import { getSetFeatureId, getSetLiveVersionAsync, getSetsConfigAsync, isNewer, isSetFreeAsync, isSetPremiumAsync } from '../../utils'
-import { doIOwnSet, getMyOwnedSetsAsync, isSetUnavailableAsync } from '../auth/Auth'
+import { isSetUnavailableAsync } from '../auth/Auth'
 import { getDocInCollection } from '../online-database/Database'
 
 
@@ -59,22 +59,3 @@ export async function maybeUpdateSetFeatureCache(setName, featureName) {
 }
 
 window.maybeUpdateCachedFeatureFromPremiumSet = maybeUpdateSetFeatureCache
-
-async function updateCachedRacesAsync() {
-    const mySets = await getMyOwnedSetsAsync()
-
-    // Get and compare cached version with live version
-    const liveSetsConifg = await getSetsConfigAsync()
-    const setCfgCacheExists = await cache.existsAsync('sets-config')
-    const cachedSetsConfig = setCfgCacheExists? await cache.getAsync('sets-config'): { versions: {} }
-
-    for (const setName of mySets) {
-        const shouldSkipSet = (await isSetFreeAsync(setName)) || await isSetUnavailableAsync(setName)
-        
-        if (shouldSkipSet) {
-            continue
-        }
-
-        await maybeUpdateSetFeatureCache(setName, liveSetsConifg, cachedSetsConfig)
-    }
-}

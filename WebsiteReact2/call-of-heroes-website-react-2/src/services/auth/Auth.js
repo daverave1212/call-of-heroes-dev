@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import * as firebaseAuth from "../Firebase/FirebaseAuth";
-import { useState } from "react";
-import { getLocalStorageJSON, setLocalStorageJSON, useLocalStorageState } from "../../utils";
+import { useEffect, useState } from "react";
+import { getLocalStorageJSON, isSetFreeAsync, setLocalStorageJSON, useLocalStorageState } from "../../utils";
 import { existsMyDocInCollection, getMyDocInCollection, setMyDocInCollection } from "../online-database/Database";
 import defaultPublicUserDataMap from './default-public-user-data-map.json'
 
@@ -99,16 +99,34 @@ export async function getMyOwnedSetsAsync() {
     }
 
     const myPrivateData = await getMyDocInCollection('private-user-data')
-    const mySets = myPrivateData?.ownedProducts ?? []
+    console.log({myPrivateData})
+    const mySets = myPrivateData?.ownedProducts ?? {}
 
     return mySets
 }
-export async function doIOwnSet(setName) {
+export async function doIOwnSetAsync(setName) {
     const ownedSets = await getMyOwnedSetsAsync()
-    return ownedSets.includes(setName)
+    console.log({ownedSets})
+    return setName in ownedSets
 }
 export async function isSetUnavailableAsync(setName) {
-    return !(await doIOwnSet(setName))
+    return !(await doIOwnSetAsync(setName))
 }
+export function useDoIOwnSet(setName) {
+    const [doI, setDoI] = useState(false)
 
-window.getMyOwnedSetsAsync = getMyOwnedSetsAsync
+    useEffect(() => {
+        (async () => {
+            const isFree = await isSetFreeAsync(setName)
+
+            if (isFree) {
+                setDoI(true)
+            } else {
+                const doIOwnIt = await doIOwnSetAsync(setName)
+                setDoI(doIOwnIt)
+            }
+        })()
+    }, [setName])
+
+    return doI
+}

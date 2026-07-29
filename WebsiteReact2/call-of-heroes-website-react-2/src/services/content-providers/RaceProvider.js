@@ -11,8 +11,6 @@ import Orc from '../../databases/Core/Races/Orc.json'
 import cache from '../data-caching/cache'
 
 import OverallData from '../../databases/OverallData.json'
-import { getSetFeatureId, getSetLiveVersionAsync, getSetsConfigAsync, isNewer, isSetFreeAsync, isSetPremiumAsync } from '../../utils'
-import { doIOwnSet, getMyOwnedSetsAsync, isSetUnavailableAsync } from '../auth/Auth'
 import { getDocInCollection } from '../online-database/Database'
 import { maybeUpdateSetFeatureCache } from './content-cache-updater'
 import { classExists, getClassLocal } from './ClassProvider'

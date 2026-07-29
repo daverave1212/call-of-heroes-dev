@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import TwoColumns from "../../../components/TwoColumns/TwoColumns"
 import Column from "../../../components/TwoColumns/Column"
 import SmallStat from "../../../components/SmallStat/SmallStat"
-import { getClass, getNumberPartsString, getRace, getStatIconPathByStatName, includesOrViceversa, useConstIsPortrait, useLocalStorageState } from "../../../utils"
+import { getClass, getNumberPartsString, getStatIconPathByStatName, includesOrViceversa, useConstIsPortrait, useLocalStorageState } from "../../../utils"
 import Page from "../../../containers/Page/Page"
 import { QGTitle1 } from "../../Tools/TitleGenerator"
 import Icon from "../../../components/Icon"
@@ -37,7 +37,7 @@ export default function SectionStats() {
 
     console.log({bonuses})
 
-    const myRace = getRace(selectedRaceName)
+    const myRace = getRaceLocal(selectedRaceName)
     const myClass = getClass(selectedClassName)
     const exactStats = myRace?.['Custom Stat Array']
     const statRequirementCode = myRace?.['Stat Requirements']

@@ -1,4 +1,5 @@
-import { addArrays, addManyObjects, addObjects, calculateString, capitalizeFirstLetter, getAllClasses, getAllRaces, getRace, isNumber, isString, MANA_BASED_SPELLCASTING, mapObject, SPECIAL_MANA_BASED_SPELLCASTING, stringReplaceAllMany } from "../../utils"
+import { addArrays, addManyObjects, addObjects, calculateString, capitalizeFirstLetter, getAllClasses, isNumber, isString, MANA_BASED_SPELLCASTING, mapObject, SPECIAL_MANA_BASED_SPELLCASTING, stringReplaceAllMany } from "../../utils"
+import { getRaceLocal } from "../content-providers/RaceProvider.js"
 import {
     STAT_LIMITS_TEXT,
     MIGHT,
@@ -284,7 +285,7 @@ export function calculateAllAtributes({raceName, className, level, totalStats, b
     if (raceName == null || className == null || level == null || totalStats == null) {
         return {...ALL_ATTRIBUTES_0}
     }
-    const raceObj = getRace(raceName)
+    const raceObj = getRaceLocal(raceName)
     const classObj = getAllClasses()[className]
     const totalStatsArray = totalStats
     

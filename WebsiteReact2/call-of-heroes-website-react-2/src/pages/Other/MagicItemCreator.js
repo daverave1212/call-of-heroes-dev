@@ -12,6 +12,7 @@ import Spell from '../../components/Spell/Spell'
 import { isString } from "markdown-it/lib/common/utils";
 import { checkStatRequirements, STAT_NAMES } from "../../services/game-lib/stat-calculations";
 import ManySpells from "../../components/Spell/ManySpells";
+import SetRequired from "../../components/SetRequiredBanner/SetRequired";
 
 const standardRNG = { randomInt, percentChance, randomOf, randomOfArrayWeighted, shuffle }
 
@@ -2285,15 +2286,12 @@ export default function MagicItemCreator() {
     const [items, setItems] = useState(createItems())
 
     return <Page>
-        <p style={{color: 'white'}}>asdasddasdsa</p>
-        <br/>
-        <br/>
-        <HeroButton onClick={() => setItems(createItems())}>Another</HeroButton>
-        <br/>
-        <ManySpells spells={items} shouldSort={false}/>
-        {/* <TwoColumns>
-            <Column><Spell spell={item}/></Column>
-            <Column></Column>
-        </TwoColumns> */}
+        <SetRequired setName={"core"}>
+            <br/>
+            <br/>
+            <HeroButton onClick={() => setItems(createItems())}>Another</HeroButton>
+            <br/>
+            <ManySpells spells={items} shouldSort={false}/>
+        </SetRequired>
     </Page>
 }

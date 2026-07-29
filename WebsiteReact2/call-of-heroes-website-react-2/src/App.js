@@ -48,7 +48,7 @@ import Rules from './pages/Other/Rules';
 import AttackModifiers from './pages/Other/AttackModifiers';
 import CrowdControl from './pages/Other/CrowdControl';
 import AreasOfEffect from './pages/Other/AreasOfEffect';
-import { getBasePathBeforeHash, getLocalStorageBool, getLocationHackyPath, getPageHashFromLocation, isBasePathEmpty, isHashEmpty } from './utils';
+import { getBasePathBeforeHash, getLocalStorageBool, getLocationHackyPath, getPageHashFromLocation, isBasePathEmpty, isHashEmpty, isLocalhost } from './utils';
 
 import TreasureGenerator from './pages/Tools/TreasureGenerator';
 
@@ -103,6 +103,7 @@ import BookCreator from './pages/BookCreator/BookCreator';
 import MerchantGenerator from './pages/Tools/MerchantGenerator';
 import Debug from './pages/Meta/Debug';
 import AdminPage from './pages/Meta/Admin.js';
+import { exportAllToWindow } from './services/browser-window/BrowserWindow.js';
 
 function App() {
 
@@ -115,6 +116,10 @@ function App() {
   useEffect(() => { // After page loads
     if (isURLHackedForGitHub) {
       navigate(hackyPath)
+    }
+
+    if (isLocalhost()) {
+      exportAllToWindow()
     }
   })
 

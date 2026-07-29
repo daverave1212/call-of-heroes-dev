@@ -10,7 +10,7 @@ export default function WorkInProgress() {
 
     return <Page hasNoMargins={true} hasNoLimits={true}>
         <div className="center-content padding-top-4">
-            <img src="/WorkInProgress.png" style={{width: 'min(50vw, 50vh)'}}/>
+            <img src="/WorkInProgress.png"/>
             <QGTitle1 text={"Work In Progress"} height={titleSize}/>
             <p className="center-text home-font">Oops! It appears this page is still work in progress.<br/>Check back later this month!</p>
         </div>

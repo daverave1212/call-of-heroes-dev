@@ -52,7 +52,7 @@ export default function SectionRace({ openPopup }) {
 
             { selectedRaceName != null && raceExists(selectedRaceName) && (
                 <CCRacePage
-                    theRace={getRace(selectedRaceName)}
+                    raceName={selectedRaceName}
                     selectedSpellNames={selectedSpellNames} 
                     setSelectedSpellNames={setSelectedSpellNames}
                     onSpellClick={selectSpell}

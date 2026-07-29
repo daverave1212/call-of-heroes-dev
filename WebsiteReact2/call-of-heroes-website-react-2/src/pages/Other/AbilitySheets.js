@@ -26,6 +26,7 @@ import ManySpells from '../../components/Spell/ManySpells'
 import PageH0 from '../../components/PageH0/PageH0'
 import PageH3 from '../../components/PageH3/PageH3'
 import CopySpellButton from '../../components/CopyButton/CopySpellButton'
+import SetRequired from '../../components/SetRequiredBanner/SetRequired'
 
 export default function AbilitySheets() {
 
@@ -116,48 +117,49 @@ export default function AbilitySheets() {
     console.log(selectedValue)
     return (
         <Page>
+            <SetRequired setName="core">
+                <PageH1 style={{ textAlign: 'center' }}>Ability Sheet Maker</PageH1>
 
-            <PageH1 style={{ textAlign: 'center' }}>Ability Sheet Maker</PageH1>
-
-            
-            <div className='centered-content margined-bottom'>
-                <div className='center-content' style={{ width: '300px' }}>
-                    <select className='margined-bottom text-font' id='Spell-Choices' onChange={evt => { setCurrentlyTypedSpell(evt.target.value); console.log(evt.target.value) }}>
-                        { allAvailableSpellNames.map(name => (<option value={name} key={name}>{ name }</option>)) }
-                    </select>
-                    <button onClick={queueSpell}>Add</button>
+                
+                <div className='centered-content margined-bottom'>
+                    <div className='center-content' style={{ width: '300px' }}>
+                        <select className='margined-bottom text-font' id='Spell-Choices' onChange={evt => { setCurrentlyTypedSpell(evt.target.value); console.log(evt.target.value) }}>
+                            { allAvailableSpellNames.map(name => (<option value={name} key={name}>{ name }</option>)) }
+                        </select>
+                        <button onClick={queueSpell}>Add</button>
+                    </div>
                 </div>
-            </div>
 
-            <div className='centered-content margined-bottom'>
-                <select className="text-font" multiple id="Added-Spells" onChange={(evt) => { setSelectedSpellIndex(evt.target.selectedIndex) }}>
-                    { spellsAdded.map(name => <option key={name} value={name}>{ name }</option>) }
-                </select>
-            </div>
+                <div className='centered-content margined-bottom'>
+                    <select className="text-font" multiple id="Added-Spells" onChange={(evt) => { setSelectedSpellIndex(evt.target.selectedIndex) }}>
+                        { spellsAdded.map(name => <option key={name} value={name}>{ name }</option>) }
+                    </select>
+                </div>
 
-            <div className='centered-content margined-bottom'>
-                <button id="MoveUp" onClick={moveSelectedUp} title="Move selected Ability up.">Move Up</button>
-                <button id="MoveDown" onClick={moveSelectedDown} title="Move selected Ability down.">Move Down</button>
-            </div>
-            <div className='centered-content margined-bottom'>
-                <button id="Reset" onClick={resetSpells} title = "Click here to reset everything.">Reset</button>
-                <button id="RemoveSpell" onClick={removeSpellFromSelect} title = "Click here to remove the selected spell">Remove Spell</button>
-            </div>
-            <div>
-                <PageH3>How To Use</PageH3>
-                <p>
-                    Add all your Abilities by selecting each from the dropdown menu and clicking Add.
-                    Your spells will appear nicely on the page and you can keep them on a separate screen for reference.
-                    To save your Abilities, just save the URL of the page (e.g. you can bookmark it). When you input that link again, your Abilities will be saved.
-                    Note that there is also another similar page, but for printing your Abilities.
-                </p>
-            </div>
+                <div className='centered-content margined-bottom'>
+                    <button id="MoveUp" onClick={moveSelectedUp} title="Move selected Ability up.">Move Up</button>
+                    <button id="MoveDown" onClick={moveSelectedDown} title="Move selected Ability down.">Move Down</button>
+                </div>
+                <div className='centered-content margined-bottom'>
+                    <button id="Reset" onClick={resetSpells} title = "Click here to reset everything.">Reset</button>
+                    <button id="RemoveSpell" onClick={removeSpellFromSelect} title = "Click here to remove the selected spell">Remove Spell</button>
+                </div>
+                <div>
+                    <PageH3>How To Use</PageH3>
+                    <p>
+                        Add all your Abilities by selecting each from the dropdown menu and clicking Add.
+                        Your spells will appear nicely on the page and you can keep them on a separate screen for reference.
+                        To save your Abilities, just save the URL of the page (e.g. you can bookmark it). When you input that link again, your Abilities will be saved.
+                        Note that there is also another similar page, but for printing your Abilities.
+                    </p>
+                </div>
 
-            <div id="Spell-Sheet-Div">
-                <ManySpells shouldIgnoreAlignment={true} spells={spellsAdded.map(spellName => allAvailableSpellsByName[spellName])} spellStyle={{border: 'solid black 2px'}}/>   {/* Extra border for copy-paste*/}
-            </div>
+                <div id="Spell-Sheet-Div">
+                    <ManySpells shouldIgnoreAlignment={true} spells={spellsAdded.map(spellName => allAvailableSpellsByName[spellName])} spellStyle={{border: 'solid black 2px'}}/>   {/* Extra border for copy-paste*/}
+                </div>
 
-            <CopySpellButton elementId="Spell-Sheet-Div"/>
+                <CopySpellButton elementId="Spell-Sheet-Div"/>
+            </SetRequired>
         </Page>
     )
 }
