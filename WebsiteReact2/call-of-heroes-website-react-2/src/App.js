@@ -104,6 +104,9 @@ import MerchantGenerator from './pages/Tools/MerchantGenerator';
 import Debug from './pages/Meta/Debug';
 import AdminPage from './pages/Meta/Admin.js';
 import { exportAllToWindow } from './services/browser-window/BrowserWindow.js';
+import Griffincraft from './pages/Meta/Griffincraft.js';
+import Buy from './pages/Shop/Buy.js';
+import MyAccount from './pages/Account/MyAccount.js';
 
 function App() {
 
@@ -214,6 +217,12 @@ function App() {
           <Route path='/Meta/Admin' element={ <AdminPage/> }/>
           <Route path='/Meta/PatchNotes' element={ <PatchNotes/> }/>
           <Route path='/Meta/ClassBalance' element={ <ClassBalance/> }/>
+          <Route path='/Meta/Griffincraft' element={ <Griffincraft/> }/>
+          
+          <Route path='/Shop/Buy' element={ <Buy/> }/>
+          
+          <Route path='/Account/MyAccount' element={ <MyAccount/> }/>
+          
           <Route path='/WorkInProgress' element={ <WorkInProgress/> }/>
           
           <Route path='/Debug' element={ <Debug/> }/>
@@ -224,6 +233,7 @@ function App() {
   }
 
   const MemoedWindowContent = memo(WindowContent) // This doesn't seem to work though
+  const textStyle = {color: 'gray', fontFamily: 'HomeFont', textAlign: 'center'}
 
   return (
     <div id="Window">
@@ -240,8 +250,8 @@ function App() {
             <img src="/LandingPage/LinkLogoX.png"/>
             <img src="/LandingPage/LinkLogoYouTube.png"/>
           </div>
-          <div style={{color: 'gray', fontFamily: 'HomeFont', textAlign: 'center'}}>Dave Doublee | Griffincraft <span style={{color: 'orange'}}>@2024</span></div>
-          <div className='pointer highlight' style={{color: 'gray', fontFamily: 'HomeFont', textAlign: 'center'}} onClick={() => {
+          <div style={textStyle}>Dave Doublee | <Link to="/Meta/Griffincraft" style={textStyle}>Griffincraft</Link> <span style={{color: 'orange'}}>@2026</span></div>
+          <div className='pointer highlight' style={textStyle} onClick={() => {
             localStorage.clear()
             window.location.href = '/'
           }}>Something crashed? Click here!</div>
