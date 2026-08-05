@@ -25,13 +25,14 @@ export default function Page({
     hasNoLimits,                    // Default is false; if true, it will have no width limits
     hasNoMargins,                   // Default is false; if true, has no margins
     isCentered,                     // Default is false
-    hasCopyButton
+    hasCopyButton,
+    className
 }) {
 
     const [appState, setAppState] = useContext(AppStateContext)
     const [state, setState] = useState({ isExpanded: true })
 
-    const pageClasses = classNames('page', {
+    const pageClasses = classNames('page ' + className, {
         'page--no-limits': hasNoLimits == true,
         'no-margin': hasNoMargins == true
     })

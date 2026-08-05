@@ -4,6 +4,7 @@ import markdownit from 'markdown-it'
 import Icon from "./components/Icon"
 import Separator from "./components/Separator/Separator"
 
+import PatchNotes from './databases/Other/PatchNotes.json'
 import weapons from './databases/Weapons.json'
 import armors from './databases/Armors.json'
 import skills from './databases/Proficiencies.json'
@@ -2820,6 +2821,108 @@ export function getDaysSinceLast(dayOfTheWeek) {
   const today = date.getDay();      // 0=Sun..6=Sat
   return (today - dayOfTheWeek + 7) % 7;
 }
+export function standardizeDate(input, outputFormat = 'iso') {
+  if (!input) return null;
+
+  let parsedDate;
+  const strInput = String(input).trim();
+
+  // 1. Handle Year-only formats (e.g., "2024")
+  if (/^\d{4}$/.test(strInput)) {
+    parsedDate = new Date(parseInt(strInput, 10), 0, 1); // Defaults to Jan 1st of that year
+  } 
+  // 2. Handle Custom "YYYY-MM-DD-HHmm" formats (e.g., "2024-09-23-1500")
+  else if (/^\d{4}-\d{2}-\d{2}-\d{4}$/.test(strInput)) {
+    const [year, month, day, time] = strInput.split('-');
+    const hours = time.substring(0, 2);
+    const minutes = time.substring(2, 4);
+    
+    // Note: Month in JS Date constructor is 0-indexed (0 = Jan, 8 = Sep)
+    parsedDate = new Date(year, month - 1, day, hours, minutes);
+  } 
+  // 3. Fallback to standard JavaScript Date parser (Handles "June 18, 2025", "2024-09-23", ISO strings)
+  else {
+    parsedDate = new Date(strInput);
+  }
+
+  // Return null if the date string couldn't be parsed
+  if (isNaN(parsedDate.getTime())) {
+    console.error(`Invalid date input: ${input}`);
+    return null;
+  }
+
+  // Format outputs
+  switch (outputFormat) {
+    case 'iso':
+      // Returns "YYYY-MM-DD"
+      return parsedDate.toISOString().split('T')[0];
+    case 'full':
+      // Returns local formatted string, e.g., "September 23, 2024, 15:00"
+      return parsedDate.toLocaleString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    case 'object':
+      return parsedDate;
+    default:
+      return parsedDate.toISOString();
+  }
+}
+export function getDaysSince(dateParam) {
+  if (!dateParam) return null;
+
+  let inputDate;
+
+  // 1. If it's already a Date object
+  if (dateParam instanceof Date) {
+    inputDate = new Date(dateParam.getTime());
+  } 
+  // 2. Parse year-only format ("2024")
+  else if (/^\d{4}$/.test(String(dateParam).trim())) {
+    inputDate = new Date(parseInt(dateParam, 10), 0, 1);
+  } 
+  // 3. Parse custom "YYYY-MM-DD-HHmm" ("2024-09-23-1500")
+  else if (/^\d{4}-\d{2}-\d{2}-\d{4}$/.test(String(dateParam).trim())) {
+    const [year, month, day, time] = String(dateParam).trim().split('-');
+    const hours = time.substring(0, 2);
+    const minutes = time.substring(2, 4);
+    inputDate = new Date(year, month - 1, day, hours, minutes);
+  } 
+  // 4. Standard string parser ("June 18, 2025", "2024-09-23", etc.)
+  else {
+    inputDate = new Date(dateParam);
+  }
+
+  if (isNaN(inputDate.getTime())) {
+    console.error(`Invalid date input: ${dateParam}`);
+    return 0;
+  }
+
+  // Normalize both dates to UTC midnight to compare calendar days accurately
+  const today = new Date();
+  const utcToday = Date.UTC(today.getFullYear(), today.getMonth(), today.getDate());
+  const utcInput = Date.UTC(inputDate.getFullYear(), inputDate.getMonth(), inputDate.getDate());
+
+  const msPerDay = 1000 * 60 * 60 * 24;
+  
+  // Truncate toward zero to return a clean integer
+  return Math.trunc((utcToday - utcInput) / msPerDay);
+}
+let _isThereNewPostCache = null
+export function isThereANewPost() {
+    if (_isThereNewPostCache == null) {
+        const [lastPost] = Object.values(PatchNotes)
+        const lastPostDate = lastPost.Date ?? '1989'
+        const daysSinceLastPost = getDaysSince(lastPostDate)
+        _isThereNewPostCache = daysSinceLastPost <= 7
+    }
+
+    return _isThereNewPostCache
+}
+
 export class SeededRNG {
   constructor(seedStr) {
     this._seedGen = this._xmur3(String(seedStr));

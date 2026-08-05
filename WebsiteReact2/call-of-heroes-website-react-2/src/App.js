@@ -107,6 +107,8 @@ import { exportAllToWindow } from './services/browser-window/BrowserWindow.js';
 import Griffincraft from './pages/Meta/Griffincraft.js';
 import Buy from './pages/Shop/Buy.js';
 import MyAccount from './pages/Account/MyAccount.js';
+import Blog from './pages/Meta/Blog.js';
+import BlogPage from './pages/Meta/BlogPage.js';
 
 function App() {
 
@@ -218,6 +220,8 @@ function App() {
           <Route path='/Meta/PatchNotes' element={ <PatchNotes/> }/>
           <Route path='/Meta/ClassBalance' element={ <ClassBalance/> }/>
           <Route path='/Meta/Griffincraft' element={ <Griffincraft/> }/>
+          <Route path='/Meta/Blog' element={ <Blog/> }/>
+          <Route path='/Meta/BlogPage' element={ <BlogPage/> }/>
           
           <Route path='/Shop/Buy' element={ <Buy/> }/>
           

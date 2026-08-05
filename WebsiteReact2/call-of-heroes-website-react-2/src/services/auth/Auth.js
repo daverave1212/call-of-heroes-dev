@@ -20,11 +20,13 @@ firebaseAuth.onAuthChanged(async user => {
     if (user == null) {
         newUserData = null
     } else {
+        const idToken = await user.getIdToken()
         newUserData = {
             id: user.uid,
             name: user.displayName,
             token: user.accessToken,
-            email: user.email
+            email: user.email,
+            idToken
         }
     }
     setLocalStorageJSON('currentUserData', newUserData)
@@ -129,4 +131,17 @@ export function useDoIOwnSet(setName) {
     }, [setName])
 
     return doI
+}
+
+export function useOwnedSets() {
+    const [ownedSets, setOwnedSets] = useState({})
+
+    useEffect(() => {
+        (async () => {
+            const sets = await getMyOwnedSetsAsync()
+            setOwnedSets(sets)
+        })()
+    }, [])
+
+    return ownedSets
 }

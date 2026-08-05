@@ -14,6 +14,7 @@ import Icon from './components/Icon';
 import DrawerPage from './components/DrawerPage/DrawerPage';
 import Accordion from './components/Accordion/Accordion';
 import NavConfig from './NavConfig.json';
+import { isThereANewPost } from './utils';
 
 window.auth = auth
 
@@ -119,6 +120,12 @@ function AccountButtons() {
     )
   }
 
+  function MyAccountButton() {
+    return <div className='nav-item'>
+      <Link to="/Account/MyAccount">Account</Link>
+    </div>
+  }
+
   function LogoutButton() {
     return (
       <div className='nav-item' onClick={async () => {
@@ -134,7 +141,7 @@ function AccountButtons() {
   return (
     <div className="nav-login-buttons">
       { isLoggedIn? (
-        <LogoutButton/>
+        <MyAccountButton/>
       ): (
         <LoginButton/>
       )}
@@ -146,16 +153,26 @@ function AccountButtons() {
 
 
 
-function NavLink({ name, href, isDownload, isExternal, isDisabled, lock, onMouseEnter, className }) {
+function NavLink({ name, href, isDownload, isExternal, isDisabled, lock, onMouseEnter, className, style, id, special }) {
 
-    const classes = 'nav-link ' + (isDisabled === true? 'disabled ': ' ') + className
+    let extraClasses = ''
+
+    switch (special) {
+      case 'is-new':
+        if (isThereANewPost()) {
+          extraClasses += ' is-new'
+        }
+        
+    }
+
+    const classes = 'nav-link ' + (isDisabled === true? 'disabled ': ' ') + className + ' ' + extraClasses
 
     if (href == null) {
-      return <div className={classes} onMouseEnter={onMouseEnter}>{name}</div>
+      return <div className={classes} onMouseEnter={onMouseEnter} style={style}>{name}</div>
     }
     
     if (isDownload) {
-        return <a className={classes} href={href} download={isDownload} onMouseEnter={onMouseEnter}>{name}</a>
+        return <a className={classes} href={href} download={isDownload} onMouseEnter={onMouseEnter} style={style}>{name}</a>
     }
 
     if (isExternal) {
@@ -163,10 +180,10 @@ function NavLink({ name, href, isDownload, isExternal, isDisabled, lock, onMouse
             evt.preventDefault()
             window.open(href, '_blank')
         }
-        return <a className={classes} href={href} onClick={onExternalAClick} onMouseEnter={onMouseEnter}>{name}</a>
+        return <a className={classes} href={href} onClick={onExternalAClick} onMouseEnter={onMouseEnter} style={style}>{name}</a>
     }
 
-    return <Link className={classes} to={href} onMouseEnter={onMouseEnter}>{ name }</Link>
+    return <Link className={classes} to={href} onMouseEnter={onMouseEnter} style={style}>{ name }</Link>
 
 }
 function WithIcon({ iconName, children, className }) {
@@ -180,7 +197,7 @@ function WithIcon({ iconName, children, className }) {
   )
 }
 function NavItem({ config, onMouseEnter, className }) {
-    const { name, href, isDownload, isExternal, lock, children, isDisabled } = config
+    const { lock } = config
 
     const link = <NavLink {...config} onMouseEnter={onMouseEnter}/>
     if (lock != null) {
@@ -200,7 +217,7 @@ function NavLandscapeTopItem({ config, onMouseEnter }) {
 }
 
 function NavPortraitNode({ config }) {
-    const { name, href, isDownload, isExternal, lock, children, isGrouping } = config
+    const { name, lock, children, isGrouping } = config
 
     if (children == null) {
         const link = <NavLink {...config}/>
