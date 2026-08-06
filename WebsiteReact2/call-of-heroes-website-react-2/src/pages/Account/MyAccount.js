@@ -14,6 +14,7 @@ import WorkInProgress from "../Meta/WorkInProgress";
 import './MyAccount.css'
 import { AccountOverview } from "./AccountOverview";
 import { BlogPageHeader } from "../Meta/Blog";
+import Policies from "../Meta/Policies";
 
 const TAB_SELECTORS_CONFIG = [
     {
@@ -27,6 +28,12 @@ const TAB_SELECTORS_CONFIG = [
         src: '/Icons/UI/Dashboard/Activate Product.png',
         title: () => "Activate a product",
         subtitle: () => "Got a code? Type it in to activate it!"
+    },
+    {
+        name: 'Terms & Policies',
+        src: '/Icons/UI/Dashboard/Terms.png',
+        title: () => "Terms, Conditions, Cookies & Policies",
+        subtitle: () => "This section contains everything regarding copyright, privcy, legal, etc."
     },
     {
         displayName: 'Sign Out',
@@ -94,34 +101,14 @@ export default function MyAccount() {
                 <TabsContentOnly activeTabI={activeTabI} setActiveTabI={setActiveTabI} tabComponents={[
                     <AccountOverview/>,
                     <ActivateProduct/>,
+                    <div>
+                        <Policies/>
+                    </div>,
                     <div></div>
                 ]}/>
             </div>
         </div>
 
-    </LoginRequired>
-
-    return <LoginRequired location={"MyAccount"}>
-        <Page hasNoLimits={true} hasNoMargins={true}>
-            <div className="flex-responsive padding-2" style={{gap: "2rem"}}>
-                
-                <div className="flex-column gap-1">
-                    <h4 style={{ padding: 0, margin: 0, color: 'gray'}}>My Account | {user?.name}</h4>
-                    { TAB_SELECTORS_CONFIG.map((selectorData, i) => (
-                        <Selector onClick={() => setActiveTabI(i)} {...selectorData} isSelected={activeTabI == i}/>
-                    )) }
-                </div>
-
-                <div className="flex-1">
-                    <TabsContentOnly activeTabI={activeTabI} setActiveTabI={setActiveTabI} tabComponents={[
-                        <div id="My Account">
-                            <WorkInProgress/>
-                        </div>,
-                        <ActivateProduct/>
-                    ]}/>
-                </div>
-            </div>
-        </Page>
     </LoginRequired>
 
 }
