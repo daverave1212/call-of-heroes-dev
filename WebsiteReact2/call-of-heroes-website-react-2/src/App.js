@@ -187,24 +187,24 @@ function App() {
           <Route path="/Races/Human" element= { <Human/> }/>
           <Route path="/Races/Orc" element= { <Orc/> }/>
 
-          <Route path='ClassesV2/Artificer' element={<ClassPage isCharacterCreationPage={false} theClass={V2Artificer}/>}/>
-          <Route path='ClassesV2/Berserker' element={<ClassPage isCharacterCreationPage={false} theClass={V2Berserker}/>}/>
-          <Route path='ClassesV2/Cursewielder' element={<ClassPage isCharacterCreationPage={false} theClass={V2Cursewielder}/>}/>
-          <Route path='ClassesV2/Druid' element={<ClassPage isCharacterCreationPage={false} theClass={V2Druid}/>}/>
-          <Route path='ClassesV2/Hunter' element={<ClassPage isCharacterCreationPage={false} theClass={V2Hunter}/>}/>
-          <Route path='ClassesV2/Knight' element={<ClassPage isCharacterCreationPage={false} theClass={V2Knight}/>}/>
-          <Route path='ClassesV2/Mystic' element={<ClassPage isCharacterCreationPage={false} theClass={V2Mystic}/>}/>
-          <Route path='ClassesV2/Paladin' element={<ClassPage isCharacterCreationPage={false} theClass={V2Paladin}/>}/>
-          <Route path='ClassesV2/Priest' element={<ClassPage isCharacterCreationPage={false} theClass={V2Priest}/>}/>
-          <Route path='ClassesV2/Rogue' element={<ClassPage isCharacterCreationPage={false} theClass={V2Rogue}/>}/>
-          <Route path='ClassesV2/Shaman' element={<ClassPage isCharacterCreationPage={false} theClass={V2Shaman}/>}/>
-          <Route path='ClassesV2/Sorcerer' element={<ClassPage isCharacterCreationPage={false} theClass={V2Sorcerer}/>}/>
-          <Route path='ClassesV2/Soulwright' element={<ClassPage isCharacterCreationPage={false} theClass={V2Soulwright}/>}/>
-          <Route path='ClassesV2/Swashbuckler' element={<ClassPage isCharacterCreationPage={false} theClass={V2Outlaw}/>}/>
-          <Route path='ClassesV2/Warlock' element={<ClassPage isCharacterCreationPage={false} theClass={V2Warlock}/>}/>
-          <Route path='ClassesV2/Warrior' element={<ClassPage isCharacterCreationPage={false} theClass={V2Warrior}/>}/>
-          <Route path='ClassesV2/Wickan' element={<ClassPage isCharacterCreationPage={false} theClass={V2Wickan}/>}/>
-          <Route path='ClassesV2/Wizard' element={<ClassPage isCharacterCreationPage={false} theClass={V2Wizard}/>}/>
+          <Route path='ClassesV2/Artificer' element={<ClassPage isCharacterCreationPage={false} className="Artificer"/>}/>
+          <Route path='ClassesV2/Berserker' element={<ClassPage isCharacterCreationPage={false} className="Berserker"/>}/>
+          <Route path='ClassesV2/Priest' element={<ClassPage isCharacterCreationPage={false} className="Cleric"/>}/>
+          <Route path='ClassesV2/Cursewielder' element={<ClassPage isCharacterCreationPage={false} className="Cursewielder"/>}/>
+          <Route path='ClassesV2/Druid' element={<ClassPage isCharacterCreationPage={false} className="Druid"/>}/>
+          <Route path='ClassesV2/Hunter' element={<ClassPage isCharacterCreationPage={false} className="Hunter"/>}/>
+          <Route path='ClassesV2/Knight' element={<ClassPage isCharacterCreationPage={false} className="Knight"/>}/>
+          <Route path='ClassesV2/Mystic' element={<ClassPage isCharacterCreationPage={false} className="Mystic"/>}/>
+          <Route path='ClassesV2/Paladin' element={<ClassPage isCharacterCreationPage={false} className="Paladin"/>}/>
+          <Route path='ClassesV2/Rogue' element={<ClassPage isCharacterCreationPage={false} className="Rogue"/>}/>
+          <Route path='ClassesV2/Shaman' element={<ClassPage isCharacterCreationPage={false} className="Shaman"/>}/>
+          <Route path='ClassesV2/Sorcerer' element={<ClassPage isCharacterCreationPage={false} className="Sorcerer"/>}/>
+          <Route path='ClassesV2/Soulwright' element={<ClassPage isCharacterCreationPage={false} className="Soulwright"/>}/>
+          <Route path='ClassesV2/Swashbuckler' element={<ClassPage isCharacterCreationPage={false} className="Outlaw"/>}/>
+          <Route path='ClassesV2/Warlock' element={<ClassPage isCharacterCreationPage={false} className="Warlock"/>}/>
+          <Route path='ClassesV2/Warrior' element={<ClassPage isCharacterCreationPage={false} className="Warrior"/>}/>
+          <Route path='ClassesV2/Wickan' element={<ClassPage isCharacterCreationPage={false} className="Wickan"/>}/>
+          <Route path='ClassesV2/Wizard' element={<ClassPage isCharacterCreationPage={false} className="Wizard"/>}/>
 
           <Route path="/Tools/MagicItemGenerator" element={ <MagicItemCreator/> }/>
           <Route path="/Tools/TreasureGenerator" element={ <TreasureGenerator/> }/>

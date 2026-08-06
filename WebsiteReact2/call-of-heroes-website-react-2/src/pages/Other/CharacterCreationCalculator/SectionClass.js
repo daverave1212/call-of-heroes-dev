@@ -123,7 +123,7 @@ export default function SectionClass({ openPopup }) {
             { className != null && (
                 <ClassPage
                     hasNoMargins={true}
-                    theClass={classesObj[className]}
+                    className={className}
                     useSelectedSpecNameHook={useSectionClassSpecName}
                     useSelectedFontNameHook={useSelectedFontName}
                     selectedSpellNames={spellNames}

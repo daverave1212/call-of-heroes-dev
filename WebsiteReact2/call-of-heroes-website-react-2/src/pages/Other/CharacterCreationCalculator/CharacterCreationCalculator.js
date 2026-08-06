@@ -35,7 +35,7 @@ import { SelectorsByColumns } from "../Abilities";
 import { showSuccessMessage } from "../../../services/MessageDisplayer";
 import Dialog from "../../../components/Dialog/Dialog";
 import { STAT_NAMES } from "../../../services/game-lib/stat-calculations";
-import { useIsLoggedIn } from "../../../services/auth/Auth";
+import { useDoIOwnSet, useIsLoggedIn } from "../../../services/auth/Auth";
 import LoginRequired from "../../../components/LoginRequired/LoginRequired";
 import SectionMagicFonts from "./SectionMagicFonts";
 
@@ -68,6 +68,9 @@ function MyCharacters() {
     let [activeTabI, setActiveTabI, last] = useCCCTabs()
     let [myCharacters, saveCharacters] = useMyCharactersDB('CCC.MyCharacters')
     let [currentCharacterId, setCurrentCharacterId] = useCurrentCharacterId()
+
+    const doIOwnCoreSet = useDoIOwnSet('core')
+    const cantMakeMore = !doIOwnCoreSet && myCharacters.length >= 5
 
     const selectorData = myCharacters.map(char => ({
         name: char.names.characterName,
@@ -118,8 +121,8 @@ function MyCharacters() {
                 />
             </div>
             <div className="center-content flex-responsive gap-half margin-top-1">
-                <button onClick={newCharacter}>New Character</button>
-                <button onClick={importCharacter}>Import From Clipboard</button>
+                <button disabled={cantMakeMore} onClick={newCharacter}>{cantMakeMore? <Icon name="Premium"/>: <></> } New Character</button>
+                <button disabled={cantMakeMore} onClick={importCharacter}>{cantMakeMore? <Icon name="Premium"/>: <></> } Import From Clipboard</button>
             </div>
             <div className="center-content margin-top-half">
                 <button style={{ backgroundColor: 'red' }} onClick={deleteCharacter}>Delete</button>

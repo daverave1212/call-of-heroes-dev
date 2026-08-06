@@ -41,15 +41,15 @@ export const STATUS_EFFECTS = [
 export const REPLACEMENTS = {
     'Action Point': {
         replaceWith: '{A}Action Point',
-        exceptions: [`}Action Point`]
+        exceptions: [`}Action Point`, '{Action Point']
     },
     'Gold': {
         replaceWith: '{Gold}Gold',
-        exceptions: [`}Gold`]
+        exceptions: [`}Gold`, '{Gold']
     },
     'Mana': {
         replaceWith: '{Mana}Mana',
-        exceptions: [`}Mana`]
+        exceptions: [`}Mana`, '{Mana']
     },
 }
 

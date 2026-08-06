@@ -53,7 +53,6 @@ const weapons = {}
 const armors = {}
 const classes = []           // Polulated at runtime (Array<string>)
 const races = []             // Polulated at runtime (Array<string>)
-const backgrounds = []       // Polulated at runtime
 
 // Will be modified just below, for sets
 let filesToConvert = []
@@ -335,8 +334,7 @@ async function processFiles() {
 
     const overallData = {
         Races: races,
-        Classes: classes,
-        Backgrounds: backgrounds
+        Classes: classes
     };
 
     try {

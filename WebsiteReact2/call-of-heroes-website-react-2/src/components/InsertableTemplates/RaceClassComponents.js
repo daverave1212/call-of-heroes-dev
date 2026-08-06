@@ -691,7 +691,7 @@ export function ClassPage(props) {
     return <ClassPageV2 {...props}/>
 }
 export function ClassPageV2({
-    theClass,
+    className,
     hasNoMargins=false,
     hasHeader=true,
     useSelectedSpecNameHook=() => useState(null),
@@ -702,6 +702,8 @@ export function ClassPageV2({
     spellsMetadata,
     isCharacterCreationPage=true
 }) {
+
+    const theClass = useFeatureItem(FEATURES.Classes, className)
 
     if (theClass == null) {
         return <ErrorPage/>
