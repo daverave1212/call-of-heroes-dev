@@ -247,14 +247,15 @@ function App() {
           <MemoedWindowContent/>
         </AppStateContext.Provider>
         
-        <footer className='footer padding-top-2 padding-bottom-2'>
+        <footer className='footer center-content center-text gap-1 padding-top-2 padding-bottom-2'>
           <div className='flex-row gap-1'>
             <img src="/LandingPage/LinkLogoReddit.png"/>
             <img src="/LandingPage/LinkLogoDiscord.png"/>
             <img src="/LandingPage/LinkLogoX.png"/>
             <img src="/LandingPage/LinkLogoYouTube.png"/>
           </div>
-          <div style={textStyle}>Dave Doublee | <Link to="/Meta/Griffincraft" style={textStyle}>Griffincraft</Link> <span style={{color: 'orange'}}>@2026</span></div>
+          <div style={textStyle}>QuestGuard™ | Dave Doublee | <Link to="/Meta/Griffincraft" style={textStyle}>Griffincraft</Link> <span style={{color: 'orange'}}>© 2026 GRIFFINCRAFT S.R.L.</span> All rights reserved.</div>
+        
           <div className='pointer highlight' style={textStyle} onClick={() => {
             localStorage.clear()
             window.location.href = '/'

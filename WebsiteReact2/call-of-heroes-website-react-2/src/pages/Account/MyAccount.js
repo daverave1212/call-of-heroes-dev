@@ -18,19 +18,19 @@ import { BlogPageHeader } from "../Meta/Blog";
 const TAB_SELECTORS_CONFIG = [
     {
         name: 'Account Overview',
-        src: '/Icons/Items/Lesser_Scroll.png',
+        src: '/Icons/UI/Dashboard/Account Overview.png',
         title: user => `Welcome back, ${user.name}`,
         subtitle: () => `Here's what's happening on your QuestGuard account.`
     },
     {
         name: 'Activate a Product',
-        src: '/Icons/Items/Rune_of_Greater_Spell.png',
+        src: '/Icons/UI/Dashboard/Activate Product.png',
         title: () => "Activate a product",
         subtitle: () => "Got a code? Type it in to activate it!"
     },
     {
         displayName: 'Sign Out',
-        src: '/Icons/Spells/Banner_of_Honor.png',
+        src: '/Icons/UI/Dashboard/Sign Out.png',
         onClick() {
             logout()
         }
@@ -52,15 +52,15 @@ function DashboardMenu({ activeTabI, setActiveTabI }) {
                 <img src={src}/>
             </div>
 
-            <div className="flex-grow source-sans white">
+            <div className="flex-grow source-sans white landscape-only">
                 { displayName ?? name }
             </div>
         </div>
     }
 
     return <div className="padding-1 dashboard-menu">
-        <p className="theme-color source-sans padding-left-1">MY ACCOUNT</p>
-        <div className="flex column gap-half">
+        <p className="theme-color source-sans landscape-only">MY ACCOUNT</p>
+        <div className="flex column gap-half padding-top-1">
             { TAB_SELECTORS_CONFIG.map((tabCfg, i) => (
                 <DashboardMenuItem {...tabCfg} i={i}/>
             )) }
@@ -76,15 +76,20 @@ export default function MyAccount() {
     const [activeTabI, setActiveTabI] = useState(0)
     const activeTabData = TAB_SELECTORS_CONFIG[activeTabI]
 
+    const dbMenu = <DashboardMenu activeTabI={activeTabI} setActiveTabI={setActiveTabI}/>
+
     return <LoginRequired location="MyAccount">
 
         <div className="my-account width-100 flex row">
-            <div className="flex-1">
-                <DashboardMenu activeTabI={activeTabI} setActiveTabI={setActiveTabI}/>
+            <div className="flex-2 landscape-only">
+                {dbMenu}
             </div>
-            <div className="flex-4" style={{backgroundColor: 'white'}}>
+            <div className="flex-1 portrait-only">
+                {dbMenu}
+            </div>
+            <div className="flex-8" style={{backgroundColor: 'white'}}>
                 <div className="width-100">
-                    <BlogPageHeader title={activeTabData.title?.(user)} subtitle={activeTabData.subtitle?.()}/>
+                    <BlogPageHeader isInPage={false} title={activeTabData.title?.(user)} subtitle={activeTabData.subtitle?.()}/>
                 </div>
                 <TabsContentOnly activeTabI={activeTabI} setActiveTabI={setActiveTabI} tabComponents={[
                     <AccountOverview/>,

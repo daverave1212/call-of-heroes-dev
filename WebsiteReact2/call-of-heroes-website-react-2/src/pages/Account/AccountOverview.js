@@ -11,8 +11,15 @@ export function AccountOverview() {
 
     return <div className="flex column gap-2 padding-2">
         <div>
-            <h2 className="home-font margin-bottom-1">Owned Products</h2>
+            <h2 className="home-font margin-bottom-1">My Account</h2>
+            <div className="dashboard-panel flex column gap-quarter">
+                <h3 className="home-font">{user.name}</h3>
+                <p className="gray">{user.email}</p>
+            </div>
+        </div>
 
+        <div>
+            <h2 className="home-font margin-bottom-1">Owned Products</h2>
             { Object.keys(owendSets).map(set => (
                 <div className="dashboard-panel flex column width-100 gap-quarter padding-top-1">
                     <div className="flex-left-right">

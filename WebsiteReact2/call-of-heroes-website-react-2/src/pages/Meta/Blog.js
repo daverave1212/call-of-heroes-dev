@@ -1,14 +1,15 @@
 import Page from '../../containers/Page/Page'
 import PatchNotes from '../../databases/Other/PatchNotes.json'
 import './Blog.css'
-import { getDaysSince, parseTextWithSymbols } from '../../utils'
+import { getDaysSince, parseTextWithSymbols, useConstIsPortrait } from '../../utils'
 
 import { Link } from 'react-router-dom'
 
-export function BlogPageHeader({ title, subtitle }) {
+export function BlogPageHeader({ title, subtitle, isInPage=true }) {
+
     return <>
-        <div className="margin-0 padding-2" style={{backgroundColor: 'var(--dark-gray-color)', paddingBottom: '0px'}}>
-            <div className='width-100 flex column gap-1 white'>
+        <div className="blog-page-header">
+            <div className={`${isInPage? 'page-content': ''} flex column gap-1 white`} style={{paddingBottom: 0}}>
                 <h1 className='home-font-bold white'>{title}</h1>
                 <p className='source-sans'>{subtitle}</p>
             </div>

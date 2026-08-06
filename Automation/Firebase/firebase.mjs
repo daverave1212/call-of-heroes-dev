@@ -26,10 +26,32 @@ export async function setDocument(path, docId, data, merge = false) {
     
     await docRef.set(data, { merge });
     
-    console.log(`Document successfully written to path: ${path}/${docId}`);
+    // console.log(`Document successfully written to path: ${path}/${docId}`);
     return docRef;
   } catch (error) {
     console.error(`Error writing document at ${path}/${docId}:`, error);
+    throw error;
+  }
+}
+
+export async function getAllDocuments(collectionName) {
+  try {
+    const snapshot = await db.collection(collectionName).get();
+
+    if (snapshot.empty) {
+      console.log('No matching documents.');
+      return [];
+    }
+
+    // Map through documents to extract IDs and data
+    const documents = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+
+    return documents;
+  } catch (error) {
+    console.error('Error getting documents:', error);
     throw error;
   }
 }
