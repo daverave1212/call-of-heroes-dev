@@ -109,6 +109,7 @@ import Buy from './pages/Shop/Buy.js';
 import MyAccount from './pages/Account/MyAccount.js';
 import Blog from './pages/Meta/Blog.js';
 import BlogPage from './pages/Meta/BlogPage.js';
+import CookiesPopup from './components/CookiesPopup/CookiesPopup.js';
 
 function App() {
 
@@ -241,6 +242,7 @@ function App() {
 
   return (
     <div id="Window">
+        <CookiesPopup/>
         <Nav/>
 
         <AppStateContext.Provider value={[appState, setAppState]}>
