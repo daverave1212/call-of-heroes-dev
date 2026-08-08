@@ -116,6 +116,10 @@ function maybeMakeSomeWordsMixins(subobj) {
     if (subobj == null || subobj?._alreadyHasSomeWordsMixins) {
         return
     }
+
+    if (subobj.Effect?.startsWith('When defeating people, your team loots')) {
+        console.log(`Shoreraider Here!`)
+    }
     const propsToCheck = ['Effect', 'Upgrade', 'Notes', 'EffectGreen', 'Downside', 'Combo']
     for (const prop of propsToCheck) {
         if (!(prop in subobj)) {
@@ -123,7 +127,20 @@ function maybeMakeSomeWordsMixins(subobj) {
         }
         for (const [substr, value] of Object.entries(REPLACEMENTS)) {
             const { replaceWith, exceptions } = value
-            subobj[prop] = replaceOnly(subobj[prop], substr, exceptions, replaceWith)
+            if (subobj.Effect?.startsWith('When defeating people, your team loots') && substr == 'Gold') {
+                console.log(`💛 Replacing Gold; before:`)
+                console.log(subobj.Effect)
+            }
+            subobj[prop] = replaceAllWithExceptions({
+                text: subobj[prop],
+                substring: substr,
+                exceptions,
+                replaceWith
+            })
+            if (subobj.Effect?.startsWith('When defeating people, your team loots') && substr == 'Gold') {
+                console.log(`💙 After:`)
+                console.log(subobj.Effect)
+            }
         }
     }
     subobj._alreadyHasSomeWordsMixins = true

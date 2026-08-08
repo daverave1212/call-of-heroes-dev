@@ -6,7 +6,7 @@ import { getClass, getNumberPartsString, getStatIconPathByStatName, includesOrVi
 import Page from "../../../containers/Page/Page"
 import { QGTitle1 } from "../../Tools/TitleGenerator"
 import Icon from "../../../components/Icon"
-import { maybeMakeFractionGray, useConstBonusesFromSpellsAndItems, useConstTotalStats } from "./MyCharacter"
+import { GrayFractionText, useConstBonusesFromSpellsAndItems, useConstTotalStats } from "./MyCharacter"
 import Input from "../../../components/Input/Input"
 import { useExperience, useLevel, useSectionClassName, useSectionRaceName, useSectionStatsState } from "./CharacterData"
 import { AttributeCalculationTextComponent, ATTRIBUTES_EXPLANATIONS, calculateExperienceByLevel, calculateExtraFirstTurnAPByInitiative, calculateStatsToBonusAttributesObject, checkStatRequirements, DEFAULT_STAT_ARRAY, EXTRA_INITIATIVE_AP, getAttributeCalculationsByStats, getSkillLimitByLevel, getStatLimitByLevel, HEALTH_REGEN, INITIATIVE, MANA, MAX_HEALTH, SKILL_POINT, STAT_ICON_NAME_MAP, STAT_NAMES, STAT_SHORTENED_STRING } from "../../../services/game-lib/stat-calculations"
@@ -108,7 +108,7 @@ export default function SectionStats() {
                 <Column>
                     <div>
                         <SmallStat name={`Extra ${name}`} className={`row large`}>
-                            {maybeAnd(left)}{maybeAnd(middle)}{maybeMakeFractionGray(right)}
+                            {maybeAnd(left)}{maybeAnd(middle)}<GrayFractionText value={right}/>
                             &nbsp;<Icon name={iconName}/>
                         </SmallStat>    
                     </div>

@@ -147,7 +147,24 @@ export function getStatLimitByLevel(level) {
 export function getSkillLimitByLevel(level) {
     return getStatLimitByLevel(level)
 }
+export function getStatBonusObjByPointsInvested(points, initialValue=0) {
+    let value = initialValue
+    let pointsLeft = points
+    let costForPlus1 = value <= 0? 1: (value + 1)
 
+    while (costForPlus1 <= pointsLeft) {
+        value += 1
+        pointsLeft -= costForPlus1
+        costForPlus1 = value <= 0? 1: (value + 1)
+    }
+
+    return {
+        value,
+        pointsLeft,
+        fraction: parseFloat((pointsLeft / costForPlus1).toFixed(2))
+    }
+}
+window.getStatBonusObjByPointsInvested = getStatBonusObjByPointsInvested
 
 
 

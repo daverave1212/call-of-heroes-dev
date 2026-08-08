@@ -8,8 +8,13 @@ const successChance = 33.333
 function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
-function d6() {
-  return randomInt(1, 7); // 1 is inclusive, 7 is exclusive
+// 1 is inclusive, 7 is exclusive
+function d6(nDice=1) {
+  let sum = 0
+  for (let i = 1; i <= nDice; i++) {
+      sum += randomInt(1, 7)    
+  }
+  return sum; 
 }
 function percentChance01(percent) {
     if (percentChance(percent)) {
@@ -46,6 +51,16 @@ function simulateSuccessDice(nDice, successChance, dc) {
     const average = total / N_SIMULATIONS
     return average
 }
+function simulateCheckD6PlusBonusPercent(nDice, bonus, dc) {
+    let total = 0
+    for (let i = 1; i <= N_SIMULATIONS; i++) {
+        const res = d6(nDice) + bonus
+        if (res >= dc) {
+            total += 1
+        }
+    }
+    return total / N_SIMULATIONS * 100
+}
 function printSimulation(nDice, requiredDice, dc) {
     const chance = requiredDice.length / 6 * 100
     const averageChanceToPass = simulateSuccessDice(nDice, chance, dc)
@@ -62,8 +77,31 @@ function getSimulationResultsObj(nDice, requiredDice, dc) {
         'Success Chance': `${(averageChanceToPass * 100).toFixed(2)}%`
     }
 }
+function getSimulationResultsObjWithDCs(nDice, requiredDice, dcs) {
+    const chance = requiredDice.length / 6 * 100
+    const tableRow = {
+        Dice: nDice,
+        'Success On': `[${requiredDice}]`,
+    }
+    for (const dc of dcs) {
+        const averageChanceToPass = simulateSuccessDice(nDice, chance, dc)
+        tableRow[`DC ${dc} % Pass`] = `${(averageChanceToPass * 100).toFixed(2)}%`
+    }
+    return tableRow
+}
+function getSimD6ObjWithDCs(nDice, bonus, dcs) {
+    const tableRow = {
+        'd6': nDice + 'd6',
+        Bonus: bonus,
+    }
+    for (const dc of dcs) {
+        const averagePassChance = simulateCheckD6PlusBonusPercent(nDice, bonus, dc)
+        tableRow[`DC ${dc} % Pass`] = averagePassChance.toFixed(2) + '%'
+    }
+    return tableRow
+}
 
-function printTable(arrayOfObjects, gap = 2) {
+function printTable(arrayOfObjects, gap = 4) {
   if (!Array.isArray(arrayOfObjects) || arrayOfObjects.length === 0) return;
 
   // Extract column headers from the first object
@@ -96,35 +134,23 @@ function printTable(arrayOfObjects, gap = 2) {
     const rowValues = headers.map(header => obj[header]);
     console.log(formatRow(rowValues));
   });
+  console.log('')
 }
 
-const results = [
-    getSimulationResultsObj(1, [6], 1),
-    getSimulationResultsObj(2, [6], 1),
-    getSimulationResultsObj(3, [6], 1),
-    getSimulationResultsObj(4, [6], 1),
-    getSimulationResultsObj(5, [6], 1),
-    getSimulationResultsObj(6, [6], 1),
-    getSimulationResultsObj(7, [6], 1),
+const EASY = 1
+const MEDIUM = 2
+const HARD = 3
 
-    getSimulationResultsObj(2, [6], 2),
-    getSimulationResultsObj(2, [6], 2),
-    getSimulationResultsObj(3, [6], 2),
-    getSimulationResultsObj(4, [6], 2),
-    getSimulationResultsObj(5, [6], 2),
-    getSimulationResultsObj(6, [6], 2),
-    getSimulationResultsObj(7, [6], 2),
-
-    getSimulationResultsObj(2, [6], 3),
-    getSimulationResultsObj(2, [6], 3),
-    getSimulationResultsObj(3, [6], 3),
-    getSimulationResultsObj(4, [6], 3),
-    getSimulationResultsObj(5, [6], 3),
-    getSimulationResultsObj(6, [6], 3),
-    getSimulationResultsObj(7, [6], 3),
-]
-
-printTable(results, 4)
+console.log(`   Dice Pool: 5 and 6`)
+printTable([
+    getSimulationResultsObjWithDCs(1, [5, 6], [1, 2, 3]),
+    getSimulationResultsObjWithDCs(2, [5, 6], [1, 2, 3]),
+    getSimulationResultsObjWithDCs(3, [5, 6], [1, 2, 3]),
+    getSimulationResultsObjWithDCs(4, [5, 6], [1, 2, 3]),
+    getSimulationResultsObjWithDCs(5, [5, 6], [1, 2, 3]),
+    getSimulationResultsObjWithDCs(6, [5, 6], [1, 2, 3]),
+    getSimulationResultsObjWithDCs(7, [5, 6], [1, 2, 3]),
+])
 
 
 

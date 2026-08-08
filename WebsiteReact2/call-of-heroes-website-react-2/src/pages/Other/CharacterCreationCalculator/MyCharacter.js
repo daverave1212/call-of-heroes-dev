@@ -13,7 +13,7 @@ import Dialog from "../../../components/Dialog/Dialog"
 import ChangeStatDialog from "./ChangeStatDialog"
 import Spoiler from "../../../components/Spoiler/Spoiler"
 import Selector from "../../../components/Selector/Selector"
-import { calculateAllAtributes, calculateBaseMaxManaByLevel, calculateExtraFirstTurnAPByInitiative, getAllStatBonusesYMLAsObjFromSpellsArray, getStatsArrayFromObject, HEALTH_REGEN, INITIATIVE, KNOWN_ABILITIES, MAX_HEALTH, MOVEMENT_SPEED, SKILL_POINTS, STAT_NAMES, STAT_SHORTENED_STRING } from "../../../services/game-lib/stat-calculations"
+import { calculateAllAtributes, calculateBaseMaxManaByLevel, calculateExtraFirstTurnAPByInitiative, getAllStatBonusesYMLAsObjFromSpellsArray, getStatBonusObjByPointsInvested, getStatsArrayFromObject, HEALTH_REGEN, INITIATIVE, KNOWN_ABILITIES, MAX_HEALTH, MOVEMENT_SPEED, SKILL_POINTS, STAT_NAMES, STAT_SHORTENED_STRING } from "../../../services/game-lib/stat-calculations"
 import PageH3 from "../../../components/PageH3/PageH3"
 import CopySpellButton from "../../../components/CopyButton/CopySpellButton"
 import { ResourceBar } from "../../../components/ResourceBar/ResourceBar"
@@ -21,27 +21,29 @@ import { QGTitle1 } from "../../Tools/TitleGenerator"
 import PageH1 from "../../../components/PageH1/PageH1"
 import { BigStatValue } from "../../../components/BigStat/BigStatValue"
 import { printCharacterOnCanvas } from "./CharacterSheetPrinter"
+import NumberAligner from "../../../components/NumberAligner/NumberAligner"
 
 
 
 
 
-export function maybeMakeFractionGray(value) {
-    const { sign, left, right } = getNumberPartsString(value, { includeDotOnRight: true })
-    if (sign == '-') {
-        const bigValue = Math.floor(value)
-        const smallValue = value
-        return <span>
-            {bigValue}<span style={{color: '#BBBBBB', fontSize: '0.55em'}}>({smallValue})</span>
-        </span>
-    }
-    const signSpan =
-        `${left}` == '0'?
-            <span style={{color: '#BBBBBB'}}>{sign}</span>
+export function GrayFractionText({value, reduceFontSize=true, includePlus=false}) {
+    let { sign, left, right } = getNumberPartsString(value, { includeDotOnRight: true })
+    const fontSize = reduceFontSize? '0.55em': ''
+    const graySpanStyle = {color: '#BBBBBB', fontSize }
+
+    const signText =
+        sign == '-'?
+            '-'
+        :value == 0?
+            ''
+        :includePlus?
+            '+'
         :
-            <span>{sign}</span>
+            ''
+
     return <span>
-        {signSpan}{left}<span style={{color: '#BBBBBB', fontSize: '0.55em'}}>{right}</span>
+        {signText}{left}<span style={graySpanStyle}>{right}</span>
     </span>
 }
 
@@ -173,8 +175,8 @@ export default function MyCharacter() {
         attributes[MOVEMENT_SPEED] += 0.5
     }
 
-    const initiativeDisplay = maybeMakeFractionGray(attributes[INITIATIVE])
-    const movementDisplay = maybeMakeFractionGray(attributes[MOVEMENT_SPEED])
+    const initiativeDisplay = <GrayFractionText value={attributes[INITIATIVE]}/>
+    const movementDisplay = <GrayFractionText value={attributes[MOVEMENT_SPEED]}/>
     const usedSkillPoints = sum(Object.values(manualSkillBonuses))
     // console.log({attributes})
 
@@ -309,18 +311,32 @@ export default function MyCharacter() {
             { source.bonus } { source.statName }
             &nbsp;({ source.source })
         </div>) }</>
-    const SkillBonus = ({name, value}) => {
+    // const SkillBonus = ({name, value}) => {
+    //     return <div className="skill-bonus text-font pointer" onClick={() => changeSkill(name)}>
+    //         <div className="left">
+    //             <Icon name="CharacterSetupSub"/> {name}
+    //         </div>
+    //         <div className="right">
+    //             {value}
+    //         </div>
+    //     </div>
+    // }
+    const SkillBonus = ({name, skillPointsInvested}) => {
+        const { value, fraction } = getStatBonusObjByPointsInvested(skillPointsInvested)
+        const valueWithFraction = value + fraction
+        // console.green(`Making SkillBonus for ${name} with ${skillPointsInvested} points in it.`)
         return <div className="skill-bonus text-font pointer" onClick={() => changeSkill(name)}>
             <div className="left">
                 <Icon name="CharacterSetupSub"/> {name}
             </div>
             <div className="right">
-                {value}
+                <NumberAligner number={valueWithFraction} includePlus={true} isFractionGray={true}/>
+                {/* <GrayFractionText value={valueWithFraction} reduceFontSize={false} includePlus={true}/> */}
             </div>
         </div>
     }
     const Skills = () => <>{
-        Object.entries(myValidSkillBonusesStrings).map(([key, value]) => <SkillBonus name={key} value={value}/>)
+        Object.entries(myValidSkillBonusesStrings).map(([key, value]) => <SkillBonus name={key} skillPointsInvested={value}/>)
     }</>
     const Languages = () => <>{ languages.map(text => <div className="extra"><Icon name="Specializations"/>You speak { text }</div>) }</>
 

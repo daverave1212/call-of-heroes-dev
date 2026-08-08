@@ -628,6 +628,18 @@ export async function getSetsConfigAsync() {
     setsConfig = cfg
     return setsConfig
 }
+export function useConstSetsConfig() {
+    const [setConfig, setSetConfig] = useState({})
+
+    useEffect(() => {
+        getSetsConfigAsync().then(cfg => {
+            setSetConfig(cfg)
+        })
+    }, [])
+
+    return setConfig
+
+}
 export async function getSetLiveVersionAsync(setName) {
     return (await getSetsConfigAsync()).versions[setName]
 }
@@ -2404,6 +2416,7 @@ export function getNumberPartsString(number, options=({ includeDotOnRight: false
 
     return { sign: maybeSign, left: front, right: digits}
 }
+window.getNumberPartsString = getNumberPartsString
 export function maybeWithPlus(number) {
     if (number > 0) {
         return `+${number}`
