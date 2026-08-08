@@ -30,6 +30,9 @@ import {
 
 export * from './stats-constants.js'
 
+export function getAvailableStatPointsByLevel(level) {
+    return 3 + level
+}
 export function getBaseAttributes(raceObj) {
     return {
         [MAX_HEALTH]: raceObj.Stats['Base Health'],
@@ -148,20 +151,43 @@ export function getSkillLimitByLevel(level) {
     return getStatLimitByLevel(level)
 }
 export function getStatBonusObjByPointsInvested(points, initialValue=0) {
+
+    if (points <= 0) {
+        return {
+            value: initialValue + points,
+            pointsLeft: 0,
+            fraction: 0,
+            costForPlus1: 1,
+            number: initialValue + points
+        }
+    }
+
     let value = initialValue
     let pointsLeft = points
-    let costForPlus1 = value <= 0? 1: (value + 1)
+    let costForPlus1 = 1
 
+    function recalculateCostForPlus1() {
+        costForPlus1 = value <= 0? 1: (value + 1)
+        if (costForPlus1 <= 0) {    // TODO: I was too tired to find the correct formula fix for this
+            costForPlus1 = 1
+        }
+    }
+
+    recalculateCostForPlus1()
     while (costForPlus1 <= pointsLeft) {
         value += 1
         pointsLeft -= costForPlus1
-        costForPlus1 = value <= 0? 1: (value + 1)
+        recalculateCostForPlus1()
     }
+
+    const fraction = parseFloat((pointsLeft / costForPlus1).toFixed(2))
 
     return {
         value,
         pointsLeft,
-        fraction: parseFloat((pointsLeft / costForPlus1).toFixed(2))
+        fraction,
+        costForPlus1,
+        number: value + fraction    // TODO: Possible bug if total number is negative
     }
 }
 window.getStatBonusObjByPointsInvested = getStatBonusObjByPointsInvested
@@ -325,6 +351,8 @@ export function calculateAllAtributes({raceName, className, level, totalStats, b
 
     return attributesWithSpecialBonuses
 }
+
+
 
 function getCalculatedSpecialBonuses({ totalStats, specialBonusNames, attributes }) {
     if (specialBonusNames == null || specialBonusNames?.length == 0) {

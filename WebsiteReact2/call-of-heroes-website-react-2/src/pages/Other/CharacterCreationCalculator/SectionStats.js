@@ -6,7 +6,8 @@ import { getClass, getNumberPartsString, getStatIconPathByStatName, includesOrVi
 import Page from "../../../containers/Page/Page"
 import { QGTitle1 } from "../../Tools/TitleGenerator"
 import Icon from "../../../components/Icon"
-import { GrayFractionText, useConstBonusesFromSpellsAndItems, useConstTotalStats } from "./MyCharacter"
+import { useConstBonusesFromSpellsAndItems } from "./CharacterData"
+import { useConstTotalStatsArray } from "./CharacterData"
 import Input from "../../../components/Input/Input"
 import { useExperience, useLevel, useSectionClassName, useSectionRaceName, useSectionStatsState } from "./CharacterData"
 import { AttributeCalculationTextComponent, ATTRIBUTES_EXPLANATIONS, calculateExperienceByLevel, calculateExtraFirstTurnAPByInitiative, calculateStatsToBonusAttributesObject, checkStatRequirements, DEFAULT_STAT_ARRAY, EXTRA_INITIATIVE_AP, getAttributeCalculationsByStats, getSkillLimitByLevel, getStatLimitByLevel, HEALTH_REGEN, INITIATIVE, MANA, MAX_HEALTH, SKILL_POINT, STAT_ICON_NAME_MAP, STAT_NAMES, STAT_SHORTENED_STRING } from "../../../services/game-lib/stat-calculations"
@@ -14,7 +15,7 @@ import classNames from "classnames"
 import { BigStatInput } from "../../../components/BigStat/BigStatInput"
 import { ExperienceSlider } from "../../../components/Other/ExperienceSlider"
 import { getRaceLocal } from "../../../services/content-providers/RaceProvider"
-
+import { GrayFractionText } from "../../../components/GrayFractionText/GrayFractionText"
 
 export default function SectionStats() {
 
@@ -25,7 +26,7 @@ export default function SectionStats() {
 
     let [level, setLevel] = useLevel()
     let [stats, setStats] = useSectionStatsState()
-    let totalStats = useConstTotalStats()
+    let totalStats = useConstTotalStatsArray()
     let { bonuses } = useConstBonusesFromSpellsAndItems()
     let [selectedRaceName] = useSectionRaceName()
     let [selectedClassName] = useSectionClassName()

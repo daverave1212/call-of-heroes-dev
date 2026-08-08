@@ -1,10 +1,9 @@
-import { addManyObjects, addObjects, areArraysEqual, generateUniqueId, getAlMyRaceAndClassSpells, getAllClasses, getAllSkillsByName, getAllSpellsByName, getLocalStorageJSON, setLocalStorageJSON, useLocalStorageState } from "../../../utils"
+import { addArrays, addManyObjects, addObjects, areArraysEqual, generateUniqueId, getAlMyRaceAndClassSpells, getAllArmorsByName, getAllClasses, getAllSkillsByName, getAllSpellsByName, getAllWeaponsByName, getExtrasFromSpells, getLocalStorageJSON, setLocalStorageJSON, sum, useLocalStorageState } from "../../../utils"
 import * as Database from '../../../services/online-database/Database'
 import { useEffect } from "react"
 import { getUserState, useAuth } from "../../../services/auth/Auth"
 import { showError } from "../../../services/MessageDisplayer"
-import { useConstAllBonuses, useConstBonusesFromSpellsAndItems, useConstTotalStats } from "./MyCharacter"
-import { calculateAllAtributes, DEFAULT_CHARACTER_BONUSES, DEFAULT_STAT_ARRAY, STAT_NAMES } from "../../../services/game-lib/stat-calculations"
+import { calculateAllAtributes, DEFAULT_CHARACTER_BONUSES, DEFAULT_STAT_ARRAY, getAllStatBonusesYMLAsObjFromSpellsArray, getStatBonusObjByPointsInvested, getStatsArrayFromObject, getStatValueByName, STAT_NAMES } from "../../../services/game-lib/stat-calculations"
 import { Names } from "../../../services/NameGenerator/name-generator"
 
 export const NO_CHARACTER_ID = 'none'
@@ -223,6 +222,10 @@ export function setLevel(obj) {
 export function useExperience() {
     return useCharacterLocalStorageState('experience')
 }
+export function getInvestedStatPoints(manualBonuses) {
+    const values = STAT_NAMES.map(name => getStatValueByName(name, manualBonuses))
+    return sum(values)
+}
 
 // General
 export function useManualBonuses() {    // Manual != bonuses from abilities; those are derived
@@ -346,11 +349,43 @@ export function useHasAccessToFonts() {
 
 
 // Use const
+// export function useConstTotalStatsArray() {
+//     const { bonuses } = useConstBonusesFromSpellsAndItems()
+//     const [manualBonuses, _] = useManualBonuses()
+//     const [baseStats] = useSectionStatsState()
+
+//     const manualBonusesStatsArray = getStatsArrayFromObject(manualBonuses)
+//     const autoBonusesStatsArray = getStatsArrayFromObject(bonuses)
+//     return addArrays(baseStats, manualBonusesStatsArray, autoBonusesStatsArray)
+// }
+export function useConstTotalStatPointsArray() {    // Total stat points from all sources
+    const { bonuses } = useConstBonusesFromSpellsAndItems()
+    const [manualBonuses, _] = useManualBonuses()
+    const [baseStats] = useSectionStatsState()
+
+    const manualBonusesStatsArray = getStatsArrayFromObject(manualBonuses)
+    const autoBonusesStatsArray = getStatsArrayFromObject(bonuses)
+    return addArrays(baseStats, manualBonusesStatsArray, autoBonusesStatsArray)
+}
+export function useConstAutoStatPointsArray() {     // Total stat points from spells, items, and base stats
+    const { bonuses } = useConstBonusesFromSpellsAndItems()
+    const [baseStats] = useSectionStatsState()
+    const autoBonusesStatsArray = getStatsArrayFromObject(bonuses)
+    return addArrays(baseStats, autoBonusesStatsArray)
+}
+export function useConstTotalStatsArray() {
+    const pointsInvestedArray = useConstTotalStatsFractions()
+    return pointsInvestedArray.map(obj => obj.value)
+}
+export function useConstTotalStatsFractions() {
+    const pointsInvestedArray = useConstTotalStatPointsArray()
+    return pointsInvestedArray.map(nPoints => getStatBonusObjByPointsInvested(nPoints))
+}
 export function useConstTotalAttributes() {
     const [raceName] = useSectionRaceName()
     const [className] = useSectionClassName()
     const [level] = useLevel()
-    const totalStats = useConstTotalStats()
+    const totalStats = useConstTotalStatsArray()
     const { bonuses } = useConstAllBonuses()
     const specialBonusNames = useConstAllSpecialBonusesNames()
     const attributes = calculateAllAtributes({raceName, className, level, totalStats, bonuses, specialBonusNames})
@@ -370,6 +405,23 @@ export function useConstAllMyAbilities() {
     const selectedAbilities = selectedAbilityNames.map(name => getAllSpellsByName()[name])
     // console.log({selectedAbilities, selectedAbilityNames})
     return [...rcSpells, ...selectedAbilities].filter(spell => spell != null)
+}
+export function useConstBonusesFromSpellsAndItems() {
+    let [armorNames] = useArmors()
+    const allMyArmors = armorNames.map(name => getAllArmorsByName()[name])
+    const allMyRaceAndClassSpells = useConstAllMyAbilities()
+    const everything = [...allMyArmors, ...allMyRaceAndClassSpells]
+    const { bonuses, sources } = getAllStatBonusesYMLAsObjFromSpellsArray(everything)
+    // console.log({location: 'useConstBonusesFromSpellsAndItems', allMyArmors, allMyRaceAndClassSpells, everything, bonuses, sources})
+    return { bonuses, sources }
+}
+export function useConstAllBonuses() {
+    const { bonuses, sources } = useConstBonusesFromSpellsAndItems()
+    const [manualBonuses] = useManualBonuses()
+    const allBonuses = addManyObjects([bonuses, manualBonuses])
+    // console.log(`Adding the following`)
+    // console.log({ bonuses, manualBonuses, allBonuses})
+    return { bonuses: allBonuses, sources: sources }
 }
 export function useConstAllSkillBonuses() {
     const [_magicItems] = useMagicItems()
@@ -399,6 +451,23 @@ export function useConstAllSpecialBonusesNames() {
     // console.log({specialBonusNames, abilities})
     return specialBonusNames
 }
+export function useConstAllAbilitiesAndItemsExtras() {
+    const allMyRaceAndClassSpells = useConstAllMyAbilities()
+    const [weaponNames] = useWeapons()
+    const [armorNames] = useArmors()
+
+    const allMyWeapons = weaponNames.map(name => getAllWeaponsByName()[name])
+    const allMyArmors = armorNames.map(name => getAllArmorsByName()[name])
+
+    return getExtrasFromSpells([...allMyWeapons, ...allMyArmors, ...allMyRaceAndClassSpells])
+}
+export function useConstManuallyAddedExtrasFromAbilities() {
+    const allMyRaceAndClassSpells = useConstAllMyAbilities()
+    const spellsWithManualExtras = allMyRaceAndClassSpells.filter(s => s['Manual Extras'] != null)
+    const manualExtrasArrays = spellsWithManualExtras.map(s => s['Manual Extras'].map(me => ({ extra: me, source: s.Name })))
+    const allManualExtras = manualExtrasArrays.flat()
+    return allManualExtras
+}
 
 
 // Other
@@ -427,6 +496,9 @@ export function toggleSpellMaybePopup(spell, spellMetadata, selectedSpellNames, 
         toggleSpellForSelectedSpellNames(spell, spellMetadata, selectedSpellNames, setSelectedAbiltiesNames)
     }
 }
+
+
+
 
 
 

@@ -39,10 +39,6 @@ export default function NumberAligner({number, includePlus=false, slotWidth='0.4
         parts.push({ value: right[1], type: 'right'})
     }
 
-    console.green(`For number ${number}:`)
-    console.log({sign, left, right, parts, slotWidth})
-
-
     return <span className='inline-flex flex-end pre'>
         { parts.map(({ value, type }) => <span style={{
             display: 'inline-block',
