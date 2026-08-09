@@ -263,45 +263,6 @@ export default function MyCharacter() {
             }
         })
     }
-    // function modifyManualStatBonus(name) {
-    //     setStatDialogOptions({
-    //         type: ChangeStatDialogTypes.FRACTION,
-    //         defaultNumberValue: getStatValueByName(name, statPointsArray),
-    //         title: "Invest Stat Points into " + name,
-    //         displayName: num => `${num} ${name} Points Total`,
-    //         displayValue: num => getStatBonusObjByPointsInvested(num).number,
-    //         displayTitle: (num, delta) => {
-    //             const invested = totalInvestedStatPoints + delta
-    //             const availableStatPoints = getAvailableStatPointsByLevel(level)
-    //             const isAvailablePointsRed = invested > availableStatPoints
-    //             const remainingPoints = availableStatPoints - invested
-    //             return <span className="home-font" style={{color: isAvailablePointsRed? 'red': ''}}>
-    //                 Add Points to {name}&nbsp;
-    //                 (<strong>{remainingPoints}</strong> Points Remaining)
-    //             </span>
-    //         },
-    //         displayDescription: (num, delta) => {
-    //             const autoBonus = getStatValueByName(name, autoStatPointsArray)
-    //             const newManualBonus = num - autoBonus
-    //             return <>
-    //                 <span className="home-font" >Points Invested: <strong>{newManualBonus}</strong></span>
-    //                 <br/>
-    //                 <span className="home-font" >Extra from other sources: <strong>{autoBonus}</strong></span>
-    //             </>
-    //         },
-    //         onDone: (({ value }) => {
-    //             console.green(`For ${name} going from ${manualBonuses[name]} to ${value}`)
-    //             const autoBonus = getStatValueByName(name, autoStatPointsArray)
-    //             const newManualBonus = value - autoBonus
-    //             console.log({autoBonus, newManualBonus})
-    //             const newManualBonuses = {
-    //                 ...manualBonuses,
-    //                 [name]: newManualBonus
-    //             }
-    //             setManualBonuses(newManualBonuses)
-    //         })
-    //     })
-    // }
     function modifyManualBonus(attributeName, increment=1) {
         // console.green(`Clicked on ${attributeName} which is currently at total ${manualBonuses[attributeName]}`)
         setStatDialogOptions({
