@@ -27,6 +27,7 @@ export function showToast(message, type = 'yellow', duration = 3000) {
     padding: '1rem',
     fontFamily: 'HomeFont',
     fontSize: '1.25rem',
+    position: 'fixed',
     zIndex: 'var(--z-popup)',
     backgroundColor: activeColor.bg,
     color: activeColor.text,
@@ -34,7 +35,7 @@ export function showToast(message, type = 'yellow', duration = 3000) {
     borderRadius: '6px',
     boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
     position: 'fixed',
-    top: '1rem',
+    top: '4rem',
     left: '50%',
     transform: 'translateX(-50%)',
     boxSizing: 'border-box',
@@ -73,7 +74,7 @@ export function showToast(message, type = 'yellow', duration = 3000) {
 }
 
 // --- Usage Examples ---
-showToast('Warning: Check your input settings');                  // Default (Yellow)
+// showToast('Warning: Check your input settings');                  // Default (Yellow)
 // showToast('Success! File uploaded successfully.', 'green');   // Green mode
 // showToast('Info: A new update is available.', 'blue');       // Blue mode
 // showToast('Error: Failed to connect to server.', 'red');     // Red mode
