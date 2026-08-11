@@ -20,7 +20,8 @@ import Feats from './databases/Feats.json'
 import ClassAndRaceAbilities from './databases/ClassAndRaceAbilities.json'
 import { getChoiceAbilitiesObjects, setChoiceAbilitiesObjects } from "./pages/Other/CharacterCreationCalculator/CharacterData"
 import { MAIN_STAT_ALTERNATIVES_MAP, STAT_LIMITS_TEXT, STAT_SYMBOLS } from "./services/game-lib/stat-calculations"
-import Spell, { VALID_SPELL_TOP_STATS } from "./components/Spell/Spell"
+import Spell, { VALID_SPELL_EFFECTS } from "./components/Spell/Spell"
+import { VALID_SPELL_TOP_STATS } from './components/Spell/HelperComponents/SpellTopStats'
 import QuestGuardConfig from './QuestGuardConfig.json'
 
 import STATIC_SYMBOLS from './parse-text-symbols-static.json'
@@ -614,6 +615,89 @@ export function isSpellKeystoneTalent(spell) {
 export function hasSpellVariants(spell) {
     return spell?.Variants != null || spell?.VariantsForEach != null
 }
+export function getSpellTags(spell) {
+    const keywords = spell?.Tags ?? spell?.Tag
+    if (keywords == null) {
+        return []
+    }
+    if (Array.isArray(keywords)) {
+        return keywords
+    }
+    if (!isString(keywords)) {
+        console.log({ spell })
+        console.error(`Error getting tag for spell printed above.`)
+        return ['Error']
+    }
+    return keywords.replaceAll(', ', ',').split(',')
+
+}
+export function getSpellTopStats(spell) {
+    const stats = filterObject(spell, ([key, value]) => VALID_SPELL_TOP_STATS.includes(key))
+    if (stats.DisplayA != null) {
+        delete stats.A
+    }
+    if (stats.DisplayRequirement != null) {
+        delete stats.Requirement
+    }
+    return stats
+}
+window.getSpellTopStats = getSpellTopStats
+export function getSpellTopStatIconAndSpan(name, value) {
+    const STANDARD_ICONS = [
+        'Duration',
+        'Hands', 'Range', 'Stat',
+        'Special', 'Cooldown',
+        'Replacement', 'XP',
+    ]
+    let iconPath = ''
+    if (STANDARD_ICONS.includes(name)) {
+        iconPath = `/Icons/UI/${name}.png`
+    } else if (name == 'Requirement' || name == 'DisplayRequirement') {
+        iconPath = `/Icons/UI/Level.png`
+    } else if (name == 'Price') {
+        iconPath = '/Icons/UI/Gold.png'
+    } else if (name == 'A' || name == 'DisplayA') {
+        iconPath = '/Icons/UI/Hand.png'
+    } else if (name == 'Cost') {
+        if (value?.includes('Health')) {
+            iconPath = '/Icons/UI/Blood.png'
+        } else {
+            iconPath = '/Icons/UI/Mana.png'
+        }
+    }
+
+    const STANDARD_VALUES = [
+        'Cost', 'Hands', 'Stat', 'Special', 'Range', 'Cooldown',
+        'Duration', 'Price', 'XP'
+    ]
+    let text = value
+    if (STANDARD_VALUES.includes(value)) {
+        text = <span>{value}</span>
+    } else if (name == 'Requirement' || name == 'DisplayRequirement') {
+        text = <span style={{ color: '#FF5A00' }}>{value}</span>
+    } else if (name == 'Replacement') {
+        text = <span style={{ color: 'var(--blue-color)' }}>{value}</span>
+    }
+
+    return { name, iconPath, span: text, text: value }
+}
+export function getSpellEffectsObjs(spell) {
+    const effectsObj = keepOnly(spell, VALID_SPELL_EFFECTS)
+    const effectsArr = Object.entries(effectsObj).map(([key, value]) => ({ key, value }))
+    const effectsSorted = sortObjectArrayByKeyInOrder(effectsArr, 'key', VALID_SPELL_EFFECTS)
+    return effectsSorted.filter(e => e.value != null)
+}
+export function getSpellTopStatsIconsAndSpans(spell) {
+    const stats = getSpellTopStats(spell)
+    const statsArray = Object.entries(stats).map(([key, value]) => getSpellTopStatIconAndSpan(key, value))
+    const statsArraySorted = sortObjectArrayByKeyInOrder(statsArray, 'name', VALID_SPELL_TOP_STATS) // VALID_SPELL_TOP_STATS is the correct order
+    console.log({ spell, stats, statsArray, statsArraySorted })
+    return statsArraySorted
+}
+
+
+
+
 
 
 
@@ -1739,6 +1823,8 @@ window.splitArrayEvenly = splitArrayEvenly
 
 
 
+
+
 // ---------------- Forms and Valdiation ----------------
 
 export function ifOk(whatToCheck, then) {
@@ -2282,7 +2368,24 @@ export function isCharDigit(char) {
     return '0123456789'.includes(char)
 }
 
+export function cleanupObject(ob, extraRule=(key, obj)=>false) {
+    const obj = {...ob}
+    for (const [key, value] of Object.entries(obj)) {
+        if (key == null || key?.length == 0 || value == null || extraRule(key, value)) {
+            delete obj[key]
+        }
+    }
+    return obj
+}
+window.cleanupObject = cleanupObject
+
+
+
+
+
+
 // ---------------- Other Small Utilities ----------------
+
 console.green = str => console.log(`%c${str}`, `color: green; font-style: bold`)
 export function dom(htmlString) {
   const parser = new DOMParser();
@@ -3598,9 +3701,3 @@ export function filterArrayBySearch(arr, getElemBio, searchText) {
     })
 }
 window.filterArrayBySearch = filterArrayBySearch
-
-
-
-
-
-

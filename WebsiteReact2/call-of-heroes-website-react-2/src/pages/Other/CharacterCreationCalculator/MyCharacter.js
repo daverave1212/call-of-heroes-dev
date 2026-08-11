@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getAllClasses, getAlMyRaceAndClassSpells, getAllSpellsByName, isString, spellsFromObject, useLocalStorageState, hasClassMana, getAllWeaponsByName, getAllArmorsByName, addObjects, getSpellReplacementName, reverseObject, getSpellIconPathByName, withToggledElement, getNumberDecimalsString, filterObject, maybeWithPlus, mapObject, isNumber, sum, SortSpellsBy, copyToClipboardAsync, pasteFromClipboardAsync, normalizeStringJSON, isStringJSON } from "../../../utils"
+import { getAllClasses, getAlMyRaceAndClassSpells, getAllSpellsByName, isString, spellsFromObject, useLocalStorageState, hasClassMana, getAllWeaponsByName, getAllArmorsByName, addObjects, getSpellReplacementName, reverseObject, getSpellIconPathByName, withToggledElement, getNumberDecimalsString, filterObject, maybeWithPlus, mapObject, isNumber, sum, SortSpellsBy, copyToClipboardAsync, pasteFromClipboardAsync, normalizeStringJSON, isStringJSON, cleanupObject } from "../../../utils"
 import ManySpells, { SpellSortTypes } from "../../../components/Spell/ManySpells"
 import PageH2 from "../../../components/PageH2/PageH2"
 import TextArea from "../../../components/TextArea/TextArea"
@@ -10,7 +10,7 @@ import SmallStat from "../../../components/SmallStat/SmallStat"
 import ManySmallStats from "../../../components/SmallStat/ManySmallStats"
 import { askConfirmation } from "../../../services/MessageDisplayer"
 import Dialog from "../../../components/Dialog/Dialog"
-import ChangeStatDialog, { ChangeStatDialogTypes } from "./ChangeStatDialog"
+import ChangeStatDialog, { ChangeSkillDialog, ChangeStatDialogTypes } from "./HelperComponents/ChangeStatDialog"
 import Spoiler from "../../../components/Spoiler/Spoiler"
 import Selector from "../../../components/Selector/Selector"
 import { calculateAllAtributes, calculateBaseMaxManaByLevel, calculateExtraFirstTurnAPByInitiative, getAvailableStatPointsByLevel, getStatBonusObjByPointsInvested, getStatValueByName, HEALTH_REGEN, INITIATIVE, KNOWN_ABILITIES, MAX_HEALTH, MOVEMENT_SPEED, SKILL_POINTS, STAT_NAMES, STAT_SHORTENED_STRING } from "../../../services/game-lib/stat-calculations"
@@ -23,6 +23,7 @@ import { BigStatValue } from "../../../components/BigStat/BigStatValue"
 import { printCharacterOnCanvas } from "./CharacterSheetPrinter"
 import NumberAligner from "../../../components/NumberAligner/NumberAligner"
 import { GrayFractionText } from "../../../components/GrayFractionText/GrayFractionText"
+import classNames from "classnames"
 
 export default function MyCharacter() {
 
@@ -160,38 +161,112 @@ export default function MyCharacter() {
             spellsIgnored
         } })
     }
-    function addSkill() {
-        setStatDialogOptions({
+    // function addSkill() {
+    //     setStatDialogOptions({
+    //         defaultInputValue: '',
+    //         defaultNumberValue: 0,
+    //         title: "New Skill",
+    //         description: `Add new Non-Combat Skill.`,
+    //         onDone: ({ name, value }) => {
+    //             const newManualSkillBonuses = {...manualSkillBonuses, [name]: value}
+    //             for (const [key, value] of Object.entries(newManualSkillBonuses)) {
+    //                 if (key == null || key?.length == 0 || value == null || value == 0 || !isNumber(value)) {
+    //                     delete newManualSkillBonuses[key]
+    //                 }
+    //             }
+    //             setManualSkillBonuses(newManualSkillBonuses)
+    //         },
+    //         skillBonuses: Object.entries(myValidSkillBonusesStrings).map(([key, value]) => `${value} ${key}`)
+    //     })
+    // }
+    function addSkillFlat() {
+        setSkillDialogOptions({
             defaultInputValue: '',
-            defaultNumberValue: 0,
-            title: "New Skill",
-            description: `Add new Non-Combat Skill.`,
-            onDone: ({ name, value }) => {
-                const newManualSkillBonuses = {...manualSkillBonuses, [name]: value}
-                for (const [key, value] of Object.entries(newManualSkillBonuses)) {
-                    if (key == null || key?.length == 0 || value == null || value == 0 || !isNumber(value)) {
-                        delete newManualSkillBonuses[key]
+            title: 'New Skill',
+            displayDescription(inputValue) {
+                if (inputValue in myValidSkillBonuses) {
+                    return <span>
+                        Add new Non-Combat Skill.<br/>
+                        <span style={{color: 'red'}}>You already have this Skill! It will not be added.</span>
+                    </span>
+                } else {
+                    return 'Add new Non-Combat Skill.'
+                }
+            },
+            buttonsData: [
+                {
+                    children: 'Add',
+                    onClick(name) {
+                        const alreadyHaveSkill = name in myValidSkillBonuses
+                        if (alreadyHaveSkill) {
+                            setSkillDialogOptions(null)
+                            return
+                        }
+                        const _oldManualSkillBonuses = {...manualSkillBonuses}
+                        const newBonuses = cleanupObject(manualSkillBonuses, (key, value) => value == 0 || !isNumber(value))
+                        const _newBonusesAfterCleanup = {...newBonuses}
+                        newBonuses[name] = 1
+                        console.log({name, _oldManualSkillBonuses, _newBonusesAfterCleanup, newBonuses})
+                        setManualSkillBonuses(newBonuses)
+                        setSkillDialogOptions(null)
                     }
                 }
-                setManualSkillBonuses(newManualSkillBonuses)
-            },
-            skillBonuses: Object.entries(myValidSkillBonusesStrings).map(([key, value]) => `${value} ${key}`)
+            ]
         })
     }
-    function changeSkill(name) {
-        const isBonusFromOtherSource = !(name in manualSkillBonuses)
-        if (isBonusFromOtherSource) {
-            manualSkillBonuses[name] = 0
-        }
-        setStatDialogOptions({
-            defaultInputValue: null,
-            defaultNumberValue: manualSkillBonuses[name],
-            onDone: ({ value }) => setManualSkillBonuses({
-                ...manualSkillBonuses,
-                [name]: value
+    function changeSkillFlat(name) {
+        const isManualSkill = name in manualSkillBonuses
+        const isAutoSkill = name in autoSkillBonuses
+
+        if (isAutoSkill && !isManualSkill) {
+            setSkillDialogOptions({
+                title: `${name} Skill`,
+                displayDescription: () => `You have the ${name} Skill from an Ability or item.`
             })
+            return
+        }
+
+        let description = ''
+        if (isAutoSkill && isManualSkill) {
+            description = <span>
+                Are you sure you want to remove your {name} Skill?<br/>
+                <span className="italic">Note: You <strong>already also</strong> have this Skill from an Ability or item, so it's safe to remove.</span>
+            </span>
+        } else {
+            description = <span>Are you sure you want to remove your {name} Skill?</span>
+        }
+
+
+        setSkillDialogOptions({
+            title: `Remove ${name} Skill`,
+            displayDescription: () => description,
+            buttonsData: [
+                {
+                    children: 'Remove',
+                    className: 'red',
+                    onClick() {
+                        delete manualSkillBonuses[name]
+                        setManualSkillBonuses(manualSkillBonuses)
+                        setSkillDialogOptions(null)
+                    }
+                }
+            ]
         })
     }
+    // function changeSkill(name) {
+    //     const isBonusFromOtherSource = !(name in manualSkillBonuses)
+    //     if (isBonusFromOtherSource) {
+    //         manualSkillBonuses[name] = 0
+    //     }
+    //     setStatDialogOptions({
+    //         defaultInputValue: null,
+    //         defaultNumberValue: manualSkillBonuses[name],
+    //         onDone: ({ value }) => setManualSkillBonuses({
+    //             ...manualSkillBonuses,
+    //             [name]: value
+    //         })
+    //     })
+    // }
     function addNormalExtra() {
         setStatDialogOptions({
             defaultInputValue: '',
@@ -293,7 +368,7 @@ export default function MyCharacter() {
             { source.bonus } { source.statName }
             &nbsp;({ source.source })
         </div>) }</>
-    // const SkillBonus = ({name, value}) => {
+    // const SkillBonusWithNumber = ({name, value}) => {
     //     return <div className="skill-bonus text-font pointer" onClick={() => changeSkill(name)}>
     //         <div className="left">
     //             <Icon name="CharacterSetupSub"/> {name}
@@ -303,21 +378,28 @@ export default function MyCharacter() {
     //         </div>
     //     </div>
     // }
-    const SkillBonus = ({name, skillPointsInvested}) => {
-        const { value, fraction } = getStatBonusObjByPointsInvested(skillPointsInvested)
-        const valueWithFraction = value + fraction
-        // console.green(`Making SkillBonus for ${name} with ${skillPointsInvested} points in it.`)
-        return <div className="skill-bonus text-font pointer" onClick={() => changeSkill(name)}>
+    // const SkillBonusScalingPoints = ({name, skillPointsInvested}) => {
+    //     const { value, fraction } = getStatBonusObjByPointsInvested(skillPointsInvested)
+    //     const valueWithFraction = value + fraction
+    //     // console.green(`Making SkillBonus for ${name} with ${skillPointsInvested} points in it.`)
+    //     return <div className="skill-bonus text-font pointer" onClick={() => changeSkill(name)}>
+    //         <div className="left">
+    //             <Icon name="CharacterSetupSub"/> {name}
+    //         </div>
+    //         <div className="right">
+    //             <NumberAligner number={valueWithFraction} includePlus={true} isFractionGray={true}/>
+    //             {/* <GrayFractionText value={valueWithFraction} reduceFontSize={false} includePlus={true}/> */}
+    //         </div>
+    //     </div>
+    // }
+    const SkillBonusFlat = ({name, value}) => {
+        return <div className="skill-bonus text-font pointer" onClick={() => changeSkillFlat(name)}>
             <div className="left">
                 <Icon name="CharacterSetupSub"/> {name}
             </div>
-            <div className="right">
-                <NumberAligner number={valueWithFraction} includePlus={true} isFractionGray={true}/>
-                {/* <GrayFractionText value={valueWithFraction} reduceFontSize={false} includePlus={true}/> */}
-            </div>
         </div>
     }
-    const Skills = () => <>{Object.entries(myValidSkillBonusesStrings).map(([key, value]) => <SkillBonus name={key} skillPointsInvested={value}/>)}</>
+    const Skills = () => <>{Object.entries(myValidSkillBonusesStrings).map(([key, value]) => <SkillBonusFlat name={key}/>)}</>
     const Languages = () => <>{ languages.map(text => <div className="extra"><Icon name="Specializations"/>You speak { text }</div>) }</>
 
     // Subcomponents
@@ -386,7 +468,6 @@ export default function MyCharacter() {
         </div>
     }
     function Spellcasting() {
-
         return (
             <div className="flex-column gap-3q">
                 <HealthBar/>
@@ -440,13 +521,19 @@ export default function MyCharacter() {
     }
 
     let [statDialogOptions, setStatDialogOptions] = useState(null)
+    let [skillDialogOptions, setSkillDialogOptions] = useState(null)
 
     return (
         <div id="My-Character">
 
-            {statDialogOptions != null && <ChangeStatDialog
+            {statDialogOptions && <ChangeStatDialog
                 {...statDialogOptions}
                 close={() => setStatDialogOptions(null)}
+            />}
+
+            {skillDialogOptions && <ChangeSkillDialog
+                {...skillDialogOptions}
+                close={() => setSkillDialogOptions(null)}
             />}
 
             <div id="My-Character-Upper-Part">
@@ -468,7 +555,7 @@ export default function MyCharacter() {
                     <div className="flex-column" style={{flex: 1, gap: '5px'}}>
                         <PageH3>Non-Combat Skills ({usedSkillPoints}/{attributes[SKILL_POINTS]})</PageH3>
                         <Skills/>
-                        <button className="extra" onClick={addSkill}>+</button>
+                        <button className="extra" onClick={addSkillFlat}>+</button>
                     </div>
                     <div className="flex-column" style={{flex: 1, gap: '5px'}}>
                         <PageH3>Languages</PageH3>

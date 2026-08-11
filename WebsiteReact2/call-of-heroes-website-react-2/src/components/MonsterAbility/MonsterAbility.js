@@ -5,10 +5,11 @@ import { useState } from 'react'
 
 import * as U from '../../utils'
 
-import { SpellTopStats, VALID_SPELL_TOP_STATS } from '../Spell/Spell'
+import { VALID_SPELL_TOP_STATS } from '../Spell/HelperComponents/SpellTopStats'
 import Icon from '../Icon'
 import MonsterCalculations from '../../databases/MonsterCalculations.json'
 import classNames from 'classnames'
+import { SpellTopStats } from '../Spell/HelperComponents/SpellTopStats'
 
 export default function MonsterAbility({monster, monsterXP, ability, isPassive, style, className}) {
     let name

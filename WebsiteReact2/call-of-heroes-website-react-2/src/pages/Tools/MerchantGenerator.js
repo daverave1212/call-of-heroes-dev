@@ -2,12 +2,11 @@ import { useState } from "react";
 import PageH1 from "../../components/PageH1/PageH1";
 import Page from "../../containers/Page/Page";
 import { QGTitle1 } from "./TitleGenerator";
-import { filterObject, flattenObjectOnce, getAllMagicItemsAsArray, getAllMagicItemsByName, getAllPricesByName, getDaysSinceLast, getISOWeekNumber, getNumberFromString, getSpellNVariants, groupBy, hasSpellVariants, isNumber, mapObject, mapObjectToArray, parseAndNormalizeSpell, percentChance, randomInt, randomOf, range, roundToNearest, SeededRNG, shuffle, spellsFromObject, WEDNESDAY } from "../../utils";
+import { filterObject, flattenObjectOnce, getAllMagicItemsAsArray, getAllMagicItemsByName, getAllPricesByName, getDaysSinceLast, getISOWeekNumber, getNumberFromString, getSpellNVariants, getSpellTags, groupBy, hasSpellVariants, isNumber, mapObject, mapObjectToArray, parseAndNormalizeSpell, percentChance, randomInt, randomOf, range, roundToNearest, SeededRNG, shuffle, spellsFromObject, WEDNESDAY } from "../../utils";
 import TwoColumns from "../../components/TwoColumns/TwoColumns";
 import Column from "../../components/TwoColumns/Column";
 import { getItemPrice, PriceTable } from "../Other/Prices";
 import prices from './../../databases/Prices.json'
-import Spell, { getSpellTags } from "../../components/Spell/Spell";
 import { createMagicItem } from "../Other/MagicItemCreator";
 
 const MERCHANT_TYPE_LETTER_MAP = {

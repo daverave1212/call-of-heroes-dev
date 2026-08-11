@@ -2,15 +2,15 @@
 import './ChangeStatDialog.css'
 
 import { useEffect, useState } from "react"
-import Dialog from "../../../components/Dialog/Dialog"
-import { useArmors, useManualBonuses } from "./CharacterData"
-import PageH2 from "../../../components/PageH2/PageH2"
-import { LabelWithInput } from './SectionNames'
-import { BigStatValue } from '../../../components/BigStat/BigStatValue'
-import { GrayFractionText } from '../../../components/GrayFractionText/GrayFractionText'
-import { playStarsAnimation } from '../../../services/dom/star-particles/star-particles'
-import ProgressBar from '../../../components/ResourceBar/ProgressBar'
-import { flashElement } from '../../../services/dom/flash-glow'
+import Dialog from "../../../../components/Dialog/Dialog"
+import { useArmors, useManualBonuses } from "../CharacterData"
+import PageH2 from "../../../../components/PageH2/PageH2"
+import { LabelWithInput } from '../SectionNames'
+import { BigStatValue } from '../../../../components/BigStat/BigStatValue'
+import { GrayFractionText } from '../../../../components/GrayFractionText/GrayFractionText'
+import { playStarsAnimation } from '../../../../services/dom/star-particles/star-particles'
+import ProgressBar from '../../../../components/ResourceBar/ProgressBar'
+import { flashElement } from '../../../../services/dom/flash-glow'
 
 // WIP
 // export function CustomArmorDialog({ isOpen, setIsOpen }) {
@@ -112,8 +112,6 @@ export function ChangeStatDialogNormal({ display, defaultInputValue, defaultNumb
     )
 }
 
-
-
 export function ChangeStatWithFractionDialog({
     id,
     title, name,
@@ -190,4 +188,36 @@ export function ChangeStatWithFractionDialog({
             </div>
         </Dialog>
     )
+}
+
+export function ChangeSkillDialog({ defaultInputValue, displayDescription, title, close, buttonsData }) {
+
+    const [value, setValue] = useState(defaultInputValue)
+
+    return <Dialog
+        isOpen={true}
+        setIsOpen={(bool) => {
+        if (bool == false) {
+            close()
+        }
+    }}>
+        <div className="center-content gap-half">
+            <h2 className='center-text' style={{fontFamily: 'HomeFont', fontWeight: 'normal'}}>{title}</h2>
+            <p className='center-text margin-bottom-0 padding-bottom-0'>
+                { displayDescription(value) }
+            </p>
+            {/* != null because it can be empty string */}
+            { defaultInputValue != null && (
+                <div className='center-content'>
+                    <input className='text-input home-font padding-1' value={value} onChange={evt => setValue(evt.target.value)}/>
+                </div>
+            ) }
+            <div className='center-content row gap-half'>
+                { buttonsData?.map(btnObj => (
+                    <button {...btnObj} onClick={evt => btnObj.onClick(value)}/>
+                )) }
+            </div>
+        </div>
+    </Dialog>
+
 }

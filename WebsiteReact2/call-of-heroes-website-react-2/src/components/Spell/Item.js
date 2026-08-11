@@ -5,10 +5,11 @@ import Separator from './../Separator/Separator'
 import React, { useEffect, useState } from 'react'
 import Icon from '../Icon'
 import { insertBetweenAll, ifOk, stringReplaceAllMany, mapObject, parseTextWithSymbols, getUniqueSpellID, spellsFromObject, findBasicSpellByName, getSpellIconPathByName, getItemIconPathByName, allEqual } from '../../utils'
-import Spell, { SpellTop } from './Spell'
+import Spell from './Spell'
 import html2canvas from 'html2canvas'
 import CopySpellButton from '../CopyButton/CopySpellButton'
 import classNames from 'classnames'
+import { SpellTop } from './HelperComponents/SpellTop'
 
 export default function Item({ item, style, hasIcon, hasCopyButton=true, showTopStats=true }) {
 

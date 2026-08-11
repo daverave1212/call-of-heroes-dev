@@ -13,8 +13,11 @@ import Ribbon from '../Ribbon/Ribbon'
 import Icon from '../Icon'
 import EffectTable from '../TableNormal/EffectTable'
 import QuestGuardConfig from '../../QuestGuardConfig.json'
-import { getSpellEffectsObjs, getSpellTags, getSpellTopStatsIconsAndSpans, RenderEffect, SpellTop, SpellTopStats, VALID_SPELL_TOP_STATS } from './Spell'
-import PageH3 from '../PageH3/PageH3'
+import { getSpellTopStatsIconsAndSpans } from '../../utils'
+import { getSpellEffectsObjs } from '../../utils'
+import { SpellTop } from './HelperComponents/SpellTop'
+import { getSpellTags } from '../../utils'
+import { RenderEffect } from './HelperComponents/RenderEffect'
 
 /*
 If buttonText != null:

@@ -1,6 +1,6 @@
 import './Dialog.css'
 
-export default function Dialog({ children, buttonText, isOpen, setIsOpen, onButtonClick }) {
+export default function Dialog({ children, buttonText, isOpen, setIsOpen, onButtonClick, buttonTexts, onButtonClicks }) {
     const displayStyle = isOpen == true? '': 'none'
 
     function onBackgroundClick() {
@@ -15,8 +15,15 @@ export default function Dialog({ children, buttonText, isOpen, setIsOpen, onButt
             <div className='dialog-card shadowed' onClick={onCardClick}>
                 { children }
                 { buttonText != null && (
-                    <div className='center-content margin-top-1'>
+                    <div className='center-content flex row margin-top-1'>
                         <button onClick={onButtonClick}>{buttonText}</button>
+                    </div>
+                ) }
+                { buttonTexts && Array.isArray(buttonTexts) && (
+                    <div className='center-content flex row margin-top-1'>
+                        { buttonTexts.map((text, i) => (
+                            <button onClick={onButtonClicks[i]}>{text}</button>
+                        )) }
                     </div>
                 ) }
             </div>
