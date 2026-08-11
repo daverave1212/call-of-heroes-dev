@@ -337,7 +337,8 @@ export function assertAbilityHasCorrectProps(name, body) {
         'Has Mixins',
         'Is Subspell',
         'Is Ignored',
-        'Tag'
+        'Tag',
+        'Skills'
     ])
 }
 

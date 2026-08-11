@@ -81,9 +81,10 @@ Goblin:
         Damage: 1 + number of Goblins
     - Melee:
         Damage: 1 + number of Goblins
-    - Bite:
+    - Quick Attack:
         A: Half-Action
-        Damage: 1d4 Pierce
+        Cooldown: Once / Turn
+        Damage: 1d4
   Passives:
     - Strength in Numbers: |
         Every Goblin attack deals +1 Damage for each Worthy Goblin in their squad.
@@ -116,7 +117,7 @@ Pirate Scoundrel:
   Experience:   75
   Stats:        1/2/-1/1/3
   HPCoef:       1
-  Speed:        4
+  Speed:        5
   Initiative:   9 Melee / 5 Ranged
   Abilities:
     - Handgun:
@@ -128,6 +129,10 @@ Pirate Scoundrel:
         Damage: Auto
         Effect: Applies a Combo.
         Combo: Target chooses to take +1d4 Damage or become Single-Stunned.
+    - Quick Attack:
+        A: Half-Action
+        Cooldown: Once / Turn
+        Damage: 1d4
   Passives:
     - Avast: When Damaged, can freely make a Move Act.
     - Rum!: At the end of each Round, players choose if all pirates together drink rum. If they do, they Heal for 8 Health but no longer deal Damage on 1 (then 2, then 3, etc).
@@ -155,16 +160,17 @@ Acolyte:
   Experience:   100
   Stats:        0/0/3/3/3
   Health:       28
-  HPCoef:       1
+  HPCoef:       1.25  # Because the Blind is pretty fucked
   Speed:        5
   Initiative:   1
   Abilities:
     - Blinding Heal:
         Effect: Heal a non-Acolyte Unit for 8. All Units around it become Blinded.
     - Flame Bolt:
-        Range: 6 meters
-        Damage: 1d6 + 1
-    - Weapon:
+        Range: 5 meters
+        Damage: Auto
+    - Quick Attack:
+        A: Half-Action
         Cooldown: Once / Turn
         Damage: 1d4
   Passives:
@@ -188,11 +194,12 @@ Cultist:
   Speed:        5
   Initiative:   4
   Abilities:
-    - Eldritch Blast (spell):
+    - Eldritch Blast:
         Damage: 1d4 Scourge
         Decaying: |
-            Target takes +2 Scourge Damage for the rest of combat (after the attack). Stacks infinitely.
-    - Dagger:
+            Then, the target chooses to be Slammed 1d4 meters away, or take +2 Scourge Damage for the rest of Combat. Stacks infinitely.
+    - Quick Attack:
+        A: Half-Action
         Cooldown: Once / Turn
         Damage: 1d4
   Avoids AoE: Yes
@@ -230,12 +237,12 @@ Morloc:
   Initiative:   5
   Abilities:
     - Melee Weapon:
-        Damage: 1d8 Pierce
-        Water Heal: If the target is standing in water, it becomes Frail.
+        Damage: Auto
+        Water Heal: If the target is standing in water, it chooses to become Frail or take +100% Damage.
     - Throw Weapon:
         A: Half-Action
         Range: 2-3 meters
-        Damage: 1d4 Pierce
+        Damage: "{Damage-1}"
     - Net:
         Range: 5 meters
         A: Half-Action
@@ -275,7 +282,7 @@ Bandit:
     - Kick:
         A: Half-Action
         Cooldown: Once / Turn
-        Effect: Slam a Unit {DamageAuto} meters (target chooses direction). Steal 10 Gold from them.
+        Effect: Slam a Unit {DamageAuto} meters (target chooses direction). It loses 10 Gold.
     - Quick Attack:
         A: Half-Action
         Damage: "{DamageAuto}"
@@ -347,18 +354,18 @@ Ogre:
     - Slamming Attack:
         Range: 2 meters
         Cooldown: Once / Turn
-        Damage: 1d12 Smash
+        Damage: Auto
         Slam: The Unit chooses a direction to be Slammed that many meters as the rolled Damage.
         Combo: And becomes Single-Stunned.
     - Hurl Object:
         A: Half-Action
         Range: 3 to 5 meters
-        Damage: 1d6 Smash
+        Damage: Auto
         Stun: The target becomes Single-Stunned.
         Notes: This can hurl allies of Ogres as well (doesn't count as Slamming).
     - Stomp:
         Cooldown: Once / Turn
-        Effect: All Units within 2 meters take 5 Smash Damage and become Slowed. One of them (players choose) gets a Combo.
+        Effect: All Units within 2 meters take {DamageAoE} Smash Damage and become Slowed. One of them (players choose) gets a Combo.
   Passives:
     - Thick Skin: The Ogre takes -50% when hit from behind.
   Avoids AoE: No
@@ -426,26 +433,21 @@ Guard:
   Experience:   150
   Stats:        3/2/1/2/0
   Health:       38
-  Defense:      2
-  HPCoef:       1
+  HPCoef:       1.15
   Speed:        4
   Initiative:   3
   Abilities:
+    - Command - Halt:
+        A: Reaction
+        Effect: Use when a Unit wants to move. They choose to be Rooted, or be attacked by any available Guards in range (Guards use a Reaction).
     - Crossbow:
-        Damage: 2d6 Pierce
+        Damage: Auto
         Immobilizing: For each rolled 6, apply a Combo.
     - Quick Attack:
         A: Half-Action
-        Damage: 1d6
-        Advanced Flank: +1d4 Damage if flanking. Guards can flank with obstacles and walls.
-        Combo: Daze the target.
-    - Volley of Arrows:
-        A: 1 Action / Guard
-        Range: 5 meters to edge
-        Requirement: Ranged Guard
-        Effect: |
-          ALL ranged Guards target a 4x4 area.
-          All Units there take 1d4 Pierce Damage for each ranged Guard (as one attack).
+        Damage: "{Damage-1}"
+        Get Back: Target chooses to take the Damage again, or be pushed that many meters (Guard chooses direction).
+        Combo: Lag the target.
   Avoids AoE: Yes
   Behavior: |
     Attack the closest enemy to them.
@@ -466,35 +468,38 @@ Guard:
     - Chain Mail
     - Jewelry worth 1d100 Gold
 
-Hobgoblin:
-  Type:         Person
+Fomor:
+  Type:         Person, Giant
   Degree:       Normal
   Experience:   200
   Stats:        3/2/1/2/3
   Health:       66
   HPCoef:       0.7
-  Speed:        5
+  Speed:        3
   Initiative:   1
   Abilities:
+    - Make Way:
+        A: 0
+        Range: 1
+        Effect: Swap places with an ally near the Fomor (no Cooldown).
     - Attack:
-        Damage: 2d8
+        Damage: "{Damage+2}"
     - Copy Spell:
         Cooldown: Once / Encounter
-        Effect: The Hobgoblin uses an Ability a Hero has used this Combat (with that Character's exact stats).
-    - Bite:
-        A: Half-Action
-        Damage: 1d4
+        Effect: The Fomor uses an Ability a Hero has used this Combat (with that Character's exact stats).
+    - Quick Attack: Auto
   Passives:
     - Bold in Numbers: Has +1 Defense for each other alive ally on its team.
+    - Resistances: -50% Cold and Fire Damage taken.
   Avoids AoE: Yes
   Behavior: |
-    Hobgoblins fight with its allies.
+    Fomors fight with its allies.
     Will wait for a good moment to use Copy Spell.
     Be careful how many enemies are in an encounter with a Hobgoblin! Too many enemies can turn a regular encounter into a deadly one!
-    Players should know Hobgoblins can copy a spell.
+    Players should know Fomors can copy a spell.
     Every time an ally of the Hobgoblin dies, describe how the Hobgoblin appears less bold (aka loses Defense).
   Pair: Pair with Goblins, Wolves, even an Ogre.
-  Suggested Obstacles: None! Hobgoblins don't like traps (but its allies do)!
+  Suggested Obstacles: None! Fomors don't like traps (but its allies do)!
   Monster Data: Kill me last, careful with spells
   Role: Extra
   Variants: None
@@ -509,15 +514,14 @@ Berserker:
   Speed:        5
   Initiative:   4
   Abilities:
-    - Bow:      1d12
+    - Bow:      "{Damage-1}"
     - Attack:
         Damage: 1d4
         RAGE: +1d4 Damage for each time the Berserker took Damage this Combat
-    - Quick Attack:
-        A: Half-Action
-        Damage: 1d4
+        Upgrade: Disabled while Silenced/Deafened!
+    - Quick Attack: Auto
   Passives:
-    - RAGE: Whenever a Berserker takes Damage, it gains +3 Damage on normal attacks.
+    - RAGE: Whenever a Berserker takes Damage, it gains +1d4 Damage on normal attacks.
   Avoids AoE: No
   Behavior: |
     Berserkers prefer melee combat. Try to put more Melee Berserkers than Ranged.
@@ -535,7 +539,7 @@ Cult Hierarch:
   Type:         Person
   Degree:       Normal
   Experience:   225
-  Stats:        1/2/5/2/5
+  Stats:        1/2/4/2/5
   Health:       76
   HPCoef:       1
   Speed:        5
@@ -556,11 +560,9 @@ Cult Hierarch:
         A: Reaction
         Cooldown: Once / Encounter
         Effect: |
-          On first occasion, when a Unit uses an Ability, it is cancelled and the Action Points are lost (but not the Mana).
+          On first occasion, when a Unit uses an Ability, it is cancelled. Action Points spent are lost (but not the Mana/Cooldown).
         Upgrade: The Counterspell is visibly prepared in the Unit's hand, ready to cast!
-    - Dagger:
-        A: Half-Action
-        Damage: 1d6 Pierce
+    - Quick Attack: Auto
   Passives:
     Basic Magic: Can cast small non-combat utility spells like Magic Tricks, Light, etc
   Avoids AoE: Yes
@@ -590,19 +592,19 @@ Druid:
   Initiative:   6
   Abilities:
     - Roots (Human):
-        Effect: All Enemies of the Druid within 2 meters take 2d6 Damage and must choose, twice, to become Slowed or take +1d6 Damage.
+        Effect: All Enemies of the Druid within 2 meters take {DamageAoE} Damage and must choose, twice, to become Lagged or take +1d6 Damage.
     - Maul (Bear):
         A: Half-Action
-        Damage: 1d8
-        Critical Stun: If rolled 6 or higher, the target becomes Single-Stunned.
+        Damage: Auto
+        Stun: Target chooses to be Stunned, or have a 50% change to be Double-Stunned.
     - Tongue Grab (Toad):
         Range: 5 meters
-        Damage: 4d4 Poison
-        Pull: Target is Slammed 1d4 meters in any direction.
+        Damage: "{DamageAuto} Poison"
+        Pull: Target is Slammed that many meters in any direction it chooses.
     - Talons (Eagle):
         A: Half-Action
-        Damage: 1d8
-        Fly Away: After attacking, you can move 3 meters for free.
+        Damage: "{Damage+1}"
+        Fly Away: After attacking, make a Move Act for free with +2 Speed.
     - Shapeshift (free):
         A: 0 Actions
         Effect: |
@@ -643,32 +645,27 @@ Dryad:
   Type:         Person, Fey
   Degree:       Normal
   Experience:   275
-  Stats:        0/5/5/3/3
-  Health:       100 (half is Shielding)
-  HPCoef:       0.98
-  Shielding:    half is Shielding
+  Stats:        0/5/3/3/0
+  Health:       100
+  HPCoef:       0.5
   Speed:        5
-  Initiative:   5
+  Initiative:   N/A
   Abilities:
-    - Plant Attack:
-        Range: 3 meters (from the plant)
-        Damage: 10 (or 4d4)
-        Plant Reach: |
-          Instead of the Dryad attacking, she makes a nearby plant attack.
-        Notes: E.g. a tree slams with its branches, a bush shoots thorns, etc
     - Thorn Spike:
         A: Half-Action
         Range: 5 meters
-        Damage: 1d8 Pierce
+        Damage: "{DamageAuto} Pierce"
     - Sleep Spores:
         Cooldown: Once / Turn
         Range: 5 meters
         Effect: |
-          Choose a 3x3 meter area. It becomes Hard Terrain.
-          Any enemy of the Dryad ending their turn in Spores must roll a {Sense} Check at least 11 or it falls Asleep and its initiative becomes 0.
+          Choose a 3x3 meter area. All Units (together) in the area choose to fall Asleep or take {Damage+2} Poison Damage.
+    - Quick Attack: Auto
   Passives:
+    - Nimble Actions: The Dryad has 0 Action Points and no Setback. Whenever an enemy ends their Turn, the Dryad gains +1 Action Points it can use immediately, or store for later.
+    - Deathless: At the end of each Round, the Dryad heals to full Health.
     - Treesposition: Instead of moving normally, the Dryad can touch a tree and teleport near another tree within 10 meters (if not Silenced).
-    - Vulnerabilities: Takes +50% Acid Damage.
+    - Weaknesses: +50% Acid and Fire Damage taken.
     - Immunities: Immune to Poison Damage and Sleep.
     - Tree Bound (Non-Combat): Every Dryad is permanently bound to a tree. If that tree dies, the Dryad dies. Dryads keep their home tree secret and can't wander more than a few kilometers away without dying.
   Avoids AoE: No
@@ -691,39 +688,35 @@ Dryad:
     Will they leave, fight the Dryads or sneakily steal the fruit (of course, the Dryads know they are trying to sneak and will ambush the Players).
 
 Naga:
-  Type:         Person, Monster
+  Type:         Person, Monster, Fiend
   Degree:       Normal
   Experience:   275
-  Stats:        4/3/2/2/2
+  Stats:        3/4/2/1/1
   Health:       80
-  Defense:      5 (Innate)
   HPCoef:       1
-  Speed:        4 on land, 6 in water and shallow water
+  Speed:        5
   Initiative:   5
   Abilities:
-    - Warrior - Melee Weapon:
-        A: Half-Action
-        Damage: 1d12
-        Chains: Every 2nd attack Deafens and Dazes the target.
-    - Warrior - Harpoon:
-        Range: 5 meters
-        Damage: 8 Pierce
-        Pull: Target is pulled near the Naga Warrior.
-    - Mage - Frostbolt (10m):
-        Damage: 10 Cold (or 4d4)
-        Freezing: If the target already took Cold Damage this Combat, it becomes Slowed.
-    - Mage - Enslave Magic:
+    - 6-Arm Melee Attack:
+        Damage: "{DamageAoE}"
+        Range: 2 meters
+        Effect: Makes 6 attacks spread evenly among all Enemies within 2 meters. Extra attacks are lost (e.g. if only 4 or 5 Units are around).
+    - 6-Arm Ranged Attack:
+        Damage: "{DamageAoE}"
+        Effect: Makes 6 attacks spread evenly among all Enemies within a chosen 3x3 meter area centered on a Unit. Extra attacks are lost (e.g. if only 4 or 5 Units are around).
+    - Enslave:
         A: Half-Action
         Cooldown: Once / Encounter
         Effect: |
-          Gain control of a non-Hero Unit until Combat ends or the Naga Mage dies.
+          Gain control of a non-Hero Unit until Combat ends or the Naga dies.
+    - Quick Attack: Auto
   Passives:
-    - Resistances: Takes -50% Cold Damage.
-    - Mages and Warriors: A Naga is either a Mage or a Warrior. A Mage can only use Mage Abilities. A Warrior can only use Warrior Abilities.
+    - Retaliate: After being attacked in Melee, retaliate for {DamageAoE} Damage (no Cooldown/Reaction).
+    - Immovable: Immune to being Pushed or Slammed.
+    - Resistances: Takes -50% Damage based on its environment.
+    - Basic Magic: Can cast small non-combat utility spells like Magic Tricks, Light, etc
   Avoids AoE: No
-  Behavior: |
-    Warrior: Use Melee Weapon attacks if the Naga can. If it can't get in range to attack, use Harpoon.
-    Mage: Always use Enslave Magic on Units that players summon (e.g. spirit weapons, demons, etc).
+  Behavior: none
   Pair: Pair with enslaved Morlocs, Crabs (Giant), a Bannerman.
   Lore: |
     Naga are known to enslave other species, like Morlocs.
@@ -757,9 +750,9 @@ Centaur:
     - Ranged Weapon:
         A: Half-Action
         Cooldown: Twice / Turn
-        Damage: 1d12
+        Damage: Auto
     - Melee Weapon:
-        Damage: 2d10
+        Damage: Auto
         Double Edge: The target choose whether to both take +1d10 Damage, or be Single-Stunned.
     - STAMPEDE:
         A: Reaction
@@ -767,9 +760,7 @@ Centaur:
         Effect: |
           Use when another player wants to do something.
           Immediately run up to 10 meters to the other side of the battlefield and make a Melee Attack.
-    - Hooves:
-        A: Half-Action
-        Damage: 1d6 Smash
+    - Quick Attack: Auto
   Passives:
     - Moving Target: If the Centaur moved this round, its Defense is doubled for the rest of the round.
     - Hooves: Immune to Caltrops and Difficult Terrain.
@@ -817,9 +808,9 @@ Necromancer:
   Abilities:
     - Eldritch Bolt:
         Range: 5 meters
-        Damage: 1d4 Damage + target's {Might} Scourge
+        Damage: "{Damage-1} + target's {Might}"
   Passives:
-    - Necromantic Control: When in a group with other undead Unit(s), one undead is bound to this necromancer. When this necromancer dies, that undead dies as well.
+    - Necromantic Control: When in a group with other undead Unit(s), one undead is bound to this Necromancer. When this Necromancer dies, that undead dies as well.
   Avoids AoE: No
   Behavior: Avoids damage and sits in the back
   Lore: None
@@ -852,8 +843,9 @@ Bug (Giant):
   Abilities:
     - Bite:
         Cooldown: Once / Turn
-        Damage: 1d4 True
+        Damage: "{DamageAuto} True"
   Passives:
+    - Spawning: When the Bug dies, another one comes from a nearby nest.
     - Optionally Flying: If it makes sense for the bug to fly, it can fly.
   Avoids AoE: No
   Behavior: |
@@ -875,7 +867,7 @@ Bug (Giant):
 Hound:
   Type:         Beast, Undead, Demon
   Experience:   50
-  Stats:        1/1/0/6/3
+  Stats:        1/1/0/5/3
   Health:       15
   HPCoef:       0.7
   Speed:        6
@@ -883,13 +875,13 @@ Hound:
   Abilities:
     - Bite:
         Cooldown: Once / Turn
-        Damage: 1d4 Pierce
+        Damage: "{DamageAuto} Pierce"
         Hold Down: |
           The Hound remains attached to the target.
-          While holding the target, it is Slowed, Deafened, or Dazed.
+          While holding the target, it is Lagged, Deafened, or Dazed.
           All Hounds must choose the same Control Effect on this Round.
   Passives:
-    - Track: Hounds can track a Unit for up to 5 kilometers. Escaping from Hounds requires a Check at least 15.
+    - Track: Hounds can track a Unit for up to 5 kilometers. Escaping from Hounds requires passing a Hard Check.
     - Detect: Hounds can detect invisible Units.
   Avoids AoE: No
   Behavior: |
@@ -901,7 +893,7 @@ Hound:
   Monster Data: No tactic, mid HP, no gimmick
   Role: Extra
   Variants: Mastiff, Undead Hound, Hell Hound
-  
+
 Camazot:
   Type:         Beast, Insect
   Experience:   50
@@ -914,7 +906,7 @@ Camazot:
   Abilities:
     - Facehug:
         Cooldown: Once / Turn
-        Damage: 1d4 Scourge
+        Damage: "{DamageAuto} Scourge"
         Attach: |
           The Camazot remains attached to the target, making it perpetually Blinded.
   Passives:
@@ -940,8 +932,9 @@ Wolf:
   Abilities:
     - Pack Bite:
         Cooldown: Once / Turn
-        Damage: 1d4 Pierce
+        Damage: "{Damage-1} Pierce"
         Flanker: All other Wolves that are in range make a Pack Bite on the same target (without triggering this effect).
+    - Quick Attack: Auto
   Avoids AoE: No
   Behavior: |
     Not afraid to run straight through the front line to reach the back line.
@@ -992,15 +985,15 @@ Crab (Giant):
         Cooldown: Once / Encounter
         Yoink: |
           The crab grabs a target with its claw.
-          The target is Single-Stunned, Rooted to the Crab until it dies, and takes 1d6 Damage at the end of the Crab's Turns.
+          The target is Single-Stunned, Rooted to the Crab until it dies, and takes {Damage} Damage at the end of the Crab's Turns.
     - Pincer:
-        Damage: 1d6 Pierce, Smash or Slash
-        Critical Stun: If rolled 6, Single-Stun the target.
+        Damage: "{DamageAuto} Pierce, Smash or Slash"
+        Stun: Target must choose to be Slammed that many meters in a random direction, or be Single-Stunned.
   Passives:
-    - Thick Chitin: Takes -50% Pierce and Slash Damage.
-    - Cold Resistance: Takes -50% Cold Damage.
+    - Thick Chitin: -50% Pierce and Slash Damage taken.
+    - Resistances: -50% Damage taken based on its environment.
     - Tall: Ignores Hard Terrain and Caltrops or Spikes.
-    - Submerged Camouflage: Spotting a camouflaged Crab requires a Check at least 12.
+    - Submerged Camouflage: Spotting a camouflaged Crab requires passing a Hard Check.
   Avoids AoE: No
   Behavior: |
     Crabs like to submerge themselves in sand or water and ambush their pray when they least expect it.
@@ -1016,20 +1009,17 @@ Crab (Giant):
 Rat (Giant):
   Type:         Beast
   Experience:   150
-  Stats:        1/5/-2/4/0
+  Stats:        1/4/-2/3/0
   Health:       40
   HPCoef:       1
   Speed:        6
   Initiative:   3
   Abilities:
     - Bite/Claw:
-        Damage: 1d10
-    - Quick Attack:
-        A: Half-Action
-        Cooldown: Once / Turn
-        Damage: 1d4
+        Damage: Auto
+    - Quick Attack: Auto
   Passives:
-    - 3rd Round Frenzy: On the 3rd round of combat, all rats become enraged and gain +1d6 Damage on all attacks.
+    - 3rd Round Frenzy: On the 3rd round of combat, all rats become enraged and gain +50% Damage on all attacks.
     - Dark Vision: Can see in the dark.
     - Immunities: Immune to Poison, Slows and Fumbling.
   Avoids AoE: No
@@ -1045,26 +1035,23 @@ Rat (Giant):
 Raptor:
   Type:         Beast
   Experience:   175
-  Stats:        3/3/-2/3/3
+  Stats:        3/3/-2/3/0
   Health:       50
   HPCoef:       0.9
-  Speed:        7
+  Speed:        8
   Initiative:   7
   Abilities:
-    - Beak Attack:
-        Damage: 1d6 + 1d8 (Slash or Pierce)
-        Break Defenses: Ignores Defense and Damage Reductions and breaks all Shieldings on the target (before Damage).
-    - Quick Attack:
-        A: Half-Action
-        Cooldown: Once / Turn
-        Damage: 1d6
+    - Pounce:
+        Damage: "{DamageAoE}"
+        Slam Down: Target chooses to become Dazed (that stacks) or take +100% Damage.
+        Pack Pounce: +50% Damage to Units affected by a Control Effect.
+    - Quick Attack: Auto
   Passives:
-    - Lightweight Jump: After a Raptor is hit with a melee attack, it jumps 3 meters away from the attacker.
-    - {Sense} Defenses: Raptors sense Shielding, Defense or other Damage Reductions. They prefer attacking Units with Shielding.
-    - Jumpers: Can freely jump up to 3 meters high.
+    - Sense Defenses: Raptors ignore Defenses, Damage Reductions and Shieldings. They sense them and prefer attacking Units with them.
+    - Jumpers: Can freely jump up to 3 meters.
   Avoids AoE: No
   Behavior: |
-    Prefers to attack heavily armored enemies.
+    Prefers to attack heavily armored enemies and Dazed Units.
   Suggested Obstacles:
     None
   Monster Data: No tactic, mid HP, no gimmick
@@ -1074,32 +1061,28 @@ Raptor:
 Spider (Giant):
   Type:         Beast, Insect
   Experience:   200
-  Stats:        3/4/0/5/0
+  Stats:        3/3/0/5/0
   Health:       61
   HPCoef:       0.9
   Speed:        6
   Initiative:   6
   Abilities:
     - Spider Attack:
-        Damage: 2d6 (Pierce or Poison)
-        EffectGreen: |
-          For each 5, Slow the target.
-          For each 6, Cripple the target.
-    - Cocoon:
-        Range: 3 meters
-        Cooldown: Half of Party / Round
-        A: Half-Action
-        Effect: |
-          Wrap a Unit in a cocoon with 10 Health.
-          The Unit must break the coocoon first before moving or doing anything outside.
-        Upgrade: The spiders (together) can only cast Cocoon a number of times per Round equal to half the player's team size.
+        Damage: "{DamageAuto} (Pierce or Poison)"
+        Spider Moves: |
+          Target must choose:
+          {Diamond} Become Rooted
+          {Diamond} Become Crippled
+          {Diamond} Take {DamageAoE} Poison Damge
+          {Diamond} Be wrapped in a cocoon with 10 Health.
+          The same effect can't be chosen again this Round.
     - Quick Attack:
         A: Half-Action
         Cooldown: Once / Turn
         Damage: 1d6
   Passives:
     - Spider Climb: Can freely walk on walls and on web, and ignores Hard Terrain.
-    - Immunities: Immune to Poison.
+    - Immunities: Immune to Poison, and to being Blinded while in their territory.
   Avoids AoE: No
   Behavior: |
     One spider uses its action to block off an exit with Web Wall.
@@ -1152,13 +1135,10 @@ Pegasus:
   Abilities:
     - Glittering Breath:
         Effect: |
-          Target a 3x3 meter area and attack all Units there for 2d6.
-          If they have an even number of Mana points, they fall Asleep and their Initiative becomes 0.
+          Target a 3x3 meter area and attack all Units there for {DamageAuto} True Damage.
+          If they currently have an even number of Mana points, they fall Asleep and their Initiative becomes 0.
         Notes: 0 is an even number.
-    - Quick Attack:
-        A: Half-Action
-        Cooldown: Once / Turn
-        Damage: 1d6
+    - Quick Attack: Auto
   Passives:
     - Antimagic: Takes -50% Damage from Spells of any kind.
     - Flying: Can fly.
@@ -1187,7 +1167,7 @@ Lion:
   Abilities:
     - Claws/Bite:
         A: Half-Action
-        Damage: 1d6
+        Damage: "{Damage-50%}"
         Rip: After attacking, the target takes +1 Damage for the rest of the Combat (stacks indefinitely).
   Passives:
     - Tearing Bites: If an attack did at least 8 Damage, the target must choose to be Rooted or further take +1 Damage this Comabt.
@@ -1213,18 +1193,18 @@ Cockatrice:
   Abilities:
     - Beak:
         A: Half-Action
-        Damage: 1d10 Pierce
-        Seize: +1d6 Damage if the target has any Control Effect
+        Damage: "{Damage-1} Pierce"
+        Seize: +{DamageAoE} Damage if the target has any Control Effect
     - Stone Glare:
-        Effect: Players must choose a Hero the Cockatrice can see to take 4d6 True Damage and become Blinded.
+        Effect: Players must choose a Hero the Cockatrice can see to take {DamageAuto} True Damage and become Blinded.
     - Tail Sweep:
         Range: 2 meters
-        Effect: Target and all Units 1 meter from it take 2d8 Smash Damage.
-        Seize: +1d6 Damage to targets with any Control Effect
+        Effect: Target and all Units 1 meter from it take {DamageAoE} Smash Damage. They must together choose a direction to be Slammed 3 meters in.
+        Seize: +{Damage-50%} Damage to targets with any Control Effect
     - Quills:
         A: Half-Action
         Range: 5 meters
-        Effect: A Unit takes 1d8 Pierce Damage.
+        Effect: A Unit takes {Damage-1} Pierce Damage.
   Passives:
     - Panic Shriek: |
         When Combat starts, each Person has a panic attack for 1d4 Turns.
@@ -1232,7 +1212,7 @@ Cockatrice:
         Players that can't hear are unaffected.
     - Bloody Shriek: |
         When dropping below 50% HP, Cockatrice shrieks.
-        All Units become a Stunned level equal to 4 - Their {Sense} (e.g. if their {Sense} is 1, they become Triple-Stunned).
+        All Units become a Stunned level equal to 3 - Their {Sense} (e.g. if their {Sense} is 1, they become Triple-Stunned).
   Avoids AoE: No
   Behavior: |
     Every turn, the Cockatrice jumps to attack a different target.
@@ -1257,16 +1237,13 @@ Bull:
   Initiative:   3
   Abilities:
     - CHAAARGE:
-        Effect: Move up to the Speed towards the Marked target. Passing through an obstacle or Unit pushes them aside and the Bull gains +1d4 Damage on its next attack on the Marked targt.
+        Effect: Move at 99 Speed towards the Marked target. Passing through an obstacle or Unit pushes them aside and the Bull gains +1d4 Damage on its next attack on the Marked targt.
     - Rushing Horns:
-        Damage: 3d6
+        Damage: Auto
         Slam: Slam the target 1d8 meters in a direction it chooses.
-    - Quick Attack:
-        A: Half-Action
-        Cooldown: Once / Turn
-        Damage: 1d6
+    - Quick Attack: Auto
   Passives:
-    - Red Target: |
+    - Red Mark: |
         On Combat start, Mark the weakest Hero (or back-most). The bull will try to charge to them.
         A Unit can spend a Half-Action to move the Mark from themself to a different Hero.
   Avoids AoE: No
@@ -1293,7 +1270,7 @@ Umbral Manta:
   Initiative:   1
   Abilities:
     - Envelop:
-        Damage: 11 Scourge (or 3d6)
+        Damage: "{DamageAuto} Scourge"
         Facehug: |
             Umbral Manta remains attached to the target until the end of the target's Turn (therefore, the target is in Darkness - has Cover; see Darkray's Passive Ability).
         Notes: It moves with the target, unless it teleports or the Manta dies.
@@ -1305,7 +1282,7 @@ Umbral Manta:
     - Artificial Darkness: Perpetually absorbs light, creating Darkness within 1 meter of it.
     - Magic Absorption: Absorbs the first Ability targeting it, Healing instead of taking the Damage. Other effects have no effect on the Manta for that Ability.
     - Flying: Flies.
-    - Camouflage: Camouflages well in rocky environments (Check at least 15 to notice).
+    - Camouflage: Camouflages well in rocky environments (Hard Check to spot).
   Avoids AoE: No
   Behavior: |
     Hides in plain sight and ambushes their prey.
@@ -1331,20 +1308,15 @@ Centipede:
   Speed:        5
   Initiative:   1
   Abilities:
-    - Acid Spit:
-        Range: 3 meters
-        Damage: 2d4 Acid
-        Corrode: |
-            Ignores Defense.
-            - Loses 5d10 gold (the coins corrode)
-            - A metal weapon loses 1 Damage permanently
-            - A metal armor loses 1 Defense permanently
-            - A metal item in their inventory corrodes
     - Bite:
-        Damage: 1d4 + 3 Acid
+        Damage: "{DamageAuto} Acid or Pierce"
         Corrode: |
-          If Flanking (even with its own or another Centipede's body), corrodes something in player's inventory based on the roll.
-        Upgrade: 1. 5d10 Gold, 2. A weapon loses 1 Damage permanently, 3. An armor loses 1 in something they give, 4. An item in their inventory corrodes and becomes unusable.
+          Ignores Resistances and Defense.
+          If Flanking, target must choose something to be corroded:
+          - 5d10 Gold
+          - A weapon (loses 1 Damage permanently)
+          - An armor (a number changes by 10% negatively)
+          - Another item the Quest Master chooses is destroyed
   Passives:
     - 4-meter Long: Is 4 meters long and occupies 4 spaces.
     - Opportunity Attack:
@@ -1377,10 +1349,10 @@ Phantrance:
   Speed:        7
   Initiative:   3
   Abilities:
-    - Sleepless Dive: Attack a Unit for Slash/Pierce/Poison Damage equal to half the number of hours it has been awake.
+    - Sleepless Dive: Attack a Unit for Damage equal to half the number of hours it has been awake (Pierce, Slash, or Scourge).
   Passives:
-    - Tiring {Sense}: Every round passing in combat counts as 2 hours of sleeplessness. Apply Exhaustion rules if necessary.
-    - Flier: Flies. Can freely Break its Movement.
+    - Tiring {Sense}: Every Round passing in combat counts as 2 hours of sleeplessness. Apply Exhaustion rules if necessary.
+    - Flier: Flies.
   Avoids AoE: No
   Behavior: None
   Lore: |
@@ -1405,7 +1377,7 @@ Fire Snake:
   Initiative:   2
   Abilities:
     - Attack (2m):
-        Damage: 13 Fire (or 5d4)
+        Damage: Auto
   Passives:
     - Hot Touch: |
         When a Unit melee attacks the Fire Snake with a weapon, it takes 3 Fire Damage and drops the weapon.
@@ -1708,7 +1680,7 @@ Griphon:
 
 Behemoth:
   Type:         Beast
-  Degree:       9
+  Degree:       7
   Experience:   999 (111 x9)
   Stats:        9/3/0/3/3
   Health:       333
@@ -1756,7 +1728,7 @@ Behemoth:
 
 # Chromatic Dragon: 
 #   Type:         Dragon
-#   Degree:       Epic x3
+#   Degree:       7
 #   Experience:   1050 (350 x3)
 #   Stats:        7/1/3/3/5
 #   Health:       334
@@ -1876,7 +1848,7 @@ Wild Fungus:
   Abilities:
     - Spore Attack:
         Range: 15 meters
-        Effect: Roll {Damage-2}. Players choose a target. It takes that many 1d4's as Poison Damage.
+        Effect: Roll {Damage-3}. Players choose a target. It takes that many 1d4's as Poison Damage.
         Notes: Apply Cover normally from the Fungus to the target.
   Passives:
     - Death Spores: On death, Units within 3 meters of it are Blinded.
@@ -1996,11 +1968,11 @@ Ooze:
   Initiative:   2
   Abilities:
     - Spit (3m range):
-        Damage: 7 Acid (or 2d6)
+        Damage: Auto
         Spawn: |
             After this attack, the ooze loses half of its current HP.
             Another Ooze is created near the target with that HP.
-            It starts its turn next round.
+            It starts its Turn next Round.
   Passives:
     - Acid Trail: Leaves Acid on the ground everywhere it moves. It deals 2 Damage when stepped on.
     - Corrosive: When hit with a metal weapon, that weapon permanently loses 1 Damage.
@@ -2029,8 +2001,8 @@ Gelatinous Box:
   Speed:        4
   Initiative:   1
   Abilities:
-    - Blop (2m): Deal 1d8 Acid Damage to a Unit. Can only do this if nobody is Engulfed in it, but it would rather Sprint 4 meters.
-    - Digest (free): Deal 5 Acid Damage to all Units Engulfed inside (or 2d4).
+    - Blop (2m): Deal {Auto} Acid Damage to a Unit. Can only do this if nobody is Engulfed in it, but it would rather Sprint 4 meters.
+    - Digest (free): Deal {DamageAoE} Acid Damage to all Units Engulfed inside.
   Passives:
     - Engulf: |
         When the Gelatinous Box walks into the space of another Medium or smaller Unit, it becomes Engulfed.
@@ -2053,7 +2025,7 @@ Gelatinous Box:
 
 Eldritch Abomination:
   Type:         Fiend, Giant
-  Degree:       Epic x3
+  Degree:       7
   Experience:   1700 (425 x4)
   Stats:        8/2/6/9/0
   Health:       1
@@ -2064,16 +2036,16 @@ Eldritch Abomination:
   Abilities:
     - Claw: 
         Range: 3 meters
-        Damage: 12 (4d4 + 2)
+        Damage: Auto
     - Mockery of the {Intelligence}: |
         Summon an illusory clone of each enemy Hero, at random locations.
-        They have 0 Initiative and can only use Weapons and Basic Abilities that don't use Mana.
+        They have maximum Setback and can only use Weapons and Basic Abilities that don't use Mana.
         They dissipate when they take Damage.
     - Eldritch Particularity: |
-        Choose a Unit. It takes 10 True Damage and becomes Fumbling.
+        Choose a Unit. It takes {Auto} Psychic Damage and becomes Dazed.
         Until next Round's Turn, the Eldritch Abomination appears 1 meter away from that Unit.
-    - {Sense} of Madness: |
-        All Units that can see or hear the Eldritch Abomination loses 1 {Sense} for the rest of Combat and taked 4d4 Damage.
+    - Sense of Madness: |
+        All Units that can see or hear the Eldritch Abomination loses 1 {Sense} for the rest of Combat and take {DamageAoE} Damage.
         If any Unit's {Sense} became exactly -1, it suffers a heart attack for 1d100 True Damage and its {Sense} remains -1 permanently.
   Passives:
     - Distanced Mirrage: |
@@ -2107,13 +2079,13 @@ Mana Spawn:
   Speed:        4
   Initiative:   0
   Abilities:
-    - Bite: 1d4 Pierce
+    - Bite: Auto
     - Spell Block:
         A: Reaction
         Range: 10 meters
         Effect: When an enemy casts a Spell, the Spell is cancelled (Unit loses the Action and Mana for it). Then, the Mana Spawn dies (without triggering Detonation).
   Passives:
-    - Detonation: When killed by Damage, the closest enemy of the Mana Spawn takes 1d4 Psychic Damage and must pass a {Sense} Check at least 10 or be Silenced.
+    - Detonation: When killed by Damage, the closest enemy of the Mana Spawn takes {Damage1} Psychic Damage and becomes Silenced.
   Avoids AoE: No
   Behavior: |
     Gets in your face and is annoying.
@@ -2139,7 +2111,7 @@ Flying Weapon:
   Initiative:   3
   Abilities:
     - Attack Through: |
-        Fly 3 meters in a straight line. All Units hit take 1d6 Damage (Pierce, Slash or Smash).
+        Fly 3 meters in a straight line. All Units hit take {Auto} Damage (Pierce, Slash or Smash).
   Passives:
     - Nimble: Can stay and move through spaces of other Units. Can perceive in the dark.
     - Immunities (Damage): Immune to Fire, Scourge, Poison, Psychic and Pierce Damage.
@@ -2164,7 +2136,9 @@ Animated Armor:
   Speed:        4
   Initiative:   0
   Abilities:
-    - Melee Weapon: 8 and half (4) AoE around the target (or 1d6 + 4)
+    - Melee Weapon:
+        Damage: "{DamageAoE}"
+        Smash Ground: If there are other allies around, target can choose to deal the Damage to them as well. Otherwise, it takes +100% Damage.
   Passives:
     - Crumbling Defense: Every time the Animated Armor is attacked (against Defense), it permanently loses 1 Defense (down to 0).
     - Resistances: Takes -50% Damage from Fire and Scourge.
@@ -2188,7 +2162,7 @@ Animated Armor:
 
 Gargoyle:
   Type:         Construct, Elemental
-  Degree:       Epic x2
+  Degree:       5
   Experience:   600 (300 x2)
   Stats:        7/0/0/0/0
   Health:       165
@@ -2198,13 +2172,14 @@ Gargoyle:
   Initiative:   1
   Abilities:
     - Downslam:
-        Damage: 7 Smash (or 2d6)
+        Damage: DamageAoE
         Area Slam: This hits all Units within 2 meters of the Gargoyle. Destroys all stone or wood obstacles hit, spreading debris.
     - Wingdraw (5m): |
         Target a Unit.
         Push away or pull (of choice) it and all other Medium or smaller Units within 2 meters of it in up to 3 meters.
-        They all take 1d4 + 4 Pulse Damage.
+        They all take {DamageAoE} Pulse Damage.
     - Flame Breath: |
+        TODO: This sucks
         All Units in a 3x3 area make a 10 Grade {Dexterity} Check.
         On fail, they take 9 Fire Damage (or 3d4 + 1).
         On success, they take half (4).
@@ -2256,7 +2231,7 @@ Gargoyle:
 
 Fairy Dragon:
   Type:         Dragon
-  Degree:       Epic x2
+  Degree:       5
   Experience:   500 (250 x2)
   Stats:        1/3/5/3/1
   Health:       190
@@ -2264,12 +2239,11 @@ Fairy Dragon:
   Speed:        5
   Initiative:   5
   Abilities:
-    - Magic Bolt 1 (5m): Attack 2 Units for 1d6 + 1 Pulse Damage.
-    - Blink: All Units within 2 meters make a Grade 12 {Sense} Check or become Blinded. Then teleport up to 5 meters.
-    - Magic Bolt 2 (5m): Attack 2 Units for 1d6 + 1 Pulse Damage.
+    - Magic Bolt 1 (5m): Attack 2 Units for {Damage-2} Pulse Damage.
+    - Blink: All Units within 2 meters choose to be Blinded, or be teleported somewhere random up to 5 meters away.
     - Force Wall (15 meters): Create transparent magical screen (3m tall, 5m wide) that nothing can pass through, except Magic Bolts. The screen has 7 HP and 7 Defense.
   Passives:
-    - Absorb Magic: Whenever a non-Fairy Dragon casts a spell in combat, the Fairy Dragon gains +1 Damage with all Spells and attacks until the combat is over.
+    - Absorb Magic: Whenever an Enemy uses an Ability, the Fairy Dragon gains +1 Damage for the rest of Combat.
     - Resistances: Takes -50% Fire, Cold, Pulse and Shock Damage.
     - Basic Magic (Non-Combat): Fairy Dragons can also cast minor utility spells out of combat, like creating minor illusions, turning invisible out of combat, etc.
   Avoids AoE: No
@@ -2298,7 +2272,7 @@ Fairy Dragon:
 
 Verdant Dragon:
   Type:         Dragon
-  Degree:       Epic x3
+  Degree:       7
   Experience:   1200 (400 x3)
   Stats:        3/3/2/4/0
   Health:       1
@@ -2309,10 +2283,11 @@ Verdant Dragon:
   Abilities:
     - Claw/Bite:
         Range: 2 meters
-        Effect: Make 2 attacks for 1d10 Slash/Pierce Damage.
+        Effect: Make 2 attacks for {Damage-50%} Slash/Pierce Damage.
     - Asphyxiating Breath:
         Range: 6 meters to edge
         Effect: |
+          TODO: Remake this
           All Units in a 3x3 meter area take 1d4 + 7 Acid Damage, each, and gains a Control Effect based on the number rolled:
           1. Slowed
           2. Fumbling
@@ -2321,7 +2296,7 @@ Verdant Dragon:
           If Verdant Dragon has 50% or less Health, on 4, the Unit must choose a Stat to permanently get -1 in.
     - Noxxing Quills:
         Range: 6 meters
-        Effect: A Unit takes 10 Poison Damage and becomes Noxxed.
+        Effect: A Unit takes {DamageAuto} Poison Damage and becomes Noxxed.
         Notes: A Noxxed Unit ends their Turn if they move more than 2 meters or roll more than 3 on any die.
   Passives:
     - Faeful Camouflage: Every round, after taking Damage 3 times, Verdaint Dragon becomes camouflaged until end of Round, and all attacks against it have Cover.
@@ -2348,24 +2323,24 @@ Verdant Dragon:
 
 Amber Dragon:
   Type:         Dragon
-  Degree:       Epic x3
+  Degree:       7
   Experience:   1500 (500 x3)
   Stats:        2/5/6/5/0
   Health:       1
   Defense:      0
   HPCoef:       0.2
-  Speed:        4
+  Speed:        5
   Initiative:   10
   Abilities:
     - Claw/Bite:
-        Damage: 13 Pierce or Slash
+        Damage: Auto
     - Aging Breath:
         Range: 3 meters
-        Effect: A Unit takes 11 Fire Damage. It must roll a {Might} Check at least 13 or it ages 1 year, becomes Single-Stunned, and Aging Breath explodes and is recast on all Units within 2 meters of it (except Amber Dragon).
+        Effect: A Unit takes {Auto} Damage. It must choose to be aged 1 year and become Single-Stunned, or have Aging Breath explodes and is recast on all other Enemies within 2 meters of it.
         Notes: Doesn't retrigger on Units already hit.
     - Sands of Distortion: |
-        All enemies take 2d6 Pulse Damage and are Slowed.
-        Every Round (except first), the Damage increases by 1d6.
+        All enemies take {DamageAoE} Pulse Damage and are Slowed.
+        Every Round (except first), the Damage increases by 50%.
   Passives:
     - Predict the Future:
         A: Free Reaction
@@ -2430,8 +2405,8 @@ Skeleton:
   Speed:        4
   Initiative:   7
   Abilities:
-    - Ranged (10m): 1d6
-    - Melee: 1d6 (depending on weapon)
+    - Ranged (10m): Auto
+    - Melee: Auto
   Passives:
     - Rescramble: |
         When it dies, if there is another dead Skeleton within 6 meters, they magically fuse at the middle point.
@@ -2463,10 +2438,10 @@ Zombie:
   Speed:        3
   Initiative:   2
   Abilities:
-    - Attack: 4 (depending on weapon)
+    - Attack: Auto
   Passives:
     - Undying: Can only be killed by a hit that deals at least 5 Damage (after Defense). Otherwise, the Zombie remains at 1 HP.
-    - Corpse Burst: On death, all Units within 1 meter take 3 Poison Damage.
+    - Corpse Burst: On death, all Units within 1 meter take {DamageAuto} Poison Damage.
     - Immunities: Immune to Poison and Scourge Damage. Immune to difficult terrain.
   Avoids AoE: No
   Behavior: |
@@ -2495,10 +2470,10 @@ Mummy:
         Target a Unit and it becomes followed by locusts for 1 minute.
         For each meter the Unit moves, it takes 1 True Damage (ignoring Defense).
         Teleporting dissipates the locusts.
-    - Attack: 1d8 (Smash or Pierce)
+    - Attack: Auto
   Passives:
     - Hard and Slow: Immune to being Rooted, Slowed and to Hard Terrain.
-    - Mummification Immunity: Immune to Damage from spells from the Eldritch and Nature schools.
+    - Mummification Immunity: Immune to dark and nature themed Abilities.
   Avoids AoE: No
   Behavior: Chases
   Lore: None
@@ -2527,7 +2502,7 @@ Wraith:
   Speed:        4
   Initiative:   1
   Abilities:
-    - Attack: 5 True (directly, ignoring Defense) (or 2d4)
+    - Attack: Auto
   Passives:
     - Resistances: Takes 50% Damage from all sources except True and Divine Damage.
     - Obscure: When within 2 meters of an enemy, the Wraith is completely invisible and can't be targeted (can still take Damage from AoE, DoT, etc). A Unit can make an attack in the air and roll a Grade 10 Luck Check to see if they actually hit by chance.
@@ -2557,10 +2532,10 @@ Ghoul:
   Speed:        5
   Initiative:   3
   Abilities:
-    - Claws/Bite: 5 Pierce or Slash (or 2d4)
+    - Claws/Bite: "{Damage-2}"
   Passives:
     - Undead Fuel: +1 Damage for each fresh corpse in the battlefield
-    - Scourge Aura: Living Units within 3 meters of a Ghoul can't recover Health.
+    - Scourge Aura: Living Units within 3 meters of a Ghoul can't be Healed.
     - Darkvision: Can see in the dark.
     - Weakness: Takes +50% Fire Damage.
     - Resistances: Takes 50% Scourge Damage.
@@ -2597,7 +2572,7 @@ Wight:
   Initiative:   -1
   Abilities:
     - Huge Claws (2m):
-        Damage: 3 Slash (or 1d6)
+        Damage: "{Damage-1} Scourge"
         Effect: Deals extra Damage equal to the the target's missing Mana points
         # Effect: Half of all Damage done to Health (after Defense) also Damages the Reserve Health. It target has no Reserve Health, damage the normal Health instead. [Health Regen Retcon]
   Passives:
@@ -2622,16 +2597,15 @@ Will-o-Wisp:
   Experience:   225
   Stats:        0/0/0/0/0
   Health:       25
-  Defense:      3 (magical)
   HPCoef:       0.5
   Speed:        4
   Initiative:   -1
   Abilities:
     - Flare: |
-        All living Units within 3 meters must succeed a 10 {Sense} Check or take 25% of their current HP as Scourge Damage.
+        All living Units within 3 meters take 25% of their current Health as Scourge Damage.
         After this, the Will-o-Wisp dies.
   Passives:
-    - Fear Sight: The first time someone sees a Will-o-Wisp, they must succeed a 11 {Sense} Check or take 25% of their current HP as Scourge Damage or be Feared. The same target can't be affected by the Fear Sight again for 24 hours (but can be affected by Flare).
+    - Fear Sight: The first time someone sees a Will-o-Wisp, they take 25% of their Health as Psychic Damage (but can be affected by Flare).
     - Dimming: Will-o-Wisp can dim the light they emmit by up to 80% to become stealthy. Increase a Grade for noticing the Will-o-Wisp out of combat by 5.
     - Immunities: Immune to all Control Effects.
   Avoids AoE: No
@@ -2658,9 +2632,9 @@ Strigoi:
   Speed:        6
   Initiative:   1
   Abilities:
-    - Claws (x1/x2/...): Make a number of Claws attacks for 1d6 + 1 Slash each equal to the round number (x1, x2, x3, etc).
+    - Claws (x1/x2/...): Make a number of Claws attacks for {DamageAoE} Slash each equal to the round number (x1, x2, x3, etc).
   Passives:
-    - Charming Apparition: The first time targets a Strigoy in combat, they must roll a {Sense} Check at least 11 or they can't target the Strigoy this round.
+    - Charming Apparition: TODO change this. The first time targets a Strigoy in combat, they must roll a {Sense} Check at least 11 or they can't target the Strigoy this round.
     - Death Defiance: When the Strigoi drops to 0 Health, it can still make its next turn and is immune to Damage until then. After its next turn, it dies.
     - Leapers: Can freely jump 3 meters.
     - Silver Fearer: Takes +50% Damage from attacks weapons coated in garlic tincture or silver.
@@ -2689,14 +2663,14 @@ Edimmara:
   Speed:        5
   Initiative:   1
   Abilities:
-    - Attack (2m): 6 Slash, Smash or Pierce (or 1d6 + 2)
+    - Attack (2m): Auto
   Passives:
-    - Lifesteal: If not affected by a Control Effect, the Edimmara heals for all the Damage it lands on attacks (before reductions).
+    - Lifesteal: If not affected by a Control Effect, the Edimmara heals for all the Damage done (after reductions).
     - Infinite Reactions: Has unlimited Reactions (for Retaliation and Opportunity Attacks).
     - Retaliation: After a Unit affects the Edimmara in any way, if it's within 5 meters of it, the Edimmara runs towards that Unit and attacks it at 2 meters range.
-    - Opportunity Attacks: When a Unit Flees from the Edimmara, the Edimmara can make a free attack on it.
+    - Opportunity Attacks: When a Unit _flees_ from the Edimmara, the Edimmara can make a free attack on it.
     - Immunities: Immune to Blind and Hard Terrain.
-    - Vulnerabilities: Damage with garlic tincture and silver can't be healed and make the Edimmara Fumbling until the end of its next turn (which counts as a Control Effect, so it prevents Healing).
+    - Vulnerabilities: Damage with garlic tincture or silver can't be healed.
   Avoids AoE: Yes
   Behavior: Gets in the middle of the fight and tries to attack everyone with its Retaliation.
   Lore: None
@@ -2722,9 +2696,9 @@ Ghast:
   Speed:        4
   Initiative:   1
   Abilities:
-    - Ghast Breath (10m): 9 Scourge (or 2d6 + 2)
+    - Ghast Breath (10m): Auto
     - Eldritch Eater (Reaction) (once per round): |
-        Whenever a Unit casts a Divine Spell or a Cleric or Paladin Class Spell (not Passives), the Ghast also heals one of its other allies for 15.
+        TODO remake this. Whenever a Unit casts a Divine Spell or a Cleric or Paladin Class Spell (not Passives), the Ghast also heals one of its other allies for 15.
   Passives:
     - Mist: Emmits a Mist within 3 meters around. Its allies inside the mist are immune to Control Effects and have Cover to actions from outside.
     - Resistances: Takes -50% Damage except True and Divine Damage.
@@ -2754,7 +2728,7 @@ Ghast:
 
 Bou-Bou:
   Type:         Undead, Fiend
-  Degree:       Epic x2
+  Degree:       5
   Experience:   650 (325 x2)
   Stats:        6/2/0/0/0
   Health:       420
@@ -2781,7 +2755,7 @@ Bou-Bou:
 
 Lich:
   Type:         Undead, Person
-  Degree:       Epic x3
+  Degree:       7
   Experience:   900 (300 x3)
   Stats:        1/1/6/3/3
   Health:       300
@@ -2790,12 +2764,12 @@ Lich:
   Initiative:   2
   Abilities:
     - Death Cloud (10m to edge): |
-        Declare a 5x5 meter area.
-        Deal Scourge Damage to all non-undead Units caught equal to 1d6 + number of Units caught in the area (ignores Cover).
+        Declare a 4x4 meter area.
+        Deal Scourge Damage to all non-undead Units caught equal to {Damage-3} + number of Units caught in the area (ignores Cover).
         A cloud of Scourge Gas (Toxic Gas) forms there and remains for 1 minute. Enemies are Silenced while inside the gas.
-    - Summon Skeletons: Summon a skeleton in a chosen space near every enemy. Skeletons have 1 Health and 4 Speed, and can attack for 1d4 Damage (Slash/Pierce/Smash). They have 0 Initiative.
-    - Soul Bolts (10m): Shoot (2) Soul Bolts at random enemies, each dealing 1d4 True Damage (directly, ignoring Defense). Next cast shoots 1 more bolt than the previous (e.g round 1 - 2 bolts, round 2 - 3 bolts, round 3 - 4 bolts, etc).
-    - Asphyxiate (10m): Up to 3 Units must make a {Sense} Check or take 1d6 + 3 Pulse Damage (or half on pass) and be affected by a Control Effect. Roll 1d4 (once) for the Control Effect type - 1. Rooted, 2. Single-Stunned, 3. Double-Stunned, 4. Silenced
+    - Summon Skeletons: Summon a skeleton in a chosen space near every enemy. Skeletons have 1 Health and 4 Speed, and can attack for {Damage-50%} Damage. They have maximum Setback.
+    - Soul Bolts (10m): Shoot (2) Soul Bolts at random enemies, each dealing {DamageAoE} True Damage. Next cast shoots 1 more bolt than the previous (e.g round 1 - 2 bolts, round 2 - 3 bolts, round 3 - 4 bolts, etc).
+    - Asphyxiate (10m): Up to 3 Units take {DamageAoE} Pulse Damage. One of them they choose becomes Double-Stunned.
   Passives:
     - Finger of Death (Reaction) (10m): When a Unit takes Damage and is at or below 33% Health, shoot a death ray for 8 Damage towards it (against Defense) (or 3d4).
     - Teleportation: When the Lich moves, it teleports to the destination within Movement (if not Silenced). Alternatively, it can fly  (if not Silenced).
@@ -2834,12 +2808,14 @@ Gasha:
   Speed:        6
   Initiative:   1
   Abilities:
-    - Smash (5x5 area, 1m to edge): 12 Smash (or 1d8 + 8)
+    - Smash:
+        Range: 1 meter to edge
+        Effect: Units in a 4x4 area take {DamageAoE} Damage.
   Passives:
-    - Impenetrable Bones: Takes no Damage from missiles (e.g. arrows, Magic Missiles, Flamebolt, etc).
+    - Impenetrable Bones: Takes 0 Damage from missiles.
     - Materialize: For 0 Actions, the Gasha can turn into smoke and ash and disappear, teleport or appear (if not Silenced). How, when and why they do this is unknown, though a lot of the time a strange ringing noise can be heard before one appearing.
     - Resistances: Takes -50% Scourge, Fire, Poison and Pierce Damage.
-    - Immunities: Immune to Hard Terrain, Fumbling, Fear and Sleep.
+    - Immunities: Immune to Hard Terrain, Fear and Sleep.
   Avoids AoE: No
   Behavior: |
     The Gasha appears out of nowhere, looking to kill.
@@ -2869,7 +2845,7 @@ Imp:
   Speed:        6
   Initiative:   3
   Abilities:
-    - Bite: 1d6
+    - Bite: Auto
     - Embottle Magic:
         A: Reaction
         Cooldown: Once / Encounter
@@ -2900,12 +2876,13 @@ Kasu:
   Speed:        8
   Initiative:   0
   Abilities:
-    - Bite (2m): 1d4 Pierce
-    - Possess Corpse (once): |
-        The Kasu removes the head of a dead Unit and enroots its spine inside of it, with its own head as the new head.
-        Infused with demonic energy, that Unit becomes alive again, with its normal stats and full Health.
-        If this one dies, the Kasu dies too.
-        Apply common sense to whether a corpse is possessable (e.g. golems and destroyed corpses are probably not).
+    - Bite (2m): Auto
+    - Possess Corpse:
+        Cooldown: Once / Encounter
+        Effect: |
+          The Kasu removes the head of a dead Unit and enroots its spine inside of it, with its own head as the new head.
+          Infused with demonic energy, that Unit becomes alive again, with its normal stats and 50% Health.
+          Apply common sense to whether a corpse is possessable (e.g. golems and destroyed corpses are probably not).
   Passives:
     - Flying: Flies.
   Avoids AoE: No
@@ -2937,9 +2914,9 @@ Moroy:
   Abilities:
     - Fangs:
         Damage: 1d8 (Pierce)
-        Strangle: On 5, 6, 7 and 8, target must succeed a Grade 10 {Might} Check or be Fumbling and Slowed.
+        Strangle: TODO remake this On 5, 6, 7 and 8, target must succeed a Grade 10 {Might} Check or be Fumbling and Slowed.
   Passives:
-    - Minus 3 Defense: Takes 2 extra damage from all sources.
+    - Minus 2 Defense: Takes 2 extra damage from all sources.
     - Flying: Flies.
   Avoids AoE: No
   Behavior: |
@@ -2966,7 +2943,7 @@ Flame Skull:
   Initiative:   3
   Abilities:
     - Charge... (15m): Prepare a shot on a Unit and lock onto it, seeing it through walls. Next turn, the first thing the Flame Skull does is Fire!
-    - Fire! (15m): Shoot that Unit for 10 Fire Damage (or 4d4). Walls block the attack, but the impact is strong enough to break many walls and obstacles.
+    - Fire! (15m): Shoot that Unit for {DamageTimes(1.8)}. Walls block the attack, but the impact is strong enough to break many walls and obstacles.
   Passives:
     - Resistances: Takes -50% Pierce, Psychic and Fire Damage.
     - Flier: Flies.
@@ -2987,7 +2964,7 @@ Flame Skull:
 
 Likho:
   Type:         Demon, Elemental, Fiend
-  Degree:       Epic
+  Degree:       5
   Experience:   200 (100 x2)
   Stats:        2/0/1/2/1
   Health:       28
@@ -2995,8 +2972,8 @@ Likho:
   Speed:        2
   Initiative:   -2
   Abilities:
-    - Curse of Weakness: Curse a Unit. It becomes Fumbling. Does not work on Paladins.
     - Curse of Agony: Choose a Unit the Likho can see. Next time it takes Damage from one of its enemies, it is doubled (all after Defense). Lasts for 1 minute.
+    - Quick Attack: Auto
   Passives:
     - Return Control Effects: Immune to Control Effects. When targeted by a Control Effect Ability, the cast is redirected towards a Unit of Likho's choice if the chosen target is valid (e.g. is within Range).
     - Bad Luck: All Heroes within 1km of a Likho have -5 Luck (secretly or not).
@@ -3025,12 +3002,12 @@ Cambion:
   Initiative:   4
   Abilities:
     - Trident (2m):
-        Damage: 1d6 + 2 Pierce
-        Burst: If rolled 1 or 6, target becomes Maimed.
-        Notes: A Maimed Hero can only make Half-Actions, but not full Actions.
+        Damage: Auto
+        Burst: Target becomes _Maimed_.
+        Notes: A Maimed Hero can only make 0 and 1 Action Point Acts.
   Passives:
     - Flame Burst: When the Cambion takes Damage, deal 2 Fire Damage to all non-Cambion Units within 3 meters.
-    - Flame Ray (Reaction): When hit with a ranged attack, deal 1d8 Fire Damage to the attacker.
+    - Flame Ray (Reaction): When hit with a ranged attack, deal {DamageAoE} Fire Damage to the attacker.
     - Resistances: Takes -50% Fire Damage.
     - Flying: Flies (if not Silenced).
   Avoids AoE: No
@@ -3054,7 +3031,7 @@ Cambion:
 
 Oni:
   Type:         Demon, Giant
-  Degree:       Epic x2
+  Degree:       5
   Experience:   550 (275 x2)
   Stats:        5/1/3/1/5
   Health:       180
@@ -3063,10 +3040,10 @@ Oni:
   Initiative:   2
   Abilities:
     - Sword Quake (2m):
-        Damage: 9 Slash or Shock (or 2d4 + 4)
+        Damage: "{DamageAuto}"
         Cracks: A 5x5 area centered on the target becomes Hard Terrain due to cracks on the ground.
     - Drain Soul (5m): |
-        A Unit must succeed a Grade 11 {Sense} Check or choose: take 6d4 True Damage or roll 1d4 and permanently have -1 to all Checks for: 1. Sight, 2. Hearing, 3. Smell, 4. Luck.
+        TODO: choose -- A Unit must succeed a Grade 11 {Sense} Check or choose: take 6d4 True Damage or roll 1d4 and permanently have -1 to all Checks for: 1. Sight, 2. Hearing, 3. Smell, 4. Luck.
         This can never be cured. The player must decide before rolling the dice.
     - Gauze of Death (5m): |
         Two Units become affected by the Gauze of Death.
@@ -3103,8 +3080,8 @@ Nuckelavee:
   Initiative:   3
   Abilities:
     - Spine Whip (3m):
-        Damage: 3d4 + 1 Pierce
-        Effect: For each 1 and 4 rolled, applies (1) Bleed to the target for its next turn. On its next turn, every time it does anything, it takes Damage equal to its Bleed (directly, ignoring Defense).
+        Damage: Auto
+        Effect: TODO remake this -- For each 1 and 4 rolled, applies (1) Bleed to the target for its next turn. On its next turn, every time it does anything, it takes Damage equal to its Bleed (directly, ignoring Defense).
   Passives:
     - Runner: After every time it takes Damage, it can freely move up to 2 meters.
     - Weaknesses: Takes +50% Slash and Pierce Damage.
@@ -3133,7 +3110,7 @@ Dullahan:
   Speed:        6
   Initiative:   0
   Abilities:
-    - Attack: 11 Slash, Smash or Pierce
+    - Attack: Auto
     - Hell's Chase (free): Once per turn, the Dullahan can teleport 3 meters. If any enemy Units were near it before teleporting, they all must succeed a {Dexterity} Check or take 1d6 direct Fire Damage be Fumbling.
   Passives:
     - Death Strike: If the Dullahan took Damage 3 or more times this Round, its first attack every turn deals 17 Damage (instead of 11).
@@ -3155,7 +3132,7 @@ Dullahan:
 
 Chernobog:
   Type:         Demon
-  Degree:       Epic x3
+  Degree:       7
   Experience:   2250 (750 x3)
   Stats:        10/1/1/1/10
   Health:       1125
@@ -3163,8 +3140,8 @@ Chernobog:
   Initiative:   4
   Abilities:
     - Fist Smash (3m):
-        Damage: 19 Smash
-        Effect: If target is Medium or smaller, it is pushed 5 meters in any direction (Chernobog chooses).
+        Damage: Auto
+        Effect: TODO If target is Medium or smaller, it is pushed 5 meters in any direction (Chernobog chooses).
     - Flame Waves (20m): |
         All Units within exactly an even number of meters from the Chernobog take 1d10 + 11 Fire Damage.
     - Soul Lock: |
@@ -3172,7 +3149,7 @@ Chernobog:
     - Fire Ball (10m to edge): |
         All Units in a 6x6x6 meter area take 6d6 Fire Damage.
   Passives:
-    - Act or Die: After the end of every enemy's turn, if it didn't do Damage to the Chernobog, they take 1d10 + 5 Psychic Damage and are Single-Stunned.
+    - Act or Die: After the end of every enemy's turn, if it didn't do Damage to the Chernobog, they take {Damage-50%} Psychic Damage and are Single-Stunned.
     - Hell Fissure: When reaching 50% or less Health, the Chernobog creates a gigantic fissure in the ground, underneat all enemies. This fissure is a gateway to a delimited part of hell, and everyone falls inside. Demons might await or emerge from the fissure. The fissure is isolated from the rest of the hell. The fissure closes 10 minutes after the Chernobog dies. Anyone still inside remain trapped that part of hell.
     - Immunities: Immune to Fire Damage.
   Avoids AoE: No
@@ -3190,7 +3167,7 @@ Chernobog:
 
 Elder:
   Type:         Fiend
-  Degree:       Epic x3
+  Degree:       7
   Experience:   2150 (750 x3)
   Stats:        10/1/1/1/10
   Health:       1125
@@ -3198,7 +3175,7 @@ Elder:
   Initiative:   4
   Abilities:
     - nigkafank gk:
-        Damage: 5 heebs
+        Damage: "{Auto} heebs"
         Effect: lbrkmqrjq eebsi fidkafeij ikchfijai rn g na llk nl gk gk hcc g ijasene o
     - na prklk rlmlrblqr nhl: |
         mqkqpojmn o o dbbsiiijihf gdaia hoo alk g prbgpqrpr na kgplnrn g jidfikd gklrjmsrk    iaanf nha nrbnqmr in ibiidinnini dhibdnskdcj fikdsnd mrnlr iijfiik kbnpqql alk sndnkadbikg nhl fseneidkb hfkhi    qqkmqmp in nha keniakscd ahs ahs in ekenebaiian g kibinskheid g    dedcj na acdcjeaciin qrnr snnplsr o g ikfijbckfcj nl dapa cjbe
@@ -3228,7 +3205,7 @@ Sandman:
   Speed:        5
   Initiative:   4
   Abilities:
-    - Scratch: Make 2 attacks for 1d4 Slash
+    - Scratch: Make 2 attacks for {Damage-50%} Slash
   Passives:
     - Sandstorm: |
         When Sandman is revealed (or whenever it wants), it creates a 4x4 sand storm at its location (free Action).
@@ -3273,7 +3250,7 @@ Shadow:
   Initiative:   5
   Abilities:
     - Scourge Touch:
-        Damage: 6 Scourge (or 1d6 + 2)
+        Damage: Auto
         Strength Wither: |
             Put one Wither token on the target.
             At 3 Wither tokens, the target permanently loses 1 in a Stat Check of choice (e.g. Sense, {Might}, etc) (note: not in the Stat itself, but only Checks with that Stat).
@@ -3306,11 +3283,11 @@ Bubak:
   Speed:        4
   Initiative:   2
   Abilities:
-    - {Sense} Seep: |
-        Attack up to 3 Units within 3 meters for 6 Scourge Damage (or 2d4 + 1).
+    - Sense Seep: |
+        Attack up to 3 Units within 3 meters for {DamageAoE} Scourge Damage.
         They are Slowed.
     - Scare Around (Free) (once per combat): |
-        All Units within 3 meters of the Bubak must succeed a 12 {Sense} Check or be Single-Stunned.
+        TODO remake -- All Units within 3 meters of the Bubak must succeed a 12 {Sense} Check or be Single-Stunned.
         The Bubak casts Scare Around on its first turn of combat for free.
   Passives:
     - Dormant: |
@@ -3357,7 +3334,7 @@ Nytrav:
         Damage: "{Damage+1}"
     - CAWWWW:
         A: 1 Action
-        Effect: Players choose a Hero. It takes {DamageAoEAuto} Psychic Damage and must roll a {Sense} Check at least 10 or gain a random Phobia negative Quirk.
+        Effect: TODO remake Players choose a Hero. It takes {DamageAoEAuto} Psychic Damage and must roll a {Sense} Check at least 10 or gain a random Phobia negative Quirk.
   Passives:
     - Monster Inside: |
         The Nytrav may host another Nytrav inside it. When a Nytrav inside another Nytrav takes its turn, it briefly exits through its hosts mouth, attacks, then goes back in.
@@ -3448,7 +3425,7 @@ Seraph:
         Orbs have 1 Health and have 3 meters Speed.
         Each orb chases one Hero. Upon collision, it explodes and damages it for {DamageAoEAuto} Damage.
     - Feather Barrage: |
-        Attack all Units in a 4x4 area for 2d6 Pierce Damage.
+        Attack all Units in a 4x4 area for {DamageAoE} Pierce Damage.
         Forms a "[" of caltrops on the ground, towards the Seraph.
     - Sword Attack:
         A: Half-Action
@@ -3471,7 +3448,7 @@ Seraph:
 
 KingBolgurWithWyvern:
   Type:         Person, Undead
-  Degree:       Epic x4
+  Degree:       7
   Experience:   2400
   Stats:        4/4/1/4/4
   Health:       490
@@ -3506,7 +3483,7 @@ KingBolgurWithWyvern:
 
 KingBolgur:
   Type:         Person, Undead
-  Degree:       Epic x2
+  Degree:       5
   Experience:   1200
   Stats:        4/4/1/4/4
   Health:       275
@@ -3541,7 +3518,7 @@ KingBolgur:
 
 BlackWyvern:
   Type:         Beast
-  Degree:       Epic x2
+  Degree:       5
   Experience:   1200
   Stats:        2/5/0/5/2
   Health:       275
@@ -3571,7 +3548,7 @@ BlackWyvern:
 
 # Hag Matron (WIP):
 #   Type:         Fiend, Person
-#   Degree:       Epic x3
+#   Degree:       7
 #   Experience:   600 (200 x 3)
 #   Stats:        1/2/3/4/5
 #   Health:       110

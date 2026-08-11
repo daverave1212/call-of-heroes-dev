@@ -101,9 +101,10 @@
                 }
             },
             {
-                "Bite": {
+                "Quick Attack": {
                     "A": "1 Action Point",
-                    "Damage": "1d4 Pierce"
+                    "Cooldown": "Once / Turn",
+                    "Damage": "1d4"
                 }
             }
         ],
@@ -136,7 +137,7 @@
         "Experience": 75,
         "Stats": "1/2/-1/1/3",
         "HPCoef": 1,
-        "Speed": 4,
+        "Speed": 5,
         "Initiative": "9 Melee / 5 Ranged",
         "Abilities": [
             {
@@ -152,6 +153,13 @@
                     "Damage": "Auto",
                     "Effect": "Applies a Combo.",
                     "Combo": "Target chooses to take +1d4 Damage or become Single-Stunned."
+                }
+            },
+            {
+                "Quick Attack": {
+                    "A": "1 Action Point",
+                    "Cooldown": "Once / Turn",
+                    "Damage": "1d4"
                 }
             }
         ],
@@ -184,7 +192,7 @@
         "Experience": 100,
         "Stats": "0/0/3/3/3",
         "Health": 28,
-        "HPCoef": 1,
+        "HPCoef": 1.25,
         "Speed": 5,
         "Initiative": 1,
         "Abilities": [
@@ -195,12 +203,13 @@
             },
             {
                 "Flame Bolt": {
-                    "Range": "6 meters",
-                    "Damage": "1d6 + 1"
+                    "Range": "5 meters",
+                    "Damage": "Auto"
                 }
             },
             {
-                "Weapon": {
+                "Quick Attack": {
+                    "A": "1 Action Point",
                     "Cooldown": "Once / Turn",
                     "Damage": "1d4"
                 }
@@ -229,13 +238,14 @@
         "Initiative": 4,
         "Abilities": [
             {
-                "Eldritch Blast (spell)": {
+                "Eldritch Blast": {
                     "Damage": "1d4 Scourge",
-                    "Decaying": "Target takes +2 Scourge Damage for the rest of combat (after the attack). Stacks infinitely.\n"
+                    "Decaying": "Then, the target chooses to be Slammed 1d4 meters away, or take +2 Scourge Damage for the rest of Combat. Stacks infinitely.\n"
                 }
             },
             {
-                "Dagger": {
+                "Quick Attack": {
+                    "A": "1 Action Point",
                     "Cooldown": "Once / Turn",
                     "Damage": "1d4"
                 }
@@ -268,15 +278,15 @@
         "Abilities": [
             {
                 "Melee Weapon": {
-                    "Damage": "1d8 Pierce",
-                    "Water Heal": "If the target is standing in water, it becomes Frail."
+                    "Damage": "Auto",
+                    "Water Heal": "If the target is standing in water, it chooses to become Frail or take +100% Damage."
                 }
             },
             {
                 "Throw Weapon": {
                     "A": "1 Action Point",
                     "Range": "2-3 meters",
-                    "Damage": "1d4 Pierce"
+                    "Damage": "{Damage-1}"
                 }
             },
             {
@@ -331,7 +341,7 @@
                 "Kick": {
                     "A": "1 Action Point",
                     "Cooldown": "Once / Turn",
-                    "Effect": "Slam a Unit {DamageAuto} meters (target chooses direction). Steal 10 Gold from them."
+                    "Effect": "Slam a Unit {DamageAuto} meters (target chooses direction). It loses 10 Gold."
                 }
             },
             {
@@ -424,7 +434,7 @@
                 "Slamming Attack": {
                     "Range": "2 meters",
                     "Cooldown": "Once / Turn",
-                    "Damage": "1d12 Smash",
+                    "Damage": "Auto",
                     "Slam": "The Unit chooses a direction to be Slammed that many meters as the rolled Damage.",
                     "Combo": "And becomes Single-Stunned."
                 }
@@ -433,7 +443,7 @@
                 "Hurl Object": {
                     "A": "1 Action Point",
                     "Range": "3 to 5 meters",
-                    "Damage": "1d6 Smash",
+                    "Damage": "Auto",
                     "Stun": "The target becomes Single-Stunned.",
                     "Notes": "This can hurl allies of Ogres as well (doesn't count as Slamming)."
                 }
@@ -441,7 +451,7 @@
             {
                 "Stomp": {
                     "Cooldown": "Once / Turn",
-                    "Effect": "All Units within 2 meters take 5 Smash Damage and become Slowed. One of them (players choose) gets a Combo."
+                    "Effect": "All Units within 2 meters take {DamageAoE} Smash Damage and become Slowed. One of them (players choose) gets a Combo."
                 }
             }
         ],
@@ -517,31 +527,28 @@
         "Experience": 150,
         "Stats": "3/2/1/2/0",
         "Health": 38,
-        "Defense": 2,
-        "HPCoef": 1,
+        "HPCoef": 1.15,
         "Speed": 4,
         "Initiative": 3,
         "Abilities": [
             {
+                "Command - Halt": {
+                    "A": "Reaction",
+                    "Effect": "Use when a Unit wants to move. They choose to be Rooted, or be attacked by any available Guards in range (Guards use a Reaction)."
+                }
+            },
+            {
                 "Crossbow": {
-                    "Damage": "2d6 Pierce",
+                    "Damage": "Auto",
                     "Immobilizing": "For each rolled 6, apply a Combo."
                 }
             },
             {
                 "Quick Attack": {
                     "A": "1 Action Point",
-                    "Damage": "1d6",
-                    "Advanced Flank": "+1d4 Damage if flanking. Guards can flank with obstacles and walls.",
-                    "Combo": "Daze the target."
-                }
-            },
-            {
-                "Volley of Arrows": {
-                    "A": "2 Action Points / Guard",
-                    "Range": "5 meters to edge",
-                    "Requirement": "Ranged Guard",
-                    "Effect": "ALL ranged Guards target a 4x4 area.\nAll Units there take 1d4 Pierce Damage for each ranged Guard (as one attack).\n"
+                    "Damage": "{Damage-1}",
+                    "Get Back": "Target chooses to take the Damage again, or be pushed that many meters (Guard chooses direction).",
+                    "Combo": "Lag the target."
                 }
             }
         ],
@@ -564,43 +571,50 @@
             "Jewelry worth 1d100 Gold"
         ]
     },
-    "Hobgoblin": {
-        "Type": "Person",
+    "Fomor": {
+        "Type": "Person, Giant",
         "Degree": "Normal",
         "Experience": 200,
         "Stats": "3/2/1/2/3",
         "Health": 66,
         "HPCoef": 0.7,
-        "Speed": 5,
+        "Speed": 3,
         "Initiative": 1,
         "Abilities": [
             {
+                "Make Way": {
+                    "A": 0,
+                    "Range": 1,
+                    "Effect": "Swap places with an ally near the Fomor (no Cooldown)."
+                }
+            },
+            {
                 "Attack": {
-                    "Damage": "2d8"
+                    "Damage": "{Damage+2}"
                 }
             },
             {
                 "Copy Spell": {
                     "Cooldown": "Once / Encounter",
-                    "Effect": "The Hobgoblin uses an Ability a Hero has used this Combat (with that Character's exact stats)."
+                    "Effect": "The Fomor uses an Ability a Hero has used this Combat (with that Character's exact stats)."
                 }
             },
             {
-                "Bite": {
-                    "A": "1 Action Point",
-                    "Damage": "1d4"
-                }
+                "Quick Attack": "Auto"
             }
         ],
         "Passives": [
             {
                 "Bold in Numbers": "Has +1 Defense for each other alive ally on its team."
+            },
+            {
+                "Resistances": "-50% Cold and Fire Damage taken."
             }
         ],
         "Avoids AoE": "Yes",
-        "Behavior": "Hobgoblins fight with its allies.\nWill wait for a good moment to use Copy Spell.\nBe careful how many enemies are in an encounter with a Hobgoblin! Too many enemies can turn a regular encounter into a deadly one!\nPlayers should know Hobgoblins can copy a spell.\nEvery time an ally of the Hobgoblin dies, describe how the Hobgoblin appears less bold (aka loses Defense).\n",
+        "Behavior": "Fomors fight with its allies.\nWill wait for a good moment to use Copy Spell.\nBe careful how many enemies are in an encounter with a Hobgoblin! Too many enemies can turn a regular encounter into a deadly one!\nPlayers should know Fomors can copy a spell.\nEvery time an ally of the Hobgoblin dies, describe how the Hobgoblin appears less bold (aka loses Defense).\n",
         "Pair": "Pair with Goblins, Wolves, even an Ogre.",
-        "Suggested Obstacles": "None! Hobgoblins don't like traps (but its allies do)!",
+        "Suggested Obstacles": "None! Fomors don't like traps (but its allies do)!",
         "Monster Data": "Kill me last, careful with spells",
         "Role": "Extra",
         "Variants": "None"
@@ -616,24 +630,22 @@
         "Initiative": 4,
         "Abilities": [
             {
-                "Bow": "1d12"
+                "Bow": "{Damage-1}"
             },
             {
                 "Attack": {
                     "Damage": "1d4",
-                    "RAGE": "+1d4 Damage for each time the Berserker took Damage this Combat"
+                    "RAGE": "+1d4 Damage for each time the Berserker took Damage this Combat",
+                    "Upgrade": "Disabled while Silenced/Deafened!"
                 }
             },
             {
-                "Quick Attack": {
-                    "A": "1 Action Point",
-                    "Damage": "1d4"
-                }
+                "Quick Attack": "Auto"
             }
         ],
         "Passives": [
             {
-                "RAGE": "Whenever a Berserker takes Damage, it gains +3 Damage on normal attacks."
+                "RAGE": "Whenever a Berserker takes Damage, it gains +1d4 Damage on normal attacks."
             }
         ],
         "Avoids AoE": "No",
@@ -652,7 +664,7 @@
         "Type": "Person",
         "Degree": "Normal",
         "Experience": 225,
-        "Stats": "1/2/5/2/5",
+        "Stats": "1/2/4/2/5",
         "Health": 76,
         "HPCoef": 1,
         "Speed": 5,
@@ -678,15 +690,12 @@
                 "Counterspell": {
                     "A": "Reaction",
                     "Cooldown": "Once / Encounter",
-                    "Effect": "On first occasion, when a Unit uses an Ability, it is cancelled and the Action Points are lost (but not the Mana).\n",
+                    "Effect": "On first occasion, when a Unit uses an Ability, it is cancelled. Action Points spent are lost (but not the Mana/Cooldown).\n",
                     "Upgrade": "The Counterspell is visibly prepared in the Unit's hand, ready to cast!"
                 }
             },
             {
-                "Dagger": {
-                    "A": "1 Action Point",
-                    "Damage": "1d6 Pierce"
-                }
+                "Quick Attack": "Auto"
             }
         ],
         "Passives": {
@@ -714,28 +723,28 @@
         "Abilities": [
             {
                 "Roots (Human)": {
-                    "Effect": "All Enemies of the Druid within 2 meters take 2d6 Damage and must choose, twice, to become Slowed or take +1d6 Damage."
+                    "Effect": "All Enemies of the Druid within 2 meters take {DamageAoE} Damage and must choose, twice, to become Lagged or take +1d6 Damage."
                 }
             },
             {
                 "Maul (Bear)": {
                     "A": "1 Action Point",
-                    "Damage": "1d8",
-                    "Critical Stun": "If rolled 6 or higher, the target becomes Single-Stunned."
+                    "Damage": "Auto",
+                    "Stun": "Target chooses to be Stunned, or have a 50% change to be Double-Stunned."
                 }
             },
             {
                 "Tongue Grab (Toad)": {
                     "Range": "5 meters",
-                    "Damage": "4d4 Poison",
-                    "Pull": "Target is Slammed 1d4 meters in any direction."
+                    "Damage": "{DamageAuto} Poison",
+                    "Pull": "Target is Slammed that many meters in any direction it chooses."
                 }
             },
             {
                 "Talons (Eagle)": {
                     "A": "1 Action Point",
-                    "Damage": "1d8",
-                    "Fly Away": "After attacking, you can move 3 meters for free."
+                    "Damage": "{Damage+1}",
+                    "Fly Away": "After attacking, make a Move Act for free with +2 Speed."
                 }
             },
             {
@@ -774,42 +783,42 @@
         "Type": "Person, Fey",
         "Degree": "Normal",
         "Experience": 275,
-        "Stats": "0/5/5/3/3",
-        "Health": "100 (half is Shielding)",
-        "HPCoef": 0.98,
-        "Shielding": "half is Shielding",
+        "Stats": "0/5/3/3/0",
+        "Health": 100,
+        "HPCoef": 0.5,
         "Speed": 5,
-        "Initiative": 5,
+        "Initiative": "N/A",
         "Abilities": [
-            {
-                "Plant Attack": {
-                    "Range": "3 meters (from the plant)",
-                    "Damage": "10 (or 4d4)",
-                    "Plant Reach": "Instead of the Dryad attacking, she makes a nearby plant attack.\n",
-                    "Notes": "E.g. a tree slams with its branches, a bush shoots thorns, etc"
-                }
-            },
             {
                 "Thorn Spike": {
                     "A": "1 Action Point",
                     "Range": "5 meters",
-                    "Damage": "1d8 Pierce"
+                    "Damage": "{DamageAuto} Pierce"
                 }
             },
             {
                 "Sleep Spores": {
                     "Cooldown": "Once / Turn",
                     "Range": "5 meters",
-                    "Effect": "Choose a 3x3 meter area. It becomes Hard Terrain.\nAny enemy of the Dryad ending their turn in Spores must roll a Presence Check at least 11 or it falls Asleep and its initiative becomes 0.\n"
+                    "Effect": "Choose a 3x3 meter area. All Units (together) in the area choose to fall Asleep or take {Damage+2} Poison Damage.\n"
                 }
+            },
+            {
+                "Quick Attack": "Auto"
             }
         ],
         "Passives": [
             {
+                "Nimble Actions": "The Dryad has 0 Action Points and no Setback. Whenever an enemy ends their Turn, the Dryad gains +1 Action Points it can use immediately, or store for later."
+            },
+            {
+                "Deathless": "At the end of each Round, the Dryad heals to full Health."
+            },
+            {
                 "Treesposition": "Instead of moving normally, the Dryad can touch a tree and teleport near another tree within 10 meters (if not Silenced)."
             },
             {
-                "Vulnerabilities": "Takes +50% Acid Damage."
+                "Weaknesses": "+50% Acid and Fire Damage taken."
             },
             {
                 "Immunities": "Immune to Poison Damage and Sleep."
@@ -829,54 +838,55 @@
         "Story Ideas": "Players might hear a rumor about a place in the forest where there are forbidden Fruit of Knowledge trees. \nEating such a fruit will make the player Skilled in anything knowledge-related.\nThe Dryads, though, forbid the players from eating them, because the fruits are their children (literally).\nWill they leave, fight the Dryads or sneakily steal the fruit (of course, the Dryads know they are trying to sneak and will ambush the Players).\n"
     },
     "Naga": {
-        "Type": "Person, Monster",
+        "Type": "Person, Monster, Fiend",
         "Degree": "Normal",
         "Experience": 275,
-        "Stats": "4/3/2/2/2",
+        "Stats": "3/4/2/1/1",
         "Health": 80,
-        "Defense": "5 (Innate)",
         "HPCoef": 1,
-        "Speed": "4 on land, 6 in water and shallow water",
+        "Speed": 5,
         "Initiative": 5,
         "Abilities": [
             {
-                "Warrior - Melee Weapon": {
-                    "A": "1 Action Point",
-                    "Damage": "1d12",
-                    "Chains": "Every 2nd attack Deafens and Dazes the target."
+                "6-Arm Melee Attack": {
+                    "Damage": "{DamageAoE}",
+                    "Range": "2 meters",
+                    "Effect": "Makes 6 attacks spread evenly among all Enemies within 2 meters. Extra attacks are lost (e.g. if only 4 or 5 Units are around)."
                 }
             },
             {
-                "Warrior - Harpoon": {
-                    "Range": "5 meters",
-                    "Damage": "8 Pierce",
-                    "Pull": "Target is pulled near the Naga Warrior."
+                "6-Arm Ranged Attack": {
+                    "Damage": "{DamageAoE}",
+                    "Effect": "Makes 6 attacks spread evenly among all Enemies within a chosen 3x3 meter area centered on a Unit. Extra attacks are lost (e.g. if only 4 or 5 Units are around)."
                 }
             },
             {
-                "Mage - Frostbolt (10m)": {
-                    "Damage": "10 Cold (or 4d4)",
-                    "Freezing": "If the target already took Cold Damage this Combat, it becomes Slowed."
-                }
-            },
-            {
-                "Mage - Enslave Magic": {
+                "Enslave": {
                     "A": "1 Action Point",
                     "Cooldown": "Once / Encounter",
-                    "Effect": "Gain control of a non-Hero Unit until Combat ends or the Naga Mage dies.\n"
+                    "Effect": "Gain control of a non-Hero Unit until Combat ends or the Naga dies.\n"
                 }
+            },
+            {
+                "Quick Attack": "Auto"
             }
         ],
         "Passives": [
             {
-                "Resistances": "Takes -50% Cold Damage."
+                "Retaliate": "After being attacked in Melee, retaliate for {DamageAoE} Damage (no Cooldown/Reaction)."
             },
             {
-                "Mages and Warriors": "A Naga is either a Mage or a Warrior. A Mage can only use Mage Abilities. A Warrior can only use Warrior Abilities."
+                "Immovable": "Immune to being Pushed or Slammed."
+            },
+            {
+                "Resistances": "Takes -50% Damage based on its environment."
+            },
+            {
+                "Basic Magic": "Can cast small non-combat utility spells like Magic Tricks, Light, etc"
             }
         ],
         "Avoids AoE": "No",
-        "Behavior": "Warrior: Use Melee Weapon attacks if the Naga can. If it can't get in range to attack, use Harpoon.\nMage: Always use Enslave Magic on Units that players summon (e.g. spirit weapons, demons, etc).\n",
+        "Behavior": "none",
         "Pair": "Pair with enslaved Morlocs, Crabs (Giant), a Bannerman.",
         "Lore": "Naga are known to enslave other species, like Morlocs.\nSome of them can cast water magic and take over control of summoned creatures.\nThey can hold their breath long enough to stay on land a few hours at a time.\nThey communicate through vibrations in the water, so their language might be inaudible in the open air.\nAlthough intelligent and resembling people, they are still monsters and have an innate instinct to kill everything they can't enslave.\n",
         "Suggested Obstacles": [
@@ -905,12 +915,12 @@
                 "Ranged Weapon": {
                     "A": "1 Action Point",
                     "Cooldown": "Twice / Turn",
-                    "Damage": "1d12"
+                    "Damage": "Auto"
                 }
             },
             {
                 "Melee Weapon": {
-                    "Damage": "2d10",
+                    "Damage": "Auto",
                     "Double Edge": "The target choose whether to both take +1d10 Damage, or be Single-Stunned."
                 }
             },
@@ -922,10 +932,7 @@
                 }
             },
             {
-                "Hooves": {
-                    "A": "1 Action Point",
-                    "Damage": "1d6 Smash"
-                }
+                "Quick Attack": "Auto"
             }
         ],
         "Passives": [
@@ -971,13 +978,13 @@
             {
                 "Eldritch Bolt": {
                     "Range": "5 meters",
-                    "Damage": "1d4 Damage + target's Might Scourge"
+                    "Damage": "{Damage-1} + target's Might"
                 }
             }
         ],
         "Passives": [
             {
-                "Necromantic Control": "When in a group with other undead Unit(s), one undead is bound to this necromancer. When this necromancer dies, that undead dies as well."
+                "Necromantic Control": "When in a group with other undead Unit(s), one undead is bound to this Necromancer. When this Necromancer dies, that undead dies as well."
             }
         ],
         "Avoids AoE": "No",
@@ -1010,11 +1017,14 @@
             {
                 "Bite": {
                     "Cooldown": "Once / Turn",
-                    "Damage": "1d4 True"
+                    "Damage": "{DamageAuto} True"
                 }
             }
         ],
         "Passives": [
+            {
+                "Spawning": "When the Bug dies, another one comes from a nearby nest."
+            },
             {
                 "Optionally Flying": "If it makes sense for the bug to fly, it can fly."
             }
@@ -1033,7 +1043,7 @@
     "Hound": {
         "Type": "Beast, Undead, Demon",
         "Experience": 50,
-        "Stats": "1/1/0/6/3",
+        "Stats": "1/1/0/5/3",
         "Health": 15,
         "HPCoef": 0.7,
         "Speed": 6,
@@ -1042,14 +1052,14 @@
             {
                 "Bite": {
                     "Cooldown": "Once / Turn",
-                    "Damage": "1d4 Pierce",
-                    "Hold Down": "The Hound remains attached to the target.\nWhile holding the target, it is Slowed, Deafened, or Dazed.\nAll Hounds must choose the same Control Effect on this Round.\n"
+                    "Damage": "{DamageAuto} Pierce",
+                    "Hold Down": "The Hound remains attached to the target.\nWhile holding the target, it is Lagged, Deafened, or Dazed.\nAll Hounds must choose the same Control Effect on this Round.\n"
                 }
             }
         ],
         "Passives": [
             {
-                "Track": "Hounds can track a Unit for up to 5 kilometers. Escaping from Hounds requires a Check at least 15."
+                "Track": "Hounds can track a Unit for up to 5 kilometers. Escaping from Hounds requires passing a Hard Check."
             },
             {
                 "Detect": "Hounds can detect invisible Units."
@@ -1076,7 +1086,7 @@
             {
                 "Facehug": {
                     "Cooldown": "Once / Turn",
-                    "Damage": "1d4 Scourge",
+                    "Damage": "{DamageAuto} Scourge",
                     "Attach": "The Camazot remains attached to the target, making it perpetually Blinded.\n"
                 }
             }
@@ -1106,9 +1116,12 @@
             {
                 "Pack Bite": {
                     "Cooldown": "Once / Turn",
-                    "Damage": "1d4 Pierce",
+                    "Damage": "{Damage-1} Pierce",
                     "Flanker": "All other Wolves that are in range make a Pack Bite on the same target (without triggering this effect)."
                 }
+            },
+            {
+                "Quick Attack": "Auto"
             }
         ],
         "Avoids AoE": "No",
@@ -1165,28 +1178,28 @@
             {
                 "Grab": {
                     "Cooldown": "Once / Encounter",
-                    "Yoink": "The crab grabs a target with its claw.\nThe target is Single-Stunned, Rooted to the Crab until it dies, and takes 1d6 Damage at the end of the Crab's Turns.\n"
+                    "Yoink": "The crab grabs a target with its claw.\nThe target is Single-Stunned, Rooted to the Crab until it dies, and takes {Damage} Damage at the end of the Crab's Turns.\n"
                 }
             },
             {
                 "Pincer": {
-                    "Damage": "1d6 Pierce, Smash or Slash",
-                    "Critical Stun": "If rolled 6, Single-Stun the target."
+                    "Damage": "{DamageAuto} Pierce, Smash or Slash",
+                    "Stun": "Target must choose to be Slammed that many meters in a random direction, or be Single-Stunned."
                 }
             }
         ],
         "Passives": [
             {
-                "Thick Chitin": "Takes -50% Pierce and Slash Damage."
+                "Thick Chitin": "-50% Pierce and Slash Damage taken."
             },
             {
-                "Cold Resistance": "Takes -50% Cold Damage."
+                "Resistances": "-50% Damage taken based on its environment."
             },
             {
                 "Tall": "Ignores Hard Terrain and Caltrops or Spikes."
             },
             {
-                "Submerged Camouflage": "Spotting a camouflaged Crab requires a Check at least 12."
+                "Submerged Camouflage": "Spotting a camouflaged Crab requires passing a Hard Check."
             }
         ],
         "Avoids AoE": "No",
@@ -1202,7 +1215,7 @@
     "Rat (Giant)": {
         "Type": "Beast",
         "Experience": 150,
-        "Stats": "1/5/-2/4/0",
+        "Stats": "1/4/-2/3/0",
         "Health": 40,
         "HPCoef": 1,
         "Speed": 6,
@@ -1210,20 +1223,16 @@
         "Abilities": [
             {
                 "Bite/Claw": {
-                    "Damage": "1d10"
+                    "Damage": "Auto"
                 }
             },
             {
-                "Quick Attack": {
-                    "A": "1 Action Point",
-                    "Cooldown": "Once / Turn",
-                    "Damage": "1d4"
-                }
+                "Quick Attack": "Auto"
             }
         ],
         "Passives": [
             {
-                "3rd Round Frenzy": "On the 3rd round of combat, all rats become enraged and gain +1d6 Damage on all attacks."
+                "3rd Round Frenzy": "On the 3rd round of combat, all rats become enraged and gain +50% Damage on all attacks."
             },
             {
                 "Dark Vision": "Can see in the dark."
@@ -1244,39 +1253,33 @@
     "Raptor": {
         "Type": "Beast",
         "Experience": 175,
-        "Stats": "3/3/-2/3/3",
+        "Stats": "3/3/-2/3/0",
         "Health": 50,
         "HPCoef": 0.9,
-        "Speed": 7,
+        "Speed": 8,
         "Initiative": 7,
         "Abilities": [
             {
-                "Beak Attack": {
-                    "Damage": "1d6 + 1d8 (Slash or Pierce)",
-                    "Break Defenses": "Ignores Defense and Damage Reductions and breaks all Shieldings on the target (before Damage)."
+                "Pounce": {
+                    "Damage": "{DamageAoE}",
+                    "Slam Down": "Target chooses to become Dazed (that stacks) or take +100% Damage.",
+                    "Pack Pounce": "+50% Damage to Units affected by a Control Effect."
                 }
             },
             {
-                "Quick Attack": {
-                    "A": "1 Action Point",
-                    "Cooldown": "Once / Turn",
-                    "Damage": "1d6"
-                }
+                "Quick Attack": "Auto"
             }
         ],
         "Passives": [
             {
-                "Lightweight Jump": "After a Raptor is hit with a melee attack, it jumps 3 meters away from the attacker."
+                "Sense Defenses": "Raptors ignore Defenses, Damage Reductions and Shieldings. They sense them and prefer attacking Units with them."
             },
             {
-                "Presence Defenses": "Raptors sense Shielding, Defense or other Damage Reductions. They prefer attacking Units with Shielding."
-            },
-            {
-                "Jumpers": "Can freely jump up to 3 meters high."
+                "Jumpers": "Can freely jump up to 3 meters."
             }
         ],
         "Avoids AoE": "No",
-        "Behavior": "Prefers to attack heavily armored enemies.\n",
+        "Behavior": "Prefers to attack heavily armored enemies and Dazed Units.\n",
         "Suggested Obstacles": "None",
         "Monster Data": "No tactic, mid HP, no gimmick",
         "Role": "Main Enemy",
@@ -1285,7 +1288,7 @@
     "Spider (Giant)": {
         "Type": "Beast, Insect",
         "Experience": 200,
-        "Stats": "3/4/0/5/0",
+        "Stats": "3/3/0/5/0",
         "Health": 61,
         "HPCoef": 0.9,
         "Speed": 6,
@@ -1293,17 +1296,8 @@
         "Abilities": [
             {
                 "Spider Attack": {
-                    "Damage": "2d6 (Pierce or Poison)",
-                    "EffectGreen": "For each 5, Slow the target.\nFor each 6, Cripple the target.\n"
-                }
-            },
-            {
-                "Cocoon": {
-                    "Range": "3 meters",
-                    "Cooldown": "Half of Party / Round",
-                    "A": "1 Action Point",
-                    "Effect": "Wrap a Unit in a cocoon with 10 Health.\nThe Unit must break the coocoon first before moving or doing anything outside.\n",
-                    "Upgrade": "The spiders (together) can only cast Cocoon a number of times per Round equal to half the player's team size."
+                    "Damage": "{DamageAuto} (Pierce or Poison)",
+                    "Spider Moves": "Target must choose:\n{Diamond} Become Rooted\n{Diamond} Become Crippled\n{Diamond} Take {DamageAoE} Poison Damge\n{Diamond} Be wrapped in a cocoon with 10 Health.\nThe same effect can't be chosen again this Round.\n"
                 }
             },
             {
@@ -1319,7 +1313,7 @@
                 "Spider Climb": "Can freely walk on walls and on web, and ignores Hard Terrain."
             },
             {
-                "Immunities": "Immune to Poison."
+                "Immunities": "Immune to Poison, and to being Blinded while in their territory."
             }
         ],
         "Avoids AoE": "No",
@@ -1375,16 +1369,12 @@
         "Abilities": [
             {
                 "Glittering Breath": {
-                    "Effect": "Target a 3x3 meter area and attack all Units there for 2d6.\nIf they have an even number of Mana points, they fall Asleep and their Initiative becomes 0.\n",
+                    "Effect": "Target a 3x3 meter area and attack all Units there for {DamageAuto} True Damage.\nIf they currently have an even number of Mana points, they fall Asleep and their Initiative becomes 0.\n",
                     "Notes": "0 is an even number."
                 }
             },
             {
-                "Quick Attack": {
-                    "A": "1 Action Point",
-                    "Cooldown": "Once / Turn",
-                    "Damage": "1d6"
-                }
+                "Quick Attack": "Auto"
             }
         ],
         "Passives": [
@@ -1416,7 +1406,7 @@
             {
                 "Claws/Bite": {
                     "A": "1 Action Point",
-                    "Damage": "1d6",
+                    "Damage": "{Damage-50%}",
                     "Rip": "After attacking, the target takes +1 Damage for the rest of the Combat (stacks indefinitely)."
                 }
             }
@@ -1449,27 +1439,27 @@
             {
                 "Beak": {
                     "A": "1 Action Point",
-                    "Damage": "1d10 Pierce",
-                    "Seize": "+1d6 Damage if the target has any Control Effect"
+                    "Damage": "{Damage-1} Pierce",
+                    "Seize": "+{DamageAoE} Damage if the target has any Control Effect"
                 }
             },
             {
                 "Stone Glare": {
-                    "Effect": "Players must choose a Hero the Cockatrice can see to take 4d6 True Damage and become Blinded."
+                    "Effect": "Players must choose a Hero the Cockatrice can see to take {DamageAuto} True Damage and become Blinded."
                 }
             },
             {
                 "Tail Sweep": {
                     "Range": "2 meters",
-                    "Effect": "Target and all Units 1 meter from it take 2d8 Smash Damage.",
-                    "Seize": "+1d6 Damage to targets with any Control Effect"
+                    "Effect": "Target and all Units 1 meter from it take {DamageAoE} Smash Damage. They must together choose a direction to be Slammed 3 meters in.",
+                    "Seize": "+{Damage-50%} Damage to targets with any Control Effect"
                 }
             },
             {
                 "Quills": {
                     "A": "1 Action Point",
                     "Range": "5 meters",
-                    "Effect": "A Unit takes 1d8 Pierce Damage."
+                    "Effect": "A Unit takes {Damage-1} Pierce Damage."
                 }
             }
         ],
@@ -1478,7 +1468,7 @@
                 "Panic Shriek": "When Combat starts, each Person has a panic attack for 1d4 Turns.\nWhile panicking, when a Hero wants to do soemthing, the Quest Master can say \"no, choose something else to do\", once per player Turn.\nPlayers that can't hear are unaffected.\n"
             },
             {
-                "Bloody Shriek": "When dropping below 50% HP, Cockatrice shrieks.\nAll Units become a Stunned level equal to 4 - Their Presence (e.g. if their Presence is 1, they become Triple-Stunned).\n"
+                "Bloody Shriek": "When dropping below 50% HP, Cockatrice shrieks.\nAll Units become a Stunned level equal to 3 - Their Presence (e.g. if their Presence is 1, they become Triple-Stunned).\n"
             }
         ],
         "Avoids AoE": "No",
@@ -1505,26 +1495,22 @@
         "Abilities": [
             {
                 "CHAAARGE": {
-                    "Effect": "Move up to the Speed towards the Marked target. Passing through an obstacle or Unit pushes them aside and the Bull gains +1d4 Damage on its next attack on the Marked targt."
+                    "Effect": "Move at 99 Speed towards the Marked target. Passing through an obstacle or Unit pushes them aside and the Bull gains +1d4 Damage on its next attack on the Marked targt."
                 }
             },
             {
                 "Rushing Horns": {
-                    "Damage": "3d6",
+                    "Damage": "Auto",
                     "Slam": "Slam the target 1d8 meters in a direction it chooses."
                 }
             },
             {
-                "Quick Attack": {
-                    "A": "1 Action Point",
-                    "Cooldown": "Once / Turn",
-                    "Damage": "1d6"
-                }
+                "Quick Attack": "Auto"
             }
         ],
         "Passives": [
             {
-                "Red Target": "On Combat start, Mark the weakest Hero (or back-most). The bull will try to charge to them.\nA Unit can spend a 1 Action Point to move the Mark from themself to a different Hero.\n"
+                "Red Mark": "On Combat start, Mark the weakest Hero (or back-most). The bull will try to charge to them.\nA Unit can spend a 1 Action Point to move the Mark from themself to a different Hero.\n"
             }
         ],
         "Avoids AoE": "No",
@@ -1550,7 +1536,7 @@
         "Abilities": [
             {
                 "Envelop": {
-                    "Damage": "11 Scourge (or 3d6)",
+                    "Damage": "{DamageAuto} Scourge",
                     "Facehug": "Umbral Manta remains attached to the target until the end of the target's Turn (therefore, the target is in Darkness - has Cover; see Darkray's Passive Ability).\n",
                     "Notes": "It moves with the target, unless it teleports or the Manta dies."
                 }
@@ -1574,7 +1560,7 @@
                 "Flying": "Flies."
             },
             {
-                "Camouflage": "Camouflages well in rocky environments (Check at least 15 to notice)."
+                "Camouflage": "Camouflages well in rocky environments (Hard Check to spot)."
             }
         ],
         "Avoids AoE": "No",
@@ -1602,17 +1588,9 @@
         "Initiative": 1,
         "Abilities": [
             {
-                "Acid Spit": {
-                    "Range": "3 meters",
-                    "Damage": "2d4 Acid",
-                    "Corrode": "Ignores Defense.\n- Loses 5d10 gold (the coins corrode)\n- A metal weapon loses 1 Damage permanently\n- A metal armor loses 1 Defense permanently\n- A metal item in their inventory corrodes\n"
-                }
-            },
-            {
                 "Bite": {
-                    "Damage": "1d4 + 3 Acid",
-                    "Corrode": "If Flanking (even with its own or another Centipede's body), corrodes something in player's inventory based on the roll.\n",
-                    "Upgrade": "1. 5d10 Gold, 2. A weapon loses 1 Damage permanently, 3. An armor loses 1 in something they give, 4. An item in their inventory corrodes and becomes unusable."
+                    "Damage": "{DamageAuto} Acid or Pierce",
+                    "Corrode": "Ignores Resistances and Defense.\nIf Flanking, target must choose something to be corroded:\n- 5d10 Gold\n- A weapon (loses 1 Damage permanently)\n- An armor (a number changes by 10% negatively)\n- Another item the Quest Master chooses is destroyed\n"
                 }
             }
         ],
@@ -1657,15 +1635,15 @@
         "Initiative": 3,
         "Abilities": [
             {
-                "Sleepless Dive": "Attack a Unit for Slash/Pierce/Poison Damage equal to half the number of hours it has been awake."
+                "Sleepless Dive": "Attack a Unit for Damage equal to half the number of hours it has been awake (Pierce, Slash, or Scourge)."
             }
         ],
         "Passives": [
             {
-                "Tiring Presence": "Every round passing in combat counts as 2 hours of sleeplessness. Apply Exhaustion rules if necessary."
+                "Tiring Presence": "Every Round passing in combat counts as 2 hours of sleeplessness. Apply Exhaustion rules if necessary."
             },
             {
-                "Flier": "Flies. Can freely Break its Movement."
+                "Flier": "Flies."
             }
         ],
         "Avoids AoE": "No",
@@ -1691,7 +1669,7 @@
         "Abilities": [
             {
                 "Attack (2m)": {
-                    "Damage": "13 Fire (or 5d4)"
+                    "Damage": "Auto"
                 }
             }
         ],
@@ -2064,7 +2042,7 @@
     },
     "Behemoth": {
         "Type": "Beast",
-        "Degree": 9,
+        "Degree": 7,
         "Experience": "999 (111 x9)",
         "Stats": "9/3/0/3/3",
         "Health": 333,
@@ -2245,7 +2223,7 @@
             {
                 "Spore Attack": {
                     "Range": "15 meters",
-                    "Effect": "Roll {Damage-2}. Players choose a target. It takes that many 1d4's as Poison Damage.",
+                    "Effect": "Roll {Damage-3}. Players choose a target. It takes that many 1d4's as Poison Damage.",
                     "Notes": "Apply Cover normally from the Fungus to the target."
                 }
             }
@@ -2380,8 +2358,8 @@
         "Abilities": [
             {
                 "Spit (3m range)": {
-                    "Damage": "7 Acid (or 2d6)",
-                    "Spawn": "After this attack, the ooze loses half of its current HP.\nAnother Ooze is created near the target with that HP.\nIt starts its turn next round.\n"
+                    "Damage": "Auto",
+                    "Spawn": "After this attack, the ooze loses half of its current HP.\nAnother Ooze is created near the target with that HP.\nIt starts its Turn next Round.\n"
                 }
             }
         ],
@@ -2421,10 +2399,10 @@
         "Initiative": 1,
         "Abilities": [
             {
-                "Blop (2m)": "Deal 1d8 Acid Damage to a Unit. Can only do this if nobody is Engulfed in it, but it would rather Sprint 4 meters."
+                "Blop (2m)": "Deal {Auto} Acid Damage to a Unit. Can only do this if nobody is Engulfed in it, but it would rather Sprint 4 meters."
             },
             {
-                "Digest (free)": "Deal 5 Acid Damage to all Units Engulfed inside (or 2d4)."
+                "Digest (free)": "Deal {DamageAoE} Acid Damage to all Units Engulfed inside."
             }
         ],
         "Passives": [
@@ -2442,7 +2420,7 @@
     },
     "Eldritch Abomination": {
         "Type": "Fiend, Giant",
-        "Degree": "Epic x3",
+        "Degree": 7,
         "Experience": "1700 (425 x4)",
         "Stats": "8/2/6/9/0",
         "Health": 1,
@@ -2454,17 +2432,17 @@
             {
                 "Claw": {
                     "Range": "3 meters",
-                    "Damage": "12 (4d4 + 2)"
+                    "Damage": "Auto"
                 }
             },
             {
-                "Mockery of the Focus": "Summon an illusory clone of each enemy Hero, at random locations.\nThey have 0 Initiative and can only use Weapons and Basic Abilities that don't use Mana.\nThey dissipate when they take Damage.\n"
+                "Mockery of the Focus": "Summon an illusory clone of each enemy Hero, at random locations.\nThey have maximum Setback and can only use Weapons and Basic Abilities that don't use Mana.\nThey dissipate when they take Damage.\n"
             },
             {
-                "Eldritch Particularity": "Choose a Unit. It takes 10 True Damage and becomes Fumbling.\nUntil next Round's Turn, the Eldritch Abomination appears 1 meter away from that Unit.\n"
+                "Eldritch Particularity": "Choose a Unit. It takes {Auto} Psychic Damage and becomes Dazed.\nUntil next Round's Turn, the Eldritch Abomination appears 1 meter away from that Unit.\n"
             },
             {
-                "Presence of Madness": "All Units that can see or hear the Eldritch Abomination loses 1 Presence for the rest of Combat and taked 4d4 Damage.\nIf any Unit's Presence became exactly -1, it suffers a heart attack for 1d100 True Damage and its Presence remains -1 permanently.\n"
+                "Sense of Madness": "All Units that can see or hear the Eldritch Abomination loses 1 Presence for the rest of Combat and take {DamageAoE} Damage.\nIf any Unit's Presence became exactly -1, it suffers a heart attack for 1d100 True Damage and its Presence remains -1 permanently.\n"
             }
         ],
         "Passives": [
@@ -2496,7 +2474,7 @@
         "Initiative": 0,
         "Abilities": [
             {
-                "Bite": "1d4 Pierce"
+                "Bite": "Auto"
             },
             {
                 "Spell Block": {
@@ -2508,7 +2486,7 @@
         ],
         "Passives": [
             {
-                "Detonation": "When killed by Damage, the closest enemy of the Mana Spawn takes 1d4 Psychic Damage and must pass a Presence Check at least 10 or be Silenced."
+                "Detonation": "When killed by Damage, the closest enemy of the Mana Spawn takes {Damage1} Psychic Damage and becomes Silenced."
             }
         ],
         "Avoids AoE": "No",
@@ -2531,7 +2509,7 @@
         "Initiative": 3,
         "Abilities": [
             {
-                "Attack Through": "Fly 3 meters in a straight line. All Units hit take 1d6 Damage (Pierce, Slash or Smash).\n"
+                "Attack Through": "Fly 3 meters in a straight line. All Units hit take {Auto} Damage (Pierce, Slash or Smash).\n"
             }
         ],
         "Passives": [
@@ -2563,7 +2541,10 @@
         "Initiative": 0,
         "Abilities": [
             {
-                "Melee Weapon": "8 and half (4) AoE around the target (or 1d6 + 4)"
+                "Melee Weapon": {
+                    "Damage": "{DamageAoE}",
+                    "Smash Ground": "If there are other allies around, target can choose to deal the Damage to them as well. Otherwise, it takes +100% Damage."
+                }
             }
         ],
         "Passives": [
@@ -2592,7 +2573,7 @@
     },
     "Gargoyle": {
         "Type": "Construct, Elemental",
-        "Degree": "Epic x2",
+        "Degree": 5,
         "Experience": "600 (300 x2)",
         "Stats": "7/0/0/0/0",
         "Health": 165,
@@ -2603,15 +2584,15 @@
         "Abilities": [
             {
                 "Downslam": {
-                    "Damage": "7 Smash (or 2d6)",
+                    "Damage": "DamageAoE",
                     "Area Slam": "This hits all Units within 2 meters of the Gargoyle. Destroys all stone or wood obstacles hit, spreading debris."
                 }
             },
             {
-                "Wingdraw (5m)": "Target a Unit.\nPush away or pull (of choice) it and all other Medium or smaller Units within 2 meters of it in up to 3 meters.\nThey all take 1d4 + 4 Pulse Damage.\n"
+                "Wingdraw (5m)": "Target a Unit.\nPush away or pull (of choice) it and all other Medium or smaller Units within 2 meters of it in up to 3 meters.\nThey all take {DamageAoE} Pulse Damage.\n"
             },
             {
-                "Flame Breath": "All Units in a 3x3 area make a 10 Grade Instinct Check.\nOn fail, they take 9 Fire Damage (or 3d4 + 1).\nOn success, they take half (4).\n"
+                "Flame Breath": "TODO: This sucks\nAll Units in a 3x3 area make a 10 Grade Instinct Check.\nOn fail, they take 9 Fire Damage (or 3d4 + 1).\nOn success, they take half (4).\n"
             }
         ],
         "Passives": [
@@ -2642,7 +2623,7 @@
     },
     "Fairy Dragon": {
         "Type": "Dragon",
-        "Degree": "Epic x2",
+        "Degree": 5,
         "Experience": "500 (250 x2)",
         "Stats": "1/3/5/3/1",
         "Health": 190,
@@ -2651,13 +2632,10 @@
         "Initiative": 5,
         "Abilities": [
             {
-                "Magic Bolt 1 (5m)": "Attack 2 Units for 1d6 + 1 Pulse Damage."
+                "Magic Bolt 1 (5m)": "Attack 2 Units for {Damage-2} Pulse Damage."
             },
             {
-                "Blink": "All Units within 2 meters make a Grade 12 Presence Check or become Blinded. Then teleport up to 5 meters."
-            },
-            {
-                "Magic Bolt 2 (5m)": "Attack 2 Units for 1d6 + 1 Pulse Damage."
+                "Blink": "All Units within 2 meters choose to be Blinded, or be teleported somewhere random up to 5 meters away."
             },
             {
                 "Force Wall (15 meters)": "Create transparent magical screen (3m tall, 5m wide) that nothing can pass through, except Magic Bolts. The screen has 7 HP and 7 Defense."
@@ -2665,7 +2643,7 @@
         ],
         "Passives": [
             {
-                "Absorb Magic": "Whenever a non-Fairy Dragon casts a spell in combat, the Fairy Dragon gains +1 Damage with all Spells and attacks until the combat is over."
+                "Absorb Magic": "Whenever an Enemy uses an Ability, the Fairy Dragon gains +1 Damage for the rest of Combat."
             },
             {
                 "Resistances": "Takes -50% Fire, Cold, Pulse and Shock Damage."
@@ -2691,7 +2669,7 @@
     },
     "Verdant Dragon": {
         "Type": "Dragon",
-        "Degree": "Epic x3",
+        "Degree": 7,
         "Experience": "1200 (400 x3)",
         "Stats": "3/3/2/4/0",
         "Health": 1,
@@ -2703,19 +2681,19 @@
             {
                 "Claw/Bite": {
                     "Range": "2 meters",
-                    "Effect": "Make 2 attacks for 1d10 Slash/Pierce Damage."
+                    "Effect": "Make 2 attacks for {Damage-50%} Slash/Pierce Damage."
                 }
             },
             {
                 "Asphyxiating Breath": {
                     "Range": "6 meters to edge",
-                    "Effect": "All Units in a 3x3 meter area take 1d4 + 7 Acid Damage, each, and gains a Control Effect based on the number rolled:\n1. Slowed\n2. Fumbling\n3. Feared\n4. Sleep\nIf Verdant Dragon has 50% or less Health, on 4, the Unit must choose a Stat to permanently get -1 in.\n"
+                    "Effect": "TODO: Remake this\nAll Units in a 3x3 meter area take 1d4 + 7 Acid Damage, each, and gains a Control Effect based on the number rolled:\n1. Slowed\n2. Fumbling\n3. Feared\n4. Sleep\nIf Verdant Dragon has 50% or less Health, on 4, the Unit must choose a Stat to permanently get -1 in.\n"
                 }
             },
             {
                 "Noxxing Quills": {
                     "Range": "6 meters",
-                    "Effect": "A Unit takes 10 Poison Damage and becomes Noxxed.",
+                    "Effect": "A Unit takes {DamageAuto} Poison Damage and becomes Noxxed.",
                     "Notes": "A Noxxed Unit ends their Turn if they move more than 2 meters or roll more than 3 on any die."
                 }
             }
@@ -2753,29 +2731,29 @@
     },
     "Amber Dragon": {
         "Type": "Dragon",
-        "Degree": "Epic x3",
+        "Degree": 7,
         "Experience": "1500 (500 x3)",
         "Stats": "2/5/6/5/0",
         "Health": 1,
         "Defense": 0,
         "HPCoef": 0.2,
-        "Speed": 4,
+        "Speed": 5,
         "Initiative": 10,
         "Abilities": [
             {
                 "Claw/Bite": {
-                    "Damage": "13 Pierce or Slash"
+                    "Damage": "Auto"
                 }
             },
             {
                 "Aging Breath": {
                     "Range": "3 meters",
-                    "Effect": "A Unit takes 11 Fire Damage. It must roll a Might Check at least 13 or it ages 1 year, becomes Single-Stunned, and Aging Breath explodes and is recast on all Units within 2 meters of it (except Amber Dragon).",
+                    "Effect": "A Unit takes {Auto} Damage. It must choose to be aged 1 year and become Single-Stunned, or have Aging Breath explodes and is recast on all other Enemies within 2 meters of it.",
                     "Notes": "Doesn't retrigger on Units already hit."
                 }
             },
             {
-                "Sands of Distortion": "All enemies take 2d6 Pulse Damage and are Slowed.\nEvery Round (except first), the Damage increases by 1d6.\n"
+                "Sands of Distortion": "All enemies take {DamageAoE} Pulse Damage and are Slowed.\nEvery Round (except first), the Damage increases by 50%.\n"
             }
         ],
         "Passives": [
@@ -2822,10 +2800,10 @@
         "Initiative": 7,
         "Abilities": [
             {
-                "Ranged (10m)": "1d6"
+                "Ranged (10m)": "Auto"
             },
             {
-                "Melee": "1d6 (depending on weapon)"
+                "Melee": "Auto"
             }
         ],
         "Passives": [
@@ -2863,7 +2841,7 @@
         "Initiative": 2,
         "Abilities": [
             {
-                "Attack": "4 (depending on weapon)"
+                "Attack": "Auto"
             }
         ],
         "Passives": [
@@ -2871,7 +2849,7 @@
                 "Undying": "Can only be killed by a hit that deals at least 5 Damage (after Defense). Otherwise, the Zombie remains at 1 HP."
             },
             {
-                "Corpse Burst": "On death, all Units within 1 meter take 3 Poison Damage."
+                "Corpse Burst": "On death, all Units within 1 meter take {DamageAuto} Poison Damage."
             },
             {
                 "Immunities": "Immune to Poison and Scourge Damage. Immune to difficult terrain."
@@ -2904,7 +2882,7 @@
                 "Locust Curse": "Target a Unit and it becomes followed by locusts for 1 minute.\nFor each meter the Unit moves, it takes 1 True Damage (ignoring Defense).\nTeleporting dissipates the locusts.\n"
             },
             {
-                "Attack": "1d8 (Smash or Pierce)"
+                "Attack": "Auto"
             }
         ],
         "Passives": [
@@ -2912,7 +2890,7 @@
                 "Hard and Slow": "Immune to being Rooted, Slowed and to Hard Terrain."
             },
             {
-                "Mummification Immunity": "Immune to Damage from spells from the Eldritch and Nature schools."
+                "Mummification Immunity": "Immune to dark and nature themed Abilities."
             }
         ],
         "Avoids AoE": "No",
@@ -2943,7 +2921,7 @@
         "Initiative": 1,
         "Abilities": [
             {
-                "Attack": "5 True (directly, ignoring Defense) (or 2d4)"
+                "Attack": "Auto"
             }
         ],
         "Passives": [
@@ -2982,7 +2960,7 @@
         "Initiative": 3,
         "Abilities": [
             {
-                "Claws/Bite": "5 Pierce or Slash (or 2d4)"
+                "Claws/Bite": "{Damage-2}"
             }
         ],
         "Passives": [
@@ -2990,7 +2968,7 @@
                 "Undead Fuel": "+1 Damage for each fresh corpse in the battlefield"
             },
             {
-                "Scourge Aura": "Living Units within 3 meters of a Ghoul can't recover Health."
+                "Scourge Aura": "Living Units within 3 meters of a Ghoul can't be Healed."
             },
             {
                 "Darkvision": "Can see in the dark."
@@ -3030,7 +3008,7 @@
         "Abilities": [
             {
                 "Huge Claws (2m)": {
-                    "Damage": "3 Slash (or 1d6)",
+                    "Damage": "{Damage-1} Scourge",
                     "Effect": "Deals extra Damage equal to the the target's missing Mana points"
                 }
             }
@@ -3062,18 +3040,17 @@
         "Experience": 225,
         "Stats": "0/0/0/0/0",
         "Health": 25,
-        "Defense": "3 (magical)",
         "HPCoef": 0.5,
         "Speed": 4,
         "Initiative": -1,
         "Abilities": [
             {
-                "Flare": "All living Units within 3 meters must succeed a 10 Presence Check or take 25% of their current HP as Scourge Damage.\nAfter this, the Will-o-Wisp dies.\n"
+                "Flare": "All living Units within 3 meters take 25% of their current Health as Scourge Damage.\nAfter this, the Will-o-Wisp dies.\n"
             }
         ],
         "Passives": [
             {
-                "Fear Sight": "The first time someone sees a Will-o-Wisp, they must succeed a 11 Presence Check or take 25% of their current HP as Scourge Damage or be Feared. The same target can't be affected by the Fear Sight again for 24 hours (but can be affected by Flare)."
+                "Fear Sight": "The first time someone sees a Will-o-Wisp, they take 25% of their Health as Psychic Damage (but can be affected by Flare)."
             },
             {
                 "Dimming": "Will-o-Wisp can dim the light they emmit by up to 80% to become stealthy. Increase a Grade for noticing the Will-o-Wisp out of combat by 5."
@@ -3104,12 +3081,12 @@
         "Initiative": 1,
         "Abilities": [
             {
-                "Claws (x1/x2/...)": "Make a number of Claws attacks for 1d6 + 1 Slash each equal to the round number (x1, x2, x3, etc)."
+                "Claws (x1/x2/...)": "Make a number of Claws attacks for {DamageAoE} Slash each equal to the round number (x1, x2, x3, etc)."
             }
         ],
         "Passives": [
             {
-                "Charming Apparition": "The first time targets a Strigoy in combat, they must roll a Presence Check at least 11 or they can't target the Strigoy this round."
+                "Charming Apparition": "TODO change this. The first time targets a Strigoy in combat, they must roll a Presence Check at least 11 or they can't target the Strigoy this round."
             },
             {
                 "Death Defiance": "When the Strigoi drops to 0 Health, it can still make its next turn and is immune to Damage until then. After its next turn, it dies."
@@ -3150,12 +3127,12 @@
         "Initiative": 1,
         "Abilities": [
             {
-                "Attack (2m)": "6 Slash, Smash or Pierce (or 1d6 + 2)"
+                "Attack (2m)": "Auto"
             }
         ],
         "Passives": [
             {
-                "Lifesteal": "If not affected by a Control Effect, the Edimmara heals for all the Damage it lands on attacks (before reductions)."
+                "Lifesteal": "If not affected by a Control Effect, the Edimmara heals for all the Damage done (after reductions)."
             },
             {
                 "Infinite Reactions": "Has unlimited Reactions (for Retaliation and Opportunity Attacks)."
@@ -3164,13 +3141,13 @@
                 "Retaliation": "After a Unit affects the Edimmara in any way, if it's within 5 meters of it, the Edimmara runs towards that Unit and attacks it at 2 meters range."
             },
             {
-                "Opportunity Attacks": "When a Unit Flees from the Edimmara, the Edimmara can make a free attack on it."
+                "Opportunity Attacks": "When a Unit _flees_ from the Edimmara, the Edimmara can make a free attack on it."
             },
             {
                 "Immunities": "Immune to Blind and Hard Terrain."
             },
             {
-                "Vulnerabilities": "Damage with garlic tincture and silver can't be healed and make the Edimmara Fumbling until the end of its next turn (which counts as a Control Effect, so it prevents Healing)."
+                "Vulnerabilities": "Damage with garlic tincture or silver can't be healed."
             }
         ],
         "Avoids AoE": "Yes",
@@ -3198,10 +3175,10 @@
         "Initiative": 1,
         "Abilities": [
             {
-                "Ghast Breath (10m)": "9 Scourge (or 2d6 + 2)"
+                "Ghast Breath (10m)": "Auto"
             },
             {
-                "Eldritch Eater (Reaction) (once per round)": "Whenever a Unit casts a Divine Spell or a Cleric or Paladin Class Spell (not Passives), the Ghast also heals one of its other allies for 15.\n"
+                "Eldritch Eater (Reaction) (once per round)": "TODO remake this. Whenever a Unit casts a Divine Spell or a Cleric or Paladin Class Spell (not Passives), the Ghast also heals one of its other allies for 15.\n"
             }
         ],
         "Passives": [
@@ -3232,7 +3209,7 @@
     },
     "Bou-Bou": {
         "Type": "Undead, Fiend",
-        "Degree": "Epic x2",
+        "Degree": 5,
         "Experience": "650 (325 x2)",
         "Stats": "6/2/0/0/0",
         "Health": 420,
@@ -3262,7 +3239,7 @@
     },
     "Lich": {
         "Type": "Undead, Person",
-        "Degree": "Epic x3",
+        "Degree": 7,
         "Experience": "900 (300 x3)",
         "Stats": "1/1/6/3/3",
         "Health": 300,
@@ -3271,16 +3248,16 @@
         "Initiative": 2,
         "Abilities": [
             {
-                "Death Cloud (10m to edge)": "Declare a 5x5 meter area.\nDeal Scourge Damage to all non-undead Units caught equal to 1d6 + number of Units caught in the area (ignores Cover).\nA cloud of Scourge Gas (Toxic Gas) forms there and remains for 1 minute. Enemies are Silenced while inside the gas.\n"
+                "Death Cloud (10m to edge)": "Declare a 4x4 meter area.\nDeal Scourge Damage to all non-undead Units caught equal to {Damage-3} + number of Units caught in the area (ignores Cover).\nA cloud of Scourge Gas (Toxic Gas) forms there and remains for 1 minute. Enemies are Silenced while inside the gas.\n"
             },
             {
-                "Summon Skeletons": "Summon a skeleton in a chosen space near every enemy. Skeletons have 1 Health and 4 Speed, and can attack for 1d4 Damage (Slash/Pierce/Smash). They have 0 Initiative."
+                "Summon Skeletons": "Summon a skeleton in a chosen space near every enemy. Skeletons have 1 Health and 4 Speed, and can attack for {Damage-50%} Damage. They have maximum Setback."
             },
             {
-                "Soul Bolts (10m)": "Shoot (2) Soul Bolts at random enemies, each dealing 1d4 True Damage (directly, ignoring Defense). Next cast shoots 1 more bolt than the previous (e.g round 1 - 2 bolts, round 2 - 3 bolts, round 3 - 4 bolts, etc)."
+                "Soul Bolts (10m)": "Shoot (2) Soul Bolts at random enemies, each dealing {DamageAoE} True Damage. Next cast shoots 1 more bolt than the previous (e.g round 1 - 2 bolts, round 2 - 3 bolts, round 3 - 4 bolts, etc)."
             },
             {
-                "Asphyxiate (10m)": "Up to 3 Units must make a Presence Check or take 1d6 + 3 Pulse Damage (or half on pass) and be affected by a Control Effect. Roll 1d4 (once) for the Control Effect type - 1. Rooted, 2. Single-Stunned, 3. Double-Stunned, 4. Silenced"
+                "Asphyxiate (10m)": "Up to 3 Units take {DamageAoE} Pulse Damage. One of them they choose becomes Double-Stunned."
             }
         ],
         "Passives": [
@@ -3329,12 +3306,15 @@
         "Initiative": 1,
         "Abilities": [
             {
-                "Smash (5x5 area, 1m to edge)": "12 Smash (or 1d8 + 8)"
+                "Smash": {
+                    "Range": "1 meter to edge",
+                    "Effect": "Units in a 4x4 area take {DamageAoE} Damage."
+                }
             }
         ],
         "Passives": [
             {
-                "Impenetrable Bones": "Takes no Damage from missiles (e.g. arrows, Magic Missiles, Flamebolt, etc)."
+                "Impenetrable Bones": "Takes 0 Damage from missiles."
             },
             {
                 "Materialize": "For 0 Action Points, the Gasha can turn into smoke and ash and disappear, teleport or appear (if not Silenced). How, when and why they do this is unknown, though a lot of the time a strange ringing noise can be heard before one appearing."
@@ -3343,7 +3323,7 @@
                 "Resistances": "Takes -50% Scourge, Fire, Poison and Pierce Damage."
             },
             {
-                "Immunities": "Immune to Hard Terrain, Fumbling, Fear and Sleep."
+                "Immunities": "Immune to Hard Terrain, Fear and Sleep."
             }
         ],
         "Avoids AoE": "No",
@@ -3369,7 +3349,7 @@
         "Initiative": 3,
         "Abilities": [
             {
-                "Bite": "1d6"
+                "Bite": "Auto"
             },
             {
                 "Embottle Magic": {
@@ -3408,10 +3388,13 @@
         "Initiative": 0,
         "Abilities": [
             {
-                "Bite (2m)": "1d4 Pierce"
+                "Bite (2m)": "Auto"
             },
             {
-                "Possess Corpse (once)": "The Kasu removes the head of a dead Unit and enroots its spine inside of it, with its own head as the new head.\nInfused with demonic energy, that Unit becomes alive again, with its normal stats and full Health.\nIf this one dies, the Kasu dies too.\nApply common sense to whether a corpse is possessable (e.g. golems and destroyed corpses are probably not).\n"
+                "Possess Corpse": {
+                    "Cooldown": "Once / Encounter",
+                    "Effect": "The Kasu removes the head of a dead Unit and enroots its spine inside of it, with its own head as the new head.\nInfused with demonic energy, that Unit becomes alive again, with its normal stats and 50% Health.\nApply common sense to whether a corpse is possessable (e.g. golems and destroyed corpses are probably not).\n"
+                }
             }
         ],
         "Passives": [
@@ -3446,13 +3429,13 @@
             {
                 "Fangs": {
                     "Damage": "1d8 (Pierce)",
-                    "Strangle": "On 5, 6, 7 and 8, target must succeed a Grade 10 Might Check or be Fumbling and Slowed."
+                    "Strangle": "TODO remake this On 5, 6, 7 and 8, target must succeed a Grade 10 Might Check or be Fumbling and Slowed."
                 }
             }
         ],
         "Passives": [
             {
-                "Minus 3 Defense": "Takes 2 extra damage from all sources."
+                "Minus 2 Defense": "Takes 2 extra damage from all sources."
             },
             {
                 "Flying": "Flies."
@@ -3483,7 +3466,7 @@
                 "Charge... (15m)": "Prepare a shot on a Unit and lock onto it, seeing it through walls. Next turn, the first thing the Flame Skull does is Fire!"
             },
             {
-                "Fire! (15m)": "Shoot that Unit for 10 Fire Damage (or 4d4). Walls block the attack, but the impact is strong enough to break many walls and obstacles."
+                "Fire! (15m)": "Shoot that Unit for {DamageTimes(1.8)}. Walls block the attack, but the impact is strong enough to break many walls and obstacles."
             }
         ],
         "Passives": [
@@ -3511,7 +3494,7 @@
     },
     "Likho": {
         "Type": "Demon, Elemental, Fiend",
-        "Degree": "Epic",
+        "Degree": 5,
         "Experience": "200 (100 x2)",
         "Stats": "2/0/1/2/1",
         "Health": 28,
@@ -3520,10 +3503,10 @@
         "Initiative": -2,
         "Abilities": [
             {
-                "Curse of Weakness": "Curse a Unit. It becomes Fumbling. Does not work on Paladins."
+                "Curse of Agony": "Choose a Unit the Likho can see. Next time it takes Damage from one of its enemies, it is doubled (all after Defense). Lasts for 1 minute."
             },
             {
-                "Curse of Agony": "Choose a Unit the Likho can see. Next time it takes Damage from one of its enemies, it is doubled (all after Defense). Lasts for 1 minute."
+                "Quick Attack": "Auto"
             }
         ],
         "Passives": [
@@ -3555,9 +3538,9 @@
         "Abilities": [
             {
                 "Trident (2m)": {
-                    "Damage": "1d6 + 2 Pierce",
-                    "Burst": "If rolled 1 or 6, target becomes Maimed.",
-                    "Notes": "A Maimed Hero can only make 1 Action Points, but not full Actions."
+                    "Damage": "Auto",
+                    "Burst": "Target becomes _Maimed_.",
+                    "Notes": "A Maimed Hero can only make 0 and 1 Action Point Acts."
                 }
             }
         ],
@@ -3566,7 +3549,7 @@
                 "Flame Burst": "When the Cambion takes Damage, deal 2 Fire Damage to all non-Cambion Units within 3 meters."
             },
             {
-                "Flame Ray (Reaction)": "When hit with a ranged attack, deal 1d8 Fire Damage to the attacker."
+                "Flame Ray (Reaction)": "When hit with a ranged attack, deal {DamageAoE} Fire Damage to the attacker."
             },
             {
                 "Resistances": "Takes -50% Fire Damage."
@@ -3593,7 +3576,7 @@
     },
     "Oni": {
         "Type": "Demon, Giant",
-        "Degree": "Epic x2",
+        "Degree": 5,
         "Experience": "550 (275 x2)",
         "Stats": "5/1/3/1/5",
         "Health": 180,
@@ -3603,12 +3586,12 @@
         "Abilities": [
             {
                 "Sword Quake (2m)": {
-                    "Damage": "9 Slash or Shock (or 2d4 + 4)",
+                    "Damage": "{DamageAuto}",
                     "Cracks": "A 5x5 area centered on the target becomes Hard Terrain due to cracks on the ground."
                 }
             },
             {
-                "Drain Soul (5m)": "A Unit must succeed a Grade 11 Presence Check or choose: take 6d4 True Damage or roll 1d4 and permanently have -1 to all Checks for: 1. Sight, 2. Hearing, 3. Smell, 4. Luck.\nThis can never be cured. The player must decide before rolling the dice.\n"
+                "Drain Soul (5m)": "TODO: choose -- A Unit must succeed a Grade 11 Presence Check or choose: take 6d4 True Damage or roll 1d4 and permanently have -1 to all Checks for: 1. Sight, 2. Hearing, 3. Smell, 4. Luck.\nThis can never be cured. The player must decide before rolling the dice.\n"
             },
             {
                 "Gauze of Death (5m)": "Two Units become affected by the Gauze of Death.\nAt the end of their next turn, they take 3d4 + 4 Scourge Damage unless they were healed for at least 1 Health until then.\n"
@@ -3650,8 +3633,8 @@
         "Abilities": [
             {
                 "Spine Whip (3m)": {
-                    "Damage": "3d4 + 1 Pierce",
-                    "Effect": "For each 1 and 4 rolled, applies (1) Bleed to the target for its next turn. On its next turn, every time it does anything, it takes Damage equal to its Bleed (directly, ignoring Defense)."
+                    "Damage": "Auto",
+                    "Effect": "TODO remake this -- For each 1 and 4 rolled, applies (1) Bleed to the target for its next turn. On its next turn, every time it does anything, it takes Damage equal to its Bleed (directly, ignoring Defense)."
                 }
             }
         ],
@@ -3690,7 +3673,7 @@
         "Initiative": 0,
         "Abilities": [
             {
-                "Attack": "11 Slash, Smash or Pierce"
+                "Attack": "Auto"
             },
             {
                 "Hell's Chase (free)": "Once per turn, the Dullahan can teleport 3 meters. If any enemy Units were near it before teleporting, they all must succeed a Instinct Check or take 1d6 direct Fire Damage be Fumbling."
@@ -3722,7 +3705,7 @@
     },
     "Chernobog": {
         "Type": "Demon",
-        "Degree": "Epic x3",
+        "Degree": 7,
         "Experience": "2250 (750 x3)",
         "Stats": "10/1/1/1/10",
         "Health": 1125,
@@ -3731,8 +3714,8 @@
         "Abilities": [
             {
                 "Fist Smash (3m)": {
-                    "Damage": "19 Smash",
-                    "Effect": "If target is Medium or smaller, it is pushed 5 meters in any direction (Chernobog chooses)."
+                    "Damage": "Auto",
+                    "Effect": "TODO If target is Medium or smaller, it is pushed 5 meters in any direction (Chernobog chooses)."
                 }
             },
             {
@@ -3747,7 +3730,7 @@
         ],
         "Passives": [
             {
-                "Act or Die": "After the end of every enemy's turn, if it didn't do Damage to the Chernobog, they take 1d10 + 5 Psychic Damage and are Single-Stunned."
+                "Act or Die": "After the end of every enemy's turn, if it didn't do Damage to the Chernobog, they take {Damage-50%} Psychic Damage and are Single-Stunned."
             },
             {
                 "Hell Fissure": "When reaching 50% or less Health, the Chernobog creates a gigantic fissure in the ground, underneat all enemies. This fissure is a gateway to a delimited part of hell, and everyone falls inside. Demons might await or emerge from the fissure. The fissure is isolated from the rest of the hell. The fissure closes 10 minutes after the Chernobog dies. Anyone still inside remain trapped that part of hell."
@@ -3772,7 +3755,7 @@
     },
     "Elder": {
         "Type": "Fiend",
-        "Degree": "Epic x3",
+        "Degree": 7,
         "Experience": "2150 (750 x3)",
         "Stats": "10/1/1/1/10",
         "Health": 1125,
@@ -3781,7 +3764,7 @@
         "Abilities": [
             {
                 "nigkafank gk": {
-                    "Damage": "5 heebs",
+                    "Damage": "{Auto} heebs",
                     "Effect": "lbrkmqrjq eebsi fidkafeij ikchfijai rn g na llk nl gk gk hcc g ijasene o"
                 }
             },
@@ -3817,7 +3800,7 @@
         "Initiative": 4,
         "Abilities": [
             {
-                "Scratch": "Make 2 attacks for 1d4 Slash"
+                "Scratch": "Make 2 attacks for {Damage-50%} Slash"
             }
         ],
         "Passives": [
@@ -3859,7 +3842,7 @@
         "Abilities": [
             {
                 "Scourge Touch": {
-                    "Damage": "6 Scourge (or 1d6 + 2)",
+                    "Damage": "Auto",
                     "Strength Wither": "Put one Wither token on the target.\nAt 3 Wither tokens, the target permanently loses 1 in a Stat Check of choice (e.g. Sense, Might, etc) (note: not in the Stat itself, but only Checks with that Stat).\nThen remove the tokens.\n"
                 }
             }
@@ -3892,10 +3875,10 @@
         "Initiative": 2,
         "Abilities": [
             {
-                "Presence Seep": "Attack up to 3 Units within 3 meters for 6 Scourge Damage (or 2d4 + 1).\nThey are Slowed.\n"
+                "Sense Seep": "Attack up to 3 Units within 3 meters for {DamageAoE} Scourge Damage.\nThey are Slowed.\n"
             },
             {
-                "Scare Around (Free) (once per combat)": "All Units within 3 meters of the Bubak must succeed a 12 Presence Check or be Single-Stunned.\nThe Bubak casts Scare Around on its first turn of combat for free.\n"
+                "Scare Around (Free) (once per combat)": "TODO remake -- All Units within 3 meters of the Bubak must succeed a 12 Presence Check or be Single-Stunned.\nThe Bubak casts Scare Around on its first turn of combat for free.\n"
             }
         ],
         "Passives": [
@@ -3944,7 +3927,7 @@
             {
                 "CAWWWW": {
                     "A": "2 Action Points",
-                    "Effect": "Players choose a Hero. It takes {DamageAoEAuto} Psychic Damage and must roll a Presence Check at least 10 or gain a random Phobia negative Quirk."
+                    "Effect": "TODO remake Players choose a Hero. It takes {DamageAoEAuto} Psychic Damage and must roll a Presence Check at least 10 or gain a random Phobia negative Quirk."
                 }
             }
         ],
@@ -4056,7 +4039,7 @@
                 "Lightspawns": "Summon 1d4 flying orbs near the Seraph each that will target a different enemy.\nOrbs have 1 Health and have 3 meters Speed.\nEach orb chases one Hero. Upon collision, it explodes and damages it for {DamageAoEAuto} Damage.\n"
             },
             {
-                "Feather Barrage": "Attack all Units in a 4x4 area for 2d6 Pierce Damage.\nForms a \"[\" of caltrops on the ground, towards the Seraph.\n"
+                "Feather Barrage": "Attack all Units in a 4x4 area for {DamageAoE} Pierce Damage.\nForms a \"[\" of caltrops on the ground, towards the Seraph.\n"
             },
             {
                 "Sword Attack": {
@@ -4089,7 +4072,7 @@
     },
     "KingBolgurWithWyvern": {
         "Type": "Person, Undead",
-        "Degree": "Epic x4",
+        "Degree": 7,
         "Experience": 2400,
         "Stats": "4/4/1/4/4",
         "Health": 490,
@@ -4146,7 +4129,7 @@
     },
     "KingBolgur": {
         "Type": "Person, Undead",
-        "Degree": "Epic x2",
+        "Degree": 5,
         "Experience": 1200,
         "Stats": "4/4/1/4/4",
         "Health": 275,
@@ -4199,7 +4182,7 @@
     },
     "BlackWyvern": {
         "Type": "Beast",
-        "Degree": "Epic x2",
+        "Degree": 5,
         "Experience": 1200,
         "Stats": "2/5/0/5/2",
         "Health": 275,

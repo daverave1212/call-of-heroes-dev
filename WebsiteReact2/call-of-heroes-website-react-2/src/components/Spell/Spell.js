@@ -120,6 +120,7 @@ export default function Spell({
         Damage,
         List
     } = parsedSpell
+    const SkillBonuses = parsedSpell['Skill Bonuses']
 
     
 
@@ -256,6 +257,14 @@ export default function Spell({
                     { EffectGreen != null && (
                         <div className="spell-green" key="EffectGreen">{ EffectGreen }</div>
                     ) }
+                    { SkillBonuses && <div className='spell-description'>
+                        { Object.entries(SkillBonuses).map(([name, value]) => (
+                            value > 0?
+                                <>Skill: <span style={{color: 'var(--green-color)'}}>{name}</span><br/></>
+                            :
+                                <>Flaw: <span style={{color: 'red'}}>{name}</span><br/></>
+                        )) }
+                    </div> }
                     { RollThiefGold != null && (
                         <div className='spell-description center-content'>
                             <button onClick={() => setThiefRolledGoldAmount(Math.floor((randomInt(1000, 100000) + randomInt(2500, 100000) + randomInt(2500, 100000)) / 3))}>{thiefRolledGoldAmount}</button>

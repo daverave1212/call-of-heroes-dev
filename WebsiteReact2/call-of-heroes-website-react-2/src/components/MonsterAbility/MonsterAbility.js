@@ -94,6 +94,12 @@ export default function MonsterAbility({monster, monsterXP, ability, isPassive, 
         'Damage+1': { tag: 'span',      text: 'Error', func: () => U.numberToDiceEquivalent(abilityDamageBase + 1) },
         'Damage+2': { tag: 'span',      text: 'Error', func: () => U.numberToDiceEquivalent(abilityDamageBase + 2) },
         'Damage+3': { tag: 'span',      text: 'Error', func: () => U.numberToDiceEquivalent(abilityDamageBase + 3) },
+        'Auto-1': { tag: 'span',      text: 'Error', func: () => U.numberToDiceEquivalent(abilityDamageBase - 1) }, // Identical to above
+        'Auto-2': { tag: 'span',      text: 'Error', func: () => U.numberToDiceEquivalent(abilityDamageBase - 2) }, // Identical to above
+        'Auto-3': { tag: 'span',      text: 'Error', func: () => U.numberToDiceEquivalent(abilityDamageBase - 3) }, // Identical to above
+        'Auto+1': { tag: 'span',      text: 'Error', func: () => U.numberToDiceEquivalent(abilityDamageBase + 1) }, // Identical to above
+        'Auto+2': { tag: 'span',      text: 'Error', func: () => U.numberToDiceEquivalent(abilityDamageBase + 2) }, // Identical to above
+        'Auto+3': { tag: 'span',      text: 'Error', func: () => U.numberToDiceEquivalent(abilityDamageBase + 3) }, // Identical to above
         'Damage1': { tag: 'span',       text: 'Error', func: () => U.numberToDiceEquivalent(damagePer1AP) },
         'Damage2': { tag: 'span',       text: 'Error', func: () => U.numberToDiceEquivalent(damagePer2AP) },
         'DamageLess': { tag: 'span',    text: 'Error', func: () => U.numberToDiceEquivalent(U.roundToNearest(abilityDamageBase * 0.7, 0.5)) },

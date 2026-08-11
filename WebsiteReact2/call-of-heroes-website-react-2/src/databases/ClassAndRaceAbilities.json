@@ -2847,7 +2847,16 @@
     "~Tracker~": {
         "_Value": 0.25,
         "A": "Passive",
-        "Effect": "You have +2 in Tracking (non-Combat Skill)\nYou always know where North is in non-magical environments.\nYou and your pets are unaffected by Hard Terrain.\n",
+        "Skill Bonuses": {
+            "Tracking": 1
+        },
+        "Extras": [
+            "You know where North is"
+        ],
+        "Combat Extras": [
+            "Immune to Hard Terrain"
+        ],
+        "Effect": "You always know where North is in non-magical environments.\nYou and your pets are unaffected by Hard Terrain.\n",
         "Name": "~Tracker~",
         "_alreadyHasSomeWordsMixins": true,
         "Notes": "Moving 1 meter through Hard Terrain takes 2 meters of Movement.",
@@ -3232,9 +3241,9 @@
         "Skill Bonuses": {
             "Hearing": 2,
             "Sight": 2,
-            "Smell": 2
+            "Smelling": 2
         },
-        "Effect": "You have +2 in Hearing, Seeing, and Smelling.\n",
+        "Effect": "You have several extra Skills.",
         "Notes": "This is because of your Animal Companions roaming about.",
         "Name": "~Prowl Around~",
         "_alreadyHasSomeWordsMixins": true,
@@ -5438,7 +5447,7 @@
             "Stealth": 2,
             "Climbing": 2
         },
-        "Effect": "You are immune to Fall Damage.\nYou have +2 in Climbing and +2 in Stealth.\n",
+        "Effect": "You are immune to Fall Damage.\n",
         "Name": "~Panther's Paw~",
         "_alreadyHasSomeWordsMixins": true,
         "ParentKey": "Utility",
@@ -5512,9 +5521,12 @@
     "~Lockpicking~": {
         "A": "Passive",
         "Skill Bonuses": {
-            "Lockpicking": 3
+            "Lockpicking": 1
         },
-        "Effect": "While you have this Talent you have +3 in Lockpicking, may attempt each Lockpicking Roll again if you fail, and rolling Events on Lockpicking does nothing.\n",
+        "Extras": [
+            "+1 in Lockpicking"
+        ],
+        "Effect": "While you have this Talent, you have the Lockpicking Skill, and an extra +1 in Lockpicking.\n",
         "Name": "~Lockpicking~",
         "_alreadyHasSomeWordsMixins": true,
         "ParentKey": "Other Abilities",
@@ -5667,7 +5679,7 @@
         "_Value": 1.5,
         "A": "Passive",
         "Skill Bonuses": {
-            "Hiding": 2
+            "Quick Hiding": 2
         },
         "Effect": "When Combat starts, you can start on any visible edge of the battlefield.\nThe first time you deal Damage each Combat, you can choose to reroll any of the rolled dice.\n",
         "Notes": "You know the ins and outs of battlefields so well that you successfully reposition before anyone else notices.",
@@ -8840,8 +8852,8 @@
     "~Learn Scrolls~": {
         "A": "1 minute",
         "Tags": "Spells",
-        "Effect": "If you have a Scroll that contains a Basic Ability (e.g. from Arcane, Nature, etc), you can destroy it to Know it permanently, without needing to learn it inbetween Adventures.\n",
-        "Notes": "You can not learn Class Abilities from Scrolls. Of course, you still need to spend {Mana}Mana and respect the Cooldown of said Ability.",
+        "Effect": "If you have a Scroll that contains an Ability that costs {Mana}Mana within your Level, you can destroy it to learn it permanently (without taking a Talent slot).\n",
+        "Notes": "YouOf course, you still need to spend {Mana}Mana and respect the Cooldown of said Ability.",
         "AlignOnWebsite": "Left",
         "Name": "~Learn Scrolls~",
         "_alreadyHasSomeWordsMixins": true,
@@ -9149,6 +9161,7 @@
     "~Immensity of Knowledge~": {
         "A": "Passive",
         "Effect": "You can access Magic Font Spells 2 Levels earlier than the required Level.\n",
+        "Upgrade": "If you have Learn Scrolls, this also decreases the Level required by that Spell by 2.",
         "Name": "~Immensity of Knowledge~",
         "_alreadyHasSomeWordsMixins": true,
         "ParentKey": "Level 3 Class Talent",
@@ -9771,7 +9784,7 @@
             "When you gain Shielding, give it +1"
         ],
         "Effect": "Whenever you gain Shielding, increase its value by 1.\nYou have +2 in Intimidation.\n",
-        "Skills": {
+        "Skills Bonuses": {
             "Intimidation": 2
         },
         "Downside": "You can't wear helmets (hats might fit you, though).",
@@ -9854,7 +9867,7 @@
         "Combat Extras": [
             "Switch any Stat on Abilities/weapons to Instinct"
         ],
-        "Effect": "In weapons or Abilities, you can switch any one Stat written on it to ^Instinct^.\nYou have +1 in Running and +1 in Stealth.\n",
+        "Effect": "In weapons or Abilities, you can switch any one Stat written on it to ^Instinct^.\n",
         "Notes": "E.g. Chilling Shout becomes 12 + ^Instinct^ instead of 12 + ^Presence^. Phase Orb becomes 2d6 + ^Instinct + Instinct^ instead of 2d6 + ^Focus + Presence^.",
         "Name": "~Aerodynamic~",
         "_alreadyHasSomeWordsMixins": true,
@@ -9868,7 +9881,7 @@
             "Pleading": 1
         },
         "Cooldown": "Once / Encounter",
-        "Effect": "Make a Unit freely move 1d4 meters towards you, if able.\nYou have +1 in Pleading.\n",
+        "Effect": "Make a Unit freely move 1d4 meters towards you, if able.\n",
         "Notes": "Does not use that Unit's {A}Action Point or Movement.",
         "Name": "~All Eyes and Noses~",
         "_alreadyHasSomeWordsMixins": true,
@@ -9891,10 +9904,14 @@
     "~Eleff Nose~": {
         "A": "Passive",
         "IsIgnored": true,
+        "Skill Bonuses": {
+            "Smelling": 1,
+            "Sleight of Trunk": 1
+        },
         "Combat Extras": [
             "Once per Turn, use a Potion/Scroll with 0 AP."
         ],
-        "Effect": "Once per Turn, you can use a Potion or Scroll with 0 {A}Action Points.\nYou have +1 in Sleight of Hand and +1 in Smelling.\n",
+        "Effect": "Once per Turn, you can use a Potion or Scroll with 0 {A}Action Points.\n",
         "Name": "~Eleff Nose~",
         "_alreadyHasSomeWordsMixins": true,
         "HasMixins": true,
@@ -9958,7 +9975,7 @@
             "Boating": 1,
             "Swimming": 1
         },
-        "Effect": "When defeating people, your team loots +10% {Gold}Gold and goods like gems, metals, textiles, etc.\nYou have +1 in Boating and Swimming.\n",
+        "Effect": "When defeating people, your team loots +10% {Gold}Gold and goods like gems, metals, textiles, etc.\n",
         "Notes": "Long boats, wooden homes and raiding parties are the common sight you grew up with, and you have learned much about these crafts throughout the years, for better or worse...",
         "Name": "~Shoreraider~",
         "_alreadyHasSomeWordsMixins": true,
@@ -10103,7 +10120,7 @@
         "A": "10 minutes",
         "Cooldown": "Once / Adventure",
         "Effect": "Destroy a Magic Item equipment piece to permanently gain its Magic Item properties.",
-        "Notes": "E.g. you disenchant Gloves of Athletics to permanently gain Skilled in Athletics, or you disenchant Gloves of Eldritch Blast to permanently gain the power to cast Eldritch Blast with a 1 {A}Action Point once per Adventure.",
+        "Notes": "E.g. you disenchant Gloves of Athletics to permanently gain Skilled in Athletics, or you disenchant Gloves of Fire Ball to permanently gain the power to cast Fire Ball with a 1 {A}Action Point once per Adventure.",
         "Name": "~Purebreed~",
         "_alreadyHasSomeWordsMixins": true,
         "HasMixins": true,
@@ -10203,9 +10220,9 @@
         "A": "Reaction",
         "Cooldown": "Once / Adventure",
         "Skill Bonuses": {
-            "Luck": 2
+            "Ordinary Luck": 2
         },
-        "Effect": "After another Unit you can see of you makes a roll, you can force them to reroll one die once and keep the new result.\nPassively, you have +2 in Luck.\n",
+        "Effect": "After another Unit you can see of you makes a roll, you can force them to reroll one die once and keep the new result.\n",
         "Notes": "You are small in stature but big in heart, with nimble fingers, warm cheeks, and an easy smile that draws friends and fortune alike. You take life lightly, but your courage and cleverness often shine brightest when others least expect it.",
         "Name": "~Halffolk Luck~",
         "_alreadyHasSomeWordsMixins": true,
@@ -10214,7 +10231,7 @@
     },
     "~Redcap~": {
         "A": "1 hour",
-        "Effect": "After you defeat a Boss, a Negative Quirk into the Clumsy Negative Quirk. The Quest Master chooses the non-Combat Skill you get a minus in.\nPassively, you age normally instead of aging from negative emotions, living up to 100 to 150 years.\n",
+        "Effect": "After you defeat a Boss, transform a Negative Quirk into a similar Flaw, or a Skill into a similar Positive Quirk.\nPassively, you age normally instead of aging from negative emotions, living 100 to 150 years.\n",
         "Upgrade": "You can only use at the end of an Adventure, and must finish another 2 Adventures before you can use it again.",
         "Notes": "Your kind is named for the blood-red caps you all wear not out of tradition, but because no one remembers you for anything else. Redcaps are the grumpy middle children of the smallfolk world: too mean to be gnomes, too lazy to be goblins, and too proud to admit either.",
         "Name": "~Redcap~",
@@ -10225,9 +10242,9 @@
     "~Pixie Dust~": {
         "A": "Passive",
         "Skill Bonuses": {
-            "Magic": 2
+            "Magic Knowledge": 2
         },
-        "Effect": "Your first single-target attack at most 3 meters away each Adventure makes the target Blind.\nYou have +1 in Magic.\n",
+        "Effect": "Your first single-target attack at most 3 meters away each Adventure makes the target Blind.\n",
         "Notes": "With glittering, pink-hued skin and a sneeze that sends a puff of shimmering dust into the air, you're living proof that the Fey still whispers into the mortal world. Some say you were born from starlight that fell into enchanted groves, others that you're the laughter of ancient fey spirits made flesh. Your dreams are even stranger, colors even more vivid and personality stronger.\nA Blind Unit's next Damage/Heal Act deals -50% Damage/Healing.",
         "Name": "~Pixie Dust~",
         "_alreadyHasSomeWordsMixins": true,
@@ -10255,7 +10272,7 @@
             "Convincing": 1,
             "Empathy": 1
         },
-        "Effect": "You start with an additional Positive Quirk of your choice, that you don't have already.\nYou have +1 in Convincing and +1 in Empathy.\n",
+        "Effect": "You start with an additional Positive Quirk of your choice, that you don't have already.\n",
         "Notes": "Born of ancient woodland magic, you stand no taller than a toadstool and wear the cheerful blues of your kin. Your kind thrives in harmony and craft, on teamwork and cooperation. There is loot awaiting in our adventures, but the true treasure is the friends we made along the way!",
         "Name": "~Blueskin~",
         "_alreadyHasSomeWordsMixins": true,
@@ -10306,7 +10323,7 @@
             "Housekeeping": 1,
             "Cooking": 1
         },
-        "Effect": "The first time you deal Damage to an Enemy each Adventure, it becomes Rooted (Lagged if Epic).\nYou have +1 in Housekeeping and +1 in Cooking.\nYou also have the Camping Ability.\n",
+        "Effect": "The first time you deal Damage to an Enemy each Adventure, it becomes Rooted (Lagged if Epic).\nYou also have the Camping Ability.\n",
         "Notes": "Dom Voyagers are gnomes with a touch of old household spirit in their blood. Sturdier and a little hairier than their kin, they have a homey presence and a knack for keeping spaces warm and welcoming.\nA Lagged Unit's next Movement costs +1 Action Point.\nA Rooted Unit can't use Movement.",
         "Subspells": {
             "~Camping~": {
@@ -10345,7 +10362,7 @@
             "Crafting": 1,
             "Lockpicking": 2
         },
-        "Effect": "You have +1 Focus and +0.5 Initiative, but -1 Presence.\nYou have +1 in Crafting and +2 in Lockpicking.\n",
+        "Effect": "You have +1 Focus and +0.5 Initiative, but -1 Presence.\n",
         "Notes": "Your skin carries a rough, teal-tinted hue. You're endlessly curious. Adrenaline is your constant companion, and boredom your greatest enemy.",
         "Name": "~Family of Gremlins~",
         "_alreadyHasSomeWordsMixins": true,
@@ -10355,9 +10372,10 @@
     "~Of The Jee Tribes~": {
         "A": "Special",
         "Skill Bonuses": {
-            "Performing": 2
+            "Singing": 1,
+            "Art Knowledge": 1
         },
-        "Effect": "The first time you use a Healing Spell each Adventure, it does +1d6 Healing.\nYou have +2 in Performing.\nYou are mute and can not speak.\n",
+        "Effect": "The first time you use a Healing Spell each Adventure, it does +1d6 Healing.\nYou are mute and can not speak.\n",
         "Notes": "Born from the whispers of ancient mountains and the songs of forgotten winds where your ancestors worship strange gods, you bear the legacy of your Jee tribe through your round body and pale shiny skin. You sense the world in subtler ways: vibrations in the air, the warmth of life, the harmony of life... if only you had a way to tell your story.",
         "Name": "~Of The Jee Tribes~",
         "_alreadyHasSomeWordsMixins": true,
@@ -10368,9 +10386,10 @@
         "A": "0 Action Points",
         "Cooldown": "Once / Adventure",
         "Skill Bonuses": {
-            "Stealth": 2
+            "Stealth": 1,
+            "Distracting": 1
         },
-        "Effect": "Move up to your Movement Speed.\nPassively, you have +2 in Stealth.\n",
+        "Effect": "Move up to your Movement Speed.\n",
         "Notes": "Your legs bear the mark of a strange mutation that occured among your folk long ago: slightly taller than other Littlefolk and your legs bent backwards. You live by cunning and instinct, protector and trickster both.",
         "Name": "~Backwards Feet~",
         "_alreadyHasSomeWordsMixins": true,
@@ -10403,7 +10422,7 @@
             "Boating": 1,
             "Fishing": 1
         },
-        "Effect": "You can swim at your normal Movement Speed.\nYou have +1 in Swimming, Boating and Fishing.\n",
+        "Effect": "You can swim at your normal Movement Speed.\n",
         "Name": "~Tideborn~",
         "_alreadyHasSomeWordsMixins": true,
         "ParentKey": "Talents",
@@ -10416,13 +10435,13 @@
             "Max Health": -2
         },
         "Skill Bonuses": {
-            "Survival": -2
+            "Survival": -1
         },
         "Combat Extras": [
             "You have an extra Level 1 Talent"
         ],
         "Effect": "You can pick _one extra_ Level 1 Utility or Class Talent.\n",
-        "Downside": "Your Max Health decreases by 2 and you have -2 in Survival.",
+        "Downside": "Your Max Health decreases by 2.",
         "Name": "~Blue Blood~",
         "_alreadyHasSomeWordsMixins": true,
         "HasMixins": true,
@@ -10435,7 +10454,7 @@
             "Hunting": 1,
             "Gathering": 1
         },
-        "Effect": "Whenever you and your party defeats a boss, all Heroes in the party gain +1 Skill Point. You get 1 extra Skill Point.\nYou have +1 in Gathering and +1 in Hunting.\n",
+        "Effect": "Whenever you and your party defeats a boss, all Heroes in the party gain +1 Skill Point.\n",
         "Name": "~Hunter-Gatherer~",
         "_alreadyHasSomeWordsMixins": true,
         "ParentKey": "Talents",
@@ -10462,7 +10481,7 @@
         "Skill Bonuses": {
             "Mental Resilience": 2
         },
-        "Effect": "You are immune to being Silenced, Deafened and Cursed, and have +2 in Mental Resilience.\n",
+        "Effect": "You are immune to being Silenced, Deafened and Cursed.\n",
         "Name": "~Spiritually Aligned~",
         "_alreadyHasSomeWordsMixins": true,
         "Notes": "A Deafened Unit's next Ability costs +1 Action Point.\nA Silenced Unit can't use Abilities.",
@@ -10475,7 +10494,7 @@
         "Skill Bonuses": {
             "Luck": 2
         },
-        "Effect": "At the start of each Combat, a random Enemy gets a ~Combo~.\nYou have +2 in Luck.\n",
+        "Effect": "At the start of each Combat, a random Enemy gets a ~Combo~.\n",
         "Name": "~Fated~",
         "_alreadyHasSomeWordsMixins": true,
         "HasMixins": true,
@@ -10545,13 +10564,13 @@
         "Requirement": "0 or less Focus",
         "HasMixins": true,
         "Skill Bonuses": {
-            "Observing Detail": -2,
-            "Mental Resilience": 2
+            "Mental Resilience": 2,
+            "Observing Detail": -2
         },
         "Combat Extras": [
             "Switch any Stat on Abilities/weapons to Presence"
         ],
-        "Effect": "In weapons or Abilities, you can switch any of Focus or Presence written on it to ^Presence^.\nYou have -2 in Observing Detail and +2 in Mental Resilience.\n",
+        "Effect": "In weapons or Abilities, you can switch any of Focus or Presence written on it to ^Presence^.\n",
         "Name": "~Ignorance Bliss~",
         "_alreadyHasSomeWordsMixins": true,
         "ParentKey": "Talents",
@@ -10683,10 +10702,10 @@
             "You don't take Falling Damage"
         ],
         "Skill Bonuses": {
-            "Stealth": -2
+            "Stealth": -1,
+            "Fitting": -1
         },
         "Effect": "Quickly fly up to 6 meters (e.g. almost instantly).\nPassively, you don't take Falling Damage.\n",
-        "Downside": "You have -2 in Stealth",
         "Upgrade": "You have membranous dragon-like wings growing from your back, which allow you to fly for short distances.",
         "Name": "~Back Wings~",
         "_alreadyHasSomeWordsMixins": true,
@@ -10879,12 +10898,12 @@
     "~Death Forsaken~": {
         "A": "Passive",
         "Skill Bonuses": {
-            "Survival": 1
+            "Weather Survival": 1
         },
         "Extras": [
             "You can hold your breath for 1 hour"
         ],
-        "Effect": "You have a Shielding that can block up to 1d4 Damage. It replenishes at the start of each in-game day.\n\nYou are considered Undead. You can hold your breath for up to 1 hour. You don't need to eat food, but you do need water and sleep.\nYou have +1 in Survival.\n",
+        "Effect": "You have a Shielding that can block up to 1d4 Damage. It replenishes at the start of each in-game day.\n\nYou are considered Undead. You can hold your breath for up to 1 hour. You don't need to eat food, but you do need water and sleep.\n",
         "Downside": "+50% Fire Damage taken.",
         "Notes": "You walk between the living and the dead, a soul stitched back into flesh for reasons unknown. Perhaps you were a warrior, a scholar, or a thief when death claimed you... or perhaps even you cannot even remember who you once were, you poor, weak soul...\n",
         "Name": "~Death Forsaken~",
@@ -10907,7 +10926,7 @@
         "Skill Bonuses": {
             "Control Emotions": 1
         },
-        "Effect": "You have -1 Movement Speed and -0.5 Initiative, but +1 Might and +2 Max Health.\nYou are immune to being Blinded.\nYou have +1 in Control Emotions.\n",
+        "Effect": "You have -1 Movement Speed and -0.5 Initiative, but +1 Might and +2 Max Health.\nYou are immune to being Blinded.\n",
         "Notes": "You are afflicted by a curse of petrification, a gray, stone-like hardening that creeps over your flesh like slow-rolling mist. Perhaps it came from the gaze of a basilisk, the spite of a powerful curse, or a hereditary disease that has haunted your family for generations. The curse spreads on your body. Who knows how long you have until you can no longer move...\n\nA Blind Unit's next Damage/Heal Act deals -50% Damage/Healing.",
         "Name": "~Curse of Gray Flesh~",
         "_alreadyHasSomeWordsMixins": true,
@@ -10925,7 +10944,7 @@
         "Combat Extras": [
             "Immune to Silence"
         ],
-        "Effect": "You know the locations of any living Units within 15 meters that are not obstructed by thick materials. One of them of your choice gets a Combo.\n\nPassively, you are immune to being Silenced.\nYou have +2 in Empathy but -1 in Memory.\n",
+        "Effect": "You know the locations of any living Units within 15 meters that are not obstructed by thick materials. One of them of your choice gets a Combo.\n\nPassively, you are immune to being Silenced.\n",
         "Notes": "You are a husk. Your soul lies someplace else, but it's tethered to your body by a fragile, almost invisible thread. Sensations reach you only as echoes, distant and muted, and the spark of creativity or clarity has dimmed. The voice in your mind is faint, your thoughts feel hollow, and the vision that once guided you seems blurred or absent. Perhaps you know where your soul lingers, or perhaps it is lost beyond reach...\nA Silenced Unit can't use Abilities.",
         "Name": "~Stolen Soul~",
         "_alreadyHasSomeWordsMixins": true,
@@ -10937,11 +10956,11 @@
         "A": "0 Action Points",
         "Cooldown": "Once / Adventure",
         "Skill Bonuses": {
-            "Nature": 1,
+            "Botany": 1,
             "Tracking": 1,
-            "Control Emotions": -1
+            "Socially Strange": -1
         },
-        "Effect": "Force a Unit that is not looking at you to run away from you, freely, at it Movement Speed. It gets a Combo.\n\nPassively, you have +1 in Nature and +1 in Tracking, but -1 in Control Emotions.\n",
+        "Effect": "Force a Unit that is not looking at you to run away from you, freely, at it Movement Speed. It gets a Combo.\n",
         "Notes": "You have become a monster, your body gaunt and bony, skin stretched tight over hunger-wracked bones. This transformation is the mark of deeds too cruel or desperate to forget, a reminder of the inhuman acts that bound you to this cursed form. Perhaps you seek redemption for what you have done, or perhaps you wander, powerless to resist your cravings for raw flesh.",
         "Name": "~Wendigo~",
         "_alreadyHasSomeWordsMixins": true,
@@ -10952,7 +10971,8 @@
         "A": "1 Action Point",
         "Cooldown": "Once / Adventure",
         "Skill Bonuses": {
-            "Swimming": 2
+            "Swimming": 2,
+            "Occult Detection": 1
         },
         "Requirement": "Requires being in a natural water source",
         "Effect": "Heal for 1d8.\n\nYou have +2 in Swimming.\n",
@@ -10973,7 +10993,7 @@
         "Combat Extras": [
             "You have a Sorcerer Talent"
         ],
-        "Effect": "You know have a Level 1 Sorcerer Talent. If it triggers or rolls an Unstable Spark die, it has only the base Unstable Spark effect. You can change it inbetween Adventures.\nYou have +1 in Luck, but -2 in Understanding People.\n",
+        "Effect": "You know have a Level 1 Sorcerer Talent. If it triggers or rolls an Unstable Spark die, it has only the base Unstable Spark effect. You can change it inbetween Adventures.\n",
         "Notes": "You came from somewhere else, a place close enough to feel but too far to name. The air here tastes almost the same, the stars are nearly right, yet everything is slightly… off. Memories of it are fragments. The kingdoms were different, but you can't quite name them. People were different, but you're not sure how. How did you get here? Is there a way back? ^Should^ you go back?",
         "Name": "~From a Different World~",
         "_alreadyHasSomeWordsMixins": true,
@@ -10997,13 +11017,13 @@
     "~Gazed the Old One~": {
         "A": "Passive",
         "Skill Bonuses": {
-            "General Knowledge": 1
+            "Strange Knowledge": 1
         },
         "IsIgnored": true,
         "Combat Extras": [
             "You have a Warlock Talent"
         ],
-        "Effect": "You know have a Level 1 Warlock Talent (except Evocations). You can change it inbetween Adventures.\nYou can generate {Evoke} Evoke Points like a Warlock.\nYou have +0.5 Initiative for each -1 Presence you have.\nYou have +1 in General Knowledge and the Fear of the Unknown Negative Quirk (Phobia).\n",
+        "Effect": "You know have a Level 1 Warlock Talent (except Evocations). You can change it inbetween Adventures.\nYou can generate {Evoke} Evoke Points like a Warlock.\nYou have +0.5 Initiative for each -1 Presence you have.\nYou have the Fear of the Unknown Negative Quirk (Phobia).\n",
         "Notes": "Your eyes have glimpsed what should never be seen, and something ancient now stirs within your mind. The knowledge is intoxicating, the insight uncanny, the quiet of the mind impossible. The Old One watches...",
         "Name": "~Gazed the Old One~",
         "_alreadyHasSomeWordsMixins": true,
@@ -11018,10 +11038,10 @@
         },
         "Skill Bonuses": {
             "Nature": 1,
-            "Animal Handling": 1,
+            "Zoology": 1,
             "Survival": 1
         },
-        "Effect": "On the 3rd Round of Combat only, you have ^Dice Upgraded^ to the next die type on all physical Damage.\nYou have -1 Presence.\nYou have +1 in Nature, Animal Handling and Survival.\n",
+        "Effect": "On the 3rd Round of Combat only, you have ^Dice Upgraded^ to the next die type on all physical Damage.\nYou have -1 Presence.\n",
         "Notes": "You have been marked with a visible, ever-bleeding scar. Claws sharpen, senses heighten, and a restless hunger stirs whenever you grow angry or desperate. You feel closer to the wild than to humanity, as if part of you is always prowling, always watching.",
         "Name": "~Mark of the Beast~",
         "_alreadyHasSomeWordsMixins": true,
@@ -11035,9 +11055,9 @@
             "Luck": -2
         },
         "Extras": [
-            "Everyone has -2 Luck"
+            "Everyone else has -1 Luck"
         ],
-        "Effect": "At the start of every Combat, a random enemy becomes afflicted with a curse of locusts, and takes 1d4 Damage at the start of your every Turn.\nEverywhere you go, you bring with you bad weather, pests, and bad luck.\nEveryone within sight or hearing distance has -2 in Luck (including you).\n",
+        "Effect": "At the start of every Combat, a random enemy becomes afflicted with a curse of locusts, and takes 1d4 Damage at the start of your every Turn.\nEverywhere you go, you bring with you bad weather, pests, and bad luck.\nEveryone else within sight or hearing distance has -1 in Luck.\n",
         "Notes": "The moment your fingers brushed the surface of that unearthed relic, or set foot in that forbidden tomb, the curse took root within you. ests swarm at times, crawling across your skin like locusts that no one else can see, and misfortune clings even to those who oppose you. This is the wrath and magic of someone ancient, maybe of a king long dead.",
         "Name": "~Pharaoh's Curse~",
         "_alreadyHasSomeWordsMixins": true,
@@ -11062,7 +11082,7 @@
                     "Range": "2 meters",
                     "IsSubspell": true,
                     "Effect": "Deal 1d4 Psychic Damage.",
-                    "EffectGreen": "If you roll 4, the Unit gets -1 in a random non-Combat Skill."
+                    "EffectGreen": "If you roll 4, the Unit gets a random Flaw."
                 }
             }
         },
@@ -11084,9 +11104,9 @@
             "Immune to Cripple"
         ],
         "Skill Bonuses": {
-            "Convincing": -2
+            "Uncanny Look": -1
         },
-        "Effect": "You have -1 Health Regen, but +3 Max Health.\nYou take -50% Acid Damage and are immune to being Crippled.\nYou have -2 in Convincing.\n",
+        "Effect": "You have -1 Health Regen, but +3 Max Health.\nYou take -50% Acid Damage and are immune to being Crippled.\n",
         "Notes": "Your body bears shapes that unsettle the eye, fingers that grow at odd angles, sometimes too many, a spine that curves in ways no ordinary body should, or a face that refuses symmetry. Perhaps it is a curse, a mark placed by some malicious force, or perhaps you were simply born this way, a malformed form in a world that prizes normality.\nA Blind Unit's next Damage/Heal Act deals -100% Damage/Healing.",
         "Name": "~Disfigured~",
         "_alreadyHasSomeWordsMixins": true,
@@ -11125,8 +11145,8 @@
     "~Trollskin~": {
         "IsIgnored": true,
         "Skill Bonuses": {
-            "Persuasion": -1,
-            "Intimidation": 1
+            "Intimidation": 1,
+            "Persuasion": -1
         },
         "Special Bonuses": "Trollskin",
         "Combat Extras": [
@@ -11136,7 +11156,7 @@
         "Popup": {
             "Message": "After you get this Talent, manually reduce your Max Health and increase your Health Regen."
         },
-        "Effect": "Your Might no longer increases your Max Health. Instead, you gain Health Regen equal to 200% of Might.\nYou have -1 Persuasion and +1 Intimidation.\n",
+        "Effect": "Your Might no longer increases your Max Health. Instead, you gain Health Regen equal to 200% of Might.\n",
         "Upgrade": "Your skin is akin to a troll's skin - rough and prone to blisters or acne, but regenerates much quicker than normal.",
         "Downside": "+50% Fire Damage taken",
         "Name": "~Trollskin~",
@@ -11147,13 +11167,13 @@
     "~Greenskin Strength~": {
         "IsIgnored": true,
         "Skill Bonuses": {
-            "Control Emotions": -2
+            "Honor": 1,
+            "Control Emotions": -1
         },
         "Combat Extras": [
             "Switch any Stat on Abilities/weapons to Might"
         ],
         "Effect": "In weapons or Abilities, you can switch any one Stat written on it to ^Might^.",
-        "Downside": "You have -2 in Control Emotions.",
         "Upgrade": "Your skin is a shade of green due to the stronger hormones and pigment flowing through your body, making your emotions more difficult to control.",
         "Name": "~Greenskin Strength~",
         "_alreadyHasSomeWordsMixins": true,
@@ -11168,14 +11188,14 @@
             "Presence": -1
         },
         "Skill Bonuses": {
-            "Stealth": -2,
-            "Lifting": 2
+            "Lifting": 2,
+            "Too Large": -2
         },
         "Combat Extras": [
             "Large (2x2 meters)",
             "Immune to Hard Terrain"
         ],
-        "Effect": "You have +4 Max Health, but -1 Presence.\nYou are Large, immune to Hard Terrain, and occupy a 2x2 meter area.\nYou have -2 Stealth and +2 in Lifting, which can exceed the Skill bonus limit.\n",
+        "Effect": "You have +4 Max Health, but -1 Presence.\nYou are Large, immune to Hard Terrain, and occupy a 2x2 meter area.\n",
         "Downside": "Body and legs armor must be fitted on you by paying 50% of its original cost.\nYou wear belts as bracers, bracers as rings, and rings as earrings.\n",
         "Name": "~True Giant Ancestry~",
         "_alreadyHasSomeWordsMixins": true,
@@ -11188,10 +11208,9 @@
         "A": "Passive",
         "Skill Bonuses": {
             "Sight": -1,
-            "Persuasion": -2
+            "Honesty": -1
         },
         "Effect": "Your first attack every Turn ignores Cover (if there is Cover).\n",
-        "Downside": "You have -1 Sight and -2 Persuasion.",
         "Name": "~Cyclopian Eye~",
         "_alreadyHasSomeWordsMixins": true,
         "ParentKey": "Talents",
@@ -11204,7 +11223,7 @@
         "Combat Extras": [
             "You can eat rocks, dirt and bark"
         ],
-        "Effect": "You are immune to being Slammed and to Falling Damage. When you are Slammed in melee range, you can also Slam the attacker 2 meters back.\nMost of your meals can consist of rocks, dirt and bark.\nYou have +2 in Survival.\n",
+        "Effect": "You are immune to being Slammed and to Falling Damage. When you are Slammed in melee range, you can also Slam the attacker 2 meters back.\nMost of your meals can consist of rocks, dirt and bark.\n",
         "Upgrade": "As an ogre-blood who can metabolize various debris, fat tissue is important to you not only for social status, but also for survivability!\n",
         "Name": "~Ogre Fat Tissue~",
         "_alreadyHasSomeWordsMixins": true,
@@ -11243,7 +11262,7 @@
         "Skill Bonuses": {
             "Observing Detail": 2
         },
-        "Effect": "If your class's {Mana}Mana is _standard_ or none, you have 1 extra {Mana}Mana, but -1 Presence.\nYou have +2 in Observing Detail.\nYou may interrupt your Turn, and continue it later after one Enemy acts (or at the end of Round).\n",
+        "Effect": "If your class's {Mana}Mana is _standard_ or none, you have 1 extra {Mana}Mana, but -1 Presence.\nYou may interrupt your Turn, and continue it later after one Enemy acts (or at the end of Round).\n",
         "Upgrade": "Having 2 heads often means having 2 opposite personalities with different skills, 2 mental headspaces and 2 names, but folklore says 2-headed giants have only one soul, as they have one body, one heart. Life as a two-header is tough, facing likely ridicule or ostracization. But chins up! Two heads think better than one, and contrary to popular belief, such giants seem to have even more thorough control over their body!",
         "Name": "~Two Heads~",
         "_alreadyHasSomeWordsMixins": true,
@@ -11376,9 +11395,7 @@
         "Popup": {
             "Message": "Remember to manually change the Stats and numbers from the My Character tab (or tell your Ally to do so)."
         },
-        "Effect": "Execute a precision operation to integrate a bionic eye into an Ally (or yourself).\nThe subject gets {Brown('-1 Presence')}, but gains +3 Health Regen, has no penalty for attacking in the dark, can record visuals with the eye, and gains +2 in Sight (or a similar Non-Combat Skill).\n",
-        "Upgrade": "This +2 in Sight can go higher than the Skill Limit.",
-        "Notes": "{StatLimit}. Only one operation can be conducted per eye.",
+        "Effect": "Execute a precision operation to integrate a bionic eye into an Ally (or yourself).\nThe subject gets {Brown('-1 Presence')}, but gains +3 Health Regen, has no penalty for attacking in the dark, and gains the Sight Skill.\nThe eye records visually, and has a memory of 24 hours of footage.\n",
         "Name": "~Bionic Eye~",
         "_alreadyHasSomeWordsMixins": true,
         "HasMixins": true,
@@ -11451,7 +11468,7 @@
             "1. The experiment fails and nothing else happens",
             "2. +1 Might and +2 Max Health and veins glow in the dark",
             "3. +1 Instinct and +0.5 Initiative and skin tints to a color",
-            "4. +1 Focus and +3 Skill Points and eyes change color",
+            "4. +1 Focus and +1 Skill Point and eyes change color",
             "5. +4 Health Regen and the inability to feel pain",
             "6. +1 Health, Health Regen and Movement Speed, and +0.5 Initiative"
         ],
@@ -11696,7 +11713,7 @@
     },
     "~Consciousness Backup~": {
         "A": "8 hours",
-        "Effect": "Perform a live open brain surgery on a Unit and implant a special device augmentation.\nThe subject gets {Brown('-1 Presence')} and -2 {Health}Max Health permanently.\nIt gains +1 Focus and +4 Memory that can go above the Stat/Skill limits, and +10 Skill Points.\nWhen the subject dies, its _consciousness_ passes into the device, where it can live indefinitely.\n",
+        "Effect": "Perform a live open brain surgery on a Unit and implant a special device augmentation.\nThe subject gets {Brown('-1 Presence')} and -2 {Health}Max Health permanently.\nIt gains +1 Focus and +2 in all Checks regarding memory, and +5 Skill Points.\nWhen the subject dies, its _consciousness_ passes into the device, where it can live indefinitely.\n",
         "Upgrade": "If the implant is removed, the host's brain dies immediately. The device can be reimplanted into another brain to regain life, consciousness, and memories there, sharing the new body and mind with the previous owner.",
         "Notes": "{StatLimit}\n",
         "Name": "~Consciousness Backup~",
@@ -13118,7 +13135,7 @@
         "Tags": [
             "Farming"
         ],
-        "Effect": "For the rest of the Combat, gain:\n{Spark(3)} gain +1 Skill Point permanently.\n",
+        "Effect": "For the rest of the Combat, gain:\n{Spark(3)} gain +1 Skill Point.\n",
         "Name": "~Gathering the Magic~",
         "_alreadyHasSomeWordsMixins": true,
         "HasMixins": true,
@@ -13397,7 +13414,7 @@
             },
             {
                 "Name": "Unknowable Knowledge",
-                "Effect": "Gain +2 in a random Skill, but -2 in a random Skill."
+                "Effect": "Gain a random Skill, and a random Flaw you have is replaced by a different random one."
             },
             {
                 "Name": "Cartilage Alteration",
