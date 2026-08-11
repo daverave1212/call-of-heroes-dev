@@ -14,6 +14,8 @@ import { getMonsterStatsAsObject } from '../../services/game-lib/stat-calculatio
 import PageH3 from '../PageH3/PageH3.js'
 import PageH2 from '../PageH2/PageH2.js'
 import { useState } from 'react'
+import { useDoIOwnSet } from '../../services/auth/Auth.js'
+import { showToast } from '../../services/dom/toaster.js'
 
 export default function MonsterBlock({monsterName, monster, isPreview}) {
 
@@ -23,6 +25,8 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
     if (isPreview !== true) {
         isPreview = false
     }
+
+    const doIOwnCoreSet = useDoIOwnSet('core')
 
     const monsterTotalXPOriginal = U.getMonsterTotalXP(monster)
     const [monsterTotalXP, setMonsterTotalXP] = useState(monsterTotalXPOriginal)
@@ -84,11 +88,18 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
 
 
     function scaleUp() {
-        console.log('Upscaling')
+        if (!doIOwnCoreSet) {
+            showToast('This feature requires the Core set.')
+            return
+        }
         setMonsterTotalXP(roundToNearest25(monsterTotalXP + 25 * howManyMonstersIsItWorth))
     }
     function scaleDown() {
         if (monsterTotalXP <= 0) {
+            return
+        }
+        if (!doIOwnCoreSet) {
+            showToast('This feature requires the Core set.')
             return
         }
         console.log('DOwnscaling')
