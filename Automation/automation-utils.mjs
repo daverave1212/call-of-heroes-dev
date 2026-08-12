@@ -51,6 +51,10 @@ export const REPLACEMENTS = {
         replaceWith: '{Mana}Mana',
         exceptions: [`}Mana`, '{Mana']
     },
+    'Combo': {
+        replaceWith: '~Combo~',
+        exceptions: [`Combo:`, '~Combo', `Combo~`]
+    },
 }
 
 
@@ -325,10 +329,11 @@ export function assertAbilityHasCorrectProps(name, body) {
         'DownSide',
         'Note',
         'Upgrades',
-        'Effect Green',
+
         'Double Table',
         'Single Table',
         'Spell Table',
+
         'Display Name',
         'Icon Name',
         'Icon Path',
@@ -338,7 +343,14 @@ export function assertAbilityHasCorrectProps(name, body) {
         'Is Subspell',
         'Is Ignored',
         'Tag',
-        'Skills'
+
+        'Skills',
+        'CombatExtras',
+        'CombatExtra',
+        'Extra',
+        'Skill Bonus',
+        'SkillBonus',
+        'SkillBonuses',
     ])
 }
 

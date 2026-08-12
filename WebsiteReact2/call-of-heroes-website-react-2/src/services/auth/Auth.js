@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { getLocalStorageJSON, isSetFreeAsync, setLocalStorageJSON, useLocalStorageState } from "../../utils";
 import { existsMyDocInCollection, getMyDocInCollection, setMyDocInCollection } from "../online-database/Database";
 import defaultPublicUserDataMap from './default-public-user-data-map.json'
+import { maybeWakeServer } from "../backend-services/wake-server";
 
 let userSets = null
 export const getUserState = () => getLocalStorageJSON('currentUserData')
@@ -11,7 +12,24 @@ export const getUserState = () => getLocalStorageJSON('currentUserData')
 window.getUserState = getUserState
 window._getUserSets = () => userSets
 
-const authChangedListeners = {}
+const authChangedListeners = {
+    'Ping server to wake up': async () => {
+        maybeWakeServer()   // No need to await
+    },
+    'Ensure user has public-user-data': async newUserData => {
+        if (newUserData == null) {
+            return
+        }
+        const iHaveUserData = await existsMyDocInCollection('public-user-data')
+        if (iHaveUserData) {
+            return
+        }
+        const myUserData = {...defaultPublicUserDataMap, ...{
+            email: newUserData.email
+        }}
+        await setMyDocInCollection('public-user-data', myUserData)
+    },
+}
 
 
 firebaseAuth.onAuthChanged(async user => {
@@ -29,6 +47,7 @@ firebaseAuth.onAuthChanged(async user => {
             idToken
         }
     }
+    console.purple(`Auth changed! ${newUserData ?? newUserData.name}`)
     setLocalStorageJSON('currentUserData', newUserData)
     for (const id of Object.keys(authChangedListeners)) {
         const func = authChangedListeners[id]
@@ -36,15 +55,15 @@ firebaseAuth.onAuthChanged(async user => {
     }
 
     // Make sure the user has public-user-data
-    if (newUserData != null) {
-        const iHaveUserData = await existsMyDocInCollection('public-user-data')
-        if (!iHaveUserData) {
-            const myUserData = {...defaultPublicUserDataMap, ...{
-                email: user.email
-            }}
-            await setMyDocInCollection('public-user-data', myUserData)
-        }
-    }
+    // if (newUserData != null) {
+    //     const iHaveUserData = await existsMyDocInCollection('public-user-data')
+    //     if (!iHaveUserData) {
+    //         const myUserData = {...defaultPublicUserDataMap, ...{
+    //             email: user.email
+    //         }}
+    //         await setMyDocInCollection('public-user-data', myUserData)
+    //     }
+    // }
 })
 
 

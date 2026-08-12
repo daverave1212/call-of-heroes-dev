@@ -2387,6 +2387,16 @@ window.cleanupObject = cleanupObject
 // ---------------- Other Small Utilities ----------------
 
 console.green = str => console.log(`%c${str}`, `color: green; font-style: bold`)
+console.purple = str => console.log(`%c${str}`, `color: purple; font-style: bold`)
+console.teal = str => console.log(`%c${str}`, `color: teal; font-style: bold`)
+console.orange = str => console.log(`%c${str}`, `color: orange; font-style: bold`)
+console.white = str => console.log(`%c${str}`, `color: white; font-style: bold; background-color: black`)
+console.tick = str => console.log(`✅${str}`)
+console.v = str => console.log(`✅${str}`)
+console.x = str => console.log(`❌${str}`)
+console.o = str => console.log(`o ${str}`)
+console.one = str => console.log(`> ${str}`)
+console.two = str => console.log(`  - ${str}`)
 export function dom(htmlString) {
   const parser = new DOMParser();
   const doc = parser.parseFromString(htmlString.trim(), 'text/html');

@@ -349,14 +349,18 @@ export function useHasAccessToFonts() {
 
 
 // Use const
-// export function useConstTotalStatsArray() {
-//     const { bonuses } = useConstBonusesFromSpellsAndItems()
-//     const [manualBonuses, _] = useManualBonuses()
-//     const [baseStats] = useSectionStatsState()
+export function useConstTotalStatsArray() {
+    const { bonuses } = useConstBonusesFromSpellsAndItems()
+    const [manualBonuses, _] = useManualBonuses()
+    const [baseStats] = useSectionStatsState()
 
-//     const manualBonusesStatsArray = getStatsArrayFromObject(manualBonuses)
-//     const autoBonusesStatsArray = getStatsArrayFromObject(bonuses)
-//     return addArrays(baseStats, manualBonusesStatsArray, autoBonusesStatsArray)
+    const manualBonusesStatsArray = getStatsArrayFromObject(manualBonuses)
+    const autoBonusesStatsArray = getStatsArrayFromObject(bonuses)
+    return addArrays(baseStats, manualBonusesStatsArray, autoBonusesStatsArray)
+}
+// export function useConstTotalStatsArray() {
+//     const pointsInvestedArray = useConstTotalStatsFractions()
+//     return pointsInvestedArray.map(obj => obj.value)
 // }
 export function useConstTotalStatPointsArray() {    // Total stat points from all sources
     const { bonuses } = useConstBonusesFromSpellsAndItems()
@@ -372,10 +376,6 @@ export function useConstAutoStatPointsArray() {     // Total stat points from sp
     const [baseStats] = useSectionStatsState()
     const autoBonusesStatsArray = getStatsArrayFromObject(bonuses)
     return addArrays(baseStats, autoBonusesStatsArray)
-}
-export function useConstTotalStatsArray() {
-    const pointsInvestedArray = useConstTotalStatsFractions()
-    return pointsInvestedArray.map(obj => obj.value)
 }
 export function useConstTotalStatsFractions() {
     const pointsInvestedArray = useConstTotalStatPointsArray()

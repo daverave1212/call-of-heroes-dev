@@ -1,24 +1,14 @@
 .loader {
-  width: 48px;
-  height: 48px;
+  --color-1: var(--theme-color);
+  --size: 1px;
+  width: calc(48 * var(--size));
+  height: calc(48 * var(--size));
+  border: calc(5 * var(--size)) solid var(--color-1);
+  border-bottom-color: transparent;
+  border-radius: 50%;
   display: inline-block;
-  position: relative;
-}
-.loader::after,
-.loader::before {
-  content: '';
-  width: 48px;
-  height: 48px;
-  border: 2px solid #FFF;
-  position: absolute;
-  left: 0;
-  top: 0;
   box-sizing: border-box;
-  animation: rotation 2s ease-in-out infinite;
-}
-.loader::after {
-  border-color: #FF3D00;
-  animation-delay: 1s;
+  animation: rotation 1s linear infinite;
 }
 
 @keyframes rotation {
@@ -28,4 +18,4 @@
   100% {
     transform: rotate(360deg);
   }
-} 
+}

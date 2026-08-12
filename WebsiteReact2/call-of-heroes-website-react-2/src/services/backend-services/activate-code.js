@@ -1,4 +1,5 @@
-const BACKEND_URL = "http://localhost:8080"
+import BACKEND_CONFIG from './backend-config.json'
+const { backendUrl } = BACKEND_CONFIG
 
 export async function activateCodeAsync(user, code) {
     if (!user) {
@@ -23,7 +24,7 @@ export async function activateCodeAsync(user, code) {
         const idToken = user.idToken;
 
         const response = await fetch(
-            `${BACKEND_URL}/api/activation-codes/redeem`,
+            `${backendUrl}/api/activation-codes/redeem`,
             {
                 method: "POST",
                 headers: {

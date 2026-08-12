@@ -136,13 +136,13 @@ export function getStatLimitByLevel(level) {
     if (level <= 2) {
         return 2
     }
-    if (level <= 4) {
+    if (level <= 3) {
         return 3
     }
     if (level <= 6) {
         return 4
     }
-    if (level <= 8) {
+    if (level <= 9) {
         return 5
     }
     return 6

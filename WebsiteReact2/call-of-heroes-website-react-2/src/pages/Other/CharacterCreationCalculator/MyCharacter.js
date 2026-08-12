@@ -13,7 +13,7 @@ import Dialog from "../../../components/Dialog/Dialog"
 import ChangeStatDialog, { ChangeSkillDialog, ChangeStatDialogTypes } from "./HelperComponents/ChangeStatDialog"
 import Spoiler from "../../../components/Spoiler/Spoiler"
 import Selector from "../../../components/Selector/Selector"
-import { calculateAllAtributes, calculateBaseMaxManaByLevel, calculateExtraFirstTurnAPByInitiative, getAvailableStatPointsByLevel, getStatBonusObjByPointsInvested, getStatValueByName, HEALTH_REGEN, INITIATIVE, KNOWN_ABILITIES, MAX_HEALTH, MOVEMENT_SPEED, SKILL_POINTS, STAT_NAMES, STAT_SHORTENED_STRING } from "../../../services/game-lib/stat-calculations"
+import { calculateAllAtributes, calculateBaseMaxManaByLevel, calculateExtraFirstTurnAPByInitiative, getAvailableStatPointsByLevel, getStatBonusObjByPointsInvested, getStatLimitByLevel, getStatValueByName, HEALTH_REGEN, INITIATIVE, KNOWN_ABILITIES, MAX_HEALTH, MOVEMENT_SPEED, SKILL_POINTS, STAT_NAMES, STAT_SHORTENED_STRING } from "../../../services/game-lib/stat-calculations"
 import PageH3 from "../../../components/PageH3/PageH3"
 import CopySpellButton from "../../../components/CopyButton/CopySpellButton"
 import { ResourceBar } from "../../../components/ResourceBar/ResourceBar"
@@ -28,6 +28,8 @@ import classNames from "classnames"
 export default function MyCharacter() {
 
     // Local states
+    let [statDialogOptions, setStatDialogOptions] = useState(null)
+    let [skillDialogOptions, setSkillDialogOptions] = useState(null)
     let [statNameToChange, setStatNameToChange] = useState(null)
 
     let [areMinorSpellsHidden, setAreMinorSpellsHidden] = useState(true)
@@ -65,12 +67,8 @@ export default function MyCharacter() {
     
     let specialBonusNames = useConstAllSpecialBonusesNames()
 
-    const statPointsArray = useConstTotalStatPointsArray()
-    const autoStatPointsArray = useConstAutoStatPointsArray()
     const totalStats = useConstTotalStatsArray()
-    const totalStatsFractions = useConstTotalStatsFractions()
-    const totalAvailableStatPoints = getAvailableStatPointsByLevel(level)
-    const totalInvestedStatPoints = getInvestedStatPoints(manualBonuses)
+    const statLimit = getStatLimitByLevel(level)
 
     const mySkillBonuses = useConstAllSkillBonuses()
     const autoSkillBonuses = useConstAutoSkillBonuses()
@@ -135,7 +133,6 @@ export default function MyCharacter() {
             alert('Failed to export character. Try using a different browser :(')
         }
     }
-    // Functions
     async function printCharacter() {
         const canvasDiv = document.querySelector('#Print-Character-Box')
         const canvas = document.createElement('canvas')
@@ -161,24 +158,6 @@ export default function MyCharacter() {
             spellsIgnored
         } })
     }
-    // function addSkill() {
-    //     setStatDialogOptions({
-    //         defaultInputValue: '',
-    //         defaultNumberValue: 0,
-    //         title: "New Skill",
-    //         description: `Add new Non-Combat Skill.`,
-    //         onDone: ({ name, value }) => {
-    //             const newManualSkillBonuses = {...manualSkillBonuses, [name]: value}
-    //             for (const [key, value] of Object.entries(newManualSkillBonuses)) {
-    //                 if (key == null || key?.length == 0 || value == null || value == 0 || !isNumber(value)) {
-    //                     delete newManualSkillBonuses[key]
-    //                 }
-    //             }
-    //             setManualSkillBonuses(newManualSkillBonuses)
-    //         },
-    //         skillBonuses: Object.entries(myValidSkillBonusesStrings).map(([key, value]) => `${value} ${key}`)
-    //     })
-    // }
     function addSkillFlat() {
         setSkillDialogOptions({
             defaultInputValue: '',
@@ -253,20 +232,6 @@ export default function MyCharacter() {
             ]
         })
     }
-    // function changeSkill(name) {
-    //     const isBonusFromOtherSource = !(name in manualSkillBonuses)
-    //     if (isBonusFromOtherSource) {
-    //         manualSkillBonuses[name] = 0
-    //     }
-    //     setStatDialogOptions({
-    //         defaultInputValue: null,
-    //         defaultNumberValue: manualSkillBonuses[name],
-    //         onDone: ({ value }) => setManualSkillBonuses({
-    //             ...manualSkillBonuses,
-    //             [name]: value
-    //         })
-    //     })
-    // }
     function addNormalExtra() {
         setStatDialogOptions({
             defaultInputValue: '',
@@ -288,58 +253,7 @@ export default function MyCharacter() {
             }
         })
     }
-    function modifyManualStatBonus(name) {
-        setStatDialogOptions({
-            id: 'Stat-Change-Dialog',
-            type: ChangeStatDialogTypes.FRACTION,
-            defaultNumberValue: getStatValueByName(name, statPointsArray),
-            title: "Invest Stat Points into " + name,
-            shouldPlayAnimation(num, delta) {
-                const { fraction, number, pointsLeft, value } = getStatBonusObjByPointsInvested(num)
-                return fraction == 0 && delta > 0
-            },
-            displayName: num => `${num} ${name} Points Total`,
-            displayValue: num => getStatBonusObjByPointsInvested(num).value,
-            displayTitle: (num, delta) => {
-                const invested = totalInvestedStatPoints + delta
-                const availableStatPoints = getAvailableStatPointsByLevel(level)
-                const isAvailablePointsRed = invested > availableStatPoints
-                return <span className="home-font" style={{color: isAvailablePointsRed? 'red': ''}}>
-                    Add Stat Points to {name}
-                </span>
-            },
-            displayDescription: (num, delta) => {
-                const autoBonus = getStatValueByName(name, autoStatPointsArray)
-                const newManualBonus = num - autoBonus
-                return <>
-                    <span className="home-font" >Points Invested: <strong>{newManualBonus}</strong></span>
-                    <br/>
-                    <span className="home-font" >Extra from other sources: <strong>{autoBonus}</strong></span>
-                </>
-            },
-            onDone: (({ value }) => {
-                console.green(`For ${name} going from ${manualBonuses[name]} to ${value}`)
-                const autoBonus = getStatValueByName(name, autoStatPointsArray)
-                const newManualBonus = value - autoBonus
-                console.log({autoBonus, newManualBonus})
-                const newManualBonuses = {
-                    ...manualBonuses,
-                    [name]: newManualBonus
-                }
-                setManualBonuses(newManualBonuses)
-            }),
-            displayProgressBarValue(num, delta) {
-                const { fraction, number, pointsLeft, value } = getStatBonusObjByPointsInvested(num)
-                return pointsLeft
-            },
-            displayProgressBarMax(num, delta) {
-                const { fraction, number, pointsLeft, value, costForPlus1 } = getStatBonusObjByPointsInvested(num)
-                return costForPlus1
-            }
-        })
-    }
     function modifyManualBonus(attributeName, increment=1) {
-        // console.green(`Clicked on ${attributeName} which is currently at total ${manualBonuses[attributeName]}`)
         setStatDialogOptions({
             defaultInputValue: null,
             defaultNumberValue: manualBonuses[attributeName] ?? 0,
@@ -362,36 +276,6 @@ export default function MyCharacter() {
     const AbilitiesExtras = () => <>{ extras.map(text => <div className="extra italic"><Icon name="Specializations"/>{ text }</div>) }</>
     const ArmorExtras = () => <>{ allMyArmors.map(item => <CombatItem item={item} type="armor"/>) }</>
     const CombatExtras = () => <>{ combatExtras.map(text => <div className="extra"><Icon name="Damage"/>{ text }</div>) }</>
-    const BonusesWithSources = () => <>{
-        bonusesSources.map(source => <div className="extra" style={{color: 'var(--green-color)'}}>
-            { source.bonus >= 0? <span>+</span>: ''}
-            { source.bonus } { source.statName }
-            &nbsp;({ source.source })
-        </div>) }</>
-    // const SkillBonusWithNumber = ({name, value}) => {
-    //     return <div className="skill-bonus text-font pointer" onClick={() => changeSkill(name)}>
-    //         <div className="left">
-    //             <Icon name="CharacterSetupSub"/> {name}
-    //         </div>
-    //         <div className="right">
-    //             {value}
-    //         </div>
-    //     </div>
-    // }
-    // const SkillBonusScalingPoints = ({name, skillPointsInvested}) => {
-    //     const { value, fraction } = getStatBonusObjByPointsInvested(skillPointsInvested)
-    //     const valueWithFraction = value + fraction
-    //     // console.green(`Making SkillBonus for ${name} with ${skillPointsInvested} points in it.`)
-    //     return <div className="skill-bonus text-font pointer" onClick={() => changeSkill(name)}>
-    //         <div className="left">
-    //             <Icon name="CharacterSetupSub"/> {name}
-    //         </div>
-    //         <div className="right">
-    //             <NumberAligner number={valueWithFraction} includePlus={true} isFractionGray={true}/>
-    //             {/* <GrayFractionText value={valueWithFraction} reduceFontSize={false} includePlus={true}/> */}
-    //         </div>
-    //     </div>
-    // }
     const SkillBonusFlat = ({name, value}) => {
         return <div className="skill-bonus text-font pointer" onClick={() => changeSkillFlat(name)}>
             <div className="left">
@@ -417,22 +301,26 @@ export default function MyCharacter() {
         return <div className="flex flex-column" style={{gap: 'var(--stats-gap)'}}>
             { STAT_NAMES.map((n, i) => (
                 <BigStatValue
-                    onClick={() => modifyManualStatBonus(n)}
+                    onClick={() => modifyManualBonus(n)}
                     key={n}
                     name={`${n.toUpperCase()}`}
                     value={
-                        totalStatsFractions[i].value
+                        totalStats[i]
+                        // totalStatsFractions[i].value
                         // <GrayFractionText value={totalStatsFractions[i].number}/>
                     }
-                    hasProgressBar={totalStats[i] > 0 && totalStatsFractions[i].fraction > 0}
-                    progressBarValue={totalStatsFractions[i].pointsLeft}
-                    progressBarMax={totalStatsFractions[i].costForPlus1}
-                    progessBarHasNumbers={false}
+                    // hasProgressBar={totalStats[i] > 0 && totalStatsFractions[i].fraction > 0}
+                    // progressBarValue={totalStatsFractions[i].pointsLeft}
+                    // progressBarMax={totalStatsFractions[i].costForPlus1}
+                    // progessBarHasNumbers={false}
                 />
             )) }
-            <div className="stats-info-display" style={{color: totalInvestedStatPoints > totalAvailableStatPoints? 'red': ''}}>
-                Remaining: {totalAvailableStatPoints - totalInvestedStatPoints}
+            <div className="stats-info-display">
+                Stat Limit: <strong>{statLimit}</strong>
             </div>
+            {/* <div className="stats-info-display" style={{color: totalInvestedStatPoints > totalAvailableStatPoints? 'red': ''}}>
+                Remaining: {totalAvailableStatPoints - totalInvestedStatPoints}
+            </div> */}
         </div>
     }
     function AttributesAndQuickCombatNotesColumn() {
@@ -519,9 +407,6 @@ export default function MyCharacter() {
             </div>
         )
     }
-
-    let [statDialogOptions, setStatDialogOptions] = useState(null)
-    let [skillDialogOptions, setSkillDialogOptions] = useState(null)
 
     return (
         <div id="My-Character">
