@@ -24,10 +24,16 @@ export async function getMyDocInCollection(collectionName) {
     const userState = getUserState()
     return await firebaseDatabase.getDocument(collectionName, userState.id)
 }
-export async function existsMyDocInCollection(collectionName) {
+export async function existsMyDocInCollection(collectionName, userState=null) {
     assertLoggedIn()
-    const userState = getUserState()
-    return await withAntiSpamCache('collectionName', 'exists', userState?.name, async () => await firebaseDatabase.existsDocument(collectionName, userState.id))
+    console.orange(`2. Assert passed in existsMyDocInCollection`)
+    userState = userState ?? getUserState()
+    console.orange(`3. User state:`)
+    console.log({...userState})
+    console.orange(`TODO: There is an issue with this withAntiSpamCache! With the normal await firebase... it works!`)
+    const result = await withAntiSpamCache('collectionName', 'exists', userState?.name, async () => await firebaseDatabase.existsDocument(collectionName, userState.id))
+    console.orange(`4. Got a result with anti-spam!`)
+    return result
 }
 export async function getDocInCollection(collectionName, docId) {
     assertLoggedIn()

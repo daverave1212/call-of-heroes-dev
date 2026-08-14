@@ -94,8 +94,8 @@ export default function() {
             <li><Icon name="BulletPoint3"/>Gain Quirks and Plot Points</li>
             <li><Icon name="BulletPoint3"/>Clarity, feedback, open community</li>
           </ul>
-          <HeroButton>
-            <Link to="/Other/Learn#Transition-Guide">Learn To Play!</Link>
+          <HeroButton href="/Tools/CharacterCreationCalculator">
+            Make a Hero!
           </HeroButton>
         </div>
 

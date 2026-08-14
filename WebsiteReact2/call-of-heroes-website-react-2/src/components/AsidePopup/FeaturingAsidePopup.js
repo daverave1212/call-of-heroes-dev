@@ -19,7 +19,7 @@ export default function FeaturingAsidePopup({featureToDisplay}) {
     const maybeIntroAnimClass = featureToDisplay == null? '' : 'aside-popup--intro'
 
     const AsideH3 = ({children}) => <PageH3 className="center-text">{children}</PageH3>
-    const AsideP = ({children}) => <p className='aside-p'>{children}</p>
+    const AsideP = ({children}) => <div className='aside-p'>{children}</div>
     
     return (
         <div className={'aside-popup shadowed ' + maybeIntroAnimClass} style={isPopupDisplayedStyle}>

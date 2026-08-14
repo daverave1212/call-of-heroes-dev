@@ -21,25 +21,27 @@ const authChangedListeners = {
         if (newUserData == null) {
             return
         }
-        console.orange(`Ensuring user ${newUserData?.name} has public user data...`)
-        const iHaveUserData = await existsMyDocInCollection('public-user-data')
+        console.orange(`1. Ensuring user ${newUserData?.name} has public user data...`)
+        const iHaveUserData = await existsMyDocInCollection('public-user-data', newUserData)
         if (iHaveUserData) {
-            console.orange(`  I do!`)
+            console.orange(`5. I do!`)
             return
         }
-        console.orange(`  I do NOT HAVE IT!`)
+        console.orange(`5. I do NOT HAVE IT!`)
         const myUserData = {...defaultPublicUserDataMap, ...{
             email: newUserData.email
         }}
+        const _newUserDataBackup = {...newUserData}
         try {
             await setMyDocInCollection('public-user-data', myUserData)
         } catch (e) {
             showToast(`Failed to set public-user-data!`, 'red')
+            console.orange(`6. Fail`)
+            console.log({_newUserDataBackup})
             console.error(e)
         }
     },
 }
-
 
 firebaseAuth.onAuthChanged(async user => {
     // Setup some easy to access localStorage info
@@ -61,17 +63,6 @@ firebaseAuth.onAuthChanged(async user => {
         const func = authChangedListeners[id]
         await func(newUserData)
     }
-
-    // Make sure the user has public-user-data
-    // if (newUserData != null) {
-    //     const iHaveUserData = await existsMyDocInCollection('public-user-data')
-    //     if (!iHaveUserData) {
-    //         const myUserData = {...defaultPublicUserDataMap, ...{
-    //             email: user.email
-    //         }}
-    //         await setMyDocInCollection('public-user-data', myUserData)
-    //     }
-    // }
 })
 
 

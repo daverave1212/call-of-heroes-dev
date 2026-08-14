@@ -31,7 +31,7 @@ export function SpellTopStats({ className, tags, keywords }) {
     }
 
     function KeywordTags() {
-        return <>{parsedKeywords.map(tag => <KeywordTag>{tag}</KeywordTag>)}</>;
+        return <>{parsedKeywords.map(tag => <KeywordTag key={tag}>{tag}</KeywordTag>)}</>;
     }
 
     return (

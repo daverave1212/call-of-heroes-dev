@@ -92,9 +92,10 @@ export function SelectorsByColumns({ className, selectorData, nColumns, selected
     return (
         <div className={`flex-row gap-half ${className}`} style={{width: '100%'}} >
             { range(0, nColumns).map(i => (
-                <div className='flex-column gap-half' style={{flex: 1}}>
-                    { columns[i].map(({name, displayName, src}) => (
+                <div key={i} className='flex-column gap-half' style={{flex: 1}}>
+                    { columns[i].map(({name, displayName, src}, columnI) => (
                         <Selector
+                            key={`Selector-${columnI}`}
                             name={name}
                             displayName={displayName}
                             src={src}

@@ -261,12 +261,12 @@ export default function Spell({
                         <div className="spell-green" key="EffectGreen">{ EffectGreen }</div>
                     ) }
                     { SkillBonuses && <div className='spell-description'>
-                        { Object.entries(SkillBonuses).map(([name, value]) => (
-                            value > 0?
-                                <>Skill: <span key={name} style={{color: 'var(--green-color)'}}>{name}</span><br/></>
+                        { Object.entries(SkillBonuses).map(([name, value], i) => (<span key={`${name}-${i}`}>
+                            { value > 0?
+                                <span>Skill: <span style={{color: 'var(--green-color)'}}>{name}</span><br/></span>
                             :
-                                <>Flaw: <span key={name} style={{color: 'red'}}>{name}</span><br/></>
-                        )) }
+                                <span>Flaw: <span style={{color: 'red'}}>{name}</span><br/></span> }
+                        </span>)) }
                     </div> }
                     { RollThiefGold != null && (
                         <div className='spell-description center-content'>

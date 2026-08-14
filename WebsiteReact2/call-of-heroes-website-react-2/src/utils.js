@@ -522,7 +522,6 @@ export function addAbilityOrOpenPopup(spell, spellMetadata, selectedAbilitiesNam
         const newChoiceBonuses = choiceBonuses.filter(obj => obj.source.name != spell.Name)
         setChoiceAbilitiesObjects(newChoiceBonuses)
     } else {
-        console.log('False and let it go')
         setSelectedAbiltiesNames([...selectedAbilitiesNames, spell.Name])
     }
 }
@@ -575,8 +574,6 @@ export function splitSpellsArrayInto2Columns(spellsArray, shouldSort=true, sortC
     return [column1Spells, column2Spells]
 }
 export function splitSpellsArrayInto2Columns_OLD(spellsArray, shouldIgnoreAlignment=false) {
-    console.log(`Splitting spells array:`)
-    console.log({spellsArray})
     const spells = sortObjectArrayByKey([...spellsArray], 'OrderOnWebsite')
 
     let column1Spells = []
@@ -588,10 +585,8 @@ export function splitSpellsArrayInto2Columns_OLD(spellsArray, shouldIgnoreAlignm
         spellsRest = spells.filter(spell => spell.AlignOnWebsite != 'Left' && spell.AlignOnWebsite != 'Right')
     }
     const [spellsLeft, spellsRight] = splitArrayEvenly(spellsRest, 2)
-    console.log({column1Spells, column2Spells, spellsRest, spellsLeft})
     column1Spells = [...column1Spells, ...spellsLeft]
     column2Spells = [...column2Spells, ...spellsRight]
-    console.log({ column1Spells, column2Spells })
     return [column1Spells, column2Spells]
 }
 export function isTalentTierNameMinor(tierName) {
@@ -691,7 +686,6 @@ export function getSpellTopStatsIconsAndSpans(spell) {
     const stats = getSpellTopStats(spell)
     const statsArray = Object.entries(stats).map(([key, value]) => getSpellTopStatIconAndSpan(key, value))
     const statsArraySorted = sortObjectArrayByKeyInOrder(statsArray, 'name', VALID_SPELL_TOP_STATS) // VALID_SPELL_TOP_STATS is the correct order
-    console.log({ spell, stats, statsArray, statsArraySorted })
     return statsArraySorted
 }
 
@@ -950,7 +944,7 @@ export function estimteSpellHeight(spell) { // Height as in rem (approximately)
         return spell.Height
     }
     if (spell.Name.includes('Celestine')) {
-        console.log('Here')
+        
     }
     const topHeight = 4
     const topMarginBottom = 2
@@ -999,7 +993,6 @@ export function getLocationHackyPath(location) {
     if (location.href.includes('?') && location.href.includes('=') == false) {
         const qIndex = location.href.indexOf('?')
         let hackyPath = location.href.substring(qIndex + 1)
-        console.log(hackyPath.startsWith('/'))
         if (hackyPath.startsWith('/') == false) {
             hackyPath = '/' + hackyPath
         }
@@ -1313,7 +1306,6 @@ export function getAllLanguages() {
     }
 }
 export function getClassRepresentativeIconName(classObj) {
-    console.log({classObj})
     const firstSpellName = Object.keys(classObj['Starting Abilities'])[0]
     const spellName = removeTildes(firstSpellName)
     return spellName
@@ -1787,7 +1779,6 @@ export function allEqual(arr, val) {
     return arr.length == allEqualElems.length
 }
 export function splitArrayEvenly(arr, nArrays=2) {
-    console.log({arr, nArrays})
     const arrays = new Array(nArrays)
     for (let i = 0; i < nArrays; i++) {
         arrays[i] = []
@@ -1905,7 +1896,6 @@ function ComponentForSymbolConfig({ config, children }) {
         case 'Icon': return <Icon {...config.props}/>
         case 'Link': return <Link {...config.props}>{children}</Link>
         case 'a':
-            console.log({config, children})
             return <a {...config.props}>{children}</a>
         case 'Spell':
             return <Spell {...config.props}/>
@@ -2127,7 +2117,7 @@ export function parseTextWithSymbols(...argsOriginal) {
     }
     
     if (isDebug === true) {
-        console.log({symbolToInsertion})
+        
     }
 
     const MARKUP_DELIMITERS = ['^', '_', '~']
@@ -2266,10 +2256,6 @@ export function parseTextWithSymbols(...argsOriginal) {
 
     if (state == 'reading-normal-text') {
         if (currentTextPartStart < text.length) {
-            if (text.substring == null) {
-                console.log(`This is it:`)
-                console.log({text})
-            }
             textParts.push(text.substring(currentTextPartStart, text.length))
         }
     }
@@ -2386,17 +2372,39 @@ window.cleanupObject = cleanupObject
 
 // ---------------- Other Small Utilities ----------------
 
-console.green = str => { if (!QuestGuardConfig.consoleMute['green']) console.log(`%c${str}`, `color: green; font-style: bold`)}
-console.purple = str => { if (!QuestGuardConfig.consoleMute['purple']) console.log(`%c${str}`, `color: magenta; font-style: bold`)}
-console.teal = str => { if (!QuestGuardConfig.consoleMute['teal']) console.log(`%c${str}`, `color: teal; font-style: bold`)}
-console.orange = str => { if (!QuestGuardConfig.consoleMute['orange']) console.log(`%c${str}`, `color: orange; font-style: bold`)}
-console.white = str => { if (!QuestGuardConfig.consoleMute['white']) console.log(`%c${str}`, `color: white; font-style: bold; background-color: black`)}
-console.tick = str => { if (!QuestGuardConfig.consoleMute['tick']) console.log(`✅${str}`)}
-console.v = str => { if (!QuestGuardConfig.consoleMute['v']) console.log(`✅${str}`)}
-console.x = str => { if (!QuestGuardConfig.consoleMute['x']) console.log(`❌${str}`)}
-console.o = str => { if (!QuestGuardConfig.consoleMute['o']) console.log(`o ${str}`)}
-console.one = str => { if (!QuestGuardConfig.consoleMute['one']) console.log(`> ${str}`)}
-console.two = str => { if (!QuestGuardConfig.consoleMute['two']) console.log(`  - ${str}`)}
+const CONSOLE_FUNCS_CONFIGS = {
+    green: {},
+    purple: {
+        color: 'magenta'
+    },
+    teal: {},
+    orange: {},
+    white: {
+        'background-color': 'black'
+    },
+    gray: {
+        color: 'white',
+        'background-color': 'green'
+    },
+    tick: {
+        prefix: '✅ '
+    },
+    x: {
+        prefix: '❌ '
+    },
+    one: {},
+    two: {}
+}
+
+for (const [key, value] of Object.entries(CONSOLE_FUNCS_CONFIGS)) {
+    const prefix = value.prefix ?? ''
+    console[key] = str => {
+        if (QuestGuardConfig.debug.allowConsole.includes(key)) {
+            console.log(`%c${prefix}${str}`, `color: ${key}; font-style: bold; background-color: ${value['background-color'] ?? ''}`)
+        }
+    }
+}
+
 export function dom(htmlString) {
   const parser = new DOMParser();
   const doc = parser.parseFromString(htmlString.trim(), 'text/html');
@@ -3367,6 +3375,10 @@ export function drawImageOnCanvasAsync(canvas, pathOrImage, x, y, width, height,
     })
 }
 export function getImageRelativeWidthAtHeight(image, atHeight) {
+    if (image == null) {
+        console.gray(`SILENT ERROR: image is null. This previously used to throw an undefined error...`)
+        return atHeight
+    }
     if (image instanceof HTMLCanvasElement) {
         const aspectRatio = image.width / image.height
         return atHeight * aspectRatio    

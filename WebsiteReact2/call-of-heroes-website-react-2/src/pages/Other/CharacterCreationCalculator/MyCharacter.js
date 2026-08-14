@@ -74,7 +74,6 @@ export default function MyCharacter() {
     const mySkillBonuses = useConstAllSkillBonuses()
     const skillBonusesPositive = filterObject(mySkillBonuses, ([key, value]) => value > 0)
     const skillBonusesNegative = filterObject(mySkillBonuses, ([key, value]) => value < 0)
-    console.log({skillBonusesPositive, skillBonusesNegative})
 
     const displayedSkillBonuses = filterObject(mySkillBonuses, ([key, value]) => 
         manualSkillBonuses[key] != 0 ||     // Total value may be 0, but still display it if I manually put it

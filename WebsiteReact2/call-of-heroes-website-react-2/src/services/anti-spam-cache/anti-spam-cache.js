@@ -14,7 +14,6 @@ export async function withAntiSpamCache(collection, operation, paramsHash, async
         const cachedResult = _cache[cacheKey]
         const timeSinceLast = now - cachedResult.timestamp
         if (timeSinceLast < GRACE_PERIOD) {
-            console.two(`Returning CACHED VALUE`)
             return cachedResult.promise
         }
     }
@@ -23,7 +22,6 @@ export async function withAntiSpamCache(collection, operation, paramsHash, async
         timestamp: now,
         prmise: newPromise
     }
-    console.purple(`✔ New request!`)
     try {
         return await newPromise
     } catch (e) {
