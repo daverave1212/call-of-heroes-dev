@@ -122,7 +122,10 @@ export default function Spell({
     } = parsedSpell
     const SkillBonuses = parsedSpell['Skill Bonuses']
 
-    
+    if (PreEffectGreen != null) {
+        console.log({PreEffectGreen})
+        console.log(`PreEffectGreen is not null for spell ${Name}`)
+    }
 
     const hasVariants = hasSpellVariants(spell)
     const uniqueID = getUniqueSpellID(Name)
@@ -244,7 +247,7 @@ export default function Spell({
                             { Effect }
                             { List != null && (
                                 List.map(li => (
-                                    <div style={{marginTop: 'var(--spell-padding-small)'}}>
+                                    <div key={li} style={{marginTop: 'var(--spell-padding-small)'}}>
                                         {SYMBOLS.Diamond.func()} {li}
                                     </div>
                                 ))
@@ -260,9 +263,9 @@ export default function Spell({
                     { SkillBonuses && <div className='spell-description'>
                         { Object.entries(SkillBonuses).map(([name, value]) => (
                             value > 0?
-                                <>Skill: <span style={{color: 'var(--green-color)'}}>{name}</span><br/></>
+                                <>Skill: <span key={name} style={{color: 'var(--green-color)'}}>{name}</span><br/></>
                             :
-                                <>Flaw: <span style={{color: 'red'}}>{name}</span><br/></>
+                                <>Flaw: <span key={name} style={{color: 'red'}}>{name}</span><br/></>
                         )) }
                     </div> }
                     { RollThiefGold != null && (

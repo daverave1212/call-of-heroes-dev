@@ -94,8 +94,6 @@ export function RaceHeader({imgStyle, theRace, theClass, hueShift, height=60}) {
     const layoutType = theRaceOrClass.LayoutType ?? 'A'
     const imageStyle = imgStyle ?? theRaceOrClass?.ImageStyle
 
-    console.log({theRaceOrClass})
-
     useEffect(() => {
         document.title = name
     }, [theRace, theClass])
@@ -489,7 +487,6 @@ export function Spec({ children, name, specObj, hasNoMargins }) {
 
 export function TalentTier({ title, talents, selectedSpellNames, onSpellClick, spellsMetadata }) {
     const spellsInThisTier = U.spellsFromObject(talents)
-    console.log({spellsInThisTier})
     return <div className='margin-top-2'>
         <PageH2 className="center-text">{title}</PageH2>
         <ManySpells spells={spellsInThisTier} selectedSpellNames={selectedSpellNames} onSpellClick={onSpellClick} spellsMetadata={spellsMetadata} shouldSort={false}/>
@@ -504,7 +501,6 @@ export function TalentTier({ title, talents, selectedSpellNames, onSpellClick, s
 
 export function Talents({ talents, selectedSpellNames, onSpellClick, spellsMetadata, condition=()=>true }) {
     const talentTitles = Object.keys(talents)
-    console.log({talentTitles, talents})
 
     return (
         <div>
@@ -708,8 +704,6 @@ export function ClassPageV2({
     if (theClass == null) {
         return <ErrorPage/>
     }
-
-    console.log({onSpellClick})
 
     window.theClass = theClass
 
@@ -1058,9 +1052,9 @@ function ClassPowerLevelTable({theClass}) {
 
     return <TableNormal columns={headers}>
         
-        { dataRows.map(row => <tr>
-            { row.map(value => (
-                <td>{`${value}` /* Prevents NaN warning */}</td>
+        { dataRows.map((row, i) => <tr key={`tr-${i}`}>
+            { row.map((value, i) => (
+                <td key={i}>{`${value}` /* Prevents NaN warning */}</td>
             )) }
         </tr>)}
 

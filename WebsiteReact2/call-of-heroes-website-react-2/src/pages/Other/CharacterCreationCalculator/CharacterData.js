@@ -2,9 +2,9 @@ import { addArrays, addManyObjects, addObjects, areArraysEqual, generateUniqueId
 import * as Database from '../../../services/online-database/Database'
 import { useEffect } from "react"
 import { getUserState, useAuth } from "../../../services/auth/Auth"
-import { showError } from "../../../services/MessageDisplayer"
 import { calculateAllAtributes, DEFAULT_CHARACTER_BONUSES, DEFAULT_STAT_ARRAY, getAllStatBonusesYMLAsObjFromSpellsArray, getStatBonusObjByPointsInvested, getStatsArrayFromObject, getStatValueByName, STAT_NAMES } from "../../../services/game-lib/stat-calculations"
 import { Names } from "../../../services/NameGenerator/name-generator"
+import { showToast } from "../../../services/dom/toaster"
 
 export const NO_CHARACTER_ID = 'none'
 function getNewCharacterTemplate() {
@@ -133,7 +133,7 @@ export function useMyCharactersDB(locationInCode) {
 
     async function saveMyCharactersToDB(array) /* : bool */ {
         if (Array.isArray(array) == false) {
-            showError(`ERROR: myCharacters given is not an array`)
+            showToast(`ERROR: myCharacters given is not an array`, 'red')
             return false
         }
 
@@ -141,7 +141,8 @@ export function useMyCharactersDB(locationInCode) {
             const result = await Database.setMyCharacters(array)            
             innerSetMyCharacters(array)
         } catch (e) {
-            showError(`ERROR: An error has occured saving your character: ${e}`)
+            console.error(e)
+            showToast(`ERROR: An error has occured saving your character: ${e}`, 'red')
             return false
         }
         return true
@@ -496,10 +497,3 @@ export function toggleSpellMaybePopup(spell, spellMetadata, selectedSpellNames, 
         toggleSpellForSelectedSpellNames(spell, spellMetadata, selectedSpellNames, setSelectedAbiltiesNames)
     }
 }
-
-
-
-
-
-
-

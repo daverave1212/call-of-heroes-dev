@@ -32,12 +32,12 @@ import SectionRace from "./SectionRace";
 import SectionClass from "./SectionClass";
 import { NO_CHARACTER_ID, clearCurrentCharacter, getCurrentCharacterFromLocalStorage, newCharacterLS, normalizeCharacter, setCharacterToLocalStorage, setCurrentCharacterId, useChoiceAbiliesObjects, useCurrentCharacterId, useMyCharactersDB, useSectionNamesState } from "./CharacterData";
 import { SelectorsByColumns } from "../Abilities";
-import { showSuccessMessage } from "../../../services/MessageDisplayer";
 import Dialog from "../../../components/Dialog/Dialog";
 import { STAT_NAMES } from "../../../services/game-lib/stat-calculations";
 import { useDoIOwnSet, useIsLoggedIn } from "../../../services/auth/Auth";
 import LoginRequired from "../../../components/LoginRequired/LoginRequired";
 import SectionMagicFonts from "./SectionMagicFonts";
+import { showToast } from "../../../services/dom/toaster";
 
 
 const TAB_LAYOUT_LANDSCAPE = [
@@ -152,7 +152,7 @@ function SaveCharacterButton() {
         }
         const wasSaveSuccessful = saveMyCharacters(newMyCharacters)
         if (wasSaveSuccessful) {
-            showSuccessMessage('Character saved successfully!')
+            showToast('Character saved successfully!', 'green')
         }
     }
     

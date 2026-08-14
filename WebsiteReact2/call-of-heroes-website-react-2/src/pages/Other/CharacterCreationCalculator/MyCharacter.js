@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getAllClasses, getAlMyRaceAndClassSpells, getAllSpellsByName, isString, spellsFromObject, useLocalStorageState, hasClassMana, getAllWeaponsByName, getAllArmorsByName, addObjects, getSpellReplacementName, reverseObject, getSpellIconPathByName, withToggledElement, getNumberDecimalsString, filterObject, maybeWithPlus, mapObject, isNumber, sum, SortSpellsBy, copyToClipboardAsync, pasteFromClipboardAsync, normalizeStringJSON, isStringJSON, cleanupObject } from "../../../utils"
+import { getAllClasses, getAlMyRaceAndClassSpells, getAllSpellsByName, isString, spellsFromObject, useLocalStorageState, hasClassMana, getAllWeaponsByName, getAllArmorsByName, addObjects, getSpellReplacementName, reverseObject, getSpellIconPathByName, withToggledElement, getNumberDecimalsString, filterObject, maybeWithPlus, mapObject, isNumber, sum, SortSpellsBy, copyToClipboardAsync, pasteFromClipboardAsync, normalizeStringJSON, isStringJSON, cleanupObject, capitalizeFirstLetter } from "../../../utils"
 import ManySpells, { SpellSortTypes } from "../../../components/Spell/ManySpells"
 import PageH2 from "../../../components/PageH2/PageH2"
 import TextArea from "../../../components/TextArea/TextArea"
@@ -70,10 +70,17 @@ export default function MyCharacter() {
     const totalStats = useConstTotalStatsArray()
     const statLimit = getStatLimitByLevel(level)
 
-    const mySkillBonuses = useConstAllSkillBonuses()
     const autoSkillBonuses = useConstAutoSkillBonuses()
-    const myValidSkillBonuses = filterObject(mySkillBonuses, ([key, value]) => manualSkillBonuses[key] != 0 || (key in autoSkillBonuses))
-    const myValidSkillBonusesStrings = mapObject(myValidSkillBonuses, ([key, value]) => [key, maybeWithPlus(value)])
+    const mySkillBonuses = useConstAllSkillBonuses()
+    const skillBonusesPositive = filterObject(mySkillBonuses, ([key, value]) => value > 0)
+    const skillBonusesNegative = filterObject(mySkillBonuses, ([key, value]) => value < 0)
+    console.log({skillBonusesPositive, skillBonusesNegative})
+
+    const displayedSkillBonuses = filterObject(mySkillBonuses, ([key, value]) => 
+        manualSkillBonuses[key] != 0 ||     // Total value may be 0, but still display it if I manually put it
+        (key in autoSkillBonuses)           // If it's automatically added, display it
+    )
+    const displayedSkillBonusesWithSign = mapObject(displayedSkillBonuses, ([key, value]) => [key, maybeWithPlus(value)])
 
     const allMyRaceAndClassSpells = useConstAllMyAbilities()
     const autoBonuses = useConstBonusesFromSpellsAndItems().bonuses
@@ -106,7 +113,7 @@ export default function MyCharacter() {
     const selectedClassObj = selectedClassName == null? null: getAllClasses()[selectedClassName]
     const maxMana = selectedClassName == null? 1: calculateBaseMaxManaByLevel(level, selectedClassName)
     const attributes = calculateAllAtributes({ raceName: selectedRaceName, className: selectedClassName, level, totalStats, bonuses, specialBonusNames })
-    const usedSkillPoints = sum(Object.values(manualSkillBonuses))
+    const usedSkillPoints = sum(Object.values(manualSkillBonuses).filter(val => val > 0))
 
     if (allMyArmors?.length == 0) {
         attributes[MOVEMENT_SPEED] += 0.5
@@ -134,14 +141,15 @@ export default function MyCharacter() {
         }
     }
     async function printCharacter() {
-        const canvasDiv = document.querySelector('#Print-Character-Box')
+        const canvasDiv = document.querySelector('#Print-Character-Canvas-Wrapper')
+        canvasDiv.innerHTML = ''
         const canvas = document.createElement('canvas')
         canvas.style = `width: 100%`
         canvasDiv.appendChild(canvas)
         const character = getCurrentCharacterFromLocalStorage()
      
-        const allCombatBonuses = [
-            allMyArmors.map(item => `${item.Name}: ${item.EffectGreen}`),
+        const allCombatExtras = [
+            ...allMyArmors.map(item => `${item.Name}: ${item.EffectGreen}`),
             ...combatExtras
         ]
         
@@ -150,41 +158,49 @@ export default function MyCharacter() {
             totalStats,
             attributes,
             maxMana,
-            allCombatBonuses,
-            manualCombatExtras,
             extras,
-            skillBonuses: myValidSkillBonusesStrings,
-            languages: [...character.languages, ...manualNormalExtras],
-            spellsIgnored
+            spellsIgnored,
+            boxes: [
+                skillBonusesPositive,
+                skillBonusesNegative,
+                [...character.languages, ...manualNormalExtras],
+                allCombatExtras
+            ]
         } })
     }
-    function addSkillFlat() {
+    const SKILL = 'Skill'
+    const FLAW = 'Flaw'
+    function addSkillOrFlawFlat(type=SKILL) {
         setSkillDialogOptions({
             defaultInputValue: '',
-            title: 'New Skill',
+            title: `Add ${type}`,
             displayDescription(inputValue) {
-                if (inputValue in myValidSkillBonuses) {
+                if (inputValue in displayedSkillBonuses) {
                     return <span>
-                        Add new Non-Combat Skill.<br/>
-                        <span style={{color: 'red'}}>You already have this Skill! It will not be added.</span>
+                        Add new non-Combat <span style={{color: type == SKILL? 'var(--green-color)': 'red'}}>{type}</span>.<br/>
+                        <span style={{color: 'red'}}>You already have this {type}! It will not be added.</span>
                     </span>
                 } else {
-                    return 'Add new Non-Combat Skill.'
+                    return `Add new ${type}.`
                 }
             },
             buttonsData: [
                 {
                     children: 'Add',
                     onClick(name) {
-                        const alreadyHaveSkill = name in myValidSkillBonuses
-                        if (alreadyHaveSkill) {
+                        if (name == null || name?.trim()?.length == 0) {
+                            setSkillDialogOptions(null)
+                            return
+                        }
+                        const alreadyHaveIt = name in mySkillBonuses
+                        if (alreadyHaveIt) {
                             setSkillDialogOptions(null)
                             return
                         }
                         const _oldManualSkillBonuses = {...manualSkillBonuses}
                         const newBonuses = cleanupObject(manualSkillBonuses, (key, value) => value == 0 || !isNumber(value))
                         const _newBonusesAfterCleanup = {...newBonuses}
-                        newBonuses[name] = 1
+                        newBonuses[name] = type == SKILL? 1: -1
                         console.log({name, _oldManualSkillBonuses, _newBonusesAfterCleanup, newBonuses})
                         setManualSkillBonuses(newBonuses)
                         setSkillDialogOptions(null)
@@ -193,14 +209,14 @@ export default function MyCharacter() {
             ]
         })
     }
-    function changeSkillFlat(name) {
+    function changeSkillOrFlawFlat(name, type=SKILL) {
         const isManualSkill = name in manualSkillBonuses
         const isAutoSkill = name in autoSkillBonuses
 
         if (isAutoSkill && !isManualSkill) {
             setSkillDialogOptions({
-                title: `${name} Skill`,
-                displayDescription: () => `You have the ${name} Skill from an Ability or item.`
+                title: `${name} ${type}`,
+                displayDescription: () => `You have the ${name} ${type} from an Ability or item.`
             })
             return
         }
@@ -208,16 +224,16 @@ export default function MyCharacter() {
         let description = ''
         if (isAutoSkill && isManualSkill) {
             description = <span>
-                Are you sure you want to remove your {name} Skill?<br/>
-                <span className="italic">Note: You <strong>already also</strong> have this Skill from an Ability or item, so it's safe to remove.</span>
+                Are you sure you want to remove your {name} {type}?<br/>
+                <span className="italic">Note: You <strong>already also</strong> have this {type} from an Ability or item, so it's safe to remove.</span>
             </span>
         } else {
-            description = <span>Are you sure you want to remove your {name} Skill?</span>
+            description = <span>Are you sure you want to remove your {name} {type}?</span>
         }
 
 
         setSkillDialogOptions({
-            title: `Remove ${name} Skill`,
+            title: `Remove ${name} ${type}`,
             displayDescription: () => description,
             buttonsData: [
                 {
@@ -276,14 +292,15 @@ export default function MyCharacter() {
     const AbilitiesExtras = () => <>{ extras.map(text => <div className="extra italic"><Icon name="Specializations"/>{ text }</div>) }</>
     const ArmorExtras = () => <>{ allMyArmors.map(item => <CombatItem item={item} type="armor"/>) }</>
     const CombatExtras = () => <>{ combatExtras.map(text => <div className="extra"><Icon name="Damage"/>{ text }</div>) }</>
-    const SkillBonusFlat = ({name, value}) => {
-        return <div className="skill-bonus text-font pointer" onClick={() => changeSkillFlat(name)}>
+    const SkillBonusFlat = ({name, value, type}) => {
+        return <div className="skill-bonus text-font pointer" onClick={() => changeSkillOrFlawFlat(name)}>
             <div className="left">
-                <Icon name="CharacterSetupSub"/> {name}
+                <Icon name={type == SKILL? 'CharacterSetupSub': 'Flaw.svg'}/><span style={{color: type == FLAW? 'black': ''}}>{name}</span>
             </div>
         </div>
     }
-    const Skills = () => <>{Object.entries(myValidSkillBonusesStrings).map(([key, value]) => <SkillBonusFlat name={key}/>)}</>
+    const Skills = () => <>{Object.entries(skillBonusesPositive).map(([key, value]) => <SkillBonusFlat name={key} type={SKILL}/>)}</>
+    const Flaws  = () => <>{Object.entries(skillBonusesNegative).map(([key, value]) => <SkillBonusFlat name={key} type={FLAW}/>)}</>
     const Languages = () => <>{ languages.map(text => <div className="extra"><Icon name="Specializations"/>You speak { text }</div>) }</>
 
     // Subcomponents
@@ -309,6 +326,7 @@ export default function MyCharacter() {
                         // totalStatsFractions[i].value
                         // <GrayFractionText value={totalStatsFractions[i].number}/>
                     }
+                    displayValue={val => <span style={{color: val > statLimit? 'red': ''}}>{val}</span>}
                     // hasProgressBar={totalStats[i] > 0 && totalStatsFractions[i].fraction > 0}
                     // progressBarValue={totalStatsFractions[i].pointsLeft}
                     // progressBarMax={totalStatsFractions[i].costForPlus1}
@@ -436,21 +454,26 @@ export default function MyCharacter() {
                     </div>
                 </div>
 
-                <div className="flex flex-direction-responsive margin-top-1 gap-3q">
+                <div className="flex-responsive margin-top-1 gap-3q">
                     <div className="flex-column" style={{flex: 1, gap: '5px'}}>
-                        <PageH3>Non-Combat Skills ({usedSkillPoints}/{attributes[SKILL_POINTS]})</PageH3>
+                        <PageH3>Skills ({usedSkillPoints}/{attributes[SKILL_POINTS]})</PageH3>
                         <Skills/>
-                        <button className="extra" onClick={addSkillFlat}>+</button>
+                        <button className="extra" onClick={() => addSkillOrFlawFlat(SKILL)}>+</button>
                     </div>
                     <div className="flex-column" style={{flex: 1, gap: '5px'}}>
-                        <PageH3>Languages</PageH3>
+                        <PageH3>Flaws</PageH3>
+                        <Flaws/>
+                        <button className="extra" onClick={() => addSkillOrFlawFlat(FLAW)}>+</button>
+                    </div>
+                    <div className="flex-column" style={{flex: 1, gap: '5px'}}>
+                        <PageH3>Small Perks</PageH3>
                         <AbilitiesExtras/>
                         <Languages/>
                         { manualNormalExtras.map(str => <div className="extra">{str}</div>) }
                         <button className="extra" onClick={addNormalExtra}>+</button>
                     </div>
                     <div className="flex-column" style={{flex: 1, gap: '5px'}}>
-                        <PageH3>Combat Other</PageH3>
+                        <PageH3>Combat Notes</PageH3>
                         <CombatExtras/>
                         <ArmorExtras/>
                         { manualCombatExtras.map(str => <div className="extra">{str}</div>) }
@@ -524,6 +547,9 @@ export default function MyCharacter() {
                 </div>
                 <div className="absolute" style={{right: '10vw'}}>
                     <CopySpellButton elementId={"All-My-Spells"}/>
+                </div>
+                <div id="Print-Character-Canvas-Wrapper">
+
                 </div>
             </div>
         </div>

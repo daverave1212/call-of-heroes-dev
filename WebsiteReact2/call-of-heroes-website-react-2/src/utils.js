@@ -2386,17 +2386,17 @@ window.cleanupObject = cleanupObject
 
 // ---------------- Other Small Utilities ----------------
 
-console.green = str => console.log(`%c${str}`, `color: green; font-style: bold`)
-console.purple = str => console.log(`%c${str}`, `color: purple; font-style: bold`)
-console.teal = str => console.log(`%c${str}`, `color: teal; font-style: bold`)
-console.orange = str => console.log(`%c${str}`, `color: orange; font-style: bold`)
-console.white = str => console.log(`%c${str}`, `color: white; font-style: bold; background-color: black`)
-console.tick = str => console.log(`✅${str}`)
-console.v = str => console.log(`✅${str}`)
-console.x = str => console.log(`❌${str}`)
-console.o = str => console.log(`o ${str}`)
-console.one = str => console.log(`> ${str}`)
-console.two = str => console.log(`  - ${str}`)
+console.green = str => { if (!QuestGuardConfig.consoleMute['green']) console.log(`%c${str}`, `color: green; font-style: bold`)}
+console.purple = str => { if (!QuestGuardConfig.consoleMute['purple']) console.log(`%c${str}`, `color: magenta; font-style: bold`)}
+console.teal = str => { if (!QuestGuardConfig.consoleMute['teal']) console.log(`%c${str}`, `color: teal; font-style: bold`)}
+console.orange = str => { if (!QuestGuardConfig.consoleMute['orange']) console.log(`%c${str}`, `color: orange; font-style: bold`)}
+console.white = str => { if (!QuestGuardConfig.consoleMute['white']) console.log(`%c${str}`, `color: white; font-style: bold; background-color: black`)}
+console.tick = str => { if (!QuestGuardConfig.consoleMute['tick']) console.log(`✅${str}`)}
+console.v = str => { if (!QuestGuardConfig.consoleMute['v']) console.log(`✅${str}`)}
+console.x = str => { if (!QuestGuardConfig.consoleMute['x']) console.log(`❌${str}`)}
+console.o = str => { if (!QuestGuardConfig.consoleMute['o']) console.log(`o ${str}`)}
+console.one = str => { if (!QuestGuardConfig.consoleMute['one']) console.log(`> ${str}`)}
+console.two = str => { if (!QuestGuardConfig.consoleMute['two']) console.log(`  - ${str}`)}
 export function dom(htmlString) {
   const parser = new DOMParser();
   const doc = parser.parseFromString(htmlString.trim(), 'text/html');

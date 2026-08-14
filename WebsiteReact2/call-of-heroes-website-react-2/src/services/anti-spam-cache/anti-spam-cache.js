@@ -1,0 +1,32 @@
+const GRACE_PERIOD = 2000   // 2 seconds
+const _cache = {
+    'example-collection:operation:paramsHash': {
+        timestamp: 123192830,
+        promise: 'some promise'
+    }
+}
+
+// Prevents app making 91283912 requests simultaneously
+export async function withAntiSpamCache(collection, operation, paramsHash, asyncFunc) {
+    const cacheKey = `${collection}:${operation}:${paramsHash}`
+    const now = Date.now()
+    if (cacheKey in _cache) {
+        const cachedResult = _cache[cacheKey]
+        const timeSinceLast = now - cachedResult.timestamp
+        if (timeSinceLast < GRACE_PERIOD) {
+            console.two(`Returning CACHED VALUE`)
+            return cachedResult.promise
+        }
+    }
+    const newPromise = asyncFunc()
+    _cache[cacheKey] = {
+        timestamp: now,
+        prmise: newPromise
+    }
+    console.purple(`✔ New request!`)
+    try {
+        return await newPromise
+    } catch (e) {
+        throw e
+    }
+}

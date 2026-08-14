@@ -2,7 +2,7 @@
 
 import * as Auth from "../auth/Auth";
 import * as ContentProvider from "../content-providers/ContentProvider";
-
+import * as CharacterData from "../../pages/Other/CharacterCreationCalculator/CharacterData"
 
 export function exportModuleToWindow(moduleName, myModule) {
     window[moduleName] = myModule
@@ -19,4 +19,5 @@ export function exportModuleToWindow(moduleName, myModule) {
 export function exportAllToWindow() {
     exportModuleToWindow('ContentProvider', ContentProvider)
     exportModuleToWindow('Auth', Auth)
+    exportModuleToWindow('CharacterData', CharacterData)
 }

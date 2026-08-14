@@ -1,8 +1,8 @@
 import html2canvas from "html2canvas"
 import { CHARISMA, DEFAULT_STAT_ARRAY, DEXTERITY, HEALTH_REGEN, INITIATIVE, INTELLIGENCE, MAX_HEALTH, MIGHT, MOVEMENT_SPEED } from "../../../services/game-lib/stats-constants"
-import { drawImageOnCanvasAsync, drawImageWithAlphaMask, drawText, drawTextLines, getImageRelativeHeightAtWidth, loadImageAsync, mapObject, mapObjectToArray } from "../../../utils"
+import { drawImageOnCanvasAsync, drawImageWithAlphaMask, drawText, drawTextLines, getImageRelativeHeightAtWidth, isObject, loadImageAsync, mapObject, mapObjectToArray } from "../../../utils"
 
-const CHARACTER_SHEET_SRC = '/Download/Sheet-2026-05-16.png'
+const CHARACTER_SHEET_SRC = '/Download/Sheet-2026-08-16.png'
 const WIDTH = 2480
 
 const STATS_LEFT = 258
@@ -25,14 +25,18 @@ const COMBAT_NOTES_LEFT = 574
 const COMBAT_NOTES_TOP = 1477
 const COMBAT_NOTES_WIDTH = 820
 
-const OTHER_LEFT = 310
+const OTHER_LEFT = 277
 const OTHER_TOP = 2548
-const OTHER_GAP = 448
-const OTHER_WIDTH = 380
+const OTHER_GAP = 378
+const OTHER_WIDTH = 320
 
 const INVENTORY_WIDTH = 1208
-const MANA_LEFT = IMAGE_LEFT + IMAGE_WIDTH / 2
+const MANA_LEFT = WIDTH - 444
 const MANA_TOP = 2624
+
+const SPELL_NOTES_LEFT = WIDTH - 740
+const SPELL_NOTES_WIDTH = 600
+const SPELL_NOTES_TOP = 2712
 
 const GAP_BETWEEN_LINES = 34
 
@@ -60,10 +64,10 @@ const COORDINATES = {
 
     description: { x: DESCRIPTION_LEFT, y: COMBAT_NOTES_TOP },
 
-    other: { x: OTHER_LEFT, y: OTHER_TOP },
+    skills: { x: OTHER_LEFT, y: OTHER_TOP },
 
-    skills: { x: OTHER_LEFT + OTHER_GAP, y: OTHER_TOP },
-
+    other: { x: OTHER_LEFT + OTHER_GAP, y: OTHER_TOP },
+    
     languages: { x: OTHER_LEFT + 2 * OTHER_GAP, y: OTHER_TOP },
 
     inventory: { x: 150, y: 2916 },
@@ -78,6 +82,9 @@ export async function printCharacterOnCanvas({ character: hero, canvas }) {
     if (hero == null || canvas == null) {
         throw `Null canvas (${canvas == null}) or character ${hero == null}`
     }
+
+    console.purple(`Printing character:`)
+    console.log({hero})
 
     canvas.width = 2480
     canvas.height = 3508
@@ -188,50 +195,65 @@ export async function printCharacterOnCanvas({ character: hero, canvas }) {
             ...options
         })
 
-        if (hero.allCombatBonuses != null) {
-            const combatBonusesText = [...(hero.allCombatBonuses || []), ...(hero.manualCombatExtras || [])].join('\n')
-            const weaponsYDiff = weaponDrawY - COMBAT_NOTES_TOP
-            const extraPixelsNeeded = GAP_BETWEEN_LINES - (weaponsYDiff % GAP_BETWEEN_LINES)
+        
+        const asStringArray = x => isObject(x)? mapObjectToArray(x, (key, value) => `${value} ${key}`): Array.isArray(x)? x: []
+        const boxesTexts = hero.boxes.map(boxObj => asStringArray(boxObj).filter(text => text.trim().length > 0).join('\n'))
+        
+        const startPos = {...COORDINATES.skills}
+        for (let i = 0; i < boxesTexts.length; i++) {
+            const text = boxesTexts[i]
             drawTextLines({
-                text: combatBonusesText,
-                width: COMBAT_NOTES_WIDTH,
-                x: COORDINATES.combatNotes.x,
-                y: weaponDrawY + extraPixelsNeeded + GAP_BETWEEN_LINES - 3,
-                ...options
-            })
-        }
-
-        if (hero.extras != null) {
-            const extrasText = hero.extras?.join('\n')
-            drawTextLines({
-                text: extrasText,
+                text,
                 width: OTHER_WIDTH,
-                ...COORDINATES.other,
+                x: startPos.x + i * OTHER_GAP,
+                y: startPos.y,
                 ...options,
-                textAlign: 'center',
+                textAlign: 'center'
             })
         }
 
-        if (hero.skillBonuses != null) {
-            const skillBonuses = mapObjectToArray(hero.skillBonuses, (key, value) => `${value} ${key}`).join('\n')
-            console.log({skillBonuses, hero})
-            drawTextLines({
-                text: skillBonuses,
-                width: OTHER_WIDTH,
-                ...COORDINATES.skills,
-                ...options,
-                textAlign: 'center',
-            })
-        }
+        // if (hero.skillBonuses != null) {
+        //     const skillBonuses = mapObjectToArray(hero.skillBonuses, (key, value) => `${value} ${key}`).join('\n')
+        //     console.log({skillBonuses, hero})
+        //     drawTextLines({
+        //         text: skillBonuses,
+        //         width: OTHER_WIDTH,
+        //         ...COORDINATES.skills,
+        //         ...options,
+        //         textAlign: 'center',
+        //     })
+        // }
+        // if (hero.allCombatBonuses != null) {
+        //     const combatBonusesText = [...(hero.allCombatBonuses || []), ...(hero.manualCombatExtras || [])].join('\n')
+        //     const weaponsYDiff = weaponDrawY - COMBAT_NOTES_TOP
+        //     const extraPixelsNeeded = GAP_BETWEEN_LINES - (weaponsYDiff % GAP_BETWEEN_LINES)
+        //     drawTextLines({
+        //         text: combatBonusesText,
+        //         width: COMBAT_NOTES_WIDTH,
+        //         x: COORDINATES.combatNotes.x,
+        //         y: weaponDrawY + extraPixelsNeeded + GAP_BETWEEN_LINES - 3,
+        //         ...options
+        //     })
+        // }
 
-        const languagesText = hero.languages.join('\n')
-        drawTextLines({
-            text: languagesText,
-            width: 900,
-            ...COORDINATES.languages,
-            ...options,
-            textAlign: 'center',
-        })
+        // if (hero.extras != null) {
+        //     const extrasText = hero.extras?.join('\n')
+        //     drawTextLines({
+        //         text: extrasText,
+        //         width: OTHER_WIDTH,
+        //         ...COORDINATES.other,
+        //         ...options,
+        //         textAlign: 'center',
+        //     })
+        // }
+        // const languagesText = hero.languages.join('\n')
+        // drawTextLines({
+        //     text: languagesText,
+        //     width: 900,
+        //     ...COORDINATES.languages,
+        //     ...options,
+        //     textAlign: 'center',
+        // })
 
         const spellNotes = hero
             .spellsIgnored
@@ -239,8 +261,9 @@ export async function printCharacterOnCanvas({ character: hero, canvas }) {
             ?.join('\n')
         drawTextLines({
             text: spellNotes,
-            width: IMAGE_WIDTH,
-            ...COORDINATES.spellNotes,
+            width: SPELL_NOTES_WIDTH,
+            x: SPELL_NOTES_LEFT,
+            y: SPELL_NOTES_TOP,
             ...options,
             textAlign: 'left',
         })

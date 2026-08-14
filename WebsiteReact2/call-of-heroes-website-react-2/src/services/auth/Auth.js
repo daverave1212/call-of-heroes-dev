@@ -5,6 +5,7 @@ import { getLocalStorageJSON, isSetFreeAsync, setLocalStorageJSON, useLocalStora
 import { existsMyDocInCollection, getMyDocInCollection, setMyDocInCollection } from "../online-database/Database";
 import defaultPublicUserDataMap from './default-public-user-data-map.json'
 import { maybeWakeServer } from "../backend-services/wake-server";
+import { showToast } from "../dom/toaster";
 
 let userSets = null
 export const getUserState = () => getLocalStorageJSON('currentUserData')
@@ -20,14 +21,22 @@ const authChangedListeners = {
         if (newUserData == null) {
             return
         }
+        console.orange(`Ensuring user ${newUserData?.name} has public user data...`)
         const iHaveUserData = await existsMyDocInCollection('public-user-data')
         if (iHaveUserData) {
+            console.orange(`  I do!`)
             return
         }
+        console.orange(`  I do NOT HAVE IT!`)
         const myUserData = {...defaultPublicUserDataMap, ...{
             email: newUserData.email
         }}
-        await setMyDocInCollection('public-user-data', myUserData)
+        try {
+            await setMyDocInCollection('public-user-data', myUserData)
+        } catch (e) {
+            showToast(`Failed to set public-user-data!`, 'red')
+            console.error(e)
+        }
     },
 }
 
@@ -47,11 +56,10 @@ firebaseAuth.onAuthChanged(async user => {
             idToken
         }
     }
-    console.purple(`Auth changed! ${newUserData ?? newUserData.name}`)
     setLocalStorageJSON('currentUserData', newUserData)
     for (const id of Object.keys(authChangedListeners)) {
         const func = authChangedListeners[id]
-        func(newUserData)
+        await func(newUserData)
     }
 
     // Make sure the user has public-user-data
@@ -79,9 +87,7 @@ export function useIsLoggedIn(uniqueLocationID) {
 }
 
 export async function login() {
-    console.log(`  Auth.login`)
     const result = await firebaseAuth.loginWithGoogle()
-    console.log({result})
     return result
 }
 
@@ -115,19 +121,17 @@ export async function getMyOwnedSetsAsync() {
 
     const existsPrivateUserData = await existsMyDocInCollection('private-user-data')
     if (!existsPrivateUserData) {
-        console.warn(`Currently logged user does not have a private-user-data.`)
+        console.warn(`WARNING: Currently logged user ${getUserState()?.name} does not have a private-user-data.`)
         return []
     }
 
     const myPrivateData = await getMyDocInCollection('private-user-data')
-    console.log({myPrivateData})
     const mySets = myPrivateData?.ownedProducts ?? {}
 
     return mySets
 }
 export async function doIOwnSetAsync(setName) {
     const ownedSets = await getMyOwnedSetsAsync()
-    console.log({ownedSets})
     return setName in ownedSets
 }
 export async function isSetUnavailableAsync(setName) {

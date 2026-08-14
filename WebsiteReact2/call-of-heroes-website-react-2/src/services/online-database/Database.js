@@ -1,4 +1,5 @@
 
+import { withAntiSpamCache } from '../anti-spam-cache/anti-spam-cache'
 import { getUserState, isLoggedIn } from '../auth/Auth'
 import * as firebaseDatabase from '../Firebase/FirebaseDatabase'
 
@@ -26,7 +27,7 @@ export async function getMyDocInCollection(collectionName) {
 export async function existsMyDocInCollection(collectionName) {
     assertLoggedIn()
     const userState = getUserState()
-    return firebaseDatabase.existsDocument(collectionName, userState.id)
+    return await withAntiSpamCache('collectionName', 'exists', userState?.name, async () => await firebaseDatabase.existsDocument(collectionName, userState.id))
 }
 export async function getDocInCollection(collectionName, docId) {
     assertLoggedIn()

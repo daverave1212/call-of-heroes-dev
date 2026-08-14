@@ -66,35 +66,37 @@ function MegaDropdown({ currentlyOpenSubnav, isBurgerClicked }) {
   return (
     <div className={`mega-dropdown landscape-only`}>
 
-      { NAV_CONFIG.filter(config => config.children != null).map(({ name, children }) =>
-          <MegaDropdownMenu key={name} title={name}>            
-            { children.map(({ name, children, isGrouping }) => (
-              
-              isGrouping? (
-                <div key={name} className='subnav-section'>
-                  { children.map(({ name, children }) => (
-                    <div key={name}>
-                      <h4>{name}</h4>
-                      <div className='subnav-title-underline'></div>
-                      <div className='flex column'>
-                        { children.map(config => <NavItem key={config.name} config={config} className="subnav-section-item"/>)}
-                      </div>    
-                    </div>
+      { NAV_CONFIG.filter(config => config.children != null).map(({ name, children }, i) =>
+          <div data-key={`MegaDropdownMenu-${i}`} key={`MegaDropdownMenu-${i}`}>
+            <MegaDropdownMenu title={name}>            
+              { children.map(({ name, children, isGrouping }, i) => (
+                
+                isGrouping? (
+                  <div key={`${name}-${i}`} className='subnav-section'>
+                    { children.map(({ name, children }) => (
+                      <div key={name}>
+                        <h4>{name}</h4>
+                        <div className='subnav-title-underline'></div>
+                        <div className='flex column'>
+                          { children.map(config => <NavItem key={config.name} config={config} className="subnav-section-item"/>)}
+                        </div>    
+                      </div>
 
-                  )) }
-                </div>
-              ) : (
-                <div key={name} className='subnav-section'>
-                  <h4>{name}</h4>
-                  <div className='subnav-title-underline'></div>
-                  <div className='flex column'>
-                    { children.map(config => <NavItem key={config.name} config={config} className="subnav-section-item"/>)}
+                    )) }
                   </div>
-                </div>
-              )
-              
-            )) }
-          </MegaDropdownMenu>
+                ) : (
+                  <div key={`${name}-${i}`} className='subnav-section'>
+                    <h4>{name}</h4>
+                    <div className='subnav-title-underline'></div>
+                    <div className='flex column'>
+                      { children.map(config => <NavItem key={config.name} config={config} className="subnav-section-item"/>)}
+                    </div>
+                  </div>
+                )
+                
+              )) }
+            </MegaDropdownMenu>
+          </div>
       )}
       
     </div>)
@@ -231,14 +233,14 @@ function NavPortraitNode({ config }) {
 
     if (isGrouping) {
       return <>
-        { children.map(childConfig => <NavPortraitNode key={`p-${childConfig.name}`} config={childConfig}/>)}
+        { children.map((childConfig, i) => <NavPortraitNode key={`p-${childConfig.name}-${i}`} config={childConfig}/>)}
       </>
     }
 
     return (
         <Accordion title={name} className="nav-accordion">
           <div className='nav-accordion-content'>
-            { children.map(childConfig => <NavPortraitNode key={`p-${childConfig.name}`} config={childConfig}/>) }
+            { children.map((childConfig, i) => <NavPortraitNode key={`p-${childConfig.name}-${i}`} config={childConfig}/>) }
           </div>
         </Accordion>
     )

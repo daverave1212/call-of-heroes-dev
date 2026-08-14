@@ -9,6 +9,7 @@ import Selector from "../../../components/Selector/Selector"
 import { SelectorsByColumns } from "../Abilities"
 import { getSelectedAbilityNames, toggleSpellMaybePopup, useSectionRaceName, useSelectedAbilityNames } from "./CharacterData"
 import { getAllRaceNames, raceExists } from "../../../services/content-providers/RaceProvider"
+import { showToast } from "../../../services/dom/toaster"
 
 
 
@@ -29,13 +30,14 @@ export default function SectionRace({ openPopup }) {
         const mySpells = getSelectedAbilityNames().map(name => getAllSpellsByName()[name])
         const spellIsFromMyRace = s => s?.Origin?.includes(selectedRaceName)
         const hasTalentsFromThisRace = mySpells.some(spellIsFromMyRace)
-        console.log({ mySpells, hasTalentsFromThisRace })
+
         if (hasTalentsFromThisRace) {
-            const wantsToResetRaceTalents = confirm("You are changing your Race! Reset the selected Race Talents?")
-            if (wantsToResetRaceTalents) {
-                const mySpellsNoRaceTalents = mySpells.filter(s => !spellIsFromMyRace(s))
-                setSelectedSpellNames(mySpellsNoRaceTalents.map(s => s.Name))
-            }
+            showToast(`Note: You still have ${selectedRaceName} Talents selected.`)
+            // const wantsToResetRaceTalents = confirm("You are changing your Race! Reset the selected Race Talents?")
+            // if (wantsToResetRaceTalents) {
+            //     const mySpellsNoRaceTalents = mySpells.filter(s => !spellIsFromMyRace(s))
+            //     setSelectedSpellNames(mySpellsNoRaceTalents.map(s => s.Name))
+            // }
         }
         setSelectedRaceName(raceName)
     }

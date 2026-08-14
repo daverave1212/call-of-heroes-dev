@@ -335,7 +335,8 @@ export async function drawQGTextOnCanvas(canvas, text, sizeMultiplier=1) {
                 const extraWidth = (isCapital? getImageRelativeWidthAtHeight(img, letterHeight) : (img.naturalWidth * sizeMultiplier))
                 widthSoFar += extraWidth
             } catch (e) {
-                console.error(`An error occured for getTextWidth("${text}") at i=${i} letter=${letter}; isCapital=${isCapital} letterHeight=${letterHeight}`)
+                // TODO: Fix this silent error
+                // console.error(`An error occured for getTextWidth("${text}") at i=${i} letter=${letter}; isCapital=${isCapital} letterHeight=${letterHeight}`)
                 throw e
             }
 

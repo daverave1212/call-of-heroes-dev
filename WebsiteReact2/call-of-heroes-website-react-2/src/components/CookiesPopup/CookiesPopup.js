@@ -50,9 +50,9 @@ export default function CookiesPopup() {
                     <p>Help us improve QuestGuard so we can provide the best version of our game!</p>
                 </div>
                 <div className='flex-1 center-content'>
-                    <label class="toggle">
+                    <label className="toggle">
                         <input type="checkbox" onChange={onAnalyticsToggle} value={cookiesState.preferences.analytics}/>
-                        <span class="slider"></span>
+                        <span className="slider"></span>
                     </label>
                 </div>
             </div>
