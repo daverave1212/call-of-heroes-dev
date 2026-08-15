@@ -199,16 +199,23 @@ export async function printCharacterOnCanvas({ character: hero, canvas }) {
         const asStringArray = x => isObject(x)? mapObjectToArray(x, (key, value) => `${value} ${key}`): Array.isArray(x)? x: []
         const boxesTexts = hero.boxes.map(boxObj => asStringArray(boxObj).filter(text => text.trim().length > 0).join('\n'))
         
+        let extraSpellNotes = ''
         const startPos = {...COORDINATES.skills}
         for (let i = 0; i < boxesTexts.length; i++) {
             const text = boxesTexts[i]
+            const color = i == 1? 'red': 'black'
+            if (i == 3 && text.length > 30) {
+                extraSpellNotes = text
+                continue
+            }
             drawTextLines({
                 text,
                 width: OTHER_WIDTH,
                 x: startPos.x + i * OTHER_GAP,
                 y: startPos.y,
                 ...options,
-                textAlign: 'center'
+                textAlign: 'center',
+                color
             })
         }
 
@@ -258,7 +265,7 @@ export async function printCharacterOnCanvas({ character: hero, canvas }) {
         const spellNotes = hero
             .spellsIgnored
             ?.map(spell => spell.Name + (spell.ShortNotes == null? '': `: ${spell.ShortNotes}`))
-            ?.join('\n')
+            ?.join('\n') + '\n' + extraSpellNotes
         drawTextLines({
             text: spellNotes,
             width: SPELL_NOTES_WIDTH,

@@ -160,8 +160,8 @@ export default function MyCharacter() {
             extras,
             spellsIgnored,
             boxes: [
-                skillBonusesPositive,
-                skillBonusesNegative,
+                Object.keys(skillBonusesPositive),
+                Object.keys(skillBonusesNegative),
                 [...character.languages, ...manualNormalExtras],
                 allCombatExtras
             ]
