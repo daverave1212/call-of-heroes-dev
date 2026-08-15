@@ -1,6 +1,6 @@
 
 import { withAntiSpamCache } from '../anti-spam-cache/anti-spam-cache'
-import { getUserState, isLoggedIn } from '../auth/Auth'
+import { awaitAuth, getUserState, isAuthReadyPromise, isLoggedIn } from '../auth/Auth'
 import * as firebaseDatabase from '../Firebase/FirebaseDatabase'
 
 // NOTE: All documents in all collections have their id = user.id
@@ -16,23 +16,25 @@ function assertLoggedIn() {
 // ------------- General Use Case API -------------
 export async function setMyDocInCollection(collectionName, data) {
     assertLoggedIn()
+    await isAuthReadyPromise
     const userState = getUserState()
     return await firebaseDatabase.setDocument(collectionName, userState.id, data)
 }
 export async function getMyDocInCollection(collectionName) {
     assertLoggedIn()
+    await isAuthReadyPromise
     const userState = getUserState()
     return await firebaseDatabase.getDocument(collectionName, userState.id)
 }
 export async function existsMyDocInCollection(collectionName, userState=null) {
+    await isAuthReadyPromise
     assertLoggedIn()
-    console.orange(`2. Assert passed in existsMyDocInCollection`)
     userState = userState ?? getUserState()
-    console.orange(`3. User state:`)
-    console.log({...userState})
+    // console.log({...userState})
     console.orange(`TODO: There is an issue with this withAntiSpamCache! With the normal await firebase... it works!`)
-    const result = await withAntiSpamCache('collectionName', 'exists', userState?.name, async () => await firebaseDatabase.existsDocument(collectionName, userState.id))
-    console.orange(`4. Got a result with anti-spam!`)
+    console.orange(`TODO: The issue is a lot of existsMyDocInCollection is called before firebase auth code. So I need to force firebase auth to be first somehow (import it at the top?)`)
+    const result = await firebaseDatabase.existsDocument(collectionName, userState.id)
+    // const result = await withAntiSpamCache('collectionName', 'exists', userState?.name, async () => await firebaseDatabase.existsDocument(collectionName, userState.id))
     return result
 }
 export async function getDocInCollection(collectionName, docId) {

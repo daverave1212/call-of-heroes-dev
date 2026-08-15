@@ -392,6 +392,20 @@ export function useConstTotalAttributes() {
     const attributes = calculateAllAtributes({raceName, className, level, totalStats, bonuses, specialBonusNames})
     return attributes
 }
+export function useConstAllMyWeaponsAndArmors() {
+    const [weaponNames] = useWeapons()
+    const [armorNames] = useArmors()
+
+    const allMyWeapons = weaponNames.map(name => getAllWeaponsByName()[name])
+    const allMyArmors = armorNames.map(name => getAllArmorsByName()[name])
+    const all = [...allMyWeapons, ...allMyArmors]
+    const allFiltered = all.filter(obj => obj != null)
+    if (all.length != allFiltered.length) {
+        console.log({allNames: [...weaponNames, ...armorNames], allFiltered})
+        console.warn(`Not all items or Abilities were found!`)
+    }
+    return allFiltered
+}
 export function useConstAllMyAbilities() {
     let [selectedAbilityNames] = useSelectedAbilityNames()
     let [selectedRaceName] = useSectionRaceName()
@@ -454,13 +468,10 @@ export function useConstAllSpecialBonusesNames() {
 }
 export function useConstAllAbilitiesAndItemsExtras() {
     const allMyRaceAndClassSpells = useConstAllMyAbilities()
-    const [weaponNames] = useWeapons()
-    const [armorNames] = useArmors()
-
-    const allMyWeapons = weaponNames.map(name => getAllWeaponsByName()[name])
-    const allMyArmors = armorNames.map(name => getAllArmorsByName()[name])
-
-    return getExtrasFromSpells([...allMyWeapons, ...allMyArmors, ...allMyRaceAndClassSpells])
+    const allWeaponsAndArmors = useConstAllMyWeaponsAndArmors()
+    const all = [...allMyRaceAndClassSpells, ...allWeaponsAndArmors]
+    console.log({all})
+    return getExtrasFromSpells(all)
 }
 export function useConstManuallyAddedExtrasFromAbilities() {
     const allMyRaceAndClassSpells = useConstAllMyAbilities()

@@ -70,6 +70,8 @@ function MyCharacters() {
     let [currentCharacterId, setCurrentCharacterId] = useCurrentCharacterId()
 
     const doIOwnCoreSet = useDoIOwnSet('core')
+
+    console.log({doIOwnCoreSet})
     const cantMakeMore = !doIOwnCoreSet && myCharacters.length >= 5
 
     const selectorData = myCharacters.map(char => ({

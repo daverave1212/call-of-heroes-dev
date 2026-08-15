@@ -26,7 +26,7 @@ export default function ManySpells({ id, className, spells, spellStyle, descript
         shouldSort = true
     }
 
-    spells = Array.isArray(spells) ? spells : spellsFromObject(spells)
+    spells = (Array.isArray(spells) ? spells : spellsFromObject(spells)).filter(s => s != null && s.Name != null)   // TODO: Sometimes subspells come here with no name. How does that happen?
     
     const wideSpells = spells.filter(spell => spell.IsWide)
     const nonWideSpells = spells.filter(spell => !spell.IsWide)

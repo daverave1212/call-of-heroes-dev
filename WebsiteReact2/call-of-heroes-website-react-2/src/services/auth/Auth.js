@@ -6,6 +6,7 @@ import { existsMyDocInCollection, getMyDocInCollection, setMyDocInCollection } f
 import defaultPublicUserDataMap from './default-public-user-data-map.json'
 import { maybeWakeServer } from "../backend-services/wake-server";
 import { showToast } from "../dom/toaster";
+import * as firebaseDatabase from '../Firebase/FirebaseDatabase'
 
 let userSets = null
 export const getUserState = () => getLocalStorageJSON('currentUserData')
@@ -22,7 +23,8 @@ const authChangedListeners = {
             return
         }
         console.orange(`1. Ensuring user ${newUserData?.name} has public user data...`)
-        const iHaveUserData = await existsMyDocInCollection('public-user-data', newUserData)
+        const iHaveUserData = await firebaseDatabase.existsDocument('public-user-data', newUserData.id)
+        // const iHaveUserData = await existsMyDocInCollection('public-user-data', newUserData)
         if (iHaveUserData) {
             console.orange(`5. I do!`)
             return
@@ -33,37 +35,44 @@ const authChangedListeners = {
         }}
         const _newUserDataBackup = {...newUserData}
         try {
-            await setMyDocInCollection('public-user-data', myUserData)
+            await firebaseDatabase.setDocument('public-user-data', newUserData.id, myUserData)
+            // await setMyDocInCollection('public-user-data', myUserData)
         } catch (e) {
             showToast(`Failed to set public-user-data!`, 'red')
             console.orange(`6. Fail`)
             console.log({_newUserDataBackup})
             console.error(e)
         }
-    },
+    }
 }
 
-firebaseAuth.onAuthChanged(async user => {
-    // Setup some easy to access localStorage info
-    let newUserData
-    if (user == null) {
-        newUserData = null
-    } else {
-        const idToken = await user.getIdToken()
-        newUserData = {
-            id: user.uid,
-            name: user.displayName,
-            token: user.accessToken,
-            email: user.email,
-            idToken
+export const isAuthReadyPromise = new Promise(resolve => {
+    firebaseAuth.onAuthChanged(async user => {
+        // Setup some easy to access localStorage info
+        let newUserData
+        if (user == null) {
+            newUserData = null
+        } else {
+            const idToken = await user.getIdToken()
+            newUserData = {
+                id: user.uid,
+                name: user.displayName,
+                token: user.accessToken,
+                email: user.email,
+                idToken
+            }
         }
-    }
-    setLocalStorageJSON('currentUserData', newUserData)
-    for (const id of Object.keys(authChangedListeners)) {
-        const func = authChangedListeners[id]
-        await func(newUserData)
-    }
+        setLocalStorageJSON('currentUserData', newUserData)
+        for (const id of Object.keys(authChangedListeners)) {
+            const func = authChangedListeners[id]
+            await func(newUserData)
+        }
+        resolve()
+    })
 })
+export async function awaitAuth() {
+    await isAuthReadyPromise
+}
 
 
 export function useAuth(uniqueLocationID) {
@@ -115,7 +124,6 @@ export async function getMyOwnedSetsAsync() {
         console.warn(`WARNING: Currently logged user ${getUserState()?.name} does not have a private-user-data.`)
         return []
     }
-
     const myPrivateData = await getMyDocInCollection('private-user-data')
     const mySets = myPrivateData?.ownedProducts ?? {}
 

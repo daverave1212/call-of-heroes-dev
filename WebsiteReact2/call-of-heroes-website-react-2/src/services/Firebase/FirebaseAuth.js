@@ -43,9 +43,9 @@ const firebaseUserStore = configureStore({
     }
 })
 
-
+let counter = 0
 onAuthStateChanged(auth, user => {
-    console.log(`Changing auth: user null? ${user == null}`)
+    console.log(`Changing auth: user null? ${user == null} (${counter++})`)
     if (user == null) {
         firebaseUserStore.dispatch({ type: 'change', payload: null })
     } else {

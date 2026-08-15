@@ -566,9 +566,6 @@ export function splitSpellsArrayInto2Columns(spellsArray, shouldSort=true, sortC
         const columnToUse = column2Spells.height < column1Spells.height? column2Spells: column1Spells
         columnToUse.push(spell)
         columnToUse.height += spell.Height
-        // console.log([`Added ${spell.Name}`, column1Spells.height, column2Spells.height])
-        if (spellsArray.find(s => s.Name.includes('Shapeshift')) != null) {
-        }
     }
 
     return [column1Spells, column2Spells]
@@ -939,11 +936,20 @@ export function dndMonsterToQGText(text) {
 window.dndMonsterToQGText = dndMonsterToQGText
 
 export function estimteSpellHeight(spell) { // Height as in rem (approximately)
+    if (spell == null) {
+        console.warn(`Gave a null spell to estimteSpellHeight! Returning 10`)
+        return 10
+    }
+    if (spell?.Name == null) {
+        console.log({spell})
+        console.warn(`Spell given to estimteSpellHeight has no name. Printed above.`)
+        return 10
+    }
     const CHARS_PER_LINE = spell.IsSubspell? 60: 55
     if (spell.Height != null) {
         return spell.Height
     }
-    if (spell.Name.includes('Celestine')) {
+    if (spell.Name?.includes('Celestine')) {
         
     }
     const topHeight = 4
