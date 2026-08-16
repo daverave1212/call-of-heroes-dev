@@ -41,7 +41,7 @@ import { QGTitle1 } from '../../pages/Tools/TitleGenerator'
 import { SideMenuFromClass, SideMenuFromRace } from '../SideMenu/SideMenu'
 import Selector from '../Selector/Selector'
 import { toggleSpellForSelectedSpellNames } from '../../pages/Other/CharacterCreationCalculator/CharacterData'
-import { BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP, HEALTH_REGEN, INITIATIVE, INTELLIGENCE, MAX_HEALTH, MOVEMENT_SPEED, normalizeTextWithStats, STAT_LIMITS_TEXT } from '../../services/game-lib/stat-calculations'
+import { BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP, HEALTH_REGEN, INITIATIVE, INTELLIGENCE, MAX_HEALTH, MOVEMENT_SPEED, normalizeTextWithStats } from '../../services/game-lib/stat-calculations'
 import { SelectorsByColumns } from '../../pages/Other/Abilities'
 import ErrorPage from '../ErrorPage/ErrorPage'
 import SetRequiredBanner from '../SetRequiredBanner/SetRequiredBanner'
@@ -347,7 +347,7 @@ export function LevelingUp({ theClass, isCharacterCreationPage=false }) {
                         <br/><br/>
                         The +1 in Any Stat goes up to your Stat Limit:
                         <br/>
-                        {STAT_LIMITS_TEXT}
+                        {U.SYMBOLS.StatLimit.text}
                         
                         { theClass.Specs != null && <>
                             <br/><br/>
@@ -376,7 +376,7 @@ export function SpecialManaDescriptionNormal() {
         If you want to use Mana inbetween encounters, you spend Mana normally and, as specified, it replenishes 10 minutes after the next combat encounter.
     </p>
 }
-export function NoManaDescription() {
+function NoManaDescription() {
     return <p>
         Unlike other Classes, you do not use Mana, and can't spend it on Abilities. You rely solely on your own Class Abilities and Talents, which are often stronger than usual and may provide more interesting options.
     </p>
@@ -385,8 +385,13 @@ export function NoManaDescription() {
 export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
 
     const hasMana = U.hasClassMana(theClass.Class)
-    const hasSpellcastingType = theClass.Spellcasting?.Type != null
     const title = 'Ability Notes' + (hasMana? ' & Mana': '')
+
+    const rightTitle = theClass.Spellcasting?.Title ?? `${theClass.Class} Abilities`
+    const rightText = theClass.Spellcasting?.Text ?? <>
+        Mana is a resource you can spend to cast Abilities. Some Abilities have a Mana cost, some don't.
+        All your Mana replenishes inbetween Adventures (e.g. at the start of a new Adventure).
+    </>
 
     function RespecBlock() {
         return <>
@@ -403,29 +408,7 @@ export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
             </p>
         </>
     }
-    function SpellcastingTypeBlock() {
-        return (
-            <div>
-                <PageH3>{theClass.Spellcasting.Type} Abilities</PageH3>
-                
-                { theClass.Spellcasting?.Mana != null? (
-                    theClass.Spellcasting.Type == 'Mana-based'? (
-                        <ManaDescriptionNormal/>
-                    ): (
-                        <SpecialManaDescriptionNormal/>
-                    )
-                ): (
-                    <NoManaDescription/>
-                )}
 
-                {
-                    isCharacterCreationPage == false && (
-                        <p>{ theClass.Spellcasting.Other }</p>    
-                    )
-                }
-            </div>
-        )
-    }
     function ManaBlock() {
         if (!hasMana) {
             console.error(`ERROR: Class ${theClass.Class} has no Mana but rendered ManaBlock!?`)
@@ -453,7 +436,14 @@ export function SpellCasting({ theClass, isCharacterCreationPage=false }) {
                     </div>
                 </Column>
                 <Column>
-                    <SpellcastingTypeBlock/>
+                    <PageH3>{ rightTitle }</PageH3>
+                    <p>{ rightText }</p>
+
+                    {
+                        isCharacterCreationPage == false && (
+                            <p>{ theClass.Spellcasting.Other }</p>    
+                        )
+                    }
                 </Column>
             </TwoColumns>
             

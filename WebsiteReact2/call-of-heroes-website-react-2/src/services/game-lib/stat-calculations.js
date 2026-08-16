@@ -1,7 +1,6 @@
 import { addArrays, addManyObjects, addObjects, calculateString, capitalizeFirstLetter, getAllClasses, isNumber, isString, MANA_BASED_SPELLCASTING, mapObject, SPECIAL_MANA_BASED_SPELLCASTING, stringReplaceAllMany } from "../../utils"
 import { getRaceLocal } from "../content-providers/RaceProvider.js"
 import {
-    STAT_LIMITS_TEXT,
     MIGHT,
     DEXTERITY,
     INTELLIGENCE,

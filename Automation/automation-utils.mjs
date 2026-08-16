@@ -468,7 +468,6 @@ export function validateClass(cls) {
         'Level Up.Every Level.Skill Point',
         'Level Up.Every Level.Any Stat (up to the Stat Limit)',
         'Spellcasting',
-        'Spellcasting.Type',
         'Spellcasting.SpellsOrAbilities',
         'Spellcasting.Change',
         'Starting Abilities',

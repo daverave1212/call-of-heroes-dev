@@ -19,7 +19,7 @@ import SpellFonts from './databases/SpellFonts.json'
 import Feats from './databases/Feats.json'
 import ClassAndRaceAbilities from './databases/ClassAndRaceAbilities.json'
 import { getChoiceAbilitiesObjects, setChoiceAbilitiesObjects } from "./pages/Other/CharacterCreationCalculator/CharacterData"
-import { MAIN_STAT_ALTERNATIVES_MAP, STAT_LIMITS_TEXT, STAT_SYMBOLS } from "./services/game-lib/stat-calculations"
+import { MAIN_STAT_ALTERNATIVES_MAP, STAT_SYMBOLS } from "./services/game-lib/stat-calculations"
 import Spell, { VALID_SPELL_EFFECTS } from "./components/Spell/Spell"
 import { VALID_SPELL_TOP_STATS } from './components/Spell/HelperComponents/SpellTopStats'
 import QuestGuardConfig from './QuestGuardConfig.json'
@@ -1968,7 +1968,6 @@ export const SYMBOLS = {
         )
     },
 
-    'StatLimit': { tag: 'span', text: STAT_LIMITS_TEXT },
     ...STAT_SYMBOLS,
     ...STATIC_SYMBOLS,
 

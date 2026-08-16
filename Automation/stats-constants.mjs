@@ -1,5 +1,7 @@
 
-export const STAT_LIMITS_TEXT = "Your Stat limit (and non-combat Skill limit) is 2 and increases by 1 every 2 Levels (it's 2 at Levels 1-2, 3 at Levels 3-4, 4 at Levels 5-6, etc)."
+// No imports!
+
+export const STAT_LIMITS_TEXT = ""
 
 export const MIGHT = 'Might'
 export const DEXTERITY = 'Instinct'
