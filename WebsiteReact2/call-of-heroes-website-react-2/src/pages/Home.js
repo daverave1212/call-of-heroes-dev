@@ -31,7 +31,7 @@ export default function() {
     <div>
 
       {/* <PromoPopup id="Kickstarter-Promo-Popup">
-          <p className='home-text-style'>
+          <p className='hero-text'>
             Coming to Kickstarter in December 2024!
           </p>
         <button onClick={() => {
@@ -50,7 +50,7 @@ export default function() {
 
         <div className='hero-content'>
           <img className='hero-logo-img' src='/LandingPage/QuestGuardLogo.png'/>
-          <p className='home-text-style' style={{textAlign: 'center'}}>
+          <p className='hero-text' style={{textAlign: 'center'}}>
             A TTRPG alternative that plays like a tactical video game:<br/>
             <BoldPurple>Fast</BoldPurple>, <BoldPurple>quirky</BoldPurple>, and surprisingly easy (<BoldPurple>to break the game</BoldPurple>)!
             {/* Speedrun boss fights, stack combos, and break the game in an RPG build for today's generation. */}
@@ -76,7 +76,7 @@ export default function() {
           <img src='/LandingPage/Featuring.png' style={{
             width: '60%'
           }}/>
-          <p className='home-text-style'>
+          <p className='hero-text'>
             Here's what to look out for:
           </p>
           <ul className='index-advantages-ul-large'>

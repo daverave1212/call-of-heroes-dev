@@ -1,13 +1,14 @@
 
 import { withAntiSpamCache } from '../anti-spam-cache/anti-spam-cache'
 import { awaitAuth, getUserState, isAuthReadyPromise, isLoggedIn } from '../auth/Auth'
+import { showToast } from '../dom/toaster'
 import * as firebaseDatabase from '../Firebase/FirebaseDatabase'
 
 // NOTE: All documents in all collections have their id = user.id
 
 function assertLoggedIn() {
     if (isLoggedIn() == false) {
-        alert('Unauthorized')
+        showToast('You need to be logged in to do that.', 'red')
         throw 'Unauthorized - you need to be logged in to do this.'
     }
 }
@@ -33,8 +34,9 @@ export async function existsMyDocInCollection(collectionName, userState=null) {
     // console.log({...userState})
     console.orange(`TODO: There is an issue with this withAntiSpamCache! With the normal await firebase... it works!`)
     console.orange(`TODO: The issue is a lot of existsMyDocInCollection is called before firebase auth code. So I need to force firebase auth to be first somehow (import it at the top?)`)
-    const result = await firebaseDatabase.existsDocument(collectionName, userState.id)
-    // const result = await withAntiSpamCache('collectionName', 'exists', userState?.name, async () => await firebaseDatabase.existsDocument(collectionName, userState.id))
+    // const result = await firebaseDatabase.existsDocument(collectionName, userState.id)
+    const result = await withAntiSpamCache('collectionName', 'exists', userState?.name, async () => await firebaseDatabase.existsDocument(collectionName, userState.id))
+    console.teal(`  existsMyDocInCollection: ${result}`)
     return result
 }
 export async function getDocInCollection(collectionName, docId) {

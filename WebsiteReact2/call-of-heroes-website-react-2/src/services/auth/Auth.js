@@ -131,7 +131,9 @@ export async function getMyOwnedSetsAsync() {
 }
 export async function doIOwnSetAsync(setName) {
     const ownedSets = await getMyOwnedSetsAsync()
-    return setName in ownedSets
+    const result = setName in ownedSets
+    console.teal(`doIOwnSetAsync(${setName}): ${result}`)
+    return result
 }
 export async function isSetUnavailableAsync(setName) {
     return !(await doIOwnSetAsync(setName))

@@ -14,13 +14,13 @@ export async function withAntiSpamCache(collection, operation, paramsHash, async
         const cachedResult = _cache[cacheKey]
         const timeSinceLast = now - cachedResult.timestamp
         if (timeSinceLast < GRACE_PERIOD) {
-            return cachedResult.promise
+            return await cachedResult.promise
         }
     }
     const newPromise = asyncFunc()
     _cache[cacheKey] = {
         timestamp: now,
-        prmise: newPromise
+        promise: newPromise
     }
     try {
         return await newPromise

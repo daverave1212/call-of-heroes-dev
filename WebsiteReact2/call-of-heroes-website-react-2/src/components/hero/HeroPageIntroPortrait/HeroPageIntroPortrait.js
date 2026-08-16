@@ -40,7 +40,7 @@ export default function HeroPageIntroPortrait() {
             </div>
   
             <div className={`hero-intro-description ${animationClasses.desc}`}>
-              <p className='home-text-style' style={{textAlign: 'center'}}>
+              <p className='hero-text' style={{textAlign: 'center'}}>
                 A gamified tabletop RPG for this generation of video gamers. Battle, explore and host games for the modern world.
               </p>
               <HeroButton className={animationClasses.button} isCustomContent={true}> <a href="#Home-Advantages">Show Me</a> </HeroButton>

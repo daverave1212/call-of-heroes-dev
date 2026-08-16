@@ -10,6 +10,8 @@ import { isString, isStringJSON, isStringYAML } from "../../utils";
 
 export default function AdminPage({}) {
     
+    return <div>WIP</div>
+
     function setResult(textOrJson) {
         const text = isString(textOrJson)? textOrJson: JSON.stringify(textOrJson, null, 2)
         document.querySelector('textarea').value = text
@@ -21,7 +23,8 @@ export default function AdminPage({}) {
         if (isStringJSON(textareaValue)) {
             jsonText = textareaValue
         } else if (isStringYAML(textareaValue)) {
-            const yaml = await import('https://esm.sh/js-yaml').then(m => m.default)
+            // const yaml = await import('https://esm.sh/js-yaml').then(m => m.default)
+            const yaml = {}
             const jsonObj = yaml.load(textareaValue)
             jsonText = JSON.stringify(jsonObj)
         }
