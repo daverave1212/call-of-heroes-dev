@@ -12,7 +12,7 @@ import Ribbon from '../Ribbon/Ribbon'
 import Icon from '../Icon'
 import EffectTable from '../TableNormal/EffectTable'
 import QuestGuardConfig from '../../QuestGuardConfig.json'
-import { SpellTop } from './HelperComponents/SpellTop'
+import { ItemTop, SpellTop } from './HelperComponents/SpellTop'
 
 export const VALID_SPELL_EFFECTS = [
     'Damage', 'PreEffectGreen',
@@ -222,7 +222,16 @@ export default function Spell({
             </div> }
 
             <div className='content'> {/* This has CSS to be perfectly in the bounds of the borders and banner */}
-                { showTop != false && (<>
+                { showTop != false && isItem? (
+                    <>
+                        <SpellTop
+                            hasVariants={hasVariants && canChangeVariant} variantIndex={variantIndex} Variants={Variants}
+                            onIconClick={onIconClick} onIconRightClick={onIconRightClick} iconPath={IconPath} hasIcon={hasIcon}
+                            DisplayName={DisplayName} Name={Name} showTopStats={showTopStats}
+                            A={A} spell={parsedSpell}
+                        />
+                    </>
+                ): (<>
                     <SpellTop
                         hasVariants={hasVariants && canChangeVariant} variantIndex={variantIndex} Variants={Variants}
                         onIconClick={onIconClick} onIconRightClick={onIconRightClick} iconPath={IconPath} hasIcon={hasIcon}
