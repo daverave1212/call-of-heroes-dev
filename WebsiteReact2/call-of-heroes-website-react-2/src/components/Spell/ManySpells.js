@@ -13,7 +13,7 @@ export const SpellSortTypes = {
     ACTION_POINTS: 'action points'
 }
 
-export default function ManySpells({ id, className, spells, spellStyle, description, selectedSpellNames, onSpellClick, spellsMetadata={}, areItems=false, buttonText, childrenLeft, childrenRight, shouldSort=true, shouldAlignByHeight=true, hasCopyButton=false, sortCriteria=null, onXClick=null }) {
+export default function ManySpells({ id, className, spells, spellStyle, description, selectedSpellNames, onSpellClick, spellsMetadata={}, areItems=false, buttonText, childrenLeft, childrenRight, shouldSort=true, shouldAlignByHeight=true, hasCopyButton=false, sortCriteria=null, onXClick=null, nColumns=2 }) {
 
     if (hasCopyButton && id == null) {
         console.error(`ManySpells has copy button but id is ${id}`)
@@ -27,10 +27,12 @@ export default function ManySpells({ id, className, spells, spellStyle, descript
     }
 
     spells = (Array.isArray(spells) ? spells : spellsFromObject(spells)).filter(s => s != null && s.Name != null)   // TODO: Sometimes subspells come here with no name. How does that happen?
+    nColumns = nColumns ?? areItems? /*3*/ 2: 2
     
     const wideSpells = spells.filter(spell => spell.IsWide)
     const nonWideSpells = spells.filter(spell => !spell.IsWide)
-    const [column1Spells, column2Spells] = shouldAlignByHeight? splitSpellsArrayInto2Columns(nonWideSpells, shouldSort, sortCriteria): splitArrayEvenly(nonWideSpells)
+    const columnsOfSpells = shouldAlignByHeight? splitSpellsArrayInto2Columns(nonWideSpells, shouldSort, sortCriteria, nColumns): splitArrayEvenly(nonWideSpells, nColumns)
+    // const [column1Spells, column2Spells, column3Spells] = shouldAlignByHeight? splitSpellsArrayInto2Columns(nonWideSpells, shouldSort, sortCriteria, nColumns): splitArrayEvenly(nonWideSpells, nColumns)
 
     const isSelected = spell => selectedSpellNames != null && spell != null && selectedSpellNames.includes(spell.Name)
     
@@ -61,15 +63,11 @@ export default function ManySpells({ id, className, spells, spellStyle, descript
     function SpellColumns() {
         return (
             <TwoColumns className={className}>
-                <Column>
-                    <SpellsInColumn spells={column1Spells}/>
-                    { childrenLeft }
-                </Column>
-                <Column>
-                    <SpellsInColumn spells={column2Spells}/>
-                    { description != null && (<SADescription description={description}/>) }
-                    { childrenRight }
-                </Column>
+                { columnsOfSpells.map((spellArr, i) => <Column>
+                    <SpellsInColumn spells={spellArr}/>
+                    { i == 0 && childrenLeft }
+                    { i == columnsOfSpells.length - 1 && childrenRight }
+                </Column>) }
             </TwoColumns>
         )
     }

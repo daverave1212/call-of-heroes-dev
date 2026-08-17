@@ -547,7 +547,7 @@ const SORT_CRITERIA_SORT_FUNCS = {
         )
     ).reverse()
 }
-export function splitSpellsArrayInto2Columns(spellsArray, shouldSort=true, sortCriteria) {
+export function splitSpellsArrayInto2Columns(spellsArray, shouldSort=true, sortCriteria, nColumns=2) {
     if (shouldSort && sortCriteria == null) {
         sortCriteria = SpellSortTypes.HEIGHT
     }
@@ -556,19 +556,26 @@ export function splitSpellsArrayInto2Columns(spellsArray, shouldSort=true, sortC
     const spellsSorted = shouldSort? SORT_CRITERIA_SORT_FUNCS[sortCriteria](spells): spells
     // const spellsSorted = shouldSort? (sortObjectArrayByKey(spells, 'Height').reverse()): spells
 
-    let column1Spells = []
-    let column2Spells = []
+    let columnsOfSpells = range(0, nColumns).map(_ => [])
+    for (const column of columnsOfSpells) {
+        column.height = 0
+    }
+
+    // let column1Spells = []
+    // let column2Spells = []
     
-    column1Spells.height = 0
-    column2Spells.height = 0
+    // column1Spells.height = 0
+    // column2Spells.height = 0
 
     for (const spell of spellsSorted) {
-        const columnToUse = column2Spells.height < column1Spells.height? column2Spells: column1Spells
+        const columnIndexToUse = smallestIndex(columnsOfSpells, column => column.height)
+        const columnToUse = columnsOfSpells[columnIndexToUse]
+        // const columnToUse = column2Spells.height < column1Spells.height? column2Spells: column1Spells
         columnToUse.push(spell)
         columnToUse.height += spell.Height
     }
 
-    return [column1Spells, column2Spells]
+    return columnsOfSpells
 }
 export function splitSpellsArrayInto2Columns_OLD(spellsArray, shouldIgnoreAlignment=false) {
     const spells = sortObjectArrayByKey([...spellsArray], 'OrderOnWebsite')
@@ -1400,6 +1407,22 @@ export function getClassMana(classObjOrName) {
 }
 
 // ---------------- Array Utilities ----------------
+export function smallestIndex(arr, func=elem=>elem) {
+    if (arr == null || arr.length == 0) {
+        return 0
+    }
+    let index = 0
+    let smallestFound = func(arr[0])
+    for (let i = 0; i < arr.length; i++) {
+        const elem = arr[i]
+        const value = func(elem)
+        if (value < smallestFound) {
+            smallestFound = value
+            index = i
+        }
+    }
+    return index
+}
 export function isArrayOfObjects(arr) {
     if (!Array.isArray(arr)) {
         return false

@@ -14,6 +14,8 @@ import BottomWaveEffect from '../components/BottomWaveEffect/BottomWaveEffect'
 import HeroPageIntroPortrait from '../components/hero/HeroPageIntroPortrait/HeroPageIntroPortrait'
 import { HeroSection } from './Other/RulesExplained/Learn'
 import AnchorFixer, { AnchorFixerLess } from '../components/AnchorFixer/AnchorFixer'
+import { HeroSlide } from '../components/HeroSlide/HeroSlide'
+import { QGTitle1 } from './Tools/TitleGenerator'
 
 export default function() {
 
@@ -108,6 +110,37 @@ export default function() {
 
 
       <LandingPageSeparator type="8"/>
+
+      <div style={{backgroundColor: 'white'}}>
+        <HeroSlide src="/Classes/Swashbuckler.png">
+            <QGTitle1 text="Slice and Dice" height={60}/>
+            <p className='hero-text'>No roll to hit, no damage tiers: when you attack, just roll the dice and deal that damage. What you see is what you get!</p>
+        </HeroSlide>
+        <HeroSlide src="/Classes/HunterPet.png" isReverse={true}>
+            <QGTitle1 text="No Saves" height={60}/>
+            <p className='hero-text'>You know how monsters in many games make you roll saves to prevent effects? Unlearn that! Monsters <strong>ask you</strong> (im)politely which effect you prefer, the direction you are pushed, etc.</p>
+        </HeroSlide>
+        <HeroSlide src="/Classes/Rogue.png">
+            <QGTitle1 text="Gamified" height={60}/>
+            <p className='hero-text'>You can generate gold out of thin air, last hit enemies to <i>farm</i> them, etc. Oh, and make sure you farm the <strong>Worthy</strong> ones!</p>
+        </HeroSlide>
+        <HeroSlide src="/Races/Littlefolk.png" isReverse={true}>
+            <QGTitle1 text="Plot Thickens" height={60}/>
+            <p className='hero-text'>You have <strong>skills</strong> and <strong>flaws</strong>. Use your flaws <i>on purpose</i> to gain Plot Points, so you can get more skills, respec, or argue with the Quest Master.</p>
+            <p className='hero-text'>Qurks are there too: every Adventure, you get a Quirk. Phobias, hatreds, injuries, good mutations - we have it all!</p>
+        </HeroSlide>
+        <HeroSlide src="/Classes/Outlaw.png">
+            <QGTitle1 text="No Rest" height={60}/>
+            <p className='hero-text'>No rest for the wicked! You regenerate Health after every Combat, and you completely regenerate your resources inbetween Adventures, which are periods of time defined by the Quest Master. Could be a dungeon, a play session, or a day shopping.</p>
+        </HeroSlide>
+        <HeroSlide src="/Races/Dwarf.png" isReverse={true}>
+            <QGTitle1 text="Too Many Combos" height={60}/>
+            <p className='hero-text'>The game is full of awesome combos and <strong style={{color: 'var(--blue-color)'}}><i>Combos</i></strong>. There's only one way to check them out...</p>
+            <HeroButton href="/Tools/CharacterCreationCalculator">
+              Make a Hero!
+            </HeroButton>
+        </HeroSlide>
+      </div>
   
       {/* <div className='home__content'>
         <HomeBanner2 title="Races" text="Discover the races of the Questguard world."/>

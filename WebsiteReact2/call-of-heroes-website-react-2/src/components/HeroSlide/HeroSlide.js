@@ -2,7 +2,7 @@ import { QGTitle1 } from "../../pages/Tools/TitleGenerator";
 import AnchorFixer from "../AnchorFixer/AnchorFixer";
 import './HeroSlide.css'
 
-export function HeroSlide({ id, isReverse, src, title, children }) {
+export function HeroSlide({ id, isReverse, src, children }) {
 
     return (
         <div className="hero-slide relative z-content">
