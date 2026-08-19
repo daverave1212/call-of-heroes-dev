@@ -62,7 +62,7 @@ Bannerman:
     Bannermen are support Units that don't attack, but passively increase the Damage of all monsters.
   Behavior: |
     Bannermen avoid being attacked, but stay around the battlefield.
-    Bannermen can be any race: Goblin, Kobold, Undead, Demons, etc. Be creative!
+    Bannermen can be any race: Goblin, Troglodytes, Undead, Demons, etc. Be creative!
   Pair: Pair with Guards, Bandits, etc.
   Monster Data: Kill me first
   Role: Support
@@ -914,7 +914,7 @@ Camazot:
   Avoids AoE: No
   Behavior: |
     Each Camazot attacks a different target and chases them to death.
-  Pair: Pair with Kobolds and other dark monsters.
+  Pair: Pair with Troglodytes and other dark monsters.
   Suggested Obstacles:
     None
   Monster Data: No tactic, mid HP, no gimmick
@@ -1496,16 +1496,12 @@ Antheir:
         Effect: |
           Can only take up to 10 Damage at a time (from a Damage instance).
           Exception: Psychic and Scourge Damage.
-        CustomPower: 4
-        CustomXP: 200
     - Different Roles: |
         Antheirs have different colors, and thus different roles.
         Assign a different color to each Antheir from Red, Blue and Yellow (randomly or by choice).
         It can only use that type of Action.
     - Wall Climb:    
         Effect: Can walk on walls.
-        CustomPower: 1
-        CustomXP: 0
 
   Avoids AoE: No
   Behavior: |
@@ -1649,7 +1645,6 @@ Griphon:
     - Sky Claim:
         A: Reaction
         Sky Dive: Use when a Unit moves in a position with no other Unit within 2 meters of it. Quickly fly near that enemy and attack it with the Beak/Claws attack.
-    - 
   Passives:
     - Overwhelm: |
         Once per turn, the Griphon can try to move on the space of another Unit.
@@ -2091,7 +2086,7 @@ Mana Spawn:
     Gets in your face and is annoying.
     Will use Spell Block on first occasion.
     Pair with spellcasters or Units such as Drow, Cultists, Cult Hierarchs or Liches.
-    Pair with demons for a spicy encounter (Cambions, Oni, etc).
+    Pair with demons for a spicy encounter (Malebranches, Oni, etc).
   Lore: None
   Suggested Obstacles:
     None
@@ -2663,7 +2658,8 @@ Edimmara:
   Speed:        5
   Initiative:   1
   Abilities:
-    - Attack (2m): Auto
+    - Attack (2m):
+        Damage: Auto
   Passives:
     - Lifesteal: If not affected by a Control Effect, the Edimmara heals for all the Damage done (after reductions).
     - Infinite Reactions: Has unlimited Reactions (for Retaliation and Opportunity Attacks).
@@ -2767,7 +2763,7 @@ Lich:
         Declare a 4x4 meter area.
         Deal Scourge Damage to all non-undead Units caught equal to {Damage-3} + number of Units caught in the area (ignores Cover).
         A cloud of Scourge Gas (Toxic Gas) forms there and remains for 1 minute. Enemies are Silenced while inside the gas.
-    - Summon Skeletons: Summon a skeleton in a chosen space near every enemy. Skeletons have 1 Health and 4 Speed, and can attack for {Damage-50%} Damage. They have maximum Setback.
+    - Summon Skeletons: Summon a skeleton in a chosen space near every enemy. Skeletons have 1 Health and 4 Speed, and can attack for {DamageTimes(0.25)} Damage. They have maximum Setback.
     - Soul Bolts (10m):
         Effect: Shoot (2) Soul Bolts (players choose targets), each dealing {DamageAoE} True Damage and ignoring Cover. Next cast shoots 1 more bolt than the previous.
         Notes: E.g round 1 - 2 bolts, round 2 - 3 bolts, round 3 - 4 bolts, etc.
@@ -2933,7 +2929,7 @@ Moroy:
   Story Ideas: Players must investigate an abandoned maternity. Why was it abandoned? What do they find inside?
   Loot: None
 
-Flame Skull:
+Pentarch:
   Type:         Demon
   Degree:       Normal
   Experience:   150
@@ -2944,14 +2940,14 @@ Flame Skull:
   Speed:        4
   Initiative:   3
   Abilities:
-    - Charge... (15m): Prepare a shot on a Unit and lock onto it, seeing it through walls. Next turn, the first thing the Flame Skull does is Fire!
-    - Fire! (15m): Shoot that Unit for {DamageTimes(1.8)}. Walls block the attack, but the impact is strong enough to break many walls and obstacles.
+    - Charge... (15m): Prepare a shot on a Unit and lock onto it, seeing it through walls. Next turn, the first thing the Pentarch does is Fire!
+    - Fire! (15m): Shoot that Unit for {DamageTimes(2.1)}. Walls block the attack, but the impact is strong enough to break many walls and obstacles.
   Passives:
     - Resistances: Takes -50% Pierce, Psychic and Fire Damage.
     - Flier: Flies.
   Avoids AoE: Yes
   Behavior: |
-    Pair with other types of demons, like Imps and Cambions.
+    Pair with other types of demons, like Imps and Malebranches.
   Lore: None
   Suggested Obstacles:
     - Walls
@@ -2962,6 +2958,8 @@ Flame Skull:
   Role: Extra
   Variants: None
   Story Ideas: None
+  Description: |
+    An odd origin from which span 5 asynchronously moving hands that allow it to cast and prepare the cannon shot
   Loot: None
 
 Likho:
@@ -2994,7 +2992,7 @@ Likho:
   Story Ideas: None
   Loot: None
 
-Cambion:
+Malebranche:
   Type:         Demon, Person
   Degree:       Normal
   Experience:   200
@@ -3008,17 +3006,17 @@ Cambion:
         Burst: Target becomes _Maimed_.
         Notes: A Maimed Hero can only make 0 and 1 Action Point Acts.
   Passives:
-    - Flame Burst: When the Cambion takes Damage, deal 2 Fire Damage to all non-Cambion Units within 3 meters.
+    - Flame Burst: When the Malebranche takes Damage, deal 2 Fire Damage to all non-Malebranche Units within 3 meters.
     - Flame Ray (Reaction): When hit with a ranged attack, deal {DamageAoE} Fire Damage to the attacker.
     - Resistances: Takes -50% Fire Damage.
     - Flying: Flies (if not Silenced).
   Avoids AoE: No
   Behavior: |
     Goes head-first into as many enemies as possible, to hit as many as it can with Flame Burst and make them run away so it can do a Flame Ray.
-    Note that two or more Cambions won't make a Flame Ray attack on the same Unit on the same turn.
+    Note that two or more Malebranches won't make a Flame Ray attack on the same Unit on the same turn.
     Pair with any Hell Hounds and any demons.
   Lore: |
-    Cambions are person, sentient demons from hell. Although they can speak and rationalize, Cambions are fundamentally driven by the will of their creator or demon patron - it is their innate will to follow the doctrine of their hierarch.
+    Malebranches are person, sentient demons from hell. Although they can speak and rationalize, Malebranches are fundamentally driven by the will of their creator or demon patron - it is their innate will to follow the doctrine of their hierarch.
   Suggested Obstacles:
     - Lava pits
     - Fire that errupts randomly when combat starts
@@ -3027,7 +3025,7 @@ Cambion:
     - Anti-Magic Circles
   Monster Data: No tactic, mid HP, no gimmick
   Role: Main Enemy
-  Variants: Turn the Cambion into a Balor by making it Epic (x2) for 400 XP (200 x2), with 70 Health and +1 to all Damage it deals.
+  Variants: Turn the Malebranche into a Balor by making it Epic (x2) for 400 XP (200 x2), with 70 Health and +1 to all Damage it deals.
   Story Ideas: None
   Loot: None
 

@@ -16,6 +16,13 @@ function d6(nDice=1) {
   }
   return sum; 
 }
+function d8(nDice=1) {
+  let sum = 0
+  for (let i = 1; i <= nDice; i++) {
+      sum += randomInt(1, 9)    
+  }
+  return sum; 
+}
 function percentChance01(percent) {
     if (percentChance(percent)) {
         return 1
@@ -77,11 +84,14 @@ function getSimulationResultsObj(nDice, requiredDice, dc) {
         'Success Chance': `${(averageChanceToPass * 100).toFixed(2)}%`
     }
 }
-function getSimulationResultsObjWithDCs(nDice, requiredDice, dcs) {
-    const chance = requiredDice.length / 6 * 100
+function getSimulationResultsObjWithDCs(nDice, requiredDice, dcs, bonus=null) {
+    const chance = (requiredDice.length + (bonus ?? 0)) / 6 * 100
     const tableRow = {
         Dice: nDice,
         'Success On': `[${requiredDice}]`,
+    }
+    if (bonus != null) {
+        
     }
     for (const dc of dcs) {
         const averageChanceToPass = simulateSuccessDice(nDice, chance, dc)
@@ -91,12 +101,12 @@ function getSimulationResultsObjWithDCs(nDice, requiredDice, dcs) {
 }
 function getSimD6ObjWithDCs(nDice, bonus, dcs) {
     const tableRow = {
-        'd6': nDice + 'd6',
+        'Dice': nDice + 'd6',
         Bonus: bonus,
     }
     for (const dc of dcs) {
         const averagePassChance = simulateCheckD6PlusBonusPercent(nDice, bonus, dc)
-        tableRow[`DC ${dc} % Pass`] = averagePassChance.toFixed(2) + '%'
+        tableRow[`DC ${dc}`] = averagePassChance.toFixed(2) + '%'
     }
     return tableRow
 }
@@ -141,7 +151,33 @@ const EASY = 1
 const MEDIUM = 2
 const HARD = 3
 
-console.log(`   Dice Pool: 5 and 6`)
+
+
+console.log(`   Check: 2d6 + Bonus (QuestGuard)`)
+printTable([
+    getSimD6ObjWithDCs(2, -1,   [9, 12, 16]),
+    getSimD6ObjWithDCs(2, 0,    [9, 12, 16]),
+    getSimD6ObjWithDCs(2, 1,    [9, 12, 16]),
+    getSimD6ObjWithDCs(2, 2,    [9, 12, 16]),
+    getSimD6ObjWithDCs(2, 3,    [9, 12, 16]),
+    getSimD6ObjWithDCs(2, 4,    [9, 12, 16]),
+    getSimD6ObjWithDCs(2, 5,    [9, 12, 16]),
+    getSimD6ObjWithDCs(2, 6,    [9, 12, 16]),
+])
+
+console.log(`   Check: 3d6 + Bonus (QuestGuard)`)
+printTable([
+    getSimD6ObjWithDCs(3, -1,   [8, 12, 16, 20]),
+    getSimD6ObjWithDCs(3, 0,    [8, 12, 16, 20]),
+    getSimD6ObjWithDCs(3, 1,    [8, 12, 16, 20]),
+    getSimD6ObjWithDCs(3, 2,    [8, 12, 16, 20]),
+    getSimD6ObjWithDCs(3, 3,    [8, 12, 16, 20]),
+    getSimD6ObjWithDCs(3, 4,    [8, 12, 16, 20]),
+    getSimD6ObjWithDCs(3, 5,    [8, 12, 16, 20]),
+    getSimD6ObjWithDCs(3, 6,    [8, 12, 16, 20]),
+])
+
+console.log(`   Dice Pool: PASS on 5, 6 (Shadowrun)`)
 printTable([
     getSimulationResultsObjWithDCs(1, [5, 6], [1, 2, 3]),
     getSimulationResultsObjWithDCs(2, [5, 6], [1, 2, 3]),
@@ -151,8 +187,6 @@ printTable([
     getSimulationResultsObjWithDCs(6, [5, 6], [1, 2, 3]),
     getSimulationResultsObjWithDCs(7, [5, 6], [1, 2, 3]),
 ])
-
-
 
 
 

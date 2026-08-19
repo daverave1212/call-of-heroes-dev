@@ -26,15 +26,20 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
         isPreview = false
     }
 
-    const doIOwnCoreSet = useDoIOwnSet('core')
+    const [doIOwnCoreSet, isDoILoading] = useDoIOwnSet('core')
 
     const monsterTotalXPOriginal = U.getMonsterTotalXP(monster)
     const [monsterTotalXP, setMonsterTotalXP] = useState(monsterTotalXPOriginal)
     const didModifyXP = monsterTotalXP != monsterTotalXPOriginal
 
-    const abilities = monster.Abilities.filter(a => U.getOnlyValue(a)?.IsUltimate != true)
-    const ultimateAbilities = monster?.Abilities?.filter(a => U.getOnlyValue(a)?.IsUltimate)
-    const passives = monster.Passives == null? null: U.isObject(monster.Passives)? U.objectToObjectArray(monster.Passives): monster.Passives
+    const absRaw = (monster?.Abilities ?? []).filter(a => !U.isNullOrEmpty(a))
+    const absErrors = monster?.Abilities?.filter(a => U.isNullOrEmpty(a))
+    if (absErrors != null) {
+        console.log({absErrors})
+    }
+    const abilities = absRaw.filter(a => U.getOnlyValue(a)?.IsUltimate != true) ?? []
+    const ultimateAbilities = absRaw.filter(a => U.getOnlyValue(a)?.IsUltimate) ?? []
+    const passives = (monster.Passives == null? null: U.isObject(monster.Passives)? U.objectToObjectArray(monster.Passives): monster.Passives) ?? []
 
     const monsterStats   = getMonsterStatsAsObject(monster.Stats)
     const statOtherColor = 'rgb(55, 10, 85)'
@@ -71,7 +76,7 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
         } else {
             const baseHPForThisXP = MonsterCalculations.Calculations.XPToHPTable['' + monsterTotalXP]
             if (baseHPForThisXP == null) { 
-                throw `Could not find XP ${monsterTotalXP} in calculations table`
+                throw `Could not find XP (${monsterTotalXP}) for monster ${monsterName} in calculations table`
             }
             const hpCoefMultiplier = parseFloat(monster.HPCoef)
             

@@ -35,7 +35,7 @@ export default function Armors({ hasNoMargins, onClick, buttonText }) {
 
     return (
         <Page key={selectedCategory} isSecondaryPage={true} hasNoMargins={hasNoMargins}>
-            <div className='center-content'>
+            <div className='center-content margin-bottom-4'>
                 <QGTitle1 text={"Weapons"} height={60}/>
             </div>
 
@@ -43,7 +43,7 @@ export default function Armors({ hasNoMargins, onClick, buttonText }) {
 
             { selectedCategory != null && (
                 <div>
-                    <PageH1>{selectedCategory}</PageH1>
+                    <PageH2>{selectedCategory}</PageH2>
                     <ManySpells areItems={true} onSpellClick={onClick} buttonText={buttonText} spells={ U.spellsFromObject(armors[selectedCategory]) }/>
                 </div>
             )}

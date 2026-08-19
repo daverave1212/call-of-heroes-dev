@@ -490,11 +490,12 @@ export function TalentTier({ title, talents, selectedSpellNames, onSpellClick, s
 }
 
 export function Talents({ talents, selectedSpellNames, onSpellClick, spellsMetadata, condition=()=>true }) {
-    const talentTitles = Object.keys(talents)
+    const talentTitles = Object.keys(talents).filter(key => key != null && talents[key] != null)
+    const talentTitlesSorted = U.sortByHash(talentTitles, title => U.getNumberFromString(title))
 
     return (
         <div>
-            { talentTitles.filter(title => condition(title)).map(title => <>
+            { talentTitlesSorted.filter(title => condition(title)).map(title => <>
                     <TalentTier title={title} talents={talents[title]} selectedSpellNames={selectedSpellNames} onSpellClick={onSpellClick} spellsMetadata={spellsMetadata}/>                    
                 </>
             )}

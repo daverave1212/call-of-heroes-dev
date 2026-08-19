@@ -16,10 +16,12 @@ import { HeroSection } from './Other/RulesExplained/Learn'
 import AnchorFixer, { AnchorFixerLess } from '../components/AnchorFixer/AnchorFixer'
 import { HeroSlide } from '../components/HeroSlide/HeroSlide'
 import { QGTitle1 } from './Tools/TitleGenerator'
+import { useConstIsPortrait } from '../utils'
 
 export default function() {
 
   const [featureToDisplay, setFeatureToDisplay] = useState(null)
+  const isPortrait = useConstIsPortrait()
 
   function BoldPurple({ children }) {
     return <span style={{fontWeight: 'bold', color: 'var(--theme-color-darker)'}}>{children}</span>
@@ -108,10 +110,7 @@ export default function() {
         <img className="portrait-only floating-animation-3" style={{position: 'absolute', bottom: '3vh', left: '8vw', width: '70px'}} src="/LandingPage/FloatingBird.png"/>
       </div>
 
-
-      <LandingPageSeparator type="8"/>
-
-      <div style={{backgroundColor: 'white'}}>
+      <div style={{backgroundColor: 'white'}} className={isPortrait? `gap-4`: ''}>
         <HeroSlide src="/Classes/Swashbuckler.png">
             <QGTitle1 text="Slice and Dice" height={60}/>
             <p className='hero-text'>No roll to hit, no damage tiers: when you attack, just roll the dice and deal that damage. What you see is what you get!</p>

@@ -62,6 +62,7 @@ export const REPLACEMENTS = {
 
 // ----------- ERRORS -----------
 console.red = msg => console.log("\x1b[31m", '🔴 ' + msg, '\x1b[0m')
+console.warn = msg => console.log("\x1b[33m", '🟡 ' + msg, '\x1b[0m')
 let _nErrorsFound = 0
 
 export function getNErrorsFound() {
@@ -320,7 +321,36 @@ export function forEachFoundAbility(obj, keyValueFunc, parentKey=null) {
         
     }
 }
+export function assertAbilityHasCorrectValues(name, body) {
+    const err = (msg) => {
+        _nErrorsFound++
+        console.red(`Ability "${name}": ${msg}`)
+    }
+    if (body == null) {
+        err(`Null body`)
+        return
+    }
+    const { Bonuses, 'Combat Extras': CombatExtras, Extras } = body
+    if (Bonuses) {
+        if (isString(Bonuses)) {
+            err(`Bonuses should be a map, not a string!`)
+        }
+        if (Array.isArray(Bonuses)) {
+            err(`Bonuses should be a map, not an array!`)
+        }
+    }
+    if (CombatExtras) {
+        if (!Array.isArray(CombatExtras)) {
+            err(`Combat Extras should be an array!!`)
+        }
+    }
+    if (Extras) {
+        if (!Array.isArray(Extras)) {
+            err(`Extras should be an array!!`)
+        }
+    }
 
+}
 export function assertAbilityHasCorrectProps(name, body) {
     assertObjectHasNot(name, body, [
         'Effect Green',
@@ -427,6 +457,37 @@ export function assertObjectHasNot(name, obj, propNames, recordErrorFound=true) 
         if (hasAnyOfThem && recordErrorFound) {
             _nErrorsFound++
             console.red(`Object ${name} has misspelled propery: ${prop}`)
+        }
+    }
+}
+export function validateAndFixMonstersFile(monsters) {
+    for (const [name, obj] of Object.entries(monsters)) {
+        const err = (msg) => {
+            _nErrorsFound++
+            console.red(`Monster "${name}": ${msg}`)
+        }
+        if (name == null) {
+            err(`Null monster name!? How did this happen`)
+        }
+        if (obj == null) {
+            err(`Null monster content.`)
+        }
+        if (obj.Degree == null) {
+            console.warn(`Monster ${name} has no degree! Fixed with "Normal"`)
+            obj.Degree = 'Normal'
+        } else if (obj.Degree.includes?.('Epic')) {
+            err(`Monster Degree is incorrect (should be Normal or a number)`)
+        }
+        if (obj.Abilities) {
+            if (!Array.isArray(obj.Abilities)) {
+                err(`Abilities should be an array, not an object`)
+            } else {
+                for (const a of obj.Abilities) {
+                    if (a == null) {
+                        err(`Abilities contains a null entry!`)
+                    }
+                }
+            }
         }
     }
 }

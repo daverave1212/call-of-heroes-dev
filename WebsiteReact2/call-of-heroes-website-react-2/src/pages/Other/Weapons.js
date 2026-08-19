@@ -13,6 +13,7 @@ import { SideMenu } from '../../components/SideMenu/SideMenu'
 import ManySpells from '../../components/Spell/ManySpells'
 import { SelectorsByColumns } from './Abilities'
 import { QGTitle1 } from '../Tools/TitleGenerator'
+import PageH2 from '../../components/PageH2/PageH2'
 
 
 const weaponsSideMenuSections = {
@@ -36,7 +37,7 @@ export default function Weapons({ hasNoMargins, onClick, buttonText }) {
     return (
         <Page key={selectedCategory} isSecondaryPage={true} hasNoMargins={hasNoMargins}>
 
-            <div className='center-content'>
+            <div className='center-content margin-bottom-4'>
                 <QGTitle1 text={"Weapons"} height={60}/>
             </div>
 
@@ -51,7 +52,7 @@ export default function Weapons({ hasNoMargins, onClick, buttonText }) {
 
             { selectedCategory != null && (
                 <div>
-                    <PageH1>{selectedCategory}</PageH1>
+                    <PageH2>{selectedCategory}</PageH2>
                     <p>{ Descriptions[selectedCategory] }</p>
                     <ManySpells areItems={true} shouldSort={false} shouldAlignByHeight={false} onSpellClick={onClick} buttonText={buttonText} spells={ U.spellsFromObject(weapons[selectedCategory]) }/>
                 </div>

@@ -12,7 +12,7 @@ import path from 'path'
 
 import STATIC_SYMBOLS from './parse-text-symbols-static.json' with { type: 'json' }
 import * as STATS_STATIC from './stats-constants.mjs'
-import { accessObjectProp, addError, addNameToSpellsRecursively, assertAbilityHasCorrectProps, assertObjectHas, assertObjectHasNot, findAllYAMLFiles, forEachFoundAbility, getNErrorsFound, getObjectValueByFuzzyKey, isSpellName, looksLikeSpell, objectEntriesByFuzzyKey, readAndNormalizeYamlToJson, replaceAllWithExceptions, REPLACEMENTS, replaceOnly, STATUS_EFFECTS, stringHasAnyOfChars, validateClass, validateRace } from './automation-utils.mjs'
+import { accessObjectProp, addError, addNameToSpellsRecursively, assertAbilityHasCorrectProps, assertObjectHas, assertObjectHasNot, findAllYAMLFiles, forEachFoundAbility, getNErrorsFound, getObjectValueByFuzzyKey, isSpellName, looksLikeSpell, objectEntriesByFuzzyKey, readAndNormalizeYamlToJson, replaceAllWithExceptions, REPLACEMENTS, replaceOnly, STATUS_EFFECTS, stringHasAnyOfChars, validateClass, validateAndFixMonstersFile, validateRace, assertAbilityHasCorrectValues } from './automation-utils.mjs'
 
 import SETS from './sets-config.json' with { type: 'json' }
 
@@ -255,6 +255,9 @@ const PROCESS_STRATEGIES = {
         validateRace(obj)
         races.push(obj.Race)
         findAndRecordAllAbilities(obj, classRaceAbilities, null, `Race/${obj.Race}`);
+    },
+    'Monsters': (obj, { fileName }) => {
+        validateAndFixMonstersFile(obj)
     }
 }
 
@@ -320,6 +323,7 @@ async function processFiles() {
         // Validate and normalize
         forEachFoundAbility(dictContent, (name, body, parentKey) => {
             assertAbilityHasCorrectProps(name, body)
+            assertAbilityHasCorrectValues(name, body)
             maybeMakeSomeWordsMixins(body)
             maybeAddStatusEffectDescriptions(body)
             const didAddHasMixins = maybeAddHasMixins(body)

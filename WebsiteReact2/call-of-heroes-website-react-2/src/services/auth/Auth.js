@@ -139,6 +139,7 @@ export async function isSetUnavailableAsync(setName) {
     return !(await doIOwnSetAsync(setName))
 }
 export function useDoIOwnSet(setName) {
+    const [isLoading, setIsLoading] = useState(true)
     const [doI, setDoI] = useState(false)
 
     useEffect(() => {
@@ -151,21 +152,30 @@ export function useDoIOwnSet(setName) {
                 const doIOwnIt = await doIOwnSetAsync(setName)
                 setDoI(doIOwnIt)
             }
+            setIsLoading(false)
         })()
     }, [setName])
 
-    return doI
+    return [doI, isLoading]
 }
 
 export function useOwnedSets() {
+    const [isLoading, setIsLoading] = useState(true)
     const [ownedSets, setOwnedSets] = useState({})
 
     useEffect(() => {
         (async () => {
-            const sets = await getMyOwnedSetsAsync()
-            setOwnedSets(sets)
+            try {
+                const sets = await getMyOwnedSetsAsync()
+                setOwnedSets(sets)
+            } catch (e) {
+                console.error(e)
+                showToast(e, 'red')
+            } finally {
+                setIsLoading(false)
+            }
         })()
     }, [])
 
-    return ownedSets
+    return [ownedSets, isLoading]
 }

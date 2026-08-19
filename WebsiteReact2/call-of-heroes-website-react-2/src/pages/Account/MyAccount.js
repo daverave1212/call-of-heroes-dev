@@ -12,9 +12,10 @@ import ActivateProduct from "./ActivateProduct";
 import WorkInProgress from "../Meta/WorkInProgress";
 
 import './MyAccount.css'
-import { AccountOverview } from "./AccountOverview";
+import { AccountOverview, DashboardBox } from "./AccountOverview";
 import { BlogPageHeader } from "../Meta/Blog";
 import Policies from "../Meta/Policies";
+import AccountSettings from "./AccountSettings";
 
 const TAB_SELECTORS_CONFIG = [
     {
@@ -28,6 +29,12 @@ const TAB_SELECTORS_CONFIG = [
         src: '/Icons/UI/Dashboard/Activate Product.png',
         title: () => "Activate a product",
         subtitle: () => "Got a code? Type it in to activate it!"
+    },
+    {
+        name: 'Settings',
+        src: '/Icons/UI/Dashboard/Settings.png',
+        title: () => "Settings",
+        subtitle: () => "Settings for your account."
     },
     {
         name: 'Terms & Policies',
@@ -101,6 +108,7 @@ export default function MyAccount() {
                 <TabsContentOnly activeTabI={activeTabI} setActiveTabI={setActiveTabI} tabComponents={[
                     <AccountOverview/>,
                     <ActivateProduct/>,
+                    <AccountSettings/>,
                     <div>
                         <Policies/>
                     </div>,

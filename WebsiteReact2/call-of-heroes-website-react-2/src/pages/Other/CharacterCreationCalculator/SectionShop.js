@@ -93,7 +93,7 @@ export default function SectionShop() {
 
 
     return (
-        <div>
+        <div className="flex column gap-2">
             <div className="center-content">
                 <QGTitle1 text={"Cart"}/>
             </div>
@@ -105,7 +105,7 @@ export default function SectionShop() {
             { cart.length == 0? (
                 <h4 className="margin-top-1 center-text" style={{fontFamily: 'HomeFont', fontWeight: 'normal', fontSize: '1.25rem'}}>You have no items in your cart. Scroll down and add some!</h4>
             ): (
-                <div>
+                <div className="gap-1">
                     <TableNormal columns={['Item', 'Price']}>
                         { cart.map(({name, price}) => (
                             <tr onClick={() => removeItem(name)}>
@@ -115,7 +115,7 @@ export default function SectionShop() {
                         )) }
                     </TableNormal>
 
-                    <div className="flex-row center-content gap-1">
+                    <div className="flex row center-content gap-1">
                         <button onClick={checkout}>Checkout for {totalPrice}<Icon name="Gold" style={{marginTop: '4px', marginLeft: '2px', height: '17px'}}/></button>
                         <button style={{maxWidth: '175px'}} onClick={clearCart}>Clear Cart</button>
                     </div>

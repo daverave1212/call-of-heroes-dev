@@ -5,7 +5,15 @@
  * @param {'yellow'|'green'|'blue'|'red'} [type='yellow'] - Color mode variant.
  * @param {number} [duration=3000] - Time in milliseconds before sliding out.
  */
-export function showToast(message, type = 'yellow', duration = 3000) {
+
+
+export function showToast(message, type = 'yellow', duration = 3000, log = true) {
+  if (log) {
+    let logs = localStorage.getItem('logs') ?? ''
+    logs += `${type}: ${message}<br>\n`
+    localStorage.setItem('logs', logs)
+  }
+
   const container = document.getElementById('Window');
   if (!container) return;
 

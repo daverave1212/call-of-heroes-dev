@@ -1593,6 +1593,22 @@ export function areArraysEqual(a1, a2, compareElems=null) {
     return true
 }
 window.areArraysEqual = areArraysEqual
+export function isNullOrEmpty(obj) {
+    if (obj == null) {
+        return true
+    }
+    if (Array.isArray(obj)) {
+        return obj.length == 0
+    }
+    for (const prop in obj) {
+        if (Object.hasOwn(obj, prop)) {
+        return false;
+        }
+    }
+
+      return true;
+}
+
 export function mapKeysToObject(keys, func) {
     const obj = {}
     for (const key of keys) {
@@ -2107,7 +2123,10 @@ export function normalizeSymbolConfigForPDF(config, defaultColorHex=null) {
 // Returns an array of components, or an array of strings if { shouldReturnStringsOnly: true }
 export function parseTextWithSymbols(...argsOriginal) {
     const args = [...argsOriginal]
-    const text = popFind(args, arg => isString(arg))
+    let text = popFind(args, arg => isString(arg) || isNumber(arg))
+    if (isNumber(text)) {
+        text = `${text}`
+    }
     const customSymbols = popFind(args, arg => isObjectOfObjects(arg))
     const customFunctionSymbols = popFind(args, arg => isObjectOfFunctions(arg))
     const options = popFind(args, arg => isObject(arg)) ?? {}
@@ -2549,6 +2568,7 @@ export function getNumberFromString(str) {
     const match = str.match(/-?\d+(\.\d+)?/);
     return match ? Number(match[0]) : null;
 }
+window.getNumberFromString = getNumberFromString
 export function getNumberPartsString(number, options=({ includeDotOnRight: false })) {
     if (number == null) {
         return { sign: '', left: '', right: '' }
@@ -3187,6 +3207,28 @@ window.DEFAULT_RNG = DEFAULT_RNG
 export const styleMargined = { marginBottom: 'var(--element-padding)' }    // Use this as style={styleMargined}
 export const stylePadded   = { padding: 'var(--element-padding)' }
 
+export function getLocalStorageString(keyName) {
+    const value = localStorage.getItem(keyName)
+    if (value == null || value == 'undefined') {
+        return null
+    }
+    return value
+}
+export function setLocalStorageString(keyName, value) {
+    if (value == null) {
+        localStorage.removeItem(keyName)
+    } else {
+        try {
+            localStorage.setItem(keyName, value)
+        }  catch (e) {
+            throw `${e.toString()} -- keyName: ${keyName}, value: ${value}`
+        }
+    }
+    window.dispatchEvent(new CustomEvent('custom-storage', { detail: {
+        key: keyName,
+        value: value
+    } }))
+}
 export function getLocalStorageJSON(keyName) {
     const value = localStorage.getItem(keyName)
     if (value == null || value == 'undefined') {

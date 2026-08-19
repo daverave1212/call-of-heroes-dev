@@ -52,14 +52,14 @@ export default function MonsterAbility({monster, monsterXP, ability, isPassive, 
     const baseMonsterXP = monsterTotalXP / howManyMonstersIsItWorth // E.g. 250 with degree 5 -> 125
     const fixedMonsterXP = U.roundDownTo(baseMonsterXP, 25)
 
-    const damagePer2AP = MonsterCalculations.Calculations.XPToDamageTable[fixedMonsterXP]
+    const damagePer2AP = MonsterCalculations.Calculations.XPToDamageTable[fixedMonsterXP] ?? 4
     const damagePer1AP = U.roundDownTo(damagePer2AP / 2, 0.5)
 
     const abilityDamageBase =
-        nActionPoints == 2? damagePer2AP:
+        (nActionPoints == 2? damagePer2AP:
         nActionPoints == 1? damagePer1AP:
         nActionPoints == 0? damagePer1AP:
-        damagePer1AP
+        damagePer1AP) ?? 2.5
 
     // console.log(name)
     // console.log({

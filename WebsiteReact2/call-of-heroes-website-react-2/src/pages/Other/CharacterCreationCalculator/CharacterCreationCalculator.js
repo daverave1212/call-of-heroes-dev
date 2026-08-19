@@ -69,7 +69,7 @@ function MyCharacters() {
     let [myCharacters, saveCharacters] = useMyCharactersDB('CCC.MyCharacters')
     let [currentCharacterId, setCurrentCharacterId] = useCurrentCharacterId()
 
-    const doIOwnCoreSet = useDoIOwnSet('core')
+    const [doIOwnCoreSet, isDoIOwnSetLoading] = useDoIOwnSet('core')
 
     const cantMakeMore = !doIOwnCoreSet && myCharacters.length >= 5
 
@@ -136,7 +136,7 @@ function SaveCharacterButton() {
 
     let [myCharacters, saveMyCharacters] = useMyCharactersDB('CharacterCreationCalculator.SaveCharacterButton')
 
-    function saveCharacter() {
+    async function saveCharacter() {
         const currentCharacter = getCurrentCharacterFromLocalStorage()
         const existingCharacterIndex = myCharacters.findIndex(char => char.id == currentCharacter.id)
         const willAddNewCharacter = currentCharacter.id == NO_CHARACTER_ID || existingCharacterIndex == -1
@@ -151,7 +151,7 @@ function SaveCharacterButton() {
         } else {
             newMyCharacters[existingCharacterIndex] = currentCharacter
         }
-        const wasSaveSuccessful = saveMyCharacters(newMyCharacters)
+        const wasSaveSuccessful = await saveMyCharacters(newMyCharacters)
         if (wasSaveSuccessful) {
             showToast('Character saved successfully!', 'green')
         }
