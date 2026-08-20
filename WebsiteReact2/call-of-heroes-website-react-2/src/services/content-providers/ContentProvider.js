@@ -36,7 +36,7 @@ export function getFeatureItemLocal(featureName, itemName) {
 // E.g: getFeatureItemAsync("classes", "Sorcerer")
 // E.g: getFeatureItemAsync("monsters", "Cyclops")
 export async function getFeatureItemAsync(featureName, name) {
-    console.green(`Getting ${featureName} ${name}`)
+    console.log(`Getting ${featureName} ${name}`)
     if (!featureItemExists(featureName, name)) {
         return null
     }

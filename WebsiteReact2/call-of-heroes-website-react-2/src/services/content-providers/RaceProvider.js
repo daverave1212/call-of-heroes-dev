@@ -20,7 +20,7 @@ const RacesBase = {
     Bertle,
     Dwarf,
     Elf,
-    Gnome,
+    Littlefolk: Gnome,
     Human,
 }
 const RacesPremium = {

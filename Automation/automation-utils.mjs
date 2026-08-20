@@ -179,7 +179,7 @@ export function addNameToSpellsRecursively(dictToSearch) {
     }
   }
 }
-export function normalizeFileText(text) {
+export function normalizeText(text) {
     let lastText = text
     do {
         lastText = text
@@ -201,6 +201,30 @@ export function normalizeFileText(text) {
 
     return text
 }
+function applyTemplates(data) {
+  // 1. Return null or non-objects (numbers, booleans, strings, primitives)
+  if (data === null || typeof data !== 'object') {
+    return typeof data === 'string' ? normalizeText(data) : data;
+  }
+
+  // 2. Handle Arrays
+  if (Array.isArray(data)) {
+    return data.map(item => applyTemplates(item, normalizeText));
+  }
+
+  // 3. Handle Plain Objects
+  const result = {};
+
+  for (const [key, value] of Object.entries(data)) {
+    // Normalize the key if it's a string
+    const normalizedKey = typeof key === 'string' ? normalizeText(key) : key;
+    
+    // Recurse into the value
+    result[normalizedKey] = applyTemplates(value, normalizeText);
+  }
+
+  return result;
+}
 export function readAndNormalizeYamlToJson(filePath) {
     let fileContent
     try {
@@ -209,8 +233,9 @@ export function readAndNormalizeYamlToJson(filePath) {
         console.red(`ERROR: Failed to read file ${filePath}`);
         throw err;
     }
-
-    fileContent = normalizeFileText(fileContent)
+    // if (filePath.includes('QuestGuard Book')) {
+    //     fs.writeFileSync('./ErrorLogs/error.yaml', fileContent, { encoding: 'utf-8' })
+    // }
 
     let dictContent = {};
     try {
@@ -220,6 +245,7 @@ export function readAndNormalizeYamlToJson(filePath) {
         throw err;
     }
 
+    dictContent = applyTemplates(dictContent)
     addNameToSpellsRecursively(dictContent)
 
     return dictContent
@@ -473,7 +499,7 @@ export function validateAndFixMonstersFile(monsters) {
             err(`Null monster content.`)
         }
         if (obj.Degree == null) {
-            console.warn(`Monster ${name} has no degree! Fixed with "Normal"`)
+            // console.warn(`Monster ${name} has no degree! Fixed with "Normal"`)
             obj.Degree = 'Normal'
         } else if (obj.Degree.includes?.('Epic')) {
             err(`Monster Degree is incorrect (should be Normal or a number)`)
@@ -526,7 +552,6 @@ export function validateClass(cls) {
         'Level Up.Every Level',
         'Level Up.Every Level.Max Health',
         // 'Level Up.Every Level.Health Regen', // Optional, for Berserker
-        'Level Up.Every Level.Skill Point',
         'Level Up.Every Level.Any Stat (up to the Stat Limit)',
         'Spellcasting',
         'Spellcasting.SpellsOrAbilities',

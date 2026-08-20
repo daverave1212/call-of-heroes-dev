@@ -165,6 +165,9 @@ export default function() {
             <p className='hero-text'>You know how monsters in many games make you roll saves to prevent effects? Unlearn that! Monsters <strong>ask you</strong> (im)politely which effect you prefer, the direction you are pushed, etc.</p>
         </HeroSlide>
         <HeroSlide src="/Classes/Rogue.png">
+            <div className="portrait-only floating-animation-2" style={{position: 'absolute', top: '-10vh', left: '-8vw', width: '30vw', transform: 'rotate(-30deg)'}}>
+              <img src="/LandingPage/Coins.png" style={{width: '100%', transform: 'rotate(-15deg)'}}/>
+            </div>
             <QGTitle1 text="Gamified" height={slideTitleSize}/>
             <p className='hero-text'>You can generate gold out of thin air, last hit enemies to <i>farm</i> them, etc. Oh, and make sure you farm the <strong>Worthy</strong> ones!</p>
         </HeroSlide>

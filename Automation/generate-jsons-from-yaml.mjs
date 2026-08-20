@@ -319,7 +319,6 @@ async function processFiles() {
             addError()
             throw e
         }
-
         // Validate and normalize
         forEachFoundAbility(dictContent, (name, body, parentKey) => {
             assertAbilityHasCorrectProps(name, body)

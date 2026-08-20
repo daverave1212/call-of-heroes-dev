@@ -16,7 +16,11 @@ window._getUserSets = () => userSets
 
 const authChangedListeners = {
     'Ping server to wake up': async () => {
-        maybeWakeServer()   // No need to await
+        try {
+            maybeWakeServer()   // No need to await
+        } catch (e) {
+            
+        }
     },
     'Ensure user has public-user-data': async newUserData => {
         if (newUserData == null) {

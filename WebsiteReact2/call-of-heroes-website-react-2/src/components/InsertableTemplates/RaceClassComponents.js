@@ -87,7 +87,7 @@ export function Proficiencies({ name, theRaceOrClass }) {
     )
 }
 
-export function RaceHeader({imgStyle, theRace, theClass, hueShift, height=60}) {
+export function RaceHeader({imgStyle, theRace, theClass, hueShift, height=70}) {
 
     const theRaceOrClass = theRace ?? theClass
     const name = theRaceOrClass.Race ?? theRaceOrClass.Class
@@ -109,17 +109,10 @@ export function RaceHeader({imgStyle, theRace, theClass, hueShift, height=60}) {
     const completeDescription = [descriptionBefore, description, descriptionLeft, descriptionRightTop, descriptionRightBottom, descriptionAfter].filter(txt => txt != null).join('\n')
     return (
         <div>
-            <div className='landscape-only'>
-                <br/>
-                <br/>
-                <br/>
-                <div className='center-content margin-bottom-2'>
+            <div className='landscape-only' style={{paddingTop: '8rem'}}>
+                <div className='center-content' style={{paddingBottom: '8rem'}}>
                     <QGTitle1 text={name} hueShift={hueShift} height={height}/>
                 </div>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
                 { descriptionBefore && <p>{descriptionBefore}</p>}
                 { theRace?.IsShort || theClass?.IsShort? (
                     <TwoColumns>
@@ -147,7 +140,7 @@ export function RaceHeader({imgStyle, theRace, theClass, hueShift, height=60}) {
                 { descriptionAfter && <p>{descriptionAfter}</p>}
             </div>
             <div className='portrait-only'>
-                <div className='center-content margin-bottom-2'>
+                <div className='center-content margin-bottom-2 padding-top-4'>
                     <QGTitle1 text={name} height={45}/>
                 </div>
                 {/* <PageH1 h1Style={{textAlign: 'center'}}>{ name }</PageH1> */}
