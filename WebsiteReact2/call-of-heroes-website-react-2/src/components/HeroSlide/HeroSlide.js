@@ -4,10 +4,12 @@ import './HeroSlide.css'
 
 export function HeroSlide({ id, isReverse, src, children }) {
 
+    const maybeReverseClass = isReverse? 'reverse': ''
+
     return (
         <div className="hero-slide relative z-content">
             <AnchorFixer id={id}/>
-            <div className={`landscape-only relative width-100 height-100 flex row ${isReverse? 'reverse': ''}`}>
+            <div className={`landscape-only relative width-100 height-100 flex row ${maybeReverseClass}`}>
                 <div className="flex-4 max-height-100 center-content relative padding-2">
                     <img className="absolute" src={src} style={{maxHeight: 'calc(0.8 * var(--hero-page-height))', zIndex: 'var(--z-overlay)'}}/>
                 </div>

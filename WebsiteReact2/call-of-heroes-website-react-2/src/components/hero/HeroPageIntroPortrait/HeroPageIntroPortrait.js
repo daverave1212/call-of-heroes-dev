@@ -30,6 +30,10 @@ export default function HeroPageIntroPortrait() {
       }, 3750)
     }, [])
   
+    function BoldPurple({ children }) {
+      return <span style={{fontWeight: 'bold', color: 'var(--theme-color-darker)'}}>{children}</span>
+    }
+
     return (
         <div className="hero-page portrait-only">
           <div className='hero-content'>
@@ -41,7 +45,7 @@ export default function HeroPageIntroPortrait() {
   
             <div className={`hero-intro-description ${animationClasses.desc}`}>
               <p className='hero-text' style={{textAlign: 'center'}}>
-                A gamified tabletop RPG for this generation of video gamers. Battle, explore and host games for the modern world.
+                The dicey hack-and-slash RPG for video gamers: <BoldPurple>fast</BoldPurple>, <BoldPurple>quirky</BoldPurple>, and surprisingly easy (<BoldPurple>to break the game</BoldPurple>)!
               </p>
               <HeroButton className={animationClasses.button} isCustomContent={true}> <a href="#Home-Advantages">Show Me</a> </HeroButton>
             </div>

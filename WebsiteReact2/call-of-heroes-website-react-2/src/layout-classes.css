@@ -62,7 +62,7 @@
 }
 @media (orientation: landscape) {
     .portrait-only, .portrait {
-        display: none;
+        display: none !important;
     }
 }
 
@@ -97,8 +97,15 @@
 .floating-animation-3 {
     animation: Floating3 5s ease-in-out infinite;
 }
+.floating-animation-raptor {
+    animation: FloatingRaptor 5s ease-in-out infinite;
+}
+.raptor-blink {
+    opacity: 0;
+    animation: RaptorBlink 5s ease-in-out infinite;
+}
 .rotating-animation-1 {
-    animation: Rotating1 500s infinite;
+    animation: Rotating1 350s infinite;
 }
 @keyframes Floating1 {
     0% {
@@ -145,5 +152,33 @@
     }
     100% {
         transform: rotate(0deg);
+    }
+}
+@keyframes FloatingRaptor {
+    0% {
+        transform: translateY(4px) rotate(-42deg);
+    }
+    50% {
+        transform: translateY(0) rotate(-46deg);
+    }
+    100% {
+        transform: translateY(4px) rotate(-42deg);
+    }
+}
+@keyframes RaptorBlink {
+    0% {
+        opacity: 0;
+    }
+    85% {
+        opacity: 0;
+    }
+    90% {
+        opacity: 1;
+    }
+    95% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
     }
 }

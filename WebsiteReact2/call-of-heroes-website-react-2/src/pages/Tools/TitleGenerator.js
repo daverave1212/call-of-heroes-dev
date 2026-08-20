@@ -34,7 +34,7 @@ const LETTER_SRC_MAPPING = Object.keys(LETTER_OFFSETS_TOP)
     })
     .reduce((objSoFar, {letter, src}) => ({...objSoFar, [letter]: src}), {})
 
-const GET_DEFAULT_KERNING = function(sizeMultiplier=1) { return 30 * sizeMultiplier }
+const GET_DEFAULT_KERNING = function(sizeMultiplier=1) { return 55 * sizeMultiplier }
 const KERNING = {}
 
 // function hasSpaceStartBottom(letter) { return ['c', 'g', 'o', 'q', 't', 'u', 'v', 'w', 'y'].includes(letter) }
@@ -52,13 +52,13 @@ function getKerning(previousLetter, letter, sizeMultiplier=1) {
         'aj': -10,
         'ao': -10,
         'aq': -10,
-        'at': -10,
+        'at': -15,
         'au': -10,
         'av': -10,
         'aw': -10,
         'ay': -10,
         'cd': -5,
-        'ce': -5,
+        'ce': 2,
         'cf': -5,
         'cd': -5,
         'ch': 10,
@@ -79,6 +79,7 @@ function getKerning(previousLetter, letter, sizeMultiplier=1) {
         'es': 12,
         'er': 20,
         'fa': -25,
+        'fe': 5,
         'gt': -15,
         'gv': -15,
         'gw': -25,
@@ -195,7 +196,7 @@ export function QGTitle1({ id, text, className, style, hueShift, height=60, chil
         })
     }, [])
 
-    return <canvas id={id} style={newStyle} ref={canvasRef} className={`qg-title1 ${className}`}/>
+    return <canvas id={id} style={newStyle} ref={canvasRef} className={`qg-title1 flex-shrink ${className}`}/>
 }
 
 
