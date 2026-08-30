@@ -5,7 +5,7 @@ import PageH2 from "../../../components/PageH2/PageH2"
 import TextArea from "../../../components/TextArea/TextArea"
 import Icon from "../../../components/Icon"
 import Input from "../../../components/Input/Input"
-import { getChoiceAbilitiesObjects, getCurrentCharacterFromLocalStorage, getInvestedStatPoints, setWeapons, useAllSpellsMetadata, useArmors, useConstAllAbilitiesAndItemsExtras, useConstAllBonuses, useConstAllMyAbilities, useConstAllSkillBonuses, useConstAllSpecialBonusesNames, useConstAutoSkillBonuses, useConstAutoStatPointsArray, useConstBonusesFromSpellsAndItems, useConstTotalStatPointsArray, useConstTotalStatsArray, useConstTotalStatsFractions, useCurrentHealth, useCurrentMana, useDescription, useGold, useInventory, useLanguages, useLevel, useMagicItems, useManualBonuses, useManualCombatExtras, useManualNormalExtras, useManualSkillBonuses, useMaxMana, useQuickNotes, useSectionClassName, useSectionClassSpecName, useSectionNamesState, useSectionRaceName, useSkills, useWeapons } from "./CharacterData"
+import { getChoiceAbilitiesObjects, getCurrentCharacterFromLocalStorage, getInvestedStatPoints, getQuickNotes, setWeapons, useAllSpellsMetadata, useArmors, useConstAllAbilitiesAndItemsExtras, useConstAllBonuses, useConstAllMyAbilities, useConstAllSkillBonuses, useConstAllSpecialBonusesNames, useConstAutoSkillBonuses, useConstAutoStatPointsArray, useConstBonusesFromSpellsAndItems, useConstTotalStatPointsArray, useConstTotalStatsArray, useConstTotalStatsFractions, useCurrentHealth, useCurrentMana, useDescription, useGold, useInventory, useLanguages, useLevel, useMagicItems, useManualBonuses, useManualCombatExtras, useManualNormalExtras, useManualSkillBonuses, useMaxMana, useQuickNotes, useSectionClassName, useSectionClassSpecName, useSectionNamesState, useSectionRaceName, useSkills, useWeapons } from "./CharacterData"
 import SmallStat from "../../../components/SmallStat/SmallStat"
 import ManySmallStats from "../../../components/SmallStat/ManySmallStats"
 import { askConfirmation } from "../../../services/MessageDisplayer"
@@ -24,6 +24,8 @@ import { printCharacterOnCanvas } from "./CharacterSheetPrinter"
 import NumberAligner from "../../../components/NumberAligner/NumberAligner"
 import { GrayFractionText } from "../../../components/GrayFractionText/GrayFractionText"
 import classNames from "classnames"
+import TextAreaLocalStorage from "../../../components/TextArea/TextAreaLocalStorage"
+import { SaveCharacterButton } from "./HelperComponents/SaveCharacterButton"
 
 export default function MyCharacter() {
 
@@ -51,7 +53,7 @@ export default function MyCharacter() {
     let [spellsMetadata, setSpellsMetadata] = useAllSpellsMetadata()
     
     let [description, setDescription] = useDescription()
-    let [quickNotes, setQuickNotes] = useQuickNotes()
+    // let [quickNotes, setQuickNotes] = useQuickNotes()
     let [inventory, setInventory] = useInventory()
     let [weaponNames, setWeaponNames] = useWeapons()
     let [armorNames, setArmorNames] = useArmors()
@@ -304,9 +306,9 @@ export default function MyCharacter() {
 
     // Subcomponents
     function Names() {
-        return <div className="flex flex-column">
+        return <div className="flex flex-column gap-1">
             <div className="center-content">
-                <QGTitle1 text={names.characterName} height={60}/>
+                <QGTitle1 text={names.characterName} height={50}/>
             </div>
             {/* <PageH3>Level {level} { selectedRaceName } { selectedClassName } { selectedSpecName != null && `(${selectedSpecName})`}</PageH3> */}
             {/* <h1 className="center-text full-width">{ names.characterName }</h1> */}
@@ -358,7 +360,7 @@ export default function MyCharacter() {
                 </div>
             </div>
             <div className="wrapper description-wrapper combat-notes-wrapper">
-                <TextArea className="wrapped-child" initialValue={quickNotes} onChange={text => setQuickNotes(text)} placeholder={"Other useful notes..."}/>
+                <TextAreaLocalStorage key="QuickNotes" className="wrapped-child" useLocalStorage={useQuickNotes} placeholder={"Other useful notes..."}/>
             </div>
         </div>
     }
@@ -440,9 +442,12 @@ export default function MyCharacter() {
 
             <div id="My-Character-Upper-Part">
                 <Names/>
+                <div className="center-content">
+                    <SaveCharacterButton/>
+                </div>
 
                 {/* <PortraitAndDescriptionRowP/> */}
-                <div className="portrait-only">
+                <div className="portrait-only margin-top-2">
                     <PortraitAndDescription/>
                 </div>
                 <div className="flex flex-row margin-top-1" style={{gap: 'var(--stats-gap)'}}>

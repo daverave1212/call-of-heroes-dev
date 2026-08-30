@@ -8,7 +8,7 @@ import Column from '../TwoColumns/Column'
 import ThreeColumns from '../TwoColumns/ThreeColumns'
 
 
-export default function Tabs({ layout, getTabIconSrc, tabComponents, activeTabI, setActiveTabI, activeTabName, setActiveTabName, isFirstTabLarge=false }) {
+export default function Tabs({ layout, getTabIconSrc, tabComponents, activeTabI, setActiveTabI, activeTabName, setActiveTabName, isFirstTabLarge=false, children }) {
     
     const tabNames = layout.flat()
     const selectedTabName =
@@ -61,6 +61,7 @@ export default function Tabs({ layout, getTabIconSrc, tabComponents, activeTabI,
 
             </div>
 
+            { children }
 
             <div className="tab-content margin-top-2">
                 { selectedTabName != null && (

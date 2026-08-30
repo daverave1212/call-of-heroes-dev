@@ -21,6 +21,12 @@ export function AccountOverview() {
             <div className="dashboard-panel flex column gap-quarter">
                 <h3 className="home-font">{user.name}</h3>
                 <p className="gray">{user.email}</p>
+                <p id="User-ID" className="home-font hidden"></p>
+                <button className="small shrink margin-top-1" onClick={() => {
+                    const uidP = document.querySelector('#User-ID')
+                    uidP.innerHTML = user.id
+                    uidP.classList.remove('hidden')
+                }}>Reveal User ID</button>
             </div>
         </div>
 

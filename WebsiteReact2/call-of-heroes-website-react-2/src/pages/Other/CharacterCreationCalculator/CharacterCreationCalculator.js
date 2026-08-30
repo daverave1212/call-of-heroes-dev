@@ -10,7 +10,7 @@ import './CharacterCreationCalculator.css'
 import { SpellTopIconSide } from "../../../components/Spell/Spell";
 import { CoolButton } from "../../../components/CoolButton/CoolButton";
 import HeroButton from "../../../components/HeroButton/HeroButton";
-import useConstWindowDimensions, { generateUniqueId, getAllClasses, getClassRepresentativeIconName, getSpellIconPathByName, isStringJSON, normalizeStringJSON, pasteFromClipboardAsync, splitArrayEvenly, uncapitalizeFirstLetter, useLocalStorageState } from "../../../utils";
+import useConstWindowDimensions, { getAllClasses, getClassRepresentativeIconName, getSpellIconPathByName, isStringJSON, normalizeStringJSON, pasteFromClipboardAsync, splitArrayEvenly, uncapitalizeFirstLetter, useLocalStorageState } from "../../../utils";
 import Selector from "../../../components/Selector/Selector";
 import ManySpells from "../../../components/Spell/ManySpells";
 
@@ -30,14 +30,14 @@ import SectionFeats from "./SectionFeats";
 import SectionShop from "./SectionShop";
 import SectionRace from "./SectionRace";
 import SectionClass from "./SectionClass";
-import { NO_CHARACTER_ID, clearCurrentCharacter, getCurrentCharacterFromLocalStorage, newCharacterLS, normalizeCharacter, setCharacterToLocalStorage, setCurrentCharacterId, useChoiceAbiliesObjects, useCurrentCharacterId, useMyCharactersDB, useSectionNamesState } from "./CharacterData";
+import { clearCurrentCharacter, getCurrentCharacterFromLocalStorage, newCharacterLS, normalizeCharacter, setCharacterToLocalStorage, useChoiceAbiliesObjects, useCurrentCharacterId, useMyCharactersDB, useSectionNamesState } from "./CharacterData";
 import { SelectorsByColumns } from "../Abilities";
 import Dialog from "../../../components/Dialog/Dialog";
 import { STAT_NAMES } from "../../../services/game-lib/stat-calculations";
 import { useDoIOwnSet, useIsLoggedIn } from "../../../services/auth/Auth";
 import LoginRequired from "../../../components/LoginRequired/LoginRequired";
 import SectionMagicFonts from "./SectionMagicFonts";
-import { showToast } from "../../../services/dom/toaster";
+import { SaveCharacterButton } from "./HelperComponents/SaveCharacterButton";
 
 
 const TAB_LAYOUT_LANDSCAPE = [
@@ -132,38 +132,6 @@ function MyCharacters() {
     )
 }
 
-function SaveCharacterButton() {
-
-    let [myCharacters, saveMyCharacters] = useMyCharactersDB('CharacterCreationCalculator.SaveCharacterButton')
-
-    async function saveCharacter() {
-        const currentCharacter = getCurrentCharacterFromLocalStorage()
-        const existingCharacterIndex = myCharacters.findIndex(char => char.id == currentCharacter.id)
-        const willAddNewCharacter = currentCharacter.id == NO_CHARACTER_ID || existingCharacterIndex == -1
-        const newMyCharacters = [...myCharacters]
-        if (willAddNewCharacter) {
-            if (currentCharacter.id == NO_CHARACTER_ID) {
-                const uniqueID = generateUniqueId()
-                currentCharacter.id = uniqueID                
-                setCurrentCharacterId(uniqueID)
-            }
-            newMyCharacters.push(currentCharacter)
-        } else {
-            newMyCharacters[existingCharacterIndex] = currentCharacter
-        }
-        const wasSaveSuccessful = await saveMyCharacters(newMyCharacters)
-        if (wasSaveSuccessful) {
-            showToast('Character saved successfully!', 'green')
-        }
-    }
-    
-    return (
-        <div className="center-content margin-top-1">
-            <button onClick={saveCharacter}>Save Character</button>
-        </div>
-    )
-}
-
 /* { Message: string, Button State: string, callback: function,  } */
 function SpellPopup({ dialogState, setDialogState }) {
 
@@ -227,7 +195,7 @@ export default function CharacterCreationCalculator() {
                     <SectionMagicFonts openPopup={openPopup}/>,
                     <SectionShop/>,
                     <div></div>,
-                ]}/>
+                ]}></Tabs>
 
                 <SaveCharacterButton/>
             </LoginRequired>

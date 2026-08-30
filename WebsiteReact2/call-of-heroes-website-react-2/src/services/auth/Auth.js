@@ -7,6 +7,7 @@ import defaultPublicUserDataMap from './default-public-user-data-map.json'
 import { maybeWakeServer } from "../backend-services/wake-server";
 import { showToast } from "../dom/toaster";
 import * as firebaseDatabase from '../Firebase/FirebaseDatabase'
+import { clearCurrentCharacter } from "../../pages/Other/CharacterCreationCalculator/CharacterData";
 
 let userSets = null
 export const getUserState = () => getLocalStorageJSON('currentUserData')
@@ -15,6 +16,11 @@ window.getUserState = getUserState
 window._getUserSets = () => userSets
 
 const authChangedListeners = {
+    'Clear MyCharacter localStorage': async newUserData => {
+        if (newUserData == null) {
+            clearCurrentCharacter()
+        }
+    },
     'Ping server to wake up': async () => {
         try {
             maybeWakeServer()   // No need to await

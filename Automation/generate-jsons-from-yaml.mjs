@@ -22,17 +22,24 @@ const PREMIUM_KEYS_TO_STRIP = [
     'Talents',
     'Specs',
 ]
-
-function stripPremiumContentOfFeatures(obj, { config, fileName, fileNameNoExt, fileDir }) {
+const ALL_KEYS_TO_STRIP = [
+    'Ideas'
+]
+function stripPremiumContentOfFeatures(obj, keysToStrip, { includeOnlyFileNames, config, fileName, fileNameNoExt, fileDir }) {
     const newObj = {...obj}
 
     function stripNormal() {
-        for (const key of PREMIUM_KEYS_TO_STRIP) {
+        for (const key of keysToStrip) {
             delete newObj[key]
         }
     }
 
-    if (fileDir.includes('Races') || fileDir.includes('Classes')) {
+    const shouldStrip =
+        includeOnlyFileNames == null?
+            true
+        :
+            includeOnlyFileNames.some(includeFileName => fileDir.includes(includeFileName))
+    if (shouldStrip) {
         stripNormal()
     }
 
@@ -263,8 +270,10 @@ const PROCESS_STRATEGIES = {
 
 
 
-function defaultOutputStrategy(obj, { fileConfig, config, fileName, fileNameNoExt, fileDir }) {
-    const jsonString = JSON.stringify(obj, null, 4);
+function defaultOutputStrategy(obj, params) {
+    const { fileConfig, config, fileName, fileNameNoExt, fileDir } = params
+    const strippedObj = stripPremiumContentOfFeatures(obj, ALL_KEYS_TO_STRIP, params)  // Strip it of things not supposed to be in production
+    const jsonString = JSON.stringify(strippedObj, null, 4);
     const outputPath = path.join(jsonRootFolder, fileDir, `${fileNameNoExt}.json`);
 
     try {
@@ -281,7 +290,7 @@ const OUTPUT_STRATEGIES = {
 
     'premium': (obj, params) => {
         const { config, fileName, fileNameNoExt, fileDir } = params
-        const strippedObj = stripPremiumContentOfFeatures(obj, params)
+        let strippedObj = stripPremiumContentOfFeatures(obj, PREMIUM_KEYS_TO_STRIP, {...params, includeOnlyFileNames: ['Races', 'Classes']})
         defaultOutputStrategy(strippedObj, params)  // Write as is to the normal folder (TODO: strip it)
         
         const jsonString = JSON.stringify(obj, null, 4);

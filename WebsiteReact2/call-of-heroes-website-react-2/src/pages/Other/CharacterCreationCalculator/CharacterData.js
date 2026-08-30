@@ -191,6 +191,12 @@ export function useDescription() {
 export function useQuickNotes() {
     return useCharacterLocalStorageState('quickNotes')
 }
+export function getQuickNotes() {
+    return getLocalStorageJSON('character.quickNotes')
+}
+export function setQuickNotes(value) {
+    return setLocalStorageJSON('character.quickNotes', value)
+}
 export function useLanguages() {
     return useCharacterLocalStorageState('languages', [])
 }

@@ -3255,6 +3255,9 @@ export function setLocalStorageJSON(keyName, value) {
         value: value
     } }))
 }
+window.getLocalStorageJSON = getLocalStorageJSON
+window.setLocalStorageJSON = setLocalStorageJSON
+
 export function useLocalStorageState(keyName, defaultValue) {
     const existingValue = getLocalStorageJSON(keyName)
     if (existingValue == null) {
