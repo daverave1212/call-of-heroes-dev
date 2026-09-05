@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Page from '../../containers/Page/Page'
 
-import { def, getDaysSince, getOnlyProp, isNumber, isObject, isString } from '../../utils'
+import { def, getDaysSince, getOnlyProp, isNumber, isObject, isString, parseTextWithSymbols } from '../../utils'
 
 import './Blog.css'
 import { BlogPageHeader } from './Blog'
@@ -15,12 +15,12 @@ function RenderPostSection({ title, content }) {
     return <div className='padding-top-1'>
         { (title != 'Intro' || title.startsWith('Text')) && <h3 className='home-font-bold margin-0 padding-0'>{title}</h3> }
         { isString(content)?
-            <p className='source-sans padding-top-half'>{ content }</p>
+            <p className='source-sans padding-top-half'>{ parseTextWithSymbols(content) }</p>
           :Array.isArray(content)?
             <div className=' padding-top-half'>
                 <ul>
                     { content.map(li => (
-                        <li className='source-sans'>{ li }</li>
+                        <li className='source-sans'>{ parseTextWithSymbols(li) }</li>
                     )) }
                 </ul>
             </div>

@@ -32,11 +32,10 @@ export async function existsMyDocInCollection(collectionName, userState=null) {
     assertLoggedIn()
     userState = userState ?? getUserState()
     // console.log({...userState})
-    console.orange(`TODO: There is an issue with this withAntiSpamCache! With the normal await firebase... it works!`)
-    console.orange(`TODO: The issue is a lot of existsMyDocInCollection is called before firebase auth code. So I need to force firebase auth to be first somehow (import it at the top?)`)
+    // console.orange(`TODO: There is an issue with this withAntiSpamCache! With the normal await firebase... it works!`)
+    // console.orange(`TODO: The issue is a lot of existsMyDocInCollection is called before firebase auth code. So I need to force firebase auth to be first somehow (import it at the top?)`)
     // const result = await firebaseDatabase.existsDocument(collectionName, userState.id)
     const result = await withAntiSpamCache('collectionName', 'exists', userState?.name, async () => await firebaseDatabase.existsDocument(collectionName, userState.id))
-    console.teal(`  existsMyDocInCollection: ${result}`)
     return result
 }
 export async function getDocInCollection(collectionName, docId) {

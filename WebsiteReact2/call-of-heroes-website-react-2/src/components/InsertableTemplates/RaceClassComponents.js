@@ -47,6 +47,7 @@ import ErrorPage from '../ErrorPage/ErrorPage'
 import SetRequiredBanner from '../SetRequiredBanner/SetRequiredBanner'
 import { getRaceAsync, getRaceLocal } from '../../services/content-providers/RaceProvider'
 import { FEATURES, useFeatureItem } from '../../services/content-providers/ContentProvider'
+import Loading, { LoadingCenter } from '../Loading/Loading'
 
 
 export function Proficiencies({ name, theRaceOrClass }) {
@@ -575,7 +576,7 @@ export function AbilitiesWithDescription({ spellsObject, description, title, aut
 
 export function RacePage({ raceName }) {
 
-    const theRace = useFeatureItem(FEATURES.Races, raceName)
+    const [theRace, isLoading] = useFeatureItem(FEATURES.Races, raceName)
 
     if (theRace == null) {
         return <ErrorPage/>
@@ -607,7 +608,9 @@ export function RacePage({ raceName }) {
                     <PageH2>Race Feats</PageH2>
                     <p>Choose 2 Race Talents from below. Your choice is permanent!</p>
                     <ManySpells spells={U.spellsFromObject(theRace.Talents)}/>
-                </>): (
+                </>): isLoading?
+                    <LoadingCenter/>
+                :(
                     <SetRequiredBanner setName={theRace.Set}/>
                 ) }
 
@@ -622,7 +625,7 @@ export function RacePage({ raceName }) {
 }
 export function CCRacePage({ raceName, selectedSpellNames, onSpellClick }) {
 
-    const theRace = useFeatureItem(FEATURES.Races, raceName)
+    const [theRace, isLoading] = useFeatureItem(FEATURES.Races, raceName)
 
     return (
         <div>
@@ -658,9 +661,11 @@ export function CCRacePage({ raceName, selectedSpellNames, onSpellClick }) {
                         selectedSpellNames={selectedSpellNames}
                         onSpellClick={onSpellClick}
                     />
-                </>): (
+                </>): isLoading?
+                    <LoadingCenter/>
+                :
                     <SetRequiredBanner setName={theRace.Set}/>
-                ) }
+                }
 
             </Page>
         </div>
@@ -683,7 +688,7 @@ export function ClassPageV2({
     isCharacterCreationPage=true
 }) {
 
-    const theClass = useFeatureItem(FEATURES.Classes, className)
+    const [theClass, isLoading] = useFeatureItem(FEATURES.Classes, className)
 
     if (theClass == null) {
         return <ErrorPage/>
@@ -843,7 +848,9 @@ export function ClassPageV2({
                     </div>
                 </>)}
 
-                { shouldDisplaySetRequired && <SetRequiredBanner setName={theClass.Set ?? 'basic'}/> }
+                { shouldDisplaySetRequired && (
+                    isLoading? <LoadingCenter/>: <SetRequiredBanner setName={theClass.Set ?? 'basic'}/>
+                ) }
 
 
             </Page>

@@ -92,7 +92,6 @@ export function PetOrAnimalAbilities({animal}) {
         return <div></div>
     }
     const abilities = U.spellsFromObject(animal.Abilities)
-    console.log({abilities})
     return <div className='margin-top-1'>
         { abilities.map(ability => (
             <MonsterAbility ability={ability} isPassive={ability.A == 'Passive'}/>
@@ -148,9 +147,6 @@ export default function PetOrAnimal() {
 
     const location = useLocation()
     const animalName = U.getPageHashFromLocation(location)
-
-    console.log(animalName)
-    console.log({animals})
 
     let animal = null
     for (const category of Object.keys(animals)) {

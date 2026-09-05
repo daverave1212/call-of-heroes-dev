@@ -6,6 +6,7 @@ import { getRaceLocal, raceExists } from "./RaceProvider"
 
 import cache from '../data-caching/cache'
 import { useEffect, useState } from "react"
+import { showToast } from "../dom/toaster"
 
 export const FEATURES = {
     Races: 'races',
@@ -64,16 +65,24 @@ export async function getFeatureItemAsync(featureName, name) {
 }
 
 export function useFeatureItem(featureName, itemName) {
+    const [isLoading, setIsLoading] = useState(true)
     const [innerItem, setInnerItem] = useState(getFeatureItemLocal(featureName, itemName))
 
     useEffect(() => {
         (async () => {
-            const fullItem = await getFeatureItemAsync(featureName, itemName)
-            setInnerItem(fullItem)
+            try {
+                const fullItem = await getFeatureItemAsync(featureName, itemName)
+                setInnerItem(fullItem)
+            } catch (e) {
+                console.error(e)
+                showToast(e, 'red')
+            } finally {
+                setIsLoading(false)
+            }
         })()
     }, [featureName, itemName])
 
-    return innerItem
+    return [innerItem, isLoading]
 }
 
 window.getFeatureItemAsync = getFeatureItemAsync

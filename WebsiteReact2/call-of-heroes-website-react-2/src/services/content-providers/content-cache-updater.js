@@ -13,7 +13,6 @@ import { getDocInCollection } from '../online-database/Database'
  *      Puts it in the cache as "core-races".
  */
 export async function maybeUpdateSetFeatureCache(setName, featureName) {
-    console.green(`Updating cache for set ${setName} feature ${featureName}`)
     const featureId = getSetFeatureId(setName, featureName)
 
     const isFree = await isSetFreeAsync(setName)
@@ -25,15 +24,12 @@ export async function maybeUpdateSetFeatureCache(setName, featureName) {
         return
     }
 
-    console.green(`    ✅ Did not skip set.`)
     
     // Get and compare cached version with live version
     const liveSetsConifg = await getSetsConfigAsync()
     const setCfgCacheExists = await cache.existsAsync('sets-config')
     const cachedSetsConfig = setCfgCacheExists? await cache.getAsync('sets-config'): {}
     
-    console.log({liveSetsConifg, setCfgCacheExists, cachedSetsConfig})
-
     const setLiveVersion = liveSetsConifg[setName].version
     const setCachedVersion = cachedSetsConfig[setName]?.version
 
@@ -41,14 +37,11 @@ export async function maybeUpdateSetFeatureCache(setName, featureName) {
 
     const shouldUpdateCache = isNewer(setLiveVersion, setCachedVersion) || !cachedSetExists
 
-    console.log({liveSetsConifg, setCfgCacheExists, cachedSetsConfig, setLiveVersion, setCachedVersion, cachedSetExists, shouldUpdateCache})
-
     if (!shouldUpdateCache) {
         console.green(`✔ Not newer ${setLiveVersion} than ${setCachedVersion}`)
         return
     }
 
-    console.green(`  Live version ${setLiveVersion} newer than ${setCachedVersion}. Updating...`)
     try {
         const res = await getDocInCollection('game-products', featureId)
         await cache.setAsync(featureId, res.content)

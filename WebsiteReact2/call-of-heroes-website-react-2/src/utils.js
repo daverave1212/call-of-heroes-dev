@@ -50,6 +50,10 @@ export function parseAndNormalizeSpell(spell, options={
     spellModified.Name = getNormalizedSpellName(spell)
     spellModified.IconPath = getSpellOrItemIconPath(spell, isItem)
 
+    if (spell.Name == 'Drain Blood') {
+        console.teal(`Drain Blood here! Parsing...`)
+    }
+
     // Normalize variants
     let extraMixins = {}
     maybeNormalizeSpellForEachVariants(spellModified)
