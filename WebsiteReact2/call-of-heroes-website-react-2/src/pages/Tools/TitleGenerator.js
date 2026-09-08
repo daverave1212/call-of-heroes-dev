@@ -374,10 +374,10 @@ export async function drawQGTextOnCanvas(canvas, text, sizeMultiplier=1) {
         return drawX
     }
 
-    if (text == 'Cleric') printTimestamp(`Starting to draw text: ${text}`)
+    // if (text == 'Cleric') printTimestamp(`Starting to draw text: ${text}`)
     // await maybePreloadLetterImages()
     await waitImagesLoaded()
-    if (text == 'Cleric') printTimestamp(`Finished preloading letters`)
+    // if (text == 'Cleric') printTimestamp(`Finished preloading letters`)
 
     canvas.width = getTextWidth(text)
     canvas.height = GET_TALL_LETTER_HEIGHT(sizeMultiplier)
@@ -387,7 +387,7 @@ export async function drawQGTextOnCanvas(canvas, text, sizeMultiplier=1) {
     for (let i = 0; i < text.length; i++) {
         drawX = drawCharAt(i, drawX)
     }
-    if (text == 'Cleric') printTimestamp(`Finished drawing letters`)
+    // if (text == 'Cleric') printTimestamp(`Finished drawing letters`)
 
     
 }

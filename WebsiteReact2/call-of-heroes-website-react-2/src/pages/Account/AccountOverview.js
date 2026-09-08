@@ -43,9 +43,11 @@ export function AccountOverview() {
                         subtext="QuestGuard has a ton of unlockable content though! Check out all the products you can unlock!"
                     />
                 ) }
-                { Object.keys(owendSets).map(set => (
-                    <DashboardBox name={capitalizeFirstLetter(set)} subtext="Digital Access" tag="Owned"/>
-                )) }
+                <div className="grid-2-responsive grid-gap-1">
+                    { Object.keys(owendSets).map(set => (
+                        <DashboardBox name={capitalizeFirstLetter(set)} subtext="Digital Access" tag="Owned"/>
+                    )) }
+                </div>
             </> }
         </div>
     </div>

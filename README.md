@@ -19,7 +19,7 @@ If you have any new files, you must open Automation/sets-config.json and add tho
 ### ii. Make files appear in website repo
 To make those files apprea in the website repo, you need to run a script:
 - cd Automation
-- node ./generate-jsons-from-yaml.mjs --all
+- ./parse.bat --all
 NOTE: All basic files will be there, but all premium features are truncated! The full premium files are generated in GeneratedPremiumFiles/_SetName_.
 
 ### iii. Update files in the cloud
@@ -56,3 +56,7 @@ c. Update ContentProvider
 ### How to: Make new set
 a. Open Automation/sets-config.json
     - Add a new entry like the others with the set id as the key.
+b. .\parse.bat --all
+c. node .\update-sets-in-firebase.mjs _setname_
+d. You may want to make some keys for that set:
+    - node keys.mjs --help

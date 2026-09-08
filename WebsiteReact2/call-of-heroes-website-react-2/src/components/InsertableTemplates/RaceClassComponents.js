@@ -48,6 +48,8 @@ import SetRequiredBanner from '../SetRequiredBanner/SetRequiredBanner'
 import { getRaceAsync, getRaceLocal } from '../../services/content-providers/RaceProvider'
 import { FEATURES, useFeatureItem } from '../../services/content-providers/ContentProvider'
 import Loading, { LoadingCenter } from '../Loading/Loading'
+import ComingSoonBanner from '../Banner/ComingSoonBanner'
+import { useDoIOwnSet } from '../../services/auth/Auth'
 
 
 export function Proficiencies({ name, theRaceOrClass }) {
@@ -457,8 +459,10 @@ export function PHealthAndArmor({ theClass }) {
 export function Spec({ children, name, specObj, hasNoMargins }) {
     return (
         <Page key={name} isSecondaryPage={true} hasNoMargins={hasNoMargins}>
-            <QGTitle1 text={name} height={60}/>
-            <p>{specObj.Description}</p>
+            <div className='center-content center-text'>
+                <QGTitle1 text={name} height={60}/>
+                <p>{specObj.Description}</p>
+            </div>
 
             <PageH3>You start with...</PageH3>
 
@@ -484,14 +488,32 @@ export function TalentTier({ title, talents, selectedSpellNames, onSpellClick, s
 }
 
 export function Talents({ talents, selectedSpellNames, onSpellClick, spellsMetadata, condition=()=>true }) {
+    const [doIOwnEarlyAccess, isLoading] = useDoIOwnSet('early-access')
+    
     const talentTitles = Object.keys(talents).filter(key => key != null && talents[key] != null)
     const talentTitlesSorted = U.sortByHash(talentTitles, title => U.getNumberFromString(title))
+    const lastTalentTitle = talentTitles[talentTitles.length - 1]
+    const isComplete = lastTalentTitle.includes('10')
+
+    const [talents1to4, talents5to6, talentsRest] = U.splitBy(talentTitlesSorted, (title, i) => {
+        return title.includes('5') || title.includes('7')
+    })
+
+    function TalentsPart({titles}) {
+        return titles.filter(title => condition(title)).map(title => <>
+            <TalentTier title={title} talents={talents[title]} selectedSpellNames={selectedSpellNames} onSpellClick={onSpellClick} spellsMetadata={spellsMetadata}/>
+        </>)
+    }
+
 
     return (
         <div>
-            { talentTitlesSorted.filter(title => condition(title)).map(title => <>
-                    <TalentTier title={title} talents={talents[title]} selectedSpellNames={selectedSpellNames} onSpellClick={onSpellClick} spellsMetadata={spellsMetadata}/>                    
-                </>
+            <TalentsPart titles={talents1to4}/>
+            { isLoading? (<LoadingCenter/>): (
+                doIOwnEarlyAccess?
+                    <TalentsPart titles={talents5to6}/>
+                :
+                    null
             )}
         </div>
     )
@@ -608,6 +630,7 @@ export function RacePage({ raceName }) {
                     <PageH2>Race Feats</PageH2>
                     <p>Choose 2 Race Talents from below. Your choice is permanent!</p>
                     <ManySpells spells={U.spellsFromObject(theRace.Talents)}/>
+                    <ComingSoonBanner/>
                 </>): isLoading?
                     <LoadingCenter/>
                 :(
@@ -661,6 +684,7 @@ export function CCRacePage({ raceName, selectedSpellNames, onSpellClick }) {
                         selectedSpellNames={selectedSpellNames}
                         onSpellClick={onSpellClick}
                     />
+                    <ComingSoonBanner/>
                 </>): isLoading?
                     <LoadingCenter/>
                 :
@@ -831,17 +855,18 @@ export function ClassPageV2({
                         onSpellClick={onSpellClick}
                         spellsMetadata={spellsMetadata}
                     />
+                    <ComingSoonBanner/>
                 </>}
 
                 <br/><br/>
                 { theClass.Specializations != null && <>
                     <LevelingUp theClass={theClass} isCharacterCreationPage={isCharacterCreationPage}/>
-                    <div className='center-content'>
+                    <div className='center-content margin-top-4'>
                         <QGTitle1 text={'Specializations'} height={45}/>
                     </div>
                 </>}
                 { theClass.Specs != null && (<>  
-                    <div className='flex-responsive gap-half'>
+                    <div className='flex-responsive gap-half margin-top-2'>
                         { Object.keys(theClass['Specs']).map(specName => (
                             <Selector className="margin-top-1" key={specName} name={specName} onClick={() => onSpecClick(specName)} src={U.getSpecRepresentativeIconFullPath(theClass, specName)} isSelected={selectedSpecName == specName}/>
                         )) }
@@ -878,6 +903,7 @@ export function ClassPageV2({
                         onSpellClick={onSpellClick}
                         spellsMetadata={spellsMetadata}
                     />
+                    <ComingSoonBanner/>
 
                 </Spec>
             )}

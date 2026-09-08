@@ -1495,8 +1495,17 @@ export function sum(array) {
     }
     return array.reduce((soFar, x) => soFar + x, 0)
 }
-
-
+export function splitBy(arr, func) {
+  return arr.reduce((acc, elem, i) => {
+    // If predicate is true AND it's not the very first element, start a new group
+    if (func(elem, i) && i > 0) {
+      acc.push([elem]);
+    } else {
+      acc[acc.length - 1].push(elem);
+    }
+    return acc;
+  }, [[]]);
+}
 export function sortObjectArrayByKeyInOrder(array, property, orderArray) {
   // Create a map for O(1) index lookups
   const orderMap = new Map(orderArray.map((value, index) => [value, index]));

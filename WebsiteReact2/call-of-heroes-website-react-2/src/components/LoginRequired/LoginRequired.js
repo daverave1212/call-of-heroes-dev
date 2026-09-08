@@ -13,7 +13,7 @@ export default function LoginRequired({location, children}) {
 
     if (!isLoggedIn) {
         return <div className="width-100 flex column center-content" style={{ backgroundColor: 'white', minHeight: '80vh'}}>
-            <div className="center-content">
+            <div className="center-content gap-3">
                 <QGTitle1 text="Login Required" height={50}/>
                 <p>You need to be logged in to view this page.</p>
             </div>
