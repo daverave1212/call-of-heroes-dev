@@ -12,7 +12,7 @@ import path from 'path'
 
 import STATIC_SYMBOLS from './parse-text-symbols-static.json' with { type: 'json' }
 import * as STATS_STATIC from './stats-constants.mjs'
-import { accessObjectProp, addError, addNameToSpellsRecursively, assertAbilityHasCorrectProps, assertObjectHas, assertObjectHasNot, findAllYAMLFiles, forEachFoundAbility, getNErrorsFound, getObjectValueByFuzzyKey, isSpellName, looksLikeSpell, objectEntriesByFuzzyKey, readAndNormalizeYamlToJson, replaceAllWithExceptions, REPLACEMENTS, replaceOnly, STATUS_EFFECTS, stringHasAnyOfChars, validateClass, validateAndFixMonstersFile, validateRace, assertAbilityHasCorrectValues } from './automation-utils.mjs'
+import { accessObjectProp, addError, addNameToSpellsRecursively, assertAbilityHasCorrectProps, assertObjectHas, assertObjectHasNot, findAllYAMLFiles, forEachFoundAbility, getNErrorsFound, getObjectValueByFuzzyKey, isSpellName, looksLikeSpell, objectEntriesByFuzzyKey, readAndNormalizeYamlToJson, replaceAllWithExceptions, REPLACEMENTS, replaceOnly, STATUS_EFFECTS, stringHasAnyOfChars, validateClass, validateAndFixMonstersFile, validateRace, assertAbilityHasCorrectValues, includesAny, deleteKeys, isObject } from './automation-utils.mjs'
 
 import SETS from './sets-config.json' with { type: 'json' }
 
@@ -25,7 +25,25 @@ const PREMIUM_KEYS_TO_STRIP = [
 const ALL_KEYS_TO_STRIP = [
     'Ideas'
 ]
-function stripPremiumContentOfFeatures(obj, keysToStrip, { includeOnlyFileNames, config, fileName, fileNameNoExt, fileDir }) {
+function stripEarlyAccessContent(obj) {
+    const tiersToRemove = [7, 8, 9, 10].map(int => `Level ${int}`)
+
+    deleteKeys(obj, (key, value, path) => {
+        if (key == null || value == null || path == null) {
+            return false
+        }
+        if (path.includes('Talents')) {
+            if (includesAny(key, tiersToRemove)) {
+                return true
+            }
+        }
+        if (isObject(value) && value?.IsEarlyAccess === false) {
+            return true
+        }
+        return false
+    })
+}
+function stripContentOfFeatures(obj, keysToStrip, { includeOnlyFileNames, config, fileName, fileNameNoExt, fileDir }) {
     const newObj = {...obj}
 
     function stripNormal() {
@@ -39,9 +57,13 @@ function stripPremiumContentOfFeatures(obj, keysToStrip, { includeOnlyFileNames,
             true
         :
             includeOnlyFileNames.some(includeFileName => fileDir.includes(includeFileName))
+    
     if (shouldStrip) {
         stripNormal()
     }
+
+    // Strip Talents -- REMOVE THIS WHEN EARLY ACCESS IS FINISHED
+    stripEarlyAccessContent(obj)
 
     return newObj
 }
@@ -272,7 +294,7 @@ const PROCESS_STRATEGIES = {
 
 function defaultOutputStrategy(obj, params) {
     const { fileConfig, config, fileName, fileNameNoExt, fileDir } = params
-    const strippedObj = stripPremiumContentOfFeatures(obj, ALL_KEYS_TO_STRIP, params)  // Strip it of things not supposed to be in production
+    const strippedObj = stripContentOfFeatures(obj, ALL_KEYS_TO_STRIP, params)  // Strip it of things not supposed to be in production
     const jsonString = JSON.stringify(strippedObj, null, 4);
     const outputPath = path.join(jsonRootFolder, fileDir, `${fileNameNoExt}.json`);
 
@@ -290,7 +312,7 @@ const OUTPUT_STRATEGIES = {
 
     'premium': (obj, params) => {
         const { config, fileName, fileNameNoExt, fileDir } = params
-        let strippedObj = stripPremiumContentOfFeatures(obj, PREMIUM_KEYS_TO_STRIP, {...params, includeOnlyFileNames: ['Races', 'Classes']})
+        let strippedObj = stripContentOfFeatures(obj, PREMIUM_KEYS_TO_STRIP, {...params, includeOnlyFileNames: ['Races', 'Classes']})
         defaultOutputStrategy(strippedObj, params)  // Write as is to the normal folder (TODO: strip it)
         
         const jsonString = JSON.stringify(obj, null, 4);

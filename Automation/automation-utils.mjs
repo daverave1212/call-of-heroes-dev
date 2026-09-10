@@ -327,7 +327,56 @@ export function getTimestamp() {
 
     return `${year}-${month}-${day}-${hour}${minute}`;
 }
+export function deleteKeys(obj, condition, currentPath = '') {
+  // Return early if obj is not a non-null object
+  if (typeof obj !== 'object' || obj === null) {
+    return obj;
+  }
 
+  // Helper to build dot-separated path strings
+  const getPath = (key) => (currentPath ? `${currentPath}.${key}` : String(key));
+
+  // Handle Arrays: iterate backwards so splicing doesn't shift remaining indices
+  if (Array.isArray(obj)) {
+    for (let i = obj.length - 1; i >= 0; i--) {
+      const item = obj[i];
+      const itemPath = getPath(i);
+
+      // Recurse first so nested structures are cleaned before evaluating the parent
+      deleteKeys(item, condition, itemPath);
+
+      if (condition(i, item, itemPath)) {
+        obj.splice(i, 1);
+      }
+    }
+    return obj;
+  }
+
+  // Handle Standard Objects
+  for (const key of Object.keys(obj)) {
+    const value = obj[key];
+    const keyPath = getPath(key);
+
+    if (condition(key, value, keyPath)) {
+      delete obj[key];
+    } else {
+      // Recurse into nested objects or arrays if the key wasn't deleted
+      deleteKeys(value, condition, keyPath);
+    }
+  }
+
+  return obj;
+}
+export function getValueByPath(obj, path) {
+  if (!obj || !path) return undefined;
+
+  return path.split('.').reduce((accumulator, key) => {
+    // If the accumulator is null/undefined, we stop trying to access keys
+    return (accumulator && typeof accumulator === 'object') 
+      ? accumulator[key] 
+      : undefined;
+  }, obj);
+}
 // Find all abilities in obj and call func recursively
 export function forEachFoundAbility(obj, keyValueFunc, parentKey=null) {
     if (obj == null) {
@@ -435,6 +484,17 @@ export function getObjectValueByFuzzyKey(obj, key) {
         }
     }
     return null
+}
+export function includesAny(str, strings, excludesAny) {
+    if (isNumber(str)) {
+        str = `${str}`
+    }
+    for (const included of strings) {
+        if (str.includes(included)) {
+            return included
+        }
+    }
+    return false
 }
 export function objectEntriesByFuzzyKey(obj, key) {
     const foundEntries = []
