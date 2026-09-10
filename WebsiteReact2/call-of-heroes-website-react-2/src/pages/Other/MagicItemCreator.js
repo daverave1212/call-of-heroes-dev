@@ -1,4 +1,4 @@
-import { $SKILLS, addBonusToDamageText, capitalizeFirstLetter, filterObject, generateUniqueId, getAlternativesAsArray, getAnExistingKeyOf, getItemIconPathByName, includesAll, includesAny, includesAnyWithExceptions, isNumber, isStringNumeric, joinObjectValues, last, mapKeysToObject, mapObject, mapObjectToArray, matchRange, mergeObjectsContainingArrays, objectToArray, onlyUniqueFilter, parseTextWithSymbols, percentChance, randomInt, randomOf, randomOfArrayWeighted, range, removeDuplicates, roundToNearest, SeededRNG, shuffle, SKILL_GROUP_BY_ELEMENT, SKILLS_BY_GROUP, sortByHash, spellsFromObject, stringReplaceAllMany } from "../../utils";
+import { $SKILLS, addBonusToDamageText, capitalizeFirstLetter, filterObject, FLAWS_BY_GROUP, generateUniqueId, getAllArmorsByName, getAlternativesAsArray, getAnExistingKeyOf, getItemIconPathByName, includesAll, includesAny, includesAnyWithExceptions, isNumber, isStringNumeric, joinObjectValues, last, mapKeysToObject, mapObject, mapObjectToArray, matchRange, mergeObjectsContainingArrays, objectToArray, onlyUniqueFilter, parseTextWithSymbols, percentChance, randomInt, randomOf, randomOfArrayWeighted, range, removeDuplicates, roundToNearest, SeededRNG, shuffle, SKILL_GROUP_BY_ELEMENT, SKILLS_BY_GROUP, sortByHash, spellsFromObject, stringReplaceAllMany } from "../../utils";
 import MagicItemProperties from '../../databases/Other/MagicItemProperties.json'
 import Weapons from '../../databases/Weapons.json'
 import Armors from '../../databases/Armors.json'
@@ -1564,12 +1564,12 @@ function getItemPrice(item, addedEffectsByGroup, rng=standardRNG) {
     
     function getEffectPrice({ XP }) {
         const multiplier =
-            XP <= 50?   7
-            :XP <= 75?  8
-            :XP <= 100?  11
-            :XP <= 150?  16
-            :XP <= 200?  19
-            :25
+            XP <= 50?   9
+            :XP <= 75?  11
+            :XP <= 100?  13
+            :XP <= 150?  20
+            :XP <= 200?  30
+            :45
         return (XP || 1) * multiplier
     }
 
@@ -1616,6 +1616,7 @@ function getBaselineItemByType(xp, itemType, rng=standardRNG) {
     if (itemType.includes('Armor')) {
         let name = rng.randomOf(...Object.keys(ARMOR_TO_BODY_PART))
         const bodyPart = ARMOR_TO_BODY_PART[name]
+        const isMainArmor = bodyPart.includes('upper body')
         const isRing = bodyPart.includes('ring')
         const isNecklace = bodyPart.includes('neck')
         const heaviness =
@@ -1633,7 +1634,16 @@ function getBaselineItemByType(xp, itemType, rng=standardRNG) {
                 'medium';
         const realBodyPart = bodyPart.replace(' heavy', '').replace(' medium', '').replace(' light', '')
         const armorPieceDescr = !isRing && !isNecklace? `${heaviness} armor piece for the ${realBodyPart}`: isRing? 'ring': isNecklace? 'necklace': 'unknown'
+        
+        let baselineArmor = {}
+        if (isMainArmor) {
+            const allArmors = Object.values(getAllArmorsByName())
+            const allViableArmors = allArmors.filter(a => a.ParentKey.toLowerCase() == heaviness.trim())
+            baselineArmor = randomOf(...allViableArmors)
+        }
+
         return {
+            ...baselineArmor,
             Name: name,
             Price: getArmorBasePriceByBodyPart(bodyPart),
             Type: itemType,
@@ -1928,8 +1938,9 @@ export function createMagicItem(xp, itemType, rng=standardRNG) {
 
     // Now itemType is always a full type like "One-Handed Ranged Weapon"
     // e.'Item Type' contains any of those tags
+    const effectMatchesItemType = e => e['Item Type'] == 'Any' || includesAll(itemType, e['Item Type'].split(' '))
     let possibleEffects = MagicItemProperties.Effects
-        possibleEffects = possibleEffects.filter(e => e['Item Type'] == 'Any' || includesAll(itemType, e['Item Type'].split(' ')))
+        possibleEffects = possibleEffects.filter(effectMatchesItemType)
         possibleEffects = possibleEffects.map(e => ({...e, Weight: (Math.max(e.XP, 0) + 10)}))
 
     const baselineItem = getBaselineItemByType(xp, itemType, rng)
@@ -1948,32 +1959,27 @@ export function createMagicItem(xp, itemType, rng=standardRNG) {
     }
 
     function maybeAddSkills() {
-        function getRandomSkill() {
+        function getRandomSkillOrFlaw(skillGroupsObj) {
             if (baselineItem.SkillBias == null) {
                 if (baselineItem.ElementBias == null || (baselineItem.ElementBias && rng.percentChance(15))) {
-                    baselineItem.SkillBias = rng.randomOf(...Object.keys(SKILLS_BY_GROUP))
+                    baselineItem.SkillBias = rng.randomOf(...Object.keys(skillGroupsObj))
                 } else {
                     const skillGroup = SKILL_GROUP_BY_ELEMENT[baselineItem.ElementBias]
-                    baselineItem.SkillBias = skillGroup ?? rng.randomOf(...Object.keys(SKILLS_BY_GROUP))
+                    baselineItem.SkillBias = skillGroup ?? rng.randomOf(...Object.keys(skillGroupsObj))
                 }
             }
-            const skillsInChosenGroup = SKILLS_BY_GROUP[baselineItem.SkillBias]
+            const skillsInChosenGroup = skillGroupsObj[baselineItem.SkillBias]
             const skillsIAlreadyHave = Object.keys(baselineItem['Skill Bonuses'] ?? {})
             const skillsInGroup = skillsInChosenGroup.filter(possibleSkill => !skillsIAlreadyHave.includes(possibleSkill))
             const availableSkills = rng.shuffle([...skillsInGroup])
             return rng.randomOf(...availableSkills)
         }
-        function getRandomSkillIDontHave() {
-            const skillsIHave = Object.keys(baselineItem['Skill Bonuses'])
-            const possibilities = $SKILLS.filter(skill => !skillsIHave.includes(skill))
-            return rng.randomOf(...possibilities)
-        }
 
         if (rng.percentChance(15)) {
             return false
         }
-        function addSkillBonus() {
-            const skillName = getRandomSkill()
+        function addSkillBonus_OLD() {
+            const skillName = getRandomSkillOrFlaw(SKILLS_BY_GROUP)
             const maxSkillNumber =
                 baselineItem.XP <= 25?
                     rng.randomOf(1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2)
@@ -1990,34 +1996,24 @@ export function createMagicItem(xp, itemType, rng=standardRNG) {
             baselineItem['Skill Bonuses'][skillName] = skillBonus
             xpLeft -= skillBonus * 5
         }
-
-        addSkillBonus()
-        if (rng.percentChance(55)) {
-            addSkillBonus()
-        }
-
-        if (rng.percentChance(40)) {
-            baselineItem['Skill Bonuses'][getRandomSkillIDontHave()] = rng.randomOf(-1, -2, -2, -2, -2, -2, -2, -2, -2, rng.randomInt(-1, -7))
-            xpLeft += 5
-        }
-        
-        if (addedEffectsByGroup['Property'].length > 0) {
-            addedEffectsByGroup['Property'].push({ Effect: '' })
-        }
-        for (const [skillName, bonus] of Object.entries(baselineItem['Skill Bonuses'])) {
-            if (bonus > 0) {
-                addedEffectsByGroup['Property'].push({
-                    XP: 5,
-                    Group: 'Property',
-                    Effect: `+${bonus} in ${skillName}`
-                })
-            } else {
-                addedEffectsByGroup['Curse'].push({
-                    XP: 5,
-                    Group: 'Curse',
-                    Effect: `${bonus} in ${skillName}`
-                })
+        let nAddedSkills = 0
+        function addSkillBonus(skillGroupsObj, isFlaw=false) {
+            const skillName = getRandomSkillOrFlaw(skillGroupsObj)
+            if (baselineItem['Skill Bonuses'] == null) {
+                baselineItem['Skill Bonuses'] = {}
             }
+            const bonus = isFlaw? -1: 1
+            baselineItem['Skill Bonuses'][skillName] = bonus
+            nAddedSkills += 1
+            xpLeft -= 5 * bonus * nAddedSkills
+        }
+
+        do {
+            addSkillBonus(SKILLS_BY_GROUP)
+        } while (rng.percentChance(35))
+
+        if (rng.percentChance(35)) {
+            addSkillBonus(FLAWS_BY_GROUP, true)
         }
     }
     function maybeAddEffect(possibleEffects, groupName, chance, extraFilterCondition=e=>true) {
@@ -2053,24 +2049,30 @@ export function createMagicItem(xp, itemType, rng=standardRNG) {
     }
     function addMorePropertiesToFillForXP() {
         let nFails = 0
+        const possiblePropertySlots = ['Passive', 'Passive', 'Property', 'Property', 'Stats']
+        if (itemType.includes('Weapon')) {
+            possiblePropertySlots.push('Bonus Damage')
+        }
+        let propertySlots = shuffle(possiblePropertySlots)
         while (xpLeft > 0) {
-            let didAddSomething = true
+            const propTypeToAdd = propertySlots.pop()
+            const didAddSomething = maybeAddEffect(possibleEffects, propTypeToAdd, 100, e => e.XP > 0)
 
-            const addPropertyChance =
-                addedEffectsByGroup['Property'].length > 0?
-                    10
-                :25
+            // const addPropertyChance =
+            //     addedEffectsByGroup['Property'].length > 0?
+            //         10
+            //     :25
             
-            const didAddProperty = maybeAddEffect(possibleEffects, 'Property', addPropertyChance, e => e.XP > 0)
-            if (!didAddProperty) {
-                const didAddStats = maybeAddEffect(possibleEffects, 'Stats', 50, e => e.XP > 0)
-                if (!didAddStats) {
-                    const didAddPassive = maybeAddEffect(possibleEffects, 'Passive', 100, e => e.XP > 0)
-                    if (!didAddPassive) {
-                        didAddSomething = false
-                    }
-                }
-            }
+            // const didAddProperty = maybeAddEffect(possibleEffects, 'Property', addPropertyChance, e => e.XP > 0)
+            // if (!didAddProperty) {
+            //     const didAddStats = maybeAddEffect(possibleEffects, 'Stats', 50, e => e.XP > 0)
+            //     if (!didAddStats) {
+            //         const didAddPassive = maybeAddEffect(possibleEffects, 'Passive', 100, e => e.XP > 0)
+            //         if (!didAddPassive) {
+            //             didAddSomething = false
+            //         }
+            //     }
+            // }
 
             if (!didAddSomething) {
                 nFails += 1
@@ -2083,8 +2085,9 @@ export function createMagicItem(xp, itemType, rng=standardRNG) {
 
     maybeAddEffect(possibleEffects, 'Curse', 20)
     if (itemType.includes('Weapon')) {
-        maybeAddEffect(possibleEffects, 'Bonus Damage', 99)
+        maybeAddEffect(possibleEffects, 'Bonus Damage', 30)
     }
+    maybeAddEffect(possibleEffects, 'Passive', 37)
     maybeAddEffect(possibleEffects, 'Minor', 25)
     maybeAddEffect(possibleEffects, 'Property', 15)
     maybeAddEffect(possibleEffects, 'Active', 25)
@@ -2098,11 +2101,10 @@ export function createMagicItem(xp, itemType, rng=standardRNG) {
 
 
     // These are all possible effects of a magic item property from the YAML
-    
     const POSSIBLE_EFFECT_TEXTS_FORMATTING = {
         'Effect': effects => effects.join('\n'),
-        'OnKill': effects => effects.length == 0? '': 'When you defeat a Worthy Enemy, ' + effects.join(' and '),
-        'OnAttack': effects => effects.length == 0? '': 'When you attack a Worthy Enemy, ' + effects.join(' and '),
+        'OnKill': effects => effects.length == 0? '': 'When you defeat a Worthy Enemy ' + effects.join(' and '),
+        'OnAttack': effects => effects.length == 0? '': 'When you attack a Worthy Enemy ' + effects.join(' and '),
         'Bonus Damage': effects => effects.length == 0? '': (' + ' + effects.join(' + '))
     }
     const POSSIBLE_EFFECT_PROPS = Object.keys(POSSIBLE_EFFECT_TEXTS_FORMATTING)
@@ -2217,7 +2219,6 @@ export function createMagicItem(xp, itemType, rng=standardRNG) {
         :
             validEffects.join('\n\n') + (baselineItem.EffectOriginal != null? `\n${baselineItem.EffectOriginal}`: '')
 
-    // console.log({addedEffectsByGroup, preparsedEffectsByGroup, preparsedEffectsByGroupFiltered, preparsedTextByGroups, reparsedTextByGroups, validEffects, finalEffect})
 
     if (baselineItem.Damage != null) {
         addWeaponBonusDamages(addedEffectsByGroup['Bonus Damage'])
@@ -2268,14 +2269,14 @@ export default function MagicItemCreator() {
         const rng = new SeededRNG(seed)
         
         const createdItems = []
-        createdItems.push(createAnItem(10))
-        createdItems.push(createAnItem(15))
-        createdItems.push(createAnItem(25))
-        createdItems.push(createAnItem(25))
-        createdItems.push(createAnItem(25))
+        // createdItems.push(createAnItem(10))
+        // createdItems.push(createAnItem(15))
+        // createdItems.push(createAnItem(25))
+        // createdItems.push(createAnItem(25))
+        // createdItems.push(createAnItem(25))
 
-        for (let i = 3; i <= 10; i++) {
-            const xp = i * 25 + (randomInt(-1, 1) * 25)
+        for (let i = 1; i <= 10; i++) {
+            const xp = i * 25
             createdItems.push(createAnItem(xp))
         }
 
