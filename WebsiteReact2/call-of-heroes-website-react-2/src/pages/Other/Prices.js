@@ -43,6 +43,8 @@ function Tr({name, effect, price, shouldPlayAnimationOnClick, onClick}) {
         onClick?.({name, effect, price})
     }
 
+    const parsedText = effect != null? U.parseTextWithSymbols(effect): null
+
     return (
         <tr className='price-row' onClick={evt => onTrClick(evt)}>
             <td style={{position: 'relative'}}>
@@ -50,7 +52,9 @@ function Tr({name, effect, price, shouldPlayAnimationOnClick, onClick}) {
                     <FloatingText left={`${floaterX}px`}>Added to Cart!</FloatingText>
                 ) }
                 <span>{name}</span>
-                <p style={effectTextStyle}>{effect}</p>
+                { effect != null && (
+                    <p style={effectTextStyle}>{parsedText}</p>
+                ) }
             </td>
             <td>{price}<Icon name="Gold"/></td>
         </tr>
