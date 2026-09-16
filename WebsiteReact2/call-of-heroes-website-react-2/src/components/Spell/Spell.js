@@ -122,6 +122,10 @@ export default function Spell({
     } = parsedSpell
     const SkillBonuses = parsedSpell['Skill Bonuses']
 
+    if (Name?.includes('Scroll')) {
+        console.log({Name, parsedSpell, spell})
+    }
+
     if (PreEffectGreen != null) {
         console.log({PreEffectGreen})
         console.log(`PreEffectGreen is not null for spell ${Name}`)

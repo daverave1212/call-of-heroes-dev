@@ -1,4 +1,4 @@
-import { $SKILLS, addBonusToDamageText, capitalizeFirstLetter, filterObject, FLAWS_BY_GROUP, generateUniqueId, getAllArmorsByName, getAlternativesAsArray, getAnExistingKeyOf, getItemIconPathByName, includesAll, includesAny, includesAnyWithExceptions, isNumber, isStringNumeric, joinObjectValues, last, mapKeysToObject, mapObject, mapObjectToArray, matchRange, mergeObjectsContainingArrays, objectToArray, onlyUniqueFilter, parseTextWithSymbols, percentChance, randomInt, randomOf, randomOfArrayWeighted, range, removeDuplicates, roundToNearest, SeededRNG, shuffle, SKILL_GROUP_BY_ELEMENT, SKILLS_BY_GROUP, sortByHash, spellsFromObject, stringReplaceAllMany } from "../../utils";
+import { $SKILLS, addBonusToDamageText, an, capitalizeFirstLetter, filterObject, FLAWS_BY_GROUP, generateUniqueId, getAllArmorsByName, getAlternativesAsArray, getAnExistingKeyOf, getItemIconPathByName, includesAll, includesAny, includesAnyWithExceptions, isNumber, isStringNumeric, joinObjectValues, last, mapKeysToObject, mapObject, mapObjectToArray, matchRange, mergeObjectsContainingArrays, objectToArray, onlyUniqueFilter, parseTextWithSymbols, percentChance, randomInt, randomOf, randomOfArrayWeighted, range, removeDuplicates, roundToNearest, SeededRNG, shuffle, SKILL_GROUP_BY_ELEMENT, SKILLS_BY_GROUP, sortByHash, spellsFromObject, stringReplaceAllMany } from "../../utils";
 import MagicItemProperties from '../../databases/Other/MagicItemProperties.json'
 import Weapons from '../../databases/Weapons.json'
 import Armors from '../../databases/Armors.json'
@@ -38,7 +38,6 @@ function parseItemText({ text, thisText='{This}', rng=standardRNG, item={} }) {
     const preferredElement = randomElement()
     const whenSynonym = () => rng.randomOf('the moment when', 'when', 'when', 'the moment', 'the instant')
     const sound = () => rng.randomOf('murmur', 'hum', 'sound', 'rumble', 'strum', 'trill', 'song', 'rustle', 'thrum', 'whir', 'pulse', 'echo')
-    const an = str => (str.startsWith('o') || str.startsWith('a') || str.startsWith('e') || str.startsWith('u') || str.startsWith('i'))? `an ${str}`: `a ${str}`
 
     let customSymbols
     let getSymbolText = symbol => customSymbols[symbol].text()

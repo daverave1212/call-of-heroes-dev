@@ -589,31 +589,31 @@ Effects:
 
   # -------------Bonus Damage Weapon-----------
 
-  - XP: 50
+  - XP: 100
     Item Type: One-Handed Weapon
     Group: Bonus Damage
     Bonus Damage: 1
-  - XP: 40
-    Item Type: Two-Handed Weapon
-    Group: Bonus Damage
-    Bonus Damage: 2
-  - XP: 50
-    Item Type: Two-Handed Weapon
-    Group: Bonus Damage
-    Bonus Damage: 1d4
   - XP: 80
-    Item Type: One-Handed Weapon
+    Item Type: Two-Handed Weapon
     Group: Bonus Damage
     Bonus Damage: 2
   - XP: 100
+    Item Type: Two-Handed Weapon
+    Group: Bonus Damage
+    Bonus Damage: 1d4
+  - XP: 150
+    Item Type: One-Handed Weapon
+    Group: Bonus Damage
+    Bonus Damage: 2
+  - XP: 200
     Item Type: One-Handed Weapon
     Group: Bonus Damage
     Bonus Damage: 1d4
-  - XP: 90
+  - XP: 180
     Item Type: Two-Handed Weapon
     Group: Bonus Damage
     Bonus Damage: 5
-  - XP: 100
+  - XP: 200
     Item Type: Two-Handed Weapon
     Group: Bonus Damage
     Bonus Damage: 1d10
@@ -658,7 +658,7 @@ Effects:
   - XP: 50
     Item Type: Armor
     Group: Stats
-    Effect: The {This} holds 1 Mana you can use, which replenishes at the start of each Adventure.
+    Effect: The {This} holds 1 {RandomOf('Mana' 'Plot Point')} you can use, which replenishes at the start of each Adventure.
     Notes: Once equipped, the {This} can't be unequipped until the end of the Adventure.
   - XP: 50
     Item Type: Armor
@@ -667,11 +667,19 @@ Effects:
   - XP: 75
     Item Type: Armor
     Group: Passive
-    Effect: Once per Adventure, you can dodge (take 0 Damage) an attack from a Unit.
+    Effect: Once per Adventure, you can take 0 {DamageType} Damage.
   - XP: 75
     Item Type: Armor
     Group: Passive
     Effect: When hit by a {RandomOf('melee' 'ranged' 'Spell')} attack, deal 1d4 {DamageType} Damage back to the attacker.
+  - XP: 75
+    Item Type: Armor
+    Group: Passive
+    Effect: When hit by {DamageType} Damage, deal 1d4 {DamageType} Damage back to the attacker (if any).
+  - XP: 100
+    Item Type: Armor
+    Group: Passive
+    Effect: Once per Adventure, you can dodge (take 0 Damage) an attack from a Unit.
   - XP: 100
     Item Type: Armor
     Group: Passive
@@ -961,16 +969,402 @@ Effects:
   - XP: 20
     Item Type: Armor
     Group: Active
-    A: 1 Action
+    A: 1 Action Point
     Cooldown: Once / Adventure
     Effect: Once per Adventure, throw {This} in front of you to transform it into a {RandomOf('spectral' 'ghostly' 'live')} {RandomOf('horse' 'warhorse' 'stag' 'elk' 'unicorn' 'pony' 'zebra' 'giant centipede' 'giant spider' 'giant beetle' 'riding wolf' 'riding elephant' 'riding dinosaur' 'giant boar' 'riding bear' 'riding tiger' 'riding lion')} that you can use as a ground mount! It gallops at 8 meters per Move Act (or 40km/h) and obeys your directions for moving, but does not participate in combat and immediately vanishes upon taking Damage. Lasts up to 10 minutes.
+
+  - XP: 10
+    Item Type: Armor
+    Group: Active
+    A: 0 Action Points
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} perfectly changes its appearance to resemble any mundane clothing you have seen. The disguise lasts until you dismiss it.
+
+  - XP: 10
+    Item Type: Armor
+    Group: Active
+    A: 0 Action Points
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} becomes completely waterproof for 1 hour, keeping you and everything worn beneath it perfectly dry.
+
+  - XP: 10
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, command {This} to produce enough {RandomOf('fresh water' 'warm water' 'cold water')} to fill a large bucket.
+
+  - XP: 10
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} produces a strong gust of wind capable of extinguishing candles, clearing smoke or scattering loose lightweight objects within 5 meters.
+
+  - XP: 15
+    Item Type: Armor
+    Group: Active
+    A: 0 Action Points
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} can perfectly imitate the appearance of another suit of armor you have seen. Its actual properties do not change.
+
+  - XP: 15
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} releases a cloud of {RandomOf('bubbles' 'butterflies' 'moths' 'feathers' 'flower petals' 'ash' 'leaves')} around you, heavily obscuring everything within 2 meters until the end of your next Turn.
+
+  - XP: 15
+    Item Type: Armor
+    Group: Active
+    A: 0 Action Points
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, make {This} glow brightly for up to 1 hour. You may freely choose the brightness from that of a candle to that of a large campfire.
+
+  - XP: 15
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} loudly repeats the last sound you heard, perfectly reproducing it from your current position.
+
+  - XP: 15
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, place {This} against a door, chest or other object. For the next minute, you can hear sounds through it as though the obstruction were not there.
+
+  - XP: 20
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} creates a trail of glowing footprints showing the exact path you have traveled during the last 10 minutes. They disappear after 1 minute.
+
+  - XP: 20
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, ask {This} which cardinal direction you are currently facing. It answers truthfully in a voice only you can hear.
+
+  - XP: 20
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} points toward the nearest source of drinkable water within 1 kilometer, if one exists.
+
+  - XP: 20
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} points toward the nearest exit from the structure, cave or dungeon you currently occupy.
+
+  - XP: 20
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} produces 20 meters of spectral rope. The rope is as strong as ordinary rope and disappears after 10 minutes.
+
+  - XP: 20
+    Item Type: Armor
+    Group: Active
+    A: 0 Action Points
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} sprouts a {RandomOf('parachute' 'pair of spectral wings' 'giant umbrella' 'billowing cape')} that allows you to safely descend from any height. It disappears when you touch the ground.
+
+  - XP: 20
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} produces a spectral hand that can carry, retrieve or manipulate unattended objects within 5 meters for 1 minute. It cannot attack.
+
+  - XP: 25
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} grows dozens of tiny spectral hands that thoroughly clean you, your equipment and everything you are carrying.
+
+  - XP: 25
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} produces a comfortable spectral tent large enough for 4 people. It lasts for 8 hours or until you leave it behind.
+
+  - XP: 25
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} unfolds into a small boat capable of carrying up to 4 people. It transforms back when removed from the water.
+
+  - XP: 25
+    Item Type: Armor
+    Group: Active
+    A: 0 Action Points
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} allows you to walk normally across {RandomOf('water' 'mud' 'snow' 'sand')} for 10 minutes without sinking or leaving tracks.
+
+  - XP: 25
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, press yourself against a wall to make {This} perfectly mimic its surface. You remain visually indistinguishable from the wall until you move.
+
+  - XP: 25
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} creates an exact spectral duplicate of you that stands where you activated it. It cannot move, speak or interact with anything and lasts for 10 minutes.
+
+  - XP: 25
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, speak a sentence of up to 20 words into {This}. For the next hour, you may command the armor to loudly repeat that sentence once.
+
+  - XP: 30
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} grows a pair of enormous {RandomOf('feathered' 'bat-like' 'insectoid' 'spectral')} wings. They cannot make you fly, but allow you to glide for up to 1 minute.
+
+  - XP: 30
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} grows climbing appendages that allow you to move across walls and ceilings as easily as across the ground for 1 minute.
+
+  - XP: 30
+    Item Type: Armor
+    Group: Active
+    A: 0 Action Points
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} allows you to breathe underwater for 10 minutes.
+
+  - XP: 30
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} becomes rigid and expands into a sturdy bridge up to 5 meters long. It returns to you after 10 minutes.
+
+  - XP: 30
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, throw {This} onto the ground to transform it into a ladder up to 10 meters tall. It returns to its normal form when you retrieve it.
+
+  - XP: 30
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} releases a swarm of harmless spectral {RandomOf('rats' 'bats' 'moths' 'beetles' 'spiders' 'frogs')} that scatter in every direction and disappear after 1 minute.
+
+  - XP: 35
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, ask {This} to retrace your steps. For the next 10 minutes, glowing footprints visible only to you show the path back to where you were 1 hour ago.
+
+  - XP: 35
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} creates a floating spectral platform beneath you. It can carry you and one other Unit and slowly moves wherever you direct it for up to 10 minutes.
+
+  - XP: 35
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} burrows into the ground and creates a concealed hole large enough for you to hide inside. The displaced earth magically closes over you without trapping you.
+
+  - XP: 35
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, touch a footprint, handprint or similar trace left by a creature. {This} points in the direction that creature traveled for the next 10 minutes.
+
+  - XP: 40
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} transforms you and everything you are carrying into a harmless {RandomOf('cat' 'rat' 'frog' 'chicken' 'goat' 'dog' 'pig' 'rabbit')} for up to 10 minutes. Taking Damage immediately ends the transformation.
+
+  - XP: 40
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, touch a mundane object small enough to carry. {This} disguises it as another mundane object of roughly the same size for 1 hour.
+
+  - XP: 40
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} creates a spectral doorway on a solid wall, allowing you to see and hear what is immediately on the other side for 1 minute. The doorway cannot be passed through.
+
+  - XP: 40
+    Item Type: Armor
+    Group: Active
+    A: 2 Action Points
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} constructs a sturdy temporary shelter around you from nearby {RandomOf('stone' 'earth' 'wood' 'ice')}. It is large enough for 4 people and lasts for 8 hours.
+
+  - XP: 45
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} turns you into a two-dimensional image upon a solid surface for up to 10 minutes. You can move along connected surfaces but cannot leave them until the effect ends.
+
+  - XP: 45
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, choose a mundane object you can see that is no larger than yourself. {This} transforms your appearance into an exact copy of that object for up to 10 minutes. Moving ends the disguise.
+
+  - XP: 45
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} creates a bubble around you containing breathable air for 10 minutes. The bubble moves with you and can fit one additional Unit.
+
   - XP: 50
     Item Type: Armor
     Group: Active
-    A: 1 Action
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, walk into a solid wall and remain hidden inside it for up to 1 minute. You can hear what happens outside but cannot see or move while inside.
+
+  - XP: 50
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} creates an exact illusion of the room or area around you as it currently appears. The illusion remains in place for 10 minutes, concealing changes made behind it.
+
+  - XP: 50
+    Item Type: Armor
+    Group: Active
+    A: 2 Action Points
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} grows into a sturdy {RandomOf('watchtower' 'treehouse' 'hunting blind' 'stone hut')} large enough for 4 people. It lasts for 1 hour before returning to you.
+
+  - XP: 50
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} causes all tracks, footprints and other mundane traces left by you during the previous 10 minutes to disappear.
+
+  - XP: 55
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, point at a location you can see within 10 meters. {This} pulls you directly to that location, provided an unobstructed path exists between you and it.
+
+  - XP: 60
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} makes you completely weightless for up to 10 minutes. You can still push yourself from surfaces and be carried or pulled normally.
+
+  - XP: 60
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, touch a locked mundane door, gate, chest or container. {This} opens it without damaging it.
+
+  - XP: 65
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} allows you to walk through one solid non-magical wall no thicker than 2 meters.
+
+  - XP: 65
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} transforms into a small enclosed carriage that moves itself at 8 meters per Move Act (or 40km/h), follows your directions and can carry up to 4 Units. It vanishes upon taking Damage or after 10 minutes.
+
+  - XP: 70
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, disappear into {This} for up to 10 minutes. While inside, you occupy a tiny extradimensional space and {This} remains behind as an unattended piece of armor. You may leave at any time.
+
+  - XP: 75
+    Item Type: Armor
+    Group: Active
+    A: 2 Action Points
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} creates a doorway through a solid non-magical wall no thicker than 2 meters. The doorway remains open for 1 minute before the wall returns to normal.
+
+  - XP: 75
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} grows a functional pair of {RandomOf('feathered' 'bat-like' 'insectoid' 'spectral')} wings, allowing you to fly for up to 1 minute.
+
+  - XP: 80
+    Item Type: Armor
+    Group: Active
+    A: 2 Action Points
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} transforms into a small seaworthy boat capable of carrying up to 6 Units. It lasts for 1 hour or until everyone leaves the boat.
+
+  - XP: 85
+    Item Type: Armor
+    Group: Active
+    A: 2 Action Points
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} creates a hidden extradimensional room large enough for 6 people. The entrance appears on a nearby solid surface and remains for 1 hour.
+
+  - XP: 100
+    Item Type: Armor
+    Group: Active
+    A: 2 Action Points
+    Cooldown: Once / Adventure
+    Effect: Once per Adventure, {This} opens a passage between your current location and any location within 100 meters that you have personally visited during this Adventure. The passage remains open until the end of your next Turn.
+
+  - XP: 125
+    Item Type: Armor
+    Group: Active
+    A: 1 Action Point
     Cooldown: Once / Adventure
     Effect: Once per Adventure, throw {This} up in the air to transform it into a {RandomOf('spectral' 'ghostly' 'live')} {RandomOf('giant moth' 'giant flying insect' 'giant falcon' 'giant owl' 'giant eagle' 'giant bat' 'red dragon whelp' 'green dragon whelp' 'black dragon whelp' 'bronze dragon whelp'  'blue dragon whelp' 'drake whelp' 'giant bird' 'flying pterodactyl' 'giant butterfly' 'griffin' 'pegasus' 'wyvern' 'hippogriff' 'flying chimera' 'long dragon' 'giant crow' 'manticore' 'thunderbird' 'stormcrow')} that you can use as a flying mount! It obeys your directions for moving and can fly at a speed of 5 meters per Move Act (or 50km/h), but does not participate in combat and immediately vanishes upon taking Damage. Lasts up to 10 minutes.
-  
+
   # --------------Active Weapon-------------
   - XP: 35
     Item Type: Weapon

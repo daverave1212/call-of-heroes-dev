@@ -294,8 +294,8 @@ const PROCESS_STRATEGIES = {
 
 function defaultOutputStrategy(obj, params) {
     const { fileConfig, config, fileName, fileNameNoExt, fileDir } = params
-    const strippedObj = stripContentOfFeatures(obj, ALL_KEYS_TO_STRIP, params)  // Strip it of things not supposed to be in production
-    const jsonString = JSON.stringify(strippedObj, null, 4);
+    // const strippedObj = stripContentOfFeatures(obj, ALL_KEYS_TO_STRIP, params)  // Strip it of things not supposed to be in production
+    const jsonString = JSON.stringify(obj, null, 4);
     const outputPath = path.join(jsonRootFolder, fileDir, `${fileNameNoExt}.json`);
 
     try {
@@ -312,8 +312,8 @@ const OUTPUT_STRATEGIES = {
 
     'premium': (obj, params) => {
         const { config, fileName, fileNameNoExt, fileDir } = params
-        let strippedObj = stripContentOfFeatures(obj, PREMIUM_KEYS_TO_STRIP, {...params, includeOnlyFileNames: ['Races', 'Classes']})
-        defaultOutputStrategy(strippedObj, params)  // Write as is to the normal folder (TODO: strip it)
+        // let strippedObj = stripContentOfFeatures(obj, PREMIUM_KEYS_TO_STRIP, {...params, includeOnlyFileNames: ['Races', 'Classes']})
+        defaultOutputStrategy(obj, params)  // Write as is to the normal folder (TODO: strip it)
         
         const jsonString = JSON.stringify(obj, null, 4);
         
@@ -340,6 +340,8 @@ async function processFiles() {
     for (const fileConfig of filesToConvert) {
         const { setId, setName, filePath, relativePath } = fileConfig
         const fileName = filePath
+        const fileNameNoExt = path.parse(fileName).name;
+        const fileDir = path.dirname(fileName);
         
         // Read from file
         console.log(`Parsing ${fileName}...`);
@@ -365,17 +367,21 @@ async function processFiles() {
         normalizeInheritAbilities(dictContent)
 
 
-        // Apply the strategy
+        // Strip of features
+        dictContent = stripContentOfFeatures(dictContent, ALL_KEYS_TO_STRIP, { config: fileConfig, fileName, fileNameNoExt, fileDir, includeOnlyFileNames: ['Races', 'Classes']})
+        if (fileConfig.isPremium) {
+            dictContent = stripContentOfFeatures(dictContent, PREMIUM_KEYS_TO_STRIP, { config: fileConfig, fileName, fileNameNoExt, fileDir })
+        }
+
+        // Apply the preprocessing strategy
         const processStrategyFuncs = objectEntriesByFuzzyKey(PROCESS_STRATEGIES, fileName)
         for (const [fuzzyKey, func] of processStrategyFuncs) {
             func?.(dictContent, { fileName, fuzzyKey })
         }
-        
+
+
 
         // Output
-        const fileNameNoExt = path.parse(fileName).name;
-        const fileDir = path.dirname(fileName);
-
         if (fileConfig.isPremium) {
             OUTPUT_STRATEGIES.premium(dictContent, { config: fileConfig, fileName, fileNameNoExt, fileDir })
         } else {

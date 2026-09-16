@@ -62,6 +62,7 @@ export function normalizeItemsObject(items) {
         value.Price != null? value: { Price: value }
     )}))
 }
+/* items: Array<{Name, Price, Effect, DisplayName}> */
 export function PriceTable({title, items, hasDescriptions=true, shouldPlayAnimationOnClick, onClick}) {    
     if (items == null) {
         return (<p>ERROR: No items given to PriceTable.</p>)

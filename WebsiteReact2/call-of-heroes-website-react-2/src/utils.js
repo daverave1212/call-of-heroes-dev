@@ -4140,6 +4140,7 @@ export function isStringYAML(str) {
 export function normalizeStringJSON(str) {
     return str.replaceAll('\\n', ' ')
 }
+export const an = str => (str.startsWith('o') || str.startsWith('a') || str.startsWith('e') || str.startsWith('u') || str.startsWith('i'))? `an ${str}`: `a ${str}`
 window.normalizeStringJSON = normalizeStringJSON
 export function getPageHashFromLocation(location) {       // Use 'const location = useLocation()' in a component to get location (from 'react-router-dom')
     if (location == null) {
@@ -4515,7 +4516,8 @@ export function isThereANewPost() {
 
 export class SeededRNG {
   constructor(seedStr) {
-    this._seedGen = this._xmur3(String(seedStr));
+    this.seed = seedStr ?? generateUniqueId()
+    this._seedGen = this._xmur3(String(this.seed));
     this._rand = this._mulberry32(this._seedGen());
   }
 
