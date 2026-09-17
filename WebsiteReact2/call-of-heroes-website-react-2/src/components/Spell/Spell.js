@@ -120,6 +120,7 @@ export default function Spell({
         Damage,
         List
     } = parsedSpell
+
     const SkillBonuses = parsedSpell['Skill Bonuses']
 
     if (Name?.includes('Scroll')) {

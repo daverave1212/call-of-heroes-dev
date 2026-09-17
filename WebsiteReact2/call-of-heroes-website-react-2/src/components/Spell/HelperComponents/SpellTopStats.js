@@ -33,7 +33,7 @@ export function SpellTopStats({ className, tags, keywords }) {
     function KeywordTags() {
         return <>{parsedKeywords.map(tag => <KeywordTag key={tag}>{tag}</KeywordTag>)}</>;
     }
-
+    // TODO: Use getSpellTopStatsIconsAndSpans from utils here...
     return (
         <div className='relative'>
             <div className={`spell-top-stats text-font smaller-font ${className}`}>

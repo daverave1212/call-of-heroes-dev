@@ -156,6 +156,11 @@ export default function SpellPDF({
         List
     } = parsedSpell
 
+    if (Name == 'Mace') {
+        console.teal(`Received isItem: ${isItem}`)
+        console.teal(`Path: ${IconPath}`)
+    }
+
     const hasVariants = hasSpellVariants(spell)
     const uniqueID = getUniqueSpellID(Name)
     const subspell = SubspellName != null? getSpellByName(SubspellName): null

@@ -6,6 +6,7 @@ import { getPageHashFromLocation, parseTextWithSymbols } from '../../utils'
 import { useLocation } from 'react-router-dom'
 import BlogPost from './BlogPost'
 
+// Automatically detects hash and loads a post from PatchNotes
 export default function BlogPage() {
 
     const location = useLocation()

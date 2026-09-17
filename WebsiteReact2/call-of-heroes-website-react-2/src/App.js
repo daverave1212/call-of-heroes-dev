@@ -110,6 +110,7 @@ import MyAccount from './pages/Account/MyAccount.js';
 import Blog from './pages/Meta/Blog.js';
 import BlogPage from './pages/Meta/BlogPage.js';
 import CookiesPopup from './components/CookiesPopup/CookiesPopup.js';
+import TransitionGuidePage from './pages/Learn/TransitionGuidePage.js';
 
 function App() {
 
@@ -176,6 +177,8 @@ function App() {
           <Route path="/Lore/Levels" element={ <Levels/> }/>
           <Route path="/Lore/SpellSchoolDescriptions" element={ <SpellSchoolDescriptions/> }/>
           <Route path="/Lore/Languages" element={ <Languages/> }/>
+          
+          <Route path="/Learn/TransitionGuide" element={ <TransitionGuidePage/> }/>
 
           <Route path="/Races/Bertle" element= { <Bertle/> }/>
           <Route path="/Races/Davel" element= { <Davel/> }/>

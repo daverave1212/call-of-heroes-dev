@@ -3,7 +3,7 @@ import TwoColumns from '../TwoColumns/TwoColumns'
 import Column from '../TwoColumns/Column'
 import Spell from './Spell'
 import TwoSpells from './TwoSpells'
-import { addAbilityOrOpenPopup, sortObjectArrayByKey, spellsFromObject, splitArrayEvenly, splitSpellsArrayInto2Columns } from '../../utils'
+import { addAbilityOrOpenPopup, getAllSpellsByName, sortObjectArrayByKey, spellsFromObject, splitArrayEvenly, splitSpellsArrayInto2Columns } from '../../utils'
 import { SADescription } from '../InsertableTemplates/RaceClassComponents'
 import CopySpellButton from '../CopyButton/CopySpellButton'
 
@@ -13,7 +13,7 @@ export const SpellSortTypes = {
     ACTION_POINTS: 'action points'
 }
 
-export default function ManySpells({ id, className, spells, spellStyle, description, selectedSpellNames, onSpellClick, spellsMetadata={}, areItems=false, buttonText, childrenLeft, childrenRight, shouldSort=true, shouldAlignByHeight=true, hasCopyButton=false, sortCriteria=null, onXClick=null, nColumns=2 }) {
+export default function ManySpells({ id, className, spells, spellNames, spellStyle, description, selectedSpellNames, onSpellClick, spellsMetadata={}, areItems=false, buttonText, childrenLeft, childrenRight, shouldSort=true, shouldAlignByHeight=true, hasCopyButton=false, sortCriteria=null, onXClick=null, nColumns=2 }) {
 
     if (hasCopyButton && id == null) {
         console.error(`ManySpells has copy button but id is ${id}`)
@@ -26,6 +26,9 @@ export default function ManySpells({ id, className, spells, spellStyle, descript
         shouldSort = true
     }
 
+    if (spells == null && spellNames != null) {
+        spells = spellNames.map(name => getAllSpellsByName()[name])
+    }
     spells = (Array.isArray(spells) ? spells : spellsFromObject(spells)).filter(s => s != null && s.Name != null)   // TODO: Sometimes subspells come here with no name. How does that happen?
     nColumns = nColumns ?? areItems? /*3*/ 2: 2
     

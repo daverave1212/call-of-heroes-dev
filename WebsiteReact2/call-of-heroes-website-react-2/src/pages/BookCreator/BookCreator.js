@@ -33,7 +33,7 @@ export default function() {
         {/* <div id="PDF" className='flex column gap-1 padding-top-4'> */}
 
 
-        <div id="PDF">
+        <div id="PDF" className='no-bleed'>
 
             <TransitionGuidePages/>
 
@@ -76,7 +76,7 @@ function TransitionGuidePages() {
 
     // const transitionGuideYAML = keepOnly(Book, 'For D&D Players')
     const transitionGuideYAML = keepOnly(Book, 'Transition Guide')
-    const pages = organizePDFByPages(transitionGuideYAML)
+    const pages = organizePDFByPages(transitionGuideYAML).slice(1)
     console.log({pages})
 
 

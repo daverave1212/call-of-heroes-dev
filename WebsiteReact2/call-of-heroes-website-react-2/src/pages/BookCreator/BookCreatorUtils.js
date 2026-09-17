@@ -243,9 +243,11 @@ export function Section({ sectionContent }) {
         if (!isString(content)) {
             console.error(`Can not have an <aside> where the content is not a string! At title: "${title}"`)
         }
-        return <div style={{ backgroundColor: 'rgba(255, 200, 100, 0.1)'}}>
-            { title && <h4 dangerouslySetInnerHTML={{ __html: title }}></h4> }
-            <RenderContent>{content}</RenderContent>
+        return <div style={{ backgroundColor: 'rgba(255, 200, 100, 0.1)', padding: '8pt', borderRadius: '7pt'}}>
+            { title && <h4 className='title-font bold' dangerouslySetInnerHTML={{ __html: title }} style={{marginBottom: '6pt'}}></h4> }
+            <div className='italic'>
+                <RenderContent>{content}</RenderContent>
+            </div>
         </div>
     }
 

@@ -25,8 +25,9 @@ import { VALID_SPELL_TOP_STATS } from './components/Spell/HelperComponents/Spell
 import QuestGuardConfig from './QuestGuardConfig.json'
 
 import STATIC_SYMBOLS from './parse-text-symbols-static.json'
-import { SpellSortTypes } from "./components/Spell/ManySpells"
+import ManySpells, { SpellSortTypes } from "./components/Spell/ManySpells"
 import SpellPDF from "./components/Spell/SpellPDF"
+import TwoColumns from "./components/TwoColumns/TwoColumns"
 
 // ---------------- Spells Utilities ----------------
 const SPELL_PROPS_TO_PARSE = [
@@ -46,6 +47,10 @@ export function parseAndNormalizeSpell(spell, options={
     const { isItem=false, variantIndex=0 } = options
     const spellModified = {...spell}
     
+    if (spell.Name == `Mace`) {
+        console.teal(`  > isItem=${isItem}`)
+        console.log({options})
+    }
     // Normalize Name
     spellModified.Name = getNormalizedSpellName(spell)
     spellModified.IconPath = getSpellOrItemIconPath(spell, isItem)
@@ -648,7 +653,7 @@ window.getSpellTopStats = getSpellTopStats
 export function getSpellTopStatIconAndSpan(name, value) {
     const STANDARD_ICONS = [
         'Duration',
-        'Hands', 'Range', 'Stat',
+        'Hands', 'Range',
         'Special', 'Cooldown',
         'Replacement', 'XP',
     ]
@@ -667,6 +672,8 @@ export function getSpellTopStatIconAndSpan(name, value) {
         } else {
             iconPath = '/Icons/UI/Mana.png'
         }
+    } else if (name == 'Stat') {
+        iconPath = '/Icons/UI/Special.png'
     }
 
     const STANDARD_VALUES = [
@@ -1038,6 +1045,25 @@ export function splitByAnyInclusive(text, splitters) {
   // 3. Filter out empty strings if the split happens at the start/end
   return text.split(regex).filter(part => part !== "");
 }
+export function splitAtSymbols(string, symbolNames) {
+  if (!symbolNames || symbolNames.length === 0) {
+    return [string];
+  }
+
+  // Escape special regex characters in symbol names
+  const escapedNames = symbolNames.map(name => 
+    name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  );
+
+  // Use (?: ... ) for inner groups so String.split() only keeps the outer match
+  const pattern = new RegExp(
+    `(\\{(?:${escapedNames.join('|')})(?:\\((?:[^()]+|\\([^()]*\\))*\\))?\\})`,
+    'g'
+  );
+
+  return string.split(pattern).filter(part => part !== '');
+}
+window.splitAtSymbols = splitAtSymbols
 export function damageTextToTokens(text) {
     const delimiters = [' + ', ' - ']
     const words = splitByAnyInclusive(text, delimiters)
@@ -3352,6 +3378,10 @@ function ComponentForSymbolConfig({ config, children }) {
             return <a {...config.props}>{children}</a>
         case 'Spell':
             return <Spell {...config.props}/>
+        case 'Spells':
+            console.teal(`Spells: `)
+            console.log({config})
+            return <ManySpells spellNames={[config.props.spellName1, config.props.spellName2]}/>
         case 'SpellPDF':
             return <SpellPDF {...config.props}/>
         default:
@@ -3376,7 +3406,7 @@ function formSymbolComponentFunc(allSymbols, symbol, shouldReturnString=false, s
 
     const text = config.text ?? undefined
 
-    return () => <ComponentForSymbolConfig config={config}>{text}</ComponentForSymbolConfig>
+    return () => ComponentForSymbolConfig({config, children: text})
 }
 function formFunctionSymbolComponentFunc(symbol, args, customSymbols, shouldReturnString=false, shouldReturnConfigOnly=false) {
     const allSymbols = customSymbols == null? FUNCTION_SYMBOLS: {...FUNCTION_SYMBOLS, ...customSymbols}
@@ -3398,7 +3428,7 @@ function formFunctionSymbolComponentFunc(symbol, args, customSymbols, shouldRetu
 
     const text = funcResult.text ?? undefined
 
-    return () => <ComponentForSymbolConfig config={funcResult}>{text}</ComponentForSymbolConfig>
+    return () => ComponentForSymbolConfig({config: funcResult, children: text})
 }
 export function splitBySpacesKeepingSpaces(text) {
   return text.match(/ +|[^ ]+/g) ?? [];
@@ -3476,7 +3506,8 @@ export const SYMBOLS = {
 const symbolSpanWithColor = (color, args) => ({ tag: 'span',  props: { style: { color: color } }, text: args.join(' ') })
 export const FUNCTION_SYMBOLS = {
     'Spell': args => ({ tag: 'Spell',  props: { spellName: args.join(' ') }, text: args.join(' ') }),
-    'Item': args => ({ tag: 'Spell',  props: { itemName: args.join(' ') }, text: args.join(' ') }),
+    'Spells': args => ({ tag: 'Spells',  props: { spellName1: args[0], spellName2: args[1] }, text: args.join(' ') }),
+    'Item': args => ({ tag: 'Spell',  props: { itemName: args.join(' '), isItem: true }, text: args.join(' ') }),
 
     'Link': args => ({ tag: 'Link',  props: { style: { color: '#8f0a7dff' }, to: args[1] }, text: args[0] }),
     'RandomOf': args => ({ tag: 'span', text: randomOf(...args) }),
@@ -3505,7 +3536,7 @@ export const FUNCTION_SYMBOLS = {
 }
 export const PDF_FUNCTION_SYMBOLS = {
     'Spell': args => ({ tag: 'SpellPDF',  props: { spellName: args.join(' ') }, text: args.join(' ') }),
-    'Item': args => ({ tag: 'SpellPDF',  props: { itemName: args.join(' ') }, text: args.join(' ') }),
+    'Item': args => ({ tag: 'SpellPDF',  props: { itemName: args.join(' '), isItem: true }, text: args.join(' ') }),
 }
 export function normalizeSymbolConfigForPDF(config, defaultColorHex=null) {
     const { tag, props, text } = config
