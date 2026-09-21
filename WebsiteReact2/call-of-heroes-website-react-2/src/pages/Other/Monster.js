@@ -5,7 +5,7 @@ import { useState } from 'react'
 
 import * as U from '../../utils'
 
-import monsters from '../../databases/Monsters.json'
+import monsters from '../../databases/Other/Monsters.json'
 
 import ManyBoxes from '../../components/Spell/ManyBoxes'
 import PageH2 from '../../components/PageH2/PageH2'
@@ -26,17 +26,18 @@ import MonsterAbility from '../../components/MonsterAbility/MonsterAbility'
 import MonsterCalculations from '../../databases/MonsterCalculations.json'
 
 import MonsterBlock from '../../components/MonsterBlock/MonsterBlock.js'
+import { useFeatureItem } from '../../services/content-providers/ContentProvider.js'
+import { LoadingCenter } from '../../components/Loading/Loading.js'
 
 export default function Monster() {
 
     const location = useLocation()
     const monsterName = U.getPageHashFromLocation(location)
-    console.log({monsterName})
 
-    const monster = monsters[monsterName]
+    const [monster, isLoading] = useFeatureItem('other', 'Monsters', monsterName)
 
     return <Page>
-        <MonsterBlock monsterName={monsterName} monster={monster}/>
+        { isLoading? <LoadingCenter/>: <MonsterBlock monsterName={monsterName} monster={monster}/> }
     </Page>
 
 }

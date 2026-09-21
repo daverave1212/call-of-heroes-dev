@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 import * as U from '../../utils'
 
-import armors from '../../databases/Armors.json'
+import armors from '../../databases/Items/Armors.json'
 
 import ManyBoxes from '../../components/Spell/ManyBoxes'
 import PageH2 from '../../components/PageH2/PageH2'

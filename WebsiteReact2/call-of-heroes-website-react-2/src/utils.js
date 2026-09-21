@@ -5,12 +5,12 @@ import Icon from "./components/Icon"
 import Separator from "./components/Separator/Separator"
 
 import PatchNotes from './databases/Other/PatchNotes.json'
-import weapons from './databases/Weapons.json'
-import armors from './databases/Armors.json'
+import weapons from './databases/Items/Weapons.json'
+import armors from './databases//Items/Armors.json'
 import skills from './databases/Proficiencies.json'
 import abilities from './databases/Abilities.json'
-import prices from './databases/Prices.json'
-import magicItems from './databases/Other/MagicItems.json'
+import prices from './databases/Items/Prices.json'
+import magicItems from './databases/Items/MagicItems.json'
 import overallData from './databases/OverallData.json'
 import { Races, Classes, ClassesBase, ClassesPremium, ClassesLegacy } from './services/content-providers/AllRacesAndClasses'
 import { useEffect, useState } from "react"
@@ -748,6 +748,13 @@ export async function isSetFreeAsync(setName) {
 }
 export function getSetFeatureId(setName, featureName) {
     return setName + '-' + featureName
+}
+export async function getAllSetNamesWithPackageAsync(packageName) {
+    const setsConfig = await getSetsConfigAsync()
+    const setNamesWithPackage = Object.entries(setsConfig)
+        .filter(([setId, setConfig]) => setConfig.packages?.includes(packageName))
+        .map(([setId, setConfig]) => setId)
+    return setNamesWithPackage
 }
 export function isMonsterEpic(monster) {
     if (monster == null) {
@@ -5227,6 +5234,7 @@ window.bio = "Druid 400 Person x2"
 window.searchText = ">250"
 window.bioMatchesSearchText = bioMatchesSearchText
 export function filterArrayBySearch(arr, getElemBio, searchText) {
+    console.log({arr, searchText})
     searchText = searchText.toLowerCase()
     const clauses = searchText.split('&').map(str => str.trim())
     const mathClauses = clauses.filter(clause => containsNumber(clause))                                            // E.g: >250    (from "Druid & >250")

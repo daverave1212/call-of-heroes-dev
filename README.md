@@ -43,15 +43,31 @@ The new files will be accessible to all users!
 Currently, you can only push 2 package types to the cloud in Firebase: races and classes.
 To add a new type of package to the cloud in Firebase, you must follow some steps.
 
-a. Open generate-jsons-from-yaml.mjs;
-    - Add a strip strategy to `stripPremiumContentOfFeatures`
+a. Prerequisites:
+    - the new package must be a folder with one or more design files inside.
+    - Add it to the *packages* list of any set from `Automation/sets-config.json`
+    - Make sure there are files of that package in the list
+
 b. Open update-sets-in-firebase.mjs
     - Add a comment with `- Feature Name` in the help text. 
     - Add a strategy to updateSetAsync
-c. Update ContentProvider
+
+c. Open generate-jsons-from-yaml.mjs;
+    - Add a strip strategy to `// Strip of features`
+
+d. Update ContentProvider
     - Open WebsiteReact2/src/.../ContentProvider.js
+    - Starting from useFeatureItem, make sure this implementation exists everywhere it's necessary.
     - Add new keys to everywhere necessary
     - You will probably need to also add a special implementation for a provider for that feature type. Follow the examples for RaceProvider and ClassProvider.
+    - If your file is a _composite file_ made from multiple files with the same name, follow the example of `OtherProvider.js`
+
+e. Run `.\parse.bat --all`
+f. Run `node .\update-sets-in-firebase.mjg <Package Name>`
+
+You may also want to create a base version of that file without the premium properties...
+
+NOTE: You will also need to do another website build and push that as well, because `sets-config.json` is needed (up to date) on the website. Alternatively, you can just copy `sets-config.json` from the public folder in the website repo and just upload that one.
 
 ### How to: Make new set
 a. Open Automation/sets-config.json

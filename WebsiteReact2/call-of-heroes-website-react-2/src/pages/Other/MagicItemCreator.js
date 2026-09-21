@@ -1,7 +1,7 @@
 import { $SKILLS, addBonusToDamageText, an, capitalizeFirstLetter, filterObject, FLAWS_BY_GROUP, generateUniqueId, getAllArmorsByName, getAlternativesAsArray, getAnExistingKeyOf, getItemIconPathByName, includesAll, includesAny, includesAnyWithExceptions, isNumber, isStringNumeric, joinObjectValues, last, mapKeysToObject, mapObject, mapObjectToArray, matchRange, mergeObjectsContainingArrays, objectToArray, onlyUniqueFilter, parseTextWithSymbols, percentChance, randomInt, randomOf, randomOfArrayWeighted, range, removeDuplicates, roundToNearest, SeededRNG, shuffle, SKILL_GROUP_BY_ELEMENT, SKILLS_BY_GROUP, sortByHash, spellsFromObject, stringReplaceAllMany } from "../../utils";
-import MagicItemProperties from '../../databases/Other/MagicItemProperties.json'
-import Weapons from '../../databases/Weapons.json'
-import Armors from '../../databases/Armors.json'
+import MagicItemProperties from '../../databases/Items/MagicItemProperties.json'
+import Weapons from '../../databases/Items/Weapons.json'
+import Armors from '../../databases/Items/Armors.json'
 import Item from "../../components/Spell/Item";
 import Page from "../../containers/Page/Page";
 import TwoColumns from "../../components/TwoColumns/TwoColumns";

@@ -3,14 +3,12 @@ import { useState } from 'react'
 
 import * as U from '../../utils'
 
-import armors from '../../databases/Armors.json'
-
 import ManyBoxes from '../../components/Spell/ManyBoxes'
 import PageH2 from '../../components/PageH2/PageH2'
 import PageH1 from '../../components/PageH1/PageH1'
 import Page from '../../containers/Page/Page'
 
-import prices from '../../databases/Prices.json'
+import prices from '../../databases/Items/Prices.json'
 import TwoColumns from '../../components/TwoColumns/TwoColumns'
 import TwoColumnsDescriptive from '../../components/TwoColumns/TwoColumnsDescriptive'
 import Column from '../../components/TwoColumns/Column'

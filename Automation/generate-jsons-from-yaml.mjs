@@ -16,15 +16,6 @@ import { accessObjectProp, addError, addNameToSpellsRecursively, assertAbilityHa
 
 import SETS from './sets-config.json' with { type: 'json' }
 
-const PREMIUM_KEYS_TO_STRIP = [
-    'Other Abilities',
-    'Utility',
-    'Talents',
-    'Specs',
-]
-const ALL_KEYS_TO_STRIP = [
-    'Ideas'
-]
 function stripEarlyAccessContent(obj) {
     const tiersToRemove = [7, 8, 9, 10].map(int => `Level ${int}`)
 
@@ -32,11 +23,17 @@ function stripEarlyAccessContent(obj) {
         if (key == null || value == null || path == null) {
             return false
         }
+        const pathParts = path.split('.')
+        const level = pathParts.length
+
+        // Talents
         if (path.includes('Talents')) {
             if (includesAny(key, tiersToRemove)) {
                 return true
             }
         }
+
+        // Generic
         if (isObject(value) && value?.IsEarlyAccess === false) {
             return true
         }
@@ -46,12 +43,6 @@ function stripEarlyAccessContent(obj) {
 function stripContentOfFeatures(obj, keysToStrip, { includeOnlyFileNames, config, fileName, fileNameNoExt, fileDir }) {
     const newObj = {...obj}
 
-    function stripNormal() {
-        for (const key of keysToStrip) {
-            delete newObj[key]
-        }
-    }
-
     const shouldStrip =
         includeOnlyFileNames == null?
             true
@@ -59,15 +50,37 @@ function stripContentOfFeatures(obj, keysToStrip, { includeOnlyFileNames, config
             includeOnlyFileNames.some(includeFileName => fileDir.includes(includeFileName))
     
     if (shouldStrip) {
-        stripNormal()
+        for (const key of keysToStrip) {
+            delete newObj[key]
+        }
     }
 
     // Strip Talents -- REMOVE THIS WHEN EARLY ACCESS IS FINISHED
-    stripEarlyAccessContent(obj)
+    stripEarlyAccessContent(obj, {config, fileName, fileNameNoExt, fileDir})
 
     return newObj
 }
+function stripPremiumContentOfFeatures(obj, { config, fileName, fileNameNoExt, fileDir, filePath }) {
+    let strippedObj = stripContentOfFeatures(structuredClone(obj), [
+        'Other Abilities',
+        'Utility',
+        'Talents',
+        'Specs',
+    ], { config, fileName, fileNameNoExt, fileDir, filePath })
 
+    deleteKeys(strippedObj, (key, value, path) => {
+        if (key == null || value == null || path == null) {
+            return false
+        }
+        const isFromAnyPremiumSet = value.Set != null && value.Set != 'basic'
+        if (isObject(value) && isFromAnyPremiumSet) {
+            return true
+        }
+        return false
+    })
+
+    return strippedObj
+}
 
 const yamlRootFolder = '../Design'
 const jsonRootFolder = '../WebsiteReact2/call-of-heroes-website-react-2/src/databases'
@@ -156,20 +169,12 @@ function maybeMakeSomeWordsMixins(subobj) {
         }
         for (const [substr, value] of Object.entries(REPLACEMENTS)) {
             const { replaceWith, exceptions } = value
-            if (subobj.Effect?.startsWith('When defeating people, your team loots') && substr == 'Gold') {
-                console.log(`💛 Replacing Gold; before:`)
-                console.log(subobj.Effect)
-            }
             subobj[prop] = replaceAllWithExceptions({
                 text: subobj[prop],
                 substring: substr,
                 exceptions,
                 replaceWith
             })
-            if (subobj.Effect?.startsWith('When defeating people, your team loots') && substr == 'Gold') {
-                console.log(`💙 After:`)
-                console.log(subobj.Effect)
-            }
         }
     }
     subobj._alreadyHasSomeWordsMixins = true
@@ -178,12 +183,6 @@ function maybeAddStatusEffectDescriptions(subobj) {
     if (subobj == null || subobj?._alreadyHasStatusEffectDescriptions) {
         return
     }
-
-    // if (subobj?.Effect?.includes('Cast Awe on a Unit and apply')) {
-    //     console.log(`🧕Got here, adding here:`)
-    //     console.log({statusEffectsItHas})
-    //     console.log({allStatusEffectsText})
-    // }
 
     const propsToCheck = ['Effect', 'Upgrade', 'Notes', 'EffectGreen', 'Downside', 'Combo']
     const totalPropsText = propsToCheck.map(prop => subobj[prop]?.toString() ?? '')?.join('\n') ?? ''
@@ -293,8 +292,7 @@ const PROCESS_STRATEGIES = {
 
 
 function defaultOutputStrategy(obj, params) {
-    const { fileConfig, config, fileName, fileNameNoExt, fileDir } = params
-    // const strippedObj = stripContentOfFeatures(obj, ALL_KEYS_TO_STRIP, params)  // Strip it of things not supposed to be in production
+    const { fileConfig, config, fileName, fileNameNoExt, fileDir, filePath } = params
     const jsonString = JSON.stringify(obj, null, 4);
     const outputPath = path.join(jsonRootFolder, fileDir, `${fileNameNoExt}.json`);
 
@@ -311,12 +309,14 @@ const OUTPUT_STRATEGIES = {
     'default': defaultOutputStrategy,
 
     'premium': (obj, params) => {
-        const { config, fileName, fileNameNoExt, fileDir } = params
-        // let strippedObj = stripContentOfFeatures(obj, PREMIUM_KEYS_TO_STRIP, {...params, includeOnlyFileNames: ['Races', 'Classes']})
-        defaultOutputStrategy(obj, params)  // Write as is to the normal folder (TODO: strip it)
+        const { config, fileName, fileNameNoExt, fileDir, filePath } = params
+
+        // Strip and output normal
+        let objStripped = stripPremiumContentOfFeatures(obj, { config, fileName, fileNameNoExt, fileDir, filePath })
+        defaultOutputStrategy(objStripped, params)  // Write as is to the normal folder (TODO: strip it)
         
+        // Output for premium
         const jsonString = JSON.stringify(obj, null, 4);
-        
         const premiumOutputPath = path.join('GeneratedPremiumFiles', fileDir, `${fileNameNoExt}.json`)
         console.log(`  Writing to: ${premiumOutputPath}`)
         try {
@@ -354,24 +354,21 @@ async function processFiles() {
         }
         // Validate and normalize
         forEachFoundAbility(dictContent, (name, body, parentKey) => {
+            // Validate
             assertAbilityHasCorrectProps(name, body)
             assertAbilityHasCorrectValues(name, body)
+
+            // Normalize
             maybeMakeSomeWordsMixins(body)
             maybeAddStatusEffectDescriptions(body)
             const didAddHasMixins = maybeAddHasMixins(body)
             body.ParentKey = parentKey
             body.Origin = fileName
 
+            // Record
             allAbilitiesFound[name] = body
         })
         normalizeInheritAbilities(dictContent)
-
-
-        // Strip of features
-        dictContent = stripContentOfFeatures(dictContent, ALL_KEYS_TO_STRIP, { config: fileConfig, fileName, fileNameNoExt, fileDir, includeOnlyFileNames: ['Races', 'Classes']})
-        if (fileConfig.isPremium) {
-            dictContent = stripContentOfFeatures(dictContent, PREMIUM_KEYS_TO_STRIP, { config: fileConfig, fileName, fileNameNoExt, fileDir })
-        }
 
         // Apply the preprocessing strategy
         const processStrategyFuncs = objectEntriesByFuzzyKey(PROCESS_STRATEGIES, fileName)
@@ -379,13 +376,11 @@ async function processFiles() {
             func?.(dictContent, { fileName, fuzzyKey })
         }
 
-
-
         // Output
         if (fileConfig.isPremium) {
-            OUTPUT_STRATEGIES.premium(dictContent, { config: fileConfig, fileName, fileNameNoExt, fileDir })
+            OUTPUT_STRATEGIES.premium(dictContent, { config: fileConfig, fileName, fileNameNoExt, fileDir, filePath })
         } else {
-            OUTPUT_STRATEGIES.default(dictContent, { config: fileConfig, fileName, fileNameNoExt, fileDir })
+            OUTPUT_STRATEGIES.default(dictContent, { config: fileConfig, fileName, fileNameNoExt, fileDir, filePath })
         }
     }
 

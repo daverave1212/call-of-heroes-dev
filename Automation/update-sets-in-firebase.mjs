@@ -1,6 +1,6 @@
 
 
-import { getTimestamp, getTodayString, readAllJsonsSync, readJson, writeJSONSync } from './automation-utils.mjs';
+import { getFileName, getTimestamp, getTodayString, readAllJsonsSync, readJson, writeJSONSync } from './automation-utils.mjs';
 import { setDocument } from './Firebase/firebase.mjs';
 import SETS from './sets-config.json' with { type: 'json' }
 import FOLDER_STRUCTURE from './private-folder-structure.json' with { type: 'json' }
@@ -19,6 +19,7 @@ if (args.length == 0 || args[0] == 'help') {
     It can currently push the following features:
     - Races
     - Classes
+    - Other
 
     The setsConfig with versions is NOT uploaded to Firebase.
     Baseline, the config is generated right here, in this base folder. That's its main place.
@@ -76,7 +77,8 @@ async function updateSetAsync(setId) {
 
 
     if (setHasPackage('Races')) {
-        const objsArr = readAllJsonsSync(path.join(setPath, 'Races'))
+        const objsEntriesArr = readAllJsonsSync(path.join(setPath, 'Races'))
+        const objsArr = objsEntriesArr.map(({ name, content }) => content)
         const objsEntries = objsArr.map(obj => ([obj.Race, obj]))
         const objsObj = Object.fromEntries(objsEntries)
         uploads.push({
@@ -89,13 +91,28 @@ async function updateSetAsync(setId) {
     }
 
     if (setHasPackage('Classes')) {
-        const objsArr = readAllJsonsSync(path.join(setPath, 'Classes'))
+        const objsEntriesArr = readAllJsonsSync(path.join(setPath, 'Classes'))
+        const objsArr = objsEntriesArr.map(({ name, content }) => content)
         const objsEntries = objsArr.map(obj => ([obj.Class, obj]))
         const objsObj = Object.fromEntries(objsEntries)
         uploads.push({
             id: setId + '-classes',
             productId: setId,
             name: set.name + ' Classes',
+            version: today,
+            content: objsObj
+        })
+    }
+
+    if (setHasPackage('Other')) {
+        const objsEntriesArr = readAllJsonsSync(path.join(setPath, 'Other'))
+        const objsKeyVal = objsEntriesArr.map(({ name, content}) => ([ getFileName(name), content ]))
+        const objsObj = Object.fromEntries(objsKeyVal)
+        
+        uploads.push({
+            id: setId + '-other',
+            productId: setId,
+            name: set.name + ' Other',
             version: today,
             content: objsObj
         })

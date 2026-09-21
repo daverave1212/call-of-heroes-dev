@@ -12,7 +12,6 @@ import cache from '../data-caching/cache'
 
 import OverallData from '../../databases/OverallData.json'
 import { getDocInCollection } from '../online-database/Database'
-import { maybeUpdateSetFeatureCache } from './content-cache-updater'
 import { classExists, getClassLocal } from './ClassProvider'
 import { FEATURES, getFeatureItemAsync } from './ContentProvider'
 

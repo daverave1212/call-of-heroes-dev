@@ -6,7 +6,7 @@ import YAML from 'yaml'
 import * as U from '../../utils'
 
 import PageH1 from '../../components/PageH1/PageH1'
-import items from '../../databases/Other/MagicItems.json'
+import items from '../../databases/Items/MagicItems.json'
 import ManyBoxes from '../../components/Spell/ManyBoxes'
 import Page from '../../containers/Page/Page'
 import ManySpells from '../../components/Spell/ManySpells'

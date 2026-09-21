@@ -7,7 +7,7 @@ import PageH1 from '../../components/PageH1/PageH1'
 import ManySpells from '../../components/Spell/ManySpells'
 import Page from '../../containers/Page/Page'
 
-import prices from '../../databases/Prices.json'
+import prices from '../../databases/Items/Prices.json'
 import { randomInt, randomOf, shuffle } from '../../utils'
 
 

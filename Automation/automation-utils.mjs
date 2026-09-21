@@ -146,6 +146,12 @@ export function capitalizeFirstLetter(str) {
   if (!str) return ""; // Handle empty string or null
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
+export function getFileName(filePath) {
+  // Extract filename with extension from full path
+  const basename = path.basename(filePath);
+  // Remove the extension
+  return path.basename(basename, path.extname(basename));
+}
 
 // ----------- QUESTGUARD UTILS ------------
 export function isSpellName(dictKey) {
@@ -269,8 +275,6 @@ export function readAllJsonsSync(dirPath) {
   // 2. Read all items inside the directory
   const files = fs.readdirSync(absolutePath);
 
-  console.log(`Reading JSONS at ${dirPath}. Found files: ${files}`)
-
   // 3. Filter for .json extension and parse each file
   const jsonObjects = files
     .filter(file => path.extname(file).toLowerCase() === '.json')
@@ -278,8 +282,8 @@ export function readAllJsonsSync(dirPath) {
       const filePath = path.join(absolutePath, file);
       const fileContent = fs.readFileSync(filePath, 'utf-8');
       
-      return JSON.parse(fileContent);
-    });
+      return { name: file, content: JSON.parse(fileContent)};
+    })
 
   return jsonObjects;
 }

@@ -8,7 +8,7 @@ import { getDocInCollection } from '../online-database/Database'
 
 
 /*  
- *  E.g. maybeUpdateCachedFeatureFromPremiumSet('core', 'races', ...)
+ *  E.g. maybeUpdateSetFeatureCache('core', 'races')
  *      Will take the "core-races" object from DB if it's a newer version than what is cached.
  *      Puts it in the cache as "core-races".
  */
@@ -46,9 +46,9 @@ export async function maybeUpdateSetFeatureCache(setName, featureName) {
         const res = await getDocInCollection('game-products', featureId)
         await cache.setAsync(featureId, res.content)
     } catch (e) {
-        console.error(`ERROR: Failed to maybeUpdateCachedFeatureFromPremiumSet for set "${setName}" feature ${featureName} liveSetConfig ${liveSetsConifg} cachedSetsConfig ${cachedSetsConfig}`)
+        console.error(`ERROR: Failed to maybeUpdateSetFeatureCache for set "${setName}" feature ${featureName} liveSetConfig ${liveSetsConifg} cachedSetsConfig ${cachedSetsConfig}`)
         throw e
     }
 }
 
-window.maybeUpdateCachedFeatureFromPremiumSet = maybeUpdateSetFeatureCache
+window.maybeUpdateSetFeatureCache = maybeUpdateSetFeatureCache

@@ -4,8 +4,6 @@ import { useSearchParams, useLocation } from 'react-router-dom'
 
 import * as U from '../../utils'
 
-import armors from '../../databases/Armors.json'
-
 import ManyBoxes from '../../components/Spell/ManyBoxes'
 import PageH2 from '../../components/PageH2/PageH2'
 import PageH1 from '../../components/PageH1/PageH1'

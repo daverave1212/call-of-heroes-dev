@@ -19,6 +19,9 @@ import { showToast } from '../../services/dom/toaster.js'
 
 export default function MonsterBlock({monsterName, monster, isPreview}) {
 
+    if (monster == null) {
+        return <div>Error: could not find monster {monsterName}</div>
+    }
     if (monsterName == null) {
         monsterName = monster.Name
     }

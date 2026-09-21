@@ -6,7 +6,7 @@ import { capitalizeFirstLetter, filterObject, flattenObjectOnce, getAllMagicItem
 import TwoColumns from "../../components/TwoColumns/TwoColumns";
 import Column from "../../components/TwoColumns/Column";
 import { getItemPrice, PriceTable } from "../Other/Prices";
-import prices from './../../databases/Prices.json'
+import prices from './../../databases/Items/Prices.json'
 import { createMagicItem } from "../Other/MagicItemCreator";
 import Spell from "../../components/Spell/Spell";
 
