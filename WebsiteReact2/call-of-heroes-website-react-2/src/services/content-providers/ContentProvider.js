@@ -84,7 +84,9 @@ export async function getFeatureItemAsync(featureName, name) {
                 await maybeUpdateSetFeatureCache(setName, 'other')
                 const isPremium = await isSetPremiumAsync(setName)
                 const iOwnSet = await doIOwnSetAsync(setName)
+                console.log({setName, isPremium, iOwnSet})
                 if (!isPremium || !iOwnSet) {
+                    console.log(`  Skipping set ${setName}`)
                     continue
                 }
                 const featureId = getSetFeatureId(setName, 'other')     // E.g. core-other
@@ -93,6 +95,8 @@ export async function getFeatureItemAsync(featureName, name) {
                 compositeFeature = {...compositeFeature, ...thisSetItem}
             }
 
+            console.log(`  Returning compositeFeature`)
+            console.log({compositeFeature})
             return compositeFeature
     }
 }
@@ -118,7 +122,7 @@ export function useFeatureItem(featureName, itemName, subitemName=null) {
                 setIsLoading(false)
             }
         })()
-    }, [featureName, itemName])
+    }, [featureName, itemName, subitemName])
 
     if (subitemName) {
         return [innerItem?.[subitemName], isLoading]

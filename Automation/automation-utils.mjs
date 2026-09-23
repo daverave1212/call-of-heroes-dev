@@ -74,6 +74,13 @@ export function addError() {
 
 
 // ----------- STRING ------------
+export function previewObject(obj) {
+    const str = Object.keys(obj)
+        .slice(0, 4)
+        .map(key => `"${key}": ...`)
+        .join(', ')
+    return '{ ' + str + ' }'
+}
 export function replaceOnly(text, substring, exceptions, replacement) {
   // Escape special regex characters in the substring to prevent syntax errors
   const escapedSub = substring.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
@@ -362,6 +369,7 @@ export function deleteKeys(obj, condition, currentPath = '') {
     const keyPath = getPath(key);
 
     if (condition(key, value, keyPath)) {
+        console.log(`Deleting key ${key}`)
       delete obj[key];
     } else {
       // Recurse into nested objects or arrays if the key wasn't deleted
@@ -370,6 +378,32 @@ export function deleteKeys(obj, condition, currentPath = '') {
   }
 
   return obj;
+}
+export function iterateObject(obj, func) {
+    function iterate(current, path) {
+        if (current === null || typeof current !== 'object') {
+            return
+        }
+
+        Object.entries(current).forEach(([key, value]) => {
+            // Array keys should be numbers
+            const actualKey = Array.isArray(current)
+                ? Number(key)
+                : key
+
+            func(actualKey, value, path)
+
+            if (value !== null && typeof value === 'object') {
+                const nextPath = path
+                    ? `${path}.${key}`
+                    : key
+
+                iterate(value, nextPath)
+            }
+        })
+    }
+
+    iterate(obj, '')
 }
 export function getValueByPath(obj, path) {
   if (!obj || !path) return undefined;
@@ -480,7 +514,6 @@ export function accessObjectProp(obj, propPath) {
     }
     return currentObj
 }
-
 export function getObjectValueByFuzzyKey(obj, key) {
     for (const realKey of Object.keys(obj)) {
         if (key.includes(realKey)) {
@@ -521,7 +554,16 @@ export function equalsNaN(x) {
 export function isString(obj) {
     return obj != null && typeof obj === 'string' || obj instanceof String;
 }
-
+// E.g. Monsters, Fonts, etc. Returns all sets found as array
+export function getAllSetsOfContent(obj) {
+    const foundSets = new Set()
+    iterateObject(obj, (key, value, path) => {
+        if (value?.Set != null && isString(value?.Set)) {   // Don't check 'key', because we don't look in the base level
+            foundSets.add(value.Set)
+        }
+    })
+    return Array.from(foundSets)
+}
 
 // ----------- VALIDATION ------------
 export function assertObjectHas(name, obj, propNames, warnPropNames=[], recordErrorFound=true) {

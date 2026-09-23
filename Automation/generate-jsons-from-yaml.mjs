@@ -12,7 +12,7 @@ import path from 'path'
 
 import STATIC_SYMBOLS from './parse-text-symbols-static.json' with { type: 'json' }
 import * as STATS_STATIC from './stats-constants.mjs'
-import { accessObjectProp, addError, addNameToSpellsRecursively, assertAbilityHasCorrectProps, assertObjectHas, assertObjectHasNot, findAllYAMLFiles, forEachFoundAbility, getNErrorsFound, getObjectValueByFuzzyKey, isSpellName, looksLikeSpell, objectEntriesByFuzzyKey, readAndNormalizeYamlToJson, replaceAllWithExceptions, REPLACEMENTS, replaceOnly, STATUS_EFFECTS, stringHasAnyOfChars, validateClass, validateAndFixMonstersFile, validateRace, assertAbilityHasCorrectValues, includesAny, deleteKeys, isObject } from './automation-utils.mjs'
+import { accessObjectProp, addError, addNameToSpellsRecursively, assertAbilityHasCorrectProps, assertObjectHas, assertObjectHasNot, findAllYAMLFiles, forEachFoundAbility, getNErrorsFound, getObjectValueByFuzzyKey, isSpellName, looksLikeSpell, objectEntriesByFuzzyKey, readAndNormalizeYamlToJson, replaceAllWithExceptions, REPLACEMENTS, replaceOnly, STATUS_EFFECTS, stringHasAnyOfChars, validateClass, validateAndFixMonstersFile, validateRace, assertAbilityHasCorrectValues, includesAny, deleteKeys, isObject, iterateObject, isString, capitalizeFirstLetter, previewObject, getAllSetsOfContent } from './automation-utils.mjs'
 
 import SETS from './sets-config.json' with { type: 'json' }
 
@@ -56,7 +56,7 @@ function stripContentOfFeatures(obj, keysToStrip, { includeOnlyFileNames, config
     }
 
     // Strip Talents -- REMOVE THIS WHEN EARLY ACCESS IS FINISHED
-    stripEarlyAccessContent(obj, {config, fileName, fileNameNoExt, fileDir})
+    stripEarlyAccessContent(obj)
 
     return newObj
 }
@@ -85,8 +85,17 @@ function stripPremiumContentOfFeatures(obj, { config, fileName, fileNameNoExt, f
 const yamlRootFolder = '../Design'
 const jsonRootFolder = '../WebsiteReact2/call-of-heroes-website-react-2/src/databases'
 
-const shouldGenerateAll = process.argv.includes('--all') || process.argv.includes('-a')
+const args = process.argv.slice(2)
+const shouldGenerateAll = args.includes('--all') || args.includes('-a')
+const isHelpCommand = args.includes('--help') || args.includes('-h') || args.includes('help') || args.length == 0
 
+if (isHelpCommand) {
+    console.log(`\n🔰 Use as:`)
+    console.log(`> node generate-jsons-from-yaml.mjs --all`)
+    console.log(`> node generate-jsons-from-yaml.mjs Monsters Races Artificer Core (by parts of the path)`)
+    process.exit()
+}
+console.log(`\n\n🚛 Running generate-jsons-from-yaml...`)
 
 // Polulated at runtime
 const allAbilitiesFound = {}
@@ -109,7 +118,9 @@ for (const [setId, config] of Object.entries(SETS)) {
         filePath: fp,
         ...config
     }))]
-
+}
+if (!shouldGenerateAll) {
+    filesToConvert = filesToConvert.filter(({setName, relativePath, config, filePath}) => process.argv.some(arg => filePath.includes(arg)))
 }
 
 function normalizeInheritAbilities(dictToSearch) {
@@ -242,6 +253,59 @@ function findAndRecordAllAbilities(fromDict, toDict, parentKey=null, origin='Unk
 
 
 
+function branchCompositeMonsters(obj, params) {
+    const { fileConfig, config, fileName, fileNameNoExt, fileDir, filePath } = params
+    
+    const foundSets = getAllSetsOfContent(obj)
+    const branchesBySet = Object.fromEntries(foundSets.map(setName => ([setName, {}])))
+    for (const [monsterName, monster] of Object.entries({...obj})) {
+        if (monster.Set == null) {
+            continue
+        }
+        console.log(`Found monster ${monsterName} from set ${monster.Set}`)
+        branchesBySet[monster.Set][monsterName] = structuredClone(monster)
+        const strippedMonsterObj = deleteKeys(monster, (key, value, path) => !['Set', 'Type', 'Experience', 'Degree', 'Tags'].includes(key))
+        obj[monsterName] = strippedMonsterObj
+    }
+
+    return [obj, branchesBySet]
+}
+
+// THIS DOESN'T WORK
+// function branchCompositeContentForSets(obj, params) {
+//     const { fileConfig, config, fileName, fileNameNoExt, fileDir, filePath } = params
+//     // Find all sets
+//     const foundSets = new Set()
+    // iterateObject(obj, (key, value, path) => {
+    //     if (value?.Set != null && isString(value?.Set)) {   // Don't check 'key', because we don't look in the base level
+    //         foundSets.add(value.Set)
+    //     }
+    // })
+//     // Make an object of clones
+//     const setsArr = Array.from(foundSets)
+//     const setObjPairs = setsArr.map(name => ([name, structuredClone(obj)]))
+//     setObjPairs.push(['basic', structuredClone(obj)])
+//     const branchesBySet = {}
+//     for (const [setName, obj] of setObjPairs) {
+//         if (setName == null) {  // Defensive
+//             continue
+//         }
+//         console.log(`Deleting keys for set ${setName}`)
+//         if (setName == 'basic') {
+//             console.log(`    Deleting for basic keys`)
+//             deleteKeys(obj, (key, value, path) => value?.Set != null)
+//         } else {
+//             // console.log(`    Deleting for set key keys`)
+//             deleteKeys(obj, (key, value, path) => value?.Set != setName)
+//         }
+//         branchesBySet[setName] = obj
+//     }
+//     if (setsArr.length > 0) {
+//         console.log('Core: ' + previewObject(branchesBySet.core))
+//     }
+//     return branchesBySet
+// }
+
 const PROCESS_STRATEGIES = {
     'Feats': obj => {
         findAndRecordAllAbilities(obj, allAbilitiesFound, null, 'Feats');
@@ -288,11 +352,9 @@ const PROCESS_STRATEGIES = {
         validateAndFixMonstersFile(obj)
     }
 }
-
-
-
-function defaultOutputStrategy(obj, params) {
+function defaultOutputStrategy(obj, params={}) {
     const { fileConfig, config, fileName, fileNameNoExt, fileDir, filePath } = params
+
     const jsonString = JSON.stringify(obj, null, 4);
     const outputPath = path.join(jsonRootFolder, fileDir, `${fileNameNoExt}.json`);
 
@@ -304,18 +366,36 @@ function defaultOutputStrategy(obj, params) {
         throw err;
     }
 }
-const OUTPUT_STRATEGIES = {
+let OUTPUT_STRATEGIES = {}
+    OUTPUT_STRATEGIES = {
 
     'default': defaultOutputStrategy,
+
+    'Monsters': (obj, params) => {
+        const { config, fileName, fileNameNoExt, fileDir, filePath } = params
+        const [objStripped, branchesBySet] = branchCompositeMonsters(obj, params)
+        OUTPUT_STRATEGIES['default'](objStripped, params)
+
+        for (const [setName, objForSet] of Object.entries(branchesBySet)) {
+            const newFileDir = path.join(setName, fileDir)
+            OUTPUT_STRATEGIES['premiumOnly'](objForSet, {...params, fileDir: newFileDir})
+        }
+    },
 
     'premium': (obj, params) => {
         const { config, fileName, fileNameNoExt, fileDir, filePath } = params
 
         // Strip and output normal
         let objStripped = stripPremiumContentOfFeatures(obj, { config, fileName, fileNameNoExt, fileDir, filePath })
-        defaultOutputStrategy(objStripped, params)  // Write as is to the normal folder (TODO: strip it)
+        OUTPUT_STRATEGIES['default'](objStripped, params)
         
         // Output for premium
+        OUTPUT_STRATEGIES['premiumOnly'](obj, params)
+    },
+
+    'premiumOnly': (obj, params) => {
+        const { setName, config, fileName, fileNameNoExt, fileDir, filePath } = params
+        
         const jsonString = JSON.stringify(obj, null, 4);
         const premiumOutputPath = path.join('GeneratedPremiumFiles', fileDir, `${fileNameNoExt}.json`)
         console.log(`  Writing to: ${premiumOutputPath}`)
@@ -327,9 +407,7 @@ const OUTPUT_STRATEGIES = {
             throw err;
         }
     }
-
 }
-
 
 
 
@@ -339,9 +417,10 @@ async function processFiles() {
 
     for (const fileConfig of filesToConvert) {
         const { setId, setName, filePath, relativePath } = fileConfig
-        const fileName = filePath
-        const fileNameNoExt = path.parse(fileName).name;
-        const fileDir = path.dirname(fileName);
+        const fileExtension = path.extname(filePath)
+        const fileNameNoExt = path.parse(filePath).name;
+        const fileName = fileNameNoExt + '.' + fileExtension
+        const fileDir = path.dirname(filePath);
         
         // Read from file
         console.log(`Parsing ${fileName}...`);
@@ -363,7 +442,7 @@ async function processFiles() {
             maybeAddStatusEffectDescriptions(body)
             const didAddHasMixins = maybeAddHasMixins(body)
             body.ParentKey = parentKey
-            body.Origin = fileName
+            body.Origin = filePath
 
             // Record
             allAbilitiesFound[name] = body
@@ -371,17 +450,22 @@ async function processFiles() {
         normalizeInheritAbilities(dictContent)
 
         // Apply the preprocessing strategy
-        const processStrategyFuncs = objectEntriesByFuzzyKey(PROCESS_STRATEGIES, fileName)
+        const processStrategyFuncs = objectEntriesByFuzzyKey(PROCESS_STRATEGIES, filePath)
         for (const [fuzzyKey, func] of processStrategyFuncs) {
             func?.(dictContent, { fileName, fuzzyKey })
         }
 
         // Output
-        if (fileConfig.isPremium) {
-            OUTPUT_STRATEGIES.premium(dictContent, { config: fileConfig, fileName, fileNameNoExt, fileDir, filePath })
-        } else {
-            OUTPUT_STRATEGIES.default(dictContent, { config: fileConfig, fileName, fileNameNoExt, fileDir, filePath })
-        }
+        const writeOutput =
+            fileConfig.isPremium?
+                OUTPUT_STRATEGIES.premium
+            :OUTPUT_STRATEGIES[fileNameNoExt] != null?
+                OUTPUT_STRATEGIES[fileNameNoExt]
+            :OUTPUT_STRATEGIES.default
+
+        console.log(`  / File: ${filePath} strategy: ${writeOutput}`)
+
+        writeOutput(dictContent, { config: fileConfig, fileName, fileNameNoExt, fileDir, filePath })
     }
 
     const overallData = {
@@ -389,38 +473,28 @@ async function processFiles() {
         Classes: classes
     };
 
-    try {
-        fs.writeFileSync(
-            path.join(jsonRootFolder, 'OverallData.json'),
-            JSON.stringify(overallData, null, 4),
-            'utf-8'
-        );
-
-        fs.writeFileSync(
-            path.join(jsonRootFolder, 'ClassAndRaceAbilities.json'),
-            JSON.stringify(classRaceAbilities, null, 4),
-            'utf-8'
-        );
-
-        // fs.writeFileSync(
-        //     path.join(jsonRootFolder, 'RulesLists.json'),
-        //     JSON.stringify(rulesLists, null, 4),
-        //     'utf-8'
-        // );
-
-        // fs.writeFileSync(
-        //     path.join(jsonRootFolder, 'RulesDicts.json'),
-        //     JSON.stringify(rulesDicts, null, 4),
-        //     'utf-8'
-        // );
-    } catch (err) {
-        console.red('ERROR: Failed to write summary JSON files:', err);
-        throw err;
+    if (shouldGenerateAll) {
+        try {
+            fs.writeFileSync(
+                path.join(jsonRootFolder, 'OverallData.json'),
+                JSON.stringify(overallData, null, 4),
+                'utf-8'
+            );
+    
+            fs.writeFileSync(
+                path.join(jsonRootFolder, 'ClassAndRaceAbilities.json'),
+                JSON.stringify(classRaceAbilities, null, 4),
+                'utf-8'
+            );
+        } catch (err) {
+            console.red('ERROR: Failed to write summary JSON files:', err);
+            throw err;
+        }
     }
 
     fs.writeFileSync('files-last-updated.json', JSON.stringify(filesLastUpdated))
 
-    console.log(`Skipped ${nFilesSkipped} files. Run with --all to not skip.`)
+    console.log(`\nSkipped ${nFilesSkipped} files. Run with --all to not skip.`)
 }
 
 

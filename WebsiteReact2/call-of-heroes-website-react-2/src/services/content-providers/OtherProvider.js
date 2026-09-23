@@ -1,18 +1,9 @@
 
-import BasicMonsters from '../../databases/Other/Monsters.json'
-import CoreMonsters from '../../databases/Core/Other/Monsters.json'
-
-import { FEATURES, getFeatureItemAsync } from './ContentProvider'
-
-export async function getCoreMonstersAsync() {
-    return await getFeatureItemAsync(FEATURES.Other, 'Monsters')
-}
-
-
-
+import BasicMonsters from './../../databases/Other/Monsters.json'
 
 export function getOtherLocal(name) {
     if (name == 'Monsters') {
+        console.log({BasicMonsters})
         return BasicMonsters
     }
 }
@@ -33,3 +24,5 @@ export function getOtherLocal(name) {
 // export async function getClassAsync(name) {
 //     return await getFeatureItemAsync(FEATURES.Classes, name)
 // }
+
+window.getOtherLocal = getOtherLocal

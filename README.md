@@ -39,14 +39,38 @@ The new files will be accessible to all users!
 
 ## C. Automation
 
-### How to: Add new "package" (e.g. Weapons)
-Currently, you can only push 2 package types to the cloud in Firebase: races and classes.
+### Premium vs default vs other
+When doing `generate-jsons-from-yaml`, it reads all files in `sets-config.json` from all sets and does the following to each:
+    a. Reads it
+    b. Validates it
+    c. Normalizes it -- adds HasMixins, Origin, ParentKey, replaces Inherit, etc
+    d. Preprocesses it -- formats data, records Abilities, etc
+    e. Outputs it
+
+Outputting works as follows, depending on the file type.
+    a. Default
+        - Outputs the file as is to its corresponding file path (Other/Monsters.yml -> repo/Other/Monsters.json)
+    b. Premium (e.g. file is from a non-Basic Set):
+        - Outputs the file ONLY to GeneratedPremiumFiles for cloud (Other/Monsters.yml -> ./GeneratedPremiumFiles/Other/Monsters.json)
+        - Strips the file and leaves only what should be visible to FTP
+        - Outputs it normally
+    c. Composite (files only present in the basic set, but with content from various sets)
+        - NOTE: A composite YML file sits only once in the standard work dir
+        - Splits it into different objects for each set, and strips the main file
+        - Outputs the semi-stripped file normally
+        - For each set, outputs its new file to ./GeneratedPremiumFles/<SetName>/...
+For a **Composite File** you need to create a custom output strategy in *OUTPUT_STRATEGIES* in `generate-jsons-from-yaml.mjs`
+    
+
+### How to: Add new "package" (e.g. Races, Classes, etc)
+A package represents a folder for categorizing file types.
+For example, Races/... -> Races is a package; Other/... -> Other is a package. Etc.
 To add a new type of package to the cloud in Firebase, you must follow some steps.
 
 a. Prerequisites:
     - the new package must be a folder with one or more design files inside.
     - Add it to the *packages* list of any set from `Automation/sets-config.json`
-    - Make sure there are files of that package in the list
+    - If the file is normal, make sure there are files of that package in the list. If it's a *composite file* (with features from multiple sets), make sure that file is ONLY in the base design folder and NOT part of the files of other sets. Still the config of that set should include it in its packages. You can add it to `ghostFiles` of the config of the set if you like; these are ignored
 
 b. Open update-sets-in-firebase.mjs
     - Add a comment with `- Feature Name` in the help text. 
@@ -63,7 +87,7 @@ d. Update ContentProvider
     - If your file is a _composite file_ made from multiple files with the same name, follow the example of `OtherProvider.js`
 
 e. Run `.\parse.bat --all`
-f. Run `node .\update-sets-in-firebase.mjg <Package Name>`
+f. Run `node .\update-sets-in-firebase.mjg <PackageName>`
 
 You may also want to create a base version of that file without the premium properties...
 

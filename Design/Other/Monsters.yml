@@ -3363,52 +3363,6 @@ Singularity:
   Story Ideas: Strange distorsions are seen throughout an area or at a distance. What could be causing them?
   Loot: None
 
-Seraph:
-  Type:         Celestian
-  Degree:       7
-  Experience:   1000 (333 x3)
-  Stats:        4/2/2/5/5
-  Health:       315
-  HPCoef:       0.85
-  Speed:        7
-  Initiative:   8
-  Abilities:
-    - Dazzling Wave:
-        Effect: |
-          Create a long, tall wall of light from one end of the battlefield to another.
-          Enemies touching it take {DamageAoEAuto} Divine Damage and are Single-Stunned.
-        Notes: The wall is transparent, like a window, and does not provide Cover.
-    - Rays:
-        Effect: |
-          The first time this is used, Players choose 2 targets.
-          If opposing, they take {DamageAoEAuto} Fire Damage and are Blinded. Otherwise, Heal them for {Damage1} and they gain +1 Action Point next (or current) Turn.
-          The 2 targets each choose one of the next targets for the upcoming Rays.
-    - Lightspawns: |
-        Summon 1d4 flying orbs near the Seraph each that will target a different enemy.
-        Orbs have 1 Health and have 3 meters Speed.
-        Each orb chases one Hero. Upon collision, it explodes and damages it for {DamageAoEAuto} Damage.
-    - Feather Barrage: |
-        Attack all Units in a 4x4 area for {DamageAoE} Pierce Damage.
-        Forms a "[" of caltrops on the ground, towards the Seraph.
-    - Sword Attack:
-        A: Half-Action
-        Damage: "{DamageTimes(1.25)}"
-        Blade of Remembrance: Target _remembers_ one of their used Abilities of choice.
-  Passives:
-    - Oblivion: After someone makes an attack with a weapon or uses an Ability, it can't be used anymore for the rest of the combat. Weapons vanish into thin air and Abilities are _forgotten_. Default Moves don't count.
-    - Resistances: Takes -50% Divine Damage.
-    - Vulnerabilities: Takes +50% Scourge Damage.
-  Avoids AoE: Yes
-  Behavior: None
-  Lore: None
-  Suggested Obstacles:
-    None
-  Monster Data: No tactic, mid HP, no gimmick
-  Role: Main Enemy
-  Variants: None
-  Story Ideas: None
-  Loot: None
-
 KingBolgurWithWyvern:
   Type:         Person, Undead
   Degree:       7
@@ -3730,4 +3684,89 @@ Whispershade:
 
 # CORE
 Skinwalker:
-  Set: core
+  Set:          core
+  Type:         Person, Beast, Fiend
+  Degree:       Normal
+  Experience:   175
+  Stats:        2/2/0/2/2
+  Health:       43
+  HPCoef:       0.95
+  Speed:        6
+  Initiative:   5
+  Abilities:
+    - Claw:
+        A: Half-Action
+        Damage: 1d8
+        Inflict Fear: If rolled 8, the target chooses to either be Clawed again or get a Phobia Negative Quirk.
+    - Bite:
+        Effect: 1d8 + 1d10
+        Requirement: Only usable when Blood Rushed
+        Blood Fever: The target becomes Silenced (it can't use Abilities).
+  Passives:
+    - Blood Rush: |
+        As soon as the Skinwalker drops to/below 50% HP, it can make a free Move Act and a free Bite (even during other Units' turns).
+        Then, the other Unit can continue its Turn.
+    - Shapeshift & Mimickry: |
+        While at least 10 meters away from an observer, the Skinwalker can shapeshift into any animal or person they have seen, and can mimick any voice or sound.
+        The closer you get to a Skinwalker, the more apparent it seems that the transformation is disfigured and uncanny.
+  Avoids AoE: No
+  Behavior: |
+    When dropping to 50% HP, they can run towards the back line of the party and bite them!
+    If healthy, Gnolls employ tactics like kiting, flanking, etc.
+    If below 50% HP, Gnolls go wild!
+  Pair: Pair with Hyenas (reskinned Wolves).
+  Lore: None
+  Suggested Obstacles:
+    - Hunting Traps
+    - Spike Pits
+    - Net Traps
+    - Spiked Fence (Spiked Barricades)
+  Monster Data: No tactic, mid HP, no gimmick
+  Role: Main Enemy
+
+Seraph:
+  Set:          core
+  Type:         Celestian
+  Degree:       7
+  Experience:   1000 (333 x3)
+  Stats:        4/2/2/5/5
+  Health:       315
+  HPCoef:       0.85
+  Speed:        7
+  Initiative:   8
+  Abilities:
+    - Dazzling Wave:
+        Effect: |
+          Create a long, tall wall of light from one end of the battlefield to another.
+          Enemies touching it take {DamageAoEAuto} Divine Damage and are Single-Stunned.
+        Notes: The wall is transparent, like a window, and does not provide Cover.
+    - Rays:
+        Effect: |
+          The first time this is used, Players choose 2 targets.
+          If opposing, they take {DamageAoEAuto} Fire Damage and are Blinded. Otherwise, Heal them for {Damage1} and they gain +1 Action Point next (or current) Turn.
+          The 2 targets each choose one of the next targets for the upcoming Rays.
+    - Lightspawns: |
+        Summon 1d4 flying orbs near the Seraph each that will target a different enemy.
+        Orbs have 1 Health and have 3 meters Speed.
+        Each orb chases one Hero. Upon collision, it explodes and damages it for {DamageAoEAuto} Damage.
+    - Feather Barrage: |
+        Attack all Units in a 4x4 area for {DamageAoE} Pierce Damage.
+        Forms a "[" of caltrops on the ground, towards the Seraph.
+    - Sword Attack:
+        A: Half-Action
+        Damage: "{DamageTimes(1.25)}"
+        Blade of Remembrance: Target _remembers_ one of their used Abilities of choice.
+  Passives:
+    - Oblivion: After someone makes an attack with a weapon or uses an Ability, it can't be used anymore for the rest of the combat. Weapons vanish into thin air and Abilities are _forgotten_. Default Moves don't count.
+    - Resistances: Takes -50% Divine Damage.
+    - Vulnerabilities: Takes +50% Scourge Damage.
+  Avoids AoE: Yes
+  Behavior: None
+  Lore: None
+  Suggested Obstacles:
+    None
+  Monster Data: No tactic, mid HP, no gimmick
+  Role: Main Enemy
+  Variants: None
+  Story Ideas: None
+  Loot: None
