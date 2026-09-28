@@ -150,17 +150,17 @@ export default function Item({ item, style, hasIcon, hasCopyButton=true, showTop
                     </div>
                 ) }
                 { Notes != null && (
-                    <div className='spell-notes'>
+                    <div className='gray'>
                         { Notes }
                     </div>
                 ) }
                 { Alternatives != null && (
-                    <div className='spell-notes'>
+                    <div className='gray'>
                         Alternatives: { Alternatives }
                     </div>
                 ) }
                 {/* { allEqual([Effect, EffectGreen, Downside, Upgrade, Notes, Alternatives], null) && (
-                    <div className='spell-notes'>
+                    <div className='gray'>
                     </div>
                 ) } */}
 

@@ -1,5 +1,6 @@
 import { getSpellValidTopStatsObject, isNumber } from '../../../utils';
 import { getSpellTags } from '../../../utils';
+import Icon from '../../Icon';
 
 export function SpellTopStats({ className, tags, keywords }) {
     const { A, DisplayA, Cost, Range, Cooldown, Duration, Requirement, DisplayRequirement, Replacement, Hands, Stat, Special, Price, XP, Name } = tags;
@@ -24,10 +25,14 @@ export function SpellTopStats({ className, tags, keywords }) {
 
     function KeywordTag({ children }) {
         let style = {};
+        let icon = null
         if (children?.includes?.('Keystone')) {
             style = { backgroundColor: 'var(--orange-color)' };
+        } else if (children?.includes?.('Early Access')) {
+            style = { backgroundColor: 'darkgreen' };
+            icon = <Icon name="BlueCircle"/>
         }
-        return <div className='tag smaller-font' style={style} key={children}>{children}</div>;
+        return <div className='tag smaller-font' style={style} key={children}>{icon}{children}</div>;
     }
 
     function KeywordTags() {

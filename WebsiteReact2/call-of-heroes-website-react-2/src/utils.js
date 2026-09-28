@@ -234,8 +234,8 @@ export function addTildes(spellName) {
 let CACHED_BASIC_SPELLS_ARRAY = null
 export function getAllBasicSpellsAsArray() {
     if (CACHED_BASIC_SPELLS_ARRAY == null) {
-        const spellArrays = Object.keys(abilities).map(categoryName => spellsFromObject(abilities[categoryName]))
-        CACHED_BASIC_SPELLS_ARRAY = spellArrays.flat()
+        const spellArrays = spellsFromObject(abilities)
+        CACHED_BASIC_SPELLS_ARRAY = spellArrays
     }
     return CACHED_BASIC_SPELLS_ARRAY
 }

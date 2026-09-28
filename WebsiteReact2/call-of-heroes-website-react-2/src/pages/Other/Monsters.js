@@ -8,7 +8,7 @@ import monsters from '../../databases/Other/Monsters.json'
 import TableNormal from '../../components/TableNormal/TableNormal'
 import { Link } from 'react-router-dom'
 import SmallStat from '../../components/SmallStat/SmallStat'
-import { useFeatureItem } from '../../services/content-providers/ContentProvider'
+import { FEATURES, useFeatureItem } from '../../services/content-providers/ContentProvider'
 import { LoadingCenter } from '../../components/Loading/Loading'
 
 function monstersObjToArray(monstersObj) {
@@ -23,7 +23,7 @@ export default function Monsters({}) {
     const [currentlyHoveredMonster, setCurrentlyHoveredMonster] = useState(null)
     const [searchText, setSearchText] = useState('')
     
-    const [allMonsters, isLoading] = useFeatureItem('other', 'Monsters')
+    const [allMonsters, isLoading] = useFeatureItem(FEATURES.Other, 'Monsters')
     const [monstersArray, setMonstersArray] = useState(monstersObjToArray(allMonsters))
 
     useEffect(() => {

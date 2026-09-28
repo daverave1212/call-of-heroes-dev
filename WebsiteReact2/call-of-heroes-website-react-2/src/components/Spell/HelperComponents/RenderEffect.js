@@ -34,9 +34,9 @@ export function RenderEffect({ name, key, value }) {
         case 'EffectOrange':
             return <div className='spell-upgrade smaller-font' style={{ color: 'var(--orange-color)' }}>{value}</div>;
         case 'Notes':
-            return <div className='spell-notes italic smaller-font'>{value}</div>;
+            return <div className='gray italic smaller-font'>{value}</div>;
         case 'Alternatives':
-            return <div className='spell-notes italic smaller-font'>Alternatives: {value}</div>;
+            return <div className='gray italic smaller-font'>Alternatives: {value}</div>;
         default:
             return <div>Unknown effect {name} with value: {value}</div>;
     }

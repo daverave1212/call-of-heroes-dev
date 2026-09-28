@@ -32,14 +32,23 @@
             "AlignOnWebsite": "Left",
             "A": "Passive",
             "HasMixins": true,
-            "Effect": "You have an animal pet that can fight alongside you!\nYour pet has the Stats 3, 1, 0, 0, -1 in any order, but they do not affect its Combat capabilities.\nIt has Max Health equal to ^8 + 200% of Your Level^.\nYour pet acts on your Turn. It has 2 {A}Action Points, but it can only attack once per Turn.\n",
-            "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It's Health Regen is equal to half of its Max Health.\nYour pet will not stray more than 30 meters away from you in hostile territory.\n",
-            "Notes": "Your pet can't do Default Moves except Taunt.\nYour pet can make normal non-Combat Rolls using using its own Stats.\nIf your pet ever dies, you can spend 8 hours inbetween Adventures to get a new pet. If you want to change your pet and abandon your current one, you can do so inbetween Adventures, but the guilt will make you Fumbling for the next 2 Worthy Combat encounters.\n",
+            "Effect": "You have an animal pet that can fight alongside you, which you can customize with 2 Talents from below! You may assign its Stats as you see fit, but they don't affect its Combat capabilities. It takes its Turn on your Turn.\n",
+            "Upgrade": "Note that your pet can only attack once / Turn, but it may use other Abilities.\nIf your pet drops to 0 Health, it becomes Fallen, like a player.\nYour pet will not stray more than 30 meters away from you in hostile territory.\n",
+            "Notes": "Your pet can make normal non-Combat Rolls using using its own Stats.\nIf your pet ever dies, you can spend 8 hours inbetween Adventures to get a new pet. If you want to change your pet and abandon your current one, you can do so inbetween Adventures, but the guilt will make you Fumbling for the next 2 Worthy Combat encounters.\n",
+            "Monster": {
+                "Name": "Animal Companion",
+                "Stats": "3/0/0/-1",
+                "Health": "10 + 2 per Level Up",
+                "Health Regen": "50% of its Health",
+                "Speed": 5,
+                "Action Points": 2
+            },
             "Subspells": {
                 "~Pet Attack~": {
                     "Cooldown": "Once / Turn",
                     "IsSubspell": true,
                     "Range": "1 meter",
+                    "A": "1 Action Point",
                     "Effect": "Your pet attacks a target for 1d4 Pierce or Slash Damage (your choice).\n"
                 }
             },
@@ -80,6 +89,7 @@
             "Origin": "ClassesV2/Hunter.yml"
         }
     },
+    "Utility Description": "As normal, pick one Utility Talent, but apply it to your pet instead of yourself.",
     "Utility": {
         "~Mind Bond~": {
             "A": "Passive",
@@ -216,14 +226,14 @@
             "ParentKey": "Utility",
             "Origin": "ClassesV2/Hunter.yml"
         },
-        "~Tremor Sense~": {
+        "~Echolocation~": {
             "A": "0 Action Points",
             "Cooldown": "Once / Encounter",
             "IsSubspell": true,
             "Effect": "Your pet detects the locations of all Units within 15 meters.\n",
             "Upgrade": "Also, passively, it is immune to being Blind.",
             "Notes": "Does not detect Units that don't touch the ground.\nA Blind Unit's next Damage/Heal Act deals -50% Damage/Healing.",
-            "Name": "~Tremor Sense~",
+            "Name": "~Echolocation~",
             "_alreadyHasSomeWordsMixins": true,
             "_alreadyHasStatusEffectDescriptions": true,
             "ParentKey": "Utility",
@@ -241,6 +251,7 @@
         },
         "~Living Hive~": {
             "A": "Passive",
+            "IsSubspell": true,
             "Effect": "Instead of being one creature, your pet is a _swarm_ of small creatures that act as one Unit.\nOnce per Turn, it can rejoin or split into 2 different Units with half of its Health each.\nThey together still have 2 {A}Action Points per Turn, in total.\n",
             "Name": "~Living Hive~",
             "_alreadyHasSomeWordsMixins": true,
@@ -456,7 +467,7 @@
                     "<Lone Wolf>": {
                         "A": "Passive",
                         "Requirement": "Hunter",
-                        "Effect": "You renounce your Animal Companion, but gain Health and Health Regen equal to its Health.\nAll your pet's Talents and Abilities apply to you instead, and your first attack each Turn deals extra Damage equal to your pet's attack.\nChoose one more Pet Talent for yourself.\n",
+                        "Effect": "You renounce your Animal Companion, but gain Health and Health Regen equal to its own.\nAll your pet's Talents and Abilities apply to you instead, and your first attack each Turn deals extra Damage equal to your pet's attack.\nChoose one more Pet Talent for yourself.\n",
                         "Notes": "You no longer have access to the Animal Companion.",
                         "Name": "<Lone Wolf>",
                         "ParentKey": "Level 2 Class Talent",
@@ -635,8 +646,8 @@
                         "Origin": "ClassesV2/Hunter.yml"
                     },
                     "<Bandage Wounds>": {
-                        "_Value": 1.25,
-                        "Cooldown": "Once / Adventure",
+                        "_Value": 2,
+                        "Cost": "1 Plot Point",
                         "A": "1 Action Point",
                         "Effect": "Heal a Unit for 1d6 for each 10 Health it is missing.",
                         "Name": "<Bandage Wounds>",
@@ -1006,7 +1017,7 @@
                     "~Bite and Slash~": {
                         "A": "0 Action Points",
                         "Cooldown": "Once / Turn",
-                        "Effect": "Refresh the Cooldown of one of your pet's Pet Attack.",
+                        "Effect": "One of your pets immediately makes a free Pet Attack.",
                         "Name": "~Bite and Slash~",
                         "_alreadyHasSomeWordsMixins": true,
                         "ParentKey": "Level 2 Class Talent",
@@ -1068,15 +1079,24 @@
                         "Replacement": "Replaces Animal Companion",
                         "HasUpgradeIcon": true,
                         "IconName": "Animal Companion",
-                        "Effect": "You have an animal pet that can fight alongside you!\nYour pet has the Stats ~5, 2, 0, 0, -1~ in any order, but they do not affect its Combat capabilities.\nIt has Max Health equal to ~16 + 400% of Your Level~.\nYour pet acts on your Turn. It has ~3 {A}Action Points~, but it can only attack once per Turn.\n~It has 4 Level 1 Pet Talents and gains +2 Pet Talents whenever it would gain one.~\n",
-                        "Upgrade": "If your pet drops to 0 Health, it becomes Fallen, like a player. It's Health Regen is equal to half of its Max Health.\nYour pet will not stray more than 30 meters away from you in hostile territory.\n",
-                        "Notes": "Your pet can't do Default Moves except Taunt.\nYour pet can make normal non-Combat Rolls using using its own Stats.\nYour pet can't rise from being Fallen while in Combat, even if healed.\nIf your pet ever dies, you can spend 8 hours inbetween Adventures to get a new pet. If you want to change your pet and abandon your current one, you can do so inbetween Adventures, but the guilt will make you Fumbling for the next 2 Worthy Combat encounters.\n",
+                        "Effect": "You have an animal pet that can fight alongside you, which you can customize with ~4 Talents~ from below! You may assign its Stats as you see fit, but they don't affect its Combat capabilities. It takes its Turn on your Turn.\n",
+                        "Upgrade": "Note that your pet can only attack ~twice / Turn~, but it may use other Abilities.\nIf your pet drops to 0 Health, it becomes Fallen, like a player.\nYour pet will not stray more than 30 meters away from you in hostile territory.\n~Whenever your pet would gain a Pet Talent, it gains an extra one.~\n",
+                        "Notes": "Your pet can make normal non-Combat Rolls using using its own Stats.\nIf your pet ever dies, you can spend 8 hours inbetween Adventures to get a new pet. If you want to change your pet and abandon your current one, you can do so inbetween Adventures, but the guilt will make you Fumbling for the next 2 Worthy Combat encounters.\n",
+                        "Monster": {
+                            "Name": "Animal Companion",
+                            "Stats": "5/2/0/-1",
+                            "Health": "16 + 4 per Level Up",
+                            "Health Regen": "50% of its Health",
+                            "Speed": 5,
+                            "Action Points": 3
+                        },
                         "Subspells": {
                             "~Pet Attack~": {
                                 "Cooldown": "Twice / Turn",
                                 "IsSubspell": true,
                                 "Range": "1 meter",
-                                "Effect": "Your pet attacks a target for 1d4 Pierce or Slash Damage (your choice).\n\n~The Cooldown is now Twice / Turn.~\n"
+                                "A": "1 Action Point",
+                                "Effect": "Your pet attacks a target for 1d4 Pierce or Slash Damage (your choice).\n"
                             }
                         },
                         "Name": "~Apex Companion~",

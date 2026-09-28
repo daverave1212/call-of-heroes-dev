@@ -340,12 +340,12 @@ export default function SpellPDF({
                     </div>
                 )}
                 { Notes != null && (
-                    <div className='spell-notes italic smaller-font'>
+                    <div className='gray italic smaller-font'>
                         { Notes }
                     </div>
                 ) }
                 { Alternatives != null && (
-                    <div className='spell-notes italic smaller-font'>
+                    <div className='gray italic smaller-font'>
                         Alternatives: { Alternatives }
                     </div>
                 ) }

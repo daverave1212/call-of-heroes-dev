@@ -61,11 +61,6 @@ Talents:
         You know have a Level 1 Wizard Talent. You can change it inbetween Adventures.
       Notes: You can pick Attention to get any Font Spell.
 
-    ~Seasonal Changes~:
-      A: Passive
-      IsIgnored: true
-      Effect: Elemental hair and such.
-
     ~Moon Elf Ancestry~:
       A: 0 Actions
       Cooldown: Once / Adventure
@@ -76,7 +71,7 @@ Talents:
 
     ~Purebreed~:
       A: 10 minutes
-      Cooldown: Once / Adventure
+      Cost: 1 Plot Point
       Effect: Destroy a Magic Item equipment piece to permanently gain its Magic Item properties.
       Notes: E.g. you disenchant Gloves of Athletics to permanently gain Skilled in Athletics, or you disenchant Gloves of Fire Ball to permanently gain the power to cast Fire Ball with a Half-Action once per Adventure.
  
@@ -133,27 +128,44 @@ Talents:
         You can climb and ride on the back of an ally and move with them on their turn (without them having a Speed penalty).
         You are Small.
 
-    # ~Landsperson~:
-    #   A: Special
-    #   Effect: Choose one land specialty Ability from Coven of the Land Druid specialization and learn it permanently (e.g. choose between Raise Wall, Storm, Wild Roots and Endurance and you get it).
-    #   Notes: This can't be changed, so choose wisely!
+    ~Snow Elf Ancestry~:
+      A: Passive
+      Tags: [Early Access, Utility]
+      Bonuses:
+        Movement Speed: -0.5
+        "{Intelligence}": 1
+      Combat Extras:
+        - Ignore Hard Terrain
+        - Can see through fog/storms
+      Effect: |
+        You have -0.5 Movement Speed, but +1 {Intelligence}, up to +3.
 
+        You ignore Hard Terrain and can see normally through fog and snowstorms.
 
-#PageEnd#
+    ~Blade Mastery~:
+      Tags: [Early Access, Plot Points, Other]
+      A: Passive
+      Extras:
+        - Use bows/blades with +2
+      Effect: |
+        You can use all blade (sword-like) weapons and bows regardless of their requirement, and you can switch any one Stat written on it to the number ^2^.
 
-# <Graceful Evasion> : Reaction
-# When you are attacked, before the attack roll, you gain +3 Defense against that attack.
-# You can use this once per Adventure.
-# 
-# <Elven Discipline> : Passive
+        Whenever you make a blade or bow attack, gain 0.05 Plot Points for each Action Point spent.
+      Notes: Plot Points can't be spent in fractions, but keep attacking and you will get to full Points!
 
-# Things I can alter:
-# 	Starting stats
-# 	Base Health
-# 	Feat points
-# 	Saves
-# 	Dark Vision
-# 	Number of Maneuvers
-# 	Movement Speed
+    ~Seasonal Change~:
+      A: Half-Action
+      Cost: 1 Plot Point
+      Tags: [Early Access, Flexible]
+      Range: 3 meters
+      Effect: |
+        Apply a different effect baased on the _seasonality_ climate of the location you're in, of the 4 below. Each of them also grants you a passive Damage resistance.
+        
+        {Teal(Winter:)} Push a Unit 2 meters away from you and Lag it.
+        {Brown(Autumn:)} Phase through to a location up to 3 meters away.
+        {Green(Spring:)} Heal a Unit for 1d6 and remove a Control Effect on it.
+        {Red(Summer:)} Ignite a Unit. It takes 1d6 Fire Damage at the end of each of your Turns.
 
-
+        You take -50% {Teal(Cold)}/{Brown(Scourge)}/{Green(Poison)}/{Red(Fire)} Damage, based on the _seasonality_ climate.
+      
+      Upgrade: Not all zones have a specific type of seasonality or climate. 

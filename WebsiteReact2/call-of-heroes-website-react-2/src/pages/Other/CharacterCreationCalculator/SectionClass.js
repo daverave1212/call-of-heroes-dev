@@ -97,7 +97,7 @@ export default function SectionClass({ openPopup }) {
     }))
     const classesLegacyData = Object.keys(ClassesLegacy).map(className => ({
         name: className,
-        displayName: <span>{ className } <span className="gray">(Old)</span></span>,
+        displayName: <span>{ className } <span className="light-gray">(Old)</span></span>,
         lock: 'none',
         src: `/Icons/Classes/${className}.png`
     }))

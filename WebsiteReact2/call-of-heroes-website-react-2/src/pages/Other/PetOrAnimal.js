@@ -79,10 +79,12 @@ export function SpellMonsterStats({animal}) {
     const smallStatStyle = { flex: 1 }
 
     return <div className='flex column gap-half'>
-        <div className='flex row nowrap gap-half width-100'>
-            { animal.Health != null && <SmallStat type="vertical" style={smallStatStyle} contentStyle={{width: '100%'}} nameStyle={statNameStyle} valueStyle={statValueStyle} name="Health">{animal.Health}<Icon name="Health" type="small-stat"/></SmallStat> }
+        <div className='grid-2 grid-gap-half width-100'>
+            { animal.Health != null && <SmallStat type="vertical" style={smallStatStyle} contentStyle={{width: '100%'}} nameStyle={statNameStyle} valueStyle={statValueStyle} name="Health">{animal.Health} <Icon name="Health" type="small-stat"/></SmallStat> }
+            { animal['Health Regen'] && <SmallStat type="vertical" style={smallStatStyle} contentStyle={{width: '100%'}} nameStyle={statNameStyle} valueStyle={statValueStyle} name="Health Regen">{animal['Health Regen']} <Icon name="HealthRegen" type="small-stat"/></SmallStat> }
             { animal.Defense != null && <SmallStat type="vertical" style={smallStatStyle} contentStyle={{width: '100%'}} nameStyle={statNameStyle} valueStyle={statValueStyle} name="Defense">{animal.Defense}<Icon name="Defense" type="small-stat"/></SmallStat> }
-            { animal.Speed != null && <SmallStat type="vertical" style={smallStatStyle} contentStyle={{width: '100%'}} nameStyle={statNameStyle} valueStyle={statValueStyle} name="Speed">{animal.Speed}</SmallStat> }
+            { animal.Speed != null && <SmallStat type="vertical" style={smallStatStyle} contentStyle={{width: '100%'}} nameStyle={statNameStyle} valueStyle={statValueStyle} name="Speed">{animal.Speed} <Icon name="Speed" type="small-stat"/></SmallStat> }
+            { animal['Action Points'] != null && <SmallStat type="vertical" style={smallStatStyle} contentStyle={{width: '100%'}} nameStyle={statNameStyle} valueStyle={statValueStyle} name="Action Points">{animal['Action Points']} <Icon name="Hand" type="small-stat"/></SmallStat> }
         </div>
         { animal.Stats != null && <SmallStat type="vertical" style={smallStatStyle} contentStyle={{width: '100%'}} nameStyle={statNameStyle} valueStyle={statValueStyle} name="Stats">{animal.Stats.split('/').join(' / ')}</SmallStat> }
     </div>

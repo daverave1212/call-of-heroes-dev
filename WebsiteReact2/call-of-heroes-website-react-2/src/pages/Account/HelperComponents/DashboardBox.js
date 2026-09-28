@@ -7,7 +7,7 @@ export function DashboardBox({ className, style, name, subtext, tag, children, c
             { cornerText && <Link className="theme-color source-sans" to="/WorkInProgress">{cornerText}</Link> }
         </div> }
         { subtext && <div className="flex column gap-1">
-            <p className="source-sans gray">{subtext}</p>
+            <p className="source-sans light-gray">{subtext}</p>
             { tag && (
                 <div>
                     <span className="tag green home-font margin-0">{tag}</span>

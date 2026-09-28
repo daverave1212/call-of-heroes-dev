@@ -43,6 +43,7 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
     const abilities = absRaw.filter(a => U.getOnlyValue(a)?.IsUltimate != true) ?? []
     const ultimateAbilities = absRaw.filter(a => U.getOnlyValue(a)?.IsUltimate) ?? []
     const passives = (monster.Passives == null? null: U.isObject(monster.Passives)? U.objectToObjectArray(monster.Passives): monster.Passives) ?? []
+    const movementSpeed = monster.Speed ?? monster['Movement Speed'] ?? monster.Movement
 
     const monsterStats   = getMonsterStatsAsObject(monster.Stats)
     const statOtherColor = 'rgb(55, 10, 85)'
@@ -167,13 +168,15 @@ export default function MonsterBlock({monsterName, monster, isPreview}) {
                         <Column>
                             <div className='with-margined-children'>
                                 <SmallStat className="row large" name="Health">{monsterHealth}<Icon name="Health" type="small-stat"/></SmallStat>
+                                { monster.HealthRegen && <SmallStat className="row large" name="Health Regen">{monster['Health Regen']}<Icon name="HealthRegen" type="small-stat"/></SmallStat> }
                                 { monster.Armor != '0' && monster.Armor != null && (<SmallStat className="row large" name="Defense">{monster.Armor}<Icon name="Defense" type="small-stat"/></SmallStat>) }
-                                <SmallStat className="row large" name="Speed">{monster.Speed} meters</SmallStat>
+                                <SmallStat className="row large" name="Speed">{movementSpeed} meters</SmallStat>
                                 {/* <SmallStat className="column large center-text" name="Initiative">{monster.Initiative}</SmallStat> */}
                                 { setback != null && <SmallStat className="column large center-text" name="Setback">{setback}</SmallStat>}
                                 { IsCondensedLeft && <SmallStat color={statOtherColor} className="row large" name="XP">{monsterTotalXP}</SmallStat> }
                                 {/* { IsCondensedLeft && monster.Degree != 'Normal' && monster.Degree != null && (<SmallStat color={statOtherColor} className="row large" name="Degree">{monster.Degree != null? monster.Degree : 'Normal'}</SmallStat>) } */}
-                                { IsCondensedLeft && monster.Degree != 'Normal' && monster.Degree != null && (<SmallStat color={statOtherColor} className="row large" name="Action Points">{monster.Degree != null? monster.Degree : '3'}</SmallStat>) }
+                                { IsCondensedLeft && monster.Degree != 'Normal' && monster.Degree != null && (<SmallStat color={statOtherColor} className="row large" name="Action Points">{monster.Degree != null? monster.Degree : '3'}<Icon name="Defense" type="small-stat"/></SmallStat>) }
+                                { monster['Action Points'] && <SmallStat color={statOtherColor} className="row large" name="Action Points">{monster['Action Points']}<Icon name="Defense" type="small-stat"/></SmallStat> }
 
                             </div>
                         </Column>

@@ -608,7 +608,7 @@ export function RacePage({ raceName }) {
         <div>
 
             <SideMenuFromRace theRace={theRace}/>
-            <Page>
+            <Page isCentered={false}>
 
                 <RaceHeader theRace={theRace}/>
 

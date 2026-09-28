@@ -24,7 +24,7 @@ export default function Page({
     isSecondaryPage,                // Default false; if true, it will not update title
     hasNoLimits,                    // Default is false; if true, it will have no width limits
     hasNoMargins,                   // Default is false; if true, has no margins
-    isCentered,                     // Default is false
+    isCentered=true,                // Default is true; if false, leaves room for side menu on the left
     hasCopyButton,
     className
 }) {

@@ -11,7 +11,7 @@ import TableNormal from '../../components/TableNormal/TableNormal'
 import { useLocation } from 'react-router-dom'
 
 import MonsterBlock from '../../components/MonsterBlock/MonsterBlock.js'
-import { useFeatureItem } from '../../services/content-providers/ContentProvider.js'
+import { FEATURES, useFeatureItem } from '../../services/content-providers/ContentProvider.js'
 import { LoadingCenter } from '../../components/Loading/Loading.js'
 
 export default function Monster() {
@@ -19,7 +19,7 @@ export default function Monster() {
     const location = useLocation()
     const monsterName = U.getPageHashFromLocation(location)
 
-    const [monster, isLoading] = useFeatureItem('other', 'Monsters', monsterName)
+    const [monster, isLoading] = useFeatureItem(FEATURES.Other, 'Monsters', monsterName)
 
     return <Page>
         { isLoading? <LoadingCenter/>: <MonsterBlock monsterName={monsterName} monster={monster}/> }

@@ -205,6 +205,12 @@ export default function Spell({
         }, 3500)
     }
 
+    const renderedSpellTop = <SpellTop
+        hasVariants={hasVariants && canChangeVariant} variantIndex={variantIndex} Variants={Variants}
+        onIconClick={onIconClick} onIconRightClick={onIconRightClick} iconPath={IconPath} hasIcon={hasIcon}
+        DisplayName={DisplayName} Name={Name} showTopStats={showTopStats}
+        A={A} spell={parsedSpell}
+    />
 
 
     return (
@@ -229,20 +235,10 @@ export default function Spell({
             <div className='content'> {/* This has CSS to be perfectly in the bounds of the borders and banner */}
                 { showTop != false && isItem? (
                     <>
-                        <SpellTop
-                            hasVariants={hasVariants && canChangeVariant} variantIndex={variantIndex} Variants={Variants}
-                            onIconClick={onIconClick} onIconRightClick={onIconRightClick} iconPath={IconPath} hasIcon={hasIcon}
-                            DisplayName={DisplayName} Name={Name} showTopStats={showTopStats}
-                            A={A} spell={parsedSpell}
-                        />
+                        { renderedSpellTop }
                     </>
                 ): (<>
-                    <SpellTop
-                        hasVariants={hasVariants && canChangeVariant} variantIndex={variantIndex} Variants={Variants}
-                        onIconClick={onIconClick} onIconRightClick={onIconRightClick} iconPath={IconPath} hasIcon={hasIcon}
-                        DisplayName={DisplayName} Name={Name} showTopStats={showTopStats}
-                        A={A} spell={parsedSpell}
-                    />
+                    { renderedSpellTop }
                     { showTopStats != false && <Separator hasNoMarginTop={true}/> }
                 </>) }
                 { showTopStats == false && <div style={{marginTop: '-1rem'}}></div>}
@@ -297,7 +293,7 @@ export default function Spell({
                         <div className='spell-upgrade smaller-font' style={{color: 'var(--orange-color)'}}>{ EffectOrange }</div>
                     ) }
                     { (Subspells != null) && spellsFromObject(Subspells).map(s => (
-                        <div style={{paddingBottom: 'var(--spell-padding-bottom)'}} key={`subspell-${s.Name}`}>
+                        <div key={`subspell-${s.Name}`}>
                             <Spell spell={s} hasBorder={false}/>
                         </div>
                     ))}
@@ -328,15 +324,15 @@ export default function Spell({
                         </TableNormal>
                     )}
                     { (Monster != null) && (
-                        <div style={{padding: 'var(--spell-padding)', paddingTop: '0px'}}>
+                        <div>
                             <PetOrAnimalSpell animal={Monster}/>
                         </div>
                     )}
                     { Notes != null && (
-                        <div className='spell-notes italic smaller-font'>{ Notes }</div>
+                        <div className='gray italic smaller-font'>{ Notes }</div>
                     ) }
                     { Alternatives != null && (
-                        <div className='spell-notes italic smaller-font'>Alternatives: { Alternatives }</div>
+                        <div className='gray italic smaller-font'>Alternatives: { Alternatives }</div>
                     ) }
                     { HasExportButton === true && <div className='center-content'>
                         <button
@@ -349,7 +345,6 @@ export default function Spell({
                             {exportButtonState.text}
                         </button>
                     </div> }
-                    { hasCopyButton === true && <CopySpellButton elementId={uniqueID} shouldAddBorder={true}/> }
                     { hasButton && (
                         <div>
                             <div className='center-content' onClick={onButtonClick}>
@@ -366,6 +361,7 @@ export default function Spell({
                     )}
                     { subspell != null && <Spell spell={{...subspell, IsSubspell: true}} hasCopyButton={false} hasBorder={false} showTopStats={false}/>}
                 </div>
+                { hasCopyButton === true && <CopySpellButton elementId={uniqueID} shouldAddBorder={true}/> }
             </div>
         </div>
     )

@@ -7,7 +7,7 @@ import { getRaceLocal, raceExists } from "./RaceProvider"
 import cache from '../data-caching/cache'
 import { useEffect, useState } from "react"
 import { showToast } from "../dom/toaster"
-import { getMonstersLocal, getOtherLocal } from "./OtherProvider"
+import { getMonstersLocal, getOtherLocal, otherExists } from "./OtherProvider"
 
 export const FEATURES = {
     Races: 'races',
@@ -21,7 +21,7 @@ export async function featureItemExists(featureName, itemName) {
     switch (featureName) {
         case 'races': return raceExists(itemName)
         case 'classes': return classExists(itemName)
-        case 'other': return true
+        case 'other': return otherExists(itemName)
         default:
             console.error(`Feature ${featureName} not implemented for featureItemExists!`)
             return false
@@ -81,7 +81,7 @@ export async function getFeatureItemAsync(featureName, name) {
 
             console.log({compositeFeature, setNamesWithPackage})
             for (const setName of setNamesWithPackage) {
-                await maybeUpdateSetFeatureCache(setName, 'other')
+                await maybeUpdateSetFeatureCache(setName, FEATURES.Other)
                 const isPremium = await isSetPremiumAsync(setName)
                 const iOwnSet = await doIOwnSetAsync(setName)
                 console.log({setName, isPremium, iOwnSet})
@@ -89,7 +89,7 @@ export async function getFeatureItemAsync(featureName, name) {
                     console.log(`  Skipping set ${setName}`)
                     continue
                 }
-                const featureId = getSetFeatureId(setName, 'other')     // E.g. core-other
+                const featureId = getSetFeatureId(setName, FEATURES.Other)     // E.g. core-other
                 const thisSetItems = await cache.getAsync(featureId)
                 const thisSetItem = thisSetItems[name]
                 compositeFeature = {...compositeFeature, ...thisSetItem}

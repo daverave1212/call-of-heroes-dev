@@ -16,7 +16,28 @@ import { accessObjectProp, addError, addNameToSpellsRecursively, assertAbilityHa
 
 import SETS from './sets-config.json' with { type: 'json' }
 
+const yamlRootFolder = '../Design'
+const jsonRootFolder = '../WebsiteReact2/call-of-heroes-website-react-2/src/databases'
+
+const args = process.argv.slice(2)
+const shouldGenerateAll = args.includes('--all') || args.includes('-a')
+const isHelpCommand = args.includes('--help') || args.includes('-h') || args.includes('help') || args.length == 0
+const includeEarlyAccess = args.includes('--early-access') || args.includes('-ea')
+
+if (isHelpCommand) {
+    console.log(`\n🔰 Use as:`)
+    console.log(`> node generate-jsons-from-yaml.mjs --all`)
+    console.log(`> node generate-jsons-from-yaml.mjs Monsters Races Artificer Core (by parts of the path)`)
+    process.exit()
+}
+console.log(`\n\n🚛 Running generate-jsons-from-yaml...`)
+console.log(`🟪 NOTE: Including all early access content. Don't forget to remove them during the build!`)
+
+
 function stripEarlyAccessContent(obj) {
+    if (includeEarlyAccess) {
+        return
+    }
     const tiersToRemove = [7, 8, 9, 10].map(int => `Level ${int}`)
 
     deleteKeys(obj, (key, value, path) => {
@@ -34,13 +55,13 @@ function stripEarlyAccessContent(obj) {
         }
 
         // Generic
-        if (isObject(value) && value?.IsEarlyAccess === false) {
+        if (isObject(value) && value?.IsEarlyAccess === false || value?.Tags?.toString()?.includes('Early Access') == true) {
             return true
         }
         return false
     })
 }
-function stripContentOfFeatures(obj, keysToStrip, { includeOnlyFileNames, config, fileName, fileNameNoExt, fileDir }) {
+function stripContentOfFeatures(obj, keysToStrip=[], { includeOnlyFileNames, config, fileName, fileNameNoExt, fileDir }) {
     const newObj = {...obj}
 
     const shouldStrip =
@@ -82,22 +103,8 @@ function stripPremiumContentOfFeatures(obj, { config, fileName, fileNameNoExt, f
     return strippedObj
 }
 
-const yamlRootFolder = '../Design'
-const jsonRootFolder = '../WebsiteReact2/call-of-heroes-website-react-2/src/databases'
-
-const args = process.argv.slice(2)
-const shouldGenerateAll = args.includes('--all') || args.includes('-a')
-const isHelpCommand = args.includes('--help') || args.includes('-h') || args.includes('help') || args.length == 0
-
-if (isHelpCommand) {
-    console.log(`\n🔰 Use as:`)
-    console.log(`> node generate-jsons-from-yaml.mjs --all`)
-    console.log(`> node generate-jsons-from-yaml.mjs Monsters Races Artificer Core (by parts of the path)`)
-    process.exit()
-}
-console.log(`\n\n🚛 Running generate-jsons-from-yaml...`)
-
 // Polulated at runtime
+const basicAbilities = {}
 const allAbilitiesFound = {}
 const classRaceAbilities = {} 
 const weapons = {}
@@ -168,10 +175,6 @@ function normalizeInheritAbilities(dictToSearch) {
 function maybeMakeSomeWordsMixins(subobj) {
     if (subobj == null || subobj?._alreadyHasSomeWordsMixins) {
         return
-    }
-
-    if (subobj.Effect?.startsWith('When defeating people, your team loots')) {
-        console.log(`Shoreraider Here!`)
     }
     const propsToCheck = ['Effect', 'Upgrade', 'Notes', 'EffectGreen', 'Downside', 'Combo']
     for (const prop of propsToCheck) {
@@ -262,7 +265,6 @@ function branchCompositeMonsters(obj, params) {
         if (monster.Set == null) {
             continue
         }
-        console.log(`Found monster ${monsterName} from set ${monster.Set}`)
         branchesBySet[monster.Set][monsterName] = structuredClone(monster)
         const strippedMonsterObj = deleteKeys(monster, (key, value, path) => !['Set', 'Type', 'Experience', 'Degree', 'Tags'].includes(key))
         obj[monsterName] = strippedMonsterObj
@@ -270,41 +272,6 @@ function branchCompositeMonsters(obj, params) {
 
     return [obj, branchesBySet]
 }
-
-// THIS DOESN'T WORK
-// function branchCompositeContentForSets(obj, params) {
-//     const { fileConfig, config, fileName, fileNameNoExt, fileDir, filePath } = params
-//     // Find all sets
-//     const foundSets = new Set()
-    // iterateObject(obj, (key, value, path) => {
-    //     if (value?.Set != null && isString(value?.Set)) {   // Don't check 'key', because we don't look in the base level
-    //         foundSets.add(value.Set)
-    //     }
-    // })
-//     // Make an object of clones
-//     const setsArr = Array.from(foundSets)
-//     const setObjPairs = setsArr.map(name => ([name, structuredClone(obj)]))
-//     setObjPairs.push(['basic', structuredClone(obj)])
-//     const branchesBySet = {}
-//     for (const [setName, obj] of setObjPairs) {
-//         if (setName == null) {  // Defensive
-//             continue
-//         }
-//         console.log(`Deleting keys for set ${setName}`)
-//         if (setName == 'basic') {
-//             console.log(`    Deleting for basic keys`)
-//             deleteKeys(obj, (key, value, path) => value?.Set != null)
-//         } else {
-//             // console.log(`    Deleting for set key keys`)
-//             deleteKeys(obj, (key, value, path) => value?.Set != setName)
-//         }
-//         branchesBySet[setName] = obj
-//     }
-//     if (setsArr.length > 0) {
-//         console.log('Core: ' + previewObject(branchesBySet.core))
-//     }
-//     return branchesBySet
-// }
 
 const PROCESS_STRATEGIES = {
     'Feats': obj => {
@@ -355,6 +322,9 @@ const PROCESS_STRATEGIES = {
 function defaultOutputStrategy(obj, params={}) {
     const { fileConfig, config, fileName, fileNameNoExt, fileDir, filePath } = params
 
+    // Strip Talents -- REMOVE THIS WHEN EARLY ACCESS IS FINISHED
+    stripEarlyAccessContent(obj)
+
     const jsonString = JSON.stringify(obj, null, 4);
     const outputPath = path.join(jsonRootFolder, fileDir, `${fileNameNoExt}.json`);
 
@@ -398,7 +368,7 @@ let OUTPUT_STRATEGIES = {}
         
         const jsonString = JSON.stringify(obj, null, 4);
         const premiumOutputPath = path.join('GeneratedPremiumFiles', fileDir, `${fileNameNoExt}.json`)
-        console.log(`  Writing to: ${premiumOutputPath}`)
+        // console.log(`  Writing to: ${premiumOutputPath}`)
         try {
             fs.mkdirSync(path.dirname(premiumOutputPath), { recursive: true });
             fs.writeFileSync(premiumOutputPath, jsonString, 'utf-8');
@@ -462,8 +432,6 @@ async function processFiles() {
             :OUTPUT_STRATEGIES[fileNameNoExt] != null?
                 OUTPUT_STRATEGIES[fileNameNoExt]
             :OUTPUT_STRATEGIES.default
-
-        console.log(`  / File: ${filePath} strategy: ${writeOutput}`)
 
         writeOutput(dictContent, { config: fileConfig, fileName, fileNameNoExt, fileDir, filePath })
     }

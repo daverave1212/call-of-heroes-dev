@@ -8,21 +8,8 @@ export function getOtherLocal(name) {
     }
 }
 
-
-
-
-
-// export function getAllClassNames() {
-//     return OverallData.Classes
-// }
-// export function getClassLocal(name) {
-//     return Classes[name]
-// }
-// export function classExists(name) {
-//     return OverallData.Classes.includes(name)
-// }
-// export async function getClassAsync(name) {
-//     return await getFeatureItemAsync(FEATURES.Classes, name)
-// }
+export function otherExists(name) {
+    return true
+}
 
 window.getOtherLocal = getOtherLocal

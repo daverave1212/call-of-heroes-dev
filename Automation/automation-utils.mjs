@@ -369,7 +369,6 @@ export function deleteKeys(obj, condition, currentPath = '') {
     const keyPath = getPath(key);
 
     if (condition(key, value, keyPath)) {
-        console.log(`Deleting key ${key}`)
       delete obj[key];
     } else {
       // Recurse into nested objects or arrays if the key wasn't deleted
