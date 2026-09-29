@@ -176,7 +176,7 @@ export function looksLikeSpell(key, value) {
         return false
     }
 
-    return value.Effect != null || value.A != null || value.Price != null || value.EffectGreen != null
+    return value.Effect != null || value.A != null || value.Price != null || value.EffectGreen != null || value.IsSpell == true
 }
 // If it finds an Ability and it's not 'Inherit', adds the "Name": ... prop
 export function addNameToSpellsRecursively(dictToSearch) {
@@ -562,6 +562,98 @@ export function getAllSetsOfContent(obj) {
         }
     })
     return Array.from(foundSets)
+}
+export function branchContentIntoSets(obj) {
+    const branchesBySet = {};
+
+    function isObject(value) {
+        return value !== null && typeof value === "object";
+    }
+
+    function clone(value) {
+        if (typeof structuredClone === "function") {
+            return structuredClone(value);
+        }
+
+        return JSON.parse(JSON.stringify(value));
+    }
+
+    function process(value) {
+        // Primitive value
+        if (!isObject(value)) {
+            return {
+                stripped: value,
+                branches: {}
+            };
+        }
+
+        // If this object itself belongs to a Set,
+        // move the ENTIRE object into that branch.
+        if (
+            !Array.isArray(value) &&
+            Object.prototype.hasOwnProperty.call(value, "Set")
+        ) {
+            const setName = value.Set;
+
+            return {
+                stripped: undefined,
+                branches: {
+                    [setName]: clone(value)
+                }
+            };
+        }
+
+        const isArray = Array.isArray(value);
+
+        const stripped = isArray ? [] : {};
+        const branches = {};
+
+        for (const [key, child] of Object.entries(value)) {
+            const result = process(child);
+
+            // -----------------------------
+            // Build stripped object
+            // -----------------------------
+
+            if (result.stripped !== undefined) {
+                if (isArray) {
+                    stripped.push(result.stripped);
+                } else {
+                    stripped[key] = result.stripped;
+                }
+            }
+
+            // -----------------------------
+            // Build branches
+            // -----------------------------
+
+            for (const [setName, branchValue] of Object.entries(result.branches)) {
+                if (!(setName in branches)) {
+                    branches[setName] = isArray ? [] : {};
+                }
+
+                if (isArray) {
+                    branches[setName].push(branchValue);
+                } else {
+                    branches[setName][key] = branchValue;
+                }
+            }
+        }
+
+        return {
+            stripped,
+            branches
+        };
+    }
+
+    const result = process(obj);
+
+    Object.assign(branchesBySet, result.branches);
+
+    return [
+        result.stripped,
+        branchesBySet
+    ];
 }
 
 // ----------- VALIDATION ------------

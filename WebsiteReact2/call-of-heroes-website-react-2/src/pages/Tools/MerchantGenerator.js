@@ -2,13 +2,15 @@ import { useState } from "react";
 import PageH1 from "../../components/PageH1/PageH1";
 import Page from "../../containers/Page/Page";
 import { QGTitle1 } from "./TitleGenerator";
-import { capitalizeFirstLetter, filterObject, flattenObjectOnce, getAllMagicItemsAsArray, getAllMagicItemsByName, getAllPricesByName, getDaysSinceLast, getISOWeekNumber, getNumberFromString, getSpellNVariants, getSpellTags, groupBy, hasSpellVariants, isNumber, mapObject, mapObjectToArray, parseAndNormalizeSpell, percentChance, randomInt, randomOf, range, roundToNearest, SeededRNG, shuffle, spellsFromObject, WEDNESDAY } from "../../utils";
+import { capitalizeFirstLetter, filterObject, flattenObjectOnce, getAllPricesByName, getDaysSinceLast, getISOWeekNumber, getNumberFromString, getSpellNVariants, getSpellTags, groupBy, hasSpellVariants, isNumber, mapObject, mapObjectToArray, parseAndNormalizeSpell, percentChance, randomInt, randomOf, range, roundToNearest, SeededRNG, SETS_NAMES, shuffle, spellsFromObject, WEDNESDAY } from "../../utils";
 import TwoColumns from "../../components/TwoColumns/TwoColumns";
 import Column from "../../components/TwoColumns/Column";
 import { getItemPrice, PriceTable } from "../Other/Prices";
 import prices from './../../databases/Items/Prices.json'
 import { createMagicItem } from "../Other/MagicItemCreator";
 import Spell from "../../components/Spell/Spell";
+import SetRequired from "../../components/SetRequiredBanner/SetRequired";
+import { useFeatureItem } from "../../services/content-providers/ContentProvider";
 
 const MERCHANT_TYPE_LETTER_MAP = {
     'a': 'Apothecary',
@@ -72,7 +74,7 @@ const MERCHANT_TYPES = {
     'Library': {
         itemCategories: ['Other Items'],
         tags: ['Scribe'],
-        getExtraItems: (productDiversity, rng) => getRandomExtraScrolls(productDiversity, rng, 4),
+        getExtraItems: (productDiversity, rng, allMagicItems) => getRandomExtraScrolls(allMagicItems, productDiversity, rng, 4),
         uniqueMagicItemTypes: [],
         specificItems: ['Bell', 'Lamp', 'Paper (1 sheet)', 'Mirror (steel)', 'Candle'],
         trashTypes: [],
@@ -80,7 +82,7 @@ const MERCHANT_TYPES = {
     'Magic': {
         itemCategories: [],
         tags: ['Magic', 'Alchemy', 'Consumable', 'Trinket'],
-        getExtraItems: (productDiversity, rng) => getRandomExtraScrolls(productDiversity, rng, 4),
+        getExtraItems: (productDiversity, rng, allMagicItems) => getRandomExtraScrolls(allMagicItems, productDiversity, rng, 4),
         specificItems: [
             'Staff', 'Rapier',
             'Elemental Wand', 'Arcane Symbol', 'Scourge Idol',
@@ -716,7 +718,7 @@ export function getRandomExtraTrash(merchant, productDiversity=3, rng=new Seeded
     console.log({nItemsByType, itemsByType, myItems})
     return myItems.map(({ Name, Price }) => ({ Name, Price, Category: 'Other' }))
 }
-export function getRandomExtraScrolls(productDiversity, rng=new SeededRNG(), maxScrollPower=4) {
+export function getRandomExtraScrolls(allMagicItemsByName, productDiversity, rng=new SeededRNG(), maxScrollPower=4) {
     const minScrollPower = 1
     maxScrollPower = Math.min(productDiversity + 1, maxScrollPower)
     const scrollPowerToName = {
@@ -727,7 +729,7 @@ export function getRandomExtraScrolls(productDiversity, rng=new SeededRNG(), max
     }
     const getRandomScrollPower = () => rng.randomInt(minScrollPower, maxScrollPower)
     const getRandomScrollName = () => scrollPowerToName[getRandomScrollPower()]
-    const getScroll = () => ({...getAllMagicItemsByName()[getRandomScrollName()]})
+    const getScroll = () => ({...allMagicItemsByName[getRandomScrollName()]})
     window.getRandomScrollPower = getRandomScrollPower
     window.getRandomScrollName = getRandomScrollName
     window.getScroll = getScroll
@@ -788,6 +790,8 @@ const ITEM_OUT_OF_STOCK_CHANCE_PER_DAY = 0  // 3%
 export default function MerchantGenerator({}) {
 
     const [merchantCode, setMerchantCode] = useState('')
+    const [allMagicItemsByName, isLoading] = useFeatureItem(FEATURES.Items, 'MagicItems')
+    const allMagicItemsArray = Object.values(allMagicItemsByName)
 
     function getMerchantFromCode(code) {
         if (code.length == 0) {
@@ -820,11 +824,11 @@ export default function MerchantGenerator({}) {
     function getMagicItemsIHaveAsArray(merchant, productDiversity, rng) {
         const maxPrice = PRODUCT_DIVERSITY_TO_NORMAL_ITEM_MAX_PRICE[productDiversity]
         const hasAnyOfMyTags = item => getSpellTags(item).some(tag => merchant.tags.includes(tag))
-        const possibleItems = getAllMagicItemsAsArray().filter(item => hasAnyOfMyTags(item)).filter(item => getItemPrice(item) <= maxPrice)
+        const possibleItems = allMagicItemsArray.filter(item => hasAnyOfMyTags(item)).filter(item => getItemPrice(item) <= maxPrice)
         const possibleItemsShuffled = rng.shuffle(possibleItems)
         const nItems = getProductDiversityToNMagicItems(productDiversity, rng) * (merchant.magicItemChanceMultiplier ?? 1)
         let allMagicItemsIHave = possibleItemsShuffled.slice(0, nItems)
-        const extraItems = merchant.getExtraItems?.(productDiversity, rng)
+        const extraItems = merchant.getExtraItems?.(productDiversity, rng, allMagicItemsByName)
         if (extraItems != null) {
             allMagicItemsIHave = [...allMagicItemsIHave, ...extraItems]
         }
@@ -886,27 +890,37 @@ export default function MerchantGenerator({}) {
     
     
 
-    return <Page>
-        <div className="center-content gap-1">
-            <QGTitle1 text={"Merchant"} height={40}/>
-            <input value={merchantCode} placeholder="Merchant's Code" onChange={evt => setMerchantCode(evt.target.value)}/>
-            <button onClick={seeMerchant}>See Merchant</button>
-        </div>
+    return <Page className="padding-top-4 height-100">
+        <SetRequired setName={SETS_NAMES.Core}>
+            <div className="flex column gap-2">
+                <div className="center-content gap-2">
+                    <QGTitle1 text={"Merchant"}/>
+                    <div className="flex row gap-1">
+                        <input value={merchantCode} placeholder="Merchant's Code" onChange={evt => setMerchantCode(evt.target.value)}/>
+                        <button onClick={seeMerchant}>See Merchant</button>
+                    </div>
+                    <div className="center-text" style={{maxWidth: '80%'}}>
+                        <p>The merchant generator will create a random custom shop visible to all players who have this page unlocked. You must type in the <b>ID</b> of a merchant, as follows:</p>
+                        <p>Type in any name, followed by the letter for the type of shop, followed by a number 1 to 5 representing the size of the shop (1 being the smallest, 5 being the largest).<br/>For example, <b>"Heimstadb3"</b>, where Heimstad is the name of the shop, "b" is for "blacksmith" and 3 for the size of the shop (medium). Try it out!</p>
+                    </div>
+                </div>
+            </div>
 
-        <TwoColumns className='margin-top-2'>
-            <Column>
-                { normalItemsByCategory && Object.entries(normalItemsByCategory).map(([categoryName, items]) => (
-                    <PriceTable title={categoryName} items={items}/>
-                )) }
-                { magicItems.length > 0 && (
-                    <PriceTable title={"Magic Items"} items={[...magicItems, ...artefacts]} hasDescriptions={false}/>
-                )}
-            </Column>
-            <Column>
-                { magicItems.map(item => <Spell spell={item} isItem={true} canChangeVariant={false}/>) }
-                { artefacts.map(item => <Spell spell={item} isItem={true} canChangeVariant={false}/>) }
-            </Column>
-        </TwoColumns>
+            <TwoColumns className='margin-top-2'>
+                <Column>
+                    { normalItemsByCategory && Object.entries(normalItemsByCategory).map(([categoryName, items]) => (
+                        <PriceTable title={categoryName} items={items}/>
+                    )) }
+                    { magicItems.length > 0 && (
+                        <PriceTable title={"Magic Items"} items={[...magicItems, ...artefacts]} hasDescriptions={false}/>
+                    )}
+                </Column>
+                <Column>
+                    { magicItems.map(item => <Spell spell={item} isItem={true} canChangeVariant={false}/>) }
+                    { artefacts.map(item => <Spell spell={item} isItem={true} canChangeVariant={false}/>) }
+                </Column>
+            </TwoColumns>
+        </SetRequired>
     </Page>
 
 }

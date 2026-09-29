@@ -77,7 +77,7 @@ b. Open update-sets-in-firebase.mjs
     - Add a strategy to updateSetAsync
 
 c. Open generate-jsons-from-yaml.mjs;
-    - Add a strip strategy to `// Strip of features`
+    - Add an output strategy to OUTPUT_STRATEGIES
 
 d. Update ContentProvider
     - Open WebsiteReact2/src/.../ContentProvider.js
@@ -87,7 +87,7 @@ d. Update ContentProvider
     - If your file is a _composite file_ made from multiple files with the same name, follow the example of `OtherProvider.js`
 
 e. Run `.\parse.bat --all`
-f. Run `node .\update-sets-in-firebase.mjg <PackageName>`
+f. Run `node .\update-sets-in-firebase.mjs <set-id>`
 
 You may also want to create a base version of that file without the premium properties...
 
@@ -97,6 +97,6 @@ NOTE: You will also need to do another website build and push that as well, beca
 a. Open Automation/sets-config.json
     - Add a new entry like the others with the set id as the key.
 b. .\parse.bat --all
-c. node .\update-sets-in-firebase.mjs _setname_
+c. node .\update-sets-in-firebase.mjs <set-id>
 d. You may want to make some keys for that set:
     - node keys.mjs --help

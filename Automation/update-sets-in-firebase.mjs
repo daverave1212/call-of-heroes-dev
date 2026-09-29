@@ -20,6 +20,7 @@ if (args.length == 0 || args[0] == 'help') {
     - Races
     - Classes
     - Other
+    - Items
 
     The setsConfig with versions is NOT uploaded to Firebase.
     Baseline, the config is generated right here, in this base folder. That's its main place.
@@ -113,6 +114,20 @@ async function updateSetAsync(setId) {
             id: setId + '-other',
             productId: setId,
             name: set.name + ' Other',
+            version: today,
+            content: objsObj
+        })
+    }
+
+    if (setHasPackage('Other')) {
+        const objsEntriesArr = readAllJsonsSync(path.join(setPath, 'Items'))
+        const objsKeyVal = objsEntriesArr.map(({ name, content}) => ([ getFileName(name), content ]))
+        const objsObj = Object.fromEntries(objsKeyVal)
+        
+        uploads.push({
+            id: setId + '-items',
+            productId: setId,
+            name: set.name + ' Items',
             version: today,
             content: objsObj
         })

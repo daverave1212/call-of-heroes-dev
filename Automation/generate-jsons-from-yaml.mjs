@@ -12,7 +12,7 @@ import path from 'path'
 
 import STATIC_SYMBOLS from './parse-text-symbols-static.json' with { type: 'json' }
 import * as STATS_STATIC from './stats-constants.mjs'
-import { accessObjectProp, addError, addNameToSpellsRecursively, assertAbilityHasCorrectProps, assertObjectHas, assertObjectHasNot, findAllYAMLFiles, forEachFoundAbility, getNErrorsFound, getObjectValueByFuzzyKey, isSpellName, looksLikeSpell, objectEntriesByFuzzyKey, readAndNormalizeYamlToJson, replaceAllWithExceptions, REPLACEMENTS, replaceOnly, STATUS_EFFECTS, stringHasAnyOfChars, validateClass, validateAndFixMonstersFile, validateRace, assertAbilityHasCorrectValues, includesAny, deleteKeys, isObject, iterateObject, isString, capitalizeFirstLetter, previewObject, getAllSetsOfContent } from './automation-utils.mjs'
+import { accessObjectProp, addError, addNameToSpellsRecursively, assertAbilityHasCorrectProps, assertObjectHas, assertObjectHasNot, findAllYAMLFiles, forEachFoundAbility, getNErrorsFound, getObjectValueByFuzzyKey, isSpellName, looksLikeSpell, objectEntriesByFuzzyKey, readAndNormalizeYamlToJson, replaceAllWithExceptions, REPLACEMENTS, replaceOnly, STATUS_EFFECTS, stringHasAnyOfChars, validateClass, validateAndFixMonstersFile, validateRace, assertAbilityHasCorrectValues, includesAny, deleteKeys, isObject, iterateObject, isString, capitalizeFirstLetter, previewObject, getAllSetsOfContent, branchContentIntoSets } from './automation-utils.mjs'
 
 import SETS from './sets-config.json' with { type: 'json' }
 
@@ -272,7 +272,6 @@ function branchCompositeMonsters(obj, params) {
 
     return [obj, branchesBySet]
 }
-
 const PROCESS_STRATEGIES = {
     'Feats': obj => {
         findAndRecordAllAbilities(obj, allAbilitiesFound, null, 'Feats');
@@ -336,6 +335,14 @@ function defaultOutputStrategy(obj, params={}) {
         throw err;
     }
 }
+function outputCompositeFile(objStripped, branchesBySet, params) {
+    OUTPUT_STRATEGIES['default'](objStripped, params)
+
+    for (const [setName, objForSet] of Object.entries(branchesBySet)) {
+        const newFileDir = path.join(setName, params.fileDir)
+        OUTPUT_STRATEGIES['premiumOnly'](objForSet, {...params, fileDir: newFileDir})
+    }
+}
 let OUTPUT_STRATEGIES = {}
     OUTPUT_STRATEGIES = {
 
@@ -344,12 +351,13 @@ let OUTPUT_STRATEGIES = {}
     'Monsters': (obj, params) => {
         const { config, fileName, fileNameNoExt, fileDir, filePath } = params
         const [objStripped, branchesBySet] = branchCompositeMonsters(obj, params)
-        OUTPUT_STRATEGIES['default'](objStripped, params)
+        outputCompositeFile(objStripped, branchesBySet, params)
+    },
 
-        for (const [setName, objForSet] of Object.entries(branchesBySet)) {
-            const newFileDir = path.join(setName, fileDir)
-            OUTPUT_STRATEGIES['premiumOnly'](objForSet, {...params, fileDir: newFileDir})
-        }
+    'MagicItems': (obj, params) => {
+        const { config, fileName, fileNameNoExt, fileDir, filePath } = params
+        const [objStripped, branchesBySet] = branchContentIntoSets(obj)
+        outputCompositeFile(objStripped, branchesBySet, params)
     },
 
     'premium': (obj, params) => {
@@ -366,9 +374,10 @@ let OUTPUT_STRATEGIES = {}
     'premiumOnly': (obj, params) => {
         const { setName, config, fileName, fileNameNoExt, fileDir, filePath } = params
         
+        
         const jsonString = JSON.stringify(obj, null, 4);
         const premiumOutputPath = path.join('GeneratedPremiumFiles', fileDir, `${fileNameNoExt}.json`)
-        // console.log(`  Writing to: ${premiumOutputPath}`)
+        console.log(`  Writing to: ${premiumOutputPath}`)
         try {
             fs.mkdirSync(path.dirname(premiumOutputPath), { recursive: true });
             fs.writeFileSync(premiumOutputPath, jsonString, 'utf-8');

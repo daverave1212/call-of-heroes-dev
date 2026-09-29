@@ -380,37 +380,6 @@ export function getAllItemsByName() {
     return allItemsCached
 }
 window.getAllItemsByName = getAllItemsByName
-let magicItemsCached = null
-export function getAllMagicItemsByName() {
-    if (magicItemsCached != null) {
-        return magicItemsCached
-    }
-    magicItemsCached = {}
-
-    for (const category of Object.keys(magicItems)) {
-        if (category == 'TODO') {
-            continue
-        }
-        const itemsHere = magicItems[category].Items
-        for (const [itemName, item] of Object.entries(itemsHere)) {
-            item.Category = category
-            item.Name = itemName
-            maybeNormalizeSpellForEachVariants(item)
-        }
-        magicItemsCached = {...magicItemsCached, ...itemsHere}
-    }
-    return magicItemsCached
-}
-let magicItemsArrayCached = null
-export function getAllMagicItemsAsArray() {
-    if (magicItemsArrayCached != null) {
-        return magicItemsArrayCached
-    }
-    magicItemsArrayCached = objectToArray(getAllMagicItemsByName(), "Name")
-    return magicItemsArrayCached
-}
-window.getAllMagicItemsByName = getAllMagicItemsByName
-window.getAllMagicItemsAsArray = getAllMagicItemsAsArray
 export const normalizeItemPrice = (name, value) => isObject(value)? {...value, Name: name}: { Name: name, Price: value }
 export const normalizeItemPricesInCategory = (category) => mapObject(category, ({key, value}) => ({key, value: normalizeItemPrice() }))
 let pricesCached = null
@@ -711,6 +680,16 @@ export function getSpellTopStatsIconsAndSpans(spell) {
 
 
 // --------------- Questguard Utilities --------------
+export const SETS_NAMES = {
+    Basic: 'Basic',
+    Core: 'Core',
+    EarlyAccess: 'Early Access'
+}
+export const SET_IDS = {
+    Basic: 'basic',
+    Core: 'core',
+    EarlyAccess: 'early-access'
+}
 let setsConfig = null
 export async function getSetsConfigAsync() {
     if (setsConfig != null) {

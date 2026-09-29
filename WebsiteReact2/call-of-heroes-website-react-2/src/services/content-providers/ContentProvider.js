@@ -1,4 +1,4 @@
-import { getAllSetNamesWithPackageAsync, getSetFeatureId, isSetPremiumAsync } from "../../utils"
+import { capitalizeFirstLetter, getAllSetNamesWithPackageAsync, getSetFeatureId, isSetPremiumAsync } from "../../utils"
 import { doIOwnSetAsync } from "../auth/Auth"
 import { classExists, getClassLocal } from "./ClassProvider"
 import { maybeUpdateSetFeatureCache } from "./content-cache-updater"
@@ -8,11 +8,13 @@ import cache from '../data-caching/cache'
 import { useEffect, useState } from "react"
 import { showToast } from "../dom/toaster"
 import { getMonstersLocal, getOtherLocal, otherExists } from "./OtherProvider"
+import { getItemsLocal, itemsFileExists } from "./ItemProvider"
 
 export const FEATURES = {
     Races: 'races',
     Classes: 'classes',
-    Other: 'other'
+    Other: 'other',
+    Items: 'items'
 }
 
 
@@ -22,6 +24,7 @@ export async function featureItemExists(featureName, itemName) {
         case 'races': return raceExists(itemName)
         case 'classes': return classExists(itemName)
         case 'other': return otherExists(itemName)
+        case 'items': return itemsFileExists(itemName)
         default:
             console.error(`Feature ${featureName} not implemented for featureItemExists!`)
             return false
@@ -32,6 +35,7 @@ export function getFeatureItemLocal(featureName, itemName) {
         case 'races': return getRaceLocal(itemName)
         case 'classes': return getClassLocal(itemName)
         case 'other': return getOtherLocal(itemName)    // E.g. 'Monsters'
+        case 'items': return getItemsLocal(itemName)    // E.g. 'MagicItems'
         default:
             console.error(`Feature ${featureName} not implemented for getFeatureItemLocal!`)
             return null
@@ -41,6 +45,7 @@ export function getFeatureItemLocal(featureName, itemName) {
 // E.g: getFeatureItemAsync("races", "Dragon")
 // E.g: getFeatureItemAsync("classes", "Sorcerer")
 // E.g: getFeatureItemAsync("other", "Monsters")
+// E.g: getFeatureItemAsync("items", "MagicItems")
 export async function getFeatureItemAsync(featureName, name) {
     console.log(`Getting ${featureName} ${name}`)
     if (!featureItemExists(featureName, name)) {
@@ -75,13 +80,13 @@ export async function getFeatureItemAsync(featureName, name) {
         
         // Composite: a feature item composed from multiple sets
         case 'other':
-            let compositeFeature = {...getOtherLocal(name)}
+        case 'items':
+            let compositeFeature = {...getFeatureItemLocal(featureName, name)}
 
-            const setNamesWithPackage = await getAllSetNamesWithPackageAsync('Other')
+            const setNamesWithPackage = await getAllSetNamesWithPackageAsync(capitalizeFirstLetter(featureName))
 
-            console.log({compositeFeature, setNamesWithPackage})
             for (const setName of setNamesWithPackage) {
-                await maybeUpdateSetFeatureCache(setName, FEATURES.Other)
+                await maybeUpdateSetFeatureCache(setName, featureName)
                 const isPremium = await isSetPremiumAsync(setName)
                 const iOwnSet = await doIOwnSetAsync(setName)
                 console.log({setName, isPremium, iOwnSet})
@@ -89,7 +94,7 @@ export async function getFeatureItemAsync(featureName, name) {
                     console.log(`  Skipping set ${setName}`)
                     continue
                 }
-                const featureId = getSetFeatureId(setName, FEATURES.Other)     // E.g. core-other
+                const featureId = getSetFeatureId(setName, featureName)     // E.g. core-other, core-items
                 const thisSetItems = await cache.getAsync(featureId)
                 const thisSetItem = thisSetItems[name]
                 compositeFeature = {...compositeFeature, ...thisSetItem}
@@ -98,6 +103,8 @@ export async function getFeatureItemAsync(featureName, name) {
             console.log(`  Returning compositeFeature`)
             console.log({compositeFeature})
             return compositeFeature
+        default:
+            console.error(`Unknown feature ${featureName} with item named ${name}`)
     }
 }
 
