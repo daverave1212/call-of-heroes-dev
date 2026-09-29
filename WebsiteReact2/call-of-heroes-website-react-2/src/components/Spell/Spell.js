@@ -2,7 +2,7 @@
 import './Spell.css'
 import Separator from '../Separator/Separator'
 import { useEffect, useRef, useState } from 'react'
-import { allEqual, assertCorrectSpellFormat, copyToClipboardAsync, createKey, findBasicSpellByName, getAllItemsByName, getAllSpellsByName, getAllWeaponsByName, getDoubleTableNumberedTable, getDoubleTableTable, getNormalizedSpellName, getSpellByName, getSpellOrItemIconPath, getSpellTopStatIconAndSpan, getSpellTopStatsIconsAndSpans, getUniqueSpellID, getVariantsForEachCollection, hasSpellVariants, insertBetweenAll, mapObject, mapObjectToArray, parseAndNormalizeSpell, parseTextWithSymbols, randomInt, removeTildes, spellsFromObject, stringReplaceAllMany, SYMBOLS } from '../../utils'
+import { allEqual, assertCorrectSpellFormat, copyToClipboardAsync, createKey, findBasicSpellByName, getAllItemsByName, getAllSpellsByName, getAllWeaponsByName, getDoubleTableNumberedTable, getDoubleTableTable, getNormalizedSpellName, getSpellByName, getSpellOrItemIconPath, getSpellTopStatIconAndSpan, getSpellTopStatsIconsAndSpans, getUniqueSpellID, getVariantsForEachCollection, hasSpellVariants, insertBetweenAll, mapObject, mapObjectToArray, maybeWithPlus, parseAndNormalizeSpell, parseTextWithSymbols, randomInt, removeTildes, spellsFromObject, stringReplaceAllMany, SYMBOLS } from '../../utils'
 import TableNormal from '../TableNormal/TableNormal'
 import html2canvas from 'html2canvas'
 import CopySpellButton from '../CopyButton/CopySpellButton'
@@ -115,13 +115,16 @@ export default function Spell({
 
     let {
         Name, DisplayName, A, IconPath,
+        Bonuses,
         Effect, EffectGreen, EffectOrange, Downside, Upgrade, Combo, Notes,
         Variants, SubspellName,
         Damage,
-        List
+        List,
     } = parsedSpell
 
     const SkillBonuses = parsedSpell['Skill Bonuses']
+    const positiveBonusesEntries = Bonuses && Object.entries(Bonuses).filter(([name, value]) => value > 0)
+    const negativeBonusesEntries = Bonuses && Object.entries(Bonuses).filter(([name, value]) => value < 0)
 
     if (Name?.includes('Scroll')) {
         console.log({Name, parsedSpell, spell})
@@ -270,6 +273,14 @@ export default function Spell({
                     { EffectGreen != null && (
                         <div className="spell-green" key="EffectGreen">{ EffectGreen }</div>
                     ) }
+                    { Bonuses && <div className='spell-description gap-1'>
+                        { positiveBonusesEntries?.length > 0 && <div>
+                            { positiveBonusesEntries.map(([name, value]) => <span style={{color: 'var(--green-color)'}}>+{value} {name}<br/></span>)}
+                        </div> }
+                        { negativeBonusesEntries?.length > 0 && <div>
+                            { negativeBonusesEntries.map(([name, value]) => <span style={{color: 'red'}}>{value} {name}<br/></span>)}
+                        </div> }
+                    </div> }
                     { SkillBonuses && <div className='spell-description'>
                         { Object.entries(SkillBonuses).map(([name, value], i) => (<span key={`${name}-${i}`}>
                             { value > 0?

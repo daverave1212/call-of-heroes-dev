@@ -169,7 +169,6 @@ export function RaceDescription({ description }) {
         </React.Fragment>
     )
 }
-
 export function ClassFeatures({ theClass, hueShift }) {
     return (
         <div id="class-features">
@@ -196,28 +195,26 @@ export function RaceFeatures({ theRace }) {
         <div id="race-features">
             <PageH2 className="center-text" hasMargin={false}>Race Features</PageH2>
 
-            <TwoColumns>
-                <Column>
-                    <div className='flex column gap-1'>
-                        { theRace?.Creation?.['Stat Restrictions'] && (
-                            <SmallStat name="Stat Distribution" className="column">{ normalizeTextWithStats(theRace.Creation['Stat Restrictions']) }</SmallStat>
-                        ) }
-                        <div>
-                            <SmallStat name="Max Health"><Icon name="Health" type="small-stat"/>{ theRace.Stats['Base Health'] } + ({BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[MAX_HEALTH]})</SmallStat>
-                        </div>
-                        <div>
-                            <SmallStat name="Health Regen"><Icon name="HealthRegen" type="small-stat"/> { theRace.Stats['Health Regen'] } + ({BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[HEALTH_REGEN]})</SmallStat>
-                        </div>
-                        <SmallStat name="Movement Speed" className="column">4, and add {BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[MOVEMENT_SPEED]}</SmallStat>
-                        <div>
-                            <SmallStat name="Initiative">{BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[INITIATIVE]}</SmallStat>
-                        </div>
-                        { theRace.Weapons && <SmallStat name="Weapons" className="column">{ theRace.Weapons }</SmallStat> }
-                        { theRace.Training && <SmallStat name="Other Training" className="column">{ theRace.Training }</SmallStat> }
-                        { theRace.Language && <SmallStat name="Language" className="column">{ theRace.Language }</SmallStat> }
+            <div className="grid-2-responsive grid-gap-1">
+                <div className='flex column gap-1'>
+                    { theRace?.Creation?.['Stat Restrictions'] && (
+                        <SmallStat name="Stat Distribution" className="column">{ normalizeTextWithStats(theRace.Creation['Stat Restrictions']) }</SmallStat>
+                    ) }
+                    <div>
+                        <SmallStat name="Max Health"><Icon name="Health" type="small-stat"/>{ theRace.Stats['Base Health'] } + ({BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[MAX_HEALTH]})</SmallStat>
                     </div>
-                </Column>
-                <Column>
+                    <div>
+                        <SmallStat name="Health Regen"><Icon name="HealthRegen" type="small-stat"/> { theRace.Stats['Health Regen'] } + ({BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[HEALTH_REGEN]})</SmallStat>
+                    </div>
+                    <SmallStat name="Movement Speed" className="column">4, and add {BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[MOVEMENT_SPEED]}</SmallStat>
+                    <div>
+                        <SmallStat name="Initiative">{BONUS_ATTRIBUTES_CALCULATIONS_TEXTS_MAP[INITIATIVE]}</SmallStat>
+                    </div>
+                    { theRace.Weapons && <SmallStat name="Weapons" className="column">{ theRace.Weapons }</SmallStat> }
+                    { theRace.Training && <SmallStat name="Other Training" className="column">{ theRace.Training }</SmallStat> }
+                    { theRace.Language && <SmallStat name="Language" className="column">{ theRace.Language }</SmallStat> }
+                </div>
+                <div>
                     <PageH3>Character Creation</PageH3>
                     <p>
                         When you create your character, you assign the stats -1, 0, 1, 2, 3 to the five Stats.
@@ -229,8 +226,10 @@ export function RaceFeatures({ theRace }) {
                     <PageH3>Race Details</PageH3>
                     <p>As a member of the {theRace.Race} race, your lifespan is about { theRace.Stats.Lifespan } and your size is { theRace.Stats.Size }. </p>
                     { theRace.Other != null && (<p>{theRace.Other}</p>) }
-                </Column>
-            </TwoColumns>
+                </div>
+            </div>
+
+        
         </div>
     )
 }
@@ -627,7 +626,7 @@ export function RacePage({ raceName }) {
                 )}
 
                 { theRace.Talents? (<>
-                    <PageH2>Race Feats</PageH2>
+                    <PageH2>Race Feats{U.isLocalhost() && ` (${U.spellsFromObject(theRace.Talents).length})`}</PageH2>
                     <p>Choose 2 Race Talents from below. Your choice is permanent!</p>
                     <ManySpells spells={U.spellsFromObject(theRace.Talents)}/>
                     <ComingSoonBanner/>
