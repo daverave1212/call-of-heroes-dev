@@ -155,7 +155,7 @@ export default function() {
 
             <QGTitle1 text="Slice and Dice" height={slideTitleSize}/>
             <p className='hero-text'>No roll to hit, no damage tiers: when you attack, just roll the dice and deal that damage. What you see is what you get!</p>
-            <p className='hero-text'>In QuestGuard, we go full in on dice! If you're a dice goblin, you'll love it.</p>
+            <p className='hero-text'>We go full in on dice! If you're a dice goblin, you'll love it.</p>
         </HeroSlide>
         <HeroSlide src="/Classes/HunterPet.png" isReverse={true}>
             <div className='portrait absolute floating-animation-raptor' style={{position: 'absolute', top: '-10vh', right: '-5vw', width: '25vw'}}>

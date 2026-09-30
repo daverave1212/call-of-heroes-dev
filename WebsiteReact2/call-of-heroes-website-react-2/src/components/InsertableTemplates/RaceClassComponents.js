@@ -193,7 +193,7 @@ export function ClassFeatures({ theClass, hueShift }) {
 export function RaceFeatures({ theRace }) {
     return (
         <div id="race-features">
-            <PageH2 className="center-text" hasMargin={false}>Race Features</PageH2>
+            <PageH2 className="center-text" hasMargin={false}>Making {U.an(theRace.Race)}</PageH2>
 
             <div className="grid-2-responsive grid-gap-1">
                 <div className='flex column gap-1'>
@@ -215,7 +215,7 @@ export function RaceFeatures({ theRace }) {
                     { theRace.Language && <SmallStat name="Language" className="column">{ theRace.Language }</SmallStat> }
                 </div>
                 <div>
-                    <PageH3>Character Creation</PageH3>
+                    <PageH3>Hero Creation</PageH3>
                     <p>
                         When you create your character, you assign the stats -1, 0, 1, 2, 3 to the five Stats.
                         Each Race, including { theRace.Race }, have some special Stat distribution constraints.
@@ -236,7 +236,7 @@ export function RaceFeatures({ theRace }) {
 export function CCRaceFeatures({ theRace }) {
     return (
         <div id="race-features">
-            <PageH2 className="center-text" hasMargin={false}>Race Features</PageH2>
+            <PageH2 className="center-text" hasMargin={false}>Making {U.an(theRace.Race)}</PageH2>
 
             <TwoColumns>
                 <Column>
@@ -258,7 +258,7 @@ export function CCRaceFeatures({ theRace }) {
                     </div>
                 </Column>
                 <Column>
-                    <PageH3>Character Creation</PageH3>
+                    <PageH3>Hero Creation</PageH3>
                     <p>
                         When you create your character, you assign the stats -1, 0, 1, 2, 3 to the five Stats.
                         Each Race, including { theRace.Race }, have some special Stat distribution constraints.
@@ -626,7 +626,7 @@ export function RacePage({ raceName }) {
                 )}
 
                 { theRace.Talents? (<>
-                    <PageH2>Race Feats{U.isLocalhost() && ` (${U.spellsFromObject(theRace.Talents).length})`}</PageH2>
+                    <PageH2 className="center-text">Race Talents{U.isLocalhost() && ` (${U.spellsFromObject(theRace.Talents).length})`}</PageH2>
                     <p>Choose 2 Race Talents from below. Your choice is permanent!</p>
                     <ManySpells spells={U.spellsFromObject(theRace.Talents)}/>
                     <ComingSoonBanner/>
@@ -676,7 +676,7 @@ export function CCRacePage({ raceName, selectedSpellNames, onSpellClick }) {
                 )}
 
                 { theRace.Talents? (<>
-                    <PageH2>Race Feats</PageH2>
+                    <PageH2>Race Talents</PageH2>
                     <p>Choose 2 Race Talents from below. Your choice is permanent!</p>
                     <ManySpells
                         spells={U.spellsFromObject(theRace.Talents)}

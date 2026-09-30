@@ -88,7 +88,7 @@ One-Handed Melee:   # 3.5 Damage + 0.75 Effect = 6.25 + 3 Stat = 9.25
       A: Half-Action
       Range: 1 meter
       Damage: 1d12
-      Combo: +1d4 Damage
+      Combo: Add 1d4 Damage
       Notes: Does not scale with any Stat.
       Alternatives: Combat Chains, Kusarigama, Lucerne, Lantern, Anchor
 
@@ -202,7 +202,7 @@ Two-Handed Melee: # 10 + 3 from stat
       A: 1 Action
       Range: 1 meter
       Damage: 2d10 + {Might}
-      Combo: Heal for the lowest die rolled for each ~Combo~ on the target (consumes all ~Comboes~).
+      Combo: Heal yourself and deal extra Damage equal to your {Might}.
       Effect: |
         {CriticalStrike} for each maximum die rolled, apply a ~Combo~.
       # Upgrade: "{Replacement}{A}1 {ActionPoint}: Also apply a ~Combo~."
@@ -227,10 +227,10 @@ Two-Handed Melee: # 10 + 3 from stat
       Range: 1 meter
       Requirement: 2 {Might}
       Damage: 3d6 + {Might}
-      EffectGreen: All 6's rolled, together, hit another Unit within 2 meters of the target for that amount.
+      Effect: "{Green('Critical Strike')} for each rolled max die, deal Damage equal to your {Might} to all other Units within 2 meters of the target (except you and the target)."
       Alternatives: Claymore, Zweihander, Naginata, Broadsword, Bastard Sword
       MagicAlternatives: Edge, Blade
-      Upgrade: "{Replacement}{A}1 {ActionPoint}: +1d6 Damage and another Unit within 2 meters of the target."
+      Upgrade: "{Replacement}{A}1 {ActionPoint}: add 1d6 Damage + {Might} Damage"
       Notes: Hitting another Unit with the d6's is optional.
 
     Halberd:
@@ -264,7 +264,7 @@ Two-Handed Melee: # 10 + 3 from stat
       Requirement: 1 {Dexterity} and 1 {Intelligence}
       Damage: 1d6 + 1d8 + {Dexterity} + {Intelligence}
       Effect: |
-        {CriticalStrike} if you rolled a maximum d6, the Attack gains +1d10 Damage.
+        {CriticalStrike} if you rolled a maximum d6, add 1d10 Damage.
       Upgrade: "{Replacement}{A}1 {ActionPoint}: Gain one of the rolled dice as a Shielding."
       Alternatives: Wakizashi, Longsword, Claymore, Zweihander, Naginata, Broadsword, Bastard Sword, Blade, Edge
 
@@ -286,7 +286,7 @@ Two-Handed Melee: # 10 + 3 from stat
       A: 1 Action
       Range: 1 meter
       Damage: 1d8 + 5 + {Might}
-      EffectGreen: Deals +1d6 Damage against Units wearing a shield or heavy armor (or both).
+      EffectGreen: Deals (2 × {Might}) extra Damage against Units wearing a shield or heavy armor (or both).
       Alternatives: Mattock
       MagicAlternatives: Bec-de-Fer
 
@@ -343,7 +343,7 @@ Two-Handed Melee: # 10 + 3 from stat
       Range: 1 meter
       Damage: 2d20  # 20.5
       Effect: |
-        {CriticalStrike} for each rolled 20, add +1d20 Damage!
+        {CriticalStrike} for each rolled 20, add 1d20 Damage!
       MagicAlternatives: Titanblade, Colossus, Overblade, Behemoth, Executor    
 
     Warhammer:
@@ -354,8 +354,8 @@ Two-Handed Melee: # 10 + 3 from stat
       Requirement: 1 {Might}
       Damage: 2d8 + 1 + {Might}
       Effect: |
-        {CriticalStrike} if you rolled maximum on a die, Slam the target 1d8 meters away from you.
-      Upgrade: "{Replacement}{A}1 {ActionPoint}: +1d8 Damage."
+        {CriticalStrike} if you rolled maximum on a die, Slam the target away from a number of meters you equal to your {Might}.
+      Upgrade: "{Replacement}{A}1 {ActionPoint}: add (2 × {Might}) Damage."
       MagicAlternatives: Maul, Mallet, Martel, Malleus, Sledgehammer, Sledge
 
 
@@ -377,7 +377,7 @@ Two-Handed Ranged:  # 8.5 + 3 from Stat
       A: 1 Action
       Damage: 2d8 + {Dexterity}
       Effect: |
-        {CriticalStrike} if you rolled an 8, +1d8 Damage and apply a ~Combo~.
+        {CriticalStrike} if you rolled an 8, add 1d8 Damage and apply a ~Combo~.
       Upgrade: "{Replacement}{A}1 {ActionPoint}: Shoot another quick arrow for 1d8 Damage that can {Green('Critically Strike')}."
       MagicAlternatives: Recurve, String, Yumi, Longbow, Greatbow, Longshot
 
@@ -413,7 +413,7 @@ Two-Handed Ranged:  # 8.5 + 3 from Stat
       Stat: Pierce
       A: 1 Action
       Damage: 1d12 + 1 + {Might}
-      Upgrade: "{Replacement}{A}1 {ActionPoint}: Also hits a Unit 1 meter behind the target for -50% Damage."
+      Upgrade: "{Replacement}{A}1 {ActionPoint}: Also hits a Unit directly 1 meter behind the target for -50% Damage."
       Notes: This weapon is baseline made for throwing.
       MagicAlternatives: Piercer
     
@@ -457,7 +457,7 @@ One-Handed Ranged:  # 2.5 + 3 from stat
       A: Half-Action
       Damage: 1d4 + {Dexterity}
       Effect: |
-        {CriticalStrike} if you rolled a 4, +1d4 Damage!
+        {CriticalStrike} if you rolled a 4, add 1d4 Damage!
       Alternatives: Handgun
       MagicAlternatives: Repeater, Quickshot, Quickbolt
 

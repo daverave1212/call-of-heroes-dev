@@ -3521,9 +3521,9 @@ export const SYMBOLS = {
     'Offensive Abilities': { tag: 'span', text: "Offensive means that it deals Damage or applies hard Control Effect (anything better than Slow and creating Hard Terrain)." },
     'CoreTalent':     { tag: 'span', props: { style: { color: 'var(--orange-color)'} }, text: "This is a Core Talent. You can only have one Core Talent from this Level.", func: () => <span style={{color: 'var(--dark-red-color)'}}>This is a <b>Core Talent</b>. You can only have one <b>Core Talent</b> from this Level..</span> },
     'KeystoneTalent': { tag: 'span', props: { style: { color: 'var(--dark-red-color)'} }, text: "This is a Keystone Talent. You can only have one Keystone Talent from this Level..", func: () => <span style={{color: 'var(--orange-color)'}}>This is a <b>Keystone Talent</b>. You can only have one <b>Keystone Talent</b> from this Level..</span> },
-    'YouHaveAccess': { tag: 'span', props: { style: {color: 'var(--blue-color)'} }, text: "You may have all Variants of this Ability." },
-    'Variants': { tag: 'span', props: { style: {color: 'var(--blue-color)'} }, text: "You may have all Variants of this Ability." },
-    'AllVariants': { tag: 'span', props: { style: {color: 'var(--blue-color)'} }, text: "You may have all Variants of this Ability." },
+    'YouHaveAccess': { tag: 'span', props: { style: {color: 'var(--blue-color)'} }, text: "Click on the icon to switch!" },
+    'Variants': { tag: 'span', props: { style: {color: 'var(--blue-color)'} }, text: "Click on the icon to switch!" },
+    'AllVariants': { tag: 'span', props: { style: {color: 'var(--blue-color)'} }, text: "Click on the icon to switch!" },
     
     // Debug
     'TODO': { tag: 'span', props: { style: {color: 'red'} }, text: "TODO" },    
