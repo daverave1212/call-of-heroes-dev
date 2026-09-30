@@ -23,6 +23,7 @@ const args = process.argv.slice(2)
 const shouldGenerateAll = args.includes('--all') || args.includes('-a')
 const isHelpCommand = args.includes('--help') || args.includes('-h') || args.includes('help') || args.length == 0
 const includeEarlyAccess = args.includes('--early-access') || args.includes('-ea')
+const isLocalOnly = args.includes('--local-only') || args.includes('-lo')
 
 if (isHelpCommand) {
     console.log(`\n🔰 Use as:`)
@@ -351,13 +352,21 @@ let OUTPUT_STRATEGIES = {}
     'Monsters': (obj, params) => {
         const { config, fileName, fileNameNoExt, fileDir, filePath } = params
         const [objStripped, branchesBySet] = branchCompositeMonsters(obj, params)
-        outputCompositeFile(objStripped, branchesBySet, params)
+        if (isLocalOnly) {
+            outputCompositeFile(obj, branchesBySet, params)    
+        } else {
+            outputCompositeFile(objStripped, branchesBySet, params)
+        }
     },
 
     'MagicItems': (obj, params) => {
         const { config, fileName, fileNameNoExt, fileDir, filePath } = params
         const [objStripped, branchesBySet] = branchContentIntoSets(obj)
-        outputCompositeFile(objStripped, branchesBySet, params)
+        if (isLocalOnly) {
+            outputCompositeFile(obj, branchesBySet, params)    
+        } else {
+            outputCompositeFile(objStripped, branchesBySet, params)
+        }
     },
 
     'premium': (obj, params) => {
@@ -480,5 +489,12 @@ processFiles()
 if (getNErrorsFound() > 0) {
     console.log(`🔴 Found ${getNErrorsFound()} errors!`)
 } else {
-    console.log(`✅ No errors found`)
+    console.log(`✅ No errors found\n`)
+}
+
+if (includeEarlyAccess) {
+    console.log(`🟪 NOTE: Included all early access content! Not for prod!`)
+}
+if (isLocalOnly) {
+    console.log(`🟡 WARNING: All premium content generated on localhost! Run without --local-host before deploy to prod!`)
 }

@@ -43,7 +43,7 @@ Jug of Filling:
   Price: 100
   DisplayName: '{Name}'
   Effect: Inbetween Adventures, this Jug fills with {Liquid} of average quality.
-  Variants: [{Name: Jug of Water, Liquid: Water}, {Name: Jug of Ale, Liquid: Ale}, {Name: Jug of Wine, Liquid: Wine}, {Name: Jug of Vodka, Liquid: Vodka}]
+  Variants: [{Name: Jug of Water, Liquid: Water, TintColor: "#0066FF"}, {Name: Jug of Ale, Liquid: Ale, TintColor: tan}, {Name: Jug of Wine, Liquid: Wine, TintColor: "#FF2255"}, {Name: Jug of Vodka, Liquid: Vodka, TintColor: white}]
   Tags: [Common, Trinket, Alchemy]
 Amulet of Hope:
   Price: 300
@@ -177,11 +177,11 @@ Potion of Mana:
   Set: core
 Elemental Oil:
   Price: 100
-  Effect: Apply to a melee or throwable weapon, or one person's ammo pieces of a type. Attacks with it deal +1 Damage and all the Damage done with it becomes {Element} Damage.
+  Effect: Apply to a melee or throwable weapon, or one person's ammo pieces of a type. Attacks with it deal +1 Damage and its Damage Type becomes {Element} Damage.
   Tags: [Uncommon, Consumable, Alchemy]
   Duration: 1 Combat
   DisplayName: '{Name}'
-  Variants: [{Name: Fire Oil, Element: Fire}, {Name: Frost Oil, Element: Cold}, {Name: Scourge Oil, Element: Scourge}, {Name: Electric Oil, Element: Shock}]
+  Variants: [{Name: Fire Oil, Element: Fire}, {Name: Frost Oil, Element: Cold, TintColor: "#0033FF"}, {Name: Scourge Oil, Element: Scourge, TintColor: "#AA11FF"}, {Name: Electric Oil, Element: Shock, TintColor: yellow}]
   Set: core
 Poison Coating:
   Price: 75
@@ -205,6 +205,7 @@ Healing Ammo:
   Tags: [Uncommon, Ammo, Church]
   Variants: [{Name: Arrow}, {Name: Bolt}, {Name: Shot}, {Name: Javelin}]
   Set: core
+
 Arrow of Slaying:
   Price: 30
   Effect: Adds 1d4 extra Damage when shot against {Type} Units. Can be used with any ranged weapon that requires ammo.
@@ -212,14 +213,47 @@ Arrow of Slaying:
   Tags: [Uncommon, Ammo, Eldritch, Engineer, Shady]
   Variants: [{Type: Beast}, {Type: Dragon}, {Type: Undead}, {Type: Demon}, {Type: Person}, {Type: Giant}]
   Set: core
+ 
 Elixir of Health:
   Price: 175
-  DisplayName: Elixir of {Name}
+  DisplayName: Elixir of Health
   Duration: Whole Adventure
   Tags: [Uncommon, Consumable, Alchemy]
-  Effect: '{E}'
-  Variants: [{Name: Health, E: Increases Max Health by 5., IconName: Elixir of Health}, {Name: Initiative, E: Increases Initiative by 1., IconName: Elixir of Protection}, {Name: Speed, E: Increases Movement Speed by 1., IconName: Elixir of Speed}, {Name: Growth, E: 'Increases your Max Health by 10 and size by 1 tier, but lower your Movement Speed by 1.', IconName: Elixir of Growth}, {Name: Wisdom, E: Refresh the Cooldown of one of your Abilities., IconName: Potion of Mana}]
+  Effect: Increases Max Health by 5.
   Set: core
+
+Elixir of Initiative:
+  Price: 175
+  DisplayName: Elixir of Initiative
+  Duration: Whole Adventure
+  Tags: [Uncommon, Consumable, Alchemy]
+  Effect: Increases Initiative by 1.
+  Set: core
+
+Elixir of Speed:
+  Price: 175
+  DisplayName: Elixir of Speed
+  Duration: Whole Adventure
+  Tags: [Uncommon, Consumable, Alchemy]
+  Effect: Increases Movement Speed by 1.
+  Set: core
+
+Elixir of Growth:
+  Price: 175
+  DisplayName: Elixir of Growth
+  Duration: Whole Adventure
+  Tags: [Uncommon, Consumable, Alchemy]
+  Effect: Increases your Max Health by 10 and size by 1 tier, but lower your Movement Speed by 1.
+  Set: core
+
+Elixir of Wisdom:
+  Price: 175
+  DisplayName: Elixir of Wisdom
+  Duration: Whole Adventure
+  Tags: [Uncommon, Consumable, Alchemy]
+  Effect: Refresh the Cooldown of one of your Abilities.
+  Set: core
+
 Seed of Flames:
   Price: 140
   Effect: It explodes upon touching something flamable, dealing 3d6 Fire Damage in a 3x3 meter area.
@@ -227,9 +261,11 @@ Seed of Flames:
   Set: core
 Bottle of Light Absorbtion:
   Price: 100
-  Effect: Absorbs all light around when unbottled and creates Magical Darkness in a 5x5 area.
+  Effect: Absorbs all light around when unbottled and creates darkness in a 5x5 area.
   Tags: [Uncommon, Consumable, Alchemy, Engineer]
   Set: core
+  Notes: |
+    "What the...? Why is the room suddenly dark!? Guards!"
 Ring of Good Omen:
   Price: 100
   Effect: If you fail a Check, you can instantly destroy the ring to try again.
@@ -259,7 +295,7 @@ Bag of Useful Items:
 Leaf of Mountain Speak:
   Price: 350
   Cost: 1 Plot Point
-  Effect: Ask a piece of rock, mountain, a statue, etc 3 questions it. It will answer honestly with "Yes", "No", or "I don't know".
+  Effect: Ask a piece of rock, mountain, a statue, etc 3 questions it. It will answer honestly with _"Yes"_, _"No"_, or _"I don't know"_.
   Notes: The answer comes through the leaf, turning slightly blue for a yes, slightly red for a no, or slightly yellow for "I don't know". In some circumstances, the rocks might not answer...
   Tags: [Uncommon, Trinket, Nature]
   Set: core
@@ -269,7 +305,7 @@ Mask of Eyes:
   Tags: [Uncommon, Trinket, Eldritch, Shady]
   Set: core
 Immovable Needle:
-  Price: 550
+  Price: 1000
   Effect: A needle that becomes immovable when its keyword is uttered. It becomes unmoving in its place, even levitating, with 250 kilograms of force.
   Tags: [Uncommon, Trinket, Shady]
   Set: core
@@ -318,23 +354,44 @@ Coin of Odds:
   Set: core
 Item of Minor Health:
   Price: 300
-  Effect: +2 Max Health.
+  IconName: Gloves of Minor Health
+  Bonuses:
+    Max Health: 2
   DisplayName: '{Name} of Minor Health'
-  Variants: [{Name: Gloves, IconName: Gloves of Minor Health}, {Name: Boots, IconName: Boots of Minor Health}, {Name: Cap, IconName: Cap of Minor Health}, {Name: Ring, IconName: Ring of Minor Health}]
+  Variants:
+    - Name: Gloves
+      IconName: Gloves of Minor Health
+    - Name: Boots
+      IconName: Boots of Minor Health
+    - Name: Cap
+      IconName: Cap of Minor Health
+    - Name: Ring
+      IconName: Ring of Minor Health
   Tags: [Uncommon, Armor]
   Set: core
+
 Item of Minor Recovery:
   Price: 300
-  Effect: +1 Health Regen.
+  Bonuses:
+    Health Regen: 1
   DisplayName: '{Name} of Minor Recovery'
-  Variants: [{Name: Gloves, IconName: Gloves of Minor Recovery}, {Name: Boots, IconName: Boots of Minor Recovery}, {Name: Cap, IconName: Cap of Minor Recovery}, {Name: Ring, IconName: Ring of Minor Recovery}]
+  Variants:
+    - Name: Gloves
+      IconName: Gloves of Minor Recovery
+    - Name: Boots
+      IconName: Boots of Minor Recovery
+    - Name: Cap
+      IconName: Cap of Minor Recovery
+    - Name: Ring
+      IconName: Ring of Minor Recovery
   Tags: [Uncommon, Armor, Jewelry]
   Set: core
 Item of Skill:
   Price: 200
   DisplayName: Pendant of {Skill}
-  Effect: The wearer has Skilled in {Skill}.
-  VariantsForEach: [{ForEach: 'Skill:$Skills'}]
+  CustomProps: '{ "Skill Bonuses": { "{Skill}": 1 } }'
+  VariantsForEach:
+    - ForEach: 'Skill:$Skills'
   Tags: [Uncommon, Jewelry]
   Set: core
 Lesser Scroll:
@@ -361,34 +418,118 @@ Lesser Wand of Spell:
   VariantsForEach: [{ForEach: 'SpellName:$SpellsWithPower1'}]
   Tags: [Uncommon, Magic, Engineer]
   Set: core
-Gloves of Extra Skill:
-  Price: 275
-  DisplayName: Gloves of Extra {Skill}
-  Effect: The wearer has +2 in {Skill}.
-  Variants: [{Skill: Athletics}, {Skill: Crafting}, {Skill: Luck}, {Skill: Mechanisms}, {Skill: Using Rope}, {Skill: Sleight of Hand}]
-  Tags: [Uncommon, Armor, Clothes, Engineer, Shady]
-  Set: core
-Boots of Extra Skill:
-  Price: 275
-  DisplayName: Boots of Extra {Skill}
-  Effect: The wearer has +2 in {Skill}.
-  Variants: [{Skill: Acrobatics}, {Skill: Stealth}]
-  Tags: [Uncommon, Armor, Clothes, Shady]
-  Set: core
-Cape of Extra Skill:
-  Price: 275
-  DisplayName: Cape of Extra {Skill}
-  Effect: The wearer has +2 in {Skill}.
-  Variants: [{Skill: Animal Handling}, {Skill: Biology}, {Skill: Dungeoneering}, {Skill: Intimidation}, {Skill: Investigation}, {Skill: Nature}, {Skill: Stealth}]
-  Tags: [Uncommon, Armor, Clothes]
-  Set: core
-Item of Extra Skill:
-  Price: 275
-  DisplayName: '{Item} of Extra {Skill}'
-  Effect: The wearer has +2 in {Skill}.
-  Variants: [{Skill: Arcane, Item: Necklace}, {Skill: Cooking, Item: Apron}, {Skill: Sociology, Item: Ring}, {Skill: History, Item: Ring}, {Skill: Linguistics, Item: Ring}, {Skill: Memory, Item: Ring}, {Skill: Occultism, Item: Ring}, {Skill: Deception, Item: Mask}, {Skill: General Knowledge, Item: Tiara}, {Skill: Hearing, Item: Earring}, {Skill: Monstrology, Item: Pendant}, {Skill: Religion, Item: Booklet}, {Skill: Sight, Item: Goggles}, {Skill: Lockpicking, Item: Key}]
-  Tags: [Uncommon, Trinket, Jewelry]
-  Set: core
+# Gloves of Extra Skill:
+#   Price: 275
+#   DisplayName: Gloves of {Skill}
+#   Variants:
+#     - Skill Bonuses:
+#         Athletics: 1
+#       Skill: Athletics
+#     - Skill Bonuses:
+#         Crafting: 1
+#       Skill: Crafting
+#     - Skill Bonuses:
+#         Luck: 1
+#       Skill: Luck
+#     - Skill Bonuses:
+#         Mechanisms: 1
+#       Skill: Mechanisms
+#     - Skill Bonuses:
+#         Using Rope: 1
+#       Skill: Using Rope
+#     - Skill Bonuses:
+#         Sleight of Hand: 1
+#       Skill: Sleight of Hand
+#   Tags: [Uncommon, Armor, Clothes, Engineer, Shady]
+#   Set: core
+# Boots of Skill:
+#   IconName: Boots of Extra Skill
+#   Price: 275
+#   DisplayName: Boots of {Skill}
+#   Variants:
+#     - Skill: Acrobatics
+#       Skill Bonuses:
+#         Acrobatics: 1
+#     - Skill: Stealth
+#       Skill Bonuses:
+#         Stealth: 1
+#   Tags: [Uncommon, Armor, Clothes, Shady]
+#   Set: core
+# Cape of Extra Skill:
+#   Price: 275
+#   DisplayName: Cape of Extra {Skill}
+#   Variants:
+#     - Skill Bonuses:
+#         Animal Handling: 1
+#       Skill: Animal Handling
+#     - Skill Bonuses:
+#         Biology: 1
+#       Skill: Biology
+#     - Skill Bonuses:
+#         Dungeoneering: 1
+#       Skill: Dungeoneering
+#     - Skill Bonuses:
+#         Intimidation: 1
+#       Skill: Intimidation
+#     - Skill Bonuses:
+#         Investigation: 1
+#       Skill: Investigation
+#     - Skill Bonuses:
+#         Nature: 1
+#       Skill: Nature
+#     - Skill Bonuses:
+#         Stealth: 1
+#       Skill: Stealth
+#   Tags: [Uncommon, Armor, Clothes]
+#   Set: core
+# Item of Extra Skill:
+#   Price: 275
+#   DisplayName: '{Item} of Extra {Skill}'
+#   Variants:
+#     - Item: Necklace
+#       Skill Bonuses:
+#         Arcane: 1
+#     - Item: Apron
+#       Skill Bonuses:
+#         Cooking: 1
+#     - Item: Ring
+#       Skill Bonuses:
+#         Sociology: 1
+#     - Item: Ring
+#       Skill Bonuses:
+#         History: 1
+#     - Item: Ring
+#       Skill Bonuses:
+#         Linguistics: 1
+#     - Item: Ring
+#       Skill Bonuses:
+#         Memory: 1
+#     - Item: Ring
+#       Skill Bonuses:
+#         Occultism: 1
+#     - Item: Mask
+#       Skill Bonuses:
+#         Deception: 1
+#     - Item: Tiara
+#       Skill Bonuses:
+#         General Knowledge: 1
+#     - Item: Earring
+#       Skill Bonuses:
+#         Hearing: 1
+#     - Item: Pendant
+#       Skill Bonuses:
+#         Monstrology: 1
+#     - Item: Booklet
+#       Skill Bonuses:
+#         Religion: 1
+#     - Item: Goggles
+#       Skill Bonuses:
+#         Sight: 1
+#     - Item: Key
+#       Skill Bonuses:
+#         Lockpicking: 1
+#   Tags: [Uncommon, Trinket, Jewelry]
+#   Set: core
 Cloak of Slow Falling:
   Price: 300
   DisplayName: Cloak of {Name}
@@ -402,14 +543,21 @@ Nightvision Goggles:
   Tags: [Uncommon, Trinket, Engineer, Shady]
   Set: core
 Damage Rune:
-  Price: 350
+  Price: 550
   DisplayName: '{Name}'
-  Effect: '{E}'
-  Variants: [{E: Inscribe on a weapon to permanently increase its Damage by 1., Name: Damage Rune}, {E: Inscribe on a weapon to permanently increase its Damage by 2. Only usable on weapons that originally have no Stat requirement., Name: Reinforcement Rune}]
+  Effect: Inscribe on a weapon to permanently increase its Damage by 1.
+  Upgrade: Only one Rune can be applied to a weapon.
+  Tags: [Rare, Magic]
+  Set: core
+Reinforcement Rune:
+  Price: 550
+  DisplayName: '{Name}'
+  Effect: Inscribe on a weapon to permanently increase its Damage by 2. Only usable on weapons that originally have no Stat requirement.
+  Upgrade: Only one Rune can be applied to a weapon.
   Tags: [Rare, Magic]
   Set: core
 Minor Scroll:
-  Price: 175
+  Price: 200
   A: Half-Action
   Effect: Cast {SpellName}.
   DisplayName: Scroll of {SpellName}
@@ -422,7 +570,7 @@ Minor Scroll:
   Tags: [Rare, Magic, Scribe, Scroll]
   Set: core
 Minor Wand of Spell:
-  Price: 300
+  Price: 450
   Cooldown: Once / Adventure
   A: Half-Action
   Effect: Cast {SpellName} for free.
@@ -459,84 +607,56 @@ Boots of Initiative:
   Effect: +0.5 Initiative.
   Tags: [Rare, Armor, Clothes]
   Set: core
-Boots of Tirelessness:
-  Price: 300
-  DisplayName: Boots of {Name}
-  Effect: '{E}'
-  Variants: [{E: '+1 Speed. Wearing these boots, you are immune to hard terrain and your legs don''t tire from walking.', Name: Tirelessness}, {E: Your minimum speed is 5 and unaffected by armor's Speed reduction if any., Name: Striding}, {E: 'Immune to Hard Terrain, being Blinded, and are unaffected by darkness penalties (Cover).', Name: Tremors}, {E: 'You are immune to being Pushed and have +1 to all {Might} Checks.', Name: Grounding}, {E: Your Ambush bonus is +10 instead of +5., Name: Ambushing}, {E: Enemy Ambush bonus is +3 instead of +5., Name: Steadyfoot}]
-  Tags: [Rare, Armor, Clothes, Engineer]
-  Set: core
 Leggings of Freedom:
   Price: 450
   Effect: You are immune to being Rooted and Slowed.
   Notes: Can be worn with any armor.
   Tags: [Rare, Armor, Clothes, Engineer]
   Set: core
-Javelin of Accuracy:
-  Price: 225
-  Effect: A normal Pike, but once per Adventure, it can be thrown without penalties and without needing Training, and it ignores Cover.
-  Tags: [Rare, Weapon, Engineer]
-  Set: core
-Holy Weapon:
-  Price: 400
-  Effect: Deals {Damage} extra Damage to Undeads and Demons.
-  DisplayName: Holy {Weapon}
-  VariantsForEach: [{ForEach: 'Weapon:$OneHandedWeapons', Damage: 1}, {ForEach: 'Weapon:$TwoHandedWeapons', Damage: +1d4}]
-  Tags: [Rare, Weapon, Church]
-  Set: core
-Pulse Weapon:
-  Price: 400
-  Effect: Deals {Damage} extra Damage to non-biological Units and the Damage type becomes Pulse.
-  DisplayName: Pulse {Weapon}
-  VariantsForEach: [{ForEach: 'Weapon:$OneHandedWeapons', Damage: 1}, {ForEach: 'Weapon:$TwoHandedWeapons', Damage: +1d4}]
-  Tags: [Rare, Weapon, Engineer]
-  Set: core
-Dryad Weapon:
-  Price: 400
-  Effect: Deals {Damage} extra Damage to Beasts and Fiends ad the Damage type becomes Poison.
-  DisplayName: Dryad {Weapon}
-  VariantsForEach: [{ForEach: 'Weapon:$OneHandedWeapons', Damage: 1}, {ForEach: 'Weapon:$TwoHandedWeapons', Damage: +1d4}]
-  Tags: [Rare, Weapon, Nature]
-  Set: core
 Bracer of Archery:
-  Price: 300
+  Price: 800
   Effect: The minimum attack bonus with ranged weapons becomes +3 (if any).
   Tags: [Rare, Armor, Engineer]
   Set: core
 Shield of Arrows:
-  Price: 500
-  Effect: Acts as a normal Shield that also provides +1 Defense against arrows and bolts.
+  Price: 900
+  Effect: |
+    -1 Damage taken from ranged physical attacks
   Tags: [Rare, Armor, Engineer]
   Set: core
-Breastplate of Blades:
-  Price: 450
-  Effect: +1 Defense against melee physical attacks.
-  Tags: [Rare, Armor, Magic, Engineer]
-  Set: core
 Charm of Alter Word:
-  Price: 300
+  Price: 650
   A: Reaction
   Cooldown: Once / Adventure
-  Effect: When someone casts a Spell, you can change one letter in the Spell's name to give it a different meaning. The effect is determined by the DM, but the DM must take the intention into account. You always know the name of a Spell when it is cast.
+  Effect: When someone casts a Spell, you can change one letter in the Spell's name to give it a different meaning. The effect is determined by the Quest Master, taking the intention into account. You always know the name of a Spell when it is cast.
   Tags: [Rare, Trinket]
   Set: core
 Blessed Ring of Protection:
-  Price: 400
-  Effect: '{E}'
-  Variants: [{E: 'After every Worthy Combat, you regain 1d4 Health. Only works if the wearer is religious.', Name: Blessed Ring of Protection}, {E: 'While wearing this Ring, your body is withering and you have -1 {Might}, but you have +1 Movement.', Name: Ring of Withering}, {E: '50% Fire Resistance. When you get to 0 Health, you are instantly revived to 1 Health without Exhaustion. Then the ring breaks.', Name: Ring of the Phoenix}]
+  Price: 950
+  Effect: After every Worthy Combat, Heal yourself for 1d4. Only works if the wearer is religious.
   Tags: [Rare, Jewelry, Church]
   Set: core
+Ring of the Phoenix:
+  Price: 700
+  Effect: |
+    When you reach 0 Health, you are instantly revived to 1 Health without Exhaustion. Then the ring is destroyed.
+
+    -50% Fire Damage Taken
 Ring of the Eldritch Thing:
   Price: 500
+  Duration: 1 minute
   Cooldown: Once / Adventure
-  Effect: Summon a wyrd tentacle at a place within 10 meters. It takes its turn after you and can make one attack for 1d8 Damage, 2 meters range. It tries to attack your party, but will attack anything as long as it has range. It has 10 Health and 0 Defense.
+  Effect: Summon an immobile wyrd tentacle at a place within 10 meters. It takes its turn after you and can make one attack for 1d8 Damage, 2 meters range. It tries to attack your party, but will attack anything as long as it has range. It has 10 Health.
   Tags: [Rare, Jewelry, Eldritch]
   Set: core
 Zephyr Scarf:
   Price: 400
   A: 0 Actions to activate
   Cooldown: Once / Adevnture
-  Effect: 50% Pulse Resistance. When activated, make your body weigh 1kg for up to 1 minute.
+  Effect: |
+    When activated, make your body weigh 1kg for up to 1 minute.
+    
+    - 50% Pulse Damage taken
   Tags: [Rare, Clothes, Nature]
   Set: core
 Charm of Truestrike:
@@ -552,12 +672,12 @@ Ring of the Spies:
   Effect: Putting this ring against a solid wall or door will reveal the other side, as if it were a door visor. Only works on walls less than 1 foot thick.
   Set: core
 Immovable Rod:
-  Price: 1000
+  Price: 3000
   Tags: [Rare, Trinket, Shady, Engineer]
   Effect: A 1-meter long metal rod that becomes immovable when its keyword is uttered. It becomes unmoving in its place, even levitating, with 1 ton of force.
   Set: core
 Hourglass of Slowing:
-  Price: 400
+  Price: 700
   Cooldown: Once / Adventure
   Tags: [Rare, Trinket, Magic]
   Effect: On use, all enemies you can see are Slowed.
@@ -568,12 +688,12 @@ Mask of Reflection:
   Effect: People looking at it see themselves.
   Set: core
 Bracer of the Phantom:
-  Price: 600
+  Price: 680
   Tags: [Rare, Armor, Eldritch]
   Effect: Once per Adventure, your arm becomes spectral and can pass through anything. You can choose to make parts of your arm physical such as to manipulate ites on the other side of a wall.
   Set: core
-Pestle of Absorption:
-  Price: 500
+Chisel of Absorption:
+  Price: 1700
   Tags: [Rare, Trinket, Alchemy]
   Effect: You can easily destroy any material that you put inside this mortar and pestle, and turn it into fine dust. Destroying a magic item creates a special poweder. When snorting all of it, the consumer has 90% chance to gain +1 Health, and 10% chance to gain an Affliction.
   Set: core
@@ -593,7 +713,7 @@ Ring of Youth:
   Effect: While wearing this ring, you age backwards (become younger as time goes on). The ring melds with the wearer, and can only be removed by cutting off the finger.
   Set: core
 Wand of Plenty:
-  Price: 1000
+  Price: 1250
   HasMixins: true
   Tags: [Rare, Trinket, Magic, Shady]
   Effect: Once per Adventure, touch a _lootable_ object that contains unknown _worthy_ items inside. Increase the loot reward by 25%.
@@ -604,22 +724,8 @@ Fortress Seed:
   Tags: [Rare, Trinket, Magic, Engineer]
   Effect: Planting this seed in fertile soil starts building a fortress over 5 minutes.
   Set: core
-Strong Elemental Oil:
-  Price: 225
-  Effect: Apply to a melee or throwable weapon, or one ammo piece. Attacks with it deal +2 Damage and all the Damage is converted to {Element}.
-  Tags: [Rare, Consumable, Alchemy]
-  Duration: 1 Combat
-  DisplayName: '{Name}'
-  Variants: [{Name: Strong Fire Oil, Element: Fire}, {Name: Strong Frost Oil, Element: Cold}, {Name: Strong Scourge Oil, Element: Scourge}, {Name: Strong Electric Oil, Element: Shock}]
-  Set: core
-Strong Poison Coating:
-  Price: 225
-  Effect: Apply to a melee or throwable weapon, or one ammo piece. Attacks with it deal +2 Damage and all the Damage is converted to Poison.
-  Tags: [Rare, Consumable, Alchemy, Shady]
-  Duration: 1 Combat
-  Set: core
 Ball of Imprisonment:
-  Price: 300
+  Price: 2300
   Cooldown: 1 attempt / Adventure
   Range: 3 meters
   Tags: [Rare, Trinket, Magic, Eldritch]
@@ -627,12 +733,12 @@ Ball of Imprisonment:
   Upgrade: The inside of the ball is spherical 3-meter diameter room. You can release the Unit using an Action Point to tap on the ball.
   Set: core
 Potion of Invulnerability:
-  Price: 275
+  Price: 475
   Tags: [Rare, Consumable, Alchemy]
   Effect: Become immune to taking Damage until the start of your next turn.
   Set: core
 Tome of Stat:
-  Price: 1000
+  Price: 1500
   DisplayName: Tome of {Stat}
   Effect: Gain +1 {Stat}, up to +4.
   Tags: [Rare, Consumable, Scribe]
@@ -640,25 +746,25 @@ Tome of Stat:
   Variants: [{Stat: '{Might}'}, {Stat: '{Dexterity}'}, {Stat: '{Intelligence}'}, {Stat: '{Sense}'}, {Stat: '{Charisma}'}]
   Set: core
 Potion of Greater Healing:
-  Price: 175
+  Price: 375
   Tags: [Rare, Consumable, Alchemy]
   Effect: Restores 2d10 Health when drank.
   Set: core
 Potion of Greater Mana:
-  Price: 250
+  Price: 450
   Tags: [Rare, Consumable, Magic, Alchemy]
   Effect: Restores 2 Mana when drank.
   Notes: If the user does not have Mana, they gain the Mana anyway. It lasts until the end of Adventure.
   Set: core
 Ammo of Effect:
-  Price: 180
+  Price: 280
   Tags: [Rare, Ammo]
   DisplayName: Ammo of {EffectName}
   Effect: Using an Action Point, load onto a ranged weapon. {Eff}.
   Variants: [{EffectName: Explosions, Eff: The next shot also deals 1d12 Fire Damage to the target and all Units within 1 meter of it}, {EffectName: Chain Shock, Eff: 'The next shot also deals 1d12 Shock Damage to the target, then to the closes Unit to it, and again to the closest Unit to that Unit'}, {EffectName: Fearing, Eff: The next shot makes the target Feared}, {EffectName: Crippling, Eff: The next shot makes the target Crippled}, {EffectName: Stunning, Eff: The next shot makes the target Triple-Stunned}, {EffectName: Elements, Eff: 'The next shot makes the target +50% Damage from Fire, Shock and Cold until the start of your next turn.'}]
   Set: core
 Major Scroll:
-  Price: 275
+  Price: 375
   A: Half-Action
   Effect: Cast {SpellName}.
   DisplayName: Scroll of {SpellName}
@@ -671,7 +777,7 @@ Major Scroll:
   Tags: [Rare, Magic, Scribe, Scroll]
   Set: core
 Major Wand of Spell:
-  Price: 625
+  Price: 985
   Cooldown: Once / Adventure
   A: Half-Action
   Effect: Cast {SpellName} for free.
@@ -683,7 +789,7 @@ Major Wand of Spell:
   Tags: [Rare, Magic, Engineer]
   Set: core
 Boots of Speed:
-  Price: 700
+  Price: 1700
   Effect: +1 Movement Speed
   Tags: [Rare, Armor, Clothes, Shady]
   Set: core
@@ -702,43 +808,17 @@ Item of Major Recovery:
   Tags: [Rare, Armor, Clothes, Nature]
   Set: core
 Boots of Greater Initiative:
-  Price: 700
-  Effect: +1 Initiative
+  Price: 1200
+  Bonuses:
+    Initiative: 1
   Tags: [Rare, Armor, Clothes]
   Set: core
 Ring of Stat:
-  Price: 700
+  Price: 1400
   DisplayName: Ring of {Stat}
   Effect: You have +1 {Stat} (up to your Level's limit).
   Tags: [Rare, Jewelry]
   Variants: [{Stat: '{Might}'}, {Stat: '{Dexterity}'}, {Stat: '{Intelligence}'}, {Stat: '{Sense}'}, {Stat: '{Charisma}'}]
-  Set: core
-Weapon Plus One:
-  Price: 1000
-  Effect: A {Type} that deals {Damage} Damage
-  DisplayName: '{Type} {Damage}'
-  Tags: [Rare, Weapon]
-  Set: core
-Mithril Armor:
-  Price: 2000
-  Tags: [Rare, Armor]
-  Effect: +1 Defense
-  Set: core
-Wand +1:
-  Price: 750
-  Tags: [Rare, Magic]
-  Effect: All your Spells that deal Damage deal an extra +1 Damage.
-  Set: core
-Mithril Tower Shield:
-  Price: 1500
-  Tags: [Rare, Armor]
-  Requirement: Tower Shield Feat, 2 {Might}
-  Effect: +1 Defense
-  Set: core
-Amulet of Resisting:
-  Price: 750
-  Tags: [Rare, Jewelry]
-  Effect: +1 to all Resist Checks
   Set: core
 Cloak of Vanishing:
   Price: 600
@@ -749,10 +829,10 @@ Cloak of Vanishing:
 Belt of Reflex:
   Price: 600
   Tags: [Rare, Armor, Clothes, Shady]
-  Effect: You always dodge (take 0 Damage) the first attack from a Unit at the start of each Adventure (requires attuning)
+  Effect: You always dodge (take 0 Damage) the first attack from a Unit at the start of each Adventure.
   Set: core
 Shield of Reflection:
-  Price: 100
+  Price: 1550
   Cooldown: Once / Adventure
   Tags: [Rare, Armor]
   Effect: Instead of taking Damage from an attack after the roll, reflect it back to the attacker.
@@ -760,10 +840,13 @@ Shield of Reflection:
 Shield of Snakes:
   Price: 1000
   Tags: [Rare, Armor, Shady, Eldritch, Nature]
-  Effect: +1 Defense vs Ranged; if you take 3 or less Damage from a melee attack, deals 1d6 Poison Damage back to the attacker.
+  Effect: |
+    -1 Damage taken from ranged attacks.
+    
+    If you take 3 or less Damage from a melee attack, deals 1d6 Poison Damage back to the attacker.
   Set: core
 Ring of Spell Storage:
-  Price: 500
+  Price: 1400
   A: Half-Action
   Tags: [Rare, Jewelry, Magic]
   Effect: |
@@ -772,44 +855,46 @@ Ring of Spell Storage:
   Upgrade: The ring can only hold 1 Ability at a time.
   Set: core
 Boots of Water Walking:
-  Price: 150
+  Price: 750
   Tags: [Rare, Clothes, Church]
   Effect: The wearer can walk on water.
   Set: core
 Mask of Water Breathing:
-  Price: 250
+  Price: 870
   Tags: [Rare, Trinket, Nature]
   Effect: The wearer can breathe underwater.
   Set: core
 Medallion of Water:
-  Price: 100
+  Price: 1330
   A: Reaction
   Tags: [Rare, Jewelry, Magic, Nature]
   Cooldown: Once / Adventure
   Effect: Instantly transform into a puddle of water and avoid any Damage that would make sense to avoid (e.g. arrows or slashes might be avoided, but not rocks falling over you or being hit with Area Abilities). Lasts up to 1 minute, but you can end the effect early using an Action Point.
   Set: core
 Blood Bracer:
-  Price: 100
+  Price: 666
   Tags: [Rare, Armor, Eldritch]
   Effect: You deal and take 50% more Damage.
   Upgrade: Once equipped, this bracer pins itself on your wrist. It takes 1 hour to remove, and upon removal, the wearer takes 1d10 Pierce Damage.
   Set: core
 Blood Choker:
-  Price: 100
+  Price: 666
   Tags: [Rare, Jewelry, Eldritch]
   Effect: |
     Your Max Health decreases by 50%, but your Health Regen is doubled.
   Upgrade: Once equipped, this choker pins itself on your neck. it takes 1 hour to remove, and upon removal, the wearer takes 1d10 Pierce Damage.
   Set: core
 Eye of the Warlock:
-  Price: 100
+  Price: 1000
   Tags: [Rare, Trinket, Jewelry, Eldritch]
   Effect: |
     Your Max Mana is reduced by 66% (final amount rounded down). All of your Mana regenerates 10 minutes after each Worthy Combat (e.g. instead of inbetween Adventures).
   Upgrade: When moved close to one of your eyes, this glowing ball attaches itself to your eye and replaces it with this. The eye can only be removed by a spell that removes curses, and upon removal, the wearer takes 1d10 Scourge Damage.
   Set: core
 Stone Gauntlets:
-  Price: 100
+  Price: 1000
+  IconName: Gloves of Skill
+  TintColor: white
   Tags: [Rare, Armor, Engineer]
   Effect: You can no longer spend Many by any means. Your melee Two-Handed attacks deal extra Damage equal to your Max Mana.
   Upgrade: |
@@ -835,7 +920,7 @@ Flying Broom:
   Tags: [Epic]
   Set: core
 Grand Scroll:
-  Price: 400
+  Price: 600
   A: Half-Action
   Effect: Cast {SpellName}.
   DisplayName: Scroll of {SpellName}
@@ -848,7 +933,7 @@ Grand Scroll:
   Tags: [Epic, Magic, Scribe, Scroll]
   Set: core
 Grand Wand of Spell:
-  Price: 900
+  Price: 1900
   Cooldown: Once / Adventure
   A: Half-Action
   Effect: Cast {SpellName} for free.

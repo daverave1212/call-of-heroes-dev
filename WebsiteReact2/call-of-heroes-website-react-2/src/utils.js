@@ -45,19 +45,11 @@ export function parseAndNormalizeSpell(spell, options={
 }) {
 
     const { isItem=false, variantIndex=0 } = options
-    const spellModified = {...spell}
+    let spellModified = {...spell}
     
-    if (spell.Name == `Mace`) {
-        console.teal(`  > isItem=${isItem}`)
-        console.log({options})
-    }
     // Normalize Name
     spellModified.Name = getNormalizedSpellName(spell)
     spellModified.IconPath = getSpellOrItemIconPath(spell, isItem)
-
-    if (spell.Name == 'Drain Blood') {
-        console.teal(`Drain Blood here! Parsing...`)
-    }
 
     // Normalize variants
     let extraMixins = {}
@@ -83,10 +75,19 @@ export function parseAndNormalizeSpell(spell, options={
                 console.log({extraMixins})
             }
         }
-        spellModified.IconPath = currentVariant.IconName == null? spellModified.IconPath: getSpellIconPathByName(currentVariant.IconName)
+        spellModified.IconPath =
+            currentVariant.IconName == null?
+                spellModified.IconPath
+            :isItem?
+                getItemIconPathByName(currentVariant.IconName)
+            :
+                getSpellIconPathByName(currentVariant.IconName)
         spellModified.A = currentVariant.DisplayA ?? spell.A
         spellModified.SubspellName = currentVariant.SubspellName ?? spellModified.SubspellName
         spellModified.Cost = currentVariant.Cost ?? spellModified.Cost
+        spellModified.TintColor = currentVariant.TintColor ?? spellModified.TintColor
+        spellModified.Bonuses = currentVariant.Bonuses ?? spellModified.Bonuses
+        spellModified['Skill Bonuses'] = currentVariant['Skill Bonuses'] ?? spellModified['Skill Bonuses']
     }
 
     // Parse all mixins, including variants
@@ -111,6 +112,23 @@ export function parseAndNormalizeSpell(spell, options={
             } catch (e) {
                 console.log({spell, options})
                 throw `Error in Spell ${spellModified.Name} at prop as text ${propName} parsing text: ${spell[propName]}. Spell printed above. Error: ${e}`
+            }
+        }
+        if (spell.CustomProps != null) {
+            if (!isString(spell.CustomProps)) {
+                console.error(`CustomProps given to spell printed above must be a JSON string!`)
+            }
+            try {
+                const customPropsObj = JSON.parse(spell.CustomProps)
+                const customPropsParsed = applyFuncToAllKeysAndValues(customPropsObj, (item, type) => {
+                    if (item != null && isString(item)) {
+                        return parseTextWithSymbols(item, extraMixins, { shouldReturnStringsOnly: true })?.join('')
+                    }
+                    return item
+                })
+                spellModified = {...spellModified, ...customPropsParsed}
+            } catch (e) {
+                throw e
             }
         }
         if (spellModified?.List?.length > 0) {
@@ -3028,7 +3046,28 @@ export function isNullOrEmpty(obj) {
 
       return true;
 }
+export function applyFuncToAllKeysAndValues(obj, func) {
+    if (Array.isArray(obj)) {
+        return obj.map(value =>
+            applyFuncToAllKeysAndValues(value, func)
+        );
+    }
 
+    if (obj !== null && typeof obj === 'object') {
+        const result = {};
+
+        for (const [key, value] of Object.entries(obj)) {
+            const transformedKey = func(key, 'key');
+
+            result[transformedKey] =
+                applyFuncToAllKeysAndValues(value, func);
+        }
+
+        return result;
+    }
+
+    return func(obj, 'value');
+}
 export function mapKeysToObject(keys, func) {
     const obj = {}
     for (const key of keys) {
@@ -3758,6 +3797,36 @@ export function parseTextWithSymbolsForPDF(text, customSymbols=null) {
 }
 window.parseTextWithSymbolsForPDF = parseTextWithSymbolsForPDF
 
+export const COLOR_FORMATS = {
+    Hexadecimal: "hexadecimal",
+    Rgb: "rgb",
+    Name: "name"
+};
+export function getColorFormatFromString(str) {
+    if (str != null && str.trim == null) {
+        console.log({str})
+        throw `Error: getColorFOrmatFromString trim is not a function on passed str. Printed above.`
+    }
+    const value = str? str.trim(): '';
+
+    // #... → Hex
+    if (value.startsWith("#")) {
+        return COLOR_FORMATS.Hexadecimal;
+    }
+
+    // Exactly 6 hexadecimal characters, without #
+    if (/^[0-9a-fA-F]{6}$/.test(value)) {
+        return COLOR_FORMATS.Hexadecimal;
+    }
+
+    // rgb(...) / rgba(...)
+    if (/^rgba?\s*\(/i.test(value)) {
+        return COLOR_FORMATS.Rgb;
+    }
+
+    return COLOR_FORMATS.Name;
+}
+
 export function hexColorToRgb01(hex) {
     const clean = hex.replace(/^#/, "");
 
@@ -3783,6 +3852,52 @@ export function hexColorToRgbVector(hex) {
     const b = parseInt(clean.slice(4, 6), 16);
 
     return [r, g, b];
+}
+export function colorToHexa(str) {
+    if (str != null && str.trim == null) {
+        console.log({str})
+        throw `Error: colorToHexa trim is not a function on passed str. Printed above.`
+    }
+    const value = str.trim();
+
+    // Already hexadecimal
+    if (value.startsWith("#")) {
+        return value;
+    }
+
+    // Hexadecimal without #
+    if (/^[0-9a-fA-F]{6}$/.test(value)) {
+        return `#${value}`;
+    }
+
+    // Let the browser resolve RGB/RGBA/named CSS colors
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    ctx.fillStyle = "#000000";
+    ctx.fillStyle = value;
+
+    const resolved = ctx.fillStyle;
+
+    // Browser may resolve names directly to #xxxxxx
+    if (resolved.startsWith("#")) {
+        return resolved;
+    }
+
+    // Otherwise resolve rgb()/rgba()
+    const match = resolved.match(
+        /^rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/
+    );
+
+    if (match) {
+        const [, r, g, b] = match;
+
+        return "#" + [r, g, b]
+            .map(x => Number(x).toString(16).padStart(2, "0"))
+            .join("");
+    }
+
+    return null;
 }
 window.hexColorToRgb01 = hexColorToRgb01
 export function isFormValueNumeric(value) {

@@ -242,9 +242,8 @@ export default function Spell({
                     </>
                 ): (<>
                     { renderedSpellTop }
-                    { showTopStats != false && <Separator hasNoMarginTop={true}/> }
+                    { IsSubspell != false && <Separator hasNoMarginTop={true}/> }
                 </>) }
-                { showTopStats == false && <div style={{marginTop: '-1rem'}}></div>}
 
                 <div className='spell-effects-box flex column gap-1'>
                     { Damage && (<>

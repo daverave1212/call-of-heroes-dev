@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { hexColorToRgbVector, getSpellTags, getItemIconPathByName, getSpellIconPathByName } from '../../../utils';
+import { hexColorToRgbVector, getSpellTags, getItemIconPathByName, getSpellIconPathByName, colorToHexa } from '../../../utils';
 import { SpellTopStats } from './SpellTopStats';
 import { IconSpinner } from '../../Other/IconSpinner';
 
@@ -96,7 +96,7 @@ export function SpellTop({
 
     function SpellTopLeft() {
         const maxVariantIndex = hasVariants ? Variants.length : null;
-        const tintColors = spell.TintColor == null ? [] : hexColorToRgbVector(spell.TintColor);
+        const tintColors = spell.TintColor == null ? [] : hexColorToRgbVector(colorToHexa(spell.TintColor));
         const parsedKeywords = getSpellTags({ Tags: spell.Tags });
         const talentType = parsedKeywords.some(tag => tag.includes('Keystone')) ?
             'Keystone'
