@@ -488,6 +488,7 @@ export function TalentTier({ title, talents, selectedSpellNames, onSpellClick, s
 
 export function Talents({ talents, selectedSpellNames, onSpellClick, spellsMetadata, condition=()=>true }) {
     const [doIOwnEarlyAccess, isLoading] = useDoIOwnSet('early-access')
+    const shouldRenderEarlyAccessContent = U.isLocalhost() || doIOwnEarlyAccess
     
     const talentTitles = Object.keys(talents).filter(key => key != null && talents[key] != null)
     const talentTitlesSorted = U.sortByHash(talentTitles, title => U.getNumberFromString(title))
@@ -509,7 +510,7 @@ export function Talents({ talents, selectedSpellNames, onSpellClick, spellsMetad
         <div>
             <TalentsPart titles={talents1to4}/>
             { isLoading? (<LoadingCenter/>): (
-                doIOwnEarlyAccess?
+                shouldRenderEarlyAccessContent?
                     <TalentsPart titles={talents5to6}/>
                 :
                     null

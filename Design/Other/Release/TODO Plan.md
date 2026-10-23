@@ -34,7 +34,7 @@ I need to:
   - Develop the premium content infrastructure and move the premium content to Firebase
   - Ascertain the costs of the whole operation: how much money will the Firebase hosting cost
   - Most likely develop a simple backend and connect it to the front-end and Firebase, for redeeming codes
-  - Find a way to 'hook' Kickstarter or whatever external purchases (e.g. book purchase) to Firebase for premium unlock codes, or something. Honestly, I don't know how I will do this.
+  - Find a way to 'hook' Kickstarter or whatever external purchases (for example book purchase) to Firebase for premium unlock codes, or something. Honestly, I don't know how I will do this.
   - Find a way to make the purchasing system. I have played with Stripe before, but I don't know if a different approach is better
 We really need to find a way to handle purchases, and hook Kickstar things to users on Firebase.
 

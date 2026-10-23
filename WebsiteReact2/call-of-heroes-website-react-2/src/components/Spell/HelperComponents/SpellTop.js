@@ -1,7 +1,52 @@
 import classNames from 'classnames';
-import { hexColorToRgbVector, getSpellTags, getItemIconPathByName, getSpellIconPathByName, colorToHexa } from '../../../utils';
+import { hexColorToRgbVector, getSpellTags, getItemIconPathByName, getSpellIconPathByName, colorToHexa, capitalizeFirstLetter } from '../../../utils';
 import { SpellTopStats } from './SpellTopStats';
 import { IconSpinner } from '../../Other/IconSpinner';
+
+import './SpellTitleRect.css'
+import './SpellTitle.css'
+
+function SpellIcon({ spell, iconPath, onIconClick, onIconRightClick, hasVariants }) {
+        
+    return <div>
+        {hasVariants === true && (
+            <div className='variant-counter' onClick={onIconClick} onContextMenu={evt => {
+                evt.preventDefault();
+                evt.stopPropagation();
+                onIconRightClick?.();
+            }}>
+                {variantIndex + 1}/{maxVariantIndex}
+            </div>
+        )}
+
+        <div style={glowStyle} className="spell-icon-wrapper relative">
+            {hasVariants === true && (
+                <div className='variant-spinner'></div>
+            )}
+            <div className={`spell-img-wrapper ${spell.TintColor == null ? '' : 'tinted-icon-wrapper'}`} style={{ '--tint-rgb': tintColors.join(' ') }}>
+                <img src={iconPath} />
+            </div>
+            {spell.HasUpgradeIcon === true && (
+                <div className='secondary-icon-wrapper absolute'>
+                    <img src="/Icons/Spells/!UpgradeIcon.png" />
+                </div>
+            )}
+            {spell.MiniIconName != null && (
+                <div className='secondary-icon-wrapper absolute' style={{ borderTop: 'solid black 1px', borderLeft: 'solid black 1px' }}>
+                    <img src={spell.MiniIconType == 'Item' ?
+                        getItemIconPathByName(spell.MiniIconName)
+                        :
+                        getSpellIconPathByName(spell.MiniIconName)} />
+                </div>
+            )}
+            {spell.CustomMiniIconPath != null && (
+                <div className='secondary-icon-wrapper absolute' style={{ borderTop: 'solid black 1px', borderLeft: 'solid black 1px' }}>
+                    <img src={spell.CustomMiniIconPath} />
+                </div>
+            )}
+        </div>
+    </div>
+}
 
 export function ItemTop(params) {
 
@@ -60,8 +105,8 @@ export function ItemTop(params) {
             )}
         </div>
         <div className='flex-1'>
-            <div className='title-wrapper'>
-                <div className='title text-font'>{DisplayName != null ? DisplayName : Name}</div>
+            <div className='spell-title-wrapper'>
+                <div className='spell-title text-font'>{DisplayName != null ? DisplayName : Name}</div>
             </div>
             {showTopStats === true && <SpellTopStats keywords={spell.Tags} tags={{ ...spell, A: A == null ? spell.A : A }} />}
         </div>
@@ -97,19 +142,6 @@ export function SpellTop({
     function SpellTopLeft() {
         const maxVariantIndex = hasVariants ? Variants.length : null;
         const tintColors = spell.TintColor == null ? [] : hexColorToRgbVector(colorToHexa(spell.TintColor));
-        const parsedKeywords = getSpellTags({ Tags: spell.Tags });
-        const talentType = parsedKeywords.some(tag => tag.includes('Keystone')) ?
-            'Keystone'
-            :
-            'Minor';
-        const glowColor = talentType == 'Keystone' ?
-            'var(--orange-color)'
-            :
-            '';
-        const glowStyle = talentType == 'Minor' ? {} : {
-            '--color-1': 'rgba(255 255 255 0)',
-            '--color-2': glowColor
-        };
         return (
             <div className={`left`}>
 
@@ -123,14 +155,12 @@ export function SpellTop({
                     </div>
                 )}
 
-                <div style={glowStyle} className={classNames('spell-icon-wrapper relative', {
-                    'breathing-glow': talentType != 'Minor'
-                })}>
+                <div className="spell-icon-wrapper relative">
                     {hasVariants === true && (
-                        <div className='variant-spinner'></div>
+                        <div className='variant-spinner'/>
                     )}
                     <div className={`spell-img-wrapper ${spell.TintColor == null ? '' : 'tinted-icon-wrapper'}`} style={{ '--tint-rgb': tintColors.join(' ') }}>
-                        <img src={iconPath} />
+                        <img className='spell-icon' src={iconPath} />
                     </div>
                     {spell.HasUpgradeIcon === true && (
                         <div className='secondary-icon-wrapper absolute'>
@@ -156,8 +186,13 @@ export function SpellTop({
         );
     }
 
+
+    // const title = capitalizeFirstLetter((DisplayName != null ? DisplayName : Name).toLowerCase())
+    const title = DisplayName != null ? DisplayName : Name
+
     return (
         <div className='spell-top'>
+            <div className='spell-title-rect'/>
             <SpellTopLeft
                 src={iconPath}
                 onIconClick={onIconClick}
@@ -165,12 +200,13 @@ export function SpellTop({
                 variantIndex={variantIndex} maxVariantIndex={hasVariants ? Variants.length : null}
                 hasUpgradeIcon={spell.HasUpgradeIcon} />
 
-            <div className='flex-1'>
-                <div className='title-wrapper'>
-                    <div className='title text-font'>{DisplayName != null ? DisplayName : Name}</div>
+            <div className='right flex-1'>
+                <div className='spell-title-wrapper'>
+                    <div className='spell-title'>{title}</div>
                 </div>
                 {showTopStats === true && <SpellTopStats keywords={spell.Tags} tags={{ ...obj, A: A == null ? obj.A : A }} />}
             </div>
+
         </div>
     );
 }

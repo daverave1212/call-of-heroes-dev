@@ -1,11 +1,12 @@
-import { getSpellValidTopStatsObject, isNumber } from '../../../utils';
+import { getSpellTopStatsIconsAndSpans, isNumber } from '../../../utils';
 import { getSpellTags } from '../../../utils';
 import Icon from '../../Icon';
+import KeywordTag from './KeywordTag';
 
 export function SpellTopStats({ className, tags, keywords }) {
     const { A, DisplayA, Cost, Range, Cooldown, Duration, Requirement, DisplayRequirement, Replacement, Hands, Stat, Special, Price, XP, Name } = tags;
-    const validSpellTopTags = getSpellValidTopStatsObject(tags);
-    const nTopStats = Object.keys(validSpellTopTags).length;
+    
+    const validSpellTopTags = getSpellTopStatsIconsAndSpans(tags);
 
     function getDisplayA() {
         const usedA = DisplayA != null ?
@@ -19,32 +20,18 @@ export function SpellTopStats({ className, tags, keywords }) {
         return usedA;
     }
 
-    let displayedA = DisplayA;
-
     const parsedKeywords = getSpellTags({ Tags: keywords });
 
-    function KeywordTag({ children }) {
-        let style = {};
-        let icon = null
-        if (children?.includes?.('Keystone')) {
-            style = { backgroundColor: 'var(--orange-color)' };
-        } else if (children?.includes?.('Early Access')) {
-            style = { backgroundColor: 'darkgreen' };
-            icon = <Icon name="BlueCircle"/>
-        }
-        return <div className='tag smaller-font' style={style} key={children}>{icon}{children}</div>;
-    }
-
-    function KeywordTags() {
-        return <>{parsedKeywords.map(tag => <KeywordTag key={tag}>{tag}</KeywordTag>)}</>;
-    }
     // TODO: Use getSpellTopStatsIconsAndSpans from utils here...
     return (
         <div className='relative'>
             <div className={`spell-top-stats text-font smaller-font ${className}`}>
-                {(displayedA != null) && (
+                { validSpellTopTags.map(({ name, iconPath, span, text }) => (
+                    <div className="top-stat" ><img src={iconPath} className="inline-icon--spell" />{span}</div>
+                )) }
+                {/* {(DisplayA != null) && (
                     <div>
-                        <img src="/Icons/UI/Hand.png" className="inline-icon--spell" />{displayedA}
+                        <img src="/Icons/UI/Hand.png" className="inline-icon--spell" />{DisplayA}
                     </div>
                 )}
                 {Cost != null && (
@@ -78,11 +65,11 @@ export function SpellTopStats({ className, tags, keywords }) {
                     </div>
                 )}
                 {Price != null && (<div><img src="/Icons/UI/Gold.png" className="inline-icon--spell-downer" />{Price}</div>)}
-                {XP != null && (<div><img src="/Icons/UI/XP.png" className="inline-icon--spell" />{XP}</div>)}
+                {XP != null && (<div><img src="/Icons/UI/XP.png" className="inline-icon--spell" />{XP}</div>)} */}
             </div>
             {keywords &&
                 <div className='spell-top-stats' style={{ paddingTop: 0, marginTop: '-3px' }}>
-                    <KeywordTags />
+                    { parsedKeywords.map(tag => <KeywordTag key={tag}>{tag}</KeywordTag>) }
                 </div>}
         </div>
     );

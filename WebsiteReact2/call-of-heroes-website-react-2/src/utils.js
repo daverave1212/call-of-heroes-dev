@@ -28,10 +28,17 @@ import STATIC_SYMBOLS from './parse-text-symbols-static.json'
 import ManySpells, { SpellSortTypes } from "./components/Spell/ManySpells"
 import SpellPDF from "./components/Spell/SpellPDF"
 import TwoColumns from "./components/TwoColumns/TwoColumns"
+import TableNormal from "./components/TableNormal/TableNormal"
 
 // ---------------- Spells Utilities ----------------
 const SPELL_PROPS_TO_PARSE = [
-    'Effect', 'EffectGreen', 'Downside', 'Upgrade', 'Combo', 'Notes'
+    'Effect',
+    'EffectGreen',
+    'Downside',
+    'Upgrade',
+    'Combo',
+    'Notes',
+    'EffectBlue',
 ]
 const SPELL_PROPS_TO_PARSE_AS_TEXT = [
     'DisplayName',
@@ -97,7 +104,11 @@ export function parseAndNormalizeSpell(spell, options={
                 continue
             }
             try {
-                spellModified[propName] = parseTextWithSymbols(spell[propName], extraMixins)
+                if (Array.isArray(spellModified[propName])) {
+                    spellModified[propName] = spellModified[propName].map(text => parseTextWithSymbols(text, extraMixins))
+                } else {
+                    spellModified[propName] = parseTextWithSymbols(spell[propName], extraMixins)
+                }
             } catch (e) {
                 console.log({spell, options})
                 throw `Error in Spell ${spellModified.Name} at prop ${propName} parsing text: ${spell[propName]}. Spell printed above. Error: ${e}`
@@ -667,16 +678,18 @@ export function getSpellTopStatIconAndSpan(name, value) {
         'Cost', 'Hands', 'Stat', 'Special', 'Range', 'Cooldown',
         'Duration', 'Price', 'XP'
     ]
-    let text = value
+
+    let spanStyle = null
     if (STANDARD_VALUES.includes(value)) {
-        text = <span>{value}</span>
+        
     } else if (name == 'Requirement' || name == 'DisplayRequirement') {
-        text = <span style={{ color: '#FF5A00' }}>{value}</span>
+        spanStyle = { color: '#FF5A00' }
     } else if (name == 'Replacement') {
-        text = <span style={{ color: 'var(--blue-color)' }}>{value}</span>
+        spanStyle = { color: 'var(--blue-color)' }
     }
 
-    return { name, iconPath, span: text, text: value }
+
+    return { name, iconPath, span: <span style={spanStyle}>{value}</span>, text: value }
 }
 export function getSpellEffectsObjs(spell) {
     const effectsObj = keepOnly(spell, VALID_SPELL_EFFECTS)
@@ -3538,12 +3551,19 @@ export const FUNCTION_SYMBOLS = {
     'RandomOf': args => ({ tag: 'span', text: randomOf(...args) }),
     
     'Brown': args => symbolSpanWithColor('#A52A2A', args),
+    'Pink': args => symbolSpanWithColor('#a71c68', args),
+    'DarkRed': args => symbolSpanWithColor('#7a0f0f', args),
     'Orange': args => symbolSpanWithColor('#FF5500', args),
+    'Yellow': args => symbolSpanWithColor('#ffbb00', args),
     'Purple': args => symbolSpanWithColor('#6f00ffff', args),
+    'Blue': args => symbolSpanWithColor('rgb(0, 47, 255)', args),
     'Red': args => symbolSpanWithColor('red', args),
     'Green': args => symbolSpanWithColor('var(--green-color)', args),
     'DarkGreen': args => symbolSpanWithColor('#00a71cff', args),
+    'ToxicGreen': args => symbolSpanWithColor('rgb(47, 167, 0)', args),
     'Teal': args => symbolSpanWithColor('#0097ab', args),
+    'Chrome': args => symbolSpanWithColor('#1f5258', args),
+    'Lime': args => symbolSpanWithColor('#52581f', args),
 
     'Color': args => ({ tag: 'span', props: { style: { color: args[0] } }, text: args[1] }),
 
@@ -3552,6 +3572,13 @@ export const FUNCTION_SYMBOLS = {
     
     'Large': args => ({ tag: 'span', text: args[0], props: { style: { fontSize: '1.1em' }} }),
     'Small': args => ({ tag: 'span', text: args[0], props: { style: { fontSize: '0.9em' }} }),
+    
+    // Use as PriceTable("Name|Price" "Elem1|Price1" "Elem2|Price2")
+    'PriceTable': args => ({ tag: 'span', text: `ERROR: Can't render PriceTable as text.`, func: () => <TableNormal columns={args[0].split('|')}>
+        { args.slice(1).map(arg => <tr>
+            { arg.split('|').map((item, i) => <td>{item}{item == last(arg.split('|'))? <Icon name="Gold"/>:''}</td>) }
+        </tr>) }
+    </TableNormal> }),
 
     '^': args => ({ tag: 'b', text: args[0] }),
     '_': args => ({ tag: 'i', text: args[0] }),

@@ -374,7 +374,11 @@ let OUTPUT_STRATEGIES = {}
 
         // Strip and output normal
         let objStripped = stripPremiumContentOfFeatures(obj, { config, fileName, fileNameNoExt, fileDir, filePath })
-        OUTPUT_STRATEGIES['default'](objStripped, params)
+        if (isLocalOnly) {
+            OUTPUT_STRATEGIES['default'](obj, params)
+        } else {
+            OUTPUT_STRATEGIES['default'](objStripped, params)
+        }
         
         // Output for premium
         OUTPUT_STRATEGIES['premiumOnly'](obj, params)

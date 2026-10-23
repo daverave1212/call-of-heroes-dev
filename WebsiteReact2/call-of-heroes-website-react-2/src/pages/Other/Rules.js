@@ -16,28 +16,6 @@ import PageH2 from '../../components/PageH2/PageH2'
 import PageH3 from '../../components/PageH3/PageH3'
 
 
-
-
-
-function RulesSection({obj}) {
-
-    return (
-        <div>
-            <RulesH1 title={title}/>
-            { subobjects.map(sectionObj => (
-                <>
-                    {/* <RulesH2 title={U.getOnlyKey(sectionObj)}/> */}
-                    {/* { U.getOnlyProp(sectionObj).map(subsectionObj => (
-                        <RulesH3 title={U.getOnlyKey(subsectionObj)}/>
-                    )) } */}
-
-                </>
-
-            )) }
-        </div>
-    )
-}
-
 export default function Rules({}) {
 
     const [currentRule, setCurrentRule] = useState(null)

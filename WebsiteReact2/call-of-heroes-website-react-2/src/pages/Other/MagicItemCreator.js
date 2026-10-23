@@ -1609,7 +1609,7 @@ function getBaselineItemByType(xp, itemType, rng=standardRNG) {
             Requirement: `Requires ${rng.randomInt(2, 3)} Might`,
             ItemType: 'Shield'
         }
-        item.EffectGreen = `-50% ${parseItemText({ text: `{DamageType}`, item, rng})} Damage taken`
+        item.EffectGreen = parseItemText({ text: `-50% {DamageType} Damage taken`, item, rng})
         return item
     }
     if (itemType.includes('Armor')) {
@@ -2086,7 +2086,7 @@ export function createMagicItem(xp, itemType, rng=standardRNG) {
     if (itemType.includes('Weapon')) {
         maybeAddEffect(possibleEffects, 'Bonus Damage', 30)
     }
-    maybeAddEffect(possibleEffects, 'Passive', 37)
+    maybeAddEffect(possibleEffects, 'Passive', 100)
     maybeAddEffect(possibleEffects, 'Minor', 25)
     maybeAddEffect(possibleEffects, 'Property', 15)
     maybeAddEffect(possibleEffects, 'Active', 25)
@@ -2212,6 +2212,7 @@ export function createMagicItem(xp, itemType, rng=standardRNG) {
         ]
     }
     validEffects = validEffects.filter(s => s != null && s.length > 0)
+    
     const finalEffect =
         validEffects.length == 0?
             null

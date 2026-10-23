@@ -13,6 +13,10 @@ import Icon from '../Icon'
 import EffectTable from '../TableNormal/EffectTable'
 import QuestGuardConfig from '../../QuestGuardConfig.json'
 import { ItemTop, SpellTop } from './HelperComponents/SpellTop'
+import SpellCard from './SpellCard'
+
+import './HelperComponents/SpellBorder.css'
+import SeparatorFancy from '../Separator/SeparatorFancy'
 
 export const VALID_SPELL_EFFECTS = [
     'Damage', 'PreEffectGreen',
@@ -31,28 +35,32 @@ If onClick != null:
     It will have onClick
 */
 
-export default function Spell({
-    spellName,
-    itemName,
+export default function Spell(props) {
 
-    spell,
-    style,
-    
-    isItem=false,
-    hasIcon=true,
-    hasBorder=true,
-    hasCopyButton=true,
-    showTopStats=true,
-    showTop=true,
+    let {
+        spellName,
+        itemName,
 
-    isSelected=false,
-    canChangeVariant=true,
-    onClick,
-    onXClick,
-    buttonText,
-    
-    metadata
-}) {
+        spell,
+        style,
+        
+        isItem=false,
+        hasIcon=true,
+        hasBorder=true,
+        hasCopyButton=true,
+        showTopStats=true,
+        showTop=true,
+
+        isSelected=false,
+        canChangeVariant=true,
+        onClick,
+        onXClick,
+        buttonText,
+        
+        metadata
+    } = props
+
+    // return <SpellCard {...props}/>
 
     if (spell == null) {
         if (spellName != null) {
@@ -116,7 +124,7 @@ export default function Spell({
     let {
         Name, DisplayName, A, IconPath,
         Bonuses,
-        Effect, EffectGreen, EffectOrange, Downside, Upgrade, Combo, Notes,
+        Effect, EffectGreen, EffectOrange, Downside, Upgrade, Combo, Notes, Flavor,
         Variants, SubspellName,
         Damage,
         List,
@@ -220,6 +228,8 @@ export default function Spell({
         <div data-selectable={isSelected != null} id={uniqueID} style={style} className={classNames(
             'spell',
             'text-font',
+            'with-simple-border',
+            'shadowed-half',
             IsSubspell == true? 'subspell' : 'spell--normal',
             A == 'Passive' == true? 'passive' : 'active',
             {
@@ -228,8 +238,8 @@ export default function Spell({
             },
         )}>
             { isSelected && <Ribbon>Selected!</Ribbon>}
-            { hasBorder && <div className='spell-border'></div> } 
-            <div className='spell-background'></div>
+            {/* { hasBorder && <div className='spell-border'></div> }  */}
+            {/* <div className='spell-background'></div> */}
 
             { onXClick && <div className='x-button' onClick={() => onXClick(spell)}>
                 ×
@@ -242,7 +252,8 @@ export default function Spell({
                     </>
                 ): (<>
                     { renderedSpellTop }
-                    { IsSubspell != false && <Separator hasNoMarginTop={true}/> }
+                    {/* { IsSubspell != false && <Separator hasNoMarginTop={true}/> } */}
+                    { IsSubspell != false && <SeparatorFancy/> }
                 </>) }
 
                 <div className='spell-effects-box flex column gap-1'>
@@ -338,8 +349,22 @@ export default function Spell({
                             <PetOrAnimalSpell animal={Monster}/>
                         </div>
                     )}
+                    { Flavor != null && (
+                        <div className='spell-upgrade smaller-font'>{ Flavor }</div>
+                    ) }
                     { Notes != null && (
-                        <div className='gray italic smaller-font'>{ Notes }</div>
+                        <>
+                            <div style={{ height: '1px', backgroundColor: 'var(--lightest-gray-color)', width: '100%' }}/>
+                            <div className='flex row gap-half'>
+                                <div className='center-text center-content light-gray'>
+                                    <div style={{fontSize: '1.5em'}}>ⓘ</div>
+                                </div>
+                                <div style={{ width: '1px', backgroundColor: 'var(--lightest-gray-color)' }}/>
+                                <div className='flex-11'>
+                                    <div className='width-100 gray italic smaller-font'>{ Notes }</div>
+                                </div>
+                            </div>
+                        </>
                     ) }
                     { Alternatives != null && (
                         <div className='gray italic smaller-font'>Alternatives: { Alternatives }</div>

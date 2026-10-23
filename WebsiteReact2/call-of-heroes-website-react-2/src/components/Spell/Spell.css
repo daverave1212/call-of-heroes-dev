@@ -4,10 +4,12 @@
 
     --spell-padding: var(--p-size);
 
-    --spell-title-font-size: calc(var(--spell-padding) * 1.1);
+    /* --spell-title-font-size: calc(var(--spell-padding) * 1.1); */
+    --spell-title-font-size: calc(var(--p-size) * 1.5);
     --spell-padding-small: calc(var(--spell-padding) * 0.4);
     --spell-margin-bottom: calc(var(--element-padding) / 2);
     --spell-padding-bottom: calc(var(--spell-padding) * 1.5);
+
     --spell-top-stats-padding: calc(var(--spell-padding) - 2px); /* For pixel perfect alignment of the text */
     --spell-tags-gap: 0.5rem;
     
@@ -17,9 +19,12 @@
 
 
     --spell-title-width: 94.25%;
-    --spell-title-top-padding: calc(var(--spell-padding) + var(--spell-padding-small));
+    --spell-title-top-padding: calc(var(--spell-padding) * 1.5 ); /* + var(--spell-padding-small)*/
     --spell-passive-title-top-padding: calc(var(--spell-title-top-padding) * 1.5);
-    --spell-icon-size: calc(var(--p-size) * 4.5);
+    
+    --spell-icon-size: calc(var(--p-size) * 5.25);
+    --spell-icon-top: 0.75rem;
+    --spell-icon-left: 0.75rem;
 
     --subspell-size-multiplier: 0.75;
 
@@ -68,6 +73,12 @@
     break-inside: avoid;
     page-break-inside: avoid;   /* These lines avoid wrapping in all circumstances */
     flex-wrap: nowrap;
+
+    background-color: white;
+}
+.spell.with-simple-border {
+    border: solid var(--theme-color-lightest) 1px;
+    border-radius: 0.5rem;
 }
 
 .spell a {
@@ -80,26 +91,7 @@
 .spell__no-border {
     border: solid 2px black;
 }
-.spell-border {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border: solid transparent;
-    border-image-source: url('spell-borders-5b.png');
-    border-image-slice: 48 48 48 48 fill;
-    border-image-width: 28px;
-    border-image-repeat: stretch;
-    box-sizing: border-box;
-    border-color: transparent;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    z-index: var(--z-border);
-}
-.--test {
-    border-image: url('spell-borders-5b.png') 28 fill;
-    border-image-slice: 48 48 48 48;
-    border-image-width: 28px;
-}
+
 .spell-background {
     position: absolute;
     width: 100%;
@@ -126,12 +118,15 @@
 .spell-top {
     display: flex;
     flex-direction: row;
-    min-height: calc(var(--spell-icon-size) + 2 * var(--spell-padding));
 }
 .spell-top .left {
     position: relative;
-    padding: var(--spell-padding);
+    
+    padding-top: var(--spell-icon-top);
+    padding-left: var(--spell-icon-left);
+    padding-bottom: var(--spell-padding);
     padding-right: 0px;
+
     z-index: var(--z-icon-side);
 }
 .spell-top .left img {
@@ -139,20 +134,23 @@
     position: relative;
     z-index: var(--z-icon);
 }
+.spell-top .right {
+    z-index: var(--z-title);
+}
 
 
 .passive .spell-icon-wrapper {
     border-radius: 50%;
 }
 .active .spell-icon-wrapper {
-    border-radius: 0px;
+    border-radius: 0.25rem;
 }
 .spell-icon-wrapper {
     z-index: var(--z-icon);
     width: var(--spell-icon-size);
     height: var(--spell-icon-size);
     padding: 1px;
-    border: solid black 1px;
+    border: solid var(--theme-color-dark) 1px;
     overflow: hidden;
     position: relative;
     background-color: white;
@@ -169,6 +167,9 @@
 .spell-img-wrapper {
     position: relative;
     z-index: var(--z-icon);
+}
+.spell-icon {
+    border-radius: 0.25rem !important;
 }
 .tinted-icon-wrapper {
   --tint-rgb: 0 200 255;
@@ -305,32 +306,16 @@
 
 
 
-.spell .title {
-    border: none;
 
-    border-image: url('title-border-2c.png') 28 fill;
-    border-image-slice: 5;
-    border-image-width: 5px;
-    box-sizing: border-box;
-
-    color: black;
-    
-    min-width: 125px;
-
-    padding: calc(var(--spell-padding) / 2);
-
-    font-weight: bold;
-    font-size: var(--spell-title-font-size);
-    letter-spacing: calc(var(--p-size) * 0.075);
-    text-align: center;
-    white-space: nowrap;
-}
 
 .spell-top-stats {
-    padding: var(--spell-top-stats-padding);
+    /* padding: var(--spell-top-stats-padding); */
+    padding: calc(var(--spell-top-stats-padding) * 1.2);
+    
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    
     gap: var(--spell-tags-gap);                                  /* Especially for space between lines */
 }
 .spell-top-stats--no-padding-side {
@@ -347,25 +332,23 @@
 
     border-radius: 4px;
 }
-.spell .title-wrapper.no-icon {
-    margin: auto;
-    width: 85%;
-    border-left: solid black 2px;
+.spell .top-stat {
+    font-family: SourceSans;
 }
-.spell .title-wrapper {
-    width: var(--spell-title-width);
-    
-    margin-top: var(--spell-title-top-padding);
-    
-    /* border: solid black 2px; */
-    border-left: none;
-    z-index: var(--z-title);
-    padding: 1px;
-}
-.spell.passive .title-wrapper {
-    width: calc(var(--spell-title-width) + var(--spell-icon-size) / 2);
-    margin-left: calc(-1 * var(--spell-icon-size) / 2);
-}
+
+
+
+/* Ones I Like
+- Djore small-caps [bold]
+- Higborn (Needs fancier borders)
+- Philosopher-Regular bolder
+
+*/
+
+
+
+
+
 
 .spell .x-button {
     position: absolute;
@@ -397,7 +380,7 @@
     font-size: var(--p-size);
     padding: var(--spell-padding);
     padding-top: calc(var(--spell-padding-small) * 1.5);
-    padding-bottom: var(--spell-padding);
+    padding-bottom: calc(var(--spell-padding) * 1.5);
 }
 /* Only for subspells inside another spell */
 .spell .subspell .spell-effects-box {
@@ -471,26 +454,14 @@
 .subspell * {
     font-size: calc(var(--p-size) * 0.9);
 }
-/* -- Border -- */
-.subspell .spell-border {
-    border-width: calc(var(--spell-border-width) / 3 * 2);
-}
+
 
 /* -- Title & Icons -- */
 .subspell .spell-top .left {
     padding: calc(var(--spell-padding) / 2);
     padding-right: 0px;
 }
-.subspell .title-wrapper {
-    margin-top: calc(var(--spell-title-top-padding) / 2);
-}
-.subspell.passive .title-wrapper {
-    margin-top: calc(var(--spell-title-top-padding) * 0.75);
-    /* margin-top: calc(var(--spell-passive-title-top-padding) / 2); */
-}
-.subspell .title {
-    padding: calc(var(--spell-padding) / 4);
-}
+
 
 /* -- Stats -- */
 .subspell .spell-top {

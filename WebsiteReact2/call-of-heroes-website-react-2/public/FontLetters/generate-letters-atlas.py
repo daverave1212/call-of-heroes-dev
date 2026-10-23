@@ -1,74 +1,74 @@
-import json
-import sys
+
 from pathlib import Path
 from PIL import Image
+import math
 
-LETTERS = [chr(c) for c in range(ord('a'), ord('z') + 1)]
+# Configuration
+IMAGES_PER_ROW = 9
+PADDING = 10
+OUTPUT_NAME = "spritesheet.png"
+BACKGROUND = (0, 0, 0, 0)  # Transparent
 
+# Folder containing this script
+folder = Path(__file__).resolve().parent
 
-def main():
-    folder = Path(sys.argv[1]) if len(sys.argv) > 1 else Path.cwd()
+# Get all PNG files, alphabetically
+files = sorted(
+    (
+        p for p in folder.iterdir()
+        if p.suffix.lower() == ".png"
+        and p.name.lower() != OUTPUT_NAME.lower()
+    ),
+    key=lambda p: p.name.lower()
+)
 
-    # Target JSON directory (relative to current script working dir)
-    target_json_dir = (Path.cwd() / "../../src/pages/Tools").resolve()
-    target_json_dir.mkdir(parents=True, exist_ok=True)
+if not files:
+    raise RuntimeError("No PNG files found!")
 
-    print(f"JSON target directory: {target_json_dir}")
+# Load images
+images = []
+for file in files:
+    with Image.open(file) as img:
+        images.append(img.convert("RGBA"))
 
-    images = {}
-    missing = []
+# Determine cell dimensions
+cell_width = max(img.width for img in images)
+cell_height = max(img.height for img in images)
 
-    for letter in LETTERS:
-        path = folder / f"{letter}.png"
-        if not path.exists():
-            missing.append(letter)
-            continue
+# Calculate sheet dimensions
+columns = min(IMAGES_PER_ROW, len(images))
+rows = math.ceil(len(images) / IMAGES_PER_ROW)
 
-        img = Image.open(path).convert("RGBA")
-        images[letter] = img
+sheet_width = columns * cell_width + (columns - 1) * PADDING
+sheet_height = rows * cell_height + (rows - 1) * PADDING
 
-    if not images:
-        print("No letter PNG files found (expected a.png to z.png).")
-        sys.exit(1)
+# Create sprite sheet
+sheet = Image.new(
+    "RGBA",
+    (sheet_width, sheet_height),
+    BACKGROUND
+)
 
-    if missing:
-        print("Missing letters:", ", ".join(missing))
+# Place images
+for i, (file, img) in enumerate(zip(files, images)):
+    col = i % IMAGES_PER_ROW
+    row = i // IMAGES_PER_ROW
 
-    total_width = sum(img.width for img in images.values())
-    max_height = max(img.height for img in images.values())
+    x = col * (cell_width + PADDING)
+    y = row * (cell_height + PADDING)
 
-    atlas = Image.new("RGBA", (total_width, max_height), (0, 0, 0, 0))
+    # Center image inside its cell
+    x += (cell_width - img.width) // 2
+    y += (cell_height - img.height) // 2
 
-    config = {}
-    x_offset = 0
+    sheet.paste(img, (x, y), img)
 
-    for letter in LETTERS:
-        img = images.get(letter)
-        if img is None:
-            continue
+    print(f"{i + 1}. {file.name} -> ({x}, {y})")
 
-        atlas.paste(img, (x_offset, 0), img)
-        config[letter] = {
-            "x": x_offset,
-            "y": 0,
-            "width": img.width,
-            "height": img.height
-        }
-        x_offset += img.width
+# Save
+output_path = folder / OUTPUT_NAME
+sheet.save(output_path)
 
-    atlas_path = folder / "letters-atlas.webp"
-    json_path = target_json_dir / "letters-atlas.json"
-
-    # Save atlas
-    atlas.save(atlas_path, format="WEBP", lossless=True, quality=100)
-
-    # Save JSON
-    with open(json_path, "w", encoding="utf-8") as f:
-        json.dump(config, f, indent=2)
-
-    print(f"Saved atlas: {atlas_path.resolve()}")
-    print(f"Saved JSON: {json_path.resolve()}")
-
-
-if __name__ == "__main__":
-    main()
+print(f"\nSaved: {output_path}")
+print(f"Dimensions: {sheet_width} x {sheet_height}")
+print(f"Images: {len(images)}")

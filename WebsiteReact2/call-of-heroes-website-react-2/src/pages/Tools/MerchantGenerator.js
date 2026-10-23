@@ -785,7 +785,7 @@ const PRODUCT_DIVERSITY_TO_NORMAL_ITEM_MAX_PRICE = {
     4: 99999,
     5: 999999
 }
-const ITEM_OUT_OF_STOCK_CHANCE_PER_DAY = 0  // 3%
+const ITEM_OUT_OF_STOCK_CHANCE_PER_DAY = 3  // 3%
 
 export default function MerchantGenerator({}) {
 

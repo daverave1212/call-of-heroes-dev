@@ -1,0 +1,97 @@
+.spell-card {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1489 / 2100;
+
+    --z-background: calc(var(--z-content) - 10);
+    --z-under-border: calc(var(--z-content));
+    --z-border: calc(var(--z-content) + 10);
+    --z-box: calc(var(--z-content) + 20);
+    --z-title: calc(var(--z-content) + 30);
+    --z-icon-side: calc(var(--z-content) + 40);
+    --z-variant-spinner: calc(var(--z-content) + 50);
+    --z-icon: calc(var(--z-content) + 60);
+    --z-icon-tint-overlay: calc(var(--z-content) + 70);
+    --z-secondary-icon: calc(var(--z-content) + 80);
+    --z-variant-counter: calc(var(--z-content) + 90);
+    --z-x-button: calc(var(--z-content) + 100);
+    --z-click-overlay: calc(var(--z-content) + 110);
+}
+
+.spell-card > .borders {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url('SpellCardBorders.png');
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    z-index: var(--z-border);
+}
+
+.spell-card .icon-wrapper {
+    position: absolute;
+    aspect-ratio: 1/1;
+    width: 21.66%;
+    left: 15.8%;
+    top: 16.666%;
+
+    z-index: var(--z-under-border);
+}
+.spell-card .icon-wrapper .icon {
+    aspect-ratio: 1/1;
+    width: 100%;
+}
+.background-image-overlay {
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    z-index: var(--z-background);
+    overflow: hidden;
+    background-color: white;
+}
+.background-image-overlay > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    /* opacity: 0.3; */
+    /* filter: blur(3px); */
+}
+
+.spell-card .title-box {
+    position: absolute;
+    
+    width: 48%;
+    height: 30%;
+    left: 42%;
+    top: 9%;
+    
+    z-index: var(--z-content);
+}
+.spell-card .title-content {
+    width: 100%;
+}
+.spell-card .title {
+    font-family: AltFont;
+    color: var(--theme-color-darkest);
+}
+.spell-card .subtitle {
+    font-family: SourceSans !important;
+    color: var(--dark-gray-color);
+    /* letter-spacing: 20%; */
+}
+
+
+
+.spell-card > .content {
+    position: absolute;
+    inset: 0;
+
+    box-sizing: border-box;
+    padding: 10%;
+
+    display: flex;
+    flex-direction: column;
+}

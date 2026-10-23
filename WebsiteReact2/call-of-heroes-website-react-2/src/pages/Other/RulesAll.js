@@ -28,7 +28,7 @@ function AllRules() {
                         { U.mapObjectToArray(section, (pointName, pointText) => (<>
                             <div className='anchor-fixer' id={U.titleToId(pointName)}></div>
                             <PageH3>{pointName}</PageH3>
-                            <p>{pointText}</p>
+                            <p>{U.parseTextWithSymbols(pointText)}</p>
                         </>)) }
                     </>
                 )) }

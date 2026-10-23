@@ -20,33 +20,7 @@ export function selectSpellWithPopup({spell, metadata, spellNames, setSpellNames
     function checkForIssues() {
         const selectedClassSpells = spellNames.map(name => allSpells[name])
         // const spellsByParentKey = groupBy(selectedClassSpells, spell => spell.ParentKey)
-        
         let foundIssue = null
-
-        function checkIfKeystone() {
-            const isKeystone = spell.ParentKey?.includes('Keystone')
-            if (isKeystone) {
-                const foundKeystoneAtThatLevel = selectedClassSpells.find(s => s.ParentKey == spell.ParentKey)
-                if (foundKeystoneAtThatLevel) {
-                    foundIssue = `You already have a ${spell.ParentKey} (${foundKeystoneAtThatLevel.Name}). Are you sure you want to also select this Spell?`
-                }
-            }
-        }
-        
-        // checkIfKeystone()
-        
-        // const isMinorOrUtility = isSpellMinorTalent(spell) || isSpellUtilityTalent(spell)
-        // if (isMinorOrUtility) {
-        //     const knownExtraMinorTalents = attributes[KNOWN_ABILITIES] ?? 0
-        //     const talentTiers = Object.keys(spellsByParentKey).filter(key => isTalentTierNameMinor(key) || isTalentTierNameUtility(key))
-        //     const extraPickedMinorsByTier = talentTiers.map(key => spellsByParentKey[key]?.length - 1)
-        //     const totalExtraPickedMinors = extraPickedMinorsByTier.reduce((soFar, x) => soFar + x, 0)
-        //     console.log({knownExtraMinorTalents, talentTiers, extraPickedMinorsByTier, totalExtraPickedMinors})
-        //     if (totalExtraPickedMinors > knownExtraMinorTalents) {
-        //         foundIssue = `You are about to go over the limit (${knownExtraMinorTalents}) of extra known Minor and Utility Talents. Are you sure you want to also select this Spell?`
-        //     }
-        // }
-
         return foundIssue
     }
     

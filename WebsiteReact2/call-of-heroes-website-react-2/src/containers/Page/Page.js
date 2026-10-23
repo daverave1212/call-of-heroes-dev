@@ -34,7 +34,8 @@ export default function Page({
 
     const pageClasses = classNames('page ' + className, {
         'page--no-limits': hasNoLimits == true,
-        'no-margin': hasNoMargins == true
+        'no-margin': hasNoMargins == true,
+        'center-content flex row': isCentered == true
     })
 
     const togglePageDisplay = () => {
@@ -51,7 +52,7 @@ export default function Page({
     }, [title])
 
     return (
-        <div className={pageClasses} id={id} style={style}>
+        <div className={`padding-top-4 ${pageClasses}`} id={id} style={style}>
             
             { subtitle != null && (
                 <div>
@@ -62,7 +63,7 @@ export default function Page({
             )}
 
 
-            <div className={`page-content ${isCentered === true? 'page-content-centered': ''}`}>
+            <div className={`page-content`}>
                 { title != null && (
                     <PageH1 onClick={togglePageDisplay} id={`${titleToId(title)}`}>{ title }</PageH1>
                 ) }
